@@ -157,7 +157,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			Em.$('html, body').animate({ scrollTop: 0 });
 
 			this.sendAction('createPost', {
-				body: this.postBody,
+				body: this.get('postBody'),
 				creatorId: this.get('currentUser.userId'),
 				siteId: Mercury.wiki.id,
 			});
@@ -169,7 +169,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 */
 		updateOnInput(): void {
 			this.setProperties({
-				submitDisabled: this.postBody.length === 0,
+				submitDisabled: this.get('postBody').length === 0,
 				isActive: true
 			});
 		},
