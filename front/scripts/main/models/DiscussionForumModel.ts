@@ -41,11 +41,10 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 
 				},
 				error: (err: any) => {
-					if (err.status !== 404) {
-						this.setErrorProperty(err, this);
-					} else {
-						console.log(this);
+					if (err.status === 404) {
 						this.set('minorError', true);
+					} else {
+						this.setErrorProperty(err, this);
 					}
 					resolve(this);
 				}
