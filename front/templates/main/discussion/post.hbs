@@ -4,7 +4,7 @@
 }}
 <div class="site-body-discussion">
 	<div class="minimized discussion-hero-unit background-theme-color"></div>
-	<div class="discussion-page row">
+	<div class="discussion-page row discussion">
 		<div class="rail large-2 columns">
 			{{community-badge}}
 			{{discussion-back-button
@@ -62,6 +62,15 @@
 						upvote='upvote'
 					}}
 				{{/each}}
+				{{discussion-reply-editor
+					createPost='createPost'
+					isActive=editorActive
+					forumId=forumId
+					posts=posts
+					setSortBy=setSortBy
+					shouldShowError=shouldShowPostError
+					siteHeadPinned=siteHeadPinned
+				}}
 			</div>
 		{{/if}}
 		<div class="rail large-2 columns">
