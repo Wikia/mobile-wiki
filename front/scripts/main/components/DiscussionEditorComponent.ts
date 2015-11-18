@@ -17,6 +17,8 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	offsetTop: 0,
 	siteHeadHeight: 0,
 
+	postBody: '',
+
 	/**
 	 * Set right height for editor placeholder when editor gets sticky
 	 * @returns {void}
@@ -107,7 +109,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			submitDisabled: false
 		});
 
-		this.$('.editor-textarea').val('');
+		this.set('postBody', '');
 
 		Em.set(newPost, 'isVisible', true);
 
@@ -156,7 +158,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			Em.$('html, body').animate({ scrollTop: 0 });
 
 			this.sendAction('createPost', {
-				body: this.$('.editor-textarea').val(),
+				body: this.postBody,
 				creatorId: this.get('currentUser.userId'),
 				siteId: Mercury.wiki.id,
 			});
@@ -168,7 +170,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 */
 		updateOnInput(): void {
 			this.setProperties({
-				submitDisabled: this.$('.editor-textarea').val().length === 0,
+				submitDisabled: this.postBody.length === 0,
 				isActive: true
 			});
 		},
