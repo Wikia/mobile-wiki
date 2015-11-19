@@ -273,4 +273,4 @@ authenticatedRoutes = authenticatedRoutes.map((route) => {
 	return Hoek.applyToDefaults(authenticatedRouteConfig, route);
 });
 
-export default unauthenticatedRoutes.concat(authenticatedRoutes);
+exports.routes = unauthenticatedRoutes.concat(authenticatedRoutes);

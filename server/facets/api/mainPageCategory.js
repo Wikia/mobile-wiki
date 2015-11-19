@@ -8,7 +8,7 @@ const MW = require('../../lib/MediaWiki'),
  * @param {*} reply
  * @returns {void}
  */
-export function get(request, reply) {
+exports.get = function (request, reply) {
 	const params = {
 		wikiDomain: Utils.getCachedWikiDomainName(localSettings, request),
 		categoryName: decodeURIComponent(request.params.categoryName),
@@ -29,4 +29,4 @@ export function get(request, reply) {
 		.catch((error) => {
 			reply(error).code(getStatusCode(error));
 		});
-}
+};

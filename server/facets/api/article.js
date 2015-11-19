@@ -42,7 +42,7 @@ function handleArticleResponse(reply, result, allowCache) {
  * @param {*} reply
  * @returns {void}
  */
-export function get(request, reply) {
+exports.get = function (request, reply) {
 	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
 		params = {
 			wikiDomain,
@@ -98,4 +98,4 @@ export function get(request, reply) {
 				handleArticleResponse(reply, result, allowCache);
 			});
 	}
-}
+};
