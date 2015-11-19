@@ -1,5 +1,3 @@
-/// <reference path="../typings/node/node.d.ts" />
-
 /**
  * This is the main server script.
  *
@@ -8,35 +6,37 @@
  *
  */
 
-import cluster = require('cluster');
-import localSettings = require('../config/localSettings');
-import logger = require('./lib/Logger');
+const cluster = require('cluster'),
+	localSettings = require('../config/localSettings'),
+	logger = require('./lib/Logger');
 
 /**
  * Is the application stopping
  * @type {boolean}
  */
-var isStopping = false;
+let isStopping = false;
 
 cluster.setupMaster({
-	exec: __dirname + '/app.js'
+	exec: `${__dirname}/app.js`
 });
 
 /**
  * Gets the count of active workers
  *
  * @returns {number} Current number of workers
+ * @returns {void}
  */
-function numWorkers (): number {
+function numWorkers() {
 	return Object.keys(cluster.workers).length;
 }
 
 /**
  * Forks off the workers unless the server is stopping
+ * @returns {void}
  */
-function forkNewWorkers (): void {
+function forkNewWorkers() {
 	if (!isStopping) {
-		for (var i = numWorkers(); i < localSettings.workerCount; i++) {
+		for (let i = numWorkers(); i < localSettings.workerCount; i++) {
 			cluster.fork();
 		}
 	}
@@ -46,21 +46,28 @@ function forkNewWorkers (): void {
  * Stops a single worker
  * Gives workerDisconnectTimeout seconds after disconnect before `SIGTERM`
  *
- * @param worker
+ * @param {cluster.Worker} worker
+ * @returns {void}
  */
-function stopWorker (worker: cluster.Worker): void {
+function stopWorker(worker) {
 	logger.info('Stopping worker');
 
 	worker.send('shutdown');
 	worker.disconnect();
 
-	var killTimer = <any>setTimeout(() => {
+	/**
+	 * @returns {void}
+     */
+	const killTimer = setTimeout(() => {
 		worker.kill();
 	}, localSettings.workerDisconnectTimeout);
 
-	worker.on('disconnect', (): void => {
+	/**
+	 * @returns {void}
+	 */
+	worker.on('disconnect', () => {
 		logger.info('Worker disconnected');
-		<any>clearTimeout(killTimer);
+		clearTimeout(killTimer);
 		worker.kill();
 	});
 
@@ -70,12 +77,18 @@ function stopWorker (worker: cluster.Worker): void {
 
 /**
  * Stops all the workers at once
+ * @returns {void}
  */
-function stopAllWorkers (): void {
+function stopAllWorkers() {
 	isStopping = true;
 
 	logger.info('Stopping all workers');
-	Object.keys(cluster.workers).forEach((id: any) => {
+
+	/**
+	 * @param {*} id
+	 * @returns {void}
+	 */
+	Object.keys(cluster.workers).forEach((id) => {
 		stopWorker(cluster.workers[id]);
 	});
 }
@@ -96,8 +109,16 @@ logger.info('Master process booted');
 // if run as child
 // send up message from workers so we can now that they are up
 if (process.send) {
-	cluster.on('online', (worker: cluster.Worker) => {
-		worker.on('message', (message: string) => {
+	/**
+	 * @param {cluster.Worker} worker
+	 * @returns {void}
+	 */
+	cluster.on('online', (worker) => {
+		/**
+		 * @param {*} message
+		 * @returns {void}
+		 */
+		worker.on('message', (message) => {
 			process.send(message);
 		});
 	});
