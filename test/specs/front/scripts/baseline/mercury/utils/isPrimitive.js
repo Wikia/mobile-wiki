@@ -1,4 +1,4 @@
-QUnit.module('Mercury.Utils.isPrimitive (loaded with baseline scripts)');
+QUnit.module('M.isPrimitive (loaded with baseline scripts)');
 
 QUnit.test('isPrimitive is loaded', function () {
 	ok(typeof M.isPrimitive === 'function');

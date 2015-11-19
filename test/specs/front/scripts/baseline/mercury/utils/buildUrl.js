@@ -1,5 +1,5 @@
 /* global window, Mercury */
-QUnit.module('Mercury.Utils.buildUrl helper function (loaded with baseline)');
+QUnit.module('M.buildUrl helper function (loaded with baseline)');
 
 QUnit.test('Wiki subdomain is correctly replaced for each environment host', function () {
 	var context = {
@@ -63,7 +63,7 @@ QUnit.test('Wiki subdomain is correctly replaced for each environment host', fun
 	testCases.forEach(function (testCase) {
 		context.location.host = testCase.host;
 		equal(
-			Mercury.Utils.buildUrl({wiki: 'test'}, context),
+			M.buildUrl({wiki: 'test'}, context),
 			testCase.expectedOutput
 		);
 	});
@@ -182,7 +182,7 @@ QUnit.test('URLs are properly built for given parameters', function () {
 
 	testCases.forEach(function (testCase) {
 		equal(
-			Mercury.Utils.buildUrl(testCase.urlParams, context),
+			M.buildUrl(testCase.urlParams, context),
 			testCase.expectedOutput
 		);
 	});
@@ -196,7 +196,7 @@ QUnit.test('Fall back to mediawikiDomain', function () {
 	};
 	M.prop('mediawikiDomain', 'adventuretime.mattk.wikia-dev.com');
 	equal(
-		Mercury.Utils.buildUrl({}, context),
+		M.buildUrl({}, context),
 		'http://adventuretime.mattk.wikia-dev.com'
 	);
 });
@@ -234,7 +234,7 @@ QUnit.test('Discussion url is computed properly', function () {
 
 	];
 	testCases.forEach(function (testCase) {
-		equal(Mercury.Utils.getDiscussionServiceUrl(testCase.path, testCase.query), testCase.expectedOutput);
+		equal(M.getDiscussionServiceUrl(testCase.path, testCase.query), testCase.expectedOutput);
 	});
 });
 

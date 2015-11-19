@@ -1,4 +1,4 @@
-QUnit.module('Mercury.Utils state, property & namespace methods (loaded in baseline):');
+QUnit.module('M.state, property & namespace methods (loaded in baseline):');
 
 QUnit.test('Methods provide, prop, props should be exported', function () {
 	var methods = ['provide', 'prop', 'props'];
