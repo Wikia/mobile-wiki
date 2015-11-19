@@ -47,7 +47,7 @@ App.ColorUtilsMixin = Ember.Mixin.create({
 	 * @returns {string}
 	 */
 	getRgbaColor(rgba) {
-		return `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}${typeof rgba.a !== 'undefined' ? `, ${rgba.a}}` : ''})`;
+		return `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}${typeof rgba.a !== 'undefined' ? `, ${rgba.a}` : ''})`;
 	}
 });
 
