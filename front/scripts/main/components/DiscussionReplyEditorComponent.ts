@@ -70,10 +70,9 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 */
 	click(): void {
 		this.$('.editor-textarea').focus();
-		Em.run.later(() => {
-			this.initializeOnScroll();
-		});
-
+		Em.run.later(this, (): void => {
+			this.setStickyPositioning();
+		}, 200);
 	},
 
 	actions: {

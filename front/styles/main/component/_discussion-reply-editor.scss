@@ -1,14 +1,17 @@
-$post-detail-page-width: 566px;
+$reply-editor-width: 563px;
+$sticky-reply-editor-width: 563px;
 
 .reply-editor {
 	.editor-container {
-		width: $post-detail-page-width;
+		margin-left: -20px;
+		width: $reply-editor-width;
 	}
 
 	.sticky {
 		&.pinned-bottom {
 			top: initial;
 			bottom: 0;
+			width: $reply-editor-width;
 		}
 	}
 }
