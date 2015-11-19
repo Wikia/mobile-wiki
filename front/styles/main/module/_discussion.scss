@@ -113,8 +113,10 @@ body.discussions {
 		}
 	}
 
-	.discussion-reply ~ .discussion-reply {
-		border-top: 1px solid $discussion-reply-border-color;
+	.post-reply ~ .post-reply {
+		.discussion-reply {
+			border-top: 1px solid $discussion-reply-border-color;
+		}
 	}
 
 	.icon {
