@@ -1,7 +1,7 @@
 $discussion-hero-unit-text-color: $color-white;
 $discussion-hero-unit-avatar-dimension: 40px;
 $discussion-hero-unit-height: 200px;
-$discussion-hero-unit-minimized-height-height: 25px;
+$discussion-hero-unit-minimized-height: 25px;
 
 .discussion-hero-unit {
 	background: $discussion-header-image-blend-background;
@@ -50,7 +50,7 @@ $discussion-hero-unit-minimized-height-height: 25px;
 
 .minimized {
 	&.discussion-hero-unit {
-		height: $discussion-hero-unit-minimized-height-height;
+		height: $discussion-hero-unit-minimized-height;
 	}
 }
 

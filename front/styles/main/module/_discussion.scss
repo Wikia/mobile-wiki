@@ -59,7 +59,7 @@ body.discussions {
 
 	.discussion-content {
 		color: $discussion-content-color;
-		font-size: rem-calc(16);
+		font-size: $type-base;
 		margin: 5px 0;
 		padding: .3rem 0;
 	}
@@ -94,7 +94,7 @@ body.discussions {
 		}
 
 		.timestamp {
-			font-size: .7rem;
+			font-size: $discussions-post-type-smaller-than-min;
 		}
 
 		.upvotes {
@@ -163,7 +163,7 @@ body.discussions {
 	}
 
 	.post-detail {
-		background-color: $discussion-desktop-post-detail-bg-color;;
+		background-color: $discussion-desktop-post-detail-bg-color;
 		margin-bottom: 5px;
 		padding: 12px $horizontal-padding;
 
