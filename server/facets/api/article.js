@@ -1,49 +1,61 @@
-import Article = require('../../lib/Article');
-import Caching = require('../../lib/Caching');
-import Utils = require('../../lib/Utils');
-import localSettings = require('../../../config/localSettings');
-import getStatusCode = require('../operations/getStatusCode');
-
-var cachingTimes = {
+const Article = require('../../lib/Article'),
+	Caching = require('../../lib/Caching'),
+	Utils = require('../../lib/Utils'),
+	localSettings = require('../../../config/localSettings'),
+	getStatusCode = require('../operations/getStatusCode'),
+	cachingTimes = {
 		enabled: true,
 		cachingPolicy: Caching.Policy.Public,
 		varnishTTL: Caching.Interval.standard,
 		browserTTL: Caching.Interval.disabled
 	};
 
-function isRequestForRandomTitle(query: any): boolean {
+/**
+ * @param {*} query
+ * @returns {boolean}
+ */
+function isRequestForRandomTitle(query) {
 	return (typeof query.random !== 'undefined' && typeof query.titleOnly !== 'undefined');
 }
 
-function handleArticleResponse(reply: any, result: any, allowCache: boolean): void {
-	var response = reply(result).code(getStatusCode(result));
+/**
+ * @param {*} reply
+ * @param {*} result
+ * @param {boolean} allowCache
+ * @returns {void}
+ */
+function handleArticleResponse(reply, result, allowCache) {
+	const response = reply(result).code(getStatusCode(result));
 
 	if (allowCache) {
-		return Caching.setResponseCaching(response, cachingTimes);
+		Caching.setResponseCaching(response, cachingTimes);
+	} else {
+		Caching.disableCache(response);
 	}
 
-	Caching.disableCache(response);
 }
 
 /**
  * @description Entry point method for getting article API data, a HapiRouteHandler
  *
  * @param {Hapi.Request} request
- * @param reply
+ * @param {*} reply
+ * @returns {void}
  */
-export function get(request: Hapi.Request, reply: any): void {
-	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
-		params: ArticleRequestParams = {
-			wikiDomain: wikiDomain,
+export function get(request, reply) {
+	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
+		params = {
+			wikiDomain,
 			title: request.params.articleTitle,
 			redirect: request.params.redirect
-		},
-		article: Article.ArticleRequestHelper,
+		};
+
+	let article,
 		allowCache = true;
 
 	if (request.state.wikicities_session) {
 		params.headers = {
-			'Cookie': `wikicities_session=${request.state.wikicities_session}`
+			Cookie: `wikicities_session=${request.state.wikicities_session}`
 		};
 		allowCache = false;
 	}
@@ -53,23 +65,37 @@ export function get(request: Hapi.Request, reply: any): void {
 	if (isRequestForRandomTitle(request.query)) {
 		article
 			.getArticleRandomTitle()
-			.then((result: any): void => {
+			/**
+			 * @param {*} result
+			 * @returns {void}
+			 */
+			.then((result) => {
 				Caching.disableCache(reply(result));
 			})
-			.catch((result: any) => {
+			/**
+			 * @param {*} result
+			 * @returns {void}
+			 */
+			.catch((result) => {
 				Caching.disableCache(reply(result).code(getStatusCode(result)));
 			});
-
-		return;
+	} else {
+		article
+			.getArticle()
+			/**
+			 * @param {*} result
+			 * @returns {void}
+			 */
+			.then((result) => {
+				handleArticleResponse(reply, result, allowCache);
+			})
+			/**
+			 * @param {*} result
+			 * @returns {void}
+			 */
+			.catch((result) => {
+				// We already have the logic to handle rejected promise in handleArticleResponse
+				handleArticleResponse(reply, result, allowCache);
+			});
 	}
-
-	article
-		.getArticle()
-		.then((result: any): void => {
-			handleArticleResponse(reply, result, allowCache);
-		})
-		.catch((result: any): void => {
-			// We already have the logic to handle rejected promise in handleArticleResponse
-			handleArticleResponse(reply, result, allowCache);
-		});
 }

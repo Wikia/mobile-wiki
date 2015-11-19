@@ -1,59 +1,66 @@
-/// <reference path="../../../typings/hapi/hapi.d.ts" />
-/// <reference path="../../../typings/boom/boom.d.ts" />
-import Boom = require('boom');
-import MW = require('../../lib/MediaWiki');
-import Utils = require('../../lib/Utils');
-import localSettings = require('../../../config/localSettings');
-import getStatusCode = require('../operations/getStatusCode');
+/**
+ * @typedef {Object} Comment
+ * @property {number} id
+ * @property {string} text
+ * @property {number} created
+ * @property {string} userName
+ * @property {Comment[]} [replies]
+ */
 
-interface Comment {
-	id: number;
-	text: string;
-	created: number;
-	userName: string;
-	replies?: Comment[];
-}
+/**
+ * @typedef {Object} User
+ * @property {number} id
+ * @property {string} avatar
+ * @property {string} url
+ */
 
-interface User {
-	id: number;
-	avatar: string;
-	url: string;
-}
+/**
+ * @typedef {Object} CommentsDataMWPayload
+ * @property {Comment[]} comments
+ * @property {User[]} users
+ */
 
-interface CommentsDataMW {
-	payload: {
-		comments: Comment[];
-		users: {
-			[index: string]: User;
-		};
-	};
-	pagesCount: number;
-	basePath: string;
-}
+/**
+ * @typedef {Object} CommentsDataMW
+ * @property {CommentsDataMWPayload} payload
+ * @property {number} pagesCount
+ * @property {string} basePath
+ */
 
-interface CommentsData {
-	payload: {
-		comments: Comment[];
-		users: {
-			[index: string]: User;
-		};
-		pagesCount: number;
-		basePath: string;
-	};
-	status: {
-		code: number;
-		message?: string;
-		errorName?: string;
-	};
-}
+/**
+ * @typedef {Object} CommentsDataPayload
+ * @property {Comment[]} comments
+ * @property {User[]} users
+ * @property {number} pagesCount
+ * @property {string} basePath
+ */
+
+/**
+ * @typedef {Object} CommentsDataStatus
+ * @property {number} code
+ * @property {string} [message]
+ * @property {string} [errorName]
+ */
+
+/**
+ * @typedef {Object} CommentsData
+ * @property {CommentsDataPayload} payload
+ * @property {CommentsDataStatus} status
+ */
+
+const Boom = require('boom'),
+	MW = require('../../lib/MediaWiki'),
+	Utils = require('../../lib/Utils'),
+	localSettings = require('../../../config/localSettings'),
+	getStatusCode = require('../operations/getStatusCode');
 
 /**
  * Wrap article comments data response
  *
- * @param commentsData Article comments payload from API
- * @returns Wrapped Article comments object
+ * @param {CommentsDataMW} commentsData - Article comments payload from API
+ * @returns {CommentsData} Wrapped Article comments object
  */
-function transformResponse (commentsData: CommentsDataMW): CommentsData {
+function transformResponse(commentsData) {
 	// TODO: ad hoc response wrapping, normalize across app
 	return {
 		payload: {
@@ -68,12 +75,17 @@ function transformResponse (commentsData: CommentsDataMW): CommentsData {
 	};
 }
 
-export function get (request: Hapi.Request, reply: any): void {
-	var params = {
-			wikiDomain: Utils.getCachedWikiDomainName(localSettings, request),
-			articleId: parseInt(request.params.articleId, 10) || null,
-			page: parseInt(request.params.page, 10) || 0
-		};
+/**
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ * @returns {void}
+ */
+export function get(request, reply) {
+	const params = {
+		wikiDomain: Utils.getCachedWikiDomainName(localSettings, request),
+		articleId: parseInt(request.params.articleId, 10) || null,
+		page: parseInt(request.params.page, 10) || 0
+	};
 
 	if (params.articleId === null) {
 		// TODO: ad hoc error handling, use Boom everywhere?
@@ -83,10 +95,18 @@ export function get (request: Hapi.Request, reply: any): void {
 			params.articleId,
 			params.page
 		)
-		.then((response: any): void => {
+		/**
+		 * @param {*} response
+		 * @returns {void}
+		 */
+		.then((response) => {
 			reply(transformResponse(response));
 		})
-		.catch((error: any): void => {
+		/**
+		 * @param {*} error
+		 * @returns {void}
+		 */
+		.catch((error) => {
 			reply(error).code(getStatusCode(error));
 		});
 	}
