@@ -8,7 +8,16 @@ App.LightboxAdsComponent = Em.Component.extend({
 	 * @returns {void}
 	 */
 	didInsertElement(): void {
-		var closeButtonDelay = this.get('lightboxCloseButtonDelay') * 1000 || 0;
+		var closeButtonDelay = this.get('lightboxCloseButtonDelay') * 1000 || 0,
+			that = this,
+			decreaseCounter = function() {
+				if (that.get('lightboxCloseButtonDelay') > 0) {
+					Em.run.later(that, (): void => {
+						that.set('lightboxCloseButtonDelay', that.get('lightboxCloseButtonDelay')-1);
+						decreaseCounter();
+					}, 1000);
+				}
+			};
 
 		this.sendAction('setHeader', 'Advertisement');
 
@@ -18,6 +27,8 @@ App.LightboxAdsComponent = Em.Component.extend({
 			Em.run.later(this, (): void => {
 				this.sendAction('setCloseButtonHidden', false);
 			}, closeButtonDelay);
+
+			decreaseCounter();
 		}
 	}
 });
