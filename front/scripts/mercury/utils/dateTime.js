@@ -12,13 +12,13 @@
  * interval types
  */
 export const interval = {
-	now: 0,
-	second: 1,
-	minute: 2,
-	hour: 3,
-	day: 4,
-	month: 5,
-	year: 6
+	Now: 0,
+	Second: 1,
+	Minute: 2,
+	Hour: 3,
+	Day: 4,
+	Month: 5,
+	Year: 6
 };
 
 /**
