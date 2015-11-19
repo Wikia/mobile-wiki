@@ -65,15 +65,11 @@ body.discussions {
 	}
 
 	.discussion-reply {
-		border-top: 1px solid $discussion-reply-border-color;
+		border: none;
 		padding: {
 			top: 12px;
 			left: $horizontal-padding;
 			right: $horizontal-padding;
-		}
-
-		&.first-reply {
-			border: none;
 		}
 
 		.author {
@@ -115,6 +111,10 @@ body.discussions {
 				word-wrap: normal;
 			}
 		}
+	}
+
+	.discussion-reply ~ .discussion-reply {
+		border-top: 1px solid $discussion-reply-border-color;
 	}
 
 	.icon {
