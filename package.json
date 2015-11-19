@@ -8,7 +8,7 @@
     "local": "rm -rf www && gulp",
     "start": "npm run build && node www/server/server.js",
 
-    "tests": "npm run build-test && npm run test-front && npm run test-server",
+    "test": "npm run build-test && npm run test-front && npm run test-server",
     "coverage": "npm run build-coverage && npm run test-front && npm run test-server",
     "test-front": "gulp karma",
     "test-server": "gulp node-test",
