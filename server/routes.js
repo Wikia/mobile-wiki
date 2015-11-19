@@ -1,22 +1,15 @@
-/// <reference path="../typings/hoek/hoek.d.ts" />
-import Hoek = require('hoek');
-import localSettings = require('../config/localSettings');
-import Caching = require('./lib/Caching');
-import authUtils = require('./lib/AuthUtils');
+/**
+ * @typedef {Object} RouteDefinition
+ * @property {string[]|string} method
+ * @property {string} path
+ * @property {Function} handler
+ * @property {*} [config]
+ */
 
-interface RouteDefinition {
-	method: string[]|string;
-	path: string;
-	handler: Function;
-	config?: any;
-}
-
-var routes: RouteDefinition[],
-	// routes that don't care if the user is logged in or not, i.e. lazily loaded modules
-	unauthenticatedRoutes: RouteDefinition[],
-	// routes where we want to know the user's auth status
-	authenticatedRoutes: RouteDefinition[],
-	articlePagePaths: string[],
+const Hoek = require('hoek'),
+	localSettings = require('../config/localSettings'),
+	Caching = require('./lib/Caching'),
+	authUtils = require('./lib/AuthUtils'),
 	routeCacheConfig = {
 		privacy: Caching.policyString(Caching.Policy.Public),
 		expiresIn: 60000
@@ -34,9 +27,16 @@ var routes: RouteDefinition[],
 				strategy: 'session'
 			}
 		}
-	};
+	},
+	articlePagePaths = [
+		'/wiki/{title*}',
+		'/{title*}',
+		// TODO this is special case needed for /wiki path, it should be refactored
+		'/{title}'
+	];
 
-unauthenticatedRoutes = [
+// routes that don't care if the user is logged in or not, i.e. lazily loaded modules
+let unauthenticatedRoutes = [
 	{
 		method: 'GET',
 		path: '/favicon.ico',
@@ -74,28 +74,28 @@ unauthenticatedRoutes = [
 	 */
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/article/{articleTitle*}',
+		path: `${localSettings.apiBase}/article/{articleTitle*}`,
 		handler: require('./facets/api/article').get
 	},
 	{
 		method: 'GET',
 		// TODO: if you call to api/mercury/comments/ without supplying an id, this actually calls /api/mercury/article
-		path: localSettings.apiBase + '/article/comments/{articleId}/{page?}',
+		path: `${localSettings.apiBase}/article/comments/{articleId}/{page?}`,
 		handler: require('./facets/api/articleComments').get
 	},
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/search/{query}',
+		path: `${localSettings.apiBase}/search/{query}`,
 		handler: require('./facets/api/search').get
 	},
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/main/section/{sectionName}',
+		path: `${localSettings.apiBase}/main/section/{sectionName}`,
 		handler: require('./facets/api/mainPageSection').get
 	},
 	{
 		method: 'GET',
-		path: localSettings.apiBase + '/main/category/{categoryName}',
+		path: `${localSettings.apiBase}/main/category/{categoryName}`,
 		handler: require('./facets/api/mainPageCategory').get
 	},
 	{
@@ -113,123 +113,134 @@ unauthenticatedRoutes = [
 		path: '/editorPreview',
 		handler: require('./facets/editorPreview')
 	}
-];
-
-authenticatedRoutes = [
-	/**
-	 * Authentication Routes
-	 * @description The following routes should be related to authentication
-	 */
-	{
-		method: 'GET',
-		path: '/join',
-		handler: require('./facets/auth/join'),
-		config: {
-			pre: [
-				{
-					method: require('./facets/auth/authView').validateRedirect
-				}
-			]
-		}
-	},
-	{
-		method: 'GET',
-		path: '/signin',
-		handler: require('./facets/auth/signin').get,
-		config: {
-			pre: [
-				{
-					method: require('./facets/auth/authView').validateRedirect
-				}
-			]
-		}
-	},
-	{
-		method: 'GET',
-		path: '/register',
-		handler: require('./facets/auth/register').get,
-		config: {
-			pre: [
-				{
-					method: require('./facets/auth/authView').validateRedirect
-				}
-			]
-		}
-	},
-
-	{
-		method: 'GET',
-		path: '/login',
-		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
-			return reply.redirect(authUtils.getRedirectUrlWithQueryString('signin', request));
-		}
-	},
-	{
-		method: 'GET',
-		path: '/signup',
-		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
-			return reply.redirect(authUtils.getRedirectUrlWithQueryString('register', request));
-		}
-	},
-	{
-		method: 'GET',
-		path: '/',
-		//Currently / path is not available on production because of redirects from / to /wiki/...
-		handler: require('./facets/showArticle'),
-		config: {
-			cache: routeCacheConfig
-		}
-	},
-	{
-		method: 'GET',
-		// Catch invalid paths and redirect to the main page
-		path: '/main/{invalid}',
-		handler: function (request: Hapi.Request, reply: any): Hapi.Response {
-			return reply.redirect('/');
+	],
+	// routes where we want to know the user's auth status
+	authenticatedRoutes = [
+		/**
+		 * Authentication Routes
+		 * @description The following routes should be related to authentication
+		 */
+		{
+			method: 'GET',
+			path: '/join',
+			handler: require('./facets/auth/join'),
+			config: {
+				pre: [
+					{
+						method: require('./facets/auth/authView').validateRedirect
+					}
+				]
+			}
 		},
-		config: {
-			cache: routeCacheConfig
-		}
-	},
-	{
-		method: 'GET',
-		// We don't care if there is a dynamic segment, Ember router handles that
-		path: '/main/edit/{ignore*}',
-		handler: require('./facets/showApplication'),
-		config: {
-			cache: routeCacheConfig
-		}
-	},
-	{
-		method: 'GET',
-		path: '/main/section/{sectionName*}',
-		handler: require('./facets/showCuratedContent'),
-		config: {
-			cache: routeCacheConfig
-		}
-	},
-	{
-		method: 'GET',
-		path: '/main/category/{categoryName*}',
-		handler: require('./facets/showCuratedContent'),
-		config: {
-			cache: routeCacheConfig
-		}
-	},
-];
+		{
+			method: 'GET',
+			path: '/signin',
+			handler: require('./facets/auth/signin').get,
+			config: {
+				pre: [
+					{
+						method: require('./facets/auth/authView').validateRedirect
+					}
+				]
+			}
+		},
+		{
+			method: 'GET',
+			path: '/register',
+			handler: require('./facets/auth/register').get,
+			config: {
+				pre: [
+					{
+						method: require('./facets/auth/authView').validateRedirect
+					}
+				]
+			}
+		},
+		{
+			method: 'GET',
+			path: '/login',
+			/**
+			 * @param {Hapi.Request} request
+			 * @param {*} reply
+			 * @returns {Hapi.Response}
+			 */
+			handler(request, reply) {
+				return reply.redirect(authUtils.getRedirectUrlWithQueryString('signin', request));
+			}
+		},
+		{
+			method: 'GET',
+			path: '/signup',
+			/**
+			 * @param {Hapi.Request} request
+			 * @param {*} reply
+			 * @returns {Hapi.Response}
+			 */
+			handler(request, reply) {
+				return reply.redirect(authUtils.getRedirectUrlWithQueryString('register', request));
+			}
+		},
+		{
+			method: 'GET',
+			path: '/',
+			// Currently / path is not available on production because of redirects from / to /wiki/...
+			handler: require('./facets/showArticle'),
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
+			// Catch invalid paths and redirect to the main page
+			path: '/main/{invalid}',
+			/**
+			 * @param {Hapi.Request} request
+			 * @param {*} reply
+			 * @returns {Hapi.Response}
+			 */
+			handler(request, reply) {
+				return reply.redirect('/');
+			},
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
+			// We don't care if there is a dynamic segment, Ember router handles that
+			path: '/main/edit/{ignore*}',
+			handler: require('./facets/showApplication'),
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
+			path: '/main/section/{sectionName*}',
+			handler: require('./facets/showCuratedContent'),
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
+			path: '/main/category/{categoryName*}',
+			handler: require('./facets/showCuratedContent'),
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+	];
 
 
-articlePagePaths = [
-	'/wiki/{title*}',
-	'/{title*}',
-	// TODO this is special case needed for /wiki path, it should be refactored
-	'/{title}'
-];
-
+/**
+ * @param {*} path
+ * @returns {void}
+ */
 articlePagePaths.forEach((path) => {
 	authenticatedRoutes.push({
 		method: 'GET',
-		path: path,
+		path,
 		handler: require('./facets/showArticle'),
 		config: {
 			cache: routeCacheConfig
@@ -246,14 +257,20 @@ authenticatedRoutes.push({
 	handler: require('./facets/showDiscussions')
 });
 
+/**
+ * @param {*} route
+ * @returns {*}
+ */
 unauthenticatedRoutes = unauthenticatedRoutes.map((route) => {
 	return Hoek.applyToDefaults(unauthenticatedRouteConfig, route);
 });
 
+/**
+ * @param {*} route
+ * @returns {*}
+ */
 authenticatedRoutes = authenticatedRoutes.map((route) => {
 	return Hoek.applyToDefaults(authenticatedRouteConfig, route);
 });
 
-routes = unauthenticatedRoutes.concat(authenticatedRoutes);
-
-export = routes;
+export default unauthenticatedRoutes.concat(authenticatedRoutes);
