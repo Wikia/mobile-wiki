@@ -4,4 +4,11 @@ $post-detail-page-width: 566px;
 	.editor-container {
 		width: $post-detail-page-width;
 	}
+
+	.sticky {
+		&.pinned-bottom {
+			top: initial;
+			bottom: 0;
+		}
+	}
 }

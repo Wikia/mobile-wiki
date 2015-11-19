@@ -7,8 +7,6 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	placeholderText: 'editor.reply-editor-placeholder-text',
 	submitText: 'editor.reply-action-button-label',
 
-	layoutName: 'components/discussion-editor',
-
 	/**
 	 * Set right height for editor placeholder when editor gets sticky
 	 * @returns {void}
@@ -23,31 +21,17 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 * Initialize onScroll binding for sticky logic
 	 * @returns {void}
 	 */
-	initializeOnScroll(): void {
-		this.offsetTop = this.$().offset().top;
-		this.siteHeadHeight = Em.$('.site-head').outerHeight(true);
-
-		Em.$(window).on('scroll', (): void => {
-			this.onScroll()
-		});
+	setStickyPositioning(): void {
+		debugger;
+		if (window.innerHeight < this.$().offset().top + this.$().height()) {
+			this.set('isSticky', true);
+		} else {
+			this.set('isSticky', false);
+		}
 	},
 
 	getBreakpointHeight(): number {
 		return this.offsetTop - (this.get('siteHeadPinned') ? this.siteHeadHeight : 0);
-	},
-
-	onScroll(): void {
-		Em.run.throttle(
-			this,
-			function (): void {
-				if (window.pageYOffset >= this.getBreakpointHeight() && !this.get('isSticky')) {
-					this.set('isSticky', true);
-				} else if (window.pageYOffset < this.getBreakpointHeight() && this.get('isSticky')) {
-					this.set('isSticky', false);
-				}
-			},
-			25
-		);
 	},
 
 	/**
@@ -56,14 +40,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	didInsertElement(): void {
 		this._super();
 
-		this.initializeOnScroll();
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	willDestroyElement(): void {
-		Em.$(window).off('scroll', this.onScroll);
+		this.setStickyPositioning();
 	},
 
 	/**
@@ -71,46 +48,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	viewportChangeObserver: Em.observer('viewportDimensions.width', function (): void {
-		Em.$(window).off('scroll', this.onScroll);
-		this.initializeOnScroll();
-	}),
-
-	/**
-	 * Perform animations and logic after post creation
-	 * @returns {void}
-	 */
-	handleNewPostCreated: Em.observer('posts.@each._embedded.firstPost[0].isNew', function (): void {
-		var newPosts = this.get('posts').filter(function (post: any): boolean {
-			return post._embedded.firstPost[0].isNew;
-		}),
-			newPost = newPosts.get('firstObject');
-
-		if (newPost) {
-			newPost = newPost._embedded.firstPost[0];
-
-			this.setProperties({
-				isLoading: false,
-				showSuccess: true
-			});
-
-			Em.set(newPost, 'isVisible', false);
-
-			Em.run.later(this, () => {
-				this.setProperties({
-					showSuccess: false,
-					isActive: false,
-					submitDisabled: false
-				});
-
-				this.$('.editor-textarea').val('');
-
-				Em.set(newPost, 'isVisible', true);
-
-				Em.run.next(this, () => {
-					Em.set(newPost, 'isNew', false);
-				});
-			}, 2000);
-		}
+		this.setStickyPositioning();
 	}),
 
 	/**
@@ -132,6 +70,10 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 */
 	click(): void {
 		this.$('.editor-textarea').focus();
+		Em.run.later(() => {
+			this.initializeOnScroll();
+		});
+
 	},
 
 	actions: {
