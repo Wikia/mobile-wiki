@@ -82,8 +82,10 @@ body.dark-theme {
 		.discussion-content {
 			color: $dark-discussion-content-color;
 		}
-		.discussion-reply {
-			border-top: 1px solid $dark-discussion-reply-border-color;
+		.post-reply ~ .post-reply {
+			.discussion-reply {
+				border-top-color: $dark-discussion-reply-border-color;
+			}
 		}
 		.icon {
 			&.upvote{
@@ -168,13 +170,7 @@ body.dark-theme {
 			background-color: transparent;
 			&.forum {
 				.post-detail {
-					background-color: $dark-discussion-desktop-post-detail-bg-color;
-					border-top-color: $dark-discussion-desktop-post-detail-border-color;
-				}
-			}
-			&.post {
-				.see-more {
-					border-top-color: $dark-discussion-reply-border-color;
+					border-bottom-color: $dark-discussion-reply-border-color;
 				}
 			}
 		}

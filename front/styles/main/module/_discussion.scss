@@ -1,7 +1,9 @@
 $horizontal-padding: 15px;
 $post-details-post-width: 560px;
-$post-details-border-width: 580px;
+$post-details-outer-width: 580px;
 $post-details-reply-width: 524px;
+$post-details-post-margin-bottom: 5px;
+$post-details-post-vertical-padding: 12px;
 $post-details-reply-upvote-width: 12px;
 $post-details-reply-upvote-margin-left: 10px;
 
@@ -166,7 +168,7 @@ body.discussions {
 
 	.post-detail {
 		background-color: $discussion-desktop-post-detail-bg-color;
-		margin-bottom: 5px;
+		margin-bottom: $post-details-post-margin-bottom;
 		padding: 12px $horizontal-padding;
 
 		.avatar {
@@ -195,16 +197,14 @@ body.discussions {
 	}
 
 	.see-more {
-		button {
-			background-color: $discussion-see-more-color;
-			border-width: 0;
-			display: inline-block;
-			font-size: 10px;
-			font-weight: bold;
-			margin: 0;
-			padding: 0 $horizontal-padding;
-			width: 100%;
-		}
+		background-color: $discussion-see-more-color;
+		border-width: 0;
+		display: block;
+		font-size: 10px;
+		font-weight: bold;
+		margin: 0;
+		padding: 0 $horizontal-padding;
+		width: 100%;
 
 		.icon {
 			margin-right: 3px;
@@ -260,7 +260,14 @@ body.discussions {
 
 		&.post {
 			.post-detail {
-				width: $post-details-post-width;
+				background-color: transparent;
+				border-bottom: 1px solid $discussion-reply-border-color;
+				margin: auto;
+				padding:
+					$post-details-post-vertical-padding
+					$horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2
+					$post-details-post-vertical-padding + $post-details-post-margin-bottom;
+				width: $post-details-outer-width;
 			}
 
 			.post-reply {
@@ -268,13 +275,8 @@ body.discussions {
 			}
 
 			.see-more {
-				border-top: 1px solid $discussion-reply-border-color;
 				text-align: center;
-				width: $post-details-border-width;
-
-				button {
-					width: $post-details-post-width;
-				}
+				width: $post-details-post-width;
 			}
 		}
 
