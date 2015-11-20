@@ -95,6 +95,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 				Em.set(newReply, 'isVisible', true);
 
 				Em.run.next(this, () => {
+					this.incrementProperty('postCount');
 					Em.set(newReply, 'isNew', false);
 				});
 			}, 2000);
