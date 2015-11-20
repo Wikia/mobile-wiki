@@ -30,9 +30,7 @@ App.DiscussionForumModel = App.DiscussionBaseModel.extend({
 						allPosts = this.posts.concat(newPosts);
 
 					this.set('posts', allPosts);
-
 					resolve(this);
-
 				},
 				error: (err: any) => {
 					this.handleLoadMoreError(err);
