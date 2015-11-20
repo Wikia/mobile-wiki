@@ -40,6 +40,25 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		Em.$(window).on('scroll', (): void => {
 			this.onScroll();
 		});
+
+		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+			/*
+			 Ultra hack for editor on iOS
+			 iOS is scrolling on textarea focus, changing it's size on focus prevent that
+			 */
+			var $editorTextarea = $('.editor-textarea');
+			$editorTextarea
+				.css('height', '100px')
+				.on('focus', function() {
+					setTimeout(function(){
+						$editorTextarea.css('height', '100%');
+					}, 500);
+				})
+				.on('blur', function() {
+					$editorTextarea.css('height', '100px');
+				});
+		}
+
 	}),
 
 	getBreakpointHeight(): number {
@@ -122,8 +141,23 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * Handle message for anon when activating editor
 	 */
 	isActiveObserver: Em.observer('isActive',function(): void {
-		if (this.get('isActive') && this.get('currentUser.userId') === null) {
-			alert(i18n.t('editor.post-error-anon-cant-post', {ns: 'discussion'}));
+		if (this.get('isActive')) {
+			if (this.get('currentUser.userId') === null) {
+				alert(i18n.t('editor.post-error-anon-cant-post', {ns: 'discussion'}));
+			}
+
+			/*
+			iOS hack for position: fixed hack - now we display loading icon.
+			 */
+			$('html, body').css({
+				height: '100%',
+				overflow: 'hidden'
+			});
+		} else {
+			$('html, body').css({
+				height: '',
+				overflow: ''
+			});
 		}
 	}),
 
