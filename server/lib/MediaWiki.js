@@ -1,201 +1,67 @@
-/// <reference path="../../typings/bluebird/bluebird.d.ts" />
-/// <reference path="../../typings/mercury/mercury-server.d.ts" />
-/// <reference path="../../typings/node/node.d.ts" />
-/// <reference path="../../typings/wreck/wreck.d.ts" />
-
 /**
  * @description Mediawiki API functions
  */
-import localSettings = require('../../config/localSettings');
-import Logger = require('./Logger');
-import Wreck = require('wreck');
-import Promise = require('bluebird');
-import Url = require('url');
-
-class BaseRequest {
-	wikiDomain: string;
-	headers: any;
-	redirects: any;
-
-	/**
-	 * Search request constructor
-	 *
-	 * @param params
-	 */
-	constructor(params: MWRequestParams) {
-		this.wikiDomain = params.wikiDomain;
-		this.headers = params.headers;
-	}
-
-	fetch(url: string): any {
-		return fetch(url, this.wikiDomain, this.redirects, this.headers);
-	}
-}
+const localSettings = require('../../config/localSettings'),
+	Logger = require('./Logger'),
+	Wreck = require('wreck'),
+	Promise = require('bluebird'),
+	Url = require('url');
 
 /**
- * Wrapper class for making API search requests
- */
-export class SearchRequest extends BaseRequest {
-	/**
-	 * Default parameters to make the request url clean -- we may
-	 * want to customize later
-	 * @param query Search query
-	 * @return {Promise<any>}
-	 */
-	searchForQuery(query: string): Promise<any> {
-		var url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'MercuryApi',
-			method: 'getSearchSuggestions',
-			query: query
-		});
-
-		return this.fetch(url);
-	}
-}
-
-/**
- * @desc a wrapper for making API requests for info about the wiki
+ * Create request URL
  *
+ * @param {string} wikiDomain
+ * @param {string} path
+ * @param {*} params
+ * @returns {string} url
  */
-export class WikiRequest extends BaseRequest {
-	/**
-	 * Gets general wiki information
-	 *
-	 * @return {Promise<any>}
-	 */
-	wikiVariables(): Promise<any> {
-		var url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'MercuryApi',
-			method: 'getWikiVariables'
-		});
+function createUrl(wikiDomain, path, params = {}) {
+	const qsAggregator = [];
 
-		return this
-			.fetch(url)
-			.then((wikiVariables: any): Promise<any> => {
-				return Promise.resolve(wikiVariables.data);
-			});
+	/**
+	 * @param {*} key
+	 * @returns {void}
+	 */
+	Object.keys(params).forEach((key) => {
+		const queryParam = (typeof params[key] !== 'undefined') ?
+			`${key}=${encodeURIComponent(params[key])}` :
+			key;
+
+		qsAggregator.push(queryParam);
+	});
+
+	// if mediawikiDomain is defined, override the wikiDomain
+	if (localSettings.mediawikiDomain) {
+		wikiDomain = localSettings.mediawikiDomain;
 	}
+	return `http://${wikiDomain}/${path}${qsAggregator.length > 0 ? `?${qsAggregator.join('&')}` : ''}`;
 }
 
-/**
- * Gets article data
- */
-export class ArticleRequest extends BaseRequest {
-	/**
-	 * Fetch article data
-	 *
-	 * @param title
-	 * @param redirect
-	 * @param sections
-	 * @return {Promise<any>}
-	 */
-	article(title: string, redirect: string, sections?: string): Promise<any> {
-		var urlParams: any = {
-				controller: 'MercuryApi',
-				method: 'getArticle',
-				title: title
-			},
-			url: string;
-
-		if (redirect) {
-			urlParams.redirect = redirect;
-		}
-
-		if (sections) {
-			urlParams.sections = sections;
-		}
-
-		url = createUrl(this.wikiDomain, 'wikia.php', urlParams);
-
-		return this.fetch(url);
-	}
-
-	comments(articleId: number, page: number = 0): Promise<any> {
-		var url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'MercuryApi',
-			method: 'getArticleComments',
-			id: articleId,
-			page: page
-		});
-
-		return this.fetch(url);
-	}
-
-	curatedContentSection(sectionName: string): Promise<any> {
-		var url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'MercuryApi',
-			method: 'getCuratedContentSection',
-			section: sectionName
-		});
-
-		return this.fetch(url);
-	}
-
-	category(categoryName: string, thumbSize: { width: number; height: number }, offset = ''): Promise<any> {
-		var url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'ArticlesApi',
-			method: 'getList',
-			expand: 'true',
-			abstract: 0,
-			width: thumbSize.width,
-			height: thumbSize.height,
-			category: categoryName,
-			offset: offset,
-			limit: 24
-		});
-
-		return this.fetch(url);
-	}
-
-	/**
-	 * Get random article title
-	 *
-	 * @return {Promise<any>}
-	 */
-	randomTitle(): Promise<any> {
-		var url = createUrl(this.wikiDomain, 'api.php', {
-			action: 'query',
-			generator: 'random',
-			grnnamespace: 0,
-			cb: Date.now(),
-			format: 'json'
-		});
-
-		return this.fetch(url);
-	}
-
-	mainPageDetailsAndAdsContext(): Promise<any> {
-		var url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'MercuryApi',
-			method: 'getMainPageDetailsAndAdsContext'
-		});
-
-		return this.fetch(url);
-	}
-}
+exports.createUrl = createUrl;
 
 /**
  * Fetch http resource
  *
- * @param url the url to fetch
- * @param host
- * @param redirects the number of redirects to follow, default 1
- * @param headers
- * @return {Promise<any>}
+ * @param {string} url - the url to fetch
+ * @param {string} [host='']
+ * @param {number} [redirects=1] - the number of redirects to follow, default 1
+ * @param {*} [headers={}]
+ * @returns {Promise}
  */
-export function fetch(url: string, host: string = '', redirects: number = 1, headers: any = {}): Promise<any> {
+function fetch(url, host = '', redirects = 1, headers = {}) {
 	/**
 	 * We send requests to Consul URL and the target wiki is passed in the Host header.
 	 * When Wreck gets a redirection response it updates URL only, not headers.
 	 * That's why we need to update Host header manually.
 	 *
-	 * @param redirectMethod
-	 * @param statusCode
-	 * @param location
-	 * @param redirectOptions
+	 * @param {string} redirectMethod
+	 * @param {number} statusCode
+	 * @param {string} location
+	 * @param {*} redirectOptions
+	 * @returns {void}
 	 */
-	var beforeRedirect = (redirectMethod: string, statusCode: number, location: string, redirectOptions: any): void => {
-		var redirectHost: string = Url.parse(location).hostname;
+	const beforeRedirect = (redirectMethod, statusCode, location, redirectOptions) => {
+		const redirectHost = Url.parse(location).hostname;
 
 		if (redirectHost) {
 			redirectOptions.headers.Host = redirectHost;
@@ -204,17 +70,28 @@ export function fetch(url: string, host: string = '', redirects: number = 1, hea
 
 	headers.Host = host;
 
-	return new Promise((resolve: Function, reject: Function): void => {
+	/**
+	 * @param {Function} resolve
+	 * @param {Function} reject
+	 * @returns {void}
+	 */
+	return new Promise((resolve, reject) => {
+		/**
+		 * @param {*} err
+		 * @param {*} response
+		 * @param {*} payload
+		 * @returns {void}
+		 */
 		Wreck.get(url, {
-			redirects: redirects,
-			headers: headers,
+			redirects,
+			headers,
 			timeout: localSettings.backendRequestTimeout,
 			json: true,
-			beforeRedirect: beforeRedirect
-		}, (err: any, response: any, payload: any): void => {
+			beforeRedirect
+		}, (err, response, payload) => {
 			if (err) {
 				Logger.error({
-					url: url,
+					url,
 					error: err
 				}, 'Error fetching url');
 
@@ -240,7 +117,7 @@ export function fetch(url: string, host: string = '', redirects: number = 1, hea
 				}
 
 				Logger.error({
-					url: url,
+					url,
 					headers: response.headers,
 					statusCode: response.statusCode
 				}, 'Bad HTTP response');
@@ -251,40 +128,223 @@ export function fetch(url: string, host: string = '', redirects: number = 1, hea
 	});
 }
 
+exports.fetch = fetch;
+
 /**
- * Create request URL
+ * @class BaseRequest
  *
- * @param wikiDomain
- * @param path
- * @param params
- * @return {string} url
+ * @property {string} wikiDomain
+ * @property {*} headers
+ * @property {*} redirects
  */
-export function createUrl(wikiDomain: string, path: string, params: any = {}): string {
-	var qsAggregator: string[] = [],
-		queryParam: string;
-
-	Object.keys(params).forEach(function (key): void {
-		queryParam = (typeof params[key] !== 'undefined') ?
-			key + '=' + encodeURIComponent(params[key]) :
-			key;
-
-		qsAggregator.push(queryParam);
-	});
-
-	// if mediawikiDomain is defined, override the wikiDomain
-	if (localSettings.mediawikiDomain) {
-		wikiDomain = localSettings.mediawikiDomain;
+class BaseRequest {
+	/**
+	 * Search request constructor
+	 *
+	 * @param {MWRequestParams} params
+	 * @returns {void}
+	 */
+	constructor(params) {
+		this.wikiDomain = params.wikiDomain;
+		this.headers = params.headers;
 	}
-	return 'http://' + wikiDomain + '/' + path + (qsAggregator.length > 0 ? '?' + qsAggregator.join('&') : '');
+
+	/**
+	 * @param {string} url
+	 * @returns {Promise.<any>}
+     */
+	fetch(url) {
+		return fetch(url, this.wikiDomain, this.redirects, this.headers);
+	}
 }
 
-export class WikiVariablesRequestError {
-	private error: MWException;
+/**
+ * Wrapper class for making API search requests
+ *
+ * @class SearchRequest
+ */
+class SearchRequest extends BaseRequest {
+	/**
+	 * Default parameters to make the request url clean -- we may
+	 * want to customize later
+	 *
+	 * @param {string} query
+	 * @returns {Promise<any>}
+	 */
+	searchForQuery(query) {
+		const url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getSearchSuggestions',
+			query
+		});
 
-	constructor(error: MWException) {
+		return this.fetch(url);
+	}
+}
+
+exports.SearchRequest = SearchRequest;
+
+/**
+ * a wrapper for making API requests for info about the wiki
+ *
+ * @class WikiRequest
+ */
+class WikiRequest extends BaseRequest {
+	/**
+	 * Gets general wiki information
+	 *
+	 * @returns {Promise<any>}
+	 */
+	wikiVariables() {
+		const url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getWikiVariables'
+		});
+
+		return this
+			.fetch(url)
+			/**
+			 * @param {*} wikiVariables
+			 * @returns {Promise}
+			 */
+			.then((wikiVariables) => {
+				return Promise.resolve(wikiVariables.data);
+			});
+	}
+}
+
+exports.WikiRequest = WikiRequest;
+
+/**
+ * Gets article data
+ *
+ * @class ArticleRequest
+ */
+class ArticleRequest extends BaseRequest {
+	/**
+	 * Fetch article data
+	 *
+	 * @param {string} title
+	 * @param {string} redirect
+	 * @param {string} [sections]
+	 * @returns {Promise}
+	 */
+	article(title, redirect, sections) {
+		const urlParams = {
+			controller: 'MercuryApi',
+			method: 'getArticle',
+			title
+		};
+
+		if (redirect) {
+			urlParams.redirect = redirect;
+		}
+
+		if (sections) {
+			urlParams.sections = sections;
+		}
+
+		return this.fetch(createUrl(this.wikiDomain, 'wikia.php', urlParams));
+	}
+
+	/**
+	 * @param {number} articleId
+	 * @param {number} [page=0]
+	 * @returns {Promise}
+     */
+	comments(articleId, page = 0) {
+		const url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getArticleComments',
+			id: articleId,
+			page
+		});
+
+		return this.fetch(url);
+	}
+
+	/**
+	 * @param {string} sectionName
+	 * @returns {Promise}
+	 */
+	curatedContentSection(sectionName) {
+		const url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getCuratedContentSection',
+			section: sectionName
+		});
+
+		return this.fetch(url);
+	}
+
+	/**
+	 * @param {string} categoryName
+	 * @param {*} thumbSize
+	 * @param {string} [offset='']
+	 * @returns {Promise}
+	 */
+	category(categoryName, thumbSize, offset = '') {
+		const url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'ArticlesApi',
+			method: 'getList',
+			expand: 'true',
+			abstract: 0,
+			width: thumbSize.width,
+			height: thumbSize.height,
+			category: categoryName,
+			offset,
+			limit: 24
+		});
+
+		return this.fetch(url);
+	}
+
+	/**
+	 * Get random article title
+	 *
+	 * @returns {Promise}
+	 */
+	randomTitle() {
+		const url = createUrl(this.wikiDomain, 'api.php', {
+			action: 'query',
+			generator: 'random',
+			grnnamespace: 0,
+			cb: Date.now(),
+			format: 'json'
+		});
+
+		return this.fetch(url);
+	}
+
+	/*
+	 * @returns {Promise}
+	 */
+	mainPageDetailsAndAdsContext() {
+		const url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getMainPageDetailsAndAdsContext'
+		});
+
+		return this.fetch(url);
+	}
+}
+
+exports.ArticleRequest = ArticleRequest;
+
+/**
+ * @class WikiVariablesRequestError
+ */
+class WikiVariablesRequestError {
+	/**
+	 * @param {MWException} error
+	 * @returns {void}
+     */
+	constructor(error) {
 		Error.apply(this, arguments);
 		this.error = error;
 	}
 }
 
 WikiVariablesRequestError.prototype = Object.create(Error.prototype);
+
+exports.WikiVariablesRequestError = WikiVariablesRequestError;
