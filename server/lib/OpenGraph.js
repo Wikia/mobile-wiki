@@ -1,58 +1,62 @@
-/// <reference path="../../typings/hapi/hapi.d.ts" />
+/**
+ * @typedef {Object} OpenGraphAttributes
+ * @property {string} [description]
+ * @property {string} [image]
+ * @property {number} [imageHeight]
+ * @property {number} [imageWidth]
+ * @property {string} title
+ * @property {string} type
+ * @property {string} url
+ */
 
-import Promise = require('bluebird');
-import localSettings = require('../../config/localSettings');
-import MW = require('./MediaWiki');
-import Utils = require('./Utils');
+const Promise = require('bluebird'),
+	localSettings = require('../../config/localSettings'),
+	MW = require('./MediaWiki'),
+	Utils = require('./Utils');
 
-interface OpenGraphAttributes {
-	description?: string;
-	image?: string;
-	imageHeight?: number;
-	imageWidth?: number;
-	title: string;
-	type: string;
-	url: string;
-}
-
-export function getAttributes (request: Hapi.Request, wikiVars: any): Promise<any> {
-	// Discussions path
-	if (request.path.split('/')[1] === 'd') {
-		return getPromiseForDiscussionData(request, wikiVars);
-	}
-
-	return Promise.resolve({});
-}
-
-function getPromiseForDiscussionData (request: Hapi.Request, wikiVars: any): Promise<any> {
-	var apiUrl: string,
-		openGraphData: any = {},
-		regexMatch: any,
-		i18n = request.server.methods.i18n.getInstance();
+/**
+ * @param {Hapi.Request} request
+ * @param {*} wikiVars
+ * @returns {Promise}
+ */
+function getPromiseForDiscussionData(request, wikiVars) {
+	const i18n = request.server.methods.i18n.getInstance(),
+		openGraphData = {};
 
 	// Discussion post
 	if (request.params.type === 'p' && request.params.id) {
 		// Get post ID, which might be prepended with slug text
-		regexMatch = request.params.id.match(/(\d+)$/);
+		const regexMatch = request.params.id.match(/(\d+)$/);
+
 		if (regexMatch !== null) {
-			apiUrl = 'http://' + localSettings.servicesDomain + '/'
-				+ localSettings.discuss.baseAPIPath + '/' + wikiVars.id
-				+ '/threads/' + regexMatch[1];
+			const apiUrl = `http://${localSettings.servicesDomain}/${localSettings.discuss.baseAPIPath}` +
+				`/${wikiVars.id}/threads/${regexMatch[1]}`;
 
 			openGraphData.type = 'article';
 			openGraphData.url = wikiVars.basePath + request.path;
 			// Use Wikia logo as default image
-			openGraphData.image = 'http:' + Utils.getStaticAssetPath(localSettings, request)
-				+ 'images/wikia-mark-1200.jpg';
+			openGraphData.image = `http:${Utils.getStaticAssetPath(localSettings, request)}` +
+				'images/wikia-mark-1200.jpg';
 			openGraphData.imageWidth = 1200;
 			openGraphData.imageHeight = 1200;
 
-			return new Promise((resolve: Function, reject: Function): void => {
+			/**
+			 * @param {Function} resolve
+			 * @param {Function} reject
+			 * @returns {void}
+			 */
+			return new Promise((resolve, reject) => {
 				// Fetch discussion post data from the API to complete the OG data
 				MW.fetch(apiUrl)
-					.then((response: any): void => {
-						var content = response._embedded.firstPost[0].rawContent;
-						openGraphData.title = response.title ? response.title :
+					/**
+					 * @param {*} response
+					 * @returns {void}
+					 */
+					.then((response) => {
+						const content = response._embedded.firstPost[0].rawContent;
+
+						openGraphData.title = response.title ?
+							response.title :
 							i18n.t('main.share-default-title', {siteName: wikiVars.siteName, ns: 'discussion'});
 						// Keep description to 175 characters or less
 						openGraphData.description = content.substr(0, 175);
@@ -63,7 +67,11 @@ function getPromiseForDiscussionData (request: Hapi.Request, wikiVars: any): Pro
 						}
 						resolve(openGraphData);
 					})
-					.catch((error: any): void => {
+					/**
+					 * @param {*} error
+					 * @returns {void}
+					 */
+					.catch((error) => {
 						reject(error);
 					});
 			});
@@ -72,3 +80,21 @@ function getPromiseForDiscussionData (request: Hapi.Request, wikiVars: any): Pro
 
 	return Promise.resolve(openGraphData);
 }
+
+exports.getPromiseForDiscussionData = getPromiseForDiscussionData;
+
+/**
+ * @param {Hapi.Request} request
+ * @param {*} wikiVars
+ * @returns {Promise}
+ */
+function getAttributes(request, wikiVars) {
+	// Discussions path
+	if (request.path.split('/')[1] === 'd') {
+		return getPromiseForDiscussionData(request, wikiVars);
+	}
+
+	return Promise.resolve({});
+}
+
+exports.getAttributes = getAttributes;
