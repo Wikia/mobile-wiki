@@ -1,11 +1,9 @@
 {
-  "open-graph":{
-    "generic-title":"__siteName__についてのトーク"
-  },
   "landing-page":{
     "to-the-wiki-title":"ウィキアへ",
     "page-main-header":"熱烈なファン同士、__applicationName__のトークで盛り上がろう。",
     "download-the-app-header":"アプリをダウンロードしてトークに参加しよう！",
+    "google-play-button-alt":"Google Playで取得",
     "start-discussions-title":"トークを開始",
     "start-discussions-text":"質問を投稿したり、最新情報を共有したり、興味のあるトピックについて世界中のファンと話し合うことができます。",
     "upvote-the-best-title":"お気に入りに投票する",
@@ -14,6 +12,7 @@
     "share-your-knowledge-text":"ソーシャル・ネットワークでお気に入りのスレッドを共有して、もっと多くのファンを呼び込んでみましょう。"
   },
   "main":{
+    "pagination-post-show-more":"古い返信を表示",
     "share-default-title":"__siteName__についてのトーク",
     "contributors-title":"すべての投稿者",
     "sort-by-latest":"最新",
@@ -28,5 +27,11 @@
     "all-discussions-link-mobile":"すべてのトーク",
     "discussions-app-join":"トークに参加するには、アプリをダウンロードしましょう。",
     "back-to-discussions-link":"すべてのトーク"
+  },
+  "editor":{
+    "post-failed-error":"投稿できませんでした。",
+    "post-editor-label":"投稿を作成",
+    "post-action-button-label":"投稿",
+    "post-editor-placeholder-text":"意見、質問、リンクなどをシェアしてみよう"
   }
 }

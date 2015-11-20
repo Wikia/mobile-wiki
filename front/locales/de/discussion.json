@@ -1,18 +1,37 @@
 {
-  "main": {
-    "share-default-title": "Diskussion in __siteName__",
-    "contributors-title": "Alle Beitragenden",
-    "sort-by-latest": "Neueste",
-    "sort-by-trending": "Trends",
-    "loading-more-posts": "Mehr Beiträge laden",
-    "back-to-wikia-link": "Zum Wiki",
-    "number-of-posts": "__numberOfPosts__ Beiträge",
-    "connection-error": "Es kann keine Verbindung hergestellt werden, bitte versuche es noch einmal.",
-    "not-found-error": "Hoppla, diese Seite gibt es scheinbar nicht!",
-    "action-retry-title": "Noch einmal versuchen",
-    "all-discussions-link-desktop": "Alle Diskussionen anzeigen",
-    "all-discussions-link-mobile": "Alle Diskussionen",
-    "discussions-app-join": "Möchtest du mitdiskutieren? Besorge dir jetzt die App!",
-    "back-to-discussions-link": "Alle Diskussionen"
+  "landing-page":{
+    "to-the-wiki-title":"Zum Wiki",
+    "page-main-header":"Führe mit den größten Fans die heißesten Diskussionen über __applicationName__.",
+    "download-the-app-header":"Lade dir jetzt die App herunter und mach mit!",
+    "google-play-button-alt":"Hol es dir auf Google Play",
+    "start-discussions-title":"Diskussionen beginnen",
+    "start-discussions-text":"Stelle Fragen, teile Neuigkeiten mit anderen oder unterhalte dich einfach mit Fans auf der ganzen Welt über deine Lieblingsthemen!",
+    "upvote-the-best-title":"Stimme für das Beste ab",
+    "upvote-the-best-text":"Du hast etwas tolles entdeckt? Stimme dafür ab, zeige damit deine Anerkennung und beeinflusse kommende Trends.",
+    "share-your-knowledge-title":"Teile dein Wissen",
+    "share-your-knowledge-text":"Teile deine Lieblingsdiskussionen mit deinen Sozialen Netzwerken und vergrößere damit unsere Fan-Community."
+  },
+  "main":{
+    "pagination-post-show-more":"Ältere Antworten anzeigen",
+    "share-default-title":"Diskussion in __siteName__",
+    "contributors-title":"Alle Beitragenden",
+    "sort-by-latest":"Neueste",
+    "sort-by-trending":"Trends",
+    "loading-more-posts":"Mehr Beiträge laden",
+    "back-to-wikia-link":"Zum Wiki",
+    "number-of-posts":"__numberOfPosts__ Beiträge",
+    "connection-error":"Es kann keine Verbindung hergestellt werden, bitte versuche es noch einmal.",
+    "not-found-error":"Hoppla, diese Seite gibt es scheinbar nicht!",
+    "action-retry-title":"Noch einmal versuchen",
+    "all-discussions-link-desktop":"Alle Diskussionen anzeigen",
+    "all-discussions-link-mobile":"Alle Diskussionen",
+    "discussions-app-join":"Möchtest du mitdiskutieren? Besorge dir jetzt die App!",
+    "back-to-discussions-link":"Alle Diskussionen"
+  },
+  "editor":{
+    "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",
+    "post-editor-label":"Beitrag erstellen",
+    "post-action-button-label":"Veröffentlichen",
+    "post-editor-placeholder-text":"Teile einen Gedanken, eine Frage oder einen Link..."
   }
 }

@@ -1,5 +1,18 @@
 {
+  "landing-page":{
+    "to-the-wiki-title":"alla Wiki",
+    "page-main-header":"I forum più interessanti su __applicationName__ con i fan più appassionati.",
+    "download-the-app-header":"Scarica l'app per partecipare subito!",
+    "google-play-button-alt":"Scarica da Google Play",
+    "start-discussions-title":"Comincia un forum",
+    "start-discussions-text":"Fai una domanda, condividi notizie o parla con altri fan attorno al mondo dei tuoi argomenti preferiti!",
+    "upvote-the-best-title":"Vota il migliore",
+    "upvote-the-best-text":"Hai trovato un contributo che ti entusiasma? Vota per mostrare il tuo apprezzamento e per avere un impatto sugli argomenti in trend.",
+    "share-your-knowledge-title":"Condividi la tua conoscenza",
+    "share-your-knowledge-text":"Condividi i tuoi forum preferiti con i social network per allargare la tua schiera di fan."
+  },
   "main":{
+    "pagination-post-show-more":"Risposte precedenti",
     "share-default-title":"Forum su __siteName__",
     "contributors-title":"Tutti i collaboratori",
     "sort-by-latest":"Più recenti",
@@ -14,5 +27,11 @@
     "all-discussions-link-mobile":"Tutti i forum",
     "discussions-app-join":"Vuoi unirti al forum? Scarica la app!",
     "back-to-discussions-link":"Tutti i forum"
+  },
+  "editor":{
+    "post-failed-error":"Post non pubblicato",
+    "post-editor-label":"Crea un post",
+    "post-action-button-label":"Pubblica",
+    "post-editor-placeholder-text":"Condividi un pensiero, domande o un link..."
   }
 }
