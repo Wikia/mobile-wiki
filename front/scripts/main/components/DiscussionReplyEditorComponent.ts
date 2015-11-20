@@ -91,8 +91,9 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 				});
 
 				this.$('.editor-textarea').val('');
-
 				Em.set(newReply, 'isVisible', true);
+
+				Em.$('html, body').animate({ scrollTop: Em.$(document).height() });
 
 				Em.run.next(this, () => {
 					this.incrementProperty('postCount');
@@ -128,7 +129,6 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		 */
 		create(forumId: string): void {
 			this.set('isLoading', true);
-			Em.$('html, body').animate({ scrollTop: 0 });
 
 			this.sendAction('createReply', {
 				body: this.$('.editor-textarea').val(),
