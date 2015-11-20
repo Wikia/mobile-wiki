@@ -28,7 +28,7 @@ App.DiscussionPostController = Em.Controller.extend({
 			model.loadNextPage().then(() => {
 				var model = this.get('model');
 				if (model.get('minorError')) {
-					this.set('numRepliesLoaded', model.postCount);
+					this.set('numRepliesLoaded', model.get('postCount'));
 				} else {
 					this.set('numRepliesLoaded', model.get('replies.length'));
 				}
@@ -55,10 +55,8 @@ App.DiscussionPostController = Em.Controller.extend({
 		 * @returns {void}
 		 */
 		goToForum(): void {
-			var model = this.get('model'),
-				forumId = Em.get(model, 'forumId');
-
-			this.get('target').send('goToForum', forumId, this.get('postListSort'));
+			var model = this.get('model');
+			this.get('target').send('goToForum', model.get('forumId'), this.get('postListSort'));
 		}
 	}
 });

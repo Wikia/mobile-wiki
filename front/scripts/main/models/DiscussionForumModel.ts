@@ -102,7 +102,7 @@ App.DiscussionForumModel.reopenClass({
 					resolve(forumInstance);
 				},
 				error: (err: any) => {
-					this.handleLoadMoreError(err);
+					this.setErrorProperty(err);
 					resolve(forumInstance);
 				}
 			});

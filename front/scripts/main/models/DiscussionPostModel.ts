@@ -116,7 +116,7 @@ App.DiscussionPostModel.reopenClass({
 					resolve(postInstance);
 				},
 				error: (err: any) => {
-					this.handleLoadMoreError(err);
+					this.setErrorProperty(err);
 					resolve(postInstance);
 				}
 			});
