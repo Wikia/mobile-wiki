@@ -12,7 +12,7 @@ App.LightboxAdsComponent = Em.Component.extend({
 			showCloseButtonAfterCountDown = (): void => {
 				if (this.get('lightboxCloseButtonDelay') > 0) {
 					Em.run.later(this, (): void => {
-						this.set('lightboxCloseButtonDelay', this.get('lightboxCloseButtonDelay')-1);
+						this.decrementProperty('lightboxCloseButtonDelay');
 						showCloseButtonAfterCountDown();
 					}, 1000);
 				} else {
