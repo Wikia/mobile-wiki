@@ -182,7 +182,6 @@
     "spaced-comment": [2, "always"],
     "wrap-regex": 1,
     // ECMA Script 6
-    // Adjust this rules when you're using ES6 in files (see .eslintrc in front directory)
     "arrow-parens": [2, "always"],
     "arrow-spacing": [2, { "before": true, "after": true }],
     "constructor-super": 2,
