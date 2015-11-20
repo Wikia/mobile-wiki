@@ -1,15 +1,21 @@
 {
   "name": "Mercury",
-  "version": "190.0.0",
+  "version": "0.0.0",
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
     "dev": "rm -rf www && gulp --nosync",
     "local": "rm -rf www && gulp",
-    "start": "rm -rf www && npm run build && node www/server/server.js",
-    "test": "rm -rf www && gulp build --type prod --nosync --testing && gulp karma && gulp node-test",
-    "coverage": "rm -rf www && gulp build --nosync --testing && gulp karma && gulp node-test",
-    "build": "gulp build --type prod --nosync"
+    "start": "npm run build && node www/server/server.js",
+
+    "test": "npm run build-test && npm run test-front && npm run test-server",
+    "coverage": "npm run build-coverage && npm run test-front && npm run test-server",
+    "test-front": "gulp karma",
+    "test-server": "gulp node-test",
+
+    "build": "rm -rf www && gulp build --type prod --nosync",
+    "build-coverage": "rm -rf www && gulp build --nosync --testing",
+    "build-test": "rm -rf www && gulp build --type prod --nosync --testing"
   },
   "repository": "git://github.com/Wikia/mercury.git",
   "license": "MIT",
