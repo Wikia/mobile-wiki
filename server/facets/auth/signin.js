@@ -1,21 +1,25 @@
-/// <reference path='../../../typings/hapi/hapi.d.ts' />
-import authUtils = require('../../lib/AuthUtils');
-import localSettings = require('../../../config/localSettings');
-import authView = require('./authView');
-var deepExtend = require('deep-extend');
+const authUtils = require('../../lib/AuthUtils'),
+	localSettings = require('../../../config/localSettings'),
+	authView = require('./authView'),
+	deepExtend = require('deep-extend');
 
+/**
+ * @typedef {Object} SignInViewContext
+ * @extends AuthViewContext
+ * @property {string} headerText
+ * @property {string} [headerSlogan]
+ * @property {string} [forgotPasswordHref]
+ * @property {string} heliosLoginURL
+ * @property {string} heliosFacebookURL
+ */
 
-interface SignInViewContext extends authView.AuthViewContext {
-	headerText: string;
-	headerSlogan?: string;
-	forgotPasswordHref?: string;
-	heliosLoginURL: string;
-	heliosFacebookURL: string;
-}
-
-function getSignInViewContext (request: Hapi.Request, redirect: string): SignInViewContext {
-	return deepExtend(
-		authView.getDefaultContext(request),
+/**
+ * @param {Hapi.Request} request
+ * @param {string} redirect
+ * @returns {SignInViewContext}
+ */
+function getSignInViewContext(request, redirect) {
+	return deepExtend(authView.getDefaultContext(request),
 		{
 			title: 'auth:signin.signin-title',
 			headerText: 'auth:signin.welcome-back',
@@ -36,9 +40,13 @@ function getSignInViewContext (request: Hapi.Request, redirect: string): SignInV
 	);
 }
 
-function getFBSignInViewContext (request: Hapi.Request, redirect: string): SignInViewContext {
-	return deepExtend(
-		authView.getDefaultContext(request),
+/**
+ * @param {Hapi.Request} request
+ * @param {string} redirect
+ * @returns {SignInViewContext}
+ */
+function getFBSignInViewContext(request, redirect) {
+	return deepExtend(authView.getDefaultContext(request),
 		{
 			title: 'auth:common.connect-with-facebook',
 			headerText: 'auth:common.connect-with-facebook',
@@ -60,9 +68,14 @@ function getFBSignInViewContext (request: Hapi.Request, redirect: string): SignI
 	);
 }
 
-function getSignInPage (request: Hapi.Request, reply: any) : Hapi.Response {
-	var redirect: string = authView.getRedirectUrl(request),
-		context: SignInViewContext = getSignInViewContext(request, redirect);
+/**
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ * @returns {Hapi.Response}
+ */
+function getSignInPage(request, reply) {
+	const redirect = authView.getRedirectUrl(request),
+		context = getSignInViewContext(request, redirect);
 
 	if (request.auth.isAuthenticated) {
 		return authView.onAuthenticatedRequestReply(request, reply, context);
@@ -71,9 +84,14 @@ function getSignInPage (request: Hapi.Request, reply: any) : Hapi.Response {
 	return authView.view('signin', context, request, reply);
 }
 
-function getFacebookSignInPage (request: Hapi.Request, reply: any) : Hapi.Response {
-	var redirect: string = authView.getRedirectUrl(request),
-		context: SignInViewContext = getFBSignInViewContext(request, redirect);
+/**
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ * @returns {Hapi.Response}
+ */
+function getFacebookSignInPage(request, reply) {
+	const redirect = authView.getRedirectUrl(request),
+		context = getFBSignInViewContext(request, redirect);
 
 	if (request.auth.isAuthenticated) {
 		return authView.onAuthenticatedRequestReply(request, reply, context);
@@ -82,10 +100,15 @@ function getFacebookSignInPage (request: Hapi.Request, reply: any) : Hapi.Respon
 	return authView.view('signin-fb', context, request, reply);
 }
 
-export function get (request: Hapi.Request, reply: any): void {
+/**
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ * @returns {void}
+ */
+exports.get = function (request, reply) {
 	if (request.query.method === 'facebook') {
 		getFacebookSignInPage(request, reply);
 	} else {
 		getSignInPage(request, reply);
 	}
-}
+};

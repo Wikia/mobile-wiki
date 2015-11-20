@@ -1,24 +1,26 @@
-/// <reference path='../../../typings/hapi/hapi.d.ts' />
-import authUtils = require('../../lib/AuthUtils');
-import caching = require('../../lib/Caching');
-import localSettings = require('../../../config/localSettings');
-import authView = require('./authView');
-var deepExtend = require('deep-extend');
+const authUtils = require('../../lib/AuthUtils'),
+	caching = require('../../lib/Caching'),
+	localSettings = require('../../../config/localSettings'),
+	authView = require('./authView'),
+	deepExtend = require('deep-extend'),
+	url = require('url');
 
-import url = require('url');
+/**
+ * @typedef {Object} JoinViewContext
+ * @extends {AuthViewContext}
+ * @property {string} loginRoute
+ * @property {string} signupHref
+ * @property {string} heliosFacebookURL
+ * @property {number} [facebookAppId]
+ */
 
-interface JoinViewContext extends authView.AuthViewContext {
-	loginRoute: string;
-	signupHref: string;
-	heliosFacebookURL: string;
-	facebookAppId?: number;
-}
-
-function get (request: Hapi.Request, reply: any): Hapi.Response {
-	var context: JoinViewContext,
-		response: Hapi.Response;
-
-	context = deepExtend(
+/**
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ * @returns {Hapi.Response}
+ */
+exports.get = function (request, reply) {
+	const context = deepExtend(
 		authView.getDefaultContext(request),
 		{
 			title: 'auth:join.title',
@@ -35,6 +37,8 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 		}
 	);
 
+	let response;
+
 	if (request.auth.isAuthenticated) {
 		return authView.onAuthenticatedRequestReply(request, reply, context);
 	}
@@ -47,6 +51,4 @@ function get (request: Hapi.Request, reply: any): Hapi.Response {
 	}
 
 	return authView.view('join-page', context, request, reply);
-}
-
-export = get;
+};

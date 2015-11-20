@@ -1,6 +1,9 @@
-/// <reference path="../../../typings/hapi/hapi.d.ts" />
-function logout (request: Hapi.Request, reply: any): void {
+/**
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ * @returns {void}
+ */
+exports.logout = function (request, reply) {
 	reply.unstate('access_token');
 	reply.redirect('/');
-}
-export = logout;
+};
