@@ -155,7 +155,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		handleKeyPress(forumId: string, event: KeyboardEvent) :void {
 			if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
 				// Create post on CTRL + ENTER
-				this.send('createReply', forumId);
+				this.send('create', forumId);
 			}
 		}
 	}
