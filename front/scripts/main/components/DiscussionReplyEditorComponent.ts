@@ -2,7 +2,7 @@
 'use strict';
 
 App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
-	classNames: ['discussion-editor', 'mobile-hidden', 'reply-editor'],
+	classNames: ['discussion-editor', 'reply-editor'],
 
 	placeholderText: 'editor.reply-editor-placeholder-text',
 	submitText: 'editor.reply-action-button-label',
