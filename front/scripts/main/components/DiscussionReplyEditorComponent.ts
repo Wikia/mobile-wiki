@@ -22,7 +22,6 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	setStickyPositioning(): void {
-		debugger;
 		if (window.innerHeight < this.$().offset().top + this.$().height()) {
 			this.set('isSticky', true);
 		} else {
@@ -117,7 +116,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		handleKeyPress(forumId: string, event: KeyboardEvent) :void {
 			if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
 				// Create post on CTRL + ENTER
-				this.send('createPost', forumId);
+				this.send('createReply', forumId);
 			}
 		}
 	}
