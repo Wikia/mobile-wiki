@@ -1,38 +1,32 @@
-/// <reference path="../../config/localSettings.d.ts" />
-/// <reference path="../../typings/hapi/hapi.d.ts" />
-/// <reference path="../../typings/hoek/hoek.d.ts" />
-/// <reference path="../../typings/mercury/mercury-server.d.ts" />
-/// <reference path="../../typings/hapi/hapi.d.ts" />
-
-import Hoek = require('hoek');
-import Url = require('url');
-import QueryString = require('querystring');
-
 /**
  * Utility functions
  */
 
-/**
- * Environment types
- */
-export enum Environment {
-	Prod,
-	Verify,
-	Preview,
-	Sandbox,
-	Dev,
-	Testing
-}
+const Hoek = require('hoek'),
+	Url = require('url'),
+	QueryString = require('querystring'),
+	// Environment types
+	Environment = {
+		Prod: 'Prod',
+		Verify: 'Verify',
+		Preview: 'Preview',
+		Sandbox: 'Sandbox',
+		Dev: 'Dev',
+		Testing: 'Testing'
+	},
+	wikiDomainsCache = {};
+
+exports.Environment = Environment;
 
 /**
- * @desc Get environment from string
+ * Get environment from string
  *
  * @param {string} environment Environment name
  * @param {Environment} fallbackEnvironment Fallback environment
  * @returns {Environment}
  */
-export function getEnvironment (environment: string, fallbackEnvironment: Environment = Environment.Dev): Environment {
-	var environments: {[id: string]: Environment} = {
+function getEnvironment(environment, fallbackEnvironment = Environment.Dev) {
+	const environments = {
 		prod: Environment.Prod,
 		verify: Environment.Verify,
 		preview: Environment.Preview,
@@ -40,28 +34,34 @@ export function getEnvironment (environment: string, fallbackEnvironment: Enviro
 		dev: Environment.Dev,
 		testing: Environment.Testing
 	};
+
 	if (environments.hasOwnProperty(environment)) {
 		return environments[environment];
 	}
 	return fallbackEnvironment;
 }
 
+exports.getEnvironment = getEnvironment;
+
 /**
- * @desc Get environment as string
+ * Get environment as string
  *
  * @param {Environment} environment
- * @return {string}
+ * @returns {string}
  */
-export function getEnvironmentString (environment: Environment): string {
+function getEnvironmentString(environment) {
 	return Environment[environment].toLowerCase();
 }
 
+exports.getEnvironmentString = getEnvironmentString;
+
 /**
- * @desc Strip dev- prefix from devbox domain
+ * Strip dev- prefix from devbox domain
  *
+ * @param {string} host
  * @returns {string}
  */
-export function stripDevboxDomain (host: string): string {
+function stripDevboxDomain(host) {
 	if (host && host.substring(0, 4) === 'dev-') {
 		host = host.substring(4);
 	}
@@ -69,111 +69,174 @@ export function stripDevboxDomain (host: string): string {
 	return host;
 }
 
-var wikiDomainsCache: { [key: string]: string; } = {};
+exports.stripDevboxDomain = stripDevboxDomain;
+
 /**
- * Get cached Media Wiki domain name from the request host
- *
- * @returns {string} Host name to use for API
+ * @param {LocalSettings} localSettings
+ * @param {string} hostName
+ * @returns {boolean}
  */
-export function getCachedWikiDomainName (localSettings: LocalSettings, request: Hapi.Request): string {
-	var wikiDomain: string,
-		host = getHostFromRequest(request);
-
-	host = clearHost(host);
-	wikiDomain = wikiDomainsCache[host];
-
-	return wikiDomainsCache[host] = wikiDomain ? wikiDomain : getWikiDomainName(localSettings, host);
+function isXipHost(localSettings, hostName) {
+	return localSettings.environment === Environment.Dev &&
+		hostName.search(/(?:[\d]{1,3}\.){4}xip\.io$/) !== -1;
 }
 
+exports.isXipHost = isXipHost;
+
 /**
- * @desc Generate wiki host name from the request host
- *
- * @param localSettings
- * @param hostName
+ * @param {LocalSettings} localSettings
  * @returns {string}
  */
-export function getWikiDomainName (localSettings: LocalSettings, hostName: string = ''): string {
-	var regex: RegExp,
-		match: RegExpMatchArray;
+function getCDNBaseUrl(localSettings) {
+	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : '';
+}
 
+exports.getCDNBaseUrl = getCDNBaseUrl;
+
+/**
+ * Get Host from request. First check if x-original-host exists.
+ * Header x-original-host is added by Fastly and represents the host name of resource requested by user.
+ * If x-original-host header doesn't exist check host header.
+ * When request goes through Fastly host header contains original host with stripped staging env.
+ * For instance for preview.muppet.wikia.com host is muppet.wikia.com.
+ * When request doesn't go through Fastly (local environment) host header contains original host
+ *
+ * @param {Hapi.Request} request
+ * @returns {string}
+ */
+function getHostFromRequest(request) {
+	return request.headers['x-original-host'] || request.headers.host;
+}
+
+exports.getHostFromRequest = getHostFromRequest;
+
+/**
+ * Generate wiki host name from the request host
+ *
+ * @param {LocalSettings} localSettings
+ * @param {string} [hostName='']
+ * @returns {string}
+ */
+function getWikiDomainName(localSettings, hostName = '') {
 	if (isXipHost(localSettings, hostName)) {
 		/**
 		 * Regular expression for extracting wiki name from hostName.
 		 * Wiki name is used for creating an url to devbox
 		 * HostName looks like: mlp.127.0.0.1.xip.io.
 		 * First match contains wiki name which is later used.
-		 *
-		 * @type {RegExp}
 		 */
-		regex = /^\.?(.+?)\.((?:[\d]{1,3}\.){3}[\d]{1,3}\.xip.io)$/;
-		match = hostName.match(regex);
-		return match ? match[1] + '.' + localSettings.devboxDomain + '.wikia-dev.com'  : hostName;
+		const regex = /^\.?(.+?)\.((?:[\d]{1,3}\.){3}[\d]{1,3}\.xip.io)$/,
+			match = hostName.match(regex);
+
+		return match ? `${match[1]}.${localSettings.devboxDomain}.wikia-dev.com` : hostName;
 	} else {
 		return hostName;
 	}
 }
 
+exports.getWikiDomainName = getWikiDomainName;
+
 /**
- * @desc Get the subdomain of a given Wikia host
+ * Get the subdomain of a given Wikia host
  *
  * @param {string} host
  * @returns {string}
  */
-export function getWikiaSubdomain(host: string): string {
+function getWikiaSubdomain(host) {
 	return host.replace(
 		/^(?:(?:verify|preview|sandbox-[^.]+)\.)?([a-z\d.]*[a-z\d])\.(?:wikia|[a-z\d]+\.wikia-dev)?\.com/,
 		'$1'
 	);
 }
 
+exports.getWikiaSubdomain = getWikiaSubdomain;
+
 /**
- * @desc Removes the port from hostname as well as ad domain aliases
+ * Removes the port from hostname as well as ad domain aliases
  *
  * @param {string} host
  * @returns {string}
  */
-export function clearHost (host: string): string {
+function clearHost(host) {
 	// We use two special domain prefixes for Ad Operation and Sales reasons
 	// They behave similar to our staging prefixes but are not staging machines
 	// Talk to Ad Engineering Team if you want to learn more
-	var adDomainAliases: Array<string> = ['externaltest', 'showcase'];
+	const adDomainAliases = ['externaltest', 'showcase'];
 
-	host = host.split(':')[0]; // get rid of port
-	Object.keys(adDomainAliases).forEach(function (key): void {
+	// get rid of port
+	host = host.split(':')[0];
+
+	// get rid of domain aliases
+	/**
+	 * @param {*} key
+	 * @returns {void}
+	 */
+	Object.keys(adDomainAliases).forEach((key) => {
 		if (host.indexOf(adDomainAliases[key]) === 0) {
-			host = host.replace(adDomainAliases[key] + '.', ''); // get rid of domain aliases
+			host = host.replace(`${adDomainAliases[key]}.`, '');
 		}
 	});
 
 	return host;
 }
 
+exports.clearHost = clearHost;
+
 /**
- * @desc Get vertical color from localSettings
+ * Get cached Media Wiki domain name from the request host
+ *
+ * @param {LocalSettings} localSettings
+ * @param {Hapi.Request} request
+ * @returns {string} Host name to use for API
+ */
+function getCachedWikiDomainName(localSettings, request) {
+	const host = clearHost(getHostFromRequest(request)),
+		wikiDomain = wikiDomainsCache[host];
+
+	wikiDomainsCache[host] = wikiDomain ? wikiDomain : getWikiDomainName(localSettings, host);
+
+	return wikiDomainsCache[host];
+}
+
+exports.getCachedWikiDomainName = getCachedWikiDomainName;
+
+/**
+ * Get vertical color from localSettings
  *
  * @param {LocalSettings} localSettings
  * @param {string} vertical
- * @return {string}
+ * @returns {string}
  */
-export function getVerticalColor (localSettings: LocalSettings, vertical: string): string {
+function getVerticalColor(localSettings, vertical) {
 	if (localSettings.verticalColors.hasOwnProperty(vertical)) {
 		return localSettings.verticalColors[vertical];
 	}
 	return null;
 }
 
-export function parseQueryParams (obj: any, allowedKeys: string[]): any {
-	var parsed: any = {},
-		rawProp: string,
-		prop: any;
+exports.getVerticalColor = getVerticalColor;
+
+/**
+ * @param {*} obj
+ * @param {string[]} allowedKeys
+ * @returns {*}
+ */
+function parseQueryParams(obj, allowedKeys) {
+	const parsed = {};
 
 	if (allowedKeys instanceof Array) {
-		allowedKeys.forEach(key => {
+		/**
+		 * @param {*} key
+		 * @returns {void}
+		 */
+		allowedKeys.forEach((key) => {
 			if (obj.hasOwnProperty(key)) {
-				rawProp = obj[key];
+				const rawProp = obj[key];
 
-				if (!isNaN(+rawProp)) {
-					prop = +rawProp;
+				let prop;
+
+				if (!isNaN(rawProp)) {
+					prop = rawProp;
 				} else if (rawProp.toLowerCase() === 'true') {
 					prop = true;
 				} else if (rawProp.toLowerCase() === 'false') {
@@ -190,24 +253,38 @@ export function parseQueryParams (obj: any, allowedKeys: string[]): any {
 	return parsed;
 }
 
+exports.parseQueryParams = parseQueryParams;
+
 /**
  * (HG-753) This allows for loading article content asynchronously while providing a version of the page with
  * article content that search engines can still crawl.
  * @see https://developers.google.com/webmasters/ajax-crawling/docs/specification
+ *
+ * @param {LocalSettings} localSettings
+ * @param {string} host
+ * @returns {boolean}
  */
-export function shouldAsyncArticle(localSettings: LocalSettings, host: string): boolean {
-	return localSettings.asyncArticle.some((communityName: string) => !!host.match(communityName));
+function shouldAsyncArticle(localSettings, host) {
+	/**
+	 * @param {string} communityName
+	 * @returns {boolean}
+	 */
+	return localSettings.asyncArticle.some((communityName) => Boolean(host.match(communityName)));
 }
+
+exports.shouldAsyncArticle = shouldAsyncArticle;
 
 /**
  * Create server data
  *
- * @returns ServerData
+ * @param {LocalSettings} localSettings
+ * @param {string} [wikiDomain='']
+ * @returns {ServerData}
  */
-export function createServerData(localSettings: LocalSettings, wikiDomain: string = ''): ServerData {
+function createServerData(localSettings, wikiDomain = '') {
 	// if no environment, pass dev
-	var env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev,
-		data: any = {
+	const env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev,
+		data = {
 			mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
 			apiBase: localSettings.apiBase,
 			environment: getEnvironmentString(env),
@@ -215,11 +292,13 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
 		};
 
 	if (localSettings.optimizely.enabled) {
-		data.optimizelyScript = localSettings.optimizely.scriptPath + localSettings.optimizely.account + '.js';
+		data.optimizelyScript = `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`;
 	}
 
 	return data;
 }
+
+exports.createServerData = createServerData;
 
 /**
  * Gets the domain and path for a static asset
@@ -228,62 +307,56 @@ export function createServerData(localSettings: LocalSettings, wikiDomain: strin
  * @param {Hapi.Request} request
  * @returns {string}
  */
-export function getStaticAssetPath(localSettings: LocalSettings, request: Hapi.Request): string {
-	var env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev;
-	return env !== Environment.Dev
+function getStaticAssetPath(localSettings, request) {
+	const env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev;
+
+	return env !== Environment.Dev ?
 		// The CDN path should match what's used in https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
-		? localSettings.cdnBaseUrl + '/mercury-static/'
-		: '//' + getCachedWikiDomainName(localSettings, request) + '/front/';
+		`${localSettings.cdnBaseUrl}/mercury-static/` :
+		`//${getCachedWikiDomainName(localSettings, request)}/front/`;
 }
 
-export function getCDNBaseUrl(localSettings: LocalSettings): String {
-	return localSettings.environment !== Environment.Dev ? localSettings.cdnBaseUrl : '';
-}
+exports.getStaticAssetPath = getStaticAssetPath;
 
 /**
- * Get Host from request. First check if x-original-host exists.
- * Header x-original-host is added by Fastly and represents the host name of resource requested by user.
- * If x-original-host header doesn't exist check host header.
- * When request goes through Fastly host header contains original host with stripped staging env.
- * For instance for preview.muppet.wikia.com host is muppet.wikia.com.
- * When request doesn't go through Fastly (local environment) host header contains original host
- *
- * @param request
- * @returns {string}
+ * @class RedirectedToCanonicalHost
  */
-export function getHostFromRequest(request: Hapi.Request): string {
-	return request.headers['x-original-host'] || request.headers.host;
+class RedirectedToCanonicalHost {
+	/**
+	 * @returns {void}
+	 */
+	constructor() {
+		Error.apply(this, arguments);
+	}
 }
 
-export function isXipHost(localSettings: LocalSettings, hostName: string): boolean {
-	return localSettings.environment === Environment.Dev &&
-		hostName.search(/(?:[\d]{1,3}\.){4}xip\.io$/) !== -1;
-}
+RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
+
+exports.RedirectedToCanonicalHost = RedirectedToCanonicalHost;
 
 /**
  * If user tried to load wiki by its alternative URL then redirect to the primary one based on wikiVariables.basePath
  * If it's a local machine then ignore, no point in redirecting to devbox
  * Throws RedirectedToCanonicalHost so promises can catch it and handle properly
  *
- * @param localSettings
- * @param request
- * @param reply
- * @param wikiVariables
+ * @param {LocalSettings} localSettings
+ * @param {Hapi.Request} request
+ * @param {Hapi.Response} reply
+ * @param {*} wikiVariables
+ * @returns {void}
+ *
  * @throws RedirectedToCanonicalHost
  */
-export function redirectToCanonicalHostIfNeeded(
-	localSettings: LocalSettings, request: Hapi.Request, reply: Hapi.Response, wikiVariables: any
-): void {
-	var requestedHost = getCachedWikiDomainName(localSettings, request),
+function redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables) {
+	const requestedHost = getCachedWikiDomainName(localSettings, request),
 		canonicalHost = Url.parse(wikiVariables.basePath).hostname,
-		isLocal = isXipHost(localSettings, clearHost(getHostFromRequest(request))),
-		redirectLocation: string;
+		isLocal = isXipHost(localSettings, clearHost(getHostFromRequest(request)));
 
 	if (!isLocal && requestedHost !== canonicalHost) {
-		redirectLocation = wikiVariables.basePath + request.path;
+		let redirectLocation = wikiVariables.basePath + request.path;
 
 		if (Object.keys(request.query).length > 0) {
-			redirectLocation += '?' + QueryString.stringify(request.query);
+			redirectLocation += `?${QueryString.stringify(request.query)}`;
 		}
 
 		reply.redirect(redirectLocation).permanent(true);
@@ -291,29 +364,22 @@ export function redirectToCanonicalHostIfNeeded(
 	}
 }
 
-export class RedirectedToCanonicalHost {
-	constructor () {
-		Error.apply(this, arguments);
-	}
-}
-
-RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
+exports.redirectToCanonicalHostIfNeeded = redirectToCanonicalHostIfNeeded;
 
 /**
  * Get HTML title
- * @param {any} wikiVariables
+ *
+ * @param {*} wikiVariables
  * @param {string} displayTitle
  * @returns {string}
  */
-export function getHtmlTitle(wikiVariables: any, displayTitle: string): string {
-	var htmlTitle: string,
-		htmlTitleTemplate: string = (wikiVariables.htmlTitleTemplate) ? wikiVariables.htmlTitleTemplate : '$1 - Wikia';
+function getHtmlTitle(wikiVariables, displayTitle) {
+	const htmlTitleTemplate = (wikiVariables.htmlTitleTemplate) ? wikiVariables.htmlTitleTemplate : '$1 - Wikia';
 
 	if (displayTitle) {
-		htmlTitle = htmlTitleTemplate.replace('$1', displayTitle);
-	} else {
-		htmlTitle = htmlTitleTemplate.substring(5);
+		return htmlTitleTemplate.replace('$1', displayTitle);
 	}
-
-	return htmlTitle;
+	return htmlTitleTemplate.substring(5);
 }
+
+exports.getHtmlTitle = getHtmlTitle;
