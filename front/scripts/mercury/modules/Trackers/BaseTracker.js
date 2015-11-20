@@ -6,9 +6,8 @@
  * @property {HTMLScriptElement} script
  * @property {boolean} usesAdsContext
  */
-export default class BaseTracker {
+class BaseTracker {
 	constructor() {
-		this.script = document.getElementsByTagName('script')[0];
 		this.usesAdsContext = false;
 	}
 
@@ -30,6 +29,10 @@ export default class BaseTracker {
 		elem.async = true;
 		elem.src = this.url();
 
-		this.script.parentNode.insertBefore(elem, this.script);
+		BaseTracker.script.parentNode.insertBefore(elem, BaseTracker.script);
 	}
 }
+
+BaseTracker.script = document.getElementsByTagName('script')[0];
+
+export default BaseTracker;
