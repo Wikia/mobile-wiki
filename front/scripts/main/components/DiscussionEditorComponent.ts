@@ -147,12 +147,14 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			}
 
 			/*
-			iOS hack for position: fixed hack - now we display loading icon.
+			iOS hack for position: fixed - now we display loading icon.
 			 */
-			$('html, body').css({
-				height: '100%',
-				overflow: 'hidden'
-			});
+			if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+				$('html, body').css({
+					height: '100%',
+					overflow: 'hidden'
+				});
+			}
 		} else {
 			$('html, body').css({
 				height: '',
