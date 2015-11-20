@@ -36,6 +36,7 @@ export default class VideoLoader {
 	 */
 	loadPlayerClass() {
 		const provider = this.getProviderName(),
+			playerClass = this.getPlayerClassBaseOnProvider(provider),
 			params = $.extend(this.data.jsParams, {
 				size: {
 					height: this.data.height,
@@ -43,7 +44,7 @@ export default class VideoLoader {
 				}
 			});
 
-		this.player = new playerClassMap[provider](provider, params);
+		this.player = new playerClass(provider, params);
 		this.player.onResize();
 	}
 
@@ -51,7 +52,7 @@ export default class VideoLoader {
 	 * @returns {string}
 	 */
 	getProviderName() {
-		return this.isProvider('ooyala') ? 'ooyala' : this.data.provider || 'base';
+		return this.isProvider('ooyala') ? 'ooyala' : this.data.provider;
 	}
 
 	/**
@@ -59,5 +60,13 @@ export default class VideoLoader {
 	 */
 	onResize() {
 		this.player.onResize();
+	}
+
+	getPlayerClassBaseOnProvider(provider) {
+		if (playerClassMap.hasOwnProperty(provider)) {
+			return playerClassMap[provider];
+		} else {
+			return playerClassMap.base;
+		}
 	}
 }
