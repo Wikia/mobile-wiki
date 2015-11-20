@@ -10,6 +10,7 @@ App.DiscussionBaseModel = Em.Object.extend({
 	errorClass: 'discussion-error-page',
 	connectionError: null,
 	notFoundError: null,
+	
 	/*  Set minorError to true, when you don't want to display error message e.g.:
 	*  404 on infinite scroll, when unable to load non-existing pages
 	*  404 on "view older replies" button, when unable to load non-existing or deleted replies
