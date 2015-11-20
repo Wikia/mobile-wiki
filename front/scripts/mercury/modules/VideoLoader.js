@@ -36,7 +36,7 @@ export default class VideoLoader {
 	 */
 	loadPlayerClass() {
 		const provider = this.getProviderName(),
-			playerClass = this.getPlayerClassBaseOnProvider(provider),
+			playerClass = VideoLoader.getPlayerClassBasedOnProvider(provider),
 			params = $.extend(this.data.jsParams, {
 				size: {
 					height: this.data.height,
@@ -44,7 +44,7 @@ export default class VideoLoader {
 				}
 			});
 
-		this.player = new playerClass(provider, params);
+		this.player = VideoLoader.createPlayer(playerClass, provider, params);
 		this.player.onResize();
 	}
 
@@ -62,7 +62,23 @@ export default class VideoLoader {
 		this.player.onResize();
 	}
 
-	getPlayerClassBaseOnProvider(provider) {
+	/**
+	 * Creates instance of given class
+	 *
+	 * @param {string} playerClass
+	 * @param {string} provider
+	 * @param {Object} params
+	 * @returns {*}
+	 */
+	static createPlayer(playerClass, provider, params) {
+		return new playerClass(provider, params);
+	}
+
+	/**
+	 * @param {string} provider
+	 * @returns {class}
+	 */
+	static getPlayerClassBasedOnProvider(provider) {
 		if (playerClassMap.hasOwnProperty(provider)) {
 			return playerClassMap[provider];
 		} else {
