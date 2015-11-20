@@ -157,6 +157,14 @@ $horizontal-padding: 15px;
 		}
 	}
 
+	.post-reply {
+		display: none;
+
+		&.is-visible {
+			display: block;
+		}
+	}
+
 	.see-more {
 		background-color: $discussion-see-more-color;
 		border-width: 0;

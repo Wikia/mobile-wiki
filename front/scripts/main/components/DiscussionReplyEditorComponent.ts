@@ -64,6 +64,42 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	}),
 
 	/**
+	 * Perform animations and logic after reply creation
+	 * @returns {void}
+	 */
+	handleNewReplyCreated: Em.observer('replies.@each.isNew', function (): void {
+		var newReplies = this.get('replies').filter(function (reply: any): boolean {
+				return reply.isNew;
+			}),
+			newReply = newReplies.get('firstObject');
+
+		if (newReply) {
+			this.setProperties({
+				isLoading: false,
+				showSuccess: true
+			});
+
+			Em.set(newReply, 'isVisible', false);
+
+			Em.run.later(this, () => {
+				this.setProperties({
+					showSuccess: false,
+					isActive: false,
+					submitDisabled: false
+				});
+
+				this.$('.editor-textarea').val('');
+
+				Em.set(newReply, 'isVisible', true);
+
+				Em.run.next(this, () => {
+					Em.set(newReply, 'isNew', false);
+				});
+			}, 2000);
+		}
+	}),
+
+	/**
 	 * Handle clicks - focus in textarea and activate editor
 	 * @returns {void}
 	 */
