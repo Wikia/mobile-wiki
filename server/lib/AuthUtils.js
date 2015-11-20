@@ -1,59 +1,87 @@
-/// <reference path='../../typings/node/node.d.ts' />
 /**
- * @description Helper methods for the Auth Flow
+ * Helper methods for the Auth Flow
  */
 
-import url = require('url');
-import querystring = require('querystring');
-import localSettings = require('../../config/localSettings');
+const url = require('url'),
+	querystring = require('querystring'),
+	localSettings = require('../../config/localSettings'),
+	// @todo seems unused: wikiaSignupPathname = '/wiki/Special:UserSignup',
+	wikiaLoginPathname = '/wiki/Special:UserLogin',
+	forgotPasswordSearch = '?type=forgotPassword';
 
-var wikiaSignupPathname: string = '/wiki/Special:UserSignup',
-	wikiaLoginPathname: string = '/wiki/Special:UserLogin',
-	forgotPasswordSearch: string = '?type=forgotPassword';
-
-export function getRegisterUrl(request: Hapi.Request): string {
+/**
+ * @param {Hapi.Request} request
+ * @returns {string}
+ */
+exports.getRegisterUrl = function (request) {
 	return this.getRedirectUrlWithQueryString('register', request);
-}
+};
 
-export function getForgotPasswordUrlFromRedirect(redirect: string): string {
-	var forgotPasswordUrlObj = url.parse(redirect);
+/**
+ * @param {string} redirect
+ * @returns {string}
+ */
+exports.getForgotPasswordUrlFromRedirect = function (redirect) {
+	const forgotPasswordUrlObj = url.parse(redirect);
+
 	forgotPasswordUrlObj.pathname = wikiaLoginPathname;
 	forgotPasswordUrlObj.search = forgotPasswordSearch;
 	return url.format(forgotPasswordUrlObj);
-}
+};
 
-export function getSignInUrl(request: Hapi.Request): string {
+/**
+ * @param {Hapi.Request} request
+ * @returns {string}
+ */
+exports.getSignInUrl = function (request) {
 	return this.getRedirectUrlWithQueryString('signin', request);
-}
+};
 
-export function getCacheBusterUrl(redirect: string): string {
-	var cacheBustedUrlObj = url.parse(redirect),
+/**
+ * @param {string} redirect
+ * @returns {string}
+ */
+exports.getCacheBusterUrl = function (redirect) {
+	const cacheBustedUrlObj = url.parse(redirect),
 		query = querystring.parse(cacheBustedUrlObj.query);
 
 	query.cb = Math.floor(Math.random() * 10000);
 	cacheBustedUrlObj.search = querystring.stringify(query);
 
 	return url.format(cacheBustedUrlObj);
-}
+};
 
-export function getRedirectUrlWithQueryString(route: string, request: Hapi.Request): string {
-	var redirectUrl = request.url;
+/**
+ * @param {string} route
+ * @param {Hapi.Request} request
+ * @returns {string}
+ */
+exports.getRedirectUrlWithQueryString = function (route, request) {
+	const redirectUrl = request.url;
+
 	redirectUrl.pathname = route;
 	return redirectUrl.format();
-}
+};
 
-export function getHeliosUrl(path: string): string {
+/**
+ * @param {string} path
+ * @returns {string}
+ */
+exports.getHeliosUrl = function (path) {
 	return url.format({
 		protocol: 'https',
 		host: localSettings.servicesDomain,
 		pathname: localSettings.helios.path + path
 	});
-}
+};
 
-export function getWhoAmIUrl(): string {
+/**
+ * @returns {string}
+ */
+exports.getWhoAmIUrl = function () {
 	return url.format({
 		protocol: 'https',
 		host: localSettings.servicesDomain,
 		pathname: localSettings.whoAmIService.path
 	});
-}
+};

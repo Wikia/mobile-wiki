@@ -1,27 +1,39 @@
-/// <reference path="../../typings/hapi/hapi.d.ts" />
-/// <reference path='../../typings/wreck/wreck.d.ts' />
-/// <reference path='../../typings/boom/boom.d.ts' />
+/**
+ * @typedef {Object} WhoAmIResponse
+ * @property {string} [userId]
+ * @property {number} [status]
+ */
+const Boom = require('boom'),
+	Wreck = require('wreck'),
+	localSettings = require('../../config/localSettings'),
+	Logger = require('./Logger'),
+	authUtils = require('./AuthUtils');
 
-interface WhoAmIResponse {
-	'userId'?: string;
-	'status'?: number;
-}
-
-import Boom          = require('boom');
-import qs            = require('querystring');
-import Wreck         = require('wreck');
-import localSettings = require('../../config/localSettings');
-import Logger        = require('./Logger');
-import authUtils     = require('./AuthUtils');
-
-module WikiaSession {
-	export function scheme (server: Hapi.Server, options: any): {authenticate: any} {
+exports.WikiaSession = {
+	/**
+	 * @param {Hapi.Server} server
+	 * @param {*} options
+	 * @returns {*}
+     */
+	/* eslint no-unused-vars: 0 */
+	scheme(server, options) {
 		return {
-			authenticate: (request: any, reply: any): void => {
-				var accessToken: string = request.state.access_token,
-					callback = (err: any, response: any, payload: string): any => {
-						var parsed: WhoAmIResponse,
-							parseError: Error;
+			/**
+			 * @param {*} request
+			 * @param {*} reply
+             * @returns {*}
+             */
+			authenticate: (request, reply) => {
+				const accessToken = request.state.access_token,
+					/**
+					 * @param {*} err
+					 * @param {*} response
+                     * @param {string} payload
+                     * @returns {*}
+                     */
+					callback = (err, response, payload) => {
+						let parsed,
+							parseError;
 
 						try {
 							parsed = JSON.parse(payload);
@@ -32,8 +44,8 @@ module WikiaSession {
 						// Detects an error with the connection
 						if (err || parseError) {
 							Logger.error('WhoAmI connection error: ', {
-								err: err,
-								parseError: parseError
+								err,
+								parseError
 							});
 							return reply(Boom.unauthorized('WhoAmI connection error'));
 						}
@@ -56,7 +68,7 @@ module WikiaSession {
 					{
 						timeout: localSettings.whoAmIService.timeout,
 						headers: {
-							Cookie: 'access_token=' + encodeURIComponent(accessToken)
+							Cookie: `access_token=${encodeURIComponent(accessToken)}`
 						}
 					},
 					callback
@@ -64,6 +76,4 @@ module WikiaSession {
 			}
 		};
 	}
-}
-
-export = WikiaSession;
+};

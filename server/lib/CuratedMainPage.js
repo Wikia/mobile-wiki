@@ -1,32 +1,59 @@
-/// <reference path="../../typings/mercury/mercury-server.d.ts" />
-
-import Promise = require('bluebird');
-import MediaWiki = require('./MediaWiki');
-import Utils = require('./Utils');
-import logger = require('./Logger');
-import localSettings = require('../../config/localSettings');
+const Promise = require('bluebird'),
+	MediaWiki = require('./MediaWiki'),
+	Utils = require('./Utils'),
+	logger = require('./Logger'),
+	localSettings = require('../../config/localSettings');
 
 /**
- * @TODO XW-608 move setTitile to common part for CuratedMainPageRequestHelper and ArticleRequestHelper
+ * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and ArticleRequestHelper
  * Commoon part should be extracted and moved to new class WikiaRequestHelper(?)
  */
-export class CuratedMainPageRequestHelper {
-	params: ArticleRequestParams;
 
-	constructor(params: ArticleRequestParams) {
+/**
+ * @class MainPageDataRequestError
+ */
+class MainPageDataRequestError {
+	/**
+	 * @param {*} data
+	 * @returns {void}
+	 */
+	constructor(data) {
+		Error.apply(this, arguments);
+		this.data = data;
+	}
+}
+MainPageDataRequestError.prototype = Object.create(Error.prototype);
+
+exports.MainPageDataRequestError = MainPageDataRequestError;
+
+/**
+ * @class CuratedMainPageRequestHelper
+ * @property {ArticleRequestParams} params
+ */
+class CuratedMainPageRequestHelper {
+
+	/**
+	 * @param {ArticleRequestParams} params
+	 * @returns {void}
+     */
+	constructor(params) {
 		this.params = params;
 	}
 
 	/**
-	 * @TODO XW-608 shared between Article.ts and MainPage.ts - should be moved
-	 * @param title
+	 * @todo XW-608 shared between Article.ts and MainPage.ts - should be moved
+	 * @param {string} title
+	 * @returns {void}
 	 */
-	setTitle(title: string): void {
+	setTitle(title) {
 		this.params.title = title;
 	}
 
-	getWikiVariablesAndDetails(): Promise<CuratedContentPageData> {
-		var requests = [
+	/**
+	 * @returns {Promise<CuratedContentPageData>}
+     */
+	getWikiVariablesAndDetails() {
+		const requests = [
 			new MediaWiki.ArticleRequest(this.params).mainPageDetailsAndAdsContext(),
 			new MediaWiki.WikiRequest({
 				wikiDomain: this.params.wikiDomain
@@ -46,13 +73,18 @@ export class CuratedMainPageRequestHelper {
 		 * when all of them resolve - either by fulfilling of rejecting.
 		 */
 		return Promise.settle(requests)
-			.then((results: Promise.Inspection<Promise<CuratedContentPageData>>[]) => {
-				var mainPageDataPromise: Promise.Inspection<Promise<MainPageDetailsAndAdsContextResponse>> = results[0],
-					wikiVariablesPromise: Promise.Inspection<Promise<any>> = results[1],
-					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled(),
-					mainPageData: MainPageDetailsAndAdsContextResponse,
-					mainPageDataException: MWException,
-					wikiVariables: any;
+			/**
+			 * @param {Promise.Inspection<Promise<CuratedContentPageData>>[]} results
+			 * @returns {void}
+			 */
+			.then((results) => {
+				const mainPageDataPromise = results[0],
+					wikiVariablesPromise = results[1],
+					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled();
+
+				let mainPageData,
+					mainPageDataException,
+					wikiVariables;
 
 				if (mainPageDataPromise.isFulfilled()) {
 					mainPageData = mainPageDataPromise.value();
@@ -85,12 +117,4 @@ export class CuratedMainPageRequestHelper {
 	}
 }
 
-export class MainPageDataRequestError {
-	private data: any;
-
-	constructor(data: any) {
-		Error.apply(this, arguments);
-		this.data = data;
-	}
-}
-MainPageDataRequestError.prototype = Object.create(Error.prototype);
+exports.CuratedMainPageRequestHelper = CuratedMainPageRequestHelper;
