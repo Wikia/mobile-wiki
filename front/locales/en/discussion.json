@@ -31,6 +31,8 @@
   "editor": {
     "post-failed-error": "Post failed.",
     "post-error-anon-cant-post": "Sign in to join the discussion!",
+    "post-error-not-authorized": "You cannot post because your account has been blocked.",
+    "post-error-general-error": "Oops, looks like something went wrong! Please try again later.",
     "post-editor-label": "Create a post",
     "post-action-button-label": "Post",
     "post-editor-placeholder-text": "Share a thought, question or link..."

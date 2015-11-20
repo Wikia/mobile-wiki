@@ -63,7 +63,7 @@ App.DiscussionForumModel = App.DiscussionBaseModel.extend({
 	 * @returns {Em.RSVP.Promise}
 	 */
 	createPost(postData: any) {
-		this.setFailedState(false);
+		this.setFailedState(null);
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				method: 'POST',
@@ -80,7 +80,11 @@ App.DiscussionForumModel = App.DiscussionBaseModel.extend({
 					resolve(this);
 				},
 				error: (err: any) => {
-					this.setFailedState(true);
+					if (err.status === 401) {
+						this.setFailedState('editor.post-error-not-authorized');
+					} else {
+						this.setFailedState('editor.post-error-general-error');
+					}
 					resolve(this);
 				}
 			});

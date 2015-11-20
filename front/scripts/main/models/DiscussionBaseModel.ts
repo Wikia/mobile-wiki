@@ -8,7 +8,7 @@ App.DiscussionBaseModel = Em.Object.extend({
 		notFound: 404
 	},
 	errorClass: 'discussion-error-page',
-	requestFailed: null,
+	errorMessage: null,
 	connectionError: null,
 	notFoundError: null,
 	/*  Set minorError to true, when you don't want to display error message e.g.:
@@ -34,7 +34,7 @@ App.DiscussionBaseModel = Em.Object.extend({
 		}
 	},
 
-	setFailedState(hasFailed: boolean): void {
-		this.set('requestFailed', hasFailed);
+	setFailedState(errorMessage: string): void {
+		this.set('errorMessage', errorMessage);
 	}
 });

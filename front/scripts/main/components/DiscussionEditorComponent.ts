@@ -137,6 +137,12 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		}
 	}),
 
+	requestErrorMessageObserver: Em.observer('requestErrorMessage', function(): void {
+		if (this.get('requestErrorMessage')) {
+			alert(i18n.t(this.get('requestErrorMessage'), {ns: 'discussion'}));
+		}
+	}),
+
 	/**
 	 * Handle clicks - focus in textarea and activate editor
 	 * @returns {void}
