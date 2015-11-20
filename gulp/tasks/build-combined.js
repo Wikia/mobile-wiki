@@ -14,7 +14,7 @@ gulp.task('build-combined', ['scripts-front-modules-spa', 'scripts-front-modules
 	return piper(
 		gulp.src([
 			'www/front/templates/main.js',
-			'www/front/scripts/modules.js'
+			'www/front/scripts/modules-spa.js'
 		]),
 		gulpconcat('combined.js'),
 		gulpif(environment.isProduction, piper(

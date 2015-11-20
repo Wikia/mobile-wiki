@@ -18,7 +18,7 @@ gulp.task('scripts-front-modules-spa', function () {
 
 	return builder.buildStatic(
 		'main/' + paths.jsFiles + ' + mercury/' + paths.jsFiles,
-		paths.dest + '/modules.js',
+		paths.dest + '/modules-spa.js',
 		{
 			minify: environment.isProduction
 		}
@@ -35,7 +35,7 @@ gulp.task('scripts-front-modules-auth', function () {
 
 	return builder.buildStatic(
 		'auth/' + paths.jsFiles + ' + mercury/' + paths.jsFiles,
-		paths.dest + '/auth.js',
+		paths.dest + '/modules-auth.js',
 		{
 			minify: environment.isProduction
 		}
