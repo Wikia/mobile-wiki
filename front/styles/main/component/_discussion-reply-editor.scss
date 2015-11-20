@@ -15,3 +15,11 @@ $sticky-reply-editor-width: 563px;
 		}
 	}
 }
+
+@media #{$mobile-range} {
+	.reply-editor {
+		.editor-container {
+			margin-left: 0;
+		}
+	}
+}

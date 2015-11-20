@@ -50,6 +50,8 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		this.setStickyPositioning();
 	}),
 
+	onScroll(): void {},
+
 	/**
 	 * Handle post creation error
 	 * @returns {void}
@@ -152,7 +154,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		handleKeyPress(forumId: string, event: KeyboardEvent) :void {
 			if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
 				// Create post on CTRL + ENTER
-				this.send('createPost', forumId);
+				this.send('createReply', forumId);
 			}
 		}
 	}
