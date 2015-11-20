@@ -1,3 +1,32 @@
+## release-190 (2015-11-19 15:59 UTC)
+* [INT-218](https://wikia-inc.atlassian.net/browse/INT-218) Show avatar for logged in users for Japan HP
+* [DAT-3463](https://wikia-inc.atlassian.net/browse/DAT-3463) DAT-3463 Style context-links templates
+* transifex-testing: Add config file for Transifex testing
+* [ADEN-2559](https://wikia-inc.atlassian.net/browse/ADEN-2559) Aden 2559 close button delay
+
+## release-189 hotfix 1 (2015-11-18 13:00 UTC)
+* [XW-745](https://wikia-inc.atlassian.net/browse/XW-745) XW-745 | Non-portable infoboxes no longer show on Mercury in iOS
+
+## release-189 (2015-11-17 15:45 UTC)
+* [SOC-1566](https://wikia-inc.atlassian.net/browse/SOC-1566) SOC-1566 | Use WhoAmI service instead of Helios for access_token validation
+* [INT-254](https://wikia-inc.atlassian.net/browse/INT-254) Send user id to qualaroo
+* SOC: Enable discussions on starwars
+* [SOC-1551](https://wikia-inc.atlassian.net/browse/SOC-1551) SOC-1551 | Contributors count will be broken when we reach 1k contributors
+
+## release-188 hotfix 1 (2015-11-13 16:22 UTC)
+* [SOC-1476](https://wikia-inc.atlassian.net/browse/SOC-1476) Soc 1476 fix
+* sg-update: Style-Guide | Bump version to 1.7.4
+
+## release-188 (2015-11-13 12:49 UTC)
+* [SOC-1404](https://wikia-inc.atlassian.net/browse/SOC-1404) SOC-1404 As a designer, I want two colors from Theme Designer to be used in new Discussions
+* [ADEN-2595](https://wikia-inc.atlassian.net/browse/ADEN-2595) ADEN-2595 Disable all ads for logged in users
+* [SOC-1290](https://wikia-inc.atlassian.net/browse/SOC-1290) SOC-1290 Banner images for discussion desktop header
+* [SOC-1476](https://wikia-inc.atlassian.net/browse/SOC-1476) SOC-1476 | Move discussion translations to discussion.json file
+* [XW-665](https://wikia-inc.atlassian.net/browse/XW-665) Xw 665 add missing tests for tracking
+* [XW-669](https://wikia-inc.atlassian.net/browse/XW-669) XW-669 | Create separate validator for Mercury Curated Content Editor
+* [INT-195](https://wikia-inc.atlassian.net/browse/INT-195) Don't include domain name for google search tracking
+* [SOC-1266](https://wikia-inc.atlassian.net/browse/SOC-1266) SOC-1266 As a user, I want a dark theme for discussions for dark wikias
+
 ## release-187 hotfix 2 (2015-11-04 17:04 UTC)
 * enable-discussions: Discussions | Enabling discussions on featured Wikias
 

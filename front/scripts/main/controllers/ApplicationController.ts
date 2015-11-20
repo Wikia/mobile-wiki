@@ -25,6 +25,8 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 	lightboxType: null,
 	lightboxModel: null,
 	lightboxVisible: false,
+	lightboxCloseButtonDelay: 0,
+
 	// Controls the appearance of the share-header component
 	enableShareHeader: false,
 
@@ -67,6 +69,7 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 				lightboxModel: null,
 				lightboxType: null,
 				lightboxVisible: false,
+				lightboxCloseButtonDelay: 0,
 				file: null,
 				map: null,
 				noScroll: false
@@ -79,13 +82,15 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 *
 		 * @param {string} lightboxType
 		 * @param {string} lightboxModel
+		 * @param {number} closeButtonDelay
 		 * @returns {void}
 		 */
-		createHiddenLightbox(lightboxType: string, lightboxModel?: any): void {
+		createHiddenLightbox(lightboxType: string, lightboxModel?: any, closeButtonDelay?: number): void {
 			this.setProperties({
 				lightboxModel,
 				lightboxType,
 				lightboxVisible: false,
+				lightboxCloseButtonDelay: closeButtonDelay,
 				noScroll: false
 			});
 		},
@@ -132,13 +137,15 @@ App.ApplicationController = Em.Controller.extend(App.AlertNotificationsMixin, {
 		 *
 		 * @param {string} lightboxType
 		 * @param {*} lightboxModel
+		 * @param {number} closeButtonDelay
 		 * @returns {void}
 		 */
-		openLightbox(lightboxType: string, lightboxModel?: any): void {
+		openLightbox(lightboxType: string, lightboxModel?: any, closeButtonDelay?: number): void {
 			this.setProperties({
 				lightboxModel,
 				lightboxType,
 				lightboxVisible: true,
+				lightboxCloseButtonDelay: closeButtonDelay,
 				noScroll: true
 			});
 		},
