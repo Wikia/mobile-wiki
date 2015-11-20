@@ -1,3 +1,9 @@
+## release-190 (2015-11-19 15:59 UTC)
+* [INT-218](https://wikia-inc.atlassian.net/browse/INT-218) Show avatar for logged in users for Japan HP
+* [DAT-3463](https://wikia-inc.atlassian.net/browse/DAT-3463) DAT-3463 Style context-links templates
+* transifex-testing: Add config file for Transifex testing
+* [ADEN-2559](https://wikia-inc.atlassian.net/browse/ADEN-2559) Aden 2559 close button delay
+
 ## release-189 hotfix 1 (2015-11-18 13:00 UTC)
 * [XW-745](https://wikia-inc.atlassian.net/browse/XW-745) XW-745 | Non-portable infoboxes no longer show on Mercury in iOS
 
