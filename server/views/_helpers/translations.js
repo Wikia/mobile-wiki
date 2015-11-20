@@ -1,27 +1,26 @@
-var Logger = require('../../lib/Logger');
+const Logger = require('../../lib/Logger');
 
 module.exports = function (language, opts) {
-	var translations = {},
-		translationPath,
-		fallbackLanguage = language.split('-')[0],
+	const fallbackLanguage = language.split('-')[0],
 		defaultLanguage = 'en',
-		foundLanguage = '',
-		namespace,
-		wrapper = {};
+		wrapper = {},
+		namespace = (opts.hash.ns instanceof Array) ? opts.hash.ns : [opts.hash.ns];
 
-	namespace = (opts.hash.ns instanceof Array) ? opts.hash.ns : [opts.hash.ns];
+	let translations = {},
+		foundLanguage;
 
-	namespace.forEach(function (ns) {
-		[language, fallbackLanguage, defaultLanguage].some(function (lang) {
+	namespace.forEach((ns) => {
+		[language, fallbackLanguage, defaultLanguage].some((lang) => {
+			const translationPath = `../../../front/locales/${lang}/${ns}.json`;
+
 			foundLanguage = lang;
-			translationPath = '../../../front/locales/' + lang + '/' + ns + '.json';
 
 			try {
 				translations = require(translationPath);
 				return true;
 			} catch (exception) {
 				Logger.error({
-					lang: lang,
+					lang,
 					namespace: ns,
 					path: translationPath,
 					error: exception.message
