@@ -119,28 +119,22 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	},
 
 	/**
-	 * Handle post creation error
-	 * @returns {void}
+	 * Handle message for anon when activating editor
 	 */
-	errorObserver: Em.observer('shouldShowError', function (): void {
-		if (this.get('shouldShowError')) {
-			this.setProperties({
-				isLoading: false,
-				hasError: true
-			});
-		}
-	}),
-
 	isActiveObserver: Em.observer('isActive',function(): void {
 		if (this.get('isActive') && this.get('currentUser.userId') === null) {
 			alert(i18n.t('editor.post-error-anon-cant-post', {ns: 'discussion'}));
 		}
 	}),
 
+	/**
+	 * Display error message on post failure
+	 */
 	requestErrorMessageObserver: Em.observer('requestErrorMessage', function(): void {
 		if (this.get('requestErrorMessage')) {
 			alert(i18n.t(this.get('requestErrorMessage'), {ns: 'discussion'}));
 		}
+		this.set('isLoading', false);
 	}),
 
 	/**
