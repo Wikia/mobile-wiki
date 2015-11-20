@@ -1,16 +1,11 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/DiscussionErrorMixin.ts" />
 
-App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
-	wikiId: null,
-	forumId: null,
+App.DiscussionForumModel = App.DiscussionBaseModel.extend({
 	name: null,
 	pageNum: null,
 	posts: null,
 	totalPosts: 0,
 
-	connectionError: null,
-	notFoundError: null,
 	contributors: [],
 
 	/**
@@ -37,9 +32,10 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 					this.set('posts', allPosts);
 
 					resolve(this);
+
 				},
 				error: (err: any) => {
-					this.setErrorProperty(err, this);
+					this.handleLoadMoreError(err);
 					resolve(this);
 				}
 			});
@@ -67,7 +63,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	 * @returns {Em.RSVP.Promise}
 	 */
 	createPost(postData: any) {
-		this.setPostFailedState(false, this);
+		this.setFailedState(false);
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				method: 'POST',
@@ -84,7 +80,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 					resolve(this);
 				},
 				error: (err: any) => {
-					this.setPostFailedState(true, this);
+					this.setFailedState(true);
 					resolve(this);
 				}
 			});
@@ -137,7 +133,7 @@ App.DiscussionForumModel.reopenClass({
 					resolve(forumInstance);
 				},
 				error: (err: any) => {
-					forumInstance.setErrorProperty(err, forumInstance);
+					this.setErrorProperty(err);
 					resolve(forumInstance);
 				}
 			});
