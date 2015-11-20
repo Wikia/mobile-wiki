@@ -50,6 +50,8 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		this.setStickyPositioning();
 	}),
 
+	onScroll(): void {},
+
 	/**
 	 * Handle post creation error
 	 * @returns {void}
