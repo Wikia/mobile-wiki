@@ -131,6 +131,12 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		}
 	}),
 
+	isActiveObserver: Em.observer('isActive',function(): void {
+		if (this.get('isActive') && this.get('currentUser.userId') === null) {
+			alert(i18n.t('editor.post-error-anon-cant-post', {ns: 'discussion'}));
+		}
+	}),
+
 	/**
 	 * Handle clicks - focus in textarea and activate editor
 	 * @returns {void}
@@ -169,7 +175,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 */
 		updateOnInput(): void {
 			this.setProperties({
-				submitDisabled: this.get('postBody').length === 0,
+				submitDisabled: this.get('postBody').length === 0 || this.get('currentUser.userId') === null,
 				isActive: true
 			});
 		},
