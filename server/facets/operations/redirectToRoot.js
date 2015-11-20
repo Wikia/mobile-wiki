@@ -1,7 +1,8 @@
-/// <reference path='../../../typings/hapi/hapi.d.ts' />
-
-function redirectToRoot (request: Hapi.Request, reply: any): void {
+/**
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ * @returns {void}
+ */
+exports.redirectToRoot = function (request, reply) {
 	reply.redirect('/');
-}
-
-export = redirectToRoot;
+};

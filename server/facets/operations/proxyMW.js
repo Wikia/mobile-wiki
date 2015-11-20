@@ -1,11 +1,14 @@
-/// <reference path="../../../typings/hapi/hapi.d.ts" />
+const MW = require('../../lib/MediaWiki'),
+	localSettings = require('../../../config/localSettings'),
+	Utils = require('../../lib/Utils');
 
-import MW = require('../../lib/MediaWiki');
-import localSettings = require('../../../config/localSettings');
-import Utils = require('../../lib/Utils');
-
-function proxyMW (request: Hapi.Request, reply: any): void {
-	var path = request.path.substr(1),
+/**
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ * @returns {void}
+ */
+exports.proxyMW = function (request, reply) {
+	const path = request.path.substr(1),
 		url = MW.createUrl(Utils.getCachedWikiDomainName(localSettings, request), path);
 
 	reply.proxy({
@@ -13,5 +16,3 @@ function proxyMW (request: Hapi.Request, reply: any): void {
 		redirects: localSettings.proxyMaxRedirects
 	});
 };
-
-export = proxyMW;

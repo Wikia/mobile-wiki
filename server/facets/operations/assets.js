@@ -1,7 +1,6 @@
-/// <reference path="../../../typings/node/node.d.ts" />
-import path = require('path');
+const path = require('path');
 
-var assetsHandler = {
+exports.assetsHandler = {
 	directory: {
 		path: path.join(__dirname, '../../../front'),
 		listing: false,
@@ -9,6 +8,3 @@ var assetsHandler = {
 		lookupCompressed: true
 	}
 };
-
-export = assetsHandler;
-

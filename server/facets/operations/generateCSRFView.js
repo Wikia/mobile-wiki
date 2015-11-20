@@ -1,6 +1,8 @@
-/// <reference path='../../../typings/hapi/hapi.d.ts' />
-function generateCSRFView (request: Hapi.Request, reply: any): void {
+/**
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ * @returns {void}
+ */
+exports.generateCSRFView = function (request, reply) {
 	reply.view('breadcrumb', null, {layout: 'empty'});
-}
-
-export = generateCSRFView;
+};

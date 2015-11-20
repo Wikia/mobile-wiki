@@ -1,32 +1,30 @@
-/// <reference path="../../../typings/hapi/hapi.d.ts" />
-
-import Utils = require('../../lib/Utils');
-import localSettings = require('../../../config/localSettings');
-var deepExtend = require('deep-extend');
-
-var shouldAsyncArticle = Utils.shouldAsyncArticle;
+const Utils = require('../../lib/Utils'),
+	localSettings = require('../../../config/localSettings'),
+	deepExtend = require('deep-extend'),
+	shouldAsyncArticle = Utils.shouldAsyncArticle;
 
 /**
  * Prepares article data to be rendered
- * TODO: clean up this function
+ * @todo clean up this function
  *
  * @param {Hapi.Request} request
  * @param {ArticlePageData} data
  * @returns {object}
  */
-function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
-	var title: string,
-		htmlTitle: string,
-		articleDetails: any,
-		contentDir = 'ltr',
-		allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
-		articleData: ArticleData = data.article.data,
+exports.prepareArticleData = function (request, data) {
+	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
+		articleData = data.article.data,
 		wikiVariables = data.wikiVariables,
-		result: any = {
+		result = {
 			article: data.article,
 			server: data.server,
 			wikiVariables: data.wikiVariables,
 		};
+
+	let title,
+		htmlTitle,
+		articleDetails,
+		contentDir = 'ltr';
 
 	if (articleData) {
 		if (articleData.details) {
@@ -64,7 +62,7 @@ function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
 	result.openGraph = {
 		type: 'article',
-		title: title,
+		title,
 		url: result.canonicalUrl
 	};
 
@@ -81,7 +79,7 @@ function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 	// clone object to avoid overriding real localSettings for futurue requests
 	result.localSettings = deepExtend({}, localSettings);
 
-	if (request.query.buckySampling !== undefined) {
+	if (typeof request.query.buckySampling !== 'undefined') {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
@@ -102,6 +100,4 @@ function prepareArticleData(request: Hapi.Request, data: ArticlePageData): any {
 	);
 
 	return result;
-}
-
-export = prepareArticleData;
+};

@@ -4,10 +4,10 @@
  * @param {ArticlePageData} data
  * @returns {object}
  */
-function prepareMainPageData(data: ArticlePageData): any {
-	var articleData: ArticleData = data.article.data,
+exports.prepareMainPageData = function (data) {
+	const articleData = data.article.data,
 		wikiVariables = data.wikiVariables,
-		result: any = {},
+		result = {},
 		title = wikiVariables.siteName;
 
 	result.mainPageData = {};
@@ -16,11 +16,9 @@ function prepareMainPageData(data: ArticlePageData): any {
 
 	result.openGraph = {
 		type: 'website',
-		title: title,
+		title,
 		url: wikiVariables.basePath + wikiVariables.articlePath + title.replace(/ /g, '_')
 	};
 
 	return result;
-}
-
-export = prepareMainPageData;
+};

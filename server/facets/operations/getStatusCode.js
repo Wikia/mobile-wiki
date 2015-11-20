@@ -1,6 +1,10 @@
-function getStatusCode(result: any, defaultCode: number = 200): number {
-	var exception = result.exception;
-	return exception ? (exception.code || exception.statusCode || 500) : defaultCode;
-}
+/**
+ * @param {*} result
+ * @param {number} [defaultCode=200]
+ * @returns {number}
+ */
+exports.getStatusCode = function (result, defaultCode = 200) {
+	const exception = result.exception;
 
-export = getStatusCode;
+	return exception ? (exception.code || exception.statusCode || 500) : defaultCode;
+};

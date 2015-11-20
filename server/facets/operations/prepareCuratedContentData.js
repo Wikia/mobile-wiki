@@ -1,27 +1,26 @@
-import Utils = require('../../lib/Utils');
-import Tracking = require('../../lib/Tracking');
-import Caching = require('../../lib/Caching');
-import localSettings = require('../../../config/localSettings');
-var deepExtend = require('deep-extend');
+const Utils = require('../../lib/Utils'),
+	localSettings = require('../../../config/localSettings'),
+	deepExtend = require('deep-extend');
 
 /**
  * Handles category or section response for Curated Main Page from API
- * @TODO XW-608 - remove spaghetti code in prepareCuratedContentData and prepareArticleData
+ * @todo XW-608 - remove spaghetti code in prepareCuratedContentData and prepareArticleData
  *
  * @param {Hapi.Request} request
  * @param {CuratedContentPageData} curatedContentPageData
  * @returns {void}
  */
-function prepareCuratedContentData(request: Hapi.Request, curatedContentPageData: CuratedContentPageData): void {
-	var result: any = {
+exports.prepareCuratedContentData = function (request, curatedContentPageData) {
+	const result = {
 			mainPageData: curatedContentPageData.mainPageData,
 			wikiVariables: curatedContentPageData.wikiVariables,
 			server: curatedContentPageData.server
 		},
-		title: string,
-		contentDir = 'ltr',
-		mainPageDetails: ArticleDetails,
 		wikiVariables = result.wikiVariables;
+
+	let title,
+		contentDir = 'ltr',
+		mainPageDetails;
 
 	/**
 	 * Title is double encoded because Ember's RouteRecognizer does decodeURI while processing path.
@@ -44,7 +43,7 @@ function prepareCuratedContentData(request: Hapi.Request, curatedContentPageData
 
 	result.displayTitle = title;
 	result.isMainPage = true;
-	result.canonicalUrl = wikiVariables.basePath + '/';
+	result.canonicalUrl = `${wikiVariables.basePath}/`;
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals', 'buckysampling']);
 	result.openGraph = {
@@ -69,7 +68,7 @@ function prepareCuratedContentData(request: Hapi.Request, curatedContentPageData
 	// clone object to avoid overriding real localSettings for futurue requests
 	result.localSettings = deepExtend({}, localSettings);
 
-	if (request.query.buckySampling !== undefined) {
+	if (typeof request.query.buckySampling !== 'undefined') {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
@@ -84,6 +83,4 @@ function prepareCuratedContentData(request: Hapi.Request, curatedContentPageData
 	}
 
 	return result;
-}
-
-export = prepareCuratedContentData
+};
