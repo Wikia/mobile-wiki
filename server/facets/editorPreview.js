@@ -1,25 +1,30 @@
-/// <reference path="../../typings/hapi/hapi.d.ts" />
-/// <reference path="../../typings/boom/boom.d.ts" />
-/// <reference path="../lib/Utils.ts" />
+const Article = require('../lib/Article'),
+	Boom = require('boom'),
+	Utils = require('../lib/Utils'),
+	localSettings = require('../../config/localSettings'),
+	verifyMWHash = require('./operations/verifyMWHash'),
+	prepareArticleData = require('./operations/prepareArticleData');
 
-import Article = require('../lib/Article');
-import Boom = require('boom');
-import Utils = require('../lib/Utils');
-import localSettings = require('../../config/localSettings');
-import verifyMWHash = require('./operations/verifyMWHash');
-import prepareArticleData = require('./operations/prepareArticleData');
-
-function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
-	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request),
-		parserOutput: string = request.payload.parserOutput,
-		mwHash: string = request.payload.mwHash,
-		article = new Article.ArticleRequestHelper({wikiDomain: wikiDomain});
+/**
+ * @param {Hapi.Request} request
+ * @param {Hapi.Response} reply
+ * @returns {void}
+ */
+exports.editorPreview = function (request, reply) {
+	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
+		parserOutput = request.payload.parserOutput,
+		mwHash = request.payload.mwHash,
+		article = new Article.ArticleRequestHelper({wikiDomain});
 
 	article
 		.getWikiVariables()
-		.then((wikiVariables: any): void => {
-			var article: any = {},
-				result: any;
+		/**
+		 * @param {*} wikiVariables
+		 * @returns {void}
+		 */
+		.then((wikiVariables) => {
+			let article = {},
+				result;
 
 			if (verifyMWHash(parserOutput, mwHash)) {
 				article = JSON.parse(parserOutput);
@@ -29,7 +34,7 @@ function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
 
 			result = {
 				article: {
-					article: article,
+					article,
 					adsContext: {},
 					details: {
 						id: 0,
@@ -49,18 +54,20 @@ function editorPreview (request: Hapi.Request, reply: Hapi.Response): void {
 
 			prepareArticleData(request, result);
 
-			// TODO: why is this needed for the images to load?
+			// @todo why is this needed for the images to load?
 			result.tracking = localSettings.tracking;
 
 			reply.view('application', result);
 		})
-		.catch((error: any) => {
+		/**
+		 * @param {*} error
+		 * @returns {void}
+		 */
+		.catch((error) => {
 			reply.view('application', {
 				error
 			}, {
 				layout: 'empty'
 			});
 		});
-}
-
-export = editorPreview;
+};

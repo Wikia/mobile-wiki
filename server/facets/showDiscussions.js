@@ -1,41 +1,39 @@
-var config = <DiscussionsSplashPageConfig> require('../../config/discussionsSplashPageConfig');
-import Utils = require('../lib/Utils');
-import localSettings = require('../../config/localSettings');
-import showApplication = require('../facets/showApplication');
+const config = require('../../config/discussionsSplashPageConfig'),
+	Utils = require('../lib/Utils'),
+	localSettings = require('../../config/localSettings'),
+	showApplication = require('../facets/showApplication');
 
 /**
  * Obtains discussions config for a community
+ *
  * @param {string} host
- * @returns {object}
+ * @returns {WikiaDiscussionsConfig}
  */
-function getConfigFromUrl(host: string): WikiaDiscussionsConfig {
-	var domain: string;
-
-	domain = Utils.getWikiaSubdomain(host);
+function getConfigFromUrl(host) {
+	const domain = Utils.getWikiaSubdomain(host);
 
 	return config[domain];
 }
 
 /**
  * Generates and shows splash page from config
- * @param {object} request
- * @param {object} reply
- * @param {object} discussionsConfig
- * @returns {object}
+ *
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ * @param {WikiaDiscussionsConfig} discussionsConfig
+ * @returns {Hapi.Response}
  */
-function showSplashPage (request: Hapi.Request, reply: any, discussionsConfig: WikiaDiscussionsConfig): Hapi.Response {
-	var response: Hapi.Response;
-
+function showSplashPage(request, reply, discussionsConfig) {
 	request.server.methods.i18n.getInstance().setLng(discussionsConfig.language);
 
-	response = reply.view(
+	return reply.view(
 		'discussions/landing-page',
 		{
-			canonicalUrl: 'http://' + request.headers.host + request.path,
-			discussionsConfig: discussionsConfig,
+			canonicalUrl: `http://${request.headers.host}${request.path}`,
+			discussionsConfig,
 			language: request.server.methods.i18n.getInstance().lng(),
 			mainPage: 'http://www.wikia.com',
-			wikiaUrl: 'http://' + discussionsConfig.domain,
+			wikiaUrl: `http://${discussionsConfig.domain}`,
 			trackingConfig: localSettings.tracking,
 			pageParams: {
 				language: discussionsConfig.language,
@@ -47,18 +45,17 @@ function showSplashPage (request: Hapi.Request, reply: any, discussionsConfig: W
 			layout: 'discussions'
 		}
 	);
-
-	return response;
 }
 
 /**
  * Renders either discussions or splash page depending on the config
- * @param {object} request
- * @param {object} reply
+ *
+ * @param {Hapi.Request} request
+ * @param {*} reply
  * @returns {void}
  */
-function showDiscussions (request: Hapi.Request, reply: any): void {
-	var discussionsConfig = getConfigFromUrl(request.headers.host);
+exports.showDiscussions = function (request, reply) {
+	const discussionsConfig = getConfigFromUrl(request.headers.host);
 
 	if (!discussionsConfig) {
 		return reply('Not Found').code(404);
@@ -69,6 +66,4 @@ function showDiscussions (request: Hapi.Request, reply: any): void {
 	} else {
 		showSplashPage(request, reply, discussionsConfig);
 	}
-}
-
-export = showDiscussions;
+};

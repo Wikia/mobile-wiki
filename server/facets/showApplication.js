@@ -1,69 +1,24 @@
-/// <reference path='../lib/Utils.ts' />
-/// <reference path='../lib/Tracking.ts' />
-/// <reference path='../lib/OpenGraph.ts' />
-/// <reference path="../../typings/hapi/hapi.d.ts" />
-
 /**
- * CommunityAppConfig
  * @typedef {Object} CommunityAppConfig
  * @property {string} androidAppLink
  * @property {string} iosAppLink
  */
 
-import MW = require('../lib/MediaWiki');
-import Utils = require('../lib/Utils');
-import Tracking = require('../lib/Tracking');
-import OpenGraph = require('../lib/OpenGraph');
-import Logger = require('../lib/Logger');
-import localSettings = require('../../config/localSettings');
-import discussionsSplashPageConfig = require('../../config/discussionsSplashPageConfig');
+const MW = require('../lib/MediaWiki'),
+	Utils = require('../lib/Utils'),
+	Tracking = require('../lib/Tracking'),
+	OpenGraph = require('../lib/OpenGraph'),
+	Logger = require('../lib/Logger'),
+	localSettings = require('../../config/localSettings'),
+	discussionsSplashPageConfig = require('../../config/discussionsSplashPageConfig');
 
-function showApplication (request: Hapi.Request, reply: Hapi.Response): void {
-	var wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
-		wikiVariables = new MW.WikiRequest({wikiDomain: wikiDomain}).wikiVariables(),
-		context: any = {},
-		hostName: string = Utils.getWikiaSubdomain(request.info.host);
-
-	// TODO: These transforms could be better abstracted, as such, this is a lot like prepareArticleData
-	context.server = Utils.createServerData(localSettings, wikiDomain);
-	context.queryParams = Utils.parseQueryParams(request.query, []);
-	context.localSettings = localSettings;
-	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
-	context.discussionsSplashPageConfig = getDistilledDiscussionsSplashPageConfig(hostName);
-
-	wikiVariables.then((wikiVariables: any): Promise<any> => {
-		var contentDir: string,
-			displayTitle: string;
-
-		Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
-
-		context.wikiVariables = wikiVariables;
-		if (context.wikiVariables.language) {
-			contentDir = context.wikiVariables.language.contentDir;
-			context.isRtl = (contentDir === 'rtl');
-		}
-
-		// TODO: Update displayTitle
-		displayTitle = '';
-		context.htmlTitle = Utils.getHtmlTitle(wikiVariables, displayTitle);
-
-		return OpenGraph.getAttributes(request, context.wikiVariables);
-	}).then((openGraphData: any): void => {
-		// Add OpenGraph attributes to context
-		context.openGraph = openGraphData;
-
-		outputResponse(request, reply, context);
-	}).catch(Utils.RedirectedToCanonicalHost, (): void => {
-		Logger.info('Redirected to canonical host');
-	}).catch((error: any): void => {
-		// `error` could be an object or a string here
-		Logger.warn({error: error}, 'Failed to get complete app view context');
-		// In case of any unforeseeable error, attempt to output with the context we have so far
-		outputResponse(request, reply, context);
-	});
-}
-
-function outputResponse (request: Hapi.Request, reply: Hapi.Response, context: any): void {
+/**
+ * @param {Hapi.Request} request
+ * @param {Hapi.Response} reply
+ * @param {*} context
+ * @returns {void}
+ */
+function outputResponse(request, reply, context) {
 	Tracking.handleResponse(context, request);
 	reply.view('application', context);
 }
@@ -72,8 +27,9 @@ function outputResponse (request: Hapi.Request, reply: Hapi.Response, context: a
  * @param {string} hostName
  * @returns {CommunityAppConfig}
  */
-function getDistilledDiscussionsSplashPageConfig(hostName: string): Object {
-	var mainConfig = discussionsSplashPageConfig[hostName];
+function getDistilledDiscussionsSplashPageConfig(hostName) {
+	const mainConfig = discussionsSplashPageConfig[hostName];
+
 	if (mainConfig) {
 		return {
 			androidAppLink: mainConfig.androidAppLink,
@@ -83,4 +39,70 @@ function getDistilledDiscussionsSplashPageConfig(hostName: string): Object {
 	return {};
 }
 
-export = showApplication;
+/**
+ * @param {Hapi.Request} request
+ * @param {Hapi.Response} reply
+ * @returns {void}
+ */
+exports.showApplication = function (request, reply) {
+	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
+		wikiVariables = new MW.WikiRequest({wikiDomain}).wikiVariables(),
+		context = {},
+		hostName = Utils.getWikiaSubdomain(request.info.host);
+
+	// @todo These transforms could be better abstracted, as such, this is a lot like prepareArticleData
+	context.server = Utils.createServerData(localSettings, wikiDomain);
+	context.queryParams = Utils.parseQueryParams(request.query, []);
+	context.localSettings = localSettings;
+	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
+	context.discussionsSplashPageConfig = getDistilledDiscussionsSplashPageConfig(hostName);
+
+	wikiVariables
+		/**
+		 * @param {*} wikiVariables
+		 * @returns {Promise}
+		 */
+		.then((wikiVariables) => {
+			let contentDir,
+				displayTitle;
+
+			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
+
+			context.wikiVariables = wikiVariables;
+			if (context.wikiVariables.language) {
+				contentDir = context.wikiVariables.language.contentDir;
+				context.isRtl = (contentDir === 'rtl');
+			}
+
+			// @todo Update displayTitle
+			displayTitle = '';
+			context.htmlTitle = Utils.getHtmlTitle(wikiVariables, displayTitle);
+
+			return OpenGraph.getAttributes(request, context.wikiVariables);
+		})
+		/**
+		 * @param {*} openGraphData
+		 * @returns {void}
+		 */
+		.then((openGraphData) => {
+			// Add OpenGraph attributes to context
+			context.openGraph = openGraphData;
+			outputResponse(request, reply, context);
+		})
+		/**
+		 * @returns {void}
+		 */
+		.catch(Utils.RedirectedToCanonicalHost, () => {
+			Logger.info('Redirected to canonical host');
+		})
+		/**
+		 * @param {*} error
+		 * @returns {void}
+		 */
+		.catch((error) => {
+			// `error` could be an object or a string here
+			Logger.warn({error}, 'Failed to get complete app view context');
+			// In case of any unforeseeable error, attempt to output with the context we have so far
+			outputResponse(request, reply, context);
+		});
+};

@@ -1,69 +1,17 @@
-/// <reference path="../../typings/hapi/hapi.d.ts" />
-
-import Logger = require('../lib/Logger');
-import MainPage = require('../lib/CuratedMainPage');
-import MediaWiki = require('../lib/MediaWiki');
-import Utils = require('../lib/Utils');
-import localSettings = require('../../config/localSettings');
-import prepareCuratedContentData = require('./operations/prepareCuratedContentData');
-import Promise = require('bluebird');
-import Caching = require('../lib/Caching');
-import Tracking = require('../lib/Tracking');
-
-var cachingTimes = {
-	enabled: true,
-	cachingPolicy: Caching.Policy.Public,
-	varnishTTL: Caching.Interval.standard,
-	browserTTL: Caching.Interval.disabled
-};
-
-/**
- *
- * @param {Hapi.Request} request
- * @param {Hapi.Response} reply
- *
- * @returns {void}
- */
-function showCuratedContent(request: Hapi.Request, reply: Hapi.Response): void {
-	var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request),
-		params: ArticleRequestParams = {
-			wikiDomain: wikiDomain
-		},
-		mainPage: MainPage.CuratedMainPageRequestHelper,
-		allowCache = true;
-
-	if (request.state.wikicities_session) {
-		params.headers = {
-			'Cookie': `wikicities_session=${request.state.wikicities_session}`
-		};
-		allowCache = false;
-	}
-
-	mainPage = new MainPage.CuratedMainPageRequestHelper(params);
-
-	mainPage.setTitle(request.params.title);
-	mainPage.getWikiVariablesAndDetails()
-		.then((data: CuratedContentPageData): void => {
-			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
-			outputResponse(request, reply, data, allowCache);
-		})
-		.catch(MainPage.MainPageDataRequestError, (error: any): void => {
-			var data: CuratedContentPageData = error.data;
-			Logger.error('Error when fetching ads context and article details', data.exception);
-			outputResponse(request, reply, data, false);
-		})
-		.catch(MediaWiki.WikiVariablesRequestError, (error: MWException): void => {
-			Logger.error('Error when fetching wiki variables', error);
-			reply.redirect(localSettings.redirectUrlOnNoData);
-		})
-		.catch(Utils.RedirectedToCanonicalHost, (): void => {
-			Logger.info('Redirected to canonical host');
-		})
-		.catch((error: any): void => {
-			Logger.fatal('Unhandled error, code issue', error);
-			reply.redirect(localSettings.redirectUrlOnNoData);
-		});
-}
+const Logger = require('../lib/Logger'),
+	MainPage = require('../lib/CuratedMainPage'),
+	MediaWiki = require('../lib/MediaWiki'),
+	Utils = require('../lib/Utils'),
+	localSettings = require('../../config/localSettings'),
+	prepareCuratedContentData = require('./operations/prepareCuratedContentData'),
+	Caching = require('../lib/Caching'),
+	Tracking = require('../lib/Tracking'),
+	cachingTimes = {
+		enabled: true,
+		cachingPolicy: Caching.Policy.Public,
+		varnishTTL: Caching.Interval.standard,
+		browserTTL: Caching.Interval.disabled
+	};
 
 /**
  * Handles article response from API
@@ -76,15 +24,12 @@ function showCuratedContent(request: Hapi.Request, reply: Hapi.Response): void {
  *
  * @returns {void}
  */
-function outputResponse(request: Hapi.Request,
-						reply: Hapi.Response,
-						data: CuratedContentPageData,
-						allowCache: boolean = true,
-						code: number = 200): void {
-	var response: Hapi.Response,
-		result = prepareCuratedContentData(request, data);
+function outputResponse(request, reply, data, allowCache = true, code = 200) {
+	const result = prepareCuratedContentData(request, data);
 
-	// @TODO XW-596 we shouldn't rely on side effects of this function
+	let response;
+
+	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponseCuratedMainPage(result, request);
 
 	response = reply.view('application', result);
@@ -98,4 +43,66 @@ function outputResponse(request: Hapi.Request,
 	return Caching.disableCache(response);
 }
 
-export = showCuratedContent;
+/**
+ *
+ * @param {Hapi.Request} request
+ * @param {Hapi.Response} reply
+ * @returns {void}
+ */
+exports.showCuratedContent = function (request, reply) {
+	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
+		params = {wikiDomain};
+
+	let mainPage,
+		allowCache = true;
+
+	if (request.state.wikicities_session) {
+		params.headers = {
+			Cookie: `wikicities_session=${request.state.wikicities_session}`
+		};
+		allowCache = false;
+	}
+
+	mainPage = new MainPage.CuratedMainPageRequestHelper(params);
+
+	mainPage.setTitle(request.params.title);
+	mainPage.getWikiVariablesAndDetails()
+		/**
+		 * @param {CuratedContentPageData} data
+		 * @returns {void}
+		 */
+		.then((data) => {
+			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
+			outputResponse(request, reply, data, allowCache);
+		})
+		/**
+		 * @param {*} error
+		 * @returns {void}
+		 */
+		.catch(MainPage.MainPageDataRequestError, (error) => {
+			Logger.error('Error when fetching ads context and article details', error.data.exception);
+			outputResponse(request, reply, error.data, false);
+		})
+		/**
+		 * @param {MWException} error
+		 * @returns {void}
+		 */
+		.catch(MediaWiki.WikiVariablesRequestError, (error) => {
+			Logger.error('Error when fetching wiki variables', error);
+			reply.redirect(localSettings.redirectUrlOnNoData);
+		})
+		/**
+		 * @returns {void}
+		 */
+		.catch(Utils.RedirectedToCanonicalHost, () => {
+			Logger.info('Redirected to canonical host');
+		})
+		/**
+		 * @param {*} error
+		 * @returns {void}
+		 */
+		.catch((error) => {
+			Logger.fatal('Unhandled error, code issue', error);
+			reply.redirect(localSettings.redirectUrlOnNoData);
+		});
+};
