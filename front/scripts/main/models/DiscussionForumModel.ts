@@ -30,9 +30,7 @@ App.DiscussionForumModel = App.DiscussionBaseModel.extend({
 						allPosts = this.posts.concat(newPosts);
 
 					this.set('posts', allPosts);
-
 					resolve(this);
-
 				},
 				error: (err: any) => {
 					this.handleLoadMoreError(err);
@@ -137,7 +135,7 @@ App.DiscussionForumModel.reopenClass({
 					resolve(forumInstance);
 				},
 				error: (err: any) => {
-					this.setErrorProperty(err);
+					forumInstance.setErrorProperty(err);
 					resolve(forumInstance);
 				}
 			});
