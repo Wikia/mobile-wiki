@@ -56,16 +56,21 @@ exports.getSignupUrl = function () {
 
 // todo: look up this data in user session first
 exports.renderWithGlobalData = function (request, reply, data, view) {
-	function renderView(loggedIn, userName) {
+	function renderView(loggedIn, userName, avatarUrl) {
 		var combinedData = deepExtend(data, {
 			loggedIn: loggedIn,
 			userName: userName,
 			loginUrl: localSettings.loginUrl,
-			signupUrl: localSettings.signupUrl
+			signupUrl: localSettings.signupUrl,
+			avatarUrl: avatarUrl,
 		});
 
 		reply.view(view, combinedData);
 	}
+
+	var userId,
+		userName,
+		avatarUrl;
 
 	if (!strings) {
 		strings = this.readJsonConfigSync('static/strings.json'); // TODO: Integrate with I18N, see INT-214
@@ -76,11 +81,19 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 	this.getLoginState(request).then(function (data) {
 		request.log('info', 'Got valid access token (user id: ' + data.user_id + ')');  // jshint ignore:line
 
-		return auth.getUserName(data);
-	}).then(function (data) {
-		request.log('info', 'Retrieved user name for logged in user: ' + data.value);
+		userId = data.user_id; // jshint ignore:line
 
-		renderView(true, data.value);
+		return auth.getUserName(userId);
+	}).then(function (data) {
+		userName = data.value;
+		request.log('info', 'Retrieved user name for logged in user: ' + userName);
+
+		return auth.getUserAvatar(userId);
+	}).then(function (data) {
+		avatarUrl = data.value;
+		request.log('info', 'Retrieved avatar url for logged in user: ' + avatarUrl);
+
+		renderView(true, userName, avatarUrl);
 	}).catch(function (error) {
 		if (error.error !== 'not_logged_in') {
 			request.log('info', 'Access token for user is invalid');
