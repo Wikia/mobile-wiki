@@ -28,11 +28,11 @@ export default class YouTubePlayer extends BasePlayer {
 	 */
 	bindPlayerEvents() {
 		this.params.events = {
-			onReady: () => {
-				return this.onPlayerReady.apply(this, arguments);
+			onReady: (...args) => {
+				return this.onPlayerReady.apply(this, args);
 			},
-			onStateChange: () => {
-				return this.onPlayerStateChange.apply(this, arguments);
+			onStateChange: (...args) => {
+				return this.onPlayerStateChange.apply(this, args);
 			}
 		};
 
