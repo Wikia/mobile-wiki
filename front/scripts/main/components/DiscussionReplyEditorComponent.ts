@@ -22,7 +22,6 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	setStickyPositioning(): void {
-		debugger;
 		if (window.innerHeight < this.$().offset().top + this.$().height()) {
 			this.set('isSticky', true);
 		} else {
