@@ -1,50 +1,49 @@
-const localSettings = require('../../config/localSettings'),
-	Logger = require('./Logger'),
-	Comscore = {
-		/**
-		 * @param {string} vertical
-		 * @returns {*}
-		 */
-		getC7Value(vertical) {
-			return `wikiacsid_${vertical.toLowerCase()}`;
-		},
+import localSettings from '../../config/localSettings';
+import Logger from './Logger';
 
-		/**
-		 * @param {string} requestUrl
-		 * @param {string} c7Value
-		 * @returns {string}
-		 */
-		getC7ParamAndValue(requestUrl, c7Value) {
-			const paramAndValue = `${requestUrl}${requestUrl.indexOf('?') !== -1 ? '&' : '?'}` +
-				`${localSettings.tracking.comscore.keyword}=${c7Value}`;
+export const Comscore = {
+	/**
+	 * @param {string} vertical
+	 * @returns {*}
+	 */
+	getC7Value(vertical) {
+		return `wikiacsid_${vertical.toLowerCase()}`;
+	},
 
-			return encodeURIComponent(paramAndValue);
-		},
+	/**
+	 * @param {string} requestUrl
+	 * @param {string} c7Value
+	 * @returns {string}
+	 */
+	getC7ParamAndValue(requestUrl, c7Value) {
+		const paramAndValue = `${requestUrl}${requestUrl.indexOf('?') !== -1 ? '&' : '?'}` +
+			`${localSettings.tracking.comscore.keyword}=${c7Value}`;
 
-		/**
-		 * @param {*} tracking
-		 * @param {string} vertical
-		 * @param {Hapi.Request} request
-		 * @returns {void}
-		 */
-		handleResponse(tracking, vertical, request) {
-			tracking.comscore.c7 = Comscore.getC7ParamAndValue(
-				`http://${request.headers.host}/${request.url.path}`,
-				Comscore.getC7Value(vertical)
-			);
+		return encodeURIComponent(paramAndValue);
+	},
 
-			tracking.comscore.c7Value = Comscore.getC7Value(vertical);
-		}
-	};
+	/**
+	 * @param {*} tracking
+	 * @param {string} vertical
+	 * @param {Hapi.Request} request
+	 * @returns {void}
+	 */
+	handleResponse(tracking, vertical, request) {
+		tracking.comscore.c7 = Comscore.getC7ParamAndValue(
+			`http://${request.headers.host}/${request.url.path}`,
+			Comscore.getC7Value(vertical)
+		);
 
-exports.Comscore = Comscore;
+		tracking.comscore.c7Value = Comscore.getC7Value(vertical);
+	}
+};
 
 /**
  * @param {*} result
  * @param {Hapi.Request} request
  * @returns {void}
  */
-exports.handleResponse = function (result, request) {
+export function handleResponse(result, request) {
 	const tracking = localSettings.tracking;
 
 	let vertical;
@@ -61,14 +60,14 @@ exports.handleResponse = function (result, request) {
 
 	// export tracking code to layout and front end code
 	result.tracking = tracking;
-};
+}
 
 /**
  * @param {*} result
  * @param {Hapi.Request} request
  * @returns {void}
  */
-exports.handleResponseCuratedMainPage = function (result, request) {
+export function handleResponseCuratedMainPage(result, request) {
 	const tracking = localSettings.tracking;
 
 	let vertical;
@@ -85,4 +84,4 @@ exports.handleResponseCuratedMainPage = function (result, request) {
 
 	// export tracking code to layout and front end code
 	result.tracking = tracking;
-};
+}
