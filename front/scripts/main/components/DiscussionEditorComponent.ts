@@ -46,7 +46,6 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * @returns {void}
 		 */
 		toggleEditorActive(active: boolean): void {
-			debugger;
 			this.set('isActive', active);
 		},
 
