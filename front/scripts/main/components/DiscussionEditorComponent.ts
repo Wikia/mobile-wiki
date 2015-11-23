@@ -2,6 +2,7 @@
 'use strict';
 
 App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
+	classNames: ['discussion-editor'],
 	classNameBindings: ['isActive', 'hasError'],
 
 	isActive: false,
@@ -40,6 +41,35 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	click(): void {
 		this.$('.editor-textarea').focus();
 	},
+
+	/**
+	 * Handle message for anon when activating editor
+	 */
+	isActiveObserver: Em.observer('isActive', function(): void {
+		if (this.get('isActive')) {
+			if (this.get('currentUser.userId') === null) {
+				this.setProperties({
+					isActive: false,
+					errorMessage: 'editor.post-error-anon-cant-post'
+				});
+			}
+
+			/*
+			 iOS hack for position: fixed - now we display loading icon.
+			 */
+			if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+				$('html, body').css({
+					height: '100%',
+					overflow: 'hidden'
+				});
+			}
+		} else {
+			$('html, body').css({
+				height: '',
+				overflow: ''
+			});
+		}
+	}),
 
 	actions: {
 		/**

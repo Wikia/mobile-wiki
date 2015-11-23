@@ -3,7 +3,7 @@
 
 App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	attributeBindings: ['style'],
-	classNames: ['discussion-editor', 'mobile-hidden'],
+	classNames: ['mobile-hidden'],
 	pinnedClassName: 'pinned-top',
 
 	placeholderText: 'editor.post-editor-placeholder-text',
@@ -131,43 +131,6 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 			// This needs to be dalayed for CSS animation
 			Em.set(newPost, 'isNew', false);
 		});
-	},
-
-	/**
-	 * Handle message for anon when activating editor
-	 */
-	isActiveObserver: Em.observer('isActive', function(): void {
-		if (this.get('isActive')) {
-			if (this.get('currentUser.userId') === null) {
-				this.setProperties({
-					isActive: false,
-					errorMessage: 'editor.post-error-anon-cant-post'
-				});
-			}
-
-			/*
-			 iOS hack for position: fixed - now we display loading icon.
-			 */
-			if (/iPad|iPhone|iPod/.test(navigator.platform)) {
-				$('html, body').css({
-					height: '100%',
-					overflow: 'hidden'
-				});
-			}
-		} else {
-			$('html, body').css({
-				height: '',
-				overflow: ''
-			});
-		}
-	}),
-
-	/**
-	 * Handle clicks - focus in textarea and activate editor
-	 * @returns {void}
-	 */
-	click(): void {
-		this.$('.editor-textarea').focus();
 	},
 
 	actions: {

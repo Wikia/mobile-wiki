@@ -2,7 +2,7 @@
 'use strict';
 
 App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
-	classNames: ['discussion-editor', 'reply-editor'],
+	classNames: ['reply-editor'],
 	pinnedClassName: 'pinned-bottom',
 
 	placeholderText: 'editor.reply-editor-placeholder-text',
@@ -90,7 +90,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	click(): void {
-		this.$('.editor-textarea').focus();
+		this._super();
 		Em.run.later(this, (): void => {
 			this.setStickyPositioning();
 		}, 200);
