@@ -67,6 +67,10 @@ class Ads {
 	init(adsUrl) {
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
+		if (window.Mercury) {
+			window.Mercury.Modules = {};
+			window.Mercury.Modules.Ads = Ads;
+		}
 
 		/* global require */
 
