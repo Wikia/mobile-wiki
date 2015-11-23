@@ -1,6 +1,6 @@
-import * as path from 'path';
+import path from 'path';
 
-const assetsHandler = {
+export default {
 	directory: {
 		path: path.join(__dirname, '../../../front'),
 		listing: false,
@@ -8,5 +8,3 @@ const assetsHandler = {
 		lookupCompressed: true
 	}
 };
-
-export default assetsHandler;

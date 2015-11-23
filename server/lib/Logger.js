@@ -5,6 +5,7 @@
  */
 
 import localSettings from '../../config/localSettings';
+import bunyan from 'bunyan';
 
 /**
  * Creates the default log stream settings
@@ -61,8 +62,6 @@ const availableTargets = {
 	console: createConsoleStream
 };
 
-let logger;
-
 /**
  * Create logger
  *
@@ -70,8 +69,7 @@ let logger;
  * @returns {BunyanLogger}
  */
 export function createLogger(loggerConfig) {
-	const bunyan = require('bunyan'),
-		streams = [];
+	const streams = [];
 
 	/**
 	 * @param {string} loggerType
@@ -95,6 +93,4 @@ export function createLogger(loggerConfig) {
 	});
 }
 
-logger = createLogger(localSettings.loggers);
-
-export default {logger};
+export default createLogger(localSettings.loggers);

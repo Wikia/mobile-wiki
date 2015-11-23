@@ -134,7 +134,7 @@
  * @property {RegExp} iPad
  */
 
-import * as Utils from '../server/lib/Utils';
+import {getEnvironment, stripDevboxDomain} from '../server/lib/Utils';
 import deepExtend from 'deep-extend';
 
 const localSettings = {
@@ -145,7 +145,7 @@ const localSettings = {
 	backendRequestTimeout: 300000,
 	domain: 'wikia.com',
 	// Targeted environment [prod|preview|verify|dev|testing]
-	environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
+	environment: getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
 		path: '/auth',
 		usernameMaxLength: 50,
@@ -169,7 +169,7 @@ const localSettings = {
 	loggers: {
 		syslog: 'debug'
 	},
-	devboxDomain: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
+	devboxDomain: stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
 	// auth pages aren't supported on custom domains, so this value should only be used for auth features
 	// once we phase out custom domains, we can change this to "cookieDomain" and use it for more features
 	authCookieDomain: '.wikia.com',

@@ -8,11 +8,14 @@
 
 import Hoek from 'hoek';
 import localSettings from '../config/localSettings';
-import Caching from './lib/Caching';
-import authUtils from './lib/AuthUtils';
+import {Policy} from './lib/Caching';
+import {getRedirectUrlWithQueryString} from './lib/AuthUtils';
+import proxyMW from './facets/operations/proxyMW';
+import assetsHandler from './facets/operations/assets';
+import heartbeatHandler from './facets/operations/heartbeat';
 
 const routeCacheConfig = {
-		privacy: Caching.policyString(Caching.Policy.Public),
+		privacy: Policy.Public,
 		expiresIn: 60000
 	},
 	unauthenticatedRouteConfig = {
@@ -42,27 +45,27 @@ let routes,
 		{
 			method: 'GET',
 			path: '/favicon.ico',
-			handler: require('./facets/operations/proxyMW')
+			handler: proxyMW
 		},
 		{
 			method: 'GET',
 			path: '/robots.txt',
-			handler: require('./facets/operations/proxyMW')
+			handler: proxyMW
 		},
 		{
 			method: 'GET',
 			path: '/front/{path*}',
-			handler: require('./facets/operations/assets')
+			handler: assetsHandler
 		},
 		{
 			method: 'GET',
 			path: '/public/{path*}',
-			handler: require('./facets/operations/assets')
+			handler: assetsHandler
 		},
 		{
 			method: 'GET',
 			path: '/heartbeat',
-			handler: require('./facets/operations/heartbeat')
+			handler: heartbeatHandler
 		},
 		{
 			method: 'GET',
@@ -166,7 +169,7 @@ let routes,
 			 * @returns {Hapi.Response}
 			 */
 			handler(request, reply) {
-				return reply.redirect(authUtils.getRedirectUrlWithQueryString('signin', request));
+				return reply.redirect(getRedirectUrlWithQueryString('signin', request));
 			}
 		},
 		{
@@ -178,7 +181,7 @@ let routes,
 			 * @returns {Hapi.Response}
 			 */
 			handler(request, reply) {
-				return reply.redirect(authUtils.getRedirectUrlWithQueryString('register', request));
+				return reply.redirect(getRedirectUrlWithQueryString('register', request));
 			}
 		},
 		{
@@ -276,4 +279,4 @@ authenticatedRoutes = authenticatedRoutes.map((route) => {
 
 routes = unauthenticatedRoutes.concat(authenticatedRoutes);
 
-export {routes as routes};
+export {routes};

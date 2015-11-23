@@ -10,4 +10,4 @@ export default function heartbeat(request, reply) {
 		.header('X-Memory', String(memoryUsage.rss))
 		.header('X-Uptime', String(Math.floor(process.uptime())))
 		.code(200);
-};
+}

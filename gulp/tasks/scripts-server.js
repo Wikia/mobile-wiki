@@ -13,7 +13,6 @@ var gulp = require('gulp'),
 
 gulp.task('scripts-server', ['scripts-config'], function () {
 	return gulp.src([paths.src, paths.config], {base: './'})
-		//.pipe(newer({dest: paths.dest, ext: '.js'}))
 		.pipe(babel({
 			presets: ['es2015'],
 		}))

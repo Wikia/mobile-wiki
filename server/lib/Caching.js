@@ -24,8 +24,8 @@
  */
 
 export const Policy = {
-		Private: 0,
-		Public: 1
+		Private: 'private',
+		Public: 'public'
 	},
 	// Caching expire intervals
 	Interval = {
@@ -40,16 +40,6 @@ export const Policy = {
 		// default
 		default: -1
 	};
-
-/**
- * Returns string representation of the caching policy constant
- *
- * @param {CachingPolicy} policy
- * @returns {string}
- */
-export function policyString(policy) {
-	return Policy[policy].toLowerCase();
-}
 
 /**
  * Disables use of cache in the response
@@ -70,7 +60,7 @@ export function disableCache(response) {
  * @param {CachingSettings} cachingSettings
  * @returns {void}
  */
-export function setResponseCaching(response, cachingSettings) {
+export default function setResponseCaching(response, cachingSettings) {
 	if (cachingSettings && cachingSettings.enabled && response.statusCode === 200) {
 
 		if (cachingSettings.browserTTL === Interval.default) {
@@ -91,7 +81,7 @@ export function setResponseCaching(response, cachingSettings) {
 		}
 		if (cachingSettings.browserTTL > 0) {
 			response.header('X-Pass-Cache-Control',
-				`${policyString(cachingSettings.cachingPolicy)}, max-age=${cachingSettings.browserTTL}`);
+				`${cachingSettings.cachingPolicy}, max-age=${cachingSettings.browserTTL}`);
 		}
 	}
 }
