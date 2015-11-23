@@ -130,11 +130,12 @@ App.DiscussionPostModel.reopenClass({
 							}
 							reply.isVisible = true;
 						});
+
+						postInstance.set('replies', replies);
 					}
 					postInstance.setProperties({
 						contributors: contributors,
 						forumId: data.forumId,
-						replies: replies,
 						firstPost: data._embedded.firstPost[0],
 						upvoteCount: data.upvoteCount,
 						postCount: data.postCount,
