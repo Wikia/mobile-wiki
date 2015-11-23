@@ -1,6 +1,12 @@
-const Logger = require('../../lib/Logger');
+import Logger from '../../lib/Logger';
 
-module.exports = function (language, opts) {
+/**
+ *
+ * @param {string} language
+ * @param {{hash}} opts
+ * @returns {{}}
+ */
+export default function (language, opts) {
 	const fallbackLanguage = language.split('-')[0],
 		defaultLanguage = 'en',
 		wrapper = {},
@@ -34,5 +40,6 @@ module.exports = function (language, opts) {
 
 		wrapper[foundLanguage][ns] = translations;
 	});
+
 	return wrapper;
-};
+}

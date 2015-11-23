@@ -57,7 +57,7 @@ function stopWorker(worker) {
 
 	/**
 	 * @returns {void}
-     */
+	 */
 	const killTimer = setTimeout(() => {
 		worker.kill();
 	}, localSettings.workerDisconnectTimeout);
