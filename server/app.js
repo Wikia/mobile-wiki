@@ -5,7 +5,7 @@ if (process.env.NEW_RELIC_ENABLED === 'true') {
 }
 
 import setResponseCaching, {Policy, Interval} from './lib/Caching';
-import Hapi from 'hapi';
+import {Server} from 'hapi';
 import Logger from './lib/Logger';
 import {Environment} from './lib/Utils';
 import wikiaSessionScheme from './lib/WikiaSession';
@@ -21,7 +21,7 @@ import handlebars from 'handlebars';
 
 const isDevbox = localSettings.environment === Environment.Dev,
 	// Creates new `hapi` server
-	server = new Hapi.Server({
+	server = new Server({
 		connections: {
 			router: {
 				stripTrailingSlash: true

@@ -1,4 +1,4 @@
-import Promise from 'bluebird';
+import {resolve, reject, settle} from 'bluebird';
 import * as MediaWiki from './MediaWiki';
 import {createServerData} from './Utils';
 import logger from './Logger';
@@ -71,7 +71,7 @@ export class ArticleRequestHelper {
 		 * to the input array. This method is useful for when you have an array of promises and you'd like to know
 		 * when all of them resolve - either by fulfilling of rejecting.
 		 */
-		return Promise.settle(requests)
+		return settle(requests)
 			/**
 			 * @param {Promise.Inspection<Promise<ArticlePageData>>[]} results
 			 * @returns {void}
@@ -96,7 +96,7 @@ export class ArticleRequestHelper {
 					wikiVariablesPromise.reason();
 
 				if (!isWikiVariablesPromiseFulfilled) {
-					return Promise.reject(new MediaWiki.WikiVariablesRequestError(wikiVariables));
+					return reject(new MediaWiki.WikiVariablesRequestError(wikiVariables));
 				}
 
 				data = {
@@ -106,10 +106,10 @@ export class ArticleRequestHelper {
 				};
 
 				if (isArticlePromiseFulfilled) {
-					return Promise.resolve(data);
+					return resolve(data);
 				} else {
 					// Even if article promise failed we want to display app using the rest of data
-					return Promise.reject(new ArticleRequestError(data));
+					return reject(new ArticleRequestError(data));
 				}
 			});
 	}
@@ -157,11 +157,11 @@ export class ArticleRequestHelper {
 					const articleId = Object.keys(result.query.pages)[0],
 						pageData = result.query.pages[articleId];
 
-					return Promise.resolve({
+					return resolve({
 						title: pageData.title
 					});
 				} else {
-					return Promise.reject(result.exception);
+					return reject(result.exception);
 				}
 			});
 	}

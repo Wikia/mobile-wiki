@@ -1,5 +1,5 @@
 import {disableCache} from '../../lib/Caching';
-import url from 'url';
+import {parse} from 'url';
 import localSettings from '../../../config/localSettings';
 
 /**
@@ -58,7 +58,7 @@ export function view(template, context, request, reply) {
 export function getRedirectUrl(request) {
 	const currentHost = request.headers.host,
 		redirectUrl = request.query.redirect || '/',
-		redirectUrlHost = url.parse(redirectUrl).host;
+		redirectUrlHost = parse(redirectUrl).host;
 
 	if (!redirectUrlHost ||
 		this.checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
@@ -78,8 +78,8 @@ export function getRedirectUrl(request) {
 export function getOrigin(request) {
 	const currentHost = request.headers.host,
 		redirectUrl = request.query.redirect || '/',
-		redirectUrlHost = url.parse(redirectUrl).host,
-		redirectUrlOrigin = `${url.parse(redirectUrl).protocol}//${redirectUrlHost}`;
+		redirectUrlHost = parse(redirectUrl).host,
+		redirectUrlOrigin = `${parse(redirectUrl).protocol}//${redirectUrlHost}`;
 
 	if (redirectUrlHost && (
 			this.checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||

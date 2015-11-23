@@ -1,5 +1,5 @@
 import * as Article from '../lib/Article';
-import Boom from 'boom';
+import {forbidden} from 'boom';
 import {getCachedWikiDomainName, getCDNBaseUrl} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
 import verifyMWHash from './operations/verifyMWHash';
@@ -29,7 +29,7 @@ export default function editorPreview(request, reply) {
 			if (verifyMWHash(parserOutput, mwHash)) {
 				article = JSON.parse(parserOutput);
 			} else {
-				throw Boom.forbidden('Failed to verify source');
+				throw forbidden('Failed to verify source');
 			}
 
 			result = {

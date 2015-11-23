@@ -1,8 +1,8 @@
-import path from 'path';
+import {join} from 'path';
 
 export default {
 	directory: {
-		path: path.join(__dirname, '../../../front'),
+		path: join(__dirname, '../../../front'),
 		listing: false,
 		index: false,
 		lookupCompressed: true

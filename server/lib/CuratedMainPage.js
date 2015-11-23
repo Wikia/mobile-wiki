@@ -1,4 +1,4 @@
-import Promise from 'bluebird';
+import {resolve, reject, settle} from 'bluebird';
 import * as MediaWiki from './MediaWiki';
 import {createServerData} from './Utils';
 import logger from './Logger';
@@ -70,7 +70,7 @@ export class CuratedMainPageRequestHelper {
 		 * to the input array. This method is useful for when you have an array of promises and you'd like to know
 		 * when all of them resolve - either by fulfilling of rejecting.
 		 */
-		return Promise.settle(requests)
+		return settle(requests)
 			/**
 			 * @param {Promise.Inspection<Promise<CuratedContentPageData>>[]} results
 			 * @returns {void}
@@ -95,17 +95,17 @@ export class CuratedMainPageRequestHelper {
 					wikiVariablesPromise.reason();
 
 				if (!isWikiVariablesPromiseFulfilled) {
-					return Promise.reject(new MediaWiki.WikiVariablesRequestError(wikiVariables));
+					return reject(new MediaWiki.WikiVariablesRequestError(wikiVariables));
 				}
 
 				if (mainPageData && mainPageData.data) {
-					return Promise.resolve({
+					return resolve({
 						mainPageData: mainPageData.data,
 						wikiVariables,
 						server: createServerData(localSettings, this.params.wikiDomain)
 					});
 				} else {
-					return Promise.reject(new MainPageDataRequestError({
+					return reject(new MainPageDataRequestError({
 						exception: mainPageDataException,
 						wikiVariables,
 						server: createServerData(localSettings, this.params.wikiDomain)

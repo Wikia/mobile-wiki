@@ -48,7 +48,7 @@
  * @property {CommentsDataStatus} status
  */
 
-import Boom from 'boom';
+import {badRequest} from 'boom';
 import {ArticleRequest} from '../../lib/MediaWiki';
 import {getCachedWikiDomainName} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
@@ -89,7 +89,7 @@ export function get(request, reply) {
 
 	if (params.articleId === null) {
 		// TODO: ad hoc error handling, use Boom everywhere?
-		reply(Boom.badRequest('Invalid articleId'));
+		reply(badRequest('Invalid articleId'));
 	} else {
 		new ArticleRequest(params).comments(
 			params.articleId,

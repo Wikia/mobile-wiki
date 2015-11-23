@@ -1,5 +1,5 @@
 import localSettings from '../../../config/localSettings';
-import crypto from 'crypto';
+import {createHmac} from 'crypto';
 
 /**
  * @param {string} parserOutput
@@ -7,7 +7,7 @@ import crypto from 'crypto';
  * @returns {boolean}
  */
 export default function verifyMWHash(parserOutput, mwHash) {
-	const hmac = crypto.createHmac('sha1', localSettings.mwPreviewSalt || ''),
+	const hmac = createHmac('sha1', localSettings.mwPreviewSalt || ''),
 		computedHash = hmac.update(parserOutput).digest('hex');
 
 	return (computedHash === mwHash);
