@@ -3,7 +3,7 @@ import Logger from '../../lib/Logger';
 /**
  *
  * @param {string} language
- * @param {{hash}} opts
+ * @param {{hash: string}} opts
  * @returns {{}}
  */
 export default function (language, opts) {
