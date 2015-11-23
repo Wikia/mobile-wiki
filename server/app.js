@@ -4,17 +4,18 @@ if (process.env.NEW_RELIC_ENABLED === 'true') {
 	require('newrelic');
 }
 
-const Caching = require('./lib/Caching'),
-	Hapi = require('hapi'),
-	Logger = require('./lib/Logger'),
-	Utils = require('./lib/Utils'),
-	WikiaSession = require('./lib/WikiaSession'),
-	cluster = require('cluster'),
-	localSettings = require('../config/localSettings'),
-	path = require('path'),
-	url = require('url'),
-	fs = require('fs'),
-	isDevbox = localSettings.environment === Utils.Environment.Dev,
+import Caching from './lib/Caching';
+import Hapi from 'hapi';
+import Logger from './lib/Logger';
+import Utils from './lib/Utils';
+import WikiaSession from './lib/WikiaSession';
+import cluster from 'cluster';
+import localSettings from '../config/localSettings';
+import path from 'path';
+import url from 'url';
+import fs from 'fs';
+
+const isDevbox = localSettings.environment === Utils.Environment.Dev,
 	// Creates new `hapi` server
 	server = new Hapi.Server({
 		connections: {
