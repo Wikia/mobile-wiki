@@ -1,14 +1,21 @@
-function i18nHelper (key: string, options: any): string {
-	var translateWithCache: Function = this.i18n.translateWithCache,
-		params: {[key: string]: string} = {},
-		namespace = '',
+/**
+ *
+ * @param {string} key
+ * @param {{hash: string}} options
+ * @returns {string}
+ */
+export default function i18nHelper(key, options) {
+	const translateWithCache = this.i18n.translateWithCache,
+		params = {},
 		instance = this.i18n.getInstance(),
 		// Hash object is created from parameters passed into i18n tag (i.e. foo=bar or template context).
 		hash = options.hash;
 
-	Object.keys(hash).forEach((key: string) => {
+	let namespace = '';
+
+	Object.keys(hash).forEach((key) => {
 		if (key === 'ns') {
-			namespace = hash[key] + ':';
+			namespace = `${hash[key]}:`;
 		} else {
 			params[key] = String(hash[key]);
 		}
@@ -16,5 +23,3 @@ function i18nHelper (key: string, options: any): string {
 
 	return translateWithCache(namespace + key, instance.lng(), params);
 }
-
-export = i18nHelper;
