@@ -114,6 +114,7 @@ body.discussions {
 		}
 	}
 
+	// for Bart: border set for each element with "post-reply" class, after the fist one
 	.post-reply ~ .post-reply {
 		.discussion-reply {
 			border-top: 1px solid $discussion-reply-border-color;
@@ -267,10 +268,12 @@ body.discussions {
 				background-color: transparent;
 				border-bottom: 1px solid $discussion-reply-border-color;
 				margin: auto;
-				padding:
-					$post-details-post-vertical-padding
-					$horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2
-					$post-details-post-vertical-padding + $post-details-post-margin-bottom;
+				padding: {
+					top: $post-details-post-vertical-padding;
+					right: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
+					bottom: $post-details-post-vertical-padding + $post-details-post-margin-bottom;
+					left: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
+				}
 				width: $post-details-outer-width;
 			}
 
