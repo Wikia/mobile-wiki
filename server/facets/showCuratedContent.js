@@ -1,11 +1,13 @@
-import * as Logger from '../lib/Logger';
-import * as MainPage from '../lib/CuratedMainPage';
+import Logger from '../lib/Logger';
+import {CuratedMainPageRequestHelper, MainPageDataRequestError} from '../lib/CuratedMainPage';
 import * as MediaWiki from '../lib/MediaWiki';
-import * as Utils from '../lib/Utils';
+import {getCachedWikiDomainName,
+		redirectToCanonicalHostIfNeeded,
+		RedirectedToCanonicalHost} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
 import prepareCuratedContentData from './operations/prepareCuratedContentData';
 import * as Caching from '../lib/Caching';
-import * as Tracking from '../lib/Tracking';
+import {handleResponseCuratedMainPage} from '../lib/Tracking';
 
 const cachingTimes = {
 	enabled: true,
@@ -31,7 +33,7 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 	let response;
 
 	// @todo XW-596 we shouldn't rely on side effects of this function
-	Tracking.handleResponseCuratedMainPage(result, request);
+	handleResponseCuratedMainPage(result, request);
 
 	response = reply.view('application', result);
 	response.code(code);
@@ -51,7 +53,7 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
  * @returns {void}
  */
 export default function showCuratedContent(request, reply) {
-	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
+	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		params = {wikiDomain};
 
 	let mainPage,
@@ -64,7 +66,7 @@ export default function showCuratedContent(request, reply) {
 		allowCache = false;
 	}
 
-	mainPage = new MainPage.CuratedMainPageRequestHelper(params);
+	mainPage = new CuratedMainPageRequestHelper(params);
 
 	mainPage.setTitle(request.params.title);
 	mainPage.getWikiVariablesAndDetails()
@@ -73,14 +75,14 @@ export default function showCuratedContent(request, reply) {
 		 * @returns {void}
 		 */
 		.then((data) => {
-			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
+			redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 			outputResponse(request, reply, data, allowCache);
 		})
 		/**
 		 * @param {*} error
 		 * @returns {void}
 		 */
-		.catch(MainPage.MainPageDataRequestError, (error) => {
+		.catch(MainPageDataRequestError, (error) => {
 			Logger.error('Error when fetching ads context and article details', error.data.exception);
 			outputResponse(request, reply, error.data, false);
 		})
@@ -95,7 +97,7 @@ export default function showCuratedContent(request, reply) {
 		/**
 		 * @returns {void}
 		 */
-		.catch(Utils.RedirectedToCanonicalHost, () => {
+		.catch(RedirectedToCanonicalHost, () => {
 			Logger.info('Redirected to canonical host');
 		})
 		/**

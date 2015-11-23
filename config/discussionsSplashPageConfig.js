@@ -22,7 +22,7 @@
 /**
  * @typeof WikiaDiscussionsConfig
  */
-const discussionsSplashPageConfig = {
+export default {
 	'walkingdead': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.thewalkingdead',
 		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
@@ -247,5 +247,3 @@ const discussionsSplashPageConfig = {
 		dbName: 'onedirection'
 	}
 };
-
-export default discussionsSplashPageConfig;

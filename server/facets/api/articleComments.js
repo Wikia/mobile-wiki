@@ -48,9 +48,9 @@
  * @property {CommentsDataStatus} status
  */
 
-import * as Boom from 'boom';
-import * as MW from '../../lib/MediaWiki';
-import * as Utils from '../../lib/Utils';
+import Boom from 'boom';
+import {ArticleRequest} from '../../lib/MediaWiki';
+import {getCachedWikiDomainName} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
 import getStatusCode from '../operations/getStatusCode';
 
@@ -82,7 +82,7 @@ function transformResponse(commentsData) {
  */
 export function get(request, reply) {
 	const params = {
-		wikiDomain: Utils.getCachedWikiDomainName(localSettings, request),
+		wikiDomain: getCachedWikiDomainName(localSettings, request),
 		articleId: parseInt(request.params.articleId, 10) || null,
 		page: parseInt(request.params.page, 10) || 0
 	};
@@ -91,7 +91,7 @@ export function get(request, reply) {
 		// TODO: ad hoc error handling, use Boom everywhere?
 		reply(Boom.badRequest('Invalid articleId'));
 	} else {
-		new MW.ArticleRequest(params).comments(
+		new ArticleRequest(params).comments(
 			params.articleId,
 			params.page
 		)

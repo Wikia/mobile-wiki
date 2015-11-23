@@ -35,15 +35,6 @@ gulp.task('watch', ['build'], function () {
 
 	gulp.watch(path.join(
 		paths.scripts.front.src,
-		paths.scripts.front.tsFiles
-	), ['tslint', 'build-combined']).on('change', function (event) {
-		if (event.path.match('baseline')) {
-			gulp.start('build-views');
-		}
-	});
-
-	gulp.watch(path.join(
-		paths.scripts.front.src,
 		paths.scripts.front.jsFiles
 	), ['build-combined']).on('change', function (event) {
 		if (event.path.match('baseline')) {
@@ -51,7 +42,7 @@ gulp.task('watch', ['build'], function () {
 		}
 	});
 
-	gulp.watch([paths.scripts.server.src, paths.config.path + '*.ts'], ['tslint', 'scripts-server']);
+	gulp.watch([paths.scripts.server.src], ['scripts-server']);
 
 	gulp.watch(path.join(
 		paths.templates.src,

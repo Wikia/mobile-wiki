@@ -1,9 +1,9 @@
 import * as authUtils from '../../lib/AuthUtils';
-import * as caching from '../../lib/Caching';
+import {disableCache} from '../../lib/Caching';
 import localSettings from '../../../config/localSettings';
 import * as authView from './authView';
 import deepExtend from 'deep-extend';
-import * as url from 'url';
+import url from 'url';
 
 /**
  * @typedef {Object} JoinViewContext
@@ -46,7 +46,7 @@ export function get(request, reply) {
 	if (authView.getViewType(request) === authView.VIEW_TYPE_DESKTOP) {
 		request.url.pathname = '/register';
 		response = reply.redirect(url.format(request.url));
-		caching.disableCache(response);
+		disableCache(response);
 		return response;
 	}
 

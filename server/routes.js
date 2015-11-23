@@ -13,6 +13,23 @@ import {getRedirectUrlWithQueryString} from './lib/AuthUtils';
 import proxyMW from './facets/operations/proxyMW';
 import assetsHandler from './facets/operations/assets';
 import heartbeatHandler from './facets/operations/heartbeat';
+import discussionsHandler from './facets/showDiscussions';
+import articleHandler from './facets/showArticle';
+import redirectToRootHandler from './facets/operations/redirectToRoot';
+import {get as getArticleHandler} from './facets/api/article';
+import {get as getArticleCommentsHandler} from './facets/api/articleComments';
+import {get as searchHandler} from './facets/api/search';
+import {get as mainPageSectionHandler} from './facets/api/mainPageSection';
+import {get as mainPageCategoryHandler} from './facets/api/mainPageCategory';
+import logoutHandler from './facets/auth/logout';
+import generateCSRFView from './facets/operations/generateCSRFView';
+import editorPreview from './facets/editorPreview';
+import {get as joinHandler} from './facets/auth/join';
+import {validateRedirect} from './facets/auth/authView';
+import {get as registerHandler} from './facets/auth/register';
+import {get as signinHandler} from './facets/auth/signin';
+import showApplication from './facets/showApplication';
+import showCuratedContent from './facets/showCuratedContent';
 
 const routeCacheConfig = {
 		privacy: Policy.Public,
@@ -70,7 +87,7 @@ let routes,
 		{
 			method: 'GET',
 			path: '/wiki',
-			handler: require('./facets/operations/redirectToRoot')
+			handler: redirectToRootHandler
 		},
 	/**
 	 * API Routes
@@ -79,43 +96,43 @@ let routes,
 		{
 			method: 'GET',
 			path: `${localSettings.apiBase}/article/{articleTitle*}`,
-			handler: require('./facets/api/article').get
+			handler: getArticleHandler
 		},
 		{
 			method: 'GET',
 			// TODO: if you call to api/mercury/comments/ without supplying an id, this actually calls /api/mercury/article
 			path: `${localSettings.apiBase}/article/comments/{articleId}/{page?}`,
-			handler: require('./facets/api/articleComments').get
+			handler: getArticleCommentsHandler
 		},
 		{
 			method: 'GET',
 			path: `${localSettings.apiBase}/search/{query}`,
-			handler: require('./facets/api/search').get
+			handler: searchHandler
 		},
 		{
 			method: 'GET',
 			path: `${localSettings.apiBase}/main/section/{sectionName}`,
-			handler: require('./facets/api/mainPageSection').get
+			handler: mainPageSectionHandler
 		},
 		{
 			method: 'GET',
 			path: `${localSettings.apiBase}/main/category/{categoryName}`,
-			handler: require('./facets/api/mainPageCategory').get
+			handler: mainPageCategoryHandler
 		},
 		{
 			method: 'GET',
 			path: '/logout',
-			handler: require('./facets/auth/logout')
+			handler: logoutHandler
 		},
 		{
 			method: 'GET',
 			path: '/breadcrumb',
-			handler: require('./facets/operations/generateCSRFView')
+			handler: generateCSRFView
 		},
 		{
 			method: 'POST',
 			path: '/editorPreview',
-			handler: require('./facets/editorPreview')
+			handler: editorPreview
 		}
 	],
 // routes where we want to know the user's auth status
@@ -127,11 +144,11 @@ let routes,
 		{
 			method: 'GET',
 			path: '/join',
-			handler: require('./facets/auth/join'),
+			handler: joinHandler,
 			config: {
 				pre: [
 					{
-						method: require('./facets/auth/authView').validateRedirect
+						method: validateRedirect
 					}
 				]
 			}
@@ -139,11 +156,11 @@ let routes,
 		{
 			method: 'GET',
 			path: '/signin',
-			handler: require('./facets/auth/signin').get,
+			handler: signinHandler,
 			config: {
 				pre: [
 					{
-						method: require('./facets/auth/authView').validateRedirect
+						method: validateRedirect
 					}
 				]
 			}
@@ -151,11 +168,11 @@ let routes,
 		{
 			method: 'GET',
 			path: '/register',
-			handler: require('./facets/auth/register').get,
+			handler: registerHandler,
 			config: {
 				pre: [
 					{
-						method: require('./facets/auth/authView').validateRedirect
+						method: validateRedirect
 					}
 				]
 			}
@@ -188,7 +205,7 @@ let routes,
 			method: 'GET',
 			path: '/',
 			// Currently / path is not available on production because of redirects from / to /wiki/...
-			handler: require('./facets/showArticle'),
+			handler: articleHandler,
 			config: {
 				cache: routeCacheConfig
 			}
@@ -213,7 +230,7 @@ let routes,
 			method: 'GET',
 			// We don't care if there is a dynamic segment, Ember router handles that
 			path: '/main/edit/{ignore*}',
-			handler: require('./facets/showApplication'),
+			handler: showApplication,
 			config: {
 				cache: routeCacheConfig
 			}
@@ -221,7 +238,7 @@ let routes,
 		{
 			method: 'GET',
 			path: '/main/section/{sectionName*}',
-			handler: require('./facets/showCuratedContent'),
+			handler: showCuratedContent,
 			config: {
 				cache: routeCacheConfig
 			}
@@ -229,7 +246,7 @@ let routes,
 		{
 			method: 'GET',
 			path: '/main/category/{categoryName*}',
-			handler: require('./facets/showCuratedContent'),
+			handler: showCuratedContent,
 			config: {
 				cache: routeCacheConfig
 			}
@@ -245,7 +262,7 @@ articlePagePaths.forEach((path) => {
 	authenticatedRoutes.push({
 		method: 'GET',
 		path,
-		handler: require('./facets/showArticle'),
+		handler: articleHandler,
 		config: {
 			cache: routeCacheConfig
 		}
@@ -258,7 +275,7 @@ authenticatedRoutes.push({
 	// Discussion forums
 	method: 'GET',
 	path: '/d/{type}/{id}/{action?}',
-	handler: require('./facets/showDiscussions')
+	handler: discussionsHandler
 });
 
 /**

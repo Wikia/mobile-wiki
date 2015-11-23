@@ -1,6 +1,6 @@
 import * as Article from '../../lib/Article';
 import * as Caching from '../../lib/Caching';
-import * as Utils from '../../lib/Utils';
+import {getCachedWikiDomainName} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
 import getStatusCode from '../operations/getStatusCode';
 
@@ -44,7 +44,7 @@ function handleArticleResponse(reply, result, allowCache) {
  * @returns {void}
  */
 export function get(request, reply) {
-	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
+	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		params = {
 			wikiDomain,
 			title: request.params.articleTitle,

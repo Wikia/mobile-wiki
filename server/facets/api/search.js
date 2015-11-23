@@ -1,5 +1,5 @@
-import * as MW from '../../lib/MediaWiki';
-import * as Utils from '../../lib/Utils';
+import {SearchRequest} from '../../lib/MediaWiki';
+import {getCachedWikiDomainName} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
 import getStatusCode from '../operations/getStatusCode';
 
@@ -10,11 +10,11 @@ import getStatusCode from '../operations/getStatusCode';
  */
 export function get(request, reply) {
 	const params = {
-		wikiDomain: Utils.getCachedWikiDomainName(localSettings, request),
+		wikiDomain: getCachedWikiDomainName(localSettings, request),
 		query: request.params.query
 	};
 
-	new MW.SearchRequest({wikiDomain: params.wikiDomain})
+	new SearchRequest({wikiDomain: params.wikiDomain})
 		.searchForQuery(params.query)
 		.then(reply)
 		/**

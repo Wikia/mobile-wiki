@@ -1,4 +1,4 @@
-import * as Utils from '../../lib/Utils';
+import {parseQueryParams} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
 import deepExtend from 'deep-extend';
 
@@ -45,7 +45,7 @@ export default function prepareCuratedContentData(request, curatedContentPageDat
 	result.isMainPage = true;
 	result.canonicalUrl = `${wikiVariables.basePath}/`;
 	// the second argument is a whitelist of acceptable parameter names
-	result.queryParams = Utils.parseQueryParams(request.query, ['noexternals', 'buckysampling']);
+	result.queryParams = parseQueryParams(request.query, ['noexternals', 'buckysampling']);
 	result.openGraph = {
 		type: 'website',
 		title: wikiVariables.siteName,

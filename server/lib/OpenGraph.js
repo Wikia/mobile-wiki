@@ -11,8 +11,8 @@
 
 import Promise from 'bluebird';
 import localSettings from '../../config/localSettings';
-import MW from './MediaWiki';
-import * as Utils from './Utils';
+import * as MW from './MediaWiki';
+import {getStaticAssetPath} from './Utils';
 
 /**
  * @param {Hapi.Request} request
@@ -35,7 +35,7 @@ export function getPromiseForDiscussionData(request, wikiVars) {
 			openGraphData.type = 'article';
 			openGraphData.url = wikiVars.basePath + request.path;
 			// Use Wikia logo as default image
-			openGraphData.image = `http:${Utils.getStaticAssetPath(localSettings, request)}` +
+			openGraphData.image = `http:${getStaticAssetPath(localSettings, request)}` +
 				'images/wikia-mark-1200.jpg';
 			openGraphData.imageWidth = 1200;
 			openGraphData.imageHeight = 1200;

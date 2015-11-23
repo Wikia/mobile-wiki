@@ -1,5 +1,5 @@
-import * as caching from '../../lib/Caching';
-import * as url from 'url';
+import {disableCache} from '../../lib/Caching';
+import url from 'url';
 import localSettings from '../../../config/localSettings';
 
 /**
@@ -50,7 +50,7 @@ export function view(template, context, request, reply) {
 		}
 	);
 
-	caching.disableCache(response);
+	disableCache(response);
 	return response;
 }
 

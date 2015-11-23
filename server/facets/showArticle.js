@@ -1,7 +1,7 @@
 import * as Article from '../lib/Article';
-import * as MediaWiki from '../lib/MediaWiki';
+import {WikiVariablesRequestError} from '../lib/MediaWiki';
 import * as Caching from '../lib/Caching';
-import * as Logger from '../lib/Logger';
+import Logger from '../lib/Logger';
 import * as Tracking from '../lib/Tracking';
 import * as Utils from '../lib/Utils';
 import getStatusCode from './operations/getStatusCode';
@@ -99,13 +99,13 @@ function getArticle(request, reply, article, allowCache) {
 		 */
 		.then((data) => {
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
-			outputResponse(request, reply, data, allowCache);
+			//outputResponse(request, reply, data, allowCache);
 		})
 		/**
 		 * @param {MWException} error
 		 * @returns {void}
 		 */
-		.catch(MediaWiki.WikiVariablesRequestError, (error) => {
+		.catch(WikiVariablesRequestError, (error) => {
 			Logger.error('WikiVariables error', error);
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
@@ -181,4 +181,4 @@ export default function showArticle(request, reply) {
 		article.setTitle(request.params.title);
 		getArticle(request, reply, article, allowCache);
 	}
-};
+}

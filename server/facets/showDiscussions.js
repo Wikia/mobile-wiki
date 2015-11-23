@@ -1,5 +1,5 @@
 import config from '../../config/discussionsSplashPageConfig';
-import * as Utils from '../lib/Utils';
+import {getWikiaSubdomain} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
 import showApplication from '../facets/showApplication';
 
@@ -10,7 +10,7 @@ import showApplication from '../facets/showApplication';
  * @returns {WikiaDiscussionsConfig}
  */
 function getConfigFromUrl(host) {
-	const domain = Utils.getWikiaSubdomain(host);
+	const domain = getWikiaSubdomain(host);
 
 	return config[domain];
 }
@@ -66,4 +66,4 @@ export default function showDiscussions(request, reply) {
 	} else {
 		showSplashPage(request, reply, discussionsConfig);
 	}
-};
+}

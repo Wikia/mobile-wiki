@@ -1,6 +1,6 @@
 import Promise from 'bluebird';
 import * as MediaWiki from './MediaWiki';
-import * as Utils from './Utils';
+import {createServerData} from './Utils';
 import logger from './Logger';
 import localSettings from '../../config/localSettings';
 
@@ -102,13 +102,13 @@ export class CuratedMainPageRequestHelper {
 					return Promise.resolve({
 						mainPageData: mainPageData.data,
 						wikiVariables,
-						server: Utils.createServerData(localSettings, this.params.wikiDomain)
+						server: createServerData(localSettings, this.params.wikiDomain)
 					});
 				} else {
 					return Promise.reject(new MainPageDataRequestError({
 						exception: mainPageDataException,
 						wikiVariables,
-						server: Utils.createServerData(localSettings, this.params.wikiDomain)
+						server: createServerData(localSettings, this.params.wikiDomain)
 					}));
 				}
 			});

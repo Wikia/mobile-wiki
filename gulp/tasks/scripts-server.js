@@ -8,7 +8,6 @@ var gulp = require('gulp'),
 	gutil = require('gulp-util'),
 	environment = require('../utils/environment'),
 	newer = require('gulp-newer'),
-	options = require('../options').scripts.server,
 	paths = require('../paths').scripts.server;
 
 gulp.task('scripts-server', ['scripts-config'], function () {
@@ -18,7 +17,7 @@ gulp.task('scripts-server', ['scripts-config'], function () {
 		}))
 		.on('error', function () {
 			if (gutil.env.testing && environment.isProduction) {
-				console.error('Build contains some typescript errors/warnings');
+				console.error('Build contains some ES6 errors/warnings');
 				process.exit(1);
 			}
 		})

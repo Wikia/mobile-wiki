@@ -13,7 +13,7 @@ import Url from 'url';
  * @param {string} wikiDomain
  * @param {string} path
  * @param {*} params
- * @returns {string} url
+ * @returns {string}
  */
 export function createUrl(wikiDomain, path, params = {}) {
 	const qsAggregator = [];

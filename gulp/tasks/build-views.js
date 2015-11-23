@@ -70,6 +70,6 @@ gulp.task('build-views', ['scripts-front', 'vendor', 'build-vendor', 'build-comb
 				quotes: true
 			})
 		)),
-		gulpif('**/views/**', gulp.dest(paths.views.dest))
+		gulpif('**/views/**/*.hbs', gulp.dest(paths.views.dest))
 	);
 });

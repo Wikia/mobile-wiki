@@ -1,5 +1,5 @@
 import localSettings from '../../../config/localSettings';
-import * as crypto from 'crypto';
+import crypto from 'crypto';
 
 /**
  * @param {string} parserOutput

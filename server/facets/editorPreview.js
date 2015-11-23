@@ -1,6 +1,6 @@
 import * as Article from '../lib/Article';
-import * as Boom from 'boom';
-import * as Utils from '../lib/Utils';
+import Boom from 'boom';
+import {getCachedWikiDomainName, getCDNBaseUrl} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
 import verifyMWHash from './operations/verifyMWHash';
 import prepareArticleData from './operations/prepareArticleData';
@@ -10,8 +10,8 @@ import prepareArticleData from './operations/prepareArticleData';
  * @param {Hapi.Response} reply
  * @returns {void}
  */
-export function editorPreview(request, reply) {
-	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
+export default function editorPreview(request, reply) {
+	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		parserOutput = request.payload.parserOutput,
 		mwHash = request.payload.mwHash,
 		article = new Article.ArticleRequestHelper({wikiDomain});
@@ -48,7 +48,7 @@ export function editorPreview(request, reply) {
 				wikiVariables: wikiVariables || {},
 				// TODO: copied from Article.ts (move createServerData to prepareArticleData?)
 				server: {
-					cdnBaseUrl: Utils.getCDNBaseUrl(localSettings)
+					cdnBaseUrl: getCDNBaseUrl(localSettings)
 				}
 			};
 

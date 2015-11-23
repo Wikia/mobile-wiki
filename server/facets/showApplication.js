@@ -8,7 +8,7 @@ import * as MW from '../lib/MediaWiki';
 import * as Utils from '../lib/Utils';
 import * as Tracking from '../lib/Tracking';
 import * as OpenGraph from '../lib/OpenGraph';
-import * as Logger from '../lib/Logger';
+import Logger from '../lib/Logger';
 import localSettings from '../../config/localSettings';
 import discussionsSplashPageConfig from '../../config/discussionsSplashPageConfig';
 

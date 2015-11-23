@@ -30,8 +30,6 @@ module.exports = {
 		front: {
 			src: 'front/scripts',
 			dest: basePath + '/front/scripts',
-			tsFiles: '**/*.ts',
-			tsdFiles: '**/*.d.js',
 			jsFiles: '**/*.js'
 		},
 		server: {

@@ -12,7 +12,6 @@ var gulp = require('gulp'),
 	// newer = require('gulp-newer'),
 	uglify = require('gulp-uglify'),
 	environment = require('../utils/environment'),
-	options = require('../options').scripts.front,
 	paths = require('../paths').scripts.front,
 	path = require('path');
 
