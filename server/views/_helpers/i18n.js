@@ -4,7 +4,7 @@
  * @param {{hash: string}} options
  * @returns {string}
  */
-export default function i18nHelper(key, options) {
+module.exports = function i18nHelper(key, options) {
 	const translateWithCache = this.i18n.translateWithCache,
 		params = {},
 		instance = this.i18n.getInstance(),
@@ -22,4 +22,4 @@ export default function i18nHelper(key, options) {
 	});
 
 	return translateWithCache(namespace + key, instance.lng(), params);
-}
+};

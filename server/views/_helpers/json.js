@@ -3,5 +3,4 @@
  * @param {Object} obj
  * @returns {string}
  */
-export default (obj) => JSON.stringify(obj);
-
+module.exports = (obj) => JSON.stringify(obj);

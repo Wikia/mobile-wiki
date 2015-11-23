@@ -6,7 +6,7 @@ import Logger from '../../lib/Logger';
  * @param {{hash: string}} opts
  * @returns {{}}
  */
-export default function (language, opts) {
+module.exports = function (language, opts) {
 	const fallbackLanguage = language.split('-')[0],
 		defaultLanguage = 'en',
 		wrapper = {},
@@ -42,4 +42,4 @@ export default function (language, opts) {
 	});
 
 	return wrapper;
-}
+};
