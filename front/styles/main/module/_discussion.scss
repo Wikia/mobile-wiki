@@ -91,7 +91,7 @@ body.discussions {
 		}
 
 		.timestamp {
-			font-size: $discussions-post-type-smaller-than-min;
+			font-size: $discussion-post-type-smaller-than-min;
 		}
 
 		.upvotes {
@@ -231,13 +231,13 @@ body.discussions {
 			overflow: hidden;
 		}
 	}
-	
+
 	&.post {
 		.post-detail {
 			margin-top: $theme-bar-height;
 
 			.avatar-username {
-				font-size: $discussions-post-type-smaller-than-min;
+				font-size: $discussion-post-type-smaller-than-min;
 			}
 		}
 	}
