@@ -3,13 +3,13 @@
  * @property {string} [userId]
  * @property {number} [status]
  */
-const Boom = require('boom'),
-	Wreck = require('wreck'),
-	localSettings = require('../../config/localSettings'),
-	Logger = require('./Logger'),
-	authUtils = require('./AuthUtils');
+import Boom from 'boom';
+import Wreck from 'wreck';
+import localSettings from '../../config/localSettings';
+import Logger from './Logger';
+import authUtils from './AuthUtils';
 
-exports.WikiaSession = {
+export const WikiaSession = {
 	/**
 	 * @param {Hapi.Server} server
 	 * @param {*} options
