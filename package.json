@@ -11,6 +11,7 @@
     "coverage": "npm run build-coverage && npm run test-front && npm run test-server",
     "test-front": "gulp karma",
     "test-server": "gulp node-test",
+    "linter": "eslint .",
     "build": "rm -rf www && gulp build --type prod --nosync",
     "build-coverage": "rm -rf www && gulp build --nosync --testing",
     "build-test": "rm -rf www && gulp build --type prod --nosync --testing"
