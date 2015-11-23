@@ -96,7 +96,6 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 				Em.$('html, body').animate({ scrollTop: Em.$(document).height() });
 
 				Em.run.next(this, () => {
-					this.incrementProperty('postCount');
 					Em.set(newReply, 'isNew', false);
 				});
 			}, 2000);

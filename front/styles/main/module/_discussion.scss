@@ -158,10 +158,10 @@ $horizontal-padding: 15px;
 	}
 
 	.post-reply {
-		display: none;
+		transition: opacity 1s;
 
-		&.is-visible {
-			display: block;
+		&.is-new{
+			opacity: 0;
 		}
 	}
 

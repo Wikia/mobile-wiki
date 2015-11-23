@@ -72,6 +72,7 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 				},
 				success: (reply: any): void => {
 					reply.isNew = true;
+					this.incrementProperty('postCount');
 					this.replies.pushObject(reply);
 					resolve(this);
 				},
