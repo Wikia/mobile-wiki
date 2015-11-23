@@ -4,9 +4,11 @@
 App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	attributeBindings: ['style'],
 	classNames: ['discussion-editor', 'mobile-hidden'],
+	pinnedClassName: 'pinned-top',
 
 	placeholderText: 'editor.post-editor-placeholder-text',
 	submitText: 'editor.post-action-button-label',
+	labelText: 'editor.post-editor-label',
 
 	/**
 	 * Set right height for editor placeholder when editor gets sticky

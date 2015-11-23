@@ -16,6 +16,8 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	offsetTop: 0,
 	siteHeadHeight: 0,
 
+	layoutName: 'components/discussion-editor',
+
 	getBreakpointHeight(): number {
 		return this.offsetTop - (this.get('siteHeadPinned') ? this.siteHeadHeight : 0);
 	},
@@ -47,7 +49,6 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * @returns {void}
 		 */
 		toggleEditorActive(active: boolean): void {
-			debugger;
 			this.set('isActive', active);
 		},
 
