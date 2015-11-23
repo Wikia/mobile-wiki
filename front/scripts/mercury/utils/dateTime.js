@@ -12,13 +12,13 @@
  * interval types
  */
 export const interval = {
-	now: 0,
-	second: 1,
-	minute: 2,
-	hour: 3,
-	day: 4,
-	month: 5,
-	year: 6
+	Now: 0,
+	Second: 1,
+	Minute: 2,
+	Hour: 3,
+	Day: 4,
+	Month: 5,
+	Year: 6
 };
 
 /**
@@ -40,7 +40,7 @@ export function timeAgo(from, to = new Date()) {
 	// seconds
 	if (timeDiff < 60) {
 		return {
-			type: interval.second,
+			type: interval.Second,
 			value: timeDiff
 		};
 	}
@@ -48,7 +48,7 @@ export function timeAgo(from, to = new Date()) {
 	timeDiff = Math.floor(timeDiff / 60);
 	if (timeDiff < 60) {
 		return {
-			type: interval.minute,
+			type: interval.Minute,
 			value: timeDiff
 		};
 	}
@@ -56,7 +56,7 @@ export function timeAgo(from, to = new Date()) {
 	timeDiff = Math.floor(timeDiff / 60);
 	if (timeDiff < 24) {
 		return {
-			type: interval.hour,
+			type: interval.Hour,
 			value: timeDiff
 		};
 	}
@@ -64,7 +64,7 @@ export function timeAgo(from, to = new Date()) {
 	timeDiff = Math.floor(timeDiff / 24);
 	if (timeDiff < 30) {
 		return {
-			type: interval.day,
+			type: interval.Day,
 			value: timeDiff
 		};
 	}
@@ -72,7 +72,7 @@ export function timeAgo(from, to = new Date()) {
 	timeDiff = Math.floor(timeDiff / 30);
 	if (timeDiff < 12) {
 		return {
-			type: interval.month,
+			type: interval.Month,
 			value: timeDiff
 		};
 	}
@@ -80,7 +80,7 @@ export function timeAgo(from, to = new Date()) {
 	timeDiff = Math.floor(timeDiff / 12);
 
 	return {
-		type: interval.year,
+		type: interval.Year,
 		value: timeDiff
 	};
 }
