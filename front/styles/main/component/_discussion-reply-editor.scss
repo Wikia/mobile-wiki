@@ -17,9 +17,33 @@ $sticky-reply-editor-width: 563px;
 }
 
 @media #{$mobile-range} {
-	.reply-editor {
+	.discussion-editor.reply-editor {
+		height: 49px;
+
 		.editor-container {
+			border-top: 4px solid $discussion-mobile-reply-editor-border-color;
+			bottom: 0;
+			height: 49px;
 			margin-left: 0;
+			position: fixed;
+			width: 100%;
+		}
+
+		.editor-wrapper {
+			padding: 12px 17px 7px 54px;
+		}
+
+		.avatar {
+			svg {
+				height: 30px;
+				width: 30px;
+			}
+		}
+
+		&.is-active {
+			.editor-container {
+				border: 0;
+			}
 		}
 	}
 }
