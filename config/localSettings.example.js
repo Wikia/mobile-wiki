@@ -3,10 +3,12 @@
  *
  * var localConfig = require('./config').localSettings
  */
-const baseLocalSettingPath = process.env.WIKIA_ENVIRONMENT === 'dev' ? './localSettings.dev' : './localSettings.base',
-	baseLocalSettings = require(baseLocalSettingPath),
-	localSettings = baseLocalSettings.extendSettings({
+import baseExtendSettingsDev from './localSettings.dev';
+import baseExtendSettingsProd from './localSettings.base';
+
+const baseExtendSettings = process.env.WIKIA_ENVIRONMENT === 'dev' ? baseExtendSettingsDev : baseExtendSettingsProd,
+	localSettings = baseExtendSettings({
 		// Add custom settings here
 	});
 
-exports.localSettings = localSettings;
+export default localSettings;

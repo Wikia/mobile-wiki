@@ -1,24 +1,24 @@
 /* eslint dot-notation:0 */
 
-const deepExtend = require('deep-extend'),
+import deepExtend from 'deep-extend';
 
-	localeSettings = {
-		en: {
-			urls: {
-				termsOfUseLinkUrl: 'http://www.wikia.com/Terms_of_Use',
-				privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy'
-			},
-			date: {
-				endian: 'middle',
-				monthFormat: 'MM',
-				monthSeparator: '/',
-				dayFormat: 'DD',
-				daySeparator: '/',
-				yearFormat: 'YYYY',
-				yearSeparator: ''
-			}
+const localeSettings = {
+	en: {
+		urls: {
+			termsOfUseLinkUrl: 'http://www.wikia.com/Terms_of_Use',
+			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy'
+		},
+		date: {
+			endian: 'middle',
+			monthFormat: 'MM',
+			monthSeparator: '/',
+			dayFormat: 'DD',
+			daySeparator: '/',
+			yearFormat: 'YYYY',
+			yearSeparator: ''
 		}
-	};
+	}
+};
 
 localeSettings['de'] = deepExtend(
 	{},
@@ -394,4 +394,4 @@ localeSettings['zh-hans'] = deepExtend(
 	}
 );
 
-exports.localeSettings = localeSettings;
+export default localeSettings;
