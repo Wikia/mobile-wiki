@@ -49,6 +49,43 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	}),
 
 	/**
+	 * Perform animations and logic after reply creation
+	 * @returns {void}
+	 */
+	handleNewReplyCreated: Em.observer('replies.@each.isNew', function (): void {
+		var newReplies = this.get('replies').filter(function (reply: any): boolean {
+				return reply.isNew;
+			}),
+			newReply = newReplies.get('firstObject');
+
+		if (newReply) {
+			this.setProperties({
+				isLoading: false,
+				showSuccess: true
+			});
+
+			Em.set(newReply, 'isVisible', false);
+
+			Em.run.later(this, () => {
+				this.setProperties({
+					showSuccess: false,
+					isActive: false,
+					submitDisabled: false
+				});
+
+				this.$('.editor-textarea').val('');
+				Em.set(newReply, 'isVisible', true);
+
+				Em.$('html, body').animate({ scrollTop: Em.$(document).height() });
+
+				Em.run.next(this, () => {
+					Em.set(newReply, 'isNew', false);
+				});
+			}, 2000);
+		}
+	}),
+
+	/**
 	 * Handle clicks - focus in textarea and activate editor
 	 * @returns {void}
 	 */
@@ -66,7 +103,6 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		 */
 		create(forumId: string): void {
 			this.set('isLoading', true);
-			Em.$('html, body').animate({ scrollTop: 0 });
 
 			this.sendAction('createReply', {
 				body: this.$('.editor-textarea').val(),
@@ -82,7 +118,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		handleKeyPress(forumId: string, event: KeyboardEvent) :void {
 			if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
 				// Create post on CTRL + ENTER
-				this.send('createReply', forumId);
+				this.send('create', forumId);
 			}
 		}
 	}

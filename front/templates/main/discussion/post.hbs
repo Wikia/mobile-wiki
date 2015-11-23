@@ -60,6 +60,8 @@
 							content=item.rawContent
 							timestamp=item.creationDate.epochSecond
 							upvoteCount=item.upvoteCount
+							isNew=item.isNew
+							isVisible=item.isVisible
 							upvote='upvote'
 						}}
 					{{/each}}
@@ -67,7 +69,8 @@
 						createReply='createReply'
 						isActive=editorActive
 						forumId=forumId
-						posts=posts
+						postCount=model.postCount
+						replies=model.replies
 						setSortBy=setSortBy
 						shouldShowError=shouldShowPostError
 						siteHeadPinned=siteHeadPinned
