@@ -1,10 +1,7 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/DiscussionErrorMixin.ts" />
 
-App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
-	wikiId: null,
+App.DiscussionPostModel = App.DiscussionBaseModel.extend({
 	postId: null,
-	forumId: null,
 	pivotId: null,
 	replyLimit: 10,
 	replies: [],
@@ -12,8 +9,6 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	upvoteCount: 0,
 	postCount: 0,
 	page: 0,
-	connectionError: null,
-	notFoundError: null,
 	contributors: [],
 
 	/**
@@ -50,8 +45,8 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 
 					resolve(this);
 				},
-				error: (err: any): void => {
-					this.setErrorProperty(err, this);
+				error: (err: any) => {
+					this.handleLoadMoreError(err);
 					resolve(this);
 				}
 			});
@@ -59,7 +54,7 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	},
 
 	createReply(replyData: any) {
-		this.setFailedState(false, this);
+		this.setFailedState(null);
 		replyData.threadId = this.get('postId');
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
@@ -77,7 +72,7 @@ App.DiscussionPostModel = Em.Object.extend(App.DiscussionErrorMixin, {
 					resolve(this);
 				},
 				error: (err: any): void => {
-					this.setFailedState(true, this);
+					this.setErrorProperty(err);
 					resolve(this);
 				}
 			});
@@ -146,8 +141,8 @@ App.DiscussionPostModel.reopenClass({
 					});
 					resolve(postInstance);
 				},
-				error: (err: any): void => {
-					postInstance.setErrorProperty(err, postInstance);
+				error: (err: any) => {
+					postInstance.setErrorProperty(err);
 					resolve(postInstance);
 				}
 			});

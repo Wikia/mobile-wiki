@@ -4,9 +4,11 @@
 App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	attributeBindings: ['style'],
 	classNames: ['discussion-editor', 'mobile-hidden'],
+	pinnedClassName: 'pinned-top',
 
 	placeholderText: 'editor.post-editor-placeholder-text',
 	submitText: 'editor.post-action-button-label',
+	labelText: 'editor.post-editor-label',
 
 	/**
 	 * Set right height for editor placeholder when editor gets sticky
@@ -22,14 +24,33 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	 * Initialize onScroll binding for sticky logic
 	 * @returns {void}
 	 */
-	initializeOnScroll(): void {
+	initializeOnScroll: Em.on('didInsertElement', function (): void {
 		this.offsetTop = this.$().offset().top;
 		this.siteHeadHeight = Em.$('.site-head').outerHeight(true);
 
 		Em.$(window).on('scroll', (): void => {
-			this.onScroll()
+			this.onScroll();
 		});
-	},
+
+		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+			/*
+			 Ultra hack for editor on iOS
+			 iOS is scrolling on textarea focus, changing it's size on focus prevent that
+			 */
+			var $editorTextarea = $('.editor-textarea');
+			$editorTextarea
+				.css('height', '100px')
+				.on('focus', function() {
+					setTimeout(function(){
+						$editorTextarea.css('height', '100%');
+					}, 500);
+				})
+				.on('blur', function() {
+					$editorTextarea.css('height', '100px');
+				});
+		}
+
+	}),
 
 	onScroll(): void {
 		Em.run.throttle(
@@ -76,8 +97,8 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	 */
 	handleNewPostCreated: Em.observer('posts.@each._embedded.firstPost[0].isNew', function (): void {
 		var newPosts = this.get('posts').filter(function (post: any): boolean {
-			return post._embedded.firstPost[0].isNew;
-		}),
+				return post._embedded.firstPost[0].isNew;
+			}),
 			newPost = newPosts.get('firstObject');
 
 		if (newPost) {
@@ -91,20 +112,53 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 			Em.set(newPost, 'isVisible', false);
 
 			Em.run.later(this, () => {
-				this.setProperties({
-					showSuccess: false,
-					isActive: false,
-					submitDisabled: false
-				});
-
-				this.$('.editor-textarea').val('');
-
-				Em.set(newPost, 'isVisible', true);
-
-				Em.run.next(this, () => {
-					Em.set(newPost, 'isNew', false);
-				});
+				this.showNewPostAnimations(newPost);
 			}, 2000);
+		}
+	}),
+
+	showNewPostAnimations(newPost: any): void {
+		this.setProperties({
+			isActive: false,
+			postBody: '',
+			showSuccess: false,
+			submitDisabled: false
+		});
+
+		Em.set(newPost, 'isVisible', true);
+
+		Ember.run.scheduleOnce('afterRender', this, () => {
+			// This needs to be dalayed for CSS animation
+			Em.set(newPost, 'isNew', false);
+		});
+	},
+
+	/**
+	 * Handle message for anon when activating editor
+	 */
+	isActiveObserver: Em.observer('isActive', function(): void {
+		if (this.get('isActive')) {
+			if (this.get('currentUser.userId') === null) {
+				this.setProperties({
+					isActive: false,
+					errorMessage: 'editor.post-error-anon-cant-post'
+				});
+			}
+
+			/*
+			 iOS hack for position: fixed - now we display loading icon.
+			 */
+			if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+				$('html, body').css({
+					height: '100%',
+					overflow: 'hidden'
+				});
+			}
+		} else {
+			$('html, body').css({
+				height: '',
+				overflow: ''
+			});
 		}
 	}),
 

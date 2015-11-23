@@ -3,9 +3,11 @@
 
 App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	classNames: ['discussion-editor', 'reply-editor'],
+	pinnedClassName: 'pinned-bottom',
 
 	placeholderText: 'editor.reply-editor-placeholder-text',
 	submitText: 'editor.reply-action-button-label',
+	labelText: 'editor.reply-editor-label',
 
 	/**
 	 * Set right height for editor placeholder when editor gets sticky

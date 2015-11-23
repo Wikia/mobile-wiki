@@ -1,5 +1,18 @@
 {
-  "discussion":{
+  "landing-page":{
+    "to-the-wiki-title":"to the Wiki",
+    "page-main-header":"The hottest __applicationName__ discussions with the biggest fans.",
+    "download-the-app-header":"Download the app to join in now!",
+    "google-play-button-alt":"Get it on Google Play",
+    "start-discussions-title":"Start Discussions",
+    "start-discussions-text":"Ask a question, share news or just talk with other fans from around the world about your favourite topics!",
+    "upvote-the-best-title":"Upvote the Best",
+    "upvote-the-best-text":"See something you love? Cast your upvote to show your appreciation and influence what's trending.",
+    "share-your-knowledge-title":"Share your knowledge",
+    "share-your-knowledge-text":"Share your favourite discussions with your social networks to bring more fans into the fold."
+  },
+  "main":{
+    "pagination-post-show-more":"View Older Replies",
     "share-default-title":"Discussion on __siteName__",
     "contributors-title":"All Contributors",
     "sort-by-latest":"Latest",
@@ -14,5 +27,11 @@
     "all-discussions-link-mobile":"All Discussions",
     "discussions-app-join":"Looking to join the discussion? Get the app now!",
     "back-to-discussions-link":"All Discussions"
+  },
+  "editor":{
+    "post-failed-error":"Post failed.",
+    "post-editor-label":"Create a post",
+    "post-action-button-label":"Post",
+    "post-editor-placeholder-text":"Share a thought, question or link..."
   }
 }

@@ -264,9 +264,10 @@ module Mercury.Modules {
 		 *
 		 * @param {*} contents
 		 * @param {boolean} [lightboxVisible]
+		 * @param {number} closeButtonDelay
 		 * @returns {void}
 		 */
-		public createLightbox (contents: any, lightboxVisible?: boolean): void {
+		public createLightbox (contents: any, closeButtonDelay?: number, lightboxVisible?: boolean): void {
 		}
 
 		/**
