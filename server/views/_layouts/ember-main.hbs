@@ -68,6 +68,9 @@
 			{{#if mainPageData}}
 				M.prop('mainPageData', {{{json mainPageData}}});
 			{{/if}}
+            {{#if imageReview}}
+                M.prop('imageReview', {{{json imageReview}}});
+            {{/if}}
 			{{#if exception}}
 				M.provide('exception', {{{json exception}}});
 			{{/if}}

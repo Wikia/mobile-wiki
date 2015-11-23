@@ -112,7 +112,15 @@ unauthenticatedRoutes = [
 		method: 'POST',
 		path: '/editorPreview',
 		handler: require('./facets/editorPreview')
-	}
+	},
+	{
+		method: 'GET',
+		path: '/imagereview',
+		handler: require('./facets/showCuratedContent'),
+		config: {
+			cache: routeCacheConfig
+		}
+	},
 ];
 
 authenticatedRoutes = [
@@ -215,7 +223,7 @@ authenticatedRoutes = [
 		config: {
 			cache: routeCacheConfig
 		}
-	},
+	}
 ];
 
 
