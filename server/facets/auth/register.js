@@ -1,9 +1,9 @@
-const BirthdateInput = require('./BirthdateInput'),
-	authUtils = require('../../lib/AuthUtils'),
-	localSettings = require('../../../config/localSettings'),
-	localeSettings = require('../../../config/localeSettings'),
-	authView = require('./authView'),
-	deepExtend = require('deep-extend');
+import * as BirthdateInput from './BirthdateInput';
+import * as authUtils from '../../lib/AuthUtils';
+import localSettings from '../../../config/localSettings';
+import localeSettings from '../../../config/localeSettings';
+import * as authView from './authView';
+import deepExtend from 'deep-extend';
 
 /**
  * @typedef {Object} RegisterViewContext
@@ -148,10 +148,10 @@ function getEmailRegistrationPage(request, reply) {
  * @param {*} reply
  * @returns {void}
  */
-exports.get = function (request, reply) {
+export function get(request, reply) {
 	if (request.query.method === 'facebook') {
 		getFacebookRegistrationPage(request, reply);
 	} else {
 		getEmailRegistrationPage(request, reply);
 	}
-};
+}

@@ -3,6 +3,6 @@
  * @param {*} reply
  * @returns {void}
  */
-exports.generateCSRFView = function (request, reply) {
+export default function generateCSRFView(request, reply) {
 	reply.view('breadcrumb', null, {layout: 'empty'});
-};
+}

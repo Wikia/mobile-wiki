@@ -1,6 +1,6 @@
-const path = require('path');
+import * as path from 'path';
 
-exports.assetsHandler = {
+const assetsHandler = {
 	directory: {
 		path: path.join(__dirname, '../../../front'),
 		listing: false,
@@ -8,3 +8,5 @@ exports.assetsHandler = {
 		lookupCompressed: true
 	}
 };
+
+export default assetsHandler;

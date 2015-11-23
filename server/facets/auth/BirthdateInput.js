@@ -1,4 +1,4 @@
-const localeSettings = require('../../../config/localeSettings');
+import localeSettings from '../../../config/localeSettings';
 
 /**
  * @typedef {Object} DateEndian
@@ -36,7 +36,7 @@ const localeSettings = require('../../../config/localeSettings');
  * @property {string} lang
  * @property {*} settings
  */
-class BirthdateInput {
+export default class BirthdateInput {
 	/**
 	 * @param {string} endian
 	 * @param {string} lang
@@ -106,5 +106,3 @@ class BirthdateInput {
 		}
 	}
 }
-
-exports.BirthdateInput = BirthdateInput;

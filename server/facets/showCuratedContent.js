@@ -1,17 +1,18 @@
-const Logger = require('../lib/Logger'),
-	MainPage = require('../lib/CuratedMainPage'),
-	MediaWiki = require('../lib/MediaWiki'),
-	Utils = require('../lib/Utils'),
-	localSettings = require('../../config/localSettings'),
-	prepareCuratedContentData = require('./operations/prepareCuratedContentData'),
-	Caching = require('../lib/Caching'),
-	Tracking = require('../lib/Tracking'),
-	cachingTimes = {
-		enabled: true,
-		cachingPolicy: Caching.Policy.Public,
-		varnishTTL: Caching.Interval.standard,
-		browserTTL: Caching.Interval.disabled
-	};
+import * as Logger from '../lib/Logger';
+import * as MainPage from '../lib/CuratedMainPage';
+import * as MediaWiki from '../lib/MediaWiki';
+import * as Utils from '../lib/Utils';
+import localSettings from '../../config/localSettings';
+import prepareCuratedContentData from './operations/prepareCuratedContentData';
+import * as Caching from '../lib/Caching';
+import * as Tracking from '../lib/Tracking';
+
+const cachingTimes = {
+	enabled: true,
+	cachingPolicy: Caching.Policy.Public,
+	varnishTTL: Caching.Interval.standard,
+	browserTTL: Caching.Interval.disabled
+};
 
 /**
  * Handles article response from API
@@ -49,7 +50,7 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
  * @param {Hapi.Response} reply
  * @returns {void}
  */
-exports.showCuratedContent = function (request, reply) {
+export default function showCuratedContent(request, reply) {
 	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
 		params = {wikiDomain};
 
@@ -105,4 +106,4 @@ exports.showCuratedContent = function (request, reply) {
 			Logger.fatal('Unhandled error, code issue', error);
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		});
-};
+}

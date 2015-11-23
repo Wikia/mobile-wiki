@@ -1,14 +1,14 @@
-const MW = require('../../lib/MediaWiki'),
-	Utils = require('../../lib/Utils'),
-	localSettings = require('../../../config/localSettings'),
-	getStatusCode = require('../operations/getStatusCode');
+import * as MW from '../../lib/MediaWiki';
+import * as Utils from '../../lib/Utils';
+import localSettings from '../../../config/localSettings';
+import getStatusCode from '../operations/getStatusCode';
 
 /**
  * @param {Hapi.Request} request
  * @param {*} reply
  * @returns {void}
  */
-exports.get = function (request, reply) {
+export function get(request, reply) {
 	const params = {
 		wikiDomain: Utils.getCachedWikiDomainName(localSettings, request),
 		sectionName: decodeURIComponent(request.params.sectionName) || null
@@ -24,4 +24,4 @@ exports.get = function (request, reply) {
 		.catch((error) => {
 			reply(error).code(getStatusCode(error));
 		});
-};
+}

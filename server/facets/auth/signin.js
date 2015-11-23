@@ -1,7 +1,7 @@
-const authUtils = require('../../lib/AuthUtils'),
-	localSettings = require('../../../config/localSettings'),
-	authView = require('./authView'),
-	deepExtend = require('deep-extend');
+import * as authUtils from '../../lib/AuthUtils';
+import localSettings from '../../../config/localSettings';
+import * as authView from './authView';
+import deepExtend from 'deep-extend';
 
 /**
  * @typedef {Object} SignInViewContext
@@ -105,10 +105,10 @@ function getFacebookSignInPage(request, reply) {
  * @param {*} reply
  * @returns {void}
  */
-exports.get = function (request, reply) {
+export function get(request, reply) {
 	if (request.query.method === 'facebook') {
 		getFacebookSignInPage(request, reply);
 	} else {
 		getSignInPage(request, reply);
 	}
-};
+}

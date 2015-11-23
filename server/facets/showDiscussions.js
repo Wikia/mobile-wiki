@@ -1,7 +1,7 @@
-const config = require('../../config/discussionsSplashPageConfig'),
-	Utils = require('../lib/Utils'),
-	localSettings = require('../../config/localSettings'),
-	showApplication = require('../facets/showApplication');
+import config from '../../config/discussionsSplashPageConfig';
+import * as Utils from '../lib/Utils';
+import localSettings from '../../config/localSettings';
+import showApplication from '../facets/showApplication';
 
 /**
  * Obtains discussions config for a community
@@ -54,7 +54,7 @@ function showSplashPage(request, reply, discussionsConfig) {
  * @param {*} reply
  * @returns {void}
  */
-exports.showDiscussions = function (request, reply) {
+export default function showDiscussions(request, reply) {
 	const discussionsConfig = getConfigFromUrl(request.headers.host);
 
 	if (!discussionsConfig) {

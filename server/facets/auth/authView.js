@@ -1,6 +1,6 @@
-const caching = require('../../lib/Caching'),
-	localSettings = require('../../../config/localSettings'),
-	url = require('url');
+import * as caching from '../../lib/Caching';
+import * as url from 'url';
+import localSettings from '../../../config/localSettings';
 
 /**
  * @typedef {string[]} PageParams
@@ -28,8 +28,11 @@ const caching = require('../../lib/Caching'),
  * @property {*} [trackingConfig]
  */
 
-exports.VIEW_TYPE_MOBILE = 'mobile';
-exports.VIEW_TYPE_DESKTOP = 'desktop';
+const VIEW_TYPE_MOBILE = 'mobile',
+	VIEW_TYPE_DESKTOP = 'desktop';
+
+export {VIEW_TYPE_MOBILE};
+export {VIEW_TYPE_DESKTOP};
 
 /**
  * @param {string} template
@@ -38,7 +41,7 @@ exports.VIEW_TYPE_DESKTOP = 'desktop';
  * @param {*} reply
  * @returns {Hapi.Response}
  */
-exports.view = function (template, context, request, reply) {
+export function view(template, context, request, reply) {
 	const response = reply.view(
 		`auth/${this.getViewType(request)}/${template}`,
 		context,
@@ -49,13 +52,13 @@ exports.view = function (template, context, request, reply) {
 
 	caching.disableCache(response);
 	return response;
-};
+}
 
 /**
  * @param {Hapi.Request} request
  * @returns {string}
  */
-exports.getRedirectUrl = function (request) {
+export function getRedirectUrl(request) {
 	const currentHost = request.headers.host,
 		redirectUrl = request.query.redirect || '/',
 		redirectUrlHost = url.parse(redirectUrl).host;
@@ -69,13 +72,13 @@ exports.getRedirectUrl = function (request) {
 
 	// Not valid domain
 	return '/';
-};
+}
 
 /**
  * @param {Hapi.Request} request
  * @returns {string}
  */
-exports.getOrigin = function (request) {
+export function getOrigin(request) {
 	const currentHost = request.headers.host,
 		redirectUrl = request.query.redirect || '/',
 		redirectUrlHost = url.parse(redirectUrl).host,
@@ -90,14 +93,14 @@ exports.getOrigin = function (request) {
 	}
 
 	return this.getCurrentOrigin(request);
-};
+}
 
 /**
  * @param {string} domain
  * @param {string} currentHost
  * @returns {boolean}
  */
-exports.checkDomainMatchesCurrentHost = function (domain, currentHost) {
+export function checkDomainMatchesCurrentHost(domain, currentHost) {
 	return currentHost === domain ||
 		domain.indexOf(`.${currentHost}`, domain.length - currentHost.length - 1) !== -1;
 };
@@ -106,7 +109,7 @@ exports.checkDomainMatchesCurrentHost = function (domain, currentHost) {
  * @param {string} domain
  * @returns {boolean}
  */
-exports.isWhiteListedDomain = function (domain) {
+export function isWhiteListedDomain(domain) {
 	const whiteListedDomains = ['.wikia.com', '.wikia-dev.com'];
 
 	/**
@@ -116,30 +119,30 @@ exports.isWhiteListedDomain = function (domain) {
 	return whiteListedDomains.some((whiteListedDomain) => {
 		return domain.indexOf(whiteListedDomain, domain.length - whiteListedDomain.length) !== -1;
 	});
-};
+}
 
 /**
  * @param {Hapi.Request} request
  * @returns {string}
  */
-exports.getCurrentOrigin = function (request) {
+export function getCurrentOrigin(request) {
 	// for now the assumption is that there will be https
 	return `https://${request.headers.host}`;
-};
+}
 
 /**
  * @param {Hapi.Request} request
  * @returns {string}
  */
-exports.getCanonicalUrl = function (request) {
+export function getCanonicalUrl(request) {
 	return this.getCurrentOrigin(request) + request.path;
-};
+}
 
 /**
  * @param {Hapi.Request} request
  * @returns {AuthViewContext}
  */
-exports.getDefaultContext = function (request) {
+export function getDefaultContext(request) {
 	const viewType = this.getViewType(request),
 		isModal = request.query.modal === '1';
 
@@ -162,7 +165,7 @@ exports.getDefaultContext = function (request) {
 			parentOrigin: (isModal ? this.getOrigin(request) : undefined)
 		}
 	};
-};
+}
 
 
 /**
@@ -170,7 +173,7 @@ exports.getDefaultContext = function (request) {
  * @param {*} reply
  * @returns {*}
  */
-exports.validateRedirect = function (request, reply) {
+export function validateRedirect(request, reply) {
 	const queryRedirectUrl = this.getRedirectUrl(request);
 
 	if (request.query.redirect && queryRedirectUrl !== request.query.redirect) {
@@ -180,14 +183,13 @@ exports.validateRedirect = function (request, reply) {
 	}
 
 	return reply();
-};
-
+}
 
 /**
  * @param {Hapi.Request} request
  * @returns {string}
  */
-exports.getViewType = function (request) {
+export function getViewType(request) {
 	const mobilePattern = localSettings.patterns.mobile,
 		ipadPattern = localSettings.patterns.iPad;
 
@@ -195,7 +197,7 @@ exports.getViewType = function (request) {
 		return this.VIEW_TYPE_MOBILE;
 	}
 	return this.VIEW_TYPE_DESKTOP;
-};
+}
 
 
 /**
@@ -204,7 +206,7 @@ exports.getViewType = function (request) {
  * @param {AuthViewContext} context
  * @returns {Hapi.Response}
  */
-exports.onAuthenticatedRequestReply = function (request, reply, context) {
+export function onAuthenticatedRequestReply(request, reply, context) {
 	const redirect = this.getRedirectUrl(request);
 
 	if (context.pageParams.isModal) {
@@ -218,4 +220,4 @@ exports.onAuthenticatedRequestReply = function (request, reply, context) {
 	}
 
 	return reply.redirect(redirect);
-};
+}

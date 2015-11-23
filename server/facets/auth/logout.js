@@ -3,7 +3,7 @@
  * @param {*} reply
  * @returns {void}
  */
-exports.logout = function (request, reply) {
+export function logout(request, reply) {
 	reply.unstate('access_token');
 	reply.redirect('/');
-};
+}

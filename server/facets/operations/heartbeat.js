@@ -3,7 +3,7 @@
  * @param {*} reply
  * @returns {void}
  */
-exports.heartbeat = function (request, reply) {
+export default function heartbeat(request, reply) {
 	const memoryUsage = process.memoryUsage();
 
 	reply('Server status is: OK')

@@ -1,16 +1,16 @@
-const Article = require('../lib/Article'),
-	Boom = require('boom'),
-	Utils = require('../lib/Utils'),
-	localSettings = require('../../config/localSettings'),
-	verifyMWHash = require('./operations/verifyMWHash'),
-	prepareArticleData = require('./operations/prepareArticleData');
+import * as Article from '../lib/Article';
+import * as Boom from 'boom';
+import * as Utils from '../lib/Utils';
+import localSettings from '../../config/localSettings';
+import verifyMWHash from './operations/verifyMWHash';
+import prepareArticleData from './operations/prepareArticleData';
 
 /**
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
  * @returns {void}
  */
-exports.editorPreview = function (request, reply) {
+export function editorPreview(request, reply) {
 	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
 		parserOutput = request.payload.parserOutput,
 		mwHash = request.payload.mwHash,
@@ -70,4 +70,4 @@ exports.editorPreview = function (request, reply) {
 				layout: 'empty'
 			});
 		});
-};
+}

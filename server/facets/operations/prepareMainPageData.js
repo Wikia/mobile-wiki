@@ -4,7 +4,7 @@
  * @param {ArticlePageData} data
  * @returns {object}
  */
-exports.prepareMainPageData = function (data) {
+export default function prepareMainPageData(data) {
 	const articleData = data.article.data,
 		wikiVariables = data.wikiVariables,
 		result = {},
@@ -21,4 +21,4 @@ exports.prepareMainPageData = function (data) {
 	};
 
 	return result;
-};
+}

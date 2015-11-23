@@ -1,6 +1,6 @@
-const Utils = require('../../lib/Utils'),
-	localSettings = require('../../../config/localSettings'),
-	deepExtend = require('deep-extend');
+import * as Utils from '../../lib/Utils';
+import localSettings from '../../../config/localSettings';
+import deepExtend from 'deep-extend';
 
 /**
  * Handles category or section response for Curated Main Page from API
@@ -10,7 +10,7 @@ const Utils = require('../../lib/Utils'),
  * @param {CuratedContentPageData} curatedContentPageData
  * @returns {void}
  */
-exports.prepareCuratedContentData = function (request, curatedContentPageData) {
+export default function prepareCuratedContentData(request, curatedContentPageData) {
 	const result = {
 			mainPageData: curatedContentPageData.mainPageData,
 			wikiVariables: curatedContentPageData.wikiVariables,
@@ -83,4 +83,4 @@ exports.prepareCuratedContentData = function (request, curatedContentPageData) {
 	}
 
 	return result;
-};
+}

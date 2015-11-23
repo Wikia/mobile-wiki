@@ -248,4 +248,4 @@ const discussionsSplashPageConfig = {
 	}
 };
 
-exports.discussionsSplashPageConfig = discussionsSplashPageConfig;
+export default discussionsSplashPageConfig;

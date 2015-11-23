@@ -48,11 +48,11 @@
  * @property {CommentsDataStatus} status
  */
 
-const Boom = require('boom'),
-	MW = require('../../lib/MediaWiki'),
-	Utils = require('../../lib/Utils'),
-	localSettings = require('../../../config/localSettings'),
-	getStatusCode = require('../operations/getStatusCode');
+import * as Boom from 'boom';
+import * as MW from '../../lib/MediaWiki';
+import * as Utils from '../../lib/Utils';
+import localSettings from '../../../config/localSettings';
+import getStatusCode from '../operations/getStatusCode';
 
 /**
  * Wrap article comments data response
@@ -80,7 +80,7 @@ function transformResponse(commentsData) {
  * @param {*} reply
  * @returns {void}
  */
-exports.get = function (request, reply) {
+export function get(request, reply) {
 	const params = {
 		wikiDomain: Utils.getCachedWikiDomainName(localSettings, request),
 		articleId: parseInt(request.params.articleId, 10) || null,
@@ -110,4 +110,4 @@ exports.get = function (request, reply) {
 			reply(error).code(getStatusCode(error));
 		});
 	}
-};
+}

@@ -1,7 +1,6 @@
-const Utils = require('../../lib/Utils'),
-	localSettings = require('../../../config/localSettings'),
-	deepExtend = require('deep-extend'),
-	shouldAsyncArticle = Utils.shouldAsyncArticle;
+import * as Utils from '../../lib/Utils';
+import localSettings from '../../../config/localSettings';
+import deepExtend from 'deep-extend';
 
 /**
  * Prepares article data to be rendered
@@ -11,7 +10,7 @@ const Utils = require('../../lib/Utils'),
  * @param {ArticlePageData} data
  * @returns {object}
  */
-exports.prepareArticleData = function (request, data) {
+export default function prepareArticleData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
 		articleData = data.article.data,
 		wikiVariables = data.wikiVariables,
@@ -95,9 +94,9 @@ exports.prepareArticleData = function (request, data) {
 
 	result.asyncArticle = (
 		request.query._escaped_fragment_ !== '0' ?
-			shouldAsyncArticle(localSettings, request.headers.host) :
+			Utils.shouldAsyncArticle(localSettings, request.headers.host) :
 			false
 	);
 
 	return result;
-};
+}

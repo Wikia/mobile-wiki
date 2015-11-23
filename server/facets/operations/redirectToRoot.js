@@ -3,6 +3,6 @@
  * @param {*} reply
  * @returns {void}
  */
-exports.redirectToRoot = function (request, reply) {
+export default function redirectToRoot(request, reply) {
 	reply.redirect('/');
-};
+}

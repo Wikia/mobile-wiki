@@ -1,20 +1,21 @@
-const Article = require('../lib/Article'),
-	MediaWiki = require('../lib/MediaWiki'),
-	Caching = require('../lib/Caching'),
-	Logger = require('../lib/Logger'),
-	Tracking = require('../lib/Tracking'),
-	Utils = require('../lib/Utils'),
-	getStatusCode = require('./operations/getStatusCode'),
-	localSettings = require('../../config/localSettings'),
-	prepareArticleData = require('./operations/prepareArticleData'),
-	prepareMainPageData = require('./operations/prepareMainPageData'),
-	deepExtend = require('deep-extend'),
-	cachingTimes = {
-		enabled: true,
-		cachingPolicy: Caching.Policy.Public,
-		varnishTTL: Caching.Interval.standard,
-		browserTTL: Caching.Interval.disabled
-	};
+import * as Article from '../lib/Article';
+import * as MediaWiki from '../lib/MediaWiki';
+import * as Caching from '../lib/Caching';
+import * as Logger from '../lib/Logger';
+import * as Tracking from '../lib/Tracking';
+import * as Utils from '../lib/Utils';
+import getStatusCode from './operations/getStatusCode';
+import localSettings from '../../config/localSettings';
+import prepareArticleData from './operations/prepareArticleData';
+import prepareMainPageData from './operations/prepareMainPageData';
+import deepExtend from 'deep-extend';
+
+const cachingTimes = {
+	enabled: true,
+	cachingPolicy: Caching.Policy.Public,
+	varnishTTL: Caching.Interval.standard,
+	browserTTL: Caching.Interval.disabled
+};
 
 /**
  * This is used only locally, normally MediaWiki takes care of this redirect
@@ -147,7 +148,7 @@ function getArticle(request, reply, article, allowCache) {
  * @param {Hapi.Response} reply
  * @returns {void}
  */
-exports.showArticle = function (request, reply) {
+export default function showArticle(request, reply) {
 	const path = request.path,
 		wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
 		params = {

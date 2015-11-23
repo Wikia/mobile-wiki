@@ -1,14 +1,15 @@
-const Article = require('../../lib/Article'),
-	Caching = require('../../lib/Caching'),
-	Utils = require('../../lib/Utils'),
-	localSettings = require('../../../config/localSettings'),
-	getStatusCode = require('../operations/getStatusCode'),
-	cachingTimes = {
-		enabled: true,
-		cachingPolicy: Caching.Policy.Public,
-		varnishTTL: Caching.Interval.standard,
-		browserTTL: Caching.Interval.disabled
-	};
+import * as Article from '../../lib/Article';
+import * as Caching from '../../lib/Caching';
+import * as Utils from '../../lib/Utils';
+import localSettings from '../../../config/localSettings';
+import getStatusCode from '../operations/getStatusCode';
+
+const cachingTimes = {
+	enabled: true,
+	cachingPolicy: Caching.Policy.Public,
+	varnishTTL: Caching.Interval.standard,
+	browserTTL: Caching.Interval.disabled
+};
 
 /**
  * @param {*} query
@@ -42,7 +43,7 @@ function handleArticleResponse(reply, result, allowCache) {
  * @param {*} reply
  * @returns {void}
  */
-exports.get = function (request, reply) {
+export function get(request, reply) {
 	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
 		params = {
 			wikiDomain,
@@ -98,4 +99,4 @@ exports.get = function (request, reply) {
 				handleArticleResponse(reply, result, allowCache);
 			});
 	}
-};
+}

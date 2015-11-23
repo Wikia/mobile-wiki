@@ -1,14 +1,14 @@
-const localSettings = require('../../../config/localSettings'),
-	crypto = require('crypto');
+import localSettings from '../../../config/localSettings';
+import * as crypto from 'crypto';
 
 /**
  * @param {string} parserOutput
  * @param {string} mwHash
  * @returns {boolean}
  */
-exports.verifyMWHash = function (parserOutput, mwHash) {
+export default function verifyMWHash(parserOutput, mwHash) {
 	const hmac = crypto.createHmac('sha1', localSettings.mwPreviewSalt || ''),
 		computedHash = hmac.update(parserOutput).digest('hex');
 
 	return (computedHash === mwHash);
-};
+}

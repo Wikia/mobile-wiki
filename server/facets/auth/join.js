@@ -1,9 +1,9 @@
-const authUtils = require('../../lib/AuthUtils'),
-	caching = require('../../lib/Caching'),
-	localSettings = require('../../../config/localSettings'),
-	authView = require('./authView'),
-	deepExtend = require('deep-extend'),
-	url = require('url');
+import * as authUtils from '../../lib/AuthUtils';
+import * as caching from '../../lib/Caching';
+import localSettings from '../../../config/localSettings';
+import * as authView from './authView';
+import deepExtend from 'deep-extend';
+import * as url from 'url';
 
 /**
  * @typedef {Object} JoinViewContext
@@ -19,7 +19,7 @@ const authUtils = require('../../lib/AuthUtils'),
  * @param {*} reply
  * @returns {Hapi.Response}
  */
-exports.get = function (request, reply) {
+export function get(request, reply) {
 	const context = deepExtend(
 		authView.getDefaultContext(request),
 		{
@@ -51,4 +51,4 @@ exports.get = function (request, reply) {
 	}
 
 	return authView.view('join-page', context, request, reply);
-};
+}
