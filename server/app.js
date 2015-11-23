@@ -15,6 +15,9 @@ import {routes} from './routes';
 import path from 'path';
 import url from 'url';
 import fs from 'fs';
+import crumb from 'crumb';
+import i18next from 'hapi-i18next';
+import handlebars from 'handlebars';
 
 const isDevbox = localSettings.environment === Environment.Dev,
 	// Creates new `hapi` server
@@ -160,7 +163,7 @@ function getSupportedLangs() {
 
 plugins = [
 	{
-		register: require('crumb'),
+		register: crumb,
 		options: {
 			cookieOptions: {
 				isSecure: false
@@ -168,7 +171,7 @@ plugins = [
 		}
 	},
 	{
-		register: require('hapi-i18next'),
+		register: i18next,
 		options: {
 			i18nextOptions: {
 				resGetPath: path.join(__dirname, '..', 'front/locales/__lng__/__ns__.json'),
@@ -215,14 +218,10 @@ server.auth.strategy('session', 'wikia');
 
 server.views({
 	engines: {
-		hbs: require('handlebars')
+		hbs: handlebars
 	},
 	isCached: true,
 	layout: 'ember-main',
-	/*
-	 * Helpers are functions usable from within handlebars templates.
-	 * @example the getScripts helper can be used like: <script src="{{ getScripts 'foo.js' }}">
-	 */
 	helpersPath: path.join(__dirname, 'views', '_helpers'),
 	layoutPath: path.join(__dirname, 'views', '_layouts'),
 	path: path.join(__dirname, 'views'),

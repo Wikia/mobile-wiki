@@ -6,7 +6,7 @@ import {getCachedWikiDomainName,
 		RedirectedToCanonicalHost} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
 import prepareCuratedContentData from './operations/prepareCuratedContentData';
-import * as Caching from '../lib/Caching';
+import setResponseCaching, * as Caching from '../lib/Caching';
 import {handleResponseCuratedMainPage} from '../lib/Tracking';
 
 const cachingTimes = {
@@ -40,7 +40,7 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 	response.type('text/html; charset=utf-8');
 
 	if (allowCache) {
-		return Caching.setResponseCaching(response, cachingTimes);
+		return setResponseCaching(response, cachingTimes);
 	}
 
 	return Caching.disableCache(response);

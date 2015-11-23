@@ -1,5 +1,5 @@
 import * as Article from '../../lib/Article';
-import * as Caching from '../../lib/Caching';
+import setResponseCaching, * as Caching from '../../lib/Caching';
 import {getCachedWikiDomainName} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
 import getStatusCode from '../operations/getStatusCode';
@@ -29,7 +29,7 @@ function handleArticleResponse(reply, result, allowCache) {
 	const response = reply(result).code(getStatusCode(result));
 
 	if (allowCache) {
-		Caching.setResponseCaching(response, cachingTimes);
+		setResponseCaching(response, cachingTimes);
 	} else {
 		Caching.disableCache(response);
 	}

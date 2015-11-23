@@ -1,6 +1,6 @@
 import * as Article from '../lib/Article';
 import {WikiVariablesRequestError} from '../lib/MediaWiki';
-import * as Caching from '../lib/Caching';
+import setResponseCaching, * as Caching from '../lib/Caching';
 import Logger from '../lib/Logger';
 import * as Tracking from '../lib/Tracking';
 import * as Utils from '../lib/Utils';
@@ -75,7 +75,7 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 	response.type('text/html; charset=utf-8');
 
 	if (allowCache) {
-		return Caching.setResponseCaching(response, cachingTimes);
+		return setResponseCaching(response, cachingTimes);
 	}
 
 	return Caching.disableCache(response);
@@ -99,7 +99,7 @@ function getArticle(request, reply, article, allowCache) {
 		 */
 		.then((data) => {
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
-			//outputResponse(request, reply, data, allowCache);
+			outputResponse(request, reply, data, allowCache);
 		})
 		/**
 		 * @param {MWException} error
