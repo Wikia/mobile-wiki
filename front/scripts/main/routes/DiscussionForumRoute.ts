@@ -50,7 +50,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.DiscussionLayoutMixin, App.Discus
 		 * @returns {void}
 		 */
 		loadPage(pageNum: number): void {
-			this.modelFor('discussion.forum').loadPage(pageNum,this.controllerFor('discussionForum').get('sortBy'));
+			this.modelFor('discussion.forum').loadPage(pageNum, this.controllerFor('discussionForum').get('sortBy'));
 		},
 
 		/**

@@ -17,7 +17,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	 * @param {number} pageNum
 	 * @returns {Em.RSVP.Promise}
 	 */
-	loadPage(pageNum: number = 0, sortBy: string ='creation_date') {
+	loadPage(pageNum: number = 0, sortBy: string ='latest') {
 		this.set('pageNum', pageNum);
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
