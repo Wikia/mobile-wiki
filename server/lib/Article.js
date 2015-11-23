@@ -1,8 +1,8 @@
-const Promise = require('bluebird'),
-	MediaWiki = require('./MediaWiki'),
-	Utils = require('./Utils'),
-	logger = require('./Logger'),
-	localSettings = require('../../config/localSettings');
+import Promise from 'bluebird';
+import * as MediaWiki from './MediaWiki';
+import * as Utils from './Utils';
+import logger from './Logger';
+import localSettings from '../../config/localSettings';
 
 /**
  * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and ArticleRequestHelper
@@ -12,7 +12,7 @@ const Promise = require('bluebird'),
 /**
  * @class ArticleRequestError
  */
-class ArticleRequestError {
+export class ArticleRequestError {
 	/**
 	 * @param {ArticlePageData} data
 	 * @returns {void}
@@ -24,17 +24,15 @@ class ArticleRequestError {
 }
 ArticleRequestError.prototype = Object.create(Error.prototype);
 
-exports.ArticleRequestError = ArticleRequestError;
-
 /**
  * @class ArticleRequestHelper
  * @property {ArticleRequestParams} params
  */
-class ArticleRequestHelper {
+export class ArticleRequestHelper {
 	/**
 	 * @param {ArticleRequestParams} params
 	 * @returns {void}
-     */
+	 */
 	constructor(params) {
 		this.params = params;
 	}
@@ -42,7 +40,7 @@ class ArticleRequestHelper {
 	/**
 	 * @param {string} title
 	 * @returns {void}
-     */
+	 */
 	setTitle(title) {
 		this.params.title = title;
 	}
@@ -144,7 +142,7 @@ class ArticleRequestHelper {
 
 	/**
 	 * @returns {Promise}
-     */
+	 */
 	getArticleRandomTitle() {
 		const articleRequest = new MediaWiki.ArticleRequest(this.params);
 
@@ -168,5 +166,3 @@ class ArticleRequestHelper {
 			});
 	}
 }
-
-exports.ArticleRequestHelper = ArticleRequestHelper;
