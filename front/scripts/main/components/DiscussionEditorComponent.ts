@@ -18,6 +18,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	siteHeadHeight: 0,
 
 	postBody: '',
+	errorMessage: Em.computed.oneWay('requestErrorMessage'),
 
 	/**
 	 * Set right height for editor placeholder when editor gets sticky
@@ -140,10 +141,13 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	/**
 	 * Handle message for anon when activating editor
 	 */
-	isActiveObserver: Em.observer('isActive',function(): void {
+	isActiveObserver: Em.observer('isActive', function(): void {
 		if (this.get('isActive')) {
 			if (this.get('currentUser.userId') === null) {
-				alert(i18n.t('editor.post-error-anon-cant-post', {ns: 'discussion'}));
+				this.setProperties({
+					isActive: false,
+					errorMessage: 'editor.post-error-anon-cant-post'
+				});
 			}
 
 			/*
@@ -166,9 +170,9 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	/**
 	 * Display error message on post failure
 	 */
-	requestErrorMessageObserver: Em.observer('requestErrorMessage', function(): void {
-		if (this.get('requestErrorMessage')) {
-			alert(i18n.t(this.get('requestErrorMessage'), {ns: 'discussion'}));
+	errorMessageObserver: Em.observer('errorMessage', function(): void {
+		if (this.get('errorMessage')) {
+			alert(i18n.t(this.get('errorMessage'), {ns: 'discussion'}));
 		}
 		this.set('isLoading', false);
 	}),
