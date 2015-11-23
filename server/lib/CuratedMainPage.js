@@ -1,8 +1,8 @@
-const Promise = require('bluebird'),
-	MediaWiki = require('./MediaWiki'),
-	Utils = require('./Utils'),
-	logger = require('./Logger'),
-	localSettings = require('../../config/localSettings');
+import Promise from 'bluebird';
+import * as MediaWiki from './MediaWiki';
+import * as Utils from './Utils';
+import logger from './Logger';
+import localSettings from '../../config/localSettings';
 
 /**
  * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and ArticleRequestHelper
@@ -12,7 +12,7 @@ const Promise = require('bluebird'),
 /**
  * @class MainPageDataRequestError
  */
-class MainPageDataRequestError {
+export class MainPageDataRequestError {
 	/**
 	 * @param {*} data
 	 * @returns {void}
@@ -24,18 +24,16 @@ class MainPageDataRequestError {
 }
 MainPageDataRequestError.prototype = Object.create(Error.prototype);
 
-exports.MainPageDataRequestError = MainPageDataRequestError;
-
 /**
  * @class CuratedMainPageRequestHelper
  * @property {ArticleRequestParams} params
  */
-class CuratedMainPageRequestHelper {
+export class CuratedMainPageRequestHelper {
 
 	/**
 	 * @param {ArticleRequestParams} params
 	 * @returns {void}
-     */
+	 */
 	constructor(params) {
 		this.params = params;
 	}
@@ -51,7 +49,7 @@ class CuratedMainPageRequestHelper {
 
 	/**
 	 * @returns {Promise<CuratedContentPageData>}
-     */
+	 */
 	getWikiVariablesAndDetails() {
 		const requests = [
 			new MediaWiki.ArticleRequest(this.params).mainPageDetailsAndAdsContext(),
@@ -116,5 +114,3 @@ class CuratedMainPageRequestHelper {
 			});
 	}
 }
-
-exports.CuratedMainPageRequestHelper = CuratedMainPageRequestHelper;
