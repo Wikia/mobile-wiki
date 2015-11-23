@@ -1,6 +1,6 @@
 import load from '../../utils/load';
 import {containerSize} from '../../utils/calculation';
-import {track as utilsTrack} from '../../utils/track';
+import {track as mercuryTrack} from '../../utils/track';
 
 export default class BasePlayer {
 	/**
@@ -97,7 +97,7 @@ export default class BasePlayer {
 	 * @returns {void}
 	 */
 	track(event = '') {
-		return utilsTrack({
+		return mercuryTrack({
 			action: event,
 			label: this.provider,
 			category: `video-player-${event}`
