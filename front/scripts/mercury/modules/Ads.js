@@ -67,10 +67,6 @@ class Ads {
 	init(adsUrl) {
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
-		if (window.Mercury) {
-			window.Mercury.Modules = {};
-			window.Mercury.Modules.Ads = Ads;
-		}
 
 		/* global require */
 
@@ -313,5 +309,12 @@ class Ads {
 
 Ads.instance = null;
 Ads.blocking = null;
+
+// @TODO XW-703 right now ads code which comes from MW is expecting window.Mercury.Modules.
+// When introducing sync require in ads this should be fixed
+if (window.Mercury) {
+	window.Mercury.Modules = window.Mercury.Modules || {};
+	window.Mercury.Modules.Ads = Ads;
+}
 
 export default Ads;
