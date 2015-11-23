@@ -1,11 +1,11 @@
 /**
  * @description Mediawiki API functions
  */
-const localSettings = require('../../config/localSettings'),
-	Logger = require('./Logger'),
-	Wreck = require('wreck'),
-	Promise = require('bluebird'),
-	Url = require('url');
+import localSettings from '../../config/localSettings';
+import Logger from './Logger';
+import Wreck from 'wreck';
+import Promise from 'bluebird';
+import Url from 'url';
 
 /**
  * Create request URL
@@ -15,7 +15,7 @@ const localSettings = require('../../config/localSettings'),
  * @param {*} params
  * @returns {string} url
  */
-function createUrl(wikiDomain, path, params = {}) {
+export function createUrl(wikiDomain, path, params = {}) {
 	const qsAggregator = [];
 
 	/**
@@ -37,8 +37,6 @@ function createUrl(wikiDomain, path, params = {}) {
 	return `http://${wikiDomain}/${path}${qsAggregator.length > 0 ? `?${qsAggregator.join('&')}` : ''}`;
 }
 
-exports.createUrl = createUrl;
-
 /**
  * Fetch http resource
  *
@@ -48,7 +46,7 @@ exports.createUrl = createUrl;
  * @param {*} [headers={}]
  * @returns {Promise}
  */
-function fetch(url, host = '', redirects = 1, headers = {}) {
+export function fetch(url, host = '', redirects = 1, headers = {}) {
 	/**
 	 * We send requests to Consul URL and the target wiki is passed in the Host header.
 	 * When Wreck gets a redirection response it updates URL only, not headers.
@@ -128,8 +126,6 @@ function fetch(url, host = '', redirects = 1, headers = {}) {
 	});
 }
 
-exports.fetch = fetch;
-
 /**
  * @class BaseRequest
  *
@@ -163,7 +159,7 @@ class BaseRequest {
  *
  * @class SearchRequest
  */
-class SearchRequest extends BaseRequest {
+export class SearchRequest extends BaseRequest {
 	/**
 	 * Default parameters to make the request url clean -- we may
 	 * want to customize later
@@ -182,14 +178,12 @@ class SearchRequest extends BaseRequest {
 	}
 }
 
-exports.SearchRequest = SearchRequest;
-
 /**
  * a wrapper for making API requests for info about the wiki
  *
  * @class WikiRequest
  */
-class WikiRequest extends BaseRequest {
+export class WikiRequest extends BaseRequest {
 	/**
 	 * Gets general wiki information
 	 *
@@ -213,14 +207,12 @@ class WikiRequest extends BaseRequest {
 	}
 }
 
-exports.WikiRequest = WikiRequest;
-
 /**
  * Gets article data
  *
  * @class ArticleRequest
  */
-class ArticleRequest extends BaseRequest {
+export class ArticleRequest extends BaseRequest {
 	/**
 	 * Fetch article data
 	 *
@@ -329,12 +321,10 @@ class ArticleRequest extends BaseRequest {
 	}
 }
 
-exports.ArticleRequest = ArticleRequest;
-
 /**
  * @class WikiVariablesRequestError
  */
-class WikiVariablesRequestError {
+export class WikiVariablesRequestError {
 	/**
 	 * @param {MWException} error
 	 * @returns {void}
@@ -346,5 +336,3 @@ class WikiVariablesRequestError {
 }
 
 WikiVariablesRequestError.prototype = Object.create(Error.prototype);
-
-exports.WikiVariablesRequestError = WikiVariablesRequestError;
