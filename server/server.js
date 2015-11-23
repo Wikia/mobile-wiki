@@ -6,9 +6,9 @@
  *
  */
 
-const cluster = require('cluster'),
-	localSettings = require('../config/localSettings'),
-	logger = require('./lib/Logger');
+import cluster from 'cluster';
+import localSettings from '../config/localSettings';
+import logger from './lib/Logger';
 
 /**
  * Is the application stopping
@@ -24,7 +24,7 @@ cluster.setupMaster({
  * Gets the count of active workers
  *
  * @returns {number} Current number of workers
- * @returns {void}
+ * @returns {number}
  */
 function numWorkers() {
 	return Object.keys(cluster.workers).length;
