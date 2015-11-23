@@ -9,17 +9,17 @@
  * @property {string} url
  */
 
-const Promise = require('bluebird'),
-	localSettings = require('../../config/localSettings'),
-	MW = require('./MediaWiki'),
-	Utils = require('./Utils');
+import Promise from 'bluebird';
+import localSettings from '../../config/localSettings';
+import MW from './MediaWiki';
+import * as Utils from './Utils';
 
 /**
  * @param {Hapi.Request} request
  * @param {*} wikiVars
  * @returns {Promise}
  */
-function getPromiseForDiscussionData(request, wikiVars) {
+export function getPromiseForDiscussionData(request, wikiVars) {
 	const i18n = request.server.methods.i18n.getInstance(),
 		openGraphData = {};
 
@@ -81,14 +81,12 @@ function getPromiseForDiscussionData(request, wikiVars) {
 	return Promise.resolve(openGraphData);
 }
 
-exports.getPromiseForDiscussionData = getPromiseForDiscussionData;
-
 /**
  * @param {Hapi.Request} request
  * @param {*} wikiVars
  * @returns {Promise}
  */
-function getAttributes(request, wikiVars) {
+export function getAttributes(request, wikiVars) {
 	// Discussions path
 	if (request.path.split('/')[1] === 'd') {
 		return getPromiseForDiscussionData(request, wikiVars);
@@ -96,5 +94,3 @@ function getAttributes(request, wikiVars) {
 
 	return Promise.resolve({});
 }
-
-exports.getAttributes = getAttributes;
