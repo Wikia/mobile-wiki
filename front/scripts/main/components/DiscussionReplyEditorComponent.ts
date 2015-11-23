@@ -59,7 +59,9 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 			}),
 			newReply = newReplies.get('firstObject');
 
-		this.handleNewItemCreated(newReply);
+		if (newReply) {
+			this.handleNewItemCreated(newReply);
+		}
 	}),
 
 	/**

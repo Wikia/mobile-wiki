@@ -102,7 +102,10 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 			}),
 			newPost = newPosts.get('firstObject');
 
-		this.handleNewItemCreated(newPost);
+		if (newPost) {
+			newPost = newPost._embedded.firstPost[0];
+			this.handleNewItemCreated(newPost);
+		}
 	}),
 
 	actions: {

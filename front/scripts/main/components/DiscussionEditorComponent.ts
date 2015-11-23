@@ -77,20 +77,16 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * @returns {void}
 	 */
 	handleNewItemCreated(newItem: any): void {
-		if (newItem) {
-			newItem = newItem._embedded.firstPost[0];
+		this.setProperties({
+			isLoading: false,
+			showSuccess: true
+		});
 
-			this.setProperties({
-				isLoading: false,
-				showSuccess: true
-			});
+		Em.set(newItem, 'isVisible', false);
 
-			Em.set(newItem, 'isVisible', false);
-
-			Em.run.later(this, () => {
-				this.showNewPostAnimations(newItem);
-			}, 2000);
-		}
+		Em.run.later(this, () => {
+			this.showNewPostAnimations(newItem);
+		}, 2000);
 	},
 
 	showNewPostAnimations(newItem: any): void {
