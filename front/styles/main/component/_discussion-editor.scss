@@ -166,6 +166,7 @@ $success-icon-size: 80px;
 				.editor-container {
 					background: $discussion-editor-background-color;
 					height: 100%;
+					padding-bottom: 0;
 					position: fixed;
 					top: 0;
 					width: 100%;
@@ -192,8 +193,10 @@ $success-icon-size: 80px;
 				.editor-textarea {
 					border-top: 1px solid $discussion-editor-textarea-border-color;
 					height: 100%;
+					max-height: none;
 					padding: $editor-toolbar-height 10px 10px;
 					position: relative;
+					resize: none;
 					top: $editor-toolbar-height;
 					width: 100%;
 				}
