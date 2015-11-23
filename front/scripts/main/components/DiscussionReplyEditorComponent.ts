@@ -10,20 +10,10 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	labelText: 'editor.reply-editor-label',
 
 	/**
-	 * Set right height for editor placeholder when editor gets sticky
-	 * @returns {void}
-	 */
-	style: Em.computed('isSticky', function (): string {
-		return this.get('isSticky') === true
-			? `height: ${this.$('.editor-container').outerHeight(true)}px`
-			: null;
-	}),
-
-	/**
 	 * Initialize onScroll binding for sticky logic
 	 * @returns {void}
 	 */
-	setStickyPositioning(): void {
+	initializeStickyState(): void {
 		if (window.innerHeight < this.$().offset().top + this.$().height()) {
 			this.set('isSticky', true);
 		} else {
@@ -32,21 +22,11 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	},
 
 	/**
-	 * @returns {void}
-	 */
-	didInsertElement(): void {
-		this._super();
-
-		this.handleIOSFocus();
-		this.setStickyPositioning();
-	},
-
-	/**
 	 * Handle recalculation of placeholder size on resize
 	 * @returns {void}
 	 */
 	viewportChangeObserver: Em.observer('viewportDimensions.width', function (): void {
-		this.setStickyPositioning();
+		this.initializeStickyState();
 	}),
 
 	/**
@@ -72,7 +52,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	click(): void {
 		this._super();
 		Em.run.later(this, (): void => {
-			this.setStickyPositioning();
+			this.initializeStickyState();
 		}, 200);
 	},
 

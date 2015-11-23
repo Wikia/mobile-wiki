@@ -2,7 +2,6 @@
 'use strict';
 
 App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
-	attributeBindings: ['style'],
 	classNames: ['mobile-hidden'],
 	pinnedClassName: 'pinned-top',
 
@@ -11,29 +10,16 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	labelText: 'editor.post-editor-label',
 
 	/**
-	 * Set right height for editor placeholder when editor gets sticky
-	 * @returns {void}
-	 */
-	style: Em.computed('isSticky', function (): string {
-		return this.get('isSticky') === true
-			? `height: ${this.$('.editor-container').outerHeight(true)}px`
-			: null;
-	}),
-
-	/**
 	 * Initialize onScroll binding for sticky logic
 	 * @returns {void}
 	 */
-	initializeOnScroll: Em.on('didInsertElement', function (): void {
+	initializeStickyState: Em.on('didInsertElement', function (): void {
 		this.offsetTop = this.$().offset().top;
 		this.siteHeadHeight = Em.$('.site-head').outerHeight(true);
 
 		Em.$(window).on('scroll', (): void => {
 			this.onScroll();
 		});
-
-		this.handleIOSFocus();
-
 	}),
 
 	onScroll(): void {
@@ -53,15 +39,6 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	/**
 	 * @returns {void}
 	 */
-	didInsertElement(): void {
-		this._super();
-
-		this.initializeOnScroll();
-	},
-
-	/**
-	 * @returns {void}
-	 */
 	willDestroyElement(): void {
 		Em.$(window).off('scroll', this.onScroll);
 	},
@@ -72,7 +49,7 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	 */
 	viewportChangeObserver: Em.observer('viewportDimensions.width', function (): void {
 		Em.$(window).off('scroll', this.onScroll);
-		this.initializeOnScroll();
+		this.initializeStickyState();
 	}),
 
 	/**

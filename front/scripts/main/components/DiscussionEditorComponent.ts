@@ -2,6 +2,8 @@
 'use strict';
 
 App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
+	attributeBindings: ['style'],
+
 	classNames: ['discussion-editor'],
 	classNameBindings: ['isActive', 'hasError'],
 
@@ -20,9 +22,25 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	errorMessage: Em.computed.oneWay('requestErrorMessage'),
 	layoutName: 'components/discussion-editor',
 
+	/**
+	 * Set right height for editor placeholder when editor gets sticky
+	 * @returns {void}
+	 */
+	style: Em.computed('isSticky', function (): string {
+		return this.get('isSticky') === true
+			? `height: ${this.$('.editor-container').outerHeight(true)}px`
+		: null;
+	}),
+
 	getBreakpointHeight(): number {
 		return this.offsetTop - (this.get('siteHeadPinned') ? this.siteHeadHeight : 0);
 	},
+
+	/**
+	 * Method should be overwritten in the child classes
+	 * @returns {void}
+	 */
+	initializeStickyState(): void {},
 
 	/**
 	 * Display error message on post failure
@@ -124,6 +142,16 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			// This needs to be dalayed for CSS animation
 			Em.set(newItem, 'isNew', false);
 		});
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	didInsertElement(): void {
+		this._super();
+
+		this.handleIOSFocus();
+		this.initializeStickyState();
 	},
 
 	actions: {
