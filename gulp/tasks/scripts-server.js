@@ -4,14 +4,12 @@
  */
 
 var gulp = require('gulp'),
-	babel = require('gulp-babel')
-	ts = require('gulp-typescript'),
+	babel = require('gulp-babel'),
 	gutil = require('gulp-util'),
 	environment = require('../utils/environment'),
 	newer = require('gulp-newer'),
 	options = require('../options').scripts.server,
-	paths = require('../paths').scripts.server,
-	tsProject = ts.createProject(options);
+	paths = require('../paths').scripts.server;
 
 gulp.task('scripts-server', ['scripts-config'], function () {
 	return gulp.src([paths.src, paths.config], {base: './'})
