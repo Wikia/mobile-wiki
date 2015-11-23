@@ -17,6 +17,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 
 	postBody: '',
 	errorMessage: Em.computed.oneWay('requestErrorMessage'),
+	layoutName: 'components/discussion-editor',
 
 	getBreakpointHeight(): number {
 		return this.offsetTop - (this.get('siteHeadPinned') ? this.siteHeadHeight : 0);

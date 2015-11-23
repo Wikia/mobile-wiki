@@ -37,6 +37,7 @@
     "post-action-button-label": "Post",
     "post-editor-placeholder-text": "Share a thought, question or link...",
     "reply-editor-placeholder-text": "Write a reply...",
+    "reply-editor-label": "Add to the Discussion",
     "reply-action-button-label": "Reply"
   }
 }
