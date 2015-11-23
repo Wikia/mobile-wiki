@@ -114,7 +114,7 @@ body.discussions {
 		}
 	}
 
-	// for Bart: border set for each element with "post-reply" class, after the fist one
+	// border set for each element with "post-reply" class, after the first one
 	.post-reply ~ .post-reply {
 		.discussion-reply {
 			border-top: 1px solid $discussion-reply-border-color;
