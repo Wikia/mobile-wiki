@@ -2,6 +2,10 @@
 'use strict';
 
 App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
+<<<<<<< HEAD
+=======
+	attributeBindings: ['style'],
+>>>>>>> origin/SOC-1422
 	classNames: ['discussion-editor', 'mobile-hidden'],
 
 	placeholderText: 'editor.post-editor-placeholder-text',
@@ -117,6 +121,7 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 
 	actions: {
 		/**
+<<<<<<< HEAD
 		 * Enable/disable editor
 		 * @returns {void}
 		 */
@@ -125,6 +130,8 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 		},
 
 		/**
+=======
+>>>>>>> origin/SOC-1422
 		 * Send request to model to create new post and start animations
 		 * @returns {void}
 		 */
