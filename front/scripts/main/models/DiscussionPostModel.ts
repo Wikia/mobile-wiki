@@ -38,7 +38,6 @@ App.DiscussionPostModel = App.DiscussionBaseModel.extend({
 					// starting with oldest of the current list at the top.
 					newReplies.reverse();
 					newReplies = newReplies.concat(this.replies);
-
 					this.setProperties({
 						replies: newReplies,
 						page: this.page+1
@@ -68,6 +67,7 @@ App.DiscussionPostModel = App.DiscussionBaseModel.extend({
 				},
 				success: (reply: any): void => {
 					reply.isNew = true;
+					this.incrementProperty('postCount');
 					this.replies.pushObject(reply);
 					resolve(this);
 				},
@@ -123,13 +123,14 @@ App.DiscussionPostModel.reopenClass({
 								});
 								contributors.push(reply.createdBy);
 							}
+							reply.isVisible = true;
 						});
-					}
 
+						postInstance.set('replies', replies);
+					}
 					postInstance.setProperties({
 						contributors: contributors,
 						forumId: data.forumId,
-						replies: replies,
 						firstPost: data._embedded.firstPost[0],
 						upvoteCount: data.upvoteCount,
 						postCount: data.postCount,

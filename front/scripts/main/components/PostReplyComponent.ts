@@ -6,6 +6,7 @@ App.PostReplyComponent = Em.Component.extend(
 	App.DiscussionUpvoteActionSendMixin,
 	{
 		classNames: ['post-reply'],
+		classNameBindings: ['isNew'],
 		post: null,
 
 		authorUrl: Em.computed('post', function (): string {
