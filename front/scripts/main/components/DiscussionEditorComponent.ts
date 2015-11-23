@@ -65,10 +65,10 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * Handle keypress - post creation shortcut
 		 * @returns {void}
 		 */
-		handleKeyPress(forumId: string, event: KeyboardEvent) :void {
+		handleKeyPress(event: KeyboardEvent) :void {
 			if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
 				// Create post on CTRL + ENTER
-				this.send('createPost', forumId);
+				this.send('create');
 			}
 		}
 	}

@@ -64,7 +64,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		 * Send request to model to create new post and start animations
 		 * @returns {void}
 		 */
-		create(forumId: string): void {
+		create(): void {
 			this.set('isLoading', true);
 			Em.$('html, body').animate({ scrollTop: 0 });
 
@@ -73,17 +73,6 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 				creatorId: this.get('currentUser.userId'),
 				siteId: Mercury.wiki.id,
 			});
-		},
-
-		/**
-		 * Handle keypress - post creation shortcut
-		 * @returns {void}
-		 */
-		handleKeyPress(forumId: string, event: KeyboardEvent) :void {
-			if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
-				// Create post on CTRL + ENTER
-				this.send('createReply', forumId);
-			}
 		}
 	}
 });
