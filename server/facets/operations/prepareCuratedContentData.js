@@ -8,7 +8,7 @@ import deepExtend from 'deep-extend';
  *
  * @param {Hapi.Request} request
  * @param {CuratedContentPageData} curatedContentPageData
- * @returns {void}
+ * @returns {Object}
  */
 export default function prepareCuratedContentData(request, curatedContentPageData) {
 	const result = {
@@ -44,7 +44,6 @@ export default function prepareCuratedContentData(request, curatedContentPageDat
 	result.displayTitle = title;
 	result.isMainPage = true;
 	result.canonicalUrl = `${wikiVariables.basePath}/`;
-	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = parseQueryParams(request.query, ['noexternals', 'buckysampling']);
 	result.openGraph = {
 		type: 'website',

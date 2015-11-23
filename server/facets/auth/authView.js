@@ -28,11 +28,8 @@ import localSettings from '../../../config/localSettings';
  * @property {*} [trackingConfig]
  */
 
-const VIEW_TYPE_MOBILE = 'mobile',
+export const VIEW_TYPE_MOBILE = 'mobile',
 	VIEW_TYPE_DESKTOP = 'desktop';
-
-export {VIEW_TYPE_MOBILE};
-export {VIEW_TYPE_DESKTOP};
 
 /**
  * @param {string} template
@@ -103,7 +100,7 @@ export function getOrigin(request) {
 export function checkDomainMatchesCurrentHost(domain, currentHost) {
 	return currentHost === domain ||
 		domain.indexOf(`.${currentHost}`, domain.length - currentHost.length - 1) !== -1;
-};
+}
 
 /**
  * @param {string} domain

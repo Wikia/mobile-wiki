@@ -196,7 +196,7 @@ export function getVerticalColor(localSettings, vertical) {
 
 /**
  * @param {*} obj
- * @param {string[]} allowedKeys
+ * @param {string[]} allowedKeys - a whitelist of acceptable parameter names
  * @returns {*}
  */
 export function parseQueryParams(obj, allowedKeys) {
