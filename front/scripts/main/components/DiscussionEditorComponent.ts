@@ -3,11 +3,8 @@
 
 App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	attributeBindings: ['style'],
-	classNames: ['discussion-editor', 'mobile-hidden'],
-	classNameBindings: ['isActive', 'hasError'],
 
-	placeholderText: 'editor.post-editor-placeholder-text',
-	submitText: 'editor.post-action-button-label',
+	classNameBindings: ['isActive', 'hasError'],
 
 	isActive: false,
 	isSticky: false,
@@ -20,6 +17,8 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	offsetTop: 0,
 	siteHeadHeight: 0,
 
+	layoutName: 'components/discussion-editor',
+
 	/**
 	 * Set right height for editor placeholder when editor gets sticky
 	 * @returns {void}
@@ -30,99 +29,10 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			: null;
 	}),
 
-	/**
-	 * Initialize onScroll binding for sticky logic
-	 * @returns {void}
-	 */
-	initializeOnScroll(): void {
-		this.offsetTop = this.$().offset().top;
-		this.siteHeadHeight = Em.$('.site-head').outerHeight(true);
-
-		Em.$(window).on('scroll', (): void => {
-			this.onScroll()
-		});
-	},
 
 	getBreakpointHeight(): number {
 		return this.offsetTop - (this.get('siteHeadPinned') ? this.siteHeadHeight : 0);
 	},
-
-	onScroll(): void {
-		Em.run.throttle(
-			this,
-			function (): void {
-				if (window.pageYOffset >= this.getBreakpointHeight() && !this.get('isSticky')) {
-					this.set('isSticky', true);
-				} else if (window.pageYOffset < this.getBreakpointHeight() && this.get('isSticky')) {
-					this.set('isSticky', false);
-				}
-			},
-			25
-		);
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	didInsertElement(): void {
-		this._super();
-
-		this.initializeOnScroll();
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	willDestroyElement(): void {
-		Em.$(window).off('scroll', this.onScroll);
-	},
-
-	/**
-	 * Handle recalculation of placeholder size on resize
-	 * @returns {void}
-	 */
-	viewportChangeObserver: Em.observer('viewportDimensions.width', function (): void {
-		Em.$(window).off('scroll', this.onScroll);
-		this.initializeOnScroll();
-	}),
-
-	/**
-	 * Perform animations and logic after post creation
-	 * @returns {void}
-	 */
-	handleNewPostCreated: Em.observer('posts.@each._embedded.firstPost[0].isNew', function (): void {
-		var newPosts = this.get('posts').filter(function (post: any): boolean {
-			return post._embedded.firstPost[0].isNew;
-		}),
-			newPost = newPosts.get('firstObject');
-
-		if (newPost) {
-			newPost = newPost._embedded.firstPost[0];
-
-			this.setProperties({
-				isLoading: false,
-				showSuccess: true
-			});
-
-			Em.set(newPost, 'isVisible', false);
-
-			Em.run.later(this, () => {
-				this.setProperties({
-					showSuccess: false,
-					isActive: false,
-					submitDisabled: false
-				});
-
-				this.$('.editor-textarea').val('');
-
-				Em.set(newPost, 'isVisible', true);
-
-				Em.run.next(this, () => {
-					Em.set(newPost, 'isNew', false);
-				});
-			}, 2000);
-		}
-	}),
 
 	/**
 	 * Handle post creation error
@@ -155,21 +65,6 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		},
 
 		/**
-		 * Send request to model to create new post and start animations
-		 * @returns {void}
-		 */
-		create(forumId: string): void {
-			this.set('isLoading', true);
-			Em.$('html, body').animate({ scrollTop: 0 });
-
-			this.sendAction('createPost', {
-				body: this.$('.editor-textarea').val(),
-				creatorId: this.get('currentUser.userId'),
-				siteId: Mercury.wiki.id,
-			});
-		},
-
-		/**
 		 * Update editor when typing - activate editor and activate submit button
 		 * @returns {void}
 		 */
@@ -179,16 +74,5 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 				isActive: true
 			});
 		},
-
-		/**
-		 * Handle keypress - post creation shortcut
-		 * @returns {void}
-		 */
-		handleKeyPress(forumId: string, event: KeyboardEvent) :void {
-			if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
-				// Create post on CTRL + ENTER
-				this.send('createPost', forumId);
-			}
-		}
 	}
 });

@@ -75,8 +75,76 @@ $success-icon-size: 80px;
 		}
 	}
 
+	.editor-container {
+		background-color: $discussion-editor-toolbar-background-color;
+		border: $editor-border-width solid $discussion-editor-border-color;
+		margin: 0 auto 5px;
+		position: relative;
+
+		.editor-textarea {
+			border-bottom: 1px solid $secondary-color;
+			height: $line-height-smaller;
+			min-height: $line-height-smaller;
+			padding: 0;
+			resize: none;
+			transition: min-height .2s ease;
+		}
+
+		.editor-wrapper {
+			padding: $editor-textarea-paddings;
+		}
+
+		&.sticky {
+			margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
+			position: fixed;
+			top: rem-calc(50 - 4); // Sass don't accept px variables here, 50 - TopNav height, 4 - editor border size
+			transition: top 0.5s;
+			width: $sticky-editor-width;
+			z-index: 1;
+
+			&.pinned-top {
+				top: - $editor-border-width;
+			}
+		}
+
+		button {
+			bottom: 0;
+			height: $editor-toolbar-height;
+			padding: 0 1.25rem;
+			right: 0;
+		}
+
+		.user-avatar {
+			left: 10px;
+			position: absolute;
+			top: 10px;
+		}
+	}
+
+	.discussion-editor.is-active {
+		.editor-container {
+			padding-bottom: $editor-toolbar-height;
+		}
+
+		.editor-textarea {
+			max-height: 400px;
+			min-height: 106px;
+			padding: $editor-textarea-paddings;
+			resize: vertical;
+		}
+
+		.editor-wrapper {
+			padding: 0;
+		}
+	}
+
 	@media #{$mobile-range} {
 		.discussion-editor {
+			.editor-container {
+				border: 0;
+				margin-left: 0;
+			}
+
 			span {
 				&.error {
 					align-items: center;
@@ -171,67 +239,6 @@ $success-icon-size: 80px;
 	}
 
 	@media #{$desktop-range} {
-		.editor-container {
-			background-color: $discussion-editor-toolbar-background-color;
-			border: $editor-border-width solid $discussion-editor-border-color;
-			margin: 0 auto 5px;
-			position: relative;
 
-			.editor-textarea {
-				border-bottom: 1px solid $secondary-color;
-				height: $line-height-smaller;
-				min-height: $line-height-smaller;
-				padding: 0;
-				resize: none;
-				transition: min-height .2s ease;
-			}
-
-			.editor-wrapper {
-				padding: $editor-textarea-paddings;
-			}
-
-			&.sticky {
-				margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
-				position: fixed;
-				top: rem-calc(50 - 4); // Sass don't accept px variables here, 50 - TopNav height, 4 - editor border size
-				transition: top 0.5s;
-				width: $sticky-editor-width;
-				z-index: 1;
-
-				&.pinned-top {
-					top: - $editor-border-width;
-				}
-			}
-
-			button {
-				bottom: 0;
-				height: $editor-toolbar-height;
-				padding: 0 1.25rem;
-				right: 0;
-			}
-
-			.user-avatar {
-				left: 10px;
-				position: absolute;
-				top: 10px;
-			}
-		}
-
-		.discussion-editor.is-active {
-			.editor-container {
-				padding-bottom: $editor-toolbar-height;
-			}
-
-			.editor-textarea {
-				max-height: 400px;
-				min-height: 106px;
-				padding: $editor-textarea-paddings;
-				resize: vertical;
-			}
-
-			.editor-wrapper {
-				padding: 0;
-			}
-		}
 	}
 }

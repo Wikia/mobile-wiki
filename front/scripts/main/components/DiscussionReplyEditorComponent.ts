@@ -29,10 +29,6 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		}
 	},
 
-	getBreakpointHeight(): number {
-		return this.offsetTop - (this.get('siteHeadPinned') ? this.siteHeadHeight : 0);
-	},
-
 	/**
 	 * @returns {void}
 	 */
@@ -48,21 +44,6 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 */
 	viewportChangeObserver: Em.observer('viewportDimensions.width', function (): void {
 		this.setStickyPositioning();
-	}),
-
-	onScroll(): void {},
-
-	/**
-	 * Handle post creation error
-	 * @returns {void}
-	 */
-	errorObserver: Em.observer('shouldShowError', function (): void {
-		if (this.get('shouldShowError')) {
-			this.setProperties({
-				isLoading: false,
-				hasError: true
-			});
-		}
 	}),
 
 	/**
@@ -115,14 +96,6 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 
 	actions: {
 		/**
-		 * Enable/disable editor
-		 * @returns {void}
-		 */
-		toggleEditorActive(active: boolean): void {
-			this.set('isActive', active);
-		},
-
-		/**
 		 * Send request to model to create new post and start animations
 		 * @returns {void}
 		 */
@@ -133,17 +106,6 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 				body: this.$('.editor-textarea').val(),
 				creatorId: this.get('currentUser.userId'),
 				siteId: Mercury.wiki.id,
-			});
-		},
-
-		/**
-		 * Update editor when typing - activate editor and activate submit button
-		 * @returns {void}
-		 */
-		updateOnInput(): void {
-			this.setProperties({
-				submitDisabled: this.$('.editor-textarea').val().length === 0,
-				isActive: true
 			});
 		},
 
