@@ -32,23 +32,7 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 			this.onScroll();
 		});
 
-		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
-			/*
-			 Ultra hack for editor on iOS
-			 iOS is scrolling on textarea focus, changing it's size on focus prevent that
-			 */
-			var $editorTextarea = $('.editor-textarea');
-			$editorTextarea
-				.css('height', '100px')
-				.on('focus', function() {
-					setTimeout(function(){
-						$editorTextarea.css('height', '100%');
-					}, 500);
-				})
-				.on('blur', function() {
-					$editorTextarea.css('height', '100px');
-				});
-		}
+		this.handleIOSFocus();
 
 	}),
 

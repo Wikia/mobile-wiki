@@ -37,6 +37,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	didInsertElement(): void {
 		this._super();
 
+		this.handleIOSFocus();
 		this.setStickyPositioning();
 	},
 
