@@ -83,6 +83,10 @@ App.Router.map(function () {
 		});
 	});
 
+	this.route('imageReview', {
+		path: '/imagereview'
+	});
+
 	// Route to catch all badly formed URLs
 	this.route('notFound', {
 		path: '/*url'
