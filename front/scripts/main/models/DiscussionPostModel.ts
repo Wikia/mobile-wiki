@@ -125,8 +125,6 @@ App.DiscussionPostModel.reopenClass({
 							}
 							reply.isVisible = true;
 						});
-
-						postInstance.set('replies', replies);
 					}
 					postInstance.setProperties({
 						contributors: contributors,
@@ -134,6 +132,7 @@ App.DiscussionPostModel.reopenClass({
 						firstPost: data._embedded.firstPost[0],
 						upvoteCount: data.upvoteCount,
 						postCount: data.postCount,
+						replies: replies || [],
 						id: data.id,
 						pivotId: pivotId,
 						page: 0,
