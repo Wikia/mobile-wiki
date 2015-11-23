@@ -1,16 +1,11 @@
 /// <reference path="../app.ts" />
-/// <reference path="../mixins/DiscussionErrorMixin.ts" />
 
-App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
-	wikiId: null,
-	forumId: null,
+App.DiscussionForumModel = App.DiscussionBaseModel.extend({
 	name: null,
 	pageNum: null,
 	posts: null,
 	totalPosts: 0,
 
-	connectionError: null,
-	notFoundError: null,
 	contributors: [],
 
 	/**
@@ -35,11 +30,10 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 						allPosts = this.posts.concat(newPosts);
 
 					this.set('posts', allPosts);
-
 					resolve(this);
 				},
 				error: (err: any) => {
-					this.setErrorProperty(err, this);
+					this.handleLoadMoreError(err);
 					resolve(this);
 				}
 			});
@@ -67,7 +61,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	 * @returns {Em.RSVP.Promise}
 	 */
 	createPost(postData: any) {
-		this.setFailedState(false, this);
+		this.setFailedState(null);
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				method: 'POST',
@@ -84,7 +78,11 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 					resolve(this);
 				},
 				error: (err: any) => {
-					this.setFailedState(true, this);
+					if (err.status === 401) {
+						this.setFailedState('editor.post-error-not-authorized');
+					} else {
+						this.setFailedState('editor.post-error-general-error');
+					}
 					resolve(this);
 				}
 			});
@@ -137,7 +135,7 @@ App.DiscussionForumModel.reopenClass({
 					resolve(forumInstance);
 				},
 				error: (err: any) => {
-					forumInstance.setErrorProperty(err, forumInstance);
+					forumInstance.setErrorProperty(err);
 					resolve(forumInstance);
 				}
 			});

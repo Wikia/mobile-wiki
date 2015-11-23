@@ -1,5 +1,18 @@
 {
+  "landing-page":{
+    "to-the-wiki-title":"do Wiki",
+    "page-main-header":"Najgorętsze dyskusje z najwierniejszymi fanami __applicationName__.",
+    "download-the-app-header":"Pobierz aplikację, aby dołączyć już teraz!",
+    "google-play-button-alt":"Pobierz z Google Play",
+    "start-discussions-title":"Inicjuj dyskusje",
+    "start-discussions-text":"Zadaj pytanie, podziel się najnowszymi wiadomościami lub po prostu rozmawiaj z innymi fanami z całego świata o swoich ulubionych tematach!",
+    "upvote-the-best-title":"Głosuj na Najlepsze",
+    "upvote-the-best-text":"Widzisz coś, co uwielbiasz? Głosuj, aby okazać swoje uznanie oraz by mieć wpływ na najpopularniejsze posty.",
+    "share-your-knowledge-title":"Podziel się wiedzą",
+    "share-your-knowledge-text":"Podziel się swoimi ulubionym dyskusjami na sieciach społecznościowych, aby przyciągnąć więcej fanów do dyskusji."
+  },
   "main":{
+    "pagination-post-show-more":"Zobacz wcześniejsze odpowiedzi",
     "share-default-title":"Dyskusja na __siteName__",
     "contributors-title":"Wszyscy Użytkownicy",
     "sort-by-latest":"Najnowsze",
@@ -14,5 +27,11 @@
     "all-discussions-link-mobile":"Wszystkie dyskusje",
     "discussions-app-join":"Chcesz dołączyć do dyskusji? Pobierz aplikację!",
     "back-to-discussions-link":"Wszystkie dyskusje"
+  },
+  "editor":{
+    "post-failed-error":"Publikacja nie powiodła się.",
+    "post-editor-label":"Utwórz post",
+    "post-action-button-label":"Opublikuj",
+    "post-editor-placeholder-text":"Podziel się przemyśleniami, zadaj pytanie albo wrzuć link..."
   }
 }

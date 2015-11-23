@@ -2,7 +2,6 @@
 'use strict';
 
 App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
-
 	classNameBindings: ['isActive', 'hasError'],
 
 	isActive: false,
@@ -16,21 +15,21 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	offsetTop: 0,
 	siteHeadHeight: 0,
 
+	postBody: '',
+	errorMessage: Em.computed.oneWay('requestErrorMessage'),
+
 	getBreakpointHeight(): number {
 		return this.offsetTop - (this.get('siteHeadPinned') ? this.siteHeadHeight : 0);
 	},
 
 	/**
-	 * Handle post creation error
-	 * @returns {void}
+	 * Display error message on post failure
 	 */
-	errorObserver: Em.observer('shouldShowError', function (): void {
-		if (this.get('shouldShowError')) {
-			this.setProperties({
-				isLoading: false,
-				hasError: true
-			});
+	errorMessageObserver: Em.observer('errorMessage', function(): void {
+		if (this.get('errorMessage')) {
+			alert(i18n.t(this.get('errorMessage'), {ns: 'discussion'}));
 		}
+		this.set('isLoading', false);
 	}),
 
 	/**
@@ -47,7 +46,6 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * @returns {void}
 		 */
 		toggleEditorActive(active: boolean): void {
-			debugger;
 			this.set('isActive', active);
 		},
 
@@ -57,9 +55,20 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 */
 		updateOnInput(): void {
 			this.setProperties({
-				submitDisabled: this.$('.editor-textarea').val().length === 0,
+				submitDisabled: this.get('postBody').length === 0 || this.get('currentUser.userId') === null,
 				isActive: true
 			});
 		},
+
+		/**
+		 * Handle keypress - post creation shortcut
+		 * @returns {void}
+		 */
+		handleKeyPress(forumId: string, event: KeyboardEvent) :void {
+			if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
+				// Create post on CTRL + ENTER
+				this.send('createPost', forumId);
+			}
+		}
 	}
 });
