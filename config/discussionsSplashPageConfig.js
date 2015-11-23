@@ -1,10 +1,33 @@
-var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
+/* eslint dot-notation:0 quote-props:0 */
 
-	'walkingdead' : {
+/**
+ * @typedef {WikiaDiscussionsConfig[]} DiscussionsSplashPageConfig
+ */
+
+/**
+ * @typedef {Object} WikiaDiscussionsConfig
+ * @property {string} androidAppLink
+ * @property {string} androidStoreLogo
+ * @property {string} iosAppLink
+ * @property {string} iosStoreLogo
+ * @property {string} domain
+ * @property {string} icon
+ * @property {string} appScreens
+ * @property {string} appName
+ * @property {string} language
+ * @property {number} wikiId
+ * @property {string} dbName
+ */
+
+/**
+ * @typeof WikiaDiscussionsConfig
+ */
+const discussionsSplashPageConfig = {
+	'walkingdead': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.thewalkingdead',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920825975',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'walkingdead.wikia.com',
 		icon: '/front/images/Walking-Dead-Icon.png',
 		appName: 'Walking Dead',
@@ -14,11 +37,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'walkingdead'
 	},
 
-	'fallout' : {
+	'fallout': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.fallout',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id1002376814',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'fallout.wikia.com',
 		icon: '/front/images/Fallout-Icon.png',
 		appName: 'Fallout',
@@ -28,11 +51,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'fallout'
 	},
 
-	'starwars' : {
+	'starwars': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'starwars.wikia.com',
 		icon: '/front/images/Star-Wars-Icon.png',
 		appName: 'Star Wars',
@@ -42,11 +65,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'starwars'
 	},
 
-	'ja.starwars' : {
+	'ja.starwars': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
-		androidStoreLogo : 'https://developer.android.com/images/brand/ja_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/ja_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/ja-jp/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/ja-jp/badge_appstore-lrg.svg',
 		domain: 'ja.starwars.wikia.com',
 		icon: '/front/images/Star-Wars-Icon.png',
 		appName: 'Star Wars',
@@ -56,11 +79,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'jastarwars'
 	},
 
-	'jedipedia' : {
+	'jedipedia': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'de.starwars.wikia.com',
 		icon: '/front/images/Star-Wars-Icon.png',
 		appName: 'Star Wars',
@@ -70,11 +93,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'dejedipedia'
 	},
 
-	'fr.starwars' : {
+	'fr.starwars': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'fr.starwars.wikia.com',
 		icon: '/front/images/Star-Wars-Icon.png',
 		appName: 'Star Wars',
@@ -84,11 +107,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'frstarwars'
 	},
 
-	'es.starwars' : {
+	'es.starwars': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'es.starwars.wikia.com',
 		icon: '/front/images/Star-Wars-Icon.png',
 		appName: 'Star Wars',
@@ -98,11 +121,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'esstarwars'
 	},
 
-	'pt.starwars' : {
+	'pt.starwars': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'pt.starwars.wikia.com',
 		icon: '/front/images/Star-Wars-Icon.png',
 		appName: 'Star Wars',
@@ -112,11 +135,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'ptstarwars'
 	},
 
-	'ru.starwars' : {
+	'ru.starwars': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'ru.starwars.wikia.com',
 		icon: '/front/images/Star-Wars-Icon.png',
 		appName: 'Star Wars',
@@ -126,11 +149,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'rustarwars'
 	},
 
-	'pl.starwars' : {
+	'pl.starwars': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'pl.starwars.wikia.com',
 		icon: '/front/images/Star-Wars-Icon.png',
 		appName: 'Star Wars',
@@ -140,11 +163,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'plstarwars'
 	},
 
-	'it.starwars' : {
+	'it.starwars': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'it.starwars.wikia.com',
 		icon: '/front/images/Star-Wars-Icon.png',
 		appName: 'Star Wars',
@@ -154,11 +177,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'ptstarwars'
 	},
 
-	'cocktails' : {
+	'cocktails': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.cocktails',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id912770593',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'cocktails.wikia.com',
 		icon: '/front/images/Cocktails-App-Icon.png',
 		appName: 'Cocktails',
@@ -168,11 +191,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'cocktails'
 	},
 
-	'adventuretime' : {
+	'adventuretime': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.adventuretime',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id951098842',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'adventuretime.wikia.com',
 		icon: '/front/images/Adventure-Time-Icon.png',
 		appName: 'Adventure Time',
@@ -182,11 +205,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'adventuretimewithfinnandjake'
 	},
 
-	'hawaiifiveo' : {
+	'hawaiifiveo': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.hawaiifiveo',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id998461510',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'hawaiifiveo.wikia.com',
 		icon: '/front/images/Hawaii-Five-O-App-Icon.png',
 		appName: 'Hawaii Five O',
@@ -196,11 +219,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'hawaiifiveo'
 	},
 
-	'thehungergames' : {
+	'thehungergames': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.hungergames',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920825903',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'thehungergames.wikia.com',
 		icon: '/front/images/Hunger-Games-App-Icon.png',
 		appName: 'Hunger Games',
@@ -210,11 +233,11 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'thehungergames'
 	},
 
-	'onedirection' : {
+	'onedirection': {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.onedirection',
-		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		androidStoreLogo: 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
 		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id963580330',
-		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		iosStoreLogo: 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
 		domain: 'onedirection.wikia.com',
 		icon: '/front/images/One-Direction-App-Icon.png',
 		appName: 'One Direction',
@@ -225,4 +248,4 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 	}
 };
 
-export = discussionsSplashPageConfig;
+exports.discussionsSplashPageConfig = discussionsSplashPageConfig;

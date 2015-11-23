@@ -1,15 +1,15 @@
 /**
  * localSettings for application, used by default by testing environment
  */
-import baseLocalSettings = require('./localSettings.base');
-import Utils = require('../server/lib/Utils');
+const baseLocalSettings = require('./localSettings.base'),
+	Utils = require('../server/lib/Utils'),
 
-var localSettings = baseLocalSettings.extendSettings({
-	devboxDomain: 'kenneth',
-	environment: Utils.Environment.Testing,
-	loggers: {
-		default: 'info'
-	}
-});
+	localSettings = baseLocalSettings.extendSettings({
+		devboxDomain: 'kenneth',
+		environment: Utils.Environment.Testing,
+		loggers: {
+			default: 'info'
+		}
+	});
 
-export = localSettings;
+exports.localSettings = localSettings;
