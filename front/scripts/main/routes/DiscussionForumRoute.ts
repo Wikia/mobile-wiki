@@ -15,8 +15,8 @@ App.DiscussionForumRoute = Em.Route.extend(App.DiscussionLayoutMixin, App.Discus
 	model(params: any): any {
 		var sortBy: string;
 		this.set('forumId', params.forumId);
-
 		sortBy = params.sortBy || this.defaultSortType;
+		console.log('DiscussionForumRoute sortBY', sortBy);
 		return App.DiscussionForumModel.find(Mercury.wiki.id, params.forumId, sortBy);
 	},
 
@@ -51,7 +51,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.DiscussionLayoutMixin, App.Discus
 		 * @returns {void}
 		 */
 		loadPage(pageNum: number): void {
-			this.modelFor('discussion.forum').loadPage(pageNum);
+			this.modelFor('discussion.forum').loadPage(pageNum,this.controllerFor('discussionForum').get('sortBy'));
 		},
 
 		/**

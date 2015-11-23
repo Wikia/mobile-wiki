@@ -17,14 +17,16 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 	 * @param {number} pageNum
 	 * @returns {Em.RSVP.Promise}
 	 */
-	loadPage(pageNum: number = 0) {
+	loadPage(pageNum: number = 0, sortBy: string ='creation_date') {
 		this.set('pageNum', pageNum);
-
+		console.log('SORTORDER',sortBy, this.getSortKey(sortBy));
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
+//				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`, { sortKey : this.getSortKey(sortBy) }),
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 				data: {
-					page: this.get('pageNum')
+					page: this.get('pageNum'),
+					sortKey: this.getSortKey(sortBy),
 				},
 				xhrFields: {
 					withCredentials: true,
@@ -64,6 +66,7 @@ App.DiscussionForumModel = Em.Object.extend(App.DiscussionErrorMixin, {
 
 App.DiscussionForumModel.reopenClass({
 	find(wikiId: number, forumId: number, sortBy: string) {
+		console.log('CALLING STATIC METHOD FIND');
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			var forumInstance = App.DiscussionForumModel.create({
 					wikiId: wikiId,

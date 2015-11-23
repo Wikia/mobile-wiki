@@ -21,6 +21,7 @@ App.DiscussionForumController = Em.Controller.extend({
 	],
 
 	sortMessageKey: Em.computed('sortBy', function (): string {
+		console.log('SORTBY IN CONTROLLER VALUE', this.sortBy);
 		var sortTypes = this.get('sortTypes'),
 			filtered = sortTypes.filter((obj: any): boolean => {
 				return obj.name === this.get('sortBy');
