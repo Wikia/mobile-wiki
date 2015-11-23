@@ -6,11 +6,12 @@
  * @property {*} [config]
  */
 
-const Hoek = require('hoek'),
-	localSettings = require('../config/localSettings'),
-	Caching = require('./lib/Caching'),
-	authUtils = require('./lib/AuthUtils'),
-	routeCacheConfig = {
+import Hoek from 'hoek';
+import localSettings from '../config/localSettings';
+import Caching from './lib/Caching';
+import authUtils from './lib/AuthUtils';
+
+const routeCacheConfig = {
 		privacy: Caching.policyString(Caching.Policy.Public),
 		expiresIn: 60000
 	},
@@ -36,90 +37,90 @@ const Hoek = require('hoek'),
 	];
 
 // routes that don't care if the user is logged in or not, i.e. lazily loaded modules
-let unauthenticatedRoutes = [
-	{
-		method: 'GET',
-		path: '/favicon.ico',
-		handler: require('./facets/operations/proxyMW')
-	},
-	{
-		method: 'GET',
-		path: '/robots.txt',
-		handler: require('./facets/operations/proxyMW')
-	},
-	{
-		method: 'GET',
-		path: '/front/{path*}',
-		handler: require('./facets/operations/assets')
-	},
-	{
-		method: 'GET',
-		path: '/public/{path*}',
-		handler: require('./facets/operations/assets')
-	},
-	{
-		method: 'GET',
-		path: '/heartbeat',
-		handler: require('./facets/operations/heartbeat')
-	},
-	{
-		method: 'GET',
-		path: '/wiki',
-		handler: require('./facets/operations/redirectToRoot')
-	},
-
+let routes,
+	unauthenticatedRoutes = [
+		{
+			method: 'GET',
+			path: '/favicon.ico',
+			handler: require('./facets/operations/proxyMW')
+		},
+		{
+			method: 'GET',
+			path: '/robots.txt',
+			handler: require('./facets/operations/proxyMW')
+		},
+		{
+			method: 'GET',
+			path: '/front/{path*}',
+			handler: require('./facets/operations/assets')
+		},
+		{
+			method: 'GET',
+			path: '/public/{path*}',
+			handler: require('./facets/operations/assets')
+		},
+		{
+			method: 'GET',
+			path: '/heartbeat',
+			handler: require('./facets/operations/heartbeat')
+		},
+		{
+			method: 'GET',
+			path: '/wiki',
+			handler: require('./facets/operations/redirectToRoot')
+		},
 	/**
 	 * API Routes
 	 * @description The following routes should just be API routes
 	 */
-	{
-		method: 'GET',
-		path: `${localSettings.apiBase}/article/{articleTitle*}`,
-		handler: require('./facets/api/article').get
-	},
-	{
-		method: 'GET',
-		// TODO: if you call to api/mercury/comments/ without supplying an id, this actually calls /api/mercury/article
-		path: `${localSettings.apiBase}/article/comments/{articleId}/{page?}`,
-		handler: require('./facets/api/articleComments').get
-	},
-	{
-		method: 'GET',
-		path: `${localSettings.apiBase}/search/{query}`,
-		handler: require('./facets/api/search').get
-	},
-	{
-		method: 'GET',
-		path: `${localSettings.apiBase}/main/section/{sectionName}`,
-		handler: require('./facets/api/mainPageSection').get
-	},
-	{
-		method: 'GET',
-		path: `${localSettings.apiBase}/main/category/{categoryName}`,
-		handler: require('./facets/api/mainPageCategory').get
-	},
-	{
-		method: 'GET',
-		path: '/logout',
-		handler: require('./facets/auth/logout')
-	},
-	{
-		method: 'GET',
-		path: '/breadcrumb',
-		handler: require('./facets/operations/generateCSRFView')
-	},
-	{
-		method: 'POST',
-		path: '/editorPreview',
-		handler: require('./facets/editorPreview')
-	}
+		{
+			method: 'GET',
+			path: `${localSettings.apiBase}/article/{articleTitle*}`,
+			handler: require('./facets/api/article').get
+		},
+		{
+			method: 'GET',
+			// TODO: if you call to api/mercury/comments/ without supplying an id, this actually calls /api/mercury/article
+			path: `${localSettings.apiBase}/article/comments/{articleId}/{page?}`,
+			handler: require('./facets/api/articleComments').get
+		},
+		{
+			method: 'GET',
+			path: `${localSettings.apiBase}/search/{query}`,
+			handler: require('./facets/api/search').get
+		},
+		{
+			method: 'GET',
+			path: `${localSettings.apiBase}/main/section/{sectionName}`,
+			handler: require('./facets/api/mainPageSection').get
+		},
+		{
+			method: 'GET',
+			path: `${localSettings.apiBase}/main/category/{categoryName}`,
+			handler: require('./facets/api/mainPageCategory').get
+		},
+		{
+			method: 'GET',
+			path: '/logout',
+			handler: require('./facets/auth/logout')
+		},
+		{
+			method: 'GET',
+			path: '/breadcrumb',
+			handler: require('./facets/operations/generateCSRFView')
+		},
+		{
+			method: 'POST',
+			path: '/editorPreview',
+			handler: require('./facets/editorPreview')
+		}
 	],
-	// routes where we want to know the user's auth status
+// routes where we want to know the user's auth status
 	authenticatedRoutes = [
-		/**
-		 * Authentication Routes
-		 * @description The following routes should be related to authentication
-		 */
+	/**
+	 * Authentication Routes
+	 * @description The following routes should be related to authentication
+	 */
 		{
 			method: 'GET',
 			path: '/join',
@@ -273,4 +274,6 @@ authenticatedRoutes = authenticatedRoutes.map((route) => {
 	return Hoek.applyToDefaults(authenticatedRouteConfig, route);
 });
 
-exports.routes = unauthenticatedRoutes.concat(authenticatedRoutes);
+routes = unauthenticatedRoutes.concat(authenticatedRoutes);
+
+export {routes as routes};
