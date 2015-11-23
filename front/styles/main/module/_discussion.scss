@@ -234,6 +234,10 @@ body.discussions {
 	&.post {
 		.post-detail {
 			margin-top: $theme-bar-height;
+
+			.avatar-username {
+				font-size: $discussions-post-type-smaller-than-min;
+			}
 		}
 	}
 }
