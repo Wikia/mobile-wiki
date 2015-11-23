@@ -96,42 +96,14 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	handleNewPostCreated: Em.observer('posts.@each._embedded.firstPost[0].isNew', function (): void {
+		Em.$('html, body').animate({ scrollTop: 0 });
 		var newPosts = this.get('posts').filter(function (post: any): boolean {
 				return post._embedded.firstPost[0].isNew;
 			}),
 			newPost = newPosts.get('firstObject');
 
-		if (newPost) {
-			newPost = newPost._embedded.firstPost[0];
-
-			this.setProperties({
-				isLoading: false,
-				showSuccess: true
-			});
-
-			Em.set(newPost, 'isVisible', false);
-
-			Em.run.later(this, () => {
-				this.showNewPostAnimations(newPost);
-			}, 2000);
-		}
+		this.handleNewItemCreated(newPost);
 	}),
-
-	showNewPostAnimations(newPost: any): void {
-		this.setProperties({
-			isActive: false,
-			postBody: '',
-			showSuccess: false,
-			submitDisabled: false
-		});
-
-		Em.set(newPost, 'isVisible', true);
-
-		Ember.run.scheduleOnce('afterRender', this, () => {
-			// This needs to be dalayed for CSS animation
-			Em.set(newPost, 'isNew', false);
-		});
-	},
 
 	actions: {
 		/**
@@ -140,10 +112,9 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 		 */
 		create(): void {
 			this.set('isLoading', true);
-			Em.$('html, body').animate({ scrollTop: 0 });
 
 			this.sendAction('createPost', {
-				body: this.$('.editor-textarea').val(),
+				body: this.get('bodyText'),
 				creatorId: this.get('currentUser.userId'),
 				siteId: Mercury.wiki.id,
 			});

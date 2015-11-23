@@ -16,7 +16,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	offsetTop: 0,
 	siteHeadHeight: 0,
 
-	postBody: '',
+	bodyText: '',
 	errorMessage: Em.computed.oneWay('requestErrorMessage'),
 	layoutName: 'components/discussion-editor',
 
@@ -71,6 +71,44 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		}
 	}),
 
+
+	/**
+	 * Perform animations and logic after post creation
+	 * @returns {void}
+	 */
+	handleNewItemCreated(newItem: any): void {
+		if (newItem) {
+			newItem = newItem._embedded.firstPost[0];
+
+			this.setProperties({
+				isLoading: false,
+				showSuccess: true
+			});
+
+			Em.set(newItem, 'isVisible', false);
+
+			Em.run.later(this, () => {
+				this.showNewPostAnimations(newItem);
+			}, 2000);
+		}
+	},
+
+	showNewPostAnimations(newItem: any): void {
+		this.setProperties({
+			isActive: false,
+			bodyText: '',
+			showSuccess: false,
+			submitDisabled: false
+		});
+
+		Em.set(newItem, 'isVisible', true);
+
+		Ember.run.scheduleOnce('afterRender', this, () => {
+			// This needs to be dalayed for CSS animation
+			Em.set(newItem, 'isNew', false);
+		});
+	},
+
 	actions: {
 		/**
 		 * Enable/disable editor
@@ -86,7 +124,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 */
 		updateOnInput(): void {
 			this.setProperties({
-				submitDisabled: this.get('postBody').length === 0 || this.get('currentUser.userId') === null,
+				submitDisabled: this.get('bodyText').length === 0 || this.get('currentUser.userId') === null,
 				isActive: true
 			});
 		},

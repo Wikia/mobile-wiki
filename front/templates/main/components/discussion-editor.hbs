@@ -4,7 +4,7 @@
 	</a>
 	<button class="active-element-theme-color" type="submit" {{action 'create' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitText ns='discussion'}}</button>
 	<div class="editor-wrapper">
-		{{textarea class='editor-textarea' keyPress=(action 'handleKeyPress') input=(action 'updateOnInput') focusIn=(action 'toggleEditorActive' true) value=postBody placeholder=(i18n 'editor.post-editor-placeholder-text' ns='discussion')}}
+		{{textarea class='editor-textarea' keyPress=(action 'handleKeyPress') input=(action 'updateOnInput') focusIn=(action 'toggleEditorActive' true) value=bodyText placeholder=(i18n 'editor.post-editor-placeholder-text' ns='discussion')}}
 	</div>
 	<label class="desktop-hidden editor-label">{{i18n labelText ns='discussion'}}</label>
 	{{user-avatar

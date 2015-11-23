@@ -53,36 +53,13 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	handleNewReplyCreated: Em.observer('replies.@each.isNew', function (): void {
+		Em.$('html, body').animate({ scrollTop: Em.$(document).height() });
 		var newReplies = this.get('replies').filter(function (reply: any): boolean {
 				return reply.isNew;
 			}),
 			newReply = newReplies.get('firstObject');
 
-		if (newReply) {
-			this.setProperties({
-				isLoading: false,
-				showSuccess: true
-			});
-
-			Em.set(newReply, 'isVisible', false);
-
-			Em.run.later(this, () => {
-				this.setProperties({
-					showSuccess: false,
-					isActive: false,
-					submitDisabled: false
-				});
-
-				this.$('.editor-textarea').val('');
-				Em.set(newReply, 'isVisible', true);
-
-				Em.$('html, body').animate({ scrollTop: Em.$(document).height() });
-
-				Em.run.next(this, () => {
-					Em.set(newReply, 'isNew', false);
-				});
-			}, 2000);
-		}
+		this.handleNewItemCreated(newReply);
 	}),
 
 	/**
@@ -105,7 +82,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 			this.set('isLoading', true);
 
 			this.sendAction('createReply', {
-				body: this.$('.editor-textarea').val(),
+				body: this.get('bodyText'),
 				creatorId: this.get('currentUser.userId'),
 				siteId: Mercury.wiki.id,
 			});
