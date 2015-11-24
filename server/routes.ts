@@ -144,18 +144,18 @@ authenticatedRoutes = [
 			]
 		}
 	},
-	{
-		method: 'GET',
-		path: '/register',
-		handler: require('./facets/auth/register').get,
-		config: {
-			pre: [
-				{
-					method: require('./facets/auth/authView').validateRedirect
-				}
-			]
-		}
-	},
+	//{
+	//	method: 'GET',
+	//	path: '/register',
+	//	handler: require('./facets/auth/register').get,
+	//	config: {
+	//		pre: [
+	//			{
+	//				method: require('./facets/auth/authView').validateRedirect
+	//			}
+	//		]
+	//	}
+	//},
 
 	{
 		method: 'GET',
