@@ -1,13 +1,13 @@
 QUnit.module('M.state, property & namespace methods (loaded in baseline):');
 
-QUnit.test('Methods provide, prop, props should be exported', function () {
+test('Methods provide, prop, props should be exported', function () {
 	var methods = ['provide', 'prop', 'props'];
 	methods.forEach(function (method) {
 		ok(typeof M[method] === 'function');
 	});
 });
 
-QUnit.test('M.provide should create the proper namespaced object with correct value', function () {
+test('M.provide should create the proper namespaced object with correct value', function () {
 	M.provide('foo', 'bar');
 	ok(Mercury.foo === 'bar');
 	M.provide('foo', {});
@@ -27,7 +27,7 @@ QUnit.test('M.prop should set property or objects, immutable by default', functi
 	}, TypeError, 'Attempting to change value of a readonly property');
 });
 
-QUnit.test('M.props should set property or objects, immutable by default', function () {
+test('M.props should set property or objects, immutable by default', function () {
 	M.props({
 		propstest: {
 			foo: 1
@@ -36,11 +36,11 @@ QUnit.test('M.props should set property or objects, immutable by default', funct
 	ok(M.prop('propstest.foo') === 1);
 
 	throws(function () {
-		M.props('propstest', 'should fail')
+		M.prop('propstest', 'should fail');
 	}, TypeError, 'Attempting to change value of a readonly property');
 });
 
-QUnit.test('M.prop should set property or objects, mutable through configuration', function () {
+test('M.prop should set property or objects, mutable through configuration', function () {
 	M.prop('mproptest2', 'value', true);
 	ok(M.prop('mproptest2') === 'value');
 
@@ -48,7 +48,7 @@ QUnit.test('M.prop should set property or objects, mutable through configuration
 	ok(M.prop('mproptest2') === 'ok');
 });
 
-QUnit.test('M.props should set property or objects, mutable through configuration', function () {
+test('M.props should set property or objects, mutable through configuration', function () {
 	M.props({
 		propstest2: {
 			foo: 1
