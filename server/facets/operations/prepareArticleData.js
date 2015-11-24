@@ -26,6 +26,8 @@ export default function prepareArticleData(request, data) {
 		contentDir = 'ltr';
 
 	if (articleData) {
+		result.isMainPage = articleData.isMainPage;
+
 		if (articleData.details) {
 			articleDetails = articleData.details;
 			title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
@@ -55,7 +57,6 @@ export default function prepareArticleData(request, data) {
 
 	result.displayTitle = title;
 	result.htmlTitle = (htmlTitle) ? htmlTitle : Utils.getHtmlTitle(wikiVariables, title);
-	result.isMainPage = articleData.isMainPage;
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);

@@ -28,8 +28,8 @@ export default class OoyalaPlayer extends BasePlayer {
 	 */
 	setupPlayer() {
 		this.params = $.extend(this.params, {
-			onCreate: () => {
-				return this.onCreate.apply(this, arguments);
+			onCreate: (...args) => {
+				return this.onCreate.apply(this, args);
 			}
 		});
 

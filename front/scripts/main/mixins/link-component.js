@@ -22,5 +22,7 @@ export default Ember.LinkComponent.reopen({
 			// trigger the action on the controller
 			this.get('parentView').get('context').send(action, this.get('actionParam'));
 		}
+
+		return this._super(event);
 	},
 });

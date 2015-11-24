@@ -87,3 +87,5 @@ App.ThemeMixin = Ember.Mixin.create(ColorUtilsMixin, {
 		Ember.$('head').append(inlineStyles);
 	}
 });
+
+export default App.ThemeMixin;

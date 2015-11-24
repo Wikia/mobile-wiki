@@ -1,15 +1,20 @@
 {
   "name": "Mercury",
-  "version": "189.1.0",
+  "version": "0.0.0",
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
     "dev": "rm -rf www && gulp --nosync",
     "local": "rm -rf www && gulp",
-    "start": "rm -rf www && npm run build && node www/server/server.js",
-    "test": "rm -rf www && gulp build --type prod --nosync --testing && gulp karma && gulp node-test",
-    "coverage": "rm -rf www && gulp build --nosync --testing && gulp karma && gulp node-test",
-    "build": "gulp build --type prod --nosync"
+    "start": "npm run build && node www/server/server.js",
+    "test": "npm run build-test && npm run test-front && npm run test-server",
+    "coverage": "npm run build-coverage && npm run test-front && npm run test-server",
+    "test-front": "gulp karma",
+    "test-server": "gulp node-test",
+    "linter": "eslint .",
+    "build": "rm -rf www && gulp build --type prod --nosync",
+    "build-coverage": "rm -rf www && gulp build --nosync --testing",
+    "build-test": "rm -rf www && gulp build --type prod --nosync --testing"
   },
   "repository": "git://github.com/Wikia/mercury.git",
   "license": "MIT",
@@ -32,10 +37,11 @@
     "wreck": "6.3.0"
   },
   "devDependencies": {
-    "babel-plugin-transform-es2015-modules-umd": "^6.0.15",
-    "babel-preset-es2015": "^6.1.4",
+    "babel-plugin-transform-es2015-modules-umd": "^6.1.18",
+    "babel-preset-es2015": "^6.1.18",
     "browser-sync": "^2.5.3",
     "ember-template-compiler": "^1.9.0-alpha",
+    "eslint": "^1.10.1",
     "flipcss": "^0.2.8",
     "glob": "^4.3.5",
     "gulp": "3.x.x",
@@ -74,7 +80,7 @@
     "multipipe": "^0.1.2",
     "qunit": "0.x.x",
     "qunitjs": "1.18.0",
-    "systemjs-builder": "^0.14.10",
+    "systemjs-builder": "^0.14.11",
     "through2": "^0.6.3",
     "tslint": "^2.1.1"
   }
