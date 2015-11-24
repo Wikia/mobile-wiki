@@ -1,7 +1,7 @@
 /* global window, Mercury */
 QUnit.module('M.buildUrl helper function (loaded with baseline)');
 
-QUnit.test('Wiki subdomain is correctly replaced for each environment host', function () {
+test('Wiki subdomain is correctly replaced for each environment host', function () {
 	var context = {
 		location: {}
 	},
@@ -69,7 +69,7 @@ QUnit.test('Wiki subdomain is correctly replaced for each environment host', fun
 	});
 });
 
-QUnit.test('URLs are properly built for given parameters', function () {
+test('URLs are properly built for given parameters', function () {
 	var context = {
 		location: {
 			host: 'glee.wikia.com'
@@ -188,7 +188,7 @@ QUnit.test('URLs are properly built for given parameters', function () {
 	});
 });
 
-QUnit.test('Fall back to mediawikiDomain', function () {
+test('Fall back to mediawikiDomain', function () {
 	var context = {
 		location: {
 			host: '127.0.0.1:8000'
