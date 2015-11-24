@@ -202,7 +202,7 @@ test('parseQueryParams', function () {
 
 	testCases = [
 		{foo: '1'},
-		{allowed: '1'},
+		{allowed: 1},
 		{allowed: 'false'},
 		{allowed: '</script>'}
 	];
