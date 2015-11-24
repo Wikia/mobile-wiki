@@ -43,7 +43,6 @@ setResolver(Em.DefaultResolver.create({
 
 		if (module) {
 			module = module + name.dasherize();
-			console.log(module)
 			return require(module).default
 		}
 	}
