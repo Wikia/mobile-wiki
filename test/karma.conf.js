@@ -16,24 +16,32 @@ module.exports = function (config) {
 
 		basePath: '../',
 		files: [
-			paths.vendor.dest + '/loader.js/loader.js',
-			paths.vendor.dest + '/fastclick/lib/fastclick.js',
-			paths.vendor.dest + '/sinonjs/sinon.js',
-			paths.vendor.dest + '/sinon-qunit/lib/sinon-qunit.js',
-			paths.vendor.dest + '/jquery/dist/jquery.js',
-			paths.vendor.dest + '/ember/ember.debug.js',
-			paths.vendor.dest + '/i18next/i18next.js',
-			paths.vendor.dest + '/jquery.cookie/jquery.cookie.js',
-			paths.vendor.dest + '/vignette/dist/vignette.js',
-			paths.vendor.dest + '/weppy/dist/weppy.js',
-			// qunit helpers must not be included in general components package
-			'front/vendor/ember-qunit/ember-qunit.js',
+			// Vendor files
+			paths.vendor.original + '/fastclick/lib/fastclick.js',
+			paths.vendor.original + '/sinonjs/sinon.js',
+			paths.vendor.original + '/sinon-qunit/lib/sinon-qunit.js',
+			paths.vendor.original + '/jquery/dist/jquery.js',
+			paths.vendor.original + '/ember/ember.debug.js',
+			paths.vendor.original + '/i18next/i18next.js',
+			paths.vendor.original + '/jquery.cookie/jquery.cookie.js',
+			paths.vendor.original + '/vignette/dist/vignette.js',
+			paths.vendor.original + '/weppy/dist/weppy.js',
+			paths.vendor.original + '/ember-qunit/ember-qunit.js',
+			paths.vendor.original + '/loader.js/loader.js',
+
 			'test/fixtures/test-fixtures.js',
+
+			// Ember templates
 			paths.templates.dest + '/main.js',
+
+			// Those files are tested
 			paths.scripts.front.dest + '/baseline.js',
 			paths.scripts.front.dest + '/test-modules.js',
-			paths.scripts.front.dest + '/auth.js',
+
+			// Test helpers
 			'test/helpers/**/*.js',
+
+			// Test specs
 			'test/specs/front/scripts/mercury/modules/VideoLoader.js',
 			'test/specs/front/scripts/mercury/modules/VideoPlayers/Base.js',
 		],
