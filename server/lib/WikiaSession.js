@@ -4,7 +4,7 @@
  * @property {number} [status]
  */
 import {unauthorized} from 'boom';
-import {get} from 'wreck';
+import Wreck from 'wreck';
 import localSettings from '../../config/localSettings';
 import Logger from './Logger';
 import {getWhoAmIUrl} from './AuthUtils';
@@ -61,7 +61,7 @@ export default function scheme() {
 				return reply(unauthorized('No access_token'));
 			}
 
-			get(
+			Wreck.get(
 				getWhoAmIUrl(),
 				{
 					timeout: localSettings.whoAmIService.timeout,
