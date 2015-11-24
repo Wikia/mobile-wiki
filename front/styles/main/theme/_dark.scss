@@ -128,6 +128,7 @@ body.dark-theme {
 		&.forum {
 			.post-detail {
 				border-top-color: $dark-discussion-post-detail-border-color;
+				background-color: $dark-discussion-desktop-post-detail-bg-color;
 			}
 		}
 	}
