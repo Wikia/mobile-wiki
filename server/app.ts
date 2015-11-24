@@ -129,6 +129,7 @@ server.ext('onPreResponse', getOnPreResponseHandler(isDevbox));
  */
 server.ext('onPreAuth', (request: Hapi.Request, reply: any): any => {
 	if (request.route.method === 'badrequest') {
+		Logger.info(request, 'bad request detected!');
 		return reply.redirect('/').permanent(true);
 	}
 	return reply.continue();

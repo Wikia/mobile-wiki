@@ -8,8 +8,6 @@ function proxyMW (request: Hapi.Request, reply: any): void {
 	var path = request.path.substr(1),
 		url = MW.createUrl(Utils.getCachedWikiDomainName(localSettings, request), path);
 
-	console.log("ProxyMW requested!");
-
 	reply.proxy({
 		uri: url,
 		redirects: localSettings.proxyMaxRedirects

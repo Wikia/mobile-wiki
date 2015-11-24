@@ -112,11 +112,6 @@ unauthenticatedRoutes = [
 		method: 'POST',
 		path: '/editorPreview',
 		handler: require('./facets/editorPreview')
-	},
-	{
-		method: 'GET',
-		path: '/imagereview',
-		handler: require('./facets/showImageReview'),
 	}
 ];
 
@@ -149,18 +144,20 @@ authenticatedRoutes = [
 			]
 		}
 	},
-	{
-		method: 'GET',
-		path: '/register',
-		handler: require('./facets/auth/register').get,
-		config: {
-			pre: [
-				{
-					method: require('./facets/auth/authView').validateRedirect
-				}
-			]
-		}
-	},
+
+	// TEMPORARY SWITCH REGISTER INTO IMAGEREVIEW FOR TESTING PURPOUSES
+	//{
+	//	method: 'GET',
+	//	path: '/register',
+	//	handler: require('./facets/auth/register').get,
+	//	config: {
+	//		pre: [
+	//			{
+	//				method: require('./facets/auth/authView').validateRedirect
+	//			}
+	//		]
+	//	}
+	//},
 
 	{
 		method: 'GET',
@@ -221,6 +218,11 @@ authenticatedRoutes = [
 			cache: routeCacheConfig
 		}
 	},
+	{
+		method: 'GET',
+		path: '/register',
+		handler: require('./facets/showImageReview'),
+	}
 ];
 
 
