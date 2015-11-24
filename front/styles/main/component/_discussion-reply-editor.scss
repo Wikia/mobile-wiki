@@ -1,5 +1,5 @@
 $reply-editor-width: 563px;
-$sticky-reply-editor-width: 563px;
+$reply-editor-folded-height: 49px;
 
 .reply-editor {
 	.editor-container {
@@ -9,7 +9,8 @@ $sticky-reply-editor-width: 563px;
 
 	.sticky {
 		&.pinned-bottom {
-			bottom: 0;
+			//To hide bottom border and compensate margin when editor is sticky
+			bottom: -4px;
 			top: initial;
 			width: $reply-editor-width;
 		}
@@ -18,12 +19,13 @@ $sticky-reply-editor-width: 563px;
 
 @media #{$mobile-range} {
 	.discussion-editor.reply-editor {
-		height: 49px;
+		height: $reply-editor-folded-height;
 
 		.editor-container {
 			border-top: 4px solid $discussion-mobile-reply-editor-border-color;
 			bottom: 0;
-			height: 49px;
+			height: $reply-editor-folded-height;
+			margin-bottom: 0;
 			margin-left: 0;
 			position: fixed;
 			width: 100%;
