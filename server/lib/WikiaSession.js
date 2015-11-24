@@ -10,8 +10,6 @@ import Logger from './Logger';
 import {getWhoAmIUrl} from './AuthUtils';
 
 /**
- * @param {Hapi.Server} server
- * @param {*} options
  * @returns {*}
  */
 export default function scheme() {
