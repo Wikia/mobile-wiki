@@ -1,7 +1,11 @@
-QUnit.module('mercury/modules/VideoLoader', {
-	setup: function () {
-		var exports = {},
-			VideoLoader;
+QUnit.module('mercury/modules/VideoLoader', function (hooks) {
+	var VideoLoader,
+		getInstance = function (params) {
+			return new VideoLoader(params);
+		};
+	
+	hooks.beforeEach(function () {
+		var exports = {};
 
 		require.entries['mercury/modules/VideoLoader'].callback(exports, {
 			className: 'BasePlayer'
@@ -15,62 +19,60 @@ QUnit.module('mercury/modules/VideoLoader', {
 		VideoLoader.createPlayer = sinon.stub().returns({
 			onResize: sinon.stub()
 		});
-
-		this.VideoLoader = VideoLoader;
-	}
-});
-
-QUnit.test('VideoLoader can tell if a provider is Ooyala or not', function () {
-	var instance = new this.VideoLoader({
-		provider: 'ooyala/funimation'
-	});
-	ok(instance.isProvider('ooyala'));
-
-	instance = new this.VideoLoader({
-		provider: 'OOYALA'
-	});
-	ok(instance.isProvider('ooyala'));
-
-	instance = new this.VideoLoader({
-		provider: 'OoYaLa/randooom'
-	});
-	ok(instance.isProvider('ooyala'));
-
-
-	instance = new this.VideoLoader({
-		provider: 'youtube'
-	});
-	equal(instance.isProvider('ooyala'), false);
-});
-
-QUnit.test('VideoLoader can tell which provider is using', function () {
-	var instance = new this.VideoLoader({
-		provider: 'ooyala/funimation'
-	});
-	equal(instance.getProviderName(), 'ooyala');
-
-	instance = new this.VideoLoader({
-		provider: 'OOYALA'
-	});
-	equal(instance.getProviderName(), 'ooyala');
-
-	instance = new this.VideoLoader({
-		provider: 'OoYaLa/randooom'
-	});
-	equal(instance.getProviderName(), 'ooyala');
-
-	instance = new this.VideoLoader({
-		provider: 'youtube'
-	});
-	equal(instance.getProviderName(), 'youtube');
-});
-
-QUnit.test('getPlayerClassBasedOnProvider returns correct player class', function () {
-	deepEqual(this.VideoLoader.getPlayerClassBasedOnProvider('ooyala'), {
-		className: 'OoyalaPlayer'
 	});
 
-	deepEqual(this.VideoLoader.getPlayerClassBasedOnProvider('realgravity'), {
-		className: 'BasePlayer'
+	QUnit.test('VideoLoader can tell if a provider is Ooyala or not', function () {
+		var instance = getInstance({
+			provider: 'ooyala/funimation'
+		});
+		ok(instance.isProvider('ooyala'));
+
+		instance = getInstance({
+			provider: 'OOYALA'
+		});
+		ok(instance.isProvider('ooyala'));
+
+		instance = getInstance({
+			provider: 'OoYaLa/randooom'
+		});
+		ok(instance.isProvider('ooyala'));
+
+
+		instance = getInstance({
+			provider: 'youtube'
+		});
+		equal(instance.isProvider('ooyala'), false);
+	});
+
+	QUnit.test('VideoLoader can tell which provider is using', function () {
+		var instance = getInstance({
+			provider: 'ooyala/funimation'
+		});
+		equal(instance.getProviderName(), 'ooyala');
+
+		instance = getInstance({
+			provider: 'OOYALA'
+		});
+		equal(instance.getProviderName(), 'ooyala');
+
+		instance = getInstance({
+			provider: 'OoYaLa/randooom'
+		});
+		equal(instance.getProviderName(), 'ooyala');
+
+		instance = getInstance({
+			provider: 'youtube'
+		});
+		equal(instance.getProviderName(), 'youtube');
+	});
+
+	QUnit.test('getPlayerClassBasedOnProvider returns correct player class', function () {
+		deepEqual(VideoLoader.getPlayerClassBasedOnProvider('ooyala'), {
+			className: 'OoyalaPlayer'
+		});
+
+		deepEqual(VideoLoader.getPlayerClassBasedOnProvider('realgravity'), {
+			className: 'BasePlayer'
+		});
 	});
 });
