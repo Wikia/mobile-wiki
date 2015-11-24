@@ -10,7 +10,9 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	isActive: false,
 	isSticky: false,
 
-	submitDisabled: true,
+	submitDisabled: Em.computed('bodyText', 'currentUser.userId', function(): boolean {
+		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null
+	}),
 	isLoading: false,
 	showSuccess: false,
 	hasError: false,
@@ -134,8 +136,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		this.setProperties({
 			isActive: false,
 			bodyText: '',
-			showSuccess: false,
-			submitDisabled: false
+			showSuccess: false
 		});
 
 		Em.set(newItem, 'isVisible', true);
@@ -162,13 +163,15 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * @returns {void}
 		 */
 		create(): void {
-			this.set('isLoading', true);
+			if (!this.get('submitDisabled')) {
+				this.set('isLoading', true);
 
-			this.sendAction('create', {
-				body: this.get('bodyText'),
-				creatorId: this.get('currentUser.userId'),
-				siteId: Mercury.wiki.id,
-			});
+				this.sendAction('create', {
+					body: this.get('bodyText'),
+					creatorId: this.get('currentUser.userId'),
+					siteId: Mercury.wiki.id,
+				});
+			}
 		},
 
 		/**
@@ -180,14 +183,11 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		},
 
 		/**
-		 * Update editor when typing - activate editor and activate submit button
+		 * Update editor when typing - activate editor
 		 * @returns {void}
 		 */
 		updateOnInput(): void {
-			this.setProperties({
-				submitDisabled: this.get('bodyText').length === 0 || this.get('currentUser.userId') === null,
-				isActive: true
-			});
+			this.set('isActive', true);
 		},
 
 		/**
