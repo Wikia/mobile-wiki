@@ -40,7 +40,9 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * Method should be overwritten in the child classes
 	 * @returns {void}
 	 */
-	initializeStickyState(): void {},
+	initializeStickyState(): void {
+		throw new Error('Please, override this method in the descendant class');
+	},
 
 	/**
 	 * Display error message on post failure
