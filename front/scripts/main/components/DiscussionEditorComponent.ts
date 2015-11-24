@@ -33,7 +33,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	}),
 
 	getBreakpointHeight(): number {
-		return this.offsetTop - (this.get('siteHeadPinned') ? this.siteHeadHeight : 0);
+		return this.get('offsetTop') - (this.get('siteHeadPinned') ? this.get('siteHeadHeight') : 0);
 	},
 
 	/**
