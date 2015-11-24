@@ -34,7 +34,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	handleNewReplyCreated: Em.observer('replies.@each.isNew', function (): void {
-		Em.$('html, body').animate({ scrollTop: Em.$(document).height() });
+		Em.$('html, body').animate({scrollTop: Em.$(document).height()});
 		var newReplies = this.get('replies').filter(function (reply: any): boolean {
 				return reply.isNew;
 			}),
