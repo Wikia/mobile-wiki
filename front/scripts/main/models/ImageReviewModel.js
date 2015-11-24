@@ -13,20 +13,23 @@ App.ImageReviewModel.reopenClass({
         console.log('ImageReviewModel.startSession()');
         return new Em.RSVP.Promise((resolve, reject) => {
             Em.$.ajax({
-                url: '',
+                url: 'https://services.wikia-dev.com/image-review/session/',
                 data: {
                     AuthenticatedUser: {
                         userId: parseInt(M.prop('userId'))
                     },
                 },
+				headers: {
+					'X-Wikia-UserId': M.prop('userId')
+				},
+				dataType: 'json',
+				method: 'POST',
                 success: (data) => {
-                    if (Em.isArray(data.data)) {
-                        resolve(data.data);
-                    } else {
-                        reject('Invalid data was returned from Image Review API');
-                    }
+					console.log('Startsession success: '+data);
+					resolve(data.data);
                 },
                 error: (data) => {
+					console.log('Startsession error: '+JSON.stringify(data));
                     reject(data);
                 }
             });
