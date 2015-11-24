@@ -82,6 +82,24 @@ body.dark-theme {
 		.discussion-content {
 			color: $dark-discussion-content-color;
 		}
+
+		.post-reply {
+			&.is-deleted {
+				.discussion-content {
+					color: $dark-discussion-deleted-content-color;
+				}
+
+				.count {
+					color: $dark-discussion-deleted-actions-color;
+				}
+
+				.icon.upvote-reply {
+					fill: $dark-discussion-deleted-actions-color;
+					stroke: $dark-discussion-deleted-actions-color;
+				}
+			}
+		}
+
 		.post-reply ~ .post-reply {
 			.discussion-reply {
 				border-top-color: $dark-discussion-reply-border-color;
