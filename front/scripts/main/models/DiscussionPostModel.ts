@@ -56,6 +56,7 @@ App.DiscussionPostModel = App.DiscussionBaseModel.extend({
 	createReply(replyData: any) {
 		this.setFailedState(null);
 		replyData.threadId = this.get('postId');
+
 		return new Em.RSVP.Promise((resolve: Function, reject: Function) => {
 			Em.$.ajax(<JQueryAjaxSettings>{
 				method: 'POST',
