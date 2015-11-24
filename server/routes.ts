@@ -218,6 +218,7 @@ authenticatedRoutes = [
 			cache: routeCacheConfig
 		}
 	},
+		//temporary switched to register
 	{
 		method: 'GET',
 		path: '/register',

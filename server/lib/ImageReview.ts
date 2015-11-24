@@ -25,7 +25,7 @@ export class ImageReviewRequestHelper {
             }).wikiVariables()
         ];
 
-        logger.info(this.params, 'Fetching images to review and main page details');
+        logger.info('Fetching images to review and main page details');
 
         /**
          * @see https://github.com/petkaantonov/bluebird/blob/master/API.md#settle---promise

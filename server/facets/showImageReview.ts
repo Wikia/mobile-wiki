@@ -25,7 +25,7 @@ var cachingTimes = {
  * @returns {void}
  */
 function showImageReview(request: Hapi.Request, reply: Hapi.Response): void {
-    Logger.info(request, 'showing image review');
+    Logger.info('showing image review');
 
     var wikiDomain: string = Utils.getCachedWikiDomainName(localSettings, request),
         params: ArticleRequestParams = {
