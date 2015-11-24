@@ -56,6 +56,37 @@ $horizontal-padding: 15px;
 		padding: .3rem 0;
 	}
 
+	.post-reply {
+		&.is-deleted {
+			&::before {
+				border-color: #ed1c24 transparent transparent transparent;
+				border-style: solid;
+				border-width: 12px 12px 0 0;
+				content: " ";
+				height: 12px;
+				position: absolute;
+				width: 12px;
+			}
+
+			.discussion-content {
+				color: #999;
+			}
+
+			.count {
+				color: #ccc;
+			}
+
+			.icon.upvote-reply {
+				fill: #ccc;
+				stroke: #ccc;
+			}
+
+			.upvote a {
+				cursor: default;
+			}
+		}
+	}
+
 	.discussion-reply {
 		border-top: 1px solid $discussion-reply-border-color;
 		padding: {
