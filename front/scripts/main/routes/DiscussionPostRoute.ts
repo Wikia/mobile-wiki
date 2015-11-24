@@ -66,7 +66,7 @@ App.DiscussionPostRoute = Em.Route.extend(App.DiscussionLayoutMixin, App.Discuss
 
 		/**
 		 * Triggers new reply creation on a model
-		 * @param postData
+		 * @param {object} replyData
 		 */
 		createReply(replyData: any): any {
 			this.modelFor('discussion.post').createReply(replyData);
