@@ -1,3 +1,15 @@
+## release-191 (2015-11-24 10:52 UTC)
+* Merge pull request #1666 from RafalWilinski/patch-1: mediawikiDomain change
+* [INT-246](https://wikia-inc.atlassian.net/browse/INT-246) Mercury section editor rollout phase 1
+* [SOC-1582](https://wikia-inc.atlassian.net/browse/SOC-1582) SOC-1582 | Handling loading empty replies response on front end
+* [XW-159](https://wikia-inc.atlassian.net/browse/XW-159) XW-159 | add npm tasks
+
+## release-190 (2015-11-19 15:59 UTC)
+* [INT-218](https://wikia-inc.atlassian.net/browse/INT-218) Show avatar for logged in users for Japan HP
+* [DAT-3463](https://wikia-inc.atlassian.net/browse/DAT-3463) DAT-3463 Style context-links templates
+* transifex-testing: Add config file for Transifex testing
+* [ADEN-2559](https://wikia-inc.atlassian.net/browse/ADEN-2559) Aden 2559 close button delay
+
 ## release-189 hotfix 1 (2015-11-18 13:00 UTC)
 * [XW-745](https://wikia-inc.atlassian.net/browse/XW-745) XW-745 | Non-portable infoboxes no longer show on Mercury in iOS
 

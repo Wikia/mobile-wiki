@@ -82,14 +82,96 @@ App.ArticleWrapperComponent = Em.Component.extend(
 			}
 		},
 
-		uploadFeatureEnabled: Em.computed(function(): boolean {
-			return !Em.get(Mercury, 'wiki.disableAnonymousUploadForMercury');
+
+		/**
+		 * Checks if contribution component should be enabled
+		 * http://clashofclans.wikia.com/        db: clashofclans
+		 * http://de.clashofclans.wikia.com/     db: declashofclans
+		 * http://zh.clashofclans.wikia.com/     db: zhclashofclans723
+		 * http://fr.clashofclans.wikia.com/     db: frclashofclans
+		 * http://ru.clashofclans.wikia.com/     db: ruclashofclans
+		 * http://es.clash-of-clans.wikia.com/   db: esclashofclans727
+		 * http://pt-br.clashofclans.wikia.com/  db: ptbrclashofclans
+		 *
+		 * @returns {boolean} True if contribution component is enabled for this community
+		 */
+		contributionEnabledForCommunity: Em.computed(function(): boolean {
+			var dbName = Em.get(Mercury, 'wiki.dbName'),
+				disableMobileSectionEditor = Em.getWithDefault(Mercury, 'wiki.disableMobileSectionEditor', false);
+
+			var enabledCommunities = [
+				'clashofclans', 'declashofclans', 'zhclashofclans723', 'frclashofclans',
+				'ruclashofclans', 'esclashofclans727', 'ptbrclashofclans'
+			];
+
+			if (disableMobileSectionEditor) {
+				// When disableMobileSectionEditor is set to true, no contribution tools should show up
+				return false;
+			} else if (this.getWithDefault('isJapaneseWikia', false)) {
+				// Enabled for all Japanese wikias unless disableMobileSectionEditor is set
+				return true;
+			} else if (enabledCommunities.indexOf(dbName) > -1) {
+				// Otherwise check against whitelist
+				return true;
+			}
+
+			return false;
 		}),
 
-		contributionFeatureEnabled: Em.computed('model.isMainPage', function (): boolean {
-			return !this.get('model.isMainPage')
-				&& this.get('isJapaneseWikia')
-				&& !Em.get(Mercury, 'wiki.disableAnonymousEditing');
+		/**
+		 * Checks if mobile contribution features are enabled.
+		 * Contribution features include section editor and photo upload.
+		 *
+		 * @returns {boolean} True if the contribution features should be rendered on the page
+		 */
+		contributionEnabled: Em.computed('model.isMainPage', function (): boolean {
+			return !this.get('model.isMainPage') &&
+				this.get('contributionEnabledForCommunity');
+		}),
+
+		/**
+		 * Determine if the upload photo icon should be rendered.
+		 * Only enabled for Japanese wikias
+		 *
+		 * @returns {boolean} True if the upload photo icon should be rendered
+		 */
+		addPhotoIconVisible: Em.computed.oneWay('isJapaneseWikia'),
+
+		/**
+		 * Determine if the edit section icon should be rendered
+		 *
+		 * @returns {boolean} True if the edit icon should be rendered
+		 */
+		editIconVisible: Em.computed.oneWay('contributionEnabled'),
+
+		/**
+		 * For section editor, checks if the user is allowed to edit
+		 * - Logged in users are always allowed to edit
+		 * - Wikias with disableAnonymousEditing set need login to edit
+		 * - Coppa wikias (for wikias directed at children) always require login to edit
+		 *
+		 * @returns {boolean} True if edit is allowed
+		 */
+		editAllowed: Em.computed(function(): boolean {
+			var isCoppaWiki = Em.getWithDefault(Mercury, 'wiki.isCoppaWiki', false),
+				disableAnonymousEditing = Em.getWithDefault(Mercury, 'wiki.disableAnonymousEditing', false),
+				isLoggedIn = this.get('currentUser.isAuthenticated');
+
+			if (isLoggedIn) {
+				return true;
+			} else {
+				return !(isCoppaWiki || disableAnonymousEditing);
+			}
+		}),
+
+		/**
+		 * For add photo, check if the user is allowed to upload
+		 * Only logged in users are allowed to add photo
+		 *
+		 * @returns {boolean} True if add photo is allowed
+		 */
+		addPhotoAllowed: Em.computed(function(): boolean {
+			return this.get('currentUser.isAuthenticated');
 		}),
 
 		curatedContentToolButtonVisible: Em.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
