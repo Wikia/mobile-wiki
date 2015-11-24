@@ -4,14 +4,14 @@ App.ImageReviewRouteMixin = Em.Mixin.create({
      * @returns {void}
      */
     activate() {
-        this.controllerFor('application').set('enableShareHeader', true);
+        this.controllerFor('imageReview').set('enableShareHeader', true);
     },
 
     /**
      * @returns {void}
      */
     deactivate() {
-        this.controllerFor('application').set('enableShareHeader', false);
+        this.controllerFor('imageReview').set('enableShareHeader', false);
     },
 
     /**
@@ -22,9 +22,7 @@ App.ImageReviewRouteMixin = Em.Mixin.create({
     renderTemplate(controller, model) {
         this.render('image-review', {
         controller: 'imageReview',
-        model: {
-            curatedContent: model
-        }
+        model: model
         });
-    },
+    }
 });
