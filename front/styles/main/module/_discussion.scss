@@ -66,7 +66,10 @@ body.discussions {
 		padding: .3rem 0;
 	}
 
-	.post-reply {
+	.post-reply,
+	.post-detail {
+		position: relative;
+
 		&.is-deleted {
 			&::before {
 				border-color: $discussion-deleted-mark-color transparent transparent transparent;
@@ -74,7 +77,9 @@ body.discussions {
 				border-width: $deleted-mark-size $deleted-mark-size 0 0;
 				content: " ";
 				height: $deleted-mark-size;
+				left: 0;
 				position: absolute;
+				top: 0;
 				width: $deleted-mark-size;
 			}
 
@@ -82,11 +87,11 @@ body.discussions {
 				color: $discussion-deleted-content-color;
 			}
 
-			.count {
+			.count a {
 				color: $discussion-deleted-actions-color;
 			}
 
-			.icon.upvote-reply {
+			.icon {
 				fill: $discussion-deleted-actions-color;
 				stroke: $discussion-deleted-actions-color;
 			}
@@ -154,21 +159,20 @@ body.discussions {
 	}
 
 	.icon {
+		fill: $discussion-actions-color;
 		height: 20px;
+		stroke: $discussion-actions-color;
 		width: 20px;
 		vertical-align: middle;
 
 		&.upvote {
 			height: 22px;
 			width: 22px;
-			fill: $upvote-icon-color;
 		}
 		&.upvote-reply {
 			height: 12px;
 			line-height: 12px;
 			width: 12px;
-			fill: $upvote-reply-icon-color;
-			stroke: $upvote-reply-icon-color;
 		}
 		&.replies{
 			height: 24px;
@@ -183,12 +187,8 @@ body.discussions {
 
 	.has-upvoted {
 		.icon {
-			&.upvote {
 				fill: $upvote-icon-activated-color;
-			}
-			&.upvote-reply {
 				stroke: $upvote-icon-activated-color;
-			}
 		}
 	}
 

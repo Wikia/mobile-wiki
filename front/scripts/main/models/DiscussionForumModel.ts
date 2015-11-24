@@ -19,7 +19,8 @@ App.DiscussionForumModel = App.DiscussionBaseModel.extend({
 			Em.$.ajax(<JQueryAjaxSettings>{
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 				data: {
-					page: this.get('pageNum')
+					page: this.get('pageNum'),
+					viewableOnly: false
 				},
 				xhrFields: {
 					withCredentials: true,
@@ -63,7 +64,9 @@ App.DiscussionForumModel.reopenClass({
 					wikiId: wikiId,
 					forumId: forumId
 				}),
-				requestData: any = {};
+				requestData: any = {
+					viewableOnly: false
+				};
 
 			if (sortBy) {
 				requestData.sortKey = forumInstance.getSortKey(sortBy);

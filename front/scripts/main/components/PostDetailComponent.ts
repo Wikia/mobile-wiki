@@ -6,6 +6,7 @@ App.PostDetailComponent = Em.Component.extend(
 	App.DiscussionUpvoteActionSendMixin,
 	{
 		classNames: ['post-detail'],
+		classNameBindings: ['isDeleted'],
 
 		postId: null,
 		authorUrl: Em.computed('post', function (): string {
