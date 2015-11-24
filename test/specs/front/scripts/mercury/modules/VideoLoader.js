@@ -1,7 +1,8 @@
 QUnit.module('VideoLoader tests', {
 	setup: function () {
-		window.$script = function () {};
-		this.instance = new Mercury.Modules.VideoLoader({
+		var VideoLoader = require.entries['mercury/modules/VideoLoader'].callback(null, null, null);
+
+		this.instance = new VideoLoader({
 				provider: 'youtube',
 				jsParams: {
 					videoId: 666,
@@ -15,8 +16,8 @@ QUnit.module('VideoLoader tests', {
 
 QUnit.test('VideoLoader is compiled into Mercury.Modules namespace', function () {
 	expect(2);
-	ok(Mercury.Modules.VideoLoader);
-	equal(typeof Mercury.Modules.VideoLoader, 'function');
+	ok(require('mercury/modules/VideoLoader'));
+	equal(typeof require('mercury/modules/VideoLoader').default, 'function');
 });
 
 QUnit.test('VideoLoader can tell if a provider is Ooyala or not', function () {
@@ -62,6 +63,5 @@ QUnit.test('VideoLoader should have loaded the correct player class', function (
 	this.instance.data.provider = 'realgravity';
 	this.instance.loadPlayerClass();
 	equal(this.instance.player.provider, 'realgravity');
-	equal(this.instance.player instanceof Mercury.Modules.VideoPlayers.BasePlayer, true);
-
+	equal(this.instance.player instanceof require('mercury/modules/VideoLoaders/BasePlayer').default, true);
 });

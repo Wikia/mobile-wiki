@@ -3,7 +3,7 @@
  * @description This file sets up the Ember app for testing. Depends on ember-qunit (managed by bower):
  * https://github.com/rpflorence/ember-qunit
  */
-var App = window.App,
+var App = require('main/app').default,
 	karma_started = false;
 
 __karma__.loaded = function() {};

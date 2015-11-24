@@ -10,12 +10,12 @@ QUnit.module('variantTesting tests', {
 });
 
 QUnit.test('Activate Optimizely', function () {
-	M.VariantTesting.activate();
+	require('mercury/utils/variantTesting').activate();
 	deepEqual(this.getLastItem(), ['activate']);
 });
 
 QUnit.test('Event tracking', function () {
-	M.VariantTesting.trackEvent('herd_cats');
+	require('mercury/utils/variantTesting').trackEvent('herd_cats');
 	deepEqual(this.getLastItem(), ['trackEvent', 'herd_cats']);
 });
 
