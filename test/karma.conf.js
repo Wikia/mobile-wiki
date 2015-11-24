@@ -42,10 +42,7 @@ module.exports = function (config) {
 			'test/helpers/**/*.js',
 
 			// Test specs
-			'test/specs/front/scripts/baseline/**/*.js',
-			'test/specs/front/scripts/mercury/modules/Trackers/*.js',
-			'test/specs/front/scripts/mercury/modules/VideoLoader.js',
-			'test/specs/front/scripts/mercury/modules/VideoPlayers/Base.js',
+			'test/specs/front/**/*.js',
 		],
 
 		exclude: [
