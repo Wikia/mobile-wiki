@@ -202,13 +202,15 @@ $success-icon-size: 80px;
 				}
 
 				.editor-label {
+					background-color: $discussion-editor-background-color;;
 					color: $discussion-editor-label-color;
 					font-size: $type-min;
 					font-weight: bold;
-					margin: 10px;
+					padding: 10px;
 					position: absolute;
 					text-transform: uppercase;
 					top: $editor-toolbar-height;
+					width: 100%;
 				}
 
 				.user-avatar {
