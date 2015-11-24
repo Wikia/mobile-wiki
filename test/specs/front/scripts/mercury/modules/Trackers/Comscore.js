@@ -16,19 +16,27 @@ QUnit.module('Comscore tests', {
 });
 
 QUnit.test('Comscore is compiled into Mercury.Modules.Trackers namespace', function () {
-	ok(Mercury.Modules.Trackers.Comscore);
-	strictEqual(typeof Mercury.Modules.Trackers.Comscore, 'function');
+	var Comscore = {};
+
+	require.entries['mercury/modules/Trackers/Comscore'].callback(Comscore, null);
+	ok(Comscore);
+	strictEqual(typeof Comscore.default, 'function');
 });
 
 QUnit.test('Track page view', function () {
-	var tracker = new Mercury.Modules.Trackers.Comscore(),
-		queue = [{
-			c1: '2',
-			c2: M.prop('tracking.comscore.id'),
-			options: {
-				url_append: M.prop('tracking.comscore.keyword') + '=' + M.prop('tracking.comscore.c7Value')
-			}
-		}];
+	var Comscore = {},
+		queue,
+		tracker;
+
+	require.entries['mercury/modules/Trackers/Comscore'].callback(Comscore, null);
+	tracker = new Comscore.default();
+	queue = [{
+		c1: '2',
+		c2: M.prop('tracking.comscore.id'),
+		options: {
+			url_append: M.prop('tracking.comscore.keyword') + '=' + M.prop('tracking.comscore.c7Value')
+		}
+	}];
 
 	tracker.appendScript = function () {};
 

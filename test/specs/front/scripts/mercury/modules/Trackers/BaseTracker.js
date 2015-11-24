@@ -24,7 +24,6 @@ QUnit.module('BaseTracker tests', {
 		require.entries['mercury/modules/Trackers/BaseTracker'].callback(baseTracker);
 		baseTracker = baseTracker.default;
 		baseTracker.script = nodeElementMock;
-		console.log(baseTracker);
 	},
 	teardown: function() {
 		document.createElement = this.createElementOriginal;
