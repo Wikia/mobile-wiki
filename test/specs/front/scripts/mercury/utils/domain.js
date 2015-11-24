@@ -1,6 +1,6 @@
 QUnit.module('domain utility functions');
 
-test('M.getDomain gets domain from provided hosts', function () {
+test('Mercury.Utils.getDomain gets domain from provided hosts', function () {
 	var testCases = [
 		{
 			hostname: 'witcher.wikia.com',
@@ -20,6 +20,6 @@ test('M.getDomain gets domain from provided hosts', function () {
 	];
 
 	testCases.forEach(function (testCase) {
-		strictEqual(M.getDomain(testCase.hostname), testCase.expected);
+		strictEqual(require('mercury/utils/domain').getDomain(testCase.hostname), testCase.expected);
 	});
 });

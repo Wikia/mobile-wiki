@@ -1,7 +1,7 @@
 QUnit.module('String util functions');
 
-QUnit.test('sanitizing title', function () {
-	var string = Mercury.Utils.String,
+test('sanitizing title', function () {
+	var string = require('mercury/utils/string'),
 		testCases = [
 			{
 				title: 'test',

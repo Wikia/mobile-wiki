@@ -1,6 +1,6 @@
 QUnit.module('Calculation util functions');
 
-QUnit.test('container size calculation', function () {
+test('container size calculation', function () {
 	var testCases = [
 		//horizontal viewport
 		{
@@ -69,7 +69,7 @@ QUnit.test('container size calculation', function () {
 
 	testCases.forEach(function (testCase) {
 		this.deepEqual(
-			Mercury.Utils.Calculation.containerSize(
+			require('mercury/utils/calculation').containerSize(
 				testCase.maxWidth, testCase.maxHeight, testCase.contentWidth, testCase.contentHeight
 			),
 			testCase.expectedOutput
