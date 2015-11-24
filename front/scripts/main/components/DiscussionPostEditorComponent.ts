@@ -14,8 +14,10 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	initializeStickyState: Em.on('didInsertElement', function (): void {
-		this.offsetTop = this.$().offset().top;
-		this.siteHeadHeight = Em.$('.site-head').outerHeight(true);
+		this.setProperties({
+			offsetTop: this.$().offset().top,
+			siteHeadHeight: Em.$('.site-head').outerHeight(true)
+		});
 
 		Em.$(window).on('scroll', (): void => {
 			this.onScroll();
