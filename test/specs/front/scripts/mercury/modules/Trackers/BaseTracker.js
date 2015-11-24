@@ -1,5 +1,6 @@
 /* global Mercury */
-var scriptsArray;
+var scriptsArray,
+	baseTracker;
 
 QUnit.module('BaseTracker tests', {
 	setup: function () {
@@ -11,6 +12,7 @@ QUnit.module('BaseTracker tests', {
 			}
 		};
 
+		baseTracker = {};
 		scriptsArray = [];
 		this.createElementOriginal = document.createElement;
 
@@ -19,16 +21,20 @@ QUnit.module('BaseTracker tests', {
 		};
 
 		//assign value script
-		Mercury.Modules.Trackers.BaseTracker.script = nodeElementMock;
+		require.entries['mercury/modules/Trackers/BaseTracker'].callback(baseTracker);
+		baseTracker = baseTracker.default;
+		baseTracker.script = nodeElementMock;
+		console.log(baseTracker);
 	},
 	teardown: function() {
 		document.createElement = this.createElementOriginal;
 		scriptsArray = [];
+		baseTracker = {};
 	}
 });
 
 QUnit.test('Append script', function () {
-	var tracker = new Mercury.Modules.Trackers.BaseTracker(),
+	var tracker = new baseTracker(),
 		scriptsCountBeforeAppend = 0,
 		scriptsCountAfterAppend,
 		insertedScriptNode;

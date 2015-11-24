@@ -42,8 +42,10 @@ module.exports = function (config) {
 			'test/helpers/**/*.js',
 
 			// Test specs
-			'test/specs/front/scripts/mercury/modules/VideoLoader.js',
-			'test/specs/front/scripts/mercury/modules/VideoPlayers/Base.js',
+			'test/specs/front/scripts/baseline/mercury/utils/isPrimitive.js',
+			'test/specs/front/scripts/mercury/modules/Trackers/BaseTracker.js'
+			//'test/specs/front/scripts/mercury/modules/VideoLoader.js',
+			//'test/specs/front/scripts/mercury/modules/VideoPlayers/Base.js',
 		],
 
 		exclude: [
