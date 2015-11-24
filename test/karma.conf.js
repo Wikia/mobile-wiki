@@ -44,7 +44,8 @@ module.exports = function (config) {
 			// Test specs
 			'test/specs/front/scripts/baseline/mercury/utils/isPrimitive.js',
 			'test/specs/front/scripts/mercury/modules/Trackers/BaseTracker.js',
-			'test/specs/front/scripts/mercury/modules/Trackers/Comscore.js'
+			'test/specs/front/scripts/mercury/modules/Trackers/Comscore.js',
+			'test/specs/front/scripts/mercury/modules/Trackers/Internal.js',
 			//'test/specs/front/scripts/mercury/modules/VideoLoader.js',
 			//'test/specs/front/scripts/mercury/modules/VideoPlayers/Base.js',
 		],
