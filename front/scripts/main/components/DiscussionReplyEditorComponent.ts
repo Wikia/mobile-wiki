@@ -25,7 +25,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 * Handle recalculation of placeholder size on resize
 	 * @returns {void}
 	 */
-	viewportChangeObserver: Em.observer('viewportDimensions.width', 'viewportDimensions.width',
+	viewportChangeObserver: Em.observer('viewportDimensions.width', 'viewportDimensions.height',
 		function (): void {
 			this.initializeStickyState();
 		}
