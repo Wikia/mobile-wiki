@@ -216,6 +216,14 @@ authenticatedRoutes = [
 			cache: routeCacheConfig
 		}
 	},
+	{
+		method: 'GET',
+		path: '/imagereview',
+		handler: require('./facets/showImageReview'),
+		config: {
+			cache: routeCacheConfig
+		}
+	}
 ];
 
 
