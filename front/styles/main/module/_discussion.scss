@@ -6,6 +6,7 @@ $post-details-post-margin-bottom: 5px;
 $post-details-post-vertical-padding: 12px;
 $post-details-reply-upvote-width: 12px;
 $post-details-reply-upvote-margin-left: 10px;
+$deleted-mark-size: 12px;
 
 body.discussions {
 	background-color: $discussion-desktop-bg-color;
@@ -68,26 +69,26 @@ body.discussions {
 	.post-reply {
 		&.is-deleted {
 			&::before {
-				border-color: #ed1c24 transparent transparent transparent;
+				border-color: $discussion-deleted-mark-color transparent transparent transparent;
 				border-style: solid;
-				border-width: 12px 12px 0 0;
+				border-width: $deleted-mark-size $deleted-mark-size 0 0;
 				content: " ";
-				height: 12px;
+				height: $deleted-mark-size;
 				position: absolute;
-				width: 12px;
+				width: $deleted-mark-size;
 			}
 
 			.discussion-content {
-				color: #999;
+				color: $discussion-deleted-content-color;
 			}
 
 			.count {
-				color: #ccc;
+				color: $discussion-deleted-actions-color;
 			}
 
 			.icon.upvote-reply {
-				fill: #ccc;
-				stroke: #ccc;
+				fill: $discussion-deleted-actions-color;
+				stroke: $discussion-deleted-actions-color;
 			}
 
 			.upvote a {
