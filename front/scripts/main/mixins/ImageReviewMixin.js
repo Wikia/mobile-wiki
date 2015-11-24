@@ -1,4 +1,4 @@
-App.ImageReviewRouteMixin = Em.Mixin.create({
+App.ImageReviewMixin = Em.Mixin.create({
 
     /**
      * @returns {void}
