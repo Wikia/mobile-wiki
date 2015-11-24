@@ -124,7 +124,6 @@ App.DiscussionPostModel.reopenClass({
 								});
 								contributors.push(reply.createdBy);
 							}
-							reply.isVisible = true;
 						});
 					}
 					postInstance.setProperties({
