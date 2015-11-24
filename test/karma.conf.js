@@ -10,7 +10,7 @@ module.exports = function (config) {
 		frameworks: ['qunit'],
 		autoWatch: true,
 		singleRun: true,
-		browsers: ['Chrome'],
+		browsers: ['PhantomJS'],
 		// coverage reporter generates the coverage
 		reporters: ['progress', 'coverage'],
 
@@ -42,12 +42,12 @@ module.exports = function (config) {
 			'test/helpers/**/*.js',
 
 			// Test specs
-			'test/specs/front/scripts/baseline/mercury/utils/isPrimitive.js',
+			'test/specs/front/scripts/baseline/**/*.js',
 			'test/specs/front/scripts/mercury/modules/Trackers/BaseTracker.js',
 			'test/specs/front/scripts/mercury/modules/Trackers/Comscore.js',
 			'test/specs/front/scripts/mercury/modules/Trackers/Internal.js',
 			'test/specs/front/scripts/mercury/modules/Trackers/Quantserve.js',
-			//'test/specs/front/scripts/mercury/modules/VideoLoader.js',
+			'test/specs/front/scripts/mercury/modules/VideoLoader.js',
 			//'test/specs/front/scripts/mercury/modules/VideoPlayers/Base.js',
 		],
 

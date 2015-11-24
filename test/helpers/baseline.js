@@ -22,6 +22,7 @@ function resetMercuryBaseline () {
 
 	var dimensions = [];
 	dimensions[8] = 'test/article';
+	//FIXME this should be mocked in tests and not done here
 	require('mercury/modules/Trackers/UniversalAnalytics').default.setDimensions(dimensions);
 }
 
