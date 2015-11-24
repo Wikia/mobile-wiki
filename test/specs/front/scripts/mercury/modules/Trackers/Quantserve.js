@@ -15,15 +15,21 @@ QUnit.module('Quantserve tests', {
 });
 
 QUnit.test('Quantserve is compiled into Mercury.Modules.Trackers namespace', function () {
-	equal(typeof Mercury.Modules.Trackers.Quantserve, 'function');
+	var QuantserveModule = {};
+	require.entries['mercury/modules/Trackers/Quantserve'].callback(QuantserveModule, null);
+	equal(typeof QuantserveModule.default, 'function');
 });
 
 QUnit.test('Track page view', function () {
-	var tracker = new Mercury.Modules.Trackers.Quantserve(),
+	var QuantserveModule = {},
 		qevents = [{
 			qacct: M.prop('tracking.quantserve'),
 			labels: 'tv,Category.MobileWeb.Mercury'
-		}];
+		}],
+		tracker;
+
+	require.entries['mercury/modules/Trackers/Quantserve'].callback(QuantserveModule, null);
+	tracker = new QuantserveModule.default();
 
 	tracker.appendScript = function () {};
 
