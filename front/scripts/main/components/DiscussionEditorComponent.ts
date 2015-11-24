@@ -156,6 +156,20 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 
 	actions: {
 		/**
+		 * Send request to model to create new post and start animations
+		 * @returns {void}
+		 */
+		create(): void {
+			this.set('isLoading', true);
+
+			this.sendAction('create', {
+				body: this.get('bodyText'),
+				creatorId: this.get('currentUser.userId'),
+				siteId: Mercury.wiki.id,
+			});
+		},
+
+		/**
 		 * Enable/disable editor
 		 * @returns {void}
 		 */

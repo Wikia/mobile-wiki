@@ -56,21 +56,5 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		Em.run.later(this, (): void => {
 			this.initializeStickyState();
 		}, 200);
-	},
-
-	actions: {
-		/**
-		 * Send request to model to create new post and start animations
-		 * @returns {void}
-		 */
-		create(): void {
-			this.set('isLoading', true);
-
-			this.sendAction('createReply', {
-				body: this.get('bodyText'),
-				creatorId: this.get('currentUser.userId'),
-				siteId: Mercury.wiki.id,
-			});
-		}
 	}
 });

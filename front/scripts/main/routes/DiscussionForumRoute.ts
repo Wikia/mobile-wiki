@@ -70,7 +70,7 @@ App.DiscussionForumRoute = Em.Route.extend(App.DiscussionLayoutMixin, App.Discus
 			this.modelFor('discussion.forum').loadPage(pageNum);
 		},
 
-		createPost(postData: any): any {
+		create(postData: any): any {
 			this.setSortBy('latest').promise.then(() => {
 				this.modelFor('discussion.forum').createPost(postData);
 			});

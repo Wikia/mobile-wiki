@@ -69,21 +69,5 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 			newPost = newPost._embedded.firstPost[0];
 			this.handleNewItemCreated(newPost);
 		}
-	}),
-
-	actions: {
-		/**
-		 * Send request to model to create new post and start animations
-		 * @returns {void}
-		 */
-		create(): void {
-			this.set('isLoading', true);
-
-			this.sendAction('createPost', {
-				body: this.get('bodyText'),
-				creatorId: this.get('currentUser.userId'),
-				siteId: Mercury.wiki.id,
-			});
-		}
-	}
+	})
 });

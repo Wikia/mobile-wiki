@@ -45,8 +45,8 @@ App.ForumWrapperComponent = Em.Component.extend(
 			 * @param {any} postData
 			 * @returns {void}
 			 */
-			createPost(postData: any): any {
-				return this.sendAction('createPost', postData);
+			create(postData: any): any {
+				return this.sendAction('create', postData);
 			},
 		},
 
