@@ -9,8 +9,8 @@ $sticky-reply-editor-width: 563px;
 
 	.sticky {
 		&.pinned-bottom {
-			top: initial;
 			bottom: 0;
+			top: initial;
 			width: $reply-editor-width;
 		}
 	}
