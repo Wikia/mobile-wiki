@@ -78,7 +78,7 @@
     "karma-qunit": "0.x.x",
     "multipipe": "^0.1.2",
     "qunit": "0.x.x",
-    "qunitjs": "1.18.0",
+    "qunitjs": "1.20.0",
     "systemjs-builder": "^0.14.11",
     "through2": "^0.6.3",
     "tslint": "^2.1.1"
