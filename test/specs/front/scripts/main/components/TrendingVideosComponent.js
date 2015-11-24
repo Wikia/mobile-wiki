@@ -4,9 +4,9 @@ moduleForComponent('trending-videos', 'TrendingVideosComponent', {
 	unit: true,
 
 	setup: function () {
-		originalMediaModel = App.MediaModel;
+		originalMediaModel = require('main/models/media').default;
 
-		App.MediaModel = {
+		require('main/models/media').default = {
 			create: function (data) {
 				return data;
 			}
@@ -14,29 +14,30 @@ moduleForComponent('trending-videos', 'TrendingVideosComponent', {
 	},
 
 	teardown: function () {
-		App.MediaModel = originalMediaModel;
+		require('main/models/media').default = originalMediaModel;
 	}
 });
 
 test('handles openLightbox action properly', function () {
-	var componentMock = this.subject(),
+	var component = this.subject(),
 		video = {
 			title: 'pretty video'
 		};
 
 	// This is the analogue to openCuratedContentItem='openCuratedContentItem' in the parent template
-	componentMock.set('openLightbox', 'openLightbox');
+	component.set('openLightbox', 'openLightbox');
 
-	componentMock.set('targetObject', {
+	component.set('targetObject', {
 		openLightbox: function (type, data) {
 			equal(type, 'media');
+
 			deepEqual(data, {
 				media: {
 					media: video
 				},
 				mediaRef: 0
-			});
+			}, 'data is not correct');
 		}
 	});
-	componentMock.send('openLightbox', video);
+	component.send('openLightbox', video);
 });

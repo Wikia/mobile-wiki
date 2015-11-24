@@ -1,7 +1,13 @@
+var track;
+
 moduleForComponent('article-contribution', 'ArticleContributionComponent', {
 	unit: true,
 	setup: function () {
-		M.track = function () {};
+		track = require('mercury/utils/track').track;
+		require('mercury/utils/track').track = Em.K;
+	},
+	teardown: function () {
+		track = require('mercury/utils/track').track;
 	}
 });
 
@@ -14,16 +20,14 @@ test('component is initialized', function () {
 		sectionId = 'myId',
 		title = 'hello world',
 		uploadFeatureEnabled = true,
-		component = null;
-
-	component = this.subject({
-		attrs: {
-			section: section,
-			sectionId: sectionId,
-			title: title,
-			uploadFeatureEnabled: uploadFeatureEnabled,
-		}
-	});
+		component = this.subject({
+			attrs: {
+				section: section,
+				sectionId: sectionId,
+				title: title,
+				uploadFeatureEnabled: uploadFeatureEnabled,
+			}
+		});
 
 	equal(component.section, 3);
 	equal(component.sectionId, 'myId');
@@ -56,7 +60,7 @@ test('select action without auth redirect to login', function () {
 });
 
 test('add photo action without auth do nothing', function () {
-		var self = this,
+	var self = this,
 		section = 3,
 		sectionId = 'myId',
 		title = 'hello world',
@@ -72,11 +76,15 @@ test('add photo action without auth do nothing', function () {
 				sectionId: sectionId,
 				title: title,
 				uploadFeatureEnabled: uploadFeatureEnabled,
+			},
+			$: function () {
+				return [{files: []}];
 			}
 		});
 		component.set('currentUser', fakeUser);
 		component.sendAction = sendActionSpy;
 		component.send('addPhoto');
 	});
+
 	notOk(sendActionSpy.calledOnce);
 });
