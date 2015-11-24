@@ -144,20 +144,18 @@ authenticatedRoutes = [
 			]
 		}
 	},
-
-	// TEMPORARY SWITCH REGISTER INTO IMAGEREVIEW FOR TESTING PURPOUSES
-	//{
-	//	method: 'GET',
-	//	path: '/register',
-	//	handler: require('./facets/auth/register').get,
-	//	config: {
-	//		pre: [
-	//			{
-	//				method: require('./facets/auth/authView').validateRedirect
-	//			}
-	//		]
-	//	}
-	//},
+	{
+		method: 'GET',
+		path: '/register',
+		handler: require('./facets/auth/register').get,
+		config: {
+			pre: [
+				{
+					method: require('./facets/auth/authView').validateRedirect
+				}
+			]
+		}
+	},
 
 	{
 		method: 'GET',
@@ -218,12 +216,6 @@ authenticatedRoutes = [
 			cache: routeCacheConfig
 		}
 	},
-		//temporary switched to register
-	{
-		method: 'GET',
-		path: '/register',
-		handler: require('./facets/showImageReview'),
-	}
 ];
 
 

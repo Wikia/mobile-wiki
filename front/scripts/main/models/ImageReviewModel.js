@@ -18,13 +18,11 @@ App.ImageReviewModel.reopenClass({
                     path: '/wikia.php'
                 }),
                 data: {
-                    controller: 'CuratedContent',
-                    method: 'getData',
-                    format: 'json'
+                    controller: '',
                 },
                 success: (data) => {
                     if (Em.isArray(data.data)) {
-                        resolve(App.CuratedContentEditorModel.sanitize(data.data));
+                        resolve(data.data);
                     } else {
                         reject('Invalid data was returned from Curated Content API');
                     }

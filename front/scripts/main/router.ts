@@ -84,7 +84,7 @@ App.Router.map(function () {
 	});
 
 	this.route('imageReview', {
-		path: '/imagereview'
+		path: '/register'
 	});
 
 	// Route to catch all badly formed URLs

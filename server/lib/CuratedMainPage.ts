@@ -7,7 +7,7 @@ import logger = require('./Logger');
 import localSettings = require('../../config/localSettings');
 
 /**
- * @TODO XW-608 move setTitle to common part for CuratedMainPageRequestHelper and ArticleRequestHelper
+ * @TODO XW-608 move setTitile to common part for CuratedMainPageRequestHelper and ArticleRequestHelper
  * Commoon part should be extracted and moved to new class WikiaRequestHelper(?)
  */
 export class CuratedMainPageRequestHelper {
