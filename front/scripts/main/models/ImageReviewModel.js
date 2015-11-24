@@ -6,7 +6,6 @@ App.ImageReviewModel = Em.Object.extend({
 });
 
 App.ImageReviewModel.reopenClass({
-
     /**
      * @returns {Em.RSVP.Promise} model
      */

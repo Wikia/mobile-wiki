@@ -20,6 +20,7 @@ App.ImageReviewRouteMixin = Em.Mixin.create({
      * @returns {void}
      */
     renderTemplate(controller, model) {
+        console.log("Image review renderTemplate called!");
         this.render('image-review', {
         controller: 'imageReview',
         model: model
