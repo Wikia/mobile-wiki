@@ -29,7 +29,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	style: Em.computed('isSticky', function (): string {
 		return this.get('isSticky') === true
 			? `height: ${this.$('.editor-container').outerHeight(true)}px`
-		: null;
+			: null;
 	}),
 
 	getBreakpointHeight(): number {
