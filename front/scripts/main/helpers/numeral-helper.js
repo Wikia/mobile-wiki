@@ -11,4 +11,4 @@ App.NumeralHelper = Ember.Helper.helper((params) => {
 	return numeral(numberToFormat).format(format);
 });
 
-export default App.NumeralHelper;
+

@@ -2,7 +2,7 @@ import App from '../app';
 import ArticleAddPhotoModel from '../models/article-add-photo';
 import {track, trackActions} from '../../mercury/utils/track';
 
-App.ArticleAddPhotoController = Ember.Controller.extend({
+export default App.ArticleAddPhotoController = Ember.Controller.extend({
 	application: Ember.inject.controller(),
 
 	errorCodeMap: {
@@ -85,5 +85,3 @@ App.ArticleAddPhotoController = Ember.Controller.extend({
 		}
 	}
 });
-
-export default App.ArticleAddPhotoController;

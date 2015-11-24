@@ -17,7 +17,7 @@ import App from '../app';
  *		};
  *	 }
  */
-App.MetaTagsMixin = Ember.Mixin.create({
+export default App.MetaTagsMixin = Ember.Mixin.create({
 
 	$head: Ember.$('head'),
 
@@ -115,5 +115,3 @@ App.MetaTagsMixin = Ember.Mixin.create({
 		}
 	},
 });
-
-export default App.MetaTagsMixin;

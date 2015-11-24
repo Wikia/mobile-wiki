@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.ObjectUtilitiesMixin = Ember.Mixin.create({
+export default App.ObjectUtilitiesMixin = Ember.Mixin.create({
 	/**
 	 * @returns {Object}
 	 */
@@ -21,5 +21,3 @@ App.ObjectUtilitiesMixin = Ember.Mixin.create({
 		return this.getProperties(keys);
 	}
 });
-
-export default App.ObjectUtilitiesMixin;

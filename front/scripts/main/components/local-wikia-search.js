@@ -11,7 +11,7 @@ import {track, trackActions} from '../../mercury/utils/track';
  * @property {string} [uri]
  */
 
-App.LocalWikiaSearchComponent = Ember.Component.extend({
+export default App.LocalWikiaSearchComponent = Ember.Component.extend({
 	classNames: ['local-wikia-search'],
 	isLoading: false,
 
@@ -281,5 +281,3 @@ App.LocalWikiaSearchComponent = Ember.Component.extend({
 		return this.get('cachedResults')[query];
 	},
 });
-
-export default App.LocalWikiaSearchComponent;

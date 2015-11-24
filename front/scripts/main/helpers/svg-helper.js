@@ -36,4 +36,4 @@ App.SvgHelper = Ember.Helper.helper((params, options) => {
 	return new Ember.Handlebars.SafeString(ret);
 });
 
-export default App.SvgHelper;
+

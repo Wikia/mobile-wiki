@@ -16,7 +16,7 @@ import App from '../app';
  * @property {Function} scrollIntoViewIfNeeded
  */
 
-App.ArticleContentComponent = Ember.Component.extend(
+export default App.ArticleContentComponent = Ember.Component.extend(
 	AdsMixin,
 	PollDaddyMixin,
 	{
@@ -461,5 +461,3 @@ App.ArticleContentComponent = Ember.Component.extend(
 		},
 	}
 );
-
-export default App.ArticleContentComponent;

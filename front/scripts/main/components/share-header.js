@@ -2,7 +2,7 @@
 import HeadroomMixin from '../mixins/headroom';
 import App from '../app';
 
-App.ShareHeaderComponent = Ember.Component.extend(
+export default App.ShareHeaderComponent = Ember.Component.extend(
 	HeadroomMixin,
 	{
 		classNames: ['share-header'],
@@ -14,5 +14,3 @@ App.ShareHeaderComponent = Ember.Component.extend(
 		},
 	}
 );
-
-export default App.ShareHeaderComponent;

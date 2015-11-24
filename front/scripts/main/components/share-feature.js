@@ -3,7 +3,7 @@ import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
 import App from '../app';
 
-App.ShareFeatureComponent = Ember.Component.extend(
+export default App.ShareFeatureComponent = Ember.Component.extend(
 	TrackClickMixin,
 	LanguagesMixin,
 	{
@@ -235,5 +235,3 @@ App.ShareFeatureComponent = Ember.Component.extend(
 		},
 	}
 );
-
-export default App.ShareFeatureComponent;

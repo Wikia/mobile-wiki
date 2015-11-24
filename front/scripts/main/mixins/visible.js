@@ -6,7 +6,7 @@ import VisibilityStateManager from './visibility-state-manager';
  *
  */
 
-App.VisibleMixin = Ember.Mixin.create({
+export default App.VisibleMixin = Ember.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
@@ -16,5 +16,3 @@ App.VisibleMixin = Ember.Mixin.create({
 		VisibilityStateManager.add(this);
 	}
 });
-
-export default App.VisibleMixin;

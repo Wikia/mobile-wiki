@@ -38,7 +38,7 @@ import CuratedContentEditorItemModel from '../models/curated-content-editor-item
  * @property {Boolean} isDirty
  */
 
-App.CuratedContentEditorModel = Ember.Object.extend({
+export default App.CuratedContentEditorModel = Ember.Object.extend({
 	featured: null,
 	curated: null,
 	optional: null,
@@ -230,5 +230,3 @@ App.CuratedContentEditorModel.reopenClass({
 		App.CuratedContentEditorModel.isDirty = true;
 	}
 });
-
-export default App.CuratedContentEditorModel;

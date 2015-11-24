@@ -1,6 +1,6 @@
 var originalM;
 
-moduleFor('route:mainPageCategory', 'MainPageCategoryRoute', {
+moduleFor('route:MainPageCategory', 'MainPageCategoryRoute', {
 	setup: function () {
 		originalM = M;
 	},

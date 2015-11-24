@@ -9,7 +9,7 @@ import App from '../app';
  * @type {Ember.Object}
  */
 
-App.ArticleContentListeners = Ember.Object.create({
+export default App.ArticleContentListeners = Ember.Object.create({
 	initialized: false,
 	containers: [],
 	articleContentSelector: '.article-content',
@@ -120,5 +120,3 @@ App.ArticleContentMixin = Ember.Mixin.create({
 		App.ArticleContentListeners.remove(this);
 	}
 });
-
-export default App.ArticleContentMixin;

@@ -3,7 +3,7 @@ import MediaModel from '../models/media';
 import {track, trackActions} from '../../mercury/utils/track';
 import App from '../app';
 
-App.ApplicationController = Ember.Controller.extend(
+export default App.ApplicationController = Ember.Controller.extend(
 	AlertNotificationsMixin,
 	{
 		// This has to be here because we need to access media from ArticleController model to open
@@ -270,5 +270,3 @@ App.ApplicationController = Ember.Controller.extend(
 		}
 	}
 );
-
-export default App.ApplicationController;

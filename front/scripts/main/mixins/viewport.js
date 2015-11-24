@@ -6,7 +6,7 @@ import App from '../app';
  * It is stored as object because objects and arrays are shared among all objects which include mixin.
  * @type {Ember.Mixin}
  */
-App.ViewportMixin = Ember.Mixin.create({
+export default App.ViewportMixin = Ember.Mixin.create({
 	// This object is shared among all objects which include this mixin
 	viewportDimensions: {
 		height: null,
@@ -41,5 +41,3 @@ App.ViewportMixin = Ember.Mixin.create({
 		}
 	}
 });
-
-export default App.ViewportMixin;

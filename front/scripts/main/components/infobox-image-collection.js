@@ -3,7 +3,7 @@ import MediaComponent from './media';
 import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-App.InfoboxImageCollectionComponent = MediaComponent.extend(
+export default App.InfoboxImageCollectionComponent = MediaComponent.extend(
 	ViewportMixin,
 	{
 		classNames: ['pi-image-collection'],
@@ -136,5 +136,3 @@ App.InfoboxImageCollectionComponent = MediaComponent.extend(
 		},
 	}
 );
-
-export default App.InfoboxImageCollectionComponent;

@@ -2,7 +2,7 @@ import AdSlotComponent from '../components/ad-slot';
 import Ads from '../../mercury/modules/Ads';
 import App from '../app';
 
-App.AdsMixin = Ember.Mixin.create({
+export default App.AdsMixin = Ember.Mixin.create({
 	adsData: {
 		minZerothSectionLength: 700,
 		minPageLength: 2000,
@@ -201,5 +201,3 @@ App.AdsMixin = Ember.Mixin.create({
 		Ads.getInstance().reload(adsContext);
 	}
 });
-
-export default App.AdsMixin;

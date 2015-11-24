@@ -1,7 +1,7 @@
 import App from '../app';
 import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
 
-App.PostReplyComponent = Ember.Component.extend(
+export default App.PostReplyComponent = Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
 	{
 		classNames: ['post-reply'],
@@ -15,5 +15,3 @@ App.PostReplyComponent = Ember.Component.extend(
 		}),
 	}
 );
-
-export default App.PostReplyComponent;

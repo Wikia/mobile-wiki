@@ -36,4 +36,4 @@ App.TimeAgoHelper = Ember.Helper.helper((params) => {
 	}
 });
 
-export default App.TimeAgoHelper;
+

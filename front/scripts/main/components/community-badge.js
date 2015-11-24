@@ -1,7 +1,7 @@
 import App from '../app';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-App.CommunityBadgeComponent = Ember.Component.extend({
+export default App.CommunityBadgeComponent = Ember.Component.extend({
 	classNames: ['community-badge'],
 	squareDimension: 125,
 
@@ -43,5 +43,3 @@ App.CommunityBadgeComponent = Ember.Component.extend({
 
 	wikiName: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia'),
 });
-
-export default App.CommunityBadgeComponent;

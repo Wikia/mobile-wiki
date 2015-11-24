@@ -3,7 +3,7 @@ import VisibilityStateManager from '../mixins/visibility-state-manager';
 import {normalizeToUnderscore} from '../../mercury/utils/string';
 import App from '../app';
 
-App.ArticleRoute = Ember.Route.extend({
+export default App.ArticleRoute = Ember.Route.extend({
 	redirectEmptyTarget: false,
 
 	/**

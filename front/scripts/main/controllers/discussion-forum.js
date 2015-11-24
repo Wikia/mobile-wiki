@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.DiscussionForumController = Ember.Controller.extend({
+export default App.DiscussionForumController = Ember.Controller.extend({
 	application: Ember.inject.controller(),
 	sortBy: null,
 
@@ -63,5 +63,3 @@ App.DiscussionForumController = Ember.Controller.extend({
 		}
 	}
 });
-
-export default App.DiscussionForumController;

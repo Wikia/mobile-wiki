@@ -23,4 +23,4 @@ App.DurationHelper = Ember.Helper.helper((params) => {
 	return duration;
 });
 
-export default App.DurationHelper;
+

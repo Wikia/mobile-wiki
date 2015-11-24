@@ -11,7 +11,7 @@ import Thumbnailer from '../../mercury/modules/Thumbnailer';
  * @property {string} captionClass
  */
 
-App.GalleryMediaComponent = MediaComponent.extend(
+export default App.GalleryMediaComponent = MediaComponent.extend(
 	ArticleContentMixin,
 	{
 		classNames: ['article-gallery'],
@@ -151,5 +151,3 @@ App.GalleryMediaComponent = MediaComponent.extend(
 		},
 	}
 );
-
-export default App.GalleryMediaComponent;

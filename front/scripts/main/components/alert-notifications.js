@@ -11,7 +11,7 @@ import App from '../app';
  * @property {boolean} [persistent]
  */
 
-App.AlertNotificationsComponent = Ember.Component.extend({
+export default App.AlertNotificationsComponent = Ember.Component.extend({
 	classNames: ['alert-notifications'],
 
 	alerts: null,
@@ -26,5 +26,3 @@ App.AlertNotificationsComponent = Ember.Component.extend({
 		},
 	},
 });
-
-export default App.AlertNotificationsComponent;

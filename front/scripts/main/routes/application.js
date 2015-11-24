@@ -6,7 +6,7 @@ import {normalizeToUnderscore} from '../../mercury/utils/string';
 import Ads from '../../mercury/modules/Ads';
 import App from './../app';
 
-App.ApplicationRoute = Ember.Route.extend(
+export default App.ApplicationRoute = Ember.Route.extend(
 	Ember.TargetActionSupport,
 	TrackClickMixin,
 	{

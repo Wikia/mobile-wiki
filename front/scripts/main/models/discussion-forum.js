@@ -1,7 +1,7 @@
 import App from '../app';
 import DiscussionErrorMixin from '../mixins/discussion-error';
 
-App.DiscussionForumModel = Ember.Object.extend(
+export default App.DiscussionForumModel = Ember.Object.extend(
 	DiscussionErrorMixin,
 	{
 		wikiId: null,
@@ -122,5 +122,3 @@ App.DiscussionForumModel.reopenClass({
 		});
 	}
 });
-
-export default App.DiscussionForumModel;

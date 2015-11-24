@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.CuratedContentEditorLayoutMixin = Ember.Mixin.create({
+export default App.CuratedContentEditorLayoutMixin = Ember.Mixin.create({
 	imageProperties: {
 		url: '',
 		id: ''
@@ -22,5 +22,3 @@ App.CuratedContentEditorLayoutMixin = Ember.Mixin.create({
 		// previous is dynamic
 	}
 });
-
-export default App.CuratedContentEditorLayoutMixin;

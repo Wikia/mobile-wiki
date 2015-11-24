@@ -6,7 +6,7 @@ import CuratedContentEditorLabelsMixin from '../mixins/curated-content-editor-la
 import TrackClickMixin from '../mixins/track-click';
 import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
 
-App.CuratedContentEditorSectionComponent = Ember.Component.extend(
+export default App.CuratedContentEditorSectionComponent = Ember.Component.extend(
 	AlertNotificationsMixin,
 	CuratedContentEditorSortableItemsMixin,
 	CuratedContentThumbnailMixin,
@@ -130,5 +130,3 @@ App.CuratedContentEditorSectionComponent = Ember.Component.extend(
 		}
 	}
 );
-
-export default App.CuratedContentEditorSectionComponent;

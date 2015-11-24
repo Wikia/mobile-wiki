@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.DiscussionPostController = Ember.Controller.extend({
+export default App.DiscussionPostController = Ember.Controller.extend({
 	numRepliesLoaded: null,
 	postListSort: '',
 
@@ -58,5 +58,3 @@ App.DiscussionPostController = Ember.Controller.extend({
 		}
 	}
 });
-
-export default App.DiscussionPostController;

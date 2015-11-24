@@ -31,4 +31,4 @@ App.TruncateHelper = Ember.Helper.helper((params) => {
 	return truncatedString.substr(0, lastSpacePosition) + ellipsisCharacter;
 });
 
-export default App.TruncateHelper;
+

@@ -16,7 +16,7 @@ import {normalizeToWhitespace} from '../../mercury/utils/string';
  * @property {string} [redirect]
  */
 
-App.ArticleModel = Ember.Object.extend({
+export default App.ArticleModel = Ember.Object.extend({
 	content: null,
 	basePath: null,
 	categories: [],
@@ -211,5 +211,3 @@ App.ArticleModel.reopenClass({
 		model.setProperties(articleProperties);
 	}
 });
-
-export default App.ArticleModel;

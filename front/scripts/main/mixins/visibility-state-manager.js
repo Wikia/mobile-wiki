@@ -10,7 +10,7 @@ import App from '../app';
  * object that stores visibility state of components
  * and fires onVisible action when a components is becoming visible
  */
-App.VisibilityStateManager = Ember.Object.create({
+export default App.VisibilityStateManager = Ember.Object.create({
 
 	initialized: false,
 	components: [],
@@ -95,5 +95,3 @@ App.VisibilityStateManager = Ember.Object.create({
 		this.initialized = false;
 	}
 });
-
-export default App.VisibilityStateManager;

@@ -6,7 +6,8 @@
 var App = require('main/app').default,
 	karma_started = false;
 
-__karma__.loaded = function() {};
+__karma__.loaded = function () {
+};
 
 App.rootElement = '#ember-testing';
 App.setupForTesting();
@@ -14,7 +15,7 @@ App.injectTestHelpers();
 
 App.initializer({
 	name: "Test runner",
-	initialize: function(container, application) {
+	initialize: function (container, application) {
 		if (!karma_started) {
 			karma_started = true;
 			__karma__.start();
@@ -22,8 +23,30 @@ App.initializer({
 	}
 });
 
+
 setResolver(Em.DefaultResolver.create({
-	namespace: App
+	namespace: App,
+	resolve: function (fullName) {
+		var type = fullName.split(':')[0],
+			name = fullName.split(':')[1],
+				module;
+
+		if (type === 'route') {
+			module = 'main/routes/';
+		} else if (type === 'component') {
+			module = 'main/components/';
+		} else if (type === 'model') {
+			module = 'main/models/';
+		} else if (type === 'mixin') {
+			module = 'main/mixins/';
+		}
+
+		if (module) {
+			module = module + name.dasherize();
+			console.log(module)
+			return require(module).default
+		}
+	}
 }));
 
 // Set deprecation warning method to Ember's version of noop to declutter test logs

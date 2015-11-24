@@ -56,4 +56,4 @@ App.ThumbnailHelper = Ember.Helper.helper((params, options) => {
 	);
 });
 
-export default App.ThumbnailHelper;
+

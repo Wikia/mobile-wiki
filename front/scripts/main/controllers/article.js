@@ -2,7 +2,7 @@ import ArticleAddPhotoModel from '../models/article-add-photo';
 import {track, trackActions} from '../../mercury/utils/track';
 import App from '../app';
 
-App.ArticleController = Ember.Controller.extend({
+export default App.ArticleController = Ember.Controller.extend({
 	application: Ember.inject.controller(),
 	noAds: Ember.computed.alias('application.noAds'),
 	commentsPage: Ember.computed.alias('application.commentsPage'),
@@ -65,5 +65,3 @@ App.ArticleController = Ember.Controller.extend({
 		}
 	}
 });
-
-export default App.ArticleController;

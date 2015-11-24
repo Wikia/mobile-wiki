@@ -4,7 +4,7 @@ import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 
-App.CuratedContentEditorImageCropComponent = Ember.Component.extend(
+export default App.CuratedContentEditorImageCropComponent = Ember.Component.extend(
 	CuratedContentEditorLayoutMixin,
 	CuratedContentThumbnailMixin,
 	TrackClickMixin,
@@ -156,5 +156,3 @@ App.CuratedContentEditorImageCropComponent = Ember.Component.extend(
 		}
 	}
 );
-
-export default App.CuratedContentEditorImageCropComponent;

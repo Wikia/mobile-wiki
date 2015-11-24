@@ -6,7 +6,7 @@ import App from '../app';
  * @property {*} Ponto
  */
 
-App.IEIFrameFocusFixMixin = Ember.Mixin.create({
+export default App.IEIFrameFocusFixMixin = Ember.Mixin.create({
 	/**
 	 * Internet Explorer 11 has problems with catching focus
 	 * when user clicks on an input which is rendered inside an iframe.
@@ -38,5 +38,3 @@ App.IEIFrameFocusFixMixin = Ember.Mixin.create({
 		}
 	},
 });
-
-export default App.IEIFrameFocusFixMixin;

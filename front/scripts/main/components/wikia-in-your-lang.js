@@ -4,7 +4,7 @@ import LanguagesMixin from '../mixins/languages';
 import WikiaInYourLangModel from '../models/wikia-in-your-lang';
 import {track, trackActions} from '../../mercury/utils/track';
 
-App.WikiaInYourLangComponent = Ember.Component.extend(
+export default App.WikiaInYourLangComponent = Ember.Component.extend(
 	AlertNotificationsMixin,
 	LanguagesMixin,
 	{
@@ -91,5 +91,3 @@ App.WikiaInYourLangComponent = Ember.Component.extend(
 		},
 	}
 );
-
-export default App.WikiaInYourLangComponent;

@@ -2,7 +2,7 @@ import ArticleCommentsModel from '../models/article-comments';
 import {track, trackActions} from '../../mercury/utils/track';
 import App from '../app';
 
-App.ArticleCommentsComponent = Ember.Component.extend({
+export default App.ArticleCommentsComponent = Ember.Component.extend({
 	page: null,
 	articleId: null,
 	commentsCount: null,
@@ -119,5 +119,3 @@ App.ArticleCommentsComponent = Ember.Component.extend({
 		window.scrollTo(0, this.$().offset().top);
 	},
 });
-
-export default App.ArticleCommentsComponent;

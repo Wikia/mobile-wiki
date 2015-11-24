@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.PollDaddyMixin = Ember.Mixin.create({
+export default App.PollDaddyMixin = Ember.Mixin.create({
 	/**
 	 * This is a hack to make PollDaddy work (HG-618)
 	 * @see http://static.polldaddy.com/p/8791040.js
@@ -82,5 +82,3 @@ App.PollDaddyMixin = Ember.Mixin.create({
 		}
 	}
 });
-
-export default App.PollDaddyMixin;

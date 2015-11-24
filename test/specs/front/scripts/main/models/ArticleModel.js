@@ -59,7 +59,7 @@ test('getPreloadedData', function () {
 	);
 
 	deepEqual(articleFromPreloadedData, articleExample, 'article loaded from Mercury object on first page');
-	deepEqual(Mercury.article, undefined, 'Mercury.article is deleted');
+	deepEqual(M.article, undefined, 'Mercury.article is deleted');
 });
 
 test('setArticle with preloaded data', function () {

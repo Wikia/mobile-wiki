@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.AlertNotificationComponent = Ember.Component.extend({
+export default App.AlertNotificationComponent = Ember.Component.extend({
 	classNames: ['alert-notification', 'alert-box'],
 	classNameBindings: ['alert.type'],
 
@@ -52,5 +52,3 @@ App.AlertNotificationComponent = Ember.Component.extend({
 		this.sendAction('action', this.get('alert'));
 	},
 });
-
-export default App.AlertNotificationComponent;
