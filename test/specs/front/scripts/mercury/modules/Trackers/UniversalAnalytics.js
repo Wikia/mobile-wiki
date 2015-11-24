@@ -1,6 +1,16 @@
 /* global Mercury, ga */
+var UniversalAnalytics;
+
 QUnit.module('UniversalAnalytics tests', {
 	setup: function () {
+		var UniversalAnalyticsModule = {},
+			dimensions = [];
+
+		dimensions[8] = 'test/article';
+		require.entries['mercury/modules/Trackers/UniversalAnalytics']
+				.callback(UniversalAnalyticsModule);
+		UniversalAnalyticsModule.default.setDimensions(dimensions);
+		UniversalAnalytics = UniversalAnalyticsModule.default;
 
 		M.props({
 			tracking: {
@@ -55,13 +65,13 @@ QUnit.module('UniversalAnalytics tests', {
 	}
 });
 
-QUnit.test('UniversalAnalytics is compiled into Mercury.Modules.Trackers namespace', function () {
-	ok(Mercury.Modules.Trackers.UniversalAnalytics);
-	strictEqual(typeof Mercury.Modules.Trackers.UniversalAnalytics, 'function');
+QUnit.test('UniversalAnalytics module exports class as default', function () {
+	ok(UniversalAnalytics);
+	strictEqual(typeof UniversalAnalytics, 'function');
 });
 
 QUnit.test('UniversalAnalytics constructor', function () {
-	new Mercury.Modules.Trackers.UniversalAnalytics();
+	new UniversalAnalytics();
 
 	strictEqual(this.queueCount('create'), 2);
 	strictEqual(this.queueCount('require'), 1);
@@ -72,7 +82,7 @@ QUnit.test('UniversalAnalytics constructor', function () {
 });
 
 QUnit.test('Track event', function () {
-	var tracker = new Mercury.Modules.Trackers.UniversalAnalytics();
+	var tracker = new UniversalAnalytics();
 	tracker.track('category', 'action', 'label', 42, true);
 	ok(this.queueContains([
 		'send',
@@ -88,13 +98,13 @@ QUnit.test('Track event', function () {
 });
 
 QUnit.test('Track page view', function () {
-	var tracker = new Mercury.Modules.Trackers.UniversalAnalytics();
+	var tracker = new UniversalAnalytics();
 	tracker.trackPageView();
 	ok(this.queueContains(['send', 'pageview']));
 });
 
 QUnit.test('Track ads-related event', function () {
-	var tracker = new Mercury.Modules.Trackers.UniversalAnalytics();
+	var tracker = new UniversalAnalytics();
 	tracker.trackAds('testCategory', 'testAction', 'testLabel', 0, true);
 	ok(this.queueContains([
 		'ads.send',
