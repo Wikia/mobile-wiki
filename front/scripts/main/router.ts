@@ -87,10 +87,6 @@ App.Router.map(function () {
 		path: '/imagereview'
 	});
 
-	this.route('imageReview', {
-		path: '/Special:ImageReview'
-	});
-
 	// Route to catch all badly formed URLs
 	this.route('notFound', {
 		path: '/*url'
