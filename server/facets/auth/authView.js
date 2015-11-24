@@ -40,7 +40,7 @@ export const VIEW_TYPE_MOBILE = 'mobile',
  */
 export function view(template, context, request, reply) {
 	const response = reply.view(
-		`auth/${this.getViewType(request)}/${template}`,
+		`auth/${getViewType(request)}/${template}`,
 		context,
 		{
 			layout: 'auth'
@@ -61,8 +61,8 @@ export function getRedirectUrl(request) {
 		redirectUrlHost = parse(redirectUrl).host;
 
 	if (!redirectUrlHost ||
-		this.checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
-		this.isWhiteListedDomain(redirectUrlHost)
+		checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
+		isWhiteListedDomain(redirectUrlHost)
 	) {
 		return redirectUrl;
 	}
@@ -82,14 +82,14 @@ export function getOrigin(request) {
 		redirectUrlOrigin = `${parse(redirectUrl).protocol}//${redirectUrlHost}`;
 
 	if (redirectUrlHost && (
-			this.checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
-			this.isWhiteListedDomain(redirectUrlHost)
+			checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
+			isWhiteListedDomain(redirectUrlHost)
 		)
 	) {
 		return redirectUrlOrigin;
 	}
 
-	return this.getCurrentOrigin(request);
+	return getCurrentOrigin(request);
 }
 
 /**
@@ -132,7 +132,7 @@ export function getCurrentOrigin(request) {
  * @returns {string}
  */
 export function getCanonicalUrl(request) {
-	return this.getCurrentOrigin(request) + request.path;
+	return getCurrentOrigin(request) + request.path;
 }
 
 /**
@@ -140,26 +140,26 @@ export function getCanonicalUrl(request) {
  * @returns {AuthViewContext}
  */
 export function getDefaultContext(request) {
-	const viewType = this.getViewType(request),
+	const viewType = getViewType(request),
 		isModal = request.query.modal === '1';
 
 	/* eslint no-undefined: 0 */
 	return {
 		title: null,
-		canonicalUrl: this.getCanonicalUrl(request),
-		exitTo: this.getRedirectUrl(request),
+		canonicalUrl: getCanonicalUrl(request),
+		exitTo: getRedirectUrl(request),
 		mainPage: 'http://www.wikia.com',
 		language: request.server.methods.i18n.getInstance().lng(),
 		trackingConfig: localSettings.tracking,
 		optimizelyScript: `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`,
-		standalonePage: (viewType === this.VIEW_TYPE_DESKTOP && !isModal),
+		standalonePage: (viewType === VIEW_TYPE_DESKTOP && !isModal),
 		pageParams: {
 			cookieDomain: localSettings.authCookieDomain,
 			isModal,
 			enableAuthLogger: localSettings.clickstream.auth.enable,
 			authLoggerUrl: localSettings.clickstream.auth.url,
 			viewType,
-			parentOrigin: (isModal ? this.getOrigin(request) : undefined)
+			parentOrigin: (isModal ? getOrigin(request) : undefined)
 		}
 	};
 }
@@ -171,7 +171,7 @@ export function getDefaultContext(request) {
  * @returns {*}
  */
 export function validateRedirect(request, reply) {
-	const queryRedirectUrl = this.getRedirectUrl(request);
+	const queryRedirectUrl = getRedirectUrl(request);
 
 	if (request.query.redirect && queryRedirectUrl !== request.query.redirect) {
 		request.url.query.redirect = queryRedirectUrl;
@@ -191,9 +191,9 @@ export function getViewType(request) {
 		ipadPattern = localSettings.patterns.iPad;
 
 	if (mobilePattern.test(request.headers['user-agent']) && !ipadPattern.test(request.headers['user-agent'])) {
-		return this.VIEW_TYPE_MOBILE;
+		return VIEW_TYPE_MOBILE;
 	}
-	return this.VIEW_TYPE_DESKTOP;
+	return VIEW_TYPE_DESKTOP;
 }
 
 
@@ -204,7 +204,7 @@ export function getViewType(request) {
  * @returns {Hapi.Response}
  */
 export function onAuthenticatedRequestReply(request, reply, context) {
-	const redirect = this.getRedirectUrl(request);
+	const redirect = getRedirectUrl(request);
 
 	if (context.pageParams.isModal) {
 		return reply.view(
