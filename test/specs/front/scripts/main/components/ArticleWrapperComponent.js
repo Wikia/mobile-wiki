@@ -78,8 +78,7 @@ function contributionTestHelper(self, testCase, property) {
 				testCase.disableAnonymousEditing : false
 		};
 
-		var result = component.get(property);
-		equal(result, testCase.expected);
+		equal(component.get(property), testCase.expected);
 	});
 }
 
