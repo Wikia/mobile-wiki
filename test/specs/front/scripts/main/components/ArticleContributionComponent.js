@@ -31,7 +31,7 @@ test('component is initialized', function () {
 	equal(component.uploadFeatureEnabled, true);
 });
 
-test('addPhoto action without auth redirect to login', function () {
+test('addPhoto action without auth redirects to login', function () {
 	var self = this,
 		section = 3,
 		sectionId = 'myId',
@@ -51,6 +51,31 @@ test('addPhoto action without auth redirect to login', function () {
 		});
 		component.openLocation = openLocationSpy;
 		component.send('addPhoto');
+	});
+	ok(openLocationSpy.calledOnce);
+});
+
+test('edit action without editAllowed redirects to login', function () {
+	var self = this,
+		section = 3,
+		sectionId = 'myId',
+		title = 'hello world',
+		uploadFeatureEnabled = true,
+		openLocationSpy = sinon.spy(),
+		component = null;
+
+	Ember.run(function () {
+		component = self.subject({
+			attrs: {
+				section: section,
+				sectionId: sectionId,
+				title: title,
+				uploadFeatureEnabled: uploadFeatureEnabled,
+				editAllowed: false,
+			}
+		});
+		component.openLocation = openLocationSpy;
+		component.send('edit');
 	});
 	ok(openLocationSpy.calledOnce);
 });
