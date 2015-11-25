@@ -36,7 +36,7 @@ import load from '../utils/load';
  * @property {boolean} isLoaded
  * @property {Array<string[]>} slotsQueue
  */
-export default class Ads {
+class Ads {
 	constructor() {
 		this.adSlots = [];
 		this.adsContext = null;
@@ -309,3 +309,11 @@ export default class Ads {
 
 Ads.instance = null;
 Ads.blocking = null;
+
+// @TODO XW-703 right now ads code which comes from MW is expecting window.Mercury.Modules.
+// When introducing sync require in ads this should be fixed
+window.Mercury = window.Mercury || {};
+window.Mercury.Modules = window.Mercury.Modules || {};
+window.Mercury.Modules.Ads = Ads;
+
+export default Ads;

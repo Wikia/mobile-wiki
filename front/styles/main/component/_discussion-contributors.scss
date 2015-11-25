@@ -9,6 +9,7 @@ $discussion-contributors-avatar-dimension: 30px;
 
 	.avatar {
 		img {
+			border-color: $discussion-contributors-border-color;
 			height: $discussion-contributors-avatar-dimension;
 			width: $discussion-contributors-avatar-dimension;
 		}
@@ -44,7 +45,7 @@ $discussion-contributors-avatar-dimension: 30px;
 
 	.discussion-contributors-title {
 		color: $discussion-contributors-rail-title;
-		font-size: $type-smallest;
+		font-size: $discussion-post-type-smaller-than-min;
 		font-weight: bold;
 		line-height: 18px;
 		margin-top: 40px;

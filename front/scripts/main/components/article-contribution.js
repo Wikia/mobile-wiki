@@ -6,7 +6,7 @@ export default App.ArticleContributionComponent = Ember.Component.extend(
 	LanguagesMixin,
 	{
 		classNames: ['contribution-container'],
-		classNameBindings: ['uploadFeatureEnabled::no-photo'],
+		classNameBindings: ['addPhotoIconVisible::no-photo'],
 		layoutName: 'components/article-contribution',
 		section: null,
 		sectionId: null,
@@ -15,67 +15,76 @@ export default App.ArticleContributionComponent = Ember.Component.extend(
 
 		actions: {
 			/**
+			 * Activate section editor
+			 * If login is required to edit, redirect to login page
+			 *
 			 * @returns {void}
 			 */
 			edit() {
-				track({
-					action: trackActions.click,
-					category: 'sectioneditor',
-					label: 'edit',
-					value: this.get('section')
-				});
-				this.sendAction('edit', this.get('title'), this.get('section'));
-			},
+				const section = this.get('section');
 
-			/**
-			 * @returns {void}
-			 */
-			select() {
-				let href = `/join?redirect=${encodeURIComponent(window.location.href)}`;
-
-				if (this.get('sectionId')) {
-					href += encodeURIComponent(`#${this.sectionId}`);
+				if (this.get('editAllowed')) {
+					track({
+						action: trackActions.click,
+						category: 'sectioneditor',
+						label: 'edit',
+						value: section
+					});
+					this.sendAction('edit', this.get('title'), section);
+				} else {
+					this.redirectToLogin('edit-section-no-auth');
 				}
-
-				href += this.getUselangParam();
-
-				track({
-					action: trackActions.click,
-					category: 'sectioneditor',
-					label: 'add-photo-no-auth',
-					value: this.get('section')
-				});
-
-				this.openLocation(href);
 			},
 
 			/**
+			 * Go to add photo
+			 * If login is required to add photo, redirect to login page
+			 *
 			 * @returns {void}
 			 */
 			addPhoto() {
-				const photoData = this.$('.file-upload-input')[0].files[0];
+				if (this.get('addPhotoAllowed')) {
+					const photoData = this.$('.file-upload-input')[0].files[0];
 
-				if (this.get('currentUser.isAuthenticated') !== true) {
-					return;
+					track({
+						action: trackActions.click,
+						category: 'sectioneditor',
+						label: 'add-photo',
+						value: this.get('section')
+					});
+					this.sendAction('addPhoto', this.get('title'), this.get('section'), photoData);
+				} else {
+					this.redirectToLogin('add-photo-no-auth');
 				}
-
-				track({
-					action: trackActions.click,
-					category: 'sectioneditor',
-					label: 'add-photo',
-					value: this.get('section')
-				});
-
-				this.sendAction('addPhoto', this.get('title'), this.get('section'), photoData);
 			},
 		},
 
-		/**
-		 * @param {string} href
-		 * @returns {void}
-		 */
 		openLocation(href) {
 			window.location.href = href;
+		},
+
+		/**
+		 * Redirect the user to login page
+		 * @param {string} trackingLabel use for tracking of event
+		 * @returns {void}
+		 */
+		redirectToLogin(trackingLabel) {
+			const sectionId = this.get('sectionId');
+			let href = `/join?redirect=${encodeURIComponent(window.location.href)}`;
+
+			if (sectionId) {
+				href += encodeURIComponent(`#${sectionId}`);
+			}
+			href += this.getUselangParam();
+
+			track({
+				action: trackActions.click,
+				category: 'sectioneditor',
+				label: trackingLabel,
+				value: this.get('section')
+			});
+
+			this.openLocation(href);
 		},
 	}
 );

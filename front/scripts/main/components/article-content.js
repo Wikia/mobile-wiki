@@ -26,7 +26,7 @@ export default App.ArticleContentComponent = Ember.Component.extend(
 		adsContext: null,
 		content: null,
 		media: null,
-		contributionFeatureEnabled: null,
+		contributionEnabled: null,
 		uploadFeatureEnabled: null,
 		cleanTitle: null,
 		headers: null,
@@ -75,15 +75,11 @@ export default App.ArticleContentComponent = Ember.Component.extend(
 		}).on('init'),
 
 		headerObserver: Ember.observer('headers', function () {
-			if (this.get('contributionFeatureEnabled')) {
+			if (this.get('contributionEnabled')) {
 				const headers = this.get('headers');
 				let $sectionHeader = null,
 					$contributionComponent = null;
 
-				/**
-				 * @param {ArticleSectionHeader} header
-				 * @returns {void}
-				 */
 				headers.forEach((header) => {
 					$contributionComponent = this.createArticleContributionComponent(header.section, header.id);
 					$sectionHeader = this.$(header.element);
@@ -170,10 +166,14 @@ export default App.ArticleContentComponent = Ember.Component.extend(
 			const title = this.get('cleanTitle'),
 				edit = 'edit',
 				addPhoto = 'addPhoto',
-				uploadFeatureEnabled = this.get('uploadFeatureEnabled'),
-				contributionComponent = this.get('container').lookup('component:article-contribution', {
-					singleton: false
-				});
+				addPhotoIconVisible = this.get('addPhotoIconVisible'),
+				editIconVisible = this.get('editIconVisible'),
+				editAllowed = this.get('editAllowed'),
+				addPhotoAllowed = this.get('addPhotoAllowed'),
+				contributionComponent =
+						this.get('container').lookup('component:article-contribution', {
+							singleton: false
+						});
 
 			contributionComponent.setProperties({
 				section,
@@ -181,7 +181,10 @@ export default App.ArticleContentComponent = Ember.Component.extend(
 				title,
 				edit,
 				addPhoto,
-				uploadFeatureEnabled
+				addPhotoIconVisible,
+				editIconVisible,
+				editAllowed,
+				addPhotoAllowed
 			});
 
 			return this.createChildView(contributionComponent).createElement().$();

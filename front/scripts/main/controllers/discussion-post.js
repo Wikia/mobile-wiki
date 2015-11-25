@@ -24,10 +24,13 @@ export default App.DiscussionPostController = Ember.Controller.extend({
 			const model = this.get('model');
 
 			model.loadNextPage().then(() => {
-				// TODO is this line really needed?
-				const newModel = this.get('model');
+				const model = this.get('model');
 
-				this.set('numRepliesLoaded', Ember.get(newModel, 'replies.length'));
+				if (model.get('minorError')) {
+					this.set('numRepliesLoaded', model.get('postCount'));
+				} else {
+					this.set('numRepliesLoaded', model.get('replies.length'));
+				}
 			});
 		},
 
@@ -51,10 +54,9 @@ export default App.DiscussionPostController = Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		goToForum() {
-			const model = this.get('model'),
-				forumId = Ember.get(model, 'forumId');
+			const model = this.get('model');
 
-			this.get('target').send('goToForum', forumId, this.get('postListSort'));
+			this.get('target').send('goToForum', model.get('forumId'), this.get('postListSort'));
 		}
 	}
 });

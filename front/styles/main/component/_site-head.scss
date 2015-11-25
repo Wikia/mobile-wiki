@@ -78,22 +78,3 @@ $z-header: $z-6;
 		margin: auto;
 	}
 }
-
-hr.theme {
-	border-width: 0;
-	margin: 0;
-}
-
-@media #{$desktop-range} {
-	hr.theme {
-		height: 25px;
-		position: relative;
-		z-index: $z-header;
-	}
-}
-
-@media #{$mobile-range} {
-	hr.theme {
-		height: 10px;
-	}
-}

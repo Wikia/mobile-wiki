@@ -1,4 +1,3 @@
-
 import LanguagesMixin from '../mixins/languages';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
@@ -71,15 +70,94 @@ export default App.ArticleWrapperComponent = Ember.Component.extend(
 			}
 		},
 
-		uploadFeatureEnabled: Ember.computed(() => {
-			return !Ember.get(Mercury, 'wiki.disableAnonymousUploadForMercury');
+		/**
+		 * Checks if contribution component should be enabled
+		 * http://clashofclans.wikia.com/        db: clashofclans
+		 * http://de.clashofclans.wikia.com/     db: declashofclans
+		 * http://zh.clashofclans.wikia.com/     db: zhclashofclans723
+		 * http://fr.clashofclans.wikia.com/     db: frclashofclans
+		 * http://ru.clashofclans.wikia.com/     db: ruclashofclans
+		 * http://es.clash-of-clans.wikia.com/   db: esclashofclans727
+		 * http://pt-br.clashofclans.wikia.com/  db: ptbrclashofclans
+		 *
+		 * @returns {boolean} True if contribution component is enabled for this community
+		 */
+		contributionEnabledForCommunity: Ember.computed(function () {
+			const dbName = Ember.get(Mercury, 'wiki.dbName'),
+				disableMobileSectionEditor = Ember.getWithDefault(Mercury, 'wiki.disableMobileSectionEditor', false),
+				enabledCommunities = [
+					'clashofclans', 'declashofclans', 'zhclashofclans723', 'frclashofclans',
+					'ruclashofclans', 'esclashofclans727', 'ptbrclashofclans'
+				];
+
+			if (disableMobileSectionEditor) {
+				// When disableMobileSectionEditor is set to true, no contribution tools should show up
+				return false;
+			} else if (this.getWithDefault('isJapaneseWikia', false)) {
+				// Enabled for all Japanese wikias unless disableMobileSectionEditor is set
+				return true;
+			} else if (enabledCommunities.indexOf(dbName) > -1) {
+				// Otherwise check against whitelist
+				return true;
+			}
+
+			return false;
 		}),
 
-		contributionFeatureEnabled: Ember.computed('model.isMainPage', function () {
-			return (
-				!this.get('model.isMainPage') &&
-				this.get('isJapaneseWikia') && !Ember.get(Mercury, 'wiki.disableAnonymousEditing')
-			);
+		/**
+		 * Checks if mobile contribution features are enabled.
+		 * Contribution features include section editor and photo upload.
+		 *
+		 * @returns {boolean} True if the contribution features should be rendered on the page
+		 */
+		contributionEnabled: Ember.computed('model.isMainPage', function () {
+			return !this.get('model.isMainPage') &&
+				this.get('contributionEnabledForCommunity');
+		}),
+
+		/**
+		 * Determine if the upload photo icon should be rendered.
+		 * Only enabled for Japanese wikias
+		 *
+		 * @returns {boolean} True if the upload photo icon should be rendered
+		 */
+		addPhotoIconVisible: Ember.computed.oneWay('isJapaneseWikia'),
+
+		/**
+		 * Determine if the edit section icon should be rendered
+		 *
+		 * @returns {boolean} True if the edit icon should be rendered
+		 */
+		editIconVisible: Ember.computed.oneWay('contributionEnabled'),
+
+		/**
+		 * For section editor, checks if the user is allowed to edit
+		 * - Logged in users are always allowed to edit
+		 * - Wikias with disableAnonymousEditing set need login to edit
+		 * - Coppa wikias (for wikias directed at children) always require login to edit
+		 *
+		 * @returns {boolean} True if edit is allowed
+		 */
+		editAllowed: Ember.computed(function () {
+			const isCoppaWiki = Ember.getWithDefault(Mercury, 'wiki.isCoppaWiki', false),
+				disableAnonymousEditing = Ember.getWithDefault(Mercury, 'wiki.disableAnonymousEditing', false),
+				isLoggedIn = this.get('currentUser.isAuthenticated');
+
+			if (isLoggedIn) {
+				return true;
+			} else {
+				return !(isCoppaWiki || disableAnonymousEditing);
+			}
+		}),
+
+		/**
+		 * For add photo, check if the user is allowed to upload
+		 * Only logged in users are allowed to add photo
+		 *
+		 * @returns {boolean} True if add photo is allowed
+		 */
+		addPhotoAllowed: Ember.computed(function () {
+			return this.get('currentUser.isAuthenticated');
 		}),
 
 		curatedContentToolButtonVisible: Ember.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
