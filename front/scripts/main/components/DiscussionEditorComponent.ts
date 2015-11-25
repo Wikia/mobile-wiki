@@ -30,7 +30,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 */
 	style: Em.computed('isSticky', function (): string {
 		return this.get('isSticky') === true
-			? `height: ${this.$('.editor-container').outerHeight(true) + this.$('.editor-label').height()}px`
+			? `height: ${this.$('.editor-container').outerHeight(true) + this.$('.editor-label').outerHeight()}px`
 			: null;
 	}),
 

@@ -203,5 +203,12 @@ body.dark-theme {
 				}
 			}
 		}
+		.discussion-editor.reply-editor {
+			.editor-label {
+				&.desktop-hidden {
+					border-top-color: $discussion-post-detail-border-color;
+				}
+			}
+		}
 	}
 }

@@ -66,7 +66,11 @@ $reply-editor-margin-left: -20px;
 	.discussion-editor.reply-editor {
 		.editor-label {
 			&.desktop-hidden {
+				border-top: 1px solid $discussion-post-detail-border-color;
 				display: block;
+				font-size: $type-min;
+				font-weight: bold;
+				padding: 15px 15px 5px;
 			}
 		}
 	}
