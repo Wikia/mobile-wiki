@@ -6,15 +6,14 @@
 var App = require('main/app').default,
 	karma_started = false;
 
-__karma__.loaded = function () {
-};
+__karma__.loaded = Em.K;
 
 App.rootElement = '#ember-testing';
 App.setupForTesting();
 App.injectTestHelpers();
 
 App.initializer({
-	name: "Test runner",
+	name: 'Test runner',
 	initialize: function (container, application) {
 		if (!karma_started) {
 			karma_started = true;
@@ -23,13 +22,12 @@ App.initializer({
 	}
 });
 
-
 setResolver(Em.DefaultResolver.create({
 	namespace: App,
 	resolve: function (fullName) {
 		var type = fullName.split(':')[0],
 			name = fullName.split(':')[1],
-				module;
+			module;
 
 		if (type === 'route') {
 			module = 'main/routes/';
