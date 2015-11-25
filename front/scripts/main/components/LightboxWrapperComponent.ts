@@ -98,7 +98,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 
 		if ($target.is('.lightbox-footer')) {
 			this.send('toggleFooter');
-		} else if ($target.is('.lightbox-close-wrapper')) {
+		} else if ($target.is('.lightbox-close-wrapper') && !this.closeButtonHidden) {
 			this.send('close');
 		} else {
 			this.send('toggleUI');
