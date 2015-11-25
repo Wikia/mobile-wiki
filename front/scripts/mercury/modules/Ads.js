@@ -36,7 +36,7 @@ import load from '../utils/load';
  * @property {boolean} isLoaded
  * @property {Array<string[]>} slotsQueue
  */
-class Ads {
+export default class Ads {
 	constructor() {
 		this.adSlots = [];
 		this.adsContext = null;
@@ -309,5 +309,3 @@ class Ads {
 
 Ads.instance = null;
 Ads.blocking = null;
-
-export default Ads;
