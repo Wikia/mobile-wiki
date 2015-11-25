@@ -17,7 +17,6 @@ App.DiscussionPostController = Ember.Controller.extend({
 	}),
 
 	actions: {
-
 		/**
 		 * @returns {void}
 		 */

@@ -1,7 +1,7 @@
 import App from '../app';
 import DiscussionBaseModel from './discussion-base';
 
-App.DiscussionPostModel = DiscussionBaseModel.extend({
+export default App.DiscussionPostModel = DiscussionBaseModel.extend({
 
 	postId: null,
 	pivotId: null,
@@ -60,7 +60,7 @@ App.DiscussionPostModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} postId
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, postId) {
 		return new Ember.RSVP.Promise((resolve) => {
@@ -124,5 +124,3 @@ App.DiscussionPostModel.reopenClass({
 		});
 	}
 });
-
-export default App.DiscussionPostModel;
