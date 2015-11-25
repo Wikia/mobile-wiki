@@ -34,6 +34,13 @@ $reply-editor-margin-left: -20px;
 			margin-left: 0;
 			position: fixed;
 			width: 100%;
+
+			&.sticky {
+				&.pinned-bottom {
+					bottom: 0;
+					margin: auto;
+				}
+			}
 		}
 
 		.editor-wrapper {
