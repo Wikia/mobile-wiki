@@ -59,13 +59,13 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	handleNewPostCreated: Em.observer('posts.@each._embedded.firstPost[0].isNew', function (): void {
-		Em.$('html, body').animate({scrollTop: 0});
 		var newPosts = this.get('posts').filter(function (post: any): boolean {
 				return post._embedded.firstPost[0].isNew;
 			}),
 			newPost = newPosts.get('firstObject');
 
 		if (newPost) {
+			Em.$('html, body').animate({scrollTop: 0});
 			newPost = newPost._embedded.firstPost[0];
 			this.handleNewItemCreated(newPost);
 		}
