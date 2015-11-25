@@ -11,7 +11,7 @@ App.DiscussionUpvoteActionSendMixin = Em.Mixin.create({
 		 * @returns {void}
 		 */
 		upvote(post: any): void {
-			if (!this.get('isDeleted')) {
+			if (!this.get('isDeleted') && !this.get('isParentDeleted')) {
 				this.sendAction('upvote', post);
 			}
 		}

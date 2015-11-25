@@ -105,15 +105,16 @@ App.DiscussionPostModel.reopenClass({
 
 					postInstance.setProperties({
 						contributors: contributors,
-						forumId: data.forumId,
-						replies: replies,
 						firstPost: data._embedded.firstPost[0],
-						upvoteCount: data.upvoteCount,
-						postCount: data.postCount,
+						forumId: data.forumId,
 						id: data.id,
-						pivotId: pivotId,
+						isDeleted: data.isDeleted,
 						page: 0,
-						title: data.title
+						pivotId: pivotId,
+						postCount: data.postCount,
+						replies: replies,
+						title: data.title,
+						upvoteCount: data.upvoteCount,
 					});
 					resolve(postInstance);
 				},

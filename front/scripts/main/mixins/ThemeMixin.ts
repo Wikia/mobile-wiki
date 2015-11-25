@@ -23,7 +23,7 @@ App.ThemeMixin = Em.Mixin.create(App.ColorUtilsMixin, {
 
 		this.applyThemeColorStyles();
 
-		if (true) {
+		if (Em.get(Mercury, 'wiki.isDarkTheme')) {
 			this.set('themeActivated', 'dark');
 			Em.$('body').addClass(this.themeSettings.dark.class);
 		}

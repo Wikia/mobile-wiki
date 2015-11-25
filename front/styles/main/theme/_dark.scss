@@ -85,13 +85,16 @@ body.dark-theme {
 
 		.post-reply,
 		.post-detail {
-			&.is-deleted {
+			&.is-deleted,
+			&.is-parent-deleted {
 				.discussion-content {
 					color: $dark-discussion-deleted-content-color;
 				}
 
-				.count a {
-					color: $dark-discussion-deleted-actions-color;
+				.count {
+					a, span {
+						color: $dark-discussion-deleted-actions-color;
+					}
 				}
 
 				.icon {

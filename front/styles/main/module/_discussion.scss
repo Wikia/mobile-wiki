@@ -82,13 +82,18 @@ body.discussions {
 				top: 0;
 				width: $deleted-mark-size;
 			}
+		}
 
+		&.is-deleted,
+		&.is-parent-deleted {
 			.discussion-content {
 				color: $discussion-deleted-content-color;
 			}
 
-			.count a {
-				color: $discussion-deleted-actions-color;
+			.count {
+				a, span {
+					color: $discussion-deleted-actions-color;
+				}
 			}
 
 			.icon {
