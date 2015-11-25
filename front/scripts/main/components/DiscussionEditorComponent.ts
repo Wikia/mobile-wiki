@@ -25,6 +25,15 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	layoutName: 'components/discussion-editor',
 
 	/**
+	 * @returns {void}
+	 */
+	init(): void {
+		this._super.apply(this, arguments);
+
+		this.set('isActive', false);
+	},
+
+	/**
 	 * Set right height for editor placeholder when editor gets sticky
 	 * @returns {void}
 	 */
@@ -36,15 +45,15 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 
 	onScroll(): void {
 		Em.run.throttle(
-				this,
-				function (): void {
-					if (!this.get('isSticky') && this.isStickyBreakpointHeight()) {
-						this.set('isSticky', true);
-					} else if (this.get('isSticky') && !this.isStickyBreakpointHeight()) {
-						this.set('isSticky', false);
-					}
-				},
-				25
+			this,
+			function (): void {
+				if (!this.get('isSticky') && this.isStickyBreakpointHeight()) {
+					this.set('isSticky', true);
+				} else if (this.get('isSticky') && !this.isStickyBreakpointHeight()) {
+					this.set('isSticky', false);
+				}
+			},
+			25
 		);
 	},
 
