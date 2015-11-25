@@ -20,7 +20,7 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 			this.set('isSticky', false);
 		}
 
-		Em.$(window).on('scroll', (): void => {
+		Em.$(window).on('scroll.editor', (): void => {
 			this.onScroll();
 		});
 	},
@@ -42,11 +42,20 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	},
 
 	/**
+	 * Turn off scroll handler on view leave
+	 * @returns {void}
+	 */
+	willDestroyElement(): void {
+		Em.$(window).off('scroll.editor');
+	},
+
+	/**
 	 * Handle recalculation of placeholder size on resize
 	 * @returns {void}
 	 */
 	viewportChangeObserver: Em.observer('viewportDimensions.width', 'viewportDimensions.height',
 		function (): void {
+			Em.$(window).off('scroll.editor');
 			this.initializeStickyState();
 		}
 	),

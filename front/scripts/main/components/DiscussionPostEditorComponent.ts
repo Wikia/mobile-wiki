@@ -19,7 +19,7 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 			siteHeadHeight: Em.$('.site-head').outerHeight(true)
 		});
 
-		Em.$(window).on('scroll', (): void => {
+		Em.$(window).on('scroll.editor', (): void => {
 			this.onScroll();
 		});
 	}),
@@ -42,7 +42,7 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	willDestroyElement(): void {
-		Em.$(window).off('scroll', this.onScroll);
+		Em.$(window).off('scroll.editor');
 	},
 
 	/**
@@ -50,7 +50,7 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	viewportChangeObserver: Em.observer('viewportDimensions.width', function (): void {
-		Em.$(window).off('scroll', this.onScroll);
+		Em.$(window).off('scroll.editor');
 		this.initializeStickyState();
 	}),
 
