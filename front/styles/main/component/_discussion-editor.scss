@@ -209,8 +209,9 @@ $success-icon-size: 80px;
 					padding: 10px;
 					position: absolute;
 					text-transform: uppercase;
-					top: $editor-toolbar-height;
+					top: -15px;
 					width: 100%;
+					z-index: $z-discussion-editor + 1;
 				}
 
 				.user-avatar {
@@ -244,6 +245,10 @@ $success-icon-size: 80px;
 	}
 
 	@media #{$desktop-range} {
-
+		.discussion-editor {
+			.editor-label {
+				display: none;
+			}
+		}
 	}
 }

@@ -43,6 +43,10 @@ $reply-editor-margin-left: -20px;
 			}
 		}
 
+		.editor-label {
+			display: none;
+		}
+
 		.editor-wrapper {
 			padding: 12px 17px 10px 54px;
 		}
@@ -58,6 +62,9 @@ $reply-editor-margin-left: -20px;
 			.editor-container {
 				border: 0;
 			}
+			.editor-label {
+				display: block;
+			}
 		}
 	}
 }
@@ -65,13 +72,11 @@ $reply-editor-margin-left: -20px;
 @media #{$desktop-range} {
 	.discussion-editor.reply-editor {
 		.editor-label {
-			&.desktop-hidden {
-				border-top: 1px solid $discussion-post-detail-border-color;
-				display: block;
-				font-size: $type-min;
-				font-weight: bold;
-				padding: 15px 15px 5px;
-			}
+			border-top: 1px solid $discussion-post-detail-border-color;
+			display: block;
+			font-size: $type-min;
+			font-weight: bold;
+			padding: 15px 15px 5px;
 		}
 	}
 }
