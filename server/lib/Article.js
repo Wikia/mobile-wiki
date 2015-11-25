@@ -98,6 +98,9 @@ export class ArticleRequestHelper {
 				if (!isWikiVariablesPromiseFulfilled) {
 					return reject(new MediaWiki.WikiVariablesRequestError(wikiVariables));
 				}
+				if (!wikiVariables) {
+					return reject(new MediaWiki.WikiVariablesRequestError('wikiVariables is undefined'));
+				}
 
 				data = {
 					article,
@@ -105,7 +108,7 @@ export class ArticleRequestHelper {
 					wikiVariables
 				};
 
-				if (isArticlePromiseFulfilled) {
+				if (isArticlePromiseFulfilled && article) {
 					return resolve(data);
 				} else {
 					// Even if article promise failed we want to display app using the rest of data
