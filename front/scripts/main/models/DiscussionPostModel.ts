@@ -73,7 +73,11 @@ App.DiscussionPostModel = App.DiscussionBaseModel.extend({
 					resolve(this);
 				},
 				error: (err: any): void => {
-					this.setErrorProperty(err);
+					if (err.status === 401) {
+						this.setFailedState('editor.post-error-not-authorized');
+					} else {
+						this.setFailedState('editor.post-error-general-error');
+					}
 					resolve(this);
 				}
 			});
