@@ -1,5 +1,7 @@
 import App from '../app';
 
+export default App.DiscussionIndexModel = Ember.Object.extend({});
+
 App.DiscussionIndexModel.reopenClass({
 	/**
 	 * @param {number} wikiId
