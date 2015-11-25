@@ -19,6 +19,10 @@ App.ForumWrapperComponent = Ember.Component.extend(
 			this.set('currentlyLoadingPage', false);
 		}),
 
+		minorErrorObserver: Ember.observer('minorError', function () {
+			this.set('currentlyLoadingPage', false);
+		}),
+
 		actions: {
 			/**
 			 * @param {number} postId
