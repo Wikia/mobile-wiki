@@ -13,7 +13,8 @@ $reply-editor-margin-left: -20px;
 
 				&.pinned-bottom {
 					//To hide bottom border and compensate margin when editor is sticky
-					bottom: 0;
+					bottom: -4px;
+					margin-bottom: 0;
 					top: initial;
 				}
 			}
