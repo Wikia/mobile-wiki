@@ -19,6 +19,7 @@ var deepExtend = require('deep-extend'),
 		//devboxDomain: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
 		port: process.env.PORT || 8111,
 		servicesUrl: 'https://services.wikia.com/',
+		apiUrl: 'http://wikia.com/api/v1/',
 		signupUrl: 'https://www.wikia.com/register?uselang=ja&redirect=http://ja.wikia.com',
 	};
 
