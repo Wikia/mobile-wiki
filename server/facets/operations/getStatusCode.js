@@ -7,4 +7,4 @@ export default function getStatusCode(result, defaultCode = 200) {
 	const exception = result.exception;
 
 	return exception ? (exception.code || exception.statusCode || 500) : defaultCode;
-};
+}

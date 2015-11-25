@@ -67,7 +67,6 @@ module.exports = {
 		path: 'config/',
 		baseFile: 'localSettings.base.js',
 		exampleFile: 'localSettings.example.js',
-		testFile: 'localSettings.test.js',
 		runtimeFile: 'localSettings.js'
 	}
 };

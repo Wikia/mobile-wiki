@@ -1,4 +1,5 @@
 /**
+ * Currently Hapi doesn't recognize ES6 syntax on exports (ie: "default" keyword)
  *
  * @param {string} key
  * @param {{hash: string}} options

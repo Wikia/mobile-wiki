@@ -1,6 +1,7 @@
 import Logger from '../../lib/Logger';
 
 /**
+ * Currently Hapi doesn't recognize ES6 syntax on exports (ie: "default" keyword)
  *
  * @param {string} language
  * @param {{hash: string}} opts

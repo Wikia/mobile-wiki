@@ -32,67 +32,6 @@ export const VIEW_TYPE_MOBILE = 'mobile',
 	VIEW_TYPE_DESKTOP = 'desktop';
 
 /**
- * @param {string} template
- * @param {AuthViewContext} context
- * @param {Hapi.Request} request
- * @param {*} reply
- * @returns {Hapi.Response}
- */
-export function view(template, context, request, reply) {
-	const response = reply.view(
-		`auth/${getViewType(request)}/${template}`,
-		context,
-		{
-			layout: 'auth'
-		}
-	);
-
-	disableCache(response);
-	return response;
-}
-
-/**
- * @param {Hapi.Request} request
- * @returns {string}
- */
-export function getRedirectUrl(request) {
-	const currentHost = request.headers.host,
-		redirectUrl = request.query.redirect || '/',
-		redirectUrlHost = parse(redirectUrl).host;
-
-	if (!redirectUrlHost ||
-		checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
-		isWhiteListedDomain(redirectUrlHost)
-	) {
-		return redirectUrl;
-	}
-
-	// Not valid domain
-	return '/';
-}
-
-/**
- * @param {Hapi.Request} request
- * @returns {string}
- */
-export function getOrigin(request) {
-	const currentHost = request.headers.host,
-		redirectUrl = request.query.redirect || '/',
-		redirectUrlHost = parse(redirectUrl).host,
-		redirectUrlOrigin = `${parse(redirectUrl).protocol}//${redirectUrlHost}`;
-
-	if (redirectUrlHost && (
-			checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
-			isWhiteListedDomain(redirectUrlHost)
-		)
-	) {
-		return redirectUrlOrigin;
-	}
-
-	return getCurrentOrigin(request);
-}
-
-/**
  * @param {string} domain
  * @param {string} currentHost
  * @returns {boolean}
@@ -137,33 +76,44 @@ export function getCanonicalUrl(request) {
 
 /**
  * @param {Hapi.Request} request
- * @returns {AuthViewContext}
+ * @returns {string}
  */
-export function getDefaultContext(request) {
-	const viewType = getViewType(request),
-		isModal = request.query.modal === '1';
+export function getOrigin(request) {
+	const currentHost = request.headers.host,
+		redirectUrl = request.query.redirect || '/',
+		redirectUrlHost = parse(redirectUrl).host,
+		redirectUrlOrigin = `${parse(redirectUrl).protocol}//${redirectUrlHost}`;
 
-	/* eslint no-undefined: 0 */
-	return {
-		title: null,
-		canonicalUrl: getCanonicalUrl(request),
-		exitTo: getRedirectUrl(request),
-		mainPage: 'http://www.wikia.com',
-		language: request.server.methods.i18n.getInstance().lng(),
-		trackingConfig: localSettings.tracking,
-		optimizelyScript: `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`,
-		standalonePage: (viewType === VIEW_TYPE_DESKTOP && !isModal),
-		pageParams: {
-			cookieDomain: localSettings.authCookieDomain,
-			isModal,
-			enableAuthLogger: localSettings.clickstream.auth.enable,
-			authLoggerUrl: localSettings.clickstream.auth.url,
-			viewType,
-			parentOrigin: (isModal ? getOrigin(request) : undefined)
-		}
-	};
+	if (redirectUrlHost && (
+			checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
+			isWhiteListedDomain(redirectUrlHost)
+		)
+	) {
+		return redirectUrlOrigin;
+	}
+
+	return getCurrentOrigin(request);
 }
 
+/**
+ * @param {Hapi.Request} request
+ * @returns {string}
+ */
+export function getRedirectUrl(request) {
+	const currentHost = request.headers.host,
+		redirectUrl = request.query.redirect || '/',
+		redirectUrlHost = parse(redirectUrl).host;
+
+	if (!redirectUrlHost ||
+		checkDomainMatchesCurrentHost(redirectUrlHost, currentHost) ||
+		isWhiteListedDomain(redirectUrlHost)
+	) {
+		return redirectUrl;
+	}
+
+	// Not valid domain
+	return '/';
+}
 
 /**
  * @param {Hapi.Request} request
@@ -196,6 +146,54 @@ export function getViewType(request) {
 	return VIEW_TYPE_DESKTOP;
 }
 
+/**
+ * @param {string} template
+ * @param {AuthViewContext} context
+ * @param {Hapi.Request} request
+ * @param {*} reply
+ * @returns {Hapi.Response}
+ */
+export function view(template, context, request, reply) {
+	const response = reply.view(
+		`auth/${getViewType(request)}/${template}`,
+		context,
+		{
+			layout: 'auth'
+		}
+	);
+
+	disableCache(response);
+	return response;
+}
+
+/**
+ * @param {Hapi.Request} request
+ * @returns {AuthViewContext}
+ */
+export function getDefaultContext(request) {
+	const viewType = getViewType(request),
+		isModal = request.query.modal === '1';
+
+	/* eslint no-undefined: 0 */
+	return {
+		title: null,
+		canonicalUrl: getCanonicalUrl(request),
+		exitTo: getRedirectUrl(request),
+		mainPage: 'http://www.wikia.com',
+		language: request.server.methods.i18n.getInstance().lng(),
+		trackingConfig: localSettings.tracking,
+		optimizelyScript: `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`,
+		standalonePage: (viewType === VIEW_TYPE_DESKTOP && !isModal),
+		pageParams: {
+			cookieDomain: localSettings.authCookieDomain,
+			isModal,
+			enableAuthLogger: localSettings.clickstream.auth.enable,
+			authLoggerUrl: localSettings.clickstream.auth.url,
+			viewType,
+			parentOrigin: (isModal ? getOrigin(request) : undefined)
+		}
+	};
+}
 
 /**
  * @param {Hapi.Request} request

@@ -105,4 +105,4 @@ export default function showApplication(request, reply) {
 			// In case of any unforeseeable error, attempt to output with the context we have so far
 			outputResponse(request, reply, context);
 		});
-};
+}
