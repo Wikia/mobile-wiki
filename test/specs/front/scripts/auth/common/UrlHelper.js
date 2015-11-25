@@ -1,6 +1,6 @@
 QUnit.module('auth/common/UrlHelper', function () {
 	QUnit.test('UrlHelper is loaded', function (assert) {
-		assert.ok(typeof require('auth/common/UrlHelper').defualt === 'function');
+		assert.ok(typeof require('auth/common/UrlHelper').default === 'function');
 	});
 
 	QUnit.test('UrlHelper urlEncode', function (assert) {
