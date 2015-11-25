@@ -24,18 +24,8 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 		});
 	}),
 
-	onScroll(): void {
-		Em.run.throttle(
-			this,
-			function (): void {
-				if (window.pageYOffset >= this.getBreakpointHeight() && !this.get('isSticky')) {
-					this.set('isSticky', true);
-				} else if (window.pageYOffset < this.getBreakpointHeight() && this.get('isSticky')) {
-					this.set('isSticky', false);
-				}
-			},
-			25
-		);
+	isStickyBreakpointHeight(): boolean {
+		return window.pageYOffset >= this.get('offsetTop') - (this.get('siteHeadPinned') ? this.get('siteHeadHeight') : 0);
 	},
 
 	/**

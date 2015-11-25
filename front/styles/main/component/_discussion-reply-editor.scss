@@ -61,3 +61,13 @@ $reply-editor-margin-left: -20px;
 		}
 	}
 }
+
+@media #{$desktop-range} {
+	.discussion-editor.reply-editor {
+		.editor-label {
+			&.desktop-hidden {
+				display: block;
+			}
+		}
+	}
+}

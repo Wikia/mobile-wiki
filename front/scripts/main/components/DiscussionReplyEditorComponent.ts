@@ -2,6 +2,8 @@
 'use strict';
 
 App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
+	editorBottomSpacing: null,
+
 	classNames: ['reply-editor'],
 	pinnedClassName: 'pinned-bottom',
 
@@ -25,20 +27,16 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		});
 	},
 
-	onScroll(): void {
-		var editorBottomOffset = Em.$('.reply-editor').get(0).getBoundingClientRect().bottom - window.innerHeight;
+	isStickyBreakpointHeight(): boolean {
+		var editorContainer: JQuery;
 
-		Em.run.throttle(
-			this,
-			function (): void {
-				if (editorBottomOffset >= 1 && !this.get('isSticky')) {
-					this.set('isSticky', true);
-				} else if (editorBottomOffset < 1 && this.get('isSticky')) {
-					this.set('isSticky', false);
-				}
-			},
-			25
-		);
+		if (!this.editorBottomSpacing) {
+			editorContainer = Em.$('.editor-container');
+			this.editorBottomSpacing = parseInt(editorContainer.css('borderBottomWidth'), 10) +
+					parseInt(editorContainer.css('margin-bottom'), 10);
+		}
+
+		return Em.$('.reply-editor').get(0).getBoundingClientRect().bottom - window.innerHeight >= this.editorBottomSpacing;
 	},
 
 	/**

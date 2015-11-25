@@ -30,12 +30,30 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 */
 	style: Em.computed('isSticky', function (): string {
 		return this.get('isSticky') === true
-			? `height: ${this.$('.editor-container').outerHeight(true)}px`
+			? `height: ${this.$('.editor-container').outerHeight(true) + this.$('.editor-label').height()}px`
 			: null;
 	}),
 
-	getBreakpointHeight(): number {
-		return this.get('offsetTop') - (this.get('siteHeadPinned') ? this.get('siteHeadHeight') : 0);
+	onScroll(): void {
+		Em.run.throttle(
+				this,
+				function (): void {
+					if (!this.get('isSticky') && this.isStickyBreakpointHeight()) {
+						this.set('isSticky', true);
+					} else if (this.get('isSticky') && !this.isStickyBreakpointHeight()) {
+						this.set('isSticky', false);
+					}
+				},
+				25
+		);
+	},
+
+	/**
+	 * Method should be overwritten in the child classes
+	 * @returns {void}
+	 */
+	isStickyBreakpointHeight(): void {
+		throw new Error('Please, override this method in the descendant class');
 	},
 
 	/**

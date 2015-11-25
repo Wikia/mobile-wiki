@@ -1,3 +1,4 @@
+<label class="desktop-hidden editor-label">{{i18n labelText ns='discussion'}}</label>
 <div class="editor-container {{if isSticky 'sticky'}} {{unless siteHeadPinned pinnedClassName}}">
 	<a href="#" class="editor-close" {{action 'toggleEditorActive' false bubbles=false}}>
 		{{svg 'close' class="fill-theme-color" viewBox='0 0 18 18'}}
@@ -6,7 +7,6 @@
 	<div class="editor-wrapper">
 		{{textarea class='editor-textarea' keyPress=(action 'handleKeyPress') input=(action 'updateOnInput') focusIn=(action 'toggleEditorActive' true) value=bodyText placeholder=(i18n 'editor.post-editor-placeholder-text' ns='discussion')}}
 	</div>
-	<label class="desktop-hidden editor-label">{{i18n labelText ns='discussion'}}</label>
 	{{user-avatar
 		avatarUrl=currentUser.avatarPath
 	}}
