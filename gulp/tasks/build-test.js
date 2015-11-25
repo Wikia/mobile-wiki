@@ -19,6 +19,6 @@ gulp.task('build-test', ['scripts-front'], function () {
 			plugins: ['transform-es2015-modules-amd'],
 			moduleIds: true
 		}))
-		.pipe(concat('test-modules.js'))
+		.pipe(concat('modules-test.js'))
 		.pipe(gulp.dest(paths.dest));
 });

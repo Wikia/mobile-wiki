@@ -36,7 +36,7 @@ module.exports = function (config) {
 
 			// Those files are tested
 			paths.scripts.front.dest + '/baseline.js',
-			paths.scripts.front.dest + '/test-modules.js',
+			paths.scripts.front.dest + '/modules-test.js',
 
 			// Test helpers
 			'test/helpers/**/*.js',
