@@ -32,11 +32,16 @@ App.LightboxWrapperComponent = Em.Component.extend({
 		 * @returns {void}
 		 */
 		close(): void {
+			if (!this.get('closeAllowed')) {
+				return;
+			}
+
 			this.setProperties({
 				footer: null,
 				header: null,
 				footerExpanded: false
 			});
+
 			this.sendAction('closeLightbox');
 		},
 
@@ -98,7 +103,7 @@ App.LightboxWrapperComponent = Em.Component.extend({
 
 		if ($target.is('.lightbox-footer')) {
 			this.send('toggleFooter');
-		} else if ($target.is('.lightbox-close-wrapper') && !this.closeButtonHidden) {
+		} else if ($target.is('.lightbox-close-wrapper')) {
 			this.send('close');
 		} else {
 			this.send('toggleUI');
