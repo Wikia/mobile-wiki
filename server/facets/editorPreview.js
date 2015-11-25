@@ -16,8 +16,7 @@ export default function editorPreview(request, reply) {
 		mwHash = request.payload.mwHash,
 		article = new Article.ArticleRequestHelper({wikiDomain});
 
-	article
-		.getWikiVariables()
+	article.getWikiVariables()
 		/**
 		 * @param {*} wikiVariables
 		 * @returns {void}
@@ -46,7 +45,7 @@ export default function editorPreview(request, reply) {
 					preview: true
 				},
 				wikiVariables: wikiVariables || {},
-				// TODO: copied from Article.ts (move createServerData to prepareArticleData?)
+				// @todo copied from Article.ts (move createServerData to prepareArticleData?)
 				server: {
 					cdnBaseUrl: getCDNBaseUrl(localSettings)
 				}
