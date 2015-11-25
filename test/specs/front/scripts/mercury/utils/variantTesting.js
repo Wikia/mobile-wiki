@@ -1,21 +1,22 @@
 /* global window, M */
 QUnit.module('variantTesting tests', {
-	setup: function () {
+	beforeEach: function () {
 		window.optimizely = [];
-
-		this.getLastItem = function () {
-			return window.optimizely[window.optimizely.length - 1];
-		};
 	}
-});
+}, function (hooks) {
+	var getLastItem = function () {
+		return window.optimizely[window.optimizely.length - 1];
+	};
 
-test('Activate Optimizely', function () {
-	require('mercury/utils/variantTesting').activate();
-	deepEqual(this.getLastItem(), ['activate']);
-});
+	QUnit.test('Activate Optimizely', function (assert) {
+		require('mercury/utils/variantTesting').activate();
 
-test('Event tracking', function () {
-	require('mercury/utils/variantTesting').trackEvent('herd_cats');
-	deepEqual(this.getLastItem(), ['trackEvent', 'herd_cats']);
-});
+		assert.deepEqual(getLastItem(), ['activate']);
+	});
 
+	QUnit.test('Event tracking', function (assert) {
+		require('mercury/utils/variantTesting').trackEvent('herd_cats');
+
+		assert.deepEqual(getLastItem(), ['trackEvent', 'herd_cats']);
+	});
+});
