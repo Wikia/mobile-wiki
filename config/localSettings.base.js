@@ -253,7 +253,7 @@ const localSettings = {
 };
 
 /**
- * @param {*} customLocalSet
+ * @param {LocalSettings} customLocalSet
  * @returns {LocalSettings}
  */
 export default function extendSettings(customLocalSet) {

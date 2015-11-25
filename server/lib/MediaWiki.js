@@ -148,7 +148,7 @@ class BaseRequest {
 	/**
 	 * @param {string} url
 	 * @returns {Promise.<any>}
-     */
+	 */
 	fetch(url) {
 		return fetch(url, this.wikiDomain, this.redirects, this.headers);
 	}
@@ -243,7 +243,7 @@ export class ArticleRequest extends BaseRequest {
 	 * @param {number} articleId
 	 * @param {number} [page=0]
 	 * @returns {Promise}
-     */
+	 */
 	comments(articleId, page = 0) {
 		const url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',

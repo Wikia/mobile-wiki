@@ -37,13 +37,13 @@ function handleArticleResponse(reply, result, allowCache) {
 }
 
 /**
- * @description Entry point method for getting article API data, a HapiRouteHandler
+ * Entry point method for getting article API data, a HapiRouteHandler
  *
  * @param {Hapi.Request} request
  * @param {*} reply
  * @returns {void}
  */
-export function get(request, reply) {
+export default function get(request, reply) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		params = {
 			wikiDomain,

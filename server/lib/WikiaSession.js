@@ -10,7 +10,7 @@ import Logger from './Logger';
 import {getWhoAmIUrl} from './AuthUtils';
 
 /**
- * @returns {*}
+ * @returns {Object}
  */
 export default function scheme() {
 	return {

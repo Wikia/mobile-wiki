@@ -80,7 +80,7 @@ function transformResponse(commentsData) {
  * @param {*} reply
  * @returns {void}
  */
-export function get(request, reply) {
+export default function get(request, reply) {
 	const params = {
 		wikiDomain: getCachedWikiDomainName(localSettings, request),
 		articleId: parseInt(request.params.articleId, 10) || null,

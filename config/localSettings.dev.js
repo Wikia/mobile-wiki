@@ -29,8 +29,8 @@ const localSettings = baseExtendSettings({
 });
 
 /**
- * @param {*} customLocalSet
- * @returns {*}
+ * @param {LocalSettings} customLocalSet
+ * @returns {LocalSettings}
  */
 export default function extendSettings(customLocalSet) {
 	return deepExtend(localSettings, customLocalSet);

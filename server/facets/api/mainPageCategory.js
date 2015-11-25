@@ -8,7 +8,7 @@ import getStatusCode from '../operations/getStatusCode';
  * @param {*} reply
  * @returns {void}
  */
-export function get(request, reply) {
+export default function get(request, reply) {
 	const params = {
 		wikiDomain: getCachedWikiDomainName(localSettings, request),
 		categoryName: decodeURIComponent(request.params.categoryName),

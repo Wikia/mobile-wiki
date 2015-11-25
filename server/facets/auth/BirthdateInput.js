@@ -41,7 +41,7 @@ export default class BirthdateInput {
 	 * @param {string} endian
 	 * @param {string} lang
 	 * @returns {void}
-     */
+	 */
 	constructor(endian, lang) {
 		const langSettings = localeSettings[lang];
 
@@ -52,7 +52,7 @@ export default class BirthdateInput {
 
 	/**
 	 * @returns {InputData[]}
-     */
+	 */
 	getInputData() {
 		if (!this.inputData) {
 			this.setInputData();
@@ -91,7 +91,7 @@ export default class BirthdateInput {
 	/**
 	 * @param {DateElements} data
 	 * @returns {InputData[]}
-     */
+	 */
 	orderInputDataByLocale(data) {
 		const endian = this.endian.toLowerCase();
 

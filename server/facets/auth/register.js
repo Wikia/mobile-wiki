@@ -148,7 +148,7 @@ function getEmailRegistrationPage(request, reply) {
  * @param {*} reply
  * @returns {void}
  */
-export function get(request, reply) {
+export default function get(request, reply) {
 	if (request.query.method === 'facebook') {
 		getFacebookRegistrationPage(request, reply);
 	} else {

@@ -16,18 +16,18 @@ import heartbeatHandler from './facets/operations/heartbeat';
 import discussionsHandler from './facets/showDiscussions';
 import articleHandler from './facets/showArticle';
 import redirectToRootHandler from './facets/operations/redirectToRoot';
-import {get as getArticleHandler} from './facets/api/article';
-import {get as getArticleCommentsHandler} from './facets/api/articleComments';
-import {get as searchHandler} from './facets/api/search';
-import {get as mainPageSectionHandler} from './facets/api/mainPageSection';
-import {get as mainPageCategoryHandler} from './facets/api/mainPageCategory';
+import getArticleHandler from './facets/api/article';
+import getArticleCommentsHandler from './facets/api/articleComments';
+import searchHandler from './facets/api/search';
+import mainPageSectionHandler from './facets/api/mainPageSection';
+import mainPageCategoryHandler from './facets/api/mainPageCategory';
 import logoutHandler from './facets/auth/logout';
 import generateCSRFView from './facets/operations/generateCSRFView';
 import editorPreview from './facets/editorPreview';
-import {get as joinHandler} from './facets/auth/join';
+import joinHandler from './facets/auth/join';
 import {validateRedirect} from './facets/auth/authView';
-import {get as registerHandler} from './facets/auth/register';
-import {get as signinHandler} from './facets/auth/signin';
+import registerHandler from './facets/auth/register';
+import signinHandler from './facets/auth/signin';
 import showApplication from './facets/showApplication';
 import showCuratedContent from './facets/showCuratedContent';
 
@@ -89,10 +89,7 @@ let routes,
 			path: '/wiki',
 			handler: redirectToRootHandler
 		},
-	/**
-	 * API Routes
-	 * @description The following routes should just be API routes
-	 */
+		// API Routes - The following routes should just be API routes
 		{
 			method: 'GET',
 			path: `${localSettings.apiBase}/article/{articleTitle*}`,
@@ -100,7 +97,7 @@ let routes,
 		},
 		{
 			method: 'GET',
-			// TODO: if you call to api/mercury/comments/ without supplying an id, this actually calls /api/mercury/article
+			// @todo if you call to api/mercury/comments/ without supplying an id, this actually calls /api/mercury/article
 			path: `${localSettings.apiBase}/article/comments/{articleId}/{page?}`,
 			handler: getArticleCommentsHandler
 		},
@@ -135,12 +132,9 @@ let routes,
 			handler: editorPreview
 		}
 	],
-// routes where we want to know the user's auth status
+	// routes where we want to know the user's auth status
 	authenticatedRoutes = [
-	/**
-	 * Authentication Routes
-	 * @description The following routes should be related to authentication
-	 */
+		// Authentication Routes - The following routes should be related to authentication
 		{
 			method: 'GET',
 			path: '/join',

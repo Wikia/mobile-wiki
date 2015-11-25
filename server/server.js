@@ -3,7 +3,6 @@
  *
  * This script will boot app.js with the number of workers
  * specified in WORKER_COUNT.
- *
  */
 
 import cluster from 'cluster';

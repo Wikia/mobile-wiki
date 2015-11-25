@@ -19,7 +19,7 @@ import {format} from 'url';
  * @param {*} reply
  * @returns {Hapi.Response}
  */
-export function get(request, reply) {
+export default function get(request, reply) {
 	const context = deepExtend(
 		authView.getDefaultContext(request),
 		{
