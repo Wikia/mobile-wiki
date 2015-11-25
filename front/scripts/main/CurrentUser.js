@@ -129,5 +129,3 @@ export default App.CurrentUser = Ember.Object.extend({
 		});
 	}
 });
-
-

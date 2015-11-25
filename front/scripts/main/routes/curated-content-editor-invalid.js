@@ -10,5 +10,3 @@ export default App.CuratedContentEditorInvalidRoute = Ember.Route.extend({
 		this.transitionTo('curatedContentEditor');
 	}
 });
-
-

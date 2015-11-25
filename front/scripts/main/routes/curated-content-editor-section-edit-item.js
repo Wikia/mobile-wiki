@@ -64,5 +64,3 @@ export default App.CuratedContentEditorSectionEditItemRoute = Ember.Route.extend
 		}
 	}
 });
-
-

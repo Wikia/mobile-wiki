@@ -93,5 +93,3 @@ export default App.MediaModel = Ember.Object.extend({
 		};
 	},
 });
-
-

@@ -1,7 +1,5 @@
 import App from '../app';
 
-
-
 App.DiscussionIndexModel.reopenClass({
 	/**
 	 * @param {number} wikiId

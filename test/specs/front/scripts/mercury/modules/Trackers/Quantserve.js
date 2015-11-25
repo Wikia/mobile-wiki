@@ -1,4 +1,4 @@
-/* global Em, _qevents, resetMercuryBaseline */
+/* global Em, _qevents */
 QUnit.module('Quantserve tests', function (hooks) {
 	var Quantserve,
 		originalMercuryWiki;
