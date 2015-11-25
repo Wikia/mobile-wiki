@@ -17,7 +17,8 @@ QUnit.module('mercury/modules/VideoLoader', function (hooks) {
 
 		VideoLoader = exports.default;
 		VideoLoader.createPlayer = sinon.stub().returns({
-			onResize: sinon.stub()
+			onResize: sinon.stub(),
+			setupPlayer: sinon.stub()
 		});
 	});
 
@@ -67,12 +68,7 @@ QUnit.module('mercury/modules/VideoLoader', function (hooks) {
 	});
 
 	QUnit.test('getPlayerClassBasedOnProvider returns correct player class', function () {
-		deepEqual(VideoLoader.getPlayerClassBasedOnProvider('ooyala'), {
-			className: 'OoyalaPlayer'
-		});
-
-		deepEqual(VideoLoader.getPlayerClassBasedOnProvider('realgravity'), {
-			className: 'BasePlayer'
-		});
+		equal(VideoLoader.getPlayerClassBasedOnProvider('ooyala').className, 'OoyalaPlayer');
+		equal(VideoLoader.getPlayerClassBasedOnProvider('realgravity').className, 'BasePlayer');
 	});
 });
