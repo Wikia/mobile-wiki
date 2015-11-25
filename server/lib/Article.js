@@ -12,17 +12,16 @@ import localSettings from '../../config/localSettings';
 /**
  * @class ArticleRequestError
  */
-export class ArticleRequestError {
+export class ArticleRequestError extends Error {
 	/**
 	 * @param {ArticlePageData} data
 	 * @returns {void}
 	 */
 	constructor(data) {
-		Error.apply(this, arguments);
+		super(arguments);
 		this.data = data;
 	}
 }
-ArticleRequestError.prototype = Object.create(Error.prototype);
 
 /**
  * @class ArticleRequestHelper
