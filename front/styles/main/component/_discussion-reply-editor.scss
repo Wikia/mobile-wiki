@@ -1,18 +1,22 @@
 $reply-editor-width: 563px;
 $reply-editor-folded-height: 49px;
+$reply-editor-margin-left: -20px;
 
-.reply-editor {
-	.editor-container {
-		margin-left: -20px;
-		width: $reply-editor-width;
-	}
-
-	.sticky {
-		&.pinned-bottom {
-			//To hide bottom border and compensate margin when editor is sticky
-			bottom: -4px;
-			top: initial;
+.discussion {
+	.reply-editor {
+		.editor-container {
+			margin-left: $reply-editor-margin-left;
 			width: $reply-editor-width;
+
+			&.sticky {
+				margin-left: $reply-editor-margin-left;
+
+				&.pinned-bottom {
+					//To hide bottom border and compensate margin when editor is sticky
+					bottom: 0;
+					top: initial;
+				}
+			}
 		}
 	}
 }

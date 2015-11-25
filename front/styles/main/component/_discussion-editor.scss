@@ -95,7 +95,7 @@ $success-icon-size: 80px;
 		}
 
 		&.sticky {
-			margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
+			margin-left: ($discussion-page-width - $sticky-editor-width) / 2  - $editor-border-width;
 			position: fixed;
 			top: rem-calc(50 - 4); // Sass doesn't accept px variables here, 50 - TopNav height, 4 - editor border size
 			transition: top 0.5s;
