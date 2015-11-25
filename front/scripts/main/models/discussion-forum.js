@@ -1,69 +1,62 @@
 import App from '../app';
-import DiscussionErrorMixin from '../mixins/discussion-error';
+import DiscussionBaseModel from './discussion-base';
 
-App.DiscussionForumModel = Ember.Object.extend(
-	DiscussionErrorMixin,
-	{
-		wikiId: null,
-		forumId: null,
-		name: null,
-		pageNum: null,
-		posts: null,
-		totalPosts: 0,
 
-		connectionError: null,
-		notFoundError: null,
-		contributors: [],
+App.DiscussionForumModel = DiscussionBaseModel.extend({
+	name: null,
+	pageNum: null,
+	posts: null,
+	totalPosts: 0,
 
-		/**
-		 * @param {number} [pageNum=0]
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		loadPage(pageNum = 0) {
-			this.set('pageNum', pageNum);
+	contributors: [],
 
-			return new Ember.RSVP.Promise((resolve) => {
-				Ember.$.ajax({
-					url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
-					data: {
-						page: this.get('pageNum')
-					},
-					xhrFields: {
-						withCredentials: true,
-					},
-					dataType: 'json',
-					success: (data) => {
-						const newPosts = data._embedded['doc:threads'],
-							allPosts = this.posts.concat(newPosts);
+	/**
+	 * @param {number} pageNum
+	 * @returns {Em.RSVP.Promise}
+	 */
+	loadPage(pageNum = 0) {
+		this.set('pageNum', pageNum);
 
-						this.set('posts', allPosts);
+		return new Ember.RSVP.Promise((resolve) => {
+			Ember.$.ajax({
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
+				data: {
+					page: this.get('pageNum')
+				},
+				xhrFields: {
+					withCredentials: true,
+				},
+				dataType: 'json',
+				success: (data) => {
+					const newPosts = data._embedded['doc:threads'],
+						allPosts = this.posts.concat(newPosts);
 
-						resolve(this);
-					},
-					error: (err) => {
-						this.setErrorProperty(err, this);
-						resolve(this);
-					}
-				});
+					this.set('posts', allPosts);
+					resolve(this);
+				},
+				error: (err) => {
+					this.handleLoadMoreError(err);
+					resolve(this);
+				}
 			});
-		},
+		});
+	},
 
-		/**
-		 * @param {string} sortBy
-		 * @returns {string}
-		 */
-		getSortKey(sortBy) {
-			switch (sortBy) {
-			case 'latest':
-				return 'creation_date';
-			case 'trending':
-				return 'trending';
-			default:
-				return '';
-			}
+	/**
+	 * @param {string} sortBy
+	 * @returns {string}
+	 */
+	getSortKey(sortBy) {
+		switch (sortBy) {
+		case 'latest':
+			return 'creation_date';
+		case 'trending':
+			return 'trending';
+		default:
+			return '';
 		}
 	}
-);
+});
 
 App.DiscussionForumModel.reopenClass({
 	/**
@@ -115,7 +108,7 @@ App.DiscussionForumModel.reopenClass({
 					resolve(forumInstance);
 				},
 				error: (err) => {
-					forumInstance.setErrorProperty(err, forumInstance);
+					forumInstance.setErrorProperty(err);
 					resolve(forumInstance);
 				}
 			});

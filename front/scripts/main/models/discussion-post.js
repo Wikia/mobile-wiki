@@ -1,72 +1,66 @@
 import App from '../app';
-import DiscussionErrorMixin from '../mixins/discussion-error';
+import DiscussionBaseModel from './discussion-base';
 
-App.DiscussionPostModel = Ember.Object.extend(
-	DiscussionErrorMixin,
-	{
-		wikiId: null,
-		postId: null,
-		forumId: null,
-		pivotId: null,
-		replyLimit: 10,
-		replies: [],
-		firstPost: null,
-		upvoteCount: 0,
-		postCount: 0,
-		page: 0,
-		connectionError: null,
-		notFoundError: null,
-		contributors: [],
+App.DiscussionPostModel = DiscussionBaseModel.extend({
 
-		/**
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		loadNextPage() {
-			return new Ember.RSVP.Promise((resolve) => {
-				Ember.$.ajax({
-					url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
-						responseGroup: 'full',
-						sortDirection: 'descending',
-						sortKey: 'creation_date',
-						limit: this.replyLimit,
-						pivot: this.pivotId,
+	postId: null,
+	pivotId: null,
+	replyLimit: 10,
+	replies: [],
+	firstPost: null,
+	upvoteCount: 0,
+	postCount: 0,
+	page: 0,
+	contributors: [],
+
+	/**
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	loadNextPage() {
+		return new Ember.RSVP.Promise((resolve) => {
+			Ember.$.ajax({
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
+					responseGroup: 'full',
+					sortDirection: 'descending',
+					sortKey: 'creation_date',
+					limit: this.replyLimit,
+					pivot: this.pivotId,
+					page: this.page + 1
+				}),
+				xhrFields: {
+					withCredentials: true,
+				},
+				dataType: 'json',
+				success: (data) => {
+					let newReplies = data._embedded['doc:posts'];
+
+					// Note that we have to reverse the list we get back because how we're displaying
+					// replies on the page; we want to see the newest replies first but show them
+					// starting with oldest of the current list at the top.
+					newReplies.reverse();
+					newReplies = newReplies.concat(this.replies);
+
+					this.setProperties({
+						replies: newReplies,
 						page: this.page + 1
-					}),
-					xhrFields: {
-						withCredentials: true,
-					},
-					dataType: 'json',
-					success: (data) => {
-						let newReplies = data._embedded['doc:posts'];
+					});
 
-						// Note that we have to reverse the list we get back because how we're displaying
-						// replies on the page; we want to see the newest replies first but show them
-						// starting with oldest of the current list at the top.
-						newReplies.reverse();
-						newReplies = newReplies.concat(this.replies);
-
-						this.setProperties({
-							replies: newReplies,
-							page: this.page + 1
-						});
-
-						resolve(this);
-					},
-					error: (err) => {
-						this.setErrorProperty(err, this);
-						resolve(this);
-					}
-				});
+					resolve(this);
+				},
+				error: (err) => {
+					this.handleLoadMoreError(err);
+					resolve(this);
+				}
 			});
-		}
+		});
 	}
-);
+});
 
 App.DiscussionPostModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} postId
-	 * @returns {Ember.RSVP.Promise}
+	 * @returns {Em.RSVP.Promise}
 	 */
 	find(wikiId, postId) {
 		return new Ember.RSVP.Promise((resolve) => {
@@ -89,7 +83,6 @@ App.DiscussionPostModel.reopenClass({
 				success: (data) => {
 					const contributors = [],
 						replies = data._embedded['doc:posts'];
-
 					let pivotId;
 
 					// If there are no replies to the first post, 'doc:posts' will not be returned
@@ -124,7 +117,7 @@ App.DiscussionPostModel.reopenClass({
 					resolve(postInstance);
 				},
 				error: (err) => {
-					postInstance.setErrorProperty(err, postInstance);
+					postInstance.setErrorProperty(err);
 					resolve(postInstance);
 				}
 			});
