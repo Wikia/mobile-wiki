@@ -3,7 +3,7 @@ QUnit.module('auth/common/UrlHelper', function () {
 		assert.ok(typeof require('auth/common/UrlHelper').defualt === 'function');
 	});
 
-	QUnit.only('UrlHelper urlEncode', function (assert) {
+	QUnit.test('UrlHelper urlEncode', function (assert) {
 		var testCases = [
 					{
 						input: {},
