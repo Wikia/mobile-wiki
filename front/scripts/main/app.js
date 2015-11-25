@@ -3,7 +3,7 @@ import {getQueryParam} from '../mercury/utils/queryString';
 import {integrateOptimizelyWithUA} from '../mercury/utils/variantTesting';
 import Ads from '../mercury/modules/Ads';
 import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
-import CurrentUser from './current-user';
+import CurrentUser from './CurrentUser';
 
 const App = Ember.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
