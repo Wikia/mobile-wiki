@@ -7,23 +7,17 @@ App.ImageReviewModel.reopenClass({
      * @returns {Em.RSVP.Promise} model
      */
     startSession() {
-        console.log('ImageReviewModel.startSession()');
-		//console.log('ID: '+M.prop('userId')+', access_token: '+M.prop('access_token'));
+        console.log('ImageReviewModel.startSession() with userId '+M.prop('userId'));
         return new Em.RSVP.Promise((resolve, reject) => {
             Em.$.ajax({
-                url: 'https://services.wikia-dev.com/image-review/session/',
-                data: {
-                    AuthenticatedUser: {
-                        userId: parseInt(M.prop('userId'))
-                    },
-                },
-				headers: {
-					'X-Wikia-UserId': M.prop('userId')
-				},
+                url: 'https://services-poz.wikia-dev.com/image-review/contract/',
 				dataType: 'json',
 				method: 'POST',
+				xhrFields: {
+					withCredentials: true
+				},
                 success: (data) => {
-					resolve(new ImageReviewModel(data));
+					resolve(new App.ImageReviewModel(data));
 					console.log('Startsession success: '+JSON.stringify(data));
                 },
                 error: (data) => {
@@ -38,10 +32,10 @@ App.ImageReviewModel.reopenClass({
         console.log('ImageReviewModel.endSession()');
         return new Em.RSVP.Promise((resolve, reject) => {
             Em.$.ajax({
-				url: 'https://services.wikia-dev.com/image-review/session/',
-                data: {
-                    userId:'',
-                },
+				url: 'https://services.wikia-dev.com/image-review/contract/',
+				xhrFields: {
+					withCredentials: true
+				},
 				dataType: 'json',
 				method: 'DELETE',
                 success: (data) => {
@@ -58,12 +52,12 @@ App.ImageReviewModel.reopenClass({
         console.log('ImageReviewModel.getImages()');
         return new Em.RSVP.Promise((resolve, reject) => {
 			Em.$.ajax({
-				url: 'https://services.wikia-dev.com/image-review/session/',
-				data: {
-					userId:'',
+				url: 'https://services.wikia-dev.com/image-review/contract/',
+				xhrFields: {
+					withCredentials: true
 				},
 				dataType: 'json',
-				method: 'DELETE',
+				method: 'GET',
 				success: (data) => {
 					resolve(data);
 				},
@@ -78,12 +72,12 @@ App.ImageReviewModel.reopenClass({
         console.log('ImageReviewModel.reviewImage()');
         return new Em.RSVP.Promise((resolve, reject) => {
 			Em.$.ajax({
-				url: 'https://services.wikia-dev.com/image-review/session/',
-				data: {
-					userId:'',
+				url: 'https://services.wikia-dev.com/image-review/contract/',
+				xhrFields: {
+					withCredentials: true
 				},
 				dataType: 'json',
-				method: 'DELETE',
+				method: 'POST',
 				success: (data) => {
 					resolve(data);
 				},

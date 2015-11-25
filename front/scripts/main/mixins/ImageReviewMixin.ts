@@ -19,7 +19,7 @@ App.ImageReviewMixin = Em.Mixin.create({
      * @param {App.ImageReviewModel} model
      * @returns {void}
      */
-    renderTemplate(controller, model) {
+    renderTemplate(controller: any , model: any) {
         console.log("Image review renderTemplate called!");
         this.render('image-review', {
         controller: 'imageReview',

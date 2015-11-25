@@ -156,7 +156,11 @@ authenticatedRoutes = [
 	//		]
 	//	}
 	//},
-
+	{
+		method: 'GET',
+		path: '/register',
+		handler: require('./facets/showApplication')
+	},
 	{
 		method: 'GET',
 		path: '/login',
