@@ -19,6 +19,26 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		} else {
 			this.set('isSticky', false);
 		}
+
+		Em.$(window).on('scroll', (): void => {
+			this.onScroll();
+		});
+	},
+
+	onScroll(): void {
+		var editorBottomOffset = Em.$('.reply-editor').get(0).getBoundingClientRect().bottom - window.innerHeight;
+
+		Em.run.throttle(
+			this,
+			function (): void {
+				if (editorBottomOffset >= 1 && !this.get('isSticky')) {
+					this.set('isSticky', true);
+				} else if (editorBottomOffset < 1 && this.get('isSticky')) {
+					this.set('isSticky', false);
+				}
+			},
+			25
+		);
 	},
 
 	/**
