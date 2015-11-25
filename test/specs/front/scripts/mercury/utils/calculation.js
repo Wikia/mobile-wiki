@@ -1,4 +1,4 @@
-QUnit.module('Calculation util functions', function () {
+QUnit.module('mercury/utils/calculation', function () {
 	QUnit.test('container size calculation', function (assert) {
 		var testCases = [
 			//horizontal viewport

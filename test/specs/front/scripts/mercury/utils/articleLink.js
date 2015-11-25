@@ -1,12 +1,11 @@
 /* global M */
-QUnit.module('getLinkInfo tests', {
-	beforeEach: function () {
-		// The format that we get the namespaces is strange and awkward to reproduce
-		M.provide('wiki.namespaces', window.FIXTURES['test/fixtures/namespaces.json']);
-	}
-}, function (hooks) {
+QUnit.module('mercury/utils/articleLink', function (hooks) {
 	var articleLinkModule = require('mercury/utils/articleLink');
 
+	hooks.beforeEach(function () {
+		// The format that we get the namespaces is strange and awkward to reproduce
+		M.provide('wiki.namespaces', window.FIXTURES['test/fixtures/namespaces.json']);
+	});
 
 	QUnit.test('getLinkInfo test external paths', function (assert) {
 		// These tests need to not contain the current base path (in the test, that's http://localhost:9876)
@@ -66,7 +65,7 @@ QUnit.module('getLinkInfo tests', {
 		tests.forEach(cb);
 	});
 
-	test('getLinkInfo jump links', function (assert) {
+	QUnit.test('getLinkInfo jump links', function (assert) {
 		expect(2);
 		var res = articleLinkModule.getLinkInfo(
 			'http://lastofus.wikia.com',

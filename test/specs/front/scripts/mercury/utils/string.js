@@ -1,4 +1,4 @@
-QUnit.module('String util functions', function (hooks) {
+QUnit.module('mercury/utils/string', function (hooks) {
 	QUnit.test('sanitizing title', function (assert) {
 		var string = require('mercury/utils/string'),
 				testCases = [
@@ -39,6 +39,4 @@ QUnit.module('String util functions', function (hooks) {
 			assert.equal(string.normalizeToWhitespace(testCase.title), testCase.normalize);
 		});
 	});
-
 });
-

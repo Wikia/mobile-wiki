@@ -1,4 +1,4 @@
-QUnit.module('Date/time util functions', function () {
+QUnit.module('mercury/utils/dateTime', function () {
 	QUnit.test('timeAgo works correct', function (assert) {
 		var DateTime = require('mercury/utils/dateTime'),
 				testCases = [

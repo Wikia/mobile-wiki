@@ -1,5 +1,5 @@
-QUnit.module('domain utility functions', function () {
-	QUnit.test('Mercury.Utils.getDomain gets domain from provided hosts', function (assert) {
+QUnit.module('mercury/utils/domain', function () {
+	QUnit.test('gets domain from provided hosts', function (assert) {
 		var testCases = [
 			{
 				hostname: 'witcher.wikia.com',
