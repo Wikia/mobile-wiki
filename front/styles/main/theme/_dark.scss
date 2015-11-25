@@ -125,11 +125,9 @@ body.dark-theme {
 		.timestamp {
 			color: $dark-discussion-timestamp-color;
 		}
-		&.forum {
-			.post-detail {
-				border-top-color: $dark-discussion-post-detail-border-color;
-				background-color: $dark-discussion-desktop-post-detail-bg-color;
-			}
+		.post-detail {
+			border-top-color: $dark-discussion-post-detail-border-color;
+			background-color: $dark-discussion-desktop-post-detail-bg-color;
 		}
 	}
 	.discussion-app-promotion {
