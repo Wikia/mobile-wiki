@@ -26,7 +26,7 @@ $discussion-hero-unit-minimized-height: 25px;
 
 	.discussion-contributors {
 		.avatar {
-			img {
+			img, svg {
 				height: $discussion-hero-unit-avatar-dimension;
 				width: $discussion-hero-unit-avatar-dimension;
 			}
