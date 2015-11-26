@@ -22,7 +22,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 
 	errorMessage: Em.computed.oneWay('requestErrorMessage'),
 
-	submitDisabled: Em.computed('bodyText', 'currentUser.userId', function(): boolean {
+	submitDisabled: Em.computed('bodyText', 'currentUser.userId', function (): boolean {
 		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null
 	}),
 
@@ -78,7 +78,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	/**
 	 * Display error message on post failure
 	 */
-	errorMessageObserver: Em.observer('errorMessage', function(): void {
+	errorMessageObserver: Em.observer('errorMessage', function (): void {
 		if (this.get('errorMessage')) {
 			alert(i18n.t(this.get('errorMessage'), {ns: 'discussion'}));
 		}
@@ -95,12 +95,12 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			var $editorTextarea = $('.editor-textarea');
 			$editorTextarea
 				.css('height', '100px')
-				.on('focus', function() {
-					setTimeout(function(){
+				.on('focus', function () {
+					setTimeout(function () {
 						$editorTextarea.css('height', '100%');
 					}, 500);
 				})
-				.on('blur', function() {
+				.on('blur', function () {
 					$editorTextarea.css('height', '100px');
 				});
 		}
@@ -117,7 +117,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	/**
 	 * Handle message for anon when activating editor
 	 */
-	isActiveObserver: Em.observer('isActive', function(): void {
+	isActiveObserver: Em.observer('isActive', function (): void {
 		if (this.get('isActive')) {
 			if (this.get('currentUser.userId') === null) {
 				this.setProperties({
