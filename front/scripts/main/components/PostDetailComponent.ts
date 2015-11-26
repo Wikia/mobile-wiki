@@ -21,7 +21,10 @@ App.PostDetailComponent = Em.Component.extend(
 			);
 
 			return window.Autolinker.link(escapedContent, {
-				stripPrefix: false
+				stripPrefix: false,
+				email: false,
+				phone: false,
+				twitter: false
 			});
 		}),
 
