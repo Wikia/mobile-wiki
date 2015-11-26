@@ -1,9 +1,3 @@
-/* eslint no-process-env: 0 */
-// NewRelic is only enabled on one server and that logic is managed by chef, which passes it to our config
-if (process.env.NEW_RELIC_ENABLED === 'true') {
-	require('newrelic');
-}
-
 import setResponseCaching, {Policy, Interval} from './lib/Caching';
 import {Server} from 'hapi';
 import Logger from './lib/Logger';
@@ -18,6 +12,16 @@ import fs from 'fs';
 import crumb from 'crumb';
 import i18next from 'hapi-i18next';
 import handlebars from 'handlebars';
+
+/* eslint no-process-env: 0 */
+
+/**
+ * NewRelic is only enabled on one server and that logic is managed by chef,
+ * which passes it to our config
+ */
+if (process.env.NEW_RELIC_ENABLED === 'true') {
+	require('newrelic');
+}
 
 const isDevbox = localSettings.environment === Environment.Dev,
 	// Creates new `hapi` server

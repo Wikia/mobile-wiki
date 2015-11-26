@@ -328,7 +328,7 @@ export class WikiVariablesRequestError {
 	/**
 	 * @param {MWException} error
 	 * @returns {void}
-     */
+	 */
 	constructor(error) {
 		Error.apply(this, arguments);
 		this.error = error;
