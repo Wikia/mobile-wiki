@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 	paths = require('../paths').scripts.front,
 	path = require('path');
 
-gulp.task('build-test', ['scripts-front'], function () {
+gulp.task('scripts-test-modules', function () {
 	return gulp.src([
 			path.join(paths.src, paths.jsFiles),
 			// The rest is built in scripts-front task
