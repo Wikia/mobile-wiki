@@ -1,3 +1,9 @@
+import {badRequest} from 'boom';
+import {ArticleRequest} from '../../lib/MediaWiki';
+import {getCachedWikiDomainName} from '../../lib/Utils';
+import localSettings from '../../../config/localSettings';
+import getStatusCode from '../operations/getStatusCode';
+
 /**
  * @typedef {Object} Comment
  * @property {number} id
@@ -48,12 +54,6 @@
  * @property {CommentsDataStatus} status
  */
 
-import {badRequest} from 'boom';
-import {ArticleRequest} from '../../lib/MediaWiki';
-import {getCachedWikiDomainName} from '../../lib/Utils';
-import localSettings from '../../../config/localSettings';
-import getStatusCode from '../operations/getStatusCode';
-
 /**
  * Wrap article comments data response
  *
@@ -61,7 +61,7 @@ import getStatusCode from '../operations/getStatusCode';
  * @returns {CommentsData} Wrapped Article comments object
  */
 function transformResponse(commentsData) {
-	// TODO: ad hoc response wrapping, normalize across app
+	// @todo ad hoc response wrapping, normalize across app
 	return {
 		payload: {
 			comments: commentsData.payload.comments,
@@ -88,7 +88,7 @@ export default function get(request, reply) {
 	};
 
 	if (params.articleId === null) {
-		// TODO: ad hoc error handling, use Boom everywhere?
+		// @todo ad hoc error handling, use Boom everywhere?
 		reply(badRequest('Invalid articleId'));
 	} else {
 		new ArticleRequest(params).comments(

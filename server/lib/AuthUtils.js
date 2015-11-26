@@ -6,6 +6,12 @@ import url from 'url';
 import querystring from 'querystring';
 import localSettings from '../../config/localSettings';
 
+/**
+ * @typedef {Object} WhoAmIResponse
+ * @property {string} [userId]
+ * @property {number} [status]
+ */
+
 // @todo seems unused: wikiaSignupPathname = '/wiki/Special:UserSignup',
 const wikiaLoginPathname = '/wiki/Special:UserLogin',
 	forgotPasswordSearch = '?type=forgotPassword';

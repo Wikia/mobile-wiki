@@ -1,11 +1,11 @@
+import localSettings from '../../config/localSettings';
+import bunyan from 'bunyan';
+
 /**
  * @typedef {Object} BunyanLoggerStream
  * @property {WritableStream} stream
  * @property {string} level
  */
-
-import localSettings from '../../config/localSettings';
-import bunyan from 'bunyan';
 
 /**
  * Creates the default log stream settings

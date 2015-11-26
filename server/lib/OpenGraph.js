@@ -1,3 +1,8 @@
+import Promise from 'bluebird';
+import localSettings from '../../config/localSettings';
+import * as MW from './MediaWiki';
+import {getStaticAssetPath} from './Utils';
+
 /**
  * @typedef {Object} OpenGraphAttributes
  * @property {string} [description]
@@ -8,11 +13,6 @@
  * @property {string} type
  * @property {string} url
  */
-
-import Promise from 'bluebird';
-import localSettings from '../../config/localSettings';
-import * as MW from './MediaWiki';
-import {getStaticAssetPath} from './Utils';
 
 /**
  * @param {Hapi.Request} request

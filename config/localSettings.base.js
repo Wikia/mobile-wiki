@@ -1,3 +1,6 @@
+import {getEnvironment, stripDevboxDomain} from '../server/lib/Utils';
+import deepExtend from 'deep-extend';
+
 /* eslint max-len:0 */
 
 /**
@@ -133,9 +136,6 @@
  * @property {RegExp} mobile
  * @property {RegExp} iPad
  */
-
-import {getEnvironment, stripDevboxDomain} from '../server/lib/Utils';
-import deepExtend from 'deep-extend';
 
 const localSettings = {
 	apiBase: '/api/mercury',

@@ -1,11 +1,3 @@
-/**
- * @typedef {Object} RouteDefinition
- * @property {string[]|string} method
- * @property {string} path
- * @property {Function} handler
- * @property {*} [config]
- */
-
 import Hoek from 'hoek';
 import localSettings from '../config/localSettings';
 import {Policy} from './lib/Caching';
@@ -30,6 +22,14 @@ import registerHandler from './facets/auth/register';
 import signinHandler from './facets/auth/signin';
 import showApplication from './facets/showApplication';
 import showCuratedContent from './facets/showCuratedContent';
+
+/**
+ * @typedef {Object} RouteDefinition
+ * @property {string[]|string} method
+ * @property {string} path
+ * @property {Function} handler
+ * @property {*} [config]
+ */
 
 const routeCacheConfig = {
 		privacy: Policy.Public,
@@ -246,7 +246,6 @@ let routes,
 			}
 		},
 	];
-
 
 /**
  * @param {*} path

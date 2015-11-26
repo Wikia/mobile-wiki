@@ -98,6 +98,7 @@ export class ArticleRequestHelper {
 				if (!isWikiVariablesPromiseFulfilled) {
 					return reject(new MediaWiki.WikiVariablesRequestError(wikiVariables));
 				}
+
 				if (!wikiVariables) {
 					return reject(new MediaWiki.WikiVariablesRequestError('wikiVariables is undefined'));
 				}

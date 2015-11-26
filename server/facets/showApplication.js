@@ -1,9 +1,3 @@
-/**
- * @typedef {Object} CommunityAppConfig
- * @property {string} androidAppLink
- * @property {string} iosAppLink
- */
-
 import * as MW from '../lib/MediaWiki';
 import * as Utils from '../lib/Utils';
 import * as Tracking from '../lib/Tracking';
@@ -11,6 +5,12 @@ import * as OpenGraph from '../lib/OpenGraph';
 import Logger from '../lib/Logger';
 import localSettings from '../../config/localSettings';
 import discussionsSplashPageConfig from '../../config/discussionsSplashPageConfig';
+
+/**
+ * @typedef {Object} CommunityAppConfig
+ * @property {string} androidAppLink
+ * @property {string} iosAppLink
+ */
 
 /**
  * @param {Hapi.Request} request

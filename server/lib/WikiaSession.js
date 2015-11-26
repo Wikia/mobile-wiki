@@ -1,8 +1,3 @@
-/**
- * @typedef {Object} WhoAmIResponse
- * @property {string} [userId]
- * @property {number} [status]
- */
 import {unauthorized} from 'boom';
 import Wreck from 'wreck';
 import localSettings from '../../config/localSettings';
