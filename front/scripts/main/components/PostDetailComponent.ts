@@ -16,7 +16,11 @@ App.PostDetailComponent = Em.Component.extend(
 		 * @returns {string}
 		 */
 		parsedContent: Em.computed(function () {
-			return window.Autolinker.link(this.get('post.rawContent'), {
+			var escapedContent = Ember.Handlebars.Utils.escapeExpression(
+				this.get('post.rawContent')
+			);
+
+			return window.Autolinker.link(escapedContent, {
 				stripPrefix: false
 			});
 		}),
