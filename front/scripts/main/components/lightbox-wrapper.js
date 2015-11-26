@@ -32,11 +32,16 @@ export default App.LightboxWrapperComponent = Ember.Component.extend({
 		 * @returns {void}
 		 */
 		close() {
+			if (!this.get('closeAllowed')) {
+				return;
+			}
+
 			this.setProperties({
 				footer: null,
 				header: null,
 				footerExpanded: false
 			});
+
 			this.sendAction('closeLightbox');
 		},
 
