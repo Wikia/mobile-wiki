@@ -56,6 +56,104 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		dbName: 'jastarwars'
 	},
 
+	'jedipedia' : {
+		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
+		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
+		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		domain: 'de.starwars.wikia.com',
+		icon: '/front/images/Star-Wars-Icon.png',
+		appName: 'Star Wars',
+		appScreens: '/front/images/Phone-Star-Wars.png',
+		language: 'de',
+		wikiId: 280741,
+		dbName: 'dejedipedia'
+	},
+
+	'fr.starwars' : {
+		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
+		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
+		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		domain: 'fr.starwars.wikia.com',
+		icon: '/front/images/Star-Wars-Icon.png',
+		appName: 'Star Wars',
+		appScreens: '/front/images/Phone-Star-Wars.png',
+		language: 'fr',
+		wikiId: 750,
+		dbName: 'frstarwars'
+	},
+
+	'es.starwars' : {
+		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
+		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
+		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		domain: 'es.starwars.wikia.com',
+		icon: '/front/images/Star-Wars-Icon.png',
+		appName: 'Star Wars',
+		appScreens: '/front/images/Phone-Star-Wars.png',
+		language: 'es',
+		wikiId: 916,
+		dbName: 'esstarwars'
+	},
+
+	'pt.starwars' : {
+		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
+		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
+		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		domain: 'pt.starwars.wikia.com',
+		icon: '/front/images/Star-Wars-Icon.png',
+		appName: 'Star Wars',
+		appScreens: '/front/images/Phone-Star-Wars.png',
+		language: 'pt',
+		wikiId: 1473,
+		dbName: 'ptstarwars'
+	},
+
+	'ru.starwars' : {
+		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
+		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
+		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		domain: 'ru.starwars.wikia.com',
+		icon: '/front/images/Star-Wars-Icon.png',
+		appName: 'Star Wars',
+		appScreens: '/front/images/Phone-Star-Wars.png',
+		language: 'ru',
+		wikiId: 1530,
+		dbName: 'rustarwars'
+	},
+
+	'pl.starwars' : {
+		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
+		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
+		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		domain: 'pl.starwars.wikia.com',
+		icon: '/front/images/Star-Wars-Icon.png',
+		appName: 'Star Wars',
+		appScreens: '/front/images/Phone-Star-Wars.png',
+		language: 'pt',
+		wikiId: 1707,
+		dbName: 'plstarwars'
+	},
+
+	'it.starwars' : {
+		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.starwars',
+		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
+		iosAppLink: 'https://itunes.apple.com/us/app/wikiafanapp/id920826902',
+		iosStoreLogo : 'http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg',
+		domain: 'it.starwars.wikia.com',
+		icon: '/front/images/Star-Wars-Icon.png',
+		appName: 'Star Wars',
+		appScreens: '/front/images/Phone-Star-Wars.png',
+		language: 'it',
+		wikiId: 3786,
+		dbName: 'ptstarwars'
+	},
+
 	'cocktails' : {
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.cocktails',
 		androidStoreLogo : 'https://developer.android.com/images/brand/en_generic_rgb_wo_45.png',
@@ -124,6 +222,13 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 		language: 'en',
 		wikiId: 203914,
 		dbName: 'onedirection'
+	},
+
+	'mediawiki119' : {
+		domain: 'mediawiki119.wikia.com',
+		language: 'en',
+		wikiId: 203236,
+		dbName: 'mediawiki119cleanup4'
 	}
 };
 

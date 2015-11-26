@@ -16,7 +16,11 @@ App.ForumWrapperComponent = Em.Component.extend(
 			return this.get('totalPosts') > this.get('postsDisplayed');
 		}),
 
-		pageLoaded: Ember.observer('postsDisplayed', function (): void {
+		pageLoaded: Em.observer('postsDisplayed', function (): void {
+			this.set('currentlyLoadingPage', false);
+		}),
+
+		minorErrorObserver: Em.observer('minorError', function (): void {
 			this.set('currentlyLoadingPage', false);
 		}),
 
