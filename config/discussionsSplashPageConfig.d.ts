@@ -3,14 +3,14 @@ interface DiscussionsSplashPageConfig {
 }
 
 interface WikiaDiscussionsConfig {
-	androidAppLink: string;
-	androidStoreLogo: string;
-	iosAppLink: string;
-	iosStoreLogo: string;
+	androidAppLink?: string;
+	androidStoreLogo?: string;
+	iosAppLink?: string;
+	iosStoreLogo?: string;
 	domain: string;
-	icon: string;
-	appScreens: string;
-	appName: string;
+	icon?: string;
+	appScreens?: string;
+	appName?: string;
 	language: string;
 	wikiId: number;
 	dbName: string;
