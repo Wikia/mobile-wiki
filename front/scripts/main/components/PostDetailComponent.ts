@@ -20,12 +20,12 @@ App.PostDetailComponent = Em.Component.extend(
 				this.get('post.rawContent')
 			);
 
-			return window.Autolinker.link(escapedContent, {
+			return window.Autolinker ? window.Autolinker.link(escapedContent, {
 				stripPrefix: false,
 				email: false,
 				phone: false,
 				twitter: false
-			});
+			}) : escapedContent;
 		}),
 
 		postId: null,
