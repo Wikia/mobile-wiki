@@ -30,10 +30,10 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	isStickyBreakpointHeight(): boolean {
 		var editorContainer: JQuery;
 
-		if (!this.editorBottomSpacing) {
+		if (!this.get('editorBottomSpacing')) {
 			editorContainer = Em.$('.editor-container');
-			this.editorBottomSpacing = parseInt(editorContainer.css('borderBottomWidth'), 10) +
-					parseInt(editorContainer.css('margin-bottom'), 10);
+			this.set('editorBottomSpacing', parseInt(editorContainer.css('borderBottomWidth'), 10) +
+				parseInt(editorContainer.css('margin-bottom'), 10));
 		}
 
 		return Em.$('.reply-editor').get(0).getBoundingClientRect().bottom - window.innerHeight >= this.editorBottomSpacing;
