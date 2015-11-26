@@ -46,7 +46,7 @@ App.DiscussionHeroUnitComponent = Em.Component.extend(App.ViewportMixin, {
 		2233: 'discussion-header-marvel.jpg',
 		2237: 'discussion-header-dc.jpg',
 		604797: 'discussion-header-destiny.jpg',
-		1074920: 'discussion-header-weihnachts-wikia.jpg',
+		1074920: 'discussion-header-weihnachts.jpg',
 		3676: 'discussion-header-ja-halo.jpg',
 		1147260: 'discussion-header-ja-ajin.jpg',
 		1144697: 'discussion-header-ja-knights-of-sidonia.jpg'

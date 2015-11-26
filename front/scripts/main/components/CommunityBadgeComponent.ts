@@ -40,7 +40,7 @@ App.CommunityBadgeComponent = Em.Component.extend({
 		2233: '/front/images/community-badge-marvel.jpg',
 		2237: '/front/images/community-badge-dc.jpg',
 		604797: '/front/images/community-badge-destiny.jpg',
-		1074920: '/front/images/community-badge-weihnachts-wikia.jpg',
+		1074920: '/front/images/community-badge-weihnachts.jpg',
 		3676: '/front/images/community-badge-ja-halo.jpg',
 		1147260: '/front/images/community-badge-ja-ajin.jpg',
 		1144697: '/front/images/community-badge-ja-knights-of-sidonia.jpg'
