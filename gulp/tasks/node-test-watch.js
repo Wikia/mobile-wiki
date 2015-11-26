@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 	log = require('../utils/logger');
 
 gulp.task('node-test-watch', function () {
-	gulp.watch(paths.scripts.server.src, ['tslint', 'scripts-server', 'node-test']).on('change', function (event) {
+	gulp.watch(paths.scripts.server.src, ['scripts-server', 'node-test']).on('change', function (event) {
 		log('Script for server changed:', gutil.colors.green(event.path));
 	});
 });
