@@ -2,21 +2,21 @@ App.ImageReviewRoute = Em.Route.extend(
     App.ImageReviewMixin, {
 
 		model() {
-			console.log("Imager review route called!");
+			console.log("Image review route");
 			return App.ImageReviewModel.startSession()
 		},
 		actions: {
 			error(error) {
 				console.log('Action error: '+JSON.stringify(error));
 				if (error.status === 401) {
-					this.controllerFor('imageReview').addAlert({
+					this.controllerFor('application').addAlert({
 						message: 'Unauthorized, you don\'t have permissions to see this page',
 						type: 'warning'
 					});
 					this.handleTransitionToMainPage();
 				} else {
 					Em.Logger.error(error);
-					this.controllerFor('imageReview').addAlert({
+					this.controllerFor('application').addAlert({
 						message: 'Couldn\'t load image-review',
 						type: 'warning'
 					});

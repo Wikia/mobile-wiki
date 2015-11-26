@@ -1,5 +1,5 @@
 App.ImageReviewController = Em.Controller.extend({
-    application: Em.inject.controller(),
+	application: Em.inject.controller(),
 
     init() {
         console.log("Image review init controller");
