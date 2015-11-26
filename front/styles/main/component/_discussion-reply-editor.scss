@@ -72,11 +72,15 @@ $reply-editor-margin-left: -20px;
 @media #{$desktop-range} {
 	.discussion-editor.reply-editor {
 		.editor-label {
-			border-top: 1px solid $discussion-post-detail-border-color;
 			display: block;
 			font-size: $type-min;
 			font-weight: bold;
 			padding: 15px 15px 5px;
+		}
+	}
+	.post-reply ~ .discussion-editor.reply-editor {
+		.editor-label {
+			border-top: 1px solid $discussion-post-detail-border-color;
 		}
 	}
 }
