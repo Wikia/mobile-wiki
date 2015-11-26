@@ -73,7 +73,9 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 			newReply = newReplies.get('firstObject');
 
 		if (newReply) {
-			Em.$('html, body').animate({scrollTop: Em.$(document).height()});
+			Em.$('html, body').animate({
+				scrollTop: Em.$(document).height()
+			});
 			this.handleNewItemCreated(newReply);
 		}
 	}),
