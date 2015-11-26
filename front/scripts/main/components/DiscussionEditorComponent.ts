@@ -10,9 +10,6 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	isActive: false,
 	isSticky: false,
 
-	submitDisabled: Em.computed('bodyText', 'currentUser.userId', function(): boolean {
-		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null
-	}),
 	isLoading: false,
 	showSuccess: false,
 	hasError: false,
@@ -21,8 +18,13 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	siteHeadHeight: 0,
 
 	bodyText: '',
-	errorMessage: Em.computed.oneWay('requestErrorMessage'),
 	layoutName: 'components/discussion-editor',
+
+	errorMessage: Em.computed.oneWay('requestErrorMessage'),
+
+	submitDisabled: Em.computed('bodyText', 'currentUser.userId', function(): boolean {
+		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null
+	}),
 
 	/**
 	 * @returns {void}
