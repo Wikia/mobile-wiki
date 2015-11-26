@@ -8,6 +8,10 @@
 
 	display: inline-block;
 
+	@include media($large-screen) {
+		padding-top: 50px;
+	}
+
 	a {
 		color: $action-color;
 		text-decoration: none;
