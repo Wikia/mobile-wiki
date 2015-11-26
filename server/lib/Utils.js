@@ -329,7 +329,7 @@ export function redirectToCanonicalHostIfNeeded(localSettings, request, reply, w
 		}
 
 		reply.redirect(redirectLocation).permanent(true);
-		throw new RedirectedToCanonicalHost;
+		throw new RedirectedToCanonicalHost();
 	}
 }
 

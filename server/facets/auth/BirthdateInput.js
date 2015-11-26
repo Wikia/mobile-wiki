@@ -100,7 +100,8 @@ export default class BirthdateInput {
 			return [data.year, data.month, data.day];
 		case 'middle':
 			return [data.month, data.day, data.year];
-		// case 'little' :
+		case 'little':
+			// covered by default block
 		default:
 			return [data.day, data.month, data.year];
 		}
