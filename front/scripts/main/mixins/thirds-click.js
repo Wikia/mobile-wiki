@@ -9,7 +9,7 @@ import App from '../app';
  * @property {Function} stopPropagation
  */
 
-App.ThirdsClickMixin = Ember.Mixin.create({
+export default App.ThirdsClickMixin = Ember.Mixin.create({
 	leftClickHandler: Ember.K,
 	rightClickHandler: Ember.K,
 	centerClickHandler: Ember.K,
@@ -62,5 +62,3 @@ App.ThirdsClickMixin = Ember.Mixin.create({
 		}
 	},
 });
-
-export default App.ThirdsClickMixin;

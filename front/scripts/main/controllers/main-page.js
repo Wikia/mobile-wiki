@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.MainPageController = Ember.Controller.extend({
+export default App.MainPageController = Ember.Controller.extend({
 	application: Ember.inject.controller(),
 
 	noAds: Ember.computed.alias('application.noAds'),
@@ -15,5 +15,3 @@ App.MainPageController = Ember.Controller.extend({
 		});
 	}
 });
-
-export default App.MainPageController;

@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.LightboxMapComponent = Ember.Component.extend({
+export default App.LightboxMapComponent = Ember.Component.extend({
 	classNames: ['lightbox-map', 'lightbox-content-inner'],
 
 	modelObserver: Ember.observer('model', function () {
@@ -29,5 +29,3 @@ App.LightboxMapComponent = Ember.Component.extend({
 		this.sendAction('setQueryParam', 'map', model.id);
 	},
 });
-
-export default App.LightboxMapComponent;

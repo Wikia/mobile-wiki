@@ -3,7 +3,7 @@ import App from '../app';
 /**
  * Handles sending upvote action outside from the component.
  */
-App.DiscussionUpvoteComponentMixin = Ember.Mixin.create({
+export default App.DiscussionUpvoteComponentMixin = Ember.Mixin.create({
 	classNames: ['small-5', 'large-3', 'columns', 'upvote', 'count'],
 	classNameBindings: ['hasUpvoted'],
 
@@ -16,5 +16,3 @@ App.DiscussionUpvoteComponentMixin = Ember.Mixin.create({
 		return false;
 	})
 });
-
-export default App.DiscussionUpvoteComponentMixin;

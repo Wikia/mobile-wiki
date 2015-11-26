@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.DiscussionContributorsComponent = Ember.Component.extend({
+export default App.DiscussionContributorsComponent = Ember.Component.extend({
 	classNames: ['discussion-contributors'],
 
 	contributors: [],
@@ -19,5 +19,3 @@ App.DiscussionContributorsComponent = Ember.Component.extend({
 		return this.get('totalContributorCount') - this.get('latestContributors.length');
 	})
 });
-
-export default App.DiscussionContributorsComponent;

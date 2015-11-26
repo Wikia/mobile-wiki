@@ -9,7 +9,7 @@ import App from '../app';
  * @property {string} [type]
  */
 
-App.ArticleCommentComponent = Ember.Component.extend({
+export default App.ArticleCommentComponent = Ember.Component.extend({
 	tagName: 'li',
 	classNames: ['article-comment'],
 
@@ -115,5 +115,3 @@ App.ArticleCommentComponent = Ember.Component.extend({
 		$originalFigure.replaceWith(newFigures);
 	},
 });
-
-export default App.ArticleCommentComponent;

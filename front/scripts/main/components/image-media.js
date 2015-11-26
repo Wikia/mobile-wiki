@@ -4,7 +4,7 @@ import ArticleContentMixin from '../mixins/article-content';
 import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-App.ImageMediaComponent = MediaComponent.extend(
+export default App.ImageMediaComponent = MediaComponent.extend(
 	ArticleContentMixin,
 	ViewportMixin,
 	{
@@ -137,5 +137,3 @@ App.ImageMediaComponent = MediaComponent.extend(
 		},
 	}
 );
-
-export default App.ImageMediaComponent;

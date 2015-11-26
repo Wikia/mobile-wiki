@@ -36,7 +36,7 @@ import Thumbnailer from '../../mercury/modules/Thumbnailer';
  * @property {string} [thumbnailUrl]
  */
 
-App.SearchImagesModel = Ember.Object.extend({
+export default App.SearchImagesModel = Ember.Object.extend({
 	searchLimit: 24,
 	nextBatch: 0,
 	batches: 1,
@@ -129,5 +129,3 @@ App.SearchImagesModel = Ember.Object.extend({
 		);
 	}
 });
-
-export default App.SearchImagesModel;

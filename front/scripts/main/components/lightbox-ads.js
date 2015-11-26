@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.LightboxAdsComponent = Ember.Component.extend({
+export default App.LightboxAdsComponent = Ember.Component.extend({
 	classNames: ['lightbox-ads', 'lightbox-content-inner'],
 
 	/**
@@ -20,5 +20,3 @@ App.LightboxAdsComponent = Ember.Component.extend({
 		}
 	}
 });
-
-export default App.LightboxAdsComponent;

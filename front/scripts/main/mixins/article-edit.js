@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.ArticleEditMixin = Ember.Mixin.create({
+export default App.ArticleEditMixin = Ember.Mixin.create({
 
 	/**
 	 * @param {string} title
@@ -39,5 +39,3 @@ App.ArticleEditMixin = Ember.Mixin.create({
 		});
 	}
 });
-
-export default App.ArticleEditMixin;

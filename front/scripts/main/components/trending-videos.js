@@ -1,7 +1,7 @@
 import App from '../app';
 import MediaModel from '../models/media';
 
-App.TrendingVideosComponent = Ember.Component.extend({
+export default App.TrendingVideosComponent = Ember.Component.extend({
 	classNames: ['trending', 'trending-videos', 'mw-content'],
 
 	actions: {
@@ -21,5 +21,3 @@ App.TrendingVideosComponent = Ember.Component.extend({
 		},
 	},
 });
-
-export default App.TrendingVideosComponent;

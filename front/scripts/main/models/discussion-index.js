@@ -1,7 +1,6 @@
 import App from '../app';
 
-App.DiscussionIndexModel = Ember.Object.extend({
-});
+export default App.DiscussionIndexModel = Ember.Object.extend({});
 
 App.DiscussionIndexModel.reopenClass({
 	/**
@@ -19,5 +18,3 @@ App.DiscussionIndexModel.reopenClass({
 		});
 	}
 });
-
-export default App.DiscussionIndexModel;

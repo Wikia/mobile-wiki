@@ -8,9 +8,9 @@ test('setup ads context', function() {
 		runCalled = false,
 		mixinClass = Ember.Object.extend(App.AdsMixin),
 		mixin = mixinClass.create({}),
-		original = Mercury.Modules.Ads.getInstance;
+		original = require('mercury/modules/Ads').default.getInstance;
 
-	Mercury.Modules.Ads.getInstance = function () {
+	require('mercury/modules/Ads').default.getInstance = function () {
 		return {
 			reload: function(context) {
 				gotContext = context;
@@ -19,6 +19,6 @@ test('setup ads context', function() {
 	};
 
 	mixin.setupAdsContext(context);
-	Mercury.Modules.Ads.getInstance = original;
+	require('mercury/modules/Ads').default.getInstance = original;
 	equal(gotContext, context, 'Set the ads context');
 });

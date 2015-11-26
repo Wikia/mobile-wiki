@@ -1,7 +1,7 @@
 import App from '../app';
 import ArticleEditMixin from '../mixins/article-edit';
 
-App.ArticleEditModel = Ember.Object.extend({
+export default App.ArticleEditModel = Ember.Object.extend({
 	content: null,
 	originalContent: null,
 	timestamp: null,
@@ -99,5 +99,3 @@ App.ArticleEditModel.reopenClass(
 		}
 	}
 );
-
-export default App.ArticleEditModel;

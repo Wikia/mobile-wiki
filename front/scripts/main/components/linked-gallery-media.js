@@ -1,7 +1,7 @@
 import App from '../app';
 import GalleryMediaComponent from './gallery-media';
 
-App.LinkedGalleryMediaComponent = GalleryMediaComponent.extend({
+export default App.LinkedGalleryMediaComponent = GalleryMediaComponent.extend({
 	tagName: 'div',
 	classNames: ['linked-gallery'],
 	layoutName: 'components/linked-gallery-media',
@@ -63,5 +63,3 @@ App.LinkedGalleryMediaComponent = GalleryMediaComponent.extend({
 		this.$().on('scroll', () => this.onScroll);
 	},
 });
-
-export default App.LinkedGalleryMediaComponent;

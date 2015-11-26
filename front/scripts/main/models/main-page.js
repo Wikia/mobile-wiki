@@ -2,7 +2,7 @@ import App from '../app';
 import ArticleModel from './article';
 import CuratedContentModel from './curated-content';
 
-App.MainPageModel = ArticleModel.extend({
+export default App.MainPageModel = ArticleModel.extend({
 	curatedContent: null
 });
 
@@ -32,5 +32,3 @@ App.MainPageModel.reopenClass({
 		});
 	}
 });
-
-export default App.MainPageModel;

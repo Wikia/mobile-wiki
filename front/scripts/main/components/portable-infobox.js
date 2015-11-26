@@ -2,7 +2,7 @@ import App from '../app';
 import ArticleContentMixin from '../mixins/article-content';
 import ViewportMixin from '../mixins/viewport';
 
-App.PortableInfoboxComponent = Ember.Component.extend(
+export default App.PortableInfoboxComponent = Ember.Component.extend(
 	ArticleContentMixin,
 	ViewportMixin,
 	{
@@ -99,5 +99,3 @@ App.PortableInfoboxComponent = Ember.Component.extend(
 		},
 	}
 );
-
-export default App.PortableInfoboxComponent;

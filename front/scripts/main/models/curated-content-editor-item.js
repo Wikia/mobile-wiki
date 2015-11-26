@@ -38,7 +38,7 @@ import ObjectUtilitiesMixin from '../mixins/object-utilities';
  * @property {id} image_id
  */
 
-App.CuratedContentEditorItemModel = Ember.Object.extend(
+export default App.CuratedContentEditorItemModel = Ember.Object.extend(
 	ObjectUtilitiesMixin,
 	{
 		article_id: null,
@@ -154,5 +154,3 @@ App.CuratedContentEditorItemModel.reopenClass({
 		});
 	}
 });
-
-export default App.CuratedContentEditorItemModel;

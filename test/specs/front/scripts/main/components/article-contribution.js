@@ -1,7 +1,13 @@
+var track;
+
 moduleForComponent('article-contribution', 'ArticleContributionComponent', {
 	unit: true,
 	setup: function () {
-		M.track = function () {};
+		track = require('mercury/utils/track').track;
+		require('mercury/utils/track').track = Em.K;
+	},
+	teardown: function () {
+		track = require('mercury/utils/track').track;
 	}
 });
 
@@ -14,16 +20,14 @@ test('component is initialized', function () {
 		sectionId = 'myId',
 		title = 'hello world',
 		uploadFeatureEnabled = true,
-		component = null;
-
-	component = this.subject({
-		attrs: {
-			section: section,
-			sectionId: sectionId,
-			title: title,
-			uploadFeatureEnabled: uploadFeatureEnabled,
-		}
-	});
+		component = this.subject({
+			attrs: {
+				section: section,
+				sectionId: sectionId,
+				title: title,
+				uploadFeatureEnabled: uploadFeatureEnabled,
+			}
+		});
 
 	equal(component.section, 3);
 	equal(component.sectionId, 'myId');

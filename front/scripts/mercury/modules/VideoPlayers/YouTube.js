@@ -19,14 +19,12 @@ export default class YouTubePlayer extends BasePlayer {
 
 		this.resourceURI = 'https://www.youtube.com/iframe_api';
 		this.containerId = BasePlayer.createUniqueId('youtubeVideoPlayer');
-
-		this.bindPlayerEvents();
 	}
 
 	/**
 	 * @returns {void}
 	 */
-	bindPlayerEvents() {
+	setupPlayer() {
 		this.params.events = {
 			onReady: (...args) => {
 				return this.onPlayerReady.apply(this, args);

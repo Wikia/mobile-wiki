@@ -1,8 +1,7 @@
-
 import Ads from '../../mercury/modules/Ads';
 import App from '../app';
 
-App.AdSlotComponent = Ember.Component.extend({
+export default App.AdSlotComponent = Ember.Component.extend({
 	classNames: ['ad-slot-wrapper'],
 	classNameBindings: ['nameLowerCase', 'noAds'],
 	// This component is created dynamically, and this won't work without it
@@ -57,5 +56,3 @@ App.AdSlotComponent = Ember.Component.extend({
 		Ember.Logger.info('Will destroy ad:', name);
 	},
 });
-
-export default App.AdSlotComponent;

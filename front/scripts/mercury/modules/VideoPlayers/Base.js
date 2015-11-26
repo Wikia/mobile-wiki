@@ -22,6 +22,12 @@ export default class BasePlayer {
 	}
 
 	/**
+	 * @returns {void}
+	 */
+	setupPlayer() {
+	}
+
+	/**
 	 * @returns {*}
 	 */
 	loadPlayer() {

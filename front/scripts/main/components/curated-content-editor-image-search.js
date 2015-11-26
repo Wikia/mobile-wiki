@@ -6,7 +6,7 @@ import TrackClickMixin from '../mixins/track-click';
 import IEIFrameFocusFixMixin from '../mixins/ieiframe-focus-fix';
 import SearchImagesModel from '../models/search-images';
 
-App.CuratedContentEditorImageSearchComponent = Ember.Component.extend(
+export default App.CuratedContentEditorImageSearchComponent = Ember.Component.extend(
 	CuratedContentEditorLabelsMixin,
 	CuratedContentEditorLayoutMixin,
 	CuratedContentThumbnailMixin,
@@ -91,5 +91,3 @@ App.CuratedContentEditorImageSearchComponent = Ember.Component.extend(
 		}
 	}
 );
-
-export default App.CuratedContentEditorImageSearchComponent;

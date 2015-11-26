@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.DiscussionSortComponent = Ember.Component.extend({
+export default App.DiscussionSortComponent = Ember.Component.extend({
 	classNames: ['discussion-sort', 'clearfix'],
 	classNameBindings: ['sortVisible::mobile-hidden'],
 	tagName: 'ul',
@@ -55,5 +55,3 @@ App.DiscussionSortComponent = Ember.Component.extend({
 			.addClass(activeClass);
 	},
 });
-
-export default App.DiscussionSortComponent;

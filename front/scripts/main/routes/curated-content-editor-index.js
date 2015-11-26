@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.CuratedContentEditorIndexRoute = Ember.Route.extend({
+export default App.CuratedContentEditorIndexRoute = Ember.Route.extend({
 	/**
 	 * @returns {void}
 	 */

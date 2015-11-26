@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.CuratedContentEditorLabelsMixin = Ember.Mixin.create({
+export default App.CuratedContentEditorLabelsMixin = Ember.Mixin.create({
 	isCategory: Ember.computed('isFeaturedItem', 'isSection', function () {
 		return !(this.get('isFeaturedItem') || this.get('isSection'));
 	}),
@@ -29,5 +29,3 @@ App.CuratedContentEditorLabelsMixin = Ember.Mixin.create({
 		return i18n.t('app.curated-content-editor-enter-page-name');
 	})
 });
-
-export default App.CuratedContentEditorLabelsMixin;

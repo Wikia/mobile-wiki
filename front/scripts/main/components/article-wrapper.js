@@ -13,7 +13,7 @@ import App from '../app';
  * @property {string} section
  */
 
-App.ArticleWrapperComponent = Ember.Component.extend(
+export default App.ArticleWrapperComponent = Ember.Component.extend(
 	LanguagesMixin,
 	TrackClickMixin,
 	ViewportMixin,
@@ -324,5 +324,3 @@ App.ArticleWrapperComponent = Ember.Component.extend(
 		},
 	}
 );
-
-export default App.ArticleWrapperComponent;

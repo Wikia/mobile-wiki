@@ -3,7 +3,7 @@ import App from '../app';
 /**
  * Handles sending upvote action outside from the component.
  */
-App.DiscussionUpvoteActionSendMixin = Ember.Mixin.create({
+export default App.DiscussionUpvoteActionSendMixin = Ember.Mixin.create({
 	actions: {
 		/**
 		 * @param {*} post
@@ -14,5 +14,3 @@ App.DiscussionUpvoteActionSendMixin = Ember.Mixin.create({
 		}
 	}
 });
-
-export default App.DiscussionUpvoteActionSendMixin;

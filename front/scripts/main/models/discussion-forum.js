@@ -1,8 +1,7 @@
 import App from '../app';
 import DiscussionBaseModel from './discussion-base';
 
-
-App.DiscussionForumModel = DiscussionBaseModel.extend({
+export default App.DiscussionForumModel = DiscussionBaseModel.extend({
 	name: null,
 	pageNum: null,
 	posts: null,
@@ -115,5 +114,3 @@ App.DiscussionForumModel.reopenClass({
 		});
 	}
 });
-
-export default App.DiscussionForumModel;

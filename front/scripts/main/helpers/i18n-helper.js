@@ -25,5 +25,3 @@ App.I18nHelper = Ember.Helper.helper((params, options) => {
 
 	return i18n.t(`${namespace}:${value}`, i18nParams);
 });
-
-export default App.I18nHelper;

@@ -3,7 +3,7 @@ import ViewportMixin from '../mixins/viewport';
 import TrackClickMixin from '../mixins/track-click';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-App.TrendingArticlesItemComponent = Ember.Component.extend(
+export default App.TrendingArticlesItemComponent = Ember.Component.extend(
 	ViewportMixin,
 	TrackClickMixin,
 	{
@@ -62,5 +62,3 @@ App.TrendingArticlesItemComponent = Ember.Component.extend(
 		},
 	}
 );
-
-export default App.TrendingArticlesItemComponent;

@@ -1,7 +1,7 @@
 import App from '../app';
 import {normalizeToWhitespace} from '../../mercury/utils/string';
 
-App.MainPageRouteMixin = Ember.Mixin.create({
+export default App.MainPageRouteMixin = Ember.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
@@ -81,5 +81,3 @@ App.MainPageRouteMixin = Ember.Mixin.create({
 		}
 	}
 });
-
-export default App.MainPageRouteMixin;

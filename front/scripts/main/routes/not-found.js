@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.NotFoundRoute = Ember.Route.extend({
+export default App.NotFoundRoute = Ember.Route.extend({
 	/**
 	 * @param {EmberStates.Transition} transition
 	 * @returns {void}

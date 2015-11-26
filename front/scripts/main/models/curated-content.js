@@ -25,7 +25,7 @@ import App from '../app';
  * @property {number} height
  */
 
-App.CuratedContentModel = Ember.Object.extend({
+export default App.CuratedContentModel = Ember.Object.extend({
 	title: null,
 	type: null,
 	items: [],
@@ -164,5 +164,3 @@ App.CuratedContentModel.reopenClass({
 		return item;
 	}
 });
-
-export default App.CuratedContentModel;

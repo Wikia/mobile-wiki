@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.LoadingSpinnerComponent = Ember.Component.extend({
+export default App.LoadingSpinnerComponent = Ember.Component.extend({
 	classNameBindings: ['overlay:loading-overlay'],
 	isVisible: Ember.computed.alias('active'),
 
@@ -17,5 +17,3 @@ App.LoadingSpinnerComponent = Ember.Component.extend({
 		return this.get('radius') * 2 + this.get('strokeWidth');
 	}),
 });
-
-export default App.LoadingSpinnerComponent;
