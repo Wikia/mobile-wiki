@@ -1,3 +1,4 @@
+$editor-active-mobile-border-top-width: 1px;
 $editor-border-width: 4px;
 $editor-toolbar-height: 40px;
 $editor-textarea-paddings: 17px 17px 17px 64px;
@@ -191,7 +192,7 @@ $success-icon-size: 80px;
 				}
 
 				.editor-textarea {
-					border-top: 1px solid $discussion-editor-textarea-border-color;
+					border-top: $editor-active-mobile-border-top-width solid $discussion-editor-textarea-border-color;
 					height: 100%;
 					max-height: none;
 					padding: $editor-toolbar-height 10px 10px;
@@ -207,9 +208,9 @@ $success-icon-size: 80px;
 					font-size: $type-min;
 					font-weight: bold;
 					padding: 10px;
-					position: absolute;
+					position: fixed;
 					text-transform: uppercase;
-					top: -15px;
+					top: $editor-toolbar-height + $editor-active-mobile-border-top-width;
 					width: 100%;
 					z-index: $z-discussion-editor + 1;
 				}
