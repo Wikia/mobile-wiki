@@ -6,7 +6,6 @@
 var gulp = require('gulp'),
 	babel = require('gulp-babel'),
 	concat = require('gulp-concat'),
-	folders = require('gulp-folders'),
 	gulpif = require('gulp-if'),
 	newer = require('gulp-newer'),
 	uglify = require('gulp-uglify'),
