@@ -196,6 +196,14 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		this.initializeStickyState();
 	},
 
+	/**
+	 * Turn off scroll handler on view leave
+	 * @returns {void}
+	 */
+	willDestroyElement(): void {
+		Em.$(window).off('scroll.editor');
+	},
+
 	actions: {
 		/**
 		 * Send request to model to create new post and start animations

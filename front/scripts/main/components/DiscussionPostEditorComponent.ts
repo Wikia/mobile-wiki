@@ -33,13 +33,6 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 	},
 
 	/**
-	 * @returns {void}
-	 */
-	willDestroyElement(): void {
-		Em.$(window).off('scroll.editor');
-	},
-
-	/**
 	 * Handle recalculation of placeholder size on resize
 	 * @returns {void}
 	 */

@@ -44,14 +44,6 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	},
 
 	/**
-	 * Turn off scroll handler on view leave
-	 * @returns {void}
-	 */
-	willDestroyElement(): void {
-		Em.$(window).off('scroll.editor');
-	},
-
-	/**
 	 * Handle recalculation of placeholder size on resize
 	 * @returns {void}
 	 */
