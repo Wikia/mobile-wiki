@@ -2,12 +2,31 @@
 /// <reference path="../mixins/DiscussionUpvoteActionSendMixin.ts" />
 'use strict';
 
+interface Window {
+	Autolinker: any;
+}
+
 App.PostDetailComponent = Em.Component.extend(
 	App.DiscussionUpvoteActionSendMixin,
 	{
 		classNames: ['post-detail'],
 
+		/**
+		 * Returns post content with links created from urls
+		 * @returns {string}
+		 */
+		parsedContent: Em.computed(function () {
+			return window.Autolinker.link(this.get('post.rawContent'), {
+				stripPrefix: false
+			});
+		}),
+
 		postId: null,
+
+		/**
+		 * Returns link to the post author's user page
+		 * returns {string}
+		 */
 		authorUrl: Em.computed('post', function (): string {
 			return M.buildUrl({
 				namespace: 'User',
