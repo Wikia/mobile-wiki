@@ -37,7 +37,6 @@ import deepExtend from 'deep-extend';
  * @property {*} pageParams
  */
 
-
 /**
  * @param {Hapi.Request} request
  * @param {*} i18n
@@ -61,7 +60,6 @@ function getDefaultRegistrationContext(request, i18n) {
 		}
 	);
 }
-
 
 /**
  * @param {Hapi.Request} request

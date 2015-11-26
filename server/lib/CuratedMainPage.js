@@ -12,16 +12,17 @@ import localSettings from '../../config/localSettings';
 /**
  * @class MainPageDataRequestError
  */
-export class MainPageDataRequestError extends Error {
+export class MainPageDataRequestError {
 	/**
 	 * @param {*} data
 	 * @returns {void}
 	 */
 	constructor(data) {
-		super(arguments);
+		Error.apply(this, arguments);
 		this.data = data;
 	}
 }
+MainPageDataRequestError.prototype = Object.create(Error.prototype);
 
 /**
  * @class CuratedMainPageRequestHelper

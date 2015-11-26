@@ -291,14 +291,23 @@ export function getStaticAssetPath(localSettings, request) {
 /**
  * @class RedirectedToCanonicalHost
  */
-export class RedirectedToCanonicalHost extends Error {
+
+
+/**
+ * @class MainPageDataRequestError
+ */
+export class RedirectedToCanonicalHost {
 	/**
+	 * @param {*} data
 	 * @returns {void}
 	 */
-	constructor() {
-		super(arguments);
+	constructor(data) {
+		Error.apply(this, arguments);
+		this.data = data;
 	}
 }
+RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
+
 
 /**
  * If user tried to load wiki by its alternative URL then redirect to the primary one based on wikiVariables.basePath
@@ -326,7 +335,7 @@ export function redirectToCanonicalHostIfNeeded(localSettings, request, reply, w
 		}
 
 		reply.redirect(redirectLocation).permanent(true);
-		throw new RedirectedToCanonicalHost();
+		throw new RedirectedToCanonicalHost;
 	}
 }
 

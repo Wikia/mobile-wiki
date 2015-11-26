@@ -18,7 +18,7 @@ gulp.task('scripts-server', ['scripts-config'], function () {
 		}))
 		.on('error', function () {
 			if (gutil.env.testing && environment.isProduction) {
-				console.error('Build contains some ES6 errors/warnings');
+				console.error('Build contains some errors/warnings');
 				process.exit(1);
 			}
 		})

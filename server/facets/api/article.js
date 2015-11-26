@@ -33,7 +33,6 @@ function handleArticleResponse(reply, result, allowCache) {
 	} else {
 		Caching.disableCache(response);
 	}
-
 }
 
 /**

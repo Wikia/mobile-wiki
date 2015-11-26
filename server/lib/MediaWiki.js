@@ -324,13 +324,15 @@ export class ArticleRequest extends BaseRequest {
 /**
  * @class WikiVariablesRequestError
  */
-export class WikiVariablesRequestError extends Error {
+export class WikiVariablesRequestError {
 	/**
 	 * @param {MWException} error
 	 * @returns {void}
      */
 	constructor(error) {
-		super(arguments);
+		Error.apply(this, arguments);
 		this.error = error;
 	}
 }
+
+WikiVariablesRequestError.prototype = Object.create(Error.prototype);

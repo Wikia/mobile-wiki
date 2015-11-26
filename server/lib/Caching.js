@@ -62,10 +62,10 @@ export function disableCache(response) {
  */
 export default function setResponseCaching(response, cachingSettings) {
 	if (cachingSettings && cachingSettings.enabled && response.statusCode === 200) {
-
 		if (cachingSettings.browserTTL === Interval.default) {
 			cachingSettings.browserTTL = cachingSettings.varnishTTL;
 		}
+
 		if (cachingSettings.cachingPolicy === Policy.Public) {
 			// Varnish caches for 5 seconds when Apache sends Cache-Control: public, s-maxage=0
 			// perform this logic here
@@ -79,6 +79,7 @@ export default function setResponseCaching(response, cachingSettings) {
 			response.header('Cache-Control',
 				`private, s-maxage=${cachingSettings.varnishTTL}`);
 		}
+
 		if (cachingSettings.browserTTL > 0) {
 			response.header('X-Pass-Cache-Control',
 				`${cachingSettings.cachingPolicy}, max-age=${cachingSettings.browserTTL}`);

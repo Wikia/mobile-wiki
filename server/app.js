@@ -112,7 +112,6 @@ function setupLogging(server) {
 	 * @param {*} tags
 	 * @returns {void}
 	 */
-	//
 	server.on('request-internal', (request, event, tags) => {
 		// We exclude implementation tag because it would catch the same error as request-error
 		// but without message explaining what exactly happened
