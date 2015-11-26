@@ -24,6 +24,10 @@ App.DiscussionPostEditorComponent = App.DiscussionEditorComponent.extend({
 		});
 	}),
 
+	/**
+	 * Indicates if the scroll position reached a point where editor should start sticking
+	 * @returns {boolean}
+	 */
 	isStickyBreakpointHeight(): boolean {
 		return window.pageYOffset >= this.get('offsetTop') - (this.get('siteHeadPinned') ? this.get('siteHeadHeight') : 0);
 	},

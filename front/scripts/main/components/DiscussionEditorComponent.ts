@@ -22,6 +22,9 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 
 	errorMessage: Em.computed.oneWay('requestErrorMessage'),
 
+	/**
+	 * returns {boolean}
+	 */
 	submitDisabled: Em.computed('bodyText', 'currentUser.userId', function (): boolean {
 		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null
 	}),
@@ -45,6 +48,9 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 			: null;
 	}),
 
+	/**
+	 * returns {void}
+	 */
 	onScroll(): void {
 		Em.run.throttle(
 			this,
@@ -161,6 +167,10 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		}, 2000);
 	},
 
+	/**
+	 * @param {object} newItem
+	 * @returns {void}
+	 */
 	showNewPostAnimations(newItem: any): void {
 		this.setProperties({
 			isActive: false,

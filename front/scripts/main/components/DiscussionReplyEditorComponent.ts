@@ -27,6 +27,10 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 		});
 	},
 
+	/**
+	 * Indicates if the scroll position reached a point where editor should start sticking
+	 * @returns {boolean}
+	 */
 	isStickyBreakpointHeight(): boolean {
 		var editorContainer: JQuery;
 
