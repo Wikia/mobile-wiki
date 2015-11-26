@@ -1,5 +1,11 @@
 moduleForComponent('article-wrapper', 'ArticleWrapperComponent', {
-	unit: true
+	unit: true,
+	beforeEach: function () {
+		this.originalWiki = Mercury.wiki;
+	},
+	afterEach: function () {
+		Mercury.wiki = this.originalWiki;
+	}
 });
 
 test('shouldHandleMedia returns correct value', function () {
