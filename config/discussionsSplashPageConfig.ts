@@ -357,7 +357,7 @@ var discussionsSplashPageConfig: DiscussionsSplashPageConfig = {
 	},
 
 	'americanhorrorstory': {
-		wikiId: 32199,
+		wikiId: 321995,
 		iosAppLink: 'https://itunes.apple.com/us/app/wikia-fan-app-for-american/id963580005',
 		androidAppLink: 'https://play.google.com/store/apps/details?id=com.wikia.singlewikia.americanhorror',
 		domain: 'americanhorrorstory',

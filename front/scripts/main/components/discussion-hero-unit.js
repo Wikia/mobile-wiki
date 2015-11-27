@@ -40,7 +40,7 @@ export default App.DiscussionHeroUnitComponent = Ember.Component.extend(Viewport
 		255885: 'discussion-header-terraria.jpg',
 		509: 'discussion-header-harry-potter.jpg',
 		2188: 'discussion-header-battlefront.jpg',
-		32199: 'discussion-header-ahs.jpg',
+		321995: 'discussion-header-ahs.jpg',
 		2233: 'discussion-header-marvel.jpg',
 		2237: 'discussion-header-dc.jpg',
 		604797: 'discussion-header-destiny.jpg',

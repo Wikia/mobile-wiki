@@ -36,7 +36,7 @@ export default App.CommunityBadgeComponent = Ember.Component.extend({
 		255885: '/front/images/community-badge-terraria.jpg',
 		509: '/front/images/community-badge-harry-potter.jpg',
 		2188: '/front/images/community-badge-battlefront.jpg',
-		32199: '/front/images/community-badge-ahs.jpg',
+		321995: '/front/images/community-badge-ahs.jpg',
 		2233: '/front/images/community-badge-marvel.jpg',
 		2237: '/front/images/community-badge-dc.jpg',
 		604797: '/front/images/community-badge-destiny.jpg',
