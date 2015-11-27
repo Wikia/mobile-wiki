@@ -10,8 +10,8 @@ export default App.PostDetailComponent = Ember.Component.extend(
 		 * Returns post content with links created from urls
 		 * @returns {string}
 		 */
-		parsedContent: Em.computed(function () {
-			var escapedContent = Ember.Handlebars.Utils.escapeExpression(
+		parsedContent: Ember.computed(function () {
+			const escapedContent = Ember.Handlebars.Utils.escapeExpression(
 				this.get('post.rawContent')
 			);
 
