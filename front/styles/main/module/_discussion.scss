@@ -65,7 +65,7 @@ body.discussions {
 		padding: .3rem 0;
 	}
 
-	.discussion-reply {
+	.discussion-reply .discussion-no-reply{
 		border: none;
 		padding: {
 			top: 12px;
@@ -113,11 +113,18 @@ body.discussions {
 			}
 		}
 	}
+	.discussion-no-reply {
+	  color: $aluminum;
+	  height: 100px;
+	  margin: 40px auto;
+	  text-align: center;
+	  width: inherit;
 
+	}
 	// border set for each element with "post-reply" class, after the first one
 	.post-reply ~ .post-reply {
 		.discussion-reply {
-			border-top: 1px solid $discussion-reply-border-color;
+			border-bottom: 1px solid $discussion-reply-border-color;
 		}
 	}
 
@@ -141,6 +148,10 @@ body.discussions {
 		&.replies{
 			height: 24px;
 			width: 24px;
+		}
+	  	&.no-reply {
+			height:34px;
+			width:40px;
 		}
 		&.toggle-share {
 			height: 20px;
@@ -293,5 +304,8 @@ body.discussions {
 			margin-left: auto;
 			margin-right: auto;
 		}
+	  	.discussion-no-reply{
+		  border-bottom: 1px solid $discussion-reply-border-color;
+	  }
 	}
 }
