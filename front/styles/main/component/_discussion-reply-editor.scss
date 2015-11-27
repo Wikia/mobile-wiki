@@ -81,6 +81,10 @@ $reply-editor-margin-left: -20px;
 		.editor-container {
 			margin-left: $reply-editor-margin-left;
 			width: $reply-editor-width;
+
+			&.sticky {
+				width: $reply-editor-width;
+			}
 		}
 	}
 }
