@@ -1,9 +1,11 @@
 App.ImageReviewItemComponent = Em.Component.extend({
     editorLayout: 'image-review-item',
+	imageId: null,
+	contractId: null,
 
     actions: {
         /**
-         * @param {CuratedContentEditorModel} model
+         * @param {ImageReviewItem} model
          * @returns {void}
          */
         setOk(model) {
