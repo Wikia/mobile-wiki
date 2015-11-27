@@ -75,7 +75,7 @@ body.discussions {
 				border-color: $discussion-deleted-mark-color transparent transparent transparent;
 				border-style: solid;
 				border-width: $deleted-mark-size $deleted-mark-size 0 0;
-				content: " ";
+				content: "";
 				height: $deleted-mark-size;
 				left: 0;
 				position: absolute;
