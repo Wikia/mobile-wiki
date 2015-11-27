@@ -6,14 +6,14 @@
 
 /**
  * @typedef {Object} WikiaDiscussionsConfig
- * @property {string} androidAppLink
- * @property {string} androidStoreLogo
- * @property {string} iosAppLink
- * @property {string} iosStoreLogo
+ * @property {string} [androidAppLink]
+ * @property {string} [androidStoreLogo]
+ * @property {string} [iosAppLink]
+ * @property {string} [iosStoreLogo]
  * @property {string} domain
- * @property {string} icon
- * @property {string} appScreens
- * @property {string} appName
+ * @property {string} [icon]
+ * @property {string} [appScreens]
+ * @property {string} [appName]
  * @property {string} language
  * @property {number} wikiId
  * @property {string} dbName
