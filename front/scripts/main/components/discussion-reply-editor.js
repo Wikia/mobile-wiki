@@ -41,7 +41,7 @@ export default App.DiscussionReplyEditorComponent = DiscussionEditorComponent.ex
 		}
 
 		return Ember.$('.reply-editor')
-				.get(0).getBoundingClientRect().bottom - window.innerHeight >= this.editorBottomSpacing;
+				.get(0).getBoundingClientRect().bottom - window.innerHeight >= this.get('editorBottomSpacing');
 	},
 
 	/**
