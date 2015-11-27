@@ -26,7 +26,7 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend({
 					limit: this.replyLimit,
 					pivot: this.pivotId,
 					page: this.page + 1,
-					'viewableOnly': false
+					viewableOnly: false
 				}),
 				xhrFields: {
 					withCredentials: true,
@@ -76,7 +76,7 @@ App.DiscussionPostModel.reopenClass({
 					sortDirection: 'descending',
 					sortKey: 'creation_date',
 					limit: postInstance.replyLimit,
-					'viewableOnly': false
+					viewableOnly: false
 				}),
 				dataType: 'json',
 				xhrFields: {
