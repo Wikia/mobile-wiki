@@ -1,27 +1,12 @@
 import App from '../app';
 import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
+import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
 
 export default App.PostDetailComponent = Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
+	DiscussionParsedContentMixin,
 	{
 		classNames: ['post-detail'],
-
-		/**
-		 * Returns post content with links created from urls
-		 * @returns {string}
-		 */
-		parsedContent: Ember.computed(function () {
-			const escapedContent = Ember.Handlebars.Utils.escapeExpression(
-				this.get('post.rawContent')
-			);
-
-			return window.Autolinker ? window.Autolinker.link(escapedContent, {
-				stripPrefix: false,
-				email: false,
-				phone: false,
-				twitter: false
-			}) : escapedContent;
-		}),
 
 		postId: null,
 
