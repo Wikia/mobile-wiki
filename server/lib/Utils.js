@@ -48,7 +48,7 @@ export function getEnvironment(environment, fallbackEnvironment = Environment.De
  * @returns {string}
  */
 export function getEnvironmentString(environment) {
-	return Environment[environment].toLowerCase();
+	return getEnvironmentString(environment).toLowerCase();
 }
 
 /**
