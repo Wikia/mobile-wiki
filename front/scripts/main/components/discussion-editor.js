@@ -1,7 +1,7 @@
-/// <reference path="../app.ts" />
-'use strict';
+import App from '../app';
+import ViewportMixin from '../mixins/viewport';
 
-App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
+export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
 
 	classNames: ['discussion-editor'],
@@ -20,19 +20,19 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	bodyText: '',
 	layoutName: 'components/discussion-editor',
 
-	errorMessage: Em.computed.oneWay('requestErrorMessage'),
+	errorMessage: Ember.computed.oneWay('requestErrorMessage'),
 
 	/**
 	 * returns {boolean}
 	 */
-	submitDisabled: Em.computed('bodyText', 'currentUser.userId', function (): boolean {
-		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null
+	submitDisabled: Ember.computed('bodyText', 'currentUser.userId', function () {
+		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null;
 	}),
 
 	/**
 	 * @returns {void}
 	 */
-	init(): void {
+	init() {
 		this._super.apply(this, arguments);
 
 		this.set('isActive', false);
@@ -42,19 +42,19 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * Set right height for editor placeholder when editor gets sticky
 	 * @returns {void}
 	 */
-	style: Em.computed('isSticky', function (): string {
-		return this.get('isSticky') === true
-			? `height: ${this.$('.editor-container').outerHeight(true) + this.$('.editor-label').outerHeight()}px`
-			: null;
+	style: Ember.computed('isSticky', function () {
+		return this.get('isSticky') === true ?
+			`height: ${this.$('.editor-container').outerHeight(true) + this.$('.editor-label').outerHeight()}px` :
+			null;
 	}),
 
 	/**
-	 * returns {void}
+	 * @returns {void}
 	 */
-	onScroll(): void {
-		Em.run.throttle(
+	onScroll() {
+		Ember.run.throttle(
 			this,
-			function (): void {
+			function () {
 				if (!this.get('isSticky') && this.isStickyBreakpointHeight()) {
 					this.set('isSticky', true);
 				} else if (this.get('isSticky') && !this.isStickyBreakpointHeight()) {
@@ -69,7 +69,7 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * Method should be overwritten in the child classes
 	 * @returns {void}
 	 */
-	isStickyBreakpointHeight(): void {
+	isStickyBreakpointHeight() {
 		throw new Error('Please, override this method in the descendant class');
 	},
 
@@ -77,14 +77,14 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * Method should be overwritten in the child classes
 	 * @returns {void}
 	 */
-	initializeStickyState(): void {
+	initializeStickyState() {
 		throw new Error('Please, override this method in the descendant class');
 	},
 
 	/**
 	 * Display error message on post failure
 	 */
-	errorMessageObserver: Em.observer('errorMessage', function (): void {
+	errorMessageObserver: Ember.observer('errorMessage', function () {
 		if (this.get('errorMessage')) {
 			alert(i18n.t(this.get('errorMessage'), {ns: 'discussion'}));
 		}
@@ -94,19 +94,20 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	/**
 	 * Ultra hack for editor on iOS
 	 * iOS is scrolling on textarea focus, changing it's size on focus prevent that
+	 * @returns {void}
 	 */
-	handleIOSFocus(): void {
+	handleIOSFocus() {
 		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+			const $editorTextarea = $('.editor-textarea');
 
-			var $editorTextarea = $('.editor-textarea');
 			$editorTextarea
 				.css('height', '100px')
-				.on('focus', function () {
-					setTimeout(function () {
+				.on('focus', () => {
+					setTimeout(() => {
 						$editorTextarea.css('height', '100%');
 					}, 500);
 				})
-				.on('blur', function () {
+				.on('blur', () => {
 					$editorTextarea.css('height', '100px');
 				});
 		}
@@ -116,14 +117,14 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * Handle clicks - focus in textarea and activate editor
 	 * @returns {void}
 	 */
-	click(): void {
+	click() {
 		this.$('.editor-textarea').focus();
 	},
 
 	/**
 	 * Handle message for anon when activating editor
 	 */
-	isActiveObserver: Em.observer('isActive', function (): void {
+	isActiveObserver: Ember.observer('isActive', function () {
 		if (this.get('isActive')) {
 			if (this.get('currentUser.userId') === null) {
 				this.setProperties({
@@ -152,17 +153,18 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 
 	/**
 	 * Perform animations and logic after post creation
+	 * @param {object} newItem
 	 * @returns {void}
 	 */
-	handleNewItemCreated(newItem: any): void {
+	handleNewItemCreated(newItem) {
 		this.setProperties({
 			isLoading: false,
 			showSuccess: true
 		});
 
-		Em.set(newItem, 'isVisible', false);
+		Ember.set(newItem, 'isVisible', false);
 
-		Em.run.later(this, () => {
+		Ember.run.later(this, () => {
 			this.showNewPostAnimations(newItem);
 		}, 2000);
 	},
@@ -171,25 +173,25 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * @param {object} newItem
 	 * @returns {void}
 	 */
-	showNewPostAnimations(newItem: any): void {
+	showNewPostAnimations(newItem) {
 		this.setProperties({
 			isActive: false,
 			bodyText: '',
 			showSuccess: false
 		});
 
-		Em.set(newItem, 'isVisible', true);
+		Ember.set(newItem, 'isVisible', true);
 
 		Ember.run.scheduleOnce('afterRender', this, () => {
 			// This needs to be dalayed for CSS animation
-			Em.set(newItem, 'isNew', false);
+			Ember.set(newItem, 'isNew', false);
 		});
 	},
 
 	/**
 	 * @returns {void}
 	 */
-	didInsertElement(): void {
+	didInsertElement() {
 		this._super();
 
 		this.handleIOSFocus();
@@ -200,8 +202,8 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 	 * Turn off scroll handler on view leave
 	 * @returns {void}
 	 */
-	willDestroyElement(): void {
-		Em.$(window).off('scroll.editor');
+	willDestroyElement() {
+		Ember.$(window).off('scroll.editor');
 	},
 
 	actions: {
@@ -209,23 +211,24 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * Send request to model to create new post and start animations
 		 * @returns {void}
 		 */
-		create(): void {
+		create() {
 			if (!this.get('submitDisabled')) {
 				this.set('isLoading', true);
 
 				this.sendAction('create', {
 					body: this.get('bodyText'),
 					creatorId: this.get('currentUser.userId'),
-					siteId: Mercury.wiki.id,
+					siteId: Mercury.wiki.id
 				});
 			}
 		},
 
 		/**
 		 * Enable/disable editor
+		 * @param {boolean} active
 		 * @returns {void}
 		 */
-		toggleEditorActive(active: boolean): void {
+		toggleEditorActive(active) {
 			this.set('isActive', active);
 		},
 
@@ -233,16 +236,17 @@ App.DiscussionEditorComponent = Em.Component.extend(App.ViewportMixin, {
 		 * Update editor when typing - activate editor
 		 * @returns {void}
 		 */
-		updateOnInput(): void {
+		updateOnInput() {
 			this.set('isActive', true);
 		},
 
 		/**
 		 * Handle keypress - post creation shortcut
+		 * @param {Event} event
 		 * @returns {void}
 		 */
-		handleKeyPress(event: KeyboardEvent) :void {
-			if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
+		handleKeyPress(event) {
+			if ((event.keyCode === 10 || event.keyCode === 13) && event.ctrlKey) {
 				// Create post on CTRL + ENTER
 				this.send('create');
 			}

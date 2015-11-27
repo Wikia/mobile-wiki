@@ -1,7 +1,7 @@
-/// <reference path="../app.ts" />
-'use strict';
+import App from '../app';
+import DiscussionEditorComponent from './discussion-editor';
 
-App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
+export default App.DiscussionReplyEditorComponent = DiscussionEditorComponent.extend({
 	editorBottomSpacing: null,
 
 	classNames: ['reply-editor'],
@@ -15,14 +15,14 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 * Initialize onScroll binding for sticky logic
 	 * @returns {void}
 	 */
-	initializeStickyState(): void {
+	initializeStickyState() {
 		if (window.innerHeight < this.$().offset().top + this.$().height()) {
 			this.set('isSticky', true);
 		} else {
 			this.set('isSticky', false);
 		}
 
-		Em.$(window).on('scroll.editor', (): void => {
+		Ember.$(window).on('scroll.editor', () => {
 			this.onScroll();
 		});
 	},
@@ -31,25 +31,26 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 * Indicates if the scroll position reached a point where editor should start sticking
 	 * @returns {boolean}
 	 */
-	isStickyBreakpointHeight(): boolean {
-		var editorContainer: JQuery;
+	isStickyBreakpointHeight() {
+		let editorContainer;
 
 		if (!this.get('editorBottomSpacing')) {
-			editorContainer = Em.$('.editor-container');
+			editorContainer = Ember.$('.editor-container');
 			this.set('editorBottomSpacing', parseInt(editorContainer.css('borderBottomWidth'), 10) +
 				parseInt(editorContainer.css('margin-bottom'), 10));
 		}
 
-		return Em.$('.reply-editor').get(0).getBoundingClientRect().bottom - window.innerHeight >= this.editorBottomSpacing;
+		return Ember.$('.reply-editor')
+				.get(0).getBoundingClientRect().bottom - window.innerHeight >= this.editorBottomSpacing;
 	},
 
 	/**
 	 * Handle recalculation of placeholder size on resize
 	 * @returns {void}
 	 */
-	viewportChangeObserver: Em.observer('viewportDimensions.width', 'viewportDimensions.height',
-		function (): void {
-			Em.$(window).off('scroll.editor');
+	viewportChangeObserver: Ember.observer('viewportDimensions.width', 'viewportDimensions.height',
+		function () {
+			Ember.$(window).off('scroll.editor');
 			this.initializeStickyState();
 		}
 	),
@@ -58,15 +59,15 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 * Perform animations and logic after reply creation
 	 * @returns {void}
 	 */
-	handleNewReplyCreated: Em.observer('replies.@each.isNew', function (): void {
-		var newReplies = this.get('replies').filter(function (reply: any): boolean {
+	handleNewReplyCreated: Ember.observer('replies.@each.isNew', function () {
+		const newReplies = this.get('replies').filter((reply) => {
 				return reply.isNew;
 			}),
 			newReply = newReplies.get('firstObject');
 
 		if (newReply) {
-			Em.$('html, body').animate({
-				scrollTop: Em.$(document).height()
+			Ember.$('html, body').animate({
+				scrollTop: Ember.$(document).height()
 			});
 			this.handleNewItemCreated(newReply);
 		}
@@ -76,9 +77,9 @@ App.DiscussionReplyEditorComponent = App.DiscussionEditorComponent.extend({
 	 * Handle clicks - focus in textarea and activate editor
 	 * @returns {void}
 	 */
-	click(): void {
+	click() {
 		this._super();
-		Em.run.later(this, (): void => {
+		Ember.run.later(this, () => {
 			this.initializeStickyState();
 		}, 200);
 	}
