@@ -3,7 +3,6 @@ App.ImageReviewRoute = Em.Route.extend(
 
 		model() {
 			console.log("Image review route");
-			var _this = this; //Save context to this
 			return App.ImageReviewModel.startSession();
 		},
 		actions: {
@@ -28,7 +27,7 @@ App.ImageReviewRoute = Em.Route.extend(
 
 			getMoreImages(sessionId) {
 				console.log("Getting more images for ID: "+sessionId);
-				App.ImageReviewModel.getImages(_sessionId)
+				App.ImageReviewModel.getImages(sessionId)
 					.then(function (data) {
 						console.log("Images: "+JSON.stringify(data));
 					})

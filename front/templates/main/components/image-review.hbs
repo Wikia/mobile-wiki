@@ -10,5 +10,16 @@
 		{{/each}}
     </li>
 </ul>
+
+<button class="load-more-items" {{action 'getMoreImages'}}>
+Get More Images
+</button>
+
+<button class="review-images" {{action 'reviewImages'}}>
+Review!
+</button>
+
+
+
 {{loading-spinner active=isLoading}}
 {{alert-notifications alerts=alertNotifications}}

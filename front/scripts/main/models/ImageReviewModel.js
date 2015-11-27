@@ -58,7 +58,7 @@ App.ImageReviewModel.reopenClass({
 				method: 'GET',
 				success: (data) => {
 					console.log("GetImages data: "+JSON.stringify(data));
-					if (Em.isArray(data.data)) {
+					if (Em.isArray(data)) {
 						resolve(App.ImageReviewModel.sanitize(data));
 					} else {
 						reject('Invalid data was returned from Image Review API');
