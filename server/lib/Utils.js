@@ -44,7 +44,7 @@ export function getEnvironment(environment, fallbackEnvironment = Environment.De
 /**
  * Get environment as string
  *
- * @param {Environment} environment
+ * @param {String} environment
  * @returns {string}
  */
 export function getEnvironmentString(environment) {
