@@ -115,11 +115,11 @@ body.discussions {
 	}
 	.discussion-no-reply {
 	  color: $aluminum;
+	  font-size: $type-smallest;
 	  height: 100px;
 	  margin: 40px auto;
 	  text-align: center;
 	  width: inherit;
-
 	}
 	// border set for each element with "post-reply" class, after the first one
 	.post-reply ~ .post-reply {
@@ -150,8 +150,10 @@ body.discussions {
 			width: 24px;
 		}
 	  	&.no-reply {
-			height:34px;
-			width:40px;
+		  	display: block;
+			height: 34px;
+		  	margin: 0 auto;
+			width: 40px;
 		}
 		&.toggle-share {
 			height: 20px;
