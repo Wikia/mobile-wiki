@@ -135,9 +135,10 @@ class UniversalAnalytics {
 	 * We create new tracker instance every time mercury/utils/track #track or #trackPageView is called
 	 * Google wants us to call methods below just once per account
 	 *
-	 * @param id
-	 * @param prefix
-	 * @param options
+	 * @param {string} id
+	 * @param {string} prefix
+	 * @param {Object} options
+	 * @returns {void}
 	 */
 	static setupAccountOnce(id, prefix, options) {
 		if (!UniversalAnalytics.createdAccounts.contains(id)) {
