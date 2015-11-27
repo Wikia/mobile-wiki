@@ -2,8 +2,7 @@
 [![devDependency Status](https://david-dm.org/Wikia/mercury/dev-status.svg)](https://david-dm.org/Wikia/mercury#info=devDependencies)
 
 ## Manual Setup
-* `npm install` will install local dependencies
-* `npm install -g bower gulp forever bower-installer` to install global dependencies
+* `npm install` will install dependencies
 * `bower update` will install and update client dependencies
 * Copy `config/localSettings.example.js` to your own copy of `localSettings.js` and set the `port` and `devboxDomain`.
   * The devboxDomain must have your devbox name (without the dev- prefix) in it.
