@@ -247,7 +247,7 @@ export default {
 		dbName: 'onedirection'
 	},
 
-	'mediawiki119' : {
+	'mediawiki119': {
 		domain: 'mediawiki119.wikia.com',
 		language: 'en',
 		wikiId: 203236,
