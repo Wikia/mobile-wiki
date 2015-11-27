@@ -83,10 +83,13 @@ $parallax-large: new-breakpoint(min-width 800px);
 	$parallax-background-image: '/images/starwars-campaign.jpg';
 	$parallax-bacground-color: #081d38;
 
-	background: url($parallax-background-image) repeat;
-	background-color: $parallax-bacground-color;
-	background-position: top;
-	background-size: cover;
+	background: {
+		color: $parallax-bacground-color;
+		image: url($parallax-background-image);
+		position: top;
+		repeat: repeat;
+		size: cover;
+	}
 	height: 50em;
 	left: 0;
 	position: absolute;
@@ -98,16 +101,18 @@ $parallax-large: new-breakpoint(min-width 800px);
 	$parallax-background-image: '/images/wikia-universe.jpg';
 	$parallax-bacground-color: #081d38;
 
-	background: url($parallax-background-image) repeat;
-	background-color: $parallax-bacground-color;
-	background-position: top;
-	background-size: cover;
-	height: 50em;
+	background: {
+		color: $parallax-bacground-color;
+		image: url($parallax-background-image);
+		position: top;
+		repeat: repeat;
+		size: cover;
+	}
+	height: 40em;
 	left: 0;
 	position: absolute;
 	top: - $parallax-window-height / 3;
 	width: 100%;
 }
-
 
 // Based on http://codepen.io/skeurentjes/
