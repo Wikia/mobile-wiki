@@ -8,12 +8,12 @@ import QueryString from 'querystring';
 
 // Environment types
 const Environment = {
-		Prod: 'Prod',
-		Verify: 'Verify',
-		Preview: 'Preview',
-		Sandbox: 'Sandbox',
-		Dev: 'Dev',
-		Testing: 'Testing'
+		Prod: 'prod',
+		Verify: 'verify',
+		Preview: 'preview',
+		Sandbox: 'sandbox',
+		Dev: 'dev',
+		Testing: 'testing'
 	},
 	wikiDomainsCache = {};
 
