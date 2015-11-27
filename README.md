@@ -12,19 +12,18 @@
 
     File should look something like this:
 ``` javascript
-	import baseExtendSettingsDev from './localSettings.dev';
-	import baseExtendSettingsProd from './localSettings.base';
+import baseExtendSettingsDev from './localSettings.dev';
+import baseExtendSettingsProd from './localSettings.base';
 
-	const baseExtendSettings = process.env.WIKIA_ENVIRONMENT === 'dev' ? baseExtendSettingsDev : baseExtendSettingsProd,
-		localSettings = baseExtendSettings({
-			devboxDomain: 'joe',
-			loggers: {
-				console: 'debug'
-			},
-			port: 8000 // 7000 if running on devbox
-		});
+const baseExtendSettings = process.env.WIKIA_ENVIRONMENT === 'dev' ? baseExtendSettingsDev : baseExtendSettingsProd,
+	localSettings = baseExtendSettings({
+		devboxDomain: 'joe',
+		loggers: {
+			console: 'debug'
+		}
+	});
 
-	export default localSettings;
+export default localSettings;
 ```
 * Start the server and watch files:
   * `npm run local` If running everything locally (e.g. your laptop)
@@ -36,8 +35,8 @@
  * `localSettings.dev.js` - configuration for development environment - used on devboxes - **you should be extending this one for development**
 
 ## Access Mercury
-Open http://muppet.127.0.0.1.xip.io:8000/wiki/Gonzo in your browser
-$ curl -H "Host:muppet.wikia-dev.com" "http://dev-joe:8000/wiki/Gonzo"
+Open http://muppet.127.0.0.1.xip.io:7000/wiki/Gonzo in your browser
+$ curl -H "Host:muppet.wikia-dev.com" "http://dev-joe:7000/wiki/Gonzo"
 
 ##Live reload
 In dev environments the livereload plugin is available when the server is started with `npm run local`.  This will reload your web browser on any change to the `front` folder.
