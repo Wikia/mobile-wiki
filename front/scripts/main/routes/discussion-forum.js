@@ -31,6 +31,10 @@ export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMix
 		controller.set('sortBy', transition.params['discussion.forum'].sortBy || this.defaultSortType);
 	},
 
+	checkPermissions(post, permission) {
+		return Ember.get(post, '_embedded.userData')[0].permissions.contains(permission);
+	},
+
 	actions: {
 		/**
 		 * @param {number} postId
@@ -56,19 +60,14 @@ export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMix
 		},
 
 		deletePost(post) {
-			// TODO extract
-			const permissions = Ember.get(post, '_embedded.userData')[0].permissions;
-
-			if (!Ember.get(post, 'isDeleted')) {
+			if (!Ember.get(post, 'isDeleted') && this.checkPermissions(post, 'canDelete')) {
 				this.modelFor('discussion.forum').deletePost(post.threadId);
 			}
 		},
 
 		undeletePost(post) {
-			// TODO extract
-			const permissions = Ember.get(post, '_embedded.userData')[0].permissions;
-
-			if (Ember.get(post, 'isDeleted')) {
+			console.log(post);
+			if (Ember.get(post, 'isDeleted') && this.checkPermissions(post, 'canUndelete')) {
 				this.modelFor('discussion.forum').undeletePost(post.threadId);
 			}
 		},
