@@ -27,7 +27,7 @@ export default App.PostDetailComponent = Ember.Component.extend(
 
 		/**
 		 * Returns link to the post author's user page
-		 * returns {string}
+		 * @returns {string}
 		 */
 		authorUrl: Ember.computed('post', function () {
 			return M.buildUrl({
