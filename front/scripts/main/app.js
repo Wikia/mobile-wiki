@@ -85,7 +85,7 @@ App.initializer({
 			LOG_ACTIVE_GENERATION: debug,
 			LOG_VIEW_LOOKUPS: debug,
 			LOG_TRANSITIONS: debug,
-			LOG_TRANSITIONS_INTERNAL: debug	
+			LOG_TRANSITIONS_INTERNAL: debug
 		});
 
 		i18n.init({
