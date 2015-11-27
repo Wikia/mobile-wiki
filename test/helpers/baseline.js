@@ -3,26 +3,15 @@
  * @description Sets up baseline first load experience to mirror the main web client
  */
 
-function resetMercuryBaseline () {
+function resetMercuryBaseline() {
 	var M = window.M;
 
 	M.prop('apiBase', '/api/mercury', true);
-	M.prop('weppyConfig', {
-		host: '',
-		samplingRate: 1,
-		aggregationInterval: 1000
-	}, true);
-	M.provide('ads.slots', []);
 	M.provide('wiki', {
-		siteName: 'Test Site',
 		language: {
 			content: 'en'
 		}
 	});
-
-	var dimensions = [];
-	dimensions[8] = 'test/article';
-	Mercury.Modules.Trackers.UniversalAnalytics.setDimensions(dimensions);
 }
 
 resetMercuryBaseline();
