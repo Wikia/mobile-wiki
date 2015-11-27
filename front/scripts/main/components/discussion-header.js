@@ -38,7 +38,7 @@ export default App.DiscussionHeaderComponent = Ember.Component.extend(
 				this.get('overlay').style.display = 'none';
 			},
 
-			toggleEditorActive(active: boolean): void {
+			toggleEditorActive(active) {
 				this.sendAction('toggleEditorActive', active);
 			},
 		},

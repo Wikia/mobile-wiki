@@ -36,15 +36,15 @@ export default App.ForumWrapperComponent = Ember.Component.extend(
 			 * @param {string} sortBy
 			 * @returns {void}
 			 */
-			setSortBy(sortBy: string): void {
+			setSortBy(sortBy) {
 				this.sendAction('setSortBy', sortBy);
 			},
 
 			/**
 			 * @param {any} postData
-			 * @returns {void}
+			 * @returns {*}
 			 */
-			create(postData: any): any {
+			create(postData) {
 				return this.sendAction('create', postData);
 			},
 		},

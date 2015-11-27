@@ -24,7 +24,7 @@ export default App.PostDetailComponent = Ember.Component.extend(
 		// Timeout used for auto-hiding the sharing icons
 		hideShareTimeout: null,
 
-		isNew: Em.computed.oneWay('post.isNew'),
+		isNew: Ember.computed.oneWay('post.isNew'),
 
 		// URL passed to the ShareFeatureComponent for sharing a post
 		sharedUrl: Ember.computed('postId', function () {
