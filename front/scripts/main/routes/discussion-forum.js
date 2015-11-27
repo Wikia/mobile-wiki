@@ -50,7 +50,8 @@ export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMix
 		 * @returns {void}
 		 */
 		loadPage(pageNum) {
-			this.modelFor('discussion.forum').loadPage(pageNum);
+			const sortBy = this.controllerFor('discussionForum').get('sortBy') || this.defaultSortType;
+			this.modelFor('discussion.forum').loadPage(pageNum, sortBy);
 		},
 
 		/**

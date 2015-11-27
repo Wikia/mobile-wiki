@@ -11,16 +11,18 @@ export default App.DiscussionForumModel = DiscussionBaseModel.extend({
 
 	/**
 	 * @param {number} pageNum
+	 * @param {string} sortBy
 	 * @returns {Em.RSVP.Promise}
 	 */
-	loadPage(pageNum = 0) {
+	loadPage(pageNum = 0, sortBy = 'latest') {
 		this.set('pageNum', pageNum);
 
 		return new Ember.RSVP.Promise((resolve) => {
 			Ember.$.ajax({
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 				data: {
-					page: this.get('pageNum')
+					page: this.get('pageNum'),
+					sortKey: this.getSortKey(sortBy),
 				},
 				xhrFields: {
 					withCredentials: true,
