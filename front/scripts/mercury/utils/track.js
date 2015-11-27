@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */
+
 import Comscore from '../modules/Trackers/Comscore';
 import Internal from '../modules/Trackers/Internal';
 import Krux from '../modules/Trackers/Krux';

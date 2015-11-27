@@ -92,7 +92,7 @@ export default class Internal {
 	 */
 	scriptLoadedHandler(abort, script) {
 
-		if (!abort || script.readyState || !/loaded|complete/.test(script.readyState)) {
+		if (!abort || script.readyState || !(/loaded|complete/).test(script.readyState)) {
 			return;
 		}
 

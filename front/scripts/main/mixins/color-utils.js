@@ -27,7 +27,7 @@ export default App.ColorUtilsMixin = Ember.Mixin.create({
 	 * @returns {rgbaNotation}
 	 */
 	hexToRgb(hex, alpha = 1) {
-		const rgbParts = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(this.shortHexColorExpand(hex));
+		const rgbParts = (/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i).exec(this.shortHexColorExpand(hex));
 
 		if (!rgbParts) {
 			throw new Error('hex must be in proper color hex notation');
