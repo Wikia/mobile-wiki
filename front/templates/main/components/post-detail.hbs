@@ -8,6 +8,7 @@
 	<span class="timestamp">
 		&bull; {{time-ago post.creationDate.epochSecond}}
 	</span>
+	<a {{action this.attrs.deletePost post}}>delete</a>
 </div>
 {{#if isDetailsView}}
 	<div class="discussion-content">

@@ -60,6 +60,10 @@ export default App.DiscussionForumController = Ember.Controller.extend({
 		 */
 		goToAllDiscussions() {
 			this.get('target').send('goToAllDiscussions');
+		},
+
+		deletePost(post) {
+			this.get('target').send('deletePost', post);
 		}
 	}
 });
