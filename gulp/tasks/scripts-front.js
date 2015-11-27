@@ -1,6 +1,6 @@
 /*
  * scripts-front
- * Compiles front ts files
+ * Compiles front scripts
  */
 
 var gulp = require('gulp'),
@@ -8,53 +8,30 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	folders = require('gulp-folders'),
 	gulpif = require('gulp-if'),
-	gutil = require('gulp-util'),
-	orderedMergeStream = require('ordered-merge-stream'),
 	// @todo Fix in https://wikia-inc.atlassian.net/browse/XW-562
 	// newer = require('gulp-newer'),
-	ts = require('gulp-typescript'),
 	uglify = require('gulp-uglify'),
 	environment = require('../utils/environment'),
 	options = require('../options').scripts.front,
 	paths = require('../paths').scripts.front,
-	path = require('path'),
-	tsProjects = {};
+	path = require('path');
 
 gulp.task('scripts-front', folders(paths.src, function (folder) {
-	var tsStream, esStream;
-
-	// we need project per folder
-	if (!tsProjects[folder]) {
-		tsProjects[folder] = ts.createProject(options);
+	// main, mercury and auth folders are handled by scripts-front-modules
+	if (folder === 'main' || folder === 'mercury' || folder === 'auth') {
+		return gulp.src([]);
 	}
 
-	// build TS
-	tsStream = gulp.src([
-		'!' + path.join(paths.src, folder, paths.tsdFiles),
-		path.join(paths.src, folder, paths.tsFiles)
+	var esStream = gulp.src([
+		path.join(paths.src, folder, paths.jsFiles)
 	])
 	// @todo Fix in https://wikia-inc.atlassian.net/browse/XW-562
 	// .pipe(newer(path.join(paths.dest, folder + '.js')))
-	.pipe(ts(tsProjects[folder])).js
-	.on('error', function() {
-		if (gutil.env.testing && environment.isProduction) {
-			console.error('Build contains some typescript errors/warnings');
-			process.exit(1);
-		}
-	});
+	.pipe(babel({
+		presets: ['es2015']
+	}));
 
-	// build ES6
-	esStream = gulp.src([
-		path.join(paths.src, folder, paths.jsFilesModels),
-		path.join(paths.src, folder, paths.jsFilesMixins),
-		path.join(paths.src, folder, paths.jsFilesRoutes),
-		path.join(paths.src, folder, paths.jsFilesComponents)
-	])
-	// @todo Fix in https://wikia-inc.atlassian.net/browse/XW-562
-	// .pipe(newer(path.join(paths.dest, folder + '.js')))
-	.pipe(babel());
-
-	return orderedMergeStream([tsStream, esStream])
+	return esStream
 		.pipe(concat(folder + '.js'))
 		.pipe(gulpif(environment.isProduction, uglify()))
 		.pipe(gulp.dest(paths.dest));

@@ -1,3 +1,15 @@
+## release-192 (2015-11-26 12:07 UTC)
+* [SOC-1647](https://wikia-inc.atlassian.net/browse/SOC-1647) SOC-1647 | Enable disucssions on MW119
+* [ADEN-2598](https://wikia-inc.atlassian.net/browse/ADEN-2598) ADEN-2598 adding counter
+* [DAT-3436](https://wikia-inc.atlassian.net/browse/DAT-3436) DAT-3436 update wikia style guide version to use new blockquote styles
+* [SOC-1487](https://wikia-inc.atlassian.net/browse/SOC-1487) SOC-1487 Discussions Design Cleanup
+
+## release-191 (2015-11-24 10:52 UTC)
+* Merge pull request #1666 from RafalWilinski/patch-1: mediawikiDomain change
+* [INT-246](https://wikia-inc.atlassian.net/browse/INT-246) Mercury section editor rollout phase 1
+* [SOC-1582](https://wikia-inc.atlassian.net/browse/SOC-1582) SOC-1582 | Handling loading empty replies response on front end
+* [XW-159](https://wikia-inc.atlassian.net/browse/XW-159) XW-159 | add npm tasks
+
 ## release-190 (2015-11-19 15:59 UTC)
 * [INT-218](https://wikia-inc.atlassian.net/browse/INT-218) Show avatar for logged in users for Japan HP
 * [DAT-3463](https://wikia-inc.atlassian.net/browse/DAT-3463) DAT-3463 Style context-links templates
