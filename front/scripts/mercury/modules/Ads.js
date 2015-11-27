@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */
+
 import Krux from './Trackers/Krux';
 import UniversalAnalytics from './Trackers/UniversalAnalytics';
 import load from '../utils/load';
