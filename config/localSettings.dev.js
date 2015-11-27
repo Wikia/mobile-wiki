@@ -4,7 +4,7 @@
 import baseExtendSettings from './localSettings.base';
 import deepExtend from 'deep-extend';
 
-const localSettings = baseExtendSettings({
+const localSettings = {
 	loggers: {
 		console: 'debug'
 	},
@@ -26,12 +26,12 @@ const localSettings = baseExtendSettings({
 			url: 'https://services.wikia-dev.com/clickstream/events/social'
 		}
 	}
-});
+};
 
 /**
  * @param {LocalSettings} customLocalSet
  * @returns {LocalSettings}
  */
 export default function extendSettings(customLocalSet) {
-	return deepExtend(localSettings, customLocalSet);
+	return deepExtend(baseExtendSettings(localSettings), customLocalSet);
 }
