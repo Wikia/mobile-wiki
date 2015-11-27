@@ -17,9 +17,7 @@ var gulp = require('gulp'),
 
 gulp.task('scripts-front', function (done) {
 	// it only builds baseline.js
-	gulp.src([
-			path.join(paths.src, 'baseline', paths.jsFiles)
-		])
+	gulp.src([path.join(paths.src, 'baseline', paths.jsFiles)])
 		.pipe(newer(path.join(paths.dest, 'baseline.js')))
 		.pipe(babel({
 			presets: ['es2015']
