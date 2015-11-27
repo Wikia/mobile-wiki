@@ -3,7 +3,8 @@ App.ImageReviewRoute = Em.Route.extend(
 
 		model() {
 			console.log("Image review route");
-			return App.ImageReviewModel.startSession()
+			var _this = this; //Save context to this
+			return App.ImageReviewModel.startSession();
 		},
 		actions: {
 			error(error) {
@@ -23,6 +24,17 @@ App.ImageReviewRoute = Em.Route.extend(
 					this.handleTransitionToMainPage();
 				}
 				return true;
+			},
+
+			getMoreImages(sessionId) {
+				console.log("Getting more images for ID: "+sessionId);
+				App.ImageReviewModel.getImages(_sessionId)
+					.then(function (data) {
+						console.log("Images: "+JSON.stringify(data));
+					})
+					.catch(function (err) {
+						_this.send('error', err);
+					});
 			}
 		}
 });

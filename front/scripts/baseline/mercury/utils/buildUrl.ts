@@ -128,4 +128,8 @@ module Mercury.Utils {
 	export function getDiscussionServiceUrl (path: string = '', query: any = {}): string {
 		return `https://${M.prop('servicesDomain')}/${M.prop('discussionBaseRoute')}${path}${getQueryString(query)}` ;
 	}
+
+	export function getImageReviewServiceUrl(): string {
+		return 'https://services-poz.wikia-dev.com/image-review/contract/';
+	}
 }

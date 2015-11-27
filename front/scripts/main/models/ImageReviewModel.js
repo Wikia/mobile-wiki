@@ -1,5 +1,6 @@
 App.ImageReviewModel = Em.Object.extend({
-    sessionId: null
+    sessionId: 0,
+	images: []
 });
 
 App.ImageReviewModel.reopenClass({
@@ -10,19 +11,18 @@ App.ImageReviewModel.reopenClass({
         console.log('ImageReviewModel.startSession() with userId '+M.prop('userId'));
         return new Em.RSVP.Promise((resolve, reject) => {
             Em.$.ajax({
-                url: 'https://services-poz.wikia-dev.com/image-review/contract/',
+                url: App.ImageReviewModel.getServiceUrl(),
 				dataType: 'json',
 				method: 'POST',
 				xhrFields: {
 					withCredentials: true
 				},
                 success: (data) => {
-					resolve(new App.ImageReviewModel(data));
+					resolve(App.ImageReviewModel.getImages(data.id));
 					console.log('Startsession success: '+JSON.stringify(data));
                 },
                 error: (data) => {
                     reject(data);
-					console.log('Startsession error: '+JSON.stringify(data));
                 }
             });
         });
@@ -32,7 +32,7 @@ App.ImageReviewModel.reopenClass({
         console.log('ImageReviewModel.endSession()');
         return new Em.RSVP.Promise((resolve, reject) => {
             Em.$.ajax({
-				url: 'https://services.wikia-dev.com/image-review/contract/',
+				url: App.ImageReviewModel.getServiceUrl(),
 				xhrFields: {
 					withCredentials: true
 				},
@@ -47,19 +47,22 @@ App.ImageReviewModel.reopenClass({
             });
         });
     },
-
-    getImages() {
-        console.log('ImageReviewModel.getImages()');
+    getImages(sessionId) {
         return new Em.RSVP.Promise((resolve, reject) => {
 			Em.$.ajax({
-				url: 'https://services.wikia-dev.com/image-review/contract/',
+				url: App.ImageReviewModel.getServiceUrl() + sessionId + '/image',
 				xhrFields: {
 					withCredentials: true
 				},
 				dataType: 'json',
 				method: 'GET',
 				success: (data) => {
-					resolve(data);
+					console.log("GetImages data: "+JSON.stringify(data));
+					if (Em.isArray(data.data)) {
+						resolve(App.ImageReviewModel.sanitize(data));
+					} else {
+						reject('Invalid data was returned from Image Review API');
+					}
 				},
 				error: (data) => {
 					reject(data);
@@ -67,17 +70,17 @@ App.ImageReviewModel.reopenClass({
 			});
         });
     },
-
-    reviewImage() {
+    reviewImage(sessionId, imageId, reviewStatus) {
         console.log('ImageReviewModel.reviewImage()');
         return new Em.RSVP.Promise((resolve, reject) => {
 			Em.$.ajax({
-				url: 'https://services.wikia-dev.com/image-review/contract/',
+				url: App.ImageReviewModel.getServiceUrl() +
+												sessionId + '/image/' + imageId + '?status=' + reviewStatus,
 				xhrFields: {
 					withCredentials: true
 				},
 				dataType: 'json',
-				method: 'POST',
+				method: 'PUT',
 				success: (data) => {
 					resolve(data);
 				},
@@ -87,4 +90,25 @@ App.ImageReviewModel.reopenClass({
 			});
         });
     },
+
+	sanitize(rawData) {
+		var images = [];
+
+		if (rawData.length) {
+			rawData.forEach((image) => {
+				if (image.reviewStatus === 'UNREVIEWED') {
+					images.push(image.imageId);
+				}
+				//else skip because is reviewed already
+			});
+		}
+
+		return App.ImageReviewModel.create({
+			images
+		});
+	},
+
+	getServiceUrl() {
+		return "https://services-poz.wikia-dev.com/image-review/contract/"
+	}
 });
