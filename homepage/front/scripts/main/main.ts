@@ -1,5 +1,5 @@
-/// <reference path="../../../../typings/jquery/jquery.d.ts" />
-/// <reference path="../../../../typings/slick/slick.d.ts" />
+/// <reference path="../../../typings/jquery/jquery.d.ts" />
+/// <reference path="../../../typings/slick/slick.d.ts" />
 /// <reference path="./globals.ts" />
 
 'use strict';
