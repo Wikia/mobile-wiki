@@ -66,10 +66,13 @@ export default App.DiscussionReplyEditorComponent = DiscussionEditorComponent.ex
 			newReply = newReplies.get('firstObject');
 
 		if (newReply) {
-			Ember.$('html, body').animate({
-				scrollTop: Ember.$(document).height()
-			});
 			this.handleNewItemCreated(newReply);
+
+			Ember.run.later(this, () => {
+				Ember.$('html, body').animate({
+					scrollTop: Ember.$(document).height()
+				});
+			}, 2000);
 		}
 	}),
 
