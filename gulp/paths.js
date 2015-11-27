@@ -13,7 +13,8 @@ module.exports = {
 	baseFullFront: path.resolve(baseFront),
 	vendor: {
 		src: 'front/vendor/**/*',
-		dest: basePath + '/front/vendor'
+		dest: basePath + '/front/vendor',
+		original: 'front/vendor'
 	},
 	locales: {
 		src: 'front/locales/**/*.json',

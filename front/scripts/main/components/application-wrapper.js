@@ -23,7 +23,7 @@ import App from '../app';
  * @property {string} tagName
  */
 
-App.ApplicationWrapperComponent = Ember.Component.extend({
+export default App.ApplicationWrapperComponent = Ember.Component.extend({
 	classNameBindings: ['systemClass', 'smartBannerVisible', 'verticalClass'],
 
 	verticalClass: Ember.computed(() => {
@@ -172,5 +172,3 @@ App.ApplicationWrapperComponent = Ember.Component.extend({
 		}
 	},
 });
-
-export default App.ApplicationWrapperComponent;

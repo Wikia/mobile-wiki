@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.DiscussionAppPromotionComponent = Ember.Component.extend({
+export default App.DiscussionAppPromotionComponent = Ember.Component.extend({
 	classNames: ['discussion-app-promotion'],
 
 	discussionsSplashPageConfig: M.prop('discussionsSplashPageConfig'),
@@ -19,5 +19,3 @@ App.DiscussionAppPromotionComponent = Ember.Component.extend({
 
 	shouldDisplay: Ember.computed.and('androidAppLink', 'iosAppLink'),
 });
-
-export default App.DiscussionAppPromotionComponent;

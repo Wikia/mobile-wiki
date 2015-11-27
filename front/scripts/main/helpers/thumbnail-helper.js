@@ -55,5 +55,3 @@ App.ThumbnailHelper = Ember.Helper.helper((params, options) => {
 		`<img src="${src}" alt="${alt}" class="${className}">`
 	);
 });
-
-export default App.ThumbnailHelper;

@@ -2,7 +2,7 @@ import App from '../app';
 import ArticleEditModel from '../models/article-edit';
 import {track, trackActions} from '../../mercury/utils/track';
 
-App.ArticleEditController = Ember.Controller.extend({
+export default App.ArticleEditController = Ember.Controller.extend({
 	application: Ember.inject.controller(),
 
 	isPublishing: false,
@@ -100,5 +100,3 @@ App.ArticleEditController = Ember.Controller.extend({
 		}
 	}
 });
-
-export default App.ArticleEditController;

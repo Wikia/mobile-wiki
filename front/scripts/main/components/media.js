@@ -10,7 +10,7 @@ import App from '../app';
  * @property {number} [height]
  */
 
-App.MediaComponent = Ember.Component.extend(
+export default App.MediaComponent = Ember.Component.extend(
 	VisibleMixin,
 	{
 		tagName: 'figure',
@@ -117,6 +117,4 @@ App.MediaComponent = Ember.Component.extend(
 		},
 	}
 );
-
-export default App.MediaComponent;
 

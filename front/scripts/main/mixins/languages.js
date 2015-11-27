@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.LanguagesMixin = Ember.Mixin.create({
+export default App.LanguagesMixin = Ember.Mixin.create({
 	defaultLanguage: 'en',
 
 	isJapaneseBrowser: Ember.computed(function () {
@@ -66,5 +66,3 @@ App.LanguagesMixin = Ember.Mixin.create({
 		return `&uselang=${encodeURIComponent(lang)}`;
 	}
 });
-
-export default App.LanguagesMixin;

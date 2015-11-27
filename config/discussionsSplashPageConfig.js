@@ -245,5 +245,12 @@ export default {
 		language: 'en',
 		wikiId: 203914,
 		dbName: 'onedirection'
+	},
+
+	'mediawiki119' : {
+		domain: 'mediawiki119.wikia.com',
+		language: 'en',
+		wikiId: 203236,
+		dbName: 'mediawiki119cleanup4'
 	}
 };

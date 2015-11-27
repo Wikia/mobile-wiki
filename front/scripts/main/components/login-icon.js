@@ -2,7 +2,7 @@ import App from '../app';
 import LanguagesMixin from '../mixins/languages';
 import {track, trackActions} from '../../mercury/utils/track';
 
-App.LoginIconComponent = Ember.Component.extend(
+export default App.LoginIconComponent = Ember.Component.extend(
 	LanguagesMixin,
 	{
 		tagName: 'a',
@@ -36,5 +36,3 @@ App.LoginIconComponent = Ember.Component.extend(
 		},
 	}
 );
-
-export default App.LoginIconComponent;

@@ -1,4 +1,4 @@
-import App from './app.js';
+import App from './app';
 
 App.Router.map(function () {
 	const articlePath = '/wiki/';

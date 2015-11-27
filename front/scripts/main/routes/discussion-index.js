@@ -1,7 +1,7 @@
 import App from '../app';
 import DiscussionIndexModel from '../models/discussion-index';
 
-App.DiscussionIndexRoute = Ember.Route.extend({
+export default App.DiscussionIndexRoute = Ember.Route.extend({
 	/**
 	 * @returns {void}
 	 */

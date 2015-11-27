@@ -14,7 +14,7 @@ import App from '../app';
  * @property {number} userId
  */
 
-App.UserModel = Ember.Object.extend({
+export default App.UserModel = Ember.Object.extend({
 	avatarPath: null,
 	name: null,
 	userId: null,
@@ -86,5 +86,3 @@ App.UserModel.reopenClass({
 		};
 	}
 });
-
-export default App.UserModel;

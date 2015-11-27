@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.LightboxWrapperComponent = Ember.Component.extend({
+export default App.LightboxWrapperComponent = Ember.Component.extend({
 	classNames: ['lightbox-wrapper'],
 	classNameBindings: ['isVisible:open'],
 	// This is needed for keyDown event to work
@@ -32,11 +32,16 @@ App.LightboxWrapperComponent = Ember.Component.extend({
 		 * @returns {void}
 		 */
 		close() {
+			if (!this.get('closeAllowed')) {
+				return;
+			}
+
 			this.setProperties({
 				footer: null,
 				header: null,
 				footerExpanded: false
 			});
+
 			this.sendAction('closeLightbox');
 		},
 
@@ -115,5 +120,3 @@ App.LightboxWrapperComponent = Ember.Component.extend({
 		}
 	},
 });
-
-export default App.LightboxWrapperComponent;

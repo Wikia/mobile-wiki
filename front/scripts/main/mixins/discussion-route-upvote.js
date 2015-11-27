@@ -4,7 +4,7 @@ import App from '../app';
  * Handles posts upvoting.
  * If the post was upvoted already, the upvote is removed.
  */
-App.DiscussionRouteUpvoteMixin = Ember.Mixin.create({
+export default App.DiscussionRouteUpvoteMixin = Ember.Mixin.create({
 	upvotingInProgress: {},
 
 	actions: {
@@ -46,5 +46,3 @@ App.DiscussionRouteUpvoteMixin = Ember.Mixin.create({
 		}
 	}
 });
-
-export default App.DiscussionRouteUpvoteMixin;

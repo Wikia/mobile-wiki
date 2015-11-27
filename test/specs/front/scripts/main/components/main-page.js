@@ -1,11 +1,25 @@
+var setTrackContext,
+	trackPageView,
+	updateTrackedUrl;
+
 moduleForComponent('main-page', 'MainPageComponent', {
 	unit: true,
 
 	setup: function () {
-		M.setTrackContext = function () {};
-		M.trackPageView = function () {};
-		M.trackAds = function () {};
-		M.updateTrackedUrl = function () {};
+		setTrackContext = require('mercury/utils/track').setTrackContext;
+		require('mercury/utils/track').setTrackContext = Em.K;
+
+		trackPageView = require('mercury/utils/track').trackPageView;
+		require('mercury/utils/track').trackPageView = Em.K;
+
+		updateTrackedUrl = require('mercury/utils/track').updateTrackedUrl;
+		require('mercury/utils/track').updateTrackedUrl = Em.K;
+	},
+
+	teardown: function () {
+		require('mercury/utils/track').updateTrackedUrl = updateTrackedUrl;
+		require('mercury/utils/track').trackPageView = trackPageView;
+		require('mercury/utils/track').setTrackContext = setTrackContext;
 	}
 });
 

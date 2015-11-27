@@ -20,7 +20,7 @@ import UserModel from '../main/models/user';
  * @property {*} options
  */
 
-App.CurrentUser = Ember.Object.extend({
+export default App.CurrentUser = Ember.Object.extend({
 	rights: {},
 	isAuthenticated: Ember.computed.bool('userId'),
 	language: null,
@@ -129,5 +129,3 @@ App.CurrentUser = Ember.Object.extend({
 		});
 	}
 });
-
-export default App.CurrentUser;

@@ -8,7 +8,7 @@ import IEIFrameFocusFixMixin from '../mixins/ieiframe-focus-fix';
 import ArticleAddPhotoModel from '../models/article-add-photo';
 import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
 
-App.CuratedContentEditorItemFormComponent = Ember.Component.extend(
+export default App.CuratedContentEditorItemFormComponent = Ember.Component.extend(
 	AlertNotificationsMixin,
 	CuratedContentEditorLabelsMixin,
 	CuratedContentEditorLayoutMixin,
@@ -497,5 +497,3 @@ App.CuratedContentEditorItemFormComponent = Ember.Component.extend(
 		}
 	}
 );
-
-export default App.CuratedContentEditorItemFormComponent;

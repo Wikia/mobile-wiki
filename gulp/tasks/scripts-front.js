@@ -15,7 +15,7 @@ var gulp = require('gulp'),
 	path = require('path');
 
 gulp.task('scripts-front', folders(paths.src, function (folder) {
-	// main, mercury and auth folders are handled by front-modules
+	// main, mercury and auth folders are handled by scripts-front-modules
 	if (folder === 'main' || folder === 'mercury' || folder === 'auth') {
 		return gulp.src([]);
 	}
@@ -25,8 +25,7 @@ gulp.task('scripts-front', folders(paths.src, function (folder) {
 	])
 	.pipe(newer(path.join(paths.dest, folder + '.js')))
 	.pipe(babel({
-		presets: ['es2015'],
-		plugins: ['transform-es2015-modules-umd']
+		presets: ['es2015']
 	}));
 
 	return esStream

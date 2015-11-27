@@ -1,7 +1,7 @@
 import App from '../app';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-App.WikiaUsersComponent = Ember.Component.extend({
+export default App.WikiaUsersComponent = Ember.Component.extend({
 	avatarHeight: 100,
 	avatarWidth: 100,
 	classNameBindings: ['classes'],
@@ -12,5 +12,3 @@ App.WikiaUsersComponent = Ember.Component.extend({
 	trackingEvent: null,
 	users: [],
 });
-
-export default App.WikiaUsersComponent;

@@ -1,5 +1,5 @@
 var mixin,
-	originalThumbnailerGetThumbURL = Mercury.Modules.Thumbnailer.getThumbURL;
+	originalThumbnailerGetThumbURL = require('mercury/modules/Thumbnailer').default.getThumbURL;
 
 moduleFor('mixin:curatedContentThumbnail', 'CuratedContentThumbnailMixin', {
 	setup: function () {
@@ -8,7 +8,7 @@ moduleFor('mixin:curatedContentThumbnail', 'CuratedContentThumbnailMixin', {
 	},
 
 	teardown: function () {
-		Mercury.Modules.Thumbnailer.getThumbURL = originalThumbnailerGetThumbURL;
+		require('mercury/modules/Thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
 	}
 });
 

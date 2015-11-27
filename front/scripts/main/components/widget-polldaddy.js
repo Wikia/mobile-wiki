@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.WidgetPolldaddyComponent = Ember.Component.extend({
+export default App.WidgetPolldaddyComponent = Ember.Component.extend({
 	classNames: ['widget-polldaddy'],
 	layoutName: 'components/widget-polldaddy',
 	data: null,
@@ -26,5 +26,3 @@ App.WidgetPolldaddyComponent = Ember.Component.extend({
 		Ember.$.getScript(`//static.polldaddy.com/p/${id}.js`);
 	},
 });
-
-export default App.WidgetPolldaddyComponent;

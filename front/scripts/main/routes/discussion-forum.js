@@ -3,7 +3,7 @@ import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
 import DiscussionForumModel from '../models/discussion-forum';
 import DiscussionLayoutMixin from '../mixins/discussion-layout';
 
-App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMixin, DiscussionRouteUpvoteMixin, {
+export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMixin, DiscussionRouteUpvoteMixin, {
 	defaultSortType: null,
 	forumId: null,
 
@@ -50,7 +50,9 @@ App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMixin, DiscussionR
 		 * @returns {void}
 		 */
 		loadPage(pageNum) {
-			this.modelFor('discussion.forum').loadPage(pageNum);
+			const sortBy = this.controllerFor('discussionForum').get('sortBy') || this.defaultSortType;
+
+			this.modelFor('discussion.forum').loadPage(pageNum, sortBy);
 		},
 
 		/**

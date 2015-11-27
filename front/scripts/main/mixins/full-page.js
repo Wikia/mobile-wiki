@@ -2,7 +2,7 @@ import App from '../app';
 
 // This mixin should be considered temporary, until a
 // better solution is created with Jira ticket XW-247
-App.FullPageMixin = Ember.Mixin.create({
+export default App.FullPageMixin = Ember.Mixin.create({
 	/**
 	 * @returns {void}
 	 */
@@ -17,5 +17,3 @@ App.FullPageMixin = Ember.Mixin.create({
 		this.controllerFor('application').set('fullPage', false);
 	}
 });
-
-export default App.FullPageMixin;

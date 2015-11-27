@@ -1,7 +1,7 @@
 import {trackGoogleSearch} from '../../mercury/utils/track';
 import App from '../app';
 
-App.SearchResultsRoute = Ember.Route.extend({
+export default App.SearchResultsRoute = Ember.Route.extend({
 	// Don't let the script to start loading multiple times (user opens the route, goes back, opens it again)
 	googleCustomSearchLoadingInitialized: false,
 

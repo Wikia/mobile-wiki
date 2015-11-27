@@ -33,7 +33,7 @@ test('sets cookie if skin is overwritten to oasis', function () {
 	component.send('handleFooterLinkClick', 'test', 'test');
 
 	ok(Em.$.cookie.calledOnce);
-	ok(Em.$.cookie.calledWith('useskin', 'oasis', {path: '/', domain: M.getDomain()}));
+	ok(Em.$.cookie.calledWith('useskin', 'oasis', {path: '/', domain: require('mercury/utils/domain').getDomain()}));
 
 	Em.$.cookie.restore();
 });

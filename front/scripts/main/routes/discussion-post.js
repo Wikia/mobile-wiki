@@ -3,7 +3,7 @@ import DiscussionPostModel from '../models/discussion-post';
 import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
 import DiscussionLayoutMixin from '../mixins/discussion-layout';
 
-App.DiscussionPostRoute = Ember.Route.extend(DiscussionLayoutMixin, DiscussionRouteUpvoteMixin, {
+export default App.DiscussionPostRoute = Ember.Route.extend(DiscussionLayoutMixin, DiscussionRouteUpvoteMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Ember.RSVP.Promise}

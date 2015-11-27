@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.WikiaStatsComponent = Ember.Component.extend({
+export default App.WikiaStatsComponent = Ember.Component.extend({
 	classNames: ['wikia-stats'],
 
 	items: Ember.computed('model', function () {
@@ -20,5 +20,3 @@ App.WikiaStatsComponent = Ember.Component.extend({
 		];
 	}),
 });
-
-export default App.WikiaStatsComponent;

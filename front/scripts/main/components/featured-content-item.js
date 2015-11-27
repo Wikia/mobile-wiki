@@ -3,7 +3,7 @@ import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-App.FeaturedContentItemComponent = Ember.Component.extend(
+export default App.FeaturedContentItemComponent = Ember.Component.extend(
 	CuratedContentThumbnailMixin,
 	ViewportMixin,
 	{
@@ -39,5 +39,3 @@ App.FeaturedContentItemComponent = Ember.Component.extend(
 		},
 	}
 );
-
-export default App.FeaturedContentItemComponent;

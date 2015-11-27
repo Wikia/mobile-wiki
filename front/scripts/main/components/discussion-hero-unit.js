@@ -1,7 +1,7 @@
 import App from '../app';
 import ViewportMixin from '../mixins/viewport';
 
-App.DiscussionHeroUnitComponent = Ember.Component.extend(ViewportMixin, {
+export default App.DiscussionHeroUnitComponent = Ember.Component.extend(ViewportMixin, {
 	classNames: ['discussion-hero-unit'],
 	contentClassNames: 'background-theme-color',
 	attributeBindings: ['style'],
@@ -55,5 +55,3 @@ App.DiscussionHeroUnitComponent = Ember.Component.extend(ViewportMixin, {
 		}
 	}),
 });
-
-export default App.DiscussionHeroUnitComponent;

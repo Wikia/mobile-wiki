@@ -1,7 +1,7 @@
 import App from '../app';
 import CuratedContentEditorSortableItemsMixin from '../mixins/curated-content-editor-sortable-items';
 
-App.CuratedContentEditorBlockComponent = Ember.Component.extend(
+export default App.CuratedContentEditorBlockComponent = Ember.Component.extend(
 	CuratedContentEditorSortableItemsMixin,
 	{
 		tagName: 'section',
@@ -44,5 +44,3 @@ App.CuratedContentEditorBlockComponent = Ember.Component.extend(
 		}
 	}
 );
-
-export default App.CuratedContentEditorBlockComponent;

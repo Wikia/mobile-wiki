@@ -7,7 +7,7 @@ import ArticleEditMixin from '../mixins/article-edit';
  * @property {string} extension
  */
 
-App.ArticleAddPhotoModel = Ember.Object.extend({
+export default App.ArticleAddPhotoModel = Ember.Object.extend({
 	title: null,
 	sectionIndex: null,
 	photoData: null,
@@ -212,5 +212,3 @@ App.ArticleAddPhotoModel.reopenClass(
 		}
 	}
 );
-
-export default App.ArticleAddPhotoModel;

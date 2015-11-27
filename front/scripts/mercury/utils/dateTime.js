@@ -33,7 +33,7 @@ export function timeAgo(from, to = new Date()) {
 
 	if (timeDiff === 0) {
 		return {
-			type: interval.now,
+			type: interval.Now,
 			value: 0
 		};
 	}

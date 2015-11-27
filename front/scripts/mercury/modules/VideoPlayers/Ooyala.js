@@ -19,8 +19,6 @@ export default class OoyalaPlayer extends BasePlayer {
 		// Ooyala JSON payload contains a DOM id
 		this.containerId = BasePlayer.createUniqueId(params.playerId);
 		this.containerSelector = `#${this.containerId}`;
-
-		this.setupPlayer();
 	}
 
 	/**

@@ -8,7 +8,7 @@ import App from '../app';
  * @property {number} [a]
  */
 
-App.ColorUtilsMixin = Ember.Mixin.create({
+export default App.ColorUtilsMixin = Ember.Mixin.create({
 
 	/**
 	 * Returns expanded colors, like #fff -> #ffffff, if given value is not shortened hex color, it is returned
@@ -27,7 +27,7 @@ App.ColorUtilsMixin = Ember.Mixin.create({
 	 * @returns {rgbaNotation}
 	 */
 	hexToRgb(hex, alpha = 1) {
-		const rgbParts = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(this.shortHexColorExpand(hex));
+		const rgbParts = (/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i).exec(this.shortHexColorExpand(hex));
 
 		if (!rgbParts) {
 			throw new Error('hex must be in proper color hex notation');
@@ -50,5 +50,3 @@ App.ColorUtilsMixin = Ember.Mixin.create({
 		return `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}${typeof rgba.a !== 'undefined' ? `, ${rgba.a}` : ''})`;
 	}
 });
-
-export default App.ColorUtilsMixin;

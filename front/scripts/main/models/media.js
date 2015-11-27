@@ -21,7 +21,7 @@ import {normalizeToUnderscore} from '../../mercury/utils/string';
  * @property {number} mediaRef
  */
 
-App.MediaModel = Ember.Object.extend({
+export default App.MediaModel = Ember.Object.extend({
 	/**
 	 * In order to have consistency in input data we are wrapping them into array if they are not
 	 *
@@ -93,5 +93,3 @@ App.MediaModel = Ember.Object.extend({
 		};
 	},
 });
-
-export default App.MediaModel;

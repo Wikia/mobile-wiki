@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.WikiaInYourLangModel = Ember.Object.extend({
+export default App.WikiaInYourLangModel = Ember.Object.extend({
 	message: null,
 	nativeDomain: null
 });
@@ -78,5 +78,3 @@ App.WikiaInYourLangModel.reopenClass({
 		return `${lang}-WikiaInYourLang`;
 	}
 });
-
-export default App.WikiaInYourLangModel;

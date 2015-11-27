@@ -1,6 +1,6 @@
 import App from '../app';
 
-App.DiscussionBackButtonComponent = Ember.Component.extend({
+export default App.DiscussionBackButtonComponent = Ember.Component.extend({
 	tagName: 'a',
 	classNames: ['back-button', 'active-element-theme-color'],
 	attributeBindings: ['href'],
@@ -14,5 +14,3 @@ App.DiscussionBackButtonComponent = Ember.Component.extend({
 		this.sendAction('setLocation');
 	}
 });
-
-export default App.DiscussionBackButtonComponent;
