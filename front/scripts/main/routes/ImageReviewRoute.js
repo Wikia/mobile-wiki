@@ -2,7 +2,7 @@ App.ImageReviewRoute = Em.Route.extend(
     App.ImageReviewMixin, {
 
 		model() {
-			console.log("Image review route");
+			App.ImageReviewComponent.isLoading = true;
 			return App.ImageReviewModel.startSession();
 		},
 		actions: {
@@ -32,7 +32,7 @@ App.ImageReviewRoute = Em.Route.extend(
 						console.log("Images: "+JSON.stringify(data));
 					})
 					.catch(function (err) {
-						_this.send('error', err);
+						this.sendAction('error', err);
 					});
 			}
 		}

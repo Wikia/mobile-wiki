@@ -7,23 +7,23 @@ App.ImageReviewItemComponent = Em.Component.extend({
          * @returns {void}
          */
         setOk(model) {
-            this.sendAction('ok', model);
+            this.sendAction('setImageAsOk', model);
         },
 
         /**
-         * @param {CuratedContentEditorModel} model
+         * @param {ImageReviewItem} model
          * @returns {void}
          */
         setQuestionable(model) {
-            this.sendAction('q', model);
+            this.sendAction('setImageAsQuestionable', model);
         },
 
         /**
-         * @param {CuratedContentEditorModel} model
+         * @param {ImageReviewItem} model
          * @returns {void}
          */
         setDelete(model) {
-            this.sendAction('delete', model);
+            this.sendAction('setImageToDelete', model);
         }
     }
 });
