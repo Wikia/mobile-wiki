@@ -8,6 +8,6 @@ var gulp = require('gulp'),
 
 gulp.task('lint', function () {
     gulp.src(['./server/**/*.js'])
-        .pipe(jshint('../.jshintrc'))
+        .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'));
 });
