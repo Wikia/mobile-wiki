@@ -64,6 +64,10 @@ export default App.DiscussionForumController = Ember.Controller.extend({
 
 		deletePost(post) {
 			this.get('target').send('deletePost', post);
+		},
+
+		undeletePost(post) {
+			this.get('target').send('undeletePost', post);
 		}
 	}
 });

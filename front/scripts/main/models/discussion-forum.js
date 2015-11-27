@@ -67,6 +67,29 @@ export default App.DiscussionForumModel = DiscussionBaseModel.extend({
 		});
 	},
 
+	undeletePost(postId) {
+		return new Ember.RSVP.Promise((resolve) => {
+			Ember.$.ajax({
+				method: 'PUT',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postId}/undelete`),
+				xhrFields: {
+					withCredentials: true,
+				},
+				dataType: 'json',
+				success: (data) => {
+					const deletedPost = this.get('posts').filterBy('id', postId).get('firstObject');
+					Ember.set(deletedPost, 'isDeleted', false);
+					resolve(this);
+				},
+				error: (err) => {
+					// TODO
+					this.setErrorProperty(err);
+					resolve(this);
+				}
+			});
+		});
+	},
+
 	/**
 	 * @param {string} sortBy
 	 * @returns {string}

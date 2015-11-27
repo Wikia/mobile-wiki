@@ -39,8 +39,10 @@
 					sortTypes=sortTypes
 				}}
 				{{forum-wrapper
+					deletePost=(action "deletePost")
 					goToPost='goToPost'
 					loadPage='loadPage'
+					undeletePost=(action "undeletePost")
 					upvote='upvote'
 					name=model.name
 					pageNum=model.pageNum
@@ -48,7 +50,6 @@
 					postsDisplayed=model.posts.length
 					totalPosts=model.totalPosts
 					minorError=model.minorError
-					deletePost=(action "deletePost")
 				}}
 			</div>
 		{{/if}}

@@ -64,6 +64,15 @@ export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMix
 			}
 		},
 
+		undeletePost(post) {
+			// TODO extract
+			const permissions = Ember.get(post, '_embedded.userData')[0].permissions;
+
+			if (Ember.get(post, 'isDeleted')) {
+				this.modelFor('discussion.forum').undeletePost(post.threadId);
+			}
+		},
+
 		/**
 		 * @returns {void}
 		 */
