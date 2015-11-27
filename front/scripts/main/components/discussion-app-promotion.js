@@ -17,5 +17,5 @@ export default App.DiscussionAppPromotionComponent = Ember.Component.extend({
 		return discussionsSplashPageConfig ? discussionsSplashPageConfig.iosAppLink : null;
 	}),
 
-	shouldDisplay: Ember.computed.and('androidAppLink', 'iosAppLink'),
+	shouldDisplay: Ember.computed.or('androidAppLink', 'iosAppLink'),
 });
