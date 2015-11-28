@@ -65,7 +65,7 @@ body.discussions {
 		padding: .3rem 0;
 	}
 
-	.discussion-reply, .discussion-no-reply {
+	.discussion-reply {
 		border: none;
 		padding: {
 			top: 12px;
@@ -117,7 +117,7 @@ body.discussions {
 		color: $aluminum;
 		font-size: $type-smallest;
 		height: 100px;
-		margin: 28px auto;
+		margin: 40px auto;
 		text-align: center;
 		width: inherit;
   	}
