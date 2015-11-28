@@ -114,7 +114,7 @@ body.discussions {
 		}
 	}
 	.discussion-no-reply {
-		color: $aluminum;
+		color: $discussion-error-text-color;
 		font-size: $type-smallest;
 		height: 100px;
 		margin: 40px auto;
