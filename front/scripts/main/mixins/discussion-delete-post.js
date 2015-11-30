@@ -15,12 +15,11 @@ export default App.DiscussionDeletePostMixin = Ember.Mixin.create({
 						withCredentials: true,
 					},
 					dataType: 'json',
-					success: (data) => {
+					success: () => {
 						Ember.set(post, 'isDeleted', true);
 						resolve(this);
 					},
 					error: (err) => {
-						// TODO
 						this.setErrorProperty(err);
 						resolve(this);
 					}
@@ -38,12 +37,11 @@ export default App.DiscussionDeletePostMixin = Ember.Mixin.create({
 						withCredentials: true,
 					},
 					dataType: 'json',
-					success: (data) => {
+					success: () => {
 						Ember.set(post, 'isDeleted', false);
 						resolve(this);
 					},
 					error: (err) => {
-						// TODO
 						this.setErrorProperty(err);
 						resolve(this);
 					}
