@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 	paths = require('../paths').scripts.front,
 	path = require('path');
 
-gulp.task('scripts-test-modules', function () {
+gulp.task('scripts-test-modules', function (done) {
 	return gulp.src([
 			path.join(paths.src, 'auth', paths.jsFiles),
 			path.join(paths.src, 'main', paths.jsFiles),
@@ -15,6 +15,16 @@ gulp.task('scripts-test-modules', function () {
 			plugins: ['transform-es2015-modules-amd'],
 			moduleIds: true
 		}))
+		.on('error', function (error) {
+			if (gutil.env.testing && environment.isProduction) {
+				console.error('Build contains some errors');
+				process.exit(1);
+			} else {
+				console.error('Build error: ' + error.message);
+				this.emit('end');
+			}
+		})
 		.pipe(concat('modules-test.js'))
-		.pipe(gulp.dest(paths.dest));
+		.pipe(gulp.dest(paths.dest))
+		.on('end', done);
 });
