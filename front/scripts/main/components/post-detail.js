@@ -1,12 +1,19 @@
 import App from '../app';
 import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
+import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
 
 export default App.PostDetailComponent = Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
+	DiscussionParsedContentMixin,
 	{
 		classNames: ['post-detail'],
 
 		postId: null,
+
+		/**
+		 * Returns link to the post author's user page
+		 * @returns {string}
+		 */
 		authorUrl: Ember.computed('post', function () {
 			return M.buildUrl({
 				namespace: 'User',
