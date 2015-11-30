@@ -11,7 +11,7 @@ export default App.DiscussionParsedContentMixin = Ember.Mixin.create({
 	parsedContent: Ember.computed(function () {
 		const escapedContent = Ember.Handlebars.Utils.escapeExpression(
 			this.get('post.rawContent')
-		);
+		).replace(/\n/g, '<br>');
 
 		return window.Autolinker ? window.Autolinker.link(escapedContent, {
 			stripPrefix: false,
@@ -20,4 +20,9 @@ export default App.DiscussionParsedContentMixin = Ember.Mixin.create({
 			twitter: false
 		}) : escapedContent;
 	})
+	/**
+	 * Parses \n to <br>
+	 * @returns {string}
+	 */
+
 });
