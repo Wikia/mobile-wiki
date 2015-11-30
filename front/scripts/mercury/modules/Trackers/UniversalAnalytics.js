@@ -141,7 +141,7 @@ class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	static setupAccountOnce(id, prefix, options) {
-		if (!UniversalAnalytics.createdAccounts.contains(id)) {
+		if (UniversalAnalytics.createdAccounts.indexOf(id) === -1) {
 			ga('create', id, 'auto', options);
 			ga(`${prefix}require`, 'linker');
 
