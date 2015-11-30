@@ -55,7 +55,7 @@ export default App.DiscussionForumModel = DiscussionBaseModel.extend({
 				dataType: 'json',
 				success: (data) => {
 					const deletedPost = this.get('posts').filterBy('id', postId).get('firstObject');
-					Ember.set(deletedPost, 'isDeleted', true);
+					Ember.set(deletedPost._embedded.firstPost[0], 'isDeleted', true);
 					resolve(this);
 				},
 				error: (err) => {
@@ -77,8 +77,8 @@ export default App.DiscussionForumModel = DiscussionBaseModel.extend({
 				},
 				dataType: 'json',
 				success: (data) => {
-					const deletedPost = this.get('posts').filterBy('id', postId).get('firstObject');
-					Ember.set(deletedPost, 'isDeleted', false);
+					const undeletedPost = this.get('posts').filterBy('id', postId).get('firstObject');
+					Ember.set(undeletedPost._embedded.firstPost[0], 'isDeleted', false);
 					resolve(this);
 				},
 				error: (err) => {
