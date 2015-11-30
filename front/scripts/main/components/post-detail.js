@@ -7,6 +7,13 @@ export default App.PostDetailComponent = Ember.Component.extend(
 		classNames: ['post-detail'],
 		classNameBindings: ['isDeleted'],
 
+		isDeleted: Ember.computed.alias('post.isDeleted'),
+		canDelete: Ember.computed('post', function() {
+			return !this.get('post.isDeleted') && this.checkPermissions('canDelete');
+		}),
+		canUndelete: Ember.computed('post', function() {
+			return this.get('post.isDeleted') && this.checkPermissions('canUndelete');
+		}),
 		postId: null,
 		authorUrl: Ember.computed('post', function () {
 			return M.buildUrl({
@@ -28,6 +35,12 @@ export default App.PostDetailComponent = Ember.Component.extend(
 		sharedUrl: Ember.computed('postId', function () {
 			return `${Ember.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)}/d/p/${this.get('postId')}`;
 		}),
+
+		checkPermissions(permission) {
+			const userData = this.get('post._embedded.userData');
+			const permissions = userData && userData[0].permissions;
+			return permissions && permissions.contains(permission);
+		},
 
 		actions: {
 			/**
