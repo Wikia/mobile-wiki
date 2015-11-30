@@ -98,22 +98,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 * iOS is scrolling on textarea focus, changing it's size on focus prevent that
 	 * @returns {void}
 	 */
-	handleIOSFocus() {
-		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
-			const $editorTextarea = $('.editor-textarea');
-
-			$editorTextarea
-				.css('height', '100px')
-				.on('focus', () => {
-					setTimeout(() => {
-						$editorTextarea.css('height', '100%');
-					}, 500);
-				})
-				.on('blur', () => {
-					$editorTextarea.css('height', '100px');
-				});
-		}
-	},
+	handleIOSFocus() {},
 
 	/**
 	 * Handle clicks - focus in textarea and activate editor

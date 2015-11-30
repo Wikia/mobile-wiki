@@ -4,6 +4,7 @@ $editor-toolbar-height: 40px;
 $editor-textarea-paddings: 17px 17px 17px 64px;
 $sticky-editor-width: 529px;
 $success-icon-size: 80px;
+$editor-textarea-overflow-ios-hack: 30px;
 
 .discussion {
 	.editor-container {
@@ -50,6 +51,18 @@ $success-icon-size: 80px;
 			transition: min-height .2s ease;
 		}
 
+		.editor-textarea-overflow {
+			background-color: transparent;
+			cursor: pointer;
+			display: none;
+			height: $editor-textarea-overflow-ios-hack;
+			margin-top: -$editor-textarea-overflow-ios-hack;
+
+			&.block {
+				display: block;
+			}
+		}
+
 		.editor-wrapper {
 			padding: $editor-textarea-paddings;
 		}
@@ -89,6 +102,14 @@ $success-icon-size: 80px;
 				min-height: 106px;
 				padding: $editor-textarea-paddings;
 				resize: vertical;
+			}
+
+			.editor-textarea-overflow {
+				display: none;
+
+				&.block {
+					display: none;
+				}
 			}
 
 			.editor-wrapper {

@@ -73,6 +73,31 @@ export default App.DiscussionReplyEditorComponent = DiscussionEditorComponent.ex
 	}),
 
 	/**
+	 * Ultra hack for editor on iOS
+	 * iOS is scrolling on textarea focus, changing it's size on focus prevent that
+	 * @returns {void}
+	 */
+	handleIOSFocus() {
+		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+			const $editorTextarea = $('.editor-textarea'),
+				$editorOverflow = $('.editor-textarea-overflow');
+
+			$editorOverflow.addClass('block');
+
+			$editorTextarea
+				.css('height', '30px')
+				.on('focus', () => {
+					setTimeout(() => {
+						$editorTextarea.css('height', '100%');
+					}, 500);
+				})
+				.on('blur', () => {
+					$editorTextarea.css('height', '30px');
+				});
+		}
+	},
+
+	/**
 	 * Handle clicks - focus in textarea and activate editor
 	 * @returns {void}
 	 */
