@@ -1,7 +1,8 @@
 import App from '../app';
 import DiscussionBaseModel from './discussion-base';
+import DiscussionDeletePostMixin from '../mixins/discussion-delete-post';
 
-export default App.DiscussionForumModel = DiscussionBaseModel.extend({
+export default App.DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeletePostMixin, {
 	name: null,
 	pageNum: null,
 	posts: null,
@@ -38,52 +39,6 @@ export default App.DiscussionForumModel = DiscussionBaseModel.extend({
 				},
 				error: (err) => {
 					this.handleLoadMoreError(err);
-					resolve(this);
-				}
-			});
-		});
-	},
-
-	deletePost(postId) {
-		return new Ember.RSVP.Promise((resolve) => {
-			Ember.$.ajax({
-				method: 'PUT',
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postId}/delete`),
-				xhrFields: {
-					withCredentials: true,
-				},
-				dataType: 'json',
-				success: (data) => {
-					const deletedPost = this.get('posts').filterBy('id', postId).get('firstObject');
-					Ember.set(deletedPost._embedded.firstPost[0], 'isDeleted', true);
-					resolve(this);
-				},
-				error: (err) => {
-					// TODO
-					this.setErrorProperty(err);
-					resolve(this);
-				}
-			});
-		});
-	},
-
-	undeletePost(postId) {
-		return new Ember.RSVP.Promise((resolve) => {
-			Ember.$.ajax({
-				method: 'PUT',
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postId}/undelete`),
-				xhrFields: {
-					withCredentials: true,
-				},
-				dataType: 'json',
-				success: (data) => {
-					const undeletedPost = this.get('posts').filterBy('id', postId).get('firstObject');
-					Ember.set(undeletedPost._embedded.firstPost[0], 'isDeleted', false);
-					resolve(this);
-				},
-				error: (err) => {
-					// TODO
-					this.setErrorProperty(err);
 					resolve(this);
 				}
 			});

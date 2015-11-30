@@ -8,10 +8,10 @@ export default App.PostDetailComponent = Ember.Component.extend(
 		classNameBindings: ['isDeleted'],
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
-		canDelete: Ember.computed('post', function() {
+		canDelete: Ember.computed('post.isDeleted', function() {
 			return !this.get('post.isDeleted') && this.checkPermissions('canDelete');
 		}),
-		canUndelete: Ember.computed('post', function() {
+		canUndelete: Ember.computed('post.isDeleted', function() {
 			return this.get('post.isDeleted') && this.checkPermissions('canUndelete');
 		}),
 		postId: null,
@@ -37,8 +37,8 @@ export default App.PostDetailComponent = Ember.Component.extend(
 		}),
 
 		checkPermissions(permission) {
-			const userData = this.get('post._embedded.userData');
-			const permissions = userData && userData[0].permissions;
+			const userData = this.get('post._embedded.userData'),
+				permissions = userData && userData[0].permissions;
 			return permissions && permissions.contains(permission);
 		},
 

@@ -31,12 +31,14 @@
 			<div class="discussion post small-12 large-8 columns">
 				{{post-detail
 					author=model.firstPost.createdBy
+					deletePost=(action 'deletePost')
 					isDeleted=model.isDeleted
 					isDetailsView=true
 					post=model.firstPost
 					postId=model.id
 					replyCount=model.postCount
 					timestamp=model.firstPost.creationDate.epochSecond
+					undeletePost=(action 'undeletePost')
 					upvoteCount=model.upvoteCount
 					upvote='upvote'
 				}}
