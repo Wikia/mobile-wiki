@@ -65,7 +65,7 @@ body.discussions {
 		padding: .3rem 0;
 	}
 
-	.discussion-replies {
+	.discussion-reply {
 		border: none;
 		padding: {
 			top: 12px;
@@ -123,7 +123,7 @@ body.discussions {
   	}
 	// border set for each element with "post-reply" class, after the first one
 	.post-reply ~ .post-reply {
-		.discussion-replies {
+		.discussion-reply {
 			border-top: 1px solid $discussion-reply-border-color;
 		}
 	}
