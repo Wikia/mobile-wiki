@@ -2,7 +2,7 @@
 
 import deepExtend from 'deep-extend';
 
-const localeSettings = {
+const authLocaleSettings = {
 	en: {
 		urls: {
 			termsOfUseLinkUrl: 'http://www.wikia.com/Terms_of_Use',
@@ -20,9 +20,9 @@ const localeSettings = {
 	}
 };
 
-localeSettings['de'] = deepExtend(
+authLocaleSettings['de'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {
 		},
@@ -37,9 +37,9 @@ localeSettings['de'] = deepExtend(
 		}
 	}
 );
-localeSettings['en-au'] = deepExtend(
+authLocaleSettings['en-au'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -48,9 +48,9 @@ localeSettings['en-au'] = deepExtend(
 	}
 );
 
-localeSettings['en-gb'] = deepExtend(
+authLocaleSettings['en-gb'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -59,9 +59,9 @@ localeSettings['en-gb'] = deepExtend(
 	}
 );
 
-localeSettings['en-ie'] = deepExtend(
+authLocaleSettings['en-ie'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -70,9 +70,9 @@ localeSettings['en-ie'] = deepExtend(
 	}
 );
 
-localeSettings['en-in'] = deepExtend(
+authLocaleSettings['en-in'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -81,9 +81,9 @@ localeSettings['en-in'] = deepExtend(
 	}
 );
 
-localeSettings['en-nz'] = deepExtend(
+authLocaleSettings['en-nz'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -92,9 +92,9 @@ localeSettings['en-nz'] = deepExtend(
 	}
 );
 
-localeSettings['en-za'] = deepExtend(
+authLocaleSettings['en-za'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -103,9 +103,9 @@ localeSettings['en-za'] = deepExtend(
 	}
 );
 
-localeSettings['es'] = deepExtend(
+authLocaleSettings['es'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://es.wikia.com/T%C3%A9rminos_de_Uso',
@@ -123,9 +123,9 @@ localeSettings['es'] = deepExtend(
 	}
 );
 
-localeSettings['es-es'] = deepExtend(
+authLocaleSettings['es-es'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://es.wikia.com/T%C3%A9rminos_de_Uso',
@@ -143,9 +143,9 @@ localeSettings['es-es'] = deepExtend(
 	}
 );
 
-localeSettings['fi'] = deepExtend(
+authLocaleSettings['fi'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -160,9 +160,9 @@ localeSettings['fi'] = deepExtend(
 	}
 );
 
-localeSettings['fr'] = deepExtend(
+authLocaleSettings['fr'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://fr.wikia.com/Conditions_d%27utilisation',
@@ -180,9 +180,9 @@ localeSettings['fr'] = deepExtend(
 	}
 );
 
-localeSettings['it'] = deepExtend(
+authLocaleSettings['it'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -197,9 +197,9 @@ localeSettings['it'] = deepExtend(
 	}
 );
 
-localeSettings['ja'] = deepExtend(
+authLocaleSettings['ja'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://ja.wikia.com/%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84',
@@ -218,9 +218,9 @@ localeSettings['ja'] = deepExtend(
 	}
 );
 
-localeSettings['ko'] = deepExtend(
+authLocaleSettings['ko'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -235,9 +235,9 @@ localeSettings['ko'] = deepExtend(
 	}
 );
 
-localeSettings['nl'] = deepExtend(
+authLocaleSettings['nl'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -252,9 +252,9 @@ localeSettings['nl'] = deepExtend(
 	}
 );
 
-localeSettings['pl'] = deepExtend(
+authLocaleSettings['pl'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -269,9 +269,9 @@ localeSettings['pl'] = deepExtend(
 	}
 );
 
-localeSettings['pt-br'] = deepExtend(
+authLocaleSettings['pt-br'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -286,9 +286,9 @@ localeSettings['pt-br'] = deepExtend(
 	}
 );
 
-localeSettings['pt-pt'] = deepExtend(
+authLocaleSettings['pt-pt'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -303,9 +303,9 @@ localeSettings['pt-pt'] = deepExtend(
 	}
 );
 
-localeSettings['ru'] = deepExtend(
+authLocaleSettings['ru'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -320,9 +320,9 @@ localeSettings['ru'] = deepExtend(
 	}
 );
 
-localeSettings['sv-se'] = deepExtend(
+authLocaleSettings['sv-se'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -337,9 +337,9 @@ localeSettings['sv-se'] = deepExtend(
 	}
 );
 
-localeSettings['vi'] = deepExtend(
+authLocaleSettings['vi'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {},
 		date: {
@@ -354,9 +354,9 @@ localeSettings['vi'] = deepExtend(
 	}
 );
 
-localeSettings['zh'] = deepExtend(
+authLocaleSettings['zh'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://zh-tw.wikia.com/wiki/%E4%BD%BF%E7%94%A8%E6%A2%9D%E6%AC%BE',
@@ -374,9 +374,9 @@ localeSettings['zh'] = deepExtend(
 	}
 );
 
-localeSettings['zh-hans'] = deepExtend(
+authLocaleSettings['zh-hans'] = deepExtend(
 	{},
-	localeSettings['en'],
+	authLocaleSettings['en'],
 	{
 		urls: {
 			termsOfUseLinkUrl: 'http://zh.wikia.com/wiki/%E4%BD%BF%E7%94%A8%E6%9D%A1%E6%AC%BE',
@@ -394,4 +394,4 @@ localeSettings['zh-hans'] = deepExtend(
 	}
 );
 
-export default localeSettings;
+export default authLocaleSettings;

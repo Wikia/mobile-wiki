@@ -1,7 +1,7 @@
 import * as BirthdateInput from './BirthdateInput';
 import * as authUtils from '../../lib/AuthUtils';
 import localSettings from '../../../config/localSettings';
-import localeSettings from '../../../config/localeSettings';
+import authLocaleSettings from '../../../config/authLocaleSettings';
 import * as authView from './authView';
 import deepExtend from 'deep-extend';
 
@@ -52,9 +52,9 @@ function getDefaultRegistrationContext(request, i18n) {
 			langCode: lang,
 			defaultBirthdate: '1970-01-01',
 			pageParams: {
-				termsOfUseLink: `<a href="${localeSettings[lang].urls.termsOfUseLinkUrl}" target="_blank">` +
+				termsOfUseLink: `<a href="${authLocaleSettings[lang].urls.termsOfUseLinkUrl}" target="_blank">` +
 					`${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
-				privacyPolicyLink: `<a href="${localeSettings[lang].urls.privacyPolicyLinkUrl}" target="_blank">` +
+				privacyPolicyLink: `<a href="${authLocaleSettings[lang].urls.privacyPolicyLinkUrl}" target="_blank">` +
 					`${i18n.t('auth:register.privacy-policy-link-title')}</a>`
 			}
 		}
@@ -113,21 +113,21 @@ function getEmailRegistrationPage(request, reply) {
 				title: (viewType === authView.VIEW_TYPE_MOBILE) ?
 					'auth:join.sign-up-with-email' :
 					'auth:register.desktop-header',
-				termsOfUseLink: `<a href="${localeSettings[lang].urls.termsOfUseLinkUrl}` +
+				termsOfUseLink: `<a href="${authLocaleSettings[lang].urls.termsOfUseLinkUrl}` +
 					`" target="_blank">${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
 				footerCallout: 'auth:common.signin-callout',
 				footerHref: authUtils.getSignInUrl(request),
 				footerCalloutLink: 'auth:common.signin-link-text',
-				birthdateInputs: (new BirthdateInput(localeSettings[lang].date.endian, lang)).getInputData(),
+				birthdateInputs: (new BirthdateInput(authLocaleSettings[lang].date.endian, lang)).getInputData(),
 				bodyClasses: 'register-page',
 				pageType: 'register-page',
 				usernameMaxLength: localSettings.helios.usernameMaxLength,
 				passwordMaxLength: localSettings.helios.passwordMaxLength,
 				langCode: lang,
 				pageParams: {
-					termsOfUseLink: `<a href="${localeSettings[lang].urls.termsOfUseLinkUrl}" target="_blank">` +
+					termsOfUseLink: `<a href="${authLocaleSettings[lang].urls.termsOfUseLinkUrl}" target="_blank">` +
 						`${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
-					privacyPolicyLink: `<a href="${localeSettings[lang].urls.privacyPolicyLinkUrl}" target="_blank">`
+					privacyPolicyLink: `<a href="${authLocaleSettings[lang].urls.privacyPolicyLinkUrl}" target="_blank">` +
 						`${i18n.t('auth:register.privacy-policy-link-title')}</a>`,
 					facebookAppId: localSettings.facebook.appId
 				}

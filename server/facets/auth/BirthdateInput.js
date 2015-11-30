@@ -1,4 +1,4 @@
-import localeSettings from '../../../config/localeSettings';
+import authLocaleSettings from '../../../config/authLocaleSettings';
 
 /**
  * @typedef {Object} DateEndian
@@ -43,11 +43,11 @@ export default class BirthdateInput {
 	 * @returns {void}
 	 */
 	constructor(endian, lang) {
-		const langSettings = localeSettings[lang];
+		const langSettings = authLocaleSettings[lang];
 
 		this.endian = endian;
 		this.lang = lang;
-		this.settings = langSettings ? langSettings.date : localeSettings.en.date;
+		this.settings = langSettings ? langSettings.date : authLocaleSettings.en.date;
 	}
 
 	/**
