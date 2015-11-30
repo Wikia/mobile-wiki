@@ -1,16 +1,18 @@
-App.ImageReviewModel = Em.Object.extend({
+import App from '../app';
+
+export default App.ImageReviewModel = Ember.Object.extend({
     sessionId: 0,
 	images: []
 });
 
 App.ImageReviewModel.reopenClass({
     /**
-     * @returns {Em.RSVP.Promise} model
+     * @returns {Ember.RSVP.Promise} model
      */
     startSession() {
         console.log('ImageReviewModel.startSession() with userId '+M.prop('userId'));
-        return new Em.RSVP.Promise((resolve, reject) => {
-            Em.$.ajax({
+        return new Ember.RSVP.Promise((resolve, reject) => {
+            Ember.$.ajax({
                 url: App.ImageReviewModel.getServiceUrl(),
 				dataType: 'json',
 				method: 'POST',
@@ -30,8 +32,8 @@ App.ImageReviewModel.reopenClass({
 
     endSession() {
         console.log('ImageReviewModel.endSession()');
-        return new Em.RSVP.Promise((resolve, reject) => {
-            Em.$.ajax({
+        return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: App.ImageReviewModel.getServiceUrl(),
 				xhrFields: {
 					withCredentials: true
@@ -48,8 +50,8 @@ App.ImageReviewModel.reopenClass({
         });
     },
     getImages(sessionId) {
-        return new Em.RSVP.Promise((resolve, reject) => {
-			Em.$.ajax({
+        return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: App.ImageReviewModel.getServiceUrl() + sessionId + '/image',
 				xhrFields: {
 					withCredentials: true
@@ -58,7 +60,7 @@ App.ImageReviewModel.reopenClass({
 				method: 'GET',
 				success: (data) => {
 					console.log("GetImages data: "+JSON.stringify(data));
-					if (Em.isArray(data)) {
+					if (Ember.isArray(data)) {
 						resolve(App.ImageReviewModel.sanitize(data, sessionId));
 					} else {
 						reject('Invalid data was returned from Image Review API');
@@ -72,8 +74,8 @@ App.ImageReviewModel.reopenClass({
     },
     reviewImage(sessionId, imageId, reviewStatus) {
         console.log('ImageReviewModel.reviewImage()');
-        return new Em.RSVP.Promise((resolve, reject) => {
-			Em.$.ajax({
+        return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: App.ImageReviewModel.getServiceUrl() +
 												sessionId + '/image/' + imageId + '?status=' + reviewStatus,
 				xhrFields: {

@@ -1,5 +1,7 @@
-App.ImageReviewController = Em.Controller.extend({
-	application: Em.inject.controller(),
+import App from '../app';
+
+export default App.ImageReviewController = Ember.Controller.extend({
+	application: Ember.inject.controller(),
 
     init() {
         console.log("Image review init controller");

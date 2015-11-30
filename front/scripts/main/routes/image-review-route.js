@@ -1,5 +1,9 @@
-App.ImageReviewRoute = Em.Route.extend(
-    App.ImageReviewMixin, {
+import App from '../app';
+import ImageReviewMixin from '../mixins/image-review-mixin';
+import ImageReviewModel from '../models/image-review-model';
+
+export default App.ImageReviewRoute = Ember.Route.extend(
+    ImageReviewMixin, {
 
 		model() {
 			this.set('isLoading', true);
@@ -16,7 +20,7 @@ App.ImageReviewRoute = Em.Route.extend(
 					});
 					this.transitionTo('mainPage');
 				} else {
-					Em.Logger.error(error);
+					Ember.Logger.error(error);
 					this.controllerFor('application').addAlert({
 						message: 'Couldn\'t load image-review',
 						type: 'warning'
@@ -28,7 +32,7 @@ App.ImageReviewRoute = Em.Route.extend(
 
 			getMoreImages(sessionId) {
 				console.log("Getting more images for ID: "+sessionId);
-				App.ImageReviewModel.getImages(sessionId)
+				ImageReviewModel.getImages(sessionId)
 					.then(function (data) {
 						console.log("Images: "+JSON.stringify(data));
 					})

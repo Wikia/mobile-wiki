@@ -1,4 +1,6 @@
-App.ImageReviewItemComponent = Em.Component.extend({
+import App from '../app';
+
+export default App.ImageReviewItemComponent = Ember.Component.extend({
     editorLayout: 'image-review-item',
 
     actions: {

@@ -1,4 +1,6 @@
-App.ImageReviewComponent = Em.Component.extend({
+import App from '../app';
+
+export default App.ImageReviewComponent = Ember.Component.extend({
 	classNames: ['image-review'],
 	isLoading: false,
 	actions: {
