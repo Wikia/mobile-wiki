@@ -1,13 +1,8 @@
 import App from '../app';
 
 export default App.ImageReviewMixin = Ember.Mixin.create({
-
-	/**
-	 * @param {*} controller
-	 * @param {App.ImageReviewModel} model
-	 * @returns {void}
-	 */
-	renderTemplate(controller: any , model: any) {
+	
+	renderTemplate(controller, model) {
 		console.log("Image review renderTemplate called!");
 		this.render('image-review', {
 			controller: controller,
