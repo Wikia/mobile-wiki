@@ -60,6 +60,11 @@ body.discussions {
 		}
 	}
 
+	.delete-link,
+	.undelete-link {
+		float: right;
+	}
+
 	.discussion-content {
 		color: $discussion-content-color;
 		margin: 5px 0;
@@ -96,7 +101,7 @@ body.discussions {
 				}
 			}
 
-			.icon {
+			.icon:not(.undelete) {
 				fill: $discussion-deleted-actions-color;
 				stroke: $discussion-deleted-actions-color;
 			}

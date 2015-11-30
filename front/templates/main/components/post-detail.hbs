@@ -10,9 +10,9 @@
 	</span>
 	<!-- TODO check permision -->
 	{{#if isDeleted}}
-		<a {{action this.attrs.undeletePost post}}>{{svg 'undelete' viewBox='0 0 30 30' class='icon undelete'}}</a>
+		<a class="undelete-link" {{action this.attrs.undeletePost post}}>{{svg 'undelete' viewBox='0 0 17 22' class='icon undelete'}}</a>
 	{{else}}
-		<a {{action this.attrs.deletePost post}}>{{svg 'delete' viewBox='0 0 30 30' class='icon delete'}}</a>
+		<a class="delete-link" {{action this.attrs.deletePost post}}>{{svg 'delete' viewBox='0 0 17 22' class='icon delete'}}</a>
 	{{/if}}
 </div>
 {{#if isDetailsView}}

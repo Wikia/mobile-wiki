@@ -66,7 +66,6 @@ export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMix
 		},
 
 		undeletePost(post) {
-			console.log(post);
 			if (Ember.get(post, 'isDeleted') && this.checkPermissions(post, 'canUndelete')) {
 				this.modelFor('discussion.forum').undeletePost(post.threadId);
 			}
