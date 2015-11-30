@@ -6,6 +6,7 @@ $post-details-post-margin-bottom: 5px;
 $post-details-post-vertical-padding: 12px;
 $post-details-reply-upvote-width: 12px;
 $post-details-reply-upvote-margin-left: 10px;
+$deleted-mark-size: 12px;
 
 body.discussions {
 	background-color: $discussion-desktop-bg-color;
@@ -65,6 +66,47 @@ body.discussions {
 		padding: .3rem 0;
 	}
 
+	.post-reply,
+	.post-detail {
+		position: relative;
+
+		&.is-deleted {
+			&::before {
+				border-color: $discussion-deleted-mark-color transparent transparent transparent;
+				border-style: solid;
+				border-width: $deleted-mark-size $deleted-mark-size 0 0;
+				content: "";
+				height: $deleted-mark-size;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: $deleted-mark-size;
+			}
+		}
+
+		&.is-deleted,
+		&.is-parent-deleted {
+			.discussion-content {
+				color: $discussion-deleted-content-color;
+			}
+
+			.count {
+				a, span {
+					color: $discussion-deleted-actions-color;
+				}
+			}
+
+			.icon {
+				fill: $discussion-deleted-actions-color;
+				stroke: $discussion-deleted-actions-color;
+			}
+
+			.upvote a {
+				cursor: default;
+			}
+		}
+	}
+
 	.discussion-reply {
 		border: none;
 		padding: {
@@ -122,21 +164,20 @@ body.discussions {
 	}
 
 	.icon {
+		fill: $discussion-actions-color;
 		height: 20px;
+		stroke: $discussion-actions-color;
 		width: 20px;
 		vertical-align: middle;
 
 		&.upvote {
 			height: 22px;
 			width: 22px;
-			fill: $upvote-icon-color;
 		}
 		&.upvote-reply {
 			height: 12px;
 			line-height: 12px;
 			width: 12px;
-			fill: $upvote-reply-icon-color;
-			stroke: $upvote-reply-icon-color;
 		}
 		&.replies{
 			height: 24px;
@@ -151,12 +192,8 @@ body.discussions {
 
 	.has-upvoted {
 		.icon {
-			&.upvote {
 				fill: $upvote-icon-activated-color;
-			}
-			&.upvote-reply {
 				stroke: $upvote-icon-activated-color;
-			}
 		}
 	}
 

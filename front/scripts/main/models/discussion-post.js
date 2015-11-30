@@ -25,7 +25,8 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend({
 					sortKey: 'creation_date',
 					limit: this.replyLimit,
 					pivot: this.pivotId,
-					page: this.page + 1
+					page: this.page + 1,
+					viewableOnly: false
 				}),
 				xhrFields: {
 					withCredentials: true,
@@ -105,7 +106,8 @@ App.DiscussionPostModel.reopenClass({
 					responseGroup: 'full',
 					sortDirection: 'descending',
 					sortKey: 'creation_date',
-					limit: postInstance.replyLimit
+					limit: postInstance.replyLimit,
+					viewableOnly: false
 				}),
 				dataType: 'json',
 				xhrFields: {
@@ -136,13 +138,14 @@ App.DiscussionPostModel.reopenClass({
 						contributors,
 						forumId: data.forumId,
 						firstPost: data._embedded.firstPost[0],
-						upvoteCount: data.upvoteCount,
+						id: data.id,
+						isDeleted: data.isDeleted,
+						page: 0,
+						pivotId,
 						postCount: data.postCount,
 						replies: replies || [],
-						id: data.id,
-						pivotId,
-						page: 0,
-						title: data.title
+						title: data.title,
+						upvoteCount: data.upvoteCount
 					});
 					resolve(postInstance);
 				},

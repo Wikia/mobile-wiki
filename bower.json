@@ -22,7 +22,8 @@
     "vignette": "wikia/vignette-js#2.1.1",
     "visit-source": "Wikia/visit-source#0.1.1",
     "weppy": "Wikia/weppy#0.9.3",
-    "wikia-style-guide": "Wikia/style-guide#v1.8.2"
+    "wikia-style-guide": "Wikia/style-guide#v1.8.2",
+    "Autolinker.js": "~0.22.0"
   },
   "devDependencies": {
     "ember-qunit": "rwjblue/ember-qunit-builds#v0.4.13",
