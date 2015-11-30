@@ -82,6 +82,9 @@ body.dark-theme {
 		.discussion-content {
 			color: $dark-discussion-content-color;
 		}
+		.discussion-no-replies {
+		    color: $dark-discussion-error-text-color;
+		}
 		.post-reply ~ .post-reply {
 			.discussion-reply {
 				border-top-color: $dark-discussion-reply-border-color;
@@ -181,6 +184,9 @@ body.dark-theme {
 					color: $dark-discussion-sort-color;
 				}
 			}
+		}
+		.discussion-no-replies {
+			border-bottom-color: $dark-discussion-reply-border-color
 		}
 	}
 }
