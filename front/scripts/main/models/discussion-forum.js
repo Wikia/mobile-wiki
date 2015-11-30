@@ -23,6 +23,7 @@ export default App.DiscussionForumModel = DiscussionBaseModel.extend({
 				data: {
 					page: this.get('pageNum'),
 					sortKey: this.getSortKey(sortBy),
+					viewableOnly: false
 				},
 				xhrFields: {
 					withCredentials: true,
@@ -72,7 +73,9 @@ App.DiscussionForumModel.reopenClass({
 					wikiId,
 					forumId
 				}),
-				requestData = {};
+				requestData = {
+					viewableOnly: false
+				};
 
 			if (sortBy) {
 				requestData.sortKey = forumInstance.getSortKey(sortBy);

@@ -7,6 +7,7 @@ export default App.PostDetailComponent = Ember.Component.extend(
 	DiscussionParsedContentMixin,
 	{
 		classNames: ['post-detail'],
+		classNameBindings: ['isDeleted'],
 
 		postId: null,
 
