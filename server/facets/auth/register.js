@@ -103,6 +103,7 @@ function getEmailRegistrationPage(request, reply) {
 	const i18n = request.server.methods.i18n.getInstance(),
 		lang = i18n.lng(),
 		viewType = authView.getViewType(request),
+		birthdateInput = new BirthdateInput(authLocaleSettings[lang].date.endian, lang),
 		context = deepExtend(getDefaultRegistrationContext(request, i18n),
 			{
 				headerText: (viewType === authView.VIEW_TYPE_MOBILE) ?
@@ -118,7 +119,7 @@ function getEmailRegistrationPage(request, reply) {
 				footerCallout: 'auth:common.signin-callout',
 				footerHref: authUtils.getSignInUrl(request),
 				footerCalloutLink: 'auth:common.signin-link-text',
-				birthdateInputs: (new BirthdateInput(authLocaleSettings[lang].date.endian, lang)).getInputData(),
+				birthdateInputs: birthdateInput.getInputData(),
 				bodyClasses: 'register-page',
 				pageType: 'register-page',
 				usernameMaxLength: localSettings.helios.usernameMaxLength,
