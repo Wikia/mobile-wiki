@@ -59,7 +59,7 @@ App.ImageReviewModel.reopenClass({
 				success: (data) => {
 					console.log("GetImages data: "+JSON.stringify(data));
 					if (Em.isArray(data)) {
-						resolve(App.ImageReviewModel.sanitize(data));
+						resolve(App.ImageReviewModel.sanitize(data, sessionId));
 					} else {
 						reject('Invalid data was returned from Image Review API');
 					}
@@ -91,20 +91,24 @@ App.ImageReviewModel.reopenClass({
         });
     },
 
-	sanitize(rawData) {
+	sanitize(rawData, sessionId) {
 		var images = [];
 
 		if (rawData.length) {
 			rawData.forEach((image) => {
 				if (image.reviewStatus === 'UNREVIEWED') {
-					images.push(image.imageId);
+					images.push({
+                        imageId: image.imageId,
+                        contractId: sessionId
+                    });
 				}
 				//else skip because is reviewed already
 			});
 		}
 
 		return App.ImageReviewModel.create({
-			images
+			images: images,
+            sessionId: sessionId
 		});
 	},
 

@@ -1,7 +1,5 @@
 App.ImageReviewItemComponent = Em.Component.extend({
     editorLayout: 'image-review-item',
-	imageId: null,
-	contractId: null,
 
     actions: {
         /**
@@ -9,6 +7,7 @@ App.ImageReviewItemComponent = Em.Component.extend({
          * @returns {void}
          */
         setOk(model) {
+			console.log("Setting image as ok! "+ model.imageId);
             this.sendAction('setImageAsOk', model);
         },
 

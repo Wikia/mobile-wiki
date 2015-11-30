@@ -6,7 +6,7 @@
 <ul class="image-review-list">
     <li class="image-review-item">
 		{{#each model.images as |item|}}
-			{{image-review-item model=item action='openItem'}}
+			{{image-review-item model=item}}
 		{{/each}}
     </li>
 </ul>
@@ -18,8 +18,6 @@ Get More Images
 <button class="review-images" {{action 'reviewImages'}}>
 Review!
 </button>
-
-
 
 {{loading-spinner active=isLoading}}
 {{alert-notifications alerts=alertNotifications}}

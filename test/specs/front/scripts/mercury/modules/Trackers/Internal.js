@@ -1,10 +1,14 @@
 /* global Mercury */
-var scriptsArray;
+var scriptsArray,
+	InternalModule = {},
+	InternalTracker;
 
 QUnit.module('Internal tracker createRequestURL method tests when isPageView returns true', {
 	setup: function () {
-		Mercury.Modules.Trackers.Internal.isPageView = function() {return true;};
-		this.tracker = new Mercury.Modules.Trackers.Internal();
+		require.entries['mercury/modules/Trackers/Internal'].callback(InternalModule);
+		InternalTracker = InternalModule.default;
+		InternalTracker.isPageView = function() {return true;};
+		this.tracker = new InternalTracker();
 		this.tracker.baseUrl = 'http://wikia.com/';
 	}
 });
@@ -43,8 +47,10 @@ QUnit.test('params are object with empty values', function () {
 
 QUnit.module('Internal tracker createRequestURL method tests when isPageView returns false', {
 	setup: function () {
-		Mercury.Modules.Trackers.Internal.isPageView = function() {return false;};
-		this.tracker = new Mercury.Modules.Trackers.Internal();
+		require.entries['mercury/modules/Trackers/Internal'].callback(InternalModule);
+		InternalTracker = InternalModule.default;
+		InternalTracker.isPageView = function() {return false;};
+		this.tracker = new InternalTracker();
 		this.tracker.baseUrl = 'http://wikia.com/';
 	}
 });
@@ -60,7 +66,9 @@ QUnit.test('params are object without empty values', function () {
 
 QUnit.module('Internal tracker loadTrackingScript', {
 	setup: function () {
-		this.tracker = new Mercury.Modules.Trackers.Internal();
+		require.entries['mercury/modules/Trackers/Internal'].callback(InternalModule);
+		InternalTracker = InternalModule.default;
+		this.tracker = new InternalTracker();
 		this.tracker.scriptLoadedHandler = function() {};
 		this.tracker.head = {
 			insertBefore: function(script) {
@@ -92,7 +100,9 @@ QUnit.test('load tracking script', function () {
 
 QUnit.module('Track', {
 	setup: function () {
-		this.tracker = new Mercury.Modules.Trackers.Internal();
+		require.entries['mercury/modules/Trackers/Internal'].callback(InternalModule);
+		InternalTracker = InternalModule.default;
+		this.tracker = new InternalTracker();
 		this.tracker.loadTrackingScript = sinon.spy();
 		this.tracker.createRequestURL = sinon.spy();
 	}
