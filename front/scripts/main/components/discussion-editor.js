@@ -23,7 +23,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	errorMessage: Ember.computed.oneWay('requestErrorMessage'),
 
 	/**
-	 * returns {boolean}
+	 * @returns {boolean}
 	 */
 	submitDisabled: Ember.computed('bodyText', 'currentUser.userId', function () {
 		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null;
@@ -32,8 +32,8 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	/**
 	 * @returns {void}
 	 */
-	init() {
-		this._super.apply(this, arguments);
+	init(...params) {
+		this._super(...params);
 
 		this.set('isActive', false);
 	},
@@ -68,6 +68,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	/**
 	 * Method should be overwritten in the child classes
 	 * @returns {void}
+	 * @throws {Error} if method is not overridden in the descendant class
 	 */
 	isStickyBreakpointHeight() {
 		throw new Error('Please, override this method in the descendant class');
@@ -76,6 +77,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	/**
 	 * Method should be overwritten in the child classes
 	 * @returns {void}
+	 * @throws {Error} if method is not overridden in the descendant class
 	 */
 	initializeStickyState() {
 		throw new Error('Please, override this method in the descendant class');
