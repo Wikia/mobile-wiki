@@ -13,11 +13,11 @@
 			}}
 			<hr/>
 			<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
-			{{discussion-contributors
-				contributors=model.contributors
-				maxContributorDisplayCount=7
-				totalContributorCount=model.postCount
-			}}
+				{{discussion-contributors
+					contributors=model.contributors
+					maxContributorDisplayCount=7
+					totalContributorCount=model.postCount
+				}}
 		</div>
 		{{#if model.connectionError}}
 			{{discussion-connection-error
@@ -29,23 +29,23 @@
 			}}
 		{{else}}
 			<div class="discussion post small-12 large-8 columns">
-			{{post-detail
-				author=model.firstPost.createdBy
-				isDetailsView=true
-				post=model.firstPost
-				postId=model.id
-				replyCount=model.postCount
-				timestamp=model.firstPost.creationDate.epochSecond
-				upvoteCount=model.upvoteCount
-				upvote='upvote'
-			}}
+				{{post-detail
+					author=model.firstPost.createdBy
+					isDetailsView=true
+					post=model.firstPost
+					postId=model.id
+					replyCount=model.postCount
+					timestamp=model.firstPost.creationDate.epochSecond
+					upvoteCount=model.upvoteCount
+					upvote='upvote'
+				}}
 			{{#if model.replies}}
 				<div class="desktop-hidden discussion-contributors-mobile">
-				{{discussion-contributors
-					contributors=model.contributors
-					maxContributorDisplayCount=7
-					totalContributorCount=model.postCount
-				}}
+					{{discussion-contributors
+						contributors=model.contributors
+						maxContributorDisplayCount=7
+						totalContributorCount=model.postCount
+					}}
 				</div>
 				{{#if canShowMore}}
 					<button {{action 'expand'}} class="see-more active-element-theme-color">
@@ -64,7 +64,7 @@
 					}}
 				{{/each}}
 			{{else}}
-				<div class="discussion-no-reply">
+				<div class="discussion-no-replies">
 					{{svg 'comments' viewBox='0 0 30 30' class='icon no-reply'}}
 					{{i18n 'main.no-replies' ns='discussion'}}
 				</div>
