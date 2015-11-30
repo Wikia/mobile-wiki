@@ -5,7 +5,7 @@ var gulp = require('gulp'),
 	path = require('path');
 
 gulp.task('scripts-test-modules', function (done) {
-	return gulp.src([
+	gulp.src([
 			path.join(paths.src, 'auth', paths.jsFiles),
 			path.join(paths.src, 'main', paths.jsFiles),
 			path.join(paths.src, 'mercury', paths.jsFiles),
