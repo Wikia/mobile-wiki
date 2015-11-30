@@ -16,11 +16,9 @@ export default App.DiscussionReplyEditorComponent = DiscussionEditorComponent.ex
 	 * @returns {void}
 	 */
 	initializeStickyState() {
-		if (window.innerHeight < this.$().offset().top + this.$().height()) {
-			this.set('isSticky', true);
-		} else {
-			this.set('isSticky', false);
-		}
+		const isSticky = window.innerHeight < this.$().offset().top + this.$().height();
+
+		this.set('isSticky', isSticky);
 
 		Ember.$(window).on('scroll.editor', () => {
 			this.onScroll();
@@ -60,9 +58,7 @@ export default App.DiscussionReplyEditorComponent = DiscussionEditorComponent.ex
 	 * @returns {void}
 	 */
 	handleNewReplyCreated: Ember.observer('replies.@each.isNew', function () {
-		const newReplies = this.get('replies').filter((reply) => {
-				return reply.isNew;
-			}),
+		const newReplies = this.get('replies').filter((reply) => reply.isNew),
 			newReply = newReplies.get('firstObject');
 
 		if (newReply) {

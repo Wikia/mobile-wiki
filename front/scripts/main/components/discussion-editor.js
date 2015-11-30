@@ -164,7 +164,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 			showSuccess: true
 		});
 
-		Ember.set(newItem, 'isVisible', false);
+		newItem.set('isVisible', false);
 
 		Ember.run.later(this, () => {
 			this.showNewPostAnimations(newItem);
