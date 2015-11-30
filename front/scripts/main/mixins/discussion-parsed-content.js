@@ -5,7 +5,7 @@ import App from '../app';
  */
 export default App.DiscussionParsedContentMixin = Ember.Mixin.create({
 	/**
-	 * Returns content with links created from urls
+	 * Returns content with links created from urls and converts \n to <br>
 	 * @returns {string}
 	 */
 	parsedContent: Ember.computed(function () {
@@ -20,9 +20,4 @@ export default App.DiscussionParsedContentMixin = Ember.Mixin.create({
 			twitter: false
 		}) : escapedContent;
 	})
-	/**
-	 * Parses \n to <br>
-	 * @returns {string}
-	 */
-
 });
