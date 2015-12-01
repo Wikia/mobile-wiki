@@ -1,12 +1,20 @@
 import App from '../app';
 import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
+import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
 
 export default App.PostDetailComponent = Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
+	DiscussionParsedContentMixin,
 	{
 		classNames: ['post-detail'],
+		classNameBindings: ['isNew', 'isDeleted'],
 
 		postId: null,
+
+		/**
+		 * Returns link to the post author's user page
+		 * @returns {string}
+		 */
 		authorUrl: Ember.computed('post', function () {
 			return M.buildUrl({
 				namespace: 'User',
@@ -22,6 +30,8 @@ export default App.PostDetailComponent = Ember.Component.extend(
 
 		// Timeout used for auto-hiding the sharing icons
 		hideShareTimeout: null,
+
+		isNew: Ember.computed.oneWay('post.isNew'),
 
 		// URL passed to the ShareFeatureComponent for sharing a post
 		sharedUrl: Ember.computed('postId', function () {

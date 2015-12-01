@@ -1,4 +1,3 @@
-
 /**
  * @typedef {Object} TrackerOptions
  * @property {string} name
@@ -56,7 +55,6 @@ class UniversalAnalytics {
 		this.accounts = M.prop('tracking.ua');
 
 		this.initAccount(this.accountPrimary, domain);
-
 		this.initAccount(this.accountAds, domain);
 
 		if (isSpecialWiki) {
@@ -121,9 +119,7 @@ class UniversalAnalytics {
 			options.name = trackerPrefix;
 		}
 
-		ga('create', this.accounts[trackerName].id, 'auto', options);
-
-		ga(`${prefix}require`, 'linker');
+		UniversalAnalytics.setupAccountOnce(this.accounts[trackerName].id, prefix, options);
 
 		if (domain) {
 			ga(`${prefix}linker:autoLink`, domain);
@@ -133,6 +129,24 @@ class UniversalAnalytics {
 			ga(`${prefix}set`, `dimension${idx}`, UniversalAnalytics.getDimension(idx)));
 
 		this.tracked.push(this.accounts[trackerName]);
+	}
+
+	/**
+	 * We create new tracker instance every time mercury/utils/track #track or #trackPageView is called
+	 * Google wants us to call methods below just once per account
+	 *
+	 * @param {string} id
+	 * @param {string} prefix
+	 * @param {Object} options
+	 * @returns {void}
+	 */
+	static setupAccountOnce(id, prefix, options) {
+		if (UniversalAnalytics.createdAccounts.indexOf(id) === -1) {
+			ga('create', id, 'auto', options);
+			ga(`${prefix}require`, 'linker');
+
+			UniversalAnalytics.createdAccounts.push(id);
+		}
 	}
 
 	/**
@@ -261,4 +275,6 @@ class UniversalAnalytics {
 }
 
 UniversalAnalytics.dimensions = [];
+UniversalAnalytics.createdAccounts = [];
+
 export default UniversalAnalytics;

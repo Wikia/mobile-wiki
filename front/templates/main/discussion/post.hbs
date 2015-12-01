@@ -31,6 +31,7 @@
 			<div class="discussion post small-12 large-8 columns">
 				{{post-detail
 					author=model.firstPost.createdBy
+					isDeleted=model.isDeleted
 					isDetailsView=true
 					post=model.firstPost
 					postId=model.id
@@ -39,36 +40,49 @@
 					upvoteCount=model.upvoteCount
 					upvote='upvote'
 				}}
-			{{#if model.replies}}
-				<div class="desktop-hidden discussion-contributors-mobile">
-					{{discussion-contributors
-						contributors=model.contributors
-						maxContributorDisplayCount=7
-						totalContributorCount=model.postCount
-					}}
-				</div>
-				{{#if canShowMore}}
-					<button {{action 'expand'}} class="see-more active-element-theme-color">
-						{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-						{{i18n 'main.pagination-post-show-more' ns='discussion'}}
-					</button>
+				{{#if model.replies}}
+					<div class="desktop-hidden discussion-contributors-mobile">
+						{{discussion-contributors
+							contributors=model.contributors
+							maxContributorDisplayCount=7
+							totalContributorCount=model.postCount
+						}}
+					</div>
+					{{#if canShowMore}}
+						<button {{action 'expand'}} class="see-more active-element-theme-color">
+							{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+							{{i18n 'main.pagination-post-show-more' ns='discussion'}}
+						</button>
+					{{/if}}
+					<div class="replies-list">
+						{{#each model.replies as |item index|}}
+							{{post-reply
+								post=item
+								author=item.createdBy
+								content=item.rawContent
+								isDeleted=item.isDeleted
+								isParentDeleted=model.isDeleted
+								timestamp=item.creationDate.epochSecond
+								upvoteCount=item.upvoteCount
+								isNew=item.isNew
+								isVisible=item.isVisible
+								upvote='upvote'
+							}}
+						{{/each}}
+						{{discussion-reply-editor
+							create='create'
+							toggleEditorActive='toggleEditorActive'
+							isActive=editorActive
+							replies=model.replies
+							requestErrorMessage=model.errorMessage
+						}}
+					</div>
+				{{else}}
+					<div class="discussion-no-replies">
+						{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
+						{{i18n 'main.no-replies' ns='discussion'}}
+					</div>
 				{{/if}}
-				{{#each model.replies as |item index|}}
-					{{post-reply
-						post=item
-						author=item.createdBy
-						content=item.rawContent
-						timestamp=item.creationDate.epochSecond
-						upvoteCount=item.upvoteCount
-						upvote='upvote'
-					}}
-				{{/each}}
-			{{else}}
-				<div class="discussion-no-replies">
-					{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
-					{{i18n 'main.no-replies' ns='discussion'}}
-				</div>
-			{{/if}}
 			</div>
 		{{/if}}
 		<div class="rail large-2 columns">

@@ -1,5 +1,18 @@
 {
+  "landing-page":{
+    "to-the-wiki-title":"返回维基",
+    "page-main-header":"和__applicationName__粉丝一起进行热门话题讨论",
+    "download-the-app-header":"现在就下载应用程序加入其中!",
+    "google-play-button-alt":"在谷歌商店下载",
+    "start-discussions-title":"发起讨论",
+    "start-discussions-text":"在线提问，分享新闻，或者和世界各地的粉丝一起讨论您所喜爱的话题内容！",
+    "upvote-the-best-title":"票选最棒话题",
+    "upvote-the-best-text":"看到了你所喜欢的内容？那么就投下一票，让热门话题占据前沿！",
+    "share-your-knowledge-title":"分享你的知识",
+    "share-your-knowledge-text":"在社交网络上分享您最喜爱的话题，让更多的粉丝参与其中。"
+  },
   "main":{
+    "pagination-post-show-more":"查看以往回复",
     "share-default-title":"__siteName__上的讨论",
     "contributors-title":"所有贡献者",
     "sort-by-latest":"最新",
@@ -14,6 +27,11 @@
     "all-discussions-link-mobile":"所有讨论",
     "discussions-app-join":"想参与讨论？立即下载这款应用吧！",
     "back-to-discussions-link":"所有讨论"
+  },
+  "editor":{
+    "post-failed-error":"发布失败",
+    "post-editor-label":"创建一个帖子",
+    "post-action-button-label":"发布",
+    "post-editor-placeholder-text":"分享想法、问题或链接..."
   }
 }
-  

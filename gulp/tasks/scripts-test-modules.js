@@ -6,14 +6,10 @@ var gulp = require('gulp'),
 
 gulp.task('scripts-test-modules', function () {
 	return gulp.src([
-			path.join(paths.src, paths.jsFiles),
-			// The rest is built in scripts-front task
-			// FIXME uncomment when we know how to set Babel to generate proper module paths
-			// FIXME with the code above it's "auth/main", with the code below it's "main"
-			//path.join(paths.src, 'auth', paths.jsFiles),
-			//path.join(paths.src, 'main', paths.jsFiles),
-			//path.join(paths.src, 'mercury', paths.jsFiles),
-		])
+			path.join(paths.src, 'auth', paths.jsFiles),
+			path.join(paths.src, 'main', paths.jsFiles),
+			path.join(paths.src, 'mercury', paths.jsFiles),
+		], {base: './front/scripts/'})
 		.pipe(babel({
 			presets: ['es2015'],
 			plugins: ['transform-es2015-modules-amd'],
