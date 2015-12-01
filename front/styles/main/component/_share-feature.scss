@@ -2,6 +2,10 @@
 	display: block;
 	text-align: right;
 
+	.is-deleted & {
+		display: none;
+	}
+
 	.icon {
 		background-position: center;
 		background-repeat: no-repeat;

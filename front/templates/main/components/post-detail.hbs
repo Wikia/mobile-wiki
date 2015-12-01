@@ -11,11 +11,11 @@
 </div>
 {{#if isDetailsView}}
 	<div class="discussion-content">
-		{{{post.rawContent}}}
+		{{{parsedContent}}}
 	</div>
 {{else}}
 	<div class="discussion-content" {{action 'goToPost' postId}}>
-		{{{post.rawContent}}}
+		{{{parsedContent}}}
 	</div>
 {{/if}}
 <div class="row">
