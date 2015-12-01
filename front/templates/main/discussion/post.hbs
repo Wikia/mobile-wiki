@@ -32,7 +32,6 @@
 				{{post-detail
 					author=model.firstPost.createdBy
 					deletePost=(action 'deletePost')
-					isDeleted=model.isDeleted
 					isDetailsView=true
 					post=model.firstPost
 					postId=model.id
@@ -62,7 +61,7 @@
 							author=item.createdBy
 							content=item.rawContent
 							isDeleted=item.isDeleted
-							isParentDeleted=model.isDeleted
+							isParentDeleted=model.firstPost.isDeleted
 							timestamp=item.creationDate.epochSecond
 							upvoteCount=item.upvoteCount
 							isNew=item.isNew
@@ -70,13 +69,15 @@
 							upvote='upvote'
 						}}
 					{{/each}}
-					{{discussion-reply-editor
-						create='create'
-						toggleEditorActive='toggleEditorActive'
-						isActive=editorActive
-						replies=model.replies
-						requestErrorMessage=model.errorMessage
-					}}
+					{{#unless model.firstPost.isDeleted}}
+						{{discussion-reply-editor
+							create='create'
+							toggleEditorActive='toggleEditorActive'
+							isActive=editorActive
+							replies=model.replies
+							requestErrorMessage=model.errorMessage
+						}}
+					{{/unless}}
 				</div>
 			</div>
 		{{/if}}
