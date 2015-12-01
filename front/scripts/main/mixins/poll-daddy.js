@@ -76,7 +76,7 @@ export default App.PollDaddyMixin = Ember.Mixin.create({
 	handlePollDaddyContainer(id, script) {
 		if (!this.$(`#PDI_container${id}`).length) {
 			const html = `<a name="pd_a_${id}" style="display: inline; padding: 0; margin: 0;"></a>` +
-			`<div class="PDS_Poll" id="PDI_container'${id}'"></div>`;
+			`<div class="PDS_Poll" id="PDI_container${id}'"></div>`;
 
 			$(script).after(html);
 		}

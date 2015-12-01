@@ -1,3 +1,65 @@
+## release-193 hotfix 2 (2015-12-01 12:39 UTC)
+* release-193-hotfix2: Fix non-backtick tick
+
+## release-193 hotfix 1 (2015-12-01 11:17 UTC)
+* [SOC-1422](https://wikia-inc.atlassian.net/browse/SOC-1422) SOC-1422 | Discussion post and replies editor
+* [XW-602](https://wikia-inc.atlassian.net/browse/XW-602) XW-602 | Reset imageProperties before cropping image in Curated Content Editor
+* [SOC-952](https://wikia-inc.atlassian.net/browse/SOC-952) SOC-952 | Create reply method
+
+## release-193 (2015-12-01 11:01 UTC)
+* [INT-281](https://wikia-inc.atlassian.net/browse/INT-281) Change url for Star Wars banner button
+* [INT-272](https://wikia-inc.atlassian.net/browse/INT-272) INT-272 | Make sure nav is centered on screen
+* [INT-269](https://wikia-inc.atlassian.net/browse/INT-269) Separate tracking for intra and inter wiki search
+* [INT-278](https://wikia-inc.atlassian.net/browse/INT-278) Change text for Star Wars campaign button
+* [SOC-1451](https://wikia-inc.atlassian.net/browse/SOC-1451) SOC-1451 | Displaying deleted posts and replies
+* [XW-812](https://wikia-inc.atlassian.net/browse/XW-812) XW-812 Use indexOf instead of contains
+* [SOC-1580](https://wikia-inc.atlassian.net/browse/SOC-1580) SOC-1580 | Add Autolinker.js lib and use it to create anchors from ur…
+* [XW-728](https://wikia-inc.atlassian.net/browse/XW-728) XW-728 | add PAD slot to main pages
+* [XW-716](https://wikia-inc.atlassian.net/browse/XW-716) XW-716 | Setup UA account only once
+* fix-scripts-test-modules-task: Fix scripts-test-module task to compile only the files we want it to
+* [SOC-1647](https://wikia-inc.atlassian.net/browse/SOC-1647) SOC-1647 | Enable discussions on new wikias
+* remove-resolver-debug: Remove LOG_RESOLVER
+* [XW-799](https://wikia-inc.atlassian.net/browse/XW-799) XW-799 | Fix error handling for Babel
+* fix-eslint: Fix ESLint warnings
+* [SOC-1593](https://wikia-inc.atlassian.net/browse/SOC-1593) SOC-1593 | Fetching sorted posts in discussions
+* [INT-273](https://wikia-inc.atlassian.net/browse/INT-273) INT-273 | Switch top graphics on Japan HP for Star Wars campaign
+* [INT-264](https://wikia-inc.atlassian.net/browse/INT-264) INT-89, INT-244 | Test cases for mobile contribution
+* es6-front: XW-514 Move to ES6 from TS in our front code
+* es6-front-dev: Merge dev to es6-front
+* es6-front-unit-tests: XW-715 | Fix unit tests for ES6
+* es6-front-dev: Merge dev to es6-front
+* [XW-768](https://wikia-inc.atlassian.net/browse/XW-768) Xw 768 hot fix for ads
+* [XW-754](https://wikia-inc.atlassian.net/browse/XW-754) XW-754 fix bugs found while testing ES6
+* es6-front-dev: Merge latest dev to es6-front
+* [XW-747](https://wikia-inc.atlassian.net/browse/XW-747) Xw 747 fix errors
+* [XW-746](https://wikia-inc.atlassian.net/browse/XW-746) Use Clousure syntax for 2D array
+* [XW-744](https://wikia-inc.atlassian.net/browse/XW-744) XW-744 fix link component not transpiled to es5
+* es6-remove-gulp-typedoc: remove gulp-typedoc
+* es6-bogna: Fix bugs after migration to ES6
+* [XW-714](https://wikia-inc.atlassian.net/browse/XW-714) XW-714 | import M and Mercury functions
+* [XW-711](https://wikia-inc.atlassian.net/browse/XW-711) XW-711 | move linkComponent to initializer
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 | add imports and fix eslint warnings
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 Convert Mercury modules to ES6
+* [XW-680](https://wikia-inc.atlassian.net/browse/XW-680) XW-680 | Convert auth to ES6 + modules
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 | convert helpers to modules
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 | convert models to modules
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 | convert controllers to modules
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 | convert components to modules
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 | convert mixins to modules
+* [XW-701](https://wikia-inc.atlassian.net/browse/XW-701) move to babel 6 and UMD for now
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 Convert utils to ES6
+* [XW-699](https://wikia-inc.atlassian.net/browse/XW-699) XW-699 | fix ESLint comments
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 | Convert mixins to ES6
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 Convert models to ES6
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 Convert helpers to ES6
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 Convert components to ES6 - fourth batch
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 Convert components to ES6 - third batch
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 Convert components to ES6 - second batch
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 Convert components to ES6 - first batch
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 Convert routes to ES6
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 Convert controllers to ES6
+* [XW-514](https://wikia-inc.atlassian.net/browse/XW-514) XW-514 ESLint fixes
+
 ## release-192 (2015-11-26 12:07 UTC)
 * [SOC-1647](https://wikia-inc.atlassian.net/browse/SOC-1647) SOC-1647 | Enable disucssions on MW119
 * [ADEN-2598](https://wikia-inc.atlassian.net/browse/ADEN-2598) ADEN-2598 adding counter
