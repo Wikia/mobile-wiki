@@ -1,33 +1,33 @@
 import App from '../app';
 
 export default App.ImageReviewModel = Ember.Object.extend({
-    sessionId: null,
+	sessionId: null,
 	images: []
 });
 
 App.ImageReviewModel.reopenClass({
 
-    startSession() {
-        return new Ember.RSVP.Promise((resolve, reject) => {
-            Ember.$.ajax({
-                url: App.ImageReviewModel.getServiceUrl(),
+	startSession() {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
+				url: App.ImageReviewModel.getServiceUrl(),
 				dataType: 'json',
 				method: 'POST',
 				xhrFields: {
 					withCredentials: true
 				},
-                success: (data) => {
+				success: (data) => {
 					resolve(App.ImageReviewModel.getImages(data.id));
-                },
-                error: (data) => {
-                    reject(data);
-                }
-            });
-        });
-    },
+				},
+				error: (data) => {
+					reject(data);
+				}
+			});
+		});
+	},
 
-    endSession() {
-        return new Ember.RSVP.Promise((resolve, reject) => {
+	endSession() {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: App.ImageReviewModel.getServiceUrl(),
 				xhrFields: {
@@ -35,18 +35,18 @@ App.ImageReviewModel.reopenClass({
 				},
 				dataType: 'json',
 				method: 'DELETE',
-                success: (data) => {
+				success: (data) => {
 					resolve(data);
-                },
-                error: (data) => {
-                    reject(data);
-                }
-            });
-        });
-    },
+				},
+				error: (data) => {
+					reject(data);
+				}
+			});
+		});
+	},
 
-    getImages(contractId) {
-        return new Ember.RSVP.Promise((resolve, reject) => {
+	getImages(contractId) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: App.ImageReviewModel.getServiceUrl() + contractId + '/image',
 				xhrFields: {
@@ -65,11 +65,11 @@ App.ImageReviewModel.reopenClass({
 					reject(data);
 				}
 			});
-        });
-    },
+		});
+	},
 
-    reviewImage(contractId, imageId, flag) {
-        return new Ember.RSVP.Promise((resolve, reject) => {
+	reviewImage(contractId, imageId, flag) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: App.ImageReviewModel.getServiceUrl() +
 				contractId + '/image/' + imageId + '?status=' + flag,
@@ -85,8 +85,8 @@ App.ImageReviewModel.reopenClass({
 					reject(data);
 				}
 			});
-        });
-    },
+		});
+	},
 
 	sanitize(rawData, contractId) {
 		var images = [];
@@ -95,10 +95,10 @@ App.ImageReviewModel.reopenClass({
 			rawData.forEach((image) => {
 				if (image.reviewStatus === 'UNREVIEWED') {
 					images.push({
-                        imageId: image.imageId,
-                        contractId: sessionId,
+						imageId: image.imageId,
+						contractId: sessionId,
 						status: 0
-                    });
+					});
 				}
 				//else skip because is reviewed already
 			});
@@ -106,7 +106,7 @@ App.ImageReviewModel.reopenClass({
 
 		return App.ImageReviewModel.create({
 			images: images,
-            contractId: contractId
+			contractId: contractId
 		});
 	},
 
