@@ -12,7 +12,7 @@ export default App.DiscussionForumModel = DiscussionBaseModel.extend({
 	/**
 	 * @param {number} pageNum
 	 * @param {string} sortBy
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadPage(pageNum = 0, sortBy = 'latest') {
 		this.set('pageNum', pageNum);
@@ -57,6 +57,41 @@ export default App.DiscussionForumModel = DiscussionBaseModel.extend({
 		default:
 			return '';
 		}
+	},
+
+	/**
+	 * Create new post in Discussion Service
+	 * @param {object} postData
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	createPost(postData) {
+		this.setFailedState(null);
+		return new Ember.RSVP.Promise((resolve) => {
+			Ember.$.ajax({
+				method: 'POST',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
+				data: JSON.stringify(postData),
+				contentType: 'application/json',
+				xhrFields: {
+					withCredentials: true,
+				},
+				success: (post) => {
+					post._embedded.firstPost[0].isNew = true;
+					this.posts.insertAt(0, post);
+					this.incrementProperty('totalPosts');
+					resolve(this);
+				},
+				error: (err) => {
+					if (err.status === 401) {
+						this.setFailedState('editor.post-error-not-authorized');
+					} else {
+						this.setFailedState('editor.post-error-general-error');
+					}
+					resolve(this);
+				}
+			});
+		});
+
 	}
 });
 

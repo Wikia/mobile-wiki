@@ -26,6 +26,7 @@ export default App.ApplicationController = Ember.Controller.extend(
 		smartBannerVisible: false,
 		sideNavVisible: false,
 		userMenuVisible: false,
+		siteHeadPinned: true,
 		noScroll: false,
 		fullPage: false,
 		noMargins: false,
@@ -33,6 +34,7 @@ export default App.ApplicationController = Ember.Controller.extend(
 		lightboxModel: null,
 		lightboxVisible: false,
 		lightboxCloseButtonDelay: 0,
+
 		// Controls the appearance of the share-header component
 		enableShareHeader: false,
 
@@ -223,6 +225,15 @@ export default App.ApplicationController = Ember.Controller.extend(
 			 */
 			toggleUserMenu(visible) {
 				this.set('userMenuVisible', visible);
+			},
+
+
+			/**
+			 * @param {boolean} pinned
+			 * @returns {void}
+			 */
+			toggleSiteHeadPinned(pinned) {
+				this.set('siteHeadPinned', pinned);
 			}
 		},
 

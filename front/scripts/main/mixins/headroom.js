@@ -79,7 +79,13 @@ export default App.HeadroomMixin = Ember.Mixin.create({
 				top: 'headroom-top',
 				notTop: 'headroom-not-top'
 			},
-			offset
+			offset,
+			onPin: () => {
+				this.set('pinned', true);
+			},
+			onUnpin: () => {
+				this.set('pinned', false);
+			}
 		};
 
 		if (headroomOptions) {
