@@ -55,10 +55,18 @@ export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMix
 			this.modelFor('discussion.forum').loadPage(pageNum, sortBy);
 		},
 
+		/**
+		 * Pass post deletion to model
+		 * @returns {void}
+		 */
 		deletePost(post) {
 			this.modelFor('discussion.forum').deletePost(post);
 		},
 
+		/**
+		 * Pass post undeletion to model
+		 * @returns {void}
+		 */
 		undeletePost(post) {
 			this.modelFor('discussion.forum').undeletePost(post);
 		},

@@ -36,6 +36,10 @@ export default App.PostDetailComponent = Ember.Component.extend(
 			return `${Ember.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)}/d/p/${this.get('postId')}`;
 		}),
 
+		/**
+		 * Check if user has permissions to perform selected operation
+		 * @returns {boolean}
+		 */
 		checkPermissions(permission) {
 			const userData = this.get('post._embedded.userData'),
 				permissions = userData && userData[0].permissions;

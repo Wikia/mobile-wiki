@@ -73,10 +73,18 @@ export default App.DiscussionPostRoute = Ember.Route.extend(DiscussionLayoutMixi
 			return true;
 		},
 
+		/**
+		 * Pass post deletion to model
+		 * @returns {void}
+		 */
 		deletePost(post) {
 			this.modelFor('discussion.post').deletePost(post);
 		},
 
+		/**
+		 * Pass post undeletion to model
+		 * @returns {void}
+		 */
 		undeletePost(post) {
 			this.modelFor('discussion.post').undeletePost(post);
 		},

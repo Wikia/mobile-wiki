@@ -62,10 +62,20 @@ export default App.DiscussionForumController = Ember.Controller.extend({
 			this.get('target').send('goToAllDiscussions');
 		},
 
+		/**
+		 * Bubbles up to DiscussionForumRoute
+		 *
+		 * @returns {void}
+		 */
 		deletePost(post) {
 			this.get('target').send('deletePost', post);
 		},
 
+		/**
+		 * Bubbles up to DiscussionForumRoute
+		 *
+		 * @returns {void}
+		 */
 		undeletePost(post) {
 			this.get('target').send('undeletePost', post);
 		}

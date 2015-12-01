@@ -1,10 +1,18 @@
 import App from '../app';
 
 export default App.DiscussionDeletePostMixin = Ember.Mixin.create({
+	/**
+	 * Check if user has permissions to perform selected operation
+	 * @returns {boolean}
+	 */
 	checkPermissions(post, permission) {
 		return Ember.get(post, '_embedded.userData')[0].permissions.contains(permission);
 	},
 
+	/**
+	 * Delete post in service
+	 * @returns {Ember.RSVP|undefined}
+	 */
 	deletePost(post) {
 		if (this.checkPermissions(post, 'canDelete')) {
 			return new Ember.RSVP.Promise((resolve) => {
@@ -27,6 +35,11 @@ export default App.DiscussionDeletePostMixin = Ember.Mixin.create({
 			});
 		}
 	},
+
+	/**
+	 * Undelete post in service
+	 * @returns {Ember.RSVP|undefined}
+	 */
 	undeletePost(post) {
 		if (this.checkPermissions(post, 'canUndelete')) {
 			return new Ember.RSVP.Promise((resolve) => {
