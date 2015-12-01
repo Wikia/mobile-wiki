@@ -85,7 +85,7 @@ $('#loginIcon').click(function(event) : void {
 });
 
 $('#whatIsWikia').click(function(event) : void {
-	window.location.href = '/beginners';
+	window.location.href = 'http://www.wikia.com/starwars/?uselang=ja';
 	event.preventDefault();
 });
 
