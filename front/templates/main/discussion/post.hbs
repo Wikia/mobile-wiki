@@ -54,35 +54,35 @@
 							{{i18n 'main.pagination-post-show-more' ns='discussion'}}
 						</button>
 					{{/if}}
-					<div class="replies-list">
-						{{#each model.replies as |item index|}}
-							{{post-reply
-								post=item
-								author=item.createdBy
-								content=item.rawContent
-								isDeleted=item.isDeleted
-								isParentDeleted=model.isDeleted
-								timestamp=item.creationDate.epochSecond
-								upvoteCount=item.upvoteCount
-								isNew=item.isNew
-								isVisible=item.isVisible
-								upvote='upvote'
-							}}
-						{{/each}}
-						{{discussion-reply-editor
-							create='create'
-							toggleEditorActive='toggleEditorActive'
-							isActive=editorActive
-							replies=model.replies
-							requestErrorMessage=model.errorMessage
-						}}
-					</div>
-				{{else}}
-					<div class="discussion-no-replies">
-						{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
-						{{i18n 'main.no-replies' ns='discussion'}}
-					</div>
 				{{/if}}
+				<div class="replies-list">
+					{{#each model.replies as |item index|}}
+						{{post-reply
+							post=item
+							author=item.createdBy
+							content=item.rawContent
+							isDeleted=item.isDeleted
+							isParentDeleted=model.isDeleted
+							timestamp=item.creationDate.epochSecond
+							upvoteCount=item.upvoteCount
+							isNew=item.isNew
+							isVisible=item.isVisible
+							upvote='upvote'
+						}}
+					{{else}}
+						<div class="discussion-no-replies">
+							{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
+							{{i18n 'main.no-replies' ns='discussion'}}
+						</div>
+					{{/each}}
+					{{discussion-reply-editor
+						create='create'
+						toggleEditorActive='toggleEditorActive'
+						isActive=editorActive
+						replies=model.replies
+						requestErrorMessage=model.errorMessage
+					}}
+				</div>
 			</div>
 		{{/if}}
 		<div class="rail large-2 columns">
