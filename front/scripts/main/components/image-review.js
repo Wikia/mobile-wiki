@@ -1,24 +1,26 @@
 import App from '../app';
+import ImageReviewModel from '../models/image-review-model';
 
 export default App.ImageReviewComponent = Ember.Component.extend({
 	classNames: ['image-review'],
-	isLoading: false,
+	isLoading: false,  //Is it needed?
+
 	actions: {
 		reviewImages() {
 			console.log('reviewImages()');
-			App.ImageReviewComponent.isLoading = true;
-			this.sendAction('reviewImages');
+
+			this.get('model.images').map(function(x) {
+				ImageReviewModel.reviewImage(x.contractId, x.imageId, x.status);
+			});
 		},
 
 		getMoreImages() {
 			console.log('getMoreImages()');
-			App.ImageReviewComponent.isLoading = true;
 			this.sendAction('getMoreImages');
 		},
 
 		reviewAndGetMoreImages() {
 			console.log('reviewAndGetMoreImages()');
-			App.ImageReviewComponent.isLoading = true;
 			this.sendAction('reviewAndGetMoreImages');
 		}
 	},

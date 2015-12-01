@@ -9,8 +9,8 @@ export default App.ImageReviewRoute = Ember.Route.extend(
 			this.set('isLoading', true);
 			return App.ImageReviewModel.startSession();
 		},
-		actions: {
 
+		actions: {
 			error(error) {
 				console.log('Action error: '+JSON.stringify(error));
 				if (error.status === 401) {
@@ -34,14 +34,11 @@ export default App.ImageReviewRoute = Ember.Route.extend(
 				console.log("Getting more images for ID: "+sessionId);
 				ImageReviewModel.getImages(sessionId)
 					.then(function (data) {
-						console.log("Images: "+JSON.stringify(data));
+						//TODO
 					})
 					.catch(function (err) {
 						this.sendAction('error', err);
 					});
-			},
-			setImageAsQuestionable(imageId) {
-				console.log("Route.setImageAsQuestionable: "+imageId);
 			}
 		}
 });

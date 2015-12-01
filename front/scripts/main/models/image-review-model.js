@@ -1,7 +1,7 @@
 import App from '../app';
 
 export default App.ImageReviewModel = Ember.Object.extend({
-    sessionId: 0,
+    sessionId: null,
 	images: []
 });
 
@@ -9,6 +9,7 @@ App.ImageReviewModel.reopenClass({
     /**
      * @returns {Ember.RSVP.Promise} model
      */
+
     startSession() {
         console.log('ImageReviewModel.startSession() with userId '+M.prop('userId'));
         return new Ember.RSVP.Promise((resolve, reject) => {
@@ -49,10 +50,11 @@ App.ImageReviewModel.reopenClass({
             });
         });
     },
-    getImages(sessionId) {
+
+    getImages(contractId) {
         return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: App.ImageReviewModel.getServiceUrl() + sessionId + '/image',
+				url: App.ImageReviewModel.getServiceUrl() + contractId + '/image',
 				xhrFields: {
 					withCredentials: true
 				},
@@ -61,7 +63,7 @@ App.ImageReviewModel.reopenClass({
 				success: (data) => {
 					console.log("GetImages data: "+JSON.stringify(data));
 					if (Ember.isArray(data)) {
-						resolve(App.ImageReviewModel.sanitize(data, sessionId));
+						resolve(App.ImageReviewModel.sanitize(data, contractId));
 					} else {
 						reject('Invalid data was returned from Image Review API');
 					}
@@ -72,12 +74,13 @@ App.ImageReviewModel.reopenClass({
 			});
         });
     },
-    reviewImage(sessionId, imageId, reviewStatus) {
+
+    reviewImage(contractId, imageId, flag) {
         console.log('ImageReviewModel.reviewImage()');
         return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: App.ImageReviewModel.getServiceUrl() +
-												sessionId + '/image/' + imageId + '?status=' + reviewStatus,
+				contractId + '/image/' + imageId + '?status=' + flag,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -93,7 +96,7 @@ App.ImageReviewModel.reopenClass({
         });
     },
 
-	sanitize(rawData, sessionId) {
+	sanitize(rawData, contractId) {
 		var images = [];
 
 		if (rawData.length) {
@@ -101,7 +104,8 @@ App.ImageReviewModel.reopenClass({
 				if (image.reviewStatus === 'UNREVIEWED') {
 					images.push({
                         imageId: image.imageId,
-                        contractId: sessionId
+                        contractId: sessionId,
+						status: 0
                     });
 				}
 				//else skip because is reviewed already
@@ -110,7 +114,7 @@ App.ImageReviewModel.reopenClass({
 
 		return App.ImageReviewModel.create({
 			images: images,
-            sessionId: sessionId
+            contractId: contractId
 		});
 	},
 

@@ -1,28 +1,20 @@
 import App from '../app';
+import ImageReviewRoute from '../routes/image-review-route';
 
 export default App.ImageReviewItemComponent = Ember.Component.extend({
     editorLayout: 'image-review-item',
 
     actions: {
-        /**
-         * @returns {void}
-         */
         setOk() {
-            this.sendAction('setImageAsOk', this.get('model.imageId'));
+			this.set('model.status', 0);
         },
 
-        /**
-         * @returns {void}
-         */
         setQuestionable() {
-            this.sendAction('setImageAsQuestionable', this.get('model.imageId'));
+			this.set('model.status', 1);
         },
 
-        /**
-         * @returns {void}
-         */
         setDelete() {
-            this.sendAction('setImageToDelete', this.get('model.imageId'));
+			this.set('model.status', 2);
         }
     }
 });

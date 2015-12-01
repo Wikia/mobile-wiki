@@ -5,6 +5,6 @@
 <p> ImageID: {{model.imageId}} </p>
 <form>
 	<label title="Mark as OK"><input {{action 'setOk'}} type="radio" name="{{model.imageId}}" value="2" checked="">OK</label>
-	<label title="Delete"><input type="radio" name="{{model.imageId}}" value="4">Delete</label>
-	<label title="Questionable"><input type="radio" name="{{model.imageId}}" value="5">Questionable</label>
+	<label title="Delete"><input {{action 'setDelete'}} type="radio" name="{{model.imageId}}" value="4">Delete</label>
+	<label title="Questionable"><input {{action 'setQuestionable'}} type="radio" name="{{model.imageId}}" value="5">Questionable</label>
 </form>
