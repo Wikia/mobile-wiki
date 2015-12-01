@@ -8,7 +8,7 @@ $discussion-contributors-avatar-dimension: 30px;
 	}
 
 	.avatar {
-		img {
+		img, svg {
 			border-color: $discussion-contributors-border-color;
 			height: $discussion-contributors-avatar-dimension;
 			width: $discussion-contributors-avatar-dimension;

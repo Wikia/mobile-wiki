@@ -132,6 +132,28 @@ body.dark-theme {
 			background-color: $dark-discussion-desktop-post-detail-bg-color;
 			border-top-color: $dark-discussion-post-detail-border-color;
 		}
+
+		.editor-container {
+			background-color: $dark-discussion-editor-toolbar-background-color;
+			border-color: $dark-discussion-editor-border-color;
+
+			button {
+				background: none;
+			}
+
+			.editor-textarea {
+				border-color: $dark-discussion-editor-border-color;
+				color: $dark-discussion-content-color;
+			}
+
+			.editor-label {
+				background-color: $dark-discussion-editor-background-color;
+			}
+		}
+
+		.editor-wrapper {
+			background-color: $dark-discussion-editor-background-color;
+		}
 	}
 	.discussion-app-promotion {
 		.discussion-app-join-text {
@@ -163,7 +185,7 @@ body.dark-theme {
 	}
 	figure {
 		&.avatar {
-			img {
+			img, svg {
 				border-color: $dark-discussion-avatar-border-color;
 			}
 		}
@@ -191,6 +213,13 @@ body.dark-theme {
 				&.not-active {
 					border-bottom-color: $dark-discussion-sort-color;
 					color: $dark-discussion-sort-color;
+				}
+			}
+		}
+		.discussion-editor.reply-editor {
+			.editor-label {
+				&.desktop-hidden {
+					border-top-color: $discussion-post-detail-border-color;
 				}
 			}
 		}

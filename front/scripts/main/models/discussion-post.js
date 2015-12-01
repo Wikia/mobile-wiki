@@ -40,7 +40,6 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend({
 					// starting with oldest of the current list at the top.
 					newReplies.reverse();
 					newReplies = newReplies.concat(this.replies);
-
 					this.setProperties({
 						replies: newReplies,
 						page: this.page + 1
@@ -54,10 +53,42 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend({
 				}
 			});
 		});
+	},
+
+	createReply(replyData) {
+		this.setFailedState(null);
+		replyData.threadId = this.get('postId');
+
+		return new Ember.RSVP.Promise((resolve) => {
+			Ember.$.ajax({
+				method: 'POST',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
+				data: JSON.stringify(replyData),
+				contentType: 'application/json',
+				xhrFields: {
+					withCredentials: true,
+				},
+				success: (reply) => {
+					reply.isNew = true;
+					this.incrementProperty('postCount');
+					this.replies.pushObject(reply);
+					resolve(this);
+				},
+				error: (err) => {
+					if (err.status === 401) {
+						this.setFailedState('editor.post-error-not-authorized');
+					} else {
+						this.setFailedState('editor.post-error-general-error');
+					}
+					resolve(this);
+				}
+			});
+		});
 	}
 });
 
 App.DiscussionPostModel.reopenClass({
+
 	/**
 	 * @param {number} wikiId
 	 * @param {number} postId
@@ -80,7 +111,7 @@ App.DiscussionPostModel.reopenClass({
 				}),
 				dataType: 'json',
 				xhrFields: {
-					withCredentials: true,
+					withCredentials: true
 				},
 				success: (data) => {
 					const contributors = [],
@@ -103,19 +134,18 @@ App.DiscussionPostModel.reopenClass({
 							}
 						});
 					}
-
 					postInstance.setProperties({
 						contributors,
-						firstPost: data._embedded.firstPost[0],
 						forumId: data.forumId,
+						firstPost: data._embedded.firstPost[0],
 						id: data.id,
 						isDeleted: data.isDeleted,
-						pivotId,
 						page: 0,
+						pivotId,
 						postCount: data.postCount,
-						replies,
+						replies: replies || [],
 						title: data.title,
-						upvoteCount: data.upvoteCount,
+						upvoteCount: data.upvoteCount
 					});
 					resolve(postInstance);
 				},

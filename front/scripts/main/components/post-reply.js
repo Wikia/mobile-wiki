@@ -7,7 +7,7 @@ export default App.PostReplyComponent = Ember.Component.extend(
 	DiscussionParsedContentMixin,
 	{
 		classNames: ['post-reply'],
-		classNameBindings: ['isDeleted', 'isParentDeleted'],
+		classNameBindings: ['isNew', 'isDeleted', 'isParentDeleted'],
 		post: null,
 
 		authorUrl: Ember.computed('post', function () {

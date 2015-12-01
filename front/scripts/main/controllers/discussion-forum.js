@@ -5,9 +5,12 @@ export default App.DiscussionForumController = Ember.Controller.extend({
 	sortBy: null,
 
 	smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
+	siteHeadPinned: Ember.computed.oneWay('application.siteHeadPinned'),
 
 	// Whether the sort component is currently visible
 	sortVisible: false,
+
+	editorActive: false,
 
 	sortTypes: [
 		{
@@ -60,6 +63,10 @@ export default App.DiscussionForumController = Ember.Controller.extend({
 		 */
 		goToAllDiscussions() {
 			this.get('target').send('goToAllDiscussions');
+		},
+
+		toggleEditorActive(active) {
+			this.set('editorActive', active);
 		}
 	}
 });
