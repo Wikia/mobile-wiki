@@ -58,7 +58,7 @@ $editor-textarea-overflow-ios-hack: 30px;
 			height: $editor-textarea-overflow-ios-hack;
 			margin-top: -$editor-textarea-overflow-ios-hack;
 
-			&.block {
+			&.ios-special-class {
 				display: block;
 			}
 		}
@@ -105,9 +105,7 @@ $editor-textarea-overflow-ios-hack: 30px;
 			}
 
 			.editor-textarea-overflow {
-				display: none;
-
-				&.block {
+				&.ios-special-class {
 					display: none;
 				}
 			}
@@ -219,6 +217,7 @@ $editor-textarea-overflow-ios-hack: 30px;
 				}
 
 				.editor-textarea {
+					border-bottom-width: 0;
 					border-top: $editor-active-mobile-border-top-width solid $discussion-editor-textarea-border-color;
 					height: 100%;
 					max-height: none;

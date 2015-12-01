@@ -82,7 +82,7 @@ export default App.DiscussionReplyEditorComponent = DiscussionEditorComponent.ex
 			const $editorTextarea = $('.editor-textarea'),
 				$editorOverflow = $('.editor-textarea-overflow');
 
-			$editorOverflow.addClass('block');
+			$editorOverflow.addClass('ios-special-class');
 
 			$editorTextarea
 				.css('height', '30px')
