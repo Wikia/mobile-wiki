@@ -6,9 +6,6 @@ export default App.ImageReviewModel = Ember.Object.extend({
 });
 
 App.ImageReviewModel.reopenClass({
-    /**
-     * @returns {Ember.RSVP.Promise} model
-     */
 
     startSession() {
         return new Ember.RSVP.Promise((resolve, reject) => {
@@ -114,6 +111,6 @@ App.ImageReviewModel.reopenClass({
 	},
 
 	getServiceUrl() {
-		return "https://services-poz.wikia-dev.com/image-review/contract/"
+		return 'https://services-poz.wikia-dev.com/image-review/contract/';
 	}
 });
