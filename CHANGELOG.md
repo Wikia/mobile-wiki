@@ -1,3 +1,6 @@
+## release-193 hotfix 2 (2015-12-01 12:39 UTC)
+* release-193-hotfix2: Fix non-backtick tick
+
 ## release-193 hotfix 1 (2015-12-01 11:17 UTC)
 * [SOC-1422](https://wikia-inc.atlassian.net/browse/SOC-1422) SOC-1422 | Discussion post and replies editor
 * [XW-602](https://wikia-inc.atlassian.net/browse/XW-602) XW-602 | Reset imageProperties before cropping image in Curated Content Editor
