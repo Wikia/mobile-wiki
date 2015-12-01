@@ -33,7 +33,7 @@ export default App.LightboxImageComponent = Ember.Component.extend(
 				y = this.get('newY').toFixed(2),
 				transform = `transform: scale(${scale}) translate3d(${x}px,${y}px,0);`;
 
-			return (`-webkit-'${transform}${transform}`).htmlSafe();
+			return (`-webkit-${transform}${transform}`).htmlSafe();
 		}),
 
 		viewportSize: Ember.computed(() => {
