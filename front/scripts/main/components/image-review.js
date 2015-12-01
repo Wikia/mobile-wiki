@@ -7,20 +7,16 @@ export default App.ImageReviewComponent = Ember.Component.extend({
 
 	actions: {
 		reviewImages() {
-			console.log('reviewImages()');
-
 			this.get('model.images').map(function(x) {
 				ImageReviewModel.reviewImage(x.contractId, x.imageId, x.status);
 			});
 		},
 
 		getMoreImages() {
-			console.log('getMoreImages()');
 			this.sendAction('getMoreImages');
 		},
 
 		reviewAndGetMoreImages() {
-			console.log('reviewAndGetMoreImages()');
 			this.sendAction('reviewAndGetMoreImages');
 		}
 	},

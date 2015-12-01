@@ -12,7 +12,6 @@ export default App.ImageReviewRoute = Ember.Route.extend(
 
 		actions: {
 			error(error) {
-				console.log('Action error: '+JSON.stringify(error));
 				if (error.status === 401) {
 					this.controllerFor('application').addAlert({
 						message: 'Unauthorized, you don\'t have permissions to see this page',
@@ -31,10 +30,9 @@ export default App.ImageReviewRoute = Ember.Route.extend(
 			},
 
 			getMoreImages(sessionId) {
-				console.log("Getting more images for ID: "+sessionId);
 				ImageReviewModel.getImages(sessionId)
 					.then(function (data) {
-						//TODO
+						// TODO
 					})
 					.catch(function (err) {
 						this.sendAction('error', err);

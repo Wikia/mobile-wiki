@@ -11,7 +11,6 @@ App.ImageReviewModel.reopenClass({
      */
 
     startSession() {
-        console.log('ImageReviewModel.startSession() with userId '+M.prop('userId'));
         return new Ember.RSVP.Promise((resolve, reject) => {
             Ember.$.ajax({
                 url: App.ImageReviewModel.getServiceUrl(),
@@ -22,7 +21,6 @@ App.ImageReviewModel.reopenClass({
 				},
                 success: (data) => {
 					resolve(App.ImageReviewModel.getImages(data.id));
-					console.log('Startsession success: '+JSON.stringify(data));
                 },
                 error: (data) => {
                     reject(data);
@@ -32,7 +30,6 @@ App.ImageReviewModel.reopenClass({
     },
 
     endSession() {
-        console.log('ImageReviewModel.endSession()');
         return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: App.ImageReviewModel.getServiceUrl(),
@@ -61,7 +58,6 @@ App.ImageReviewModel.reopenClass({
 				dataType: 'json',
 				method: 'GET',
 				success: (data) => {
-					console.log("GetImages data: "+JSON.stringify(data));
 					if (Ember.isArray(data)) {
 						resolve(App.ImageReviewModel.sanitize(data, contractId));
 					} else {
@@ -76,7 +72,6 @@ App.ImageReviewModel.reopenClass({
     },
 
     reviewImage(contractId, imageId, flag) {
-        console.log('ImageReviewModel.reviewImage()');
         return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: App.ImageReviewModel.getServiceUrl() +
@@ -116,10 +111,6 @@ App.ImageReviewModel.reopenClass({
 			images: images,
             contractId: contractId
 		});
-	},
-
-	setImageAsQuestionable(imageId) {
-		console.log("Route.setImageAsQuestionable: "+imageId);
 	},
 
 	getServiceUrl() {
