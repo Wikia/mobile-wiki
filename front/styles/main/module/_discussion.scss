@@ -30,7 +30,7 @@ body.discussions {
 		display: inline-block;
 		margin-right: 5px;
 
-		img {
+		img, svg {
 			border-color: $discussion-avatar-border-color;
 		}
 	}
@@ -125,7 +125,7 @@ body.discussions {
 		}
 
 		.avatar {
-			img {
+			img, svg {
 				height: 30px;
 				width: 30px;
 			}
@@ -212,13 +212,7 @@ body.discussions {
 		background-color: $discussion-desktop-post-detail-bg-color;
 		margin-bottom: $post-details-post-margin-bottom;
 		padding: 12px $horizontal-padding;
-
-		.avatar {
-			img {
-				height: 40px;
-				width: 40px;
-			}
-		}
+		transition: opacity 1s;
 
 		.share {
 			align-items: center;
@@ -235,6 +229,18 @@ body.discussions {
 
 		.timestamp {
 			font-size: $type-min;
+		}
+
+		&.is-new {
+			opacity: 0;
+		}
+	}
+
+	.post-reply {
+		transition: opacity 1s;
+
+		&.is-new{
+			opacity: 0;
 		}
 	}
 
@@ -266,7 +272,7 @@ body.discussions {
 	}
 
 	&.forum {
-		margin-top: $discussion-header-height;
+		margin-top: $discussion-header-height - $theme-bar-height;
 
 		.discussion-content {
 			// Constrains content on the forum post list to 3 lines and + 0.3rem for the padding
@@ -284,6 +290,13 @@ body.discussions {
 			}
 		}
 	}
+
+	.avatar {
+		img, svg {
+			height: 40px;
+			width: 40px;
+		}
+	}
 }
 
 @media #{$desktop-range} {
@@ -294,6 +307,7 @@ body.discussions {
 			margin-left: auto;
 			margin-right: auto;
 			margin-top: 0;
+			width: $discussion-page-width;
 
 			.post-detail {
 				background-color: $discussion-desktop-post-detail-bg-color;
@@ -301,7 +315,6 @@ body.discussions {
 				border-width: 0;
 				margin-bottom: 5px;
 				padding: 20px 30px;
-				width: 507px;
 			}
 		}
 
@@ -317,6 +330,12 @@ body.discussions {
 					left: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
 				}
 				width: $post-details-outer-width;
+			}
+
+			.replies-list {
+				margin-left: auto;
+				margin-right: auto;
+				width: 524px;
 			}
 
 			.post-reply {
@@ -335,5 +354,12 @@ body.discussions {
 			margin-left: auto;
 			margin-right: auto;
 		}
+	}
+}
+
+@media #{$mobile-range} {
+	//To make sure discussion body is always expanding to 100% width
+	.row {
+		max-width: initial;
 	}
 }

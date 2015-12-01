@@ -5,9 +5,12 @@ export default App.DiscussionForumController = Ember.Controller.extend({
 	sortBy: null,
 
 	smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
+	siteHeadPinned: Ember.computed.oneWay('application.siteHeadPinned'),
 
 	// Whether the sort component is currently visible
 	sortVisible: false,
+
+	editorActive: false,
 
 	sortTypes: [
 		{
@@ -78,6 +81,10 @@ export default App.DiscussionForumController = Ember.Controller.extend({
 		 */
 		undeletePost(post) {
 			this.get('target').send('undeletePost', post);
+		},
+
+		toggleEditorActive(active) {
+			this.set('editorActive', active);
 		}
 	}
 });
