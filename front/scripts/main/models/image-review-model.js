@@ -114,6 +114,10 @@ App.ImageReviewModel.reopenClass({
 		});
 	},
 
+	setImageAsQuestionable(imageId) {
+		console.log("Route.setImageAsQuestionable: "+imageId);
+	},
+
 	getServiceUrl() {
 		return "https://services-poz.wikia-dev.com/image-review/contract/"
 	}

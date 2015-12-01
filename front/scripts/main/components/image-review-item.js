@@ -5,28 +5,24 @@ export default App.ImageReviewItemComponent = Ember.Component.extend({
 
     actions: {
         /**
-         * @param {ImageReviewItem} model
          * @returns {void}
          */
-        setOk(model) {
-			console.log("Setting image as ok! "+ model.imageId);
-            this.sendAction('setImageAsOk', model);
+        setOk() {
+            this.sendAction('setImageAsOk', this.get('model.imageId'));
         },
 
         /**
-         * @param {ImageReviewItem} model
          * @returns {void}
          */
-        setQuestionable(model) {
-            this.sendAction('setImageAsQuestionable', model);
+        setQuestionable() {
+            this.sendAction('setImageAsQuestionable', this.get('model.imageId'));
         },
 
         /**
-         * @param {ImageReviewItem} model
          * @returns {void}
          */
-        setDelete(model) {
-            this.sendAction('setImageToDelete', model);
+        setDelete() {
+            this.sendAction('setImageToDelete', this.get('model.imageId'));
         }
     }
 });

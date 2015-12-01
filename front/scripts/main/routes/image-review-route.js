@@ -39,6 +39,9 @@ export default App.ImageReviewRoute = Ember.Route.extend(
 					.catch(function (err) {
 						this.sendAction('error', err);
 					});
+			},
+			setImageAsQuestionable(imageId) {
+				console.log("Route.setImageAsQuestionable: "+imageId);
 			}
 		}
 });
