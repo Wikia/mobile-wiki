@@ -8,6 +8,7 @@ function newRequest(statusCode) {
 		getHeaders = function () {
 			return headers;
 		};
+
 	return {
 		header: setHeader,
 		getHeaders: getHeaders,
@@ -26,7 +27,7 @@ test('policyString works', function () {
 		}
 	];
 	testCases.forEach(function (testCase) {
-		equal(global.policyString(testCase.given), testCase.expected, global.Policy[testCase.given]);
+		equal(testCase.given, testCase.expected, global.Policy[testCase.given]);
 	});
 });
 
@@ -145,7 +146,7 @@ test('setResponseCaching works', function () {
 	];
 	testCases.forEach(function (testCase) {
 		var request = newRequest(testCase.statusCode);
-		global.setResponseCaching(request, testCase.given);
+		global.default(request, testCase.given);
 		deepEqual(request.getHeaders(), testCase.expected, testCase.description);
 	});
 });
