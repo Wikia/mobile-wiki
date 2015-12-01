@@ -67,7 +67,7 @@ export default App.DiscussionForumController = Ember.Controller.extend({
 
 		/**
 		 * Bubbles up to DiscussionForumRoute
-		 *
+		 * @param {any} post
 		 * @returns {void}
 		 */
 		deletePost(post) {
@@ -76,7 +76,7 @@ export default App.DiscussionForumController = Ember.Controller.extend({
 
 		/**
 		 * Bubbles up to DiscussionForumRoute
-		 *
+		 * @param {any} post
 		 * @returns {void}
 		 */
 		undeletePost(post) {

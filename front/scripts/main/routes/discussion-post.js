@@ -84,6 +84,7 @@ export default App.DiscussionPostRoute = Ember.Route.extend(DiscussionLayoutMixi
 
 		/**
 		 * Pass post deletion to model
+		 * @param {any} post
 		 * @returns {void}
 		 */
 		deletePost(post) {
@@ -92,6 +93,7 @@ export default App.DiscussionPostRoute = Ember.Route.extend(DiscussionLayoutMixi
 
 		/**
 		 * Pass post undeletion to model
+		 * @param {any} post
 		 * @returns {void}
 		 */
 		undeletePost(post) {

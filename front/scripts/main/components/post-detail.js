@@ -47,6 +47,7 @@ export default App.PostDetailComponent = Ember.Component.extend(
 
 		/**
 		 * Check if user has permissions to perform selected operation
+		 * @param {string} permission
 		 * @returns {boolean}
 		 */
 		checkPermissions(permission) {

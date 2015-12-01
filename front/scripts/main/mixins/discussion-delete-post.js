@@ -3,6 +3,8 @@ import App from '../app';
 export default App.DiscussionDeletePostMixin = Ember.Mixin.create({
 	/**
 	 * Check if user has permissions to perform selected operation
+	 * @param {any} post
+	 * @param {string} permission
 	 * @returns {boolean}
 	 */
 	checkPermissions(post, permission) {
@@ -11,6 +13,7 @@ export default App.DiscussionDeletePostMixin = Ember.Mixin.create({
 
 	/**
 	 * Delete post in service
+	 * @param {any} post
 	 * @returns {Ember.RSVP|undefined}
 	 */
 	deletePost(post) {
@@ -38,6 +41,7 @@ export default App.DiscussionDeletePostMixin = Ember.Mixin.create({
 
 	/**
 	 * Undelete post in service
+	 * @param {any} post
 	 * @returns {Ember.RSVP|undefined}
 	 */
 	undeletePost(post) {
