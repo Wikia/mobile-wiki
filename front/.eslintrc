@@ -4,6 +4,25 @@
     "browser": true,
     "jquery": true
   },
+  "globals": {
+    "App": true,
+    "Ember": true,
+    "EmPerfSender": true,
+    "FastClick": true,
+    "ga": true,
+    "Hammer": true,
+    "Headroom": true,
+    "i18n": true,
+    "M": true,
+    "Mercury": true,
+    "numeral": true,
+    "optimizely": true,
+    "state": false,
+    "QUnit": true,
+    "VisitSource": true,
+    "Weppy": true,
+    "Wikia": true
+  },
   "rules": {
     // ECMA Script 6
     "arrow-parens": [2, "always"],

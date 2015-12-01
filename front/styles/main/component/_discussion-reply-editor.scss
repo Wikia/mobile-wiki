@@ -4,10 +4,14 @@ $reply-editor-margin-left: -20px;
 
 .discussion {
 	.reply-editor {
-		.editor-container {
-			margin-left: $reply-editor-margin-left;
-			width: $reply-editor-width;
+		.editor-label {
+			display: block;
+			font-size: $type-min;
+			font-weight: bold;
+			padding: 15px 15px 5px;
+		}
 
+		.editor-container {
 			&.sticky {
 				margin-left: $reply-editor-margin-left;
 
@@ -20,6 +24,12 @@ $reply-editor-margin-left: -20px;
 			}
 		}
 	}
+
+	.post-reply ~ .reply-editor {
+		.editor-label {
+			border-top: 1px solid $discussion-post-detail-border-color;
+		}
+	}
 }
 
 @media #{$mobile-range} {
@@ -27,24 +37,19 @@ $reply-editor-margin-left: -20px;
 		height: $reply-editor-folded-height;
 
 		.editor-container {
-			border-top: 4px solid $discussion-mobile-reply-editor-border-color;
-			bottom: 0;
-			height: $reply-editor-folded-height;
-			margin-bottom: 0;
-			margin-left: 0;
-			position: fixed;
-			width: 100%;
+			border: 4px solid $discussion-mobile-reply-editor-border-color;
+			height: auto;
+			margin: auto 4px;
 
 			&.sticky {
 				&.pinned-bottom {
+					border-width: 4px 0 0;
 					bottom: 0;
-					margin: auto;
+					margin: 0;
+					position: fixed;
+					width: 100%;
 				}
 			}
-		}
-
-		.editor-label {
-			display: none;
 		}
 
 		.editor-wrapper {
@@ -61,22 +66,25 @@ $reply-editor-margin-left: -20px;
 		&.is-active {
 			.editor-container {
 				border: 0;
-			}
-			.editor-label {
-				display: block;
+
+				&.pinned-bottom {
+					margin: 0;
+					position: fixed;
+				}
 			}
 		}
 	}
 }
 
 @media #{$desktop-range} {
-	.discussion-editor.reply-editor {
-		.editor-label {
-			border-top: 1px solid $discussion-post-detail-border-color;
-			display: block;
-			font-size: $type-min;
-			font-weight: bold;
-			padding: 15px 15px 5px;
+	.reply-editor {
+		.editor-container {
+			margin-left: $reply-editor-margin-left;
+			width: $reply-editor-width;
+
+			&.sticky {
+				width: $reply-editor-width;
+			}
 		}
 	}
 }
