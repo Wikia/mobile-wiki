@@ -460,7 +460,12 @@ export default App.ArticleContentComponent = Ember.Component.extend(
 		handleTables() {
 			this.$('table:not([class*=infobox], .dirbox)')
 				.not('table table')
-				.wrap('<div class="article-table-wrapper"/>');
-		},
+				.each((index, element) => {
+					let $element = this.$(element),
+						wrapper = `<div class="article-table-wrapper${$element.data('portable') ? ' portable-table' : ''}"/>`;
+
+					$element.wrap(wrapper);
+				})
+		}
 	}
 );
