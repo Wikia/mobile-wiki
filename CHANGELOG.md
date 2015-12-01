@@ -1,3 +1,8 @@
+## release-193 hotfix 1 (2015-12-01 11:17 UTC)
+* [SOC-1422](https://wikia-inc.atlassian.net/browse/SOC-1422) SOC-1422 | Discussion post and replies editor
+* [XW-602](https://wikia-inc.atlassian.net/browse/XW-602) XW-602 | Reset imageProperties before cropping image in Curated Content Editor
+* [SOC-952](https://wikia-inc.atlassian.net/browse/SOC-952) SOC-952 | Create reply method
+
 ## release-193 (2015-12-01 11:01 UTC)
 * [INT-281](https://wikia-inc.atlassian.net/browse/INT-281) Change url for Star Wars banner button
 * [INT-272](https://wikia-inc.atlassian.net/browse/INT-272) INT-272 | Make sure nav is centered on screen
