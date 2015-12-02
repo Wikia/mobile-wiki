@@ -115,11 +115,11 @@
 					M.loadScript('/front/vendor/main.js', function () {
 						M.loadScript('/front/scripts/combined.js');
 					});
-
-					M.loadResource('/front/svg/main.svg');
-					M.loadResource('/front/svg/common.svg');
 				});
 			}());
+
+			M.loadResource('/front/svg/main.svg');
+			M.loadResource('/front/svg/common.svg');
 		</script>
 		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>
 		{{> tracking-pixels}}
