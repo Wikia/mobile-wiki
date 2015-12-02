@@ -86,9 +86,6 @@
 	</head>
 	<body>
 		{{> qualaroo}}
-		<!-- xinclude ../../../www/front/svg/common.svg -->
-		<!-- xinclude ../../../www/front/svg/main.svg -->
-
 		{{!--
 		Ember must render out to a specific div above the scripts, otherwise
 		Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
@@ -96,13 +93,7 @@
 		--}}
 		<div id="ember-container">
 			<div id="preload">
-				<nav class="site-head">
-					<div class="site-logo">
-						<svg role="img" class="icon wikia-logo">
-							<use xlink:href="#wikia-logo"></use>
-						</svg>
-					</div>
-				</nav>
+				{{> site-head}}
 				<div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
 					{{{content}}}
 				</div>
@@ -118,8 +109,8 @@
 				});
 			}());
 
-			M.loadResource('/front/svg/main.svg');
-			M.loadResource('/front/svg/common.svg');
+			M.loadDOMResource('/front/svg/main.svg');
+			M.loadDOMResource('/front/svg/common.svg');
 		</script>
 		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>
 		{{> tracking-pixels}}

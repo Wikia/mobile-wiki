@@ -17,7 +17,7 @@ if (typeof window.M === 'undefined') {
 	 * @param {string} src
 	 * @returns {void}
 	 */
-	M.loadResource = function (src) {
+	M.loadDOMResource = function (src) {
 		const ajax = new XMLHttpRequest();
 
 		ajax.onload = () => {
@@ -30,6 +30,5 @@ if (typeof window.M === 'undefined') {
 
 		ajax.open('GET', src, true);
 		ajax.send();
-
 	};
 })(M);
