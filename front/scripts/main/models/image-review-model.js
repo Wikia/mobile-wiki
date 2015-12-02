@@ -1,6 +1,9 @@
 import App from '../app';
 
 export default App.ImageReviewModel = Ember.Object.extend({
+	// @todo This one is dangerous, please read "Leaking state into the class"
+	// part of https://dockyard.com/blog/2015/09/18/ember-best-practices-avoid-leaking-state-into-factories
+
 	sessionId: null,
 	images: []
 });
@@ -10,7 +13,7 @@ App.ImageReviewModel.reopenClass({
 	startSession() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: App.ImageReviewModel.getServiceUrl(),
+				url: App.ImageReviewModel.getServiceUrl,
 				dataType: 'json',
 				method: 'POST',
 				xhrFields: {
@@ -29,7 +32,7 @@ App.ImageReviewModel.reopenClass({
 	endSession() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: App.ImageReviewModel.getServiceUrl(),
+				url: App.ImageReviewModel.getServiceUrl,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -48,7 +51,7 @@ App.ImageReviewModel.reopenClass({
 	getImages(contractId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: App.ImageReviewModel.getServiceUrl() + contractId + '/image',
+				url: App.ImageReviewModel.getServiceUrl + contractId + '/image',
 				xhrFields: {
 					withCredentials: true
 				},
@@ -71,8 +74,8 @@ App.ImageReviewModel.reopenClass({
 	reviewImage(contractId, imageId, flag) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: App.ImageReviewModel.getServiceUrl() +
-				contractId + '/image/' + imageId + '?status=' + flag,
+				url: App.ImageReviewModel.getServiceUrl +
+				contractId + `/image/` + imageId + `?status=` + flag,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -91,18 +94,16 @@ App.ImageReviewModel.reopenClass({
 	sanitize(rawData, contractId) {
 		var images = [];
 
-		if (rawData.length) {
-			rawData.forEach((image) => {
-				if (image.reviewStatus === 'UNREVIEWED') {
-					images.push({
-						imageId: image.imageId,
-						contractId: sessionId,
-						status: 0
-					});
-				}
-				//else skip because is reviewed already
-			});
-		}
+		rawData.forEach((image) => {
+			if (image.reviewStatus === 'UNREVIEWED') {
+				images.push({
+					imageId: image.imageId,
+					contractId: sessionId,
+					status: 0
+				});
+			}
+			//else skip because is reviewed already
+		});
 
 		return App.ImageReviewModel.create({
 			images: images,
@@ -110,7 +111,5 @@ App.ImageReviewModel.reopenClass({
 		});
 	},
 
-	getServiceUrl() {
-		return 'https://services-poz.wikia-dev.com/image-review/contract/';
-	}
+	getServiceUrl: 'https://services-poz.wikia-dev.com/image-review/contract/'
 });

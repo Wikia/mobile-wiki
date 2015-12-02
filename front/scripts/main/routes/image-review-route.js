@@ -18,14 +18,15 @@ export default App.ImageReviewRoute = Ember.Route.extend({
 	actions: {
 		error(error) {
 			if (error.status === 401) {
-				this.controllerFor('application').addAlert({
+				// @todo add addAlert in model
+				this.modelFor(this.routeName).addAlert({
 					message: 'Unauthorized, you don\'t have permissions to see this page',
 					type: 'warning'
 				});
 				this.transitionTo('mainPage');
 			} else {
 				Ember.Logger.error(error);
-				this.controllerFor('application').addAlert({
+				this.modelFor(this.routeName).addAlert({
 					message: 'Couldn\'t load image-review',
 					type: 'warning'
 				});
@@ -37,7 +38,7 @@ export default App.ImageReviewRoute = Ember.Route.extend({
 		getMoreImages(sessionId) {
 			ImageReviewModel.getImages(sessionId)
 				.then(function (data) {
-					// TODOś
+					// @todo handle this
 				})
 				.catch(function (err) {
 					this.sendAction('error', err);

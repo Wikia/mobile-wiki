@@ -1,10 +1,10 @@
 <div class="img-container">
-    <img id="{{model.imageId}}" src="{{img_src}}" width="230">
+    <img id="{{model.imageId}}" src="{{model.imageId}}" width="230">
 </div>
 <a href="{{img_href}}" target="_blank" class="internal sprite details magnify" title="Go to image page"></a>
 <p> ImageID: {{model.imageId}} </p>
 <form>
-	<label title="Mark as OK"><input {{action 'setOk'}} type="radio" name="{{model.imageId}}" value="2" checked="">OK</label>
-	<label title="Delete"><input {{action 'setDelete'}} type="radio" name="{{model.imageId}}" value="4">Delete</label>
-	<label title="Questionable"><input {{action 'setQuestionable'}} type="radio" name="{{model.imageId}}" value="5">Questionable</label>
+	<label title="Mark as OK"><input {{action 'setOk'}} type="radio" name="{{model.imageId}}">OK</label>
+	<label title="Delete"><input {{action 'setDelete'}} type="radio" name="{{model.imageId}}">Delete</label>
+	<label title="Questionable"><input {{action 'setQuestionable'}} type="radio" name="{{model.imageId}}">Questionable</label>
 </form>
