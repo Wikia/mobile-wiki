@@ -1,37 +1,40 @@
 {
-  "landing-page":{
-    "to-the-wiki-title":"to the Wiki",
-    "page-main-header":"The hottest __applicationName__ discussions with the biggest fans.",
-    "download-the-app-header":"Download the app to join in now!",
-    "google-play-button-alt":"Obter no Google Play",
-    "start-discussions-title":"Start Discussions",
-    "start-discussions-text":"Ask a question, share news or just talk with other fans from around the world about your favourite topics!",
-    "upvote-the-best-title":"Upvote the Best",
-    "upvote-the-best-text":"See something you love? Cast your upvote to show your appreciation and influence what's trending.",
-    "share-your-knowledge-title":"Share your knowledge",
-    "share-your-knowledge-text":"Share your favourite discussions with your social networks to bring more fans into the fold."
-  },
-  "main":{
-    "pagination-post-show-more":"Visualizar respostas mais antigas",
-    "share-default-title":"Discussão em __siteName__",
-    "contributors-title":"Todos os colaboradores",
-    "sort-by-latest":"Mais recentes",
-    "sort-by-trending":"Tendências",
-    "loading-more-posts":"Carregando mais posts",
-    "back-to-wikia-link":"Voltar para Wikia",
-    "number-of-posts":"__numberOfPosts__ Posts",
-    "connection-error":"Não é possível conectar, por favor, tente novamente.",
-    "not-found-error":"Opa, parece que esta página não existe!",
-    "action-retry-title":"Tente novamente",
-    "all-discussions-link-desktop":"Mostre-me todas as discussões",
-    "all-discussions-link-mobile":"Todas as discussões",
-    "discussions-app-join":"Você quer participar da discussão? Obtenha o app agora!",
-    "back-to-discussions-link":"Todas as discussões"
-  },
-  "editor":{
-    "post-failed-error":"O post falhou.",
-    "post-editor-label":"Criar um post",
-    "post-action-button-label":"Postar",
-    "post-editor-placeholder-text":"Compartilhe um pensamento, perguntas ou link..."
-  }
+    "landing-page": {
+        "to-the-wiki-title": "to the Wiki",
+        "page-main-header": "The hottest __applicationName__ discussions with the biggest fans.",
+        "download-the-app-header": "Download the app to join in now!",
+        "google-play-button-alt": "Obter no Google Play",
+        "start-discussions-title": "Start Discussions",
+        "start-discussions-text": "Ask a question, share news or just talk with other fans from around the world about your favorite topics!",
+        "upvote-the-best-title": "Upvote the Best",
+        "upvote-the-best-text": "See something you love? Cast your upvote to show your appreciation and influence what's trending.",
+        "share-your-knowledge-title": "Share your knowledge",
+        "share-your-knowledge-text": "Share your favorite discussions with your social networks to bring more fans into the fold."
+    },
+    "main": {
+        "pagination-post-show-more": "Visualizar respostas mais antigas",
+        "share-default-title": "Discussão em __siteName__",
+        "contributors-title": "Todos os colaboradores",
+        "sort-by-latest": "Mais recentes",
+        "sort-by-trending": "Tendências",
+        "loading-more-posts": "Carregando mais posts",
+        "back-to-wikia-link": "Voltar para Wikia",
+        "number-of-posts": "__numberOfPosts__ Posts",
+        "connection-error": "Não é possível conectar, por favor, tente novamente.",
+        "not-found-error": "Opa, parece que esta página não existe!",
+        "action-retry-title": "Tente novamente",
+        "all-discussions-link-desktop": "Mostre-me todas as discussões",
+        "all-discussions-link-mobile": "Todas as discussões",
+        "discussions-app-join": "Você quer participar da discussão? Obtenha o app agora!",
+        "back-to-discussions-link": "Todas as discussões"
+    },
+    "editor": {
+        "post-failed-error": "O post falhou.",
+        "post-error-anon-cant-post": "Sign in to join the discussion!",
+        "post-error-not-authorized": "You cannot post because your account has been blocked.",
+        "post-error-general-error": "Oops, looks like something went wrong! Please try again later.",
+        "post-editor-label": "Criar um post",
+        "post-action-button-label": "Postar",
+        "post-editor-placeholder-text": "Compartilhe um pensamento, perguntas ou link..."
+    }
 }
