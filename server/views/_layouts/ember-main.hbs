@@ -86,8 +86,8 @@
 	</head>
 	<body>
 		{{> qualaroo}}
-		<!-- @include ../../../www/front/svg/common.svg -->
-		<!-- @include ../../../www/front/svg/main.svg -->
+		<!-- xinclude ../../../www/front/svg/common.svg -->
+		<!-- xinclude ../../../www/front/svg/main.svg -->
 
 		{{!--
 		Ember must render out to a specific div above the scripts, otherwise
@@ -115,6 +115,9 @@
 					M.loadScript('/front/vendor/main.js', function () {
 						M.loadScript('/front/scripts/combined.js');
 					});
+
+					M.loadResource('/front/svg/main.svg');
+					M.loadResource('/front/svg/common.svg');
 				});
 			}());
 		</script>
