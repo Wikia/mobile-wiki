@@ -199,6 +199,8 @@ export default App.ShareFeatureComponent = Ember.Component.extend(
 			 * @returns {void}
 			 */
 			share(network) {
+				this.trackClick('share', network);
+
 				const urlGetter = this.get(network);
 
 				let link;
