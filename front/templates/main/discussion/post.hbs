@@ -13,11 +13,15 @@
 			}}
 			<hr/>
 			<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
-			{{discussion-contributors
-				contributors=model.contributors
-				maxContributorDisplayCount=7
-				totalContributorCount=model.postCount
-			}}
+			{{#if model.replies}}
+				{{discussion-contributors
+					contributors=model.contributors
+					maxContributorDisplayCount=7
+					totalContributorCount=model.postCount
+				}}
+			{{else}}
+				{{i18n 'main.no-replies' ns='discussion'}}
+			{{/if}}
 		</div>
 		{{#if model.connectionError}}
 			{{discussion-connection-error
@@ -72,7 +76,7 @@
 					{{else}}
 						<div class="discussion-no-replies">
 							{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
-							{{i18n 'main.no-replies' ns='discussion'}}
+							{{i18n 'main.no-replies-be-the-first' ns='discussion'}}
 						</div>
 					{{/each}}
 					{{discussion-reply-editor

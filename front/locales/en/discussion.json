@@ -27,7 +27,8 @@
     "all-discussions-link-mobile": "All Discussions",
     "discussions-app-join": "Looking to join the discussion? Get the app now!",
     "back-to-discussions-link": "All Discussions",
-    "no-replies": "No replies yet. Be the first!"
+    "no-replies": "No replies yet.",
+    "no-replies-be-the-first": "No replies yet. Be the first!"
   },
   "editor": {
     "post-failed-error": "Post failed.",
