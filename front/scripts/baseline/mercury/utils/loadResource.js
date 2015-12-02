@@ -18,16 +18,18 @@ if (typeof window.M === 'undefined') {
 	 * @returns {void}
 	 */
 	M.loadResource = function (src) {
-		fetch(src)
-			.then((response) => {
-				return response.text();
-			})
-			.then((text) => {
-				const div = document.createElement('div');
+		const ajax = new XMLHttpRequest();
 
-				div.innerHTML = text;
-				document.body.insertBefore(div.childNodes[0], document.body.firstChild);
-			})
-			.catch((error) => loadError(error));
+		ajax.onload = () => {
+			const div = document.createElement('div');
+
+			div.innerHTML = ajax.responseText;
+			document.body.insertBefore(div.childNodes[0], document.body.firstChild);
+		};
+		ajax.onerror = loadError;
+
+		ajax.open('GET', src, true);
+		ajax.send();
+
 	};
 })(M);
