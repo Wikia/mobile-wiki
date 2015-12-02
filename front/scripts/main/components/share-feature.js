@@ -199,11 +199,11 @@ export default App.ShareFeatureComponent = Ember.Component.extend(
 			 * @returns {void}
 			 */
 			share(network) {
-				this.trackClick('share', network);
-
 				const urlGetter = this.get(network);
 
 				let link;
+
+				this.trackClick('share', network);
 
 				if (typeof urlGetter !== 'function') {
 					Ember.Logger.warn(`Shared Url getter for ${network} does not exist`);
