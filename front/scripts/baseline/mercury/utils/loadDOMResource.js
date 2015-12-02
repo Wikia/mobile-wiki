@@ -4,16 +4,6 @@ if (typeof window.M === 'undefined') {
 
 (function (M) {
 	/**
-	 }
-	 * @throws URIError exception
-	 * @param {*} error
-	 * @returns {void}
-	 */
-	function loadError(error) {
-		throw new URIError(`The resource ${error.target.src} is not accessible.`);
-	}
-
-	/**
 	 * @param {string} src
 	 * @returns {void}
 	 */
@@ -26,7 +16,10 @@ if (typeof window.M === 'undefined') {
 			div.innerHTML = ajax.responseText;
 			document.body.insertBefore(div.childNodes[0], document.body.firstChild);
 		};
-		ajax.onerror = loadError;
+
+		ajax.onerror = (error) => {
+			throw new URIError(`The resource ${error.target.src} is not accessible.`);
+		};
 
 		ajax.open('GET', src, true);
 		ajax.send();
