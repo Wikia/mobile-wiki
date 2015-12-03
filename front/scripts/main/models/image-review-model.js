@@ -28,8 +28,8 @@ App.ImageReviewModel.reopenClass({
 					withCredentials: true
 				},
 				success: (data) => {
-					// Temporary! Add 100 dummy images
-					for(i = 0; i < 100; i++) App.ImageReviewModel.addImage(data.id, Math.random());
+					// Temporary! Add 100 dummy image
+					for(let i = 0; i < 100; i++) App.ImageReviewModel.addImage(data.id, Math.random());
 					resolve(App.ImageReviewModel.getImages(data.id));
 				},
 				error: (data) => {
