@@ -2,8 +2,12 @@ import App from '../app';
 import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
 import DiscussionForumModel from '../models/discussion-forum';
 import DiscussionLayoutMixin from '../mixins/discussion-layout';
+import DiscussionDeleteRouteMixin from '../mixins/discussion-delete-route';
 
-export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMixin, DiscussionRouteUpvoteMixin, {
+export default App.DiscussionForumRoute = Ember.Route.extend(
+	DiscussionLayoutMixin,
+	DiscussionRouteUpvoteMixin,
+	DiscussionDeleteRouteMixin, {
 	defaultSortType: null,
 	forumId: null,
 
@@ -75,24 +79,6 @@ export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMix
 			this.setSortBy('latest').promise.then(() => {
 				this.modelFor('discussion.forum').createPost(postData);
 			});
-		},
-
-		/**
-		 * Pass post deletion to model
-		 * @param {any} post
-		 * @returns {void}
-		 */
-		deletePost(post) {
-			this.modelFor('discussion.forum').deletePost(post);
-		},
-
-		/**
-		 * Pass post undeletion to model
-		 * @param {any} post
-		 * @returns {void}
-		 */
-		undeletePost(post) {
-			this.modelFor('discussion.forum').undeletePost(post);
 		},
 
 		/**

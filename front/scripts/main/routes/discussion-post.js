@@ -2,8 +2,12 @@ import App from '../app';
 import DiscussionPostModel from '../models/discussion-post';
 import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
 import DiscussionLayoutMixin from '../mixins/discussion-layout';
+import DiscussionDeleteRouteMixin from '../mixins/discussion-delete-route';
 
-export default App.DiscussionPostRoute = Ember.Route.extend(DiscussionLayoutMixin, DiscussionRouteUpvoteMixin, {
+export default App.DiscussionPostRoute = Ember.Route.extend(
+	DiscussionLayoutMixin,
+	DiscussionRouteUpvoteMixin,
+	DiscussionDeleteRouteMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Ember.RSVP.Promise}
@@ -80,42 +84,6 @@ export default App.DiscussionPostRoute = Ember.Route.extend(DiscussionLayoutMixi
 		didTransition() {
 			this.controllerFor('application').set('noMargins', true);
 			return true;
-		},
-
-		/**
-		 * Pass post deletion to model
-		 * @param {any} post
-		 * @returns {void}
-		 */
-		deletePost(post) {
-			this.modelFor('discussion.post').deletePost(post);
-		},
-
-		/**
-		 * Pass post undeletion to model
-		 * @param {any} post
-		 * @returns {void}
-		 */
-		undeletePost(post) {
-			this.modelFor('discussion.post').undeletePost(post);
-		},
-
-		/**
-		 * Pass reply deletion to model
-		 * @param {any} reply
-		 * @returns {void}
-		 */
-		deleteReply(reply) {
-			this.modelFor('discussion.post').deleteReply(reply);
-		},
-
-		/**
-		 * Pass reply undeletion to model
-		 * @param {any} reply
-		 * @returns {void}
-		 */
-		undeleteReply(reply) {
-			this.modelFor('discussion.post').undeleteReply(reply);
 		},
 
 		/**
