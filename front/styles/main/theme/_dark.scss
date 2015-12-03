@@ -97,7 +97,7 @@ body.dark-theme {
 					}
 				}
 
-				.icon:not(.undelete) {
+				.icon:not(.undelete):not(.delete) {
 					fill: $dark-discussion-deleted-actions-color;
 					stroke: $dark-discussion-deleted-actions-color;
 				}

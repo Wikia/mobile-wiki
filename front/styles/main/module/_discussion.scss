@@ -101,7 +101,7 @@ body.discussions {
 				}
 			}
 
-			.icon:not(.undelete) {
+			.icon:not(.undelete):not(.delete) {
 				fill: $discussion-deleted-actions-color;
 				stroke: $discussion-deleted-actions-color;
 			}
