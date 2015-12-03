@@ -82,9 +82,8 @@ App.Router.map(function () {
 		});
 	});
 
-	// @todo Add proper path instead of register
 	this.route('imageReview', {
-		path: '/register'
+		path: '/imagereview'
 	});
 
 	// Route to catch all badly formed URLs

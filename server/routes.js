@@ -159,26 +159,16 @@ let routes,
 				]
 			}
 		},
-
-		// @todo refactor to proper path
-		//{
-		//	method: 'GET',
-		//	path: '/register',
-		//	handler: registerHandler,
-		//	config: {
-		//		pre: [
-		//			{
-		//				method: validateRedirect
-		//			}
-		//		]
-		//	}
-		//},
 		{
 			method: 'GET',
 			path: '/register',
-			handler: showApplication,
+			handler: registerHandler,
 			config: {
-				cache: routeCacheConfig
+				pre: [
+					{
+						method: validateRedirect
+					}
+				]
 			}
 		},
 		{
@@ -251,6 +241,14 @@ let routes,
 			method: 'GET',
 			path: '/main/category/{categoryName*}',
 			handler: showCuratedContent,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
+			path: '/imagereview',
+			handler: showApplication,
 			config: {
 				cache: routeCacheConfig
 			}
