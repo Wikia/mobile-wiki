@@ -273,8 +273,12 @@ export default App.CuratedContentEditorItemFormComponent = Ember.Component.exten
 			 * @returns {void}
 			 */
 			cropImage() {
+				this.setProperties({
+					'imageProperties.url': this.get('model.image_url'),
+					'imageProperties.id': this.get('model.image_id'),
+					'imageCropLayout.previous': this.get('itemFormLayout.name')
+				});
 				this.trackClick('curated-content-editor', 'item-crop-image');
-				this.set('imageCropLayout.previous', this.get('itemFormLayout.name'));
 				this.sendAction('changeLayout', this.get('imageCropLayout.name'));
 			},
 

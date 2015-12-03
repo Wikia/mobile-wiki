@@ -11,7 +11,6 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	gutil = require('gulp-util'),
 	environment = require('../utils/environment'),
-	options = require('../options').scripts.front,
 	paths = require('../paths').scripts.front,
 	path = require('path');
 

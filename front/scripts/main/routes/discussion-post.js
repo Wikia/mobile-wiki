@@ -66,6 +66,15 @@ export default App.DiscussionPostRoute = Ember.Route.extend(DiscussionLayoutMixi
 		},
 
 		/**
+		 * Triggers new reply creation on a model
+		 * @param {object} replyData
+		 * @returns {void}
+		 */
+		create(replyData) {
+			this.modelFor('discussion.post').createReply(replyData);
+		},
+
+		/**
 		 * @returns {boolean}
 		 */
 		didTransition() {

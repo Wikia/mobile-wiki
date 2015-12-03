@@ -1,18 +1,40 @@
 {
-  "main":{
-    "share-default-title":"Обсуждение на __siteName__",
-    "contributors-title":"Все участники",
-    "sort-by-latest":"Последние",
-    "sort-by-trending":"Популярные",
-    "loading-more-posts":"Загрузка сообщений",
-    "back-to-wikia-link":"Назад на вики",
-    "number-of-posts":"__numberOfPosts__ записей",
-    "connection-error":"Ошибка подключения. Пожалуйста, попробуйте позже.",
-    "not-found-error":"Страницы не существует.",
-    "action-retry-title":"Попробовать снова",
-    "all-discussions-link-desktop":"Показать все обсуждения",
-    "all-discussions-link-mobile":"Все обсуждения",
-    "discussions-app-join":"Хотите присоединиться к обсуждению? Установите приложение прямо сейчас!",
-    "back-to-discussions-link":"Все обсуждения"
-  }
+    "landing-page": {
+        "to-the-wiki-title": "Назад на вики",
+        "page-main-header": "Самые популярные дискуссии о __applicationName__",
+        "download-the-app-header": "Загрузите приложение, чтобы присоединиться сейчас!",
+        "google-play-button-alt": "Скачайте на Google Play",
+        "start-discussions-title": "Начать обсуждение",
+        "start-discussions-text": "Задайте вопрос, поделитесь новостью или просто пообщайтесь с участниками со всего мира!",
+        "upvote-the-best-title": "Оценить лучшие",
+        "upvote-the-best-text": "Понравилось сообщение? Проголосуйте за него, чтобы показать сообществу, что вам нравится.",
+        "share-your-knowledge-title": "Поделитесь знаниями",
+        "share-your-knowledge-text": "Поделитесь вашими любимыми обсуждениями в соц. сетях"
+    },
+    "main": {
+        "pagination-post-show-more": "Просмотреть старые ответы",
+        "share-default-title": "Обсуждение на __siteName__",
+        "contributors-title": "Все участники",
+        "sort-by-latest": "Последние",
+        "sort-by-trending": "Популярные",
+        "loading-more-posts": "Загрузка сообщений",
+        "back-to-wikia-link": "Назад на вики",
+        "number-of-posts": "__numberOfPosts__ записей",
+        "connection-error": "Ошибка подключения. Пожалуйста, попробуйте позже.",
+        "not-found-error": "Страницы не существует.",
+        "action-retry-title": "Попробовать снова",
+        "all-discussions-link-desktop": "Показать все обсуждения",
+        "all-discussions-link-mobile": "Все обсуждения",
+        "discussions-app-join": "Хотите присоединиться к обсуждению? Установите приложение прямо сейчас!",
+        "back-to-discussions-link": "Все обсуждения"
+    },
+    "editor": {
+        "post-failed-error": "Произошла ошибка во время публикации.",
+        "post-error-anon-cant-post": "Войдите в аккаунт, чтобы присоединиться к обсуждению.",
+        "post-error-not-authorized": "Вы не можете опубликовать запись, так как ваш аккаунт был заблокирован.",
+        "post-error-general-error": "К сожалению, произошла ошибка. Пожалуйста, попробуйте ещё раз.",
+        "post-editor-label": "Создать сообщение",
+        "post-action-button-label": "Сообщение",
+        "post-editor-placeholder-text": "Поделитесь мыслями или задайте вопрос"
+    }
 }

@@ -1,6 +1,9 @@
 {{#if showContent}}
 	<div class="header clearfix background-theme-color">
 		<h1>{{siteName}}</h1>
+		<div {{action 'toggleEditorActive' true}} class="new-post">
+			{{svg 'new-post-icon' viewBox='0 0 56 50'}}
+		</div>
 		<div {{action 'showSortComponent'}} class="sort">
 			<span>{{i18n sortMessageKey ns='discussion'}}</span>
 			{{svg 'filter-dropdown-white' viewBox='0 0 7 4' class='icon dropdown'}}

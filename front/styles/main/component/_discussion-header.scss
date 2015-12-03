@@ -20,18 +20,17 @@ $site-header-height: 50px;
 	.header {
 		height: $discussion-header-height;
 		overflow: hidden;
-		padding: 0 15px;
+		padding-left: 15px;
 	}
 
 	h1 {
 		color: $discussion-header-color-text;
 		float: left;
 		font-size: $type-smaller;
-		line-height: $discussion-header-line-height;
+		line-height: $discussion-header-height;
 		margin: 0;
 		overflow: hidden;
 		white-space: nowrap;
-		width: 180px;
 	}
 
 	.icon.dropdown {
@@ -55,9 +54,15 @@ $site-header-height: 50px;
 		cursor: pointer;
 		float: right;
 		font-size: $type-smallest;
-		line-height: $discussion-header-line-height;
+		line-height: $discussion-header-height;
+		margin-right: 15px;
 		text-align: right;
-		width: 110px;
+	}
+
+	.new-post {
+		float: right;
+		height: 50px; // TODO fix height
+		width: 56px;
 	}
 }
 

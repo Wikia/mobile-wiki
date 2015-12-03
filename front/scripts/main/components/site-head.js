@@ -11,6 +11,7 @@ export default App.SiteHeadComponent = Ember.Component.extend(
 		tagName: 'nav',
 		themeBar: false,
 		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
+		pinned: true,
 
 		actions: {
 			/**
@@ -25,7 +26,11 @@ export default App.SiteHeadComponent = Ember.Component.extend(
 			 */
 			showUserMenu() {
 				this.sendAction('toggleUserMenu', true);
-			},
+			}
 		},
+
+		pinnedObserver: Ember.observer('pinned', function () {
+			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
+		})
 	}
 );

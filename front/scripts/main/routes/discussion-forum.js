@@ -31,6 +31,22 @@ export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMix
 		controller.set('sortBy', transition.params['discussion.forum'].sortBy || this.defaultSortType);
 	},
 
+	/**
+	 * @param {string} sortBy
+	 * @returns {EmberStates.Transition}
+	 */
+	setSortBy(sortBy) {
+		const controller = this.controllerFor('discussionForum');
+
+		controller.set('sortBy', sortBy);
+
+		if (controller.get('sortAlwaysVisible') !== true) {
+			this.controllerFor('discussionForum').set('sortVisible', false);
+		}
+
+		return this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+	},
+
 	actions: {
 		/**
 		 * @param {number} postId
@@ -55,6 +71,12 @@ export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMix
 			this.modelFor('discussion.forum').loadPage(pageNum, sortBy);
 		},
 
+		create(postData) {
+			this.setSortBy('latest').promise.then(() => {
+				this.modelFor('discussion.forum').createPost(postData);
+			});
+		},
+
 		/**
 		 * @returns {void}
 		 */
@@ -74,15 +96,7 @@ export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMix
 		 * @returns {void}
 		 */
 		setSortBy(sortBy) {
-			const controller = this.controllerFor('discussionForum');
-
-			controller.set('sortBy', sortBy);
-
-			if (controller.get('sortAlwaysVisible') !== true) {
-				this.controllerFor('discussionForum').set('sortVisible', false);
-			}
-
-			this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+			this.setSortBy(sortBy);
 		},
 
 		/**

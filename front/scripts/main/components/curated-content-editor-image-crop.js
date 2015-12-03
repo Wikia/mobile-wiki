@@ -51,13 +51,15 @@ export default App.CuratedContentEditorImageCropComponent = Ember.Component.exte
 			 * @returns {void}
 			 */
 			done() {
-				this.trackClick('curated-content-editor', 'image-crop-done');
 				const $imgElement = this.get('$imgElement'),
 					model = this.get('model'),
 					imageUrl = this.get('imagePropertiesUrl'),
 					imageId = this.get('imageProperties.id');
+
 				let cropData,
 					imageCrop;
+
+				this.trackClick('curated-content-editor', 'image-crop-done');
 
 				// Set values on model only if imageProperties are set.
 				// When cropping already added image values on model are already set

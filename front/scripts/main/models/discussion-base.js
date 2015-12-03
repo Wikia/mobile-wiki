@@ -8,6 +8,7 @@ export default App.DiscussionBaseModel = Ember.Object.extend({
 		notFound: 404
 	},
 	errorClass: 'discussion-error-page',
+	errorMessage: null,
 	connectionError: null,
 	notFoundError: null,
 
@@ -41,5 +42,13 @@ export default App.DiscussionBaseModel = Ember.Object.extend({
 		} else {
 			this.setErrorProperty(err);
 		}
+	},
+
+	/**
+	 * @param {string} errorMessage
+	 * @returns {void}
+	 */
+	setFailedState(errorMessage) {
+		this.set('errorMessage', errorMessage);
 	}
 });

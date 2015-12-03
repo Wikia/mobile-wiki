@@ -54,8 +54,6 @@ $z-header: $z-6;
 }
 
 .headroom-not-top {
-	transition: transform .5s;
-
 	&.pinned {
 		transform: none;
 	}
