@@ -1,7 +1,6 @@
 import App from '../app';
 import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
 import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
-import {checkPermissions} from '../../mercury/utils/discussionPermissions';
 
 export default App.PostDetailComponent = Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
@@ -11,12 +10,6 @@ export default App.PostDetailComponent = Ember.Component.extend(
 		classNameBindings: ['isNew', 'isDeleted'],
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
-		canDelete: Ember.computed('post.isDeleted', function () {
-			return !this.get('post.isDeleted') && checkPermissions(this.get('post'), 'canDelete');
-		}),
-		canUndelete: Ember.computed('post.isDeleted', function () {
-			return this.get('post.isDeleted') && checkPermissions(this.get('post'), 'canUndelete');
-		}),
 		postId: null,
 
 		/**

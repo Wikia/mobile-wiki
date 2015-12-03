@@ -60,9 +60,9 @@ body.discussions {
 		}
 	}
 
-	.delete-link,
-	.undelete-link {
+	.delete-actions {
 		float: right;
+		display: inline-block;
 	}
 
 	.discussion-content {
