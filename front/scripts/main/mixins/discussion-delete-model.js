@@ -1,7 +1,7 @@
 import App from '../app';
 import {checkPermissions} from '../../mercury/utils/discussionPostPermissions';
 
-export default App.DiscussionDeletePostMixin = Ember.Mixin.create({
+export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 	/**
 	 * Delete post in service
 	 * @param {any} post
@@ -47,6 +47,62 @@ export default App.DiscussionDeletePostMixin = Ember.Mixin.create({
 					dataType: 'json',
 					success: () => {
 						Ember.set(post, 'isDeleted', false);
+						resolve(this);
+					},
+					error: (err) => {
+						this.setErrorProperty(err);
+						resolve(this);
+					}
+				});
+			});
+		}
+	},
+
+	/**
+	 * Delete reply in service
+	 * @param {any} reply
+	 * @returns {Ember.RSVP|undefined}
+	 */
+	deleteReply(reply) {
+		if (checkPermissions(reply, 'canDelete')) {
+			return new Ember.RSVP.Promise((resolve) => {
+				Ember.$.ajax({
+					method: 'PUT',
+					url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/delete`),
+					xhrFields: {
+						withCredentials: true,
+					},
+					dataType: 'json',
+					success: () => {
+						Ember.set(reply, 'isDeleted', true);
+						resolve(this);
+					},
+					error: (err) => {
+						this.setErrorProperty(err);
+						resolve(this);
+					}
+				});
+			});
+		}
+	},
+
+	/**
+	 * Undelete reply in service
+	 * @param {any} reply
+	 * @returns {Ember.RSVP|undefined}
+	 */
+	undeleteReply(reply) {
+		if (checkPermissions(reply, 'canUndelete')) {
+			return new Ember.RSVP.Promise((resolve) => {
+				Ember.$.ajax({
+					method: 'PUT',
+					url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/undelete`),
+					xhrFields: {
+						withCredentials: true,
+					},
+					dataType: 'json',
+					success: () => {
+						Ember.set(reply, 'isDeleted', false);
 						resolve(this);
 					},
 					error: (err) => {
