@@ -5,7 +5,13 @@ export default App.ImageReviewModel = Ember.Object.extend({
 	// part of https://dockyard.com/blog/2015/09/18/ember-best-practices-avoid-leaking-state-into-factories
 
 	sessionId: null,
-	images: []
+	images: [],
+
+	reviewImages(images) {
+		images.forEach(function(imageItem) {
+			App.ImageReviewModel.reviewImage(imageItem.contractId, imageItem.imageId, imageItem.status);
+		});
+	},
 });
 
 App.ImageReviewModel.reopenClass({
@@ -51,7 +57,7 @@ App.ImageReviewModel.reopenClass({
 	getImages(contractId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: App.ImageReviewModel.getServiceUrl + contractId + '/image',
+				url: App.ImageReviewModel.getServiceUrl + `${contractId}/image`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -74,8 +80,7 @@ App.ImageReviewModel.reopenClass({
 	reviewImage(contractId, imageId, flag) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: App.ImageReviewModel.getServiceUrl +
-				contractId + `/image/` + imageId + `?status=` + flag,
+				url: App.ImageReviewModel.getServiceUrl + `${contractId}/image/${imageId}?status=${flag}`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -98,8 +103,8 @@ App.ImageReviewModel.reopenClass({
 			if (image.reviewStatus === 'UNREVIEWED') {
 				images.push({
 					imageId: image.imageId,
-					contractId: sessionId,
-					status: 0
+					contractId: contractId,
+					status: 'ACCEPTED'
 				});
 			}
 			//else skip because is reviewed already

@@ -80,6 +80,7 @@ gulp.task('watch', ['build'], function () {
 	]).on('change', function (event) {
 		log('File changed:', gutil.colors.green(event.path), 'Restarting server');
 
+		// @todo remove this cause it's only mine issue
 		//server.restart(function () {
 		//	if (event.path.match('front')) {
 		//		reload(path);

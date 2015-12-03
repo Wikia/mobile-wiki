@@ -144,6 +144,8 @@ authenticatedRoutes = [
 			]
 		}
 	},
+
+	// @todo Add proper path instead of register
 	//{
 	//	method: 'GET',
 	//	path: '/register',

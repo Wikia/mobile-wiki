@@ -43,6 +43,11 @@ export default App.ImageReviewRoute = Ember.Route.extend({
 				.catch(function (err) {
 					this.sendAction('error', err);
 				});
-		}
+		},
+
+		reviewImages() {
+			const model = this.modelFor('imageReview');
+			model.reviewImages(model.images);
+		},
 	}
 });

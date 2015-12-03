@@ -4,7 +4,7 @@
 <a href="{{img_href}}" target="_blank" class="internal sprite details magnify" title="Go to image page"></a>
 <p> ImageID: {{model.imageId}} </p>
 <form>
-	<label title="Mark as OK"><input {{action 'setOk'}} type="radio" name="{{model.imageId}}">OK</label>
-	<label title="Delete"><input {{action 'setDelete'}} type="radio" name="{{model.imageId}}">Delete</label>
-	<label title="Questionable"><input {{action 'setQuestionable'}} type="radio" name="{{model.imageId}}">Questionable</label>
+	<label title="Mark as OK"><input {{action 'setStatus' 'ACCEPTED'}} type="radio" name="{{model.imageId}}">OK</label>
+	<label title="Delete"><input {{action 'setStatus' 'REJECTED'}} type="radio" name="{{model.imageId}}">Delete</label>
+	<label title="Questionable"><input {{action 'setStatus' 'FLAGGED'}} type="radio" name="{{model.imageId}}">Questionable</label>
 </form>

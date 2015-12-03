@@ -4,5 +4,5 @@ import ObjectUtilitiesMixin from '../mixins/object-utilities';
 export default App.ImageReviewItemModel = Ember.Object.extend(ObjectUtilitiesMixin, {
 	imageId: '123',
 	contractId: null,
-	status: 0
+	status: 'ACCEPTED'
 });
