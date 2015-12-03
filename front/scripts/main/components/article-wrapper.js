@@ -75,7 +75,7 @@ export default App.ArticleWrapperComponent = Ember.Component.extend(
 		 *
 		 * @returns {boolean} True if contribution component is enabled for this community
 		 */
-		contributionEnabledForCommunity: Ember.computed(function () {
+		contributionEnabledForCommunity: Ember.computed(() => {
 			if (Ember.getWithDefault(Mercury, 'wiki.disableMobileSectionEditor', false)) {
 				// When disableMobileSectionEditor is set to true, no contribution tools should show up
 				return false;
