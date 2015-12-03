@@ -466,7 +466,7 @@ export default App.ArticleContentComponent = Ember.Component.extend(
 							' portable-table-wrappper' : ''}"/>`;
 
 					$element.wrap(wrapper);
-				})
+				});
 		}
 	}
 );
