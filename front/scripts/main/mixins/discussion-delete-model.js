@@ -21,8 +21,8 @@ export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 						Ember.set(post, 'isDeleted', true);
 						resolve(this);
 					},
-					error: (err) => {
-						this.setErrorProperty(err);
+					error: () => {
+						this.displayError();
 						resolve(this);
 					}
 				});
@@ -49,8 +49,8 @@ export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 						Ember.set(post, 'isDeleted', false);
 						resolve(this);
 					},
-					error: (err) => {
-						this.setErrorProperty(err);
+					error: () => {
+						this.displayError();
 						resolve(this);
 					}
 				});
@@ -77,8 +77,8 @@ export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 						Ember.set(reply, 'isDeleted', true);
 						resolve(this);
 					},
-					error: (err) => {
-						this.setErrorProperty(err);
+					error: () => {
+						this.displayError();
 						resolve(this);
 					}
 				});
@@ -105,12 +105,16 @@ export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 						Ember.set(reply, 'isDeleted', false);
 						resolve(this);
 					},
-					error: (err) => {
-						this.setErrorProperty(err);
+					error: () => {
+						this.displayError();
 						resolve(this);
 					}
 				});
 			});
 		}
+	},
+
+	displayError() {
+		alert(i18n.t('editor.post-error-general-error', {ns: 'discussion'}));
 	}
 });
