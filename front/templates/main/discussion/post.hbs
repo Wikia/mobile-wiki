@@ -60,9 +60,10 @@
 							post=item
 							author=item.createdBy
 							content=item.rawContent
-							isDeleted=item.isDeleted
+							deleteReply=(action 'deleteReply')
 							isParentDeleted=model.firstPost.isDeleted
 							timestamp=item.creationDate.epochSecond
+							undeleteReply=(action 'undeleteReply')
 							upvoteCount=item.upvoteCount
 							isNew=item.isNew
 							isVisible=item.isVisible

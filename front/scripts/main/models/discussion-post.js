@@ -1,6 +1,7 @@
 import App from '../app';
 import DiscussionBaseModel from './discussion-base';
 import DiscussionDeletePostMixin from '../mixins/discussion-delete-post';
+import {checkPermissions} from '../../mercury/utils/discussionPostPermissions';
 
 export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeletePostMixin, {
 
@@ -85,6 +86,62 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 				}
 			});
 		});
+	},
+
+	/**
+	 * Delete reply in service
+	 * @param {any} reply
+	 * @returns {Ember.RSVP|undefined}
+	 */
+	deleteReply(reply) {
+		if (checkPermissions(reply, 'canDelete')) {
+			return new Ember.RSVP.Promise((resolve) => {
+				Ember.$.ajax({
+					method: 'PUT',
+					url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/delete`),
+					xhrFields: {
+						withCredentials: true,
+					},
+					dataType: 'json',
+					success: () => {
+						Ember.set(reply, 'isDeleted', true);
+						resolve(this);
+					},
+					error: (err) => {
+						this.setErrorProperty(err);
+						resolve(this);
+					}
+				});
+			});
+		}
+	},
+
+	/**
+	 * Undelete reply in service
+	 * @param {any} reply
+	 * @returns {Ember.RSVP|undefined}
+	 */
+	undeleteReply(reply) {
+		if (checkPermissions(reply, 'canUndelete')) {
+			return new Ember.RSVP.Promise((resolve) => {
+				Ember.$.ajax({
+					method: 'PUT',
+					url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/undelete`),
+					xhrFields: {
+						withCredentials: true,
+					},
+					dataType: 'json',
+					success: () => {
+						Ember.set(reply, 'isDeleted', false);
+						resolve(this);
+					},
+					error: (err) => {
+						this.setErrorProperty(err);
+						resolve(this);
+					}
+				});
+			});
+		}
 	}
 });
 

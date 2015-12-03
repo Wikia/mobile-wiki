@@ -75,6 +75,24 @@ export default App.DiscussionPostController = Ember.Controller.extend({
 		 */
 		undeletePost(post) {
 			this.get('target').send('undeletePost', post);
+		},
+
+		/**
+		 * Bubbles up to DiscussionPostRoute
+		 * @param {any} post
+		 * @returns {void}
+		 */
+		deleteReply(reply) {
+			this.get('target').send('deleteReply', reply);
+		},
+
+		/**
+		 * Bubbles up to DiscussionPostRoute
+		 * @param {any} reply
+		 * @returns {void}
+		 */
+		undeleteReply(reply) {
+			this.get('target').send('undeleteReply', reply);
 		}
 	}
 });

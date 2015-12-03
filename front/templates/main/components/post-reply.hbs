@@ -15,6 +15,12 @@
 		<span class="timestamp">
 			&bull; {{time-ago post.creationDate.epochSecond}}
 		</span>
+		{{#if canUndelete}}
+			<a class="undelete-link" {{action this.attrs.undeleteReply post}}>{{svg 'undelete' viewBox='0 0 17 22' class='icon undelete'}}</a>
+		{{/if}}
+		{{#if canDelete}}
+			<a class="delete-link" {{action this.attrs.deleteReply post}}>{{svg 'delete' viewBox='0 0 17 22' class='icon delete'}}</a>
+		{{/if}}
 	</div>
 	<div class="discussion-content">
 		{{{parsedContent}}}
