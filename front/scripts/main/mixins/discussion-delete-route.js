@@ -8,7 +8,12 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		deletePost(post) {
-			this.modelFor('discussion.post').deletePost(post);
+			const appController = this.controllerFor('application');
+
+			appController.set('isLoading', true);
+			this.modelFor('discussion.post').deletePost(post).then(() => {
+				appController.set('isLoading', false);
+			});
 		},
 
 		/**
@@ -17,7 +22,12 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		undeletePost(post) {
-			this.modelFor('discussion.post').undeletePost(post);
+			const appController = this.controllerFor('application');
+
+			appController.set('isLoading', true);
+			this.modelFor('discussion.post').undeletePost(post).then(() => {
+				appController.set('isLoading', false);
+			});
 		},
 
 		/**
@@ -26,7 +36,12 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		deleteReply(reply) {
-			this.modelFor('discussion.post').deleteReply(reply);
+			const appController = this.controllerFor('application');
+
+			appController.set('isLoading', true);
+			this.modelFor('discussion.post').deleteReply(reply).then(() => {
+				appController.set('isLoading', false);
+			});
 		},
 
 		/**
@@ -35,7 +50,12 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		undeleteReply(reply) {
-			this.modelFor('discussion.post').undeleteReply(reply);
+			const appController = this.controllerFor('application');
+
+			appController.set('isLoading', true);
+			this.modelFor('discussion.post').undeleteReply(reply).then(() => {
+				appController.set('isLoading', false);
+			});
 		}
 	}
 });
