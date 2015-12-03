@@ -1,13 +1,7 @@
-<header class="edit-head">
-	<span {{action 'back'}}>
-		{{svg 'chevron' role='img' class='icon arrow-left'}}
-	</span>
-	<button {{action 'upload'}} class="large publish">{{i18n 'app.add-photo-page-add-button'}}</button>
-
-	<div class="edit-head-title">
-		{{! TODO: Ideally the title would be passed to the message so translators can choose the order (see HG-663) }}
-		{{i18n 'app.add-photo-page-heading'}} <span>{{model.title}}</span>
-	</div>
+<header class="sub-head">
+	<a {{action 'back'}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
+	<button {{action 'upload'}} class="sub-head--done">{{i18n 'app.add-photo-page-add-button'}}</button>
+	<div class="sub-head--title">{{i18n 'app.add-photo-page-heading'}}<span>{{model.title}}</span></div>
 </header>
 <div class="preview-body">
 	<div class="preview-container">
