@@ -1,6 +1,7 @@
 import App from '../app';
 import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
 import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
+import {checkPermissions} from '../../mercury/utils/discussionPostPermissions';
 
 export default App.PostDetailComponent = Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
@@ -11,10 +12,10 @@ export default App.PostDetailComponent = Ember.Component.extend(
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
 		canDelete: Ember.computed('post.isDeleted', function () {
-			return !this.get('post.isDeleted') && this.checkPermissions('canDelete');
+			return !this.get('post.isDeleted') && checkPermissions(this.get('post'), 'canDelete');
 		}),
 		canUndelete: Ember.computed('post.isDeleted', function () {
-			return this.get('post.isDeleted') && this.checkPermissions('canUndelete');
+			return this.get('post.isDeleted') && checkPermissions(this.get('post'), 'canUndelete');
 		}),
 		postId: null,
 
@@ -44,18 +45,6 @@ export default App.PostDetailComponent = Ember.Component.extend(
 		sharedUrl: Ember.computed('postId', function () {
 			return `${Ember.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)}/d/p/${this.get('postId')}`;
 		}),
-
-		/**
-		 * Check if user has permissions to perform selected operation
-		 * @param {string} permission
-		 * @returns {boolean}
-		 */
-		checkPermissions(permission) {
-			const userData = this.get('post._embedded.userData'),
-				permissions = userData && userData[0].permissions;
-
-			return permissions && permissions.contains(permission);
-		},
 
 		actions: {
 			/**

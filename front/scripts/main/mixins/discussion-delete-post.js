@@ -1,23 +1,14 @@
 import App from '../app';
+import {checkPermissions} from '../../mercury/utils/discussionPostPermissions';
 
 export default App.DiscussionDeletePostMixin = Ember.Mixin.create({
-	/**
-	 * Check if user has permissions to perform selected operation
-	 * @param {any} post
-	 * @param {string} permission
-	 * @returns {boolean}
-	 */
-	checkPermissions(post, permission) {
-		return Ember.get(post, '_embedded.userData')[0].permissions.contains(permission);
-	},
-
 	/**
 	 * Delete post in service
 	 * @param {any} post
 	 * @returns {Ember.RSVP|undefined}
 	 */
 	deletePost(post) {
-		if (this.checkPermissions(post, 'canDelete')) {
+		if (checkPermissions(post, 'canDelete')) {
 			return new Ember.RSVP.Promise((resolve) => {
 				Ember.$.ajax({
 					method: 'PUT',
@@ -45,7 +36,7 @@ export default App.DiscussionDeletePostMixin = Ember.Mixin.create({
 	 * @returns {Ember.RSVP|undefined}
 	 */
 	undeletePost(post) {
-		if (this.checkPermissions(post, 'canUndelete')) {
+		if (checkPermissions(post, 'canUndelete')) {
 			return new Ember.RSVP.Promise((resolve) => {
 				Ember.$.ajax({
 					method: 'PUT',
