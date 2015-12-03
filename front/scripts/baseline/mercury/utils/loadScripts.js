@@ -66,10 +66,11 @@ if (typeof window.M === 'undefined') {
 	 * @returns {void}
 	 */
 	function loadUsingDefer(src) {
-		// HTML parser treats </script> as the end of script, even if in a string
-		// Because of that we need to split it
-		/* eslint no-useless-concat:0 */
-		document.write(`<script src="${src}" defer><` + `/script>`);
+		const closingTag = '/script>';
+
+		// See http://stackoverflow.com/questions/236073/why-split-the-script-tag-when-writing-it-with-document-write
+		// We can't use \x3C nor \/ because UglifyJS unescapes them
+		document.write(`<script src="${src}" defer><${closingTag}`);
 	}
 
 	/**
@@ -81,7 +82,6 @@ if (typeof window.M === 'undefined') {
 	M.loadScripts = function (scripts) {
 		scripts.forEach((src) => {
 			if (supportsAsync) {
-				// modern browsers
 				loadUsingAsync(src);
 			} else if (supportsReadyState) {
 				loadUsingReadyState(src);
