@@ -1,0 +1,49 @@
+.portable-table-wrappper {
+	border: 0;
+	margin: 0 #{-$article-horizontal-padding};
+
+	table {
+		border: none;
+		border-left: $article-horizontal-padding solid $color-white;
+		border-right: $article-horizontal-padding solid $color-white;
+	}
+
+	// overwrite styles from _tables.scss
+	tr:not(:last-of-type) {
+		border-bottom: none;
+	}
+
+	// overwrite styles from _tables.scss
+	td:not(:last-child),
+	th:not(:last-child) {
+		border-right: none;
+	}
+}
+
+// portable table styles
+table[data-portable="true"] {
+	font-size: 14px;
+
+	th,
+	td {
+		padding: 12px $article-horizontal-padding;
+		white-space: nowrap;
+
+		&:not(:first-child) {
+			text-align: right;
+			padding-left: 0;
+
+			&:not(:last-child) {
+				padding-right: 56px;
+			}
+		}
+	}
+
+	th {
+		background-color: $color-blue-gray-light;
+	}
+
+	tr:nth-child(odd) td {
+		background-color: $color-gray-light;
+	}
+}
