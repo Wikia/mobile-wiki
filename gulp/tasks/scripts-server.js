@@ -4,25 +4,29 @@
  */
 
 var gulp = require('gulp'),
-	ts = require('gulp-typescript'),
+	babel = require('gulp-babel'),
 	gutil = require('gulp-util'),
 	environment = require('../utils/environment'),
 	newer = require('gulp-newer'),
-	options = require('../options').scripts.server,
-	paths = require('../paths').scripts.server,
-	tsProject = ts.createProject(options);
+	paths = require('../paths').scripts.server;
 
-gulp.task('scripts-server', ['scripts-config'], function () {
-	return gulp.src([paths.src, paths.config], {base: './'})
+gulp.task('scripts-server', ['scripts-config'], function (done) {
+	gulp.src([paths.src, paths.config], {base: './'})
 		.pipe(newer({dest: paths.dest, ext: '.js'}))
-		.pipe(ts(tsProject)).js
-		.on('error', function () {
+		.pipe(babel({
+			presets: ['es2015'],
+		}))
+		.on('error', function (error) {
 			if (gutil.env.testing && environment.isProduction) {
-				console.error('Build contains some typescript errors/warnings');
+				console.error('Build contains some errors');
 				process.exit(1);
+			} else {
+				console.error('Build error: ' + error.message);
+				this.emit('end');
 			}
 		})
-		.pipe(gulp.dest(paths.dest));
+		.pipe(gulp.dest(paths.dest))
+		.on('end', done);
 });
 
 //Temporary alias
