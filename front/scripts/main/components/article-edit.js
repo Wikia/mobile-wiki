@@ -11,7 +11,7 @@ export default App.ArticleEditComponent = Ember.Component.extend(
 		}),
 
 		adjustTextareaHeight: Ember.on('didInsertElement', () => {
-			this.$('textarea').css('height', this.$(window).height() - this.$('.sub-head').outerHeight());
+			Ember.$('textarea').css('height', Ember.$(window).height() - Ember.$('.sub-head').outerHeight());
 		}),
 
 		actions: {
