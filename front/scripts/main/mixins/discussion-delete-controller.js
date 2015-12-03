@@ -7,7 +7,7 @@ export default App.DiscussionDeleteControllerMixin = Ember.Mixin.create({
 		 * @param {any} post
 		 * @returns {void}
 		 */
-			deletePost(post) {
+		deletePost(post) {
 			this.get('target').send('deletePost', post);
 		},
 
@@ -16,7 +16,7 @@ export default App.DiscussionDeleteControllerMixin = Ember.Mixin.create({
 		 * @param {any} post
 		 * @returns {void}
 		 */
-			undeletePost(post) {
+		undeletePost(post) {
 			this.get('target').send('undeletePost', post);
 		},
 
@@ -25,7 +25,7 @@ export default App.DiscussionDeleteControllerMixin = Ember.Mixin.create({
 		 * @param {any} reply
 		 * @returns {void}
 		 */
-			deleteReply(reply) {
+		deleteReply(reply) {
 			this.get('target').send('deleteReply', reply);
 		},
 
@@ -34,7 +34,7 @@ export default App.DiscussionDeleteControllerMixin = Ember.Mixin.create({
 		 * @param {any} reply
 		 * @returns {void}
 		 */
-			undeleteReply(reply) {
+		undeleteReply(reply) {
 			this.get('target').send('undeleteReply', reply);
 		}
 	}
