@@ -1,6 +1,7 @@
 import App from '../app';
+import DiscussionDeleteControllerMixin from '../mixins/discussion-delete-controller';
 
-export default App.DiscussionPostController = Ember.Controller.extend({
+export default App.DiscussionPostController = Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 	numRepliesLoaded: null,
 	postListSort: '',
 
@@ -58,41 +59,5 @@ export default App.DiscussionPostController = Ember.Controller.extend({
 
 			this.get('target').send('goToForum', model.get('forumId'), this.get('postListSort'));
 		},
-
-		/**
-		 * Bubbles up to DiscussionPostRoute
-		 * @param {any} post
-		 * @returns {void}
-		 */
-		deletePost(post) {
-			this.get('target').send('deletePost', post);
-		},
-
-		/**
-		 * Bubbles up to DiscussionPostRoute
-		 * @param {any} post
-		 * @returns {void}
-		 */
-		undeletePost(post) {
-			this.get('target').send('undeletePost', post);
-		},
-
-		/**
-		 * Bubbles up to DiscussionPostRoute
-		 * @param {any} post
-		 * @returns {void}
-		 */
-		deleteReply(reply) {
-			this.get('target').send('deleteReply', reply);
-		},
-
-		/**
-		 * Bubbles up to DiscussionPostRoute
-		 * @param {any} reply
-		 * @returns {void}
-		 */
-		undeleteReply(reply) {
-			this.get('target').send('undeleteReply', reply);
-		}
 	}
 });

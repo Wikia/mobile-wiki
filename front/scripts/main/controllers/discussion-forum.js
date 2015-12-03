@@ -1,6 +1,7 @@
 import App from '../app';
+import DiscussionDeleteControllerMixin from '../mixins/discussion-delete-controller';
 
-export default App.DiscussionForumController = Ember.Controller.extend({
+export default App.DiscussionForumController = Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 	application: Ember.inject.controller(),
 	sortBy: null,
 
@@ -63,24 +64,6 @@ export default App.DiscussionForumController = Ember.Controller.extend({
 		 */
 		goToAllDiscussions() {
 			this.get('target').send('goToAllDiscussions');
-		},
-
-		/**
-		 * Bubbles up to DiscussionForumRoute
-		 * @param {any} post
-		 * @returns {void}
-		 */
-		deletePost(post) {
-			this.get('target').send('deletePost', post);
-		},
-
-		/**
-		 * Bubbles up to DiscussionForumRoute
-		 * @param {any} post
-		 * @returns {void}
-		 */
-		undeletePost(post) {
-			this.get('target').send('undeletePost', post);
 		},
 
 		toggleEditorActive(active) {

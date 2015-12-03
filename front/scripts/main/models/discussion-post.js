@@ -85,7 +85,7 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 				}
 			});
 		});
-	},
+	}
 });
 
 App.DiscussionPostModel.reopenClass({
