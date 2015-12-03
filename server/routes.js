@@ -159,16 +159,26 @@ let routes,
 				]
 			}
 		},
+
+		// @todo refactor to proper path
+		//{
+		//	method: 'GET',
+		//	path: '/register',
+		//	handler: registerHandler,
+		//	config: {
+		//		pre: [
+		//			{
+		//				method: validateRedirect
+		//			}
+		//		]
+		//	}
+		//},
 		{
 			method: 'GET',
 			path: '/register',
-			handler: registerHandler,
+			handler: showApplication,
 			config: {
-				pre: [
-					{
-						method: validateRedirect
-					}
-				]
+				cache: routeCacheConfig
 			}
 		},
 		{
