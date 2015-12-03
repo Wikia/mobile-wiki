@@ -1,5 +1,5 @@
 import App from '../app';
-import {checkPermissions} from '../../mercury/utils/discussionPostPermissions';
+import {checkPermissions} from '../../mercury/utils/discussionPermissions';
 
 export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 	/**

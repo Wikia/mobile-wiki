@@ -1,7 +1,7 @@
 import App from '../app';
 import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
 import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
-import {checkPermissions} from '../../mercury/utils/discussionPostPermissions';
+import {checkPermissions} from '../../mercury/utils/discussionPermissions';
 
 export default App.PostReplyComponent = Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
