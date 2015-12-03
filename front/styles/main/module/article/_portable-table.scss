@@ -1,22 +1,26 @@
+$portable-table-cell-horizontal-padding: 56px;
+$portable-table-cell-vertical-padding: 12px;
+
+
 .portable-table-wrappper {
 	border: 0;
 	margin: 0 #{-$article-horizontal-padding};
 
 	table {
-		border: none;
+		border: 0;
 		border-left: $article-horizontal-padding solid $color-white;
 		border-right: $article-horizontal-padding solid $color-white;
 	}
 
 	// overwrite styles from _tables.scss
 	tr:not(:last-of-type) {
-		border-bottom: none;
+		border-bottom: 0;
 	}
 
 	// overwrite styles from _tables.scss
 	td:not(:last-child),
 	th:not(:last-child) {
-		border-right: none;
+		border-right: 0;
 	}
 }
 
@@ -26,15 +30,15 @@ table[data-portable="true"] {
 
 	th,
 	td {
-		padding: 12px $article-horizontal-padding;
+		padding: $portable-table-cell-vertical-padding $article-horizontal-padding;
 		white-space: nowrap;
 
 		&:not(:first-child) {
-			text-align: right;
 			padding-left: 0;
+			text-align: right;
 
 			&:not(:last-child) {
-				padding-right: 56px;
+				padding-right: $portable-table-cell-horizontal-padding;
 			}
 		}
 	}
