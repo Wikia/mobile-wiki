@@ -63,7 +63,7 @@ App.ImageReviewModel.reopenClass({
 	getImages(contractId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: App.ImageReviewModel.getServiceUrl + `${contractId}/image`,
+				url: `${App.ImageReviewModel.getServiceUrl}${contractId}/image`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -86,7 +86,7 @@ App.ImageReviewModel.reopenClass({
 	reviewImage(contractId, imageId, flag) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: App.ImageReviewModel.getServiceUrl + `${contractId}/image/${imageId}?status=${flag}`,
+				url: `${App.ImageReviewModel.getServiceUrl}${contractId}/image/${imageId}?status=${flag}`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -106,7 +106,7 @@ App.ImageReviewModel.reopenClass({
 	addImage(contractId, imageId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: App.ImageReviewModel.getServiceUrl + `${contractId}/image/?imageId=${imageId}&status=UNREVIEWED`,
+				url: `${App.ImageReviewModel.getServiceUrl}${contractId}/image/?imageId=${imageId}&status=UNREVIEWED`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -129,8 +129,7 @@ App.ImageReviewModel.reopenClass({
 			if (image.reviewStatus === 'UNREVIEWED') {
 				images.push({
 					imageId: image.imageId,
-					contractId: contractId,
-					status: 'ACCEPTED'
+					contractId, status: 'ACCEPTED'
 				});
 			}
 			// else skip because is reviewed already
