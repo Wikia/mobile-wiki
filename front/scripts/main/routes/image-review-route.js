@@ -1,13 +1,9 @@
 import App from '../app';
-import ImageReviewModel from '../models/image-review-model';
 
 export default App.ImageReviewRoute = Ember.Route.extend({
 
 	renderTemplate(controller, model) {
-		this.render('image-review', {
-			controller: controller,
-			model: model
-		});
+		this.render('image-review', {controller, model});
 	},
 
 	model() {
@@ -35,19 +31,18 @@ export default App.ImageReviewRoute = Ember.Route.extend({
 			return true;
 		},
 
-		getMoreImages(sessionId) {
-			ImageReviewModel.getImages(sessionId)
-				.then(function (data) {
-					// @todo handle this
-				})
-				.catch(function (err) {
-					this.sendAction('error', err);
-				});
-		},
+		// getMoreImages(sessionId) {
+		//	ImageReviewModel.getImages(sessionId)
+		//		.then(data => a)
+		//		.catch(function (err) {
+		//			this.sendAction('error', err);
+		//		});
+		// },
 
 		reviewImages() {
 			const model = this.modelFor('imageReview');
+
 			model.reviewImages(model.images);
-		},
+		}
 	}
 });

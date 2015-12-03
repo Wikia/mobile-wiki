@@ -10,10 +10,10 @@ export default App.ImageReviewModel = Ember.Object.extend({
 	},
 
 	reviewImages(images) {
-		images.forEach(function(imageItem) {
+		images.forEach((imageItem) => {
 			App.ImageReviewModel.reviewImage(imageItem.contractId, imageItem.imageId, imageItem.status);
 		});
-	},
+	}
 });
 
 App.ImageReviewModel.reopenClass({
@@ -29,7 +29,9 @@ App.ImageReviewModel.reopenClass({
 				},
 				success: (data) => {
 					// Temporary! Add 100 dummy image
-					for(let i = 0; i < 100; i++) App.ImageReviewModel.addImage(data.id, Math.random());
+					for (let i = 0; i < 100; i++) {
+						App.ImageReviewModel.addImage(data.id, Math.random());
+					}
 					resolve(App.ImageReviewModel.getImages(data.id));
 				},
 				error: (data) => {
@@ -121,7 +123,7 @@ App.ImageReviewModel.reopenClass({
 	},
 
 	sanitize(rawData, contractId) {
-		var images = [];
+		const images = [];
 
 		rawData.forEach((image) => {
 			if (image.reviewStatus === 'UNREVIEWED') {
@@ -131,13 +133,10 @@ App.ImageReviewModel.reopenClass({
 					status: 'ACCEPTED'
 				});
 			}
-			//else skip because is reviewed already
+			// else skip because is reviewed already
 		});
 
-		return App.ImageReviewModel.create({
-			images: images,
-			contractId: contractId
-		});
+		return App.ImageReviewModel.create({images, contractId});
 	},
 
 	getServiceUrl: 'https://services-poz.wikia-dev.com/image-review/contract/'
