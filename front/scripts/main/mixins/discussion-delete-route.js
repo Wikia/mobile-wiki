@@ -8,13 +8,9 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 	 * @returns {object}
 	 */
 	getLoadingSpinnerContainer(post) {
-		let loadingSpinnerContainer = post;
-
-		if (this.get('routeName') === 'discussion.post') {
-			loadingSpinnerContainer = this.controllerFor('application');
-		}
-
-		return loadingSpinnerContainer;
+		return this.get('routeName') === 'discussion.post' ?
+			this.controllerFor('application') :
+			post;
 	},
 
 	actions: {
