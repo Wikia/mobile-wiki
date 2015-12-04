@@ -73,7 +73,17 @@ body.discussions {
 
 	.post-reply,
 	.post-detail {
+		overflow: hidden;
 		position: relative;
+
+		.loading-overlay {
+			height: 100%;
+			position: absolute;
+
+			.spinner {
+				margin-top: -32px;
+			}
+		}
 
 		&.is-deleted {
 			&::before {

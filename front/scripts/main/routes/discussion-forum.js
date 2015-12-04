@@ -1,5 +1,5 @@
 import App from '../app';
-import DiscussionBaseRoute from './discussion-base'
+import DiscussionBaseRoute from './discussion-base';
 import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
 import DiscussionForumModel from '../models/discussion-forum';
 import DiscussionLayoutMixin from '../mixins/discussion-layout';

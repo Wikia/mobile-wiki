@@ -1,6 +1,22 @@
 import App from '../app';
 
 export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
+	/**
+	 * Get loading spinner container.
+	 * On post list it's post, on post-details it's applicationController to overlay entire page
+	 * @param {object} post
+	 * @returns {object}
+	 */
+	getLoadingSpinnerContainer(post) {
+		let loadingSpinnerContainer = post;
+
+		if (this.get('routeName') === 'discussion.post') {
+			loadingSpinnerContainer = this.controllerFor('application');
+		}
+
+		return loadingSpinnerContainer;
+	},
+
 	actions: {
 		/**
 		 * Pass post deletion to model
@@ -8,11 +24,11 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		deletePost(post) {
-			const appController = this.controllerFor('application');
+			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
-			appController.set('isLoading', true);
+			Ember.set(loadingSpinnerContainer, 'isLoading', true);
 			this.modelFor(this.get('routeName')).deletePost(post).then(() => {
-				appController.set('isLoading', false);
+				Ember.set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
 
@@ -22,11 +38,11 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		undeletePost(post) {
-			const appController = this.controllerFor('application');
+			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
-			appController.set('isLoading', true);
+			Ember.set(loadingSpinnerContainer, 'isLoading', true);
 			this.modelFor(this.get('routeName')).undeletePost(post).then(() => {
-				appController.set('isLoading', false);
+				Ember.set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
 
@@ -36,11 +52,9 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		deleteReply(reply) {
-			const appController = this.controllerFor('application');
-
-			appController.set('isLoading', true);
+			Ember.set(reply, 'isLoading', true);
 			this.modelFor(this.get('routeName')).deleteReply(reply).then(() => {
-				appController.set('isLoading', false);
+				Ember.set(reply, 'isLoading', false);
 			});
 		},
 
@@ -50,11 +64,9 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		undeleteReply(reply) {
-			const appController = this.controllerFor('application');
-
-			appController.set('isLoading', true);
+			Ember.set(reply, 'isLoading', true);
 			this.modelFor(this.get('routeName')).undeleteReply(reply).then(() => {
-				appController.set('isLoading', false);
+				Ember.set(reply, 'isLoading', false);
 			});
 		}
 	}
