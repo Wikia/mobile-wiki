@@ -4,7 +4,7 @@ import {checkPermissions} from '../../mercury/utils/discussionPermissions';
 export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 	/**
 	 * Delete post in service
-	 * @param {any} post
+	 * @param {object} post
 	 * @returns {Ember.RSVP|undefined}
 	 */
 	deletePost(post) {
@@ -32,7 +32,7 @@ export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 
 	/**
 	 * Undelete post in service
-	 * @param {any} post
+	 * @param {object} post
 	 * @returns {Ember.RSVP|undefined}
 	 */
 	undeletePost(post) {
@@ -60,7 +60,7 @@ export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 
 	/**
 	 * Delete reply in service
-	 * @param {any} reply
+	 * @param {object} reply
 	 * @returns {Ember.RSVP|undefined}
 	 */
 	deleteReply(reply) {
@@ -88,7 +88,7 @@ export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 
 	/**
 	 * Undelete reply in service
-	 * @param {any} reply
+	 * @param {object} reply
 	 * @returns {Ember.RSVP|undefined}
 	 */
 	undeleteReply(reply) {

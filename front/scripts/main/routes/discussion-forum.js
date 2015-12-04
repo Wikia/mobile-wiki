@@ -12,8 +12,8 @@ export default App.DiscussionForumRoute = Ember.Route.extend(
 		forumId: null,
 
 		/**
-		 * @param {*} params
-		 * @returns {*}
+		 * @param {object} params
+		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
 			const sortBy = params.sortBy || this.defaultSortType;

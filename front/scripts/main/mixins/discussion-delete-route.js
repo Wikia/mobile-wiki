@@ -4,7 +4,7 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 	actions: {
 		/**
 		 * Pass post deletion to model
-		 * @param {any} post
+		 * @param {object} post
 		 * @returns {void}
 		 */
 		deletePost(post) {
@@ -18,7 +18,7 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 
 		/**
 		 * Pass post undeletion to model
-		 * @param {any} post
+		 * @param {object} post
 		 * @returns {void}
 		 */
 		undeletePost(post) {
@@ -32,7 +32,7 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 
 		/**
 		 * Pass reply deletion to model
-		 * @param {any} reply
+		 * @param {object} reply
 		 * @returns {void}
 		 */
 		deleteReply(reply) {
@@ -46,7 +46,7 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 
 		/**
 		 * Pass reply undeletion to model
-		 * @param {any} reply
+		 * @param {object} reply
 		 * @returns {void}
 		 */
 		undeleteReply(reply) {

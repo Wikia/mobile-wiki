@@ -4,7 +4,7 @@ export default App.DiscussionDeleteControllerMixin = Ember.Mixin.create({
 	actions: {
 		/**
 		 * Bubbles up to Route
-		 * @param {any} post
+		 * @param {object} post
 		 * @returns {void}
 		 */
 		deletePost(post) {
@@ -13,7 +13,7 @@ export default App.DiscussionDeleteControllerMixin = Ember.Mixin.create({
 
 		/**
 		 * Bubbles up to Route
-		 * @param {any} post
+		 * @param {object} post
 		 * @returns {void}
 		 */
 		undeletePost(post) {
@@ -22,7 +22,7 @@ export default App.DiscussionDeleteControllerMixin = Ember.Mixin.create({
 
 		/**
 		 * Bubbles up to Route
-		 * @param {any} reply
+		 * @param {object} reply
 		 * @returns {void}
 		 */
 		deleteReply(reply) {
@@ -31,7 +31,7 @@ export default App.DiscussionDeleteControllerMixin = Ember.Mixin.create({
 
 		/**
 		 * Bubbles up to Route
-		 * @param {any} reply
+		 * @param {object} reply
 		 * @returns {void}
 		 */
 		undeleteReply(reply) {

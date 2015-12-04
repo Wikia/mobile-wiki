@@ -9,7 +9,7 @@ export default App.DiscussionPostRoute = Ember.Route.extend(
 	DiscussionRouteUpvoteMixin,
 	DiscussionDeleteRouteMixin, {
 		/**
-		 * @param {*} params
+		 * @param {object} params
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
