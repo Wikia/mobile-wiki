@@ -20,15 +20,12 @@ gulp.task('combine-svgs', folders(paths.src, function (folder) {
 		svgSymbols(),
 		gulpif('**/*.svg', piper(
 			rename(folder + '.svg'),
-			gulpif(environment.isProduction, piper(
-				rev()
-			)),
+			gulpif(environment.isProduction, rev()),
 			gulp.dest(paths.dest)
 		)),
-		gulp.dest('www/front/svg'),
 		gulpif(environment.isProduction, piper(
 			rev.manifest(),
-			gulp.dest('www/front/svg')
+			gulp.dest(paths.dest)
 		))
 	);
 }));
