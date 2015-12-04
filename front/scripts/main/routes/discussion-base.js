@@ -1,6 +1,8 @@
 import App from '../app';
 
 export default App.DiscussionBaseRoute = Ember.Route.extend({
+	postDeleteFullScreenOverlay: false,
+
 	actions: {
 		/**
 		 * @returns {void}

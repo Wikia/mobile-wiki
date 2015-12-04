@@ -8,7 +8,7 @@ export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
 	 * @returns {object}
 	 */
 	getLoadingSpinnerContainer(post) {
-		return this.get('routeName') === 'discussion.post' ?
+		return this.get('postDeleteFullScreenOverlay') ?
 			this.controllerFor('application') :
 			post;
 	},

@@ -9,6 +9,8 @@ export default App.DiscussionPostRoute = DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionDeleteRouteMixin, {
+		postDeleteFullScreenOverlay: true,
+
 		/**
 		 * @param {object} params
 		 * @returns {Ember.RSVP.Promise}
