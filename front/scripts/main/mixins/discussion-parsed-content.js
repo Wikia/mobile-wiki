@@ -1,5 +1,5 @@
 import App from '../app';
-import {parseNewLine} from '../../mercury/utils/parseNewLine';
+import nl2br from '../../mercury/utils/nl2br';
 
 /**
  * Handles sending upvote action outside from the component.
@@ -12,9 +12,9 @@ export default App.DiscussionParsedContentMixin = Ember.Mixin.create({
 	parsedContent: Ember.computed(function () {
 		let escapedContent = Ember.Handlebars.Utils.escapeExpression(
 			this.get('post.rawContent')
-		);
+		).trim();
 
-		escapedContent = parseNewLine(escapedContent);
+		escapedContent = nl2br(escapedContent);
 
 		return window.Autolinker ? window.Autolinker.link(escapedContent, {
 			stripPrefix: false,
