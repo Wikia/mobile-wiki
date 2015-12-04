@@ -1,10 +1,11 @@
 import App from '../app';
+import DiscussionBaseRoute from './discussion-base'
 import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
 import DiscussionForumModel from '../models/discussion-forum';
 import DiscussionLayoutMixin from '../mixins/discussion-layout';
 import DiscussionDeleteRouteMixin from '../mixins/discussion-delete-route';
 
-export default App.DiscussionForumRoute = Ember.Route.extend(
+export default App.DiscussionForumRoute = DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionDeleteRouteMixin, {
@@ -82,34 +83,12 @@ export default App.DiscussionForumRoute = Ember.Route.extend(
 			},
 
 			/**
-			 * @returns {void}
-			 */
-			retry() {
-				this.refresh();
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			goToAllDiscussions() {
-				this.transitionTo('discussion.index');
-			},
-
-			/**
 			 * @param {string} sortBy
 			 * @returns {void}
 			 */
 			setSortBy(sortBy) {
 				this.setSortBy(sortBy);
 			},
-
-			/**
-			 * @returns {boolean}
-			 */
-			didTransition() {
-				this.controllerFor('application').set('noMargins', true);
-				return true;
-			}
 		}
 	}
 );
