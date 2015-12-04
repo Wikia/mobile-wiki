@@ -60,6 +60,11 @@ body.discussions {
 		}
 	}
 
+	.delete-actions {
+		display: inline-block;
+		float: right;
+	}
+
 	.discussion-content {
 		color: $discussion-content-color;
 		margin: 5px 0;
@@ -68,7 +73,17 @@ body.discussions {
 
 	.post-reply,
 	.post-detail {
+		overflow: hidden;
 		position: relative;
+
+		.loading-overlay {
+			height: 100%;
+			position: absolute;
+
+			.spinner {
+				margin-top: -32px;
+			}
+		}
 
 		&.is-deleted {
 			&::before {
@@ -84,6 +99,13 @@ body.discussions {
 			}
 		}
 
+		&.is-parent-deleted .icon,
+		&.is-deleted .icon:not(.undelete) {
+			cursor: default;
+			fill: $discussion-deleted-actions-color;
+			stroke: $discussion-deleted-actions-color;
+		}
+
 		&.is-deleted,
 		&.is-parent-deleted {
 			.discussion-content {
@@ -94,11 +116,6 @@ body.discussions {
 				a, span {
 					color: $discussion-deleted-actions-color;
 				}
-			}
-
-			.icon {
-				fill: $discussion-deleted-actions-color;
-				stroke: $discussion-deleted-actions-color;
 			}
 
 			.upvote a {

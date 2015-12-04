@@ -99,14 +99,15 @@ export default class BasePlayer {
 	}
 
 	/**
-	 * @param {string} [event='']
+	 * @param {string} action
+	 * @param {string} event
 	 * @returns {void}
 	 */
-	track(event = '') {
+	track(action, event) {
 		return mercuryTrack({
-			action: event,
+			action,
+			category: `video-player-${event}`,
 			label: this.provider,
-			category: `video-player-${event}`
 		});
 	}
 }
