@@ -28,6 +28,18 @@
 			<!-- endbuild -->
 		{{/if}}
 
+		{{#if server.optimizelyScript}}
+			<link rel="dns-prefetch" href={{server.optimizelyScript}}>
+		{{/if}}
+		{{#unless queryParams.noexternals}}
+			<link rel="dns-prefetch" href="http://www.google-analytics.com/analytics.js">
+			<link rel="dns-prefetch" href=" https://beacon.wikia-services.com/__track/special/trackingevent">
+		{{/unless}}
+		{{#if qualarooScript}}
+			<link rel="dns-prefetch" href="https://geo.api.qualaroo.com/">
+			<link rel="dns-prefetch" href="http://s3.amazonaws.com/ki.js/52510/bgJ.js">
+		{{/if}}
+
 		{{> open-graph-tags}}
 
 		<link rel="canonical" href="{{canonicalUrl}}">
