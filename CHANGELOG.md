@@ -1,3 +1,14 @@
+## release-194 (2015-12-03 10:50 UTC)
+* [INT-248](https://wikia-inc.atlassian.net/browse/INT-248) Global rollout of section editor
+* [INT-188](https://wikia-inc.atlassian.net/browse/INT-188) INT-188 | Use common style for edit page / upload photo header
+* [XW-637](https://wikia-inc.atlassian.net/browse/XW-637) XW-637 | add mercury 'User-Agent' and 'X-Wikia-Internal-Request' headers for all MW requests
+* [XW-367](https://wikia-inc.atlassian.net/browse/XW-367) XW-367 | Disable animations for share header and site head
+* [XW-810](https://wikia-inc.atlassian.net/browse/XW-810) XW-810 | re-add tracking to share toolbar
+* [INT-275](https://wikia-inc.atlassian.net/browse/INT-275) Add press release
+* [INT-274](https://wikia-inc.atlassian.net/browse/INT-274) INT-274 | Add padding between image and text on company overview page
+* es6-server: XW-518 | ES6 server-side
+* [XW-521](https://wikia-inc.atlassian.net/browse/XW-521) XW-521 | Remove TS
+
 ## release-193 hotfix 2 (2015-12-01 12:39 UTC)
 * release-193-hotfix2: Fix non-backtick tick
 

@@ -72,36 +72,16 @@ export default App.ArticleWrapperComponent = Ember.Component.extend(
 
 		/**
 		 * Checks if contribution component should be enabled
-		 * http://clashofclans.wikia.com/        db: clashofclans
-		 * http://de.clashofclans.wikia.com/     db: declashofclans
-		 * http://zh.clashofclans.wikia.com/     db: zhclashofclans723
-		 * http://fr.clashofclans.wikia.com/     db: frclashofclans
-		 * http://ru.clashofclans.wikia.com/     db: ruclashofclans
-		 * http://es.clash-of-clans.wikia.com/   db: esclashofclans727
-		 * http://pt-br.clashofclans.wikia.com/  db: ptbrclashofclans
 		 *
 		 * @returns {boolean} True if contribution component is enabled for this community
 		 */
-		contributionEnabledForCommunity: Ember.computed(function () {
-			const dbName = Ember.get(Mercury, 'wiki.dbName'),
-				disableMobileSectionEditor = Ember.getWithDefault(Mercury, 'wiki.disableMobileSectionEditor', false),
-				enabledCommunities = [
-					'clashofclans', 'declashofclans', 'zhclashofclans723', 'frclashofclans',
-					'ruclashofclans', 'esclashofclans727', 'ptbrclashofclans'
-				];
-
-			if (disableMobileSectionEditor) {
+		contributionEnabledForCommunity: Ember.computed(() => {
+			if (Ember.getWithDefault(Mercury, 'wiki.disableMobileSectionEditor', false)) {
 				// When disableMobileSectionEditor is set to true, no contribution tools should show up
 				return false;
-			} else if (this.getWithDefault('isJapaneseWikia', false)) {
-				// Enabled for all Japanese wikias unless disableMobileSectionEditor is set
-				return true;
-			} else if (enabledCommunities.indexOf(dbName) > -1) {
-				// Otherwise check against whitelist
-				return true;
 			}
 
-			return false;
+			return true;
 		}),
 
 		/**
