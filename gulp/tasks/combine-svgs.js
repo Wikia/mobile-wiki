@@ -14,7 +14,7 @@ var gulp = require('gulp'),
 	paths = require('../paths').symbols,
 	path = require('path');
 
-gulp.task('combine-svgs', folders(paths.src, function (folder) {
+function combineSvgFolder(folder) {
 	return piper(
 		gulp.src(path.join(paths.src, folder, paths.files)),
 		svgSymbols(),
@@ -28,4 +28,26 @@ gulp.task('combine-svgs', folders(paths.src, function (folder) {
 			gulp.dest(paths.dest)
 		))
 	);
-}));
+}
+
+gulp.task('combine-svg-common', function() {
+	return combineSvgFolder('common');
+});
+
+gulp.task('combine-svg-discussion', function() {
+	return combineSvgFolder('discussion');
+});
+
+gulp.task('combine-svg-main', function() {
+	return combineSvgFolder('main');
+});
+
+gulp.task('combine-svg-social', function() {
+	return combineSvgFolder('social');
+});
+
+gulp.task('combine-svgs',
+	['combine-svg-common', 'combine-svg-discussion', 'combine-svg-main', 'combine-svg-social'],
+	function() {
+
+});
