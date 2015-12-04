@@ -67,6 +67,8 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 	};
 
 	headers.Host = host;
+	headers['User-Agent'] = 'mercury';
+	headers['X-Wikia-Internal-Request'] = 'mercury';
 
 	/**
 	 * @param {Function} resolve
