@@ -1,7 +1,8 @@
 import App from '../app';
 import DiscussionBaseModel from './discussion-base';
+import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
 
-export default App.DiscussionPostModel = DiscussionBaseModel.extend({
+export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 
 	postId: null,
 	pivotId: null,
