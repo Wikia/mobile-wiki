@@ -89,6 +89,13 @@ body.discussions {
 			}
 		}
 
+		&.is-parent-deleted .icon,
+		&.is-deleted .icon:not(.undelete) {
+			cursor: default;
+			fill: $discussion-deleted-actions-color;
+			stroke: $discussion-deleted-actions-color;
+		}
+
 		&.is-deleted,
 		&.is-parent-deleted {
 			.discussion-content {
@@ -99,11 +106,6 @@ body.discussions {
 				a, span {
 					color: $discussion-deleted-actions-color;
 				}
-			}
-
-			.icon:not(.undelete):not(.delete) {
-				fill: $discussion-deleted-actions-color;
-				stroke: $discussion-deleted-actions-color;
 			}
 
 			.upvote a {
