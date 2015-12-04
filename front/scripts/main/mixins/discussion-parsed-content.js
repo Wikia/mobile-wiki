@@ -6,7 +6,7 @@ import {parseNewLine} from '../../mercury/utils/parseNewLine';
  */
 export default App.DiscussionParsedContentMixin = Ember.Mixin.create({
 	/**
-	 * Returns content with links created from urls and converts \n to <br>
+	 * Returns content with links created from urls and converts \n, \rn and \r to <br>
 	 * @returns {string}
 	 */
 	parsedContent: Ember.computed(function () {
