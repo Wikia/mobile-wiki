@@ -1,12 +1,10 @@
 import App from '../app';
 
 export default App.ImageReviewModel = Ember.Object.extend({
-	// @todo This one is dangerous, please read "Leaking state into the class"
-	// part of https://dockyard.com/blog/2015/09/18/ember-best-practices-avoid-leaking-state-into-factories
 
 	init() {
-		this.sessionId = null;
-		this.images = [];
+		this.images = this.get('images');
+		this.sessionId = this.get('contractId');
 	},
 
 	reviewImages(images) {
@@ -17,29 +15,6 @@ export default App.ImageReviewModel = Ember.Object.extend({
 });
 
 App.ImageReviewModel.reopenClass({
-
-	startSession() {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: App.ImageReviewModel.getServiceUrl,
-				dataType: 'json',
-				method: 'POST',
-				xhrFields: {
-					withCredentials: true
-				},
-				success: (data) => {
-					// Temporary! Add 100 dummy image
-					for (let i = 0; i < 100; i++) {
-						App.ImageReviewModel.addImage(data.id, Math.random());
-					}
-					resolve(App.ImageReviewModel.getImages(data.id));
-				},
-				error: (data) => {
-					reject(data);
-				}
-			});
-		});
-	},
 
 	endSession() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
@@ -70,6 +45,9 @@ App.ImageReviewModel.reopenClass({
 				dataType: 'json',
 				method: 'GET',
 				success: (data) => {
+
+					console.log(JSON.stringify(data));
+
 					if (Ember.isArray(data)) {
 						resolve(App.ImageReviewModel.sanitize(data, contractId));
 					} else {
@@ -138,5 +116,6 @@ App.ImageReviewModel.reopenClass({
 		return App.ImageReviewModel.create({images, contractId});
 	},
 
-	getServiceUrl: 'https://services-poz.wikia-dev.com/image-review/contract/'
+	// @todo change mock to API url when image-review service is done
+	getServiceUrl: 'https://tranquil-oasis-2005.herokuapp.com/image-review/contract/'
 });

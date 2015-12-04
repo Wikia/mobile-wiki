@@ -2,13 +2,18 @@ import App from '../app';
 
 export default App.ImageReviewRoute = Ember.Route.extend({
 
+	imageReviewService: Ember.inject.service('image-review'),
+
 	renderTemplate(controller, model) {
 		this.render('image-review', {controller, model});
 	},
 
+	beforeModel() {
+		return this.get('imageReviewService').startSession();
+	},
+
 	model() {
-		this.set('isLoading', true);
-		return App.ImageReviewModel.startSession();
+		return App.ImageReviewModel.getImages(this.get('contractId'));
 	},
 
 	actions: {
@@ -31,13 +36,10 @@ export default App.ImageReviewRoute = Ember.Route.extend({
 			return true;
 		},
 
-		// getMoreImages(sessionId) {
-		//	ImageReviewModel.getImages(sessionId)
-		//		.then(data => a)
-		//		.catch(function (err) {
-		//			this.sendAction('error', err);
-		//		});
-		// },
+		getMoreImages() {
+			console.log('Refreshing page with session id' + this.get('imageReviewService').startSession());
+			this.refresh();
+		},
 
 		reviewImages() {
 			const model = this.modelFor('imageReview');
