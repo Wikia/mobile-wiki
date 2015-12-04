@@ -5,7 +5,7 @@ export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 	/**
 	 * Delete post in service
 	 * @param {object} post
-	 * @returns {Ember.RSVP|undefined}
+	 * @returns {Ember.RSVP|void}
 	 */
 	deletePost(post) {
 		if (checkPermissions(post, 'canDelete')) {
@@ -33,7 +33,7 @@ export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 	/**
 	 * Undelete post in service
 	 * @param {object} post
-	 * @returns {Ember.RSVP|undefined}
+	 * @returns {Ember.RSVP|void}
 	 */
 	undeletePost(post) {
 		if (checkPermissions(post, 'canUndelete')) {
@@ -61,7 +61,7 @@ export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 	/**
 	 * Delete reply in service
 	 * @param {object} reply
-	 * @returns {Ember.RSVP|undefined}
+	 * @returns {Ember.RSVP|void}
 	 */
 	deleteReply(reply) {
 		if (checkPermissions(reply, 'canDelete')) {
@@ -89,7 +89,7 @@ export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
 	/**
 	 * Undelete reply in service
 	 * @param {object} reply
-	 * @returns {Ember.RSVP|undefined}
+	 * @returns {Ember.RSVP|void}
 	 */
 	undeleteReply(reply) {
 		if (checkPermissions(reply, 'canUndelete')) {
