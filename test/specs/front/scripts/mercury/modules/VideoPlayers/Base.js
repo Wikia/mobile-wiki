@@ -65,12 +65,12 @@ QUnit.module('mercury/modules/VideoPlayers/Base', function (hooks) {
 	});
 
 	QUnit.test('local track calls M.track with extended params', function () {
-		getInstance().track('bar');
+		getInstance().track('view', 'player-loaded');
 
 		ok(trackStub.calledOnce, 'track called once');
 		ok(trackStub.calledWith({
-			action: 'bar',
-			category: 'video-player-bar',
+			action: 'view',
+			category: 'video-player-player-loaded',
 			label: 'base'
 		}), 'track called with correct params');
 	});

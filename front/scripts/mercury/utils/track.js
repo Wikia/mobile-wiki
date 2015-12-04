@@ -31,9 +31,6 @@ import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
  * @property {boolean} usesAdsContext
  */
 
-// These actions were ported over from legacy Wikia app code:
-// https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
-// The property keys were modified to fit style rules
 const trackers = {
 		Comscore,
 		Internal,
@@ -41,6 +38,11 @@ const trackers = {
 		Quantserve,
 		UniversalAnalytics
 	},
+	/**
+	 * These actions were ported over from legacy Wikia app code:
+	 * https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
+	 * The property keys were modified to fit style rules
+	 */
 	trackActions = {
 		// Generic add
 		add: 'add',
@@ -93,6 +95,7 @@ const trackers = {
 		// View
 		view: 'view'
 	};
+
 let context = {
 	a: null,
 	n: null
@@ -154,11 +157,11 @@ export function track(params) {
 
 	if (trackingMethod === 'both' || trackingMethod === 'ga') {
 		if (!category || !action) {
-			throw new Error('missing required GA params');
+			throw new Error('Missing required GA params');
 		}
 
 		uaTracker = new trackers.UniversalAnalytics(isSpecialWiki());
-		uaTracker.track(category, trackActions[action], label, value, isNonInteractive);
+		uaTracker.track(category, action, label, value, isNonInteractive);
 	}
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
@@ -182,6 +185,7 @@ export function trackPageView(adsContext) {
 	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
+
 	Object.keys(trackers).forEach((tracker) => {
 		const Tracker = trackers[tracker];
 
