@@ -85,9 +85,9 @@ export default App.WikiaInYourLangComponent = Ember.Component.extend(
 				 * 2,592,000,000 = 30 days
 				 */
 				notDismissed = !value || (now - value > 2592000000),
-				isUserLangDifferentFromWikiLang = this.get('getLanguage') !== Ember.get(Mercury, 'wiki.language.content');
+				isJaOnNonJaWikia = this.get('isJapaneseBrowser') && !this.get('isJapaneseWikia');
 
-			return notDismissed && isUserLangDifferentFromWikiLang;
+			return notDismissed && isJaOnNonJaWikia;
 		},
 	}
 );
