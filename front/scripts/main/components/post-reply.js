@@ -8,6 +8,8 @@ export default App.PostReplyComponent = Ember.Component.extend(
 	{
 		classNames: ['post-reply'],
 		classNameBindings: ['isNew', 'isDeleted', 'isParentDeleted'],
+
+		isDeleted: Ember.computed.alias('post.isDeleted'),
 		post: null,
 
 		authorUrl: Ember.computed('post', function () {
