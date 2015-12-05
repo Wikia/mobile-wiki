@@ -31,18 +31,21 @@ export default App.ImageReviewRoute = Ember.Route.extend({
 			return true;
 		},
 
-		// getMoreImages(sessionId) {
-		//	ImageReviewModel.getImages(sessionId)
-		//		.then(data => a)
-		//		.catch(function (err) {
-		//			this.sendAction('error', err);
-		//		});
-		// },
+		getMoreImages() {
+			this.refresh();
+		},
 
 		reviewImages() {
 			const model = this.modelFor('imageReview');
 
 			model.reviewImages(model.images);
+		},
+
+		reviewAndGetMoreImages() {
+			const model = this.modelFor('imageReview');
+
+			model.reviewImages(model.images);
+			this.refresh();
 		}
 	}
 });

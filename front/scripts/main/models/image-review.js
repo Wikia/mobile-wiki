@@ -1,8 +1,6 @@
 import App from '../app';
 
 export default App.ImageReviewModel = Ember.Object.extend({
-	// @todo This one is dangerous, please read "Leaking state into the class"
-	// part of https://dockyard.com/blog/2015/09/18/ember-best-practices-avoid-leaking-state-into-factories
 
 	init() {
 		this.sessionId = null;
@@ -28,8 +26,8 @@ App.ImageReviewModel.reopenClass({
 					withCredentials: true
 				},
 				success: (data) => {
-					// Temporary! Add 100 dummy image
-					for (let i = 0; i < 100; i++) {
+					// Temporary! Add 100 dummy images
+					for (let i = 0; i < 10; i++) {
 						App.ImageReviewModel.addImage(data.id, Math.random());
 					}
 					resolve(App.ImageReviewModel.getImages(data.id));
