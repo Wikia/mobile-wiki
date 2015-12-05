@@ -14,7 +14,7 @@ App.WikiaInYourLangModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	load() {
-		const browserLang = this.get('getLanguage'),
+		const browserLang = App.WikiaInYourLangModel.getLanguage(),
 			model = App.WikiaInYourLangModel.getFromCache(browserLang);
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
