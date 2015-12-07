@@ -11,6 +11,8 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend({
 	upvoteCount: 0,
 	postCount: 0,
 	page: 0,
+	isRequesterBlocked: true,
+
 	contributors: [],
 
 	/**
@@ -88,7 +90,6 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend({
 });
 
 App.DiscussionPostModel.reopenClass({
-
 	/**
 	 * @param {number} wikiId
 	 * @param {number} postId
@@ -145,7 +146,8 @@ App.DiscussionPostModel.reopenClass({
 						postCount: data.postCount,
 						replies: replies || [],
 						title: data.title,
-						upvoteCount: data.upvoteCount
+						upvoteCount: data.upvoteCount,
+						isRequesterBlocked: data.isRequesterBlocked
 					});
 					resolve(postInstance);
 				},

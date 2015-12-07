@@ -6,6 +6,7 @@ export default App.DiscussionForumModel = DiscussionBaseModel.extend({
 	pageNum: null,
 	posts: null,
 	totalPosts: 0,
+	isRequesterBlocked: true,
 
 	contributors: [],
 
@@ -141,6 +142,7 @@ App.DiscussionForumModel.reopenClass({
 					forumInstance.setProperties({
 						contributors,
 						name: data.name,
+						isRequesterBlocked: data.isRequesterBlocked,
 						posts,
 						totalPosts
 					});
