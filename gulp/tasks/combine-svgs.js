@@ -24,7 +24,7 @@ function combineSvgFolder(folder) {
 			gulp.dest(paths.dest)
 		)),
 		gulpif(environment.isProduction, piper(
-			rev.manifest(),
+			rev.manifest('rev-manifest-' + folder + '.json'),
 			gulp.dest(paths.dest)
 		))
 	);
