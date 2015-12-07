@@ -109,6 +109,13 @@ body.dark-theme {
 				border-top-color: $dark-discussion-reply-border-color;
 			}
 		}
+
+		.post-reply ~ .reply-editor {
+			.editor-label {
+				border-top-color: $dark-discussion-reply-border-color;
+			}
+		}
+
 		.has-upvoted {
 			.icon {
 				&.upvote {
