@@ -207,6 +207,12 @@ body.dark-theme {
 					border-bottom-color: $dark-discussion-reply-border-color;
 				}
 			}
+			&.post {
+				.post-detail {
+					background-color: transparent;
+					border-bottom-color: $dark-discussion-reply-border-color;
+				}
+			}
 		}
 		.discussion-sort {
 			li {
