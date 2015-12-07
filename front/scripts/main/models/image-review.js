@@ -17,15 +17,22 @@ export default App.ImageReviewModel = Ember.Object.extend({
 
 App.ImageReviewModel.reopenClass({
 
-	startSession() {
+	startSession(onlyFlagged) {
 		// Temporary! Add 100 dummy images
 		// for (let i = 0; i < 500; i++) {
 		//	 App.ImageReviewModel.addImage('13814000-1dd2-11b2-8080-808080808080',
 		//		 App.ImageReviewModel.generateRandomUUID());
 		// }
+
+		let url = App.ImageReviewModel.getServiceUrl;
+
+		if (onlyFlagged) {
+			url = `${url}?status=FLAGGED`;
+		}
+
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: App.ImageReviewModel.getServiceUrl,
+				url: url,
 				dataType: 'json',
 				method: 'POST',
 				xhrFields: {
@@ -44,7 +51,7 @@ App.ImageReviewModel.reopenClass({
 	endSession() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: App.ImageReviewModel.getServiceUrl,
+				url: `${App.ImageReviewModel.getServiceUrl}/`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -63,7 +70,7 @@ App.ImageReviewModel.reopenClass({
 	getImages(contractId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${App.ImageReviewModel.getServiceUrl}${contractId}/image`,
+				url: `${App.ImageReviewModel.getServiceUrl}/${contractId}/image`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -86,7 +93,7 @@ App.ImageReviewModel.reopenClass({
 	reviewImage(contractId, imageId, flag) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${App.ImageReviewModel.getServiceUrl}${contractId}/image/${imageId}?status=${flag}`,
+				url: `${App.ImageReviewModel.getServiceUrl}/${contractId}/image/${imageId}?status=${flag}`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -106,7 +113,7 @@ App.ImageReviewModel.reopenClass({
 	addImage(contractId, imageId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${App.ImageReviewModel.getServiceUrl}${contractId}/image?imageId=${imageId}&status=UNREVIEWED`,
+				url: `${App.ImageReviewModel.getServiceUrl}/${contractId}/image?imageId=${imageId}&status=UNREVIEWED`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -143,5 +150,5 @@ App.ImageReviewModel.reopenClass({
 			return v.toString(16);
 		});
 	},
-	getServiceUrl: 'https://services-poz.wikia-dev.com/image-review/contract/'
+	getServiceUrl: 'https://services-poz.wikia-dev.com/image-review/contract'
 });

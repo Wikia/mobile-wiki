@@ -2,19 +2,21 @@ import App from '../app';
 
 export default App.ImageReviewRoute = Ember.Route.extend({
 
+	onlyFlagged: false,
+
 	renderTemplate(controller, model) {
 		this.render('image-review', {controller, model});
 	},
 
 	model() {
+		console.log('Flagged? '+ this.get('onlyFlagged'));
 		this.set('isLoading', true);
-		return App.ImageReviewModel.startSession();
+		return App.ImageReviewModel.startSession(this.get('onlyFlagged'));
 	},
 
 	actions: {
 		error(error) {
 			if (error.status === 401) {
-				// @todo add addAlert in model
 				this.modelFor(this.routeName).addAlert({
 					message: 'Unauthorized, you don\'t have permissions to see this page',
 					type: 'warning'
@@ -31,17 +33,8 @@ export default App.ImageReviewRoute = Ember.Route.extend({
 			return true;
 		},
 
-		getMoreImages() {
-			this.refresh();
-		},
-
-		reviewImages() {
-			const model = this.modelFor('imageReview');
-
-			model.reviewImages(model.images);
-		},
-
 		reviewAndGetMoreImages() {
+			this.set('onlyFlagged', false);
 			const model = this.modelFor('imageReview');
 
 			model.reviewImages(model.images);
@@ -53,6 +46,11 @@ export default App.ImageReviewRoute = Ember.Route.extend({
 
 			model.set('modalImageUUID', id);
 			model.set('isModalVisible', true);
+		},
+
+		getFlaggedOnly() {
+			this.set('onlyFlagged', true);
+			this.refresh();
 		}
 	}
 });

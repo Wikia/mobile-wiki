@@ -17,6 +17,7 @@
 {{/modal-dialog}}
 
 <button class="review-images-and-get" {{action 'reviewAndGetMoreImages'}}>Review & get next batch</button>
+<button class="review-images-and-get" {{action 'getFlaggedOnly'}}>Get flagged</button>
 
 {{loading-spinner active=isLoading}}
 {{alert-notifications alerts=alertNotifications}}

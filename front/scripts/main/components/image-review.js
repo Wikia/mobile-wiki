@@ -19,6 +19,10 @@ export default App.ImageReviewComponent = Ember.Component.extend({
 
 		showModal(id) {
 			this.sendAction('showModal', id);
+		},
+
+		getFlaggedOnly() {
+			this.sendAction('getFlaggedOnly');
 		}
 	}
 });
