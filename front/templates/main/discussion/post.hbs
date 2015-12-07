@@ -31,12 +31,13 @@
 			<div class="discussion post small-12 large-8 columns">
 				{{post-detail
 					author=model.firstPost.createdBy
-					isDeleted=model.isDeleted
+					deletePost=(action 'deletePost')
 					isDetailsView=true
 					post=model.firstPost
 					postId=model.id
 					replyCount=model.postCount
 					timestamp=model.firstPost.creationDate.epochSecond
+					undeletePost=(action 'undeletePost')
 					upvoteCount=model.upvoteCount
 					upvote='upvote'
 				}}
@@ -59,22 +60,25 @@
 							post=item
 							author=item.createdBy
 							content=item.rawContent
-							isDeleted=item.isDeleted
-							isParentDeleted=model.isDeleted
+							deleteReply=(action 'deleteReply')
+							isParentDeleted=model.firstPost.isDeleted
 							timestamp=item.creationDate.epochSecond
+							undeleteReply=(action 'undeleteReply')
 							upvoteCount=item.upvoteCount
 							isNew=item.isNew
 							isVisible=item.isVisible
 							upvote='upvote'
 						}}
 					{{/each}}
-					{{discussion-reply-editor
-						create='create'
-						toggleEditorActive='toggleEditorActive'
-						isActive=editorActive
-						replies=model.replies
-						requestErrorMessage=model.errorMessage
-					}}
+					{{#unless model.firstPost.isDeleted}}
+						{{discussion-reply-editor
+							create='create'
+							toggleEditorActive='toggleEditorActive'
+							isActive=editorActive
+							replies=model.replies
+							requestErrorMessage=model.errorMessage
+						}}
+					{{/unless}}
 				</div>
 			</div>
 		{{/if}}
