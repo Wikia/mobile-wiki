@@ -213,7 +213,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 			// do NOT set the editor active under certain rules:
 			// 1. user is not logged in
 			if (active === true && this.get('currentUser.userId') === null) {
-				let errorMessageOld = this.get('errorMessage');
+				const errorMessageOld = this.get('errorMessage');
 
 				this.setProperties({
 					isActive: false,
