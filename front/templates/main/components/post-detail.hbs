@@ -14,7 +14,7 @@
 		{{{parsedContent}}}
 	</div>
 {{else}}
-	<div class="discussion-content" onclick={{action 'goToPost' postId}}>
+	<div class="discussion-content clickable" onclick={{action 'goToPost' postId}}>
 		{{{parsedContent}}}
 	</div>
 {{/if}}
@@ -32,7 +32,7 @@
 		</div>
 	{{else}}
 		<div class="small-2 large-2 columns count">
-			<a href={{sharedUrl}} {{action 'goToPost' postId}} class="replies-area">
+			<a class="replies-area" href="{{SharedUrl}}">
 				{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
 				{{replyCount}}
 			</a>
