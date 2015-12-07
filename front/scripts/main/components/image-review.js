@@ -15,6 +15,10 @@ export default App.ImageReviewComponent = Ember.Component.extend({
 
 		reviewAndGetMoreImages() {
 			this.sendAction('reviewAndGetMoreImages');
+		},
+
+		showModal(id) {
+			this.sendAction('showModal', id);
 		}
 	}
 });

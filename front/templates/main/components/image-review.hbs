@@ -6,10 +6,15 @@
 <ul class="image-review-list">
     <li class="image-review-item">
 		{{#each model.images as |item|}}
-			{{image-review-item model=item}}
+			{{image-review-item model=item targetObject=this showModal='showModal'}}
 		{{/each}}
     </li>
 </ul>
+
+{{#modal-dialog isVisible=model.isModalVisible}}
+	<img src="http://vignette-poz.wikia-dev.com/"{{model.modalImageUUID}}/>
+	<p>{{model.modalImageUUID}}</p>
+{{/modal-dialog}}
 
 <button class="review-images-and-get" {{action 'reviewAndGetMoreImages'}}>Review & get next batch</button>
 

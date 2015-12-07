@@ -1,7 +1,9 @@
 <div class="img-container {{model.status}}">
-    <img id="{{model.imageId}}" src="http://vignette-poz.wikia-dev.com/{{model.imageId}}" width="230">
-    <a href="https://services.wikia.com/static-assets/images/{{model.imageId}}" target="_blank" class="sprite" title="Go to image page"></a>
+	<img id="{{model.imageId}}" src="http://vignette-poz.wikia-dev.com/{{model.imageId}}" width="230"
+			 tabindex = "-1" {{action 'showModal' model.imageId}}>
+
 	<p class="caption zero-margin"> ImageID: {{model.imageId}} </p>
+
 	<form>
 		{{radio-button value='ACCEPTED' groupValue=model.status}} OK
 		{{radio-button value='REJECTED' groupValue=model.status}} Del

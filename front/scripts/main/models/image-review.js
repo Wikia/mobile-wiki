@@ -4,9 +4,10 @@ export default App.ImageReviewModel = Ember.Object.extend({
 
 	init() {
 		this.sessionId = null;
+		this.isModalVisible = false;
+		this.modalImageUUID = '';
 		this.images = this.get('images');
 	},
-
 	reviewImages(images) {
 		images.forEach((imageItem) => {
 			App.ImageReviewModel.reviewImage(imageItem.contractId, imageItem.imageId, imageItem.status);
@@ -18,10 +19,10 @@ App.ImageReviewModel.reopenClass({
 
 	startSession() {
 		// Temporary! Add 100 dummy images
-		//for (let i = 0; i < 500; i++) {
-		//	App.ImageReviewModel.addImage('13814000-1dd2-11b2-8080-808080808080',
-		//		App.ImageReviewModel.generateRandomUUID());
-		//}
+		// for (let i = 0; i < 500; i++) {
+		//	 App.ImageReviewModel.addImage('13814000-1dd2-11b2-8080-808080808080',
+		//		 App.ImageReviewModel.generateRandomUUID());
+		// }
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: App.ImageReviewModel.getServiceUrl,

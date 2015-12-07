@@ -46,6 +46,13 @@ export default App.ImageReviewRoute = Ember.Route.extend({
 
 			model.reviewImages(model.images);
 			this.refresh();
+		},
+
+		showModal(id) {
+			const model = this.modelFor('imageReview');
+
+			model.set('modalImageUUID', id);
+			model.set('isModalVisible', true);
 		}
 	}
 });
