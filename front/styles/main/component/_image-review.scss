@@ -1,0 +1,19 @@
+.image-review {
+	.image-review-list {
+	  @media screen and (min-width:500px) {
+		-webkit-column-count: 2;
+		-moz-column-count: 2;
+		column-count: 2;
+	  }
+	  @media screen and (min-width:800px) {
+		-webkit-column-count: 3;
+		-moz-column-count: 3;
+		column-count: 3;
+	  }
+	  @media screen and (min-width:1000px) {
+		-webkit-column-count: 4;
+		-moz-column-count: 4;
+		column-count: 4;
+	  }
+	}
+}

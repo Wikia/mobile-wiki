@@ -4,7 +4,7 @@ export default App.ImageReviewModel = Ember.Object.extend({
 
 	init() {
 		this.sessionId = null;
-		this.images = [];
+		this.images = this.get('images');
 	},
 
 	reviewImages(images) {
@@ -17,6 +17,11 @@ export default App.ImageReviewModel = Ember.Object.extend({
 App.ImageReviewModel.reopenClass({
 
 	startSession() {
+		// Temporary! Add 100 dummy images
+		//for (let i = 0; i < 500; i++) {
+		//	App.ImageReviewModel.addImage('13814000-1dd2-11b2-8080-808080808080',
+		//		App.ImageReviewModel.generateRandomUUID());
+		//}
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: App.ImageReviewModel.getServiceUrl,
@@ -26,10 +31,6 @@ App.ImageReviewModel.reopenClass({
 					withCredentials: true
 				},
 				success: (data) => {
-					// Temporary! Add 100 dummy images
-					for (let i = 0; i < 10; i++) {
-						App.ImageReviewModel.addImage(data.id, Math.random());
-					}
 					resolve(App.ImageReviewModel.getImages(data.id));
 				},
 				error: (data) => {
@@ -104,7 +105,7 @@ App.ImageReviewModel.reopenClass({
 	addImage(contractId, imageId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${App.ImageReviewModel.getServiceUrl}${contractId}/image/?imageId=${imageId}&status=UNREVIEWED`,
+				url: `${App.ImageReviewModel.getServiceUrl}${contractId}/image?imageId=${imageId}&status=UNREVIEWED`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -135,6 +136,11 @@ App.ImageReviewModel.reopenClass({
 
 		return App.ImageReviewModel.create({images, contractId});
 	},
-
+	generateRandomUUID() {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			let r = crypto.getRandomValues(new Uint8Array(1))[0]%16|0, v = c == 'x' ? r : (r&0x3|0x8);
+			return v.toString(16);
+		});
+	},
 	getServiceUrl: 'https://services-poz.wikia-dev.com/image-review/contract/'
 });
