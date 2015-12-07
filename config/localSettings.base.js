@@ -111,6 +111,7 @@ import deepExtend from 'deep-extend';
  * @property {string} quantserve
  * @property {ComscoreTrackingLocalSettings} comscore
  * @property {KruxTrackingLocalSettings} krux
+ * @property {string} gaUrl
  */
 
 /**
@@ -212,7 +213,8 @@ const localSettings = {
 		},
 		krux: {
 			mobileId: 'JTKzTN3f'
-		}
+		},
+		gaUrl: '//www.google-analytics.com/analytics.js'
 	},
 	verticalColors: {
 		comics: '#ff5400',
