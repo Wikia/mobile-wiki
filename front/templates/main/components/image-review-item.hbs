@@ -1,10 +1,10 @@
-<div class="img-container">
+<div class="img-container {{model.status}}">
     <img id="{{model.imageId}}" src="http://vignette-poz.wikia-dev.com/{{model.imageId}}" width="230">
+    <a href="https://services.wikia.com/static-assets/images/{{model.imageId}}" target="_blank" class="sprite" title="Go to image page"></a>
+	<p class="caption zero-margin"> ImageID: {{model.imageId}} </p>
+	<form>
+		{{radio-button value='ACCEPTED' groupValue=model.status}} OK
+		{{radio-button value='REJECTED' groupValue=model.status}} Del
+		{{radio-button value='FLAGGED' groupValue=model.status}} Q
+	</form>
 </div>
-<a href="{{img_href}}" target="_blank" class="internal sprite details magnify" title="Go to image page"></a>
-<p> ImageID: {{model.imageId}} </p>
-<form>
-	<label title="Mark as OK"><input {{action 'setStatus' 'ACCEPTED'}} type="radio" name="{{model.imageId}}">OK</label>
-	<label title="Delete"><input {{action 'setStatus' 'REJECTED'}} type="radio" name="{{model.imageId}}">Delete</label>
-	<label title="Questionable"><input {{action 'setStatus' 'FLAGGED'}} type="radio" name="{{model.imageId}}">Questionable</label>
-</form>

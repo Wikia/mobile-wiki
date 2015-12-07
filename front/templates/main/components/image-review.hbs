@@ -11,17 +11,7 @@
     </li>
 </ul>
 
-<button class="load-more-items" {{action 'getMoreImages'}}>
-Get More Images
-</button>
-
-<button class="review-images" {{action 'reviewImages'}}>
-Review!
-</button>
-
-<button class="review-images-and-get" {{action 'reviewAndGetMoreImages'}}>
-	Review and get more images
-</button>
+<button class="review-images-and-get" {{action 'reviewAndGetMoreImages'}}>Review & get next batch</button>
 
 {{loading-spinner active=isLoading}}
 {{alert-notifications alerts=alertNotifications}}
