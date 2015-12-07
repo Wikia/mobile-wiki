@@ -10,6 +10,7 @@ export default App.PostDetailComponent = Ember.Component.extend(
 		classNameBindings: ['isNew', 'isDeleted'],
 
 		postId: null,
+		keyDown: null,
 
 		/**
 		 * Returns link to the post author's user page
@@ -41,12 +42,18 @@ export default App.PostDetailComponent = Ember.Component.extend(
 		actions: {
 			/**
 			 * @param {number} postId
+			 * @param {event} event
 			 * @returns {void}
 			 */
-			goToPost(postId) {
-				this.sendAction('goToPost', postId);
+			goToPost(postId, event) {
+				console.log(arguments);
+				if(event.ctrlKey || event.metaKey) {
+					console.log('CTRL PRESSED');
+					this.sendAction('goToPost', postId, true);
+				} else {
+					this.sendAction('goToPost', postId);
+				}
 			},
-
 			/**
 			 * @returns {void}
 			 */

@@ -52,13 +52,18 @@ export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMix
 		 * @param {number} postId
 		 * @returns {void}
 		 */
-		goToPost(postId) {
+		goToPost(postId, openInNewTab = false) {
 			const postController = this.controllerFor('discussionPost'),
 				forumController = this.controllerFor('discussionForum');
 
 			postController.set('postListSort', forumController.get('sortBy'));
+			//const newTabURL= Ember.get('router');
+			console.log('DISCUSSION FORUM');
+			if(openInNewTab) {
 
-			this.transitionTo('discussion.post', postId);
+			} else {
+				this.transitionTo('discussion.post', postId);
+			}
 		},
 
 		/**
