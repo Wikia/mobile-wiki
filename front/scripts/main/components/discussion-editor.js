@@ -113,13 +113,6 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 */
 	isActiveObserver: Ember.observer('isActive', function () {
 		if (this.get('isActive')) {
-			if (this.get('currentUser.userId') === null) {
-				this.setProperties({
-					isActive: false,
-					errorMessage: 'editor.post-error-anon-cant-post'
-				});
-			}
-
 			/*
 			 iOS hack for position: fixed - now we display loading icon.
 			 */
@@ -216,6 +209,30 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		 * @returns {void}
 		 */
 		toggleEditorActive(active) {
+
+			// do NOT set the editor active under certain rules:
+			// 1. user is not logged in
+			if (active === true && this.get('currentUser.userId') === null) {
+				let errorMessageOld;
+
+				errorMessageOld = this.get('errorMessage');
+
+				this.setProperties({
+					isActive: false,
+					errorMessage: 'editor.post-error-anon-cant-post'
+				});
+
+				// to indicate errorMessage observer even if error message is the same as before
+				if (errorMessageOld === this.get('errorMessage')) {
+					this.notifyPropertyChange('errorMessage');
+				}
+
+				this.$('.editor-textarea').blur();
+
+				return;
+			}
+
+
 			this.set('isActive', active);
 		},
 
