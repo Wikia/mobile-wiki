@@ -32,7 +32,7 @@
 		</div>
 	{{else}}
 		<div class="small-2 large-2 columns count">
-			<a {{action 'goToPost' postId}} class="replies-area">
+			<a href={{sharedUrl}} {{action 'goToPost' postId}} class="replies-area">
 				{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
 				{{replyCount}}
 			</a>

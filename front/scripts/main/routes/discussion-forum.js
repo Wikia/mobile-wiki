@@ -50,6 +50,7 @@ export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMix
 	actions: {
 		/**
 		 * @param {number} postId
+		 * @param {bool} openInNewTab
 		 * @returns {void}
 		 */
 		goToPost(postId, openInNewTab = false) {

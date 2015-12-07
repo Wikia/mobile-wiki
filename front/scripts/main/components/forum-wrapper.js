@@ -26,15 +26,12 @@ export default App.ForumWrapperComponent = Ember.Component.extend(
 		actions: {
 			/**
 			 * @param {number} postId
+			 * @param {bool} openInNewTab
 			 * @returns {void}
 			 */
 			goToPost(postId, openInNewTab = false) {
 				console.log('FORUM WRAPPER');
-				if(openInNewTab) {
-					this.sendAction('goToPost', postId, true);
-				}else{
-					this.sendAction('goToPost', postId);
-				}
+				this.sendAction('goToPost', postId, openInNewTab);
 			},
 
 			/**

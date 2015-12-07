@@ -10,7 +10,6 @@ export default App.PostDetailComponent = Ember.Component.extend(
 		classNameBindings: ['isNew', 'isDeleted'],
 
 		postId: null,
-		keyDown: null,
 
 		/**
 		 * Returns link to the post author's user page
