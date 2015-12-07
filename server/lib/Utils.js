@@ -273,7 +273,7 @@ export function createServerData(localSettings, wikiDomain = '') {
 			apiBase: localSettings.apiBase,
 			environment: getEnvironmentString(env),
 			cdnBaseUrl: getCDNBaseUrl(localSettings),
-			gaUrl: localSettings.tracking.gaUrl
+			gaUrl: localSettings.tracking.ua.scriptUrl
 		};
 
 	if (localSettings.optimizely.enabled) {

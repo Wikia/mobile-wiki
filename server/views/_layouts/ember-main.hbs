@@ -28,16 +28,7 @@
 			<!-- endbuild -->
 		{{/if}}
 
-		{{#if server.optimizelyScript}}
-			<link rel="dns-prefetch" href={{server.optimizelyScript}}>
-		{{/if}}
-		{{#unless queryParams.noexternals}}
-			<link rel="dns-prefetch" href={{server.gaUrl}}>
-		{{/unless}}
-		{{#if qualarooScript}}
-			<link rel="dns-prefetch" href={{qualarooScript}}>
-		{{/if}}
-
+		{{> dns-prefetch}}
 		{{> open-graph-tags}}
 
 		<link rel="canonical" href="{{canonicalUrl}}">
