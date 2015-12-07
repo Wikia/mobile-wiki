@@ -8,7 +8,7 @@
 	<div class='search-container'>
 		<div class="search-input-container">
 			{{svg 'search-side-menu' viewBox='0 0 14 14' class='icon search-side-menu'}}
-			{{input placeholder=searchPlaceholderLabel focus-in='searchFocus' value=searchQuery enter='enter'}}
+			{{input tabindex='-1' placeholder=searchPlaceholderLabel focus-in='searchFocus' value=searchQuery enter='enter'}}
 			<div class='clear-search-btn' {{action 'clearSearch' target='view'}}>
 				{{svg 'close-side-menu' viewBox='0 0 18 18' class='icon close-side-menu'}}
 			</div>

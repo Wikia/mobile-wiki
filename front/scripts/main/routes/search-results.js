@@ -17,7 +17,7 @@ export default App.SearchResultsRoute = Ember.Route.extend({
 		controller.set('site', window.location.hostname);
 
 		// Send extra tracking info to GA to track search usage
-		trackGoogleSearch(`${window.location.pathname}search?q=${controller.get('q')}`);
+		trackGoogleSearch(`${window.location.pathname}/search?q=${controller.q}&qIntra=${controller.q}`);
 	},
 
 	/**

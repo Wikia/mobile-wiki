@@ -82,20 +82,40 @@ body.dark-theme {
 		.discussion-content {
 			color: $dark-discussion-content-color;
 		}
+
+		.post-reply,
+		.post-detail {
+			&.is-deleted,
+			&.is-parent-deleted {
+				.discussion-content {
+					color: $dark-discussion-deleted-content-color;
+				}
+
+				.count {
+					a, span {
+						color: $dark-discussion-deleted-actions-color;
+					}
+				}
+
+				.icon:not(.undelete):not(.delete) {
+					fill: $dark-discussion-deleted-actions-color;
+					stroke: $dark-discussion-deleted-actions-color;
+				}
+			}
+		}
+
 		.post-reply ~ .post-reply {
 			.discussion-reply {
 				border-top-color: $dark-discussion-reply-border-color;
 			}
 		}
-		.icon {
-			&.upvote{
-				fill: $dark-upvote-icon-color;
-			}
-			&.upvote-reply {
-				fill: $dark-upvote-reply-icon-color;
-				stroke: $dark-upvote-reply-icon-color;
+
+		.post-reply ~ .reply-editor {
+			.editor-label {
+				border-top-color: $dark-discussion-reply-border-color;
 			}
 		}
+
 		.has-upvoted {
 			.icon {
 				&.upvote {
@@ -115,10 +135,31 @@ body.dark-theme {
 		.timestamp {
 			color: $dark-discussion-timestamp-color;
 		}
-		&.forum {
-			.post-detail {
-				border-top-color: $dark-discussion-post-detail-border-color;
+		.post-detail {
+			background-color: $dark-discussion-desktop-post-detail-bg-color;
+			border-top-color: $dark-discussion-post-detail-border-color;
+		}
+
+		.editor-container {
+			background-color: $dark-discussion-editor-toolbar-background-color;
+			border-color: $dark-discussion-editor-border-color;
+
+			button {
+				background: none;
 			}
+
+			.editor-textarea {
+				border-color: $dark-discussion-editor-border-color;
+				color: $dark-discussion-content-color;
+			}
+
+			.editor-label {
+				background-color: $dark-discussion-editor-background-color;
+			}
+		}
+
+		.editor-wrapper {
+			background-color: $dark-discussion-editor-background-color;
 		}
 	}
 	.discussion-app-promotion {
@@ -151,7 +192,7 @@ body.dark-theme {
 	}
 	figure {
 		&.avatar {
-			img {
+			img, svg {
 				border-color: $dark-discussion-avatar-border-color;
 			}
 		}
@@ -173,12 +214,25 @@ body.dark-theme {
 					border-bottom-color: $dark-discussion-reply-border-color;
 				}
 			}
+			&.post {
+				.post-detail {
+					background-color: transparent;
+					border-bottom-color: $dark-discussion-reply-border-color;
+				}
+			}
 		}
 		.discussion-sort {
 			li {
 				&.not-active {
 					border-bottom-color: $dark-discussion-sort-color;
 					color: $dark-discussion-sort-color;
+				}
+			}
+		}
+		.discussion-editor.reply-editor {
+			.editor-label {
+				&.desktop-hidden {
+					border-top-color: $discussion-post-detail-border-color;
 				}
 			}
 		}

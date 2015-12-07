@@ -28,6 +28,7 @@
 			<!-- endbuild -->
 		{{/if}}
 
+		{{> dns-prefetch}}
 		{{> open-graph-tags}}
 
 		<link rel="canonical" href="{{canonicalUrl}}">
@@ -110,14 +111,12 @@
 		</div>
 
 		<script>
-			(function () {
-				document.addEventListener("DOMContentLoaded", function() {
-					M.loadScript('/front/vendor/main.js', function () {
-						M.loadScript('/front/scripts/combined.js');
-					});
-				});
-			}());
+			M.loadScripts([
+				'/front/vendor/main.js',
+				'/front/scripts/combined.js'
+			]);
 		</script>
+
 		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>
 		{{> tracking-pixels}}
 	</body>

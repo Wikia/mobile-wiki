@@ -1,7 +1,8 @@
 import App from '../app';
 import DiscussionBaseModel from './discussion-base';
+import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
 
-export default App.DiscussionPostModel = DiscussionBaseModel.extend({
+export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 
 	postId: null,
 	pivotId: null,
@@ -25,7 +26,8 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend({
 					sortKey: 'creation_date',
 					limit: this.replyLimit,
 					pivot: this.pivotId,
-					page: this.page + 1
+					page: this.page + 1,
+					viewableOnly: false
 				}),
 				xhrFields: {
 					withCredentials: true,
@@ -39,7 +41,6 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend({
 					// starting with oldest of the current list at the top.
 					newReplies.reverse();
 					newReplies = newReplies.concat(this.replies);
-
 					this.setProperties({
 						replies: newReplies,
 						page: this.page + 1
@@ -53,10 +54,42 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend({
 				}
 			});
 		});
+	},
+
+	createReply(replyData) {
+		this.setFailedState(null);
+		replyData.threadId = this.get('postId');
+
+		return new Ember.RSVP.Promise((resolve) => {
+			Ember.$.ajax({
+				method: 'POST',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
+				data: JSON.stringify(replyData),
+				contentType: 'application/json',
+				xhrFields: {
+					withCredentials: true,
+				},
+				success: (reply) => {
+					reply.isNew = true;
+					this.incrementProperty('postCount');
+					this.replies.pushObject(reply);
+					resolve(this);
+				},
+				error: (err) => {
+					if (err.status === 401) {
+						this.setFailedState('editor.post-error-not-authorized');
+					} else {
+						this.setFailedState('editor.post-error-general-error');
+					}
+					resolve(this);
+				}
+			});
+		});
 	}
 });
 
 App.DiscussionPostModel.reopenClass({
+
 	/**
 	 * @param {number} wikiId
 	 * @param {number} postId
@@ -74,11 +107,12 @@ App.DiscussionPostModel.reopenClass({
 					responseGroup: 'full',
 					sortDirection: 'descending',
 					sortKey: 'creation_date',
-					limit: postInstance.replyLimit
+					limit: postInstance.replyLimit,
+					viewableOnly: false
 				}),
 				dataType: 'json',
 				xhrFields: {
-					withCredentials: true,
+					withCredentials: true
 				},
 				success: (data) => {
 					const contributors = [],
@@ -101,18 +135,18 @@ App.DiscussionPostModel.reopenClass({
 							}
 						});
 					}
-
 					postInstance.setProperties({
 						contributors,
 						forumId: data.forumId,
-						replies,
 						firstPost: data._embedded.firstPost[0],
-						upvoteCount: data.upvoteCount,
-						postCount: data.postCount,
 						id: data.id,
-						pivotId,
+						isDeleted: data.isDeleted,
 						page: 0,
-						title: data.title
+						pivotId,
+						postCount: data.postCount,
+						replies: replies || [],
+						title: data.title,
+						upvoteCount: data.upvoteCount
 					});
 					resolve(postInstance);
 				},

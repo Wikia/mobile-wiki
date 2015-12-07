@@ -1,4 +1,5 @@
 import BasePlayer from './Base';
+import {trackActions} from '../../utils/track';
 
 export default class OoyalaPlayer extends BasePlayer {
 	/**
@@ -61,25 +62,25 @@ export default class OoyalaPlayer extends BasePlayer {
 
 		// Player has loaded
 		messageBus.subscribe(window.OO.EVENTS.PLAYER_CREATED, 'tracking', () => {
-			this.track('player-load');
+			this.track(trackActions.success, 'player-load');
 		});
 
 		// Actual content starts playing (past any ads or age-gates)
 		messageBus.subscribe(window.OO.EVENTS.PLAYING, 'tracking', () => {
 			if (!this.started) {
-				this.track('content-begin');
+				this.track(trackActions.playVideo, 'content-begin');
 				this.started = true;
 			}
 		});
 
 		// Ad starts
 		messageBus.subscribe(window.OO.EVENTS.WILL_PLAY_ADS, 'tracking', () => {
-			this.track('ad-start');
+			this.track(trackActions.view, 'ad-start');
 		});
 
 		// Ad has been fully watched
 		messageBus.subscribe(window.OO.EVENTS.ADS_PLAYED, 'tracking', () => {
-			this.track('ad-finish');
+			this.track(trackActions.success, 'ad-finish');
 		});
 	}
 }

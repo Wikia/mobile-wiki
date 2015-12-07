@@ -1,6 +1,7 @@
 import App from '../app';
+import DiscussionDeleteControllerMixin from '../mixins/discussion-delete-controller';
 
-export default App.DiscussionPostController = Ember.Controller.extend({
+export default App.DiscussionPostController = Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 	numRepliesLoaded: null,
 	postListSort: '',
 
@@ -57,6 +58,6 @@ export default App.DiscussionPostController = Ember.Controller.extend({
 			const model = this.get('model');
 
 			this.get('target').send('goToForum', model.get('forumId'), this.get('postListSort'));
-		}
+		},
 	}
 });

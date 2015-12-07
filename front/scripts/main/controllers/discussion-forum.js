@@ -1,13 +1,17 @@
 import App from '../app';
+import DiscussionDeleteControllerMixin from '../mixins/discussion-delete-controller';
 
-export default App.DiscussionForumController = Ember.Controller.extend({
+export default App.DiscussionForumController = Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 	application: Ember.inject.controller(),
 	sortBy: null,
 
 	smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
+	siteHeadPinned: Ember.computed.oneWay('application.siteHeadPinned'),
 
 	// Whether the sort component is currently visible
 	sortVisible: false,
+
+	editorActive: false,
 
 	sortTypes: [
 		{
@@ -60,6 +64,10 @@ export default App.DiscussionForumController = Ember.Controller.extend({
 		 */
 		goToAllDiscussions() {
 			this.get('target').send('goToAllDiscussions');
+		},
+
+		toggleEditorActive(active) {
+			this.set('editorActive', active);
 		}
 	}
 });

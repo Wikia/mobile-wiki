@@ -1,5 +1,5 @@
-/// <reference path="../../../../typings/jquery/jquery.d.ts" />
-/// <reference path="../../../../typings/slick/slick.d.ts" />
+/// <reference path="../../../typings/jquery/jquery.d.ts" />
+/// <reference path="../../../typings/slick/slick.d.ts" />
 /// <reference path="./globals.ts" />
 
 'use strict';
@@ -85,7 +85,7 @@ $('#loginIcon').click(function(event) : void {
 });
 
 $('#whatIsWikia').click(function(event) : void {
-	window.location.href = 'http://ja.wikia.com/starwars';
+	window.location.href = 'http://www.wikia.com/starwars/?uselang=ja';
 	event.preventDefault();
 });
 

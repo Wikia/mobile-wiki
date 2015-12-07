@@ -6,6 +6,7 @@ $post-details-post-margin-bottom: 5px;
 $post-details-post-vertical-padding: 12px;
 $post-details-reply-upvote-width: 12px;
 $post-details-reply-upvote-margin-left: 10px;
+$deleted-mark-size: 12px;
 
 body.discussions {
 	background-color: $discussion-desktop-bg-color;
@@ -29,7 +30,7 @@ body.discussions {
 		display: inline-block;
 		margin-right: 5px;
 
-		img {
+		img, svg {
 			border-color: $discussion-avatar-border-color;
 		}
 	}
@@ -59,10 +60,68 @@ body.discussions {
 		}
 	}
 
+	.delete-actions {
+		display: inline-block;
+		float: right;
+	}
+
 	.discussion-content {
 		color: $discussion-content-color;
 		margin: 5px 0;
 		padding: .3rem 0;
+	}
+
+	.post-reply,
+	.post-detail {
+		overflow: hidden;
+		position: relative;
+
+		.loading-overlay {
+			height: 100%;
+			position: absolute;
+
+			.spinner {
+				margin-top: -32px;
+			}
+		}
+
+		&.is-deleted {
+			&::before {
+				border-color: $discussion-deleted-mark-color transparent transparent transparent;
+				border-style: solid;
+				border-width: $deleted-mark-size $deleted-mark-size 0 0;
+				content: "";
+				height: $deleted-mark-size;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: $deleted-mark-size;
+			}
+		}
+
+		&.is-parent-deleted .icon,
+		&.is-deleted .icon:not(.undelete) {
+			cursor: default;
+			fill: $discussion-deleted-actions-color;
+			stroke: $discussion-deleted-actions-color;
+		}
+
+		&.is-deleted,
+		&.is-parent-deleted {
+			.discussion-content {
+				color: $discussion-deleted-content-color;
+			}
+
+			.count {
+				a, span {
+					color: $discussion-deleted-actions-color;
+				}
+			}
+
+			.upvote a {
+				cursor: default;
+			}
+		}
 	}
 
 	.discussion-reply {
@@ -78,7 +137,7 @@ body.discussions {
 		}
 
 		.avatar {
-			img {
+			img, svg {
 				height: 30px;
 				width: 30px;
 			}
@@ -122,21 +181,20 @@ body.discussions {
 	}
 
 	.icon {
+		fill: $discussion-actions-color;
 		height: 20px;
+		stroke: $discussion-actions-color;
 		width: 20px;
 		vertical-align: middle;
 
 		&.upvote {
 			height: 22px;
 			width: 22px;
-			fill: $upvote-icon-color;
 		}
 		&.upvote-reply {
 			height: 12px;
 			line-height: 12px;
 			width: 12px;
-			fill: $upvote-reply-icon-color;
-			stroke: $upvote-reply-icon-color;
 		}
 		&.replies{
 			height: 24px;
@@ -151,12 +209,8 @@ body.discussions {
 
 	.has-upvoted {
 		.icon {
-			&.upvote {
 				fill: $upvote-icon-activated-color;
-			}
-			&.upvote-reply {
 				stroke: $upvote-icon-activated-color;
-			}
 		}
 	}
 
@@ -170,13 +224,7 @@ body.discussions {
 		background-color: $discussion-desktop-post-detail-bg-color;
 		margin-bottom: $post-details-post-margin-bottom;
 		padding: 12px $horizontal-padding;
-
-		.avatar {
-			img {
-				height: 40px;
-				width: 40px;
-			}
-		}
+		transition: opacity 1s;
 
 		.share {
 			align-items: center;
@@ -193,6 +241,18 @@ body.discussions {
 
 		.timestamp {
 			font-size: $type-min;
+		}
+
+		&.is-new {
+			opacity: 0;
+		}
+	}
+
+	.post-reply {
+		transition: opacity 1s;
+
+		&.is-new{
+			opacity: 0;
 		}
 	}
 
@@ -224,7 +284,7 @@ body.discussions {
 	}
 
 	&.forum {
-		margin-top: $discussion-header-height;
+		margin-top: $discussion-header-height - $theme-bar-height;
 
 		.discussion-content {
 			// Constrains content on the forum post list to 3 lines and + 0.3rem for the padding
@@ -242,6 +302,13 @@ body.discussions {
 			}
 		}
 	}
+
+	.avatar {
+		img, svg {
+			height: 40px;
+			width: 40px;
+		}
+	}
 }
 
 @media #{$desktop-range} {
@@ -252,6 +319,7 @@ body.discussions {
 			margin-left: auto;
 			margin-right: auto;
 			margin-top: 0;
+			width: $discussion-page-width;
 
 			.post-detail {
 				background-color: $discussion-desktop-post-detail-bg-color;
@@ -259,7 +327,6 @@ body.discussions {
 				border-width: 0;
 				margin-bottom: 5px;
 				padding: 20px 30px;
-				width: 507px;
 			}
 		}
 
@@ -275,6 +342,12 @@ body.discussions {
 					left: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
 				}
 				width: $post-details-outer-width;
+			}
+
+			.replies-list {
+				margin-left: auto;
+				margin-right: auto;
+				width: 524px;
 			}
 
 			.post-reply {
@@ -293,5 +366,12 @@ body.discussions {
 			margin-left: auto;
 			margin-right: auto;
 		}
+	}
+}
+
+@media #{$mobile-range} {
+	//To make sure discussion body is always expanding to 100% width
+	.row {
+		max-width: initial;
 	}
 }

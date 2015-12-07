@@ -1,4 +1,5 @@
 import BasePlayer from './Base';
+import {trackActions} from '../../utils/track';
 
 /**
  * @typedef {Object} YouTubeEvent
@@ -56,7 +57,7 @@ export default class YouTubePlayer extends BasePlayer {
 	 */
 	onPlayerReady() {
 		this.onResize();
-		this.track('player-loaded');
+		this.track(trackActions.success, 'player-loaded');
 	}
 
 	/**
@@ -65,12 +66,12 @@ export default class YouTubePlayer extends BasePlayer {
 	 */
 	onPlayerStateChange(event) {
 		if (!this.started && event.data === 1) {
-			this.track('content-begin');
+			this.track(trackActions.playVideo, 'content-begin');
 			this.started = true;
 		}
 
 		if (!this.ended && event.data === 0) {
-			this.track('content-end');
+			this.track(trackActions.success, 'content-end');
 			this.ended = true;
 		}
 	}

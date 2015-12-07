@@ -1,32 +1,40 @@
 {
-  "open-graph":{
-    "generic-title":"__siteName__についてのトーク"
-  },
-  "landing-page":{
-    "to-the-wiki-title":"ウィキアへ",
-    "page-main-header":"熱烈なファン同士、__applicationName__のトークで盛り上がろう。",
-    "download-the-app-header":"アプリをダウンロードしてトークに参加しよう！",
-    "start-discussions-title":"トークを開始",
-    "start-discussions-text":"質問を投稿したり、最新情報を共有したり、興味のあるトピックについて世界中のファンと話し合うことができます。",
-    "upvote-the-best-title":"お気に入りに投票する",
-    "upvote-the-best-text":"気に入った投稿を見つけたら、賛成票を入れて簡単に気持ちを伝えたり、人気のトークに影響を与えることができます。",
-    "share-your-knowledge-title":"知っていることを共有",
-    "share-your-knowledge-text":"ソーシャル・ネットワークでお気に入りのスレッドを共有して、もっと多くのファンを呼び込んでみましょう。"
-  },
-  "main":{
-    "share-default-title":"__siteName__についてのトーク",
-    "contributors-title":"すべての投稿者",
-    "sort-by-latest":"最新",
-    "sort-by-trending":"人気",
-    "loading-more-posts":"他の投稿を読み込んでいます",
-    "back-to-wikia-link":"ウィキアに戻る",
-    "number-of-posts":"投稿__numberOfPosts__件",
-    "connection-error":"接続できません。もう一度お試しください。",
-    "not-found-error":"このページは存在しないようです。",
-    "action-retry-title":"再試行",
-    "all-discussions-link-desktop":"すべてのトークを表示",
-    "all-discussions-link-mobile":"すべてのトーク",
-    "discussions-app-join":"トークに参加するには、アプリをダウンロードしましょう。",
-    "back-to-discussions-link":"すべてのトーク"
-  }
+    "landing-page": {
+        "to-the-wiki-title": "ウィキアへ",
+        "page-main-header": "熱烈なファン同士、__applicationName__のトークで盛り上がろう。",
+        "download-the-app-header": "アプリをダウンロードしてトークに参加しよう！",
+        "google-play-button-alt": "Google Playで取得",
+        "start-discussions-title": "トークを開始",
+        "start-discussions-text": "質問を投稿したり、最新情報を共有したり、興味のあるトピックについて世界中のファンと話し合うことができます。",
+        "upvote-the-best-title": "お気に入りに投票する",
+        "upvote-the-best-text": "気に入った投稿を見つけたら、賛成票を入れて簡単に気持ちを伝えたり、人気のトークに影響を与えることができます。",
+        "share-your-knowledge-title": "知っていることを共有",
+        "share-your-knowledge-text": "ソーシャル・ネットワークでお気に入りのスレッドを共有して、もっと多くのファンを呼び込んでみましょう。"
+    },
+    "main": {
+        "pagination-post-show-more": "古い返信を表示",
+        "share-default-title": "__siteName__についてのトーク",
+        "contributors-title": "すべての投稿者",
+        "sort-by-latest": "最新",
+        "sort-by-trending": "人気",
+        "loading-more-posts": "他の投稿を読み込んでいます",
+        "back-to-wikia-link": "ウィキアに戻る",
+        "number-of-posts": "投稿__numberOfPosts__件",
+        "connection-error": "接続できません。もう一度お試しください。",
+        "not-found-error": "このページは存在しないようです。",
+        "action-retry-title": "再試行",
+        "all-discussions-link-desktop": "すべてのトークを表示",
+        "all-discussions-link-mobile": "すべてのトーク",
+        "discussions-app-join": "トークに参加するには、アプリをダウンロードしましょう。",
+        "back-to-discussions-link": "すべてのトーク"
+    },
+    "editor": {
+        "post-failed-error": "投稿できませんでした。",
+        "post-error-anon-cant-post": "トークに参加するにはログインしましょう。",
+        "post-error-not-authorized": "アカウントがブロックされているため、投稿できません。",
+        "post-error-general-error": "エラーが発生したようです。しばらくしてから、もう一度お試しください。",
+        "post-editor-label": "投稿を作成",
+        "post-action-button-label": "投稿",
+        "post-editor-placeholder-text": "意見、質問、リンクなどをシェアしてみよう"
+    }
 }

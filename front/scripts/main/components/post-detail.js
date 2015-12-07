@@ -7,7 +7,9 @@ export default App.PostDetailComponent = Ember.Component.extend(
 	DiscussionParsedContentMixin,
 	{
 		classNames: ['post-detail'],
+		classNameBindings: ['isNew', 'isDeleted'],
 
+		isDeleted: Ember.computed.alias('post.isDeleted'),
 		postId: null,
 
 		/**
@@ -29,6 +31,8 @@ export default App.PostDetailComponent = Ember.Component.extend(
 
 		// Timeout used for auto-hiding the sharing icons
 		hideShareTimeout: null,
+
+		isNew: Ember.computed.oneWay('post.isNew'),
 
 		// URL passed to the ShareFeatureComponent for sharing a post
 		sharedUrl: Ember.computed('postId', function () {

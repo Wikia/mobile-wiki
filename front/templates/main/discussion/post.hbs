@@ -31,11 +31,13 @@
 			<div class="discussion post small-12 large-8 columns">
 				{{post-detail
 					author=model.firstPost.createdBy
+					deletePost=(action 'deletePost')
 					isDetailsView=true
 					post=model.firstPost
 					postId=model.id
 					replyCount=model.postCount
 					timestamp=model.firstPost.creationDate.epochSecond
+					undeletePost=(action 'undeletePost')
 					upvoteCount=model.upvoteCount
 					upvote='upvote'
 				}}
@@ -52,16 +54,32 @@
 						{{i18n 'main.pagination-post-show-more' ns='discussion'}}
 					</button>
 				{{/if}}
-				{{#each model.replies as |item index|}}
-					{{post-reply
-						post=item
-						author=item.createdBy
-						content=item.rawContent
-						timestamp=item.creationDate.epochSecond
-						upvoteCount=item.upvoteCount
-						upvote='upvote'
-					}}
-				{{/each}}
+				<div class="replies-list">
+					{{#each model.replies as |item index|}}
+						{{post-reply
+							post=item
+							author=item.createdBy
+							content=item.rawContent
+							deleteReply=(action 'deleteReply')
+							isParentDeleted=model.firstPost.isDeleted
+							timestamp=item.creationDate.epochSecond
+							undeleteReply=(action 'undeleteReply')
+							upvoteCount=item.upvoteCount
+							isNew=item.isNew
+							isVisible=item.isVisible
+							upvote='upvote'
+						}}
+					{{/each}}
+					{{#unless model.firstPost.isDeleted}}
+						{{discussion-reply-editor
+							create='create'
+							toggleEditorActive='toggleEditorActive'
+							isActive=editorActive
+							replies=model.replies
+							requestErrorMessage=model.errorMessage
+						}}
+					{{/unless}}
+				</div>
 			</div>
 		{{/if}}
 		<div class="rail large-2 columns">

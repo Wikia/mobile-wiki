@@ -115,7 +115,7 @@ test('contribution disabled when disableMobileSectionEditor is set', function ()
 	}, 'contributionEnabled');
 });
 
-test('contribution enabled on whitelisted non-Japanese page', function () {
+test('contribution enabled on non-Japanese page 1', function () {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: false,
@@ -125,13 +125,13 @@ test('contribution enabled on whitelisted non-Japanese page', function () {
 	}, 'contributionEnabled');
 });
 
-test('contribution disabled on non-whitelisted non-Japanese page', function () {
+test('contribution enabled on non-Japanese page 2', function () {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: false,
 		disableMobileSectionEditor: false,
 		dbName: 'starwars',
-		expected: false
+		expected: true
 	}, 'contributionEnabled');
 });
 
