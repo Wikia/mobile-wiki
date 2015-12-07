@@ -462,7 +462,7 @@ export default App.ArticleContentComponent = Ember.Component.extend(
 				.not('table table')
 				.each((index, element) => {
 					const $element = this.$(element),
-						wrapper = `<div class="article-table-wrapper${$element.data('portable') ?
+						wrapper = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
 							' portable-table-wrappper' : ''}"/>`;
 
 					$element.wrap(wrapper);
