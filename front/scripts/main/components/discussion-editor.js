@@ -209,15 +209,19 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		 * @returns {void}
 		 */
 		toggleEditorActive(active) {
-
+			const isRequesterBlocked = this.get('isRequesterBlocked');
 			// do NOT set the editor active under certain rules:
 			// 1. user is not logged in
-			if (active === true && this.get('currentUser.userId') === null) {
+			// 2. user is blocked
+			if (active === true &&
+				(this.get('currentUser.userId') === null || isRequesterBlocked === true)) {
+
 				const errorMessageOld = this.get('errorMessage');
 
 				this.setProperties({
 					isActive: false,
-					errorMessage: 'editor.post-error-anon-cant-post'
+					errorMessage: isRequesterBlocked ?
+						'editor.post-error-not-authorized' : 'editor.post-error-anon-cant-post'
 				});
 
 				// to indicate errorMessage observer even if error message is the same as before
