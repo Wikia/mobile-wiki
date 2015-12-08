@@ -30,12 +30,7 @@ function search() {
 	}
 
 	if (searchText) {
-		let searchUrl = 'http://ja.wikia.com/Special:Search?search=';
-
-		searchUrl += searchText;
-		searchUrl += '&fulltext=Search&resultsLang=ja';
-
-		window.location.href = searchUrl;
+		window.location.href = `http://ja.wikia.com/Special:Search?search=${searchText}&fulltext=Search&resultsLang=ja`;
 	}
 }
 
