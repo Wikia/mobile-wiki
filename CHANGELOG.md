@@ -1,3 +1,7 @@
+## release-196 (2015-12-08 17:09 UTC)
+* XW | Environment Fix
+* [XW-657](https://wikia-inc.atlassian.net/browse/XW-657) XW-657 | search only categories in search suggestions
+
 ## release-195 hotfix 1 (2015-12-08 15:34 UTC)
 * [XW-93](https://wikia-inc.atlassian.net/browse/XW-93) revert XW-93
 
