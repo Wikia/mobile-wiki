@@ -1,4 +1,9 @@
 {
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jquery": true
+  },
   "globals": {
     "RSVP": true
   }
