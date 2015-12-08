@@ -60,6 +60,11 @@ body.discussions {
 		}
 	}
 
+	.delete-actions {
+		display: inline-block;
+		float: right;
+	}
+
 	.discussion-content {
 		color: $discussion-content-color;
 		margin: 5px 0;
@@ -68,7 +73,17 @@ body.discussions {
 
 	.post-reply,
 	.post-detail {
+		overflow: hidden;
 		position: relative;
+
+		.loading-overlay {
+			height: 100%;
+			position: absolute;
+
+			.spinner {
+				margin-top: -32px;
+			}
+		}
 
 		&.is-deleted {
 			&::before {
@@ -84,6 +99,13 @@ body.discussions {
 			}
 		}
 
+		&.is-parent-deleted .icon,
+		&.is-deleted .icon:not(.undelete) {
+			cursor: default;
+			fill: $discussion-deleted-actions-color;
+			stroke: $discussion-deleted-actions-color;
+		}
+
 		&.is-deleted,
 		&.is-parent-deleted {
 			.discussion-content {
@@ -94,11 +116,6 @@ body.discussions {
 				a, span {
 					color: $discussion-deleted-actions-color;
 				}
-			}
-
-			.icon {
-				fill: $discussion-deleted-actions-color;
-				stroke: $discussion-deleted-actions-color;
 			}
 
 			.upvote a {
@@ -155,7 +172,14 @@ body.discussions {
 			}
 		}
 	}
-
+	.discussion-no-replies {
+		color: $discussion-error-text-color;
+		font-size: $type-smallest;
+		margin: 0 auto;
+		padding: 35px 0;
+		text-align: center;
+	  	width: inherit;
+  	}
 	// border set for each element with "post-reply" class, after the first one
 	.post-reply ~ .post-reply {
 		.discussion-reply {
@@ -182,6 +206,12 @@ body.discussions {
 		&.replies{
 			height: 24px;
 			width: 24px;
+		}
+	  	&.no-replies {
+		  	display: block;
+			height: 34px;
+		  	margin: 0 auto;
+			width: 40px;
 		}
 		&.toggle-share {
 			height: 20px;
@@ -349,6 +379,10 @@ body.discussions {
 			margin-left: auto;
 			margin-right: auto;
 		}
+		
+	  	.discussion-no-replies {
+			border-bottom: 1px solid $discussion-reply-border-color;
+	  	}
 	}
 }
 

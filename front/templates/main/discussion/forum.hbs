@@ -41,9 +41,11 @@
 				}}
 				{{forum-wrapper
 					create='create'
+					deletePost=(action 'deletePost')
 					goToPost='goToPost'
 					loadPage='loadPage'
 					setSortBy='setSortBy'
+					undeletePost=(action 'undeletePost')
 					upvote='upvote'
 					editorActive=editorActive
 					isRequesterBlocked=model.isRequesterBlocked

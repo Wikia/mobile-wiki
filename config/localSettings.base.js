@@ -21,7 +21,11 @@ import deepExtend from 'deep-extend';
  */
 
 /**
- * @typedef {GAAccount[]} GAAccountMap
+ * @typedef {Object} GAAccountConfig
+ * @property {GAAccount} primary
+ * @property {GAAccount} ads
+ * @property {GAAccount} special
+ * @property {string} scriptUrl
  */
 
 /**
@@ -107,7 +111,7 @@ import deepExtend from 'deep-extend';
 
 /**
  * @typedef {Object} TrackingLocalSettings
- * @property {GAAccountMap} ua
+ * @property {GAAccountConfig} ua
  * @property {string} quantserve
  * @property {ComscoreTrackingLocalSettings} comscore
  * @property {KruxTrackingLocalSettings} krux
@@ -201,7 +205,8 @@ const localSettings = {
 				prefix: 'special',
 				id: 'UA-32132943-1',
 				sampleRate: 100
-			}
+			},
+			scriptUrl: '//www.google-analytics.com/analytics.js'
 		},
 		quantserve: 'p-8bG6eLqkH6Avk',
 		comscore: {
