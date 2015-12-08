@@ -12,12 +12,12 @@
 </ul>
 
 {{#modal-dialog isVisible=model.isModalVisible}}
-	<img src={{model.baseImgUrl}}{{model.modalImageUUID}}/>
+	<img src={{model.baseImgUrl}} {{model.modalImageUUID}}/>
 	<p>{{model.modalImageUUID}}</p>
 {{/modal-dialog}}
 
-<button class="review-images-and-get" {{action 'reviewAndGetMoreImages'}}>{{i18n 'app.image-review-and-get-more'}}</button>
-<button class="review-images-and-get" {{action 'getFlaggedOnly'}}>{{i18n 'app.image-review-get-flagged'}}</button>
+<button {{action 'reviewAndGetMoreImages'}}>{{i18n 'app.image-review-and-get-more'}}</button>
+<button  {{action 'getFlaggedOnly'}}>{{i18n 'app.image-review-get-flagged'}}</button>
 
 {{loading-spinner active=isLoading}}
 {{alert-notifications alerts=alertNotifications}}
