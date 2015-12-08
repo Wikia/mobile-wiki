@@ -37,6 +37,10 @@ export default App.DiscussionHeaderComponent = Ember.Component.extend(
 				this.sendAction('hideSortComponent');
 				this.get('overlay').style.display = 'none';
 			},
+
+			openEditor() {
+				this.sendAction('openEditor');
+			},
 		},
 	}
 );

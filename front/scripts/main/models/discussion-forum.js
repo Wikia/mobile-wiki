@@ -147,6 +147,7 @@ App.DiscussionForumModel.reopenClass({
 						posts,
 						totalPosts
 					});
+
 					resolve(forumInstance);
 				},
 				error: (err) => {
