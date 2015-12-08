@@ -5,14 +5,6 @@ export default App.ImageReviewComponent = Ember.Component.extend({
 	isLoading: false,
 
 	actions: {
-		reviewImages() {
-			this.sendAction('reviewImages');
-		},
-
-		getMoreImages() {
-			this.sendAction('getMoreImages');
-		},
-
 		reviewAndGetMoreImages() {
 			this.sendAction('reviewAndGetMoreImages');
 		},

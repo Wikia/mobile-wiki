@@ -3,7 +3,6 @@ import App from '../app';
 export default App.ImageReviewModel = Ember.Object.extend({
 
 	init() {
-		this.sessionId = null;
 		this.isModalVisible = false;
 		this.modalImageUUID = '';
 		this.images = this.get('images');
@@ -18,12 +17,6 @@ export default App.ImageReviewModel = Ember.Object.extend({
 App.ImageReviewModel.reopenClass({
 
 	startSession(onlyFlagged) {
-		// Temporary! Add 100 dummy images
-		// for (let i = 0; i < 500; i++) {
-		//	 App.ImageReviewModel.addImage('13814000-1dd2-11b2-8080-808080808080',
-		//		 App.ImageReviewModel.generateRandomUUID());
-		// }
-
 		let url = App.ImageReviewModel.getServiceUrl;
 
 		if (onlyFlagged) {
@@ -144,11 +137,6 @@ App.ImageReviewModel.reopenClass({
 
 		return App.ImageReviewModel.create({images, contractId});
 	},
-	generateRandomUUID() {
-		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-			let r = crypto.getRandomValues(new Uint8Array(1))[0]%16|0, v = c == 'x' ? r : (r&0x3|0x8);
-			return v.toString(16);
-		});
-	},
+
 	getServiceUrl: 'https://services-poz.wikia-dev.com/image-review/contract'
 });
