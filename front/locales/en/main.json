@@ -148,8 +148,8 @@
     "image-review-description": "Click on images to mark them for deletion or as questionable (for staff review). When you're done with the batch, click 'Review' below to get the next batch.",
     "image-review-images-to-review": "Images to review: ",
     "image-review-error-no-access-permissions": "Unauthorized, you don't have permissions to see this page",
-    "image-review-error-other": "Couldn't load image-review",
-    "image-review-review-and-get-more": "Review & get next batch".
+    "image-review-error-other": "Unable to load image review",
+    "image-review-and-get-more": "Review & get next batch",
     "image-review-get-flagged": "Get flagged"
   },
   "userStatus": {
