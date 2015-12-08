@@ -6,6 +6,16 @@ import Hoek from 'hoek';
 import Url from 'url';
 import QueryString from 'querystring';
 
+/**
+ * @typedef {Object} ServerData
+ * @property {string} mediawikiDomain
+ * @property {string} apiBase
+ * @property {string} environment
+ * @property {string} cdnBaseURL
+ * @property {string} gaUrl
+ * @property {string} [optimizelyScript]
+ */
+
 // Environment types
 const Environment = {
 		Prod: 'prod',
@@ -262,7 +272,8 @@ export function createServerData(localSettings, wikiDomain = '') {
 			mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
 			apiBase: localSettings.apiBase,
 			environment: getEnvironmentString(env),
-			cdnBaseUrl: getCDNBaseUrl(localSettings)
+			cdnBaseUrl: getCDNBaseUrl(localSettings),
+			gaUrl: localSettings.tracking.ua.scriptUrl
 		};
 
 	if (localSettings.optimizely.enabled) {

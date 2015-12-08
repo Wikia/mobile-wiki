@@ -10,6 +10,7 @@
   },
   "globals": {
   },
+  "parser": "babel-eslint",
   // http://eslint.org/docs/rules/
   "rules": {
     // Possible Errors
