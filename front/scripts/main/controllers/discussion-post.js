@@ -2,11 +2,19 @@ import App from '../app';
 import DiscussionDeleteControllerMixin from '../mixins/discussion-delete-controller';
 
 export default App.DiscussionPostController = Ember.Controller.extend(DiscussionDeleteControllerMixin, {
+	numRepliesLoaded: null,
 	postListSort: '',
 
-	canShowMore: Ember.computed('model.postCount', 'model.replies.length', function () {
+	canShowMore: Ember.computed('model', 'numRepliesLoaded', function () {
 		const model = this.get('model');
-		return model.get('replies.length') < model.get('postCount');
+		let numRepliesLoaded = this.get('numRepliesLoaded');
+
+		if (numRepliesLoaded === null) {
+			numRepliesLoaded = Ember.get(model, 'replies.length');
+			this.set('numRepliesLoaded', numRepliesLoaded);
+		}
+
+		return numRepliesLoaded < model.postCount;
 	}),
 
 	actions: {
@@ -20,8 +28,9 @@ export default App.DiscussionPostController = Ember.Controller.extend(Discussion
 				const model = this.get('model');
 
 				if (model.get('minorError')) {
-					// Hide more posts button when error occurred
-					model.set('postCount', model.get('replies.length'));
+					this.set('numRepliesLoaded', model.get('postCount'));
+				} else {
+					this.set('numRepliesLoaded', model.get('replies.length'));
 				}
 			});
 		},
