@@ -4,13 +4,8 @@
  */
 
 var gulp = require('gulp'),
-	uglify = require('gulp-uglify'),
-	gulpif = require('gulp-if'),
 	babel = require('gulp-babel'),
-	concat = require('gulp-concat'),
 	folders = require('gulp-folders'),
-	environment = require('../utils/environment.js'),
-	options = require('../options').scripts.front,
 	paths = require('../paths').scripts.homepage,
 	path = require('path');
 

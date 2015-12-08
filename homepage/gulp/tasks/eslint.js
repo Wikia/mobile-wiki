@@ -10,5 +10,5 @@ var gulp = require('gulp'),
 gulp.task('eslint', function () {
 	return gulp.src(paths.scripts.homepage.watch)
 		.pipe(eslint())
-		.pipe(eslint.format())
+		.pipe(eslint.format());
 });

@@ -2,8 +2,6 @@
  * Options for dev environment
  */
 
-var paths = require('../paths');
-
 module.exports = {
 	sass: {
 		outputStyle: 'nested',

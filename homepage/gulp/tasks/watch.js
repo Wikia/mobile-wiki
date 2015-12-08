@@ -29,7 +29,7 @@ gulp.task('watch', ['build-combined'], function () {
 		script: 'server/index.js',
 		ext: 'js html',
 		env: { 'NODE_ENV': options.env },
-		tasks: ['lint'],
+		tasks: ['lint', 'eslint'],
 	}).on('start', function () {
 		reload(path);
 	});
