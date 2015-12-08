@@ -1,33 +1,26 @@
-.image-review {
-  .image-review-list {
-	@media screen and (min-width: 500px) {
-	  -webkit-column-count: 2;
-	  -moz-column-count: 2;
-	  column-count: 2;
+.image-review-list {
+  @media screen and (min-width:500px) {
+	-webkit-column-count: 2;
+	-moz-column-count: 2;
+	column-count: 2;
+  }
+  @media screen and (min-width:800px) {
+	-webkit-column-count: 4;
+	-moz-column-count: 4;
+	column-count: 4;
+  }
+  .caption {
+	font-size: 0.5em;
+  }
+  .zero-margin {
+	margin: 0;
+  }
+  .image-review-item {
+	.REJECTED {
+	  background-color: #ff3300;
 	}
-	@media screen and (min-width: 800px) {
-	  -webkit-column-count: 4;
-	  -moz-column-count: 4;
-	  column-count: 4;
-	}
-
-	.caption {
-	  font-size: 0.5em;
-	}
-
-	.zero-margin {
-	  margin: 0;
-	}
-
-	.image-review-item {
-	  .REJECTED {
-		background-color: red;
-	  }
-
-	  .FLAGGED {
-		background-color: yellow;
-	  }
+	.FLAGGED {
+	  background-color: #a49b00;
 	}
   }
 }
-

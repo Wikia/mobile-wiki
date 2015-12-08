@@ -143,7 +143,14 @@
     "curated-content-editor-main-page": "Main Page",
     "curated-content-editor-new-featured-content": "New Featured Content",
     "curated-content-editor-new-section": "New Section",
-    "curated-content-editor-new-category": "New Category"
+    "curated-content-editor-new-category": "New Category",
+    "image-review-head": "Image Review",
+    "image-review-description": "Click on images to mark them for deletion or as questionable (for staff review). When you're done with the batch, click 'Review' below to get the next batch.",
+    "image-review-images-to-review": "Images to review: ",
+    "image-review-error-no-access-permissions": "Unauthorized, you don't have permissions to see this page",
+    "image-review-error-other": "Couldn't load image-review",
+    "image-review-review-and-get-more": "Review & get next batch".
+    "image-review-get-flagged": "Get flagged"
   },
   "userStatus": {
     "anon-cta": "__registerLink__ or __loginLink__",

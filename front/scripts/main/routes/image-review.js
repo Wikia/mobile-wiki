@@ -9,7 +9,6 @@ export default App.ImageReviewRoute = Ember.Route.extend({
 	},
 
 	model() {
-		console.log('Flagged? '+ this.get('onlyFlagged'));
 		this.set('isLoading', true);
 		return App.ImageReviewModel.startSession(this.get('onlyFlagged'));
 	},
@@ -18,15 +17,17 @@ export default App.ImageReviewRoute = Ember.Route.extend({
 		error(error) {
 			if (error.status === 401) {
 				this.modelFor(this.routeName).addAlert({
-					message: 'Unauthorized, you don\'t have permissions to see this page',
-					type: 'warning'
+					message: i18n.t('app.image-review-error-no-access-permissions'),
+					type: 'warning',
+					persistent: true
 				});
 				this.transitionTo('mainPage');
 			} else {
 				Ember.Logger.error(error);
 				this.modelFor(this.routeName).addAlert({
-					message: 'Couldn\'t load image-review',
-					type: 'warning'
+					message: i18n.t('app.image-review-error-other'),
+					type: 'warning',
+					persistent: true
 				});
 				this.transitionTo('mainPage');
 			}

@@ -4,8 +4,9 @@ export default App.ImageReviewModel = Ember.Object.extend({
 
 	init() {
 		this.isModalVisible = false;
-		this.modalImageUUID = '';
+		this.modalImageUUID = '123';
 		this.images = this.get('images');
+		this.baseImgUrl = 'http://vignette-poz.wikia-dev.com/';
 	},
 	reviewImages(images) {
 		images.forEach((imageItem) => {
@@ -25,7 +26,7 @@ App.ImageReviewModel.reopenClass({
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: url,
+				url,
 				dataType: 'json',
 				method: 'POST',
 				xhrFields: {
@@ -34,9 +35,7 @@ App.ImageReviewModel.reopenClass({
 				success: (data) => {
 					resolve(App.ImageReviewModel.getImages(data.id));
 				},
-				error: (data) => {
-					reject(data);
-				}
+				error: (data) => reject(data)
 			});
 		});
 	},
@@ -53,9 +52,7 @@ App.ImageReviewModel.reopenClass({
 				success: (data) => {
 					resolve(data);
 				},
-				error: (data) => {
-					reject(data);
-				}
+				error: (data) => reject(data)
 			});
 		});
 	},
@@ -76,9 +73,7 @@ App.ImageReviewModel.reopenClass({
 						reject('Invalid data was returned from Image Review API');
 					}
 				},
-				error: (data) => {
-					reject(data);
-				}
+				error: (data) => reject(data)
 			});
 		});
 	},
@@ -95,9 +90,7 @@ App.ImageReviewModel.reopenClass({
 				success: (data) => {
 					resolve(data);
 				},
-				error: (data) => {
-					reject(data);
-				}
+				error: (data) => reject(data)
 			});
 		});
 	},
@@ -115,9 +108,7 @@ App.ImageReviewModel.reopenClass({
 				success: (data) => {
 					resolve(data);
 				},
-				error: (data) => {
-					reject(data);
-				}
+				error: (data) => reject(data)
 			});
 		});
 	},

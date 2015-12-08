@@ -1,7 +1,7 @@
-<h2> Image Review </h2>
-<p> Click on images to mark them for deletion or as questionable (for staff review). When you're done with the batch, click "Review" below to get the next batch.</p>
+<h2> {{i18n 'app.image-review-head'}} </h2>
+<p> {{i18n 'app.image-review-description'}} </p>
 
-<h1> Images to review </h1>
+<h1> {{i18n 'app.image-review-images-to-review'}} </h1>
 
 <ul class="image-review-list">
     <li class="image-review-item">
@@ -12,12 +12,12 @@
 </ul>
 
 {{#modal-dialog isVisible=model.isModalVisible}}
-	<img src="http://vignette-poz.wikia-dev.com/"{{model.modalImageUUID}}/>
+	<img src={{model.baseImgUrl}}{{model.modalImageUUID}}/>
 	<p>{{model.modalImageUUID}}</p>
 {{/modal-dialog}}
 
-<button class="review-images-and-get" {{action 'reviewAndGetMoreImages'}}>Review & get next batch</button>
-<button class="review-images-and-get" {{action 'getFlaggedOnly'}}>Get flagged</button>
+<button class="review-images-and-get" {{action 'reviewAndGetMoreImages'}}>{{i18n 'app.image-review-and-get-more'}}</button>
+<button class="review-images-and-get" {{action 'getFlaggedOnly'}}>{{i18n 'app.image-review-get-flagged'}}</button>
 
 {{loading-spinner active=isLoading}}
 {{alert-notifications alerts=alertNotifications}}
