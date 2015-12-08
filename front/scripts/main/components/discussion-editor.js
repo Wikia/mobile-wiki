@@ -218,6 +218,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		 */
 		toggleEditorActive(active) {
 			const isRequesterBlocked = this.get('isRequesterBlocked');
+
 			// do NOT set the editor active under certain rules:
 			// 1. user is not logged in
 			// 2. user is blocked
