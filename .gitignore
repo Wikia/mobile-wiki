@@ -44,10 +44,8 @@ mercury.iml
 front/scripts/**/*.js.map
 
 # Homepage
+homepage/config/localSettings.js
 homepage/front/css
 homepage/front/js
 homepage/front/vendor
 homepage/vendor
-homepage/front/scripts-ts/**/*.js
-homepage/front/scripts-ts/**/*.map
-homepage/config/localSettings.js
