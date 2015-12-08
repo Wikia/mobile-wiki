@@ -27,7 +27,7 @@ export default App.ArticleEditController = Ember.Controller.extend({
 	handlePublishSuccess() {
 		let title = this.get('model.title');
 
-		if (title.match(/\s/)) {
+		if (title.indexOf(' ')) {
 			title = normalizeToUnderscore(title);
 		}
 
