@@ -36,6 +36,11 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		this._super(...params);
 		this.set('isActive', false);
 
+		// This is a temporary solution.
+		// It is made because the .new_post element belongs to discussion-header component and we were not able to
+		// make Ember work with "Data down, actions up" pattern for component1-controller-component2.
+		// So instead of discussion-header indicating event observer in discussion-editor component, we are using
+		// old-fashioned, not-Ember-way, jQuery action binding solution.
 		Ember.$(document).on('click', '.new-post', () => {
 			this.actions.toggleEditorActive.call(this, true);
 		});
