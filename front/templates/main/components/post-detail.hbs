@@ -31,14 +31,14 @@
 	{{#if isDetailsView}}
 		<div class="small-5 large-2 columns count">
 			<span class="replies-area">
-				{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
 				{{replyCount}}
 			</span>
 		</div>
 	{{else}}
 		<div class="small-2 large-2 columns count">
 			<a {{action 'goToPost' postId}} class="replies-area">
-				{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
 				{{replyCount}}
 			</a>
 		</div>
@@ -53,7 +53,7 @@
 				onMouseEnter=(action 'cancelHideShareComponent')
 				onMouseLeave=(action 'hideShareComponent')
 			}}
-			<span {{action 'toggleShareComponent'}}>
+			<span class="share-area" {{action 'toggleShareComponent'}}>
 				{{svg 'share' class='icon toggle-share'}}
 			</span>
 		{{/if}}
