@@ -13,6 +13,43 @@ export default App.DiscussionForumController = Ember.Controller.extend(Discussio
 
 	editorActive: false,
 
+	isEditorOpen: false,
+
+	rejectAnon() {
+		this.openDialog('anon');
+	},
+
+	rejectBlockedUser() {
+		this.openDialog('blocked');
+	},
+
+	openDialog(message) {
+		window.alert(message);
+	},
+
+	openEditor() {
+		const isAnon = this.get('currentUser.isAuthenticated') === null,
+			isUserBlocked = this.get('model.isRequesterBlocked');
+
+		if (this.get('isEditorOpen') === true) {
+			return;
+		}
+
+		if (isAnon) {
+			this.rejectAnon();
+		} else if (isUserBlocked) {
+			this.rejectBlockedUser();
+		} else {
+			this.set('isEditorOpen', true);
+		}
+	},
+
+	closeEditor() {
+		if (this.get('isEditorOpen') === true) {
+			this.set('isEditorOpen', true);
+		}
+	},
+
 	sortTypes: [
 		{
 			name: 'latest',
@@ -66,8 +103,12 @@ export default App.DiscussionForumController = Ember.Controller.extend(Discussio
 			this.get('target').send('goToAllDiscussions');
 		},
 
-		toggleEditorActive(active) {
-			this.set('editorActive', active);
+		openEditor() {
+			this.openEditor();
+		},
+
+		closeEditor() {
+			this.closeEditor();
 		}
 	}
 });

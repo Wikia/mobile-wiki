@@ -16,6 +16,8 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 
 	contributors: [],
 
+	discussionEditorService: Ember.inject.service('DiscussionEditor'),
+
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
@@ -150,6 +152,7 @@ App.DiscussionPostModel.reopenClass({
 						upvoteCount: data.upvoteCount,
 						isRequesterBlocked: data.isRequesterBlocked
 					});
+
 					resolve(postInstance);
 				},
 				error: (err) => {
