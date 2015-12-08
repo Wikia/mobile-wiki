@@ -49,15 +49,6 @@ body.discussions {
 			line-height: 30px;
 			padding: 0 2px;
 		}
-
-		.icon {
-			&.upvote {
-				margin-right: 3px;
-				// clickable area is 30px height, text has to be vertically centered, but icons have to be adjusted
-				// to their bottom, so instead of adding additional html tags nesting, I moved up a bit the larger icon
-				margin-top: -4px;
-			}
-		}
 	}
 
 	.delete-actions {
@@ -196,6 +187,7 @@ body.discussions {
 
 		&.upvote {
 			height: 22px;
+			margin-right: 3px;
 			width: 22px;
 		}
 		&.upvote-reply {
@@ -204,7 +196,7 @@ body.discussions {
 			width: 12px;
 		}
 		&.replies{
-			height: 24px;
+			height: 19px;
 			width: 24px;
 		}
 	  	&.no-replies {
@@ -244,7 +236,7 @@ body.discussions {
 			display: flex;
 			height: 30px;
 			justify-content: flex-end;
-			padding-top: 3px;
+			line-height: 30px;
 			text-align: right;
 
 			> * {
@@ -379,7 +371,7 @@ body.discussions {
 			margin-left: auto;
 			margin-right: auto;
 		}
-		
+
 	  	.discussion-no-replies {
 			border-bottom: 1px solid $discussion-reply-border-color;
 	  	}
