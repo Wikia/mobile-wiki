@@ -11,7 +11,6 @@ var gulp = require('gulp'),
 
 gulp.task('build-combined', ['vendor', 'scripts'], function () {
 	var src = [
-		'front/loader.js',
 		'vendor/jquery/dist/jquery.min.js',
 		'vendor/jquery-bigtext/jquery-bigtext.js',
 		'vendor/rsvp.js/rsvp.min.js',
@@ -26,9 +25,6 @@ gulp.task('build-combined', ['vendor', 'scripts'], function () {
 	return piper(
 		gulp.src(src),
 		gulpconcat('combined.js'),
-		//gulpif(environment.isProduction, piper(
-		//	uglify()
-		//)),
 		gulp.dest('front/js')
 	);
 });
