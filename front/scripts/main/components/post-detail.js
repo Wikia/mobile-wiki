@@ -9,6 +9,7 @@ export default App.PostDetailComponent = Ember.Component.extend(
 		classNames: ['post-detail'],
 		classNameBindings: ['isNew', 'isDeleted'],
 
+		isDeleted: Ember.computed.alias('post.isDeleted'),
 		postId: null,
 
 		_routing: Ember.inject.service('-routing'),

@@ -26,12 +26,20 @@
     "all-discussions-link-desktop":"展示所有討論",
     "all-discussions-link-mobile":"所有討論",
     "discussions-app-join":"想要參與討論？立即下載這款軟體吧！",
-    "back-to-discussions-link":"所有討論"
+    "back-to-discussions-link":"所有討論",
+    "no-replies":"還沒有答覆。",
+    "no-replies-be-the-first":"還沒有答覆。 您可以第一個答覆!"
   },
   "editor":{
     "post-failed-error":"發佈失敗",
+    "post-error-anon-cant-post":"登入進行討論！",
+    "post-error-not-authorized":"您不能發帖因為您的帳戶已被封禁。",
+    "post-error-general-error":"哎呀，出現未知錯誤！ 請稍後再試。",
     "post-editor-label":"創建一個帖子",
     "post-action-button-label":"發佈",
-    "post-editor-placeholder-text":"分享想法、問題或連結..."
+    "post-editor-placeholder-text":"分享想法、問題或連結...",
+    "reply-editor-placeholder-text":"答覆...",
+    "reply-editor-label":"添加到討論",
+    "reply-action-button-label":"答覆"
   }
 }

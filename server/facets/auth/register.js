@@ -1,4 +1,4 @@
-import * as BirthdateInput from './BirthdateInput';
+import BirthdateInput from './BirthdateInput';
 import * as authUtils from '../../lib/AuthUtils';
 import localSettings from '../../../config/localSettings';
 import authLocaleSettings from '../../../config/authLocaleSettings';
