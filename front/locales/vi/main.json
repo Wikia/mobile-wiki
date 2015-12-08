@@ -98,7 +98,6 @@
     "curated-content-editor-no-articles-found":"No articles found",
     "curated-content-editor-no-categories-found":"No categories found",
     "curated-content-editor-suggestions-loading":"Loading...",
-    "curated-content-editor-error-inside-featured-content":"Please fix errors inside Featured Content.",
     "curated-content-editor-changes-saved":"Your changes have been saved",
     "curated-content-editor-image-missing-error":"Please provide an image",
     "curated-content-editor-missing-label-error":"Display name is missing",
@@ -137,7 +136,6 @@
     "curated-content-editor-remove-item-confirmation":"Are you sure you want to delete this item?",
     "curated-content-editor-general-section-error":"Please fix errors in this section.",
     "curated-content-editor-add-items-message":"Please add items to this section.",
-    "curated-content-editor-missing-items-error":"Sections can't be empty. Please add items to section.",
     "curated-content-editor-error-inside-items-message":"Please fix errors inside items.",
     "curated-content-editor-items-count":"__count__ item",
     "curated-content-editor-items-count_plural":"__count__ items",
@@ -146,22 +144,6 @@
     "curated-content-editor-new-featured-content":"New Featured Content",
     "curated-content-editor-new-section":"New Section",
     "curated-content-editor-new-category":"New Category"
-  },
-  "discussion":{
-    "share-default-title":"Discussion on __siteName__",
-    "contributors-title":"All Contributors",
-    "sort-by-latest":"Latest",
-    "sort-by-trending":"Trending",
-    "loading-more-posts":"Loading more posts",
-    "back-to-wikia-link":"To the Wiki",
-    "number-of-posts":"__numberOfPosts__ Posts",
-    "connection-error":"Can't connect, please try again.",
-    "not-found-error":"Uh oh, looks like this page doesn't exist!",
-    "action-retry-title":"Retry",
-    "all-discussions-link-desktop":"Show Me All Discussions",
-    "all-discussions-link-mobile":"All Discussions",
-    "discussions-app-join":"Looking to join the discussion? Get the app now!",
-    "back-to-discussions-link":"All Discussions"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ or __loginLink__",

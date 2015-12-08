@@ -19,12 +19,6 @@
 	}
 }
 
-@for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion-sort {
-		color: #{nth($vertical-colors, $i)};
-	}
-}
-
 @media #{$mobile-range} {
 	.discussion-sort.mobile-hidden {
 		display: none;
@@ -39,26 +33,22 @@
 		padding: 0;
 		position: static;
 		text-align: center;
-		width: 507px;
+		width: $discussion-page-width;
 		z-index: auto;
 
 		li {
-			border-bottom: 4px solid $discussion-sort-color;
-			color: $discussion-sort-color;
+			&.not-active {
+				border-bottom-color: $discussion-sort-color;
+				color: $discussion-sort-color;
+			}
+
+			border-bottom: 4px solid;
 			float: left;
 			font-size: $type-smaller;
+			font-weight: $font-weight-bold;
 			height: 50px;
 			line-height: 50px;
 			width: 50%;
-		}
-	}
-
-	@for $i from 1 through length($verticals) {
-		.#{nth($verticals, $i)}-vertical .discussion-sort {
-			li.active {
-				color: #{nth($vertical-colors, $i)};
-				border-color: #{nth($vertical-colors, $i)};
-			}
 		}
 	}
 }

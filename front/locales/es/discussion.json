@@ -1,0 +1,45 @@
+{
+  "landing-page":{
+    "to-the-wiki-title":"a la wikia",
+    "page-main-header":"Las discusiones de __applicationName__ más calientes con los mejores fans.",
+    "download-the-app-header":"¡Descarga la aplicación a únete ahora!",
+    "google-play-button-alt":"Consiguelo en Google Play",
+    "start-discussions-title":"Iniciar discusiones",
+    "start-discussions-text":"¡Has una pregunta, comparte noticias o simplemente conversa con otros fans de todo el mundo sobre tus temas favoritos!",
+    "upvote-the-best-title":"Vota a favor",
+    "upvote-the-best-text":"¿Ves algo que te gusta? Vota a favor para demostrar lo que te gusta y para influenciar que es tendencia.",
+    "share-your-knowledge-title":"Comparte tus conocimientos",
+    "share-your-knowledge-text":"Comparte tus discusiones favoritas con tus redes sociales para traer a más fans a la discusión."
+  },
+  "main":{
+    "pagination-post-show-more":"Ver respuestas más antiguas",
+    "share-default-title":"Discusión en __siteName__",
+    "contributors-title":"Todos los editores",
+    "sort-by-latest":"Más recientes",
+    "sort-by-trending":"Tendencias",
+    "loading-more-posts":"Cargando más publicaciones",
+    "back-to-wikia-link":"A la wikia",
+    "number-of-posts":"__numberOfPosts__ publicaciones",
+    "connection-error":"No se puede conectar, por favor inténtalo de nuevo.",
+    "not-found-error":"¡Uh oh, parece que esta página no existe!",
+    "action-retry-title":"Volver a intentar",
+    "all-discussions-link-desktop":"Muéstrame todas las discusiones",
+    "all-discussions-link-mobile":"Todas las discusiones",
+    "discussions-app-join":"¿Deseas unirte a la discusión? ¡Obtén la aplicación ahora!",
+    "back-to-discussions-link":"Todas las discusiones",
+    "no-replies":"No hay respuestas aún.",
+    "no-replies-be-the-first":"No hay respuestas aún. ¡Se el primero!"
+  },
+  "editor":{
+    "post-failed-error":"Publicación fallada.",
+    "post-error-anon-cant-post":"¡Regístrate para unirte a la discusión!",
+    "post-error-not-authorized":"No puedes publicar porque tu cuenta ha sido bloqueada.",
+    "post-error-general-error":"Oops, ¡parece que algo salió mal! Por favor inténtalo más tarde.",
+    "post-editor-label":"Crear una publicación",
+    "post-action-button-label":"Publicación",
+    "post-editor-placeholder-text":"Comparte un pensamiento, pregunta o enlace...",
+    "reply-editor-placeholder-text":"Escribe una respuesta...",
+    "reply-editor-label":"Añadir a la discusión",
+    "reply-action-button-label":"Responder"
+  }
+}

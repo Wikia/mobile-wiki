@@ -13,7 +13,8 @@ module.exports = {
 	baseFullFront: path.resolve(baseFront),
 	vendor: {
 		src: 'front/vendor/**/*',
-		dest: basePath + '/front/vendor'
+		dest: basePath + '/front/vendor',
+		original: 'front/vendor'
 	},
 	locales: {
 		src: 'front/locales/**/*.json',
@@ -30,18 +31,11 @@ module.exports = {
 		front: {
 			src: 'front/scripts',
 			dest: basePath + '/front/scripts',
-			tsFiles: '**/*.ts',
-			tsdFiles: '**/*.d.js',
-			jsFiles: '**/*.js',
-			// @todo https://wikia-inc.atlassian.net/browse/XW-517
-			jsFilesModels: '**/models/*.js',
-			jsFilesMixins: '**/mixins/*.js',
-			jsFilesComponents: '**/components/*.js',
-			jsFilesRoutes: '**/routes/*.js'
+			jsFiles: '**/*.js'
 		},
 		server: {
-			src: 'server/**/*.ts',
-			config: 'config/*.ts',
+			src: 'server/**/*.js',
+			config: 'config/*.js',
 			dest: basePath
 		}
 	},
@@ -72,9 +66,8 @@ module.exports = {
 	},
 	config: {
 		path: 'config/',
-		baseFile: 'localSettings.base.ts',
-		exampleFile: 'localSettings.example.ts',
-		testFile: 'localSettings.test.ts',
-		runtimeFile: 'localSettings.ts'
+		baseFile: 'localSettings.base.js',
+		exampleFile: 'localSettings.example.js',
+		runtimeFile: 'localSettings.js'
 	}
 };

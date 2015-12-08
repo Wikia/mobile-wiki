@@ -16,6 +16,7 @@
 		smartBannerVisible=smartBannerVisible
 		toggleSideNav=attrs.toggleSideNav
 		toggleUserMenu=attrs.toggleUserMenu
+		toggleSiteHeadPinned=attrs.toggleSiteHeadPinned
 		themeBar=themeBar
 	}}
 
@@ -39,14 +40,15 @@
 	{{#if noMargins}}
 		{{outlet}}
 	{{else}}
-        <div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
+		<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
 			{{outlet}}
-        </div>
+		</div>
 	{{/if}}
 	{{lightbox-wrapper
 		type=lightboxType
 		model=lightboxModel
 		isVisible=lightboxVisible
+		lightboxCloseButtonDelay=lightboxCloseButtonDelay
 		closeLightbox=attrs.closeLightbox
 		setQueryParam=attrs.setQueryParam
 	}}

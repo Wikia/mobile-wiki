@@ -1,29 +1,33 @@
-QUnit.module('auth/common/Geo)', {
-	setup: function () {
-		Cookie = {
+QUnit.module('auth/common/Geo)', function (hooks) {
+	hooks.beforeEach(function () {
+		var geoModule = {};
+		require.entries['auth/common/Geo'].callback(geoModule, {
 			get: function () {
 				return '{"city":"FIXME","country":"PL","continent":"EU"}';
 			}
-		};
-	}
-});
+		});
 
-QUnit.test('Geo class is loaded', function () {
-	ok(typeof window.Geo === 'function');
-});
+		this.Geo = geoModule.default;
+	});
 
-QUnit.test('Geo class exposes country getter', function () {
-	ok(typeof new window.Geo().getCountry === 'function');
-});
+	QUnit.test('Geo class is loaded', function (assert) {
+		assert.ok(typeof this.Geo === 'function');
+	});
 
-QUnit.test('Geo class exposes continent getter', function () {
-	ok(typeof new window.Geo().getContinent === 'function');
-});
+	QUnit.test('Geo class exposes country getter', function (assert) {
+		assert.ok(typeof new this.Geo().getCountry === 'function');
+	});
 
-QUnit.test('Country getter returns string with a country name if Geo cookie is set', function () {
-	equal(new window.Geo().getCountry(), 'PL');
-});
+	QUnit.test('Geo class exposes continent getter', function (assert) {
+		assert.ok(typeof new this.Geo().getContinent === 'function');
+	});
 
-QUnit.test('Continent getter returns string with a continent name if Geo cookie is set', function () {
-	equal(new window.Geo().getContinent(), 'EU');
+	QUnit.test('Country getter returns string with a country name if Geo cookie is set', function (assert) {
+		assert.equal(new this.Geo().getCountry(), 'PL');
+	});
+
+	QUnit.test('Continent getter returns string with a continent name if Geo cookie is set', function (assert) {
+		assert.equal(new this.Geo().getContinent(), 'EU');
+	});
+
 });

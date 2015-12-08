@@ -2,22 +2,26 @@
 	showContent=false
 	headroomEnabled=false
 }}
-<div class="site-body-discussion">
-	<div class="minimized discussion-hero-unit"></div>
+<div class="site-body-discussion post-details-view">
+	<div class="minimized discussion-hero-unit background-theme-color"></div>
 	<div class="discussion-page row">
 		<div class="rail large-2 columns">
 			{{community-badge}}
 			{{discussion-back-button
 				setLocation='goToForum'
-				label='discussion.back-to-discussions-link'
+				label='main.back-to-discussions-link'
 			}}
 			<hr/>
-			<div class="discussion-contributors-title">{{i18n "discussion.contributors-title"}}</div>
-			{{discussion-contributors
-				contributors=model.contributors
-				maxContributorDisplayCount=7
-				totalContributorCount=model.postCount
-			}}
+			<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
+			{{#if model.replies}}
+				{{discussion-contributors
+					contributors=model.contributors
+					maxContributorDisplayCount=7
+					totalContributorCount=model.postCount
+				}}
+			{{else}}
+				{{i18n 'main.no-replies' ns='discussion'}}
+			{{/if}}
 		</div>
 		{{#if model.connectionError}}
 			{{discussion-connection-error
@@ -31,37 +35,62 @@
 			<div class="discussion post small-12 large-8 columns">
 				{{post-detail
 					author=model.firstPost.createdBy
+					deletePost=(action 'deletePost')
 					isDetailsView=true
 					post=model.firstPost
 					postId=model.id
 					replyCount=model.postCount
 					timestamp=model.firstPost.creationDate.epochSecond
+					undeletePost=(action 'undeletePost')
 					upvoteCount=model.upvoteCount
 					upvote='upvote'
 				}}
-				<div class="desktop-hidden discussion-contributors-mobile">
-					{{discussion-contributors
-						contributors=model.contributors
-						maxContributorDisplayCount=7
-						totalContributorCount=model.postCount
-					}}
-				</div>
-				{{#if canShowMore}}
-					<button {{action 'expand'}} class="see-more">
-						{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-						{{i18n 'discussion.pagination-post-show-more'}}
-					</button>
+				{{#if model.replies}}
+					<div class="desktop-hidden discussion-contributors-mobile">
+						{{discussion-contributors
+							contributors=model.contributors
+							maxContributorDisplayCount=7
+							totalContributorCount=model.postCount
+						}}
+					</div>
+					{{#if canShowMore}}
+						<button {{action 'expand'}} class="see-more active-element-theme-color">
+							{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+							{{i18n 'main.pagination-post-show-more' ns='discussion'}}
+						</button>
+					{{/if}}
 				{{/if}}
-				{{#each model.replies as |item index|}}
-					{{post-reply
-						post=item
-						author=item.createdBy
-						content=item.rawContent
-						timestamp=item.creationDate.epochSecond
-						upvoteCount=item.upvoteCount
-						upvote='upvote'
-					}}
-				{{/each}}
+				<div class="replies-list">
+					{{#each model.replies as |item index|}}
+						{{post-reply
+							post=item
+							author=item.createdBy
+							content=item.rawContent
+							deleteReply=(action 'deleteReply')
+							isParentDeleted=model.firstPost.isDeleted
+							timestamp=item.creationDate.epochSecond
+							undeleteReply=(action 'undeleteReply')
+							upvoteCount=item.upvoteCount
+							isNew=item.isNew
+							isVisible=item.isVisible
+							upvote='upvote'
+						}}
+					{{else}}
+						<div class="discussion-no-replies">
+							{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
+							{{i18n 'main.no-replies-be-the-first' ns='discussion'}}
+						</div>
+					{{/each}}
+					{{#unless model.firstPost.isDeleted}}
+						{{discussion-reply-editor
+							create='create'
+							toggleEditorActive='toggleEditorActive'
+							isActive=editorActive
+							replies=model.replies
+							requestErrorMessage=model.errorMessage
+						}}
+					{{/unless}}
+				</div>
 			</div>
 		{{/if}}
 		<div class="rail large-2 columns">

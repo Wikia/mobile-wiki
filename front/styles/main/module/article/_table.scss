@@ -1,9 +1,3 @@
-.article-content {
-	table:not(.infobox, .dirbox) {
-		visibility: hidden;
-	}
-}
-
 .article-table-wrapper {
 	border: 1px solid $border-color-light;
 	overflow: auto;

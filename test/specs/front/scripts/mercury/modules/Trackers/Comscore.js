@@ -1,6 +1,14 @@
 /* global Mercury, _comscore */
-QUnit.module('Comscore tests', {
-	setup: function () {
+QUnit.module('mercury/modules/Trackers/Comscore', function (hooks) {
+	var Comscore;
+
+	hooks.beforeEach(function () {
+		var exports = {};
+
+		require.entries['mercury/modules/Trackers/Comscore'].callback(exports, null);
+
+		Comscore = exports.default;
+
 		M.props({
 			tracking: {
 				comscore: {
@@ -12,16 +20,18 @@ QUnit.module('Comscore tests', {
 			}
 		// initialize with mutations because tests are run multiple times
 		}, true);
-	}
-});
+	});
 
-QUnit.test('Comscore is compiled into Mercury.Modules.Trackers namespace', function () {
-	ok(Mercury.Modules.Trackers.Comscore);
-	strictEqual(typeof Mercury.Modules.Trackers.Comscore, 'function');
-});
+	QUnit.test('Comscore is compiled', function () {
+		ok(Comscore);
+		strictEqual(typeof Comscore, 'function');
+	});
 
-QUnit.test('Track page view', function () {
-	var tracker = new Mercury.Modules.Trackers.Comscore(),
+	QUnit.test('Track page view', function () {
+		var queue,
+			instance;
+
+		instance = new Comscore();
 		queue = [{
 			c1: '2',
 			c2: M.prop('tracking.comscore.id'),
@@ -30,8 +40,9 @@ QUnit.test('Track page view', function () {
 			}
 		}];
 
-	tracker.appendScript = function () {};
+		instance.appendScript = sinon.stub();
 
-	tracker.trackPageView();
-	deepEqual(window._comscore, queue);
+		instance.trackPageView();
+		deepEqual(window._comscore, queue);
+	});
 });

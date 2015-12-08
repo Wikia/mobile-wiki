@@ -1,0 +1,26 @@
+[main]
+host = https://www.transifex.com/wikia-inc
+
+[mercury.mainjson]
+source_file = front/locales/en/main.json
+source_lang = en
+type = KEYVALUEJSON
+file_filter = front/locales/<lang>/main.json
+
+[mercury.discussionjson]
+source_file = front/locales/en/discussion.json
+source_lang = en
+type = KEYVALUEJSON
+file_filter = front/locales/<lang>/discussion.json
+
+[mercury.authjson]
+source_file = front/locales/en/auth.json
+source_lang = en
+type = KEYVALUEJSON
+file_filter = front/locales/<lang>/auth.json
+
+[mercury.auth-frontjson]
+source_file = front/locales/en/auth-front.json
+source_lang = en
+type = KEYVALUEJSON
+file_filter = front/locales/<lang>/auth-front.json

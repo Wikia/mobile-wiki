@@ -1,4 +1,4 @@
-$parallax-window-height: 25em;
+$parallax-window-height: 30em;
 
 $parallax-small: new-breakpoint(max-width 500px);
 $parallax-medium: new-breakpoint(min-width 500px);
@@ -13,6 +13,7 @@ $parallax-large: new-breakpoint(min-width 800px);
 	float: left;
 	max-height: $parallax-window-height;
 	overflow: hidden;
+	padding-top: 7.5em;
 	position: relative;
 	text-align: center;
 	width: 100%;
@@ -79,19 +80,39 @@ $parallax-large: new-breakpoint(min-width 800px);
 }
 
 .parallax-background {
-	$parallax-background-image: '/images/wikia-universe.jpg';
+	$parallax-background-image: '/images/starwars-campaign.jpg';
 	$parallax-bacground-color: #081d38;
 
-	background: url($parallax-background-image) repeat;
-	background-color: $parallax-bacground-color;
-	background-position: top;
-	background-size: cover;
-	height: $parallax-window-height * 2;
+	background: {
+		color: $parallax-bacground-color;
+		image: url($parallax-background-image);
+		position: top;
+		repeat: repeat;
+		size: cover;
+	}
+	height: 50em;
 	left: 0;
 	position: absolute;
 	top: - $parallax-window-height / 3;
 	width: 100%;
 }
 
+.parallax-background-companyinfo {
+	$parallax-background-image: '/images/wikia-universe.jpg';
+	$parallax-bacground-color: #081d38;
+
+	background: {
+		color: $parallax-bacground-color;
+		image: url($parallax-background-image);
+		position: top;
+		repeat: repeat;
+		size: cover;
+	}
+	height: 40em;
+	left: 0;
+	position: absolute;
+	top: - $parallax-window-height / 3;
+	width: 100%;
+}
 
 // Based on http://codepen.io/skeurentjes/

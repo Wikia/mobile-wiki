@@ -17,12 +17,3 @@ $discussion-back-button-border-color: #e6e6e6;
 	}
 }
 
-@for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .back-button {
-		color: #{nth($vertical-colors, $i)};
-
-		svg {
-			fill: #{nth($vertical-colors, $i)};
-		}
-	}
-}

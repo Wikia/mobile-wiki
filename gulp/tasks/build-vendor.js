@@ -14,7 +14,6 @@ var gulp = require('gulp'),
 gulp.task('build-vendor', ['vendor'], function () {
 	return piper(
 		gulp.src([
-			'www/front/vendor/webcomponentsjs/webcomponents.js',
 			'www/front/vendor/script.js/dist/script.js',
 			'www/front/vendor/fastclick/lib/fastclick.js',
 			'www/front/vendor/jquery/dist/jquery.js',
@@ -28,6 +27,7 @@ gulp.task('build-vendor', ['vendor'], function () {
 			'www/front/vendor/numeral/numeral.js',
 			'www/front/vendor/weppy/dist/weppy.js',
 			'www/front/vendor/visit-source/dist/visit-source.js',
+			'www/front/vendor/Autolinker.js/dist/Autolinker.min.js',
 			'www/front/vendor/ember-performance-sender/dist/ember-performance-sender.js'
 		]),
 		gulpconcat('main.js'),

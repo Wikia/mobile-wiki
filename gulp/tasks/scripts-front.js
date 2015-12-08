@@ -1,61 +1,37 @@
 /*
  * scripts-front
- * Compiles front ts files
+ * Compiles front scripts
  */
 
 var gulp = require('gulp'),
 	babel = require('gulp-babel'),
 	concat = require('gulp-concat'),
-	folders = require('gulp-folders'),
 	gulpif = require('gulp-if'),
-	gutil = require('gulp-util'),
-	orderedMergeStream = require('ordered-merge-stream'),
-	// @todo Fix in https://wikia-inc.atlassian.net/browse/XW-562
-	// newer = require('gulp-newer'),
-	ts = require('gulp-typescript'),
+	newer = require('gulp-newer'),
 	uglify = require('gulp-uglify'),
+	gutil = require('gulp-util'),
 	environment = require('../utils/environment'),
-	options = require('../options').scripts.front,
 	paths = require('../paths').scripts.front,
-	path = require('path'),
-	tsProjects = {};
+	path = require('path');
 
-gulp.task('scripts-front', folders(paths.src, function (folder) {
-	var tsStream, esStream;
-
-	// we need project per folder
-	if (!tsProjects[folder]) {
-		tsProjects[folder] = ts.createProject(options);
-	}
-
-	// build TS
-	tsStream = gulp.src([
-		'!' + path.join(paths.src, folder, paths.tsdFiles),
-		path.join(paths.src, folder, paths.tsFiles)
-	])
-	// @todo Fix in https://wikia-inc.atlassian.net/browse/XW-562
-	// .pipe(newer(path.join(paths.dest, folder + '.js')))
-	.pipe(ts(tsProjects[folder])).js
-	.on('error', function() {
-		if (gutil.env.testing && environment.isProduction) {
-			console.error('Build contains some typescript errors/warnings');
-			process.exit(1);
-		}
-	});
-
-	// build ES6
-	esStream = gulp.src([
-		path.join(paths.src, folder, paths.jsFilesModels),
-		path.join(paths.src, folder, paths.jsFilesMixins),
-		path.join(paths.src, folder, paths.jsFilesRoutes),
-		path.join(paths.src, folder, paths.jsFilesComponents)
-	])
-	// @todo Fix in https://wikia-inc.atlassian.net/browse/XW-562
-	// .pipe(newer(path.join(paths.dest, folder + '.js')))
-	.pipe(babel());
-
-	return orderedMergeStream([tsStream, esStream])
-		.pipe(concat(folder + '.js'))
+gulp.task('scripts-front', function (done) {
+	// it only builds baseline.js
+	gulp.src([path.join(paths.src, 'baseline', paths.jsFiles)])
+		.pipe(newer(path.join(paths.dest, 'baseline.js')))
+		.pipe(babel({
+			presets: ['es2015']
+		}))
+		.on('error', function (error) {
+			if (gutil.env.testing && environment.isProduction) {
+				console.error('Build contains some errors');
+				process.exit(1);
+			} else {
+				console.error('Build error: ' + error.message);
+				this.emit('end');
+			}
+		})
+		.pipe(concat('baseline.js'))
 		.pipe(gulpif(environment.isProduction, uglify()))
-		.pipe(gulp.dest(paths.dest));
-}));
+		.pipe(gulp.dest(paths.dest))
+		.on('end', done);
+});

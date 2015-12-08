@@ -28,19 +28,21 @@
 			<!-- endbuild -->
 		{{/if}}
 
+		{{> dns-prefetch}}
 		{{> open-graph-tags}}
 
 		<link rel="canonical" href="{{canonicalUrl}}">
 
 		<style><!-- @include ../../../www/front/styles/main/baseline.css --></style>
 
+		{{> nirvana }}
 		<script>
 			<!-- @include ../../../www/front/scripts/baseline.js -->
 			M.prop('apiBase', '{{{server.apiBase}}}' || '/api/mercury');
 			M.prop('environment', '{{{server.environment}}}');
 			M.prop('queryParams', {{{json queryParams}}});
 			M.prop('tracking', {{{json tracking}}});
-			M.prop('translations', {{{json (translations wikiVariables.language.content ns='main')}}});
+			M.prop('translations', {{{json (translations wikiVariables.language.content ns=localSettings.translationFiles)}}});
 			M.prop('weppyConfig', {{{json localSettings.weppy}}});
 			M.prop('wikiaLanguage', '{{{wikiVariables.language.content}}}');
 			M.prop('userId', {{{userId}}});
@@ -88,11 +90,11 @@
 		<!-- @include ../../../www/front/svg/common.svg -->
 		<!-- @include ../../../www/front/svg/main.svg -->
 
-        {{!--
-        Ember must render out to a specific div above the scripts, otherwise
-        Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
-        DO NOT REMOVE THE FOLLOWING LINE:
-        --}}
+		{{!--
+		Ember must render out to a specific div above the scripts, otherwise
+		Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
+		DO NOT REMOVE THE FOLLOWING LINE:
+		--}}
 		<div id="ember-container">
 			<div id="preload">
 				<nav class="site-head">
@@ -109,14 +111,12 @@
 		</div>
 
 		<script>
-			(function () {
-				document.addEventListener("DOMContentLoaded", function() {
-					M.loadScript('/front/vendor/main.js', function () {
-						M.loadScript('/front/scripts/combined.js');
-					});
-				});
-			}());
+			M.loadScripts([
+				'/front/vendor/main.js',
+				'/front/scripts/combined.js'
+			]);
 		</script>
+
 		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>
 		{{> tracking-pixels}}
 	</body>

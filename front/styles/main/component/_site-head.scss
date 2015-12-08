@@ -54,8 +54,6 @@ $z-header: $z-6;
 }
 
 .headroom-not-top {
-	transition: transform .5s;
-
 	&.pinned {
 		transform: none;
 	}
@@ -76,32 +74,5 @@ $z-header: $z-6;
 	svg {
 		display: block;
 		margin: auto;
-	}
-}
-
-hr.theme {
-	border-width: 0;
-	margin: 0;
-}
-
-@for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical {
-		hr.theme {
-			background-color: #{nth($vertical-colors, $i)};
-		}
-	}
-}
-
-@media #{$desktop-range} {
-	hr.theme {
-		height: 25px;
-		position: relative;
-		z-index: $z-header;
-	}
-}
-
-@media #{$mobile-range} {
-	hr.theme {
-		height: 10px;
 	}
 }

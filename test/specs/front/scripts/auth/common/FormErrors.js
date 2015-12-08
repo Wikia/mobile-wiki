@@ -1,43 +1,57 @@
-QUnit.module('auth/common/FormErrors)', {
-	setup: function () {
-		var form = document.createElement('form');
-		this.AuthTrackerStub = sinon.stub(window, 'AuthTracker').returns({
-			setGaCategory: Function.prototype,
-			trackClick: Function.prototype,
-			trackPageView: Function.prototype,
-			trackSubmit: Function.prototype,
-			track: Function.prototype
-		});
-		this.formErrors = new FormErrors(form);
+QUnit.module('auth/common/FormErrors)', function (hooks) {
+	hooks.beforeEach(function () {
+		var form = document.createElement('form'),
+		AuthTracker = function() {
+			return {
+				setGaCategory: Function.prototype,
+				trackClick: Function.prototype,
+				trackPageView: Function.prototype,
+				trackSubmit: Function.prototype,
+				track: Function.prototype
+			}
+		};
+		FormModule = {};
+
+		require.entries['auth/common/FormErrors'].callback(FormModule, AuthTracker, null);
+
+		this.formErrors = new FormModule.default(form);
+
 		this.formErrors.trackValidationErrors = Function.prototype;
 		this.formErrors.displayFieldValidationError = sinon.spy();
 		this.formErrors.displayGeneralError = sinon.spy();
+
 		window._pageParams = window.pageParams;
 		window.pageParams = {
 			viewType: 'mobile'
 		};
-	},
-	teardown: function () {
+	});
+	hooks.afterEach(function (assert) {
 		window.pageParams = window._pageParams;
-		this.AuthTrackerStub.restore();
-	}
-});
+	});
 
-QUnit.test('FormErrors class is loaded', function () {
-	ok(typeof window.FormErrors === 'function');
-});
+	QUnit.test('FormErrors class is loaded', function (assert) {
+		ok(typeof require('auth/common/FormErrors').default === 'function');
+	});
 
-QUnit.test('Displaying field error', function () {
-	this.formErrors.displayValidationErrors([{'description': 'email_already_exists', 'additional': {'field': 'email'}}]);
+	QUnit.test('Displaying field error', function (assert) {
+		this.formErrors.displayValidationErrors([{
+			'description': 'email_already_exists',
+			'additional': {'field': 'email'}
+		}]);
 
-	ok(this.formErrors.displayGeneralError.called === false);
-	ok(this.formErrors.displayFieldValidationError.called);
-});
+		assert.ok(this.formErrors.displayGeneralError.called === false);
+		assert.ok(this.formErrors.displayFieldValidationError.called);
+	});
 
-QUnit.test('SignupForm field and general error', function () {
-	this.formErrors.displayValidationErrors([{'description': 'email_already_exists', 'additional': {'field': 'email'}},
-		{'description': 'username_blocked', 'additional': {'field': 'username'}}]);
+	QUnit.test('SignupForm field and general error', function (assert) {
+		this.formErrors.displayValidationErrors([{
+			'description': 'email_already_exists',
+			'additional': {'field': 'email'}
+		},
+			{'description': 'username_blocked', 'additional': {'field': 'username'}}]);
 
-	ok(this.formErrors.displayGeneralError.called);
-	ok(this.formErrors.displayFieldValidationError.called);
+		assert.ok(this.formErrors.displayGeneralError.called);
+		assert.ok(this.formErrors.displayFieldValidationError.called);
+	});
+
 });

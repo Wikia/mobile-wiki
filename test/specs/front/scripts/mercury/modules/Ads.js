@@ -1,89 +1,107 @@
-QUnit.module('Ads tests');
+QUnit.module('mercury/modules/Ads', function (hooks) {
+	var Ads,
+		loadStub = sinon.stub().callsArg(1),
+		origRequire;
 
-QUnit.test('Returns ads instance', function () {
-	ok(Mercury.Modules.Ads);
-	equal(typeof Mercury.Modules.Ads.getInstance(), 'object');
-});
+	hooks.beforeEach(function () {
+		var exports = {};
 
-QUnit.test('Init method works', function() {
-	var calledURL,
-		callbackIsCalled = false,
-		testAdsUrl = 'http://exampleAdsUrl.com/',
-		instance = Mercury.Modules.Ads.getInstance(),
-		loadStub = this.stub(M, 'load', function(url, callback) {
-			calledURL = url;
+		require.entries['mercury/modules/Ads'].callback(exports, sinon.stub(), {}, loadStub);
+
+		Ads = exports.default;
+	});
+
+	hooks.afterEach(function () {
+		loadStub.reset();
+	});
+
+	QUnit.test('Returns ads instance', function (assert) {
+		assert.ok(Ads);
+		assert.equal(typeof Ads.getInstance(), 'object');
+	});
+
+	QUnit.test('Init method works', function (assert) {
+		var testAdsUrl = 'http://exampleAdsUrl.com/',
+			reloadWhenReadyStub = sinon.stub(),
+			instance;
+
+		instance = Ads.getInstance();
+
+		instance.reloadWhenReady = reloadWhenReadyStub;
+		instance.kruxTrackFirstPage = sinon.stub();
+
+		origRequire = window.require;
+		window.require = function (modules, callback) {
 			callback();
-		});
+		};
 
-	instance.reloadWhenReady = function () {
-		callbackIsCalled = true;
-	};
+		instance.init(testAdsUrl);
 
-	require = function (modules, callback){
-		callback();
-	};
+		window.require = origRequire;
 
-	instance.init(testAdsUrl);
-	delete(require);
-	equal(calledURL, testAdsUrl);
-	equal(callbackIsCalled, true);
-});
+		assert.ok(loadStub.calledWith(testAdsUrl));
+		assert.ok(reloadWhenReadyStub.calledOnce);
+	});
 
-QUnit.test('Reload ads works', function () {
-	var testContext = {
-			test: 1
-		},
-		setContextSpy = this.spy(),
-		runSpy = this.spy(),
-		incrementSpy = this.spy(),
-		initDetectionSpy = this.spy(),
-		instance = Mercury.Modules.Ads.getInstance();
+	QUnit.test('Reload ads works', function (assert) {
+		var testContext = {
+				test: 1
+			},
+			setContextSpy = this.spy(),
+			runSpy = this.spy(),
+			incrementSpy = this.spy(),
+			initDetectionSpy = this.spy(),
+			instance = Ads.getInstance();
 
-	instance.adContextModule = {
-		setContext: setContextSpy
-	};
-	instance.adEngineModule = {
-		run: runSpy
-	};
-	instance.sourcePointDetectionModule = {
-		initDetection: initDetectionSpy
-	};
-	instance.adConfigMobile = {
-		test: 2
-	};
-	instance.adLogicPageViewCounterModule = {
-		increment: incrementSpy
-	};
-	instance.adSlots = [
-		['slot1']
-	];
+		instance.adContextModule = {
+			setContext: setContextSpy
+		};
+		instance.adEngineModule = {
+			run: runSpy
+		};
+		instance.sourcePointDetectionModule = {
+			initDetection: initDetectionSpy
+		};
+		instance.adConfigMobile = {
+			test: 2
+		};
+		instance.adLogicPageViewCounterModule = {
+			increment: incrementSpy
+		};
+		instance.adSlots = [
+			['slot1']
+		];
+		instance.isLoaded = true;
 
-	instance.reload(testContext);
-	ok(setContextSpy.calledWith(testContext));
-	ok(incrementSpy.calledOnce);
-	ok(initDetectionSpy.calledOnce);
-	ok(runSpy.calledWith(instance.adConfigMobile, instance.adSlots, 'queue.mercury'));
-	instance.adContextModule = undefined;
-	instance.adEngineModule = undefined;
-	instance.adConfigMobile = undefined;
-	instance.adLogicPageViewCounterModule = undefined;
-	instance.adSlots = [];
-});
+		instance.reload(testContext);
+		assert.ok(setContextSpy.calledWith(testContext));
+		assert.ok(incrementSpy.calledOnce);
+		assert.ok(initDetectionSpy.calledOnce);
+		assert.ok(runSpy.calledWith(instance.adConfigMobile, instance.adSlots, 'queue.mercury'));
+		instance.adContextModule = undefined;
+		instance.adEngineModule = undefined;
+		instance.adConfigMobile = undefined;
+		instance.adLogicPageViewCounterModule = undefined;
+		instance.adSlots = [];
+	});
 
-QUnit.test('Add/remove slots works', function () {
-	var instance = Mercury.Modules.Ads.getInstance();
-	equal(instance.adSlots.length, 0);
-	instance.addSlot('test1');
-	equal(instance.adSlots.length, 1);
-	instance.removeSlot('test1');
-	equal(instance.adSlots.length, 0);
-	instance.reload(null);
-});
+	QUnit.test('Add/remove slots works', function (assert) {
+		var instance = Ads.getInstance();
 
-QUnit.test('Push slot to the current queue', function () {
-	var instance = Mercury.Modules.Ads.getInstance();
-	instance.reload(null);
-	equal(instance.slotsQueue.length, 0);
-	instance.pushSlotToQueue('MOBILE_IN_CONTENT');
-	equal(instance.slotsQueue.length, 1);
+		assert.equal(instance.adSlots.length, 0);
+		instance.addSlot('test1');
+		assert.equal(instance.adSlots.length, 1);
+		instance.removeSlot('test1');
+		assert.equal(instance.adSlots.length, 0);
+		instance.reload(null);
+	});
+
+	QUnit.test('Push slot to the current queue', function (assert) {
+		var instance = Ads.getInstance();
+
+		instance.reload(null);
+		assert.equal(instance.slotsQueue.length, 0);
+		instance.pushSlotToQueue('MOBILE_IN_CONTENT');
+		assert.equal(instance.slotsQueue.length, 1);
+	});
 });

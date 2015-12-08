@@ -129,9 +129,7 @@
     "curated-content-editor-remove-item-confirmation":"是否确定要删除此项目?",
     "curated-content-editor-general-section-error":"请修复此版块中的错误。",
     "curated-content-editor-add-items-message":"请将项目添加到这个版块。",
-    "curated-content-editor-missing-items-error":"版块不能为空。请将项目添加到此版块。",
     "curated-content-editor-error-inside-items-message":"请修复各项目中的错误。",
-    "curated-content-editor-error-inside-featured-content":"请修复精选内容中的错误。",
     "curated-content-editor-items-count":"__count__ 个项目"
   }
 }

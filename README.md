@@ -2,30 +2,27 @@
 [![devDependency Status](https://david-dm.org/Wikia/mercury/dev-status.svg)](https://david-dm.org/Wikia/mercury#info=devDependencies)
 
 ## Manual Setup
-* `npm install` will install local dependencies
-* `npm install -g bower jshint gulp forever tsd typescript-formatter bower-installer` to install global dependencies
+* `npm install` will install dependencies
 * `bower update` will install and update client dependencies
-* `tsd update` will update typings folder with ambient files
-* Copy `config/localSettings.example.ts` to your own copy of `localSettings.ts` and set the `port` and `devboxDomain`.
+* Copy `config/localSettings.example.js` to your own copy of `localSettings.js` and set the `port` and `devboxDomain`.
   * The devboxDomain must have your devbox name (without the dev- prefix) in it.
-  * If you want to test with consul, add `mediawikiDomain: 'mediawiki.service.consul'` to your localSettings
+  * If you want to test with consul, add `mediawikiDomain: 'icache.service.sjc.consul'` to your localSettings
   * If you want to see debug output add `loggers: { console: 'debug' }` to your localSettings
 
     File should look something like this:
 ``` javascript
-    import Utils = require('../server/lib/Utils');
+import baseExtendSettingsDev from './localSettings.dev';
+import baseExtendSettingsProd from './localSettings.base';
 
-    var baseLocalSettingPath: string = process.env.WIKIA_ENVIRONMENT === 'dev' ? './localSettings.dev' : './localSettings.base',
-        baseLocalSettings = require(baseLocalSettingPath),
-        localSettings = baseLocalSettings.extendSettings({
-            devboxDomain: 'joe',
-            loggers: {
-                console: 'debug'
-            },
-            port: 8000 // 7000 if running on devbox
-    });
+const baseExtendSettings = process.env.WIKIA_ENVIRONMENT === 'dev' ? baseExtendSettingsDev : baseExtendSettingsProd,
+	localSettings = baseExtendSettings({
+		devboxDomain: 'joe',
+		loggers: {
+			console: 'debug'
+		}
+	});
 
-    export = localSettings;
+export default localSettings;
 ```
 * Start the server and watch files:
   * `npm run local` If running everything locally (e.g. your laptop)
@@ -33,13 +30,12 @@
 
 ## localSettings
 `localSettings` is main configuration structure. All application settings should be stored there.
- * `localSettings.base.ts` - configuration for production environment - used on production and staging
- * `localSettings.test.ts` - configuration for testing environment - used by Jenkins
- * `localSettings.dev.ts` - configuration for development environment - used on devboxes - **you should be extending this one for development**
+ * `localSettings.base.js` - configuration for production environment - used on production, testing and staging
+ * `localSettings.dev.js` - configuration for development environment - used on devboxes - **you should be extending this one for development**
 
 ## Access Mercury
-Open http://muppet.127.0.0.1.xip.io:8000/wiki/Gonzo in your browser
-$ curl -H "Host:muppet.wikia-dev.com" "http://dev-joe:8000/wiki/Gonzo"
+Open http://muppet.127.0.0.1.xip.io:7000/wiki/Gonzo in your browser
+$ curl -H "Host:muppet.wikia-dev.com" "http://dev-joe:7000/wiki/Gonzo"
 
 ##Live reload
 In dev environments the livereload plugin is available when the server is started with `npm run local`.  This will reload your web browser on any change to the `front` folder.

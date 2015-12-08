@@ -8,14 +8,19 @@
 	<span class="timestamp">
 		&bull; {{time-ago post.creationDate.epochSecond}}
 	</span>
+	{{discussion-delete
+		delete=this.attrs.deletePost
+		undelete=this.attrs.undeletePost
+		post=post
+	}}
 </div>
 {{#if isDetailsView}}
 	<div class="discussion-content">
-		{{{post.rawContent}}}
+		{{{parsedContent}}}
 	</div>
 {{else}}
 	<div class="discussion-content" {{action 'goToPost' postId}}>
-		{{{post.rawContent}}}
+		{{{parsedContent}}}
 	</div>
 {{/if}}
 <div class="row">
@@ -54,3 +59,10 @@
 		{{/if}}
 	</div>
 </div>
+{{#if post.isLoading}}
+	{{loading-spinner
+	active=post.isLoading
+	radius=32
+	strokeWidth=2
+	}}
+{{/if}}

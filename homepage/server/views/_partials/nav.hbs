@@ -16,7 +16,11 @@
           </div>
         </li>
         <li class="nav-link more mobile-login">
-          <img src="/vendor/wikia-style-guide/gh-pages/assets/images/icons/icon_avatar.svg" class="icon login" id="loginIcon">
+          {{#if loggedIn}}
+            <img src="{{avatarUrl}}" class="icon avatar" id="loginIcon">
+          {{else}}
+            <img src="/vendor/wikia-style-guide/gh-pages/assets/images/icons/icon_avatar.svg" class="icon login" id="loginIcon">
+          {{/if}}
 
           <ul class="submenu">
             <li>

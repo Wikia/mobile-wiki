@@ -98,7 +98,6 @@
     "curated-content-editor-no-articles-found":"Nessun articolo trovato",
     "curated-content-editor-no-categories-found":"Nessuna categoria trovata",
     "curated-content-editor-suggestions-loading":"Caricamento...",
-    "curated-content-editor-error-inside-featured-content":"Correggi gli errori in Contenuti in primo piano.",
     "curated-content-editor-changes-saved":"Le modifiche sono state salvate",
     "curated-content-editor-image-missing-error":"Si prega di fornire un'immagine",
     "curated-content-editor-missing-label-error":"Nome visualizzato mancante",
@@ -137,7 +136,6 @@
     "curated-content-editor-remove-item-confirmation":"Sei sicuro di voler eliminare questo elemento?",
     "curated-content-editor-general-section-error":"Correggi gli errori in questa sezione.",
     "curated-content-editor-add-items-message":"Aggiungi elementi a questa sezione.",
-    "curated-content-editor-missing-items-error":"Le sezioni non possono essere vuote. Aggiungi elementi alla sezione.",
     "curated-content-editor-error-inside-items-message":"Correggi gli errori nei vari elementi.",
     "curated-content-editor-items-count":"__count__ elemento",
     "curated-content-editor-items-count_plural":"__count__ elementi",
@@ -146,22 +144,6 @@
     "curated-content-editor-new-featured-content":"Nuovo contenuto in primo piano",
     "curated-content-editor-new-section":"Nuova sezione",
     "curated-content-editor-new-category":"Nuova categoria"
-  },
-  "discussion":{
-    "share-default-title":"Forum su __siteName__",
-    "contributors-title":"Tutti i collaboratori",
-    "sort-by-latest":"Più recenti",
-    "sort-by-trending":"In Trend",
-    "loading-more-posts":"Altri post in corso di caricamento",
-    "back-to-wikia-link":"Alla Wiki",
-    "number-of-posts":"__numberOfPosts__ Post",
-    "connection-error":"Impossibile connettersi. Riprova.",
-    "not-found-error":"Ops! Sembra che questa pagina non esista!",
-    "action-retry-title":"Riprova",
-    "all-discussions-link-desktop":"Mostra tutti i forum",
-    "all-discussions-link-mobile":"Tutti i forum",
-    "discussions-app-join":"Vuoi unirti al forum? Scarica la app!",
-    "back-to-discussions-link":"Tutti i forum"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ o __loginLink__",

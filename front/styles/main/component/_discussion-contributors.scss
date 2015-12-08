@@ -8,7 +8,8 @@ $discussion-contributors-avatar-dimension: 30px;
 	}
 
 	.avatar {
-		img {
+		img, svg {
+			border-color: $discussion-contributors-border-color;
 			height: $discussion-contributors-avatar-dimension;
 			width: $discussion-contributors-avatar-dimension;
 		}
@@ -26,6 +27,7 @@ $discussion-contributors-avatar-dimension: 30px;
 		padding: 0;
 		text-align: center;
 		width: $discussion-contributors-avatar-dimension;
+		word-wrap: normal;
 	}
 }
 
@@ -43,7 +45,7 @@ $discussion-contributors-avatar-dimension: 30px;
 
 	.discussion-contributors-title {
 		color: $discussion-contributors-rail-title;
-		font-size: $type-smallest;
+		font-size: $discussion-post-type-smaller-than-min;
 		font-weight: bold;
 		line-height: 18px;
 		margin-top: 40px;

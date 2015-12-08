@@ -1,25 +1,40 @@
-QUnit.module('VideoPlayers.OoyalaPlayer', {
-	setup: function () {
-		var params = {
-			videoId: 666,
-			jsFile: ['foo'],
-			playerId: 'testId',
-			size: {
-				width: 100,
-				height: 100
-			}
+QUnit.module('mercury/modules/VideoPlayers/Ooyala', function (hooks) {
+	var OoyalaPlayer,
+		getInstance = function () {
+			var instance = new OoyalaPlayer('ooyala', {
+				videoId: 666,
+				jsFile: ['foo'],
+				playerId: 'testId',
+				size: {
+					width: 100,
+					height: 100
+				}
+			});
+
+			instance.createPlayer = sinon.stub();
+
+			return instance;
 		};
-		this.player = new Mercury.Modules.VideoPlayers.OoyalaPlayer('ooyala', params);
-	},
-	teardown: function () {
-	}
-});
 
-QUnit.test('resourceURI is set', function () {
-	ok(this.player.resourceURI.length > 0);
-	equal(this.player.resourceURI, 'foo');
-});
+	hooks.beforeEach(function () {
+		var loadStub = sinon.stub().callsArg(1),
+			baseExports = {},
+			exports = {};
 
-QUnit.test('containerId is set', function () {
-	ok(this.player.containerId.match('testId'));
+		require.entries['mercury/modules/VideoPlayers/Base'].callback(baseExports, loadStub);
+		require.entries['mercury/modules/VideoPlayers/Ooyala'].callback(exports, baseExports.default);
+
+		OoyalaPlayer = exports.default;
+	});
+
+	QUnit.test('resourceURI is set', function () {
+		var instance = getInstance();
+
+		ok(instance.resourceURI.length > 0);
+		equal(instance.resourceURI, 'foo');
+	});
+
+	QUnit.test('containerId is set', function () {
+		ok(getInstance().containerId.match('testId'));
+	});
 });

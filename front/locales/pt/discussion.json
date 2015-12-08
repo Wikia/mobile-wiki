@@ -1,0 +1,45 @@
+{
+  "landing-page":{
+    "to-the-wiki-title":"to the Wiki",
+    "page-main-header":"The hottest __applicationName__ discussions with the biggest fans.",
+    "download-the-app-header":"Download the app to join in now!",
+    "google-play-button-alt":"Obter no Google Play",
+    "start-discussions-title":"Start Discussions",
+    "start-discussions-text":"Ask a question, share news or just talk with other fans from around the world about your favourite topics!",
+    "upvote-the-best-title":"Upvote the Best",
+    "upvote-the-best-text":"See something you love? Cast your upvote to show your appreciation and influence what's trending.",
+    "share-your-knowledge-title":"Share your knowledge",
+    "share-your-knowledge-text":"Share your favourite discussions with your social networks to bring more fans into the fold."
+  },
+  "main":{
+    "pagination-post-show-more":"Visualizar respostas mais antigas",
+    "share-default-title":"Discussão em __siteName__",
+    "contributors-title":"Todos os colaboradores",
+    "sort-by-latest":"Mais recentes",
+    "sort-by-trending":"Tendências",
+    "loading-more-posts":"Carregando mais posts",
+    "back-to-wikia-link":"Voltar para Wikia",
+    "number-of-posts":"__numberOfPosts__ Posts",
+    "connection-error":"Não é possível conectar, por favor, tente novamente.",
+    "not-found-error":"Opa, parece que esta página não existe!",
+    "action-retry-title":"Tente novamente",
+    "all-discussions-link-desktop":"Mostre-me todas as discussões",
+    "all-discussions-link-mobile":"Todas as discussões",
+    "discussions-app-join":"Você quer participar da discussão? Obtenha o app agora!",
+    "back-to-discussions-link":"Todas as discussões",
+    "no-replies":"Ainda sem respostas.",
+    "no-replies-be-the-first":"Ainda sem respostas. Seja o primeiro!"
+  },
+  "editor":{
+    "post-failed-error":"O post falhou.",
+    "post-error-anon-cant-post":"Iniciar sessão para participar da discussão!",
+    "post-error-not-authorized":"Você não pode postar porque sua conta foi bloqueada.",
+    "post-error-general-error":"Opa, parece que algo deu errado! Por favor, tente novamente mais tarde.",
+    "post-editor-label":"Criar um post",
+    "post-action-button-label":"Postar",
+    "post-editor-placeholder-text":"Compartilhe um pensamento, perguntas ou link...",
+    "reply-editor-placeholder-text":"Escreva uma resposta...",
+    "reply-editor-label":"Adicionar à discussão",
+    "reply-action-button-label":"Responder"
+  }
+}
