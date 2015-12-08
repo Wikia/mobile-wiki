@@ -4,7 +4,7 @@ export default App.ImageReviewModel = Ember.Object.extend({
 
 	init() {
 		this.isModalVisible = false;
-		this.modalImageUUID = '123';
+		this.modalImageUUID = null;
 		this.images = this.get('images');
 		this.baseImgUrl = 'http://vignette-poz.wikia-dev.com/';
 	},
