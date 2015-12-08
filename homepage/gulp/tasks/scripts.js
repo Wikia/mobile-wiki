@@ -14,16 +14,13 @@ var gulp = require('gulp'),
 	paths = require('../paths').scripts.homepage,
 	path = require('path');
 
-gulp.task('scripts', ['eslint'], folders(paths.src, function (folder) {
+gulp.task('scripts', ['eslint', 'scripts-front-modules-homepage'], folders(paths.src, function (folder) {
 	return gulp.src([
 		'!' + path.join(paths.src, folder),
 		path.join(paths.src, folder, paths.files)
 	])
 		.pipe(babel({
-			presets: ['babel-preset-es2015'],
-			plugins: ['transform-runtime'],
-//			plugins: ['transform-runtime', 'transform-es2015-modules-umd'],
+			presets: ['es2015'],
 		}))
-//		.pipe(gulpif(environment.isProduction, uglify()))
 		.pipe(gulp.dest(paths.dest));
 }));

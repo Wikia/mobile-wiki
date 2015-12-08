@@ -1,25 +1,15 @@
-class Globals {
-	constructor() {
-		this.loadGlobalData().then((data) => {
-			this.cachedData = data;
+let cachedData = {};
+
+export function loadGlobalData() {
+	new RSVP.Promise((resolve)  => {
+		$.get('/globals', (data) => {
+			resolve(data);
+		}).then((data) => {
+			cachedData = data;
 		});
-	}
-
-	loadGlobalData() {
-		return new RSVP.Promise((resolve, reject)  => {
-			$.get('/globals', (data) => {
-				resolve(data);
-			});
-		});
-	}
-
-	getLoginUrl()  {
-		return this.cachedData ? this.cachedData.loginUrl : null;
-	}
-
-	getSignupUrl() {
-		return this.cachedData ? this.cachedData.signupUrl : null;
-	}
+	});
 }
 
-module.exports = Globals;
+export function getLoginUrl() {
+	return cachedData ? cachedData.loginUrl : null;
+}

@@ -27,6 +27,7 @@
     "request": "^2.60.0"
   },
   "devDependencies": {
+    "babel-eslint": "^4.1.6",
     "babel-plugin-transform-es2015-modules-umd": "^6.0.15",
     "browser-sync": "^2.8.0",
     "gulp": "*",
@@ -56,6 +57,7 @@
     "multipipe": "^0.1.2",
     "phantomjs": "^1.9.18",
     "pretty-hrtime": "^1.0.0",
-    "qunitjs": "^1.18.0"
+    "qunitjs": "^1.18.0",
+    "systemjs-builder": "^0.14.11"
   }
 }

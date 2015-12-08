@@ -1,7 +1,5 @@
-
-
-let Globals = require('./globals'),
-	parallaxWindow = $('#js-parallax-window');;
+import {loadGlobalData, getLoginUrl} from './globals';
+const parallaxWindow = $('#js-parallax-window');
 
 $(function () {
 	if (parallaxWindow.length) {
@@ -29,7 +27,7 @@ $(function () {
 	headings.bigText({maximumFontSize: 20, verticalAlign: 'top'});
 	headings.css({padding: '.1rem'});
 
-	globals = new Globals();
+	loadGlobalData();
 });
 
 function parallax() {
@@ -68,7 +66,7 @@ $('#loginIcon').click((event) => {
 	if ($(document).width() < 710) {
 		$('#userInfoToggle').toggle();
 	} else {
-		window.location.href = globals.getLoginUrl();
+		window.location.href = getLoginUrl();
 	}
 
 	event.preventDefault();
