@@ -1,3 +1,6 @@
+## release-195 hotfix 1 (2015-12-08 15:34 UTC)
+* [XW-93](https://wikia-inc.atlassian.net/browse/XW-93) revert XW-93
+
 ## release-195 (2015-12-08 12:38 UTC)
 * [XW-93](https://wikia-inc.atlassian.net/browse/XW-93) XW-93 | Replace inline SVG sprite with requested asset
 * [SOC-1739](https://wikia-inc.atlassian.net/browse/SOC-1739) SOC-1739 | editor misbehave for anon user
