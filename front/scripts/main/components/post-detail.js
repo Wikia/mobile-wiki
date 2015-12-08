@@ -45,7 +45,7 @@ export default App.PostDetailComponent = Ember.Component.extend(
 			 * @returns {void}
 			 */
 			goToPost(postId, event = {}) {
-				if(event.ctrlKey || event.metaKey) {
+				if (event.ctrlKey || event.metaKey) {
 					this.sendAction('goToPost', postId, true);
 				} else {
 					this.sendAction('goToPost', postId);
