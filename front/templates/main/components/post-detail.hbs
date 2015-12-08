@@ -32,18 +32,18 @@
 		</div>
 	{{else}}
 		<div class="small-2 large-2 columns count">
-			<a class="replies-area" href="{{postFullUrl}}">
+			{{#link-to 'discussion.post' postId class='replies-area' }}
 				{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
 				{{replyCount}}
-			</a>
+			{{/link-to}}
 		</div>
 	{{/if}}
 	<div class="share small-5 large-7 columns">
 		{{#if isDetailsView}}
-			{{share-feature sharedUrl=postFullUrl}}
+			{{share-feature sharedUrl=sharedUrl}}
 		{{else}}
 			{{share-feature
-				sharedUrl=postFullUrl
+				sharedUrl=sharedUrl
 				isVisible=isShareFeatureVisible
 				onMouseEnter=(action 'cancelHideShareComponent')
 				onMouseLeave=(action 'hideShareComponent')
