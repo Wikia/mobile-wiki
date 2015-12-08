@@ -5,11 +5,11 @@ QUnit.module('lib/MediaWiki', {
 });
 
 test('createURL', function () {
-	global.localSettings.environment = 'dev';
-	global.localSettings.devboxDomain = 'test';
-	global.localSettings.mediawikiDomain = undefined;
+	global.localSettings.default.environment = 'dev';
+	global.localSettings.default.devboxDomain = 'test';
+	global.localSettings.default.mediawikiDomain = undefined;
 
-	equal(global.createUrl('foo.test.wikia-dev.com', 'api/test', { }),
+	equal(global.createUrl('foo.test.wikia-dev.com', 'api/test', {}),
 		'http://foo.test.wikia-dev.com/api/test', 'zero query params');
 	equal(global.createUrl('foo.test.wikia-dev.com', 'api/test', {
 		title: 'bar'
@@ -21,8 +21,8 @@ test('createURL', function () {
 	equal(global.createUrl('foo.test.wikia-dev.com', 'api/test'),
 		'http://foo.test.wikia-dev.com/api/test', 'missing query params');
 
-	global.localSettings.mediawikiDomain = 'mediawiki.service.consul';
-	equal(global.createUrl('foo.test.wikia-dev.com', 'api/test', { }),
+	global.localSettings.default.mediawikiDomain = 'mediawiki.service.consul';
+	equal(global.createUrl('foo.test.wikia-dev.com', 'api/test', {}),
 		'http://mediawiki.service.consul/api/test', 'consul url rewrite');
 });
 

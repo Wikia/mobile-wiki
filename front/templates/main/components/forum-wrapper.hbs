@@ -8,14 +8,15 @@
 }}
 {{#each posts as |item|}}
 	{{post-detail
-		goToPost='goToPost'
-		upvote='upvote'
 		author=item.createdBy
-		isDeleted=item.isDeleted
+		deletePost=(action this.attrs.deletePost)
+		goToPost='goToPost'
 		isVisible=item._embedded.firstPost.[0].isVisible
 		post=item._embedded.firstPost.[0]
 		postId=item.id
 		replyCount=item.postCount
+		undeletePost=(action this.attrs.undeletePost)
+		upvote='upvote'
 	}}
 {{/each}}
 {{#if hasMore}}

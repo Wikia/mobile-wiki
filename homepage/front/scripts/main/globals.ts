@@ -1,5 +1,5 @@
-/// <reference path="../../../../typings/jquery/jquery.d.ts" />
-/// <reference path="../../../../typings/rsvp/rsvp.d.ts" />
+/// <reference path="../../../typings/jquery/jquery.d.ts" />
+/// <reference path="../../../typings/rsvp/rsvp.d.ts" />
 
 'use strict';
 

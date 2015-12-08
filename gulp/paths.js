@@ -31,13 +31,11 @@ module.exports = {
 		front: {
 			src: 'front/scripts',
 			dest: basePath + '/front/scripts',
-			tsFiles: '**/*.ts',
-			tsdFiles: '**/*.d.js',
 			jsFiles: '**/*.js'
 		},
 		server: {
-			src: 'server/**/*.ts',
-			config: 'config/*.ts',
+			src: 'server/**/*.js',
+			config: 'config/*.js',
 			dest: basePath
 		}
 	},
@@ -68,9 +66,8 @@ module.exports = {
 	},
 	config: {
 		path: 'config/',
-		baseFile: 'localSettings.base.ts',
-		exampleFile: 'localSettings.example.ts',
-		testFile: 'localSettings.test.ts',
-		runtimeFile: 'localSettings.ts'
+		baseFile: 'localSettings.base.js',
+		exampleFile: 'localSettings.example.js',
+		runtimeFile: 'localSettings.js'
 	}
 };
