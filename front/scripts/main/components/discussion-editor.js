@@ -34,8 +34,11 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 */
 	init(...params) {
 		this._super(...params);
-
 		this.set('isActive', false);
+
+		Ember.$(document).on('click', '.new-post', () => {
+			this.actions.toggleEditorActive.call(this, true);
+		});
 	},
 
 	/**
