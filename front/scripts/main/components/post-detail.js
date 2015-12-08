@@ -51,6 +51,7 @@ export default App.PostDetailComponent = Ember.Component.extend(
 					this.sendAction('goToPost', postId);
 				}
 			},
+
 			/**
 			 * @returns {void}
 			 */
