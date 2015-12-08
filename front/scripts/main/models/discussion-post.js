@@ -12,7 +12,7 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 	upvoteCount: 0,
 	postCount: 0,
 	page: 0,
-	isRequesterBlocked: true,
+	isRequesterBlocked: false,
 
 	contributors: [],
 

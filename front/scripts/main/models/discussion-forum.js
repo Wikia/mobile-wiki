@@ -7,7 +7,7 @@ export default App.DiscussionForumModel = DiscussionBaseModel.extend(DiscussionD
 	pageNum: null,
 	posts: null,
 	totalPosts: 0,
-	isRequesterBlocked: true,
+	isRequesterBlocked: false,
 
 	contributors: [],
 
