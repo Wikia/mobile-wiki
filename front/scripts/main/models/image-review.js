@@ -32,9 +32,7 @@ App.ImageReviewModel.reopenClass({
 				xhrFields: {
 					withCredentials: true
 				},
-				success: (data) => {
-					resolve(App.ImageReviewModel.getImages(data.id));
-				},
+				success: (data) => resolve(App.ImageReviewModel.getImages(data.id)),
 				error: (data) => reject(data)
 			});
 		});
@@ -49,9 +47,7 @@ App.ImageReviewModel.reopenClass({
 				},
 				dataType: 'json',
 				method: 'DELETE',
-				success: (data) => {
-					resolve(data);
-				},
+				success: (data) => resolve(data),
 				error: (data) => reject(data)
 			});
 		});
@@ -87,9 +83,7 @@ App.ImageReviewModel.reopenClass({
 				},
 				dataType: 'json',
 				method: 'PUT',
-				success: (data) => {
-					resolve(data);
-				},
+				success: (data) => resolve(data),
 				error: (data) => reject(data)
 			});
 		});
@@ -105,9 +99,7 @@ App.ImageReviewModel.reopenClass({
 				},
 				dataType: 'json',
 				method: 'POST',
-				success: (data) => {
-					resolve(data);
-				},
+				success: (data) => resolve(data),
 				error: (data) => reject(data)
 			});
 		});
