@@ -40,20 +40,21 @@ body.discussions {
 		font-size: $type-min;
 		font-weight: bold;
 
-		.share-area,
 		.upvote-area,
 		.replies-area {
 			display: block;
-			height: 30px;
-			line-height: 30px;
-		}
-
-		.upvote-area,
-		.replies-area {
 			color: $discussion-count-color;
 			float: left;
+			height: 30px;
+			line-height: 30px;
 			padding: 0 2px;
 		}
+	}
+
+	.share-area {
+		display: block;
+		height: 30px;
+		line-height: 30px;
 	}
 
 	.delete-actions {
