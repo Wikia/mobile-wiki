@@ -1,11 +1,51 @@
 import {loadGlobalData, getLoginUrl} from './globals';
+
 const parallaxWindow = $('#js-parallax-window');
 
-$(function () {
+/**
+ * @returns {void}
+ */
+function parallax() {
+	if (parallaxWindow.length > 0) {
+		const plxBackground = $('#js-parallax-background'),
+			plxWindow = $('#js-parallax-window'),
+			plxWindowTopToPageTop = $(plxWindow).offset().top,
+			windowTopToPageTop = $(window).scrollTop(),
+			plxWindowTopToWindowTop = plxWindowTopToPageTop - windowTopToPageTop,
+			plxSpeed = 0.5;
+
+		plxBackground.css('top', `${-(plxWindowTopToWindowTop * plxSpeed)}px`);
+	}
+}
+
+/**
+ * @returns {void}
+ */
+function search() {
+	let searchText = encodeURI($('#searchWikiaText').val());
+
+	if (!searchText) {
+		// search button for mobile is different element
+		searchText = encodeURI($('#searchWikiaTextMobile').val());
+	}
+
+	if (searchText) {
+		let searchUrl = 'http://ja.wikia.com/Special:Search?search=';
+
+		searchUrl += searchText;
+		searchUrl += '&fulltext=Search&resultsLang=ja';
+
+		window.location.href = searchUrl;
+	}
+}
+
+$(() => {
+	const headings = $('.grid-heading');
+
 	if (parallaxWindow.length) {
 		parallax();
 
-		$(window).scroll((e) => {
+		$(window).scroll(() => {
 			parallax();
 		});
 	}
@@ -23,29 +63,11 @@ $(function () {
 	// Dynamically adjust text size to show community title without text break.
 	// bigText adjusts the size programatically and strips off css padding, so it is
 	// necessary to add it in explicitly afterwards
-	var headings = $('.grid-heading');
 	headings.bigText({maximumFontSize: 20, verticalAlign: 'top'});
 	headings.css({padding: '.1rem'});
 
 	loadGlobalData();
 });
-
-function parallax() {
-	if (parallaxWindow.length > 0) {
-		var plxBackground = $('#js-parallax-background'),
-		    plxWindow = $('#js-parallax-window'),
-		    plxWindowTopToPageTop  = $(plxWindow).offset().top,
-		    windowTopToPageTop = $(window).scrollTop(),
-		    plxWindowTopToWindowTop = plxWindowTopToPageTop - windowTopToPageTop,
-		    plxBackgroundTopToPageTop  = $(plxBackground).offset().top,
-		    windowInnerHeight = window.innerHeight,
-		    plxBackgroundTopToWindowTop = plxBackgroundTopToPageTop - windowTopToPageTop,
-		    plxBackgroundTopToWindowBottom = windowInnerHeight - plxBackgroundTopToWindowTop,
-		    plxSpeed = 0.5;
-
-		plxBackground.css('top', -(plxWindowTopToWindowTop * plxSpeed) + 'px');
-	}
-}
 
 $('#beginnersGuide').click((event) => {
 	window.location.href = '/beginners';
@@ -76,23 +98,3 @@ $('#whatIsWikia').click((event) => {
 	window.location.href = '/beginners';
 	event.preventDefault();
 });
-
-function search()  {
-	var searchText,
-		searchUrl;
-
-	searchText = encodeURI($('#searchWikiaText').val());
-
-	if (!searchText) {
-		// search button for mobile is different element
-		searchText = encodeURI($('#searchWikiaTextMobile').val());
-	}
-
-	if (searchText) {
-		searchUrl = 'http://ja.wikia.com/Special:Search?search=';
-		searchUrl += searchText;
-		searchUrl += '&fulltext=Search&resultsLang=ja';
-
-		window.location.href = searchUrl;
-	}
-}
