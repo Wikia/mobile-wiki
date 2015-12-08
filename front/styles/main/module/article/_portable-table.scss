@@ -28,6 +28,11 @@ $portable-table-cell-vertical-padding: 12px;
 table[data-portable="true"] {
 	font-size: $type-smallest;
 
+	// overrides default img styles for proper rendering inside tables
+	img {
+		max-width: $portable-table-cell-horizontal-padding * 3;
+	}
+
 	th,
 	td {
 		padding: $portable-table-cell-vertical-padding $article-horizontal-padding;
