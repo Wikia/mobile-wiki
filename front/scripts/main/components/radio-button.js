@@ -9,5 +9,7 @@ export default App.RadioButtonComponent = Ember.Component.extend({
 		return this.get('value') === this.get('groupValue');
 	}),
 
-	change: () => this.set('groupValue', this.get('value'))
+	change: function () {
+		this.set('groupValue', this.get('value'));
+	}
 });
