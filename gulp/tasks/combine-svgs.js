@@ -15,12 +15,13 @@ var gulp = require('gulp'),
 	path = require('path');
 
 /**
- * Instead of single task, we want to build all folders as separate svg (with separate manifests)
- *
- * @param {string} folder
- * @returns {void}
+ * This task iterates though svg/symbols/* dirs and (as a side effect) creates manifest file for every directory:
+ * rev-manifest-common.json
+ * rev-manifest-discussion.json
+ * rev-manifest-main.json
+ * rev-manifest-social.json
  */
-function combineSvgFolder(folder) {
+gulp.task('combine-svgs', folders(paths.src, function (folder) {
 	return piper(
 		gulp.src(path.join(paths.src, folder, paths.files)),
 		svgSymbols(),
@@ -34,22 +35,4 @@ function combineSvgFolder(folder) {
 			gulp.dest(paths.dest)
 		))
 	);
-}
-
-gulp.task('combine-svg-common', function() {
-	return combineSvgFolder('common');
-});
-
-gulp.task('combine-svg-discussion', function() {
-	return combineSvgFolder('discussion');
-});
-
-gulp.task('combine-svg-main', function() {
-	return combineSvgFolder('main');
-});
-
-gulp.task('combine-svg-social', function() {
-	return combineSvgFolder('social');
-});
-
-gulp.task('combine-svgs', ['combine-svg-common', 'combine-svg-discussion', 'combine-svg-main', 'combine-svg-social']);
+}));
