@@ -55,7 +55,7 @@ export default App.DiscussionForumRoute = Ember.Route.extend(DiscussionLayoutMix
 		 */
 		goToPost(postId, openInNewTab = false) {
 			if (openInNewTab) {
-				window.open(`${Ember.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)}/d/p/${postId}`, '_blank');
+				window.open(this.get('router').generate('discussion.post', postId));
 			} else {
 				const postController = this.controllerFor('discussionPost'),
 					forumController = this.controllerFor('discussionForum');
