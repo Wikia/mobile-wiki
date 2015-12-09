@@ -6,6 +6,6 @@ import App from '../app';
  * @param {Array} params
  * @returns {string}
  */
-App.EqualHelper = Ember.Helper.helper((params) => {
+export default App.EqualHelper = Ember.Helper.helper((params) => {
 	return params[0] === params[1];
 });
