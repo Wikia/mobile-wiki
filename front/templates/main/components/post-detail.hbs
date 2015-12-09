@@ -37,7 +37,7 @@
 		</div>
 	{{else}}
 		<div class="small-2 large-2 columns count">
-			<a {{action 'goToPost' postId}} class="replies-area">
+			{{#link-to 'discussion.post' postId class='replies-area'}}
 				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
 				{{replyCount}}
 			{{/link-to}}
