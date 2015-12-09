@@ -11,8 +11,6 @@ export default App.DiscussionForumController = Ember.Controller.extend(Discussio
 	// Whether the sort component is currently visible
 	sortVisible: false,
 
-	editorActive: false,
-
 	isEditorOpen: false,
 
 	rejectAnon() {
