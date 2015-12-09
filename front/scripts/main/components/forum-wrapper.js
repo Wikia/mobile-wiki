@@ -47,6 +47,10 @@ export default App.ForumWrapperComponent = Ember.Component.extend(
 			create(postData) {
 				return this.sendAction('create', postData);
 			},
+
+			toggleEditor(active) {
+				this.sendAction('toggleEditor', active);
+			}
 		},
 
 		/**

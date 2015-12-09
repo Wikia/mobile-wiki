@@ -40,7 +40,7 @@ export default App.DiscussionHeaderComponent = Ember.Component.extend(
 
 			openEditor() {
 				this.sendAction('openEditor');
-			},
+			}
 		},
 	}
 );

@@ -27,7 +27,7 @@ export default App.DiscussionForumController = Ember.Controller.extend(Discussio
 		window.alert(message);
 	},
 
-	openEditor() {
+	setEditorOpen() {
 		const isAnon = this.get('currentUser.isAuthenticated') === null,
 			isUserBlocked = this.get('model.isRequesterBlocked');
 
@@ -44,7 +44,7 @@ export default App.DiscussionForumController = Ember.Controller.extend(Discussio
 		}
 	},
 
-	closeEditor() {
+	setEditorClosed() {
 		if (this.get('isEditorOpen') === true) {
 			this.set('isEditorOpen', true);
 		}
@@ -104,11 +104,17 @@ export default App.DiscussionForumController = Ember.Controller.extend(Discussio
 		},
 
 		openEditor() {
-			this.openEditor();
+			this.setEditorOpen();
 		},
 
 		closeEditor() {
-			this.closeEditor();
+			this.setEditorClosed();
+		},
+
+		toggleEditor(active) {
+			if (this.get('isEditorOpen') !== active) {
+				this.set('isEditorOpen', active);
+			}
 		}
 	}
 });

@@ -41,9 +41,9 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		// make Ember work with "Data down, actions up" pattern for component1-controller-component2.
 		// So instead of discussion-header indicating event observer in discussion-editor component, we are using
 		// old-fashioned, not-Ember-way, jQuery action binding solution.
-		Ember.$(document).on('click', '.new-post', () => {
-			this.actions.toggleEditorActive.call(this, true);
-		});
+		//Ember.$(document).on('click', '.new-post', () => {
+		//	this.actions.toggleEditorActive.call(this, true);
+		//});
 	},
 
 	/**
@@ -102,7 +102,11 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	}),
 
 	isEditorOpenObserver: Ember.observer('isEditorOpen', function () {
-		console.log('Obserwer pokazuje',this.get('isEditorOpen'));
+		var isEditorOpen = this.get('isEditorOpen');
+
+		if (isEditorOpen !== this.get('isActive')) {
+			this.set('isActive', isEditorOpen);
+		}
 	}),
 
 	/**
@@ -221,32 +225,8 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		 * @returns {void}
 		 */
 		toggleEditorActive(active) {
-			const isRequesterBlocked = this.get('isRequesterBlocked');
-			// do NOT set the editor active under certain rules:
-			// 1. user is not logged in
-			// 2. user is blocked
-			if (active === true &&
-				(this.get('currentUser.userId') === null || isRequesterBlocked === true)) {
-
-				const errorMessageOld = this.get('errorMessage');
-
-				this.setProperties({
-					isActive: false,
-					errorMessage: isRequesterBlocked ?
-						'editor.post-error-not-authorized' : 'editor.post-error-anon-cant-post'
-				});
-
-				// to indicate errorMessage observer even if error message is the same as before
-				if (errorMessageOld === this.get('errorMessage')) {
-					this.notifyPropertyChange('errorMessage');
-				}
-
-				this.$('.editor-textarea').blur();
-
-				return;
-			}
-
 			this.set('isActive', active);
+			this.sendAction('toggleEditor', active);
 		},
 
 		/**
