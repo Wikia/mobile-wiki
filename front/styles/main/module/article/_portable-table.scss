@@ -31,11 +31,10 @@ table[data-portable="true"] {
 	th,
 	td {
 		padding: $portable-table-cell-vertical-padding $article-horizontal-padding;
-		white-space: nowrap;
+		max-width: $portable-table-cell-horizontal-padding * 4;
 
 		&:not(:first-child) {
 			padding-left: 0;
-			text-align: right;
 
 			&:not(:last-child) {
 				padding-right: $portable-table-cell-horizontal-padding;
@@ -45,6 +44,7 @@ table[data-portable="true"] {
 
 	th {
 		background-color: $color-blue-gray-light;
+		vertical-align: top;
 	}
 
 	tr:nth-child(odd) td {
