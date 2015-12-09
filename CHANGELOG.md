@@ -1,3 +1,7 @@
+## release-196 hotfix 2 (2015-12-09 22:01 UTC)
+* [DAT-3556](https://wikia-inc.atlassian.net/browse/DAT-3556) DAT-3556 | fix issue with extremely long table cells
+* [DAT-3555](https://wikia-inc.atlassian.net/browse/DAT-3555) DAT-3555 | set max-width to arbitrary value
+
 ## release-196 hotfix 1 (2015-12-09 09:45 UTC)
 * [SOC-1762](https://wikia-inc.atlassian.net/browse/SOC-1762) SOC-1762| Fix GA tracking for auth pages
 
