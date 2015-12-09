@@ -483,7 +483,7 @@ export default App.CuratedContentEditorItemFormComponent = Ember.Component.exten
 		setSearchSuggestions() {
 			const title = this.get('model.title');
 
-			CuratedContentEditorItemModel.getSearchSuggestions(title)
+			CuratedContentEditorItemModel.getSearchSuggestions(title, this.get('isCategory'))
 				.then((data) => {
 					this.set('searchSuggestionsResult', data.items);
 				})
