@@ -58,7 +58,7 @@ export default App.DiscussionForumRoute = DiscussionBaseRoute.extend(
 			 * @param {bool} openInNewTab
 			 * @returns {void}
 			 */
-				goToPost(postId, openInNewTab = false) {
+			goToPost(postId, openInNewTab = false) {
 				if (openInNewTab) {
 					window.open(this.get('router').generate('discussion.post', postId));
 				} else {
