@@ -6,9 +6,7 @@ let cachedData = {};
  * @returns {void}
  */
 export function loadGlobalData() {
-	new RSVP.Promise((resolve) => {
-		$.get('/globals', (data) => resolve(data)).then((data) => cachedData = data);
-	});
+	$.get('/globals', (data) => cachedData = data);
 }
 
 /**
