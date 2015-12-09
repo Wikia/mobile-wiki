@@ -6,7 +6,7 @@ import App from '../app';
  * @param {Array} params
  * @returns {string}
  */
-App.DurationHelper = Ember.Helper.helper((params) => {
+export default App.DurationHelper = Ember.Helper.helper((params) => {
 	const value = params[0],
 		hours = Math.floor(value / 3600),
 		minutes = Math.floor((value - (hours * 3600)) / 60),

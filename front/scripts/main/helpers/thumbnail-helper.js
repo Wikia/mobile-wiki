@@ -10,7 +10,7 @@ import App from '../app';
  * @param {Object} options
  * @returns {Ember.Handlebars.SafeString}
  */
-App.ThumbnailHelper = Ember.Helper.helper((params, options) => {
+export default App.ThumbnailHelper = Ember.Helper.helper((params, options) => {
 	const thumbnailer = Thumbnailer,
 		defaultMode = thumbnailer.mode.fixedAspectRatio,
 		defaultWidth = 100,
@@ -38,8 +38,8 @@ App.ThumbnailHelper = Ember.Helper.helper((params, options) => {
 		mode = defaultMode;
 	}
 
-	width = Ember.getWithDefault(options, 'hash.width', defaultWidth);
-	height = Ember.getWithDefault(options, 'hash.height', defaultHeight);
+	width = Ember.getWithDefault(options, 'width', defaultWidth);
+	height = Ember.getWithDefault(options, 'height', defaultHeight);
 	alt = Ember.Handlebars.Utils.escapeExpression(Ember.get(options, 'alt'));
 	className = Ember.Handlebars.Utils.escapeExpression(Ember.get(options, 'className')) || className;
 
