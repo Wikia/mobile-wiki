@@ -12,6 +12,8 @@ export default App.PostDetailComponent = Ember.Component.extend(
 		isDeleted: Ember.computed.alias('post.isDeleted'),
 		postId: null,
 
+		routing: Ember.inject.service('-routing'),
+
 		/**
 		 * Returns link to the post author's user page
 		 * @returns {string}
@@ -36,16 +38,23 @@ export default App.PostDetailComponent = Ember.Component.extend(
 
 		// URL passed to the ShareFeatureComponent for sharing a post
 		sharedUrl: Ember.computed('postId', function () {
-			return `${Ember.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)}/d/p/${this.get('postId')}`;
+			const localPostUrl = this.get('routing').router.generate('discussion.post', this.get('postId'));
+
+			return `${Ember.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)}${localPostUrl}`;
 		}),
 
 		actions: {
 			/**
 			 * @param {number} postId
+			 * @param {object} event
 			 * @returns {void}
 			 */
-			goToPost(postId) {
-				this.sendAction('goToPost', postId);
+			goToPost(postId, event = {}) {
+				if (event.ctrlKey || event.metaKey) {
+					this.sendAction('goToPost', postId, true);
+				} else {
+					this.sendAction('goToPost', postId);
+				}
 			},
 
 			/**
