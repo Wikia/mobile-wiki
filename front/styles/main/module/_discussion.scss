@@ -36,6 +36,10 @@ body.discussions {
 		}
 	}
 
+	.clickable {
+		cursor: pointer;
+	}
+
 	.count {
 		color: $discussion-count-color;
 		font-size: $type-min;

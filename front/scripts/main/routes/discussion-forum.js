@@ -9,7 +9,7 @@ export default App.DiscussionForumRoute = DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionDeleteRouteMixin, {
-		defaultSortType: null,
+		defaultSortType: 'trending',
 		forumId: null,
 
 		/**
@@ -32,7 +32,6 @@ export default App.DiscussionForumRoute = DiscussionBaseRoute.extend(
 		 */
 		setupController(controller, model, transition) {
 			this._super(controller, model, transition);
-			this.defaultSortType = controller.get('sortTypes')[0].name;
 			controller.set('sortBy', transition.params['discussion.forum'].sortBy || this.defaultSortType);
 		},
 
@@ -55,15 +54,19 @@ export default App.DiscussionForumRoute = DiscussionBaseRoute.extend(
 		actions: {
 			/**
 			 * @param {number} postId
+			 * @param {bool} openInNewTab
 			 * @returns {void}
 			 */
-			goToPost(postId) {
-				const postController = this.controllerFor('discussionPost'),
-					forumController = this.controllerFor('discussionForum');
+			goToPost(postId, openInNewTab = false) {
+				if (openInNewTab) {
+					window.open(this.get('router').generate('discussion.post', postId));
+				} else {
+					const postController = this.controllerFor('discussionPost'),
+						forumController = this.controllerFor('discussionForum');
 
-				postController.set('postListSort', forumController.get('sortBy'));
-
-				this.transitionTo('discussion.post', postId);
+					postController.set('postListSort', forumController.get('sortBy'));
+					this.transitionTo('discussion.post', postId);
+				}
 			},
 
 			/**
