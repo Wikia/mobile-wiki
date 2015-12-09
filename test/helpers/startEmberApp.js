@@ -41,7 +41,7 @@ setResolver(Em.DefaultResolver.create({
 
 		if (module) {
 			module = module + name.dasherize();
-			return require(module).default
+			return require(module).default;
 		}
 	}
 }));
