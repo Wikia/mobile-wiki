@@ -15,12 +15,12 @@ export default App.DiscussionForumController = Ember.Controller.extend(Discussio
 
 	sortTypes: [
 		{
-			name: 'latest',
-			messageKey: 'main.sort-by-latest'
-		},
-		{
 			name: 'trending',
 			messageKey: 'main.sort-by-trending'
+		},
+		{
+			name: 'latest',
+			messageKey: 'main.sort-by-latest'
 		}
 	],
 

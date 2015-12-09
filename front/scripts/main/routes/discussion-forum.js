@@ -9,7 +9,7 @@ export default App.DiscussionForumRoute = DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionDeleteRouteMixin, {
-		defaultSortType: null,
+		defaultSortType: 'trending',
 		forumId: null,
 
 		/**
@@ -32,7 +32,6 @@ export default App.DiscussionForumRoute = DiscussionBaseRoute.extend(
 		 */
 		setupController(controller, model, transition) {
 			this._super(controller, model, transition);
-			this.defaultSortType = controller.get('sortTypes')[0].name;
 			controller.set('sortBy', transition.params['discussion.forum'].sortBy || this.defaultSortType);
 		},
 
