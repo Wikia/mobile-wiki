@@ -315,13 +315,6 @@ body.discussions {
 			}
 		}
 	}
-
-	.avatar {
-		img, svg {
-			height: 40px;
-			width: 40px;
-		}
-	}
 }
 
 @media #{$desktop-range} {
@@ -394,5 +387,15 @@ body.discussions {
 	//To make sure discussion body is always expanding to 100% width
 	.row {
 		max-width: initial;
+	}
+
+	.post-details-view {
+		.post-detail {
+			padding-bottom: 14px;
+
+			.share {
+				display: none;
+			}
+		}
 	}
 }
