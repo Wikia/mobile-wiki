@@ -15,6 +15,8 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	showSuccess: false,
 	hasError: false,
 
+	wasFakeFocused: false,
+
 	offsetTop: 0,
 	siteHeadHeight: 0,
 
@@ -93,6 +95,9 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		this.set('isLoading', false);
 	}),
 
+	/**
+	 * Toggles active state of the editor based on the information from the controller
+	 */
 	isEditorOpenObserver: Ember.observer('isEditorOpen', function () {
 		var isEditorOpen = this.get('isEditorOpen');
 
@@ -112,8 +117,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 * Handle clicks - focus in textarea and activate editor
 	 * @returns {void}
 	 */
-	click() {
-		this.sendAction('toggleEditor', true);
+	click(event) {
 		this.$('.editor-textarea').focus();
 	},
 
