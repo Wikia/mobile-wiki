@@ -397,5 +397,11 @@ body.discussions {
 				display: none;
 			}
 		}
+
+		.discussion-reply {
+			.discussion-content {
+				margin-left: 0;
+			}
+		}
 	}
 }
