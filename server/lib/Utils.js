@@ -357,5 +357,5 @@ export function getHtmlTitle(wikiVariables, displayTitle) {
 	if (displayTitle) {
 		return htmlTitleTemplate.replace('$1', displayTitle);
 	}
-	return htmlTitleTemplate.substring(5);
+	return htmlTitleTemplate.replace('$1 - ', '');
 }
