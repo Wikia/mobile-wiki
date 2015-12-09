@@ -267,7 +267,7 @@ export function shouldAsyncArticle(localSettings, host) {
  */
 export function createServerData(localSettings, wikiDomain = '') {
 	// if no environment, pass dev
-	const env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev,
+	const env = localSettings.environment || Environment.Dev,
 		data = {
 			mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
 			apiBase: localSettings.apiBase,
