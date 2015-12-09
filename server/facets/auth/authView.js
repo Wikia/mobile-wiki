@@ -183,6 +183,9 @@ export function getDefaultContext(request) {
 		language: request.server.methods.i18n.getInstance().lng(),
 		trackingConfig: localSettings.tracking,
 		optimizelyScript: `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`,
+		server: {
+			gaUrl: localSettings.tracking.ua.scriptUrl
+		},
 		standalonePage: (viewType === VIEW_TYPE_DESKTOP && !isModal),
 		pageParams: {
 			cookieDomain: localSettings.authCookieDomain,
