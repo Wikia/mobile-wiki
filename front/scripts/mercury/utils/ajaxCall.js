@@ -1,6 +1,6 @@
 /** This is a wrapper for ajax calls
  * @param {object} options
- * @returns {object} RSVP.Promise
+ * @returns {Ember.RSVP.Promise}
  */
 export default function(options) {
 	const defaults = {
@@ -11,7 +11,7 @@ export default function(options) {
 			}
 		},
 		settings = Ember.$.extend({}, defaults, options);
-	return new RSVP.Promise((resolve, reject) => {
+	return new Ember.RSVP.Promise((resolve, reject) => {
 		Ember.$.ajax(settings);
 	});
 }

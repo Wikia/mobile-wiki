@@ -1,6 +1,7 @@
 import App from '../app';
 import DiscussionBaseModel from './discussion-base';
 import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
+import ajaxCall from '../../mercury/utils/ajaxCall.js';
 
 export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 
@@ -18,41 +19,35 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadNextPage() {
-		return new Ember.RSVP.Promise((resolve) => {
-			Ember.$.ajax({
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
-					responseGroup: 'full',
-					sortDirection: 'descending',
-					sortKey: 'creation_date',
-					limit: this.replyLimit,
-					pivot: this.pivotId,
-					page: this.page + 1,
-					viewableOnly: false
-				}),
-				xhrFields: {
-					withCredentials: true,
-				},
-				dataType: 'json',
-				success: (data) => {
-					let newReplies = data._embedded['doc:posts'];
+		return ajaxCall({
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
+				responseGroup: 'full',
+				sortDirection: 'descending',
+				sortKey: 'creation_date',
+				limit: this.replyLimit,
+				pivot: this.pivotId,
+				page: this.page + 1,
+				viewableOnly: false
+			}),
+			success: (data) => {
+				let newReplies = data._embedded['doc:posts'];
 
-					// Note that we have to reverse the list we get back because how we're displaying
-					// replies on the page; we want to see the newest replies first but show them
-					// starting with oldest of the current list at the top.
-					newReplies.reverse();
-					newReplies = newReplies.concat(this.replies);
-					this.setProperties({
-						replies: newReplies,
-						page: this.page + 1
-					});
+				// Note that we have to reverse the list we get back because how we're displaying
+				// replies on the page; we want to see the newest replies first but show them
+				// starting with oldest of the current list at the top.
+				newReplies.reverse();
+				newReplies = newReplies.concat(this.replies);
+				this.setProperties({
+					replies: newReplies,
+					page: this.page + 1
+				});
 
-					resolve(this);
-				},
-				error: (err) => {
-					this.handleLoadMoreError(err);
-					resolve(this);
-				}
-			});
+				resolve(this);
+			},
+			error: (err) => {
+				this.handleLoadMoreError(err);
+				resolve(this);
+			}
 		});
 	},
 
@@ -60,7 +55,26 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 		this.setFailedState(null);
 		replyData.threadId = this.get('postId');
 
-		return new Ember.RSVP.Promise((resolve) => {
+		return ajaxCall({
+			method: 'POST',
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
+			data: JSON.stringify(replyData),
+			success: (reply) => {
+				reply.isNew = true;
+				this.incrementProperty('postCount');
+				this.replies.pushObject(reply);
+				resolve(this);
+			},
+			error: (err) => {
+				if (err.status === 401) {
+					this.setFailedState('editor.post-error-not-authorized');
+				} else {
+					this.setFailedState('editor.post-error-general-error');
+				}
+				resolve(this);
+			}
+		});
+		/*return new Ember.RSVP.Promise((resolve) => {
 			Ember.$.ajax({
 				method: 'POST',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
@@ -84,7 +98,7 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 					resolve(this);
 				}
 			});
-		});
+		});*/
 	}
 });
 
@@ -102,7 +116,7 @@ App.DiscussionPostModel.reopenClass({
 				postId
 			});
 
-			Ember.$.ajax({
+			ajaxCall({
 				url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`, {
 					responseGroup: 'full',
 					sortDirection: 'descending',
@@ -110,10 +124,6 @@ App.DiscussionPostModel.reopenClass({
 					limit: postInstance.replyLimit,
 					viewableOnly: false
 				}),
-				dataType: 'json',
-				xhrFields: {
-					withCredentials: true
-				},
 				success: (data) => {
 					const contributors = [],
 						replies = data._embedded['doc:posts'];
