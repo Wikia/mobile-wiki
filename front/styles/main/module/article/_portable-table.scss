@@ -1,5 +1,6 @@
 $portable-table-cell-horizontal-padding: 56px;
 $portable-table-cell-vertical-padding: 12px;
+$portable-table-cell-max-width: $portable-table-cell-horizontal-padding * 4;
 $portable-table-img-max-width: $portable-table-cell-horizontal-padding * 3;
 
 .portable-table-wrappper {
@@ -36,11 +37,10 @@ table[data-portable="true"] {
 	th,
 	td {
 		padding: $portable-table-cell-vertical-padding $article-horizontal-padding;
-		white-space: nowrap;
+		max-width: $portable-table-cell-max-width;
 
 		&:not(:first-child) {
 			padding-left: 0;
-			text-align: right;
 
 			&:not(:last-child) {
 				padding-right: $portable-table-cell-horizontal-padding;
@@ -50,6 +50,7 @@ table[data-portable="true"] {
 
 	th {
 		background-color: $color-blue-gray-light;
+		vertical-align: top;
 	}
 
 	tr:nth-child(odd) td {
