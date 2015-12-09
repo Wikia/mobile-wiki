@@ -1,7 +1,7 @@
 import App from '../app';
 
 /**
- * Formats a number of seconds into a duration, in the form HH:MM:SS
+ * Check if two arguments are equals
  *
  * @param {Array} params
  * @returns {string}
