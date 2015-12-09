@@ -1,3 +1,6 @@
+## release-196 hotfix 1 (2015-12-09 09:45 UTC)
+* [SOC-1762](https://wikia-inc.atlassian.net/browse/SOC-1762) SOC-1762| Fix GA tracking for auth pages
+
 ## release-196 (2015-12-08 17:09 UTC)
 * XW | Environment Fix
 * [XW-657](https://wikia-inc.atlassian.net/browse/XW-657) XW-657 | search only categories in search suggestions
