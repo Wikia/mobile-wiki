@@ -1,4 +1,4 @@
-QUnit.module('Handlebars thumbnail helper', function (hooks) {
+QUnit.module('main/helpers/thumbnail-helper', function (hooks) {
 	var originalThumbnailerGetThumbURL,
 		thumbnailHelper;
 

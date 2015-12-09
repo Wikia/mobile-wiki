@@ -1,4 +1,4 @@
-QUnit.module('Handlebars SVG Helper', function (hooks) {
+QUnit.module('main/helpers/svg-helper', function (hooks) {
 	var svgHelper;
 
 	hooks.beforeEach(function () {
@@ -10,9 +10,7 @@ QUnit.module('Handlebars SVG Helper', function (hooks) {
 	});
 
 	QUnit.test('generate SVG html with name only', function () {
-		var options ={
-				hash: {}
-			},
+		var options = {},
 			html = svgHelper(['nameOfSvg'], options);
 
 		equal(html, '<svg><use xlink:href="#nameOfSvg"></use></svg>');
