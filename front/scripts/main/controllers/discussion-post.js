@@ -1,7 +1,8 @@
 import App from '../app';
+import DiscussionBaseController from './discussion-base';
 import DiscussionDeleteControllerMixin from '../mixins/discussion-delete-controller';
 
-export default App.DiscussionPostController = Ember.Controller.extend(DiscussionDeleteControllerMixin, {
+export default App.DiscussionPostController = DiscussionBaseController.extend(DiscussionDeleteControllerMixin, {
 	numRepliesLoaded: null,
 	postListSort: '',
 

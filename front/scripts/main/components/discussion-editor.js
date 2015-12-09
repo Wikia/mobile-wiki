@@ -176,6 +176,8 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 			showSuccess: false
 		});
 
+		this.sendAction('toggleEditor', false);
+
 		Ember.set(newItem, 'isVisible', true);
 
 		Ember.run.scheduleOnce('afterRender', this, () => {
@@ -235,6 +237,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		 */
 		updateOnInput() {
 			this.set('isActive', true);
+			this.sendAction('toggleEditor', true);
 		},
 
 		/**

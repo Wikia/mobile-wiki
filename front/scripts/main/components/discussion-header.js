@@ -38,8 +38,8 @@ export default App.DiscussionHeaderComponent = Ember.Component.extend(
 				this.get('overlay').style.display = 'none';
 			},
 
-			openEditor() {
-				this.sendAction('openEditor');
+			toggleEditor(active) {
+				this.sendAction('toggleEditor', active);
 			}
 		},
 	}

@@ -1,7 +1,8 @@
 import App from '../app';
+import DiscussionBaseController from './discussion-base';
 import DiscussionDeleteControllerMixin from '../mixins/discussion-delete-controller';
 
-export default App.DiscussionForumController = Ember.Controller.extend(DiscussionDeleteControllerMixin, {
+export default App.DiscussionForumController = DiscussionBaseController.extend(DiscussionDeleteControllerMixin, {
 	application: Ember.inject.controller(),
 	sortBy: null,
 
@@ -10,43 +11,6 @@ export default App.DiscussionForumController = Ember.Controller.extend(Discussio
 
 	// Whether the sort component is currently visible
 	sortVisible: false,
-
-	isEditorOpen: false,
-
-	rejectAnon() {
-		this.openDialog('anon');
-	},
-
-	rejectBlockedUser() {
-		this.openDialog('blocked');
-	},
-
-	openDialog(message) {
-		window.alert(message);
-	},
-
-	setEditorOpen() {
-		const isAnon = this.get('currentUser.isAuthenticated') === null,
-			isUserBlocked = this.get('model.isRequesterBlocked');
-
-		if (this.get('isEditorOpen') === true) {
-			return;
-		}
-
-		if (isAnon) {
-			this.rejectAnon();
-		} else if (isUserBlocked) {
-			this.rejectBlockedUser();
-		} else {
-			this.set('isEditorOpen', true);
-		}
-	},
-
-	setEditorClosed() {
-		if (this.get('isEditorOpen') === true) {
-			this.set('isEditorOpen', true);
-		}
-	},
 
 	sortTypes: [
 		{
@@ -100,19 +64,5 @@ export default App.DiscussionForumController = Ember.Controller.extend(Discussio
 		goToAllDiscussions() {
 			this.get('target').send('goToAllDiscussions');
 		},
-
-		openEditor() {
-			this.setEditorOpen();
-		},
-
-		closeEditor() {
-			this.setEditorClosed();
-		},
-
-		toggleEditor(active) {
-			if (this.get('isEditorOpen') !== active) {
-				this.set('isEditorOpen', active);
-			}
-		}
 	}
 });
