@@ -145,6 +145,7 @@ App.initializer({
 	initialize(container, application) {
 		application.register('currentUser:main', CurrentUser);
 		application.inject('component', 'currentUser', 'currentUser:main');
+		application.inject('controller', 'currentUser', 'currentUser:main');
 	}
 });
 

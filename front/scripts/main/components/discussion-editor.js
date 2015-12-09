@@ -7,8 +7,9 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	classNames: ['discussion-editor'],
 	classNameBindings: ['isActive', 'hasError'],
 
-	isActive: false,
 	isSticky: false,
+
+	isEditorOpen: false,
 
 	isLoading: false,
 	showSuccess: false,
@@ -35,15 +36,6 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	init(...params) {
 		this._super(...params);
 		this.set('isActive', false);
-
-		// This is a temporary solution.
-		// It is made because the .new_post element belongs to discussion-header component and we were not able to
-		// make Ember work with "Data down, actions up" pattern for component1-controller-component2.
-		// So instead of discussion-header indicating event observer in discussion-editor component, we are using
-		// old-fashioned, not-Ember-way, jQuery action binding solution.
-		//Ember.$(document).on('click', '.new-post', () => {
-		//	this.actions.toggleEditorActive.call(this, true);
-		//});
 	},
 
 	/**
@@ -121,6 +113,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 * @returns {void}
 	 */
 	click() {
+		this.sendAction('toggleEditor', true);
 		this.$('.editor-textarea').focus();
 	},
 
@@ -227,7 +220,6 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		 * @returns {void}
 		 */
 		toggleEditorActive(active) {
-			this.set('isActive', active);
 			this.sendAction('toggleEditor', active);
 		},
 
@@ -236,8 +228,9 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		 * @returns {void}
 		 */
 		updateOnInput() {
-			this.set('isActive', true);
-			this.sendAction('toggleEditor', true);
+			if (!this.get('isEditorOpen')) {
+				this.sendAction('toggleEditor', true);
+			}
 		},
 
 		/**

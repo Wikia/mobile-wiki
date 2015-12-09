@@ -5,19 +5,19 @@ export default App.DiscussionBaseController = Ember.Controller.extend({
 	isEditorOpen: false,
 
 	rejectAnon() {
-		this.openDialog('anon');
+		this.openDialog('editor.post-error-anon-cant-post');
 	},
 
 	rejectBlockedUser() {
-		this.openDialog('blocked');
+		this.openDialog('editor.post-error-not-authorized');
 	},
 
 	openDialog(message) {
-		window.alert(message);
+		alert(i18n.t(message, {ns: 'discussion'}));
 	},
 
 	setEditorOpen() {
-		const isAnon = this.get('currentUser.isAuthenticated') === null,
+		const isAnon = !this.get('currentUser.isAuthenticated'),
 			isUserBlocked = this.get('model.isRequesterBlocked');
 
 		if (this.get('isEditorOpen') === true) {
