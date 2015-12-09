@@ -1,6 +1,6 @@
 $portable-table-cell-horizontal-padding: 56px;
 $portable-table-cell-vertical-padding: 12px;
-
+$portable-table-img-max-width: $portable-table-cell-horizontal-padding * 3;
 
 .portable-table-wrappper {
 	border: 0;
@@ -30,7 +30,7 @@ table[data-portable="true"] {
 
 	// overrides default img styles for proper rendering inside tables
 	img {
-		max-width: $portable-table-cell-horizontal-padding * 3;
+		max-width: $portable-table-img-max-width;
 	}
 
 	th,
