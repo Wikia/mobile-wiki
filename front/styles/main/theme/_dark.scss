@@ -193,6 +193,9 @@ body.dark-theme {
 		.discussion-contributors-title {
 			color: $dark-discussion-contributors-rail-title;
 		}
+		.back-button {
+			border-color: $discussion-rail-separator-color;
+		}
 	}
 	figure {
 		&.avatar {
@@ -200,9 +203,6 @@ body.dark-theme {
 				border-color: $dark-discussion-avatar-border-color;
 			}
 		}
-	}
-	.rail hr {
-		border-top-color: $dark-discussion-rail-separator-color;
 	}
 }
 
