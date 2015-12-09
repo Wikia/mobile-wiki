@@ -18,7 +18,7 @@ export default App.I18nHelper = Ember.Helper.helper((params, options) => {
 	Object.keys(options).forEach((key) => {
 		if (key === 'ns') {
 			namespace = options[key];
-		} else if (key !== 'boundOptions' && options.hasOwnProperty(key)) {
+		} else if (options.hasOwnProperty(key)) {
 			i18nParams[key] = String(options[key]);
 		}
 	});
