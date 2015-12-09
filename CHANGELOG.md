@@ -1,3 +1,26 @@
+## release-196 (2015-12-08 17:09 UTC)
+* XW | Environment Fix
+* [XW-657](https://wikia-inc.atlassian.net/browse/XW-657) XW-657 | search only categories in search suggestions
+
+## release-195 hotfix 1 (2015-12-08 15:34 UTC)
+* [XW-93](https://wikia-inc.atlassian.net/browse/XW-93) revert XW-93
+
+## release-195 (2015-12-08 12:38 UTC)
+* [XW-93](https://wikia-inc.atlassian.net/browse/XW-93) XW-93 | Replace inline SVG sprite with requested asset
+* [SOC-1739](https://wikia-inc.atlassian.net/browse/SOC-1739) SOC-1739 | editor misbehave for anon user
+* [SOC-1548](https://wikia-inc.atlassian.net/browse/SOC-1548) SOC-1548 | Fix zero state of "All contributors" (when there are no replies)
+* [DAT-3523](https://wikia-inc.atlassian.net/browse/DAT-3523) Dat 3523 | add styles for portable tables 
+* [SOC-1591](https://wikia-inc.atlassian.net/browse/SOC-1591) SOC-1591 | Display line breaks in posts and replies
+* [SOC-1749](https://wikia-inc.atlassian.net/browse/SOC-1749) SOC-1749 dark theme post color is wrong
+* [XW-94](https://wikia-inc.atlassian.net/browse/XW-94) XW-94 use dns-prefetch
+* [XW-671](https://wikia-inc.atlassian.net/browse/XW-671) XW-671 | add babel as parser to eslint
+* [DAT-3543](https://wikia-inc.atlassian.net/browse/DAT-3543) DAT-3543 | remove margin around icon image
+* [SOC-1565](https://wikia-inc.atlassian.net/browse/SOC-1565) SOC-1565 | Discussion delete/undelete posts
+* [XW-767](https://wikia-inc.atlassian.net/browse/XW-767) XW-767 Fix tracking for videos
+* [XW-613](https://wikia-inc.atlassian.net/browse/XW-613) XW-613 | Download scripts in parallel
+* [ADEN-2707](https://wikia-inc.atlassian.net/browse/ADEN-2707) ADEN-2707 | Added window.wgNow - adTracker dependency
+* eslint-fix: XW | eslint fix
+
 ## release-194 (2015-12-03 10:50 UTC)
 * [INT-248](https://wikia-inc.atlassian.net/browse/INT-248) Global rollout of section editor
 * [INT-188](https://wikia-inc.atlassian.net/browse/INT-188) INT-188 | Use common style for edit page / upload photo header

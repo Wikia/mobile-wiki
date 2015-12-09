@@ -8,7 +8,6 @@ var gulp = require('gulp'),
 	environment = require('../utils/environment'),
 	rev = require('gulp-rev'),
 	gulpconcat = require('gulp-concat'),
-	paths = require('../paths').scripts.front,
 	piper = require('../utils/piper');
 
 gulp.task('build-combined', ['scripts-front-modules-spa', 'scripts-front-modules-auth', 'scripts-front', 'templates'], function () {
@@ -22,10 +21,10 @@ gulp.task('build-combined', ['scripts-front-modules-spa', 'scripts-front-modules
 			uglify(),
 			rev()
 		)),
-		gulp.dest(paths.dest),
+		gulp.dest('www/front/scripts'),
 		gulpif(environment.isProduction, piper(
 			rev.manifest(),
-			gulp.dest(paths.dest)
+			gulp.dest('www/front/scripts')
 		))
 	);
 });
