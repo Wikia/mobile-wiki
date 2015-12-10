@@ -8,6 +8,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend({
 	 * Renders a message to display to an anon
 	 */
 	rejectAnon() {
+		Ember.$('.editor-textarea').blur();
 		this.openDialog('editor.post-error-anon-cant-post');
 	},
 
@@ -15,6 +16,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend({
 	 * Renders a message to display to a blocked user
 	 */
 	rejectBlockedUser() {
+		Ember.$('.editor-textarea').blur();
 		this.openDialog('editor.post-error-not-authorized');
 	},
 
@@ -30,28 +32,53 @@ export default App.DiscussionBaseController = Ember.Controller.extend({
 	 * Opens post / reply editor
 	 */
 	setEditorOpen() {
-		const isAnon = !this.get('currentUser.isAuthenticated'),
-			isUserBlocked = this.get('model.isRequesterBlocked');
-
-		if (this.get('isEditorOpen') === true) {
-			return;
-		}
-
-		if (isAnon) {
-			this.rejectAnon();
-		} else if (isUserBlocked) {
-			this.rejectBlockedUser();
-		} else {
-			this.set('isEditorOpen', true);
-		}
+		this.set('isEditorOpen', true);
+		Ember.run.next(this, () => {
+			/*
+			 iOS hack for position: fixed - now we display loading icon.
+			 */
+			if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+				Ember.$('html, body').css({
+					height: '100%',
+					overflow: 'hidden'
+				});
+			}
+			Ember.$('.editor-textarea').focus();
+		});
 	},
 
 	/**
 	 * Closes post / reply editor
 	 */
 	setEditorClosed() {
+		this.set('isEditorOpen', false);
+		Ember.$('html, body').css({
+			height: '',
+			overflow: ''
+		});
+		Ember.$('.editor-textarea').blur();
+	},
+
+	/**
+	 * Checks if it is possible (if it is allowed for the user) and opens post/reply editor
+	 * or displays message with deny message
+	 */
+	activateEditor() {
+		let isAnon, isUserBlocked;
+
 		if (this.get('isEditorOpen') === true) {
-			this.set('isEditorOpen', false);
+			return;
+		}
+
+		isAnon = !this.get('currentUser.isAuthenticated');
+		isUserBlocked = this.get('model.isRequesterBlocked');
+
+		if (isAnon) {
+			this.rejectAnon();
+		} else if (isUserBlocked) {
+			this.rejectBlockedUser();
+		} else {
+			this.setEditorOpen();
 		}
 	},
 
@@ -61,7 +88,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend({
 		 */
 		toggleEditor(active) {
 			if (active === true) {
-				this.setEditorOpen();
+				this.activateEditor();
 			} else {
 				this.setEditorClosed();
 			}

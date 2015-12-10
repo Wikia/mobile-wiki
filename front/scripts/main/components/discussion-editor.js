@@ -9,13 +9,11 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 
 	isSticky: false,
 
-	isEditorOpen: false,
+	isActive: false,
 
 	isLoading: false,
 	showSuccess: false,
 	hasError: false,
-
-	wasFakeFocused: false,
 
 	offsetTop: 0,
 	siteHeadHeight: 0,
@@ -96,17 +94,6 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	}),
 
 	/**
-	 * Toggles active state of the editor based on the information from the controller
-	 */
-	isEditorOpenObserver: Ember.observer('isEditorOpen', function () {
-		var isEditorOpen = this.get('isEditorOpen');
-
-		if (isEditorOpen !== this.get('isActive')) {
-			this.set('isActive', isEditorOpen);
-		}
-	}),
-
-	/**
 	 * Ultra hack for editor on iOS
 	 * iOS is scrolling on textarea focus, changing it's size on focus prevent that
 	 * @returns {void}
@@ -117,32 +104,9 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 * Handle clicks - focus in textarea and activate editor
 	 * @returns {void}
 	 */
-	click(event) {
+	click() {
 		this.$('.editor-textarea').focus();
 	},
-
-	/**
-	 * Handle message for anon when activating editor
-	 */
-	isActiveObserver: Ember.observer('isActive', function () {
-		if (this.get('isActive')) {
-			/*
-			 iOS hack for position: fixed - now we display loading icon.
-			 */
-			if (/iPad|iPhone|iPod/.test(navigator.platform)) {
-				$('html, body').css({
-					height: '100%',
-					overflow: 'hidden'
-				});
-			}
-		} else {
-			$('html, body').css({
-				height: '',
-				overflow: ''
-			});
-		}
-	}),
-
 
 	/**
 	 * Perform animations and logic after post creation
@@ -232,9 +196,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		 * @returns {void}
 		 */
 		updateOnInput() {
-			if (!this.get('isEditorOpen')) {
-				this.sendAction('toggleEditor', true);
-			}
+			this.set('isActive', true);
 		},
 
 		/**
