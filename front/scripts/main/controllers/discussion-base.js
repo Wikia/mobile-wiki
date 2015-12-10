@@ -90,7 +90,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend({
 
 	actions: {
 		/**
-		 * @param active
+		 * @param {boolean} active
 		 * @returns {void}
 		 */
 		toggleEditor(active) {
