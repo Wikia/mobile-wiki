@@ -29,17 +29,17 @@ gulp.task('watch', ['build-combined'], function () {
 		script: 'server/index.js',
 		ext: 'js html',
 		env: { 'NODE_ENV': options.env },
-		tasks: ['lint'],
+		tasks: ['lint', 'eslint'],
 	}).on('start', function () {
 		reload(path);
 	});
 
 	// Sass
-	gulp.watch(paths.styles.homepage.watch, ['sass', 'lint', 'tslint', browserSync.reload]);
+	gulp.watch(paths.styles.homepage.watch, ['sass', 'lint', 'eslint', browserSync.reload]);
 
 	// Client Scripts
-	gulp.watch(paths.scripts.homepage.watch, ['sass', 'lint', 'tslint', browserSync.reload]);
+	gulp.watch(paths.scripts.homepage.watch, ['sass', 'lint', 'eslint', browserSync.reload]);
 
 	// Server Scripts
-	gulp.watch(paths.server.homepage.watch, ['sass', 'lint', 'tslint', browserSync.reload]);
+	gulp.watch(paths.server.homepage.watch, ['sass', 'lint', 'eslint', browserSync.reload]);
 });
