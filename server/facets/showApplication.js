@@ -50,7 +50,9 @@ export default function showApplication(request, reply, wikiVariables) {
 		context = {},
 		hostName = Utils.getWikiaSubdomain(request.info.host);
 
-	wikiVariables = typeof wikiVariables === 'undefined' || new MW.WikiRequest({wikiDomain}).wikiVariables();
+	if (typeof wikiVariables === 'undefined') {
+		wikiVariables = new MW.WikiRequest({wikiDomain}).wikiVariables();
+	}
 
 	// @todo These transforms could be better abstracted, as such, this is a lot like prepareArticleData
 	context.server = Utils.createServerData(localSettings, wikiDomain);
