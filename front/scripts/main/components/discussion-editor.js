@@ -93,6 +93,10 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		this.set('isLoading', false);
 	}),
 
+	isEditorOpenObserver: Ember.observer('isEditorOpen', function () {
+		console.log('Obserwer pokazuje',this.get('isEditorOpen'));
+	}),
+
 	/**
 	 * Ultra hack for editor on iOS
 	 * iOS is scrolling on textarea focus, changing it's size on focus prevent that
@@ -189,6 +193,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		 */
 		toggleEditorActive(active) {
 			this.sendAction('toggleEditor', active);
+
 		},
 
 		/**

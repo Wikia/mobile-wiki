@@ -16,6 +16,8 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 
 	contributors: [],
 
+	discussionEditorService: Ember.inject.service('DiscussionEditor'),
+
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
