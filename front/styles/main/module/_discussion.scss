@@ -193,7 +193,6 @@ body.discussions {
 	.icon {
 		fill: $discussion-actions-color;
 		height: 20px;
-		stroke: $discussion-actions-color;
 		width: 20px;
 		vertical-align: middle;
 
@@ -205,6 +204,7 @@ body.discussions {
 		&.upvote-reply {
 			height: 12px;
 			line-height: 12px;
+			stroke: $discussion-actions-color;
 			width: 12px;
 		}
 		&.replies{
@@ -226,8 +226,11 @@ body.discussions {
 
 	.has-upvoted {
 		.icon {
-				fill: $upvote-icon-activated-color;
+			fill: $upvote-icon-activated-color;
+
+			&.upvote-reply {
 				stroke: $upvote-icon-activated-color;
+			}
 		}
 	}
 
