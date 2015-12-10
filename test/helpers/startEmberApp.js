@@ -41,10 +41,20 @@ setResolver(Em.DefaultResolver.create({
 
 		if (module) {
 			module = module + name.dasherize();
-			return require(module).default
+			return require(module).default;
 		}
 	}
 }));
 
 // Set deprecation warning method to Ember's version of noop to declutter test logs
 Em.deprecate = Em.K;
+
+// Disable Ember logger to declutter test logs
+Em.Logger = {
+	assert: Em.K,
+	debug: Em.K,
+	error: Em.K,
+	info: Em.K,
+	log: Em.K,
+	warn: Em.K
+};

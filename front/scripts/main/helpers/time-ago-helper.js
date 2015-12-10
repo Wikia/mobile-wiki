@@ -10,7 +10,7 @@ import {timeAgo, interval as dateTimeInterval} from '../../mercury/utils/dateTim
  * @param {Array} params
  * @returns {string}
  */
-App.TimeAgoHelper = Ember.Helper.helper((params) => {
+export default App.TimeAgoHelper = Ember.Helper.helper((params) => {
 	const unixTimestamp = params[0],
 		fromDate = new Date(unixTimestamp * 1000),
 		interval = timeAgo(fromDate);
