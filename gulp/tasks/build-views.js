@@ -33,8 +33,14 @@ if (sync) {
 
 gulp.task('build-views', ['scripts-front', 'vendor', 'build-vendor', 'build-combined'], function () {
 	// retrieve gulp-rev-replace manifest files that were created with build-combined and build-vendor
-	var manifest = gulp.src(['www/front/vendor/rev-manifest.json', 'www/front/scripts/rev-manifest.json']);
-
+	var manifest = gulp.src([
+		'www/front/vendor/rev-manifest.json',
+		'www/front/scripts/rev-manifest.json',
+		'www/front/svg/rev-manifest-common.json',
+		'www/front/svg/rev-manifest-discussion.json',
+		'www/front/svg/rev-manifest-main.json',
+		'www/front/svg/rev-manifest-social.json'
+	]);
 	return piper(
 		gulp.src(paths.views.src, {
 			base: paths.baseFullServer

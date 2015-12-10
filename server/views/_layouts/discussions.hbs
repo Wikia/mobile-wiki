@@ -14,8 +14,6 @@
 		{{> tracking}}
 	</head>
 	<body class="discussions">
-		<!-- @include ../../../www/front/svg/discussions.svg -->
-
 		{{{content}}}
 
 		<script>
@@ -28,6 +26,7 @@
 		<script src="/front/scripts/discussions.js"></script>
 		<!-- endbuild -->
 		<script>
+			M.loadDOMResource('/front/svg/discussions.svg');
 			M.prop('tracking', {{{json trackingConfig}}});
 		</script>
 	</body>

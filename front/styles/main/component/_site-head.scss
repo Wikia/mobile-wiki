@@ -25,6 +25,12 @@ $z-header: $z-6;
 		// beneath it.
 		height: rem-calc(50);
 		overflow: hidden;
+
+		svg {
+			// keep it same as .icon.wikia-logo
+			height: 3.125rem;
+			width: 5rem;
+		}
 	}
 
 	.avatar {

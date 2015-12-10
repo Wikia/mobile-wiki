@@ -1,7 +1,13 @@
-node_modules/
-www/
 front/vendor/
-homepage/
 gulp/
+node_modules/
 test/
-typings/
+www/
+homepage/config/
+homepage/gulp/
+homepage/front/js/
+homepage/front/vendor/
+homepage/node_modules/
+homepage/server/
+homepage/test/
+homepage/vendor/
