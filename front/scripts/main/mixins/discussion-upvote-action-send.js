@@ -10,7 +10,10 @@ export default App.DiscussionUpvoteActionSendMixin = Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		upvote(post) {
-			if (!this.get('isDeleted') && !this.get('isParentDeleted')) {
+			if (!this.get('isDeleted') &&
+				!this.get('isParentDeleted') &&
+				this.get('currentUser.isAuthenticated')) {
+
 				this.sendAction('upvote', post);
 			}
 		}
