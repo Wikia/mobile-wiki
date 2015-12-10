@@ -49,9 +49,7 @@ Auth.prototype.login = function (username, password) {
 };
 
 Auth.prototype.info = function (token) {
-	var address = url.resolve(this.baseUrl + '/', 'info?' +
-		querystring.stringify({code: token, noblockcheck: 1}));
-
+	var address = url.resolve(this.baseUrl, 'info?' + querystring.stringify({code: token, noblockcheck: 1}));
 	return requestWrapper(address);
 };
 
