@@ -9,6 +9,14 @@ QUnit.module('main/helpers/duration-helper', function (hooks) {
 		ok(durationHelper);
 	});
 
+	QUnit.test('< 0 seconds', function () {
+		equal(durationHelper([-59]), '00:00');
+	});
+
+	QUnit.test('0 seconds', function () {
+		equal(durationHelper([0]), '00:00');
+	});
+
 	QUnit.test('< 60 seconds', function () {
 		equal(durationHelper([59]), '00:59');
 	});

@@ -14,6 +14,12 @@ export default App.DurationHelper = Ember.Helper.helper((params) => {
 
 	let duration = '';
 
+	// If duration is below 0 seconds it means corrupted data, we don't want to display it
+	// Also return early for 0 seconds
+	if (value <= 0) {
+		return '00:00';
+	}
+
 	if (hours > 0) {
 		duration += `${(hours < 10 ? '0' : '')}${hours}:`;
 	}
