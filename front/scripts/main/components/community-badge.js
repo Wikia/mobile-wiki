@@ -51,7 +51,7 @@ export default App.CommunityBadgeComponent = Ember.Component.extend({
 
 		if (Ember.isEmpty(imageUrl)) {
 			// get wiki image
-			imageUrl = Ember.getWithDefault(Mercury, 'wiki.image', '/front/images/community-badge-default.png');
+			imageUrl = Ember.getWithDefault(Mercury, 'wiki.image', '/front/images/brackets.svg');
 		}
 
 		return Thumbnailer.getThumbURL(
