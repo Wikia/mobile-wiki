@@ -1,5 +1,5 @@
-import * as MW from '../lib/MediaWiki';
-import * as Utils from '../lib/Utils';
+import {WikiRequest} from '../lib/MediaWiki';
+import {getCachedWikiDomainName}  from '../lib/Utils';
 import localSettings from '../../config/localSettings';
 import showApplication from '../facets/showApplication';
 
@@ -11,8 +11,8 @@ import showApplication from '../facets/showApplication';
  * @returns {void}
  */
 export default function showDiscussions(request, reply) {
-	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
-		wikiVariables = new MW.WikiRequest({wikiDomain}).wikiVariables();
+	const wikiDomain = getCachedWikiDomainName(localSettings, request),
+		wikiVariables = new WikiRequest({wikiDomain}).wikiVariables();
 
 	wikiVariables.then((variables) => {
 		if (!variables.enableDiscussions) {
