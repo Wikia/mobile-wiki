@@ -6,6 +6,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend({
 
 	/**
 	 * Renders a message to display to an anon
+	 * @returns {void}
 	 */
 	rejectAnon() {
 		Ember.$('.editor-textarea').blur();
@@ -14,6 +15,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend({
 
 	/**
 	 * Renders a message to display to a blocked user
+	 * @returns {void}
 	 */
 	rejectBlockedUser() {
 		Ember.$('.editor-textarea').blur();
@@ -23,6 +25,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend({
 	/**
 	 * Opens a browser alert with translated message
 	 * @param {string} message
+	 * @returns {void}
 	 */
 	openDialog(message) {
 		alert(i18n.t(message, {ns: 'discussion'}));
@@ -30,6 +33,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend({
 
 	/**
 	 * Opens post / reply editor
+	 * @returns {void}
 	 */
 	setEditorOpen() {
 		this.set('isEditorOpen', true);
@@ -49,6 +53,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend({
 
 	/**
 	 * Closes post / reply editor
+	 * @returns {void}
 	 */
 	setEditorClosed() {
 		this.set('isEditorOpen', false);
@@ -62,6 +67,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend({
 	/**
 	 * Checks if it is possible (if it is allowed for the user) and opens post/reply editor
 	 * or displays message with deny message
+	 * @returns {void}
 	 */
 	activateEditor() {
 		let isAnon, isUserBlocked;
@@ -85,6 +91,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend({
 	actions: {
 		/**
 		 * @param active
+		 * @returns {void}
 		 */
 		toggleEditor(active) {
 			if (active === true) {
