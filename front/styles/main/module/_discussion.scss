@@ -105,7 +105,10 @@ body.discussions {
 		&.is-deleted .icon:not(.undelete) {
 			cursor: default;
 			fill: $discussion-deleted-actions-color;
-			stroke: $discussion-deleted-actions-color;
+
+			&.upvote-reply {
+				stroke: $discussion-deleted-actions-color;
+			}
 		}
 
 		&.is-deleted,
