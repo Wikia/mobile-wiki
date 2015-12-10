@@ -313,10 +313,6 @@ body.discussions {
 	&.post {
 		.post-detail {
 			margin-top: $theme-bar-height;
-
-			.avatar-username {
-				font-size: $discussion-post-type-smaller-than-min;
-			}
 		}
 	}
 }
@@ -355,6 +351,10 @@ body.discussions {
 
 				.discussion-content {
 					line-height: $post-details-content-line-height;
+				}
+
+				.timestamp {
+					font-size: $discussion-post-type-smaller-than-min;
 				}
 			}
 
