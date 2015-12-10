@@ -49,3 +49,4 @@ homepage/front/css
 homepage/front/js
 homepage/front/vendor
 homepage/vendor
+homepage/**/*.js.map
