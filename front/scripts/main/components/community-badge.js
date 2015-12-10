@@ -47,10 +47,10 @@ export default App.CommunityBadgeComponent = Ember.Component.extend({
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
-		const imageUrl = this.get('badgeImages')[Ember.get(Mercury, 'wiki.id')];
+		let imageUrl = this.get('badgeImages')[Ember.get(Mercury, 'wiki.id')];
 
 		if (Ember.isEmpty(imageUrl)) {
-			return '';
+			imageUrl = '/front/images/community-badge-default.png';
 		}
 
 		return Thumbnailer.getThumbURL(
