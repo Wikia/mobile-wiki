@@ -1,3 +1,6 @@
+## release-197 hotfix 1 (2015-12-11 16:25 UTC)
+* release-197-hotfix: XW-836 check for > -1 when using indexOf...
+
 ## release-197 (2015-12-10 11:44 UTC)
 * [SOC-1764](https://wikia-inc.atlassian.net/browse/SOC-1764) SOC-1764 | Fix title when hostname is present
 * XW | show notifications when there is space in article title
