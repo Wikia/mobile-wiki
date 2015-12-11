@@ -19,7 +19,7 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadNextPage() {
-		return ajaxCall({
+		const asd = ajaxCall({
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
 				responseGroup: 'full',
 				sortDirection: 'descending',
@@ -49,6 +49,7 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 				resolve(this);
 			}
 		});
+		console.log('ASD', asd);
 	},
 
 	createReply(replyData) {
