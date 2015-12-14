@@ -1,7 +1,7 @@
 import App from '../app';
 import ArticleEditMixin from '../mixins/article-edit';
 
-export default App.ArticleEditModel = Ember.Object.extend({
+const ArticleEditModel = Ember.Object.extend({
 	content: null,
 	originalContent: null,
 	timestamp: null,
@@ -12,7 +12,7 @@ export default App.ArticleEditModel = Ember.Object.extend({
 	})
 });
 
-App.ArticleEditModel.reopenClass(
+ArticleEditModel.reopenClass(
 	ArticleEditMixin,
 	{
 		/**
@@ -84,7 +84,7 @@ App.ArticleEditModel.reopenClass(
 					if (pages) {
 						// FIXME: MediaWiki API, seriously?
 						revision = pages[Object.keys(pages)[0]].revisions[0];
-						resolve(App.ArticleEditModel.create({
+						resolve(ArticleEditModel.create({
 							title,
 							sectionIndex,
 							content: revision['*'],
@@ -99,3 +99,5 @@ App.ArticleEditModel.reopenClass(
 		}
 	}
 );
+
+export default ArticleEditModel;

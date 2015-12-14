@@ -1,5 +1,6 @@
 import ArticleAddPhotoModel from '../models/article-add-photo';
 import {track, trackActions} from '../../mercury/utils/track';
+import VisibilityStateManager from '../mixins/visibility-state-manager';
 import App from '../app';
 
 export default App.ArticleController = Ember.Controller.extend({
@@ -24,7 +25,7 @@ export default App.ArticleController = Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		edit(title, sectionIndex) {
-			App.VisibilityStateManager.reset();
+			VisibilityStateManager.reset();
 			this.transitionToRoute('articleEdit', title, sectionIndex);
 
 			track({

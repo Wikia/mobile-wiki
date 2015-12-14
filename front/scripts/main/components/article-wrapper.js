@@ -2,7 +2,6 @@ import LanguagesMixin from '../mixins/languages';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} from '../../mercury/utils/track';
-import App from '../app';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -13,12 +12,13 @@ import App from '../app';
  * @property {string} section
  */
 
-export default App.ArticleWrapperComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	LanguagesMixin,
 	TrackClickMixin,
 	ViewportMixin,
 	{
 		classNames: ['article-wrapper'],
+		currentUser: Ember.inject.service(),
 
 		hammerOptions: {
 			touchAction: 'auto',

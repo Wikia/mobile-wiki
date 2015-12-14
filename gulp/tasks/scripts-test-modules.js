@@ -1,6 +1,8 @@
 var gulp = require('gulp'),
 	babel = require('gulp-babel'),
 	concat = require('gulp-concat'),
+	gutil = require('gulp-util'),
+	environment = require('../utils/environment'),
 	paths = require('../paths').scripts.front,
 	path = require('path');
 

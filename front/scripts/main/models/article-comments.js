@@ -39,6 +39,6 @@ export default App.ArticleCommentsModel = Ember.Object.extend({
 	 * @returns {string}
 	 */
 	url(articleId, page = 0) {
-		return `${App.get('apiBase')}/article/comments/${articleId}/${page}`;
+		return `${M.prop('apiBase')}/article/comments/${articleId}/${page}`;
 	}
 });

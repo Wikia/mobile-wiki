@@ -14,14 +14,14 @@ import App from '../app';
  * @property {number} userId
  */
 
-export default App.UserModel = Ember.Object.extend({
+const UserModel = Ember.Object.extend({
 	avatarPath: null,
 	name: null,
 	userId: null,
 	rights: null
 });
 
-App.UserModel.reopenClass({
+UserModel.reopenClass({
 	defaultAvatarSize: 100,
 
 	/**
@@ -29,12 +29,12 @@ App.UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise<UserModel>}
 	 */
 	find(params) {
-		const avatarSize = params.avatarSize || App.UserModel.defaultAvatarSize,
-			modelInstance = App.UserModel.create();
+		const avatarSize = params.avatarSize || UserModel.defaultAvatarSize,
+			modelInstance = UserModel.create();
 
-		return App.UserModel.loadDetails(params.userId, avatarSize)
+		return UserModel.loadDetails(params.userId, avatarSize)
 			.then((userDetails) => {
-				const detailsSanitized = App.UserModel.sanitizeDetails(userDetails);
+				const detailsSanitized = UserModel.sanitizeDetails(userDetails);
 
 				return modelInstance.setProperties(detailsSanitized);
 			});
@@ -86,3 +86,5 @@ App.UserModel.reopenClass({
 		};
 	}
 });
+
+export default UserModel;

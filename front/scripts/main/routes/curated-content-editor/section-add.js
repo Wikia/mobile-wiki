@@ -1,8 +1,7 @@
-import App from '../app';
-import CuratedContentEditorModel from '../models/curated-content-editor';
-import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
+import CuratedContentEditorModel from '../../models/curated-content-editor';
+import CuratedContentEditorItemModel from '../../models/curated-content-editor-item';
 
-export default App.CuratedContentEditorSectionAddRoute = Ember.Route.extend({
+export default Ember.Route.extend({
 	/**
 	 * @returns {CuratedContentEditorItemModel} new section
 	 */
@@ -30,7 +29,9 @@ export default App.CuratedContentEditorSectionAddRoute = Ember.Route.extend({
 	 * @returns {void}
 	 */
 	renderTemplate() {
-		this.render('curated-content-editor-item');
+		this.render('curated-content-editor/item', {
+			into: 'application'
+		});
 	},
 
 	actions: {

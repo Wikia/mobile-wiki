@@ -4,6 +4,8 @@ export default App.UserMenuComponent = Ember.Component.extend({
 	classNames: ['user-menu'],
 	classNameBindings: ['shouldBeVisible:visible:collapsed'],
 
+	currentUser: Ember.inject.service(),
+
 	isVisible: Ember.computed.bool('currentUser.isAuthenticated'),
 
 	links: Ember.computed('currentUser.name', function () {

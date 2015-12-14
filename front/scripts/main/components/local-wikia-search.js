@@ -127,7 +127,7 @@ export default App.LocalWikiaSearchComponent = Ember.Component.extend({
 	 * @returns {string}
 	 */
 	getSearchURI(query) {
-		return `${App.get('apiBase')}/search/${encodeURIComponent(query)}`;
+		return `${M.prop('apiBase')}/search/${encodeURIComponent(query)}`;
 	},
 
 	/**

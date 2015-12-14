@@ -8,7 +8,6 @@ import WikiaMapComponent from './wikia-map';
 import PortableInfoboxComponent from './portable-infobox';
 import AdsMixin from '../mixins/ads';
 import PollDaddyMixin from '../mixins/poll-daddy';
-import App from '../app';
 
 /**
  * HTMLElement
@@ -16,7 +15,7 @@ import App from '../app';
  * @property {Function} scrollIntoViewIfNeeded
  */
 
-export default App.ArticleContentComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	AdsMixin,
 	PollDaddyMixin,
 	{

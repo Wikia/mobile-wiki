@@ -9,6 +9,8 @@ export default App.ShareFeatureComponent = Ember.Component.extend(
 	{
 		classNames: ['share-feature'],
 
+		currentUser: Ember.inject.service(),
+
 		title: '',
 		sharedUrl: null,
 

@@ -1,5 +1,4 @@
-import App from './app';
-import UserModel from '../main/models/user';
+import UserModel from '../models/user';
 
 /**
  * @typedef {Object} QueryUserInfoResponse
@@ -20,7 +19,7 @@ import UserModel from '../main/models/user';
  * @property {*} options
  */
 
-export default App.CurrentUser = Ember.Object.extend({
+export default Ember.Service.extend({
 	rights: {},
 	isAuthenticated: Ember.computed.bool('userId'),
 	language: null,

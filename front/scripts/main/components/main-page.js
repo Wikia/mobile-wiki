@@ -11,6 +11,8 @@ export default App.MainPageComponent = Ember.Component.extend(
 		classNames: ['main-page-modules', 'main-page-body'],
 		tagName: 'section',
 
+		currentUser: Ember.inject.service(),
+
 		featuredContentComponentVariation: Ember.computed(() => {
 			const experimentIds = {
 					prod: '3079180094',

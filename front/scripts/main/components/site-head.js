@@ -13,6 +13,9 @@ export default App.SiteHeadComponent = Ember.Component.extend(
 		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 		pinned: true,
 
+		currentUser: Ember.inject.service(),
+		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
+
 		actions: {
 			/**
 			 * @returns {void}

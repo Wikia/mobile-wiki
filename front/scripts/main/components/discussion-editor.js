@@ -7,6 +7,8 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	classNames: ['discussion-editor'],
 	classNameBindings: ['isActive', 'hasError'],
 
+	currentUser: Ember.inject.service(),
+
 	isActive: false,
 	isSticky: false,
 

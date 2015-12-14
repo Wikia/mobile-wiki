@@ -1,7 +1,6 @@
-import App from '../app';
-import CuratedContentEditorModel from '../models/curated-content-editor';
+import CuratedContentEditorModel from '../../models/curated-content-editor';
 
-export default App.CuratedContentEditorBlockEditItemRoute = Ember.Route.extend({
+export default Ember.Route.extend({
 	/**
 	 * @param {Object} params
 	 * @returns {CuratedContentEditorItemModel} item
@@ -36,7 +35,9 @@ export default App.CuratedContentEditorBlockEditItemRoute = Ember.Route.extend({
 	 * @returns {void}
 	 */
 	renderTemplate() {
-		this.render('curated-content-editor-item');
+		this.render('curated-content-editor/item', {
+			into: 'application'
+		});
 	},
 
 	actions: {

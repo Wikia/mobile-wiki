@@ -83,6 +83,9 @@
 		<script src="/front/scripts/dev.js"></script>
 		<!-- @endif -->
 
+		<script src="/front/vendor/loader.js/loader.js"></script>
+		<script src="/front/vendor/jquery/dist/jquery.js"></script>
+
 		{{> tracking}}
 	</head>
 	<body>
@@ -106,10 +109,24 @@
 		</div>
 
 		<script>
-			M.loadScripts([
-				'/front/vendor/main.js',
-				'/front/scripts/combined.js'
-			]);
+			$.getScript('/front/vendor/main.js').then(function () {
+				loader.noConflict({
+					define: 'mdefine',
+					require: 'mrequire'
+				});
+
+				$.getScript('/front/scripts/combined.js', function () {
+					mrequire('main/app').default.create();
+				})
+			});
+//
+//			M.loadScripts([
+//				'/front/vendor/main.js',
+//				'/front/scripts/combined.js'
+//			], function () {
+////				mrequire('main/app');
+//			});
+
 			M.loadDOMResource('/front/svg/main.svg');
 			M.loadDOMResource('/front/svg/common.svg');
 		</script>
