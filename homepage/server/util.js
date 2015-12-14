@@ -71,7 +71,7 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 	var userId,
 		userName,
 		avatarUrl,
-		defaultAvatarUrl = '/extensions/wikia/GlobalNavigation/images/signin_icon.svg';
+		defaultAvatarUrl = '/vendor/wikia-style-guide/gh-pages/assets/images/icons/icon_avatar.svg';
 	
 	if (!strings) {
 		strings = this.readJsonConfigSync('static/strings.json'); // TODO: Integrate with I18N, see INT-214
