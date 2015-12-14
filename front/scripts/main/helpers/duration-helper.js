@@ -6,13 +6,19 @@ import App from '../app';
  * @param {Array} params
  * @returns {string}
  */
-App.DurationHelper = Ember.Helper.helper((params) => {
+export default App.DurationHelper = Ember.Helper.helper((params) => {
 	const value = params[0],
 		hours = Math.floor(value / 3600),
 		minutes = Math.floor((value - (hours * 3600)) / 60),
 		seconds = Math.floor(value - (hours * 3600) - (minutes * 60));
 
 	let duration = '';
+
+	// If duration is below 0 seconds it means corrupted data, we don't want to display it
+	// Also return early for 0 seconds
+	if (value <= 0) {
+		return '00:00';
+	}
 
 	if (hours > 0) {
 		duration += `${(hours < 10 ? '0' : '')}${hours}:`;

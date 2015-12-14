@@ -2,8 +2,6 @@
  * Options for prod environment
  */
 
-var paths = require('../paths');
-
 module.exports = {
 	sass: {
 		outputStyle: 'compressed',
