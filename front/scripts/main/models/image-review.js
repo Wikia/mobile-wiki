@@ -1,5 +1,4 @@
 import App from '../app';
-import ImageReviewRoute from '../routes/image-review';
 
 export default App.ImageReviewModel = Ember.Object.extend({
 
@@ -113,15 +112,12 @@ App.ImageReviewModel.reopenClass({
 				images.push({
 					imageId: image.imageId,
 					fullSizeImageUrl: image.imageUrl,
-					thumbnailUrl: ImageReviewRoute.generateThumbUrl(image.imageUrl),
 					contractId,
 					status: 'ACCEPTED'
 				});
 			}
 			// else skip because is reviewed already
 		});
-
-		console.log(images);
 
 		return App.ImageReviewModel.create({images, contractId});
 	},
