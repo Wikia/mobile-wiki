@@ -1,4 +1,5 @@
 import App from '../app';
+import ImageReviewRoute from '../routes/image-review';
 
 export default App.ImageReviewModel = Ember.Object.extend({
 
@@ -6,7 +7,6 @@ export default App.ImageReviewModel = Ember.Object.extend({
 		this.isModalVisible = false;
 		this.modalImageUUID = null;
 		this.images = this.get('images');
-		this.baseImgUrl = 'http://vignette-poz.wikia-dev.com/';
 	},
 	reviewImages(images) {
 		images.forEach((imageItem) => {
@@ -112,11 +112,16 @@ App.ImageReviewModel.reopenClass({
 			if (image.reviewStatus === 'UNREVIEWED') {
 				images.push({
 					imageId: image.imageId,
-					contractId, status: 'ACCEPTED'
+					fullSizeImageUrl: image.imageUrl,
+					thumbnailUrl: ImageReviewRoute.generateThumbUrl(image.imageUrl),
+					contractId,
+					status: 'ACCEPTED'
 				});
 			}
 			// else skip because is reviewed already
 		});
+
+		console.log(images);
 
 		return App.ImageReviewModel.create({images, contractId});
 	},
