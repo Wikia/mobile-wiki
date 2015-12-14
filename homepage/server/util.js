@@ -71,7 +71,8 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 	var userId,
 		userName,
 		avatarUrl,
-		defaultAvatarUrl = '/vendor/wikia-style-guide/gh-pages/assets/images/icons/icon_avatar.svg';
+		defaultAvatarUrl = '/vendor/wikia-style-guide/gh-pages/assets/images/icons/icon_avatar.svg',
+		defaultLoggedInAvatarUrl = '/extensions/wikia/GlobalNavigation/images/signin_icon.svg';
 	
 	if (!strings) {
 		strings = this.readJsonConfigSync('static/strings.json'); // TODO: Integrate with I18N, see INT-214
@@ -90,9 +91,7 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 
 		return auth.getUserAvatar(userId);
 	}).then(function (data) {
-		console.log('qqq avatar url', data);
-		request.log('info', 'Retrieved avatar url for logged in user - before: ' + data + data.value);
-		avatarUrl = (data.value === undefined) ? defaultAvatarUrl : data.value;
+		avatarUrl = (data.value === undefined) ? defaultLoggedInAvatarUrl : data.value;
 		request.log('info', 'Retrieved avatar url for logged in user: ' + avatarUrl);
 
 		renderView(true, userName, avatarUrl);

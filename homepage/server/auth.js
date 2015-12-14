@@ -52,7 +52,6 @@ function requestWrapper(url, headers) {
 Auth.prototype.login = function (username, password) {
 	var address = url.resolve(this.baseUrl, 'token?' +
 		querystring.stringify({username: username, password: password}));
-
 	return requestWrapper(address);
 };
 
