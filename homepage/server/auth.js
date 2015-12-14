@@ -8,21 +8,26 @@ var Promise = require('bluebird'),
 	request = require('request'),
 	querystring = require('querystring'),
 	url = require('url'),
-	localSettings = require('../config/localSettings').localSettings,
-	Wreck = require('wreck');
+	localSettings = require('../config/localSettings').localSettings;
 
 function Auth() {
-	this.heliosUri   = localSettings.helios.path;
 	this.whoAmIUri   = localSettings.whoAmIService.path;
 	this.whoAmITimeout = localSettings.whoAmIService.timeout;
 	this.servicesUrl = localSettings.servicesUrl;
 	this.apiUrl      = localSettings.apiUrl;
 }
 
-function requestWrapper(url) {
-	var deferred = Promise.defer();
+function requestWrapper(url, headers) {
+	var deferred = Promise.defer(),
+		options = {
+			url: url
+		};
 
-	request.get(url, function (err, response, body) {
+	if (headers) {
+		options.headers = headers;
+	}
+
+	request(options, function (err, response, body) {
 		if (err) {
 			deferred.reject(err);
 		} else {
@@ -53,36 +58,11 @@ Auth.prototype.login = function (username, password) {
 
 Auth.prototype.info = function (token) {
 	var address = url.resolve(this.servicesUrl, this.whoAmIUri),
-	    deferred = Promise.defer(),
-	    json = {};
+		headers = {
+			Cookie: 'access_token=' + encodeURIComponent(token)
+		};
 
-	Wreck.get(
-		address,
-		{
-			timeout: this.whoAmITimeout,
-			headers: {
-				Cookie: 'access_token=' + encodeURIComponent(token)
-			}
-		},
-		function (err, response, body) {
-			if (err) {
-				deferred.reject(err);
-			} else {
-				try {
-					json = JSON.parse(body);
-					if (json.error) {
-						deferred.reject(json);
-					} else {
-						deferred.resolve(json);
-					}
-				}
-				catch (e) {
-					deferred.resolve(body);
-				}
-			}
-		}
-	);
-	return deferred.promise;
+	return requestWrapper(address, headers);
 };
 
 Auth.prototype.getUserInfo = function (userId) {

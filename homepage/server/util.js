@@ -70,8 +70,9 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 
 	var userId,
 		userName,
-		avatarUrl;
-
+		avatarUrl,
+		defaultAvatarUrl;
+	
 	if (!strings) {
 		strings = this.readJsonConfigSync('static/strings.json'); // TODO: Integrate with I18N, see INT-214
 	}
@@ -89,8 +90,7 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 
 		return auth.getUserAvatar(userId);
 	}).then(function (data) {
-		avatarUrl = (data.value === undefined)  ? 'http://ja.wikia.com/extensions/wikia/GlobalNavigation/images/signin_icon.svg'
-			        : data.value;
+		avatarUrl = (data.value === undefined) ? defaultAvatarUrl : data.value;
 		request.log('info', 'Retrieved avatar url for logged in user: ' + avatarUrl);
 
 		renderView(true, userName, avatarUrl);
@@ -100,7 +100,7 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 		}
 
 		reply.unstate('access_token');
-		renderView(false, null);
+		renderView(false, defaultAvatarUrl);
 	});
 };
 
