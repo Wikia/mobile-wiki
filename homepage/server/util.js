@@ -90,6 +90,8 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 
 		return auth.getUserAvatar(userId);
 	}).then(function (data) {
+		console.log('qqq avatar url', data);
+		request.log('info', 'Retrieved avatar url for logged in user - before: ' + data + data.value);
 		avatarUrl = (data.value === undefined) ? defaultAvatarUrl : data.value;
 		request.log('info', 'Retrieved avatar url for logged in user: ' + avatarUrl);
 
