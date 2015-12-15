@@ -1,8 +1,7 @@
 import App from '../app';
 import DiscussionBaseController from './discussion-base';
-import DiscussionDeleteControllerMixin from '../mixins/discussion-delete-controller';
 
-export default App.DiscussionForumController = DiscussionBaseController.extend(DiscussionDeleteControllerMixin, {
+export default App.DiscussionForumController = DiscussionBaseController.extend({
 	application: Ember.inject.controller(),
 	sortBy: null,
 
