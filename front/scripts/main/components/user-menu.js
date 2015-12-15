@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.UserMenuComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	classNames: ['user-menu'],
 	classNameBindings: ['shouldBeVisible:visible:collapsed'],
 

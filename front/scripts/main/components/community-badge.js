@@ -1,7 +1,6 @@
-import App from '../app';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-export default App.CommunityBadgeComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	classNames: ['community-badge'],
 	squareDimension: 125,
 

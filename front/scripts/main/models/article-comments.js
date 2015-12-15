@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.ArticleCommentsModel = Ember.Object.extend({
+export default Ember.Object.extend({
 	articleId: null,
 	comments: 0,
 	users: null,

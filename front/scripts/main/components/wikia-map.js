@@ -1,8 +1,7 @@
-import App from '../app';
 import ImageMediaComponent from './image-media';
 import {track, trackActions} from '../../mercury/utils/track';
 
-export default App.WikiaMapComponent = ImageMediaComponent.extend({
+export default ImageMediaComponent.extend({
 	classNames: ['wikia-map'],
 	caption: Ember.computed.alias('title'),
 

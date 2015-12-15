@@ -1,9 +1,8 @@
-import App from '../app';
 import MetaTagsMixin from '../mixins/main-page-route';
 import MainPageRouteMixin from '../mixins/meta-tags';
 import CuratedContentModel from '../models/curated-content';
 
-export default App.MainPageCategoryRoute = Ember.Route.extend(MainPageRouteMixin, MetaTagsMixin, {
+export default Ember.Route.extend(MainPageRouteMixin, MetaTagsMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Ember.RSVP.Promise}

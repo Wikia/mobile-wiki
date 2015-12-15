@@ -1,10 +1,9 @@
-import App from '../app';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import MediaModel from '../models/media';
 import {track, trackActions} from '../../mercury/utils/track';
 import {normalizeToUnderscore} from '../../mercury/utils/string';
 
-export default App.LightboxMediaComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	ThirdsClickMixin,
 	{
 		classNames: ['lightbox-media', 'lightbox-content-inner'],

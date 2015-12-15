@@ -1,9 +1,8 @@
 import ArticleAddPhotoModel from '../models/article-add-photo';
 import {track, trackActions} from '../../mercury/utils/track';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
-import App from '../app';
 
-export default App.ArticleController = Ember.Controller.extend({
+export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
 	noAds: Ember.computed.alias('application.noAds'),
 	commentsPage: Ember.computed.alias('application.commentsPage'),

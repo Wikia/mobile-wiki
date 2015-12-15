@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.DiscussionAppPromotionComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	classNames: ['discussion-app-promotion'],
 
 	discussionsSplashPageConfig: M.prop('discussionsSplashPageConfig'),

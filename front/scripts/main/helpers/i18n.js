@@ -1,11 +1,9 @@
-import App from '../app';
-
 /**
  * @param {Array} params
  * @param {Object} options
  * @returns {string}
  */
-export default App.I18nHelper = Ember.Helper.helper((params, options) => {
+export default Ember.Helper.helper((params, options) => {
 	const i18nParams = {},
 		value = params.join('.');
 
