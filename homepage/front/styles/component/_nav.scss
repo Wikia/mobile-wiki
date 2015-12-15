@@ -339,7 +339,7 @@ header.navigation {
 				right: .1rem;
 				top: .35rem;
 
-				img {
+				img :not(search) {
 					height: 12px;
 					opacity: .7;
 				}
