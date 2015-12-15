@@ -13,7 +13,6 @@ import {track, trackActions} from '../../mercury/utils/track';
 
 export default App.LocalWikiaSearchComponent = Ember.Component.extend({
 	classNames: ['local-wikia-search'],
-	isLoading: false,
 
 	query: '',
 
