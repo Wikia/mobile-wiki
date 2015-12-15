@@ -302,14 +302,13 @@ body.discussions {
 		margin-top: $discussion-header-height - $theme-bar-height;
 
 		.discussion-content {
+			-webkit-box-orient: vertical;
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
 			// Constrains content on the forum post list to 3 lines and + 0.3rem for the padding
 			max-height: $line-height-smallest * 3 + .3rem;
 			overflow: hidden;
-
 			text-overflow: ellipsis;
-			display: -webkit-box;
-			-webkit-line-clamp: 3;
-			-webkit-box-orient: vertical;
 		}
 	}
 
