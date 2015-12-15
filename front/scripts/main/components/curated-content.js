@@ -6,7 +6,6 @@ export default App.CuratedContentComponent = Ember.Component.extend(
 	TrackClickMixin,
 	{
 		classNames: ['curated-content', 'mw-content'],
-		isLoading: false,
 
 		actions: {
 			/**

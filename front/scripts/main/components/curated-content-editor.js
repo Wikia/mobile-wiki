@@ -8,7 +8,6 @@ export default App.CuratedContentEditorComponent = Ember.Component.extend(
 	TrackClickMixin,
 	{
 		classNames: ['curated-content-editor'],
-		isLoading: false,
 
 		/**
 		 * When user enters curated content editor we want to clear all notifications that might be still there
