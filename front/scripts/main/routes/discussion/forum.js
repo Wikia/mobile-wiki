@@ -1,11 +1,10 @@
-import App from '../app';
-import DiscussionBaseRoute from './discussion-base';
-import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
-import DiscussionForumModel from '../models/discussion-forum';
-import DiscussionLayoutMixin from '../mixins/discussion-layout';
-import DiscussionDeleteRouteMixin from '../mixins/discussion-delete-route';
+import DiscussionBaseRoute from './base';
+import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
+import DiscussionForumModel from '../../models/discussion-forum';
+import DiscussionLayoutMixin from '../../mixins/discussion-layout';
+import DiscussionDeleteRouteMixin from '../../mixins/discussion-delete-route';
 
-export default App.DiscussionForumRoute = DiscussionBaseRoute.extend(
+export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionDeleteRouteMixin, {
@@ -40,12 +39,12 @@ export default App.DiscussionForumRoute = DiscussionBaseRoute.extend(
 		 * @returns {EmberStates.Transition}
 		 */
 		setSortBy(sortBy) {
-			const controller = this.controllerFor('discussionForum');
+			const controller = this.controllerFor('discussion.forum');
 
 			controller.set('sortBy', sortBy);
 
 			if (controller.get('sortAlwaysVisible') !== true) {
-				this.controllerFor('discussionForum').set('sortVisible', false);
+				this.controllerFor('discussion.forum').set('sortVisible', false);
 			}
 
 			return this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
@@ -61,8 +60,8 @@ export default App.DiscussionForumRoute = DiscussionBaseRoute.extend(
 				if (openInNewTab) {
 					window.open(this.get('router').generate('discussion.post', postId));
 				} else {
-					const postController = this.controllerFor('discussionPost'),
-						forumController = this.controllerFor('discussionForum');
+					const postController = this.controllerFor('discussion.post'),
+						forumController = this.controllerFor('discussion.forum');
 
 					postController.set('postListSort', forumController.get('sortBy'));
 					this.transitionTo('discussion.post', postId);
@@ -74,7 +73,7 @@ export default App.DiscussionForumRoute = DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				const sortBy = this.controllerFor('discussionForum').get('sortBy') || this.defaultSortType;
+				const sortBy = this.controllerFor('discussion.forum').get('sortBy') || this.defaultSortType;
 
 				this.modelFor('discussion.forum').loadPage(pageNum, sortBy);
 			},

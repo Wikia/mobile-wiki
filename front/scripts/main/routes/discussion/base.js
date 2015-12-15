@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.DiscussionBaseRoute = Ember.Route.extend({
+export default Ember.Route.extend({
 	postDeleteFullScreenOverlay: false,
 
 	actions: {

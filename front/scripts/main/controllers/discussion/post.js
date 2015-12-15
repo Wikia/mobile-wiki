@@ -1,7 +1,6 @@
-import App from '../app';
-import DiscussionDeleteControllerMixin from '../mixins/discussion-delete-controller';
+import DiscussionDeleteControllerMixin from '../../mixins/discussion-delete-controller';
 
-export default App.DiscussionPostController = Ember.Controller.extend(DiscussionDeleteControllerMixin, {
+export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 	postListSort: '',
 
 	canShowMore: Ember.computed('model.postCount', 'model.replies.length', function () {

@@ -1,12 +1,11 @@
-import App from '../app';
-import DiscussionIndexModel from '../models/discussion-index';
+import DiscussionIndexModel from '../../models/discussion-index';
 
-export default App.DiscussionIndexRoute = Ember.Route.extend({
+export default Ember.Route.extend({
 	/**
 	 * @returns {void}
 	 */
 	beforeModel() {
-		const controller = this.controllerFor('discussionForum');
+		const controller = this.controllerFor('discussion.forum');
 
 		this.transitionTo('discussion.forum', Mercury.wiki.id, controller.get('sortTypes')[0].name);
 	},

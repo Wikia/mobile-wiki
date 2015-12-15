@@ -1,11 +1,10 @@
-import App from '../app';
-import DiscussionBaseRoute from './discussion-base';
-import DiscussionPostModel from '../models/discussion-post';
-import DiscussionRouteUpvoteMixin from '../mixins/discussion-route-upvote';
-import DiscussionLayoutMixin from '../mixins/discussion-layout';
-import DiscussionDeleteRouteMixin from '../mixins/discussion-delete-route';
+import DiscussionBaseRoute from './base';
+import DiscussionPostModel from '../../models/discussion-post';
+import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
+import DiscussionLayoutMixin from '../../mixins/discussion-layout';
+import DiscussionDeleteRouteMixin from '../../mixins/discussion-delete-route';
 
-export default App.DiscussionPostRoute = DiscussionBaseRoute.extend(
+export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionDeleteRouteMixin, {
