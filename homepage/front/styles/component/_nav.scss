@@ -317,8 +317,9 @@ header.navigation {
 				color: $navigation-color;
 				font-size: .9em;
 				height: rem-calc(32);
+				line-height: rem-calc(28);
 				margin: 0;
-				padding: .5em .8em;
+				padding: 0 .8em;
 				width: 100%;
 
 				@include media($horizontal-bar-mode) {
