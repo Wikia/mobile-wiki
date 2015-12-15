@@ -35,6 +35,10 @@ body.discussions {
 		}
 	}
 
+	.clickable {
+		cursor: pointer;
+	}
+
 	.count {
 		color: $discussion-count-color;
 		font-size: $type-min;
@@ -49,15 +53,12 @@ body.discussions {
 			line-height: 30px;
 			padding: 0 2px;
 		}
+	}
 
-		.icon {
-			&.upvote {
-				margin-right: 3px;
-				// clickable area is 30px height, text has to be vertically centered, but icons have to be adjusted
-				// to their bottom, so instead of adding additional html tags nesting, I moved up a bit the larger icon
-				margin-top: -4px;
-			}
-		}
+	.share-area {
+		display: block;
+		height: 30px;
+		line-height: 30px;
 	}
 
 	.delete-actions {
@@ -172,7 +173,14 @@ body.discussions {
 			}
 		}
 	}
-
+	.discussion-no-replies {
+		color: $discussion-error-text-color;
+		font-size: $type-smallest;
+		margin: 0 auto;
+		padding: 35px 0;
+		text-align: center;
+	  	width: inherit;
+  	}
 	// border set for each element with "post-reply" class, after the first one
 	.post-reply ~ .post-reply {
 		.discussion-reply {
@@ -189,6 +197,7 @@ body.discussions {
 
 		&.upvote {
 			height: 22px;
+			margin-right: 3px;
 			width: 22px;
 		}
 		&.upvote-reply {
@@ -197,8 +206,14 @@ body.discussions {
 			width: 12px;
 		}
 		&.replies{
-			height: 24px;
+			height: 19px;
 			width: 24px;
+		}
+	  	&.no-replies {
+		  	display: block;
+			height: 34px;
+		  	margin: 0 auto;
+			width: 40px;
 		}
 		&.toggle-share {
 			height: 20px;
@@ -231,7 +246,7 @@ body.discussions {
 			display: flex;
 			height: 30px;
 			justify-content: flex-end;
-			padding-top: 3px;
+			line-height: 30px;
 			text-align: right;
 
 			> * {
@@ -371,6 +386,10 @@ body.discussions {
 			margin-left: auto;
 			margin-right: auto;
 		}
+
+	  	.discussion-no-replies {
+			border-bottom: 1px solid $discussion-reply-border-color;
+	  	}
 	}
 }
 

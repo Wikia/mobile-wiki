@@ -6,6 +6,16 @@ import Hoek from 'hoek';
 import Url from 'url';
 import QueryString from 'querystring';
 
+/**
+ * @typedef {Object} ServerData
+ * @property {string} mediawikiDomain
+ * @property {string} apiBase
+ * @property {string} environment
+ * @property {string} cdnBaseURL
+ * @property {string} gaUrl
+ * @property {string} [optimizelyScript]
+ */
+
 // Environment types
 const Environment = {
 		Prod: 'prod',
@@ -257,12 +267,13 @@ export function shouldAsyncArticle(localSettings, host) {
  */
 export function createServerData(localSettings, wikiDomain = '') {
 	// if no environment, pass dev
-	const env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev,
+	const env = localSettings.environment || Environment.Dev,
 		data = {
 			mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
 			apiBase: localSettings.apiBase,
 			environment: getEnvironmentString(env),
-			cdnBaseUrl: getCDNBaseUrl(localSettings)
+			cdnBaseUrl: getCDNBaseUrl(localSettings),
+			gaUrl: localSettings.tracking.ua.scriptUrl
 		};
 
 	if (localSettings.optimizely.enabled) {
@@ -346,5 +357,5 @@ export function getHtmlTitle(wikiVariables, displayTitle) {
 	if (displayTitle) {
 		return htmlTitleTemplate.replace('$1', displayTitle);
 	}
-	return htmlTitleTemplate.substring(5);
+	return htmlTitleTemplate.replace('$1 - ', '');
 }

@@ -28,6 +28,7 @@
 			<!-- endbuild -->
 		{{/if}}
 
+		{{> dns-prefetch}}
 		{{> open-graph-tags}}
 
 		<link rel="canonical" href="{{canonicalUrl}}">
@@ -86,9 +87,6 @@
 	</head>
 	<body>
 		{{> qualaroo}}
-		<!-- @include ../../../www/front/svg/common.svg -->
-		<!-- @include ../../../www/front/svg/main.svg -->
-
 		{{!--
 		Ember must render out to a specific div above the scripts, otherwise
 		Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
@@ -98,9 +96,7 @@
 			<div id="preload">
 				<nav class="site-head">
 					<div class="site-logo">
-						<svg role="img" class="icon wikia-logo">
-							<use xlink:href="#wikia-logo"></use>
-						</svg>
+						<!-- @include ../../../front/svg/symbols/main/wikia-logo.svg -->
 					</div>
 				</nav>
 				<div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
@@ -114,6 +110,8 @@
 				'/front/vendor/main.js',
 				'/front/scripts/combined.js'
 			]);
+			M.loadDOMResource('/front/svg/main.svg');
+			M.loadDOMResource('/front/svg/common.svg');
 		</script>
 
 		<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>

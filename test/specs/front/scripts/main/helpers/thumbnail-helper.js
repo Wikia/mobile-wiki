@@ -1,62 +1,58 @@
-QUnit.module('Handlebars thumbnail helper', {
-	setup: function () {
-		sinon.stub(Mercury.Modules.Thumbnailer, 'getThumbURL', function (url, options) {
+QUnit.module('main/helpers/thumbnail-helper', function (hooks) {
+	var originalThumbnailerGetThumbURL,
+		thumbnailHelper;
+
+	hooks.beforeEach(function () {
+		originalThumbnailerGetThumbURL = require('mercury/modules/Thumbnailer').default.getThumbURL;
+
+		require('mercury/modules/Thumbnailer').default.getThumbURL = function (url, options) {
 			return url + '/' + options.mode + '/' + options.width + '/' + options.height;
-		});
-	},
-	teardown: function () {
-		Mercury.Modules.Thumbnailer.getThumbURL.restore();
-	}
-});
+		};
 
-QUnit.test('Thumbnail helper is registered', function () {
-	ok(Em.Handlebars.helpers.thumbnail);
-});
+		thumbnailHelper = require('main/helpers/thumbnail-helper').default.compute;
+	});
 
-QUnit.test('generate thumbnail with default options', function () {
-	var options = {
-		hash: {},
-		data: {isUnbound: true},
-		types: []
-	};
+	hooks.afterEach(function () {
+		require('mercury/modules/Thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
+	});
 
-	equal(
-		Em.Handlebars.helpers.thumbnail('http://wikia.com/test.jpg', options),
-		'<img src="http://wikia.com/test.jpg/fixed-aspect-ratio/100/100" alt="">'
-	);
-});
+	QUnit.test('Thumbnail helper is exported', function () {
+		ok(thumbnailHelper);
+	});
 
-QUnit.test('generate thumbnail with all options given', function () {
-	var options = {
-		hash: {
+	QUnit.test('generate thumbnail with default options', function () {
+		var options = {};
+
+		equal(
+			thumbnailHelper(['http://wikia.com/test.jpg'], options),
+			'<img src="http://wikia.com/test.jpg/fixed-aspect-ratio/100/100" alt="" class="">'
+		);
+	});
+
+	QUnit.test('generate thumbnail with all options given', function () {
+		var options = {
 			mode: 'top-crop',
 			width: 500,
 			height: 300,
-			alt: 'testing'
-		},
-		data: {isUnbound: true},
-		types: [],
-		hashTypes: {}
-	};
+			alt: 'testing',
+			className: 'pretty'
+		};
 
-	equal(
-		Em.Handlebars.helpers.thumbnail('http://wikia.com/test.jpg', options),
-		'<img src="http://wikia.com/test.jpg/top-crop/500/300" alt="testing">'
-	);
-});
+		equal(
+			thumbnailHelper(['http://wikia.com/test.jpg'], options),
+			'<img src="http://wikia.com/test.jpg/top-crop/500/300" alt="testing" class="pretty">'
+		);
+	});
 
-QUnit.test('generate thumbnail with invalid mode which should be replaced by default', function () {
-	var options = {
-		hash: {
+	QUnit.test('generate thumbnail with invalid mode which should be replaced by default', function () {
+		var options = {
 			mode: 'non-existent'
-		},
-		data: {isUnbound: true},
-		types: [],
-		hashTypes: {}
-	};
+		};
 
-	equal(
-		Em.Handlebars.helpers.thumbnail('http://wikia.com/test.jpg', options),
-		'<img src="http://wikia.com/test.jpg/fixed-aspect-ratio/100/100" alt="">'
-	);
+		equal(
+			thumbnailHelper(['http://wikia.com/test.jpg'], options),
+			'<img src="http://wikia.com/test.jpg/fixed-aspect-ratio/100/100" alt="" class="">'
+		);
+	});
+
 });
