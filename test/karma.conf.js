@@ -45,11 +45,6 @@ module.exports = function (config) {
 			'test/specs/front/**/*.js',
 		],
 
-		exclude: [
-			// TODO fix these tests and remove this line, see CONCF-413
-			'test/specs/front/scripts/main/helpers/*.js',
-		],
-
 		preprocessors: {
 			// source files, that you want to generate coverage for
 			// do not include tests or libraries

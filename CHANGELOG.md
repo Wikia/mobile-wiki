@@ -1,3 +1,22 @@
+## release-197 hotfix 1 (2015-12-11 16:25 UTC)
+* release-197-hotfix: XW-836 check for > -1 when using indexOf...
+
+## release-197 (2015-12-10 11:44 UTC)
+* [SOC-1764](https://wikia-inc.atlassian.net/browse/SOC-1764) SOC-1764 | Fix title when hostname is present
+* XW | show notifications when there is space in article title
+* [SOC-1713](https://wikia-inc.atlassian.net/browse/SOC-1713) SOC-1713 | Discussion sort - fix colors
+* [INT-284](https://wikia-inc.atlassian.net/browse/INT-284) INT-284 | Switched from nodemon to gulp-develop server for Japan HP
+* homepage-es6: XW-688 | Use ES6 and babel for Japan Homepage
+* [SOC-1729](https://wikia-inc.atlassian.net/browse/SOC-1729) SOC-1729 | Design CleanUp 2 - Post List Updates
+* [SOC-1713](https://wikia-inc.atlassian.net/browse/SOC-1713) SOC-1713 | Discussions - change default posts order
+* [XW-93](https://wikia-inc.atlassian.net/browse/XW-93) XW-93 | Load SVGs asynchronously
+* [SOC-1734](https://wikia-inc.atlassian.net/browse/SOC-1734) SOC-1734 | Oppening discussion posts in new tab
+* [SOC-1762](https://wikia-inc.atlassian.net/browse/SOC-1762) SOC-1762 | Fix GA tracking on AuthPages
+* [INT-294](https://wikia-inc.atlassian.net/browse/INT-294) INT-294 | Update text for Star Wars campaign
+* [INT-286](https://wikia-inc.atlassian.net/browse/INT-286) INT-286 | Adding a missing template file so that wikia-in-your-lang pop up works
+* [SOC-1582](https://wikia-inc.atlassian.net/browse/SOC-1582) SOC-1582 | Discussion - one more fix for load more replies button
+* [SOC-1704](https://wikia-inc.atlassian.net/browse/SOC-1704) SOC-1704/SOC-1729 | Design CleanUp 2 - Post List Updates
+
 ## release-196 hotfix 2 (2015-12-09 22:01 UTC)
 * [DAT-3556](https://wikia-inc.atlassian.net/browse/DAT-3556) DAT-3556 | fix issue with extremely long table cells
 * [DAT-3555](https://wikia-inc.atlassian.net/browse/DAT-3555) DAT-3555 | set max-width to arbitrary value

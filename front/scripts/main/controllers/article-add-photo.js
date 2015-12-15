@@ -18,7 +18,7 @@ export default App.ArticleAddPhotoController = Ember.Controller.extend({
 	handleAddContentSuccess() {
 		let title = this.get('model.title');
 
-		if (title.indexOf(' ')) {
+		if (title.indexOf(' ') > -1) {
 			title = normalizeToUnderscore(title);
 		}
 

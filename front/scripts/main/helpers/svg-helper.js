@@ -16,7 +16,7 @@ import App from '../app';
  * @param {Object} options
  * @returns {Ember.Handlebars.SafeString}
  */
-App.SvgHelper = Ember.Helper.helper((params, options) => {
+export default App.SvgHelper = Ember.Helper.helper((params, options) => {
 	const optionalParams = [
 			'class',
 			'role',
