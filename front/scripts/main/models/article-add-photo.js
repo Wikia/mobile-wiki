@@ -148,14 +148,14 @@ App.ArticleAddPhotoModel.reopenClass(
 			return this.getEditToken(title)
 				.then((token) => {
 					return new Ember.RSVP.Promise((resolve, reject) => {
-						debugger;
 						const params = {
 							action: 'addmediapermanent',
 							format: 'json',
 							title,
 							tempName,
-							token: token
+							token
 						};
+
 						Ember.$.ajax({
 							url: M.buildUrl({path: '/api.php'}),
 							method: 'POST',
@@ -172,7 +172,7 @@ App.ArticleAddPhotoModel.reopenClass(
 							error: (err) => reject(err)
 						});
 					});
-				}, (err) => reject(err));
+				});
 		},
 
 		/**
@@ -183,6 +183,7 @@ App.ArticleAddPhotoModel.reopenClass(
 			return this.getEditToken(photoData.name)
 				.then((token) => {
 					const formData = new FormData();
+
 					formData.append('file', photoData);
 					formData.append('action', 'addmediatemporary');
 					formData.append('format', 'json');
@@ -190,7 +191,7 @@ App.ArticleAddPhotoModel.reopenClass(
 					formData.append('token', token);
 					return new Ember.RSVP.Promise((resolve, reject) => {
 						Ember.$.ajax({
-							url: M.buildUrl({ path: '/api.php' }),
+							url: M.buildUrl({path: '/api.php'}),
 							method: 'POST',
 							data: formData,
 							cache: false,
@@ -211,7 +212,7 @@ App.ArticleAddPhotoModel.reopenClass(
 							error: (err) => reject(err)
 						});
 					});
-				}, (err) => reject(err));
+				});
 		}
 	}
 );
