@@ -19,8 +19,9 @@ gulp.task('scripts-front-modules-spa', function (done) {
 		], {base: './front/scripts/'})
 		.pipe(babel({
 			presets: ['es2015'],
-			//plugins: ['transform-es2015-modules-amd', __dirname + '/../utils/babel-enifed-module-formatter'],
-			plugins: ['transform-es2015-modules-amd'/*, 'rename-define'*/],
+			plugins: ['transform-es2015-modules-amd', ['rename-define', {
+				name: 'mdefine'
+			}]],
 			moduleIds: true
 		}))
 		.on('error', function (error) {
