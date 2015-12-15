@@ -4,6 +4,7 @@ import {integrateOptimizelyWithUA} from '../mercury/utils/variantTesting';
 import Ads from '../mercury/modules/Ads';
 import UniversalAnalytics from '../mercury/modules/Trackers/UniversalAnalytics';
 import CurrentUser from './CurrentUser';
+import DiscussionEditorService from './services/discussion-editor';
 
 const App = Ember.Application.create({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
@@ -230,6 +231,18 @@ App.initializer({
 		} else {
 			Ember.debug('Geo cookie is not set');
 		}
+	}
+});
+
+/**
+ * Discussion Editor service
+ */
+App.initializer({
+	name: 'discussionEditor',
+	after: 'geo',
+	initialize: function(container, application) {
+		application.register('discussionEditor:main', DiscussionEditorService);
+		application.inject('route', 'discussionEditor', 'discussionEditor:main');
 	}
 });
 
