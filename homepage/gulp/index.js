@@ -4,7 +4,7 @@ var fs = require('fs'),
 // Filter out any non-.js files
 function onlyScripts(name) {
 	return /\.js$/i.test(path.extname(name));
-};
+}
 
 var tasks = fs.readdirSync('./gulp/tasks').filter(onlyScripts);
 

@@ -1,1 +1,4 @@
+front/
+node_modules/
+vendor/
 package.json

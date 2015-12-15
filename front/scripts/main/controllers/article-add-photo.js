@@ -1,6 +1,7 @@
 import App from '../app';
 import ArticleAddPhotoModel from '../models/article-add-photo';
 import {track, trackActions} from '../../mercury/utils/track';
+import {normalizeToUnderscore} from '../../mercury/utils/string';
 
 export default App.ArticleAddPhotoController = Ember.Controller.extend({
 	application: Ember.inject.controller(),
@@ -15,7 +16,11 @@ export default App.ArticleAddPhotoController = Ember.Controller.extend({
 	 * @returns {void}
 	 */
 	handleAddContentSuccess() {
-		const title = this.get('model.title');
+		let title = this.get('model.title');
+
+		if (title.indexOf(' ') > -1) {
+			title = normalizeToUnderscore(title);
+		}
 
 		this.transitionToRoute('article', title).then(() => {
 			this.get('application').addAlert({
