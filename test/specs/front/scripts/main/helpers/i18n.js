@@ -1,4 +1,4 @@
-QUnit.module('main/helpers/i18n-helper', function (hooks) {
+QUnit.module('main/helpers/i18n', function (hooks) {
 	var originali18nGlobal,
 		tStub = sinon.stub(),
 		i18nHelper;
@@ -9,7 +9,7 @@ QUnit.module('main/helpers/i18n-helper', function (hooks) {
 			t: tStub
 		};
 
-		i18nHelper = require('main/helpers/i18n-helper').default.compute;
+		i18nHelper = mrequire('main/helpers/i18n').default.compute;
 	});
 
 	hooks.afterEach(function () {

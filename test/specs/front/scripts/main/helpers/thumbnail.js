@@ -1,19 +1,19 @@
-QUnit.module('main/helpers/thumbnail-helper', function (hooks) {
+QUnit.module('main/helpers/thumbnail', function (hooks) {
 	var originalThumbnailerGetThumbURL,
 		thumbnailHelper;
 
 	hooks.beforeEach(function () {
-		originalThumbnailerGetThumbURL = require('mercury/modules/Thumbnailer').default.getThumbURL;
+		originalThumbnailerGetThumbURL = mrequire('mercury/modules/Thumbnailer').default.getThumbURL;
 
-		require('mercury/modules/Thumbnailer').default.getThumbURL = function (url, options) {
+		mrequire('mercury/modules/Thumbnailer').default.getThumbURL = function (url, options) {
 			return url + '/' + options.mode + '/' + options.width + '/' + options.height;
 		};
 
-		thumbnailHelper = require('main/helpers/thumbnail-helper').default.compute;
+		thumbnailHelper = mrequire('main/helpers/thumbnail').default.compute;
 	});
 
 	hooks.afterEach(function () {
-		require('mercury/modules/Thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
+		mrequire('mercury/modules/Thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
 	});
 
 	QUnit.test('Thumbnail helper is exported', function () {

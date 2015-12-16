@@ -11,11 +11,11 @@ QUnit.module('mercury/modules/VideoPlayers/Base', function (hooks) {
 				}
 			});
 		};
-	
+
 	hooks.beforeEach(function () {
 		var exports = {};
 
-		require.entries['mercury/modules/VideoPlayers/Base'].callback(exports, loadStub, {}, {
+		mrequire.entries['mercury/modules/VideoPlayers/Base'].callback(exports, loadStub, {}, {
 			track: trackStub
 		});
 
@@ -24,7 +24,7 @@ QUnit.module('mercury/modules/VideoPlayers/Base', function (hooks) {
 			onResize: sinon.stub()
 		});
 	});
-	
+
 	hooks.afterEach(function () {
 		loadStub.reset();
 		trackStub.reset();
@@ -40,7 +40,7 @@ QUnit.module('mercury/modules/VideoPlayers/Base', function (hooks) {
 
 	QUnit.test('loadPlayer calls M.load and playerDidLoad hook', function () {
 		var instance = getInstance();
-		
+
 		this.spy(instance, 'playerDidLoad');
 
 		equal(instance.playerDidLoad.called, false, 'playerDidLoad should not be called yet');
@@ -75,4 +75,3 @@ QUnit.module('mercury/modules/VideoPlayers/Base', function (hooks) {
 		}), 'track called with correct params');
 	});
 });
-	

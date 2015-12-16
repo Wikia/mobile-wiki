@@ -1,8 +1,8 @@
-QUnit.module('main/helpers/duration-helper', function (hooks) {
+QUnit.module('main/helpers/duration', function (hooks) {
 	var durationHelper;
 
 	hooks.beforeEach(function () {
-		durationHelper = require('main/helpers/duration-helper').default.compute;
+		durationHelper = mrequire('main/helpers/duration').default.compute;
 	});
 
 	QUnit.test('Duration helper is exported', function () {

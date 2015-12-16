@@ -1,8 +1,8 @@
-QUnit.module('main/helpers/svg-helper', function (hooks) {
+QUnit.module('main/helpers/svg', function (hooks) {
 	var svgHelper;
 
 	hooks.beforeEach(function () {
-		svgHelper = require('main/helpers/svg-helper').default.compute;
+		svgHelper = mrequire('main/helpers/svg').default.compute;
 	});
 
 	QUnit.test('SVG helper is exported', function () {

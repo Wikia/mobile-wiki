@@ -14,7 +14,9 @@ gulp.task('scripts-test-modules', function (done) {
 		], {base: './front/scripts/'})
 		.pipe(babel({
 			presets: ['es2015'],
-			plugins: ['transform-es2015-modules-amd'],
+			plugins: ['transform-es2015-modules-amd', ['rename-define', {
+				name: 'mdefine'
+			}]],
 			moduleIds: true
 		}))
 		.on('error', function (error) {

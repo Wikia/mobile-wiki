@@ -1,8 +1,8 @@
-QUnit.module('main/helpers/truncate-helper', function (hooks) {
+QUnit.module('main/helpers/truncate', function (hooks) {
 	var truncateHelper;
 
 	hooks.beforeEach(function () {
-		truncateHelper = require('main/helpers/truncate-helper').default.compute;
+		truncateHelper = mrequire('main/helpers/truncate').default.compute;
 	});
 
 	QUnit.test('Truncate helper is exported', function () {
