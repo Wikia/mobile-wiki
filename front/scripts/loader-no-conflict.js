@@ -1,4 +1,5 @@
 /* global loader */
+/* eslint no-undefined:0 */
 
 /**
  * This is done because Ads code uses modil.js

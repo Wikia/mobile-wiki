@@ -1,4 +1,7 @@
-export function initialize () {
+/**
+ * @returns {void}
+ */
+export function initialize() {
 	Ember.LinkComponent.reopen({
 		attributeBindings: ['data-tracking-category'],
 
@@ -30,4 +33,4 @@ export function initialize () {
 export default {
 	name: 'link-to',
 	initialize
-}
+};
