@@ -170,6 +170,9 @@ App.initializer({
 				window.location.pathname === '/'
 			) {
 				return 'home';
+			} else if (window.location.pathname.startsWith('/d/')) {
+				// Discussion pages
+				return 'discussions';
 			}
 
 			return 'article';
