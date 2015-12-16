@@ -5,11 +5,9 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	attributeBindings: ['style'],
 
 	classNames: ['discussion-editor'],
-	classNameBindings: ['isActive', 'hasError'],
+	classNameBindings: ['hasError'],
 
 	isSticky: false,
-
-	isActive: false,
 
 	isLoading: false,
 	showSuccess: false,
@@ -35,7 +33,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 */
 	init(...params) {
 		this._super(...params);
-		this.set('isActive', false);
+		this.sendAction('toggleEditor', false);
 	},
 
 	/**
@@ -132,7 +130,6 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 */
 	showNewPostAnimations(newItem) {
 		this.setProperties({
-			isActive: false,
 			bodyText: '',
 			showSuccess: false
 		});
@@ -197,7 +194,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		 * @returns {void}
 		 */
 		updateOnInput() {
-			this.set('isActive', true);
+			this.sendAction('toggleEditor', true);
 		},
 
 		/**

@@ -242,7 +242,7 @@ App.initializer({
 	after: 'geo',
 	initialize: function(container, application) {
 		application.register('discussionEditor:main', DiscussionEditorService);
-		application.inject('route', 'discussionEditor', 'discussionEditor:main');
+		application.inject('controller', 'discussionEditor', 'discussionEditor:main');
 	}
 });
 

@@ -2,9 +2,6 @@ import App from '../app';
 import DiscussionDeleteControllerMixin from '../mixins/discussion-delete-controller';
 
 export default App.DiscussionBaseController = Ember.Controller.extend(DiscussionDeleteControllerMixin, {
-
-	isEditorOpen: false,
-
 	/**
 	 * Renders a message to display to an anon
 	 * @returns {void}
@@ -37,19 +34,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend(Discussion
 	 * @returns {void}
 	 */
 	setEditorOpen() {
-		this.set('isEditorOpen', true);
-		Ember.run.next(this, () => {
-			/*
-			 iOS hack for position: fixed - now we display loading icon.
-			 */
-			if (/iPad|iPhone|iPod/.test(navigator.platform)) {
-				Ember.$('html, body').css({
-					height: '100%',
-					overflow: 'hidden'
-				});
-			}
-			Ember.$('.editor-textarea').focus();
-		});
+		this.discussionEditor.setEditorOpen();
 	},
 
 	/**
@@ -57,12 +42,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend(Discussion
 	 * @returns {void}
 	 */
 	setEditorClosed() {
-		this.set('isEditorOpen', false);
-		Ember.$('html, body').css({
-			height: '',
-			overflow: ''
-		});
-		Ember.$('.editor-textarea').blur();
+		this.discussionEditor.setEditorClosed();
 	},
 
 	/**
@@ -73,7 +53,7 @@ export default App.DiscussionBaseController = Ember.Controller.extend(Discussion
 	activateEditor() {
 		let isAnon, isUserBlocked;
 
-		if (this.get('isEditorOpen') === true) {
+		if (this.discussionEditor.get('isEditorOpen') === true) {
 			return;
 		}
 
