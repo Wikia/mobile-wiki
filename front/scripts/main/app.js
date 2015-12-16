@@ -243,6 +243,7 @@ App.initializer({
 	initialize: function(container, application) {
 		application.register('discussionEditor:main', DiscussionEditorService);
 		application.inject('controller', 'discussionEditor', 'discussionEditor:main');
+		application.inject('component', 'discussionEditor', 'discussionEditor:main');
 	}
 });
 

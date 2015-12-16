@@ -19,8 +19,6 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	bodyText: '',
 	layoutName: 'components/discussion-editor',
 
-	errorMessage: Ember.computed.oneWay('requestErrorMessage'),
-
 	/**
 	 * @returns {boolean}
 	 */
@@ -80,16 +78,6 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	initializeStickyState() {
 		throw new Error('Please, override this method in the descendant class');
 	},
-
-	/**
-	 * Display error message on post failure
-	 */
-	errorMessageObserver: Ember.observer('errorMessage', function () {
-		if (this.get('errorMessage')) {
-			alert(i18n.t(this.get('errorMessage'), {ns: 'discussion'}));
-		}
-		this.set('isLoading', false);
-	}),
 
 	/**
 	 * Ultra hack for editor on iOS
@@ -186,7 +174,6 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		 */
 		toggleEditorActive(active) {
 			this.sendAction('toggleEditor', active);
-
 		},
 
 		/**

@@ -20,6 +20,16 @@ export default App.DiscussionBaseModel = Ember.Object.extend({
 	minorError: false,
 
 	/**
+	 * Display error message on failure
+	 */
+	errorMessageObserver: Ember.observer('errorMessage', function () {
+		if (this.get('errorMessage')) {
+			alert(i18n.t(this.get('errorMessage'), {ns: 'discussion'}));
+		}
+		this.set('isLoading', false);
+	}),
+
+	/**
 	 * @param {Object} err
 	 * @returns {void}
 	 */
