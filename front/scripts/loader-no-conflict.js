@@ -6,3 +6,9 @@ loader.noConflict({
 	define: 'mdefine',
 	require: 'mrequire'
 });
+
+/**
+ * Clean it up for modil.js
+ */
+window.require = undefined;
+window.define = undefined;

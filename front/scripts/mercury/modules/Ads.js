@@ -70,13 +70,6 @@ class Ads {
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
 
-		/**
-		 * We use mrequire and mdefine but those below are defined too
-		 * @type {undefined}
-		 */
-		window.require = undefined;
-		window.define = undefined;
-
 		/* global require */
 		// Load the ads code from MW
 		load(adsUrl, () => {
