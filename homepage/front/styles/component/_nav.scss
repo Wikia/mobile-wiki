@@ -317,8 +317,9 @@ header.navigation {
 				color: $navigation-color;
 				font-size: .9em;
 				height: rem-calc(32);
+				line-height: rem-calc(20);
 				margin: 0;
-				padding: .5em .8em;
+				padding: 0 .8em;
 				width: 100%;
 
 				@include media($horizontal-bar-mode) {
@@ -332,13 +333,13 @@ header.navigation {
 
 				background-color: $search-bar-background;
 				border-radius: 0;
-				height: 1rem;
+				height: 1.6rem;
 				outline: none;
 				padding: 5px 8px;
 				right: .1rem;
 				top: .35rem;
 
-				img {
+				img :not(search) {
 					height: 12px;
 					opacity: .7;
 				}
@@ -347,7 +348,7 @@ header.navigation {
 	}
 }
 
-// Search bar for Mobile
+// Search bar for mobile
 .search-bar-mobile {
 	$search-bar-border-color: #c5ced9;
 	$search-bar-border: 1px solid $search-bar-border-color;
@@ -399,13 +400,13 @@ header.navigation {
 
 			background-color: $search-bar-background;
 			border-radius: 0;
-			height: 1rem;
+			height: 1.6rem;
 			outline: none;
 			padding: 5px 8px;
 			right: .1rem;
 			top: .35rem;
 
-			img {
+			img :not(search) {
 				height: 12px;
 				opacity: .7;
 			}
