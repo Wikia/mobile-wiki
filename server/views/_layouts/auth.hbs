@@ -50,19 +50,13 @@
 		</script>
 		<!-- build:js /front/scripts/auth.js -->
 		<script src="/front/vendor/loader.js/loader.js"></script>
-		<script>
-			loader.noConflict({
-				define: 'mdefine',
-				require: 'mrequire'
-			});
-		</script>
 		<script src="/front/vendor/i18next/i18next.min.js"></script>
 		<script src="/front/vendor/visit-source/dist/visit-source.js"></script>
 		<script src="/front/vendor/jquery/dist/jquery.js"></script>
 		<script src="/front/scripts/baseline.js"></script>
 		<script src="/front/scripts/modules-auth.js"></script>
 		<script>
-			mrequire('auth/main');
+			require('auth/main').init();
 		</script>
 		<!-- endbuild -->
 		<script>

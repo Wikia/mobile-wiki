@@ -44,9 +44,7 @@ gulp.task('scripts-front-modules-auth', function (done) {
 		], {base: './front/scripts/'})
 		.pipe(babel({
 			presets: ['es2015'],
-			plugins: ['transform-es2015-modules-amd', ['rename-define', {
-				name: 'mdefine'
-			}]],
+			plugins: ['transform-es2015-modules-amd'],
 			moduleIds: true
 		}))
 		.on('error', function (error) {
