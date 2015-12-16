@@ -42,13 +42,17 @@ function getDistilledDiscussionsSplashPageConfig(hostName) {
 /**
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
+ * @param {object} wikiVariables
  * @returns {void}
  */
-export default function showApplication(request, reply) {
+export default function showApplication(request, reply, wikiVariables) {
 	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
-		wikiVariables = new MW.WikiRequest({wikiDomain}).wikiVariables(),
 		context = {},
 		hostName = Utils.getWikiaSubdomain(request.info.host);
+
+	if (typeof wikiVariables === 'undefined') {
+		wikiVariables = new MW.WikiRequest({wikiDomain}).wikiVariables();
+	}
 
 	// @todo These transforms could be better abstracted, as such, this is a lot like prepareArticleData
 	context.server = Utils.createServerData(localSettings, wikiDomain);
