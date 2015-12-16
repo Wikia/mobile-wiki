@@ -103,7 +103,10 @@ body.dark-theme {
 
 				.icon:not(.undelete):not(.delete) {
 					fill: $dark-discussion-deleted-actions-color;
-					stroke: $dark-discussion-deleted-actions-color;
+
+					&.upvote-reply {
+						stroke: $dark-discussion-deleted-actions-color;
+					}
 				}
 			}
 		}
@@ -120,11 +123,18 @@ body.dark-theme {
 			}
 		}
 
+		.icon {
+			fill: $dark-discussion-actions-color;
+
+			&.upvote-reply {
+				stroke: $dark-discussion-actions-color;
+			}
+		}
+
 		.has-upvoted {
 			.icon {
-				&.upvote {
-					fill: $dark-upvote-icon-activated-color;
-				}
+				fill: $dark-upvote-icon-activated-color;
+
 				&.upvote-reply {
 					stroke: $dark-upvote-icon-activated-color;
 				}
@@ -193,6 +203,9 @@ body.dark-theme {
 		.discussion-contributors-title {
 			color: $dark-discussion-contributors-rail-title;
 		}
+		.back-button {
+			border-color: $discussion-rail-separator-color;
+		}
 	}
 	figure {
 		&.avatar {
@@ -200,9 +213,6 @@ body.dark-theme {
 				border-color: $dark-discussion-avatar-border-color;
 			}
 		}
-	}
-	.rail hr {
-		border-top-color: $dark-discussion-rail-separator-color;
 	}
 }
 
