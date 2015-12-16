@@ -1,10 +1,9 @@
-import App from '../app';
 import ThemeMixin from './theme';
 
 /**
  * Sets what is needed for UI on each route on Discussions
  */
-export default App.DiscussionLayoutMixin = Ember.Mixin.create(ThemeMixin, {
+export default Ember.Mixin.create(ThemeMixin, {
 
 	/**
 	 * @returns {void}

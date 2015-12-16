@@ -1,7 +1,6 @@
-import App from '../app';
 import HeadroomMixin from '../mixins/headroom';
 
-export default App.DiscussionHeaderComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	HeadroomMixin,
 	{
 		classNames: ['discussion-header', 'background-theme-color'],

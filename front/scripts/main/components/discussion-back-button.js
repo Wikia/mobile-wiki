@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.DiscussionBackButtonComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	tagName: 'a',
 	classNames: ['back-button', 'active-element-theme-color'],
 	attributeBindings: ['href'],

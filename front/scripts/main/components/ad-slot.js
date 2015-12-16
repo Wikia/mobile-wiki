@@ -1,6 +1,6 @@
 import Ads from '../../mercury/modules/Ads';
 
-export default  Ember.Component.extend({
+export default Ember.Component.extend({
 	classNames: ['ad-slot-wrapper'],
 	classNameBindings: ['nameLowerCase', 'noAds'],
 	// This component is created dynamically, and this won't work without it

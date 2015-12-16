@@ -1,7 +1,6 @@
-import App from '../app';
 import load from '../../mercury/utils/load';
 
-export default App.PollDaddyMixin = Ember.Mixin.create({
+export default Ember.Mixin.create({
 	/**
 	 * This is a hack to make PollDaddy work (HG-618)
 	 * @see http://static.polldaddy.com/p/8791040.js

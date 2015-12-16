@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.DiscussionContributorsComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	classNames: ['discussion-contributors'],
 
 	contributors: [],

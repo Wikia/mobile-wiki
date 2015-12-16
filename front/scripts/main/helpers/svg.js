@@ -1,5 +1,3 @@
-import App from '../app';
-
 /**
  * Helper to generate SVGs in the form:
  * {{svg name viewBox classes}}
@@ -16,7 +14,7 @@ import App from '../app';
  * @param {Object} options
  * @returns {Ember.Handlebars.SafeString}
  */
-export default App.SvgHelper = Ember.Helper.helper((params, options) => {
+export default Ember.Helper.helper((params, options) => {
 	const optionalParams = [
 			'class',
 			'role',
