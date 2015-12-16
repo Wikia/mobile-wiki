@@ -7,6 +7,7 @@ import Login from './common/Login';
 import SignupForm from './signup/SignupForm';
 import SubmitValidator from './login/SubmitValidator';
 import VisitSourceWrapper from './common/VisitSourceWrapper';
+import {init as initTracking} from './tracking';
 
 /**
  * @returns {void}
@@ -62,5 +63,7 @@ export function init() {
 		}
 
 		VisitSourceWrapper.init();
+
+		initTracking();
 	});
 }
