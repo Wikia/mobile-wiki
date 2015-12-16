@@ -9,7 +9,6 @@ import {routes} from './routes';
 import path from 'path';
 import url from 'url';
 import fs from 'fs';
-import crumb from 'crumb';
 import i18next from 'hapi-i18next';
 import handlebars from 'handlebars';
 
@@ -68,7 +67,10 @@ function getOnPreResponseHandler(isDevbox) {
 		if (response && response.header) {
 			response.header('x-backend-response-time', responseTimeSec);
 			response.header('x-served-by', servedBy);
-			response.vary('cookie');
+
+			if (response.variety !== 'file') {
+				response.vary('cookie');
+			}
 		} else if (response.isBoom) {
 			// see https://github.com/hapijs/boom
 			response.output.headers['x-backend-response-time'] = responseTimeSec;
@@ -165,14 +167,6 @@ function getSupportedLangs() {
 }
 
 plugins = [
-	{
-		register: crumb,
-		options: {
-			cookieOptions: {
-				isSecure: false
-			}
-		}
-	},
 	{
 		register: i18next,
 		options: {

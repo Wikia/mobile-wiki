@@ -14,7 +14,6 @@ import searchHandler from './facets/api/search';
 import mainPageSectionHandler from './facets/api/mainPageSection';
 import mainPageCategoryHandler from './facets/api/mainPageCategory';
 import logoutHandler from './facets/auth/logout';
-import generateCSRFView from './facets/operations/generateCSRFView';
 import editorPreview from './facets/editorPreview';
 import joinHandler from './facets/auth/join';
 import {validateRedirect} from './facets/auth/authView';
@@ -120,11 +119,6 @@ let routes,
 			method: 'GET',
 			path: '/logout',
 			handler: logoutHandler
-		},
-		{
-			method: 'GET',
-			path: '/breadcrumb',
-			handler: generateCSRFView
 		},
 		{
 			method: 'POST',

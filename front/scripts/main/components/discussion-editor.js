@@ -10,7 +10,6 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	isActive: false,
 	isSticky: false,
 
-	isLoading: false,
 	showSuccess: false,
 	hasError: false,
 
