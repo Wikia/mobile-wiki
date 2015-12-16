@@ -1,3 +1,6 @@
+/**
+ * @returns {void}
+ */
 export function initialize() {
 	if (typeof VisitSource === 'function') {
 		(new VisitSource('WikiaSessionSource', M.prop('cookieDomain'))).checkAndStore();

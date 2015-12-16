@@ -1,3 +1,5 @@
+/* global loader */
+
 /**
  * This is done because Ads code uses modil.js
  * which has its own implementation of define and require

@@ -1,3 +1,5 @@
+/* global mrequire */
+
 /**
  * Boot the main app
  */

@@ -1,3 +1,6 @@
+/**
+ * @returns {void}
+ */
 export function initialize() {
 	$.ajaxSetup({
 		cache: true
@@ -5,6 +8,6 @@ export function initialize() {
 }
 
 export default {
-	name: 'jquery.ajax',
+	name: 'jquery-ajax',
 	initialize
 };

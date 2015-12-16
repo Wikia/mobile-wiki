@@ -23,6 +23,5 @@ export function initialize() {
 
 export default {
 	name: 'geo',
-	//after: 'setup-tracking',
 	initialize
 };

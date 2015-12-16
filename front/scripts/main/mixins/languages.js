@@ -1,4 +1,4 @@
-export default  Ember.Mixin.create({
+export default Ember.Mixin.create({
 	currentUser: Ember.inject.service(),
 
 	defaultLanguage: 'en',

@@ -18,7 +18,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
-			//this.clearNotifications();
+			Ember.run.scheduleOnce('afterRender', this, () => this.clearNotifications());
 		},
 
 		actions: {

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /**
  * Copied from https://github.com/ember-cli/ember-load-initializers/blob/master/ember-load-initializers.js
  */

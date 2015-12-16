@@ -2,7 +2,10 @@ import Ads from '../../mercury/modules/Ads';
 import UniversalAnalytics from '../../mercury/modules/Trackers/UniversalAnalytics';
 import {integrateOptimizelyWithUA} from '../../mercury/utils/variantTesting';
 
-export function initialize(applicationInstance) {
+/**
+ * @returns {void}
+ */
+export function initialize() {
 	const adsContext = Ads.getInstance().getContext();
 
 	let dimensions = [];
@@ -60,5 +63,6 @@ export function initialize(applicationInstance) {
 
 export default {
 	name: 'setup-tracking',
-	initialize: initialize
-}
+	after: 'optimizely',
+	initialize
+};

@@ -1,4 +1,3 @@
-import App from '../app';
 import MediaModel from './media';
 import {normalizeToWhitespace} from '../../mercury/utils/string';
 

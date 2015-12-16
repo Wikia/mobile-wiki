@@ -1,5 +1,3 @@
-/*globals mrequire */
-
 import ModuleRegistry from './module-registry';
 import classFactory from './class-factory';
 import makeDictionary from './make-dictionary';

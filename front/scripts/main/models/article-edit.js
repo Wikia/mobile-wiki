@@ -1,4 +1,3 @@
-import App from '../app';
 import ArticleEditMixin from '../mixins/article-edit';
 
 const ArticleEditModel = Ember.Object.extend({

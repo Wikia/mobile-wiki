@@ -1,4 +1,9 @@
-export function initialize (applicationInstance) {
+/**
+ * @param {*} applicationInstance
+ *
+ * @returns {void}
+ */
+export function initialize(applicationInstance) {
 	const $window = $(window),
 		/**
 		 * prevents fail if transitions are empty
@@ -46,6 +51,5 @@ export function initialize (applicationInstance) {
 
 export default {
 	name: 'preload',
-	//after: 'optimizely',
-	initialize: initialize
-}
+	initialize
+};

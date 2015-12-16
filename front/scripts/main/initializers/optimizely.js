@@ -1,5 +1,11 @@
 import {getQueryParam} from '../../mercury/utils/queryString';
 
+/**
+ * @param {*} container
+ * @param {*} application
+ *
+ * @returns {void}
+ */
 export function initialize(container, application) {
 	const optimizelyScript = M.prop('optimizelyScript');
 

@@ -1,5 +1,3 @@
-/*globals requirejs, require */
-
 if (typeof requirejs.entries === 'undefined') {
 	requirejs.entries = requirejs._eak_seen;
 }

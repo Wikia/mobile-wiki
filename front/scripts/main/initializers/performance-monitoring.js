@@ -1,5 +1,8 @@
 import * as trackPerf from '../../mercury/utils/trackPerf';
 
+/**
+ * @returns {void}
+ */
 export function initialize() {
 	if (typeof EmPerfSender === 'undefined') {
 		return;
@@ -32,6 +35,5 @@ export function initialize() {
 
 export default {
 	name: 'performance-monitoring',
-	//after: 'preload',
 	initialize
 };

@@ -1,5 +1,3 @@
-import App from '../app';
-
 /**
  * @typedef {Object} UserModelFindParams
  * @property {number} userId
