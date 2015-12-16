@@ -2,6 +2,7 @@
  * Handles sending upvote action outside from the component.
  */
 export default Ember.Mixin.create({
+	currentUser: Ember.inject.service(),
 
 	/**
 	 * Checks if there's a permission to upvote a post / reply
