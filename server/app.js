@@ -67,7 +67,10 @@ function getOnPreResponseHandler(isDevbox) {
 		if (response && response.header) {
 			response.header('x-backend-response-time', responseTimeSec);
 			response.header('x-served-by', servedBy);
-			response.vary('cookie');
+
+			if (response.variety !== 'file') {
+				response.vary('cookie');
+			}
 		} else if (response.isBoom) {
 			// see https://github.com/hapijs/boom
 			response.output.headers['x-backend-response-time'] = responseTimeSec;
