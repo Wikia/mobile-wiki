@@ -21,7 +21,6 @@ export default Ember.Component.extend(
 
 		isZoomed: Ember.computed.gt('scale', 1),
 		loadingError: false,
-		isLoading: false,
 
 		/**
 		 * This is performance critical place, we will update property 'manually' by calling notifyPropertyChange

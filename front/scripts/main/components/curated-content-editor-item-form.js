@@ -20,7 +20,6 @@ export default Ember.Component.extend(
 		maxLabelLength: 48,
 		debounceDuration: 250,
 		imageMenuVisible: false,
-		isLoading: false,
 
 		// Force one way binding
 		model: Ember.computed.oneWay('attrs.model'),

@@ -11,7 +11,6 @@ export default Ember.Component.extend(ViewportMixin, {
 	isActive: false,
 	isSticky: false,
 
-	isLoading: false,
 	showSuccess: false,
 	hasError: false,
 

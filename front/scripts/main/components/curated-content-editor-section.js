@@ -17,7 +17,6 @@ export default Ember.Component.extend(
 			return this.generateThumbUrl(this.get('model.image_url'));
 		}),
 		notEmptyItems: Ember.computed.notEmpty('model.items'),
-		isLoading: false,
 
 		actions: {
 			/**
