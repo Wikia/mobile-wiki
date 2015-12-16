@@ -9,7 +9,6 @@ import {routes} from './routes';
 import path from 'path';
 import url from 'url';
 import fs from 'fs';
-import crumb from 'crumb';
 import i18next from 'hapi-i18next';
 import handlebars from 'handlebars';
 
@@ -165,14 +164,6 @@ function getSupportedLangs() {
 }
 
 plugins = [
-	{
-		register: crumb,
-		options: {
-			cookieOptions: {
-				isSecure: false
-			}
-		}
-	},
 	{
 		register: i18next,
 		options: {
