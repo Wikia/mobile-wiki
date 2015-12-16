@@ -55,11 +55,9 @@
 		<script src="/front/vendor/jquery/dist/jquery.js"></script>
 		<script src="/front/scripts/baseline.js"></script>
 		<script src="/front/scripts/modules-auth.js"></script>
-		<script>
-			require('auth/main').init();
-		</script>
 		<!-- endbuild -->
 		<script>
+			require('auth/main').init();
 			M.loadDOMResource('/front/svg/common.svg');
 			M.prop('tracking', {{{json trackingConfig}}});
 			M.prop('isGASpecialWiki', true);
