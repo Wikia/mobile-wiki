@@ -63,6 +63,5 @@ export function initialize() {
 
 export default {
 	name: 'setup-tracking',
-	after: 'optimizely',
 	initialize
 };
