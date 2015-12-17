@@ -170,7 +170,7 @@ App.initializer({
 				window.location.pathname === '/'
 			) {
 				return 'home';
-			} else if (window.location.pathname.startsWith('/d/')) {
+			} else if (window.location.pathname.indexOf('/d/') === 0) {
 				// Discussion pages
 				return 'discussions';
 			}
