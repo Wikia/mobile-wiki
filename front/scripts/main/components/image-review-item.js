@@ -17,11 +17,5 @@ export default App.ImageReviewItemComponent = Ember.Component.extend({
 		} else {
 			return this.get('emptyGif');
 		}
-	}),
-
-	actions: {
-		showModal(id) {
-			this.sendAction('showModal', id);
-		}
-	}
+	})
 });

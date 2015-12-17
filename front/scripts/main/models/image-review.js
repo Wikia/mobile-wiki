@@ -4,7 +4,7 @@ export default App.ImageReviewModel = Ember.Object.extend({
 
 	init() {
 		this.isModalVisible = false;
-		this.modalImageUUID = null;
+		this.modalImageUrl = null;
 		this.images = this.get('images');
 	},
 	reviewImages(images) {

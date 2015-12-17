@@ -6,13 +6,13 @@
 <ul class="image-review-list">
     <li class="image-review-item">
 		{{#each model.images as |item|}}
-			{{image-review-item model=item showModal='showModal'}}
+			{{image-review-item model=item click=(action 'showModal' item.fullSizeImageUrl)}}
 		{{/each}}
     </li>
 </ul>
 
 {{#modal-dialog isVisible=model.isModalVisible}}
-	<img src="{{model.baseImgUrl}}{{model.modalImageUUID}}"/>
+	<img src="{{model.modalImageUrl}}"/>
 	<p>{{model.modalImageUUID}}</p>
 {{/modal-dialog}}
 
