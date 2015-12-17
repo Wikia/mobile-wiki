@@ -1,5 +1,5 @@
 import {WikiRequest} from '../lib/MediaWiki';
-import {getCachedWikiDomainName}  from '../lib/Utils';
+import {getCachedWikiDomainName} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
 import showApplication from '../facets/showApplication';
 

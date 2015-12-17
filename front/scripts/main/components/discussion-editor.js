@@ -31,8 +31,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
 		if (this.get('discussionEditor').get('isEditorOpen')) {
 			this.afterOpenActions();
-		}
-		else {
+		} else {
 			this.afterCloseActions();
 		}
 	}),
