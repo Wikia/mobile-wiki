@@ -1,5 +1,5 @@
 import App from '../app';
-import ajaxCall from '../../mercury/utils/ajaxCall.js';
+import ajaxCall from '../../mercury/utils/ajaxCall';
 
 export default App.DiscussionIndexModel = Ember.Object.extend({});
 

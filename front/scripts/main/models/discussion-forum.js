@@ -1,7 +1,7 @@
 import App from '../app';
 import DiscussionBaseModel from './discussion-base';
 import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
-import ajaxCall from '../../mercury/utils/ajaxCall.js';
+import ajaxCall from '../../mercury/utils/ajaxCall';
 
 export default App.DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 	name: null,

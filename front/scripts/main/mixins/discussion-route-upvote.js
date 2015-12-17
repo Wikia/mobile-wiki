@@ -1,4 +1,4 @@
-import ajaxCall from '../../mercury/utils/ajaxCall.js';
+import ajaxCall from '../../mercury/utils/ajaxCall';
 
 /**
  * Handles posts upvoting.
