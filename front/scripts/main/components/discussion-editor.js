@@ -170,7 +170,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 * @returns {void}
 	 */
 	textareaBlur() {
-		Ember.$('.editor-textarea').blur();
+		this.$('.editor-textarea').blur();
 	},
 
 	/**
@@ -178,7 +178,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 * @returns {void}
 	 */
 	textareaFocus() {
-		Ember.$('.editor-textarea').focus();
+		this.$('.editor-textarea').focus();
 	},
 
 	/**
