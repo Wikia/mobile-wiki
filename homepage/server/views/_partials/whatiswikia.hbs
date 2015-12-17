@@ -3,10 +3,7 @@
 	{{whatIsWikia.sectionTitle}}
 </div>
 <div class="wiw-search">
-	<div class="device">
-		<img src="https://www.wonderplugin.com/wp-content/plugins/wonderplugin-lightbox/images/demo-image0.jpg" class="mobile-device">
-	</div>
-	<div class="description">
+	<div class="description wiw-modile">
 		<div class="subtitle">{{whatIsWikia.searchTitle}}</div>
 		<div class="message">{{whatIsWikia.searchMessage}}</div>
 		<div class="search-bar">
@@ -14,7 +11,20 @@
               <input type="search" id="wiw-searchWikiaText" placeholder="{{whatIsWikia.searchInputbox}}" />
               <button type="button" id="wiw-searchWikiaButton">{{whatIsWikia.searchButton}}</button>
             </form>
-          </div>	
+          </div>
+	</div>
+	<div class="device">
+		<img src="https://www.wonderplugin.com/wp-content/plugins/wonderplugin-lightbox/images/demo-image0.jpg" class="mobile-device">
+	</div>
+	<div class="description wiw-desktop">
+		<div class="subtitle">{{whatIsWikia.searchTitle}}</div>
+		<div class="message">{{whatIsWikia.searchMessage}}</div>
+		<div class="search-bar">
+            <form role="search" id="wiw-searchWikiaForm">
+              <input type="search" class="wiw-searchWikiaText" placeholder="{{whatIsWikia.searchInputbox}}" />
+              <button type="button" class="wiw-searchWikiaButton">{{whatIsWikia.searchButton}}</button>
+            </form>
+          </div>
 	</div>
 </div>
 <div class="wiw-start">

@@ -1,3 +1,7 @@
+$mobile-slider:  new-breakpoint(max-width 615px);
+$desktop-slider: new-breakpoint(min-width 615px);
+
+
 .whatiswikia {
 	$search-background: #00b7e0;
 	$start-background: #94d11f;
@@ -13,16 +17,24 @@
 		padding: 3em 2em;
 		vertical-align: middle;
 		width: 60%;
+
+		@include media ($mobile-slider) {
+			width: 100%;
+		}
 	}
 
 	.device {
 		display: inline-block;
 		vertical-align: middle;
 		width: 39%;
+
+		@include media ($mobile-slider) {
+			width: 100%;
+		}
 	}
 
 	.message {
-		font-size: 0.7em;
+		font-size: .7em;
 	}
 
 	.search-bar {
@@ -33,23 +45,35 @@
 		font-weight: bold;
 	}
 
+	.wiw-desktop {
+		@include media ($mobile-slider) {
+			display: none;
+		}
+	}
+
+	.wiw-modile {
+		@include media ($desktop-slider) {
+			display: none;
+		}
+	}
+
 	.wiw-search {
 		background-color: $search-background;
 	}
 
-	#wiw-searchWikiaButton {
+	.wiw-searchWikiaButton {
 		display: inline;
-		font-size: 0.55em;
+		font-size: .55em;
 		margin: 0;
 		padding: 0 1.5625rem;
 	}
 
-	#wiw-searchWikiaText {
+	.wiw-searchWikiaText {
 		background-color: transparent;
 		color: text-color;
 		display: inline;
-		font-size: 0.6em;
-		width: 50%;
+		font-size: .6em;
+		width: 70%;
 	}
 
 	.wiw-start {
