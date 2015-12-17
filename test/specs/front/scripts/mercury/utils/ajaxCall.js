@@ -1,8 +1,8 @@
 QUnit.module('mercury/utils/ajaxCall', function () {
 	QUnit.test('Checking ajaxCall utils request params.', function (assert) {
-		var test = require('mercury/utils/ajaxCall').default,
+		var spy = sinon.spy($, "ajax"),
+			test = mrequire('mercury/utils/ajaxCall').default,
 			testOut,
-			i = 0,
 			testCases = [
 				{
 					title: 'Default options',
@@ -86,13 +86,11 @@ QUnit.module('mercury/utils/ajaxCall', function () {
 				}
 			];
 
-		sinon.spy($, "ajax");
-
 		testCases.forEach(function(testCase) {
 			test(testCase.options);
-			testOut = $.ajax.getCall(i);
+			testOut = $.ajax.getCall(0);
 			assert.propEqual(testCase.expected, testOut.args[0]);
-			i++;
+			spy.reset();
 		});
 		// Restore default ajax behavior
 		$.ajax.restore();
