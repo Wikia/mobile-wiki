@@ -19,7 +19,7 @@ QUnit.module('mercury/modules/Trackers/BaseTracker', function (hooks) {
 			return nodeElementMock;
 		};
 
-		require.entries['mercury/modules/Trackers/BaseTracker'].callback(exports);
+		mrequire.entries['mercury/modules/Trackers/BaseTracker'].callback(exports);
 		BaseTracker = exports.default;
 		BaseTracker.script = nodeElementMock;
 	});

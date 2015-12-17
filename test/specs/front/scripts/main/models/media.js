@@ -10,7 +10,7 @@ var mediaExample = [
 moduleFor('model:media', 'MediaModel');
 
 test('returning the media array', function () {
-	var model = App.MediaModel.create({
+	var model = this.subject({
 		media: mediaExample
 	});
 
@@ -18,7 +18,7 @@ test('returning the media array', function () {
 });
 
 test('returning data about media', function () {
-	var model = App.MediaModel.create({
+	var model = this.subject({
 		media: mediaExample
 	});
 

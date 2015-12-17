@@ -1,8 +1,7 @@
-import App from '../app';
 import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
 import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
 
-export default App.PostDetailComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
 	DiscussionParsedContentMixin,
 	{

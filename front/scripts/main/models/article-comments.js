@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.ArticleCommentsModel = Ember.Object.extend({
+export default Ember.Object.extend({
 	articleId: null,
 	comments: 0,
 	users: null,
@@ -39,6 +37,6 @@ export default App.ArticleCommentsModel = Ember.Object.extend({
 	 * @returns {string}
 	 */
 	url(articleId, page = 0) {
-		return `${App.get('apiBase')}/article/comments/${articleId}/${page}`;
+		return `${M.prop('apiBase')}/article/comments/${articleId}/${page}`;
 	}
 });

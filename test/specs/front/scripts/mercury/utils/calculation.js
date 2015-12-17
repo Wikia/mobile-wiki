@@ -68,7 +68,7 @@ QUnit.module('mercury/utils/calculation', function () {
 
 		testCases.forEach(function (testCase) {
 			assert.deepEqual(
-					require('mercury/utils/calculation').containerSize(
+					mrequire('mercury/utils/calculation').containerSize(
 							testCase.maxWidth, testCase.maxHeight, testCase.contentWidth, testCase.contentHeight
 					),
 					testCase.expectedOutput

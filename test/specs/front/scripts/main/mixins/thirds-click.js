@@ -1,19 +1,7 @@
-moduleFor('mixin:thirdsClick', 'ThirdsClickMixin');
+moduleFor('mixin:thirds-click', 'ThirdsClickMixin');
 
 test('calls proper handlers on click', function () {
-	var mixinClass = Ember.Object.extend(App.ThirdsClickMixin),
-		mixin = mixinClass.create({
-			leftClickHandler: function () {
-				ok(true, 'left click handler is called');
-			},
-			rightClickHandler: function () {
-				ok(true, 'right click handler is called');
-			},
-			centerClickHandler: function () {
-				ok(true, 'center click handler is called');
-			},
-			viewportWidth: 480
-		}),
+	var mixin = getMixin('thirds-click'),
 		clickEventLeft = {
 			clientX: 80
 		},
@@ -24,7 +12,17 @@ test('calls proper handlers on click', function () {
 			clientX: 200
 		};
 
-	mixin.callClickHandler(clickEventRight);
+	mixin.leftClickHandler = sinon.stub();
+	mixin.rightClickHandler = sinon.stub();
+	mixin.centerClickHandler = sinon.stub();
+	mixin.viewportWidth = 480;
+
 	mixin.callClickHandler(clickEventLeft);
+	ok(mixin.leftClickHandler.calledOnce, 'left click handler is called');
+
+	mixin.callClickHandler(clickEventRight);
+	ok(mixin.rightClickHandler.calledOnce, 'right click handler is called');
+
 	mixin.callClickHandler(clickEventCenter);
+	ok(mixin.centerClickHandler.calledOnce, 'center click handler is called');
 });

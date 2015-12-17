@@ -1,11 +1,13 @@
-moduleFor('model:curatedContent', 'CuratedContentModel', {
+var curatedContentModelClass = mrequire('main/models/curated-content').default;
+
+moduleFor('model:curated-content', 'CuratedContentModel', {
 	setup: function () {
 		Mercury.wiki.articlePath = '/wiki/';
 	}
 });
 
 test('sanitizes sections', function () {
-	deepEqual(App.CuratedContentModel.sanitizeItem({
+	deepEqual(curatedContentModelClass.sanitizeItem({
 		title: 'Title',
 		image_url: 'http://vignette/image.jpg',
 		type: 'section'
@@ -17,7 +19,7 @@ test('sanitizes sections', function () {
 });
 
 test('sanitizes categories', function () {
-	deepEqual(App.CuratedContentModel.sanitizeItem({
+	deepEqual(curatedContentModelClass.sanitizeItem({
 		label: 'Title',
 		image_url: 'http://vignette/image.jpg',
 		type: 'category',
@@ -29,7 +31,7 @@ test('sanitizes categories', function () {
 		categoryName: 'CategoryName'
 	});
 
-	deepEqual(App.CuratedContentModel.sanitizeItem({
+	deepEqual(curatedContentModelClass.sanitizeItem({
 		title: 'Title',
 		image_url: 'http://vignette/image.jpg',
 		type: 'category',
@@ -43,7 +45,7 @@ test('sanitizes categories', function () {
 });
 
 test('sanitizes other items', function () {
-	deepEqual(App.CuratedContentModel.sanitizeItem({
+	deepEqual(curatedContentModelClass.sanitizeItem({
 		title: 'Title',
 		thumbnail: 'http://vignette/image.jpg',
 		type: 'article',
@@ -55,7 +57,7 @@ test('sanitizes other items', function () {
 		url: '/wiki/Article'
 	});
 
-	deepEqual(App.CuratedContentModel.sanitizeItem({
+	deepEqual(curatedContentModelClass.sanitizeItem({
 		title: 'Title',
 		thumbnail: 'http://vignette/image.jpg',
 		ns: 500,

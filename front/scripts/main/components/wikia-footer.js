@@ -1,8 +1,7 @@
-import App from '../app';
 import TrackClickMixin from '../mixins/track-click';
 import {getDomain} from '../../mercury/utils/domain';
 
-export default App.WikiaFooterComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	TrackClickMixin,
 	{
 		classNames: ['wikia-footer'],

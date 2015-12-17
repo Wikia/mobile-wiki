@@ -4,10 +4,12 @@ moduleForComponent('lightbox-media', 'LightboxMediaComponent', {
 	unit: true,
 
 	setup: function () {
+		var mediaModel = mrequire('main/models/media').default;
+
 		M.track = function () {};
 
 		model = {
-			media: App.MediaModel.create({
+			media: mediaModel.create({
 				media: [
 					{
 						title: 'test',

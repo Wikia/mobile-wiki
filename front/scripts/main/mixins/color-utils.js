@@ -1,5 +1,3 @@
-import App from '../app';
-
 /**
  * @typedef {Object} rgbaNotation
  * @property {number} r
@@ -8,7 +6,7 @@ import App from '../app';
  * @property {number} [a]
  */
 
-export default App.ColorUtilsMixin = Ember.Mixin.create({
+export default Ember.Mixin.create({
 
 	/**
 	 * Returns expanded colors, like #fff -> #ffffff, if given value is not shortened hex color, it is returned
