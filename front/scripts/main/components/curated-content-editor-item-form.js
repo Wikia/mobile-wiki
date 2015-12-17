@@ -1,4 +1,3 @@
-import App from '../app';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import CuratedContentEditorLabelsMixin from '../mixins/curated-content-editor-labels';
 import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout';
@@ -8,7 +7,7 @@ import IEIFrameFocusFixMixin from '../mixins/ieiframe-focus-fix';
 import ArticleAddPhotoModel from '../models/article-add-photo';
 import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
 
-export default App.CuratedContentEditorItemFormComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	AlertNotificationsMixin,
 	CuratedContentEditorLabelsMixin,
 	CuratedContentEditorLayoutMixin,

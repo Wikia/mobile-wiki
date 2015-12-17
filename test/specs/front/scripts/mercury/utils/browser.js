@@ -25,7 +25,7 @@ QUnit.module('mercury/utils/browser', function () {
 				userAgent: testCase.userAgent
 			};
 
-			this.equal(require('mercury/utils/browser').getSystem(), testCase.expectedOutput);
+			this.equal(mrequire('mercury/utils/browser').getSystem(), testCase.expectedOutput);
 		});
 
 		window.navigator = originalNavigator;

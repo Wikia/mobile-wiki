@@ -1,7 +1,7 @@
 moduleForComponent('ad-slot', 'AdSlotComponent', {
 	unit: true,
 	teardown: function () {
-		require('mercury/modules/Ads').default.getInstance().adSlots = [];
+		mrequire('mercury/modules/Ads').default.getInstance().adSlots = [];
 	}
 });
 
@@ -95,7 +95,7 @@ test('behaves correctly depending on noAds value', function () {
 			var component = self.subject();
 			component.setProperties(testCase.properties);
 			component.didInsertElement();
-			equal(require('mercury/modules/Ads').default.getInstance().adSlots.length, testCase.expectedLength, testCase.message);
+			equal(mrequire('mercury/modules/Ads').default.getInstance().adSlots.length, testCase.expectedLength, testCase.message);
 		});
 	});
 });

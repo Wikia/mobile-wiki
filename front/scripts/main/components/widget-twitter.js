@@ -1,4 +1,3 @@
-import App from '../app';
 import WidgetScriptStateMixin from '../mixins/widget-script-state';
 
 /**
@@ -19,7 +18,7 @@ import WidgetScriptStateMixin from '../mixins/widget-script-state';
  * @property {Twttr} [twttr]
  */
 
-export default App.WidgetTwitterComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	WidgetScriptStateMixin,
 	{
 		classNames: ['widget-twitter'],

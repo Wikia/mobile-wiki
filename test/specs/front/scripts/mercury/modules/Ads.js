@@ -6,7 +6,7 @@ QUnit.module('mercury/modules/Ads', function (hooks) {
 	hooks.beforeEach(function () {
 		var exports = {};
 
-		require.entries['mercury/modules/Ads'].callback(exports, sinon.stub(), {}, loadStub);
+		mrequire.entries['mercury/modules/Ads'].callback(exports, sinon.stub(), {}, loadStub);
 
 		Ads = exports.default;
 	});

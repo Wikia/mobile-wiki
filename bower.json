@@ -15,7 +15,7 @@
     "headroom.js": "0.7.0",
     "i18next": "1.7.4",
     "jquery.cookie": "1.4.1",
-    "loader.js": "~3.4.0",
+    "loader.js": "3.5.0",
     "numeral": "~1.5.3",
     "ponto": "Wikia/ponto#develop",
     "script.js": "2.5.7",

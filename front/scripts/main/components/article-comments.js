@@ -1,8 +1,7 @@
 import ArticleCommentsModel from '../models/article-comments';
 import {track, trackActions} from '../../mercury/utils/track';
-import App from '../app';
 
-export default App.ArticleCommentsComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	page: null,
 	articleId: null,
 	commentsCount: null,

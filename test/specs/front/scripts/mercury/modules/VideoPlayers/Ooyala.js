@@ -21,8 +21,8 @@ QUnit.module('mercury/modules/VideoPlayers/Ooyala', function (hooks) {
 			baseExports = {},
 			exports = {};
 
-		require.entries['mercury/modules/VideoPlayers/Base'].callback(baseExports, loadStub);
-		require.entries['mercury/modules/VideoPlayers/Ooyala'].callback(exports, baseExports.default);
+		mrequire.entries['mercury/modules/VideoPlayers/Base'].callback(baseExports, loadStub);
+		mrequire.entries['mercury/modules/VideoPlayers/Ooyala'].callback(exports, baseExports.default);
 
 		OoyalaPlayer = exports.default;
 	});

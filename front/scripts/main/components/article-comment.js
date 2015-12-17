@@ -1,5 +1,4 @@
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
-import App from '../app';
 
 /**
  * @typedef {Object} ArticleCommentThumbnailData
@@ -9,7 +8,7 @@ import App from '../app';
  * @property {string} [type]
  */
 
-export default App.ArticleCommentComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	tagName: 'li',
 	classNames: ['article-comment'],
 

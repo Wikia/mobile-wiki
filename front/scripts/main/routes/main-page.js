@@ -1,9 +1,8 @@
-import App from '../app';
 import MainPageModel from '../models/main-page';
 import MainPageRouteMixin from '../mixins/main-page-route';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
 
-export default App.MainPageRoute = Ember.Route.extend(MainPageRouteMixin, {
+export default Ember.Route.extend(MainPageRouteMixin, {
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
