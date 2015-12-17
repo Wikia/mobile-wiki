@@ -245,6 +245,7 @@ App.initializer({
 		application.inject('controller', 'discussionEditor', 'service:discussionEditor');
 		application.inject('component:discussion-post-editor', 'discussionEditor', 'service:discussionEditor');
 		application.inject('component:discussion-reply-editor', 'discussionEditor', 'service:discussionEditor');
+		application.inject('component:discussion-header', 'discussionEditor', 'service:discussionEditor');
 	}
 });
 

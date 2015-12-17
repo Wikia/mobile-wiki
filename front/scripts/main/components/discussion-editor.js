@@ -31,7 +31,11 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 */
 	init(...params) {
 		this._super(...params);
-		this.sendAction('toggleEditor', false);
+		this.discussionEditor.toggleEditor(false);
+		this.discussionEditor.setProperties({
+			isAnon: !this.get('currentUser.isAuthenticated'),
+			isUserBlocked: this.get('model.isRequesterBlocked')
+		});
 	},
 
 	/**
@@ -122,7 +126,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 			showSuccess: false
 		});
 
-		this.sendAction('toggleEditor', false);
+		this.discussionEditor.toggleEditor(false);
 
 		Ember.set(newItem, 'isVisible', true);
 
@@ -173,7 +177,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		 * @returns {void}
 		 */
 		toggleEditorActive(active) {
-			this.sendAction('toggleEditor', active);
+			this.discussionEditor.toggleEditor(active);
 		},
 
 		/**
@@ -181,7 +185,7 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 		 * @returns {void}
 		 */
 		updateOnInput() {
-			this.sendAction('toggleEditor', true);
+			this.discussionEditor.toggleEditor(true);
 		},
 
 		/**

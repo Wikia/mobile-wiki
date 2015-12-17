@@ -84,7 +84,6 @@
 					{{#unless model.firstPost.isDeleted}}
 						{{discussion-reply-editor
 							create='create'
-							toggleEditor=(action 'toggleEditor')
 							isRequesterBlocked=model.isRequesterBlocked
 							replies=model.replies
 						}}

@@ -39,7 +39,7 @@ export default App.DiscussionHeaderComponent = Ember.Component.extend(
 			},
 
 			toggleEditor(active) {
-				this.sendAction('toggleEditor', active);
+				this.discussionEditor.toggleEditor(active);
 			}
 		},
 	}
