@@ -1,14 +1,13 @@
 import ViewportMixin from '../mixins/viewport';
 
 export default Ember.Component.extend(ViewportMixin, {
-	discussionEditor: Ember.inject.service(),
-
 	attributeBindings: ['style'],
 
 	classNames: ['discussion-editor'],
 	classNameBindings: ['isActive', 'hasError'],
 
 	currentUser: Ember.inject.service(),
+	discussionEditor: Ember.inject.service(),
 
 	isActive: false,
 	isSticky: false,

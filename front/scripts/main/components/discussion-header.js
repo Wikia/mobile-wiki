@@ -3,9 +3,9 @@ import HeadroomMixin from '../mixins/headroom';
 export default Ember.Component.extend(
 	HeadroomMixin,
 	{
-		discussionEditor: Ember.inject.service(),
-
 		classNames: ['discussion-header', 'background-theme-color'],
+
+		discussionEditor: Ember.inject.service(),
 
 		overlay: null,
 		showContent: true,
