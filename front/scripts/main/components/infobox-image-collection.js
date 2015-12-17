@@ -1,9 +1,8 @@
-import App from '../app';
 import MediaComponent from './media';
 import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-export default App.InfoboxImageCollectionComponent = MediaComponent.extend(
+export default MediaComponent.extend(
 	ViewportMixin,
 	{
 		classNames: ['pi-image-collection'],

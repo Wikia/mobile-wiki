@@ -1,8 +1,7 @@
-import App from '../app';
 import {checkPermissions} from '../../mercury/utils/discussionPermissions';
 import ajaxCall from '../../mercury/utils/ajaxCall.js';
 
-export default App.DiscussionDeleteModelMixin = Ember.Mixin.create({
+export default Ember.Mixin.create({
 	/**
 	 * Delete post in service
 	 * @param {object} post

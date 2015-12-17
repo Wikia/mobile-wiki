@@ -1,6 +1,6 @@
 /* global M */
 QUnit.module('mercury/utils/articleLink', function (hooks) {
-	var articleLinkModule = require('mercury/utils/articleLink');
+	var articleLinkModule = mrequire('mercury/utils/articleLink');
 
 	hooks.beforeEach(function () {
 		// The format that we get the namespaces is strange and awkward to reproduce

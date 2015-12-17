@@ -6,7 +6,7 @@ QUnit.module('Quantserve tests', function (hooks) {
 	hooks.beforeEach(function () {
 		var exports = {};
 
-		require.entries['mercury/modules/Trackers/Quantserve'].callback(exports, null);
+		mrequire.entries['mercury/modules/Trackers/Quantserve'].callback(exports, null);
 
 		Quantserve = exports.default;
 

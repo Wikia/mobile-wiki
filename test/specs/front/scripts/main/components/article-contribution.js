@@ -3,11 +3,11 @@ var track;
 moduleForComponent('article-contribution', 'ArticleContributionComponent', {
 	unit: true,
 	setup: function () {
-		track = require('mercury/utils/track').track;
-		require('mercury/utils/track').track = Em.K;
+		track = mrequire('mercury/utils/track').track;
+		mrequire('mercury/utils/track').track = Em.K;
 	},
 	teardown: function () {
-		track = require('mercury/utils/track').track;
+		track = mrequire('mercury/utils/track').track;
 	}
 });
 

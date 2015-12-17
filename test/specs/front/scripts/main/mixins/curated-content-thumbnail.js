@@ -1,18 +1,14 @@
-var mixin,
-	originalThumbnailerGetThumbURL = require('mercury/modules/Thumbnailer').default.getThumbURL;
+var originalThumbnailerGetThumbURL = mrequire('mercury/modules/Thumbnailer').default.getThumbURL;
 
-moduleFor('mixin:curatedContentThumbnail', 'CuratedContentThumbnailMixin', {
-	setup: function () {
-		var mixinClass = Ember.Object.extend(App.CuratedContentThumbnailMixin);
-		mixin = mixinClass.create({});
-	},
-
+moduleFor('mixin:curated-content-thumbnail', 'CuratedContentThumbnailMixin', {
 	teardown: function () {
-		require('mercury/modules/Thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
+		mrequire('mercury/modules/Thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
 	}
 });
 
 test('sets aspectRatio property correctly', function () {
+	var mixin = getMixin('curated-content-thumbnail');
+
 	mixin.set('block', 'featured');
 	equal(mixin.get('aspectRatio'), 16 / 9);
 
@@ -24,6 +20,8 @@ test('sets aspectRatio property correctly', function () {
 });
 
 test('sets aspectRatioName property correctly', function () {
+	var mixin = getMixin('curated-content-thumbnail');
+
 	mixin.set('aspectRatio', 16 / 9);
 	equal(mixin.get('aspectRatioName'), 'landscape');
 
@@ -32,6 +30,8 @@ test('sets aspectRatioName property correctly', function () {
 });
 
 test('sets imageHeight property correctly', function () {
+	var mixin = getMixin('curated-content-thumbnail');
+
 	mixin.setProperties({
 		aspectRatio: 16 / 9,
 		imageWidth: 400
@@ -53,7 +53,8 @@ test('generates thumbnail URL correctly with image crop data', function () {
 			y: 100,
 			width: 1600,
 			height: 900
-		};
+		},
+		mixin = getMixin('curated-content-thumbnail');
 
 	mixin.setProperties({
 		thumbnailer: {
@@ -91,7 +92,8 @@ test('generates thumbnail URL correctly with image crop data', function () {
 test('generates thumbnail URL correctly without image crop data', function () {
 	var imageUrl = 'http://vignette/image.jpg',
 		imageWidth = 400,
-		imageHeight = 225;
+		imageHeight = 225,
+		mixin = getMixin('curated-content-thumbnail');
 
 	mixin.setProperties({
 		cropMode: 'top-crop',

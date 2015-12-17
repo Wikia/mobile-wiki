@@ -1,5 +1,3 @@
-import App from '../app';
-
 /**
  * Route mixin for setting head meta tags on transition into/out of route
  *
@@ -17,7 +15,7 @@ import App from '../app';
  *		};
  *	 }
  */
-export default App.MetaTagsMixin = Ember.Mixin.create({
+export default Ember.Mixin.create({
 
 	$head: Ember.$('head'),
 

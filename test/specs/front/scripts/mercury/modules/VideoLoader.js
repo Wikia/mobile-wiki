@@ -3,11 +3,11 @@ QUnit.module('mercury/modules/VideoLoader', function (hooks) {
 		getInstance = function (params) {
 			return new VideoLoader(params);
 		};
-	
+
 	hooks.beforeEach(function () {
 		var exports = {};
 
-		require.entries['mercury/modules/VideoLoader'].callback(exports, {
+		mrequire.entries['mercury/modules/VideoLoader'].callback(exports, {
 			className: 'BasePlayer'
 		}, {
 			className: 'OoyalaPlayer'

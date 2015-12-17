@@ -1,6 +1,6 @@
 QUnit.module('mercury/utils/nl2br', function () {
 	QUnit.test('Trimming text and parsing new lines.', function (assert) {
-		const test = require('mercury/utils/nl2br').default,
+		const test = mrequire('mercury/utils/nl2br').default,
 			testCases = [
 				{
 					title: 'Parsing nl',

@@ -1,4 +1,3 @@
-import App from '../app';
 import MediaComponent from './media';
 import ArticleContentMixin from '../mixins/article-content';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
@@ -11,7 +10,7 @@ import Thumbnailer from '../../mercury/modules/Thumbnailer';
  * @property {string} captionClass
  */
 
-export default App.GalleryMediaComponent = MediaComponent.extend(
+export default MediaComponent.extend(
 	ArticleContentMixin,
 	{
 		classNames: ['article-gallery'],
