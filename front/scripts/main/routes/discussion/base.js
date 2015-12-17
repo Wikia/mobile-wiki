@@ -1,4 +1,4 @@
-import {updateTrackedUrl, trackPageView} from '../../mercury/utils/track';
+import {updateTrackedUrl, trackPageView} from '../../../mercury/utils/track';
 
 export default Ember.Route.extend({
 	postDeleteFullScreenOverlay: false,
