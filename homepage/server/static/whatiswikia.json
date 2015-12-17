@@ -1,0 +1,13 @@
+{
+  "description": "Configuration file for what is wikia",
+  "data": {
+    "sectionTitle" : "Wikiaって何？",
+    "searchTitle" : "他のファンとの繋がりをつくろう",
+    "searchMessage" : "あなたのお気に入りのコミュニティを探して、記事を読んだり、文章や画像を気軽に追加してみてコミュニティの一員になろう。",
+    "searchInputbox" : "すべてのウィキアを検索",
+    "searchButton" : "検索",
+    "startTitle" : "コミュニティを立ち上げよう",
+    "startMessage" : "あなたもファウンダー（設立者）になり、ファン同士で情報あふれるユニークなコミュニティをつくってみよう。",
+    "startLink" : "始めてみよう"
+  }
+}
