@@ -62,14 +62,20 @@ $desktop-slider: new-breakpoint(min-width 615px);
 	}
 
 	.wiw-searchWikiaButton {
+		background-color: transparent;
+		border: 1px solid $text-color;
 		display: inline;
 		font-size: .55em;
 		margin: 0;
-		padding: 0 1.5625rem;
+		padding: 0;
+
+		@include media ($desktop-slider) {
+			padding: 0 1.5625rem;
+			width: 20%;
+		}
 	}
 
 	.wiw-searchWikiaText {
-		background-color: transparent;
 		color: text-color;
 		display: inline;
 		font-size: .6em;
