@@ -2,7 +2,7 @@
  * @param {object} options
  * @returns {Ember.RSVP.Promise}
  */
-export default function(options) {
+export default function (options) {
 	const defaults = {
 			dataType: 'json',
 			method: 'GET',
@@ -11,6 +11,7 @@ export default function(options) {
 			}
 		},
 		settings = Ember.$.extend({}, defaults, options);
+
 	return new Ember.RSVP.Promise((resolve, reject) => {
 		Ember.$.ajax(settings);
 	});

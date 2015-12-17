@@ -19,7 +19,7 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadNextPage() {
-		const asd = ajaxCall({
+		return ajaxCall({
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
 				responseGroup: 'full',
 				sortDirection: 'descending',
@@ -49,7 +49,6 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 				resolve(this);
 			}
 		});
-		console.log('ASD', asd);
 	},
 
 	createReply(replyData) {
@@ -75,31 +74,6 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 				resolve(this);
 			}
 		});
-		/*return new Ember.RSVP.Promise((resolve) => {
-			Ember.$.ajax({
-				method: 'POST',
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
-				data: JSON.stringify(replyData),
-				contentType: 'application/json',
-				xhrFields: {
-					withCredentials: true,
-				},
-				success: (reply) => {
-					reply.isNew = true;
-					this.incrementProperty('postCount');
-					this.replies.pushObject(reply);
-					resolve(this);
-				},
-				error: (err) => {
-					if (err.status === 401) {
-						this.setFailedState('editor.post-error-not-authorized');
-					} else {
-						this.setFailedState('editor.post-error-general-error');
-					}
-					resolve(this);
-				}
-			});
-		});*/
 	}
 });
 

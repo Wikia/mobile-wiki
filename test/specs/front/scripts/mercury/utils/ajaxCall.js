@@ -20,7 +20,7 @@ QUnit.module('mercury/utils/ajaxCall', function () {
 						xhrFields: {
 							withCredentials: true
 						},
-						success: function(data) {
+						success: function (data) {
 							resolve(this);
 						},
 						error: function (err) {
@@ -83,6 +83,7 @@ QUnit.module('mercury/utils/ajaxCall', function () {
 					}
 				}
 			];
+
 		sinon.spy($, "ajax");
 
 		testCases.forEach(function(testCase) {
