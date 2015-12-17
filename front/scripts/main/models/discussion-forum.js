@@ -89,50 +89,47 @@ App.DiscussionForumModel.reopenClass({
 	 * @returns { Ember.RSVP.Promise}
 	 */
 	find(wikiId, forumId, sortBy) {
-		return new Ember.RSVP.Promise((resolve) => {
-			const forumInstance = App.DiscussionForumModel.create({
-					wikiId,
-					forumId
-				}),
-				requestData = {
-					viewableOnly: false
-				};
+		const forumInstance = App.DiscussionForumModel.create({
+				wikiId,
+				forumId
+			}),
+			requestData = {
+				viewableOnly: false
+			};
 
-			if (sortBy) {
-				requestData.sortKey = forumInstance.getSortKey(sortBy);
+		if (sortBy) {
+			requestData.sortKey = forumInstance.getSortKey(sortBy);
+		}
+
+		return ajaxCall({
+			context: forumInstance,
+			url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
+			data: requestData,
+			success: (data) => {
+				const contributors = [],
+					posts = data._embedded['doc:threads'],
+					totalPosts = data.threadCount;
+
+				posts.forEach((post) => {
+					if (post.hasOwnProperty('createdBy')) {
+						post.createdBy.profileUrl = M.buildUrl({
+							namespace: 'User',
+							title: post.createdBy.name
+						});
+						contributors.push(post.createdBy);
+					}
+				});
+
+				forumInstance.setProperties({
+					contributors,
+					name: data.name,
+					posts,
+					totalPosts
+				});
+			},
+			error: (err) => {
+				forumInstance.setErrorProperty(err);
 			}
-
-			ajaxCall({
-				url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
-				data: requestData,
-				success: (data) => {
-					const contributors = [],
-						posts = data._embedded['doc:threads'],
-						totalPosts = data.threadCount;
-
-					posts.forEach((post) => {
-						if (post.hasOwnProperty('createdBy')) {
-							post.createdBy.profileUrl = M.buildUrl({
-								namespace: 'User',
-								title: post.createdBy.name
-							});
-							contributors.push(post.createdBy);
-						}
-					});
-
-					forumInstance.setProperties({
-						contributors,
-						name: data.name,
-						posts,
-						totalPosts
-					});
-					resolve(forumInstance);
-				},
-				error: (err) => {
-					forumInstance.setErrorProperty(err);
-					resolve(forumInstance);
-				}
-			});
 		});
 	}
 });

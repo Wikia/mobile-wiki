@@ -13,7 +13,7 @@ export default function (options) {
 		},
 		settings = Ember.$.extend({}, defaults, options);
 
-	return new Ember.RSVP.Promise((resolve, reject) => {
+	return new Ember.RSVP.Promise((resolve) => {
 		settings.success = function (data) {
 			options.success(data);
 			resolve(this);
