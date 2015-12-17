@@ -31,11 +31,12 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 */
 	init(...params) {
 		this._super(...params);
-		this.discussionEditor.toggleEditor(false);
+
 		this.discussionEditor.setProperties({
 			isAnon: !this.get('currentUser.isAuthenticated'),
 			isUserBlocked: this.get('model.isRequesterBlocked')
 		});
+		this.discussionEditor.toggleEditor(false);
 	},
 
 	/**
