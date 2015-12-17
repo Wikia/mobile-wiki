@@ -29,7 +29,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	}),
 
 	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
-		if (this.discussionEditor.get('isEditorOpen')) {
+		if (this.get('discussionEditor').get('isEditorOpen')) {
 			this.afterOpenActions();
 		}
 		else {
@@ -42,12 +42,12 @@ export default Ember.Component.extend(ViewportMixin, {
 	 */
 	init(...params) {
 		this._super(...params);
-
-		this.discussionEditor.setProperties({
+		this.get('discussionEditor').setProperties({
 			isAnon: !this.get('currentUser.isAuthenticated'),
 			isUserBlocked: this.get('model.isRequesterBlocked')
 		});
-		this.discussionEditor.toggleEditor(false);
+
+		this.get('discussionEditor').toggleEditor(false);
 	},
 
 	/**
@@ -138,7 +138,7 @@ export default Ember.Component.extend(ViewportMixin, {
 			showSuccess: false
 		});
 
-		this.discussionEditor.toggleEditor(false);
+		this.get('discussionEditor').toggleEditor(false);
 
 		Ember.set(newItem, 'isVisible', true);
 
@@ -254,7 +254,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		 * @returns {void}
 		 */
 		toggleEditorActive(active) {
-			this.discussionEditor.toggleEditor(active);
+			this.get('discussionEditor').toggleEditor(active);
 		},
 
 		/**
@@ -262,7 +262,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		 * @returns {void}
 		 */
 		updateOnInput() {
-			this.discussionEditor.toggleEditor(true);
+			this.get('discussionEditor').toggleEditor(true);
 		},
 
 		/**

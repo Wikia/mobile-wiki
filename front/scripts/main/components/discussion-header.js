@@ -40,7 +40,7 @@ export default Ember.Component.extend(
 			},
 
 			toggleEditor(active) {
-				this.discussionEditor.toggleEditor(active);
+				this.get('discussionEditor').toggleEditor(active);
 			}
 		},
 	}
