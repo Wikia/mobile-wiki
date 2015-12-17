@@ -12,7 +12,6 @@ export default App.CuratedContentEditorImageCropComponent = Ember.Component.exte
 	{
 		imgSelector: '.curated-content-editor-photo-crop > img',
 		$imgElement: null,
-		isLoading: false,
 		cropperInitialized: false,
 		imagePropertiesUrl: Ember.computed('imageProperties.url', 'model.image_url', function () {
 			const imagePropertiesUrl = this.get('imageProperties.url');

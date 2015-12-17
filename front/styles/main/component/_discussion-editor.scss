@@ -71,6 +71,13 @@ $editor-textarea-overflow-ios-hack: 30px;
 			left: 10px;
 			position: absolute;
 			top: 10px;
+
+			.avatar {
+				svg, img {
+					width: 40px;
+					height: 40px;
+				}
+			}
 		}
 
 		&.sticky {

@@ -16,7 +16,7 @@ export default App.DiscussionForumModel = DiscussionBaseModel.extend(DiscussionD
 	 * @param {string} sortBy
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadPage(pageNum = 0, sortBy = 'latest') {
+	loadPage(pageNum = 0, sortBy = 'trending') {
 		this.set('pageNum', pageNum);
 
 		return ajaxCall({
