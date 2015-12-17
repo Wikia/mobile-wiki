@@ -267,7 +267,7 @@ export function shouldAsyncArticle(localSettings, host) {
  */
 export function createServerData(localSettings, wikiDomain = '') {
 	// if no environment, pass dev
-	const env = typeof localSettings.environment === 'number' ? localSettings.environment : Environment.Dev,
+	const env = localSettings.environment || Environment.Dev,
 		data = {
 			mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
 			apiBase: localSettings.apiBase,
@@ -357,5 +357,5 @@ export function getHtmlTitle(wikiVariables, displayTitle) {
 	if (displayTitle) {
 		return htmlTitleTemplate.replace('$1', displayTitle);
 	}
-	return htmlTitleTemplate.substring(5);
+	return htmlTitleTemplate.replace('$1 - ', '');
 }

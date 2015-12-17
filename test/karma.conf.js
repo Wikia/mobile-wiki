@@ -29,6 +29,8 @@ module.exports = function (config) {
 			paths.vendor.original + '/ember-qunit/ember-qunit.js',
 			paths.vendor.original + '/loader.js/loader.js',
 
+			paths.scripts.front.src + '/loader-no-conflict.js',
+
 			'test/fixtures/test-fixtures.js',
 
 			// Ember templates
@@ -43,11 +45,6 @@ module.exports = function (config) {
 
 			// Test specs
 			'test/specs/front/**/*.js',
-		],
-
-		exclude: [
-			// TODO fix these tests and remove this line, see CONCF-413
-			'test/specs/front/scripts/main/helpers/*.js',
 		],
 
 		preprocessors: {

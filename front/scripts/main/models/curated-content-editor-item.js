@@ -130,9 +130,20 @@ App.CuratedContentEditorItemModel.reopenClass({
 
 	/**
 	 * @param {string} title
+	 * @param {boolean} isCategory
 	 * @returns {Ember.RSVP.Promise} search suggestions
 	 */
-	getSearchSuggestions(title) {
+	getSearchSuggestions(title, isCategory) {
+		const data = {
+			controller: 'MercuryApi',
+			method: 'getSearchSuggestions',
+			query: title
+		};
+
+		if (isCategory === true) {
+			data.ns = 14;
+		}
+
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (!title) {
 				return reject();
@@ -142,11 +153,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
-				data: {
-					controller: 'MercuryApi',
-					method: 'getSearchSuggestions',
-					query: title
-				},
+				data,
 				dataType: 'json',
 				success: (response) => resolve(response),
 				error: (error) => reject(error)

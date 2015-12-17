@@ -1,6 +1,8 @@
 var gulp = require('gulp'),
 	babel = require('gulp-babel'),
 	concat = require('gulp-concat'),
+	gutil = require('gulp-util'),
+	environment = require('../utils/environment'),
 	paths = require('../paths').scripts.front,
 	path = require('path');
 
@@ -12,7 +14,9 @@ gulp.task('scripts-test-modules', function (done) {
 		], {base: './front/scripts/'})
 		.pipe(babel({
 			presets: ['es2015'],
-			plugins: ['transform-es2015-modules-amd'],
+			plugins: ['transform-es2015-modules-amd', ['rename-define', {
+				name: 'mdefine'
+			}]],
 			moduleIds: true
 		}))
 		.on('error', function (error) {

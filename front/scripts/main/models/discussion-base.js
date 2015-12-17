@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.DiscussionBaseModel = Ember.Object.extend({
+export default Ember.Object.extend({
 	wikiId: null,
 	forumId: null,
 

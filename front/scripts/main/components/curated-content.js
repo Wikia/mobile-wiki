@@ -1,12 +1,10 @@
-import App from '../app';
 import TrackClickMixin from '../mixins/track-click';
 import CuratedContentModel from '../models/curated-content';
 
-export default App.CuratedContentComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	TrackClickMixin,
 	{
 		classNames: ['curated-content', 'mw-content'],
-		isLoading: false,
 
 		actions: {
 			/**

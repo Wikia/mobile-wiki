@@ -1,7 +1,6 @@
-import App from '../app';
 import DiscussionEditorComponent from './discussion-editor';
 
-export default App.DiscussionPostEditorComponent = DiscussionEditorComponent.extend({
+export default DiscussionEditorComponent.extend({
 	classNames: ['mobile-hidden'],
 	pinnedClassName: 'pinned-top',
 

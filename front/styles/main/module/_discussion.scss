@@ -6,6 +6,7 @@ $post-details-post-margin-bottom: 5px;
 $post-details-post-vertical-padding: 12px;
 $post-details-reply-upvote-width: 12px;
 $post-details-reply-upvote-margin-left: 10px;
+$post-details-content-line-height: 1.4rem;
 $deleted-mark-size: 12px;
 
 body.discussions {
@@ -35,6 +36,10 @@ body.discussions {
 		}
 	}
 
+	.clickable {
+		cursor: pointer;
+	}
+
 	.count {
 		color: $discussion-count-color;
 		font-size: $type-min;
@@ -49,15 +54,12 @@ body.discussions {
 			line-height: 30px;
 			padding: 0 2px;
 		}
+	}
 
-		.icon {
-			&.upvote {
-				margin-right: 3px;
-				// clickable area is 30px height, text has to be vertically centered, but icons have to be adjusted
-				// to their bottom, so instead of adding additional html tags nesting, I moved up a bit the larger icon
-				margin-top: -4px;
-			}
-		}
+	.toggle-share-area {
+		display: block;
+		height: 30px;
+		line-height: 30px;
 	}
 
 	.delete-actions {
@@ -103,7 +105,10 @@ body.discussions {
 		&.is-deleted .icon:not(.undelete) {
 			cursor: default;
 			fill: $discussion-deleted-actions-color;
-			stroke: $discussion-deleted-actions-color;
+
+			&.upvote-reply {
+				stroke: $discussion-deleted-actions-color;
+			}
 		}
 
 		&.is-deleted,
@@ -147,6 +152,7 @@ body.discussions {
 			font-size: $type-min;
 			line-height: $line-height-min;
 			margin-left: $post-details-reply-upvote-width + $post-details-reply-upvote-margin-left;
+			padding: 0 0 10px;
 		}
 
 		.timestamp {
@@ -190,21 +196,22 @@ body.discussions {
 	.icon {
 		fill: $discussion-actions-color;
 		height: 20px;
-		stroke: $discussion-actions-color;
 		width: 20px;
 		vertical-align: middle;
 
 		&.upvote {
 			height: 22px;
+			margin-right: 3px;
 			width: 22px;
 		}
 		&.upvote-reply {
 			height: 12px;
 			line-height: 12px;
+			stroke: $discussion-actions-color;
 			width: 12px;
 		}
 		&.replies{
-			height: 24px;
+			height: 19px;
 			width: 24px;
 		}
 	  	&.no-replies {
@@ -222,8 +229,11 @@ body.discussions {
 
 	.has-upvoted {
 		.icon {
-				fill: $upvote-icon-activated-color;
+			fill: $upvote-icon-activated-color;
+
+			&.upvote-reply {
 				stroke: $upvote-icon-activated-color;
+			}
 		}
 	}
 
@@ -244,7 +254,7 @@ body.discussions {
 			display: flex;
 			height: 30px;
 			justify-content: flex-end;
-			padding-top: 3px;
+			line-height: 30px;
 			text-align: right;
 
 			> * {
@@ -300,26 +310,16 @@ body.discussions {
 		margin-top: $discussion-header-height - $theme-bar-height;
 
 		.discussion-content {
+			@include clamp(3);
+
 			// Constrains content on the forum post list to 3 lines and + 0.3rem for the padding
 			max-height: $line-height-smallest * 3 + .3rem;
-			overflow: hidden;
 		}
 	}
 
 	&.post {
 		.post-detail {
 			margin-top: $theme-bar-height;
-
-			.avatar-username {
-				font-size: $discussion-post-type-smaller-than-min;
-			}
-		}
-	}
-
-	.avatar {
-		img, svg {
-			height: 40px;
-			width: 40px;
 		}
 	}
 }
@@ -355,6 +355,14 @@ body.discussions {
 					left: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
 				}
 				width: $post-details-outer-width;
+
+				.discussion-content {
+					line-height: $post-details-content-line-height;
+				}
+
+				.timestamp {
+					font-size: $discussion-post-type-smaller-than-min;
+				}
 			}
 
 			.replies-list {
@@ -379,7 +387,7 @@ body.discussions {
 			margin-left: auto;
 			margin-right: auto;
 		}
-		
+
 	  	.discussion-no-replies {
 			border-bottom: 1px solid $discussion-reply-border-color;
 	  	}
@@ -390,5 +398,21 @@ body.discussions {
 	//To make sure discussion body is always expanding to 100% width
 	.row {
 		max-width: initial;
+	}
+
+	.post-details-view {
+		.post-detail {
+			padding-bottom: 14px;
+
+			.share {
+				display: none;
+			}
+		}
+
+		.discussion-reply {
+			.discussion-content {
+				margin-left: 0;
+			}
+		}
 	}
 }

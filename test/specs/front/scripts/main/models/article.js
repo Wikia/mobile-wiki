@@ -1,23 +1,24 @@
 var articleExample = {
-	data: {
-		details: {
-			revision: {
-				timestamp: 123
+		data: {
+			details: {
+				revision: {
+					timestamp: 123
+				},
+				comments: 123,
+				id: 123,
+				ns: 'namespace',
+				title: 'sampleTitle'
 			},
-			comments: 123,
-			id: 123,
-			ns: 'namespace',
-			title: 'sampleTitle'
-		},
-		article: {
-			content: 'TestContent',
-			categories: 'test',
-			users: 'test'
-		},
-		relatedPages: ['anItem', 'anotherItem'],
-		userDetails: ['someItem', 'yetOneMore']
-	}
-};
+			article: {
+				content: 'TestContent',
+				categories: 'test',
+				users: 'test'
+			},
+			relatedPages: ['anItem', 'anotherItem'],
+			userDetails: ['someItem', 'yetOneMore']
+		}
+	},
+	articleModelClass = mrequire('main/models/article').default;
 
 moduleFor('model:article', 'ArticleModel', {
 	setup: function () {
@@ -42,7 +43,7 @@ test('ArticleModel RESTful URL tests', function () {
 	}];
 
 	tests.forEach(function (test) {
-		var url = App.ArticleModel.url(test),
+		var url = articleModelClass.url(test),
 			expected = '/api/mercury/article/' + test.title;
 
 		equal(url, expected, 'url returned: "' + url + '", expected: "' + expected + '"');
@@ -50,7 +51,7 @@ test('ArticleModel RESTful URL tests', function () {
 });
 
 test('getPreloadedData', function () {
-	var articleFromPreloadedData = App.ArticleModel.getPreloadedData();
+	var articleFromPreloadedData = articleModelClass.getPreloadedData();
 
 	strictEqual(
 		M.prop('articleContentPreloadedInDOM'),
@@ -63,16 +64,16 @@ test('getPreloadedData', function () {
 });
 
 test('setArticle with preloaded data', function () {
-	var model = App.ArticleModel.create();
+	var model = this.subject();
 
-	App.ArticleModel.setArticle(model);
+	articleModelClass.setArticle(model);
 	verifyArticle(model, articleExample);
 });
 
 test('setArticle with parametrized data', function () {
-	var model = App.ArticleModel.create();
+	var model = this.subject();
 
-	App.ArticleModel.setArticle(model, articleExample);
+	articleModelClass.setArticle(model, articleExample);
 	verifyArticle(model, articleExample);
 });
 
@@ -86,7 +87,7 @@ test('find with preloaded data', function () {
 	ok(M.prop('articleContentPreloadedInDOM'), 'articleContentPreloadedInDOM==true before test, as expected');
 
 	Ember.run(function () {
-		model = App.ArticleModel.find(params);
+		model = articleModelClass.find(params);
 	});
 
 	model.then(function (resolvedModel) {

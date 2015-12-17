@@ -14,8 +14,6 @@
 		<link rel="canonical" href="{{canonicalUrl}}" />
 	</head>
 	<body class="auth {{pageParams.viewType}} {{bodyClasses}} {{#if standalonePage}}standalone{{/if}}" data-page-type="{{pageType}}">
-	<!-- @include ../../../www/front/svg/common.svg -->
-
 		{{#if standalonePage}}
 			<nav class="global-nav">
 				<a class="main-page" href="{{mainPage}}"><span>Wikia</span></a>
@@ -23,9 +21,7 @@
 		{{else}}
 			{{#unless pageParams.isModal}}
 			<a class="close" href="{{exitTo}}">
-				<svg role="img">
-					<use xlink:href="#close"></use>
-				</svg>
+				<!-- @include ../../../front/svg/symbols/common/close.svg -->
 			</a>
 			{{/unless}}
 		{{/if}}
@@ -53,6 +49,7 @@
 					pageParams = {{{json pageParams}}};
 		</script>
 		<!-- build:js /front/scripts/auth.js -->
+		<script src="/front/vendor/loader.js/loader.js"></script>
 		<script src="/front/vendor/i18next/i18next.min.js"></script>
 		<script src="/front/vendor/visit-source/dist/visit-source.js"></script>
 		<script src="/front/vendor/jquery/dist/jquery.js"></script>
@@ -60,6 +57,8 @@
 		<script src="/front/scripts/modules-auth.js"></script>
 		<!-- endbuild -->
 		<script>
+			require('auth/main').init();
+			M.loadDOMResource('/front/svg/common.svg');
 			M.prop('tracking', {{{json trackingConfig}}});
 			M.prop('isGASpecialWiki', true);
 		</script>

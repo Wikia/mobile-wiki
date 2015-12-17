@@ -1,8 +1,7 @@
-import App from '../app';
 import TrackClickMixin from '../mixins/track-click';
 import HeadroomMixin from '../mixins/headroom';
 
-export default App.SiteHeadComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	TrackClickMixin,
 	HeadroomMixin,
 	{
@@ -12,6 +11,9 @@ export default App.SiteHeadComponent = Ember.Component.extend(
 		themeBar: false,
 		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 		pinned: true,
+
+		currentUser: Ember.inject.service(),
+		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
 
 		actions: {
 			/**

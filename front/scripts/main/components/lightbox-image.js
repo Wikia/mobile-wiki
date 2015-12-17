@@ -1,7 +1,6 @@
-import App from '../app';
 import ArticleContentMixin from '../mixins/article-content';
 
-export default App.LightboxImageComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	ArticleContentMixin,
 	{
 		classNames: ['lightbox-image', 'lightbox-content-inner'],
@@ -22,7 +21,6 @@ export default App.LightboxImageComponent = Ember.Component.extend(
 
 		isZoomed: Ember.computed.gt('scale', 1),
 		loadingError: false,
-		isLoading: false,
 
 		/**
 		 * This is performance critical place, we will update property 'manually' by calling notifyPropertyChange

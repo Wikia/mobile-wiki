@@ -1,14 +1,12 @@
-import App from '../app';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import TrackClickMixin from '../mixins/track-click';
 import CuratedContentEditorModel from '../models/curated-content-editor';
 
-export default App.CuratedContentEditorComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	AlertNotificationsMixin,
 	TrackClickMixin,
 	{
 		classNames: ['curated-content-editor'],
-		isLoading: false,
 
 		/**
 		 * When user enters curated content editor we want to clear all notifications that might be still there
@@ -20,7 +18,7 @@ export default App.CuratedContentEditorComponent = Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
-			this.clearNotifications();
+			Ember.run.scheduleOnce('afterRender', this, () => this.clearNotifications());
 		},
 
 		actions: {

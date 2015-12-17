@@ -1,7 +1,6 @@
-import App from '../app';
 import {checkPermissions} from '../../mercury/utils/discussionPermissions';
 
-export default App.DiscussionDeleteComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	classNames: ['delete-actions'],
 	tagName: 'div',
 

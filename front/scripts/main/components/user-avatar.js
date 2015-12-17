@@ -1,5 +1,3 @@
-import App from '../app';
-
-export default App.UserAvatarComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	classNames: ['user-avatar'],
 });

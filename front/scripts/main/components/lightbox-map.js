@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.LightboxMapComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	classNames: ['lightbox-map', 'lightbox-content-inner'],
 
 	modelObserver: Ember.observer('model', function () {
