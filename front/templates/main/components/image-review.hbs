@@ -6,7 +6,7 @@
 <ul class="image-review-list">
     <li class="image-review-item">
 		{{#each model.images as |item|}}
-			{{image-review-item model=item click=(action 'showModal' item.fullSizeImageUrl)}}
+			{{image-review-item model=item showModal=(action 'showModal')}}
 		{{/each}}
     </li>
 </ul>

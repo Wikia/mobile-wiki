@@ -1,5 +1,5 @@
 <div class="img-container {{model.status}}">
-	<img id="{{model.imageId}}" src="{{thumbnailUrl}}" tabindex = "-1">
+	<img id="{{model.imageId}}" src="{{thumbnailUrl}}" tabindex = "-1" {{action (action this.attrs.showModal model.fullSizeImageUrl)}}>
 
 	<p class="caption zero-margin"> ImageID: {{model.imageId}} </p>
 
