@@ -1,16 +1,17 @@
 .icon {
-	$nav-icon-size: rem-calc(45);
+	$nav-icon-size: rem-calc(28);
 
 	&.avatar {
+		border: #c7d1d8 1px solid;
 		border-radius: 50%;
 		height: $nav-icon-size;
-		padding: rem-calc(6);
+		margin-top: 3px;
 		width: $nav-icon-size;
 	}
 
 	&.login {
 		height: $nav-icon-size;
-		padding: rem-calc(12);
+		margin-top: 3px;
 		width: $nav-icon-size;
 	}
 
