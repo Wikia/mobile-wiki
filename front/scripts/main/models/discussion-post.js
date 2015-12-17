@@ -41,12 +41,9 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 					replies: newReplies,
 					page: this.page + 1
 				});
-
-				resolve(this);
 			},
 			error: (err) => {
 				this.handleLoadMoreError(err);
-				resolve(this);
 			}
 		});
 	},
@@ -63,7 +60,6 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 				reply.isNew = true;
 				this.incrementProperty('postCount');
 				this.replies.pushObject(reply);
-				resolve(this);
 			},
 			error: (err) => {
 				if (err.status === 401) {
@@ -71,7 +67,6 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 				} else {
 					this.setFailedState('editor.post-error-general-error');
 				}
-				resolve(this);
 			}
 		});
 	}

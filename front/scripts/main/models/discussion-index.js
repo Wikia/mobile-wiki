@@ -1,4 +1,5 @@
 import App from '../app';
+import ajaxCall from '../../mercury/utils/ajaxCall.js';
 
 export default App.DiscussionIndexModel = Ember.Object.extend({});
 
@@ -9,7 +10,7 @@ App.DiscussionIndexModel.reopenClass({
 	 */
 	find(wikiId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
+			ajaxCall({
 				url: M.getDiscussionServiceUrl(`/discussion/${wikiId}/forums`),
 				dataType: 'json',
 				success: (data) => resolve(data),
