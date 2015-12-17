@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.ImageReviewComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	classNames: ['image-review'],
 	isLoading: false,
 
@@ -10,7 +8,7 @@ export default App.ImageReviewComponent = Ember.Component.extend({
 		},
 
 		showModal(imageUrl) {
-			this.sendAction('showModal', imageUrl);
+			this.sendAction('showModal', imageUrl)
 		},
 
 		getFlaggedOnly() {

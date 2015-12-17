@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.ImageReviewRoute = Ember.Route.extend({
+const ImageReviewRoute = Ember.Route.extend({
 	onlyFlagged: false,
 
 	renderTemplate(controller, model) {
@@ -9,34 +7,30 @@ export default App.ImageReviewRoute = Ember.Route.extend({
 
 	model() {
 		this.set('isLoading', true);
-		return App.ImageReviewModel.startSession(this.get('onlyFlagged'));
+		return ImageReviewModel.startSession(this.get('onlyFlagged'));
 	},
 
 	actions: {
 		error(error) {
+			let errorMessage = i18n.t('app.image-review-error-other');
+
 			if (error.status === 401) {
-				this.modelFor(this.routeName).addAlert({
-					message: i18n.t('app.image-review-error-no-access-permissions'),
-					type: 'warning',
-					persistent: true
-				});
-				this.transitionTo('mainPage');
-			} else {
-				Ember.Logger.error(error);
-				this.modelFor(this.routeName).addAlert({
-					message: i18n.t('app.image-review-error-other'),
-					type: 'warning',
-					persistent: true
-				});
-				this.transitionTo('mainPage');
+				errorMessage = i18n.t('app.image-review-error-no-access-permissions');
 			}
-			return true;
+			Ember.Logger.error(error);
+			this.modelFor(this.routeName).addAlert({
+				message: errorMessage,
+				type: 'warning',
+				persistent: true
+			});
+			this.transitionTo('mainPage');
+			return false;
 		},
 
 		reviewAndGetMoreImages() {
-			this.set('onlyFlagged', false);
 			const model = this.modelFor('imageReview');
 
+			this.set('onlyFlagged', false);
 			model.reviewImages(model.images);
 			this.refresh();
 		},
@@ -54,3 +48,5 @@ export default App.ImageReviewRoute = Ember.Route.extend({
 		}
 	}
 });
+
+export default ImageReviewRoute;

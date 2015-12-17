@@ -1,23 +1,16 @@
-import App from '../app';
-
-export default App.ImageReviewModel = Ember.Object.extend({
+const ImageReviewModel = Ember.Object.extend({
 
 	init() {
 		this.isModalVisible = false;
 		this.modalImageUrl = null;
 		this.images = this.get('images');
-	},
-	reviewImages(images) {
-		images.forEach((imageItem) => {
-			App.ImageReviewModel.reviewImage(imageItem.contractId, imageItem.imageId, imageItem.status);
-		});
 	}
 });
 
-App.ImageReviewModel.reopenClass({
+ImageReviewModel.reopenClass({
 
 	startSession(onlyFlagged) {
-		let url = App.ImageReviewModel.getServiceUrl;
+		let url = ImageReviewModel.getServiceUrl;
 
 		if (onlyFlagged) {
 			url = `${url}?status=FLAGGED`;
@@ -31,7 +24,7 @@ App.ImageReviewModel.reopenClass({
 				xhrFields: {
 					withCredentials: true
 				},
-				success: (data) => resolve(App.ImageReviewModel.getImages(data.id)),
+				success: (data) => resolve(ImageReviewModel.getImages(data.id)),
 				error: (data) => reject(data)
 			});
 		});
@@ -40,7 +33,7 @@ App.ImageReviewModel.reopenClass({
 	endSession() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${App.ImageReviewModel.getServiceUrl}/`,
+				url: `${ImageReviewModel.getServiceUrl}/`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -55,7 +48,7 @@ App.ImageReviewModel.reopenClass({
 	getImages(contractId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${App.ImageReviewModel.getServiceUrl}/${contractId}/image`,
+				url: `${ImageReviewModel.getServiceUrl}/${contractId}/image`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -63,7 +56,7 @@ App.ImageReviewModel.reopenClass({
 				method: 'GET',
 				success: (data) => {
 					if (Ember.isArray(data)) {
-						resolve(App.ImageReviewModel.sanitize(data, contractId));
+						resolve(ImageReviewModel.sanitize(data, contractId));
 					} else {
 						reject('Invalid data was returned from Image Review API');
 					}
@@ -76,7 +69,7 @@ App.ImageReviewModel.reopenClass({
 	reviewImage(contractId, imageId, flag) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${App.ImageReviewModel.getServiceUrl}/${contractId}/image/${imageId}?status=${flag}`,
+				url: `${ImageReviewModel.getServiceUrl}/${contractId}/image/${imageId}?status=${flag}`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -92,7 +85,7 @@ App.ImageReviewModel.reopenClass({
 	addImage(contractId, imageId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${App.ImageReviewModel.getServiceUrl}/${contractId}/image?imageId=${imageId}&status=UNREVIEWED`,
+				url: `${ImageReviewModel.getServiceUrl}/${contractId}/image?imageId=${imageId}&status=UNREVIEWED`,
 				xhrFields: {
 					withCredentials: true
 				},
@@ -119,8 +112,16 @@ App.ImageReviewModel.reopenClass({
 			// else skip because is reviewed already
 		});
 
-		return App.ImageReviewModel.create({images, contractId});
+		return ImageReviewModel.create({images, contractId});
+	},
+
+	reviewImages(images) {
+		images.forEach((imageItem) => {
+			ImageReviewModel.reviewImage(imageItem.contractId, imageItem.imageId, imageItem.status);
+		});
 	},
 
 	getServiceUrl: 'https://services-poz.wikia-dev.com/image-review/contract'
 });
+
+export default ImageReviewModel;
