@@ -1,5 +1,5 @@
 QUnit.module('mercury/utils/ajaxCall', function () {
-	QUnit.test('Mocking ajax request via ajaxCall.', function (assert) {
+	QUnit.test('Checking ajaxCall utils request params.', function (assert) {
 		var test = require('mercury/utils/ajaxCall').default,
 			testOut,
 			i = 0,
@@ -15,6 +15,7 @@ QUnit.module('mercury/utils/ajaxCall', function () {
 						}
 					},
 					expected: {
+						contentType: 'aplication/json',
 						dataType: 'json',
 						method: 'GET',
 						xhrFields: {
@@ -69,6 +70,7 @@ QUnit.module('mercury/utils/ajaxCall', function () {
 						}
 					},
 					expected: {
+						contentType: 'aplication/json',
 						dataType: 'xml',
 						method: 'GET',
 						xhrFields: {
