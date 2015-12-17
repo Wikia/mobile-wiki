@@ -5,8 +5,9 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	attributeBindings: ['style'],
 
 	classNames: ['discussion-editor'],
-	classNameBindings: ['hasError'],
+	classNameBindings: ['isActive', 'hasError'],
 
+	isActive: false,
 	isSticky: false,
 
 	isLoading: false,
@@ -24,6 +25,15 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 */
 	submitDisabled: Ember.computed('bodyText', 'currentUser.userId', function () {
 		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null;
+	}),
+
+	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
+		if (this.discussionEditor.get('isEditorOpen')) {
+			this.afterOpenActions();
+		}
+		else {
+			this.afterCloseActions();
+		}
 	}),
 
 	/**
@@ -153,6 +163,71 @@ export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMi
 	 */
 	willDestroyElement() {
 		Ember.$(window).off('scroll.editor');
+	},
+
+	/**
+	 * Removes focus from editor textarea.
+	 * @returns {void}
+	 */
+	textareaBlur() {
+		Ember.$('.editor-textarea').blur();
+	},
+
+	/**
+	 * Sets focus for editor textarea.
+	 * @returns {void}
+	 */
+	textareaFocus() {
+		Ember.$('.editor-textarea').focus();
+	},
+
+	/**
+	 * iOS hack for position: fixed - now we display loading icon.
+	 * @returns {void}
+	 */
+	setEditorOpenIPadHack() {
+		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+			Ember.$('html, body').css({
+				height: '100%',
+				overflow: 'hidden'
+			});
+		}
+	},
+
+	/**
+	 * iOS hack for position: fixed removed [see: this.setEditorOpenIPadHack]
+	 * @returns {void}
+	 */
+	removeEditorOpenIPadHack() {
+		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+			Ember.$('html, body').css({
+				height: '',
+				overflow: ''
+			});
+		}
+	},
+
+	/**
+	 * Calls what's needs to be done after editor is closed
+	 * @returns {void}
+	 */
+	afterCloseActions() {
+		this.set('isActive', false);
+		this.removeEditorOpenIPadHack();
+		this.textareaBlur();
+	},
+
+	/**
+	 * Calls what's needs to be done after editor is opened
+	 * @returns {void}
+	 */
+	afterOpenActions() {
+		this.set('isActive', true);
+
+		Ember.run.next(this, () => {
+			this.setEditorOpenIPadHack();
+			this.textareaFocus();
+		});
 	},
 
 	actions: {
