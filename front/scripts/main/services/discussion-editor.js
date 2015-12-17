@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default Ember.Object.extend({
+export default Ember.Service.extend({
 	isEditorOpen: false,
 
 	/**

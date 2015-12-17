@@ -241,9 +241,10 @@ App.initializer({
 	name: 'discussionEditor',
 	after: 'geo',
 	initialize: function(container, application) {
-		application.register('discussionEditor:main', DiscussionEditorService);
-		application.inject('controller', 'discussionEditor', 'discussionEditor:main');
-		application.inject('component', 'discussionEditor', 'discussionEditor:main');
+		application.register('service:discussionEditor', DiscussionEditorService);
+		application.inject('controller', 'discussionEditor', 'service:discussionEditor');
+		application.inject('component:discussion-post-editor', 'discussionEditor', 'service:discussionEditor');
+		application.inject('component:discussion-reply-editor', 'discussionEditor', 'service:discussionEditor');
 	}
 });
 
