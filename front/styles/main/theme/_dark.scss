@@ -63,6 +63,9 @@ body.dark-theme {
 	.floating-label.active {
 		color: $dark-label-color-active;
 	}
+	label {
+		color: $dark-label-color
+	}
 	.discussion {
 		background-color: $dark-discussion-bg-color;
 
