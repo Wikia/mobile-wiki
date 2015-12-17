@@ -1,9 +1,8 @@
-import App from '../app';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import TrackClickMixin from '../mixins/track-click';
 import CuratedContentEditorModel from '../models/curated-content-editor';
 
-export default App.CuratedContentEditorComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	AlertNotificationsMixin,
 	TrackClickMixin,
 	{
@@ -19,7 +18,7 @@ export default App.CuratedContentEditorComponent = Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
-			this.clearNotifications();
+			Ember.run.scheduleOnce('afterRender', this, () => this.clearNotifications());
 		},
 
 		actions: {

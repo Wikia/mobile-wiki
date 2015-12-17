@@ -1,6 +1,6 @@
 QUnit.module('mercury/utils/string', function (hooks) {
 	QUnit.test('sanitizing title', function (assert) {
-		var string = require('mercury/utils/string'),
+		var string = mrequire('mercury/utils/string'),
 				testCases = [
 					{
 						title: 'test',

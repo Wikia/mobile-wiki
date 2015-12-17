@@ -1,7 +1,6 @@
-import App from '../app';
 import {track as mercuryTrack, trackActions} from '../../mercury/utils/track';
 
-export default App.ArticleAddPhotoComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	actions: {
 		/**
 		 * @returns {void}

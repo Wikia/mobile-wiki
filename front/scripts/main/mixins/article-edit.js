@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.ArticleEditMixin = Ember.Mixin.create({
+export default Ember.Mixin.create({
 
 	/**
 	 * @param {string} title

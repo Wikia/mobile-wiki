@@ -1,12 +1,11 @@
-import App from '../app';
 import ArticleModel from './article';
 import CuratedContentModel from './curated-content';
 
-export default App.MainPageModel = ArticleModel.extend({
+const MainPageModel = ArticleModel.extend({
 	curatedContent: null
 });
 
-App.MainPageModel.reopenClass({
+MainPageModel.reopenClass({
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
@@ -32,3 +31,5 @@ App.MainPageModel.reopenClass({
 		});
 	}
 });
+
+export default MainPageModel;

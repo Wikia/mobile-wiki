@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.DiscussionSortComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	classNames: ['discussion-sort', 'clearfix'],
 	classNameBindings: ['sortVisible::mobile-hidden'],
 	tagName: 'ul',

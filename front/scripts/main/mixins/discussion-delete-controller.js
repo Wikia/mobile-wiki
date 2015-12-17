@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.DiscussionDeleteControllerMixin = Ember.Mixin.create({
+export default Ember.Mixin.create({
 	actions: {
 		/**
 		 * Bubbles up to Route

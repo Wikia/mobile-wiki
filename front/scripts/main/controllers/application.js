@@ -1,9 +1,8 @@
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import MediaModel from '../models/media';
 import {track, trackActions} from '../../mercury/utils/track';
-import App from '../app';
 
-export default App.ApplicationController = Ember.Controller.extend(
+export default Ember.Controller.extend(
 	AlertNotificationsMixin,
 	{
 		// This has to be here because we need to access media from ArticleController model to open
