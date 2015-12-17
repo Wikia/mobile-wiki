@@ -71,8 +71,10 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 
 	var userId,
 		userName,
-		avatarUrl;
-
+		avatarUrl,
+		defaultAvatarUrl = '/vendor/wikia-style-guide/gh-pages/assets/images/icons/icon_avatar.svg',
+		defaultLoggedInAvatarUrl = '/extensions/wikia/GlobalNavigation/images/signin_icon.svg';
+	
 	if (!strings) {
 		strings = this.readJsonConfigSync('static/strings.json'); // TODO: Integrate with I18N, see INT-214
 	}
@@ -80,9 +82,8 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 	data = deepExtend(data, strings);
 
 	this.getLoginState(request).then(function (data) {
-		request.log('info', 'Got valid access token (user id: ' + data.user_id + ')');  // jshint ignore:line
-
-		userId = data.user_id; // jshint ignore:line
+		request.log('info', 'Got valid access token (user id: ' + data.userId + ')');  // jshint ignore:line
+		userId = data.userId; // jshint ignore:line
 
 		return auth.getUserName(userId);
 	}).then(function (data) {
@@ -91,7 +92,7 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 
 		return auth.getUserAvatar(userId);
 	}).then(function (data) {
-		avatarUrl = data.value;
+		avatarUrl = (data.value === undefined) ? defaultLoggedInAvatarUrl : data.value;
 		request.log('info', 'Retrieved avatar url for logged in user: ' + avatarUrl);
 
 		renderView(true, userName, avatarUrl);
@@ -101,7 +102,7 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 		}
 
 		reply.unstate('access_token');
-		renderView(false, null);
+		renderView(false, defaultAvatarUrl);
 	});
 };
 
