@@ -1,4 +1,3 @@
-import App from '../app';
 import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
 
 /**
@@ -38,14 +37,14 @@ import CuratedContentEditorItemModel from '../models/curated-content-editor-item
  * @property {Boolean} isDirty
  */
 
-export default App.CuratedContentEditorModel = Ember.Object.extend({
+const CuratedContentEditorModel = Ember.Object.extend({
 	featured: null,
 	curated: null,
 	optional: null,
 	isDirty: false
 });
 
-App.CuratedContentEditorModel.reopenClass({
+CuratedContentEditorModel.reopenClass({
 	/**
 	 * @param {CuratedContentEditorModel} model
 	 * @returns {Ember.RSVP.Promise} server response after save
@@ -89,7 +88,7 @@ App.CuratedContentEditorModel.reopenClass({
 				},
 				success: (data) => {
 					if (Ember.isArray(data.data)) {
-						resolve(App.CuratedContentEditorModel.sanitize(data.data));
+						resolve(CuratedContentEditorModel.sanitize(data.data));
 					} else {
 						reject('Invalid data was returned from Curated Content API');
 					}
@@ -149,7 +148,7 @@ App.CuratedContentEditorModel.reopenClass({
 			});
 		}
 
-		return App.CuratedContentEditorModel.create({
+		return CuratedContentEditorModel.create({
 			featured,
 			curated,
 			optional
@@ -202,7 +201,7 @@ App.CuratedContentEditorModel.reopenClass({
 		// When parent doesn't have items we need to initialize them
 		parentItem.items = parentItem.items || [];
 		parentItem.items.push(newItem.toPlainObject());
-		App.CuratedContentEditorModel.isDirty = true;
+		CuratedContentEditorModel.isDirty = true;
 	},
 
 	/**
@@ -217,7 +216,7 @@ App.CuratedContentEditorModel.reopenClass({
 				parentItems[index] = newItem.toPlainObject();
 			}
 		});
-		App.CuratedContentEditorModel.isDirty = true;
+		CuratedContentEditorModel.isDirty = true;
 	},
 
 	/**
@@ -227,6 +226,8 @@ App.CuratedContentEditorModel.reopenClass({
 	 */
 	deleteItem(parentItem, itemLabel) {
 		parentItem.items = parentItem.items.filter((item) => item.label !== itemLabel);
-		App.CuratedContentEditorModel.isDirty = true;
+		CuratedContentEditorModel.isDirty = true;
 	}
 });
+
+export default CuratedContentEditorModel;
