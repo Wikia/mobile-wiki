@@ -5,17 +5,9 @@ export default Ember.Component.extend({
 	imageUrl: null,
 
 	actions: {
-		reviewAndGetMoreImages() {
-			this.sendAction('reviewAndGetMoreImages');
-		},
-
 		showModal(imageUrl) {
 			this.set('modalImageUrl', imageUrl);
 			this.set('isModalVisible', true);
-		},
-
-		getFlaggedOnly() {
-			this.sendAction('getFlaggedOnly');
 		}
 	}
 });

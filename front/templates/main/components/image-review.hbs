@@ -16,8 +16,8 @@
 {{/modal-dialog}}
 
 <div class="action-buttons">
-    <button {{action reviewAndGetMoreImages}}>{{i18n 'app.image-review-and-get-more'}}</button>
-    <button {{action getFlaggedOnly}}>{{i18n 'app.image-review-get-flagged'}}</button>
+    <button {{action (action this.attrs.reviewAndGetMoreImages)}}>{{i18n 'app.image-review-and-get-more'}}</button>
+    <button {{action (action this.attrs.getFlaggedOnly)}}>{{i18n 'app.image-review-get-flagged'}}</button>
 </div>
 
 {{loading-spinner active=isLoading}}
