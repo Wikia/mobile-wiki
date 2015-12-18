@@ -1,0 +1,144 @@
+{
+  "description": "Configuration file for popular wikia sliders",
+  "data": [
+    {
+      "title": "人気のコミュニティ",
+      "largeTitle": true,
+      "id": "carousel-1",
+      "entries": [
+        {
+          "image": "http://placehold.it/250x140?text=Slide+1",
+          "text": "Slide 1",
+          "english": false
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+2",
+          "text": "Slide 2",
+          "english": false
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+3",
+          "text": "Slide 3",
+          "english": false
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+4",
+          "text": "Slide 4",
+          "english": true
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+5",
+          "text": "Slide 5",
+          "english": true
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+6",
+          "text": "Slide 6",
+          "english": false
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+7",
+          "text": "Slide 7",
+          "english": false
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+8",
+          "text": "Slide 8",
+          "english": true
+        }
+      ]
+    },
+    {
+      "title": "ゲーム",
+      "id": "carousel-2",
+      "entries": [
+        {
+          "image": "http://placehold.it/250x140?text=Slide+1",
+          "text": "Slide 1",
+          "english": true
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+2",
+          "text": "Slide 2",
+          "english": false
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+3",
+          "text": "Slide 3",
+          "english": false
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+4",
+          "text": "Slide 4",
+          "english": false
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+5",
+          "text": "Slide 5",
+          "english": true
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+6",
+          "text": "Slide 6",
+          "english": true
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+7",
+          "text": "Slide 7",
+          "english": false
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+8",
+          "text": "Slide 8",
+          "english": false
+        }
+      ]
+    },
+    {
+      "title": "映画・ドラマ",
+      "id": "carousel-3",
+      "entries": [
+        {
+          "image": "http://placehold.it/250x140?text=Slide+1",
+          "text": "Slide 1",
+          "english": true
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+2",
+          "text": "Slide 2",
+          "english": false
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+3",
+          "text": "Slide 3",
+          "english": true
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+4",
+          "text": "Slide 4",
+          "english": false
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+5",
+          "text": "Slide 5",
+          "english": true
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+6",
+          "text": "Slide 6",
+          "english": false
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+7",
+          "text": "Slide 7",
+          "english": false
+        },
+        {
+          "image": "http://placehold.it/250x140?text=Slide+8",
+          "text": "Slide 8",
+          "english": false
+        }
+      ]
+    }
+  ]
+}
