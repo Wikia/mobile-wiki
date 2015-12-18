@@ -84,7 +84,7 @@ export default Ember.Component.extend(
 				 * 2,592,000,000 = 30 days
 				 */
 				notDismissed = !value || (now - value > 2592000000),
-				notSameLanguage = isUserLangDifferentFromWikiLang();
+				notSameLanguage = this.isUserLangDifferentFromWikiLang();
 
 			return notDismissed && notSameLanguage;
 		},
@@ -92,7 +92,7 @@ export default Ember.Component.extend(
 		/**
 		 * @return {integer}
 		 */
-		 isUserLangDifferentFromWikiLang() {
+		isUserLangDifferentFromWikiLang() {
 			const userLang = this.getBrowserLanguage(),
 				eligibleCountries = ['zh', 'ko', 'vi', 'ru', 'ja'];
 			let isDifferent = false;
@@ -101,6 +101,6 @@ export default Ember.Component.extend(
 				isDifferent = userLang !== Ember.get(Mercury, 'wiki.language.content');
 			}
 			return isDifferent;
-		 }
+		}
 	}
 );
