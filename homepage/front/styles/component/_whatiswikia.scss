@@ -15,6 +15,7 @@ $desktop-slider: new-breakpoint(min-width 615px);
 	.description {
 		display: inline-block;
 		padding: 3em 2em;
+		padding-left: 10%;
 		vertical-align: middle;
 		width: 60%;
 
@@ -25,10 +26,14 @@ $desktop-slider: new-breakpoint(min-width 615px);
 
 	.device {
 		display: inline-block;
+		margin-top: 1em;
+		text-align: right;
 		vertical-align: middle;
-		width: 39%;
+		width: 39.5%;
 
 		@include media ($mobile-slider) {
+			margin: 0;
+			text-align: center;
 			width: 100%;
 		}
 	}
@@ -67,7 +72,6 @@ $desktop-slider: new-breakpoint(min-width 615px);
 		display: inline;
 		font-size: .55em;
 		margin: 0;
-		padding: 0;
 
 		@include media ($desktop-slider) {
 			padding: 0 1.5625rem;
