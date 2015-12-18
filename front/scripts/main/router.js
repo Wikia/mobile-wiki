@@ -83,7 +83,7 @@ Router.map(function () {
 	});
 
 	this.route('imageReview', {
-		path: '/imagereview'
+		path: '/image-review'
 	});
 
 	// Route to catch all badly formed URLs
