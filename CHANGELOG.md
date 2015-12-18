@@ -1,3 +1,52 @@
+## release-197 hotfix 1 (2015-12-11 16:25 UTC)
+* release-197-hotfix: XW-836 check for > -1 when using indexOf...
+
+## release-197 (2015-12-10 11:44 UTC)
+* [SOC-1764](https://wikia-inc.atlassian.net/browse/SOC-1764) SOC-1764 | Fix title when hostname is present
+* XW | show notifications when there is space in article title
+* [SOC-1713](https://wikia-inc.atlassian.net/browse/SOC-1713) SOC-1713 | Discussion sort - fix colors
+* [INT-284](https://wikia-inc.atlassian.net/browse/INT-284) INT-284 | Switched from nodemon to gulp-develop server for Japan HP
+* homepage-es6: XW-688 | Use ES6 and babel for Japan Homepage
+* [SOC-1729](https://wikia-inc.atlassian.net/browse/SOC-1729) SOC-1729 | Design CleanUp 2 - Post List Updates
+* [SOC-1713](https://wikia-inc.atlassian.net/browse/SOC-1713) SOC-1713 | Discussions - change default posts order
+* [XW-93](https://wikia-inc.atlassian.net/browse/XW-93) XW-93 | Load SVGs asynchronously
+* [SOC-1734](https://wikia-inc.atlassian.net/browse/SOC-1734) SOC-1734 | Oppening discussion posts in new tab
+* [SOC-1762](https://wikia-inc.atlassian.net/browse/SOC-1762) SOC-1762 | Fix GA tracking on AuthPages
+* [INT-294](https://wikia-inc.atlassian.net/browse/INT-294) INT-294 | Update text for Star Wars campaign
+* [INT-286](https://wikia-inc.atlassian.net/browse/INT-286) INT-286 | Adding a missing template file so that wikia-in-your-lang pop up works
+* [SOC-1582](https://wikia-inc.atlassian.net/browse/SOC-1582) SOC-1582 | Discussion - one more fix for load more replies button
+* [SOC-1704](https://wikia-inc.atlassian.net/browse/SOC-1704) SOC-1704/SOC-1729 | Design CleanUp 2 - Post List Updates
+
+## release-196 hotfix 2 (2015-12-09 22:01 UTC)
+* [DAT-3556](https://wikia-inc.atlassian.net/browse/DAT-3556) DAT-3556 | fix issue with extremely long table cells
+* [DAT-3555](https://wikia-inc.atlassian.net/browse/DAT-3555) DAT-3555 | set max-width to arbitrary value
+
+## release-196 hotfix 1 (2015-12-09 09:45 UTC)
+* [SOC-1762](https://wikia-inc.atlassian.net/browse/SOC-1762) SOC-1762| Fix GA tracking for auth pages
+
+## release-196 (2015-12-08 17:09 UTC)
+* XW | Environment Fix
+* [XW-657](https://wikia-inc.atlassian.net/browse/XW-657) XW-657 | search only categories in search suggestions
+
+## release-195 hotfix 1 (2015-12-08 15:34 UTC)
+* [XW-93](https://wikia-inc.atlassian.net/browse/XW-93) revert XW-93
+
+## release-195 (2015-12-08 12:38 UTC)
+* [XW-93](https://wikia-inc.atlassian.net/browse/XW-93) XW-93 | Replace inline SVG sprite with requested asset
+* [SOC-1739](https://wikia-inc.atlassian.net/browse/SOC-1739) SOC-1739 | editor misbehave for anon user
+* [SOC-1548](https://wikia-inc.atlassian.net/browse/SOC-1548) SOC-1548 | Fix zero state of "All contributors" (when there are no replies)
+* [DAT-3523](https://wikia-inc.atlassian.net/browse/DAT-3523) Dat 3523 | add styles for portable tables 
+* [SOC-1591](https://wikia-inc.atlassian.net/browse/SOC-1591) SOC-1591 | Display line breaks in posts and replies
+* [SOC-1749](https://wikia-inc.atlassian.net/browse/SOC-1749) SOC-1749 dark theme post color is wrong
+* [XW-94](https://wikia-inc.atlassian.net/browse/XW-94) XW-94 use dns-prefetch
+* [XW-671](https://wikia-inc.atlassian.net/browse/XW-671) XW-671 | add babel as parser to eslint
+* [DAT-3543](https://wikia-inc.atlassian.net/browse/DAT-3543) DAT-3543 | remove margin around icon image
+* [SOC-1565](https://wikia-inc.atlassian.net/browse/SOC-1565) SOC-1565 | Discussion delete/undelete posts
+* [XW-767](https://wikia-inc.atlassian.net/browse/XW-767) XW-767 Fix tracking for videos
+* [XW-613](https://wikia-inc.atlassian.net/browse/XW-613) XW-613 | Download scripts in parallel
+* [ADEN-2707](https://wikia-inc.atlassian.net/browse/ADEN-2707) ADEN-2707 | Added window.wgNow - adTracker dependency
+* eslint-fix: XW | eslint fix
+
 ## release-194 (2015-12-03 10:50 UTC)
 * [INT-248](https://wikia-inc.atlassian.net/browse/INT-248) Global rollout of section editor
 * [INT-188](https://wikia-inc.atlassian.net/browse/INT-188) INT-188 | Use common style for edit page / upload photo header

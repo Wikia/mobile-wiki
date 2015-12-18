@@ -5,7 +5,6 @@
     "jquery": true
   },
   "globals": {
-    "App": true,
     "Ember": true,
     "EmPerfSender": true,
     "FastClick": true,

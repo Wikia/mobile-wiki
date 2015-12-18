@@ -1,9 +1,8 @@
-import App from '../app';
 import FullPageMixin from '../mixins/full-page';
 import ArticleEditModel from '../models/article-edit';
 import {track, trackActions} from '../../mercury/utils/track';
 
-export default App.ArticleEditRoute = Ember.Route.extend(FullPageMixin, {
+export default Ember.Route.extend(FullPageMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Ember.RSVP.Promise}

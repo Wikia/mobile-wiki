@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.AlertNotificationsMixin = Ember.Mixin.create({
+export default Ember.Mixin.create({
 	alertNotifications: Ember.A(),
 
 	/**

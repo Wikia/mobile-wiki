@@ -1,14 +1,7 @@
-var mixin;
-
-moduleFor('mixin:colorUtils', 'ColorUtilsMixin', {
-	setup: function () {
-		var mixinClass = Ember.Object.extend(App.ColorUtilsMixin);
-		mixin = mixinClass.create({});
-	}
-});
+moduleFor('mixin:color-utils', 'ColorUtilsMixin');
 
 test('returns rgba values correctly', function () {
-	var error;
+	var mixin = getMixin('color-utils');
 
 	deepEqual(mixin.hexToRgb('#ffffff'), {r: 255, g: 255, b: 255, a: 1});
 	deepEqual(mixin.hexToRgb('#fc4400', 0.4), {r: 252, g: 68, b: 0, a: 0.4});
@@ -23,6 +16,8 @@ test('returns rgba values correctly', function () {
 });
 
 test('returns rgba color correctly', function () {
+	var mixin = getMixin('color-utils');
+
 	equal(mixin.getRgbaColor({r: 255, g: 255, b: 255, a: 1}), 'rgba(255, 255, 255, 1)');
 	equal(mixin.getRgbaColor({r: 252, g: 60, b: 0, a: 0.4}), 'rgba(252, 60, 0, 0.4)');
 	equal(mixin.getRgbaColor({r: 117, g: 204, b: 204, a: 0.1}), 'rgba(117, 204, 204, 0.1)');
@@ -32,6 +27,8 @@ test('returns rgba color correctly', function () {
 });
 
 test('returns expanded hex color correctly', function () {
+	var mixin = getMixin('color-utils');
+
 	equal(mixin.shortHexColorExpand('#fff'), '#ffffff');
 	equal(mixin.shortHexColorExpand('#fc4400'), '#fc4400');
 	equal(mixin.shortHexColorExpand('#7cd'), '#77ccdd');

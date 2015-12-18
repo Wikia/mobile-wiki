@@ -1,7 +1,6 @@
-import App from '../app';
 import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
 
-export default App.ForumWrapperComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
 	{
 		classNames: ['forum-wrapper', 'discussion', 'forum'],
@@ -26,10 +25,11 @@ export default App.ForumWrapperComponent = Ember.Component.extend(
 		actions: {
 			/**
 			 * @param {number} postId
+			 * @param {bool} openInNewTab
 			 * @returns {void}
 			 */
-			goToPost(postId) {
-				this.sendAction('goToPost', postId);
+			goToPost(postId, openInNewTab = false) {
+				this.sendAction('goToPost', postId, openInNewTab);
 			},
 
 			/**

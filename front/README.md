@@ -8,7 +8,7 @@ Folder structure:
 ```
   locales
     [language]
-  	  filename.json
+      filename.json
 ```
 
 ## scripts
@@ -18,11 +18,10 @@ Folder structure:
 ```
   scripts
     [packageName]
-  	  all files
+      all files
 ```
 
 that is compiled to
-
 ```
   scripts
     packageName.js
@@ -34,16 +33,15 @@ Place for all styles
 Folder structure:
 ```
   styles
-  	  all files
-  	  app.scss
-  	  baseline.scss
-  	  _settings.scss
-  	  vendor/
-  	  and so on
+    all files
+    app.scss
+    baseline.scss
+    _settings.scss
+    vendor/
+    and so on
 ```
 
 that is compiled to
-
 ```
   styles
     app.css
@@ -58,7 +56,6 @@ This is where bower installs third party scss
 
 ## svg
 Place for all svg icons and graphics
-
 ```
   svg
     [packageName]
@@ -66,14 +63,12 @@ Place for all svg icons and graphics
 ```
 
 That is optimized and compiled to
-
 ```
   svg
     packageName.svg
 ```
 
 If you need to use svg as a separate image place it in images folder
-
 ```
   svg
     images
@@ -81,7 +76,6 @@ If you need to use svg as a separate image place it in images folder
 ```
 
 this will get copied to
-
 ```
   images
     image.svg
@@ -89,7 +83,6 @@ this will get copied to
 
 ## templates
 Place for all template files
-
 ```
   templates
     [packageName]
@@ -97,11 +90,11 @@ Place for all template files
 ```
 
 That is compiled to
-
 ```
   templates
     packageName.js
 ```
+
 ## vendor
 Those are third party files
 Should not be touched manually

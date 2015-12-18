@@ -36,10 +36,9 @@ module.exports = {
     scripts: {
         homepage: {
             src: 'front/scripts',
-            watch: 'front/scripts/**/*.ts',
+            watch: 'front/scripts/**/*.js',
             dest: 'front/js',
-            files: '**/*.ts',
-            dFiles: '**/*.d.ts'
+            files: '**/*.js',
         },
         auth: {
             src: '../front/scripts/auth',
@@ -82,9 +81,9 @@ module.exports = {
     },
     config: {
         path: 'config/',
-        baseFile: 'localSettings.base.ts',
-        exampleFile: 'localSettings.example.ts',
-        testFile: 'localSettings.test.ts',
-        runtimeFile: 'localSettings.ts'
+        baseFile: 'localSettings.base.js',
+        exampleFile: 'localSettings.example.js',
+        testFile: 'localSettings.test.js',
+        runtimeFile: 'localSettings.js'
     }
 };

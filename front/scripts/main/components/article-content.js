@@ -8,7 +8,10 @@ import WikiaMapComponent from './wikia-map';
 import PortableInfoboxComponent from './portable-infobox';
 import AdsMixin from '../mixins/ads';
 import PollDaddyMixin from '../mixins/poll-daddy';
-import App from '../app';
+import WidgetTwitterComponent from '../components/widget-twitter';
+import WidgetVKComponent from '../components/widget-vk';
+import WidgetPolldaddyComponent from '../components/widget-polldaddy';
+import WidgetFliteComponent from '../components/widget-flite';
 
 /**
  * HTMLElement
@@ -16,7 +19,7 @@ import App from '../app';
  * @property {Function} scrollIntoViewIfNeeded
  */
 
-export default App.ArticleContentComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	AdsMixin,
 	PollDaddyMixin,
 	{
@@ -377,14 +380,12 @@ export default App.ArticleContentComponent = Ember.Component.extend(
 			const $widgetPlaceholder = $(elem),
 				widgetData = $widgetPlaceholder.data(),
 				widgetType = widgetData.wikiaWidget,
-				componentName = this.getWidgetComponentName(widgetType);
+				widgetComponent = this.createWidgetComponent(widgetType, $widgetPlaceholder.data());
 
 			let component;
 
-			if (componentName) {
-				component = this.createChildView(App[componentName].create({
-					data: $widgetPlaceholder.data()
-				}));
+			if (widgetComponent) {
+				component = this.createChildView(widgetComponent);
 				component.createElement();
 				$widgetPlaceholder.replaceWith(component.$());
 				component.trigger('didInsertElement');
@@ -393,19 +394,20 @@ export default App.ArticleContentComponent = Ember.Component.extend(
 
 		/**
 		 * @param {string} widgetType
+		 * @param {*} data
 		 * @returns {string|null}
 		 */
-		getWidgetComponentName(widgetType) {
-			const componentNames = {
-				twitter: 'WidgetTwitterComponent',
-				vk: 'WidgetVKComponent',
-				polldaddy: 'WidgetPolldaddyComponent',
-				flite: 'WidgetFliteComponent',
-			};
-
-			if (componentNames.hasOwnProperty(widgetType) && Ember.typeOf(App[componentNames[widgetType]]) === 'class') {
-				return componentNames[widgetType];
-			} else {
+		createWidgetComponent(widgetType, data) {
+			switch (widgetType) {
+			case 'twitter':
+				return WidgetTwitterComponent.create({data});
+			case 'vk':
+				return WidgetVKComponent.create({data});
+			case 'polldaddy':
+				return WidgetPolldaddyComponent.create({data});
+			case 'flite':
+				return WidgetFliteComponent.create({data});
+			default:
 				Ember.Logger.warn(`Can't create widget with type '${widgetType}'`);
 				return null;
 			}
@@ -460,7 +462,13 @@ export default App.ArticleContentComponent = Ember.Component.extend(
 		handleTables() {
 			this.$('table:not([class*=infobox], .dirbox)')
 				.not('table table')
-				.wrap('<div class="article-table-wrapper"/>');
-		},
+				.each((index, element) => {
+					const $element = this.$(element),
+						wrapper = `<div class="article-table-wrapper${element.getAttribute('data-portable') ?
+							' portable-table-wrappper' : ''}"/>`;
+
+					$element.wrap(wrapper);
+				});
+		}
 	}
 );

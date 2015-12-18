@@ -1,9 +1,8 @@
 import ArticleModel from '../models/article';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
 import {normalizeToUnderscore} from '../../mercury/utils/string';
-import App from '../app';
 
-export default App.ArticleRoute = Ember.Route.extend({
+export default Ember.Route.extend({
 	redirectEmptyTarget: false,
 
 	/**
@@ -24,7 +23,7 @@ export default App.ArticleRoute = Ember.Route.extend({
 		// This is caused by the transition below but doesn't mean any additional requests.
 		// TODO: This could be improved upon by not using an Ember transition to 'rewrite' the URL
 		// Ticket here: https://wikia-inc.atlassian.net/browse/HG-641
-		if (title.match(/\s/)) {
+		if (title.indexOf(' ') > -1) {
 			this.transitionTo('article', normalizeToUnderscore(title));
 		}
 	},

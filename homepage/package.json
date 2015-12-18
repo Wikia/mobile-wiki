@@ -11,6 +11,7 @@
   },
   "author": "Per Johan Groland <pgroland@wikia-inc.com>",
   "dependencies": {
+    "babel-plugin-transform-runtime": "^6.1.2",
     "bluebird": "^2.9.34",
     "bunyan": "*",
     "bunyan-prettystream": "*",
@@ -26,23 +27,25 @@
     "request": "^2.60.0"
   },
   "devDependencies": {
+    "babel-eslint": "^4.1.6",
+    "babel-plugin-transform-es2015-modules-umd": "^6.0.15",
     "browser-sync": "^2.8.0",
+    "bunyan-debug-stream": "^1.0.7",
     "gulp": "*",
     "gulp-autoprefixer": "^2.3.1",
+    "gulp-babel": "^6.1.0",
     "gulp-bower": "0.0.10",
     "gulp-concat": "^2.6.0",
-    "gulp-develop-server": "*",
+    "gulp-develop-server": "^0.5.0",
+    "gulp-eslint": "^1.0.0",
     "gulp-folders": "^1.1.0",
     "gulp-if": "^1.2.5",
     "gulp-jshint": "^1.11.2",
     "gulp-karma": "0.0.4",
     "gulp-newer": "^0.5.1",
-    "gulp-nodemon": "^2.0.4",
     "gulp-sass": "*",
     "gulp-sourcemaps": "^1.5.2",
-    "gulp-tslint": "^3.1.2",
-    "gulp-typescript": "*",
-    "gulp-uglify": "^1.2.0",
+    "gulp-tslint": "^4.1.2",
     "gulp-util": "^3.0.6",
     "jshint-stylish": "^2.0.1",
     "karma": "^0.13.9",
@@ -52,6 +55,9 @@
     "multipipe": "^0.1.2",
     "phantomjs": "^1.9.18",
     "pretty-hrtime": "^1.0.0",
-    "qunitjs": "^1.18.0"
+    "qunitjs": "^1.18.0",
+    "systemjs-builder": "^0.14.11",
+    "tslint": "^3.1.1",
+    "typescript": "^1.7.3"
   }
 }

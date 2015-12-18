@@ -19,7 +19,7 @@
 		{{{parsedContent}}}
 	</div>
 {{else}}
-	<div class="discussion-content" {{action 'goToPost' postId}}>
+	<div class="discussion-content clickable" onclick={{action 'goToPost' postId}}>
 		{{{parsedContent}}}
 	</div>
 {{/if}}
@@ -31,16 +31,16 @@
 	{{#if isDetailsView}}
 		<div class="small-5 large-2 columns count">
 			<span class="replies-area">
-				{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
 				{{replyCount}}
 			</span>
 		</div>
 	{{else}}
 		<div class="small-2 large-2 columns count">
-			<a {{action 'goToPost' postId}} class="replies-area">
-				{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+			{{#link-to 'discussion.post' postId class='replies-area'}}
+				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
 				{{replyCount}}
-			</a>
+			{{/link-to}}
 		</div>
 	{{/if}}
 	<div class="share small-5 large-7 columns">
@@ -53,7 +53,7 @@
 				onMouseEnter=(action 'cancelHideShareComponent')
 				onMouseLeave=(action 'hideShareComponent')
 			}}
-			<span {{action 'toggleShareComponent'}}>
+			<span class="toggle-share-area" {{action 'toggleShareComponent'}}>
 				{{svg 'share' class='icon toggle-share'}}
 			</span>
 		{{/if}}

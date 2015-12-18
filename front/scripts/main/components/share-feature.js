@@ -1,13 +1,13 @@
-
 import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
-import App from '../app';
 
-export default App.ShareFeatureComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	TrackClickMixin,
 	LanguagesMixin,
 	{
 		classNames: ['share-feature'],
+
+		currentUser: Ember.inject.service(),
 
 		title: '',
 		sharedUrl: null,

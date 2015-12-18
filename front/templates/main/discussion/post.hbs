@@ -11,13 +11,16 @@
 				setLocation='goToForum'
 				label='main.back-to-discussions-link'
 			}}
-			<hr/>
 			<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
-			{{discussion-contributors
-				contributors=model.contributors
-				maxContributorDisplayCount=7
-				totalContributorCount=model.postCount
-			}}
+			{{#if model.replies}}
+				{{discussion-contributors
+					contributors=model.contributors
+					maxContributorDisplayCount=7
+					totalContributorCount=model.postCount
+				}}
+			{{else}}
+				{{i18n 'main.no-replies' ns='discussion'}}
+			{{/if}}
 		</div>
 		{{#if model.connectionError}}
 			{{discussion-connection-error
@@ -41,18 +44,20 @@
 					upvoteCount=model.upvoteCount
 					upvote='upvote'
 				}}
-				<div class="desktop-hidden discussion-contributors-mobile">
-					{{discussion-contributors
-						contributors=model.contributors
-						maxContributorDisplayCount=7
-						totalContributorCount=model.postCount
-					}}
-				</div>
-				{{#if canShowMore}}
-					<button {{action 'expand'}} class="see-more active-element-theme-color">
-						{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-						{{i18n 'main.pagination-post-show-more' ns='discussion'}}
-					</button>
+				{{#if model.replies}}
+					<div class="desktop-hidden discussion-contributors-mobile">
+						{{discussion-contributors
+							contributors=model.contributors
+							maxContributorDisplayCount=7
+							totalContributorCount=model.postCount
+						}}
+					</div>
+					{{#if canShowMore}}
+						<button {{action 'expand'}} class="see-more active-element-theme-color">
+							{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+							{{i18n 'main.pagination-post-show-more' ns='discussion'}}
+						</button>
+					{{/if}}
 				{{/if}}
 				<div class="replies-list">
 					{{#each model.replies as |item index|}}
@@ -69,6 +74,11 @@
 							isVisible=item.isVisible
 							upvote='upvote'
 						}}
+					{{else}}
+						<div class="discussion-no-replies">
+							{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
+							{{i18n 'main.no-replies-be-the-first' ns='discussion'}}
+						</div>
 					{{/each}}
 					{{#unless model.firstPost.isDeleted}}
 						{{discussion-reply-editor

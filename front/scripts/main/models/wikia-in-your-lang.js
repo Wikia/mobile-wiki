@@ -1,18 +1,17 @@
-import App from '../app';
-import LanguagesMixin from '../mixins/languages';
+//import LanguagesMixin from '../mixins/languages';
 
-export default App.WikiaInYourLangModel = Ember.Object.extend(LanguagesMixin, {
+const WikiaInYourLangModel = Ember.Object.extend(LanguagesMixin,{
 	message: null,
 	nativeDomain: null
 });
 
-App.WikiaInYourLangModel.reopenClass(LanguagesMixin, {
+WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	load() {
-		const browserLang = App.WikiaInYourLangModel.getBrowserLanguage(),
-			model = App.WikiaInYourLangModel.getFromCache(browserLang);
+		const browserLang = WikiaInYourLangModel.getBrowserLanguage(),
+			model = WikiaInYourLangModel.getFromCache(browserLang);
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (model) {
@@ -32,7 +31,7 @@ App.WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 				let modelInstance = null;
 
 				if (resp.success) {
-					modelInstance = App.WikiaInYourLangModel.create({
+					modelInstance = WikiaInYourLangModel.create({
 						nativeDomain: resp.nativeDomain,
 						message: resp.messageMobile
 					});
@@ -40,7 +39,7 @@ App.WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 
 				// write to cache
 				window.localStorage.setItem(
-					App.WikiaInYourLangModel.getCacheKey(browserLang),
+					WikiaInYourLangModel.getCacheKey(browserLang),
 					JSON.stringify({
 						model: modelInstance,
 						timestamp: new Date().getTime()
@@ -59,7 +58,7 @@ App.WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 	 * @returns {WikiaInYourLangModel}
 	 */
 	getFromCache(browserLang) {
-		const key = App.WikiaInYourLangModel.getCacheKey(browserLang),
+		const key = WikiaInYourLangModel.getCacheKey(browserLang),
 			value = JSON.parse(window.localStorage.getItem(key)),
 			now = new Date().getTime();
 
@@ -79,3 +78,5 @@ App.WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 		return `${lang}-WikiaInYourLang`;
 	}
 });
+
+export default WikiaInYourLangModel;

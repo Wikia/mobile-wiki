@@ -1,8 +1,11 @@
-import App from '../app';
-
-export default App.LoadingSpinnerComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	classNameBindings: ['overlay:loading-overlay'],
-	isVisible: Ember.computed.alias('active'),
+
+	// 'isVisible' is set to false also when 'active' is undefined.
+	// This way it is not needed to initialize it in components.
+	isVisible: Ember.computed('active', function () {
+		return Boolean(this.get('active'));
+	}),
 
 	active: false,
 	overlay: true,

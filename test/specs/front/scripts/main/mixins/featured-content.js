@@ -1,18 +1,17 @@
-var mixin;
+moduleFor('mixin:featured-content', 'FeaturedContentMixin');
 
-moduleFor('mixin:featuredContent', 'FeaturedContentMixin', {
-	setup: function () {
-		var mixinClass = Ember.Object.extend(App.FeaturedContentMixin);
+function getFeaturedContentMixin() {
+	var mixin = getMixin('featured-content');
 
-		mixin = mixinClass.create({
-			// We don't want to test jQuery DOM manipulation here
-			currentItemIndexObserver: function () {
-			}
-		});
-	}
-});
+	// We don't want to test jQuery DOM manipulation here
+	mixin.currentItemIndexObserver = Em.K;
+
+	return mixin;
+}
 
 test('detects if there are multiple items in the model', function () {
+	var mixin = getFeaturedContentMixin();
+
 	mixin.set('model', [{
 		title: 'Item 1'
 	}]);
@@ -27,6 +26,8 @@ test('detects if there are multiple items in the model', function () {
 });
 
 test('returns the current item', function () {
+	var mixin = getFeaturedContentMixin();
+
 	mixin.set('model', [{
 		title: 'Item 1'
 	}, {
@@ -45,6 +46,8 @@ test('returns the current item', function () {
 });
 
 test('sets proper index in the prevItem function', function () {
+	var mixin = getFeaturedContentMixin();
+
 	mixin.set('model', [{
 		title: 'Item 1'
 	}, {
@@ -64,6 +67,8 @@ test('sets proper index in the prevItem function', function () {
 });
 
 test('sets proper index in the nextItem function', function () {
+	var mixin = getFeaturedContentMixin();
+
 	mixin.set('model', [{
 		title: 'Item 1'
 	}, {

@@ -1,4 +1,3 @@
-import App from '../app';
 import ObjectUtilitiesMixin from '../mixins/object-utilities';
 
 /**
@@ -38,7 +37,7 @@ import ObjectUtilitiesMixin from '../mixins/object-utilities';
  * @property {id} image_id
  */
 
-export default App.CuratedContentEditorItemModel = Ember.Object.extend(
+const CuratedContentEditorItemModel = Ember.Object.extend(
 	ObjectUtilitiesMixin,
 	{
 		article_id: null,
@@ -53,7 +52,7 @@ export default App.CuratedContentEditorItemModel = Ember.Object.extend(
 	}
 );
 
-App.CuratedContentEditorItemModel.reopenClass({
+CuratedContentEditorItemModel.reopenClass({
 	/**
 	 * Object Model instance is only created once and all create() method invocations return already created object.
 	 * Using extend prevents from sharing ember metadata between instances so each time fresh object instance is created.
@@ -74,7 +73,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 			type: null
 		}, params);
 
-		return App.CuratedContentEditorItemModel.create(modelParams);
+		return CuratedContentEditorItemModel.create(modelParams);
 	},
 
 	/**
@@ -130,9 +129,20 @@ App.CuratedContentEditorItemModel.reopenClass({
 
 	/**
 	 * @param {string} title
+	 * @param {boolean} isCategory
 	 * @returns {Ember.RSVP.Promise} search suggestions
 	 */
-	getSearchSuggestions(title) {
+	getSearchSuggestions(title, isCategory) {
+		const data = {
+			controller: 'MercuryApi',
+			method: 'getSearchSuggestions',
+			query: title
+		};
+
+		if (isCategory === true) {
+			data.ns = 14;
+		}
+
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (!title) {
 				return reject();
@@ -142,11 +152,7 @@ App.CuratedContentEditorItemModel.reopenClass({
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
-				data: {
-					controller: 'MercuryApi',
-					method: 'getSearchSuggestions',
-					query: title
-				},
+				data,
 				dataType: 'json',
 				success: (response) => resolve(response),
 				error: (error) => reject(error)
@@ -154,3 +160,5 @@ App.CuratedContentEditorItemModel.reopenClass({
 		});
 	}
 });
+
+export default CuratedContentEditorItemModel;

@@ -1,4 +1,3 @@
-import App from '../app';
 import CuratedContentEditorLabelsMixin from '../mixins/curated-content-editor-labels';
 import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
@@ -6,7 +5,7 @@ import TrackClickMixin from '../mixins/track-click';
 import IEIFrameFocusFixMixin from '../mixins/ieiframe-focus-fix';
 import SearchImagesModel from '../models/search-images';
 
-export default App.CuratedContentEditorImageSearchComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	CuratedContentEditorLabelsMixin,
 	CuratedContentEditorLayoutMixin,
 	CuratedContentThumbnailMixin,
@@ -16,7 +15,6 @@ export default App.CuratedContentEditorImageSearchComponent = Ember.Component.ex
 		classNames: ['curated-content-editor-image-search'],
 		debounceDuration: 300,
 		spinnerOverlay: false,
-		isLoading: false,
 		searchPlaceholder: Ember.computed(() =>
 			i18n.t('app.curated-content-editor-search-images-placeholder')
 		),

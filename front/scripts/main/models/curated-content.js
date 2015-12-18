@@ -1,5 +1,3 @@
-import App from '../app';
-
 /**
  * @typedef {Object} CuratedContentItem
  * @property {string} label
@@ -25,14 +23,14 @@ import App from '../app';
  * @property {number} height
  */
 
-export default App.CuratedContentModel = Ember.Object.extend({
+const CuratedContentModel = Ember.Object.extend({
 	title: null,
 	type: null,
 	items: [],
 	offset: null
 });
 
-App.CuratedContentModel.reopenClass({
+CuratedContentModel.reopenClass({
 	/**
 	 * @param {string} title
 	 * @param {string} [type='section']
@@ -41,13 +39,13 @@ App.CuratedContentModel.reopenClass({
 	 */
 	find(title, type = 'section', offset = null) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			const modelInstance = App.CuratedContentModel.create({
+			const modelInstance = CuratedContentModel.create({
 					title,
 					type
 				}),
 				params = {};
 
-			let url = `${App.get('apiBase')}/main/`;
+			let url = `${M.prop('apiBase')}/main/`;
 
 			url += `${type}/${title}`;
 
@@ -60,7 +58,7 @@ App.CuratedContentModel.reopenClass({
 				data: params,
 				success: (data) => {
 					modelInstance.setProperties({
-						items: App.CuratedContentModel.sanitizeItems(data.items),
+						items: CuratedContentModel.sanitizeItems(data.items),
 						offset: data.offset || null
 					});
 					resolve(modelInstance);
@@ -77,7 +75,7 @@ App.CuratedContentModel.reopenClass({
 	loadMore(model) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			// Category type is hardcoded because only Categories API supports offset.
-			const newModelPromise = App.CuratedContentModel.find(model.get('title'), 'category', model.get('offset'));
+			const newModelPromise = CuratedContentModel.find(model.get('title'), 'category', model.get('offset'));
 
 			newModelPromise
 				.then((newModel) => {
@@ -164,3 +162,5 @@ App.CuratedContentModel.reopenClass({
 		return item;
 	}
 });
+
+export default CuratedContentModel;
