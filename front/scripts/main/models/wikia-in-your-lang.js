@@ -1,6 +1,6 @@
 import LanguagesMixin from '../mixins/languages';
 
-const WikiaInYourLangModel = Ember.Object.extend(LanguagesMixin,{
+const WikiaInYourLangModel = Ember.Object.extend(LanguagesMixin, {
 	message: null,
 	nativeDomain: null
 });
