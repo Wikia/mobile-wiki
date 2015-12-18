@@ -1,27 +1,17 @@
-const ImageReviewModel = Ember.Object.extend({
-
-	init() {
-		this.isModalVisible = false;
-		this.modalImageUrl = null;
-		this.images = this.get('images');
-	}
-});
+const ImageReviewModel = Ember.Object.extend({});
 
 ImageReviewModel.reopenClass({
 
 	startSession(onlyFlagged) {
-
-		console.log(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {}));
-
-		let url = ImageReviewModel.getServiceUrl;
+		const options = {};
 
 		if (onlyFlagged) {
-			url = `${url}?status=FLAGGED`;
+			options.status = 'FLAGGED';
 		}
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url,
+				url: M.getImageReviewServiceUrl(`/contract`, options),
 				dataType: 'json',
 				method: 'POST',
 				xhrFields: {
@@ -36,7 +26,7 @@ ImageReviewModel.reopenClass({
 	endSession() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${ImageReviewModel.getServiceUrl}/`,
+				url: M.getImageReviewServiceUrl(`/contract`, {}),
 				xhrFields: {
 					withCredentials: true
 				},
@@ -51,7 +41,7 @@ ImageReviewModel.reopenClass({
 	getImages(contractId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${ImageReviewModel.getServiceUrl}/${contractId}/image`,
+				url: M.getImageReviewServiceUrl(`/contract/${contractId}/image`, {}),
 				xhrFields: {
 					withCredentials: true
 				},
@@ -72,7 +62,7 @@ ImageReviewModel.reopenClass({
 	reviewImage(contractId, imageId, flag) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${ImageReviewModel.getServiceUrl}/${contractId}/image/${imageId}?status=${flag}`,
+				url: M.getImageReviewServiceUrl(`/contract/${contractId}/image/${imageId}?status=${flag.toUpperCase()}`),
 				xhrFields: {
 					withCredentials: true
 				},
@@ -88,7 +78,7 @@ ImageReviewModel.reopenClass({
 	addImage(contractId, imageId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${ImageReviewModel.getServiceUrl}/${contractId}/image?imageId=${imageId}&status=UNREVIEWED`,
+				url: M.getImageReviewServiceUrl(`/contract/${contractId}/image/${imageId}?status=UNREVIEWED`),
 				xhrFields: {
 					withCredentials: true
 				},
@@ -109,7 +99,7 @@ ImageReviewModel.reopenClass({
 					imageId: image.imageId,
 					fullSizeImageUrl: image.imageUrl,
 					contractId,
-					status: 'ACCEPTED'
+					status: 'accepted'
 				});
 			}
 			// else skip because is reviewed already
@@ -122,9 +112,7 @@ ImageReviewModel.reopenClass({
 		images.forEach((imageItem) => {
 			ImageReviewModel.reviewImage(imageItem.contractId, imageItem.imageId, imageItem.status);
 		});
-	},
-
-	getServiceUrl: 'https://services-poz.wikia-dev.com/image-review/contract'
+	}
 });
 
 export default ImageReviewModel;

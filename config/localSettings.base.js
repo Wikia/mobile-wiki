@@ -159,7 +159,7 @@ const localSettings = {
 		baseAPIPath: 'discussion'
 	},
 	imageReview: {
-		baseAPIPath: 'imagereview'
+		baseAPIPath: 'image-review'
 	},
 	whoAmIService: {
 		path: '/whoami',

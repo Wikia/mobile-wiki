@@ -33,15 +33,8 @@ export default Ember.Route.extend({
 			const model = this.modelFor('imageReview');
 
 			this.set('onlyFlagged', false);
-			model.reviewImages(model.images);
+			ImageReviewModel.reviewImages(model.images);
 			this.refresh();
-		},
-
-		showModal(imageUrl) {
-			const model = this.modelFor('imageReview');
-
-			model.set('modalImageUrl', imageUrl);
-			model.set('isModalVisible', true);
 		},
 
 		getFlaggedOnly() {

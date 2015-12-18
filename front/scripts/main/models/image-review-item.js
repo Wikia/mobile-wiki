@@ -1,5 +1,5 @@
 const ImageReviewItemModel = Ember.Object.extend({
-	status: 'ACCEPTED'
+	status: 'accepted'
 });
 
 export default ImageReviewItemModel;

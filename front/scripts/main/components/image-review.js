@@ -1,6 +1,8 @@
 export default Ember.Component.extend({
 	classNames: ['image-review'],
 	isLoading: false,
+	isModalVisible: false,
+	imageUrl: null,
 
 	actions: {
 		reviewAndGetMoreImages() {
@@ -8,7 +10,8 @@ export default Ember.Component.extend({
 		},
 
 		showModal(imageUrl) {
-			this.sendAction('showModal', imageUrl);
+			this.set('modalImageUrl', imageUrl);
+			this.set('isModalVisible', true);
 		},
 
 		getFlaggedOnly() {

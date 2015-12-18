@@ -11,13 +11,14 @@
 	{{/each}}
 </ul>
 
-{{#modal-dialog isVisible=model.isModalVisible}}
-	<img src="{{model.modalImageUrl}}"/>
-	<p>{{model.modalImageUUID}}</p>
+{{#modal-dialog isVisible=isModalVisible}}
+	<img src="{{modalImageUrl}}"/>
 {{/modal-dialog}}
 
-<button {{action 'reviewAndGetMoreImages'}}>{{i18n 'app.image-review-and-get-more'}}</button>
-<button  {{action 'getFlaggedOnly'}}>{{i18n 'app.image-review-get-flagged'}}</button>
+<div class="action-buttons">
+    <button {{action 'reviewAndGetMoreImages'}}>{{i18n 'app.image-review-and-get-more'}}</button>
+    <button  {{action 'getFlaggedOnly'}}>{{i18n 'app.image-review-get-flagged'}}</button>
+</div>
 
 {{loading-spinner active=isLoading}}
 {{alert-notifications alerts=alertNotifications}}

@@ -137,6 +137,6 @@ if (typeof window.M === 'undefined') {
 	 * @returns {string}
 	 */
 	M.getImageReviewServiceUrl = function (path = '', query = {}) {
-		return `https://${M.prop('servicesDomain')}/${M.prop('discussionBaseRoute')}${path}${getQueryString(query)}`;
+		return `https://${M.prop('servicesDomain')}/${M.prop('imageReviewBaseRoute')}${path}${getQueryString(query)}`;
 	};
 })(M);
