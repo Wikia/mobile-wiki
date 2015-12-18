@@ -4,7 +4,7 @@ export default Ember.Route.extend({
 	onlyFlagged: false,
 
 	beforeModel(transition) {
-		if(transition.queryParams.fullscreen === 'true') {
+		if (transition.queryParams.fullscreen === 'true') {
 			this.controllerFor('application').set('fullPage', true);
 		}
 	},
