@@ -3,6 +3,12 @@ import ImageReviewModel from '../models/image-review';
 export default Ember.Route.extend({
 	onlyFlagged: false,
 
+	beforeModel(transition) {
+		if(transition.queryParams.fullscreen === 'true') {
+			this.controllerFor('application').set('fullPage', true);
+		}
+	},
+
 	renderTemplate(controller, model) {
 		this.render('image-review', {controller, model});
 	},
