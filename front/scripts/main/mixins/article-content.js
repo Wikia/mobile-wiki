@@ -1,15 +1,12 @@
-import App from '../app';
-
 /**
  * This object keeps track of all components which include ArticleContentMixin.
  * It had to be created because components can appear and disappear from the page (for example lightbox).
  * In such case mixin alone can't keep track of all objects which include it and is some cases context might be lost.
- * With ArticleContentListeners object we are binding to resize event only once
+ * With articleContentListeners object we are binding to resize event only once
  * and we update the articleContent.width value in mixin only once.
  * @type {Ember.Object}
  */
-
-export default App.ArticleContentListeners = Ember.Object.create({
+const articleContentListeners = Ember.Object.create({
 	initialized: false,
 	containers: [],
 	articleContentSelector: '.article-content',
@@ -96,7 +93,7 @@ export default App.ArticleContentListeners = Ember.Object.create({
  * It is stored as object because objects and arrays are shared among all objects which include mixin.
  * @type {Ember.Mixin}
  */
-App.ArticleContentMixin = Ember.Mixin.create({
+export default Ember.Mixin.create({
 	// This object is shared among all objects which include this mixin
 	articleContent: {
 		width: null
@@ -108,7 +105,7 @@ App.ArticleContentMixin = Ember.Mixin.create({
 	init() {
 		this._super();
 
-		App.ArticleContentListeners.add(this);
+		articleContentListeners.add(this);
 	},
 
 	/**
@@ -117,6 +114,6 @@ App.ArticleContentMixin = Ember.Mixin.create({
 	willDestroyElement() {
 		this._super();
 
-		App.ArticleContentListeners.remove(this);
+		articleContentListeners.remove(this);
 	}
 });
