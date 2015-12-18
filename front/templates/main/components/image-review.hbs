@@ -4,11 +4,11 @@
 <h4>{{i18n 'app.image-review-images-to-review'}}</h4>
 
 <ul class="image-review-list">
-	<li class="image-review-item">
-		{{#each model.images as |item|}}
+	{{#each model.images as |item|}}
+		<li class="image-review-item">
 			{{image-review-item model=item showModal=(action 'showModal')}}
-		{{/each}}
-	</li>
+		</li>
+	{{/each}}
 </ul>
 
 {{#modal-dialog isVisible=model.isModalVisible}}

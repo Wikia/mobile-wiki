@@ -10,6 +10,9 @@ const ImageReviewModel = Ember.Object.extend({
 ImageReviewModel.reopenClass({
 
 	startSession(onlyFlagged) {
+
+		console.log(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {}));
+
 		let url = ImageReviewModel.getServiceUrl;
 
 		if (onlyFlagged) {
@@ -58,7 +61,7 @@ ImageReviewModel.reopenClass({
 					if (Ember.isArray(data)) {
 						resolve(ImageReviewModel.sanitize(data, contractId));
 					} else {
-						reject('Invalid data was returned from Image Review API');
+						reject(i18n.t('app.image-review-error-invalid-data'));
 					}
 				},
 				error: (data) => reject(data)

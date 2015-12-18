@@ -1,4 +1,6 @@
-const ImageReviewRoute = Ember.Route.extend({
+import ImageReviewModel from '../models/image-review';
+
+export default Ember.Route.extend({
 	onlyFlagged: false,
 
 	renderTemplate(controller, model) {
@@ -48,5 +50,3 @@ const ImageReviewRoute = Ember.Route.extend({
 		}
 	}
 });
-
-export default ImageReviewRoute;

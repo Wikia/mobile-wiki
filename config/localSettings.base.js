@@ -156,7 +156,10 @@ const localSettings = {
 		passwordMaxLength: 50
 	},
 	discuss: {
-		baseAPIPath: 'discussion',
+		baseAPIPath: 'discussion'
+	},
+	imageReview: {
+		baseAPIPath: 'imagereview'
 	},
 	whoAmIService: {
 		path: '/whoami',

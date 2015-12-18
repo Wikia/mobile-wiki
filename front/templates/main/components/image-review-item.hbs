@@ -1,9 +1,8 @@
 <div class="img-container {{model.status}}">
-	<img id="{{model.imageId}}" src="{{thumbnailUrl}}" tabindex = "-1"
-		{{action (action this.attrs.showModal model.fullSizeImageUrl)}}>
+	<img src="{{thumbnailUrl}}" {{action (action this.attrs.showModal model.fullSizeImageUrl)}}>
 	<form>
-		{{radio-button value='ACCEPTED' groupValue=model.status}} OK
-		{{radio-button value='REJECTED' groupValue=model.status}} Del
-		{{radio-button value='FLAGGED' groupValue=model.status}} Q
+		{{radio-button value='ACCEPTED' groupValue=model.status}} {{i18n 'app.image-review-accepted'}}
+		{{radio-button value='REJECTED' groupValue=model.status}} {{i18n 'app.image-review-rejected'}}
+		{{radio-button value='FLAGGED' groupValue=model.status}} {{i18n 'app.image-review-questionable'}}
 	</form>
 </div>

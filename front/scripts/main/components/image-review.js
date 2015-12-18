@@ -8,7 +8,7 @@ export default Ember.Component.extend({
 		},
 
 		showModal(imageUrl) {
-			this.sendAction('showModal', imageUrl)
+			this.sendAction('showModal', imageUrl);
 		},
 
 		getFlaggedOnly() {

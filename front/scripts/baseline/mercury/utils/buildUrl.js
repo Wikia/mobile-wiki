@@ -130,4 +130,13 @@ if (typeof window.M === 'undefined') {
 	M.getDiscussionServiceUrl = function (path = '', query = {}) {
 		return `https://${M.prop('servicesDomain')}/${M.prop('discussionBaseRoute')}${path}${getQueryString(query)}`;
 	};
+
+	/**
+	 * @param {string} [path='']
+	 * @param {Object} [query={}]
+	 * @returns {string}
+	 */
+	M.getImageReviewServiceUrl = function (path = '', query = {}) {
+		return `https://${M.prop('servicesDomain')}/${M.prop('discussionBaseRoute')}${path}${getQueryString(query)}`;
+	};
 })(M);
