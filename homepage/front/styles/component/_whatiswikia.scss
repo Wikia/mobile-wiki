@@ -15,9 +15,8 @@ $desktop-slider: new-breakpoint(min-width 615px);
 	.description {
 		display: inline-block;
 		padding: 3em 2em;
-		padding-left: 10%;
 		vertical-align: middle;
-		width: 60%;
+		width: 59.5%;
 
 		@include media ($mobile-slider) {
 			width: 100%;
