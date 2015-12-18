@@ -84,9 +84,23 @@ export default Ember.Component.extend(
 				 * 2,592,000,000 = 30 days
 				 */
 				notDismissed = !value || (now - value > 2592000000),
-				isUserLangDifferentFromWikiLang = this.getBrowserLanguage() !== Ember.get(Mercury, 'wiki.language.content');
+				notSameLanguage = isUserLangDifferentFromWikiLang();
 
-			return notDismissed && isUserLangDifferentFromWikiLang;
+			return notDismissed && notSameLanguage;
 		},
+
+		/**
+		 * @return {integer}
+		 */
+		 isUserLangDifferentFromWikiLang() {
+			const userLang = this.getBrowserLanguage(),
+				eligibleCountries = ['zh', 'ko', 'vi', 'ru', 'ja'];
+			let isDifferent = false;
+
+			if (eligibleCountries.indexOf(userLang) !== -1) {
+				isDifferent = userLang !== Ember.get(Mercury, 'wiki.language.content');
+			}
+			return isDifferent;
+		 }
 	}
 );

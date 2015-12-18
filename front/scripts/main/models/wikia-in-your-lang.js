@@ -1,4 +1,4 @@
-//import LanguagesMixin from '../mixins/languages';
+import LanguagesMixin from '../mixins/languages';
 
 const WikiaInYourLangModel = Ember.Object.extend(LanguagesMixin,{
 	message: null,
