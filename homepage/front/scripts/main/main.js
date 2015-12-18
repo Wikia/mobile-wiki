@@ -3,12 +3,23 @@ import {loadGlobalData, getLoginUrl} from './globals';
 /**
  * @returns {void}
  */
-function search() {
-	let searchText = encodeURI($('#searchWikiaText').val());
+function search(isTopNav = true) {
+	let searchText;
 
-	if (!searchText) {
-		// search button for mobile is different element
-		searchText = encodeURI($('#searchWikiaTextMobile').val());
+	if (isTopNav) {
+		searchText = encodeURI($('#searchWikiaText').val());
+
+		if (!searchText) {
+			// search button for mobile is different element
+			searchText = encodeURI($('#searchWikiaTextMobile').val());
+		}
+	} else {
+		searchText = encodeURI($('#wiwSearchWikiaTextDesktop').val());
+
+		if (!searchText) {
+			// search button for mobile is different element
+			searchText = encodeURI($('#wiwSarchWikiaTextMobile').val());
+		}
 	}
 
 	if (searchText) {
@@ -100,6 +111,16 @@ $('.search-wikia-form').submit((event) => {
 
 $('.search-wikia').click((event) => {
 	search();
+	event.preventDefault();
+});
+
+$('.wiw-search-wikia-form').submit((event) => {
+	search(false);
+	event.preventDefault();
+});
+
+$('.wiw-search-wikia-button').click((event) => {
+	search(false);
 	event.preventDefault();
 });
 

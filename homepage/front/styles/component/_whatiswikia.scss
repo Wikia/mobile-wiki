@@ -61,7 +61,7 @@ $desktop-slider: new-breakpoint(min-width 615px);
 		background-color: $search-background;
 	}
 
-	.wiw-searchWikiaButton {
+	.wiw-search-wikia-button {
 		background-color: transparent;
 		border: 1px solid $text-color;
 		display: inline;
@@ -75,7 +75,7 @@ $desktop-slider: new-breakpoint(min-width 615px);
 		}
 	}
 
-	.wiw-searchWikiaText {
+	.wiw-search-wikia-text {
 		color: text-color;
 		display: inline;
 		font-size: .6em;
