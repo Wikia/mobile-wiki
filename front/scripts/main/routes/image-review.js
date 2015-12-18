@@ -3,12 +3,6 @@ import ImageReviewModel from '../models/image-review';
 export default Ember.Route.extend({
 	onlyFlagged: false,
 
-	beforeModel(transition) {
-		if (transition.queryParams.fullscreen === 'true') {
-			this.controllerFor('application').set('fullPage', true);
-		}
-	},
-
 	renderTemplate(controller, model) {
 		this.render('image-review', {controller, model});
 	},
@@ -45,6 +39,25 @@ export default Ember.Route.extend({
 		getFlaggedOnly() {
 			this.set('onlyFlagged', true);
 			this.refresh();
+		},
+
+		didTransition() {
+			if (this.controller.get('fullscreen') === 'true') {
+				this.controllerFor('application').set('fullPage', true);
+
+			}
+		},
+
+		willTransition(transition) {
+			const isStayingOnEditor = transition.targetName.indexOf('imageReview') > -1;
+
+			if (!isStayingOnEditor) {
+				transition.then(() => {
+					this.controllerFor('application').set('fullPage', false);
+				});
+			}
+
+			return true;
 		}
 	}
 });
