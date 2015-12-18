@@ -241,7 +241,7 @@ let routes,
 		},
 		{
 			method: 'GET',
-			path: '/imagereview',
+			path: '/image-review',
 			handler: showApplication,
 			config: {
 				cache: routeCacheConfig

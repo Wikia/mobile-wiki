@@ -14,7 +14,6 @@ export default Ember.Route.extend({
 	},
 
 	model() {
-		this.set('isLoading', true);
 		return ImageReviewModel.startSession(this.get('onlyFlagged'));
 	},
 
