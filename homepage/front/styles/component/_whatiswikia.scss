@@ -111,6 +111,10 @@ $desktop-slider: new-breakpoint(min-width 720px);
 				float: right;
 				width: 50%;
 			}
+
+			@include media ($mobile-slider) {
+				text-align: right;
+			}
 		}
 	}
 
