@@ -1,9 +1,8 @@
-import App from '../app';
 import DiscussionBaseModel from './discussion-base';
 import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
 import ajaxCall from '../utils/ajax-call';
 
-export default App.DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
+const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 	name: null,
 	pageNum: null,
 	posts: null,
@@ -81,7 +80,7 @@ export default App.DiscussionForumModel = DiscussionBaseModel.extend(DiscussionD
 	}
 });
 
-App.DiscussionForumModel.reopenClass({
+DiscussionForumModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} forumId
@@ -89,14 +88,13 @@ App.DiscussionForumModel.reopenClass({
 	 * @returns { Ember.RSVP.Promise}
 	 */
 	find(wikiId, forumId, sortBy) {
-		const forumInstance = App.DiscussionForumModel.create({
+		const forumInstance = DiscussionForumModel.create({
 				wikiId,
 				forumId
 			}),
 			requestData = {
 				viewableOnly: false
 			};
-
 		if (sortBy) {
 			requestData.sortKey = forumInstance.getSortKey(sortBy);
 		}
@@ -133,3 +131,5 @@ App.DiscussionForumModel.reopenClass({
 		});
 	}
 });
+
+export default DiscussionForumModel;

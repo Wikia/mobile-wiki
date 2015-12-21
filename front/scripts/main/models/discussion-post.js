@@ -1,9 +1,8 @@
-import App from '../app';
 import DiscussionBaseModel from './discussion-base';
 import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
 import ajaxCall from '../utils/ajax-call';
 
-export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
+const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 
 	postId: null,
 	pivotId: null,
@@ -72,7 +71,7 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 	}
 });
 
-App.DiscussionPostModel.reopenClass({
+DiscussionPostModel.reopenClass({
 
 	/**
 	 * @param {number} wikiId
@@ -80,11 +79,10 @@ App.DiscussionPostModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, postId) {
-		const postInstance = App.DiscussionPostModel.create({
+		const postInstance = DiscussionPostModel.create({
 			wikiId,
 			postId
 		});
-
 		return ajaxCall({
 			context: postInstance,
 			url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`, {
@@ -135,3 +133,5 @@ App.DiscussionPostModel.reopenClass({
 		});
 	}
 });
+
+export default DiscussionPostModel;

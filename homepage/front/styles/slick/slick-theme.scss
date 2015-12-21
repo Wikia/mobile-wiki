@@ -1,16 +1,16 @@
 // Default Variables
-$slick-font-path: '/vendor/slick.js/slick/fonts/';
+$slick-font-path: '/vendor/slick-carousel/slick/fonts/';
 $slick-font-family: 'slick' !default;
-$slick-arrow-color: #095EA2 !default;
-$slick-dot-color: black !default;
+$slick-arrow-color: white !default;
+$slick-dot-color: #c8c8c8 !default;
 $slick-dot-color-active: $slick-dot-color !default;
 $slick-prev-character: '←' !default;
 $slick-next-character: '→' !default;
 $slick-dot-character: '•' !default;
-$slick-dot-size: 6px !default;
-$slick-opacity-default: .75 !default;
+$slick-dot-size: 10px !default;
+$slick-opacity-default: 1 !default;
 $slick-opacity-on-hover: 1 !default;
-$slick-opacity-not-active: .25 !default;
+$slick-opacity-not-active: .75 !default;
 
 @function slick-image-url($url) {
 	@if function-exists(image-url) {
@@ -32,7 +32,7 @@ $slick-opacity-not-active: .25 !default;
 .slick-list {
 	.slick-loading & {
 		$background-color: white;
-		background: $background-color url('/vendor/slick.js/slick/ajax-loader.gif') center center no-repeat;
+		background: $background-color url('/vendor/slick-carousel/slick/ajax-loader.gif') center center no-repeat;
 	}
 }
 
@@ -57,14 +57,13 @@ $slick-opacity-not-active: .25 !default;
 	cursor: pointer;
 	display: block;
 	font-size: 0;
-	height: 20px;
+	height: 40px;
 	line-height: 0;
-	margin-top: -10px;
 	outline: none;
 	padding: 0;
 	position: absolute;
 	top: 50%;
-	width: 20px;
+	width: 40px;
 
 	&:hover, &:focus {
 		background: transparent;
@@ -84,14 +83,17 @@ $slick-opacity-not-active: .25 !default;
 .slick-prev:before, .slick-next:before {
 	color: $slick-arrow-color;
 	font-family: $slick-font-family;
-	font-size: 20px;
+	font-size: 40px;
 	font-smoothing: antialiased;
 	line-height: 1;
 	opacity: $slick-opacity-default;
 }
 
 .slick-prev {
-	left: 0;
+	left: 30px;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 1;
 
 	[dir='rtl'] & {
 		left: auto;
@@ -108,7 +110,10 @@ $slick-opacity-not-active: .25 !default;
 }
 
 .slick-next {
-	right: 0;
+	right: 30px;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 1;
 
 	[dir='rtl'] & {
 		left: 0;
@@ -131,7 +136,7 @@ $slick-opacity-not-active: .25 !default;
 }
 
 .slick-dots {
-	bottom: -45px;
+	bottom: 20px;
 	display: block;
 	list-style: none;
 	padding: 0;

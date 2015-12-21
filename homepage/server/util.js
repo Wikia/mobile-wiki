@@ -138,6 +138,7 @@ function shuffle(array) {
 	return array;
 }
 
+// deprecated
 exports.preprocessPopularData = function (popular) {
 	var i;
 

@@ -1,13 +1,9 @@
 /* Slider */
 
-$large-screen: 710px;
-
 .slick-slider {
 	box-sizing: border-box;
 	display: block;
 	highlight-color: transparent;
-	padding-left: 25px;
-	padding-right: 25px;
 	position: relative;
 	touch-action: pan-y;
 	touch-callout: none;
@@ -62,6 +58,7 @@ $large-screen: 710px;
 	height: 100%;
 	min-height: 1px;
 	outline: none;
+	position: relative;
 
 	[dir="rtl"] & {
 		float: right;

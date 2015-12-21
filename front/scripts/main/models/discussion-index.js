@@ -1,9 +1,8 @@
-import App from '../app';
 import ajaxCall from '../utils/ajax-call';
 
-export default App.DiscussionIndexModel = Ember.Object.extend({});
+const DiscussionIndexModel = Ember.Object.extend({});
 
-App.DiscussionIndexModel.reopenClass({
+DiscussionIndexModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @returns {Ember.RSVP.Promise}
@@ -14,3 +13,5 @@ App.DiscussionIndexModel.reopenClass({
 		});
 	}
 });
+
+export default DiscussionIndexModel;

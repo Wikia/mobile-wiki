@@ -1,4 +1,3 @@
-import App from '../app';
 import ArticleEditMixin from '../mixins/article-edit';
 
 /**
@@ -7,7 +6,7 @@ import ArticleEditMixin from '../mixins/article-edit';
  * @property {string} extension
  */
 
-export default App.ArticleAddPhotoModel = Ember.Object.extend({
+const ArticleAddPhotoModel = Ember.Object.extend({
 	title: null,
 	sectionIndex: null,
 	photoData: null,
@@ -16,21 +15,7 @@ export default App.ArticleAddPhotoModel = Ember.Object.extend({
 	photoExtension: null
 });
 
-/**
- * @param {string} fileName
- * @returns {FileNameSeparated}
- */
-App.ArticleAddPhotoModel.separateFileNameAndExtension = (fileName) => {
-	const name = fileName.substr(0, fileName.lastIndexOf('.')),
-		extension = fileName.substr(fileName.lastIndexOf('.') + 1);
-
-	return {
-		name,
-		extension
-	};
-};
-
-App.ArticleAddPhotoModel.reopenClass(
+ArticleAddPhotoModel.reopenClass(
 	ArticleEditMixin,
 	{
 		/**
@@ -43,12 +28,12 @@ App.ArticleAddPhotoModel.reopenClass(
 
 				oFReader.readAsDataURL(photoData);
 				oFReader.onload = function (oFREvent) {
-					const separatedName = App.ArticleAddPhotoModel.separateFileNameAndExtension(photoData.name),
+					const separatedName = ArticleAddPhotoModel.separateFileNameAndExtension(photoData.name),
 						photoName = separatedName.name,
 						photoExtension = separatedName.extension;
 
 					resolve(
-						App.ArticleAddPhotoModel.create({
+						ArticleAddPhotoModel.create({
 							photoData,
 							photoImage: oFREvent.target.result,
 							photoName,
@@ -89,6 +74,10 @@ App.ArticleAddPhotoModel.reopenClass(
 			});
 		},
 
+		/**
+		 * @param {*} editData
+		 * @returns {Ember.RSVP.Promise}
+		 */
 		editContent(editData) {
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				Ember.$.ajax({
@@ -209,6 +198,22 @@ App.ArticleAddPhotoModel.reopenClass(
 					error: (err) => reject(err)
 				});
 			});
+		},
+
+		/**
+		 * @param {string} fileName
+		 * @returns {FileNameSeparated}
+		 */
+		separateFileNameAndExtension(fileName) {
+			const name = fileName.substr(0, fileName.lastIndexOf('.')),
+				extension = fileName.substr(fileName.lastIndexOf('.') + 1);
+
+			return {
+				name,
+				extension
+			};
 		}
 	}
 );
+
+export default ArticleAddPhotoModel;
