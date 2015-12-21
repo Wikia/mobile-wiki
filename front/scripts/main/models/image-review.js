@@ -1,8 +1,4 @@
-const ImageReviewModel = Ember.Object.extend({
-	init() {
-		console.log('model instantiated!' + this.get('images'));
-	}
-});
+const ImageReviewModel = Ember.Object.extend({});
 
 ImageReviewModel.reopenClass({
 

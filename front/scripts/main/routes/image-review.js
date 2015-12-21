@@ -35,7 +35,7 @@ export default Ember.Route.extend({
 		reviewAndGetMoreImages() {
 			const model = this.modelFor('imageReview');
 
-			this.controllerFor('application').set('isLoading', false);
+			this.controllerFor('application').set('isLoading', true);
 			this.set('onlyFlagged', false);
 			ImageReviewModel.reviewImages(model.images).then(() => {
 				this.refresh();
