@@ -25,6 +25,14 @@ $(() => {
 		autoplay: true,
 		autoplaySpeed: 3000,
 		slidesToShow: 1,
+		responsive: [
+			{
+				breakpoint: 1000,
+				settings: {
+					dots: false
+				}
+			}
+		]
 	});
 
 	$('.hero-carousel-mobile').slick({
