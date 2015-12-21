@@ -11,13 +11,14 @@ export default Ember.Component.extend(
 		layoutName: 'components/portable-infobox',
 		tagName: 'aside',
 
-		button: Ember.computed('expandButtonClass', function () {
-			return this.$(`.${this.get('expandButtonClass')}`)[0];
-		}),
-
 		height: null,
 		infoboxHTML: '',
 		collapsed: false,
+		clickableElements: ['a', 'button', 'img'],
+
+		button: Ember.computed('expandButtonClass', function () {
+			return this.$(`.${this.get('expandButtonClass')}`)[0];
+		}),
 
 		/**
 		 * determines if this infobox is a short one or a long one (needs collapsing)
@@ -68,9 +69,10 @@ export default Ember.Component.extend(
 		 */
 		onInfoboxClick(event) {
 			const collapsed = this.get('collapsed'),
+				clickableElements = this.get('clickableElements'),
 				$target = $(event.target);
 
-			if ($target.is('a') || $target.is('button') || $target.is('img')) {
+			if ($.inArray($target, clickableElements)) {
 				return;
 			}
 
