@@ -60,6 +60,8 @@ export default Ember.Component.extend(
 		 * handles click on infobox.
 		 * Function is active only for the long infoboxes.
 		 * Changes 'collapsed' property.
+		 * Should not make any effect if the clicked element
+		 * is a link, button or image.
 		 *
 		 * @param {JQueryEventObject} event
 		 * @returns {void}
@@ -68,7 +70,9 @@ export default Ember.Component.extend(
 			const collapsed = this.get('collapsed'),
 				$target = $(event.target);
 
-			if ($target.is('a') || $target.is('button')) {
+			console.log("target: ", $target)
+
+			if ($target.is('a') || $target.is('button') || $target.is('img')) {
 				return;
 			}
 
