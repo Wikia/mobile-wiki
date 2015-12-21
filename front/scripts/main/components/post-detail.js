@@ -45,7 +45,7 @@ export default Ember.Component.extend(
 		actions: {
 			/**
 			 * @param {number} postId
-			 * @param {object} event
+			 * @param {MouseEvent} event
 			 * @returns {void}
 			 */
 			goToPost(postId, event) {
