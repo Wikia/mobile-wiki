@@ -40,13 +40,15 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	init(...params) {
+		const discussionEditorService = this.get('discussionEditor');
+
 		this._super(...params);
-		this.get('discussionEditor').setProperties({
+		discussionEditorService.setProperties({
 			isAnon: !this.get('currentUser.isAuthenticated'),
 			isUserBlocked: this.get('model.isRequesterBlocked')
 		});
 
-		this.get('discussionEditor').toggleEditor(false);
+		discussionEditorService.toggleEditor(false);
 	},
 
 	/**
