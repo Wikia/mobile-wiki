@@ -1,0 +1,12 @@
+{
+	"description" : "Configuration file for join wikia",
+	"data" : {
+		"sectionTitle" : "Wikiaのコミュニティに参加しよう",
+		"commCenTitle" : "コミュニティセントラル",
+		"commCenMessage" : "Wikiaを使ってみて質問がある方はWikiaのコミュニティサポートにきいてみよう！",
+		"commCenLink" : "ヘルプ",
+		"wikiaUnivTitle" : "Wikia University",
+		"wikiaUnivMessage" : "Wikiaのことをビデオやクラス形式で勉強しよう！あらゆる技術レベルのユーザー向けに作られています。",
+		"wikiaUnivLink" : "勉強してみよう"
+	}
+}
