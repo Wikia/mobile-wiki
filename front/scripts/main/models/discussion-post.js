@@ -21,12 +21,12 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 	loadNextPage() {
 		return ajaxCall({
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
-				responseGroup: 'full',
-				sortDirection: 'descending',
-				sortKey: 'creation_date',
 				limit: this.replyLimit,
 				pivot: this.pivotId,
 				page: this.page + 1,
+				responseGroup: 'full',
+				sortDirection: 'descending',
+				sortKey: 'creation_date',
 				viewableOnly: false
 			}),
 			success: (data) => {
@@ -38,8 +38,8 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 				newReplies.reverse();
 				newReplies = newReplies.concat(this.replies);
 				this.setProperties({
-					replies: newReplies,
-					page: this.page + 1
+					page: this.page + 1,
+					replies: newReplies
 				});
 			},
 			error: (err) => {
@@ -53,9 +53,9 @@ export default App.DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDe
 		replyData.threadId = this.get('postId');
 
 		return ajaxCall({
+			data: JSON.stringify(replyData),
 			method: 'POST',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
-			data: JSON.stringify(replyData),
 			success: (reply) => {
 				reply.isNew = true;
 				this.incrementProperty('postCount');
@@ -88,10 +88,10 @@ App.DiscussionPostModel.reopenClass({
 		return ajaxCall({
 			context: postInstance,
 			url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`, {
+				limit: postInstance.replyLimit,
 				responseGroup: 'full',
 				sortDirection: 'descending',
 				sortKey: 'creation_date',
-				limit: postInstance.replyLimit,
 				viewableOnly: false
 			}),
 			success: (data) => {
