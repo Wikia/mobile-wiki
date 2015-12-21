@@ -11,13 +11,14 @@ export default Ember.Component.extend(
 		layoutName: 'components/portable-infobox',
 		tagName: 'aside',
 
-		button: Ember.computed('expandButtonClass', function () {
-			return this.$(`.${this.get('expandButtonClass')}`)[0];
-		}),
-
 		height: null,
 		infoboxHTML: '',
 		collapsed: false,
+		clickableElements: ['a', 'button', 'img'],
+
+		button: Ember.computed('expandButtonClass', function () {
+			return this.$(`.${this.get('expandButtonClass')}`)[0];
+		}),
 
 		/**
 		 * determines if this infobox is a short one or a long one (needs collapsing)
@@ -60,15 +61,18 @@ export default Ember.Component.extend(
 		 * handles click on infobox.
 		 * Function is active only for the long infoboxes.
 		 * Changes 'collapsed' property.
+		 * Should not make any effect if the clicked element
+		 * is a link, button or image.
 		 *
 		 * @param {JQueryEventObject} event
 		 * @returns {void}
 		 */
 		onInfoboxClick(event) {
 			const collapsed = this.get('collapsed'),
+				clickableElements = this.get('clickableElements'),
 				$target = $(event.target);
 
-			if ($target.is('a') || $target.is('button')) {
+			if ($.inArray($target, clickableElements)) {
 				return;
 			}
 
