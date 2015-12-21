@@ -1,18 +1,12 @@
-QUnit.module('mercury/utils/ajaxCall', function () {
+QUnit.module('main/utils/ajaxCall', function () {
 	QUnit.test('Checking ajaxCall utils request params.', function (assert) {
 		var spy = sinon.spy($, "ajax"),
-			test = mrequire('mercury/utils/ajaxCall').default,
+			test = mrequire('main/utils/ajax-call').default,
 			testOut,
 			testCases = [
 				{
 					title: 'Default options',
 					options: {
-						success: function(data) {
-							resolve(this);
-						},
-						error: function (err) {
-							resolve(this);
-						}
 					},
 					expected: {
 						contentType: 'aplication/json',
@@ -62,12 +56,6 @@ QUnit.module('mercury/utils/ajaxCall', function () {
 						xhrFields: {
 							withCredentials: false
 						},
-						success: function(data) {
-							resolve(this);
-						},
-						error: function (err) {
-							resolve(this);
-						}
 					},
 					expected: {
 						contentType: 'aplication/json',

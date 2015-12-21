@@ -20,6 +20,9 @@ export default function (options) {
 		};
 		settings.error = function (err) {
 			options.error(err);
+			/** Becouse error substate doesn't work in mercury we resolve instead of reject.
+			 *  To handle errors we use custom method in discussionBase model
+			 */
 			resolve(this);
 		};
 		Ember.$.ajax(settings);
