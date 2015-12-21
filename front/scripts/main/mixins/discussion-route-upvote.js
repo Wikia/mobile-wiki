@@ -1,4 +1,4 @@
-import ajaxCall from '../utils/ajaxCall';
+import ajaxCall from '../utils/ajax-call';
 
 /**
  * Handles posts upvoting.

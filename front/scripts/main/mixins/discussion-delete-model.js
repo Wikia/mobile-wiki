@@ -1,5 +1,5 @@
 import {checkPermissions} from '../../mercury/utils/discussionPermissions';
-import ajaxCall from '../../mercury/utils/ajaxCall';
+import ajaxCall from '../utils/ajax-call';
 
 export default Ember.Mixin.create({
 	/**
