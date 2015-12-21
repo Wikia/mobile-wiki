@@ -90,7 +90,7 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * @return {integer}
+		 * @return {boolean}
 		 */
 		isUserLangDifferentFromWikiLang() {
 			const userLang = this.getBrowserLanguage(),
