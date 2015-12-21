@@ -1,7 +1,6 @@
 import DiscussionDeleteControllerMixin from '../../mixins/discussion-delete-controller';
 
 export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
-	numRepliesLoaded: null,
 	postListSort: '',
 
 	canShowMore: Ember.computed('model.postCount', 'model.replies.length', function () {
