@@ -7,6 +7,10 @@ export default Ember.Controller.extend({
 
 		getFlaggedOnly() {
 			this.get('target').send('getFlaggedOnly');
+		},
+
+		changeItemModel(id, status) {
+			this.get('target').send('changeItemModel', id, status);
 		}
 	}
 });

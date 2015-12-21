@@ -1,4 +1,8 @@
-const ImageReviewModel = Ember.Object.extend({});
+const ImageReviewModel = Ember.Object.extend({
+	init() {
+		console.log('model instantiated!' + this.get('images'));
+	}
+});
 
 ImageReviewModel.reopenClass({
 
@@ -95,22 +99,30 @@ ImageReviewModel.reopenClass({
 
 		rawData.forEach((image) => {
 			if (image.reviewStatus === 'UNREVIEWED') {
-				images.push({
+				images.push(Ember.Object.create({
 					imageId: image.imageId,
 					fullSizeImageUrl: image.imageUrl,
 					contractId,
 					status: 'accepted'
-				});
+				}));
 			}
 			// else skip because is reviewed already
 		});
-
 		return ImageReviewModel.create({images, contractId});
 	},
 
 	reviewImages(images) {
-		images.forEach((imageItem) => {
-			ImageReviewModel.reviewImage(imageItem.contractId, imageItem.imageId, imageItem.status);
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			const promises = images.map((item) => {
+				return ImageReviewModel.reviewImage(item.contractId, item.imageId, item.status);
+			});
+
+			// Fast-fail method, if any of promises fails, method Ember.RSVP.all returns fail
+			Ember.RSVP.all(promises).then((data) => {
+				resolve(data);
+			}, (data) => {
+				reject(data);
+			});
 		});
 	}
 });
