@@ -19,12 +19,12 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMix
 		this.set('pageNum', pageNum);
 
 		return ajaxCall({
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 			data: {
 				page: this.get('pageNum'),
 				sortKey: this.getSortKey(sortBy),
 				viewableOnly: false
 			},
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 			success: (data) => {
 				const newPosts = data._embedded['doc:threads'],
 					allPosts = this.posts.concat(newPosts);
@@ -60,9 +60,9 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMix
 	createPost(postData) {
 		this.setFailedState(null);
 		return ajaxCall({
+			data: JSON.stringify(postData),
 			method: 'POST',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
-			data: JSON.stringify(postData),
 			success: (post) => {
 				post._embedded.firstPost[0].isNew = true;
 				this.posts.insertAt(0, post);
@@ -95,14 +95,15 @@ DiscussionForumModel.reopenClass({
 			requestData = {
 				viewableOnly: false
 			};
+
 		if (sortBy) {
 			requestData.sortKey = forumInstance.getSortKey(sortBy);
 		}
 
 		return ajaxCall({
 			context: forumInstance,
-			url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
 			data: requestData,
+			url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
 			success: (data) => {
 				const contributors = [],
 					posts = data._embedded['doc:threads'],

@@ -83,6 +83,7 @@ DiscussionPostModel.reopenClass({
 			wikiId,
 			postId
 		});
+
 		return ajaxCall({
 			context: postInstance,
 			url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`, {
