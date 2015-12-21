@@ -1,0 +1,50 @@
+<p class="hero-mobile-padding"></p>
+<div class="hero">
+	<div id="hero-carousel" class="hero-carousel">
+		{{#each heroSlider}}
+			<div>
+				<img class="hero-image-desktop" src="{{image}}">
+				<div class="hero-text">
+					<h1>{{title}}</h1>
+					<h2>{{subtitle}}</h2>
+					{{#if button}}
+						<h3>
+							<input type="button" value="{{buttonText}}" id="{{buttonId}}">
+						</h3>
+					{{/if}}
+				</div>
+			</div>
+		{{/each}}
+	</div>
+	<div id="hero-prev" class="hero-prev">
+		<img src="/images/slider-back-button.png">
+	</div>
+	<div id="hero-next" class="hero-next">
+		<img src="/images/slider-fwd-button.png">
+	</div>
+</div>
+<div class="hero-mobile">
+	<div id="hero-carousel-mobile" class="hero-carousel">
+		{{#each heroSlider}}
+			<div>
+				<img class="hero-image-mobile" src="{{imageMobile}}">
+				<div class="hero-text-overlay-large">
+					<h1>{{title}}</h1>
+					<h2>{{subtitle}}</h2>
+					{{#if button}}
+						<h3>
+							<a href="#" id="{{buttonId}}">{{buttonText}}</a>
+						</h3>
+					{{/if}}
+				</div>
+			</div>
+		{{/each}}
+	</div>
+	<div id="hero-prev-mobile" class="hero-prev">
+		<img src="/images/slider-back-button.png">
+	</div>
+	<div id="hero-next-mobile" class="hero-next">
+		<img src="/images/slider-fwd-button.png">
+	</div>
+</div>
+

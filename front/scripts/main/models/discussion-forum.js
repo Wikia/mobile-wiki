@@ -1,8 +1,7 @@
-import App from '../app';
 import DiscussionBaseModel from './discussion-base';
 import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
 
-export default App.DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
+const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 	name: null,
 	pageNum: null,
 	posts: null,
@@ -96,7 +95,7 @@ export default App.DiscussionForumModel = DiscussionBaseModel.extend(DiscussionD
 	}
 });
 
-App.DiscussionForumModel.reopenClass({
+DiscussionForumModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} forumId
@@ -105,7 +104,7 @@ App.DiscussionForumModel.reopenClass({
 	 */
 	find(wikiId, forumId, sortBy) {
 		return new Ember.RSVP.Promise((resolve) => {
-			const forumInstance = App.DiscussionForumModel.create({
+			const forumInstance = DiscussionForumModel.create({
 					wikiId,
 					forumId
 				}),
@@ -155,3 +154,5 @@ App.DiscussionForumModel.reopenClass({
 		});
 	}
 });
+
+export default DiscussionForumModel;

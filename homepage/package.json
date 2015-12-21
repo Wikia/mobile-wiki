@@ -30,6 +30,7 @@
     "babel-eslint": "^4.1.6",
     "babel-plugin-transform-es2015-modules-umd": "^6.0.15",
     "browser-sync": "^2.8.0",
+    "bunyan-debug-stream": "^1.0.7",
     "gulp": "*",
     "gulp-autoprefixer": "^2.3.1",
     "gulp-babel": "^6.1.0",
@@ -44,6 +45,7 @@
     "gulp-newer": "^0.5.1",
     "gulp-sass": "*",
     "gulp-sourcemaps": "^1.5.2",
+    "gulp-tslint": "^4.1.2",
     "gulp-util": "^3.0.6",
     "jshint-stylish": "^2.0.1",
     "karma": "^0.13.9",
@@ -54,6 +56,8 @@
     "phantomjs": "^1.9.18",
     "pretty-hrtime": "^1.0.0",
     "qunitjs": "^1.18.0",
-    "systemjs-builder": "^0.14.11"
+    "systemjs-builder": "^0.14.11",
+    "tslint": "^3.1.1",
+    "typescript": "^1.7.3"
   }
 }
