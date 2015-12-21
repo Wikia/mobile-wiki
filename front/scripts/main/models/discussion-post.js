@@ -3,17 +3,16 @@ import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 
+	firstPost: null,
+	contributors: [],
+	isRequesterBlocked: false,
+	page: 0,
+	postCount: 0,
 	postId: null,
 	pivotId: null,
-	replyLimit: 10,
 	replies: [],
-	firstPost: null,
+	replyLimit: 10,
 	upvoteCount: 0,
-	postCount: 0,
-	page: 0,
-	isRequesterBlocked: false,
-
-	contributors: [],
 
 	/**
 	 * @returns {Ember.RSVP.Promise}
@@ -22,13 +21,13 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 		return new Ember.RSVP.Promise((resolve) => {
 			Ember.$.ajax({
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
+					limit: this.replyLimit,
+					page: this.page + 1,
+					pivot: this.pivotId,
 					responseGroup: 'full',
 					sortDirection: 'descending',
 					sortKey: 'creation_date',
-					limit: this.replyLimit,
-					pivot: this.pivotId,
-					page: this.page + 1,
-					viewableOnly: false
+					viewableOnly: false,
 				}),
 				xhrFields: {
 					withCredentials: true,
@@ -104,10 +103,10 @@ DiscussionPostModel.reopenClass({
 
 			Ember.$.ajax({
 				url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`, {
+					limit: postInstance.replyLimit,
 					responseGroup: 'full',
 					sortDirection: 'descending',
 					sortKey: 'creation_date',
-					limit: postInstance.replyLimit,
 					viewableOnly: false
 				}),
 				dataType: 'json',
@@ -137,17 +136,17 @@ DiscussionPostModel.reopenClass({
 					}
 					postInstance.setProperties({
 						contributors,
-						forumId: data.forumId,
 						firstPost: data._embedded.firstPost[0],
+						forumId: data.forumId,
 						id: data.id,
 						isDeleted: data.isDeleted,
+						isRequesterBlocked: data.isRequesterBlocked,
 						page: 0,
 						pivotId,
 						postCount: data.postCount,
 						replies: replies || [],
 						title: data.title,
 						upvoteCount: data.upvoteCount,
-						isRequesterBlocked: data.isRequesterBlocked
 					});
 
 					resolve(postInstance);
