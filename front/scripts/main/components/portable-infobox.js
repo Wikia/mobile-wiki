@@ -70,8 +70,6 @@ export default Ember.Component.extend(
 			const collapsed = this.get('collapsed'),
 				$target = $(event.target);
 
-			console.log("target: ", $target)
-
 			if ($target.is('a') || $target.is('button') || $target.is('img')) {
 				return;
 			}
