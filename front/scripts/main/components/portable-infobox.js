@@ -70,7 +70,7 @@ export default Ember.Component.extend(
 		onInfoboxClick(event) {
 			const collapsed = this.get('collapsed');
 
-			if (!this.shouldHandleClick($(event.target))) {
+			if (!this.shouldHandleCollapsing($(event.target))) {
 				return;
 			}
 
@@ -86,18 +86,19 @@ export default Ember.Component.extend(
 			}
 		},
 
-		shouldHandleClick($target) {
+		/**
+		 * If element is a link, button or image,
+		 * should return false.
+		 *
+		 * @param {JQuery} event
+		 * @returns {bool}
+		 */
+		shouldHandleCollapsing($target) {
 			const clickableElements = this.get('clickableElements');
-			let shouldHandleClick = true;
 
-			clickableElements.forEach((element) => {
-				if ($target.is(element)) {
-					shouldHandleClick = false;
-					return;
-				}
+			return !clickableElements.some((element) => {
+				return $target.is(element);
 			});
-
-			return shouldHandleClick;
 		},
 
 		/**
