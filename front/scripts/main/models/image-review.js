@@ -1,4 +1,6 @@
-const ImageReviewModel = Ember.Object.extend({});
+const ImageReviewModel = Ember.Object.extend({
+	showSubHeader: true
+});
 
 ImageReviewModel.reopenClass({
 

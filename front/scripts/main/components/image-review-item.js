@@ -15,5 +15,29 @@ export default Ember.Component.extend({
 		} else {
 			return this.get('emptyGif');
 		}
+	}),
+
+	isAccepted: Ember.computed('model.status', function() {
+		if (this.get('model.status') === 'accepted') {
+			return 'active';
+		} else {
+			return 'inactive';
+		}
+	}),
+
+	isRejected: Ember.computed('model.status', function() {
+		if (this.get('model.status') === 'rejected') {
+			return 'active';
+		} else {
+			return 'inactive';
+		}
+	}),
+
+	isFlagged: Ember.computed('model.status', function() {
+		if (this.get('model.status') === 'flagged') {
+			return 'active';
+		} else {
+			return 'inactive';
+		}
 	})
 });

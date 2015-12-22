@@ -54,8 +54,12 @@ export default Ember.Route.extend({
 		},
 
 		didTransition() {
+			this.controllerFor('application').set('fullPage', true);
+
 			if (this.controller.get('fullscreen') === 'true') {
-				this.controllerFor('application').set('fullPage', true);
+				this.modelFor('imageReview').set('showSubHeader', false);
+			} else {
+				this.modelFor('imageReview').set('showSubHeader', true);
 			}
 		},
 
