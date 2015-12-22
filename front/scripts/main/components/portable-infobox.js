@@ -69,12 +69,9 @@ export default Ember.Component.extend(
 		 */
 		onInfoboxClick(event) {
 			const collapsed = this.get('collapsed'),
-				clickableElements = this.get('clickableElements'),
-				$target = $(event.target);
+				clickableElements = this.get('clickableElements');
 
-			if ($.inArray($target, clickableElements)) {
-				return;
-			}
+			if (!this.shouldHandleClick($(event.target))) return;
 
 			if (!collapsed) {
 				const body = window.document.body,
@@ -86,6 +83,20 @@ export default Ember.Component.extend(
 				this.set('collapsed', false);
 				this.$().height('auto');
 			}
+		},
+
+		shouldHandleClick($target) {
+			const clickableElements = this.get('clickableElements');
+			var shouldHandleClick = true;
+
+			clickableElements.forEach((element) => {
+				if ($target.is(element)) {
+					shouldHandleClick = false;
+					return;
+				}
+			});
+
+			return shouldHandleClick;
 		},
 
 		/**
