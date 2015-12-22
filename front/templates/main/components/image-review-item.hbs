@@ -1,15 +1,15 @@
 <div class="img-container {{model.status}}">
 	<img src="{{thumbnailUrl}}" {{action (action this.attrs.showModal model.fullSizeImageUrl)}}>
     <form class="button-group">
-        <button class="button-group-item {{isAccepted}}"
+        <button class="button-group-item {{if isAccepted 'highlighted' 'inactive'}}"
 			{{action (action this.attrs.changeItemModel model.imageId 'accepted')}}>
 			{{i18n 'app.image-review-accepted'}}
 		</button>
-        <button class="button-group-item {{isRejected}}"
+        <button class="button-group-item {{if isRejected 'highlighted' 'inactive'}}"
 			{{action (action this.attrs.changeItemModel model.imageId 'rejected')}}>
 			{{i18n 'app.image-review-rejected'}}
         </button>
-        <button class="button-group-item {{isFlagged}}"
+        <button class="button-group-item {{if isFlagged 'highlighted' 'inactive'}}"
 			{{action (action this.attrs.changeItemModel model.imageId 'flagged')}}>
 			{{i18n 'app.image-review-questionable'}}
         </button>

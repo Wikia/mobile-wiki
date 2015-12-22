@@ -17,27 +17,9 @@ export default Ember.Component.extend({
 		}
 	}),
 
-	isAccepted: Ember.computed('model.status', function () {
-		if (this.get('model.status') === 'accepted') {
-			return 'highlighted';
-		} else {
-			return 'inactive';
-		}
-	}),
+	isAccepted: Ember.computed.equal('model.status', 'accepted'),
 
-	isRejected: Ember.computed('model.status', function () {
-		if (this.get('model.status') === 'rejected') {
-			return 'highlighted';
-		} else {
-			return 'inactive';
-		}
-	}),
+	isRejected: Ember.computed.equal('model.status', 'rejected'),
 
-	isFlagged: Ember.computed('model.status', function () {
-		if (this.get('model.status') === 'flagged') {
-			return 'highlighted';
-		} else {
-			return 'inactive';
-		}
-	})
+	isFlagged: Ember.computed.equal('model.status', 'flagged')
 });
