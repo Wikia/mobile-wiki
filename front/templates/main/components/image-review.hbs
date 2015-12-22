@@ -1,12 +1,12 @@
 {{#if model.showSubHeader}}
     <header class="sub-head">
         <a {{action 'openMainPage'}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
-        <button {{action (action this.attrs.reviewAndGetMoreImages)}} class="sub-head--done">{{i18n 'app.image-review-and-get-more'}}</button>
-        <div class="sub-head--title">{{i18n 'app.image-review-head' label=(i18n 'app.curated-content-editor-main-page')}}</div>
+        <button {{action (action this.attrs.reviewAndGetMoreImages)}} class="sub-head--done">{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
+        <div class="sub-head--title">{{i18n 'main.head' ns='image-review'}}</div>
     </header>
 {{/if}}
 
-<p>{{i18n 'app.image-review-description'}}</p>
+<p>{{i18n 'main.description' ns='image-review'}}</p>
 
 <ul class="image-review-list">
 	{{#each model.images as |item|}}
@@ -22,8 +22,8 @@
 {{/modal-dialog}}
 
 <div class="action-buttons">
-    <button {{action (action this.attrs.reviewAndGetMoreImages)}}>{{i18n 'app.image-review-and-get-more'}}</button>
-    <button {{action (action this.attrs.getFlaggedOnly)}}>{{i18n 'app.image-review-get-flagged'}}</button>
+    <button {{action (action this.attrs.reviewAndGetMoreImages)}}>{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
+    <button {{action (action this.attrs.getFlaggedOnly)}}>{{i18n 'main.get-flagged' ns='image-review'}}</button>
 </div>
 
 {{alert-notifications alerts=alertNotifications}}

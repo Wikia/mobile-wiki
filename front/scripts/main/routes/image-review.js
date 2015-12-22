@@ -17,10 +17,10 @@ export default Ember.Route.extend({
 
 	actions: {
 		error(error) {
-			let errorMessage = i18n.t('app.image-review-error-other');
+			let errorMessage = i18n.t('main.error-other', {ns: 'image-review'});
 
 			if (error.status === 401) {
-				errorMessage = i18n.t('app.image-review-error-no-access-permissions');
+				errorMessage = i18n.t('main.error-no-access-permissions', {ns: 'image-review'});
 			}
 			Ember.Logger.error(error);
 			this.modelFor(this.routeName).addAlert({
