@@ -45,10 +45,11 @@ export default Ember.Component.extend(
 		actions: {
 			/**
 			 * @param {number} postId
-			 * @param {object} event
+			 * @param {MouseEvent} event
 			 * @returns {void}
 			 */
-			goToPost(postId, event = {}) {
+			goToPost(postId, event) {
+				event.preventDefault();
 				if (event.ctrlKey || event.metaKey) {
 					this.sendAction('goToPost', postId, true);
 				} else {
