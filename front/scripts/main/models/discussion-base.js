@@ -10,6 +10,7 @@ export default Ember.Object.extend({
 	hasErrorMessage: false,
 	connectionError: null,
 	notFoundError: null,
+	modalDialogService: Ember.inject.service('modal-dialog'),
 
 	/*
 	 * Set minorError to true, when you don't want to display error message e.g.:
@@ -49,6 +50,6 @@ export default Ember.Object.extend({
 	 */
 	setFailedState(errorMessage) {
 		this.set('errorMessage', errorMessage);
-		this.set('hasErrorMessage', true);
+		this.get('modalDialogService').open(errorMessage);
 	}
 });
