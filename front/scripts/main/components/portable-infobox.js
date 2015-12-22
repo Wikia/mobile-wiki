@@ -90,7 +90,7 @@ export default Ember.Component.extend(
 		 * If element is a link, button or image,
 		 * should return false.
 		 *
-		 * @param {JQuery} event
+		 * @param {JQuery} $target
 		 * @returns {bool}
 		 */
 		shouldHandleCollapsing($target) {
