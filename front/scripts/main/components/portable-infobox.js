@@ -87,8 +87,8 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * If element is a link, button or image,
-		 * should return false.
+		 * If element is one of clickableElements, collapsing of infobox should not be handled.
+		 * As this element has it's own action, not connected to collapsing/uncollapsing infobox.
 		 *
 		 * @param {JQuery} $target
 		 * @returns {bool}
