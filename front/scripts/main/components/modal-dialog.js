@@ -3,6 +3,7 @@ export default Ember.Component.extend({
 	classNameBindings: ['type'],
 	type: 'info',
 	isVisible: false,
+	modalDialogService: Ember.inject.service('modal-dialog'),
 
 	actions: {
 		/**
@@ -10,6 +11,7 @@ export default Ember.Component.extend({
 		 */
 		close() {
 			this.set('isVisible', false);
+			this.get('modalDialogService').close();
 		},
 	},
 });

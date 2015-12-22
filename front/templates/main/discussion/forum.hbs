@@ -6,6 +6,12 @@
 	sortBy=sortBy
 	sortMessageKey=sortMessageKey
 }}
+{{#modal-dialog
+	isVisible=shouldShowErrorMessage
+}}
+	{{i18n errorMessage ns='discussion'}}
+{{/modal-dialog}}
+
 <div class="site-body-discussion post-list-view">
 	{{discussion-hero-unit
 		contributors=model.contributors

@@ -1,5 +1,6 @@
 export default Ember.Service.extend({
 	isAnon: true,
+	modalDialogService: Ember.inject.service('modal-dialog'),
 	isEditorOpen: false,
 	isUserBlocked: false,
 
@@ -20,12 +21,12 @@ export default Ember.Service.extend({
 	},
 
 	/**
-	 * Opens a browser alert with translated message
+	 * Opens a modal dialog with translated message
 	 * @param {string} message
 	 * @returns {void}
 	 */
 	openDialog(message) {
-		alert(i18n.t(message, {ns: 'discussion'}));
+		this.get('modalDialogService').display(message);
 	},
 
 	/**
@@ -57,5 +58,5 @@ export default Ember.Service.extend({
 		} else {
 			this.set('isEditorOpen', false);
 		}
-	}
+	},
 });

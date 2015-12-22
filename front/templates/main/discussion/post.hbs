@@ -2,6 +2,11 @@
 	showContent=false
 	headroomEnabled=false
 }}
+{{#modal-dialog
+	isVisible=shouldShowErrorMessage
+}}
+	{{i18n errorMessage ns='discussion'}}
+{{/modal-dialog}}
 <div class="site-body-discussion post-details-view">
 	<div class="minimized discussion-hero-unit background-theme-color"></div>
 	<div class="discussion-page row">
