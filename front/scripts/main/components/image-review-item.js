@@ -17,7 +17,7 @@ export default Ember.Component.extend({
 		}
 	}),
 
-	isAccepted: Ember.computed('model.status', function() {
+	isAccepted: Ember.computed('model.status', function () {
 		if (this.get('model.status') === 'accepted') {
 			return 'highlighted';
 		} else {
@@ -25,7 +25,7 @@ export default Ember.Component.extend({
 		}
 	}),
 
-	isRejected: Ember.computed('model.status', function() {
+	isRejected: Ember.computed('model.status', function () {
 		if (this.get('model.status') === 'rejected') {
 			return 'highlighted';
 		} else {
@@ -33,7 +33,7 @@ export default Ember.Component.extend({
 		}
 	}),
 
-	isFlagged: Ember.computed('model.status', function() {
+	isFlagged: Ember.computed('model.status', function () {
 		if (this.get('model.status') === 'flagged') {
 			return 'highlighted';
 		} else {
