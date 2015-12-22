@@ -19,7 +19,7 @@ export default Ember.Component.extend({
 
 	isAccepted: Ember.computed('model.status', function() {
 		if (this.get('model.status') === 'accepted') {
-			return 'active';
+			return 'highlighted';
 		} else {
 			return 'inactive';
 		}
@@ -27,7 +27,7 @@ export default Ember.Component.extend({
 
 	isRejected: Ember.computed('model.status', function() {
 		if (this.get('model.status') === 'rejected') {
-			return 'active';
+			return 'highlighted';
 		} else {
 			return 'inactive';
 		}
@@ -35,7 +35,7 @@ export default Ember.Component.extend({
 
 	isFlagged: Ember.computed('model.status', function() {
 		if (this.get('model.status') === 'flagged') {
-			return 'active';
+			return 'highlighted';
 		} else {
 			return 'inactive';
 		}

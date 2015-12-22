@@ -6,8 +6,15 @@
 	}
 }
 
-.zero-margin {
-	margin: 0;
+.button-group {
+	button:hover {
+		/* turn off button hover style */
+		background-color: #0a5fa3;
+	}
+
+	.highlighted {
+		background-color: #092140;
+	}
 }
 
 .image-review-item {
