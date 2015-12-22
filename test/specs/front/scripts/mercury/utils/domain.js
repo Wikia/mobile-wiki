@@ -19,7 +19,7 @@ QUnit.module('mercury/utils/domain', function () {
 		];
 
 		testCases.forEach(function (testCase) {
-			assert.strictEqual(require('mercury/utils/domain').getDomain(testCase.hostname), testCase.expected);
+			assert.strictEqual(mrequire('mercury/utils/domain').getDomain(testCase.hostname), testCase.expected);
 		});
 	});
 });

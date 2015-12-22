@@ -1,7 +1,6 @@
-import App from '../app';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-export default App.WikiaUsersComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	avatarHeight: 100,
 	avatarWidth: 100,
 	classNameBindings: ['classes'],

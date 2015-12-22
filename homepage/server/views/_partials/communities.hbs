@@ -1,0 +1,57 @@
+<section class="featured">
+	{{#each sliders}}
+		{{#if largeTitle}}
+			<h1 class="featured-title-large">
+				{{title}}
+			</h1>
+		{{else}}
+			<h1 class="featured-title">
+				{{title}}
+			</h1>
+		{{/if}}
+		<div id="{{id}}" class="featured-carousel">
+			{{#each entries}}
+				<div>
+					<a href="/companyinfo">
+						<img src="{{image}}">
+						<div class="hero-text-overlay">
+							{{text}}
+						</div>
+						{{#if english}}
+							<div class="hero-english-overlay"></div>
+						{{/if}}
+					</a>
+				</div>
+			{{/each}}
+		</div>
+		<div id="{{id}}-prev" class="hero-prev">
+			<img src="/images/slider-back-button.png">
+		</div>
+		<div id="{{id}}-next" class="hero-next">
+			<img src="/images/slider-fwd-button.png">
+		</div>
+	{{/each}}
+</section>
+<section class="featured-mobile">
+	{{#each sliders}}
+		<h1 class="featured-title">
+			{{title}}
+		</h1>
+		<div>
+			{{#each entries}}
+				<div class="featured-mobile-slide">
+					<a href="/companyinfo">
+						<img src="{{image}}">
+						<div class="hero-text-overlay">
+							{{text}}
+						</div>
+						{{#if english}}
+							<div class="hero-english-overlay"></div>
+						{{/if}}
+					</a>
+				</div>
+				<div class="featured-mobile-slide-padding"></div>
+			{{/each}}
+		</div>
+	{{/each}}
+</section>

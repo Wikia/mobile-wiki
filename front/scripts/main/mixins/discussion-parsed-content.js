@@ -1,10 +1,9 @@
-import App from '../app';
 import nl2br from '../../mercury/utils/nl2br';
 
 /**
  * Handles sending upvote action outside from the component.
  */
-export default App.DiscussionParsedContentMixin = Ember.Mixin.create({
+export default Ember.Mixin.create({
 	/**
 	 * Returns content with links created from urls and converts \n, \rn and \r to <br>
 	 * @returns {string}

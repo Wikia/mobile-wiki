@@ -4,9 +4,9 @@ moduleForComponent('trending-videos', 'TrendingVideosComponent', {
 	unit: true,
 
 	setup: function () {
-		originalMediaModel = require('main/models/media').default;
+		originalMediaModel = mrequire('main/models/media').default;
 
-		require('main/models/media').default = {
+		mrequire('main/models/media').default = {
 			create: function (data) {
 				return data;
 			}
@@ -14,7 +14,7 @@ moduleForComponent('trending-videos', 'TrendingVideosComponent', {
 	},
 
 	teardown: function () {
-		require('main/models/media').default = originalMediaModel;
+		mrequire('main/models/media').default = originalMediaModel;
 	}
 });
 

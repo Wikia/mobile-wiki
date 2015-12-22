@@ -1,10 +1,9 @@
-import App from '../app';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import LanguagesMixin from '../mixins/languages';
 import WikiaInYourLangModel from '../models/wikia-in-your-lang';
 import {track, trackActions} from '../../mercury/utils/track';
 
-export default App.WikiaInYourLangComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	AlertNotificationsMixin,
 	LanguagesMixin,
 	{

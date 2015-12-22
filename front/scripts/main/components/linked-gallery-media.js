@@ -1,7 +1,6 @@
-import App from '../app';
 import GalleryMediaComponent from './gallery-media';
 
-export default App.LinkedGalleryMediaComponent = GalleryMediaComponent.extend({
+export default GalleryMediaComponent.extend({
 	tagName: 'div',
 	classNames: ['linked-gallery'],
 	layoutName: 'components/linked-gallery-media',

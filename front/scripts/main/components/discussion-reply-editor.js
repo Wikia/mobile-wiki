@@ -1,7 +1,6 @@
-import App from '../app';
 import DiscussionEditorComponent from './discussion-editor';
 
-export default App.DiscussionReplyEditorComponent = DiscussionEditorComponent.extend({
+export default DiscussionEditorComponent.extend({
 	editorBottomSpacing: null,
 
 	classNames: ['reply-editor'],

@@ -1,5 +1,3 @@
-import App from '../app';
-
 /**
  * PreventableClickEvent
  * @typedef {Object} PreventableClickEvent
@@ -9,7 +7,7 @@ import App from '../app';
  * @property {Function} stopPropagation
  */
 
-export default App.ThirdsClickMixin = Ember.Mixin.create({
+export default Ember.Mixin.create({
 	leftClickHandler: Ember.K,
 	rightClickHandler: Ember.K,
 	centerClickHandler: Ember.K,

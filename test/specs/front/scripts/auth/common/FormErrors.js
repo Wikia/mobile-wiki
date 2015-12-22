@@ -12,7 +12,7 @@ QUnit.module('auth/common/FormErrors)', function (hooks) {
 		};
 		FormModule = {};
 
-		require.entries['auth/common/FormErrors'].callback(FormModule, AuthTracker, null);
+		mrequire.entries['auth/common/FormErrors'].callback(FormModule, AuthTracker, null);
 
 		this.formErrors = new FormModule.default(form);
 
@@ -30,7 +30,7 @@ QUnit.module('auth/common/FormErrors)', function (hooks) {
 	});
 
 	QUnit.test('FormErrors class is loaded', function (assert) {
-		ok(typeof require('auth/common/FormErrors').default === 'function');
+		ok(typeof mrequire('auth/common/FormErrors').default === 'function');
 	});
 
 	QUnit.test('Displaying field error', function (assert) {

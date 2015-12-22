@@ -1,6 +1,6 @@
-import App from './app';
+const Router = Ember.Router.extend();
 
-App.Router.map(function () {
+Router.map(function () {
 	const articlePath = '/wiki/';
 
 	this.route('mainPage', {
@@ -88,7 +88,7 @@ App.Router.map(function () {
 	});
 });
 
-App.Router.reopen({
+Router.reopen({
 	/**
 	 * Sets location API depending on user agent with special case for Catchpoint tests
 	 * @see http://emberjs.com/guides/routing/specifying-the-location-api/
@@ -99,3 +99,5 @@ App.Router.reopen({
 		return (ua && ua.match(/Catchpoint/)) ? 'none' : 'history';
 	})
 });
+
+export default Router;
