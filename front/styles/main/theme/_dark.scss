@@ -201,15 +201,15 @@ body.dark-theme {
 		background-color: $dark-discussion-contributors-background-color;
 	}
 	.rail {
-		hr {
-			border-top-color: $dark-discussion-rail-border-color;
-		}
-
 		.discussion-contributors-title {
 			color: $dark-discussion-contributors-rail-title;
 		}
 		.back-button {
 			border-color: $discussion-rail-separator-color;
+		}
+
+		.no-replies-message {
+			color: $dark-discussion-no-replies-text-color;
 		}
 	}
 	figure {
