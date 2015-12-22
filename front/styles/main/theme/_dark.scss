@@ -239,6 +239,10 @@ body.dark-theme {
 					border-bottom-color: $dark-discussion-reply-border-color;
 				}
 			}
+
+			.discussion-no-replies {
+				color: $dark-discussion-no-replies-text-color;
+			}
 		}
 		.discussion-sort {
 			li {
