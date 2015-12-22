@@ -1,3 +1,5 @@
+import {updateTrackedUrl, trackPageView} from '../../../mercury/utils/track';
+
 export default Ember.Route.extend({
 	postDeleteFullScreenOverlay: false,
 
@@ -21,6 +23,10 @@ export default Ember.Route.extend({
 		 */
 		didTransition() {
 			this.controllerFor('application').set('noMargins', true);
+
+			updateTrackedUrl(window.location.href);
+			trackPageView(null);
+
 			return true;
 		}
 	}
