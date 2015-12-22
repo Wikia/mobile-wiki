@@ -201,6 +201,10 @@ body.dark-theme {
 		background-color: $dark-discussion-contributors-background-color;
 	}
 	.rail {
+		hr {
+			border-top-color: $dark-discussion-rail-border-color;
+		}
+
 		.discussion-contributors-title {
 			color: $dark-discussion-contributors-rail-title;
 		}
