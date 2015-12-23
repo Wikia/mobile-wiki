@@ -4,7 +4,10 @@ export default Ember.Component.extend({
 	modalDialogService: Ember.inject.service('modal-dialog'),
 
 	actions: {
-		close(){
+		/**
+		 * @returns {void}
+		 */
+		close() {
 			this.set('isDialogVisible', false);
 			this.get('modalDialogService').close();
 		}
