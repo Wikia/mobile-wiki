@@ -1,0 +1,12 @@
+{
+  "env": {
+    "node": true,
+    "embertest": true
+  },
+  "globals": {
+    "sinon": true,
+    "Qunit": true,
+    "test": true,
+    "moduleForComponent": true
+  }
+}
