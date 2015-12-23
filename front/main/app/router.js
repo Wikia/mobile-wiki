@@ -1,4 +1,17 @@
-const Router = Ember.Router.extend();
+import Ember from 'ember';
+import config from './config/environment';
+
+const Router = Ember.Router.extend({
+	/**
+	 * Sets location API depending on user agent with special case for Catchpoint tests
+	 * @see http://emberjs.com/guides/routing/specifying-the-location-api/
+	 */
+	location: Ember.computed(() => {
+		const ua = Ember.get(window, 'navigator.userAgent');
+
+		return (ua && ua.match(/Catchpoint/)) ? 'none' : config.locationType;
+	})
+});
 
 Router.map(function () {
 	const articlePath = '/wiki/';
@@ -86,18 +99,6 @@ Router.map(function () {
 	this.route('notFound', {
 		path: '/*url'
 	});
-});
-
-Router.reopen({
-	/**
-	 * Sets location API depending on user agent with special case for Catchpoint tests
-	 * @see http://emberjs.com/guides/routing/specifying-the-location-api/
-	 */
-	location: Ember.computed(() => {
-		const ua = Ember.get(window, 'navigator.userAgent');
-
-		return (ua && ua.match(/Catchpoint/)) ? 'none' : 'history';
-	})
 });
 
 export default Router;

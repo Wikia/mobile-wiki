@@ -1,23 +1,21 @@
-import Resolver from './resolver';
-import loadInitializers from './load-initializers';
+import Ember from 'ember';
+import Resolver from 'ember/resolver';
+import loadInitializers from 'ember/load-initializers';
+import config from './config/environment';
 
-const App = Ember.Application.extend({
+let App;
+
+Ember.MODEL_FACTORY_INJECTIONS = true;
+
+App = Ember.Application.extend({
 	// We specify a rootElement, otherwise Ember appends to the <body> element and Google PageSpeed thinks we are
 	// putting blocking scripts before our content
 	rootElement: '#ember-container',
-	modulePrefix: 'main',
+	modulePrefix: config.modulePrefix,
+	podModulePrefix: config.podModulePrefix,
 	Resolver
 });
 
-window.emberHammerOptions = {
-	hammerOptions: {
-		// we are using fastclick as this is advised by ember-hammer lib
-		ignoreEvents: [],
-		swipe_velocity: 0.1,
-		pan_threshold: 1
-	}
-};
-
-loadInitializers(App, 'main');
+loadInitializers(App, config.modulePrefix);
 
 export default App;
