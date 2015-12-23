@@ -6,11 +6,10 @@
 	sortBy=sortBy
 	sortMessageKey=sortMessageKey
 }}
-{{#modal-dialog
-	isVisible=shouldShowErrorMessage
+{{discussion-error-dialog
+	isDialogVisible=shouldShowErrorMessage
+	errorMessage=errorMessage
 }}
-	{{i18n errorMessage ns='discussion'}}
-{{/modal-dialog}}
 
 <div class="site-body-discussion post-list-view">
 	{{discussion-hero-unit
