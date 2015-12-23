@@ -1,5 +1,6 @@
 import DiscussionBaseModel from './discussion-base';
 import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
+import ajaxCall from '../utils/ajax-call';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 	name: null,
@@ -18,30 +19,22 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMix
 	loadPage(pageNum = 0, sortBy = 'trending') {
 		this.set('pageNum', pageNum);
 
-		return new Ember.RSVP.Promise((resolve) => {
-			Ember.$.ajax({
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
-				data: {
-					page: this.get('pageNum'),
-					sortKey: this.getSortKey(sortBy),
-					viewableOnly: false
-				},
-				xhrFields: {
-					withCredentials: true,
-				},
-				dataType: 'json',
-				success: (data) => {
-					const newPosts = data._embedded['doc:threads'],
-						allPosts = this.posts.concat(newPosts);
+		return ajaxCall({
+			data: {
+				page: this.get('pageNum'),
+				sortKey: this.getSortKey(sortBy),
+				viewableOnly: false
+			},
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
+			success: (data) => {
+				const newPosts = data._embedded['doc:threads'],
+					allPosts = this.posts.concat(newPosts);
 
-					this.set('posts', allPosts);
-					resolve(this);
-				},
-				error: (err) => {
-					this.handleLoadMoreError(err);
-					resolve(this);
-				}
-			});
+				this.set('posts', allPosts);
+			},
+			error: (err) => {
+				this.handleLoadMoreError(err);
+			}
 		});
 	},
 
@@ -67,30 +60,22 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMix
 	 */
 	createPost(postData) {
 		this.setFailedState(null);
-		return new Ember.RSVP.Promise((resolve) => {
-			Ember.$.ajax({
-				method: 'POST',
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
-				data: JSON.stringify(postData),
-				contentType: 'application/json',
-				xhrFields: {
-					withCredentials: true,
-				},
-				success: (post) => {
-					post._embedded.firstPost[0].isNew = true;
-					this.posts.insertAt(0, post);
-					this.incrementProperty('totalPosts');
-					resolve(this);
-				},
-				error: (err) => {
-					if (err.status === 401) {
-						this.setFailedState('editor.post-error-not-authorized');
-					} else {
-						this.setFailedState('editor.post-error-general-error');
-					}
-					resolve(this);
+		return ajaxCall({
+			data: JSON.stringify(postData),
+			method: 'POST',
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
+			success: (post) => {
+				post._embedded.firstPost[0].isNew = true;
+				this.posts.insertAt(0, post);
+				this.incrementProperty('totalPosts');
+			},
+			error: (err) => {
+				if (err.status === 401) {
+					this.setFailedState('editor.post-error-not-authorized');
+				} else {
+					this.setFailedState('editor.post-error-general-error');
 				}
-			});
+			}
 		});
 
 	}
@@ -104,56 +89,47 @@ DiscussionForumModel.reopenClass({
 	 * @returns { Ember.RSVP.Promise}
 	 */
 	find(wikiId, forumId, sortBy) {
-		return new Ember.RSVP.Promise((resolve) => {
-			const forumInstance = DiscussionForumModel.create({
-					wikiId,
-					forumId
-				}),
-				requestData = {
-					viewableOnly: false
-				};
+		const forumInstance = DiscussionForumModel.create({
+				wikiId,
+				forumId
+			}),
+			requestData = {
+				viewableOnly: false
+			};
 
-			if (sortBy) {
-				requestData.sortKey = forumInstance.getSortKey(sortBy);
+		if (sortBy) {
+			requestData.sortKey = forumInstance.getSortKey(sortBy);
+		}
+
+		return ajaxCall({
+			context: forumInstance,
+			data: requestData,
+			url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
+			success: (data) => {
+				const contributors = [],
+					posts = data._embedded['doc:threads'],
+					totalPosts = data.threadCount;
+
+				posts.forEach((post) => {
+					if (post.hasOwnProperty('createdBy')) {
+						post.createdBy.profileUrl = M.buildUrl({
+							namespace: 'User',
+							title: post.createdBy.name
+						});
+						contributors.push(post.createdBy);
+					}
+				});
+
+				forumInstance.setProperties({
+					contributors,
+					name: data.name,
+					posts,
+					totalPosts
+				});
+			},
+			error: (err) => {
+				forumInstance.setErrorProperty(err);
 			}
-
-			Ember.$.ajax({
-				url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
-				data: requestData,
-				dataType: 'json',
-				xhrFields: {
-					withCredentials: true,
-				},
-				success: (data) => {
-					const contributors = [],
-						posts = data._embedded['doc:threads'],
-						totalPosts = data.threadCount;
-
-					posts.forEach((post) => {
-						if (post.hasOwnProperty('createdBy')) {
-							post.createdBy.profileUrl = M.buildUrl({
-								namespace: 'User',
-								title: post.createdBy.name
-							});
-							contributors.push(post.createdBy);
-						}
-					});
-
-					forumInstance.setProperties({
-						contributors,
-						name: data.name,
-						isRequesterBlocked: data.isRequesterBlocked,
-						posts,
-						totalPosts
-					});
-
-					resolve(forumInstance);
-				},
-				error: (err) => {
-					forumInstance.setErrorProperty(err);
-					resolve(forumInstance);
-				}
-			});
 		});
 	}
 });
