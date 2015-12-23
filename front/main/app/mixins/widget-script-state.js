@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 export default Ember.Mixin.create({
 	/**
 	 * This state is shared between objects that use the mixin.

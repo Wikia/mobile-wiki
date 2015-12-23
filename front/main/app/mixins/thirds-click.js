@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * PreventableClickEvent
  * @typedef {Object} PreventableClickEvent

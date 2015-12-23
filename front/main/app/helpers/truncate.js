@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * @param {Array} params
  * @returns {string}

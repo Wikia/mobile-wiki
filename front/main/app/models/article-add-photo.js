@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import ArticleEditMixin from '../mixins/article-edit';
 
 /**

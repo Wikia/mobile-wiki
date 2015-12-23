@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import CuratedContentEditorLabelsMixin from '../mixins/curated-content-editor-labels';
 

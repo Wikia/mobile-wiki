@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 export default Ember.Component.extend({
 	tagName: 'a',
 	classNames: ['back-button', 'active-element-theme-color'],

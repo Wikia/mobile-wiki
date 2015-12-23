@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * Window
  * @typedef {Object} Window

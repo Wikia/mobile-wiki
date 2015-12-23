@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import ArticleContentMixin from '../mixins/article-content';
 
 export default Ember.Component.extend(

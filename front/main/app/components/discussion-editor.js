@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
 
 export default Ember.Component.extend(ViewportMixin, {

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import ImageMediaComponent from './image-media';
 import {track, trackActions} from '../../mercury/utils/track';
 

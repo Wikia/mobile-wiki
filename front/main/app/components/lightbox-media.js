@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import MediaModel from '../models/media';
 import {track, trackActions} from '../../mercury/utils/track';

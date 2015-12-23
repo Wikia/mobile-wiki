@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * Helper to generate SVGs in the form:
  * {{svg name viewBox classes}}

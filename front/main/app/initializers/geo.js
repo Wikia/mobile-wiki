@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * A "Geo" cookie is set by Fastly on every request.
  * If you run mercury app on your laptop (e.g. development), the cookie won't be automatically present; hence,

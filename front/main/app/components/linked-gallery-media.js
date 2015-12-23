@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import GalleryMediaComponent from './gallery-media';
 
 export default GalleryMediaComponent.extend({

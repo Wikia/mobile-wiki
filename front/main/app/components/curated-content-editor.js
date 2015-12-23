@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import TrackClickMixin from '../mixins/track-click';
 import CuratedContentEditorModel from '../models/curated-content-editor';

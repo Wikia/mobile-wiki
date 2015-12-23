@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 const WikiaInYourLangModel = Ember.Object.extend({
 	message: null,
 	nativeDomain: null

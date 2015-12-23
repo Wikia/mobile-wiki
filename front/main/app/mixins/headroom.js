@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {getSystem} from '../../mercury/utils/browser';
 
 export default Ember.Mixin.create({

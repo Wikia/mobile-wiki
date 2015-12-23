@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * @typedef {Object} rgbaNotation
  * @property {number} r

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import AdSlotComponent from '../components/ad-slot';
 import Ads from '../../mercury/modules/Ads';
 

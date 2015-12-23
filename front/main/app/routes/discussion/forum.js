@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DiscussionBaseRoute from './base';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
 import DiscussionForumModel from '../../models/discussion-forum';

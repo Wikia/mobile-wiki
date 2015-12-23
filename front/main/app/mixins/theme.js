@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import ColorUtilsMixin from './color-utils';
 
 /**

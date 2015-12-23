@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import Ads from '../../mercury/modules/Ads';
 
 export default Ember.Component.extend({

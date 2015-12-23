@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {trackGoogleSearch} from '../../mercury/utils/track';
 
 export default Ember.Route.extend({

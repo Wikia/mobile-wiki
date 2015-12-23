@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import MetaTagsMixin from '../mixins/main-page-route';
 import MainPageRouteMixin from '../mixins/meta-tags';
 import CuratedContentModel from '../models/curated-content';

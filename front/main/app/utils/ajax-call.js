@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /** This is a wrapper for ajax calls
  * @param {object} options
  * @returns {Ember.RSVP.Promise}

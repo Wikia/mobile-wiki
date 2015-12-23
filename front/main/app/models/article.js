@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import MediaModel from './media';
 import {normalizeToWhitespace} from '../../mercury/utils/string';
 

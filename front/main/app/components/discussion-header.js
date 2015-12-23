@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import HeadroomMixin from '../mixins/headroom';
 
 export default Ember.Component.extend(

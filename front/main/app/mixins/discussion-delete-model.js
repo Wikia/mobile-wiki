@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {checkPermissions} from '../../mercury/utils/discussionPermissions';
 import ajaxCall from '../utils/ajax-call';
 

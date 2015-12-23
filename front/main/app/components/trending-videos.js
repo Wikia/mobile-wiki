@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import MediaModel from '../models/media';
 
 export default Ember.Component.extend({

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DiscussionDeleteControllerMixin from '../../mixins/discussion-delete-controller';
 
 export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {

@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * Check if two arguments are equals
  *

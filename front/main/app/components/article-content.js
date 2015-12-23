@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import InfoboxImageMediaComponent from './infobox-image-media';
 import LinkedGalleryMediaComponent from './linked-gallery-media';
 import GalleryMediaComponent from './gallery-media';

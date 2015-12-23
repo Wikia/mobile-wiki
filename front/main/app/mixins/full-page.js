@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * This mixin should be considered temporary, until a
  * better solution is created with Jira ticket XW-247

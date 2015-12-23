@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * This object keeps track of all components which include ArticleContentMixin.
  * It had to be created because components can appear and disappear from the page (for example lightbox).

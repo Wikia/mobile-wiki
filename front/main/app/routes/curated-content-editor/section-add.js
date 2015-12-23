@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import CuratedContentEditorModel from '../../models/curated-content-editor';
 import CuratedContentEditorItemModel from '../../models/curated-content-editor-item';
 

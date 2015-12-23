@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {updateTrackedUrl, trackPageView} from '../../../mercury/utils/track';
 
 export default Ember.Route.extend({

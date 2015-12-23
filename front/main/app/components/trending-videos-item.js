@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
 import TrackClickMixin from '../mixins/track-click';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';

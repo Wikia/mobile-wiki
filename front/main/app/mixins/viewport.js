@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * This mixin keeps track of viewport size which is updated on every window resize.
  * Mixin has two properties stored as an object: viewport height and viewport width.

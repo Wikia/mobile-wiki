@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DiscussionEditorComponent from './discussion-editor';
 
 export default DiscussionEditorComponent.extend({

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {normalizeToWhitespace} from '../../mercury/utils/string';
 
 export default Ember.Mixin.create({

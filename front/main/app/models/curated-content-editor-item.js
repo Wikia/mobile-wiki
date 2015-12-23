@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import ObjectUtilitiesMixin from '../mixins/object-utilities';
 
 /**

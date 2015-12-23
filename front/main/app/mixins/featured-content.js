@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * ImageCropData
  * @typedef {Object} ImageCropData

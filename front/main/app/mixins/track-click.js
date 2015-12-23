@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {track, trackActions} from '../../mercury/utils/track';
 
 export default Ember.Mixin.create({

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import ArticleAddPhotoModel from '../models/article-add-photo';
 import {track, trackActions} from '../../mercury/utils/track';
 import VisibilityStateManager from '../mixins/visibility-state-manager';

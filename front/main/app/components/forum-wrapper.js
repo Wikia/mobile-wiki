@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
 
 export default Ember.Component.extend(

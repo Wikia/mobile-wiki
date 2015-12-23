@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import AdsMixin from '../mixins/ads';
 import TrackClickMixin from '../mixins/track-click';
 import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting';

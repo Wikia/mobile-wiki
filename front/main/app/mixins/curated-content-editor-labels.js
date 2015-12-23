@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 export default Ember.Mixin.create({
 	isCategory: Ember.computed('isFeaturedItem', 'isSection', function () {
 		return !(this.get('isFeaturedItem') || this.get('isSection'));

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {normalizeToUnderscore} from '../../mercury/utils/string';
 
 /**

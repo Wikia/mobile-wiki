@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
 import {track, trackActions} from '../../mercury/utils/track';
 

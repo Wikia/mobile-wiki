@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DiscussionIndexModel from '../../models/discussion-index';
 
 export default Ember.Route.extend({

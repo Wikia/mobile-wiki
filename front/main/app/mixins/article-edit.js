@@ -1,5 +1,6 @@
-export default Ember.Mixin.create({
+import Ember from 'ember';
 
+export default Ember.Mixin.create({
 	/**
 	 * @param {string} title
 	 * @returns {Ember.RSVP.Promise}

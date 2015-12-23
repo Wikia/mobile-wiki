@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * AlertNotification
  * @typedef {Object} AlertNotification

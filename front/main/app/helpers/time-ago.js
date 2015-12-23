@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {timeAgo, interval as dateTimeInterval} from '../../mercury/utils/dateTime';
 
 /**

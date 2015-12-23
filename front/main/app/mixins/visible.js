@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import VisibilityStateManager from './visibility-state-manager';
 
 /**

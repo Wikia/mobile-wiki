@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import FullPageMixin from '../mixins/full-page';
 import {track, trackActions} from '../../mercury/utils/track';
 

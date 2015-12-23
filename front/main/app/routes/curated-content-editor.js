@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import CuratedContentEditorModel from '../models/curated-content-editor';
 

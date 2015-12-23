@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import WidgetScriptStateMixin from '../mixins/widget-script-state';
 
 export default Ember.Component.extend(

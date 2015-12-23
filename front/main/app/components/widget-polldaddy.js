@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 export default Ember.Component.extend({
 	classNames: ['widget-polldaddy'],
 	layoutName: 'components/widget-polldaddy',

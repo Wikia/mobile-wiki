@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import ArticleContentMixin from '../mixins/article-content';
 import ViewportMixin from '../mixins/viewport';
 

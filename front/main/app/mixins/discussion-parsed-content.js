@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import nl2br from '../../mercury/utils/nl2br';
 
 /**
