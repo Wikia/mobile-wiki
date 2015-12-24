@@ -1,0 +1,53 @@
+$mobile-slider:  new-breakpoint(max-width 720px);
+
+.joinwikia {
+	$text-color: white;
+	$title-background: #092344;
+	$community-image: '/images/community.png';
+	$university-image: '/images/university.png';
+
+	color: $text-color;
+	font-size: 26px;
+	width: 100%;
+
+	.description {
+		background-repeat: no repeat;
+		background-size: cover;
+		height: 500px;
+		vertical-align: top;
+		width: 50%;	
+		
+		@include media ($mobile-slider) {
+			width: 100%;
+		}
+	}
+
+	.jw-community-central {
+		background-image: url($community-image);
+		float: left;
+		padding: 280px 50px 0;
+	}
+
+	.jw-title {
+		background-color: $title-background;
+		text-align: center;
+	}
+
+	.jw-wikia-university {
+		background-image: url($university-image);
+		float: right;
+		padding: 100px 50px 0;
+	}
+
+	.subtitle {
+		font-weight: bold;
+	}
+
+	.message {
+		font-size: .7em;
+	}
+
+	.link-to {
+		font-size: .55em;
+	}
+}
