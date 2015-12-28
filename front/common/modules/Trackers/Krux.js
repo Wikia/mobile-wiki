@@ -1,4 +1,3 @@
-
 /**
  * @typedef {Object} KruxModule
  * @property {Function} [load]

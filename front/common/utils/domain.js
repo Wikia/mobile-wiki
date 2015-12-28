@@ -1,5 +1,3 @@
-
-
 /**
  * @param {string} [hostname=window.location.hostname]
  * @returns {string}

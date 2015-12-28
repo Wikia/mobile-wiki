@@ -1,4 +1,3 @@
-
 /**
  * @typedef {Object} PerfTrackerParams
  * @property {string} type
