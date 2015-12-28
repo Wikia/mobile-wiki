@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import * as trackPerf from '../../mercury/utils/trackPerf';
 
 /**

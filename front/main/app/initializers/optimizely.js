@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import {getQueryParam} from '../../mercury/utils/queryString';
 
 /**

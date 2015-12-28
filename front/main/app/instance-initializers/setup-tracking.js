@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import Ads from '../../mercury/modules/Ads';
 import UniversalAnalytics from '../../mercury/modules/Trackers/UniversalAnalytics';
 import {integrateOptimizelyWithUA} from '../../mercury/utils/variantTesting';
