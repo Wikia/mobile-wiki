@@ -3,6 +3,8 @@
 # compiled output
 /dist
 /tmp
+/vendor/baseline.js
+/vendor/common.js
 
 # dependencies
 /node_modules

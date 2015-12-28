@@ -4,7 +4,8 @@
 var path = require('path'),
 	basePath = 'www',
 	baseServer = basePath + '/server',
-	baseFront = basePath + '/front';
+	baseFront = basePath + '/front',
+	mainApp = 'front/main';
 
 module.exports = {
 	base: basePath,
@@ -32,6 +33,12 @@ module.exports = {
 			src: 'front/scripts',
 			dest: basePath + '/front/scripts',
 			jsFiles: '**/*.js'
+		},
+		common: {
+			base: 'front/common',
+			dest: {
+				main: mainApp + '/vendor',
+			}
 		},
 		server: {
 			src: 'server/**/*.js',

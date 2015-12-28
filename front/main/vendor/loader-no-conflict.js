@@ -6,8 +6,8 @@
  * which has its own implementation of define and require
  */
 loader.noConflict({
-	define: 'mdefine',
-	require: 'mrequire'
+	define: 'mefine',
+	require: 'mequire'
 });
 
 /**

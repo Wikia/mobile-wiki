@@ -14,7 +14,8 @@
     "linter": "eslint .",
     "build": "rm -rf www && gulp build --type prod --nosync",
     "build-coverage": "rm -rf www && gulp build --nosync --testing",
-    "build-test": "rm -rf www && gulp build --type prod --nosync --testing"
+    "build-test": "rm -rf www && gulp build --type prod --nosync --testing",
+    "build-main": "gulp build-common-scripts && cd front/main && ember build"
   },
   "repository": "git://github.com/Wikia/mercury.git",
   "license": "MIT",

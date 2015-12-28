@@ -1,9 +1,7 @@
 /* global require, module */
 var EmberApp = require('ember-cli/lib/broccoli/ember-app'),
 	Funnel = require('broccoli-funnel'),
-	babel = require('broccoli-babel-transpiler'),
-	BroccoliMergeTrees = require('broccoli-merge-trees'),
-	concat = require('broccoli-concat');
+	BroccoliMergeTrees = require('broccoli-merge-trees');
 
 module.exports = function (defaults) {
 	var app = new EmberApp(defaults, {
@@ -28,29 +26,6 @@ module.exports = function (defaults) {
 	// please specify an object with the list of modules as keys
 	// along with the exports of each module as its value.
 
-
-	/*//Mercury modules
-	var mercuryModulesTranspiled = new babel('../front/scripts/mercury', {
-			modules: 'amd',
-			moduleIds: true,
-			sourceRoot: 'mercury'
-		}),
-		mercuryModulesConcatenated = concat(mercuryModulesTranspiled, {
-			outputFile: 'assets/mercury.js',
-			inputFiles: ['**!/!*.js']
-		});
-
-	var baselineTranspiled = new babel('../front/scripts/baseline'),
-		baselineConcatenated = concat(baselineTranspiled, {
-			outputFile: 'assets/baseline.js',
-			inputFiles: ['**!/!*.js']
-		});*/
-
-	var common = new Funnel('../common', {
-		include: ['**/*.js'],
-		destDir: 'assets'
-	});
-
 	app.import(app.bowerDirectory + '/script.js/dist/script.js');
 	app.import(app.bowerDirectory + '/fastclick/lib/fastclick.js');
 	app.import(app.bowerDirectory + '/hammerjs/hammer.js');
@@ -64,7 +39,8 @@ module.exports = function (defaults) {
 	app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
 	app.import(app.bowerDirectory + '/Autolinker.js/dist/Autolinker.min.js');
 	app.import(app.bowerDirectory + '/ember-performance-sender/dist/ember-performance-sender.js');
-
+	app.import('vendor/loader-no-conflict.js');
+	app.import('vendor/common.js');
 
 	/*//Server
 	var server = new Funnel('../server', {
@@ -91,14 +67,7 @@ module.exports = function (defaults) {
 		destDir: 'assets/locales'
 	});*/
 
-
-
-	/*var commonTree = babel(common, {
-		modules: "amd",
-		moduleIds: true
-	});*/
-
-	var appp = app.toTree([common]);//, mercuryModulesConcatenated, baselineConcatenated]);
+	var appp = app.toTree();
 
 	/*var mhm = new Funnel(appp, {
 		include: ['main.hbs'],
