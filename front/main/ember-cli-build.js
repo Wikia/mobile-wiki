@@ -10,6 +10,9 @@ module.exports = function (defaults) {
 				html: 'main.hbs'
 			}
 		},
+		inlineContent: {
+			baseline: 'vendor/baseline.js'
+		},
 		hinting: false
 	});
 
