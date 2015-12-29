@@ -12,9 +12,24 @@ module.exports = function (defaults) {
 				'app/styles/discussions'
 			]
 		},
+		svgstore: {
+			files: [
+				{
+					sourceDirs: 'app/symbols/main',
+					outputFile: '/assets/main.svg'
+				},
+				{
+					sourceDirs: 'app/symbols/discussions',
+					outputFile: '/assets/discussions.svg'
+				},
+				{
+					sourceDirs: '../common/symbols',
+					outputFile: '/assets/common.svg'
+				}
+			]
+		},
 		outputPaths: {
 			app: {
-				html: 'main.hbs',
 				css: {
 					'main/app': 'assets/main.css',
 					'discussions/app': 'assets/discussions.css'
