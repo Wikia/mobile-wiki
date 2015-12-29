@@ -18,7 +18,7 @@ module.exports = function (language, opts) {
 
 	namespace.forEach((ns) => {
 		[language, fallbackLanguage, defaultLanguage].some((lang) => {
-			const translationPath = `../../../front/locales/${lang}/${ns}.json`;
+			const translationPath = `../../../../front/common/locales/${lang}/${ns}.json`;
 
 			foundLanguage = lang;
 

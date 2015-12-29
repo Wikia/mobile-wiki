@@ -15,7 +15,9 @@
     "build": "rm -rf www && gulp build --type prod --nosync",
     "build-coverage": "rm -rf www && gulp build --nosync --testing",
     "build-test": "rm -rf www && gulp build --type prod --nosync --testing",
-    "build-main": "gulp build-common-scripts && cd front/main && ember build"
+    "build-main": "rm -rf dist/front/main && gulp build-common-scripts && cd front/main && ember build",
+    "build-server": "rm -rf dist/server && gulp build-server",
+    "build-common": "rm -rf dist/front/common && gulp build-common-public"
   },
   "repository": "git://github.com/Wikia/mercury.git",
   "license": "MIT",
@@ -53,6 +55,7 @@
     "gulp-concat": "2.6.0",
     "gulp-declare": "0.3.0",
     "gulp-develop-server": "0.2.5",
+    "gulp-expect-file": "0.0.7",
     "gulp-fixtures2js": "0.0.1",
     "gulp-folders": "1.1.0",
     "gulp-gzip": "1.1.0",

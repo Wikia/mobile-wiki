@@ -12,7 +12,8 @@ const baseExtendSettings = process.env.WIKIA_ENVIRONMENT === 'dev' ? baseExtendS
 		environment: 'dev',
 		loggers: {
 			console: 'debug'
-		}
+		},
+		devboxDomain: 'igor'
 	});
 
 export default localSettings;

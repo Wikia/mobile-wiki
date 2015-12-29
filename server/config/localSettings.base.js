@@ -1,4 +1,4 @@
-import {getEnvironment, stripDevboxDomain} from '../server/lib/Utils';
+import {getEnvironment, stripDevboxDomain} from '../app/lib/Utils';
 import deepExtend from 'deep-extend';
 
 /* eslint max-len:0 */

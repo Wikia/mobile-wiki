@@ -23,6 +23,7 @@ if (process.env.NEW_RELIC_ENABLED === 'true') {
 }
 
 const isDevbox = localSettings.environment === Environment.Dev,
+	localesPath = path.join(__dirname, '..', '..', 'front/common/locales'),
 	// Creates new `hapi` server
 	server = new Server({
 		connections: {
@@ -163,7 +164,7 @@ function setupLogging(server) {
  * @returns {string[]}
  */
 function getSupportedLangs() {
-	return fs.readdirSync('front/locales');
+	return fs.readdirSync(localesPath);
 }
 
 plugins = [
@@ -171,7 +172,7 @@ plugins = [
 		register: i18next,
 		options: {
 			i18nextOptions: {
-				resGetPath: path.join(__dirname, '..', 'front/locales/__lng__/__ns__.json'),
+				resGetPath: path.join(localesPath, '/__lng__/__ns__.json'),
 				ns: {
 					namespaces: ['main', 'auth', 'discussion'],
 					defaultNs: 'main'
@@ -187,7 +188,7 @@ plugins = [
 		}
 	}
 ];
-
+``
 server.connection({
 	host: localSettings.host,
 	port: localSettings.port,

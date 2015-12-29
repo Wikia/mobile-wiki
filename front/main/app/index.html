@@ -24,9 +24,9 @@
 	{{/if}}
 
 	{{#if isRtl}}
-		<link rel="stylesheet" href="/front/main.rtl.css">
+		<link rel="stylesheet" href="/front/main/assets/main.rtl.css">
 	{{else}}
-		<link rel="stylesheet" href="/front/main.css">
+		<link rel="stylesheet" href="/front/main/assets/main.css">
 	{{/if}}
 
 	{{> dns-prefetch}}
@@ -34,13 +34,13 @@
 
 	<link rel="canonical" href="{{canonicalUrl}}">
 
+	{{! FIXME }}
 	<style><!-- @include ../../../www/front/styles/main/baseline.css --></style>
 
 	{{> nirvana }}
-	{{> prop}}
-	{{> tracking}}
-
 	{{content-for 'baseline'}}
+	{{> server-data}}
+	{{> tracking}}
 
 	{{content-for 'head-footer'}}
 </head>
@@ -58,7 +58,8 @@
 	<div id="preload">
 		<nav class="site-head">
 			<div class="site-logo">
-				<!-- @include ../../../front/svg/symbols/main/wikia-logo.svg -->
+				{{! FIXME }}
+				<!-- @include ../../../front/main/assets/svg/symbols/main/wikia-logo.svg -->
 			</div>
 		</nav>
 		<div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
@@ -69,11 +70,11 @@
 
 <script>
 	M.loadScripts([
-		'/front/vendor.js',
-		'/front/main.js'
+		'/front/main/assets/vendor.js',
+		'/front/main/assets/main.js'
 	]);
-	M.loadDOMResource('/front/svg/main.svg');
-	M.loadDOMResource('/front/svg/common.svg');
+	M.loadDOMResource('/front/main/assets/svg/main.svg');
+	M.loadDOMResource('/front/main/assets/svg/common.svg');
 </script>
 
 <script	src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>

@@ -1,8 +1,3 @@
-/*
- * scripts-server
- * Compiles server ts files
- */
-
 var gulp = require('gulp'),
 	babel = require('gulp-babel'),
 	gutil = require('gulp-util'),
@@ -10,7 +5,7 @@ var gulp = require('gulp'),
 	newer = require('gulp-newer'),
 	paths = require('../paths').scripts.server;
 
-gulp.task('scripts-server', ['scripts-config'], function (done) {
+gulp.task('build-server-scripts', ['build-server-init-config'], function (done) {
 	gulp.src([paths.src, paths.config], {base: './'})
 		.pipe(newer({dest: paths.dest, ext: '.js'}))
 		.pipe(babel({
@@ -28,6 +23,3 @@ gulp.task('scripts-server', ['scripts-config'], function (done) {
 		.pipe(gulp.dest(paths.dest))
 		.on('end', done);
 });
-
-//Temporary alias
-gulp.task('scripts-back', ['scripts-server']);
