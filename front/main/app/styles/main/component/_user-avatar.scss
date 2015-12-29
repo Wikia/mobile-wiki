@@ -8,7 +8,8 @@
 
 @media #{$mobile-range} {
 	.user-avatar .avatar-username {
-		@extend %ellipsis;
+		// TODO: FIX IT SOON
+		//@extend %ellipsis;
 		display: inline-block;
 		max-width: 140px;
 		vertical-align: middle;

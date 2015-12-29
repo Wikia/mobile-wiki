@@ -6,6 +6,21 @@ module.exports = function (defaults) {
 		inlineContent: {
 			baseline: 'vendor/baseline.js'
 		},
+		sassOptions: {
+			includePaths: [
+				'app/styles/main',
+				'app/styles/discussions'
+			]
+		},
+		outputPaths: {
+			app: {
+				html: 'main.hbs',
+				css: {
+					'main/app': 'assets/main.css',
+					'discussions/app': 'assets/discussions.css'
+				}
+			}
+		},
 		hinting: false
 	});
 

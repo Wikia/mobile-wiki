@@ -1,12 +1,12 @@
 // DO NOT CHANGE:
 // load order of files below is intentional
-@import '../../vendor/wikia-style-guide/src/scss/main';
+@import '../../../bower_components/wikia-style-guide/src/scss/main';
 @import 'settings';
 @import 'foundation-imports';
 @import 'wikia-variables';
 @import 'mixin/index';
 
-@import '../common/placeholder/index';
+@import '../../../../common/styles/placeholder/index';
 @import 'base/index';
 @import 'layout/index';
 @import 'state/index';
@@ -15,6 +15,6 @@
 @import 'module/index';
 
 // temporary solution while these inputs are not a part of the Style Guide
-@import '../auth/base/input';
-@import '../auth/module/forms';
-@import '../auth/module/form-icons';
+@import '../../../../auth/app/styles/base/input';
+@import '../../../../auth/app/styles/module/forms';
+@import '../../../../auth/app/styles/module/form-icons';
