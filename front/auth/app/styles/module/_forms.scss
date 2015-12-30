@@ -84,7 +84,7 @@ input[type="submit"],
 			$spinner-dimension: 28px;
 
 			animation: spin 1s linear infinite;
-			background: url("/front/images/loading.svg") center no-repeat;
+			background: url("/front/common/symbols/loading.svg") center no-repeat;
 			content: " ";
 			display: block;
 			height: $spinner-dimension;
