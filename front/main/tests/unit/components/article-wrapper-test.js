@@ -1,51 +1,7 @@
-moduleForComponent('article-wrapper', 'ArticleWrapperComponent', {
-	unit: true,
-	beforeEach: function () {
-		this.originalWiki = Mercury.wiki;
-	},
-	afterEach: function () {
-		Mercury.wiki = this.originalWiki;
-	}
-});
+import {test, moduleFor} from 'ember-qunit';
 
-test('shouldHandleMedia returns correct value', function () {
-	var component = this.subject(),
-		testCases = [
-			{
-				tagName: 'img',
-				target: {},
-				expected: true
-			},
-			{
-				tagName: 'figure',
-				target: {},
-				expected: true
-			},
-			{
-				tagName: 'picture',
-				target: {},
-				expected: false
-			},
-			{
-				tagName: 'picture',
-				target: '<picture><a></a></picture>',
-				expected: false
-			},
-			{
-				tagName: 'figure',
-				target: '<figure><a href="http://www.wikia.com">Wikia</a></figure>',
-				expected: false
-			},
-			{
-				tagName: 'figure',
-				target: '<figure><figcaption><a href="http://www.wikia.com">Wikia</a></figcaption></figure>',
-				expected: true
-			}
-		];
-
-	testCases.forEach(function (testCase) {
-		equal(component.shouldHandleMedia(testCase.target, testCase.tagName), testCase.expected);
-	});
+moduleFor('component:article-wrapper', {
+	unit: true
 });
 
 function contributionTestHelper(self, testCase, property) {
@@ -87,6 +43,46 @@ function contributionTestHelper(self, testCase, property) {
 		equal(component.get(property), testCase.expected);
 	});
 }
+
+test('shouldHandleMedia returns correct value', function () {
+	var component = this.subject(),
+		testCases = [
+			{
+				tagName: 'img',
+				target: {},
+				expected: true
+			},
+			{
+				tagName: 'figure',
+				target: {},
+				expected: true
+			},
+			{
+				tagName: 'picture',
+				target: {},
+				expected: false
+			},
+			{
+				tagName: 'picture',
+				target: '<picture><a></a></picture>',
+				expected: false
+			},
+			{
+				tagName: 'figure',
+				target: '<figure><a href="http://www.wikia.com">Wikia</a></figure>',
+				expected: false
+			},
+			{
+				tagName: 'figure',
+				target: '<figure><figcaption><a href="http://www.wikia.com">Wikia</a></figcaption></figure>',
+				expected: true
+			}
+		];
+
+	testCases.forEach(function (testCase) {
+		equal(component.shouldHandleMedia(testCase.target, testCase.tagName), testCase.expected);
+	});
+});
 
 test('contribution disabled on main page', function () {
 	contributionTestHelper(this, {

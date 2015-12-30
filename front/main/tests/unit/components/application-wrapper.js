@@ -1,4 +1,6 @@
-moduleForComponent('application-wrapper', 'ApplicationWrapperComponent', {
+import {test, moduleFor} from 'ember-qunit';
+
+moduleFor('component:application-wrapper', {
 	unit: true
 });
 

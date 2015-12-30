@@ -1,4 +1,6 @@
-moduleForComponent('alert-notifications', 'AlertNotificationsComponent', {
+import {test, moduleFor} from 'ember-qunit';
+
+moduleFor('component:alert-notifications', {
 	unit: true
 });
 

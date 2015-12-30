@@ -1,8 +1,7 @@
-moduleForComponent('ad-slot', 'AdSlotComponent', {
-	unit: true,
-	teardown: function () {
-		require('mercury/modules/Ads').default.getInstance().adSlots = [];
-	}
+import {test, moduleFor} from 'ember-qunit';
+
+moduleFor('component:ad-slot', {
+	unit: true
 });
 
 test('Name lower case', function () {
@@ -39,7 +38,8 @@ test('Name lower case', function () {
 });
 
 test('behaves correctly depending on noAds value', function () {
-	var testCases = [{
+	var component = this.subject(),
+		testCases = [{
 			'properties': {
 				'name': 'Test ad 1'
 			},
@@ -87,15 +87,13 @@ test('behaves correctly depending on noAds value', function () {
 			},
 			'expectedLength': 3,
 			'message': 'Element not added to slot because of noAds property value set to \'true\''
-		}],
-		self = this;
+		}];
 
 	Ember.run(function () {
 		testCases.forEach(function(testCase) {
-			var component = self.subject();
 			component.setProperties(testCase.properties);
 			component.didInsertElement();
-			equal(require('mercury/modules/Ads').default.getInstance().adSlots.length, testCase.expectedLength, testCase.message);
+			equal(require('common/modules/Ads').default.getInstance().adSlots.length, testCase.expectedLength, testCase.message);
 		});
 	});
 });

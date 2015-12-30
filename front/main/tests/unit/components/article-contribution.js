@@ -1,17 +1,19 @@
+import {test, moduleFor} from 'ember-qunit';
+
 var track;
 
-moduleForComponent('article-contribution', 'ArticleContributionComponent', {
+moduleFor('component:article-contribution', {
 	unit: true,
 	setup: function () {
-		track = mrequire('mercury/utils/track').track;
-		mrequire('mercury/utils/track').track = Em.K;
+		track = require('common/utils/track').track;
+		require('common/utils/track').track = Ember.K;
 	},
 	teardown: function () {
-		track = mrequire('mercury/utils/track').track;
+		track = require('common/utils/track').track;
 	}
 });
 
-FakeUser = Em.Object.extend({
+FakeUser = Ember.Object.extend({
 	isAuthenticated: false
 });
 

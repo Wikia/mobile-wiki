@@ -1,4 +1,6 @@
-moduleForComponent('article-comments', 'ArticleCommentsComponent', {
+import {test, moduleFor} from 'ember-qunit';
+
+moduleFor('component:article-comments', {
 	unit: true
 });
 
