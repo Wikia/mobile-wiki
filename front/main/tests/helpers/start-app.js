@@ -15,7 +15,6 @@ Ember.Logger = {
   warn: Ember.K
 };
 
-
 export default function startApp(attrs) {
   var application;
 
