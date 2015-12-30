@@ -1,4 +1,4 @@
-import {getQueryParam} from '../../mercury/utils/queryString';
+import {getQueryParam} from 'common/utils/queryString';
 
 /**
  * @param {*} container

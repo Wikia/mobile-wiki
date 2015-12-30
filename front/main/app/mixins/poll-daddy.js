@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import load from '../../mercury/utils/load';
+import load from 'common/utils/load';
 
 export default Ember.Mixin.create({
 	/**

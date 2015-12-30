@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {track, trackActions} from '../../mercury/utils/track';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * Type for search suggestion

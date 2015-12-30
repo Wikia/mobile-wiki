@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import {track, trackActions} from '../../mercury/utils/track';
-import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting';
+import {track, trackActions} from 'common/utils/track';
+import {getExperimentVariationNumber} from 'common/utils/variantTesting';
 
 export default Ember.Component.extend({
 	tagName: 'nav',

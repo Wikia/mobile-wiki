@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import MediaComponent from './media';
 import ViewportMixin from '../mixins/viewport';
-import Thumbnailer from '../../mercury/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/Thumbnailer';
 
 export default MediaComponent.extend(
 	ViewportMixin,

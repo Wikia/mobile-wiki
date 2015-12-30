@@ -2,7 +2,7 @@ import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import LanguagesMixin from '../mixins/languages';
 import WikiaInYourLangModel from '../models/wikia-in-your-lang';
-import {track, trackActions} from '../../mercury/utils/track';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	AlertNotificationsMixin,

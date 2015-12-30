@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ArticleEditModel from '../models/article-edit';
-import {track, trackActions} from '../../mercury/utils/track';
-import {normalizeToUnderscore} from '../../mercury/utils/string';
+import {track, trackActions} from 'common/utils/track';
+import {normalizeToUnderscore} from 'common/utils/string';
 
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),

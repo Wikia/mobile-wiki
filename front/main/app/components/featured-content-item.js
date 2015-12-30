@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import ViewportMixin from '../mixins/viewport';
-import Thumbnailer from '../../mercury/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/Thumbnailer';
 
 export default Ember.Component.extend(
 	CuratedContentThumbnailMixin,

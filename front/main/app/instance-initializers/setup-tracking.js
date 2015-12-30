@@ -1,6 +1,6 @@
-import Ads from '../../mercury/modules/Ads';
-import UniversalAnalytics from '../../mercury/modules/Trackers/UniversalAnalytics';
-import {integrateOptimizelyWithUA} from '../../mercury/utils/variantTesting';
+import Ads from 'common/modules/Ads';
+import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
+import {integrateOptimizelyWithUA} from 'common/utils/variantTesting';
 
 /**
  * @returns {void}

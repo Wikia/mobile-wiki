@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ArticleModel from '../models/article';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
-import {normalizeToUnderscore} from '../../mercury/utils/string';
+import {normalizeToUnderscore} from 'common/utils/string';
 
 export default Ember.Route.extend({
 	redirectEmptyTarget: false,

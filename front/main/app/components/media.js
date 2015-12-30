@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import VisibleMixin from '../mixins/visible';
-import Thumbnailer from '../../mercury/modules/Thumbnailer';
-import {track, trackActions} from '../../mercury/utils/track';
+import Thumbnailer from 'common/modules/Thumbnailer';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * @typedef {Object} ThumbnailOptions

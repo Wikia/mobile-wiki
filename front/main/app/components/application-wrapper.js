@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import {trackPerf} from '../../mercury/utils/trackPerf';
-import {getSystem} from '../../mercury/utils/browser';
+import {trackPerf} from 'common/utils/trackPerf';
+import {getSystem} from 'common/utils/browser';
 
 /**
  * HTMLMouseEvent

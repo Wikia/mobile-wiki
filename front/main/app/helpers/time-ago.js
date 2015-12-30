@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {timeAgo, interval as dateTimeInterval} from '../../mercury/utils/dateTime';
+import {timeAgo, interval as dateTimeInterval} from 'common/utils/dateTime';
 
 /**
  * Helper to give textual representation of time interval between past date
