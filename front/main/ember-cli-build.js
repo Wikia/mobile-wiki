@@ -5,7 +5,7 @@ module.exports = function (defaults) {
 	var app = new EmberApp(defaults, {
 		inlineContent: {
 			baseline: 'vendor/baseline.js',
-			wikiaLogo: '../common/public/symbols/wikia-logo-blue.svg'
+			'wikia-logo': '../common/public/symbols/wikia-logo-blue.svg'
 		},
 		sassOptions: {
 			includePaths: [
