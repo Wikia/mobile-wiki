@@ -20,9 +20,7 @@ function buildCommonScripts(done, src, filename, moduleRoot) {
 	};
 
 	if (moduleRoot) {
-		babelOptions.plugins = ['transform-es2015-modules-amd', ['rename-define', {
-			name: 'mefine'
-		}]];
+		babelOptions.plugins = ['transform-es2015-modules-amd'];
 		babelOptions.moduleIds = true;
 		babelOptions.moduleRoot = moduleRoot;
 	}

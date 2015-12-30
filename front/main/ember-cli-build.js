@@ -36,7 +36,19 @@ module.exports = function (defaults) {
 				}
 			}
 		},
-		hinting: false
+		hinting: false,
+		derequire: {
+			patterns: [
+				{
+					from: 'define',
+					to: 'mefine'
+				},
+				{
+					from: 'require',
+					to: 'mequire'
+				}
+			]
+		}
 	});
 
 	// Files below are concatenated to assets/vendor.js
@@ -53,7 +65,6 @@ module.exports = function (defaults) {
 	app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
 	app.import(app.bowerDirectory + '/Autolinker.js/dist/Autolinker.min.js');
 	app.import(app.bowerDirectory + '/ember-performance-sender/dist/ember-performance-sender.js');
-	app.import('vendor/loader-no-conflict.js');
 	app.import('vendor/common.js');
 
 	return app.toTree();

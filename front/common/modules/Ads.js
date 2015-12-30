@@ -70,11 +70,10 @@ class Ads {
 		// Required by ads tracking code
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
 
-		/* global require */
 		// Load the ads code from MW
 		load(adsUrl, () => {
-			if (require) {
-				require([
+			if (window.require) {
+				window.require([
 					'ext.wikia.adEngine.adEngine',
 					'ext.wikia.adEngine.adContext',
 					'ext.wikia.adEngine.config.mobile',
