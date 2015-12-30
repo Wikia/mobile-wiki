@@ -2,7 +2,7 @@
  * objectCompare.js
  * Checks if two objects are equal (recurisvely)
  */
-function objectEquals(x, y) {
+export default function (x, y) {
     var self = this;
     if (x === null || x === undefined || y === null || y === undefined) { return x === y; }
     // after this just checking type of one would be enough
