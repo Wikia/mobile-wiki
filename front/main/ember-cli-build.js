@@ -67,10 +67,6 @@ module.exports = function (defaults) {
 	app.import(app.bowerDirectory + '/Autolinker.js/dist/Autolinker.min.js');
 	app.import(app.bowerDirectory + '/ember-performance-sender/dist/ember-performance-sender.js');
 
-	if (app.env !== 'test') {
-		app.import('vendor/loader-no-conflict.js');
-	}
-
 	app.import('vendor/common.js');
 
 	return app.toTree();
