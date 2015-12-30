@@ -29,6 +29,10 @@ module.exports = {
 		compile: '*.scss'
 	},
 	common: {
+		images: {
+			src: 'front/common/images/*',
+			dest: frontOutput + '/common/images'
+		},
 		public: {
 			src: 'front/common/public/**/*',
 			dest: frontOutput + '/common'
