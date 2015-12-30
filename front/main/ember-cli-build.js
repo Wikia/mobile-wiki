@@ -4,12 +4,12 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function (defaults) {
 	var app = new EmberApp(defaults, {
 		inlineContent: {
-			baseline: 'vendor/baseline.js'
+			baseline: 'vendor/baseline.js',
+			wikiaLogo: '../common/public/symbols/wikia-logo-blue.svg'
 		},
 		sassOptions: {
 			includePaths: [
-				'app/styles/main',
-				'app/styles/discussions'
+				'app/styles'
 			]
 		},
 		svgstore: {
@@ -32,6 +32,7 @@ module.exports = function (defaults) {
 			app: {
 				css: {
 					'main/app': 'assets/main.css',
+					'main/app-dark-theme': 'assets/app-dark-theme.css',
 					'discussions/app': 'assets/discussions.css'
 				}
 			}

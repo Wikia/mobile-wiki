@@ -34,9 +34,6 @@
 
 	<link rel="canonical" href="{{canonicalUrl}}">
 
-	{{! FIXME }}
-	<style><!-- @include ../../../www/front/styles/main/baseline.css --></style>
-
 	{{> nirvana }}
 	{{content-for 'baseline'}}
 	{{> server-data}}
@@ -58,8 +55,7 @@
 	<div id="preload">
 		<nav class="site-head">
 			<div class="site-logo">
-				{{! FIXME }}
-				<!-- @include ../../../front/main/assets/svg/symbols/main/wikia-logo.svg -->
+				{{content-for 'wikiaLogo'}}
 			</div>
 		</nav>
 		<div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
