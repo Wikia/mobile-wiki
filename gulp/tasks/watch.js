@@ -35,7 +35,7 @@ gulp.task('watch', ['build'], function () {
 
 	gulp.watch(path.join(
 		paths.scripts.front.src,
-		paths.scripts.front.jsFiles
+		paths.scripts.front.jsPattern
 	), ['build-combined']).on('change', function (event) {
 		if (event.path.match('baseline')) {
 			gulp.start('build-views');

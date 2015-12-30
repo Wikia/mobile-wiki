@@ -1,12 +1,12 @@
 var fs = require('fs'),
 	gulp = require('gulp'),
 	babel = require('gulp-babel'),
-	gutil = require('gulp-util'),
 	newer = require('gulp-newer'),
 	rename = require('gulp-rename'),
 	expect = require('gulp-expect-file'),
 	nodeDeps = Object.keys(require('../package').dependencies),
 	environment = require('../gulp/utils/environment'),
+	exitOnError = require('../gulp/utils/exit-on-error'),
 	paths = require('../gulp/paths').server,
 	pathsConfig = paths.config,
 	pathsScripts = paths.scripts;
@@ -31,15 +31,7 @@ gulp.task('build-server-scripts', ['build-server-init-config'], function (done) 
 		.pipe(babel({
 			presets: ['es2015'],
 		}))
-		.on('error', function (error) {
-			if (gutil.env.testing && environment.isProduction) {
-				console.error('Build contains some errors');
-				process.exit(1);
-			} else {
-				console.error('Build error: ' + error.message);
-				this.emit('end');
-			}
-		})
+		.on('error', exitOnError)
 		.pipe(gulp.dest(pathsScripts.dest))
 		.on('end', done);
 });

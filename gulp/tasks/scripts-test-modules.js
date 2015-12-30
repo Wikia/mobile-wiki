@@ -8,9 +8,9 @@ var gulp = require('gulp'),
 
 gulp.task('scripts-test-modules', function (done) {
 	gulp.src([
-			path.join(paths.src, 'auth', paths.jsFiles),
-			path.join(paths.src, 'main', paths.jsFiles),
-			path.join(paths.src, 'mercury', paths.jsFiles),
+			path.join(paths.src, 'auth', paths.jsPattern),
+			path.join(paths.src, 'main', paths.jsPattern),
+			path.join(paths.src, 'mercury', paths.jsPattern),
 		], {base: './front/scripts/'})
 		.pipe(babel({
 			presets: ['es2015'],

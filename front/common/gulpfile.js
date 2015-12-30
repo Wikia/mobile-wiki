@@ -1,74 +1,58 @@
 var gulp = require('gulp'),
+	compile = require('../../gulp/utils/compile-es6-modules'),
 	paths = require('../../gulp/paths'),
-	pathsScripts = paths.common.scripts,
-	pathsPublic = paths.common.public;
+	pathsCommon = paths.common,
+	pathsScripts = pathsCommon.scripts,
+	pathsPublic = pathsCommon.public;
 
-function buildCommonScripts(done, src, filename, moduleRoot) {
-	var babel = require('gulp-babel'),
-		concat = require('gulp-concat'),
-		gulpif = require('gulp-if'),
-		newer = require('gulp-newer'),
-		uglify = require('gulp-uglify'),
-		gutil = require('gulp-util'),
-		environment = require('../../gulp/utils/environment'),
-		babelOptions = {
-			presets: ['es2015']
-		};
-
-	if (moduleRoot) {
-		babelOptions.plugins = ['transform-es2015-modules-amd'];
-		babelOptions.moduleIds = true;
-		babelOptions.moduleRoot = moduleRoot;
-	}
-
-	gulp.src(src, {
-			base: './front/common/'
-		})
-		.pipe(newer(pathsScripts.dest.main))
-		.pipe(babel(babelOptions))
-		.on('error', function (error) {
-			if (gutil.env.testing && environment.isProduction) {
-				console.error('Build contains some errors');
-				process.exit(1);
-			} else {
-				console.error('Build error: ' + error.message);
-				this.emit('end');
-			}
-		})
-		.pipe(concat(filename))
-		.pipe(gulpif(environment.isProduction, uglify()))
-		.pipe(gulp.dest(pathsScripts.dest.main))
-		.on('end', done);
-}
-
+/*
+ * Compile baseline script
+ */
 gulp.task('build-common-scripts-baseline', function (done) {
-	buildCommonScripts(done, pathsScripts.base + '/baseline/**/*.js', 'baseline.js');
-});
+	var src = pathsScripts.src + '/baseline/' + paths.jsPattern;
 
-gulp.task('build-common-scripts-modules-utils', function (done) {
-	buildCommonScripts(done, [
-		pathsScripts.base + '/modules/**/*.js',
-		pathsScripts.base + '/utils/**/*.js',
-	], 'common.js', 'common');
+	compile(done, src, 'front/common', pathsCommon.dest, 'baseline.js');
 });
 
 /*
- * Compile and concatenate common scripts
+ * Compile modules and utils to common.js
  */
-gulp.task('build-common-scripts', [
-	'build-common-scripts-baseline',
-	'build-common-scripts-modules-utils'
-]);
+gulp.task('build-common-scripts-modules-utils', function (done) {
+	var src = [
+		pathsScripts.src + '/modules/' + paths.jsPattern,
+		pathsScripts.src + '/utils/' + paths.jsPattern,
+	];
+
+	compile(done, src, 'front/common', pathsCommon.dest, 'common.js', 'common');
+});
 
 /*
  * Copy all files from /front/common/public/ to /dist/front/common/
  */
 gulp.task('build-common-public', function () {
 	return gulp.src(pathsPublic.src)
-		.pipe(gulp.dest(pathsPublic.dest));
+		.pipe(gulp.dest(pathsCommon.dest));
+});
+
+/*
+ * Main app depends on these assets
+ */
+gulp.task('build-common-for-main', [
+	'build-common-scripts-baseline',
+	'build-common-scripts-modules-utils',
+	'build-common-public'
+], function () {
+	var src = [
+		pathsCommon.dest + '/baseline.js',
+		pathsCommon.dest + '/common.js'
+	];
+
+	return gulp.src(src)
+		.pipe(gulp.dest(pathsCommon.destMain));
 });
 
 gulp.task('build-common', [
-	'build-common-scripts',
+	'build-common-scripts-baseline',
+	'build-common-scripts-modules-utils',
 	'build-common-public'
 ]);

@@ -12,9 +12,10 @@
     "test-front": "gulp karma",
     "test-server": "gulp node-test",
     "linter": "eslint .",
-    "build": "rm -rf dist && npm-run-all build-common build-main build-server",
+    "build": "rm -rf dist && gulp build-common && gulp build-auth && cd front/main && ember build && gulp build-server",
+    "build-auth": "rm -rf dist/front && gulp build-common && gulp build-auth",
     "build-common": "rm -rf dist/front/common && gulp build-common",
-    "build-main": "rm -rf dist/front/main && gulp build-common && cd front/main && ember build",
+    "build-main": "rm -rf dist/front && gulp build-common-for-main && cd front/main && ember build",
     "build-server": "rm -rf dist/server && gulp build-server"
   },
   "repository": "git://github.com/Wikia/mercury.git",
@@ -78,7 +79,6 @@
     "karma-phantomjs-launcher": "0.2.1",
     "karma-qunit": "0.1.8",
     "multipipe": "0.1.2",
-    "npm-run-all": "^1.4.0",
     "qunit": "0.7.7",
     "qunitjs": "1.20.0",
     "through2": "0.6.5"

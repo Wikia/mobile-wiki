@@ -1,0 +1,12 @@
+{
+  "name": "Mercury auth",
+  "homepage": "https://github.com/Wikia/mercury",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "i18next": "1.7.4",
+    "jquery": "2.1.4",
+    "loader.js": "3.5.0",
+    "visit-source": "Wikia/visit-source#0.1.1"
+  }
+}
