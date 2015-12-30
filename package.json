@@ -78,6 +78,7 @@
     "karma-phantomjs-launcher": "0.2.1",
     "karma-qunit": "0.1.8",
     "multipipe": "0.1.2",
+    "npm-run-all": "^1.4.0",
     "qunit": "0.7.7",
     "qunitjs": "1.20.0",
     "through2": "0.6.5"
