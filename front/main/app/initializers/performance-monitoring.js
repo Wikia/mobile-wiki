@@ -1,4 +1,4 @@
-import * as trackPerf from '../../mercury/utils/trackPerf';
+import * as trackPerf from 'common/utils/trackPerf';
 
 /**
  * @returns {void}

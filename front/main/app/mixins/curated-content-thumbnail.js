@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Thumbnailer from '../../mercury/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/Thumbnailer';
 
 /**
  * @typedef {Object} ImageCropData

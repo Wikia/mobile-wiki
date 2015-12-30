@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
-import {track, trackActions} from '../../mercury/utils/track';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	LanguagesMixin,

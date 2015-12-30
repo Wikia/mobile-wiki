@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ArticleContentMixin from '../mixins/article-content';
-import VideoLoader from '../../mercury/modules/VideoLoader';
+import VideoLoader from 'common/modules/VideoLoader';
 
 export default Ember.Component.extend(
 	ArticleContentMixin,

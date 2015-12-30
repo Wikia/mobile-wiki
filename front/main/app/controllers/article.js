@@ -1,6 +1,6 @@
 import Ember from 'ember';
+import {track, trackActions} from 'common/utils/track';
 import ArticleAddPhotoModel from '../models/article-add-photo';
-import {track, trackActions} from '../../mercury/utils/track';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
 
 export default Ember.Controller.extend({

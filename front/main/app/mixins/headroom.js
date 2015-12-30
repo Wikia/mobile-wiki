@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {getSystem} from '../../mercury/utils/browser';
+import {getSystem} from 'common/utils/browser';
 
 export default Ember.Mixin.create({
 	headroom: null,

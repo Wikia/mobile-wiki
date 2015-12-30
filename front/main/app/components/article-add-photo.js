@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {track as mercuryTrack, trackActions} from '../../mercury/utils/track';
+import {track as mercuryTrack, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend({
 	actions: {

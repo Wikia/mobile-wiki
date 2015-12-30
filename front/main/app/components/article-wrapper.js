@@ -2,7 +2,7 @@ import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
-import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} from '../../mercury/utils/track';
+import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
 
 /**
  * @typedef {Object} ArticleSectionHeader

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import MediaComponent from './media';
 import ArticleContentMixin from '../mixins/article-content';
-import Thumbnailer from '../../mercury/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/Thumbnailer';
 
 /**
  * ArticleMedia

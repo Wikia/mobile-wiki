@@ -2,7 +2,7 @@ import Ember from 'ember';
 import FeaturedContentMixin from '../mixins/featured-content';
 import TrackClickMixin from '../mixins/track-click';
 import ThirdsClickMixin from '../mixins/thirds-click';
-import {trackEvent} from '../../mercury/utils/variantTesting';
+import {trackEvent} from 'common/utils/variantTesting';
 
 export default Ember.Component.extend(
 	FeaturedContentMixin,

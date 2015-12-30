@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import AdsMixin from '../mixins/ads';
 import TrackClickMixin from '../mixins/track-click';
-import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting';
-import {setTrackContext, updateTrackedUrl, trackPageView} from '../../mercury/utils/track';
+import {getExperimentVariationNumber} from 'common/variantTesting';
+import {setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	AdsMixin,

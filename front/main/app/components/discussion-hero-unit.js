@@ -72,7 +72,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 		if (!this.get('style') && isShown && image) {
 			this.set('style',
-				new Ember.Handlebars.SafeString(`background: #fff url(/front/images/${image}) center no-repeat;`));
+				new Ember.Handlebars.SafeString(`background: #fff url(/front/common/images/${image}) center no-repeat;`));
 			this.set('contentClassNames', 'background-alpha-theme-color');
 		}
 	}),

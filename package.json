@@ -6,18 +6,16 @@
   "scripts": {
     "dev": "rm -rf www && gulp --nosync",
     "local": "rm -rf www && gulp",
-    "start": "npm run build && node www/server/server.js",
+    "start": "npm run build && node dist/server/app/server.js",
     "test": "npm run build-test && npm run test-front && npm run test-server",
     "coverage": "npm run build-coverage && npm run test-front && npm run test-server",
     "test-front": "gulp karma",
     "test-server": "gulp node-test",
     "linter": "eslint .",
-    "build": "rm -rf www && gulp build --type prod --nosync",
-    "build-coverage": "rm -rf www && gulp build --nosync --testing",
-    "build-test": "rm -rf www && gulp build --type prod --nosync --testing",
-    "build-main": "rm -rf dist/front/main && gulp build-common-scripts && cd front/main && ember build",
-    "build-server": "rm -rf dist/server && gulp build-server",
-    "build-common": "rm -rf dist/front/common && gulp build-common-public"
+    "build": "rm -rf dist && npm-run-all build-common build-main build-server",
+    "build-common": "rm -rf dist/front/common && gulp build-common",
+    "build-main": "rm -rf dist/front/main && gulp build-common && cd front/main && ember build",
+    "build-server": "rm -rf dist/server && gulp build-server"
   },
   "repository": "git://github.com/Wikia/mercury.git",
   "license": "MIT",

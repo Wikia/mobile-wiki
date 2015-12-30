@@ -19,7 +19,7 @@ $help-svg: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" widt
 }
 
 .dice {
-	background-image: url('/front/images/dice.svg');
+	background-image: url('/front/common/symbols/dice.svg');
 
 	&.on {
 		animation: spin 1s linear infinite;
@@ -28,9 +28,9 @@ $help-svg: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" widt
 }
 
 .password-toggler {
-	background-image: url('/front/images/eye-crossed.svg');
+	background-image: url('/front/common/symbols/eye-crossed.svg');
 
 	&.on {
-		background-image: url('/front/images/eye.svg');
+		background-image: url('/front/common/symbols/eye.svg');
 	}
 }
