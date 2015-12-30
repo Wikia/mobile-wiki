@@ -32,6 +32,12 @@ module.exports = {
 		public: {
 			src: 'front/common/public/**/*',
 			dest: frontOutput + '/common'
+		},
+		scripts: {
+			base: 'front/common',
+			dest: {
+				main: mainApp + '/vendor',
+			}
 		}
 	},
 	scripts: {
@@ -39,26 +45,6 @@ module.exports = {
 			src: 'front/scripts',
 			dest: output + '/front/scripts',
 			jsFiles: '**/*.js'
-		},
-		common: {
-			base: 'front/common',
-			dest: {
-				main: mainApp + '/vendor',
-			}
-		},
-		server: {
-			src: 'server/app/**/*.js',
-			config: 'server/config/*.js',
-			dest: output
-		}
-	},
-	views: {
-		src: 'server/app/views/**/*.hbs',
-		dest: serverOutput + '/views',
-		mainIndex: {
-			src: frontOutput + '/main/index.html',
-			dest: serverOutput + '/app/views/_layouts',
-			outputFilename: 'ember-main.hbs'
 		}
 	},
 	symbols: {
@@ -70,17 +56,31 @@ module.exports = {
 		src: ['front/svg/images/*', 'front/images/*'],
 		dest: output + '/front/images'
 	},
-	nodeModules: {
-		src: 'node_modules',
-		dest: serverOutput + '/node_modules'
-	},
 	server: {
-		script: output + '/server/server.js'
-	},
-	config: {
-		src: 'server/config/',
-		baseFile: 'localSettings.base.js',
-		exampleFile: 'localSettings.example.js',
-		runtimeFile: 'localSettings.js'
+		config: {
+			src: 'server/config/',
+			baseFile: 'localSettings.base.js',
+			exampleFile: 'localSettings.example.js',
+			runtimeFile: 'localSettings.js'
+		},
+		nodeModules: {
+			src: 'node_modules',
+			dest: serverOutput + '/node_modules'
+		},
+		script: output + '/server/server.js',
+		scripts: {
+			src: 'server/app/**/*.js',
+			config: 'server/config/*.js',
+			dest: output
+		},
+		views: {
+			src: 'server/app/views/**/*.hbs',
+			dest: serverOutput + '/app/views',
+			mainIndex: {
+				src: frontOutput + '/main/index.html',
+				dest: serverOutput + '/app/views/_layouts',
+				outputFilename: 'ember-main.hbs'
+			}
+		},
 	}
 };
