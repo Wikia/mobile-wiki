@@ -72,16 +72,16 @@ body.discussions {
 		margin: 5px 0;
 		padding: .3rem 0;
 
-		h1, h2 {
+		.post-title {
 			line-height: $line-height-smallest;
 			margin: 0;
 		}
 
-		h1 {
+		h1.post-title {
 			font-size: $type-smaller;
 		}
 
-		h2 {
+		h2.post-title {
 			font-size: $type-smallest;
 		}
 	}
