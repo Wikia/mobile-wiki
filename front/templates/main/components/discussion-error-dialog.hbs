@@ -3,6 +3,9 @@
 }}
 	<div class="modal-dialog-content">{{i18n errorMessage ns='discussion'}}</div>
 	<footer>
-		<button {{action 'close'}}>OK</button>
+		{{#unless currentUser.isAuthenticated}}
+			<button>{{i18n 'main.modal-dialog-log-in' ns='discussion'}}</button>
+		{{/unless}}
+		<button {{action 'close'}}>{{i18n 'main.modal-dialog-confirm' ns='discussion'}}</button>
 	</footer>
 {{/modal-dialog}}
