@@ -71,6 +71,14 @@ body.discussions {
 		color: $discussion-content-color;
 		margin: 5px 0;
 		padding: .3rem 0;
+
+		h1, h2 {
+			margin: 0;
+		}
+		h2 {
+			font-size: $type-smallest;
+			line-height: $line-height-smallest;
+		}
 	}
 
 	.post-reply,
@@ -360,6 +368,11 @@ body.discussions {
 
 				.discussion-content {
 					line-height: $post-details-content-line-height;
+
+					h1 {
+						font-size: $type-small;
+						line-height: $line-height-small;
+					}
 				}
 
 				.timestamp {
@@ -408,6 +421,11 @@ body.discussions {
 
 			.share {
 				display: none;
+			}
+
+			h1 {
+				font-size: $type-smaller;
+				line-height: $line-height-smallest;
 			}
 		}
 
