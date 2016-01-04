@@ -1,3 +1,7 @@
+$discussion-error-dialog-header-font-size: $type-small;
+$discussion-error-dialog-header-line-height: $line-height-base;
+$discussion-error-dialog-content-line-height: 24px;
+
 .discussion-error-dialog {
 	.modal-dialog-wrapper {
 		justify-content: center;
@@ -8,13 +12,13 @@
 		padding: 0;
 
 		h1 {
-			font-size: 24px;
-			line-height: 26px;
+			font-size: $discussion-error-dialog-header-font-size;
+			line-height: $discussion-error-dialog-header-line-height;
 			margin: 24px 24px 0 24px;
 		}
 
 		.modal-dialog-content {
-			line-height: 24px;
+			line-height: $discussion-error-dialog-content-line-height;
 			margin: 0;
 			padding: 24px;
 		}
