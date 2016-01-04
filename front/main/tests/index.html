@@ -16,6 +16,17 @@
 
     {{content-for "head-footer"}}
     {{content-for "test-head-footer"}}
+    {{content-for "baseline"}}
+
+    <script>
+      M.prop('apiBase', '/api/mercury', true);
+      M.provide('wiki', {
+        language: {
+          content: 'en'
+        }
+      });
+    </script>
+
   </head>
   <body>
     {{content-for "body"}}

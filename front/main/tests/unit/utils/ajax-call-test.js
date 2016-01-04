@@ -1,8 +1,20 @@
-QUnit.module('main/utils/ajaxCall', function () {
-	QUnit.test('Checking ajaxCall utils request params.', function (assert) {
-		var spy = sinon.spy($, "ajax"),
-			test = mrequire('main/utils/ajax-call').default,
-			testOut,
+import sinon from 'sinon';
+
+QUnit.module('Unit | Utils | ajax-call', (hooks) => {
+	let spy;
+
+	hooks.beforeEach(() => {
+		spy = sinon.spy($, 'ajax');
+	});
+
+	hooks.afterEach(() => {
+		// Restore default ajax behavior
+		$.ajax.restore();
+	});
+
+
+	QUnit.test('Checking ajaxCall utils request params.', (assert) => {
+		const test = require('main/utils/ajax-call').default,
 			testCases = [
 				{
 					title: 'Default options',
@@ -15,12 +27,8 @@ QUnit.module('main/utils/ajaxCall', function () {
 						xhrFields: {
 							withCredentials: true
 						},
-						success: function (data) {
-							resolve(this);
-						},
-						error: function (err) {
-							resolve(this);
-						}
+						success() {},
+						error() {}
 					}
 				}, {
 					title: 'Passing options to ajax call',
@@ -28,12 +36,8 @@ QUnit.module('main/utils/ajaxCall', function () {
 						contentType: 'aplication/json',
 						dataType: 'json',
 						method: 'PUT',
-						success: function(data) {
-							resolve(this);
-						},
-						error: function (err) {
-							resolve(this);
-						}
+						success() {},
+						error() {}
 					},
 					expected: {
 						contentType: 'aplication/json',
@@ -42,12 +46,8 @@ QUnit.module('main/utils/ajaxCall', function () {
 						xhrFields: {
 							withCredentials: true
 						},
-						success: function(data) {
-							resolve(this);
-						},
-						error: function (err) {
-							resolve(this);
-						}
+						success() {},
+						error() {}
 					}
 				}, {
 					title: 'Extending defaults',
@@ -64,23 +64,20 @@ QUnit.module('main/utils/ajaxCall', function () {
 						xhrFields: {
 							withCredentials: false
 						},
-						success: function(data) {
-							resolve(this);
-						},
-						error: function (err) {
-							resolve(this);
-						}
+						success() {},
+						error() {}
 					}
 				}
 			];
 
-		testCases.forEach(function(testCase) {
+		let testOut;
+
+		testCases.forEach((testCase) => {
 			test(testCase.options);
 			testOut = $.ajax.getCall(0);
+
 			assert.propEqual(testCase.expected, testOut.args[0]);
 			spy.reset();
 		});
-		// Restore default ajax behavior
-		$.ajax.restore();
 	});
 });
