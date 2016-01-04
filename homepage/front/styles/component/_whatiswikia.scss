@@ -44,6 +44,7 @@ $desktop-slider: new-breakpoint(min-width 720px);
 
 	.link-to {
 		font-size: .55em;
+		margin-top: 1em;
 	}
 
 	.message {
@@ -84,6 +85,7 @@ $desktop-slider: new-breakpoint(min-width 720px);
 		display: inline;
 		font-size: .55em;
 		margin: 0;
+		padding: 0 .5em;
 
 		@include media ($desktop-slider) {
 			width: 20%;
