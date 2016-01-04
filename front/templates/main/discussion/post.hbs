@@ -19,7 +19,7 @@
 					totalContributorCount=model.postCount
 				}}
 			{{else}}
-				{{i18n 'main.no-replies' ns='discussion'}}
+				<span class="no-replies-message">{{i18n 'main.no-replies' ns='discussion'}}</span>
 			{{/if}}
 		</div>
 		{{#if model.connectionError}}
