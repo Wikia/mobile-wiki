@@ -6,6 +6,9 @@ export default Ember.Component.extend(LoginLinkMixin, {
 	modalDialogService: Ember.inject.service('modal-dialog'),
 
 	actions: {
+		/**
+		 * returns {void}
+		 */
 		goToLoginPage() {
 			this.goToLogin();
 		},
