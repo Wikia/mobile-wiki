@@ -1,9 +1,14 @@
-export default Ember.Component.extend({
+import LoginLinkMixin from '../mixins/login-link';
+
+export default Ember.Component.extend(LoginLinkMixin, {
 	classNames: ['discussion-error-dialog'],
 	isDialogVisible: false,
 	modalDialogService: Ember.inject.service('modal-dialog'),
 
 	actions: {
+		goToLoginPage() {
+			this.goToLogin();
+		},
 		/**
 		 * @returns {void}
 		 */
