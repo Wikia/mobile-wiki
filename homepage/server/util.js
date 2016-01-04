@@ -54,6 +54,14 @@ exports.getSignupUrl = function () {
 	return localSettings.signupUrl;
 };
 
+exports.getJaCommunityUrl = function () {
+	return localSettings.jaCommunityUrl;
+};
+
+exports.getJaUniversityUrl = function () {
+	return localSettings.jaUniversityUrl;
+};
+
 // todo: look up this data in user session first
 exports.renderWithGlobalData = function (request, reply, data, view) {
 	function renderView(loggedIn, userName, avatarUrl) {

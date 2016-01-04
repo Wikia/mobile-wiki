@@ -26,6 +26,10 @@ $mobile-slider:  new-breakpoint(max-width 720px);
 		background-image: url($community-image);
 		float: left;
 		padding: 280px 50px 0;
+
+		@include media ($mobile-slider) {
+			padding: 100px 50px 0;
+		}
 	}
 
 	.jw-title {
@@ -48,6 +52,8 @@ $mobile-slider:  new-breakpoint(max-width 720px);
 	}
 
 	.link-to {
+		cursor: pointer;
 		font-size: .55em;
+		margin-top: 1em;
 	}
 }

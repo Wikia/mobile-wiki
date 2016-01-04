@@ -1,4 +1,4 @@
-import {loadGlobalData, getLoginUrl} from './globals';
+import {loadGlobalData, getLoginUrl, getJaCommunityUrl, getJaUniversityUrl} from './globals';
 
 /**
  * @returns {void}
@@ -101,6 +101,14 @@ $('.search-wikia-form').submit((event) => {
 $('.search-wikia').click((event) => {
 	search();
 	event.preventDefault();
+});
+
+$('.jw-community-link').click(() => {
+	window.location.href = getJaCommunityUrl();
+});
+
+$('.jw-university-link').click(() => {
+	window.location.href = getJaUniversityUrl();
 });
 
 $('.hero-prev').click(function () {

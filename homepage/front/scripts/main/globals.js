@@ -15,3 +15,17 @@ export function loadGlobalData() {
 export function getLoginUrl() {
 	return cachedData ? cachedData.loginUrl : null;
 }
+
+/**
+ * @returns {string|null}
+ */
+export function getJaCommunityUrl() {
+	return cachedData ? cachedData.jaCommunityUrl : null;
+}
+
+/**
+ * @returns {string|null}
+ */
+export function getJaUniversityUrl() {
+	return cachedData ? cachedData.jaUniversityUrl : null;
+}
