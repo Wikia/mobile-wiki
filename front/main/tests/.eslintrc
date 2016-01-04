@@ -6,13 +6,8 @@
   "globals": {
     "sinon": true,
     "Qunit": true,
-    "equal": true,
-    "ok": true,
     "deepEqual": true,
-    "test": true,
     "moduleFor": true,
-    "moduleForComponent": true,
     "getMixin": true,
-    "mrequire": true
   }
 }
