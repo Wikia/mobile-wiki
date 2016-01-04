@@ -8,26 +8,15 @@ export default Ember.Mixin.create(LanguagesMixin, {
 	 * @returns {void}
 	 */
 	goToLogin() {
-		let label,
-			href;
-
-		if (Mercury.wiki.enableNewAuth) {
-			href = `/join?redirect=` +
-			`${encodeURIComponent(window.location.href)}` +
-			`${this.getUselangParam()}`;
-			label = 'join-link';
-		} else {
-			label = 'legacy-login-link';
-			href = '/Special:UserLogin';
-		}
-
 		track({
 			trackingMethod: 'ga',
 			action: trackActions.click,
 			category: 'user-login-mobile',
-			label,
+			label: 'join-link',
 		});
 
-		window.location.href = href;
+		window.location.href = `/join?redirect=` +
+			`${encodeURIComponent(window.location.href)}` +
+			`${this.getUselangParam()}`;
 	}
 });
