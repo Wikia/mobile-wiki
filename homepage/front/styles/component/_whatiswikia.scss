@@ -43,6 +43,7 @@ $desktop-slider: new-breakpoint(min-width 720px);
 	}
 
 	.link-to {
+		cursor: pointer;
 		font-size: .55em;
 		margin-top: 1em;
 	}

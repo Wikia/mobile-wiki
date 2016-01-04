@@ -1,4 +1,4 @@
-import {loadGlobalData, getLoginUrl} from './globals';
+import {loadGlobalData, getLoginUrl, getStartWikiaUrl} from './globals';
 
 /**
  * @returns {void}
@@ -122,6 +122,10 @@ $('.wiw-search-wikia-form').submit((event) => {
 $('.wiw-search-wikia-button').click((event) => {
 	search(false);
 	event.preventDefault();
+});
+
+$('.wiw-start-wikia').click(() => {
+	window.location.href = getStartWikiaUrl();
 });
 
 $('.hero-prev').click(function () {
