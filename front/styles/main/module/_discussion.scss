@@ -76,14 +76,6 @@ body.discussions {
 			line-height: $line-height-smallest;
 			margin: 0;
 		}
-
-		h1.post-title {
-			font-size: $type-smaller;
-		}
-
-		h2.post-title {
-			font-size: $type-smallest;
-		}
 	}
 
 	.post-reply,
@@ -330,12 +322,20 @@ body.discussions {
 
 		.post-detail {
 			margin-bottom: $post-details-post-margin-bottom;
+
+			.post-title {
+				font-size: $type-smallest;
+			}
 		}
 	}
 
 	&.post {
 		.post-detail {
 			margin-top: $theme-bar-height;
+
+			.post-title {
+				font-size: $type-smaller;
+			}
 		}
 	}
 }
