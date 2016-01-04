@@ -1,13 +1,15 @@
-var curatedContentModelClass = mrequire('main/models/curated-content').default;
+import {test, moduleFor} from 'ember-qunit';
 
-moduleFor('model:curated-content', 'CuratedContentModel', {
-	setup: function () {
+const curatedContentModelClass = require('main/models/curated-content').default;
+
+moduleFor('model:curated-content', 'Unit | Model | curated-content', {
+	beforeEach() {
 		Mercury.wiki.articlePath = '/wiki/';
 	}
 });
 
-test('sanitizes sections', function () {
-	deepEqual(curatedContentModelClass.sanitizeItem({
+test('sanitizes sections', function (assert) {
+	assert.deepEqual(curatedContentModelClass.sanitizeItem({
 		title: 'Title',
 		image_url: 'http://vignette/image.jpg',
 		type: 'section'
@@ -18,8 +20,8 @@ test('sanitizes sections', function () {
 	});
 });
 
-test('sanitizes categories', function () {
-	deepEqual(curatedContentModelClass.sanitizeItem({
+test('sanitizes categories', function (assert) {
+	assert.deepEqual(curatedContentModelClass.sanitizeItem({
 		label: 'Title',
 		image_url: 'http://vignette/image.jpg',
 		type: 'category',
@@ -31,7 +33,7 @@ test('sanitizes categories', function () {
 		categoryName: 'CategoryName'
 	});
 
-	deepEqual(curatedContentModelClass.sanitizeItem({
+	assert.deepEqual(curatedContentModelClass.sanitizeItem({
 		title: 'Title',
 		image_url: 'http://vignette/image.jpg',
 		type: 'category',
@@ -44,8 +46,8 @@ test('sanitizes categories', function () {
 	});
 });
 
-test('sanitizes other items', function () {
-	deepEqual(curatedContentModelClass.sanitizeItem({
+test('sanitizes other items', function (assert) {
+	assert.deepEqual(curatedContentModelClass.sanitizeItem({
 		title: 'Title',
 		thumbnail: 'http://vignette/image.jpg',
 		type: 'article',
@@ -57,7 +59,7 @@ test('sanitizes other items', function () {
 		url: '/wiki/Article'
 	});
 
-	deepEqual(curatedContentModelClass.sanitizeItem({
+	assert.deepEqual(curatedContentModelClass.sanitizeItem({
 		title: 'Title',
 		thumbnail: 'http://vignette/image.jpg',
 		ns: 500,
