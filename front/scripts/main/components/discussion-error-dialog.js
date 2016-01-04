@@ -7,7 +7,7 @@ export default Ember.Component.extend(LoginLinkMixin, {
 
 	actions: {
 		/**
-		 * returns {void}
+		 * @returns {void}
 		 */
 		goToLoginPage() {
 			this.goToLogin();
