@@ -15,7 +15,7 @@
     "build": "rm -rf dist && gulp build-common && gulp build-auth && cd front/main && ember build && gulp build-server",
     "build-auth": "rm -rf dist/front && gulp build-common && gulp build-auth",
     "build-common": "rm -rf dist/front/common && gulp build-common",
-    "build-main": "rm -rf dist/front && gulp build-common-for-main && cd front/main && ember build",
+    "build-main": "rm -rf dist/front && gulp build-common && cd front/main && ember build",
     "build-server": "rm -rf dist/server && gulp build-server"
   },
   "repository": "git://github.com/Wikia/mercury.git",
