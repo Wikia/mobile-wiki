@@ -1,8 +1,10 @@
-moduleForComponent('linked-gallery-media', 'LinkedGalleryMediaComponent', {
+import {test, moduleForComponent} from 'ember-qunit';
+
+moduleForComponent('linked-gallery-media', 'Unit | Component | linked gallery media', {
 	unit: true
 });
 
-test('sorts media items correctly', function () {
+test('sorts media items correctly', function (assert) {
 	var mediaMock = [
 			{
 				galleryRef: 1,
@@ -47,5 +49,5 @@ test('sorts media items correctly', function () {
 			media: mediaMock
 		});
 
-	propEqual(componentMock.get('media').sort(componentMock.sortMedia), expectedSortedMedia);
+	assert.propEqual(componentMock.get('media').sort(componentMock.sortMedia), expectedSortedMedia);
 });

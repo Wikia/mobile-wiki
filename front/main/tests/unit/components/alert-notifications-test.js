@@ -1,10 +1,11 @@
-import {test, moduleFor} from 'ember-qunit';
+import Ember from 'ember';
+import {test, moduleForComponent} from 'ember-qunit';
 
-moduleFor('component:alert-notifications', {
+moduleForComponent('alert-notifications', 'Unit | Component | alert notifications', {
 	unit: true
 });
 
-test('Dismissing alert', function () {
+test('Dismissing alert', function (assert) {
 	var alertOne = { type: 'success', message: 'Success message', callbacks: {} },
 		alertTwo = { type: 'error', message: 'Error message', callbacks: {} },
 		component = this.subject({
@@ -16,6 +17,6 @@ test('Dismissing alert', function () {
 
 	Ember.run(function () {
 		component.send('dismissAlert', alertOne);
-		deepEqual(component.get('alerts'), Ember.A([alertTwo]), 'First alert should be removed');
+		assert.deepEqual(component.get('alerts'), Ember.A([alertTwo]), 'First alert should be removed');
 	});
 });

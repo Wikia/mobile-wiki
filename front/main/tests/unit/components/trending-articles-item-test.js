@@ -1,8 +1,10 @@
-moduleForComponent('trending-articles-item', 'TrendingArticlesItemComponent', {
+import {test, moduleForComponent} from 'ember-qunit';
+
+moduleForComponent('trending-articles-item', 'Unit | Component | trending articles item', {
 	unit: true
 });
 
-test('sets proper url for the image', function () {
+test('sets proper url for the image', function (asset) {
 	var componentMock = this.subject(),
 		imageWidth = 250,
 		// 16:9 ratio
@@ -18,13 +20,13 @@ test('sets proper url for the image', function () {
 		return url + '/' + options.mode + '/' + options.width + '/' + options.height;
 	};
 
-	equal(
+	asset.equal(
 		componentMock.get('currentlyRenderedImageUrl'),
 		'http://vignette/image.jpg/top-crop/' + imageWidth + '/' + imageHeight
 	);
 });
 
-test('computes style properly', function () {
+test('computes style properly', function (asset) {
 	var componentMock = this.subject(),
 		viewportWidth = 400,
 		// Viewport minus 20 and then by half
@@ -34,6 +36,6 @@ test('computes style properly', function () {
 
 	componentMock.updateImageSize(viewportWidth);
 
-	equal(componentMock.get('style'), 'width: ' + imageWidth + 'px;');
-	equal(componentMock.get('imageStyle'), 'height: ' + imageHeight + 'px;');
+	asset.equal(componentMock.get('style').toString(), 'width: ' + imageWidth + 'px;');
+	asset.equal(componentMock.get('imageStyle').toString(), 'height: ' + imageHeight + 'px;');
 });

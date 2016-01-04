@@ -1,10 +1,11 @@
-import {test, moduleFor} from 'ember-qunit';
+import Ember from 'ember';
+import {test, moduleForComponent} from 'ember-qunit';
 
-moduleFor('component:article-wrapper', {
+moduleForComponent('article-wrapper', 'Unit | Component | article wrapper', {
 	unit: true
 });
 
-function contributionTestHelper(self, testCase, property) {
+function contributionTestHelper(self, testCase, property, assert) {
 	var section = 3,
 		sectionId = 'myId',
 		title = 'hello world',
@@ -40,11 +41,11 @@ function contributionTestHelper(self, testCase, property) {
 				testCase.disableAnonymousEditing : false
 		};
 
-		equal(component.get(property), testCase.expected);
+		assert.equal(component.get(property), testCase.expected);
 	});
 }
 
-test('shouldHandleMedia returns correct value', function () {
+test('shouldHandleMedia returns correct value', function (assert) {
 	var component = this.subject(),
 		testCases = [
 			{
@@ -80,104 +81,104 @@ test('shouldHandleMedia returns correct value', function () {
 		];
 
 	testCases.forEach(function (testCase) {
-		equal(component.shouldHandleMedia(testCase.target, testCase.tagName), testCase.expected);
+		assert.equal(component.shouldHandleMedia(testCase.target, testCase.tagName), testCase.expected, assert);
 	});
 });
 
-test('contribution disabled on main page', function () {
+test('contribution disabled on main page', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: true,
 		isJapaneseWikia: true,
 		disableMobileSectionEditor: false,
 		expected: false,
-	}, 'contributionEnabled');
+	}, 'contributionEnabled', assert);
 });
 
-test('contribution enabled on Japanese page', function () {
+test('contribution enabled on Japanese page', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: true,
 		disableMobileSectionEditor: false,
 		expected: true
-	}, 'contributionEnabled');
+	}, 'contributionEnabled', assert);
 });
 
-test('contribution disabled when disableMobileSectionEditor is set', function () {
+test('contribution disabled when disableMobileSectionEditor is set', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: true,
 		disableMobileSectionEditor: true,
 		expected: false
-	}, 'contributionEnabled');
+	}, 'contributionEnabled', assert);
 });
 
-test('contribution enabled on non-Japanese page 1', function () {
+test('contribution enabled on non-Japanese page 1', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: false,
 		disableMobileSectionEditor: false,
 		dbName: 'zhclashofclans723',
 		expected: true
-	}, 'contributionEnabled');
+	}, 'contributionEnabled', assert);
 });
 
-test('contribution enabled on non-Japanese page 2', function () {
+test('contribution enabled on non-Japanese page 2', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: false,
 		disableMobileSectionEditor: false,
 		dbName: 'starwars',
 		expected: true
-	}, 'contributionEnabled');
+	}, 'contributionEnabled', assert);
 });
 
-test('add photo icon visible on japanese page', function () {
+test('add photo icon visible on japanese page', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: true,
 		disableMobileSectionEditor: false,
 		expected: true
-	}, 'addPhotoIconVisible');
+	}, 'addPhotoIconVisible', assert);
 });
 
-test('add photo icon not visible on japanese page', function () {
+test('add photo icon not visible on japanese page', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: false,
 		disableMobileSectionEditor: false,
 		expected: false
-	}, 'addPhotoIconVisible');
+	}, 'addPhotoIconVisible', assert);
 });
 
-test('edit icon visible on japanese page', function () {
+test('edit icon visible on japanese page', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: true,
 		disableMobileSectionEditor: false,
 		expected: true
-	}, 'editIconVisible');
+	}, 'editIconVisible', assert);
 });
 
-test('edit icon not visible on japanese page with section editor disabled', function () {
+test('edit icon not visible on japanese page with section editor disabled', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: false,
 		disableMobileSectionEditor: true,
 		expected: false
-	}, 'editIconVisible');
+	}, 'editIconVisible', assert);
 });
 
-test('logged in user can edit', function () {
+test('logged in user can edit', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: true,
 		disableMobileSectionEditor: false,
 		isAuthenticated: true,
 		expected: true
-	}, 'editAllowed');
+	}, 'editAllowed', assert);
 });
 
-test('coppa wiki requires log in', function () {
+test('coppa wiki requires log in', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: true,
@@ -186,10 +187,10 @@ test('coppa wiki requires log in', function () {
 		isCoppaWiki: true,
 		disableAnonymousEditing: false,
 		expected: false
-	}, 'editAllowed');
+	}, 'editAllowed', assert);
 });
 
-test('wiki with disableAnonymousEditing set requires log in', function () {
+test('wiki with disableAnonymousEditing set requires log in', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: true,
@@ -198,25 +199,25 @@ test('wiki with disableAnonymousEditing set requires log in', function () {
 		isCoppaWiki: false,
 		disableAnonymousEditing: true,
 		expected: false
-	}, 'editAllowed');
+	}, 'editAllowed', assert);
 });
 
-test('logged in user can upload photo', function () {
+test('logged in user can upload photo', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: true,
 		disableMobileSectionEditor: false,
 		isAuthenticated: true,
 		expected: true
-	}, 'addPhotoAllowed');
+	}, 'addPhotoAllowed', assert);
 });
 
-test('not logged in user can not upload photo', function () {
+test('not logged in user can not upload photo', function (assert) {
 	contributionTestHelper(this, {
 		isMainPage: false,
 		isJapaneseWikia: true,
 		disableMobileSectionEditor: false,
 		isAuthenticated: false,
 		expected: false
-	}, 'addPhotoAllowed');
+	}, 'addPhotoAllowed', assert);
 });

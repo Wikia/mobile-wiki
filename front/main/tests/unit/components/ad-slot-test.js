@@ -1,10 +1,11 @@
-import {test, moduleFor} from 'ember-qunit';
+import Ember from 'ember';
+import {test, moduleForComponent} from 'ember-qunit';
 
-moduleFor('component:ad-slot', {
+moduleForComponent('ad-slot', 'Unit | Component | ad slot', {
 	unit: true
 });
 
-test('Name lower case', function () {
+test('Name lower case', function (assert) {
 	var component = this.subject(),
 		testCases = [
 			{
@@ -32,12 +33,12 @@ test('Name lower case', function () {
 	Ember.run(function () {
 		testCases.forEach(function(testCase) {
 			component.set('name', testCase.name);
-			equal(component.get('nameLowerCase'), testCase.expected, testCase.description);
+			assert.equal(component.get('nameLowerCase'), testCase.expected, testCase.description);
 		});
 	});
 });
 
-test('behaves correctly depending on noAds value', function () {
+test('behaves correctly depending on noAds value', function (assert) {
 	var component = this.subject(),
 		testCases = [{
 			'properties': {
@@ -93,7 +94,7 @@ test('behaves correctly depending on noAds value', function () {
 		testCases.forEach(function(testCase) {
 			component.setProperties(testCase.properties);
 			component.didInsertElement();
-			equal(require('common/modules/Ads').default.getInstance().adSlots.length, testCase.expectedLength, testCase.message);
+			assert.equal(require('common/modules/Ads').default.getInstance().adSlots.length, testCase.expectedLength, testCase.message);
 		});
 	});
 });

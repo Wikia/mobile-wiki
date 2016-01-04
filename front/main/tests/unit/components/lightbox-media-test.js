@@ -1,12 +1,16 @@
-var model;
+import Ember from 'ember';
+import {test, moduleForComponent} from 'ember-qunit';
+import mediaModel from 'main/models/media';
 
-moduleForComponent('lightbox-media', 'LightboxMediaComponent', {
+var model,
+	track;
+
+moduleForComponent('lightbox-media', 'Unit | Component | lightbox media', {
 	unit: true,
 
-	setup: function () {
-		var mediaModel = mrequire('main/models/media').default;
-
-		M.track = function () {};
+	beforeEach: function () {
+		track = require('common/utils/track').track;
+		require('common/utils/track').track = Ember.K;
 
 		model = {
 			media: mediaModel.create({
@@ -40,10 +44,14 @@ moduleForComponent('lightbox-media', 'LightboxMediaComponent', {
 				]
 			})
 		};
+	},
+
+	afterEach: function () {
+		track = require('common/utils/track').track;
 	}
 });
 
-test('sets correct footer', function () {
+test('sets correct footer', function (assert) {
 	var componentMock = this.subject({
 			model: model
 		}),
@@ -64,15 +72,15 @@ test('sets correct footer', function () {
 
 		componentMock.set('model.mediaRef', 0);
 	});
-	equal(parentMock.footer, 'testcaption');
+	assert.equal(parentMock.footer, 'testcaption');
 
 	Ember.run(function () {
 		componentMock.set('model.mediaRef', 1);
 	});
-	equal(parentMock.footer, 'testcaption1');
+	assert.equal(parentMock.footer, 'testcaption1');
 });
 
-test('sets correct header', function () {
+test('sets correct header', function (assert) {
 	var componentMock = this.subject({
 			model: model
 		}),
@@ -93,21 +101,21 @@ test('sets correct header', function () {
 
 		componentMock.set('model.mediaRef', 0);
 	});
-	equal(parentMock.header, null);
+	assert.equal(parentMock.header, null);
 
 	Ember.run(function () {
 		componentMock.set('model.mediaRef', 1);
 	});
-	equal(parentMock.header, null);
+	assert.equal(parentMock.header, null);
 
 	Ember.run(function () {
 		componentMock.set('model.mediaRef', 2);
 		componentMock.set('model.galleryRef', 0);
 	});
-	equal(parentMock.header, '1 / 2');
+	assert.equal(parentMock.header, '1 / 2');
 });
 
-test('checks if current media is gallery', function () {
+test('checks if current media is gallery', function (assert) {
 	var componentMock = this.subject({
 		model: model
 	});
@@ -118,15 +126,15 @@ test('checks if current media is gallery', function () {
 
 		componentMock.set('model.mediaRef', 1);
 	});
-	equal(componentMock.get('isGallery'), false);
+	assert.equal(componentMock.get('isGallery'), false);
 
 	Ember.run(function () {
 		componentMock.set('model.mediaRef', 2);
 	});
-	equal(componentMock.get('isGallery'), true);
+	assert.equal(componentMock.get('isGallery'), true);
 });
 
-test('returns gallery length', function () {
+test('returns gallery length', function (assert) {
 	var componentMock = this.subject({
 		model: model
 	});
@@ -137,15 +145,15 @@ test('returns gallery length', function () {
 
 		componentMock.set('model.mediaRef', 0);
 	});
-	deepEqual(componentMock.get('galleryLength'), -1);
+	assert.deepEqual(componentMock.get('galleryLength'), -1);
 
 	Ember.run(function () {
 		componentMock.set('model.mediaRef', 2);
 	});
-	deepEqual(componentMock.get('galleryLength'), 2);
+	assert.deepEqual(componentMock.get('galleryLength'), 2);
 });
 
-test('increments / decrements mediaGalleryRef within boundaries', function () {
+test('increments / decrements mediaGalleryRef within boundaries', function (assert) {
 	var componentMock = this.subject({
 		model: model
 	});
@@ -159,20 +167,20 @@ test('increments / decrements mediaGalleryRef within boundaries', function () {
 			'model.galleryRef': 0
 		});
 	});
-	equal(componentMock.get('currentGalleryRef'), 0);
+	assert.equal(componentMock.get('currentGalleryRef'), 0);
 
 	Ember.run(function () {
 		componentMock.nextMedia();
 	});
-	equal(componentMock.get('currentGalleryRef'), 1);
+	assert.equal(componentMock.get('currentGalleryRef'), 1);
 
 	Ember.run(function () {
 		componentMock.nextMedia();
 	});
-	equal(componentMock.get('currentGalleryRef'), 0);
+	assert.equal(componentMock.get('currentGalleryRef'), 0);
 
 	Ember.run(function () {
 		componentMock.prevMedia();
 	});
-	equal(componentMock.get('currentGalleryRef'), 1);
+	assert.equal(componentMock.get('currentGalleryRef'), 1);
 });

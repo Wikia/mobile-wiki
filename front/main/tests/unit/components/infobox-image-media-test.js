@@ -1,20 +1,25 @@
-var originalThumbnailerGetThumbURL = mrequire('mercury/modules/Thumbnailer').default.getThumbURL;
+import Ember from 'ember';
+import {test, moduleForComponent} from 'ember-qunit';
 
-moduleForComponent('infobox-image-media', 'InfoboxImageMediaComponent', {
+var originalThumbnailerGetThumbURL;
+
+moduleForComponent('infobox-image-media', 'Unit | Component | infobox image media', {
 	unit: true,
 
-	setup: function () {
-		mrequire('mercury/modules/Thumbnailer').default.getThumbURL = function (url, options) {
+	beforeEach: function () {
+		originalThumbnailerGetThumbURL = require('common/modules/Thumbnailer').default.getThumbURL;
+
+		require('common/modules/Thumbnailer').default.getThumbURL = function (url, options) {
 			return url + '/' + options.mode + '/' + options.width + '/' + options.height;
-		}
+		};
 	},
 
-	teardown: function () {
-		mrequire('mercury/modules/Thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
+	afterEach: function () {
+		require('common/modules/Thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
 	}
 });
 
-test('computedHeight TALL infobox image 200x1000', function () {
+test('computedHeight TALL infobox image 200x1000', function (assert) {
 	var component = this.subject(),
 			viewportDimensions = {
 				width: 400
@@ -31,11 +36,11 @@ test('computedHeight TALL infobox image 200x1000', function () {
 		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
-		equal(component.get('computedHeight'), expected);
+		assert.equal(component.get('computedHeight'), expected);
 	});
 });
 
-test('computedHeight WIDE infobox image 1000x200', function () {
+test('computedHeight WIDE infobox image 1000x200', function (assert) {
 	var component = this.subject(),
 			viewportDimensions = {
 				width: 400
@@ -52,11 +57,11 @@ test('computedHeight WIDE infobox image 1000x200', function () {
 		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
-		equal(component.get('computedHeight'), expected);
+		assert.equal(component.get('computedHeight'), expected);
 	});
 });
 
-test('computedHeight infobox image 100x100', function () {
+test('computedHeight infobox image 100x100', function (assert) {
 	var component = this.subject(),
 			viewportDimensions = {
 				width: 400
@@ -73,11 +78,11 @@ test('computedHeight infobox image 100x100', function () {
 		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
-		equal(component.get('computedHeight'), expected);
+		assert.equal(component.get('computedHeight'), expected);
 	});
 });
 
-test('get params for request to thumbnailer for the TALL infobox image', function () {
+test('get params for request to thumbnailer for the TALL infobox image', function (assert) {
 	var component = this.subject(),
 		viewportDimensions = {
 			width: 400
@@ -97,11 +102,11 @@ test('get params for request to thumbnailer for the TALL infobox image', functio
 		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
-		equal(component.get('url'), expected);
+		assert.equal(component.get('url'), expected);
 	});
 });
 
-test('get params for request to thumbnailer for the WIDE infobox image', function () {
+test('get params for request to thumbnailer for the WIDE infobox image', function (assert) {
 	var component = this.subject(),
 		viewportDimensions = {
 			width: 400
@@ -121,11 +126,11 @@ test('get params for request to thumbnailer for the WIDE infobox image', functio
 		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
-		equal(component.get('url'), expected);
+		assert.equal(component.get('url'), expected);
 	});
 });
 
-test('get params for request to thumbnailer for the NORMAL infobox image', function () {
+test('get params for request to thumbnailer for the NORMAL infobox image', function (assert) {
 	var component = this.subject(),
 		viewportDimensions = {
 			width: 400
@@ -145,11 +150,11 @@ test('get params for request to thumbnailer for the NORMAL infobox image', funct
 		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
-		equal(component.get('url'), expected);
+		assert.equal(component.get('url'), expected);
 	});
 });
 
-test('get params for request to thumbnailer for the TALL infobox image outside HERO', function () {
+test('get params for request to thumbnailer for the TALL infobox image outside HERO', function (assert) {
 	var component = this.subject(),
 		viewportDimensions = {
 			width: 400
@@ -169,11 +174,11 @@ test('get params for request to thumbnailer for the TALL infobox image outside H
 		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
-		equal(component.get('url'), expected);
+		assert.equal(component.get('url'), expected);
 	});
 });
 
-test('get params for request to thumbnailer for the WIDE infobox image outside HERO', function () {
+test('get params for request to thumbnailer for the WIDE infobox image outside HERO', function (assert) {
 	var component = this.subject(),
 		viewportDimensions = {
 			width: 400
@@ -193,6 +198,6 @@ test('get params for request to thumbnailer for the WIDE infobox image outside H
 		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
 		component.set('viewportDimensions', viewportDimensions);
 
-		equal(component.get('url'), expected);
+		assert.equal(component.get('url'), expected);
 	});
 });

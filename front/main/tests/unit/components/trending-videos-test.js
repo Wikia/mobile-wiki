@@ -1,24 +1,26 @@
+import {test, moduleForComponent} from 'ember-qunit';
+
 var originalMediaModel;
 
-moduleForComponent('trending-videos', 'TrendingVideosComponent', {
+moduleForComponent('trending-videos', 'Unit | Component | trending videos', {
 	unit: true,
 
-	setup: function () {
-		originalMediaModel = mrequire('main/models/media').default;
+	beforeEach: function () {
+		originalMediaModel = require('main/models/media').default;
 
-		mrequire('main/models/media').default = {
+		require('main/models/media').default = {
 			create: function (data) {
 				return data;
 			}
 		};
 	},
 
-	teardown: function () {
-		mrequire('main/models/media').default = originalMediaModel;
+	afterEach: function () {
+		require('main/models/media').default = originalMediaModel;
 	}
 });
 
-test('handles openLightbox action properly', function () {
+test('handles openLightbox action properly', function (assert) {
 	var component = this.subject(),
 		video = {
 			title: 'pretty video'
@@ -29,7 +31,7 @@ test('handles openLightbox action properly', function () {
 
 	component.set('targetObject', {
 		openLightbox: function (type, data) {
-			equal(type, 'media');
+			assert.equal(type, 'media');
 
 			deepEqual(data, {
 				media: {

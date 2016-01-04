@@ -1,11 +1,12 @@
-import {test, moduleFor} from 'ember-qunit';
+import Ember from 'ember';
+import {test, moduleForComponent} from 'ember-qunit';
 
-moduleFor('component:article-comments', {
+moduleForComponent('article-comments', 'Unit | Component | article comments', {
 	unit: true
 });
 
-test('page is set correctly within boundaries and buttons are displayed correctly', function () {
-	expect(18);
+test('page is set correctly within boundaries and buttons are displayed correctly', function (assert) {
+	assert.expect(18);
 	var component = this.subject({
 		scrollToTop: function () {}
 	});
@@ -19,43 +20,43 @@ test('page is set correctly within boundaries and buttons are displayed correctl
 		});
 	});
 
-	equal(component.get('page'), 2);
-	equal(component.get('nextButtonShown'), true);
-	equal(component.get('prevButtonShown'), true);
+	assert.equal(component.get('page'), 2);
+	assert.equal(component.get('nextButtonShown'), true);
+	assert.equal(component.get('prevButtonShown'), true);
 
 	Ember.run(function() {
 		component.send('nextPage');
 	});
-	equal(component.get('page'), 3);
-	equal(component.get('nextButtonShown'), false);
-	equal(component.get('prevButtonShown'), true);
+	assert.equal(component.get('page'), 3);
+	assert.equal(component.get('nextButtonShown'), false);
+	assert.equal(component.get('prevButtonShown'), true);
 
 	Ember.run(function() {
 		component.send('nextPage');
 	});
 
-	equal(component.get('page'), 3);
-	equal(component.get('nextButtonShown'), false);
-	equal(component.get('prevButtonShown'), true);
+	assert.equal(component.get('page'), 3);
+	assert.equal(component.get('nextButtonShown'), false);
+	assert.equal(component.get('prevButtonShown'), true);
 
 	Ember.run(function() {
 		component.send('prevPage');
 	});
-	equal(component.get('page'), 2);
-	equal(component.get('nextButtonShown'), true);
-	equal(component.get('prevButtonShown'), true);
+	assert.equal(component.get('page'), 2);
+	assert.equal(component.get('nextButtonShown'), true);
+	assert.equal(component.get('prevButtonShown'), true);
 
 	Ember.run(function() {
 		component.send('prevPage');
 	});
-	equal(component.get('page'), 1);
-	equal(component.get('nextButtonShown'), true);
-	equal(component.get('prevButtonShown'), false);
+	assert.equal(component.get('page'), 1);
+	assert.equal(component.get('nextButtonShown'), true);
+	assert.equal(component.get('prevButtonShown'), false);
 
 	Ember.run(function() {
 		component.send('prevPage');
 	});
-	equal(component.get('page'), 1);
-	equal(component.get('nextButtonShown'), true);
-	equal(component.get('prevButtonShown'), false);
+	assert.equal(component.get('page'), 1);
+	assert.equal(component.get('nextButtonShown'), true);
+	assert.equal(component.get('prevButtonShown'), false);
 });

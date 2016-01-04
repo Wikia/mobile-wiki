@@ -1,11 +1,11 @@
-import {test, moduleFor} from 'ember-qunit';
+import {test, moduleForComponent} from 'ember-qunit';
 
-moduleFor('component:article-comment', {
+moduleForComponent('article-comment', 'Unit | Component | article comment', {
 	unit: true
 });
 
-test('users is correctly fetched', function () {
-	expect(2);
+test('users is correctly fetched', function (assert) {
+	assert.expect(2);
 	var component = this.subject();
 
 	component.setProperties({
@@ -13,12 +13,12 @@ test('users is correctly fetched', function () {
 		comment: {userName: 'test'}
 	});
 
-	equal(component.get('user'), 'test');
+	assert.equal(component.get('user'), 'test');
 
 	component.setProperties({
 		users: {test: 'test'},
 		comment: {userName: 'nope'}
 	});
 
-	deepEqual(component.get('user'), {});
+	assert.deepEqual(component.get('user'), {});
 });

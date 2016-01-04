@@ -1,8 +1,10 @@
-moduleForComponent('trending-videos-item', 'TrendingVideosItemComponent', {
+import {test, moduleForComponent} from 'ember-qunit';
+
+moduleForComponent('trending-videos-item', 'Unit | Component | trending videos item', {
 	unit: true
 });
 
-test('computes thumb url properly', function () {
+test('computes thumb url properly', function (assert) {
 	var componentMock = this.subject(),
 		imageWidth = 250,
 		// 16:9 ratio
@@ -20,10 +22,10 @@ test('computes thumb url properly', function () {
 		}
 	});
 
-	equal(componentMock.get('thumbUrl'), 'http://vignette/image.jpg/top-crop/' + imageWidth + '/' + imageHeight);
+	assert.equal(componentMock.get('thumbUrl'), 'http://vignette/image.jpg/top-crop/' + imageWidth + '/' + imageHeight);
 });
 
-test('computes image style properly', function () {
+test('computes image style properly', function (assert) {
 	var componentMock = this.subject(),
 		viewportWidth = 400,
 		// Viewport width minus 10 and then calculate 16:9 ratio
@@ -31,5 +33,5 @@ test('computes image style properly', function () {
 
 	componentMock.updateImageSize(viewportWidth);
 
-	equal(componentMock.get('imageStyle'), 'height: ' + imageHeight + 'px;');
+	assert.equal(componentMock.get('imageStyle').toString(), 'height: ' + imageHeight + 'px;');
 });
