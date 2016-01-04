@@ -25,6 +25,7 @@ config/localSettings.js
 
 # coverage
 test/coverage
+coverage/
 
 # fixtures
 test/fixtures

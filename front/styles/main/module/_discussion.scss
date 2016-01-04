@@ -245,7 +245,6 @@ body.discussions {
 
 	.post-detail {
 		background-color: $discussion-desktop-post-detail-bg-color;
-		margin-bottom: $post-details-post-margin-bottom;
 		padding: 12px $horizontal-padding;
 		transition: opacity 1s;
 
@@ -315,6 +314,10 @@ body.discussions {
 			// Constrains content on the forum post list to 3 lines and + 0.3rem for the padding
 			max-height: $line-height-smallest * 3 + .3rem;
 		}
+
+		.post-detail {
+			margin-bottom: $post-details-post-margin-bottom;
+		}
 	}
 
 	&.post {
@@ -338,7 +341,6 @@ body.discussions {
 				background-color: $discussion-desktop-post-detail-bg-color;
 				border-top-color: $discussion-post-detail-border-color;
 				border-width: 0;
-				margin-bottom: 5px;
 				padding: 20px 30px;
 			}
 		}
