@@ -2,7 +2,10 @@
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function (defaults) {
-  var app = new EmberApp(defaults, {
+	var app = new EmberApp(defaults, {
+		"ember-cli-qunit": {
+			useLintTree: false
+		},
 		inlineContent: {
 			baseline: 'vendor/baseline.js',
 			'wikia-logo': '../common/public/symbols/wikia-logo-blue.svg'
@@ -37,7 +40,6 @@ module.exports = function (defaults) {
 				}
 			}
 		},
-		hinting: false,
 		derequire: {
 			patterns: [
 				{
