@@ -2,7 +2,7 @@
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function (defaults) {
-	var app = new EmberApp(defaults, {
+  var app = new EmberApp(defaults, {
 		inlineContent: {
 			baseline: 'vendor/baseline.js',
 			'wikia-logo': '../common/public/symbols/wikia-logo-blue.svg'
