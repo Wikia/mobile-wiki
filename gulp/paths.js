@@ -1,40 +1,43 @@
-/*
- * Path list for tasks
- */
 var path = require('path'),
 	output = 'dist',
-	serverOutput = output + '/server',
-	frontOutput = output + '/front',
-	mainSource = 'front/main',
+	outputFront = output + '/front',
+	outputServer = output + '/server',
+	hbsPattern = '**/*.hbs',
 	jsPattern = '**/*.js';
 
 module.exports = {
 	base: output,
 	baseFull: path.resolve(output),
-	baseFullServer: path.resolve(serverOutput),
-	baseFullFront: path.resolve(frontOutput),
+	baseFullServer: path.resolve(outputServer),
+	baseFullFront: path.resolve(outputFront),
 	jsPattern: jsPattern,
 
 	auth: {
 		scripts: {
 			base: './front/auth',
 			src: 'front/auth/app/' + jsPattern,
-			dest: frontOutput + '/auth'
-		}
+			dest: outputFront + '/auth'
+		},
+		styles: {
+			src: 'front/auth/app/styles',
+			partials: '_*.scss',
+			compile: '*.scss'
+		},
+		vendor: {
+			src: 'front/auth/bower_components/**/*',
+			dest: outputFront + '/auth/bower_components'
+		},
+		views: {
+			src: 'front/auth/views/' + hbsPattern,
+			index: 'front/auth/views/_layouts/auth.hbs',
+		},
 	},
 	common: {
-		dest: frontOutput + '/common',
-		destMain: mainSource + '/vendor',
-		public: {
-			src: 'front/common/public/**/*',
-		},
-		scripts: {
-			src: 'front/common',
+		src: 'front/common',
+		dest: outputFront + '/common',
+		main: {
+			dest: 'front/main/vendor',
 		}
-	},
-	images: {
-		src: ['front/svg/images/*', 'front/images/*'],
-		dest: output + '/front/images'
 	},
 	server: {
 		config: {
@@ -45,7 +48,7 @@ module.exports = {
 		},
 		nodeModules: {
 			src: 'node_modules',
-			dest: serverOutput + '/node_modules'
+			dest: outputServer + '/node_modules'
 		},
 		script: output + '/server/server.js',
 		scripts: {
@@ -54,14 +57,21 @@ module.exports = {
 			dest: output
 		},
 		views: {
-			src: 'server/app/views/**/*.hbs',
-			dest: serverOutput + '/app/views',
-			mainIndex: {
-				src: frontOutput + '/main/index.html',
-				dest: serverOutput + '/app/views/_layouts',
+			src: 'server/app/views/' + hbsPattern,
+			dest: outputServer + '/app/views',
+			auth: {
+				src: outputFront + '/auth/views/' + hbsPattern
+			},
+			main: {
+				src: outputFront + '/main/index.html',
+				dest: outputServer + '/app/views/_layouts',
 				outputFilename: 'ember-main.hbs'
 			}
 		},
+	},
+	images: {
+		src: ['front/svg/images/*', 'front/images/*'],
+		dest: output + '/front/images'
 	},
 	styles: {
 		src: 'front/styles',

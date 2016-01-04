@@ -4,7 +4,7 @@ import localSettings from '../../config/localSettings';
 import showApplication from './showApplication';
 
 /**
- * Renders either discussions or splash page depending on the config
+ * Renders discussions page
  *
  * @param {Hapi.Request} request
  * @param {*} reply
