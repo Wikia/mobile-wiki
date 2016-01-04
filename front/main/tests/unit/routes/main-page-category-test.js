@@ -1,19 +1,23 @@
-var originalM;
+import Ember from 'ember';
+import {test, moduleFor} from 'ember-qunit';
 
-moduleFor('route:MainPageCategory', 'MainPageCategoryRoute', {
-	setup: function () {
+let originalM;
+
+moduleFor('route:MainPageCategory', 'Unit | Route | main-page-category', {
+	beforeEach() {
 		originalM = M;
 	},
-	teardown: function () {
+	afterEach() {
 		M = originalM;
 	}
 });
 
-test('sets controller properties', function () {
-	var routeMock = this.subject(),
+test('sets controller properties', function (assert) {
+	const routeMock = this.subject(),
 		title = '~`!@#$%^&*() +-={}[]\|;:\'"<>?,./',
 		encodedTitle = '~%60!%40%23%24%25%5E%26*()%20%2B-%3D%7B%7D%5B%5D%7C%3B%3A\'%22%3C%3E%3F%2C.%2F',
-		doubleEncodedTitle = '~%2560!%2540%2523%2524%2525%255E%2526*()%2520%252B-%253D%257B%257D%255B%255D%257C%253B%253A\'%2522%253C%253E%253F%252C.%252F',
+		doubleEncodedTitle = '~%2560!%2540%2523%2524%2525%255E%2526*()%2520%252B-' +
+			'%253D%257B%257D%255B%255D%257C%253B%253A\'%2522%253C%253E%253F%252C.%252F',
 		modelWithEncodedTitle = Ember.Object.create({
 			title: encodedTitle
 		}),
@@ -34,7 +38,7 @@ test('sets controller properties', function () {
 			}
 		},
 		String: {
-			normalizeToWhitespace: function (str) {
+			normalizeToWhitespace(str) {
 				return str
 					.replace(/_/g, ' ')
 					.replace(/\s+/g, ' ');
@@ -45,26 +49,26 @@ test('sets controller properties', function () {
 	// Single encoded title - user goes straight to the page by URL and Ember does decodeURI automatically
 	routeMock.controllerFor = function () {
 		return {
-			setProperties: function (data) {
-				equal(data.isRoot, false);
-				equal(data.title, title);
-				deepEqual(data.adsContext, adsContext);
-				equal(data.ns, ns);
+			setProperties(data) {
+				assert.equal(data.isRoot, false);
+				assert.equal(data.title, title);
+				assert.deepEqual(data.adsContext, adsContext);
+				assert.equal(data.ns, ns);
 			}
-		}
+		};
 	};
 	routeMock.afterModel(modelWithEncodedTitle);
 
 	// Double encoded title - user goes to the page from link (transition) and Ember doesn't do decodeURI
 	routeMock.controllerFor = function () {
 		return {
-			setProperties: function (data) {
-				equal(data.isRoot, false);
-				equal(data.title, title);
-				deepEqual(data.adsContext, adsContext);
-				equal(data.ns, ns);
+			setProperties(data) {
+				assert.equal(data.isRoot, false);
+				assert.equal(data.title, title);
+				assert.deepEqual(data.adsContext, adsContext);
+				assert.equal(data.ns, ns);
 			}
-		}
+		};
 	};
 	routeMock.afterModel(modelWithDoubleEncodedTitle);
 });
