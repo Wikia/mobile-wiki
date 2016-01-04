@@ -60,7 +60,10 @@ gulp.task('build-common-symbols', function () {
 /*
  * Copy baseline.js and common.js to /front/main/vendor/
  */
-gulp.task('build-common-for-main', function () {
+gulp.task('build-common-for-main', [
+	'build-common-scripts-baseline',
+	'build-common-scripts-modules-utils'
+], function () {
 	var src = [
 		pathsCommon.dest + '/baseline.js',
 		pathsCommon.dest + '/common.js'
