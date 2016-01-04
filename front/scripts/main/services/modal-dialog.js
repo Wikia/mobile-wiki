@@ -3,7 +3,7 @@ export default Ember.Service.extend(Ember.Evented, {
 	message: null,
 
 	/**
-	 * @param message
+	 * @param {string} message
 	 * @returns {void}
 	 */
 	display(message) {
