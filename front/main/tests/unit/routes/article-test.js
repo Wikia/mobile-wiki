@@ -23,7 +23,7 @@ test('sets correct title tag', function (assert) {
 		model = Ember.Object.create({
 			cleanTitle: 'Article title'
 		});
-	console.log(window.Mercury, 'aoestmoeaiesamiosemt')
+
 	Mercury.wiki.htmlTitleTemplate = '$1 - Test';
 	route.updateTitleTag(model);
 	assert.equal(document.title, 'Article title - Test');
