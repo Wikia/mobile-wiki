@@ -68,11 +68,9 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		onInfoboxClick(event) {
-			const collapsed = this.get('collapsed'),
-				clickableElements = this.get('clickableElements'),
-				$target = $(event.target);
+			const collapsed = this.get('collapsed');
 
-			if ($.inArray($target, clickableElements)) {
+			if (!this.shouldHandleCollapsing($(event.target))) {
 				return;
 			}
 
@@ -86,6 +84,21 @@ export default Ember.Component.extend(
 				this.set('collapsed', false);
 				this.$().height('auto');
 			}
+		},
+
+		/**
+		 * If element is one of clickableElements, collapsing of infobox should not be handled.
+		 * As this element has it's own action, not connected to collapsing/uncollapsing infobox.
+		 *
+		 * @param {JQuery} $target
+		 * @returns {bool}
+		 */
+		shouldHandleCollapsing($target) {
+			const clickableElements = this.get('clickableElements');
+
+			return !clickableElements.some((element) => {
+				return $target.is(element);
+			});
 		},
 
 		/**
