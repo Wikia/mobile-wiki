@@ -21,10 +21,6 @@ module.exports = function (defaults) {
 				{
 					sourceDirs: 'app/symbols/discussions',
 					outputFile: '/assets/discussions.svg'
-				},
-				{
-					sourceDirs: '../common/symbols',
-					outputFile: '/assets/common.svg'
 				}
 			]
 		},

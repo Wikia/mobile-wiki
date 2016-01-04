@@ -14,7 +14,6 @@ var concat = require('gulp-concat'),
 	sassOptions = require('../../gulp/options').sass,
 	compile = require('../../gulp/utils/compile-es6-modules'),
 	environment = require('../../gulp/utils/environment'),
-	flip = require('../../gulp/utils/flip'),
 	piper = require('../../gulp/utils/piper');
 
 gulp.task('build-auth-scripts', function (done) {
@@ -43,8 +42,7 @@ gulp.task('build-auth-styles', function () {
 			cascade: false,
 			map: false
 		}),
-		flip(),
-		gulp.dest(paths.base)
+		gulp.dest(pathsStyles.dest)
 	);
 });
 
@@ -71,11 +69,18 @@ function concatenateAndMinifyAssets() {
 		userefAssets.restore(),
 		useref(),
 		// substitute new filenames
-		revReplace()
+		revReplace({
+			// additionaly use rev manifests created in previous tasks
+			manifest: gulp.src(paths.common.revManifest)
+		})
 	);
 }
 
-gulp.task('build-auth-views', ['build-auth-vendor', 'build-auth-views-copy'], function () {
+gulp.task('build-auth-views', [
+	'build-auth-vendor',
+	'build-auth-views-copy',
+	'build-auth-styles'
+], function () {
 	return piper(
 		gulp.src(paths.auth.views.index, {
 			base: process.cwd()

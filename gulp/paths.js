@@ -16,10 +16,11 @@ module.exports = {
 		scripts: {
 			base: './front/auth',
 			src: 'front/auth/app/' + jsPattern,
-			dest: outputFront + '/auth'
+			dest: outputFront + '/auth/assets'
 		},
 		styles: {
 			src: 'front/auth/app/styles',
+			dest: outputFront + '/auth/assets',
 			partials: '_*.scss',
 			compile: '*.scss'
 		},
@@ -37,7 +38,8 @@ module.exports = {
 		dest: outputFront + '/common',
 		main: {
 			dest: 'front/main/vendor',
-		}
+		},
+		revManifest: outputFront + '/common/rev-manifest.json'
 	},
 	server: {
 		config: {

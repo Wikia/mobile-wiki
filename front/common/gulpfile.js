@@ -1,5 +1,12 @@
-var gulp = require('gulp'),
+var filter = require('gulp-filter'),
+	gulp = require('gulp'),
+	gulpif = require('gulp-if'),
+	rename = require('gulp-rename'),
+	rev = require('gulp-rev'),
+	svgSymbols = require('gulp-svg-symbols'),
 	compile = require('../../gulp/utils/compile-es6-modules'),
+	environment = require('../../gulp/utils/environment'),
+	piper = require('../../gulp/utils/piper'),
 	paths = require('../../gulp/paths'),
 	pathsCommon = paths.common;
 
@@ -33,6 +40,24 @@ gulp.task('build-common-public', function () {
 });
 
 /*
+ * Build svg symbols
+ */
+gulp.task('build-common-symbols', function () {
+	return piper(
+		gulp.src(pathsCommon.src + '/public/symbols/*.svg'),
+		svgSymbols(),
+		filter('**/*.svg'),
+		rename('symbols.svg'),
+		gulpif(environment.isProduction, piper(
+			rev(),
+			gulp.dest(pathsCommon.dest),
+			rev.manifest('rev-manifest.json')
+		)),
+		gulp.dest(pathsCommon.dest)
+	);
+});
+
+/*
  * Copy baseline.js and common.js to /front/main/vendor/
  */
 gulp.task('build-common-for-main', function () {
@@ -49,5 +74,6 @@ gulp.task('build-common', [
 	'build-common-scripts-baseline',
 	'build-common-scripts-modules-utils',
 	'build-common-public',
+	'build-common-symbols',
 	'build-common-for-main'
 ]);
