@@ -1,9 +1,9 @@
 export default Ember.Component.extend({
-	classNames: ['modal-dialog-wrapper'],
 	classNameBindings: ['type'],
-	type: 'info',
+	classNames: ['modal-dialog-wrapper'],
 	isVisible: false,
 	modalDialogService: Ember.inject.service('modal-dialog'),
+	type: 'info',
 
 	actions: {
 		/**

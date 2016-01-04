@@ -1,8 +1,9 @@
 export default Ember.Service.extend({
 	isAnon: true,
-	modalDialogService: Ember.inject.service('modal-dialog'),
 	isEditorOpen: false,
 	isUserBlocked: false,
+
+	modalDialogService: Ember.inject.service('modal-dialog'),
 
 	/**
 	 * Renders a message to display to an anon
