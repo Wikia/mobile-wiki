@@ -20,22 +20,20 @@
 		}
 
 		footer {
-			border-top: 1px solid #e6e6e6;
+			border-top: 1px solid $discussion-error-dialog-separator-color;
 			display: flex;
 			height: 60px;
 			justify-content: flex-end;
 			padding: 6px;
 
-			a,
 			button {
-				background-color: $color-white;
+				background-color: $discussion-error-dialog-button-background-color;
 				border: none;
-				color: #4a90e2;
+				color: $discussion-error-dialog-button-text-color;
 				height: 48px;
-				margin-left: 6px;
 
 				&:hover {
-					background-color: #f6f6f6;
+					background-color: $discussion-error-dialog-button-hover-background-color;
 				}
 			}
 		}
