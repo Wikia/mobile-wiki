@@ -1,3 +1,5 @@
+import ajaxCall from '../utils/ajax-call';
+
 /**
  * Handles posts upvoting.
  * If the post was upvoted already, the upvote is removed.
@@ -24,13 +26,9 @@ export default Ember.Mixin.create({
 			// the change in the front-end is done here
 			Ember.set(post._embedded.userData[0], 'hasUpvoted', !hasUpvoted);
 
-			Ember.$.ajax({
+			ajaxCall({
 				method,
 				url: M.getDiscussionServiceUrl(`/${Ember.get(post, 'siteId')}/votes/post/${Ember.get(post, 'id')}`),
-				dataType: 'json',
-				xhrFields: {
-					withCredentials: true,
-				},
 				success: (data) => {
 					Ember.set(post, 'upvoteCount', data.upvoteCount);
 				},

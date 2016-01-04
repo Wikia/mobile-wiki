@@ -24,6 +24,9 @@ export function initialize() {
 			window.location.pathname === '/'
 		) {
 			return 'home';
+		} else if (window.location.pathname.indexOf('/d/') === 0) {
+			// Discussion pages
+			return 'discussions';
 		}
 
 		return 'article';
