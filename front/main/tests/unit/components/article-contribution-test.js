@@ -1,4 +1,5 @@
 import {test, moduleFor} from 'ember-qunit';
+import sinon from 'sinon';
 
 var track;
 

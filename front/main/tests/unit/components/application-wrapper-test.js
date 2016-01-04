@@ -21,7 +21,9 @@ test('shouldHandleClick returns correct value', function () {
 			}
 		];
 
-	testCases.forEach(function(testCase) {
-		equal(component.shouldHandleClick(testCase.target), testCase.expected);
+	Ember.run(function () {
+		testCases.forEach(function(testCase) {
+			equal(component.shouldHandleClick(testCase.target), testCase.expected);
+		});
 	});
 });
