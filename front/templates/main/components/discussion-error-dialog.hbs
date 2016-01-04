@@ -1,11 +1,13 @@
-{{#modal-dialog
-	isVisible = isVisible
-}}
-	<div class="modal-dialog-content">{{i18n errorMessage ns='discussion'}}</div>
-	<footer>
-		{{#unless currentUser.isAuthenticated}}
-			<button {{action 'goToLoginPage'}}>{{i18n 'main.modal-dialog-log-in' ns='discussion'}}</button>
-		{{/unless}}
-		<button {{action 'close'}}>{{i18n 'main.modal-dialog-confirm' ns='discussion'}}</button>
-	</footer>
-{{/modal-dialog}}
+{{#if isVisible}}
+	{{#modal-dialog
+		isVisible = isVisible
+	}}
+		<div class="modal-dialog-content">{{i18n errorMessage ns='discussion'}}</div>
+		<footer>
+			{{#unless currentUser.isAuthenticated}}
+				<button {{action 'goToLoginPage'}}>{{i18n 'main.modal-dialog-log-in' ns='discussion'}}</button>
+			{{/unless}}
+			<button {{action 'close'}}>{{i18n 'main.modal-dialog-confirm' ns='discussion'}}</button>
+		</footer>
+	{{/modal-dialog}}
+{{/if}}
