@@ -8,6 +8,7 @@ $discussion-error-dialog-content-line-height: 24px;
 	}
 
 	.modal-dialog {
+		color: $discussion-error-dialog-text-color;
 		max-width: 640px;
 		padding: 0;
 
@@ -31,9 +32,8 @@ $discussion-error-dialog-content-line-height: 24px;
 			padding: 6px;
 
 			button {
-				background-color: $discussion-error-dialog-button-background-color;
+				background-color: $discussion-error-dialog-background-color;
 				border: none;
-				color: $discussion-error-dialog-button-text-color;
 				height: 48px;
 
 				&:hover {

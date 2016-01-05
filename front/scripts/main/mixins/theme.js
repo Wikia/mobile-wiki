@@ -23,7 +23,7 @@ export default Ember.Mixin.create(ColorUtilsMixin, {
 
 		this.applyThemeColorStyles();
 
-		if (Ember.get(Mercury, 'wiki.isDarkTheme')) {
+		if (true) {
 			this.set('themeActivated', 'dark');
 			Ember.$('body').addClass(this.themeSettings.dark.class);
 		}

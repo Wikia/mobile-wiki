@@ -243,6 +243,25 @@ body.dark-theme {
 			}
 		}
 	}
+
+	.discussion-error-dialog {
+		.modal-dialog {
+			background-color: $dark-discussion-error-dialog-background-color;
+			color: $dark-discussion-error-dialog-text-color;
+
+			footer {
+				border-top-color: $dark-discussion-error-dialog-separator-color;
+
+				button {
+					background-color: $dark-discussion-error-dialog-background-color;
+
+					&:hover {
+						background-color: $dark-discussion-error-dialog-button-hover-background-color;
+					}
+				}
+			}
+		}
+	}
 }
 
 @media #{$desktop-range} {
