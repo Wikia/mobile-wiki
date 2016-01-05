@@ -34,12 +34,21 @@
 
     <script src="testem.js" integrity=""></script>
     <script src="assets/vendor.js"></script>
+    <script>
+      /**
+       * This is required as tests do use define/require
+       * so to simplify build step both are available in tests files
+       * import/export though is a recommended way to consume dependencies
+       */
+      window.define = window.define || window.mefine;
+      window.require = window.require || window.mequire;
+    </script>
     <script src="assets/test-support.js"></script>
     <script src="assets/main.js"></script>
     <script src="assets/tests.js"></script>
     <script src="assets/test-loader.js"></script>
 
     {{content-for "body-footer"}}
-    {{content-for "test-body-footer"}}
+    {{content-pafor "test-body-footer"}}
   </body>
 </html>
