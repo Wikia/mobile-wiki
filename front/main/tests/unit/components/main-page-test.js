@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 import sinon from 'sinon';
 
@@ -26,18 +27,19 @@ test('reacts on curated content change', function (asset) {
 			valid: true
 		},
 		injectMainPageAdsSpy = sinon.spy(),
-		setupAdsContextSpy = sinon.spy(),
-		component = this.subject();
+		setupAdsContextSpy = sinon.spy();
 
-	component.setProperties({
-		attrs: {
-			adsContext,
-			curatedContent: {}
-		}
+	Ember.run(() => {
+		const component = this.subject({
+			attrs: {
+				adsContext,
+				curatedContent: {}
+			}
+		});
+
+		component.injectMainPageAds = injectMainPageAdsSpy;
+		component.setupAdsContext = setupAdsContextSpy;
 	});
-
-	component.injectMainPageAds = injectMainPageAdsSpy;
-	component.setupAdsContext = setupAdsContextSpy;
 
 	asset.ok(injectMainPageAdsSpy.calledOnce);
 	asset.ok(setupAdsContextSpy.calledOnce);
