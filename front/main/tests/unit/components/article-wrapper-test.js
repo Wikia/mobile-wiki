@@ -1,22 +1,17 @@
 import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
-moduleForComponent('article-wrapper', 'Unit | Component | article wrapper', {
-	unit: true
-});
-
 function contributionTestHelper(self, testCase, property, assert) {
-	var section = 3,
+	const section = 3,
 		sectionId = 'myId',
-		title = 'hello world',
-		component = null;
+		title = 'hello world';
 
-	Ember.run(function () {
-		component = self.subject({
+	Ember.run(() => {
+		const component = self.subject({
 			attrs: {
-				section: section,
-				sectionId: sectionId,
-				title: title,
+				section,
+				sectionId,
+				title,
 				uploadFeatureEnabled: testCase.uploadFeatureEnabled,
 				isJapaneseWikia: testCase.isJapaneseWikia,
 				model: {
@@ -24,7 +19,7 @@ function contributionTestHelper(self, testCase, property, assert) {
 				},
 				currentUser: {
 					isAuthenticated: testCase.hasOwnProperty('isAuthenticated') ?
-						testCase.isAuthenticated : 'false',
+						testCase.isAuthenticated : 'false'
 				}
 			}
 		});
@@ -45,43 +40,50 @@ function contributionTestHelper(self, testCase, property, assert) {
 	});
 }
 
-test('shouldHandleMedia returns correct value', function (assert) {
-	var component = this.subject(),
-		testCases = [
-			{
-				tagName: 'img',
-				target: {},
-				expected: true
-			},
-			{
-				tagName: 'figure',
-				target: {},
-				expected: true
-			},
-			{
-				tagName: 'picture',
-				target: {},
-				expected: false
-			},
-			{
-				tagName: 'picture',
-				target: '<picture><a></a></picture>',
-				expected: false
-			},
-			{
-				tagName: 'figure',
-				target: '<figure><a href="http://www.wikia.com">Wikia</a></figure>',
-				expected: false
-			},
-			{
-				tagName: 'figure',
-				target: '<figure><figcaption><a href="http://www.wikia.com">Wikia</a></figcaption></figure>',
-				expected: true
-			}
-		];
+moduleForComponent('article-wrapper', 'Unit | Component | article wrapper', {
+	unit: true
+});
 
-	testCases.forEach(function (testCase) {
-		assert.equal(component.shouldHandleMedia(testCase.target, testCase.tagName), testCase.expected, assert);
+test('shouldHandleMedia returns correct value', function (assert) {
+	const testCases = [
+		{
+			tagName: 'img',
+			target: {},
+			expected: true
+		},
+		{
+			tagName: 'figure',
+			target: {},
+			expected: true
+		},
+		{
+			tagName: 'picture',
+			target: {},
+			expected: false
+		},
+		{
+			tagName: 'picture',
+			target: '<picture><a></a></picture>',
+			expected: false
+		},
+		{
+			tagName: 'figure',
+			target: '<figure><a href="http://www.wikia.com">Wikia</a></figure>',
+			expected: false
+		},
+		{
+			tagName: 'figure',
+			target: '<figure><figcaption><a href="http://www.wikia.com">Wikia</a></figcaption></figure>',
+			expected: true
+		}
+	];
+
+	testCases.forEach((testCase) => {
+		Ember.run(() => {
+			const component = this.subject();
+
+			assert.equal(component.shouldHandleMedia(testCase.target, testCase.tagName), testCase.expected, assert);
+		});
 	});
 });
 

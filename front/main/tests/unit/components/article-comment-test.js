@@ -5,19 +5,28 @@ moduleForComponent('article-comment', 'Unit | Component | article comment', {
 });
 
 test('users is correctly fetched', function (assert) {
+	const component = this.subject();
+
 	assert.expect(2);
-	var component = this.subject();
 
 	component.setProperties({
-		users: {test: 'test'},
-		comment: {userName: 'test'}
+		users: {
+			test: 'test'
+		},
+		comment: {
+			userName: 'test'
+		}
 	});
 
 	assert.equal(component.get('user'), 'test');
 
 	component.setProperties({
-		users: {test: 'test'},
-		comment: {userName: 'nope'}
+		users: {
+			test: 'test'
+		},
+		comment: {
+			userName: 'nope'
+		}
 	});
 
 	assert.deepEqual(component.get('user'), {});

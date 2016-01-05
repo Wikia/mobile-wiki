@@ -6,24 +6,25 @@ moduleForComponent('application-wrapper', 'Unit | Component | application wrappe
 });
 
 test('shouldHandleClick returns correct value', function (assert) {
-	var component = this.subject(),
-		testCases = [
-			{
-				target: '<li class="mw-content"></li>',
-				expected: true
-			},
-			{
-				target: '<li></li>',
-				expected: false
-			},
-			{
-				target: '<div class="PDS_Poll"></div>',
-				expected: false
-			}
-		];
+	const testCases = [
+		{
+			target: '<li class="mw-content"></li>',
+			expected: true
+		},
+		{
+			target: '<li></li>',
+			expected: false
+		},
+		{
+			target: '<div class="PDS_Poll"></div>',
+			expected: false
+		}
+	];
 
-	Ember.run(function () {
-		testCases.forEach(function(testCase) {
+	testCases.forEach((testCase) => {
+		Ember.run(() => {
+			const component = this.subject();
+
 			assert.equal(component.shouldHandleClick(testCase.target), testCase.expected);
 		});
 	});

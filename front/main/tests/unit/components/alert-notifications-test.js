@@ -6,16 +6,25 @@ moduleForComponent('alert-notifications', 'Unit | Component | alert notification
 });
 
 test('Dismissing alert', function (assert) {
-	var alertOne = { type: 'success', message: 'Success message', callbacks: {} },
-		alertTwo = { type: 'error', message: 'Error message', callbacks: {} },
-		component = this.subject({
+	const alertOne = {
+			type: 'success',
+			message: 'Success message',
+			callbacks: {}
+		},
+		alertTwo = {
+			type: 'error',
+			message: 'Error message',
+			callbacks: {}
+		};
+
+	Ember.run(() => {
+		const component = this.subject({
 			alerts: Ember.A([
 				alertOne,
 				alertTwo
 			])
 		});
 
-	Ember.run(function () {
 		component.send('dismissAlert', alertOne);
 		assert.deepEqual(component.get('alerts'), Ember.A([alertTwo]), 'First alert should be removed');
 	});

@@ -6,16 +6,20 @@ moduleForComponent('collapsible-menu', 'Unit | Component | collapsible menu', {
 });
 
 test('Beginning state', function (assert) {
-	var component = this.subject();
+	const component = this.subject();
+
 	assert.equal(component.isCollapsed, true, 'component should start collapsed');
 });
 
 test('Calling toggleMenu to expand and then collapse', function (assert) {
 	assert.expect(2);
-	var component = this.subject();
-	Ember.run(function () {
+
+	Ember.run(() => {
+		const component = this.subject();
+
 		component.send('toggleMenu');
 		assert.equal(component.isCollapsed, false, 'component should then be expanded');
+
 		component.send('toggleMenu');
 		assert.equal(component.isCollapsed, true, 'it should flip back to collapsed');
 	});

@@ -6,41 +6,55 @@ moduleForComponent('curated-content-item', 'Unit | Component | curated content i
 });
 
 test('returns correct icon name', function (assert) {
-	var componentMock = this.subject();
+	const componentMock = this.subject();
 
-	Ember.run(function () {
+	assert.expect(7);
+
+	Ember.run(() => {
 		componentMock.set('type', 'category');
 		assert.equal(componentMock.get('icon'), 'namespace-category');
+	});
 
+	Ember.run(() => {
 		componentMock.set('type', 'section');
 		assert.equal(componentMock.get('icon'), 'namespace-category');
+	});
 
+	Ember.run(() => {
 		componentMock.set('type', 'video');
 		assert.equal(componentMock.get('icon'), 'namespace-video');
+	});
 
+	Ember.run(() => {
 		componentMock.set('type', 'image');
 		assert.equal(componentMock.get('icon'), 'namespace-image');
+	});
 
+	Ember.run(() => {
 		componentMock.set('type', 'blog');
 		assert.equal(componentMock.get('icon'), 'namespace-blog');
+	});
 
+	Ember.run(() => {
 		componentMock.set('type', 'article');
 		assert.equal(componentMock.get('icon'), 'namespace-article');
+	});
 
+	Ember.run(() => {
 		componentMock.set('type', 'whatever');
 		assert.equal(componentMock.get('icon'), 'namespace-article');
 	});
 });
 
 test('computes image style properly', function (assert) {
-	var componentMock = this.subject(),
-		viewportWidth = 400,
+	const viewportWidth = 400,
 		// Viewport minus 20 and then by half
 		imageSize = 190;
 
-	Ember.run(function () {
-		componentMock.updateImageSize(viewportWidth);
+	Ember.run(() => {
+		const componentMock = this.subject();
 
-		assert.equal(componentMock.get('style').toString(), 'height: ' + imageSize + 'px; width: ' + imageSize + 'px;');
+		componentMock.updateImageSize(viewportWidth);
+		assert.equal(componentMock.get('style').toString(), `height: ${imageSize}px; width: ${imageSize}px;`);
 	});
 });

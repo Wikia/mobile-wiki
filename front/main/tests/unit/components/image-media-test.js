@@ -6,37 +6,51 @@ moduleForComponent('image-media', 'Unit | Component | image media', {
 });
 
 test('computedHeight article image 200x1000', function (assert) {
-	var component = this.subject(),
-		articleContent = {
+	const height = 1000;
+
+	Ember.run(() => {
+		const component = this.subject({
+			height,
+			width: 200
+		});
+
+		component.set('articleContent', {
 			width: 400
-		},
-		height = 1000,
-		width = 200,
-		expected = 1000;
-
-	Ember.run(function () {
-		component.set('height', height);
-		component.set('width', width);
-		component.set('articleContent', articleContent);
-
-		assert.equal(component.get('computedHeight'), expected);
+		});
+		assert.equal(component.get('computedHeight'), height);
 	});
 });
 
 test('computedHeight article image 1000x200', function (assert) {
-	var component = this.subject(),
-		articleContent = {
+	const expected = 80;
+
+	Ember.run(() => {
+		const component = this.subject({
+			height: 200,
+			width: 1000
+		});
+
+		component.set('articleContent', {
 			width: 400
-		},
-		height = 200,
-		width = 1000,
-		expected = 80;
-
-	Ember.run(function () {
-		component.set('height', height);
-		component.set('width', width);
-		component.set('articleContent', articleContent);
-
+		});
 		assert.equal(component.get('computedHeight'), expected);
 	});
 });
+
+test('computedHeight update when height changes', function (assert) {
+	Ember.run(() => {
+		const component = this.subject({
+			height: 200,
+			width: 1000,
+			articleContent: {
+				width: 400
+			}
+		});
+
+		component.set('height', {
+			width: 300
+		});
+		assert.notEqual(component.get('computedHeight'), 0);
+	});
+});
+

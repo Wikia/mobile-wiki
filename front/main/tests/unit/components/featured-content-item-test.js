@@ -6,14 +6,14 @@ moduleForComponent('featured-content-item', 'Unit | Component | featured content
 });
 
 test('computes container height properly', function (assert) {
-	var componentMock = this.subject(),
-		viewportWidth = 400,
+	const viewportWidth = 400,
 		// 16:9 ratio
 		containerHeight = 225;
 
-	Ember.run(function () {
-		componentMock.updateContainerHeight(viewportWidth);
+	Ember.run(() => {
+		const componentMock = this.subject();
 
-		assert.equal(componentMock.get('style').toString(), 'height: ' + containerHeight + 'px;');
+		componentMock.updateContainerHeight(viewportWidth);
+		assert.equal(componentMock.get('style').toString(), `height: ${containerHeight}px;`);
 	});
 });

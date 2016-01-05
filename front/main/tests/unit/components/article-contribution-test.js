@@ -2,88 +2,75 @@ import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 import sinon from 'sinon';
 
-var track;
+const track = require('common/utils/track').track;
+
+function createComponent(self, editAllowed = true) {
+	const section = 3,
+		sectionId = 'myId',
+		title = 'hello world',
+		uploadFeatureEnabled = true;
+
+	return self.subject({
+		attrs: {
+			section,
+			sectionId,
+			title,
+			uploadFeatureEnabled,
+			editAllowed
+		}
+	});
+}
 
 moduleForComponent('article-contribution', 'Unit | Component | article contribution', {
 	unit: true,
-	beforeEach: function () {
-		track = require('common/utils/track').track;
+
+	beforeEach() {
 		require('common/utils/track').track = Ember.K;
 	},
-	afterEach: function () {
-		track = require('common/utils/track').track;
+
+	afterEach() {
+		require('common/utils/track').track = track;
 	}
 });
 
-FakeUser = Ember.Object.extend({
-	isAuthenticated: false
-});
-
 test('component is initialized', function (assert) {
-	var section = 3,
+	const section = 3,
 		sectionId = 'myId',
 		title = 'hello world',
-		uploadFeatureEnabled = true,
-		component = this.subject({
-			attrs: {
-				section: section,
-				sectionId: sectionId,
-				title: title,
-				uploadFeatureEnabled: uploadFeatureEnabled,
-			}
-		});
+		uploadFeatureEnabled = true;
 
-	assert.equal(component.section, 3);
-	assert.equal(component.sectionId, 'myId');
-	assert.equal(component.title, 'hello world');
-	assert.equal(component.uploadFeatureEnabled, true);
+	Ember.run(() => {
+		const component = createComponent(this);
+
+		assert.equal(component.section, section);
+		assert.equal(component.sectionId, sectionId);
+		assert.equal(component.title, title);
+		assert.equal(component.uploadFeatureEnabled, uploadFeatureEnabled);
+	});
 });
 
 test('addPhoto action without auth redirects to login', function (assert) {
-	var self = this,
-		section = 3,
-		sectionId = 'myId',
-		title = 'hello world',
-		uploadFeatureEnabled = true,
-		openLocationSpy = sinon.spy(),
-		component = null;
+	const openLocationSpy = sinon.spy();
 
-	Ember.run(function () {
-		component = self.subject({
-			attrs: {
-				section: section,
-				sectionId: sectionId,
-				title: title,
-				uploadFeatureEnabled: uploadFeatureEnabled,
-			}
-		});
+	Ember.run(() => {
+		const component = createComponent(this);
+
 		component.openLocation = openLocationSpy;
 		component.send('addPhoto');
 	});
+
 	assert.ok(openLocationSpy.calledOnce);
 });
 
 test('edit action without editAllowed redirects to login', function (assert) {
-	var self = this,
-		section = 3,
-		sectionId = 'myId',
-		title = 'hello world',
-		uploadFeatureEnabled = true,
-		openLocationSpy = sinon.spy(),
-		component = null;
+	const openLocationSpy = sinon.spy();
 
-	Ember.run(function () {
-		component = self.subject({
-			attrs: {
-				section: section,
-				sectionId: sectionId,
-				title: title,
-				uploadFeatureEnabled: uploadFeatureEnabled,
-				editAllowed: false,
-			}
-		});
+	Ember.run(() => {
+		const component = createComponent(this, false);
+
 		component.openLocation = openLocationSpy;
 		component.send('edit');
 	});
+
 	assert.ok(openLocationSpy.calledOnce);
 });
