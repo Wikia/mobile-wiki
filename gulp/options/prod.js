@@ -17,11 +17,6 @@ module.exports = {
 		delay: 0,
 		successMessage: /Server started/
 	},
-	gzip: {
-		gzipOptions: {
-			level: zlib.Z_BEST_COMPRESSION
-		}
-	},
 	replace: {
 		selector: {
 			layouts: '**/_layouts/ember-main.hbs',

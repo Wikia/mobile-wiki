@@ -71,25 +71,4 @@ module.exports = {
 			}
 		},
 	},
-	images: {
-		src: ['front/svg/images/*', 'front/images/*'],
-		dest: output + '/front/images'
-	},
-	styles: {
-		src: 'front/styles',
-		watch: 'front/styles/**/*.scss',
-		dest: output + '/front/styles',
-		partials: '_*.scss',
-		compile: '*.scss'
-	},
-	symbols: {
-		src: 'front/svg/symbols',
-		dest: output + '/front/svg',
-		files: '*.svg'
-	},
-	vendor: {
-		src: 'front/vendor/**/*',
-		dest: output + '/front/vendor',
-		original: 'front/vendor'
-	},
 };
