@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('alert-notifications', 'Unit | Component | alert notifications', {
@@ -15,17 +14,16 @@ test('Dismissing alert', function (assert) {
 			type: 'error',
 			message: 'Error message',
 			callbacks: {}
-		};
+		},
+		component = this.subject();
 
-	Ember.run(() => {
-		const component = this.subject({
-			alerts: Ember.A([
-				alertOne,
-				alertTwo
-			])
-		});
-
-		component.send('dismissAlert', alertOne);
-		assert.deepEqual(component.get('alerts'), Ember.A([alertTwo]), 'First alert should be removed');
+	component.setProperties({
+		alerts: Ember.A([
+			alertOne,
+			alertTwo
+		])
 	});
+
+	component.send('dismissAlert', alertOne);
+	assert.deepEqual(component.get('alerts'), Ember.A([alertTwo]), 'First alert should be removed');
 });

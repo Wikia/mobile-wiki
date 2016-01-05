@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
 const track = require('common/utils/track').track;
@@ -17,82 +16,78 @@ moduleForComponent('curated-content', 'Unit | Component | curated content', {
 
 test('handles click on a section properly', function (assert) {
 	const sectionItem = {
-		type: 'section'
-	};
+			type: 'section'
+		},
+		componentMock = this.subject();
 
-	Ember.run(() => {
-		const componentMock = this.subject({
-			openCuratedContentItem: 'openCuratedContentItem',
-			targetObject: {
-				openCuratedContentItem(item) {
-					assert.equal(item, sectionItem);
-				}
-			},
-
-			trackClick(category, label) {
-				assert.equal(category, 'modular-main-page');
-				assert.equal(label, 'curated-content-item-section');
+	componentMock.setProperties({
+		openCuratedContentItem: 'openCuratedContentItem',
+		targetObject: {
+			openCuratedContentItem(item) {
+				assert.equal(item, sectionItem);
 			}
-		});
+		},
 
-		componentMock.send('clickItem', sectionItem);
+		trackClick(category, label) {
+			assert.equal(category, 'modular-main-page');
+			assert.equal(label, 'curated-content-item-section');
+		}
 	});
+
+	componentMock.send('clickItem', sectionItem);
 });
 
 test('handles click on a category properly', function (assert) {
 	const categoryItem = {
-		type: 'category'
-	};
+			type: 'category'
+		},
+		componentMock = this.subject();
 
-	Ember.run(() => {
-		const componentMock = this.subject({
-			openCuratedContentItem: 'openCuratedContentItem',
-			targetObject: {
-				openCuratedContentItem(item) {
-					assert.equal(item, categoryItem);
-				}
-			},
-
-			trackClick(category, label) {
-				assert.equal(category, 'modular-main-page');
-				assert.equal(label, 'curated-content-item-category');
+	componentMock.setProperties({
+		openCuratedContentItem: 'openCuratedContentItem',
+		targetObject: {
+			openCuratedContentItem(item) {
+				assert.equal(item, categoryItem);
 			}
-		});
+		},
 
-		componentMock.send('clickItem', categoryItem);
+		trackClick(category, label) {
+			assert.equal(category, 'modular-main-page');
+			assert.equal(label, 'curated-content-item-category');
+		}
 	});
+
+	componentMock.send('clickItem', categoryItem);
 });
 
 test('handles click on an article properly', function (assert) {
 	const articleItem = {
-		type: 'article'
-	};
+			type: 'article'
+		},
+		componentMock = this.subject();
 
-	Ember.run(() => {
-		const componentMock = this.subject({
-			trackClick(category, label) {
-				assert.equal(category, 'modular-main-page');
-				assert.equal(label, 'curated-content-item-article');
-			}
-		});
-
-		componentMock.send('clickItem', articleItem);
+	componentMock.setProperties({
+		trackClick(category, label) {
+			assert.equal(category, 'modular-main-page');
+			assert.equal(label, 'curated-content-item-article');
+		}
 	});
+
+	componentMock.send('clickItem', articleItem);
 });
 
 test('handles click on an item without a type properly', function (assert) {
 	const otherItem = {
-		label: 'whatever'
-	};
+			label: 'whatever'
+		},
+		componentMock = this.subject();
 
-	Ember.run(() => {
-		const componentMock = this.subject({
-			trackClick(category, label) {
-				assert.equal(category, 'modular-main-page');
-				assert.equal(label, 'curated-content-item-other');
-			}
-		});
-
-		componentMock.send('clickItem', otherItem);
+	componentMock.setProperties({
+		trackClick(category, label) {
+			assert.equal(category, 'modular-main-page');
+			assert.equal(label, 'curated-content-item-other');
+		}
 	});
+
+	componentMock.send('clickItem', otherItem);
 });

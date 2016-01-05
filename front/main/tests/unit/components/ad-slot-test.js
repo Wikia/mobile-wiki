@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('ad-slot', 'Unit | Component | ad slot', {
@@ -35,12 +34,10 @@ test('Name lower case', function (assert) {
 	];
 
 	testCases.forEach((testCase) => {
-		Ember.run(() => {
-			const component = this.subject();
+		const component = this.subject();
 
-			component.set('name', testCase.name);
-			assert.equal(component.get('nameLowerCase'), testCase.expected, testCase.description);
-		});
+		component.set('name', testCase.name);
+		assert.equal(component.get('nameLowerCase'), testCase.expected, testCase.description);
 	});
 });
 
@@ -96,16 +93,14 @@ test('behaves correctly depending on noAds value', function (assert) {
 	}];
 
 	testCases.forEach((testCase) => {
-		Ember.run(() => {
-			const component = this.subject();
+		const component = this.subject();
 
-			component.setProperties(testCase.properties);
-			component.didInsertElement();
-			assert.equal(
-				require('common/modules/Ads').default.getInstance().adSlots.length,
-				testCase.expectedLength,
-				testCase.message
-			);
-		});
+		component.setProperties(testCase.properties);
+		component.didInsertElement();
+		assert.equal(
+			require('common/modules/Ads').default.getInstance().adSlots.length,
+			testCase.expectedLength,
+			testCase.message
+		);
 	});
 });

@@ -6,9 +6,7 @@ moduleForComponent('article-comments', 'Unit | Component | article comments', {
 });
 
 test('page is set correctly within boundaries and buttons are displayed correctly', function (assert) {
-	const component = this.subject({
-		scrollToTop() {}
-	});
+	const component = this.subject();
 
 	assert.expect(18);
 
@@ -17,7 +15,9 @@ test('page is set correctly within boundaries and buttons are displayed correctl
 			model: {
 				pagesCount: 3
 			},
-			page: 2
+			page: 2,
+
+			scrollToTop() {}
 		});
 	});
 

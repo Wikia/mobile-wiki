@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('loading-spinner', 'Unit | Component | loading spinner', {
@@ -5,23 +6,27 @@ moduleForComponent('loading-spinner', 'Unit | Component | loading spinner', {
 });
 
 test('should be hidden by default', function (assert) {
-	var componentMock = this.subject();
+	Ember.run(() => {
+		const componentMock = this.subject();
 
-	assert.equal(componentMock.get('isVisible'), false);
+		assert.equal(componentMock.get('isVisible'), false);
+	});
 });
 
 test('should be visible if loading param is truthy', function (assert) {
-	var componentMock = this.subject({
-		active: true
-	});
+	Ember.run(() => {
+		const componentMock = this.subject();
 
-	assert.equal(componentMock.get('isVisible'), true);
+		componentMock.set('active', true);
+		assert.equal(componentMock.get('isVisible'), true);
+	});
 });
 
 test('should be hidden if loading param is falsy', function (assert) {
-	var componentMock = this.subject({
-		active: false
-	});
+	Ember.run(() => {
+		const componentMock = this.subject();
 
-	assert.equal(componentMock.get('isVisible'), false);
+		componentMock.set('active', false);
+		assert.equal(componentMock.get('isVisible'), false);
+	});
 });

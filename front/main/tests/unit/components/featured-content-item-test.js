@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('featured-content-item', 'Unit | Component | featured content item', {
@@ -8,12 +7,9 @@ moduleForComponent('featured-content-item', 'Unit | Component | featured content
 test('computes container height properly', function (assert) {
 	const viewportWidth = 400,
 		// 16:9 ratio
-		containerHeight = 225;
+		containerHeight = 225,
+		componentMock = this.subject();
 
-	Ember.run(() => {
-		const componentMock = this.subject();
-
-		componentMock.updateContainerHeight(viewportWidth);
-		assert.equal(componentMock.get('style').toString(), `height: ${containerHeight}px;`);
-	});
+	componentMock.updateContainerHeight(viewportWidth);
+	assert.equal(componentMock.get('style').toString(), `height: ${containerHeight}px;`);
 });

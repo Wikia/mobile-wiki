@@ -79,11 +79,9 @@ test('shouldHandleMedia returns correct value', function (assert) {
 	];
 
 	testCases.forEach((testCase) => {
-		Ember.run(() => {
-			const component = this.subject();
+		const component = this.subject();
 
-			assert.equal(component.shouldHandleMedia(testCase.target, testCase.tagName), testCase.expected, assert);
-		});
+		assert.equal(component.shouldHandleMedia(testCase.target, testCase.tagName), testCase.expected, assert);
 	});
 });
 

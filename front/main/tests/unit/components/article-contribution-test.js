@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 import sinon from 'sinon';
 
@@ -37,40 +36,29 @@ test('component is initialized', function (assert) {
 	const section = 3,
 		sectionId = 'myId',
 		title = 'hello world',
-		uploadFeatureEnabled = true;
+		uploadFeatureEnabled = true,
+		component = createComponent(this);
 
-	Ember.run(() => {
-		const component = createComponent(this);
-
-		assert.equal(component.section, section);
-		assert.equal(component.sectionId, sectionId);
-		assert.equal(component.title, title);
-		assert.equal(component.uploadFeatureEnabled, uploadFeatureEnabled);
-	});
+	assert.equal(component.section, section);
+	assert.equal(component.sectionId, sectionId);
+	assert.equal(component.title, title);
+	assert.equal(component.uploadFeatureEnabled, uploadFeatureEnabled);
 });
 
 test('addPhoto action without auth redirects to login', function (assert) {
-	const openLocationSpy = sinon.spy();
+	const openLocationSpy = sinon.spy(),
+		component = createComponent(this);
 
-	Ember.run(() => {
-		const component = createComponent(this);
-
-		component.openLocation = openLocationSpy;
-		component.send('addPhoto');
-	});
-
+	component.openLocation = openLocationSpy;
+	component.send('addPhoto');
 	assert.ok(openLocationSpy.calledOnce);
 });
 
 test('edit action without editAllowed redirects to login', function (assert) {
-	const openLocationSpy = sinon.spy();
+	const openLocationSpy = sinon.spy(),
+		component = createComponent(this, false);
 
-	Ember.run(() => {
-		const component = createComponent(this, false);
-
-		component.openLocation = openLocationSpy;
-		component.send('edit');
-	});
-
+	component.openLocation = openLocationSpy;
+	component.send('edit');
 	assert.ok(openLocationSpy.calledOnce);
 });

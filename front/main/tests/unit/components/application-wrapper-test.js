@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('application-wrapper', 'Unit | Component | application wrapper', {
@@ -22,10 +21,8 @@ test('shouldHandleClick returns correct value', function (assert) {
 	];
 
 	testCases.forEach((testCase) => {
-		Ember.run(() => {
-			const component = this.subject();
+		const component = this.subject();
 
-			assert.equal(component.shouldHandleClick(testCase.target), testCase.expected);
-		});
+		assert.equal(component.shouldHandleClick(testCase.target), testCase.expected);
 	});
 });

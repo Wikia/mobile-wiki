@@ -5,7 +5,7 @@ moduleForComponent('lightbox-wrapper', 'Unit | Component | lightbox wrapper', {
 });
 
 test('toggleFooter method toggles footerExpanded', function (assert) {
-	var componentMock = this.subject();
+	const componentMock = this.subject();
 
 	assert.equal(componentMock.get('footerExpanded'), false);
 
@@ -17,7 +17,7 @@ test('toggleFooter method toggles footerExpanded', function (assert) {
 });
 
 test('toggleUI method toggles footerHidden and headerHidden', function (assert) {
-	var componentMock = this.subject();
+	const componentMock = this.subject();
 
 	assert.equal(componentMock.get('footerHidden'), false);
 	assert.equal(componentMock.get('headerHidden'), false);

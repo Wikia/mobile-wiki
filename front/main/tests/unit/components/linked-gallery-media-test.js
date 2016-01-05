@@ -5,7 +5,8 @@ moduleForComponent('linked-gallery-media', 'Unit | Component | linked gallery me
 });
 
 test('sorts media items correctly', function (assert) {
-	var mediaMock = [
+	const
+		mediaMock = [
 			{
 				galleryRef: 1,
 				thumbUrl: 'http://foo.bar.com/thumb.jpg',
@@ -45,9 +46,8 @@ test('sorts media items correctly', function (assert) {
 				link: 'http://foo.bar.com'
 			}
 		],
-		componentMock = this.subject({
-			media: mediaMock
-		});
+		componentMock = this.subject();
 
+	componentMock.set('media', mediaMock);
 	assert.propEqual(componentMock.get('media').sort(componentMock.sortMedia), expectedSortedMedia);
 });

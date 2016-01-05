@@ -1,203 +1,159 @@
 import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
-var originalThumbnailerGetThumbURL;
+const originalThumbnailerGetThumbURL = require('common/modules/Thumbnailer').default.getThumbURL;
 
 moduleForComponent('infobox-image-media', 'Unit | Component | infobox image media', {
 	unit: true,
 
-	beforeEach: function () {
-		originalThumbnailerGetThumbURL = require('common/modules/Thumbnailer').default.getThumbURL;
-
+	beforeEach() {
 		require('common/modules/Thumbnailer').default.getThumbURL = function (url, options) {
-			return url + '/' + options.mode + '/' + options.width + '/' + options.height;
+			return `${url}/${options.mode}/${options.width}/${options.height}`;
 		};
 	},
 
-	afterEach: function () {
+	afterEach() {
 		require('common/modules/Thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
 	}
 });
 
 test('computedHeight TALL infobox image 200x1000', function (assert) {
-	var component = this.subject(),
-			viewportDimensions = {
-				width: 400
-			},
-			media = {
-				height: 1000,
-				width: 200
-			},
-			isInfoboxHeroImage = true,
-			expected = 400;
+	const component = this.subject();
 
-	Ember.run(function () {
-		component.set('media', media);
-		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
-		component.set('viewportDimensions', viewportDimensions);
-
-		assert.equal(component.get('computedHeight'), expected);
+	component.setProperties({
+		media: {
+			height: 1000,
+			width: 200
+		},
+		isInfoboxHeroImage: true,
+		viewportDimensions: {
+			width: 400
+		}
 	});
+
+	assert.equal(component.get('computedHeight'), 400);
 });
 
 test('computedHeight WIDE infobox image 1000x200', function (assert) {
-	var component = this.subject(),
-			viewportDimensions = {
-				width: 400
-			},
-			media = {
-				height: 200,
-				width: 1000
-			},
-			isInfoboxHeroImage = true,
-			expected = 225;
+	const component = this.subject();
 
-	Ember.run(function () {
-		component.set('media', media);
-		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
-		component.set('viewportDimensions', viewportDimensions);
-
-		assert.equal(component.get('computedHeight'), expected);
+	component.setProperties({
+		media: {
+			height: 200,
+			width: 1000
+		},
+		isInfoboxHeroImage: true,
+		viewportDimensions: {
+			width: 400
+		}
 	});
+
+	assert.equal(component.get('computedHeight'), 225);
 });
 
 test('computedHeight infobox image 100x100', function (assert) {
-	var component = this.subject(),
-			viewportDimensions = {
-				width: 400
-			},
-			media = {
-				height: 100,
-				width: 100
-			},
-			isInfoboxHeroImage = true,
-			expected = 100;
+	const component = this.subject();
 
-	Ember.run(function () {
-		component.set('media', media);
-		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
-		component.set('viewportDimensions', viewportDimensions);
-
-		assert.equal(component.get('computedHeight'), expected);
+	component.setProperties({
+		media: {
+			height: 100,
+			width: 100
+		},
+		isInfoboxHeroImage: true,
+		viewportDimensions: {
+			width: 400
+		}
 	});
+
+	assert.equal(component.get('computedHeight'), 100);
 });
 
 test('get params for request to thumbnailer for the TALL infobox image', function (assert) {
-	var component = this.subject(),
-		viewportDimensions = {
+	const component = this.subject();
+
+	component.setProperties({
+		media: {
+			height: 1000,
+			width: 200,
+			url: 'image.com'
+		},
+		isInfoboxHeroImage: true,
+		viewportDimensions: {
 			width: 400
-		},
-		data = {
-			media: {
-				height: 1000,
-				width: 200,
-				url: 'image.com'
-			},
-		},
-		isInfoboxHeroImage = true,
-		expected = 'image.com/top-crop-down/400/400';
-
-	Ember.run(function () {
-		component.set('media', data.media);
-		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
-		component.set('viewportDimensions', viewportDimensions);
-
-		assert.equal(component.get('url'), expected);
+		}
 	});
+
+	assert.equal(component.get('url'), 'image.com/top-crop-down/400/400');
 });
 
 test('get params for request to thumbnailer for the WIDE infobox image', function (assert) {
-	var component = this.subject(),
-		viewportDimensions = {
+	const component = this.subject();
+
+	component.setProperties({
+		media: {
+			height: 600,
+			width: 1600,
+			url: 'image.com'
+		},
+		isInfoboxHeroImage: true,
+		viewportDimensions: {
 			width: 400
-		},
-		data = {
-			media: {
-				height: 600,
-				width: 1600,
-				url: 'image.com'
-			}
-		},
-		isInfoboxHeroImage = true,
-		expected = 'image.com/zoom-crop/400/225';
-
-	Ember.run(function () {
-		component.set('media', data.media);
-		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
-		component.set('viewportDimensions', viewportDimensions);
-
-		assert.equal(component.get('url'), expected);
+		}
 	});
+
+	assert.equal(component.get('url'), 'image.com/zoom-crop/400/225');
 });
 
 test('get params for request to thumbnailer for the NORMAL infobox image', function (assert) {
-	var component = this.subject(),
-		viewportDimensions = {
+	const component = this.subject();
+
+	component.setProperties({
+		media: {
+			height: 600,
+			width: 1000,
+			url: 'image.com'
+		},
+		isInfoboxHeroImage: true,
+		viewportDimensions: {
 			width: 400
-		},
-		data = {
-			media: {
-				height: 600,
-				width: 1000,
-				url: 'image.com'
-			}
-		},
-		isInfoboxHeroImage = true,
-		expected = 'image.com/thumbnail-down/400/240';
-
-	Ember.run(function () {
-		component.set('media', data.media);
-		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
-		component.set('viewportDimensions', viewportDimensions);
-
-		assert.equal(component.get('url'), expected);
+		}
 	});
+
+	assert.equal(component.get('url'), 'image.com/thumbnail-down/400/240');
 });
 
 test('get params for request to thumbnailer for the TALL infobox image outside HERO', function (assert) {
-	var component = this.subject(),
-		viewportDimensions = {
+	const component = this.subject();
+
+	component.setProperties({
+		media: {
+			height: 1000,
+			width: 200,
+			url: 'image.com'
+		},
+		isInfoboxHeroImage: false,
+		viewportDimensions: {
 			width: 400
-		},
-		data = {
-			media: {
-				height: 1000,
-				width: 200,
-				url: 'image.com'
-			},
-		},
-		isInfoboxHeroImage = false,
-		expected = 'image.com/top-crop-down/400/400';
-
-	Ember.run(function () {
-		component.set('media', data.media);
-		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
-		component.set('viewportDimensions', viewportDimensions);
-
-		assert.equal(component.get('url'), expected);
+		}
 	});
+
+	assert.equal(component.get('url'), 'image.com/top-crop-down/400/400');
 });
 
 test('get params for request to thumbnailer for the WIDE infobox image outside HERO', function (assert) {
-	var component = this.subject(),
-		viewportDimensions = {
+	const component = this.subject();
+
+	component.setProperties({
+		media: {
+			height: 600,
+			width: 1600,
+			url: 'image.com'
+		},
+		isInfoboxHeroImage: false,
+		viewportDimensions: {
 			width: 400
-		},
-		data = {
-			media: {
-				height: 600,
-				width: 1600,
-				url: 'image.com'
-			}
-		},
-		isInfoboxHeroImage = false,
-		expected = 'image.com/thumbnail-down/400/150';
-
-	Ember.run(function () {
-		component.set('media', data.media);
-		component.set('isInfoboxHeroImage', isInfoboxHeroImage);
-		component.set('viewportDimensions', viewportDimensions);
-
-		assert.equal(component.get('url'), expected);
+		}
 	});
+
+	assert.equal(component.get('url'), 'image.com/thumbnail-down/400/150');
 });
