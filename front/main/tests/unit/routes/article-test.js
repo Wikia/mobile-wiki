@@ -50,7 +50,7 @@ test('sets correct canonical link without existing element', function (assert) {
 	assert.equal($(document.head).find('link[rel=canonical]').prop('outerHTML'), canonicalUrl);
 });
 
-test('sets correct canonical link with existing element', function (assert){
+test('sets correct canonical link with existing element', function (assert) {
 	const route = this.subject(),
 		model = Ember.Object.create({
 			url: '/wiki/Yoda'

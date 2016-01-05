@@ -29,7 +29,7 @@ test('sets controller properties', function (assert) {
 		ns = 0;
 
 	M = {
-		prop: function (propName) {
+		prop(propName) {
 			if (propName === 'mainPageData.adsContext') {
 				return adsContext;
 			} else if (propName === 'mainPageData.ns') {
@@ -37,7 +37,7 @@ test('sets controller properties', function (assert) {
 			}
 		},
 		String: {
-			normalizeToWhitespace: function (str) {
+			normalizeToWhitespace(str) {
 				return str
 					.replace(/_/g, ' ')
 					.replace(/\s+/g, ' ');
