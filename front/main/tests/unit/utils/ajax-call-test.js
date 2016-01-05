@@ -1,6 +1,9 @@
+import Ember from 'ember';
+import {test} from 'ember-qunit';
 import sinon from 'sinon';
+import ajaxCall from 'main/utils/ajax-call';
 
-QUnit.module('Unit | Utils | ajax-call', (hooks) => {
+QUnit.module('Unit | Utils | ajax-call', function (hooks) {
 	let spy;
 
 	hooks.beforeEach(() => {
@@ -12,68 +15,94 @@ QUnit.module('Unit | Utils | ajax-call', (hooks) => {
 		$.ajax.restore();
 	});
 
-
-	QUnit.test('Checking ajaxCall utils request params.', (assert) => {
-		const test = require('main/utils/ajax-call').default,
-			testCases = [
-				{
-					title: 'Default options',
-					options: {
+	test('Checking ajaxCall utils request params.', (assert) => {
+		const testCases = [
+			{
+				title: 'Default options',
+				options: {
+					success() {
+						Ember.RSVP.resolve(this);
 					},
-					expected: {
-						contentType: 'aplication/json',
-						dataType: 'json',
-						method: 'GET',
-						xhrFields: {
-							withCredentials: true
-						},
-						success() {},
-						error() {}
+					error() {
+						Ember.RSVP.resolve(this);
 					}
-				}, {
-					title: 'Passing options to ajax call',
-					options: {
-						contentType: 'aplication/json',
-						dataType: 'json',
-						method: 'PUT',
-						success() {},
-						error() {}
+				},
+				expected: {
+					contentType: 'aplication/json',
+					dataType: 'json',
+					method: 'GET',
+					xhrFields: {
+						withCredentials: true
 					},
-					expected: {
-						contentType: 'aplication/json',
-						dataType: 'json',
-						method: 'PUT',
-						xhrFields: {
-							withCredentials: true
-						},
-						success() {},
-						error() {}
-					}
-				}, {
-					title: 'Extending defaults',
-					options: {
-						dataType: 'xml',
-						xhrFields: {
-							withCredentials: false
-						},
+					success() {
+						Ember.RSVP.resolve(this);
 					},
-					expected: {
-						contentType: 'aplication/json',
-						dataType: 'xml',
-						method: 'GET',
-						xhrFields: {
-							withCredentials: false
-						},
-						success() {},
-						error() {}
+					error() {
+						Ember.RSVP.resolve(this);
 					}
 				}
-			];
+			}, {
+				title: 'Passing options to ajax call',
+				options: {
+					contentType: 'aplication/json',
+					dataType: 'json',
+					method: 'PUT',
+					success() {
+						Ember.RSVP.resolve(this);
+					},
+					error() {
+						Ember.RSVP.resolve(this);
+					}
+				},
+				expected: {
+					contentType: 'aplication/json',
+					dataType: 'json',
+					method: 'PUT',
+					xhrFields: {
+						withCredentials: true
+					},
+					success() {
+						Ember.RSVP.resolve(this);
+					},
+					error() {
+						Ember.RSVP.resolve(this);
+					}
+				}
+			}, {
+				title: 'Extending defaults',
+				options: {
+					dataType: 'xml',
+					xhrFields: {
+						withCredentials: false
+					},
+					success() {
+						Ember.RSVP.resolve(this);
+					},
+					error() {
+						Ember.RSVP.resolve(this);
+					}
+				},
+				expected: {
+					contentType: 'aplication/json',
+					dataType: 'xml',
+					method: 'GET',
+					xhrFields: {
+						withCredentials: false
+					},
+					success() {
+						Ember.RSVP.resolve(this);
+					},
+					error() {
+						Ember.RSVP.resolve(this);
+					}
+				}
+			}
+		];
 
 		let testOut;
 
 		testCases.forEach((testCase) => {
-			test(testCase.options);
+			ajaxCall(testCase.options);
 			testOut = $.ajax.getCall(0);
 
 			assert.propEqual(testCase.expected, testOut.args[0]);
