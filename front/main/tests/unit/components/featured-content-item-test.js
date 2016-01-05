@@ -10,6 +10,7 @@ test('computes container height properly', function (assert) {
 		containerHeight = 225,
 		componentMock = this.subject();
 
-	componentMock.updateContainerHeight(viewportWidth);
+	componentMock.set('viewportDimensions.width', viewportWidth);
+	componentMock.updateContainerHeight();
 	assert.equal(componentMock.get('style').toString(), `height: ${containerHeight}px;`);
 });

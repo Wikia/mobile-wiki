@@ -37,6 +37,7 @@ test('computes image style properly', function (assert) {
 		imageSize = 190,
 		componentMock = this.subject();
 
-	componentMock.updateImageSize(viewportWidth);
+	componentMock.set('viewportDimensions.width', viewportWidth);
+	componentMock.updateImageSize();
 	assert.equal(componentMock.get('style').toString(), `height: ${imageSize}px; width: ${imageSize}px;`);
 });
