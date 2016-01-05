@@ -1,4 +1,4 @@
-export default Ember.Service.extend(Ember.Evented, {
+export default Ember.Service.extend({
 	isDisplayed: false,
 	message: null,
 
