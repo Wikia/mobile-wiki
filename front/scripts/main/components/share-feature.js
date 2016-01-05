@@ -33,7 +33,7 @@ export default Ember.Component.extend(
 			],
 			zh: [
 				'facebook',
-				// 'weibo' Until we have an icon for Weibo
+				'weibo'
 			],
 			de: [
 				'facebook',
