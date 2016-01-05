@@ -2,7 +2,7 @@ import Ember from 'ember';
 import {test} from 'ember-qunit';
 import FeaturedContentMixin from 'main/mixins/featured-content';
 
-QUnit.module('Unit | Mixin | featured-content', function () {
+QUnit.module('Unit | Mixin | featured-content', () => {
 	/**
 	 * @returns {Object}
 	 */
@@ -15,7 +15,7 @@ QUnit.module('Unit | Mixin | featured-content', function () {
 		return mixin;
 	}
 
-	test('detects if there are multiple items in the model', function (assert) {
+	test('detects if there are multiple items in the model', (assert) => {
 		const mixin = getFeaturedContentMixin();
 
 		mixin.set('model', [{
@@ -31,7 +31,7 @@ QUnit.module('Unit | Mixin | featured-content', function () {
 		assert.equal(mixin.get('hasMultipleItems'), true);
 	});
 
-	test('returns the current item', function (assert) {
+	test('returns the current item', (assert) => {
 		const mixin = getFeaturedContentMixin();
 
 		mixin.set('model', [{
@@ -51,7 +51,7 @@ QUnit.module('Unit | Mixin | featured-content', function () {
 		});
 	});
 
-	test('sets proper index in the prevItem function', function (assert) {
+	test('sets proper index in the prevItem function', (assert) => {
 		const mixin = getFeaturedContentMixin();
 
 		mixin.set('model', [{
@@ -72,7 +72,7 @@ QUnit.module('Unit | Mixin | featured-content', function () {
 		assert.equal(mixin.get('currentItemIndex'), 0);
 	});
 
-	test('sets proper index in the nextItem function', function (assert) {
+	test('sets proper index in the nextItem function', (assert) => {
 		const mixin = getFeaturedContentMixin();
 
 		mixin.set('model', [{

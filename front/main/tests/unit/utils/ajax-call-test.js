@@ -3,7 +3,7 @@ import {test} from 'ember-qunit';
 import sinon from 'sinon';
 import ajaxCall from 'main/utils/ajax-call';
 
-QUnit.module('Unit | Utils | ajax-call', function (hooks) {
+QUnit.module('Unit | Utils | ajax-call', (hooks) => {
 	let spy;
 
 	hooks.beforeEach(() => {

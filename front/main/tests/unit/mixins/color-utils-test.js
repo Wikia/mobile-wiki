@@ -1,8 +1,8 @@
 import {test} from 'ember-qunit';
 import ColorUtilsMixin from 'main/mixins/color-utils';
 
-QUnit.module('Unit | Mixin | color-utils', function () {
-	test('returns rgba values correctly', function (assert) {
+QUnit.module('Unit | Mixin | color-utils', () => {
+	test('returns rgba values correctly', (assert) => {
 		const mixin = Ember.Object.extend(ColorUtilsMixin).create();
 
 		assert.deepEqual(mixin.hexToRgb('#ffffff'), {r: 255, g: 255, b: 255, a: 1});
@@ -17,7 +17,7 @@ QUnit.module('Unit | Mixin | color-utils', function () {
 		);
 	});
 
-	test('returns rgba color correctly', function (assert) {
+	test('returns rgba color correctly', (assert) => {
 		const mixin = Ember.Object.extend(ColorUtilsMixin).create();
 
 		assert.equal(mixin.getRgbaColor({r: 255, g: 255, b: 255, a: 1}), 'rgba(255, 255, 255, 1)');
@@ -28,7 +28,7 @@ QUnit.module('Unit | Mixin | color-utils', function () {
 		assert.equal(mixin.getRgbaColor({r: 14, g: 15, b: 16}), 'rgba(14, 15, 16)');
 	});
 
-	test('returns expanded hex color correctly', function (assert) {
+	test('returns expanded hex color correctly', (assert) => {
 		const mixin = Ember.Object.extend(ColorUtilsMixin).create();
 
 		assert.equal(mixin.shortHexColorExpand('#fff'), '#ffffff');

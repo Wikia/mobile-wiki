@@ -8,7 +8,7 @@ moduleFor('model:curated-content', 'Unit | Model | curated-content', {
 	}
 });
 
-test('sanitizes sections', function (assert) {
+test('sanitizes sections', (assert) => {
 	assert.deepEqual(curatedContentModelClass.sanitizeItem({
 		title: 'Title',
 		image_url: 'http://vignette/image.jpg',
@@ -20,7 +20,7 @@ test('sanitizes sections', function (assert) {
 	});
 });
 
-test('sanitizes categories', function (assert) {
+test('sanitizes categories', (assert) => {
 	assert.deepEqual(curatedContentModelClass.sanitizeItem({
 		label: 'Title',
 		image_url: 'http://vignette/image.jpg',
@@ -46,7 +46,7 @@ test('sanitizes categories', function (assert) {
 	});
 });
 
-test('sanitizes other items', function (assert) {
+test('sanitizes other items', (assert) => {
 	assert.deepEqual(curatedContentModelClass.sanitizeItem({
 		title: 'Title',
 		thumbnail: 'http://vignette/image.jpg',

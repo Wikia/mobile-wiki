@@ -3,7 +3,7 @@ import ThirdsClicksMixin from 'main/mixins/thirds-click';
 
 QUnit.module('Unit | Mixin | thirds-click');
 
-test('calls proper handlers on click', function (assert) {
+test('calls proper handlers on click', (assert) => {
 	const mixin = Ember.Object.extend(ThirdsClicksMixin).create(),
 		clickEventLeft = {
 			clientX: 80

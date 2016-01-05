@@ -26,8 +26,8 @@ const articleExample = {
 
 /**
  * @desc Helper function for tests below which checks the validity of the data stored in the model
- * @param model The ArticleModel that data has been loaded into which should be tested
- * @param article The reference data
+ * @param {Object} model The ArticleModel that data has been loaded into which should be tested
+ * @param {Object} article The reference data
  * @param {{equal: function, deepEqual: function}} assert
  *
  * @returns {void}
@@ -103,7 +103,7 @@ moduleFor('model:article', 'Integration | Model | article', {
 	}
 });
 
-test('ArticleModel RESTful URL tests', function (assert) {
+test('ArticleModel RESTful URL tests', (assert) => {
 	const tests = [{
 		title: ''
 	}, {
@@ -120,7 +120,7 @@ test('ArticleModel RESTful URL tests', function (assert) {
 	});
 });
 
-test('getPreloadedData', function (assert) {
+test('getPreloadedData', (assert, undef) => {
 	const articleFromPreloadedData = articleModelClass.getPreloadedData();
 
 	assert.strictEqual(
@@ -130,7 +130,7 @@ test('getPreloadedData', function (assert) {
 	);
 
 	assert.deepEqual(articleFromPreloadedData, articleExample, 'article loaded from Mercury object on first page');
-	assert.deepEqual(M.article, undefined, 'Mercury.article is deleted');
+	assert.deepEqual(M.article, undef, 'Mercury.article is deleted');
 });
 
 test('setArticle with preloaded data', function (assert) {
@@ -147,7 +147,7 @@ test('setArticle with parametrized data', function (assert) {
 	verifyArticle(model, articleExample, assert);
 });
 
-test('find with preloaded data', function (assert) {
+test('find with preloaded data', (assert) => {
 	const params = {
 		wiki: 'wiki',
 		article: 'article'

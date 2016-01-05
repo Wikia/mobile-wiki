@@ -3,8 +3,8 @@ import {test} from 'ember-qunit';
 import AdsMixin from 'main/mixins/ads';
 import Ads from 'common/modules/Ads';
 
-QUnit.module('Unit | Mixin | ads', function () {
-	test('setup ads context', function (assert) {
+QUnit.module('Unit | Mixin | ads', () => {
+	test('setup ads context', (assert) => {
 		const context = {
 				a: 1
 			},

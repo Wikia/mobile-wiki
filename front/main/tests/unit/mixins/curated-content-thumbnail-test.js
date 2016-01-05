@@ -2,8 +2,8 @@ import Ember from 'ember';
 import CuratedContentThumbnailMixin from 'main/mixins/curated-content-thumbnail';
 import {test} from 'ember-qunit';
 
-QUnit.module('Unit | Mixin | curated-content-thumbnail', function () {
-	test('sets aspectRatio property correctly', function (assert) {
+QUnit.module('Unit | Mixin | curated-content-thumbnail', () => {
+	test('sets aspectRatio property correctly', (assert) => {
 		const mixin = Ember.Object.extend(CuratedContentThumbnailMixin).create();
 
 		mixin.set('block', 'featured');
@@ -16,7 +16,7 @@ QUnit.module('Unit | Mixin | curated-content-thumbnail', function () {
 		assert.equal(mixin.get('aspectRatio'), 1);
 	});
 
-	test('sets aspectRatioName property correctly', function (assert) {
+	test('sets aspectRatioName property correctly', (assert) => {
 		const mixin = Ember.Object.extend(CuratedContentThumbnailMixin).create();
 
 		mixin.set('aspectRatio', 16 / 9);
@@ -26,7 +26,7 @@ QUnit.module('Unit | Mixin | curated-content-thumbnail', function () {
 		assert.equal(mixin.get('aspectRatioName'), 'square');
 	});
 
-	test('sets imageHeight property correctly', function (assert) {
+	test('sets imageHeight property correctly', (assert) => {
 		const mixin = Ember.Object.extend(CuratedContentThumbnailMixin).create();
 
 		mixin.setProperties({
@@ -42,7 +42,7 @@ QUnit.module('Unit | Mixin | curated-content-thumbnail', function () {
 		assert.equal(mixin.get('imageHeight'), 200);
 	});
 
-	test('generates thumbnail URL correctly with image crop data', function (assert) {
+	test('generates thumbnail URL correctly with image crop data', (assert) => {
 		const imageUrl = 'http://vignette/image.jpg',
 			imageWidth = 400,
 			imageCrop = {
@@ -74,7 +74,7 @@ ${imageWidth}/${imageCrop.x}/${imageCrop.y}/${imageCrop.x + imageCrop.width}/${i
 		);
 	});
 
-	test('generates thumbnail URL correctly without image crop data', function (assert) {
+	test('generates thumbnail URL correctly without image crop data', (assert) => {
 		const imageUrl = 'http://vignette/image.jpg',
 			imageWidth = 400,
 			imageHeight = 225,
