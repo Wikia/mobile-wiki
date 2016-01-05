@@ -24,6 +24,11 @@ exports.routes = [
 	},
 	{
 		method: 'GET',
+		path: '/search',
+		handler: require('./facets/search')
+	},
+	{
+		method: 'GET',
 		path: '/login',
 		handler: require('./facets/signin')
 	},

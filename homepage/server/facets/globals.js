@@ -9,7 +9,9 @@ var util = require('../util');
 function globals(request, reply) {
 	return reply({
 		loginUrl: util.getLoginUrl(),
-		signupUrl: util.getSignupUrl()
+		signupUrl: util.getSignupUrl(),
+		mobileBreakpoint: 710,
+		googleSearchOptimizelyId: (process.env.WIKIA_ENVIRONMENT === 'prod') ? 3571301500 : 3579160288,
 	});
 }
 

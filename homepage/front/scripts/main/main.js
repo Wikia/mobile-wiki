@@ -1,10 +1,13 @@
-import {loadGlobalData, getLoginUrl} from './globals';
+import {loadGlobalData, getLoginUrl, getMobileBreakpoint, getOptimizelyId} from './globals';
+import {loadSearch} from './search';
 
 /**
+ * Perform search
  * @returns {void}
  */
 function search() {
-	let searchText = encodeURI($('#searchWikiaText').val());
+	let searchText = encodeURI($('#searchWikiaText').val()),
+		searchUrl;
 
 	if (!searchText) {
 		// search button for mobile is different element
@@ -12,7 +15,15 @@ function search() {
 	}
 
 	if (searchText) {
-		window.location.href = `http://ja.wikia.com/Special:Search?search=${searchText}&fulltext=Search&resultsLang=ja`;
+		if (window.optimizely.variationMap[getOptimizelyId()] === 1) {
+			// Use Google search
+			searchUrl = `/search?q=${searchText}`;
+		} else {
+			// Use Oasis search
+			searchUrl = `http://ja.wikia.com/Special:Search?search=${searchText}&fulltext=Search&resultsLang=ja`;
+		}
+
+		window.location.href = searchUrl;
 	}
 }
 
@@ -85,7 +96,9 @@ $(() => {
 	headings.bigText({maximumFontSize: 20, verticalAlign: 'top'});
 	headings.css({padding: '.1rem'});
 
-	loadGlobalData();
+	loadGlobalData().then((data) => {
+		loadSearch(data.mobileBreakpoint);
+	});
 });
 
 $('#beginnersGuide').click((event) => {
@@ -118,7 +131,7 @@ $('.hero-next').click(function () {
 });
 
 $('#loginIcon').click((event) => {
-	if ($(document).width() < 710) {
+	if ($(document).width() < getMobileBreakpoint()) {
 		$('#userInfoToggle').toggle();
 	} else {
 		window.location.href = getLoginUrl();

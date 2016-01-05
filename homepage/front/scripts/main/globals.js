@@ -6,7 +6,7 @@ let cachedData = {};
  * @returns {void}
  */
 export function loadGlobalData() {
-	$.get('/globals', (data) => cachedData = data);
+	return $.get('/globals', (data) => cachedData = data);
 }
 
 /**
@@ -14,4 +14,18 @@ export function loadGlobalData() {
  */
 export function getLoginUrl() {
 	return cachedData ? cachedData.loginUrl : null;
+}
+
+/**
+ * @returns {number}
+ */
+export function getMobileBreakpoint() {
+	return cachedData ? cachedData.mobileBreakpoint : 710;
+}
+
+/**
+ * @returns {number}
+ */
+export function getOptimizelyId() {
+	return cachedData ? cachedData.googleSearchOptimizelyId : 0;
 }
