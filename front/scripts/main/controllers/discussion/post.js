@@ -4,12 +4,6 @@ import DiscussionModalDialogControllerMixin from '../../mixins/discussion-modal-
 export default Ember.Controller.extend(DiscussionDeleteControllerMixin, DiscussionModalDialogControllerMixin, {
 	postListSort: '',
 
-	canShowMore: Ember.computed('model.postCount', 'model.replies.length', function () {
-		const model = this.get('model');
-
-		return model.get('replies.length') < model.get('postCount');
-	}),
-
 	actions: {
 		/**
 		 * @returns {void}
@@ -32,6 +26,22 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, Discussi
 		 *
 		 * @returns {void}
 		 */
+		retry() {
+			this.get('target').send('retry');
+		},
+		// TODO
+		create(postData) {
+			this.get('target').send('create', postData);
+		},
+
+		upvote(post) {
+			this.get('target').send('upvote', post);
+		},
+
+
+		retry() {
+			this.get('target').send('retry');
+		},
 		retry() {
 			this.get('target').send('retry');
 		},

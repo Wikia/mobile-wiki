@@ -22,30 +22,30 @@ export default DiscussionBaseRoute.extend(
 
 			return DiscussionForumModel.find(Mercury.wiki.id, params.forumId, sortBy);
 		},
-
-		/**
-		 * @param {Ember.Controller} controller
-		 * @param {Ember.Object} model
-		 * @param {EmberStates.Transition} transition
-		 * @returns {void}
-		 */
-		setupController(controller, model, transition) {
-			this._super(controller, model, transition);
-			controller.set('sortBy', transition.params['discussion.forum'].sortBy || this.defaultSortType);
-		},
+		//
+		///**
+		// * @param {Ember.Controller} controller
+		// * @param {Ember.Object} model
+		// * @param {EmberStates.Transition} transition
+		// * @returns {void}
+		// */
+		//setupController(controller, model, transition) {
+		//	this._super(controller, model, transition);
+		//	controller.set('sortBy', transition.params['discussion.forum'].sortBy || this.defaultSortType);
+		//},
 
 		/**
 		 * @param {string} sortBy
 		 * @returns {EmberStates.Transition}
 		 */
 		setSortBy(sortBy) {
-			const controller = this.controllerFor('discussion.forum');
-
-			controller.set('sortBy', sortBy);
-
-			if (controller.get('sortAlwaysVisible') !== true) {
-				this.controllerFor('discussion.forum').set('sortVisible', false);
-			}
+			//const controller = this.controllerFor('discussion.forum');
+			//
+			//controller.set('sortBy', sortBy);
+			//
+			//if (controller.get('sortAlwaysVisible') !== true) {
+			//	this.controllerFor('discussion.forum').set('sortVisible', false);
+			//}
 
 			return this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
 		},
@@ -60,10 +60,11 @@ export default DiscussionBaseRoute.extend(
 				if (openInNewTab) {
 					window.open(this.get('router').generate('discussion.post', postId));
 				} else {
-					const postController = this.controllerFor('discussion.post'),
-						forumController = this.controllerFor('discussion.forum');
-
-					postController.set('postListSort', forumController.get('sortBy'));
+					// TODO
+					//const postController = this.controllerFor('discussion.post'),
+					//	forumController = this.controllerFor('discussion.forum');
+					//
+					//postController.set('postListSort', forumController.get('sortBy'));
 					this.transitionTo('discussion.post', postId);
 				}
 			},

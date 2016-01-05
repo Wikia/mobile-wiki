@@ -1,0 +1,66 @@
+{{discussion-header
+	hideSortComponent='hideSortComponent'
+	showSortComponent='showSortComponent'
+	showContent=true
+	smartBannerVisible=smartBannerVisible
+	sortBy=sortBy
+	sortMessageKey=sortMessageKey
+}}
+{{discussion-error-dialog
+	isVisible=shouldShowErrorMessage
+	errorMessage=errorMessage
+}}
+
+<div class="site-body-discussion post-list-view">
+	{{discussion-hero-unit
+		contributors=model.contributors
+		name=model.name
+		numberOfPosts=model.totalPosts
+	}}
+	<div class="discussion-page row">
+		<div class="rail large-3 columns">
+			{{community-badge}}
+			{{discussion-back-button
+				href='/'
+				label='main.back-to-wikia-link'
+			}}
+		</div>
+		{{#if model.connectionError}}
+			{{discussion-connection-error
+				retry=(action this.attrs.retry)
+			}}
+		{{else if model.notFoundError}}
+			{{discussion-not-found-error
+				goToAllDiscussions=(action this.attrs.goToAllDiscussions)
+			}}
+		{{else}}
+			<div class="small-12 large-6 columns">
+				{{discussion-sort
+					setSortBy='setSortBy'
+					sortBy=sortBy
+					sortTypes=sortTypes
+					sortVisible=sortVisible
+				}}
+				{{forum-wrapper
+					create=(action this.attrs.create)
+					deletePost=(action this.attrs.deletePost)
+					goToPost=(action this.attrs.goToPost)
+					loadPage=(action this.attrs.loadPage)
+					setSortBy='setSortBy'
+					undeletePost=(action this.attrs.undeletePost)
+					upvote=(action this.attrs.upvote)
+					minorError=model.minorError
+					name=model.name
+					pageNum=model.pageNum
+					posts=model.posts
+					postsDisplayed=model.posts.length
+					totalPosts=model.totalPosts
+					siteHeadPinned=siteHeadPinned
+				}}
+			</div>
+		{{/if}}
+		<div class="rail large-3 columns">
+			{{discussion-app-promotion}}
+		</div>
+	</div>
+</div>
