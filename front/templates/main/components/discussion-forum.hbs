@@ -20,10 +20,10 @@
 	<div class="discussion-page row">
 		<div class="rail large-3 columns">
 			{{community-badge}}
-			{{discussion-back-button
-				href='/'
-				label='main.back-to-wikia-link'
-			}}
+			{{#link-to 'index' class="back-button active-element-theme-color"}}
+				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
+				{{i18n 'main.back-to-wikia-link' ns='discussion'}}
+			{{/link-to}}
 		</div>
 		{{#if model.connectionError}}
 			{{discussion-connection-error

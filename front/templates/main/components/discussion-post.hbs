@@ -11,10 +11,10 @@
 	<div class="discussion-page row">
 		<div class="rail large-2 columns">
 			{{community-badge}}
-			{{discussion-back-button
-				setLocation=(action this.attrs.goToForum)
-				label='main.back-to-discussions-link'
-			}}
+			{{#link-to 'discussion.forum' model.forumId 'trending' class="back-button active-element-theme-color"}}
+				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
+				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
+			{{/link-to}}
 			<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
 			{{#if model.replies}}
 				{{discussion-contributors
@@ -57,7 +57,7 @@
 							}}
 						</div>
 						{{#if canShowMore}}
-							<button {{action this.attrs.expand}} class="see-more active-element-theme-color">
+							<button {{action this.attrs.loadMoreComments}} class="see-more active-element-theme-color">
 								{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
 								{{i18n 'main.pagination-post-show-more' ns='discussion'}}
 							</button>
