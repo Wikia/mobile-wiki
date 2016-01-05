@@ -1,7 +1,8 @@
 import {test} from 'ember-qunit';
+import {module} from 'qunit';
 import truncateHelper from 'main/helpers/truncate';
 
-QUnit.module('Unit | Helper | truncate', () => {
+module('Unit | Helper | truncate', () => {
 	test('Truncate helper is exported', (assert) => {
 		assert.ok(truncateHelper.compute);
 	});

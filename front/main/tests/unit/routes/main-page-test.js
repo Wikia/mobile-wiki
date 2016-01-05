@@ -1,6 +1,6 @@
 import {test, moduleFor} from 'ember-qunit';
 
-moduleFor('route:mainPage', 'Unit | Route | main-page');
+moduleFor('route:mainPage', 'Unit | Route | main page');
 
 test('double encodes the section name and does transition', function (assert) {
 	const routeMock = this.subject();

@@ -3,7 +3,7 @@ import {module} from 'qunit';
 import CuratedContentThumbnailMixin from 'main/mixins/curated-content-thumbnail';
 import {test} from 'ember-qunit';
 
-module('Unit | Mixin | curated-content-thumbnail', () => {
+module('Unit | Mixin | curated content thumbnail', () => {
 	test('sets aspectRatio property correctly', (assert) => {
 		const mixin = Ember.Object.extend(CuratedContentThumbnailMixin).create();
 

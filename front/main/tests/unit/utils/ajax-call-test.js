@@ -4,7 +4,7 @@ import {module} from 'qunit';
 import sinon from 'sinon';
 import ajaxCall from 'main/utils/ajax-call';
 
-module('Unit | Utils | ajax-call', (hooks) => {
+module('Unit | Utils | ajax call', (hooks) => {
 	let spy;
 
 	hooks.beforeEach(() => {

@@ -1,6 +1,6 @@
 import {test, moduleFor} from 'ember-qunit';
 
-moduleFor('model:article-comments', 'Unit | Model | article-comments');
+moduleFor('model:article-comments', 'Unit | Model | article comments');
 
 test('url creates valid url to a resource', function (assert) {
 	const model = this.subject();

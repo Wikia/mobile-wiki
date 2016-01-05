@@ -1,7 +1,8 @@
 import {test} from 'ember-qunit';
+import {module} from 'qunit';
 import svgHelper from 'main/helpers/svg';
 
-QUnit.module('Unit | Helper | svg', () => {
+module('Unit | Helper | svg', () => {
 	test('SVG helper is exported', (assert) => {
 		assert.ok(svgHelper.compute);
 	});

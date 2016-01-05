@@ -9,7 +9,7 @@ const media = [
 	}
 ];
 
-moduleFor('model:media', 'Unit | Model | media-model');
+moduleFor('model:media', 'Unit | Model | media model');
 
 test('returning the media array', function (assert) {
 	const model = this.subject({

@@ -2,7 +2,7 @@ import {test, moduleFor} from 'ember-qunit';
 
 const curatedContentModelClass = require('main/models/curated-content').default;
 
-moduleFor('model:curated-content', 'Unit | Model | curated-content', {
+moduleFor('model:curated-content', 'Unit | Model | curated content', {
 	beforeEach() {
 		Mercury.wiki.articlePath = '/wiki/';
 	}

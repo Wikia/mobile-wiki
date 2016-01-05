@@ -2,7 +2,7 @@ import {test, moduleFor} from 'ember-qunit';
 
 let originalM;
 
-moduleFor('route:mainPageSection', 'Unit | Route | main-page-section', {
+moduleFor('route:mainPageSection', 'Unit | Route | main page section', {
 	beforeEach() {
 		originalM = M;
 	},
