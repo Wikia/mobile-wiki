@@ -226,8 +226,8 @@ export default Ember.Component.extend(ViewportMixin, {
 	afterOpenActions() {
 		this.set('isActive', true);
 
-		//We need this to be sure the transition of the editor has been completed
-		//before we're able to apply special styles for iOS and focus the textarea
+		// We need this to be sure the transition of the editor has been completed
+		// before we're able to apply special styles for iOS and focus the textarea
 		Ember.run.next(this, () => {
 			this.setEditorOpenIPadHack();
 			this.textareaFocus();

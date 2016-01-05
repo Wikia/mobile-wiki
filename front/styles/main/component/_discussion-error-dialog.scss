@@ -8,6 +8,7 @@ $discussion-error-dialog-content-line-height: 24px;
 	}
 
 	.modal-dialog {
+		border-radius: 2px;
 		color: $discussion-error-dialog-text-color;
 		max-width: 640px;
 		padding: 0;
