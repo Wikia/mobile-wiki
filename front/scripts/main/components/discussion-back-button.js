@@ -9,6 +9,6 @@ export default Ember.Component.extend({
 	 * @returns {void}
 	 */
 	click() {
-		this.sendAction('setLocation');
+		this.attrs.setLocation();
 	}
 });
