@@ -3,13 +3,18 @@ import sinon from 'sinon';
 
 const track = require('common/utils/track').track;
 
-function createComponent(self, editAllowed = true) {
+/**
+ * @param {object} testThis
+ * @param {bool} editAllowed
+ * @returns {*} instance of article-contribution component
+ */
+function createComponent(testThis, editAllowed = true) {
 	const section = 3,
 		sectionId = 'myId',
 		title = 'hello world',
 		uploadFeatureEnabled = true;
 
-	return self.subject({
+	return testThis.subject({
 		attrs: {
 			section,
 			sectionId,

@@ -1,13 +1,20 @@
 import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 
-function contributionTestHelper(self, testCase, property, assert) {
+/**
+ * @param {object} testThis
+ * @param {object} testCase
+ * @param {string} property
+ * @param {object} assert comes from test
+ * @returns {void}
+ */
+function contributionTestHelper(testThis, testCase, property, assert) {
 	const section = 3,
 		sectionId = 'myId',
 		title = 'hello world';
 
 	Ember.run(() => {
-		const component = self.subject({
+		const component = testThis.subject({
 			attrs: {
 				section,
 				sectionId,

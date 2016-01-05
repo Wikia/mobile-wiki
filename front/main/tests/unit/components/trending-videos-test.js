@@ -7,7 +7,7 @@ moduleForComponent('trending-videos', 'Unit | Component | trending videos', {
 
 	beforeEach() {
 		require('main/models/media').default = {
-			create: function (data) {
+			create(data) {
 				return data;
 			}
 		};
