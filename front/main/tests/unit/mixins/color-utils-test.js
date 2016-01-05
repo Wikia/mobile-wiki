@@ -1,7 +1,8 @@
 import {test} from 'ember-qunit';
+import {module} from 'qunit';
 import ColorUtilsMixin from 'main/mixins/color-utils';
 
-QUnit.module('Unit | Mixin | color-utils', () => {
+module('Unit | Mixin | color-utils', () => {
 	test('returns rgba values correctly', (assert) => {
 		const mixin = Ember.Object.extend(ColorUtilsMixin).create();
 

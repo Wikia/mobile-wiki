@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import {test} from 'ember-qunit';
+import {module} from 'qunit';
 import FeaturedContentMixin from 'main/mixins/featured-content';
 
-QUnit.module('Unit | Mixin | featured-content', () => {
+module('Unit | Mixin | featured-content', () => {
 	/**
 	 * @returns {Object}
 	 */
