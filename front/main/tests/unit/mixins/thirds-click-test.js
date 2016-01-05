@@ -1,6 +1,7 @@
 import {test} from 'ember-qunit';
 import {module} from 'qunit';
 import ThirdsClicksMixin from 'main/mixins/thirds-click';
+import sinon from 'sinon';
 
 module('Unit | Mixin | thirds-click', () => {
 	test('calls proper handlers on click', (assert) => {

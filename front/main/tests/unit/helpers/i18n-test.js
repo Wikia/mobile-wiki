@@ -1,5 +1,6 @@
 import {test} from 'ember-qunit';
 import i18nHelper from 'main/helpers/i18n';
+import sinon from 'sinon';
 
 QUnit.module('Unit | Helper | i18n', (hooks) => {
 	const tStub = sinon.stub();

@@ -30,7 +30,7 @@ test('handles openLightbox action properly', function (assert) {
 			openLightbox(type, data) {
 				assert.equal(type, 'media');
 
-				deepEqual(data, {
+				assert.deepEqual(data, {
 					media: {
 						media: video
 					},
