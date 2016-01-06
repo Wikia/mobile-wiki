@@ -12,15 +12,6 @@ $short-input: new-breakpoint(max-width 420px);
 	font-size: 26px;
 	width: 100%;
 
-	::-moz-placeholder {
-		line-height: 95%;
-
-		@include media ($short-input) {
-			color: $text-color;
-			opacity: 1;
-		}
-	}
-
 	:-ms-input-placeholder {
 		line-height: 95%;
 
