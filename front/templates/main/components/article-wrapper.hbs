@@ -82,7 +82,6 @@
 			{{#if model.categories}}
 				{{#collapsible-menu
 					showMenuIcon=false
-					additionalClasses='article-categories-list'
 					tLabel='app.article-categories-list-label'
 					ordered=false
 					observe=model.cleanTitle
@@ -91,6 +90,21 @@
 					{{#each model.categories as |category|}}
 						<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
 							{{unbound category.title}}
+							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+						</a></li>
+					{{/each}}
+				{{/collapsible-menu}}
+			{{/if}}
+			{{#if model.otherLanguages}}
+				{{#collapsible-menu
+					showMenuIcon=false
+					tLabel='app.article-other-languages'
+					ordered=false
+					observe=model.cleanTitle
+				}}
+					{{#each model.otherLanguages as |link|}}
+						<li class="mw-content"><a href="{{unbound link.url}}" title="{{unbound link.title}}">
+							{{unbound link.languageName}} | {{unbound link.articleTitle}}
 							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 						</a></li>
 					{{/each}}
