@@ -1,6 +1,6 @@
-$mobile-slider:  new-breakpoint(max-width 720px);
-$desktop-slider: new-breakpoint(min-width 720px);
-
+$desktop-slider: new-breakpoint(min-width 920px);
+$mobile-slider:  new-breakpoint(max-width 920px);
+$short-input: new-breakpoint(max-width 420px);
 
 .whatiswikia {
 	$search-background: #00b7e0;
@@ -11,6 +11,23 @@ $desktop-slider: new-breakpoint(min-width 720px);
 	color: $text-color;
 	font-size: 26px;
 	width: 100%;
+
+
+	:-ms-input-placeholder {
+		line-height: 95%;
+
+		@include media ($short-input) {
+			color: $text-color;
+		}
+	}
+
+	::-webkit-input-placeholder {
+		line-height: 95%;
+
+		@include media ($short-input) {
+			color: $text-color;
+		}
+	}
 
 	.description {
 		display: inline-block;
@@ -25,7 +42,6 @@ $desktop-slider: new-breakpoint(min-width 720px);
 
 	.device {
 		display: inline-block;
-		height: 25rem;
 		margin-top: 1rem;
 		text-align: right;
 		vertical-align: middle;
@@ -35,10 +51,6 @@ $desktop-slider: new-breakpoint(min-width 720px);
 			margin: 0;
 			text-align: center;
 			width: 100%;
-		}
-
-		img {
-			height: 25rem;
 		}
 	}
 
@@ -66,7 +78,7 @@ $desktop-slider: new-breakpoint(min-width 720px);
 		}
 	}
 
-	.wiw-modile {
+	.wiw-mobile {
 		@include media ($desktop-slider) {
 			display: none;
 		}
@@ -77,6 +89,12 @@ $desktop-slider: new-breakpoint(min-width 720px);
 
 		@include media ($desktop-slider) {
 			height: 26rem;
+		}
+
+		.device {
+			img {
+				height: 25rem;
+			}
 		}
 	}
 
@@ -114,6 +132,7 @@ $desktop-slider: new-breakpoint(min-width 720px);
 		}
 
 		.device {
+
 			@include media ($desktop-slider) {
 				float: right;
 				width: 50%;
@@ -129,7 +148,4 @@ $desktop-slider: new-breakpoint(min-width 720px);
 		background-color: $title-background;
 		text-align: center;
 	}
-
-
-
 }
