@@ -42,7 +42,6 @@ $site-header-height: 50px;
 	.overlay {
 		@include perfect-square(100%);
 		cursor: default;
-		display: none;
 		left: 0;
 		position: fixed;
 		top: 0;
