@@ -36,7 +36,7 @@
     "ember-cli-qunit": "^1.1.0",
     "ember-cli-qunit-eslint": "1.0.1",
     "ember-cli-sass": "4.2.1",
-    "ember-cli-svgstore": "git+https://github.com/tomasznapieralski/ember-cli-svgstore.git",
+    "ember-cli-svgstore": "0.2.1",
     "ember-cli-uglify": "^1.2.0",
     "ember-derequire": "0.1.2",
     "ember-disable-proxy-controllers": "^1.0.1",
