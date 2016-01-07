@@ -12,20 +12,33 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 		retry() {
 			this.get('target').send('retry');
 		},
-		// TODO
+
+		/**
+		 * Bubbles up to DiscussionPostRoute
+		 *
+		 * @returns {void}
+		 */
 		create(postData) {
 			this.get('target').send('create', postData);
 		},
 
+		/**
+		 * Bubbles up to DiscussionPostRoute
+		 *
+		 * @returns {void}
+		 */
 		upvote(post) {
 			this.get('target').send('upvote', post);
 		},
 
-
+		/**
+		 * Bubbles up to DiscussionPostRoute
+		 *
+		 * @returns {void}
+		 */
 		loadMoreComments() {
 			this.get('target').send('loadMoreComments');
 		},
-
 
 		/**
 		 * @returns {void}

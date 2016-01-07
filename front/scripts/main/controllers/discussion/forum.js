@@ -17,19 +17,38 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 			this.get('target').send('retry');
 		},
 
-		// TODO
+		/**
+		 * Bubbles up to DiscussionForumRoute
+		 *
+		 * @returns {void}
+		 */
 		create(postData) {
 			this.get('target').send('create', postData);
 		},
 
+		/**
+		 * Bubbles up to DiscussionForumRoute
+		 *
+		 * @returns {void}
+		 */
 		goToPost(postId, openInNewTab = false) {
 			this.get('target').send('goToPost', postId, openInNewTab);
 		},
 
+		/**
+		 * Bubbles up to DiscussionForumRoute
+		 *
+		 * @returns {void}
+		 */
 		loadPage(pageNum) {
 			this.get('target').send('loadPage', pageNum);
 		},
 
+		/**
+		 * Bubbles up to DiscussionForumRoute
+		 *
+		 * @returns {void}
+		 */
 		upvote(post) {
 			this.get('target').send('upvote', post);
 		},
@@ -43,6 +62,11 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 			this.get('target').send('goToAllDiscussions');
 		},
 
+		/**
+		 * Bubbles up to DiscussionForumRoute
+		 *
+		 * @returns {void}
+		 */
 		setSortBy(sortBy) {
 			this.get('target').send('setSortBy', sortBy);
 		}
