@@ -1,10 +1,10 @@
-export default Ember.Mixin.create({
+export default {
 
 	/**
 	 * @param {string} title
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	getEditToken(title) {
+	getToken(title) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: M.buildUrl({path: '/api.php'}),
@@ -36,4 +36,5 @@ export default Ember.Mixin.create({
 			});
 		});
 	}
-});
+
+};

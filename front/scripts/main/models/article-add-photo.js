@@ -1,4 +1,4 @@
-import ArticleEditMixin from '../mixins/article-edit';
+import editToken from '../utils/edit-token';
 
 /**
  * @typedef {Object} FileNameSeparated
@@ -16,7 +16,6 @@ const ArticleAddPhotoModel = Ember.Object.extend({
 });
 
 ArticleAddPhotoModel.reopenClass(
-	ArticleEditMixin,
 	{
 		/**
 		 * @param {*} photoData
@@ -65,7 +64,7 @@ ArticleAddPhotoModel.reopenClass(
 				};
 
 			return new Ember.RSVP.Promise((resolve, reject) => {
-				this.getEditToken(model.title)
+				editToken.getToken(model.title)
 					.then((token) => {
 						editData.token = token;
 						this.editContent(editData)
@@ -134,7 +133,7 @@ ArticleAddPhotoModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		permanentUpload(title, tempName) {
-			return this.getEditToken(title)
+			return editToken.getToken(title)
 				.then((token) => {
 					return new Ember.RSVP.Promise((resolve, reject) => {
 						const params = {
@@ -144,7 +143,6 @@ ArticleAddPhotoModel.reopenClass(
 							tempName,
 							token
 						};
-
 						Ember.$.ajax({
 							url: M.buildUrl({path: '/api.php'}),
 							method: 'POST',
@@ -169,7 +167,7 @@ ArticleAddPhotoModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		temporaryUpload(photoData) {
-			return this.getEditToken(photoData.name)
+			return editToken.getToken(photoData.name)
 				.then((token) => {
 					const formData = new FormData();
 
@@ -202,7 +200,6 @@ ArticleAddPhotoModel.reopenClass(
 						});
 					});
 				});
-			});
 		},
 
 		/**
