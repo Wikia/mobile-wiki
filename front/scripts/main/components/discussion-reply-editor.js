@@ -78,10 +78,7 @@ export default DiscussionEditorComponent.extend({
 	 */
 	handleIOSFocus() {
 		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
-			const $editorTextarea = $('.editor-textarea'),
-				$editorOverflow = $('.editor-textarea-overflow');
-
-			$editorOverflow.addClass('ios-special-class');
+			const $editorTextarea = $('.editor-textarea');
 
 			$editorTextarea
 				.css('height', '30px')
