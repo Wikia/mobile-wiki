@@ -5,8 +5,8 @@
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 
 		<title>{{i18n title}} - Wikia</title>
-		<!-- build:css /front/styles/auth/app.css -->
-		<link rel="stylesheet" href="/front/styles/auth/app.css">
+		<!-- build:css /front/auth/assets/app.css -->
+		<link rel="stylesheet" href="/front/auth/app.css">
 		<!-- endbuild -->
 
 		{{> optimizely}}
@@ -21,7 +21,7 @@
 		{{else}}
 			{{#unless pageParams.isModal}}
 			<a class="close" href="{{exitTo}}">
-				<!-- @include ../../../front/svg/symbols/common/close.svg -->
+				<!-- @include /front/common/symbols/close.svg -->
 			</a>
 			{{/unless}}
 		{{/if}}
@@ -48,19 +48,21 @@
 					language = {{{json language}}},
 					pageParams = {{{json pageParams}}};
 		</script>
-		<!-- build:js /front/scripts/auth.js -->
-		<script src="/front/vendor/loader.js/loader.js"></script>
-		<script src="/front/vendor/i18next/i18next.min.js"></script>
-		<script src="/front/vendor/visit-source/dist/visit-source.js"></script>
-		<script src="/front/vendor/jquery/dist/jquery.js"></script>
-		<script src="/front/scripts/baseline.js"></script>
-		<script src="/front/scripts/modules-auth.js"></script>
+		<!-- build:js /front/auth/assets/combined.js -->
+		<script src="/front/auth/bower_components/loader.js/loader.js"></script>
+		<script src="/front/auth/bower_components/i18next/i18next.min.js"></script>
+		<script src="/front/auth/bower_components/visit-source/dist/visit-source.js"></script>
+		<script src="/front/auth/bower_components/jquery/dist/jquery.js"></script>
+		<script src="/front/common/baseline.js"></script>
+		<script src="/front/common/common.js"></script>
+		<script src="/front/auth/assets/app.js"></script>
 		<!-- endbuild -->
 		<script>
-			require('auth/main').init();
-			M.loadDOMResource('/front/svg/common.svg');
+			M.loadDOMResource('/front/common/symbols.svg');
 			M.prop('tracking', {{{json trackingConfig}}});
 			M.prop('isGASpecialWiki', true);
+
+			require('auth/app/main').init();
 		</script>
 	</body>
 </html>

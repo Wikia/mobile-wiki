@@ -28,6 +28,8 @@ module.exports = function (defaults) {
 					sourceDirs: 'app/symbols/discussions',
 					outputFile: '/assets/discussions.svg'
 				},
+				// This duplicates build-common-symbols task but we still want to do it
+				// as there is no easy way to use external rev-manifest.json in here
 				{
 					sourceDirs: '../common/symbols',
 					outputFile: '/assets/common.svg'

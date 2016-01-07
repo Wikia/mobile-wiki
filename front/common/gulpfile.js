@@ -1,74 +1,82 @@
-var gulp = require('gulp'),
+var filter = require('gulp-filter'),
+	gulp = require('gulp'),
+	gulpif = require('gulp-if'),
+	rename = require('gulp-rename'),
+	rev = require('gulp-rev'),
+	svgSymbols = require('gulp-svg-symbols'),
+	compile = require('../../gulp/utils/compile-es6-modules'),
+	environment = require('../../gulp/utils/environment'),
+	piper = require('../../gulp/utils/piper'),
 	paths = require('../../gulp/paths'),
-	pathsScripts = paths.common.scripts,
-	pathsPublic = paths.common.public;
+	pathsCommon = paths.common;
 
-function buildCommonScripts(done, src, filename, moduleRoot) {
-	var babel = require('gulp-babel'),
-		concat = require('gulp-concat'),
-		gulpif = require('gulp-if'),
-		newer = require('gulp-newer'),
-		uglify = require('gulp-uglify'),
-		gutil = require('gulp-util'),
-		environment = require('../../gulp/utils/environment'),
-		babelOptions = {
-			presets: ['es2015']
-		};
-
-	if (moduleRoot) {
-		babelOptions.plugins = ['transform-es2015-modules-amd'];
-		babelOptions.moduleIds = true;
-		babelOptions.moduleRoot = moduleRoot;
-	}
-
-	gulp.src(src, {
-			base: './front/common/'
-		})
-		.pipe(newer(pathsScripts.dest.main))
-		.pipe(babel(babelOptions))
-		.on('error', function (error) {
-			if (gutil.env.testing && environment.isProduction) {
-				console.error('Build contains some errors');
-				process.exit(1);
-			} else {
-				console.error('Build error: ' + error.message);
-				this.emit('end');
-			}
-		})
-		.pipe(concat(filename))
-		.pipe(gulpif(environment.isProduction, uglify()))
-		.pipe(gulp.dest(pathsScripts.dest.main))
-		.on('end', done);
-}
-
+/*
+ * Compile baseline script
+ */
 gulp.task('build-common-scripts-baseline', function (done) {
-	buildCommonScripts(done, pathsScripts.base + '/baseline/**/*.js', 'baseline.js');
-});
+	var src = pathsCommon.src + '/baseline/' + paths.jsPattern;
 
-gulp.task('build-common-scripts-modules-utils', function (done) {
-	buildCommonScripts(done, [
-		pathsScripts.base + '/modules/**/*.js',
-		pathsScripts.base + '/utils/**/*.js',
-	], 'common.js', 'common');
+	compile(done, src, 'front/common', pathsCommon.dest, 'baseline.js');
 });
 
 /*
- * Compile and concatenate common scripts
+ * Compile modules and utils to common.js
  */
-gulp.task('build-common-scripts', [
-	'build-common-scripts-baseline',
-	'build-common-scripts-modules-utils'
-]);
+gulp.task('build-common-scripts-modules-utils', function (done) {
+	var src = [
+		pathsCommon.src + '/modules/' + paths.jsPattern,
+		pathsCommon.src + '/utils/' + paths.jsPattern,
+	];
+
+	compile(done, src, 'front/common', pathsCommon.dest, 'common.js', 'common');
+});
 
 /*
  * Copy all files from /front/common/public/ to /dist/front/common/
  */
 gulp.task('build-common-public', function () {
-	return gulp.src(pathsPublic.src)
-		.pipe(gulp.dest(pathsPublic.dest));
+	return gulp.src(pathsCommon.src + '/public/**/*')
+		.pipe(gulp.dest(pathsCommon.dest));
+});
+
+/*
+ * Build svg symbols
+ */
+gulp.task('build-common-symbols', function () {
+	return piper(
+		gulp.src(pathsCommon.src + '/public/symbols/*.svg'),
+		svgSymbols(),
+		filter('**/*.svg'),
+		rename('symbols.svg'),
+		gulpif(environment.isProduction, piper(
+			rev(),
+			gulp.dest(pathsCommon.dest),
+			rev.manifest('rev-manifest.json')
+		)),
+		gulp.dest(pathsCommon.dest)
+	);
+});
+
+/*
+ * Copy baseline.js and common.js to /front/main/vendor/
+ */
+gulp.task('build-common-for-main', [
+	'build-common-scripts-baseline',
+	'build-common-scripts-modules-utils'
+], function () {
+	var src = [
+		pathsCommon.dest + '/baseline.js',
+		pathsCommon.dest + '/common.js'
+	];
+
+	return gulp.src(src)
+		.pipe(gulp.dest(pathsCommon.main.dest));
 });
 
 gulp.task('build-common', [
-	'build-common-scripts',
-	'build-common-public'
+	'build-common-scripts-baseline',
+	'build-common-scripts-modules-utils',
+	'build-common-public',
+	'build-common-symbols',
+	'build-common-for-main'
 ]);

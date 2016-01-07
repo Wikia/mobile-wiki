@@ -4,7 +4,7 @@ import AuthUtils from '../common/AuthUtils';
 import FacebookSDK from './FacebookSDK';
 import HttpCodes from '../common/HttpCodes';
 import UrlHelper from '../common/UrlHelper';
-import {trackActions} from '../../mercury/utils/track';
+import {trackActions} from 'common/utils/track';
 
 /**
  * @typedef {Object} FacebookResponse

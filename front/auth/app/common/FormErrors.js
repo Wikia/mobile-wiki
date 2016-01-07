@@ -1,5 +1,5 @@
 import AuthTracker from '../common/AuthTracker';
-import {trackActions} from '../../mercury/utils/track';
+import {trackActions} from 'common/utils/track';
 
 /**
  * @class FormErrors
