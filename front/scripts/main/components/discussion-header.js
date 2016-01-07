@@ -8,22 +8,13 @@ export default Ember.Component.extend(
 		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
 
-		sortMessageKey: Ember.computed.oneWay('discussionSort.sortMessageKey'),
 		overlayVisible: Ember.computed.oneWay('discussionSort.sortVisible'),
-
 		showContent: true,
-
 		siteName: Ember.computed(() => {
 			return Ember.get(Mercury, 'wiki.siteName');
 		}),
-
-		/**
-		 * @returns {void}
-		 */
-		didInsertElement() {
-			this._super();
-		},
-
+		sortMessageKey: Ember.computed.oneWay('discussionSort.sortMessageKey'),
+		
 		actions: {
 			/**
 			 * @returns {void}
