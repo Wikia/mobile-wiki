@@ -16,15 +16,17 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 		/**
 		 * Bubbles up to DiscussionPostRoute
 		 *
+		 * @param {object} replyData
 		 * @returns {void}
 		 */
-		create(postData) {
-			this.get('target').send('create', postData);
+		create(replyData) {
+			this.get('target').send('create', replyData);
 		},
 
 		/**
 		 * Bubbles up to DiscussionPostRoute
 		 *
+		 * @param {object} post
 		 * @returns {void}
 		 */
 		upvote(post) {

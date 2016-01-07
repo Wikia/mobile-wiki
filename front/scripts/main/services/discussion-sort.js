@@ -37,11 +37,12 @@ export default Ember.Service.extend({
 	},
 
 	/**
+	 * @param {string} sortBy
 	 * @returns {void}
 	 */
 	setSortBy(sortBy) {
 		this.set('sortVisible', false);
-		this.sortTypes.forEach(function(item) {
+		this.sortTypes.forEach((item) => {
 			item.set('active', item.get('name') === sortBy);
 		});
 	}

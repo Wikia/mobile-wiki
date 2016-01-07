@@ -48,7 +48,7 @@ export default Ember.Component.extend(
 			 */
 			goToPost(postId, event) {
 				event.preventDefault();
-				this.attrs.goToPost(postId, /* open in new window */ event.ctrlKey || event.metaKey);
+				this.attrs.goToPost(postId, event.ctrlKey || event.metaKey);
 			},
 
 			/**

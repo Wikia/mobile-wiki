@@ -36,7 +36,7 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			hideSortComponent() {
-				this.get('discussionSort').hideSortComponent()
+				this.get('discussionSort').hideSortComponent();
 			},
 
 			toggleEditor(active) {
