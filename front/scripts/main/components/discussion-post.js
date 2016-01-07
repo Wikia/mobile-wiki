@@ -11,7 +11,3 @@ export default Ember.Component.extend(DiscussionModalDialogMixin,
 		}),
 	}
 );
-
-
-
-
