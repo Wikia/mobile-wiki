@@ -5,7 +5,7 @@ var scriptsArray,
 
 QUnit.module('Internal tracker createRequestURL method tests when isPageView returns true', {
 	setup: function () {
-		require.entries['mercury/modules/Trackers/Internal'].callback(InternalModule);
+		mrequire.entries['mercury/modules/Trackers/Internal'].callback(InternalModule);
 		InternalTracker = InternalModule.default;
 		InternalTracker.isPageView = function() {return true;};
 		this.tracker = new InternalTracker();
@@ -47,7 +47,7 @@ QUnit.test('params are object with empty values', function () {
 
 QUnit.module('Internal tracker createRequestURL method tests when isPageView returns false', {
 	setup: function () {
-		require.entries['mercury/modules/Trackers/Internal'].callback(InternalModule);
+		mrequire.entries['mercury/modules/Trackers/Internal'].callback(InternalModule);
 		InternalTracker = InternalModule.default;
 		InternalTracker.isPageView = function() {return false;};
 		this.tracker = new InternalTracker();
@@ -66,7 +66,7 @@ QUnit.test('params are object without empty values', function () {
 
 QUnit.module('Internal tracker loadTrackingScript', {
 	setup: function () {
-		require.entries['mercury/modules/Trackers/Internal'].callback(InternalModule);
+		mrequire.entries['mercury/modules/Trackers/Internal'].callback(InternalModule);
 		InternalTracker = InternalModule.default;
 		this.tracker = new InternalTracker();
 		this.tracker.scriptLoadedHandler = function() {};
@@ -100,7 +100,7 @@ QUnit.test('load tracking script', function () {
 
 QUnit.module('Track', {
 	setup: function () {
-		require.entries['mercury/modules/Trackers/Internal'].callback(InternalModule);
+		mrequire.entries['mercury/modules/Trackers/Internal'].callback(InternalModule);
 		InternalTracker = InternalModule.default;
 		this.tracker = new InternalTracker();
 		this.tracker.loadTrackingScript = sinon.spy();

@@ -1,10 +1,9 @@
-import App from '../app';
 import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 
-export default App.CuratedContentEditorImageCropComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	CuratedContentEditorLayoutMixin,
 	CuratedContentThumbnailMixin,
 	TrackClickMixin,

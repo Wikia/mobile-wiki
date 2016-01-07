@@ -1,11 +1,12 @@
-import App from '../app';
 import ViewportMixin from '../mixins/viewport';
 
-export default App.DiscussionEditorComponent = Ember.Component.extend(ViewportMixin, {
+export default Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
 
 	classNames: ['discussion-editor'],
 	classNameBindings: ['isActive', 'hasError'],
+
+	currentUser: Ember.inject.service(),
 
 	isActive: false,
 	isSticky: false,

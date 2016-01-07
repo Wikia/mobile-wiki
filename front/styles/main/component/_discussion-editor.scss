@@ -73,6 +73,13 @@ $editor-textarea-overflow-ios-hack: 30px;
 			top: 10px;
 		}
 
+		.avatar {
+			svg, img {
+				width: 40px;
+				height: 40px;
+			}
+		}
+
 		&.sticky {
 			margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
 			position: fixed;

@@ -11,15 +11,23 @@ var Promise = require('bluebird'),
 	localSettings = require('../config/localSettings').localSettings;
 
 function Auth() {
-	this.baseUrl     = url.resolve(localSettings.helios.host + '/', '.');
+	this.whoAmIUri   = localSettings.whoAmIService.path;
+	this.whoAmITimeout = localSettings.whoAmIService.timeout;
 	this.servicesUrl = localSettings.servicesUrl;
 	this.apiUrl      = localSettings.apiUrl;
 }
 
-function requestWrapper(url) {
-	var deferred = Promise.defer();
+function requestWrapper(url, headers) {
+	var deferred = Promise.defer(),
+		options = {
+			url: url
+		};
 
-	request.get(url, function (err, response, body) {
+	if (headers) {
+		options.headers = headers;
+	}
+
+	request(options, function (err, response, body) {
 		if (err) {
 			deferred.reject(err);
 		} else {
@@ -44,15 +52,16 @@ function requestWrapper(url) {
 Auth.prototype.login = function (username, password) {
 	var address = url.resolve(this.baseUrl, 'token?' +
 		querystring.stringify({username: username, password: password}));
-
 	return requestWrapper(address);
 };
 
 Auth.prototype.info = function (token) {
-	var address = url.resolve(this.baseUrl + '/', 'info?' +
-		querystring.stringify({code: token, noblockcheck: 1}));
+	var address = url.resolve(this.servicesUrl, this.whoAmIUri),
+		headers = {
+			Cookie: 'access_token=' + encodeURIComponent(token)
+		};
 
-	return requestWrapper(address);
+	return requestWrapper(address, headers);
 };
 
 Auth.prototype.getUserInfo = function (userId) {

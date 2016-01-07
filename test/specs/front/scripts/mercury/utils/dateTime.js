@@ -1,6 +1,6 @@
 QUnit.module('mercury/utils/dateTime', function () {
 	QUnit.test('timeAgo works correct', function (assert) {
-		var DateTime = require('mercury/utils/dateTime'),
+		var DateTime = mrequire('mercury/utils/dateTime'),
 				testCases = [
 					{
 						from: new Date('October 13, 2014 11:13:00'),

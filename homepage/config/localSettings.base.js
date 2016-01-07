@@ -8,9 +8,15 @@ var deepExtend = require('deep-extend'),
 		authCookieDomain: 'wikia.com',
 		// Targeted environment [prod|preview|verify|dev|testing]
 		//environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
-		// Login
+
 		helios: {
-			host: process.env.HELIOS_HOST,
+			path: '/auth',
+			usernameMaxLength: 50,
+			passwordMaxLength: 50
+		},
+		whoAmIService: {
+			path: '/whoami',
+			timeout: 3000
 		},
 		host: process.env.HOST,
 		logger: 'syslog',

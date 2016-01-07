@@ -37,8 +37,5 @@ module.exports = {
 			module: 'commonjs',
 			target: 'es5'
 		}
-	},
-	tslint: {
-		emitError: true
 	}
 };

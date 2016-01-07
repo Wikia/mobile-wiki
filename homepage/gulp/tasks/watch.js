@@ -5,11 +5,8 @@
 
 var gulp = require('gulp'),
 	gutil = require('gulp-util'),
-	path = require('path'),
-	nodemon = require('gulp-nodemon'),
 	server = require('gulp-develop-server'),
 	browserSync = require('browser-sync'),
-	reload = browserSync.reload,
 	paths = require('../paths');
 
 gulp.task('watch', ['build-combined'], function () {
@@ -33,13 +30,14 @@ gulp.task('watch', ['build-combined'], function () {
 	gulp.watch(paths.styles.homepage.watch, ['sass', 'lint', 'eslint', browserSync.reload]);
 
 	// Client Scripts
-	gulp.watch(paths.scripts.homepage.watch, ['sass', 'lint', 'eslint', browserSync.reload]);
+	gulp.watch(paths.scripts.homepage.watch, ['build-combined', browserSync.reload]);
 
 	// Server Scripts
-	gulp.watch(paths.server.homepage.watch, ['sass', 'lint', 'eslint', browserSync.reload]);
+	gulp.watch(paths.server.homepage.watch, ['lint', browserSync.reload]);
 });
 
 //if anything happens kill server
-process.on('exit', function () {
+process.on('SIGINT', function () {
+	console.log('killing');
 	server.kill();
 });

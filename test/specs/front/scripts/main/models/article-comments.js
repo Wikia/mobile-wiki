@@ -1,7 +1,6 @@
-moduleFor('model:articleComments', 'ArticleCommentsModel');
+moduleFor('model:article-comments', 'ArticleCommentsModel');
 
 test('url creates valid url to a resource', function () {
-	expect(5);
 	var model = this.subject();
 
 	equal(model.url(1, 0), '/api/mercury/article/comments/1/0');
@@ -12,7 +11,6 @@ test('url creates valid url to a resource', function () {
 });
 
 test('reset, resets model properties', function () {
-	expect(2);
 	var model = this.subject(),
 		data = {
 			comments: 1,

@@ -9,10 +9,9 @@ var gulp = require('gulp'),
 
 gulp.task('build-combined', ['vendor', 'scripts'], function () {
 	var src = [
-		'vendor/jquery/dist/jquery.min.js',
 		'vendor/jquery-bigtext/jquery-bigtext.js',
 		'vendor/rsvp.js/rsvp.min.js',
-		'vendor/slick.js/slick/slick.min.js',
+		'vendor/slick-carousel/slick/slick.min.js',
 		'front/js/modules-homepage.js'
 	];
 

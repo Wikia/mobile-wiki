@@ -1,11 +1,12 @@
 {{discussion-header
-	hideSortComponent='hideSortComponent'
-	showSortComponent='showSortComponent'
-	toggleEditorActive='toggleEditorActive'
+	hideSortComponent=(action 'hideSortComponent')
+	overlayVisible=sortVisible
 	showContent=true
+	showSortComponent=(action 'showSortComponent')
 	smartBannerVisible=smartBannerVisible
 	sortBy=sortBy
 	sortMessageKey=sortMessageKey
+	toggleEditorActive=(action 'toggleEditorActive')
 }}
 <div class="site-body-discussion post-list-view">
 	{{discussion-hero-unit
@@ -16,12 +17,10 @@
 	<div class="discussion-page row">
 		<div class="rail large-3 columns">
 			{{community-badge}}
-			<hr/>
 			{{discussion-back-button
 				href='/'
 				label='main.back-to-wikia-link'
 			}}
-			<hr/>
 		</div>
 		{{#if model.connectionError}}
 			{{discussion-connection-error

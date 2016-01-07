@@ -28,7 +28,8 @@ gulp.task('build-vendor', ['vendor'], function () {
 			'www/front/vendor/weppy/dist/weppy.js',
 			'www/front/vendor/visit-source/dist/visit-source.js',
 			'www/front/vendor/Autolinker.js/dist/Autolinker.min.js',
-			'www/front/vendor/ember-performance-sender/dist/ember-performance-sender.js'
+			'www/front/vendor/ember-performance-sender/dist/ember-performance-sender.js',
+			'www/front/vendor/loader.js/loader.js'
 		]),
 		gulpconcat('main.js'),
 		gulpif(environment.isProduction, piper(

@@ -1,9 +1,8 @@
-import App from '../app';
 import ImageMediaComponent from './image-media';
 import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-export default App.InfoboxImageMediaComponent = ImageMediaComponent.extend(
+export default ImageMediaComponent.extend(
 	ViewportMixin,
 	{
 		imageAspectRatio: 16 / 9,

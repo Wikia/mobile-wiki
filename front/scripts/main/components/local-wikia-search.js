@@ -1,4 +1,3 @@
-import App from '../app';
 import {track, trackActions} from '../../mercury/utils/track';
 
 /**
@@ -11,7 +10,7 @@ import {track, trackActions} from '../../mercury/utils/track';
  * @property {string} [uri]
  */
 
-export default App.LocalWikiaSearchComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	classNames: ['local-wikia-search'],
 
 	query: '',
@@ -126,7 +125,7 @@ export default App.LocalWikiaSearchComponent = Ember.Component.extend({
 	 * @returns {string}
 	 */
 	getSearchURI(query) {
-		return `${App.get('apiBase')}/search/${encodeURIComponent(query)}`;
+		return `${M.prop('apiBase')}/search/${encodeURIComponent(query)}`;
 	},
 
 	/**

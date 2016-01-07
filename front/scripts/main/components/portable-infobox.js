@@ -1,8 +1,7 @@
-import App from '../app';
 import ArticleContentMixin from '../mixins/article-content';
 import ViewportMixin from '../mixins/viewport';
 
-export default App.PortableInfoboxComponent = Ember.Component.extend(
+export default Ember.Component.extend(
 	ArticleContentMixin,
 	ViewportMixin,
 	{
@@ -12,13 +11,14 @@ export default App.PortableInfoboxComponent = Ember.Component.extend(
 		layoutName: 'components/portable-infobox',
 		tagName: 'aside',
 
-		button: Ember.computed('expandButtonClass', function () {
-			return this.$(`.${this.get('expandButtonClass')}`)[0];
-		}),
-
 		height: null,
 		infoboxHTML: '',
 		collapsed: false,
+		clickableElements: ['a', 'button', 'img'],
+
+		button: Ember.computed('expandButtonClass', function () {
+			return this.$(`.${this.get('expandButtonClass')}`)[0];
+		}),
 
 		/**
 		 * determines if this infobox is a short one or a long one (needs collapsing)
@@ -61,15 +61,16 @@ export default App.PortableInfoboxComponent = Ember.Component.extend(
 		 * handles click on infobox.
 		 * Function is active only for the long infoboxes.
 		 * Changes 'collapsed' property.
+		 * Should not make any effect if the clicked element
+		 * is a link, button or image.
 		 *
 		 * @param {JQueryEventObject} event
 		 * @returns {void}
 		 */
 		onInfoboxClick(event) {
-			const collapsed = this.get('collapsed'),
-				$target = $(event.target);
+			const collapsed = this.get('collapsed');
 
-			if ($target.is('a') || $target.is('button')) {
+			if (!this.shouldHandleCollapsing($(event.target))) {
 				return;
 			}
 
@@ -83,6 +84,21 @@ export default App.PortableInfoboxComponent = Ember.Component.extend(
 				this.set('collapsed', false);
 				this.$().height('auto');
 			}
+		},
+
+		/**
+		 * If element is one of clickableElements, collapsing of infobox should not be handled.
+		 * As this element has it's own action, not connected to collapsing/uncollapsing infobox.
+		 *
+		 * @param {JQuery} $target
+		 * @returns {bool}
+		 */
+		shouldHandleCollapsing($target) {
+			const clickableElements = this.get('clickableElements');
+
+			return !clickableElements.some((element) => {
+				return $target.is(element);
+			});
 		},
 
 		/**

@@ -9,13 +9,13 @@ QUnit.module('mercury/utils/variantTesting', function (hooks) {
 	});
 
 	QUnit.test('Activate Optimizely', function (assert) {
-		require('mercury/utils/variantTesting').activate();
+		mrequire('mercury/utils/variantTesting').activate();
 
 		assert.deepEqual(getLastItem(), ['activate']);
 	});
 
 	QUnit.test('Event tracking', function (assert) {
-		require('mercury/utils/variantTesting').trackEvent('herd_cats');
+		mrequire('mercury/utils/variantTesting').trackEvent('herd_cats');
 
 		assert.deepEqual(getLastItem(), ['trackEvent', 'herd_cats']);
 	});

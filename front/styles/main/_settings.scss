@@ -27,6 +27,7 @@ $discussion-content-color: $color-gray-dark;
 $discussion-deleted-content-color: #ccc;
 $discussion-community-badge-title-color: #666;
 $discussion-community-badge-border: #f6f6f6;
+$discussion-community-badge-background-color: #f0f0f0;
 $discussion-error-page-bg-color: #f6f6f6;
 $discussion-error-bg-color: $color-white;
 $discussion-error-text-color: #999;
@@ -76,6 +77,7 @@ $dark-header-text-color: $header-text-color;
 $dark-input-color-active: $input-color-active;
 $dark-input-border-error-color: $input-border-error-color;
 
+$dark-label-color: $color-white;
 $dark-label-color-active: $label-color-active;
 $dark-label-color-inactive: $label-color-inactive;
 $dark-label-color-valid: $label-color-valid;
@@ -90,6 +92,7 @@ $dark-discussion-deleted-content-color: #666;
 $dark-discussion-community-badge-title-color: #fff;
 $dark-discussion-community-badge-border: #262626;
 $dark-discussion-count-color: #999;
+$dark-discussion-actions-color: #999;
 $dark-discussion-deleted-actions-color: #666;
 $dark-discussion-reply-border-color: #333;
 $dark-discussion-error-bg-color: $discussion-error-bg-color;
@@ -105,7 +108,7 @@ $dark-discussion-desktop-post-detail-bg-color: #262626;
 $dark-discussion-desktop-post-detail-border-color: #1e1e1e;
 $dark-discussion-rail-separator-color: #333;
 
-$dark-discussion-contributors-background-color: #666;
+$dark-discussion-contributors-background-color: #1A1A1A;
 $dark-discussion-contributors-background-mobile-color: #333;
 $dark-discussion-contributors-border-color: #666;
 $dark-discussion-contributors-text-color: $color-white;
@@ -118,6 +121,9 @@ $dark-discussion-editor-toolbar-background-color: #333;
 $dark-collapsible-menu-border-color: $collapsible-menu-border-color;
 $dark-collapsible-menu-title-color: $collapsible-menu-title-color;
 $dark-collapsible-menu-list-link-color: $collapsible-menu-list-link-color;
+
+$dark-discussion-no-replies-text-color: #999;
+$dark-discussion-rail-border-color: #666;
 
 $dark-discussion-sort-color: #999;
 

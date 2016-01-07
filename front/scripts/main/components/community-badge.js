@@ -1,7 +1,6 @@
-import App from '../app';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-export default App.CommunityBadgeComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	classNames: ['community-badge'],
 	squareDimension: 125,
 
@@ -12,7 +11,7 @@ export default App.CommunityBadgeComponent = Ember.Component.extend({
 		119235: '/front/images/community-badge-hawaii-five-o.png',
 		35171: '/front/images/community-badge-hunger-games.png',
 		203914: '/front/images/community-badge-one-direction.png',
-		147: '/front/images/community-badge-star-wars.png',
+		147: '/front/images/community-badge-star-wars-en.png',
 		750: '/front/images/community-badge-star-wars.png',
 		916: '/front/images/community-badge-star-wars.png',
 		1473: '/front/images/community-badge-star-wars.png',
@@ -47,10 +46,11 @@ export default App.CommunityBadgeComponent = Ember.Component.extend({
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
-		const imageUrl = this.get('badgeImages')[Ember.get(Mercury, 'wiki.id')];
+		let imageUrl = this.get('badgeImages')[Ember.get(Mercury, 'wiki.id')];
 
 		if (Ember.isEmpty(imageUrl)) {
-			return '';
+			// get wiki image
+			imageUrl = Ember.getWithDefault(Mercury, 'wiki.image', '/front/images/brackets.svg');
 		}
 
 		return Thumbnailer.getThumbURL(

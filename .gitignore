@@ -25,6 +25,7 @@ config/localSettings.js
 
 # coverage
 test/coverage
+coverage/
 
 # fixtures
 test/fixtures
@@ -49,3 +50,4 @@ homepage/front/css
 homepage/front/js
 homepage/front/vendor
 homepage/vendor
+homepage/**/*.js.map

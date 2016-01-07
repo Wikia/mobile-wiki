@@ -14,8 +14,10 @@ var gulp = require('gulp'),
 gulp.task('build-combined', ['scripts-front-modules-spa', 'scripts-front-modules-auth', 'scripts-front', 'templates'], function () {
 	return piper(
 		gulp.src([
+			'front/scripts/loader-no-conflict.js',
 			'www/front/templates/main.js',
-			'www/front/scripts/modules-spa.js'
+			'www/front/scripts/modules-spa.js',
+			'front/scripts/main-app-boot.js'
 		]),
 		gulpconcat('combined.js'),
 		gulpif(environment.isProduction, piper(
