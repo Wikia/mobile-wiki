@@ -11,7 +11,8 @@ function globals(request, reply) {
 		loginUrl: util.getLoginUrl(),
 		signupUrl: util.getSignupUrl(),
 		jaCommunityUrl: util.getJaCommunityUrl(),
-		jaUniversityUrl: util.getJaUniversityUrl()
+		jaUniversityUrl: util.getJaUniversityUrl(),
+		startWikiaUrl: util.getStartWikiaUrl()
 	});
 }
 

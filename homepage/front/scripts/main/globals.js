@@ -29,3 +29,11 @@ export function getJaCommunityUrl() {
 export function getJaUniversityUrl() {
 	return cachedData ? cachedData.jaUniversityUrl : null;
 }
+
+/**
+ * @returns {string|null}
+ */
+export function getStartWikiaUrl() {
+	return cachedData ? cachedData.startWikiaUrl : null;
+}
+
