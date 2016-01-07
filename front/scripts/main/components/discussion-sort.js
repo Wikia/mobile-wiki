@@ -7,5 +7,4 @@ export default Ember.Component.extend({
 
 	// Whether the component is currently visible
 	sortVisible: Ember.computed.oneWay('discussionSort.sortVisible'),
-	sortTypes: Ember.computed.oneWay('discussionSort.sortTypes'),
 });
