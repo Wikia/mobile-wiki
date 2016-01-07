@@ -9,7 +9,8 @@ var util = require('../util');
 function globals(request, reply) {
 	return reply({
 		loginUrl: util.getLoginUrl(),
-		signupUrl: util.getSignupUrl()
+		signupUrl: util.getSignupUrl(),
+		startWikiaUrl: util.getStartWikiaUrl()
 	});
 }
 

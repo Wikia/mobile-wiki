@@ -54,6 +54,10 @@ exports.getSignupUrl = function () {
 	return localSettings.signupUrl;
 };
 
+exports.getStartWikiaUrl = function () {
+	return localSettings.startWikiaUrl;
+};
+
 // todo: look up this data in user session first
 exports.renderWithGlobalData = function (request, reply, data, view) {
 	function renderView(loggedIn, userName, avatarUrl) {
