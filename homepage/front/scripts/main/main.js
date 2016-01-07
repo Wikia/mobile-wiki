@@ -18,6 +18,8 @@ function search() {
 		if (window.optimizely.variationMap[getOptimizelyId()] === 1) {
 			// Use Google search
 			searchUrl = `/search?q=${searchText}`;
+
+			ga('send', 'pageview', `${window.location.pathname}${searchUrl}}&qIntra=${searchText}`);
 		} else {
 			// Use Oasis search
 			searchUrl = `http://ja.wikia.com/Special:Search?search=${searchText}&fulltext=Search&resultsLang=ja`;
