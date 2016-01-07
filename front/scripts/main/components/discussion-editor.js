@@ -273,7 +273,8 @@ export default Ember.Component.extend(ViewportMixin, {
 
 		/**
 		 * Triggers on textarea's focus
-		 * @param event
+		 * @param {Event} event
+		 * @returns {void}
 		 */
 		onFocus(event) {
 			event.preventDefault();
