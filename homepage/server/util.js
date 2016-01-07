@@ -96,7 +96,7 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 
 		return auth.getUserAvatar(userId);
 	}).then(function (data) {
-		avatarUrl = (data.value === undefined) ? defaultLoggedInAvatarUrl : data.value;
+		avatarUrl = data.value || defaultLoggedInAvatarUrl;
 		request.log('info', 'Retrieved avatar url for logged in user: ' + avatarUrl);
 
 		renderView(true, userName, avatarUrl);
