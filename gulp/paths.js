@@ -49,7 +49,7 @@ module.exports = {
 			runtimeFile: 'localSettings.js'
 		},
 		nodeModules: {
-			src: 'node_modules',
+			src: 'server/node_modules',
 			dest: outputServer + '/node_modules'
 		},
 		script: output + '/server/server.js',

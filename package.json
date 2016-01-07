@@ -26,21 +26,6 @@
   "license": "MIT",
   "homepage": "https://github.com/Wikia/mercury",
   "private": true,
-  "dependencies": {
-    "bluebird": "2.10.2",
-    "boom": "2.7.0",
-    "bunyan": "1.3.4",
-    "bunyan-syslog": "0.3.1",
-    "bunyan-prettystream": "0.1.3",
-    "deep-extend": "0.3.3",
-    "handlebars": "2.0.0",
-    "hapi": "8.4.0",
-    "hapi-i18next": "2.2.0",
-    "hoek": "2.12.0",
-    "i18next": "1.7.10",
-    "newrelic": "1.18.1",
-    "wreck": "6.3.0"
-  },
   "devDependencies": {
     "babel-eslint": "4.1.6",
     "babel-plugin-rename-define": "Wikia/babel-plugin-rename-define#v2.0.0",
