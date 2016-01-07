@@ -176,14 +176,6 @@ export default Ember.Component.extend(ViewportMixin, {
 	},
 
 	/**
-	 * Sets focus for editor textarea.
-	 * @returns {void}
-	 */
-	textareaFocus() {
-		this.get('discussionEditor').toggleEditor(true);
-	},
-
-	/**
 	 * Allows setting iOS-specific styles to compensate for Safari's restrictions
 	 * @param {object} styles - style object to pass to jQuery
 	 * @returns {void}
