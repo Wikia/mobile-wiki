@@ -4,6 +4,11 @@
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
+    "setup": "npm install && npm run setup-auth && npm run setup-common && npm run setup-main && npm run setup-server",
+    "setup-auth": "cd front/auth && npm install && bower install",
+    "setup-common": "cd front/common && npm install",
+    "setup-main": "cd front/main && npm install && bower install",
+    "setup-server": "cd server && npm install",
     "dev": "rm -rf www && gulp --nosync",
     "local": "rm -rf www && gulp",
     "start": "npm run build && node dist/server/app/server.js",
