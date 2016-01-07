@@ -334,7 +334,9 @@ body.discussions {
 			margin-top: $theme-bar-height;
 
 			.post-title {
-				font-size: $type-smaller;
+				line-height: $line-height-small;
+				font-size: $type-small;
+				margin-bottom: 18px;
 			}
 		}
 	}
