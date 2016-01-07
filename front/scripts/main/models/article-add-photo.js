@@ -143,6 +143,7 @@ ArticleAddPhotoModel.reopenClass(
 							tempName,
 							token
 						};
+
 						Ember.$.ajax({
 							url: M.buildUrl({path: '/api.php'}),
 							method: 'POST',
