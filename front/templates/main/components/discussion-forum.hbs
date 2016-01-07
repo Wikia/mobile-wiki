@@ -3,8 +3,6 @@
 	showSortComponent='showSortComponent'
 	showContent=true
 	smartBannerVisible=smartBannerVisible
-	sortBy=sortBy
-	sortMessageKey=sortMessageKey
 }}
 {{discussion-error-dialog
 	isVisible=shouldShowErrorMessage
@@ -37,9 +35,6 @@
 			<div class="small-12 large-6 columns">
 				{{discussion-sort
 					setSortBy='setSortBy'
-					sortBy=sortBy
-					sortTypes=sortTypes
-					sortVisible=sortVisible
 				}}
 				{{forum-wrapper
 					create=(action this.attrs.create)

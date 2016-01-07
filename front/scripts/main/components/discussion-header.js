@@ -6,6 +6,9 @@ export default Ember.Component.extend(
 		classNames: ['discussion-header', 'background-theme-color'],
 
 		discussionEditor: Ember.inject.service(),
+		discussionSort: Ember.inject.service(),
+
+		sortMessageKey: Ember.computed.oneWay('discussionSort.sortMessageKey'),
 
 		overlay: null,
 		showContent: true,

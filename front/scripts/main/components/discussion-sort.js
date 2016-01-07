@@ -3,8 +3,11 @@ export default Ember.Component.extend({
 	classNameBindings: ['sortVisible::mobile-hidden'],
 	tagName: 'ul',
 
+	discussionSort: Ember.inject.service(),
+
 	// Whether the component is currently visible
-	sortVisible: false,
+	sortVisible: Ember.computed.oneWay('discussionSort.sortVisible'),
+	sortTypes: Ember.computed.oneWay('discussionSort.sortTypes'),
 
 	actions: {
 		/**

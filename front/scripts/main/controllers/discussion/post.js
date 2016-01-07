@@ -1,7 +1,6 @@
 import DiscussionDeleteControllerMixin from '../../mixins/discussion-delete-controller';
-import DiscussionModalDialogControllerMixin from '../../mixins/discussion-modal-dialog-controller';
 
-export default Ember.Controller.extend(DiscussionDeleteControllerMixin, DiscussionModalDialogControllerMixin, {
+export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 	postListSort: '',
 
 	actions: {
