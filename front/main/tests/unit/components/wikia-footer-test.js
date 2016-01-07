@@ -1,10 +1,29 @@
 import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
+import {getDomain} from 'common/utils/domain';
 import sinon from 'sinon';
 
-moduleForComponent('wikia-footer', 'Unit | Component | wikia footer', {
-	unit: true
+const originalTrackClick = require.entries['main/mixins/track-click'];
+
+require.entries['main/mixins/track-click'].callback = () => {
+	return Ember.Mixin.create({
+		actions: {
+			trackClick: Ember.K
+		}
+	});
+};
+
+moduleForComponent('wikia-footer', 'Unit | Component | wikia-footer', {
+	unit: true,
+	beforeEach() {
+		sinon.spy(Ember.$, 'cookie');
+	},
+	afterEach() {
+		Ember.$.cookie.restore();
+	}
 });
+
+require.entries['main/mixins/track-click'] = originalTrackClick;
 
 test('checkLinkForOasisSkinOverwrite returns true if skin is overwritten to oasis', function (assert) {
 	const testUrls = [
@@ -15,46 +34,36 @@ test('checkLinkForOasisSkinOverwrite returns true if skin is overwritten to oasi
 		component = this.subject();
 
 	testUrls.forEach((url) => {
-		assert.strictEqual(component.checkLinkForOasisSkinOverwrite(url), true);
+		assert.ok(component.checkLinkForOasisSkinOverwrite(url), `Error for ${url}`);
 	});
 });
 
 test('checkLinkForOasisSkinOverwrite returns false if skin is not ovewritten to oasis', function (assert) {
 	const component = this.subject();
 
-	assert.strictEqual(
-		component.checkLinkForOasisSkinOverwrite('http://muppet.wikia.com/wiki/Kermit?useskin=monobook'), false
+	assert.notOk(
+		component.checkLinkForOasisSkinOverwrite('http://muppet.wikia.com/wiki/Kermit?useskin=monobook')
 	);
 });
 
 test('sets cookie if skin is overwritten to oasis', function (assert) {
 	const component = this.subject();
 
-	component.set('checkLinkForOasisSkinOverwrite', () => {
-		return true;
-	});
-	sinon.spy(Ember.$, 'cookie');
+	component.set('checkLinkForOasisSkinOverwrite', () => true);
 	component.send('handleFooterLinkClick', 'test', 'test');
 
 	assert.ok(Ember.$.cookie.calledOnce);
 	assert.ok(Ember.$.cookie.calledWith('useskin', 'oasis', {
 		path: '/',
-		domain: require('common/utils/domain').getDomain()
+		domain: getDomain()
 	}));
-
-	Ember.$.cookie.restore();
 });
 
 test('doesn\'t set cookie if skin is not overwritten to oasis', function (assert) {
 	const component = this.subject();
 
-	component.set('checkLinkForOasisSkinOverwrite', () => {
-		return false;
-	});
-	sinon.spy(Ember.$, 'cookie');
+	component.set('checkLinkForOasisSkinOverwrite', () => false);
 	component.send('handleFooterLinkClick', 'test', 'test');
 
 	assert.notOk(Ember.$.cookie.called);
-
-	Ember.$.cookie.restore();
 });
