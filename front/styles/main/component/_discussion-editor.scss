@@ -54,11 +54,11 @@ $editor-textarea-overflow-ios-hack: 30px;
 		.editor-textarea-overflow {
 			background-color: transparent;
 			cursor: pointer;
-			display: block;
 			height: $editor-textarea-overflow-ios-hack;
+			left: 0;
 			margin-top: -$editor-textarea-overflow-ios-hack;
 			position: absolute;
-			width: 100%;
+			right: 0;
 		}
 
 		.editor-wrapper {
