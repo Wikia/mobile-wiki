@@ -11,7 +11,7 @@ export default Ember.Component.extend({
 		119235: '/front/images/community-badge-hawaii-five-o.png',
 		35171: '/front/images/community-badge-hunger-games.png',
 		203914: '/front/images/community-badge-one-direction.png',
-		147: '/front/images/community-badge-star-wars.png',
+		147: '/front/images/community-badge-star-wars-en.png',
 		750: '/front/images/community-badge-star-wars.png',
 		916: '/front/images/community-badge-star-wars.png',
 		1473: '/front/images/community-badge-star-wars.png',
