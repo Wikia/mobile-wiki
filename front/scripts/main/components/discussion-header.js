@@ -9,8 +9,8 @@ export default Ember.Component.extend(
 		discussionSort: Ember.inject.service(),
 
 		sortMessageKey: Ember.computed.oneWay('discussionSort.sortMessageKey'),
+		overlayVisible: Ember.computed.oneWay('discussionSort.sortVisible'),
 
-		overlay: null,
 		showContent: true,
 
 		siteName: Ember.computed(() => {
@@ -21,7 +21,6 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
-			this.set('overlay', this.element.querySelector('.overlay'));
 			this._super();
 		},
 
@@ -31,7 +30,6 @@ export default Ember.Component.extend(
 			 */
 			showSortComponent() {
 				this.sendAction('showSortComponent');
-				this.get('overlay').style.display = 'block';
 			},
 
 			/**
@@ -39,7 +37,6 @@ export default Ember.Component.extend(
 			 */
 			hideSortComponent() {
 				this.sendAction('hideSortComponent');
-				this.get('overlay').style.display = 'none';
 			},
 
 			toggleEditor(active) {
