@@ -16,10 +16,10 @@
     "test-front": "gulp karma",
     "test-server": "gulp node-test",
     "linter": "eslint .",
-    "build": "rm -rf dist && gulp build-common && gulp build-auth && cd front/main && ember build && gulp build-server",
-    "build-auth": "rm -rf dist/front/auth dist/front/common && gulp build-common && gulp build-auth",
+    "build": "npm run build-common && npm run build-auth && npm run build-main && npm run build-server",
+    "build-auth": "rm -rf dist/front/auth && gulp build-auth",
     "build-common": "rm -rf dist/front/common && gulp build-common",
-    "build-main": "rm -rf dist/front/main dist/front/common && gulp build-common && cd front/main && ember build",
+    "build-main": "rm -rf dist/front/main && cd front/main && ember build",
     "build-server": "rm -rf dist/server && gulp build-server"
   },
   "repository": "git://github.com/Wikia/mercury.git",
