@@ -108,7 +108,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {boolean}
 	 */
 	isIOSBrowser() {
-		return /iPad|iPhone|iPod/.test(navigator.platform);
+		return (/iPad|iPhone|iPod/).test(navigator.platform);
 	},
 
 	/**
