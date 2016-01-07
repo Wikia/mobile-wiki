@@ -1,10 +1,12 @@
 {{discussion-header
-	hideSortComponent='hideSortComponent'
-	showSortComponent='showSortComponent'
+	hideSortComponent=(action 'hideSortComponent')
+	overlayVisible=sortVisible
 	showContent=true
+	showSortComponent=(action 'showSortComponent')
 	smartBannerVisible=smartBannerVisible
 	sortBy=sortBy
 	sortMessageKey=sortMessageKey
+	toggleEditorActive=(action 'toggleEditorActive')
 }}
 {{discussion-error-dialog
 	isVisible=shouldShowErrorMessage

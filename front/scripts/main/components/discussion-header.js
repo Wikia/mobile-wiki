@@ -7,7 +7,7 @@ export default Ember.Component.extend(
 
 		discussionEditor: Ember.inject.service(),
 
-		overlay: null,
+		overlayVisible: false,
 		showContent: true,
 
 		siteName: Ember.computed(() => {
@@ -18,7 +18,6 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
-			this.set('overlay', this.element.querySelector('.overlay'));
 			this._super();
 		},
 
@@ -28,7 +27,6 @@ export default Ember.Component.extend(
 			 */
 			showSortComponent() {
 				this.sendAction('showSortComponent');
-				this.get('overlay').style.display = 'block';
 			},
 
 			/**
@@ -36,7 +34,6 @@ export default Ember.Component.extend(
 			 */
 			hideSortComponent() {
 				this.sendAction('hideSortComponent');
-				this.get('overlay').style.display = 'none';
 			},
 
 			toggleEditor(active) {
