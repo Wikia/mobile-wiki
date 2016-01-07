@@ -29,14 +29,14 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			showSortComponent() {
-				this.sendAction('showSortComponent');
+				this.get('discussionSort').showSortComponent();
 			},
 
 			/**
 			 * @returns {void}
 			 */
 			hideSortComponent() {
-				this.sendAction('hideSortComponent');
+				this.get('discussionSort').hideSortComponent()
 			},
 
 			toggleEditor(active) {

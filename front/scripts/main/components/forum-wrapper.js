@@ -19,16 +19,6 @@ export default Ember.Component.extend(
 			this.set('currentlyLoadingPage', false);
 		}),
 
-		actions: {
-			/**
-			 * @param {string} sortBy
-			 * @returns {void}
-			 */
-			setSortBy(sortBy) {
-				this.sendAction('setSortBy', sortBy);
-			}
-		},
-
 		/**
 		 * @returns {void}
 		 */

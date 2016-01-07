@@ -9,20 +9,6 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 
 	actions: {
 		/**
-		 * @returns {void}
-		 */
-		showSortComponent() {
-			this.set('sortVisible', true);
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		hideSortComponent() {
-			this.set('sortVisible', false);
-		},
-
-		/**
 		 * Bubbles up to DiscussionForumRoute
 		 *
 		 * @returns {void}
@@ -56,5 +42,9 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 		goToAllDiscussions() {
 			this.get('target').send('goToAllDiscussions');
 		},
+
+		setSortBy(sortBy) {
+			this.get('target').send('setSortBy', sortBy);
+		}
 	}
 });

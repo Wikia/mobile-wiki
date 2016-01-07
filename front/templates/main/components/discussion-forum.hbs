@@ -1,6 +1,4 @@
 {{discussion-header
-	hideSortComponent='hideSortComponent'
-	showSortComponent='showSortComponent'
 	showContent=true
 	smartBannerVisible=smartBannerVisible
 }}
@@ -34,14 +32,13 @@
 		{{else}}
 			<div class="small-12 large-6 columns">
 				{{discussion-sort
-					setSortBy='setSortBy'
+					setSortBy=(action this.attrs.setSortBy)
 				}}
 				{{forum-wrapper
 					create=(action this.attrs.create)
 					deletePost=(action this.attrs.deletePost)
 					goToPost=(action this.attrs.goToPost)
 					loadPage=(action this.attrs.loadPage)
-					setSortBy='setSortBy'
 					undeletePost=(action this.attrs.undeletePost)
 					upvote=(action this.attrs.upvote)
 					minorError=model.minorError
