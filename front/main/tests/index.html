@@ -7,27 +7,48 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {{content-for 'head'}}
-    {{content-for 'test-head'}}
+    {{content-for "head"}}
+    {{content-for "test-head"}}
 
     <link rel="stylesheet" href="assets/vendor.css">
     <link rel="stylesheet" href="assets/main.css">
     <link rel="stylesheet" href="assets/test-support.css">
 
-    {{content-for 'head-footer'}}
-    {{content-for 'test-head-footer'}}
+    {{content-for "head-footer"}}
+    {{content-for "test-head-footer"}}
+    {{content-for "baseline"}}
+
+    <script>
+      M.prop('apiBase', '/api/mercury', true);
+      M.provide('wiki', {
+        language: {
+          content: 'en'
+        }
+      });
+    </script>
+
   </head>
   <body>
+    {{content-for "body"}}
+    {{content-for "test-body"}}
 
-    {{content-for 'body'}}
-    {{content-for 'test-body'}}
+    <script src="testem.js" integrity=""></script>
     <script src="assets/vendor.js"></script>
+    <script>
+      /**
+       * This is required as tests do use define/require
+       * so to simplify build step both are available in tests files
+       * import/export though is a recommended way to consume dependencies
+       */
+      window.define = window.define || window.mefine;
+      window.require = window.require || window.mequire;
+    </script>
     <script src="assets/test-support.js"></script>
     <script src="assets/main.js"></script>
-    <script src="testem.js"></script>
+    <script src="assets/tests.js"></script>
     <script src="assets/test-loader.js"></script>
 
-    {{content-for 'body-footer'}}
-    {{content-for 'test-body-footer'}}
+    {{content-for "body-footer"}}
+    {{content-for "test-body-footer"}}
   </body>
 </html>

@@ -1,3 +1,8 @@
+/**
+ * Initializer for Ember Hammer
+ *
+ * @returns {void}
+ */
 export function initialize() {
 	window.emberHammerOptions = {
 		hammerOptions: {
