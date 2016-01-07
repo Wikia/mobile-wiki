@@ -29,7 +29,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	}),
 
 	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
-		if (this.get('discussionEditor', 'isEditorOpen')) {
+		if (this.get('discussionEditor.isEditorOpen')) {
 			this.afterOpenActions();
 		} else {
 			this.afterCloseActions();
@@ -184,28 +184,13 @@ export default Ember.Component.extend(ViewportMixin, {
 	},
 
 	/**
-	 * iOS hack for position: fixed - now we display loading icon.
+	 * Allows setting iOS-specific styles to compensate for Safari's restrictions
+	 * @param {object} styles - style object to pass to jQuery
 	 * @returns {void}
 	 */
-	setEditorOpenIPadHack() {
+	setiOSSpecificStyles(styles) {
 		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
-			Ember.$('html, body').css({
-				height: '100%',
-				overflow: 'hidden'
-			});
-		}
-	},
-
-	/**
-	 * iOS hack for position: fixed removed [see: this.setEditorOpenIPadHack]
-	 * @returns {void}
-	 */
-	removeEditorOpenIPadHack() {
-		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
-			Ember.$('html, body').css({
-				height: '',
-				overflow: ''
-			});
+			Ember.$('html, body').css(styles);
 		}
 	},
 
@@ -215,7 +200,10 @@ export default Ember.Component.extend(ViewportMixin, {
 	 */
 	afterCloseActions() {
 		this.set('isActive', false);
-		this.removeEditorOpenIPadHack();
+		this.setiOSSpecificStyles({
+			height: '',
+			overflow: ''
+		});
 		this.textareaBlur();
 	},
 
@@ -226,10 +214,13 @@ export default Ember.Component.extend(ViewportMixin, {
 	afterOpenActions() {
 		this.set('isActive', true);
 
-		//We need this to be sure the transition of the editor has been completed
-		//before we're able to apply special styles for iOS and focus the textarea
+		// We need this to be sure the transition of the editor has been completed
+		// before we're able to apply special styles for iOS and focus the textarea
 		Ember.run.next(this, () => {
-			this.setEditorOpenIPadHack();
+			this.setiOSSpecificStyles({
+				height: '100%',
+				overflow: 'hidden'
+			});
 			this.textareaFocus();
 		});
 	},
