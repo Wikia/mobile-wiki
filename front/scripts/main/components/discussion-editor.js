@@ -108,7 +108,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	click() {
-		this.$('.editor-textarea').focus();
+		this.get('discussionEditor').toggleEditor(true);
 	},
 
 	/**
@@ -180,7 +180,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	textareaFocus() {
-		this.$('.editor-textarea').focus();
+		this.get('discussionEditor').toggleEditor(true);
 	},
 
 	/**
@@ -221,7 +221,7 @@ export default Ember.Component.extend(ViewportMixin, {
 				height: '100%',
 				overflow: 'hidden'
 			});
-			this.textareaFocus();
+			this.$('.editor-textarea').focus();
 		});
 	},
 
@@ -269,6 +269,15 @@ export default Ember.Component.extend(ViewportMixin, {
 				// Create post on CTRL + ENTER
 				this.send('create');
 			}
+		},
+
+		/**
+		 * Triggers on textarea's focus
+		 * @param event
+		 */
+		onFocus(event) {
+			event.preventDefault();
+			this.send('toggleEditorActive', true);
 		}
 	}
 });
