@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.DiscussionDeleteRouteMixin = Ember.Mixin.create({
+export default Ember.Mixin.create({
 	/**
 	 * Get loading spinner container.
 	 * On post list it's post, on post-details it's applicationController to overlay entire page

@@ -71,7 +71,6 @@ class Ads {
 		window.gaTrackAdEvent = Ads.gaTrackAdEvent;
 
 		/* global require */
-
 		// Load the ads code from MW
 		load(adsUrl, () => {
 			if (require) {

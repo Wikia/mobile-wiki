@@ -1,16 +1,16 @@
-var originalThumbnailerGetThumbURL = require('mercury/modules/Thumbnailer').default.getThumbURL;
+var originalThumbnailerGetThumbURL = mrequire('mercury/modules/Thumbnailer').default.getThumbURL;
 
 moduleForComponent('infobox-image-media', 'InfoboxImageMediaComponent', {
 	unit: true,
 
 	setup: function () {
-		require('mercury/modules/Thumbnailer').default.getThumbURL = function (url, options) {
+		mrequire('mercury/modules/Thumbnailer').default.getThumbURL = function (url, options) {
 			return url + '/' + options.mode + '/' + options.width + '/' + options.height;
 		}
 	},
 
 	teardown: function () {
-		require('mercury/modules/Thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
+		mrequire('mercury/modules/Thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
 	}
 });
 

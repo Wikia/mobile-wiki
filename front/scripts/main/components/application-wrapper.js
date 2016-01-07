@@ -1,6 +1,5 @@
 import {trackPerf} from '../../mercury/utils/trackPerf';
 import {getSystem} from '../../mercury/utils/browser';
-import App from '../app';
 
 /**
  * HTMLMouseEvent
@@ -23,7 +22,7 @@ import App from '../app';
  * @property {string} tagName
  */
 
-export default App.ApplicationWrapperComponent = Ember.Component.extend({
+export default Ember.Component.extend({
 	classNameBindings: ['systemClass', 'smartBannerVisible', 'verticalClass'],
 
 	verticalClass: Ember.computed(() => {

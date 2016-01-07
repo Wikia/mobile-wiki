@@ -1,8 +1,8 @@
-import App from '../app';
-
-// This mixin should be considered temporary, until a
-// better solution is created with Jira ticket XW-247
-export default App.FullPageMixin = Ember.Mixin.create({
+/**
+ * This mixin should be considered temporary, until a
+ * better solution is created with Jira ticket XW-247
+ */
+export default Ember.Mixin.create({
 	/**
 	 * @returns {void}
 	 */

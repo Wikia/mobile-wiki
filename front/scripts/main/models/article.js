@@ -1,4 +1,3 @@
-import App from '../app';
 import MediaModel from './media';
 import {normalizeToWhitespace} from '../../mercury/utils/string';
 
@@ -16,7 +15,7 @@ import {normalizeToWhitespace} from '../../mercury/utils/string';
  * @property {string} [redirect]
  */
 
-export default App.ArticleModel = Ember.Object.extend({
+const ArticleModel = Ember.Object.extend({
 	content: null,
 	basePath: null,
 	categories: [],
@@ -27,6 +26,7 @@ export default App.ArticleModel = Ember.Object.extend({
 	mainPageData: null,
 	media: [],
 	mediaUsers: [],
+	otherLanguages: [],
 	title: null,
 	url: null,
 	user: null,
@@ -34,7 +34,7 @@ export default App.ArticleModel = Ember.Object.extend({
 	wiki: null,
 });
 
-App.ArticleModel.reopenClass({
+ArticleModel.reopenClass({
 	/**
 	 * @param {ArticleModelUrlParams} params
 	 * @returns {string}
@@ -46,7 +46,7 @@ App.ArticleModel.reopenClass({
 			redirect += `?redirect=${encodeURIComponent(params.redirect)}`;
 		}
 
-		return `${App.get('apiBase')}/article/${params.title}${redirect}`;
+		return `${M.prop('apiBase')}/article/${params.title}${redirect}`;
 	},
 
 	/**
@@ -54,7 +54,7 @@ App.ArticleModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(params) {
-		const model = App.ArticleModel.create(params);
+		const model = ArticleModel.create(params);
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
@@ -89,7 +89,7 @@ App.ArticleModel.reopenClass({
 	getArticleRandomTitle() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: `${App.get('apiBase')}/article?random&titleOnly`,
+				url: `${M.prop('apiBase')}/article?random&titleOnly`,
 				cache: false,
 				dataType: 'json',
 				success: (data) => {
@@ -182,6 +182,10 @@ App.ArticleModel.reopenClass({
 				articleProperties.relatedPages = data.relatedPages;
 			}
 
+			if (data.otherLanguages) {
+				articleProperties.otherLanguages = data.otherLanguages;
+			}
+
 			if (data.adsContext) {
 				articleProperties.adsContext = data.adsContext;
 
@@ -211,3 +215,5 @@ App.ArticleModel.reopenClass({
 		model.setProperties(articleProperties);
 	}
 });
+
+export default ArticleModel;

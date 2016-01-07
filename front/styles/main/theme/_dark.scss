@@ -17,9 +17,11 @@ body.dark-theme {
 		border-color: $dark-button-color;
 		color: $dark-disabled-button-text-color;
 	}
+
 	.discussions-header {
 		color: $dark-header-text-color;
 	}
+
 	input[type=text]:focus,
 	input[type=password]:focus,
 	input[type=email]:focus,
@@ -27,6 +29,7 @@ body.dark-theme {
 	.focused {
 		border-bottom: 1px solid $dark-input-color-active;
 	}
+
 	input[type=text],
 	input[type=text]:focus,
 	input[type=password],
@@ -38,17 +41,20 @@ body.dark-theme {
 	.input {
 		border-bottom: 1px solid $dark-label-color-inactive;
 	}
+
 	input[type=text]:valid  + .floating-label,
 	input[type=password]:valid + .floating-label,
 	input[type=email]:valid  + .floating-label,
 	input[type=date]:valid + .floating-label {
 		color: $dark-label-color-valid;
 	}
+
 	form {
 		small.error {
 			color: $input-border-error-color;
 		}
 	}
+
 	.input-container {
 		input,
 		.input {
@@ -57,20 +63,26 @@ body.dark-theme {
 			}
 		}
 	}
+
 	input:valid + .floating-label.error {
 		color: $dark-input-border-error-color;
 	}
+
 	.floating-label.active {
 		color: $dark-label-color-active;
 	}
-	.discussion {
-		background-color: $dark-discussion-bg-color;
 
+	label {
+		color: $dark-label-color
+	}
+
+	.discussion {
 		.avatar {
 			img {
 				border-color: $dark-discussion-avatar-border-color;
 			}
 		}
+
 		.count {
 			color: $dark-discussion-count-color;
 
@@ -79,6 +91,7 @@ body.dark-theme {
 				color: $dark-discussion-count-color;
 			}
 		}
+
 		.discussion-content {
 			color: $dark-discussion-content-color;
 		}
@@ -140,15 +153,19 @@ body.dark-theme {
 				}
 			}
 		}
+
 		.load-more {
 			color: $dark-discussion-load-more-color;
 		}
+
 		.see-more {
 			background-color: $dark-discussion-see-more-color;
 		}
+
 		.timestamp {
 			color: $dark-discussion-timestamp-color;
 		}
+
 		.post-detail {
 			background-color: $dark-discussion-desktop-post-detail-bg-color;
 			border-top-color: $dark-discussion-post-detail-border-color;
@@ -176,19 +193,23 @@ body.dark-theme {
 			background-color: $dark-discussion-editor-background-color;
 		}
 	}
+
 	.discussion-app-promotion {
 		.discussion-app-join-text {
 			color: $dark-app-promotion-text-color;
 		}
 	}
+
 	.community-badge {
 		img {
 			border-color: $dark-discussion-community-badge-border;
 		}
+
 		p {
 			color: $dark-discussion-community-badge-title-color;
 		}
 	}
+
 	.discussion-contributors {
 		.discussion-contributors-more {
 			background-color: $dark-discussion-contributors-background-color;
@@ -196,17 +217,25 @@ body.dark-theme {
 			color: $dark-discussion-contributors-text-color;
 		}
 	}
+
 	.discussion-contributors-mobile {
 		background-color: $dark-discussion-contributors-background-color;
 	}
+
 	.rail {
 		.discussion-contributors-title {
 			color: $dark-discussion-contributors-rail-title;
 		}
+
 		.back-button {
-			border-color: $discussion-rail-separator-color;
+			border-color: $dark-discussion-rail-border-color;
+		}
+
+		.no-replies-message {
+			color: $dark-discussion-no-replies-text-color;
 		}
 	}
+
 	figure {
 		&.avatar {
 			img, svg {
@@ -220,6 +249,7 @@ body.dark-theme {
 	body.dark-theme {
 		background-color: $dark-discussion-desktop-bg-color;
 	}
+
 	.dark-theme {
 		.discussion {
 			background-color: transparent;
@@ -234,7 +264,12 @@ body.dark-theme {
 					border-bottom-color: $dark-discussion-reply-border-color;
 				}
 			}
+
+			.discussion-no-replies {
+				color: $dark-discussion-no-replies-text-color;
+			}
 		}
+
 		.discussion-sort {
 			li {
 				&.not-active {
@@ -243,6 +278,7 @@ body.dark-theme {
 				}
 			}
 		}
+
 		.discussion-no-replies {
 			border-bottom-color: $dark-discussion-reply-border-color
 		}

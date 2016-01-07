@@ -29,6 +29,8 @@ module.exports = function (config) {
 			paths.vendor.original + '/ember-qunit/ember-qunit.js',
 			paths.vendor.original + '/loader.js/loader.js',
 
+			paths.scripts.front.src + '/loader-no-conflict.js',
+
 			'test/fixtures/test-fixtures.js',
 
 			// Ember templates

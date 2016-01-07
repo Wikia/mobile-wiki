@@ -1,10 +1,9 @@
-import App from '../app';
 import MediaComponent from './media';
 import ArticleContentMixin from '../mixins/article-content';
 import ViewportMixin from '../mixins/viewport';
 import Thumbnailer from '../../mercury/modules/Thumbnailer';
 
-export default App.ImageMediaComponent = MediaComponent.extend(
+export default MediaComponent.extend(
 	ArticleContentMixin,
 	ViewportMixin,
 	{

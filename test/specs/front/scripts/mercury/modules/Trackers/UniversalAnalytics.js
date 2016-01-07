@@ -35,7 +35,7 @@ QUnit.module('mercury/modules/Trackers/UniversalAnalytics', function (hooks) {
 			dimensions = [];
 
 		dimensions[8] = 'test/article';
-		require.entries['mercury/modules/Trackers/UniversalAnalytics'].callback(exports);
+		mrequire.entries['mercury/modules/Trackers/UniversalAnalytics'].callback(exports);
 
 		UniversalAnalytics = exports.default;
 		UniversalAnalytics.setDimensions(dimensions);

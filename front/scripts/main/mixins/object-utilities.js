@@ -1,6 +1,4 @@
-import App from '../app';
-
-export default App.ObjectUtilitiesMixin = Ember.Mixin.create({
+export default Ember.Mixin.create({
 	/**
 	 * @returns {Object}
 	 */
