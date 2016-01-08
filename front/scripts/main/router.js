@@ -82,7 +82,7 @@ Router.map(function () {
 		});
 	});
 
-	this.route('imageReview', {
+	this.route('image-review', {
 		path: '/image-review'
 	});
 
