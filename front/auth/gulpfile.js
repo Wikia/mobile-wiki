@@ -14,7 +14,14 @@ var concat = require('gulp-concat'),
 	sassOptions = require('../../gulp/options').sass,
 	compile = require('../../gulp/utils/compile-es6-modules'),
 	environment = require('../../gulp/utils/environment'),
-	piper = require('../../gulp/utils/piper');
+	piper = require('../../gulp/utils/piper'),
+	Server = require('karma').Server;
+
+gulp.task('test-auth', ['build-auth'], function (done) {
+	new Server({
+		configFile: __dirname + '/tests/karma.conf.js'
+	}, done).start();
+});
 
 gulp.task('build-auth-scripts', function (done) {
 	var pathsScripts = paths.auth.scripts;

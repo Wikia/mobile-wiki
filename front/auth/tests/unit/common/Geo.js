@@ -1,7 +1,7 @@
 QUnit.module('auth/common/Geo)', function (hooks) {
 	hooks.beforeEach(function () {
 		var geoModule = {};
-		mrequire.entries['auth/common/Geo'].callback(geoModule, {
+		require.entries['auth/app/common/Geo'].callback(geoModule, {
 			get: function () {
 				return '{"city":"FIXME","country":"PL","continent":"EU"}';
 			}
@@ -29,5 +29,4 @@ QUnit.module('auth/common/Geo)', function (hooks) {
 	QUnit.test('Continent getter returns string with a continent name if Geo cookie is set', function (assert) {
 		assert.equal(new this.Geo().getContinent(), 'EU');
 	});
-
 });

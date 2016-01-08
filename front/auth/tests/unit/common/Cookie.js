@@ -17,11 +17,11 @@ QUnit.module('auth/common/Cookie', function (hooks) {
 	});
 
 	QUnit.test('Cookie class is loaded', function (assert) {
-		assert.ok(typeof mrequire('auth/common/Cookie').default === 'function');
+		assert.ok(typeof require('auth/app/common/Cookie').default === 'function');
 	});
 
 	QUnit.test('Cookie getter is extracting right value from a cookie', function (assert) {
-		var Cookie = mrequire('auth/common/Cookie').default;
+		var Cookie = require('auth/app/common/Cookie').default;
 
 		assert.equal(Cookie.get('Geo'), '{"city":"FIXME","country":"PL","continent":"EU"}');
 		assert.equal(Cookie.get('i18next'), 'en');
@@ -29,16 +29,14 @@ QUnit.module('auth/common/Cookie', function (hooks) {
 	});
 
 	QUnit.test('Cookie getter is returning null if cookie value not found', function (assert) {
-		var Cookie = mrequire('auth/common/Cookie').default;
+		var Cookie = require('auth/app/common/Cookie').default;
 
 		assert.equal(Cookie.get('fakeCookieValue'), null);
 	});
 
 	QUnit.test('Cookie getter is extracting right value from the end of cookie string', function (assert) {
-		var Cookie = mrequire('auth/common/Cookie').default;
+		var Cookie = require('auth/app/common/Cookie').default;
 
 		assert.equal(Cookie.get('i18next'), 'en');
 	});
-
-
 });

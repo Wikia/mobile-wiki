@@ -1,6 +1,6 @@
 QUnit.module('auth/common/UrlHelper', function () {
 	QUnit.test('UrlHelper is loaded', function (assert) {
-		assert.ok(typeof mrequire('auth/common/UrlHelper').default === 'function');
+		assert.ok(typeof require('auth/app/common/UrlHelper').default === 'function');
 	});
 
 	QUnit.test('UrlHelper urlEncode', function (assert) {
@@ -30,14 +30,13 @@ QUnit.module('auth/common/UrlHelper', function () {
 						expected: 'foo=&bar=http%3A%2F%2Fexample.com%2F&baz=some%20string'
 					}
 				],
-				urlHelperClass = mrequire('auth/common/UrlHelper').default,
+				urlHelperClass = require('auth/app/common/UrlHelper').default,
 				urlHelper = new urlHelperClass();
 
 		testCases.forEach(function(testCase) {
 			assert.equal(urlHelper.urlEncode(testCase.input), testCase.expected);
 		});
 	});
-
 
 	QUnit.test('UrlHelper ulrDecode', function (assert) {
 		var testCases = [
@@ -62,12 +61,11 @@ QUnit.module('auth/common/UrlHelper', function () {
 						}
 					}
 				],
-				urlHelperClass = mrequire('auth/common/UrlHelper').default,
+				urlHelperClass = require('auth/app/common/UrlHelper').default,
 				urlHelper = new urlHelperClass();
 
 		testCases.forEach(function(testCase) {
 			assert.deepEqual(urlHelper.urlDecode(testCase.input), testCase.expected);
 		});
 	});
-
 });
