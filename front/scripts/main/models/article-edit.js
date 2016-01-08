@@ -1,4 +1,4 @@
-import editToken from '../utils/edit-token';
+import getEditToken from '../utils/edit-token';
 
 const ArticleEditModel = Ember.Object.extend({
 	content: null,
@@ -19,7 +19,7 @@ ArticleEditModel.reopenClass(
 		 */
 		publish(model) {
 			return new Ember.RSVP.Promise((resolve, reject) => {
-				editToken.getToken(model.title)
+				getEditToken(model.title)
 					.then((token) => {
 						Ember.$.ajax({
 							url: M.buildUrl({path: '/api.php'}),

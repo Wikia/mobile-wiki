@@ -1,4 +1,4 @@
-import editToken from '../utils/edit-token';
+import getEditToken from '../utils/edit-token';
 
 /**
  * @typedef {Object} FileNameSeparated
@@ -64,7 +64,7 @@ ArticleAddPhotoModel.reopenClass(
 				};
 
 			return new Ember.RSVP.Promise((resolve, reject) => {
-				editToken.getToken(model.title)
+				getEditToken(model.title)
 					.then((token) => {
 						editData.token = token;
 						this.editContent(editData)
@@ -133,7 +133,7 @@ ArticleAddPhotoModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		permanentUpload(title, tempName) {
-			return editToken.getToken(title)
+			return getEditToken(title)
 				.then((token) => {
 					return new Ember.RSVP.Promise((resolve, reject) => {
 						const params = {
@@ -168,7 +168,7 @@ ArticleAddPhotoModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		temporaryUpload(photoData) {
-			return editToken.getToken(photoData.name)
+			return getEditToken(photoData.name)
 				.then((token) => {
 					const formData = new FormData();
 
