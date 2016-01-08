@@ -1,14 +1,16 @@
-const WikiaInYourLangModel = Ember.Object.extend({
+import LanguagesMixin from '../mixins/languages';
+
+const WikiaInYourLangModel = Ember.Object.extend(LanguagesMixin, {
 	message: null,
 	nativeDomain: null
 });
 
-WikiaInYourLangModel.reopenClass({
+WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	load() {
-		const browserLang = navigator.language || navigator.browserLanguage,
+		const browserLang = WikiaInYourLangModel.getBrowserLanguage(),
 			model = WikiaInYourLangModel.getFromCache(browserLang);
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
