@@ -115,6 +115,7 @@ DiscussionForumModel.reopenClass({
 							namespace: 'User',
 							title: post.createdBy.name
 						});
+						post.createdBy.name = post.createdBy.name.trim();
 						contributors.push(post.createdBy);
 					}
 				});
