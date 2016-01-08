@@ -4,6 +4,25 @@ import nl2br from '../../mercury/utils/nl2br';
  * Handles sending upvote action outside from the component.
  */
 export default Ember.Mixin.create({
+
+	/**
+	 * Returns only the first 148 chars from the given string, and adds '...' at the end if the string originally was
+	 * longer than 148 characters.
+	 * This function is needed only in Firefox and in IE, cos in other browsers we are using 'line-clamp' css property.
+	 * @param content
+	 * @returns {string}
+	 */
+	contentTruncation: function (content) {
+		const maxContentChars = 148;
+
+		if (content.length > maxContentChars) {
+			content = content.slice(0, maxContentChars - 1) + '...';
+		}
+
+		return content;
+	},
+
+
 	/**
 	 * Returns content with links created from urls and converts \n, \rn and \r to <br>
 	 * @returns {string}
@@ -12,6 +31,10 @@ export default Ember.Mixin.create({
 		let escapedContent = Ember.Handlebars.Utils.escapeExpression(
 			this.get('post.rawContent')
 		).trim();
+
+		if (!this.isDetailsView) {
+			escapedContent = this.contentTruncation(escapedContent);
+		}
 
 		escapedContent = nl2br(escapedContent);
 
