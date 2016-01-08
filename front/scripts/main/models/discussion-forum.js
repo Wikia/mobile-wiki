@@ -111,11 +111,11 @@ DiscussionForumModel.reopenClass({
 
 				posts.forEach((post) => {
 					if (post.hasOwnProperty('createdBy')) {
+						post.createdBy.name = post.createdBy.name.trim();
 						post.createdBy.profileUrl = M.buildUrl({
 							namespace: 'User',
 							title: post.createdBy.name
 						});
-						post.createdBy.name = post.createdBy.name.trim();
 						contributors.push(post.createdBy);
 					}
 				});
