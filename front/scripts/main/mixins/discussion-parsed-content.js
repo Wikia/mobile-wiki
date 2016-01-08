@@ -13,10 +13,11 @@ export default Ember.Mixin.create({
 	 * @returns {string}
 	 */
 	contentTruncation: function (content) {
-		const maxContentChars = 148;
+		const maxContentChars = 148,
+			ellipsis = "&hellip;";
 
 		if (content.length > maxContentChars) {
-			content = content.slice(0, maxContentChars - 1) + '...';
+			content = content.slice(0, maxContentChars - 1) + ellipsis;
 		}
 
 		return content;
