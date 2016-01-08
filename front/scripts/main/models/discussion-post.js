@@ -95,8 +95,11 @@ DiscussionPostModel.reopenClass({
 			}),
 			success: (data) => {
 				const contributors = [],
-					replies = data._embedded['doc:posts'];
+					replies = data._embedded['doc:posts'],
+					firstPost = data._embedded.firstPost[0];
 				let pivotId;
+
+				firstPost.createdBy.name = firstPost.createdBy.name ? firstPost.createdBy.name.trim() : '';
 
 				// If there are no replies to the first post, 'doc:posts' will not be returned
 				if (replies) {
@@ -118,7 +121,7 @@ DiscussionPostModel.reopenClass({
 				postInstance.setProperties({
 					contributors,
 					forumId: data.forumId,
-					firstPost: data._embedded.firstPost[0],
+					firstPost: firstPost,
 					id: data.id,
 					isDeleted: data.isDeleted,
 					page: 0,
