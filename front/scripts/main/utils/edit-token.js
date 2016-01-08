@@ -33,5 +33,4 @@ export default function (title) {
 			error: (err) => reject(err)
 		});
 	});
-
 };
