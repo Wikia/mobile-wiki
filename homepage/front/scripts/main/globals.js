@@ -15,3 +15,10 @@ export function loadGlobalData() {
 export function getLoginUrl() {
 	return cachedData ? cachedData.loginUrl : null;
 }
+
+/**
+ * @returns {string|null}
+ */
+export function getStartWikiaUrl() {
+	return cachedData ? cachedData.startWikiaUrl : null;
+}
