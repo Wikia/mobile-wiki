@@ -10,6 +10,7 @@
     "setup-main": "cd front/main && npm install && bower install",
     "setup-server": "cd server && npm install",
     "build": "rm -rf dist && gulp build-common && gulp build-auth && cd front/main && ember build && gulp build-server",
+    "build-prod": "rm -rf dist && gulp build-common --type prod && gulp build-auth --type prod && cd front/main && ember build --environment=production && gulp build-server --type prod",
     "dev": "rm -rf www && gulp --nosync",
     "local": "rm -rf www && gulp",
     "start": "npm run build && node dist/server/app/server.js",
