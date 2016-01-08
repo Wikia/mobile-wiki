@@ -15,7 +15,7 @@ var filter = require('gulp-filter'),
 	pathsCommon = paths.common,
 	Server = require('karma').Server;
 
-gulp.task('test-common', ['build-common', 'build-common-vendor'], function (done) {
+gulp.task('test-common', ['build-common-vendor'], function (done) {
 	new Server({
 		configFile: __dirname + '/tests/karma.conf.js'
 	}, done).start();

@@ -1,19 +1,8 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
 # compiled output
-/dist
-/tmp
-/vendor/baseline.js
-/vendor/common.js
+dist/
+tmp/
+vendor/
 
 # dependencies
-/node_modules
-/bower_components
-
-# misc
-/.sass-cache
-/connect.lock
-/coverage/*
-/libpeerconnection.log
-npm-debug.log
-testem.log
+node_modules/
+bower_components/

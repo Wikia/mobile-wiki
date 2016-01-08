@@ -143,7 +143,7 @@ gulp.task('watch-auth', function () {
 	});
 });
 
-gulp.task('test-auth', ['build-auth'], function (done) {
+gulp.task('test-auth', function (done) {
 	new karmaServer({
 		configFile: __dirname + '/tests/karma.conf.js'
 	}, done).start();

@@ -15,8 +15,8 @@
     "start": "npm run build && node dist/server/app/server.js",
     "test": "npm run build-test && npm run test-front && npm run test-server",
     "coverage": "npm run build-coverage && npm run test-front && npm run test-server",
-    "test-front": "gulp karma",
-    "test-server": "gulp node-test",
+    "test-front": "gulp test-common && gulp test-auth && cd front/main && ember test",
+    "test-server": "gulp test-server",
     "linter": "eslint ."
   },
   "repository": "git://github.com/Wikia/mercury.git",
@@ -66,6 +66,7 @@
     "karma-phantomjs-launcher": "0.2.1",
     "karma-qunit": "0.1.8",
     "multipipe": "0.1.2",
+    "nodemon": "1.8.1",
     "qunit": "0.7.7",
     "qunitjs": "1.20.0",
     "run-sequence": "1.1.5",
