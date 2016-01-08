@@ -6,6 +6,10 @@
 	requestErrorMessage=requestErrorMessage
 	siteHeadPinned=siteHeadPinned
 }}
+<span id="help-me" class="icon-help">test</span>
+{{#pop-over for="help-me" on="click"}}
+	Hey there!<br> there<br> there<br> there
+{{/pop-over}}
 {{#each posts as |item|}}
 	{{post-detail
 		author=item.createdBy
