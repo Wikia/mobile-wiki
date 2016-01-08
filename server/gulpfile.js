@@ -1,35 +1,21 @@
+/* eslint-env es5, node */
+/* eslint prefer-template: 0, prefer-arrow-callback: 0, no-var: 0 */
+
 var fs = require('fs'),
 	gulp = require('gulp'),
 	babel = require('gulp-babel'),
 	newer = require('gulp-newer'),
 	rename = require('gulp-rename'),
-	expect = require('gulp-expect-file'),
-	nodeDeps = Object.keys(require('./package.json').dependencies),
-	environment = require('../gulp/utils/environment'),
-	exitOnError = require('../gulp/utils/exit-on-error'),
-	paths = require('../gulp/paths').server,
-	pathsConfig = paths.config,
-	pathsScripts = paths.scripts,
-	spawn = require('child_process').spawn,
 	gutil = require('gulp-util'),
-	path = require('path');
-
-gulp.task('test-server', ['build-server'], function () {
-	var child = spawn('node', [path.resolve(__dirname, 'tests/node-qunit.runner.js')], {stdio: 'inherit'});
-
-	if (gutil.env.action && gutil.env.action === 'watch') {
-		gulp.start('node-test-watch');
-		gutil.env.action = 'watching';
-	}
-
-	if (gutil.env.action !== 'watch' || gutil.env.action !== 'watching') {
-		child.on('exit', function(exitCode) {
-			if (exitCode) {
-				throw 'Tests failed';
-			}
-		});
-	}
-});
+	watch = require('gulp-watch'),
+	nodemon = require('nodemon'),
+	path = require('path'),
+	spawn = require('child_process').spawn,
+	nodeDeps = Object.keys(require('./package.json').dependencies),
+	exitOnError = require('../gulp/utils/exit-on-error'),
+	log = require('../gulp/utils/logger'),
+	paths = require('../gulp/paths').server,
+	pathsConfig = paths.config;
 
 /*
  * If config doesn't exist, create it from example
@@ -46,13 +32,13 @@ gulp.task('build-server-init-config', function () {
  * Compile server scripts
  */
 gulp.task('build-server-scripts', ['build-server-init-config'], function (done) {
-	gulp.src([pathsScripts.src, pathsScripts.config], {base: './'})
-		.pipe(newer({dest: pathsScripts.dest, ext: '.js'}))
+	gulp.src(paths.scripts.src, {base: './'})
+		.pipe(newer({dest: paths.scripts.dest, ext: '.js'}))
 		.pipe(babel({
 			presets: ['es2015'],
 		}))
 		.on('error', exitOnError)
-		.pipe(gulp.dest(pathsScripts.dest))
+		.pipe(gulp.dest(paths.scripts.dest))
 		.on('end', done);
 });
 
@@ -71,10 +57,6 @@ gulp.task('build-server-node-modules', function () {
  */
 gulp.task('build-server-views-main', function () {
 	return gulp.src(paths.views.main.src)
-		.pipe(expect({
-			errorOnFailure: true
-		}, paths.views.main.src))
-		.on('error', exitOnError)
 		.pipe(rename(paths.views.main.outputFilename))
 		.pipe(gulp.dest(paths.views.main.dest));
 });
@@ -84,10 +66,6 @@ gulp.task('build-server-views-main', function () {
  */
 gulp.task('build-server-views-auth', function () {
 	return gulp.src(paths.views.auth.src)
-		.pipe(expect({
-			errorOnFailure: true
-		}, paths.views.auth.src))
-		.on('error', exitOnError)
 		.pipe(gulp.dest(paths.views.dest));
 });
 
@@ -107,3 +85,84 @@ gulp.task('build-server', [
 	'build-server-scripts',
 	'build-server-views'
 ]);
+
+/*
+ * Watch files that the server build depends on
+ */
+gulp.task('watch-server', function () {
+	var mainIndexPath = path.join(process.cwd(), paths.views.main.src);
+
+	// Ember is built asynchronously (the first build finishes after this task is called)
+	// Because of that the front/main/index.html doesn't exist yet and we have to watch whole dir instead of single file
+	// There is no visible performance penalty
+	watch(paths.views.main.watch, {
+		read: false
+	}).on('add', function (file) {
+		if (file === mainIndexPath) {
+			gulp.start('build-server-views-main');
+		}
+	});
+
+	watch(paths.views.auth.src, function () {
+		gulp.start('build-server-views-auth');
+	});
+
+	watch(paths.views.src, function () {
+		gulp.start('build-server-views');
+	});
+
+	watch(paths.scripts.src, function () {
+		gulp.start('build-server-scripts');
+	});
+});
+
+/*
+ * Run server and restart it when dist/server is modified
+ */
+gulp.task('run-server', function () {
+	var server = nodemon(
+		'--verbose ' +
+		'--ext "' + paths.run.watchExtensions + '" ' +
+		'--delay 2 ' +
+		'--watch ' + paths.run.watch + ' ' + paths.run.script
+	);
+
+	server.on('restart', function (files) {
+		log('Restarting server. Files changed: ', files);
+	});
+
+	// See https://github.com/JacksonGariety/gulp-nodemon/issues/77
+	process.once('SIGINT', function () {
+		nodemon.once('exit', function () {
+			process.exit();
+		});
+	});
+
+	// Stop server if the gulp process exits
+	// FIXME it doesn't work, server process isn't killed
+	process.on('exit', function () {
+		console.log('### TRYING TO QUIT THE SERVER');
+		nodemon.once('exit', function () {
+			process.exit();
+		}).emit('quit');
+	});
+});
+
+gulp.task('test-server', ['build-server'], function () {
+	var child = spawn('node', [path.resolve(__dirname, 'tests/node-qunit.runner.js')], {
+		stdio: 'inherit'
+	});
+
+	if (gutil.env.action && gutil.env.action === 'watch') {
+		gulp.start('node-test-watch');
+		gutil.env.action = 'watching';
+	}
+
+	if (gutil.env.action !== 'watch' || gutil.env.action !== 'watching') {
+		child.on('exit', function (exitCode) {
+			if (exitCode) {
+				throw 'Tests failed';
+			}
+		});
+	}
+});

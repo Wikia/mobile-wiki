@@ -56,10 +56,16 @@ module.exports = {
 			src: 'server/node_modules',
 			dest: outputServer + '/node_modules'
 		},
-		script: output + '/server/server.js',
+		run: {
+			script: output + '/server/app/server.js',
+			watch: outputServer,
+			watchExtensions: 'js hbs'
+		},
 		scripts: {
-			src: 'server/app/' + jsPattern,
-			config: 'server/config/' + jsPattern,
+			src: [
+				'server/app/' + jsPattern,
+				'server/config/' + jsPattern
+			],
 			dest: output
 		},
 		views: {
@@ -71,7 +77,8 @@ module.exports = {
 			main: {
 				src: outputFront + '/main/index.html',
 				dest: outputServer + '/app/views/_layouts',
-				outputFilename: 'ember-main.hbs'
+				outputFilename: 'ember-main.hbs',
+				watch: outputFront + '/**/*'
 			}
 		},
 	},

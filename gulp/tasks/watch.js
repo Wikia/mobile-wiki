@@ -1,82 +1,23 @@
-/*
- * watch
- * Rebuilds on file change while server is running
- */
+/* eslint-env es5, node */
+/* eslint prefer-template: 0, prefer-arrow-callback: 0, no-var: 0 */
 
 var gulp = require('gulp'),
-	gutil = require('gulp-util'),
-	server = require('gulp-develop-server'),
-	log = require('../utils/logger'),
-	paths = require('../paths'),
 	path = require('path'),
-	browserSync = require('browser-sync'),
-	reload = browserSync.reload;
+	runSequence = require('run-sequence'),
+	paths = require('../paths');
 
-gulp.task('watch', ['build'], function () {
-	log('Watching files');
-
-	if (!gutil.env.nosync) {
-		browserSync({
-			ghostMode: false,
-			logLevel: 'silent',
-			open: false
-		});
-	}
-
-	gulp.watch(paths.styles.watch, ['sass']).on('change', function (event) {
-		/*
-		 * Baseline is a scss file that gets inlined, so the views must be recompiled
-		 * when it is changed
-		 */
-		if (event.path.match('baseline.scss')) {
-			gulp.start('build-views');
-		}
-	});
-
-	gulp.watch(path.join(
-		paths.scripts.front.src,
-		paths.scripts.front.jsPattern
-	), ['build-combined']).on('change', function (event) {
-		if (event.path.match('baseline')) {
-			gulp.start('build-views');
-		}
-	});
-
-	gulp.watch([paths.scripts.server.src], ['scripts-server']);
-
-	gulp.watch(path.join(
-		paths.templates.src,
-		paths.templates.files
-	), ['build-combined']).on('change', function (event) {
-		log('Template changed:', gutil.colors.green(event.path));
-	});
-
-	gulp.watch(paths.locales.src, ['locales']).on('change', function (event) {
-		log('Locales changed:', gutil.colors.green(event.path));
-	});
-
-	gulp.watch([
-		path.join(paths.symbols.src, paths.symbols.files),
-		paths.views.src
-	], ['build']);
-
-	gulp.watch([
-		paths.base + '/config/*',
-		paths.base + '/server/**/*',
-		paths.base + '/views/**/*',
-		paths.base + '/front/scripts/*.js',
-		paths.base + '/front/styles/*.css',
-		paths.base + '/front/templates/*.js',
-		paths.base + '/front/locales/**/*.json'
-	]).on('change', function (event) {
-		log('File changed:', gutil.colors.green(event.path), 'Restarting server');
-
-		server.restart(function () {
-			if (event.path.match('front')) {
-				reload(path);
-
-				log('Updating browser');
-			}
-		});
-	});
+gulp.task('build-watch-run', function (done) {
+	runSequence(
+		'build-common',
+		'build-auth',
+		'build-server',
+		[
+			'build-watch-main',
+			'watch-auth',
+			'watch-common',
+			'watch-server',
+			'run-server'
+		],
+		done
+	)
 });
