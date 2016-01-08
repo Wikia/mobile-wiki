@@ -7,7 +7,7 @@ QUnit.module('mercury/modules/VideoLoader', function (hooks) {
 	hooks.beforeEach(function () {
 		var exports = {};
 
-		mrequire.entries['mercury/modules/VideoLoader'].callback(exports, {
+		require.entries['common/modules/VideoLoader'].callback(exports, {
 			className: 'BasePlayer'
 		}, {
 			className: 'OoyalaPlayer'

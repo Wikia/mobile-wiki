@@ -8,7 +8,6 @@ module.exports = function (config) {
 		basePath: '../../../',
 		files: [
 			'dist/front/auth/bower_components/jquery/dist/jquery.js',
-			'dist/front/auth/bower_components/i18next/i18next.js',
 			'dist/front/auth/bower_components/loader.js/loader.js',
 			'dist/front/auth/bower_components/sinonjs/sinon.js',
 

@@ -15,11 +15,11 @@ QUnit.module('mercury/utils/domain', function () {
 			},
 			{
 				expected: window.location.hostname
-			},
+			}
 		];
 
 		testCases.forEach(function (testCase) {
-			assert.strictEqual(mrequire('mercury/utils/domain').getDomain(testCase.hostname), testCase.expected);
+			assert.strictEqual(require('common/utils/domain').getDomain(testCase.hostname), testCase.expected);
 		});
 	});
 });

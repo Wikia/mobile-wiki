@@ -4,7 +4,8 @@
   "description": "Wikia Web Application",
   "main": "server.js",
   "scripts": {
-    "setup": "npm install && npm run setup-auth && npm run setup-main && npm run setup-server",
+    "setup": "npm install && npm run setup-common && npm run setup-auth && npm run setup-main && npm run setup-server",
+    "setup-common": "cd front/common && bower install",
     "setup-auth": "cd front/auth && bower install",
     "setup-main": "cd front/main && npm install && bower install",
     "setup-server": "cd server && npm install",

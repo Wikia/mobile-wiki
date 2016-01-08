@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
-import {getDomain} from 'common/utils/domain';
+import {getDomain} from '../utils/domain';
 
 export default Ember.Component.extend(
 	TrackClickMixin,

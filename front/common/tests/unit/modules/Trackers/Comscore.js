@@ -1,11 +1,10 @@
-/* global Mercury, _comscore */
 QUnit.module('mercury/modules/Trackers/Comscore', function (hooks) {
 	var Comscore;
 
 	hooks.beforeEach(function () {
 		var exports = {};
 
-		mrequire.entries['mercury/modules/Trackers/Comscore'].callback(exports, null);
+		require.entries['common/modules/Trackers/Comscore'].callback(exports, null);
 
 		Comscore = exports.default;
 

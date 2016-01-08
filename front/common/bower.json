@@ -1,0 +1,11 @@
+{
+  "name": "Mercury common",
+  "homepage": "https://github.com/Wikia/mercury",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "2.1.4",
+    "loader.js": "3.5.0",
+    "sinonjs": "1.17.1"
+  }
+}

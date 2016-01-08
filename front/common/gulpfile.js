@@ -8,7 +8,21 @@ var filter = require('gulp-filter'),
 	environment = require('../../gulp/utils/environment'),
 	piper = require('../../gulp/utils/piper'),
 	paths = require('../../gulp/paths'),
-	pathsCommon = paths.common;
+	pathsCommon = paths.common,
+	Server = require('karma').Server;
+
+gulp.task('test-common', ['build-common', 'build-common-vendor'], function (done) {
+	new Server({
+		configFile: __dirname + '/tests/karma.conf.js'
+	}, done).start();
+});
+
+gulp.task('build-common-vendor', function () {
+	return piper(
+		gulp.src(paths.common.vendor.src),
+		gulp.dest(paths.common.vendor.dest)
+	);
+});
 
 /*
  * Compile baseline script
