@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
-import {getDomain} from '../../../app/utils/domain';
+import {getDomain} from 'main/utils/domain';
 import sinon from 'sinon';
 
 const originalTrackClick = require.entries['main/mixins/track-click'];

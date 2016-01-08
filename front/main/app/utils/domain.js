@@ -7,4 +7,3 @@ export function getDomain(hostname = window.location.hostname) {
 
 	return Ember.isArray(domain) ? domain[0] : hostname;
 }
-
