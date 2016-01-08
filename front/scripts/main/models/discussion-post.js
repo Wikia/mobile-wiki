@@ -106,7 +106,7 @@ DiscussionPostModel.reopenClass({
 
 					replies.forEach((reply) => {
 						if (reply.hasOwnProperty('createdBy')) {
-							reply.createdBy.name = reply.createdBy.name.trim();
+							reply.createdBy.name = reply.createdBy.name ? reply.createdBy.name.trim() : '';
 							reply.createdBy.profileUrl = M.buildUrl({
 								namespace: 'User',
 								title: reply.createdBy.name
