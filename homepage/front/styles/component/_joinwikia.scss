@@ -23,7 +23,9 @@ $mobile-slider:  new-breakpoint(max-width 920px);
 	}
 
 	.jw-community-central {
-		background-image: url($community-image);
+		background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url($community-image);
+		background-repeat: no-repeat;
+		background-size: cover;
 		float: left;
 		padding: 280px 50px 0;
 
@@ -34,11 +36,15 @@ $mobile-slider:  new-breakpoint(max-width 920px);
 
 	.jw-title {
 		background-color: $title-background;
+		font-weight: bold;
+		padding: .6em 0;
 		text-align: center;
 	}
 
 	.jw-wikia-university {
-		background-image: url($university-image);
+		background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url($university-image);
+		background-repeat: no-repeat;
+		background-size: cover;
 		float: right;
 		padding: 100px 50px 0;
 	}
