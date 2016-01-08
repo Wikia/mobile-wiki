@@ -432,4 +432,14 @@ body.discussions {
 			}
 		}
 	}
+	.discussion {
+		&.post {
+			.post-detail {
+				.post-title {
+					line-height: $line-height-smaller;
+					font-size: $type-smaller;
+				}
+			}
+		}
+	}
 }
