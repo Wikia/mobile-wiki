@@ -11,6 +11,10 @@ export default Ember.Controller.extend({
 
 		changeItemModel(id, status) {
 			this.get('target').send('changeItemModel', id, status);
+		},
+
+		openMainPage() {
+			this.get('target').send('openMainPage');
 		}
 	}
 });

@@ -23,7 +23,7 @@ export default Ember.Route.extend({
 				errorMessage = i18n.t('main.error-no-access-permissions', {ns: 'image-review'});
 			}
 			Ember.Logger.error(error);
-			this.modelFor(this.routeName).addAlert({
+			this.controllerFor('application').addAlert({
 				message: errorMessage,
 				type: 'warning',
 				persistent: true
@@ -40,7 +40,7 @@ export default Ember.Route.extend({
 			ImageReviewModel.reviewImages(model.images).then(() => {
 				this.refresh();
 			}, (data) => {
-				this.modelFor(this.routeName).addAlert({
+				this.controllerFor('application').addAlert({
 					message: data,
 					type: 'warning',
 					persistent: true
@@ -51,6 +51,10 @@ export default Ember.Route.extend({
 		getFlaggedOnly() {
 			this.set('onlyFlagged', true);
 			this.refresh();
+		},
+
+		openMainPage() {
+			this.transitionTo('mainPage');
 		},
 
 		didTransition() {
