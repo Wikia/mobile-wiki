@@ -1,5 +1,5 @@
 {{discussion-post-editor
-	create='create'
+	create=(action this.attrs.create)
 	posts=posts
 	siteHeadPinned=siteHeadPinned
 }}
@@ -7,13 +7,13 @@
 	{{post-detail
 		author=item.createdBy
 		deletePost=(action this.attrs.deletePost)
-		goToPost='goToPost'
+		goToPost=(action this.attrs.goToPost)
 		isVisible=item._embedded.firstPost.[0].isVisible
 		post=item._embedded.firstPost.[0]
 		postId=item.id
 		replyCount=item.postCount
 		undeletePost=(action this.attrs.undeletePost)
-		upvote='upvote'
+		upvote=(action this.attrs.upvote)
 	}}
 {{/each}}
 {{#if hasMore}}

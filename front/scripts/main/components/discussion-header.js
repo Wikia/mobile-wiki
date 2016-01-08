@@ -6,34 +6,28 @@ export default Ember.Component.extend(
 		classNames: ['discussion-header', 'background-theme-color'],
 
 		discussionEditor: Ember.inject.service(),
+		discussionSort: Ember.inject.service(),
 
-		overlayVisible: false,
+		overlayVisible: Ember.computed.oneWay('discussionSort.sortVisible'),
 		showContent: true,
-
 		siteName: Ember.computed(() => {
 			return Ember.get(Mercury, 'wiki.siteName');
 		}),
-
-		/**
-		 * @returns {void}
-		 */
-		didInsertElement() {
-			this._super();
-		},
+		sortMessageKey: Ember.computed.oneWay('discussionSort.sortMessageKey'),
 
 		actions: {
 			/**
 			 * @returns {void}
 			 */
 			showSortComponent() {
-				this.sendAction('showSortComponent');
+				this.get('discussionSort').showSortComponent();
 			},
 
 			/**
 			 * @returns {void}
 			 */
 			hideSortComponent() {
-				this.sendAction('hideSortComponent');
+				this.get('discussionSort').hideSortComponent();
 			},
 
 			toggleEditor(active) {
