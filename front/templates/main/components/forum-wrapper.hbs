@@ -3,8 +3,10 @@
 	posts=posts
 	siteHeadPinned=siteHeadPinned
 }}
-{{#each posts as |item|}}
-	{{post-detail
+
+{{#if totalPosts}}
+	{{#each posts as |item|}}
+		{{post-detail
 		author=item.createdBy
 		deletePost=(action this.attrs.deletePost)
 		goToPost=(action this.attrs.goToPost)
@@ -23,9 +25,14 @@
 			overlay=false
 			radius=32
 			strokeWidth=2
-		}}
+			}}
+		{{/if}}
+		<div class="load-more">
+			{{i18n 'main.loading-more-posts' ns='discussion'}}
+		</div>
 	{{/if}}
-	<div class="load-more">
-		{{i18n 'main.loading-more-posts' ns='discussion'}}
+{{else}}
+	<div class="empty-forum-message">
+		{{i18n "main.empty-forum-text" ns="discussion"}}
 	</div>
 {{/if}}
