@@ -1,3 +1,4 @@
+/* global ga */
 import {loadGlobalData, getLoginUrl, getMobileBreakpoint, getOptimizelyId} from './globals';
 import {loadSearch} from './search';
 
@@ -19,7 +20,7 @@ function search() {
 			// Use Google search
 			searchUrl = `/search?q=${searchText}`;
 
-			ga('send', 'pageview', `${window.location.pathname}${searchUrl}}&qIntra=${searchText}`);
+			ga('send', 'pageview', `${window.location.pathname}${searchUrl}}&qInter=${searchText}`);
 		} else {
 			// Use Oasis search
 			searchUrl = `http://ja.wikia.com/Special:Search?search=${searchText}&fulltext=Search&resultsLang=ja`;
