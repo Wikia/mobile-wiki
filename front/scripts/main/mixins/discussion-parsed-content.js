@@ -9,6 +9,7 @@ export default Ember.Mixin.create({
 	 * Returns only the first 148 chars from the given string, and adds '...' at the end if the string originally was
 	 * longer than 148 characters.
 	 * This function is needed only in Firefox and in IE, cos in other browsers we are using 'line-clamp' css property.
+	 * This is hack for the browsers that do not support 'line-clamp', so the settings and the function itself are here.
 	 * @param content
 	 * @returns {string}
 	 */
@@ -33,7 +34,7 @@ export default Ember.Mixin.create({
 			this.get('post.rawContent')
 		).trim();
 
-		if (!this.isDetailsView) {
+		if (!this.isDetailsView && /Firefox|Trident|Edge/.test(navigator.userAgent)) {
 			escapedContent = this.contentTruncation(escapedContent);
 		}
 
