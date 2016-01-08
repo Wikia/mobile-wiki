@@ -4,7 +4,7 @@ var testrunner = require('qunit'),
 
 testrunner.setup({
 	deps: {
-		path: './www/config/localSettings.js',
+		path: './dist/server/config/localSettings.js',
 		namespace: 'localSettings'
 	},
 	log: {
@@ -28,10 +28,10 @@ testrunner.setup({
 	maxBlockDuration: 5000
 });
 
-var tests = glob.sync(__dirname + '/specs/server/**/*.js'),
-	source = glob.sync(path.resolve('.') + '/www/server/**/*.js'),
+var tests = glob.sync(__dirname + '/unit/**/*.js'),
+	source = glob.sync(path.resolve('.') + '/dist/server/app/**/*.js'),
 	prepped = source.map(function (path) {
-		var part = 'www/server',
+		var part = 'dist/server/app',
 			file = path.substring(path.indexOf(part) + (part.length + 1));
 
 		return {

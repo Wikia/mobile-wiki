@@ -9,7 +9,27 @@ var fs = require('fs'),
 	exitOnError = require('../gulp/utils/exit-on-error'),
 	paths = require('../gulp/paths').server,
 	pathsConfig = paths.config,
-	pathsScripts = paths.scripts;
+	pathsScripts = paths.scripts,
+	spawn = require('child_process').spawn,
+	gutil = require('gulp-util'),
+	path = require('path');
+
+gulp.task('test-server', ['build-server'], function () {
+	var child = spawn('node', [path.resolve(__dirname, 'tests/node-qunit.runner.js')], {stdio: 'inherit'});
+
+	if (gutil.env.action && gutil.env.action === 'watch') {
+		gulp.start('node-test-watch');
+		gutil.env.action = 'watching';
+	}
+
+	if (gutil.env.action !== 'watch' || gutil.env.action !== 'watching') {
+		child.on('exit', function(exitCode) {
+			if (exitCode) {
+				throw 'Tests failed';
+			}
+		});
+	}
+});
 
 /*
  * If config doesn't exist, create it from example

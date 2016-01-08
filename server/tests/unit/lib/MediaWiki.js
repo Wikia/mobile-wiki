@@ -1,7 +1,4 @@
 QUnit.module('lib/MediaWiki', {
-	setup: function () {
-		this.notFoundResponse = require('../../../fixtures/not-found.json');
-	}
 });
 
 test('createURL', function () {
