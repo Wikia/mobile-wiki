@@ -29,3 +29,10 @@ export function getMobileBreakpoint() {
 export function getOptimizelyId() {
 	return cachedData ? cachedData.googleSearchOptimizelyId : 0;
 }
+
+/**
+ * @returns {string|null}
+ */
+export function getStartWikiaUrl() {
+	return cachedData ? cachedData.startWikiaUrl : null;
+}

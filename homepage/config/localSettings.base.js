@@ -27,6 +27,7 @@ var deepExtend = require('deep-extend'),
 		servicesUrl: 'https://services.wikia.com/',
 		apiUrl: 'http://wikia.com/api/v1/',
 		signupUrl: 'https://www.wikia.com/register?uselang=ja&redirect=http://ja.wikia.com',
+		startWikiaUrl: 'http://www.wikia.com/Special:CreateNewWiki?uselang=ja',
 	};
 
 function extendSettings(customLocalSet) {
