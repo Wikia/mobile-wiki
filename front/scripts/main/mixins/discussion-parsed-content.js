@@ -22,7 +22,8 @@ export default Ember.Mixin.create({
 			this.get('post.rawContent')
 		).trim();
 
-		if (!this.get('isDetailsView') && !this.get('contentTruncationLength') && /Firefox|Trident|Edge/.test(navigator.userAgent)) {
+		if (!this.get('isDetailsView') && !this.get('contentTruncationLength') &&
+			/Firefox|Trident|Edge/.test(navigator.userAgent)) {
 			this.set('contentTruncationLength', 148);
 		}
 
