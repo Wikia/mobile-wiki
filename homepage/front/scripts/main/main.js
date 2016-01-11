@@ -1,4 +1,4 @@
-import {loadGlobalData, getLoginUrl, getStartWikiaUrl} from './globals';
+import {loadGlobalData, getLoginUrl, getJaCommunityUrl, getJaUniversityUrl, getStartWikiaUrl} from './globals';
 
 /**
  * @returns {void}
@@ -112,6 +112,14 @@ $('.search-wikia-form').submit((event) => {
 $('.search-wikia').click((event) => {
 	search();
 	event.preventDefault();
+});
+
+$('.jw-community-link').click(() => {
+	window.location.href = getJaCommunityUrl();
+});
+
+$('.jw-university-link').click(() => {
+	window.location.href = getJaUniversityUrl();
 });
 
 $('.wiw-search-wikia-form').submit((event) => {
