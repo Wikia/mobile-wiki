@@ -9,17 +9,10 @@ var filter = require('gulp-filter'),
 	svgSymbols = require('gulp-svg-symbols'),
 	compile = require('../../gulp/utils/compile-es6-modules'),
 	environment = require('../../gulp/utils/environment'),
-	log = require('../../gulp/utils/logger'),
 	piper = require('../../gulp/utils/piper'),
 	paths = require('../../gulp/paths'),
 	pathsCommon = paths.common,
 	Server = require('karma').Server;
-
-gulp.task('test-common', ['build-common-vendor-for-tests'], function (done) {
-	new Server({
-		configFile: __dirname + '/tests/karma.conf.js'
-	}, done).start();
-});
 
 gulp.task('build-common-vendor-for-tests', function () {
 	return piper(
@@ -119,4 +112,10 @@ gulp.task('watch-common', function () {
 		pathsCommon.dest + '/baseline.js',
 		pathsCommon.dest + '/common.js'
 	], options, ['build-common-for-main']);*/
+});
+
+gulp.task('test-common', ['build-common-vendor-for-tests'], function (done) {
+	new Server({
+		configFile: __dirname + '/tests/karma.conf.js'
+	}, done).start();
 });

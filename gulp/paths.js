@@ -56,11 +56,6 @@ module.exports = {
 			src: 'server/node_modules',
 			dest: outputServer + '/node_modules'
 		},
-		run: {
-			script: output + '/server/app/server.js',
-			watch: outputServer,
-			watchExtensions: 'js hbs'
-		},
 		scripts: {
 			src: [
 				'server/app/' + jsPattern,
