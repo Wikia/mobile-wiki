@@ -1,4 +1,5 @@
 import nl2br from '../../mercury/utils/nl2br';
+import truncate from '../../mercury/utils/truncate';
 
 /**
  * Handles sending upvote action outside from the component.
@@ -6,12 +7,11 @@ import nl2br from '../../mercury/utils/nl2br';
 export default Ember.Mixin.create({
 
 	/**
-	 * Tells the template to show only the first 148 chars from the post body, and adds '...' at the end if the post
-	 * originally was longer than 148 characters.
+	 * Property used to truncate the post body to 148 chars.
 	 * This property is set only in Firefox and in IE, because in other browsers works 'line-clamp' css property.
 	 * This is hack for the browsers that do not support 'line-clamp'.
 	 */
-	contentTruncationLength: null,
+	contentTruncationHack: (/Firefox|Trident|Edge/).test(navigator.userAgent),
 
 	/**
 	 * Returns content with links created from urls and converts \n, \rn and \r to <br>
@@ -22,9 +22,8 @@ export default Ember.Mixin.create({
 			this.get('post.rawContent')
 		).trim();
 
-		if (!this.get('isDetailsView') && !this.get('contentTruncationLength') &&
-			/Firefox|Trident|Edge/.test(navigator.userAgent)) {
-			this.set('contentTruncationLength', 148);
+		if (!this.get('isDetailsView') && this.get(contentTruncationHack)) {
+			escapedContent = truncate([escapedContent, 148]);
 		}
 
 		escapedContent = nl2br(escapedContent);

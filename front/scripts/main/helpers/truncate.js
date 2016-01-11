@@ -1,4 +1,4 @@
-import truncate from '../utils/truncate';
+import truncate from '../../mercury/utils/truncate';
 
 /**
  * @param {Array} params
