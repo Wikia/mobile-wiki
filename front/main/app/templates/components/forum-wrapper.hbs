@@ -7,9 +7,9 @@
 	siteHeadPinned=siteHeadPinned
 }}
 <span id="help-me" class="icon-help">test</span>
-{{#pop-over for="help-me" on="click"}}
+{{#pop-over-on-overlay for="help-me" on="click"}}
 	Hey there!<br> there<br> there<br> there
-{{/pop-over}}
+{{/pop-over-on-overlay}}
 {{#each posts as |item|}}
 	{{post-detail
 		author=item.createdBy

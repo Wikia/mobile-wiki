@@ -48,3 +48,11 @@ $pointer-size: 20px;
 	border-color: transparent $color-white transparent transparent;
 	left: -$pointer-size;
 }
+
+.pop-over-overlay {
+	bottom: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: $z-modal-dialog;
+}
