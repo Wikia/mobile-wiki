@@ -15,13 +15,13 @@ var filter = require('gulp-filter'),
 	pathsCommon = paths.common,
 	Server = require('karma').Server;
 
-gulp.task('test-common', ['build-common-vendor'], function (done) {
+gulp.task('test-common', ['build-common-vendor-for-tests'], function (done) {
 	new Server({
 		configFile: __dirname + '/tests/karma.conf.js'
 	}, done).start();
 });
 
-gulp.task('build-common-vendor', function () {
+gulp.task('build-common-vendor-for-tests', function () {
 	return piper(
 		gulp.src(paths.common.vendor.src),
 		gulp.dest(paths.common.vendor.dest)
