@@ -20,7 +20,11 @@
 	</div>
 {{else}}
 	<div class="discussion-content clickable" onclick={{action 'goToPost' postId}}>
-		{{{parsedContent}}}
+		{{#if contentTruncationLength}}
+			{{{truncate parsedContent contentTruncationLength}}}
+		{{else}}
+			{{{parsedContent}}}
+		{{/if}}
 	</div>
 {{/if}}
 <div class="row">

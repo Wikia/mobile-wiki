@@ -6,24 +6,12 @@ import nl2br from '../../mercury/utils/nl2br';
 export default Ember.Mixin.create({
 
 	/**
-	 * Returns only the first 148 chars from the given string, and adds '...' at the end if the string originally was
-	 * longer than 148 characters.
-	 * This function is needed only in Firefox and in IE, cos in other browsers we are using 'line-clamp' css property.
-	 * This is hack for the browsers that do not support 'line-clamp', so the settings and the function itself are here.
-	 * @param content
-	 * @returns {string}
+	 * Tells the template to show only the first 148 chars from the post body, and adds '...' at the end if the post
+	 * originally was longer than 148 characters.
+	 * This property is set only in Firefox and in IE, because in other browsers works 'line-clamp' css property.
+	 * This is hack for the browsers that do not support 'line-clamp'.
 	 */
-	contentTruncation: function (content) {
-		const maxContentChars = 148,
-			ellipsis = "&hellip;";
-
-		if (content.length > maxContentChars) {
-			content = content.slice(0, maxContentChars - 1) + ellipsis;
-		}
-
-		return content;
-	},
-
+	contentTruncationLength: null,
 
 	/**
 	 * Returns content with links created from urls and converts \n, \rn and \r to <br>
@@ -35,7 +23,7 @@ export default Ember.Mixin.create({
 		).trim();
 
 		if (!this.isDetailsView && /Firefox|Trident|Edge/.test(navigator.userAgent)) {
-			escapedContent = this.contentTruncation(escapedContent);
+			this.contentTruncationLength = 148;
 		}
 
 		escapedContent = nl2br(escapedContent);
