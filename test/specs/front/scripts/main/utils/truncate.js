@@ -10,14 +10,19 @@ QUnit.module('mercury/utils/truncate', function (hooks) {
 	});
 
 	QUnit.test('short text', function () {
-		equal(truncate(['short text']), 'short text');
+		equal(truncate('short text'), 'short text');
 	});
 
 	QUnit.test('long text', function () {
-		equal(truncate(['long text, please truncate', 20]), 'long text, please\u2026');
+		equal(truncate('long text, please truncate', 20), 'long text, please\u2026');
+	});
+
+	QUnit.test('long text, default truncation', function () {
+		equal(truncate('long text, please truncate at the end, blablabla blablabla', 20),
+			'long text, please truncate at the end, blablabla\u2026');
 	});
 
 	QUnit.test('number instead of text', function () {
-		equal(truncate([20]), null);
+		equal(truncate(20), null);
 	});
 });

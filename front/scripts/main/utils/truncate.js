@@ -2,10 +2,8 @@
  * @param {Array} params
  * @returns {string}
  */
-export default function (params) {
-	const text = params[0],
-		maxLength = params[1] || 48,
-		ellipsisCharacter = '\u2026';
+export default function (text, maxLength = 48) {
+	const ellipsisCharacter = '\u2026';
 
 	let truncatedString,
 		lastSpacePosition;

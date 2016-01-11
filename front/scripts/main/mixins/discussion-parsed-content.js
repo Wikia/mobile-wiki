@@ -1,5 +1,5 @@
 import nl2br from '../../mercury/utils/nl2br';
-import truncate from '../../mercury/utils/truncate';
+import truncate from '../utils/truncate';
 
 /**
  * Handles sending upvote action outside from the component.
@@ -22,8 +22,8 @@ export default Ember.Mixin.create({
 			this.get('post.rawContent')
 		).trim();
 
-		if (!this.get('isDetailsView') && this.get('contentTruncationHack')) {
-			escapedContent = truncate([escapedContent, 148]);
+		if (!this.get('isDetailsView') && this.get(contentTruncationHack)) {
+			escapedContent = truncate(escapedContent, 148);
 		}
 
 		escapedContent = nl2br(escapedContent);
