@@ -37,6 +37,17 @@ export default Ember.Component.extend(ViewportMixin, {
 	}),
 
 	/**
+	 * Reacts on new item creation failure in the model by stopping the throbber
+	 * @returns {void}
+	 */
+	editorLoadingObserver: Ember.observer('discussionEditor.shouldStopLoading', function () {
+		if (this.get('discussionEditor.shouldStopLoading') === true) {
+			this.set('isLoading', false);
+			this.set('discussionEditor.shouldStopLoading', false);
+		}
+	}),
+
+	/**
 	 * @returns {void}
 	 */
 	init(...params) {

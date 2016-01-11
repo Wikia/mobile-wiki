@@ -5,6 +5,8 @@ export default Ember.Service.extend({
 
 	modalDialogService: Ember.inject.service('modal-dialog'),
 
+	shouldStopLoading: false,
+
 	/**
 	 * Renders a message to display to an anon
 	 * @returns {void}
