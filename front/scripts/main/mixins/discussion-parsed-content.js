@@ -22,7 +22,7 @@ export default Ember.Mixin.create({
 			this.get('post.rawContent')
 		).trim();
 
-		if (!this.get('isDetailsView') && this.get(contentTruncationHack)) {
+		if (!this.get('isDetailsView') && this.get('contentTruncationHack')) {
 			escapedContent = truncate([escapedContent, 148]);
 		}
 
