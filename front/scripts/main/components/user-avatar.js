@@ -15,8 +15,6 @@ export default Ember.Component.extend({
 		});
 	}),
 	wrapInHref: Ember.computed('wrapAvatar', function () {
-		console.log('Avatar wrapping', this.get('wrapAvatar'));
-		console.log('Is undefined?',typeof this.get('wrapAvatar') === 'undefined');
 		return (typeof this.get('wrapAvatar') === 'undefined');
 	})
 });
