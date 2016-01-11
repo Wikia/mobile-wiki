@@ -9,13 +9,6 @@ export default Ember.Component.extend(
 		classNameBindings: ['isNew', 'isDeleted', 'isParentDeleted'],
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
-		post: null,
-
-		authorUrl: Ember.computed('post', function () {
-			return M.buildUrl({
-				namespace: 'User',
-				title: this.get('post.createdBy.name'),
-			});
-		}),
+		post: null
 	}
 );
