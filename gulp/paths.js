@@ -36,10 +36,27 @@ module.exports = {
 	common: {
 		src: 'front/common',
 		dest: outputFront + '/common',
+		baseline: {
+			src: 'front/common/baseline/' + jsPattern,
+			destFile: 'baseline.js'
+		},
 		main: {
 			dest: 'front/main/vendor',
 		},
+		modulesUtils: {
+			src: [
+				'front/common/modules/' + jsPattern,
+				'front/common/utils/' + jsPattern,
+			],
+			destFile: 'common.js'
+		},
+		public: {
+			src: 'front/common/public/**/*'
+		},
 		revManifest: outputFront + '/common/rev-manifest.json',
+		svg: {
+			src: 'front/common/public/symbols/*.svg'
+		},
 		vendor: {
 			src: 'front/common/bower_components/**/*',
 			dest: outputFront + '/common/bower_components'

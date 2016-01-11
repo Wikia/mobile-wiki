@@ -60,6 +60,10 @@ module.exports = function (defaults) {
 					to: 'mequire'
 				}
 			]
+		},
+		trees: {
+			// By default vendor is not watched by Ember CLI and we want to rebuild when common scripts are modified
+			vendor: 'vendor'
 		}
 	});
 
