@@ -1,5 +1,6 @@
 ## Manual Setup
 * `npm install` will install local dependencies
+* `npm install -g bower jshint gulp tsd typescript-formatter bower-installer` to install global dependencies
 * Copy `homepage/config/localSettings.example.js` to your own copy of `localSettings.js` and override any settings from localSettings.base.js
   * Set port if you want to override the default port 8111
   * Other settings are optional
