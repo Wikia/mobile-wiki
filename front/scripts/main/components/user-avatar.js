@@ -14,7 +14,5 @@ export default Ember.Component.extend({
 			title: this.get('profileName'),
 		});
 	}),
-	wrapInHref: Ember.computed('wrapAvatar', function () {
-		return (typeof this.get('wrapAvatar') === 'undefined');
-	})
+	wrapAvatar: false
 });
