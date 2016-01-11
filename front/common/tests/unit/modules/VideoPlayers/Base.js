@@ -15,7 +15,7 @@ QUnit.module('mercury/modules/VideoPlayers/Base', function (hooks) {
 	hooks.beforeEach(function () {
 		var exports = {};
 
-		mrequire.entries['mercury/modules/VideoPlayers/Base'].callback(exports, loadStub, {}, {
+		require.entries['common/modules/VideoPlayers/Base'].callback(exports, loadStub, {}, {
 			track: trackStub
 		});
 
@@ -41,7 +41,7 @@ QUnit.module('mercury/modules/VideoPlayers/Base', function (hooks) {
 	QUnit.test('loadPlayer calls M.load and playerDidLoad hook', function () {
 		var instance = getInstance();
 
-		this.spy(instance, 'playerDidLoad');
+		sinon.spy(instance, 'playerDidLoad');
 
 		equal(instance.playerDidLoad.called, false, 'playerDidLoad should not be called yet');
 

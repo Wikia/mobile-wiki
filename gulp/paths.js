@@ -39,7 +39,11 @@ module.exports = {
 		main: {
 			dest: 'front/main/vendor',
 		},
-		revManifest: outputFront + '/common/rev-manifest.json'
+		revManifest: outputFront + '/common/rev-manifest.json',
+		vendor: {
+			src: 'front/common/bower_components/**/*',
+			dest: outputFront + '/common/bower_components'
+		}
 	},
 	server: {
 		config: {
@@ -52,10 +56,16 @@ module.exports = {
 			src: 'server/node_modules',
 			dest: outputServer + '/node_modules'
 		},
-		script: output + '/server/server.js',
+		run: {
+			script: output + '/server/app/server.js',
+			watch: outputServer,
+			watchExtensions: 'js hbs'
+		},
 		scripts: {
-			src: 'server/app/' + jsPattern,
-			config: 'server/config/' + jsPattern,
+			src: [
+				'server/app/' + jsPattern,
+				'server/config/' + jsPattern
+			],
 			dest: output
 		},
 		views: {
@@ -67,7 +77,8 @@ module.exports = {
 			main: {
 				src: outputFront + '/main/index.html',
 				dest: outputServer + '/app/views/_layouts',
-				outputFilename: 'ember-main.hbs'
+				outputFilename: 'ember-main.hbs',
+				watch: outputFront + '/**/*'
 			}
 		},
 	},

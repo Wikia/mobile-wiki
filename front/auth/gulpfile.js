@@ -1,27 +1,24 @@
-var concat = require('gulp-concat'),
-	gulp = require('gulp'),
+/* eslint-env es5, node */
+/* eslint prefer-template: 0, prefer-arrow-callback: 0, no-var: 0 */
+
+var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	prefixer = require('gulp-autoprefixer'),
 	preprocess = require('gulp-preprocess'),
 	rev = require('gulp-rev'),
 	revReplace = require('gulp-rev-replace'),
-	replace = require('gulp-replace'),
 	sass = require('gulp-sass'),
 	uglify = require('gulp-uglify'),
 	useref = require('gulp-useref'),
+	watch = require('gulp-watch'),
 	path = require('path'),
+	runSequence = require('run-sequence'),
 	paths = require('../../gulp/paths'),
 	sassOptions = require('../../gulp/options').sass,
 	compile = require('../../gulp/utils/compile-es6-modules'),
 	environment = require('../../gulp/utils/environment'),
 	piper = require('../../gulp/utils/piper'),
-	Server = require('karma').Server;
-
-gulp.task('test-auth', ['build-auth'], function (done) {
-	new Server({
-		configFile: __dirname + '/tests/karma.conf.js'
-	}, done).start();
-});
+	karmaServer = require('karma').Server;
 
 gulp.task('build-auth-scripts', function (done) {
 	var pathsScripts = paths.auth.scripts;
@@ -55,13 +52,19 @@ gulp.task('build-auth-styles', function () {
 
 gulp.task('build-auth-views-copy', function () {
 	return piper(
-		gulp.src(paths.auth.views.src, {
+		gulp.src([
+			paths.auth.views.src,
+			'!' + paths.auth.views.index
+		], {
 			base: process.cwd()
 		}),
 		gulp.dest(paths.base)
 	);
 });
 
+/**
+ * @returns {*}
+ */
 function concatenateAndMinifyAssets() {
 	var userefAssets = useref.assets({
 		searchPath: paths.base
@@ -83,11 +86,7 @@ function concatenateAndMinifyAssets() {
 	);
 }
 
-gulp.task('build-auth-views', [
-	'build-auth-vendor',
-	'build-auth-views-copy',
-	'build-auth-styles'
-], function () {
+gulp.task('build-auth-views-index', function () {
 	return piper(
 		gulp.src(paths.auth.views.index, {
 			base: process.cwd()
@@ -100,7 +99,52 @@ gulp.task('build-auth-views', [
 	);
 });
 
-gulp.task('build-auth', [
-	'build-auth-scripts',
-	'build-auth-views'
-]);
+gulp.task('build-auth', function (done) {
+	runSequence(
+		'build-auth-scripts',
+		[
+			'build-auth-vendor',
+			'build-auth-views-copy',
+			'build-auth-styles'
+		],
+		'build-auth-views-index',
+		done
+	);
+});
+
+gulp.task('watch-auth', function () {
+	watch(paths.auth.scripts.src, function () {
+		runSequence(
+			'build-auth-scripts',
+			'build-auth-views-index'
+		);
+	});
+
+	watch(paths.auth.vendor.src, function () {
+		runSequence(
+			'build-auth-vendor',
+			'build-auth-views-index'
+		);
+	});
+
+	watch(path.join(paths.auth.styles.src, paths.auth.styles.compile), function () {
+		runSequence(
+			'build-auth-styles',
+			'build-auth-views-index'
+		);
+	});
+
+	watch(paths.auth.views.src, function () {
+		gulp.start('build-auth-views-copy');
+	});
+
+	watch(paths.auth.views.index, function () {
+		gulp.start('build-auth-views-index');
+	});
+});
+
+gulp.task('test-auth', function (done) {
+	new karmaServer({
+		configFile: __dirname + '/tests/karma.conf.js'
+	}, done).start();
+});

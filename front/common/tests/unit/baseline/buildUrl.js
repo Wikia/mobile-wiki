@@ -1,5 +1,13 @@
-/* global Mercury */
-QUnit.module('M.buildUrl helper function (loaded with baseline)', function () {
+QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hooks) {
+	hooks.beforeEach(function () {
+		M.prop('apiBase', '/api/mercury', true);
+		M.provide('wiki', {
+			language: {
+				content: 'en'
+			}
+		});
+	});
+
 	QUnit.test('Wiki subdomain is correctly replaced for each environment host', function () {
 		var context = {
 				location: {}
@@ -11,7 +19,7 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function () {
 				},
 				{
 					host: 'es.walkingdead.wikia.com',
-					expectedOutput: 'http://test.wikia.com',
+					expectedOutput: 'http://test.wikia.com'
 				},
 				{
 					host: 'sandbox-mercury.muppet.wikia.com',

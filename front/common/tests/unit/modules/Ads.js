@@ -6,7 +6,7 @@ QUnit.module('mercury/modules/Ads', function (hooks) {
 	hooks.beforeEach(function () {
 		var exports = {};
 
-		mrequire.entries['mercury/modules/Ads'].callback(exports, sinon.stub(), {}, loadStub);
+		require.entries['common/modules/Ads'].callback(exports, sinon.stub(), {}, loadStub);
 
 		Ads = exports.default;
 	});
@@ -47,10 +47,10 @@ QUnit.module('mercury/modules/Ads', function (hooks) {
 		var testContext = {
 				test: 1
 			},
-			setContextSpy = this.spy(),
-			runSpy = this.spy(),
-			incrementSpy = this.spy(),
-			initDetectionSpy = this.spy(),
+			setContextSpy = sinon.spy(),
+			runSpy = sinon.spy(),
+			incrementSpy = sinon.spy(),
+			initDetectionSpy = sinon.spy(),
 			instance = Ads.getInstance();
 
 		instance.adContextModule = {

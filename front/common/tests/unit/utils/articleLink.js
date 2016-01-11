@@ -1,10 +1,22 @@
 /* global M */
 QUnit.module('mercury/utils/articleLink', function (hooks) {
-	var articleLinkModule = mrequire('mercury/utils/articleLink');
+	var articleLinkModule = require('common/utils/articleLink');
 
 	hooks.beforeEach(function () {
+		M.prop('apiBase', '/api/mercury', true);
+		M.provide('wiki', {
+			language: {
+				content: 'en'
+			}
+		});
 		// The format that we get the namespaces is strange and awkward to reproduce
-		M.provide('wiki.namespaces', window.FIXTURES['test/fixtures/namespaces.json']);
+		M.provide('wiki.namespaces', {
+			"0":  "",
+			"1": "Special",
+			"2": "Project_Talk",
+			"3": "File",
+			"4": "This_namespace_Requires_replacing_multiple_spaces_with_UNDERSCORES"
+		});
 	});
 
 	QUnit.test('getLinkInfo test external paths', function (assert) {

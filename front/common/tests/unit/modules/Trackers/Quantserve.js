@@ -1,4 +1,3 @@
-/* global Em, _qevents */
 QUnit.module('Quantserve tests', function (hooks) {
 	var Quantserve,
 		originalMercuryWiki;
@@ -6,7 +5,14 @@ QUnit.module('Quantserve tests', function (hooks) {
 	hooks.beforeEach(function () {
 		var exports = {};
 
-		mrequire.entries['mercury/modules/Trackers/Quantserve'].callback(exports, null);
+		M.prop('apiBase', '/api/mercury', true);
+		M.provide('wiki', {
+			language: {
+				content: 'en'
+			}
+		});
+
+		require.entries['common/modules/Trackers/Quantserve'].callback(exports, null);
 
 		Quantserve = exports.default;
 
