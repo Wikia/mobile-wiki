@@ -13,5 +13,10 @@ export default Ember.Component.extend({
 			namespace: 'User',
 			title: this.get('profileName'),
 		});
+	}),
+	wrapInHref: Ember.computed('wrapAvatar', function () {
+		console.log('Avatar wrapping', this.get('wrapAvatar'));
+		console.log('Is undefined?',typeof this.get('wrapAvatar') === 'undefined');
+		return (typeof this.get('wrapAvatar') === 'undefined');
 	})
 });
