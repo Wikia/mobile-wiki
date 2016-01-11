@@ -1,15 +1,14 @@
-node_modules/
 dist/
+node_modules/
 test/
-gulp/
 
 front/auth/bower_components/
 front/common/bower_components/
 
-front/main/tmp/
-front/main/vendor/
-front/main/node_modules/
 front/main/bower_components/
+front/main/node_modules/
+front/main/vendor/
+front/main/tmp/
 
 server/node_modules
 

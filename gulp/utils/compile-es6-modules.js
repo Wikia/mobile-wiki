@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-	paths = require('../../gulp/paths'),
 	babel = require('gulp-babel'),
 	concat = require('gulp-concat'),
 	gulpif = require('gulp-if'),
@@ -14,7 +13,8 @@ var gulp = require('gulp'),
  * @param {string} srcBase
  * @param {string} destDir
  * @param {string} destFile
- * @param {string=} moduleRoot
+ * @param {string} moduleRoot
+ * @returns {void}
  */
 module.exports = function (done, src, srcBase, destDir, destFile, moduleRoot) {
 	var babelOptions = {
@@ -28,13 +28,13 @@ module.exports = function (done, src, srcBase, destDir, destFile, moduleRoot) {
 	}
 
 	gulp.src(src, {
-			base: srcBase
-		})
-		.pipe(newer(destDir))
-		.pipe(babel(babelOptions))
-		.on('error', exitOnError)
-		.pipe(concat(destFile))
-		.pipe(gulpif(environment.isProduction, uglify()))
-		.pipe(gulp.dest(destDir))
-		.on('end', done);
+		base: srcBase
+	})
+	.pipe(newer(destDir))
+	.pipe(babel(babelOptions))
+	.on('error', exitOnError)
+	.pipe(concat(destFile))
+	.pipe(gulpif(environment.isProduction, uglify()))
+	.pipe(gulp.dest(destDir))
+	.on('end', done);
 };
