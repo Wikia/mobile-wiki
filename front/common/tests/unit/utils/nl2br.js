@@ -21,7 +21,7 @@ QUnit.module('mercury/utils/nl2br', function () {
 				}
 			];
 
-		testCases.forEach(function(testCase) {
+		testCases.forEach(function (testCase) {
 			assert.equal(test(testCase.string), testCase.expected);
 		});
 	});

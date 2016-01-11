@@ -1,16 +1,16 @@
 QUnit.module('auth/common/FormErrors)', function (hooks) {
 	hooks.beforeEach(function () {
 		var form = document.createElement('form'),
-		AuthTracker = function() {
-			return {
-				setGaCategory: Function.prototype,
-				trackClick: Function.prototype,
-				trackPageView: Function.prototype,
-				trackSubmit: Function.prototype,
-				track: Function.prototype
-			}
-		};
-		FormModule = {};
+			AuthTracker = function () {
+				return {
+					setGaCategory: Function.prototype,
+					trackClick: Function.prototype,
+					trackPageView: Function.prototype,
+					trackSubmit: Function.prototype,
+					track: Function.prototype
+				};
+			},
+			FormModule = {};
 
 		require.entries['auth/app/common/FormErrors'].callback(FormModule, AuthTracker, null);
 
@@ -25,18 +25,18 @@ QUnit.module('auth/common/FormErrors)', function (hooks) {
 			viewType: 'mobile'
 		};
 	});
-	hooks.afterEach(function (assert) {
+	hooks.afterEach(function () {
 		window.pageParams = window._pageParams;
 	});
 
 	QUnit.test('FormErrors class is loaded', function (assert) {
-		ok(typeof require('auth/app/common/FormErrors').default === 'function');
+		assert.ok(typeof require('auth/app/common/FormErrors').default === 'function');
 	});
 
 	QUnit.test('Displaying field error', function (assert) {
 		this.formErrors.displayValidationErrors([{
-			'description': 'email_already_exists',
-			'additional': {'field': 'email'}
+			description: 'email_already_exists',
+			additional: {field: 'email'}
 		}]);
 
 		assert.ok(this.formErrors.displayGeneralError.called === false);
@@ -45,10 +45,10 @@ QUnit.module('auth/common/FormErrors)', function (hooks) {
 
 	QUnit.test('SignupForm field and general error', function (assert) {
 		this.formErrors.displayValidationErrors([{
-			'description': 'email_already_exists',
-			'additional': {'field': 'email'}
+			description: 'email_already_exists',
+			additional: {field: 'email'}
 		},
-			{'description': 'username_blocked', 'additional': {'field': 'username'}}]);
+			{description: 'username_blocked', additional: {field: 'username'}}]);
 
 		assert.ok(this.formErrors.displayGeneralError.called);
 		assert.ok(this.formErrors.displayFieldValidationError.called);

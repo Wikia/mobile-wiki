@@ -1,6 +1,7 @@
 QUnit.module('auth/common/Geo)', function (hooks) {
 	hooks.beforeEach(function () {
 		var geoModule = {};
+
 		require.entries['auth/app/common/Geo'].callback(geoModule, {
 			get: function () {
 				return '{"city":"FIXME","country":"PL","continent":"EU"}';

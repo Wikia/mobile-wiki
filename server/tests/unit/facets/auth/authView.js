@@ -1,6 +1,6 @@
 QUnit.module('facets/auth/authView');
 
-test('getRedirectUrl', function () {
+QUnit.test('getRedirectUrl', function (assert) {
 	var testCases = [
 		{
 			redirect: 'http://muppet.wikia.com/wiki/Kermit?action=edit',
@@ -73,6 +73,7 @@ test('getRedirectUrl', function () {
 				host: testCase.host
 			}
 		};
-		equal(global.getRedirectUrl(request), testCase.expected, testCase.description);
+
+		assert.equal(global.getRedirectUrl(request), testCase.expected, testCase.description);
 	});
 });

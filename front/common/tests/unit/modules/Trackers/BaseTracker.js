@@ -28,7 +28,7 @@ QUnit.module('mercury/modules/Trackers/BaseTracker', function (hooks) {
 		scriptsArray = [];
 	});
 
-	QUnit.test('Append script', function () {
+	QUnit.test('Append script', function (assert) {
 		var tracker = new BaseTracker(),
 			scriptsCountBeforeAppend = 0,
 			scriptsCountAfterAppend,
@@ -43,8 +43,8 @@ QUnit.module('mercury/modules/Trackers/BaseTracker', function (hooks) {
 		scriptsCountAfterAppend = scriptsArray.length;
 		insertedScriptNode = scriptsArray[0];
 
-		equal(scriptsCountAfterAppend - scriptsCountBeforeAppend, 1, 'Script is appended to document');
-		equal(insertedScriptNode['async'], true, 'Script is marked as async');
-		equal(insertedScriptNode['src'], 'scriptUrl', 'Script has correct url');
+		assert.equal(scriptsCountAfterAppend - scriptsCountBeforeAppend, 1, 'Script is appended to document');
+		assert.equal(insertedScriptNode.async, true, 'Script is marked as async');
+		assert.equal(insertedScriptNode.src, 'scriptUrl', 'Script has correct url');
 	});
 });

@@ -1,7 +1,7 @@
 QUnit.module('mercury/utils/calculation', function () {
 	QUnit.test('container size calculation', function (assert) {
 		var testCases = [
-			//horizontal viewport
+			// horizontal viewport
 			{
 				maxWidth: 640,
 				maxHeight: 480,
@@ -33,7 +33,7 @@ QUnit.module('mercury/utils/calculation', function () {
 				}
 			},
 
-			//vertical viewport
+			// vertical viewport
 			{
 				maxWidth: 480,
 				maxHeight: 640,

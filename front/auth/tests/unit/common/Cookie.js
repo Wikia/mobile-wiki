@@ -1,6 +1,10 @@
 QUnit.module('auth/common/Cookie', function (hooks) {
-	// TODO: replace this with a class method to delete a cookie
-	function delete_cookie(name) {
+	/**
+	 * TODO: replace this with a class method to delete a cookie
+	 * @param {string} name
+	 * @returns {void}
+	 */
+	function deleteCookie(name) {
 		document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	}
 
@@ -11,9 +15,9 @@ QUnit.module('auth/common/Cookie', function (hooks) {
 	});
 
 	hooks.afterEach(function () {
-		delete_cookie('wikia_beacon_id');
-		delete_cookie('Geo');
-		delete_cookie('i18next');
+		deleteCookie('wikia_beacon_id');
+		deleteCookie('Geo');
+		deleteCookie('i18next');
 	});
 
 	QUnit.test('Cookie class is loaded', function (assert) {

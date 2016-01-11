@@ -21,12 +21,12 @@ QUnit.module('mercury/modules/Trackers/Comscore', function (hooks) {
 		}, true);
 	});
 
-	QUnit.test('Comscore is compiled', function () {
-		ok(Comscore);
-		strictEqual(typeof Comscore, 'function');
+	QUnit.test('Comscore is compiled', function (assert) {
+		assert.ok(Comscore);
+		assert.strictEqual(typeof Comscore, 'function');
 	});
 
-	QUnit.test('Track page view', function () {
+	QUnit.test('Track page view', function (assert) {
 		var queue,
 			instance;
 
@@ -42,6 +42,6 @@ QUnit.module('mercury/modules/Trackers/Comscore', function (hooks) {
 		instance.appendScript = sinon.stub();
 
 		instance.trackPageView();
-		deepEqual(window._comscore, queue);
+		assert.deepEqual(window._comscore, queue);
 	});
 });

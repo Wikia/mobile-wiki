@@ -27,14 +27,14 @@ QUnit.module('mercury/modules/VideoPlayers/Ooyala', function (hooks) {
 		OoyalaPlayer = exports.default;
 	});
 
-	QUnit.test('resourceURI is set', function () {
+	QUnit.test('resourceURI is set', function (assert) {
 		var instance = getInstance();
 
-		ok(instance.resourceURI.length > 0);
-		equal(instance.resourceURI, 'foo');
+		assert.ok(instance.resourceURI.length > 0);
+		assert.equal(instance.resourceURI, 'foo');
 	});
 
-	QUnit.test('containerId is set', function () {
-		ok(getInstance().containerId.match('testId'));
+	QUnit.test('containerId is set', function (assert) {
+		assert.ok(getInstance().containerId.match('testId'));
 	});
 });

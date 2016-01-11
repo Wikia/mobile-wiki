@@ -75,7 +75,7 @@ gulp.task('build-common-symbols', function () {
 gulp.task('build-common-for-main', function () {
 	var src = [
 		path.join(pathsCommon.dest, pathsCommon.baseline.destFile),
-		path.join(pathsCommon.dest, pathsCommon.modulesUtils.destFile),
+		path.join(pathsCommon.dest, pathsCommon.modulesUtils.destFile)
 	];
 
 	return gulp.src(src)
@@ -108,7 +108,7 @@ gulp.task('watch-common', function () {
 	gulp.watch(pathsCommon.svg.src, options, ['build-common-symbols']);
 	gulp.watch([
 		path.join(pathsCommon.dest, pathsCommon.baseline.destFile),
-		path.join(pathsCommon.dest, pathsCommon.modulesUtils.destFile),
+		path.join(pathsCommon.dest, pathsCommon.modulesUtils.destFile)
 	], options, ['build-common-for-main']);
 });
 

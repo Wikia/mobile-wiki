@@ -29,11 +29,11 @@ QUnit.module('Quantserve tests', function (hooks) {
 		Mercury.wiki = originalMercuryWiki;
 	});
 
-	QUnit.test('Quantserve is compiled', function () {
-		equal(typeof Quantserve, 'function');
+	QUnit.test('Quantserve is compiled', function (assert) {
+		assert.equal(typeof Quantserve, 'function');
 	});
 
-	QUnit.test('Track page view', function () {
+	QUnit.test('Track page view', function (assert) {
 		var qevents = [{
 				qacct: M.prop('tracking.quantserve'),
 				labels: 'tv,Category.MobileWeb.Mercury'
@@ -45,7 +45,7 @@ QUnit.module('Quantserve tests', function (hooks) {
 		tracker.appendScript = sinon.stub();
 
 		tracker.trackPageView();
-		equal(window._qevents[0].qacct, qevents[0].qacct);
-		equal(window._qevents[0].labels, qevents[0].labels);
+		assert.equal(window._qevents[0].qacct, qevents[0].qacct);
+		assert.equal(window._qevents[0].labels, qevents[0].labels);
 	});
 });

@@ -25,14 +25,14 @@ QUnit.module('mercury/modules/VideoPlayers/YouTube', function (hooks) {
 		YouTubePlayer = exports.default;
 	});
 
-	QUnit.test('resourceURI is set', function () {
+	QUnit.test('resourceURI is set', function (assert) {
 		var instance = getInstance();
 
-		ok(instance.resourceURI.length > 0);
-		equal(instance.resourceURI, 'https://www.youtube.com/iframe_api');
+		assert.ok(instance.resourceURI.length > 0);
+		assert.equal(instance.resourceURI, 'https://www.youtube.com/iframe_api');
 	});
 
-	QUnit.test('containerId is set', function () {
-		ok(getInstance().containerId.match('youtubeVideoPlayer'));
+	QUnit.test('containerId is set', function (assert) {
+		assert.ok(getInstance().containerId.match('youtubeVideoPlayer'));
 	});
 });

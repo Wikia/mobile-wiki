@@ -188,7 +188,7 @@ plugins = [
 		}
 	}
 ];
-``
+
 server.connection({
 	host: localSettings.host,
 	port: localSettings.port,

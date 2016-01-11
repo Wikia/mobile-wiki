@@ -38,20 +38,20 @@ QUnit.module('mercury/modules/VideoPlayers/Base', function (hooks) {
 		}, error);
 	});
 
-	QUnit.test('loadPlayer calls M.load and playerDidLoad hook', function () {
+	QUnit.test('loadPlayer calls M.load and playerDidLoad hook', function (assert) {
 		var instance = getInstance();
 
 		sinon.spy(instance, 'playerDidLoad');
 
-		equal(instance.playerDidLoad.called, false, 'playerDidLoad should not be called yet');
+		assert.equal(instance.playerDidLoad.called, false, 'playerDidLoad should not be called yet');
 
 		instance.loadPlayer();
 
-		ok(loadStub.calledOnce, 'load was called');
-		ok(instance.playerDidLoad.calledOnce, 'the playerDidLoad hook fired appropriately');
+		assert.ok(loadStub.calledOnce, 'load was called');
+		assert.ok(instance.playerDidLoad.calledOnce, 'the playerDidLoad hook fired appropriately');
 	});
 
-	QUnit.test('createUniqueId', function () {
+	QUnit.test('createUniqueId', function (assert) {
 		var ele = document.createElement('div'),
 			id = 'videoPlayerTest',
 			newId;
@@ -60,15 +60,15 @@ QUnit.module('mercury/modules/VideoPlayers/Base', function (hooks) {
 		newId = BasePlayer.createUniqueId(id);
 		document.body.appendChild(ele);
 
-		equal(typeof parseInt(newId.slice(id.length), 10), 'number', 'Appends a UNIX timestamp');
-		ok(newId.length === id.length + 13, 'Appends a UNIX timestamp');
+		assert.equal(typeof parseInt(newId.slice(id.length), 10), 'number', 'Appends a UNIX timestamp');
+		assert.ok(newId.length === id.length + 13, 'Appends a UNIX timestamp');
 	});
 
-	QUnit.test('local track calls M.track with extended params', function () {
+	QUnit.test('local track calls M.track with extended params', function (assert) {
 		getInstance().track('view', 'player-loaded');
 
-		ok(trackStub.calledOnce, 'track called once');
-		ok(trackStub.calledWith({
+		assert.ok(trackStub.calledOnce, 'track called once');
+		assert.ok(trackStub.calledWith({
 			action: 'view',
 			category: 'video-player-player-loaded',
 			label: 'base'
