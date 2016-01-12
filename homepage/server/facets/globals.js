@@ -11,7 +11,7 @@ function globals(request, reply) {
 		loginUrl: util.getLoginUrl(),
 		signupUrl: util.getSignupUrl(),
 		mobileBreakpoint: 710,
-		googleSearchOptimizelyId: (process.env.WIKIA_ENVIRONMENT === 'prod') ? 3571301500 : 3579160288,
+		googleSearchOptimizelyId: (process.env.WIKIA_ENVIRONMENT === 'prod') ? 4522280313 : 3579160288,
 		startWikiaUrl: util.getStartWikiaUrl(),
 	});
 }
