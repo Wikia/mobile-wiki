@@ -1,15 +1,15 @@
 {
   "landing-page":{
-    "to-the-wiki-title":"to the Wiki",
-    "page-main-header":"The hottest __applicationName__ discussions with the biggest fans.",
-    "download-the-app-header":"Download the app to join in now!",
+    "to-the-wiki-title":"voltar para Wikia",
+    "page-main-header":"As melhores discussões com os maiores fãs sobre __applicationName__.",
+    "download-the-app-header":"Baixe o app para participar agora!",
     "google-play-button-alt":"Obter no Google Play",
-    "start-discussions-title":"Start Discussions",
-    "start-discussions-text":"Ask a question, share news or just talk with other fans from around the world about your favourite topics!",
-    "upvote-the-best-title":"Upvote the Best",
-    "upvote-the-best-text":"See something you love? Cast your upvote to show your appreciation and influence what's trending.",
-    "share-your-knowledge-title":"Share your knowledge",
-    "share-your-knowledge-text":"Share your favourite discussions with your social networks to bring more fans into the fold."
+    "start-discussions-title":"Iniciar discussões",
+    "start-discussions-text":"Faça perguntas, compartilhe notícias ou converse com outros fãs de todo o mundo sobre seus tópicos favoritos!",
+    "upvote-the-best-title":"Vote no melhor",
+    "upvote-the-best-text":"Vê algo que você ama? Vote para mostrar o quanto e para influenciar tendências.",
+    "share-your-knowledge-title":"Compartilhe seu conhecimento",
+    "share-your-knowledge-text":"Compartilhe suas discussões favoritas com suas redes sociais para atrair mais fãs."
   },
   "main":{
     "pagination-post-show-more":"Visualizar respostas mais antigas",
@@ -25,7 +25,7 @@
     "action-retry-title":"Tente novamente",
     "all-discussions-link-desktop":"Mostre-me todas as discussões",
     "all-discussions-link-mobile":"Todas as discussões",
-    "discussions-app-join":"Você quer participar da discussão? Obtenha o app agora!",
+    "discussions-app-join":"Mantenha-se atualizado em qualquer lugar. Obtenha o app agora!",
     "back-to-discussions-link":"Todas as discussões",
     "no-replies":"Ainda sem respostas.",
     "no-replies-be-the-first":"Ainda sem respostas. Seja o primeiro!"
