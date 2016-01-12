@@ -26,6 +26,10 @@ QUnit.module('main/utils/truncate', function (hooks) {
 		equal(truncate('trala laaa p\tadasd\n', 16), 'trala laaa p\u2026');
 	});
 
+	QUnit.test('short text, truncation after newline char', function () {
+		equal(truncate('123\n5678', 6), '123\u2026');
+	});
+
 	QUnit.test('long text, default truncation', function () {
 		equal(truncate('long text, please truncate at the end blablabla blablabla'),
 			'long text, please truncate at the end blablabla\u2026');
