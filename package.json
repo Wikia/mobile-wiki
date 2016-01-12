@@ -9,7 +9,7 @@
     "setup-common": "cd front/common && bower install",
     "setup-auth": "cd front/auth && bower install",
     "setup-main": "cd front/main && npm install && bower install",
-    "setup-server": "cd server && npm install",
+    "setup-server": "cd server && npm install && cd .. && gulp build-server-init-config",
     "//": "BUILD SCRIPTS",
     "build": "rm -rf dist && gulp build-common && gulp build-auth && cd front/main && ember build && cd ../.. && gulp build-server",
     "build-prod": "rm -rf dist && gulp build-common --type prod && gulp build-auth --type prod && cd front/main && ember build --environment=production && cd ../.. && gulp build-server --type prod",
