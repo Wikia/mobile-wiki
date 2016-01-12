@@ -19,6 +19,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	siteHeadHeight: 0,
 
 	bodyText: '',
+	bodyTextCache: '',
 	layoutName: 'components/discussion-editor',
 
 	/**
@@ -252,14 +253,6 @@ export default Ember.Component.extend(ViewportMixin, {
 		 */
 		toggleEditorActive(active) {
 			this.get('discussionEditor').toggleEditor(active);
-		},
-
-		/**
-		 * Update editor when typing - activate editor
-		 * @returns {void}
-		 */
-		updateOnInput() {
-			this.get('discussionEditor').toggleEditor(true);
 		},
 
 		/**
