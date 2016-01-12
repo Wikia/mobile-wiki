@@ -1,8 +1,8 @@
-QUnit.module('mercury/utils/truncate', function (hooks) {
+QUnit.module('main/utils/truncate', function (hooks) {
 	var truncate;
 
 	hooks.beforeEach(function () {
-		truncate = mrequire('mercury/utils/truncate').default;
+		truncate = mrequire('main/utils/truncate').default;
 	});
 
 	QUnit.test('Truncate helper is exported', function () {
@@ -18,8 +18,17 @@ QUnit.module('mercury/utils/truncate', function (hooks) {
 	});
 
 	QUnit.test('long text, default truncation', function () {
-		equal(truncate('long text, please truncate at the end, blablabla blablabla', 20),
-			'long text, please truncate at the end, blablabla\u2026');
+		equal(truncate('long text, please truncate at the end dasdasdasdasdsadsadsa'),
+			'long text, please truncate at the end\u2026');
+	});
+
+	QUnit.test('long text, truncation after whitespace', function () {
+		equal(truncate('trala laaa p\tadasd\n', 16), 'trala laaa p\u2026');
+	});
+
+	QUnit.test('long text, default truncation', function () {
+		equal(truncate('long text, please truncate at the end blablabla blablabla'),
+			'long text, please truncate at the end blablabla\u2026');
 	});
 
 	QUnit.test('number instead of text', function () {

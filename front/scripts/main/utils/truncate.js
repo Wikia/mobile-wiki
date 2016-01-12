@@ -1,12 +1,13 @@
 /**
- * @param {Array} params
+ * @param {String} text
+ * @param {Number} maxLength
  * @returns {string}
  */
 export default function (text, maxLength = 48) {
 	const ellipsisCharacter = '\u2026';
 
 	let truncatedString,
-		lastSpacePosition;
+		lastWhiteSpacePos;
 
 	if (typeof text !== 'string') {
 		Ember.Logger.error(`Truncate Util expected string as a parameter, but ${typeof text} given:`, text);
@@ -18,11 +19,12 @@ export default function (text, maxLength = 48) {
 	}
 
 	truncatedString = text.substr(0, maxLength);
-	lastSpacePosition = truncatedString.lastIndexOf(' ');
+	lastWhiteSpacePos = truncatedString.search(/\s[^\s]*$/);
 
-	if (lastSpacePosition === maxLength || lastSpacePosition < 0) {
+	if (lastWhiteSpacePos === maxLength || lastWhiteSpacePos < 0) {
 		return truncatedString + ellipsisCharacter;
 	}
 
-	return truncatedString.substr(0, lastSpacePosition) + ellipsisCharacter;
+	return truncatedString.substr(0, lastWhiteSpacePos) + ellipsisCharacter;
 }
+
