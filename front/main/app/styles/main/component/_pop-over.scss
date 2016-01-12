@@ -22,7 +22,7 @@ $pointer-size: 14px;
 
 .pop-over-pointer {
 	border: $pointer-size / 2 solid transparent;
-	display:  block;
+	display: block;
 	height: 0;
 	pointer-events: none;
 	position: absolute;
