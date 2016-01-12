@@ -31,7 +31,7 @@ function search(isTopNav = true) {
 			// Use Google search
 			searchUrl = `/search?q=${searchText}`;
 
-			ga('send', 'pageview', `${window.location.pathname}${searchUrl}}&qInter=${searchText}`);
+			ga('send', 'pageview', `${window.location.pathname}${searchUrl}&qInter=${searchText}`);
 		} else {
 			// Use Oasis search
 			searchUrl = `http://ja.wikia.com/Special:Search?search=${searchText}&fulltext=Search&resultsLang=ja`;
