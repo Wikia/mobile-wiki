@@ -6,31 +6,30 @@
 
 {{#each posts as |item|}}
 	{{post-detail
-	author=item.createdBy
-	deletePost=(action this.attrs.deletePost)
-	goToPost='goToPost'
-	isVisible=item._embedded.firstPost.[0].isVisible
-	post=item._embedded.firstPost.[0]
-	postId=item.id
-	replyCount=item.postCount
-	undeletePost=(action this.attrs.undeletePost)
-	upvote='upvote'
+		author=item.createdBy
+		deletePost=(action this.attrs.deletePost)
+		goToPost=(action this.attrs.goToPost)
+		isVisible=item._embedded.firstPost.[0].isVisible
+		post=item._embedded.firstPost.[0]
+		postId=item.id
+		replyCount=item.postCount
+		undeletePost=(action this.attrs.undeletePost)
+		upvote=(action this.attrs.upvote)
 	}}
 {{else}}
-	<div class="empty-forum-message">
-		{{i18n "main.empty-forum-text" ns="discussion"}}
-	</div>
+	{{discussion-empty-forum-message}}
 {{/each}}
 
 {{#if hasMore}}
 	{{#if isLoading }}
 		{{loading-spinner
-		active=true
-		overlay=false
-		radius=32
-		strokeWidth=2
+			active=true
+			overlay=false
+			radius=32
+			strokeWidth=2
 		}}
 	{{/if}}
-	{{discussion-empty-forum-message}}
+	<div class="load-more">
+		{{i18n 'main.loading-more-posts' ns='discussion'}}
+	</div>
 {{/if}}
-

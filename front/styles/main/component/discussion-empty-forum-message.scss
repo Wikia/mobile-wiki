@@ -1,6 +1,7 @@
 .discussion {
 	.empty-forum-message {
 		border: 2px dashed $discussion-empty-forum-message-border-color;
+		cursor: pointer;
 		padding: 40px;
 		text-align: center;
 	}
