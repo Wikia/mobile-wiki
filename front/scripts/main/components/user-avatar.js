@@ -1,7 +1,9 @@
 export default Ember.Component.extend({
 	classNames: ['user-avatar'],
 	profileName: Ember.computed('username', function () {
-		return this.get('username') ? this.get('username').trim() : '';
+		const userName = this.get('username') || '';
+
+		return userName.trim();
 	}),
 
 	/**
