@@ -36,14 +36,14 @@ setupNpm() {
 		ln -s $sourceTarget
 	else
 		cp -R $sourceTarget
-		updateGit "Mercury build" pending "updating node modules in ."$1
-		cd $1
+		updateGit "Mercury build" pending "updating node modules in .${1}"
+		cd ".${1}"
 		npm install || error=true
 		cd $oldPath
 
 		if [[ ! -z $error ]]
 		then
-			updateGit "Mercury build" failure "failed on: updating node modules in ."$1
+			updateGit "Mercury build" failure "failed on: updating node modules in .${1}"
 			failTests && exit 1
 		fi
 	fi
@@ -61,14 +61,14 @@ setupBower() {
 		ln -s $sourceTarget
 	else
 		cp -R $sourceTarget
-		updateGit "Mercury build" pending "updating bower components in ."$1
-		cd $1
+		updateGit "Mercury build" pending "updating bower components in .${1}"
+		cd ".${1}"
 		bower install || error=true
 		cd $oldPath
 
 		if [[ ! -z $error ]]
 		then
-			updateGit "Mercury build" failure "failed on: updating bower components in ."$1
+			updateGit "Mercury build" failure "failed on: updating bower components in .${1}"
 			failTests && exit 1
 		fi
 	fi
