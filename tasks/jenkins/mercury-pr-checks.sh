@@ -28,9 +28,9 @@ failTests() {
 # $1 - directory
 setupNpm() {
 	oldPath=$(pwd)
-	md5old=$(md5sum "../Mercury-UPDATE-node-modules"$1"package.json" | sed -e "s#\(^.\{32\}\).*#\1#")
-	md5new=$(md5sum "."$1"package.json" | sed -e "s#\(^.\{32\}\).*#\1#")
-	sourceTarget="../Mercury-UPDATE-node-modules"$1"node_modules" "."$1"node_modules"
+	md5old=$(md5sum ../Mercury-UPDATE-node-modules${1}package.json | sed -e "s#\(^.\{32\}\).*#\1#")
+	md5new=$(md5sum .${1}package.json | sed -e "s#\(^.\{32\}\).*#\1#")
+	sourceTarget="../Mercury-UPDATE-node-modules${1}node_modules .${1}node_modules"
 
 	if [ "$md5new" = "$md5old" ]
 	then
@@ -53,9 +53,9 @@ setupNpm() {
 # $1 - directory
 setupBower() {
 	oldPath=$(pwd)
-	md5old=$(md5sum "../Mercury-UPDATE-node-modules"$1"bower.json" | sed -e "s#\(^.\{32\}\).*#\1#")
-	md5new=$(md5sum "."$1"bower.json" | sed -e "s#\(^.\{32\}\).*#\1#")
-	sourceTarget="../Mercury-UPDATE-node-modules"$1"bower_components" "."$1"bower_components"
+	md5old=$(md5sum ../Mercury-UPDATE-node-modules${1}bower.json | sed -e "s#\(^.\{32\}\).*#\1#")
+	md5new=$(md5sum .${1}bower.json | sed -e "s#\(^.\{32\}\).*#\1#")
+	sourceTarget="../Mercury-UPDATE-node-modules${1}bower_components .${1}bower_components"
 
 	if [ "$md5new" = "$md5old" ]
 	then
