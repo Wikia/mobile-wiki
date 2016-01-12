@@ -44,7 +44,7 @@ gulp.task('build-common-scripts-modules-utils', function (done) {
 });
 
 /*
- * Copy all files from /front/common/public/ to /dist/front/common/
+ * Copy all files from /front/common/public/ to /www/front/common/
  */
 gulp.task('build-common-public', function () {
 	return gulp.src(pathsCommon.public.src)

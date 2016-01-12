@@ -2,7 +2,7 @@
   "name": "Mercury",
   "version": "0.0.0",
   "description": "Wikia Web Application",
-  "main": "dist/server/app/server.js",
+  "main": "www/server/app/server.js",
   "scripts": {
     "clean": "rm -rf node_modules/ front/auth/bower_components/ front/common/bower_components/ front/main/bower_components/ front/main/node_modules/ server/node_modules/ && npm cache clean && bower cache clean",
     "setup": "npm install && npm run setup-common && npm run setup-auth && npm run setup-main && npm run setup-server",
@@ -14,7 +14,7 @@
     "build": "rm -rf dist && gulp build-common && gulp build-auth && cd front/main && ember build && cd ../.. && gulp build-server",
     "build-prod": "rm -rf dist && gulp build-common --type prod && gulp build-auth --type prod && cd front/main && ember build --environment=production && cd ../.. && gulp build-server --type prod",
     "start": "nodemon --delay 2",
-    "dev": "rm -rf dist && gulp build-common && gulp build-auth && gulp build-server && npm-run-all --parallel watch-auth watch-common watch-main watch-server start",
+    "dev": "rm -rf www && gulp build-common && gulp build-auth && gulp build-server && npm-run-all --parallel watch-auth watch-common watch-main watch-server start",
     "watch-auth": "gulp watch-auth",
     "watch-common": "gulp watch-common",
     "watch-main": "cd front/main && ember build --watch",
