@@ -1,5 +1,4 @@
 import {track, trackActions} from '../../mercury/utils/track';
-import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting';
 
 export default Ember.Component.extend({
 	tagName: 'nav',
@@ -18,7 +17,7 @@ export default Ember.Component.extend({
 		track({
 			action: trackActions.click,
 			category: 'menu',
-			label: trackLabel
+			label: gLabel
 		});
 	}),
 
