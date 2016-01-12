@@ -16,6 +16,7 @@ $pointer-size: 20px;
 .pop-over-container {
 	background-color: $color-white;
 	border-radius: 2px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
 	padding: 20px;
 }
 
@@ -47,12 +48,4 @@ $pointer-size: 20px;
 .pop-over-pointer.orient-right {
 	border-color: transparent $color-white transparent transparent;
 	left: -$pointer-size;
-}
-
-.pop-over-overlay {
-	bottom: 0;
-	position: fixed;
-	top: 0;
-	width: 100%;
-	z-index: $z-modal-dialog;
 }

@@ -4,7 +4,7 @@
 var gulp = require('gulp'),
 	path = require('path'),
 	runSequence = require('run-sequence'),
-	paths = require('../paths');
+	paths = require('./paths');
 
 gulp.task('build-watch-run', function (done) {
 	runSequence(

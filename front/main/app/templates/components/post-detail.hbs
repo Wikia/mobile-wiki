@@ -53,9 +53,13 @@
 				onMouseEnter=(action 'cancelHideShareComponent')
 				onMouseLeave=(action 'hideShareComponent')
 			}}
-			<span class="toggle-share-area" {{action 'toggleShareComponent'}}>
+
+			<span id="share-{{post.id}}" class="toggle-share-area">
 				{{svg 'share' class='icon toggle-share'}}
 			</span>
+			{{#pop-over for=(concat "share-" post.id) on="click" flow="flip"}}
+				Hey&nbsp;there!<br> there<br> there<br> there
+			{{/pop-over}}
 		{{/if}}
 	</div>
 </div>
