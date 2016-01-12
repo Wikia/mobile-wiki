@@ -2,8 +2,7 @@
  * Options for prod environment
  */
 
-var zlib = require('zlib'),
-	paths = require('../paths');
+var paths = require('../paths');
 
 module.exports = {
 	sass: {

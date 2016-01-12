@@ -8,3 +8,9 @@ test/
 # others
 .idea/
 .DS_Store
+.settings
+.sass-cache
+*.sublime-*
+*.sw[a-z]
+*.orig
+*.log

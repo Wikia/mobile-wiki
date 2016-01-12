@@ -13,61 +13,66 @@ QUnit.module('Internal tracker createRequestURL method tests when isPageView ret
 
 		require.entries['common/modules/Trackers/Internal'].callback(InternalModule);
 		InternalTracker = InternalModule.default;
-		InternalTracker.isPageView = function() {return true;};
+		InternalTracker.isPageView = function () {
+			return true;
+		};
 		this.tracker = new InternalTracker();
 		this.tracker.baseUrl = 'http://wikia.com/';
 	}
 });
 
-QUnit.test('empty params', function () {
+QUnit.test('empty params', function (assert) {
 	var result = this.tracker.createRequestURL('foo', {});
 
-	equal(result, 'http://wikia.com/view?', 'Request url is equal to expected');
+	assert.equal(result, 'http://wikia.com/view?', 'Request url is equal to expected');
 });
 
-QUnit.test('params are object without empty values', function () {
+QUnit.test('params are object without empty values', function (assert) {
 	var result = this.tracker.createRequestURL('foo', {
-		'fizz': 'buzz',
-		'fizz2': 'buzz2'
+		fizz: 'buzz',
+		fizz2: 'buzz2'
 	});
 
-	equal(result, 'http://wikia.com/view?fizz=buzz&fizz2=buzz2', 'Request url is equal to expected');
+	assert.equal(result, 'http://wikia.com/view?fizz=buzz&fizz2=buzz2', 'Request url is equal to expected');
 });
 
-QUnit.test('params are encoded', function () {
+QUnit.test('params are encoded', function (assert) {
 	var result = this.tracker.createRequestURL('foo', {
 		'fizz&&&': 'buzz???'
 	});
 
-	equal(result, 'http://wikia.com/view?fizz%26%26%26=buzz%3F%3F%3F', 'Request url is equal to expected');
+	assert.equal(result, 'http://wikia.com/view?fizz%26%26%26=buzz%3F%3F%3F', 'Request url is equal to expected');
 });
 
-QUnit.test('params are object with empty values', function () {
+QUnit.test('params are object with empty values', function (assert) {
 	var result = this.tracker.createRequestURL('foo', {
-		'fizz': 'buzz',
-		'fizz2': null
+		fizz: 'buzz',
+		fizz2: null
 	});
 
-	equal(result, 'http://wikia.com/view?fizz=buzz', 'Request url is equal to expected');
+	assert.equal(result, 'http://wikia.com/view?fizz=buzz', 'Request url is equal to expected');
 });
 
 QUnit.module('Internal tracker createRequestURL method tests when isPageView returns false', {
 	setup: function () {
 		require.entries['common/modules/Trackers/Internal'].callback(InternalModule);
 		InternalTracker = InternalModule.default;
-		InternalTracker.isPageView = function() {return false;};
+		InternalTracker.isPageView = function () {
+			return false;
+		};
 		this.tracker = new InternalTracker();
 		this.tracker.baseUrl = 'http://wikia.com/';
 	}
 });
 
-QUnit.test('params are object without empty values', function () {
+QUnit.test('params are object without empty values', function (assert) {
 	var result = this.tracker.createRequestURL('foo', {
-		'fizz': 'buzz',
-		'fizz2': 'buzz2'
+		fizz: 'buzz',
+		fizz2: 'buzz2'
 	});
 
-	equal(result, 'http://wikia.com/special/trackingevent?fizz=buzz&fizz2=buzz2', 'Request url is equal to expected');
+	assert.equal(result, 'http://wikia.com/special/trackingevent?fizz=buzz&fizz2=buzz2',
+		'Request url is equal to expected');
 });
 
 QUnit.module('Internal tracker loadTrackingScript', {
@@ -75,20 +80,20 @@ QUnit.module('Internal tracker loadTrackingScript', {
 		require.entries['common/modules/Trackers/Internal'].callback(InternalModule);
 		InternalTracker = InternalModule.default;
 		this.tracker = new InternalTracker();
-		this.tracker.scriptLoadedHandler = function() {};
+		this.tracker.scriptLoadedHandler = function () {};
 		this.tracker.head = {
-			insertBefore: function(script) {
+			insertBefore: function (script) {
 				scriptsArray.push(script);
 			}
 		};
 		scriptsArray = [];
 	},
-	teardown: function() {
+	teardown: function () {
 		scriptsArray = [];
 	}}
 );
 
-QUnit.test('load tracking script', function () {
+QUnit.test('load tracking script', function (assert) {
 	var scriptElementMock = {},
 		scriptsCountBeforeLoad = scriptsArray.length,
 		scriptsCountAfterLoad,
@@ -98,10 +103,11 @@ QUnit.test('load tracking script', function () {
 	insertedScript = scriptsArray[0];
 
 	scriptsCountAfterLoad = scriptsArray.length;
-	equal(scriptsCountAfterLoad - scriptsCountBeforeLoad, 1, 'Script is inserted in head');
-	equal(typeof insertedScript['onload'] === 'function', true, 'Script has onload handler assigned');
-	equal(typeof insertedScript['onreadystatechange'] === 'function', true, 'Script has onreadystatechange handler assigned');
-	equal(insertedScript['src'], 'scriptUrl', 'Script has correct url');
+	assert.equal(scriptsCountAfterLoad - scriptsCountBeforeLoad, 1, 'Script is inserted in head');
+	assert.equal(typeof insertedScript.onload === 'function', true, 'Script has onload handler assigned');
+	assert.equal(typeof insertedScript.onreadystatechange === 'function', true,
+		'Script has onreadystatechange handler assigned');
+	assert.equal(insertedScript.src, 'scriptUrl', 'Script has correct url');
 });
 
 QUnit.module('Track', {
@@ -114,8 +120,8 @@ QUnit.module('Track', {
 	}
 });
 
-QUnit.test('test if track is calling right functions', function () {
+QUnit.test('test if track is calling right functions', function (assert) {
 	this.tracker.track({});
-	ok(this.tracker.loadTrackingScript.called);
-	ok(this.tracker.createRequestURL.called);
+	assert.ok(this.tracker.loadTrackingScript.called);
+	assert.ok(this.tracker.createRequestURL.called);
 });

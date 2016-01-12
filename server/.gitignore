@@ -1,2 +1,5 @@
 # dependencies
 node_modules/
+
+# config
+config/localSettings.js

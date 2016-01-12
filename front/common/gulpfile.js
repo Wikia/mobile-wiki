@@ -7,21 +7,16 @@ var filter = require('gulp-filter'),
 	rename = require('gulp-rename'),
 	rev = require('gulp-rev'),
 	svgSymbols = require('gulp-svg-symbols'),
+	path = require('path'),
+	runSequence = require('run-sequence'),
 	compile = require('../../gulp/utils/compile-es6-modules'),
 	environment = require('../../gulp/utils/environment'),
-	log = require('../../gulp/utils/logger'),
 	piper = require('../../gulp/utils/piper'),
 	paths = require('../../gulp/paths'),
 	pathsCommon = paths.common,
 	Server = require('karma').Server;
 
-gulp.task('test-common', ['build-common-vendor'], function (done) {
-	new Server({
-		configFile: __dirname + '/tests/karma.conf.js'
-	}, done).start();
-});
-
-gulp.task('build-common-vendor', function () {
+gulp.task('build-common-vendor-for-tests', function () {
 	return piper(
 		gulp.src(paths.common.vendor.src),
 		gulp.dest(paths.common.vendor.dest)
@@ -32,28 +27,27 @@ gulp.task('build-common-vendor', function () {
  * Compile baseline script
  */
 gulp.task('build-common-scripts-baseline', function (done) {
-	var src = pathsCommon.src + '/baseline/' + paths.jsPattern;
-
-	compile(done, src, 'front/common', pathsCommon.dest, 'baseline.js');
+	compile(
+		done, pathsCommon.baseline.src, 'front/common',
+		pathsCommon.dest, pathsCommon.baseline.destFile
+	);
 });
 
 /*
  * Compile modules and utils to common.js
  */
 gulp.task('build-common-scripts-modules-utils', function (done) {
-	var src = [
-		pathsCommon.src + '/modules/' + paths.jsPattern,
-		pathsCommon.src + '/utils/' + paths.jsPattern,
-	];
-
-	compile(done, src, 'front/common', pathsCommon.dest, 'common.js', 'common');
+	compile(
+		done, pathsCommon.modulesUtils.src, 'front/common',
+		pathsCommon.dest, pathsCommon.modulesUtils.destFile, 'common'
+	);
 });
 
 /*
  * Copy all files from /front/common/public/ to /dist/front/common/
  */
 gulp.task('build-common-public', function () {
-	return gulp.src(pathsCommon.src + '/public/**/*')
+	return gulp.src(pathsCommon.public.src)
 		.pipe(gulp.dest(pathsCommon.dest));
 });
 
@@ -62,7 +56,7 @@ gulp.task('build-common-public', function () {
  */
 gulp.task('build-common-symbols', function () {
 	return piper(
-		gulp.src(pathsCommon.src + '/public/symbols/*.svg'),
+		gulp.src(pathsCommon.svg.src),
 		svgSymbols(),
 		filter('**/*.svg'),
 		rename('symbols.svg'),
@@ -78,45 +72,48 @@ gulp.task('build-common-symbols', function () {
 /*
  * Copy baseline.js and common.js to /front/main/vendor/
  */
-gulp.task('build-common-for-main', [
-	'build-common-scripts-baseline',
-	'build-common-scripts-modules-utils'
-], function () {
+gulp.task('build-common-for-main', function () {
 	var src = [
-		pathsCommon.dest + '/baseline.js',
-		pathsCommon.dest + '/common.js'
+		path.join(pathsCommon.dest, pathsCommon.baseline.destFile),
+		path.join(pathsCommon.dest, pathsCommon.modulesUtils.destFile)
 	];
 
 	return gulp.src(src)
 		.pipe(gulp.dest(pathsCommon.main.dest));
 });
 
-gulp.task('build-common', [
-	'build-common-scripts-baseline',
-	'build-common-scripts-modules-utils',
-	'build-common-public',
-	'build-common-symbols',
-	'build-common-for-main'
-]);
+gulp.task('build-common', function (done) {
+	runSequence(
+		[
+			'build-common-scripts-baseline',
+			'build-common-scripts-modules-utils',
+			'build-common-public',
+			'build-common-symbols',
+		],
+		// It needs build-common-scripts-baseline and build-common-scripts-modules-utils to be finished
+		// We need to use runSequence instead of gulp dependencies so watcher doesn't go into infinite loop
+		'build-common-for-main',
+		done
+	);
+});
 
 gulp.task('watch-common', function () {
 	var options = {
 		debounceDelay: 500
 	};
 
-	gulp.watch(pathsCommon.src + '/baseline/' + paths.jsPattern, options, ['build-common-scripts-baseline']);
-
+	gulp.watch(pathsCommon.baseline.src, options, ['build-common-scripts-baseline']);
+	gulp.watch(pathsCommon.modulesUtils.src, options, ['build-common-scripts-modules-utils']);
+	gulp.watch(pathsCommon.public.src, options, ['build-common-public']);
+	gulp.watch(pathsCommon.svg.src, options, ['build-common-symbols']);
 	gulp.watch([
-		pathsCommon.src + '/modules/' + paths.jsPattern,
-		pathsCommon.src + '/utils/' + paths.jsPattern,
-	], options, ['build-common-scripts-modules-utils']);
+		path.join(pathsCommon.dest, pathsCommon.baseline.destFile),
+		path.join(pathsCommon.dest, pathsCommon.modulesUtils.destFile)
+	], options, ['build-common-for-main']);
+});
 
-	gulp.watch(pathsCommon.src + '/public/**/*', options, ['build-common-public']);
-
-	gulp.watch(pathsCommon.src + '/public/symbols/*.svg', options, ['build-common-symbols']);
-
-	/*gulp.watch([
-		pathsCommon.dest + '/baseline.js',
-		pathsCommon.dest + '/common.js'
-	], options, ['build-common-for-main']);*/
+gulp.task('test-common', ['build-common-vendor-for-tests'], function (done) {
+	new Server({
+		configFile: __dirname + '/tests/karma.conf.js'
+	}, done).start();
 });

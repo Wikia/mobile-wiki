@@ -8,7 +8,7 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 		});
 	});
 
-	QUnit.test('Wiki subdomain is correctly replaced for each environment host', function () {
+	QUnit.test('Wiki subdomain is correctly replaced for each environment host', function (assert) {
 		var context = {
 				location: {}
 			},
@@ -69,14 +69,14 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 
 		testCases.forEach(function (testCase) {
 			context.location.host = testCase.host;
-			equal(
+			assert.equal(
 				M.buildUrl({wiki: 'test'}, context),
 				testCase.expectedOutput
 			);
 		});
 	});
 
-	QUnit.test('URLs are properly built for given parameters', function () {
+	QUnit.test('URLs are properly built for given parameters', function (assert) {
 		var context = {
 				location: {
 					host: 'glee.wikia.com'
@@ -140,14 +140,14 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 					expectedOutput: 'https://glee.wikia.com'
 				},
 				{
-					urlParams:{
+					urlParams: {
 						namespace: 'User',
 						title: 'IsDamian??'
 					},
 					expectedOutput: 'http://glee.wikia.com/wiki/User:IsDamian%3F%3F'
 				},
 				{
-					urlParams:{
+					urlParams: {
 						protocol: 'https',
 						namespace: 'Special',
 						title: 'NewFiles'
@@ -155,7 +155,7 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 					expectedOutput: 'https://glee.wikia.com/wiki/Special:NewFiles'
 				},
 				{
-					urlParams:{
+					urlParams: {
 						wiki: 'agas',
 						protocol: 'https',
 						path: '/uno/due/tre'
@@ -172,10 +172,11 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 							complex: '1yry3!@##@$4234_423 423zo42&56'
 						}
 					},
-					expectedOutput: 'https://gta.wikia.com/sratatata?simple=string&complex=1yry3!%40%23%23%40%244234_423%20423zo42%2656'
+					expectedOutput: 'https://gta.wikia.com/sratatata?simple=' +
+					'string&complex=1yry3!%40%23%23%40%244234_423%20423zo42%2656'
 				},
 				{
-					urlParams:{
+					urlParams: {
 						query: {
 							'Gzeg?zolka': '& &'
 						}
@@ -188,30 +189,28 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 		M.prop('mediawikiDomain', undefined);
 
 		testCases.forEach(function (testCase) {
-			equal(
+			assert.equal(
 				M.buildUrl(testCase.urlParams, context),
 				testCase.expectedOutput
 			);
 		});
 	});
 
-	QUnit.test('Fall back to mediawikiDomain', function () {
+	QUnit.test('Fall back to mediawikiDomain', function (assert) {
 		var context = {
 			location: {
 				host: '127.0.0.1:8000'
 			}
 		};
+
 		M.prop('mediawikiDomain', 'adventuretime.mattk.wikia-dev.com');
-		equal(
+		assert.equal(
 			M.buildUrl({}, context),
 			'http://adventuretime.mattk.wikia-dev.com'
 		);
 	});
 
-	QUnit.test('Discussion url is computed properly', function () {
-		M.prop('servicesDomain', 'services.wikia.com');
-		M.prop('discussionBaseRoute', 'discussion');
-
+	QUnit.test('Discussion url is computed properly', function (assert) {
 		var testCases = [
 			{
 				path: '',
@@ -226,22 +225,26 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 			{
 				path: '/147/threads/2',
 				query: {
-					'responseGroup': 'full',
-					'sortDirection': 'descending',
-					'sortKey': 'creation_date',
-					'limit': 3
+					responseGroup: 'full',
+					sortDirection: 'descending',
+					sortKey: 'creation_date',
+					limit: 3
 				},
-				expectedOutput: 'https://services.wikia.com/discussion/147/threads/2?responseGroup=full&sortDirection=descending&sortKey=creation_date&limit=3'
+				expectedOutput: 'https://services.wikia.com/discussion/147/threads/2?' +
+				'responseGroup=full&sortDirection=descending&sortKey=creation_date&limit=3'
 			},
 			{
 				path: '',
-				query: { 'action': '&=/'},
+				query: {action: '&=/'},
 				expectedOutput: 'https://services.wikia.com/discussion?action=%26%3D%2F'
 			}
-
 		];
+
+		M.prop('servicesDomain', 'services.wikia.com');
+		M.prop('discussionBaseRoute', 'discussion');
+
 		testCases.forEach(function (testCase) {
-			equal(M.getDiscussionServiceUrl(testCase.path, testCase.query), testCase.expectedOutput);
+			assert.equal(M.getDiscussionServiceUrl(testCase.path, testCase.query), testCase.expectedOutput);
 		});
 	});
 });

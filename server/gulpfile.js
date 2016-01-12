@@ -1,19 +1,17 @@
 /* eslint-env es5, node */
-/* eslint prefer-template: 0, prefer-arrow-callback: 0, no-var: 0 */
+/* eslint prefer-template: 0, prefer-arrow-callback: 0, no-var: 0, no-throw-literal: 0 */
 
 var fs = require('fs'),
 	gulp = require('gulp'),
 	babel = require('gulp-babel'),
+	changed = require('gulp-changed'),
 	newer = require('gulp-newer'),
 	rename = require('gulp-rename'),
-	gutil = require('gulp-util'),
 	watch = require('gulp-watch'),
-	nodemon = require('nodemon'),
 	path = require('path'),
 	spawn = require('child_process').spawn,
 	nodeDeps = Object.keys(require('./package.json').dependencies),
 	exitOnError = require('../gulp/utils/exit-on-error'),
-	log = require('../gulp/utils/logger'),
 	paths = require('../gulp/paths').server,
 	pathsConfig = paths.config;
 
@@ -58,6 +56,11 @@ gulp.task('build-server-node-modules', function () {
 gulp.task('build-server-views-main', function () {
 	return gulp.src(paths.views.main.src)
 		.pipe(rename(paths.views.main.outputFilename))
+		// Ember rebuilds index.html on every change
+		// Let's not restart server unless this file is actually modified
+		.pipe(changed(paths.views.main.dest, {
+			hasChanged: changed.compareSha1Digest
+		}))
 		.pipe(gulp.dest(paths.views.main.dest));
 });
 
@@ -92,11 +95,13 @@ gulp.task('build-server', [
 gulp.task('watch-server', function () {
 	var mainIndexPath = path.join(process.cwd(), paths.views.main.src);
 
-	// Ember is built asynchronously (the first build finishes after this task is called)
+	// Ember is built asynchronously (its first build finishes after this task is called)
 	// Because of that the front/main/index.html doesn't exist yet and we have to watch whole dir instead of single file
 	// There is no visible performance penalty
 	watch(paths.views.main.watch, {
-		read: false
+		read: false,
+		// index.html is on level 2, there is no point of watching anything that's deeper
+		depth: 2
 	}).on('add', function (file) {
 		if (file === mainIndexPath) {
 			gulp.start('build-server-views-main');
@@ -116,38 +121,6 @@ gulp.task('watch-server', function () {
 	});
 });
 
-/*
- * Run server and restart it when dist/server is modified
- */
-gulp.task('run-server', function () {
-	var server = nodemon(
-		'--verbose ' +
-		'--ext "' + paths.run.watchExtensions + '" ' +
-		'--delay 2 ' +
-		'--watch ' + paths.run.watch + ' ' + paths.run.script
-	);
-
-	server.on('restart', function (files) {
-		log('Restarting server. Files changed: ', files);
-	});
-
-	// See https://github.com/JacksonGariety/gulp-nodemon/issues/77
-	process.once('SIGINT', function () {
-		nodemon.once('exit', function () {
-			process.exit();
-		});
-	});
-
-	// Stop server if the gulp process exits
-	// FIXME it doesn't work, server process isn't killed
-	process.on('exit', function () {
-		console.log('### TRYING TO QUIT THE SERVER');
-		nodemon.once('exit', function () {
-			process.exit();
-		}).emit('quit');
-	});
-});
-
 gulp.task('test-server', function () {
 	var child = spawn('node', [path.resolve(__dirname, 'tests/node-qunit.runner.js')], {
 		stdio: 'inherit'
@@ -155,7 +128,7 @@ gulp.task('test-server', function () {
 
 	child.on('exit', function (exitCode) {
 		if (exitCode) {
-			throw 'Tests failed';
+			throw new Error('Tests failed');
 		}
 	});
 });

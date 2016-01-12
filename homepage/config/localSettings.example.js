@@ -1,9 +1,10 @@
 /**
  * Default localSettings for application
  */
-var baseLocalSettings = require('./localsettings.base'),
+
+var baseLocalSettings = require('./localSettings.base'),
 	localSettings = baseLocalSettings.extendSettings({
-		port: 8111
+		// Add custom settings here
 	});
 
 exports.localSettings = localSettings;

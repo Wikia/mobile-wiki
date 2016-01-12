@@ -22,53 +22,55 @@ QUnit.module('mercury/modules/VideoLoader', function (hooks) {
 		});
 	});
 
-	QUnit.test('VideoLoader can tell if a provider is Ooyala or not', function () {
+	QUnit.test('VideoLoader can tell if a provider is Ooyala or not', function (assert) {
 		var instance = getInstance({
 			provider: 'ooyala/funimation'
 		});
-		ok(instance.isProvider('ooyala'));
+
+		assert.ok(instance.isProvider('ooyala'));
 
 		instance = getInstance({
 			provider: 'OOYALA'
 		});
-		ok(instance.isProvider('ooyala'));
+		assert.ok(instance.isProvider('ooyala'));
 
 		instance = getInstance({
 			provider: 'OoYaLa/randooom'
 		});
-		ok(instance.isProvider('ooyala'));
+		assert.ok(instance.isProvider('ooyala'));
 
 
 		instance = getInstance({
 			provider: 'youtube'
 		});
-		equal(instance.isProvider('ooyala'), false);
+		assert.equal(instance.isProvider('ooyala'), false);
 	});
 
-	QUnit.test('VideoLoader can tell which provider is using', function () {
+	QUnit.test('VideoLoader can tell which provider is using', function (assert) {
 		var instance = getInstance({
 			provider: 'ooyala/funimation'
 		});
-		equal(instance.getProviderName(), 'ooyala');
+
+		assert.equal(instance.getProviderName(), 'ooyala');
 
 		instance = getInstance({
 			provider: 'OOYALA'
 		});
-		equal(instance.getProviderName(), 'ooyala');
+		assert.equal(instance.getProviderName(), 'ooyala');
 
 		instance = getInstance({
 			provider: 'OoYaLa/randooom'
 		});
-		equal(instance.getProviderName(), 'ooyala');
+		assert.equal(instance.getProviderName(), 'ooyala');
 
 		instance = getInstance({
 			provider: 'youtube'
 		});
-		equal(instance.getProviderName(), 'youtube');
+		assert.equal(instance.getProviderName(), 'youtube');
 	});
 
-	QUnit.test('getPlayerClassBasedOnProvider returns correct player class', function () {
-		equal(VideoLoader.getPlayerClassBasedOnProvider('ooyala').className, 'OoyalaPlayer');
-		equal(VideoLoader.getPlayerClassBasedOnProvider('realgravity').className, 'BasePlayer');
+	QUnit.test('getPlayerClassBasedOnProvider returns correct player class', function (assert) {
+		assert.equal(VideoLoader.getPlayerClassBasedOnProvider('ooyala').className, 'OoyalaPlayer');
+		assert.equal(VideoLoader.getPlayerClassBasedOnProvider('realgravity').className, 'BasePlayer');
 	});
 });

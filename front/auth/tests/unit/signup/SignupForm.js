@@ -1,16 +1,8 @@
 QUnit.module('auth/signup/SignupForm', function (hooks) {
 	hooks.beforeEach(function () {
 		var form = document.createElement('form'),
-			self = this;
-
-		form.action = '/example/asd';
-		form.appendChild(document.createElement('button'));
-
-		self.generalErrorSpy = sinon.spy();
-		self.validationErrorsSpy = sinon.spy();
-		self.successfulRegistration = sinon.spy();
-
-		var MarketingOptIn = function () {
+			self = this,
+			MarketingOptIn = function () {
 				return {
 					init: Function.prototype
 				};
@@ -22,7 +14,7 @@ QUnit.module('auth/signup/SignupForm', function (hooks) {
 					displayValidationErrors: self.validationErrorsSpy,
 					clearValidationErrors: Function.prototype,
 					translateValidationError: Function.prototype
-				}
+				};
 			},
 			AuthTracker = function () {
 				return {
@@ -31,13 +23,13 @@ QUnit.module('auth/signup/SignupForm', function (hooks) {
 					trackPageView: Function.prototype,
 					trackSubmit: Function.prototype,
 					track: Function.prototype
-				}
+				};
 			},
 			AuthLogger = {
 				getInstance: function () {
 					return {
 						xhrError: function () {}
-					}
+					};
 				}
 			},
 			HttpCodes = {
@@ -49,15 +41,21 @@ QUnit.module('auth/signup/SignupForm', function (hooks) {
 					urlEncode: function (data) {
 						return data;
 					}
-				}
+				};
 			},
 			TermsOfUse = function () {
 				return {
 					init: Function.prototype
-				}
-			};
+				};
+			},
+			SignupForm = {};
 
-		SignupForm = {};
+		form.action = '/example/asd';
+		form.appendChild(document.createElement('button'));
+
+		self.generalErrorSpy = sinon.spy();
+		self.validationErrorsSpy = sinon.spy();
+		self.successfulRegistration = sinon.spy();
 
 		require.entries['auth/app/signup/SignupForm'].callback(
 			SignupForm,
@@ -120,7 +118,8 @@ QUnit.module('auth/signup/SignupForm', function (hooks) {
 	QUnit.test('SignupForm field error', function (assert) {
 		this.server.respondWith(
 			'/example/asd',
-			[400, {'Content-Type': 'application/json'}, '{"errors": [{"description": "email_already_exists", "additional": {"field": "email"}}]}']
+			[400, {'Content-Type': 'application/json'},
+				'{"errors": [{"description": "email_already_exists", "additional": {"field": "email"}}]}']
 		);
 
 		this.signupForm.onSubmit(document.createEvent('Event'));
@@ -131,7 +130,9 @@ QUnit.module('auth/signup/SignupForm', function (hooks) {
 	QUnit.test('SignupForm field and general error', function (assert) {
 		this.server.respondWith(
 			'/example/asd',
-			[400, {'Content-Type': 'application/json'}, '{"errors": [{"description": "email_already_exists", "additional": {"field": "email"}}, {"description": "username_blocked", "additional": {"field": "username"}}]}']
+			[400, {'Content-Type': 'application/json'},
+				'{"errors": [{"description": "email_already_exists", "additional": {"field": "email"}},' +
+				' {"description": "username_blocked", "additional": {"field": "username"}}]}']
 		);
 
 		this.signupForm.onSubmit(document.createEvent('Event'));
