@@ -54,6 +54,14 @@ exports.getSignupUrl = function () {
 	return localSettings.signupUrl;
 };
 
+exports.getJaCommunityUrl = function () {
+	return localSettings.jaCommunityUrl;
+};
+
+exports.getJaUniversityUrl = function () {
+	return localSettings.jaUniversityUrl;
+};
+
 exports.getStartWikiaUrl = function () {
 	return localSettings.startWikiaUrl;
 };

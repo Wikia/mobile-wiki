@@ -104,11 +104,22 @@ export default Ember.Component.extend(ViewportMixin, {
 	handleIOSFocus() {},
 
 	/**
+	 * Check if user is using iOS browser
+	 * @returns {boolean}
+	 */
+	isIOSBrowser() {
+		return (/iPad|iPhone|iPod/).test(navigator.platform);
+	},
+
+	/**
 	 * Handle clicks - focus in textarea and activate editor
 	 * @returns {void}
 	 */
 	click() {
-		this.$('.editor-textarea').focus();
+		// This next is needed for iOS
+		Ember.run.next(this, () => {
+			this.$('.editor-textarea').focus();
+		});
 	},
 
 	/**
@@ -119,7 +130,7 @@ export default Ember.Component.extend(ViewportMixin, {
 			/*
 			 iOS hack for position: fixed - now we display loading icon.
 			 */
-			if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+			if (this.isIOSBrowser()) {
 				$('html, body').css({
 					height: '100%',
 					overflow: 'hidden'
@@ -212,7 +223,6 @@ export default Ember.Component.extend(ViewportMixin, {
 		 * @returns {void}
 		 */
 		toggleEditorActive(active) {
-
 			// do NOT set the editor active under certain rules:
 			// 1. user is not logged in
 			if (active === true && this.get('currentUser.userId') === null) {

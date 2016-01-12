@@ -154,6 +154,8 @@ $short-input: new-breakpoint(max-width 420px);
 
 	.wiw-title {
 		background-color: $title-background;
+		font-weight: bold;
+		padding: .6em 0;
 		text-align: center;
 	}
 }

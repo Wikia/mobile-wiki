@@ -27,6 +27,8 @@ var deepExtend = require('deep-extend'),
 		servicesUrl: 'https://services.wikia.com/',
 		apiUrl: 'http://wikia.com/api/v1/',
 		signupUrl: 'https://www.wikia.com/register?uselang=ja&redirect=http://ja.wikia.com',
+		jaCommunityUrl: 'http://ja.community.wikia.com/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8',
+		jaUniversityUrl: 'http://ja.community.wikia.com/wiki/Wikia_University',
 		startWikiaUrl: 'http://www.wikia.com/Special:CreateNewWiki?uselang=ja',
 	};
 
