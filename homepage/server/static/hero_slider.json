@@ -8,7 +8,7 @@
       "buttonText": "スペシャルサイトはこちら",
       "buttonId": "whatIsWikia",
       "image": "/images/heroslider/slider-1.jpg",
-      "imageMobile": "http://placehold.it/615x560?text=Hero+Slide+1"
+      "imageMobile": "/images/heroslider/slider-1-small.jpg"
     },
     {
       "title": "The Home of Fandom",
@@ -17,7 +17,7 @@
       "buttonText": "スペシャルサイトはこちら",
       "buttonId": "fandom",
       "image": "/images/heroslider/slider-2.jpg",
-      "imageMobile": "http://placehold.it/615x560?text=Hero+Slide+2"
+      "imageMobile": "/images/heroslider/slider-2-small.jpg"
     },
     {
       "title": "Hero Slider 3",

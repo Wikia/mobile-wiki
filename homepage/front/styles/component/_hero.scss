@@ -1,10 +1,16 @@
 
 $horizontal-bar-mode: 800px;
-$mobile-slider:  new-breakpoint(max-width 615px);
-$desktop-slider: new-breakpoint(min-width 615px);
+$small-mobile-slider: new-breakpoint(max-width 380px);
+$mobile-slider:  new-breakpoint(min-width 381px max-width 750px);
+$medium-slider: new-breakpoint(min-width 751px max-width 1000px);
+$desktop-slider: new-breakpoint(min-width 1001px);
 
 .featured {
 	margin-top: 4em;
+
+	@include media ($small-mobile-slider) {
+		display: none;
+	}
 
 	@include media ($mobile-slider) {
 		display: none;
@@ -14,6 +20,10 @@ $desktop-slider: new-breakpoint(min-width 615px);
 .featured-mobile {
 	display: none;
 	margin-top: 4em;
+
+	@include media ($small-mobile-slider) {
+		display: block;
+	}
 
 	@include media ($mobile-slider) {
 		display: block;
@@ -25,6 +35,10 @@ $desktop-slider: new-breakpoint(min-width 615px);
 
 	@include media ($mobile-slider) {
 		text-align: center;
+	}
+
+	@include media ($small-mobile-slider) {
+		font-size: 16px;
 	}
 }
 
@@ -52,6 +66,10 @@ $desktop-slider: new-breakpoint(min-width 615px);
 	max-width: 1280px;
 	padding-top: 54px;
 
+	@include media ($small-mobile-slider) {
+		display: none;
+	}
+
 	@include media ($mobile-slider) {
 		display: none;
 	}
@@ -64,6 +82,10 @@ $desktop-slider: new-breakpoint(min-width 615px);
 	max-height: 560px;
 	max-width: 615px;
 	padding-top: 54px;
+
+	@include media ($medium-slider) {
+		display: none;
+	}
 
 	@include media ($desktop-slider) {
 		display: none;
@@ -91,6 +113,10 @@ $desktop-slider: new-breakpoint(min-width 615px);
 	h3 {
 		font-size: 1em;
 		line-height: 1;
+	}
+
+	@include media ($medium-slider) {
+		bottom: 5px;
 	}
 }
 
@@ -155,8 +181,12 @@ $desktop-slider: new-breakpoint(min-width 615px);
 	h3 {
 		font-size: 1em;
 	}
-}
 
+	@include media ($small-mobile-slider) {
+		font-size: 13px;
+		height: 100px;
+	}
+}
 
 .hero-mobile-padding {
 	@include media ($horizontal-bar-mode) {
@@ -165,12 +195,20 @@ $desktop-slider: new-breakpoint(min-width 615px);
 }
 
 .hero-image-desktop {
+	@include media ($small-mobile-slider) {
+		display: none;
+	}
+
 	@include media ($mobile-slider) {
 		display: none;
 	}
 }
 
 .hero-image-mobile {
+	@include media ($medium-slider) {
+		display: none;
+	}
+
 	@include media ($desktop-slider) {
 		display: none;
 	}
@@ -199,10 +237,14 @@ $desktop-slider: new-breakpoint(min-width 615px);
 	transform: translateY(-50%);
 	z-index: 1;
 
+	@include media ($small-mobile-slider) {
+		right: 15px;
+		top: 30%;
+	}
+
 	@include media ($mobile-slider) {
 		left: 15px;
 		top: 30%;
-
 	}
 }
 
@@ -211,6 +253,11 @@ $desktop-slider: new-breakpoint(min-width 615px);
 	top: 50%;
 	transform: translateY(-50%);
 	z-index: 1;
+
+	@include media ($small-mobile-slider) {
+		right: 15px;
+		top: 30%;
+	}
 
 	@include media ($mobile-slider) {
 		right: 15px;
