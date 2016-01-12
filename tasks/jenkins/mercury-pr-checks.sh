@@ -21,7 +21,6 @@ failTests() {
 	updateGit "Front tests" failure skipped
 	updateGit "Server tests" failure skipped
 	updateGit "Linter" failure skipped
-	updateGit "Mercury build" failure skipped
 	updateGit "Mercury PR Checks" failure finished $BUILD_URL"console"
 }
 
@@ -37,14 +36,14 @@ setupNpm() {
 		ln -s $sourceTarget
 	else
 		cp -R $sourceTarget
-		updateGit "Mercury setup" pending "updating node modules in ."$1
+		updateGit "Mercury build" pending "updating node modules in ."$1
 		cd $1
 		npm install || error=true
 		cd $oldPath
 
 		if [[ ! -z $error ]]
 		then
-			updateGit "Mercury setup" failure "failed on: updating node modules in ."$1
+			updateGit "Mercury build" failure "failed on: updating node modules in ."$1
 			failTests && exit 1
 		fi
 	fi
@@ -62,14 +61,14 @@ setupBower() {
 		ln -s $sourceTarget
 	else
 		cp -R $sourceTarget
-		updateGit "Mercury setup" pending "updating bower components in ."$1
+		updateGit "Mercury build" pending "updating bower components in ."$1
 		cd $1
 		bower install || error=true
 		cd $oldPath
 
 		if [[ ! -z $error ]]
 		then
-			updateGit "Mercury setup" failure "failed on: updating bower components in ."$1
+			updateGit "Mercury build" failure "failed on: updating bower components in ."$1
 			failTests && exit 1
 		fi
 	fi
@@ -77,13 +76,12 @@ setupBower() {
 
 ### Set pending status to all tasks
 updateGit "Mercury PR Checks" pending running $BUILD_URL"console"
-updateGit "Mercury setup" pending pending
 updateGit "Mercury build" pending pending
 updateGit "Front tests" pending pending
 updateGit "Server tests" pending pending
 updateGit "Linter" pending pending
 
-### Mercury setup - node_modules and bower components
+### Mercury build - node_modules and bower components
 setupNpm "/"
 setupNpm "/front/main/"
 setupNpm "/server/"
