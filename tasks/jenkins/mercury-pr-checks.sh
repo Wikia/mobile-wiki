@@ -85,12 +85,12 @@ updateGit "Linter" pending pending
 
 ### Mercury setup - node_modules and bower components
 setupNpm "/"
-setupNpm "/front/main"
-setupNpm "/server"
+setupNpm "/front/main/"
+setupNpm "/server/"
 
-setupBower "/front/auth"
-setupBower "/front/common"
-setupBower "/front/main"
+setupBower "/front/auth/"
+setupBower "/front/common/"
+setupBower "/front/main/"
 
 ### Mercury build - building application
 updateGit "Mercury build" pending "building application"
