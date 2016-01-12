@@ -26,7 +26,8 @@
     "weppy": "Wikia/weppy#0.9.3",
     "wikia-style-guide": "Wikia/style-guide#v1.8.2",
     "Autolinker.js": "0.22.0",
-    "sinonjs": "1.17.1"
+    "sinonjs": "1.17.1",
+    "dom-ruler": "0.1.13"
   },
   "resolutions": {
     "ember": "2.0.2"
