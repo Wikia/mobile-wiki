@@ -19,7 +19,6 @@ export default Ember.Component.extend(ViewportMixin, {
 	siteHeadHeight: 0,
 
 	bodyText: '',
-	bodyTextCache: '',
 	layoutName: 'components/discussion-editor',
 
 	/**
