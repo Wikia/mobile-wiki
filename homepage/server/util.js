@@ -67,7 +67,9 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 			loginUrl: localSettings.loginUrl,
 			signupUrl: localSettings.signupUrl,
 			avatarUrl: avatarUrl,
-			prod: (process.env.WIKIA_ENVIRONMENT === 'prod'),
+			prod: (process.env.WIKIA_ENVIRONMENT === 'prod') ||
+				  (process.env.WIKIA_ENVIRONMENT === 'preview') ||
+				  (process.env.WIKIA_ENVIRONMENT === 'sandbox'),
 		});
 
 		reply.view(view, combinedData);
@@ -78,7 +80,7 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 		avatarUrl,
 		defaultAvatarUrl = '/vendor/wikia-style-guide/gh-pages/assets/images/icons/icon_avatar.svg',
 		defaultLoggedInAvatarUrl = '/extensions/wikia/GlobalNavigation/images/signin_icon.svg';
-	
+
 	if (!strings) {
 		strings = this.readJsonConfigSync('static/strings.json'); // TODO: Integrate with I18N, see INT-214
 	}
