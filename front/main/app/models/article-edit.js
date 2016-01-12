@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ArticleEditMixin from '../mixins/article-edit';
+import getEditToken from '../utils/edit-token';
 
 const ArticleEditModel = Ember.Object.extend({
 	content: null,
@@ -13,7 +13,6 @@ const ArticleEditModel = Ember.Object.extend({
 });
 
 ArticleEditModel.reopenClass(
-	ArticleEditMixin,
 	{
 		/**
 		 * @param {*} model
@@ -21,7 +20,7 @@ ArticleEditModel.reopenClass(
 		 */
 		publish(model) {
 			return new Ember.RSVP.Promise((resolve, reject) => {
-				this.getEditToken(model.title)
+				getEditToken(model.title)
 					.then((token) => {
 						Ember.$.ajax({
 							url: M.buildUrl({path: '/api.php'}),

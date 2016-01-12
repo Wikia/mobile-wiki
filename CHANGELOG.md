@@ -1,3 +1,53 @@
+## release-199 (2016-01-12 12:10 UTC)
+* [SOC-1572](https://wikia-inc.atlassian.net/browse/SOC-1572) SOC-1572 | fixed a white box appearing behind the avatar when clicking in the top bar
+* [SOC-1809](https://wikia-inc.atlassian.net/browse/SOC-1809) SOC-1809 | fix for opening reply editor in iOS browsers
+* [SOC-1711](https://wikia-inc.atlassian.net/browse/SOC-1711) SOC-1711| translations updated
+* [INT-305](https://wikia-inc.atlassian.net/browse/INT-305) INT-305 | New extra small screen and medium screen breakpoints for he…
+* [INT-298](https://wikia-inc.atlassian.net/browse/INT-298) As a Wikia Japan user, I want to learn how to participate on Wikia on the home page
+* [SOC-1744](https://wikia-inc.atlassian.net/browse/SOC-1744) SOC-1744 | Added images for GoT and Community Connect
+* [SOC-1751](https://wikia-inc.atlassian.net/browse/SOC-1751) SOC-1751 | Displaying posts title in discussions
+* [INT-183](https://wikia-inc.atlassian.net/browse/INT-183) INT-183 | As a global Wikia user, I want to see the Wikia-in-your-lang features on mobile
+* image-review-frontend: PLATFORM-1564 | Image Review service
+* [VE-2116](https://wikia-inc.atlassian.net/browse/VE-2116) Change the usage of addmediatemporary and addmediapermanent APIs
+* [INT-277](https://wikia-inc.atlassian.net/browse/INT-277) INT-277 | Rename logout handler to signout
+* [INT-297](https://wikia-inc.atlassian.net/browse/INT-297) JP homepage new design - "what is wikia" section.
+* [INT-303](https://wikia-inc.atlassian.net/browse/INT-303) Add condition to retrieve avatar url from user attribute to …
+* [SOC-1711](https://wikia-inc.atlassian.net/browse/SOC-1711) SOC-1711| discussion-app-join new text
+
+## release-198 (2016-01-07 11:19 UTC)
+* npm-fix: change karma version 0.13.15 -> 0.13.19
+* [SOC-1542](https://wikia-inc.atlassian.net/browse/SOC-1542) SOC-1542 | Adding weibo icon config to share-feature in chinese
+* [SOC-1742](https://wikia-inc.atlassian.net/browse/SOC-1742) SOC-1742 | Fix Discussion sort overlay
+* [SEO-146](https://wikia-inc.atlassian.net/browse/SEO-146) SEO-146 "In other languages" section in Mercury
+* [SOC-1781](https://wikia-inc.atlassian.net/browse/SOC-1781) SOC-1781 | Updating the Star Wars discussions badge
+* [DAT-3085](https://wikia-inc.atlassian.net/browse/DAT-3085) DAT-3085 | add shouldHandleClick()
+* [SOC-1757](https://wikia-inc.atlassian.net/browse/SOC-1757) SOC-1757 | Discussions dark theme cleanup
+* [SOC-1750](https://wikia-inc.atlassian.net/browse/SOC-1750) SOC-1750 | Created util for discussions ajax calls
+* [SOC-1763](https://wikia-inc.atlassian.net/browse/SOC-1763) SOC-1763 | Prevented opening links in discussion posts from forum view
+* [DAT-3085](https://wikia-inc.atlassian.net/browse/DAT-3085) DAT-3085 | do not collapse/uncollapse infobox when click target is an img
+* coverage-gitignore: gitignore | Adding coverage/ to gitignore
+* [SOC-1795](https://wikia-inc.atlassian.net/browse/SOC-1795) SOC-1795 | Add GA pageviews tracking for discussions
+* [XW-121](https://wikia-inc.atlassian.net/browse/XW-121) XW-121 | Used fixed version of dependencies
+* [XW-866](https://wikia-inc.atlassian.net/browse/XW-866) XW-866 | Remove remaining usage of the App global
+* [INT-296](https://wikia-inc.atlassian.net/browse/INT-296) INT-296 | New hero and category slider designs for Japan HP
+* wikia-babel-plugin-rename-define: XW | Use Wikia/babel-plugin-rename-define
+* loader-js: XW-702 | Introduce loader.js to SPA
+* [XW-826](https://wikia-inc.atlassian.net/browse/XW-826) XW-826 | fix markdown syntax
+* [INT-206](https://wikia-inc.atlassian.net/browse/INT-206) Re-style search box in top nav for Japan HP
+* [INT-279](https://wikia-inc.atlassian.net/browse/INT-279) JP homepage - login icon missing
+* [SOC-1730](https://wikia-inc.atlassian.net/browse/SOC-1730) SOC-1704/SOC-1730 Design Cleanup Round 2 - Post Detail Updates
+* SOC: remove crumb
+* [SOC-1624](https://wikia-inc.atlassian.net/browse/SOC-1624) SOC-1624 | Enable Discussions via WikiFactory
+* vignette-js-update: Bump vignette-js version
+* SOC: load CSSes on auth pages in one request
+* [INT-285](https://wikia-inc.atlassian.net/browse/INT-285) INT-285 | Enable optimizely for Japan Homepage
+* JP: Japan HP | Removed tslint task and references
+* [SOC-1634](https://wikia-inc.atlassian.net/browse/SOC-1634) SOC-1634 | Discussion - line-clamp content
+* XW: change systemjs/builder version to 0.14.11
+* [SOC-1726](https://wikia-inc.atlassian.net/browse/SOC-1726) SOC-1726 | Dont allow anons to upvote
+* [XW-638](https://wikia-inc.atlassian.net/browse/XW-638) XW-638 | loading spinner is not visible by default
+* [XW-27](https://wikia-inc.atlassian.net/browse/XW-27) XW-27 | Fix unit tests for Ember helpers and add some more
+
 ## release-197 hotfix 1 (2015-12-11 16:25 UTC)
 * release-197-hotfix: XW-836 check for > -1 when using indexOf...
 

@@ -75,7 +75,6 @@ export default Ember.Controller.extend({
 		 */
 		upload() {
 			this.get('application').set('isLoading', true);
-
 			ArticleAddPhotoModel.upload(this.get('model')).then(
 				this.handleUploadSuccess.bind(this),
 				this.handleError.bind(this)

@@ -12,7 +12,7 @@ export default Ember.Component.extend({
 		119235: '/front/common/images/community-badge-hawaii-five-o.png',
 		35171: '/front/common/images/community-badge-hunger-games.png',
 		203914: '/front/common/images/community-badge-one-direction.png',
-		147: '/front/common/images/community-badge-star-wars.png',
+		147: '/front/common/images/community-badge-star-wars-en.png',
 		750: '/front/common/images/community-badge-star-wars.png',
 		916: '/front/common/images/community-badge-star-wars.png',
 		1473: '/front/common/images/community-badge-star-wars.png',
@@ -25,6 +25,7 @@ export default Ember.Component.extend({
 		558247: '/front/common/images/community-badge-clash-clans.jpg',
 		2714: '/front/common/images/community-badge-smash-bros.jpg',
 		3124: '/front/common/images/community-badge-ben-10.jpg',
+		130814: '/front/common/images/community-badge-got.jpg',
 		4541: '/front/common/images/community-badge-gta.jpg',
 		1706: '/front/common/images/community-badge-elder-scrolls.jpg',
 		74: '/front/common/images/community-badge-pokemon.jpg',
@@ -43,7 +44,8 @@ export default Ember.Component.extend({
 		1074920: '/front/common/images/community-badge-weihnachts.jpg',
 		3676: '/front/common/images/community-badge-ja-halo.jpg',
 		1147260: '/front/common/images/community-badge-ja-ajin.jpg',
-		1144697: '/front/common/images/community-badge-ja-knights-of-sidonia.jpg'
+		1144697: '/front/common/images/community-badge-ja-knights-of-sidonia.jpg',
+		1233861: '/front/common/images/community-badge-connect.jpg'
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
@@ -59,10 +61,10 @@ export default Ember.Component.extend({
 			{
 				mode: Thumbnailer.mode.topCrop,
 				width: this.get('squareDimension'),
-				height: this.get('squareDimension'),
+				height: this.get('squareDimension')
 			}
 		);
 	}),
 
-	wikiName: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia'),
+	wikiName: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 });

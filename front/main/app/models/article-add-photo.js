@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ArticleEditMixin from '../mixins/article-edit';
+import getEditToken from '../utils/edit-token';
 
 /**
  * @typedef {Object} FileNameSeparated
@@ -17,7 +17,6 @@ const ArticleAddPhotoModel = Ember.Object.extend({
 });
 
 ArticleAddPhotoModel.reopenClass(
-	ArticleEditMixin,
 	{
 		/**
 		 * @param {*} photoData
@@ -66,7 +65,7 @@ ArticleAddPhotoModel.reopenClass(
 				};
 
 			return new Ember.RSVP.Promise((resolve, reject) => {
-				this.getEditToken(model.title)
+				getEditToken(model.title)
 					.then((token) => {
 						editData.token = token;
 						this.editContent(editData)
@@ -135,30 +134,34 @@ ArticleAddPhotoModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		permanentUpload(title, tempName) {
-			return new Ember.RSVP.Promise((resolve, reject) => {
-				const params = {
-					action: 'addmediapermanent',
-					format: 'json',
-					title,
-					tempName
-				};
+			return getEditToken(title)
+				.then((token) => {
+					return new Ember.RSVP.Promise((resolve, reject) => {
+						const params = {
+							action: 'addmediapermanent',
+							format: 'json',
+							title,
+							tempName,
+							token
+						};
 
-				Ember.$.ajax({
-					url: M.buildUrl({path: '/api.php'}),
-					method: 'POST',
-					data: params,
-					success: (resp) => {
-						if (resp && resp.addmediapermanent) {
-							resolve(resp.addmediapermanent);
-						} else if (resp && resp.error) {
-							reject(resp.error.code);
-						} else {
-							reject();
-						}
-					},
-					error: (err) => reject(err)
+						Ember.$.ajax({
+							url: M.buildUrl({path: '/api.php'}),
+							method: 'POST',
+							data: params,
+							success: (resp) => {
+								if (resp && resp.addmediapermanent) {
+									resolve(resp.addmediapermanent);
+								} else if (resp && resp.error) {
+									reject(resp.error.code);
+								} else {
+									reject();
+								}
+							},
+							error: (err) => reject(err)
+						});
+					});
 				});
-			});
 		},
 
 		/**
@@ -166,39 +169,39 @@ ArticleAddPhotoModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		temporaryUpload(photoData) {
-			const formData = new FormData();
+			return getEditToken(photoData.name)
+				.then((token) => {
+					const formData = new FormData();
 
-			formData.append('file', photoData);
-
-			return new Ember.RSVP.Promise((resolve, reject) => {
-				Ember.$.ajax({
-					url: M.buildUrl({
-						path: '/api.php',
-						query: {
-							action: 'addmediatemporary',
-							format: 'json'
-						}
-					}),
-					method: 'POST',
-					data: formData,
-					cache: false,
-					xhrFields: {
-						withCredentials: true
-					},
-					contentType: false,
-					processData: false,
-					success: (resp) => {
-						if (resp && resp.addmediatemporary) {
-							resolve(resp.addmediatemporary);
-						} else if (resp && resp.error) {
-							reject(resp.error.code);
-						} else {
-							reject();
-						}
-					},
-					error: (err) => reject(err)
+					formData.append('file', photoData);
+					formData.append('action', 'addmediatemporary');
+					formData.append('format', 'json');
+					formData.append('type', 'image');
+					formData.append('token', token);
+					return new Ember.RSVP.Promise((resolve, reject) => {
+						Ember.$.ajax({
+							url: M.buildUrl({path: '/api.php'}),
+							method: 'POST',
+							data: formData,
+							cache: false,
+							xhrFields: {
+								withCredentials: true
+							},
+							contentType: false,
+							processData: false,
+							success: (resp) => {
+								if (resp && resp.addmediatemporary) {
+									resolve(resp.addmediatemporary);
+								} else if (resp && resp.error) {
+									reject(resp.error.code);
+								} else {
+									reject();
+								}
+							},
+							error: (err) => reject(err)
+						});
+					});
 				});
-			});
 		},
 
 		/**

@@ -95,6 +95,10 @@ Router.map(function () {
 		});
 	});
 
+	this.route('image-review', {
+		path: '/image-review'
+	});
+
 	// Route to catch all badly formed URLs
 	this.route('notFound', {
 		path: '/*url'
