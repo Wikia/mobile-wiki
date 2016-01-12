@@ -14,7 +14,7 @@ $pointer-size: 14px;
 }
 
 .pop-over-container {
-	background-color: $color-white;
+	background-color: $pop-over-background-color;
 	border-radius: 2px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
 	padding: 20px;
@@ -30,21 +30,21 @@ $pointer-size: 14px;
 }
 
 .pop-over-pointer.orient-above {
-	border-color: $color-white transparent transparent transparent;
+	border-color: $pop-over-background-color transparent transparent transparent;
 	bottom: -$pointer-size;
 }
 
 .pop-over-pointer.orient-below {
-	border-color: transparent transparent $color-white transparent;
+	border-color: transparent transparent $pop-over-background-color transparent;
 	top: -$pointer-size;
 }
 
 .pop-over-pointer.orient-left {
-	border-color: transparent transparent transparent $color-white;
+	border-color: transparent transparent transparent $pop-over-background-color;
 	right: -$pointer-size;
 }
 
 .pop-over-pointer.orient-right {
-	border-color: transparent $color-white transparent transparent;
+	border-color: transparent $pop-over-background-color transparent transparent;
 	left: -$pointer-size;
 }
