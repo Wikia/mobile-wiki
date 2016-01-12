@@ -31,16 +31,16 @@ updateGit "Linter" pending pending
 
 ### Mercury build - copy cached node_modules and update them
 updateGit "Mercury build" pending "copying cached node_modules"
-md5old=$(md5sum ../Mercury-UPDATE-node-modules/package.json | sed -e "s#\(^.\{32\}\).*#\1#")
+md5old=$(md5sum ../Mercury-UPDATE-node-modules-old/package.json | sed -e "s#\(^.\{32\}\).*#\1#")
 md5new=$(md5sum package.json | sed -e "s#\(^.\{32\}\).*#\1#")
 
 if [ "$md5new" = "$md5old" ]
 then
 	### Mercury build - creating symlink to node packages
-	ln -s ../Mercury-UPDATE-node-modules/node_modules node_modules
+	ln -s ../Mercury-UPDATE-node-modules-old/node_modules node_modules
 else
 	### Mercury build - updating node packages
-	cp -R ../Mercury-UPDATE-node-modules/node_modules node_modules
+	cp -R ../Mercury-UPDATE-node-modules-old/node_modules node_modules
 	updateGit "Mercury build" pending "updating node packages"
 	npm install || error1=true
 	
