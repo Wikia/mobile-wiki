@@ -91,6 +91,48 @@ test('getWikiName', function () {
 	});
 });
 
+test('getWikiaSubdomain', function () {
+	var testCases = [
+		{
+			host: 'glee.wikia.com',
+			expected: 'glee',
+			description: 'Works for production sub-domains'
+		}, {
+			host: 'bg.poznan.wikia.com',
+			expected: 'bg.poznan',
+			description: 'Works for production sub-domains with language'
+		} , {
+			host: 'verify.poznan.wikia.com',
+			expected: 'poznan',
+			description: 'Works for verify sub-domains'
+		} , {
+			host: 'verify.bg.poznan.wikia.com',
+			expected: 'bg.poznan',
+			description: 'Works for verify sub-domains with language'
+		} , {
+			host: 'preview.poznan.wikia.com',
+			expected: 'poznan',
+			description: 'Works for preview sub-domains'
+		} , {
+			host: 'preview.bg.muppet.wikia.com',
+			expected: 'bg.muppet',
+			description: 'Works for preview sub-domains with language'
+		} , {
+			host: 'sandbox-test.chess.wikia.com',
+			expected: 'chess',
+			description: 'Works for sandbox sub-domains'
+		} , {
+			host: 'sandbox-test.ja.starwars.armon.wikia-dev.com',
+			expected: 'ja.starwars',
+			description: 'Works for sandbox sub-domains with language'
+		}
+	];
+
+	testCases.forEach(function (testCase) {
+		equal(global.getWikiaSubdomain(testCase.host), testCase.expected, testCase.description);
+	});
+});
+
 test('clearHost', function () {
 	var testCases = [
 		{
@@ -160,7 +202,7 @@ test('parseQueryParams', function () {
 
 	testCases = [
 		{foo: '1'},
-		{allowed: '1'},
+		{allowed: 1},
 		{allowed: 'false'},
 		{allowed: '</script>'}
 	];
@@ -328,4 +370,38 @@ test('redirectToCanonicalHostIfNeeded', function () {
 	});
 
 	expect(assertionsExpected);
+});
+
+test('getHtmlTitle', function () {
+	var testCases = [
+		{
+			htmlTitleTemplate: '$1 - Muppet Wiki - Wikia',
+			displayTitle: 'Kermit the Frog',
+			expected: 'Kermit the Frog - Muppet Wiki - Wikia'
+		},
+		{
+			htmlTitleTemplate: '$1 - Muppet Wiki - Wikia',
+			displayTitle: 'test title',
+			expected: 'test title - Muppet Wiki - Wikia'
+		},
+		{
+			htmlTitleTemplate: '$1 - Muppet Wiki - Wikia',
+			displayTitle: '',
+			expected: 'Muppet Wiki - Wikia'
+		},
+		{
+			htmlTitleTemplate: 'sandbox - $1 - Muppet Wiki - Wikia',
+			displayTitle: '',
+			expected: 'sandbox - Muppet Wiki - Wikia'
+		},
+		{
+			htmlTitleTemplate: '$1 - Wikia',
+			displayTitle: '',
+			expected: 'Wikia'
+		},
+	];
+
+	testCases.forEach(function (testCase) {
+		equal(global.getHtmlTitle({htmlTitleTemplate: testCase.htmlTitleTemplate}, testCase.displayTitle), testCase.expected);
+	});
 });

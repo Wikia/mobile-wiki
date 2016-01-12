@@ -15,8 +15,20 @@
 		<span class="timestamp">
 			&bull; {{time-ago post.creationDate.epochSecond}}
 		</span>
+		{{discussion-delete
+			delete=this.attrs.deleteReply
+			undelete=this.attrs.undeleteReply
+			post=post
+		}}
 	</div>
 	<div class="discussion-content">
-		{{{post.rawContent}}}
+		{{{parsedContent}}}
 	</div>
 </div>
+{{#if post.isLoading}}
+	{{loading-spinner
+	active=post.isLoading
+	radius=32
+	strokeWidth=2
+	}}
+{{/if}}

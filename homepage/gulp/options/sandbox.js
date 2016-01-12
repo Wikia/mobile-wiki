@@ -2,8 +2,6 @@
  * Options for prod environment
  */
 
-var paths = require('../paths');
-
 module.exports = {
 	sass: {
 		outputStyle: 'compressed',
@@ -39,8 +37,5 @@ module.exports = {
 			module: 'commonjs',
 			target: 'es5'
 		}
-	},
-	tslint: {
-		emitError: true
 	}
 };

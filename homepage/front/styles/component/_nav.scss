@@ -2,7 +2,9 @@
 $base-border-color: gainsboro !default;
 $base-border-radius: 3px !default;
 $action-color: #477DCA !default;
-$large-screen: 710px;
+$create-wikia-button-color: #656e78;
+$create-wikia-button-padding: rem-calc(9px);
+$large-screen: 800px;
 $navigation-padding: 1em;
 $navigation-background: white;
 $navigation-color: transparentize($dark-gray, .5);
@@ -25,13 +27,37 @@ header.navigation {
 	width: 100%;
 	z-index: 999;
 
-	.navigation-wrapper {
-		@include clearfix;
-		@include outer-container;
+	@include media ($horizontal-bar-mode) {
+		position: fixed;
+	}
 
+	.navigation-wrapper {
 		height: 53px;
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 50em;
 		position: relative;
 		z-index: 9999;
+	}
+
+	.create-wikia {
+		display: none;
+
+		@include media ($horizontal-bar-mode) {
+			display: inline-block;
+		}
+	}
+
+	.create-wikia-button {
+		border: solid 1px $create-wikia-button-color;
+		color: $create-wikia-button-color;
+		display: inline-block;
+		font-size: .75rem;
+		height: rem-calc(30px);
+		line-height: rem-calc(28px);
+		margin-bottom: $create-wikia-button-padding;
+		margin-top: $create-wikia-button-padding;
+		padding: 0 rem-calc(10px);
 	}
 
 	.logo {
@@ -291,8 +317,9 @@ header.navigation {
 				color: $navigation-color;
 				font-size: .9em;
 				height: rem-calc(32);
+				line-height: rem-calc(20);
 				margin: 0;
-				padding: .5em .8em;
+				padding: 0 .8em;
 				width: 100%;
 
 				@include media($horizontal-bar-mode) {
@@ -306,13 +333,13 @@ header.navigation {
 
 				background-color: $search-bar-background;
 				border-radius: 0;
-				height: 1rem;
+				height: 1.6rem;
 				outline: none;
 				padding: 5px 8px;
 				right: .1rem;
 				top: .35rem;
 
-				img {
+				img :not(search) {
 					height: 12px;
 					opacity: .7;
 				}
@@ -321,7 +348,7 @@ header.navigation {
 	}
 }
 
-// Search bar for Mobile
+// Search bar for mobile
 .search-bar-mobile {
 	$search-bar-border-color: #c5ced9;
 	$search-bar-border: 1px solid $search-bar-border-color;
@@ -373,13 +400,13 @@ header.navigation {
 
 			background-color: $search-bar-background;
 			border-radius: 0;
-			height: 1rem;
+			height: 1.6rem;
 			outline: none;
 			padding: 5px 8px;
 			right: .1rem;
 			top: .35rem;
 
-			img {
+			img :not(search) {
 				height: 12px;
 				opacity: .7;
 			}

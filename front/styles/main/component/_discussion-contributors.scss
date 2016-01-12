@@ -1,7 +1,5 @@
-$discussion-contributors-background-color: #666;
-$discussion-contributors-border-color: $border-color;
-$discussion-contributors-text-color: $color-white;
 $discussion-contributors-avatar-dimension: 30px;
+$discussion-contributors-border-width: 2px;
 
 .discussion-contributors {
 	display: inline-block;
@@ -11,7 +9,8 @@ $discussion-contributors-avatar-dimension: 30px;
 	}
 
 	.avatar {
-		img {
+		img, svg {
+			border-color: $discussion-contributors-border-color;
 			height: $discussion-contributors-avatar-dimension;
 			width: $discussion-contributors-avatar-dimension;
 		}
@@ -19,21 +18,23 @@ $discussion-contributors-avatar-dimension: 30px;
 
 	.discussion-contributors-more {
 		background-color: $discussion-contributors-background-color;
-		border: 2px solid $discussion-contributors-border-color;
+		border: $discussion-contributors-border-width solid $discussion-contributors-border-color;
 		border-radius: 50%;
 		box-sizing: border-box;
 		color: $discussion-contributors-text-color;
 		display: inline-block;
 		font-size: 10px;
 		height: $discussion-contributors-avatar-dimension;
+		line-height: $discussion-contributors-avatar-dimension - $discussion-contributors-border-width;
 		padding: 0;
 		text-align: center;
 		width: $discussion-contributors-avatar-dimension;
+		word-wrap: normal;
 	}
 }
 
 .discussion-contributors-mobile {
-	background-color: #F6F6F6;
+	background-color: $discussion-contributors-background-mobile;
 	border: none;
 	padding: 14px 9px;
 }
@@ -42,14 +43,18 @@ $discussion-contributors-avatar-dimension: 30px;
 	.discussion-contributors {
 		display: inline-block;
 		margin-right: 30px;
+
+		.user-avatar {
+			margin-bottom: 5px;
+		}
 	}
 
 	.discussion-contributors-title {
-		color: #333;
-		font-size: $type-smallest;
+		color: $discussion-contributors-rail-title;
+		font-size: $discussion-post-type-smaller-than-min;
 		font-weight: bold;
 		line-height: 18px;
-		margin-top: 40px;
 		margin-bottom: 5px;
+		padding-top: 40px;
 	}
 }

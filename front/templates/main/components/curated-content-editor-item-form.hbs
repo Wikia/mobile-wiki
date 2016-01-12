@@ -31,9 +31,10 @@
 					name='title'
 					focus-out='setTitleFocusedOut'
 					focus-in='setTitleFocusedIn'
+					autocomplete='off'
 				}}
-				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{i18n 'app.curated-content-editor-enter-page-name'}}</label>
-				<span class="input-icon help" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-page-name-tooltip')}}></span>
+				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{pageNameLabel}}</label>
+				<span class="input-icon help" {{action 'showTooltip' pageNameTooltip}}></span>
 				<ul class="title-suggestions-container {{unless searchSuggestionsVisible 'hidden'}}">
 					{{#each searchSuggestionsResult as |item|}}
 						<li {{action 'setTitle' item.title}} class="needsclick">{{item.title}}</li>
@@ -67,5 +68,6 @@
 	{{/modal-dialog}}
 	<a {{action 'deleteItem'}} class="curated-content-editor-remove">{{i18n 'app.curated-content-editor-delete-item'}}</a>
 </form>
+{{alert-notifications alerts=alertNotifications}}
 
 

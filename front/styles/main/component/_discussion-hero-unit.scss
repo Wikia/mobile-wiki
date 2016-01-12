@@ -1,27 +1,32 @@
 $discussion-hero-unit-text-color: $color-white;
 $discussion-hero-unit-avatar-dimension: 40px;
+$discussion-hero-unit-height: 200px;
+$discussion-hero-unit-minimized-height: 25px;
 
 .discussion-hero-unit {
+	background: $discussion-header-image-blend-background;
 	color: $discussion-hero-unit-text-color;
 	display: none;
-	padding-bottom: 37px;
-	padding-top: 37px;
+	height: $discussion-hero-unit-height;
+	margin-top: $site-header-height;
 	text-align: center;
-	width: 100%;
 
 	h1 {
 		color: $discussion-hero-unit-text-color;
 		font-size: 48px;
+		margin: 0;
 	}
 
 	p {
-		font-size: 14px;
+		font-size: $type-smallest;
 		font-weight: bold;
+		margin-bottom: 10px;
+		margin-top: 0;
 	}
 
 	.discussion-contributors {
 		.avatar {
-			img {
+			img, svg {
 				height: $discussion-hero-unit-avatar-dimension;
 				width: $discussion-hero-unit-avatar-dimension;
 			}
@@ -34,18 +39,18 @@ $discussion-hero-unit-avatar-dimension: 40px;
 			width: $discussion-hero-unit-avatar-dimension;
 		}
 	}
+
+	.discussion-hero-unit-content {
+		height: 100%;
+		padding-bottom: 33px;
+		padding-top: 37px;
+		width: 100%;
+	}
 }
 
 .minimized {
 	&.discussion-hero-unit {
-		padding-bottom: 0;
-		padding-top: 25px;
-	}
-}
-
-@for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion-hero-unit {
-		background-color: #{nth($vertical-colors, $i)};
+		height: $discussion-hero-unit-minimized-height;
 	}
 }
 

@@ -14,7 +14,6 @@
     "article-top-contributors-label":"Top contribuidores deste artigo",
     "side-nav-menu-label":"Menu",
     "navigation-back-label":"Voltar",
-    "search-no-results-msg":"Desculpe, não encontramos nada que corresponde a sua pesquisa!",
     "search-loading-msg":"Carregando resultados da pesquisa...",
     "media-lightbox-error":"Mídia não encontrada",
     "map-lightbox-error":"Mapa não encontrado",
@@ -96,7 +95,6 @@
     "curated-content-editor-error-no-access-permissions":"Você não tem permissões para acessar esta página",
     "curated-content-editor-no-articles-found":"Nenhum artigo encontrado",
     "curated-content-editor-suggestions-loading":"Carregando...",
-    "curated-content-editor-error-inside-featured-content":"Por favor, corrija os erros dentro do conteúdo destacado.",
     "curated-content-editor-changes-saved":"Suas alterações foram salvas",
     "curated-content-editor-image-missing-error":"Por favor, forneça uma imagem",
     "curated-content-editor-missing-label-error":"Faltando etiqueta",
@@ -133,13 +131,9 @@
     "curated-content-editor-remove-item-confirmation":"Tem certeza que deseja excluir este item? ",
     "curated-content-editor-general-section-error":"Por favor, corrija os erros nesta seção.",
     "curated-content-editor-add-items-message":"Por favor, adicione itens a esta seção.",
-    "curated-content-editor-missing-items-error":"As seções não podem estar vazias. Por favor, adicione itens a esta seção.",
     "curated-content-editor-error-inside-items-message":"Por favor, corrija os erros dentro dos itens.",
     "curated-content-editor-items-count":"__count__ itens",
     "curated-content-editor-exit-prompt":"Você tem alterações não salvas. Tem certeza que deseja sair?",
     "curated-content-editor-main-page":"Página principal"
   },
-  "discussion":{
-    "share-default-title":"Discussão em __siteName__"
-  }
 }

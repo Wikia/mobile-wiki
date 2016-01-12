@@ -17,6 +17,7 @@ $z-spinner-after: $z-2;
 // z-4
 // z-5
 // z-6
+$z-header-badge-image: $z-6;
 // z-7
 $z-ads-floor: $z-7;
 $z-site-head: $z-7;
@@ -25,6 +26,7 @@ $z-lightbox-footer: $z-8;
 $z-lightbox-header: $z-8;
 $z-lightbox-wrapper: $z-8;
 $z-side-nav-overlay: $z-8;
+$z-discussion-editor: $z-8;
 // z-9
 $z-alert-notification: $z-9;
 $z-modal-dialog: $z-9;
@@ -54,6 +56,8 @@ $color-gray-semi: $color-blue-gray;
 // quickly modify the application
 
 $overlay-opacity: .5;
+$overlay-color: $color-black;
+
 $border-color-light: $color-gray-light;
 
 $element-active-bg: $color-gray-light;
@@ -61,14 +65,14 @@ $element-active-bg: $color-gray-light;
 $modal-background: $color-gray-dark;
 $modal-text-color: $color-white;
 
-$search-box-border-color: $color-gray-light;
-$search-box-text-color: $color-gray-light;
+$search-box-border-color: $color-blue-gray-light;
+$search-box-text-color: $color-blue-gray;
 $spinner-color: $color-blue-brand;
 
 $side-nav-item-gutter: rem-calc(13);
 $side-nav-width: rem-calc(260);
 $side-nav-offset: $side-nav-width * -1;
-$transition-length: .10s;
+$transition-length: .1s;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Vertical variables
@@ -97,13 +101,9 @@ $icon-site-head-width: rem-calc(60);
 $icon-site-head-height: 50px;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Global nav bar (new)
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// TODO this height will be different on desktop
-$top-bar-height: 46px;
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Discussion header
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$discussion-header-height: 40px;
+$discussion-header-height: 50px;
 $theme-bar-height: 10px;
+
+$discussion-post-type-smaller-than-min: .7rem;

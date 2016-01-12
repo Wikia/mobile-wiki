@@ -1,25 +1,12 @@
 .side-nav {
-	// open nav button
-	.nav-container {
-		@extend .touch-active;
-		display: inline-block;
-		float: left;
-		height: 50px;
-		padding-top: rem-calc(15);
-		width: rem-calc(60);
-
-		svg {
-			display: block;
-			height: rem-calc(20);
-			margin: auto;
-			width: rem-calc(34);
-		}
+	svg {
+		pointer-events: none;
 	}
 
 	// overlay
 	.overlay {
 		@include perfect-square(100%);
-		background-color: black;
+		background-color: $overlay-color;
 		left: 0;
 		position: fixed;
 		top: 0;
@@ -28,24 +15,25 @@
 
 	// slide-out drawer
 	.drawer {
-		background-color: white;
+		background-color: $color-white;
 		height: 100%;
 		position: fixed;
 		top: 0;
 		transition: transform $transition-length;
 		z-index: $z-side-nav;
 
-		.clear-search-btn {
-			@include perfect-square(45px);
-			left: rem-calc(214);
-			padding: {
-				top: rem-calc(11);
-				left: rem-calc(20);
-			}
+		.search-container {
+			border-bottom: 1px solid $color-gray-semi;
+			display: flex;
+			height: rem-calc(45);
+			left: 0;
 			position: absolute;
-			top: 0;
-			user-select: none;
-			visibility: hidden;
+			right: 0;
+		}
+
+		.search-input-container {
+			flex: 1;
+			position: relative;
 		}
 
 		.icon.search-side-menu {
@@ -54,72 +42,68 @@
 			top: rem-calc(15);
 		}
 
-		input {
-			@extend .type-smallest;
-			background-color: white;
-			border-color: #d0d0d0;
+		input,
+		input:focus {
+			background-color: $color-white;
+			border: 1px solid $search-box-border-color;
 			border-radius: $border-radius-global;
-			border: rem-calc(1) solid $search-box-border-color;
-			float: left;
 			height: rem-calc(28);
-			left: 0;
 			margin: rem-calc(8) rem-calc(13);
 			outline: none;
-			padding-left: rem-calc(95);
-			padding-right: rem-calc(25);
-			top: 0;
-			width: $side-nav-width - (2 * $side-nav-item-gutter);
-		}
+			padding: {
+				bottom: .5rem;
+				left: rem-calc(95);
+				right: rem-calc(40);
+				top: .5rem;
+			}
+			width: calc(100% - #{2 * $side-nav-item-gutter});
 
-		.search-container {
-			border-bottom: rem-calc(1) solid #d0d0d0;
-			left: 0;
-			position: absolute;
-			right: 0;
-			text-align: left;
-			height: rem-calc(45);
-
-			// Cancel search div
-			.cancel {
-				@extend .type-smallest;
-				color: #006598;
-				padding: rem-calc(11) rem-calc(13);
-				position: absolute;
-				right: 0;
+			&::placeholder {
+				color: $search-box-text-color;
 			}
 		}
 
-		::placeholder {
-			color: $search-box-text-color;
+		.clear-search-btn {
+			height: 100%;
+			padding: {
+				left: rem-calc(15);
+				top: rem-calc(12);
+			}
+			position: absolute;
+			right: 0;
+			top: 0;
+			user-select: none;
+			width: rem-calc(40);
+		}
+
+		// Cancel search div
+		.cancel {
+			color: $link-color;
+			padding: rem-calc(11) rem-calc(13);
+			right: 0;
 		}
 
 		&.search {
-			overflow: {
-				x: hidden;
-				y: auto;
-			}
 			visibility: visible;
 			width: 100%;
-
-			.clear-search-btn {
-				visibility: visible;
-			}
 
 			.icon.search-side-menu {
 				left: rem-calc(20);
 			}
 
 			input {
+				margin-right: 0;
 				padding-left: rem-calc(25);
-				width: rem-calc(243);
+				width: calc(100% - #{$side-nav-item-gutter});
 			}
 		}
 
 		&:not(.search) {
 			width: $side-nav-width;
 
+			.clear-search-btn,
 			.cancel {
-				visibility: hidden;
+				display: none;
 			}
 		}
 	}

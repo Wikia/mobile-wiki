@@ -1,41 +1,37 @@
 /*
  * scripts-front
- * Compiles front ts files
+ * Compiles front scripts
  */
 
 var gulp = require('gulp'),
-	uglify = require('gulp-uglify'),
-	gulpif = require('gulp-if'),
-	folders = require('gulp-folders'),
-	ts = require('gulp-typescript'),
+	babel = require('gulp-babel'),
 	concat = require('gulp-concat'),
-	gutil = require('gulp-util'),
+	gulpif = require('gulp-if'),
 	newer = require('gulp-newer'),
+	uglify = require('gulp-uglify'),
+	gutil = require('gulp-util'),
 	environment = require('../utils/environment'),
-	options = require('../options').scripts.front,
 	paths = require('../paths').scripts.front,
-	path = require('path'),
-	tsProjects = {};
+	path = require('path');
 
-gulp.task('scripts-front', folders(paths.src, function (folder) {
-	//we need project per folder
-	if (!tsProjects[folder]) {
-		tsProjects[folder] = ts.createProject(options);
-	}
-
-	return gulp.src([
-			'!' + path.join(paths.src, folder, paths.dFiles),
-			path.join(paths.src, folder, paths.files)
-		])
-		.pipe(newer(path.join(paths.dest, folder + '.js')))
-		.pipe(ts(tsProjects[folder])).js
-		.on('error', function () {
+gulp.task('scripts-front', function (done) {
+	// it only builds baseline.js
+	gulp.src([path.join(paths.src, 'baseline', paths.jsFiles)])
+		.pipe(newer(path.join(paths.dest, 'baseline.js')))
+		.pipe(babel({
+			presets: ['es2015']
+		}))
+		.on('error', function (error) {
 			if (gutil.env.testing && environment.isProduction) {
-				console.error('Build contains some typescript errors/warnings');
+				console.error('Build contains some errors');
 				process.exit(1);
+			} else {
+				console.error('Build error: ' + error.message);
+				this.emit('end');
 			}
 		})
-		.pipe(concat(folder + '.js'))
+		.pipe(concat('baseline.js'))
 		.pipe(gulpif(environment.isProduction, uglify()))
-		.pipe(gulp.dest(paths.dest));
-}));
+		.pipe(gulp.dest(paths.dest))
+		.on('end', done);
+});

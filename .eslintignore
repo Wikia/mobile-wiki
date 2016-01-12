@@ -1,0 +1,14 @@
+front/scripts/main/resolver/
+front/vendor/
+gulp/
+node_modules/
+test/
+www/
+homepage/config/
+homepage/gulp/
+homepage/front/js/
+homepage/front/vendor/
+homepage/node_modules/
+homepage/server/
+homepage/test/
+homepage/vendor/

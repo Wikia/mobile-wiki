@@ -1,0 +1,30 @@
+{
+  "description": "Configuration file for top hero slider",
+  "data": [
+    {
+      "title": "#MayTheFansBeWithYou",
+      "subtitle": "ファンと共にあらんことを！12月1日世界同時オープン",
+      "button": true,
+      "buttonText": "スペシャルサイトはこちら",
+      "buttonId": "whatIsWikia",
+      "image": "/images/heroslider/slider-1.jpg",
+      "imageMobile": "/images/heroslider/slider-1-small.jpg"
+    },
+    {
+      "title": "The Home of Fandom",
+      "subtitle": "初めまして。ウィキアへようこそ!",
+      "button": true,
+      "buttonText": "スペシャルサイトはこちら",
+      "buttonId": "fandom",
+      "image": "/images/heroslider/slider-2.jpg",
+      "imageMobile": "/images/heroslider/slider-2-small.jpg"
+    },
+    {
+      "title": "Hero Slider 3",
+      "subtitle": "Hero Slider 3 subtitle",
+      "button": false,
+      "image": "http://placehold.it/1280x500?text=Hero+Slide+3",
+      "imageMobile": "http://placehold.it/615x560?text=Hero+Slide+3"
+    }
+  ]
+}

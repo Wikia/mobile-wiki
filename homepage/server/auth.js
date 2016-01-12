@@ -6,24 +6,28 @@
 
 var Promise = require('bluebird'),
 	request = require('request'),
+	querystring = require('querystring'),
+	url = require('url'),
 	localSettings = require('../config/localSettings').localSettings;
 
 function Auth() {
-	this.baseUrl = localSettings.helios.host;
-	if (this.baseUrl.charAt(this.baseUrl.length - 1) !== '/') {
-		this.baseUrl += '/';
-	}
-
+	this.whoAmIUri   = localSettings.whoAmIService.path;
+	this.whoAmITimeout = localSettings.whoAmIService.timeout;
 	this.servicesUrl = localSettings.servicesUrl;
-	if (this.servicesUrl.charAt(this.servicesUrl.length - 1) !== '/') {
-		this.servicesUrl += '/';
-	}
+	this.apiUrl      = localSettings.apiUrl;
 }
 
-function requestWrapper(url) {
-	var deferred = Promise.defer();
+function requestWrapper(url, headers) {
+	var deferred = Promise.defer(),
+		options = {
+			url: url
+		};
 
-	request.get(url, function (err, response, body) {
+	if (headers) {
+		options.headers = headers;
+	}
+
+	request(options, function (err, response, body) {
 		if (err) {
 			deferred.reject(err);
 		} else {
@@ -46,32 +50,39 @@ function requestWrapper(url) {
 }
 
 Auth.prototype.login = function (username, password) {
-	var url = this.baseUrl + 'token?' +
-		'username=' + username + '&' +
-		'password=' + password;
-
-	return requestWrapper(url);
+	var address = url.resolve(this.baseUrl, 'token?' +
+		querystring.stringify({username: username, password: password}));
+	return requestWrapper(address);
 };
 
 Auth.prototype.info = function (token) {
-	var url = this.baseUrl + 'info?' +
-		'code=' + token + '&noblockcheck=1';
+	var address = url.resolve(this.servicesUrl, this.whoAmIUri),
+		headers = {
+			Cookie: 'access_token=' + encodeURIComponent(token)
+		};
 
-	return requestWrapper(url);
+	return requestWrapper(address, headers);
 };
 
-Auth.prototype.validateUser = function (username) {
-	var url = this.baseUrl + 'username/validation?' +
-		'username=' + username;
+Auth.prototype.getUserInfo = function (userId) {
+	var address = url.resolve(this.apiUrl, 'User/Details/?' +
+		querystring.stringify(userId));
 
-	return requestWrapper(url);
+	return requestWrapper(address);
 };
 
-Auth.prototype.getUserName = function (heliosInfoResponse) {
-	var url = this.servicesUrl + 'user-attribute/user/' +
-		heliosInfoResponse.user_id  + '/attr/username'; // jshint ignore:line
+Auth.prototype.getUserName = function (userId) {
+	var address = url.resolve(this.servicesUrl, 'user-attribute/user/' +
+		userId  + '/attr/username');
 
-	return requestWrapper(url);
+	return requestWrapper(address);
+};
+
+Auth.prototype.getUserAvatar = function (userId) {
+	var address = url.resolve(this.servicesUrl, 'user-attribute/user/' +
+		userId  + '/attr/avatar');
+
+	return requestWrapper(address);
 };
 
 module.exports = Auth;

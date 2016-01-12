@@ -23,6 +23,7 @@ $disable-warnings: true;
 $mobile: new-breakpoint(max-width 500px 4);
 $desktop: new-breakpoint(min-width 500px);
 
+///////////////////////////////////////////////////////
 // Homepage styles and components
 @import 'theme/index';
 @import 'component/index';
@@ -42,6 +43,8 @@ section {
 	margin-bottom: 3em;
 	padding-left: 3em;
 	padding-right: 3em;
+	// workaround for broken z-index in safari
+	transform: translate3d(0, 0, 0);
 
 	@include media($mobile) {
 		padding-left: .1em;

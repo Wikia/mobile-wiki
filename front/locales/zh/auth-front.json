@@ -11,7 +11,7 @@
     "password_exceeds_max_length":"密碼不能超過50個字元",
     "password_equal_name":"用戶名和密碼不匹配",
     "user_already_linked":"這個Wikia帳戶已經連接到Facebook",
-    "fb_account_already_linked":"這個Facebook帳戶已經連接到另一個Wikia用戶帳戶",
+    "fb_account_already_linked":"這個Facebook帳戶已經連接到另一個Wikia帳戶",
     "birthdate_invalid":"出生日期無效",
     "wrong-credentials":"我們無法辨識這些登入資料。請再試一次或註冊一個新帳戶。",
     "server-error":"處理你的請求時出錯。請稍後再試。"

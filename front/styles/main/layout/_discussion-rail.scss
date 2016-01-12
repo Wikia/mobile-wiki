@@ -1,6 +1,26 @@
+.rail {
+	.back-button {
+		border: solid $discussion-rail-separator-color;
+	}
+}
+.post-details-view {
+	.rail {
+		.back-button {
+			border-width: 0 0 1px;
+			width: 160px;
+		}
+	}
+}
+.post-list-view {
+	.rail {
+		.back-button {
+			border-width: 1px 0;
+		}
+	}
+}
+
 @media #{$mobile-range} {
 	.rail {
 		display: none;
 	}
 }
-

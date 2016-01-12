@@ -1,16 +1,43 @@
-.share-header {
-	.share-feature {
-		.fb,
-		.line {
-			height: 46px;
-			width: 44px;
+.share-feature {
+	display: block;
+	text-align: right;
+
+	.is-deleted & {
+		display: none;
+	}
+
+	.icon {
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		display: inline-block;
+		height: 24px;
+		margin-left: 5px;
+		width: 24px;
+	}
+}
+
+@media #{$mobile-range} {
+	.discussion .post-detail .share-feature {
+		display: none;
+		padding-right: 10px;
+	}
+}
+
+@media #{$desktop-range} {
+	.discussion {
+		&.forum .share-feature {
+			height: 30px;
+			line-height: 30px;
+			min-width: 100px;
+			padding-right: 15px;
 		}
 
-		.twitter,
-		.google {
-			height: 36px;
-			margin-bottom: 5px;
-			width: 44px;
+		.share-feature {
+			.icon {
+				height: 22px;
+				width: 22px;
+			}
 		}
 	}
 }

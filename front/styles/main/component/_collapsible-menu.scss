@@ -1,18 +1,20 @@
-$border-color: #d0d0d0;
-
 .collapsible-menu {
+	border-top: 1px solid $collapsible-menu-border-color;
+	border-bottom: 1px solid $collapsible-menu-border-color;
 
-	border-top: 1px solid $border-color;
-	border-bottom: 1px solid $border-color;
+	+ .collapsible-menu {
+		border-top: none;
+	}
 
 	.title {
 		@extend .touch-active;
 
 		background: none;
-		color: $body-font-color;
+		color: $collapsible-menu-title-color;
 		display: block;
 		font-weight: bold;
 		line-height: 2.4rem;
+		padding: rem-calc(5) rem-calc(20);
 		position: relative;
 		text: {
 			align: left;
@@ -46,7 +48,7 @@ $border-color: #d0d0d0;
 		padding: 0;
 
 		li {
-			border-top: 1px solid $border-color;
+			border-top: 1px solid $collapsible-menu-border-color;
 			padding-left: rem-calc(40);
 
 			a {
@@ -57,7 +59,7 @@ $border-color: #d0d0d0;
 				padding: 10px 0;
 				padding-right: rem-calc(40);
 
-				color: #000000;
+				color: $collapsible-menu-list-link-color;
 
 				text-overflow: ellipsis;
 				white-space: nowrap;

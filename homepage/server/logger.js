@@ -6,7 +6,23 @@
 
 var bunyan = require('bunyan'),
 	PrettyStream = require('bunyan-prettystream'),
+	debugStream = require('bunyan-debug-stream'),
 	bsyslog = require('bunyan-syslog');
+
+function createCompactStream () {
+	return bunyan.createLogger({
+		name: 'japan-homepage',
+		streams: [{
+			level:  'debug',
+			type:   'raw',
+			stream: debugStream({
+				basepath: __dirname,
+				forceColor: true
+			})
+		}],
+		serializers: debugStream.serializers
+	});
+}
 
 function createConsoleStream () {
 	var prettyStdOut = new PrettyStream();
@@ -15,7 +31,7 @@ function createConsoleStream () {
 	return bunyan.createLogger({
 		name: 'japan-homepage',
 		streams: [{
-			level: 'debug',
+			level: 'info',
 			type: 'raw',
 			stream: prettyStdOut
 		}]
@@ -43,6 +59,8 @@ exports.createLogger = function (type) {
 		logger = createSysLogStream();
 	} else if (type === 'console') {
 		logger = createConsoleStream();
+	} else if (type === 'console-compact') {
+		logger = createCompactStream();
 	} else {
 		logger = createConsoleStream();
 	}

@@ -21,12 +21,11 @@ www/
 test/fixtures/**/*.js
 
 # Config
-config/localSettings.ts
 config/localSettings.js
-config/localSettings.example.js
 
 # coverage
 test/coverage
+coverage/
 
 # fixtures
 test/fixtures
@@ -43,14 +42,12 @@ mercury.iml
 .settings
 
 # Intermediate files from TypeScript compiler
-front/scripts/**/*.js
 front/scripts/**/*.js.map
 
 # Homepage
+homepage/config/localSettings.js
 homepage/front/css
 homepage/front/js
 homepage/front/vendor
 homepage/vendor
-homepage/front/scripts/**/*.js
-homepage/front/scripts/**/*.map
-homepage/config/localSettings.js
+homepage/**/*.js.map

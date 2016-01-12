@@ -1,3 +1,9 @@
+$z-header: $z-6;
+
+.site-body {
+	margin-top: $icon-site-head-width;
+}
+
 .site-head {
 	@extend .row;
 	@extend .small-12;
@@ -19,6 +25,12 @@
 		// beneath it.
 		height: rem-calc(50);
 		overflow: hidden;
+
+		svg {
+			// keep it same as .icon.wikia-logo
+			height: 3.125rem;
+			width: 5rem;
+		}
 	}
 
 	.avatar {
@@ -48,8 +60,6 @@
 }
 
 .headroom-not-top {
-	transition: transform .5s;
-
 	&.pinned {
 		transform: none;
 	}
@@ -70,19 +80,5 @@
 	svg {
 		display: block;
 		margin: auto;
-	}
-}
-
-hr.theme {
-	border-width: 0;
-	height: 10px;
-	margin: 0;
-}
-
-@for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical {
-		hr.theme {
-			background-color: #{nth($vertical-colors, $i)};
-		}
 	}
 }

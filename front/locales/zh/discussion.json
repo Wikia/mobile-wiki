@@ -1,0 +1,45 @@
+{
+  "landing-page":{
+    "to-the-wiki-title":"返回Wiki",
+    "page-main-header":"和__applicationName__粉絲一起進行熱門話題討論",
+    "download-the-app-header":"現在就下載App加入其中!",
+    "google-play-button-alt":"在谷歌商店下載",
+    "start-discussions-title":"開始討論",
+    "start-discussions-text":"線上提問，分享新聞，和世界各地的粉絲一起討論您所喜愛的話題內容！",
+    "upvote-the-best-title":"票選最棒話題",
+    "upvote-the-best-text":"看到了你所喜歡的內容？ 那麼就投下一票，讓熱門話題佔據流行趨勢！",
+    "share-your-knowledge-title":"分享你的知識",
+    "share-your-knowledge-text":"在社交網路上分享您最喜愛的話題，讓更多的粉絲參與其中。"
+  },
+  "main":{
+    "pagination-post-show-more":"查看過往回復",
+    "share-default-title":"__siteName__上的討論",
+    "contributors-title":"所有貢獻者",
+    "sort-by-latest":"最新話題",
+    "sort-by-trending":"熱門瀏覽",
+    "loading-more-posts":"載入更多帖子",
+    "back-to-wikia-link":"返回Wiki",
+    "number-of-posts":"__numberOfPosts__條帖子",
+    "connection-error":"不能連接，請再試一次。",
+    "not-found-error":"很抱歉，此頁面似乎不存在!",
+    "action-retry-title":"請再試一次",
+    "all-discussions-link-desktop":"展示所有討論",
+    "all-discussions-link-mobile":"所有討論",
+    "discussions-app-join":"離線也能獲取最新資訊。 現在就下載手機App!",
+    "back-to-discussions-link":"所有討論",
+    "no-replies":"還沒有答覆。",
+    "no-replies-be-the-first":"還沒有答覆。 您可以第一個答覆!"
+  },
+  "editor":{
+    "post-failed-error":"發佈失敗",
+    "post-error-anon-cant-post":"登入進行討論！",
+    "post-error-not-authorized":"您不能發帖因為您的帳戶已被封禁。",
+    "post-error-general-error":"哎呀，出現未知錯誤！ 請稍後再試。",
+    "post-editor-label":"創建一個帖子",
+    "post-action-button-label":"發佈",
+    "post-editor-placeholder-text":"分享想法、問題或連結...",
+    "reply-editor-placeholder-text":"答覆...",
+    "reply-editor-label":"添加到討論",
+    "reply-action-button-label":"答覆"
+  }
+}

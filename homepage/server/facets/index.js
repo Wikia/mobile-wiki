@@ -7,16 +7,19 @@
 'use strict';
 
 var util = require('../util'),
-    hubConfig = util.readJsonConfigSync('static/hub_config.json'),
-	popularItemConfig = util.readJsonConfigSync('static/popular.json');
+	heroSliderConfig = util.readJsonConfigSync('static/hero_slider.json'),
+	sliderConfig = util.readJsonConfigSync('static/sliders.json'),
+	whatIsWikiaConfig = util.readJsonConfigSync('static/whatiswikia.json'),
+	joinWikiaConfig = util.readJsonConfigSync('static/joinwikia.json');
 
 function index(request, reply) {
-	var locale = util.getUserLocale(request),
-		data = {
-			title: 'ウィキア・ジャパン',
-			carousel: util.getLocalizedHubData(hubConfig, locale),
-			popular: util.preprocessPopularData(popularItemConfig)
-		};
+	var data = {
+		title: 'ウィキア・ジャパン',
+		heroSlider: heroSliderConfig.data,
+		sliders: sliderConfig.data,
+		whatIsWikia: whatIsWikiaConfig.data,
+		joinWikia: joinWikiaConfig.data,
+	};
 
 	util.renderWithGlobalData(request, reply, data, 'index');
 }

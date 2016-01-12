@@ -14,7 +14,6 @@
     "article-top-contributors-label":"这篇文章的杰出编辑者",
     "side-nav-menu-label":"菜单",
     "navigation-back-label":"返回",
-    "search-no-results-msg":"对不起，我们找不到任何与您搜索匹配的内容！",
     "search-loading-msg":"正在加载搜索结果...",
     "media-lightbox-error":"无法找到媒体内容",
     "map-lightbox-error":"未找到地图",
@@ -130,9 +129,7 @@
     "curated-content-editor-remove-item-confirmation":"是否确定要删除此项目?",
     "curated-content-editor-general-section-error":"请修复此版块中的错误。",
     "curated-content-editor-add-items-message":"请将项目添加到这个版块。",
-    "curated-content-editor-missing-items-error":"版块不能为空。请将项目添加到此版块。",
     "curated-content-editor-error-inside-items-message":"请修复各项目中的错误。",
-    "curated-content-editor-error-inside-featured-content":"请修复精选内容中的错误。",
     "curated-content-editor-items-count":"__count__ 个项目"
   }
 }

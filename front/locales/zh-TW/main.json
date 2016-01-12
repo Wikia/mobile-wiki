@@ -14,7 +14,6 @@
     "article-top-contributors-label":"這篇文章的傑出貢獻者",
     "side-nav-menu-label":"選單",
     "navigation-back-label":"返回",
-    "search-no-results-msg":"對不起，我們找不到任何與您的搜尋相符合的內容！",
     "search-loading-msg":"正在載入搜尋結果…",
     "media-lightbox-error":"無法找到媒體內容",
     "map-lightbox-error":"沒有找到地圖",
@@ -130,9 +129,7 @@
     "curated-content-editor-remove-item-confirmation":"是否確定要刪除這個項目？",
     "curated-content-editor-general-section-error":"請修復這個版塊中的錯誤。",
     "curated-content-editor-add-items-message":"請將項目添加到這個版塊。",
-    "curated-content-editor-missing-items-error":"版塊不能為空。請將項目添加到這個版塊。",
     "curated-content-editor-error-inside-items-message":"請修復各個項目中的錯誤。",
-    "curated-content-editor-error-inside-featured-content":"請修復精選內容部分的錯誤。",
     "curated-content-editor-items-count":"__count__ 個項目"
   }
 }

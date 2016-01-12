@@ -5,16 +5,9 @@
 
 var gulp = require('gulp'),
 	gutil = require('gulp-util'),
-	path = require('path'),
-	nodemon = require('gulp-nodemon'),
+	server = require('gulp-develop-server'),
 	browserSync = require('browser-sync'),
-	reload = browserSync.reload,
-	paths = require('../paths'),
-	options = {
-		path: ['server/index.js'],
-		env: process.env,
-		killSignal: 'SIGKILL'
-	};
+	paths = require('../paths');
 
 gulp.task('watch', ['build-combined'], function () {
 	if (!gutil.env.nosync) {
@@ -25,21 +18,26 @@ gulp.task('watch', ['build-combined'], function () {
 		});
 	}
 
-	nodemon({
-		script: 'server/index.js',
-		ext: 'js html',
-		env: { 'NODE_ENV': options.env },
-		tasks: ['lint'],
-	}).on('start', function () {
-		reload(path);
+	server.listen({ path: paths.server.homepage.script });
+
+	// Restart server
+	gulp.watch(paths.server.homepage.watch, function (event) {
+		console.log('Restarting server due to file change: ' +  event.path);
+		server.restart();
 	});
 
 	// Sass
-	gulp.watch(paths.styles.homepage.watch, ['sass', 'lint', 'tslint', browserSync.reload]);
+	gulp.watch(paths.styles.homepage.watch, ['sass', 'lint', 'eslint', browserSync.reload]);
 
 	// Client Scripts
-	gulp.watch(paths.scripts.homepage.watch, ['sass', 'lint', 'tslint', browserSync.reload]);
+	gulp.watch(paths.scripts.homepage.watch, ['build-combined', browserSync.reload]);
 
 	// Server Scripts
-	gulp.watch(paths.server.homepage.watch, ['sass', 'lint', 'tslint', browserSync.reload]);
+	gulp.watch(paths.server.homepage.watch, ['lint', browserSync.reload]);
+});
+
+//if anything happens kill server
+process.on('SIGINT', function () {
+	console.log('killing');
+	server.kill();
 });

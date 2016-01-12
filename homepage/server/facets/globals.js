@@ -7,15 +7,13 @@
 var util = require('../util');
 
 function globals(request, reply) {
-	var loginUrl = util.getLoginUrl(),
-		signupUrl = util.getSignupUrl(),
-		script = 'function getGlobals () {' +
-			'	return { ' +
-			'		loginUrl: \''  + loginUrl + '\', ' +
-			'		signupUrl: \'' + signupUrl + '\' ' +
-			'}}\n';
-
-	return reply(script);
+	return reply({
+		loginUrl: util.getLoginUrl(),
+		signupUrl: util.getSignupUrl(),
+		jaCommunityUrl: util.getJaCommunityUrl(),
+		jaUniversityUrl: util.getJaUniversityUrl(),
+		startWikiaUrl: util.getStartWikiaUrl()
+	});
 }
 
 module.exports = globals;

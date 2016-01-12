@@ -1,34 +1,35 @@
-$discussion-header-line-height: 45px;
 $discussion-header-color-text: #fff;
+
+$site-header-height: 50px;
 
 .discussion-header {
 	color: $discussion-header-color-text;
-	margin-top: $top-bar-height;
+	margin-top: $site-header-height;
 	max-width: inherit;
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: $z-6; // drop-downs from top-bar component (which is $z-7) display over the discussion header
+	z-index: $z-8; // drop-downs from top-bar component (which is $z-7) display over the discussion header
 
 	&.un-pinned {
-		margin-top: $theme-bar-height + $top-bar-height;
+		margin-top: 0;
+		z-index: $z-6;
 	}
 
 	.header {
 		height: $discussion-header-height;
 		overflow: hidden;
-		padding: 0 15px;
+		padding-left: 15px;
 	}
 
 	h1 {
 		color: $discussion-header-color-text;
 		float: left;
 		font-size: $type-smaller;
-		line-height: $discussion-header-line-height;
+		line-height: $discussion-header-height;
 		margin: 0;
 		overflow: hidden;
 		white-space: nowrap;
-		width: 180px;
 	}
 
 	.icon.dropdown {
@@ -41,7 +42,6 @@ $discussion-header-color-text: #fff;
 	.overlay {
 		@include perfect-square(100%);
 		cursor: default;
-		display: none;
 		left: 0;
 		position: fixed;
 		top: 0;
@@ -52,22 +52,58 @@ $discussion-header-color-text: #fff;
 		cursor: pointer;
 		float: right;
 		font-size: $type-smallest;
-		line-height: $discussion-header-line-height;
+		line-height: $discussion-header-height;
+		margin-right: 15px;
 		text-align: right;
-		width: 110px;
 	}
-}
 
-@for $i from 1 through length($verticals) {
-	.#{nth($verticals, $i)}-vertical .discussion-header {
-		.header {
-			background-color: #{nth($vertical-colors, $i)};
-		}
+	.new-post {
+		float: right;
+		height: 50px; // TODO fix height
+		width: 56px;
 	}
 }
 
 @media #{$desktop-range} {
 	.discussion-header {
-		display: none;
+		.header {
+			display: none;
+		}
+	}
+}
+
+.site-body-discussion {
+	margin-top: 50px;
+}
+
+@media #{$desktop-range} {
+	.site-body-discussion {
+		margin-top: 0;
+	}
+}
+
+.discussions {
+	.side-nav-toggle {
+		visibility: hidden;
+	}
+	.site-head {
+		max-width: 100%;
+	}
+	.headroom-not-top,
+	.headroom-top {
+		transition: transform .5s, margin .5s;
+	}
+}
+
+@media #{$mobile-range} {
+	.discussions {
+		.site-head {
+			border-bottom: 10px solid transparent;
+			height: $site-header-height + 10px;
+
+			&.headroom-not-top.un-pinned {
+				transform: translateY(-$site-header-height);
+			}
+		}
 	}
 }

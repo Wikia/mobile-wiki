@@ -8,9 +8,15 @@ var deepExtend = require('deep-extend'),
 		authCookieDomain: 'wikia.com',
 		// Targeted environment [prod|preview|verify|dev|testing]
 		//environment: Utils.getEnvironment(process.env.WIKIA_ENVIRONMENT),
-		// Login
+
 		helios: {
-			host: process.env.HELIOS_HOST,
+			path: '/auth',
+			usernameMaxLength: 50,
+			passwordMaxLength: 50
+		},
+		whoAmIService: {
+			path: '/whoami',
+			timeout: 3000
 		},
 		host: process.env.HOST,
 		logger: 'syslog',
@@ -19,7 +25,11 @@ var deepExtend = require('deep-extend'),
 		//devboxDomain: Utils.stripDevboxDomain(process.env.HOST || process.env.LOGNAME),
 		port: process.env.PORT || 8111,
 		servicesUrl: 'https://services.wikia.com/',
+		apiUrl: 'http://wikia.com/api/v1/',
 		signupUrl: 'https://www.wikia.com/register?uselang=ja&redirect=http://ja.wikia.com',
+		jaCommunityUrl: 'http://ja.community.wikia.com/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8',
+		jaUniversityUrl: 'http://ja.community.wikia.com/wiki/Wikia_University',
+		startWikiaUrl: 'http://www.wikia.com/Special:CreateNewWiki?uselang=ja',
 	};
 
 function extendSettings(customLocalSet) {
