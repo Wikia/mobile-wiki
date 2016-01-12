@@ -1,8 +1,14 @@
 .discussion {
 	.empty-forum-message {
+		svg {
+			height: 34px;
+			margin-bottom: 18px;
+			width: 34px;
+		}
+
 		border: 2px dashed $discussion-empty-forum-message-border-color;
 		cursor: pointer;
-		padding: 40px;
+		padding: 48px 48px 75px;
 		text-align: center;
 	}
 }
