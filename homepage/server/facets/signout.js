@@ -6,11 +6,6 @@
 
 function signout(request, reply) {
 	reply.unstate('access_token');
-
-	if (request.response) {
-		// Make sure to invalidate cache
-		request.response.vary('cookie');
-	}
 	reply.redirect('/');
 }
 
