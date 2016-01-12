@@ -17,7 +17,7 @@ export default Ember.Component.extend({
 		track({
 			action: trackActions.click,
 			category: 'menu',
-			label: gLabel
+			label: trackLabel
 		});
 	}),
 
