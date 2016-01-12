@@ -108,7 +108,7 @@ DiscussionForumModel.reopenClass({
 			success: (data) => {
 				const contributors = [],
 					posts = data._embedded['doc:threads'],
-					pivotId = posts[0].id,
+					pivotId = (posts.length > 0 ? posts[0].id : null),
 					totalPosts = data.threadCount;
 
 				posts.forEach((post) => {
