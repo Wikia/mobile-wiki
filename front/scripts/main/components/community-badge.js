@@ -24,6 +24,7 @@ export default Ember.Component.extend({
 		558247: '/front/images/community-badge-clash-clans.jpg',
 		2714: '/front/images/community-badge-smash-bros.jpg',
 		3124: '/front/images/community-badge-ben-10.jpg',
+		130814: '/front/images/community-badge-got.jpg',
 		4541: '/front/images/community-badge-gta.jpg',
 		1706: '/front/images/community-badge-elder-scrolls.jpg',
 		74: '/front/images/community-badge-pokemon.jpg',
@@ -42,7 +43,8 @@ export default Ember.Component.extend({
 		1074920: '/front/images/community-badge-weihnachts.jpg',
 		3676: '/front/images/community-badge-ja-halo.jpg',
 		1147260: '/front/images/community-badge-ja-ajin.jpg',
-		1144697: '/front/images/community-badge-ja-knights-of-sidonia.jpg'
+		1144697: '/front/images/community-badge-ja-knights-of-sidonia.jpg',
+		1233861: '/front/images/community-badge-connect.jpg'
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {

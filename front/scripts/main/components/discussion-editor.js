@@ -115,11 +115,22 @@ export default Ember.Component.extend(ViewportMixin, {
 	handleIOSFocus() {},
 
 	/**
+	 * Check if user is using iOS browser
+	 * @returns {boolean}
+	 */
+	isIOSBrowser() {
+		return (/iPad|iPhone|iPod/).test(navigator.platform);
+	},
+
+	/**
 	 * Handle clicks - focus in textarea and activate editor
 	 * @returns {void}
 	 */
 	click() {
-		this.get('discussionEditor').toggleEditor(true);
+		// This next is needed for iOS
+		Ember.run.next(this, () => {
+			this.get('discussionEditor').toggleEditor(true);
+		});
 	},
 
 	/**
@@ -192,7 +203,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	setiOSSpecificStyles(styles) {
-		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+		if (this.isIOSBrowser()) {
 			Ember.$('html, body').css(styles);
 		}
 	},
