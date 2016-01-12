@@ -16,5 +16,5 @@ export default Ember.Component.extend({
 			title: this.get('profileName'),
 		});
 	}),
-	wrapInHref: true
+	shouldWrapInHref: true
 });
