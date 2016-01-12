@@ -30,7 +30,12 @@ exports.routes = [
 	{
 		method: 'GET',
 		path: '/logout',
-		handler: require('./facets/logout')
+		handler: require('./facets/signout')
+	},
+	{
+		method: 'GET',
+		path: '/signout',
+		handler: require('./facets/signout')
 	},
 	{
 		method: 'GET',

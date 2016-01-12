@@ -37,6 +37,17 @@ export default Ember.Component.extend(ViewportMixin, {
 	}),
 
 	/**
+	 * Reacts on new item creation failure in the model by stopping the throbber
+	 * @returns {void}
+	 */
+	editorLoadingObserver: Ember.observer('discussionEditor.shouldStopLoading', function () {
+		if (this.get('discussionEditor.shouldStopLoading') === true) {
+			this.set('isLoading', false);
+			this.set('discussionEditor.shouldStopLoading', false);
+		}
+	}),
+
+	/**
 	 * @returns {void}
 	 */
 	init(...params) {
@@ -104,11 +115,22 @@ export default Ember.Component.extend(ViewportMixin, {
 	handleIOSFocus() {},
 
 	/**
+	 * Check if user is using iOS browser
+	 * @returns {boolean}
+	 */
+	isIOSBrowser() {
+		return (/iPad|iPhone|iPod/).test(navigator.platform);
+	},
+
+	/**
 	 * Handle clicks - focus in textarea and activate editor
 	 * @returns {void}
 	 */
 	click() {
-		this.get('discussionEditor').toggleEditor(true);
+		// This next is needed for iOS
+		Ember.run.next(this, () => {
+			this.get('discussionEditor').toggleEditor(true);
+		});
 	},
 
 	/**
@@ -181,7 +203,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	setiOSSpecificStyles(styles) {
-		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+		if (this.isIOSBrowser()) {
 			Ember.$('html, body').css(styles);
 		}
 	},
@@ -241,14 +263,6 @@ export default Ember.Component.extend(ViewportMixin, {
 		 */
 		toggleEditorActive(active) {
 			this.get('discussionEditor').toggleEditor(active);
-		},
-
-		/**
-		 * Update editor when typing - activate editor
-		 * @returns {void}
-		 */
-		updateOnInput() {
-			this.get('discussionEditor').toggleEditor(true);
 		},
 
 		/**

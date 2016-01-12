@@ -1,14 +1,25 @@
-import {loadGlobalData, getLoginUrl} from './globals';
+import {loadGlobalData, getLoginUrl, getJaCommunityUrl, getJaUniversityUrl, getStartWikiaUrl} from './globals';
 
 /**
  * @returns {void}
  */
-function search() {
-	let searchText = encodeURI($('#searchWikiaText').val());
+function search(isTopNav = true) {
+	let searchText;
 
-	if (!searchText) {
-		// search button for mobile is different element
-		searchText = encodeURI($('#searchWikiaTextMobile').val());
+	if (isTopNav) {
+		searchText = encodeURI($('#searchWikiaText').val());
+
+		if (!searchText) {
+			// search button for mobile is different element
+			searchText = encodeURI($('#searchWikiaTextMobile').val());
+		}
+	} else {
+		searchText = encodeURI($('#wiwSearchWikiaTextDesktop').val());
+
+		if (!searchText) {
+			// search button for mobile is different element
+			searchText = encodeURI($('#wiwSarchWikiaTextMobile').val());
+		}
 	}
 
 	if (searchText) {
@@ -25,6 +36,14 @@ $(() => {
 		autoplay: true,
 		autoplaySpeed: 3000,
 		slidesToShow: 1,
+		responsive: [
+			{
+				breakpoint: 1000,
+				settings: {
+					dots: false
+				}
+			}
+		]
 	});
 
 	$('.hero-carousel-mobile').slick({
@@ -101,6 +120,28 @@ $('.search-wikia-form').submit((event) => {
 $('.search-wikia').click((event) => {
 	search();
 	event.preventDefault();
+});
+
+$('.jw-community-link').click(() => {
+	window.location.href = getJaCommunityUrl();
+});
+
+$('.jw-university-link').click(() => {
+	window.location.href = getJaUniversityUrl();
+});
+
+$('.wiw-search-wikia-form').submit((event) => {
+	search(false);
+	event.preventDefault();
+});
+
+$('.wiw-search-wikia-button').click((event) => {
+	search(false);
+	event.preventDefault();
+});
+
+$('.wiw-start-wikia').click(() => {
+	window.location.href = getStartWikiaUrl();
 });
 
 $('.hero-prev').click(function () {

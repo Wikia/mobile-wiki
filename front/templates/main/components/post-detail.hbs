@@ -16,10 +16,16 @@
 </div>
 {{#if isDetailsView}}
 	<div class="discussion-content">
+		{{#if post.title}}
+			<h1 class="post-title">{{post.title}}</h1>
+		{{/if}}
 		{{{parsedContent}}}
 	</div>
 {{else}}
 	<div class="discussion-content clickable" onclick={{action 'goToPost' postId}}>
+		{{#if post.title}}
+			<h2 class="post-title"><{{post.title}}</h2>
+		{{/if}}
 		{{{parsedContent}}}
 	</div>
 {{/if}}
