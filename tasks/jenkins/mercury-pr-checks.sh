@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 set -e
 set -o pipefail
 mkdir jenkins || rm -rf jenkins/* && true
@@ -19,47 +21,76 @@ failTests() {
 	updateGit "Front tests" failure skipped
 	updateGit "Server tests" failure skipped
 	updateGit "Linter" failure skipped
+	updateGit "Mercury build" failure skipped
 	updateGit "Mercury PR Checks" failure finished $BUILD_URL"console"
+}
+
+# $1 - directory
+setupNpm() {
+	oldPath=$(pwd)
+	md5old=$(md5sum "../Mercury-UPDATE-node-modules"$1"package.json" | sed -e "s#\(^.\{32\}\).*#\1#")
+	md5new=$(md5sum "."$1"package.json" | sed -e "s#\(^.\{32\}\).*#\1#")
+	sourceTarget="../Mercury-UPDATE-node-modules"$1"node_modules" "."$1"node_modules"
+
+	if [ "$md5new" = "$md5old" ]
+	then
+		ln -s $sourceTarget
+	else
+		cp -R $sourceTarget
+		updateGit "Mercury setup" pending "updating node modules in ."$1
+		cd $1
+		npm install || error=true
+		cd $oldPath
+
+		if [[ ! -z $error ]]
+		then
+			updateGit "Mercury setup" failure "failed on: updating node modules in ."$1
+			failTests && exit 1
+		fi
+	fi
+}
+
+# $1 - directory
+setupBower() {
+	oldPath=$(pwd)
+	md5old=$(md5sum "../Mercury-UPDATE-node-modules"$1"bower.json" | sed -e "s#\(^.\{32\}\).*#\1#")
+	md5new=$(md5sum "."$1"bower.json" | sed -e "s#\(^.\{32\}\).*#\1#")
+	sourceTarget="../Mercury-UPDATE-node-modules"$1"bower_components" "."$1"bower_components"
+
+	if [ "$md5new" = "$md5old" ]
+	then
+		ln -s $sourceTarget
+	else
+		cp -R $sourceTarget
+		updateGit "Mercury setup" pending "updating bower components in ."$1
+		cd $1
+		bower install || error=true
+		cd $oldPath
+
+		if [[ ! -z $error ]]
+		then
+			updateGit "Mercury setup" failure "failed on: updating bower components in ."$1
+			failTests && exit 1
+		fi
+	fi
 }
 
 ### Set pending status to all tasks
 updateGit "Mercury PR Checks" pending running $BUILD_URL"console"
+updateGit "Mercury setup" pending pending
 updateGit "Mercury build" pending pending
 updateGit "Front tests" pending pending
 updateGit "Server tests" pending pending
 updateGit "Linter" pending pending
 
-### Mercury build - copy cached node_modules and update them
-updateGit "Mercury build" pending "copying cached node_modules"
-md5old=$(md5sum ../Mercury-UPDATE-node-modules-old/package.json | sed -e "s#\(^.\{32\}\).*#\1#")
-md5new=$(md5sum package.json | sed -e "s#\(^.\{32\}\).*#\1#")
+### Mercury setup - node_modules and bower components
+setupNpm "/"
+setupNpm "/front/main"
+setupNpm "/server"
 
-if [ "$md5new" = "$md5old" ]
-then
-	### Mercury build - creating symlink to node packages
-	ln -s ../Mercury-UPDATE-node-modules-old/node_modules node_modules
-else
-	### Mercury build - updating node packages
-	cp -R ../Mercury-UPDATE-node-modules-old/node_modules node_modules
-	updateGit "Mercury build" pending "updating node packages"
-	npm install || error1=true
-	
-	if [[ ! -z $error1 ]]
-	then
-		updateGit "Mercury build" failure "failed on: updating node packages" $BUILD_URL"artifact/jenkins/mercury-build.log"
-		failTests && exit 1
-	fi
-fi
-
-### Mercury build - updating bower packages
-updateGit "Mercury build" pending "updating bower packages"
-bower update || error2=true
-
-if [[ ! -z $error2 ]]
-then
-	updateGit "Mercury build" failure "failed on: updating bower packages" $BUILD_URL"artifact/jenkins/mercury-build.log"
-	failTests && exit 1
-fi
+setupBower "/front/auth"
+setupBower "/front/common"
+setupBower "/front/main"
 
 ### Mercury build - building application
 updateGit "Mercury build" pending "building application"
@@ -112,4 +143,3 @@ fi
 
 ### Finish
 updateGit "Mercury PR Checks" success finished $BUILD_URL"console"
-
