@@ -1,3 +1,8 @@
+/**
+ * Ember-pop-over addon configuration
+ * Specifies allowed flows for pop-over component
+ */
+
 export function around() {
   return this.orientAbove.andSnapTo(this.center, this.leftEdge, this.rightEdge)
    .then(this.orientRight.andSlideBetween(this.bottomEdge, this.topEdge))
