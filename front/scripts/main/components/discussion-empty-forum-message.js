@@ -1,6 +1,6 @@
 export default Ember.Component.extend({
-	discussionEditor: Ember.inject.service(),
 	classNames: ['empty-forum-message'],
+	discussionEditor: Ember.inject.service(),
 
 	click() {
 		this.get('discussionEditor').activateEditor();
