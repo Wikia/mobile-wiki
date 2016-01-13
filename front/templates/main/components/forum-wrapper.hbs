@@ -3,7 +3,6 @@
 	posts=posts
 	siteHeadPinned=siteHeadPinned
 }}
-
 {{#each posts as |item|}}
 	{{post-detail
 		author=item.createdBy
@@ -16,10 +15,7 @@
 		undeletePost=(action this.attrs.undeletePost)
 		upvote=(action this.attrs.upvote)
 	}}
-{{else}}
-	{{discussion-empty-forum-message}}
 {{/each}}
-
 {{#if hasMore}}
 	{{#if isLoading }}
 		{{loading-spinner

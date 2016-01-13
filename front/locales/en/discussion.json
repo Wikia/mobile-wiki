@@ -30,8 +30,7 @@
     "no-replies": "No replies yet.",
     "no-replies-be-the-first": "No replies yet. Be the first!",
     "modal-dialog-confirm": "OK",
-    "modal-dialog-log-in": "Sign in",
-    "empty-forum-text": "No posts yet. Get the discussion started, create the first post now!"
+    "modal-dialog-log-in": "Sign in"
   },
   "editor": {
     "post-failed-error": "Post failed.",

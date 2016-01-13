@@ -107,7 +107,7 @@ DiscussionForumModel.reopenClass({
 			url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
 			success: (data) => {
 				const contributors = [],
-					posts = data._embedded ? data._embedded['doc:threads'] : [],
+					posts = data._embedded['doc:threads'],
 					totalPosts = data.threadCount;
 
 				posts.forEach((post) => {
