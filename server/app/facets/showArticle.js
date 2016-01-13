@@ -59,16 +59,8 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 	let result = prepareArticleData(request, data),
 		response;
 
-	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
-	if (data.article.data && data.article.data.isMainPage && data.article.data.mainPageData) {
-		result = deepExtend(result, prepareMainPageData(data));
-		delete result.adsContext;
-		// @todo XW-596 we shouldn't rely on side effects of this function
-		Tracking.handleResponseCuratedMainPage(result, request);
-	} else {
-		// @todo XW-596 we shouldn't rely on side effects of this function
-		Tracking.handleResponse(result, request);
-	}
+	// @todo XW-596 we shouldn't rely on side effects of this function
+	Tracking.handleResponse(result, request);
 
 	response = reply.view('article', result);
 	response.code(code);

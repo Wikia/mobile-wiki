@@ -49,31 +49,7 @@ export function handleResponse(result, request) {
 	let vertical;
 
 	try {
-		vertical = result.article.adsContext.targeting.wikiVertical;
-	} catch (error) {
-		Logger.error('No vertical set for response');
-
-		vertical = '';
-	}
-
-	Comscore.handleResponse(tracking, vertical, request);
-
-	// export tracking code to layout and front end code
-	result.tracking = tracking;
-}
-
-/**
- * @param {*} result
- * @param {Hapi.Request} request
- * @returns {void}
- */
-export function handleResponseCuratedMainPage(result, request) {
-	const tracking = localSettings.tracking;
-
-	let vertical;
-
-	try {
-		vertical = result.mainPageData.adsContext.targeting.wikiVertical;
+		vertical = result.wikiVariables.tracking.vertical;
 	} catch (error) {
 		Logger.error('No vertical set for response');
 
