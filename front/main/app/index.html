@@ -12,21 +12,21 @@
 	{{content-for 'head'}}
 
 	{{#if themeColor}}
-	<meta name="theme-color" content="{{themeColor}}">
+		<meta name="theme-color" content="{{themeColor}}">
 	{{/if}}
 
 	{{#if wikiVariables.specialRobotPolicy}}
-	<meta name="robots" content="{{wikiVariables.specialRobotPolicy}}">
+		<meta name="robots" content="{{wikiVariables.specialRobotPolicy}}">
 	{{/if}}
 
 	{{#if asyncArticle}}
-	<meta name="fragment" content="!">
+		<meta name="fragment" content="!">
 	{{/if}}
 
 	{{#if isRtl}}
-	<link rel="stylesheet" href="/front/main/assets/main.rtl.css">
+		<link rel="stylesheet" href="/front/main/assets/main.rtl.css">
 	{{else}}
-	<link rel="stylesheet" href="/front/main/assets/main.css">
+		<link rel="stylesheet" href="/front/main/assets/main.css">
 	{{/if}}
 
 	{{> dns-prefetch}}
@@ -48,9 +48,9 @@
 {{> qualaroo}}
 
 {{!--
-Ember must render out to a specific div above the scripts, otherwise
-Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
-DO NOT REMOVE THE FOLLOWING LINE:
+	Ember must render out to a specific div above the scripts, otherwise
+	Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
+	DO NOT REMOVE THE FOLLOWING LINE:
 --}}
 <div id="ember-container">
 	<div id="preload">
@@ -74,8 +74,7 @@ DO NOT REMOVE THE FOLLOWING LINE:
 	M.loadDOMResource('/front/main/assets/common.svg');
 </script>
 
-<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting"
-		async></script>
+<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>
 
 {{content-for 'body-footer'}}
 
