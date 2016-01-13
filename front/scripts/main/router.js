@@ -80,6 +80,10 @@ Router.map(function () {
 		this.route('post', {
 			path: '/p/:postId'
 		});
+
+		this.route('user', {
+			path: '/u/:userId'
+		});
 	});
 
 	this.route('image-review', {
