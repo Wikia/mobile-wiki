@@ -46,10 +46,14 @@ export const Comscore = {
 export function handleResponse(result, request) {
 	const tracking = localSettings.tracking;
 
-	let vertical;
+	let vertical,
+		dbName,
+		nielsenEnabled;
 
 	try {
 		vertical = result.wikiVariables.tracking.vertical;
+		nielsenEnabled = result.wikiVariables.tracking.nielsen;
+		dbName = result.wikiVariables.dbName;
 	} catch (error) {
 		Logger.error('No vertical set for response');
 
@@ -57,6 +61,9 @@ export function handleResponse(result, request) {
 	}
 
 	Comscore.handleResponse(tracking, vertical, request);
+	tracking.nielsen.section = vertical;
+	tracking.nielsen.subbrand = dbName;
+	tracking.nielsen.enabled = nielsenEnabled;
 
 	// export tracking code to layout and front end code
 	result.tracking = tracking;

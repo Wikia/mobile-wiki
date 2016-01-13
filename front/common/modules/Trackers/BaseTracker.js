@@ -21,13 +21,20 @@ class BaseTracker {
 	}
 
 	/**
+	 *
+	 * @param {boolean}  synchronousCall
+	 * @param {function} onLoad
+	 *
 	 * @returns {void}
 	 */
-	appendScript() {
+	appendScript(synchronousCall = false, onLoad = null) {
 		const elem = document.createElement('script');
 
-		elem.async = true;
+		elem.async = !synchronousCall;
 		elem.src = this.url();
+		if (typeof onLoad === 'function') {
+			elem.onload = onLoad;
+		}
 
 		BaseTracker.script.parentNode.insertBefore(elem, BaseTracker.script);
 	}

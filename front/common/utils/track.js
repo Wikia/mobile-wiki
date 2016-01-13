@@ -3,6 +3,7 @@
 import Comscore from '../modules/Trackers/Comscore';
 import Internal from '../modules/Trackers/Internal';
 import Krux from '../modules/Trackers/Krux';
+import Nielsen from '../modules/Trackers/Nielsen';
 import Quantserve from '../modules/Trackers/Quantserve';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
 
@@ -35,6 +36,7 @@ const trackers = {
 		Comscore,
 		Internal,
 		Krux,
+		Nielsen,
 		Quantserve,
 		UniversalAnalytics
 	},
