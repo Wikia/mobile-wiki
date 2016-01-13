@@ -44,7 +44,7 @@ module.exports = function (defaults) {
 		},
 		fingerprint: {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
-			prepend: 'http://mercury.nocookie.net/mercury-static/'
+			prepend: 'http://mercury.nocookie.net/mercury-static/main/'
 		},
 		derequire: {
 			patterns: [
