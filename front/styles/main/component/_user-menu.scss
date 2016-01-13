@@ -19,7 +19,6 @@
 		z-index: $z-side-nav;
 
 		a {
-			@extend .touch-active;
 			display: block;
 			overflow: hidden;
 			padding: rem-calc(10) $side-nav-item-gutter;

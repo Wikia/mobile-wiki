@@ -7,8 +7,6 @@
 	}
 
 	.title {
-		@extend .touch-active;
-
 		background: none;
 		color: $collapsible-menu-title-color;
 		display: block;
