@@ -59,6 +59,11 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 	let result = prepareArticleData(request, data),
 		response;
 
+	if (data.article.data && data.article.data.isMainPage && data.article.data.mainPageData) {
+		result = deepExtend(result, prepareMainPageData(data));
+		delete result.adsContext;
+	}
+
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
 
