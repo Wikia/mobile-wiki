@@ -7,11 +7,9 @@
 	<span class="timestamp">
 		&bull; {{time-ago post.creationDate.epochSecond}}
 	</span>
-	{{discussion-delete
-		delete=this.attrs.deletePost
-		undelete=this.attrs.undeletePost
-		post=post
-	}}
+	<div class="discussion-post-more-options" {{action 'showMoreOptions'}}>
+		{{svg "more" viewBox="0 0 4 18" class="icon more-icon"}}
+	</div>
 </div>
 {{#if isDetailsView}}
 	<div class="discussion-content">
@@ -66,8 +64,8 @@
 </div>
 {{#if post.isLoading}}
 	{{loading-spinner
-	active=post.isLoading
-	radius=32
-	strokeWidth=2
+		active=post.isLoading
+		radius=32
+		strokeWidth=2
 	}}
 {{/if}}

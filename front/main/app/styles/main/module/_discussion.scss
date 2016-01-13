@@ -56,15 +56,23 @@ body.discussions {
 		}
 	}
 
+	.discussion-post-more-options {
+		display: inline-block;
+		float: right;
+		height: 16px;
+		text-align: right;
+		width: 16px;
+
+		.more-icon {
+			height: 16px;
+			width: 4px;
+		}
+	}
+
 	.toggle-share-area {
 		display: block;
 		height: 30px;
 		line-height: 30px;
-	}
-
-	.delete-actions {
-		display: inline-block;
-		float: right;
 	}
 
 	.discussion-content {
