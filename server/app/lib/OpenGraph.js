@@ -36,7 +36,7 @@ export function getPromiseForDiscussionData(request, wikiVars) {
 			openGraphData.url = wikiVars.basePath + request.path;
 			// Use Wikia logo as default image
 			openGraphData.image = `http:${getStaticAssetPath(localSettings, request)}` +
-				'images/wikia-mark-1200.jpg';
+				'common/images/wikia-mark-1200.jpg';
 			openGraphData.imageWidth = 1200;
 			openGraphData.imageHeight = 1200;
 
