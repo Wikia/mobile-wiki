@@ -1,5 +1,5 @@
 var path = require('path'),
-	output = 'dist',
+	output = 'www',
 	outputFront = output + '/front',
 	outputServer = output + '/server',
 	hbsPattern = '**/*.hbs',

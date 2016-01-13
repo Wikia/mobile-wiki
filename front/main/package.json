@@ -26,6 +26,7 @@
     "ember-ajax": "0.7.1",
     "ember-cli": "2.2.0-beta.3",
     "ember-cli-app-version": "1.0.0",
+    "ember-cli-autoprefixer": "0.5.0",
     "ember-cli-babel": "5.1.6",
     "ember-cli-bidi": "git+https://github.com/Wikia/ember-cli-bidi.git#dd6fd681c29eb02ab21eda53a16bf3f779183fc4",
     "ember-cli-content-security-policy": "0.4.0",

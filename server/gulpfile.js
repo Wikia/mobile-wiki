@@ -41,7 +41,7 @@ gulp.task('build-server-scripts', ['build-server-init-config'], function (done) 
 });
 
 /*
- * Copy node dependencies to dist/server/
+ * Copy node dependencies to www/server/
  */
 gulp.task('build-server-node-modules', function () {
 	var deps = '/{' + nodeDeps.join('/**/*,') + '/**/*}';
@@ -51,7 +51,7 @@ gulp.task('build-server-node-modules', function () {
 });
 
 /*
- * Copy Ember's output index.html to dist/server/app/views/ so it can be used as a template by Hapi
+ * Copy Ember's output index.html to www/server/app/views/ so it can be used as a template by Hapi
  */
 gulp.task('build-server-views-main', function () {
 	return gulp.src(paths.views.main.src)
@@ -65,7 +65,7 @@ gulp.task('build-server-views-main', function () {
 });
 
 /*
- * Copy views from front/auth/views/ to dist/server/app/views/
+ * Copy views from front/auth/views/ to www/server/app/views/
  */
 gulp.task('build-server-views-auth', function () {
 	return gulp.src(paths.views.auth.src)

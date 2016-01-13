@@ -2,9 +2,9 @@ var testrunner = require('qunit'),
 	glob = require('glob'),
 	path = require('path'),
 	tests = glob.sync(__dirname + '/unit/**/*.js'),
-	source = glob.sync(path.resolve('.') + '/dist/server/app/**/*.js'),
+	source = glob.sync(path.resolve('.') + '/www/server/app/**/*.js'),
 	prepped = source.map(function (path) {
-		var part = 'dist/server/app',
+		var part = 'www/server/app',
 			file = path.substring(path.indexOf(part) + (part.length + 1));
 
 		return {
@@ -17,7 +17,7 @@ var testrunner = require('qunit'),
 
 testrunner.setup({
 	deps: {
-		path: './dist/server/config/localSettings.js',
+		path: './www/server/config/localSettings.js',
 		namespace: 'localSettings'
 	},
 	log: {

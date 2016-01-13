@@ -71,6 +71,11 @@ body.discussions {
 		color: $discussion-content-color;
 		margin: 5px 0;
 		padding: .3rem 0;
+
+		.post-title {
+			line-height: $line-height-smallest;
+			margin: 0;
+		}
 	}
 
 	.post-reply,
@@ -316,12 +321,22 @@ body.discussions {
 
 		.post-detail {
 			margin-bottom: $post-details-post-margin-bottom;
+
+			.post-title {
+				font-size: $type-smallest;
+			}
 		}
 	}
 
 	&.post {
 		.post-detail {
 			margin-top: $theme-bar-height;
+
+			.post-title {
+				font-size: $type-smaller;
+				line-height: $line-height-smaller;
+				margin-bottom: 18px;
+			}
 		}
 	}
 }

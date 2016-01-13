@@ -4,6 +4,10 @@
 	.avatar-username {
 		font-size: $type-min;
 	}
+
+	a:active {
+		background-color: transparent;
+	}
 }
 
 @media #{$mobile-range} {

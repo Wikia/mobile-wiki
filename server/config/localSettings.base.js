@@ -156,7 +156,10 @@ const localSettings = {
 		passwordMaxLength: 50
 	},
 	discuss: {
-		baseAPIPath: 'discussion',
+		baseAPIPath: 'discussion'
+	},
+	imageReview: {
+		baseAPIPath: 'image-review'
 	},
 	whoAmIService: {
 		path: '/whoami',
@@ -254,7 +257,7 @@ const localSettings = {
 			url: 'https://services.wikia.com/clickstream/events/social'
 		}
 	},
-	translationFiles: ['main', 'discussion']
+	translationFiles: ['main', 'discussion', 'image-review']
 };
 
 /**

@@ -5,7 +5,6 @@ import ajaxCall from '../utils/ajax-call';
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 
 	postId: null,
-	pivotId: null,
 	replyLimit: 10,
 	replies: [],
 	firstPost: null,

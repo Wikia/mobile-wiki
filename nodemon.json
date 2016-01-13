@@ -1,6 +1,6 @@
 {
   "ext": "js hbs",
   "watch": [
-    "dist/server"
+    "www/server"
   ]
 }

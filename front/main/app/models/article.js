@@ -27,6 +27,7 @@ const ArticleModel = Ember.Object.extend({
 	mainPageData: null,
 	media: [],
 	mediaUsers: [],
+	otherLanguages: [],
 	title: null,
 	url: null,
 	user: null,
@@ -180,6 +181,10 @@ ArticleModel.reopenClass({
 				 * to handle this and never return malformed structures.
 				 */
 				articleProperties.relatedPages = data.relatedPages;
+			}
+
+			if (data.otherLanguages) {
+				articleProperties.otherLanguages = data.otherLanguages;
 			}
 
 			if (data.adsContext) {

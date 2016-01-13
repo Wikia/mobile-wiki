@@ -6,8 +6,10 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function (defaults) {
 	var app = new EmberApp(defaults, {
-		'ember-cli-qunit': {
-			useLintTree: false
+		autoprefixer: {
+			browsers: ['last 2 version', '> 1%'],
+			cascade: false,
+			map: false
 		},
 		inlineContent: {
 			baseline: 'vendor/baseline.js',
@@ -47,7 +49,7 @@ module.exports = function (defaults) {
 		},
 		fingerprint: {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
-			prepend: 'http://mercury.nocookie.net/mercury-static/'
+			prepend: 'http://mercury.nocookie.net/mercury-static/main/'
 		},
 		derequire: {
 			patterns: [

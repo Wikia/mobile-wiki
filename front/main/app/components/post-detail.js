@@ -14,17 +14,6 @@ export default Ember.Component.extend(
 
 		routing: Ember.inject.service('-routing'),
 
-		/**
-		 * Returns link to the post author's user page
-		 * @returns {string}
-		 */
-		authorUrl: Ember.computed('post', function () {
-			return M.buildUrl({
-				namespace: 'User',
-				title: this.get('post.createdBy.name'),
-			});
-		}),
-
 		// Whether the component is displayed on the post details discussion page
 		isDetailsView: false,
 
