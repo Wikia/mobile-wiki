@@ -1,5 +1,5 @@
 /* global ga */
-import {loadGlobalData, getLoginUrl, getStartWikiaUrl, getMobileBreakpoint, getOptimizelyId} from './globals';
+import {loadGlobalData, getLoginUrl, getJaCommunityUrl, getJaUniversityUrl, getStartWikiaUrl, getMobileBreakpoint, getOptimizelyId} from './globals';
 import {loadSearch} from './search';
 
 /**
@@ -54,6 +54,14 @@ $(() => {
 		autoplay: true,
 		autoplaySpeed: 3000,
 		slidesToShow: 1,
+		responsive: [
+			{
+				breakpoint: 1000,
+				settings: {
+					dots: false
+				}
+			}
+		]
 	});
 
 	$('.hero-carousel-mobile').slick({
@@ -132,6 +140,14 @@ $('.search-wikia-form').submit((event) => {
 $('.search-wikia').click((event) => {
 	search();
 	event.preventDefault();
+});
+
+$('.jw-community-link').click(() => {
+	window.location.href = getJaCommunityUrl();
+});
+
+$('.jw-university-link').click(() => {
+	window.location.href = getJaUniversityUrl();
 });
 
 $('.wiw-search-wikia-form').submit((event) => {

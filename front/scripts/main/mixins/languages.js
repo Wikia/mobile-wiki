@@ -40,19 +40,6 @@ export default Ember.Mixin.create({
 	},
 
 	/**
-	 * Obtains a localized language (browser lang for anons,
-	 * user lang for logged-in users)
-	 * @returns {string}
-	 */
-	getLanguage() {
-		if (this.get('currentUser', 'isAuthenticated')) {
-			return this.get('currentUser', 'language');
-		} else {
-			return this.getBrowserLanguage();
-		}
-	},
-
-	/**
 	 * Creates an escaped uselang querystring param
 	 * @returns {string}
 	 */

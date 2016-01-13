@@ -17,7 +17,9 @@ function globals(request, reply) {
 		signupUrl: util.getSignupUrl(),
 		mobileBreakpoint: 710,
 		googleSearchOptimizelyId: useProductionOptimizely ? 4522280313 : 3579160288,
-		startWikiaUrl: util.getStartWikiaUrl(),
+		jaCommunityUrl: util.getJaCommunityUrl(),
+		jaUniversityUrl: util.getJaUniversityUrl(),
+		startWikiaUrl: util.getStartWikiaUrl()
 	});
 }
 

@@ -1,6 +1,6 @@
 <figure class="avatar">
 	{{#if avatarUrl}}
-		{{#if profileUrl}}
+		{{#if shouldWrapInHref}}
 			<a href="{{profileUrl}}">
 				<img src="{{avatarUrl}}">
 			</a>
@@ -11,6 +11,6 @@
 		{{svg 'avatar' viewBox='0 0 40 40' class='icon'}}
 	{{/if}}
 </figure>
-{{#if displayUsername}}
-	<a href="{{profileUrl}}" class="avatar-username">{{username}}</a>
+{{#if displayProfileName}}
+	<a href="{{profileUrl}}" class="avatar-username">{{profileName}}</a>
 {{/if}}

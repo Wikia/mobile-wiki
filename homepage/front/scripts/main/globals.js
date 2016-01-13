@@ -33,6 +33,21 @@ export function getOptimizelyId() {
 /**
  * @returns {string|null}
  */
+export function getJaCommunityUrl() {
+	return cachedData ? cachedData.jaCommunityUrl : null;
+}
+
+/**
+ * @returns {string|null}
+ */
+export function getJaUniversityUrl() {
+	return cachedData ? cachedData.jaUniversityUrl : null;
+}
+
+/**
+ * @returns {string|null}
+ */
 export function getStartWikiaUrl() {
 	return cachedData ? cachedData.startWikiaUrl : null;
 }
+
