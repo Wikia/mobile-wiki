@@ -89,7 +89,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		enter(value) {
-			// Use Oasis Search
+			// Use Wikia Search
 			window.location.assign('%@Special:Search?search=%@&fulltext=Search'.fmt(Mercury.wiki.articlePath, value));
 		},
 	},
