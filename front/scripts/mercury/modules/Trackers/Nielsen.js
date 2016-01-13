@@ -15,32 +15,32 @@ export default class Nielsen extends BaseTracker {
 	 * @returns {void}
 	 */
 	trackPageView() {
-		const nielsen = M.prop('tracking.nielsen');
+		const nielsen = M.prop('tracking.nielsen'),
+			globalParams = {
+				sfcode: 'dcr-cert',
+				apid: nielsen.apid,
+				apn: 'test-static'
+			},
+			staticmeta = {
+				clientid: nielsen.clientid,
+				subbrand: nielsen.subbrand,
+				type: 'static',
+				assetid: nielsen.section,
+				section: nielsen.section,
+				segA: '',
+				segB: '',
+				segC: ''
+			};
 
 		if (!nielsen.enabled) {
 			return;
 		}
 
-		const _nolggGlobalParams = {
-			sfcode: 'dcr-cert',
-			apid: nielsen.apid,
-			apn: 'test-static'
-		};
-		const staticmeta = {
-			clientid: nielsen.clientid,
-			subbrand: nielsen.subbrand,
-			type: 'static',
-			assetid: nielsen.section,
-			section: nielsen.section,
-			segA: '',
-			segB: '',
-			segC: ''
-		};
+		this.appendScript(true, () => {
+			const gg = window.NOLCMB.getInstance(globalParams);
 
-		this.appendScript(true, function () {
-			let gg1 = NOLCMB.getInstance(_nolggGlobalParams);
-			gg1.ggInitialize(_nolggGlobalParams);
-			gg1.ggPM('staticstart', staticmeta);
+			gg.ggInitialize(globalParams);
+			gg.ggPM('staticstart', staticmeta);
 		});
 	}
 }

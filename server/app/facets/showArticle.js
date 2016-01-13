@@ -59,6 +59,7 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 	let result = prepareArticleData(request, data),
 		response;
 
+	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
 	if (data.article.data && data.article.data.isMainPage && data.article.data.mainPageData) {
 		result = deepExtend(result, prepareMainPageData(data));
 		delete result.adsContext;
