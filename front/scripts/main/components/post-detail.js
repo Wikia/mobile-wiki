@@ -39,7 +39,7 @@ export default Ember.Component.extend(
 			 */
 			goToPost(postId, event) {
 				event.preventDefault();
-				if (event.ctrlKey || event.metaKey) {
+				if (event.ctrlKey || event.metaKey || event.button === 1) {
 					this.sendAction('goToPost', postId, true);
 				} else {
 					this.sendAction('goToPost', postId);
