@@ -21,12 +21,12 @@
 		{{{parsedContent}}}
 	</div>
 {{else}}
-	<div class="discussion-content clickable" onclick={{action 'goToPost' postId}}>
-		{{#if post.title}}
-			<h2 class="post-title"><{{post.title}}</h2>
-		{{/if}}
-		{{{parsedContent}}}
-	</div>
+	{{#link-to 'discussion.post' postId class="discussion-content clickable"}}
+			{{#if post.title}}
+				<h2 class="post-title"><{{post.title}}</h2>
+			{{/if}}
+			{{{parsedContent}}}
+	{{/link-to}}
 {{/if}}
 <div class="row">
 	{{discussion-upvote-post
