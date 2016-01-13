@@ -74,14 +74,6 @@ export default Ember.Component.extend(
 			cancelHideShareComponent() {
 				Ember.run.cancel(this.hideShareTimeout);
 			},
-
-			/**
-			 * This method will be used to show popup menu
-			 * @returns {void}
-			 */
-			showMoreOptions() {
-
-			},
 		},
 
 		/**
