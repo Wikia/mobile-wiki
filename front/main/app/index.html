@@ -1,83 +1,83 @@
 <!DOCTYPE html>
 <html lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{{htmlTitle}}</title>
-	<meta name="keywords"
-		  content="{{#if wikiVariables.siteMessage}}{{wikiVariables.siteMessage}},{{/if}}{{wikiVariables.siteName}},{{wikiVariables.dbName}},{{displayTitle}}">
-	<meta name="description" content="{{article.data.details.description}}">
-	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{htmlTitle}}</title>
+    <meta name="keywords"
+          content="{{#if wikiVariables.siteMessage}}{{wikiVariables.siteMessage}},{{/if}}{{wikiVariables.siteName}},{{wikiVariables.dbName}},{{displayTitle}}">
+    <meta name="description" content="{{article.data.details.description}}">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 
-	{{content-for 'head'}}
+    {{content-for 'head'}}
 
-	{{#if themeColor}}
-		<meta name="theme-color" content="{{themeColor}}">
-	{{/if}}
+    {{#if themeColor}}
+    <meta name="theme-color" content="{{themeColor}}">
+    {{/if}}
 
-	{{#if wikiVariables.specialRobotPolicy}}
-		<meta name="robots" content="{{wikiVariables.specialRobotPolicy}}">
-	{{/if}}
+    {{#if wikiVariables.specialRobotPolicy}}
+    <meta name="robots" content="{{wikiVariables.specialRobotPolicy}}">
+    {{/if}}
 
-	{{#if asyncArticle}}
-		<meta name="fragment" content="!">
-	{{/if}}
+    {{#if asyncArticle}}
+    <meta name="fragment" content="!">
+    {{/if}}
 
-	{{#if isRtl}}
-		<link rel="stylesheet" href="/front/main/assets/main.rtl.css">
-	{{else}}
-		<link rel="stylesheet" href="/front/main/assets/main.css">
-	{{/if}}
+    {{#if isRtl}}
+    <link rel="stylesheet" href="/front/main/assets/main.rtl.css">
+    {{else}}
+    <link rel="stylesheet" href="/front/main/assets/main.css">
+    {{/if}}
 
-	{{> dns-prefetch}}
-	{{> open-graph-tags}}
-	{{> other-languages-head}}
+    {{> dns-prefetch}}
+    {{> open-graph-tags}}
+    {{> other-languages-head}}
 
-	<link rel="canonical" href="{{canonicalUrl}}">
+    <link rel="canonical" href="{{canonicalUrl}}">
 
-	{{> nirvana }}
-	{{content-for 'baseline'}}
-	{{> server-data}}
-	{{> tracking}}
+    {{> nirvana }}
+    {{content-for 'baseline'}}
+    {{> server-data}}
+    {{> tracking}}
 
-	{{content-for 'head-footer'}}
+    {{content-for 'head-footer'}}
 </head>
 <body>
-{{content-for 'body'}}
+    {{content-for 'body'}}
 
-{{> qualaroo}}
+    {{> qualaroo}}
 
-{{!--
-	Ember must render out to a specific div above the scripts, otherwise
-	Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
-	DO NOT REMOVE THE FOLLOWING LINE:
---}}
-<div id="ember-container">
-	<div id="preload">
-		<nav class="site-head">
-			<div class="site-logo">
-				{{content-for 'wikia-logo'}}
-			</div>
-		</nav>
-		<div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
-			{{{content}}}
-		</div>
-	</div>
-</div>
+    {{!--
+    Ember must render out to a specific div above the scripts, otherwise
+    Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
+    DO NOT REMOVE THE FOLLOWING LINE:
+    --}}
+    <div id="ember-container">
+        <div id="preload">
+            <nav class="site-head">
+                <div class="site-logo">
+                    {{content-for 'wikia-logo'}}
+                </div>
+            </nav>
+            <div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
+                {{{content}}}
+            </div>
+        </div>
+    </div>
 
-<script>
-	M.loadScripts([
-		'/front/main/assets/vendor.js',
-		'/front/main/assets/main.js'
-	]);
-	M.loadDOMResource('/front/main/assets/main.svg');
-	M.loadDOMResource('/front/main/assets/common.svg');
-</script>
+    <script>
+        M.loadScripts([
+            '/front/main/assets/vendor.js',
+            '/front/main/assets/main.js'
+        ]);
+        M.loadDOMResource('/front/main/assets/main.svg');
+        M.loadDOMResource('/front/main/assets/common.svg');
+    </script>
 
-<script	src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>
+    <script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>
 
-{{content-for 'body-footer'}}
+    {{content-for 'body-footer'}}
 
-{{> tracking-pixels}}
-</body>
+    {{> tracking-pixels}}
+    </body>
 </html>
