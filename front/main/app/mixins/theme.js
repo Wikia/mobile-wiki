@@ -5,7 +5,7 @@ import ColorUtilsMixin from './color-utils';
  * Sets the theme class for the body. For now only for dark theme, because the light is default.
  */
 export default Ember.Mixin.create(ColorUtilsMixin, {
-	cssPath: '/front/styles/main',
+	cssPath: '/front/main/assets',
 	themeActivated: null,
 	themeColors: null,
 	themeLoadingInitialized: null,
