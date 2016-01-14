@@ -24,7 +24,8 @@
     "test-server": "gulp test-server",
     "linter": "eslint .",
     "service-enable": "sudo rm -f /etc/sv/mercury-dev/down && sudo service mercury-dev start",
-    "service-disable": "sudo touch /etc/sv/mercury-dev/down && sudo service mercury-dev stop"
+    "service-disable": "sudo touch /etc/sv/mercury-dev/down && sudo service mercury-dev stop",
+    "service-log": "tail -f /var/log/syslog | grep mercury:"
   },
   "repository": "git://github.com/Wikia/mercury.git",
   "license": "MIT",
