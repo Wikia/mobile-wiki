@@ -1,9 +1,9 @@
 # dependencies
-node_modules/
+/node_modules/
 
 # compiled output
-www/
-test/
+/www/
+/test/
 
 # others
 .idea/
