@@ -25,6 +25,9 @@ export default DiscussionBaseRoute.extend(
 		 */
 		loadPage(pageNum) {
 			this.modelFor('discussion.user').loadPage(pageNum);
-		}
+		},
+
+		create() {
+		},
 	}
 });
