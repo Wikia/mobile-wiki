@@ -1,13 +1,33 @@
 [![Dependency Status](https://david-dm.org/Wikia/mercury.svg)](https://david-dm.org/Wikia/mercury)
 [![devDependency Status](https://david-dm.org/Wikia/mercury/dev-status.svg)](https://david-dm.org/Wikia/mercury#info=devDependencies)
 
-## Manual Setup
-* `npm run setup` will install all dependencies, including node modules and bower components
-* Adjust `server/config/localSettings.js` and override the defaults if needed, more in [localSettings](#localSettings)
-* `npm run dev` will start the server and watch files
+## Setup
+To begin your journey with Mercury all you need to do is:
+1. download repo
+2. use `npm run setup`
+3. use `npm run dev`
+4. start developing
+
+For most cases you don't need to modify your `localSettings.js`, but if you do read [localSettings](#localSettings).
+
+If you are using Mercury on your local machine, Ember-CLI needs to be installed, you can do this using `npm run setup-for-local`.
+
+More available scripts are listed [below](#Scripts)
+
+
+## Scripts
+* `npm run setup` - install all dependencies, including node modules and bower components
+* `npm run setup-for-local` - install ember globally (**only on local machine**)
+* `npm run build-dev` - build files for dev environment
+* `npm run build` - build files for prod environment
+* `npm run start` - run built application (**require application to be build first**)
+* `npm run dev` - build, run application and watch files
+* `npm run test` - run test-front and test-server (**require application to be build first**)
+* `npm run linter` - run ESLint on all js files
+* `npm run clean` - remove all dependencies, clean the cache, remove build directory
 
 ## localSettings
-`localSettings` is main configuration structure. All application settings should be stored there.
+`server/config/localSettings` is main configuration structure. All application settings should be stored there.
 Config files are loaded in the following order (next extending a previous one):
  * `localSettings.base.js` - configuration for production environment - used on production, testing and staging
  * `localSettings.dev.js` - configuration for development environment - used on devboxes
@@ -56,29 +76,3 @@ If during the development process you've added new keys to the `front/common/pub
 More details can be found in `README.rst` in [the i18n-tools repository](https://github.com/Wikia/i18n-tools).
 
 If the translations are downloaded and ready, you can merge in `dev` to the `i18n-update` branch (or however you've named it), take a look at the outcome, fix bugs/conflicts if any and issue a pull request.
-
-## Testing on devices when developing locally
-### Using IP over the same network
-To test on your mobile device, connect both your development machine and your device to the same network. You can then visit Mercury on your device by using your machine's IP address (on OS X, you can get that using `ifconfig`). The URL should look something like: `//muppet.10.10.10.123.xip.io:8000/wiki/Foo`.
-
-## Troubleshooting
-### Errors while running `npm install`
-#### Debian and its nodejs binary
-Debian (the issue was found on version: `Debian 3.16.7-ckt4-3 (2015-02-03)`) installs node.js interpreter binary as `nodejs` instead of `node` because of name conflicts with other applications. The `/usr/share/doc/nodejs/README.Debian` reads:
-> nodejs command
-> --------------
->
-> The upstream name for the Node.js interpreter command is "node".
-> In Debian the interpreter command has been changed to "nodejs".
->
-> This was done to prevent a namespace collision: other commands use the same name in their upstreams, such as ax25-node from the "node" package.
->
-> Scripts calling Node.js as a shell command must be changed to instead use the "nodejs" command.
-However, changing dependencies scripts does not sound right way. @nandy-andy suggests creating a symlink in `/usr/bin`:
-```sh
-sudo ln -s /usr/bin/nodejs /usr/bin/node
-$ ls /usr/bin/ | grep node
-node
-node-gyp
-nodejs
-```

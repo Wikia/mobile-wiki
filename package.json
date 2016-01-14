@@ -4,9 +4,9 @@
   "description": "Wikia Web Application",
   "main": "www/server/app/server.js",
   "scripts": {
-    "clean": "rm -rf node_modules/ front/auth/bower_components/ front/common/bower_components/ front/main/bower_components/ front/main/node_modules/ server/node_modules/ && npm cache clean && bower cache clean",
+    "clean": "rm -rf www/ node_modules/ front/auth/bower_components/ front/common/bower_components/ front/main/bower_components/ front/main/node_modules/ server/node_modules/ && npm cache clean && bower cache clean",
     "setup": "npm install && npm run setup-common && npm run setup-auth && npm run setup-main && npm run setup-server",
-    "setup-global": "npm install -g bower gulp ember-cli@2.2.0-beta.3",
+    "setup-for-local": "npm install -g bower gulp ember-cli@2.2.0-beta.3",
     "setup-common": "cd front/common && bower install",
     "setup-auth": "cd front/auth && bower install",
     "setup-main": "cd front/main && npm install && bower install",
@@ -22,7 +22,9 @@
     "test": "npm run build-dev && npm run test-front && npm run test-server",
     "test-front": "gulp test-common && gulp test-auth && cd front/main && ember test",
     "test-server": "gulp test-server",
-    "linter": "eslint ."
+    "linter": "eslint .",
+    "service-enable": "sudo rm -f /etc/disabled/mercury && sudo service mercury-dev start",
+    "service-disable": "sudo touch /etc/disabled/mercury && sudo service mercury-dev stop"
   },
   "repository": "git://github.com/Wikia/mercury.git",
   "license": "MIT",

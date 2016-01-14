@@ -34,10 +34,6 @@ testrunner.setup({
 		// log currently testing code file
 		testing: false
 	},
-	coverage: {
-		dir: 'test/coverage/server',
-		reporters: ['cobertura']
-	},
 	maxBlockDuration: 5000
 });
 
