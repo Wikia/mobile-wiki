@@ -6,6 +6,5 @@
 @charset "UTF-8";
 
 // Behold, here are all the Foundation components.
-@import
-  "../../../bower_components/foundation/scss/foundation/components/block-grid",
-  "../../../bower_components/foundation/scss/foundation/components/alert-boxes";
+@import "../../bower_components/foundation/scss/foundation/components/block-grid",
+"../../bower_components/foundation/scss/foundation/components/alert-boxes";
