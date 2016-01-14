@@ -88,7 +88,7 @@ $hero-caption-line-height: 18px;
 
 	.portable-infobox-hero-title,
 	.portable-infobox-hero-caption {
-		@extend %ellipsis;
+		@include ellipsis;
 		color: $infobox-hero-font-color;
 		text-shadow: 0 0 3px $infobox-hero-outline-color;
 
