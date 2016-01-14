@@ -11,14 +11,22 @@
 	color: $footer-text-color;
 	flex-grow: 0;
 	flex-shrink: 0;
+	position: relative;
 
-	a {
-		color: inherit;
-		font-weight: bold;
-		text-transform: uppercase;
+	&:hover {
+	    opacity: .9;
 	}
 }
 
+.footer-callout-emphasis {
+	color: inherit;
+	font-weight: bold;
+	text-transform: uppercase;
+}
 .footer-callout-link {
-	padding-left: 10px;
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
