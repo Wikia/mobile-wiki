@@ -3,6 +3,7 @@
 
 ## Setup
 To begin your journey with Mercury all you need to do is:
+
 1. download repo
 2. use `npm run setup`
 3. use `npm run dev`
