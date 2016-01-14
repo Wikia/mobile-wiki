@@ -1,5 +1,5 @@
 {{#unless globalNav2016}}
-	{{! Overlay that fades in}}
+{{! Overlay that fades in}}
 	<div {{action 'collapse'}} class='overlay'></div>
 	{{!
 		This is the element that is slid away
@@ -17,15 +17,15 @@
 			<div {{action 'searchCancel'}} class='cancel'>{{i18n 'app.cancel-label'}}</div>
 		</div>
 		{{local-wikia-search
-			sideNavVisible=shouldBeVisible
-			query=searchQuery
-			isInSearchMode=isInSearchMode
-			collapseSideNav='collapse'
+		sideNavVisible=shouldBeVisible
+		query=searchQuery
+		isInSearchMode=isInSearchMode
+		collapseSideNav='collapse'
 		}}
 		{{local-nav-menu
-			sideNavVisible=shouldBeVisible
-			loadRandomArticle='loadRandomArticle'
-			collapseSideNav='collapse'
+		sideNavVisible=shouldBeVisible
+		loadRandomArticle='loadRandomArticle'
+		collapseSideNav='collapse'
 		}}
 	</div>
 {{else}}
@@ -33,8 +33,9 @@
 		<a {{action 'collapse'}} href="#">close</a>
 		{{component
 		globalNavContent
-		showNav=(action 'showNav')
+		replaceNavigationContent=(action 'replaceNavigationContent')
 		collapse=(action 'collapse')
+		loadRandomArticle=(action 'loadRandomArticle')
 		}}
 	</div>
 {{/unless}}

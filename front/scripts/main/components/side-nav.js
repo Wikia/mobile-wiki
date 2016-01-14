@@ -114,7 +114,7 @@ export default Ember.Component.extend({
 			}
 		},
 
-		showNav(navName) {
+		replaceNavigationContent(navName) {
 			if (navName === 'explore') {
 				this.set('globalNavContent', 'explore-wikia-navigation');
 			} else if (navName === 'local') {

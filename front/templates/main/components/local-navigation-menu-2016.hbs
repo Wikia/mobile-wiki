@@ -26,8 +26,8 @@
 			</div>
 		</li>
 	{{else}}
-        <li class="mw-content">
-			<a {{action 'collapseSideNav'}} href="{{unbound child.href}}">{{unbound child.text}}</a>
+		<li class="mw-content">
+			<a {{action this.attrs.collapse}} href="{{unbound child.href}}">{{unbound child.text}}</a>
 		</li>
 	{{/if}}
 {{/each}}

@@ -1,4 +1,4 @@
-<a {{action this.attrs.showNav 'root'}} href="#">BACK</a>
+<a {{action this.attrs.replaceNavigationContent 'root'}} href="#">BACK</a>
 {{#each links as |link|}}
 	<a href="{{link.href}}">{{link.textEscaped}}</a>
 {{/each}}
