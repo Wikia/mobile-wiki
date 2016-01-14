@@ -28,8 +28,7 @@ export default Ember.Component.extend(
 
 		menuRoot: Ember.computed('model', function () {
 			const menuRoot = {
-				// @TODO XW-511 Remove second part of OR statement
-				children: Ember.get(Mercury, 'wiki.navigation') || Ember.get(Mercury, 'wiki.navData.navigation.wiki')
+				children: Ember.get(Mercury, 'wiki.localNav')
 			};
 
 			return this.injectParentPointersAndIndices(menuRoot);
@@ -56,20 +55,6 @@ export default Ember.Component.extend(
 					category: 'wiki-nav',
 					label: `header-${(index + 1)}`,
 				});
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			collapseSideNav() {
-				this.sendAction('collapseSideNav');
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			gotoRoot() {
-				this.set('currentMenuItem', this.get('menuRoot'));
 			},
 
 			/**

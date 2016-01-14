@@ -1,4 +1,5 @@
 import {track, trackActions} from '../../mercury/utils/track';
+import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting';
 
 /**
  * Type for search suggestion
@@ -11,7 +12,7 @@ import {track, trackActions} from '../../mercury/utils/track';
  */
 
 export default Ember.Component.extend({
-	classNames: ['local-wikia-search'],
+	classNames: ['local-wikia-search-2016'],
 
 	query: '',
 
@@ -34,6 +35,10 @@ export default Ember.Component.extend({
 	cachedResultsLimit: 100,
 	queryMinimalLength: 3,
 
+	searchPlaceholderLabel: Ember.computed(() => {
+		return i18n.t('app.search-label');
+	}),
+
 	/**
 	 * A set (only keys used) of query strings that are currently being ajax'd so
 	 * we know not to perform another request.
@@ -42,6 +47,41 @@ export default Ember.Component.extend({
 
 	// key: query string, value: Array<SearchSuggestionItem>
 	cachedResults: {},
+
+	actions: {
+		enter(value) {
+			// Experiment id from Optimizely
+			const experimentIds = {
+					prod: '3571301500',
+					dev: '3579160288'
+				},
+				variationNumber = getExperimentVariationNumber(experimentIds);
+
+			if (variationNumber === 1) {
+				// Use Google Search
+				// Hide SideNav
+				this.sendAction('toggleVisibility', false);
+				this.send('searchCancel');
+
+				this.sendAction('search', value);
+			} else {
+				// Use Wikia Search
+				window.location.assign('%@Special:Search?search=%@&fulltext=Search'.fmt(Mercury.wiki.articlePath, value));
+			}
+		},
+		searchFocus() {
+			this.set('isInSearchMode', true);
+			// Track when search is opened
+			track({
+				action: trackActions.click,
+				category: 'search',
+			});
+		},
+
+		clearSearch() {
+			this.set('query', null);
+		}
+	},
 
 	/**
 	 * Wrapper for query observer that also checks the cache
@@ -73,20 +113,6 @@ export default Ember.Component.extend({
 			Ember.run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
 		}
 	}),
-
-	actions: {
-		/**
-		 * @returns {void}
-		 */
-		collapseSideNav() {
-			this.setProperties({
-				isInSearchMode: false,
-				query: ''
-			});
-
-			this.sendAction('collapseSideNav');
-		},
-	},
 
 	/**
 	 * @param {SearchSuggestionItem[]} suggestions

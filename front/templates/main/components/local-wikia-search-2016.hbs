@@ -1,13 +1,23 @@
+<div class='search-container'>
+	<div class="search-input-container">
+		{{svg 'search-side-menu' viewBox='0 0 14 14' class='icon search-side-menu'}}
+		{{input tabindex='-1' placeholder=searchPlaceholderLabel focus-in='searchFocus' value=query enter='enter'}}
+		<div class='clear-search-btn' {{action 'clearSearch'}}>
+			{{svg 'close-side-menu' viewBox='0 0 18 18' class='icon close-side-menu'}}
+		</div>
+	</div>
+	<div {{action 'clearSearch'}} class='cancel'>{{i18n 'app.cancel-label'}}</div>
+</div>
 <ul>
 	{{#each suggestions as |suggestion|}}
 		<li class="mw-content">
-		{{#link-to 'article' suggestion.uri action=this.attrs.collapse}}
-			{{suggestion.title}}
-		{{/link-to}}
+			{{#link-to 'article' suggestion.uri action=this.attrs.collapse}}
+				{{suggestion.title}}
+			{{/link-to}}
 		</li>
 	{{else}}
-	{{#if isLoadingSearchResults}}
-		<li><span>{{i18n 'app.search-loading-msg'}}</span></li>
-	{{/if}}
+		{{#if isLoadingSearchResults}}
+			<li><span>{{i18n 'app.search-loading-msg'}}</span></li>
+		{{/if}}
 	{{/each}}
 </ul>

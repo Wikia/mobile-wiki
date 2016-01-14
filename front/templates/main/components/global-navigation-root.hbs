@@ -2,5 +2,5 @@
 {{#each hubsLinks as |link|}}
 	<a href="{{link.href}}">{{link.text}}</a>
 {{/each}}
-<a {{action this.attrs.showNav 'wikia'}} href="#">{{exploreWikiaLabel}}</a>
+<a {{action this.attrs.showNav 'explore'}} href="#">{{exploreWikiaLabel}}</a>
 <a {{action this.attrs.showNav 'local'}} href="#">{{i18n 'app.exploreWiki' wikiName=wikiName}}</a>
