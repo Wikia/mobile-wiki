@@ -5,11 +5,12 @@
 	</a>
 	<button class="active-element-theme-color" type="submit" {{action 'create' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitText ns='discussion'}}</button>
 		<div class="editor-wrapper">
-			{{textarea class='editor-textarea' keyPress=(action 'handleKeyPress') input=(action 'updateOnInput') focusIn=(action 'toggleEditorActive' true) value=bodyText placeholder=(i18n placeholderText ns='discussion')}}
-			<span class="editor-textarea-overflow" {{action 'toggleEditorActive' true}}></span>
+			{{textarea class='editor-textarea' keyPress=(action 'handleKeyPress') focusIn=(action 'onFocus') value=bodyText placeholder=(i18n placeholderText ns='discussion')}}
+			<div class="editor-textarea-overflow" {{action 'toggleEditorActive' true}}></div>
 		</div>
 	{{user-avatar
 		avatarUrl=currentUser.avatarPath
+		shouldWrapInHref=false
 	}}
 	{{#if isLoading}}
 		{{loading-spinner

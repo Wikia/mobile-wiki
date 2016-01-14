@@ -1,8 +1,6 @@
-import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
 import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
 
 export default Ember.Component.extend(
-	DiscussionUpvoteActionSendMixin,
 	DiscussionParsedContentMixin,
 	{
 		classNames: ['post-detail'],
@@ -12,17 +10,6 @@ export default Ember.Component.extend(
 		postId: null,
 
 		routing: Ember.inject.service('-routing'),
-
-		/**
-		 * Returns link to the post author's user page
-		 * @returns {string}
-		 */
-		authorUrl: Ember.computed('post', function () {
-			return M.buildUrl({
-				namespace: 'User',
-				title: this.get('post.createdBy.name'),
-			});
-		}),
 
 		// Whether the component is displayed on the post details discussion page
 		isDetailsView: false,
@@ -50,11 +37,7 @@ export default Ember.Component.extend(
 			 */
 			goToPost(postId, event) {
 				event.preventDefault();
-				if (event.ctrlKey || event.metaKey) {
-					this.sendAction('goToPost', postId, true);
-				} else {
-					this.sendAction('goToPost', postId);
-				}
+				this.attrs.goToPost(postId, event.ctrlKey || event.metaKey);
 			},
 
 			/**

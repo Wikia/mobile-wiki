@@ -4,15 +4,16 @@ import ajaxCall from '../utils/ajax-call';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 
+	firstPost: null,
+	contributors: [],
+	isRequesterBlocked: false,
+	page: 0,
+	postCount: 0,
 	postId: null,
 	pivotId: null,
-	replyLimit: 10,
 	replies: [],
-	firstPost: null,
+	replyLimit: 10,
 	upvoteCount: 0,
-	postCount: 0,
-	page: 0,
-	contributors: [],
 
 	/**
 	 * @returns {Ember.RSVP.Promise}
@@ -72,7 +73,6 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 });
 
 DiscussionPostModel.reopenClass({
-
 	/**
 	 * @param {number} wikiId
 	 * @param {number} postId

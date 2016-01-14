@@ -3,21 +3,20 @@
 		<div class="upvotes">
 			{{discussion-upvote-reply
 				post=post
-				upvote='upvote'
+				upvote=(action this.attrs.upvote)
 			}}
 		</div>
 		{{user-avatar
 			avatarUrl=author.avatarUrl
-			displayUsername=true
-			profileUrl=authorUrl
+			displayProfileName=true
 			username=author.name
 		}}
 		<span class="timestamp">
 			&bull; {{time-ago post.creationDate.epochSecond}}
 		</span>
 		{{discussion-delete
-			delete=this.attrs.deleteReply
-			undelete=this.attrs.undeleteReply
+			delete=(action this.attrs.deleteReply)
+			undelete=(action this.attrs.undeleteReply)
 			post=post
 		}}
 	</div>

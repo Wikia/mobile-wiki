@@ -25,10 +25,13 @@
     "action-retry-title":"Volver a intentar",
     "all-discussions-link-desktop":"Muéstrame todas las discusiones",
     "all-discussions-link-mobile":"Todas las discusiones",
-    "discussions-app-join":"Mantente al día de lo que ocurre. ¡Obtén la aplicación ahora!",
+    "discussions-app-join":"¿Deseas unirte a la discusión? ¡Obtén la aplicación ahora!",
     "back-to-discussions-link":"Todas las discusiones",
     "no-replies":"No hay respuestas aún.",
-    "no-replies-be-the-first":"No hay respuestas aún. ¡Se el primero!"
+    "no-replies-be-the-first":"No hay respuestas aún. ¡Se el primero!",
+    "modal-dialog-confirm":"OK",
+    "modal-dialog-log-in":"Iniciar sesión",
+    "empty-forum-text":"Todavía no hay ninguna discusión. ¡Empieza la discusión, crea el primer post ahora!"
   },
   "editor":{
     "post-failed-error":"Publicación fallada.",

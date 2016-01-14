@@ -1,8 +1,7 @@
-import LanguagesMixin from '../mixins/languages';
-import {track, trackActions} from '../../mercury/utils/track';
+import LoginLinkMixin from '../mixins/login-link';
 
 export default Ember.Component.extend(
-	LanguagesMixin,
+	LoginLinkMixin,
 	{
 		tagName: 'a',
 		classNames: ['external', 'login'],
@@ -11,27 +10,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		click() {
-			let label,
-				href;
-
-			if (Mercury.wiki.enableNewAuth) {
-				href = `/join?redirect=` +
-					`${encodeURIComponent(window.location.href)}` +
-					`${this.getUselangParam()}`;
-				label = 'join-link';
-			} else {
-				label = 'legacy-login-link';
-				href = '/Special:UserLogin';
-			}
-
-			track({
-				trackingMethod: 'ga',
-				action: trackActions.click,
-				category: 'user-login-mobile',
-				label,
-			});
-
-			window.location.href = href;
+			this.goToLogin();
 		},
 	}
 );

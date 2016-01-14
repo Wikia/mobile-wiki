@@ -3,12 +3,13 @@ import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
 import ajaxCall from '../utils/ajax-call';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
+	contributors: [],
+	isRequesterBlocked: false,
+
 	name: null,
 	pageNum: null,
 	posts: null,
 	totalPosts: 0,
-
-	contributors: [],
 
 	/**
 	 * @param {number} pageNum
@@ -21,6 +22,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMix
 		return ajaxCall({
 			data: {
 				page: this.get('pageNum'),
+				pivot: this.get('pivotId'),
 				sortKey: this.getSortKey(sortBy),
 				viewableOnly: false
 			},
@@ -107,6 +109,7 @@ DiscussionForumModel.reopenClass({
 			success: (data) => {
 				const contributors = [],
 					posts = data._embedded['doc:threads'],
+					pivotId = (posts.length > 0 ? posts[0].id : null),
 					totalPosts = data.threadCount;
 
 				posts.forEach((post) => {
@@ -122,6 +125,7 @@ DiscussionForumModel.reopenClass({
 				forumInstance.setProperties({
 					contributors,
 					name: data.name,
+					pivotId,
 					posts,
 					totalPosts
 				});

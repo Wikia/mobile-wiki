@@ -1,0 +1,100 @@
+{{discussion-header
+	showContent=false
+	headroomEnabled=false
+}}
+{{discussion-error-dialog
+	isVisible=shouldShowErrorMessage
+	errorMessage=errorMessage
+}}
+<div class="site-body-discussion post-details-view">
+	<div class="minimized discussion-hero-unit background-theme-color"></div>
+	<div class="discussion-page row">
+		<div class="rail large-2 columns">
+			{{community-badge}}
+			{{#link-to 'discussion.forum' model.forumId discussionSort.sortBy class="back-button active-element-theme-color"}}
+				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
+				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
+			{{/link-to}}
+			<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
+			{{#if model.replies}}
+				{{discussion-contributors
+					contributors=model.contributors
+					maxContributorDisplayCount=7
+					totalContributorCount=model.postCount
+				}}
+			{{else}}
+				<span class="no-replies-message">{{i18n 'main.no-replies' ns='discussion'}}</span>
+			{{/if}}
+		</div>
+		{{#if model.connectionError}}
+			{{discussion-connection-error
+				retry=(action this.attrs.retry)
+			}}
+		{{else if model.notFoundError}}
+			{{discussion-not-found-error
+				goToAllDiscussions=(action 'goToAllDiscussions')
+			}}
+		{{else}}
+				<div class="discussion post small-12 large-8 columns">
+					{{post-detail
+						author=model.firstPost.createdBy
+						deletePost=(action this.attrs.deletePost)
+						isDetailsView=true
+						post=model.firstPost
+						postId=model.id
+						replyCount=model.postCount
+						timestamp=model.firstPost.creationDate.epochSecond
+						undeletePost=(action this.attrs.undeletePost)
+						upvoteCount=model.upvoteCount
+						upvote=(action this.attrs.upvote)
+					}}
+					{{#if model.replies}}
+						<div class="desktop-hidden discussion-contributors-mobile">
+							{{discussion-contributors
+								contributors=model.contributors
+								maxContributorDisplayCount=7
+								totalContributorCount=model.postCount
+							}}
+						</div>
+						{{#if canShowMore}}
+							<button {{action this.attrs.loadMoreComments}} class="see-more active-element-theme-color">
+								{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+								{{i18n 'main.pagination-post-show-more' ns='discussion'}}
+							</button>
+						{{/if}}
+					{{/if}}
+					<div class="replies-list">
+						{{#each model.replies as |item index|}}
+							{{post-reply
+								post=item
+								author=item.createdBy
+								content=item.rawContent
+								deleteReply=(action this.attrs.deleteReply)
+								isParentDeleted=model.firstPost.isDeleted
+								timestamp=item.creationDate.epochSecond
+								undeleteReply=(action this.attrs.undeleteReply)
+								upvoteCount=item.upvoteCount
+								isNew=item.isNew
+								isVisible=item.isVisible
+								upvote=(action this.attrs.upvote)
+							}}
+						{{else}}
+							<div class="discussion-no-replies">
+								{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
+								{{i18n 'main.no-replies-be-the-first' ns='discussion'}}
+							</div>
+						{{/each}}
+						{{#unless model.firstPost.isDeleted}}
+							{{discussion-reply-editor
+								create=(action this.attrs.create)
+								replies=model.replies
+							}}
+						{{/unless}}
+					</div>
+				</div>
+		{{/if}}
+		<div class="rail large-2 columns">
+			{{discussion-app-promotion}}
+		</div>
+	</div>
+</div>
