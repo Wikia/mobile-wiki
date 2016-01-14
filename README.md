@@ -9,11 +9,11 @@ To begin your journey with Mercury all you need to do is:
 1. use `npm run dev`
 1. start developing
 
-For most cases you don't need to modify your `localSettings.js`, but if you do read [localSettings](#localSettings).
+For most cases you don't need to modify your `localSettings.js`, but if you do, read [this](#localsettings) section.
 
 If you are using Mercury on your local machine, install global dependencies by `npm run setup-for-local`.
 
-More available scripts are listed [here](#Scripts)
+More available scripts are listed [here](#scripts)
 
 ## Access Mercury
 ### Devbox environment
@@ -25,7 +25,7 @@ Open http://muppet.127.0.0.1.xip.io:7000/wiki/Kermit
 
 ## Scripts
 * `npm run setup` - install all dependencies, including node modules and bower components
-* `npm run setup-for-local` - install Ember-CLI, bower and gulp globally (**only on local machine**)
+* `npm run setup-for-local` - install Ember-CLI, Bower and Gulp globally (**only on local machine**)
 * `npm run build-dev` - build files for dev environment
 * `npm run build` - build files for prod environment
 * `npm run start` - run built application (**requires application to be build first**)
