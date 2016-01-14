@@ -144,7 +144,8 @@
     "curated-content-editor-main-page": "Main Page",
     "curated-content-editor-new-featured-content": "New Featured Content",
     "curated-content-editor-new-section": "New Section",
-    "curated-content-editor-new-category": "New Category"
+    "curated-content-editor-new-category": "New Category",
+    "exploreWiki": "Explore __wikiName__"
   },
   "userStatus": {
     "anon-cta": "__registerLink__ or __loginLink__",

@@ -1,0 +1,33 @@
+<li class="title">
+	{{#if parentItem}}
+		{{currentMenuItem.text}}
+	{{else}}
+		{{i18n 'app.side-nav-menu-label'}}
+	{{/if}}
+</li>
+{{#if parentItem}}
+	<li>
+		<div {{action 'goBack'}}>
+			{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron back'}}
+			{{i18n 'app.navigation-back-label'}}
+		</div>
+	</li>
+{{else}}
+	<li>
+		<div {{action 'loadRandomArticle'}} class="random-article-link">{{i18n 'app.random-page-label'}}</div>
+	</li>
+{{/if}}
+{{#each currentMenuItem.children as |child|}}
+	{{#if child.children}}
+		<li>
+			<div {{action 'changeMenuItem' child.index}}>
+				{{unbound child.text}}
+				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+			</div>
+		</li>
+	{{else}}
+        <li class="mw-content">
+			<a {{action 'collapseSideNav'}} href="{{unbound child.href}}">{{unbound child.text}}</a>
+		</li>
+	{{/if}}
+{{/each}}

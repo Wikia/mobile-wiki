@@ -31,11 +31,10 @@
 {{else}}
 	<div class='drawer'>
 		<a {{action 'collapse'}} href="#">close</a>
-		<a href="#">Sign In / Register</a>
-		<a href="#">Games</a>
-		<a href="#">Movies</a>
-		<a href="#">TV</a>
-		<a href="#">Explore Wikia</a>
-		<a href="#">Explore Wookipedia</a>
+		{{component
+		globalNavContent
+		showNav=(action 'showNav')
+		collapse=(action 'collapse')
+		}}
 	</div>
 {{/unless}}
