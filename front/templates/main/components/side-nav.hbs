@@ -38,12 +38,14 @@
 				{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
 			</a>
 		</div>
-		{{component
-		globalNavContent
-		replaceNavigationContent=(action 'replaceNavigationContent')
-		collapse=(action 'collapse')
-		loadRandomArticle=(action 'loadRandomArticle')
-		}}
+		<div class="drawer__contents">
+			{{component
+				globalNavContent
+				replaceNavigationContent=(action 'replaceNavigationContent')
+				collapse=(action 'collapse')
+				loadRandomArticle=(action 'loadRandomArticle')
+			}}
+		</div>
 		<div class="drawer__footer">
 			<span>The Home Of Fandom</span>
 		</div>

@@ -151,29 +151,40 @@
 	background: #39414d;
 	color: #fff;
 	width: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 $side-nav-item-height: 3.125rem;
 
 .drawer__footer {
 	height: $side-nav-item-height;
+	flex-grow: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
 	span {
 		border-bottom: 1px solid;
 		border-top: 1px solid;
-		color: #aaa;
-		display: inline-block;
-		font-size: 10px;
+		color: #8193a4;
+		display: block;
+		font-size: 14px;
 		font-weight: bold;
-		line-height: 16px;
-		margin-left: 8px;
+		line-height: 20px;
 		text-transform: uppercase;
+		height: 20px;
 	}
+}
+
+.drawer__contents {
+	flex-grow: 1;
 }
 
 .drawer__header {
 	background: #fff;
 	height: $side-nav-item-height;
+	flex-grow: 0;
 
 	.close {
 		align-items: center;
