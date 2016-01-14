@@ -1,5 +1,6 @@
 /* global ga */
-import {loadGlobalData, getLoginUrl, getJaCommunityUrl, getJaUniversityUrl, getStartWikiaUrl, getMobileBreakpoint, getOptimizelyId} from './globals';
+import {loadGlobalData, getLoginUrl, getJaCommunityUrl, getJaUniversityUrl,
+	getStartWikiaUrl, getMobileBreakpoint, getOptimizelyId} from './globals';
 import {loadSearch} from './search';
 
 /**
