@@ -148,12 +148,15 @@
 }
 
 .side-nav .drawer.drawer-2016 {
+	background: #39414d;
+	color: #fff;
 	width: 100%;
 }
 
 $side-nav-item-height: 3.125rem;
 
 .drawer__header {
+	background: #fff;
 	height: $side-nav-item-height;
 
 	.close {
@@ -176,4 +179,8 @@ $side-nav-item-height: 3.125rem;
 		height: 24px;
 		width: 24px;
 	}
+}
+
+.drawer__item {
+
 }

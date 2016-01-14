@@ -1,4 +1,4 @@
-<a {{action this.attrs.replaceNavigationContent 'root'}} href="#">BACK</a>
+<a class="drawer__item main" {{action this.attrs.replaceNavigationContent 'root'}} href="#">BACK</a>
 {{#each links as |link|}}
-	<a href="{{link.href}}">{{link.textEscaped}}</a>
+	<a class="drawer__item" href="{{link.href}}">{{link.textEscaped}}</a>
 {{/each}}

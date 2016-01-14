@@ -1,6 +1,6 @@
-<a href="#">Sign In / Register</a>
+<a class="drawer__item main" href="#">Sign In / Register</a>
 {{#each hubsLinks as |link|}}
-	<a href="{{link.href}}">{{link.text}}</a>
+	<a class="drawer__item" href="{{link.href}}">{{link.text}}</a>
 {{/each}}
-<a {{action this.attrs.replaceNavigationContent 'explore'}} href="#">{{exploreWikiaLabel}}</a>
-<a {{action this.attrs.replaceNavigationContent 'local'}} href="#">{{i18n 'app.exploreWiki' wikiName=wikiName}}</a>
+<a class="drawer__item" {{action this.attrs.replaceNavigationContent 'explore'}} href="#">{{exploreWikiaLabel}}</a>
+<a class="drawer__item" {{action this.attrs.replaceNavigationContent 'local'}} href="#">{{i18n 'app.exploreWiki' wikiName=wikiName}}</a>
