@@ -3,7 +3,7 @@
 		<div class="upvotes">
 			{{discussion-upvote-reply
 				post=post
-				upvote='upvote'
+				upvote=(action this.attrs.upvote)
 			}}
 		</div>
 		{{user-avatar
@@ -15,8 +15,8 @@
 			&bull; {{time-ago post.creationDate.epochSecond}}
 		</span>
 		{{discussion-delete
-			delete=this.attrs.deleteReply
-			undelete=this.attrs.undeleteReply
+			delete=(action this.attrs.deleteReply)
+			undelete=(action this.attrs.undeleteReply)
 			post=post
 		}}
 	</div>

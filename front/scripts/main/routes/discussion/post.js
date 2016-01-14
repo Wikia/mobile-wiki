@@ -67,12 +67,18 @@ export default DiscussionBaseRoute.extend(
 			},
 
 			/**
-			 * @param {number} forumId
-			 * @param {string} sort
+			 * Load more replies
 			 * @returns {void}
 			 */
-			goToForum(forumId, sort) {
-				this.transitionTo('discussion.forum', forumId, sort);
+			loadMoreComments() {
+				const model = this.modelFor('discussion.post');
+
+				model.loadNextPage().then(() => {
+					if (model.get('minorError')) {
+						// Hide more posts button when error occurred
+						model.set('postCount', model.get('replies.length'));
+					}
+				});
 			}
 		}
 	}

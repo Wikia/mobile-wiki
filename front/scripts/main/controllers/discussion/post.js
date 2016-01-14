@@ -3,29 +3,7 @@ import DiscussionDeleteControllerMixin from '../../mixins/discussion-delete-cont
 export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 	postListSort: '',
 
-	canShowMore: Ember.computed('model.postCount', 'model.replies.length', function () {
-		const model = this.get('model');
-
-		return model.get('replies.length') < model.get('postCount');
-	}),
-
 	actions: {
-		/**
-		 * @returns {void}
-		 */
-		expand() {
-			const model = this.get('model');
-
-			model.loadNextPage().then(() => {
-				const model = this.get('model');
-
-				if (model.get('minorError')) {
-					// Hide more posts button when error occurred
-					model.set('postCount', model.get('replies.length'));
-				}
-			});
-		},
-
 		/**
 		 * Bubbles up to DiscussionPostRoute
 		 *
@@ -36,19 +14,39 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 		},
 
 		/**
+		 * Bubbles up to DiscussionPostRoute
+		 *
+		 * @param {object} replyData
 		 * @returns {void}
 		 */
-		goToAllDiscussions() {
-			this.get('target').send('goToAllDiscussions');
+		create(replyData) {
+			this.get('target').send('create', replyData);
+		},
+
+		/**
+		 * Bubbles up to DiscussionPostRoute
+		 *
+		 * @param {object} post
+		 * @returns {void}
+		 */
+		upvote(post) {
+			this.get('target').send('upvote', post);
+		},
+
+		/**
+		 * Bubbles up to DiscussionPostRoute
+		 *
+		 * @returns {void}
+		 */
+		loadMoreComments() {
+			this.get('target').send('loadMoreComments');
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		goToForum() {
-			const model = this.get('model');
-
-			this.get('target').send('goToForum', model.get('forumId'), this.get('postListSort'));
+		goToAllDiscussions() {
+			this.get('target').send('goToAllDiscussions');
 		},
 	}
 });

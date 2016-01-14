@@ -1,0 +1,46 @@
+$discussion-error-dialog-header-font-size: $type-small;
+$discussion-error-dialog-header-line-height: $line-height-base;
+$discussion-error-dialog-content-line-height: 24px;
+
+.discussion-error-dialog {
+	.modal-dialog-wrapper {
+		justify-content: center;
+	}
+
+	.modal-dialog {
+		border-radius: 2px;
+		color: $discussion-error-dialog-text-color;
+		max-width: 640px;
+		padding: 0;
+
+		h1 {
+			font-size: $discussion-error-dialog-header-font-size;
+			line-height: $discussion-error-dialog-header-line-height;
+			margin: 24px 24px 0 24px;
+		}
+
+		.modal-dialog-content {
+			line-height: $discussion-error-dialog-content-line-height;
+			margin: 0;
+			padding: 24px;
+		}
+
+		footer {
+			border-top: 1px solid $discussion-error-dialog-separator-color;
+			display: flex;
+			height: 60px;
+			justify-content: flex-end;
+			padding: 6px;
+
+			button {
+				background-color: $discussion-error-dialog-background-color;
+				border: none;
+				height: 48px;
+
+				&:hover {
+					background-color: $discussion-error-dialog-button-hover-background-color;
+				}
+			}
+		}
+	}
+}

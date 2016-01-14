@@ -13,6 +13,7 @@
 	.modal-dialog {
 		background-color: $white;
 		box-shadow: 0 8px 12px rgba(0, 0, 0, .3);
+		max-width: 480px;
 		padding: 26px;
 		width: 100%;
 		z-index: $z-2;
