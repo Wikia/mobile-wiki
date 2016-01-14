@@ -1,3 +1,19 @@
+## release-199 (2016-01-12 12:10 UTC)
+* [SOC-1572](https://wikia-inc.atlassian.net/browse/SOC-1572) SOC-1572 | fixed a white box appearing behind the avatar when clicking in the top bar
+* [SOC-1809](https://wikia-inc.atlassian.net/browse/SOC-1809) SOC-1809 | fix for opening reply editor in iOS browsers
+* [SOC-1711](https://wikia-inc.atlassian.net/browse/SOC-1711) SOC-1711| translations updated
+* [INT-305](https://wikia-inc.atlassian.net/browse/INT-305) INT-305 | New extra small screen and medium screen breakpoints for he…
+* [INT-298](https://wikia-inc.atlassian.net/browse/INT-298) As a Wikia Japan user, I want to learn how to participate on Wikia on the home page
+* [SOC-1744](https://wikia-inc.atlassian.net/browse/SOC-1744) SOC-1744 | Added images for GoT and Community Connect
+* [SOC-1751](https://wikia-inc.atlassian.net/browse/SOC-1751) SOC-1751 | Displaying posts title in discussions
+* [INT-183](https://wikia-inc.atlassian.net/browse/INT-183) INT-183 | As a global Wikia user, I want to see the Wikia-in-your-lang features on mobile
+* image-review-frontend: PLATFORM-1564 | Image Review service
+* [VE-2116](https://wikia-inc.atlassian.net/browse/VE-2116) Change the usage of addmediatemporary and addmediapermanent APIs
+* [INT-277](https://wikia-inc.atlassian.net/browse/INT-277) INT-277 | Rename logout handler to signout
+* [INT-297](https://wikia-inc.atlassian.net/browse/INT-297) JP homepage new design - "what is wikia" section.
+* [INT-303](https://wikia-inc.atlassian.net/browse/INT-303) Add condition to retrieve avatar url from user attribute to …
+* [SOC-1711](https://wikia-inc.atlassian.net/browse/SOC-1711) SOC-1711| discussion-app-join new text
+
 ## release-198 (2016-01-07 11:19 UTC)
 * npm-fix: change karma version 0.13.15 -> 0.13.19
 * [SOC-1542](https://wikia-inc.atlassian.net/browse/SOC-1542) SOC-1542 | Adding weibo icon config to share-feature in chinese

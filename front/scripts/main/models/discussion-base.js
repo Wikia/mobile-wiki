@@ -10,6 +10,7 @@ export default Ember.Object.extend({
 	hasErrorMessage: false,
 	connectionError: null,
 	notFoundError: null,
+	pivotId: null,
 
 	/*
 	 * Set minorError to true, when you don't want to display error message e.g.:
