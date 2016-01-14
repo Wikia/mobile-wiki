@@ -25,10 +25,13 @@
     "action-retry-title":"Ponów próbę",
     "all-discussions-link-desktop":"Pokaż mi wszystkie dyskusje",
     "all-discussions-link-mobile":"Wszystkie dyskusje",
-    "discussions-app-join":"Bądź na bieżąco, nieważne gdzie jesteś. Pobierz aplikację teraz!",
+    "discussions-app-join":"Chcesz dołączyć do dyskusji? Pobierz aplikację!",
     "back-to-discussions-link":"Wszystkie dyskusje",
     "no-replies":"Nie ma jeszcze odpowiedzi.",
-    "no-replies-be-the-first":"Nie ma jeszcze odpowiedzi. Bądź pierwszy!"
+    "no-replies-be-the-first":"Nie ma jeszcze odpowiedzi. Bądź pierwszy!",
+    "modal-dialog-confirm":"OK",
+    "modal-dialog-log-in":"Zaloguj się",
+    "empty-forum-text":"No posts yet. Get the discussion started, create the first post now!"
   },
   "editor":{
     "post-failed-error":"Publikacja nie powiodła się.",
