@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf www/ node_modules/ front/auth/bower_components/ front/common/bower_components/ front/main/bower_components/ front/main/node_modules/ server/node_modules/ && npm cache clean && bower cache clean",
     "setup": "npm install && npm run setup-common && npm run setup-auth && npm run setup-main && npm run setup-server",
-    "setup-for-local": "npm install -g bower gulp ember-cli@2.2.0-beta.3",
+    "setup-for-local": "npm install -g bower gulp ember-cli@2.2.0-beta.6 bower gulp",
     "setup-common": "cd front/common && bower install",
     "setup-auth": "cd front/auth && bower install",
     "setup-main": "cd front/main && npm install && bower install",
