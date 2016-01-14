@@ -311,7 +311,7 @@ body.discussions {
 	}
 
 	&.forum {
-		margin-top: $discussion-header-height - $theme-bar-height;
+		margin-top: $discussion-header-height;
 
 		.discussion-content {
 			@include clamp(3);
