@@ -7,9 +7,17 @@
 	<span class="timestamp">
 		&bull; {{time-ago post.creationDate.epochSecond}}
 	</span>
-	<div class="discussion-post-more-options">
+	<div class="discussion-post-more-options" id="post-options-{{post.id}}">
 		{{svg "more" viewBox="0 0 4 18" class="icon more-icon"}}
 	</div>
+
+	{{#pop-over for=(concat "post-options-" post.id) on="click" flow="flip"}}
+		{{discussion-delete
+			delete=(action this.attrs.deletePost)
+			undelete=(action this.attrs.undeletePost)
+			post=post
+		}}
+	{{/pop-over}}
 </div>
 {{#if isDetailsView}}
 	<div class="discussion-content">
