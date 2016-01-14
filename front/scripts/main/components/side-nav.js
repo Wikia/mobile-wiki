@@ -22,7 +22,7 @@ export default Ember.Component.extend({
 		});
 	}),
 
-	globalNavContent: 'global-navigation-root',
+	globalNavContent: 'side-nav-global-navigation-root',
 
 	/**
 	 * Every time we exit search mode, regardless of if it was through the Cancel
@@ -47,7 +47,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		collapse() {
-			this.set('globalNavContent', 'global-navigation-root');
+			this.set('globalNavContent', 'side-nav-global-navigation-root');
 			this.sendAction('toggleVisibility', false);
 			this.send('searchCancel');
 		},
@@ -116,11 +116,11 @@ export default Ember.Component.extend({
 
 		replaceNavigationContent(navName) {
 			if (navName === 'explore') {
-				this.set('globalNavContent', 'explore-wikia-navigation');
+				this.set('globalNavContent', 'side-nav-explore-wikia-navigation');
 			} else if (navName === 'local') {
-				this.set('globalNavContent', 'local-navigation-root');
+				this.set('globalNavContent', 'side-nav-local-navigation-root');
 			} else if (navName === 'root') {
-				this.set('globalNavContent', 'global-navigation-root');
+				this.set('globalNavContent', 'side-nav-global-navigation-root');
 			}
 		}
 	},
