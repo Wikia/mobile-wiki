@@ -37,6 +37,15 @@ server.state('session', {
 	encoding: 'base64json'
 });
 
+server.ext('onPreResponse', function (request, reply) {
+	if (request.response.variety !== 'file') {
+		request.response.vary('cookie');
+	}
+
+	return reply.continue();
+});
+
+
 server.route(routes);
 
 server.views({
