@@ -238,7 +238,8 @@ $side-nav-item-height: 3.125rem;
 	}
 
 	&.main,
-	&.back {
+	&.back,
+	&.search {
 		background-color: #636b76;
 		margin-top: 0;
 
@@ -258,8 +259,26 @@ $side-nav-item-height: 3.125rem;
 		background-image: url('/front/images/side-nav-forward.svg');
 		background-position: right 12px center;
 		background-repeat: no-repeat;
-		padding-right: 40px;
 		background-size: 20px;
+		padding-right: 40px;
+	}
+
+	&.search-result {
+		&::before {
+			display: none;
+		}
+		&.loading {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+
+	&.search {
+		background-color: #2a3039;
+		color: #8f8e94;
+		display: flex;
+		padding: 0;
 	}
 }
 
@@ -270,3 +289,33 @@ $side-nav-item-height: 3.125rem;
 .side-nav-menu__item.lifestyle::before { background: $color-hub-lifestyle; }
 .side-nav-menu__item.music::before { background: $color-hub-music; }
 .side-nav-menu__item.tv::before { background: $color-hub-tv; }
+
+.side-search__container {
+	flex-grow: 1;
+	margin-left: 10px;
+	position: relative;
+
+	input[type='text'],
+	input[type='text']:focus {
+		all: unset;
+		background: transparent;
+		border: 0;
+		font: inherit;
+		margin: 0;
+		padding: 0;
+	}
+}
+.side-search__clear {
+	position: absolute;
+	right: 10px;
+	top: 0;
+	width: 15px;
+}
+.side-search__cancel {
+	padding: 0 10px;
+}
+.side-search__results {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}

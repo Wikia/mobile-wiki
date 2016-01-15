@@ -1,23 +1,26 @@
-<div class='search-container' style="display:none">
-	<div class="search-input-container">
-		{{svg 'search-side-menu' viewBox='0 0 14 14' class='icon search-side-menu'}}
+<div class="side-nav-menu__item search">
+	<div class="side-search__container">
 		{{input tabindex='-1' placeholder=searchPlaceholderLabel focus-in='searchFocus' value=query enter='enter'}}
-		<div class='clear-search-btn' {{action 'clearSearch'}}>
-			{{svg 'close-side-menu' viewBox='0 0 18 18' class='icon close-side-menu'}}
+		<div class='side-search__clear' {{action 'clearSearch'}}>
+			{{svg 'close-side-menu' viewBox='0 0 18 18' class='icon'}}
 		</div>
 	</div>
-	<div {{action 'clearSearch'}} class='cancel'>{{i18n 'app.cancel-label'}}</div>
+	<div {{action 'clearSearch'}} class='side-search__cancel'>
+		{{i18n 'app.cancel-label'}}
+	</div>
 </div>
-<ul style="display:none">
+<ul class="side-search__results">
 	{{#each suggestions as |suggestion|}}
-		<li class="mw-content">
+		<li class="side-nav-menu__item search-result mw-content">
 			{{#link-to 'article' suggestion.uri action=this.attrs.collapse}}
 				{{suggestion.title}}
 			{{/link-to}}
 		</li>
 	{{else}}
 		{{#if isLoadingSearchResults}}
-			<li><span>{{i18n 'app.search-loading-msg'}}</span></li>
+			<li class="side-nav-menu__item search-result loading">
+				{{i18n 'app.search-loading-msg'}}
+			</li>
 		{{/if}}
 	{{/each}}
 </ul>
