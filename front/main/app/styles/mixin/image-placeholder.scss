@@ -2,7 +2,7 @@
 %image-placeholder {
 	background: {
 		color: $gainsboro;
-		image: url('/front/common/symbols/brackets.svg');
+		image: $brackets-svg-image;
 		position: center;
 		repeat: no-repeat;
 		size: contain;

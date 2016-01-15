@@ -94,20 +94,20 @@ setupBower "/front/main/"
 
 ### Build - building application
 updateGit "Build" pending "building application"
-npm run build-dev 2>&1 | tee jenkins/mercury-build.log || error=true
-vim -e -s -c ':set bomb' -c ':wq' jenkins/mercury-build.log
+npm run build-dev 2>&1 | tee jenkins/build.log || error=true
+vim -e -s -c ':set bomb' -c ':wq' jenkins/build.log
 
 if [ -z $error ]
 then
-	updateGit "Build" success success $BUILD_URL"artifact/jenkins/mercury-build.log"
+	updateGit "Build" success success $BUILD_URL"artifact/jenkins/build.log"
 else
-	updateGit "Build" failure "failed on: building application" $BUILD_URL"artifact/jenkins/mercury-build.log"
+	updateGit "Build" failure "failed on: building application" $BUILD_URL"artifact/jenkins/build.log"
 	failTests && exit 1
 fi
 
 ### Front tests - running
 updateGit "Front tests" pending running
-npm run test-front 2>&1 | tee jenkins/front-tests.log || error1=true && error=true
+npm run test-front 2>&1 | tee jenkins/front-tests.log || (error1=true && error=true)
 vim -e -s -c ':set bomb' -c ':wq' jenkins/front-tests.log
 
 if [ -z $error1 ]
@@ -119,7 +119,7 @@ fi
 
 ### Server tests - running
 updateGit "Server tests" pending running
-npm run test-server 2>&1 | tee jenkins/server-tests.log || error2=true && error=true
+npm run test-server 2>&1 | tee jenkins/server-tests.log || (error2=true && error=true)
 vim -e -s -c ':set bomb' -c ':wq' jenkins/server-tests.log
 
 if [ -z $error2 ]
@@ -131,7 +131,7 @@ fi
 
 ### Linter - running
 updateGit "Linter" pending running
-npm run linter 2>&1 | tee jenkins/linter.log || error3=true && error=true
+npm run linter 2>&1 | tee jenkins/linter.log || (error3=true && error=true)
 vim -e -s -c ':set bomb' -c ':wq' jenkins/linter.log
 
 if [ -z $error3 ]
