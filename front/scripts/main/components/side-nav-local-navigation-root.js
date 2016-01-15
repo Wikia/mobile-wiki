@@ -7,11 +7,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		toggleSearchMode(enable) {
-			if (enable) {
-				this.set('localNavigationVisible', false);
-			} else {
-				this.set('localNavigationVisible', true);
-			}
+			this.set('localNavigationVisible', !enable);
 		}
 	}
 });
