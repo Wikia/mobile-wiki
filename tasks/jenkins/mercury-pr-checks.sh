@@ -94,14 +94,14 @@ setupBower "/front/main/"
 
 ### Build - building application
 updateGit "Build" pending "building application"
-npm run build-dev 2>&1 | tee jenkins/mercury-build.log || error=true
-vim -e -s -c ':set bomb' -c ':wq' jenkins/mercury-build.log
+npm run build-dev 2>&1 | tee jenkins/build.log || error=true
+vim -e -s -c ':set bomb' -c ':wq' jenkins/build.log
 
 if [ -z $error ]
 then
-	updateGit "Build" success success $BUILD_URL"artifact/jenkins/mercury-build.log"
+	updateGit "Build" success success $BUILD_URL"artifact/jenkins/build.log"
 else
-	updateGit "Build" failure "failed on: building application" $BUILD_URL"artifact/jenkins/mercury-build.log"
+	updateGit "Build" failure "failed on: building application" $BUILD_URL"artifact/jenkins/build.log"
 	failTests && exit 1
 fi
 
