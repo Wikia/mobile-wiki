@@ -291,7 +291,9 @@ export function createServerData(localSettings, wikiDomain = '') {
  * @returns {string}
  */
 export function getStaticAssetPath(localSettings, request) {
-	return localSettings.environment === Environment.Prod ?
+	const env = localSettings.environment || Environment.Dev;
+
+	return env !== Environment.Dev ?
 		// The CDN path should match what's used in https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
 		`${localSettings.cdnBaseUrl}/mercury-static/` :
 		`//${getCachedWikiDomainName(localSettings, request)}/front/`;
