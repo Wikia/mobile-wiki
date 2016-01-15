@@ -1,5 +1,5 @@
 <a class="side-nav-menu__item back" {{action this.attrs.replaceNavigationContent 'root'}} href="#">
-		BACK
+	{{i18n 'app.navigation-back-label'}}
 </a>
 {{#each links as |link|}}
 	<a class="side-nav-menu__item" href="{{link.href}}">
