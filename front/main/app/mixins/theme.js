@@ -11,7 +11,7 @@ export default Ember.Mixin.create(ColorUtilsMixin, {
 	themeSettings: {
 		dark: {
 			class: 'dark-theme',
-			css: '/front/main/assets/app-dark-theme.css'
+			stylesheet: '/front/main/assets/app-dark-theme.css'
 		}
 	},
 
@@ -46,7 +46,7 @@ export default Ember.Mixin.create(ColorUtilsMixin, {
 
 		$('<link>')
 			.attr({type: 'text/css', rel: 'stylesheet'})
-			.attr('href', `${this.themeSettings[this.themeActivated]}`)
+			.attr('href', `${this.themeSettings[this.themeActivated].stylesheet}`)
 			.appendTo('head');
 	},
 
