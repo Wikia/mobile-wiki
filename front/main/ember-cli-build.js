@@ -41,9 +41,8 @@ module.exports = function (defaults) {
 		outputPaths: {
 			app: {
 				css: {
-					'main/app': 'assets/main.css',
-					'main/app-dark-theme': 'assets/app-dark-theme.css',
-					'discussions/app': 'assets/discussions.css'
+					'app': 'assets/app.css',
+					'app-dark-theme': 'assets/app-dark-theme.css',
 				}
 			}
 		},
