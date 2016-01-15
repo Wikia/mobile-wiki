@@ -13,7 +13,7 @@ module.exports = function (defaults) {
 		},
 		inlineContent: {
 			baseline: 'vendor/baseline.js',
-			'wikia-logo': '../common/public/symbols/wikia-logo-blue.svg'
+			'wikia-logo': '../common/public/symbols/wikia-logo.svg'
 		},
 		sassOptions: {
 			includePaths: [
