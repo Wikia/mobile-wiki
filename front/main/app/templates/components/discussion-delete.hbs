@@ -1,12 +1,12 @@
 {{#if canUndelete}}
 	<a class="undelete-link" {{action this.attrs.undelete post}}>
 		{{svg 'undelete' viewBox='0 0 16 19' class='icon undelete'}}
-		<span>{{i18n 'main.undelete-post' ns='discussion'}}</span>
+		<span>{{undeleteMessage}}</span>
 	</a>
 {{/if}}
 {{#if canDelete}}
 	<a class="delete-link" {{action this.attrs.delete post}}>
 		{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
-		<span>{{i18n 'main.delete-post' ns='discussion'}}</span>
+		<span>{{deleteMessage}}</span>
 	</a>
 {{/if}}
