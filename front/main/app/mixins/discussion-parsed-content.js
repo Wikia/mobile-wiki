@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import nl2br from '../../mercury/utils/nl2br';
+import nl2br from 'common/utils/nl2br';
 import truncate from '../utils/truncate';
 
 /**
