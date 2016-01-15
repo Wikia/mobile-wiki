@@ -14,7 +14,7 @@
 	img {
 		background: {
 			color: rgb(223,223,223);
-			image: url('/front/common/symbols/brackets.svg');
+			image: url($brackets-svg-image);
 			position: center;
 			repeat: no-repeat;
 			size: contain;
