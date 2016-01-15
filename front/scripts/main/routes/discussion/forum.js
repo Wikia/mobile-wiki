@@ -8,7 +8,8 @@ export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionDeleteRouteMixin, {
-		defaultSortType: 'trending',
+		discussionSort: Ember.inject.service(),
+
 		forumId: null,
 
 		/**
@@ -16,22 +17,13 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
-			const sortBy = params.sortBy || this.defaultSortType;
+			if (params.sortBy) {
+				this.get('discussionSort').setSortBy(params.sortBy);
+			}
 
 			this.set('forumId', params.forumId);
 
-			return DiscussionForumModel.find(Mercury.wiki.id, params.forumId, sortBy);
-		},
-
-		/**
-		 * @param {Ember.Controller} controller
-		 * @param {Ember.Object} model
-		 * @param {EmberStates.Transition} transition
-		 * @returns {void}
-		 */
-		setupController(controller, model, transition) {
-			this._super(controller, model, transition);
-			controller.set('sortBy', transition.params['discussion.forum'].sortBy || this.defaultSortType);
+			return DiscussionForumModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
 		},
 
 		/**
@@ -39,14 +31,7 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {EmberStates.Transition}
 		 */
 		setSortBy(sortBy) {
-			const controller = this.controllerFor('discussion.forum');
-
-			controller.set('sortBy', sortBy);
-
-			if (controller.get('sortAlwaysVisible') !== true) {
-				this.controllerFor('discussion.forum').set('sortVisible', false);
-			}
-
+			this.get('discussionSort').setSortBy(sortBy);
 			return this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
 		},
 
@@ -56,9 +41,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				const sortBy = this.controllerFor('discussion.forum').get('sortBy') || this.defaultSortType;
-
-				this.modelFor('discussion.forum').loadPage(pageNum, sortBy);
+				this.modelFor('discussion.forum').loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
 			create(postData) {

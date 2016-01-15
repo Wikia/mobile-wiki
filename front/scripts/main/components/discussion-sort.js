@@ -3,17 +3,8 @@ export default Ember.Component.extend({
 	classNameBindings: ['sortVisible::mobile-hidden'],
 	tagName: 'ul',
 
-	// Whether the component is currently visible
-	sortVisible: false,
+	discussionSort: Ember.inject.service(),
 
-	actions: {
-		/**
-		 * @param {string} sortBy
-		 * @returns {void}
-		 */
-		setSortBy(sortBy) {
-			// Send action up to route object
-			this.sendAction('setSortBy', sortBy);
-		},
-	},
+	// Whether the component is currently visible
+	sortVisible: Ember.computed.oneWay('discussionSort.sortVisible'),
 });

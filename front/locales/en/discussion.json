@@ -28,7 +28,9 @@
     "discussions-app-join": "Stay up to date on the go. Get the app now!",
     "back-to-discussions-link": "All Discussions",
     "no-replies": "No replies yet.",
-    "no-replies-be-the-first": "No replies yet. Be the first!"
+    "no-replies-be-the-first": "No replies yet. Be the first!",
+    "modal-dialog-confirm": "OK",
+    "modal-dialog-log-in": "Sign in"
   },
   "editor": {
     "post-failed-error": "Post failed.",

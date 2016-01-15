@@ -25,10 +25,13 @@
     "action-retry-title":"請再試一次",
     "all-discussions-link-desktop":"展示所有討論",
     "all-discussions-link-mobile":"所有討論",
-    "discussions-app-join":"離線也能獲取最新資訊。 現在就下載手機App!",
+    "discussions-app-join":"想要參與討論？立即下載這款App吧！",
     "back-to-discussions-link":"所有討論",
     "no-replies":"還沒有答覆。",
-    "no-replies-be-the-first":"還沒有答覆。 您可以第一個答覆!"
+    "no-replies-be-the-first":"還沒有答覆。 您可以第一個答覆!",
+    "modal-dialog-confirm":"好的",
+    "modal-dialog-log-in":"登錄",
+    "empty-forum-text":"暫時沒有帖子。 趕快發佈第一條帖子進行討論吧！"
   },
   "editor":{
     "post-failed-error":"發佈失敗",

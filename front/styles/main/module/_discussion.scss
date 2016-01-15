@@ -315,13 +315,10 @@ body.discussions {
 	}
 
 	&.forum {
-		margin-top: $discussion-header-height - $theme-bar-height;
+		margin-top: $discussion-header-height;
 
 		.discussion-content {
 			@include clamp(3);
-
-			// Constrains content on the forum post list to 3 lines and + 0.3rem for the padding
-			max-height: $line-height-smallest * 3 + .3rem;
 		}
 
 		.post-detail {

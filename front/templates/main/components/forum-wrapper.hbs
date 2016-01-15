@@ -1,9 +1,6 @@
 {{discussion-post-editor
-	create='create'
-	isActive=editorActive
+	create=(action this.attrs.create)
 	posts=posts
-	setSortBy=setSortBy
-	requestErrorMessage=requestErrorMessage
 	siteHeadPinned=siteHeadPinned
 }}
 {{#each posts as |item|}}
@@ -15,7 +12,7 @@
 		postId=item.id
 		replyCount=item.postCount
 		undeletePost=(action this.attrs.undeletePost)
-		upvote='upvote'
+		upvote=(action this.attrs.upvote)
 	}}
 {{/each}}
 {{#if hasMore}}
