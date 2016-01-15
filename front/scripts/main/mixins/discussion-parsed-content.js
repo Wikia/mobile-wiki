@@ -5,13 +5,7 @@ import truncate from '../utils/truncate';
  * Handles sending upvote action outside from the component.
  */
 export default Ember.Mixin.create({
-	autolinkerConfig: {
-		email: false,
-		phone: false,
-		stripPrefix: false,
-		twitter: false
-	},
-
+	autolinkerConfig: {},
 	/**
 	 * Property used to truncate the post body to 148 chars.
 	 * This property is set only in Firefox and in IE, because in other browsers works 'line-clamp' css property.
@@ -34,11 +28,22 @@ export default Ember.Mixin.create({
 
 		escapedContent = nl2br(escapedContent);
 
+		return window.Autolinker ? window.Autolinker.link(escapedContent, this.autolinkerConfig) : escapedContent;
+	}),
+
+	init() {
+		this.autolinkerConfig = {
+			email: false,
+			phone: false,
+			stripPrefix: false,
+			twitter: false
+		};
+
 		if (!this.get('isDetailsView')) {
 			this.autolinkerConfig.replaceFn = this.wrapInSpan;
 		}
-		return window.Autolinker ? window.Autolinker.link(escapedContent, this.autolinkerConfig) : escapedContent;
-	}),
+		this._super();
+	},
 
 	/**
 	 * Wraps links in span instead of anchor tag in discussion forum view
