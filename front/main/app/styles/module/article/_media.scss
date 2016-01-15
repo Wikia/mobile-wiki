@@ -51,7 +51,7 @@
 	}
 
 	figcaption {
-		@extend %ellipsis;
+		@include ellipsis;
 		height: 50px;
 		pointer-events: auto;
 	}
@@ -144,7 +144,7 @@ figcaption {
 	}
 
 	figcaption {
-		@extend %ellipsis;
+		@include ellipsis;
 		bottom: 0;
 		color: white;
 		font-size: 0.9rem;
@@ -155,7 +155,7 @@ figcaption {
 		z-index: 1;
 
 		div {
-			@extend %ellipsis;
+			@include ellipsis;
 		}
 	}
 }

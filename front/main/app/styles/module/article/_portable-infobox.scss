@@ -138,7 +138,7 @@ $hero-caption-line-height: 18px;
 
 	.pi-hero-title,
 	.pi-hero-caption {
-		@extend %ellipsis;
+		@include ellipsis;
 		color: $infobox-hero-font-color;
 		text-shadow: 0 0 3px $infobox-hero-outline-color;
 

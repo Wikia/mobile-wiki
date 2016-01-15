@@ -35,7 +35,7 @@
 		}
 
 		figcaption {
-			@extend %ellipsis;
+			@include ellipsis;
 			font-size: .9rem;
 			font-weight: bold;
 			padding: 1rem;

@@ -1,5 +1,5 @@
 // Forces text to a single line and truncates it with ellipsis
-%ellipsis {
+@mixin ellipsis {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
