@@ -92,7 +92,7 @@ setupBower "/front/main/"
 
 ### Mercury build - building application
 updateGit "Mercury build" pending "building application"
-npm run build 2>&1 | tee jenkins/mercury-build.log || error3=true
+npm run build-dev 2>&1 | tee jenkins/mercury-build.log || error3=true
 vim -e -s -c ':set bomb' -c ':wq' jenkins/mercury-build.log
 
 if [ -z $error3 ]
