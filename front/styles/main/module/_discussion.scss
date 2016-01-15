@@ -36,10 +36,6 @@ body.discussions {
 		}
 	}
 
-	.clickable {
-		cursor: pointer;
-	}
-
 	.count {
 		color: $discussion-count-color;
 		font-size: $type-min;
@@ -68,20 +64,17 @@ body.discussions {
 	}
 
 	.discussion-content {
-		color: $discussion-content-color;
-		display: block;
-		margin: 5px 0 0;
-		padding: .3rem 0 0;
-	}
+		margin: 5px 0;
+		padding: .3rem 0;
 
-	.post-content {
-		margin-bottom: 5px;
-		padding-bottom: .3rem;
-	}
-
-	.post-title {
-		line-height: $line-height-smallest;
-		margin: 0;
+		.post-details-link{
+			color: $discussion-content-color;
+			display: block;
+		}
+		.post-title {
+			line-height: $line-height-smallest;
+			margin: 0;
+		}
 	}
 
 	.post-title ~ .post-content {

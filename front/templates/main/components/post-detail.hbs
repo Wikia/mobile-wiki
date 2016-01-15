@@ -21,10 +21,12 @@
 		{{{parsedContent}}}
 	</div>
 {{else}}
-	{{#if post.title}}
-		<h2 class="post-title">{{#link-to 'discussion.post' postId class="discussion-content clickable"}}{{post.title}}{{/link-to}}</h2>
-	{{/if}}
-	{{#link-to 'discussion.post' postId class="discussion-content post-content clickable"}}{{{parsedContent}}}{{/link-to}}
+    <div class="discussion-content">
+		{{#if post.title}}
+			<h2 class="post-title">{{#link-to 'discussion.post' postId class="post-details-link"}}{{post.title}}{{/link-to}}</h2>
+		{{/if}}
+		{{#link-to 'discussion.post' postId class="post-details-link"}}{{{parsedContent}}}{{/link-to}}
+	</div>
 {{/if}}
 <div class="row">
 	{{discussion-upvote-post

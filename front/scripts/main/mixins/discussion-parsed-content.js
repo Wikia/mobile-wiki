@@ -4,7 +4,7 @@ import nl2br from '../../mercury/utils/nl2br';
  * Handles sending upvote action outside from the component.
  */
 export default Ember.Mixin.create({
-	autolinkerConfig : {
+	autolinkerConfig: {
 		email: false,
 		phone: false,
 		stripPrefix: false,
