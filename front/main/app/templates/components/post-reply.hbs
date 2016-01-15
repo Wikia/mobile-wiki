@@ -19,13 +19,23 @@
 		</div>
 
 		{{#pop-over for=(concat 'reply-options-' post.id) on='click' flow='flip'}}
-			{{discussion-delete
-				delete=(action 'delete')
-				deleteMessage=(i18n 'main.delete-reply' ns='discussion')
-				undelete=(action 'undelete')
-				undeleteMessage=(i18n 'main.undelete-reply' ns='discussion')
-				post=post
-			}}
+			<ul>
+				<li>
+					{{discussion-delete
+						delete=(action 'delete')
+						deleteMessage=(i18n 'main.delete-reply' ns='discussion')
+						undelete=(action 'undelete')
+						undeleteMessage=(i18n 'main.undelete-reply' ns='discussion')
+						post=post
+					}}
+				</li>
+				<li>
+					{{#link-to 'index'}}
+						{{svg 'eye' viewBox='0 0 16 12'}}
+						{{i18n 'main.all-posts-by-username' userName=author.name ns='discussion'}}
+					{{/link-to}}
+				</li>
+			</ul>
 		{{/pop-over}}
 	</div>
 	<div class="discussion-content">

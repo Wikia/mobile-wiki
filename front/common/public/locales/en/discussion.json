@@ -32,7 +32,8 @@
     "delete-post": "Delete Post",
     "undelete-post": "Undelete Post",
     "delete-reply": "Delete Reply",
-    "undelete-reply": "Undelete Reply"
+    "undelete-reply": "Undelete Reply",
+    "all-posts-by-username": "View All Posts By __userName__"
   },
   "editor": {
     "post-failed-error": "Post failed.",
