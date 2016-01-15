@@ -35,12 +35,20 @@ export default Ember.Mixin.create({
 		escapedContent = nl2br(escapedContent);
 
 		if (!this.get('isDetailsView')) {
-			this.autolinkerConfig.replaceFn = (autolinker, match) => {
-				if (match.getType() === 'url') {
-					return `<span class='url'>${match.getUrl()}</span>`;
-				}
-			};
+			this.autolinkerConfig.replaceFn = this.wrapInSpan;
 		}
 		return window.Autolinker ? window.Autolinker.link(escapedContent, this.autolinkerConfig) : escapedContent;
-	})
+	}),
+
+	/**
+	 * Wraps links in span instead of anchor tag in discussion forum view
+	 * @param {object} autolinker instance of class
+	 * @param {object} match which should be wrapped
+	 * @returns {string}
+	 */
+	wrapInSpan(autolinker, match) {
+		if (match.getType() === 'url') {
+			return `<span class='url'>${match.getUrl()}</span>`;
+		}
+	}
 });
