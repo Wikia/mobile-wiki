@@ -139,7 +139,7 @@
 
 /// 2016!
 
-.side-nav.collapsed .drawer.drawer-2016 {
+.side-nav.collapsed .side-nav-menu {
 	transform: translateX(-100%);
 
 	@include rtl {
@@ -147,18 +147,21 @@
 	}
 }
 
-.side-nav .drawer.drawer-2016 {
+.side-nav .side-nav-menu {
 	background: #39414d;
 	color: #fff;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	z-index: $z-side-nav;
 }
 
 $side-nav-item-height: 3.125rem;
 
-.drawer__footer {
-	height: $side-nav-item-height;
+.side-nav-menu__footer {
 	flex-grow: 0;
 	display: flex;
 	justify-content: center;
@@ -171,17 +174,19 @@ $side-nav-item-height: 3.125rem;
 		display: block;
 		font-size: 14px;
 		font-weight: bold;
-		line-height: 20px;
-		text-transform: uppercase;
 		height: 20px;
+		line-height: 20px;
+		margin: 15px;
+		text-transform: uppercase;
 	}
 }
 
-.drawer__contents {
+.side-nav-menu__contents {
 	flex-grow: 1;
+	overflow-y: scroll;
 }
 
-.drawer__header {
+.side-nav-menu__header {
 	background: #fff;
 	height: $side-nav-item-height;
 	flex-grow: 0;
@@ -208,14 +213,14 @@ $side-nav-item-height: 3.125rem;
 	}
 }
 
-.drawer__item {
+.side-nav-menu__item {
 	color: inherit;
 	display: block;
-	line-height: 3.125rem;
 	font-size: 20px;
 	font-weight: bold;
-	padding: 0 1rem;
+	line-height: 3.125rem;
 	margin: .125rem 0;
+	padding: 0 1rem;
 	position: relative;
 
 	&.main {
@@ -233,3 +238,11 @@ $side-nav-item-height: 3.125rem;
 		height: 100%;
 	}
 }
+
+.side-nav-menu__item.comics::before { background: $color-hub-comics; }
+.side-nav-menu__item.books::before { background: $color-hub-books; }
+.side-nav-menu__item.games::before { background: $color-hub-games; }
+.side-nav-menu__item.movies::before { background: $color-hub-movies; }
+.side-nav-menu__item.lifestyle::before { background: $color-hub-lifestyle; }
+.side-nav-menu__item.music::before { background: $color-hub-music; }
+.side-nav-menu__item.tv::before { background: $color-hub-tv; }

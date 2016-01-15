@@ -17,20 +17,20 @@
 			<div {{action 'searchCancel'}} class='cancel'>{{i18n 'app.cancel-label'}}</div>
 		</div>
 		{{local-wikia-search
-		sideNavVisible=shouldBeVisible
-		query=searchQuery
-		isInSearchMode=isInSearchMode
-		collapseSideNav='collapse'
+			sideNavVisible=shouldBeVisible
+			query=searchQuery
+			isInSearchMode=isInSearchMode
+			collapseSideNav='collapse'
 		}}
 		{{local-nav-menu
-		sideNavVisible=shouldBeVisible
-		loadRandomArticle='loadRandomArticle'
-		collapseSideNav='collapse'
+			sideNavVisible=shouldBeVisible
+			loadRandomArticle='loadRandomArticle'
+			collapseSideNav='collapse'
 		}}
 	</div>
 {{else}}
-	<div class='drawer drawer-2016'>
-		<div class="drawer__header">
+	<div class='side-nav-menu'>
+		<div class="side-nav-menu__header">
 			<a class="close" {{action 'collapse'}} href="#">
 				{{svg 'close' viewBox='0 0 18 18' class='icon icon--close'}}
 			</a>
@@ -38,7 +38,7 @@
 				{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
 			</a>
 		</div>
-		<div class="drawer__contents">
+		<div class="side-nav-menu__contents">
 			{{component
 				globalNavContent
 				replaceNavigationContent=(action 'replaceNavigationContent')
@@ -46,7 +46,7 @@
 				loadRandomArticle=(action 'loadRandomArticle')
 			}}
 		</div>
-		<div class="drawer__footer">
+		<div class="side-nav-menu__footer">
 			<span>The Home Of Fandom</span>
 		</div>
 	</div>
