@@ -1,3 +1,17 @@
+## release-200 (2016-01-14 15:22 UTC)
+* [SOC-1549](https://wikia-inc.atlassian.net/browse/SOC-1549) SOC-1549 - fixed loading spinner in firefox
+* [XW-456](https://wikia-inc.atlassian.net/browse/XW-456) XW-456 | Remove old variations of featured content
+* [SOC-1505](https://wikia-inc.atlassian.net/browse/SOC-1505) SOC-1505 | Displaying message to blocked user when opening editor
+* revert-1839-SOC-1483-backup: Revert "SOC-1483 | Displaying message on empty forums"
+* [SOC-1483](https://wikia-inc.atlassian.net/browse/SOC-1483) SOC-1483 | Displaying message on empty forums
+* [SOC-1785](https://wikia-inc.atlassian.net/browse/SOC-1785) SOC-1785
+* [INT-299](https://wikia-inc.atlassian.net/browse/INT-299) INT-299 | Invalidate cache when signing out
+* [SOC-1753](https://wikia-inc.atlassian.net/browse/SOC-1753) SOC-1753 - Duplicated post on post list page when other user posted
+* jenkins-task: add jenkins mercury-pr-checks script
+* [SOC-1782](https://wikia-inc.atlassian.net/browse/SOC-1782) SOC-1782 | Preserved moving username to new line in discussion post header
+* removing-unused-getlanguage-method: Maintenance | Removing unused getLanguage method
+* [SOC-1473](https://wikia-inc.atlassian.net/browse/SOC-1473) SOC-1473 | Convert controllers functionality to components and services
+
 ## release-199 (2016-01-12 12:10 UTC)
 * [SOC-1572](https://wikia-inc.atlassian.net/browse/SOC-1572) SOC-1572 | fixed a white box appearing behind the avatar when clicking in the top bar
 * [SOC-1809](https://wikia-inc.atlassian.net/browse/SOC-1809) SOC-1809 | fix for opening reply editor in iOS browsers

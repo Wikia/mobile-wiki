@@ -1,10 +1,8 @@
 import Ember from 'ember';
-import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
 import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
 import DiscussionMoreOptionsMixin from '../mixins/discussion-more-options';
 
 export default Ember.Component.extend(
-	DiscussionUpvoteActionSendMixin,
 	DiscussionParsedContentMixin,
 	DiscussionMoreOptionsMixin,
 	{
@@ -42,11 +40,7 @@ export default Ember.Component.extend(
 			 */
 			goToPost(postId, event) {
 				event.preventDefault();
-				if (event.ctrlKey || event.metaKey) {
-					this.sendAction('goToPost', postId, true);
-				} else {
-					this.sendAction('goToPost', postId);
-				}
+				this.attrs.goToPost(postId, event.ctrlKey || event.metaKey);
 			},
 
 			/**

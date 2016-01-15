@@ -25,10 +25,13 @@
     "action-retry-title":"Tente novamente",
     "all-discussions-link-desktop":"Mostre-me todas as discussões",
     "all-discussions-link-mobile":"Todas as discussões",
-    "discussions-app-join":"Mantenha-se atualizado em qualquer lugar. Obtenha o app agora!",
+    "discussions-app-join":"Você quer participar da discussão? Obtenha o app agora!",
     "back-to-discussions-link":"Todas as discussões",
     "no-replies":"Ainda sem respostas.",
-    "no-replies-be-the-first":"Ainda sem respostas. Seja o primeiro!"
+    "no-replies-be-the-first":"Ainda sem respostas. Seja o primeiro!",
+    "modal-dialog-confirm":"Ok",
+    "modal-dialog-log-in":"Iniciar sessão",
+    "empty-forum-text":"Nenhum post ainda. Inicie a discussão criando o primeiro post agora!"
   },
   "editor":{
     "post-failed-error":"O post falhou.",

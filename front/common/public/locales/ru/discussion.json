@@ -25,10 +25,13 @@
     "action-retry-title":"Попробовать снова",
     "all-discussions-link-desktop":"Показать все обсуждения",
     "all-discussions-link-mobile":"Все обсуждения",
-    "discussions-app-join":"Оставайтесь на связи где угодно. Установите приложение сейчас!",
+    "discussions-app-join":"Looking to join the discussion? Get the app now!",
     "back-to-discussions-link":"Все обсуждения",
     "no-replies":"Ответов пока нет.",
-    "no-replies-be-the-first":"Ответов пока нет. Оставьте свой ответ первым!"
+    "no-replies-be-the-first":"Ответов пока нет. Оставьте свой ответ первым!",
+    "modal-dialog-confirm":"ОК",
+    "modal-dialog-log-in":"Войти",
+    "empty-forum-text":"No posts yet. Get the discussion started, create the first post now!"
   },
   "editor":{
     "post-failed-error":"Публикация не удалась.",

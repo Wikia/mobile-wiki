@@ -8,6 +8,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	classNameBindings: ['isActive', 'hasError'],
 
 	currentUser: Ember.inject.service(),
+	discussionEditor: Ember.inject.service(),
 
 	isActive: false,
 	isSticky: false,
@@ -21,8 +22,6 @@ export default Ember.Component.extend(ViewportMixin, {
 	bodyText: '',
 	layoutName: 'components/discussion-editor',
 
-	errorMessage: Ember.computed.oneWay('requestErrorMessage'),
-
 	/**
 	 * @returns {boolean}
 	 */
@@ -30,16 +29,38 @@ export default Ember.Component.extend(ViewportMixin, {
 		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null;
 	}),
 
+	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
+		if (this.get('discussionEditor.isEditorOpen')) {
+			this.afterOpenActions();
+		} else {
+			this.afterCloseActions();
+		}
+	}),
+
+	/**
+	 * Reacts on new item creation failure in the model by stopping the throbber
+	 * @returns {void}
+	 */
+	editorLoadingObserver: Ember.observer('discussionEditor.shouldStopLoading', function () {
+		if (this.get('discussionEditor.shouldStopLoading') === true) {
+			this.set('isLoading', false);
+			this.set('discussionEditor.shouldStopLoading', false);
+		}
+	}),
+
 	/**
 	 * @returns {void}
 	 */
 	init(...params) {
-		this._super(...params);
-		this.set('isActive', false);
+		const discussionEditorService = this.get('discussionEditor');
 
-		Ember.$(document).on('click', '.new-post', () => {
-			this.actions.toggleEditorActive.call(this, true);
+		this._super(...params);
+		discussionEditorService.setProperties({
+			isAnon: !this.get('currentUser.isAuthenticated'),
+			isUserBlocked: this.get('model.isRequesterBlocked')
 		});
+
+		discussionEditorService.toggleEditor(false);
 	},
 
 	/**
@@ -88,16 +109,6 @@ export default Ember.Component.extend(ViewportMixin, {
 	},
 
 	/**
-	 * Display error message on post failure
-	 */
-	errorMessageObserver: Ember.observer('errorMessage', function () {
-		if (this.get('errorMessage')) {
-			alert(i18n.t(this.get('errorMessage'), {ns: 'discussion'}));
-		}
-		this.set('isLoading', false);
-	}),
-
-	/**
 	 * Ultra hack for editor on iOS
 	 * iOS is scrolling on textarea focus, changing it's size on focus prevent that
 	 * @returns {void}
@@ -119,32 +130,9 @@ export default Ember.Component.extend(ViewportMixin, {
 	click() {
 		// This next is needed for iOS
 		Ember.run.next(this, () => {
-			this.$('.editor-textarea').focus();
+			this.get('discussionEditor').toggleEditor(true);
 		});
 	},
-
-	/**
-	 * Handle message for anon when activating editor
-	 */
-	isActiveObserver: Ember.observer('isActive', function () {
-		if (this.get('isActive')) {
-			/*
-			 iOS hack for position: fixed - now we display loading icon.
-			 */
-			if (this.isIOSBrowser()) {
-				$('html, body').css({
-					height: '100%',
-					overflow: 'hidden'
-				});
-			}
-		} else {
-			$('html, body').css({
-				height: '',
-				overflow: ''
-			});
-		}
-	}),
-
 
 	/**
 	 * Perform animations and logic after post creation
@@ -170,10 +158,11 @@ export default Ember.Component.extend(ViewportMixin, {
 	 */
 	showNewPostAnimations(newItem) {
 		this.setProperties({
-			isActive: false,
 			bodyText: '',
 			showSuccess: false
 		});
+
+		this.get('discussionEditor').toggleEditor(false);
 
 		Ember.set(newItem, 'isVisible', true);
 
@@ -201,6 +190,56 @@ export default Ember.Component.extend(ViewportMixin, {
 		Ember.$(window).off('scroll.editor');
 	},
 
+	/**
+	 * Removes focus from editor textarea.
+	 * @returns {void}
+	 */
+	textareaBlur() {
+		this.$('.editor-textarea').blur();
+	},
+
+	/**
+	 * Allows setting iOS-specific styles to compensate for Safari's restrictions
+	 * @param {object} styles - style object to pass to jQuery
+	 * @returns {void}
+	 */
+	setiOSSpecificStyles(styles) {
+		if (this.isIOSBrowser()) {
+			Ember.$('html, body').css(styles);
+		}
+	},
+
+	/**
+	 * Calls what's needs to be done after editor is closed
+	 * @returns {void}
+	 */
+	afterCloseActions() {
+		this.set('isActive', false);
+		this.setiOSSpecificStyles({
+			height: '',
+			overflow: ''
+		});
+		this.textareaBlur();
+	},
+
+	/**
+	 * Calls what's needs to be done after editor is opened
+	 * @returns {void}
+	 */
+	afterOpenActions() {
+		this.set('isActive', true);
+
+		// We need this to be sure the transition of the editor has been completed
+		// before we're able to apply special styles for iOS and focus the textarea
+		Ember.run.next(this, () => {
+			this.setiOSSpecificStyles({
+				height: '100%',
+				overflow: 'hidden'
+			});
+			this.$('.editor-textarea').focus();
+		});
+	},
+
 	actions: {
 		/**
 		 * Send request to model to create new post and start animations
@@ -210,7 +249,7 @@ export default Ember.Component.extend(ViewportMixin, {
 			if (!this.get('submitDisabled')) {
 				this.set('isLoading', true);
 
-				this.sendAction('create', {
+				this.attrs.create({
 					body: this.get('bodyText'),
 					creatorId: this.get('currentUser.userId'),
 					siteId: Mercury.wiki.id
@@ -224,35 +263,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		 * @returns {void}
 		 */
 		toggleEditorActive(active) {
-			// do NOT set the editor active under certain rules:
-			// 1. user is not logged in
-			if (active === true && this.get('currentUser.userId') === null) {
-				const errorMessageOld = this.get('errorMessage');
-
-				this.setProperties({
-					isActive: false,
-					errorMessage: 'editor.post-error-anon-cant-post'
-				});
-
-				// to indicate errorMessage observer even if error message is the same as before
-				if (errorMessageOld === this.get('errorMessage')) {
-					this.notifyPropertyChange('errorMessage');
-				}
-
-				this.$('.editor-textarea').blur();
-
-				return;
-			}
-
-			this.set('isActive', active);
-		},
-
-		/**
-		 * Update editor when typing - activate editor
-		 * @returns {void}
-		 */
-		updateOnInput() {
-			this.set('isActive', true);
+			this.get('discussionEditor').toggleEditor(active);
 		},
 
 		/**
@@ -265,6 +276,16 @@ export default Ember.Component.extend(ViewportMixin, {
 				// Create post on CTRL + ENTER
 				this.send('create');
 			}
+		},
+
+		/**
+		 * Triggers on textarea's focus
+		 * @param {Event} event
+		 * @returns {void}
+		 */
+		onFocus(event) {
+			event.preventDefault();
+			this.send('toggleEditorActive', true);
 		}
 	}
 });

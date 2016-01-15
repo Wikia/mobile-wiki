@@ -47,7 +47,7 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	handleIOSFocus() {
-		if (/iPad|iPhone|iPod/.test(navigator.platform)) {
+		if (this.isIOSBrowser()) {
 			const $editorTextarea = $('.editor-textarea');
 
 			$editorTextarea

@@ -3,7 +3,7 @@
 		<div class="upvotes">
 			{{discussion-upvote-reply
 				post=post
-				upvote='upvote'
+				upvote=(action this.attrs.upvote)
 			}}
 		</div>
 		{{user-avatar
@@ -14,6 +14,7 @@
 		<span class="timestamp">
 			&bull; {{time-ago post.creationDate.epochSecond}}
 		</span>
+
 		<div class="discussion-more-options" id="reply-options-{{post.id}}">
 			{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
 		</div>
