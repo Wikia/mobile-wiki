@@ -11,6 +11,8 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		delete(item) {
+			// There's no API for closing Ember Pop-Up, so that's
+			// the only way to close it after triggering an action from it
 			this.$('.discussion-more-options').mousedown();
 			this.attrs.delete(item);
 		},
@@ -21,6 +23,8 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		undelete(item) {
+			// There's no API for closing Ember Pop-Up, so that's
+			// the only way to close it after triggering an action from it
 			this.$('.discussion-more-options').mousedown();
 			this.attrs.undelete(item);
 		}
