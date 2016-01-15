@@ -9,7 +9,7 @@ export default Ember.Component.extend({
 
 	name: null,
 
-	nameLowerCase: Ember.computed('name', function () {
+	nameLowerCase: Ember.computed('name', function() {
 		return this.get('name').toLowerCase().dasherize();
 	}),
 
