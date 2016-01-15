@@ -16,7 +16,7 @@
     "jquery.cookie": "1.4.1",
     "loader.js": "3.5.0",
     "numeral": "1.5.3",
-    "moment": 2.11.1,
+    "moment": "2.11.1",
     "ponto": "Wikia/ponto#develop",
     "script.js": "2.5.7",
     "vignette": "wikia/vignette-js#2.2.1",
