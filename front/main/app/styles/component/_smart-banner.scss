@@ -57,7 +57,7 @@
 	margin: 0 rem-calc(10);
 
 	.sb-title {
-		@extend %ellipsis;
+		@include ellipsis;
 		color: #333;
 		font-size: rem-calc(14);
 		font-weight: bold;
@@ -65,7 +65,7 @@
 	}
 
 	.sb-description {
-		@extend %ellipsis;
+		@include ellipsis;
 		color: #666;
 		font-size: rem-calc(10);
 	}

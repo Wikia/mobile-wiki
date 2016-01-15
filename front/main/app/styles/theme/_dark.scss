@@ -42,9 +42,9 @@ body.dark-theme {
 		border-bottom: 1px solid $dark-label-color-inactive;
 	}
 
-	input[type=text]:valid  + .floating-label,
+	input[type=text]:valid + .floating-label,
 	input[type=password]:valid + .floating-label,
-	input[type=email]:valid  + .floating-label,
+	input[type=email]:valid + .floating-label,
 	input[type=date]:valid + .floating-label {
 		color: $dark-label-color-valid;
 	}
@@ -73,7 +73,7 @@ body.dark-theme {
 	}
 
 	label {
-		color: $dark-label-color
+		color: $dark-label-color;
 	}
 
 	.discussion {
@@ -109,7 +109,8 @@ body.dark-theme {
 				}
 
 				.count {
-					a, span {
+					a,
+					span {
 						color: $dark-discussion-deleted-actions-color;
 					}
 				}
@@ -253,11 +254,13 @@ body.dark-theme {
 	.dark-theme {
 		.discussion {
 			background-color: transparent;
+
 			&.forum {
 				.post-detail {
 					border-bottom-color: $dark-discussion-reply-border-color;
 				}
 			}
+
 			&.post {
 				.post-detail {
 					background-color: transparent;
@@ -280,7 +283,7 @@ body.dark-theme {
 		}
 
 		.discussion-no-replies {
-			border-bottom-color: $dark-discussion-reply-border-color
+			border-bottom-color: $dark-discussion-reply-border-color;
 		}
 
 		.discussion-editor.reply-editor {

@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
 set -e
+set -x
 set -o pipefail
 mkdir jenkins || rm -rf jenkins/* && true
+dependenciesDir="/var/lib/jenkins/workspace/Mercury-UPDATE-node-modules"
 
 # $1 - context
 # $2 - state
@@ -27,9 +29,9 @@ failTests() {
 # $1 - directory
 setupNpm() {
 	oldPath=$(pwd)
-	md5old=$(md5sum ../Mercury-UPDATE-node-modules${1}package.json | sed -e "s#\(^.\{32\}\).*#\1#")
+	md5old=$(md5sum ${dependenciesDir}${1}package.json | sed -e "s#\(^.\{32\}\).*#\1#")
 	md5new=$(md5sum .${1}package.json | sed -e "s#\(^.\{32\}\).*#\1#")
-	sourceTarget="../Mercury-UPDATE-node-modules${1}node_modules .${1}node_modules"
+	sourceTarget="${dependenciesDir}${1}node_modules .${1}node_modules"
 
 	if [ "$md5new" = "$md5old" ]
 	then
@@ -52,9 +54,9 @@ setupNpm() {
 # $1 - directory
 setupBower() {
 	oldPath=$(pwd)
-	md5old=$(md5sum ../Mercury-UPDATE-node-modules${1}bower.json | sed -e "s#\(^.\{32\}\).*#\1#")
+	md5old=$(md5sum ${dependenciesDir}${1}bower.json | sed -e "s#\(^.\{32\}\).*#\1#")
 	md5new=$(md5sum .${1}bower.json | sed -e "s#\(^.\{32\}\).*#\1#")
-	sourceTarget="../Mercury-UPDATE-node-modules${1}bower_components .${1}bower_components"
+	sourceTarget="${dependenciesDir}${1}bower_components .${1}bower_components"
 
 	if [ "$md5new" = "$md5old" ]
 	then
@@ -92,7 +94,7 @@ setupBower "/front/main/"
 
 ### Mercury build - building application
 updateGit "Mercury build" pending "building application"
-npm run build 2>&1 | tee jenkins/mercury-build.log || error3=true
+npm run build-dev 2>&1 | tee jenkins/mercury-build.log || error3=true
 vim -e -s -c ':set bomb' -c ':wq' jenkins/mercury-build.log
 
 if [ -z $error3 ]
