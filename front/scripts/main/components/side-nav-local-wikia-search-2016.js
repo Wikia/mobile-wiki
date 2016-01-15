@@ -69,13 +69,19 @@ export default Ember.Component.extend({
 				window.location.assign('%@Special:Search?search=%@&fulltext=Search'.fmt(Mercury.wiki.articlePath, value));
 			}
 		},
+
 		searchFocus() {
-			this.set('isInSearchMode', true);
 			// Track when search is opened
 			track({
 				action: trackActions.click,
 				category: 'search',
 			});
+			this.sendAction('toggleSearchMode', true);
+		},
+
+		cancelSearch() {
+			this.set('query', null);
+			this.sendAction('toggleSearchMode', false);
 		},
 
 		clearSearch() {
@@ -108,9 +114,11 @@ export default Ember.Component.extend({
 			} else {
 				this.setSearchSuggestionItems(cached);
 			}
+			this.sendAction('toggleSearchMode', true);
 		} else {
 			this.set('isLoadingSearchResults', true);
 			Ember.run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
+			this.sendAction('toggleSearchMode', true);
 		}
 	}),
 

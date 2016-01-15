@@ -5,9 +5,11 @@
 			{{svg 'close-side-menu' viewBox='0 0 18 18' class='icon'}}
 		</div>
 	</div>
-	<div {{action 'clearSearch'}} class='side-search__cancel'>
-		{{i18n 'app.cancel-label'}}
-	</div>
+	{{#unless localNavigationVisible}}
+		<div {{action 'cancelSearch'}} class='side-search__cancel'>
+			{{i18n 'app.cancel-label'}}
+		</div>
+	{{/unless}}
 </div>
 <ul class="side-search__results">
 	{{#each suggestions as |suggestion|}}
