@@ -54,3 +54,5 @@ Some tips if you develop outside of devbox:
 ### [Release procedure](https://wikia-inc.atlassian.net/wiki/display/MER/Release+procedure)
 
 ### [How to update translations](https://github.com/Wikia/mercury/blob/dev/crowdin/README.md)
+
+### [Mercury - space on Confluence](https://wikia-inc.atlassian.net/wiki/display/MER/Mercury)
