@@ -14,15 +14,15 @@
 		<span class="timestamp">
 			&bull; {{time-ago post.creationDate.epochSecond}}
 		</span>
-		<div class="discussion-post-more-options" id="reply-options-{{post.id}}">
+		<div class="discussion-more-options" id="reply-options-{{post.id}}">
 			{{svg "more" viewBox="0 0 4 18" class="icon more-icon"}}
 		</div>
 
 		{{#pop-over for=(concat "reply-options-" post.id) on="click" flow="flip"}}
 			{{discussion-delete
-				delete=(action this.attrs.deleteReply)
+				delete=(action 'delete')
 				deleteMessage=(i18n 'main.delete-reply' ns='discussion')
-				undelete=(action this.attrs.undeleteReply)
+				undelete=(action 'undelete')
 				undeleteMessage=(i18n 'main.undelete-reply' ns='discussion')
 				post=post
 			}}

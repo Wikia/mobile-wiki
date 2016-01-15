@@ -34,13 +34,13 @@
 			<div class="discussion post small-12 large-8 columns">
 				{{post-detail
 					author=model.firstPost.createdBy
-					deletePost=(action 'deletePost')
+					delete=(action 'deletePost')
 					isDetailsView=true
 					post=model.firstPost
 					postId=model.id
 					replyCount=model.postCount
 					timestamp=model.firstPost.creationDate.epochSecond
-					undeletePost=(action 'undeletePost')
+					undelete=(action 'undeletePost')
 					upvoteCount=model.upvoteCount
 					upvote='upvote'
 				}}
@@ -65,10 +65,10 @@
 							post=item
 							author=item.createdBy
 							content=item.rawContent
-							deleteReply=(action 'deleteReply')
+							delete=(action 'deleteReply')
 							isParentDeleted=model.firstPost.isDeleted
 							timestamp=item.creationDate.epochSecond
-							undeleteReply=(action 'undeleteReply')
+							undelete=(action 'undeleteReply')
 							upvoteCount=item.upvoteCount
 							isNew=item.isNew
 							isVisible=item.isVisible
