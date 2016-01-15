@@ -312,7 +312,7 @@ body.discussions {
 	&.forum {
 		margin-top: $discussion-header-height;
 
-		.discussion-content {
+		.clamp {
 			@include clamp(3);
 		}
 
