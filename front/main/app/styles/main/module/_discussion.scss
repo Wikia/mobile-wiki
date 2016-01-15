@@ -57,10 +57,10 @@ body.discussions {
 	}
 
 	.discussion-post-more-options {
+		cursor: pointer;
 		display: inline-block;
 		float: right;
-		height: 18px;
-		text-align: right;
+		text-align: center;
 		width: 18px;
 
 		.more-icon {
@@ -138,6 +138,10 @@ body.discussions {
 			.upvote a {
 				cursor: default;
 			}
+		}
+
+		.pop-over-compass {
+			width: 300px;
 		}
 	}
 
@@ -236,7 +240,11 @@ body.discussions {
 			height: 20px;
 			width: 18px;
 		}
+	}
 
+	.delete-actions .icon {
+		width: 16px;
+		height: 19px;
 	}
 
 	.has-upvoted {
@@ -249,7 +257,7 @@ body.discussions {
 		}
 	}
 
-  	.load-more {
+	.load-more {
 		color: $discussion-load-more-color;
 		text-align: center;
 		width: 100%;
