@@ -1,1 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="45" viewBox="0 0 45 45"><g opacity=".5"><defs><path id="a" d="M1.27.97h42.26v43.06H1.27z"/></defs><clipPath id="b"><use xlink:href="#a" overflow="visible"/></clipPath><path clip-path="url(#b)" d="M43.52 22.5c0 11.9-9.46 21.53-21.12 21.53-11.67 0-21.13-9.64-21.13-21.53S10.73.97 22.4.97c11.66 0 21.12 9.64 21.12 21.53"/></g><g opacity=".3"><defs><path id="c" d="M0 .04h17.96v44.92H0z"/></defs><clipPath id="d"><use xlink:href="#c" overflow="visible"/></clipPath><path clip-path="url(#d)" fill="#fff" d="M1.37 22.5c0-10.3 6.87-18.9 16.6-21.02V.04C7.4 2.18 0 11.42 0 22.5s7.4 20.32 17.96 22.46v-1.44C8.24 41.4 1.36 32.8 1.36 22.5"/></g><g opacity=".3"><defs><path id="e" d="M26.83 0H45v45H26.83z"/></defs><clipPath id="f"><use xlink:href="#e" overflow="visible"/></clipPath><path clip-path="url(#f)" fill="#fff" d="M26.83 0v1.43c9.3 2.03 16.8 10.7 16.8 21.07 0 10.38-7.5 19.04-16.8 21.07V45C36.97 42.94 45 33.65 45 22.5S36.97 2.06 26.83 0"/></g><g opacity=".9"><defs><path id="g" d="M18.38 13.42h13.66v18.13H18.38z"/></defs><clipPath id="h"><use xlink:href="#g" overflow="visible"/></clipPath><path clip-path="url(#h)" fill="#fff" d="M18.38 13.42v18.13l13.66-9.06z"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="45" viewBox="0 0 45 45">
+  <g opacity=".5">
+    <defs>
+      <path id="play-a" d="M1.27.97h42.26v43.06H1.27z"/>
+    </defs>
+    <clipPath id="play-b">
+      <use xlink:href="#play-a" overflow="visible"/>
+    </clipPath>
+    <path clip-path="url(#play-b)" d="M43.52 22.5c0 11.9-9.46 21.53-21.12 21.53-11.67 0-21.13-9.64-21.13-21.53S10.73.97 22.4.97c11.66 0 21.12 9.64 21.12 21.53"/>
+  </g>
+  <g opacity=".3">
+    <defs>
+      <path id="play-c" d="M0 .04h17.96v44.92H0z"/>
+    </defs>
+    <clipPath id="play-d">
+      <use xlink:href="#play-c" overflow="visible"/>
+    </clipPath>
+    <path clip-path="url(#play-d)" fill="#fff" d="M1.37 22.5c0-10.3 6.87-18.9 16.6-21.02V.04C7.4 2.18 0 11.42 0 22.5s7.4 20.32 17.96 22.46v-1.44C8.24 41.4 1.36 32.8 1.36 22.5"/>
+  </g>
+  <g opacity=".3">
+    <defs>
+      <path id="play-e" d="M26.83 0H45v45H26.83z"/>
+    </defs>
+    <clipPath id="play-f">
+      <use xlink:href="#play-e" overflow="visible"/>
+    </clipPath>
+    <path clip-path="url(#play-f)" fill="#fff" d="M26.83 0v1.43c9.3 2.03 16.8 10.7 16.8 21.07 0 10.38-7.5 19.04-16.8 21.07V45C36.97 42.94 45 33.65 45 22.5S36.97 2.06 26.83 0"/>
+  </g>
+  <g opacity=".9">
+    <defs>
+      <path id="play-g" d="M18.38 13.42h13.66v18.13H18.38z"/>
+    </defs>
+    <clipPath id="play-h">
+      <use xlink:href="#play-g" overflow="visible"/>
+    </clipPath>
+    <path clip-path="url(#play-h)" fill="#fff" d="M18.38 13.42v18.13l13.66-9.06z"/>
+  </g>
+</svg>
