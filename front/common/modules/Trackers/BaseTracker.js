@@ -22,7 +22,7 @@ class BaseTracker {
 
 	/**
 	 *
-	 * @param {boolean}  synchronousCall
+	 * @param {boolean} synchronousCall
 	 * @param {function} onLoad
 	 *
 	 * @returns {void}
