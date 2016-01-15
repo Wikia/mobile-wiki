@@ -1,6 +1,6 @@
 export default Ember.Component.extend({
 
-	hubsLinks: Mercury.wiki.hubsLinks,
-	exploreWikiaLabel: Mercury.wiki.explore.textEscaped,
-	wikiName: Mercury.wiki.siteName
+	hubsLinks: Ember.get(Mercury, 'wiki.navigation.hubsLinks'),
+	exploreWikiaLabel: Ember.get(Mercury, 'wiki.navigation.explore.textEscaped'),
+	wikiName: Ember.get(Mercury, 'wiki.siteName')
 });

@@ -28,7 +28,7 @@ export default Ember.Component.extend(
 
 		menuRoot: Ember.computed('model', function () {
 			const menuRoot = {
-				children: Ember.get(Mercury, 'wiki.localNav')
+				children: Ember.get(Mercury, 'wiki.navigation.localNav')
 			};
 
 			return this.injectParentPointersAndIndices(menuRoot);
