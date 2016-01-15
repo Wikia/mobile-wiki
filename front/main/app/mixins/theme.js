@@ -5,14 +5,13 @@ import ColorUtilsMixin from './color-utils';
  * Sets the theme class for the body. For now only for dark theme, because the light is default.
  */
 export default Ember.Mixin.create(ColorUtilsMixin, {
-	cssPath: '/front/main/assets',
 	themeActivated: null,
 	themeColors: null,
 	themeLoadingInitialized: null,
 	themeSettings: {
 		dark: {
 			class: 'dark-theme',
-			css: 'app-dark-theme.css'
+			stylesheet: '/front/main/assets/app-dark-theme.css'
 		}
 	},
 
@@ -47,7 +46,7 @@ export default Ember.Mixin.create(ColorUtilsMixin, {
 
 		$('<link>')
 			.attr({type: 'text/css', rel: 'stylesheet'})
-			.attr('href', `${this.cssPath}/${this.themeSettings[this.themeActivated].css}`)
+			.attr('href', `${this.themeSettings[this.themeActivated].stylesheet}`)
 			.appendTo('head');
 	},
 

@@ -13,7 +13,7 @@ module.exports = function (defaults) {
 		},
 		inlineContent: {
 			baseline: 'vendor/baseline.js',
-			'wikia-logo': '../common/public/symbols/wikia-logo-blue.svg'
+			'wikia-logo': '../common/public/symbols/wikia-logo.svg'
 		},
 		sassOptions: {
 			includePaths: [
@@ -33,7 +33,7 @@ module.exports = function (defaults) {
 				// This duplicates build-common-symbols task but we still want to do it
 				// as there is no easy way to use external rev-manifest.json in here
 				{
-					sourceDirs: '../common/symbols',
+					sourceDirs: '../common/public/symbols',
 					outputFile: '/assets/common.svg'
 				}
 			]
@@ -41,9 +41,8 @@ module.exports = function (defaults) {
 		outputPaths: {
 			app: {
 				css: {
-					'main/app': 'assets/main.css',
-					'main/app-dark-theme': 'assets/app-dark-theme.css',
-					'discussions/app': 'assets/discussions.css'
+					app: 'assets/app.css',
+					'app-dark-theme': 'assets/app-dark-theme.css'
 				}
 			}
 		},
