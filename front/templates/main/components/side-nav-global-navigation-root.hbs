@@ -6,9 +6,9 @@
 		{{link.text}}
 	</a>
 {{/each}}
-<a class="side-nav-menu__item" {{action this.attrs.replaceNavigationContent 'explore'}} href="#">
+<a class="side-nav-menu__item menu" {{action this.attrs.replaceNavigationContent 'explore'}} href="#">
 	{{exploreWikiaLabel}}
 </a>
-<a class="side-nav-menu__item" {{action this.attrs.replaceNavigationContent 'local'}} href="#">
+<a class="side-nav-menu__item menu" {{action this.attrs.replaceNavigationContent 'local'}} href="#">
 	{{i18n 'app.exploreWiki' wikiName=wikiName}}
 </a>

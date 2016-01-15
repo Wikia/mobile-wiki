@@ -1,4 +1,4 @@
-<div class='search-container'>
+<div class='search-container' style="display:none">
 	<div class="search-input-container">
 		{{svg 'search-side-menu' viewBox='0 0 14 14' class='icon search-side-menu'}}
 		{{input tabindex='-1' placeholder=searchPlaceholderLabel focus-in='searchFocus' value=query enter='enter'}}
@@ -8,7 +8,7 @@
 	</div>
 	<div {{action 'clearSearch'}} class='cancel'>{{i18n 'app.cancel-label'}}</div>
 </div>
-<ul>
+<ul style="display:none">
 	{{#each suggestions as |suggestion|}}
 		<li class="mw-content">
 			{{#link-to 'article' suggestion.uri action=this.attrs.collapse}}

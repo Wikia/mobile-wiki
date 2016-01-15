@@ -1,4 +1,4 @@
-<li class="title">
+<li class="side-nav-menu__item main">
 	{{#if parentItem}}
 		{{currentMenuItem.text}}
 	{{else}}
@@ -6,27 +6,21 @@
 	{{/if}}
 </li>
 {{#if parentItem}}
-	<li>
-		<div {{action 'goBack'}}>
-			{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron back'}}
-			{{i18n 'app.navigation-back-label'}}
-		</div>
+	<li class="side-nav-menu__item back" {{action 'goBack'}}>
+		{{i18n 'app.navigation-back-label'}}
 	</li>
 {{else}}
-	<li>
-		<div {{action 'loadRandomArticle'}} class="random-article-link">{{i18n 'app.random-page-label'}}</div>
+	<li class="side-nav-menu__item" {{action 'loadRandomArticle'}}>
+		{{i18n 'app.random-page-label'}}
 	</li>
 {{/if}}
 {{#each currentMenuItem.children as |child|}}
 	{{#if child.children}}
-		<li>
-			<div {{action 'changeMenuItem' child.index}}>
-				{{unbound child.text}}
-				{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-			</div>
+		<li class="side-nav-menu__item menu" {{action 'changeMenuItem' child.index}}>
+			{{unbound child.text}}
 		</li>
 	{{else}}
-		<li class="mw-content">
+		<li class="side-nav-menu__item mw-content">
 			<a {{action this.attrs.collapse}} href="{{unbound child.href}}">{{unbound child.text}}</a>
 		</li>
 	{{/if}}

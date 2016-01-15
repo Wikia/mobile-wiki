@@ -150,22 +150,22 @@
 .side-nav .side-nav-menu {
 	background: #39414d;
 	color: #fff;
-	width: 100%;
 	display: flex;
 	flex-direction: column;
 	height: 100%;
 	position: fixed;
 	top: 0;
+	width: 100%;
 	z-index: $z-side-nav;
 }
 
 $side-nav-item-height: 3.125rem;
 
 .side-nav-menu__footer {
-	flex-grow: 0;
-	display: flex;
-	justify-content: center;
 	align-items: center;
+	display: flex;
+	flex-grow: 0;
+	justify-content: center;
 
 	span {
 		border-bottom: 1px solid;
@@ -188,8 +188,8 @@ $side-nav-item-height: 3.125rem;
 
 .side-nav-menu__header {
 	background: #fff;
-	height: $side-nav-item-height;
 	flex-grow: 0;
+	height: $side-nav-item-height;
 
 	.close {
 		align-items: center;
@@ -203,8 +203,8 @@ $side-nav-item-height: 3.125rem;
 	.wordmark {
 		display: block;
 		height: $side-nav-item-height;
-		text-align: center;
 		margin: 0 $side-nav-item-height;
+		text-align: center;
 	}
 
 	.icon--close {
@@ -223,19 +223,38 @@ $side-nav-item-height: 3.125rem;
 	padding: 0 1rem;
 	position: relative;
 
-	&.main {
-		background: #636b76;
-		margin-top: 0;
+	&::before {
+		background: $link-color;
+		content: ' ';
+		display: block;
+		height: 100%;
+		left: 0;
+		position: absolute;
+		width: .5rem;
 	}
 
-	&:not(.main)::before {
-		display: block;
-		content: ' ';
-		background: $link-color;
-		position: absolute;
-		left: 0;
-		width: .5rem;
-		height: 100%;
+	&.main,
+	&.back {
+		background-color: #636b76;
+		margin-top: 0;
+
+		&::before {
+			display: none;
+		}
+	}
+
+	&.back {
+		background-image: url('/front/images/side-nav-back.svg');
+		background-position: left 8px center;
+		background-repeat: no-repeat;
+		padding-left: 40px;
+	}
+
+	&.menu {
+		background-image: url('/front/images/side-nav-forward.svg');
+		background-position: right 8px center;
+		background-repeat: no-repeat;
+		padding-right: 40px;
 	}
 }
 

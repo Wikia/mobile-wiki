@@ -24,7 +24,7 @@ export default Ember.Component.extend(
 	TrackClickMixin,
 	{
 		tagName: 'ul',
-		classNames: ['local-nav-menu'],
+		classNames: ['local-nav-menu-2016'],
 
 		menuRoot: Ember.computed('model', function () {
 			const menuRoot = {
