@@ -37,7 +37,7 @@ export default Ember.Mixin.create({
 		if (!this.get('isDetailsView')) {
 			this.autolinkerConfig.replaceFn = (autolinker, match) => {
 				if (match.getType() === 'url') {
-					return `<span class='link'>${match.getUrl()}</span>`;
+					return `<span class='url'>${match.getUrl()}</span>`;
 				}
 			};
 		}
