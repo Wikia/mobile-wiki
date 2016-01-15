@@ -79,10 +79,7 @@ export default DiscussionEditorComponent.extend({
 	 */
 	handleIOSFocus() {
 		if (this.isIOSBrowser()) {
-			const $editorTextarea = $('.editor-textarea'),
-				$editorOverflow = $('.editor-textarea-overflow');
-
-			$editorOverflow.addClass('ios-special-class');
+			const $editorTextarea = $('.editor-textarea');
 
 			$editorTextarea
 				.css('height', '30px')

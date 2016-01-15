@@ -9,6 +9,7 @@ export default Ember.Object.extend({
 	},
 	errorClass: 'discussion-error-page',
 	errorMessage: null,
+	hasErrorMessage: false,
 	connectionError: null,
 	notFoundError: null,
 	pivotId: null,

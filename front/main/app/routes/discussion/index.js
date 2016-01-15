@@ -2,13 +2,13 @@ import Ember from 'ember';
 import DiscussionIndexModel from '../../models/discussion-index';
 
 export default Ember.Route.extend({
+	discussionSort: Ember.inject.service(),
+
 	/**
 	 * @returns {void}
 	 */
 	beforeModel() {
-		const controller = this.controllerFor('discussion.forum');
-
-		this.transitionTo('discussion.forum', Mercury.wiki.id, controller.get('sortTypes')[0].name);
+		this.transitionTo('discussion.forum', Mercury.wiki.id, this.get('discussionSort.sortBy'));
 	},
 
 	/**

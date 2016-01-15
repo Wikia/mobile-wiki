@@ -1,8 +1,6 @@
 import Ember from 'ember';
-import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-send';
 
 export default Ember.Component.extend(
-	DiscussionUpvoteActionSendMixin,
 	{
 		classNames: ['forum-wrapper', 'discussion', 'forum'],
 		postsDisplayed: 0,
@@ -22,33 +20,6 @@ export default Ember.Component.extend(
 		minorErrorObserver: Ember.observer('minorError', function () {
 			this.set('currentlyLoadingPage', false);
 		}),
-
-		actions: {
-			/**
-			 * @param {number} postId
-			 * @param {bool} openInNewTab
-			 * @returns {void}
-			 */
-			goToPost(postId, openInNewTab = false) {
-				this.sendAction('goToPost', postId, openInNewTab);
-			},
-
-			/**
-			 * @param {string} sortBy
-			 * @returns {void}
-			 */
-			setSortBy(sortBy) {
-				this.sendAction('setSortBy', sortBy);
-			},
-
-			/**
-			 * @param {any} postData
-			 * @returns {*}
-			 */
-			create(postData) {
-				return this.sendAction('create', postData);
-			},
-		},
 
 		/**
 		 * @returns {void}

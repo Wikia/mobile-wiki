@@ -8,8 +8,8 @@
 		&bull; {{time-ago post.creationDate.epochSecond}}
 	</span>
 	{{discussion-delete
-		delete=this.attrs.deletePost
-		undelete=this.attrs.undeletePost
+		delete=(action this.attrs.deletePost)
+		undelete=(action this.attrs.undeletePost)
 		post=post
 	}}
 </div>
@@ -31,7 +31,7 @@
 <div class="row">
 	{{discussion-upvote-post
 		post=post
-		upvote='upvote'
+		upvote=(action this.attrs.upvote)
 	}}
 	{{#if isDetailsView}}
 		<div class="small-5 large-2 columns count">

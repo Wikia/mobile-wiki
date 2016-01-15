@@ -3,12 +3,13 @@ import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
 import ajaxCall from '../utils/ajax-call';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
+	contributors: [],
+	isRequesterBlocked: false,
+
 	name: null,
 	pageNum: null,
 	posts: null,
 	totalPosts: 0,
-
-	contributors: [],
 
 	/**
 	 * @param {number} pageNum

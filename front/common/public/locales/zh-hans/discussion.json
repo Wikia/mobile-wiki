@@ -25,10 +25,13 @@
     "action-retry-title":"请再试一次",
     "all-discussions-link-desktop":"展示所有讨论",
     "all-discussions-link-mobile":"所有讨论",
-    "discussions-app-join":"离线也能获取最新资讯。现在就下载手机App!",
+    "discussions-app-join":"希望参与讨论？立即下载这款App吧！",
     "back-to-discussions-link":"所有讨论",
     "no-replies":"还没有回复。",
-    "no-replies-be-the-first":"还没有回复。您可以第一个回复!"
+    "no-replies-be-the-first":"还没有回复。您可以第一个回复!",
+    "modal-dialog-confirm":"好的",
+    "modal-dialog-log-in":"登入",
+    "empty-forum-text":"暂时没有帖子。赶快发布第一条帖子开始讨论吧！"
   },
   "editor":{
     "post-failed-error":"发布失败",
