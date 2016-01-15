@@ -223,6 +223,10 @@ $side-nav-item-height: 3.125rem;
 	padding: 0 1rem;
 	position: relative;
 
+	> a {
+		color: inherit;
+	}
+
 	&::before {
 		background: $link-color;
 		content: ' ';
@@ -252,9 +256,10 @@ $side-nav-item-height: 3.125rem;
 
 	&.menu {
 		background-image: url('/front/images/side-nav-forward.svg');
-		background-position: right 8px center;
+		background-position: right 12px center;
 		background-repeat: no-repeat;
 		padding-right: 40px;
+		background-size: 20px;
 	}
 }
 
