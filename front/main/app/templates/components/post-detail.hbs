@@ -8,10 +8,10 @@
 		&bull; {{time-ago post.creationDate.epochSecond}}
 	</span>
 	<div class="discussion-more-options" id="post-options-{{post.id}}">
-		{{svg "more" viewBox="0 0 4 18" class="icon more-icon"}}
+		{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
 	</div>
 
-	{{#pop-over for=(concat "post-options-" post.id) on="click" flow="flip"}}
+	{{#pop-over for=(concat 'post-options-' post.id) on='click' flow='flip'}}
 		{{discussion-delete
 			delete=(action 'delete')
 			deleteMessage=(i18n 'main.delete-post' ns='discussion')
