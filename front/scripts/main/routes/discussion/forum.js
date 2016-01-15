@@ -52,23 +52,6 @@ export default DiscussionBaseRoute.extend(
 
 		actions: {
 			/**
-			 * @param {number} postId
-			 * @param {bool} openInNewTab
-			 * @returns {void}
-			 */
-			goToPost(postId, openInNewTab = false) {
-				if (openInNewTab) {
-					window.open(this.get('router').generate('discussion.post', postId));
-				} else {
-					const postController = this.controllerFor('discussion.post'),
-						forumController = this.controllerFor('discussion.forum');
-
-					postController.set('postListSort', forumController.get('sortBy'));
-					this.transitionTo('discussion.post', postId);
-				}
-			},
-
-			/**
 			 * @param {number} pageNum
 			 * @returns {void}
 			 */

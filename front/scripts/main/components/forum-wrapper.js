@@ -24,15 +24,6 @@ export default Ember.Component.extend(
 
 		actions: {
 			/**
-			 * @param {number} postId
-			 * @param {bool} openInNewTab
-			 * @returns {void}
-			 */
-			goToPost(postId, openInNewTab = false) {
-				this.sendAction('goToPost', postId, openInNewTab);
-			},
-
-			/**
 			 * @param {string} sortBy
 			 * @returns {void}
 			 */
