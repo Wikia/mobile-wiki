@@ -200,8 +200,8 @@ body.discussions {
 		margin: 0 auto;
 		padding: 35px 0;
 		text-align: center;
-	  	width: inherit;
-  	}
+		width: inherit;
+	}
 	// border set for each element with "post-reply" class, after the first one
 	.post-reply ~ .post-reply {
 		.discussion-reply {
@@ -230,10 +230,10 @@ body.discussions {
 			height: 19px;
 			width: 24px;
 		}
-	  	&.no-replies {
-		  	display: block;
+		&.no-replies {
+			display: block;
 			height: 34px;
-		  	margin: 0 auto;
+			margin: 0 auto;
 			width: 40px;
 		}
 		&.toggle-share {
@@ -242,9 +242,19 @@ body.discussions {
 		}
 	}
 
-	.delete-actions .icon {
-		width: 16px;
-		height: 19px;
+	.delete-actions {
+		.icon {
+			width: 16px;
+			height: 19px;
+		}
+
+		a {
+			display: inline-block;
+		}
+
+		span {
+			vertical-align: middle;
+		}
 	}
 
 	.has-upvoted {
@@ -420,9 +430,9 @@ body.discussions {
 			margin-right: auto;
 		}
 
-	  	.discussion-no-replies {
+		.discussion-no-replies {
 			border-bottom: 1px solid $discussion-reply-border-color;
-	  	}
+		}
 	}
 }
 
