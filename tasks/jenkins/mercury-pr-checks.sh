@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
-set -v
+set -x
 set -o pipefail
 mkdir jenkins || rm -rf jenkins/* && true
 
