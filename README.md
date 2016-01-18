@@ -52,6 +52,8 @@ Some tips if you develop outside of devbox:
 
 ### [Tasks](https://github.com/Wikia/mercury/blob/dev/tasks/README.md)
 
+### [Mercury space - Confluence](https://wikia-inc.atlassian.net/wiki/display/MER/Mercury)
+
 ### [How to update translations](https://github.com/Wikia/mercury/blob/dev/crowdin/README.md)
 
-### [Mercury - space on Confluence](https://wikia-inc.atlassian.net/wiki/display/MER/Mercury)
+### [Troubleshooting](https://github.com/Wikia/mercury/blob/dev/TROUBLESHOOTING.md)
