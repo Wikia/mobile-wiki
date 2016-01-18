@@ -21,7 +21,6 @@ export default Ember.Component.extend(
 			 */
 			setLabelFocusedOut()
 			{
-				this.validateDescription();
 				this.set('isLabelFocused', false);
 			},
 
@@ -43,27 +42,7 @@ export default Ember.Component.extend(
 					tooltipMessage,
 					isTooltipVisible: true
 				});
-			},
-
-			save() {
-				console.log("save")
 			}
-		},
-
-		/**
-		 * @returns {boolean} is description valid
-		 */
-		validateDescription() {
-			let description = this.get('model.description'),
-				errorMessage = null;
-
-			if (Ember.isEmpty(description)) {
-				errorMessage = i18n.t('app.curated-content-editor-missing-wikia-description-error');
-				this.set('titleErrorMessage', errorMessage);
-				return !errorMessage;
-			}
-
-			return true;
 		}
 	}
 );

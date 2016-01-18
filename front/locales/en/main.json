@@ -149,7 +149,6 @@
     "curated-content-editor-wikia-description-description": "This is description of your wiki",
     "curated-content-editor-enter-wikia-description": "Enter wikia description here",
     "curated-content-editor-enter-wikia-description-tooltip": "Enter wikia description to this field and click save button",
-    "curated-content-editor-add-wikia-description-button": "Save description",
     "curated-content-editor-missing-wikia-description-error": "Description cannot be empty"
   },
   "userStatus": {

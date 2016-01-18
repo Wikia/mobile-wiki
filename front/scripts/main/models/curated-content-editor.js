@@ -88,7 +88,6 @@ CuratedContentEditorModel.reopenClass({
 					format: 'json'
 				},
 				success: (data) => {
-					console.log("data", data)
 					if (Ember.isArray(data.data)) {
 						resolve(CuratedContentEditorModel.sanitize(data));
 					} else {
@@ -110,7 +109,8 @@ CuratedContentEditorModel.reopenClass({
 	 */
 	prepareDataForSave(model) {
 		return {
-			data: [].concat(model.featured, model.curated.items, model.optional)
+			data: [].concat(model.featured, model.curated.items, model.optional),
+			metadata: model.wikiaMetadata
 		};
 	},
 
@@ -126,8 +126,6 @@ CuratedContentEditorModel.reopenClass({
 		 * Code inside CuratedContentController:getSections (MW) decides based on this label
 		 * if it's optional or not. If it's null it will fail rendering main page.
 		 */
-
-		console.log("rawData", rawData);
 		const curated = {
 			items: []
 		};
@@ -156,8 +154,6 @@ CuratedContentEditorModel.reopenClass({
 		if (rawData.metadata) {
 			wikiaMetadata.description = rawData.metadata.description || '';
 		}
-
-		console.log("wikiaMetadata", wikiaMetadata);
 
 		return CuratedContentEditorModel.create({
 			featured,
