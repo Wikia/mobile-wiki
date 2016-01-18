@@ -1,9 +1,13 @@
 import DiscussionBaseRoute from './base';
+import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
 import DiscussionUserModel from '../../models/discussion-user';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
+import DiscussionDeleteRouteMixin from '../../mixins/discussion-delete-route';
 
 export default DiscussionBaseRoute.extend(
-	DiscussionLayoutMixin, {
+	DiscussionLayoutMixin,
+	DiscussionRouteUpvoteMixin,
+	DiscussionDeleteRouteMixin, {
 
 		userId: null,
 
@@ -27,7 +31,17 @@ export default DiscussionBaseRoute.extend(
 			this.modelFor('discussion.user').loadPage(pageNum);
 		},
 
-		create() {
-		},
+		/**
+		 * @param {number} postId
+		 * @param {bool} openInNewTab
+		 * @returns {void}
+		 */
+		goToPost(postId, openInNewTab = false) {
+			if (openInNewTab) {
+				window.open(this.get('router').generate('discussion.post', postId));
+			} else {
+				this.transitionTo('discussion.post', postId);
+			}
+		}
 	}
 });

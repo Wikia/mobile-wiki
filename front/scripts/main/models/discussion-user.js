@@ -4,12 +4,31 @@ import ajaxCall from '../utils/ajax-call';
 
 const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 
-	wikiId: null,
-	userId: null,
+	pageNum: null,
 	replyLimit: 10,
+	userId: null,
+	posts: null,
 
-	loadPage() {
+	loadPage(pageNum = 0) {
+		this.set('pageNum', pageNum);
 
+		return ajaxCall({
+			data: {
+				page: this.get('pageNum'),
+				pivot: this.get('pivotId'),
+				viewableOnly: false
+			},
+			url: M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`),
+			success: (data) => {
+				const newPosts = data._embedded['doc:threads'],
+					allPosts = this.posts.concat(newPosts);
+
+				this.set('posts', allPosts);
+			},
+			error: (err) => {
+				this.handleLoadMoreError(err);
+			}
+		});
 	}
 });
 
@@ -29,7 +48,7 @@ DiscussionUserModel.reopenClass({
 			context: userInstance,
 			url: M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`, {
 				limit: userInstance.replyLimit,
-				//responseGroup: 'full',
+				responseGroup: 'full',
 				sortDirection: 'descending',
 				sortKey: 'creation_date',
 				viewableOnly: false
@@ -41,9 +60,14 @@ DiscussionUserModel.reopenClass({
 				// If there are no replies to the first post, 'doc:posts' will not be returned
 				if (posts) {
 					pivotId = posts[0].id;
-					posts.createdBy.profileUrl = M.buildUrl({
-						namespace: 'User',
-						title: posts[0].createdBy.name
+					posts.forEach((post) => {
+						if (post.hasOwnProperty('createdBy')) {
+							post.createdBy.profileUrl = M.buildUrl({
+								namespace: 'User',
+								title: post.createdBy.name
+							});
+						}
+						console.log(post, post._embedded);
 					});
 				}
 				userInstance.setProperties({
@@ -56,7 +80,6 @@ DiscussionUserModel.reopenClass({
 				});
 			},
 			error: (err) => {
-
 				userInstance.setErrorProperty(err);
 			}
 		});

@@ -22,6 +22,10 @@ export default Ember.Component.extend(
 
 		isNew: Ember.computed.oneWay('post.isNew'),
 
+		isReply: Ember.computed.oneWay('post.position', function () {
+			return Boolean(this.get('post.position'));
+		}),
+
 		// URL passed to the ShareFeatureComponent for sharing a post
 		sharedUrl: Ember.computed('postId', function () {
 			const localPostUrl = this.get('routing').router.generate('discussion.post', this.get('postId'));

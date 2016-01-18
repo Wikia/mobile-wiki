@@ -20,16 +20,6 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 		/**
 		 * Bubbles up to DiscussionForumRoute
 		 *
-		 * @param {object} postData
-		 * @returns {void}
-		 */
-		create(postData) {
-			this.get('target').send('create', postData);
-		},
-
-		/**
-		 * Bubbles up to DiscussionForumRoute
-		 *
 		 * @param {string} postId
 		 * @param {boolean} openInNewTab
 		 * @returns {void}
@@ -65,16 +55,6 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 		 */
 		goToAllDiscussions() {
 			this.get('target').send('goToAllDiscussions');
-		},
-
-		/**
-		 * Bubbles up to DiscussionForumRoute
-		 *
-		 * @param {string} sortBy
-		 * @returns {void}
-		 */
-		setSortBy(sortBy) {
-			this.get('target').send('setSortBy', sortBy);
 		}
 	}
 });
