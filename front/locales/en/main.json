@@ -144,7 +144,11 @@
     "curated-content-editor-main-page": "Main Page",
     "curated-content-editor-new-featured-content": "New Featured Content",
     "curated-content-editor-new-section": "New Section",
-    "curated-content-editor-new-category": "New Category"
+    "curated-content-editor-new-category": "New Category",
+    "curated-content-editor-wikia-description": "Wikia Description",
+    "curated-content-editor-wikia-description-description": "This is description of your wiki",
+    "curated-content-editor-enter-wikia-description": "Enter wikia description here",
+    "curated-content-editor-add-wikia-description-button": "Save description"
   },
   "userStatus": {
     "anon-cta": "__registerLink__ or __loginLink__",

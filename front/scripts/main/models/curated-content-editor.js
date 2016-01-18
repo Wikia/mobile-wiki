@@ -84,13 +84,13 @@ CuratedContentEditorModel.reopenClass({
 				}),
 				data: {
 					controller: 'CuratedContent',
-					method: 'getData',
+					method: 'getWithWikiaMetadata',
 					format: 'json'
 				},
 				success: (data) => {
 					console.log("data", data)
 					if (Ember.isArray(data.data)) {
-						resolve(CuratedContentEditorModel.sanitize(data.data));
+						resolve(CuratedContentEditorModel.sanitize(data));
 					} else {
 						reject('Invalid data was returned from Curated Content API');
 					}
@@ -135,29 +135,27 @@ CuratedContentEditorModel.reopenClass({
 				items: [],
 				featured: 'true'
 			},
-			wikiaMetadata = {
-				description: ''
-			},
+			wikiaMetadata = {},
 			optional = {
 				items: [],
 				label: ''
 			};
 
-		if (rawData.length) {
-			rawData.forEach((section) => {
+		if (rawData.data.length) {
+			rawData.data.forEach((section) => {
 				if (section.featured === 'true') {
 					featured = section;
 				} else if (section.label === '') {
 					optional = section;
-				} else if (section.wikiaMetadata) {
-					wikiaMetadata.description = section.wikiaMetadata.description;
 				} else {
 					curated.items.push(section);
 				}
 			});
 		}
 
-		wikiaMetadata.description = "some fake description";
+		if (rawData.metadata) {
+			wikiaMetadata.description = rawData.metadata.description || '';
+		}
 
 		console.log("wikiaMetadata", wikiaMetadata);
 
