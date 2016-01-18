@@ -249,14 +249,14 @@ $side-nav-item-height: 3.125rem;
 	}
 
 	&.back {
-		background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23FFF%22%20fill-rule%3D%22evenodd%22%20d%3D%22M12%2024l2.1-2.1-8.4-8.4H24v-3H5.7l8.4-8.4L12%200%200%2012l12%2012z%22%2F%3E%3C%2Fsvg%3E);
+		background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23FFF%22%20fill-rule%3D%22evenodd%22%20d%3D%22M12%2024l2.1-2.1-8.4-8.4H24v-3H5.7l8.4-8.4L12%200%200%2012l12%2012z%22%2F%3E%3C%2Fsvg%3E); // /front/svg/embedded/side-nav/back.svg
 		background-position: left 8px center;
 		background-repeat: no-repeat;
 		padding-left: 40px;
 	}
 
 	&.menu {
-		background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23656D77%22%20fill-rule%3D%22evenodd%22%20d%3D%22M12%200L9.9%202.1l8.4%208.4H0v3h18.3l-8.4%208.4L12%2024l12-12L12%200z%22%2F%3E%3C%2Fsvg%3E);
+		background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23656D77%22%20fill-rule%3D%22evenodd%22%20d%3D%22M12%200L9.9%202.1l8.4%208.4H0v3h18.3l-8.4%208.4L12%2024l12-12L12%200z%22%2F%3E%3C%2Fsvg%3E); // /front/svg/embedded/side-nav/menu.svg
 		background-position: right 12px center;
 		background-repeat: no-repeat;
 		background-size: 20px;
