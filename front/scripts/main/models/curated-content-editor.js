@@ -40,6 +40,7 @@ import CuratedContentEditorItemModel from '../models/curated-content-editor-item
 const CuratedContentEditorModel = Ember.Object.extend({
 	featured: null,
 	curated: null,
+	wikiaMetadata: null,
 	optional: null,
 	isDirty: false
 });
@@ -87,6 +88,7 @@ CuratedContentEditorModel.reopenClass({
 					format: 'json'
 				},
 				success: (data) => {
+					console.log("data", data)
 					if (Ember.isArray(data.data)) {
 						resolve(CuratedContentEditorModel.sanitize(data.data));
 					} else {
@@ -124,12 +126,17 @@ CuratedContentEditorModel.reopenClass({
 		 * Code inside CuratedContentController:getSections (MW) decides based on this label
 		 * if it's optional or not. If it's null it will fail rendering main page.
 		 */
+
+		console.log("rawData", rawData);
 		const curated = {
 			items: []
 		};
 		let featured = {
 				items: [],
-				featured: 'true',
+				featured: 'true'
+			},
+			wikiaMetadata = {
+				description: ''
 			},
 			optional = {
 				items: [],
@@ -142,14 +149,21 @@ CuratedContentEditorModel.reopenClass({
 					featured = section;
 				} else if (section.label === '') {
 					optional = section;
+				} else if (section.wikiaMetadata) {
+					wikiaMetadata.description = section.wikiaMetadata.description;
 				} else {
 					curated.items.push(section);
 				}
 			});
 		}
 
+		wikiaMetadata.description = "some fake description";
+
+		console.log("wikiaMetadata", wikiaMetadata);
+
 		return CuratedContentEditorModel.create({
 			featured,
+			wikiaMetadata,
 			curated,
 			optional
 		});

@@ -1,0 +1,23 @@
+<form {{action 'done' on='submit'}}>
+	<div class="curated-content-input-wrapper">
+		<div class="input-container {{if labelErrorMessage 'error'}}">
+			{{input
+				value=model.label
+				id='label'
+				class=labelClass
+				name='label'
+				focus-out='setLabelFocusedOut'
+				focus-in='setLabelFocusedIn'
+			}}
+			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">{{i18n 'app.curated-content-editor-enter-wikia-description'}}</label>
+			<span class="input-icon help" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-wikia-description-tooltip')}}></span>
+			{{#if labelErrorMessage}}
+				<small class="error">{{labelErrorMessage}}</small>
+			{{/if}}
+		</div>
+		<button {{action 'addItem'}} class="curated-content-editor-add-item-btn">{{addItemLabel}}</button>
+	</div>
+</form>
+
+
+

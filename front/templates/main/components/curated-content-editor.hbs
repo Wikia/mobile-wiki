@@ -3,6 +3,16 @@
 	<button {{action 'save'}} class="sub-head--done">{{i18n 'app.curated-content-editor-publish'}}</button>
 	<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=(i18n 'app.curated-content-editor-main-page')}}</div>
 </header>
+{{curated-content-editor-wikia-description
+	model=model.wikiaMetadata
+	block='wikiaDescription'
+	title=(i18n 'app.curated-content-editor-wiki-description')
+	description=(i18n 'app.curated-content-editor-wiki-description-description')
+	addItemLabel=(i18n 'app.curated-content-editor-add-wiki-description-button')
+	addItem='editWikiaDescription'
+	editItem='editWikiaDescription'
+	showHelp='showHelp'
+}}
 {{curated-content-editor-block
 	model=model.featured
 	block='featured'
