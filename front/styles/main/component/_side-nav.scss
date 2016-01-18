@@ -183,7 +183,7 @@ $side-nav-item-height: 3.125rem;
 
 .side-nav-menu__contents {
 	flex-grow: 1;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 .side-nav-menu__header {
