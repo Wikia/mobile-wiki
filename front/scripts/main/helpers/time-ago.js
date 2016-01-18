@@ -17,8 +17,9 @@ export default Ember.Helper.helper((params) => {
 			it: 'DD/MM/YY',
 			ja: 'YY/MM/DD',
 			ru: 'DD/MM/YY',
-			pt: 'DD/MM/YY',
-			zh: 'YY/MM/DD'
+			'pt-br': 'DD/MM/YY',
+			'zh-cn': 'YY/MM/DD',
+			'zh-tw': 'YY/MM/DD'
 		},
 		language = Mercury.wiki.language.user || 'en',
 		shouldHideAgoString = params[1] || true;
@@ -29,6 +30,8 @@ export default Ember.Helper.helper((params) => {
 
 	if (moment().diff(date, 'days') > 6) {
 		return date.format(dateFormats[language]);
+	} else if (moment().diff(date, 'minutes') < 1) {
+		return i18n.t('app.now-label');
 	} else {
 		return date.fromNow(shouldHideAgoString);
 	}
