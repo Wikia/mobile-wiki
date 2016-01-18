@@ -1,6 +1,6 @@
 /* global module */
 /* eslint-env es5, node */
-/* eslint prefer-template: 0, no-var: 0 */
+/* eslint prefer-template: 0, no-var: 0, one-var: 0, vars-on-top: 0 */
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app'),
 	Funnel = require('broccoli-funnel');
