@@ -158,16 +158,6 @@ export default Ember.Controller.extend(
 			},
 
 			/**
-			 * Bubbles up to ApplicationRoute
-			 *
-			 * @param {string} searchString
-			 * @returns {void}
-			 */
-			search(searchString) {
-				this.get('target').send('search', searchString);
-			},
-
-			/**
 			 * Sets query param with given name to given value. Uses whitelist.
 			 *
 			 * @param {string} name
