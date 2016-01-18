@@ -150,18 +150,6 @@ export default Ember.Route.extend(
 					});
 			},
 
-			/**
-			 * @param {string} searchString
-			 * @returns {void}
-			 */
-			search(searchString) {
-				this.transitionTo('searchResults', {
-					queryParams: {
-						q: searchString,
-					}
-				});
-			},
-
 			// We need to proxy these actions because of the way Ember is bubbling them up through routes
 			// see http://emberjs.com/images/template-guide/action-bubbling.png
 			/**
