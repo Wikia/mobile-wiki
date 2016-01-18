@@ -32,7 +32,8 @@ Open http://muppet.127.0.0.1.xip.io:7000/wiki/Kermit
 * `npm run dev` - build, run application and watch files
 * `npm run test` - run test-front and test-server (**requires application to be build first**)
 * `npm run linter` - run ESLint on all js files
-* `npm run clean` - remove all dependencies, clean the cache, remove build directory
+* `npm run clean` - remove all dependencies and build directory
+* `npm run clean-deep` - remove all dependencies, remove build directory and clean the cache
 
 ## localSettings
 `server/config/localSettings` is main configuration structure. All application settings should be stored there.
