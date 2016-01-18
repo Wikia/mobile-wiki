@@ -1,8 +1,15 @@
+import TrackClickMixin from '../mixins/track-click';
+import IEIFrameFocusFixMixin from '../mixins/ieiframe-focus-fix';
+
 export default Ember.Component.extend(
+	TrackClickMixin,
+	IEIFrameFocusFixMixin,
 	{
 		classNames: ['curated-content-editor-wikia-description', 'curated-content-editor-block'],
 		debounceDuration: 300,
 		spinnerOverlay: false,
+
+		isTooltipVisible: false,
 
 		isLabelFocused: false,
 		isLabelNotEmpty: Ember.computed.notEmpty('model.description'),
@@ -14,7 +21,6 @@ export default Ember.Component.extend(
 			 */
 			setLabelFocusedOut()
 			{
-				console.log("setLabelFocusedOut")
 				this.validateDescription();
 				this.set('isLabelFocused', false);
 			},
@@ -48,18 +54,12 @@ export default Ember.Component.extend(
 		 * @returns {boolean} is description valid
 		 */
 		validateDescription() {
-			let description,
+			let description = this.get('model.description'),
 				errorMessage = null;
 
-			if (!this.get('isSection')) {
-				description = this.get('model.description');
-
-				if (Ember.isEmpty(description)) {
-					errorMessage = i18n.t('app.curated-content-editor-missing-wikia-description-error');
-				}
-
+			if (Ember.isEmpty(description)) {
+				errorMessage = i18n.t('app.curated-content-editor-missing-wikia-description-error');
 				this.set('titleErrorMessage', errorMessage);
-
 				return !errorMessage;
 			}
 
