@@ -9,4 +9,8 @@
 		{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
 		<span>{{deleteMessage}}</span>
 	</a>
+	<a class="delete-link" {{action this.attrs.deleteAll post}}>
+		{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
+		<span>{{deleteAllMessage}}</span>
+	</a>
 {{/if}}

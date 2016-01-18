@@ -24,6 +24,27 @@ export default Ember.Mixin.create({
 	},
 
 	/**
+	 * Delete post in service
+	 * @param {object} post
+	 * @returns {Ember.RSVP.Promise|void}
+	 */
+	deleteAllPosts(post) {
+		alert('deleteAllPosts');
+		// if (checkPermissions(post, 'canDelete')) {
+		// 	return ajaxCall({
+		// 		method: 'PUT',
+		// 		url: M.getDiscussionServiceUrl(`/${this.wikiId}/user/${post.creatorId}/delete`),
+		// 		success: () => {
+		// 			Ember.set(post, 'isDeleted', true);
+		// 		},
+		// 		error: () => {
+		// 			this.displayError();
+		// 		}
+		// 	});
+		// }
+	},
+
+	/**
 	 * Undelete post in service
 	 * @param {object} post
 	 * @returns {Ember.RSVP.Promise|void}

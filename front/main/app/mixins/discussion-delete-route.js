@@ -29,6 +29,20 @@ export default Ember.Mixin.create({
 		},
 
 		/**
+		 * Pass post deletion to model
+		 * @param {object} post
+		 * @returns {void}
+		 */
+		deleteAllPosts(post) {
+			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
+
+			Ember.set(loadingSpinnerContainer, 'isLoading', true);
+			this.modelFor(this.get('routeName')).deleteAllPosts(post).then(() => {
+				Ember.set(loadingSpinnerContainer, 'isLoading', false);
+			});
+		},
+
+		/**
 		 * Pass post undeletion to model
 		 * @param {object} post
 		 * @returns {void}
