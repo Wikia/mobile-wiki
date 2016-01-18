@@ -55,7 +55,6 @@ export default Ember.Route.extend(
 		},
 
 		cropperLoadingInitialized: false,
-		cropperPath: '/front/vendor/cropper/dist',
 
 		/**
 		 * Loads Cropper css and js
@@ -63,18 +62,20 @@ export default Ember.Route.extend(
 		 * @returns {JQueryXHR} cropper
 		 */
 		loadCropper() {
+			const cssPath = '/front/main/assets/vendor/cropper/cropper.min.css',
+				jsPath = '/front/main/assets/vendor/cropper/cropper.min.js';
+
 			this.set('cropperLoadingInitialized', true);
 
 			$('<link>')
 				.attr({type: 'text/css', rel: 'stylesheet'})
-				.attr('href', `${this.cropperPath}/cropper.min.css`)
+				.attr('href', cssPath)
 				.appendTo('head');
 
-			return Ember.$.getScript(`${this.cropperPath}/cropper.min.js`);
+			return Ember.$.getScript(jsPath);
 		},
 
 		pontoLoadingInitialized: false,
-		pontoPath: '/front/vendor/ponto/web/src/ponto.js',
 
 		/**
 		 * Loads Ponto
@@ -82,9 +83,11 @@ export default Ember.Route.extend(
 		 * @returns {JQueryXHR} pronto
 		 */
 		loadPonto() {
+			const jsPath = '/front/main/assets/vendor/ponto/ponto.js';
+
 			this.set('pontoLoadingInitialized', true);
 
-			return Ember.$.getScript(this.pontoPath, () => {
+			return Ember.$.getScript(jsPath, () => {
 				const ponto = window.Ponto;
 
 				if (ponto && typeof ponto.setTarget === 'function') {

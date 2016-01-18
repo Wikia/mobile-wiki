@@ -2,7 +2,8 @@
 /* eslint-env es5, node */
 /* eslint prefer-template: 0, no-var: 0 */
 
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+var EmberApp = require('ember-cli/lib/broccoli/ember-app'),
+	Funnel = require('broccoli-funnel');
 
 module.exports = function (defaults) {
 	var app = new EmberApp(defaults, {
@@ -85,5 +86,14 @@ module.exports = function (defaults) {
 	app.import(app.bowerDirectory + '/ember-performance-sender/dist/ember-performance-sender.js');
 	app.import('vendor/common.js');
 
-	return app.toTree();
+	// Assets which are lazy loaded
+	var cropperAssets = new Funnel(app.bowerDirectory + '/cropper/dist', {
+			include: ['*.min.*'],
+			destDir: 'assets/vendor/cropper'
+		}),
+		pontoAssets = new Funnel(app.bowerDirectory + '/ponto/web/src', {
+			destDir: 'assets/vendor/ponto'
+		});
+
+	return app.toTree([cropperAssets, pontoAssets]);
 };
