@@ -35,8 +35,6 @@ function search(isTopNav = true) {
 			} else {
 				searchUrl = `/search?q=${searchText}`;
 			}
-
-			ga('send', 'pageview', `${window.location.pathname}${searchUrl}&qInter=${searchText}`);
 		} else {
 			// Use Oasis search
 			searchUrl = `http://ja.wikia.com/Special:Search?search=${searchText}&fulltext=Search&resultsLang=ja`;
@@ -126,6 +124,9 @@ $(() => {
 	loadGlobalData().then((data) => {
 		loadSearch(data.mobileBreakpoint);
 	});
+
+	ga('create', 'UA-32129070-1', 'auto');
+	ga('send', 'pageview');
 });
 
 $('#beginnersGuide').click((event) => {
