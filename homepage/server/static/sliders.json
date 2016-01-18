@@ -101,18 +101,6 @@
           "url": "http://ja.ingress.wikia.com/",
           "text": "Ingress",
           "english": false
-        },
-        {
-          "image": "/images/categories/games/slide9.jpg",
-          "url": "http://warframe.wikia.com/",
-          "text": "Warframe",
-          "english": true
-        },
-        {
-          "image": "/images/categories/games/slide10.jpg",
-          "url": "http://kancolle.wikia.com/",
-          "text": "艦これ",
-          "english": false
         }
       ]
     },
@@ -274,12 +262,6 @@
           "image": "/images/categories/lifestyle/slide8.jpg",
           "url": "http://recipes.wikia.com/",
           "text": "レシピ",
-          "english": true
-        },
-        {
-          "image": "/images/categories/lifestyle/slide9.jpg",
-          "url": "http://fashion.wikia.com/",
-          "text": "ファッション",
           "english": true
         }
       ]
