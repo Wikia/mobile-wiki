@@ -122,8 +122,7 @@ body.discussions {
 		}
 
 		&.is-parent-deleted .icon,
-		&.is-deleted .icon:not(.undelete) {
-			cursor: default;
+		&.is-deleted .icon {
 			fill: $discussion-deleted-actions-color;
 
 			&.upvote-reply {
@@ -143,7 +142,7 @@ body.discussions {
 				}
 			}
 
-			.upvote a {
+			.upvote a, .count a, .toggle-share-area {
 				cursor: default;
 			}
 		}
