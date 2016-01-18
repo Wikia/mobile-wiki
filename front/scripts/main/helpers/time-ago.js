@@ -1,36 +1,35 @@
-import {timeAgo, interval as dateTimeInterval} from '../../mercury/utils/dateTime';
-
 /**
  * Helper to give textual representation of time interval between past date
  * and the current time/date in the form
- * {timeAgo unixTimestamp}
- * which returns something like '2 days ago'
+ * {timeAgo unixTimestamp shouldDisplayAgo}
+ * which returns something like '2 days ago' if interval is below 6 days or formated param date
  *
  * @param {Array} params
  * @returns {string}
  */
 export default Ember.Helper.helper((params) => {
-	const unixTimestamp = params[0],
-		fromDate = new Date(unixTimestamp * 1000),
-		interval = timeAgo(fromDate);
+	const date = moment.unix(params[0]),
+		dateFormats = {
+			de: 'DD.MM.YY',
+			en: 'MM/DD/YY',
+			es: 'DD/MM/YY',
+			fr: 'DD/MM/YY',
+			it: 'DD/MM/YY',
+			ja: 'YY/MM/DD',
+			ru: 'DD/MM/YY',
+			pt: 'DD/MM/YY',
+			zh: 'YY/MM/DD'
+		},
+		language = Mercury.wiki.language.user || 'en',
+		shouldHideAgoString = params[1] || true;
 
-	switch (interval.type) {
-	case dateTimeInterval.Now:
-		return i18n.t('app.now-label');
-	case dateTimeInterval.Second:
-		return i18n.t('app.seconds-ago-label', {count: interval.value});
-	case dateTimeInterval.Minute:
-		return i18n.t('app.minutes-ago-label', {count: interval.value});
-	case dateTimeInterval.Hour:
-		return i18n.t('app.hours-ago-label', {count: interval.value});
-	case dateTimeInterval.Day:
-		return i18n.t('app.days-ago-label', {count: interval.value});
-	case dateTimeInterval.Month:
-		return i18n.t('app.months-ago-label', {count: interval.value});
-	case dateTimeInterval.Year:
-		return i18n.t('app.years-ago-label', {count: interval.value});
-	default:
-		Ember.Logger.error('Unexpected date interval for timestamp', unixTimestamp);
-		return '';
+	console.log('LANGUAGE OV WIKIA', language);
+	console.log('DATE AFTER CONVERTION', date);
+	console.log('DIFF FROM NOW', moment().diff(date, 'days'));
+
+	if (moment().diff(date, 'days') > 6) {
+		return date.format(dateFormats[language]);
+	} else {
+		return date.fromNow(shouldHideAgoString);
 	}
 });
