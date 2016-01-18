@@ -24,7 +24,7 @@
 				}}
 			</li>
 			<li>
-				{{#link-to 'index'}}
+				{{#link-to 'discussion.user' author.id}}
 					{{svg 'empty-eye' viewBox='0 0 16 12' class='icon eye'}}
 					{{i18n 'main.all-posts-by-username' userName=author.name ns='discussion'}}
 				{{/link-to}}
