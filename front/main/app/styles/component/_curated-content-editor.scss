@@ -178,7 +178,8 @@ $image-photo-icon-size: 32px;
 	&.placeholder {
 		background: {
 			color: $color-blue-gray-light;
-			image: url('/front/common/symbols/add-image.svg');
+			image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2277%22%20height%3D%2255%22%20viewBox%3D%220%200%2077%2055%22%3E%0A%20%20%3Cg%20fill%3D%22%23C5CED9%22%20fill-rule%3D%22evenodd%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M.483%209.375H49.18v4.39H4.896V49.8H62.81V27.163h4.393v27.15H.483V9.374M53.595%209.375h22.657v4.338H53.595V9.375z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M62.772.122h4.302V22.97h-4.302V.12zM7.395%2046.41h52.307l-12.13-10.24-8.338%203.67-14.858-15.596L7.396%2046.41M40.5%2025.536c0-3.032%202.438-5.49%205.445-5.49s5.444%202.458%205.444%205.49-2.438%205.49-5.445%205.49-5.445-2.458-5.445-5.49%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E);
+			// image: url('/front/main/app/main/symbols/add-image.svg');
 			position: center;
 			repeat: no-repeat;
 			size: 96px;
