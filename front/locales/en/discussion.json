@@ -32,7 +32,8 @@
     "modal-dialog-confirm": "OK",
     "modal-dialog-log-in": "Sign in",
     "user-replied-to": "__userName__ replied to __linkToThread__",
-    "delete-all": "Delete All"
+    "delete-all": "Delete All",
+    "user-post-list-header": "Posts by __userName__"
   },
   "editor": {
     "post-failed-error": "Post failed.",

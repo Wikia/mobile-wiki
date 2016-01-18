@@ -4,9 +4,11 @@ import ajaxCall from '../utils/ajax-call';
 
 const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 
+	contributors: [],
 	pageNum: null,
 	replyLimit: 10,
 	userId: null,
+	userName: null,
 	posts: null,
 
 	loadPage(pageNum = 0) {
@@ -55,11 +57,13 @@ DiscussionUserModel.reopenClass({
 			}),
 			success: (data) => {
 				const posts = data._embedded['doc:posts'];
-				let pivotId;
+				let contributors, pivotId, userName;
 
 				// If there are no replies to the first post, 'doc:posts' will not be returned
 				if (posts) {
 					pivotId = posts[0].id;
+					userName = posts[0].createdBy.name;
+					contributors = [posts[0].createdBy];
 					posts.forEach((post) => {
 						if (post.hasOwnProperty('createdBy')) {
 							post.createdBy.profileUrl = M.buildUrl({
@@ -70,9 +74,12 @@ DiscussionUserModel.reopenClass({
 						console.log(post, post._embedded);
 					});
 				}
+
 				userInstance.setProperties({
+					contributors,
 					forumId: data.forumId,
 					id: data.id,
+					userName,
 					page: 0,
 					pivotId,
 					postCount: data.postCount,
