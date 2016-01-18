@@ -36,6 +36,7 @@ export default class Nielsen extends BaseTracker {
 			return;
 		}
 
+		delete window.NOLCMB;
 		this.appendScript(true, () => {
 			if (!window.NOLCMB || !window.NOLCMB.getInstance) {
 				return;
