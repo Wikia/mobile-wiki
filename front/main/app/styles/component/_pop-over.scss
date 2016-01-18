@@ -48,3 +48,45 @@ $pointer-size: 14px;
 	border-color: transparent $pop-over-background-color transparent transparent;
 	left: -$pointer-size;
 }
+
+.orient-above, .orient-below {
+	.pop-over-compass {
+		animation: pop-over-fade-in .3s linear 1, pop-over-move-down 0.3s linear 1;
+	}
+}
+
+.orient-left, .orient-right {
+	.pop-over-compass {
+		animation: pop-over-fade-in .3s linear 1, pop-over-move-left 0.3s linear 1;
+	}
+}
+
+@keyframes pop-over-fade-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes pop-over-move-down {
+	from {
+		transform: translateY(-$pointer-size);
+	}
+
+	to {
+		transform: translateY(0);
+	}
+}
+
+@keyframes pop-over-move-left {
+	from {
+		transform: translateX($pointer-size);
+	}
+
+	to {
+		transform: translateX(0);
+	}
+}
