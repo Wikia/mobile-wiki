@@ -32,7 +32,8 @@
 			}}
 		{{else if model.notFoundError}}
 			{{discussion-not-found-error
-				goToAllDiscussions=(action 'goToAllDiscussions')
+				forumId=model.forumId
+				sortBy=discussionSort.sortBy
 			}}
 		{{else}}
 				<div class="discussion post small-12 large-8 columns">
