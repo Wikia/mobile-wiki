@@ -4,7 +4,7 @@ export default Ember.Component.extend(
 	DiscussionParsedContentMixin,
 	{
 		classNames: ['post-detail'],
-		classNameBindings: ['isNew', 'isDeleted'],
+		classNameBindings: ['isNew', 'isDeleted', 'isReply'],
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
 		postId: null,
@@ -21,10 +21,6 @@ export default Ember.Component.extend(
 		hideShareTimeout: null,
 
 		isNew: Ember.computed.oneWay('post.isNew'),
-
-		isReply: Ember.computed.oneWay('post.position', function () {
-			return Boolean(this.get('post.position'));
-		}),
 
 		// URL passed to the ShareFeatureComponent for sharing a post
 		sharedUrl: Ember.computed('postId', function () {
