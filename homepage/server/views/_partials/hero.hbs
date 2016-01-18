@@ -8,9 +8,10 @@
 					<h1>{{title}}</h1>
 					<h2>{{subtitle}}</h2>
 					{{#if button}}
-						<h3>
-							<input type="button" value="{{buttonText}}" id="{{buttonId}}">
-						</h3>
+						<a class="hero-link" href="#" id="{{buttonId}}">
+							{{buttonText}}
+							<span class="hero-arrow"></span>
+						</a>
 					{{/if}}
 				</div>
 			</div>
@@ -32,9 +33,10 @@
 					<h1>{{title}}</h1>
 					<h2>{{subtitle}}</h2>
 					{{#if button}}
-						<h3>
-							<a href="#" id="{{buttonId}}">{{buttonText}}</a>
-						</h3>
+						<a class="hero-link" href="#" id="{{buttonId}}">
+							{{buttonText}}
+							<span class="hero-arrow"></span>
+						</a>
 					{{/if}}
 				</div>
 			</div>
