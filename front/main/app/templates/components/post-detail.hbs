@@ -13,7 +13,7 @@
 	</div>
 
 	{{#pop-over for=(concat 'post-options-' post.id) on='click' flow='flip'}}
-		<ul>
+		<ul class="more-options">
 			<li>
 				{{discussion-delete
 					delete=(action 'delete')
@@ -25,7 +25,7 @@
 			</li>
 			<li>
 				{{#link-to 'index'}}
-					{{svg 'eye' viewBox='0 0 16 12'}}
+					{{svg 'empty-eye' viewBox='0 0 16 12' class='icon eye'}}
 					{{i18n 'main.all-posts-by-username' userName=author.name ns='discussion'}}
 				{{/link-to}}
 			</li>

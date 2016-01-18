@@ -151,6 +151,10 @@ body.discussions {
 		.pop-over-compass {
 			width: 300px;
 		}
+
+		.pop-over-container {
+			padding: 8px 18px;
+		}
 	}
 
 	.discussion-reply {
@@ -234,7 +238,7 @@ body.discussions {
 			stroke: $discussion-actions-color;
 			width: 12px;
 		}
-		&.replies{
+		&.replies {
 			height: 19px;
 			width: 24px;
 		}
@@ -248,16 +252,27 @@ body.discussions {
 			height: 20px;
 			width: 18px;
 		}
-	}
-
-	.delete-actions {
-		.icon {
+		&.delete, &.undelete {
 			width: 16px;
 			height: 19px;
+		}
+		&.eye {
+			width: 16px;
+			height: 12px;
+		}
+	}
+
+	.more-options {
+		list-style: none;
+		margin: 0;
+
+		li:not(:last-child) {
+			border-bottom: 1px solid #e6e6e6;
 		}
 
 		a {
 			display: inline-block;
+			padding: 10px 0;
 		}
 
 		span {
