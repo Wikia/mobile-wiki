@@ -1,6 +1,10 @@
-<a class="side-nav-menu__item main" href="#">
-		Sign In / Register
-</a>
+{{#if isUserAuthenticated}}
+	<a href="{{unbound userProfileLink.href}}" class="external">{{i18n 'app' userProfileLink.textKey}}</a>
+	<a href="{{unbound logoutLink.href}}" class="external">{{i18n 'app' logoutLink.textKey}}</a>
+{{else}}
+	<a class="side-nav-menu__item main" {{action 'goToLogin'}}>{{i18n 'app.sign-in-or-register-label'}}</a>
+{{/if}}
+
 {{#each hubsLinks as |link|}}
 	<a class="side-nav-menu__item {{link.specialAttr}}" href="{{link.href}}">
 		{{link.text}}
