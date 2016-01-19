@@ -9,6 +9,13 @@
 		contributors=model.contributors
 		numberOfPosts=model.totalPosts
 	}}
+	<div class="desktop-hidden post-list-header-content">
+		{{discussion-post-list-header
+			userName=model.userName
+			contributors=model.contributors
+			numberOfPosts=model.totalPosts
+		}}
+	</div>
 	<div class="discussion-page row">
 		<div class="rail large-3 columns">
 			{{#link-to 'discussion.forum' model.forumId class="back-button active-element-theme-color"}}
