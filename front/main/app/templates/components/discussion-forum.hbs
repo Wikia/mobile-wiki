@@ -2,9 +2,11 @@
 	showContent=true
 	smartBannerVisible=smartBannerVisible
 }}
-{{discussion-error-dialog
-	isVisible=shouldShowErrorMessage
-	errorMessage=errorMessage
+{{discussion-dialog
+	isVisible=shouldShowDialogMessage
+	isConfirm=isConfirm
+	confirmCallback=confirmCallback
+	dialogMessage=dialogMessage
 }}
 
 <div class="site-body-discussion post-list-view">

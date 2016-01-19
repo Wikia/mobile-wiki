@@ -29,19 +29,20 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	deleteAllPosts(post) {
-		alert('deleteAllPosts');
-		// if (checkPermissions(post, 'canDelete')) {
-		// 	return ajaxCall({
-		// 		method: 'PUT',
-		// 		url: M.getDiscussionServiceUrl(`/${this.wikiId}/user/${post.creatorId}/delete`),
-		// 		success: () => {
-		// 			Ember.set(post, 'isDeleted', true);
-		// 		},
-		// 		error: () => {
-		// 			this.displayError();
-		// 		}
-		// 	});
-		// }
+		console.log('deleting posts');
+		console.log(post);
+		if (checkPermissions(post, 'canDelete')) {
+			return ajaxCall({
+				method: 'DELETE',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/user/${post.creatorId}/posts`),
+				success: () => {
+					Ember.set(post, 'isDeleted', true);
+				},
+				error: () => {
+					this.displayError();
+				}
+			});
+		}
 	},
 
 	/**

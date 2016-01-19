@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
+	modalDialogService: Ember.inject.service('modal-dialog'),
 	/**
 	 * Get loading spinner container.
 	 * On post list it's post, on post-details it's applicationController to overlay entire page
@@ -35,10 +36,14 @@ export default Ember.Mixin.create({
 		 */
 		deleteAllPosts(post) {
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
-
-			Ember.set(loadingSpinnerContainer, 'isLoading', true);
-			this.modelFor(this.get('routeName')).deleteAllPosts(post).then(() => {
-				Ember.set(loadingSpinnerContainer, 'isLoading', false);
+			var self = this;
+			this.get('modalDialogService').confirm("message goes here", function(result){
+				if (result) {
+					Ember.set(loadingSpinnerContainer, 'isLoading', true);
+					self.modelFor(self.get('routeName')).deleteAllPosts(post).then(() => {
+						Ember.set(loadingSpinnerContainer, 'isLoading', false);
+					});
+				}
 			});
 		},
 

@@ -2,9 +2,11 @@
 	showContent=false
 	headroomEnabled=false
 }}
-{{discussion-error-dialog
-	isVisible=shouldShowErrorMessage
-	errorMessage=errorMessage
+{{discussion-dialog
+	isVisible=shouldShowDialogMessage
+	isConfirm=isConfirm
+	confirmCallback=confirmCallback
+	dialogMessage=dialogMessage
 }}
 <div class="site-body-discussion post-details-view">
 	<div class="minimized discussion-hero-unit background-theme-color"></div>
