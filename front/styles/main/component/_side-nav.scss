@@ -280,6 +280,11 @@ $side-nav-item-height: 3.125rem;
 		display: flex;
 		padding: 0;
 	}
+
+	.logout {
+		color: #d7d9dc;
+		float: right;
+	}
 }
 
 .side-nav-menu__item.comics::before { background: $color-hub-comics; }
