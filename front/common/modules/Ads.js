@@ -188,6 +188,7 @@ class Ads {
 	 * @returns {void}
 	 */
 	turnOffAdsForLoggedInUsers(adsContext) {
+		adsContext = adsContext || {}; // TODO: Refactor/remove while working on ADEN-2189
 		if (M.prop('userId')) {
 			adsContext.opts = adsContext.opts || {};
 			adsContext.opts.showAds = false;
