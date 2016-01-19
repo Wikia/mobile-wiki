@@ -46,8 +46,10 @@
 				loadRandomArticle=(action 'loadRandomArticle')
 			}}
 		</div>
-		<div class="side-nav-menu__footer">
-			<span>The Home Of Fandom</span>
-		</div>
+		{{#if isFandomVisible}}
+			<div class="side-nav-menu__footer">
+				<span>The Home Of Fandom</span>
+			</div>
+		{{/if}}
 	</div>
 {{/unless}}

@@ -21,7 +21,9 @@ export default Ember.Component.extend({
 		});
 	}),
 
+	currentUser: Ember.inject.service(),
 	globalNavContent: 'side-nav-global-navigation-root',
+	isFandomVisible: Ember.computed(() => M.prop('userLanguage') === 'en' || Mercury.wiki.language.content === 'en'),
 
 	/**
 	 * Every time we exit search mode, regardless of if it was through the Cancel
