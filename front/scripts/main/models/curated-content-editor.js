@@ -84,7 +84,7 @@ CuratedContentEditorModel.reopenClass({
 				}),
 				data: {
 					controller: 'CuratedContent',
-					method: 'getWithWikiaMetadata',
+					method: 'getData',
 					format: 'json'
 				},
 				success: (data) => {
@@ -108,10 +108,17 @@ CuratedContentEditorModel.reopenClass({
 	 * @returns {object} converted object
 	 */
 	prepareDataForSave(model) {
-		return {
-			data: [].concat(model.featured, model.curated.items, model.optional),
-			metadata: model.wikiaMetadata
+		lol = {
+			data: {
+				'featured': model.featured,
+				'optional': model.optional,
+				'curated': model.curated.items,
+				community_data: model.wikiaMetadata
+			}
 		};
+		console.log('lol: ', lol);
+
+		return lol;
 	},
 
 	/**
