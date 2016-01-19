@@ -1,0 +1,59 @@
+.auth-header {
+	font-size: 1.125rem;
+	line-height: 22px;
+	padding: 25px 24px 0;
+	text-align: center;
+
+	h1 {
+		color: inherit;
+		line-height: inherit;
+		font-size: inherit;
+		font-weight: inherit;
+	}
+}
+
+.register-fb-page,
+.fb-connect-page {
+	.auth-header {
+		font-weight: bold;
+	}
+}
+
+.desktop {
+	.auth-header {
+		font-size: 2.5rem;
+		font-weight: bold;
+		min-height: 145px;
+		padding: 47px 75px 50px;
+		position: relative;
+
+		h1 {
+			font-size: 2.25rem;
+			line-height: 2.5rem;
+			margin: 0;
+		}
+
+		&::after {
+			background-image: url('/front/common/symbols/wikia-logo-circled.svg');
+			bottom: - $circle-logo-size / 2;
+			content: " ";
+			display: block;
+			height: $circle-logo-size;
+			left: 50%;
+			margin-left: - $circle-logo-size / 2;
+			position: absolute;
+			width: $circle-logo-size;
+		}
+
+		p {
+			line-height: 1.25rem;
+			margin: 1rem 0 0;
+		}
+	}
+	&.register-fb-page,
+	&.fb-connect-page {
+		.auth-header {
+			padding-top: 40px;
+		}
+	}
+}

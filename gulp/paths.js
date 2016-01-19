@@ -1,73 +1,97 @@
-/*
- * Path list for tasks
- */
 var path = require('path'),
-	basePath = 'www',
-	baseServer = basePath + '/server',
-	baseFront = basePath + '/front';
+	output = 'www',
+	outputFront = output + '/front',
+	outputServer = output + '/server',
+	hbsPattern = '**/*.hbs',
+	jsPattern = '**/*.js';
 
 module.exports = {
-	base: basePath,
-	baseFull: path.resolve(basePath),
-	baseFullServer: path.resolve(baseServer),
-	baseFullFront: path.resolve(baseFront),
-	vendor: {
-		src: 'front/vendor/**/*',
-		dest: basePath + '/front/vendor',
-		original: 'front/vendor'
-	},
-	locales: {
-		src: 'front/locales/**/*.json',
-		dest: basePath + '/front/locales'
-	},
-	styles: {
-		src: 'front/styles',
-		watch: 'front/styles/**/*.scss',
-		dest: basePath + '/front/styles',
-		partials: '_*.scss',
-		compile: '*.scss'
-	},
-	scripts: {
-		front: {
-			src: 'front/scripts',
-			dest: basePath + '/front/scripts',
-			jsFiles: '**/*.js'
+	base: output,
+	baseFull: path.resolve(output),
+	baseFullServer: path.resolve(outputServer),
+	baseFullFront: path.resolve(outputFront),
+	jsPattern: jsPattern,
+
+	auth: {
+		scripts: {
+			base: './front/auth',
+			src: 'front/auth/app/' + jsPattern,
+			dest: outputFront + '/auth/assets'
 		},
-		server: {
-			src: 'server/**/*.js',
-			config: 'config/*.js',
-			dest: basePath
+		styles: {
+			src: 'front/auth/app/styles',
+			dest: outputFront + '/auth/assets',
+			partials: '_*.scss',
+			compile: '*.scss'
+		},
+		vendor: {
+			src: 'front/auth/bower_components/**/*',
+			dest: outputFront + '/auth/bower_components'
+		},
+		views: {
+			src: 'front/auth/views/' + hbsPattern,
+			index: 'front/auth/views/_layouts/auth.hbs',
+		},
+	},
+	common: {
+		src: 'front/common',
+		dest: outputFront + '/common',
+		baseline: {
+			src: 'front/common/baseline/' + jsPattern,
+			destFile: 'baseline.js'
+		},
+		main: {
+			dest: 'front/main/vendor',
+		},
+		modulesUtils: {
+			src: [
+				'front/common/modules/' + jsPattern,
+				'front/common/utils/' + jsPattern,
+			],
+			destFile: 'common.js'
+		},
+		public: {
+			src: 'front/common/public/**/*'
+		},
+		revManifest: outputFront + '/common/rev-manifest.json',
+		svg: {
+			src: 'front/common/public/symbols/*.svg'
+		},
+		vendor: {
+			src: 'front/common/bower_components/**/*',
+			dest: outputFront + '/common/bower_components'
 		}
 	},
-	views: {
-		src: 'server/views/**/*.+(hbs|js)',
-		dest: basePath + '/server/views'
-	},
-	templates: {
-		src: 'front/templates',
-		dest: basePath + '/front/templates',
-		files: '**/*.hbs'
-	},
-	symbols: {
-		src: 'front/svg/symbols',
-		dest: basePath + '/front/svg',
-		files: '*.svg'
-	},
-	images: {
-		src: ['front/svg/images/*', 'front/images/*'],
-		dest: basePath + '/front/images'
-	},
-	nodeModules: {
-		src: 'node_modules',
-		dest: basePath + '/node_modules'
-	},
 	server: {
-		script: basePath + '/server/server.js'
+		config: {
+			src: 'server/config/',
+			baseFile: 'localSettings.base.js',
+			exampleFile: 'localSettings.example.js',
+			runtimeFile: 'localSettings.js'
+		},
+		nodeModules: {
+			src: 'server/node_modules',
+			dest: outputServer + '/node_modules'
+		},
+		scripts: {
+			src: [
+				'server/app/' + jsPattern,
+				'server/config/' + jsPattern
+			],
+			dest: output
+		},
+		views: {
+			src: 'server/app/views/' + hbsPattern,
+			dest: outputServer + '/app/views',
+			auth: {
+				src: outputFront + '/auth/views/' + hbsPattern
+			},
+			main: {
+				src: outputFront + '/main/index.html',
+				dest: outputServer + '/app/views/_layouts',
+				outputFilename: 'ember-main.hbs',
+				watch: outputFront + '/**/*'
+			}
+		},
 	},
-	config: {
-		path: 'config/',
-		baseFile: 'localSettings.base.js',
-		exampleFile: 'localSettings.example.js',
-		runtimeFile: 'localSettings.js'
-	}
 };
