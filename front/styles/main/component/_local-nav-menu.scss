@@ -20,7 +20,6 @@
 		white-space: nowrap;
 
 		a, div {
-			@extend .touch-active;
 			display: block;
 			overflow: hidden;
 			padding: rem-calc(10) $side-nav-item-gutter;

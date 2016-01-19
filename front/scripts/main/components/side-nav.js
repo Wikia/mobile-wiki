@@ -1,5 +1,4 @@
 import {track, trackActions} from '../../mercury/utils/track';
-import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting';
 
 export default Ember.Component.extend({
 	tagName: 'nav',
@@ -88,30 +87,13 @@ export default Ember.Component.extend({
 
 		/**
 		 * Handler for enter in search box
-		 * Running A/B test to switch between using MediaWiki Special:Search and Google Custom Search
 		 *
 		 * @param {string} [value=''] - input value
 		 * @returns {void}
 		 */
 		enter(value) {
-			// Experiment id from Optimizely
-			const experimentIds = {
-					prod: '3571301500',
-					dev: '3579160288'
-				},
-				variationNumber = getExperimentVariationNumber(experimentIds);
-
-			if (variationNumber === 1) {
-				// Use Google Search
-				// Hide SideNav
-				this.sendAction('toggleVisibility', false);
-				this.send('searchCancel');
-
-				this.sendAction('search', value);
-			} else {
-				// Use Wikia Search
-				window.location.assign('%@Special:Search?search=%@&fulltext=Search'.fmt(Mercury.wiki.articlePath, value));
-			}
+			// Use Wikia Search
+			window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${value}&fulltext=Search`);
 		},
 
 		replaceNavigationContent(navName) {

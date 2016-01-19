@@ -70,7 +70,6 @@ $z-header: $z-6;
 }
 
 .side-nav-toggle {
-	@extend .touch-active;
 	display: inline-block;
 	float: left;
 	height: $icon-site-head-height;
