@@ -2,7 +2,7 @@
   "name": "main",
   "dependencies": {
     "cropper": "0.11.0",
-    "ember": "2.0.2",
+    "ember": "2.0.3",
     "ember-cli-shims": "0.1.0",
     "ember-cli-test-loader": "0.2.2",
     "ember-hammer": "1.0.2",

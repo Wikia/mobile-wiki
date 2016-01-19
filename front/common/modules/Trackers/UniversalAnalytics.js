@@ -258,20 +258,6 @@ class UniversalAnalytics {
 			ga(`${prefix}send`, 'pageview');
 		});
 	}
-
-	/**
-	 * Tracks usage of Google Custom Search
-	 *
-	 * @param {string} queryParam
-	 * @returns {void}
-	 */
-	trackGoogleSearch(queryParam) {
-		this.tracked.forEach((account) => {
-			const prefix = UniversalAnalytics.getPrefix(account);
-
-			ga(`${prefix}send`, 'pageview', queryParam);
-		});
-	}
 }
 
 UniversalAnalytics.dimensions = [];
