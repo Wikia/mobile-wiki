@@ -1,22 +1,17 @@
 <li class="side-nav-menu__item main">
-	{{#if parentItem}}
-		{{currentMenuItem.text}}
+	{{#if localNavContent.parent}}
+		{{localNavContent.text}}
 	{{else}}
 		{{i18n 'app.side-nav-menu-label'}}
 	{{/if}}
 </li>
-{{#if parentItem}}
-	<li class="side-nav-menu__item back" {{action 'goBack'}}>
-		{{i18n 'app.navigation-back-label'}}
-	</li>
-{{else}}
-	<li class="side-nav-menu__item" {{action 'loadRandomArticle'}}>
-		{{i18n 'app.random-page-label'}}
-	</li>
-{{/if}}
-{{#each currentMenuItem.children as |child|}}
+<li class="side-nav-menu__item" {{action 'loadRandomArticle'}}>
+	{{i18n 'app.random-page-label'}}
+</li>
+
+{{#each localNavContent.children as |child index|}}
 	{{#if child.children}}
-		<li class="side-nav-menu__item menu" {{action 'changeMenuItem' child.index}}>
+		<li class="side-nav-menu__item menu" {{action 'changeMenuItem' index}}>
 			{{unbound child.text}}
 		</li>
 	{{else}}

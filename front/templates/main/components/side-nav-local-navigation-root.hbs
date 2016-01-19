@@ -1,4 +1,4 @@
-<a class="side-nav-menu__item back" {{action this.attrs.replaceNavigationContent 'root'}} href="#">
+<a class="side-nav-menu__item back" {{action 'goBack' backTarget}} href="#">
 	{{i18n 'app.navigation-back-label'}}
 </a>
 {{side-nav-local-wikia-search-2016
@@ -10,5 +10,7 @@ localNavigationVisible=localNavigationVisible
 	{{side-nav-local-navigation-menu-2016
 	collapse=this.attrs.collapse
 	loadRandomArticle=this.attrs.loadRandomArticle
+	localNavContent=localNavContent
+	updateContent=(action 'updateContent')
 	}}
 {{/if}}
