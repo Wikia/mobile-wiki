@@ -13,7 +13,6 @@
     "setup-auth": "cd front/auth && bower install",
     "setup-main": "cd front/main && npm install && bower install",
     "setup-server": "cd server && npm install && cd .. && gulp build-server-init-config",
-    "build": "npm run setup && rm -rf www && gulp build-common --type prod && gulp build-auth --type prod && cd front/main && ember build -prod && cd ../.. && gulp build-server --type prod",
     "build-prod": "rm -rf www && gulp build-common --type prod && gulp build-auth --type prod && cd front/main && ember build -prod && cd ../.. && gulp build-server --type prod",
     "build-dev": "rm -rf www && gulp build-common && gulp build-auth && cd front/main && ember build && cd ../.. && gulp build-server",
     "start": "nodemon --delay 2",
