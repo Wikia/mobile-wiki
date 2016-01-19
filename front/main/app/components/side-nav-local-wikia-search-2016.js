@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {track, trackActions} from '../../mercury/utils/track';
 import {getExperimentVariationNumber} from '../../mercury/utils/variantTesting';
 
