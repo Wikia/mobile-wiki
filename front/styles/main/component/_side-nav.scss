@@ -223,7 +223,9 @@ $side-nav-item-height: 3.125rem;
 	padding: 0 1rem;
 	position: relative;
 
-	> a {
+	> a,
+	> a:hover,
+	> a:visited {
 		color: inherit;
 	}
 
