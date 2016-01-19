@@ -1,4 +1,4 @@
-$horizontal-padding: 15px;
+$horizontal-padding: 18px;
 $post-details-post-width: 560px;
 $post-details-outer-width: 580px;
 $post-details-reply-width: 524px;
@@ -61,8 +61,9 @@ body.discussions {
 		display: inline-block;
 		float: right;
 		height: 24px;
+		margin-right: -9px;
 		margin-top: 6px;
-		text-align: right;
+		text-align: center;
 		width: 24px;
 
 		.more-icon {
