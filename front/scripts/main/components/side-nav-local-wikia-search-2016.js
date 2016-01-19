@@ -66,7 +66,7 @@ export default Ember.Component.extend({
 				this.sendAction('search', value);
 			} else {
 				// Use Wikia Search
-				window.location.assign('%@Special:Search?search=%@&fulltext=Search'.fmt(Mercury.wiki.articlePath, value));
+				window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${value}&fulltext=Search`);
 			}
 		},
 
