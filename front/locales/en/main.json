@@ -146,7 +146,8 @@
     "curated-content-editor-new-section": "New Section",
     "curated-content-editor-new-category": "New Category",
     "exploreWiki": "Explore __wikiName__",
-    "sign-in-or-register-label": "Sign in / Register"
+    "sign-in-or-register-label": "Sign in / Register",
+    "my-profile-label": "My Profile"
   },
   "userStatus": {
     "anon-cta": "__registerLink__ or __loginLink__",

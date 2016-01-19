@@ -1,5 +1,10 @@
 {{#if isUserAuthenticated}}
-	<a href="{{unbound userProfileLink.href}}" class="external">{{i18n 'app' userProfileLink.textKey}}</a>
+	<a href="{{unbound userProfileLink.href}}" class="external">
+		<figure class="avatar">
+			<img src={{currentUser.avatarPath}} alt={{currentUser.name}}>
+		</figure>
+		{{i18n 'app.my-profile-label'}}
+	</a>
 	<a href="{{unbound logoutLink.href}}" class="external">{{i18n 'app' logoutLink.textKey}}</a>
 {{else}}
 	<a class="side-nav-menu__item main" {{action 'goToLogin'}}>{{i18n 'app.sign-in-or-register-label'}}</a>

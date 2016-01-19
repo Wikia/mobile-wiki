@@ -17,7 +17,7 @@ export default Ember.Component.extend(LoginLinkMixin, {
 			textKey: 'user-menu-log-out',
 		};
 	}),
-	userProfileLink: Ember.computed(function() {
+	userProfileLink: Ember.computed(function () {
 		return {
 			href: M.buildUrl({
 				namespace: 'User',
