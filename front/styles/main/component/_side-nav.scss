@@ -281,6 +281,16 @@ $side-nav-item-height: 3.125rem;
 		padding: 0;
 	}
 
+	.profile-link {
+		.avatar {
+			float: left;
+
+			img {
+				margin: 0 10px 4px 0;
+			}
+		}
+	}
+
 	.logout {
 		color: #d7d9dc;
 		float: right;
