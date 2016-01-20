@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import {track, trackActions} from 'common/utils/track';
+import TrackClickMixin from '../mixins/track-click';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(TrackClickMixin, {
 	tagName: 'nav',
 	classNames: ['side-nav'],
 	classNameBindings: ['shouldBeVisible:slide-into-view:collapsed'],
@@ -13,13 +13,7 @@ export default Ember.Component.extend({
 	}),
 
 	shouldBeVisibleObserver: Ember.observer('shouldBeVisible', function () {
-		const trackLabel = this.get('shouldBeVisible') ? 'open' : 'close';
-
-		track({
-			action: trackActions.click,
-			category: 'menu',
-			label: trackLabel
-		});
+		this.trackClick('menu', this.get('shouldBeVisible') ? 'open' : 'close');
 	}),
 
 	wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
