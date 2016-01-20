@@ -37,6 +37,18 @@ export const Comscore = {
 			tracking.comscore.c7Value = Comscore.getC7Value(vertical);
 		}
 	},
+	IVW3 = {
+		/**
+		 * @param {*} tracking
+		 * @param {string} vertical
+		 * @param {boolean} enabled
+		 * @returns {void}
+		 */
+		handleResponse(tracking, vertical, enabled) {
+			tracking.ivw3.vertical = vertical;
+			tracking.ivw3.enabled = enabled;
+		}
+	},
 	Nielsen = {
 		/**
 		 * @param {*} tracking
@@ -62,11 +74,13 @@ export function handleResponse(result, request) {
 
 	let vertical,
 		dbName,
+		ivw3Enabled,
 		nielsenEnabled;
 
 	try {
 		vertical = result.wikiVariables.tracking.vertical;
 		dbName = result.wikiVariables.dbName;
+		ivw3Enabled = result.wikiVariables.tracking.ivw3;
 		nielsenEnabled = result.wikiVariables.tracking.nielsen;
 	} catch (error) {
 		Logger.warn('No vertical set for response');
@@ -75,6 +89,7 @@ export function handleResponse(result, request) {
 	}
 
 	Comscore.handleResponse(tracking, vertical, request);
+	IVW3.handleResponse(tracking, vertical, ivw3Enabled);
 	Nielsen.handleResponse(tracking, vertical, dbName, nielsenEnabled);
 
 	// export tracking code to layout and front end code
