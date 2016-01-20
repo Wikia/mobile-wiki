@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "cropper": "0.11.1",
-    "ember": "2.0.2",
+    "ember": "2.0.3",
     "ember-hammer": "1.0.2",
     "ember-performance-sender": "Wikia/ember-performance-sender#ember-2.0",
     "fastclick": "1.0.6",
