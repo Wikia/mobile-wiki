@@ -72,6 +72,10 @@ function getOnPreResponseHandler(isDevbox) {
 			if (response.variety !== 'file') {
 				response.vary('cookie');
 			}
+
+			// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
+			// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
+			response.vary('accept-encoding');
 		} else if (response.isBoom) {
 			// see https://github.com/hapijs/boom
 			response.output.headers['x-backend-response-time'] = responseTimeSec;
