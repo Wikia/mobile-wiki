@@ -1,0 +1,35 @@
+{
+  "name": "main",
+  "dependencies": {
+    "cropper": "0.11.0",
+    "ember": "2.0.3",
+    "ember-cli-shims": "0.1.0",
+    "ember-cli-test-loader": "0.2.2",
+    "ember-hammer": "1.0.2",
+    "ember-load-initializers": "0.1.7",
+    "ember-performance-sender": "Wikia/ember-performance-sender#ember-2.0",
+    "ember-qunit-notifications": "0.1.0",
+    "fastclick": "1.0.6",
+    "foundation": "5.5.1",
+    "hammerjs": "2.0.4",
+    "headroom.js": "0.7.0",
+    "i18next": "1.7.4",
+    "jquery.cookie": "1.4.1",
+    "jquery": "2.1.4",
+    "loader.js": "3.5.0",
+    "numeral": "1.5.3",
+    "moment": "2.11.1",
+    "ponto": "Wikia/ponto#develop",
+    "qunit": "1.20.0",
+    "script.js": "2.5.7",
+    "vignette": "wikia/vignette-js#2.2.1",
+    "visit-source": "Wikia/visit-source#0.1.1",
+    "weppy": "Wikia/weppy#0.9.3",
+    "wikia-style-guide": "Wikia/style-guide#v1.8.2",
+    "Autolinker.js": "0.22.0",
+    "sinonjs": "1.17.1"
+  },
+  "resolutions": {
+    "ember": "2.0.2"
+  }
+}

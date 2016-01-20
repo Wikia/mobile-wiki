@@ -1,0 +1,20 @@
+{
+  "name": "ember-performance-sender",
+  "version": "1.1.0",
+  "description": "Client-side interface for Weppy performance sendering tool",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Wikia/ember-performance-sender.git"
+  },
+  "scripts": {
+    "test": "node tests/qunit-runner.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "3.x.x",
+    "gulp-rename": "1.2.x",
+    "gulp-typescript": "2.x.x",
+    "gulp-wrap": "0.5.x",
+    "qunit": "0.x.x"
+  }
+}

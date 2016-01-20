@@ -1,0 +1,20 @@
+{
+  "name": "visit-source",
+  "version": "0.1.1",
+  "description": "Storing and getting current session / lifetime visit source (using Referrer Header)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Wikia/visit-source.git"
+  },
+  "scripts": {
+    "test": "node tests/qunit-runner.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "3.x.x",
+    "gulp-rename": "1.2.x",
+    "gulp-typescript": "2.x.x",
+    "gulp-wrap": "0.x.x",
+    "qunit": "0.x.x"
+  }
+}

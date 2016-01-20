@@ -1,0 +1,116 @@
+<!--
+Wikia Style Guide
+Global Top Bar
+
+Description:
+This component provides a default top bar for Wikia websites. Other components can be plugged in, like user-status or
+search functionality.
+
+Example:
+	<top-bar
+		logo-href="http://www.wikia.com">
+		<h1>Hello World!</h1>
+	</top-bar>
+-->
+<dom-module id="top-bar">
+	<template>
+		<style>
+			[unresolved] {
+				visibility: hidden;
+			}
+
+			:host {
+				align-items: center;
+				background-color: #fff;
+				border-bottom: 1px solid #ccc;
+				box-sizing: border-box;
+				display: flex;
+				height: 41px;
+				position: fixed;
+				top: 0;
+				width: 100%;
+				z-index: 9999999;
+			}
+
+			:host * {
+				box-sizing: inherit;
+			}
+
+			.wrapper {
+				width: 100%;
+				margin: 0 auto;
+				max-width: 62.5rem;
+			}
+
+			.wrapper:before, .wrapper:after {
+				content: " ";
+				display: table;
+			}
+
+			.inner {
+				align-items: center;
+				display: flex;
+				padding: 0 15px;
+				width: 100%;
+			}
+
+			.transcluded-content {
+				flex-grow: 1;
+			}
+
+			@media (max-width: 769px) {
+				:host {
+					text-align: center;
+				}
+
+				/* grow the logo element to take up the extra room in the row since transcluded
+				content is no longer there */
+				:host .logo-wrapper {
+					margin: 0 auto;
+					display: block;
+				}
+
+				.transcluded-content {
+					flex-grow: 0;
+				}
+			}
+
+			@media only screen and (min-width: 1064px) {
+				.wrapper {
+					max-width: 1021px;
+				}
+			}
+
+			@media only screen and (min-width: 1575px) {
+				.wrapper {
+					max-width: 1176px;
+				}
+			}
+
+		</style>
+
+		<div class="wrapper">
+			<div class="inner">
+				<a class="logo-wrapper" href="{{logoHref}}">
+					<content select=".logo-image"></content>
+				</a>
+
+				<div class="transcluded-content">
+					<!-- Catch all for transcluded content -->
+					<content></content>
+				</div>
+			</div>
+		</div>
+	</template>
+</dom-module>
+
+<script>
+	(function () {
+		Polymer({
+			is: 'top-bar',
+			properties: {
+				logoHref: String
+			}
+		});
+	}());
+</script>

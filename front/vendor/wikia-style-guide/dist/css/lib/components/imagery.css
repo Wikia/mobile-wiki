@@ -1,0 +1,563 @@
+meta.foundation-version {
+  font-family: "/5.4.7/"; }
+
+meta.foundation-mq-small {
+  font-family: "/only screen/";
+  width: 0px; }
+
+meta.foundation-mq-medium {
+  font-family: "/only screen and (min-width:321px)/";
+  width: 321px; }
+
+meta.foundation-mq-large {
+  font-family: "/only screen and (min-width:768px)/";
+  width: 768px; }
+
+meta.foundation-mq-xlarge {
+  font-family: "/only screen and (min-width:1064px)/";
+  width: 1064px; }
+
+meta.foundation-mq-xxlarge {
+  font-family: "/only screen and (min-width:1575px)/";
+  width: 1575px; }
+
+meta.foundation-data-attribute-namespace {
+  font-family: false; }
+
+html, body {
+  height: 100%; }
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+body {
+  background: #FFFFFF;
+  color: #39424D;
+  padding: 0;
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 150%;
+  position: relative;
+  cursor: auto; }
+
+a:hover {
+  cursor: pointer; }
+
+img {
+  max-width: 100%;
+  height: auto; }
+
+img {
+  -ms-interpolation-mode: bicubic; }
+
+#map_canvas img,
+#map_canvas embed,
+#map_canvas object,
+.map_canvas img,
+.map_canvas embed,
+.map_canvas object {
+  max-width: none !important; }
+
+.left {
+  float: left !important; }
+
+.right {
+  float: right !important; }
+
+.clearfix:before, .clearfix:after {
+  content: " ";
+  display: table; }
+
+.clearfix:after {
+  clear: both; }
+
+.hide {
+  display: none !important;
+  visibility: hidden; }
+
+.invisible {
+  visibility: hidden; }
+
+.antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+img {
+  display: inline-block;
+  vertical-align: middle; }
+
+textarea {
+  height: auto;
+  min-height: 50px; }
+
+select {
+  width: 100%; }
+
+figure.avatar img,
+figure.avatar svg {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  height: 36px;
+  width: 36px; }
+
+@media only screen and (max-width: 320px) {
+  figure.landscape.xlarge, figure.video.xlarge {
+    width: 312px; }
+    figure.landscape.xlarge img, figure.landscape.xlarge .overlay, figure.video.xlarge img, figure.video.xlarge .overlay {
+      height: 175.5px; }
+    figure.landscape.xlarge .icon-play, figure.video.xlarge .icon-play {
+      bottom: 10.4px;
+      height: 31.2px;
+      left: 10.4px;
+      width: 31.2px; } }
+
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  figure.landscape.xlarge, figure.video.xlarge {
+    width: 600px; }
+    figure.landscape.xlarge img, figure.landscape.xlarge .overlay, figure.video.xlarge img, figure.video.xlarge .overlay {
+      height: 337.5px; }
+    figure.landscape.xlarge .icon-play, figure.video.xlarge .icon-play {
+      bottom: 20px;
+      height: 60px;
+      left: 20px;
+      width: 60px; } }
+
+@media only screen and (min-width: 768px) and (max-width: 1063px) {
+  figure.landscape.xlarge, figure.video.xlarge {
+    width: 720px; }
+    figure.landscape.xlarge img, figure.landscape.xlarge .overlay, figure.video.xlarge img, figure.video.xlarge .overlay {
+      height: 405px; }
+    figure.landscape.xlarge .icon-play, figure.video.xlarge .icon-play {
+      bottom: 24px;
+      height: 72px;
+      left: 24px;
+      width: 72px; } }
+
+@media only screen and (min-width: 1064px) and (max-width: 1574px) {
+  figure.landscape.xlarge, figure.video.xlarge {
+    width: 900px; }
+    figure.landscape.xlarge img, figure.landscape.xlarge .overlay, figure.video.xlarge img, figure.video.xlarge .overlay {
+      height: 506.25px; }
+    figure.landscape.xlarge .icon-play, figure.video.xlarge .icon-play {
+      bottom: 30px;
+      height: 90px;
+      left: 30px;
+      width: 90px; } }
+
+@media only screen and (min-width: 1575px) {
+  figure.landscape.xlarge, figure.video.xlarge {
+    width: 1044px; }
+    figure.landscape.xlarge img, figure.landscape.xlarge .overlay, figure.video.xlarge img, figure.video.xlarge .overlay {
+      height: 587.25px; }
+    figure.landscape.xlarge .icon-play, figure.video.xlarge .icon-play {
+      bottom: 34.8px;
+      height: 104.4px;
+      left: 34.8px;
+      width: 104.4px; } }
+
+@media only screen and (max-width: 320px) {
+  figure.landscape.large, figure.video.large {
+    width: 208px; }
+    figure.landscape.large img, figure.landscape.large .overlay, figure.video.large img, figure.video.large .overlay {
+      height: 117px; }
+    figure.landscape.large .icon-play, figure.video.large .icon-play {
+      bottom: 6.93333px;
+      height: 20.8px;
+      left: 6.93333px;
+      width: 20.8px; } }
+
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  figure.landscape.large, figure.video.large {
+    width: 400px; }
+    figure.landscape.large img, figure.landscape.large .overlay, figure.video.large img, figure.video.large .overlay {
+      height: 225px; }
+    figure.landscape.large .icon-play, figure.video.large .icon-play {
+      bottom: 13.33333px;
+      height: 40px;
+      left: 13.33333px;
+      width: 40px; } }
+
+@media only screen and (min-width: 768px) and (max-width: 1063px) {
+  figure.landscape.large, figure.video.large {
+    width: 480px; }
+    figure.landscape.large img, figure.landscape.large .overlay, figure.video.large img, figure.video.large .overlay {
+      height: 270px; }
+    figure.landscape.large .icon-play, figure.video.large .icon-play {
+      bottom: 16px;
+      height: 48px;
+      left: 16px;
+      width: 48px; } }
+
+@media only screen and (min-width: 1064px) and (max-width: 1574px) {
+  figure.landscape.large, figure.video.large {
+    width: 600px; }
+    figure.landscape.large img, figure.landscape.large .overlay, figure.video.large img, figure.video.large .overlay {
+      height: 337.5px; }
+    figure.landscape.large .icon-play, figure.video.large .icon-play {
+      bottom: 20px;
+      height: 60px;
+      left: 20px;
+      width: 60px; } }
+
+@media only screen and (min-width: 1575px) {
+  figure.landscape.large, figure.video.large {
+    width: 696px; }
+    figure.landscape.large img, figure.landscape.large .overlay, figure.video.large img, figure.video.large .overlay {
+      height: 391.5px; }
+    figure.landscape.large .icon-play, figure.video.large .icon-play {
+      bottom: 23.2px;
+      height: 69.6px;
+      left: 23.2px;
+      width: 69.6px; } }
+
+@media only screen and (max-width: 320px) {
+  figure.landscape.medium, figure.video.medium {
+    width: 156px; }
+    figure.landscape.medium img, figure.landscape.medium .overlay, figure.video.medium img, figure.video.medium .overlay {
+      height: 87.75px; }
+    figure.landscape.medium .icon-play, figure.video.medium .icon-play {
+      bottom: 5.2px;
+      height: 15.6px;
+      left: 5.2px;
+      width: 15.6px; } }
+
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  figure.landscape.medium, figure.video.medium {
+    width: 300px; }
+    figure.landscape.medium img, figure.landscape.medium .overlay, figure.video.medium img, figure.video.medium .overlay {
+      height: 168.75px; }
+    figure.landscape.medium .icon-play, figure.video.medium .icon-play {
+      bottom: 10px;
+      height: 30px;
+      left: 10px;
+      width: 30px; } }
+
+@media only screen and (min-width: 768px) and (max-width: 1063px) {
+  figure.landscape.medium, figure.video.medium {
+    width: 360px; }
+    figure.landscape.medium img, figure.landscape.medium .overlay, figure.video.medium img, figure.video.medium .overlay {
+      height: 202.5px; }
+    figure.landscape.medium .icon-play, figure.video.medium .icon-play {
+      bottom: 12px;
+      height: 36px;
+      left: 12px;
+      width: 36px; } }
+
+@media only screen and (min-width: 1064px) and (max-width: 1574px) {
+  figure.landscape.medium, figure.video.medium {
+    width: 450px; }
+    figure.landscape.medium img, figure.landscape.medium .overlay, figure.video.medium img, figure.video.medium .overlay {
+      height: 253.125px; }
+    figure.landscape.medium .icon-play, figure.video.medium .icon-play {
+      bottom: 15px;
+      height: 45px;
+      left: 15px;
+      width: 45px; } }
+
+@media only screen and (min-width: 1575px) {
+  figure.landscape.medium, figure.video.medium {
+    width: 522px; }
+    figure.landscape.medium img, figure.landscape.medium .overlay, figure.video.medium img, figure.video.medium .overlay {
+      height: 293.625px; }
+    figure.landscape.medium .icon-play, figure.video.medium .icon-play {
+      bottom: 17.4px;
+      height: 52.2px;
+      left: 17.4px;
+      width: 52.2px; } }
+
+@media only screen and (max-width: 320px) {
+  figure.landscape.small, figure.video.small {
+    width: 104px; }
+    figure.landscape.small img, figure.landscape.small .overlay, figure.video.small img, figure.video.small .overlay {
+      height: 58.5px; }
+    figure.landscape.small .icon-play, figure.video.small .icon-play {
+      bottom: 3.46667px;
+      height: 10.4px;
+      left: 3.46667px;
+      width: 10.4px; } }
+
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  figure.landscape.small, figure.video.small {
+    width: 200px; }
+    figure.landscape.small img, figure.landscape.small .overlay, figure.video.small img, figure.video.small .overlay {
+      height: 112.5px; }
+    figure.landscape.small .icon-play, figure.video.small .icon-play {
+      bottom: 6.66667px;
+      height: 20px;
+      left: 6.66667px;
+      width: 20px; } }
+
+@media only screen and (min-width: 768px) and (max-width: 1063px) {
+  figure.landscape.small, figure.video.small {
+    width: 240px; }
+    figure.landscape.small img, figure.landscape.small .overlay, figure.video.small img, figure.video.small .overlay {
+      height: 135px; }
+    figure.landscape.small .icon-play, figure.video.small .icon-play {
+      bottom: 8px;
+      height: 24px;
+      left: 8px;
+      width: 24px; } }
+
+@media only screen and (min-width: 1064px) and (max-width: 1574px) {
+  figure.landscape.small, figure.video.small {
+    width: 300px; }
+    figure.landscape.small img, figure.landscape.small .overlay, figure.video.small img, figure.video.small .overlay {
+      height: 168.75px; }
+    figure.landscape.small .icon-play, figure.video.small .icon-play {
+      bottom: 10px;
+      height: 30px;
+      left: 10px;
+      width: 30px; } }
+
+@media only screen and (min-width: 1575px) {
+  figure.landscape.small, figure.video.small {
+    width: 348px; }
+    figure.landscape.small img, figure.landscape.small .overlay, figure.video.small img, figure.video.small .overlay {
+      height: 195.75px; }
+    figure.landscape.small .icon-play, figure.video.small .icon-play {
+      bottom: 11.6px;
+      height: 34.8px;
+      left: 11.6px;
+      width: 34.8px; } }
+
+@media only screen and (max-width: 320px) {
+  figure.landscape.xsmall, figure.video.xsmall {
+    width: 78px; }
+    figure.landscape.xsmall img, figure.landscape.xsmall .overlay, figure.video.xsmall img, figure.video.xsmall .overlay {
+      height: 43.875px; }
+    figure.landscape.xsmall .icon-play, figure.video.xsmall .icon-play {
+      bottom: 2.6px;
+      height: 7.8px;
+      left: 2.6px;
+      width: 7.8px; } }
+
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  figure.landscape.xsmall, figure.video.xsmall {
+    width: 150px; }
+    figure.landscape.xsmall img, figure.landscape.xsmall .overlay, figure.video.xsmall img, figure.video.xsmall .overlay {
+      height: 84.375px; }
+    figure.landscape.xsmall .icon-play, figure.video.xsmall .icon-play {
+      bottom: 5px;
+      height: 15px;
+      left: 5px;
+      width: 15px; } }
+
+@media only screen and (min-width: 768px) and (max-width: 1063px) {
+  figure.landscape.xsmall, figure.video.xsmall {
+    width: 180px; }
+    figure.landscape.xsmall img, figure.landscape.xsmall .overlay, figure.video.xsmall img, figure.video.xsmall .overlay {
+      height: 101.25px; }
+    figure.landscape.xsmall .icon-play, figure.video.xsmall .icon-play {
+      bottom: 6px;
+      height: 18px;
+      left: 6px;
+      width: 18px; } }
+
+@media only screen and (min-width: 1064px) and (max-width: 1574px) {
+  figure.landscape.xsmall, figure.video.xsmall {
+    width: 225px; }
+    figure.landscape.xsmall img, figure.landscape.xsmall .overlay, figure.video.xsmall img, figure.video.xsmall .overlay {
+      height: 126.5625px; }
+    figure.landscape.xsmall .icon-play, figure.video.xsmall .icon-play {
+      bottom: 7.5px;
+      height: 22.5px;
+      left: 7.5px;
+      width: 22.5px; } }
+
+@media only screen and (min-width: 1575px) {
+  figure.landscape.xsmall, figure.video.xsmall {
+    width: 261px; }
+    figure.landscape.xsmall img, figure.landscape.xsmall .overlay, figure.video.xsmall img, figure.video.xsmall .overlay {
+      height: 146.8125px; }
+    figure.landscape.xsmall .icon-play, figure.video.xsmall .icon-play {
+      bottom: 8.7px;
+      height: 26.1px;
+      left: 8.7px;
+      width: 26.1px; } }
+
+@media only screen and (max-width: 320px) {
+  figure.landscape.thumb, figure.video.thumb {
+    width: 52px; }
+    figure.landscape.thumb img, figure.landscape.thumb .overlay, figure.video.thumb img, figure.video.thumb .overlay {
+      height: 29.25px; }
+    figure.landscape.thumb .icon-play, figure.video.thumb .icon-play {
+      bottom: 1.73333px;
+      height: 5.2px;
+      left: 1.73333px;
+      width: 5.2px; } }
+
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  figure.landscape.thumb, figure.video.thumb {
+    width: 100px; }
+    figure.landscape.thumb img, figure.landscape.thumb .overlay, figure.video.thumb img, figure.video.thumb .overlay {
+      height: 56.25px; }
+    figure.landscape.thumb .icon-play, figure.video.thumb .icon-play {
+      bottom: 3.33333px;
+      height: 10px;
+      left: 3.33333px;
+      width: 10px; } }
+
+@media only screen and (min-width: 768px) and (max-width: 1063px) {
+  figure.landscape.thumb, figure.video.thumb {
+    width: 120px; }
+    figure.landscape.thumb img, figure.landscape.thumb .overlay, figure.video.thumb img, figure.video.thumb .overlay {
+      height: 67.5px; }
+    figure.landscape.thumb .icon-play, figure.video.thumb .icon-play {
+      bottom: 4px;
+      height: 12px;
+      left: 4px;
+      width: 12px; } }
+
+@media only screen and (min-width: 1064px) and (max-width: 1574px) {
+  figure.landscape.thumb, figure.video.thumb {
+    width: 150px; }
+    figure.landscape.thumb img, figure.landscape.thumb .overlay, figure.video.thumb img, figure.video.thumb .overlay {
+      height: 84.375px; }
+    figure.landscape.thumb .icon-play, figure.video.thumb .icon-play {
+      bottom: 5px;
+      height: 15px;
+      left: 5px;
+      width: 15px; } }
+
+@media only screen and (min-width: 1575px) {
+  figure.landscape.thumb, figure.video.thumb {
+    width: 174px; }
+    figure.landscape.thumb img, figure.landscape.thumb .overlay, figure.video.thumb img, figure.video.thumb .overlay {
+      height: 97.875px; }
+    figure.landscape.thumb .icon-play, figure.video.thumb .icon-play {
+      bottom: 5.8px;
+      height: 17.4px;
+      left: 5.8px;
+      width: 17.4px; } }
+
+@media only screen and (max-width: 320px) {
+  figure.portrait.medium {
+    width: 104px; }
+    figure.portrait.medium img, figure.portrait.medium .overlay {
+      height: 145.6px; } }
+
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  figure.portrait.medium {
+    width: 200px; }
+    figure.portrait.medium img, figure.portrait.medium .overlay {
+      height: 280px; } }
+
+@media only screen and (min-width: 768px) and (max-width: 1063px) {
+  figure.portrait.medium {
+    width: 240px; }
+    figure.portrait.medium img, figure.portrait.medium .overlay {
+      height: 336px; } }
+
+@media only screen and (min-width: 1064px) and (max-width: 1574px) {
+  figure.portrait.medium {
+    width: 300px; }
+    figure.portrait.medium img, figure.portrait.medium .overlay {
+      height: 420px; } }
+
+@media only screen and (min-width: 1575px) {
+  figure.portrait.medium {
+    width: 348px; }
+    figure.portrait.medium img, figure.portrait.medium .overlay {
+      height: 487.2px; } }
+
+@media only screen and (max-width: 320px) {
+  figure.portrait.small {
+    width: 78px; }
+    figure.portrait.small img, figure.portrait.small .overlay {
+      height: 109.2px; } }
+
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  figure.portrait.small {
+    width: 150px; }
+    figure.portrait.small img, figure.portrait.small .overlay {
+      height: 210px; } }
+
+@media only screen and (min-width: 768px) and (max-width: 1063px) {
+  figure.portrait.small {
+    width: 180px; }
+    figure.portrait.small img, figure.portrait.small .overlay {
+      height: 252px; } }
+
+@media only screen and (min-width: 1064px) and (max-width: 1574px) {
+  figure.portrait.small {
+    width: 225px; }
+    figure.portrait.small img, figure.portrait.small .overlay {
+      height: 315px; } }
+
+@media only screen and (min-width: 1575px) {
+  figure.portrait.small {
+    width: 261px; }
+    figure.portrait.small img, figure.portrait.small .overlay {
+      height: 365.4px; } }
+
+@media only screen and (max-width: 320px) {
+  figure.portrait.thumb {
+    width: 52px; }
+    figure.portrait.thumb img, figure.portrait.thumb .overlay {
+      height: 72.8px; } }
+
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  figure.portrait.thumb {
+    width: 100px; }
+    figure.portrait.thumb img, figure.portrait.thumb .overlay {
+      height: 140px; } }
+
+@media only screen and (min-width: 768px) and (max-width: 1063px) {
+  figure.portrait.thumb {
+    width: 120px; }
+    figure.portrait.thumb img, figure.portrait.thumb .overlay {
+      height: 168px; } }
+
+@media only screen and (min-width: 1064px) and (max-width: 1574px) {
+  figure.portrait.thumb {
+    width: 150px; }
+    figure.portrait.thumb img, figure.portrait.thumb .overlay {
+      height: 210px; } }
+
+@media only screen and (min-width: 1575px) {
+  figure.portrait.thumb {
+    width: 174px; }
+    figure.portrait.thumb img, figure.portrait.thumb .overlay {
+      height: 243.6px; } }
+
+figure.video {
+  position: relative; }
+  figure.video.large figcaption {
+    bottom: 7%;
+    color: #fff;
+    font-size: 26px;
+    height: 62px;
+    left: 16%;
+    line-height: 32px;
+    overflow-y: hidden;
+    position: absolute;
+    text-shadow: #999 1px 1px;
+    width: 80%; }
+  figure.video.large .overlay {
+    background-image: linear-gradient(0deg, #c0c0c0, transparent 40%); }
+  figure.video.medium figcaption {
+    color: #656E78;
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 15px;
+    text-align: justify; }
+  figure.video.medium h5 {
+    color: #1A5EB8;
+    margin: 0; }
+  figure.video.small figcaption {
+    color: #1A5EB8;
+    font-size: 14px;
+    padding: 10px; }
+  figure.video .icon-play,
+  figure.video .overlay {
+    display: block;
+    position: absolute; }
+
+figure img {
+  width: 100%; }

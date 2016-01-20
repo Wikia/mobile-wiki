@@ -1,0 +1,20 @@
+{
+  "name": "vignette",
+  "version": "2.1.1",
+  "description": "Client-side interface for Vignette thumbnailer",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Wikia/vignette-js.git"
+  },
+  "scripts": {
+    "test": "node tests/qunit-runner.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "3.x.x",
+    "gulp-rename": "1.2.x",
+    "gulp-typescript": "2.x.x",
+    "gulp-wrap": "0.5.x",
+    "qunit": "0.x.x"
+  }
+}

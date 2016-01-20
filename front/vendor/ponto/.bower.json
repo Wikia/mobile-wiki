@@ -1,0 +1,25 @@
+{
+  "name": "ponto",
+  "main": "web/src/ponto.js",
+  "homepage": "https://github.com/Wikia/ponto.git",
+  "moduleType": [
+    "globals",
+    "amd"
+  ],
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    "android",
+    "ios",
+    "Ponto.podspec"
+  ],
+  "_release": "6ae2171778",
+  "_resolution": {
+    "type": "branch",
+    "branch": "develop",
+    "commit": "6ae2171778634626865019c7c4ee60c07b26228c"
+  },
+  "_source": "git://github.com/Wikia/ponto.git",
+  "_target": "develop",
+  "_originalSource": "Wikia/ponto"
+}

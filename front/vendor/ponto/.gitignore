@@ -1,0 +1,21 @@
+# Java #
+*.class
+*.war
+*.ear
+
+# Objective-C #
+*.o
+ios/Ponto/Ponto.xcodeproj/xcuserdata
+ios/Ponto/Ponto.xcodeproj/project.xcworkspace
+
+# Android #
+android/bin
+android/gen
+
+# Mac #
+.DS_Store
+
+# IntelliJ Idea/AppCode #
+.idea
+ios/.idea
+android/.idea
