@@ -1,8 +1,10 @@
 .discussion-user-list {
 	.post-reply {
 		background-color: $color-white;
+		margin-bottom: 5px;
 
 		.discussion-reply {
+			border-top: none !important;
 			padding-left: 30px;
 			padding-right: 30px;
 		}
@@ -16,8 +18,4 @@
 			padding-bottom: 6px;
 		}
 	}
-}
-
-.discussion .discussion-user-list .post-reply ~ .post-reply .discussion-reply {
-	border-top: none;
 }
