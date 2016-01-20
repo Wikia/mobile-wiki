@@ -29,7 +29,7 @@ DiscussionUserModel.reopenClass({
 			context: userInstance,
 			url: M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`, {
 				limit: userInstance.replyLimit,
-				//responseGroup: 'full',
+				// responseGroup: 'full',
 				sortDirection: 'descending',
 				sortKey: 'creation_date',
 				viewableOnly: false
