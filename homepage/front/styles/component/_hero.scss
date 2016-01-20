@@ -19,7 +19,6 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 
 .featured-mobile {
 	display: none;
-	margin-top: 4em;
 	max-width: 250px;
 
 	@include media ($small-mobile-slider) {
