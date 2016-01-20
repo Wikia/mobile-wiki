@@ -30,6 +30,12 @@ function search(isTopNav = true) {
 $(() => {
 	const headings = $('.grid-heading');
 
+	$('.hero-carousel').on('init', () => {
+		$('#loading').addClass('loading-done');
+		$('.hero-prev').removeClass('hero-hide-arrow');
+		$('.hero-next').removeClass('hero-hide-arrow');
+	});
+
 	$('.hero-carousel').slick({
 		arrows: false,
 		dots: true,

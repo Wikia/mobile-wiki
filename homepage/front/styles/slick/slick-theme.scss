@@ -135,6 +135,21 @@ $slick-opacity-not-active: .75 !default;
 	margin-bottom: 30px;
 }
 
+.slick-slider .slick-list {
+	opacity: 0;
+	position: absolute;
+}
+
+.slick-slider.slick-initialized {
+	background: none;
+}
+
+.slick-slider.slick-initialized .slick-list {
+	opacity: 1;
+	position: relative;
+	transition: opacity 0.2s ease-in;
+}
+
 .slick-dots {
 	bottom: 20px;
 	display: block;
