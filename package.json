@@ -15,7 +15,7 @@
     "setup-server": "cd server && npm install && cd .. && gulp build-server-init-config",
     "build-prod": "rm -rf www && gulp build-common --type prod && gulp build-auth --type prod && cd front/main && ember build -prod && cd ../.. && gulp build-server --type prod",
     "build-dev": "rm -rf www && gulp build-common && gulp build-auth && cd front/main && ember build && cd ../.. && gulp build-server",
-    "dev": "rm -rf www && gulp build-common && gulp build-auth && gulp build-server && nodemon --delay 2 && npm-run-all --parallel watch-auth watch-common watch-main watch-server start-on-change",
+    "dev": "rm -rf www && gulp build-common && gulp build-auth && gulp build-server && npm-run-all --parallel watch-auth watch-common watch-main watch-server start-on-change",
     "watch-auth": "gulp watch-auth",
     "watch-common": "gulp watch-common",
     "watch-main": "cd front/main && ember build --watch",
@@ -28,7 +28,7 @@
     "linter": "eslint .",
     "service-enable": "sudo rm -f /etc/sv/mercury-dev/down && sudo service mercury-dev start",
     "service-disable": "sudo touch /etc/sv/mercury-dev/down && sudo service mercury-dev stop",
-    "service-log": "tail -f /var/log/syslog | grep mercury:"
+    "service-log": "tail -n 50 -f /var/log/syslog | grep mercury:"
   },
   "repository": "git://github.com/Wikia/mercury.git",
   "license": "MIT",
