@@ -26,8 +26,10 @@
 		}}
 	</div>
 	{{#if userListView}}
-		<div class="discussion-content clickable" onclick={{action 'goToPost' post.threadId}}>
-			{{{parsedContent}}}
+		<div class="discussion-content">
+			{{#link-to 'discussion.post.reply' post.threadId post.id class="post-details-link clamp"}}
+				{{{parsedContent}}}
+			{{/link-to}}
 		</div>
 	{{else}}
 		<div class="discussion-content">
