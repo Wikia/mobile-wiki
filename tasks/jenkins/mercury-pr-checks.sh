@@ -107,7 +107,7 @@ fi
 
 ### Front tests - running
 updateGit "Front tests" pending running
-npm run test-front 2>&1 | tee jenkins/front-tests.log || (error1=true && error=true)
+npm run test-front 2>&1 | tee jenkins/front-tests.log || { error1=true && failJob=true; }
 vim -e -s -c ':set bomb' -c ':wq' jenkins/front-tests.log
 
 if [ -z $error1 ]
@@ -119,7 +119,7 @@ fi
 
 ### Server tests - running
 updateGit "Server tests" pending running
-npm run test-server 2>&1 | tee jenkins/server-tests.log || (error2=true && error=true)
+npm run test-server 2>&1 | tee jenkins/server-tests.log || { error2=true && failJob=true; }
 vim -e -s -c ':set bomb' -c ':wq' jenkins/server-tests.log
 
 if [ -z $error2 ]
@@ -131,7 +131,7 @@ fi
 
 ### Linter - running
 updateGit "Linter" pending running
-npm run linter 2>&1 | tee jenkins/linter.log || (error3=true && error=true)
+npm run linter 2>&1 | tee jenkins/linter.log || { error3=true && failJob=true; }
 vim -e -s -c ':set bomb' -c ':wq' jenkins/linter.log
 
 if [ -z $error3 ]
@@ -142,7 +142,7 @@ else
 fi
 
 ### Finish
-if [ -z $error ]
+if [ -z $failJob ]
 then
     updateGit "Jenkin job" success finished $BUILD_URL"console"
 else

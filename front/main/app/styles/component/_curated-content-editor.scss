@@ -178,7 +178,7 @@ $image-photo-icon-size: 32px;
 	&.placeholder {
 		background: {
 			color: $color-blue-gray-light;
-			image: url('/front/common/symbols/add-image.svg');
+			image: $curated-content-editor-add-image-svg;
 			position: center;
 			repeat: no-repeat;
 			size: 96px;

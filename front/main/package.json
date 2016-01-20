@@ -44,7 +44,7 @@
     "ember-derequire": "0.1.2",
     "ember-disable-proxy-controllers": "1.0.1",
     "ember-export-application-global": "1.0.4",
-    "ember-pop-over": "kvas-damian/ember-pop-over#5061b3dd15be8492b7c42613db4f295f315b8ec1",
+    "ember-pop-over": "kvas-damian/ember-pop-over#d154aacc855ca472e51de67a39f6c862d7913e17",
     "ember-resolver": "2.0.3",
     "ember-sinon": "0.3.0"
   }

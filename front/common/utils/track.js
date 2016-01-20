@@ -199,29 +199,6 @@ export function trackPageView(adsContext) {
 }
 
 /**
- * Track usage of Google Custom Search
- *
- * @param {string} queryParam
- * @returns {void}
- */
-export function trackGoogleSearch(queryParam) {
-	if (M.prop('queryParams.noexternals')) {
-		return;
-	}
-
-	Object.keys(trackers).forEach((tracker) => {
-		const Tracker = trackers[tracker];
-
-		if (typeof Tracker.prototype.trackGoogleSearch === 'function') {
-			const instance = new Tracker(isSpecialWiki());
-
-			console.info('Track Google Search:', tracker);
-			instance.trackGoogleSearch(queryParam);
-		}
-	});
-}
-
-/**
  * Function that updates tracker's saved location to given path.
  * To be called after transition so tracker knows that URL is new.
  *
