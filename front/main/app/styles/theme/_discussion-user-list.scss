@@ -1,0 +1,23 @@
+.discussion-user-list {
+	.post-reply {
+		background-color: $color-white;
+
+		.discussion-reply {
+			padding-left: 30px;
+			padding-right: 30px;
+		}
+
+		.user-replied-to {
+			border-bottom: 1px solid #e6e6e6;
+			color: #cccccc;
+			font-size: 14px;
+			line-height: 21px;
+			margin: 5px 0 10px;
+			padding-bottom: 6px;
+		}
+	}
+}
+
+.discussion .discussion-user-list .post-reply ~ .post-reply .discussion-reply {
+	border-top: none;
+}
