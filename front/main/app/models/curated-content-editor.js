@@ -109,7 +109,7 @@ CuratedContentEditorModel.reopenClass({
 	 * @returns {object} converted object
 	 */
 	prepareDataForSave(model) {
-		lol = {
+		var lol = {
 			data: {
 				'featured': model.featured,
 				'optional': model.optional,

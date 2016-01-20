@@ -1,0 +1,23 @@
+<header>{{i18n 'app.curated-content-editor-wikia-description'}}</header>
+<a class="curated-content-editor-info" {{action 'showHelp'}}>{{svg 'info' class='pointer-events-none' viewBox='0 0 18 18'}}</a>
+<div class="block-description">{{i18n 'app.curated-content-editor-wikia-description-description'}}</div>
+<div class="curated-content-input-wrapper">
+    <div class="input-container {{if labelErrorMessage 'error'}}">
+		{{input
+		value=model.description
+		id='label'
+		class=labelClass
+		name='label'
+		focus-out='setLabelFocusedOut'
+		focus-in='setLabelFocusedIn'
+		}}
+        <label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">{{i18n 'app.curated-content-editor-enter-wikia-description'}}</label>
+        <span class="input-icon help" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-wikia-description-tooltip')}}></span>
+		{{#if labelErrorMessage}}
+            <small class="error">{{labelErrorMessage}}</small>
+		{{/if}}
+    </div>
+</div>
+{{#modal-dialog isVisible=isTooltipVisible}}
+	{{tooltipMessage}}
+{{/modal-dialog}}
