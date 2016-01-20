@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
-import {getExperimentVariationNumber} from 'common/utils/variantTesting';
 
 /**
  * Type for search suggestion
@@ -51,24 +50,7 @@ export default Ember.Component.extend({
 
 	actions: {
 		enter(value) {
-			// Experiment id from Optimizely
-			const experimentIds = {
-					prod: '3571301500',
-					dev: '3579160288'
-				},
-				variationNumber = getExperimentVariationNumber(experimentIds);
-
-			if (variationNumber === 1) {
-				// Use Google Search
-				// Hide SideNav
-				this.sendAction('toggleVisibility', false);
-				this.send('searchCancel');
-
-				this.sendAction('search', value);
-			} else {
-				// Use Wikia Search
-				window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${value}&fulltext=Search`);
-			}
+			window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${value}&fulltext=Search`);
 		},
 
 		searchFocus() {
