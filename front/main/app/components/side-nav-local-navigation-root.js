@@ -31,6 +31,10 @@ export default Ember.Component.extend({
 			} else {
 				this.sendAction('replaceNavigationContent', 'root');
 			}
+		},
+
+		collapse() {
+			this.sendAction('collapse');
 		}
 	},
 	/**

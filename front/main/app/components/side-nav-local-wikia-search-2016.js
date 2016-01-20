@@ -69,6 +69,10 @@ export default Ember.Component.extend({
 
 		clearSearch() {
 			this.set('query', null);
+		},
+
+		collapse() {
+			this.sendAction('collapse');
 		}
 	},
 
