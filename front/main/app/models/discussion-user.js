@@ -71,7 +71,6 @@ DiscussionUserModel.reopenClass({
 								title: post.createdBy.name
 							});
 						}
-						console.log(post, post._embedded);
 					});
 				}
 
