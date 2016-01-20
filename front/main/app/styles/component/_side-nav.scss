@@ -140,11 +140,7 @@
 /// 2016!
 
 .side-nav.collapsed .side-nav-menu {
-	transform: translateX(-100%);
-
-	@include rtl {
-		transform: translateX(100%);
-	}
+	display: none;
 }
 
 .side-nav .side-nav-menu {
