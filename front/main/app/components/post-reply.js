@@ -7,7 +7,20 @@ export default Ember.Component.extend(
 		classNames: ['post-reply'],
 		classNameBindings: ['isNew', 'isDeleted', 'isParentDeleted'],
 
+		encodedAuthorName: Ember.computed('author.name', function () {
+			return Ember.Handlebars.Utils.escapeExpression(this.get('author.name'));
+		}),
+
 		isDeleted: Ember.computed.alias('post.isDeleted'),
+
+		routing: Ember.inject.service('-routing'),
+
+		linkToThread: Ember.computed('post.threadId', function () {
+			const url = this.get('routing').router.generate('discussion.post', this.get('post.threadId'));
+
+			return `<a href="${url}">username/title</a>`;
+		}),
+
 		post: null,
 
 		actions: {
