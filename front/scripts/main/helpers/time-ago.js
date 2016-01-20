@@ -22,17 +22,19 @@ export default Ember.Helper.helper((params) => {
 			'zh-tw': 'YY/MM/DD'
 		},
 		language = Mercury.wiki.language.user || 'en',
-		shouldHideAgoString = params[1] || true;
+		shouldHideAgoString = params[1] || true,
+		before = `&bull; <span class='timestamp' title='${moment().format(dateFormats[language])}'>`,
+		after = '</span>';
 
 	console.log('LANGUAGE OV WIKIA', language);
 	console.log('DATE AFTER CONVERTION', date);
 	console.log('DIFF FROM NOW', moment().diff(date, 'days'));
 
 	if (moment().diff(date, 'days') > 6) {
-		return date.format(dateFormats[language]);
+		return `${before}${date.format(dateFormats[language])}${after}`;
 	} else if (moment().diff(date, 'minutes') < 1) {
-		return i18n.t('app.now-label');
+		return `${before}${i18n.t('app.now-label')}${after}`;
 	} else {
-		return date.fromNow(shouldHideAgoString);
+		return `${before}${date.fromNow(shouldHideAgoString)}${after}`;
 	}
 });
