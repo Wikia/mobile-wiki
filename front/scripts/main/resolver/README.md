@@ -1,1 +1,0 @@
-This is copied from https://github.com/ember-cli/ember-resolver and can be removed after migration to Ember CLI.

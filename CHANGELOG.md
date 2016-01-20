@@ -1,3 +1,33 @@
+## release-200 (2016-01-14 15:22 UTC)
+* [SOC-1549](https://wikia-inc.atlassian.net/browse/SOC-1549) SOC-1549 - fixed loading spinner in firefox
+* [XW-456](https://wikia-inc.atlassian.net/browse/XW-456) XW-456 | Remove old variations of featured content
+* [SOC-1505](https://wikia-inc.atlassian.net/browse/SOC-1505) SOC-1505 | Displaying message to blocked user when opening editor
+* revert-1839-SOC-1483-backup: Revert "SOC-1483 | Displaying message on empty forums"
+* [SOC-1483](https://wikia-inc.atlassian.net/browse/SOC-1483) SOC-1483 | Displaying message on empty forums
+* [SOC-1785](https://wikia-inc.atlassian.net/browse/SOC-1785) SOC-1785
+* [INT-299](https://wikia-inc.atlassian.net/browse/INT-299) INT-299 | Invalidate cache when signing out
+* [SOC-1753](https://wikia-inc.atlassian.net/browse/SOC-1753) SOC-1753 - Duplicated post on post list page when other user posted
+* jenkins-task: add jenkins mercury-pr-checks script
+* [SOC-1782](https://wikia-inc.atlassian.net/browse/SOC-1782) SOC-1782 | Preserved moving username to new line in discussion post header
+* removing-unused-getlanguage-method: Maintenance | Removing unused getLanguage method
+* [SOC-1473](https://wikia-inc.atlassian.net/browse/SOC-1473) SOC-1473 | Convert controllers functionality to components and services
+
+## release-199 (2016-01-12 12:10 UTC)
+* [SOC-1572](https://wikia-inc.atlassian.net/browse/SOC-1572) SOC-1572 | fixed a white box appearing behind the avatar when clicking in the top bar
+* [SOC-1809](https://wikia-inc.atlassian.net/browse/SOC-1809) SOC-1809 | fix for opening reply editor in iOS browsers
+* [SOC-1711](https://wikia-inc.atlassian.net/browse/SOC-1711) SOC-1711| translations updated
+* [INT-305](https://wikia-inc.atlassian.net/browse/INT-305) INT-305 | New extra small screen and medium screen breakpoints for he…
+* [INT-298](https://wikia-inc.atlassian.net/browse/INT-298) As a Wikia Japan user, I want to learn how to participate on Wikia on the home page
+* [SOC-1744](https://wikia-inc.atlassian.net/browse/SOC-1744) SOC-1744 | Added images for GoT and Community Connect
+* [SOC-1751](https://wikia-inc.atlassian.net/browse/SOC-1751) SOC-1751 | Displaying posts title in discussions
+* [INT-183](https://wikia-inc.atlassian.net/browse/INT-183) INT-183 | As a global Wikia user, I want to see the Wikia-in-your-lang features on mobile
+* image-review-frontend: PLATFORM-1564 | Image Review service
+* [VE-2116](https://wikia-inc.atlassian.net/browse/VE-2116) Change the usage of addmediatemporary and addmediapermanent APIs
+* [INT-277](https://wikia-inc.atlassian.net/browse/INT-277) INT-277 | Rename logout handler to signout
+* [INT-297](https://wikia-inc.atlassian.net/browse/INT-297) JP homepage new design - "what is wikia" section.
+* [INT-303](https://wikia-inc.atlassian.net/browse/INT-303) Add condition to retrieve avatar url from user attribute to …
+* [SOC-1711](https://wikia-inc.atlassian.net/browse/SOC-1711) SOC-1711| discussion-app-join new text
+
 ## release-198 (2016-01-07 11:19 UTC)
 * npm-fix: change karma version 0.13.15 -> 0.13.19
 * [SOC-1542](https://wikia-inc.atlassian.net/browse/SOC-1542) SOC-1542 | Adding weibo icon config to share-feature in chinese

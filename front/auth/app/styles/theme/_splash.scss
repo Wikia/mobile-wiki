@@ -1,0 +1,32 @@
+.splash {
+	background-image: url('/front/common/images/faniverse-bg-544.png');
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.splash-top {
+	background-position: center top;
+}
+
+.splash-bottom {
+	background-position: center bottom;
+}
+
+@media(min-width: 550px) {
+	.splash {
+		background-image: url('/front/common/images/faniverse-bg-768.png');
+	}
+}
+
+@media(min-width: 1024px) {
+	.splash {
+		background-image: url('/front/common/images/faniverse-bg-1366.png');
+	}
+}
+
+@media(min-width: 1440px) {
+	.splash {
+		background-image: url('/front/common/images/faniverse-bg-1920.png');
+	}
+}

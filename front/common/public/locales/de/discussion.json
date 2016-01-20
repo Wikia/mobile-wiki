@@ -1,0 +1,48 @@
+{
+  "landing-page":{
+    "to-the-wiki-title":"Zum Wiki",
+    "page-main-header":"Führe mit den größten Fans die heißesten Diskussionen über __applicationName__.",
+    "download-the-app-header":"Lade dir jetzt die App herunter und mach mit!",
+    "google-play-button-alt":"Hole sie dir auf Google Play",
+    "start-discussions-title":"Diskussionen beginnen",
+    "start-discussions-text":"Stelle Fragen, teile Neuigkeiten mit anderen oder unterhalte dich einfach mit Fans auf der ganzen Welt über deine Lieblingsthemen!",
+    "upvote-the-best-title":"Stimme für das Beste ab",
+    "upvote-the-best-text":"Du hast etwas tolles entdeckt? Stimme dafür ab, zeige damit deine Anerkennung und beeinflusse kommende Trends.",
+    "share-your-knowledge-title":"Teile dein Wissen",
+    "share-your-knowledge-text":"Teile deine Lieblingsdiskussionen mit deinen Sozialen Netzwerken und vergrößere damit unsere Fan-Community."
+  },
+  "main":{
+    "pagination-post-show-more":"Ältere Antworten anzeigen",
+    "share-default-title":"Diskussion in __siteName__",
+    "contributors-title":"Alle Beitragenden",
+    "sort-by-latest":"Neueste",
+    "sort-by-trending":"Trends",
+    "loading-more-posts":"Mehr Beiträge laden",
+    "back-to-wikia-link":"Zum Wiki",
+    "number-of-posts":"__numberOfPosts__ Beiträge",
+    "connection-error":"Es kann keine Verbindung hergestellt werden, bitte versuche es noch einmal.",
+    "not-found-error":"Hoppla, diese Seite gibt es scheinbar nicht!",
+    "action-retry-title":"Noch einmal versuchen",
+    "all-discussions-link-desktop":"Alle Diskussionen anzeigen",
+    "all-discussions-link-mobile":"Alle Diskussionen",
+    "discussions-app-join":"Looking to join the discussion? Get the app now!",
+    "back-to-discussions-link":"Alle Diskussionen",
+    "no-replies":"Noch keine Antworten.",
+    "no-replies-be-the-first":"Noch keine Antworten. Deine kann die erste sein!",
+    "modal-dialog-confirm":"OK",
+    "modal-dialog-log-in":"Anmelden",
+    "empty-forum-text":"No posts yet. Get the discussion started, create the first post now!"
+  },
+  "editor":{
+    "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",
+    "post-error-anon-cant-post":"Melde dich an, um an der Diskussion teilzunehmen!",
+    "post-error-not-authorized":"Du kannst keinen Beitrag schreiben, da dein Konto gesperrt wurde.",
+    "post-error-general-error":"Es scheint leider etwas schief gelaufen zu sein. Versuche es bitte später noch einmal.",
+    "post-editor-label":"Beitrag erstellen",
+    "post-action-button-label":"Veröffentlichen",
+    "post-editor-placeholder-text":"Teile einen Gedanken, eine Frage oder einen Link...",
+    "reply-editor-placeholder-text":"Schreibe eine Antwort...",
+    "reply-editor-label":"An der Diskussion teilnehmen",
+    "reply-action-button-label":"Antworten"
+  }
+}

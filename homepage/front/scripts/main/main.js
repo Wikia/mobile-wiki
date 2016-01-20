@@ -93,7 +93,7 @@ $(() => {
 	});
 
 	// TODO: The number of carousels should be encoded in a json file
-	for (let i = 1; i <= 3; i++) {
+	for (let i = 1; i <= 5; i++) {
 		$(`#carousel-${i}-prev`).detach().appendTo(`#carousel-${i}`);
 		$(`#carousel-${i}-next`).detach().appendTo(`#carousel-${i}`);
 	}

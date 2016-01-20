@@ -1,0 +1,48 @@
+{
+  "landing-page":{
+    "to-the-wiki-title":"retour au Wikia",
+    "page-main-header":"Les discussions sur __applicationName__ les plus tendances avec les plus grands fans.",
+    "download-the-app-header":"Téléchargez l'application dès maintenant pour les rejoindre !",
+    "google-play-button-alt":"Télécharger sur Google Play",
+    "start-discussions-title":"Lancer une discussion",
+    "start-discussions-text":"Posez une question, partagez des actualités ou discutez simplement de vos sujets favoris avec d'autres fans du monde entier !",
+    "upvote-the-best-title":"Voter pour le meilleur",
+    "upvote-the-best-text":"Quelque chose vous a vraiment plu ? Montrez-le en votant pour afin d'influencer les tendances.",
+    "share-your-knowledge-title":"Partager ses connaissances",
+    "share-your-knowledge-text":"Partagez vos discussions préférées avec vos réseaux sociaux afin d'attirer encore plus de fans."
+  },
+  "main":{
+    "pagination-post-show-more":"Réponses plus anciennes",
+    "share-default-title":"Discussion sur __siteName__",
+    "contributors-title":"Tous les contributeurs",
+    "sort-by-latest":"Récentes",
+    "sort-by-trending":"Tendances",
+    "loading-more-posts":"Chargement d'autres publications",
+    "back-to-wikia-link":"Retour au Wikia",
+    "number-of-posts":"__numberOfPosts__ publications",
+    "connection-error":"Connexion impossible. Veuillez réessayer.",
+    "not-found-error":"Il semble que cette page n'existe pas.",
+    "action-retry-title":"Réessayer",
+    "all-discussions-link-desktop":"Me montrer toutes les discussions",
+    "all-discussions-link-mobile":"Toutes les discussions",
+    "discussions-app-join":"Vous voulez rejoindre la discussion ? Téléchargez l'application dès maintenant.",
+    "back-to-discussions-link":"Toutes les discussions",
+    "no-replies":"Pas encore de réponse.",
+    "no-replies-be-the-first":"Pas encore de réponse. Soyez le premier !",
+    "modal-dialog-confirm":"OK",
+    "modal-dialog-log-in":"Se connecter",
+    "empty-forum-text":"Il n' y a pas encore de publications. Lancez la discussion en créant une publication maintenant !"
+  },
+  "editor":{
+    "post-failed-error":"Échec de la publication.",
+    "post-error-anon-cant-post":"Connectez-vous pour rejoindre la discussion !",
+    "post-error-not-authorized":"Publication impossible car votre compte a été bloqué.",
+    "post-error-general-error":"Oups, il semble qu'un problème soit survenu. Veuillez réessayer ultérieurement.",
+    "post-editor-label":"Créer une publication",
+    "post-action-button-label":"Publier",
+    "post-editor-placeholder-text":"Partagez une idée, une question ou un lien…",
+    "reply-editor-placeholder-text":"Écrire une réponse…",
+    "reply-editor-label":"Contribuer à la discussion",
+    "reply-action-button-label":"Répondre"
+  }
+}
