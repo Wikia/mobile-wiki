@@ -48,7 +48,7 @@
 		</div>
 		{{#if isFandomVisible}}
 			<div class="side-nav-menu__footer">
-				<a href={{wikiaHomepage}}>The Home Of Fandom</a>
+				<a {{action 'homeOfFandomClick' preventDefault=false}} href={{wikiaHomepage}}>The Home of Fandom</a>
 			</div>
 		{{/if}}
 	</div>

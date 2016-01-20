@@ -15,7 +15,7 @@ export default Ember.Component.extend({
 	shouldBeVisibleObserver: Ember.observer('shouldBeVisible', function () {
 		track({
 			action: trackActions.click,
-			category: 'menu',
+			category: 'wiki-nav',
 			label: this.get('shouldBeVisible') ? 'open' : 'close'
 		});
 	}),
@@ -47,10 +47,24 @@ export default Ember.Component.extend({
 		wordmarkClick() {
 			track({
 				action: trackActions.click,
-				category: 'wordmark',
+				category: 'wiki-nav',
+				label: 'wordmark',
 			});
 			this.send('collapse');
 		},
+
+		/**
+		 * @returns {void}
+		 */
+		homeOfFandomClick() {
+			track({
+				action: trackActions.click,
+				category: 'wiki-nav',
+				label: 'home-of-fandom',
+			});
+			this.send('collapse');
+		},
+
 		/**
 		 * @returns {void}
 		 */
