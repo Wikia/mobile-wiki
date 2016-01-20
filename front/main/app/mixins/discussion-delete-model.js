@@ -39,7 +39,7 @@ export default Ember.Mixin.create({
 					Ember.set(post, 'isDeleted', true);
 				},
 				error: () => {
-					this.displayError();
+					self.displayError();
 				}
 			});
 		}

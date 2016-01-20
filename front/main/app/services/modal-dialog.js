@@ -2,6 +2,7 @@ export default Ember.Service.extend({
 	isDisplayed: false,
 	isConfirm: false,
 	confirmCallback: null,
+	confirmButtonText: null,
 	message: null,
 
 	/**
@@ -22,13 +23,14 @@ export default Ember.Service.extend({
 	 * @param {string} message
 	 * @returns {void}
 	 */
-	confirm(message, confirmCallback) {
+	confirm(message, confirmButtonText, confirmCallback) {
 		if (!this.get('isDisplayed') && message !== this.get('message')) {
 			this.setProperties({
 				isDisplayed: true,
 				isConfirm: true,
 				confirmCallback,
-				message,
+				confirmButtonText,
+				message
 			});
 		}
 	},

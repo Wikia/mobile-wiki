@@ -37,6 +37,8 @@
     "all-posts-by-username": "View All Posts By __userName__",
     "modal-dialog-confirm": "OK",
 	"modal-dialog-cancel": "Cancel",
+	"modal-dialog-delete-all": "Delete All",
+	"modal-dialog-delete-all-message": "<h2>Delete All Posts?</h2><br />Are you sure you want to delete all posts by __userName__ on __wikiName__? Note that only individual posts can be restored and that you cannot undelete posts in bulk.",
     "modal-dialog-log-in": "Sign in"
   },
   "editor": {
