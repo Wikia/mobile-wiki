@@ -10,6 +10,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 	userId: null,
 	userName: null,
 	posts: null,
+	totalPosts: null,
 
 	loadPage(pageNum = 0) {
 		this.set('pageNum', pageNum);
@@ -22,10 +23,18 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 			},
 			url: M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`),
 			success: (data) => {
-				const newPosts = data._embedded['doc:threads'],
-					allPosts = this.posts.concat(newPosts);
+				let newPosts = data._embedded['doc:posts'];
 
-				this.set('posts', allPosts);
+				newPosts.forEach((post) => {
+					if (post.hasOwnProperty('createdBy')) {
+						post.createdBy.profileUrl = M.buildUrl({
+							namespace: 'User',
+							title: post.createdBy.name
+						});
+					}
+				});
+
+				this.set('posts', this.posts.concat(newPosts));
 			},
 			error: (err) => {
 				this.handleLoadMoreError(err);
@@ -77,11 +86,10 @@ DiscussionUserModel.reopenClass({
 				userInstance.setProperties({
 					contributors,
 					forumId: data.forumId,
-					id: data.id,
 					userName,
 					page: 0,
 					pivotId,
-					postCount: data.postCount,
+					totalPosts: data.postCount,
 					posts: posts || []
 				});
 			},
