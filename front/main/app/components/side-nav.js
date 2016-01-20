@@ -22,6 +22,7 @@ export default Ember.Component.extend({
 		});
 	}),
 
+	wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 	currentUser: Ember.inject.service(),
 	globalNavContent: 'side-nav-global-navigation-root',
 	isFandomVisible: Ember.computed(() => M.prop('userLanguage') === 'en' || Mercury.wiki.language.content === 'en'),
