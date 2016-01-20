@@ -1,5 +1,5 @@
 {{#each posts as |item|}}
-	{{#if item.position }}
+	{{#if item.isReply }}
 		{{post-reply
 			post=item
 			author=item.createdBy
