@@ -1,6 +1,5 @@
 {
   "ext": "js hbs",
-  "runOnChangeOnly": true,
   "watch": [
     "www/server"
   ]
