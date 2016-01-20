@@ -18,16 +18,12 @@ export default Ember.Component.extend(LoginLinkMixin, {
 			textKey: 'user-menu-log-out',
 		};
 	}),
-	userProfileLink: Ember.computed(function () {
-		return {
-			href: M.buildUrl({
-				namespace: 'User',
-				title: this.get('currentUser.name'),
-			}),
-			textKey: 'user-menu-profile',
-		};
+	userProfileLink: Ember.computed('currentUser.name', function () {
+		return M.buildUrl({
+			namespace: 'User',
+			title: this.get('currentUser.name')
+		});
 	}),
-
 	actions: {
 		goToLogin() {
 			this.goToLogin();
