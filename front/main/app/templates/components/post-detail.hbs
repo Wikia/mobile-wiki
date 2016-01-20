@@ -4,10 +4,7 @@
 		displayProfileName=true
 		username=author.name
 	}}
-    &bull;
-    <span class="timestamp" title="2015-12-24">
-		{{time-ago post.creationDate.epochSecond}}
-	</span>
+	{{{time-ago post.creationDate.epochSecond}}}
 	{{discussion-delete
 		delete=(action this.attrs.deletePost)
 		undelete=(action this.attrs.undeletePost)

@@ -80,6 +80,7 @@ module.exports = function (defaults) {
 	app.import(app.bowerDirectory + '/i18next/i18next.js');
 	app.import(app.bowerDirectory + '/vignette/dist/vignette.js');
 	app.import(app.bowerDirectory + '/numeral/numeral.js');
+	app.import(app.bowerDirectory + '/moment/moment.js');
 	app.import(app.bowerDirectory + '/weppy/dist/weppy.js');
 	app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
 	app.import(app.bowerDirectory + '/Autolinker.js/dist/Autolinker.min.js');
