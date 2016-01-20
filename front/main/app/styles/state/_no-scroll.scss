@@ -1,5 +1,6 @@
 .no-scroll {
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: scroll;
 	position: fixed;
 	width: 100%;
 	height: 100%;
