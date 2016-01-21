@@ -11,7 +11,7 @@ export default Ember.Component.extend(
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
 
 		logoutLink: Ember.computed(() => {
-			return buildUrl({
+			return M.buildUrl({
 				namespace: 'Special',
 				title: 'UserLogout',
 			});
