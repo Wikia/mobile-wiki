@@ -1,3 +1,17 @@
+## release-202 (2016-01-21 12:15 UTC)
+* revert-1847-revert-1839-SOC-1483-backup: Revert "Revert "SOC-1483 | Displaying message on empty forums""
+* [XW-926](https://wikia-inc.atlassian.net/browse/XW-926) XW-926 Fix server error handling
+* nodemon-run-on-change-only: Run nodemon after the first change
+* [ADEN-2846](https://wikia-inc.atlassian.net/browse/ADEN-2846) ADEN-2846 Prevent throwing JS error on pages without adsContext
+* [INT-311](https://wikia-inc.atlassian.net/browse/INT-311) INT-311 | Fix header alignment for sliders in mobile. Extra heading p…
+* [XW-](https://wikia-inc.atlassian.net/browse/XW-) XW | fix crowdin paths
+* [XW-948](https://wikia-inc.atlassian.net/browse/XW-948) XW-984 | clean up after ember-cli
+* [XW-879](https://wikia-inc.atlassian.net/browse/XW-879) XW-879 | Introduce Ember CLI
+* xw-update-svg: XW-879 | update svg not to use same ids
+* fix-styles: XW-950 | Fix dark theme
+* ember-cli-beta-6: Ember cli beta 6
+* [XW-876](https://wikia-inc.atlassian.net/browse/XW-876) XW-887 | Work towards ESLint
+
 ## release-201 (2016-01-19 11:39 UTC)
 * eslint-errors-only: XW | Don't use eslint warnings
 * ember-2.0.3: Upgrade Ember to v2.0.3
