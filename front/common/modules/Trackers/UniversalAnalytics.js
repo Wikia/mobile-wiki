@@ -1,3 +1,5 @@
+/* eslint no-undefined: 0 */
+
 /**
  * @typedef {Object} TrackerOptions
  * @property {string} name
@@ -103,12 +105,13 @@ class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	initAccount(trackerName, domain) {
-		const options = {
-			name: '',
-			allowLinker: true,
-			sampleRate: this.accounts[trackerName].sampleRate,
-			userId: M.prop('gaUserIdHash')
-		};
+		const gaUserIdHash = M.prop('gaUserIdHash'),
+			options = {
+				name: '',
+				allowLinker: true,
+				sampleRate: this.accounts[trackerName].sampleRate,
+				userId: (gaUserIdHash > 0 ? gaUserIdHash : undefined)
+			};
 
 		let prefix = '',
 			trackerPrefix;

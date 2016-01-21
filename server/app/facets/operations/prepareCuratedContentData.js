@@ -1,7 +1,6 @@
-import {parseQueryParams} from '../../lib/Utils';
+import {parseQueryParams, md5} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
 import deepExtend from 'deep-extend';
-import md5 from 'blueimp-md5';
 
 /**
  * Handles category or section response for Curated Main Page from API
@@ -74,9 +73,10 @@ export default function prepareCuratedContentData(request, curatedContentPageDat
 
 	if (request.auth.isAuthenticated) {
 		result.userId = request.auth.credentials.userId;
-		result.gaUserIdHash = md5(result.userId + localSettings.gaUserSalt);
+		result.gaUserIdHash = md5(result.userId.toString() + localSettings.gaUserSalt);
 	} else {
 		result.userId = 0;
+		result.gaUserIdHash = 0;
 	}
 
 	// all the third party scripts we don't want to load on noexternals

@@ -5,7 +5,7 @@ import * as OpenGraph from '../lib/OpenGraph';
 import Logger from '../lib/Logger';
 import localSettings from '../../config/localSettings';
 import discussionsSplashPageConfig from '../../config/discussionsSplashPageConfig';
-import md5 from 'blueimp-md5';
+import md5 from '../lib/Utils';
 
 /**
  * @typedef {Object} CommunityAppConfig
@@ -61,9 +61,10 @@ export default function showApplication(request, reply, wikiVariables) {
 	context.localSettings = localSettings;
 	if (request.auth.isAuthenticated) {
 		context.userId = request.auth.credentials.userId;
-		context.gaUserIdHash = md5(context.userId + localSettings.gaUserSalt);
+		context.gaUserIdHash = md5(context.userId.toString() + localSettings.gaUserSalt);
 	} else {
 		context.userId = 0;
+		context.gaUserIdHash = 0;
 	}
 	context.discussionsSplashPageConfig = getDistilledDiscussionsSplashPageConfig(hostName);
 

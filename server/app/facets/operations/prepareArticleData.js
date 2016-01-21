@@ -1,7 +1,6 @@
 import * as Utils from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
 import deepExtend from 'deep-extend';
-import md5 from 'blueimp-md5';
 
 /**
  * Prepares article data to be rendered
@@ -94,9 +93,10 @@ export default function prepareArticleData(request, data) {
 
 	if (request.auth.isAuthenticated) {
 		result.userId = request.auth.credentials.userId;
-		result.gaUserIdHash = md5(result.userId + localSettings.gaUserSalt);
+		result.gaUserIdHash = Utils.md5(result.userId.toString() + localSettings.gaUserSalt);
 	} else {
 		result.userId = 0;
+		result.gaUserIdHash = 0;
 	}
 
 	result.asyncArticle = (

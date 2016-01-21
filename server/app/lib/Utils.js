@@ -5,6 +5,7 @@
 import Hoek from 'hoek';
 import Url from 'url';
 import QueryString from 'querystring';
+import Crypto from 'crypto';
 
 /**
  * @typedef {Object} ServerData
@@ -358,4 +359,14 @@ export function getHtmlTitle(wikiVariables, displayTitle) {
 		return htmlTitleTemplate.replace('$1', displayTitle);
 	}
 	return htmlTitleTemplate.replace('$1 - ', '');
+}
+
+/**
+ * Get md5 of string
+ *
+ * @param {string} data
+ * @returns {string}
+ */
+export function md5(data) {
+	return Crypto.createHash('md5').update(data).digest("hex")
 }
