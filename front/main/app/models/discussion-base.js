@@ -21,6 +21,15 @@ export default Ember.Object.extend({
 	 */
 	minorError: false,
 
+	init() {
+		const wikiId = Ember.get(Mercury, 'wiki.id');
+
+		this.setProperties({
+			wikiId: wikiId,
+			forumId: wikiId
+		});
+	},
+
 	/**
 	 * @param {Object} err
 	 * @returns {void}

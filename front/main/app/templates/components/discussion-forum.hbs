@@ -27,7 +27,7 @@
 			}}
 		{{else if model.notFoundError}}
 			{{discussion-not-found-error
-				goToAllDiscussions=(action this.attrs.goToAllDiscussions)
+				forumId=model.forumId
 			}}
 		{{else}}
 			<div class="small-12 large-6 columns">
@@ -41,6 +41,7 @@
 					loadPage=(action this.attrs.loadPage)
 					undeletePost=(action this.attrs.undeletePost)
 					upvote=(action this.attrs.upvote)
+					forumId=model.forumId
 					minorError=model.minorError
 					name=model.name
 					pageNum=model.pageNum
