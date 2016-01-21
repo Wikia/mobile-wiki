@@ -1,16 +1,19 @@
 import setResponseCaching, {Policy, Interval} from './lib/Caching';
-import {Server} from 'hapi';
 import Logger from './lib/Logger';
 import {Environment} from './lib/Utils';
 import wikiaSessionScheme from './lib/WikiaSession';
-import cluster from 'cluster';
 import localSettings from '../config/localSettings';
 import {routes} from './routes';
+import cluster from 'cluster';
+import fs from 'fs';
+import h2o2 from 'h2o2';
+import handlebars from 'handlebars';
+import {Server} from 'hapi';
+import i18next from 'hapi-i18next';
+import inert from 'inert';
 import path from 'path';
 import url from 'url';
-import fs from 'fs';
-import i18next from 'hapi-i18next';
-import handlebars from 'handlebars';
+import vision from 'vision';
 
 /* eslint no-process-env: 0 */
 
@@ -24,18 +27,46 @@ if (process.env.NEW_RELIC_ENABLED === 'true') {
 
 const isDevbox = localSettings.environment === Environment.Dev,
 	localesPath = path.join(__dirname, '..', '..', 'front/common/locales'),
-	// Creates new `hapi` server
 	server = new Server({
 		connections: {
 			router: {
 				stripTrailingSlash: true
 			}
 		}
-	});
+	}),
+	plugins = [
+		{
+			register: i18next,
+			options: {
+				i18nextOptions: {
+					resGetPath: path.join(localesPath, '/__lng__/__ns__.json'),
+					ns: {
+						namespaces: ['main', 'auth', 'discussion'],
+						defaultNs: 'main'
+					},
+					fallbackLng: 'en',
+					supportedLngs: getSupportedLangs(),
+					useCookie: false,
+					detectLngFromHeaders: false,
+					detectLngFromQueryString: true,
+					detectLngQS: 'uselang',
+					lowerCaseLng: true
+				}
+			}
+		},
+		{
+			register: h2o2
+		},
+		{
+			register: inert
+		},
+		{
+			register: vision
+		}
+	];
 
 // Counter for maxRequestPerChild
-let counter = 1,
-	plugins;
+let counter = 1;
 
 /**
  * Create new onPreResponseHandler
@@ -146,10 +177,11 @@ function setupLogging(server) {
 	server.on('response', (request) => {
 		// If there is an error and headers are not present, set the response time to -1 to make these
 		// errors easy to discover
-		const responseTime = request.response.headers &&
-			request.response.headers.hasOwnProperty('x-backend-response-time') ?
-			parseFloat(request.response.headers['x-backend-response-time']) :
-			-1;
+		let responseTime = -1;
+
+		if (request.response.headers &&	request.response.headers.hasOwnProperty('x-backend-response-time')) {
+			responseTime = parseFloat(request.response.headers['x-backend-response-time']);
+		}
 
 		Logger.info({
 			wiki: request.headers.host,
@@ -171,27 +203,7 @@ function getSupportedLangs() {
 	return fs.readdirSync(localesPath);
 }
 
-plugins = [
-	{
-		register: i18next,
-		options: {
-			i18nextOptions: {
-				resGetPath: path.join(localesPath, '/__lng__/__ns__.json'),
-				ns: {
-					namespaces: ['main', 'auth', 'discussion'],
-					defaultNs: 'main'
-				},
-				fallbackLng: 'en',
-				supportedLngs: getSupportedLangs(),
-				useCookie: false,
-				detectLngFromHeaders: false,
-				detectLngFromQueryString: true,
-				detectLngQS: 'uselang',
-				lowerCaseLng: true
-			}
-		}
-	}
-];
+setupLogging(server);
 
 server.connection({
 	host: localSettings.host,
@@ -203,9 +215,9 @@ server.connection({
 	}
 });
 
-setupLogging(server);
-
 /**
+ * This has to run after server.connection
+ *
  * @param {*} err
  * @returns {void}
  */
@@ -213,35 +225,35 @@ server.register(plugins, (err) => {
 	if (err) {
 		Logger.error(err);
 	}
+
+	server.views({
+		engines: {
+			hbs: handlebars
+		},
+		isCached: true,
+		layout: 'ember-main',
+		helpersPath: path.join(__dirname, 'views', '_helpers'),
+		layoutPath: path.join(__dirname, 'views', '_layouts'),
+		path: path.join(__dirname, 'views'),
+		partialsPath: path.join(__dirname, 'views', '_partials'),
+		context: {
+			i18n: {
+				translateWithCache: server.methods.i18n.translateWithCache,
+				getInstance: server.methods.i18n.getInstance
+			}
+		}
+	});
+
+	// Initialize cookies
+	server.state('access_token', {
+		isHttpOnly: true,
+		clearInvalid: true,
+		domain: localSettings.authCookieDomain
+	});
 });
 
 server.auth.scheme('wikia', wikiaSessionScheme);
 server.auth.strategy('session', 'wikia');
-
-server.views({
-	engines: {
-		hbs: handlebars
-	},
-	isCached: true,
-	layout: 'ember-main',
-	helpersPath: path.join(__dirname, 'views', '_helpers'),
-	layoutPath: path.join(__dirname, 'views', '_layouts'),
-	path: path.join(__dirname, 'views'),
-	partialsPath: path.join(__dirname, 'views', '_partials'),
-	context: {
-		i18n: {
-			translateWithCache: server.methods.i18n.translateWithCache,
-			getInstance: server.methods.i18n.getInstance
-		}
-	}
-});
-
-// Initialize cookies
-server.state('access_token', {
-	isHttpOnly: true,
-	clearInvalid: true,
-	domain: localSettings.authCookieDomain
-});
 
 // instantiate routes
 server.route(routes);
