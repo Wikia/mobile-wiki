@@ -145,11 +145,10 @@
     "curated-content-editor-new-featured-content": "New Featured Content",
     "curated-content-editor-new-section": "New Section",
     "curated-content-editor-new-category": "New Category",
-    "curated-content-editor-wikia-description": "Wikia Description",
-    "curated-content-editor-wikia-description-description": "This is description of your wiki",
-    "curated-content-editor-enter-wikia-description": "Enter wikia description here",
-    "curated-content-editor-enter-wikia-description-tooltip": "Enter wikia description to this field and click save button",
-    "curated-content-editor-missing-wikia-description-error": "Description cannot be empty"
+    "curated-content-editor-wikia-description": "Description",
+    "curated-content-editor-wikia-description-help": "Something as simple as \"Learn more about the Bacon Wiki\" or \"Welcome to the Bacon Wiki\" is great!",
+    "curated-content-editor-enter-wikia-description": "Enter description here",
+    "curated-content-editor-wikia-description-description": "Add a summary that will promote your wikia in searches and on hubs."
   },
   "userStatus": {
     "anon-cta": "__registerLink__ or __loginLink__",

@@ -10,6 +10,7 @@ export default Ember.Component.extend(
 		spinnerOverlay: false,
 
 		isTooltipVisible: false,
+		isHelpVisible: false,
 
 		isLabelFocused: false,
 		isLabelNotEmpty: Ember.computed.notEmpty('model.description'),
@@ -33,15 +34,11 @@ export default Ember.Component.extend(
 			},
 
 			/**
-			 * @param {string} tooltipMessage
 			 * @returns {void}
 			 */
-			showTooltip(tooltipMessage) {
-				this.trackClick('curated-content-editor', 'tooltip-show');
-				this.setProperties({
-					tooltipMessage,
-					isTooltipVisible: true
-				});
+			showHelp() {
+				this.trackClick('curated-content-editor', 'help-show');
+				this.set('isHelpVisible', true);
 			}
 		}
 	}
