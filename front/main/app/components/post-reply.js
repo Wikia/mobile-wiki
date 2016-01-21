@@ -11,16 +11,15 @@ export default Ember.Component.extend(
 			return Ember.Handlebars.Utils.escapeExpression(this.get('author.name'));
 		}),
 
-		isDeleted: Ember.computed.alias('post.isDeleted'),
+		isDeleted: Ember.computed.alias('post.isDeleted'), 
 
 		routing: Ember.inject.service('-routing'),
 
-		linkToThread: Ember.computed('post.threadId', function () {
-			const url = this.get('routing').router.generate('discussion.post', this.get('post.threadId')),
-				threadAuthor = Ember.Handlebars.Utils.escapeExpression(this.get('post.threadCreatedBy.name')),
-				linkTitle = threadAuthor + (this.get('post.threadTitle') ? '/' + this.get('post.threadTitle') : '');
+		linkToThreadTitle: Ember.computed('post.threadId', function () {
+			const threadAuthor = this.get('post.threadCreatedBy.name'),
+				threadTitle = this.get('post.threadTitle');
 
-			return `<a href="${url}">${linkTitle}</a>`;
+			return threadAuthor + (threadTitle ? '/' + threadTitle : '');
 		}),
 
 		post: null,
