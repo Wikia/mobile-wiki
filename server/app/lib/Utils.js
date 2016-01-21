@@ -368,5 +368,5 @@ export function getHtmlTitle(wikiVariables, displayTitle) {
  * @returns {string}
  */
 export function md5(data) {
-	return Crypto.createHash('md5').update(data).digest("hex")
+	return Crypto.createHash('md5').update(data).digest('hex');
 }
