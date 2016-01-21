@@ -41,7 +41,7 @@ import CuratedContentEditorItemModel from '../models/curated-content-editor-item
 const CuratedContentEditorModel = Ember.Object.extend({
 	featured: null,
 	curated: null,
-	wikiaMetadata: null,
+	communityData: null,
 	optional: null,
 	isDirty: false
 });
@@ -89,7 +89,7 @@ CuratedContentEditorModel.reopenClass({
 					format: 'json'
 				},
 				success: (data) => {
-					if (data) {
+					if (Ember.isArray(data.data)) {
 						resolve(CuratedContentEditorModel.sanitize(data));
 					} else {
 						reject('Invalid data was returned from Curated Content API');
@@ -109,17 +109,14 @@ CuratedContentEditorModel.reopenClass({
 	 * @returns {object} converted object
 	 */
 	prepareDataForSave(model) {
-		var lol = {
+		return {
 			data: {
 				'featured': model.featured,
 				'optional': model.optional,
 				'curated': model.curated.items,
-				'community_data': model.wikiaMetadata
+				'community_data': model.communityData
 			}
 		};
-		console.log('lol: ', lol);
-
-		return lol;
 	},
 
 	/**
@@ -129,39 +126,43 @@ CuratedContentEditorModel.reopenClass({
 	 * @returns {CuratedContentEditorModel} sanitized
 	 */
 	sanitize(rawData) {
-		let community_data,
-			featured = {
-				items: []
+		/**
+		 * Label inside "optional" has to be initialized with empty string value.
+		 * Code inside CuratedContentController:getSections (MW) decides based on this label
+		 * if it's optional or not. If it's null it will fail rendering main page.
+		 */
+		const curated = {
+			items: []
+		};
+		let featured = {
+				items: [],
+				featured: 'true',
 			},
 			optional = {
 				items: [],
 				label: ''
 			},
-			curated = {
-				items: []
-			};
+			communityData = {};
 
-		if (rawData.data.community_data) {
-			community_data = rawData.data.community_data;
-		}
-
-		if (rawData.data.featured) {
-			featured = rawData.data.featured;
-		}
-
-		if (rawData.data.optional) {
-			optional = rawData.data.optional;
-		}
-
-		if (rawData.data.curated) {
-			curated = rawData.data.curated;
+		if (rawData.length) {
+			rawData.forEach((section) => {
+				if (section.featured === 'true') {
+					featured = section;
+				} if (section.community_data === 'true') {
+					communityData = section;
+				} else if (section.label === '') {
+					optional = section;
+				} else {
+					curated.items.push(section);
+				}
+			});
 		}
 
 		return CuratedContentEditorModel.create({
 			featured,
-			community_data,
 			curated,
-			optional
+			optional,
+			communityData
 		});
 	},
 
