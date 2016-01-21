@@ -89,7 +89,7 @@ CuratedContentEditorModel.reopenClass({
 					format: 'json'
 				},
 				success: (data) => {
-					if (Ember.isArray(data.data)) {
+					if (data) {
 						resolve(CuratedContentEditorModel.sanitize(data));
 					} else {
 						reject('Invalid data was returned from Curated Content API');
@@ -114,7 +114,7 @@ CuratedContentEditorModel.reopenClass({
 				'featured': model.featured,
 				'optional': model.optional,
 				'curated': model.curated.items,
-				community_data: model.wikiaMetadata
+				'community_data': model.wikiaMetadata
 			}
 		};
 		console.log('lol: ', lol);
@@ -129,43 +129,37 @@ CuratedContentEditorModel.reopenClass({
 	 * @returns {CuratedContentEditorModel} sanitized
 	 */
 	sanitize(rawData) {
-		/**
-		 * Label inside "optional" has to be initialized with empty string value.
-		 * Code inside CuratedContentController:getSections (MW) decides based on this label
-		 * if it's optional or not. If it's null it will fail rendering main page.
-		 */
-		const curated = {
-			items: []
-		};
-		let featured = {
-				items: [],
-				featured: 'true'
+		let community_data,
+			featured = {
+				items: []
 			},
-			wikiaMetadata = {},
 			optional = {
 				items: [],
 				label: ''
+			},
+			curated = {
+				items: []
 			};
 
-		if (rawData.data.length) {
-			rawData.data.forEach((section) => {
-				if (section.featured === 'true') {
-					featured = section;
-				} else if (section.label === '') {
-					optional = section;
-				} else {
-					curated.items.push(section);
-				}
-			});
+		if (rawData.data.community_data) {
+			community_data = rawData.data.community_data;
 		}
 
-		if (rawData.metadata) {
-			wikiaMetadata.description = rawData.metadata.description || '';
+		if (rawData.data.featured) {
+			featured = rawData.data.featured;
+		}
+
+		if (rawData.data.optional) {
+			optional = rawData.data.optional;
+		}
+
+		if (rawData.data.curated) {
+			curated = rawData.data.curated;
 		}
 
 		return CuratedContentEditorModel.create({
 			featured,
-			wikiaMetadata,
+			community_data,
 			curated,
 			optional
 		});
