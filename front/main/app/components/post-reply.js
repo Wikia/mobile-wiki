@@ -17,8 +17,8 @@ export default Ember.Component.extend(
 
 		linkToThread: Ember.computed('post.threadId', function () {
 			const url = this.get('routing').router.generate('discussion.post', this.get('post.threadId')),
-				  threadAuthor = Ember.Handlebars.Utils.escapeExpression(this.get('post.threadCreatedBy.name')),
-				  linkTitle = threadAuthor + (this.get('post.threadTitle') ? '/' + this.get('post.threadTitle') : '');
+				threadAuthor = Ember.Handlebars.Utils.escapeExpression(this.get('post.threadCreatedBy.name')),
+				linkTitle = threadAuthor + (this.get('post.threadTitle') ? '/' + this.get('post.threadTitle') : '');
 
 			return `<a href="${url}">${linkTitle}</a>`;
 		}),
