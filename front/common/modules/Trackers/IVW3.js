@@ -1,7 +1,7 @@
 import BaseTracker from './BaseTracker';
 
 /**
- * @class Nielsen
+ * @class IVW3
  */
 export default class IVW3 extends BaseTracker {
 	constructor() {
