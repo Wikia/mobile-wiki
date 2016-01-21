@@ -127,7 +127,7 @@ gulp.task('watch-auth', function () {
 		);
 	});
 
-	watch(path.join(paths.auth.styles.src, paths.auth.styles.compile), function () {
+	watch(paths.auth.styles.watch, function () {
 		runSequence(
 			'build-auth-styles',
 			'build-auth-views-index'
