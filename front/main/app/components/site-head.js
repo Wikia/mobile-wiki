@@ -10,13 +10,7 @@ export default Ember.Component.extend(
 		classNameBindings: ['themeBar'],
 		tagName: 'nav',
 		themeBar: false,
-		wikiaHomepage: Ember.computed(function () {
-			if (this.get('globalNav2016') && Mercury.wiki.language.content === 'en') {
-				return 'http://www.wikia.com/fandom';
-			} else {
-				return Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com');
-			}
-		}),
+		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 		pinned: true,
 
 		currentUser: Ember.inject.service(),
