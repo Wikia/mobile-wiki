@@ -110,12 +110,8 @@ CuratedContentEditorModel.reopenClass({
 	 */
 	prepareDataForSave(model) {
 		return {
-			data: {
-				'featured': model.featured,
-				'optional': model.optional,
-				'curated': model.curated.items,
-				'community_data': model.communityData
-			}
+			data: [].concat(model.featured, model.curated.items, model.optional),
+			community_data: model.communityData
 		};
 	},
 
@@ -136,13 +132,15 @@ CuratedContentEditorModel.reopenClass({
 		};
 		let featured = {
 				items: [],
-				featured: 'true',
+				featured: 'true'
 			},
 			optional = {
 				items: [],
 				label: ''
 			},
-			communityData = {};
+			communityData = {
+				community_data: 'true'
+			};
 
 		if (rawData.length) {
 			rawData.forEach((section) => {

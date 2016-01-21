@@ -51,7 +51,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			editWikiaDescription() {
-				console.log("curated-content-editor.js: save wikia description");
 				this.sendAction('editWikiaDescription');
 			},
 

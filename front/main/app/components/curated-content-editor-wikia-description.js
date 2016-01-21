@@ -20,16 +20,14 @@ export default Ember.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			setLabelFocusedOut()
-			{
+			setLabelFocusedOut() {
 				this.set('isLabelFocused', false);
 			},
 
 			/**
 			 * @returns {void}
 			 */
-			setLabelFocusedIn()
-			{
+			setLabelFocusedIn() {
 				this.set('isLabelFocused', true);
 			},
 
