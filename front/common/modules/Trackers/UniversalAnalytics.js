@@ -110,7 +110,7 @@ class UniversalAnalytics {
 				name: '',
 				allowLinker: true,
 				sampleRate: this.accounts[trackerName].sampleRate,
-				userId: (gaUserIdHash > 0 ? gaUserIdHash : undefined)
+				userId: (gaUserIdHash.length > 0 ? gaUserIdHash : undefined)
 			};
 
 		let prefix = '',

@@ -76,7 +76,7 @@ export default function prepareCuratedContentData(request, curatedContentPageDat
 		result.gaUserIdHash = md5(result.userId.toString() + localSettings.gaUserSalt);
 	} else {
 		result.userId = 0;
-		result.gaUserIdHash = 0;
+		result.gaUserIdHash = '';
 	}
 
 	// all the third party scripts we don't want to load on noexternals

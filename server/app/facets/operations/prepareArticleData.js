@@ -96,7 +96,7 @@ export default function prepareArticleData(request, data) {
 		result.gaUserIdHash = Utils.md5(result.userId.toString() + localSettings.gaUserSalt);
 	} else {
 		result.userId = 0;
-		result.gaUserIdHash = 0;
+		result.gaUserIdHash = '';
 	}
 
 	result.asyncArticle = (

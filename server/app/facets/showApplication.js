@@ -64,7 +64,7 @@ export default function showApplication(request, reply, wikiVariables) {
 		context.gaUserIdHash = md5(context.userId.toString() + localSettings.gaUserSalt);
 	} else {
 		context.userId = 0;
-		context.gaUserIdHash = 0;
+		context.gaUserIdHash = '';
 	}
 	context.discussionsSplashPageConfig = getDistilledDiscussionsSplashPageConfig(hostName);
 
