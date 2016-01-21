@@ -63,7 +63,7 @@ export default Ember.Component.extend({
 	 * Recursive helper for the `injectParentPointersAndIndices` function.
 	 *
 	 * @param {RootNavItem} parent - The parent of curr
-	 * @param {NavItem} curr - The object to set the parent of, and then recursively
+	 * @param {NavItem} current - The object to set the parent of, and then recursively
 	 * set the parent of all its children, depth-first
 	 * @param {number} index - The index of this item in its parent's children array, because
 	 * we need it to link to the correct child
