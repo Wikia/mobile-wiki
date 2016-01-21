@@ -120,6 +120,10 @@ body.discussions {
 		&.is-parent-deleted {
 			.discussion-content {
 				color: $discussion-deleted-content-color;
+
+				a {
+					color: $discussion-deleted-content-color;
+				}
 			}
 
 			.count {
@@ -315,6 +319,10 @@ body.discussions {
 
 		.discussion-content {
 			@include clamp(3);
+
+			a {
+				color: $discussion-content-color;
+			}
 		}
 
 		.post-detail {
@@ -324,6 +332,7 @@ body.discussions {
 				font-size: $type-smallest;
 			}
 		}
+
 	}
 
 	&.post {

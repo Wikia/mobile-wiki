@@ -106,6 +106,10 @@ body.dark-theme {
 			&.is-parent-deleted {
 				.discussion-content {
 					color: $dark-discussion-deleted-content-color;
+
+					a {
+						color: $dark-discussion-deleted-content-color;
+					}
 				}
 
 				.count {
@@ -273,6 +277,12 @@ body.dark-theme {
 			&.forum {
 				.post-detail {
 					border-bottom-color: $dark-discussion-reply-border-color;
+				}
+
+				.discussion-content {
+					a {
+						color: $dark-discussion-content-color;
+					}
 				}
 			}
 

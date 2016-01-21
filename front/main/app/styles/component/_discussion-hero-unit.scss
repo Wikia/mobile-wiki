@@ -17,7 +17,7 @@ $discussion-hero-unit-minimized-height: 25px;
 		margin: 0;
 
 		&.post-list-header {
-			font-size: 30px;
+			font-size: $type-large;
 		}
 	}
 
@@ -68,7 +68,7 @@ $discussion-hero-unit-minimized-height: 25px;
 		margin: 0;
 
 		&.post-list-header {
-			font-size: 30px;
+			font-size: $type-large;
 		}
 	}
 	p {
