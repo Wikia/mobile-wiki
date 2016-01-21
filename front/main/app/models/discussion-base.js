@@ -21,6 +21,9 @@ export default Ember.Object.extend({
 	 */
 	minorError: false,
 
+	/**
+	 * @returns {void}
+	 */
 	init() {
 		const wikiId = Ember.get(Mercury, 'wiki.id');
 
