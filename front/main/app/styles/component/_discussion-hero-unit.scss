@@ -15,6 +15,10 @@ $discussion-hero-unit-minimized-height: 25px;
 		color: $discussion-hero-unit-text-color;
 		font-size: 48px;
 		margin: 0;
+
+		&.post-list-header {
+			font-size: $type-large;
+		}
 	}
 
 	p {
@@ -51,6 +55,24 @@ $discussion-hero-unit-minimized-height: 25px;
 .minimized {
 	&.discussion-hero-unit {
 		height: $discussion-hero-unit-minimized-height;
+	}
+}
+
+.post-list-header-content {
+	margin-top: 75px;
+	text-align: center;
+
+	h1 {
+		color: $discussion-post-list-text-color;
+		font-size: 48px;
+		margin: 0;
+
+		&.post-list-header {
+			font-size: $type-large;
+		}
+	}
+	p {
+		color: $discussion-post-list-text-color;
 	}
 }
 

@@ -1,6 +1,6 @@
 <div>
 	{{user-avatar
-		avatarUrl=post.createdBy.avatarUrl
+		avatarUrl=author.avatarUrl
 		displayProfileName=true
 		username=author.name
 	}}
@@ -32,7 +32,7 @@
 		{{{parsedContent}}}
 	</div>
 {{else}}
-	<div class="discussion-content clickable" onclick={{action 'goToPost' postId}}>
+	<div class="discussion-content clickable" onclick={{action 'goToPost' post.threadId}}>
 		{{#if post.title}}
 			<h2 class="post-title"><{{post.title}}</h2>
 		{{/if}}
@@ -44,6 +44,7 @@
 		post=post
 		upvote=(action this.attrs.upvote)
 	}}
+
 	{{#if isDetailsView}}
 		<div class="small-5 large-2 columns count">
 			<span class="replies-area">

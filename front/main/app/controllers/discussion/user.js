@@ -4,9 +4,6 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 
 	application: Ember.inject.controller(),
 
-	smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
-	siteHeadPinned: Ember.computed.oneWay('application.siteHeadPinned'),
-
 	actions: {
 		/**
 		 * Bubbles up to DiscussionForumRoute
@@ -15,16 +12,6 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 		 */
 		retry() {
 			this.get('target').send('retry');
-		},
-
-		/**
-		 * Bubbles up to DiscussionForumRoute
-		 *
-		 * @param {object} postData
-		 * @returns {void}
-		 */
-		create(postData) {
-			this.get('target').send('create', postData);
 		},
 
 		/**
@@ -65,16 +52,6 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 		 */
 		goToAllDiscussions() {
 			this.get('target').send('goToAllDiscussions');
-		},
-
-		/**
-		 * Bubbles up to DiscussionForumRoute
-		 *
-		 * @param {string} sortBy
-		 * @returns {void}
-		 */
-		setSortBy(sortBy) {
-			this.get('target').send('setSortBy', sortBy);
 		}
 	}
 });

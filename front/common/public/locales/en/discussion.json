@@ -39,7 +39,11 @@
 	"modal-dialog-cancel": "Cancel",
 	"modal-dialog-delete-all": "Delete All",
 	"modal-dialog-delete-all-message": "<h2>Delete All Posts?</h2><br />Are you sure you want to delete all posts by __userName__ on __wikiName__? Note that only individual posts can be restored and that you cannot undelete posts in bulk.",
-    "modal-dialog-log-in": "Sign in"
+    "modal-dialog-log-in": "Sign in",
+    "user-replied-to": "__userName__ replied to __linkToThread__",
+    "delete-all": "Delete All",
+    "user-post-list-header": "Posts by __userName__",
+    "empty-forum-text": "No posts yet. Get the discussion started, create the first post now!"
   },
   "editor": {
     "post-failed-error": "Post failed.",

@@ -7,7 +7,7 @@ export default Ember.Component.extend(
 	DiscussionMoreOptionsMixin,
 	{
 		classNames: ['post-detail'],
-		classNameBindings: ['isNew', 'isDeleted'],
+		classNameBindings: ['isNew', 'isDeleted', 'isReply'],
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
 		postId: null,

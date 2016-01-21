@@ -1,4 +1,11 @@
 <div class="discussion-reply">
+	{{#if showRepliedTo}}
+		<div class="user-replied-to">
+		{{#link-to 'discussion.post' post.threadId}}
+			{{i18n 'main.user-replied-to' userName=author.name linkToThread=linkToThreadTitle ns='discussion'}}
+		{{/link-to}}
+		</div>
+	{{/if}}
 	<div>
 		<div class="upvotes">
 			{{discussion-upvote-reply
@@ -31,9 +38,17 @@
 			}}
 		{{/pop-over}}
 	</div>
-	<div class="discussion-content">
-		{{{parsedContent}}}
-	</div>
+	{{#if userListView}}
+		<div class="discussion-content">
+			{{#link-to 'discussion.post.reply' post.threadId post.id class="post-details-link clamp"}}
+				{{{parsedContent}}}
+			{{/link-to}}
+		</div>
+	{{else}}
+		<div class="discussion-content">
+			{{{parsedContent}}}
+		</div>
+	{{/if}}
 </div>
 {{#if post.isLoading}}
 	{{loading-spinner

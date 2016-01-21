@@ -56,6 +56,7 @@ $discussion-contributors-background-mobile: #F6F6F6;
 $discussion-contributors-border-color: $border-color;
 $discussion-contributors-text-color: $color-white;
 $discussion-contributors-rail-title: #333;
+$discussion-post-list-text-color: #999;
 
 $discussion-editor-error-background-color: #d0021b;
 $discussion-editor-error-text-color: $color-white;
@@ -73,12 +74,17 @@ $discussion-dialog-background-color: $color-white;
 $discussion-dialog-button-hover-background-color: #f6f6f6;
 $discussion-dialog-separator-color: #e6e6e6;
 
+$discussion-empty-forum-message-border-color: #e6e6e6;
+
 $discussion-page-width: 507px;
 
 $collapsible-menu-border-color: #d0d0d0;
 $collapsible-menu-title-color: $body-font-color;
 $collapsible-menu-list-link-color: $color-black;
 $discussion-sort-color: $border-color;
+
+$discussion-user-replied-to-border-bottom-color: #e6e6e6;
+$discussion-user-replied-to-text-color: #ccc;
 
 $app-promotion-text-color: #999;
 
@@ -131,6 +137,8 @@ $dark-discussion-editor-background-color: #262626;
 $dark-discussion-editor-border-color: #666;
 $dark-discussion-editor-toolbar-background-color: #333;
 
+$dark-discussion-empty-forum-message-border-color: #666;
+
 $dark-collapsible-menu-border-color: $collapsible-menu-border-color;
 $dark-collapsible-menu-title-color: $collapsible-menu-title-color;
 $dark-collapsible-menu-list-link-color: $collapsible-menu-list-link-color;
@@ -139,5 +147,8 @@ $dark-discussion-no-replies-text-color: #999;
 $dark-discussion-rail-border-color: #666;
 
 $dark-discussion-sort-color: #999;
+
+$dark-discussion-user-replied-to-border-bottom-color: #666;
+$dark-discussion-user-replied-to-text-color: #666;
 
 $dark-app-promotion-text-color: $color-white;

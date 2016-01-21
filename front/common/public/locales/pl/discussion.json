@@ -31,7 +31,7 @@
     "no-replies-be-the-first":"Nie ma jeszcze odpowiedzi. Bądź pierwszy!",
     "modal-dialog-confirm":"OK",
     "modal-dialog-log-in":"Zaloguj się",
-    "empty-forum-text":"No posts yet. Get the discussion started, create the first post now!"
+    "empty-forum-text":"Nie ma jeszcze postów. Rozpocznij dyskusję, napisz pierwszy post!"
   },
   "editor":{
     "post-failed-error":"Publikacja nie powiodła się.",
