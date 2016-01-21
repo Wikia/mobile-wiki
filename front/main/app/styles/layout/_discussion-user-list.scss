@@ -1,6 +1,8 @@
 $discussion-user-list-padding: 30px;
 $discussion-user-list-hero-unit-avatar-size: 60px;
 $discussion-user-list-mobile-header-avatar-size: 30px;
+$discussion-user-list-item-desktop-side-padding: 30px;
+$discussion-user-list-item-mobile-side-padding: 15px;
 
 .discussion-user-list {
 	.discussion-hero-unit {
@@ -21,8 +23,8 @@ $discussion-user-list-mobile-header-avatar-size: 30px;
 		margin-bottom: 5px;
 
 		.discussion-reply {
-			padding-left: 30px;
-			padding-right: 30px;
+			padding-left: $discussion-user-list-item-desktop-side-padding;
+			padding-right: $discussion-user-list-item-desktop-side-padding;
 		}
 
 		.user-replied-to {
@@ -71,8 +73,8 @@ $discussion-user-list-mobile-header-avatar-size: 30px;
 
 		.post-reply {
 			.discussion-reply {
-				padding-left: 15px;
-				padding-right: 15px;
+				padding-left: $discussion-user-list-item-mobile-side-padding;
+				padding-right: $discussion-user-list-item-mobile-side-padding;
 			}
 		}
 	}
