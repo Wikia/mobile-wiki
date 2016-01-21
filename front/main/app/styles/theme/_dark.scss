@@ -193,6 +193,10 @@ body.dark-theme {
 		.editor-wrapper {
 			background-color: $dark-discussion-editor-background-color;
 		}
+
+		.empty-forum-message {
+			border-color: $dark-discussion-empty-forum-message-border-color;
+		}
 	}
 
 	.discussion-app-promotion {
@@ -241,6 +245,17 @@ body.dark-theme {
 		&.avatar {
 			img, svg {
 				border-color: $dark-discussion-avatar-border-color;
+			}
+		}
+	}
+
+	.discussion-user-list {
+		.post-reply {
+			background-color: $dark-discussion-desktop-post-detail-bg-color;
+
+			.user-replied-to {
+				border-bottom-color: $dark-discussion-user-replied-to-border-bottom-color;
+				color: $dark-discussion-user-replied-to-text-color;
 			}
 		}
 	}

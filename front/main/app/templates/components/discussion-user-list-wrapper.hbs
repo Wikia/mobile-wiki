@@ -1,0 +1,42 @@
+{{#each posts as |item|}}
+	{{#if item.isReply }}
+		{{post-reply
+			post=item
+			author=item.createdBy
+			content=item.rawContent
+			deleteReply=(action this.attrs.deleteReply)
+			isParentDeleted=model.firstPost.isDeleted
+			timestamp=item.creationDate.epochSecond
+			undeleteReply=(action this.attrs.undeleteReply)
+			upvoteCount=item.upvoteCount
+			isVisible=item.isVisible
+			showRepliedTo=true
+			upvote=(action this.attrs.upvote)
+			userListView=true
+		}}
+	{{else}}
+		{{post-detail
+			author=item.createdBy
+			deletePost=(action this.attrs.deletePost)
+			goToPost=(action this.attrs.goToPost)
+			isVisible=item.isVisible
+			post=item
+			replyCount=item.postCount
+			undeletePost=(action this.attrs.undeletePost)
+			upvote=(action this.attrs.upvote)
+		}}
+	{{/if}}
+{{/each}}
+{{#if hasMore}}
+	{{#if isLoading }}
+		{{loading-spinner
+		active=true
+		overlay=false
+		radius=32
+		strokeWidth=2
+		}}
+	{{/if}}
+	<div class="load-more">
+		{{i18n 'main.loading-more-posts' ns='discussion'}}
+	</div>
+{{/if}}

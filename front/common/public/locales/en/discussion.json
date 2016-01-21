@@ -35,7 +35,11 @@
     "undelete-reply": "Undelete Reply",
     "all-posts-by-username": "View All Posts By __userName__",
     "modal-dialog-confirm": "OK",
-    "modal-dialog-log-in": "Sign in"
+    "modal-dialog-log-in": "Sign in",
+    "user-replied-to": "__userName__ replied to __linkToThread__",
+    "delete-all": "Delete All",
+    "user-post-list-header": "Posts by __userName__",
+    "empty-forum-text": "No posts yet. Get the discussion started, create the first post now!"
   },
   "editor": {
     "post-failed-error": "Post failed.",

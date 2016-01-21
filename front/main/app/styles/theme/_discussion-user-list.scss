@@ -1,0 +1,15 @@
+.discussion-user-list {
+	.post-reply {
+		background-color: $discussion-desktop-post-detail-bg-color;
+
+		.discussion-reply {
+			// !important is needed to override styles coming from post-detail replies styling
+			border-top: none !important;
+		}
+
+		.user-replied-to {
+			border-bottom: 1px solid $discussion-user-replied-to-border-bottom-color;
+			color: $discussion-user-replied-to-text-color;
+		}
+	}
+}
