@@ -33,40 +33,11 @@ const isDevbox = localSettings.environment === Environment.Dev,
 				stripTrailingSlash: true
 			}
 		}
-	}),
-	plugins = [
-		{
-			register: i18next,
-			options: {
-				i18nextOptions: {
-					resGetPath: path.join(localesPath, '/__lng__/__ns__.json'),
-					ns: {
-						namespaces: ['main', 'auth', 'discussion'],
-						defaultNs: 'main'
-					},
-					fallbackLng: 'en',
-					supportedLngs: getSupportedLangs(),
-					useCookie: false,
-					detectLngFromHeaders: false,
-					detectLngFromQueryString: true,
-					detectLngQS: 'uselang',
-					lowerCaseLng: true
-				}
-			}
-		},
-		{
-			register: h2o2
-		},
-		{
-			register: inert
-		},
-		{
-			register: vision
-		}
-	];
+	});
 
 // Counter for maxRequestPerChild
-let counter = 1;
+let counter = 1,
+	plugins;
 
 /**
  * Create new onPreResponseHandler
@@ -215,6 +186,37 @@ server.connection({
 	}
 });
 
+plugins = [
+	{
+		register: i18next,
+		options: {
+			i18nextOptions: {
+				resGetPath: path.join(localesPath, '/__lng__/__ns__.json'),
+				ns: {
+					namespaces: ['main', 'auth', 'discussion'],
+					defaultNs: 'main'
+				},
+				fallbackLng: 'en',
+				supportedLngs: getSupportedLangs(),
+				useCookie: false,
+				detectLngFromHeaders: false,
+				detectLngFromQueryString: true,
+				detectLngQS: 'uselang',
+				lowerCaseLng: true
+			}
+		}
+	},
+	{
+		register: h2o2
+	},
+	{
+		register: inert
+	},
+	{
+		register: vision
+	}
+];
+
 /**
  * This has to run after server.connection
  *
@@ -300,6 +302,7 @@ server.on('tail', () => {
 		});
 	}
 });
+
 /**
  * @param {string} msg
  * @returns {void}
