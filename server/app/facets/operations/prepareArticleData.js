@@ -1,6 +1,7 @@
 import * as Utils from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
 import deepExtend from 'deep-extend';
+import md5 from 'blueimp-md5';
 
 /**
  * Prepares article data to be rendered
@@ -91,7 +92,12 @@ export default function prepareArticleData(request, data) {
 		}
 	}
 
-	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
+	if (request.auth.isAuthenticated) {
+		result.userId = request.auth.credentials.userId;
+		result.gaUserIdHash = md5(result.userId + localSettings.gaUserSalt);
+	} else {
+		result.userId = 0;
+	}
 
 	result.asyncArticle = (
 		request.query._escaped_fragment_ !== '0' ?

@@ -106,7 +106,8 @@ class UniversalAnalytics {
 		const options = {
 			name: '',
 			allowLinker: true,
-			sampleRate: this.accounts[trackerName].sampleRate
+			sampleRate: this.accounts[trackerName].sampleRate,
+			userId: M.prop('gaUserIdHash')
 		};
 
 		let prefix = '',

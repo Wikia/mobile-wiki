@@ -171,6 +171,8 @@ const localSettings = {
 	mediawikiDomain: process.env.MEDIAWIKI_DOMAIN || null,
 	// Special salt for accepting HTML from MediaWiki for /editor_preview/
 	mwPreviewSalt: process.env.MW_PREVIEW_SALT,
+	// Special salt for calculating GA userID
+	gaUserSalt: process.env.GA_USER_SALT,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
 	loggers: {

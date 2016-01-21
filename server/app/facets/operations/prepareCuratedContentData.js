@@ -1,6 +1,7 @@
 import {parseQueryParams} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
 import deepExtend from 'deep-extend';
+import md5 from 'blueimp-md5';
 
 /**
  * Handles category or section response for Curated Main Page from API
@@ -71,7 +72,12 @@ export default function prepareCuratedContentData(request, curatedContentPageDat
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
-	result.userId = request.state.wikicitiesUserID ? request.state.wikicitiesUserID : 0;
+	if (request.auth.isAuthenticated) {
+		result.userId = request.auth.credentials.userId;
+		result.gaUserIdHash = md5(result.userId + localSettings.gaUserSalt);
+	} else {
+		result.userId = 0;
+	}
 
 	// all the third party scripts we don't want to load on noexternals
 	if (!result.queryParams.noexternals) {

@@ -5,6 +5,7 @@ import * as OpenGraph from '../lib/OpenGraph';
 import Logger from '../lib/Logger';
 import localSettings from '../../config/localSettings';
 import discussionsSplashPageConfig from '../../config/discussionsSplashPageConfig';
+import md5 from 'blueimp-md5';
 
 /**
  * @typedef {Object} CommunityAppConfig
@@ -58,7 +59,12 @@ export default function showApplication(request, reply, wikiVariables) {
 	context.server = Utils.createServerData(localSettings, wikiDomain);
 	context.queryParams = Utils.parseQueryParams(request.query, []);
 	context.localSettings = localSettings;
-	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
+	if (request.auth.isAuthenticated) {
+		context.userId = request.auth.credentials.userId;
+		context.gaUserIdHash = md5(context.userId + localSettings.gaUserSalt);
+	} else {
+		context.userId = 0;
+	}
 	context.discussionsSplashPageConfig = getDistilledDiscussionsSplashPageConfig(hostName);
 
 	wikiVariables
