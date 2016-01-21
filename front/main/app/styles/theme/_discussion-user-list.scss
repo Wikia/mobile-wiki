@@ -1,37 +1,14 @@
-$discussion-user-list-hero-unit-avatar-size: 60px;
-
 .discussion-user-list {
-	.discussion-hero-unit {
-		h1.post-list-header {
-			font-size: $h1-font-size-small;
-			font-weight: $subheader-font-weight;
-		}
-
-		.discussion-contributors {
-			.avatar img {
-				height: $discussion-user-list-hero-unit-avatar-size;
-				width: $discussion-user-list-hero-unit-avatar-size;
-			}
-		}
-	}
-
 	.post-reply {
 		background-color: $discussion-desktop-post-detail-bg-color;
-		margin-bottom: 5px;
 
 		.discussion-reply {
 			border-top: none !important;
-			padding-left: 30px;
-			padding-right: 30px;
 		}
 
 		.user-replied-to {
 			border-bottom: 1px solid $discussion-user-replied-to-border-bottom-color;
 			color: $discussion-user-replied-to-text-color;
-			font-size: $type-smallest;
-			line-height: $line-height-smallest;
-			margin: 5px 0 10px;
-			padding-bottom: 6px;
 		}
 	}
 }
