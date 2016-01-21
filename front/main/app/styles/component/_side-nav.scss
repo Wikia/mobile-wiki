@@ -322,7 +322,7 @@ $side-nav-item-height: 3.125rem;
 		font: inherit;
 		margin: 0;
 		padding: 0;
-		width: 100%;
+		width: calc(100% - 35px);
 	}
 }
 .side-search__clear {
