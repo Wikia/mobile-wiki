@@ -225,8 +225,11 @@ $side-nav-item-height: 3.125rem;
 	> a:hover,
 	> a:visited {
 		color: inherit;
-		display: inline-block;
-		width: 100%;
+
+		&.mw-content {
+			display: inline-block;
+			width: 100%;
+		}
 	}
 
 	&::before {
