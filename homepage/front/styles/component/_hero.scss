@@ -183,11 +183,11 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 
 	h2 {
 		color: white;
-		font-size: 1em;
+		font-size: 0.75rem;
 	}
 
 	h3 {
-		font-size: 1em;
+		font-size: 1rem;
 	}
 }
 
@@ -225,13 +225,13 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 	cursor: pointer;
 	display: block;
 	font-size: 0;
-	height: 40px;
+	height: 28px;
 	line-height: 0;
 	outline: none;
 	padding: 0;
 	position: absolute;
 	top: 50%;
-	width: 40px;
+	width: 20px;
 }
 
 .hero-prev {
@@ -279,6 +279,14 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 	color: white;
 	cursor: pointer;
 	font-size: 1.3rem;
+
+	@include media ($small-mobile-slider) {
+		font-size: 1.0rem;
+	}
+
+	@include media ($mobile-slider) {
+		font-size: 1.1rem;
+	}
 }
 
 .hero-link:hover {
