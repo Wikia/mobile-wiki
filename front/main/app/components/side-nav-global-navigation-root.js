@@ -11,13 +11,10 @@ export default Ember.Component.extend(
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
 
 		logoutLink: Ember.computed(() => {
-			return {
-				href: M.buildUrl({
-					namespace: 'Special',
-					title: 'UserLogout',
-				}),
-				textKey: 'user-menu-log-out',
-			};
+			return buildUrl({
+				namespace: 'Special',
+				title: 'UserLogout',
+			});
 		}),
 
 		userProfileLink: Ember.computed('currentUser.name', function () {
