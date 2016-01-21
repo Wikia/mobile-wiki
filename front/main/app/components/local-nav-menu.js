@@ -29,7 +29,6 @@ export default Ember.Component.extend(
 
 		menuRoot: Ember.computed('model', function () {
 			const menuRoot = {
-				// @TODO XW-511 Remove second part of OR statement
 				children: Ember.get(Mercury, 'wiki.navigation')
 			};
 

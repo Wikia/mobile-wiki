@@ -3,11 +3,9 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	localNavigationVisible: true,
 	localNavContent: Ember.computed(function () {
-		const content = {
+		return this.injectParentPointersAndIndices({
 			children: Ember.get(Mercury, 'wiki.navigation2016.localNav')
-		};
-
-		return this.injectParentPointersAndIndices(content);
+		});
 	}),
 
 	actions: {
@@ -37,6 +35,7 @@ export default Ember.Component.extend({
 			this.sendAction('collapse');
 		}
 	},
+
 	/**
 	 * function which recursively sets the 'parent' property
 	 * of all of the items in the navData tree. It also sets the index
@@ -70,16 +69,16 @@ export default Ember.Component.extend({
 	 * we need it to link to the correct child
 	 * @returns {void}
 	 */
-	injectParentPointersAndIndicesHelper(parent, curr, index) {
-		curr.parent = parent;
-		curr.index = index;
+	injectParentPointersAndIndicesHelper(parent, current, index) {
+		current.parent = parent;
+		current.index = index;
 
-		if (!curr.hasOwnProperty('children')) {
+		if (!current.hasOwnProperty('children')) {
 			return;
 		}
 
-		for (let i = 0, len = curr.children.length; i < len; i++) {
-			this.injectParentPointersAndIndicesHelper(curr, curr.children[i], i);
+		for (let i = 0, len = current.children.length; i < len; i++) {
+			this.injectParentPointersAndIndicesHelper(current, current.children[i], i);
 		}
 	}
 });

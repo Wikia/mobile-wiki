@@ -101,6 +101,7 @@ export default Ember.Component.extend({
 			} else {
 				this.setSearchSuggestionItems(cached);
 			}
+
 			this.sendAction('toggleSearchMode', true);
 		} else {
 			this.set('isLoadingSearchResults', true);
@@ -181,18 +182,21 @@ export default Ember.Component.extend({
 			if (query === this.get('query')) {
 				this.setSearchSuggestionItems(data.items);
 			}
+
 			this.cacheResult(query, data.items);
 		}).fail(() => {
 			// When we get a 404, it means there were no results
 			if (query === this.get('query')) {
 				this.setEmptySearchSuggestionItems();
 			}
+
 			this.cacheResult(query);
 		}).always(() => {
 			// We have a response, so we're no longer loading the results
 			if (query === this.get('query')) {
 				this.set('isLoadingSearchResults', false);
 			}
+
 			this.endedRequest(query);
 		});
 	},

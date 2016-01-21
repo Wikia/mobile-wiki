@@ -8,7 +8,7 @@
 	<a href="{{unbound logoutLink.href}}" class="external logout">{{i18n 'app' logoutLink.textKey}}</a>
 </div>
 {{else}}
-	<a class="side-nav-menu__item main" {{action 'goToLogin'}}>{{i18n 'app.sign-in-or-register-label'}}</a>
+	<a class="side-nav-menu__item main" {{action 'goToLoginPage'}}>{{i18n 'app.sign-in-or-register-label'}}</a>
 {{/if}}
 
 {{#each hubsLinks as |link|}}

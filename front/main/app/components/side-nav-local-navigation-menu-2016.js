@@ -35,9 +35,9 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			changeMenuItem(index) {
-				const curr = this.get('localNavContent');
+				const current = this.get('localNavContent');
 
-				this.sendAction('updateContent', curr.children[index]);
+				this.sendAction('updateContent', current.children[index]);
 
 				track({
 					action: trackActions.click,

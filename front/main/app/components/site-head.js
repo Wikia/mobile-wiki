@@ -11,10 +11,7 @@ export default Ember.Component.extend(
 		tagName: 'nav',
 		themeBar: false,
 		wikiaHomepage: Ember.computed(function () {
-			if (
-				this.get('globalNav2016') &&
-				(M.prop('userLanguage') === 'en' || Mercury.wiki.language.content === 'en')
-			) {
+			if (this.get('globalNav2016') && Mercury.wiki.language.content === 'en') {
 				return 'http://www.wikia.com/fandom';
 			} else {
 				return Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com');

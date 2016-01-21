@@ -22,7 +22,7 @@ export default Ember.Component.extend({
 
 	currentUser: Ember.inject.service(),
 	globalNavContent: 'side-nav-global-navigation-root',
-	isFandomVisible: Ember.computed(() => M.prop('userLanguage') === 'en' || Mercury.wiki.language.content === 'en'),
+	isFandomVisible: Ember.computed(() => Mercury.wiki.language.content === 'en'),
 	wikiaHomepage: Ember.computed(function () {
 		return this.get('isFandomVisible') ?
 			'http://www.wikia.com/fandom' :

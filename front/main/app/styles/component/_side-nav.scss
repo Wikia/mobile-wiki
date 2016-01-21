@@ -268,8 +268,8 @@ $side-nav-item-height: 3.125rem;
 			display: none;
 		}
 		&.loading {
-			display: flex;
 			align-items: center;
+			display: flex;
 			justify-content: center;
 		}
 	}
@@ -304,6 +304,7 @@ $side-nav-item-height: 3.125rem;
 .side-nav-menu__item.lifestyle::before { background: $color-hub-lifestyle; }
 .side-nav-menu__item.music::before { background: $color-hub-music; }
 .side-nav-menu__item.tv::before { background: $color-hub-tv; }
+.side-nav-menu__item.entertainment::before { background: $color-hub-tv; }
 
 .side-search__container {
 	flex-grow: 1;
@@ -332,6 +333,6 @@ $side-nav-item-height: 3.125rem;
 }
 .side-search__results {
 	list-style-type: none;
-	padding: 0;
 	margin: 0;
+	padding: 0;
 }
