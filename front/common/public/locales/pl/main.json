@@ -144,7 +144,11 @@
     "curated-content-editor-main-page":"Strona główna",
     "curated-content-editor-new-featured-content":"Nowa Wyróżniona Treść",
     "curated-content-editor-new-section":"Nowa sekcja",
-    "curated-content-editor-new-category":"Nowa kategoria"
+    "curated-content-editor-new-category":"Nowa kategoria",
+    "curated-content-editor-wikia-description": "Opis",
+    "curated-content-editor-wikia-description-help": "Idealne będzie coś tak nieskomplikowanego jak np. \"Dowiedz się więcej o Bacon Wiki\" bądź \"Witaj na Bacon Wiki\"!",
+    "curated-content-editor-enter-wikia-description": "Wpisz opis tutaj",
+    "curated-content-editor-wikia-description-description": "Dodaj opis, który będzie promował Twoją wikię w wynikach wyszukiwaniach i hubach.",
   },
   "userStatus":{
     "anon-cta":"__registerLink__ lub __loginLink__",
