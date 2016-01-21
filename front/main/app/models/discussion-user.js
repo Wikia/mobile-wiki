@@ -25,7 +25,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 			},
 			url: M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`),
 			success: (data) => {
-				let newPosts = data._embedded['doc:posts'];
+				const newPosts = data._embedded['doc:posts'];
 
 				newPosts.forEach((post) => {
 					if (post.hasOwnProperty('createdBy')) {
