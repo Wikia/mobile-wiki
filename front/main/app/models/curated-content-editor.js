@@ -90,7 +90,7 @@ CuratedContentEditorModel.reopenClass({
 				},
 				success: (data) => {
 					if (Ember.isArray(data.data)) {
-						resolve(CuratedContentEditorModel.sanitize(data));
+						resolve(CuratedContentEditorModel.sanitize(data.data));
 					} else {
 						reject('Invalid data was returned from Curated Content API');
 					}
@@ -142,8 +142,8 @@ CuratedContentEditorModel.reopenClass({
 				community_data: 'true'
 			};
 
-		if (rawData.data.length) {
-			rawData.data.forEach((section) => {
+		if (rawData.length) {
+			rawData.forEach((section) => {
 				if (section.featured === 'true') {
 					featured = section;
 				} if (section.community_data === 'true') {

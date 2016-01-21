@@ -6,10 +6,6 @@ export default Ember.Component.extend(
 	IEIFrameFocusFixMixin,
 	{
 		classNames: ['curated-content-editor-wikia-description', 'curated-content-editor-block'],
-		debounceDuration: 300,
-		spinnerOverlay: false,
-
-		isTooltipVisible: false,
 		isHelpVisible: false,
 
 		isLabelFocused: false,
