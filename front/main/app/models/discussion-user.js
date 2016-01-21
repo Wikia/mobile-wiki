@@ -19,7 +19,9 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 			data: {
 				page: this.get('pageNum'),
 				pivot: this.get('pivotId'),
-				viewableOnly: false
+				viewableOnly: false,
+				limit: this.replyLimit,
+				responseGroup: 'full'
 			},
 			url: M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`),
 			success: (data) => {
@@ -57,13 +59,14 @@ DiscussionUserModel.reopenClass({
 
 		return ajaxCall({
 			context: userInstance,
-			url: M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`, {
+			url: M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`),
+			data: {
 				limit: userInstance.replyLimit,
 				responseGroup: 'full',
 				sortDirection: 'descending',
 				sortKey: 'creation_date',
 				viewableOnly: false
-			}),
+			},
 			success: (data) => {
 				const posts = data._embedded['doc:posts'];
 				let contributors, pivotId, userName;
