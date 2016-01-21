@@ -112,6 +112,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		loadRandomArticle() {
+			this.set('globalNavContent', 'side-nav-global-navigation-root');
 			this.sendAction('loadRandomArticle');
 		},
 
