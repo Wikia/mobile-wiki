@@ -28,8 +28,8 @@ export default Ember.Object.extend({
 		const wikiId = Ember.get(Mercury, 'wiki.id');
 
 		this.setProperties({
-			wikiId: wikiId,
-			forumId: wikiId
+			forumId: wikiId,
+			wikiId
 		});
 	},
 
