@@ -1,12 +1,13 @@
 {{#if isUserAuthenticated}}
-<div class="side-nav-menu__item main">
-	<a href="{{userProfileLink}}" class="external profile-link">
-		<figure class="avatar">
-			<img src={{currentUser.avatarPath}} alt={{currentUser.name}}>
-		</figure>
-		{{i18n 'app.my-profile-label'}}</a>
-	<a href="{{unbound logoutLink}}" class="external logout">{{i18n 'app.user-menu-log-out'}}</a>
-</div>
+	<div class="side-nav-menu__item main">
+		<a href="{{userProfileLink}}" class="external profile-link">
+			<figure class="avatar">
+				<img src={{currentUser.avatarPath}} alt="{{currentUser.name}}">
+			</figure>
+			{{i18n 'app.my-profile-label'}}
+		</a>
+		<a href="{{unbound logoutLink}}" class="external logout">{{i18n 'app.user-menu-log-out'}}</a>
+	</div>
 {{else}}
 	<a class="side-nav-menu__item main" {{action 'goToLoginPage'}}>{{i18n 'app.sign-in-or-register-label'}}</a>
 {{/if}}
@@ -16,9 +17,9 @@
 		{{link.text}}
 	</a>
 {{/each}}
-<a class="side-nav-menu__item menu" {{action this.attrs.replaceNavigationContent 'explore'}} href="#">
+<div class="side-nav-menu__item menu" {{action this.attrs.replaceNavigationContent 'explore'}}>
 	{{exploreWikiaLabel}}
-</a>
-<a class="side-nav-menu__item menu" {{action this.attrs.replaceNavigationContent 'local'}} href="#">
+</div>
+<div class="side-nav-menu__item menu" {{action this.attrs.replaceNavigationContent 'local'}}>
 	{{i18n 'app.explore-wiki' wikiName=wikiName}}
-</a>
+</div>
