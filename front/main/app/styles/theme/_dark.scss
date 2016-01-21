@@ -248,6 +248,17 @@ body.dark-theme {
 			}
 		}
 	}
+
+	.discussion-user-list {
+		.post-reply {
+			background-color: $dark-discussion-desktop-post-detail-bg-color;
+
+			.user-replied-to {
+				border-bottom-color: $dark-discussion-user-replied-to-border-bottom-color;
+				color: $dark-discussion-user-replied-to-text-color;
+			}
+		}
+	}
 }
 
 @media #{$desktop-range} {

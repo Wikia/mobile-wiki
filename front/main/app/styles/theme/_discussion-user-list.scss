@@ -3,6 +3,7 @@
 		background-color: $discussion-desktop-post-detail-bg-color;
 
 		.discussion-reply {
+			// !important is needed to override styles coming from post-detail replies styling
 			border-top: none !important;
 		}
 
