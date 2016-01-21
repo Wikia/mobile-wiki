@@ -9,8 +9,6 @@ export default Ember.Component.extend(
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
 
-		routing: Ember.inject.service('-routing'),
-
 		linkToThreadTitle: Ember.computed('post.threadId', function () {
 			const threadTitle = `/${this.get('post.threadTitle')}`;
 
