@@ -1,53 +1,16 @@
-# Misc Files
-.DS_Store
-.sass-cache
+# dependencies
+/node_modules/
 
-# Editor Files
+# compiled output
+/www/
+/test/
+
+# others
+.idea/
+.DS_Store
+.settings
+.sass-cache
+*.sublime-*
 *.sw[a-z]
 *.orig
-tsconfig.json
-
-# Packages
-node_modules/
-front/vendor/
-
-# Node/NPM
 *.log
-
-# Static Assets
-.tmp/
-www/
-# Should only commit json files, not compiled js fixtures
-test/fixtures/**/*.js
-
-# Config
-config/localSettings.js
-
-# coverage
-test/coverage
-coverage/
-
-# fixtures
-test/fixtures
-
-# Jenkins Cache
-.*.md5
-
-mercury.iml
-.idea
-/docs
-*.sublime-*
-
-# VS Code project files
-.settings
-
-# Intermediate files from TypeScript compiler
-front/scripts/**/*.js.map
-
-# Homepage
-homepage/config/localSettings.js
-homepage/front/css
-homepage/front/js
-homepage/front/vendor
-homepage/vendor
-homepage/**/*.js.map

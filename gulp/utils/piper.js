@@ -1,6 +1,9 @@
 var pipe = require('multipipe');
 
-function pipeWithErrorHandling () {
+/**
+ * @returns {void}
+ */
+function pipeWithErrorHandling() {
 	Array.prototype.push.call(arguments, function (err) {
 		if (err) {
 			throw new Error(err);
