@@ -23,7 +23,7 @@ failTests() {
 	updateGit "Front tests" failure skipped
 	updateGit "Server tests" failure skipped
 	updateGit "Linter" failure skipped
-	updateGit "Jenkin job" failure finished $BUILD_URL"console"
+	updateGit "Jenkins job" failure finished $BUILD_URL"console"
 }
 
 # $1 - directory
@@ -77,7 +77,7 @@ setupBower() {
 }
 
 ### Set pending status to all tasks
-updateGit "Jenkin job" pending running $BUILD_URL"console"
+updateGit "Jenkins job" pending running $BUILD_URL"console"
 updateGit "Build" pending pending
 updateGit "Front tests" pending pending
 updateGit "Server tests" pending pending
@@ -144,8 +144,8 @@ fi
 ### Finish
 if [ -z $failJob ]
 then
-    updateGit "Jenkin job" success finished $BUILD_URL"console"
+    updateGit "Jenkins job" success finished $BUILD_URL"console"
 else
-    updateGit "Jenkin job" failure finished $BUILD_URL"console"
+    updateGit "Jenkins job" failure finished $BUILD_URL"console"
     exit 1
 fi

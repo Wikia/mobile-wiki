@@ -7,7 +7,7 @@ import {getCachedWikiDomainName,
 import localSettings from '../../config/localSettings';
 import prepareCuratedContentData from './operations/prepareCuratedContentData';
 import setResponseCaching, * as Caching from '../lib/Caching';
-import {handleResponseCuratedMainPage} from '../lib/Tracking';
+import * as Tracking from '../lib/Tracking';
 
 const cachingTimes = {
 	enabled: true,
@@ -33,7 +33,7 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 	let response;
 
 	// @todo XW-596 we shouldn't rely on side effects of this function
-	handleResponseCuratedMainPage(result, request);
+	Tracking.handleResponse(result, request);
 
 	response = reply.view('application', result);
 	response.code(code);
