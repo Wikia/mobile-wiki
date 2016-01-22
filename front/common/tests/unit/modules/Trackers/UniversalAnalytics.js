@@ -105,7 +105,8 @@ QUnit.module('mercury/modules/Trackers/UniversalAnalytics', function (hooks) {
 						sampleRate: 100
 					}
 				}
-			}
+			},
+			gaUserIdHash: ''
 			// instantiate with mutation because tests are run multiple times
 		}, true);
 
@@ -128,8 +129,14 @@ QUnit.module('mercury/modules/Trackers/UniversalAnalytics', function (hooks) {
 		assert.strictEqual(queueCount('require'), 1);
 		assert.strictEqual(queueCount('ads.require'), 1);
 
-		assert.ok(queueContains(['create', '123', 'auto', {name: '', allowLinker: true, sampleRate: 10}]));
-		assert.ok(queueContains(['create', '789', 'auto', {name: 'ads', allowLinker: true, sampleRate: 100}]));
+		assert.ok(queueContains([
+			'create', '123', 'auto',
+			{name: '', allowLinker: true, sampleRate: 10, userId: null}
+		]));
+		assert.ok(queueContains([
+			'create', '789', 'auto',
+			{name: 'ads', allowLinker: true, sampleRate: 100, userId: null}
+		]));
 	});
 
 /*	QUnit.test('Track event', function (assert) {
