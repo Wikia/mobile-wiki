@@ -51,7 +51,7 @@ export function handleResponse(result, request) {
 	try {
 		vertical = result.article.adsContext.targeting.wikiVertical;
 	} catch (error) {
-		Logger.error('No vertical set for response');
+		Logger.warn('No vertical set for response');
 
 		vertical = '';
 	}
@@ -75,7 +75,7 @@ export function handleResponseCuratedMainPage(result, request) {
 	try {
 		vertical = result.mainPageData.adsContext.targeting.wikiVertical;
 	} catch (error) {
-		Logger.error('No vertical set for response');
+		Logger.warn('No vertical set for response');
 
 		vertical = '';
 	}
