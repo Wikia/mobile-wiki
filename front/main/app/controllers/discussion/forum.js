@@ -1,7 +1,10 @@
 import Ember from 'ember';
 import DiscussionDeleteControllerMixin from '../../mixins/discussion-delete-controller';
+import DiscussionUpvoteControllerMixin from '../../mixins/discussion-upvote-controller';
 
-export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
+export default Ember.Controller.extend(
+	DiscussionDeleteControllerMixin,
+	DiscussionUpvoteControllerMixin, {
 
 	application: Ember.inject.controller(),
 
@@ -47,16 +50,6 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 		 */
 		loadPage(pageNum) {
 			this.get('target').send('loadPage', pageNum);
-		},
-
-		/**
-		 * Bubbles up to DiscussionForumRoute
-		 *
-		 * @param {object} post
-		 * @returns {void}
-		 */
-		upvote(post) {
-			this.get('target').send('upvote', post);
 		},
 
 		/**

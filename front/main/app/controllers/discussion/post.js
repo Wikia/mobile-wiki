@@ -1,7 +1,11 @@
 import Ember from 'ember';
 import DiscussionDeleteControllerMixin from '../../mixins/discussion-delete-controller';
+import DiscussionUpvoteControllerMixin from '../../mixins/discussion-upvote-controller';
 
-export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
+export default Ember.Controller.extend(
+	DiscussionDeleteControllerMixin,
+	DiscussionUpvoteControllerMixin, {
+
 	postListSort: '',
 
 	actions: {
@@ -22,16 +26,6 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 		 */
 		create(replyData) {
 			this.get('target').send('create', replyData);
-		},
-
-		/**
-		 * Bubbles up to DiscussionPostRoute
-		 *
-		 * @param {object} post
-		 * @returns {void}
-		 */
-		upvote(post) {
-			this.get('target').send('upvote', post);
 		},
 
 		/**
