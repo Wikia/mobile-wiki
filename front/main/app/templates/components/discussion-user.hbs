@@ -25,7 +25,7 @@
 		</div>
 		{{#if model.connectionError}}
 			{{discussion-connection-error
-			retry=(action this.attrs.retry)
+				retry=(action this.attrs.retry)
 			}}
 		{{else if model.notFoundError}}
 			{{discussion-not-found-error}}
