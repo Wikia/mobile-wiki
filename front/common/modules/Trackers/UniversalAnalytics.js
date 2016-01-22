@@ -105,7 +105,7 @@ class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	initAccount(trackerName, domain) {
-		const gaUserIdHash = M.prop('gaUserIdHash', ''),
+		const gaUserIdHash = M.prop('gaUserIdHash') || '',
 			options = {
 				name: '',
 				allowLinker: true,
