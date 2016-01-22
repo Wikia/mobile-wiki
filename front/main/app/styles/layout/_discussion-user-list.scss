@@ -43,7 +43,7 @@ $discussion-user-list-item-mobile-side-padding: 15px;
 @media #{$mobile-range} {
 	.discussion-user-list {
 		.post-list-header-content {
-			h1.post-list-header {
+			.post-list-header {
 				font-size: $h4-font-size-small;
 				font-weight: $subheader-font-weight;
 			}

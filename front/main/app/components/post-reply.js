@@ -11,7 +11,7 @@ export default Ember.Component.extend(
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
 
-		linkToThreadTitle: Ember.computed('post.threadId', function () {
+		linkTitle: Ember.computed('post.threadId', function () {
 			const threadTitle = `/${this.get('post.threadTitle')}`;
 
 			return `${this.get('post.threadCreatedBy.name')}${(this.get('post.threadTitle') ? threadTitle : '')}`;
