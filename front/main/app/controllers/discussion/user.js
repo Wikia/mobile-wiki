@@ -5,8 +5,6 @@ export default Ember.Controller.extend(
 	DiscussionDeleteControllerMixin,
 	DiscussionUpvoteControllerMixin, {
 
-	application: Ember.inject.controller(),
-
 	actions: {
 		/**
 		 * Bubbles up to DiscussionForumRoute
