@@ -61,6 +61,7 @@ export default function showApplication(request, reply, wikiVariables) {
 	context.localSettings = localSettings;
 	if (request.auth.isAuthenticated) {
 		context.userId = request.auth.credentials.userId;
+		console.log('showApplication: "${' + context.userId.toString() + '"/"' + localSettings.gaUserSalt + '"');
 		context.gaUserIdHash = md5(context.userId.toString() + localSettings.gaUserSalt);
 	} else {
 		context.userId = 0;

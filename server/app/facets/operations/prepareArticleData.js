@@ -93,6 +93,7 @@ export default function prepareArticleData(request, data) {
 
 	if (request.auth.isAuthenticated) {
 		result.userId = request.auth.credentials.userId;
+		console.log('prepareArticleData: "${' + result.userId.toString() + '"/"' + localSettings.gaUserSalt + '"');
 		result.gaUserIdHash = Utils.md5(result.userId.toString() + localSettings.gaUserSalt);
 	} else {
 		result.userId = 0;
