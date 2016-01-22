@@ -139,7 +139,25 @@ QUnit.module('mercury/modules/Trackers/UniversalAnalytics', function (hooks) {
 		]));
 	});
 
-/*	QUnit.test('Track event', function (assert) {
+	QUnit.test('UniversalAnalytics constructor with userId', function (assert) {
+		M.prop('gaUserIdHash', 'foo', true);
+		new UniversalAnalytics();
+
+		assert.strictEqual(queueCount('create'), 2);
+		assert.strictEqual(queueCount('require'), 1);
+		assert.strictEqual(queueCount('ads.require'), 1);
+
+		assert.ok(queueContains([
+			'create', '123', 'auto',
+			{name: '', allowLinker: true, sampleRate: 10, userId: 'foo'}
+		]));
+		assert.ok(queueContains([
+			'create', '789', 'auto',
+			{name: 'ads', allowLinker: true, sampleRate: 100, userId: 'foo'}
+		]));
+	});
+
+	QUnit.test('Track event', function (assert) {
 		var instance = new UniversalAnalytics();
 
 		instance.track('category', 'action', 'label', 42, true);
@@ -178,5 +196,5 @@ QUnit.module('mercury/modules/Trackers/UniversalAnalytics', function (hooks) {
 				nonInteraction: true
 			}
 		]));
-	});*/
+	});
 });

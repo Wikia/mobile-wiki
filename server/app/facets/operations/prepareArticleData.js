@@ -1,4 +1,5 @@
 import * as Utils from '../../lib/Utils';
+import {gaUserIdHash} from '../../lib/Hashing';
 import localSettings from '../../../config/localSettings';
 import deepExtend from 'deep-extend';
 
@@ -90,14 +91,8 @@ export default function prepareArticleData(request, data) {
 			result.qualarooScript = localSettings.qualaroo.scriptUrl;
 		}
 	}
-
-	if (request.auth.isAuthenticated) {
-		result.userId = request.auth.credentials.userId;
-		result.gaUserIdHash = Utils.md5(result.userId.toString() + localSettings.gaUserSalt);
-	} else {
-		result.userId = 0;
-		result.gaUserIdHash = '';
-	}
+	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
+	result.gaUserIdHash = gaUserIdHash(result.userId);
 
 	result.asyncArticle = (
 		request.query._escaped_fragment_ !== '0' ?

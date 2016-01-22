@@ -1,4 +1,5 @@
-import {parseQueryParams, md5} from '../../lib/Utils';
+import {parseQueryParams} from '../../lib/Utils';
+import {gaUserIdHash} from '../../lib/Hashing';
 import localSettings from '../../../config/localSettings';
 import deepExtend from 'deep-extend';
 
@@ -64,20 +65,15 @@ export default function prepareCuratedContentData(request, curatedContentPageDat
 		}
 	}
 
-	// clone object to avoid overriding real localSettings for futurue requests
+	// clone object to avoid overriding real localSettings for future requests
 	result.localSettings = deepExtend({}, localSettings);
 
 	if (typeof request.query.buckySampling !== 'undefined') {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
-	if (request.auth.isAuthenticated) {
-		result.userId = request.auth.credentials.userId;
-		result.gaUserIdHash = md5(result.userId.toString() + localSettings.gaUserSalt);
-	} else {
-		result.userId = 0;
-		result.gaUserIdHash = '';
-	}
+	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
+	result.gaUserIdHash = gaUserIdHash(result.userId);
 
 	// all the third party scripts we don't want to load on noexternals
 	if (!result.queryParams.noexternals) {
