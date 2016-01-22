@@ -132,7 +132,7 @@ export class ArticleRequestHelper {
 	 *
 	 * @returns {Promise<ArticleResponse>}
 	 */
-	getArticleFromWikitext(title, wiktiext) {
+	getArticleFromWikitext() {
 		const articleRequest = new MediaWiki.ArticleRequest(this.params);
 
 		logger.debug(this.params, 'Fetching article from wikitext');

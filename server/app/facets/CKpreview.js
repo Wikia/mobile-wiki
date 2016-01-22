@@ -1,5 +1,4 @@
 import * as Article from '../lib/Article';
-import {forbidden} from 'boom';
 import {getCachedWikiDomainName, getCDNBaseUrl} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
 import prepareArticleData from './operations/prepareArticleData';
@@ -15,57 +14,49 @@ export default function CKpreview(request, reply) {
 		wikitext = request.payload.wikitext,
 		article = new Article.ArticleRequestHelper({wikiDomain});
 
-	article.getWikiVariables()
+	console.log("request", request.payload)
+
+	article.getArticleFromWikitext()
 		/**
 		 * @param {*} wikiVariables
 		 * @returns {void}
 		 */
-		.then((wikiVariables) => {
-			let article = {},
-				result,
-				response;
+		.then((content) => {
+			let result,
+				response,
+				article;
 
-			article = JSON.parse(wikitext);
+			console.log("content", content)
 
-			//result = {
-			//	article: {
-			//		article,
-			//		adsContext: {},
-			//		details: {
-			//			id: 0,
-			//			title: '',
-			//			revision: {},
-			//			type: 'article'
-			//		},
-			//		htmlTitle: '',
-			//		preview: true
-			//	},
-			//	wikiVariables: wikiVariables || {},
-			//	// @todo copied from Article.ts (move createServerData to prepareArticleData?)
-			//	server: {
-			//		cdnBaseUrl: getCDNBaseUrl(localSettings)
-			//	}
-			//};
+			article = JSON.parse(content);
 
 			result = {
-				article: article
+				article: {
+					article,
+					adsContext: {},
+					details: {
+						id: 0,
+						title: '',
+						revision: {},
+						type: 'article'
+					},
+					htmlTitle: '',
+					preview: true
+				}
 			};
 
-			//prepareArticleData(request, result);
-
-			//response = reply.view('application', result);
-			response.code(code);
+			response = reply.view('application', result);
+			response.code(200);
 			response.type('text/html; charset=utf-8');
 
 			return Caching.disableCache(response);
-
-			//reply.view('application', result);
 		})
 		/**
 		 * @param {*} error
 		 * @returns {void}
 		 */
 		.catch((error) => {
+			//onsole.log("errorroroororororor! : ", error)
 			reply.view('application', {
 				error
 			}, {

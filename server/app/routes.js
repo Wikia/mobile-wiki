@@ -133,14 +133,6 @@ let routes,
 			handler: function (request, reply) {
 				reply('Jestę śledzię :(');
 			}
-		}, //for testing only
-		{
-			method: 'GET',
-			path: '/CKpreview',
-			//handler: CKpreview
-			handler: function (request, reply) {
-				reply('Jestę śledzię :(');
-			}
 		}
 	],
 	// routes where we want to know the user's auth status
