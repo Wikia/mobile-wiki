@@ -73,7 +73,6 @@ export default function prepareCuratedContentData(request, curatedContentPageDat
 
 	if (request.auth.isAuthenticated) {
 		result.userId = request.auth.credentials.userId;
-		console.log('prepareCuratedContent: "${' + result.userId.toString() + '"/"' + localSettings.gaUserSalt + '"');
 		result.gaUserIdHash = md5(result.userId.toString() + localSettings.gaUserSalt);
 	} else {
 		result.userId = 0;
