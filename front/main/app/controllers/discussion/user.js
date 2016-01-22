@@ -3,37 +3,40 @@ import DiscussionUpvoteControllerMixin from '../../mixins/discussion-upvote-cont
 
 export default Ember.Controller.extend(
 	DiscussionDeleteControllerMixin,
-	DiscussionUpvoteControllerMixin, {
+	DiscussionUpvoteControllerMixin,
+	{
+		application: Ember.inject.controller(),
 
-	actions: {
-		/**
-		 * Bubbles up to DiscussionForumRoute
-		 *
-		 * @returns {void}
-		 */
-		retry() {
-			this.get('target').send('retry');
-		},
+		actions: {
+			/**
+			 * Bubbles up to DiscussionForumRoute
+			 *
+			 * @returns {void}
+			 */
+			retry() {
+				this.get('target').send('retry');
+			},
 
-		/**
-		 * Bubbles up to DiscussionForumRoute
-		 *
-		 * @param {string} postId
-		 * @param {boolean} openInNewTab
-		 * @returns {void}
-		 */
-		goToPost(postId, openInNewTab = false) {
-			this.get('target').send('goToPost', postId, openInNewTab);
-		},
+			/**
+			 * Bubbles up to DiscussionForumRoute
+			 *
+			 * @param {string} postId
+			 * @param {boolean} openInNewTab
+			 * @returns {void}
+			 */
+			goToPost(postId, openInNewTab = false) {
+				this.get('target').send('goToPost', postId, openInNewTab);
+			},
 
-		/**
-		 * Bubbles up to DiscussionForumRoute
-		 *
-		 * @param {number} pageNum
-		 * @returns {void}
-		 */
-		loadPage(pageNum) {
-			this.get('target').send('loadPage', pageNum);
+			/**
+			 * Bubbles up to DiscussionForumRoute
+			 *
+			 * @param {number} pageNum
+			 * @returns {void}
+			 */
+			loadPage(pageNum) {
+				this.get('target').send('loadPage', pageNum);
+			}
 		}
 	}
-});
+);

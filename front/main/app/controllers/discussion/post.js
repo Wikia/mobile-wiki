@@ -4,37 +4,38 @@ import DiscussionUpvoteControllerMixin from '../../mixins/discussion-upvote-cont
 
 export default Ember.Controller.extend(
 	DiscussionDeleteControllerMixin,
-	DiscussionUpvoteControllerMixin, {
+	DiscussionUpvoteControllerMixin,
+	{
+		postListSort: '',
 
-	postListSort: '',
+		actions: {
+			/**
+			 * Bubbles up to DiscussionPostRoute
+			 *
+			 * @returns {void}
+			 */
+			retry() {
+				this.get('target').send('retry');
+			},
 
-	actions: {
-		/**
-		 * Bubbles up to DiscussionPostRoute
-		 *
-		 * @returns {void}
-		 */
-		retry() {
-			this.get('target').send('retry');
-		},
+			/**
+			 * Bubbles up to DiscussionPostRoute
+			 *
+			 * @param {object} replyData
+			 * @returns {void}
+			 */
+			create(replyData) {
+				this.get('target').send('create', replyData);
+			},
 
-		/**
-		 * Bubbles up to DiscussionPostRoute
-		 *
-		 * @param {object} replyData
-		 * @returns {void}
-		 */
-		create(replyData) {
-			this.get('target').send('create', replyData);
-		},
-
-		/**
-		 * Bubbles up to DiscussionPostRoute
-		 *
-		 * @returns {void}
-		 */
-		loadMoreComments() {
-			this.get('target').send('loadMoreComments');
+			/**
+			 * Bubbles up to DiscussionPostRoute
+			 *
+			 * @returns {void}
+			 */
+			loadMoreComments() {
+				this.get('target').send('loadMoreComments');
+			}
 		}
 	}
-});
+);
