@@ -25,16 +25,18 @@ export default Ember.Mixin.create({
 
 	/**
 	 * Delete all posts given a user ID
-	 * @param {object} post
+	 * @param {Array} posts
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
-	deleteAllPosts(post) {
-		if (checkPermissions(post, 'canDelete')) {
+	deleteAllPosts(posts) {
+		if (checkPermissions(posts[0], 'canDelete')) {
 			return ajaxCall({
 				method: 'DELETE',
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/user/${post.creatorId}/posts`),
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/user/${posts[0].creatorId}/posts`),
 				success: () => {
-					alert('success!');
+					for (let post of posts) {
+						Ember.set(post, 'isDeleted', true);
+					}
 				},
 				error: () => {
 					this.displayError();

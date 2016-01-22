@@ -57,7 +57,7 @@
 		{{/if}}
 		<div class="rail large-3 columns">
 			{{#if model.canDeleteAll}}
-				<div {{action this.attrs.deleteAll model.posts}} class="back-button active-element-theme-color">
+				<div {{action this.attrs.deleteAll model.posts}} class="back-button">
 					{{svg 'delete' role='img' class='icon delete fill-theme-color'}}
 					{{i18n 'main.delete-all' ns='discussion'}}
 				</div>

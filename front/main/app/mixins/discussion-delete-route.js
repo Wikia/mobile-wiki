@@ -40,9 +40,7 @@ export default Ember.Mixin.create({
 
 			this.get('modalDialogService').confirm(message, 'main.delete-all', function(result){
 				if (result) {
-					self.modelFor(self.get('routeName')).deleteAllPosts(posts[0]).then(() => {
-						console.log('done');
-					});
+					self.modelFor(self.get('routeName')).deleteAllPosts(posts);
 				}
 			});
 		},
