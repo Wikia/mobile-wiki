@@ -88,7 +88,7 @@ DiscussionUserModel.reopenClass({
 
 				userInstance.setProperties({
 					contributors,
-					forumId: data.forumId,
+					forumId: wikiId,
 					userName,
 					page: 0,
 					pivotId,

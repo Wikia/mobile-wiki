@@ -41,13 +41,6 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 		 */
 		loadMoreComments() {
 			this.get('target').send('loadMoreComments');
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		goToAllDiscussions() {
-			this.get('target').send('goToAllDiscussions');
-		},
+		}
 	}
 });

@@ -13,13 +13,6 @@ export default Ember.Route.extend({
 		},
 
 		/**
-		 * @returns {void}
-		 */
-		goToAllDiscussions() {
-			this.transitionTo('discussion.index');
-		},
-
-		/**
 		 * @returns {boolean}
 		 */
 		didTransition() {

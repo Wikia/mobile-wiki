@@ -43,15 +43,6 @@ export default Ember.Controller.extend(DiscussionDeleteControllerMixin, {
 		 */
 		upvote(post) {
 			this.get('target').send('upvote', post);
-		},
-
-		/**
-		 * Bubbles up to DiscussionForumRoute
-		 *
-		 * @returns {void}
-		 */
-		goToAllDiscussions() {
-			this.get('target').send('goToAllDiscussions');
 		}
 	}
 });
