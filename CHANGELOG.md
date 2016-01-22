@@ -1,3 +1,6 @@
+## release-202 hotfix 1 (2016-01-22 11:58 UTC)
+* [XW-1021](https://wikia-inc.atlassian.net/browse/XW-1021) XW-1021 | inline play.svg
+
 ## release-202 (2016-01-21 12:15 UTC)
 * revert-1847-revert-1839-SOC-1483-backup: Revert "Revert "SOC-1483 | Displaying message on empty forums""
 * [XW-926](https://wikia-inc.atlassian.net/browse/XW-926) XW-926 Fix server error handling
