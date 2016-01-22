@@ -63,6 +63,7 @@ import deepExtend from 'deep-extend';
  * @property {string} ironSecret
  * @property {string} [mediawikiDomain]
  * @property {string} mwPreviewSalt
+ * @property {string} gaUserSalt
  * @property {LoggerInterface} loggers
  * @property {number} maxRequestsPerChild
  * @property {OptimizelyLocalSettings} [optimizely]
