@@ -10,11 +10,9 @@ export default Ember.Component.extend(
 		wikiName: Ember.get(Mercury, 'wiki.siteName'),
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
 
-		logoutLink: Ember.computed(() => {
-			return M.buildUrl({
-				namespace: 'Special',
-				title: 'UserLogout',
-			});
+		logoutLink: M.buildUrl({
+			namespace: 'Special',
+			title: 'UserLogout',
 		}),
 
 		userProfileLink: Ember.computed('currentUser.name', function () {

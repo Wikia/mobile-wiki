@@ -3,18 +3,20 @@
 		{{i18n 'app.navigation-back-label'}}
 	</a>
 {{/if}}
-
+<div class="side-nav-menu__item back" {{action 'goBack' backTarget}}>
+	{{i18n 'app.navigation-back-label'}}
+</div>
 {{side-nav-local-wikia-search-2016
-toggleSearchMode='toggleSearchMode'
-localNavigationVisible=localNavigationVisible
-collapse='collapse'
+	toggleSearchMode='toggleSearchMode'
+	localNavigationVisible=localNavigationVisible
+	collapse='collapse'
 }}
 
 {{#if localNavigationVisible}}
 	{{side-nav-local-navigation-menu-2016
-	collapse=this.attrs.collapse
-	loadRandomArticle=this.attrs.loadRandomArticle
-	localNavContent=localNavContent
-	updateContent=(action 'updateContent')
+		collapse=this.attrs.collapse
+		loadRandomArticle=this.attrs.loadRandomArticle
+		localNavContent=localNavContent
+		updateContent=(action 'updateContent')
 	}}
 {{/if}}

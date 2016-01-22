@@ -42,7 +42,7 @@ export default Ember.Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'wiki-nav',
-					label: `header-${(index + 1)}`
+					label: `header-${index + 1}`
 				});
 			},
 
