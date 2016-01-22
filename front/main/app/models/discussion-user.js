@@ -21,7 +21,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 				page: this.get('pageNum'),
 				pivot: this.get('pivotId'),
 				viewableOnly: false,
-				limit: this.replyLimit,
+				limit: this.get('replyLimit'),
 				responseGroup: 'full'
 			},
 			url: M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`),
@@ -30,11 +30,11 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 
 				newPosts.forEach((post) => {
 					if (post.hasOwnProperty('createdBy')) {
-						post.createdBy.profileUrl = this.userProfileUrl;
+						post.createdBy.profileUrl = this.get('userProfileUrl');
 					}
 				});
 
-				this.set('posts', this.posts.concat(newPosts));
+				this.set('posts', this.get('posts').concat(newPosts));
 			},
 			error: (err) => {
 				this.handleLoadMoreError(err);
