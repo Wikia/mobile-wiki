@@ -1,13 +1,12 @@
-<li class="side-nav-menu__item main">
-	{{#if localNavContent.parent}}
+{{#if localNavContent.parent}}
+	<li class="side-nav-menu__item main">
 		{{localNavContent.text}}
-	{{else}}
+	</li>
+{{else}}
+	<li class="side-nav-menu__item main">
 		{{i18n 'app.side-nav-menu-label'}}
-	{{/if}}
-</li>
-<li class="side-nav-menu__item" {{action 'loadRandomArticle'}}>
-	{{i18n 'app.random-page-label'}}
-</li>
+	</li>
+{{/if}}
 
 {{#each localNavContent.children as |child index|}}
 	{{#if child.children}}
@@ -20,3 +19,9 @@
 		</li>
 	{{/if}}
 {{/each}}
+
+{{#unless localNavContent.parent}}
+	<li class="side-nav-menu__item" {{action 'loadRandomArticle'}}>
+		{{i18n 'app.random-page-label'}}
+	</li>
+{{/unless}}
