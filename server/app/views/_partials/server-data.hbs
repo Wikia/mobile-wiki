@@ -4,6 +4,7 @@
 	M.prop('queryParams', {{{json queryParams}}});
 	M.prop('tracking', {{{json tracking}}});
 	M.prop('translations', {{{json (translations wikiVariables.language.content ns=localSettings.translationFiles)}}});
+	M.prop('momentjsTranslation', {{{json (moment wikiVariables.language.content)}}});
 	M.prop('weppyConfig', {{{json localSettings.weppy}}});
 	M.prop('wikiaLanguage', '{{{wikiVariables.language.content}}}');
 	M.prop('userId', {{{userId}}});

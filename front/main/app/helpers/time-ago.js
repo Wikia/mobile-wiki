@@ -23,23 +23,106 @@ export default Ember.Helper.helper((params) => {
 			'zh-cn': 'YY/MM/DD',
 			'zh-tw': 'YY/MM/DD'
 		},
+		config = {
+			en: {
+				relativeTime: {
+					m: '1 m',
+					mm: '%d m',
+					h: '1 h',
+					hh: '%d h',
+					d: '1 d',
+					dd: '%d d'
+				}
+			},
+			de: {
+				relativeTime: {
+					m: '1 Min.',
+					mm: '%d Min.',
+					h: '1 Std.',
+					hh: '%d Std.',
+					d: '1 Tg.',
+					dd: '%d Tg.'
+				}
+			},
+			es: {
+				relativeTime: {
+					m: '1 min',
+					mm: '%d min'
+				}
+			},
+			fr: {
+				relativeTime: {
+					m: '1 min',
+					mm: '%d min',
+					d: '1 j',
+					dd: '%d j'
+				}
+			},
+			it: {
+				relativeTime: {
+					m: '1 min',
+					mm: '%d min',
+					d: '1 g',
+					dd: '%d gg'
+				}
+			},
+			ja: {
+				relativeTime: {
+					d: '1 日前',
+					dd: '%d 日前',
+					h: '1 時間前',
+					hh: '%d 時間前,',
+					m: '1 分前',
+					mm: '%d 分前'
+				}
+			},
+			pl: {
+				relativeTime: {
+					m: '1 min',
+					mm: '%d min',
+					h: '1 godz.',
+					hh: '%d godz.',
+					d: '1 dzień',
+					dd: '%d dni'
+				}
+			},
+			'pt-br': {
+				relativeTime: {
+					m: '1 min',
+					mm: '%d min'
+				}
+			},
+			ru: {
+				relativeTime: {
+					d: '1 д',
+					dd: '%d дд',
+					h: '1 ч',
+					hh: '%d ч',
+					m: '1 мин',
+					mm: '%d мин'
+				}
+			}
+		},
 		language = Mercury.wiki.language.user || 'en',
 		shouldHideAgoString = params[1] || true;
 
-	let output;
+	moment.locale(language,{
+		relativeTime: config[language].relativeTime
+	});
 
+	let output;
 	console.log('LANGUAGE OV WIKIA', language);
 	console.log('DATE AFTER CONVERTION', date);
 	console.log('DIFF FROM NOW', moment().diff(date, 'days'));
 
 	if (moment().diff(date, 'days') > 5) {
-		output = `>&bull; ${date.format(dateFormats[language])}`;
+		output = date.format(dateFormats[language]);
 	} else if (moment().diff(date, 'minutes') < 1) {
-		output = `>&bull; ${i18n.t('app.now-label')}`;
+		output = i18n.t('app.now-label');
 	} else {
-		output = `title='${moment().format(dateFormats[language])}'>&bull; ${date.fromNow(shouldHideAgoString)}`;
+		output = date.fromNow(shouldHideAgoString);
 	}
 
-	return `<span class='timestamp'${output} </span>`;
+	return `<span class='timestamp' title='${moment().format("LLL")}'>&bull; ${output} </span>`;
 
 });
