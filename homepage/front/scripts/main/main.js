@@ -27,14 +27,28 @@ function search(isTopNav = true) {
 	}
 }
 
+/**
+ * Hides the loading indicator
+ * @returns {void}
+ */
+function hideLoadingIndicator() {
+	$('#loading').addClass('loading-done');
+	$('.hero-prev').removeClass('hero-hide-arrow');
+	$('.hero-next').removeClass('hero-hide-arrow');
+}
+
 $(() => {
 	const headings = $('.grid-heading');
 
-	$('.hero-carousel').on('init', () => {
-		$('#loading').addClass('loading-done');
-		$('.hero-prev').removeClass('hero-hide-arrow');
-		$('.hero-next').removeClass('hero-hide-arrow');
+	// Hide loading indicator after load complete
+	$(window).load(() => {
+		hideLoadingIndicator();
 	});
+
+	// Or after 6 seconds
+	setTimeout(() => {
+		hideLoadingIndicator();
+	}, 6000);
 
 	$('.hero-carousel').slick({
 		arrows: false,
