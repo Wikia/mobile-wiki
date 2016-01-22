@@ -321,6 +321,19 @@ export class ArticleRequest extends BaseRequest {
 
 		return this.fetch(url);
 	}
+
+	/*
+	 * @returns {Promise}
+	 */
+	articleFromWikitext(title, wikitext) {
+		const url = createUrl(this.wikiDomain, 'wikia.php', {
+			controller: 'TODOAPI',
+			method: 'TODOMETHOD',
+			wikitext
+		});
+
+		return this.fetch(url);
+	}
 }
 
 /**
