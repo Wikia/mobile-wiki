@@ -146,7 +146,7 @@ CuratedContentEditorModel.reopenClass({
 			rawData.forEach((section) => {
 				if (section.featured === 'true') {
 					featured = section;
-				} if (section.community_data === 'true') {
+				} else if (section.community_data === 'true') {
 					communityData = section;
 				} else if (section.label === '') {
 					optional = section;
