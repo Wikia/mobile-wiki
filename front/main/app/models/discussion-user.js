@@ -11,6 +11,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 	userName: null,
 	posts: null,
 	totalPosts: null,
+	userProfileUrl: null,
 
 	loadPage(pageNum = 0) {
 		this.set('pageNum', pageNum);
@@ -29,10 +30,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 
 				newPosts.forEach((post) => {
 					if (post.hasOwnProperty('createdBy')) {
-						post.createdBy.profileUrl = M.buildUrl({
-							namespace: 'User',
-							title: post.createdBy.name
-						});
+						post.createdBy.profileUrl = this.userProfileUrl;
 					}
 				});
 
@@ -69,19 +67,22 @@ DiscussionUserModel.reopenClass({
 			},
 			success: (data) => {
 				const posts = data._embedded['doc:posts'];
-				let contributors, pivotId, userName;
+				let contributors, firstPost, pivotId, userProfileUrl, userName;
 
 				// If there are no replies to the first post, 'doc:posts' will not be returned
 				if (posts) {
-					pivotId = posts[0].id;
-					userName = posts[0].createdBy.name;
-					contributors = [posts[0].createdBy];
+					firstPost = posts[0];
+					pivotId = firstPost.id;
+					userName = firstPost.createdBy.name;
+					contributors = [firstPost.createdBy];
+					userProfileUrl = M.buildUrl({
+						namespace: 'User',
+						title: firstPost.createdBy.name
+					});
+
 					posts.forEach((post) => {
 						if (post.hasOwnProperty('createdBy')) {
-							post.createdBy.profileUrl = M.buildUrl({
-								namespace: 'User',
-								title: post.createdBy.name
-							});
+							post.createdBy.profileUrl = userProfileUrl;
 						}
 					});
 				}
