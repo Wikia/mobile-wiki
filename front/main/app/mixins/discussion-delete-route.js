@@ -34,16 +34,14 @@ export default Ember.Mixin.create({
 		 * @param {object} post
 		 * @returns {void}
 		 */
-		deleteAllPosts(post) {
-			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post),
-				self = this,
-				message = i18n.t('main.modal-dialog-delete-all-message', {userName: post.createdBy.name, wikiName: 'bar', ns: 'discussion'});
-			console.log(post);
-			this.get('modalDialogService').confirm(message, 'main.modal-dialog-delete-all', function(result){
+		deleteAllPosts(posts) {
+			const self = this,
+				message = i18n.t('main.modal-dialog-delete-all-message', {userName: posts[0].createdBy.name, wikiName: Mercury.wiki.siteName, ns: 'discussion'});
+
+			this.get('modalDialogService').confirm(message, 'main.delete-all', function(result){
 				if (result) {
-					Ember.set(loadingSpinnerContainer, 'isLoading', true);
-					self.modelFor(self.get('routeName')).deleteAllPosts(post).then(() => {
-						Ember.set(loadingSpinnerContainer, 'isLoading', false);
+					self.modelFor(self.get('routeName')).deleteAllPosts(posts[0]).then(() => {
+						console.log('done');
 					});
 				}
 			});

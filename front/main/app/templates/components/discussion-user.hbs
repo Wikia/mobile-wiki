@@ -1,6 +1,9 @@
-{{discussion-error-dialog
-	isVisible=shouldShowErrorMessage
-	errorMessage=errorMessage
+{{discussion-dialog
+	isVisible=shouldShowDialogMessage
+	isConfirm=isConfirm
+	confirmButtonText=confirmButtonText
+	confirmCallback=confirmCallback
+	dialogMessage=dialogMessage
 }}
 
 <div class="site-body-discussion post-list-view discussion-user-list">
@@ -25,11 +28,11 @@
 		</div>
 		{{#if model.connectionError}}
 			{{discussion-connection-error
-			retry=(action this.attrs.retry)
+				retry=(action this.attrs.retry)
 			}}
 		{{else if model.notFoundError}}
 			{{discussion-not-found-error
-			goToAllDiscussions=(action this.attrs.goToAllDiscussions)
+				goToAllDiscussions=(action this.attrs.goToAllDiscussions)
 			}}
 		{{else}}
 			<div class="small-12 large-6 columns">
@@ -53,6 +56,12 @@
 			</div>
 		{{/if}}
 		<div class="rail large-3 columns">
+			{{#if model.canDeleteAll}}
+				<div {{action this.attrs.deleteAll model.posts}} class="back-button active-element-theme-color">
+					{{svg 'delete' role='img' class='icon delete fill-theme-color'}}
+					{{i18n 'main.delete-all' ns='discussion'}}
+				</div>
+			{{/if}}
 		</div>
 	</div>
 </div>

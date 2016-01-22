@@ -1,6 +1,8 @@
 import DiscussionBaseModel from './discussion-base';
 import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
 import ajaxCall from '../utils/ajax-call';
+import {checkPermissions} from 'common/utils/discussionPermissions';
+
 
 const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 
@@ -11,6 +13,10 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 	userName: null,
 	posts: null,
 	totalPosts: null,
+
+	canDeleteAll: Ember.computed('posts', function () {
+		return checkPermissions(this.get('posts')[0], 'canDelete');
+	}),
 
 	loadPage(pageNum = 0) {
 		this.set('pageNum', pageNum);
