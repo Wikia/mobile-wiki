@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import moment from 'moment';
 
 /**
  * Helper to give textual representation of time interval between past date
@@ -106,7 +107,7 @@ export default Ember.Helper.helper((params) => {
 		language = Mercury.wiki.language.user || 'en',
 		shouldHideAgoString = params[1] || true;
 
-	moment.locale(language,{
+	moment.locale(language, {
 		relativeTime: config[language].relativeTime
 	});
 
@@ -123,6 +124,6 @@ export default Ember.Helper.helper((params) => {
 		output = date.fromNow(shouldHideAgoString);
 	}
 
-	return `<span class='timestamp' title='${moment().format("LLL")}'>&bull; ${output} </span>`;
+	return `<span class='timestamp' title='${date.format("LLL")}'>&bull; ${output} </span>`;
 
 });

@@ -12,7 +12,7 @@
 			username=author.name
 		}}
 		<span class="timestamp">
-			&bull; {{time-ago post.creationDate.epochSecond}}
+			{{{time-ago post.creationDate.epochSecond}}}
 		</span>
 		{{discussion-delete
 			delete=(action this.attrs.deleteReply)
