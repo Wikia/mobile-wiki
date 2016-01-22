@@ -1,3 +1,26 @@
+## release-202 (2016-01-21 12:15 UTC)
+* revert-1847-revert-1839-SOC-1483-backup: Revert "Revert "SOC-1483 | Displaying message on empty forums""
+* [XW-926](https://wikia-inc.atlassian.net/browse/XW-926) XW-926 Fix server error handling
+* nodemon-run-on-change-only: Run nodemon after the first change
+* [ADEN-2846](https://wikia-inc.atlassian.net/browse/ADEN-2846) ADEN-2846 Prevent throwing JS error on pages without adsContext
+* [INT-311](https://wikia-inc.atlassian.net/browse/INT-311) INT-311 | Fix header alignment for sliders in mobile. Extra heading p…
+* [XW-](https://wikia-inc.atlassian.net/browse/XW-) XW | fix crowdin paths
+* [XW-948](https://wikia-inc.atlassian.net/browse/XW-948) XW-984 | clean up after ember-cli
+* [XW-879](https://wikia-inc.atlassian.net/browse/XW-879) XW-879 | Introduce Ember CLI
+* xw-update-svg: XW-879 | update svg not to use same ids
+* fix-styles: XW-950 | Fix dark theme
+* ember-cli-beta-6: Ember cli beta 6
+* [XW-876](https://wikia-inc.atlassian.net/browse/XW-876) XW-887 | Work towards ESLint
+
+## release-201 (2016-01-19 11:39 UTC)
+* eslint-errors-only: XW | Don't use eslint warnings
+* ember-2.0.3: Upgrade Ember to v2.0.3
+* [INT-311](https://wikia-inc.atlassian.net/browse/INT-311) INT-311 | Final assets and text for category sliders
+* [INT-293](https://wikia-inc.atlassian.net/browse/INT-293) INT-293 | Remove code for Google Custom Search integration for Mercur…
+* [SOC-1576](https://wikia-inc.atlassian.net/browse/SOC-1576) SOC-1576 | remove active highlighting on all links
+* [SOC-1863](https://wikia-inc.atlassian.net/browse/SOC-1863) SOC-1863 - corrected top margin of forum
+* default-env-for-config-should-be-dev: XW | Make sure default WIKIA_ENVIRONMENT for configuration  is 'dev'
+
 ## release-200 (2016-01-14 15:22 UTC)
 * [SOC-1549](https://wikia-inc.atlassian.net/browse/SOC-1549) SOC-1549 - fixed loading spinner in firefox
 * [XW-456](https://wikia-inc.atlassian.net/browse/XW-456) XW-456 | Remove old variations of featured content

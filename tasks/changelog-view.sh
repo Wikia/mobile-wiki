@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Set variables
 while getopts ":f:t:" opt; do
