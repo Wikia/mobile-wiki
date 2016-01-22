@@ -69,7 +69,7 @@ export function handleResponse(result, request) {
 		dbName = result.wikiVariables.dbName;
 		nielsenEnabled = result.wikiVariables.tracking.nielsen;
 	} catch (error) {
-		Logger.error('No vertical set for response');
+		Logger.warn('No vertical set for response');
 
 		vertical = '';
 	}
