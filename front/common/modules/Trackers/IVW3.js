@@ -40,7 +40,7 @@ export default class IVW3 extends BaseTracker {
 		const country = M.prop('geo.country'),
 			ivw3 = M.prop('tracking.ivw3');
 
-		if (ivw3.enabled && ['DE', 'AT', 'CH'].indexOf(country) !== -1) {
+		if (ivw3.enabled && typeof ivw3.countries.indexOf === 'function' && ivw3.countries.indexOf(country) !== -1) {
 			if (this.initialized) {
 				IVW3.sendRequest(ivw3);
 			} else {

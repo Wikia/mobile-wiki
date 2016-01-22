@@ -41,12 +41,13 @@ export const Comscore = {
 		/**
 		 * @param {*} tracking
 		 * @param {string} vertical
-		 * @param {boolean} enabled
+		 * @param {object} config
 		 * @returns {void}
 		 */
-		handleResponse(tracking, vertical, enabled) {
+		handleResponse(tracking, vertical, config) {
 			tracking.ivw3.vertical = vertical;
-			tracking.ivw3.enabled = enabled;
+			tracking.ivw3.enabled = config.enabled;
+			tracking.ivw3.countries = config.countries;
 		}
 	},
 	Nielsen = {
@@ -54,13 +55,13 @@ export const Comscore = {
 		 * @param {*} tracking
 		 * @param {string} vertical
 		 * @param {string} dbName
-		 * @param {boolean} enabled
+		 * @param {object} config
 		 * @returns {void}
 		 */
-		handleResponse(tracking, vertical, dbName, enabled) {
+		handleResponse(tracking, vertical, dbName, config) {
 			tracking.nielsen.section = vertical;
 			tracking.nielsen.subbrand = dbName;
-			tracking.nielsen.enabled = enabled;
+			tracking.nielsen.enabled = config.enabled;
 		}
 	};
 
@@ -72,25 +73,23 @@ export const Comscore = {
 export function handleResponse(result, request) {
 	const tracking = localSettings.tracking;
 
-	let vertical,
-		dbName,
-		ivw3Enabled,
-		nielsenEnabled;
+	let dbName = '',
+		vertical = '',
+		ivw3Config = {},
+		nielsenConfig = {};
 
 	try {
-		vertical = result.wikiVariables.tracking.vertical;
 		dbName = result.wikiVariables.dbName;
-		ivw3Enabled = result.wikiVariables.tracking.ivw3;
-		nielsenEnabled = result.wikiVariables.tracking.nielsen;
+		vertical = result.wikiVariables.tracking.vertical;
+		ivw3Config = result.wikiVariables.tracking.ivw3;
+		nielsenConfig = result.wikiVariables.tracking.nielsen;
 	} catch (error) {
-		Logger.warn('No vertical set for response');
-
-		vertical = '';
+		Logger.error('Missing tracking variable in wikiVariables');
 	}
 
 	Comscore.handleResponse(tracking, vertical, request);
-	IVW3.handleResponse(tracking, vertical, ivw3Enabled);
-	Nielsen.handleResponse(tracking, vertical, dbName, nielsenEnabled);
+	IVW3.handleResponse(tracking, vertical, ivw3Config);
+	Nielsen.handleResponse(tracking, vertical, dbName, nielsenConfig);
 
 	// export tracking code to layout and front end code
 	result.tracking = tracking;
