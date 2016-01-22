@@ -153,6 +153,10 @@
 	top: 0;
 	width: 100%;
 	z-index: $z-side-nav;
+
+	a:hover, a:focus {
+		color: inherit;
+	}
 }
 
 $side-nav-item-height: 3.125rem;
@@ -223,13 +227,16 @@ $side-nav-item-height: 3.125rem;
 	&:visited,
 	> a,
 	> a:hover,
-	> a:visited {
+	> a:visited,
+	> a:focus {
 		color: inherit;
+	}
 
-		&.mw-content {
-			display: inline-block;
-			width: 100%;
-		}
+	//All anchors which are links to some article (mw-content class)
+	//Should be as wide as containers to increase "clickable" area
+	&.mw-content > a, > a.mw-content {
+		display: inline-block;
+		width: 100%;
 	}
 
 	&::before {
