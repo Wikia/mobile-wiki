@@ -1,5 +1,3 @@
-/* eslint no-undefined: 0 */
-
 /**
  * @typedef {Object} TrackerOptions
  * @property {string} name
@@ -110,7 +108,7 @@ class UniversalAnalytics {
 				name: '',
 				allowLinker: true,
 				sampleRate: this.accounts[trackerName].sampleRate,
-				userId: (gaUserIdHash.length > 0 ? gaUserIdHash : undefined)
+				userId: (gaUserIdHash.length > 0 ? gaUserIdHash : null)
 			};
 
 		let prefix = '',
