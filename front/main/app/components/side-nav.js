@@ -24,6 +24,7 @@ export default Ember.Component.extend({
 	globalNavContent: 'side-nav-global-navigation-root',
 	isFandomVisible: Ember.computed(() => Mercury.wiki.language.content === 'en'),
 	wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
+	homeOfFandomLabel: Ember.get(Mercury, 'wiki.navigation2016.fandomLabel.textEscaped'),
 
 	/**
 	 * Every time we exit search mode, regardless of if it was through the Cancel
