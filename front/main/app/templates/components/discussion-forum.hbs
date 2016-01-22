@@ -16,10 +16,10 @@
 	<div class="discussion-page row">
 		<div class="rail large-3 columns">
 			{{community-badge}}
-			{{#link-to 'index' class="back-button active-element-theme-color"}}
+			<a href="/" class="back-button active-element-theme-color">
 				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
 				{{i18n 'main.back-to-wikia-link' ns='discussion'}}
-			{{/link-to}}
+			</a>
 		</div>
 		{{#if model.connectionError}}
 			{{discussion-connection-error
@@ -27,7 +27,7 @@
 			}}
 		{{else if model.notFoundError}}
 			{{discussion-not-found-error
-				goToAllDiscussions=(action this.attrs.goToAllDiscussions)
+				forumId=model.forumId
 			}}
 		{{else}}
 			<div class="small-12 large-6 columns">
@@ -41,6 +41,7 @@
 					loadPage=(action this.attrs.loadPage)
 					undeletePost=(action this.attrs.undeletePost)
 					upvote=(action this.attrs.upvote)
+					forumId=model.forumId
 					minorError=model.minorError
 					name=model.name
 					pageNum=model.pageNum
