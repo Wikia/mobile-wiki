@@ -3,17 +3,19 @@ export default Ember.Service.extend({
 	isConfirm: false,
 	confirmCallback: null,
 	confirmButtonText: null,
+	header: null,
 	message: null,
 
 	/**
 	 * @param {string} message
 	 * @returns {void}
 	 */
-	display(message) {
+	display(message, header) {
 		if (!this.get('isDisplayed') && message !== this.get('message')) {
 			this.setProperties({
 				isDisplayed: true,
 				isConfirm: false,
+				header,
 				message,
 			});
 		}
@@ -23,14 +25,15 @@ export default Ember.Service.extend({
 	 * @param {string} message
 	 * @returns {void}
 	 */
-	confirm(message, confirmButtonText, confirmCallback) {
+	confirm(message, header, confirmButtonText, confirmCallback) {
 		if (!this.get('isDisplayed') && message !== this.get('message')) {
 			this.setProperties({
 				isDisplayed: true,
 				isConfirm: true,
 				confirmCallback,
 				confirmButtonText,
-				message
+				header,
+				message,
 			});
 		}
 	},

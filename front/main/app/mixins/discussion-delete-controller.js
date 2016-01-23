@@ -13,11 +13,11 @@ export default Ember.Mixin.create({
 
 		/**
 		 * Bubbles up to Route
-		 * @param {object} post
+		 * @param {object} posts
 		 * @returns {void}
 		 */
-		deleteAllPosts(post) {
-			this.get('target').send('deleteAllPosts', post);
+		deleteAllPosts(posts) {
+			this.get('target').send('deleteAllPosts', posts);
 		},
 
 		/**

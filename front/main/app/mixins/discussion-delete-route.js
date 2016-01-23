@@ -35,12 +35,16 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		deleteAllPosts(posts) {
-			const self = this,
-				message = i18n.t('main.modal-dialog-delete-all-message', {userName: posts[0].createdBy.name, wikiName: Mercury.wiki.siteName, ns: 'discussion'});
+			const message = i18n.t('main.modal-dialog-delete-all-message',
+				{
+					userName: posts[0].createdBy.name,
+					wikiName: Mercury.wiki.siteName,
+					ns: 'discussion'
+				});
 
-			this.get('modalDialogService').confirm(message, 'main.delete-all', function(result){
+			this.get('modalDialogService').confirm(message, 'main.modal-dialog-delete-all-header', 'main.delete-all', (result) =>{
 				if (result) {
-					self.modelFor(self.get('routeName')).deleteAllPosts(posts);
+					this.modelFor(this.get('routeName')).deleteAllPosts(posts);
 				}
 			});
 		},

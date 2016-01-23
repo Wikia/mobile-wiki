@@ -6,6 +6,7 @@ export default Ember.Mixin.create({
 	confirmCallback: Ember.computed.alias('modalDialogService.confirmCallback'),
 	confirmButtonText: Ember.computed.alias('modalDialogService.confirmButtonText'),
 	dialogMessage: Ember.computed.alias('modalDialogService.message'),
+	dialogHeader: Ember.computed.alias('modalDialogService.header'),
 
 	/**
 	 * Since we cannot use promises rejection because of error substates problem,
