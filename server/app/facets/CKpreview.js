@@ -14,8 +14,6 @@ export default function CKpreview(request, reply) {
 		wikitext = request.payload.wikitext,
 		article = new Article.ArticleRequestHelper({wikiDomain});
 
-	console.log("request", request.payload)
-
 	article.getArticleFromWikitext()
 		/**
 		 * @param {*} wikiVariables
@@ -24,15 +22,11 @@ export default function CKpreview(request, reply) {
 		.then((content) => {
 			let result,
 				response,
-				article;
-
-			console.log("content", content)
-
-			article = JSON.parse(content);
+				articleData;
 
 			result = {
 				article: {
-					article,
+					data: content.data,
 					adsContext: {},
 					details: {
 						id: 0,
@@ -42,10 +36,13 @@ export default function CKpreview(request, reply) {
 					},
 					htmlTitle: '',
 					preview: true
-				}
+				},
+				wikiVariables: content.wikiVariables || {}
 			};
 
-			response = reply.view('application', result);
+			articleData = prepareArticleData(request, result);
+
+			response = reply.view('article', articleData);
 			response.code(200);
 			response.type('text/html; charset=utf-8');
 
@@ -56,7 +53,7 @@ export default function CKpreview(request, reply) {
 		 * @returns {void}
 		 */
 		.catch((error) => {
-			//onsole.log("errorroroororororor! : ", error)
+			console.log("errorroroororororor! : ", error)
 			reply.view('application', {
 				error
 			}, {

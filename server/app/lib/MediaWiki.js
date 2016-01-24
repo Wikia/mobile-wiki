@@ -327,9 +327,10 @@ export class ArticleRequest extends BaseRequest {
 	 */
 	articleFromWikitext(title, wikitext) {
 		const url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'TODOAPI',
-			method: 'TODOMETHOD',
-			wikitext
+			controller: 'MercuryApi',
+			method: 'getArticleFromWikitext',
+			wikitext: wikitext,
+			title: 'Episode_0091'
 		});
 
 		return this.fetch(url);

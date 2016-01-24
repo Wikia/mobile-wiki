@@ -129,10 +129,10 @@ let routes,
 		{
 			method: 'POST',
 			path: '/CKpreview',
-			//handler: CKpreview
-			handler: function (request, reply) {
-				reply('Jestę śledzię :(');
-			}
+			handler: CKpreview
+			// handler: function (request, reply) {
+			// 	reply('Jestę śledzię :(');
+			// }
 		}
 	],
 	// routes where we want to know the user's auth status
