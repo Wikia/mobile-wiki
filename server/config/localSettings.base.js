@@ -115,6 +115,7 @@ import deepExtend from 'deep-extend';
  * @property {GAAccountConfig} ua
  * @property {string} quantserve
  * @property {ComscoreTrackingLocalSettings} comscore
+ * @property {IVW3TrackingLocalSettings} ivw3
  * @property {NielsenTrackingLocalSettings} nielsen
  * @property {KruxTrackingLocalSettings} krux
  */
@@ -125,6 +126,13 @@ import deepExtend from 'deep-extend';
  * @property {string} id
  * @property {string} c7
  * @property {string} c7Value
+ */
+
+/**
+ * @typedef {Object} IVW3TrackingLocalSettings
+ * @property {string} vertical
+ * @property {boolean} enabled
+ * @property {string[]} countries
  */
 
 /**
@@ -229,6 +237,10 @@ const localSettings = {
 			id: '6177433',
 			c7: '',
 			c7Value: ''
+		},
+		ivw3: {
+			vertical: '',
+			countries: []
 		},
 		nielsen: {
 			apid: 'T26086A07-C7FB-4124-A679-8AC404198BA7',
