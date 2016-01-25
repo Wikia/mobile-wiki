@@ -11,9 +11,7 @@
 			displayProfileName=true
 			username=author.name
 		}}
-		<span class="timestamp">
 			{{{time-ago post.creationDate.epochSecond}}}
-		</span>
 		{{discussion-delete
 			delete=(action this.attrs.deleteReply)
 			undelete=(action this.attrs.undeleteReply)
