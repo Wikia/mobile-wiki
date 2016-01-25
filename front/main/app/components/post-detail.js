@@ -8,7 +8,7 @@ export default Ember.Component.extend(
 		classNameBindings: ['isNew', 'isDeleted', 'isReply'],
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
-		postId: null,
+		postId: Ember.computed.oneWay('post.threadId'),
 
 		routing: Ember.inject.service('-routing'),
 
