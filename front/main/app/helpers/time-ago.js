@@ -102,6 +102,26 @@ export default Ember.Helper.helper((params) => {
 					m: '1 мин',
 					mm: '%d мин'
 				}
+			},
+			'zh-cn': {
+				relativeTime: {
+					m: '1 分鐘前',
+					mm: '%d 分鐘前',
+					h: '1 小時前',
+					hh: '%d 小時前',
+					d: '1 日前',
+					dd: '%d 日前'
+				}
+			},
+			'zh-tw': {
+				relativeTime: {
+					m: '1 分钟前',
+					mm: '%d 分钟前',
+					h: '1 小时前',
+					hh: '%d 小时前',
+					d: '1 天前',
+					dd: '%d 天前'
+				}
 			}
 		},
 		language = Mercury.wiki.language.user || 'en',
