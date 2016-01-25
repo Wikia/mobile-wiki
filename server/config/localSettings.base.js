@@ -63,6 +63,7 @@ import deepExtend from 'deep-extend';
  * @property {string} ironSecret
  * @property {string} [mediawikiDomain]
  * @property {string} mwPreviewSalt
+ * @property {string} gaUserSalt
  * @property {LoggerInterface} loggers
  * @property {number} maxRequestsPerChild
  * @property {OptimizelyLocalSettings} [optimizely]
@@ -180,6 +181,8 @@ const localSettings = {
 	mediawikiDomain: process.env.MEDIAWIKI_DOMAIN || null,
 	// Special salt for accepting HTML from MediaWiki for /editor_preview/
 	mwPreviewSalt: process.env.MW_PREVIEW_SALT,
+	// Special salt for calculating GA userID
+	gaUserSalt: process.env.GA_USERID_SALT,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
 	loggers: {
