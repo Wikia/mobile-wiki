@@ -103,11 +103,13 @@ class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	initAccount(trackerName, domain) {
-		const options = {
-			name: '',
-			allowLinker: true,
-			sampleRate: this.accounts[trackerName].sampleRate
-		};
+		const gaUserIdHash = M.prop('gaUserIdHash') || '',
+			options = {
+				name: '',
+				allowLinker: true,
+				sampleRate: this.accounts[trackerName].sampleRate,
+				userId: (gaUserIdHash.length > 0 ? gaUserIdHash : null)
+			};
 
 		let prefix = '',
 			trackerPrefix;

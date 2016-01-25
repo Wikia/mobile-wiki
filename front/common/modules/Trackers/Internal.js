@@ -48,7 +48,7 @@ export default class Internal {
 			c: mercury.wiki.id,
 			x: mercury.wiki.dbName,
 			lc: mercury.wiki.language.content,
-			u: mercury.userId || 0,
+			u: parseInt(M.prop('userId'), 10) || 0,
 			s: 'mercury',
 			beacon: '',
 			cb: Math.floor(Math.random() * 99999)

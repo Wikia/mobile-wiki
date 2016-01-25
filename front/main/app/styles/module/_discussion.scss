@@ -36,10 +36,6 @@ body.discussions {
 		}
 	}
 
-	.clickable {
-		cursor: pointer;
-	}
-
 	.count {
 		color: $discussion-count-color;
 		font-size: $type-min;
@@ -68,10 +64,13 @@ body.discussions {
 	}
 
 	.discussion-content {
-		color: $discussion-content-color;
 		margin: 5px 0;
 		padding: .3rem 0;
 
+		.post-details-link {
+			color: $discussion-content-color;
+			display: block;
+		}
 		.post-title {
 			line-height: $line-height-smallest;
 			margin: 0;
@@ -317,7 +316,7 @@ body.discussions {
 	&.forum {
 		margin-top: $discussion-header-height;
 
-		.discussion-content {
+		.clamp {
 			@include clamp(3);
 
 			a {
