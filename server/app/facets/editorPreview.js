@@ -3,6 +3,8 @@ import {getCachedWikiDomainName, getCDNBaseUrl} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
 import prepareArticleDataToPreview from './operations/prepareArticleDataToPreview';
 import setResponseCaching, * as Caching from '../lib/Caching';
+import Logger from '../lib/Logger';
+import * as Tracking from '../lib/Tracking';
 
 /**
  * @param {Hapi.Request} request
@@ -48,6 +50,9 @@ export default function editorPreview(request, reply) {
 			};
 
 			articleData = prepareArticleDataToPreview(request, result);
+
+			// @todo XW-596 we shouldn't rely on side effects of this function
+			Tracking.handleResponse(result, request);
 
 			response = reply.view('article', articleData);
 			response.code(200);
