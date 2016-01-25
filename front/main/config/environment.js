@@ -12,7 +12,10 @@ module.exports = function (environment) {
 				// e.g. 'with-controller': true
 			}
 		},
-
+		moment: {
+			// locales which we support  | includeLocales: ['de', 'es', 'fr', 'it', 'ja', 'pt-br', 'pl', 'ru', 'zh-cn', 'zh-tw'],
+			localeOutputPath: 'assets/vendor/moment/locales'
+		},
 		APP: {
 			// Here you can pass flags/options to your application instance
 			// when it is created

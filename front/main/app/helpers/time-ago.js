@@ -107,14 +107,15 @@ export default Ember.Helper.helper((params) => {
 		language = Mercury.wiki.language.user || 'en',
 		shouldHideAgoString = params[1] || true;
 
+	if (language !== 'en') {
+		Ember.$.getScript(M.buildUrl({path: `/front/main/assets/vendor/moment/locales/${language}.js`}));
+	}
+
 	moment.locale(language, {
 		relativeTime: config[language].relativeTime
 	});
 
 	let output;
-	console.log('LANGUAGE OV WIKIA', language);
-	console.log('DATE AFTER CONVERTION', date);
-	console.log('DIFF FROM NOW', moment().diff(date, 'days'));
 
 	if (moment().diff(date, 'days') > 5) {
 		output = date.format(dateFormats[language]);
