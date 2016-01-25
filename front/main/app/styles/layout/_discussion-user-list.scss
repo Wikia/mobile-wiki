@@ -30,7 +30,7 @@ $discussion-user-list-item-mobile-side-padding: 15px;
 		.user-replied-to {
 			font-size: $type-smallest;
 			line-height: $line-height-smallest;
-			margin: 5px 0 10px;
+			margin-bottom:10px;
 			padding-bottom: 6px;
 		}
 	}
@@ -75,6 +75,10 @@ $discussion-user-list-item-mobile-side-padding: 15px;
 			.discussion-reply {
 				padding-left: $discussion-user-list-item-mobile-side-padding;
 				padding-right: $discussion-user-list-item-mobile-side-padding;
+
+				.discussion-content{
+					margin-left: 0;
+				}
 			}
 		}
 	}

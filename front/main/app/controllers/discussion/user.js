@@ -7,6 +7,8 @@ export default Ember.Controller.extend(
 	{
 		application: Ember.inject.controller(),
 
+		smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
+
 		actions: {
 			/**
 			 * Bubbles up to DiscussionForumRoute
