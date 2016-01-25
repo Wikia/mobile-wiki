@@ -237,7 +237,6 @@ const localSettings = {
 		},
 		ivw3: {
 			vertical: '',
-			enabled: false,
 			countries: []
 		},
 		nielsen: {

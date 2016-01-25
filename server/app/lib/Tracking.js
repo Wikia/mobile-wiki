@@ -46,8 +46,7 @@ export const Comscore = {
 		 */
 		handleResponse(tracking, vertical, config) {
 			tracking.ivw3.vertical = vertical;
-			tracking.ivw3.enabled = config.enabled;
-			tracking.ivw3.countries = config.countries;
+			tracking.ivw3.countries = config.countries || [];
 		}
 	},
 	Nielsen = {
