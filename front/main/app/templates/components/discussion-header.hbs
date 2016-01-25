@@ -1,5 +1,9 @@
 {{#if showContent}}
 	<div class="header clearfix background-theme-color">
+		{{#link-to 'discussion.forum' forumId discussionSort.sortBy class="back-button"}}
+			{{svg 'back-arrow' role='img' class='icon arrow-left'}}
+			{{i18n 'main.back-to-discussions-link' ns='discussion'}}
+		{{/link-to}}
 		<h1>{{siteName}}</h1>
 		<div {{action 'toggleEditor' true}} class="new-post">
 			{{svg 'new-post-icon' viewBox='0 0 56 50'}}
