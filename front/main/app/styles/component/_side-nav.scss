@@ -159,8 +159,6 @@
 	}
 }
 
-$side-nav-item-height: 3.125rem;
-
 .side-nav-menu__footer {
 	align-items: center;
 	display: flex;
@@ -191,22 +189,22 @@ $side-nav-item-height: 3.125rem;
 	background: #fff;
 	flex-grow: 0;
 	flex-shrink: 0;
-	height: $side-nav-item-height;
-	margin-bottom: -1px;
+	// because site-head has 1px border at the bottom
+	height: rem-calc($side-head-height - 1);
 
 	.close {
 		align-items: center;
 		display: flex;
 		float: left;
-		height: $side-nav-item-height;
+		height: rem-calc($side-head-height);
 		justify-content: center;
-		width: $side-nav-item-height;
+		width: rem-calc($side-head-height);
 	}
 
 	.wordmark {
 		display: block;
-		height: $side-nav-item-height;
-		margin: 0 $side-nav-item-height;
+		height: rem-calc($side-head-height);
+		margin: 0 rem-calc($side-head-height);
 		text-align: center;
 	}
 

@@ -4,13 +4,15 @@ $z-header: $z-6;
 	margin-top: $icon-site-head-width;
 }
 
+$side-head-height: 50; //unitless
+
 .site-head {
 	@extend .row;
 	@extend .small-12;
 	background-color: rgb(255, 255, 255);
 	border-bottom: 1px solid $color-blue-gray-light;
 	direction: ltr;
-	height: rem-calc(50);
+	height: rem-calc($side-head-height);
 	left: 0;
 	margin: 0 auto;
 	position: fixed;
