@@ -9,7 +9,7 @@ import setResponseCaching, * as Caching from '../lib/Caching';
  * @param {Hapi.Response} reply
  * @returns {void}
  */
-export default function CKpreview(request, reply) {
+export default function editorPreview(request, reply) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		wikitext = request.payload.wikitext,
 		title = request.payload.title,
@@ -59,7 +59,7 @@ export default function CKpreview(request, reply) {
 		 * @returns {void}
 		 */
 		.catch((error) => {
-			console.log("errorroroororororor! : ", error)
+			Logger.error(error);
 			reply.view('application', {
 				error
 			}, {

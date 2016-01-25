@@ -3,8 +3,7 @@ import localSettings from '../../../config/localSettings';
 import deepExtend from 'deep-extend';
 
 /**
- * Prepares article data to be rendered
- * @todo clean up this function
+ * Prepares article preview data to be rendered in preview window
  *
  * @param {Hapi.Request} request
  * @param {ArticlePageData} data
@@ -34,17 +33,12 @@ export default function prepareArticleDataToPreview(request, data) {
 		}
 	}
 
-	// if (!title) {
-	// 	// Fallback to title from URL
-	// 	title = request.params.title.replace(/_/g, ' ');
-	// }
-
 	if (wikiVariables.language) {
 		contentDir = wikiVariables.language.contentDir;
 		result.isRtl = (contentDir === 'rtl');
 	}
 
-	result.displayTitle = title;
+	result.displayTitle = title || '';
 	result.htmlTitle = Utils.getHtmlTitle(wikiVariables, title);
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
