@@ -72,23 +72,21 @@ export const Comscore = {
 export function handleResponse(result, request) {
 	const tracking = localSettings.tracking;
 
-	let dbName = '',
-		vertical = '',
-		ivw3Config = {},
-		nielsenConfig = {};
+	let dbName,
+		trackingConfig,
+		vertical;
 
 	try {
-		dbName = result.wikiVariables.dbName;
-		vertical = result.wikiVariables.tracking.vertical;
-		ivw3Config = result.wikiVariables.tracking.ivw3;
-		nielsenConfig = result.wikiVariables.tracking.nielsen;
+		dbName = result.wikiVariables.dbName || '';
+		trackingConfig = result.wikiVariables.tracking || {};
 	} catch (error) {
-		Logger.error('Missing tracking variable in wikiVariables');
+		Logger.error('Missing variable in wikiVariables');
 	}
+	vertical = trackingConfig.vertical || '';
 
 	Comscore.handleResponse(tracking, vertical, request);
-	IVW3.handleResponse(tracking, vertical, ivw3Config);
-	Nielsen.handleResponse(tracking, vertical, dbName, nielsenConfig);
+	IVW3.handleResponse(tracking, vertical, trackingConfig.ivw3 || {});
+	Nielsen.handleResponse(tracking, vertical, dbName, trackingConfig.nielsen || {});
 
 	// export tracking code to layout and front end code
 	result.tracking = tracking;
