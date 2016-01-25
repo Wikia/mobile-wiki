@@ -165,6 +165,7 @@ $side-nav-item-height: 3.125rem;
 	align-items: center;
 	display: flex;
 	flex-grow: 0;
+	flex-shrink: 0;
 	justify-content: center;
 
 	a {
@@ -189,7 +190,9 @@ $side-nav-item-height: 3.125rem;
 .side-nav-menu__header {
 	background: #fff;
 	flex-grow: 0;
+	flex-shrink: 0;
 	height: $side-nav-item-height;
+	margin-bottom: -1px;
 
 	.close {
 		align-items: center;
