@@ -6,7 +6,7 @@
 * [XW-922](https://wikia-inc.atlassian.net/browse/XW-922) XW-922 | Global Navigation 2016
 * [XW-840](https://wikia-inc.atlassian.net/browse/XW-840) XW-840 | Don't use $.trim
 * [ADEN-2864](https://wikia-inc.atlassian.net/browse/ADEN-2864) ADEN-2864 Mark SP events with nonInteraction flag
-* [XW-903](https://wikia-inc.atlassian.net/browse/XW-903) accept-encoding` header to all responses
+* [XW-903](https://wikia-inc.atlassian.net/browse/XW-903) XW-903 | Add `vary: accept-encoding` header to all responses
 * [XW-1021](https://wikia-inc.atlassian.net/browse/XW-1021) XW-1021 | inline play.svg
 * [INT-321](https://wikia-inc.atlassian.net/browse/INT-321) INT-321 | Replace community central and Wikia University images
 * [SOC-1880](https://wikia-inc.atlassian.net/browse/SOC-1880) SOC-1880 | Use link-to instead of an action
