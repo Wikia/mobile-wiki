@@ -185,26 +185,28 @@
 	overflow-y: auto;
 }
 
+// because site-head has 1px border at the bottom
+$side-nav-height: $site-head-height - 1;
+
 .side-nav-menu__header {
 	background: #fff;
 	flex-grow: 0;
 	flex-shrink: 0;
-	// because site-head has 1px border at the bottom
-	height: rem-calc($side-head-height - 1);
+	height: rem-calc($side-nav-height);
 
 	.close {
 		align-items: center;
 		display: flex;
 		float: left;
-		height: rem-calc($side-head-height);
+		height: rem-calc($side-nav-height);
 		justify-content: center;
-		width: rem-calc($side-head-height);
+		width: rem-calc($side-nav-height);
 	}
 
 	.wordmark {
 		display: block;
-		height: rem-calc($side-head-height);
-		margin: 0 rem-calc($side-head-height);
+		height: rem-calc($side-nav-height);
+		margin: 0 rem-calc($side-nav-height);
 		text-align: center;
 	}
 
