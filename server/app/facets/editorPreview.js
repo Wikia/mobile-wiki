@@ -1,7 +1,7 @@
 import * as Article from '../lib/Article';
 import {getCachedWikiDomainName, getCDNBaseUrl} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
-import prepareArticleData from './operations/prepareArticleData';
+import prepareArticleDataToPreview from './operations/prepareArticleDataToPreview';
 import setResponseCaching, * as Caching from '../lib/Caching';
 
 /**
@@ -40,7 +40,7 @@ export default function CKpreview(request, reply) {
 				wikiVariables: content.wikiVariables || {}
 			};
 
-			articleData = prepareArticleData(request, result);
+			articleData = prepareArticleDataToPreview(request, result);
 
 			response = reply.view('article', articleData);
 			response.code(200);
