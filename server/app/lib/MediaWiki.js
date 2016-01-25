@@ -325,11 +325,12 @@ export class ArticleRequest extends BaseRequest {
 	/*
 	 * @returns {Promise}
 	 */
-	articleFromWikitext(title, wikitext) {
+	articleFromMarkup(title, wikitext, CKmarkup) {
 		const url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getArticleFromMarkup',
 			wikitext: wikitext,
+			CKmarkup: CKmarkup,
 			title: title
 		});
 

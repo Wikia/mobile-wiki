@@ -11,16 +11,15 @@ import setResponseCaching, * as Caching from '../lib/Caching';
  */
 export default function editorPreview(request, reply) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
-		wikitext = request.payload.wikitext,
-		title = request.payload.title,
 		params = {
 			wikiDomain,
-			wikitext: request.payload.wikitext || '',
+			wikitext: request.payload.wikitext || false,
+			CKmarkup: request.payload.CKmarkup || false,
 			title: request.payload.title || ''
 		},
 		article = new Article.ArticleRequestHelper(params);
 
-	article.getArticleFromWikitext()
+	article.getArticleFromMarkup()
 		/**
 		 * @param {*} wikiVariables
 		 * @returns {void}
@@ -29,6 +28,8 @@ export default function editorPreview(request, reply) {
 			let result,
 				response,
 				articleData;
+
+				console.log("content.data", content.data)
 
 			result = {
 				article: {

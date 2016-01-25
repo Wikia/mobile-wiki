@@ -38,6 +38,9 @@ export default function prepareArticleDataToPreview(request, data) {
 		result.isRtl = (contentDir === 'rtl');
 	}
 
+	// @todo XW-596 we shouldn't rely on side effects of this function
+	Tracking.handleResponse(result, request);
+
 	result.displayTitle = title || '';
 	result.htmlTitle = Utils.getHtmlTitle(wikiVariables, title);
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
