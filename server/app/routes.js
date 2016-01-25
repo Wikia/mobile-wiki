@@ -15,7 +15,6 @@ import mainPageSectionHandler from './facets/api/mainPageSection';
 import mainPageCategoryHandler from './facets/api/mainPageCategory';
 import logoutHandler from './facets/auth/logout';
 import editorPreview from './facets/editorPreview';
-import CKpreview from './facets/CKpreview';
 import joinHandler from './facets/auth/join';
 import {validateRedirect} from './facets/auth/authView';
 import registerHandler from './facets/auth/register';
@@ -125,14 +124,6 @@ let routes,
 			method: 'POST',
 			path: '/editorPreview',
 			handler: editorPreview
-		},
-		{
-			method: 'POST',
-			path: '/CKpreview',
-			handler: CKpreview
-			// handler: function (request, reply) {
-			// 	reply('Jestę śledzię :(');
-			// }
 		}
 	],
 	// routes where we want to know the user's auth status

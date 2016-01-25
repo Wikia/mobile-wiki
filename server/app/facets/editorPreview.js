@@ -1,39 +1,32 @@
 import * as Article from '../lib/Article';
-import {forbidden} from 'boom';
 import {getCachedWikiDomainName, getCDNBaseUrl} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
-import verifyMWHash from './operations/verifyMWHash';
 import prepareArticleData from './operations/prepareArticleData';
+import setResponseCaching, * as Caching from '../lib/Caching';
 
 /**
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
  * @returns {void}
  */
-export default function editorPreview(request, reply) {
+export default function CKpreview(request, reply) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
-		parserOutput = request.payload.parserOutput,
-		mwHash = request.payload.mwHash,
+		wikitext = request.payload.wikitext,
 		article = new Article.ArticleRequestHelper({wikiDomain});
 
-	article.getWikiVariables()
+	article.getArticleFromWikitext()
 		/**
 		 * @param {*} wikiVariables
 		 * @returns {void}
 		 */
-		.then((wikiVariables) => {
-			let article = {},
-				result;
-
-			if (verifyMWHash(parserOutput, mwHash)) {
-				article = JSON.parse(parserOutput);
-			} else {
-				throw forbidden('Failed to verify source');
-			}
+		.then((content) => {
+			let result,
+				response,
+				articleData;
 
 			result = {
 				article: {
-					article,
+					data: content.data,
 					adsContext: {},
 					details: {
 						id: 0,
@@ -44,25 +37,23 @@ export default function editorPreview(request, reply) {
 					htmlTitle: '',
 					preview: true
 				},
-				wikiVariables: wikiVariables || {},
-				// @todo copied from Article.ts (move createServerData to prepareArticleData?)
-				server: {
-					cdnBaseUrl: getCDNBaseUrl(localSettings)
-				}
+				wikiVariables: content.wikiVariables || {}
 			};
 
-			prepareArticleData(request, result);
+			articleData = prepareArticleData(request, result);
 
-			// @todo why is this needed for the images to load?
-			result.tracking = localSettings.tracking;
+			response = reply.view('article', articleData);
+			response.code(200);
+			response.type('text/html; charset=utf-8');
 
-			reply.view('application', result);
+			return Caching.disableCache(response);
 		})
 		/**
 		 * @param {*} error
 		 * @returns {void}
 		 */
 		.catch((error) => {
+			console.log("errorroroororororor! : ", error)
 			reply.view('application', {
 				error
 			}, {
