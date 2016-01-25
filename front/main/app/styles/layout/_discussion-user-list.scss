@@ -75,6 +75,10 @@ $discussion-user-list-item-mobile-side-padding: 15px;
 			.discussion-reply {
 				padding-left: $discussion-user-list-item-mobile-side-padding;
 				padding-right: $discussion-user-list-item-mobile-side-padding;
+
+				.discussion-content{
+					margin-left: 0;
+				}
 			}
 		}
 	}
