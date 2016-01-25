@@ -1,3 +1,21 @@
+## release-203 (2016-01-25 14:30 UTC)
+* [XW-960](https://wikia-inc.atlassian.net/browse/XW-960) XW-960 | update translations for explore-wiki
+* [XW-1024](https://wikia-inc.atlassian.net/browse/XW-1024) XW-1024 | Fix moving top bar, fix height on discussions and not only
+* [XW-955](https://wikia-inc.atlassian.net/browse/XW-955) XW-955 | Add userID param to GA and u param for Internal tracking
+* [SOC-1837](https://wikia-inc.atlassian.net/browse/SOC-1837) SOC-1837 | Opening discussion post in a new tab on a mouse wheel click
+* [XW-922](https://wikia-inc.atlassian.net/browse/XW-922) XW-922 | Global Navigation 2016
+* [XW-840](https://wikia-inc.atlassian.net/browse/XW-840) XW-840 | Don't use $.trim
+* [ADEN-2864](https://wikia-inc.atlassian.net/browse/ADEN-2864) ADEN-2864 Mark SP events with nonInteraction flag
+* [XW-903](https://wikia-inc.atlassian.net/browse/XW-903) accept-encoding` header to all responses
+* [XW-1021](https://wikia-inc.atlassian.net/browse/XW-1021) XW-1021 | inline play.svg
+* [INT-321](https://wikia-inc.atlassian.net/browse/INT-321) INT-321 | Replace community central and Wikia University images
+* [SOC-1880](https://wikia-inc.atlassian.net/browse/SOC-1880) SOC-1880 | Use link-to instead of an action
+* [XW-1020](https://wikia-inc.atlassian.net/browse/XW-1020) XW-1020 | Watch all auth SCSS files, including partials
+* XW: Remove service related scripts
+* fix-wiki-link: Discussions | Use anchor instead of link-to for wiki link
+* [ADEN-2789](https://wikia-inc.atlassian.net/browse/ADEN-2789) ADEN-2789 Nielsen integration
+* mercury-pr-checks-patch: Fix a typo in mercury-pr-checks.sh
+
 ## release-202 hotfix 1 (2016-01-22 11:58 UTC)
 * [XW-1021](https://wikia-inc.atlassian.net/browse/XW-1021) XW-1021 | inline play.svg
 
