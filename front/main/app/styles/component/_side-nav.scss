@@ -159,12 +159,11 @@
 	}
 }
 
-$side-nav-item-height: 3.125rem;
-
 .side-nav-menu__footer {
 	align-items: center;
 	display: flex;
 	flex-grow: 0;
+	flex-shrink: 0;
 	justify-content: center;
 
 	a {
@@ -186,24 +185,28 @@ $side-nav-item-height: 3.125rem;
 	overflow-y: auto;
 }
 
+// because site-head has 1px border at the bottom
+$side-nav-height: $site-head-height - 1;
+
 .side-nav-menu__header {
 	background: #fff;
 	flex-grow: 0;
-	height: $side-nav-item-height;
+	flex-shrink: 0;
+	height: rem-calc($side-nav-height);
 
 	.close {
 		align-items: center;
 		display: flex;
 		float: left;
-		height: $side-nav-item-height;
+		height: rem-calc($side-nav-height);
 		justify-content: center;
-		width: $side-nav-item-height;
+		width: rem-calc($side-nav-height);
 	}
 
 	.wordmark {
 		display: block;
-		height: $side-nav-item-height;
-		margin: 0 $side-nav-item-height;
+		height: rem-calc($side-nav-height);
+		margin: 0 rem-calc($side-nav-height);
 		text-align: center;
 	}
 
