@@ -1,0 +1,8 @@
+{
+  "relativeTime": {
+    "m": "1 min",
+    "mm": "%d min",
+    "d": "1 j",
+    "dd": "%d j"
+  }
+}

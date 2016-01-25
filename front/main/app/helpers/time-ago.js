@@ -25,117 +25,31 @@ export default Ember.Helper.helper((params) => {
 			'zh-tw': 'YY/MM/DD'
 		},
 		config = {
-			en: {
-				relativeTime: {
-					m: '1 m',
-					mm: '%d m',
-					h: '1 h',
-					hh: '%d h',
-					d: '1 d',
-					dd: '%d d'
-				}
-			},
-			de: {
-				relativeTime: {
-					m: '1 Min.',
-					mm: '%d Min.',
-					h: '1 Std.',
-					hh: '%d Std.',
-					d: '1 Tg.',
-					dd: '%d Tg.'
-				}
-			},
-			es: {
-				relativeTime: {
-					m: '1 min',
-					mm: '%d min'
-				}
-			},
-			fr: {
-				relativeTime: {
-					m: '1 min',
-					mm: '%d min',
-					d: '1 j',
-					dd: '%d j'
-				}
-			},
-			it: {
-				relativeTime: {
-					m: '1 min',
-					mm: '%d min',
-					d: '1 g',
-					dd: '%d gg'
-				}
-			},
-			ja: {
-				relativeTime: {
-					d: '1 日前',
-					dd: '%d 日前',
-					h: '1 時間前',
-					hh: '%d 時間前,',
-					m: '1 分前',
-					mm: '%d 分前'
-				}
-			},
-			pl: {
-				relativeTime: {
-					m: '1 min',
-					mm: '%d min',
-					h: '1 godz.',
-					hh: '%d godz.',
-					d: '1 dzień',
-					dd: '%d dni'
-				}
-			},
-			'pt-br': {
-				relativeTime: {
-					m: '1 min',
-					mm: '%d min'
-				}
-			},
-			ru: {
-				relativeTime: {
-					d: '1 д',
-					dd: '%d дд',
-					h: '1 ч',
-					hh: '%d ч',
-					m: '1 мин',
-					mm: '%d мин'
-				}
-			},
-			'zh-cn': {
-				relativeTime: {
-					m: '1 分鐘前',
-					mm: '%d 分鐘前',
-					h: '1 小時前',
-					hh: '%d 小時前',
-					d: '1 日前',
-					dd: '%d 日前'
-				}
-			},
-			'zh-tw': {
-				relativeTime: {
-					m: '1 分钟前',
-					mm: '%d 分钟前',
-					h: '1 小时前',
-					hh: '%d 小时前',
-					d: '1 天前',
-					dd: '%d 天前'
-				}
+			relativeTime: {
+				m: '1 m',
+				mm: '%d m',
+				h: '1 h',
+				hh: '%d h',
+				d: '1 d',
+				dd: '%d d'
 			}
 		},
 		language = Mercury.wiki.language.user || 'en',
 		shouldHideAgoString = params[1] || true;
 
+	let output,
+		translationFile;
+
 	if (language !== 'en') {
 		Ember.$.getScript(M.buildUrl({path: `/front/main/assets/vendor/moment/locales/${language}.js`}));
 	}
 
+	translationFile = Ember.$.getJSON(M.buildUrl({path: `/front/common/locales/moment/${language}`}));
+	console.log('DOWNLOADED TRANSLATION FILE, ', translationFile);
+
 	moment.locale(language, {
 		relativeTime: config[language].relativeTime
 	});
-
-	let output;
 
 	if (moment().diff(date, 'days') > 5) {
 		output = date.format(dateFormats[language]);
