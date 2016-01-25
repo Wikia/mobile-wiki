@@ -18,17 +18,14 @@ export default function prepareArticleDataToPreview(request, data) {
 			article: data.article,
 			server: data.server,
 			wikiVariables: data.wikiVariables,
+			isMainPage: false
 		};
 
-	console.log("articleDATA", articleData)
 	let title,
-		htmlTitle,
-		articleDetails,
 		contentDir = 'ltr';
 
 	if (articleData) {
-		result.isMainPage = false;
-		title = articleData.article.displayTitle;
+		title = articleData.article.displayTitle || '';
 
 		if (articleData.article) {
 			// we want to return the article content only once - as HTML and not JS variable
@@ -37,10 +34,10 @@ export default function prepareArticleDataToPreview(request, data) {
 		}
 	}
 
-	if (!title) {
-		// Fallback to title from URL
-		title = request.params.title.replace(/_/g, ' ');
-	}
+	// if (!title) {
+	// 	// Fallback to title from URL
+	// 	title = request.params.title.replace(/_/g, ' ');
+	// }
 
 	if (wikiVariables.language) {
 		contentDir = wikiVariables.language.contentDir;
@@ -48,7 +45,7 @@ export default function prepareArticleDataToPreview(request, data) {
 	}
 
 	result.displayTitle = title;
-	result.htmlTitle = (htmlTitle) ? htmlTitle : Utils.getHtmlTitle(wikiVariables, title);
+	result.htmlTitle = Utils.getHtmlTitle(wikiVariables, title);
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
@@ -60,26 +57,7 @@ export default function prepareArticleDataToPreview(request, data) {
 
 	// clone object to avoid overriding real localSettings for futurue requests
 	result.localSettings = deepExtend({}, localSettings);
-
-	if (typeof request.query.buckySampling !== 'undefined') {
-		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
-	}
-
-	// all the third party scripts we don't want to load on noexternals
-	if (!request.query.noexternals) {
-		// qualaroo
-		if (localSettings.qualaroo.enabled) {
-			result.qualarooScript = localSettings.qualaroo.scriptUrl;
-		}
-	}
-
 	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
-
-	result.asyncArticle = (
-		request.query._escaped_fragment_ !== '0' ?
-			Utils.shouldAsyncArticle(localSettings, request.headers.host) :
-			false
-	);
 
 	return result;
 }

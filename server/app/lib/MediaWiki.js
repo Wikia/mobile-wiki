@@ -330,7 +330,7 @@ export class ArticleRequest extends BaseRequest {
 			controller: 'MercuryApi',
 			method: 'getArticleFromMarkup',
 			wikitext: wikitext,
-			title: 'Episode_0091'
+			title: title
 		});
 
 		return this.fetch(url);

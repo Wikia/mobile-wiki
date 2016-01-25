@@ -12,7 +12,13 @@ import setResponseCaching, * as Caching from '../lib/Caching';
 export default function CKpreview(request, reply) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		wikitext = request.payload.wikitext,
-		article = new Article.ArticleRequestHelper({wikiDomain});
+		title = request.payload.title,
+		params = {
+			wikiDomain,
+			wikitext: request.payload.wikitext || '',
+			title: request.payload.title || ''
+		},
+		article = new Article.ArticleRequestHelper(params);
 
 	article.getArticleFromWikitext()
 		/**
