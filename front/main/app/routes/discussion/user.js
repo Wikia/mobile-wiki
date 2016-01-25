@@ -27,19 +27,6 @@ export default DiscussionBaseRoute.extend(
 			 */
 			loadPage(pageNum) {
 				this.modelFor('discussion.user').loadPage(pageNum);
-			},
-
-			/**
-			 * @param {number} postId
-			 * @param {bool} openInNewTab
-			 * @returns {void}
-			 */
-			goToPost(postId, openInNewTab = false) {
-				if (openInNewTab) {
-					window.open(this.get('router').generate('discussion.post', postId));
-				} else {
-					this.transitionTo('discussion.post', postId);
-				}
 			}
 		}
 	}

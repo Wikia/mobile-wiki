@@ -6,7 +6,6 @@ export default Ember.Component.extend(
 	{
 		classNames: ['discussion-header', 'background-theme-color'],
 
-		contentIsHidden: false,
 		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
 
