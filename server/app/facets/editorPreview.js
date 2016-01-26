@@ -31,7 +31,12 @@ export default function editorPreview(request, reply) {
 				response,
 				articleData;
 
+			if ( content.data === undefined) {
+				throw new Error('Bad data received from API');
+			}
+
 			console.log("content.data", content.data)
+			console.log("content.wikiVariables", content.wikiVariables)
 
 			result = {
 				article: {
