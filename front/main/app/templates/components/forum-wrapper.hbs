@@ -8,7 +8,6 @@
 	{{post-detail
 		author=item.createdBy
 		delete=(action this.attrs.deletePost)
-		goToPost=(action this.attrs.goToPost)
 		post=item._embedded.firstPost.[0]
 		postId=item.id
 		replyCount=item.postCount
@@ -16,7 +15,9 @@
 		upvote=(action this.attrs.upvote)
 	}}
 {{else}}
-	{{discussion-empty-forum-message}}
+	{{discussion-empty-forum-message
+		forumId=forumId
+	}}
 {{/each}}
 
 {{#if hasMore}}

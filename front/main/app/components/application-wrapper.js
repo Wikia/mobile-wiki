@@ -42,6 +42,7 @@ export default Ember.Component.extend({
 	scrollLocation: null,
 	smartBannerVisible: false,
 	firstRender: true,
+	globalNav2016: Ember.get(Mercury, 'wiki.enableGlobalNav2016'),
 
 	noScrollObserver: Ember.observer('noScroll', function () {
 		const $body = Ember.$('body');

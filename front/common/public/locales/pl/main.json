@@ -144,7 +144,8 @@
     "curated-content-editor-main-page":"Strona główna",
     "curated-content-editor-new-featured-content":"Nowa Wyróżniona Treść",
     "curated-content-editor-new-section":"Nowa sekcja",
-    "curated-content-editor-new-category":"Nowa kategoria"
+    "curated-content-editor-new-category":"Nowa kategoria",
+    "explore-wiki":"Explore __wikiName__"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ lub __loginLink__",

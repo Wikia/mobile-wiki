@@ -1,26 +1,25 @@
 {{#each posts as |item|}}
 	{{#if item.isReply }}
 		{{post-reply
-			post=item
 			author=item.createdBy
 			content=item.rawContent
-			deleteReply=(action this.attrs.deleteReply)
+			delete=(action this.attrs.deleteReply)
 			isParentDeleted=model.firstPost.isDeleted
-			timestamp=item.creationDate.epochSecond
-			undeleteReply=(action this.attrs.undeleteReply)
-			upvoteCount=item.upvoteCount
+			post=item
 			showRepliedTo=true
+			timestamp=item.creationDate.epochSecond
+			undelete=(action this.attrs.undeleteReply)
 			upvote=(action this.attrs.upvote)
+			upvoteCount=item.upvoteCount
 			userListView=true
 		}}
 	{{else}}
 		{{post-detail
 			author=item.createdBy
-			deletePost=(action this.attrs.deletePost)
-			goToPost=(action this.attrs.goToPost)
+			delete=(action this.attrs.deletePost)
 			post=item
 			replyCount=item.postCount
-			undeletePost=(action this.attrs.undeletePost)
+			undelete=(action this.attrs.undeletePost)
 			upvote=(action this.attrs.upvote)
 		}}
 	{{/if}}

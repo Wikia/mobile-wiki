@@ -10,7 +10,7 @@ export default Ember.Component.extend(
 		classNameBindings: ['isNew', 'isDeleted', 'isReply'],
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
-		postId: null,
+		postId: Ember.computed.oneWay('post.threadId'),
 
 		routing: Ember.inject.service('-routing'),
 
@@ -33,16 +33,6 @@ export default Ember.Component.extend(
 		}),
 
 		actions: {
-			/**
-			 * @param {number} postId
-			 * @param {MouseEvent} event
-			 * @returns {void}
-			 */
-			goToPost(postId, event) {
-				event.preventDefault();
-				this.attrs.goToPost(postId, event.ctrlKey || event.metaKey);
-			},
-
 			/**
 			 * @returns {void}
 			 */

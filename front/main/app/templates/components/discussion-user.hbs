@@ -1,3 +1,8 @@
+{{discussion-header
+	forumId=model.forumId
+	hasBackButton=true
+	smartBannerVisible=smartBannerVisible
+}}
 {{discussion-dialog
 	isVisible=shouldShowDialogMessage
 	isConfirm=isConfirm
@@ -22,7 +27,7 @@
 	</div>
 	<div class="discussion-page row">
 		<div class="rail large-3 columns">
-			{{#link-to 'discussion.forum' model.forumId class="back-button active-element-theme-color"}}
+			{{#link-to 'discussion.forum' model.forumId discussionSort.sortBy class="back-button active-element-theme-color"}}
 				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
 				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
 			{{/link-to}}
@@ -33,7 +38,7 @@
 			}}
 		{{else if model.notFoundError}}
 			{{discussion-not-found-error
-				goToAllDiscussions=(action this.attrs.goToAllDiscussions)
+				forumId=model.forumId
 			}}
 		{{else}}
 			<div class="small-12 large-6 columns">
@@ -41,7 +46,6 @@
 					create=(action this.attrs.create)
 					deletePost=(action this.attrs.deletePost)
 					deleteReply=(action this.attrs.deleteReply)
-					goToPost=(action this.attrs.goToPost)
 					loadPage=(action this.attrs.loadPage)
 					undeletePost=(action this.attrs.undeletePost)
 					undeleteReply=(action this.attrs.undeleteReply)
@@ -52,7 +56,6 @@
 					posts=model.posts
 					postsDisplayed=model.posts.length
 					totalPosts=model.totalPosts
-					siteHeadPinned=siteHeadPinned
 				}}
 			</div>
 		{{/if}}

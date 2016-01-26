@@ -5,7 +5,6 @@ import {checkPermissions} from 'common/utils/discussionPermissions';
 
 
 const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
-
 	contributors: [],
 	pageNum: null,
 	replyLimit: 10,
@@ -13,6 +12,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 	userName: null,
 	posts: null,
 	totalPosts: null,
+	userProfileUrl: null,
 
 	canDeleteAll: Ember.computed('posts', function () {
 		return checkPermissions(this.get('posts')[0], 'canDelete');
@@ -26,7 +26,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 				page: this.get('pageNum'),
 				pivot: this.get('pivotId'),
 				viewableOnly: false,
-				limit: this.replyLimit,
+				limit: this.get('replyLimit'),
 				responseGroup: 'full'
 			},
 			url: M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`),
@@ -35,14 +35,11 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 
 				newPosts.forEach((post) => {
 					if (post.hasOwnProperty('createdBy')) {
-						post.createdBy.profileUrl = M.buildUrl({
-							namespace: 'User',
-							title: post.createdBy.name
-						});
+						post.createdBy.profileUrl = this.get('userProfileUrl');
 					}
 				});
 
-				this.set('posts', this.posts.concat(newPosts));
+				this.set('posts', this.get('posts').concat(newPosts));
 			},
 			error: (err) => {
 				this.handleLoadMoreError(err);
@@ -75,26 +72,29 @@ DiscussionUserModel.reopenClass({
 			},
 			success: (data) => {
 				const posts = data._embedded['doc:posts'];
-				let contributors, pivotId, userName;
+				let contributors, firstPost, pivotId, userProfileUrl, userName;
 
 				// If there are no replies to the first post, 'doc:posts' will not be returned
 				if (posts) {
-					pivotId = posts[0].id;
-					userName = posts[0].createdBy.name;
-					contributors = [posts[0].createdBy];
+					firstPost = posts[0];
+					pivotId = firstPost.id;
+					userName = firstPost.createdBy.name;
+					contributors = [firstPost.createdBy];
+					userProfileUrl = M.buildUrl({
+						namespace: 'User',
+						title: firstPost.createdBy.name
+					});
+
 					posts.forEach((post) => {
 						if (post.hasOwnProperty('createdBy')) {
-							post.createdBy.profileUrl = M.buildUrl({
-								namespace: 'User',
-								title: post.createdBy.name
-							});
+							post.createdBy.profileUrl = userProfileUrl;
 						}
 					});
 				}
 
 				userInstance.setProperties({
 					contributors,
-					forumId: data.forumId,
+					forumId: wikiId,
 					userName,
 					page: 0,
 					pivotId,

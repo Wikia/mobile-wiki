@@ -1,3 +1,17 @@
+.back-button {
+	color: $discussion-back-button-color;
+
+	&:hover,
+	&:focus {
+		color: $discussion-back-button-color;
+	}
+
+
+	svg {
+		fill: $discussion-back-button-color;
+	}
+}
+
 .rail {
 	.back-button {
 		border: solid $discussion-rail-separator-color;

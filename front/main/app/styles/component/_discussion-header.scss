@@ -83,9 +83,20 @@ $site-header-height: 50px;
 }
 
 .discussions {
-	.side-nav-toggle {
+	.side-nav-toggle:not(.side-nav-toggle-2016) {
 		visibility: hidden;
 	}
+	// 2016!
+	.side-nav .side-nav-menu {
+		@media #{$desktop-range} {
+			width: 25%;
+			max-width: 350px;
+		}
+	}
+	.side-nav-menu__header .wordmark {
+		display: none;
+	}
+	// END 2016!
 	.site-head {
 		max-width: 100%;
 	}

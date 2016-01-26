@@ -144,7 +144,8 @@
     "curated-content-editor-main-page":"Заглавная страница",
     "curated-content-editor-new-featured-content":"Новый Избранный контент",
     "curated-content-editor-new-section":"Новый раздел",
-    "curated-content-editor-new-category":"Новая категория"
+    "curated-content-editor-new-category":"Новая категория",
+    "explore-wiki":"Исследуйте __wikiName__"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ или __loginLink__",
