@@ -1,7 +1,7 @@
 <div class="discussion-reply">
 	{{#if showRepliedTo}}
 		<div class="user-replied-to">
-			{{i18n 'main.user-replied-to' userName=author.name linkToThread=linkTitle ns='discussion'}}
+			{{i18n 'main.user-replied-to' userName=author.name linkToThread=post.threadCreatedBy.name ns='discussion'}}
 		</div>
 	{{/if}}
 	<div>
