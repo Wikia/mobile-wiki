@@ -25,10 +25,12 @@ export default function editorPreview(request, reply) {
 		 * @param {*} wikiVariables
 		 * @returns {void}
 		 */
-		.then((content) => {
+		.then((payload) => {
 			let result,
 				response,
 				articleData;
+
+			content = JSON.parse(payload);
 
 			if (typeof content.data === 'undefined') {
 				console.log("content: ", content);

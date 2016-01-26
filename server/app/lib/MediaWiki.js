@@ -165,7 +165,7 @@ export function post(url, data, host = '', redirects = 1, headers = {}) {
 					}
 				});
 			} else if (response.statusCode === 200) {
-				resolve(payload);
+				resolve(payload.toString());
 			} else {
 				// Unify error response so it's easier to handle later
 				if (payload === null || !payload.exception) {
