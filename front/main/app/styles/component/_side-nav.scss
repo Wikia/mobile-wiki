@@ -42,27 +42,6 @@
 			top: rem-calc(15);
 		}
 
-		input,
-		input:focus {
-			background-color: $color-white;
-			border: 1px solid $search-box-border-color;
-			border-radius: $border-radius-global;
-			height: rem-calc(28);
-			margin: rem-calc(8) rem-calc(13);
-			outline: none;
-			padding: {
-				bottom: .5rem;
-				left: rem-calc(95);
-				right: rem-calc(40);
-				top: .5rem;
-			}
-			width: calc(100% - #{2 * $side-nav-item-gutter});
-
-			&::placeholder {
-				color: $search-box-text-color;
-			}
-		}
-
 		.clear-search-btn {
 			height: 100%;
 			padding: {
@@ -156,6 +135,27 @@
 
 	a:hover, a:focus {
 		color: inherit;
+	}
+}
+
+.side-search__input,
+.side-search__input:focus {
+	background-color: $color-white;
+	border: 1px solid $search-box-border-color;
+	border-radius: $border-radius-global;
+	height: rem-calc(28);
+	margin: rem-calc(8) rem-calc(13);
+	outline: none;
+	padding: {
+		bottom: .5rem;
+		left: rem-calc(95);
+		right: rem-calc(40);
+		top: .5rem;
+	}
+	width: calc(100% - #{2 * $side-nav-item-gutter});
+
+	&::placeholder {
+		color: $search-box-text-color;
 	}
 }
 
@@ -339,11 +339,16 @@ $side-nav-height: $site-head-height - 1;
 		width: calc(100% - 35px);
 	}
 }
+
+$side-nav-clear-size: 30px;
 .side-search__clear {
+	//divide by 2 to accommodate for width
+	//and again by 2 as padding is on left and right
+	padding: 0 $side-nav-clear-size / 4;
 	position: absolute;
 	right: 10px;
 	top: 0;
-	width: 15px;
+	width: $side-nav-clear-size;
 }
 .side-search__cancel {
 	padding: 0 10px;

@@ -1,6 +1,13 @@
 <div class="side-nav-menu__item search">
 	<div class="side-search__container">
-		{{input tabindex='-1' placeholder=searchPlaceholderLabel focus-in='searchFocus' value=query enter='enter'}}
+		{{input
+			class='side-search__input'
+			tabindex='-1'
+			placeholder=searchPlaceholderLabel
+			focus-in='searchFocus'
+			value=query
+			enter='enter'
+		}}
 		{{#unless localNavigationVisible}}
 			<div class='side-search__clear' {{action 'clearSearch'}}>
 				{{svg 'side-nav-search-clear' viewBox='0 0 18 18' class='icon'}}
