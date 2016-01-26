@@ -33,34 +33,41 @@ body.discussions {
 		margin-right: 3px;
 		width: 22px;
 	}
+
 	&.upvote-reply {
 		height: 12px;
 		line-height: 12px;
 		stroke: $discussion-actions-color;
 		width: 12px;
 	}
+
 	&.replies {
 		height: 19px;
 		width: 24px;
 	}
+
 	&.no-replies {
 		display: block;
 		height: 34px;
 		margin: 0 auto;
 		width: 40px;
 	}
+
 	&.toggle-share {
 		height: 20px;
 		width: 18px;
 	}
+
 	&.delete, &.undelete {
 		height: 19px;
 		width: 16px;
 	}
+
 	&.eye {
 		height: 12px;
 		width: 16px;
 	}
+
 	&.arrow-left {
 		height: 16px;
 		width: 16px;
