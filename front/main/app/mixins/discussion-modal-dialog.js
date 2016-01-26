@@ -16,7 +16,7 @@ export default Ember.Mixin.create({
 	dialogMessageObserver: Ember.observer('model.dialogMessage', function () {
 		const modelError = this.get('model.dialogMessage');
 
-		if (modelError !== null) {
+		if (modelError) {
 			this.get('modalDialogService').display(modelError);
 			this.get('discussionEditor').set('shouldStopLoading', true);
 		}
