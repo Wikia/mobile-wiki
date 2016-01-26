@@ -21,7 +21,11 @@
 		}
 
 		.delete-all {
+			border-top: none;
 			color: $discussion-actions-color;
+			display: flex;
+			font-weight: $paragraph-font-weight;
+			justify-content: center;
 			margin-left: 45px;
 		}
 	}
