@@ -8,7 +8,7 @@ export function checkPermissions(post, permission) {
 	const userData = post && Ember.get(post, '_embedded.userData'),
 		permissions = userData && userData[0].permissions;
 
-	if (userData === undefined) {
+	if (!userData) {
 		return false;
 	} else {
 		return permissions && permissions.contains(permission);
