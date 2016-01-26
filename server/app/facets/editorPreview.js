@@ -46,13 +46,16 @@ export default function editorPreview(request, reply) {
 					htmlTitle: '',
 					preview: true
 				},
-				wikiVariables: content.wikiVariables || {}
+				wikiVariables: content.wikiVariables || {},
+				server: {
+					cdnBaseUrl: getCDNBaseUrl(localSettings)
+				}
 			};
 
 			articleData = prepareArticleDataToPreview(request, result);
 
-			// @todo XW-596 we shouldn't rely on side effects of this function
-			Tracking.handleResponse(result, request);
+			// @todo why is this needed for the images to load?
+			result.tracking = localSettings.tracking;
 
 			response = reply.view('article', articleData);
 			response.code(200);
