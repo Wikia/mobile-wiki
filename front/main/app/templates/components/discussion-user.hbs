@@ -1,6 +1,8 @@
 {{discussion-header
+	deleteAllPosts=this.attrs.deleteAll
 	forumId=model.forumId
 	hasBackButton=true
+	hasDeleteAll=model.canDeleteAll
 	smartBannerVisible=smartBannerVisible
 }}
 {{discussion-dialog
@@ -62,7 +64,7 @@
 		<div class="rail large-3 columns">
 			{{#if model.canDeleteAll}}
 				<div {{action this.attrs.deleteAll model.posts}} class="back-button">
-					{{svg 'delete' role='img' class='icon delete fill-theme-color'}}
+					{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
 					{{i18n 'main.delete-all' ns='discussion'}}
 				</div>
 			{{/if}}

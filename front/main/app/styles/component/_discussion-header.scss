@@ -32,6 +32,10 @@ $site-header-height: 50px;
 		white-space: nowrap;
 	}
 
+	.icon {
+		fill: $discussion-back-button-color;
+	}
+
 	.icon.dropdown {
 		height: 4px;
 		margin-left: 5px;
@@ -59,8 +63,16 @@ $site-header-height: 50px;
 
 	.new-post {
 		float: right;
-		height: 50px; // TODO fix height
+		height: 50px;
 		width: 56px;
+	}
+
+	.back-button {
+		float: left;
+	}
+
+	.delete-all {
+		float: right;
 	}
 }
 

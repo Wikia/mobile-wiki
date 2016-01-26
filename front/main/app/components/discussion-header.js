@@ -9,6 +9,8 @@ export default Ember.Component.extend(
 		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
 
+		hasDeleteAll: false,
+
 		overlayIsVisible: Ember.computed.oneWay('discussionSort.sortVisible'),
 
 		siteName: Ember.computed(() => {
