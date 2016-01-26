@@ -1,5 +1,5 @@
 {{discussion-header
-	deleteAllPosts=this.attrs.deleteAll
+	deleteAllPosts=(action 'deleteAllPosts')
 	forumId=model.forumId
 	hasBackButton=true
 	hasDeleteAll=model.canDeleteAll
@@ -63,7 +63,7 @@
 		{{/if}}
 		<div class="rail large-3 columns">
 			{{#if model.canDeleteAll}}
-				<div {{action this.attrs.deleteAll model.posts}} class="back-button active-element-theme-color">
+				<div {{action 'deleteAllPosts'}} class="back-button">
 					{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
 					{{i18n 'main.delete-all' ns='discussion'}}
 				</div>
