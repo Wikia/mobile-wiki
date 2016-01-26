@@ -35,7 +35,8 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		deleteAllPosts(posts) {
-			const message = i18n.t('main.modal-dialog-delete-all-message',
+			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(this.controllerFor('application')),
+				message = i18n.t('main.modal-dialog-delete-all-message',
 				{
 					userName: posts[0].createdBy.name,
 					wikiName: Mercury.wiki.siteName,
@@ -45,7 +46,10 @@ export default Ember.Mixin.create({
 			this.get('modalDialogService').confirm(message, 'main.modal-dialog-delete-all-header',
 				'main.delete-all', (result) => {
 					if (result) {
-						this.modelFor(this.get('routeName')).deleteAllPosts(posts);
+						Ember.set(loadingSpinnerContainer, 'isLoading', true);
+						this.modelFor(this.get('routeName')).deleteAllPosts(posts).then(() => {
+							Ember.set(loadingSpinnerContainer, 'isLoading', false);
+						});
 					}
 				});
 		},
