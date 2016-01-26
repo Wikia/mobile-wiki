@@ -132,6 +132,12 @@ export function post(url, data, host = '', redirects = 1, headers = {}) {
 	headers.Host = host;
 	headers['User-Agent'] = 'mercury';
 	headers['X-Wikia-Internal-Request'] = 'mercury';
+	headers['Content-Type'] = 'application/x-www-form-urlencoded';
+	// Cannot be 'application/json' due to error in MW: Automatically populating $HTTP_RAW_POST_DATA
+	// is deprecated and will be removed in a future version. To avoid this warning set
+	// 'always_populate_raw_post_data' to '-1' in php.ini and use the php://input stream instead.
+	// Which is thrown for requests using the payload instead of normal x-www-form-urlencoded requests.
+	//headers['Content-Type'] = 'application/json';
 
 	/**
 	 * @param {Function} resolve
@@ -145,48 +151,44 @@ export function post(url, data, host = '', redirects = 1, headers = {}) {
 		 * @param {*} payload
 		 * @returns {void}
 		 */
-		Wreck.post(url, {
-			headers,
-			timeout: localSettings.backendRequestTimeout,
-			json: true,
-			payload: data
-		}, (err, response, payload) => {
-			if (err) {
-				Logger.error({
-					url,
-					error: err
-				}, 'Error fetching url');
+		Wreck.request('POST', url, { payload: data, headers: headers }, (err, response) => {
+			Wreck.read(response, null, (err, body) => {
+				if (err) {
+					Logger.error({
+						url,
+						error: err
+					}, 'Error fetching url');
 
-				reject({
-					exception: {
-						message: 'Invalid response',
-						code: err.output.statusCode,
-						details: err
-					}
-				});
-			} else if (response.statusCode === 200) {
-				resolve(payload.toString());
-			} else {
-				// Unify error response so it's easier to handle later
-				if (payload === null || !payload.exception) {
-					payload = {
+					reject({
+						exception: {
+							message: 'Invalid response',
+							code: err.output.statusCode,
+							details: err
+						}
+					});
+				} else if (response.statusCode === 200) {
+					console.log("body to string", body.toString());
+					resolve(body.toString());
+				} else {
+					const payload = {
 						exception: {
 							message: 'Invalid response',
 							code: response.statusCode,
 							details: payload ? payload.toString('utf-8') : null
 						}
 					};
+
+					Logger.error({
+						url,
+						headers: response.headers,
+						statusCode: response.statusCode
+					}, 'Bad HTTP response');
+
+					reject(payload);
 				}
-
-				Logger.error({
-					url,
-					headers: response.headers,
-					statusCode: response.statusCode
-				}, 'Bad HTTP response');
-
-				reject(payload);
-			}
+			});
 		});
+
 	});
 }
 
@@ -218,7 +220,7 @@ class BaseRequest {
 	}
 
 	post(url, data) {
-		return post(url, JSON.stringify(data));
+		return post(url, data);
 	}
 }
 
@@ -397,12 +399,12 @@ export class ArticleRequest extends BaseRequest {
 				method: 'getArticleFromMarkup',
 			}),
 			data = {
-				wikitext: wikitext,
-				CKmarkup: CKmarkup,
+				wikitext: wikitext === 'undefined' ? '' : wikitext,
+				CKmarkup: CKmarkup === 'undefined' ? '' : CKmarkup,
 				title: title
 			};
-
-		return this.post(url, data);
+		return this.post(url, `wikitext=${wikitext}&CKmarkup=${CKmarkup}&title=${title}`);
+		//return this.post(url, JSON.stringify(data));
 	}
 }
 

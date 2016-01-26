@@ -26,19 +26,16 @@ export default function editorPreview(request, reply) {
 		 * @returns {void}
 		 */
 		.then((payload) => {
-			let result,
+			let content = JSON.parse(payload),
+				result,
 				response,
 				articleData;
 
-			content = JSON.parse(payload);
-
 			if (typeof content.data === 'undefined') {
-				console.log("content: ", content);
 				throw new Error('Bad data received from API');
 			}
 
 			console.log("content.data", content.data)
-			console.log("content.wikiVariables", content.wikiVariables)
 
 			result = {
 				article: {

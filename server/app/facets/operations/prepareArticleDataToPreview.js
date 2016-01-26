@@ -23,14 +23,11 @@ export default function prepareArticleDataToPreview(request, data) {
 	let title,
 		contentDir = 'ltr';
 
-	if (articleData) {
+	if (articleData.article) {
 		title = articleData.article.displayTitle || '';
-
-		if (articleData.article) {
-			// we want to return the article content only once - as HTML and not JS variable
-			result.articleContent = articleData.article.content;
-			delete articleData.article.content;
-		}
+		// we want to return the article content only once - as HTML and not JS variable
+		result.articleContent = articleData.article.content;
+		delete articleData.article.content;
 	}
 
 	if (wikiVariables.language) {
