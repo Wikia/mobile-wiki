@@ -43,11 +43,6 @@ export default function prepareArticleDataToPreview(request, data) {
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
-	result.openGraph = {
-		type: 'article',
-		title,
-		url: result.canonicalUrl
-	};
 
 	// clone object to avoid overriding real localSettings for futurue requests
 	result.localSettings = deepExtend({}, localSettings);

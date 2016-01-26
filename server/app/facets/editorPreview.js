@@ -1,10 +1,9 @@
 import * as Article from '../lib/Article';
+import setResponseCaching, * as Caching from '../lib/Caching';
 import {getCachedWikiDomainName, getCDNBaseUrl} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
 import prepareArticleDataToPreview from './operations/prepareArticleDataToPreview';
-import setResponseCaching, * as Caching from '../lib/Caching';
 import Logger from '../lib/Logger';
-import * as Tracking from '../lib/Tracking';
 
 /**
  * @param {Hapi.Request} request
@@ -31,7 +30,8 @@ export default function editorPreview(request, reply) {
 				response,
 				articleData;
 
-			if ( content.data === undefined) {
+			if (typeof content.data === 'undefined') {
+				console.log("content: ", content);
 				throw new Error('Bad data received from API');
 			}
 

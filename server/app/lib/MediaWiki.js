@@ -128,6 +128,68 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 	});
 }
 
+export function post(url, data, host = '', redirects = 1, headers = {}) {
+	headers.Host = host;
+	headers['User-Agent'] = 'mercury';
+	headers['X-Wikia-Internal-Request'] = 'mercury';
+
+	/**
+	 * @param {Function} resolve
+	 * @param {Function} reject
+	 * @returns {void}
+	 */
+	return new Promise((resolve, reject) => {
+		/**
+		 * @param {*} err
+		 * @param {*} response
+		 * @param {*} payload
+		 * @returns {void}
+		 */
+		Wreck.post(url, {
+			headers,
+			timeout: localSettings.backendRequestTimeout,
+			json: true,
+			payload: data
+		}, (err, response, payload) => {
+			if (err) {
+				Logger.error({
+					url,
+					error: err
+				}, 'Error fetching url');
+
+				reject({
+					exception: {
+						message: 'Invalid response',
+						code: err.output.statusCode,
+						details: err
+					}
+				});
+			} else if (response.statusCode === 200) {
+				resolve(payload);
+			} else {
+				// Unify error response so it's easier to handle later
+				if (payload === null || !payload.exception) {
+					payload = {
+						exception: {
+							message: 'Invalid response',
+							code: response.statusCode,
+							details: payload ? payload.toString('utf-8') : null
+						}
+					};
+				}
+
+				Logger.error({
+					url,
+					headers: response.headers,
+					statusCode: response.statusCode
+				}, 'Bad HTTP response');
+
+				reject(payload);
+			}
+		});
+	});
+}
+
 /**
  * @class BaseRequest
  *
@@ -153,6 +215,10 @@ class BaseRequest {
 	 */
 	fetch(url) {
 		return fetch(url, this.wikiDomain, this.redirects, this.headers);
+	}
+
+	post(url, data) {
+		return post(url, JSON.stringify(data));
 	}
 }
 
@@ -327,14 +393,16 @@ export class ArticleRequest extends BaseRequest {
 	 */
 	articleFromMarkup(title, wikitext, CKmarkup) {
 		const url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'MercuryApi',
-			method: 'getArticleFromMarkup',
-			wikitext: wikitext,
-			CKmarkup: CKmarkup,
-			title: title
-		});
+				controller: 'MercuryApi',
+				method: 'getArticleFromMarkup',
+			}),
+			data = {
+				wikitext: wikitext,
+				CKmarkup: CKmarkup,
+				title: title
+			};
 
-		return this.fetch(url);
+		return this.post(url, data);
 	}
 }
 
