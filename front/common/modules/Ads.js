@@ -221,7 +221,9 @@ class Ads {
 			} else {
 				this.sourcePointDetectionModule.initDetection();
 			}
-			delayEnabled = Boolean(adsContext.opts.delayEngine);
+			if (adsContext.opts) {
+				delayEnabled = Boolean(adsContext.opts.delayEngine);
+			}
 			this.adLogicPageViewCounterModule.increment();
 			this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
 		}
