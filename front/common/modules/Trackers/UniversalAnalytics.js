@@ -36,7 +36,7 @@ class UniversalAnalytics {
 		this.accountPrimary = 'primary';
 		this.accountSpecial = 'special';
 		this.accountAds = 'ads';
-		this.dimensionsDirty = true;
+		this.dimensionsUpdated = true;
 
 		if (!UniversalAnalytics.dimensions.length) {
 			throw new Error(
@@ -69,14 +69,14 @@ class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	updateDimensions() {
-		if (UniversalAnalytics.dimensionsDirty) {
+		if (UniversalAnalytics.dimensionsUpdated) {
 			this.tracked.forEach((account) =>
 				UniversalAnalytics.dimensions.forEach((dimension, idx) =>
 					ga(`${UniversalAnalytics.getPrefix(account)}set`,
 						`dimension${idx}`,
 						UniversalAnalytics.getDimension(idx))));
 
-			UniversalAnalytics.dimensionsDirty = false;
+			UniversalAnalytics.dimensionsUpdated = false;
 		}
 	}
 
@@ -98,7 +98,7 @@ class UniversalAnalytics {
 			$.extend(UniversalAnalytics.dimensions, dimensions);
 		}
 
-		UniversalAnalytics.dimensionsDirty = true;
+		UniversalAnalytics.dimensionsUpdated = true;
 
 		return true;
 	}
@@ -112,7 +112,7 @@ class UniversalAnalytics {
 	 */
 	static setDimension(dimension, value) {
 		UniversalAnalytics.dimensions[dimension] = value;
-		UniversalAnalytics.dimensionsDirty = true;
+		UniversalAnalytics.dimensionsUpdated = true;
 	}
 
 	/**
