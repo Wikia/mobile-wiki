@@ -70,7 +70,6 @@ class UniversalAnalytics {
 	 */
 	updateDimensions() {
 		if (UniversalAnalytics.dimensionsDirty) {
-
 			this.tracked.forEach((account) =>
 				UniversalAnalytics.dimensions.forEach((dimension, idx) =>
 					ga(`${UniversalAnalytics.getPrefix(account)}set`,
