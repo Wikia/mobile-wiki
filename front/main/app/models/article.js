@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import MediaModel from './media';
 import {normalizeToWhitespace} from 'common/utils/string';
+import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 
 /**
  * @typedef {Object} ArticleModelUrlParams
@@ -206,13 +207,12 @@ ArticleModel.reopenClass({
 				articleProperties.mainPageData = data.mainPageData;
 				articleProperties.isCuratedMainPage = true;
 			}
+
+			if (data.articleType) {
+				UniversalAnalytics.setDimension(19, articleProperties.articleType);
+			}
 		}
 
-		// We could keep whole article in global but we want to discourage that but
-		// We need to update global article.type
-		// to allow eg. for analytics to use it
-		// TODO: Should analytics be part of ember? That should simplify how to pass stuff around.
-		M.prop('article.type', articleProperties.type, true);
 		model.setProperties(articleProperties);
 	}
 });

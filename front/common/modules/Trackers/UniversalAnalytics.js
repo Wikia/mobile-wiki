@@ -36,6 +36,7 @@ class UniversalAnalytics {
 		this.accountPrimary = 'primary';
 		this.accountSpecial = 'special';
 		this.accountAds = 'ads';
+		this.dimensionsDirty = true;
 
 		if (!UniversalAnalytics.dimensions.length) {
 			throw new Error(
@@ -63,6 +64,24 @@ class UniversalAnalytics {
 	}
 
 	/**
+	 * Updates dimensions for all trackers
+	 *
+	 * @returns {void}
+	 */
+	updateDimensions() {
+		if (UniversalAnalytics.dimensionsDirty) {
+
+			this.tracked.forEach((account) =>
+				UniversalAnalytics.dimensions.forEach((dimension, idx) =>
+					ga(`${UniversalAnalytics.getPrefix(account)}set`,
+						`dimension${idx}`,
+						UniversalAnalytics.getDimension(idx))));
+
+			UniversalAnalytics.dimensionsDirty = false;
+		}
+	}
+
+	/**
 	 * Synchronously sets the UA dimensional context
 	 *
 	 * @param {UniversalAnalyticsDimension[]} dimensions - array of dimensions to set, may be strings or functions
@@ -80,7 +99,21 @@ class UniversalAnalytics {
 			$.extend(UniversalAnalytics.dimensions, dimensions);
 		}
 
+		UniversalAnalytics.dimensionsDirty = true;
+
 		return true;
+	}
+
+	/**
+	 * Set the UA dimension value
+	 *
+	 * @param {integer} dimension
+	 * @param {any} value
+	 * @returns {void}
+	 */
+	static setDimension(dimension, value) {
+		UniversalAnalytics.dimensions[dimension] = value;
+		UniversalAnalytics.dimensionsDirty = true;
 	}
 
 	/**
@@ -127,9 +160,6 @@ class UniversalAnalytics {
 			ga(`${prefix}linker:autoLink`, domain);
 		}
 
-		UniversalAnalytics.dimensions.forEach((dimension, idx) =>
-			ga(`${prefix}set`, `dimension${idx}`, UniversalAnalytics.getDimension(idx)));
-
 		this.tracked.push(this.accounts[trackerName]);
 	}
 
@@ -174,6 +204,8 @@ class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	track(category, action, label, value, nonInteractive) {
+		this.updateDimensions();
+
 		this.tracked.forEach((account) => {
 			// skip over ads tracker (as it's handled in self.trackAds)
 			if (account.prefix !== this.accountAds) {
@@ -206,6 +238,8 @@ class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	trackAds(category, action, label, value, nonInteractive) {
+		this.updateDimensions();
+
 		ga(
 			`${this.accounts[this.accountAds].prefix}.send`,
 			{
@@ -247,16 +281,20 @@ class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	trackPageView() {
-		const pageType = UniversalAnalytics.getDimension(8);
+		const pageType = UniversalAnalytics.getDimension(8),
+			articleType = UniversalAnalytics.getDimension(19);
 
 		if (!pageType) {
 			throw new Error('missing page type dimension (#8)');
 		}
+		if (!articleType) {
+			throw new Error('missing article type dimension (#19)');
+		}
+		this.updateDimensions();
 
 		this.tracked.forEach((account) => {
 			const prefix = UniversalAnalytics.getPrefix(account);
 
-			ga(`${prefix}set`, 'dimension8', pageType, 3);
 			ga(`${prefix}send`, 'pageview');
 		});
 	}
