@@ -4,4 +4,4 @@
  * @param {Object} obj
  * @returns {string}
  */
-module.exports = (obj) => JSON.stringify(obj);
+module.exports = (obj) => JSON.stringify(obj || {});
