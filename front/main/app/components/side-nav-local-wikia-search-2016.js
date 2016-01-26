@@ -69,6 +69,7 @@ export default Ember.Component.extend({
 
 		clearSearch() {
 			this.set('query', null);
+			this.$('.side-search__input').focus();
 		},
 
 		collapse() {
