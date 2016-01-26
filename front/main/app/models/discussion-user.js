@@ -15,7 +15,10 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 	userProfileUrl: null,
 
 	canDeleteAll: Ember.computed('posts', function () {
-		return checkPermissions(this.get('posts')[0], 'canDelete');
+		const posts = this.get('posts');
+
+		// TODO fix me when API starts sending permissions for bulk operations
+		return posts && checkPermissions(posts[0], 'canDelete');
 	}),
 
 	loadPage(pageNum = 0) {
