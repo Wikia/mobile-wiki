@@ -39,7 +39,6 @@
 					{{post-detail
 						author=model.firstPost.createdBy
 						delete=(action this.attrs.deletePost)
-						deleteAll=(action this.attrs.deleteAllPosts)
 						isDetailsView=true
 						post=model.firstPost
 						postId=model.id
@@ -71,7 +70,6 @@
 								author=item.createdBy
 								content=item.rawContent
 								delete=(action this.attrs.deleteReply)
-								deleteAll=(action this.attrs.deleteAllPosts)
 								isParentDeleted=model.firstPost.isDeleted
 								timestamp=item.creationDate.epochSecond
 								undelete=(action this.attrs.undeleteReply)
