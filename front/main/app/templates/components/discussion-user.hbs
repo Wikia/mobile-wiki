@@ -29,7 +29,7 @@
 	</div>
 	<div class="discussion-page row">
 		<div class="rail large-3 columns">
-			{{#link-to 'discussion.forum' model.forumId discussionSort.sortBy class="back-button active-element-theme-color"}}
+			{{#link-to 'discussion.forum' model.forumId discussionSort.sortBy class="side-button back-button active-element-theme-color"}}
 				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
 				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
 			{{/link-to}}
@@ -63,7 +63,7 @@
 		{{/if}}
 		<div class="rail large-3 columns">
 			{{#if model.canDeleteAll}}
-				<div {{action 'deleteAllPosts'}} class="back-button">
+				<div {{action 'deleteAllPosts'}} class="side-button delete-all">
 					{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
 					{{i18n 'main.delete-all' ns='discussion'}}
 				</div>

@@ -68,11 +68,18 @@ $site-header-height: 50px;
 	}
 
 	.back-button {
+		color: $discussion-back-button-color;
 		float: left;
+
+		&:hover,
+		&:focus {
+			color: $discussion-back-button-color;
+		}
 	}
 
 	.delete-all {
 		float: right;
+		padding-right: 15px;
 	}
 }
 
