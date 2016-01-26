@@ -14,10 +14,10 @@
 
 	{{#pop-over for=(concat 'post-options-' post.id) on='click' flow='flip'}}
 		{{discussion-more-options
-			delete=(action this.attrs.deletePost)
+			delete=(action 'delete')
 			deleteMessage=(i18n 'main.delete-post' ns='discussion')
 			post=post
-			undelete=(action this.attrs.undeletePost)
+			undelete=(action 'undelete')
 			undeleteMessage=(i18n 'main.undelete-post' ns='discussion')
 		}}
 	{{/pop-over}}
