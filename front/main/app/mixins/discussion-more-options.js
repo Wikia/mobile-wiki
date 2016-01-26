@@ -7,7 +7,7 @@ export default Ember.Mixin.create({
 	actions: {
 		/**
 		 * Delete item and close pop-over
-		 *
+		 * @param {object} item
 		 * @returns {void}
 		 */
 		delete(item) {
@@ -19,7 +19,7 @@ export default Ember.Mixin.create({
 
 		/**
 		 * Undelete item and close pop-over
-		 *
+		 * @param {object} item
 		 * @returns {void}
 		 */
 		undelete(item) {

@@ -31,7 +31,7 @@ export default Ember.Mixin.create({
 
 		/**
 		 * Pass post deletion to model
-		 * @param {object} post
+		 * @param {object} posts
 		 * @returns {void}
 		 */
 		deleteAllPosts(posts) {
@@ -42,11 +42,12 @@ export default Ember.Mixin.create({
 					ns: 'discussion'
 				});
 
-			this.get('modalDialogService').confirm(message, 'main.modal-dialog-delete-all-header', 'main.delete-all', (result) =>{
-				if (result) {
-					this.modelFor(this.get('routeName')).deleteAllPosts(posts);
-				}
-			});
+			this.get('modalDialogService').confirm(message, 'main.modal-dialog-delete-all-header',
+				'main.delete-all', (result) => {
+					if (result) {
+						this.modelFor(this.get('routeName')).deleteAllPosts(posts);
+					}
+				});
 		},
 
 		/**

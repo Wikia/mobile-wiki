@@ -12,5 +12,5 @@ export function checkPermissions(post, permission) {
 		return false;
 	} else {
 		return permissions && permissions.contains(permission);
-	}	
+	}
 }

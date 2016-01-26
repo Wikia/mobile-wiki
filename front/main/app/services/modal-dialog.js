@@ -8,6 +8,7 @@ export default Ember.Service.extend({
 
 	/**
 	 * @param {string} message
+	 * @param {string} header
 	 * @returns {void}
 	 */
 	display(message, header) {
@@ -23,6 +24,9 @@ export default Ember.Service.extend({
 
 	/**
 	 * @param {string} message
+	 * @param {string} header
+	 * @param {string} confirmButtonText
+	 * @param {any} confirmCallback
 	 * @returns {void}
 	 */
 	confirm(message, header, confirmButtonText, confirmCallback) {
