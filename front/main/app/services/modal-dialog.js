@@ -1,26 +1,12 @@
 export default Ember.Service.extend({
+	confirmButtonText: '',
+	confirmCallback: Function.prototype,
+	header: '',
+	isConfirm: Ember.computed('confirmButtonText', function () {
+		return this.get('confirmButtonText') !== '';
+	}),
 	isDisplayed: false,
-	isConfirm: false,
-	confirmCallback: null,
-	confirmButtonText: null,
-	header: null,
-	message: null,
-
-	/**
-	 * @param {string} message
-	 * @param {string} header
-	 * @returns {void}
-	 */
-	display(message, header) {
-		if (!this.get('isDisplayed') && message !== this.get('message')) {
-			this.setProperties({
-				isDisplayed: true,
-				isConfirm: false,
-				header,
-				message,
-			});
-		}
-	},
+	message: '',
 
 	/**
 	 * @param {string} message
@@ -29,14 +15,13 @@ export default Ember.Service.extend({
 	 * @param {any} confirmCallback
 	 * @returns {void}
 	 */
-	confirm(message, header, confirmButtonText, confirmCallback) {
+	display(message, header = '', confirmButtonText = '', confirmCallback = Function.prototype) {
 		if (!this.get('isDisplayed') && message !== this.get('message')) {
 			this.setProperties({
-				isDisplayed: true,
-				isConfirm: true,
 				confirmCallback,
 				confirmButtonText,
 				header,
+				isDisplayed: true,
 				message,
 			});
 		}
@@ -47,8 +32,11 @@ export default Ember.Service.extend({
 	 */
 	close() {
 		this.setProperties({
+			confirmButtonText: '',
+			confirmCallback: Function.prototype,
+			header: '',
 			isDisplayed: false,
-			message: null
+			message: '',
 		});
 	}
 });

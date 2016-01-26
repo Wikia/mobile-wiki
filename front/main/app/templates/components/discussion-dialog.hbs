@@ -3,15 +3,15 @@
 		isVisible = isVisible
 	}}
 		<div class="modal-dialog-content">
-			{{#if dialogHeader}}
-				<h3>{{i18n dialogHeader ns='discussion'}}</h3>
+			{{#if headerText}}
+				<h3>{{headerText}}</h3>
 			{{/if}}
 			{{dialogMessage}}
 		</div>
 		<footer>
 			{{#if isConfirm}}
 				<button class="active-element-theme-color" {{action 'close'}}>{{i18n 'main.modal-dialog-cancel' ns='discussion'}}</button>
-				<button class="active-element-theme-color" {{action 'confirm'}}>{{i18n confirmButtonText ns='discussion'}}</button>
+				<button class="active-element-theme-color" {{action 'confirm'}}>{{confirmButtonText}}</button>
 			{{else}}
 				<button class="active-element-theme-color" {{action 'close'}}>{{i18n 'main.modal-dialog-confirm' ns='discussion'}}</button>
 			{{/if}}

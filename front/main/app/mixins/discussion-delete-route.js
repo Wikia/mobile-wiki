@@ -45,8 +45,11 @@ export default Ember.Mixin.create({
 					}
 				);
 
-			this.get('modalDialogService').confirm(message, 'main.modal-dialog-delete-all-header',
-				'main.delete-all', (result) => {
+			this.get('modalDialogService').display(
+				message,
+				i18n.t('main.modal-dialog-delete-all-header', {ns: 'discussion'}),
+				i18n.t('main.delete-all', {ns: 'discussion'}),
+				(result) => {
 					if (result) {
 						Ember.set(loadingSpinnerContainer, 'isLoading', true);
 						this.modelFor(this.get('routeName')).deleteAllPosts(posts).then(() => {
