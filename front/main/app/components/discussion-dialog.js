@@ -27,8 +27,8 @@ export default Ember.Component.extend(LoginLinkMixin, {
 		 */
 		confirm() {
 			this.set('isVisible', false);
-			this.get('modalDialogService').close();
 			this.get('modalDialogService').confirmCallback(true);
+			this.get('modalDialogService').close();
 		}
 	}
 });
