@@ -36,7 +36,7 @@ class UniversalAnalytics {
 		this.accountPrimary = 'primary';
 		this.accountSpecial = 'special';
 		this.accountAds = 'ads';
-		this.dimensionsUpdated = true;
+		this.dimensionsUpdated = false;
 
 		if (!UniversalAnalytics.dimensions.length) {
 			throw new Error(
@@ -69,14 +69,14 @@ class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	updateDimensions() {
-		if (UniversalAnalytics.dimensionsUpdated) {
+		if (!UniversalAnalytics.dimensionsUpdated) {
 			this.tracked.forEach((account) =>
 				UniversalAnalytics.dimensions.forEach((dimension, idx) =>
 					ga(`${UniversalAnalytics.getPrefix(account)}set`,
 						`dimension${idx}`,
 						UniversalAnalytics.getDimension(idx))));
 
-			UniversalAnalytics.dimensionsUpdated = false;
+			UniversalAnalytics.dimensionsUpdated = true;
 		}
 	}
 
@@ -98,7 +98,7 @@ class UniversalAnalytics {
 			$.extend(UniversalAnalytics.dimensions, dimensions);
 		}
 
-		UniversalAnalytics.dimensionsUpdated = true;
+		UniversalAnalytics.dimensionsUpdated = false;
 
 		return true;
 	}
@@ -112,7 +112,7 @@ class UniversalAnalytics {
 	 */
 	static setDimension(dimension, value) {
 		UniversalAnalytics.dimensions[dimension] = value;
-		UniversalAnalytics.dimensionsUpdated = true;
+		UniversalAnalytics.dimensionsUpdated = false;
 	}
 
 	/**
@@ -280,14 +280,8 @@ class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	trackPageView() {
-		const pageType = UniversalAnalytics.getDimension(8),
-			articleType = UniversalAnalytics.getDimension(19);
-
-		if (!pageType) {
+		if (!UniversalAnalytics.getDimension(8)) {
 			throw new Error('missing page type dimension (#8)');
-		}
-		if (!articleType) {
-			throw new Error('missing article type dimension (#19)');
 		}
 		this.updateDimensions();
 

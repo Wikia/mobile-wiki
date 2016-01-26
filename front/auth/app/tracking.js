@@ -19,8 +19,6 @@ function setTrackingDimensions() {
 	dimensions[15] = 'No';
 	// newAuthEntryPage
 	dimensions[10] = getQueryParam('redirect');
-	// articleType
-	dimensions[19] = '';
 
 	UniversalAnalytics.setDimensions(dimensions);
 }
