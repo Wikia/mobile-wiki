@@ -40,7 +40,7 @@ export default Ember.Component.extend({
 	},
 
 	scrollToTop() {
-		document.getElementsByClassName('side-nav-menu__contents')[0].scrollTop = 0;
+		this.element.scrollTop = 0;
 	},
 
 	/**

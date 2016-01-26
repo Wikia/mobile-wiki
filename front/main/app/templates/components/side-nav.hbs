@@ -38,14 +38,13 @@
 				{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
 			</a>
 		</div>
-		<div class="side-nav-menu__contents">
-			{{component
-				globalNavContent
-				replaceNavigationContent=(action 'replaceNavigationContent')
-				collapse=(action 'collapse')
-				loadRandomArticle=(action 'loadRandomArticle')
-			}}
-		</div>
+		{{component
+			globalNavContent
+			class='side-nav-menu__contents'
+			replaceNavigationContent=(action 'replaceNavigationContent')
+			collapse=(action 'collapse')
+			loadRandomArticle=(action 'loadRandomArticle')
+		}}
 		{{#if isFandomVisible}}
 			<div class="side-nav-menu__footer">
 				<a {{action 'homeOfFandomClick' preventDefault=false}} href={{wikiaHomepage}}>
