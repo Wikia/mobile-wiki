@@ -38,7 +38,9 @@ server.state('session', {
 });
 
 server.ext('onPreResponse', function (request, reply) {
-	if (request.response.variety !== 'file') {
+	var response = request.response;
+
+	if (response && response.header && request.response.variety !== 'file') {
 		request.response.vary('cookie');
 	}
 

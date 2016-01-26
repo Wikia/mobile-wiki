@@ -1,0 +1,73 @@
+<div>
+	{{user-avatar
+		avatarUrl=post.createdBy.avatarUrl
+		displayProfileName=true
+		username=author.name
+	}}
+	<span class="timestamp">
+		&bull; {{time-ago post.creationDate.epochSecond}}
+	</span>
+	{{discussion-delete
+		delete=(action this.attrs.deletePost)
+		undelete=(action this.attrs.undeletePost)
+		post=post
+	}}
+</div>
+{{#if isDetailsView}}
+	<div class="discussion-content">
+		{{#if post.title}}
+			<h1 class="post-title">{{post.title}}</h1>
+		{{/if}}
+		{{{parsedContent}}}
+	</div>
+{{else}}
+	<div class="discussion-content">
+		{{#if post.title}}
+			<h2 class="post-title">{{#link-to 'discussion.post' postId class="post-details-link"}}{{post.title}}{{/link-to}}</h2>
+		{{/if}}
+		{{#link-to 'discussion.post' postId class="post-details-link clamp"}}{{{parsedContent}}}{{/link-to}}
+	</div>
+{{/if}}
+<div class="row">
+	{{discussion-upvote-post
+		post=post
+		upvote=(action this.attrs.upvote)
+	}}
+	{{#if isDetailsView}}
+		<div class="small-5 large-2 columns count">
+			<span class="replies-area">
+				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
+				{{replyCount}}
+			</span>
+		</div>
+	{{else}}
+		<div class="small-2 large-2 columns count">
+			{{#link-to 'discussion.post' postId class='replies-area'}}
+				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
+				{{replyCount}}
+			{{/link-to}}
+		</div>
+	{{/if}}
+	<div class="share small-5 large-7 columns">
+		{{#if isDetailsView}}
+			{{share-feature sharedUrl=sharedUrl}}
+		{{else}}
+			{{share-feature
+				sharedUrl=sharedUrl
+				isVisible=isShareFeatureVisible
+				onMouseEnter=(action 'cancelHideShareComponent')
+				onMouseLeave=(action 'hideShareComponent')
+			}}
+			<span class="toggle-share-area" {{action 'toggleShareComponent'}}>
+				{{svg 'share' class='icon toggle-share'}}
+			</span>
+		{{/if}}
+	</div>
+</div>
+{{#if post.isLoading}}
+	{{loading-spinner
+	active=post.isLoading
+	radius=32
+	strokeWidth=2
+	}}
+{{/if}}

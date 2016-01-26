@@ -1,3 +1,0 @@
-{{#each sortTypes as |item|}}
-	<li {{action 'setSortBy' item.name}} class="{{if (equal item.name sortBy) 'active active-element-theme-color active-element-border-theme-color' 'not-active'}}">{{i18n item.messageKey ns='discussion'}}</li>
-{{/each}}

@@ -1,0 +1,48 @@
+{
+  "landing-page":{
+    "to-the-wiki-title":"Назад на вики",
+    "page-main-header":"The hottest __applicationName__ discussions with the biggest fans.",
+    "download-the-app-header":"Download the app to join in now!",
+    "google-play-button-alt":"Загрузить с Google Play",
+    "start-discussions-title":"Start Discussions",
+    "start-discussions-text":"Ask a question, share news or just talk with other fans from around the world about your favourite topics!",
+    "upvote-the-best-title":"Upvote the Best",
+    "upvote-the-best-text":"See something you love? Cast your upvote to show your appreciation and influence what's trending.",
+    "share-your-knowledge-title":"Share your knowledge",
+    "share-your-knowledge-text":"Share your favourite discussions with your social networks to bring more fans into the fold."
+  },
+  "main":{
+    "pagination-post-show-more":"Просмотр старых ответов",
+    "share-default-title":"Обсуждение на __siteName__",
+    "contributors-title":"Все участники",
+    "sort-by-latest":"Последние",
+    "sort-by-trending":"Популярные",
+    "loading-more-posts":"Загрузка сообщений",
+    "back-to-wikia-link":"Назад на вики",
+    "number-of-posts":"__numberOfPosts__ записей",
+    "connection-error":"Ошибка подключения. Пожалуйста, попробуйте позже.",
+    "not-found-error":"Страницы не существует.",
+    "action-retry-title":"Попробовать снова",
+    "all-discussions-link-desktop":"Показать все обсуждения",
+    "all-discussions-link-mobile":"Все обсуждения",
+    "discussions-app-join":"Хотите присоединиться к обсуждению? Установите приложение прямо сейчас!",
+    "back-to-discussions-link":"Все обсуждения",
+    "no-replies":"Ответов пока нет.",
+    "no-replies-be-the-first":"Ответов пока нет. Оставьте свой ответ первым!",
+    "modal-dialog-confirm":"ОК",
+    "modal-dialog-log-in":"Войти",
+    "empty-forum-text":"Сообщений пока нет. Начните обсуждение сейчас!"
+  },
+  "editor":{
+    "post-failed-error":"Публикация не удалась.",
+    "post-error-anon-cant-post":"Войдите в систему, чтобы присоединиться к обсуждению.",
+    "post-error-not-authorized":"Вы не можете писать сообщения, так как ваш аккаунт был заблокирован.",
+    "post-error-general-error":"К сожалению, произошла ошибка. Пожалуйста, попробуйте снова.",
+    "post-editor-label":"Новое сообщение",
+    "post-action-button-label":"Опубликовать",
+    "post-editor-placeholder-text":"Поделитесь мыслями, вопросами или ссылкой...",
+    "reply-editor-placeholder-text":"Ответить...",
+    "reply-editor-label":"Присоединиться к обсуждению",
+    "reply-action-button-label":"Отправить"
+  }
+}

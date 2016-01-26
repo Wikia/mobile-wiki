@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+
+		<title>{{i18n title}} - Wikia</title>
+		<!-- build:css /front/auth/assets/app.css -->
+		<link rel="stylesheet" href="/front/auth/assets/app.css">
+		<!-- endbuild -->
+
+		{{> optimizely}}
+		{{> tracking}}
+		<link rel="canonical" href="{{canonicalUrl}}" />
+	</head>
+	<body class="auth {{pageParams.viewType}} {{bodyClasses}} {{#if standalonePage}}standalone{{/if}}" data-page-type="{{pageType}}">
+		{{#if standalonePage}}
+			<nav class="global-nav">
+				<a class="main-page" href="{{mainPage}}"><span>Wikia</span></a>
+			</nav>
+		{{else}}
+			{{#unless pageParams.isModal}}
+			<a class="close" href="{{exitTo}}">
+				<!-- @include /front/common/symbols/close.svg -->
+			</a>
+			{{/unless}}
+		{{/if}}
+
+		{{#unless hideHeader}}
+		<header class="auth-header splash splash-top">
+			<h1>{{i18n headerText}}</h1>
+			{{#if headerSlogan}}
+			<p>{{i18n headerSlogan}}</p>
+			{{/if}}
+		</header>
+		{{/unless}}
+
+		{{{content}}}
+
+		{{#unless hideFooter}}
+		<footer class="auth-footer splash splash-bottom">
+			<a href="{{{footerHref}}}" class="footer-callout-link">
+				{{i18n footerCallout}} <span class="footer-callout-emphasis">{{i18n footerCalloutLink}}</span>
+			</a>
+		</footer>
+		{{/unless}}
+
+		<script>
+			var translations = {{{json (translations language ns='auth-front')}}},
+					language = {{{json language}}},
+					pageParams = {{{json pageParams}}};
+		</script>
+		<!-- build:js /front/auth/assets/combined.js -->
+		<script src="/front/auth/bower_components/loader.js/loader.js"></script>
+		<script src="/front/auth/bower_components/jquery/dist/jquery.js"></script>
+		<script src="/front/auth/bower_components/i18next/i18next.min.js"></script>
+		<script src="/front/auth/bower_components/visit-source/dist/visit-source.js"></script>
+		<script src="/front/common/baseline.js"></script>
+		<script src="/front/common/common.js"></script>
+		<script src="/front/auth/assets/app.js"></script>
+		<!-- endbuild -->
+		<script>
+			M.loadDOMResource('/front/common/symbols.svg');
+			M.prop('tracking', {{{json trackingConfig}}});
+			M.prop('isGASpecialWiki', true);
+
+			require('auth/app/main').init();
+		</script>
+	</body>
+</html>
