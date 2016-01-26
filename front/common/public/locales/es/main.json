@@ -12,7 +12,7 @@
     "article-last-edit_plural_0":"Editado por última vez esta semana",
     "article-last-edit_plural_2":"Editado por última vez hace __count__ semanas",
     "article-categories-list-label":"Categorías",
-    "article-other-languages":"Otros idiomas",
+    "article-other-languages":"En otros idiomas",
     "article-top-contributors-label":"Principales editores de este artículo",
     "article-error":"Lo sentimos, no pudimos cargar el artículo. Por favor, inténtelo de nuevo.",
     "side-nav-menu-label":"Menú",
@@ -144,7 +144,8 @@
     "curated-content-editor-main-page":"Portada",
     "curated-content-editor-new-featured-content":"Nuevo contenido destacado",
     "curated-content-editor-new-section":"Nueva sección",
-    "curated-content-editor-new-category":"Nueva categoría"
+    "curated-content-editor-new-category":"Nueva categoría",
+    "explore-wiki":"Explora __wikiName__"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ o __loginLink__",

@@ -37,19 +37,6 @@ export default DiscussionBaseRoute.extend(
 
 		actions: {
 			/**
-			 * @param {number} postId
-			 * @param {bool} openInNewTab
-			 * @returns {void}
-			 */
-			goToPost(postId, openInNewTab = false) {
-				if (openInNewTab) {
-					window.open(this.get('router').generate('discussion.post', postId));
-				} else {
-					this.transitionTo('discussion.post', postId);
-				}
-			},
-
-			/**
 			 * @param {number} pageNum
 			 * @returns {void}
 			 */

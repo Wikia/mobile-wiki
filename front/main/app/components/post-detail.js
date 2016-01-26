@@ -32,16 +32,6 @@ export default Ember.Component.extend(
 
 		actions: {
 			/**
-			 * @param {number} postId
-			 * @param {MouseEvent} event
-			 * @returns {void}
-			 */
-			goToPost(postId, event) {
-				event.preventDefault();
-				this.attrs.goToPost(postId, event.ctrlKey || event.metaKey);
-			},
-
-			/**
 			 * @returns {void}
 			 */
 			toggleShareComponent() {

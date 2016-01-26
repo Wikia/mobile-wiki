@@ -22,7 +22,8 @@ module.exports = {
 			src: 'front/auth/app/styles',
 			dest: outputFront + '/auth/assets',
 			partials: '_*.scss',
-			compile: '*.scss'
+			compile: '*.scss',
+			watch: 'front/auth/app/styles/**/*.scss'
 		},
 		vendor: {
 			src: 'front/auth/bower_components/**/*',

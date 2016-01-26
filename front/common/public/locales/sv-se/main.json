@@ -12,6 +12,7 @@
     "article-last-edit_plural_0":"Senast redigerad den här veckan",
     "article-last-edit_plural_2":"Senast redigerad __count__ veckor sedan",
     "article-categories-list-label":"Kategorier",
+    "article-other-languages":"In other languages",
     "article-top-contributors-label":"Top Contributors to this article",
     "article-error":"Sorry, we couldn't load the article. Please try again.",
     "side-nav-menu-label":"Meny",
@@ -143,7 +144,8 @@
     "curated-content-editor-main-page":"Main Page",
     "curated-content-editor-new-featured-content":"New Featured Content",
     "curated-content-editor-new-section":"New Section",
-    "curated-content-editor-new-category":"New Category"
+    "curated-content-editor-new-category":"New Category",
+    "explore-wiki":"Explore __wikiName__"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ or __loginLink__",

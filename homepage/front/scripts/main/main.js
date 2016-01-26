@@ -187,8 +187,3 @@ $('#loginIcon').click((event) => {
 
 	event.preventDefault();
 });
-
-$('#whatIsWikia').click((event) => {
-	window.location.href = '/beginners';
-	event.preventDefault();
-});
