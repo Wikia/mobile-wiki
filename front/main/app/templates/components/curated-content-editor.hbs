@@ -3,7 +3,7 @@
 	<button {{action 'save'}} class="sub-head--done">{{i18n 'app.curated-content-editor-publish'}}</button>
 	<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=(i18n 'app.curated-content-editor-main-page')}}</div>
 </header>
-{{#if model.enableCommunityData }}
+{{#if enableCommunityData }}
 	{{curated-content-editor-wikia-description
 		model=model.communityData
 		showHelp='showHelp'

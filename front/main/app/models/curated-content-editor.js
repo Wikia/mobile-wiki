@@ -44,8 +44,7 @@ const CuratedContentEditorModel = Ember.Object.extend({
 	curated: null,
 	communityData: null,
 	optional: null,
-	isDirty: false,
-	enableCommunityData: Ember.get(Mercury, 'wiki.enableCommunityData')
+	isDirty: false
 });
 
 CuratedContentEditorModel.reopenClass({
