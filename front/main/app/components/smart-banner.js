@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import {track as mercuryTrack, trackActions} from 'common/utils/track';
-import {system, supportsNativeSmartBanner, standalone} from 'common/utils/browser';
+import {system, standalone} from 'common/utils/browser';
 
 export default Ember.Component.extend({
 	classNames: ['smart-banner'],
@@ -115,7 +115,7 @@ export default Ember.Component.extend({
 		const config = this.get('config');
 
 		// Don't show banner if device isn't iOS or Android, website is loaded in app or user dismissed banner
-		if (!supportsNativeSmartBanner && !standalone &&
+		if (system !== 'ios' && !standalone &&
 			config.name && !config.disabled &&
 			Ember.$.cookie('sb-closed') !== '1'
 		) {
