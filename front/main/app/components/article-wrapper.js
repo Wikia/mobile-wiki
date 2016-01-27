@@ -3,6 +3,7 @@ import LanguagesMixin from '../mixins/languages';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
+import {setDimension} from 'common/modules/Trackers/UniversalAnalytics';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -246,6 +247,10 @@ export default Ember.Component.extend(
 					a: model.title,
 					n: model.ns
 				});
+
+				if (model.articleType) {
+					setDimension(19, model.articleType);
+				}
 
 				updateTrackedUrl(window.location.href);
 				trackPageView(model.get('adsContext.targeting'));

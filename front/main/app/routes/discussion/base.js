@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {updateTrackedUrl, trackPageView} from 'common/utils/track';
+import {setDimension} from 'common/modules/Trackers/UniversalAnalytics';
 
 export default Ember.Route.extend({
 	postDeleteFullScreenOverlay: false,
@@ -25,6 +26,7 @@ export default Ember.Route.extend({
 		didTransition() {
 			this.controllerFor('application').set('noMargins', true);
 
+			setDimension(19, null);
 			updateTrackedUrl(window.location.href);
 			trackPageView(null);
 

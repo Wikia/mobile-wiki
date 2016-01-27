@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import MediaModel from './media';
 import {normalizeToWhitespace} from 'common/utils/string';
-import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 
 /**
  * @typedef {Object} ArticleModelUrlParams
@@ -166,7 +165,6 @@ ArticleModel.reopenClass({
 				articleProperties = $.extend(articleProperties, {
 					content: article.content,
 					mediaUsers: article.users,
-					type: article.type,
 					media: MediaModel.create({
 						media: article.media
 					}),
@@ -208,9 +206,7 @@ ArticleModel.reopenClass({
 				articleProperties.isCuratedMainPage = true;
 			}
 
-			if (data.articleType) {
-				UniversalAnalytics.setDimension(19, articleProperties.articleType);
-			}
+			articleProperties.articleType = data.articleType || data.article.type;
 		}
 
 		model.setProperties(articleProperties);

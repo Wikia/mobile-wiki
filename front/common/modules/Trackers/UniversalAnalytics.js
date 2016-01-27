@@ -24,6 +24,7 @@
  * @property {GAAccountMap} accounts
  * @property {string} accountPrimary
  * @property {string} accountSpecial
+ * @property {boolean} dimensionsSynced - are dimensions synced (sent to UA)
  * @property {string} accountAds
  */
 class UniversalAnalytics {
@@ -36,7 +37,7 @@ class UniversalAnalytics {
 		this.accountPrimary = 'primary';
 		this.accountSpecial = 'special';
 		this.accountAds = 'ads';
-		this.dimensionsUpdated = false;
+		this.dimensionsSynced = false;
 
 		if (!UniversalAnalytics.dimensions.length) {
 			throw new Error(
@@ -64,19 +65,26 @@ class UniversalAnalytics {
 	}
 
 	/**
-	 * Updates dimensions for all trackers
+	 * Syncs dimensions for all trackers - sends dimensions to UA trackers
+	 *
+	 * This function is being executed before each track and page view events.
+	 * It checks if there were any changes to `UniversalAnalytics.dimensions`
+	 * and it sends dimensions to all Universal Analytics tracker when necessary.
+	 *
+	 * That allows us to set dimensions in an initializer and fill the remaining
+	 * values later, ie. from the API.
 	 *
 	 * @returns {void}
 	 */
-	updateDimensions() {
-		if (!UniversalAnalytics.dimensionsUpdated) {
+	syncDimensions() {
+		if (!UniversalAnalytics.dimensionsSynced) {
 			this.tracked.forEach((account) =>
 				UniversalAnalytics.dimensions.forEach((dimension, idx) =>
 					ga(`${UniversalAnalytics.getPrefix(account)}set`,
 						`dimension${idx}`,
 						UniversalAnalytics.getDimension(idx))));
 
-			UniversalAnalytics.dimensionsUpdated = true;
+			UniversalAnalytics.dimensionsSynced = true;
 		}
 	}
 
@@ -98,7 +106,7 @@ class UniversalAnalytics {
 			$.extend(UniversalAnalytics.dimensions, dimensions);
 		}
 
-		UniversalAnalytics.dimensionsUpdated = false;
+		UniversalAnalytics.dimensionsSynced = false;
 
 		return true;
 	}
@@ -106,13 +114,13 @@ class UniversalAnalytics {
 	/**
 	 * Set the UA dimension value
 	 *
-	 * @param {integer} dimension
-	 * @param {any} value
+	 * @param {number} dimension
+	 * @param {*} value
 	 * @returns {void}
 	 */
 	static setDimension(dimension, value) {
 		UniversalAnalytics.dimensions[dimension] = value;
-		UniversalAnalytics.dimensionsUpdated = false;
+		UniversalAnalytics.dimensionsSynced = false;
 	}
 
 	/**
@@ -203,7 +211,7 @@ class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	track(category, action, label, value, nonInteractive) {
-		this.updateDimensions();
+		this.syncDimensions();
 
 		this.tracked.forEach((account) => {
 			// skip over ads tracker (as it's handled in self.trackAds)
@@ -237,7 +245,7 @@ class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	trackAds(category, action, label, value, nonInteractive) {
-		this.updateDimensions();
+		this.syncDimensions();
 
 		ga(
 			`${this.accounts[this.accountAds].prefix}.send`,
@@ -283,7 +291,7 @@ class UniversalAnalytics {
 		if (!UniversalAnalytics.getDimension(8)) {
 			throw new Error('missing page type dimension (#8)');
 		}
-		this.updateDimensions();
+		this.syncDimensions();
 
 		this.tracked.forEach((account) => {
 			const prefix = UniversalAnalytics.getPrefix(account);
