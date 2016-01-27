@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import {track as mercuryTrack, trackActions} from 'common/utils/track';
-import {getSystem} from 'common/utils/browser';
+import {system, supportsNativeSmartBanner, standalone} from 'common/utils/browser';
 
 export default Ember.Component.extend({
 	classNames: ['smart-banner'],
@@ -18,21 +18,10 @@ export default Ember.Component.extend({
 	},
 	day: 86400000,
 
-	appId: Ember.computed('config', 'system', function () {
-		return this.get(`config.appId.${this.get('system')}`);
-	}),
-
-	appScheme: Ember.computed('config', 'system', function () {
-		return this.get(`config.appScheme.${this.get('system')}`);
-	}),
-
-	config: Ember.computed(() => {
-		return Ember.getWithDefault(Mercury, 'wiki.smartBanner', {});
-	}),
-
-	dbName: Ember.computed(() => {
-		return Ember.get(Mercury, 'wiki.dbName');
-	}),
+	appId: Ember.computed.oneWay(`config.appId.${system}`),
+	appScheme: Ember.computed.oneWay(`config.appScheme.${system}`),
+	config: Ember.getWithDefault(Mercury, 'wiki.smartBanner', {}),
+	dbName: Ember.get(Mercury, 'wiki.dbName'),
 
 	description: Ember.computed.oneWay('config.description'),
 
@@ -42,12 +31,12 @@ export default Ember.Component.extend({
 		return new Ember.Handlebars.SafeString(`background-image: url(${this.get('icon')})`);
 	}),
 
-	labelInStore: Ember.computed('system', function () {
-		return i18n.t(`app.smartbanner-store-${this.get('system')}`);
+	labelInStore: Ember.computed(function () {
+		return i18n.t(`app.smartbanner-store-${system}`);
 	}),
 
-	labelInstall: Ember.computed('system', function () {
-		return i18n.t(`app.smartbanner-install-${this.get('system')}`);
+	labelInstall: Ember.computed(function () {
+		return i18n.t(`app.smartbanner-install-${system}`);
 	}),
 
 	link: Ember.computed('appId', 'dbName', 'system', function () {
@@ -55,7 +44,7 @@ export default Ember.Component.extend({
 
 		let link;
 
-		if (this.get('system') === 'android') {
+		if (system === 'android') {
 			link = `https://play.google.com/store/apps/details?id=${appId}` +
 				`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get('dbName')}`;
 		} else {
@@ -66,10 +55,6 @@ export default Ember.Component.extend({
 	}),
 
 	noIcon: Ember.computed.not('icon'),
-
-	system: Ember.computed(() => {
-		return getSystem();
-	}),
 
 	title: Ember.computed.oneWay('config.name'),
 
@@ -127,11 +112,10 @@ export default Ember.Component.extend({
 	 */
 	checkForHiding() {
 		// Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
-		const standalone = Ember.get(navigator, 'standalone'),
-			config = this.get('config');
+		const config = this.get('config');
 
 		// Don't show banner if device isn't iOS or Android, website is loaded in app or user dismissed banner
-		if (this.get('system') && !standalone &&
+		if (!supportsNativeSmartBanner && !standalone &&
 			config.name && !config.disabled &&
 			Ember.$.cookie('sb-closed') !== '1'
 		) {

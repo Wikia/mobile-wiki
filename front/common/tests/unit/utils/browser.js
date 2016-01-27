@@ -29,9 +29,19 @@ QUnit.module('mercury/utils/browser', function () {
 				userAgent: testCase.userAgent
 			};
 
-			this.equal(require('common/utils/browser').getSystem(), testCase.expectedOutput);
+			this.equal(require('common/utils/browser').system, testCase.expectedOutput);
 		});
 
 		window.navigator = originalNavigator;
+	});
+
+	QUnit.test('detects if browser is stanalone', function () {
+
+
+	});
+
+	QUnit.test('detects if browser support native smart banner', function () {
+
+
 	});
 });

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import {trackPerf} from 'common/utils/trackPerf';
-import {getSystem} from 'common/utils/browser';
+import {system} from 'common/utils/browser';
 
 /**
  * HTMLMouseEvent
@@ -33,8 +33,6 @@ export default Ember.Component.extend({
 	}),
 
 	systemClass: Ember.computed(() => {
-		const system = getSystem();
-
 		return system ? `system-${system}` : '';
 	}),
 

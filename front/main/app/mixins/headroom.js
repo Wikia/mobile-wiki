@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {getSystem} from 'common/utils/browser';
+import {system} from 'common/utils/browser';
 
 export default Ember.Mixin.create({
 	headroom: null,
@@ -13,7 +13,7 @@ export default Ember.Mixin.create({
 
 	offset: Ember.computed('smartBannerVisible', function () {
 		if (this.get('smartBannerVisible')) {
-			return this.get(`smartBannerHeight.${getSystem()}`);
+			return this.get(`smartBannerHeight.${system}`);
 		}
 
 		return 0;
