@@ -2,9 +2,7 @@ export default Ember.Service.extend({
 	confirmButtonText: '',
 	confirmCallback: Function.prototype,
 	header: '',
-	isConfirm: Ember.computed('confirmButtonText', function () {
-		return Boolean(this.get('confirmButtonText'));
-	}),
+	isConfirm: Ember.computed.notEmpty('confirmButtonText'),
 	isDisplayed: false,
 	message: '',
 
