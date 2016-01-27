@@ -46,7 +46,6 @@ export function initialize() {
 	// TODO: Krux segmenting not implemented in Mercury https://wikia-inc.atlassian.net/browse/HG-456
 	// ga(prefix + 'set', 'dimension16', getKruxSegment());
 	dimensions[17] = Mercury.wiki.vertical;
-	// dimension[19] - articleType is being set in models/article.js
 
 	if (adsContext) {
 		// Hub

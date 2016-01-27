@@ -38,10 +38,9 @@ export default Ember.Component.extend(
 		 */
 		didReceiveAttrs() {
 			Ember.run.schedule('afterRender', this, () => {
-
 				setTrackContext({
 					a: this.get('title'),
-					n: this.get('ns')
+					n: this.get('ns'),
 				});
 
 				updateTrackedUrl(window.location.href);
