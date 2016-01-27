@@ -36,7 +36,6 @@ import CuratedContentEditorItemModel from '../models/curated-content-editor-item
  * @property {CuratedContentEditorItemModel[]} curated
  * @property {CuratedContentEditorItemModel[]} optional
  * @property {Boolean} isDirty
- * @property {Boolean} enableCommunityData
  */
 
 const CuratedContentEditorModel = Ember.Object.extend({
