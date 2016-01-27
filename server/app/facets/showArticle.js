@@ -40,7 +40,7 @@ function redirectToMainPage(reply, article) {
 		 * @returns {void}
 		 */
 		.catch((error) => {
-			Logger.error('WikiVariables error', error);
+			Logger.error(error, 'WikiVariables error');
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		});
 }
@@ -63,12 +63,10 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 	if (data.article.data && data.article.data.isMainPage && data.article.data.mainPageData) {
 		result = deepExtend(result, prepareMainPageData(data));
 		delete result.adsContext;
-		// @todo XW-596 we shouldn't rely on side effects of this function
-		Tracking.handleResponseCuratedMainPage(result, request);
-	} else {
-		// @todo XW-596 we shouldn't rely on side effects of this function
-		Tracking.handleResponse(result, request);
 	}
+
+	// @todo XW-596 we shouldn't rely on side effects of this function
+	Tracking.handleResponse(result, request);
 
 	response = reply.view('article', result);
 	response.code(code);
@@ -106,7 +104,7 @@ function getArticle(request, reply, article, allowCache) {
 		 * @returns {void}
 		 */
 		.catch(WikiVariablesRequestError, (error) => {
-			Logger.error('WikiVariables error', error);
+			Logger.error(error, 'WikiVariables error');
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
 		/**
@@ -117,7 +115,7 @@ function getArticle(request, reply, article, allowCache) {
 			const data = error.data,
 				errorCode = getStatusCode(data.article, 500);
 
-			Logger.error('Article error', data.article.exception);
+			Logger.error(data.article.exception, 'Article error');
 
 			// It's possible that the article promise is rejected but we still want to redirect to canonical host
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
@@ -138,7 +136,7 @@ function getArticle(request, reply, article, allowCache) {
 		 * @returns {void}
 		 */
 		.catch((error) => {
-			Logger.fatal('Unhandled error, code issue', error);
+			Logger.fatal(error, 'Unhandled error, code issue');
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		});
 }

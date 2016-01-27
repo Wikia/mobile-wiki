@@ -110,7 +110,7 @@ figcaption {
 .article-video::before,
 .comment-video::before {
 	background: {
-		image: url('/front/common/symbols/play.svg');
+		image: $media-play-svg;
 		position: 10px 10px;
 		repeat: no-repeat;
 		size: 45px;

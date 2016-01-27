@@ -1,12 +1,6 @@
 // Use Wikia style guide settings
 @import '../../bower_components/wikia-style-guide/src/scss/lib/settings';
 
-// @TODO XW-869 this is a temporary solution
-// source: /front/common/public/symbols/brackets.svg
-$brackets-svg-image: url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22185%22%20height%3D%22185%22%20viewBox%3D%220%200%20185%20185%22%3E%3Cpath%20d%3D%22M66.8%20112.894H54.84V72.167H66.8V57.353H33.146v70.292H66.8zm61.566-55.54h-10.158v14.813h11.948v40.224h-11.948v15.255h33.648v-70.29z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E);
-// source: /front/main/app/main/symbols/embedded
-$curated-content-editor-add-image-svg: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2277%22%20height%3D%2255%22%20viewBox%3D%220%200%2077%2055%22%3E%0A%20%20%3Cg%20fill%3D%22%23C5CED9%22%20fill-rule%3D%22evenodd%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M.483%209.375H49.18v4.39H4.896V49.8H62.81V27.163h4.393v27.15H.483V9.374M53.595%209.375h22.657v4.338H53.595V9.375z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M62.772.122h4.302V22.97h-4.302V.12zM7.395%2046.41h52.307l-12.13-10.24-8.338%203.67-14.858-15.596L7.396%2046.41M40.5%2025.536c0-3.032%202.438-5.49%205.445-5.49s5.444%202.458%205.444%205.49-2.438%205.49-5.445%205.49-5.445-2.458-5.445-5.49%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E);
-
 $auth-content-background-color: $color-white;
 $body-background: $color-blue-dark;
 $button-color: $color-blue-light;
@@ -71,6 +65,8 @@ $discussion-error-dialog-background-color: $color-white;
 $discussion-error-dialog-button-hover-background-color: #f6f6f6;
 $discussion-error-dialog-separator-color: #e6e6e6;
 
+$discussion-empty-forum-message-border-color: #e6e6e6;
+
 $discussion-page-width: 507px;
 
 $collapsible-menu-border-color: #d0d0d0;
@@ -128,6 +124,8 @@ $dark-discussion-contributors-rail-title: $color-white;
 $dark-discussion-editor-background-color: #262626;
 $dark-discussion-editor-border-color: #666;
 $dark-discussion-editor-toolbar-background-color: #333;
+
+$dark-discussion-empty-forum-message-border-color: #666;
 
 $dark-collapsible-menu-border-color: $collapsible-menu-border-color;
 $dark-collapsible-menu-title-color: $collapsible-menu-title-color;

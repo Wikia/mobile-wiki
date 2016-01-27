@@ -152,8 +152,8 @@ class Ads {
 
 		GATracker = new UniversalAnalytics();
 
-		GATracker.track('ads-sourcepoint-detection', 'impression', value, 0, false);
-		Ads.gaTrackAdEvent.call(this, 'ad/sourcepoint/detection', value, '', 0, false);
+		GATracker.track('ads-sourcepoint-detection', 'impression', value, 0, true);
+		Ads.gaTrackAdEvent.call(this, 'ad/sourcepoint/detection', value, '', 0, true);
 
 		Ads.blocking = value === 'Yes';
 	}
