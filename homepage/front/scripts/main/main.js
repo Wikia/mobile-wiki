@@ -1,10 +1,13 @@
-import {loadGlobalData, getLoginUrl, getJaCommunityUrl, getJaUniversityUrl, getStartWikiaUrl} from './globals';
+import * as globals from './globals';
+import {loadSearch} from './search';
 
 /**
+ * Perform search
  * @returns {void}
  */
 function search(isTopNav = true) {
-	let searchText;
+	let searchText = encodeURI($('#searchWikiaText').val()),
+		searchUrl;
 
 	if (isTopNav) {
 		searchText = encodeURI($('#searchWikiaText').val());
@@ -23,12 +26,44 @@ function search(isTopNav = true) {
 	}
 
 	if (searchText) {
-		window.location.href = `http://ja.wikia.com/Special:Search?search=${searchText}&fulltext=Search&resultsLang=ja`;
+		if (window.optimizely.variationMap[globals.getOptimizelyId()] === 1) {
+			// Use Google search
+			if (window.location.pathname === '/') {
+				searchUrl = `search?q=${searchText}`;
+			} else {
+				searchUrl = `/search?q=${searchText}`;
+			}
+		} else {
+			// Use Oasis search
+			searchUrl = `http://ja.wikia.com/Special:Search?search=${searchText}&fulltext=Search&resultsLang=ja`;
+		}
+
+		window.location.href = searchUrl;
 	}
+}
+
+/**
+ * Hides the loading indicator
+ * @returns {void}
+ */
+function hideLoadingIndicator() {
+	$('#loading').addClass('loading-done');
+	$('.hero-prev').removeClass('hero-hide-arrow');
+	$('.hero-next').removeClass('hero-hide-arrow');
 }
 
 $(() => {
 	const headings = $('.grid-heading');
+
+	// Hide loading indicator after load complete
+	$(window).load(() => {
+		hideLoadingIndicator();
+	});
+
+	// Or after 6 seconds
+	setTimeout(() => {
+		hideLoadingIndicator();
+	}, 6000);
 
 	$('.hero-carousel').slick({
 		arrows: false,
@@ -104,7 +139,9 @@ $(() => {
 	headings.bigText({maximumFontSize: 20, verticalAlign: 'top'});
 	headings.css({padding: '.1rem'});
 
-	loadGlobalData();
+	globals.loadGlobalData().then((data) => {
+		loadSearch(data.mobileBreakpoint);
+	});
 });
 
 $('#beginnersGuide').click((event) => {
@@ -123,11 +160,11 @@ $('.search-wikia').click((event) => {
 });
 
 $('.jw-community-link').click(() => {
-	window.location.href = getJaCommunityUrl();
+	window.location.href = globals.getJaCommunityUrl();
 });
 
 $('.jw-university-link').click(() => {
-	window.location.href = getJaUniversityUrl();
+	window.location.href = globals.getJaUniversityUrl();
 });
 
 $('.wiw-search-wikia-form').submit((event) => {
@@ -141,7 +178,7 @@ $('.wiw-search-wikia-button').click((event) => {
 });
 
 $('.wiw-start-wikia').click(() => {
-	window.location.href = getStartWikiaUrl();
+	window.location.href = globals.getStartWikiaUrl();
 });
 
 $('.hero-prev').click(function () {
@@ -159,16 +196,11 @@ $('.hero-next').click(function () {
 });
 
 $('#loginIcon').click((event) => {
-	if ($(document).width() < 710) {
+	if ($(document).width() < globals.getMobileBreakpoint()) {
 		$('#userInfoToggle').toggle();
 	} else {
-		window.location.href = getLoginUrl();
+		window.location.href = globals.getLoginUrl();
 	}
 
-	event.preventDefault();
-});
-
-$('#whatIsWikia').click((event) => {
-	window.location.href = '/beginners';
 	event.preventDefault();
 });

@@ -2,7 +2,7 @@ $discussion-user-list-padding: 30px;
 $discussion-user-list-hero-unit-avatar-size: 60px;
 $discussion-user-list-mobile-header-avatar-size: 30px;
 $discussion-user-list-item-desktop-side-padding: 30px;
-$discussion-user-list-item-mobile-side-padding: 15px;
+$discussion-user-list-item-mobile-side-padding: 18px;
 
 .discussion-user-list {
 	.discussion-hero-unit {
@@ -25,6 +25,7 @@ $discussion-user-list-item-mobile-side-padding: 15px;
 		.discussion-reply {
 			padding-left: $discussion-user-list-item-desktop-side-padding;
 			padding-right: $discussion-user-list-item-desktop-side-padding;
+			padding-top: 7px;
 		}
 
 		.user-replied-to {
