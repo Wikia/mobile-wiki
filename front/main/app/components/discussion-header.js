@@ -17,20 +17,6 @@ export default Ember.Component.extend(
 		sortMessageKey: Ember.computed.oneWay('discussionSort.sortMessageKey'),
 
 		actions: {
-			/**
-			 * @returns {void}
-			 */
-			showSortComponent() {
-				this.get('discussionSort').showSortComponent();
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			hideSortComponent() {
-				this.get('discussionSort').hideSortComponent();
-			},
-
 			toggleEditor(active) {
 				this.get('discussionEditor').toggleEditor(active);
 			}
