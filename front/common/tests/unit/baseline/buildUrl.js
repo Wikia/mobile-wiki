@@ -242,6 +242,7 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 
 		M.prop('servicesDomain', 'services.wikia.com');
 		M.prop('discussionBaseRoute', 'discussion');
+		M.prop('imageReviewBaseRoute', 'image-review');
 
 		testCases.forEach(function (testCase) {
 			assert.equal(M.getDiscussionServiceUrl(testCase.path, testCase.query), testCase.expectedOutput);
