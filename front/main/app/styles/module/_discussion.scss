@@ -312,10 +312,6 @@ body.discussions {
 	&.forum {
 		margin-top: $discussion-header-height;
 
-		.clamp {
-			@include clamp(3);
-		}
-
 		.post-detail {
 			margin-bottom: $post-details-post-margin-bottom;
 

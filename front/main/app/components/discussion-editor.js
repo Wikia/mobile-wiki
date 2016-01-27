@@ -82,22 +82,12 @@ export default Ember.Component.extend(ViewportMixin, {
 			function () {
 				if (!this.get('isSticky') && this.isStickyBreakpointHeight()) {
 					this.set('isSticky', true);
-					this.updateEllipses();
 				} else if (this.get('isSticky') && !this.isStickyBreakpointHeight()) {
 					this.set('isSticky', false);
-					this.updateEllipses();
 				}
 			},
 			25
 		);
-	},
-
-	/**
-	 * Re-render post content to make sure ellipses appear in the correct position.
-	 * @returns {void}
-	 */
-	updateEllipses() {
-		$('.post-details-link').hide().show(0);
 	},
 
 	/**
