@@ -1,3 +1,6 @@
+## release-203 hotfix 1 (2016-01-27 13:00 UTC)
+* release-203-XW-905: XW-905 | Upgrade New Relic agent to v1.25.1
+
 ## release-203 (2016-01-25 14:30 UTC)
 * [XW-960](https://wikia-inc.atlassian.net/browse/XW-960) XW-960 | update translations for explore-wiki
 * [XW-1024](https://wikia-inc.atlassian.net/browse/XW-1024) XW-1024 | Fix moving top bar, fix height on discussions and not only
