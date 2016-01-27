@@ -390,7 +390,11 @@ export class ArticleRequest extends BaseRequest {
 		return this.fetch(url);
 	}
 
-	/*
+	/**
+	 * @param {string} title title of edited article
+	 * @param {string} wikitext editor wikitext
+	 * @param {string} CKmarkup CK editor markup
+	 * @desc prepare POST request body before sending to API
 	 * @returns {Promise}
 	 */
 	articleFromMarkup(title, wikitext, CKmarkup) {
@@ -398,13 +402,10 @@ export class ArticleRequest extends BaseRequest {
 				controller: 'MercuryApi',
 				method: 'getArticleFromMarkup',
 			}),
-			data = {
-				wikitext: wikitext === 'undefined' ? '' : wikitext,
-				CKmarkup: CKmarkup === 'undefined' ? '' : CKmarkup,
-				title: title
-			};
-		return this.post(url, `wikitext=${wikitext}&CKmarkup=${CKmarkup}&title=${title}`);
-		//return this.post(url, JSON.stringify(data));
+			wikitextParam = wikitext === 'undefined' ? '' : `wikitext=${wikitext}&`,
+			CKmarkupParam = CKmarkup === 'undefined' ? '' : `CKmarkup=${CKmarkup}&`;
+
+		return this.post(url, `${wikitextParam}${CKmarkupParam}title=${title}`);
 	}
 }
 
