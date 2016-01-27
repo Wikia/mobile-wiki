@@ -6,8 +6,10 @@ var fs = require('fs'),
 	babel = require('gulp-babel'),
 	changed = require('gulp-changed'),
 	newer = require('gulp-newer'),
+	plumber = require('gulp-plumber'),
 	rename = require('gulp-rename'),
 	watch = require('gulp-watch'),
+	filendir = require('filendir'),
 	path = require('path'),
 	spawn = require('child_process').spawn,
 	nodeDeps = Object.keys(require('./package.json').dependencies),
@@ -55,6 +57,7 @@ gulp.task('build-server-node-modules', function () {
  */
 gulp.task('build-server-views-main', function () {
 	return gulp.src(paths.views.main.src)
+		.pipe(plumber())
 		.pipe(rename(paths.views.main.outputFilename))
 		// Ember rebuilds index.html on every change
 		// Let's not restart server unless this file is actually modified
@@ -90,35 +93,37 @@ gulp.task('build-server', [
 ]);
 
 /*
+ * Create www/front/main/index.html if it doesn't exist (it never does at this point
+ * because `ember build --watch` starts simultaneously with watch-server and takes much longer)
+ * We need this file to exist so it can be observed by gulp-watch
+ */
+gulp.task('create-dummy-main-index', function (done) {
+	filendir.writeFile(paths.views.main.src, '', {
+		flag: 'a'
+	}, done);
+});
+
+/*
  * Watch files that the server build depends on
  */
-gulp.task('watch-server', function () {
-	var mainIndexPath = path.join(process.cwd(), paths.views.main.src);
-
-	// Ember is built asynchronously (its first build finishes after this task is called)
-	// Because of that the front/main/index.html doesn't exist yet and we have to watch whole dir instead of single file
-	// There is no visible performance penalty
-	watch(paths.views.main.watch, {
-		read: false,
-		// index.html is on level 2, there is no point of watching anything that's deeper
-		depth: 2
-	}).on('add', function (file) {
-		if (file === mainIndexPath) {
-			gulp.start('build-server-views-main');
-		}
-	});
+gulp.task('watch-server', [
+	'create-dummy-main-index'
+], function () {
+	watch(paths.views.main.src, function () {
+		gulp.start('build-server-views-main');
+	}).on('error', exitOnError);
 
 	watch(paths.views.auth.src, function () {
 		gulp.start('build-server-views-auth');
-	});
+	}).on('error', exitOnError);
 
 	watch(paths.views.src, function () {
 		gulp.start('build-server-views');
-	});
+	}).on('error', exitOnError);
 
 	watch(paths.scripts.src, function () {
 		gulp.start('build-server-scripts');
-	});
+	}).on('error', exitOnError);
 });
 
 gulp.task('test-server', function () {
