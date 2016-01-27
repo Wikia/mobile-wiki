@@ -47,14 +47,15 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	afterModel(model) {
-		const exception = model.exception;
+		const exception = model.exception,
+			articleType = model.articleType;
 
 		if (!Ember.isEmpty(exception)) {
 			Ember.Logger.warn('Article model error:', exception);
 		}
 
-		if (model.articleType) {
-			UniversalAnalytics.setDimension(19,model. articleType);
+		if (articleType) {
+			UniversalAnalytics.setDimension(19, articleType);
 		}
 
 		// if an article is main page, redirect to mainPage route
