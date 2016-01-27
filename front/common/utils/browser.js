@@ -6,13 +6,9 @@
 export function getSystem() {
 	const ua = window.navigator.userAgent;
 
-	let system;
-
 	if (ua.match(/iPad|iPhone|iPod/i) !== null) {
-		system = 'ios';
+		return 'ios';
 	} else if (ua.match(/Android/i) !== null) {
-		system = 'android';
+		return 'android';
 	}
-
-	return system;
 }
