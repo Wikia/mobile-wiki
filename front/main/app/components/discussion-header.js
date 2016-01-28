@@ -8,6 +8,7 @@ export default Ember.Component.extend(
 
 		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
+		isFilterApplied: false,
 
 		overlayIsVisible: Ember.computed.oneWay('discussionSort.sortVisible'),
 
