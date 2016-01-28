@@ -9,9 +9,9 @@ const userAgent = navigator.userAgent;
 export let system,
 	standalone;
 
-if (userAgent.match(/iPad|iPhone|iPod/i) !== null) {
+if (/iPad|iPhone|iPod/i.test(userAgent)) {
 	system = 'ios';
-} else if (userAgent.match(/Android/i) !== null) {
+} else if (/Android/i.test(userAgent)) {
 	system = 'android';
 }
 
