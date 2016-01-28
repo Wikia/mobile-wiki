@@ -1,3 +1,16 @@
+## release-204 (2016-01-28 11:08 UTC)
+* fix-ember-tests-styles: Fix styles when running Ember tests in a browser
+* [XW-1019](https://wikia-inc.atlassian.net/browse/XW-1019) XW-1019 | scroll back to top while navigating through local nav
+* [PLATFORM-1833](https://wikia-inc.atlassian.net/browse/PLATFORM-1833) PLATFORM-1833 imageReviewBaseRoute fix
+* [XW-1035](https://wikia-inc.atlassian.net/browse/XW-1035) Click on clear should not close keyboard
+* [INT-285](https://wikia-inc.atlassian.net/browse/INT-285) INT-285 | Google custom search with Optimizely integration for Japan HP
+* [INT-320](https://wikia-inc.atlassian.net/browse/INT-320) INT-320 | Implement loading indicator
+* [INT-310](https://wikia-inc.atlassian.net/browse/INT-310) INT-310 | Final text and assets for hero slider
+* [ADEN-2812](https://wikia-inc.atlassian.net/browse/ADEN-2812) ADEN-2812 IVW3 tracker integration
+
+## release-203 hotfix 1 (2016-01-27 13:00 UTC)
+* release-203-XW-905: XW-905 | Upgrade New Relic agent to v1.25.1
+
 ## release-203 (2016-01-25 14:30 UTC)
 * [XW-960](https://wikia-inc.atlassian.net/browse/XW-960) XW-960 | update translations for explore-wiki
 * [XW-1024](https://wikia-inc.atlassian.net/browse/XW-1024) XW-1024 | Fix moving top bar, fix height on discussions and not only

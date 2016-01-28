@@ -145,6 +145,10 @@
     "curated-content-editor-new-featured-content":"新しい注目のコンテンツ",
     "curated-content-editor-new-section":"新しいセクション",
     "curated-content-editor-new-category":"新しいカテゴリ",
+    "curated-content-editor-wikia-description": "Description",
+    "curated-content-editor-wikia-description-help": "Something as simple as \"Learn more about the Bacon Wiki\" or \"Welcome to the Bacon Wiki\" is great!",
+    "curated-content-editor-enter-wikia-description": "Enter description here",
+    "curated-content-editor-wikia-description-description": "あなたのウィキアを検索結果やハブで紹介するための短い説明文を追加してください。",
     "explore-wiki":"__wikiName__を見る"
   },
   "userStatus":{
