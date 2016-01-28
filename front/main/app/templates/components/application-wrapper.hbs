@@ -1,10 +1,4 @@
-{{#if editorPreview}}
-	<div class="page-wrapper editor-preview" lang={{language.content}} dir={{language.contentDir}}>
-		<section class='wiki-container'>
-			{{outlet}}
-		</section>
-	</div>
-{{else if fullPage}}
+{{#if fullPage}}
 	{{outlet}}
 {{else}}
 	{{smart-banner

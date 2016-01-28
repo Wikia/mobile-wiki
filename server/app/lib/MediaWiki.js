@@ -400,10 +400,10 @@ export class ArticleRequest extends BaseRequest {
 	articleFromMarkup(title, wikitext, CKmarkup) {
 		const url = createUrl(this.wikiDomain, 'wikia.php', {
 				controller: 'MercuryApi',
-				method: 'getArticleFromMarkup',
+				method: 'getArticleFromMarkup'
 			}),
-			wikitextParam = wikitext === 'undefined' ? '' : `wikitext=${wikitext}&`,
-			CKmarkupParam = CKmarkup === 'undefined' ? '' : `CKmarkup=${CKmarkup}&`;
+			wikitextParam = wikitext ? '' : `wikitext=${wikitext}&`,
+			CKmarkupParam = CKmarkup ? '' : `CKmarkup=${CKmarkup}&`;
 
 		return this.post(url, `${wikitextParam}${CKmarkupParam}title=${title}`);
 	}

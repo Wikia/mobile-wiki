@@ -14,8 +14,8 @@ export default function editorPreview(request, reply) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		params = {
 			wikiDomain,
-			wikitext: decodeURIComponent(request.payload.wikitext) || false,
-			CKmarkup: decodeURIComponent(request.payload.CKmarkup) || false,
+			wikitext: request.payload.wikitext,
+			CKmarkup: request.payload.CKmarkup,
 			title: request.payload.title || ''
 		},
 		article = new Article.ArticleRequestHelper(params);
@@ -27,7 +27,6 @@ export default function editorPreview(request, reply) {
 		 */
 		.then((payload) => {
 			let content = JSON.parse(payload),
-				result,
 				response,
 				articleData;
 
@@ -35,31 +34,9 @@ export default function editorPreview(request, reply) {
 				throw new Error('Bad data received from API');
 			}
 
-			console.log("content.data", content.data)
+			articleData = prepareArticleDataToPreview(content.data, content.wikiVariables);
 
-			result = {
-				article: {
-					data: content.data,
-					adsContext: {},
-					details: {
-						id: 0,
-						title: '',
-						revision: {},
-						type: 'article'
-					},
-					htmlTitle: '',
-					preview: true
-				},
-				wikiVariables: content.wikiVariables || {},
-				server: {
-					cdnBaseUrl: getCDNBaseUrl(localSettings)
-				}
-			};
-
-			articleData = prepareArticleDataToPreview(request, result);
-
-			// @todo why is this needed for the images to load?
-			result.tracking = localSettings.tracking;
+			console.log("articleData.article", articleData.article);
 
 			response = reply.view('article', articleData);
 			response.code(200);

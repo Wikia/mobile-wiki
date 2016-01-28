@@ -20,6 +20,10 @@ Router.map(function () {
 		path: articlePath + Mercury.wiki.mainPageTitle
 	});
 
+	this.route('editor-preview', {
+		path: '/editorPreview/'
+	});
+
 	this.route('mainPageSection', {
 		path: '/main/section/:sectionName'
 	});
