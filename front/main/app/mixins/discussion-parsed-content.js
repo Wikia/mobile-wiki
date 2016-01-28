@@ -7,6 +7,12 @@ import truncate from '../utils/truncate';
  */
 export default Ember.Mixin.create({
 	autolinkerConfig: {},
+	/**
+	 * Property used to truncate the post body to 148 chars.
+	 * This property is set only in Firefox and in IE, because in other browsers works 'line-clamp' css property.
+	 * This is hack for the browsers that do not support 'line-clamp'.
+	 */
+	shouldUseTruncationHack: (/Firefox|Trident|Edge/).test(navigator.userAgent),
 
 	/**
 	 * Returns content with links created from urls and converts \n, \rn and \r to <br>
@@ -17,7 +23,7 @@ export default Ember.Mixin.create({
 			this.get('post.rawContent')
 		).trim();
 
-		if (!this.get('isDetailsView')) {
+		if (!this.get('isDetailsView') && this.get('shouldUseTruncationHack')) {
 			escapedContent = truncate(escapedContent, 148);
 		}
 

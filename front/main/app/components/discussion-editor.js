@@ -69,7 +69,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 */
 	style: Ember.computed('isSticky', function () {
 		return this.get('isSticky') === true ?
-			`height: ${this.$('.editor-container').outerHeight(true) + this.$('.editor-label').outerHeight()}px` :
+			`height: ${this.$('.editor-container').outerHeight(true)}px` :
 			null;
 	}),
 
