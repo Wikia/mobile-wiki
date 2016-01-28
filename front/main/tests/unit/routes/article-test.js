@@ -13,8 +13,6 @@ moduleFor('route:article', 'Integration | Route | article', {
 	afterEach() {
 		document.title = originalDocumentTitle;
 		Mercury.wiki = originalWikiVariables;
-
-		$(document.head).find('link[rel=canonical]').remove();
 	}
 });
 
@@ -42,12 +40,11 @@ test('sets correct canonical link without existing element', function (assert) {
 		model = Ember.Object.create({
 			url: '/wiki/Kermit'
 		}),
-		canonicalUrl = '<link rel="canonical" href="http://muppet.wikia.com/wiki/Kermit">';
+		canonicalLinkTag = '<link rel="canonical" href="http://muppet.wikia.com/wiki/Kermit">';
 
 	Mercury.wiki.basePath = 'http://muppet.wikia.com';
 	route.updateCanonicalLinkTag(model);
-
-	assert.equal($(document.head).find('link[rel=canonical]').prop('outerHTML'), canonicalUrl);
+	assert.equal($(document.head).find('link[rel=canonical]').prop('outerHTML'), canonicalLinkTag);
 });
 
 test('sets correct canonical link with existing element', function (assert) {
@@ -62,7 +59,7 @@ test('sets correct canonical link with existing element', function (assert) {
 	assert.equal($(document.head).find('link[rel=canonical]').prop('outerHTML'), canonicalLinkTag);
 });
 
-test('sets correct description meta tag without existing element', function (assert) {
+test('sets correct description meta tag with existing empty hardcoded element in index.html', function (assert) {
 	const route = this.subject(),
 		description = 'Article description',
 		descriptionMetaTag = `<meta name="description" content="${description}">`,
@@ -84,4 +81,31 @@ test('sets correct description meta tag with existing element', function (assert
 
 	route.updateDescriptionMetaTag(model);
 	assert.equal($(document.head).find('meta[name=description]').prop('outerHTML'), descriptionMetaTag);
+});
+
+test('sets correct apple-itunes-app meta tag without existing element', function (assert) {
+	const route = this.subject(),
+		model = Ember.Object.create({
+			url: '/wiki/Geralt_of_Rivia'
+		}),
+		iOSSmartBannerMetaTag = '<meta name="apple-itunes-app" content="app-id=951103682, app-argument=http://witcher.wikia.com/wiki/Geralt_of_Rivia">';
+
+	Mercury.wiki.smartBanner.appId.ios = '951103682';
+	Mercury.wiki.basePath = 'http://witcher.wikia.com';
+	route.updateIOSSmartBannerMetaTag(model);
+	assert.equal($(document.head).find('meta[name=apple-itunes-app]').prop('outerHTML'), iOSSmartBannerMetaTag);
+});
+
+
+test('sets correct apple-itunes-app meta tag with existing element', function (assert) {
+	const route = this.subject(),
+		model = Ember.Object.create({
+			url: '/wiki/Teemo'
+		}),
+		iOSSmartBannerMetaTag = '<meta name="apple-itunes-app" content="app-id=739258886, app-argument=http://leagueoflegends.wikia.com/wiki/Teemo">';
+
+	Mercury.wiki.smartBanner.appId.ios = '739258886';
+	Mercury.wiki.basePath = 'http://leagueoflegends.wikia.com';
+	route.updateIOSSmartBannerMetaTag(model);
+	assert.equal($(document.head).find('meta[name=apple-itunes-app]').prop('outerHTML'), iOSSmartBannerMetaTag);
 });
