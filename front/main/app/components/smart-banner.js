@@ -2,6 +2,11 @@ import Ember from 'ember';
 import {track as mercuryTrack, trackActions} from 'common/utils/track';
 import {system, standalone} from 'common/utils/browser';
 
+/**
+ * Component for a custom Smart Banner
+ * it's visible only for Android devices
+ * iOS has its own native smart banner - no need to render it there
+ */
 export default Ember.Component.extend({
 	classNames: ['smart-banner'],
 	classNameBindings: ['noIcon'],
@@ -22,40 +27,26 @@ export default Ember.Component.extend({
 	appScheme: Ember.computed.oneWay(`config.appScheme.${system}`),
 	config: Ember.getWithDefault(Mercury, 'wiki.smartBanner', {}),
 	dbName: Ember.get(Mercury, 'wiki.dbName'),
-
 	description: Ember.computed.oneWay('config.description'),
-
 	icon: Ember.computed.oneWay('config.icon'),
 
 	iconStyle: Ember.computed('icon', function () {
 		return new Ember.Handlebars.SafeString(`background-image: url(${this.get('icon')})`);
 	}),
 
-	labelInStore: Ember.computed(function () {
-		return i18n.t(`app.smartbanner-store-${system}`);
-	}),
+	isVisible: system === 'android',
+	labelInStore: i18n.t(`app.smartbanner-store-${system}`),
+	labelInstall: i18n.t(`app.smartbanner-install-${system}`),
 
-	labelInstall: Ember.computed(function () {
-		return i18n.t(`app.smartbanner-install-${system}`);
-	}),
-
-	link: Ember.computed('appId', 'dbName', 'system', function () {
+	link: Ember.computed('appId', 'dbName', function () {
 		const appId = this.get('appId');
 
-		let link;
-
-		if (system === 'android') {
-			link = `https://play.google.com/store/apps/details?id=${appId}` +
+		return `https://play.google.com/store/apps/details?id=${appId}` +
 				`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get('dbName')}`;
-		} else {
-			link = `https://itunes.apple.com/${this.get('options.appStoreLanguage')}/app/id${appId}`;
-		}
 
-		return link;
 	}),
 
 	noIcon: Ember.computed.not('icon'),
-
 	title: Ember.computed.oneWay('config.name'),
 
 	actions: {
@@ -121,8 +112,6 @@ export default Ember.Component.extend({
 		) {
 			this.sendAction('toggleVisibility', true);
 			this.track(trackActions.impression);
-		} else {
-			this.set('isVisible', false);
 		}
 	},
 
@@ -173,7 +162,7 @@ export default Ember.Component.extend({
 		mercuryTrack({
 			action,
 			category: 'smart-banner',
-			label: Ember.get(Mercury, 'wiki.dbName')
+			label: this.get('dbName')
 		});
 	},
 });
