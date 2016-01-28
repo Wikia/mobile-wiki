@@ -8,6 +8,7 @@ export default Ember.Component.extend(
 	TrackClickMixin,
 	{
 		classNames: ['curated-content-editor'],
+		enableCommunityData: Ember.get(Mercury, 'wiki.enableCommunityData'),
 
 		/**
 		 * When user enters curated content editor we want to clear all notifications that might be still there
@@ -45,6 +46,13 @@ export default Ember.Component.extend(
 			 */
 			editBlockItem(item, block) {
 				this.sendAction('editBlockItem', item, block);
+			},
+
+			/**
+			 * @returns {void}
+			 */
+			editWikiaDescription() {
+				this.sendAction('editWikiaDescription');
 			},
 
 			/**

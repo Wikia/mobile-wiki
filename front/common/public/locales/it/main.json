@@ -145,6 +145,10 @@
     "curated-content-editor-new-featured-content":"Nuovo contenuto in primo piano",
     "curated-content-editor-new-section":"Nuova sezione",
     "curated-content-editor-new-category":"Nuova categoria",
+    "curated-content-editor-wikia-description": "Description",
+    "curated-content-editor-wikia-description-help": "Something as simple as \"Learn more about the Bacon Wiki\" or \"Welcome to the Bacon Wiki\" is great!",
+    "curated-content-editor-enter-wikia-description": "Enter description here",
+    "curated-content-editor-wikia-description-description": "Aggiungi una descrizione che promuoverà la tua wiki nelle ricerche e negli hub.",
     "explore-wiki":"Esplora __wikiName__"
   },
   "userStatus":{
