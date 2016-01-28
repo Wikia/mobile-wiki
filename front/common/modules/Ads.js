@@ -144,12 +144,9 @@ class Ads {
 	 * @returns {void}
 	 */
 	trackBlocking(value) {
-		const dimensions = [];
-
 		let GATracker;
 
-		dimensions[6] = value;
-		UniversalAnalytics.setDimensions(dimensions);
+		UniversalAnalytics.setDimension(6, value);
 
 		GATracker = new UniversalAnalytics(isSpecialWiki());
 
