@@ -19,7 +19,7 @@
 			{{svg 'filter-dropdown-white' viewBox='0 0 7 4' class='icon dropdown'}}
 		</div>
 	{{/if}}
-	{{#if hasDeleteAll}}
+	{{#if canDeleteAll}}
 		<div {{action this.attrs.deleteAllPosts}} class="side-button delete-all">
 			{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
 			{{i18n 'main.delete-all' ns='discussion'}}

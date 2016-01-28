@@ -4,12 +4,12 @@ import HeadroomMixin from '../mixins/headroom';
 export default Ember.Component.extend(
 	HeadroomMixin,
 	{
+		canDeleteAll: false,
+
 		classNames: ['discussion-header', 'background-theme-color'],
 
 		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
-
-		hasDeleteAll: false,
 
 		overlayIsVisible: Ember.computed.oneWay('discussionSort.sortVisible'),
 
