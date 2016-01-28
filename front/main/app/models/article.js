@@ -165,6 +165,7 @@ ArticleModel.reopenClass({
 				articleProperties = $.extend(articleProperties, {
 					content: article.content,
 					mediaUsers: article.users,
+					type: article.type,
 					media: MediaModel.create({
 						media: article.media
 					}),
@@ -206,7 +207,8 @@ ArticleModel.reopenClass({
 				articleProperties.isCuratedMainPage = true;
 			}
 
-			articleProperties.articleType = data.articleType || data.article.type;
+			// @todo this will be cleaned up in XW-1053
+			articleProperties.articleType = articleProperties.type || data.articleType;
 		}
 
 		model.setProperties(articleProperties);
