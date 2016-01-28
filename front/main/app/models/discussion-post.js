@@ -132,6 +132,69 @@ DiscussionPostModel.reopenClass({
 				postInstance.setErrorProperty(err);
 			}
 		});
+	},
+
+	/**
+	 * @param {number} wikiId
+	 * @param {number} postId
+	 * @param {number} replyId
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	permalink(wikiId, postId, replyId) {
+		const postInstance = DiscussionPostModel.create({
+			wikiId,
+			postId,
+			replyId
+		});
+
+		return ajaxCall({
+			context: postInstance,
+			url: M.getDiscussionServiceUrl(`/${wikiId}/permalinks/posts/${replyId}`, {
+				limit: postInstance.replyLimit,
+				responseGroup: 'full',
+				sortDirection: 'descending',
+				sortKey: 'creation_date',
+				viewableOnly: false
+			}),
+			success: (data) => {
+				const contributors = [],
+					replies = data._embedded['doc:posts'];
+				let pivotId;
+
+				// If there are no replies to the first post, 'doc:posts' will not be returned
+				if (replies) {
+					pivotId = replies[0].id;
+					// See note in previous reverse above on why this is necessary
+					replies.reverse();
+
+					replies.forEach((reply) => {
+						if (reply.hasOwnProperty('createdBy')) {
+							reply.createdBy.profileUrl = M.buildUrl({
+								namespace: 'User',
+								title: reply.createdBy.name
+							});
+							contributors.push(reply.createdBy);
+						}
+					});
+				}
+				postInstance.setProperties({
+					contributors,
+					forumId: data.forumId,
+					firstPost: data._embedded.firstPost[0],
+					id: data.id,
+					isDeleted: data.isDeleted,
+					page: 0,
+					pivotId,
+					postCount: data.postCount,
+					replies: replies || [],
+					title: data.title,
+					upvoteCount: data.upvoteCount
+				});
+			},
+			error: (err) => {
+				postInstance.setErrorProperty(err);
+			}
+		});
 	}
 });
 
