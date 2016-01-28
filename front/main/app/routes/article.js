@@ -137,6 +137,7 @@ export default Ember.Route.extend({
 		this.updateTitleTag(model);
 		this.updateCanonicalLinkTag(model);
 		this.updateDescriptionMetaTag(model);
+		this.updateIOSSmartBannerMetaTag(model);
 	},
 
 	/**
@@ -178,5 +179,22 @@ export default Ember.Route.extend({
 		}
 
 		$descriptionMetaTag.prop('content', description);
+	},
+
+	/**
+	 * @param {ArticleModel} model
+	 * @returns {void}
+	 */
+	updateIOSSmartBannerMetaTag(model) {
+		const appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios'),
+			canonicalUrl = Ember.get(Mercury, 'wiki.basePath') + model.get('url');
+
+		let $descriptionMetaTag = Ember.$('head meta[name=apple-itunes-app]');
+
+		if (Ember.isEmpty($descriptionMetaTag)) {
+			$descriptionMetaTag = Ember.$('<meta name="apple-itunes-app">').appendTo('head');
+		}
+
+		$descriptionMetaTag.prop('content', `app-id=${appId}, app-argument=${canonicalUrl}`);
 	}
 });
