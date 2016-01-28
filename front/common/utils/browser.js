@@ -7,7 +7,6 @@
 const userAgent = navigator.userAgent;
 
 export let system,
-	supportsNativeSmartBanner,
 	standalone;
 
 if (userAgent.match(/iPad|iPhone|iPod/i) !== null) {
