@@ -23,8 +23,8 @@ export default Ember.Component.extend({
 	},
 	day: 86400000,
 
-	appId: Ember.computed.oneWay(`config.appId.${system}`),
-	appScheme: Ember.computed.oneWay(`config.appScheme.${system}`),
+	appId: Ember.computed.oneWay(`config.appId.android`),
+	appScheme: Ember.computed.oneWay(`config.appScheme.android`),
 	config: Ember.getWithDefault(Mercury, 'wiki.smartBanner', {}),
 	dbName: Ember.get(Mercury, 'wiki.dbName'),
 	description: Ember.computed.oneWay('config.description'),
@@ -33,9 +33,6 @@ export default Ember.Component.extend({
 	iconStyle: Ember.computed('icon', function () {
 		return new Ember.Handlebars.SafeString(`background-image: url(${this.get('icon')})`);
 	}),
-
-	labelInStore: i18n.t(`app.smartbanner-store-${system}`),
-	labelInstall: i18n.t(`app.smartbanner-install-${system}`),
 
 	link: Ember.computed('appId', 'dbName', function () {
 		const appId = this.get('appId');
