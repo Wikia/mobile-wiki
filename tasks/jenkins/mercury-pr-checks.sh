@@ -4,8 +4,8 @@ set -e
 set -x
 set -o pipefail
 mkdir jenkins || rm -rf jenkins/* && true
-echo "githubToken=Authorization: token $GITHUB_TOKEN" > jenkins/params.txt
-echo "githubUrl=https://api.github.com/repos/Wikia/mercury/statuses/$GIT_COMMIT" >> jenkins/params.txt
+echo "githubToken=Authorization: token $GITHUB_TOKEN" > jenkins/params
+echo "githubUrl=https://api.github.com/repos/Wikia/mercury/statuses/$GIT_COMMIT" >> jenkins/params
 dependenciesDir="/var/lib/jenkins/workspace/Mercury-UPDATE-dependencies"
 
 # $1 - context
@@ -26,7 +26,7 @@ curl -s \
 # $4 - description
 # $5 - target url
 saveState() {
-echo $1="{ \"state\": \"$3\", \"description\": \"$4\", \"context\": \"$2\", \"target_url\": \"$5\" }" >> jenkins/params.txt
+echo $1="{ \"state\": \"$3\", \"description\": \"$4\", \"context\": \"$2\", \"target_url\": \"$5\" }" >> jenkins/params
 }
 
 ### Those tests depends on Build step
