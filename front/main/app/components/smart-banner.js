@@ -34,7 +34,6 @@ export default Ember.Component.extend({
 		return new Ember.Handlebars.SafeString(`background-image: url(${this.get('icon')})`);
 	}),
 
-	isVisible: system === 'android',
 	labelInStore: i18n.t(`app.smartbanner-store-${system}`),
 	labelInstall: i18n.t(`app.smartbanner-install-${system}`),
 
@@ -106,10 +105,7 @@ export default Ember.Component.extend({
 
 		// Show custom smart banner only when a device is Android
 		// website isn't loaded in app and user did not dismiss it already
-		if (system === 'android' && !standalone &&
-			name && !disabled &&
-			Ember.$.cookie('sb-closed') !== '1'
-		) {
+		if (system === 'android' && !standalone && name && !disabled && Ember.$.cookie('sb-closed') !== '1') {
 			this.sendAction('toggleVisibility', true);
 			this.track(trackActions.impression);
 		}
