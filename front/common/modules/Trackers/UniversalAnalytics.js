@@ -78,11 +78,13 @@ class UniversalAnalytics {
 	 */
 	syncDimensions() {
 		if (!UniversalAnalytics.dimensionsSynced) {
-			this.tracked.forEach((account) =>
-				UniversalAnalytics.dimensions.forEach((dimension, idx) =>
-					ga(`${UniversalAnalytics.getPrefix(account)}set`,
-						`dimension${idx}`,
-						UniversalAnalytics.getDimension(idx))));
+			this.tracked.forEach((account) => {
+				const prefix = UniversalAnalytics.getPrefix(account);
+
+				UniversalAnalytics.dimensions.forEach((dimension, idx) => {
+					ga(`${prefix}set`, `dimension${idx}`, UniversalAnalytics.getDimension(idx));
+				});
+			});
 
 			UniversalAnalytics.dimensionsSynced = true;
 		}
