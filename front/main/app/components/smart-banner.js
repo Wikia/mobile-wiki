@@ -111,12 +111,12 @@ export default Ember.Component.extend({
 	 * @returns {void}
 	 */
 	checkForHiding() {
-		// Check if it's already a standalone web app or running within a webui view of an app (not mobile safari)
-		const config = this.get('config');
+		const {name, disabled} = this.get('config');
 
-		// Don't show banner if device isn't iOS or Android, website is loaded in app or user dismissed banner
-		if (system !== 'ios' && !standalone &&
-			config.name && !config.disabled &&
+		// Show custom smart banner only when a device is Android
+		// website isn't loaded in app and user did not dismiss it already
+		if (system === 'android' && !standalone &&
+			name && !disabled &&
 			Ember.$.cookie('sb-closed') !== '1'
 		) {
 			this.sendAction('toggleVisibility', true);
