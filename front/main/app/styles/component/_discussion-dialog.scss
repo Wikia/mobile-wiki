@@ -13,10 +13,9 @@ $discussion-dialog-content-line-height: 24px;
 		max-width: 640px;
 		padding: 0;
 
-		h1 {
+		h3 {
 			font-size: $discussion-dialog-header-font-size;
 			line-height: $discussion-dialog-header-line-height;
-			margin: 24px 24px 0 24px;
 		}
 
 		.modal-dialog-content {
