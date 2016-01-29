@@ -7,7 +7,6 @@ export default Ember.Component.extend(
 	{
 		classNames: ['lightbox-video', 'lightbox-content-inner'],
 		classNameBindings: ['provider'],
-		videoLoader: null,
 
 		articleContentWidthObserver: Ember.observer('articleContent.width', function () {
 			if (this.get('videoLoader')) {
@@ -21,16 +20,23 @@ export default Ember.Component.extend(
 		 * As soon as the videoLoader will be set, the property will be changed.
 		 */
 		provider: Ember.computed('videoLoader', function () {
-			if (this.get('videoLoader')) {
-				return `video-provider-${this.videoLoader.getProviderName()}`;
+			const videoLoader = this.get('videoLoader');
+
+			if (videoLoader) {
+				return `video-provider-${videoLoader.getProviderName()}`;
 			}
+
 			return '';
+		}),
+
+		videoLoader: Ember.computed('model.embed', function () {
+			return new VideoLoader(this.get('model.embed'));
 		}),
 
 		/**
 		 * @returns {void}
 		 */
-		didInsertElement() {
+		didRender() {
 			this.initVideoPlayer();
 		},
 
@@ -40,15 +46,11 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		initVideoPlayer() {
-			const videoLoader = new VideoLoader(this.get('model.embed')),
-				selector = Ember.get(videoLoader, 'player.containerSelector');
+			const videoLoader = this.get('videoLoader'),
+				player = videoLoader.loadPlayerClass();
 
 			// Stop bubbling it up to the lightbox
-			this.$(selector).click(() => {
-				return false;
-			});
-
-			this.set('videoLoader', videoLoader);
+			this.$(player.containerSelector).click(() => false);
 		},
 	}
 );
