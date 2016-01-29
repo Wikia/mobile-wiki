@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
-import localStorageAdapter from '../utils/local-storage-adapter';
+import localStorageConnector from '../utils/local-storage-connector';
 
 const WikiaInYourLangModel = Ember.Object.extend(LanguagesMixin, {
 	message: null,
@@ -40,7 +40,7 @@ WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 				}
 
 				// write to cache
-				localStorageAdapter.setItem(
+				localStorageConnector.setItem(
 					WikiaInYourLangModel.getCacheKey(browserLang),
 					JSON.stringify({
 						model: modelInstance,
@@ -61,7 +61,7 @@ WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 	 */
 	getFromCache(browserLang) {
 		const key = WikiaInYourLangModel.getCacheKey(browserLang),
-			value = JSON.parse(localStorageAdapter.getItem(key)),
+			value = JSON.parse(localStorageConnector.getItem(key)),
 			now = new Date().getTime();
 
 		// we cache for 30 days (2592000000)

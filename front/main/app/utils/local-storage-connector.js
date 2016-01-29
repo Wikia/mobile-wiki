@@ -9,7 +9,7 @@
 /**
  * localStorage-compatible in-memory object
  */
-export const fakeLocalStorage = {
+export const localStorageAdapter = {
 	_data: {},
 
 	/**
@@ -60,4 +60,4 @@ export const fakeLocalStorage = {
  *
  * @returns {LocalStorage}
  */
-export default window.localStorage || fakeLocalStorage;
+export default window.localStorage || localStorageAdapter;
