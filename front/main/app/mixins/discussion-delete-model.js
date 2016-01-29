@@ -34,9 +34,9 @@ export default Ember.Mixin.create({
 				method: 'PUT',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/users/${posts[0].creatorId}/posts/delete`),
 				success: () => {
-					for (const post of posts) {
+					posts.forEach((post) => {
 						Ember.set(post, 'isDeleted', true);
-					}
+					});
 				},
 				error: () => {
 					this.displayError();
