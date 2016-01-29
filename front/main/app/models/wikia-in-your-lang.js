@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
-import localStorageAdapter from 'common/utils/localStorageAdapter';
+import localStorageAdapter from '../utils/local-storage-adapter';
 
 const WikiaInYourLangModel = Ember.Object.extend(LanguagesMixin, {
 	message: null,

@@ -2,8 +2,8 @@ import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import LanguagesMixin from '../mixins/languages';
 import WikiaInYourLangModel from '../models/wikia-in-your-lang';
+import localStorageAdapter from '../utils/local-storage-adapter';
 import {track, trackActions} from 'common/utils/track';
-import localStorageAdapter from 'common/utils/localStorageAdapter';
 
 export default Ember.Component.extend(
 	AlertNotificationsMixin,
