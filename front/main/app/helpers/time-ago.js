@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import moment from 'moment';
+import ajaxCall from '../utils/ajax-call';
 
 /**
  * Helper to give textual representation of time interval between past date
@@ -34,21 +35,28 @@ export default Ember.Helper.helper((params) => {
 				dd: '%d d'
 			}
 		},
-		language = Mercury.wiki.language.user || 'en',
+		language = Ember.get(Mercury, 'wiki.language.content'),
 		shouldHideAgoString = params[1] || true;
 
-	let output,
-		translationFile;
+	let output;
 
 	if (language !== 'en') {
 		Ember.$.getScript(M.buildUrl({path: `/front/main/assets/vendor/moment/locales/${language}.js`}));
+		ajaxCall({
+			url: M.buildUrl({path: `/front/common/locales/moment/${language}.json`}),
+			success: (data) => {
+				Ember.$.extend(config.relativeTime, data.relativeTime);
+				console.log('EXTENDED CONFIG IN PROMISE', config.relativeTime);
+			},
+			error: () => {}
+		});
+
+		console.log('EXTENDED CONFIG ', config.relativeTime);
+
 	}
-
-	translationFile = Ember.$.getJSON(M.buildUrl({path: `/front/common/locales/moment/${language}`}));
-	console.log('DOWNLOADED TRANSLATION FILE, ', translationFile);
-
+	//moment.locale(language);
 	moment.locale(language, {
-		relativeTime: config[language].relativeTime
+		relativeTime: config.relativeTime
 	});
 
 	if (moment().diff(date, 'days') > 5) {

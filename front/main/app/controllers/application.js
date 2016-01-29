@@ -65,7 +65,17 @@ export default Ember.Controller.extend(
 
 			this._super();
 		},
+		/*beforeModel() {
+			let language = Mercury.wiki.language.content;
+			//let language = Ember.get(Mercury, 'wiki.language.content') || 'pl';
 
+			console.log("WIKIA LANGUAGE", language);
+			if (language !== 'en') {
+				Ember.$.getScript(M.buildUrl({path: `/front/main/assets/vendor/moment/locales/${language}.js`}));
+			}
+			this.get('moment').changeLocale('pl');
+			console.log('WIKIA LOCALE', moment.locale());
+		},*/
 		actions: {
 			/**
 			 * Resets properties related to lightbox which causes it to close. Also unblocks scrolling.
