@@ -13,6 +13,7 @@ import WidgetTwitterComponent from '../components/widget-twitter';
 import WidgetVKComponent from '../components/widget-vk';
 import WidgetPolldaddyComponent from '../components/widget-polldaddy';
 import WidgetFliteComponent from '../components/widget-flite';
+import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 
 /**
  * HTMLElement
@@ -50,6 +51,8 @@ export default Ember.Component.extend(
 				return ImageMediaComponent.create();
 			}
 		},
+
+		/*
 		articleContentObserver: Ember.observer('content', function () {
 			const content = this.get('content');
 
@@ -77,6 +80,7 @@ export default Ember.Component.extend(
 				this.setupAdsContext(this.get('adsContext'));
 			});
 		}).on('init'),
+		*/
 
 		headerObserver: Ember.observer('headers', function () {
 			if (this.get('contributionEnabled')) {
@@ -92,6 +96,23 @@ export default Ember.Component.extend(
 				});
 			}
 		}),
+
+		init() {
+			this._super(...arguments);
+
+			this.renderComponent = getRenderComponentFor(this);
+			this.renderedComponents = [];
+		},
+
+		willRender() {
+			this.renderedComponents.forEach((renderedComponent) => {
+				renderedComponent.destroy();
+			});
+
+			Ember.run.scheduleOnce('afterRender', this, () => {
+				this.renderedComponents = queryPlaceholders(this.$()).map(this.renderComponent);
+			});
+		},
 
 		actions: {
 			/**
