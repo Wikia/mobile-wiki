@@ -15,20 +15,17 @@ export default Ember.Component.extend(
 		}),
 
 		/**
-		 * Computed property used to set class in template.
-		 * On the first launch this.videoLoader will not exist and it return ''.
-		 * As soon as the videoLoader will be set, the property will be changed.
+		 * @returns string
 		 */
 		provider: Ember.computed('videoLoader', function () {
 			const videoLoader = this.get('videoLoader');
 
-			if (videoLoader) {
-				return `video-provider-${videoLoader.getProviderName()}`;
-			}
-
-			return '';
+			return `video-provider-${videoLoader.getProviderName()}`;
 		}),
 
+		/**
+		 * @return VideoLoader
+		 */
 		videoLoader: Ember.computed('model.embed', function () {
 			return new VideoLoader(this.get('model.embed'));
 		}),
