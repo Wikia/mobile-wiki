@@ -120,7 +120,7 @@ function pruneParams(params) {
 /**
  * @returns {boolean}
  */
-function isSpecialWiki() {
+export function isSpecialWiki() {
 	try {
 		return Boolean(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
 	} catch (e) {

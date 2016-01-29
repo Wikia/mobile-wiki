@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ArticleModel from '../models/article';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
 import {normalizeToUnderscore} from 'common/utils/string';
+import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 
 export default Ember.Route.extend({
 	redirectEmptyTarget: false,
@@ -46,10 +47,15 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	afterModel(model) {
-		const exception = model.exception;
+		const exception = model.exception,
+			articleType = model.articleType;
 
 		if (!Ember.isEmpty(exception)) {
 			Ember.Logger.warn('Article model error:', exception);
+		}
+
+		if (articleType) {
+			UniversalAnalytics.setDimension(19, articleType);
 		}
 
 		// if an article is main page, redirect to mainPage route

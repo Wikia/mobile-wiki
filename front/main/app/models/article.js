@@ -206,13 +206,11 @@ ArticleModel.reopenClass({
 				articleProperties.mainPageData = data.mainPageData;
 				articleProperties.isCuratedMainPage = true;
 			}
+
+			// @todo this will be cleaned up in XW-1053
+			articleProperties.articleType = articleProperties.type || data.articleType;
 		}
 
-		// We could keep whole article in global but we want to discourage that but
-		// We need to update global article.type
-		// to allow eg. for analytics to use it
-		// TODO: Should analytics be part of ember? That should simplify how to pass stuff around.
-		M.prop('article.type', articleProperties.type, true);
 		model.setProperties(articleProperties);
 	}
 });
