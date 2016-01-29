@@ -35,11 +35,8 @@ export default Ember.Component.extend({
 	}),
 
 	link: Ember.computed('appId', 'dbName', function () {
-		const appId = this.get('appId');
-
-		return `https://play.google.com/store/apps/details?id=${appId}` +
+		return `https://play.google.com/store/apps/details?id=${this.get('appId')}` +
 				`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get('dbName')}`;
-
 	}),
 
 	noIcon: Ember.computed.not('icon'),
