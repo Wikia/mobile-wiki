@@ -3,6 +3,7 @@ import ArticleModel from '../models/article';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
 import {normalizeToUnderscore} from 'common/utils/string';
 import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
+import {system} from 'common/utils/browser';
 
 export default Ember.Route.extend({
 	redirectEmptyTarget: false,
@@ -195,7 +196,7 @@ export default Ember.Route.extend({
 		const appIdIOS = Ember.get(Mercury, 'wiki.smartBanner.appId.ios'),
 			canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${model.get('url')}`;
 
-		if (appIdIOS) {
+		if (system === 'ios') {
 			let $descriptionMetaTag = Ember.$('head meta[name=apple-itunes-app]');
 
 			if (Ember.isEmpty($descriptionMetaTag)) {
