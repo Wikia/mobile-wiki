@@ -138,7 +138,6 @@ export function post(url, data, host = '', redirects = 1, headers = {}) {
 	// 'always_populate_raw_post_data' to '-1' in php.ini and use the php://input stream instead.
 	// Which is thrown for requests using the payload instead of normal x-www-form-urlencoded requests.
 	//headers['Content-Type'] = 'application/json';
-
 	/**
 	 * @param {Function} resolve
 	 * @param {Function} reject
@@ -158,7 +157,6 @@ export function post(url, data, host = '', redirects = 1, headers = {}) {
 						url,
 						error: err
 					}, 'Error fetching url');
-
 					reject({
 						exception: {
 							message: 'Invalid response',
@@ -167,7 +165,7 @@ export function post(url, data, host = '', redirects = 1, headers = {}) {
 						}
 					});
 				} else if (response.statusCode === 200) {
-					console.log("body to string", body.toString());
+					console.log(body.toString())
 					resolve(body.toString());
 				} else {
 					const payload = {
@@ -402,8 +400,8 @@ export class ArticleRequest extends BaseRequest {
 				controller: 'MercuryApi',
 				method: 'getArticleFromMarkup'
 			}),
-			wikitextParam = wikitext ? '' : `wikitext=${wikitext}&`,
-			CKmarkupParam = CKmarkup ? '' : `CKmarkup=${CKmarkup}&`;
+			wikitextParam = wikitext ? `wikitext=${wikitext}&` : '',
+			CKmarkupParam = CKmarkup ? `CKmarkup=${CKmarkup}&` : '';
 
 		return this.post(url, `${wikitextParam}${CKmarkupParam}title=${title}`);
 	}

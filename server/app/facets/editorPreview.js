@@ -14,8 +14,8 @@ export default function editorPreview(request, reply) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		params = {
 			wikiDomain,
-			wikitext: request.payload.wikitext,
-			CKmarkup: request.payload.CKmarkup,
+			wikitext: request.payload.wikitext || '',
+			CKmarkup: request.payload.CKmarkup || '',
 			title: request.payload.title || ''
 		},
 		article = new Article.ArticleRequestHelper(params);
@@ -35,8 +35,6 @@ export default function editorPreview(request, reply) {
 			}
 
 			articleData = prepareArticleDataToPreview(content.data, content.wikiVariables);
-
-			console.log("articleData.article", articleData.article);
 
 			response = reply.view('article', articleData);
 			response.code(200);

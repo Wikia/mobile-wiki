@@ -36,12 +36,13 @@ export default function prepareArticleDataToPreview(data, wikiVariables = {}) {
 				cdnBaseUrl: getCDNBaseUrl(localSettings)
 			},
 			//required for UniversalAnalytics to work
-			tracking: localSettings.tracking,
+			tracking: localSettings.tracking
 		};
 
 	if (data.article) {
 		title = data.article.displayTitle || '';
-		// TODO: DO WE? we want to return the article content only once - as HTML and not JS variable
+		// we want to return the article content only once - as HTML and not JS variable
+		// and it will be displayed in article view and then replaced on fronted during the model creation
 		result.articleContent = data.article.content;
 		delete data.article.content;
 	}
@@ -56,25 +57,6 @@ export default function prepareArticleDataToPreview(data, wikiVariables = {}) {
 
 	// clone object to avoid overriding real localSettings for future requests
 	result.localSettings = deepExtend({}, localSettings);
-
-	//TODO: REMOVE THIS MOCK!!
-
-	result.article.data.article.media = [
-		{
-			type: "image",
-			url: "http://vignette-poz.wikia-dev.com/muppet/images/9/91/BB-Funny.jpg/revision/latest?cb=20160114013619",
-			fileUrl: "http://muppet.diana.wikia-dev.com/wiki/File:BB-Funny.jpg",
-			title: "BB-Funny.jpg",
-			user: "Oscarfan",
-			width: 622,
-			height: 470,
-			context: "article-image"
-		}
-	];
-
-	result.article.data.article.content = '<p>This is a test page </p> <p>óćżńłćżńćżłć </p> <p><br></p> <aside class="portable-infobox pi-background pi-theme-wikia pi-layout-default"><h2 class="pi-item pi-item-spacing pi-title">Jestę defoltę</h2> </aside> <p><br><img src="//:0" class="article-media" data-ref="0" width="622" height="470"></p>';
-
-	console.log(">>>>>>>>>>>>> dane po przetworzeniu: ", result);
 
 	return result;
 }
