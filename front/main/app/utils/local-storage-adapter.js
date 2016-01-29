@@ -7,54 +7,57 @@
  */
 
 /**
+ * localStorage-compatible in-memory object
+ */
+export const localStorageAdapter = {
+	_data: {},
+
+	/**
+	 * @param {string} key
+	 * @param {string} value
+	 * @returns {string}
+	 */
+	setItem(key, value) {
+		const val = String(value);
+
+		this._data[key] = val;
+		return val;
+	},
+
+	/**
+	 * @param {string} key
+	 * @returns {string|undefined}
+	 */
+	getItem(key) {
+		if (this._data.hasOwnProperty(key)) {
+			return this._data[key];
+		}
+
+		// non-explict return undefined
+	},
+
+	/*
+	 * @param {string} key
+	 * @returns {string}
+	 */
+	removeItem(key) {
+		const val = this._data[key];
+
+		delete this._data[key];
+		return val;
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	clear() {
+		this._data = {};
+	}
+};
+
+/**
  * Returns window.localStorage or compatible in-memory object
  *
  * @returns {LocalStorage}
  */
-export default window.localStorage ?
-	window.localStorage :
-	{
-		_data: {},
-
-		/**
-		 * @param {string} key
-		 * @param {string} value
-		 * @returns {string}
-		 */
-		setItem(key, value) {
-			const val = String(value);
-
-			this._data[key] = val;
-			return val;
-		},
-
-		/**
-		 * @param {string} key
-		 * @returns {*|undefined}
-		 */
-		getItem(key) {
-			if (this._data.hasOwnProperty(key)) {
-				return this._data[key];
-			}
-
-			// non-explict return undefined
-		},
-
-		/*
-		 * @param {string} key
-		 * @returns {string}
-		 */
-		removeItem(key) {
-			const val = this._data[key];
-
-			delete this._data[key];
-			return val;
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		clear() {
-			this._data = {};
-		}
-	};
+export default window.localStorage || localStorageAdapter;
