@@ -31,7 +31,7 @@ export default class VideoLoader {
 	/**
 	 * Loads player for the video, currently either OoyalaPlayer, YouTubePlayer or BasePlayer (default)
 	 *
-	 * @returns {void}
+	 * @returns {BasePlayer|OoyalaPlayer|YouTubePlayer}
 	 */
 	loadPlayerClass() {
 		const provider = this.getProviderName(),
@@ -70,7 +70,7 @@ export default class VideoLoader {
 	 * @param {string} playerClass
 	 * @param {string} provider
 	 * @param {Object} params
-	 * @returns {*}
+	 * @returns {BasePlayer|OoyalaPlayer|YouTubePlayer}
 	 */
 	static createPlayer(playerClass, provider, params) {
 		return new playerClass(provider, params);
