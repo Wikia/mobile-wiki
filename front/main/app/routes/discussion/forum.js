@@ -41,12 +41,12 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor('discussion.forum').loadPage(pageNum, this.get('discussionSort.sortBy'));
+				this.modelFor(this.routeName).loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
 			create(postData) {
 				this.setSortBy('latest').promise.then(() => {
-					this.modelFor('discussion.forum').createPost(postData);
+					this.modelFor(this.routeName).createPost(postData);
 				});
 			},
 

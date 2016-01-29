@@ -26,7 +26,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor('discussion.user').loadPage(pageNum);
+				this.modelFor(this.routeName).loadPage(pageNum);
 			}
 		}
 	}
