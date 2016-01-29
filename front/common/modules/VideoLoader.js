@@ -18,7 +18,6 @@ export default class VideoLoader {
 	 */
 	constructor(data) {
 		this.data = data;
-		this.loadPlayerClass();
 	}
 
 	/**
@@ -47,6 +46,8 @@ export default class VideoLoader {
 		this.player = VideoLoader.createPlayer(playerClass, provider, params);
 		this.player.setupPlayer();
 		this.player.onResize();
+
+		return this.player;
 	}
 
 	/**
