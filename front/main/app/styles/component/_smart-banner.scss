@@ -6,6 +6,7 @@
 	border-bottom: rem-calc(2) solid #8ca038;
 	box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.3);
 	display: flex;
+	height: $smart-banner-android-height;
 	width: 100%;
 	-webkit-font-smoothing: antialiased;
 
@@ -18,13 +19,6 @@
 
 .system-android {
 	.smart-banner {
-		height: $smart-banner-android-height;
-	}
-}
-
-.system-ios {
-	.smart-banner {
-		height: $smart-banner-ios-height;
 	}
 }
 

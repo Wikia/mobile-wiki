@@ -156,7 +156,7 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	updateCanonicalLinkTag(model) {
-		const canonicalUrl = Ember.get(Mercury, 'wiki.basePath') + model.get('url');
+		const canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${model.get('url')}`;
 		let $canonicalLinkTag = Ember.$('head link[rel=canonical]');
 
 		if (Ember.isEmpty($canonicalLinkTag)) {
@@ -187,7 +187,7 @@ export default Ember.Route.extend({
 	 */
 	updateIOSSmartBannerMetaTag(model) {
 		const appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios'),
-			canonicalUrl = Ember.get(Mercury, 'wiki.basePath') + model.get('url');
+			canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${model.get('url')}`;
 
 		let $descriptionMetaTag = Ember.$('head meta[name=apple-itunes-app]');
 
