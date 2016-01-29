@@ -193,14 +193,18 @@ export default Ember.Route.extend({
 	 */
 	updateIOSSmartBannerMetaTag(model) {
 		const appIdIOS = Ember.get(Mercury, 'wiki.smartBanner.appId.ios'),
-			canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${model.get('url')}`;
+			articleUrl = model.get('url');
 
-		let $descriptionMetaTag = Ember.$('head meta[name=apple-itunes-app]');
+		let $descriptionMetaTag = Ember.$('head meta[name=apple-itunes-app]'),
+			canonicalUrl;
 
 		if (Ember.isEmpty($descriptionMetaTag)) {
 			$descriptionMetaTag = Ember.$('<meta name="apple-itunes-app">').appendTo('head');
 		}
 
-		$descriptionMetaTag.prop('content', `app-id=${appIdIOS}, app-argument=${canonicalUrl}`);
+		if (articleUrl) {
+			canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${articleUrl}`;
+			$descriptionMetaTag.prop('content', `app-id=${appIdIOS}, app-argument=${canonicalUrl}`);
+		}
 	}
 });
