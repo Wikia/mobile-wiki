@@ -8,7 +8,7 @@ import {system, standalone} from 'common/utils/browser';
  * iOS has its own native smart banner - no need to render it there
  */
 export default Ember.Component.extend({
-	classNames: ['smart-banner'],
+	classNames: ['smart-banner-android'],
 	classNameBindings: ['noIcon'],
 
 	options: {
