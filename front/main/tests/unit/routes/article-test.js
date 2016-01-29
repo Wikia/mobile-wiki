@@ -88,8 +88,8 @@ test('sets correct apple-itunes-app meta tag without existing element', function
 		model = Ember.Object.create({
 			url: '/wiki/Geralt_of_Rivia'
 		}),
-		iOSSmartBannerMetaTag = '<meta name="apple-itunes-app" '
-			+ 'content="app-id=951103682, app-argument=http://witcher.wikia.com/wiki/Geralt_of_Rivia">';
+		iOSSmartBannerMetaTag = '<meta name="apple-itunes-app" ' +
+			'content="app-id=951103682, app-argument=http://witcher.wikia.com/wiki/Geralt_of_Rivia">';
 
 	Mercury.wiki.smartBanner.appId.ios = '951103682';
 	Mercury.wiki.basePath = 'http://witcher.wikia.com';
@@ -102,8 +102,8 @@ test('sets correct apple-itunes-app meta tag with existing element', function (a
 		model = Ember.Object.create({
 			url: '/wiki/Teemo'
 		}),
-		iOSSmartBannerMetaTag = '<meta name="apple-itunes-app" '
-			+ 'content="app-id=739258886, app-argument=http://leagueoflegends.wikia.com/wiki/Teemo">';
+		iOSSmartBannerMetaTag = '<meta name="apple-itunes-app" ' +
+			'content="app-id=739258886, app-argument=http://leagueoflegends.wikia.com/wiki/Teemo">';
 
 	Mercury.wiki.smartBanner.appId.ios = '739258886';
 	Mercury.wiki.basePath = 'http://leagueoflegends.wikia.com';
