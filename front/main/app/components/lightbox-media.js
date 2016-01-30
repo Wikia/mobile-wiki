@@ -101,13 +101,9 @@ export default Ember.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didInsertElement() {
-			// this.updateState modifies header and footer rendered in LightboxWrapperComponent
-			// This isn't allowed by Ember to do on didInsertElement
-			// That's why we need to schedule it in the afterRender queue
-			Ember.run.scheduleOnce('afterRender', this, () => {
-				this.updateState();
-			});
+		didRender() {
+			this._super(...arguments);
+			this.updateState();
 		},
 
 		/**
