@@ -12,7 +12,7 @@
     "article-last-edit_plural_0":"Editado por última vez esta semana",
     "article-last-edit_plural_2":"Editado por última vez hace __count__ semanas",
     "article-categories-list-label":"Categorías",
-    "article-other-languages":"Otros idiomas",
+    "article-other-languages":"En otros idiomas",
     "article-top-contributors-label":"Principales editores de este artículo",
     "article-error":"Lo sentimos, no pudimos cargar el artículo. Por favor, inténtelo de nuevo.",
     "side-nav-menu-label":"Menú",
@@ -144,7 +144,12 @@
     "curated-content-editor-main-page":"Portada",
     "curated-content-editor-new-featured-content":"Nuevo contenido destacado",
     "curated-content-editor-new-section":"Nueva sección",
-    "curated-content-editor-new-category":"Nueva categoría"
+    "curated-content-editor-new-category":"Nueva categoría",
+    "curated-content-editor-wikia-description": "Descripción",
+    "curated-content-editor-wikia-description-help": "¡Algo tan simple como \"Aprende más en el Wiki de los sombreros\" o \"Bienvenidos al wiki de los sombreros\" suena bien!",
+    "curated-content-editor-enter-wikia-description": "Enter description here",
+    "curated-content-editor-wikia-description-description": "Añade un resumen que promocione tu wikia en las búsquedas y en los hubs.",
+    "explore-wiki":"Explora __wikiName__"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ o __loginLink__",

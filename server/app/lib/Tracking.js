@@ -37,18 +37,30 @@ export const Comscore = {
 			tracking.comscore.c7Value = Comscore.getC7Value(vertical);
 		}
 	},
+	IVW3 = {
+		/**
+		 * @param {*} tracking
+		 * @param {string} vertical
+		 * @param {object} config
+		 * @returns {void}
+		 */
+		handleResponse(tracking, vertical, config) {
+			tracking.ivw3.vertical = vertical;
+			tracking.ivw3.countries = config.countries || [];
+		}
+	},
 	Nielsen = {
 		/**
 		 * @param {*} tracking
 		 * @param {string} vertical
 		 * @param {string} dbName
-		 * @param {boolean} enabled
+		 * @param {object} config
 		 * @returns {void}
 		 */
-		handleResponse(tracking, vertical, dbName, enabled) {
+		handleResponse(tracking, vertical, dbName, config) {
 			tracking.nielsen.section = vertical;
 			tracking.nielsen.subbrand = dbName;
-			tracking.nielsen.enabled = enabled;
+			tracking.nielsen.enabled = config.enabled;
 		}
 	};
 
@@ -60,22 +72,21 @@ export const Comscore = {
 export function handleResponse(result, request) {
 	const tracking = localSettings.tracking;
 
-	let vertical,
-		dbName,
-		nielsenEnabled;
+	let dbName,
+		trackingConfig,
+		vertical;
 
 	try {
-		vertical = result.wikiVariables.tracking.vertical;
-		dbName = result.wikiVariables.dbName;
-		nielsenEnabled = result.wikiVariables.tracking.nielsen;
+		dbName = result.wikiVariables.dbName || '';
+		trackingConfig = result.wikiVariables.tracking || {};
 	} catch (error) {
-		Logger.error('No vertical set for response');
-
-		vertical = '';
+		Logger.error('Missing variable in wikiVariables');
 	}
+	vertical = trackingConfig.vertical || '';
 
 	Comscore.handleResponse(tracking, vertical, request);
-	Nielsen.handleResponse(tracking, vertical, dbName, nielsenEnabled);
+	IVW3.handleResponse(tracking, vertical, trackingConfig.ivw3 || {});
+	Nielsen.handleResponse(tracking, vertical, dbName, trackingConfig.nielsen || {});
 
 	// export tracking code to layout and front end code
 	result.tracking = tracking;

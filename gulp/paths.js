@@ -90,8 +90,7 @@ module.exports = {
 			main: {
 				src: outputFront + '/main/index.html',
 				dest: outputServer + '/app/views/_layouts',
-				outputFilename: 'ember-main.hbs',
-				watch: outputFront + '/**/*'
+				outputFilename: 'ember-main.hbs'
 			}
 		},
 	},

@@ -62,6 +62,7 @@ import deepExtend from 'deep-extend';
  * @property {*} host
  * @property {string} ironSecret
  * @property {string} [mediawikiDomain]
+ * @property {string} gaUserSalt
  * @property {LoggerInterface} loggers
  * @property {number} maxRequestsPerChild
  * @property {OptimizelyLocalSettings} [optimizely]
@@ -113,6 +114,7 @@ import deepExtend from 'deep-extend';
  * @property {GAAccountConfig} ua
  * @property {string} quantserve
  * @property {ComscoreTrackingLocalSettings} comscore
+ * @property {IVW3TrackingLocalSettings} ivw3
  * @property {NielsenTrackingLocalSettings} nielsen
  * @property {KruxTrackingLocalSettings} krux
  */
@@ -123,6 +125,13 @@ import deepExtend from 'deep-extend';
  * @property {string} id
  * @property {string} c7
  * @property {string} c7Value
+ */
+
+/**
+ * @typedef {Object} IVW3TrackingLocalSettings
+ * @property {string} vertical
+ * @property {boolean} enabled
+ * @property {string[]} countries
  */
 
 /**
@@ -177,6 +186,8 @@ const localSettings = {
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,
 	mediawikiDomain: process.env.MEDIAWIKI_DOMAIN || null,
+	// Special salt for calculating GA userID
+	gaUserSalt: process.env.GA_USERID_SALT,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
 	loggers: {
@@ -223,6 +234,10 @@ const localSettings = {
 			id: '6177433',
 			c7: '',
 			c7Value: ''
+		},
+		ivw3: {
+			vertical: '',
+			countries: []
 		},
 		nielsen: {
 			apid: 'T26086A07-C7FB-4124-A679-8AC404198BA7',

@@ -56,6 +56,7 @@ export default Ember.Controller.extend(
 			});
 
 			// This event is for tracking mobile sessions between Mercury and WikiaMobile
+			// NOTE: this event won't have additional dimensions set up from API, ie. #19 (articleType)
 			track({
 				action: trackActions.impression,
 				category: 'app',

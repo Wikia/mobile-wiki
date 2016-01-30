@@ -1,3 +1,37 @@
+## release-204 (2016-01-28 11:08 UTC)
+* fix-ember-tests-styles: Fix styles when running Ember tests in a browser
+* [XW-1019](https://wikia-inc.atlassian.net/browse/XW-1019) XW-1019 | scroll back to top while navigating through local nav
+* [PLATFORM-1833](https://wikia-inc.atlassian.net/browse/PLATFORM-1833) PLATFORM-1833 imageReviewBaseRoute fix
+* [XW-1035](https://wikia-inc.atlassian.net/browse/XW-1035) Click on clear should not close keyboard
+* [INT-285](https://wikia-inc.atlassian.net/browse/INT-285) INT-285 | Google custom search with Optimizely integration for Japan HP
+* [INT-320](https://wikia-inc.atlassian.net/browse/INT-320) INT-320 | Implement loading indicator
+* [INT-310](https://wikia-inc.atlassian.net/browse/INT-310) INT-310 | Final text and assets for hero slider
+* [ADEN-2812](https://wikia-inc.atlassian.net/browse/ADEN-2812) ADEN-2812 IVW3 tracker integration
+
+## release-203 hotfix 1 (2016-01-27 13:00 UTC)
+* release-203-XW-905: XW-905 | Upgrade New Relic agent to v1.25.1
+
+## release-203 (2016-01-25 14:30 UTC)
+* [XW-960](https://wikia-inc.atlassian.net/browse/XW-960) XW-960 | update translations for explore-wiki
+* [XW-1024](https://wikia-inc.atlassian.net/browse/XW-1024) XW-1024 | Fix moving top bar, fix height on discussions and not only
+* [XW-955](https://wikia-inc.atlassian.net/browse/XW-955) XW-955 | Add userID param to GA and u param for Internal tracking
+* [SOC-1837](https://wikia-inc.atlassian.net/browse/SOC-1837) SOC-1837 | Opening discussion post in a new tab on a mouse wheel click
+* [XW-922](https://wikia-inc.atlassian.net/browse/XW-922) XW-922 | Global Navigation 2016
+* [XW-840](https://wikia-inc.atlassian.net/browse/XW-840) XW-840 | Don't use $.trim
+* [ADEN-2864](https://wikia-inc.atlassian.net/browse/ADEN-2864) ADEN-2864 Mark SP events with nonInteraction flag
+* [XW-903](https://wikia-inc.atlassian.net/browse/XW-903) XW-903 | Add `vary: accept-encoding` header to all responses
+* [XW-1021](https://wikia-inc.atlassian.net/browse/XW-1021) XW-1021 | inline play.svg
+* [INT-321](https://wikia-inc.atlassian.net/browse/INT-321) INT-321 | Replace community central and Wikia University images
+* [SOC-1880](https://wikia-inc.atlassian.net/browse/SOC-1880) SOC-1880 | Use link-to instead of an action
+* [XW-1020](https://wikia-inc.atlassian.net/browse/XW-1020) XW-1020 | Watch all auth SCSS files, including partials
+* XW: Remove service related scripts
+* fix-wiki-link: Discussions | Use anchor instead of link-to for wiki link
+* [ADEN-2789](https://wikia-inc.atlassian.net/browse/ADEN-2789) ADEN-2789 Nielsen integration
+* mercury-pr-checks-patch: Fix a typo in mercury-pr-checks.sh
+
+## release-202 hotfix 1 (2016-01-22 11:58 UTC)
+* [XW-1021](https://wikia-inc.atlassian.net/browse/XW-1021) XW-1021 | inline play.svg
+
 ## release-202 (2016-01-21 12:15 UTC)
 * revert-1847-revert-1839-SOC-1483-backup: Revert "Revert "SOC-1483 | Displaying message on empty forums""
 * [XW-926](https://wikia-inc.atlassian.net/browse/XW-926) XW-926 Fix server error handling
