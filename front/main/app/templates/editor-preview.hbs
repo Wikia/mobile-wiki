@@ -1,15 +1,9 @@
-<div class="page-wrapper editor-preview" lang={{language.content}} dir={{language.contentDir}}>
-	<section class='wiki-container'>
-		<div class="page-wrapper editor-preview" lang={{language.content}} dir={{language.contentDir}}>
-			<section class='wiki-container'>
-				{{article-content
-					adsContext=model.adsContext
-					content=model.content
-					media=model.media
-					noAds=noAds
-					cleanTitle=model.cleanTitle
-				}}
-			</section>
-		</div>
+<div class='editor-preview page-wrapper'>
+	<section class='article-body'>
+		{{article-content
+			content=model.content
+			media=model.media
+			noAds=true
+		}}
 	</section>
 </div>

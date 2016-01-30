@@ -53,8 +53,6 @@ export default Ember.Component.extend(
 		articleContentObserver: Ember.observer('content', function () {
 			const content = this.get('content');
 
-			console.log("DIANA W ARTICLE CONTENT OBSERWERZE: ", content)
-
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				if (content) {
 					this.hackIntoEmberRendering(content);
@@ -223,8 +221,7 @@ export default Ember.Component.extend(
 			}).toArray();
 
 			this.set('headers', headers);
-			//TODO: Nothing handled the action 'updateHeaders'.
-			//this.sendAction('updateHeaders', headers);
+			this.sendAction('updateHeaders', headers);
 		},
 
 		/**
@@ -253,8 +250,6 @@ export default Ember.Component.extend(
 		 */
 		replaceMediaPlaceholdersWithMediaComponents(model, numberToProcess = -1) {
 			const $mediaPlaceholders = this.$('.article-media');
-
-			console.log("uwaga proszę panstwa, podmieniam obrazki: ", $mediaPlaceholders);
 
 			if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {
 				numberToProcess = $mediaPlaceholders.length;

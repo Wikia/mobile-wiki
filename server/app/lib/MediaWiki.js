@@ -128,16 +128,23 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 	});
 }
 
-export function post(url, data, host = '', redirects = 1, headers = {}) {
+/**
+ * Post http request
+ *
+ * @param {string} url
+ * @param {string} formData to send in form foo=bar
+ * @param {string} [host='']
+ * @param {*} [headers={}]
+ * @returns {Promise}
+ */
+export function post(url, formData, host = '', headers = {}) {
 	headers.Host = host;
 	headers['User-Agent'] = 'mercury';
 	headers['X-Wikia-Internal-Request'] = 'mercury';
 	headers['Content-Type'] = 'application/x-www-form-urlencoded';
-	// Cannot be 'application/json' due to error in MW: Automatically populating $HTTP_RAW_POST_DATA
-	// is deprecated and will be removed in a future version. To avoid this warning set
-	// 'always_populate_raw_post_data' to '-1' in php.ini and use the php://input stream instead.
-	// Which is thrown for requests using the payload instead of normal x-www-form-urlencoded requests.
-	//headers['Content-Type'] = 'application/json';
+	// Cannot be 'application/json' due to error in MW: 'Automatically populating $HTTP_RAW_POST_DATA
+	// is deprecated and will be removed in a future version.' which is thrown for requests using
+	// the payload instead of normal x-www-form-urlencoded requests.
 	/**
 	 * @param {Function} resolve
 	 * @param {Function} reject
@@ -150,7 +157,7 @@ export function post(url, data, host = '', redirects = 1, headers = {}) {
 		 * @param {*} payload
 		 * @returns {void}
 		 */
-		Wreck.request('POST', url, { payload: data, headers: headers }, (err, response) => {
+		Wreck.request('POST', url, {payload: formData, headers}, (err, response) => {
 			Wreck.read(response, null, (err, body) => {
 				if (err) {
 					Logger.error({
@@ -165,7 +172,6 @@ export function post(url, data, host = '', redirects = 1, headers = {}) {
 						}
 					});
 				} else if (response.statusCode === 200) {
-					console.log(body.toString())
 					resolve(body.toString());
 				} else {
 					const payload = {
@@ -217,8 +223,8 @@ class BaseRequest {
 		return fetch(url, this.wikiDomain, this.redirects, this.headers);
 	}
 
-	post(url, data) {
-		return post(url, data);
+	post(url, formData) {
+		return post(url, formData);
 	}
 }
 
@@ -389,10 +395,11 @@ export class ArticleRequest extends BaseRequest {
 	}
 
 	/**
+	 * prepare POST request body before sending to API
+	 *
 	 * @param {string} title title of edited article
 	 * @param {string} wikitext editor wikitext
 	 * @param {string} CKmarkup CK editor markup
-	 * @desc prepare POST request body before sending to API
 	 * @returns {Promise}
 	 */
 	articleFromMarkup(title, wikitext, CKmarkup) {
@@ -403,7 +410,7 @@ export class ArticleRequest extends BaseRequest {
 			wikitextParam = wikitext ? `wikitext=${wikitext}&` : '',
 			CKmarkupParam = CKmarkup ? `CKmarkup=${CKmarkup}&` : '';
 
-		return this.post(url, `${wikitextParam}${CKmarkupParam}title=${title}`);
+		return this.post(url, `${wikitextParam}${CKmarkupParam}title=${title}&useskin=mercury`);
 	}
 }
 

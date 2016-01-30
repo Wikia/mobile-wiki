@@ -2,7 +2,6 @@ import Ember from 'ember';
 import ArticleModel from '../models/article';
 
 export default Ember.Route.extend({
-
 	model() {
 		return ArticleModel.find(Ember.get(Mercury, 'article.data.article'));
 	},
@@ -14,7 +13,7 @@ export default Ember.Route.extend({
 		 * @returns {boolean}
 		 */
 		error(error, transition) {
-			debugger;
+			Ember.Logger.error(error);
 			if (transition) {
 				transition.abort();
 			}

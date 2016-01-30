@@ -27,7 +27,7 @@ let tracker;
  */
 function getTracker() {
 	if (typeof tracker === 'undefined') {
-		let weppyConfig = M.prop('weppyConfig');
+		const weppyConfig = M.prop('weppyConfig');
 
 		if (weppyConfig && typeof Weppy === 'function') {
 			tracker = Weppy.namespace('mercury');
