@@ -48,6 +48,7 @@ function prepareArticleDataToPreview(title, data, wikiVariables = {}) {
 		// we want to return the article content only once - as HTML and not JS variable
 		// and it will be displayed in article view and then replaced on fronted during the model creation
 		result.articleContent = data.article.content;
+
 		delete data.article.content;
 	}
 
@@ -81,8 +82,8 @@ export default function editorPreview(request, reply) {
 		 */
 		.then((payload) => {
 			const content = JSON.parse(payload);
-			let response,
-				articleData;
+			let articleData,
+				response;
 
 			if (typeof content.data === 'undefined') {
 				throw new Error('Invalid payload received from API: ', content);
@@ -102,10 +103,6 @@ export default function editorPreview(request, reply) {
 		 */
 		.catch((error) => {
 			Logger.error(error);
-			reply.view('application', {
-				error
-			}, {
-				layout: 'empty'
-			});
+			reply.view('error');
 		});
 }

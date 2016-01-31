@@ -396,6 +396,8 @@ export class ArticleRequest extends BaseRequest {
 
 	/**
 	 * prepare POST request body before sending to API
+	 * Encode all params to be able to retrieve correct
+	 * values from the text containing for example '&'
 	 *
 	 * @param {string} title title of edited article
 	 * @param {string} wikitext editor wikitext
@@ -407,10 +409,10 @@ export class ArticleRequest extends BaseRequest {
 				controller: 'MercuryApi',
 				method: 'getArticleFromMarkup'
 			}),
-			wikitextParam = wikitext ? `wikitext=${wikitext}&` : '',
-			CKmarkupParam = CKmarkup ? `CKmarkup=${CKmarkup}&` : '';
+			wikitextParam = wikitext ? `wikitext=${encodeURIComponent(wikitext)}&` : '',
+			CKmarkupParam = CKmarkup ? `CKmarkup=${encodeURIComponent(CKmarkup)}&` : '';
 
-		return this.post(url, `${wikitextParam}${CKmarkupParam}title=${title}&useskin=mercury`);
+		return this.post(url, `${wikitextParam}${CKmarkupParam}title=${encodeURIComponent(title)}&useskin=mercury`);
 	}
 }
 
