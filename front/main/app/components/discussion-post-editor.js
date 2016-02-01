@@ -20,7 +20,7 @@ export default DiscussionEditorComponent.extend({
 	 */
 	initializeStickyState() {
 		this.setProperties({
-			offsetTop: this.element.offset().top,
+			offsetTop: this.$().offset().top,
 			siteHeadHeight: Ember.$('.site-head').outerHeight(true)
 		});
 
