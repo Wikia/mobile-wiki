@@ -20,10 +20,9 @@
 		</div>
 
 		{{#pop-over for='discussion-mobile-filter' on='click' flow='dropdown'}}
-
+			{{discussion-filters
+				isFilterApplied=isFilterApplied
+			}}
 		{{/pop-over}}
-	{{/if}}
-	{{#if overlayIsVisible}}
-		<div {{action 'hideSortComponent'}} class="overlay"></div>
 	{{/if}}
 </div>

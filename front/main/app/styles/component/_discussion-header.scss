@@ -27,7 +27,9 @@ $site-header-height: 50px;
 		font-size: $type-smaller;
 		line-height: $discussion-header-height;
 		margin: 0;
+		max-width: 205px;
 		overflow: hidden;
+		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 

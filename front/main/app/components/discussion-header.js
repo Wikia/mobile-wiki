@@ -10,12 +10,9 @@ export default Ember.Component.extend(
 		discussionSort: Ember.inject.service(),
 		isFilterApplied: false,
 
-		overlayIsVisible: Ember.computed.oneWay('discussionSort.sortVisible'),
-
 		siteName: Ember.computed(() => {
 			return Ember.get(Mercury, 'wiki.siteName');
 		}),
-		sortMessageKey: Ember.computed.oneWay('discussionSort.sortMessageKey'),
 
 		actions: {
 			toggleEditor(active) {
