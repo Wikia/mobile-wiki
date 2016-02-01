@@ -2,11 +2,16 @@ import Ember from 'ember';
 import ArticleContentMixin from '../mixins/article-content';
 import VideoLoader from 'common/modules/VideoLoader';
 
+/**
+ * Component that is used inside ligthbox-media component
+ * to handle displaying video
+ */
 export default Ember.Component.extend(
 	ArticleContentMixin,
 	{
 		classNames: ['lightbox-video', 'lightbox-content-inner'],
 		classNameBindings: ['provider'],
+		wrapperClass: '.video-player-wrapper',
 
 		articleContentWidthObserver: Ember.observer('articleContent.width', function () {
 			if (this.get('videoLoader')) {
@@ -24,7 +29,7 @@ export default Ember.Component.extend(
 		}),
 
 		/**
-		 * @return VideoLoader
+		 * @returns VideoLoader
 		 */
 		videoLoader: Ember.computed('model.embed', function () {
 			return new VideoLoader(this.get('model.embed'));
@@ -34,6 +39,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didRender() {
+			this.insertVideoPlayerHtml();
 			this.initVideoPlayer();
 		},
 
@@ -43,11 +49,34 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		initVideoPlayer() {
-			const videoLoader = this.get('videoLoader'),
-				player = videoLoader.loadPlayerClass();
+			const videoLoader = this.get('videoLoader');
+
+			/**
+			 * This loads and creates a player
+			 */
+			videoLoader.loadPlayerClass();
 
 			// Stop bubbling it up to the lightbox
-			this.$(player.containerSelector).click(() => false);
+			this.$(this.wrapperClass).on(`click.${this.id}`, () => false);
 		},
+
+		/**
+		 * Since we don't use Ember to inject video HTML
+		 * we have to manage it manually
+		 *
+		 * @returns {void}
+		 */
+		insertVideoPlayerHtml() {
+			this.$(this.wrapperClass).html(this.get('model.embed.html'));
+		},
+
+		/**
+		 * Unbind all click events
+		 *
+		 * @returns {void}
+		 */
+		willDestroyElement() {
+			this.$(this.wrapperClass).off(`click.${this.id}`);
+		}
 	}
 );
