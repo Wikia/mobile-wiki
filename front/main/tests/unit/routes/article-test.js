@@ -110,3 +110,13 @@ test('sets correct apple-itunes-app meta tag with existing element', function (a
 	route.updateIOSSmartBannerMetaTag(model);
 	assert.equal($(document.head).find('meta[name=apple-itunes-app]').prop('outerHTML'), iOSSmartBannerMetaTag);
 });
+
+test('sets correct apple-itunes-app meta tag when no url is present', function (assert) {
+	const route = this.subject(),model = Ember.Object.create({}),
+		iOSSmartBannerMetaTag = '<meta name="apple-itunes-app" content="app-id=739258886">';
+
+	Mercury.wiki.smartBanner.appId.ios = '739258886';
+	Mercury.wiki.basePath = 'http://leagueoflegends.wikia.com';
+	route.updateIOSSmartBannerMetaTag(model);
+	assert.equal($(document.head).find('meta[name=apple-itunes-app]').prop('outerHTML'), iOSSmartBannerMetaTag);
+});
