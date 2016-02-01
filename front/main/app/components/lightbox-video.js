@@ -62,7 +62,12 @@ export default Ember.Component.extend(
 
 		/**
 		 * Since we don't use Ember to inject video HTML
-		 * we have to manage it manually
+		 *
+		 * Video code does interact with the DOM and brakes binding for Ember templates
+		 * therefore whenever video changes in lightbox
+		 * Ember would not know what to update
+		 *
+		 * because of that we have to manage it manually
 		 *
 		 * @returns {void}
 		 */
