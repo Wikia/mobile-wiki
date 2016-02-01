@@ -129,8 +129,7 @@ test('doesn\'t set apple-itunes-app meta tag when no smart banner data is presen
 		selector = 'meta[name=apple-itunes-app]';
 
 	$head.find(selector).remove();
-
-	Mercury.wiki.smartBanner = undefined;
+	delete Mercury.wiki.smartBanner;
 	Mercury.wiki.basePath = 'http://leagueoflegends.wikia.com';
 	route.updateIOSSmartBannerMetaTag(model);
 	assert.strictEqual($head.find(selector).length, 0);
