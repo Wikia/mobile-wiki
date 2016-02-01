@@ -2,6 +2,11 @@ import Ember from 'ember';
 import ArticleCommentsModel from '../models/article-comments';
 import {track, trackActions} from 'common/utils/track';
 
+/**
+ * Component that displays article comments
+ *
+ * Subject to refactor as it uses observers instead of computed properties
+ */
 export default Ember.Component.extend({
 	page: null,
 	articleId: null,
