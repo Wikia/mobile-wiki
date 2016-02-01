@@ -89,6 +89,8 @@ export default Ember.Component.extend({
 	didRender() {
 		const page = this.get('page');
 
+		this._super(...arguments);
+
 		if (page) {
 			this.set('model.page', page);
 			this.scrollToTop();
