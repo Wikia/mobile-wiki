@@ -2,6 +2,7 @@ import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
 import LanguagesMixin from '../mixins/languages';
 import WikiaInYourLangModel from '../models/wikia-in-your-lang';
+import localStorageConnector from '../utils/local-storage-connector';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
@@ -62,7 +63,7 @@ export default Ember.Component.extend(
 						});
 					},
 					onCloseAlert: () => {
-						window.localStorage.setItem(this.get('alertKey'), new Date().getTime().toString());
+						localStorageConnector.setItem(this.get('alertKey'), new Date().getTime().toString());
 						track({
 							action: trackActions.click,
 							category: 'wikiaInYourLangAlert',
@@ -79,7 +80,7 @@ export default Ember.Component.extend(
 		 * @returns {boolean}
 		 */
 		shouldShowWikiaInYourLang() {
-			const value = window.localStorage.getItem(this.get('alertKey')),
+			const value = localStorageConnector.getItem(this.get('alertKey')),
 				now = new Date().getTime(),
 				/**
 				 * 2,592,000,000 = 30 days
