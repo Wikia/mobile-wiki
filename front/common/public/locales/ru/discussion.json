@@ -39,7 +39,7 @@
     "modal-dialog-delete-all-header":"Удалить все сообщения?",
     "modal-dialog-delete-all-message":"Вы уверены, что хотите удалить все сообщения __userName__ на __wikiName__? Обратите внимание, что только отдельные сообщения могут быть восстановлены, и что вы не можете восстановить все сообщения сразу.",
     "modal-dialog-log-in":"Войти",
-    "user-replied-to":"__userName__ ответил(а) на сообщение в теме __linkToThread__",
+    "user-replied-to":"Ответ __userName__",
     "delete-all":"Удалить всё",
     "user-post-list-header":"Сообщения от __userName__",
     "empty-forum-text":"Сообщений пока нет. Начните обсуждение сейчас!"

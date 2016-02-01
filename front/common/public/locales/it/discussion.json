@@ -39,7 +39,7 @@
     "modal-dialog-delete-all-header":"Elimina tutti i post?",
     "modal-dialog-delete-all-message":"Sei sicuro di voler eliminare tutti i post di __userName__ in __wikiName__? Nota che solamente post individuali possono essere ripristinati. Non si può fare il ripristino di un gruppo di post.",
     "modal-dialog-log-in":"Accedi",
-    "user-replied-to":"__userName__ ha risposto a __linkToThread__",
+    "user-replied-to":"Risposta a __userName__",
     "delete-all":"Elimina tutto",
     "user-post-list-header":"Post di __userName__",
     "empty-forum-text":"Ancora nessun post. Dai inizio al forum, crea il primo post!"
