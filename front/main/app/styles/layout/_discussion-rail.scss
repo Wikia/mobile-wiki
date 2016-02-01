@@ -1,19 +1,5 @@
-.back-button {
-	color: $discussion-back-button-color;
-
-	&:hover,
-	&:focus {
-		color: $discussion-back-button-color;
-	}
-
-
-	svg {
-		fill: $discussion-back-button-color;
-	}
-}
-
 .rail {
-	.back-button {
+	.side-button {
 		border: solid $discussion-rail-separator-color;
 	}
 }
@@ -21,14 +7,26 @@
 	.rail {
 		.back-button {
 			border-width: 0 0 1px;
-			width: 160px;
 		}
 	}
 }
 .post-list-view {
 	.rail {
-		.back-button {
+		.side-button {
 			border-width: 1px 0;
+		}
+
+		.back-button {
+			margin-right: 45px;
+		}
+
+		.delete-all {
+			border-top: none;
+			color: $discussion-actions-color;
+			display: flex;
+			font-weight: $paragraph-font-weight;
+			justify-content: center;
+			margin-left: 45px;
 		}
 	}
 }

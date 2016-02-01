@@ -35,8 +35,11 @@
     "undelete-reply":"Cofnij usunięcie odpowiedzi",
     "all-posts-by-username":"Zobacz wszystkie posty według __userName__",
     "modal-dialog-confirm":"OK",
+    "modal-dialog-cancel":"Anuluj",
+    "modal-dialog-delete-all-header":"Usunąć wszystkie posty?",
+    "modal-dialog-delete-all-message":"Czy na pewno chcesz usunąć wszystkie posty dodane przez __userName__ na __wikiName__? Pamiętaj, że tylko pojedyncze posty mogą zostać przywrócone oraz że nie można unieważnić kasowania wielu postów jednocześnie.",
     "modal-dialog-log-in":"Zaloguj się",
-    "user-replied-to":"__userName__ dodał odpowiedź do __linkToThread__",
+    "user-replied-to":"Użytkownik __userName__ otrzymał odpowiedź",
     "delete-all":"Usuń wszystkie",
     "user-post-list-header":"Posty według __userName__",
     "empty-forum-text":"Nie ma jeszcze postów. Rozpocznij dyskusję, napisz pierwszy post!"

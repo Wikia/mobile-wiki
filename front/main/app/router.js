@@ -101,10 +101,6 @@ Router.map(function () {
 		this.route('user', {
 			path: '/u/:userId'
 		});
-
-		this.route('user', {
-			path: '/u/:userId'
-		});
 	});
 
 	this.route('image-review', {

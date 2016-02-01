@@ -35,8 +35,11 @@
     "undelete-reply":"Restaurer la réponse",
     "all-posts-by-username":"Voir toutes les publications de __userName__",
     "modal-dialog-confirm":"OK",
+    "modal-dialog-cancel":"Annuler",
+    "modal-dialog-delete-all-header":"Supprimer toutes les publications ?",
+    "modal-dialog-delete-all-message":"Voulez-vous vraiment supprimer toutes les publications de __userName__ sur __wikiName__ ? Veuillez noter qu'il est impossible de restaurer un groupe de publications, mais seulement des publications individuelles.",
     "modal-dialog-log-in":"Se connecter",
-    "user-replied-to":"__userName__ a répondu à __linkToThread__",
+    "user-replied-to":"Réponse à __userName__",
     "delete-all":"Tout supprimer",
     "user-post-list-header":"Publications de __userName__",
     "empty-forum-text":"Il n' y a pas encore de publications. Lancez la discussion en créant une publication maintenant !"

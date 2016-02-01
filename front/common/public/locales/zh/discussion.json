@@ -35,8 +35,11 @@
     "undelete-reply":"撤銷刪除回復",
     "all-posts-by-username":"查看由__userName__發佈的所有帖子",
     "modal-dialog-confirm":"好的",
+    "modal-dialog-cancel":"取消",
+    "modal-dialog-delete-all-header":"確定刪除所有帖子？",
+    "modal-dialog-delete-all-message":"你確定想要刪除__wikiName__上__userName__發佈的所有帖子嗎？ 請注意刪除後每個帖子只能單獨進行恢復，您無法大量恢復已刪除的帖子。",
     "modal-dialog-log-in":"登錄",
-    "user-replied-to":"__userName__回復了__linkToThread__",
+    "user-replied-to":"對__userName__的回復",
     "delete-all":"刪除所有",
     "user-post-list-header":"由__userName__發佈的帖子",
     "empty-forum-text":"暫時沒有帖子。 趕快發佈第一條帖子進行討論吧！"

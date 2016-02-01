@@ -1,9 +1,10 @@
 import DiscussionBaseModel from './discussion-base';
 import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
 import ajaxCall from '../utils/ajax-call';
+import {checkPermissions} from 'common/utils/discussionPermissions';
+
 
 const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
-
 	contributors: [],
 	pageNum: null,
 	replyLimit: 10,
@@ -12,6 +13,13 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 	posts: null,
 	totalPosts: null,
 	userProfileUrl: null,
+
+	canDeleteAll: Ember.computed('posts', function () {
+		const posts = this.get('posts');
+
+		// TODO fix me when API starts sending permissions for bulk operations
+		return posts && checkPermissions(posts[0], 'canDelete');
+	}),
 
 	loadPage(pageNum = 0) {
 		this.set('pageNum', pageNum);

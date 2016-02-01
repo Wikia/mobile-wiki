@@ -35,8 +35,11 @@
     "undelete-reply":"撤消删除回复",
     "all-posts-by-username":"查看由__userName__发布的所有帖子",
     "modal-dialog-confirm":"好的",
+    "modal-dialog-cancel":"取消",
+    "modal-dialog-delete-all-header":"确定要删除所有帖子?",
+    "modal-dialog-delete-all-message":"你确定想要删除__wikiName__上__userName__发布的所有帖子吗？请注意删除后每个帖子只能单独进行恢复，您无法大量恢复已删除的帖子。",
     "modal-dialog-log-in":"登入",
-    "user-replied-to":"__userName__回复了__linkToThread__",
+    "user-replied-to":"对__userName__的回复",
     "delete-all":"删除全部",
     "user-post-list-header":"由__userName__发布的帖子",
     "empty-forum-text":"暂时没有帖子。赶快发布第一条帖子开始讨论吧！"

@@ -18,7 +18,7 @@
 			author=item.createdBy
 			delete=(action this.attrs.deletePost)
 			post=item
-			replyCount=item.postCount
+			replyCount=item._embedded.thread.[0].postCount
 			undelete=(action this.attrs.undeletePost)
 			upvote=(action this.attrs.upvote)
 		}}

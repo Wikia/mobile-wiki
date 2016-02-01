@@ -35,8 +35,11 @@
     "undelete-reply":"返信を復元",
     "all-posts-by-username":"__userName__さんの投稿をすべて表示",
     "modal-dialog-confirm":"OK",
+    "modal-dialog-cancel":"キャンセル",
+    "modal-dialog-delete-all-header":"投稿をすべて削除しますか？",
+    "modal-dialog-delete-all-message":"__wikiName__に__userName__さんが追加した投稿をすべて削除してもよろしいですか？投稿を一括で復元することはできないため、復元する場合は 1 件ずつ行う必要があります。",
     "modal-dialog-log-in":"ログイン",
-    "user-replied-to":"__userName__さんが__linkToThread__に返信しました",
+    "user-replied-to":"__userName__さんへの返信",
     "delete-all":"すべて削除",
     "user-post-list-header":"__userName__さんの投稿",
     "empty-forum-text":"投稿はまだありません。トークを始めて最初の投稿を作成してみましょう！"

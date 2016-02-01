@@ -1,11 +1,17 @@
 {{discussion-header
+	canDeleteAll=model.canDeleteAll
+	deleteAllPosts=(action 'deleteAllPosts')
 	forumId=model.forumId
 	hasBackButton=true
 	smartBannerVisible=smartBannerVisible
 }}
-{{discussion-error-dialog
-	isVisible=shouldShowErrorMessage
-	errorMessage=errorMessage
+{{discussion-dialog
+	confirmButtonText=confirmButtonText
+	confirmCallback=confirmCallback
+	dialogMessage=dialogMessage
+	headerText=dialogHeaderText
+	isConfirm=isConfirm
+	isVisible=shouldShowDialogMessage
 }}
 
 <div class="site-body-discussion post-list-view discussion-user-list">
@@ -23,7 +29,7 @@
 	</div>
 	<div class="discussion-page row">
 		<div class="rail large-3 columns">
-			{{#link-to 'discussion.forum' model.forumId discussionSort.sortBy class="back-button active-element-theme-color"}}
+			{{#link-to 'discussion.forum' model.forumId discussionSort.sortBy class="side-button back-button active-element-theme-color"}}
 				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
 				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
 			{{/link-to}}
@@ -56,6 +62,12 @@
 			</div>
 		{{/if}}
 		<div class="rail large-3 columns">
+			{{#if model.canDeleteAll}}
+				<div {{action 'deleteAllPosts'}} class="side-button delete-all">
+					{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
+					{{i18n 'main.delete-all' ns='discussion'}}
+				</div>
+			{{/if}}
 		</div>
 	</div>
 </div>
