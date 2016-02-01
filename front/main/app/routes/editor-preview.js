@@ -17,8 +17,6 @@ export default Ember.Route.extend({
 			if (transition) {
 				transition.abort();
 			}
-
-			return true;
 		}
 	}
 });

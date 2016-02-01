@@ -38,6 +38,51 @@ export function createUrl(wikiDomain, path, params = {}) {
 }
 
 /**
+ * Handle request response
+ *
+ * @param {Function} resolve
+ * @param {Function} reject
+ * @param {*} err
+ * @param {*} payload
+ * @param {*} response
+ * @param {string} url
+ * @returns {void}
+ */
+function requestCallback(resolve, reject, err, payload, response, url) {
+	if (err) {
+		Logger.error({
+			url,
+			error: err
+		}, 'Error fetching url');
+		reject({
+			exception: {
+				message: 'Invalid response',
+				code: err.output.statusCode,
+				details: err
+			}
+		});
+	} else if (response.statusCode === 200) {
+		resolve(payload);
+	} else {
+		const info = {
+			exception: {
+				message: 'Invalid response',
+				code: response.statusCode,
+				details: payload ? payload.toString('utf-8') : null
+			}
+		};
+
+		Logger.error({
+			url,
+			headers: response.headers,
+			statusCode: response.statusCode
+		}, 'Bad HTTP response');
+
+		reject(info);
+	}
+}
+
+/**
  * Fetch http resource
  *
  * @param {string} url - the url to fetch
@@ -89,41 +134,7 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 			json: true,
 			beforeRedirect
 		}, (err, response, payload) => {
-			if (err) {
-				Logger.error({
-					url,
-					error: err
-				}, 'Error fetching url');
-
-				reject({
-					exception: {
-						message: 'Invalid response',
-						code: err.output.statusCode,
-						details: err
-					}
-				});
-			} else if (response.statusCode === 200) {
-				resolve(payload);
-			} else {
-				// Unify error response so it's easier to handle later
-				if (payload === null || !payload.exception) {
-					payload = {
-						exception: {
-							message: 'Invalid response',
-							code: response.statusCode,
-							details: payload ? payload.toString('utf-8') : null
-						}
-					};
-				}
-
-				Logger.error({
-					url,
-					headers: response.headers,
-					statusCode: response.statusCode
-				}, 'Bad HTTP response');
-
-				reject(payload);
-			}
+			return requestCallback(resolve, reject, err, payload, response, url);
 		});
 	});
 }
@@ -159,37 +170,7 @@ export function post(url, formData, host = '', headers = {}) {
 		 */
 		Wreck.request('POST', url, {payload: formData, headers}, (err, response) => {
 			Wreck.read(response, null, (err, body) => {
-				if (err) {
-					Logger.error({
-						url,
-						error: err
-					}, 'Error fetching url');
-					reject({
-						exception: {
-							message: 'Invalid response',
-							code: err.output.statusCode,
-							details: err
-						}
-					});
-				} else if (response.statusCode === 200) {
-					resolve(body.toString());
-				} else {
-					const payload = {
-						exception: {
-							message: 'Invalid response',
-							code: response.statusCode,
-							details: payload ? payload.toString('utf-8') : null
-						}
-					};
-
-					Logger.error({
-						url,
-						headers: response.headers,
-						statusCode: response.statusCode
-					}, 'Bad HTTP response');
-
-					reject(payload);
-				}
+				return requestCallback(resolve, reject, err, body.toString(), response, url);
 			});
 		});
 

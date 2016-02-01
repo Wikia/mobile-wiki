@@ -10,18 +10,29 @@ import deepExtend from 'deep-extend';
  * in the editor preview mode
  *
  * @param {string} title title of article to preview
- * @param {ArticlePageData} data
+ * @param {ArticlePageData} article
  * @param {object} wikiVariables
  * @returns {object}
  */
-function prepareArticleDataToPreview(title, data, wikiVariables = {}) {
-	let contentDir = 'ltr';
-	const result = {
+function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
+	return {
 		article: {
-			data,
+			data: {
+				article: {
+					media: article.media
+				},
+				details: {
+					ns: 0,
+					title,
+					revision: {},
+					type: 'article',
+					comments: 0
+				}
+			},
 			adsContext: {},
 			htmlTitle: ''
 		},
+		articleContent: article.content,
 		wikiVariables,
 		htmlTitle: getHtmlTitle(wikiVariables, title),
 		// required in server-data.hbs
@@ -33,31 +44,9 @@ function prepareArticleDataToPreview(title, data, wikiVariables = {}) {
 		tracking: localSettings.tracking,
 		// clone object to avoid overriding real localSettings for future requests
 		localSettings: deepExtend({}, localSettings),
+		isRtl: wikiVariables.language && wikiVariables.language.contentDir === 'rtl',
 		preview: true
 	};
-
-	result.article.data.details = {
-		ns: 0,
-		title,
-		revision: {},
-		type: 'article',
-		comments: 0
-	};
-
-	if (data.article) {
-		// we want to return the article content only once - as HTML and not JS variable
-		// and it will be displayed in article view and then replaced on fronted during the model creation
-		result.articleContent = data.article.content;
-
-		delete data.article.content;
-	}
-
-	if (wikiVariables.language) {
-		contentDir = wikiVariables.language.contentDir;
-		result.isRtl = (contentDir === 'rtl');
-	}
-
-	return result;
 }
 
 /**
@@ -76,20 +65,16 @@ export default function editorPreview(request, reply) {
 		article = new Article.ArticleRequestHelper(params);
 
 	article.getArticleFromMarkup()
-		/**
-		 * @param {*} wikiVariables
-		 * @returns {void}
-		 */
 		.then((payload) => {
 			const content = JSON.parse(payload);
 			let articleData,
 				response;
 
-			if (typeof content.data === 'undefined') {
+			if (typeof content.data === 'undefined' || typeof content.data.article === 'undefined') {
 				throw new Error('Invalid payload received from API: ', content);
 			}
 
-			articleData = prepareArticleDataToPreview(request.payload.title, content.data, content.wikiVariables);
+			articleData = prepareArticleDataToPreview(request.payload.title, content.data.article, content.wikiVariables);
 
 			response = reply.view('article', articleData);
 			response.code(200);

@@ -8,7 +8,7 @@ import Logger from '../../lib/Logger';
  * @param {{hash: string}} opts
  * @returns {{}}
  */
-module.exports = function (language = 'en', opts) {
+module.exports = function (language = 'en', opts = {}) {
 	const fallbackLanguage = language.split('-')[0],
 		defaultLanguage = 'en',
 		wrapper = {},
