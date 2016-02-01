@@ -53,7 +53,7 @@ function hideLoadingIndicator() {
 }
 
 $(() => {
-	const headings = $('.grid-heading');
+	let delta;
 
 	// Hide loading indicator after load complete
 	$(window).load(() => {
@@ -127,17 +127,24 @@ $(() => {
 		]
 	});
 
-	// TODO: The number of carousels should be encoded in a json file
+	// Compensation for responsive spacing between slides. See INT-319 and INT-329
+	// 250 is the fixed pixel width of each slide
+	delta = $('#carousel-1 .slick-slide').width() - 250;
+
 	for (let i = 1; i <= 5; i++) {
 		$(`#carousel-${i}-prev`).detach().appendTo(`#carousel-${i}`);
 		$(`#carousel-${i}-next`).detach().appendTo(`#carousel-${i}`);
+
+		// Set padding for left and right arrow
+		// 10px left padding, and 10px + slide spacing compensation on right
+		$(`#carousel-${i}-prev`).addClass('hero-prev-category');
+		$(`#carousel-${i}-next`).css('right', delta + 10);
 	}
 
-	// Dynamically adjust text size to show community title without text break.
-	// bigText adjusts the size programatically and strips off css padding, so it is
-	// necessary to add it in explicitly afterwards
-	headings.bigText({maximumFontSize: 20, verticalAlign: 'top'});
-	headings.css({padding: '.1rem'});
+	if (delta > 0) {
+		// Compensation for slide not being fully centered due to responsive slider spacing
+		$('.featured').css('padding-left', 54 + delta);
+	}
 
 	globals.loadGlobalData().then((data) => {
 		loadSearch(data.mobileBreakpoint);
