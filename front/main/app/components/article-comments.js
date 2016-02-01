@@ -80,18 +80,16 @@ export default Ember.Component.extend({
 	},
 
 	/**
+	 * If we recieved page on didRender
+	 * that means there is a query param comments_page
+	 * and we should load comments and scroll to them
+	 *
 	 * @returns {void}
 	 */
 	didRender() {
 		const page = this.get('page');
 
 		if (page) {
-			/**
-			 * If we recieved page on didRender
-			 * that means there is a query param comments_page
-			 * and we should load comments and scroll to them
-			 */
-
 			this.set('model.page', page);
 			this.scrollToTop();
 		}
