@@ -52,13 +52,19 @@ export default Ember.Component.extend(
 			}
 		},
 
-		/*
-		articleContentObserver: Ember.observer('content', function () {
+		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
 			const content = this.get('content');
+
+			this.renderedComponents.forEach((renderedComponent) => {
+				renderedComponent.destroy();
+			});
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				if (content) {
 					this.hackIntoEmberRendering(content);
+
+					this.renderedComponents = queryPlaceholders(this.$()).map(this.renderComponent);
+
 					this.loadTableOfContentsData();
 					this.handleTables();
 					this.handleInfoboxes();
@@ -79,8 +85,7 @@ export default Ember.Component.extend(
 				this.injectAds();
 				this.setupAdsContext(this.get('adsContext'));
 			});
-		}).on('init'),
-		*/
+		})),
 
 		headerObserver: Ember.observer('headers', function () {
 			if (this.get('contributionEnabled')) {
@@ -102,16 +107,6 @@ export default Ember.Component.extend(
 
 			this.renderComponent = getRenderComponentFor(this);
 			this.renderedComponents = [];
-		},
-
-		willRender() {
-			this.renderedComponents.forEach((renderedComponent) => {
-				renderedComponent.destroy();
-			});
-
-			Ember.run.scheduleOnce('afterRender', this, () => {
-				this.renderedComponents = queryPlaceholders(this.$()).map(this.renderComponent);
-			});
 		},
 
 		actions: {
@@ -270,7 +265,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		replaceMediaPlaceholdersWithMediaComponents(model, numberToProcess = -1) {
-			const $mediaPlaceholders = this.$('.article-media');
+			const $mediaPlaceholders = this.$('.article-media:not([data-component])');
 
 			if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {
 				numberToProcess = $mediaPlaceholders.length;
