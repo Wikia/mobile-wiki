@@ -10,6 +10,7 @@ import h2o2 from 'h2o2';
 import handlebars from 'handlebars';
 import {Server} from 'hapi';
 import i18next from 'hapi-i18next';
+import prerender from 'hapi-prerender';
 import inert from 'inert';
 import path from 'path';
 import url from 'url';
@@ -214,6 +215,12 @@ plugins = [
 	},
 	{
 		register: vision
+	},
+	{
+		register: prerender,
+		options: {
+			serviceUrl: 'http://localhost:3000'
+		}
 	}
 ];
 
