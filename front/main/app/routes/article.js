@@ -192,19 +192,25 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	updateIOSSmartBannerMetaTag(model) {
-		const articleUrl = model.get('url');
+		const articleUrl = model.get('url'),
+			appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios');
 
-		let $descriptionMetaTag = Ember.$('head meta[name=apple-itunes-app]'),
-			content = `app-id=${Ember.get(Mercury, 'wiki.smartBanner.appId.ios')}`;
+		let $descriptionMetaTag, content;
 
-		if (Ember.isEmpty($descriptionMetaTag)) {
-			$descriptionMetaTag = Ember.$('<meta name="apple-itunes-app">').appendTo('head');
+		// If smart banner is available on this wiki
+		if (appId) {
+			$descriptionMetaTag = Ember.$('head meta[name=apple-itunes-app]');
+			content = `app-id=${appId}`;
+
+			if (Ember.isEmpty($descriptionMetaTag)) {
+				$descriptionMetaTag = Ember.$('<meta name="apple-itunes-app">').appendTo('head');
+			}
+
+			if (articleUrl) {
+				content += `, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${articleUrl}`;
+			}
+
+			$descriptionMetaTag.prop('content', content);
 		}
-
-		if (articleUrl) {
-			content += `, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${articleUrl}`;
-		}
-
-		$descriptionMetaTag.prop('content', content);
 	}
 });
