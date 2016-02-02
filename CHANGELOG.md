@@ -1,3 +1,25 @@
+## release-205 (2016-02-02 12:19 UTC)
+* [SOC-955](https://wikia-inc.atlassian.net/browse/SOC-955) SOC-955 | SOC-956 | SOC-1508 | SOC-1509 | SOC-1738 | SOC-1719 | SOC-1924
+* [XW-821](https://wikia-inc.atlassian.net/browse/XW-821) XW-821 | don't use deprecated functionality in article-comments
+* [XW-821](https://wikia-inc.atlassian.net/browse/XW-821) XW-821 | don't set properties in didInsertElement
+* [XW-1036](https://wikia-inc.atlassian.net/browse/XW-1036) XW-1036 | Create fallback for localStorage
+* [XW-997](https://wikia-inc.atlassian.net/browse/XW-997) XW-977 | Show native smart banner on ios
+* [SOC-1719](https://wikia-inc.atlassian.net/browse/SOC-1719) SOC-1719 | Discussion - delete all posts by user
+* [SOC-1924](https://wikia-inc.atlassian.net/browse/SOC-1924) SOC-1924 user posts/replies lists - reply card header text - 2nd PR
+* discussion-refactors: Discussion refactors
+* [INT-332](https://wikia-inc.atlassian.net/browse/INT-332) INT-332 | Adjust text for create a wikia button
+* [INT-319](https://wikia-inc.atlassian.net/browse/INT-319) INT-319 | Fix center alignment for category sliders on Japan HP
+* [XW-821](https://wikia-inc.atlassian.net/browse/XW-821) XW-821 | don't use fmt
+* revert-1915-SOC-1924: Revert "SOC-1924 user posts/replies lists - reply card header text"
+* [SOC-1924](https://wikia-inc.atlassian.net/browse/SOC-1924) SOC-1924 user posts/replies lists - reply card header text
+* [SOC-905](https://wikia-inc.atlassian.net/browse/SOC-905) SOC-905 - made entire footer clickable on auth page
+* [INT-324](https://wikia-inc.atlassian.net/browse/INT-324) INT-324 | Add Mediakit link to Japan HP footer
+* [INT-332](https://wikia-inc.atlassian.net/browse/INT-332) INT-332 | Change text for create wikia button for Japan HP
+* [XW-773](https://wikia-inc.atlassian.net/browse/XW-773) XW-773 | add links to github after jenkins job is done
+* [XW-918](https://wikia-inc.atlassian.net/browse/XW-918) XW-918 | Update article.js to get new API response; unify UA dimensions set up
+* [DAT-3639](https://wikia-inc.atlassian.net/browse/DAT-3639) DAT-3639 | Be able to edit Wikia Description via CC editor
+* [XW-982](https://wikia-inc.atlassian.net/browse/XW-982) XW-982 | Fix random gulp-watch crashes
+
 ## release-204 (2016-01-28 11:08 UTC)
 * fix-ember-tests-styles: Fix styles when running Ember tests in a browser
 * [XW-1019](https://wikia-inc.atlassian.net/browse/XW-1019) XW-1019 | scroll back to top while navigating through local nav
