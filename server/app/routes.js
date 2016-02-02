@@ -88,6 +88,14 @@ let routes,
 			path: '/wiki',
 			handler: redirectToRootHandler
 		},
+		{
+			method: 'GET',
+			path: '/recent-wiki-activity',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
 		// API Routes - The following routes should just be API routes
 		{
 			method: 'GET',
@@ -201,14 +209,6 @@ let routes,
 		{
 			method: 'GET',
 			path: '/image-review',
-			handler: showApplication,
-			config: {
-				cache: routeCacheConfig
-			}
-		},
-		{
-			method: 'GET',
-			path: '/recent-wiki-activity',
 			handler: showApplication,
 			config: {
 				cache: routeCacheConfig
