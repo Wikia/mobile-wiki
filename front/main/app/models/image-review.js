@@ -98,7 +98,7 @@ ImageReviewModel.reopenClass({
 		const images = [];
 
 		rawData.forEach((image) => {
-			if (image.reviewStatus === 'UNREVIEWED') {
+			if (image.reviewStatus === 'UNREVIEWED' || image.reviewStatus === 'FLAGGED') {
 				images.push(Ember.Object.create({
 					imageId: image.imageId,
 					fullSizeImageUrl: image.imageUrl,
