@@ -19,7 +19,7 @@
 			{{svg 'filter-applied' viewBox='0 0 10 10' class='icon filter-applied'}}
 		</div>
 
-		{{#pop-over for='discussion-mobile-filter' on='click' flow='dropdown'}}
+		{{#pop-over for='discussion-mobile-filter' on='click' flow='downCentered'}}
 			{{discussion-filters
 				filtersApply=(action this.attrs.filtersApply)
 			}}
