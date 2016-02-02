@@ -1,5 +1,6 @@
 $discussion-header-color-text: #fff;
-
+// header width has to be limited to fit with the buttons on the right side of header
+$discussion-header-mobile-max-width: 205px;
 $site-header-height: 50px;
 
 .discussion-header {
@@ -27,7 +28,7 @@ $site-header-height: 50px;
 		font-size: $type-smaller;
 		line-height: $discussion-header-height;
 		margin: 0;
-		max-width: 205px;
+		max-width: $discussion-header-mobile-max-width;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
