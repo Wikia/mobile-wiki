@@ -9,6 +9,7 @@ $sort-label-height: 48px;
 		position: absolute;
 		right: 18px;
 	}
+
 	.filters-apply {
 		background: none;
 		border: none;
@@ -67,8 +68,8 @@ $sort-label-height: 48px;
 			.icon {
 				border: 1px solid $discussion-filters-bullet-border;
 				border-radius: 50%;
-				height: 18px;
 				float: left;
+				height: 18px;
 				margin: 15px 6px 0 0;
 				width: 18px;
 
