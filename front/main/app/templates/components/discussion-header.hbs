@@ -21,7 +21,7 @@
 
 		{{#pop-over for='discussion-mobile-filter' on='click' flow='dropdown'}}
 			{{discussion-filters
-				isFilterApplied=isFilterApplied
+				filtersApply=(action this.attrs.filtersApply)
 			}}
 		{{/pop-over}}
 	{{/if}}

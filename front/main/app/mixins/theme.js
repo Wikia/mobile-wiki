@@ -70,6 +70,7 @@ export default Ember.Mixin.create(ColorUtilsMixin, {
 		}
 
 		styles += `.discussions .border-theme-color {border-color: ${this.get('themeColors.color-buttons')};}`;
+		styles += `.discussions .header-text-theme-color {color: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .background-theme-color {background-color: ${this.get('themeColors.color-buttons')};}`;
 		styles += '.discussions .background-alpha-theme-color {background-color: ' +
 			`${this.getRgbaColor(this.hexToRgb(this.get('themeColors.color-buttons'), 0.8))};}`;

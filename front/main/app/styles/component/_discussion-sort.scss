@@ -9,11 +9,6 @@
 	z-index: auto;
 
 	li {
-		&.not-active {
-			border-bottom-color: $discussion-sort-color;
-			color: $discussion-sort-color;
-		}
-
 		border-bottom: 4px solid;
 		cursor: pointer;
 		float: left;
@@ -22,5 +17,10 @@
 		height: 50px;
 		line-height: 50px;
 		width: 50%;
+
+		&.not-active {
+			border-bottom-color: $discussion-sort-color;
+			color: $discussion-sort-color;
+		}
 	}
 }

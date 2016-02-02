@@ -1,0 +1,99 @@
+$sort-label-height: 48px;
+
+.discussion-filters {
+	display: block;
+	width: 280px;
+
+	.filters-apply-container {
+		float: right;
+		position: absolute;
+		right: 18px;
+	}
+	.filters-apply {
+		background: none;
+		border: none;
+		color: inherit;
+		float: right;
+		font-size: $type-smaller;
+		font-weight: bold;
+		height: auto;
+		line-height: $line-height-smaller;
+		margin: 0;
+		outline: none;
+		padding: 0;
+		text-transform: none;
+
+		&:hover,
+		&:active,
+		&:focus {
+			background: none;
+			color: inherit;
+		}
+	}
+
+	legend {
+		color: $discussion-filters-color;
+		font-size: $type-smaller;
+		font-weight: bold;
+		line-height: $line-height-smaller;
+	}
+
+	fieldset {
+		border: none;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+
+	.sort-options {
+		margin: 0;
+		width: auto;
+
+		li {
+			list-style: none;
+			border-bottom: 1px solid $discussion-filters-border;
+			clear: left;
+			color: $discussion-filters-color;
+			height: $sort-label-height;
+			width: 100%;
+
+			label {
+				font-size: $type-smallest;
+				font-weight: normal;
+				line-height: $sort-label-height;
+				margin: 0;
+			}
+
+			.icon {
+				border: 1px solid $discussion-filters-bullet-border;
+				border-radius: 50%;
+				height: 18px;
+				float: left;
+				margin: 15px 6px 0 0;
+				width: 18px;
+
+				.inside {
+					background-color: inherit;
+					border: 3px solid $discussion-filters-bullet-active-border;
+					border-radius: 50%;
+					display: none;
+					height: 16px;
+					width: 16px;
+				}
+
+				&.active {
+					border-color: transparent;
+
+					.inside {
+						display: block;
+					}
+				}
+			}
+
+			.bullet {
+				margin: 0;
+				display: none;
+			}
+		}
+	}
+}
