@@ -1,0 +1,9 @@
+<header class="sub-head">
+    <div class="sub-head--title sub-head--text-only">Recent Wiki Activity</div>
+</header>
+
+<ul>
+{{#each model.recentChanges as |change|}}
+	<li>{{change.user}}</li>
+{{/each}}
+</ul>
