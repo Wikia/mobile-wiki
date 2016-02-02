@@ -1,6 +1,6 @@
 <div class="header clearfix background-theme-color">
 	{{#if hasBackButton }}
-		{{#link-to 'discussion.forum' forumId discussionSort.sortBy class="back-button"}}
+		{{#link-to 'discussion.forum' forumId discussionSort.sortBy class="side-button back-button"}}
 			{{svg 'back-arrow' role='img' class='icon arrow-left'}}
 			{{i18n 'main.back-to-discussions-link' ns='discussion'}}
 		{{/link-to}}
@@ -24,5 +24,11 @@
 				filtersApply=(action this.attrs.filtersApply)
 			}}
 		{{/pop-over}}
+	{{/if}}
+	{{#if canDeleteAll}}
+		<div {{action this.attrs.deleteAllPosts}} class="side-button delete-all">
+			{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
+			{{i18n 'main.delete-all' ns='discussion'}}
+		</div>
 	{{/if}}
 </div>

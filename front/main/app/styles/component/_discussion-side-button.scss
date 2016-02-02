@@ -1,16 +1,13 @@
-.back-button {
+.side-button {
 	align-items: center;
 	display: flex;
 	font-size: 0.75rem;
 	font-weight: bold;
 	height: 100%;
 	padding: 15px 0;
-	width: 210px;
 	line-height: 1.0;
 
 	svg {
-		height: 16px;
 		margin-right: 14px;
-		width: 16px;
 	}
 }

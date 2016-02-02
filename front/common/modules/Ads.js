@@ -3,6 +3,7 @@
 import Krux from './Trackers/Krux';
 import UniversalAnalytics from './Trackers/UniversalAnalytics';
 import load from '../utils/load';
+import {isSpecialWiki} from '../utils/track';
 
 /**
  * @typedef {Object} SourcePointDetectionModule
@@ -120,7 +121,7 @@ class Ads {
 		// Sampling on GA side will kill the performance as we need to allocate object each time we track
 		// ToDo: Optimize object allocation for tracking all events
 		if (Math.random() * 100 <= adHitSample) {
-			const GATracker = new UniversalAnalytics();
+			const GATracker = new UniversalAnalytics(isSpecialWiki());
 
 			GATracker.trackAds.apply(GATracker, arguments);
 		}
@@ -143,14 +144,11 @@ class Ads {
 	 * @returns {void}
 	 */
 	trackBlocking(value) {
-		const dimensions = [];
-
 		let GATracker;
 
-		dimensions[6] = value;
-		UniversalAnalytics.setDimensions(dimensions);
+		UniversalAnalytics.setDimension(6, value);
 
-		GATracker = new UniversalAnalytics();
+		GATracker = new UniversalAnalytics(isSpecialWiki());
 
 		GATracker.track('ads-sourcepoint-detection', 'impression', value, 0, true);
 		Ads.gaTrackAdEvent.call(this, 'ad/sourcepoint/detection', value, '', 0, true);

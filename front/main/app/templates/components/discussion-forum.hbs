@@ -5,9 +5,13 @@
 	smartBannerVisible=smartBannerVisible
 	filtersApply=(action this.attrs.filtersApply)
 }}
-{{discussion-error-dialog
-	isVisible=shouldShowErrorMessage
-	errorMessage=errorMessage
+{{discussion-dialog
+	confirmButtonText=confirmButtonText
+	confirmCallback=confirmCallback
+	dialogMessage=dialogMessage
+	headerText=dialogHeaderText
+	isConfirm=isConfirm
+	isVisible=shouldShowDialogMessage
 }}
 
 <div class="site-body-discussion post-list-view">
@@ -19,7 +23,7 @@
 	<div class="discussion-page row">
 		<div class="rail large-3 columns">
 			{{community-badge}}
-			<a href="/" class="back-button active-element-theme-color">
+			<a href="/" class="side-button back-button active-element-theme-color">
 				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
 				{{i18n 'main.back-to-wikia-link' ns='discussion'}}
 			</a>

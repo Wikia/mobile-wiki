@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
+	modalDialogService: Ember.inject.service('modal-dialog'),
 	/**
 	 * Get loading spinner container.
 	 * On post list it's post, on post-details it's applicationController to overlay entire page
@@ -26,6 +27,36 @@ export default Ember.Mixin.create({
 			this.modelFor(this.get('routeName')).deletePost(post).then(() => {
 				Ember.set(loadingSpinnerContainer, 'isLoading', false);
 			});
+		},
+
+		/**
+		 * Pass post deletion to model
+		 * @param {object} posts
+		 * @returns {void}
+		 */
+		deleteAllPosts(posts) {
+			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(this.controllerFor('application')),
+				message = i18n.t(
+					'main.modal-dialog-delete-all-message',
+					{
+						userName: posts[0].createdBy.name,
+						wikiName: Mercury.wiki.siteName,
+						ns: 'discussion'
+					}
+				);
+
+			this.get('modalDialogService').display(
+				message,
+				i18n.t('main.modal-dialog-delete-all-header', {ns: 'discussion'}),
+				i18n.t('main.delete-all', {ns: 'discussion'}),
+				(result) => {
+					if (result) {
+						Ember.set(loadingSpinnerContainer, 'isLoading', true);
+						this.modelFor(this.get('routeName')).deleteAllPosts(posts).then(() => {
+							Ember.set(loadingSpinnerContainer, 'isLoading', false);
+						});
+					}
+				});
 		},
 
 		/**

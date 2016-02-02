@@ -2,7 +2,7 @@
 @import 'site-head';
 @import 'share-header';
 @import 'share-feature';
-@import 'smart-banner';
+@import 'smart-banner-android';
 @import 'side-nav';
 @import 'local-nav-menu';
 @import 'local-wikia-search';
@@ -28,11 +28,11 @@
 @import 'discussion-sort';
 @import 'discussion-hero-unit';
 @import 'discussion-error';
-@import 'discussion-error-dialog';
+@import 'discussion-dialog';
 @import 'user-avatar';
 @import 'discussion-contributors';
 @import 'discussion-community-badge';
-@import 'discussion-back-button';
+@import 'discussion-side-button';
 @import 'discussion-app-promotion';
 @import 'discussion-empty-forum-message';
 @import 'context-links';

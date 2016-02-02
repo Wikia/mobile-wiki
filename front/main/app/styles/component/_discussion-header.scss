@@ -34,6 +34,8 @@ $site-header-height: 50px;
 	}
 
 	.icon {
+		fill: $discussion-back-button-color;
+
 		&.filter-default {
 			height: 20px;
 			vertical-align: middle;
@@ -48,6 +50,12 @@ $site-header-height: 50px;
 			top: 4px;
 			vertical-align: top;
 			width: 10px;
+		}
+		&.dropdown {
+			height: 4px;
+			margin-left: 5px;
+			vertical-align: middle;
+			width: 7px;
 		}
 	}
 
@@ -81,8 +89,23 @@ $site-header-height: 50px;
 
 	.new-post {
 		float: right;
-		height: 50px; // TODO fix height
+		height: 50px;
 		width: 56px;
+	}
+
+	.back-button {
+		color: $discussion-back-button-color;
+		float: left;
+
+		&:hover,
+		&:focus {
+			color: $discussion-back-button-color;
+		}
+	}
+
+	.delete-all {
+		float: right;
+		padding-right: 15px;
 	}
 }
 

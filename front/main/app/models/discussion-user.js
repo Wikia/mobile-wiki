@@ -2,16 +2,17 @@ import DiscussionBaseModel from './discussion-base';
 import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
 import ajaxCall from '../utils/ajax-call';
 
-const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 
+const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 	contributors: [],
 	pageNum: null,
 	replyLimit: 10,
 	userId: null,
 	userName: null,
-	posts: null,
 	totalPosts: null,
 	userProfileUrl: null,
+
+	canDeleteAll: false,
 
 	loadPage(pageNum = 0) {
 		this.set('pageNum', pageNum);

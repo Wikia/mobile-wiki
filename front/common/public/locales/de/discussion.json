@@ -35,8 +35,11 @@
     "undelete-reply":"Antwort wiederherstellen",
     "all-posts-by-username":"Alle Beiträge von __userName__ anzeigen",
     "modal-dialog-confirm":"OK",
+    "modal-dialog-cancel":"Abbrechen",
+    "modal-dialog-delete-all-header":"Alle Beiträge löschen?",
+    "modal-dialog-delete-all-message":"Bist du sicher, dass du alle Beiträge von __userName__ auf dem Wikia __wikiName__ löschen möchtest? Bedenke bitte, dass nur einzelne Beiträge wiederhergestellt werden können und dass du nicht mehrere Beiträge auf einmal wiederherstellen kannst.",
     "modal-dialog-log-in":"Anmelden",
-    "user-replied-to":"__userName__ hat auf __linkToThread__ geantwortet",
+    "user-replied-to":"Eine Antwort auf den Beitrag von __userName__",
     "delete-all":"Alles löschen",
     "user-post-list-header":"Beiträge von __userName__",
     "empty-forum-text":"Bisher gibt es noch keine Beiträge. Bringe du doch einfach die Diskussion ans Laufen und verfasse jetzt den ersten Beitrag!"

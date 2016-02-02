@@ -41,6 +41,7 @@ import CuratedContentEditorItemModel from '../models/curated-content-editor-item
 const CuratedContentEditorModel = Ember.Object.extend({
 	featured: null,
 	curated: null,
+	communityData: null,
 	optional: null,
 	isDirty: false
 });
@@ -109,7 +110,8 @@ CuratedContentEditorModel.reopenClass({
 	 */
 	prepareDataForSave(model) {
 		return {
-			data: [].concat(model.featured, model.curated.items, model.optional)
+			data: [].concat(model.featured, model.curated.items, model.optional),
+			community_data: model.communityData
 		};
 	},
 
@@ -130,17 +132,20 @@ CuratedContentEditorModel.reopenClass({
 		};
 		let featured = {
 				items: [],
-				featured: 'true',
+				featured: 'true'
 			},
 			optional = {
 				items: [],
 				label: ''
-			};
+			},
+			communityData = {};
 
 		if (rawData.length) {
 			rawData.forEach((section) => {
 				if (section.featured === 'true') {
 					featured = section;
+				} else if (section.community_data === 'true') {
+					communityData = section;
 				} else if (section.label === '') {
 					optional = section;
 				} else {
@@ -152,7 +157,8 @@ CuratedContentEditorModel.reopenClass({
 		return CuratedContentEditorModel.create({
 			featured,
 			curated,
-			optional
+			optional,
+			communityData
 		});
 	},
 
