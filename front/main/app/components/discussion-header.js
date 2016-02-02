@@ -10,10 +10,8 @@ export default Ember.Component.extend(
 
 		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
-		isFilterApplied: Ember.computed.not('discussionSort.sortTypes.0.active'),
-
-		filterApplied: Ember.observer('discussionSort.sortTypes.@each.active', function () {
-			this.set('isFilterApplied', this.get('discussionSort.sortTypes.0.active') === false);
+		isFilterApplied: Ember.computed('discussionSort.sortTypes.@each.active', function () {
+			return this.get('discussionSort.sortTypes.0.active') === false;
 		}),
 
 		siteName: Ember.computed(() => {
