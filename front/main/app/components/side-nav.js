@@ -6,12 +6,6 @@ export default Ember.Component.extend({
 	classNames: ['side-nav'],
 	classNameBindings: ['shouldBeVisible:slide-into-view:collapsed'],
 
-	isInSearchMode: false,
-	searchQuery: '',
-	searchPlaceholderLabel: Ember.computed(() => {
-		return i18n.t('app.search-label');
-	}),
-
 	shouldBeVisibleObserver: Ember.observer('shouldBeVisible', function () {
 		track({
 			action: trackActions.click,
@@ -20,22 +14,10 @@ export default Ember.Component.extend({
 		});
 	}),
 
-	currentUser: Ember.inject.service(),
 	globalNavContent: 'side-nav-global-navigation-root',
 	isFandomVisible: Ember.computed(() => Mercury.wiki.language.content === 'en'),
 	wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 	homeOfFandomLabel: Ember.get(Mercury, 'wiki.navigation2016.fandomLabel'),
-
-	/**
-	 * Every time we exit search mode, regardless of if it was through the Cancel
-	 * link or through clicking a search result, we want to clear out the query
-	 * so that the search bar will clear.
-	 */
-	isInSearchModeObserver: Ember.observer('isInSearchMode', function () {
-		if (!this.get('isInSearchMode')) {
-			this.send('clearSearch');
-		}
-	}).on('didInsertElement'),
 
 	actions: {
 		/**
@@ -65,13 +47,6 @@ export default Ember.Component.extend({
 		/**
 		 * @returns {void}
 		 */
-		clearSearch() {
-			this.set('searchQuery', '');
-		},
-
-		/**
-		 * @returns {void}
-		 */
 		collapse() {
 			this.set('globalNavContent', 'side-nav-global-navigation-root');
 			this.sendAction('toggleVisibility', false);
@@ -81,47 +56,9 @@ export default Ember.Component.extend({
 		/**
 		 * @returns {void}
 		 */
-		expand() {
-			this.sendAction('toggleVisibility', true);
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		searchCancel() {
-			this.set('isInSearchMode', false);
-			this.send('clearSearch');
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		searchFocus() {
-			this.set('isInSearchMode', true);
-			// Track when search is opened
-			track({
-				action: trackActions.click,
-				category: 'search',
-			});
-		},
-
-		/**
-		 * @returns {void}
-		 */
 		loadRandomArticle() {
 			this.set('globalNavContent', 'side-nav-global-navigation-root');
 			this.sendAction('loadRandomArticle');
-		},
-
-		/**
-		 * Handler for enter in search box
-		 *
-		 * @param {string} [value=''] - input value
-		 * @returns {void}
-		 */
-		enter(value) {
-			// Use Wikia Search
-			window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${value}&fulltext=Search`);
 		},
 
 		replaceNavigationContent(navName) {
