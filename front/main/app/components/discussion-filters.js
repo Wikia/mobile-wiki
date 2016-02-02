@@ -7,11 +7,11 @@ export default Ember.Component.extend(
 		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
 
 		actions: {
-			filtersApply() {
+			applyFilters() {
 				const sortBy = this.get('sortBy');
 
 				if (this.get('discussionSort.sortBy') !== sortBy) {
-					this.attrs.filtersApply(sortBy);
+					this.attrs.applyFilters(sortBy);
 				}
 			},
 

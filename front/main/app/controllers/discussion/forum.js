@@ -51,7 +51,7 @@ export default Ember.Controller.extend(
 				this.get('target').send('setSortBy', sortBy);
 			},
 
-			filtersApply(sortBy) {
+			applyFilters(sortBy) {
 				// this is completely enough for now
 				this.get('target').send('setSortBy', sortBy);
 			}

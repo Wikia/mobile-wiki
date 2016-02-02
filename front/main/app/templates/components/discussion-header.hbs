@@ -21,7 +21,7 @@
 
 		{{#pop-over for='discussion-mobile-filter' on='click' flow='downCentered'}}
 			{{discussion-filters
-				filtersApply=(action this.attrs.filtersApply)
+				applyFilters=(action this.attrs.applyFilters)
 			}}
 		{{/pop-over}}
 	{{/if}}
