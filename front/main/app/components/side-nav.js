@@ -50,7 +50,6 @@ export default Ember.Component.extend({
 		collapse() {
 			this.set('globalNavContent', 'side-nav-global-navigation-root');
 			this.sendAction('toggleVisibility', false);
-			this.send('searchCancel');
 		},
 
 		/**
