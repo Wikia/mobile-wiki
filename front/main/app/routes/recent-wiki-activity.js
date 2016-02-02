@@ -9,7 +9,7 @@ export default Ember.Route.extend({
 	meta() {
 		return {
 			name: {
-				robots: 'noindex, nofollow'
+				robots: 'noindex, follow'
 			}
 		};
 	},
