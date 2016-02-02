@@ -59,10 +59,13 @@ $sort-label-height: 48px;
 			width: 100%;
 
 			label {
+				background-color: $discussion-filters-label-background;
 				font-size: $type-smallest;
 				font-weight: normal;
-				line-height: $sort-label-height;
-				margin: 0;
+				left: -18px;
+				line-height: $sort-label-height - 2px;
+				margin: 1px 0;
+				position: relative;
 			}
 
 			.icon {
@@ -93,7 +96,6 @@ $sort-label-height: 48px;
 
 			.bullet {
 				margin: 0;
-				display: none;
 			}
 		}
 	}
