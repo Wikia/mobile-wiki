@@ -26,6 +26,7 @@ $site-head-height: 50; //unitless
 		// space than it should, potentially affecting placement of elements
 		// beneath it.
 		height: rem-calc(50);
+		margin: 0 3.75rem;
 		overflow: hidden;
 
 		svg {
@@ -69,10 +70,4 @@ $site-head-height: 50; //unitless
 		display: block;
 		margin: auto;
 	}
-}
-
-/// 2016!
-.site-head .site-logo.site-logo-2016,
-.share-header .site-logo.site-logo-2016 {
-	margin: 0 3.75rem;
 }
