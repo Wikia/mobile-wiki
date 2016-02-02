@@ -386,7 +386,6 @@ export class ArticleRequest extends BaseRequest {
 	 * @returns {Promise}
 	 */
 	articleFromMarkup(title, wikitext, CKmarkup) {
-		let formData = '';
 		const url = createUrl(this.wikiDomain, 'wikia.php', {
 				controller: 'MercuryApi',
 				method: 'getArticleFromMarkup'
@@ -396,13 +395,13 @@ export class ArticleRequest extends BaseRequest {
 				useskin: 'mercury'
 			};
 
-		wikitext ?
-			params.wikitext = wikitext :
+		if (wikitext) {
+			params.wikitext = wikitext;
+		} else {
 			params.CKmarkup = CKmarkup;
+		}
 
-		formData = Url.format({query: params});
-
-		return this.post(url, formData.substr(1));
+		return this.post(url, Url.format({query: params}).substr(1));
 	}
 }
 
