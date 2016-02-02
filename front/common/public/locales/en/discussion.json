@@ -41,7 +41,7 @@
     "modal-dialog-delete-all-header": "Delete All Posts?",
     "modal-dialog-delete-all-message": "Are you sure you want to delete all posts by __userName__ on __wikiName__? Note that only individual posts can be restored and that you cannot undelete posts in bulk.",
     "modal-dialog-log-in": "Sign in",
-    "user-replied-to": "__userName__ replied to __linkToThread__",
+    "user-replied-to": "A reply to __userName__",
     "delete-all": "Delete All",
     "user-post-list-header": "Posts by __userName__",
     "empty-forum-text": "No posts yet. Get the discussion started, create the first post now!"
