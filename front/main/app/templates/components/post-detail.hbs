@@ -1,17 +1,26 @@
 <div>
 	{{user-avatar
-		avatarUrl=post.createdBy.avatarUrl
+		avatarUrl=author.avatarUrl
 		displayProfileName=true
 		username=author.name
 	}}
 	<span class="timestamp">
 		&bull; {{time-ago post.creationDate.epochSecond}}
 	</span>
-	{{discussion-delete
-		delete=(action this.attrs.deletePost)
-		undelete=(action this.attrs.undeletePost)
-		post=post
-	}}
+
+	<div class="discussion-more-options" id="post-options-{{post.id}}">
+		{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
+	</div>
+
+	{{#pop-over for=(concat 'post-options-' post.id) on='click' flow='flip'}}
+		{{discussion-more-options
+			delete=(action 'delete')
+			deleteMessage=(i18n 'main.delete-post' ns='discussion')
+			post=post
+			undelete=(action 'undelete')
+			undeleteMessage=(i18n 'main.undelete-post' ns='discussion')
+		}}
+	{{/pop-over}}
 </div>
 {{#if isDetailsView}}
 	<div class="discussion-content">
@@ -33,6 +42,7 @@
 		post=post
 		upvote=(action this.attrs.upvote)
 	}}
+
 	{{#if isDetailsView}}
 		<div class="small-5 large-2 columns count">
 			<span class="replies-area">
@@ -66,8 +76,8 @@
 </div>
 {{#if post.isLoading}}
 	{{loading-spinner
-	active=post.isLoading
-	radius=32
-	strokeWidth=2
+		active=post.isLoading
+		radius=32
+		strokeWidth=2
 	}}
 {{/if}}

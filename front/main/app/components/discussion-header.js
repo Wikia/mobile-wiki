@@ -4,13 +4,15 @@ import HeadroomMixin from '../mixins/headroom';
 export default Ember.Component.extend(
 	HeadroomMixin,
 	{
+		canDeleteAll: false,
+
 		classNames: ['discussion-header', 'background-theme-color'],
 
 		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
 
-		overlayVisible: Ember.computed.oneWay('discussionSort.sortVisible'),
-		showContent: true,
+		overlayIsVisible: Ember.computed.oneWay('discussionSort.sortVisible'),
+
 		siteName: Ember.computed(() => {
 			return Ember.get(Mercury, 'wiki.siteName');
 		}),

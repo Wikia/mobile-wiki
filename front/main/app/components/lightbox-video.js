@@ -2,12 +2,16 @@ import Ember from 'ember';
 import ArticleContentMixin from '../mixins/article-content';
 import VideoLoader from 'common/modules/VideoLoader';
 
+/**
+ * Component that is used inside ligthbox-media component
+ * to handle displaying video
+ */
 export default Ember.Component.extend(
 	ArticleContentMixin,
 	{
 		classNames: ['lightbox-video', 'lightbox-content-inner'],
 		classNameBindings: ['provider'],
-		videoLoader: null,
+		wrapperClass: '.video-player-wrapper',
 
 		articleContentWidthObserver: Ember.observer('articleContent.width', function () {
 			if (this.get('videoLoader')) {
@@ -16,21 +20,26 @@ export default Ember.Component.extend(
 		}),
 
 		/**
-		 * Computed property used to set class in template.
-		 * On the first launch this.videoLoader will not exist and it return ''.
-		 * As soon as the videoLoader will be set, the property will be changed.
+		 * @returns string
 		 */
 		provider: Ember.computed('videoLoader', function () {
-			if (this.get('videoLoader')) {
-				return `video-provider-${this.videoLoader.getProviderName()}`;
-			}
-			return '';
+			const videoLoader = this.get('videoLoader');
+
+			return `video-provider-${videoLoader.getProviderName()}`;
+		}),
+
+		/**
+		 * @returns VideoLoader
+		 */
+		videoLoader: Ember.computed('model.embed', function () {
+			return new VideoLoader(this.get('model.embed'));
 		}),
 
 		/**
 		 * @returns {void}
 		 */
-		didInsertElement() {
+		didRender() {
+			this.insertVideoPlayerHtml();
 			this.initVideoPlayer();
 		},
 
@@ -40,15 +49,39 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		initVideoPlayer() {
-			const videoLoader = new VideoLoader(this.get('model.embed')),
-				selector = Ember.get(videoLoader, 'player.containerSelector');
+			const videoLoader = this.get('videoLoader');
+
+			/**
+			 * This loads and creates a player
+			 */
+			videoLoader.loadPlayerClass();
 
 			// Stop bubbling it up to the lightbox
-			this.$(selector).click(() => {
-				return false;
-			});
-
-			this.set('videoLoader', videoLoader);
+			this.$(this.wrapperClass).on(`click.${this.id}`, () => false);
 		},
+
+		/**
+		 * Since we don't use Ember to inject video HTML
+		 *
+		 * Video code does interact with the DOM and brakes binding for Ember templates
+		 * therefore whenever video changes in lightbox
+		 * Ember would not know what to update
+		 *
+		 * because of that we have to manage it manually
+		 *
+		 * @returns {void}
+		 */
+		insertVideoPlayerHtml() {
+			this.$(this.wrapperClass).html(this.get('model.embed.html'));
+		},
+
+		/**
+		 * Unbind all click events
+		 *
+		 * @returns {void}
+		 */
+		willDestroyElement() {
+			this.$(this.wrapperClass).off(`click.${this.id}`);
+		}
 	}
 );
