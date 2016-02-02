@@ -18,7 +18,6 @@ export default class VideoLoader {
 	 */
 	constructor(data) {
 		this.data = data;
-		this.loadPlayerClass();
 	}
 
 	/**
@@ -69,7 +68,7 @@ export default class VideoLoader {
 	 * @param {string} playerClass
 	 * @param {string} provider
 	 * @param {Object} params
-	 * @returns {*}
+	 * @returns {BasePlayer|OoyalaPlayer|YouTubePlayer}
 	 */
 	static createPlayer(playerClass, provider, params) {
 		return new playerClass(provider, params);
