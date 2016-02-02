@@ -2,8 +2,8 @@
     <div class="sub-head--title sub-head--text-only">Recent Wiki Activity</div>
 </header>
 
-<ul>
+<ul class="recent-wiki-activity">
 {{#each model.recentChanges as |change|}}
-	<li>{{change.user}}</li>
+	{{recent-change change=change}}
 {{/each}}
 </ul>
