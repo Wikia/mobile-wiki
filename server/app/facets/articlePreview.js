@@ -54,7 +54,7 @@ function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
  * @param {Hapi.Response} reply
  * @returns {void}
  */
-export default function editorPreview(request, reply) {
+export default function articlePreview(request, reply) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		params = {
 			wikiDomain,

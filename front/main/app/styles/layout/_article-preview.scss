@@ -1,0 +1,15 @@
+.article-preview {
+	pointer-events: none;
+
+	.page-wrapper {
+		margin-top: 0;
+
+		> .wiki-container {
+			margin-top: 0;
+		}
+
+		footer.wikia-footer {
+			display: none;
+		}
+	}
+}
