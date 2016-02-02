@@ -12,7 +12,7 @@ export default Ember.Component.extend(
 		discussionSort: Ember.inject.service(),
 		isFilterApplied: Ember.computed.not('discussionSort.sortTypes.0.active'),
 
-		filterApplied: Ember.observer('discussionSort.sortTypes.@each.active', function(){
+		filterApplied: Ember.observer('discussionSort.sortTypes.@each.active', function () {
 			this.set('isFilterApplied', this.get('discussionSort.sortTypes.0.active') === false);
 		}),
 
