@@ -8,6 +8,16 @@ import Promise from 'bluebird';
 import Url from 'url';
 
 /**
+ * @typedef {Object} CallbackParams
+ * @property {Function} resolve
+ * @property {Function} reject
+ * @property {Object} err
+ * @property {*} payload
+ * @property {Object} response
+ * @property {string} url
+ */
+
+/**
  * Create request URL
  *
  * @param {string} wikiDomain
@@ -40,14 +50,7 @@ export function createUrl(wikiDomain, path, params = {}) {
 /**
  * Handle request response
  *
- * @param {Object} params {
- *  {Function} resolve
- *  {Function} reject
- *  {Object} err
- *  {*} payload
- *  {Object} response
- *  {string} url
- * }
+ * @param {CallbackParams} params
  * @returns {void}
  */
 function requestCallback(params) {
