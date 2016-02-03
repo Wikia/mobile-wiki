@@ -2,49 +2,44 @@ import Ember from 'ember';
 import UserModel from './user';
 
 const ArticleDiffModel = Ember.Object.extend({
-	oldid: null,
+	diffs: null,
+	namespace: null,
 	newid: null,
+	oldid: null,
+	pageid: null,
 	timestamp: null,
 	title: null,
-	pageid: null,
-	user: null,
-	namespace: null,
-	diffs: null
+	user: null
 });
 
 ArticleDiffModel.reopenClass({
 	fetch(oldid, newid) {
 		return this.getDiffData(oldid, newid).then((data) => {
 			return new Ember.RSVP.Promise((resolve, reject) => {
-				let modelInstanse = null, page, revision, content, diffs = [], userId;
-
-				page = data[Object.keys(data)[0]];
-				revision = Ember.get(page, 'revisions').get('firstObject');
-
-				userId = revision['userid'];
+				const page = data[Object.keys(data)[0]],
+					revision = Ember.get(page, 'revisions').get('firstObject'),
+					userId = revision['userid'];
 
 				UserModel.find({userId}).then((user) => {
-					content = $(revision['diff']['*']);
-					diffs = this.prepareDiff(content);
+					const content = $(revision['diff']['*']),
+						diffs = this.prepareDiff(content);
 
-					modelInstanse = ArticleDiffModel.create({
-						oldid: oldid,
-						newid: newid,
-						timestamp: revision['timestamp'],
-						title: page['title'],
-						pageid: page['pageid'],
-						user: user,
+					resolve(ArticleDiffModel.create({
+						diffs,
 						namespace: page['ns'],
-						diffs: diffs
-					});
-
-					resolve(modelInstanse);
+						newid,
+						oldid,
+						pageid: page['pageid'],
+						timestamp: new Date(revision['timestamp']).getTime() / 1000,
+						title: page['title'],
+						user
+					}));
 				}).catch((error) => {
-					Ember.Logger.error(err);
+					Ember.Logger.error(error);
 					reject(error);
 				});
-			})
-		})
+			});
+		});
 	},
 
 	getDiffData(oldid, newid) {
@@ -62,26 +57,26 @@ ArticleDiffModel.reopenClass({
 					rvdiffto: newid
 				}
 			).done((response) => {
-				let pages;
-
-				pages = Ember.get(response, 'query.pages');
+				const pages = Ember.get(response, 'query.pages');
 
 				resolve(pages);
 			}).fail((error) => {
 				reject(error);
 			});
-		})
+		});
 	},
 
 	prepareDiff(content) {
-		let diff = [], diffs = [], self = this,
-			nodeDiffs, diffData, $oldDiff, $newDiff, oldDiffClass, newDiffClass;
+		const diffs = [], self = this;
+		let diff = [];
 
-		content.each(function(){
-			if(this.nodeType === 1) {
-				let node = $(this);
-				node.find('.diff-marker').remove();
-				nodeDiffs = node.children();
+		content.each(function () {
+			if (this.nodeType === 1) {
+				const $node = $(this);
+				let	nodeDiffs, diffData, $oldDiff, $newDiff, oldDiffClass, newDiffClass;
+
+				$node.find('.diff-marker').remove();
+				nodeDiffs = $node.children();
 				$oldDiff = $(nodeDiffs.get(0));
 				$newDiff = $(nodeDiffs.get(1));
 
@@ -98,7 +93,7 @@ ArticleDiffModel.reopenClass({
 						diff.push(diffData);
 					}
 
-					newDiffClass = $newDiff.attr('class')
+					newDiffClass = $newDiff.attr('class');
 					diffData = self.getDiff($newDiff, newDiffClass);
 					if (diffData) {
 						diff.push(diffData);
@@ -109,11 +104,10 @@ ArticleDiffModel.reopenClass({
 					if (diff.length) {
 						diffs.push(diff);
 					}
-					diff = [];
-					diff.push({
+					diff = [{
 						content: Ember.String.htmlSafe($oldDiff.html()),
 						type: oldDiffClass
-					});
+					}];
 				}
 			}
 		});
@@ -124,8 +118,9 @@ ArticleDiffModel.reopenClass({
 
 		return diffs;
 	},
+
 	getDiff(diff, diffClass) {
-		if (diffClass !== 'diff-empty' && diffClass === 'diff-deletedline' || diffClass === 'diff-addedline') {
+		if (diffClass === 'diff-deletedline' || diffClass === 'diff-addedline') {
 			return {
 				content: Ember.String.htmlSafe(diff.html()),
 				type: diffClass
