@@ -9,7 +9,7 @@ export function initialize(container, application) {
 		config = {
 			longDateFormat: {
 				L: 'MM/DD/YY',
-				LLL: 'MMMM Do YYYY LT'
+				LLL: 'MMMM Do YYYY h:mm A'
 			},
 			relativeTime: {
 				m: '1 m',
@@ -27,7 +27,7 @@ export function initialize(container, application) {
 			url: M.buildUrl({path: `/front/common/locales/moment/${language}.json`}),
 			success: (data) => {
 				Ember.$.extend(config.relativeTime, data.relativeTime);
-				//Ember.$.extend(config.longDateFormat, data.longDateFormat);
+				Ember.$.extend(config.longDateFormat, data.longDateFormat);
 			},
 			error: () => {
 			}
