@@ -411,10 +411,7 @@ export class ArticleRequest extends BaseRequest {
 				controller: 'MercuryApi',
 				method: 'getArticleFromMarkup'
 			}),
-			params = {
-				title,
-				useskin: 'mercury'
-			};
+			params = {title};
 
 		if (wikitext) {
 			params.wikitext = wikitext;

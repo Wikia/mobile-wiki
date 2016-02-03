@@ -21,7 +21,7 @@ Router.map(function () {
 	});
 
 	this.route('article-preview', {
-		path: '/article-preview/'
+		path: '/article-preview'
 	});
 
 	this.route('mainPageSection', {
