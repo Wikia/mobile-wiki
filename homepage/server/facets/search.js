@@ -8,7 +8,7 @@ var util = require('../util');
 
 function companyInfo(request, reply) {
 	var data = {
-		title: 'ウィキア・ジャパン',
+		title: 'Wikia Japan',
 		loading: '検索結果ロード中',
 		search: true
 	};

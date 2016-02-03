@@ -37,7 +37,7 @@ function postprocessSliderConfig(config) {
 
 function index(request, reply) {
 	var data = {
-		title: 'ウィキア・ジャパン',
+		title: 'Wikia Japan',
 		heroSlider: heroSliderConfig.data,
 		sliders: postprocessSliderConfig(sliderConfig.data),
 		whatIsWikia: whatIsWikiaConfig.data,
