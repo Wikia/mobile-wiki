@@ -14,7 +14,7 @@ const ArticleDiffModel = Ember.Object.extend({
 
 ArticleDiffModel.reopenClass({
 	fetch(oldid, newid) {
-		return this.getDiffData(oldid, newid).then((data) => {
+		return ArticleDiffModel.getDiffData(oldid, newid).then((data) => {
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				const page = data[Object.keys(data)[0]],
 					revision = Ember.get(page, 'revisions').get('firstObject'),
