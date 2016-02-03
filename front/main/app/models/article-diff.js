@@ -85,16 +85,16 @@ ArticleDiffModel.reopenClass({
 				if (oldDiffClass === 'diff-context') {
 					diff.push({
 						content: Ember.String.htmlSafe($oldDiff.html()),
-						type: oldDiffClass
+						class: oldDiffClass
 					});
 				} else {
-					diffData = self.getDiff($oldDiff, oldDiffClass);
+					diffData = self.getDiff($oldDiff, oldDiffClass, 'previous');
 					if (diffData) {
 						diff.push(diffData);
 					}
 
 					newDiffClass = $newDiff.attr('class');
-					diffData = self.getDiff($newDiff, newDiffClass);
+					diffData = self.getDiff($newDiff, newDiffClass, 'current');
 					if (diffData) {
 						diff.push(diffData);
 					}
@@ -106,7 +106,8 @@ ArticleDiffModel.reopenClass({
 					}
 					diff = [{
 						content: Ember.String.htmlSafe($oldDiff.html()),
-						type: oldDiffClass
+						class: oldDiffClass,
+						isLine: true
 					}];
 				}
 			}
@@ -119,12 +120,20 @@ ArticleDiffModel.reopenClass({
 		return diffs;
 	},
 
-	getDiff(diff, diffClass) {
+	getDiff(diff, diffClass, type) {
 		if (diffClass === 'diff-deletedline' || diffClass === 'diff-addedline') {
-			return {
+			const diffData = {
 				content: Ember.String.htmlSafe(diff.html()),
-				type: diffClass
+				class: diffClass
 			};
+
+			if (type === 'previous') {
+				diffData.isPrevious = true;
+			} else if (type === 'current') {
+				diffData.isCurrent = true;
+			}
+
+			return diffData;
 		}
 
 		return null;
