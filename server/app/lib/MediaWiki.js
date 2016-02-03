@@ -40,15 +40,19 @@ export function createUrl(wikiDomain, path, params = {}) {
 /**
  * Handle request response
  *
- * @param {Function} resolve
- * @param {Function} reject
- * @param {*} err
- * @param {*} payload
- * @param {*} response
- * @param {string} url
+ * @param {Object} params {
+ *  {Function} resolve
+ *  {Function} reject
+ *  {Object} err
+ *  {*} payload
+ *  {Object} response
+ *  {string} url
+ * }
  * @returns {void}
  */
-function requestCallback(resolve, reject, err, payload, response, url) {
+function requestCallback(params) {
+	const {resolve, reject, err, payload, response, url} = params;
+
 	if (err) {
 		Logger.error({
 			url,
@@ -134,7 +138,14 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 			json: true,
 			beforeRedirect
 		}, (err, response, payload) => {
-			return requestCallback(resolve, reject, err, payload, response, url);
+			return requestCallback({
+				resolve,
+				reject,
+				err,
+				payload,
+				response,
+				url
+			});
 		});
 	});
 }
@@ -170,7 +181,14 @@ export function post(url, formData, host = '', headers = {}) {
 		 */
 		Wreck.request('POST', url, {payload: formData, headers}, (err, response) => {
 			Wreck.read(response, null, (err, body) => {
-				return requestCallback(resolve, reject, err, body.toString(), response, url);
+				return requestCallback({
+					resolve,
+					reject,
+					err,
+					payload: body.toString(),
+					response,
+					url
+				});
 			});
 		});
 
