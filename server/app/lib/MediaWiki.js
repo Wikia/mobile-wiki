@@ -226,7 +226,7 @@ class BaseRequest {
 	}
 
 	post(url, formData) {
-		return post(url, formData);
+		return post(url, formData, this.wikiDomain);
 	}
 }
 
