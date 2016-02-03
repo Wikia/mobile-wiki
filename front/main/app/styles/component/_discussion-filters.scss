@@ -1,4 +1,5 @@
 $sort-label-height: 48px;
+$legend-font-size: 16px;
 
 .discussion-filters {
 	display: block;
@@ -15,10 +16,10 @@ $sort-label-height: 48px;
 		border: none;
 		color: inherit;
 		float: right;
-		font-size: $type-smaller;
+		font-size: $legend-font-size;
 		font-weight: bold;
 		height: auto;
-		line-height: $line-height-smaller;
+		line-height: $line-height-smallest;
 		margin: 0;
 		outline: none;
 		padding: 0;
@@ -34,9 +35,9 @@ $sort-label-height: 48px;
 
 	legend {
 		color: $discussion-filters-color;
-		font-size: $type-smaller;
+		font-size: $legend-font-size;
 		font-weight: bold;
-		line-height: $line-height-smaller;
+		line-height: $line-height-smallest;
 	}
 
 	fieldset {
@@ -51,12 +52,16 @@ $sort-label-height: 48px;
 		width: auto;
 
 		li {
-			list-style: none;
 			border-bottom: 1px solid $discussion-filters-border;
+			list-style: none;
 			clear: left;
 			color: $discussion-filters-color;
 			height: $sort-label-height;
 			width: 100%;
+
+			:last-child {
+				border-bottom: none;
+			}
 
 			label {
 				background-color: $discussion-filters-label-background;
