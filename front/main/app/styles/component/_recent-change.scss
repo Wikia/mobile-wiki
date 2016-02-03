@@ -5,6 +5,9 @@
 
 	.avatar {
 		display: inline-block;
+		svg {
+			vertical-align: middle;
+		}
 	}
 
 	.avatar-username {
