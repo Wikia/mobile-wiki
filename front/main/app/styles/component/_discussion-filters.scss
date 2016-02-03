@@ -64,21 +64,24 @@ $legend-font-size: 16px;
 			}
 
 			label {
-				background-color: $discussion-filters-label-background;
+				display: block;
 				font-size: $type-smallest;
 				font-weight: normal;
-				left: -18px;
 				line-height: $sort-label-height - 2px;
 				margin: 1px 0;
-				position: relative;
+				padding-left: 24px;
+				// this is the only option to have clickable fancy-buttons on mobile
+				position: absolute;
 			}
 
-			.icon {
+			.radio-fancy {
 				border: 1px solid $discussion-filters-bullet-border;
 				border-radius: 50%;
 				float: left;
 				height: 18px;
 				margin: 15px 6px 0 0;
+				// this is the only option to have clickable fancy-buttons on mobile
+				position: absolute;
 				width: 18px;
 
 				.inside {
@@ -100,9 +103,7 @@ $legend-font-size: 16px;
 			}
 
 			.bullet {
-				margin: 0;
-				position: relative;
-				right: -5px;
+				display: none;
 			}
 		}
 	}
