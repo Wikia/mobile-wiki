@@ -1,10 +1,19 @@
 import Ember from 'ember';
 
 const RecentWikiActivityModel = Ember.Object.extend({
-	recentChanges: {}
+	recentChanges: null
 });
 
 RecentWikiActivityModel.reopenClass({
+	init() {
+		this._super(...arguments);
+		this.recentChanges = {};
+	},
+
+	/**
+	 * Gets the last 50 changes on a given wiki.
+	 * @returns {Ember.RSVP.Promise}
+     */
 	getRecentActivityList() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.getJSON(
@@ -20,9 +29,7 @@ RecentWikiActivityModel.reopenClass({
 				}
 			).done((data) => {
 				resolve(RecentWikiActivityModel.create({recentChanges: data.query.recentchanges}));
-			}).fail((err) => {
-				reject(err);
-			});
+			}).fail((err) => reject(err));
 		});
 	}
 });
