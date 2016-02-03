@@ -10,7 +10,7 @@
 	{{#link-to 'article' model.title}}{{model.title}}{{/link-to}}
 </h3>
 {{#if model.parsedcomment}}
-	<small>
-		<strong class="recent-change-summary-label">{{i18n 'app.edit-summary'}}:</strong> {{model.parsedcomment}}
+	<small class="recent-change-summary">
+		<strong class="recent-change-summary-label">{{i18n 'app.edit-summary'}}:</strong> {{{model.parsedcomment}}}
 	</small>
 {{/if}}
