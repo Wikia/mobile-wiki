@@ -28,7 +28,7 @@ import {isSpecialWiki} from '../utils/track';
  * @property {boolean|null} blocking
  * @property {Array<string[]>} adSlots
  * @property {Object} adsContext
- * @property {*} adEngineModule
+ * @property {*} adEngineRunnerModule
  * @property {*} adContextModule
  * @property {SourcePointDetectionModule} sourcePointDetectionModule
  * @property {*} adConfigMobile
@@ -75,21 +75,21 @@ class Ads {
 		load(adsUrl, () => {
 			if (window.require) {
 				window.require([
-					'ext.wikia.adEngine.adEngine',
 					'ext.wikia.adEngine.adContext',
-					'ext.wikia.adEngine.config.mobile',
+					'ext.wikia.adEngine.adEngineRunner',
 					'ext.wikia.adEngine.adLogicPageViewCounter',
-					'ext.wikia.adEngine.sourcePointDetection',
+					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.mobile.mercuryListener',
+					'ext.wikia.adEngine.sourcePointDetection',
 					'wikia.krux'
-				], (adEngineModule,
-					adContextModule,
-					adConfigMobile,
+				], (adContextModule,
+					adEngineRunnerModule,
 					adLogicPageViewCounterModule,
-					sourcePointDetectionModule,
+					adConfigMobile,
 					adMercuryListener,
+					sourcePointDetectionModule,
 					krux) => {
-					this.adEngineModule = adEngineModule;
+					this.adEngineRunnerModule = adEngineRunnerModule;
 					this.adContextModule = adContextModule;
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.adConfigMobile = adConfigMobile;
@@ -202,6 +202,8 @@ class Ads {
 	 * @returns {void}
 	 */
 	reload(adsContext) {
+		let delayEnabled = false;
+
 		this.turnOffAdsForLoggedInUsers(adsContext);
 		// Store the context for external reuse
 		this.setContext(adsContext);
@@ -211,13 +213,17 @@ class Ads {
 
 		if (this.isLoaded && adsContext) {
 			this.adContextModule.setContext(adsContext);
+			this.onLoad();
 			if (Ads.blocking !== null) {
 				this.trackBlocking(Ads.blocking ? 'Yes' : 'No');
 			} else {
 				this.sourcePointDetectionModule.initDetection();
 			}
+			if (adsContext.opts) {
+				delayEnabled = Boolean(adsContext.opts.delayEngine);
+			}
 			this.adLogicPageViewCounterModule.increment();
-			this.adEngineModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury');
+			this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
 		}
 	}
 
@@ -228,7 +234,6 @@ class Ads {
 	 */
 	reloadWhenReady() {
 		this.reload(this.currentAdsContext);
-		this.onLoad();
 	}
 
 	/**
