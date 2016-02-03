@@ -1,15 +1,13 @@
 import Ember from 'ember';
 
 const RecentWikiActivityModel = Ember.Object.extend({
-	recentChanges: null
-});
-
-RecentWikiActivityModel.reopenClass({
 	init() {
 		this._super(...arguments);
 		this.recentChanges = {};
-	},
+	}
+});
 
+RecentWikiActivityModel.reopenClass({
 	/**
 	 * Gets the last 50 changes on a given wiki.
 	 * @returns {Ember.RSVP.Promise}
@@ -28,7 +26,9 @@ RecentWikiActivityModel.reopenClass({
 					rclimit: '50'
 				}
 			).done((data) => {
-				resolve(RecentWikiActivityModel.create({recentChanges: data.query.recentchanges}));
+				const model = RecentWikiActivityModel.create();
+				model.set('recentChanges', data.query.recentchanges);
+				resolve(model);
 			}).fail((err) => reject(err));
 		});
 	}
