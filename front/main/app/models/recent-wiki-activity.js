@@ -15,7 +15,7 @@ RecentWikiActivityModel.reopenClass({
 					list: 'recentchanges',
 					rcnamespace: '0',
 					rctype: 'edit|external|new',
-					rcprop: 'user|parsedcomment|timestamp|title|ids',
+					rcprop: 'user|userid|useravatar|parsedcomment|timestamp|title|ids',
 					rclimit: '50'
 				}
 			).done((data) => {
