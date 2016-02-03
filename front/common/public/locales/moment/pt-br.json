@@ -1,4 +1,8 @@
 {
+  "longDateFormat": {
+    "L": "DD/MM/YY",
+    "LLL": "D [de] MMMM [de] YYYY [às] HH:mm"
+  },
   "relativeTime": {
     "m": "1 min",
     "mm": "%d min"

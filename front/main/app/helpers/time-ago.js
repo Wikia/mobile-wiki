@@ -12,30 +12,18 @@ import moment from 'moment';
  */
 export default Ember.Helper.helper((params) => {
 	const date = moment.unix(params[0]),
-		dateFormats = {
-			de: 'DD.MM.YY',
-			en: 'MM/DD/YY',
-			es: 'DD/MM/YY',
-			fr: 'DD/MM/YY',
-			it: 'DD/MM/YY',
-			ja: 'YY/MM/DD',
-			ru: 'DD/MM/YY',
-			'pt-br': 'DD/MM/YY',
-			'zh-cn': 'YY/MM/DD',
-			'zh-tw': 'YY/MM/DD'
-		},
 		shouldHideAgoString = params[1] || true;
 
 	let output;
 
 	if (moment().diff(date, 'days') > 5) {
-		output = date.format(dateFormats[moment.locale()]);
+		output = date.format('L');
 	} else if (moment().diff(date, 'minutes') < 1) {
 		output = i18n.t('app.now-label');
 	} else {
 		output = date.fromNow(shouldHideAgoString);
 	}
 
-	return `<span class='timestamp' title='${date.format("LLL")}'>&bull; ${output} </span>`;
+	return `<span class='timestamp' title='${date.format('LLL')}'>&bull; ${output} </span>`;
 
 });
