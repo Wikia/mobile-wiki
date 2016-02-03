@@ -59,7 +59,7 @@ $legend-font-size: 16px;
 			height: $sort-label-height;
 			width: 100%;
 
-			:last-child {
+			&:last-child {
 				border-bottom: none;
 			}
 
@@ -105,5 +105,11 @@ $legend-font-size: 16px;
 				right: -5px;
 			}
 		}
+	}
+}
+
+.header {
+	.pop-over-container {
+		padding: 10px 20px 0;
 	}
 }
