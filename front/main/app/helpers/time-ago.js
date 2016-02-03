@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import moment from 'moment';
-import ajaxCall from '../utils/ajax-call';
 
 /**
  * Helper to give textual representation of time interval between past date
@@ -25,42 +24,12 @@ export default Ember.Helper.helper((params) => {
 			'zh-cn': 'YY/MM/DD',
 			'zh-tw': 'YY/MM/DD'
 		},
-		config = {
-			relativeTime: {
-				m: '1 m',
-				mm: '%d m',
-				h: '1 h',
-				hh: '%d h',
-				d: '1 d',
-				dd: '%d d'
-			}
-		},
-		language = Ember.get(Mercury, 'wiki.language.content'),
 		shouldHideAgoString = params[1] || true;
 
 	let output;
 
-	if (language !== 'en') {
-		Ember.$.getScript(M.buildUrl({path: `/front/main/assets/vendor/moment/locales/${language}.js`}));
-		ajaxCall({
-			url: M.buildUrl({path: `/front/common/locales/moment/${language}.json`}),
-			success: (data) => {
-				Ember.$.extend(config.relativeTime, data.relativeTime);
-				console.log('EXTENDED CONFIG IN PROMISE', config.relativeTime);
-			},
-			error: () => {}
-		});
-
-		console.log('EXTENDED CONFIG ', config.relativeTime);
-
-	}
-	//moment.locale(language);
-	moment.locale(language, {
-		relativeTime: config.relativeTime
-	});
-
 	if (moment().diff(date, 'days') > 5) {
-		output = date.format(dateFormats[language]);
+		output = date.format(dateFormats[moment.locale()]);
 	} else if (moment().diff(date, 'minutes') < 1) {
 		output = i18n.t('app.now-label');
 	} else {
