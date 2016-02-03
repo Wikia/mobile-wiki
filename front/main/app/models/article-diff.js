@@ -18,20 +18,20 @@ ArticleDiffModel.reopenClass({
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				const page = data[Object.keys(data)[0]],
 					revision = Ember.get(page, 'revisions').get('firstObject'),
-					userId = revision['userid'];
+					userId = revision.userid;
 
 				UserModel.find({userId}).then((user) => {
-					const content = $(revision['diff']['*']),
+					const content = $(revision.diff['*']),
 						diffs = this.prepareDiff(content);
 
 					resolve(ArticleDiffModel.create({
 						diffs,
-						namespace: page['ns'],
+						namespace: page.ns,
 						newid,
 						oldid,
-						pageid: page['pageid'],
-						timestamp: new Date(revision['timestamp']).getTime() / 1000,
-						title: page['title'],
+						pageid: page.pageid,
+						timestamp: new Date(revision.timestamp).getTime() / 1000,
+						title: page.title,
 						user
 					}));
 				}).catch((error) => {
