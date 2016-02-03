@@ -12,8 +12,6 @@ import {track, trackActions} from 'common/utils/track';
  */
 
 export default Ember.Component.extend({
-	classNames: ['local-wikia-search-2016'],
-
 	query: '',
 
 	/**
