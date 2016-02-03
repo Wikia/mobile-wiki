@@ -1,3 +1,6 @@
+## release-205 hotfix 1 (2016-02-03 11:58 UTC)
+* release-205-hotfix: Revert "SOC-1966 | Hiding delete all button"
+
 ## release-205 (2016-02-02 12:19 UTC)
 * [SOC-955](https://wikia-inc.atlassian.net/browse/SOC-955) SOC-955 | SOC-956 | SOC-1508 | SOC-1509 | SOC-1738 | SOC-1719 | SOC-1924
 * [XW-821](https://wikia-inc.atlassian.net/browse/XW-821) XW-821 | don't use deprecated functionality in article-comments
