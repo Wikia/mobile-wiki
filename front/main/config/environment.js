@@ -13,7 +13,6 @@ module.exports = function (environment) {
 			}
 		},
 		moment: {
-			// locales which we support  | includeLocales: ['de', 'es', 'fr', 'it', 'ja', 'pt-br', 'pl', 'ru', 'zh-cn', 'zh-tw'],
 			localeOutputPath: 'assets/vendor/moment/locales'
 		},
 		APP: {

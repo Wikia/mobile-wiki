@@ -12,13 +12,14 @@ import moment from 'moment';
  */
 export default Ember.Helper.helper((params) => {
 	const date = moment.unix(params[0]),
+		now = moment(),
 		shouldHideAgoString = params[1] || true;
 
 	let output;
 
-	if (moment().diff(date, 'days') > 5) {
+	if (now.diff(date, 'days') > 5) {
 		output = date.format('L');
-	} else if (moment().diff(date, 'minutes') < 1) {
+	} else if (now.diff(date, 'minutes') < 1) {
 		output = i18n.t('app.now-label');
 	} else {
 		output = date.fromNow(shouldHideAgoString);

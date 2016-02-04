@@ -1,4 +1,3 @@
-import ajaxCall from '../utils/ajax-call';
 import moment from 'moment';
 
 export function initialize(container, application) {
@@ -20,30 +19,23 @@ export function initialize(container, application) {
 				dd: '%d d'
 			}
 		};
+
 	if (language !== 'en') {
 		application.deferReadiness();
+
 		Ember.$.getScript(M.buildUrl({path: `/front/main/assets/vendor/moment/locales/${language}.js`}));
-		ajaxCall({
-			url: M.buildUrl({path: `/front/common/locales/moment/${language}.json`}),
-			success: (data) => {
-				Ember.$.extend(config.relativeTime, data.relativeTime);
-				Ember.$.extend(config.longDateFormat, data.longDateFormat);
-			},
-			error: () => {
-			}
-		}).then(() => {
-			moment.locale(language, {
-				relativeTime: config.relativeTime,
-				longDateFormat: config.longDateFormat
-			});
-			application.advanceReadiness();
-		});
-	} else {
-		moment.locale(language, {
-			relativeTime: config.relativeTime,
-			longDateFormat: config.longDateFormat
-		});
+		const data = M.prop('momentTranslation');
+
+		Ember.$.extend(config.longDateFormat, data.longDateFormat);
+		Ember.$.extend(config.relativeTime, data.relativeTime);
+
+		application.advanceReadiness();
 	}
+
+	moment.locale(language, {
+		relativeTime: config.relativeTime,
+		longDateFormat: config.longDateFormat
+	});
 }
 
 export default {
