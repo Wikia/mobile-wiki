@@ -31,7 +31,7 @@ export default function prepareArticleData(request, data) {
 
 		if (articleData.details) {
 			articleDetails = articleData.details;
-			title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
+			title = articleDetails.displayTitle ? articleDetails.displayTitle : articleDetails.title;
 			result.canonicalUrl = wikiVariables.basePath + articleDetails.url;
 		}
 
