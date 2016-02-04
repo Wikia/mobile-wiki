@@ -1,22 +1,12 @@
 import Ember from 'ember';
-import {getSystem} from 'common/utils/browser';
 
 export default Ember.Mixin.create({
 	headroom: null,
 	headroomEnabled: true,
 
 	// keep it consistent with values in _wikia-variables.scss
-	smartBannerHeight: {
-		android: 66,
-		ios: 83
-	},
-
 	offset: Ember.computed('smartBannerVisible', function () {
-		if (this.get('smartBannerVisible')) {
-			return this.get(`smartBannerHeight.${getSystem()}`);
-		}
-
-		return 0;
+		return this.get('smartBannerVisible') ? 66 : 0;
 	}),
 
 	/**

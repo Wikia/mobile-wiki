@@ -96,12 +96,22 @@ Router.map(function () {
 
 		this.route('post', {
 			path: '/p/:postId'
+		}, function () {
+			this.route('reply', {
+				path: '/r/:replyId'
+			});
+		});
+
+		this.route('user', {
+			path: '/u/:userId'
 		});
 	});
 
 	this.route('image-review', {
 		path: '/image-review'
 	});
+
+	this.route('recent-wiki-activity');
 
 	// Route to catch all badly formed URLs
 	this.route('notFound', {

@@ -16,10 +16,12 @@ $link-color: $color-blue-light;
 $upvote-icon-stroke-color: $color-white;
 $upvote-icon-back-color: $color-white;
 $upvote-icon-activated-color: #e3bd00;
+$pop-over-background-color: $color-white;
 
 $discussion-bg-color: $color-white;
 $discussion-count-color: #999;
 $discussion-actions-color: #999;
+$discussion-back-button-color: $color-white;
 $discussion-deleted-actions-color: #ccc;
 $discussion-reply-border-color: $border-color;
 $discussion-avatar-border-color: $border-color;
@@ -38,6 +40,7 @@ $discussion-see-more-color: #E6E6E6;
 $discussion-timestamp-color: #999;
 $discussion-post-detail-border-color: $border-color;
 $discussion-deleted-mark-color: #ed1c24;
+$discussion-more-options-divider-color: #e6e6e6;
 
 $discussion-desktop-bg-color: #f6f6f6;
 $discussion-desktop-post-detail-bg-color: $color-white;
@@ -48,6 +51,7 @@ $discussion-contributors-background-mobile: #F6F6F6;
 $discussion-contributors-border-color: $border-color;
 $discussion-contributors-text-color: $color-white;
 $discussion-contributors-rail-title: #333;
+$discussion-post-list-text-color: #999;
 
 $discussion-editor-error-background-color: #d0021b;
 $discussion-editor-error-text-color: $color-white;
@@ -60,10 +64,10 @@ $discussion-editor-toolbar-background-color: #f6f6f6;
 $discussion-editor-label-color: #999;
 $discussion-editor-textarea-border-color: #e1e1e1;
 
-$discussion-error-dialog-text-color: #333;
-$discussion-error-dialog-background-color: $color-white;
-$discussion-error-dialog-button-hover-background-color: #f6f6f6;
-$discussion-error-dialog-separator-color: #e6e6e6;
+$discussion-dialog-text-color: #333;
+$discussion-dialog-background-color: $color-white;
+$discussion-dialog-button-hover-background-color: #f6f6f6;
+$discussion-dialog-separator-color: #e6e6e6;
 
 $discussion-empty-forum-message-border-color: #e6e6e6;
 
@@ -73,6 +77,9 @@ $collapsible-menu-border-color: #d0d0d0;
 $collapsible-menu-title-color: $body-font-color;
 $collapsible-menu-list-link-color: $color-black;
 $discussion-sort-color: $border-color;
+
+$discussion-user-replied-to-border-bottom-color: #e6e6e6;
+$discussion-user-replied-to-text-color: #ccc;
 
 $app-promotion-text-color: #999;
 
@@ -135,5 +142,8 @@ $dark-discussion-no-replies-text-color: #999;
 $dark-discussion-rail-border-color: #666;
 
 $dark-discussion-sort-color: #999;
+
+$dark-discussion-user-replied-to-border-bottom-color: #666;
+$dark-discussion-user-replied-to-text-color: #666;
 
 $dark-app-promotion-text-color: $color-white;

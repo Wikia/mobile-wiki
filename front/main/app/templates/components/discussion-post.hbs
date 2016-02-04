@@ -1,17 +1,17 @@
-{{discussion-header
-	showContent=false
-	headroomEnabled=false
-}}
-{{discussion-error-dialog
-	isVisible=shouldShowErrorMessage
-	errorMessage=errorMessage
+{{discussion-dialog
+	confirmButtonText=confirmButtonText
+	confirmCallback=confirmCallback
+	dialogMessage=dialogMessage
+	headerText=dialogHeaderText
+	isConfirm=isConfirm
+	isVisible=shouldShowDialogMessage
 }}
 <div class="site-body-discussion post-details-view">
 	<div class="minimized discussion-hero-unit background-theme-color"></div>
 	<div class="discussion-page row">
 		<div class="rail large-2 columns">
 			{{community-badge}}
-			{{#link-to 'discussion.forum' model.forumId discussionSort.sortBy class="back-button active-element-theme-color"}}
+			{{#link-to 'discussion.forum' model.forumId discussionSort.sortBy class="side-button back-button active-element-theme-color"}}
 				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
 				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
 			{{/link-to}}
@@ -38,13 +38,13 @@
 				<div class="discussion post small-12 large-8 columns">
 					{{post-detail
 						author=model.firstPost.createdBy
-						deletePost=(action this.attrs.deletePost)
+						delete=(action this.attrs.deletePost)
 						isDetailsView=true
 						post=model.firstPost
 						postId=model.id
 						replyCount=model.postCount
 						timestamp=model.firstPost.creationDate.epochSecond
-						undeletePost=(action this.attrs.undeletePost)
+						undelete=(action this.attrs.undeletePost)
 						upvoteCount=model.upvoteCount
 						upvote=(action this.attrs.upvote)
 					}}
@@ -69,13 +69,12 @@
 								post=item
 								author=item.createdBy
 								content=item.rawContent
-								deleteReply=(action this.attrs.deleteReply)
+								delete=(action this.attrs.deleteReply)
 								isParentDeleted=model.firstPost.isDeleted
 								timestamp=item.creationDate.epochSecond
-								undeleteReply=(action this.attrs.undeleteReply)
+								undelete=(action this.attrs.undeleteReply)
 								upvoteCount=item.upvoteCount
 								isNew=item.isNew
-								isVisible=item.isVisible
 								upvote=(action this.attrs.upvote)
 							}}
 						{{else}}

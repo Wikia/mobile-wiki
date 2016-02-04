@@ -2,6 +2,11 @@ import Ember from 'ember';
 import ArticleCommentsModel from '../models/article-comments';
 import {track, trackActions} from 'common/utils/track';
 
+/**
+ * Component that displays article comments
+ *
+ * Subject to refactor as it uses observers instead of computed properties
+ */
 export default Ember.Component.extend({
 	page: null,
 	articleId: null,
@@ -67,14 +72,32 @@ export default Ember.Component.extend({
 	}),
 
 	/**
+	 * Sets model when we get new articleId
+	 *
 	 * @returns {void}
 	 */
-	didInsertElement() {
+	didInitAttrs() {
+		this._super(...arguments);
+
 		this.set('model', ArticleCommentsModel.create({
 			articleId: this.get('articleId')
 		}));
+	},
 
-		if (this.get('page')) {
+	/**
+	 * If we recieved page on didRender
+	 * that means there is a query param comments_page
+	 * and we should load comments and scroll to them
+	 *
+	 * @returns {void}
+	 */
+	didRender() {
+		const page = this.get('page');
+
+		this._super(...arguments);
+
+		if (page) {
+			this.set('model.page', page);
 			this.scrollToTop();
 		}
 	},

@@ -52,14 +52,14 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
-			$(window).on('scroll', this.didScroll.bind(this));
+			Ember.$(window).on(`scroll.${this.id}`, this.didScroll.bind(this));
 		},
 
 		/**
 		 * @returns {void}
 		 */
 		willDestroyElement() {
-			$(window).off('scroll', this.didScroll.bind(this));
+			Ember.$(window).off(`scroll.${this.id}`);
 		},
 	}
 );

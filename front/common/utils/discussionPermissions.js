@@ -5,8 +5,12 @@
  * @returns {boolean}
  */
 export function checkPermissions(post, permission) {
-	const userData = Ember.get(post, '_embedded.userData'),
+	const userData = post && Ember.get(post, '_embedded.userData'),
 		permissions = userData && userData[0].permissions;
 
-	return permissions && permissions.contains(permission);
+	if (!userData) {
+		return false;
+	} else {
+		return permissions && permissions.contains(permission);
+	}
 }
