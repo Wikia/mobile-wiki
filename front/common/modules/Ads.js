@@ -99,7 +99,6 @@ class Ads {
 					this.isLoaded = true;
 					this.addDetectionListeners();
 					this.reloadWhenReady();
-					this.kruxTrackFirstPage();
 				});
 			} else {
 				console.error('Looks like ads asset has not been loaded');
@@ -199,9 +198,10 @@ class Ads {
 	 * Reloads the ads with the provided adsContext
 	 *
 	 * @param {*} adsContext
+	 * @param {function?} onContextLoadCallback
 	 * @returns {void}
 	 */
-	reload(adsContext) {
+	reload(adsContext, onContextLoadCallback = null) {
 		let delayEnabled = false;
 
 		this.turnOffAdsForLoggedInUsers(adsContext);
@@ -213,7 +213,9 @@ class Ads {
 
 		if (this.isLoaded && adsContext) {
 			this.adContextModule.setContext(adsContext);
-			this.onLoad();
+			if (typeof onContextLoadCallback === 'function') {
+				onContextLoadCallback();
+			}
 			if (Ads.blocking !== null) {
 				this.trackBlocking(Ads.blocking ? 'Yes' : 'No');
 			} else {
@@ -233,14 +235,10 @@ class Ads {
 	 * @returns {void}
 	 */
 	reloadWhenReady() {
-		this.reload(this.currentAdsContext);
-	}
-
-	/**
-	 * @returns {void}
-	 */
-	onLoad() {
-		this.adMercuryListenerModule.startOnLoadQueue();
+		this.reload(this.currentAdsContext, () => {
+			this.adMercuryListenerModule.startOnLoadQueue();
+			this.kruxTrackFirstPage();
+		});
 	}
 
 	/**
