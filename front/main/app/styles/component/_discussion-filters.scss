@@ -110,7 +110,13 @@ $legend-font-size: 16px;
 }
 
 .header {
-	.pop-over-container {
-		padding: 10px 20px 0;
+	.orient-below {
+		.pop-over-compass {
+			animation: none;
+			transform: translateY(-14px);
+		}
+		.pop-over-container {
+			padding: 10px 20px 0;
+		}
 	}
 }
