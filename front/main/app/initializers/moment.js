@@ -1,4 +1,17 @@
 import moment from 'moment';
+
+/**
+ * @param {object} language
+ * @param {object} config
+ *
+ * @returns {void}
+ */
+function setMomentLocale(language, config) {
+	moment.locale(language, {
+		relativeTime: config.relativeTime,
+		longDateFormat: config.longDateFormat
+	});
+}
 /**
  * @param {*} container
  * @param {*} application
@@ -28,19 +41,18 @@ export function initialize(container, application) {
 	if (language !== 'en') {
 		application.deferReadiness();
 
-		Ember.$.getScript(M.buildUrl({path: `/front/main/assets/vendor/moment/locales/${language}.js`}));
-		const data = M.prop('momentTranslation');
+		Ember.$.getScript(M.buildUrl({path: `/front/main/assets/vendor/moment/locales/${language}.js`})).always(() => {
+			const data = M.prop('momentTranslation');
 
-		Ember.$.extend(config.longDateFormat, data.longDateFormat);
-		Ember.$.extend(config.relativeTime, data.relativeTime);
+			Ember.$.extend(config.longDateFormat, data.longDateFormat);
+			Ember.$.extend(config.relativeTime, data.relativeTime);
 
-		application.advanceReadiness();
+			setMomentLocale(language, config);
+			application.advanceReadiness();
+		});
+	} else {
+		setMomentLocale(language, config);
 	}
-
-	moment.locale(language, {
-		relativeTime: config.relativeTime,
-		longDateFormat: config.longDateFormat
-	});
 }
 
 export default {
