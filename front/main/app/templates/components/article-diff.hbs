@@ -5,4 +5,6 @@
 	{{/each}}
 {{/each}}
 
+{{#if currentUser.isAuthenticated}}
 <button {{action 'undo'}} class="">{{i18n 'main.undo-label' ns='recent-wiki-activity'}}</button>
+{{/if}}
