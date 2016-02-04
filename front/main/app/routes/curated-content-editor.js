@@ -115,6 +115,11 @@ export default Ember.Route.extend(
 				this.transitionTo('curatedContentEditor.blockEditItem', block, encodeURIComponent(item.label));
 			},
 
+			editCommunityData() {
+				this.trackClick('curated-content-editor', 'commmunity-data-edit');
+				this.transitionTo('curatedContentEditor.communityDataEdit');
+			},
+
 			/**
 			 * @returns {void}
 			 */

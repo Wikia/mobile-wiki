@@ -45,6 +45,10 @@ Router.map(function () {
 			});
 		});
 
+		this.route('communityDataEdit', {
+			path: '/community/edit'
+		});
+
 		this.route('sectionAdd', {
 			path: '/curated/add'
 		});
