@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import getEditToken from '../utils/edit-token';
 import UserModel from './user';
 
 const ArticleDiffModel = Ember.Object.extend({
@@ -141,6 +142,37 @@ ArticleDiffModel.reopenClass({
 		}
 
 		return null;
+	},
+
+	undo(model) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			getEditToken(model.title)
+				.then((token) => {
+					Ember.$.ajax({
+						url: M.buildUrl({path: '/api.php'}),
+						data: {
+							action: 'edit',
+							title: model.title,
+							undo: model.newid,
+							undoafter: model.oldid,
+							token,
+							format: 'json'
+						},
+						dataType: 'json',
+						method: 'POST',
+						success: (resp) => {
+							if (resp && resp.edit && resp.edit.result === 'Success') {
+								resolve();
+							} else if (resp && resp.error) {
+								reject(resp.error.code);
+							} else {
+								reject();
+							}
+						},
+						error: (err) => reject(err)
+					});
+				}, (err) => reject(err));
+		});
 	}
 });
 
