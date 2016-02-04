@@ -72,7 +72,7 @@ function calculateCarouselCompensation() {
 		if (deltaMedium > 0) {
 			$(`#carousel-${i}-medium .slick-next`).css('right', deltaMedium + 10);
 		} else {
-			$(`#carousel-${i}-medium .slick-next`).css('right', 100);
+			$(`#carousel-${i}-medium .slick-next`).css('right', 20);
 		}
 	}
 
