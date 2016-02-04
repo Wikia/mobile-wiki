@@ -49,12 +49,11 @@ export default Ember.Route.extend({
 		 * @returns {void}
 		 */
 		done(newItem) {
-			debugger
-			const controller = this.controllerFor('curatedContentEditor.blockEditItem'),
-				block = controller.get('block'),
+			const controller = this.get('controller'),
 				originalItemLabel = controller.get('originalItemLabel'),
 				rootModel = this.modelFor('curatedContentEditor'),
-				blockModel = rootModel[block];
+				blockModel =  rootModel.communityData;
+			debugger
 
 			CuratedContentEditorModel.updateItem(blockModel, newItem, originalItemLabel);
 			this.transitionTo('curatedContentEditor.index');

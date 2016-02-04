@@ -37,13 +37,20 @@ export default Ember.Component.extend(
 			return this.get('emptyGif');
 		}),
 
+		inputValue: Ember.computed('model.label', 'model.description', function() {
+			if (this.get('isCommunityData')) {
+				return this.get('model.description');
+			}
+			return this.get('model.label');
+		}),
+
 		isSection: Ember.computed.equal('model.node_type', 'section'),
 		isCommunityData: Ember.computed.notEmpty('model.community_data'),
 
 		isTooltipVisible: false,
 
 		isTitleNotEmpty: Ember.computed.notEmpty('model.title'),
-		isLabelNotEmpty: Ember.computed.notEmpty('model.label'),
+		isLabelNotEmpty: Ember.computed.notEmpty('inputValue'),
 
 		isTitleFocused: false,
 		isLabelFocused: false,
@@ -122,7 +129,7 @@ export default Ember.Component.extend(
 		didRender() {
 			// We don't want to fire observers when model changes from undefined to the actual one, so we add them here
 			this.addObserver('model.title', this, this.titleObserver);
-			this.addObserver('model.label', this, this.labelObserver);
+			this.addObserver('inputValue', this, this.labelObserver);
 		},
 
 		/**
@@ -184,6 +191,12 @@ export default Ember.Component.extend(
 			done() {
 				const trackLabel = this.get('isSection') ? 'section-edit-done' : 'item-edit-done';
 
+				if (this.get('isCommunityData')) {
+					console.log("zapisuje!");
+					this.sendAction('done', this.get('model'));
+					return;
+				}
+
 				this.trackClick('curated-content-editor', trackLabel);
 				if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 					if (this.get('isSection')) {
@@ -231,7 +244,14 @@ export default Ember.Component.extend(
 								'imageCropLayout.previous': this.get('itemFormLayout.name')
 							});
 
-							this.sendAction('changeLayout', this.get('imageCropLayout.name'));
+							//we don't want to crop community image
+							if (this.get('isCommunityData')) {
+								this.set('model.image_id', data.article_id);
+								this.set('model.image_url', data.url);
+							} else {
+								this.sendAction('changeLayout', this.get('imageCropLayout.name'));
+							}
+
 						} else {
 							Ember.Logger.error('Image Data Object is malformed. Url or article_id is missing');
 							this.set('imageErrorMessage', i18n.t('app.curated-content-image-upload-error'));
@@ -307,13 +327,13 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * @returns {boolean}
+		 * @returns {boolean} true if image is valid.
 		 */
 		validateImage() {
 			const imageUrl = this.get('model.image_url');
 			let errorMessage = null;
 
-			if (!imageUrl) {
+			if (!this.get('isCommunityData') && !imageUrl) {
 				errorMessage = i18n.t('app.curated-content-editor-image-missing-error');
 			}
 
@@ -326,7 +346,7 @@ export default Ember.Component.extend(
 		 * @returns {boolean} true if label is valid.
 		 */
 		validateLabel() {
-			const label = this.get('model.label'),
+			const label = this.get('inputValue'),
 				alreadyUsedLabels = this.getWithDefault('alreadyUsedLabels', []);
 			let errorMessage = null;
 
@@ -355,7 +375,7 @@ export default Ember.Component.extend(
 			let title,
 				errorMessage = null;
 
-			if (!this.get('isSection') && !this.get('isCommunityData')) {
+			if (!this.get('isSection')) {
 				title = this.get('model.title');
 
 				if (Ember.isEmpty(title)) {

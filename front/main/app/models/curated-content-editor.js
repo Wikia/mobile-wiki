@@ -218,11 +218,14 @@ CuratedContentEditorModel.reopenClass({
 	 * @returns {void}
 	 */
 	updateItem(parentItem, newItem, itemLabel) {
-		parentItem.items.forEach((item, index, parentItems) => {
-			if (item.label === itemLabel) {
-				parentItems[index] = newItem.toPlainObject();
-			}
-		});
+		if (parentItem.items) {
+			parentItem.items.forEach((item, index, parentItems) => {
+				if (item.label === itemLabel) {
+					parentItems[index] = newItem.toPlainObject();
+				}
+			});
+		}
+
 		CuratedContentEditorModel.isDirty = true;
 	},
 

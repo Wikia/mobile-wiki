@@ -9,7 +9,7 @@
 	<div class="curated-content-input-wrapper">
 		<div class="input-container {{if labelErrorMessage 'error'}}">
 			{{input
-				value=model.label
+				value=inputValue
 				id='label'
 				class=labelClass
 				name='label'
@@ -60,7 +60,9 @@
 	</div>
 	{{#modal-dialog isVisible=imageMenuVisible type='menu'}}
 		<ul>
-			<li {{action 'cropImage'}} class="crop-image {{unless model.image_url 'disabled'}}">{{i18n 'app.curated-content-editor-crop-image'}}</li>
+			{{#unless isCommunityData}}
+					<li {{action 'cropImage'}} class="crop-image {{unless model.image_url 'disabled'}}">{{i18n 'app.curated-content-editor-crop-image'}}</li>
+			{{/unless}}
 			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label=(i18n 'app.curated-content-editor-upload-image') click=(action 'hideImageMenu')}}
 			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
 		</ul>
