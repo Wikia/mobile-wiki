@@ -16,36 +16,38 @@
 				focus-out='setLabelFocusedOut'
 				focus-in='setLabelFocusedIn'
 			}}
-			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">{{i18n 'app.curated-content-editor-enter-display-name'}}</label>
+			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">{{displayNameLabel}}</label>
 			<span class="input-icon help" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-display-name-tooltip')}}></span>
 			{{#if labelErrorMessage}}
 				<small class="error">{{labelErrorMessage}}</small>
 			{{/if}}
 		</div>
 		{{#unless isSection}}
-			<div class="title input-container {{if titleErrorMessage 'error'}}">
-				{{input
-					value=model.title
-					id='title'
-					class=titleClass
-					name='title'
-					focus-out='setTitleFocusedOut'
-					focus-in='setTitleFocusedIn'
-					autocomplete='off'
-				}}
-				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{pageNameLabel}}</label>
-				<span class="input-icon help" {{action 'showTooltip' pageNameTooltip}}></span>
-				<ul class="title-suggestions-container {{unless searchSuggestionsVisible 'hidden'}}">
-					{{#each searchSuggestionsResult as |item|}}
-						<li {{action 'setTitle' item.title}} class="needsclick">{{item.title}}</li>
-					{{else}}
-						<li class="message {{if suggestionsError errorClass}}">{{searchSuggestionsMessage}}</li>
-					{{/each}}
-				</ul>
-				{{#if titleErrorMessage}}
-					<small class="error">{{titleErrorMessage}}</small>
-				{{/if}}
-			</div>
+			{{#unless isCommunityData}}
+				<div class="title input-container {{if titleErrorMessage 'error'}}">
+					{{input
+						value=model.title
+						id='title'
+						class=titleClass
+						name='title'
+						focus-out='setTitleFocusedOut'
+						focus-in='setTitleFocusedIn'
+						autocomplete='off'
+					}}
+					<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{pageNameLabel}}</label>
+					<span class="input-icon help" {{action 'showTooltip' pageNameTooltip}}></span>
+					<ul class="title-suggestions-container {{unless searchSuggestionsVisible 'hidden'}}">
+						{{#each searchSuggestionsResult as |item|}}
+							<li {{action 'setTitle' item.title}} class="needsclick">{{item.title}}</li>
+						{{else}}
+							<li class="message {{if suggestionsError errorClass}}">{{searchSuggestionsMessage}}</li>
+						{{/each}}
+					</ul>
+					{{#if titleErrorMessage}}
+						<small class="error">{{titleErrorMessage}}</small>
+					{{/if}}
+				</div>
+			{{/unless}}
 		{{/unless}}
 	</div>
 	<div class="curated-content-editor-photo {{if model.image_url 'loaded' 'placeholder'}} {{if imageErrorMessage 'error'}}" {{action 'showImageMenu'}}>
@@ -66,7 +68,9 @@
 	{{#modal-dialog isVisible=isTooltipVisible}}
 		{{tooltipMessage}}
 	{{/modal-dialog}}
-	<a {{action 'deleteItem'}} class="curated-content-editor-remove">{{i18n 'app.curated-content-editor-delete-item'}}</a>
+	{{#unless isCommunityData}}
+		<a {{action 'deleteItem'}} class="curated-content-editor-remove">{{i18n 'app.curated-content-editor-delete-item'}}</a>
+	{{/unless}}
 </form>
 {{alert-notifications alerts=alertNotifications}}
 

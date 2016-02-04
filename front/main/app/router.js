@@ -46,7 +46,7 @@ Router.map(function () {
 		});
 
 		this.route('communityDataEdit', {
-			path: '/community/edit'
+			path: '/community'
 		});
 
 		this.route('sectionAdd', {

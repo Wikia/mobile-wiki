@@ -38,6 +38,7 @@ export default Ember.Component.extend(
 		}),
 
 		isSection: Ember.computed.equal('model.node_type', 'section'),
+		isCommunityData: Ember.computed.notEmpty('model.community_data'),
 
 		isTooltipVisible: false,
 
@@ -322,12 +323,17 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * @returns {boolean}
+		 * @returns {boolean} true if label is valid.
 		 */
 		validateLabel() {
 			const label = this.get('model.label'),
 				alreadyUsedLabels = this.getWithDefault('alreadyUsedLabels', []);
 			let errorMessage = null;
+
+			// we don't have any requirements for the community description
+			if (this.get('isCommunityData')) {
+				return true;
+			}
 
 			if (Ember.isEmpty(label)) {
 				errorMessage = 'app.curated-content-editor-missing-label-error';
@@ -349,7 +355,7 @@ export default Ember.Component.extend(
 			let title,
 				errorMessage = null;
 
-			if (!this.get('isSection')) {
+			if (!this.get('isSection') && !this.get('isCommunityData')) {
 				title = this.get('model.title');
 
 				if (Ember.isEmpty(title)) {
