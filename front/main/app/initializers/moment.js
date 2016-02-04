@@ -1,5 +1,10 @@
 import moment from 'moment';
-
+/**
+ * @param {*} container
+ * @param {*} application
+ *
+ * @returns {void}
+ */
 export function initialize(container, application) {
 	const language = Ember.get(Mercury, 'wiki.language.content') || 'en',
 		/**
