@@ -17,6 +17,14 @@ export default Ember.Route.extend({
 			if (transition) {
 				transition.abort();
 			}
+		},
+
+		/**
+		 * @returns {Boolean} returns true
+		 */
+		didTransition() {
+			this.controllerFor('application').set('fullPage', true);
+			return true;
 		}
 	}
 });
