@@ -1,5 +1,7 @@
-{{!-- TODO: Convert the link to a route to a diff view --}}
-<a class="see-diff">{{svg 'back-arrow' role='img' class='icon-back'}}</a>
+{{#link-to 'articleDiff' model.old_revid model.revid class='see-diff'}}
+	{{svg 'back-arrow' role='img' class='icon-back'}}
+{{/link-to}}
+
 {{user-avatar
 	avatarUrl=model.useravatar
 	username=model.user
