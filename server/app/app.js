@@ -219,7 +219,7 @@ plugins = [
 	{
 		register: prerender,
 		options: {
-			serviceUrl: 'http://localhost:3000'
+			token: localSettings.prerenderApiKey
 		}
 	}
 ];
