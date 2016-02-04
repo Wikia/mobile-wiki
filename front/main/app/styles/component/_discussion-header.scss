@@ -32,6 +32,10 @@ $site-header-height: 50px;
 		white-space: nowrap;
 	}
 
+	.icon {
+		fill: $discussion-back-button-color;
+	}
+
 	.icon.dropdown {
 		height: 4px;
 		margin-left: 5px;
@@ -59,8 +63,23 @@ $site-header-height: 50px;
 
 	.new-post {
 		float: right;
-		height: 50px; // TODO fix height
+		height: 50px;
 		width: 56px;
+	}
+
+	.back-button {
+		color: $discussion-back-button-color;
+		float: left;
+
+		&:hover,
+		&:focus {
+			color: $discussion-back-button-color;
+		}
+	}
+
+	.delete-all {
+		float: right;
+		padding-right: 15px;
 	}
 }
 
@@ -83,9 +102,18 @@ $site-header-height: 50px;
 }
 
 .discussions {
-	.side-nav-toggle {
-		visibility: hidden;
+	.side-nav .side-nav-menu {
+		@media #{$desktop-range} {
+			width: 25%;
+			max-width: 350px;
+		}
 	}
+	.side-nav-menu__header .wordmark {
+		@media #{$desktop-range} {
+			display: none;
+		}
+	}
+
 	.site-head {
 		max-width: 100%;
 	}

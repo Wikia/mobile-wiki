@@ -1,4 +1,4 @@
-$horizontal-padding: 15px;
+$horizontal-padding: 18px;
 $post-details-post-width: 560px;
 $post-details-outer-width: 580px;
 $post-details-reply-width: 524px;
@@ -22,6 +22,58 @@ body.discussions {
 	stroke: $upvote-icon-back-color;
 }
 
+.icon {
+	fill: $discussion-actions-color;
+	height: 20px;
+	width: 20px;
+	vertical-align: middle;
+
+	&.upvote {
+		height: 22px;
+		margin-right: 3px;
+		width: 22px;
+	}
+
+	&.upvote-reply {
+		height: 12px;
+		line-height: 12px;
+		stroke: $discussion-actions-color;
+		width: 12px;
+	}
+
+	&.replies {
+		height: 19px;
+		width: 24px;
+	}
+
+	&.no-replies {
+		display: block;
+		height: 34px;
+		margin: 0 auto;
+		width: 40px;
+	}
+
+	&.toggle-share {
+		height: 20px;
+		width: 18px;
+	}
+
+	&.delete, &.undelete {
+		height: 19px;
+		width: 16px;
+	}
+
+	&.eye {
+		height: 12px;
+		width: 16px;
+	}
+
+	&.arrow-left {
+		height: 16px;
+		width: 16px;
+	}
+}
+
 .discussion {
 	font-size: $type-smallest;
 	line-height: $line-height-smallest;
@@ -34,10 +86,6 @@ body.discussions {
 		img, svg {
 			border-color: $discussion-avatar-border-color;
 		}
-	}
-
-	.clickable {
-		cursor: pointer;
 	}
 
 	.count {
@@ -56,22 +104,42 @@ body.discussions {
 		}
 	}
 
+	.discussion-more-options {
+		cursor: pointer;
+		display: inline-block;
+		float: right;
+		height: 24px;
+		margin-right: -9px;
+		margin-top: 6px;
+		text-align: center;
+		width: 24px;
+
+		.more-icon {
+			height: 18px;
+			width: 4px;
+		}
+	}
+
+	.post-reply {
+		.discussion-more-options {
+			margin-top: 3px;
+		}
+	}
+
 	.toggle-share-area {
 		display: block;
 		height: 30px;
 		line-height: 30px;
 	}
 
-	.delete-actions {
-		display: inline-block;
-		float: right;
-	}
-
 	.discussion-content {
-		color: $discussion-content-color;
 		margin: 5px 0;
 		padding: .3rem 0;
 
+		.post-details-link {
+			color: $discussion-content-color;
+			display: block;
+		}
 		.post-title {
 			line-height: $line-height-smallest;
 			margin: 0;
@@ -80,7 +148,6 @@ body.discussions {
 
 	.post-reply,
 	.post-detail {
-		overflow: hidden;
 		position: relative;
 
 		.loading-overlay {
@@ -106,9 +173,8 @@ body.discussions {
 			}
 		}
 
-		&.is-parent-deleted .icon,
-		&.is-deleted .icon:not(.undelete) {
-			cursor: default;
+		&.is-parent-deleted .icon:not(.delete),
+		&.is-deleted .icon:not(.delete) {
 			fill: $discussion-deleted-actions-color;
 
 			&.upvote-reply {
@@ -120,6 +186,10 @@ body.discussions {
 		&.is-parent-deleted {
 			.discussion-content {
 				color: $discussion-deleted-content-color;
+
+				a {
+					color: $discussion-deleted-content-color;
+				}
 			}
 
 			.count {
@@ -128,9 +198,17 @@ body.discussions {
 				}
 			}
 
-			.upvote a {
+			.upvote a, .count a, .toggle-share-area {
 				cursor: default;
 			}
+		}
+
+		.pop-over-compass {
+			width: 320px;
+		}
+
+		.pop-over-container {
+			padding: 0 18px;
 		}
 	}
 
@@ -189,8 +267,8 @@ body.discussions {
 		margin: 0 auto;
 		padding: 35px 0;
 		text-align: center;
-	  	width: inherit;
-  	}
+		width: inherit;
+	}
 	// border set for each element with "post-reply" class, after the first one
 	.post-reply ~ .post-reply {
 		.discussion-reply {
@@ -198,38 +276,24 @@ body.discussions {
 		}
 	}
 
-	.icon {
-		fill: $discussion-actions-color;
-		height: 20px;
-		width: 20px;
-		vertical-align: middle;
+	.more-options {
+		font-size: $type-smallest;
+		list-style: none;
+		margin: 0;
 
-		&.upvote {
-			height: 22px;
-			margin-right: 3px;
-			width: 22px;
-		}
-		&.upvote-reply {
-			height: 12px;
-			line-height: 12px;
-			stroke: $discussion-actions-color;
-			width: 12px;
-		}
-		&.replies{
-			height: 19px;
-			width: 24px;
-		}
-	  	&.no-replies {
-		  	display: block;
-			height: 34px;
-		  	margin: 0 auto;
-			width: 40px;
-		}
-		&.toggle-share {
-			height: 20px;
-			width: 18px;
+		li:not(:last-child) {
+			border-bottom: 1px solid $discussion-more-options-divider-color;
 		}
 
+		a {
+			display: inline-block;
+			padding: 13px 0;
+		}
+
+		span {
+			margin-left: 2px;
+			vertical-align: middle;
+		}
 	}
 
 	.has-upvoted {
@@ -242,7 +306,7 @@ body.discussions {
 		}
 	}
 
-  	.load-more {
+	.load-more {
 		color: $discussion-load-more-color;
 		text-align: center;
 		width: 100%;
@@ -313,8 +377,12 @@ body.discussions {
 	&.forum {
 		margin-top: $discussion-header-height;
 
-		.discussion-content {
+		.clamp {
 			@include clamp(3);
+
+			a {
+				color: $discussion-content-color;
+			}
 		}
 
 		.post-detail {
@@ -324,6 +392,7 @@ body.discussions {
 				font-size: $type-smallest;
 			}
 		}
+
 	}
 
 	&.post {
@@ -402,9 +471,9 @@ body.discussions {
 			margin-right: auto;
 		}
 
-	  	.discussion-no-replies {
+		.discussion-no-replies {
 			border-bottom: 1px solid $discussion-reply-border-color;
-	  	}
+		}
 	}
 }
 

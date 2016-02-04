@@ -40,9 +40,9 @@ $desktop: new-breakpoint(min-width 500px);
 section {
 	@include outer-container;
 	clear: both;
-	margin-bottom: 3em;
-	padding-left: 3em;
-	padding-right: 3em;
+	margin-bottom: 54px;
+	padding-left: 54px;
+	padding-right: 54px;
 	// workaround for broken z-index in safari
 	transform: translate3d(0, 0, 0);
 
@@ -60,4 +60,15 @@ section {
 		padding-right: 0;
 		width: 100%;
 	}
+}
+
+.loading {
+	height: 100vh;
+	padding-left: 20px;
+	padding-top: 60px;
+	z-index: 2;
+}
+
+.loading-done {
+	display: none;
 }

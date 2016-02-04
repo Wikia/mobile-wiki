@@ -57,9 +57,7 @@
     "photos-label":"Fotos",
     "pages-label":"Seiten",
     "username-anonymous":"Ein Wikia-Nutzer",
-    "smartbanner-store-ios":"Im App-Store",
     "smartbanner-store-android":"In Google Play",
-    "smartbanner-install-ios":"Hol die App",
     "smartbanner-install-android":"Installieren",
     "smartbanner-price":"KOSTENLOS",
     "view-more":"Mehr anzeigen",
@@ -144,7 +142,12 @@
     "curated-content-editor-main-page":"Hauptseite",
     "curated-content-editor-new-featured-content":"Neue empfohlene Inhalte",
     "curated-content-editor-new-section":"Neuer Ordner",
-    "curated-content-editor-new-category":"Neue Kategorie"
+    "curated-content-editor-new-category":"Neue Kategorie",
+    "curated-content-editor-wikia-description": "Beschreibung",
+    "curated-content-editor-wikia-description-help": "Eine einfacher kurzer Text wie \"Finde mehr über das Schlumpf-Wiki heraus\" oder \"Willkommen im Schlumpf-Wiki\" funktioniert am besten!",
+    "curated-content-editor-enter-wikia-description": "Enter description here",
+    "curated-content-editor-enter-wikia-description-description": "Gib eine kurze Beschreibung über deine Wikia-Community an, die bei der Suche und auf den Hubs angezeigt wird.",
+    "explore-wiki":"__wikiName__ erkunden"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ oder __loginLink__",

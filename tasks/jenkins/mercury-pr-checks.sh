@@ -4,6 +4,8 @@ set -e
 set -x
 set -o pipefail
 mkdir jenkins || rm -rf jenkins/* && true
+echo "githubToken=Authorization: token $GITHUB_TOKEN" > jenkins/params
+echo "githubUrl=https://api.github.com/repos/Wikia/mercury/statuses/$GIT_COMMIT" >> jenkins/params
 dependenciesDir="/var/lib/jenkins/workspace/Mercury-UPDATE-dependencies"
 
 # $1 - context
@@ -18,12 +20,21 @@ curl -s \
 	https://api.github.com/repos/Wikia/mercury/statuses/$GIT_COMMIT
 }
 
+# $1 - state name
+# $2 - context
+# $3 - state
+# $4 - description
+# $5 - target url
+saveState() {
+echo $1="{ \"state\": \"$3\", \"description\": \"$4\", \"context\": \"$2\", \"target_url\": \"$5\" }" >> jenkins/params
+}
+
 ### Those tests depends on Build step
 failTests() {
 	updateGit "Front tests" failure skipped
 	updateGit "Server tests" failure skipped
 	updateGit "Linter" failure skipped
-	updateGit "Jenkin job" failure finished $BUILD_URL"console"
+	updateGit "Jenkins job" failure finished $BUILD_URL"console"
 }
 
 # $1 - directory
@@ -77,7 +88,7 @@ setupBower() {
 }
 
 ### Set pending status to all tasks
-updateGit "Jenkin job" pending running $BUILD_URL"console"
+updateGit "Jenkins job" pending running $BUILD_URL"console"
 updateGit "Build" pending pending
 updateGit "Front tests" pending pending
 updateGit "Server tests" pending pending
@@ -99,9 +110,11 @@ vim -e -s -c ':set bomb' -c ':wq' jenkins/build.log
 
 if [ -z $error ]
 then
-	updateGit "Build" success success $BUILD_URL"artifact/jenkins/build.log"
+	updateGit "Build" success success
+	saveState "buildState" "Build" success success $BUILD_URL"artifact/jenkins/build.log"
 else
-	updateGit "Build" failure "failed on: building application" $BUILD_URL"artifact/jenkins/build.log"
+	updateGit "Build" failure "failed on: building application"
+	saveState "buildState" "Build" failure "failed on: building application" $BUILD_URL"artifact/jenkins/build.log"
 	failTests && exit 1
 fi
 
@@ -112,9 +125,11 @@ vim -e -s -c ':set bomb' -c ':wq' jenkins/front-tests.log
 
 if [ -z $error1 ]
 then
-	updateGit "Front tests" success success $BUILD_URL"artifact/jenkins/front-tests.log"
+	updateGit "Front tests" success success
+	saveState "frontTestsState" "Front tests" success success $BUILD_URL"artifact/jenkins/front-tests.log"
 else
-	updateGit "Front tests" failure failure $BUILD_URL"artifact/jenkins/front-tests.log"
+	updateGit "Front tests" failure failure
+	saveState "frontTestsState" "Front tests" failure failure $BUILD_URL"artifact/jenkins/front-tests.log"
 fi
 
 ### Server tests - running
@@ -124,9 +139,11 @@ vim -e -s -c ':set bomb' -c ':wq' jenkins/server-tests.log
 
 if [ -z $error2 ]
 then
-	updateGit "Server tests" success success $BUILD_URL"artifact/jenkins/server-tests.log"
+	updateGit "Server tests" success success
+	saveState "serverTestsState" "Server tests" success success $BUILD_URL"artifact/jenkins/server-tests.log"
 else
-	updateGit "Server tests" failure failure $BUILD_URL"artifact/jenkins/server-tests.log"
+	updateGit "Server tests" failure failure
+	saveState "serverTestsState" "Server tests" failure failure $BUILD_URL"artifact/jenkins/server-tests.log"
 fi
 
 ### Linter - running
@@ -136,16 +153,18 @@ vim -e -s -c ':set bomb' -c ':wq' jenkins/linter.log
 
 if [ -z $error3 ]
 then
-	updateGit "Linter" success success $BUILD_URL"artifact/jenkins/linter.log"
+	updateGit "Linter" success success
+	saveState "linterState" "Linter" success success $BUILD_URL"artifact/jenkins/linter.log"
 else
-	updateGit "Linter" failure failure $BUILD_URL"artifact/jenkins/linter.log"
+	updateGit "Linter" failure failure
+	saveState "linterState" "Linter" failure failure $BUILD_URL"artifact/jenkins/linter.log"
 fi
 
 ### Finish
 if [ -z $failJob ]
 then
-    updateGit "Jenkin job" success finished $BUILD_URL"console"
+    updateGit "Jenkins job" success finished $BUILD_URL"console"
 else
-    updateGit "Jenkin job" failure finished $BUILD_URL"console"
+    updateGit "Jenkins job" failure finished $BUILD_URL"console"
     exit 1
 fi

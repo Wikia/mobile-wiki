@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ArticleModel from '../models/article';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
 import {normalizeToUnderscore} from 'common/utils/string';
+import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 
 export default Ember.Route.extend({
 	redirectEmptyTarget: false,
@@ -46,10 +47,15 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	afterModel(model) {
-		const exception = model.exception;
+		const exception = model.exception,
+			articleType = model.articleType;
 
 		if (!Ember.isEmpty(exception)) {
 			Ember.Logger.warn('Article model error:', exception);
+		}
+
+		if (articleType) {
+			UniversalAnalytics.setDimension(19, articleType);
 		}
 
 		// if an article is main page, redirect to mainPage route
@@ -137,6 +143,7 @@ export default Ember.Route.extend({
 		this.updateTitleTag(model);
 		this.updateCanonicalLinkTag(model);
 		this.updateDescriptionMetaTag(model);
+		this.updateIOSSmartBannerMetaTag(model);
 	},
 
 	/**
@@ -155,7 +162,7 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	updateCanonicalLinkTag(model) {
-		const canonicalUrl = Ember.get(Mercury, 'wiki.basePath') + model.get('url');
+		const canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${model.get('url')}`;
 		let $canonicalLinkTag = Ember.$('head link[rel=canonical]');
 
 		if (Ember.isEmpty($canonicalLinkTag)) {
@@ -178,5 +185,32 @@ export default Ember.Route.extend({
 		}
 
 		$descriptionMetaTag.prop('content', description);
+	},
+
+	/**
+	 * @param {ArticleModel} model
+	 * @returns {void}
+	 */
+	updateIOSSmartBannerMetaTag(model) {
+		const articleUrl = model.get('url'),
+			appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios');
+
+		let $descriptionMetaTag, content;
+
+		// If smart banner is available on this wiki
+		if (appId) {
+			$descriptionMetaTag = Ember.$('head meta[name=apple-itunes-app]');
+			content = `app-id=${appId}`;
+
+			if (Ember.isEmpty($descriptionMetaTag)) {
+				$descriptionMetaTag = Ember.$('<meta name="apple-itunes-app">').appendTo('head');
+			}
+
+			if (articleUrl) {
+				content += `, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${articleUrl}`;
+			}
+
+			$descriptionMetaTag.prop('content', content);
+		}
 	}
 });

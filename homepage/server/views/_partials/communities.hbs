@@ -9,9 +9,9 @@
 				{{title}}
 			</h1>
 		{{/if}}
-		<div id="{{id}}" class="featured-carousel">
+		<div id="{{id}}" class="featured-carousel slick-slider">
 			{{#each entries}}
-				<div>
+				<div class="slick-list">
 					<a href="{{url}}">
 						<img src="{{image}}">
 						<div class="hero-text-overlay">
@@ -24,11 +24,69 @@
 				</div>
 			{{/each}}
 		</div>
-		<div id="{{id}}-prev" class="hero-prev">
-			<img src="/images/slider-back-button.png">
+	{{/each}}
+</section>
+<section class="featured-mobile-medium">
+	{{#each sliders}}
+		{{#if largeTitle}}
+			<h1 class="featured-title-large">
+				{{title}}
+			</h1>
+		{{else}}
+			<h1 class="featured-title">
+				{{title}}
+			</h1>
+		{{/if}}
+		<div id="{{id}}-medium" class="featured-carousel-medium slick-slider">
+			{{#each entries}}
+				<div class="slick-list">
+					<a href="{{url}}">
+						<img src="{{image}}">
+						<div class="hero-text-overlay">
+							{{text}}
+						</div>
+						{{#if english}}
+							<div class="hero-english-overlay"></div>
+						{{/if}}
+					</a>
+				</div>
+			{{/each}}
 		</div>
-		<div id="{{id}}-next" class="hero-next">
-			<img src="/images/slider-fwd-button.png">
+	{{/each}}
+</section>
+<section class="featured-mobile-2row">
+	{{#each sliders}}
+		<h1 class="featured-title">
+			{{title}}
+		</h1>
+		<div class="featured-mobile-2row-wrapper">
+			{{#each groupedEntries}}
+				<div class="featured-mobile-slide featured-mobile-slide-2row">
+					<a href="{{left.url}}">
+						<img src="{{left.image}}">
+						<div class="hero-text-overlay">
+							{{left.text}}
+						</div>
+						{{#if left.english}}
+							<div class="hero-english-overlay"></div>
+						{{/if}}
+					</a>
+				</div>
+				<div class="featured-mobile-slide featured-mobile-slide-2row">
+					{{#if right.url}}
+						<a href="{{right.url}}">
+							<img src="{{right.image}}">
+							<div class="hero-text-overlay">
+								{{right.text}}
+							</div>
+							{{#if right.english}}
+								<div class="hero-english-overlay"></div>
+							{{/if}}
+						</a>
+					{{/if}}
+				</div>
+				<div class="featured-mobile-slide-padding"></div>
+			{{/each}}
 		</div>
 	{{/each}}
 </section>

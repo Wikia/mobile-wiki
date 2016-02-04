@@ -12,7 +12,7 @@
     "article-last-edit_plural_0":"이번 주에 마지막으로 편집됨",
     "article-last-edit_plural_2":"__count__주일 전에 마지막으로 편집됨",
     "article-categories-list-label":"분류",
-    "article-other-languages":"다른 언어",
+    "article-other-languages":"In other languages",
     "article-top-contributors-label":"Top Contributors to this article",
     "article-error":"Sorry, we couldn't load the article. Please try again.",
     "side-nav-menu-label":"메뉴",
@@ -57,9 +57,7 @@
     "photos-label":"Photos",
     "pages-label":"Pages",
     "username-anonymous":"위키아 기여자",
-    "smartbanner-store-ios":"앱스토어에서",
     "smartbanner-store-android":"구글 플레이에서",
-    "smartbanner-install-ios":"앱 다운받기",
     "smartbanner-install-android":"설치",
     "smartbanner-price":"무료",
     "view-more":"더 보기",
@@ -144,7 +142,8 @@
     "curated-content-editor-main-page":"Main Page",
     "curated-content-editor-new-featured-content":"New Featured Content",
     "curated-content-editor-new-section":"New Section",
-    "curated-content-editor-new-category":"New Category"
+    "curated-content-editor-new-category":"New Category",
+    "explore-wiki":"Explore __wikiName__"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ or __loginLink__",

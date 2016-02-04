@@ -12,11 +12,34 @@ var util = require('../util'),
 	whatIsWikiaConfig = util.readJsonConfigSync('static/whatiswikia.json'),
 	joinWikiaConfig = util.readJsonConfigSync('static/joinwikia.json');
 
+/**
+ * Postprocess slider config to include groupedEntries, with pairs of slides grouped together
+ * @param config
+ * @returns {object}
+ */
+function postprocessSliderConfig(config) {
+	var i, j, entry;
+
+	for (i = 0; i < config.length; i++) {
+		entry = config[i];
+		entry.groupedEntries = [];
+
+		for (j = 0; j < entry.entries.length; j+=2) {
+			entry.groupedEntries.push({
+				left: entry.entries[j],
+				right: entry.entries[j+1],
+			});
+		}
+	}
+
+	return config;
+}
+
 function index(request, reply) {
 	var data = {
-		title: 'ウィキア・ジャパン',
+		title: 'Wikia Japan',
 		heroSlider: heroSliderConfig.data,
-		sliders: sliderConfig.data,
+		sliders: postprocessSliderConfig(sliderConfig.data),
 		whatIsWikia: whatIsWikiaConfig.data,
 		joinWikia: joinWikiaConfig.data,
 	};

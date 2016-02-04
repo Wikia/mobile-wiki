@@ -77,11 +77,9 @@ export default Ember.Component.extend({
 						width: this.thumbnailWidth
 					}),
 					$thumbnail = $('<img/>').attr('src', thumbnailURL),
-					href = '%@%@:%@'.fmt(
-						Ember.get(Mercury, 'wiki.articlePath'),
-						Ember.getWithDefault(Mercury, 'wiki.namespaces.6', 'File'),
-						thumbnailData.name
-					),
+					articlePath = Ember.get(Mercury, 'wiki.articlePath'),
+					fileNamespace = Ember.getWithDefault(Mercury, 'wiki.namespaces.6', 'File'),
+					href = `${articlePath}${fileNamespace}:${thumbnailData.name}`,
 					$anchor = $('<a/>').attr('href', href).append($thumbnail),
 					$figure = $('<figure/>');
 

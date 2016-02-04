@@ -98,7 +98,7 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 				reject({
 					exception: {
 						message: 'Invalid response',
-						code: response.statusCode,
+						code: err.output.statusCode,
 						details: err
 					}
 				});

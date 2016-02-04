@@ -2,41 +2,67 @@ import localSettings from '../../config/localSettings';
 import Logger from './Logger';
 
 export const Comscore = {
-	/**
-	 * @param {string} vertical
-	 * @returns {*}
-	 */
-	getC7Value(vertical) {
-		return `wikiacsid_${vertical.toLowerCase()}`;
+		/**
+		 * @param {string} vertical
+		 * @returns {*}
+		 */
+		getC7Value(vertical) {
+			return `wikiacsid_${vertical.toLowerCase()}`;
+		},
+
+		/**
+		 * @param {string} requestUrl
+		 * @param {string} c7Value
+		 * @returns {string}
+		 */
+		getC7ParamAndValue(requestUrl, c7Value) {
+			const paramAndValue = `${requestUrl}${requestUrl.indexOf('?') !== -1 ? '&' : '?'}` +
+				`${localSettings.tracking.comscore.keyword}=${c7Value}`;
+
+			return encodeURIComponent(paramAndValue);
+		},
+
+		/**
+		 * @param {*} tracking
+		 * @param {string} vertical
+		 * @param {Hapi.Request} request
+		 * @returns {void}
+		 */
+		handleResponse(tracking, vertical, request) {
+			tracking.comscore.c7 = Comscore.getC7ParamAndValue(
+				`http://${request.headers.host}/${request.url.path}`,
+				Comscore.getC7Value(vertical)
+			);
+
+			tracking.comscore.c7Value = Comscore.getC7Value(vertical);
+		}
 	},
-
-	/**
-	 * @param {string} requestUrl
-	 * @param {string} c7Value
-	 * @returns {string}
-	 */
-	getC7ParamAndValue(requestUrl, c7Value) {
-		const paramAndValue = `${requestUrl}${requestUrl.indexOf('?') !== -1 ? '&' : '?'}` +
-			`${localSettings.tracking.comscore.keyword}=${c7Value}`;
-
-		return encodeURIComponent(paramAndValue);
+	IVW3 = {
+		/**
+		 * @param {*} tracking
+		 * @param {string} vertical
+		 * @param {object} config
+		 * @returns {void}
+		 */
+		handleResponse(tracking, vertical, config) {
+			tracking.ivw3.vertical = vertical;
+			tracking.ivw3.countries = config.countries || [];
+		}
 	},
-
-	/**
-	 * @param {*} tracking
-	 * @param {string} vertical
-	 * @param {Hapi.Request} request
-	 * @returns {void}
-	 */
-	handleResponse(tracking, vertical, request) {
-		tracking.comscore.c7 = Comscore.getC7ParamAndValue(
-			`http://${request.headers.host}/${request.url.path}`,
-			Comscore.getC7Value(vertical)
-		);
-
-		tracking.comscore.c7Value = Comscore.getC7Value(vertical);
-	}
-};
+	Nielsen = {
+		/**
+		 * @param {*} tracking
+		 * @param {string} vertical
+		 * @param {string} dbName
+		 * @param {object} config
+		 * @returns {void}
+		 */
+		handleResponse(tracking, vertical, dbName, config) {
+			tracking.nielsen.section = vertical;
+			tracking.nielsen.subbrand = dbName;
+			tracking.nielsen.enabled = config.enabled;
+		}
+	};
 
 /**
  * @param {*} result
@@ -46,41 +72,21 @@ export const Comscore = {
 export function handleResponse(result, request) {
 	const tracking = localSettings.tracking;
 
-	let vertical;
+	let dbName,
+		trackingConfig,
+		vertical;
 
 	try {
-		vertical = result.article.adsContext.targeting.wikiVertical;
+		dbName = result.wikiVariables.dbName || '';
+		trackingConfig = result.wikiVariables.tracking || {};
 	} catch (error) {
-		Logger.error('No vertical set for response');
-
-		vertical = '';
+		Logger.error('Missing variable in wikiVariables');
 	}
+	vertical = trackingConfig.vertical || '';
 
 	Comscore.handleResponse(tracking, vertical, request);
-
-	// export tracking code to layout and front end code
-	result.tracking = tracking;
-}
-
-/**
- * @param {*} result
- * @param {Hapi.Request} request
- * @returns {void}
- */
-export function handleResponseCuratedMainPage(result, request) {
-	const tracking = localSettings.tracking;
-
-	let vertical;
-
-	try {
-		vertical = result.mainPageData.adsContext.targeting.wikiVertical;
-	} catch (error) {
-		Logger.error('No vertical set for response');
-
-		vertical = '';
-	}
-
-	Comscore.handleResponse(tracking, vertical, request);
+	IVW3.handleResponse(tracking, vertical, trackingConfig.ivw3 || {});
+	Nielsen.handleResponse(tracking, vertical, dbName, trackingConfig.nielsen || {});
 
 	// export tracking code to layout and front end code
 	result.tracking = tracking;

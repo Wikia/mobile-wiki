@@ -25,11 +25,13 @@ Open http://muppet.127.0.0.1.xip.io:7000/wiki/Kermit
 
 ## Scripts
 * `npm run setup` - install all dependencies, including node modules and bower components
-* `npm run setup-for-local` - install Ember-CLI, Bower and Gulp globally (**only on local machine**)
+* `npm run setup-for-local` - install Ember-CLI, Bower and Gulp globally (**required only on local machine**)
 * `npm run build-dev` - build files for dev environment
 * `npm run build-prod` - build files for prod environment
 * `npm run start` - run built application (**requires application to be build first**)
 * `npm run dev` - build, run application and watch files
+* `npm run dev-auth` - build only the auth app and its dependencies, run it and watch files
+* `npm run dev-main` - build only the main app and its dependencies, run it and watch files
 * `npm run test` - run test-front and test-server (**requires application to be build first**)
 * `npm run linter` - run ESLint on all js files
 * `npm run clean` - remove all dependencies and build directory

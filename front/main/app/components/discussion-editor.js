@@ -176,7 +176,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	didInsertElement() {
-		this._super();
+		this._super(...arguments);
 
 		this.handleIOSFocus();
 		this.initializeStickyState();

@@ -3,19 +3,23 @@
 	posts=posts
 	siteHeadPinned=siteHeadPinned
 }}
+
 {{#each posts as |item|}}
 	{{post-detail
 		author=item.createdBy
-		deletePost=(action this.attrs.deletePost)
-		goToPost=(action this.attrs.goToPost)
-		isVisible=item._embedded.firstPost.[0].isVisible
+		delete=(action this.attrs.deletePost)
 		post=item._embedded.firstPost.[0]
 		postId=item.id
 		replyCount=item.postCount
-		undeletePost=(action this.attrs.undeletePost)
+		undelete=(action this.attrs.undeletePost)
 		upvote=(action this.attrs.upvote)
 	}}
+{{else}}
+	{{discussion-empty-forum-message
+		forumId=forumId
+	}}
 {{/each}}
+
 {{#if hasMore}}
 	{{#if isLoading }}
 		{{loading-spinner

@@ -57,9 +57,7 @@
     "photos-label":"Photos",
     "pages-label":"Pages",
     "username-anonymous":"Een Wikia bijdrager",
-    "smartbanner-store-ios":"Op de App Store",
     "smartbanner-store-android":"In Google Play",
-    "smartbanner-install-ios":"Download de app",
     "smartbanner-install-android":"Installeren",
     "smartbanner-price":"GRATIS",
     "view-more":"Meer weergeven",
@@ -144,7 +142,8 @@
     "curated-content-editor-main-page":"Main Page",
     "curated-content-editor-new-featured-content":"New Featured Content",
     "curated-content-editor-new-section":"New Section",
-    "curated-content-editor-new-category":"New Category"
+    "curated-content-editor-new-category":"New Category",
+    "explore-wiki":"Explore __wikiName__"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ or __loginLink__",

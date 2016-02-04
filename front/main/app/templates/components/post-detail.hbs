@@ -1,15 +1,24 @@
 <div>
 	{{user-avatar
-		avatarUrl=post.createdBy.avatarUrl
+		avatarUrl=author.avatarUrl
 		displayProfileName=true
 		username=author.name
 	}}
 	{{{time-ago post.creationDate.epochSecond}}}
-	{{discussion-delete
-		delete=(action this.attrs.deletePost)
-		undelete=(action this.attrs.undeletePost)
-		post=post
-	}}
+
+	<div class="discussion-more-options" id="post-options-{{post.id}}">
+		{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
+	</div>
+
+	{{#pop-over for=(concat 'post-options-' post.id) on='click' flow='flip'}}
+		{{discussion-more-options
+			delete=(action 'delete')
+			deleteMessage=(i18n 'main.delete-post' ns='discussion')
+			post=post
+			undelete=(action 'undelete')
+			undeleteMessage=(i18n 'main.undelete-post' ns='discussion')
+		}}
+	{{/pop-over}}
 </div>
 {{#if isDetailsView}}
 	<div class="discussion-content">
@@ -19,11 +28,11 @@
 		{{{parsedContent}}}
 	</div>
 {{else}}
-	<div class="discussion-content clickable" onclick={{action 'goToPost' postId}}>
+	<div class="discussion-content">
 		{{#if post.title}}
-			<h2 class="post-title"><{{post.title}}</h2>
+			<h2 class="post-title">{{#link-to 'discussion.post' postId class="post-details-link"}}{{post.title}}{{/link-to}}</h2>
 		{{/if}}
-		{{{parsedContent}}}
+		{{#link-to 'discussion.post' postId class="post-details-link clamp"}}{{{parsedContent}}}{{/link-to}}
 	</div>
 {{/if}}
 <div class="row">
@@ -31,6 +40,7 @@
 		post=post
 		upvote=(action this.attrs.upvote)
 	}}
+
 	{{#if isDetailsView}}
 		<div class="small-5 large-2 columns count">
 			<span class="replies-area">
@@ -64,8 +74,8 @@
 </div>
 {{#if post.isLoading}}
 	{{loading-spinner
-	active=post.isLoading
-	radius=32
-	strokeWidth=2
+		active=post.isLoading
+		radius=32
+		strokeWidth=2
 	}}
 {{/if}}

@@ -12,7 +12,7 @@
     "article-last-edit_plural_0":"Última edição desta semana",
     "article-last-edit_plural_2":"Última edição feita  __count__  semanas atrás",
     "article-categories-list-label":"Categorias",
-    "article-other-languages":"Noutras línguas",
+    "article-other-languages":"Em outros idiomas",
     "article-top-contributors-label":"Top contribuidores deste artigo",
     "article-error":"Não foi possível carregar o artigo. Por favor, tente novamente.",
     "side-nav-menu-label":"Menu",
@@ -57,9 +57,7 @@
     "photos-label":"Fotos",
     "pages-label":"Páginas",
     "username-anonymous":"Um contribuidor da Wikia",
-    "smartbanner-store-ios":"Na App Store",
     "smartbanner-store-android":"No Google Play",
-    "smartbanner-install-ios":"Baixe o aplicativo",
     "smartbanner-install-android":"Instalar",
     "smartbanner-price":"GRÁTIS",
     "view-more":"Ver mais",
@@ -144,7 +142,8 @@
     "curated-content-editor-main-page":"Página principal",
     "curated-content-editor-new-featured-content":"Novo conteúdo destacado",
     "curated-content-editor-new-section":"Nova seção",
-    "curated-content-editor-new-category":"Nova categoria"
+    "curated-content-editor-new-category":"Nova categoria",
+    "explore-wiki":"Explore a __wikiName__"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ ou __loginLink__",

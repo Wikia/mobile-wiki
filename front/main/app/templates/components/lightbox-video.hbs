@@ -1,5 +1,4 @@
-{{#if model.embed.html}}
-	{{{model.embed.html}}}
-{{else}}
+<div class="video-player-wrapper"></div>
+{{#unless model.embed.html}}
 	{{i18n 'app.media-lightbox-error'}}
-{{/if}}
+{{/unless}}

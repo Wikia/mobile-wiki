@@ -3,6 +3,7 @@
 import Krux from './Trackers/Krux';
 import UniversalAnalytics from './Trackers/UniversalAnalytics';
 import load from '../utils/load';
+import {isSpecialWiki} from '../utils/track';
 
 /**
  * @typedef {Object} SourcePointDetectionModule
@@ -27,7 +28,7 @@ import load from '../utils/load';
  * @property {boolean|null} blocking
  * @property {Array<string[]>} adSlots
  * @property {Object} adsContext
- * @property {*} adEngineModule
+ * @property {*} adEngineRunnerModule
  * @property {*} adContextModule
  * @property {SourcePointDetectionModule} sourcePointDetectionModule
  * @property {*} adConfigMobile
@@ -74,21 +75,21 @@ class Ads {
 		load(adsUrl, () => {
 			if (window.require) {
 				window.require([
-					'ext.wikia.adEngine.adEngine',
 					'ext.wikia.adEngine.adContext',
-					'ext.wikia.adEngine.config.mobile',
+					'ext.wikia.adEngine.adEngineRunner',
 					'ext.wikia.adEngine.adLogicPageViewCounter',
-					'ext.wikia.adEngine.sourcePointDetection',
+					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.mobile.mercuryListener',
+					'ext.wikia.adEngine.sourcePointDetection',
 					'wikia.krux'
-				], (adEngineModule,
-					adContextModule,
-					adConfigMobile,
+				], (adContextModule,
+					adEngineRunnerModule,
 					adLogicPageViewCounterModule,
-					sourcePointDetectionModule,
+					adConfigMobile,
 					adMercuryListener,
+					sourcePointDetectionModule,
 					krux) => {
-					this.adEngineModule = adEngineModule;
+					this.adEngineRunnerModule = adEngineRunnerModule;
 					this.adContextModule = adContextModule;
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.adConfigMobile = adConfigMobile;
@@ -98,7 +99,6 @@ class Ads {
 					this.isLoaded = true;
 					this.addDetectionListeners();
 					this.reloadWhenReady();
-					this.kruxTrackFirstPage();
 				});
 			} else {
 				console.error('Looks like ads asset has not been loaded');
@@ -120,7 +120,7 @@ class Ads {
 		// Sampling on GA side will kill the performance as we need to allocate object each time we track
 		// ToDo: Optimize object allocation for tracking all events
 		if (Math.random() * 100 <= adHitSample) {
-			const GATracker = new UniversalAnalytics();
+			const GATracker = new UniversalAnalytics(isSpecialWiki());
 
 			GATracker.trackAds.apply(GATracker, arguments);
 		}
@@ -143,17 +143,14 @@ class Ads {
 	 * @returns {void}
 	 */
 	trackBlocking(value) {
-		const dimensions = [];
-
 		let GATracker;
 
-		dimensions[6] = value;
-		UniversalAnalytics.setDimensions(dimensions);
+		UniversalAnalytics.setDimension(6, value);
 
-		GATracker = new UniversalAnalytics();
+		GATracker = new UniversalAnalytics(isSpecialWiki());
 
-		GATracker.track('ads-sourcepoint-detection', 'impression', value, 0, false);
-		Ads.gaTrackAdEvent.call(this, 'ad/sourcepoint/detection', value, '', 0, false);
+		GATracker.track('ads-sourcepoint-detection', 'impression', value, 0, true);
+		Ads.gaTrackAdEvent.call(this, 'ad/sourcepoint/detection', value, '', 0, true);
 
 		Ads.blocking = value === 'Yes';
 	}
@@ -188,6 +185,8 @@ class Ads {
 	 * @returns {void}
 	 */
 	turnOffAdsForLoggedInUsers(adsContext) {
+		// TODO: Refactor/remove while working on ADEN-2189
+		adsContext = adsContext || {};
 		if (M.prop('userId')) {
 			adsContext.opts = adsContext.opts || {};
 			adsContext.opts.showAds = false;
@@ -199,9 +198,12 @@ class Ads {
 	 * Reloads the ads with the provided adsContext
 	 *
 	 * @param {*} adsContext
+	 * @param {function?} onContextLoadCallback
 	 * @returns {void}
 	 */
-	reload(adsContext) {
+	reload(adsContext, onContextLoadCallback = null) {
+		let delayEnabled = false;
+
 		this.turnOffAdsForLoggedInUsers(adsContext);
 		// Store the context for external reuse
 		this.setContext(adsContext);
@@ -211,13 +213,19 @@ class Ads {
 
 		if (this.isLoaded && adsContext) {
 			this.adContextModule.setContext(adsContext);
+			if (typeof onContextLoadCallback === 'function') {
+				onContextLoadCallback();
+			}
 			if (Ads.blocking !== null) {
 				this.trackBlocking(Ads.blocking ? 'Yes' : 'No');
 			} else {
 				this.sourcePointDetectionModule.initDetection();
 			}
+			if (adsContext.opts) {
+				delayEnabled = Boolean(adsContext.opts.delayEngine);
+			}
 			this.adLogicPageViewCounterModule.increment();
-			this.adEngineModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury');
+			this.adEngineRunnerModule.run(this.adConfigMobile, this.slotsQueue, 'queue.mercury', delayEnabled);
 		}
 	}
 
@@ -227,15 +235,10 @@ class Ads {
 	 * @returns {void}
 	 */
 	reloadWhenReady() {
-		this.reload(this.currentAdsContext);
-		this.onLoad();
-	}
-
-	/**
-	 * @returns {void}
-	 */
-	onLoad() {
-		this.adMercuryListenerModule.startOnLoadQueue();
+		this.reload(this.currentAdsContext, () => {
+			this.adMercuryListenerModule.startOnLoadQueue();
+			this.kruxTrackFirstPage();
+		});
 	}
 
 	/**

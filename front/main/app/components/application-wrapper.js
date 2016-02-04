@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import {trackPerf} from 'common/utils/trackPerf';
-import {getSystem} from 'common/utils/browser';
 
 /**
  * HTMLMouseEvent
@@ -24,18 +23,12 @@ import {getSystem} from 'common/utils/browser';
  */
 
 export default Ember.Component.extend({
-	classNameBindings: ['systemClass', 'smartBannerVisible', 'verticalClass'],
+	classNameBindings: ['smartBannerVisible', 'verticalClass'],
 
 	verticalClass: Ember.computed(() => {
 		const vertical = Ember.get(Mercury, 'wiki.vertical');
 
 		return `${vertical}-vertical`;
-	}),
-
-	systemClass: Ember.computed(() => {
-		const system = getSystem();
-
-		return system ? `system-${system}` : '';
 	}),
 
 	noScroll: false,

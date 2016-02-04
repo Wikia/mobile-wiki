@@ -57,9 +57,7 @@
     "photos-label":"Фото",
     "pages-label":"Страницы",
     "username-anonymous":"Анонимный участник",
-    "smartbanner-store-ios":"В App Store",
     "smartbanner-store-android":"В Google Play",
-    "smartbanner-install-ios":"Загрузить приложение",
     "smartbanner-install-android":"Установить",
     "smartbanner-price":"БЕСПЛАТНО",
     "view-more":"Посмотреть ещё",
@@ -144,7 +142,8 @@
     "curated-content-editor-main-page":"Заглавная страница",
     "curated-content-editor-new-featured-content":"Новый Избранный контент",
     "curated-content-editor-new-section":"Новый раздел",
-    "curated-content-editor-new-category":"Новая категория"
+    "curated-content-editor-new-category":"Новая категория",
+    "explore-wiki":"Исследуйте __wikiName__"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ или __loginLink__",

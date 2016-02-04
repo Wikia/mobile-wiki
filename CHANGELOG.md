@@ -1,3 +1,76 @@
+## release-205 hotfix 1 (2016-02-03 11:58 UTC)
+* release-205-hotfix: Revert "SOC-1966 | Hiding delete all button"
+
+## release-205 (2016-02-02 12:19 UTC)
+* [SOC-955](https://wikia-inc.atlassian.net/browse/SOC-955) SOC-955 | SOC-956 | SOC-1508 | SOC-1509 | SOC-1738 | SOC-1719 | SOC-1924
+* [XW-821](https://wikia-inc.atlassian.net/browse/XW-821) XW-821 | don't use deprecated functionality in article-comments
+* [XW-821](https://wikia-inc.atlassian.net/browse/XW-821) XW-821 | don't set properties in didInsertElement
+* [XW-1036](https://wikia-inc.atlassian.net/browse/XW-1036) XW-1036 | Create fallback for localStorage
+* [XW-997](https://wikia-inc.atlassian.net/browse/XW-997) XW-977 | Show native smart banner on ios
+* [SOC-1719](https://wikia-inc.atlassian.net/browse/SOC-1719) SOC-1719 | Discussion - delete all posts by user
+* [SOC-1924](https://wikia-inc.atlassian.net/browse/SOC-1924) SOC-1924 user posts/replies lists - reply card header text - 2nd PR
+* discussion-refactors: Discussion refactors
+* [INT-332](https://wikia-inc.atlassian.net/browse/INT-332) INT-332 | Adjust text for create a wikia button
+* [INT-319](https://wikia-inc.atlassian.net/browse/INT-319) INT-319 | Fix center alignment for category sliders on Japan HP
+* [XW-821](https://wikia-inc.atlassian.net/browse/XW-821) XW-821 | don't use fmt
+* revert-1915-SOC-1924: Revert "SOC-1924 user posts/replies lists - reply card header text"
+* [SOC-1924](https://wikia-inc.atlassian.net/browse/SOC-1924) SOC-1924 user posts/replies lists - reply card header text
+* [SOC-905](https://wikia-inc.atlassian.net/browse/SOC-905) SOC-905 - made entire footer clickable on auth page
+* [INT-324](https://wikia-inc.atlassian.net/browse/INT-324) INT-324 | Add Mediakit link to Japan HP footer
+* [INT-332](https://wikia-inc.atlassian.net/browse/INT-332) INT-332 | Change text for create wikia button for Japan HP
+* [XW-773](https://wikia-inc.atlassian.net/browse/XW-773) XW-773 | add links to github after jenkins job is done
+* [XW-918](https://wikia-inc.atlassian.net/browse/XW-918) XW-918 | Update article.js to get new API response; unify UA dimensions set up
+* [DAT-3639](https://wikia-inc.atlassian.net/browse/DAT-3639) DAT-3639 | Be able to edit Wikia Description via CC editor
+* [XW-982](https://wikia-inc.atlassian.net/browse/XW-982) XW-982 | Fix random gulp-watch crashes
+
+## release-204 (2016-01-28 11:08 UTC)
+* fix-ember-tests-styles: Fix styles when running Ember tests in a browser
+* [XW-1019](https://wikia-inc.atlassian.net/browse/XW-1019) XW-1019 | scroll back to top while navigating through local nav
+* [PLATFORM-1833](https://wikia-inc.atlassian.net/browse/PLATFORM-1833) PLATFORM-1833 imageReviewBaseRoute fix
+* [XW-1035](https://wikia-inc.atlassian.net/browse/XW-1035) Click on clear should not close keyboard
+* [INT-285](https://wikia-inc.atlassian.net/browse/INT-285) INT-285 | Google custom search with Optimizely integration for Japan HP
+* [INT-320](https://wikia-inc.atlassian.net/browse/INT-320) INT-320 | Implement loading indicator
+* [INT-310](https://wikia-inc.atlassian.net/browse/INT-310) INT-310 | Final text and assets for hero slider
+* [ADEN-2812](https://wikia-inc.atlassian.net/browse/ADEN-2812) ADEN-2812 IVW3 tracker integration
+
+## release-203 hotfix 1 (2016-01-27 13:00 UTC)
+* release-203-XW-905: XW-905 | Upgrade New Relic agent to v1.25.1
+
+## release-203 (2016-01-25 14:30 UTC)
+* [XW-960](https://wikia-inc.atlassian.net/browse/XW-960) XW-960 | update translations for explore-wiki
+* [XW-1024](https://wikia-inc.atlassian.net/browse/XW-1024) XW-1024 | Fix moving top bar, fix height on discussions and not only
+* [XW-955](https://wikia-inc.atlassian.net/browse/XW-955) XW-955 | Add userID param to GA and u param for Internal tracking
+* [SOC-1837](https://wikia-inc.atlassian.net/browse/SOC-1837) SOC-1837 | Opening discussion post in a new tab on a mouse wheel click
+* [XW-922](https://wikia-inc.atlassian.net/browse/XW-922) XW-922 | Global Navigation 2016
+* [XW-840](https://wikia-inc.atlassian.net/browse/XW-840) XW-840 | Don't use $.trim
+* [ADEN-2864](https://wikia-inc.atlassian.net/browse/ADEN-2864) ADEN-2864 Mark SP events with nonInteraction flag
+* [XW-903](https://wikia-inc.atlassian.net/browse/XW-903) XW-903 | Add `vary: accept-encoding` header to all responses
+* [XW-1021](https://wikia-inc.atlassian.net/browse/XW-1021) XW-1021 | inline play.svg
+* [INT-321](https://wikia-inc.atlassian.net/browse/INT-321) INT-321 | Replace community central and Wikia University images
+* [SOC-1880](https://wikia-inc.atlassian.net/browse/SOC-1880) SOC-1880 | Use link-to instead of an action
+* [XW-1020](https://wikia-inc.atlassian.net/browse/XW-1020) XW-1020 | Watch all auth SCSS files, including partials
+* XW: Remove service related scripts
+* fix-wiki-link: Discussions | Use anchor instead of link-to for wiki link
+* [ADEN-2789](https://wikia-inc.atlassian.net/browse/ADEN-2789) ADEN-2789 Nielsen integration
+* mercury-pr-checks-patch: Fix a typo in mercury-pr-checks.sh
+
+## release-202 hotfix 1 (2016-01-22 11:58 UTC)
+* [XW-1021](https://wikia-inc.atlassian.net/browse/XW-1021) XW-1021 | inline play.svg
+
+## release-202 (2016-01-21 12:15 UTC)
+* revert-1847-revert-1839-SOC-1483-backup: Revert "Revert "SOC-1483 | Displaying message on empty forums""
+* [XW-926](https://wikia-inc.atlassian.net/browse/XW-926) XW-926 Fix server error handling
+* nodemon-run-on-change-only: Run nodemon after the first change
+* [ADEN-2846](https://wikia-inc.atlassian.net/browse/ADEN-2846) ADEN-2846 Prevent throwing JS error on pages without adsContext
+* [INT-311](https://wikia-inc.atlassian.net/browse/INT-311) INT-311 | Fix header alignment for sliders in mobile. Extra heading p…
+* [XW-](https://wikia-inc.atlassian.net/browse/XW-) XW | fix crowdin paths
+* [XW-948](https://wikia-inc.atlassian.net/browse/XW-948) XW-984 | clean up after ember-cli
+* [XW-879](https://wikia-inc.atlassian.net/browse/XW-879) XW-879 | Introduce Ember CLI
+* xw-update-svg: XW-879 | update svg not to use same ids
+* fix-styles: XW-950 | Fix dark theme
+* ember-cli-beta-6: Ember cli beta 6
+* [XW-876](https://wikia-inc.atlassian.net/browse/XW-876) XW-887 | Work towards ESLint
+
 ## release-201 (2016-01-19 11:39 UTC)
 * eslint-errors-only: XW | Don't use eslint warnings
 * ember-2.0.3: Upgrade Ember to v2.0.3
