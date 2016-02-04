@@ -1,3 +1,15 @@
+## release-206 (2016-02-04 11:59 UTC)
+* [SOC-1968](https://wikia-inc.atlassian.net/browse/SOC-1968) SOC-1968 | Adding FE config for 3 new communities
+* [INT-333](https://wikia-inc.atlassian.net/browse/INT-333) INT-333 | Adjust arrow position for 3-slide breakpoint. Japan HP
+* [ADEN-2820](https://wikia-inc.atlassian.net/browse/ADEN-2820) ADEN-2820 Use AdEngineRunner and move onLoad callback
+* fix-auth-logo: fix blue wikia logo on signin page
+* [PLATFORM-1855](https://wikia-inc.atlassian.net/browse/PLATFORM-1855) PLATFORM-1855 Image review does not show flagged images
+* [XW-980](https://wikia-inc.atlassian.net/browse/XW-980) XW-980 remove global navigation 2015
+* [INT-323](https://wikia-inc.atlassian.net/browse/INT-323) INT-323 | Change GA tracking ID
+* [INT-323](https://wikia-inc.atlassian.net/browse/INT-323) INT-323 | Fix visual glitch for iphone in portrait mode. Change page …
+* [INT-333](https://wikia-inc.atlassian.net/browse/INT-333) INT-333 | Bugfixes for slider arrows disappearing. Japan HP
+* [SOC-1924](https://wikia-inc.atlassian.net/browse/SOC-1924) SOC-1924 | new text for the top of reply card
+
 ## release-205 hotfix 1 (2016-02-03 11:58 UTC)
 * release-205-hotfix: Revert "SOC-1966 | Hiding delete all button"
 
