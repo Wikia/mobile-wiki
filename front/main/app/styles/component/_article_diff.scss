@@ -1,25 +1,68 @@
+// TODO move $faint-gray to styleguide
+$faint-gray: #cccccc;
+
 .diff-page {
-	padding: 10px 13px;
+	padding: 10px 0;
+
+	font-size: $type-min;
+	line-height: $line-height-smallest;
 
 	.diff-lineno {
-		font-size: 20px;
+		font-size: $type-smallest;
 		font-weight: bold;
-		padding: 13px 0;
+		padding: 20px 0 0 15px;
 		text-transform: uppercase;
 	}
 
-	.diff-type {
-		color: #e1e1e1;
-		padding: 5px 0;
+	.diff-addedline {
+		border-left: 3px solid $success-color;
+		margin-top: 16px;
+		padding-left: 12px;
+
+		& + .diff-addedline {
+			margin-top: 0;
+		}
+
+		&.all-changed div,
+		.diffchange {
+			background-color: #daf8db;
+			display: inline;
+		}
 	}
 
-	.diff-addedline .diffchange,
-	.diff-addedline.all-changed {
-		background-color: #DAF8DB;
+	.diff-deletedline {
+		border-left: 3px solid $alert-color;
+		margin-top: 16px;
+		padding-left: 15px;
+
+		& + .diff-deletedline {
+			margin-top: 0;
+		}
+
+		&.all-changed div,
+		.diffchange {
+			background-color: #f8dbda;
+		}
 	}
 
-	.diff-deletedline .diffchange,
-	.diff-deletedline.all-changed {
-		background-color: #F8DBDA;
+	.diff-context {
+		display: none;
 	}
+
+	.diff-addedline,
+	.diff-context,
+	.diff-deletedline {
+		& + .diff-lineno {
+			border-top: 1px dashed $faint-gray;
+			margin-top: 30px;
+		}
+	}
+
+	.diff-addedline,
+	.diff-context,
+	.diff-deletedline,
+	.diff-lineno {
+		padding-right: 15px;
+	}
+
 }

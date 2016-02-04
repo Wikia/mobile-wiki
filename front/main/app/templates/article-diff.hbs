@@ -2,11 +2,6 @@
 {{recent-change model=model}}
 {{#each model.diffs as |diffs|}}
 	{{#each diffs as |diff|}}
-		{{#if diff.isPrevious}}
-			<div class="diff-type">Previous</div>
-		{{else if diff.isCurrent}}
-			<div class="diff-type">Current</div>
-		{{/if}}
 		<div class="{{diff.class}}{{if diff.allChanged ' all-changed'}}">{{diff.content}}</div>
 	{{/each}}
 {{/each}}
