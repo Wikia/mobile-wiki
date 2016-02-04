@@ -20,7 +20,7 @@ const ArticleModel = Ember.Object.extend({
 	content: null,
 	basePath: null,
 	categories: [],
-	cleanTitle: null,
+	displayTitle: null,
 	comments: 0,
 	description: null,
 	isMainPage: false,
@@ -141,7 +141,7 @@ ArticleModel.reopenClass({
 
 		if (exception) {
 			articleProperties = {
-				cleanTitle: normalizeToWhitespace(model.title),
+				displayTitle: normalizeToWhitespace(model.title),
 				exception
 			};
 		} else if (data) {
@@ -150,7 +150,7 @@ ArticleModel.reopenClass({
 
 				articleProperties = {
 					ns: details.ns,
-					cleanTitle: details.title,
+					displayTitle: details.title,
 					comments: details.comments,
 					id: details.id,
 					user: details.revision.user_id,
@@ -164,6 +164,7 @@ ArticleModel.reopenClass({
 
 				articleProperties = $.extend(articleProperties, {
 					content: article.content,
+					displayTitle: article.displayTitle,
 					mediaUsers: article.users,
 					type: article.type,
 					media: MediaModel.create({

@@ -42,9 +42,9 @@ function verifyArticle(model, article, assert) {
 	);
 
 	assert.equal(
-		model.get('cleanTitle'),
+		model.get('displayTitle'),
 		articleData.details.title,
-		`expected title=${articleData.details.title}, got ${model.get('cleanTitle')}`
+		`expected title=${articleData.details.title}, got ${model.get('displayTitle')}`
 	);
 
 	assert.equal(
