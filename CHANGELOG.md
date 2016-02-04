@@ -1,3 +1,6 @@
+## release-206 hotfix 1 (2016-02-04 14:17 UTC)
+* release-206-hotfix: SOC-1981 | Using ja.tekken wikia instead of tekken
+
 ## release-206 (2016-02-04 11:59 UTC)
 * [SOC-1968](https://wikia-inc.atlassian.net/browse/SOC-1968) SOC-1968 | Adding FE config for 3 new communities
 * [INT-333](https://wikia-inc.atlassian.net/browse/INT-333) INT-333 | Adjust arrow position for 3-slide breakpoint. Japan HP
