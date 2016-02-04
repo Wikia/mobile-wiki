@@ -63,6 +63,10 @@ Router.map(function () {
 		});
 	});
 
+	this.route('articleDiff', {
+		path: `${articlePath}diff/:oldid/:newid`
+	});
+
 	this.route('article', {
 		path: `${articlePath}*title`
 	});
