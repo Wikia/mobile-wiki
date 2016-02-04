@@ -55,7 +55,7 @@ export default Ember.Controller.extend({
 		undo() {
 			this.get('application').set('isLoading', true);
 
-			ArticleDiffModel.undo(this.get('model')).then(
+			this.get('model').undo().then(
 				this.handleUndoSuccess.bind(this),
 				this.handleUndoError.bind(this)
 			);

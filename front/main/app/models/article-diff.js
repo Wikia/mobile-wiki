@@ -11,7 +11,38 @@ const ArticleDiffModel = Ember.Object.extend({
 	timestamp: null,
 	title: null,
 	user: null,
-	useravatar: null
+	useravatar: null,
+
+	undo() {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			getEditToken(this.title)
+				.then((token) => {
+					Ember.$.ajax({
+						url: M.buildUrl({path: '/api.php'}),
+						data: {
+							action: 'edit',
+							title: this.title,
+							undo: this.newid,
+							undoafter: this.oldid,
+							token,
+							format: 'json'
+						},
+						dataType: 'json',
+						method: 'POST',
+						success: (resp) => {
+							if (resp && resp.edit && resp.edit.result === 'Success') {
+								resolve();
+							} else if (resp && resp.error) {
+								reject(resp.error.code);
+							} else {
+								reject();
+							}
+						},
+						error: (err) => reject(err)
+					});
+				}, (err) => reject(err));
+		});
+	}
 });
 
 ArticleDiffModel.reopenClass({
@@ -142,37 +173,6 @@ ArticleDiffModel.reopenClass({
 		}
 
 		return null;
-	},
-
-	undo(model) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			getEditToken(model.title)
-				.then((token) => {
-					Ember.$.ajax({
-						url: M.buildUrl({path: '/api.php'}),
-						data: {
-							action: 'edit',
-							title: model.title,
-							undo: model.newid,
-							undoafter: model.oldid,
-							token,
-							format: 'json'
-						},
-						dataType: 'json',
-						method: 'POST',
-						success: (resp) => {
-							if (resp && resp.edit && resp.edit.result === 'Success') {
-								resolve();
-							} else if (resp && resp.error) {
-								reject(resp.error.code);
-							} else {
-								reject();
-							}
-						},
-						error: (err) => reject(err)
-					});
-				}, (err) => reject(err));
-		});
 	}
 });
 
