@@ -16,8 +16,10 @@ export default Ember.Route.extend(MetaTagsMixin, {
 	},
 
 	/**
-	 * Makes sure that the RWA is enabled only on one wiki for now.
-	 */
+	 * Make sure that RWA is enabled only for one wiki.
+	 * @param {EmberState.Transition} transition
+	 * @return {void}
+     */
 	beforeModel(transition) {
 		// Enable the RWA for kirkburn.wikia.com only
 		if (Ember.get(Mercury, 'wiki.id') !== 41727) {
