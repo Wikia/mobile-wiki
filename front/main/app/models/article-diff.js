@@ -9,7 +9,8 @@ const ArticleDiffModel = Ember.Object.extend({
 	pageid: null,
 	timestamp: null,
 	title: null,
-	user: null
+	user: null,
+	useravatar: null
 });
 
 ArticleDiffModel.reopenClass({
@@ -30,9 +31,10 @@ ArticleDiffModel.reopenClass({
 						newid,
 						oldid,
 						pageid: page.pageid,
-						timestamp: new Date(revision.timestamp).getTime() / 1000,
+						timestamp: revision.timestamp,
 						title: page.title,
-						user
+						user: user.name,
+						useravatar: user.avatarPath
 					}));
 				}).catch((error) => {
 					Ember.Logger.error(error);
@@ -88,13 +90,14 @@ ArticleDiffModel.reopenClass({
 						class: oldDiffClass
 					});
 				} else {
-					diffData = self.getDiff($oldDiff, oldDiffClass, 'previous');
+					newDiffClass = $newDiff.attr('class');
+
+					diffData = self.getDiff($oldDiff, oldDiffClass, $newDiff.hasClass('diff-empty'), 'previous');
 					if (diffData) {
 						diff.push(diffData);
 					}
 
-					newDiffClass = $newDiff.attr('class');
-					diffData = self.getDiff($newDiff, newDiffClass, 'current');
+					diffData = self.getDiff($newDiff, newDiffClass, $oldDiff.hasClass('diff-empty'), 'current');
 					if (diffData) {
 						diff.push(diffData);
 					}
@@ -120,11 +123,12 @@ ArticleDiffModel.reopenClass({
 		return diffs;
 	},
 
-	getDiff(diff, diffClass, type) {
+	getDiff(diff, diffClass, allChanged, type) {
 		if (diffClass === 'diff-deletedline' || diffClass === 'diff-addedline') {
 			const diffData = {
 				content: Ember.String.htmlSafe(diff.html()),
-				class: diffClass
+				class: diffClass,
+				allChanged
 			};
 
 			if (type === 'previous') {

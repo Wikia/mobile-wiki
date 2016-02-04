@@ -1,12 +1,13 @@
-{{user-avatar
-	avatarUrl=model.user.avatarPath
-	displayProfileName=true
-	username=model.user.name
-}}
-{{model.timestamp}}
-{{#link-to 'article' model.title}}{{model.title}}{{/link-to}}
+<div class="diff-page">
+{{recent-change model=model}}
 {{#each model.diffs as |diffs|}}
 	{{#each diffs as |diff|}}
-		{{diff.content}}
+		{{#if diff.isPrevious}}
+			<div class="diff-type">Previous</div>
+		{{else if diff.isCurrent}}
+			<div class="diff-type">Current</div>
+		{{/if}}
+		<div class="{{diff.class}}{{if diff.allChanged ' all-changed'}}">{{diff.content}}</div>
 	{{/each}}
 {{/each}}
+</div>
