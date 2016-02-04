@@ -18,7 +18,7 @@
     "jquery": "2.1.4",
     "loader.js": "3.5.0",
     "numeral": "1.5.3",
-    "moment": "^2.8.0",
+    "moment": "2.8.0",
     "ponto": "Wikia/ponto#develop",
     "qunit": "1.20.0",
     "script.js": "2.5.7",
@@ -28,7 +28,7 @@
     "wikia-style-guide": "Wikia/style-guide#v1.8.2",
     "Autolinker.js": "0.22.0",
     "sinonjs": "1.17.1",
-    "moment-timezone": "^0.5.0",
+    "moment-timezone": "0.5.0",
     "dom-ruler": "0.1.13"
   },
   "resolutions": {
