@@ -107,6 +107,8 @@ Router.map(function () {
 		path: '/image-review'
 	});
 
+	this.route('recent-wiki-activity');
+
 	// Route to catch all badly formed URLs
 	this.route('notFound', {
 		path: '/*url'

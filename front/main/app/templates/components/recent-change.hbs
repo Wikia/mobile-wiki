@@ -1,0 +1,16 @@
+{{!-- TODO: Convert the link to a route to a diff view --}}
+<a class="see-diff">{{svg 'back-arrow' role='img' class='icon-back'}}</a>
+{{user-avatar
+	avatarUrl=model.useravatar
+	username=model.user
+	displayProfileName=true
+}}
+<small class="time-ago">{{time-ago unixTimestamp}}</small>
+<h3 class="recent-change-article-title">
+	{{#link-to 'article' model.title}}{{model.title}}{{/link-to}}
+</h3>
+{{#if model.parsedcomment}}
+	<small class="recent-change-summary">
+		<strong class="recent-change-summary-label">{{i18n 'main.summary' ns='recent-wiki-activity'}}</strong> {{{model.parsedcomment}}}
+	</small>
+{{/if}}
