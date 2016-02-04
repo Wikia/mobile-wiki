@@ -1,5 +1,7 @@
 .article-preview {
-	pointer-events: none;
+	.ember-container {
+		pointer-events: none;
+	}
 
 	.page-wrapper {
 		margin-top: 20px;
