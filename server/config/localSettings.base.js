@@ -64,6 +64,7 @@ import deepExtend from 'deep-extend';
  * @property {string} [mediawikiDomain]
  * @property {string} mwPreviewSalt
  * @property {string} gaUserSalt
+ * @property {string} prerenderApiKey
  * @property {LoggerInterface} loggers
  * @property {number} maxRequestsPerChild
  * @property {OptimizelyLocalSettings} [optimizely]
@@ -191,6 +192,8 @@ const localSettings = {
 	mwPreviewSalt: process.env.MW_PREVIEW_SALT,
 	// Special salt for calculating GA userID
 	gaUserSalt: process.env.GA_USERID_SALT,
+	// Prerender.io API Key
+	prerenderApiKey: process.env.PRERENDER_API,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
 	loggers: {
