@@ -1,0 +1,10 @@
+{{recent-change model=model}}
+{{#each model.diffs as |diffs|}}
+	{{#each diffs as |diff|}}
+		<div class="{{diff.class}}{{if diff.allChanged ' all-changed'}}">{{diff.content}}</div>
+	{{/each}}
+{{/each}}
+
+{{#if currentUser.isAuthenticated}}
+<button {{action 'undo'}} class="">{{i18n 'main.undo-label' ns='recent-wiki-activity'}}</button>
+{{/if}}
