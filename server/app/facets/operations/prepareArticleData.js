@@ -100,5 +100,9 @@ export default function prepareArticleData(request, data) {
 			false
 	);
 
+	result.prerenderEnabled = localSettings.prerenderHost.some(
+		(host) => request.headers.host === host
+	);
+
 	return result;
 }

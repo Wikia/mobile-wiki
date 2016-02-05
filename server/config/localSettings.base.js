@@ -194,6 +194,10 @@ const localSettings = {
 	gaUserSalt: process.env.GA_USERID_SALT,
 	// Prerender.io API Key
 	prerenderApiKey: process.env.PRERENDER_API,
+	// prerendered host lists
+	prerenderHost: [
+		'assassinscreed.wikia.com'
+	],
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
 	loggers: {
