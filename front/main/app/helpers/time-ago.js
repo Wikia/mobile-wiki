@@ -4,7 +4,7 @@ import moment from 'moment';
 /**
  * Helper to give textual representation of time interval between past date
  * and the current time/date in the form
- * {timeAgo unixTimestamp shouldDisplayAgo}
+ * {timeAgo unixTimestamp shouldHideAgoPrefix}
  * which returns something like '2 days ago' if interval is below 6 days or formated param date
  *
  * @param {Array}
@@ -27,5 +27,4 @@ export default Ember.Helper.helper((params) => {
 	}
 
 	return `<span class='timestamp' title='${date.format('LLL')}'>&bull; ${output} </span>`;
-
 });
