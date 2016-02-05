@@ -8,7 +8,7 @@
 			{{#each discussionSort.sortTypes as |item|}}
 				<li>
 					<input type="radio" value="{{item.name}}" {{action 'setSortBy' item.name}} name="sort-button" class="bullet" id="sort-button-{{item.messageKey}}">
-					<div class="radio-fancy {{if (equal item.name sortBy) 'active background-theme-color'}}"><div class="inside"></div></div>
+					<div class="radio-fancy {{if (equal item.name sortBy) 'active active-element-background-color'}}"><div class="inside"></div></div>
 					<label for="sort-button-{{item.messageKey}}">
 						{{i18n item.messageKey ns='discussion'}}
 					</label>

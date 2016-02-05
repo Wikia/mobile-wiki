@@ -70,12 +70,12 @@ export default Ember.Mixin.create(ColorUtilsMixin, {
 		}
 
 		styles += `.discussions .border-theme-color {border-color: ${this.get('themeColors.color-buttons')};}`;
-		styles += `.discussions .header-text-theme-color {color: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .background-theme-color {background-color: ${this.get('themeColors.color-buttons')};}`;
 		styles += '.discussions .background-alpha-theme-color {background-color: ' +
 			`${this.getRgbaColor(this.hexToRgb(this.get('themeColors.color-buttons'), 0.8))};}`;
 
-		styles += `.discussion a, .discussion .url {color: ${this.get('themeColors.color-links')};}`;
+		styles += `.discussion a, .discussion .url, .discussions .header-text-theme-color {color: ${this.get('themeColors.color-links')};}`;
+		styles += `.discussions .active-element-background-color {background-color: ${this.get('themeColors.color-links')};}`;
 		styles += `.discussions .active-element-theme-color {color: ${this.get('themeColors.color-links')};}`;
 		styles += `.discussions .active-element-border-theme-color {border-color: ${this.get('themeColors.color-links')};}`;
 		styles += `.discussions .fill-theme-color {fill: ${this.get('themeColors.color-links')};}`;
