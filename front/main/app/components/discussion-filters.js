@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import nearestParent from "ember-pop-over/computed/nearest-parent";
+import nearestParent from 'ember-pop-over/computed/nearest-parent';
 
 export default Ember.Component.extend(
 	{
@@ -12,7 +12,7 @@ export default Ember.Component.extend(
 		actions: {
 			applyFilters() {
 				const sortBy = this.get('sortBy');
-				
+
 				if (this.get('discussionSort.sortBy') !== sortBy) {
 					this.attrs.applyFilters(sortBy);
 					this.get('popover').deactivate();
