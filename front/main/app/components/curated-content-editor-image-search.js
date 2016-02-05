@@ -55,7 +55,14 @@ export default Ember.Component.extend(
 					// Make cropper back button go back here
 					'imageCropLayout.previous': this.get('imageSearchLayout.name')
 				});
-				this.sendAction('changeLayout', this.get('imageSearchLayout.next'));
+
+				// we don't want to crop main community image
+				if (this.get('model.community_data')) {
+					this.set('model.image_url', image.url);
+					this.sendAction('changeLayout', this.get('imageSearchLayout.previous'));
+				} else {
+					this.sendAction('changeLayout', this.get('imageSearchLayout.next'));
+				}
 			},
 
 			/**
