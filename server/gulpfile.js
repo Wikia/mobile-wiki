@@ -93,23 +93,10 @@ gulp.task('build-server', [
 ]);
 
 /*
- * Create www/front/main/index.html if it doesn't exist (it never does at this point
- * because `ember build --watch` starts simultaneously with watch-server and takes much longer)
- * We need this file to exist so it can be observed by gulp-watch
- */
-gulp.task('create-dummy-main-index', function (done) {
-	filendir.writeFile(paths.views.main.src, '', {
-		flag: 'a'
-	}, done);
-});
-
-/*
  * Watch files that the server build depends on
  */
-gulp.task('watch-server', [
-	'create-dummy-main-index'
-], function () {
-	watch(paths.views.main.src, function () {
+gulp.task('watch-server', function () {
+	watch(paths.views.main.src, {ignoreInitial: false}, function () {
 		gulp.start('build-server-views-main');
 	}).on('error', exitOnError);
 
