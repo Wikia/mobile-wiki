@@ -20,7 +20,7 @@ export default Ember.Route.extend(MetaTagsMixin, {
 	 * @param {EmberState.Transition} transition
 	 * @return {void}
      */
-	beforeModel(transition) {
+	beforeModel() {
 		// Enable the RWA for kirkburn.wikia.com only
 		if (Ember.get(Mercury, 'wiki.id') !== 41727) {
 			this.transitionTo('mainPage');
