@@ -5,7 +5,7 @@ import RecentWikiActivityModel from '../models/recent-wiki-activity';
 export default Ember.Route.extend(MetaTagsMixin, {
 
 	/**
-	 * @returns {Object}
+	 * @returns {{name: {robots: string}}}
 	 */
 	meta() {
 		return {
@@ -13,6 +13,18 @@ export default Ember.Route.extend(MetaTagsMixin, {
 				robots: 'noindex, follow'
 			}
 		};
+	},
+
+	/**
+	 * Make sure that RWA is enabled only for one wiki.
+	 * @param {EmberState.Transition} transition
+	 * @return {void}
+     */
+	beforeModel() {
+		// Enable the RWA for kirkburn.wikia.com only
+		if (Ember.get(Mercury, 'wiki.id') !== 41727) {
+			this.transitionTo('mainPage');
+		}
 	},
 
 	/**
