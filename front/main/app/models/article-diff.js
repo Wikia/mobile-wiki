@@ -13,6 +13,10 @@ const ArticleDiffModel = Ember.Object.extend({
 	user: null,
 	useravatar: null,
 
+	/**
+	 * Sends request to MW API to undo newid revision of title
+	 * @returns {Ember.RSVP.Promise}
+	 */
 	undo() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			getEditToken(this.title)
@@ -38,7 +42,7 @@ const ArticleDiffModel = Ember.Object.extend({
 								reject();
 							}
 						},
-						error: (err) => reject(err)
+						error: reject
 					});
 				}, (err) => reject(err));
 		});

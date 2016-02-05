@@ -14,33 +14,6 @@ $legend-line-height: $type-smallest;
 		text-transform: uppercase;
 	}
 
-	.diff-legend {
-		color: $color-blue-gray-dark;
-		float: right;
-		line-height: $type-smallest;
-		padding: 10px 15px 0 0;
-		text-transform: uppercase;
-
-		.diff-legend-color-previous,
-		.diff-legend-color-current {
-			display: inline-block;
-			height: 10px;
-			margin-right: 5px;
-			vertical-align: middle;
-			width: 10px;
-		}
-		.diff-legend-color-previous {
-			background-color: $alert-color;
-		}
-		.diff-legend-color-current {
-			background-color: $success-color;
-		}
-
-		.diff-legend-text {
-			vertical-align: middle;
-		}
-	}
-
 	.diff-addedline {
 		border-left: 3px solid $success-color;
 		margin-top: 16px;
@@ -92,6 +65,34 @@ $legend-line-height: $type-smallest;
 		padding-right: 15px;
 	}
 
+}
+
+.diff-page__legend {
+	color: $color-blue-gray-dark;
+	float: right;
+	line-height: $type-smallest;
+	padding: 10px 15px 0 0;
+	text-transform: uppercase;
+}
+
+.diff-page__legend__previous,
+.diff-page__legend__current {
+	display: inline-block;
+	height: 10px;
+	margin-right: 5px;
+	vertical-align: middle;
+	width: 10px;
+}
+.diff-page__legend__previous {
+	background-color: $alert-color;
+}
+
+.diff-page__legend__current {
+	background-color: $success-color;
+}
+
+.diff-page__legend__text {
+	vertical-align: middle;
 }
 
 .diff-page__undo {
