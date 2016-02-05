@@ -5,7 +5,7 @@
     <div class="sub-head--title">{{i18n 'main.title' ns='recent-wiki-activity'}}</div>
 </header>
 
-{{recent-change model=model}}
+{{recent-change model=model showDiffLink=showDiffLink}}
 {{#each model.diffs as |diffs|}}
 	{{#each diffs as |diff|}}
 		<div class="{{diff.class}}{{if diff.allChanged ' all-changed'}}">{{diff.content}}</div>

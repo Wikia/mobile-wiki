@@ -63,6 +63,7 @@ ArticleDiffModel.reopenClass({
 						newid,
 						oldid,
 						pageid: page.pageid,
+						parsedcomment: revision.parsedcomment,
 						timestamp: revision.timestamp,
 						title: page.title,
 						user: user.name,
@@ -86,7 +87,7 @@ ArticleDiffModel.reopenClass({
 					format: 'json',
 					action: 'query',
 					prop: 'revisions',
-					rvprop: 'timestamp|userid',
+					rvprop: 'timestamp|parsedcomment|userid',
 					revids: oldid,
 					rvdiffto: newid
 				}

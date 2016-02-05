@@ -2,8 +2,6 @@
 $faint-gray: #cccccc;
 
 .diff-page {
-	padding: 10px 0;
-
 	font-size: $type-min;
 	line-height: $line-height-smallest;
 
@@ -64,5 +62,4 @@ $faint-gray: #cccccc;
 	.diff-lineno {
 		padding-right: 15px;
 	}
-
 }

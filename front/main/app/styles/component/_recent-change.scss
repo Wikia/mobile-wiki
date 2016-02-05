@@ -1,6 +1,6 @@
 .recent-change {
 	border-bottom: 4px solid $color-gray-light;
-	padding: 10px 13px 15px;
+	padding: 15px 15px 20px;
 	position: relative;
 
 	.avatar {
@@ -16,6 +16,7 @@
 
 	.time-ago {
 		color: $color-blue-gray-dark;
+		vertical-align: middle;
 
 		&::before {
 			content: '·';
@@ -28,7 +29,7 @@
 		font-size: $type-base;
 		font-weight: normal;
 		line-height: $line-height-base;
-		margin: 0.5rem 0;
+		margin: 0.5rem 0 0;
 	}
 
 	.recent-change-summary-label {
@@ -36,20 +37,20 @@
 	}
 
 	.see-diff {
+		height: 48px;
+		line-height: 48px;
 		position: absolute;
 		right: 0;
-		line-height: 48px;
-		height: 48px;
-		width: 48px;
-		top: 2px;
 		text-align: center;
+		top: 2px;
+		width: 48px;
 
 		svg {
-			transform: rotateY(180deg);
-			width: 16px;
-			height: 14px;
 			fill: $color-gray-dark;
+			height: 14px;
+			transform: rotateY(180deg);
 			vertical-align: middle;
+			width: 16px;
 		}
 
 		&:visited {
