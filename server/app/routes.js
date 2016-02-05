@@ -216,6 +216,14 @@ let routes,
 		},
 		{
 			method: 'GET',
+			path: '/diff/{revisions*}',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
 			// Catch invalid paths and redirect to the main page
 			path: '/main/{invalid}',
 			/**
