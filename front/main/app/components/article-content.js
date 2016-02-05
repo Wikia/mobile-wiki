@@ -170,16 +170,19 @@ export default Ember.Component.extend(
 			}
 		},
 
-		getAttributesForMedia({ name, attrs, element }) {
-			if (name === 'article-media-image' && attrs.ref) {
-				const media = this.get('media.media');
-
-				if (media && media[attrs.ref]) {
-					attrs = Object.assign(attrs, media[attrs.ref]);
+		getAttributesForMedia({name, attrs, element}) {
+			const media = this.get('media.media');
+			if (attrs.ref && media && media[attrs.ref]) {
+				if (name === 'article-media-image') {
+					attrs = Ember.$.extend(attrs, media[attrs.ref]);
+				} else if (name === 'article-media-gallery') {
+					attrs = Ember.$.extend(attrs, {
+						items: media[attrs.ref]
+					});
 				}
 			}
 
-			return { name, attrs, element };
+			return {name, attrs, element};
 		},
 
 		/**
@@ -205,9 +208,9 @@ export default Ember.Component.extend(
 				editAllowed = this.get('editAllowed'),
 				addPhotoAllowed = this.get('addPhotoAllowed'),
 				contributionComponent =
-						this.get('container').lookup('component:article-contribution', {
-							singleton: false
-						});
+					this.get('container').lookup('component:article-contribution', {
+						singleton: false
+					});
 
 			contributionComponent.setProperties({
 				section,

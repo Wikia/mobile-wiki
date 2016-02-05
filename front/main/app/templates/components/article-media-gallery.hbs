@@ -1,1 +1,12 @@
-{{hello}}
+{{#each items as |item|}}
+	<span class="gallery-{{unbound item.type}}">
+		{{article-media-image
+			url=item.url
+			width=item.width
+			height=item.height
+			link=item.link
+			caption=item.caption
+			galleryRef=media.galleryRef
+		}}
+	</span>
+{{/each}}

@@ -1,7 +1,33 @@
 import Ember from 'ember';
+import VisibleMixin from '../mixins/visible';
 
-export default Ember.Component.extend({
-	classNames: ['article-media-gallery'],
+export default Ember.Component.extend(
+	VisibleMixin,
+	{
+		classNames: ['article-media-gallery'],
 
-	hello: 'Hello world!',
-});
+		actions: {
+			/**
+			 * @returns {void}
+			 */
+			onVisible() {
+				const mediaArray = Ember.A(),
+					items = this.get('items');
+
+				// FIXME this is called twice for every instance, once with items existing and once without them
+				if (items) {
+					this.get('items').forEach((mediaItem, index) => {
+						mediaItem.galleryRef = index;
+						mediaArray.pushObject(Ember.Object.create(mediaItem));
+					});
+
+					this.setProperties({
+						items: mediaArray,
+						//limit: this.incrementLimitValue,
+						//galleryLength: mediaArray.length
+					});
+				}
+			}
+		}
+	}
+);
