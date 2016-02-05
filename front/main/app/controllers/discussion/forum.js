@@ -52,7 +52,7 @@ export default Ember.Controller.extend(
 			},
 
 			applyFilters(sortBy) {
-				// this is completely enough for now
+				// this is completely enough for now, because currently we have only sorting in filters
 				this.get('target').send('setSortBy', sortBy);
 			}
 		}
