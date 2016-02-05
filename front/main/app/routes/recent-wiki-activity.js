@@ -5,7 +5,7 @@ import RecentWikiActivityModel from '../models/recent-wiki-activity';
 export default Ember.Route.extend(MetaTagsMixin, {
 
 	/**
-	 * @returns {Object}
+	 * @returns {{name: {robots: string}}}
 	 */
 	meta() {
 		return {
