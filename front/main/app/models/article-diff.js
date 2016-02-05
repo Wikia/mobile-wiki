@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import getEditToken from '../utils/edit-token';
 import UserModel from './user';
 
 const ArticleDiffModel = Ember.Object.extend({
@@ -9,15 +10,57 @@ const ArticleDiffModel = Ember.Object.extend({
 	pageid: null,
 	timestamp: null,
 	title: null,
-	user: null
+	user: null,
+	useravatar: null,
+
+	/**
+	 * Sends request to MW API to undo newid revision of title
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	undo() {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			getEditToken(this.title)
+				.then((token) => {
+					Ember.$.ajax({
+						url: M.buildUrl({path: '/api.php'}),
+						data: {
+							action: 'edit',
+							title: this.title,
+							undo: this.newid,
+							undoafter: this.oldid,
+							token,
+							format: 'json'
+						},
+						dataType: 'json',
+						method: 'POST',
+						success: (resp) => {
+							if (resp && resp.edit && resp.edit.result === 'Success') {
+								resolve();
+							} else if (resp && resp.error) {
+								reject(resp.error.code);
+							} else {
+								reject();
+							}
+						},
+						error: reject
+					});
+				}, (err) => reject(err));
+		});
+	}
 });
 
 ArticleDiffModel.reopenClass({
+	/**
+	 * Uses the data received from API to fill needed information
+	 * @param {number} oldid
+	 * @param {number} newid
+	 * @returns {Ember.RSVP.Promise}
+     */
 	fetch(oldid, newid) {
 		return ArticleDiffModel.getDiffData(oldid, newid).then((data) => {
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				const page = data[Object.keys(data)[0]],
-					revision = Ember.get(page, 'revisions').get('firstObject'),
+					revision = Ember.get(page, 'revisions.firstObject'),
 					userId = revision.userid;
 
 				UserModel.find({userId}).then((user) => {
@@ -30,9 +73,11 @@ ArticleDiffModel.reopenClass({
 						newid,
 						oldid,
 						pageid: page.pageid,
-						timestamp: new Date(revision.timestamp).getTime() / 1000,
+						parsedcomment: revision.parsedcomment,
+						timestamp: revision.timestamp,
 						title: page.title,
-						user
+						user: user.name,
+						useravatar: user.avatarPath
 					}));
 				}).catch((error) => {
 					Ember.Logger.error(error);
@@ -42,6 +87,12 @@ ArticleDiffModel.reopenClass({
 		});
 	},
 
+	/**
+	 * Fetches diff data from MW API
+	 * @param {number} oldid
+	 * @param {number} newid
+	 * @returns {Ember.RSVP.Promise}
+     */
 	getDiffData(oldid, newid) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.getJSON(
@@ -52,7 +103,7 @@ ArticleDiffModel.reopenClass({
 					format: 'json',
 					action: 'query',
 					prop: 'revisions',
-					rvprop: 'timestamp|userid',
+					rvprop: 'timestamp|parsedcomment|userid',
 					revids: oldid,
 					rvdiffto: newid
 				}
@@ -60,25 +111,28 @@ ArticleDiffModel.reopenClass({
 				const pages = Ember.get(response, 'query.pages');
 
 				resolve(pages);
-			}).fail((error) => {
-				reject(error);
-			});
+			}).fail(reject);
 		});
 	},
 
+	/**
+	 * Transforms diff data received from API to match required format
+	 * @param {Array} content
+	 * @returns {Array}
+     */
 	prepareDiff(content) {
 		const diffs = [], self = this;
 		let diff = [];
 
 		content.each(function () {
-			if (this.nodeType === 1) {
+			if (this.nodeType === this.ELEMENT_NODE) {
 				const $node = $(this);
-				let	nodeDiffs, diffData, $oldDiff, $newDiff, oldDiffClass, newDiffClass;
+				let	$nodeDiffs, diffData, $oldDiff, $newDiff, oldDiffClass, newDiffClass;
 
 				$node.find('.diff-marker').remove();
-				nodeDiffs = $node.children();
-				$oldDiff = $(nodeDiffs.get(0));
-				$newDiff = $(nodeDiffs.get(1));
+				$nodeDiffs = $node.children();
+				$oldDiff = $nodeDiffs.eq(0);
+				$newDiff = $nodeDiffs.eq(1);
 
 				oldDiffClass = $oldDiff.attr('class');
 
@@ -88,13 +142,14 @@ ArticleDiffModel.reopenClass({
 						class: oldDiffClass
 					});
 				} else {
-					diffData = self.getDiff($oldDiff, oldDiffClass, 'previous');
+					newDiffClass = $newDiff.attr('class');
+
+					diffData = self.getDiff($oldDiff, oldDiffClass, $newDiff.hasClass('diff-empty'), 'previous');
 					if (diffData) {
 						diff.push(diffData);
 					}
 
-					newDiffClass = $newDiff.attr('class');
-					diffData = self.getDiff($newDiff, newDiffClass, 'current');
+					diffData = self.getDiff($newDiff, newDiffClass, $oldDiff.hasClass('diff-empty'), 'current');
 					if (diffData) {
 						diff.push(diffData);
 					}
@@ -120,20 +175,21 @@ ArticleDiffModel.reopenClass({
 		return diffs;
 	},
 
-	getDiff(diff, diffClass, type) {
+	/**
+	 * Prepares proper diff object for line
+	 * @param {Array} diff
+	 * @param {string} diffClass
+	 * @param {boolean} allChanged
+	 * @param {string} type
+     * @returns {{content: string, class: string, allChanged: boolean}|null}
+     */
+	getDiff(diff, diffClass, allChanged, type) {
 		if (diffClass === 'diff-deletedline' || diffClass === 'diff-addedline') {
-			const diffData = {
+			return {
 				content: Ember.String.htmlSafe(diff.html()),
-				class: diffClass
+				class: diffClass,
+				allChanged: allChanged
 			};
-
-			if (type === 'previous') {
-				diffData.isPrevious = true;
-			} else if (type === 'current') {
-				diffData.isCurrent = true;
-			}
-
-			return diffData;
 		}
 
 		return null;

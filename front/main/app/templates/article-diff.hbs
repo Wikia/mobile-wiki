@@ -1,12 +1,1 @@
-{{user-avatar
-	avatarUrl=model.user.avatarPath
-	displayProfileName=true
-	username=model.user.name
-}}
-{{model.timestamp}}
-{{#link-to 'article' model.title}}{{model.title}}{{/link-to}}
-{{#each model.diffs as |diffs|}}
-	{{#each diffs as |diff|}}
-		{{diff.content}}
-	{{/each}}
-{{/each}}
+{{article-diff model=model undo='undo'}}
