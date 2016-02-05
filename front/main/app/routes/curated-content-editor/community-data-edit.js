@@ -6,7 +6,7 @@ export default Ember.Route.extend({
 	 * @returns {Object} item
 	 */
 	model() {
-		const rootModel= this.modelFor('curatedContentEditor');
+		const rootModel = this.modelFor('curatedContentEditor');
 
 		return rootModel.communityData;
 	},
@@ -18,7 +18,6 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	setupController(controller, model, transition) {
-		console.log("setupController! model: ", model)
 		this._super(controller, model, transition);
 		controller.setProperties({
 			isFeaturedItem: false,
@@ -44,15 +43,14 @@ export default Ember.Route.extend({
 		},
 
 		/**
-		 * @param {CuratedContentEditorItemModel} newItem
+		 * @param {CuratedContentEditorItemModel} newData
 		 * @returns {void}
 		 */
 		done(newData) {
 			const controller = this.get('controller'),
 				originalItemLabel = controller.get('originalItemLabel'),
 				rootModel = this.modelFor('curatedContentEditor'),
-				blockModel =  rootModel.communityData;
-			debugger
+				blockModel = rootModel.communityData;
 
 			CuratedContentEditorModel.updateItem(blockModel, newData, originalItemLabel);
 			this.transitionTo('curatedContentEditor.index');

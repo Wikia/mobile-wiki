@@ -59,7 +59,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			editCommunityData() {
-				console.log("editCommunityData");
 				this.sendAction('editCommunityData');
 			},
 
