@@ -51,16 +51,20 @@ QUnit.module('mercury/modules/Ads', function (hooks) {
 			runSpy = sinon.spy(),
 			incrementSpy = sinon.spy(),
 			initDetectionSpy = sinon.spy(),
+			startOnLoadQueue = sinon.spy(),
 			instance = Ads.getInstance();
 
 		instance.adContextModule = {
 			setContext: setContextSpy
 		};
-		instance.adEngineModule = {
+		instance.adEngineRunnerModule = {
 			run: runSpy
 		};
 		instance.sourcePointDetectionModule = {
 			initDetection: initDetectionSpy
+		};
+		instance.adMercuryListenerModule = {
+			startOnLoadQueue: startOnLoadQueue
 		};
 		instance.adConfigMobile = {
 			test: 2
@@ -79,9 +83,10 @@ QUnit.module('mercury/modules/Ads', function (hooks) {
 		assert.ok(initDetectionSpy.calledOnce);
 		assert.ok(runSpy.calledWith(instance.adConfigMobile, instance.adSlots, 'queue.mercury'));
 		instance.adContextModule = undefined;
-		instance.adEngineModule = undefined;
+		instance.adEngineRunnerModule = undefined;
 		instance.adConfigMobile = undefined;
 		instance.adLogicPageViewCounterModule = undefined;
+		instance.adMercuryListenerModule = undefined;
 		instance.adSlots = [];
 	});
 

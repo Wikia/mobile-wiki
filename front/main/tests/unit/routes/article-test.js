@@ -19,7 +19,7 @@ moduleFor('route:article', 'Integration | Route | article', {
 test('sets correct title tag', function (assert) {
 	const route = this.subject(),
 		model = Ember.Object.create({
-			cleanTitle: 'Article title'
+			displayTitle: 'Article title'
 		});
 
 	Mercury.wiki.htmlTitleTemplate = '$1 - Test';
