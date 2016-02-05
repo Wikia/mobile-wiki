@@ -1,5 +1,6 @@
-// TODO move $faint-gray to styleguide
-$faint-gray: #cccccc;
+// TODO move $color-gray-faint to styleguide
+$color-gray-faint: #cccccc;
+$legend-line-height: $type-smallest;
 
 .diff-page {
 	font-size: $type-min;
@@ -10,6 +11,33 @@ $faint-gray: #cccccc;
 		font-weight: bold;
 		padding: 20px 0 0 15px;
 		text-transform: uppercase;
+	}
+
+	.diff-legend {
+		color: $color-blue-gray-dark;
+		float: right;
+		line-height: $type-smallest;
+		padding: 10px 15px 0 0;
+		text-transform: uppercase;
+
+		.diff-legend-color-previous,
+		.diff-legend-color-current {
+			display: inline-block;
+			height: 10px;
+			margin-right: 5px;
+			vertical-align: middle;
+			width: 10px;
+		}
+		.diff-legend-color-previous {
+			background-color: $alert-color;
+		}
+		.diff-legend-color-current {
+			background-color: $success-color;
+		}
+
+		.diff-legend-text {
+			vertical-align: middle;
+		}
 	}
 
 	.diff-addedline {
@@ -51,7 +79,7 @@ $faint-gray: #cccccc;
 	.diff-context,
 	.diff-deletedline {
 		& + .diff-lineno {
-			border-top: 1px dashed $faint-gray;
+			border-top: 1px dashed $color-gray-faint;
 			margin-top: 30px;
 		}
 	}
