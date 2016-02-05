@@ -20,9 +20,7 @@ function setMomentLocale(language, config) {
  */
 export function initialize(container, application) {
 	const language = Ember.get(Mercury, 'wiki.language.content') || 'en',
-		/**
-		 * Defaults, other languages than english are overriding this
-		 */
+		// Defaults, other languages than english are overriding this
 		config = {
 			longDateFormat: {
 				L: 'MM/DD/YY',
