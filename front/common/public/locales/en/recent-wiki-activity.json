@@ -9,6 +9,7 @@
   },
   "diff": {
     "after": "After",
-    "before": "Before"
+    "before": "Before",
+    "anonymous": "Anonymous"
   }
 }
