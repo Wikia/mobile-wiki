@@ -31,6 +31,8 @@ export default Ember.Component.extend(
 		actions: {
 			/**
 			 * Sent by visibility-state-manager every time the window is scrolled and the component is in viewport
+			 *
+			 * @returns {void}
 			 */
 			onVisible() {
 				if (!this.get('shouldBeLoaded')) {
@@ -39,6 +41,9 @@ export default Ember.Component.extend(
 			}
 		},
 
+		/**
+		* @returns {{mode: string, width: number, height: number}}
+		*/
 		getThumbnailParams() {
 			const articleWidth = this.get('articleContent.width'),
 				mode = this.get('cropMode') || Thumbnailer.mode.thumbnailDown,

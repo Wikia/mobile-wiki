@@ -5,8 +5,12 @@ import getOwner from 'ember-getowner-polyfill';
  * This is mostly copied from ember-islands but with some modifications
  */
 
-const { $, assert } = Ember;
+const {$, assert} = Ember;
 
+/**
+ * @param {HTMLElement} element
+ * @returns {Object}
+ */
 function componentAttributes(element) {
 	const attrsJSON = element.getAttribute('data-attrs');
 
@@ -22,11 +26,14 @@ function componentAttributes(element) {
 
 	return attrs;
 }
-
+/**
+ * @param {Component} parent
+ * @returns {Function}
+ */
 export function getRenderComponentFor(parent) {
 	const componentLookup = getOwner(parent).lookup('component-lookup:main');
 
-	return function renderComponent({ name, attrs, element }) {
+	return function renderComponent({name, attrs, element}) {
 		const component = componentLookup.lookupFactory(name);
 
 		let componentInstance;
@@ -56,7 +63,7 @@ export function getRenderComponentFor(parent) {
  * @returns {Array}
  */
 export function queryPlaceholders($element) {
-	let components = [];
+	const components = [];
 
 	$element.find('[data-component]').each(function () {
 		const name = this.getAttribute('data-component'),
