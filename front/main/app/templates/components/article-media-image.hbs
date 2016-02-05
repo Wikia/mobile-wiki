@@ -1,0 +1,11 @@
+{{#if link}}
+	<a href="{{link}}" {{action 'clickLinkedImage'}}>
+		<img src="{{thumbnailUrl}}" style={{style}}>
+		{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
+	</a>
+{{else}}
+	<img src="{{thumbnailUrl}}" style={{style}}>
+{{/if}}
+{{#if caption}}
+	<figcaption>{{{caption}}}</figcaption>
+{{/if}}

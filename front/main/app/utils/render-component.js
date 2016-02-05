@@ -51,6 +51,10 @@ export function getRenderComponentFor(parent) {
 	};
 }
 
+/**
+ * @param {JQuery} $element
+ * @returns {Array}
+ */
 export function queryPlaceholders($element) {
 	let components = [];
 
@@ -63,4 +67,3 @@ export function queryPlaceholders($element) {
 
 	return components;
 }
-

@@ -63,7 +63,9 @@ export default Ember.Component.extend(
 				if (content) {
 					this.hackIntoEmberRendering(content);
 
-					this.renderedComponents = queryPlaceholders(this.$()).map(this.renderComponent);
+					this.renderedComponents = queryPlaceholders(this.$())
+						.map(this.getAttributesForMedia, this)
+						.map(this.renderComponent);
 
 					this.loadTableOfContentsData();
 					this.handleTables();
@@ -166,6 +168,18 @@ export default Ember.Component.extend(
 			if (window.location.hash) {
 				window.location.assign(window.location.hash);
 			}
+		},
+
+		getAttributesForMedia({ name, attrs, element }) {
+			if (name === 'article-media-image' && attrs.ref) {
+				const media = this.get('media.media');
+
+				if (media && media[attrs.ref]) {
+					attrs = Object.assign(attrs, media[attrs.ref]);
+				}
+			}
+
+			return { name, attrs, element };
 		},
 
 		/**
