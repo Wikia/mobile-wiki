@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Thumbnailer from 'common/modules/Thumbnailer';
+import ViewportMixin from '../mixins/viewport';
 
 /**
  * @typedef {Object} ImageCropData
@@ -9,13 +10,15 @@ import Thumbnailer from 'common/modules/Thumbnailer';
  * @property {number} height
  */
 
-export default Ember.Mixin.create({
+export default Ember.Mixin.create(
+	ViewportMixin,
+	{
 	thumbnailer: Thumbnailer,
 	cropMode: Thumbnailer.mode.topCrop,
 	emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
 
 	aspectRatio: Ember.computed('block', function () {
-		return this.get('block') === 'featured' ? 16 / 9 : 1;
+		return ['featured', 'community'].indexOf(this.get('block')) ? 16 / 9 : 1;
 	}),
 
 	aspectRatioName: Ember.computed('aspectRatio', function () {
@@ -42,6 +45,11 @@ export default Ember.Mixin.create({
 			options.yOffset1 = imageCrop.y;
 			options.xOffset2 = imageCrop.x + imageCrop.width;
 			options.yOffset2 = imageCrop.y + imageCrop.height;
+		} else if (this.get('isCommunityData')) {
+			// we need this dimensions only for displaying image here, we don't save it anywhere
+			options.width = this.get('viewportDimensions.width');
+			options.height = Math.round(options.width / this.get('aspectRatio'));
+			options.mode = Thumbnailer.mode.thumbnailDown;
 		} else {
 			options.mode = this.get('cropMode');
 			options.height = this.get('imageHeight');
