@@ -2,7 +2,9 @@
 	<img src='{{unbound user.avatar}}' width='50px'>
 </div>
 <div class='content'>
-	{{{time-ago comment.created}}}
+	<span class="timestamp" title="{{timestamp-to-date post.creationDate.epochSecond}}">
+		{{{time-ago post.creationDate.epochSecond}}}
+	</span>
 	<span class='username'>
 		{{#if user.url}}
 			<a href='{{unbound user.url}}'>{{unbound userName}}</a>
