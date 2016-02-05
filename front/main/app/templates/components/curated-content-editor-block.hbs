@@ -6,14 +6,21 @@
 	<div class="block-description">{{description}}</div>
 {{/if}}
 <div class="curated-content-editor-rows">
-	{{#each sortableItems as |item|}}
+	{{#if isCommunityDataBlock}}
 		{{curated-content-editor-row
+			model=model
+			disableMove=true
+		}}
+	{{else}}
+		{{#each sortableItems as |item|}}
+			{{curated-content-editor-row
 			model=item
 			editItem='editItem'
 			openSection='openSection'
 			moveBy='moveBy'
-		}}
-	{{/each}}
+			}}
+		{{/each}}
+	{{/if}}
 	<button {{action 'addItem'}} class="curated-content-editor-add-item-btn">{{addItemLabel}}</button>
 </div>
 {{#modal-dialog isVisible=isHelpVisible}}
