@@ -5,6 +5,7 @@ $legend-line-height: $type-smallest;
 .diff-page {
 	font-size: $type-min;
 	line-height: $line-height-smallest;
+	margin-bottom: 120px;
 
 	.diff-lineno {
 		font-size: $type-smallest;
@@ -90,4 +91,21 @@ $legend-line-height: $type-smallest;
 	.diff-lineno {
 		padding-right: 15px;
 	}
+
+}
+
+.diff-page__undo {
+	background: $color-white;
+	border: solid $color-gray-light;
+	border-width: 5px 0 0;
+	bottom: 0;
+	box-shadow: 0px -20px 30px 10px rgba(255,255,255,0.68);
+	color: $anchor-font-color;
+	display: block;
+	height: auto;
+	line-height: $line-height-smallest;
+	margin: 0;
+	padding: 17px 15px;
+	position: fixed;
+	width: 100%;
 }
