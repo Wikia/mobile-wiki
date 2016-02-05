@@ -60,7 +60,7 @@ ArticleDiffModel.reopenClass({
 		return ArticleDiffModel.getDiffData(oldid, newid).then((data) => {
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				const page = data[Object.keys(data)[0]],
-					revision = Ember.get(page, 'revisions').get('firstObject'),
+					revision = Ember.get(page, 'revisions.firstObject'),
 					userId = revision.userid;
 
 				UserModel.find({userId}).then((user) => {

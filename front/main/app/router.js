@@ -64,7 +64,7 @@ Router.map(function () {
 	});
 
 	this.route('articleDiff', {
-		path: `${articlePath}diff/:oldid/:newid`
+		path: `/diff/:oldid/:newid`
 	});
 
 	this.route('article', {
