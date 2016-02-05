@@ -144,7 +144,7 @@
     "curated-content-editor-new-section":"Nouvelle section",
     "curated-content-editor-new-category":"Nouvelle catégorie",
     "curated-content-editor-wikia-description": "Description",
-    "curated-content-editor-wikia-description-help": "Quelque chose d'aussi simple que \"Apprenez-en plus sur Wiki Saveurs du monde\" ou \"Bienvenue sur Wiki Saveurs du monde\" est super !",
+    "curated-content-editor-wikia-description-tooltip": "Quelque chose d'aussi simple que \"Apprenez-en plus sur Wiki Saveurs du monde\" ou \"Bienvenue sur Wiki Saveurs du monde\" est super !",
     "curated-content-editor-enter-wikia-description": "Enter description here",
     "curated-content-editor-wikia-description-description": "Ajoutez un résumé qui promouvra votre wikia dans les résultats de recherche et sur les portails.",
     "explore-wiki":"Explorer __wikiName__"

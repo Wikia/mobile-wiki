@@ -1,5 +1,7 @@
 <header>{{title}}</header>
+{{#if showHelp}}
 <a class="curated-content-editor-info" {{action 'showHelp'}}>{{svg 'info' class='pointer-events-none' viewBox='0 0 18 18'}}</a>
+{{/if}}
 {{#if description}}
 	<div class="block-description">{{description}}</div>
 {{/if}}

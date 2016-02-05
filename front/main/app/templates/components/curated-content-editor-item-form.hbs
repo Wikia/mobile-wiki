@@ -17,7 +17,7 @@
 				focus-in='setLabelFocusedIn'
 			}}
 			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">{{displayNameLabel}}</label>
-			<span class="input-icon help" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-display-name-tooltip')}}></span>
+			<span class="input-icon help" {{action 'showTooltip' infoTooltip}}></span>
 			{{#if labelErrorMessage}}
 				<small class="error">{{labelErrorMessage}}</small>
 			{{/if}}

@@ -144,7 +144,7 @@
     "curated-content-editor-new-section":"Nowa sekcja",
     "curated-content-editor-new-category":"Nowa kategoria",
     "curated-content-editor-wikia-description": "Opis",
-    "curated-content-editor-wikia-description-help": "Idealne będzie coś tak nieskomplikowanego jak np. \"Dowiedz się więcej o Bacon Wiki\" bądź \"Witaj na Bacon Wiki\"!",
+    "curated-content-editor-wikia-description-tooltip": "Idealne będzie coś tak nieskomplikowanego jak np. \"Dowiedz się więcej o Bacon Wiki\" bądź \"Witaj na Bacon Wiki\"!",
     "curated-content-editor-enter-wikia-description": "Wpisz opis tutaj",
     "curated-content-editor-wikia-description-description": "Dodaj opis, który będzie promował Twoją wikię w wynikach wyszukiwaniach i hubach.",
     "explore-wiki":"Explore __wikiName__"
