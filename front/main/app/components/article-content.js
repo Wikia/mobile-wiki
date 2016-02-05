@@ -32,7 +32,7 @@ export default Ember.Component.extend(
 		media: null,
 		contributionEnabled: null,
 		uploadFeatureEnabled: null,
-		cleanTitle: null,
+		displayTitle: null,
 		headers: null,
 
 		newFromMedia(media) {
@@ -167,7 +167,7 @@ export default Ember.Component.extend(
 		 * @returns {JQuery}
 		 */
 		createArticleContributionComponent(section, sectionId) {
-			const title = this.get('cleanTitle'),
+			const title = this.get('displayTitle'),
 				edit = 'edit',
 				addPhoto = 'addPhoto',
 				addPhotoIconVisible = this.get('addPhotoIconVisible'),

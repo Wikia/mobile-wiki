@@ -1,25 +1,53 @@
 
 $horizontal-bar-mode: 800px;
+$mobile-hero-slider: new-breakpoint(max-width 750px);
+$desktop-hero-slider: new-breakpoint(min-width 751px);
 $small-mobile-slider: new-breakpoint(max-width 380px);
-$mobile-slider:  new-breakpoint(min-width 381px max-width 750px);
-$medium-slider: new-breakpoint(min-width 751px max-width 1000px);
-$desktop-slider: new-breakpoint(min-width 1001px);
+$mobile-slider:  new-breakpoint(min-width 381px max-width 615px);
+$mobile-slider-2row: new-breakpoint(min-width 616px max-width 885px);
+$medium-slider: new-breakpoint(min-width 886px max-width 1140px);
+$desktop-slider: new-breakpoint(min-width 1141px);
 
 .featured {
+	display: none;
 	margin-top: 4em;
 
-	@include media ($small-mobile-slider) {
-		display: none;
+	@include media ($desktop-slider) {
+		display: block;
 	}
+}
 
-	@include media ($mobile-slider) {
-		display: none;
+.featured-mobile-medium {
+	display: none;
+	margin-top: 4em;
+
+	@include media ($medium-slider) {
+		display: block;
 	}
+}
+
+.featured-mobile-2row {
+	display: none;
+	margin-top: 4em;
+	max-width: 650px;
+
+	@include media ($mobile-slider-2row) {
+		display: block;
+	}
+}
+
+.featured-mobile-2row-wrapper {
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
 }
 
 .featured-mobile {
 	display: none;
 	max-width: 250px;
+	padding-left: 0;
+	padding-right: 0;
 
 	@include media ($small-mobile-slider) {
 		display: block;
@@ -49,6 +77,7 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 }
 
 .featured-mobile-slide {
+	display: inline-block;
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
@@ -60,37 +89,34 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 	width: 100%;
 }
 
+.featured-mobile-slide-2row {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
 .hero {
-	display: block;
+	display: none;
 	margin-left: auto;
 	margin-right: auto;
 	max-height: 500px;
 	max-width: 1280px;
 	padding-top: 54px;
 
-	@include media ($small-mobile-slider) {
-		display: none;
-	}
-
-	@include media ($mobile-slider) {
-		display: none;
+	@include media ($desktop-hero-slider) {
+		display: block;
 	}
 }
 
 .hero-mobile {
-	display: block;
+	display: none;
 	margin-left: auto;
 	margin-right: auto;
 	max-height: 560px;
 	max-width: 615px;
 	padding-top: 54px;
 
-	@include media ($medium-slider) {
-		display: none;
-	}
-
-	@include media ($desktop-slider) {
-		display: none;
+	@include media ($mobile-hero-slider) {
+		display: block;
 	}
 }
 
@@ -215,72 +241,6 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 	@include media ($desktop-slider) {
 		display: none;
 	}
-}
-
-.hero-prev,
-.hero-next {
-	background: transparent;
-	border: 0;
-	color: transparent;
-	cursor: pointer;
-	display: block;
-	font-size: 0;
-	height: 28px;
-	line-height: 0;
-	outline: none;
-	padding: 0;
-	position: absolute;
-	top: 50%;
-	width: 20px;
-}
-
-.hero-prev {
-	left: 30px;
-	top: 50%;
-	transform: translateY(-50%);
-	z-index: 1;
-
-	@include media ($small-mobile-slider) {
-		right: 15px;
-		top: 30%;
-	}
-
-	@include media ($mobile-slider) {
-		left: 15px;
-		top: 30%;
-	}
-}
-
-.hero-prev-category {
-	left: 10px;
-}
-
-.hero-next {
-	right: 30px;
-	top: 50%;
-	transform: translateY(-50%);
-	z-index: 1;
-
-	@include media ($small-mobile-slider) {
-		right: 15px;
-		top: 30%;
-	}
-
-	@include media ($mobile-slider) {
-		right: 15px;
-		top: 30%;
-	}
-}
-
-.hero-hide-arrow {
-	display: none;
-}
-
-.hero-arrow {
-	background: url('/images/arrow-right.png') no-repeat 0 0;
-	display: inline-block;
-	height: 16px;
-	width: 16px;
 }
 
 .hero-link {
