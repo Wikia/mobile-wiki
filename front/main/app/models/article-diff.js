@@ -183,12 +183,12 @@ ArticleDiffModel.reopenClass({
 	 * @param {string} type
      * @returns {{content: string, class: string, allChanged: boolean}|null}
      */
-	getDiff(diff, diffClass, allChanged, type) {
+	getDiff(diff, diffClass, allChanged) {
 		if (diffClass === 'diff-deletedline' || diffClass === 'diff-addedline') {
 			return {
 				content: Ember.String.htmlSafe(diff.html()),
 				class: diffClass,
-				allChanged: allChanged
+				allChanged
 			};
 		}
 
