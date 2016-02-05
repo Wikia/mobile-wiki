@@ -1,10 +1,14 @@
 import Ember from 'ember';
 import VisibleMixin from '../mixins/visible';
+import Thumbnailer from 'common/modules/Thumbnailer';
 
 export default Ember.Component.extend(
 	VisibleMixin,
 	{
 		classNames: ['article-media-gallery'],
+
+		imageSize: 195,
+		cropMode: Thumbnailer.mode.topCrop,
 
 		actions: {
 			/**

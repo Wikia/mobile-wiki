@@ -13,18 +13,10 @@ export default Ember.Component.extend(
 		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
 
 		thumbnailUrl: Ember.computed('url', 'shouldBeLoaded', function () {
-			const url = this.get('url'),
-				articleWidth = this.get('articleContent.width');
+			const url = this.get('url');
 
 			if (url && this.get('shouldBeLoaded')) {
-				let mode = Thumbnailer.mode.thumbnailDown,
-					width = articleWidth,
-					height = this.calculateHeightBasedOnWidth(this.get('width'), this.get('height'), width);
-
-				//if (this.get('context') === 'icon') {
-				//	mode = Thumbnailer.mode.scaleToWidth;
-				//	width = this.get('iconWidth');
-				//}
+				const {mode, width, height} = this.getThumbnailParams();
 
 				return Thumbnailer.getThumbURL(url, {
 					mode,
@@ -45,6 +37,17 @@ export default Ember.Component.extend(
 					this.set('shouldBeLoaded', true);
 				}
 			}
+		},
+
+		getThumbnailParams() {
+			const articleWidth = this.get('articleContent.width'),
+				mode = this.get('cropMode') || Thumbnailer.mode.thumbnailDown,
+				width = this.get('forceWidth') || articleWidth,
+				height = this.get('forceHeight') || this.calculateHeightBasedOnWidth(
+						this.get('width'), this.get('height'), width
+					);
+
+			return {mode, width, height};
 		},
 
 		/**
