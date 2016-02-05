@@ -4,7 +4,7 @@
 		{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
 	</a>
 {{else}}
-	<img src="{{thumbnailUrl}}" style={{style}}>
+	<img src="{{thumbnailUrl}}" data-ref={{ref}} data-gallery-ref={{galleryRef}} style={{style}}>
 {{/if}}
 {{#if caption}}
 	<figcaption>{{{caption}}}</figcaption>

@@ -6,6 +6,9 @@ export default Ember.Component.extend(
 	VisibleMixin,
 	{
 		classNames: ['article-media-gallery'],
+		attributeBindings: ['data-ref'],
+
+		'data-ref': Ember.computed.oneWay('ref'),
 
 		imageSize: 195,
 		cropMode: Thumbnailer.mode.topCrop,
