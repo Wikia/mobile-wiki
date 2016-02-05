@@ -12,6 +12,7 @@ export default Ember.Component.extend(
 		actions: {
 			applyFilters() {
 				const sortBy = this.get('sortBy');
+				
 				if (this.get('discussionSort.sortBy') !== sortBy) {
 					this.attrs.applyFilters(sortBy);
 					this.get('popover').deactivate();
