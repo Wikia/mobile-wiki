@@ -79,12 +79,11 @@ $site-header-height: 50px;
 		text-align: right;
 		top: 0;
 
-		&.applied {
-			.icon {
-				&.filter-applied {
-					display: inline;
-				}
-			}
+	}
+
+	.applied {
+		.filter-applied {
+			display: inline;
 		}
 	}
 
