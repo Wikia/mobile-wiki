@@ -54,12 +54,18 @@ export default Ember.Component.extend(ArticleContentMixin, {
 	 * @returns {number}
 	 */
 	normalizeThumbWidth(width) {
-		if (width <= this.thumbSize.small) {
-			return this.thumbSize.small;
-		} else if (width <= this.thumbSize.medium) {
-			return this.thumbSize.medium;
+		const thumbSize = {
+			small: 340,
+			medium: 660,
+			large: 900
+		};
+
+		if (width <= thumbSize.small) {
+			return thumbSize.small;
+		} else if (width <= thumbSize.medium) {
+			return thumbSize.medium;
 		}
 
-		return this.thumbSize.medium;
+		return thumbSize.large;
 	},
 });
