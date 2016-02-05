@@ -289,6 +289,12 @@ authenticatedRoutes.push({
 	handler: discussionsHandler
 });
 
+authenticatedRoutes.push({
+	method: 'GET',
+	path: '/d',
+	handler: discussionsHandler
+});
+
 /**
  * @param {*} route
  * @returns {*}

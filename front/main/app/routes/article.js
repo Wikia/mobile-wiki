@@ -94,7 +94,7 @@ export default Ember.Route.extend({
 		willTransition() {
 			// notify a property change on soon to be stale model for observers (like
 			// the Table of Contents menu) can reset appropriately
-			this.notifyPropertyChange('cleanTitle');
+			this.notifyPropertyChange('displayTitle');
 		},
 
 		/**
@@ -154,7 +154,7 @@ export default Ember.Route.extend({
 		const defaultHtmlTitleTemplate = '$1 - Wikia',
 			htmlTitleTemplate = Ember.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate;
 
-		document.title = htmlTitleTemplate.replace('$1', model.get('cleanTitle'));
+		document.title = htmlTitleTemplate.replace('$1', model.get('displayTitle'));
 	},
 
 	/**

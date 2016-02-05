@@ -25,7 +25,7 @@ export default Ember.Component.extend(
 	TrackClickMixin,
 	{
 		tagName: 'ul',
-		classNames: ['local-nav-menu-2016'],
+		classNames: ['local-nav-menu'],
 		// TODO: Remove to enable RWA globally
 		shouldDisplayRecentWikiActivity: Ember.computed(() => {
 			return Ember.get(Mercury, 'wiki.id') === 41727;
