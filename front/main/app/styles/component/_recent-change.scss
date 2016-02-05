@@ -33,7 +33,11 @@
 	margin: 0.5rem 0;
 }
 
-.recent-change__summary__label {
+.recent-change__summary {
+	line-height: $line-height-smallest;
+}
+
+.recent-change__summary-label {
 	text-transform: uppercase;
 }
 

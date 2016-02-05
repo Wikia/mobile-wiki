@@ -65,7 +65,7 @@ $legend-line-height: $type-smallest;
 	}
 }
 
-.diff-page__legend {
+.diff-page-legend {
 	color: $color-blue-gray-dark;
 	float: right;
 	line-height: $type-smallest;
@@ -73,8 +73,8 @@ $legend-line-height: $type-smallest;
 	text-transform: uppercase;
 }
 
-.diff-page__legend__previous,
-.diff-page__legend__current {
+.diff-page-legend__previous,
+.diff-page-legend__current {
 	display: inline-block;
 	height: 10px;
 	margin-right: 5px;
@@ -82,15 +82,15 @@ $legend-line-height: $type-smallest;
 	width: 10px;
 }
 
-.diff-page__legend__previous {
+.diff-page-legend__previous {
 	background-color: $alert-color;
 }
 
-.diff-page__legend__current {
+.diff-page-legend__current {
 	background-color: $success-color;
 }
 
-.diff-page__legend__text {
+.diff-page-legend__text {
 	vertical-align: middle;
 }
 
