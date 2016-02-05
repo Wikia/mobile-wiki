@@ -1,4 +1,4 @@
-{{#link-to 'articleDiff' model.old_revid model.revid class='see-diff'}}
+{{#link-to 'articleDiff' model.old_revid model.revid class='recent-change__see-diff'}}
 	{{svg 'back-arrow' role='img' class='icon-back'}}
 {{/link-to}}
 
@@ -7,12 +7,12 @@
 	username=model.user
 	displayProfileName=true
 }}
-<small class="time-ago">{{time-ago unixTimestamp}}</small>
-<h3 class="recent-change-article-title">
+<small class="recent-change__time-ago">{{time-ago unixTimestamp}}</small>
+<h3 class="recent-change__article-title">
 	{{#link-to 'article' model.title}}{{model.title}}{{/link-to}}
 </h3>
 {{#if model.parsedcomment}}
-	<small class="recent-change-summary">
-		<strong class="recent-change-summary-label">{{i18n 'main.summary' ns='recent-wiki-activity'}}</strong> {{{model.parsedcomment}}}
+	<small class="recent-change__summary">
+		<strong class="recent-change__summary__label">{{i18n 'main.summary' ns='recent-wiki-activity'}}</strong> {{{model.parsedcomment}}}
 	</small>
 {{/if}}
