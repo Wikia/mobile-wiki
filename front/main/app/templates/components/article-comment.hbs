@@ -2,8 +2,8 @@
 	<img src='{{unbound user.avatar}}' width='50px'>
 </div>
 <div class='content'>
-	<span class="timestamp" title="{{timestamp-to-date post.creationDate.epochSecond}}">
-		{{{time-ago post.creationDate.epochSecond}}}
+	<span class="timestamp" title="{{timestamp-to-date comment.created}}">
+		{{{time-ago comment.created}}}
 	</span>
 	<span class='username'>
 		{{#if user.url}}

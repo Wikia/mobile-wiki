@@ -23,6 +23,5 @@ export default Ember.Helper.helper(([unixTimestamp, shouldHideAgoPrefix = true])
 	} else {
 		output = date.fromNow(shouldHideAgoPrefix);
 	}
-	//return `<span class="timestamp" title="${date.format('LLL')}">&bull; ${output}</span>`;
 	return output;
 });
