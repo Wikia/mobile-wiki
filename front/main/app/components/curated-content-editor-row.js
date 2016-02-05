@@ -13,6 +13,10 @@ export default Ember.Component.extend(
 			return this.generateThumbUrl(this.get('model.image_url'));
 		}),
 
+		title: Ember.computed('model', function () {
+			return this.get('model.label') || i18n.t('app.curated-content-editor-enter-wikia-description');
+		}),
+
 		actions: {
 			/**
 			 * @returns {void}
