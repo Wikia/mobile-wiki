@@ -31,11 +31,12 @@ export default function prepareArticleData(request, data) {
 
 		if (articleData.details) {
 			articleDetails = articleData.details;
-			title = articleDetails.cleanTitle ? articleDetails.cleanTitle : articleDetails.title;
+			title = articleDetails.title;
 			result.canonicalUrl = wikiVariables.basePath + articleDetails.url;
 		}
 
 		if (articleData.article) {
+			title = articleData.article.displayTitle;
 			// we want to return the article content only once - as HTML and not JS variable
 			result.articleContent = articleData.article.content;
 			delete articleData.article.content;

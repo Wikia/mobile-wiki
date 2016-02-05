@@ -19,6 +19,10 @@
 		<meta name="robots" content="{{wikiVariables.specialRobotPolicy}}">
 	{{/if}}
 
+	{{#if wikiVariables.favicon}}
+		<link rel="shortcut icon" href="{{wikiVariables.favicon}}">
+	{{/if}}
+
 	{{#if asyncArticle}}
 		<meta name="fragment" content="!">
 	{{/if}}
