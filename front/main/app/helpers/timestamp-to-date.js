@@ -9,6 +9,6 @@ import moment from 'moment';
  * @param {string} shouldHideAgoPrefix
  * @returns {string}
  */
-export default Ember.Helper.helper(([unixTimestamp, dateFormat = 'LLL']) => {
+export default Ember.Helper.helper(([unixTimestamp, dateFormat = 'LLLL']) => {
 	return moment.unix(unixTimestamp).format(dateFormat);
 });

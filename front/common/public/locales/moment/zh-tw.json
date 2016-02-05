@@ -1,8 +1,4 @@
 {
-  "longDateFormat": {
-    "L": "YY/MM/DD",
-    "LLL": "YYYY年MMMD日Ah點mm分"
-  },
   "relativeTime": {
     "m": "1 分钟前",
     "mm": "%d 分钟前",

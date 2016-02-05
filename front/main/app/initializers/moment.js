@@ -8,8 +8,7 @@ import moment from 'moment';
  */
 function setMomentLocale(language, config) {
 	moment.locale(language, {
-		relativeTime: config.relativeTime,
-		longDateFormat: config.longDateFormat
+		relativeTime: config.relativeTime
 	});
 }
 /**
@@ -22,10 +21,6 @@ export function initialize(container, application) {
 	const language = Ember.get(Mercury, 'wiki.language.content') || 'en',
 		// Defaults, other languages than english are overriding this
 		config = {
-			longDateFormat: {
-				L: 'MM/DD/YY',
-				LLL: 'MMMM Do YYYY h:mm A'
-			},
 			relativeTime: {
 				m: '1 m',
 				mm: '%d m',
@@ -42,7 +37,6 @@ export function initialize(container, application) {
 		Ember.$.getScript(M.buildUrl({path: `/front/main/assets/vendor/moment/locales/${language}.js`})).always(() => {
 			const data = M.prop('momentTranslation');
 
-			Ember.$.extend(config.longDateFormat, data.longDateFormat);
 			Ember.$.extend(config.relativeTime, data.relativeTime);
 
 			setMomentLocale(language, config);

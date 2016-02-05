@@ -1,8 +1,4 @@
 {
-  "longDateFormat": {
-    "L" : "DD/MM/YY",
-    "LLL" : "D MMMM YYYY г., HH:mm"
-  },
   "relativeTime": {
     "d": "1 д",
     "dd": "%d дд",
