@@ -2,12 +2,24 @@
 $color-gray-faint: #cccccc;
 $legend-line-height: $type-smallest;
 
+%diff-page-padding {
+	padding-right: 15px;
+}
+
+%diff-page-lineno--following {
+	& + .diff-lineno {
+		border-top: 1px dashed $color-gray-faint;
+		margin-top: 30px;
+	}
+}
+
 .diff-page {
 	font-size: $type-min;
 	line-height: $line-height-smallest;
 	margin-bottom: 120px;
 
 	.diff-lineno {
+		@extend %diff-page-padding;
 		font-size: $type-smallest;
 		font-weight: bold;
 		padding: 20px 0 0 15px;
@@ -15,6 +27,7 @@ $legend-line-height: $type-smallest;
 	}
 
 	.diff-addedline {
+		@extend %diff-page-lineno--following;
 		border-left: 3px solid $success-color;
 		margin-top: 16px;
 		padding-left: 12px;
@@ -31,6 +44,8 @@ $legend-line-height: $type-smallest;
 	}
 
 	.diff-deletedline {
+		@extend %diff-page-padding;
+		@extend %diff-page-lineno--following;
 		border-left: 3px solid $alert-color;
 		margin-top: 16px;
 		padding-left: 15px;
@@ -48,23 +63,6 @@ $legend-line-height: $type-smallest;
 	.diff-context {
 		display: none;
 	}
-
-	.diff-addedline,
-	.diff-context,
-	.diff-deletedline {
-		& + .diff-lineno {
-			border-top: 1px dashed $color-gray-faint;
-			margin-top: 30px;
-		}
-	}
-
-	.diff-addedline,
-	.diff-context,
-	.diff-deletedline,
-	.diff-lineno {
-		padding-right: 15px;
-	}
-
 }
 
 .diff-page__legend {
@@ -83,6 +81,7 @@ $legend-line-height: $type-smallest;
 	vertical-align: middle;
 	width: 10px;
 }
+
 .diff-page__legend__previous {
 	background-color: $alert-color;
 }
