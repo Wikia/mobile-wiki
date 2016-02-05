@@ -55,9 +55,7 @@ export default Ember.Component.extend(
 		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
 			const content = this.get('content');
 
-			this.renderedComponents.forEach((renderedComponent) => {
-				renderedComponent.destroy();
-			});
+			this.destroyChildComponents();
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				if (content) {
@@ -109,6 +107,12 @@ export default Ember.Component.extend(
 
 			this.renderComponent = getRenderComponentFor(this);
 			this.renderedComponents = [];
+		},
+
+		willDestroyElement() {
+			this._super(...arguments);
+
+			this.destroyChildComponents();
 		},
 
 		actions: {
@@ -172,7 +176,8 @@ export default Ember.Component.extend(
 
 		getAttributesForMedia({name, attrs, element}) {
 			const media = this.get('media.media');
-			if (attrs.ref && media && media[attrs.ref]) {
+
+			if (attrs.ref >= 0 && media && media[attrs.ref]) {
 				if (name === 'article-media-image') {
 					attrs = Ember.$.extend(attrs, media[attrs.ref]);
 				} else if (name === 'article-media-gallery') {
@@ -183,6 +188,12 @@ export default Ember.Component.extend(
 			}
 
 			return {name, attrs, element};
+		},
+
+		destroyChildComponents() {
+			this.renderedComponents.forEach((renderedComponent) => {
+				renderedComponent.destroy();
+			});
 		},
 
 		/**
