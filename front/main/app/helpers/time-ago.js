@@ -26,5 +26,5 @@ export default Ember.Helper.helper((params) => {
 		output = date.fromNow(shouldHideAgoPrefix);
 	}
 
-	return `<span class='timestamp' title='${date.format('LLL')}'>&bull; ${output} </span>`;
+	return `<span class="timestamp" title="${date.format('LLL')}">&bull; ${output}</span>`;
 });
