@@ -30,7 +30,6 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	renderTemplate() {
-		console.log("renderTemplate")
 		this.render('curated-content-editor/item', {
 			into: 'application'
 		});
@@ -48,14 +47,14 @@ export default Ember.Route.extend({
 		 * @param {CuratedContentEditorItemModel} newItem
 		 * @returns {void}
 		 */
-		done(newItem) {
+		done(newData) {
 			const controller = this.get('controller'),
 				originalItemLabel = controller.get('originalItemLabel'),
 				rootModel = this.modelFor('curatedContentEditor'),
 				blockModel =  rootModel.communityData;
 			debugger
 
-			CuratedContentEditorModel.updateItem(blockModel, newItem, originalItemLabel);
+			CuratedContentEditorModel.updateItem(blockModel, newData, originalItemLabel);
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}

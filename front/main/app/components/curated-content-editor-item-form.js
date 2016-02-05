@@ -37,11 +37,18 @@ export default Ember.Component.extend(
 			return this.get('emptyGif');
 		}),
 
-		inputValue: Ember.computed('model.label', 'model.description', function() {
-			if (this.get('isCommunityData')) {
-				return this.get('model.description');
+		inputValue: Ember.computed('model.label', 'model.description', {
+			get() {
+				if (this.get('isCommunityData')) {
+					return this.get('model.description');
+				}
+				return this.get('model.label');
+			},
+			set(key, value) {
+				key = this.get('isCommunityData') ? 'model.description' : 'model.label';
+				this.set(key, value);
+				return value;
 			}
-			return this.get('model.label');
 		}),
 
 		isSection: Ember.computed.equal('model.node_type', 'section'),
@@ -192,7 +199,6 @@ export default Ember.Component.extend(
 				const trackLabel = this.get('isSection') ? 'section-edit-done' : 'item-edit-done';
 
 				if (this.get('isCommunityData')) {
-					console.log("zapisuje!");
 					this.sendAction('done', this.get('model'));
 					return;
 				}
