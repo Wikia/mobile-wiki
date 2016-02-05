@@ -216,7 +216,7 @@ let routes,
 		},
 		{
 			method: 'GET',
-			path: '/diff/{*}',
+			path: '/diff/{revisions*}',
 			handler: showApplication,
 			config: {
 				cache: routeCacheConfig
