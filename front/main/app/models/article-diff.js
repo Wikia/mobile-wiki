@@ -50,6 +50,12 @@ const ArticleDiffModel = Ember.Object.extend({
 });
 
 ArticleDiffModel.reopenClass({
+	/**
+	 * Uses the data received from API to fill needed information
+	 * @param {number} oldid
+	 * @param {number} newid
+	 * @returns {Ember.RSVP.Promise}
+     */
 	fetch(oldid, newid) {
 		return ArticleDiffModel.getDiffData(oldid, newid).then((data) => {
 			return new Ember.RSVP.Promise((resolve, reject) => {
@@ -81,6 +87,12 @@ ArticleDiffModel.reopenClass({
 		});
 	},
 
+	/**
+	 * Fetches diff data from MW API
+	 * @param {number} oldid
+	 * @param {number} newid
+	 * @returns {Ember.RSVP.Promise}
+     */
 	getDiffData(oldid, newid) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.getJSON(
@@ -99,25 +111,28 @@ ArticleDiffModel.reopenClass({
 				const pages = Ember.get(response, 'query.pages');
 
 				resolve(pages);
-			}).fail((error) => {
-				reject(error);
-			});
+			}).fail(reject);
 		});
 	},
 
+	/**
+	 * Transforms diff data received from API to match required format
+	 * @param {Array} content
+	 * @returns {Array}
+     */
 	prepareDiff(content) {
 		const diffs = [], self = this;
 		let diff = [];
 
 		content.each(function () {
-			if (this.nodeType === 1) {
+			if (this.nodeType === this.ELEMENT_NODE) {
 				const $node = $(this);
-				let	nodeDiffs, diffData, $oldDiff, $newDiff, oldDiffClass, newDiffClass;
+				let	$nodeDiffs, diffData, $oldDiff, $newDiff, oldDiffClass, newDiffClass;
 
 				$node.find('.diff-marker').remove();
-				nodeDiffs = $node.children();
-				$oldDiff = $(nodeDiffs.get(0));
-				$newDiff = $(nodeDiffs.get(1));
+				$nodeDiffs = $node.children();
+				$oldDiff = $nodeDiffs.eq(0);
+				$newDiff = $nodeDiffs.eq(1);
 
 				oldDiffClass = $oldDiff.attr('class');
 
