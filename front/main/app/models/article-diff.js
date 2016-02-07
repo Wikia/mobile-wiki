@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
-import UserModel from './user';
 
 const ArticleDiffModel = Ember.Object.extend({
 	diffs: null,
@@ -97,8 +96,8 @@ ArticleDiffModel.reopenClass({
 	},
 
 	/**
-	 * Transforms diff data received from API to match required format
-	 * @param {Array} content
+	 * Prepares diffs data received from API
+	 * @param {Array} diffs
 	 * @returns {Array}
      */
 	prepareDiffs(diffs) {
