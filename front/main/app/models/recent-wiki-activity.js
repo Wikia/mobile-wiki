@@ -26,12 +26,22 @@ RecentWikiActivityModel.reopenClass({
 					rclimit: '50'
 				}
 			).done((data) => {
-				const model = RecentWikiActivityModel.create();
+				const model = RecentWikiActivityModel.create(),
+					recentChanges = RecentWikiActivityModel.prepareTimestamps(data.query.recentchanges);
 
-				model.set('recentChanges', data.query.recentchanges);
+				model.set('recentChanges', recentChanges);
+
 				resolve(model);
 			}).fail((err) => reject(err));
 		});
+	},
+
+	prepareTimestamps(recentChanges) {
+		recentChanges.forEach((rc) => {
+			rc.timestamp = new Date(rc.timestamp).getTime() / 1000;
+		});
+
+		return recentChanges;
 	}
 });
 
