@@ -1,6 +1,6 @@
 <header>{{title}}</header>
 {{#if showHelp}}
-<a class="curated-content-editor-info" {{action 'showHelp'}}>{{svg 'info' class='pointer-events-none' viewBox='0 0 18 18'}}</a>
+	<a class="curated-content-editor-info" {{action 'showHelp'}}>{{svg 'info' class='pointer-events-none' viewBox='0 0 18 18'}}</a>
 {{/if}}
 {{#if description}}
 	<div class="block-description">{{description}}</div>
@@ -14,10 +14,10 @@
 	{{else}}
 		{{#each sortableItems as |item|}}
 			{{curated-content-editor-row
-			model=item
-			editItem='editItem'
-			openSection='openSection'
-			moveBy='moveBy'
+				model=item
+				editItem='editItem'
+				openSection='openSection'
+				moveBy='moveBy'
 			}}
 		{{/each}}
 	{{/if}}

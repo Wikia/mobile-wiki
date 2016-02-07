@@ -18,7 +18,7 @@ export default Ember.Mixin.create(
 		emptyGif: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
 
 		aspectRatio: Ember.computed('block', function () {
-			return ['featured', 'community'].indexOf(this.get('block')) ? 16 / 9 : 1;
+			return ['featured', 'community'].indexOf(this.get('block')) !== -1 ? 16 / 9 : 1;
 		}),
 
 		aspectRatioName: Ember.computed('aspectRatio', function () {

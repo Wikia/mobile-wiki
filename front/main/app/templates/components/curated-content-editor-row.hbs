@@ -4,6 +4,9 @@
 	{{#if model.items}}
 		<div class="subtitle">{{itemsCountLabel}}</div>
 	{{/if}}
+	{{#if model.description}}
+		<div class="subtitle">{{model.description}}</div>
+	{{/if}}
 </div>
 {{#unless disableMove}}
 	<div class="navigation">

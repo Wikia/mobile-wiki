@@ -5,7 +5,7 @@ export default Ember.Component.extend(
 	TrackClickMixin,
 	IEIFrameFocusFixMixin,
 	{
-		classNames: ['curated-content-editor-wikia-description', 'curated-content-editor-block'],
+		classNames: ['curated-content-editor-wikia-description'],
 		isHelpVisible: false,
 
 		isLabelFocused: false,

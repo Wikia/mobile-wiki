@@ -20,8 +20,7 @@ export default Ember.Route.extend({
 	setupController(controller, model, transition) {
 		this._super(controller, model, transition);
 		controller.setProperties({
-			isFeaturedItem: false,
-			originalItemLabel: model.description
+			isFeaturedItem: false
 		});
 	},
 
@@ -43,16 +42,10 @@ export default Ember.Route.extend({
 		},
 
 		/**
-		 * @param {CuratedContentEditorItemModel} newData
 		 * @returns {void}
 		 */
-		done(newData) {
-			const controller = this.get('controller'),
-				originalItemLabel = controller.get('originalItemLabel'),
-				rootModel = this.modelFor('curatedContentEditor'),
-				blockModel = rootModel.communityData;
-
-			CuratedContentEditorModel.updateItem(blockModel, newData, originalItemLabel);
+		done() {
+			CuratedContentEditorModel.isDirty = true;
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}

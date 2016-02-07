@@ -164,11 +164,11 @@ $image-photo-icon-size: 32px;
 }
 
 .curated-content-editor-photo {
-	height: 56.25vw; /* 16:9 */
 	margin: {
 		bottom: 50px;
 		top: 30px;
 	}
+	min-height: 56.25vw; /* 16:9 */
 	position: relative;
 
 	&.loaded {
