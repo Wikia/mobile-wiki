@@ -132,6 +132,19 @@ export class ArticleRequestHelper {
 	 *
 	 * @returns {Promise<ArticleResponse>}
 	 */
+	getArticleFromMarkup() {
+		const articleRequest = new MediaWiki.ArticleRequest(this.params);
+
+		logger.debug(this.params, 'Fetching article from markup');
+
+		return articleRequest.articleFromMarkup(this.params.title, this.params.wikitext, this.params.CKmarkup);
+	}
+
+	/**
+	 * Gets article, returns a promise which is resolved with the data.
+	 *
+	 * @returns {Promise<ArticleResponse>}
+	 */
 	getArticle() {
 		const articleRequest = new MediaWiki.ArticleRequest(this.params);
 

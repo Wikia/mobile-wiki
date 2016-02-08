@@ -14,7 +14,7 @@ import searchHandler from './facets/api/search';
 import mainPageSectionHandler from './facets/api/mainPageSection';
 import mainPageCategoryHandler from './facets/api/mainPageCategory';
 import logoutHandler from './facets/auth/logout';
-import editorPreview from './facets/editorPreview';
+import articlePreview from './facets/articlePreview';
 import joinHandler from './facets/auth/join';
 import {validateRedirect} from './facets/auth/authView';
 import registerHandler from './facets/auth/register';
@@ -122,8 +122,8 @@ let routes,
 		},
 		{
 			method: 'POST',
-			path: '/editorPreview',
-			handler: editorPreview
+			path: '/article-preview',
+			handler: articlePreview
 		}
 	],
 	// routes where we want to know the user's auth status

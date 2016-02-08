@@ -237,7 +237,7 @@ export default Ember.Component.extend(
 					width: parseInt(element.getAttribute('width'), 10),
 					height: parseInt(element.getAttribute('height'), 10),
 					imgWidth: element.offsetWidth,
-					media,
+					media
 				}).createElement();
 
 			return component.$().attr('data-ref', ref);

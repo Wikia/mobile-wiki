@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
+<html lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}" {{#if preview}}class='article-preview'{{/if}}>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -57,7 +57,7 @@
 	Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
 	DO NOT REMOVE THE FOLLOWING LINE:
 --}}
-<div id="ember-container">
+<div id="ember-container" class="ember-container">
 	<div id="preload">
 		<nav class="site-head">
 			<div class="site-logo">
