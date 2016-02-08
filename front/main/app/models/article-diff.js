@@ -66,7 +66,6 @@ ArticleDiffModel.reopenClass({
 					content = $(revision.diff['*']),
 					diffs = this.prepareDiff(content),
 					model = ArticleDiffModel.create({
-						anonymous: false,
 						diffs,
 						namespace: page.ns,
 						newid,
@@ -88,6 +87,7 @@ ArticleDiffModel.reopenClass({
 				} else {
 					UserModel.find({userId}).then((user) => {
 						model.setProperties({
+							anonymous: false,
 							user: user.name,
 							useravatar: user.avatarPath
 						});
