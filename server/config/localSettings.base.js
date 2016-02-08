@@ -196,7 +196,18 @@ const localSettings = {
 	prerenderApiKey: process.env.PRERENDER_API,
 	// prerendered host lists
 	prerenderHost: [
-		'assassinscreed.wikia.com'
+		'assassinscreed.wikia.com',
+		'onepiece.wikia.com',
+		'vampirediaries.wikia.com',
+		'gameofthrones.wikia.com',
+		'dragonball.wikia.com',
+		'fairytail.wikia.com',
+		'ja.starwars.wikia.com',
+		'gta.wikia.com',
+		'animalcrossing.wikia.com',
+		'adventuretime.wikia.com',
+		'borderlands.wikia.com',
+		'ttte.wikia.com'
 	],
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
