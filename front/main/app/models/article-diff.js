@@ -66,6 +66,7 @@ ArticleDiffModel.reopenClass({
 					content = $(revision.diff['*']),
 					diffs = this.prepareDiff(content),
 					model = ArticleDiffModel.create({
+						anonymous: false,
 						diffs,
 						namespace: page.ns,
 						newid,
@@ -74,13 +75,15 @@ ArticleDiffModel.reopenClass({
 						parsedcomment: revision.parsedcomment,
 						timestamp: revision.timestamp,
 						title: page.title,
-						user: i18n.t('diff.anonymous', {ns: 'recent-wiki-activity'})
 					});
 
 				/* We only want to send a request for a name and an avatar of the user
 				 * if it is not an anonymous one (userId !== 0). Otherwise, just resolve */
 				if (userId === 0) {
-					model.set('anonymous', true);
+					model.setProperties({
+						anonymous: true,
+						user: i18n.t('diff.anonymous', {ns: 'recent-wiki-activity'})
+					});
 					resolve(model);
 				} else {
 					UserModel.find({userId}).then((user) => {
