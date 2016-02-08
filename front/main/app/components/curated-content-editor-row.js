@@ -7,6 +7,8 @@ export default Ember.Component.extend(
 	CuratedContentEditorLabelsMixin,
 	{
 		classNames: ['curated-content-editor-row'],
+		classNameBindings: ['fixedHeight:fixed-height'],
+		fixedHeight: true,
 		imageWidth: 48,
 
 		thumbUrl: Ember.computed('model', function () {
