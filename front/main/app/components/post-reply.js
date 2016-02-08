@@ -9,6 +9,7 @@ export default Ember.Component.extend(
 		classNames: ['post-reply'],
 		classNameBindings: ['isNew', 'isDeleted', 'isParentDeleted'],
 
-		isDeleted: Ember.computed.alias('post.isDeleted')
+		isDeleted: Ember.computed.alias('post.isDeleted'),
+		isDetailsView: true
 	}
 );
