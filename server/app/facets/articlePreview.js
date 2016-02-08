@@ -11,8 +11,8 @@ import deepExtend from 'deep-extend';
  *
  * @param {string} title title of article to preview
  * @param {ArticlePageData} article
- * @param {object} [wikiVariables={}]
- * @returns {object}
+ * @param {Object} [wikiVariables={}]
+ * @returns {Object}
  */
 function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
 	return {
