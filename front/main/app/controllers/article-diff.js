@@ -3,6 +3,8 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
+	bodyText: '',
+	shouldShowUndoConfirmation: false,
 
 	/**
 	 * @returns {void}
@@ -51,10 +53,10 @@ export default Ember.Controller.extend({
 		/**
 		 * @returns {void}
 		 */
-		undo() {
+		undo(summary) {
 			this.get('application').set('isLoading', true);
 
-			this.get('model').undo().then(
+			this.get('model').undo(summary).then(
 				this.handleUndoSuccess.bind(this),
 				this.handleUndoError.bind(this)
 			);
@@ -64,6 +66,12 @@ export default Ember.Controller.extend({
 				category: 'recent-wiki-activity',
 				label: 'undo'
 			});
-		}
+		},
+		showConfirmation(){
+			this.set('shouldShowUndoConfirmation', true);
+		},
+		closeConfirmation(){
+			this.set('shouldShowUndoConfirmation', false);
+		},
 	}
 });

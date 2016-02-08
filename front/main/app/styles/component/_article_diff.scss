@@ -108,4 +108,20 @@ $legend-line-height: $type-smallest;
 	padding: 17px 15px;
 	position: fixed;
 	width: 100%;
+	z-index: $z-site-head;
+}
+
+.confirmation-message {
+	background: $color-white;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: $z-discussion-editor;
+}
+
+.confirmation-message__textarea {
+	border: 0;
+	height: calc(100% - 50px);
+	padding: 16px 21px;
 }

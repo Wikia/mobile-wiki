@@ -1,1 +1,5 @@
-{{article-diff model=model undo='undo'}}
+{{article-diff model=model undo='undo' showConfirmation='showConfirmation'}}
+
+{{#if shouldShowUndoConfirmation}}
+	{{confirmation-modal closeConfirmation='closeConfirmation' undo='undo'}}
+{{/if}}

@@ -17,7 +17,7 @@ const ArticleDiffModel = Ember.Object.extend({
 	 * Sends request to MW API to undo newid revision of title
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	undo() {
+	undo(summary) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			getEditToken(this.title)
 				.then((token) => {
@@ -25,6 +25,7 @@ const ArticleDiffModel = Ember.Object.extend({
 						url: M.buildUrl({path: '/api.php'}),
 						data: {
 							action: 'edit',
+							summary: summary,
 							title: this.title,
 							undo: this.newid,
 							undoafter: this.oldid,

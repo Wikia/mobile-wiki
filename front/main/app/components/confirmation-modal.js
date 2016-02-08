@@ -1,21 +1,23 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	classNames: ['diff-page'],
+	classNames: ['confirmation-message'],
 	currentUser: Ember.inject.service(),
 	showDiffLink: false,
+	bodyText: [],
 
 	actions: {
 		/**
 		 * @returns {void}
 		 */
 		undo() {
-			this.sendAction('undo');
+			this.sendAction('undo', this.get('bodyText'));
+			this.sendAction('closeConfirmation');
 		},
-		showConfirmation() {
-			this.sendAction('showConfirmation');
-		},
-		closeConfirmation() {
+		/**
+		 * @returns {void}
+		 */
+		close() {
 			this.sendAction('closeConfirmation');
 		}
 	}

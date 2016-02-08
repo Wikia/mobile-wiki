@@ -5,7 +5,8 @@
     "undo-error": "Sorry, it looks like something went wrong while trying to undo the edit. Please try again.",
     "undo-failure": "The edit could not be undone due to conflicting intermediate edits.",
     "undo-label": "Undo",
-    "undo-success": "Successfully undid edit to page __pageTitle__!"
+    "undo-success": "Successfully undid edit to page __pageTitle__!",
+    "undo-confirmation-placeholder": "Describe the reason why you want to undo the changes (optional)"
   },
   "diff": {
     "after": "After",
