@@ -1,3 +1,12 @@
+## release-206 hotfix 2 (2016-02-08 11:28 UTC)
+* [DAT-3687](https://wikia-inc.atlassian.net/browse/DAT-3687) DAT-3626 Mercury on preview
+* [CE-3326](https://wikia-inc.atlassian.net/browse/CE-3326) CE-3326 Add strings related to Recent Wiki Activity to start i18n
+* [XW-816](https://wikia-inc.atlassian.net/browse/XW-816) XW-816 | Disable Ember performance sender
+* [XW-439](https://wikia-inc.atlassian.net/browse/XW-439) XW-439 | add favicon to index.html
+* [SOC-1981](https://wikia-inc.atlassian.net/browse/SOC-1981) SOC-1981 | Redirect to discussions right away on /d
+* [XW-1075](https://wikia-inc.atlassian.net/browse/XW-1075) XW-1075 | use display title
+* [ADEN-2862](https://wikia-inc.atlassian.net/browse/ADEN-2862) ADEN-2862 Call krux before Ad Engine
+
 ## release-206 hotfix 1 (2016-02-04 14:17 UTC)
 * release-206-hotfix: SOC-1981 | Using ja.tekken wikia instead of tekken
 
