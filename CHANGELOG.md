@@ -1,4 +1,4 @@
-## release-206 hotfix 2 (2016-02-08 11:28 UTC)
+## release-207 (2016-02-08 11:28 UTC)
 * [DAT-3687](https://wikia-inc.atlassian.net/browse/DAT-3687) DAT-3626 Mercury on preview
 * [CE-3326](https://wikia-inc.atlassian.net/browse/CE-3326) CE-3326 Add strings related to Recent Wiki Activity to start i18n
 * [XW-816](https://wikia-inc.atlassian.net/browse/XW-816) XW-816 | Disable Ember performance sender
