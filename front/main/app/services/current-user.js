@@ -116,7 +116,7 @@ export default Ember.Service.extend({
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadBlockedStatus(result) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve) => {
 			const blockId = Ember.get(result, 'query.userinfo.blockid');
 
 			if (blockId) {
