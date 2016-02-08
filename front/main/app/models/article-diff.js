@@ -15,6 +15,7 @@ const ArticleDiffModel = Ember.Object.extend({
 
 	/**
 	 * Sends request to MW API to undo newid revision of title
+	 * @param {string} summary Description of reason for undo to be stored as edit summary
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	undo(summary) {
@@ -25,7 +26,7 @@ const ArticleDiffModel = Ember.Object.extend({
 						url: M.buildUrl({path: '/api.php'}),
 						data: {
 							action: 'edit',
-							summary: summary,
+							summary,
 							title: this.title,
 							undo: this.newid,
 							undoafter: this.oldid,

@@ -51,6 +51,7 @@ export default Ember.Controller.extend({
 
 	actions: {
 		/**
+		 * @param {string} summary Description of reason for undo to be stored as edit summary
 		 * @returns {void}
 		 */
 		undo(summary) {
@@ -67,10 +68,10 @@ export default Ember.Controller.extend({
 				label: 'undo'
 			});
 		},
-		showConfirmation(){
+		showConfirmation() {
 			this.set('shouldShowUndoConfirmation', true);
 		},
-		closeConfirmation(){
+		closeConfirmation() {
 			this.set('shouldShowUndoConfirmation', false);
 		},
 	}
