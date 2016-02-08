@@ -346,7 +346,7 @@ export default Ember.Component.extend(
 			const imageUrl = this.get('model.image_url');
 			let errorMessage = null;
 
-			if (!this.get('isCommunityData') && !imageUrl) {
+			if (!imageUrl) {
 				errorMessage = i18n.t('app.curated-content-editor-image-missing-error');
 			}
 
