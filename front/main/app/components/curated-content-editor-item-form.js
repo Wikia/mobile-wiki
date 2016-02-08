@@ -86,8 +86,8 @@ export default Ember.Component.extend(
 			return i18n.t('app.curated-content-editor-enter-page-name-tooltip');
 		}),
 
-		infoTooltip: Ember.computed('isCategory', function () {
-			if (this.get('isCategory')) {
+		infoTooltip: Ember.computed('isCommunityData', function () {
+			if (this.get('isCommunityData')) {
 				return i18n.t('app.curated-content-editor-wikia-description-tooltip');
 			}
 			return i18n.t('app.curated-content-editor-enter-display-name-tooltip');
