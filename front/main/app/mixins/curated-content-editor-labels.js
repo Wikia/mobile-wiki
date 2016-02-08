@@ -32,7 +32,7 @@ export default Ember.Mixin.create({
 	}),
 
 	displayNameLabel: Ember.computed('isCommunityData', function () {
-		if (this.get('isCategory')) {
+		if (this.get('isCommunityData')) {
 			return i18n.t('app.curated-content-editor-enter-wikia-description');
 		}
 		return i18n.t('app.curated-content-editor-enter-display-name');
