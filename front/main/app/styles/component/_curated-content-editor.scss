@@ -167,6 +167,9 @@ $image-photo-icon-size: 32px;
 }
 
 .curated-content-editor-photo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	margin: {
 		bottom: 50px;
 		top: 30px;
