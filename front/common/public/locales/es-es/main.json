@@ -128,10 +128,6 @@
     "curated-content-editor-general-section-error":"Arregla los errores en esta sección.",
     "curated-content-editor-add-items-message":"Agrega elementos a esta sección.",
     "curated-content-editor-error-inside-items-message":"Arregla los errores dentro de los elementos.",
-    "curated-content-editor-items-count":"__count__ elementos",
-    "curated-content-editor-wikia-description": "Descripción",
-    "curated-content-editor-wikia-description-tooltip": "¡Algo tan simple como \"Aprende más en el Wiki de los sombreros\" o \"Bienvenidos al wiki de los sombreros\" suena bien!",
-    "curated-content-editor-enter-wikia-description": "Enter description here",
-    "curated-content-editor-wikia-description-description": "Añade un resumen que promocione tu wikia en las búsquedas y en los hubs."
+    "curated-content-editor-items-count":"__count__ elementos"
   }
 }
