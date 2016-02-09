@@ -45,7 +45,7 @@ Router.map(function () {
 			});
 		});
 
-		this.route('communityDataEdit', {
+		this.route('communityData', {
 			path: '/community'
 		});
 
