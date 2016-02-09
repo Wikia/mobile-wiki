@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {updateTrackedUrl, trackPageView} from 'common/utils/track';
 import MetaTagsMixin from '../mixins/meta-tags';
 import RecentWikiActivityModel from '../models/recent-wiki-activity';
 
@@ -36,5 +37,16 @@ export default Ember.Route.extend(MetaTagsMixin, {
 	 */
 	model() {
 		return RecentWikiActivityModel.getRecentActivityList();
+	},
+
+	actions: {
+		/**
+		 * @returns {boolean}
+		 */
+		didTransition() {
+			updateTrackedUrl(window.location.href);
+			trackPageView(null);
+			return true;
+		}
 	}
 });
