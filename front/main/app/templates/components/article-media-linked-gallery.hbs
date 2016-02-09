@@ -1,6 +1,7 @@
-{{#each itemsToRender as |item|}}
+{{#each items as |item|}}
 	{{article-media-image
 		url=item.url
+		link=item.link
 		ref=ref
 		galleryRef=item.galleryRef
 		itemContext='gallery'

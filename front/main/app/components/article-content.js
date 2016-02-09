@@ -180,7 +180,7 @@ export default Ember.Component.extend(
 			if (attrs.ref >= 0 && media && media[attrs.ref]) {
 				if (name === 'article-media-image') {
 					attrs = Ember.$.extend(attrs, media[attrs.ref]);
-				} else if (name === 'article-media-gallery') {
+				} else if (name === 'article-media-gallery' || name === 'article-media-linked-gallery') {
 					attrs = Ember.$.extend(attrs, {
 						items: media[attrs.ref]
 					});
