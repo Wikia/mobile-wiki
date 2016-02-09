@@ -12,23 +12,24 @@ export default Ember.Component.extend(
 		classNameBindings: ['itemType', 'isSmall', 'isIcon', 'shouldBeLoaded:loaded'],
 		tagName: 'figure',
 
-		'data-ref': Ember.computed.oneWay('ref'),
-
 		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
 		smallImageSize: {
 			height: 64,
 			width: 64,
 		},
 
+		/**
+		 * Default is `article`
+		 * It can be overriden when rendering from another component, e.g. from article-media-gallery
+		 */
+		itemContext: 'article',
+
 		itemType: Ember.computed('itemContext', 'type', function () {
 			return `${this.get('itemContext')}-${this.get('type')}`;
 		}),
-		/**
-		 * the default is an article
-		 * can be changed when rendering a component
-		 * e.g. article-media-gallery
-		 */
-		itemContext: 'article',
+
+		// Needed for lightbox, should be refactored
+		'data-ref': Ember.computed.oneWay('ref'),
 
 		thumbnailUrl: Ember.computed('url', 'shouldBeLoaded', function () {
 			const url = this.get('url');
@@ -120,4 +121,5 @@ export default Ember.Component.extend(
 
 			return thumbSize.large;
 		},
-	});
+	}
+);
