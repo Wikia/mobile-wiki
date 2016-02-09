@@ -194,7 +194,14 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			goBack() {
-				const trackLabel = this.get('isSection') ? 'section-edit-go-back' : 'item-edit-go-back';
+				let trackLabel = 'item-edit-go-back';
+
+				if (this.get('isSection')) {
+					trackLabel = 'section-edit-go-back';
+				}
+				if (this.get('isCommunityData')) {
+					trackLabel = 'community-data-go-back';
+				}
 
 				this.trackClick('curated-content-editor', trackLabel);
 				this.sendAction('goBack');
@@ -204,14 +211,23 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			done() {
-				const trackLabel = this.get('isSection') ? 'section-edit-done' : 'item-edit-done';
+				let trackLabel = 'item-edit-done';
+
+				if (this.get('isSection')) {
+					trackLabel = 'section-edit-done';
+				}
+				if (this.get('isCommunityData')) {
+					trackLabel = 'comunity-data-edit-done';
+				}
+
+				this.trackClick('curated-content-editor', trackLabel);
+
 
 				if (this.get('isCommunityData')) {
 					this.sendAction('done', this.get('model'));
 					return;
 				}
 
-				this.trackClick('curated-content-editor', trackLabel);
 				if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
 					if (this.get('isSection')) {
 						this.validateAndDone(this.get('model'), 'validateCuratedContentSection');
