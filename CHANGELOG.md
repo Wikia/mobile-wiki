@@ -1,3 +1,9 @@
+## release-208 (2016-02-09 12:07 UTC)
+* [SOC-1907](https://wikia-inc.atlassian.net/browse/SOC-1907) SOC-1907 FE | As a mobile web user, I want to see a filter icon and a new post list menu
+* [XW-1007](https://wikia-inc.atlassian.net/browse/XW-1007) XW-1076 | Implement prerender.io on 10 communities
+* [INT-337](https://wikia-inc.atlassian.net/browse/INT-337) INT-337 | Convert large images to JPG
+* [SOC-1798](https://wikia-inc.atlassian.net/browse/SOC-1798) SOC-1798 | Fixing bad behavior of ellipses by setting a different editor placeholder height
+
 ## release-207 (2016-02-08 11:28 UTC)
 * [DAT-3687](https://wikia-inc.atlassian.net/browse/DAT-3687) DAT-3626 Mercury on preview
 * [CE-3326](https://wikia-inc.atlassian.net/browse/CE-3326) CE-3326 Add strings related to Recent Wiki Activity to start i18n
