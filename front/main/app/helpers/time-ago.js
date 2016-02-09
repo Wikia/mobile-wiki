@@ -4,7 +4,7 @@ import moment from 'moment';
 /**
  * Helper to give textual representation of time interval between past date
  * and the current time/date in the form
- * {time-ago unixTimestamp shouldHideAgoPrefix}
+ * {{time-ago unixTimestamp shouldHideAgoPrefix}}
  * which returns something like '2 d ago' if interval is below 6 days or formated param date
  *
  * @param {int} unixTimestamp
