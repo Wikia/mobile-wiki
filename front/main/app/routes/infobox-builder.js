@@ -3,7 +3,7 @@ import InfoboxBuilderModel from '../models/infobox-builder';
 
 export default Ember.Route.extend({
 	pontoLoadingInitialized: false,
-	pontoPath: '/front/vendor/ponto/web/src/ponto.js',
+	pontoPath: '/front/main/assets/vendor/ponto/ponto.js',
 
 	renderTemplate() {
 		this.render('infobox-builder');
@@ -35,7 +35,7 @@ export default Ember.Route.extend({
 
 	/**
 	 * @desc checks wikia context using ponto invoke
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	isWikiaContext() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
@@ -65,7 +65,7 @@ export default Ember.Route.extend({
 
 	/**
 	 * loads infobox builder assets from MW
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadAssets() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
@@ -105,7 +105,7 @@ export default Ember.Route.extend({
 	/**
 	 * add oasis portable infobox styles to DOM
 	 * @param {Array} promiseResponseArray
-	 * @returns Em.RSVP.Promise
+	 * @returns Ember.RSVP.Promise
 	 */
 	setupStyles(promiseResponseArray) {
 		return new Ember.RSVP.Promise((resolve) => {
