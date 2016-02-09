@@ -39,10 +39,7 @@ export default Ember.Component.extend(
 
 		inputValue: Ember.computed('model.label', 'model.description', {
 			get() {
-				if (this.get('isCommunityData')) {
-					return this.get('model.description');
-				}
-				return this.get('model.label');
+				return this.get('isCommunityData') ? this.get('model.description') : this.get('model.label');
 			},
 			set(key, value) {
 				const modelProp = this.get('isCommunityData') ? 'model.description' : 'model.label';
