@@ -48,14 +48,14 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		isSmall: Ember.computed('media.width', 'media.height', function () {
-			const imageWidth = this.get('media.width'),
-				imageHeight = this.get('media.height');
+		isSmall: Ember.computed('width', 'height', function () {
+			const imageWidth = this.get('width'),
+				imageHeight = this.get('height');
 
 			return imageWidth < this.smallImageSize.width || imageHeight < this.smallImageSize.height;
 		}),
 
-		isIcon: Ember.computed.equal('media.context', 'icon'),
+		isIcon: Ember.computed.equal('mediaContext', 'icon'),
 
 		hasCaption: Ember.computed.notEmpty('caption'),
 
@@ -93,12 +93,17 @@ export default Ember.Component.extend(
 		* @returns {{mode: string, width: number, height: number}}
 		*/
 		getThumbnailParams() {
-			const articleWidth = this.get('articleContent.width'),
-				mode = this.get('cropMode') || Thumbnailer.mode.thumbnailDown,
-				width = this.get('forceWidth') || articleWidth,
-				height = this.get('forceHeight') || this.calculateHeightBasedOnWidth(
+			let mode = this.get('cropMode') || Thumbnailer.mode.thumbnailDown,
+				width = this.get('forceWidth') || this.get('articleContent.width');
+
+			const height = this.get('forceHeight') || this.calculateHeightBasedOnWidth(
 						this.get('width'), this.get('height'), width
 					);
+
+			if (this.get('mediaContext') === 'icon') {
+				mode = Thumbnailer.mode.scaleToWidth;
+				width = this.get('iconWidth');
+			}
 
 			return {mode, width, height};
 		},
