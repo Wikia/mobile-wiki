@@ -1,14 +1,16 @@
 import Ember from 'ember';
 import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
+import DiscussionMoreOptionsMixin from '../mixins/discussion-more-options';
 
 export default Ember.Component.extend(
 	DiscussionParsedContentMixin,
+	DiscussionMoreOptionsMixin,
 	{
 		classNames: ['post-detail'],
-		classNameBindings: ['isNew', 'isDeleted'],
+		classNameBindings: ['isNew', 'isDeleted', 'isReply'],
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
-		postId: null,
+		postId: Ember.computed.oneWay('post.threadId'),
 
 		routing: Ember.inject.service('-routing'),
 

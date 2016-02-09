@@ -1,3 +1,58 @@
+## release-208 (2016-02-09 12:07 UTC)
+* [SOC-1907](https://wikia-inc.atlassian.net/browse/SOC-1907) SOC-1907 FE | As a mobile web user, I want to see a filter icon and a new post list menu
+* [XW-1007](https://wikia-inc.atlassian.net/browse/XW-1007) XW-1076 | Implement prerender.io on 10 communities
+* [INT-337](https://wikia-inc.atlassian.net/browse/INT-337) INT-337 | Convert large images to JPG
+* [SOC-1798](https://wikia-inc.atlassian.net/browse/SOC-1798) SOC-1798 | Fixing bad behavior of ellipses by setting a different editor placeholder height
+
+## release-207 (2016-02-08 11:28 UTC)
+* [DAT-3687](https://wikia-inc.atlassian.net/browse/DAT-3687) DAT-3626 Mercury on preview
+* [CE-3326](https://wikia-inc.atlassian.net/browse/CE-3326) CE-3326 Add strings related to Recent Wiki Activity to start i18n
+* [XW-816](https://wikia-inc.atlassian.net/browse/XW-816) XW-816 | Disable Ember performance sender
+* [XW-439](https://wikia-inc.atlassian.net/browse/XW-439) XW-439 | add favicon to index.html
+* [SOC-1981](https://wikia-inc.atlassian.net/browse/SOC-1981) SOC-1981 | Redirect to discussions right away on /d
+* [XW-1075](https://wikia-inc.atlassian.net/browse/XW-1075) XW-1075 | use display title
+* [ADEN-2862](https://wikia-inc.atlassian.net/browse/ADEN-2862) ADEN-2862 Call krux before Ad Engine
+
+## release-206 hotfix 1 (2016-02-04 14:17 UTC)
+* release-206-hotfix: SOC-1981 | Using ja.tekken wikia instead of tekken
+
+## release-206 (2016-02-04 11:59 UTC)
+* [SOC-1968](https://wikia-inc.atlassian.net/browse/SOC-1968) SOC-1968 | Adding FE config for 3 new communities
+* [INT-333](https://wikia-inc.atlassian.net/browse/INT-333) INT-333 | Adjust arrow position for 3-slide breakpoint. Japan HP
+* [ADEN-2820](https://wikia-inc.atlassian.net/browse/ADEN-2820) ADEN-2820 Use AdEngineRunner and move onLoad callback
+* fix-auth-logo: fix blue wikia logo on signin page
+* [PLATFORM-1855](https://wikia-inc.atlassian.net/browse/PLATFORM-1855) PLATFORM-1855 Image review does not show flagged images
+* [XW-980](https://wikia-inc.atlassian.net/browse/XW-980) XW-980 remove global navigation 2015
+* [INT-323](https://wikia-inc.atlassian.net/browse/INT-323) INT-323 | Change GA tracking ID
+* [INT-323](https://wikia-inc.atlassian.net/browse/INT-323) INT-323 | Fix visual glitch for iphone in portrait mode. Change page …
+* [INT-333](https://wikia-inc.atlassian.net/browse/INT-333) INT-333 | Bugfixes for slider arrows disappearing. Japan HP
+* [SOC-1924](https://wikia-inc.atlassian.net/browse/SOC-1924) SOC-1924 | new text for the top of reply card
+
+## release-205 hotfix 1 (2016-02-03 11:58 UTC)
+* release-205-hotfix: Revert "SOC-1966 | Hiding delete all button"
+
+## release-205 (2016-02-02 12:19 UTC)
+* [SOC-955](https://wikia-inc.atlassian.net/browse/SOC-955) SOC-955 | SOC-956 | SOC-1508 | SOC-1509 | SOC-1738 | SOC-1719 | SOC-1924
+* [XW-821](https://wikia-inc.atlassian.net/browse/XW-821) XW-821 | don't use deprecated functionality in article-comments
+* [XW-821](https://wikia-inc.atlassian.net/browse/XW-821) XW-821 | don't set properties in didInsertElement
+* [XW-1036](https://wikia-inc.atlassian.net/browse/XW-1036) XW-1036 | Create fallback for localStorage
+* [XW-997](https://wikia-inc.atlassian.net/browse/XW-997) XW-977 | Show native smart banner on ios
+* [SOC-1719](https://wikia-inc.atlassian.net/browse/SOC-1719) SOC-1719 | Discussion - delete all posts by user
+* [SOC-1924](https://wikia-inc.atlassian.net/browse/SOC-1924) SOC-1924 user posts/replies lists - reply card header text - 2nd PR
+* discussion-refactors: Discussion refactors
+* [INT-332](https://wikia-inc.atlassian.net/browse/INT-332) INT-332 | Adjust text for create a wikia button
+* [INT-319](https://wikia-inc.atlassian.net/browse/INT-319) INT-319 | Fix center alignment for category sliders on Japan HP
+* [XW-821](https://wikia-inc.atlassian.net/browse/XW-821) XW-821 | don't use fmt
+* revert-1915-SOC-1924: Revert "SOC-1924 user posts/replies lists - reply card header text"
+* [SOC-1924](https://wikia-inc.atlassian.net/browse/SOC-1924) SOC-1924 user posts/replies lists - reply card header text
+* [SOC-905](https://wikia-inc.atlassian.net/browse/SOC-905) SOC-905 - made entire footer clickable on auth page
+* [INT-324](https://wikia-inc.atlassian.net/browse/INT-324) INT-324 | Add Mediakit link to Japan HP footer
+* [INT-332](https://wikia-inc.atlassian.net/browse/INT-332) INT-332 | Change text for create wikia button for Japan HP
+* [XW-773](https://wikia-inc.atlassian.net/browse/XW-773) XW-773 | add links to github after jenkins job is done
+* [XW-918](https://wikia-inc.atlassian.net/browse/XW-918) XW-918 | Update article.js to get new API response; unify UA dimensions set up
+* [DAT-3639](https://wikia-inc.atlassian.net/browse/DAT-3639) DAT-3639 | Be able to edit Wikia Description via CC editor
+* [XW-982](https://wikia-inc.atlassian.net/browse/XW-982) XW-982 | Fix random gulp-watch crashes
+
 ## release-204 (2016-01-28 11:08 UTC)
 * fix-ember-tests-styles: Fix styles when running Ember tests in a browser
 * [XW-1019](https://wikia-inc.atlassian.net/browse/XW-1019) XW-1019 | scroll back to top while navigating through local nav

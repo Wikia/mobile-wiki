@@ -1,4 +1,9 @@
 <div class="discussion-reply">
+	{{#if showRepliedTo}}
+		<div class="user-replied-to">
+			{{i18n 'main.user-replied-to' userName=post.threadCreatedBy.name ns='discussion'}}
+		</div>
+	{{/if}}
 	<div>
 		<div class="upvotes">
 			{{discussion-upvote-reply
@@ -14,15 +19,32 @@
 		<span class="timestamp">
 			&bull; {{time-ago post.creationDate.epochSecond}}
 		</span>
-		{{discussion-delete
-			delete=(action this.attrs.deleteReply)
-			undelete=(action this.attrs.undeleteReply)
-			post=post
-		}}
+
+		<div class="discussion-more-options" id="reply-options-{{post.id}}">
+			{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
+		</div>
+
+		{{#pop-over for=(concat 'reply-options-' post.id) on='click' flow='flip'}}
+			{{discussion-more-options
+				delete=(action 'delete')
+				deleteMessage=(i18n 'main.delete-reply' ns='discussion')
+				post=post
+				undelete=(action 'undelete')
+				undeleteMessage=(i18n 'main.undelete-reply' ns='discussion')
+			}}
+		{{/pop-over}}
 	</div>
-	<div class="discussion-content">
-		{{{parsedContent}}}
-	</div>
+	{{#if userListView}}
+		<div class="discussion-content">
+			{{#link-to 'discussion.post.reply' post.threadId post.id class="post-details-link clamp"}}
+				{{{parsedContent}}}
+			{{/link-to}}
+		</div>
+	{{else}}
+		<div class="discussion-content">
+			{{{parsedContent}}}
+		</div>
+	{{/if}}
 </div>
 {{#if post.isLoading}}
 	{{loading-spinner

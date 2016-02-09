@@ -20,6 +20,10 @@ Router.map(function () {
 		path: articlePath + Mercury.wiki.mainPageTitle
 	});
 
+	this.route('article-preview', {
+		path: '/article-preview'
+	});
+
 	this.route('mainPageSection', {
 		path: '/main/section/:sectionName'
 	});
@@ -92,6 +96,14 @@ Router.map(function () {
 
 		this.route('post', {
 			path: '/p/:postId'
+		}, function () {
+			this.route('reply', {
+				path: '/r/:replyId'
+			});
+		});
+
+		this.route('user', {
+			path: '/u/:userId'
 		});
 	});
 
