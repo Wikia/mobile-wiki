@@ -209,7 +209,7 @@ export default Ember.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
+			 * @returns {void|Boolean}
 			 */
 			done() {
 				let trackLabel;
@@ -227,7 +227,7 @@ export default Ember.Component.extend(
 
 				if (this.get('isCommunityData')) {
 					this.sendAction('done', this.get('model'));
-					return;
+					return false;
 				}
 
 				if (this.validateTitle() && this.validateLabel() && this.validateImage()) {
