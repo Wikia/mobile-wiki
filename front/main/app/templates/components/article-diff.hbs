@@ -24,6 +24,6 @@
 	{{/each}}
 {{/each}}
 
-{{#if currentUser.isAuthenticated}}
+{{#if showUndoButton}}
 	<button {{action 'showConfirmation'}} class="diff-page__undo">{{i18n 'main.undo-label' ns='recent-wiki-activity'}}</button>
 {{/if}}

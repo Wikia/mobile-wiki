@@ -4,7 +4,7 @@ export default Ember.Component.extend({
 	classNames: ['confirmation-message'],
 	currentUser: Ember.inject.service(),
 	showDiffLink: false,
-	summary: '',
+	summary: [],
 
 	actions: {
 		/**

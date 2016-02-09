@@ -3,6 +3,7 @@ import getEditToken from '../utils/edit-token';
 import UserModel from './user';
 
 const ArticleDiffModel = Ember.Object.extend({
+	anonymous: null,
 	diffs: null,
 	namespace: null,
 	newid: null,
@@ -63,13 +64,10 @@ ArticleDiffModel.reopenClass({
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				const page = data[Object.keys(data)[0]],
 					revision = Ember.get(page, 'revisions.firstObject'),
-					userId = revision.userid;
-
-				UserModel.find({userId}).then((user) => {
-					const content = $(revision.diff['*']),
-						diffs = this.prepareDiff(content);
-
-					resolve(ArticleDiffModel.create({
+					userId = revision.userid,
+					content = $(revision.diff['*']),
+					diffs = this.prepareDiff(content),
+					model = ArticleDiffModel.create({
 						diffs,
 						namespace: page.ns,
 						newid,
@@ -78,13 +76,29 @@ ArticleDiffModel.reopenClass({
 						parsedcomment: revision.parsedcomment,
 						timestamp: revision.timestamp,
 						title: page.title,
-						user: user.name,
-						useravatar: user.avatarPath
-					}));
-				}).catch((error) => {
-					Ember.Logger.error(error);
-					reject(error);
-				});
+					});
+
+				/* We only want to send a request for a name and an avatar of the user
+				 * if it is not an anonymous one (userId !== 0). Otherwise, just resolve */
+				if (userId === 0) {
+					model.setProperties({
+						anonymous: true,
+						user: i18n.t('diff.anonymous', {ns: 'recent-wiki-activity'})
+					});
+					resolve(model);
+				} else {
+					UserModel.find({userId}).then((user) => {
+						model.setProperties({
+							anonymous: false,
+							user: user.name,
+							useravatar: user.avatarPath
+						});
+						resolve(model);
+					}).catch((error) => {
+						Ember.Logger.error(error);
+						reject(error);
+					});
+				}
 			});
 		});
 	},
