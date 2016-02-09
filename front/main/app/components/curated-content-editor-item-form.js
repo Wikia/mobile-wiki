@@ -46,6 +46,7 @@ export default Ember.Component.extend(
 			},
 			set(key, value) {
 				const modelProp = this.get('isCommunityData') ? 'model.description' : 'model.label';
+
 				// update model state
 				this.set(modelProp, value);
 				return value;
