@@ -1,3 +1,5 @@
+import {getOpenGraphData} from './preparePageData';
+
 /**
  * Prepares main page data to be rendered
  *
@@ -7,18 +9,17 @@
 export default function prepareMainPageData(data) {
 	const articleData = data.article.data,
 		wikiVariables = data.wikiVariables,
-		result = {},
-		title = wikiVariables.siteName;
+		result = {};
 
 	result.mainPageData = {};
 	result.mainPageData.adsContext = articleData.adsContext;
 	result.mainPageData.ns = articleData.details.ns;
 
-	result.openGraph = {
-		type: 'website',
-		title,
-		url: wikiVariables.basePath + wikiVariables.articlePath + title.replace(/ /g, '_')
-	};
+	result.openGraph = getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables));
 
 	return result;
+}
+
+function getOpenGraphUrl(wikiVariables) {
+	return wikiVariables.basePath + wikiVariables.articlePath + wikiVariables.siteName.replace(/ /g, '_');
 }

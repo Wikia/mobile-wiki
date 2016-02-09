@@ -1,7 +1,7 @@
 import * as Utils from '../../lib/Utils';
 import {gaUserIdHash} from '../../lib/Hashing';
 import localSettings from '../../../config/localSettings';
-import deepExtend from 'deep-extend';
+import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
 
 /**
  * Prepares article data to be rendered
@@ -21,23 +21,17 @@ export default function prepareArticleData(request, data) {
 			wikiVariables: data.wikiVariables,
 		};
 
-	let title,
-		htmlTitle,
-		articleDetails,
-		contentDir = 'ltr';
+	let htmlTitle;
 
 	if (articleData) {
 		result.isMainPage = articleData.isMainPage;
+		result.displayTitle = getTitle(request, articleData);
 
 		if (articleData.details) {
-			articleDetails = articleData.details;
-			title = articleDetails.title;
-			result.canonicalUrl = wikiVariables.basePath + articleDetails.url;
+			result.canonicalUrl = wikiVariables.basePath + articleData.details.url;
 		}
 
 		if (articleData.article) {
-			title = articleData.article.displayTitle;
-			// we want to return the article content only once - as HTML and not JS variable
 			result.articleContent = articleData.article.content;
 			delete articleData.article.content;
 		}
@@ -47,52 +41,18 @@ export default function prepareArticleData(request, data) {
 		}
 	}
 
-	if (!title) {
-		// Fallback to title from URL
-		title = request.params.title.replace(/_/g, ' ');
-	}
+	result.isRtl = isRtl(wikiVariables);
 
-	if (wikiVariables.language) {
-		contentDir = wikiVariables.language.contentDir;
-		result.isRtl = (contentDir === 'rtl');
-	}
-
-	result.displayTitle = title;
-	result.htmlTitle = (htmlTitle) ? htmlTitle : Utils.getHtmlTitle(wikiVariables, title);
+	result.htmlTitle = (htmlTitle) ? htmlTitle : Utils.getHtmlTitle(wikiVariables, result.displayTitle);
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
-	result.openGraph = {
-		type: 'article',
-		title,
-		url: result.canonicalUrl
-	};
-
-	if (articleDetails) {
-		if (articleDetails.abstract) {
-			result.openGraph.description = articleDetails.abstract;
-		}
-
-		if (articleDetails.thumbnail) {
-			result.openGraph.image = articleDetails.thumbnail;
-		}
-	}
-
+	result.openGraph = getOpenGraphData('article', result.displayTitle, result.canonicalUrl, articleData);
 	// clone object to avoid overriding real localSettings for futurue requests
-	result.localSettings = deepExtend({}, localSettings);
+	result.localSettings = getLocalSettings();
 
-	if (typeof request.query.buckySampling !== 'undefined') {
-		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
-	}
-
-	// all the third party scripts we don't want to load on noexternals
-	if (!request.query.noexternals) {
-		// qualaroo
-		if (localSettings.qualaroo.enabled) {
-			result.qualarooScript = localSettings.qualaroo.scriptUrl;
-		}
-	}
-	result.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
+	result.qualarooScript = getQualarooScriptUrl(request);
+	result.userId = getUserId(request);
 	result.gaUserIdHash = gaUserIdHash(result.userId);
 
 	result.asyncArticle = (
@@ -102,4 +62,19 @@ export default function prepareArticleData(request, data) {
 	);
 
 	return result;
+}
+
+
+function getTitle(request, articleData) {
+	let title;
+
+	if (articleData.article && articleData.article.displayTitle) {
+		title = articleData.article.displayTitle;
+	} else if (articleData.details && articleData.details.title) {
+		title = articleData.details.title;
+	} else {
+		title = request.params.title.replace(/_/g, ' ');
+	}
+
+	return title;
 }
