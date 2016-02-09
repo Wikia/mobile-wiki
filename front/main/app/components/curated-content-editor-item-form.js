@@ -45,8 +45,9 @@ export default Ember.Component.extend(
 				return this.get('model.label');
 			},
 			set(key, value) {
-				key = this.get('isCommunityData') ? 'model.description' : 'model.label';
-				this.set(key, value);
+				const modelProp = this.get('isCommunityData') ? 'model.description' : 'model.label';
+				// update model state
+				this.set(modelProp, value);
 				return value;
 			}
 		}),
