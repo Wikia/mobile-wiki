@@ -25,22 +25,33 @@ export default Ember.Component.extend(
 			return this.get('items').slice(0, this.get('numberOfItemsRendered'));
 		}),
 
+		/**
+		 * @returns {void}
+		 */
 		didReceiveAttrs() {
 			this.sanitizeItems();
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		didRender() {
 			this.$().on('scroll', () => {
 				Ember.run.debounce(this, 'onScroll', 100);
 			});
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		didEnterViewport() {
 			this.incrementProperty('numberOfItemsRendered', this.incrementStepSize);
 		},
 
 		/**
 		 * This should be done in the model, really
+		 *
+		 * @returns {void}
 		 */
 		sanitizeItems() {
 			const itemsSanitized = Ember.A(),
@@ -57,6 +68,8 @@ export default Ember.Component.extend(
 		/**
 		 * Make sure that there is always a buffer of components rendered outside of the view
 		 * Images aren't loaded here, we just increment the number of components to render
+		 *
+		 * @returns {void}
 		 */
 		onScroll() {
 			const $this = this.$(),

@@ -67,6 +67,9 @@ export default Ember.Component.extend(
 			});
 		}),
 
+		/**
+		 * @returns {void}
+		 */
 		didEnterViewport() {
 			this.set('shouldBeLoaded', true);
 		},
