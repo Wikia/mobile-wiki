@@ -1,12 +1,11 @@
 {{#each items as |item|}}
-	<span class="gallery-{{unbound item.type}}">
-		{{article-media-image
-			url=item.url
-			link=item.link
-			galleryRef=item.galleryRef
-			forceWidth=imageSize
-			forceHeight=imageSize
-			cropMode=cropMode
-		}}
-	</span>
+	{{article-media-image
+		url=item.url
+		link=item.link
+		galleryRef=item.galleryRef
+		type=(concat 'gallery-' item.type)
+		forceWidth=imageSize
+		forceHeight=imageSize
+		cropMode=cropMode
+	}}
 {{/each}}
