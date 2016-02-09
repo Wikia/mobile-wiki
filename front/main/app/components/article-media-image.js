@@ -7,7 +7,12 @@ export default Ember.Component.extend(
 	ArticleContentMixin,
 	VisibleMixin,
 	{
+		smallImageSize: {
+			height: 64,
+			width: 64,
+		},
 		classNames: ['article-media-image'],
+		classNameBindings: ['isSmall', 'isIcon'],
 		tagName: 'figure',
 
 		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
@@ -27,6 +32,15 @@ export default Ember.Component.extend(
 				return this.emptyGif;
 			}
 		}),
+
+		isSmall: Ember.computed('media.width', 'media.height', function () {
+			const imageWidth = this.get('media.width'),
+				imageHeight = this.get('media.height');
+
+			return imageWidth < this.smallImageSize.width || imageHeight < this.smallImageSize.height;
+		}),
+
+		isIcon: Ember.computed.equal('media.context', 'icon'),
 
 		actions: {
 			/**
