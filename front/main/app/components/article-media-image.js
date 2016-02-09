@@ -20,9 +20,15 @@ export default Ember.Component.extend(
 			width: 64,
 		},
 
-		itemType: Ember.computed('type', function () {
-			return `article-${this.get('type')}`;
+		itemType: Ember.computed('itemContext', 'type', function () {
+			return `${this.get('itemContext')}-${this.get('type')}`;
 		}),
+		/**
+		 * the default is an article
+		 * can be changed when rendering a component
+		 * e.g. article-media-gallery
+		 */
+		itemContext: 'article',
 
 		thumbnailUrl: Ember.computed('url', 'shouldBeLoaded', function () {
 			const url = this.get('url');
