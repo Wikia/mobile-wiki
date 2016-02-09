@@ -8,7 +8,7 @@
 	}
 
 	.footer-callout-link {
-		padding: 0;
+		padding: 15px;
 	}
 }
 .auth-footer {
@@ -27,7 +27,7 @@
 .footer-callout-link {
 	display: block;
 	height: 100%;
-	padding: 15px;
+	padding: 0 15px;
 	width: 100%;
 
 	&:hover {
