@@ -6,9 +6,7 @@ export default Ember.Route.extend({
 	 * @returns {Object} item
 	 */
 	model() {
-		const rootModel = this.modelFor('curatedContentEditor');
-
-		return rootModel.communityData;
+		return this.modelFor('curatedContentEditor').communityData;
 	},
 
 	/**
