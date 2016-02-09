@@ -21,8 +21,10 @@ export default Ember.Route.extend(MetaTagsMixin, {
 	 * @return {void}
 	 */
 	beforeModel() {
-		// Enable the RWA for kirkburn.wikia.com only
-		if (Ember.get(Mercury, 'wiki.id') !== 41727) {
+		const enabled = [41727, 1306324];
+
+		// Enable the RWA for kirkburn.wikia.com and aga.wikia.com only
+		if (enabled.indexOf(Ember.get(Mercury, 'wiki.id')) < 0) {
 			this.transitionTo('mainPage');
 		}
 	},
