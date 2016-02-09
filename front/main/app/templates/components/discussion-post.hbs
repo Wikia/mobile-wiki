@@ -70,6 +70,7 @@
 								author=item.createdBy
 								content=item.rawContent
 								delete=(action this.attrs.deleteReply)
+								isDetailsView= true
 								isParentDeleted=model.firstPost.isDeleted
 								timestamp=item.creationDate.epochSecond
 								undelete=(action this.attrs.undeleteReply)
