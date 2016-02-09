@@ -1,6 +1,5 @@
 import {parseQueryParams} from '../../lib/Utils';
 import {gaUserIdHash} from '../../lib/Hashing';
-import localSettings from '../../../config/localSettings';
 import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
 
 /**
@@ -30,6 +29,10 @@ export default function prepareCuratedContentData(request, curatedContentPageDat
 	// clone object to avoid overriding real localSettings for future requests
 	result.localSettings = getLocalSettings();
 
+	if (typeof request.query.buckySampling !== 'undefined') {
+		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
+	}
+
 	result.userId = getUserId(request);
 	result.gaUserIdHash = gaUserIdHash(result.userId);
 
@@ -38,7 +41,7 @@ export default function prepareCuratedContentData(request, curatedContentPageDat
 	return result;
 }
 
-function getTitle(request, wikiVariables) {
+export function getTitle(request, wikiVariables) {
 	/**
 	 * Title is double encoded because Ember's RouteRecognizer does decodeURI while processing path.
 	 * See the MainPageRoute for more details.

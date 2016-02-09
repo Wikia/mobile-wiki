@@ -55,6 +55,10 @@ export default function prepareArticleData(request, data) {
 	result.userId = getUserId(request);
 	result.gaUserIdHash = gaUserIdHash(result.userId);
 
+	if (typeof request.query.buckySampling !== 'undefined') {
+		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
+	}
+
 	result.asyncArticle = (
 		request.query._escaped_fragment_ !== '0' ?
 			Utils.shouldAsyncArticle(localSettings, request.headers.host) :
@@ -65,7 +69,7 @@ export default function prepareArticleData(request, data) {
 }
 
 
-function getTitle(request, articleData) {
+export function getTitle(request, articleData) {
 	let title;
 
 	if (articleData.article && articleData.article.displayTitle) {
