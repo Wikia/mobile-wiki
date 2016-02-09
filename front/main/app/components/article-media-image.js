@@ -8,6 +8,7 @@ export default Ember.Component.extend(
 	VisibleMixin,
 	{
 		classNames: ['article-media-image'],
+		classNameBindings: ['type'],
 		tagName: 'figure',
 
 		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
