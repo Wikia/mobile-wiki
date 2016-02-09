@@ -194,13 +194,14 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			goBack() {
-				let trackLabel = 'item-edit-go-back';
+				let trackLabel;
 
 				if (this.get('isSection')) {
 					trackLabel = 'section-edit-go-back';
-				}
-				if (this.get('isCommunityData')) {
+				} else if (this.get('isCommunityData')) {
 					trackLabel = 'community-data-go-back';
+				} else {
+					trackLabel = 'item-edit-go-back';
 				}
 
 				this.trackClick('curated-content-editor', trackLabel);
@@ -211,13 +212,14 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			done() {
-				let trackLabel = 'item-edit-done';
+				let trackLabel;
 
 				if (this.get('isSection')) {
 					trackLabel = 'section-edit-done';
-				}
-				if (this.get('isCommunityData')) {
+				} else if (this.get('isCommunityData')) {
 					trackLabel = 'comunity-data-edit-done';
+				} else {
+					trackLabel = 'item-edit-done';
 				}
 
 				this.trackClick('curated-content-editor', trackLabel);
