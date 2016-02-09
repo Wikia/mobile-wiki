@@ -139,8 +139,7 @@ QUnit.test('getOpenGraphData', function (assert) {
 				type: 'article',
 				title: 'Rachel Berry',
 				url: 'http://glee.wikia.com/wiki/Rachel'
-			},
-			description: 'Correct object is created when type, title and url are passed'
+			}
 		}, {
 			type: 'article',
 			title: 'Rachel Berry',
@@ -157,8 +156,7 @@ QUnit.test('getOpenGraphData', function (assert) {
 				url: 'http://glee.wikia.com/wiki/Rachel',
 				image: 'rachel.jpg',
 				description: 'Lorem Ipsum'
-			},
-			description: 'Correct object is created when page data with correct format is passed'
+			}
 		}, {
 			type: 'article',
 			title: 'Rachel Berry',
@@ -168,8 +166,7 @@ QUnit.test('getOpenGraphData', function (assert) {
 				type: 'article',
 				title: 'Rachel Berry',
 				url: 'http://glee.wikia.com/wiki/Rachel'
-			},
-			description: 'Correct object is created when page data is empty'
+			}
 		}, {
 			type: 'article',
 			title: 'Rachel Berry',
@@ -181,8 +178,7 @@ QUnit.test('getOpenGraphData', function (assert) {
 				type: 'article',
 				title: 'Rachel Berry',
 				url: 'http://glee.wikia.com/wiki/Rachel'
-			},
-			description: 'Correct object is created when page data with empty details is passed'
+			}
 		}, {
 			type: 'article',
 			title: 'Rachel Berry',
@@ -197,8 +193,7 @@ QUnit.test('getOpenGraphData', function (assert) {
 				title: 'Rachel Berry',
 				url: 'http://glee.wikia.com/wiki/Rachel',
 				description: 'Lorem Ipsum'
-			},
-			description: 'Correct object is created when page data with empty thumbnail is passed'
+			}
 		}, {
 			type: 'article',
 			title: 'Rachel Berry',
@@ -213,8 +208,7 @@ QUnit.test('getOpenGraphData', function (assert) {
 				title: 'Rachel Berry',
 				url: 'http://glee.wikia.com/wiki/Rachel',
 				image: 'rachel.jpg'
-			},
-			description: 'Correct object is created when page data with empty abstract is passed'
+			}
 		}
 	];
 
