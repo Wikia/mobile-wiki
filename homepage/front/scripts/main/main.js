@@ -97,10 +97,10 @@ $(() => {
 		hideLoadingIndicator();
 	});
 
-	// Or after 6 seconds
+	// Or after 4 seconds
 	setTimeout(() => {
 		hideLoadingIndicator();
-	}, 6000);
+	}, 4000);
 
 	$('.hero-carousel').slick({
 		arrows: true,
