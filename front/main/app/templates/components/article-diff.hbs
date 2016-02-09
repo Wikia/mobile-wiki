@@ -22,6 +22,6 @@
 	<div class="{{diff.classes}}">{{diff.content}}</div>
 {{/each}}
 
-{{#if currentUser.isAuthenticated}}
+{{#if showUndoButton}}
 	<button {{action 'undo'}} class="diff-page__undo">{{i18n 'main.undo-label' ns='recent-wiki-activity'}}</button>
 {{/if}}

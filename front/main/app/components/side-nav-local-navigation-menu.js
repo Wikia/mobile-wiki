@@ -28,7 +28,9 @@ export default Ember.Component.extend(
 		classNames: ['local-nav-menu'],
 		// TODO: Remove to enable RWA globally
 		shouldDisplayRecentWikiActivity: Ember.computed(() => {
-			return Ember.get(Mercury, 'wiki.id') === 41727;
+			const enabled = [41727, 1306324];
+
+			return (enabled.indexOf(Ember.get(Mercury, 'wiki.id')) >= 0);
 		}),
 
 		actions: {
