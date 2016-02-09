@@ -4,21 +4,22 @@ export default Ember.Component.extend({
 	classNames: ['confirmation-message'],
 	currentUser: Ember.inject.service(),
 	showDiffLink: false,
-	bodyText: [],
+	summary: '',
 
 	actions: {
 		/**
 		 * @returns {void}
 		 */
-		undo() {
-			this.sendAction('undo', this.get('bodyText'));
-			this.sendAction('closeConfirmation');
+		confirm() {
+			this.sendAction('confirm', this.get('summary'));
+			this.sendAction('close');
 		},
+
 		/**
 		 * @returns {void}
 		 */
 		close() {
-			this.sendAction('closeConfirmation');
+			this.sendAction('close');
 		}
 	}
 });

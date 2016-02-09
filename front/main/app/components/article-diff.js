@@ -7,16 +7,11 @@ export default Ember.Component.extend({
 
 	actions: {
 		/**
+		 * Passes up a show action to show modal
 		 * @returns {void}
 		 */
-		undo() {
-			this.sendAction('undo');
-		},
 		showConfirmation() {
 			this.sendAction('showConfirmation');
-		},
-		closeConfirmation() {
-			this.sendAction('closeConfirmation');
 		}
 	}
 });

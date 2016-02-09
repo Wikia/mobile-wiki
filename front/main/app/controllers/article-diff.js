@@ -3,7 +3,6 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
-	bodyText: '',
 	shouldShowUndoConfirmation: false,
 
 	/**
@@ -68,9 +67,19 @@ export default Ember.Controller.extend({
 				label: 'undo'
 			});
 		},
+
+		/**
+		 * Shows confirmation modal
+		 * @returns {void}
+		 */
 		showConfirmation() {
 			this.set('shouldShowUndoConfirmation', true);
 		},
+
+		/**
+		 * Closes confirmation modal
+		 * @returns {void}
+		 */
 		closeConfirmation() {
 			this.set('shouldShowUndoConfirmation', false);
 		},
