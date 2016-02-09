@@ -1,6 +1,14 @@
 import {getOpenGraphData} from './preparePageData';
 
 /**
+ * @param {Object} wikiVariables
+ * @returns {String} url for openGraph
+ */
+function getOpenGraphUrl(wikiVariables) {
+	return wikiVariables.basePath + wikiVariables.articlePath + wikiVariables.siteName.replace(/ /g, '_');
+}
+
+/**
  * Prepares main page data to be rendered
  *
  * @param {ArticlePageData} data
@@ -18,8 +26,4 @@ export default function prepareMainPageData(data) {
 	result.openGraph = getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables));
 
 	return result;
-}
-
-function getOpenGraphUrl(wikiVariables) {
-	return wikiVariables.basePath + wikiVariables.articlePath + wikiVariables.siteName.replace(/ /g, '_');
 }

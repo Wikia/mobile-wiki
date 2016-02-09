@@ -3,9 +3,28 @@ import {gaUserIdHash} from '../../lib/Hashing';
 import localSettings from '../../../config/localSettings';
 import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
 
+
+/**
+ * @param {Hapi.Request} request
+ * @param {Object} articleData
+ * @returns {String} title
+ */
+export function getTitle(request, articleData) {
+	let title;
+
+	if (articleData.article && articleData.article.displayTitle) {
+		title = articleData.article.displayTitle;
+	} else if (articleData.details && articleData.details.title) {
+		title = articleData.details.title;
+	} else {
+		title = request.params.title.replace(/_/g, ' ');
+	}
+
+	return title;
+}
+
 /**
  * Prepares article data to be rendered
- * @todo clean up this function
  *
  * @param {Hapi.Request} request
  * @param {ArticlePageData} data
@@ -66,19 +85,4 @@ export default function prepareArticleData(request, data) {
 	);
 
 	return result;
-}
-
-
-export function getTitle(request, articleData) {
-	let title;
-
-	if (articleData.article && articleData.article.displayTitle) {
-		title = articleData.article.displayTitle;
-	} else if (articleData.details && articleData.details.title) {
-		title = articleData.details.title;
-	} else {
-		title = request.params.title.replace(/_/g, ' ');
-	}
-
-	return title;
 }
