@@ -1,15 +1,14 @@
-/// <reference path="../app.ts" />
-'use strict';
+import Ember from 'ember';
 
-App.InfoboxBuilderEditItemComponent = Em.Component.extend({
+export default Ember.Component.extend({
 	actions: {
-		removeItem: function(): void {
+		removeItem() {
 			this.sendAction('removeItemAction', this.get('item'));
 		},
-		moveItemUp: function(): void {
+		moveItemUp() {
 			this.sendAction('moveItemAction', -1, this.get('item'));
 		},
-		moveItemDown: function(): void {
+		moveItemDown() {
 			this.sendAction('moveItemAction', 1, this.get('item'));
 		}
 	}

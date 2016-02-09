@@ -1,78 +1,19 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
+import Ember from 'ember';
 
-'use strict';
-
-interface DataItem {
-	data: {
-		defaultValue: string;
-		label: string;
-	};
-	infoboxBuilderData: {
-		index: number;
-		component: string;
-	};
-	source: string;
-	type: string;
-}
-
-interface ImageItem {
-	data: {
-		alt: {
-			source: string;
-			data: {
-				defaultValue: string;
-			}
-		};
-		caption: {
-			source: string;
-			data: {
-				defaultValue: string;
-			}
-		};
-		defaultValue: string;
-	};
-	infoboxBuilderData: {
-		index: number;
-		component: string;
-	};
-	source: string;
-	type: string;
-}
-
-interface TitleItem {
-	data: {
-		defaultValue: string;
-
-	};
-	infoboxBuilderData: {
-		index: number;
-		component: string;
-	};
-	source: string;
-	type: string;
-}
-
-interface SaveStateToTemplateResponse {
-	success: boolean;
-	errors: any[];
-	warnings: any[];
-}
-
-App.InfoboxBuilderModel = Em.Object.extend({
+const InfoboxBuilderModel = Ember.Object.extend({
 	_itemIndex: {
 		data: 0,
 		image: 0,
 		title: 0,
 	},
-	infoboxState: Em.A([]),
+	infoboxState: Ember.A([]),
 	itemInEditMode: null,
 
 	/**
 	 * @desc add item to infobox state
 	 * @param {DataItem|TitleItem|ImageItem} object
 	 */
-	addToState(object: DataItem|TitleItem|ImageItem): void {
+	addToState(object) {
 		this.get('infoboxState').pushObject(object);
 	},
 
@@ -81,7 +22,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * addItem's methods can be refactored when figure out
 	 * stable version of infobox items and params
 	 */
-	addDataItem(): void {
+	addDataItem() {
 		var itemType = 'data',
 			i = this.increaseItemIndex('data');
 
@@ -104,7 +45,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * addItem's methods can be refactored when figure out
 	 * stable version of infobox items and params
 	 */
-	addImageItem(): void {
+	addImageItem() {
 		var itemType = 'image',
 			i = this.increaseItemIndex(itemType);
 
@@ -138,7 +79,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * addItem's methods can be refactored when figure out
 	 * stable version of infobox items and params
 	 */
-	addTitleItem(): void {
+	addTitleItem() {
 		var itemType = 'title',
 			i = this.increaseItemIndex('title');
 
@@ -161,7 +102,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @param {String} type
 	 * @returns {String}
 	 */
-	createComponentName(type: string): string {
+	createComponentName(type) {
 		return `infobox-builder-item-${type}`;
 	},
 
@@ -173,8 +114,8 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @param {Em.Array} state
 	 * @returns string stringified object
 	 */
-	prepareStateForSaving(state: Em.Array): string {
-		var plainState = state.map((item: any) => {
+	prepareStateForSaving(state) {
+		var plainState = state.map((item) => {
 			delete item.infoboxBuilderData;
 			return item;
 		}).toArray();
@@ -187,7 +128,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @param {String} indexType
 	 * @returns {Number}
 	 */
-	increaseItemIndex(indexType: string): number {
+	increaseItemIndex(indexType) {
 		return this.incrementProperty(`_itemIndex.${indexType}`);
 	},
 
@@ -195,7 +136,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @desc sets item to the edit mode
 	 * @param {DataItem|ImageItem|TitleItem} item
 	 */
-	setEditItem(item: DataItem|ImageItem|TitleItem): void {
+	setEditItem(item) {
 		this.set('itemInEditMode', item);
 	},
 
@@ -203,7 +144,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @desc removes item from state for given position
 	 * @param {DataItem|ImageItem|TitleItem} item
 	 */
-	removeItem(item: DataItem|ImageItem|TitleItem): void {
+	removeItem(item) {
 		this.get('infoboxState').removeObject(item);
 		this.resetEditMode();
 	},
@@ -213,7 +154,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @param {Number} offset
 	 * @param {DataItem|ImageItem|TitleItem} item
 	 */
-	moveItem(offset: number, item: DataItem|ImageItem|TitleItem) {
+	moveItem(offset, item) {
 		var position = this.get('infoboxState').indexOf(item);
 
 		if (this.isValidMove(position, offset)) {
@@ -228,7 +169,7 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	 * @param {Number} offset
 	 * @returns {Boolean}
 	 */
-	isValidMove(position: number, offset: number): boolean {
+	isValidMove(position, offset) {
 		var lastItemIndex = this.get('infoboxState').length -1,
 			newPosition = position + offset;
 
@@ -239,14 +180,14 @@ App.InfoboxBuilderModel = Em.Object.extend({
 	/**
 	 * @desc resets item in edit mode and its position to null
 	 */
-	resetEditMode(): void {
+	resetEditMode() {
 		this.set('itemInEditMode', null);
 	},
 
 	/**
 	 * @desc setup infobox builder initial state
 	 */
-	setupInitialState(): void {
+	setupInitialState() {
 		this.addTitleItem();
 		this.addImageItem();
 		this.addDataItem();
@@ -254,11 +195,11 @@ App.InfoboxBuilderModel = Em.Object.extend({
 
 	/**
 	 * @desc saves infobox state to MW template
-	 * @returns {Em.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
-	saveStateToTemplate(): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax(<JQueryAjaxSettings>{
+	saveStateToTemplate() {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
@@ -270,14 +211,14 @@ App.InfoboxBuilderModel = Em.Object.extend({
 				},
 				dataType: 'json',
 				method: 'POST',
-				success: (data: SaveStateToTemplateResponse): void => {
+				success: (data) => {
 					if (data && data.success) {
 						resolve(this.get('title'));
 					} else {
 						reject(data.errors);
 					}
 				},
-				error: (err: any): void => {
+				error: (err) => {
 					reject(err);
 				}
 			});

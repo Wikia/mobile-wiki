@@ -1,24 +1,18 @@
-/// <reference path="../app.ts" />
-/// <reference path="../../../../typings/ember/ember.d.ts" />
+import Ember from 'ember';
+import InfoboxBuilderModel from '../models/infobox-builder';
 
-'use strict';
-
-interface InfoboxBuilderGetAssetsResponse {
-	css: string[];
-}
-
-App.InfoboxBuilderRoute = Em.Route.extend({
+export default Ember.Route.extend({
 	pontoLoadingInitialized: false,
 	pontoPath: '/front/vendor/ponto/web/src/ponto.js',
 
-	renderTemplate(): void {
+	renderTemplate() {
 		this.render('infobox-builder');
 	},
 
-	beforeModel: function(): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+	beforeModel() {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
-				Em.RSVP.Promise.all([
+				Ember.RSVP.Promise.all([
 						this.loadAssets(),
 						this.loadPonto()
 					])
@@ -31,11 +25,11 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		});
 	},
 
-	model: function(params: any): typeof App.InfoboxBuilderModel {
+	model(params) {
 		return App.InfoboxBuilderModel.create({title: params.templateName});
 	},
 
-	afterModel: function(model: any): void {
+	afterModel(model) {
 		model.setupInitialState();
 	},
 
@@ -43,8 +37,8 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 	 * @desc checks wikia context using ponto invoke
 	 * @returns {Em.RSVP.Promise}
 	 */
-	isWikiaContext(): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+	isWikiaContext() {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			var ponto = window.Ponto;
 
 			ponto.setTarget(ponto.TARGET_IFRAME_PARENT, window.location.origin);
@@ -53,14 +47,14 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 				'wikia.infoboxBuilder.ponto',
 				'isWikiaContext',
 				null,
-				function (data: any): void {
+				function (data) {
 					if (data && data.isWikiaContext && data.isLoggedIn) {
 						resolve();
 					} else {
-						//show message that no permissions
+						// TODO: show message that no permissions
 					}
 				},
-				function (data: any): void {
+				function (data) {
 					this.showPontoError(data);
 					reject();
 				},
@@ -73,9 +67,9 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 	 * loads infobox builder assets from MW
 	 * @returns {Em.RSVP.Promise}
 	 */
-	loadAssets(): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
-			Em.$.ajax(<JQueryAjaxSettings>{
+	loadAssets() {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
 				url: M.buildUrl({
 					path: '/wikia.php'
 				}),
@@ -84,14 +78,14 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 					method: 'getAssets',
 					format: 'json'
 				},
-				success: (data: InfoboxBuilderGetAssetsResponse): void => {
+				success: (data) => {
 					if (data && data.css) {
 						resolve(data);
 					} else {
 						reject('Invalid data was returned from Infobox Builder API');
 					}
 				},
-				error: (data: any): void => {
+				error: (data) => {
 					reject(data);
 				}
 			});
@@ -102,10 +96,10 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 	 * loads ponto and sets ponto target
 	 * @returns {JQueryXHR}
 	 */
-	loadPonto(): JQueryXHR {
+	loadPonto() {
 		this.set('pontoLoadingInitialized', true);
 
-		return Em.$.getScript(this.pontoPath);
+		return Ember.$.getScript(this.pontoPath);
 	},
 
 	/**
@@ -113,12 +107,12 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 	 * @param {Array} promiseResponseArray
 	 * @returns Em.RSVP.Promise
 	 */
-	setupStyles(promiseResponseArray: Array<any>): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function): void => {
+	setupStyles(promiseResponseArray) {
+		return new Ember.RSVP.Promise((resolve) => {
 			var html = '';
 
 			promiseResponseArray[0].css.forEach(
-				(url:string):void => {
+				(url) => {
 					html += `<link type="text/css" rel="stylesheet" href="${url}">`
 				}
 			);
@@ -133,7 +127,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 	 * @desc shows error message for ponto communication
 	 * @param {String} message - error message
 	 */
-	showPontoError(message: any) {
+	showPontoError(message) {
 		if (window.console) {
 			window.console.error('Ponto Error', message);
 		}
@@ -143,18 +137,18 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 	 * @desc connects with ponto and redirects to template page
 	 * @param {String} title - title of the template
 	 */
-	redirectToTemplatePage(title: string): Em.RSVP.Promise {
-		return new Em.RSVP.Promise((resolve: Function, reject: Function): void => {
+	redirectToTemplatePage(title) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
 			var ponto = window.Ponto;
 
 			ponto.invoke(
 				'wikia.infoboxBuilder.ponto',
 				'redirectToTemplatePage',
 				title,
-				function(data: any): void {
+				function(data) {
 					resolve(data);
 				},
-				function(data: any): void {
+				function(data) {
 					reject(data);
 					this.showPontoError(data);
 				},
@@ -164,7 +158,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 	},
 
 	actions: {
-		error: function (error: any, transition: EmberStates.Transition): boolean {
+		error: function (error, transition) {
 			this.controllerFor('application').addAlert({
 				message: i18n.t('app.infobox-builder-load-error'),
 				type: 'alert'
@@ -177,7 +171,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 			return true;
 		},
 
-		didTransition: function(): boolean {
+		didTransition() {
 			// InfoboxBuilderRoute works in "fullPage mode" (unlike ArticleRoute) which means that it takes
 			// over whole page (so navigation, share feature, etc. are not displayed). To understand
 			// better take a look at application.hbs.
@@ -191,7 +185,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		 * function on model.
 		 * @param {String} type - of item type
 		*/
-		addItem(type: string): void {
+		addItem(type) {
 			var model = this.modelFor('infoboxBuilder');
 
 			switch (type) {
@@ -211,7 +205,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		 * @desc Handles setting item to edit mode and calls proper function on model
 		 * @param {DataItem|ImageItem|TitleItem} item
 		 */
-		setEditItem(item: DataItem|ImageItem|TitleItem): void {
+		setEditItem(item) {
 			var model = this.modelFor('infoboxBuilder');
 
 			model.setEditItem(item);
@@ -221,7 +215,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		 * @desc Handles removing item and calls proper function on model
 		 * @param {DataItem|ImageItem|TitleItem} item
 		 */
-		removeItem(item: DataItem|ImageItem|TitleItem): void {
+		removeItem(item) {
 			var model = this.modelFor('infoboxBuilder');
 
 			model.removeItem(item);
@@ -232,7 +226,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		 * @param {Number} offset
 		 * @param {DataItem|ImageItem|TitleItem} item
 		 */
-		moveItem(offset: number, item: DataItem|ImageItem|TitleItem): void {
+		moveItem(offset, item) {
 			var model = this.modelFor('infoboxBuilder');
 
 			model.moveItem(offset, item);
@@ -242,9 +236,9 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		 * @desc Handles the save template button, calls the proper function
 		 * on model and connect with <iframe> parent to redirect to another page.
 		 */
-		saveTemplate(): void {
+		saveTemplate() {
 			var model = this.modelFor('infoboxBuilder');
-			model.saveStateToTemplate().then((title: string) => {
+			model.saveStateToTemplate().then((title) => {
 				return this.redirectToTemplatePage(title);
 			});
 		},
@@ -253,7 +247,7 @@ App.InfoboxBuilderRoute = Em.Route.extend({
 		 * @desc Handles the cancel button click.
 		 * Connect with <iframe> parent to redirect to another page.
 		 */
-		cancel(): Em.RSVP.Promise {
+		cancel() {
 			var title = this.modelFor('infoboxBuilder').get('title');
 			//maybe some modal "are you sure? You'll lost your work"
 			//redirect to template page
