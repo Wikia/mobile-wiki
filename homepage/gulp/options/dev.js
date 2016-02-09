@@ -2,8 +2,6 @@
  * Options for dev environment
  */
 
-var paths = require('../paths');
-
 module.exports = {
 	sass: {
 		outputStyle: 'nested',
@@ -40,8 +38,5 @@ module.exports = {
 			module: 'commonjs',
 			target: 'es5'
 		}
-	},
-	tslint: {
-		emitError: false
 	}
 };

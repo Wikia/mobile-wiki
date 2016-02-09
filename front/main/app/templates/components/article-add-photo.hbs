@@ -1,0 +1,16 @@
+<header class="sub-head">
+	<a {{action 'back'}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
+	<button {{action 'upload'}} class="sub-head--done">{{i18n 'app.add-photo-page-add-button'}}</button>
+	<div class="sub-head--title">{{i18n 'app.add-photo-page-heading'}}<span>{{model.title}}</span></div>
+</header>
+<div class="preview-body">
+	<div class="preview-container">
+
+		<img class="preview-photo" src={{model.photoImage}} />
+	</div>
+	<div class="preview-input">
+		<div class="photo-name">{{i18n 'app.add-photo-photo-name'}}</div>
+		{{input value=model.photoName}}
+		<div class="preview-instruction">{{i18n 'app.add-photo-instruction'}}</div>
+	</div>
+</div>

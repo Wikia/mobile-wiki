@@ -1,0 +1,32 @@
+{
+  "description": "Configuration file for top hero slider",
+  "data": [
+    {
+      "title": "THE HOME OF FANDOM",
+      "subtitle": "ファンの愛と知識を集めよう！",
+      "button": false,
+      "image": "/images/heroslider/slider-fandom.jpg",
+      "imageMobile": "/images/heroslider/slider-fandom-small.jpg"
+    },
+    {
+      "title": "#MayTheFansBeWithYou",
+      "subtitle": "スター・ウォーズファンよ、ここに集え！",
+      "button": true,
+      "buttonText": "スペシャルサイトはこちら",
+      "buttonId": "starwars",
+      "buttonLink": "http://www.wikia.com/starwars/?uselang=ja",
+      "image": "/images/heroslider/slider-starwars.jpg",
+      "imageMobile": "/images/heroslider/slider-starwars-small.jpg"
+    },
+    {
+      "title": "Wikia Live",
+      "subtitle": "スーパーファン・クルーによるライブレポートをお届け",
+      "button": true,
+      "buttonText": "レポートはこちら",
+      "buttonId": "wikialive",
+      "buttonLink": "http://ja.live.wikia.com/wiki/Wikia_Live",
+      "image": "/images/heroslider/slider-wikialive.jpg",
+      "imageMobile": "/images/heroslider/slider-wikialive-small.jpg"
+    }
+  ]
+}

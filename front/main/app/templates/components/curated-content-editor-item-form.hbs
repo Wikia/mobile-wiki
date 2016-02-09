@@ -1,0 +1,73 @@
+<form {{action 'done' on='submit'}}>
+	<header class="sub-head">
+		<a {{action 'goBack'}} class="sub-head--cancel">
+			{{svg 'back-arrow' role='img' class='icon'}}
+		</a>
+		<button class="sub-head--done" type="submit" disabled="{{unless canSave 'disabled'}}">{{i18n 'app.curated-content-editor-done'}}</button>
+		<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=headerLabel}}</div>
+	</header>
+	<div class="curated-content-input-wrapper">
+		<div class="input-container {{if labelErrorMessage 'error'}}">
+			{{input
+				value=model.label
+				id='label'
+				class=labelClass
+				name='label'
+				focus-out='setLabelFocusedOut'
+				focus-in='setLabelFocusedIn'
+			}}
+			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">{{i18n 'app.curated-content-editor-enter-display-name'}}</label>
+			<span class="input-icon help" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-display-name-tooltip')}}></span>
+			{{#if labelErrorMessage}}
+				<small class="error">{{labelErrorMessage}}</small>
+			{{/if}}
+		</div>
+		{{#unless isSection}}
+			<div class="title input-container {{if titleErrorMessage 'error'}}">
+				{{input
+					value=model.title
+					id='title'
+					class=titleClass
+					name='title'
+					focus-out='setTitleFocusedOut'
+					focus-in='setTitleFocusedIn'
+					autocomplete='off'
+				}}
+				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{pageNameLabel}}</label>
+				<span class="input-icon help" {{action 'showTooltip' pageNameTooltip}}></span>
+				<ul class="title-suggestions-container {{unless searchSuggestionsVisible 'hidden'}}">
+					{{#each searchSuggestionsResult as |item|}}
+						<li {{action 'setTitle' item.title}} class="needsclick">{{item.title}}</li>
+					{{else}}
+						<li class="message {{if suggestionsError errorClass}}">{{searchSuggestionsMessage}}</li>
+					{{/each}}
+				</ul>
+				{{#if titleErrorMessage}}
+					<small class="error">{{titleErrorMessage}}</small>
+				{{/if}}
+			</div>
+		{{/unless}}
+	</div>
+	<div class="curated-content-editor-photo {{if model.image_url 'loaded' 'placeholder'}} {{if imageErrorMessage 'error'}}" {{action 'showImageMenu'}}>
+		<img src="{{imageUrl}}" class="{{if imageErrorMessage 'error'}}" />
+		{{#if imageErrorMessage}}
+			<small class="error">{{imageErrorMessage}}</small>
+		{{/if}}
+		{{svg 'photo-icon' role='img' class='icon photo-icon'}}
+		{{loading-spinner active=isLoading overlay=false}}
+	</div>
+	{{#modal-dialog isVisible=imageMenuVisible type='menu'}}
+		<ul>
+			<li {{action 'cropImage'}} class="crop-image {{unless model.image_url 'disabled'}}">{{i18n 'app.curated-content-editor-crop-image'}}</li>
+			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label=(i18n 'app.curated-content-editor-upload-image') click=(action 'hideImageMenu')}}
+			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
+		</ul>
+	{{/modal-dialog}}
+	{{#modal-dialog isVisible=isTooltipVisible}}
+		{{tooltipMessage}}
+	{{/modal-dialog}}
+	<a {{action 'deleteItem'}} class="curated-content-editor-remove">{{i18n 'app.curated-content-editor-delete-item'}}</a>
+</form>
+{{alert-notifications alerts=alertNotifications}}
+
+

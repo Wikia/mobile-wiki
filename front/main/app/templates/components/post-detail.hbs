@@ -1,0 +1,83 @@
+<div>
+	{{user-avatar
+		avatarUrl=author.avatarUrl
+		displayProfileName=true
+		username=author.name
+	}}
+	<span class="timestamp">
+		&bull; {{time-ago post.creationDate.epochSecond}}
+	</span>
+
+	<div class="discussion-more-options" id="post-options-{{post.id}}">
+		{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
+	</div>
+
+	{{#pop-over for=(concat 'post-options-' post.id) on='click' flow='flip'}}
+		{{discussion-more-options
+			delete=(action 'delete')
+			deleteMessage=(i18n 'main.delete-post' ns='discussion')
+			post=post
+			undelete=(action 'undelete')
+			undeleteMessage=(i18n 'main.undelete-post' ns='discussion')
+		}}
+	{{/pop-over}}
+</div>
+{{#if isDetailsView}}
+	<div class="discussion-content">
+		{{#if post.title}}
+			<h1 class="post-title">{{post.title}}</h1>
+		{{/if}}
+		{{{parsedContent}}}
+	</div>
+{{else}}
+	<div class="discussion-content">
+		{{#if post.title}}
+			<h2 class="post-title">{{#link-to 'discussion.post' postId class="post-details-link"}}{{post.title}}{{/link-to}}</h2>
+		{{/if}}
+		{{#link-to 'discussion.post' postId class="post-details-link clamp"}}{{{parsedContent}}}{{/link-to}}
+	</div>
+{{/if}}
+<div class="row">
+	{{discussion-upvote-post
+		post=post
+		upvote=(action this.attrs.upvote)
+	}}
+
+	{{#if isDetailsView}}
+		<div class="small-5 large-2 columns count">
+			<span class="replies-area">
+				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
+				{{replyCount}}
+			</span>
+		</div>
+	{{else}}
+		<div class="small-2 large-2 columns count">
+			{{#link-to 'discussion.post' postId class='replies-area'}}
+				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
+				{{replyCount}}
+			{{/link-to}}
+		</div>
+	{{/if}}
+	<div class="share small-5 large-7 columns">
+		{{#if isDetailsView}}
+			{{share-feature sharedUrl=sharedUrl}}
+		{{else}}
+			{{share-feature
+				sharedUrl=sharedUrl
+				isVisible=isShareFeatureVisible
+				onMouseEnter=(action 'cancelHideShareComponent')
+				onMouseLeave=(action 'hideShareComponent')
+			}}
+			<span class="toggle-share-area" {{action 'toggleShareComponent'}}>
+				{{svg 'share' class='icon toggle-share'}}
+			</span>
+		{{/if}}
+	</div>
+</div>
+{{#if post.isLoading}}
+	{{loading-spinner
+		active=post.isLoading
+		radius=32
+		strokeWidth=2
+	}}
+{{/if}}

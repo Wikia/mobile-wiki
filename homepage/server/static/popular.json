@@ -2,60 +2,60 @@
   "description": "Configuration file for popular wikias",
   "data": [
     {
-      "name": "カービ Wiki",
-      "url": "http://ja.kirby.wikia.com/",
-      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/f/f4/Wikia-Visualization-Main%2Cjakirby.png/revision/latest/",
-      "imageNarrow": "window-crop/width/480/x-offset/49/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
-      "imageWide": "window-crop/width/500/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
+      "name": "Star Wars Battlefront",
+      "url": "http://ja.battlefront.wikia.com/",
+      "imageBaseUrl": "/images/communities/battlefront-",
+      "imageNarrow": "narrow.jpg",
+      "imageWide": "wide.jpg"
     },
     {
-      "name": "Wookiepedia",
+      "name": "Hitman",
+      "url": "http://ja.hitman.wikia.com/",
+      "imageBaseUrl": "/images/communities/hitman-",
+      "imageNarrow": "narrow.jpg",
+      "imageWide": "wide.jpg"
+    },
+    {
+      "name": "Biohazard",
+      "url": "http://ja.biohazard.wikia.com/",
+      "imageBaseUrl": "/images/communities/biohazard-",
+      "imageNarrow": "narrow.jpg",
+      "imageWide": "wide.jpg"
+    },
+    {
+      "name": "Fallout",
+      "url": "http://ja.fallout.wikia.com/",
+      "imageBaseUrl": "/images/communities/fallout-",
+      "imageNarrow": "narrow.jpg",
+      "imageWide": "wide.jpg"
+    },
+    {
+      "name": "Wookieepedia",
       "url": "http://ja.starwars.wikia.com/",
-      "imageBaseUrl": "http://vignette3.wikia.nocookie.net/corporate/images/d/d0/Wikia-Visualization-Main%2Cjastarwars.png/revision/latest/",
-      "imageNarrow": "window-crop/width/480/x-offset/0/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
-      "imageWide": "window-crop/width/500/x-offset/0/y-offset/50/window-width/491/window-height/180?path-prefix=ja"
+      "imageBaseUrl": "/images/communities/wookiepedia-",
+      "imageNarrow": "narrow.jpg",
+      "imageWide": "wide.jpg"
     },
     {
-      "name": "東京ゲームショウ",
-      "url": "http://ja.gameshow.wikia.com/",
-      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/f/f4/Wikia-Visualization-Main%2Cjakirby.png/revision/latest/",
-      "imageNarrow": "window-crop/width/480/x-offset/49/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
-      "imageWide": "window-crop/width/00/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
+      "name": "Memory Alpha",
+      "url": "http://ja.memory-alpha.wikia.com/",
+      "imageBaseUrl": "/images/communities/memoryalpha-",
+      "imageNarrow": "narrow.jpg",
+      "imageWide": "wide.jpg"
     },
     {
-      "name": "プリキュア",
-      "url": "http://ja.prettycure.wikia.com/",
-      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/f/f4/Wikia-Visualization-Main%2Cjakirby.png/revision/latest/",
-      "imageNarrow": "window-crop/width/480/x-offset/49/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
-      "imageWide": "window-crop/width/500/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
-    },
-    {
-      "name": "花火",
-      "url": "http://ja.hanabi.wikia.com/",
-      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/f/f4/Wikia-Visualization-Main%2Cjakirby.png/revision/latest/",
-      "imageNarrow": "window-crop/width/480/x-offset/49/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
-      "imageWide": "window-crop/width/500/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
+      "name": "シドニアの騎士",
+      "url": "http://ja.knightsofsidonia.wikia.com/",
+      "imageBaseUrl": "/images/communities/knightsofsidonia-",
+      "imageNarrow": "narrow.jpg",
+      "imageWide": "wide.jpg"
     },
     {
       "name": "One Piece",
       "url": "http://ja.onepiece.wikia.com/",
-      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/f/f4/Wikia-Visualization-Main%2Cjakirby.png/revision/latest/",
-      "imageNarrow": "window-crop/width/480/x-offset/49/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
-      "imageWide": "window-crop/width/500/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
-    },
-    {
-      "name": "ダークソウル",
-      "url": "http://ja.darksouls.wikia.com/",
-      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/f/f4/Wikia-Visualization-Main%2Cjakirby.png/revision/latest/",
-      "imageNarrow": "window-crop/width/480/x-offset/49/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
-      "imageWide": "window-crop/width/500/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
-    },
-    {
-      "name": "女神転生",
-      "url": "http://ja.megamitensei.wikia.com/",
-      "imageBaseUrl": "http://vignette4.wikia.nocookie.net/corporate/images/5/52/Wikia-Visualization-Main%2Cjamegamitensei.png/revision/latest/",
-      "imageNarrow": "window-crop/width/480/x-offset/0/y-offset/0/window-width/526/window-height/350?path-prefix=ja",
-      "imageWide": "window-crop/width/500/x-offset/35/y-offset/75/window-width/491/window-height/180?path-prefix=ja"
+      "imageBaseUrl": "/images/communities/onepiece-",
+      "imageNarrow": "narrow.jpg",
+      "imageWide": "wide.jpg"
     }
   ],
   "layout": [ "grid-item", "grid-item-big", "grid-item", "grid-item-big", "grid-item-big", "grid-item", "grid-item-big", "grid-item"]

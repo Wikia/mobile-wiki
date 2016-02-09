@@ -1,0 +1,38 @@
+<p class="hero-mobile-padding"></p>
+<div class="hero">
+	<div id="hero-carousel" class="hero-carousel slick-slider">
+		{{#each heroSlider}}
+			<div class="slick-list">
+				<img class="hero-image-desktop" src="{{image}}">
+				<div class="hero-text">
+					<h1>{{title}}</h1>
+					<h2>{{subtitle}}</h2>
+					{{#if button}}
+						<a class="hero-link" href="{{buttonLink}}" id="{{buttonId}}">
+							{{buttonText}}
+						</a>
+					{{/if}}
+				</div>
+			</div>
+		{{/each}}
+	</div>
+</div>
+<div class="hero-mobile">
+	<div id="hero-carousel-mobile" class="hero-carousel slick-slider">
+		{{#each heroSlider}}
+			<div class="slick-list">
+				<img class="hero-image-mobile" src="{{imageMobile}}">
+				<div class="hero-text-overlay-large">
+					<h1>{{title}}</h1>
+					<h2>{{subtitle}}</h2>
+					{{#if button}}
+						<a class="hero-link" href="{{buttonLink}}" id="{{buttonId}}">
+							{{buttonText}}
+						</a>
+					{{/if}}
+				</div>
+			</div>
+		{{/each}}
+	</div>
+</div>
+

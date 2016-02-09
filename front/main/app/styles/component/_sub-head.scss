@@ -1,0 +1,71 @@
+$sub-head-height: 50px;
+
+.sub-head {
+	align-items: center;
+	background: $color-blue-light;
+	color: $white;
+	display: flex;
+	height: $sub-head-height;
+	left: 0;
+	margin: 0 auto;
+	right: 0;
+	top: 0;
+	z-index: $z-site-head;
+
+	&.fixed {
+		position: fixed;
+	}
+}
+
+/*a*/
+.sub-head--cancel {
+	align-items: center;
+	background: inherit;
+	cursor: pointer;
+	display: flex;
+	height: $sub-head-height;
+	justify-content: center;
+	order: 1;
+	width: $sub-head-height;
+
+	svg {
+		fill: $white;
+		height: 16px;
+		width: 16px;
+	}
+
+	&:active,
+	&:visited,
+	&:hover {
+		background: inherit;
+	}
+}
+
+.sub-head--title {
+	flex: 1;
+	order: 2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/*button*/
+.sub-head--done {
+	background: inherit;
+	border: 0;
+	color: inherit;
+	cursor: pointer;
+	font: inherit;
+	font-size: 14px;
+	height: inherit;
+	margin: 0;
+	order: 3;
+	padding: 0 13px;
+	text-transform: uppercase;
+
+	&[disabled] {
+		background: inherit;
+		border: 0;
+		color: inherit;
+	}
+}

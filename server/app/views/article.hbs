@@ -1,0 +1,11 @@
+<section class="article-body">
+	{{#unless preview}}
+		<div class="mobile-top-leaderboard">&nbsp;</div>
+		<h2 class="wiki-title"><a href="#">{{wikiVariables.siteName}}</a></h2>
+		<h1 class="article-title">{{displayTitle}}</h1>
+		<div class="collapsible-menu table-of-contents"><div class="title">Table of Contents</div></div>
+	{{/unless}}
+	<article class="article-content" id="preloadedContent">
+		{{{articleContent}}}
+	</article>
+</section>

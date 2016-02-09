@@ -1,0 +1,19 @@
+<figure class="item-figure">
+	<div class="item-image" style={{style}}>
+		{{#if model.imageUrl}}
+			<img src='{{thumbUrl}}' alt='{{model.label}}'/>
+		{{/if}}
+	</div>
+	<figcaption class="item-figcaption">
+		<div class="item-caption-row">
+			<div class='item-caption label'>
+				<div class='item-caption clamp'>{{truncate model.label 48}}</div>
+			</div>
+			<div class='item-caption grid-icon'>
+				<div class="grid-icon-container">
+					{{svg icon role='img' viewBox='0 0 22 22'}}
+				</div>
+			</div>
+		</div>
+	</figcaption>
+</figure>

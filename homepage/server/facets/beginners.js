@@ -8,12 +8,10 @@ var util = require('../util');
 
 function beginners(request, reply) {
 	var data = {
-		title: 'ウィキア・ジャパン',
-		loggedIn: util.getLoginState(),
-		userName: util.getUserName()
+			title: 'Wikia Japan'
 	};
 
-	return reply.view('beginners', data);
+	util.renderWithGlobalData(request, reply, data, 'beginners');
 }
 
 module.exports = beginners;

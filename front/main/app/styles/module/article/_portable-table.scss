@@ -1,0 +1,59 @@
+$portable-table-cell-horizontal-padding: 56px;
+$portable-table-cell-vertical-padding: 12px;
+$portable-table-cell-max-width: $portable-table-cell-horizontal-padding * 4;
+$portable-table-img-max-width: $portable-table-cell-horizontal-padding * 3;
+
+.portable-table-wrappper {
+	border: 0;
+	margin: 0 #{-$article-horizontal-padding} $article-horizontal-padding * 2;
+
+	table {
+		border: 0;
+		border-left: $article-horizontal-padding solid $color-white;
+		border-right: $article-horizontal-padding solid $color-white;
+	}
+
+	// overwrite styles from _tables.scss
+	tr:not(:last-of-type) {
+		border-bottom: 0;
+	}
+
+	// overwrite styles from _tables.scss
+	td:not(:last-child),
+	th:not(:last-child) {
+		border-right: 0;
+	}
+}
+
+// portable table styles
+table[data-portable="true"] {
+	font-size: $type-smallest;
+
+	// overrides default img styles for proper rendering inside tables
+	img {
+		max-width: $portable-table-img-max-width;
+	}
+
+	th,
+	td {
+		padding: $portable-table-cell-vertical-padding $article-horizontal-padding;
+		max-width: $portable-table-cell-max-width;
+
+		&:not(:first-child) {
+			padding-left: 0;
+
+			&:not(:last-child) {
+				padding-right: $portable-table-cell-horizontal-padding;
+			}
+		}
+	}
+
+	th {
+		background-color: $color-blue-gray-light;
+		vertical-align: top;
+	}
+
+	tr:nth-child(odd) td {
+		background-color: $color-gray-light;
+	}
+}

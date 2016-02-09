@@ -1,0 +1,50 @@
+.article-table-wrapper {
+	border: 1px solid $border-color-light;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+
+	table {
+		border-collapse: collapse;
+		width: 100%;
+
+		&.infobox {
+			th, td {
+				width: 50%;
+			}
+		}
+	}
+
+	th, td {
+		padding: 10px;
+
+		figure {
+			display: inline-block;
+			margin: 0;
+
+			&.has-caption .chevron {
+				margin-bottom: 0;
+			}
+
+			figcaption {
+				display: none;
+			}
+		}
+	}
+
+	th {
+		text-align: left;
+		vertical-align: top;
+	}
+
+	td:empty {
+		display: none;
+	}
+
+	td:not(:last-child), th:not(:last-child) {
+		border-right: 1px solid $border-color-light;
+	}
+
+	tr:not(:last-of-type) {
+		border-bottom: 1px solid $border-color-light;
+	}
+}

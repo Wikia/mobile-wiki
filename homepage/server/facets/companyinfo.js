@@ -8,12 +8,10 @@ var util = require('../util');
 
 function companyInfo(request, reply) {
 	var data = {
-		title: 'ウィキア・ジャパン',
-		loggedIn: util.getLoginState(),
-		userName: util.getUserName()
+		title: 'Wikia Japan'
 	};
 
-	return reply.view('companyinfo', data);
+	util.renderWithGlobalData(request, reply, data, 'companyinfo');
 }
 
 module.exports = companyInfo;

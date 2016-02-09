@@ -1,0 +1,25 @@
+{{#if type}}
+	<div class="lightbox-header {{if headerHidden 'hidden'}}">
+		<div class="lightbox-close-wrapper">
+			{{#if closeButtonHidden}}
+				{{lightboxCloseButtonDelay}}
+			{{else}}
+				{{svg 'close' role='img' class='lightbox-close-button pointer-events-none'}}
+			{{/if}}
+		</div>
+		<div class="lightbox-header-title">{{header}}</div>
+	</div>
+	<div class="lightbox-content">
+		{{component lightboxComponent
+			model=model
+			lightboxCloseButtonDelay=lightboxCloseButtonDelay
+			setFooter='setFooter'
+			setHeader='setHeader'
+			setCloseButtonHidden='setCloseButtonHidden'
+			setQueryParam='setQueryParam'
+		}}
+	</div>
+	{{#if footer}}
+		<div class="lightbox-footer mw-content {{if footerExpanded 'expanded'}} {{if footerHidden 'hidden'}}">{{footer}}</div>
+	{{/if}}
+{{/if}}

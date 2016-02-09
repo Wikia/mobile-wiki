@@ -1,0 +1,15 @@
+<img src="{{thumbUrl}}" {{action 'edit'}}/>
+<div class="item-description" {{action 'edit'}}>
+	<div class="title">{{model.label}}</div>
+	{{#if model.items}}
+		<div class="subtitle">{{itemsCountLabel}}</div>
+	{{/if}}
+</div>
+<div class="navigation">
+	<div class="arrow-wrapper" {{action 'moveBy' -1 bubbles=false}}>
+		{{svg 'chevron' role='img' class='icon arrow arrow-up pointer-events-none'}}
+	</div>
+	<div class="arrow-wrapper" {{action 'moveBy' 1 bubbles=false}}>
+		{{svg 'chevron' role='img' class='icon arrow arrow-down pointer-events-none'}}
+	</div>
+</div>

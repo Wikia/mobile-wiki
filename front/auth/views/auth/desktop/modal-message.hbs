@@ -1,0 +1,5 @@
+<script>
+	if (window.parent) {
+		window.parent.postMessage({isUserAuthorized: true}, '{{pageParams.parentOrigin}}');
+	}
+</script>

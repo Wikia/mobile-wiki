@@ -1,0 +1,22 @@
+{
+  "errors":{
+    "email_already_exists":"E-mail jest już zarejestrowany na Wikii",
+    "email_invalid":"Niepoprawny adres e-mail",
+    "registration_error":"Nie możemy w tej chwili ukończyć rejestracji",
+    "username_already_exists":"Nazwa użytkownika jest już wykorzystywana",
+    "username_unavailable":"Nazwa użytkownika jest już wykorzystywana lub zawiera nieprawidłowe znaki. Nazwa użytkownika może zawierać litery i cyfry z jednego alfabetu oraz musi zawierać jedną literę",
+    "username_ip_address":"Nazwa użytkownika musi zawierać przynajmniej jedną literę",
+    "username_exceeds_max_length":"Nazwa użytkownika nie może być dłuższa niż 50 znaków",
+    "username_illegal_characters":"Nazwa użytkownika może zawierać jedynie litery i cyfry z jednego alfabetu oraz musi zawierać jedną literę",
+    "password_exceeds_max_length":"Hasło nie może być dłuższe niż 50 znaków",
+    "password_equal_name":"Hasło i nazwa użytkownika nie mogą być takie same",
+    "user_already_linked":"To konto Wikia jest już połączone z profilem na Facebooku",
+    "fb_account_already_linked":"To konto na portalu Facebook jest już podłączone do konta innego użytkownika Wikii",
+    "birthdate_invalid":"Data urodzenia nie jest prawidłowa",
+    "wrong-credentials":"Nie rozpoznajemy tych danych uwierzytelniania. Spróbuj ponownie lub zarejestruj nowe konto.",
+    "server-error":"Wystąpił błąd podczas przetwarzania twojego żądania. Prosimy spróbować ponownie później."
+  },
+  "labels":{
+    "terms-of-use-and-privacy-policy-text":"Akceptuję __termsOfUseLink__ oraz __privacyPolicyLink__ (wymagane)"
+  }
+}

@@ -84,7 +84,7 @@ $large-screen: em(860) !default;
 			margin-right: 5em;
 			padding: $device-padding-vertical 0;
 			width: $device-screen-width + (2 * $device-padding-horizontal);
-			z-index: 99999;
+			z-index: 100;
 
 			.screen {
 				@include size($device-screen-width $device-screen-height);

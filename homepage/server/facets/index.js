@@ -7,20 +7,44 @@
 'use strict';
 
 var util = require('../util'),
-    hubConfig = util.readJsonConfigSync('static/hub_config.json'),
-	popularItemConfig = util.readJsonConfigSync('static/popular.json');
+	heroSliderConfig = util.readJsonConfigSync('static/hero_slider.json'),
+	sliderConfig = util.readJsonConfigSync('static/sliders.json'),
+	whatIsWikiaConfig = util.readJsonConfigSync('static/whatiswikia.json'),
+	joinWikiaConfig = util.readJsonConfigSync('static/joinwikia.json');
+
+/**
+ * Postprocess slider config to include groupedEntries, with pairs of slides grouped together
+ * @param config
+ * @returns {object}
+ */
+function postprocessSliderConfig(config) {
+	var i, j, entry;
+
+	for (i = 0; i < config.length; i++) {
+		entry = config[i];
+		entry.groupedEntries = [];
+
+		for (j = 0; j < entry.entries.length; j+=2) {
+			entry.groupedEntries.push({
+				left: entry.entries[j],
+				right: entry.entries[j+1],
+			});
+		}
+	}
+
+	return config;
+}
 
 function index(request, reply) {
-    var locale = util.getUserLocale(request),
-        data = {
-            title: 'ウィキア・ジャパン',
-            carousel: util.getLocalizedHubData(hubConfig, locale),
-			popular: util.preprocessPopularData(popularItemConfig),
-			loggedIn: util.getLoginState(),
-			userName: util.getUserName()
-        };
+	var data = {
+		title: 'Wikia Japan',
+		heroSlider: heroSliderConfig.data,
+		sliders: postprocessSliderConfig(sliderConfig.data),
+		whatIsWikia: whatIsWikiaConfig.data,
+		joinWikia: joinWikiaConfig.data,
+	};
 
-    return reply.view('index', data);
+	util.renderWithGlobalData(request, reply, data, 'index');
 }
 
 module.exports = index;

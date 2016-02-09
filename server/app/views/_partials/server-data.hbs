@@ -1,0 +1,40 @@
+<script>
+	M.prop('apiBase', '{{{server.apiBase}}}' || '/api/mercury');
+	M.prop('environment', '{{{server.environment}}}');
+	M.prop('queryParams', {{{json queryParams}}});
+	M.prop('tracking', {{{json tracking}}});
+	M.prop('translations', {{{json (translations wikiVariables.language.content ns=localSettings.translationFiles)}}});
+	M.prop('weppyConfig', {{{json localSettings.weppy}}});
+	M.prop('wikiaLanguage', '{{{wikiVariables.language.content}}}');
+	M.prop('userId', {{{userId}}});
+	M.prop('gaUserIdHash', '{{{gaUserIdHash}}}');
+	M.prop('cookieDomain', {{{json localSettings.authCookieDomain}}});
+	M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
+	M.prop('discussionBaseRoute', {{{json localSettings.discuss.baseAPIPath}}});
+	M.prop('imageReviewBaseRoute', {{{json localSettings.imageReview.baseAPIPath}}});
+	{{#if discussionsSplashPageConfig}}
+		M.prop('discussionsSplashPageConfig', {{{json discussionsSplashPageConfig}}});
+	{{/if}}
+	M.provide('ads.slots', []);
+	M.provide('wiki', {{{json wikiVariables}}});
+	{{#if server.mediawikiDomain}}
+		M.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
+		M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wikiVariables.cacheBuster}}/groups/-/mercury_ads_js');
+	{{/if}}
+	{{#if asyncArticle}}
+		M.prop('asyncArticle', {{asyncArticle}});
+	{{/if}}
+	{{#if article}}
+		M.prop('articleContentPreloadedInDOM', true, true);
+		M.provide('article', {{{json article}}});
+	{{/if}}
+	{{#if mainPageData}}
+		M.prop('mainPageData', {{{json mainPageData}}});
+	{{/if}}
+	{{#if exception}}
+		M.provide('exception', {{{json exception}}});
+	{{/if}}
+	{{#if server.optimizelyScript}}
+		M.prop('optimizelyScript', '{{{server.optimizelyScript}}}');
+	{{/if}}
+</script>

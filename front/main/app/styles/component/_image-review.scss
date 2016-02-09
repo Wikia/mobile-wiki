@@ -1,0 +1,32 @@
+.image-review-list {
+	li {
+		float: left;
+		list-style: none;
+		margin: 0.5em;
+	}
+}
+
+.button-group {
+	button:hover {
+		/* turn off button hover style */
+		background-color: #0a5fa3;
+	}
+
+	.highlighted {
+		background-color: #092140;
+	}
+}
+
+.image-review-item {
+	.rejected {
+		background-color: #ff3300;
+	}
+	.flagged {
+		background-color: #a49b00;
+	}
+}
+
+.action-buttons {
+	clear: both;
+	display: block;
+}

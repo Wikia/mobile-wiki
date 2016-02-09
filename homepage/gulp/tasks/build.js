@@ -5,4 +5,4 @@
 
 var gulp = require('gulp');
 
-gulp.task('build', ['build-combined', 'sass']);
+gulp.task('build', ['build-combined', 'lint', 'eslint', 'sass']);

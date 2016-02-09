@@ -8,12 +8,10 @@ var util = require('../util');
 
 function termsOfService(request, reply) {
 	var data = {
-		title: 'ウィキア・ジャパン',
-		loggedIn: util.getLoginState(),
-		userName: util.getUserName()
+		title: 'Wikia Japan'
 	};
 
-	return reply.view('termsofservice', data);
+	util.renderWithGlobalData(request, reply, data, 'termsofservice');
 }
 
 module.exports = termsOfService;

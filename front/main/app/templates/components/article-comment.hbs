@@ -1,0 +1,24 @@
+<div class='avatar'>
+	<img src='{{unbound user.avatar}}' width='50px'>
+</div>
+<div class='content'>
+	<span class='timestamp'>{{time-ago comment.created}}</span>
+	<span class='username'>
+		{{#if user.url}}
+			<a href='{{unbound user.url}}'>{{unbound userName}}</a>
+		{{else}}
+			{{unbound userName}}
+		{{/if}}
+	</span>
+	{{{text}}}
+	{{#if comment.comments}}
+		<button class='show-reply-btn' {{action 'toggleExpand'}}>
+			{{i18n 'app.article-replies-label' count=comment.comments.length}}
+		</button>
+		<ul class='{{if isExpanded 'expanded'}}'>
+		{{#each comment.comments as |comment|}}
+			{{article-comment comment=comment users=users}}
+		{{/each}}
+		</ul>
+	{{/if}}
+</div>

@@ -8,12 +8,10 @@ var util = require('../util');
 
 function privacy(request, reply) {
 	var data = {
-		title: 'ウィキア・ジャパン',
-		loggedIn: util.getLoginState(),
-		userName: util.getUserName()
+		title: 'Wikia Japan'
 	};
 
-	return reply.view('privacy', data);
+	util.renderWithGlobalData(request, reply, data, 'privacy');
 }
 
 module.exports = privacy;

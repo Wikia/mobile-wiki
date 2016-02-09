@@ -1,0 +1,6 @@
+<header class="sub-head">
+	<a {{action 'back'}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
+	<button {{action 'publish'}} class="sub-head--done">{{i18n 'app.edit-page-publish'}}</button>
+	<div class="sub-head--title">{{i18n 'app.edit-page-heading'}}<span>{{model.title}}</span></div>
+</header>
+{{textarea value=model.content class='edit-textarea'}}

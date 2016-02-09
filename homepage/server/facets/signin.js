@@ -8,13 +8,10 @@ var util = require('../util');
 
 function login(request, reply) {
 	var data = {
-		title: 'ウィキア・ジャパン',
-		heliosLoginURL: 'localhost:8111', //TODO: temporary
-		loggedIn: util.getLoginState(),
-		userName: util.getUserName()
+		title: 'Wikia Japan'
 	};
 
-	return reply.view('signin', data);
+	util.renderWithGlobalData(request, reply, data, 'signin');
 }
 
 module.exports = login;

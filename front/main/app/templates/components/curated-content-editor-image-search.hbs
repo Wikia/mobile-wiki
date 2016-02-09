@@ -1,0 +1,26 @@
+<form {{action 'done' on='submit'}}>
+	<header class="sub-head">
+		<a {{action 'goBack'}} class="sub-head--cancel">
+			{{svg 'back-arrow' role='img' class='icon'}}
+		</a>
+		<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=headerLabel}}</div>
+	</header>
+	{{input
+		value=searchQuery
+		id='search'
+		name='search'
+		class='search-input'
+		placeholder=searchPlaceholder
+	}}
+	<div class="search-results">
+		<p class="search-message {{if imagesModel.items 'hidden'}}">{{searchMessage}}</p>
+		{{#each imagesModel.items as |image|}}
+			<img {{action 'select' image}} src="{{image.thumbnailUrl}}">
+		{{/each}}
+		{{loading-spinner active=isLoading overlay=spinnerOverlay}}
+	</div>
+	{{#if imagesModel.items}}
+		<button {{action 'loadMore'}} class="{{if imagesModel.hasNextBatch 'visible'}}">{{i18n 'app.curated-content-load-more-items'}}</button>
+	{{/if}}
+</form>
+

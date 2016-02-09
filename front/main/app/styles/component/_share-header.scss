@@ -1,0 +1,10 @@
+.share-header {
+	@extend .site-head;
+	padding-right: 8px;
+	padding-top: 12px;
+	text-align: right;
+
+	&.pinned {
+		transform: translateY(-100%);
+	}
+}

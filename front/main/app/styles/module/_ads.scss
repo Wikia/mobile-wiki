@@ -1,0 +1,37 @@
+@import 'ads-floor';
+
+.ad-slot {
+	text-align: center;
+
+	div {
+		margin: 0 auto;
+	}
+}
+
+.ad-slot[id^="INVISIBLE_"] {
+	display: none !important;
+}
+
+.main-page-pad-slot .ad-slot {
+	margin-bottom: 36px;
+}
+
+.mobile-top-leaderboard {
+	min-height: 50px;
+	margin-top: 10px;
+	position: relative;
+	z-index: $z-ads-top-leaderboard;
+}
+
+.mobile-in-content, .mobile-prefooter {
+	margin: 10px 0;
+	padding: 10px 0;
+}
+
+.no-ads {
+	height: 0;
+}
+
+.wikia-ad-iframe {
+	border: 0;
+}

@@ -1,0 +1,47 @@
+{{#if fullPage}}
+	{{outlet}}
+{{else}}
+	{{smart-banner-android
+		isVisible=smartBannerVisible
+		toggleVisibility=attrs.toggleSmartBanner
+	}}
+
+	{{site-head
+		smartBannerVisible=smartBannerVisible
+		toggleSideNav=attrs.toggleSideNav
+		toggleUserMenu=attrs.toggleUserMenu
+		toggleSiteHeadPinned=attrs.toggleSiteHeadPinned
+		themeBar=themeBar
+	}}
+
+	{{#if enableShareHeader}}
+		{{share-header
+			smartBannerVisible=smartBannerVisible
+			title=currentTitle
+			language=language
+		}}
+	{{/if}}
+	{{side-nav
+		shouldBeVisible=sideNavVisible
+		loadRandomArticle=attrs.loadRandomArticle
+		toggleVisibility=attrs.toggleSideNav
+	}}
+	{{#if noMargins}}
+		{{outlet}}
+	{{else}}
+		<div class="page-wrapper row" lang={{language.content}} dir={{language.contentDir}}>
+			{{outlet}}
+		</div>
+	{{/if}}
+	{{lightbox-wrapper
+		type=lightboxType
+		model=lightboxModel
+		isVisible=lightboxVisible
+		lightboxCloseButtonDelay=lightboxCloseButtonDelay
+		closeLightbox=attrs.closeLightbox
+		setQueryParam=attrs.setQueryParam
+	}}
+{{/if}}
+{{wikia-in-your-lang}}
+{{alert-notifications alerts=alertNotifications}}
+{{loading-spinner active=isLoading}}

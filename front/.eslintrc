@@ -1,0 +1,24 @@
+{
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jquery": true
+  },
+  "globals": {
+    "Ember": true,
+    "EmPerfSender": true,
+    "FastClick": true,
+    "ga": true,
+    "Hammer": true,
+    "Headroom": true,
+    "i18n": true,
+    "M": true,
+    "Mercury": true,
+    "numeral": true,
+    "optimizely": true,
+    "state": false,
+    "VisitSource": true,
+    "Weppy": true,
+    "Wikia": true
+  }
+}

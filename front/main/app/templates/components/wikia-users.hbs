@@ -1,0 +1,12 @@
+{{#if users.length}}
+	<div class="title">{{i18n label}}</div>
+	<ul>
+		{{#each users as |user|}}
+			<li>
+				<a href="{{unbound user.url}}" data-tracking-category="{{unbound trackingEvent}}">
+					{{thumbnail user.avatar width=100 height=100 mode=user.thumbMode alt=user.name}}
+				</a>
+			</li>
+		{{/each}}
+	</ul>
+{{/if}}

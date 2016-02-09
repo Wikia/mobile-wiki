@@ -24,8 +24,23 @@ exports.routes = [
 	},
 	{
 		method: 'GET',
+		path: '/search',
+		handler: require('./facets/search')
+	},
+	{
+		method: 'GET',
 		path: '/login',
 		handler: require('./facets/signin')
+	},
+	{
+		method: 'GET',
+		path: '/logout',
+		handler: require('./facets/signout')
+	},
+	{
+		method: 'GET',
+		path: '/signout',
+		handler: require('./facets/signout')
 	},
 	{
 		method: 'GET',
@@ -39,7 +54,12 @@ exports.routes = [
 	},
 	{
 		method: 'GET',
+		path: '/globals',
+		handler: require('./facets/globals')
+	},
+	{
+		method: 'GET',
 		path: '/{path*}',
 		handler: require('./facets/assets')
-	}
+	},
 ];

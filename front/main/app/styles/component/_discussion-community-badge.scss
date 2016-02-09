@@ -1,0 +1,40 @@
+.post-list-view {
+	.community-badge {
+		margin-top: -62px;
+
+		img {
+			width: 125px;
+			background-color: $discussion-community-badge-background-color;
+		}
+	}
+}
+
+.post-details-view {
+	.community-badge {
+		margin-top: -12px;
+
+		img {
+			width: 79px;
+		}
+
+		p {
+			font-size: $type-smaller;
+		}
+	}
+}
+
+.community-badge {
+	img {
+		border: 2px solid $discussion-community-badge-border;
+		-webkit-box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
+		-moz-box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
+		box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
+		position: relative;
+	}
+
+	p {
+		color: $discussion-community-badge-title-color;
+		font-size: 1.5rem;
+		line-height: 1.25;
+	}
+}
