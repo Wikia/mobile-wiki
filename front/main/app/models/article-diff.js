@@ -68,16 +68,14 @@ ArticleDiffModel.reopenClass({
 					newId: newid,
 					oldId: oldid
 				}
-			).done((response) => {
-				const article = Ember.get(response, 'article'),
-					revision = Ember.get(response, 'revision'),
-					diffs = ArticleDiffModel.prepareDiffs(Ember.get(response, 'diffs'));
+			).done(({article, revision, diffs = []}) => {
+				const diffsData = ArticleDiffModel.prepareDiffs(diffs);
 
 				let modelInstance = null;
 
-				if (response) {
+				if (diffs) {
 					modelInstance = ArticleDiffModel.create({
-						diffs,
+						diffs: diffsData,
 						namespace: article.ns,
 						newid,
 						oldid,
@@ -101,12 +99,11 @@ ArticleDiffModel.reopenClass({
 	 * @returns {Array}
      */
 	prepareDiffs(diffs) {
-		diffs.forEach((diff) => {
+		return diffs.map((diff) => {
 			diff.classes = diff.classes.join(' ');
 			diff.content = Ember.String.htmlSafe(diff.content);
+			return diff;
 		});
-
-		return diffs;
 	}
 });
 

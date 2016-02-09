@@ -37,11 +37,10 @@ RecentWikiActivityModel.reopenClass({
 	},
 
 	prepareTimestamps(recentChanges) {
-		recentChanges.forEach((rc) => {
-			rc.timestamp = new Date(rc.timestamp).getTime() / 1000;
+		return recentChanges.map((recentChange) => {
+			recentChange.timestamp = new Date(recentChange.timestamp).getTime() / 1000;
+			return recentChange;
 		});
-
-		return recentChanges;
 	}
 });
 
