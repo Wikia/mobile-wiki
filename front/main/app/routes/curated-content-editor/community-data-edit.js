@@ -12,19 +12,6 @@ export default Ember.Route.extend({
 	},
 
 	/**
-	 * @param {Object} controller
-	 * @param {CuratedContentEditorItemModel} model
-	 * @param {EmberStates.Transition} transition
-	 * @returns {void}
-	 */
-	setupController(controller, model, transition) {
-		this._super(controller, model, transition);
-		controller.setProperties({
-			isFeaturedItem: false
-		});
-	},
-
-	/**
 	 * @returns {void}
 	 */
 	renderTemplate() {
