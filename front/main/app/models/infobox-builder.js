@@ -28,8 +28,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		this.addToState({
 			data: {
-				defaultValue: `${i18n.t('app.infobox-builder-data-default')} ${i}`,
-				label: `${i18n.t('app.infobox-builder-label-default')} ${i}`
+				defaultValue: `${i18n.t('infobox-builder:main.data-default')} ${i}`,
+				label: `${i18n.t('infobox-builder:main.label-default')} ${i}`
 			},
 			infoboxBuilderData: {
 				index: i,
@@ -54,13 +54,13 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				alt: {
 					source: `alt${i}`,
 					data: {
-						defaultValue: i18n.t('app.infobox-builder-alt-default')
+						defaultValue: i18n.t('infobox-builder:main.alt-default')
 					}
 				},
 				caption: {
 					source: `caption${i}`,
 					data: {
-						defaultValue: i18n.t('app.infobox-builder-caption-default')
+						defaultValue: i18n.t('infobox-builder:main.caption-default')
 					}
 				} ,
 				defaultValue: 'path/to/image.jpg',
@@ -85,7 +85,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		this.addToState({
 			data: {
-				defaultValue: `${i18n.t('app.infobox-builder-title-default')} ${i}`
+				defaultValue: `${i18n.t('infobox-builder:main.title-default')} ${i}`
 
 			},
 			infoboxBuilderData: {

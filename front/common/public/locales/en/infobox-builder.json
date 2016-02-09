@@ -1,0 +1,11 @@
+{
+  "main": {
+    "title-default": "Title",
+    "label-default": "Label",
+    "caption-default": "Caption",
+    "alt-default": "Alt",
+    "data-default": "Data",
+    "save": "Save infobox template",
+    "load-error": "Loading error"
+  }
+}

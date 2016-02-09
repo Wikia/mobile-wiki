@@ -160,13 +160,13 @@ export default Ember.Route.extend({
 	actions: {
 		error: (error, transition) => {
 			this.controllerFor('application').addAlert({
-				message: i18n.t('app.infobox-builder-load-error'),
+				message: i18n.t('infobox-builder:main.load-error'),
 				type: 'alert'
 			});
 			M.track({
 				action: M.trackActions.impression,
 				category: 'infoboxBuilder',
-				label: 'infobox-builder-load-error'
+				label: 'load-error'
 			});
 			return true;
 		},
