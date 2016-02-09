@@ -1,7 +1,3 @@
-/// <reference path="../app.ts" />
-
-'use strict';
-
 import Ember from 'ember';
 
 export default Ember.Mixin.create({

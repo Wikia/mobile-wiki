@@ -68,7 +68,7 @@ Router.map(function () {
 	});
 
 	this.route('infoboxBuilder', {
-		path: '/infoboxBuilder/:templateName'
+		path: '/infobox-builder/:templateName'
 	});
 
 	this.route('article', {

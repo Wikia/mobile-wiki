@@ -26,7 +26,7 @@ export default Ember.Route.extend({
 	},
 
 	model(params) {
-		return App.InfoboxBuilderModel.create({title: params.templateName});
+		return InfoboxBuilderModel.create({title: params.templateName});
 	},
 
 	afterModel(model) {
@@ -47,7 +47,7 @@ export default Ember.Route.extend({
 				'wikia.infoboxBuilder.ponto',
 				'isWikiaContext',
 				null,
-				function (data) {
+				(data) => {
 					if (data && data.isWikiaContext && data.isLoggedIn) {
 						resolve();
 					} else {
@@ -158,7 +158,7 @@ export default Ember.Route.extend({
 	},
 
 	actions: {
-		error: function (error, transition) {
+		error: (error, transition) => {
 			this.controllerFor('application').addAlert({
 				message: i18n.t('app.infobox-builder-load-error'),
 				type: 'alert'
