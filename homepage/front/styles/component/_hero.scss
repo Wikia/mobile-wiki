@@ -4,30 +4,25 @@ $mobile-hero-slider: new-breakpoint(max-width 750px);
 $desktop-hero-slider: new-breakpoint(min-width 751px);
 $small-mobile-slider: new-breakpoint(max-width 380px);
 $mobile-slider:  new-breakpoint(min-width 381px max-width 615px);
-$mobile-slider-2row: new-breakpoint(min-width 616px max-width 885px);
-$medium-slider: new-breakpoint(min-width 886px max-width 1140px);
+$mobile-slider-2row: new-breakpoint(min-width 616px max-width 1140px);
 $desktop-slider: new-breakpoint(min-width 1141px);
 
 .featured {
 	display: none;
+	margin-left: auto;
+	margin-right: auto;
 	margin-top: 4em;
+	max-width: 1150px;
 
 	@include media ($desktop-slider) {
 		display: block;
 	}
 }
 
-.featured-mobile-medium {
-	display: none;
-	margin-top: 4em;
-
-	@include media ($medium-slider) {
-		display: block;
-	}
-}
-
 .featured-mobile-2row {
 	display: none;
+	margin-left: auto;
+	margin-right: auto;
 	margin-top: 4em;
 	max-width: 650px;
 
@@ -36,10 +31,12 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 	}
 }
 
-.featured-mobile-2row-wrapper {
-	width: 600px;
-	margin-left: auto;
-	margin-right: auto;
+.featured-mobile-2col-wrapper {
+	width: 550px;
+	position: relative;
+}
+
+.featured-mobile-4col-wrapper {
 	position: relative;
 }
 
@@ -61,13 +58,22 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 .featured-title {
 	font-size: 26px;
 
+	@include media ($desktop-hero-slider) {
+		padding-top: 25px;
+	}
+
+	@include media ($mobile-slider-2row) {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+
 	@include media ($mobile-slider) {
-		padding: .5em 0;
+		padding-botton: 25px;
 		text-align: center;
 	}
 
 	@include media ($small-mobile-slider) {
-		padding: .5em 0;
+		padding-botton: 25px;
 		font-size: 16px;
 	}
 }
@@ -85,11 +91,16 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 }
 
 .featured-mobile-slide-padding {
-	height: 1em;
+	height: 25px;
 	width: 100%;
 }
 
-.featured-mobile-slide-2row {
+.featured-mobile-slide-2col {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.featured-mobile-slide-4col {
 	margin-left: 10px;
 	margin-right: 10px;
 }
@@ -125,10 +136,6 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 	left: 100px;
 	position: absolute;
 	z-index: 1;
-
-	@include media ($medium-slider) {
-		bottom: 5px;
-	}
 
 	h1 {
 		color: white;
@@ -234,10 +241,6 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 }
 
 .hero-image-mobile {
-	@include media ($medium-slider) {
-		display: none;
-	}
-
 	@include media ($desktop-slider) {
 		display: none;
 	}
