@@ -1,21 +1,21 @@
 import Ember from 'ember';
+import InViewportMixin from 'ember-in-viewport';
 import ArticleContentMixin from '../mixins/article-content';
-import VisibleMixin from '../mixins/visible';
 import Thumbnailer from 'common/modules/Thumbnailer';
 
 export default Ember.Component.extend(
 	ArticleContentMixin,
-	VisibleMixin,
+	InViewportMixin,
 	{
+		classNames: ['article-media-image'],
+		classNameBindings: ['isSmall', 'isIcon', 'shouldBeLoaded:loaded'],
+		tagName: 'figure',
+
+		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
 		smallImageSize: {
 			height: 64,
 			width: 64,
 		},
-		classNames: ['article-media-image'],
-		classNameBindings: ['isSmall', 'isIcon'],
-		tagName: 'figure',
-
-		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
 
 		thumbnailUrl: Ember.computed('url', 'shouldBeLoaded', function () {
 			const url = this.get('url');
@@ -42,17 +42,19 @@ export default Ember.Component.extend(
 
 		isIcon: Ember.computed.equal('media.context', 'icon'),
 
-		actions: {
-			/**
-			 * Sent by visibility-state-manager every time the window is scrolled and the component is in viewport
-			 *
-			 * @returns {void}
-			 */
-			onVisible() {
-				if (!this.get('shouldBeLoaded')) {
-					this.set('shouldBeLoaded', true);
+		viewportOptionsOverride: Ember.on('didInsertElement', function () {
+			Ember.setProperties(this, {
+				viewportTolerance: {
+					top: 400,
+					bottom: 400,
+					left: 200,
+					right: 200
 				}
-			}
+			});
+		}),
+
+		didEnterViewport() {
+			this.set('shouldBeLoaded', true);
 		},
 
 		/**
