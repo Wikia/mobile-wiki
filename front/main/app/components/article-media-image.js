@@ -7,11 +7,18 @@ export default Ember.Component.extend(
 	ArticleContentMixin,
 	VisibleMixin,
 	{
+		attributeBindings: ['data-ref'],
 		classNames: ['article-media-image'],
-		classNameBindings: ['type'],
+		classNameBindings: ['itemType'],
 		tagName: 'figure',
 
+		'data-ref': Ember.computed.oneWay('ref'),
+
 		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
+
+		itemType: Ember.computed('type', function () {
+			return `article-${this.get('type')}`;
+		}),
 
 		thumbnailUrl: Ember.computed('url', 'shouldBeLoaded', function () {
 			const url = this.get('url');
