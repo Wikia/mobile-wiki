@@ -2,6 +2,7 @@ import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import ArticleContentMixin from '../mixins/article-content';
 import Thumbnailer from 'common/modules/Thumbnailer';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	ArticleContentMixin,
@@ -9,7 +10,7 @@ export default Ember.Component.extend(
 	{
 		attributeBindings: ['data-ref'],
 		classNames: ['article-media-image'],
-		classNameBindings: ['itemType', 'isSmall', 'isIcon', 'shouldBeLoaded:loaded'],
+		classNameBindings: ['hasCaption', 'itemType', 'isSmall', 'isIcon', 'shouldBeLoaded:loaded'],
 		tagName: 'figure',
 
 		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
@@ -56,6 +57,8 @@ export default Ember.Component.extend(
 
 		isIcon: Ember.computed.equal('media.context', 'icon'),
 
+		hasCaption: Ember.computed.notEmpty('caption'),
+
 		viewportOptionsOverride: Ember.on('didInsertElement', function () {
 			Ember.setProperties(this, {
 				viewportTolerance: {
@@ -72,6 +75,18 @@ export default Ember.Component.extend(
 		 */
 		didEnterViewport() {
 			this.set('shouldBeLoaded', true);
+		},
+
+		actions: {
+			/**
+			 * @returns {void}
+			 */
+			clickLinkedImage() {
+				track({
+					action: trackActions.click,
+					category: 'linked-image'
+				});
+			}
 		},
 
 		/**
