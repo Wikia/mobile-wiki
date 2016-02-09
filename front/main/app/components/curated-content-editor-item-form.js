@@ -110,6 +110,8 @@ export default Ember.Component.extend(
 			return i18n.t('app.curated-content-editor-suggestions-loading');
 		}),
 
+		shouldHideSecondInput: Ember.computed.or('isSection', 'isCommunityData'),
+
 		/**
 		 * @returns {void}
 		 */

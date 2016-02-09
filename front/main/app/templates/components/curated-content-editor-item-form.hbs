@@ -22,32 +22,30 @@
 				<small class="error">{{labelErrorMessage}}</small>
 			{{/if}}
 		</div>
-		{{#unless isSection}}
-			{{#unless isCommunityData}}
-				<div class="title input-container {{if titleErrorMessage 'error'}}">
-					{{input
-						value=model.title
-						id='title'
-						class=titleClass
-						name='title'
-						focus-out='setTitleFocusedOut'
-						focus-in='setTitleFocusedIn'
-						autocomplete='off'
-					}}
-					<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{pageNameLabel}}</label>
-					<span class="input-icon help" {{action 'showTooltip' pageNameTooltip}}></span>
-					<ul class="title-suggestions-container {{unless searchSuggestionsVisible 'hidden'}}">
-						{{#each searchSuggestionsResult as |item|}}
-							<li {{action 'setTitle' item.title}} class="needsclick">{{item.title}}</li>
-						{{else}}
-							<li class="message {{if suggestionsError errorClass}}">{{searchSuggestionsMessage}}</li>
-						{{/each}}
-					</ul>
-					{{#if titleErrorMessage}}
-						<small class="error">{{titleErrorMessage}}</small>
-					{{/if}}
-				</div>
-			{{/unless}}
+		{{#unless shouldHideSecondInput}}
+			<div class="title input-container {{if titleErrorMessage 'error'}}">
+				{{input
+					value=model.title
+					id='title'
+					class=titleClass
+					name='title'
+					focus-out='setTitleFocusedOut'
+					focus-in='setTitleFocusedIn'
+					autocomplete='off'
+				}}
+				<label class="floating-label {{if titleErrorMessage 'error'}} {{if isTitleActive 'active'}}" for="title">{{pageNameLabel}}</label>
+				<span class="input-icon help" {{action 'showTooltip' pageNameTooltip}}></span>
+				<ul class="title-suggestions-container {{unless searchSuggestionsVisible 'hidden'}}">
+					{{#each searchSuggestionsResult as |item|}}
+						<li {{action 'setTitle' item.title}} class="needsclick">{{item.title}}</li>
+					{{else}}
+						<li class="message {{if suggestionsError errorClass}}">{{searchSuggestionsMessage}}</li>
+					{{/each}}
+				</ul>
+				{{#if titleErrorMessage}}
+					<small class="error">{{titleErrorMessage}}</small>
+				{{/if}}
+			</div>
 		{{/unless}}
 	</div>
 	<div class="curated-content-editor-photo {{if model.image_url 'loaded' 'placeholder'}} {{if imageErrorMessage 'error'}}" {{action 'showImageMenu'}}>
@@ -61,7 +59,7 @@
 	{{#modal-dialog isVisible=imageMenuVisible type='menu'}}
 		<ul>
 			{{#unless isCommunityData}}
-					<li {{action 'cropImage'}} class="crop-image {{unless model.image_url 'disabled'}}">{{i18n 'app.curated-content-editor-crop-image'}}</li>
+				<li {{action 'cropImage'}} class="crop-image {{unless model.image_url 'disabled'}}">{{i18n 'app.curated-content-editor-crop-image'}}</li>
 			{{/unless}}
 			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label=(i18n 'app.curated-content-editor-upload-image') click=(action 'hideImageMenu')}}
 			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
