@@ -241,7 +241,7 @@ export default Ember.Route.extend({
 		 * @desc Handles the save template button, calls the proper function
 		 * on model and connect with <iframe> parent to redirect to another page.
 		 */
-		saveTemplate() {
+		save() {
 			var model = this.modelFor('infoboxBuilder');
 			model.saveStateToTemplate().then((title) => {
 				return this.redirectToTemplatePage(title);
