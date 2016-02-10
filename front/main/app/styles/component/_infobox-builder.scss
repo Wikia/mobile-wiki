@@ -1,5 +1,16 @@
+.infobox-builder-body-wrapper {
+	.ember-container {
+		height: 100%;
+	}
+
+	.ember-view {
+		height: 100%;
+	}
+}
+
 .infobox-builder {
 	display: flex;
+	height: 100%;
 }
 
 .infobox-builder-preview {

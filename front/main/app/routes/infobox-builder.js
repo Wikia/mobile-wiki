@@ -104,10 +104,15 @@ export default Ember.Route.extend({
 
 	/**
 	 * add oasis portable infobox styles to DOM
+	 * and add class to main application body to be
+	 * able to style whole containter as we want
+	 *
 	 * @param {Array} promiseResponseArray
 	 * @returns Ember.RSVP.Promise
 	 */
 	setupStyles(promiseResponseArray) {
+		Ember.$('body').addClass('infobox-builder-body-wrapper');
+
 		return new Ember.RSVP.Promise((resolve) => {
 			var html = '';
 
