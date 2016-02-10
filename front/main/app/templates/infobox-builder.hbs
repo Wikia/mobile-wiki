@@ -1,22 +1,7 @@
-<header class="sub-head">
-	<a {{action 'cancel'}} title="{{i18n 'app.cancel-label'}}" class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
-	<button class="sub-head--done" {{action 'saveTemplate'}}>{{i18n 'main.save' ns='infobox-builder'}}</button>
-	<div class="sub-head--title">{{i18n 'main.header' ns='infobox-builder' title=title}}</div>
-</header>
-<div class="infobox-builder">
-	{{#infobox-builder-wrapper}}
-		{{#each model.infoboxState as |element index|}}
-			{{component element.infoboxBuilderData.component
-				item=element
-				position=index
-				activeItem=model.itemInEditMode
-				setEditItemAction='setEditItem'
-			}}
-		{{/each}}
-	{{/infobox-builder-wrapper}}
-
-	{{infobox-builder-sidebar
-		addItem='addItem'
-	}}
-</div>
+{{infobox-builder
+	state=model.infoboxState
+	title=model.title
+	cancelAction=(action 'cancel')
+	saveAction=(action 'save')
+}}
 
