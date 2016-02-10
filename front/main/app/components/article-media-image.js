@@ -69,6 +69,10 @@ export default Ember.Component.extend(
 
 		hasCaption: Ember.computed.notEmpty('caption'),
 
+		shouldDisplayCaption: Ember.computed('hasCaption', 'isIcon', function () {
+			return this.get('hasCaption') && !this.get('isIcon');
+		}),
+
 		viewportOptionsOverride: Ember.on('didInsertElement', function () {
 			Ember.setProperties(this, {
 				viewportTolerance: {
