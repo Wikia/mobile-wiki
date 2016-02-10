@@ -10,7 +10,7 @@ export default Ember.Component.extend(
 	{
 		attributeBindings: ['data-ref'],
 		classNames: ['article-media-image'],
-		classNameBindings: ['hasCaption', 'itemType', 'isSmall', 'isIcon', 'shouldBeLoaded:loaded'],
+		classNameBindings: ['hasCaption', 'itemType', 'isSmall', 'isIcon', 'loaded'],
 		tagName: 'figure',
 
 		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
@@ -46,13 +46,11 @@ export default Ember.Component.extend(
 			const url = this.get('url');
 
 			if (url && this.get('shouldBeLoaded')) {
-				const {mode, width, height} = this.getThumbnailParams();
+				const thumbParams = this.getThumbnailParams(),
+					thumbURL = Thumbnailer.getThumbURL(url, thumbParams);
 
-				return Thumbnailer.getThumbURL(url, {
-					mode,
-					height,
-					width
-				});
+				this.load(thumbURL);
+				return thumbURL;
 			} else {
 				return this.emptyGif;
 			}
@@ -84,13 +82,6 @@ export default Ember.Component.extend(
 			});
 		}),
 
-		/**
-		 * @returns {void}
-		 */
-		didEnterViewport() {
-			this.set('shouldBeLoaded', true);
-		},
-
 		actions: {
 			/**
 			 * @returns {void}
@@ -104,7 +95,30 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		* @returns {{mode: string, width: number, height: number}}
+		 * Set class loaded on image to hide placeholder
+		 * @param {string} url
+		 * @returns {void}
+		 */
+		load(url) {
+			if (url) {
+				const image = new Image();
+
+				image.src = url;
+				image.onload = () => {
+					this.set('loaded', true);
+				};
+			}
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		didEnterViewport() {
+			this.set('shouldBeLoaded', true);
+		},
+
+		/**
+		* @returns {{mode: string, height: number, width: number}}
 		*/
 		getThumbnailParams() {
 			const originalWidth = this.get('width'),
@@ -128,7 +142,7 @@ export default Ember.Component.extend(
 					this.calculateHeightBasedOnWidth(originalWidth, originalHeight, width);
 			}
 
-			return {mode, width, height};
+			return {mode, height, width};
 		},
 
 		/**
