@@ -1,8 +1,12 @@
 <header class="sub-head">
-	{{#link-to 'recent-wiki-activity' class="sub-head--cancel"}}
+	{{#link-to 'recent-wiki-activity'
+		class="sub-head--cancel"
+		tracking-category='recent-wiki-activity'
+		tracking-label='article-diff__go-back'
+	}}
 		{{svg 'back-arrow' role='img' class='icon'}}
 	{{/link-to}}
-    <div class="sub-head--title">{{i18n 'main.title' ns='recent-wiki-activity'}}</div>
+	<div class="sub-head--title">{{i18n 'main.title' ns='recent-wiki-activity'}}</div>
 </header>
 
 {{recent-change model=model showDiffLink=showDiffLink}}

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * @returns {void}
@@ -16,6 +17,8 @@ export function initialize() {
 		 */
 		_invoke(event) {
 			const action = this.get('action');
+			let trackingCategory = this.get('tracking-category'),
+				trackingLabel = this.get('tracking-label');
 
 			if (action) {
 				// There was an action specified (in handlebars) so take custom action
@@ -25,6 +28,14 @@ export function initialize() {
 
 				// trigger the action on the controller
 				this.get('parentView').get('context').send(action, this.get('actionParam'));
+			}
+
+			if (trackingCategory && trackingLabel) {
+				track({
+					action: trackActions.click,
+					category: trackingCategory,
+					label: trackingLabel
+				});
 			}
 
 			return this._super(event);
