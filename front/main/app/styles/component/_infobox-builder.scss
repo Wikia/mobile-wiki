@@ -1,10 +1,5 @@
 .infobox-builder {
-
-	.infobox-builder-buttons {
-		button {
-			display: block;
-		}
-	}
+	display: flex;
 }
 
 .infobox-builder-preview {
@@ -13,8 +8,7 @@
 }
 
 .infobox-builder-preview {
-	display: inline-block;
-	width: 70%;
+	flex-basis: 70%;
 
 	.portable-infobox {
 		clear: none;
@@ -32,13 +26,14 @@
 }
 
 .infobox-builder-sidebar {
-	display: inline-block;
-	width: 25%;
+	flex-basis: 30%;
 	box-shadow: -2px 0 6px 0 rgba(0, 0, 0, 0.2);
 	text-align: center;
+	vertical-align: top;
 
 	.sidebar-header {
-		border-bottom: 1px solid #e8ecf3;
+		border-bottom: 2.2px solid #e8ecf3;
+		line-height: 48px;
 	}
 }
 
