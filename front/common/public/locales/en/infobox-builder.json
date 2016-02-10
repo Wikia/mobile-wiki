@@ -1,5 +1,6 @@
 {
   "main": {
+    "header": "Editing: __title__",
     "sidebar-header": "Add infobox elements",
     "title-default": "Title",
     "label-default": "Label",
