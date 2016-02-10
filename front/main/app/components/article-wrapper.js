@@ -282,7 +282,7 @@ export default Ember.Component.extend(
 			if (mediaRef >= 0) {
 				Ember.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 
-				if (!$mediaElement.hasClass('is-small')) {
+				if (!$mediaElement.hasClass('is-small') && !$mediaElement.parent().hasClass('is-small')) {
 					media = this.get('model.media');
 					this.sendAction('openLightbox', 'media', {
 						media,
@@ -302,6 +302,6 @@ export default Ember.Component.extend(
 			} else {
 				Ember.Logger.debug('Missing ref on', target);
 			}
-		},
+		}
 	}
 );
