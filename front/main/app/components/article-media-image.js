@@ -103,6 +103,9 @@ export default Ember.Component.extend(
 		* @returns {{mode: string, width: number, height: number}}
 		*/
 		getThumbnailParams() {
+			const originalWidth = this.get('width'),
+				originalHeight = this.get('height');
+
 			let mode,
 				height,
 				width;
@@ -112,13 +115,13 @@ export default Ember.Component.extend(
 				width = this.get('iconWidth');
 			} else if (this.get('isSmall')) {
 				mode = Thumbnailer.mode.thumbnailDown;
-				width = this.get('width');
-				height = this.get('height');
+				width = originalWidth;
+				height = originalHeight;
 			} else {
 				mode = this.get('cropMode') || Thumbnailer.mode.thumbnailDown;
 				width = this.get('forceWidth') || this.get('articleContent.width');
 				height = this.get('forceHeight') ||
-					this.calculateHeightBasedOnWidth(this.get('width'), this.get('height'), width);
+					this.calculateHeightBasedOnWidth(originalWidth, originalHeight, width);
 			}
 
 			return {mode, width, height};

@@ -181,6 +181,9 @@ export default Ember.Component.extend(
 				if (name === 'article-media-image') {
 					attrs = Ember.$.extend(attrs, media[attrs.ref]);
 
+					/**
+					 * Ember has its own context attribute, that is why we have to use different attribute name
+					 */
 					if (attrs.context) {
 						attrs.mediaContext = attrs.context;
 						delete attrs.context;
