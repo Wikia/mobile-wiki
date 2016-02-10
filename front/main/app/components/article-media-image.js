@@ -21,7 +21,7 @@ export default Ember.Component.extend(
 
 		/**
 		 * Default is `article`
-		 * It can be overriden when rendering from another component, e.g. from article-media-gallery
+		 * It can be overridden when rendering from another component, e.g. from article-media-gallery
 		 */
 		itemContext: 'article',
 
