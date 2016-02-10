@@ -1,3 +1,8 @@
+<header class="sub-head">
+	<a {{action 'cancel'}} title="{{i18n 'app.cancel-label'}}" class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
+	<button {{action 'saveTemplate'}}>{{i18n 'infobox-builder:main.save'}}</button>
+	<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=(i18n 'app.curated-content-editor-main-page')}}</div>
+</header>
 <div class="infobox-builder">
 	{{#infobox-builder-wrapper}}
 		{{#each model.infoboxState as |element index|}}
