@@ -49,7 +49,8 @@ export default Ember.Component.extend(
 				const thumbParams = this.getThumbnailParams(),
 					thumbURL = Thumbnailer.getThumbURL(url, thumbParams);
 
-				this.load(thumbURL);
+				this.hideBackgroundAfterImageIsLoaded(thumbURL);
+
 				return thumbURL;
 			} else {
 				return this.emptyGif;
@@ -82,6 +83,13 @@ export default Ember.Component.extend(
 			});
 		}),
 
+		/**
+		 * @returns {void}
+		 */
+		didEnterViewport() {
+			this.set('shouldBeLoaded', true);
+		},
+
 		actions: {
 			/**
 			 * @returns {void}
@@ -95,26 +103,18 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * Set class loaded on image to hide placeholder
 		 * @param {string} url
 		 * @returns {void}
 		 */
-		load(url) {
-			if (url) {
-				const image = new Image();
+		hideBackgroundAfterImageIsLoaded(url) {
+			const image = new Image();
 
-				image.src = url;
-				image.onload = () => {
+			image.src = url;
+			image.onload = () => {
+				if (!this.get('isDestroyed')) {
 					this.set('loaded', true);
-				};
-			}
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		didEnterViewport() {
-			this.set('shouldBeLoaded', true);
+				}
+			};
 		},
 
 		/**
