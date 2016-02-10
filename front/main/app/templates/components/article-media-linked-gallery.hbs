@@ -1,4 +1,4 @@
-{{#each items as |item|}}
+{{#each itemsToRender as |item|}}
 	{{article-media-image
 		url=item.url
 		link=item.link
@@ -11,3 +11,6 @@
 		cropMode=cropMode
 	}}
 {{/each}}
+{{#if canShowMore}}
+	<button {{action 'showMore'}}>{{i18n 'app.view-more'}}</button>
+{{/if}}
