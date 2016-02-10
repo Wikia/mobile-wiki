@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+	tagName: 'header',
+	classNames: ['sub-head'],
 	actions: {
 		back() {
 			this.get('onBackArrowClick')();
