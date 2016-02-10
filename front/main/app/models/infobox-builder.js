@@ -51,19 +51,9 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		this.addToState({
 			data: {
-				alt: {
-					source: `alt${i}`,
-					data: {
-						defaultValue: i18n.t('infobox-builder:main.alt-default')
-					}
-				},
 				caption: {
-					source: `caption${i}`,
-					data: {
-						defaultValue: i18n.t('infobox-builder:main.caption-default')
-					}
-				} ,
-				defaultValue: 'path/to/image.jpg',
+					source: `caption${i}`
+				}
 			},
 			infoboxBuilderData: {
 				index: i,
