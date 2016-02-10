@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {updateTrackedUrl, trackPageView} from 'common/utils/track';
+import {track, trackActions} from 'common/utils/track';
 import ArticleDiffModel from '../models/article-diff';
 
 export default Ember.Route.extend({
@@ -16,8 +16,11 @@ export default Ember.Route.extend({
 		 * @returns {boolean}
 		 */
 		didTransition() {
-			updateTrackedUrl(window.location.href);
-			trackPageView(null);
+			track({
+				action: trackActions.impression,
+				category: 'app',
+				label: 'article-diff'
+			});
 			return true;
 		}
 	}
