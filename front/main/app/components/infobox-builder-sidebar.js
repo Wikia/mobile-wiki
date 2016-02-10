@@ -8,7 +8,7 @@ export default Ember.Component.extend({
 
 	actions: {
 		addItem(itemName) {
-			this.sendAction('addItem', itemName);
+			this.get('addItem')(itemName);
 		}
 	}
 });

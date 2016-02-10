@@ -18,6 +18,10 @@ export default Ember.Controller.extend({
 		 */
 		save() {
 			this.get('target').send('save');
+		},
+
+		addItem(type) {
+			this.get('target').send('addItem', type);
 		}
 	}
 });
