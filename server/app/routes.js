@@ -255,6 +255,15 @@ let routes,
 			config: {
 				cache: routeCacheConfig
 			}
+		},
+		{
+			method: 'GET',
+			// We don't care if there is a dynamic segment, Ember router handles that
+			path: '/infobox-builder/{ignore*}',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
 		}
 	];
 
