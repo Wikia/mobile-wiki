@@ -42,6 +42,13 @@
 	.has-caption .chevron {
 		margin-bottom: 50px;
 	}
+
+	&.is-small {
+		img {
+			width: auto;
+			height: auto;
+		}
+	}
 }
 
 .article-media-gallery {
