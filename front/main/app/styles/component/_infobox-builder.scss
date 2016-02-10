@@ -1,10 +1,19 @@
 .infobox-builder-body-wrapper {
 	.ember-container {
 		height: 100%;
+		overflow: hidden;
+
+		> div:first-child {
+			height: 100%;
+		}
 	}
 
-	.ember-view {
+	.ember-view.tv-vertical {
 		height: 100%;
+
+		> div:first-child {
+			height: 100%;
+		}
 	}
 }
 
@@ -15,10 +24,8 @@
 
 .infobox-builder-preview {
 	display: inline-block;
+	overflow: auto;
 	width: 270px;
-}
-
-.infobox-builder-preview {
 	flex-basis: 70%;
 
 	.portable-infobox {
