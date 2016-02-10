@@ -6,7 +6,7 @@ export default Ember.Route.extend({
 	 * @returns {Object} item
 	 */
 	model() {
-		return this.modelFor('curatedContentEditor').communityData;
+		return Ember.copy(this.modelFor('curatedContentEditor').communityData);
 	},
 
 	/**
@@ -27,10 +27,14 @@ export default Ember.Route.extend({
 		},
 
 		/**
+		 * @param {Ember.Object} newState
 		 * @returns {void}
 		 */
-		done() {
-			CuratedContentEditorModel.isDirty = true;
+		done(newState) {
+			CuratedContentEditorModel.updateCommunityData(
+				this.modelFor('curatedContentEditor'),
+				newState
+			);
 			this.transitionTo('curatedContentEditor.index');
 		}
 	}

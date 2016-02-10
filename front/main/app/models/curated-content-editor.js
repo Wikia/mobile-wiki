@@ -237,6 +237,16 @@ CuratedContentEditorModel.reopenClass({
 	deleteItem(parentItem, itemLabel) {
 		parentItem.items = parentItem.items.filter((item) => item.label !== itemLabel);
 		CuratedContentEditorModel.isDirty = true;
+	},
+
+	/**
+	 * @desc updates community data state
+	 * @param {Ember.Object} model
+	 * @param {Ember.Object} newState
+	 */
+	updateCommunityData(model, newState) {
+		model.communityData = newState;
+		CuratedContentEditorModel.isDirty = true;
 	}
 });
 
