@@ -1,0 +1,25 @@
+{{app-header
+	title=headerTitle
+	onBackArrowClick=cancelAction
+	onConfirmBtnClick=saveAction
+	backArrowTooltip=cancelTooltip
+	confirmBtnLabel=saveBtnLabel
+}}
+
+<div class="infobox-builder">
+	{{#infobox-builder-wrapper}}
+		{{#each state as |element index|}}
+			{{component element.infoboxBuilderData.component
+			item=element
+			position=index
+			activeItem=model.itemInEditMode
+			setEditItemAction='setEditItem'
+			}}
+		{{/each}}
+	{{/infobox-builder-wrapper}}
+
+	{{infobox-builder-sidebar
+		addItem='addItem'
+	}}
+</div>
+
