@@ -21,7 +21,7 @@ RecentWikiActivityModel.reopenClass({
 					format: 'json',
 					list: 'recentchanges',
 					rcnamespace: '0',
-					rctype: 'edit|external|new',
+					rctype: 'edit',
 					rcprop: 'user|userid|useravatar|parsedcomment|timestamp|title|ids',
 					rclimit: '50'
 				}
