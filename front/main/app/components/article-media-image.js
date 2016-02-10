@@ -14,10 +14,20 @@ export default Ember.Component.extend(
 		tagName: 'figure',
 
 		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
+
 		smallImageSize: {
 			height: 64,
-			width: 64,
+			width: 64
 		},
+
+		iconHeight: 20,
+		iconWidth: Ember.computed('iconHeight', function () {
+			const width = this.get('width'),
+				height = this.get('height'),
+				iconHeight = this.get('iconHeight');
+
+			return Math.floor(iconHeight * width / height);
+		}),
 
 		/**
 		 * Default is `article`
