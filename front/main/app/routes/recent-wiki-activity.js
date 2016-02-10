@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track, trackActions} from 'common/utils/track';
 import MetaTagsMixin from '../mixins/meta-tags';
 import RecentWikiActivityModel from '../models/recent-wiki-activity';
 
@@ -36,5 +37,19 @@ export default Ember.Route.extend(MetaTagsMixin, {
 	 */
 	model() {
 		return RecentWikiActivityModel.getRecentActivityList();
+	},
+
+	actions: {
+		/**
+		 * @returns {boolean}
+		 */
+		didTransition() {
+			track({
+				action: trackActions.impression,
+				category: 'app',
+				label: 'recent-wiki-activity'
+			});
+			return true;
+		}
 	}
 });

@@ -74,6 +74,12 @@ export default Ember.Controller.extend({
 		 */
 		showConfirmation() {
 			this.set('shouldShowUndoConfirmation', true);
+
+			track({
+				action: trackActions.open,
+				category: 'recent-wiki-activity',
+				label: 'undo-confirmation-open'
+			});
 		},
 
 		/**
@@ -82,6 +88,12 @@ export default Ember.Controller.extend({
 		 */
 		closeConfirmation() {
 			this.set('shouldShowUndoConfirmation', false);
+
+			track({
+				action: trackActions.close,
+				category: 'recent-wiki-activity',
+				label: 'undo-confirmation-close'
+			});
 		},
 	}
 });

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track, trackActions} from 'common/utils/track';
 import ArticleDiffModel from '../models/article-diff';
 
 export default Ember.Route.extend({
@@ -8,5 +9,19 @@ export default Ember.Route.extend({
 	 */
 	model(params) {
 		return ArticleDiffModel.fetch(params.oldid, params.newid);
+	},
+
+	actions: {
+		/**
+		 * @returns {boolean}
+		 */
+		didTransition() {
+			track({
+				action: trackActions.impression,
+				category: 'app',
+				label: 'article-diff'
+			});
+			return true;
+		}
 	}
 });
