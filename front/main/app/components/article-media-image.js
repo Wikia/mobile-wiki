@@ -137,7 +137,7 @@ export default Ember.Component.extend(
 				height = originalHeight;
 			} else {
 				mode = this.get('cropMode') || Thumbnailer.mode.thumbnailDown;
-				width = this.get('forceWidth') || this.get('articleContent.width');
+				width = this.get('forceWidth') || this.normalizeThumbWidth(this.get('articleContent.width'));
 				height = this.get('forceHeight') ||
 					this.calculateHeightBasedOnWidth(originalWidth, originalHeight, width);
 			}
