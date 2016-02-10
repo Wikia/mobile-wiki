@@ -1,10 +1,15 @@
 {
   "main": {
+    "sidebar-header": "Add infobox elements",
     "title-default": "Title",
     "label-default": "Label",
     "caption-default": "Caption",
     "alt-default": "Alt",
     "data-default": "Data",
+    "add-row": "Row",
+    "add-image": "Image",
+    "add-title": "Title",
+    "add-section-header": "Section Header",
     "save": "Save",
     "load-error": "Loading error"
   }
