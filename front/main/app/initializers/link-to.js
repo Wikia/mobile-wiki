@@ -16,8 +16,8 @@ export function initialize() {
 		 * @returns {boolean}
 		 */
 		_invoke(event) {
-			const action = this.get('action');
-			let trackingCategory = this.get('tracking-category'),
+			const action = this.get('action'),
+				trackingCategory = this.get('tracking-category'),
 				trackingLabel = this.get('tracking-label');
 
 			if (action) {
