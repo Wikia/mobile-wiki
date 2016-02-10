@@ -1,4 +1,8 @@
+$desktop-infobox-width: 270px;
+$padding: 15px;
+
 .infobox-builder-body-wrapper {
+	//there's no other way to set height 100% on the builder elements
 	.ember-container {
 		height: 100%;
 		overflow: hidden;
@@ -24,40 +28,32 @@
 
 .infobox-builder-preview {
 	display: inline-block;
-	overflow: auto;
-	width: 270px;
 	flex-basis: 70%;
+	overflow: auto;
+	width: $desktop-infobox-width;
 
 	.portable-infobox {
 		clear: none;
 		float: none;
 		margin: auto;
-
-		> .active {
-			border: 1px solid red;
-
-			&:last-child {
-				border: 1px solid red;
-			}
-		}
 	}
 }
 
 .infobox-builder-sidebar {
-	flex-basis: 30%;
 	box-shadow: -2px 0 6px 0 rgba(0, 0, 0, 0.2);
+	flex-basis: 30%;
 	text-align: center;
 	vertical-align: top;
 
 	.sidebar-header {
-		border-bottom: 2.2px solid #e8ecf3;
+		border-bottom: 2.2px solid $color-blue-gray-light;
 		line-height: 48px;
 	}
 }
 
 .infobox-builder-buttons {
 	display: inline-block;
-	padding: 15px;
+	padding: $padding;
 }
 
 
