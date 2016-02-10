@@ -1,27 +1,25 @@
 .infobox-builder {
-	padding: 50px;
 
 	.infobox-builder-buttons {
 		button {
 			display: block;
-			width: 250px;
 		}
 	}
 }
 
-.infobox-builder-buttons,
 .infobox-builder-preview {
 	display: inline-block;
 	width: 270px;
 }
 
 .infobox-builder-preview {
-	margin: 0 50px 0 300px;
+	display: inline-block;
+	width: 70%;
 
 	.portable-infobox {
 		clear: none;
 		float: none;
-		margin: 0;
+		margin: auto;
 
 		> .active {
 			border: 1px solid red;
@@ -32,3 +30,21 @@
 		}
 	}
 }
+
+.infobox-builder-sidebar {
+	display: inline-block;
+	width: 25%;
+	box-shadow: -2px 0 6px 0 rgba(0, 0, 0, 0.2);
+	text-align: center;
+
+	.sidebar-header {
+		border-bottom: 1px solid #e8ecf3;
+	}
+}
+
+.infobox-builder-buttons {
+	display: inline-block;
+	padding: 15px;
+}
+
+

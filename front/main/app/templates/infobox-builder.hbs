@@ -10,18 +10,8 @@
 		{{/each}}
 	{{/infobox-builder-wrapper}}
 
-	<div class="infobox-builder-buttons">
-		<button {{action 'addItem' 'data'}}>{{i18n 'infobox-builder:main.add-data'}}</button>
-		<button {{action 'addItem' 'title'}}>{{i18n 'infobox-builder:main.add-title'}}</button>
-		<button {{action 'addItem' 'image'}}>{{i18n 'infobox-builder:main.add-image'}}</button>
-		<button {{action 'saveTemplate'}}>{{i18n 'infobox-builder:main.save'}}</button>
-		<button {{action 'cancel'}}>{{i18n 'app.cancel-label'}}</button>
-	</div>
-
-	{{infobox-builder-edit-item
-		item=model.itemInEditMode
-		removeItemAction='removeItem'
-		moveItemAction='moveItem'
+	{{infobox-builder-sidebar
+		addItem='addItem'
 	}}
 </div>
 
