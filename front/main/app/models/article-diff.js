@@ -1,9 +1,7 @@
 import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
-import UserModel from './user';
 
 const ArticleDiffModel = Ember.Object.extend({
-	anonymous: null,
 	diffs: null,
 	namespace: null,
 	newid: null,
@@ -58,155 +56,54 @@ ArticleDiffModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
      */
 	fetch(oldid, newid) {
-		return ArticleDiffModel.getDiffData(oldid, newid).then((data) => {
-			return new Ember.RSVP.Promise((resolve, reject) => {
-				const page = data[Object.keys(data)[0]],
-					revision = Ember.get(page, 'revisions.firstObject'),
-					userId = revision.userid,
-					content = $(revision.diff['*']),
-					diffs = this.prepareDiff(content),
-					model = ArticleDiffModel.create({
-						diffs,
-						namespace: page.ns,
-						newid,
-						oldid,
-						pageid: page.pageid,
-						parsedcomment: revision.parsedcomment,
-						timestamp: revision.timestamp,
-						title: page.title,
-					});
-
-				/* We only want to send a request for a name and an avatar of the user
-				 * if it is not an anonymous one (userId !== 0). Otherwise, just resolve */
-				if (userId === 0) {
-					model.setProperties({
-						anonymous: true,
-						user: i18n.t('diff.anonymous', {ns: 'recent-wiki-activity'})
-					});
-					resolve(model);
-				} else {
-					UserModel.find({userId}).then((user) => {
-						model.setProperties({
-							anonymous: false,
-							user: user.name,
-							useravatar: user.avatarPath
-						});
-						resolve(model);
-					}).catch((error) => {
-						Ember.Logger.error(error);
-						reject(error);
-					});
-				}
-			});
-		});
-	},
-
-	/**
-	 * Fetches diff data from MW API
-	 * @param {number} oldid
-	 * @param {number} newid
-	 * @returns {Ember.RSVP.Promise}
-     */
-	getDiffData(oldid, newid) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.getJSON(
 				M.buildUrl({
-					path: '/api.php'
+					path: '/wikia.php'
 				}),
 				{
-					format: 'json',
-					action: 'query',
-					prop: 'revisions',
-					rvprop: 'timestamp|parsedcomment|userid',
-					revids: oldid,
-					rvdiffto: newid
+					controller: 'RevisionApi',
+					method: 'getRevisionsDiff',
+					avatar: true,
+					newId: newid,
+					oldId: oldid
 				}
-			).done((response) => {
-				const pages = Ember.get(response, 'query.pages');
+			).done(({article, revision, diffs = []}) => {
+				const diffsData = ArticleDiffModel.prepareDiffs(diffs);
 
-				resolve(pages);
+				let modelInstance = null;
+
+				if (diffs) {
+					modelInstance = ArticleDiffModel.create({
+						diffs: diffsData,
+						namespace: article.ns,
+						newid,
+						oldid,
+						pageid: article.pageId,
+						parsedcomment: revision.parsedComment,
+						timestamp: revision.timestamp,
+						title: article.title,
+						user: revision.userName,
+						useravatar: revision.userAvatar
+					});
+				}
+
+				resolve(modelInstance);
 			}).fail(reject);
 		});
 	},
 
 	/**
-	 * Transforms diff data received from API to match required format
-	 * @param {Array} content
+	 * Prepares diffs data received from API
+	 * @param {Array} diffs
 	 * @returns {Array}
      */
-	prepareDiff(content) {
-		const diffs = [], self = this;
-		let diff = [];
-
-		content.each(function () {
-			if (this.nodeType === this.ELEMENT_NODE) {
-				const $node = $(this);
-				let	$nodeDiffs, diffData, $oldDiff, $newDiff, oldDiffClass, newDiffClass;
-
-				$node.find('.diff-marker').remove();
-				$nodeDiffs = $node.children();
-				$oldDiff = $nodeDiffs.eq(0);
-				$newDiff = $nodeDiffs.eq(1);
-
-				oldDiffClass = $oldDiff.attr('class');
-
-				if (oldDiffClass === 'diff-context') {
-					diff.push({
-						content: Ember.String.htmlSafe($oldDiff.html()),
-						class: oldDiffClass
-					});
-				} else {
-					newDiffClass = $newDiff.attr('class');
-
-					diffData = self.getDiff($oldDiff, oldDiffClass, $newDiff.hasClass('diff-empty'), 'previous');
-					if (diffData) {
-						diff.push(diffData);
-					}
-
-					diffData = self.getDiff($newDiff, newDiffClass, $oldDiff.hasClass('diff-empty'), 'current');
-					if (diffData) {
-						diff.push(diffData);
-					}
-				}
-
-				if ($oldDiff.hasClass('diff-lineno')) {
-					if (diff.length) {
-						diffs.push(diff);
-					}
-					diff = [{
-						content: Ember.String.htmlSafe($oldDiff.html()),
-						class: oldDiffClass,
-						isLine: true
-					}];
-				}
-			}
+	prepareDiffs(diffs) {
+		return diffs.map((diff) => {
+			diff.classes = diff.classes.join(' ');
+			diff.content = Ember.String.htmlSafe(diff.content);
+			return diff;
 		});
-
-		if (diff.length) {
-			diffs.push(diff);
-		}
-
-		return diffs;
-	},
-
-	/**
-	 * Prepares proper diff object for line
-	 * @param {Array} diff
-	 * @param {string} diffClass
-	 * @param {boolean} allChanged
-	 * @param {string} type
-     * @returns {{content: string, class: string, allChanged: boolean}|null}
-     */
-	getDiff(diff, diffClass, allChanged) {
-		if (diffClass === 'diff-deletedline' || diffClass === 'diff-addedline') {
-			return {
-				content: Ember.String.htmlSafe(diff.html()),
-				class: diffClass,
-				allChanged
-			};
-		}
-
-		return null;
 	}
 });
 
