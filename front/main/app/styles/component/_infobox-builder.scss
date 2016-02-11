@@ -56,4 +56,28 @@ $padding: 15px;
 	padding: $padding;
 }
 
+.infobox-builder-button {
+	margin: 3px;
+	float: left;
+	width: 130px;
+	height: 100px;
+	background-color: #f9f9f9;
+	border-color: #f9f9f9;
+	border-width: 2px;
+
+}
+
+.infobox-builder-button:hover {
+  border-color: #1a5eb8;
+}
+
+.infobox-builder-button-icon {
+  width: 30px;
+  height: 20px;
+}
+
+.infobox-builder-button-label {
+  font-size: 14px;
+  color: #1a5eb8;
+}
 

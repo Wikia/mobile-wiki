@@ -1,1 +1,8 @@
-<button {{action 'addItem'}}>{{label}}</button>
+<div class="infobox-builder-button" {{action 'addItem'}}>
+	<div class="infobox-builder-button-icon">
+		{{svg 'row-block' role='img' class='infobox-builder-button-icon'}}
+	</div>
+	<div class="infobox-builder-button-label">
+		{{label}}
+	</div>
+</div>
