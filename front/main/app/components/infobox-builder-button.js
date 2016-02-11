@@ -2,11 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 	classNames: ['infobox-builder-button'],
-	label: Ember.computed('itemName', function () {
-		return i18n.t(`infobox-builder:main.add-${this.get('itemName')}`);
+	label: Ember.computed('name', function () {
+		return i18n.t(`infobox-builder:main.add-${this.get('name')}`);
 	}),
 
 	click() {
-		this.get('addItem')(this.get('itemName'));
+		this.get('onButtonClick')(this.get('name'));
 	}
 });
