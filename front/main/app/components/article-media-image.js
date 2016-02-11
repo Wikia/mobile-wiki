@@ -41,20 +41,19 @@ export default Ember.Component.extend(
 		'data-ref': Ember.computed.oneWay('ref'),
 
 		thumbnailUrl: Ember.computed('url', 'shouldBeLoaded', function () {
-			const url = this.get('url'),
-				{mode, width, height} = this.getThumbnailParams();
+			const url = this.get('url');
 
 			if (url && this.get('shouldBeLoaded')) {
-				const thumbUrl = Thumbnailer.getThumbURL(url, {
-					mode,
-					height,
-					width
-				});
+				const thumbParams = this.getThumbnailParams(),
+					thumbUrl = Thumbnailer.getThumbURL(url, thumbParams);
 
-				this.hideBackgroundAfterImageIsLoaded(thumbURL);
+				this.hideBackgroundAfterImageIsLoaded(thumbUrl);
 
 				return thumbUrl;
 			} else {
+				const width = this.get('width'),
+					height = this.get('height');
+
 				return `data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox%3D'0 0 ${width} ${height}'%2F%3E`;
 			}
 		}),
