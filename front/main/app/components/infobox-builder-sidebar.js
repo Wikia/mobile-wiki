@@ -6,6 +6,12 @@ export default Ember.Component.extend({
 	actions: {
 		addItem(itemName) {
 			this.get('addItem')(itemName);
+		},
+		removeItem(item) {
+			this.get('removeItem')(item);
+		},
+		setEditItem(item) {
+			this.get('setEditItem')(item);
 		}
 	}
 });

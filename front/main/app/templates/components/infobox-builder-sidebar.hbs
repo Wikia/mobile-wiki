@@ -1,6 +1,8 @@
 {{#if itemInEditMode.type}}
 	{{infobox-builder-edit-item
 	item=itemInEditMode
+	onBackArrowClick=setEditItem
+	onDeleteItem=removeItem
 	}}
 {{else}}
 	<div class="sidebar-header">{{i18n 'main.sidebar-header' ns='infobox-builder'}}</div>
@@ -27,4 +29,3 @@
 		}}
 	</div>
 {{/if}}
-{{yield}}

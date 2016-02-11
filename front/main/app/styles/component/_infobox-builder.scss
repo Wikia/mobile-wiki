@@ -51,6 +51,45 @@ $padding: 17px;
 	flex-basis: 30%;
 	vertical-align: top;
 
+	.edit-header {
+		border-bottom: 2px solid $color-blue-gray-light;
+		display: flex;
+		font-weight: bold;
+		line-height: 48px;
+	}
+
+	.edit-header--back {
+		order: 1;
+	}
+
+	.edit-header--delete {
+		order: 3;
+	}
+
+	.edit-header-icon {
+		align-items: center;
+		background: inherit;
+		cursor: pointer;
+		display: flex;
+		height: 50px;
+		justify-content: center;
+		width: 50px;
+
+		svg {
+			fill: $color-blue-light;
+			height: 16px;
+			width: 16px;
+		}
+	}
+
+	.edit-header--title {
+		flex: 1;
+		order: 2;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
 	.sidebar-header {
 		border-bottom: 2px solid $color-blue-gray-light;
 		font-weight: bold;

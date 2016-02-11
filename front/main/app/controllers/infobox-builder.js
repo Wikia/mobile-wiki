@@ -28,6 +28,10 @@ export default Ember.Controller.extend({
 			this.get('target').send('addItem', type);
 		},
 
+		removeItem(item) {
+			this.get('target').send('removeItem', item);
+		},
+
 		/**
 		 * @desc sends setEditItem action to route
 		 * @param {Object} item
