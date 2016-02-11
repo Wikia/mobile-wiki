@@ -43,7 +43,7 @@ import deepExtend from 'deep-extend';
  * @returns {DefaultRegistrationContext}
  */
 function getDefaultRegistrationContext(request, i18n) {
-	const lang = authUtils.isLanguageDefined(i18n.lng());
+	const lang = authUtils.getLanguageWithDefault(i18n.lng());
 
 	return deepExtend(authView.getDefaultContext(request),
 		{
@@ -101,7 +101,7 @@ function getFacebookRegistrationPage(request, reply) {
  */
 function getEmailRegistrationPage(request, reply) {
 	const i18n = request.server.methods.i18n.getInstance(),
-		lang = authUtils.isLanguageDefined(i18n.lng()),
+		lang = authUtils.getLanguageWithDefault(i18n.lng()),
 		viewType = authView.getViewType(request),
 		birthdateInput = new BirthdateInput(authLocaleSettings[lang].date.endian, lang),
 		context = deepExtend(getDefaultRegistrationContext(request, i18n),

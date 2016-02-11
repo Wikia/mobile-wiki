@@ -1,5 +1,5 @@
 import authLocaleSettings from '../../../config/authLocaleSettings';
-import {isLanguageDefined} from '../../lib/AuthUtils.js';
+import {getLanguageWithDefault} from '../../lib/AuthUtils.js';
 
 /**
  * @typedef {Object} DateEndian
@@ -45,7 +45,7 @@ export default class BirthdateInput {
 	 */
 	constructor(endian, lang) {
 		this.endian = endian;
-		this.lang = isLanguageDefined(lang);
+		this.lang = getLanguageWithDefault(lang);
 
 		const langSettings = authLocaleSettings[this.lang];
 

@@ -98,6 +98,6 @@ export function getWhoAmIUrl() {
  * @param {string} lang
  * @returns {string}
  */
-export function isLanguageDefined(lang) {
+export function getLanguageWithDefault(lang) {
 	return (authLocaleSettings.hasOwnProperty(lang)) ? lang : 'en';
 }
