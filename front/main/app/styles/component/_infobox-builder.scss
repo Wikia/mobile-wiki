@@ -81,13 +81,14 @@ $padding: 17px;
 	border: 2px solid $color-blue-light;
 
 	.infobox-builder-button-icon {
-		color: $color-blue-light;
+		fill: $color-blue-light;
 	}
 }
 
 .infobox-builder-button-icon {
 	height: 30px;
 	width: 30px;
+	fill: $color-blue-gray;
 }
 
 .infobox-builder-button-label {
