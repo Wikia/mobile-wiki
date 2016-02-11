@@ -39,7 +39,7 @@ export default Ember.Route.extend({
 	 */
 	isWikiaContext() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			var ponto = window.Ponto;
+			const ponto = window.Ponto;
 
 			ponto.setTarget(ponto.TARGET_IFRAME_PARENT, window.location.origin);
 
@@ -114,7 +114,7 @@ export default Ember.Route.extend({
 		Ember.$('body').addClass('infobox-builder-body-wrapper');
 
 		return new Ember.RSVP.Promise((resolve) => {
-			var html = '';
+			let html = '';
 
 			promiseResponseArray[0].css.forEach(
 				(url) => {
@@ -144,7 +144,7 @@ export default Ember.Route.extend({
 	 */
 	redirectToTemplatePage(title) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			var ponto = window.Ponto;
+			const ponto = window.Ponto;
 
 			ponto.invoke(
 				'wikia.infoboxBuilder.ponto',
@@ -191,7 +191,7 @@ export default Ember.Route.extend({
 		 * @param {String} type - of item type
 		*/
 		addItem(type) {
-			var model = this.modelFor('infoboxBuilder');
+			const model = this.modelFor('infoboxBuilder');
 
 			switch (type) {
 				case 'row':
@@ -211,7 +211,7 @@ export default Ember.Route.extend({
 		 * @param {DataItem|ImageItem|TitleItem} item
 		 */
 		setEditItem(item) {
-			var model = this.modelFor('infoboxBuilder');
+			const model = this.modelFor('infoboxBuilder');
 
 			model.setEditItem(item);
 		},
@@ -221,7 +221,7 @@ export default Ember.Route.extend({
 		 * @param {DataItem|ImageItem|TitleItem} item
 		 */
 		removeItem(item) {
-			var model = this.modelFor('infoboxBuilder');
+			const model = this.modelFor('infoboxBuilder');
 
 			model.removeItem(item);
 		},
@@ -232,7 +232,7 @@ export default Ember.Route.extend({
 		 * @param {DataItem|ImageItem|TitleItem} item
 		 */
 		moveItem(offset, item) {
-			var model = this.modelFor('infoboxBuilder');
+			const model = this.modelFor('infoboxBuilder');
 
 			model.moveItem(offset, item);
 		},
@@ -242,7 +242,8 @@ export default Ember.Route.extend({
 		 * on model and connect with <iframe> parent to redirect to another page.
 		 */
 		save() {
-			var model = this.modelFor('infoboxBuilder');
+			const model = this.modelFor('infoboxBuilder');
+
 			model.saveStateToTemplate().then((title) => {
 				return this.redirectToTemplatePage(title);
 			});
@@ -253,7 +254,8 @@ export default Ember.Route.extend({
 		 * Connect with <iframe> parent to redirect to another page.
 		 */
 		cancel() {
-			var title = this.modelFor('infoboxBuilder').get('title');
+			const title = this.modelFor('infoboxBuilder').get('title');
+
 			//maybe some modal "are you sure? You'll lost your work"
 			//redirect to template page
 			return this.redirectToTemplatePage(title);

@@ -23,19 +23,23 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * stable version of infobox items and params
 	 */
 	addRowItem() {
-		var itemType = 'row',
-			i = this.increaseItemIndex(itemType);
+		const itemType = 'row',
+			xmlTag = 'data',
+			index = this.increaseItemIndex(itemType);
 
 		this.addToState({
 			data: {
-				label: `${i18n.t('infobox-builder:main.label-default')} ${i}`
+				label: i18n.t('main.label-default', {
+					ns: 'infobox-builder',
+					index
+				})
 			},
 			infoboxBuilderData: {
-				index: i,
+				index,
 				component: this.createComponentName(itemType)
 			},
-			source: `${itemType}${i}`,
-			type: itemType
+			source: `${itemType}${index}`,
+			type: xmlTag
 		});
 	},
 
@@ -45,20 +49,20 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * stable version of infobox items and params
 	 */
 	addImageItem() {
-		var itemType = 'image',
-			i = this.increaseItemIndex(itemType);
+		const itemType = 'image',
+			index = this.increaseItemIndex(itemType);
 
 		this.addToState({
 			data: {
 				caption: {
-					source: `caption${i}`
+					source: `caption${index}`
 				}
 			},
 			infoboxBuilderData: {
-				index: i,
+				index,
 				component: this.createComponentName(itemType)
 			},
-			source: `image${i}`,
+			source: `image${index}`,
 			type: itemType
 		});
 	},
@@ -69,15 +73,15 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * stable version of infobox items and params
 	 */
 	addTitleItem() {
-		var itemType = 'title',
-			i = this.increaseItemIndex('title');
+		const itemType = 'title',
+			index = this.increaseItemIndex('title');
 
 		this.addToState({
 			infoboxBuilderData: {
-				index: i,
+				index,
 				component: this.createComponentName(itemType)
 			},
-			source: `title${i}`,
+			source: `title${index}`,
 			type: itemType
 		});
 	},
@@ -100,7 +104,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @returns string stringified object
 	 */
 	prepareStateForSaving(state) {
-		var plainState = state.map((item) => {
+		const plainState = state.map((item) => {
 			delete item.infoboxBuilderData;
 			return item;
 		}).toArray();
@@ -140,7 +144,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @param {DataItem|ImageItem|TitleItem} item
 	 */
 	moveItem(offset, item) {
-		var position = this.get('infoboxState').indexOf(item);
+		const position = this.get('infoboxState').indexOf(item);
 
 		if (this.isValidMove(position, offset)) {
 			this.get('infoboxState').removeAt(position);
@@ -155,7 +159,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @returns {Boolean}
 	 */
 	isValidMove(position, offset) {
-		var lastItemIndex = this.get('infoboxState').length -1,
+		const lastItemIndex = this.get('infoboxState').length -1,
 			newPosition = position + offset;
 
 		return position > 0 && offset < 0 && newPosition >= 0 ||
