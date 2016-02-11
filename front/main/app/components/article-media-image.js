@@ -10,7 +10,7 @@ export default Ember.Component.extend(
 	{
 		attributeBindings: ['data-ref'],
 		classNames: ['article-media-image'],
-		classNameBindings: ['hasCaption', 'itemType', 'isSmall', 'isIcon', 'shouldBeLoaded:loaded'],
+		classNameBindings: ['hasCaption', 'itemType', 'isSmall', 'isIcon', 'loaded'],
 		tagName: 'figure',
 
 		smallImageSize: {
@@ -45,11 +45,15 @@ export default Ember.Component.extend(
 				{mode, width, height} = this.getThumbnailParams();
 
 			if (url && this.get('shouldBeLoaded')) {
-				return Thumbnailer.getThumbURL(url, {
+				const thumbUrl = Thumbnailer.getThumbURL(url, {
 					mode,
 					height,
 					width
 				});
+
+				this.hideBackgroundAfterImageIsLoaded(thumbURL);
+
+				return thumbUrl;
 			} else {
 				return `data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox%3D'0 0 ${width} ${height}'%2F%3E`;
 			}
@@ -65,6 +69,10 @@ export default Ember.Component.extend(
 		isIcon: Ember.computed.equal('mediaContext', 'icon'),
 
 		hasCaption: Ember.computed.notEmpty('caption'),
+
+		shouldDisplayCaption: Ember.computed('hasCaption', 'isIcon', function () {
+			return this.get('hasCaption') && !this.get('isIcon');
+		}),
 
 		viewportOptionsOverride: Ember.on('didInsertElement', function () {
 			Ember.setProperties(this, {
@@ -97,22 +105,46 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		* @returns {{mode: string, width: number, height: number}}
+		 * @param {string} url
+		 * @returns {void}
+		 */
+		hideBackgroundAfterImageIsLoaded(url) {
+			const image = new Image();
+
+			image.src = url;
+			image.onload = () => {
+				if (!this.get('isDestroyed')) {
+					this.set('loaded', true);
+				}
+			};
+		},
+
+		/**
+		* @returns {{mode: string, height: number, width: number}}
 		*/
 		getThumbnailParams() {
-			let mode = this.get('cropMode') || Thumbnailer.mode.thumbnailDown,
-				width = this.get('forceWidth') || this.get('articleContent.width');
+			const originalWidth = this.get('width'),
+				originalHeight = this.get('height');
 
-			const height = this.get('forceHeight') || this.calculateHeightBasedOnWidth(
-						this.get('width'), this.get('height'), width
-					);
+			let mode,
+				height,
+				width;
 
-			if (this.get('mediaContext') === 'icon') {
+			if (this.get('isIcon')) {
 				mode = Thumbnailer.mode.scaleToWidth;
 				width = this.get('iconWidth');
+			} else if (this.get('isSmall')) {
+				mode = Thumbnailer.mode.thumbnailDown;
+				width = originalWidth;
+				height = originalHeight;
+			} else {
+				mode = this.get('cropMode') || Thumbnailer.mode.thumbnailDown;
+				width = this.get('forcedWidth') || this.normalizeThumbWidth(this.get('articleContent.width'));
+				height = this.get('forcedHeight') ||
+					this.calculateHeightBasedOnWidth(originalWidth, originalHeight, width);
 			}
 
-			return {mode, width, height};
+			return {mode, height, width};
 		},
 
 		/**
