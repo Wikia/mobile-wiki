@@ -51,10 +51,7 @@ export default Ember.Component.extend(
 
 				return thumbURL;
 			} else {
-				const width = this.get('width'),
-					height = this.get('height');
-
-				return this.getSvgPlaceholder(width, height);
+				return this.getSvgPlaceholder();
 			}
 		}),
 
@@ -104,13 +101,14 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * Returns SVG (in form of DataURI) of given width and height
+		 * Returns placeholder SVG (in form of DataURI).
 		 *
-		 * @param {number} width
-		 * @param {number} height
 		 * @returns {string}
 		 */
-		getSvgPlaceholder(width, height) {
+		getSvgPlaceholder() {
+			const width = this.get('width'),
+				height = this.get('height');
+
 			return `data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox%3D'0 0 ${width} ${height}'%2F%3E`; // eslint-disable-line max-len
 		},
 
