@@ -22,6 +22,10 @@ export default Ember.Controller.extend({
 
 		addItem(type) {
 			this.get('target').send('addItem', type);
+		},
+
+		setEditItem(item) {
+			this.get('target').send('setEditItem', item);
 		}
 	}
 });
