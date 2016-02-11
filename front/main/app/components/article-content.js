@@ -65,6 +65,7 @@ export default Ember.Component.extend(
 						.map(this.getAttributesForMedia, this)
 						.map(this.renderComponent);
 
+					this.loadIcons();
 					this.loadTableOfContentsData();
 					this.handleTables();
 					this.handleInfoboxes();
@@ -198,9 +199,25 @@ export default Ember.Component.extend(
 			return {name, attrs, element};
 		},
 
+		/**
+		 * @returns {void}
+		 */
 		destroyChildComponents() {
 			this.renderedComponents.forEach((renderedComponent) => {
 				renderedComponent.destroy();
+			});
+		},
+
+		/**
+		 * Creating components for small icons isn't good solution because of performance overhead
+		 * Putting all icons in HTML isn't good solution neither because there are articles with a lot of them
+		 * Thus we load them all after the article is rendered
+		 *
+		 * @returns {void}
+		 */
+		loadIcons() {
+			this.$('.article-media-icon[data-src]').each(function () {
+				this.src = this.getAttribute('data-src');
 			});
 		},
 
