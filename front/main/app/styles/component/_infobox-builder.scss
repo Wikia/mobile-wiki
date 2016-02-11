@@ -66,7 +66,7 @@ $padding: 17px;
 
 .infobox-builder-button {
 	align-items: center;
-	background-color: $snow;
+	background-color: $color-gray-light;
 	display: flex;
 	float: left;
 	flex-direction: column;
@@ -92,9 +92,9 @@ $padding: 17px;
 }
 
 .infobox-builder-button-label {
-	margin-top: 10px;
 	color: $color-blue-light;
 	font-size: 14px;
+	margin-top: 10px;
 }
 
 
