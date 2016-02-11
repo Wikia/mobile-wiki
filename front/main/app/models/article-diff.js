@@ -18,6 +18,10 @@ const ArticleDiffModel = Ember.Object.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	undo(summary) {
+		// Fall back to empty array for falsy summary provided to make MW add default summary
+		if (!summary) {
+			summary = [];
+		}
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			getEditToken(this.title)
 				.then((token) => {
@@ -56,7 +60,7 @@ ArticleDiffModel.reopenClass({
 	 * @param {number} oldid
 	 * @param {number} newid
 	 * @returns {Ember.RSVP.Promise}
-     */
+	 */
 	fetch(oldid, newid) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.getJSON(
@@ -99,7 +103,7 @@ ArticleDiffModel.reopenClass({
 	 * Prepares diffs data received from API
 	 * @param {Array} diffs
 	 * @returns {Array}
-     */
+	 */
 	prepareDiffs(diffs) {
 		return diffs.map((diff) => {
 			diff.classes = diff.classes.join(' ');

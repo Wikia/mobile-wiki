@@ -30,7 +30,7 @@ export default Ember.Component.extend(
 		shouldDisplayRecentWikiActivity: Ember.computed(() => {
 			const enabled = [41727, 1306324];
 
-			return (enabled.indexOf(Ember.get(Mercury, 'wiki.id')) >= 0);
+			return enabled.indexOf(Ember.get(Mercury, 'wiki.id')) >= 0;
 		}),
 
 		actions: {
