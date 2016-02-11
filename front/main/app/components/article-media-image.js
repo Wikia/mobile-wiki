@@ -146,9 +146,9 @@ export default Ember.Component.extend(
 		 * @returns {number}
 		 */
 		calculateHeightBasedOnWidth(originalWidth, originalHeight, width) {
-			const aspectRatio = originalWidth / originalHeight;
+			const scale = originalWidth / width;
 
-			return Math.floor(width * aspectRatio);
+			return Math.floor(originalHeight / scale);
 		},
 
 		/**
