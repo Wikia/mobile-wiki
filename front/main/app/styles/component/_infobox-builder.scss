@@ -1,5 +1,5 @@
 $desktop-infobox-width: 270px;
-$padding: 17px;
+$padding: 12px;
 
 .infobox-builder-body-wrapper {
 	//there's no other way to set height 100% on the builder elements
@@ -30,7 +30,7 @@ $padding: 17px;
 
 .infobox-builder-preview {
 	display: inline-block;
-	flex-basis: 70%;
+	flex-grow: 1;
 	overflow: auto;
 	padding: 40px 0;
 	width: $desktop-infobox-width;
@@ -48,7 +48,7 @@ $padding: 17px;
 
 .infobox-builder-sidebar {
 	box-shadow: -2px 0 6px 0 rgba(0, 0, 0, 0.2);
-	flex-basis: 30%;
+	flex-basis: 296px;
 	vertical-align: top;
 
 	.edit-header {
