@@ -1,10 +1,10 @@
 {{#if link}}
 	<a href="{{link}}" {{action 'clickLinkedImage'}}>
-		<img src="{{thumbnailUrl}}">
+		<img src="{{thumbnailUrl}}" height="{{height}}" width="{{width}}">
 		{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
 	</a>
 {{else}}
-	<img src="{{thumbnailUrl}}" data-ref={{ref}} data-gallery-ref={{galleryRef}}>
+	<img src="{{thumbnailUrl}}" height="{{height}}" width="{{width}}" data-ref={{ref}} data-gallery-ref={{galleryRef}}>
 {{/if}}
 {{#if shouldDisplayCaption}}
 	<figcaption>{{{caption}}}</figcaption>
