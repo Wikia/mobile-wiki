@@ -10,22 +10,13 @@ export default Ember.Component.extend(
 	{
 		attributeBindings: ['data-ref'],
 		classNames: ['article-media-image'],
-		classNameBindings: ['hasCaption', 'itemType', 'isSmall', 'isIcon', 'loaded'],
+		classNameBindings: ['hasCaption', 'itemType', 'isSmall', 'loaded'],
 		tagName: 'figure',
 
 		smallImageSize: {
 			height: 64,
 			width: 64
 		},
-
-		iconHeight: 20,
-		iconWidth: Ember.computed('iconHeight', function () {
-			const width = this.get('width'),
-				height = this.get('height'),
-				iconHeight = this.get('iconHeight');
-
-			return Math.floor(iconHeight * width / height);
-		}),
 
 		/**
 		 * Default is `article`
@@ -62,13 +53,7 @@ export default Ember.Component.extend(
 			return imageWidth < this.smallImageSize.width || imageHeight < this.smallImageSize.height;
 		}),
 
-		isIcon: Ember.computed.equal('mediaContext', 'icon'),
-
 		hasCaption: Ember.computed.notEmpty('caption'),
-
-		shouldDisplayCaption: Ember.computed('hasCaption', 'isIcon', function () {
-			return this.get('hasCaption') && !this.get('isIcon');
-		}),
 
 		viewportOptionsOverride: Ember.on('didInsertElement', function () {
 			Ember.setProperties(this, {
@@ -138,10 +123,7 @@ export default Ember.Component.extend(
 				height,
 				width;
 
-			if (this.get('isIcon')) {
-				mode = Thumbnailer.mode.scaleToWidth;
-				width = this.get('iconWidth');
-			} else if (this.get('isSmall')) {
+			if (this.get('isSmall')) {
 				mode = Thumbnailer.mode.thumbnailDown;
 				width = originalWidth;
 				height = originalHeight;
