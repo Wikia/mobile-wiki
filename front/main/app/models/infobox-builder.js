@@ -11,7 +11,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 	/**
 	 * @desc add item to infobox state
-	 * @param {DataItem|TitleItem|ImageItem} object
+	 * @param {DataItem|TitleItem|ImageItem} objec
+	 * @returns {void}
 	 */
 	addToState(object) {
 		this.get('infoboxState').pushObject(object);
@@ -21,6 +22,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @desc add <data> item
 	 * addItem's methods can be refactored when figure out
 	 * stable version of infobox items and params
+	 * @returns {void}
 	 */
 	addRowItem() {
 		const itemType = 'row',
@@ -47,6 +49,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @desc add <image> item
 	 * addItem's methods can be refactored when figure out
 	 * stable version of infobox items and params
+	 * @returns {void}
 	 */
 	addImageItem() {
 		const itemType = 'image',
@@ -71,6 +74,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @desc add <title> item
 	 * addItem's methods can be refactored when figure out
 	 * stable version of infobox items and params
+	 * @returns {void}
 	 */
 	addTitleItem() {
 		const itemType = 'title',
@@ -124,6 +128,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	/**
 	 * @desc sets item to the edit mode
 	 * @param {DataItem|ImageItem|TitleItem} item
+	 * @returns {void}
 	 */
 	setEditItem(item) {
 		this.set('itemInEditMode', item);
@@ -132,6 +137,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	/**
 	 * @desc removes item from state for given position
 	 * @param {DataItem|ImageItem|TitleItem} item
+	 * @returns {void}
 	 */
 	removeItem(item) {
 		this.get('infoboxState').removeObject(item);
@@ -142,6 +148,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @desc moves item in infoboxState by given offset
 	 * @param {Number} offset
 	 * @param {DataItem|ImageItem|TitleItem} item
+	 * @returns {void}
 	 */
 	moveItem(offset, item) {
 		const position = this.get('infoboxState').indexOf(item);
@@ -168,6 +175,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 	/**
 	 * @desc resets item in edit mode and its position to null
+	 * @returns {void}
 	 */
 	resetEditMode() {
 		this.set('itemInEditMode', null);
@@ -175,6 +183,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 	/**
 	 * @desc setup infobox builder initial state
+	 * @returns {void}
 	 */
 	setupInitialState() {
 		this.addTitleItem();

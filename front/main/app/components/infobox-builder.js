@@ -6,7 +6,7 @@ export default Ember.Component.extend({
 		ns: 'infobox-builder'
 	}),
 
-	headerTitle: Ember.computed('title', function() {
+	headerTitle: Ember.computed('title', function () {
 		return i18n.t('main.header', {
 			ns: 'infobox-builder',
 			title: this.get('title')

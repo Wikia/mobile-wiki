@@ -13,12 +13,19 @@ export default Ember.Route.extend({
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
 				Ember.RSVP.Promise.all([
-						this.loadAssets(),
-						this.loadPonto()
-					])
-					.then(this.setupStyles)
-					.then(this.isWikiaContext)
-					.then(() => {resolve()}, () => {reject()});
+					this.loadAssets(),
+					this.loadPonto()
+				])
+				.then(this.setupStyles)
+				.then(this.isWikiaContext)
+				.then(
+					() => {
+						resolve();
+					},
+					() => {
+						reject();
+					}
+				);
 			} else {
 				reject();
 			}
@@ -208,7 +215,7 @@ export default Ember.Route.extend({
 
 		/**
 		 * @desc Handles setting item to edit mode and calls proper function on model
-		 * @param {DataItem|ImageItem|TitleItem} item
+		 * @param {Object} item
 		 */
 		setEditItem(item) {
 			const model = this.modelFor('infoboxBuilder');
@@ -218,7 +225,7 @@ export default Ember.Route.extend({
 
 		/**
 		 * @desc Handles removing item and calls proper function on model
-		 * @param {DataItem|ImageItem|TitleItem} item
+		 * @param {Object} item
 		 */
 		removeItem(item) {
 			const model = this.modelFor('infoboxBuilder');
@@ -229,7 +236,7 @@ export default Ember.Route.extend({
 		/**
 		 * @desc Handles moving item in the state and calls proper function on model
 		 * @param {Number} offset
-		 * @param {DataItem|ImageItem|TitleItem} item
+		 * @param {Object} item
 		 */
 		moveItem(offset, item) {
 			const model = this.modelFor('infoboxBuilder');

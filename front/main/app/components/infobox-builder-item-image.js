@@ -13,7 +13,7 @@ export default Ember.Component.extend(
 		caption: i18n.t('infobox-builder:main.caption-default'),
 
 		videoClasses: Ember.computed(function () {
-			return this.get('isVideo') ? 'video video-thumbnail small' : ''
+			return this.get('isVideo') ? 'video video-thumbnail small' : '';
 		})
 	}
 );
