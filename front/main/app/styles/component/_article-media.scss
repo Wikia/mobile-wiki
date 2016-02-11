@@ -14,7 +14,7 @@
 
 	img {
 		display: inline-block;
-		width: auto;
+		width: 100%;
 
 		@extend %image-placeholder;
 	}
@@ -23,6 +23,12 @@
 		img {
 			animation: lazyImage .3s;
 			background: none;
+		}
+	}
+
+	&.is-small {
+		img {
+			width: auto;
 		}
 	}
 

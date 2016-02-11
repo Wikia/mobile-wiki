@@ -46,11 +46,11 @@ export default Ember.Component.extend(
 			}
 		}),
 
+		/**
+		 * Check if image width is smaller than article container
+		 */
 		isSmall: Ember.computed('width', 'height', function () {
-			const imageWidth = this.get('width'),
-				imageHeight = this.get('height');
-
-			return imageWidth < this.smallImageSize.width || imageHeight < this.smallImageSize.height;
+			return this.get('width') <= this.get('articleContent.width');
 		}),
 
 		hasCaption: Ember.computed.notEmpty('caption'),
@@ -117,18 +117,16 @@ export default Ember.Component.extend(
 		*/
 		getThumbnailParams() {
 			const originalWidth = this.get('width'),
-				originalHeight = this.get('height');
+				originalHeight = this.get('height'),
+				mode = this.get('cropMode') || Thumbnailer.mode.thumbnailDown;
 
-			let mode,
-				height,
+			let height,
 				width;
 
 			if (this.get('isSmall')) {
-				mode = Thumbnailer.mode.thumbnailDown;
 				width = originalWidth;
 				height = originalHeight;
 			} else {
-				mode = this.get('cropMode') || Thumbnailer.mode.thumbnailDown;
 				width = this.get('forcedWidth') || this.normalizeThumbWidth(this.get('articleContent.width'));
 				height = this.get('forcedHeight') ||
 					this.calculateHeightBasedOnWidth(originalWidth, originalHeight, width);
