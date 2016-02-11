@@ -28,6 +28,11 @@ export default Ember.Controller.extend({
 			this.get('target').send('addItem', type);
 		},
 
+		/**
+		 * @desc sends removeItem action to route
+		 * @param {Object} item
+		 * @returns {void}
+		 */
 		removeItem(item) {
 			this.get('target').send('removeItem', item);
 		},
