@@ -286,9 +286,9 @@ export class WikiRequest extends BaseRequest {
 /**
  * Gets article data
  *
- * @class ArticleRequest
+ * @class MediaWikiPageRequest
  */
-export class ArticleRequest extends BaseRequest {
+export class MediaWikiPageRequest extends BaseRequest {
 	/**
 	 * Fetch article data
 	 *

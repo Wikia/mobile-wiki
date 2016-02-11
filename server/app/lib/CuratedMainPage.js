@@ -5,7 +5,7 @@ import logger from './Logger';
 import localSettings from '../../config/localSettings';
 
 /**
- * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and ArticleRequestHelper
+ * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and MediaWikiPageRequestHelper
  * Commoon part should be extracted and moved to new class WikiaRequestHelper(?)
  */
 
@@ -52,7 +52,7 @@ export class CuratedMainPageRequestHelper {
 	 */
 	getWikiVariablesAndDetails() {
 		const requests = [
-			new MediaWiki.ArticleRequest(this.params).mainPageDetailsAndAdsContext(),
+			new MediaWiki.MediaWikiPageRequest(this.params).mainPageDetailsAndAdsContext(),
 			new MediaWiki.WikiRequest({
 				wikiDomain: this.params.wikiDomain
 			}).wikiVariables()

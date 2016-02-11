@@ -1,4 +1,4 @@
-import {ArticleRequest} from '../../lib/MediaWiki';
+import {MediaWikiPageRequest} from '../../lib/MediaWiki';
 import {getCachedWikiDomainName} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
 import getStatusCode from '../operations/getStatusCode';
@@ -19,7 +19,7 @@ export default function get(request, reply) {
 		offset: request.query.offset || ''
 	};
 
-	new ArticleRequest(params)
+	new MediaWikiPageRequest(params)
 		.category(params.categoryName, params.thumbSize, params.offset)
 		.then(reply)
 		/**

@@ -1,4 +1,4 @@
-import * as Article from '../lib/Article';
+import * as MediaWikiPage from '../lib/MediaWikiPage';
 import disableCache from '../lib/Caching';
 import {getCachedWikiDomainName, getCDNBaseUrl, getHtmlTitle} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
@@ -62,9 +62,9 @@ export default function articlePreview(request, reply) {
 			CKmarkup: request.payload.CKmarkup || '',
 			title: request.payload.title || ''
 		},
-		article = new Article.ArticleRequestHelper(params);
+		mediaWikiPageHelper = new MediaWikiPage.MediaWikiPageRequestHelper(params);
 
-	article.getArticleFromMarkup()
+	mediaWikiPageHelper.getArticleFromMarkup()
 		.then((payload) => {
 			const content = JSON.parse(payload);
 			let articleData,

@@ -1,4 +1,4 @@
-import {ArticleRequest} from '../../lib/MediaWiki';
+import {MediaWikiPageRequest} from '../../lib/MediaWiki';
 import {getCachedWikiDomainName} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
 import getStatusCode from '../operations/getStatusCode';
@@ -14,7 +14,7 @@ export default function get(request, reply) {
 		sectionName: decodeURIComponent(request.params.sectionName) || null
 	};
 
-	new ArticleRequest(params)
+	new MediaWikiPageRequest(params)
 		.curatedContentSection(params.sectionName)
 		.then(reply)
 		/**

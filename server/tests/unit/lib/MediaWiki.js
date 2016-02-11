@@ -26,7 +26,7 @@ QUnit.test('createURL', function (assert) {
 QUnit.test('Constructors', function (assert) {
 	var testCases = [
 		{
-			name: 'ArticleRequest',
+			name: 'MediaWikiPageRequest',
 			data: {
 				title: 'title',
 				name: 'name'

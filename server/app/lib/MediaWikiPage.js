@@ -5,14 +5,14 @@ import logger from './Logger';
 import localSettings from '../../config/localSettings';
 
 /**
- * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and ArticleRequestHelper
+ * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and MediaWikiPageRequestHelper
  * Common part should be extracted and moved to new class WikiaRequestHelper(?)
  */
 
 /**
- * @class ArticleRequestError
+ * @class MediaWikiPageRequestError
  */
-export class ArticleRequestError {
+export class MediaWikiPageRequestError {
 	/**
 	 * @param {ArticlePageData} data
 	 * @returns {void}
@@ -22,15 +22,15 @@ export class ArticleRequestError {
 		this.data = data;
 	}
 }
-ArticleRequestError.prototype = Object.create(Error.prototype);
+MediaWikiPageRequestError.prototype = Object.create(Error.prototype);
 
 /**
- * @class ArticleRequestHelper
- * @property {ArticleRequestParams} params
+ * @class MediaWikiPageRequestHelper
+ * @property {mediaWikiPageRequestParams} params
  */
-export class ArticleRequestHelper {
+export class MediaWikiPageRequestHelper {
 	/**
-	 * @param {ArticleRequestParams} params
+	 * @param {mediaWikiPageRequestParams} params
 	 * @returns {void}
 	 */
 	constructor(params) {
@@ -52,7 +52,7 @@ export class ArticleRequestHelper {
 	 */
 	getFull() {
 		const requests = [
-			new MediaWiki.ArticleRequest(this.params)
+			new MediaWiki.MediaWikiPageRequest(this.params)
 				.article(this.params.title, this.params.redirect, this.params.sections),
 			new MediaWiki.WikiRequest({
 				wikiDomain: this.params.wikiDomain
@@ -77,19 +77,19 @@ export class ArticleRequestHelper {
 			 * @returns {void}
 			 */
 			.then((results) => {
-				const articlePromise = results[0],
+				const mediaWikiPagePromise = results[0],
 					wikiVariablesPromise = results[1],
-					isArticlePromiseFulfilled = articlePromise.isFulfilled(),
+					isMediaWikiPagePromiseFulfilled = mediaWikiPagePromise.isFulfilled(),
 					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled();
 
-				let article,
+				let mediaWikiPage,
 					wikiVariables,
 					data;
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
-				article = isArticlePromiseFulfilled ?
-					articlePromise.value() :
-					articlePromise.reason();
+				mediaWikiPage = isMediaWikiPagePromiseFulfilled ?
+					mediaWikiPagePromise.value() :
+					mediaWikiPagePromise.reason();
 
 				wikiVariables = isWikiVariablesPromiseFulfilled ?
 					wikiVariablesPromise.value() :
@@ -100,16 +100,16 @@ export class ArticleRequestHelper {
 				}
 
 				data = {
-					article,
+					article: mediaWikiPage,
 					server: createServerData(localSettings, this.params.wikiDomain),
 					wikiVariables
 				};
 
-				if (isArticlePromiseFulfilled && article) {
+				if (isMediaWikiPagePromiseFulfilled && mediaWikiPage) {
 					return resolve(data);
 				} else {
 					// Even if article promise failed we want to display app using the rest of data
-					return reject(new ArticleRequestError(data));
+					return reject(new MediaWikiPageRequestError(data));
 				}
 			});
 	}
@@ -133,11 +133,11 @@ export class ArticleRequestHelper {
 	 * @returns {Promise<ArticleResponse>}
 	 */
 	getArticleFromMarkup() {
-		const articleRequest = new MediaWiki.ArticleRequest(this.params);
+		const mediaWikiPageRequest = new MediaWiki.MediaWikiPageRequest(this.params);
 
 		logger.debug(this.params, 'Fetching article from markup');
 
-		return articleRequest.articleFromMarkup(this.params.title, this.params.wikitext, this.params.CKmarkup);
+		return mediaWikiPageRequest.articleFromMarkup(this.params.title, this.params.wikitext, this.params.CKmarkup);
 	}
 
 	/**
@@ -146,20 +146,20 @@ export class ArticleRequestHelper {
 	 * @returns {Promise<ArticleResponse>}
 	 */
 	getArticle() {
-		const articleRequest = new MediaWiki.ArticleRequest(this.params);
+		const mediaWikiPageRequest = new MediaWiki.MediaWikiPageRequest(this.params);
 
 		logger.debug(this.params, 'Fetching article');
 
-		return articleRequest.article(this.params.title, this.params.redirect, this.params.sections);
+		return mediaWikiPageRequest.article(this.params.title, this.params.redirect, this.params.sections);
 	}
 
 	/**
 	 * @returns {Promise}
 	 */
 	getArticleRandomTitle() {
-		const articleRequest = new MediaWiki.ArticleRequest(this.params);
+		const mediaWikiPageRequest = new MediaWiki.MediaWikiPageRequest(this.params);
 
-		return articleRequest
+		return mediaWikiPageRequest
 			.randomTitle()
 			/**
 			 * @param {*} result

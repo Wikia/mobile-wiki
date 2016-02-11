@@ -1,4 +1,4 @@
-import * as Article from '../lib/Article';
+import * as MediaWikiPage from '../lib/MediaWikiPage';
 import {WikiVariablesRequestError} from '../lib/MediaWiki';
 import setResponseCaching, * as Caching from '../lib/Caching';
 import Logger from '../lib/Logger';
@@ -21,7 +21,7 @@ const cachingTimes = {
  * This is used only locally, normally MediaWiki takes care of this redirect
  *
  * @param {Hapi.Response} reply
- * @param {ArticleRequestHelper} article
+ * @param {MediaWikiPageRequestHelper} article
  * @returns {void}
  */
 function redirectToMainPage(reply, article) {
@@ -84,11 +84,11 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
  *
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
- * @param {ArticleRequestHelper}article
+ * @param {MediaWikiPageRequestHelper} article
  * @param {boolean} allowCache
  * @returns {void}
  */
-function getArticle(request, reply, article, allowCache) {
+function getMediaWikiPage(request, reply, article, allowCache) {
 	article
 		.getFull()
 		/**
@@ -111,11 +111,11 @@ function getArticle(request, reply, article, allowCache) {
 		 * @param {*} error
 		 * @returns {void}
 		 */
-		.catch(Article.ArticleRequestError, (error) => {
+		.catch(MediaWikiPage.MediaWikiPageRequestError, (error) => {
 			const data = error.data,
 				errorCode = getStatusCode(data.article, 500);
 
-			Logger.error(data.article.exception, 'Article error');
+			Logger.error(data.article.exception, 'MediaWikiPage error');
 
 			// It's possible that the article promise is rejected but we still want to redirect to canonical host
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
@@ -146,7 +146,7 @@ function getArticle(request, reply, article, allowCache) {
  * @param {Hapi.Response} reply
  * @returns {void}
  */
-export default function showArticle(request, reply) {
+export default function mediaWikiPageHandler(request, reply) {
 	const path = request.path,
 		wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
 		params = {
@@ -154,7 +154,7 @@ export default function showArticle(request, reply) {
 			redirect: request.query.redirect
 		};
 
-	let article,
+	let mediaWikiPageHelper,
 		allowCache = true;
 
 	// @todo This is really only a temporary check while we see if loading a smaller
@@ -171,12 +171,12 @@ export default function showArticle(request, reply) {
 		allowCache = false;
 	}
 
-	article = new Article.ArticleRequestHelper(params);
+	mediaWikiPageHelper = new MediaWikiPage.MediaWikiPageRequestHelper(params);
 
 	if (path === '/' || path === '/wiki/') {
-		redirectToMainPage(reply, article);
+		redirectToMainPage(reply, mediaWikiPageHelper);
 	} else {
-		article.setTitle(request.params.title);
-		getArticle(request, reply, article, allowCache);
+		mediaWikiPageHelper.setTitle(request.params.title);
+		getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache);
 	}
 }

@@ -1,4 +1,4 @@
-import * as Article from '../../lib/Article';
+import * as Article from '../../lib/MediaWikiPage';
 import setResponseCaching, * as Caching from '../../lib/Caching';
 import {getCachedWikiDomainName} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
@@ -60,7 +60,7 @@ export default function get(request, reply) {
 		allowCache = false;
 	}
 
-	article = new Article.ArticleRequestHelper(params);
+	article = new Article.MediaWikiPageRequestHelper(params);
 
 	if (isRequestForRandomTitle(request.query)) {
 		article
