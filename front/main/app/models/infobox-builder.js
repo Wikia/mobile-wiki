@@ -11,7 +11,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 	/**
 	 * @desc add item to infobox state
-	 * @param {DataItem|TitleItem|ImageItem} objec
+	 * @param {Object} object
 	 * @returns {void}
 	 */
 	addToState(object) {
@@ -105,7 +105,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * client side so remove it and wrap result as data object of the main infobox tag
 	 *
 	 * @param {Em.Array} state
-	 * @returns string stringified object
+	 * @returns {String} stringified object
 	 */
 	prepareStateForSaving(state) {
 		const plainState = state.map((item) => {
@@ -166,7 +166,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @returns {Boolean}
 	 */
 	isValidMove(position, offset) {
-		const lastItemIndex = this.get('infoboxState').length -1,
+		const lastItemIndex = this.get('infoboxState').length - 1,
 			newPosition = position + offset;
 
 		return position > 0 && offset < 0 && newPosition >= 0 ||
