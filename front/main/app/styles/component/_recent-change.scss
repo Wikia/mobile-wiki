@@ -12,6 +12,7 @@
 
 	.avatar-username {
 		font-size: $type-min;
+		max-width: 120px;
 	}
 }
 
@@ -44,6 +45,7 @@
 .recent-change__see-diff {
 	height: 48px;
 	line-height: 48px;
+	margin-top: 6px;
 	position: absolute;
 	right: 0;
 	text-align: center;
