@@ -2,6 +2,7 @@
   "main": {
     "header": "Editing: __title__",
     "sidebar-header": "Add infobox elements",
+    "title-use-article-name": "Use article name",
     "title-default": "Title __index__",
     "label-default": "Label __index__",
     "caption-default": "Example caption",

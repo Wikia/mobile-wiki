@@ -1,30 +1,29 @@
 {{#if itemInEditMode.type}}
 	{{infobox-builder-edit-item
-	item=itemInEditMode
+		item=itemInEditMode
 	}}
 {{else}}
 	<div class="sidebar-header">{{i18n 'main.sidebar-header' ns='infobox-builder'}}</div>
 	<div class="infobox-builder-buttons">
 		{{infobox-builder-button
-		itemName='row'
-		image='row-block'
-		addItem=addItem
+			itemName='row'
+			image='row-block'
+			addItem=addItem
 		}}
 		{{infobox-builder-button
-		itemName='title'
-		image='title-block'
-		addItem=addItem
+			itemName='title'
+			image='title-block'
+			addItem=addItem
 		}}
 		{{infobox-builder-button
-		itemName='image'
-		image='image-block'
-		addItem=addItem
+			itemName='image'
+			image='image-block'
+			addItem=addItem
 		}}
 		{{infobox-builder-button
-		itemName='section-header'
-		image='section-block'
-		addItem=addItem
+			itemName='section-header'
+			image='section-block'
+			addItem=addItem
 		}}
 	</div>
 {{/if}}
-{{yield}}

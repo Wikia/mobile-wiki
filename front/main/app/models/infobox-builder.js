@@ -77,6 +77,9 @@ const InfoboxBuilderModel = Ember.Object.extend({
 			index = this.increaseItemIndex('title');
 
 		this.addToState({
+			data: {
+				default: ''
+			},
 			infoboxBuilderData: {
 				index,
 				component: this.createComponentName(itemType)
