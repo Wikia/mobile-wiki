@@ -58,7 +58,8 @@ export default Ember.Route.extend({
 					if (data && data.isWikiaContext && data.isLoggedIn) {
 						resolve();
 					} else {
-						// TODO: show message that no permissions
+						// TODO: show message that no permissions part of
+						// TODO: https://wikia-inc.atlassian.net/browse/DAT-3757
 					}
 				},
 				function (data) {
