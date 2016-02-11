@@ -7,4 +7,3 @@ export default Ember.Component.extend(
 		value: Ember.computed.oneWay('item.data.defaultValue')
 	}
 );
-

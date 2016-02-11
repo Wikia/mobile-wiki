@@ -1,7 +1,19 @@
 <div class="sidebar-header">{{i18n 'main.sidebar-header' ns='infobox-builder'}}</div>
 <div class="infobox-builder-buttons">
-	<button {{action 'addItem' 'data'}}>{{i18n 'main.add-row' ns='infobox-builder'}}</button>
-	<button {{action 'addItem' 'title'}}>{{i18n 'main.add-image' ns='infobox-builder'}}</button>
-	<button {{action 'addItem' 'image'}}>{{i18n 'main.add-title' ns='infobox-builder'}}</button>
-	<button {{action 'addItem' 'section-header'}}>{{i18n 'main.add-section-header' ns='infobox-builder'}}</button>
+	{{infobox-builder-button
+		itemName='row'
+		addItem=addItem
+	}}
+	{{infobox-builder-button
+		itemName='title'
+		addItem=addItem
+	}}
+	{{infobox-builder-button
+		itemName='image'
+		addItem=addItem
+	}}
+	{{infobox-builder-button
+		itemName='section-header'
+		addItem=addItem
+	}}
 </div>
