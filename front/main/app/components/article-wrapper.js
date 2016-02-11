@@ -282,16 +282,12 @@ export default Ember.Component.extend(
 			if (mediaRef >= 0) {
 				Ember.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 
-				if (!$mediaElement.hasClass('is-small') && !$mediaElement.parent().hasClass('is-small')) {
-					media = this.get('model.media');
-					this.sendAction('openLightbox', 'media', {
-						media,
-						mediaRef,
-						galleryRef
-					});
-				} else {
-					Ember.Logger.debug('Image too small to open in lightbox', target);
-				}
+				media = this.get('model.media');
+				this.sendAction('openLightbox', 'media', {
+					media,
+					mediaRef,
+					galleryRef
+				});
 
 				if (galleryRef >= 0) {
 					track({
