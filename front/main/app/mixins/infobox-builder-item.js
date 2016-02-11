@@ -5,11 +5,8 @@ export default Ember.Mixin.create({
 	active: Ember.computed('item', 'activeItem', function() {
 		return this.get('item') === this.get('activeItem');
 	}),
-	activeClass: Ember.computed('item', 'activeItem', function() {
-		return this.get('item') === this.get('activeItem') ? 'active' : '';
-	}),
 
 	click() {
-		this.sendAction('setEditItemAction', this.get('item'));
+		this.get('setEditItem')(this.get('item'));
 	}
 });

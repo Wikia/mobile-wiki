@@ -39,6 +39,10 @@ $padding: 17px;
 		clear: none;
 		float: none;
 		margin: auto;
+
+		.active {
+			border: 2px solid $color-blue-light;
+		}
 	}
 }
 
