@@ -1,3 +1,8 @@
+## release-209 (2016-02-11 16:49 UTC)
+* [XW-608](https://wikia-inc.atlassian.net/browse/XW-608) XW-608 clean up prepare* functions
+* [SOC-1945](https://wikia-inc.atlassian.net/browse/SOC-1945) SOC-1945 | Links in discussion replies are now clickable
+* [SOC-1967](https://wikia-inc.atlassian.net/browse/SOC-1967) SOC-1967 | Remove inherited line-height from auth-footer-link
+
 ## release-208 (2016-02-09 12:07 UTC)
 * [SOC-1907](https://wikia-inc.atlassian.net/browse/SOC-1907) SOC-1907 FE | As a mobile web user, I want to see a filter icon and a new post list menu
 * [XW-1007](https://wikia-inc.atlassian.net/browse/XW-1007) XW-1076 | Implement prerender.io on 10 communities
