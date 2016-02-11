@@ -7,9 +7,7 @@ export default Ember.Component.extend({
 		return i18n.t(`infobox-builder:main.add-${this.get('itemName')}`)
 	}),
 
-	actions: {
-		addItem() {
-			this.get('addItem')(this.get('itemName'));
-		}
+	click(){
+		this.get('addItem')(this.get('itemName'));
 	}
 });

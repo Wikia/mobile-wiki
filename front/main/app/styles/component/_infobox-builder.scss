@@ -71,21 +71,21 @@ $padding: 17px;
 	width: 130px;
 	height: 100px;
 	background-color: #f9f9f9;
-	border-color: #f9f9f9;
-	border-width: 2px;
-
 }
 
 .infobox-builder-button:hover {
-  border-color: #1a5eb8;
+  border: 2px solid #1a5eb8;
 }
 
 .infobox-builder-button-icon {
+  margin-top: 30px;
+  margin-left: 25px;
   width: 30px;
-  height: 20px;
+  height: 30px;
 }
 
 .infobox-builder-button-label {
+  margin-bottom: 16.6px;
   font-size: 14px;
   color: #1a5eb8;
 }
