@@ -13,8 +13,6 @@ export default Ember.Component.extend(
 		classNameBindings: ['hasCaption', 'itemType', 'isSmall', 'isIcon', 'shouldBeLoaded:loaded'],
 		tagName: 'figure',
 
-		emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',
-
 		smallImageSize: {
 			height: 64,
 			width: 64
