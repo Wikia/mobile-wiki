@@ -46,9 +46,9 @@ test('checks if moving item in infoboxState by given offset is valid', function 
 		];
 
 	// add 3 items to infobox state
-	model.addDataItem();
-	model.addDataItem();
-	model.addDataItem();
+	model.addRowItem();
+	model.addRowItem();
+	model.addRowItem();
 
 	cases.forEach(function (testCase) {
 		equal(model.isValidMove(testCase.position, testCase.offset), testCase.result);

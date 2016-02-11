@@ -194,8 +194,8 @@ export default Ember.Route.extend({
 			var model = this.modelFor('infoboxBuilder');
 
 			switch (type) {
-				case 'data':
-					model.addDataItem();
+				case 'row':
+					model.addRowItem();
 					break;
 				case 'title':
 					model.addTitleItem();

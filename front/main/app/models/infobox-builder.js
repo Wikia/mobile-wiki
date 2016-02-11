@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 const InfoboxBuilderModel = Ember.Object.extend({
 	_itemIndex: {
-		data: 0,
+		row: 0,
 		image: 0,
 		title: 0
 	},
@@ -22,20 +22,19 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * addItem's methods can be refactored when figure out
 	 * stable version of infobox items and params
 	 */
-	addDataItem() {
-		var itemType = 'data',
-			i = this.increaseItemIndex('data');
+	addRowItem() {
+		var itemType = 'row',
+			i = this.increaseItemIndex(itemType);
 
 		this.addToState({
 			data: {
-				defaultValue: `${i18n.t('infobox-builder:main.data-default')} ${i}`,
 				label: `${i18n.t('infobox-builder:main.label-default')} ${i}`
 			},
 			infoboxBuilderData: {
 				index: i,
 				component: this.createComponentName(itemType)
 			},
-			source: `data${i}`,
+			source: `${itemType}${i}`,
 			type: itemType
 		});
 	},
@@ -176,7 +175,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	setupInitialState() {
 		this.addTitleItem();
 		this.addImageItem();
-		this.addDataItem();
+		this.addRowItem();
 	},
 
 	/**
