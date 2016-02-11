@@ -1,3 +1,5 @@
+/* globals getLanguageWithDefault:true */
+
 QUnit.module('lib/AuthUtils');
 
 QUnit.test('getLanguageWithDefault', function (assert) {
