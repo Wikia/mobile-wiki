@@ -62,31 +62,39 @@ $padding: 17px;
 .infobox-builder-buttons {
 	display: inline-block;
 	padding: $padding;
-	text-align: center;
 }
 
 .infobox-builder-button {
-	margin: 3px;
+	align-items: center;
+	background-color: $snow;
+	display: flex;
 	float: left;
-	width: 130px;
+	flex-direction: column;
 	height: 100px;
-	background-color: #f9f9f9;
+	justify-content: center;
+	margin: 3px;
+	padding: 10px;
+	width: 130px;
 }
 
 .infobox-builder-button:hover {
-  border: 2px solid #1a5eb8;
+	border: 2px solid $color-blue-light;
+
+	.infobox-builder-button-icon {
+		color: $color-blue-light;
+	}
 }
 
 .infobox-builder-button-icon {
-  margin-top: 30px;
-  margin-left: 25px;
-  width: 30px;
-  height: 30px;
+	height: 30px;
+	width: 30px;
 }
 
 .infobox-builder-button-label {
-  margin-bottom: 16.6px;
-  font-size: 14px;
-  color: #1a5eb8;
+	margin-top: 10px;
+	color: $color-blue-light;
+	font-size: 14px;
 }
+
+
 
