@@ -6,7 +6,6 @@ export default Ember.Component.extend(
 	{
 		tagName: 'figure',
 		classNames: ['pi-item', 'pi-image'],
-		url: '',
 		thumbnail: '/front/common/images/infobox-builder-image-placeholder.png',
 		width: 270,
 		height: 152,
