@@ -45,11 +45,11 @@ export default Ember.Component.extend(
 
 			if (url && this.get('shouldBeLoaded')) {
 				const thumbParams = this.getThumbnailParams(),
-					thumbUrl = Thumbnailer.getThumbURL(url, thumbParams);
+					thumbURL = Thumbnailer.getThumbURL(url, thumbParams);
 
-				this.hideBackgroundAfterImageIsLoaded(thumbUrl);
+				this.hideBackgroundAfterImageIsLoaded(thumbURL);
 
-				return thumbUrl;
+				return thumbURL;
 			} else {
 				const width = this.get('width'),
 					height = this.get('height');
