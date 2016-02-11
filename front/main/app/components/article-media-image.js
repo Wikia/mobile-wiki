@@ -178,18 +178,21 @@ export default Ember.Component.extend(
 		 */
 		normalizeThumbWidth(width) {
 			const thumbSize = {
-				small: 340,
-				medium: 660,
-				large: 900
+				small: 284,
+				medium: 340,
+				large: 732,
+				maximum: 985
 			};
 
 			if (width <= thumbSize.small) {
 				return thumbSize.small;
 			} else if (width <= thumbSize.medium) {
 				return thumbSize.medium;
+			} else if (width <= thumbSize.large) {
+				return thumbSize.large;
 			}
 
-			return thumbSize.large;
+			return thumbSize.maximum;
 		},
 	}
 );
