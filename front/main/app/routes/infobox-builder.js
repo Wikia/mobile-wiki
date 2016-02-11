@@ -13,12 +13,19 @@ export default Ember.Route.extend({
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
 				Ember.RSVP.Promise.all([
-						this.loadAssets(),
-						this.loadPonto()
-					])
-					.then(this.setupStyles)
-					.then(this.isWikiaContext)
-					.then(() => {resolve()}, () => {reject()});
+					this.loadAssets(),
+					this.loadPonto()
+				])
+				.then(this.setupStyles)
+				.then(this.isWikiaContext)
+				.then(
+					() => {
+						resolve();
+					},
+					() => {
+						reject();
+					}
+				);
 			} else {
 				reject();
 			}
@@ -51,7 +58,8 @@ export default Ember.Route.extend({
 					if (data && data.isWikiaContext && data.isLoggedIn) {
 						resolve();
 					} else {
-						// TODO: show message that no permissions
+						// TODO: show message that no permissions part of
+						// TODO: https://wikia-inc.atlassian.net/browse/DAT-3757
 					}
 				},
 				function (data) {
@@ -103,7 +111,7 @@ export default Ember.Route.extend({
 	},
 
 	/**
-	 * add oasis portable infobox styles to DOM
+	 * @desc add oasis portable infobox styles to DOM
 	 * and add class to main application body to be
 	 * able to style whole containter as we want
 	 *
@@ -118,7 +126,7 @@ export default Ember.Route.extend({
 
 			promiseResponseArray[0].css.forEach(
 				(url) => {
-					html += `<link type="text/css" rel="stylesheet" href="${url}">`
+					html += `<link type="text/css" rel="stylesheet" href="${url}">`;
 				}
 			);
 
@@ -131,6 +139,7 @@ export default Ember.Route.extend({
 	/**
 	 * @desc shows error message for ponto communication
 	 * @param {String} message - error message
+	 * @returns {void}
 	 */
 	showPontoError(message) {
 		if (window.console) {
@@ -141,6 +150,7 @@ export default Ember.Route.extend({
 	/**
 	 * @desc connects with ponto and redirects to template page
 	 * @param {String} title - title of the template
+	 * @returns Ember.RSVP.Promise
 	 */
 	redirectToTemplatePage(title) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
@@ -150,10 +160,10 @@ export default Ember.Route.extend({
 				'wikia.infoboxBuilder.ponto',
 				'redirectToTemplatePage',
 				title,
-				function(data) {
+				function (data) {
 					resolve(data);
 				},
-				function(data) {
+				function (data) {
 					reject(data);
 					this.showPontoError(data);
 				},
@@ -163,7 +173,7 @@ export default Ember.Route.extend({
 	},
 
 	actions: {
-		error: (error, transition) => {
+		error: (error) => {
 			this.controllerFor('application').addAlert({
 				message: i18n.t('infobox-builder:main.load-error'),
 				type: 'alert'
@@ -176,6 +186,9 @@ export default Ember.Route.extend({
 			return true;
 		},
 
+		/**
+		 * @returns {Boolean}
+		 */
 		didTransition() {
 			// InfoboxBuilderRoute works in "fullPage mode" (unlike ArticleRoute) which means that it takes
 			// over whole page (so navigation, share feature, etc. are not displayed). To understand
@@ -189,26 +202,30 @@ export default Ember.Route.extend({
 		 * @desc Handles the add data, image or title button and call the proper
 		 * function on model.
 		 * @param {String} type - of item type
+		 * @returns {void}
 		*/
 		addItem(type) {
 			const model = this.modelFor('infoboxBuilder');
 
 			switch (type) {
-				case 'row':
-					model.addRowItem();
-					break;
-				case 'title':
-					model.addTitleItem();
-					break;
-				case 'image':
-					model.addImageItem();
-					break;
+			case 'row':
+				model.addRowItem();
+				break;
+			case 'title':
+				model.addTitleItem();
+				break;
+			case 'image':
+				model.addImageItem();
+				break;
+			default:
+				break;
 			}
 		},
 
 		/**
 		 * @desc Handles setting item to edit mode and calls proper function on model
-		 * @param {DataItem|ImageItem|TitleItem} item
+		 * @param {Object} item
+		 * @returns {void}
 		 */
 		setEditItem(item) {
 			const model = this.modelFor('infoboxBuilder');
@@ -218,7 +235,8 @@ export default Ember.Route.extend({
 
 		/**
 		 * @desc Handles removing item and calls proper function on model
-		 * @param {DataItem|ImageItem|TitleItem} item
+		 * @param {Object} item
+		 * @returns {void}
 		 */
 		removeItem(item) {
 			const model = this.modelFor('infoboxBuilder');
@@ -229,7 +247,8 @@ export default Ember.Route.extend({
 		/**
 		 * @desc Handles moving item in the state and calls proper function on model
 		 * @param {Number} offset
-		 * @param {DataItem|ImageItem|TitleItem} item
+		 * @param {Object} item
+		 * @returns {void}
 		 */
 		moveItem(offset, item) {
 			const model = this.modelFor('infoboxBuilder');
@@ -240,6 +259,7 @@ export default Ember.Route.extend({
 		/**
 		 * @desc Handles the save template button, calls the proper function
 		 * on model and connect with <iframe> parent to redirect to another page.
+		 * @returns {void}
 		 */
 		save() {
 			const model = this.modelFor('infoboxBuilder');
@@ -252,6 +272,7 @@ export default Ember.Route.extend({
 		/**
 		 * @desc Handles the cancel button click.
 		 * Connect with <iframe> parent to redirect to another page.
+		 * @returns {void}
 		 */
 		cancel() {
 			const title = this.modelFor('infoboxBuilder').get('title');

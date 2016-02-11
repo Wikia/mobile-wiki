@@ -5,6 +5,7 @@ export default Ember.Component.extend(
 	InfoboxBuilderItemMixin, {
 		tagName: 'h2',
 		classNames:['pi-item', 'pi-item-spacing', 'pi-title'],
+
 		value: Ember.computed('item.{infoboxBuilderData.index,data.default}', function() {
 			const defaultValue = this.get('item.data.default');
 
@@ -17,4 +18,3 @@ export default Ember.Component.extend(
 		})
 	}
 );
-

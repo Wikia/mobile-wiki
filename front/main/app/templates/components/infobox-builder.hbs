@@ -1,9 +1,9 @@
 {{app-header
-	title=headerTitle
+	title=(i18n 'main.header' ns='infobox-builder' title=title)
 	onBackArrowClick=cancelAction
 	onConfirmBtnClick=saveAction
-	backArrowTooltip=cancelTooltip
-	confirmBtnLabel=saveBtnLabel
+	backArrowTooltip=(i18n 'app.cancel-label')
+	confirmBtnLabel=(i18n 'main.save' ns='infobox-builder')
 	fixed=true
 }}
 
@@ -21,6 +21,8 @@
 
 	{{infobox-builder-sidebar
 		addItem=addItem
+		removeItem=removeItem
 		itemInEditMode=activeItem
+		setEditItem=setEditItem
 	}}
 </div>

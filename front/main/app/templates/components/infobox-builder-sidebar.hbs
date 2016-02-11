@@ -1,29 +1,18 @@
 {{#if itemInEditMode.type}}
 	{{infobox-builder-edit-item
 		item=itemInEditMode
+		onBackArrowClick=setEditItem
+		onDeleteItem=removeItem
 	}}
 {{else}}
 	<div class="sidebar-header">{{i18n 'main.sidebar-header' ns='infobox-builder'}}</div>
 	<div class="infobox-builder-buttons">
-		{{infobox-builder-button
-			itemName='row'
-			image='row-block'
-			addItem=addItem
-		}}
-		{{infobox-builder-button
-			itemName='title'
-			image='title-block'
-			addItem=addItem
-		}}
-		{{infobox-builder-button
-			itemName='image'
-			image='image-block'
-			addItem=addItem
-		}}
-		{{infobox-builder-button
-			itemName='section-header'
-			image='section-block'
-			addItem=addItem
-		}}
+		{{#each buttons as |button|}}
+			{{infobox-builder-button
+				name=button.name
+				icon=button.icon
+				onButtonClick=addItem
+			}}
+		{{/each}}
 	</div>
 {{/if}}

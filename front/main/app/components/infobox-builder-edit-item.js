@@ -7,7 +7,10 @@ export default Ember.Component.extend({
 
 	actions: {
 		removeItem() {
-			this.sendAction('removeItemAction', this.get('item'));
+			this.get('onDeleteItem')(this.get('item'));
+		},
+		back() {
+			this.get('onBackArrowClick')();
 		}
 	}
 });

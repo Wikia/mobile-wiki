@@ -1,5 +1,5 @@
 $desktop-infobox-width: 270px;
-$padding: 17px;
+$padding: 12px;
 
 .infobox-builder-body-wrapper {
 	//there's no other way to set height 100% on the builder elements
@@ -30,7 +30,7 @@ $padding: 17px;
 
 .infobox-builder-preview {
 	display: inline-block;
-	flex-basis: 70%;
+	flex-grow: 1;
 	overflow: auto;
 	padding: 40px 0;
 	width: $desktop-infobox-width;
@@ -48,8 +48,47 @@ $padding: 17px;
 
 .infobox-builder-sidebar {
 	box-shadow: -2px 0 6px 0 rgba(0, 0, 0, 0.2);
-	flex-basis: 30%;
+	flex-basis: 296px;
 	vertical-align: top;
+
+	.edit-header {
+		border-bottom: 2px solid $color-blue-gray-light;
+		display: flex;
+		font-weight: bold;
+		line-height: 48px;
+	}
+
+	.edit-header--back {
+		order: 1;
+	}
+
+	.edit-header--delete {
+		order: 3;
+	}
+
+	.edit-header-icon {
+		align-items: center;
+		background: inherit;
+		cursor: pointer;
+		display: flex;
+		height: 50px;
+		justify-content: center;
+		width: 50px;
+
+		svg {
+			fill: $color-blue-light;
+			height: 16px;
+			width: 16px;
+		}
+	}
+
+	.edit-header--title {
+		flex: 1;
+		order: 2;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 
 	.sidebar-header {
 		border-bottom: 2px solid $color-blue-gray-light;
@@ -66,7 +105,7 @@ $padding: 17px;
 
 .infobox-builder-button {
 	align-items: center;
-	background-color: $snow;
+	background-color: $color-gray-light;
 	display: flex;
 	float: left;
 	flex-direction: column;
@@ -81,19 +120,20 @@ $padding: 17px;
 	border: 2px solid $color-blue-light;
 
 	.infobox-builder-button-icon {
-		color: $color-blue-light;
+		fill: $color-blue-light;
 	}
 }
 
 .infobox-builder-button-icon {
 	height: 30px;
 	width: 30px;
+	fill: $color-blue-gray;
 }
 
 .infobox-builder-button-label {
-	margin-top: 10px;
 	color: $color-blue-light;
 	font-size: 14px;
+	margin-top: 10px;
 }
 
 .sidebar-edit-area {
@@ -101,6 +141,7 @@ $padding: 17px;
 }
 
 .infobox-builder-questionmark {
+	float: right;
 
 	svg {
 		height: 24px;

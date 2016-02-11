@@ -13,17 +13,35 @@ export default Ember.Controller.extend({
 
 		/**
 		 * Bubbles up to InfoboxBuilder Route
-		 *
 		 * @returns {void}
 		 */
 		save() {
 			this.get('target').send('save');
 		},
 
+		/**
+		 * @desc sends addItem action to route
+		 * @param {String} type
+		 * @returns {void}
+		 */
 		addItem(type) {
 			this.get('target').send('addItem', type);
 		},
 
+		/**
+		 * @desc sends removeItem action to route
+		 * @param {Object} item
+		 * @returns {void}
+		 */
+		removeItem(item) {
+			this.get('target').send('removeItem', item);
+		},
+
+		/**
+		 * @desc sends setEditItem action to route
+		 * @param {Object} item
+		 * @returns {void}
+		 */
 		setEditItem(item) {
 			this.get('target').send('setEditItem', item);
 		}
