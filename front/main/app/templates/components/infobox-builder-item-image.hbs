@@ -1,20 +1,18 @@
 {{!
-	This template is linked with of app/extensions/wikia/PortableInfobox/templates/PortableInfoboxItemImage.mustache
-	Changing this template requires modifying the other in app repo.
+	This component template and its JS logic part are linked with of app/extensions/wikia/PortableInfobox/templates/PortableInfoboxItemImage.mustache
+	Changing them requires modifying the other in app repo.
 }}
 
-<figure class="pi-item pi-image {{activeClass}}" {{action 'itemClicked'}}>
-	<a href="{{url}}" class="image image-thumbnail {{videoClasses}}"
-		title="{{alt}}">
-		<img src="{{thumbnail}}" class="pi-image-thumbnail" alt="{{alt}}" width="{{width}}" height="{{height}}" />
-		{{#if isVideo}}
-			{{#if duration}}
-				<span class="duration" itemprop="duration">{{duration}}</span>
-			{{/if}}
-			<span class="play-circle"></span>
+<a href="{{url}}" class="image image-thumbnail {{videoClasses}}"
+	title="{{alt}}">
+	<img src="{{thumbnail}}" class="pi-image-thumbnail" alt="{{alt}}" width="{{width}}" height="{{height}}" />
+	{{#if isVideo}}
+		{{#if duration}}
+			<span class="duration" itemprop="duration">{{duration}}</span>
 		{{/if}}
-    </a>
+		<span class="play-circle"></span>
+	{{/if}}
+</a>
 {{#if caption}}
 	<figcaption class="pi-item-spacing pi-caption">{{caption}}</figcaption>
 {{/if}}
-</figure>
