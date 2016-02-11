@@ -6,7 +6,7 @@ export default Ember.Component.extend(
 	{
 		tagName: '',
 		url: '',
-		thumbnail: 'http://images.fanpop.com/images/image_uploads/Kermit-the-Frog-the-muppets-121870_500_325.jpg',
+		thumbnail: '/front/common/images/infobox-builder-image-placeholder.png',
 		width: 270,
 		height: 152,
 		caption: i18n.t('infobox-builder:main.caption-default'),
