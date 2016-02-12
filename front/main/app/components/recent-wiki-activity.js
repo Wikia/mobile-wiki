@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	didInsertElement() {
+	didRender() {
 		const recentChangeId = this.get('rc');
 
 		if (recentChangeId) {
