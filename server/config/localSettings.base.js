@@ -303,7 +303,7 @@ const localSettings = {
 			url: 'https://services.wikia.com/clickstream/events/social'
 		}
 	},
-	translationFiles: ['main', 'discussion', 'image-review']
+	translationFiles: ['main', 'discussion', 'image-review', 'recent-wiki-activity']
 };
 
 /**
