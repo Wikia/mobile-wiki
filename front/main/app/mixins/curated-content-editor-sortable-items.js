@@ -6,11 +6,7 @@ export default Ember.Mixin.create(
 	TrackClickMixin,
 	{
 		persistentSort: false,
-		sortableItems: Ember.computed('model.items', function () {
-			const items = this.get('model.items') || [];
-
-			return Ember.A().pushObjects(items);
-		}),
+		sortableItems: Ember.computed.reads('model.items'),
 
 		actions: {
 			/**
