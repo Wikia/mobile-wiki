@@ -4,8 +4,6 @@ export default Ember.Component.extend({
 	didInsertElement() {
 		const recentChangeId = this.get('rc');
 
-		this.renderRun = true;
-
 		if (recentChangeId) {
 			const $recentChange = $(`#${recentChangeId}`);
 
