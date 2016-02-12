@@ -82,12 +82,12 @@ export class MediaWikiPageRequestHelper {
 					isMediaWikiPagePromiseFulfilled = mediaWikiPagePromise.isFulfilled(),
 					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled();
 
-				let mediaWikiPage,
+				let page,
 					wikiVariables,
 					data;
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
-				mediaWikiPage = isMediaWikiPagePromiseFulfilled ?
+				page = isMediaWikiPagePromiseFulfilled ?
 					mediaWikiPagePromise.value() :
 					mediaWikiPagePromise.reason();
 
@@ -100,12 +100,12 @@ export class MediaWikiPageRequestHelper {
 				}
 
 				data = {
-					page: mediaWikiPage,
+					article: page,
 					server: createServerData(localSettings, this.params.wikiDomain),
 					wikiVariables
 				};
 
-				if (isMediaWikiPagePromiseFulfilled && mediaWikiPage) {
+				if (isMediaWikiPagePromiseFulfilled && page) {
 					return resolve(data);
 				} else {
 					// Even if article promise failed we want to display app using the rest of data
