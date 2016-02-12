@@ -5,7 +5,7 @@ export default Ember.Component.extend({
 		const recentChangeId = this.get('rc');
 
 		if (recentChangeId) {
-			const $recentChange = $('#' + recentChangeId);
+			const $recentChange = $(`#${recentChangeId}`);
 
 			if ($recentChange) {
 				const navHeight = this.get('siteHeadPinned') ? $('.site-head').outerHeight() : 0,

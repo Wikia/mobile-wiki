@@ -39,7 +39,7 @@ RecentWikiActivityModel.reopenClass({
 	prepareTimestamps(recentChanges) {
 		return recentChanges.map((recentChange) => {
 			recentChange.timestamp = new Date(recentChange.timestamp).getTime() / 1000;
-			recentChange.id = recentChange.revid + '-' + recentChange.old_revid;
+			recentChange.id = `${recentChange.revid}-${recentChange.old_revid}`;
 			return recentChange;
 		});
 	}
