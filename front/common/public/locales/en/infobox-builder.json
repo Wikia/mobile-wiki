@@ -13,6 +13,7 @@
     "add-title": "Title",
     "add-section-header": "Section Header",
     "save": "Save",
-    "load-error": "Loading error"
+    "load-error": "Loading error",
+    "edit-image-item-description": "Placeholder text for editing image description"
   }
 }
