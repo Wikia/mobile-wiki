@@ -4,20 +4,22 @@ import {track, trackActions} from 'common/utils/track';
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
 	shouldShowUndoConfirmation: false,
+	currRecentChangeId: null,
 
 	/**
 	 * @returns {void}
 	 */
 	handleUndoSuccess() {
-		this.transitionToRoute('recent-wiki-activity').then(() => {
-			this.get('application').addAlert({
-				message: i18n.t('main.undo-success', {
-					pageTitle: this.get('model.title'),
-					ns: 'recent-wiki-activity'
-				}),
-				type: 'success'
+		this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}})
+			.then(() => {
+				this.get('application').addAlert({
+					message: i18n.t('main.undo-success', {
+						pageTitle: this.get('model.title'),
+						ns: 'recent-wiki-activity'
+					}),
+					type: 'success'
+				});
 			});
-		});
 
 		track({
 			action: trackActions.impression,

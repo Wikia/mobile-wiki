@@ -16,6 +16,15 @@
 	}
 }
 
+.current-change {
+	background-color: #1A5EB8;
+	bottom: 0;
+	height: 5px;
+	left: 0;
+	position: absolute;
+	width: 100%;
+}
+
 .recent-change__time-ago {
 	color: $color-blue-gray-dark;
 

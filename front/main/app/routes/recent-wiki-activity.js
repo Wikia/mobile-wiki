@@ -48,6 +48,19 @@ export default Ember.Route.extend(MetaTagsMixin, {
 				label: 'recent-wiki-activity'
 			});
 			return true;
+		},
+
+		willTransition(transition) {
+			if (transition.targetName === 'articleDiff') {
+				const diff = transition.params.articleDiff,
+					id = `${diff.newid}-${diff.oldid}`,
+					query = `?rc=${id}`;
+
+				this.controllerFor('articleDiff').set('currRecentChangeId', id);
+
+				// TODO: let's rethink this approach to preserve scroll position state
+				window.history.replaceState({}, null, query);
+			}
 		}
 	}
 });

@@ -1,5 +1,5 @@
 <header class="sub-head">
-	{{#link-to 'recent-wiki-activity'
+	{{#link-to 'recent-wiki-activity' (query-params rc=model.id)
 		class="sub-head--cancel"
 		tracking-category='recent-wiki-activity'
 		tracking-label='article-diff__go-back'
@@ -9,7 +9,7 @@
 	<div class="sub-head--title">{{i18n 'main.title' ns='recent-wiki-activity'}}</div>
 </header>
 
-{{recent-change model=model showDiffLink=showDiffLink}}
+{{recent-change model=model showDiffLink=showDiffLink id=model.id}}
 
 <div class="diff-page-legend">
 	<span class="diff-page-legend__previous"></span>
