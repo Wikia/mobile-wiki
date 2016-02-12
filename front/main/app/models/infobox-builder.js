@@ -182,6 +182,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		this.addTitleItem();
 		this.addImageItem();
 		this.addRowItem();
+		this.addRowItem();
 	},
 
 	/**
