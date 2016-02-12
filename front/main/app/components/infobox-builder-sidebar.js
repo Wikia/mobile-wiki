@@ -14,10 +14,12 @@ export default Ember.Component.extend({
 		{
 			name: 'image',
 			icon: 'image-block'
-		},
-		{
-			name: 'section-header',
-			icon: 'section-block'
 		}
+		// will this infobox item will be added as part of DAT-3711
+		// https://wikia-inc.atlassian.net/browse/DAT-3711
+		// {
+		//	name: 'section-header',
+		//	icon: 'section-block'
+		// }
 	]
 });
