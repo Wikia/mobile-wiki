@@ -65,21 +65,17 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	let result, response;
 
 	switch (data.ns) {
-		// disable so we won't blow (for NOW)
-		//case MediaWikiNamespace.MAIN:
-		default:
-			result = prepareArticleData(request, data);
+	case MediaWikiNamespace.MAIN:
+	// use default, so we won't blow (for NOW)
+	default:
+		result = prepareArticleData(request, data);
 
-			// mainPageData is set only on curated main pages - only then we should do some special preparation for data
-			if (data.article.data && data.article.data.isMainPage && data.article.data.mainPageData) {
-				result = deepExtend(prepareArticleData(request, data), prepareMainPageData(data));
-				delete result.adsContext;
-			}
-			break;
-		// case MediaWikiNamespace.CATEGORY:
-		//default:
-			// unsupported page type
-			// prepare article data, so we won't blow (for NOW)
+		// mainPageData is set only on curated main pages - only then we should do some special preparation for data
+		if (data.article.data && data.article.data.isMainPage && data.article.data.mainPageData) {
+			result = deepExtend(prepareArticleData(request, data), prepareMainPageData(data));
+			delete result.adsContext;
+		}
+		break;
 	}
 
 	// pass on what namespace we currently are

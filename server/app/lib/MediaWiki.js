@@ -42,8 +42,8 @@ export const MediaWikiNamespace = {
 	HELP_TALK: 13,
 	CATEGORY: 14,
 	CATEGORY_TALK: 15,
-	IMAGE: 6, // same as FILE
-	IMAGE_TALK: 7 // same as FILE_TALK
+	IMAGE: 6,
+	IMAGE_TALK: 7
 };
 
 /**
