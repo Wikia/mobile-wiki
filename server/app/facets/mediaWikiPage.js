@@ -21,11 +21,11 @@ const cachingTimes = {
  * This is used only locally, normally MediaWiki takes care of this redirect
  *
  * @param {Hapi.Response} reply
- * @param {MediaWikiPageRequestHelper} article
+ * @param {MediaWikiPageRequestHelper} mediaWikiPageHelper
  * @returns {void}
  */
-function redirectToMainPage(reply, article) {
-	article
+function redirectToMainPage(reply, mediaWikiPageHelper) {
+	mediaWikiPageHelper
 		.getWikiVariables()
 		/**
 		 * @param {*} wikiVariables
@@ -84,12 +84,12 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
  *
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
- * @param {MediaWikiPageRequestHelper} article
+ * @param {MediaWikiPageRequestHelper} mediaWikiPageHelper
  * @param {boolean} allowCache
  * @returns {void}
  */
-function getMediaWikiPage(request, reply, article, allowCache) {
-	article
+function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
+	mediaWikiPageHelper
 		.getFull()
 		/**
 		 * @param {ArticlePageData} data

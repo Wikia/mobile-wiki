@@ -64,7 +64,8 @@ export default function articlePreview(request, reply) {
 		},
 		mediaWikiPageHelper = new MediaWikiPage.MediaWikiPageRequestHelper(params);
 
-	mediaWikiPageHelper.getArticleFromMarkup()
+	mediaWikiPageHelper
+		.getArticleFromMarkup()
 		.then((payload) => {
 			const content = JSON.parse(payload);
 			let articleData,

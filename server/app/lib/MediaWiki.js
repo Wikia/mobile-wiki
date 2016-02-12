@@ -297,7 +297,7 @@ export class MediaWikiPageRequest extends BaseRequest {
 	 * @param {string} [sections]
 	 * @returns {Promise}
 	 */
-	article(title, redirect, sections) {
+	page(title, redirect, sections) {
 		const urlParams = {
 			controller: 'MercuryApi',
 			method: 'getArticle',

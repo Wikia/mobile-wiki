@@ -53,7 +53,7 @@ export class MediaWikiPageRequestHelper {
 	getFull() {
 		const requests = [
 			new MediaWiki.MediaWikiPageRequest(this.params)
-				.article(this.params.title, this.params.redirect, this.params.sections),
+				.page(this.params.title, this.params.redirect, this.params.sections),
 			new MediaWiki.WikiRequest({
 				wikiDomain: this.params.wikiDomain
 			}).wikiVariables()
@@ -150,7 +150,7 @@ export class MediaWikiPageRequestHelper {
 
 		logger.debug(this.params, 'Fetching article');
 
-		return mediaWikiPageRequest.article(this.params.title, this.params.redirect, this.params.sections);
+		return mediaWikiPageRequest.page(this.params.title, this.params.redirect, this.params.sections);
 	}
 
 	/**
