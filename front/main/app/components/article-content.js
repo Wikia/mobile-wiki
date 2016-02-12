@@ -50,7 +50,7 @@ export default Ember.Component.extend(
 				return ImageMediaComponent.create();
 			}
 		},
-		articleContentObserver: Ember.observer('content', function () {
+		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
 			const content = this.get('content');
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
@@ -76,7 +76,7 @@ export default Ember.Component.extend(
 				this.injectAds();
 				this.setupAdsContext(this.get('adsContext'));
 			});
-		}).on('init'),
+		})),
 
 		headerObserver: Ember.observer('headers', function () {
 			if (this.get('contributionEnabled')) {
