@@ -18,14 +18,7 @@ export default Ember.Route.extend({
 				])
 				.then(this.setupStyles)
 				.then(this.isWikiaContext)
-				.then(
-					() => {
-						resolve();
-					},
-					() => {
-						reject();
-					}
-				);
+				.then(resolve, reject);
 			} else {
 				reject();
 			}
@@ -93,9 +86,7 @@ export default Ember.Route.extend({
 						reject('Invalid data was returned from Infobox Builder API');
 					}
 				},
-				error: (data) => {
-					reject(data);
-				}
+				error: (data) => reject(data)
 			});
 		});
 	},
