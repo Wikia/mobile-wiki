@@ -4,7 +4,7 @@ export default Ember.Component.extend({
 	editPanelOption: Ember.computed('item.type', function () {
 		return `infobox-builder-edit-item-${this.get('item.type')}`;
 	}),
-	header: Ember.computed('item.{label,type,value,data.default,infoboxBuilderData.index}', function () {
+	header: Ember.computed('item.{data.label,type,value,data.default,infoboxBuilderData.index}', function () {
 		let header;
 
 		switch(this.get('item.type')) {
@@ -12,11 +12,11 @@ export default Ember.Component.extend({
 			header = this.get('item.data.default') ||
 				i18n.t('main.title-default', {
 					ns: 'infobox-builder',
-					index: this.get('item.infoboxBuilderData.index')
+			 		index: this.get('item.infoboxBuilderData.index')
 				});
 			break;
 		case 'row':
-			header = this.get('item.label');
+			header = this.get('item.data.label');
 			break;
 		case 'image':
 			header = i18n.t('main.image-default', {
