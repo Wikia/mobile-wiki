@@ -27,9 +27,9 @@
 	{{#if asyncArticle}}
 		M.prop('asyncArticle', {{asyncArticle}});
 	{{/if}}
-	{{#if article}}
+	{{#if page}}
 		M.prop('articleContentPreloadedInDOM', true, true);
-		M.provide('article', {{{json article}}});
+		M.provide('article', {{{json page}}});
 	{{/if}}
 	{{#if mainPageData}}
 		M.prop('mainPageData', {{{json mainPageData}}});

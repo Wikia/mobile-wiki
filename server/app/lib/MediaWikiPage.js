@@ -26,11 +26,11 @@ MediaWikiPageRequestError.prototype = Object.create(Error.prototype);
 
 /**
  * @class MediaWikiPageRequestHelper
- * @property {mediaWikiPageRequestParams} params
+ * @property {MediaWikiPageRequestParams} params
  */
 export class MediaWikiPageRequestHelper {
 	/**
-	 * @param {mediaWikiPageRequestParams} params
+	 * @param {MediaWikiPageRequestParams} params
 	 * @returns {void}
 	 */
 	constructor(params) {
@@ -59,7 +59,7 @@ export class MediaWikiPageRequestHelper {
 			}).wikiVariables()
 		];
 
-		logger.debug(this.params, 'Fetching wiki variables and article');
+		logger.debug(this.params, 'Fetching wiki variables and mediawiki page');
 
 		/**
 		 * @see https://github.com/petkaantonov/bluebird/blob/master/API.md#settle---promise
@@ -100,7 +100,7 @@ export class MediaWikiPageRequestHelper {
 				}
 
 				data = {
-					article: mediaWikiPage,
+					page: mediaWikiPage,
 					server: createServerData(localSettings, this.params.wikiDomain),
 					wikiVariables
 				};
@@ -148,7 +148,7 @@ export class MediaWikiPageRequestHelper {
 	getArticle() {
 		const mediaWikiPageRequest = new MediaWiki.MediaWikiPageRequest(this.params);
 
-		logger.debug(this.params, 'Fetching article');
+		logger.debug(this.params, 'Fetching page');
 
 		return mediaWikiPageRequest.page(this.params.title, this.params.redirect, this.params.sections);
 	}
