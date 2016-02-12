@@ -19,17 +19,5 @@ export default Ember.Component.extend({
 			name: 'section-header',
 			icon: 'section-block'
 		}
-	],
-
-	actions: {
-		addItem(itemName) {
-			this.get('addItem')(itemName);
-		},
-		removeItem(item) {
-			this.get('removeItem')(item);
-		},
-		setEditItem(item) {
-			this.get('setEditItem')(item);
-		}
-	}
+	]
 });

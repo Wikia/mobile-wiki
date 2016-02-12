@@ -10,7 +10,7 @@ export default Ember.Component.extend({
 			this.get('onDeleteItem')(this.get('item'));
 		},
 		back() {
-			this.get('onBackArrowClick')();
+			this.get('onBackArrowClick');
 		}
 	}
 });
