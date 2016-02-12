@@ -116,7 +116,7 @@ export default Ember.Route.extend({
 	 * able to style whole containter as we want
 	 *
 	 * @param {Array} promiseResponseArray
-	 * @returns Ember.RSVP.Promise
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	setupStyles(promiseResponseArray) {
 		Ember.$('body').addClass('infobox-builder-body-wrapper');
@@ -150,7 +150,7 @@ export default Ember.Route.extend({
 	/**
 	 * @desc connects with ponto and redirects to template page
 	 * @param {String} title - title of the template
-	 * @returns Ember.RSVP.Promise
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	redirectToTemplatePage(title) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
@@ -160,10 +160,10 @@ export default Ember.Route.extend({
 				'wikia.infoboxBuilder.ponto',
 				'redirectToTemplatePage',
 				title,
-				function (data) {
+				(data) => {
 					resolve(data);
 				},
-				function (data) {
+				(data) => {
 					reject(data);
 					this.showPontoError(data);
 				},
@@ -173,7 +173,7 @@ export default Ember.Route.extend({
 	},
 
 	actions: {
-		error: (error) => {
+		error: () => {
 			this.controllerFor('application').addAlert({
 				message: i18n.t('infobox-builder:main.load-error'),
 				type: 'alert'
@@ -277,8 +277,8 @@ export default Ember.Route.extend({
 		cancel() {
 			const title = this.modelFor('infoboxBuilder').get('title');
 
-			//maybe some modal "are you sure? You'll lost your work"
-			//redirect to template page
+			// maybe some modal "are you sure? You'll lost your work"
+			// redirect to template page
 			return this.redirectToTemplatePage(title);
 		}
 	}
