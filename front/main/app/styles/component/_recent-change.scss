@@ -1,19 +1,7 @@
-@-webkit-keyframes colorPulse {
-	0% {background-color: $color-gray-light;}
-	100% {background-color: #ffffff;}
-}
-
 .recent-change {
 	border-bottom: 5px solid $color-gray-light;
 	padding: 15px 15px 20px;
 	position: relative;
-
-	&.active {
-		-webkit-animation-name: colorPulse;
-		-webkit-animation-duration: 5s;
-		-webkit-animation-iteration-count: 1;
-		-webkit-animation-delay: 2s;
-	}
 
 	.avatar {
 		display: inline-block;
@@ -26,6 +14,15 @@
 		font-size: $type-min;
 		max-width: 120px;
 	}
+}
+
+.current-change {
+	background-color: #1A5EB8;
+	bottom: 0;
+	height: 5px;
+	left: 0;
+	position: absolute;
+	width: 100%;
 }
 
 .recent-change__time-ago {
