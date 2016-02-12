@@ -1,8 +1,8 @@
 <div class="edit-header">
-	<a class="edit-header--back edit-header-icon" {{action 'back'}}>
+	<a class="edit-header--back edit-header-icon" {{action this.attrs.onBackArrowClick}}>
 		{{svg 'back-arrow' role='img' class='icon'}}</a>
 	<div class="edit-header--title">{{item.type}}</div>
-	<a class="edit-header--delete edit-header-icon" {{action 'removeItem'}}>
+	<a class="edit-header--delete edit-header-icon" {{action this.attrs.onDeleteItem item}}>
 		{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}</a>
 </div>
 {{item.source}}
