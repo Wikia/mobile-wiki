@@ -108,6 +108,10 @@ $border-width: 2px;
 		padding: 0 $padding;
 	}
 
+	.checkbox-title {
+		font-size: $type-base;
+	}
+
 	.modal-dialog-layover {
 		background-color: transparent;
 	}
