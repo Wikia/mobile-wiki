@@ -3,6 +3,7 @@ $sidebar-width: 296px;
 $padding: 12px;
 $icon-edit-header-size: 50px;
 $icon-button-size: 30px;
+$border-width: 2px;
 
 .infobox-builder-body-wrapper {
 	//there's no other way to set height 100% on the builder elements
@@ -42,20 +43,24 @@ $icon-button-size: 30px;
 		clear: none;
 		float: none;
 		margin: auto;
+	}
 
-		.active {
-			border: 2px solid $color-blue-light;
+	.pi-item,
+	// overwrite infobox styles inherited from oasis
+	.pi-item:last-child {
+		&.active {
+			border: $border-width solid $color-blue-light;
 		}
 	}
 }
 
 .infobox-builder-sidebar {
-	box-shadow: -2px 0 6px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: -$border-width 0 6px 0 rgba(0, 0, 0, 0.2);
 	flex-basis: $sidebar-width;
 	vertical-align: top;
 
 	.edit-header {
-		border-bottom: 2px solid $color-blue-gray-light;
+		border-bottom: $border-width solid $color-blue-gray-light;
 		display: flex;
 		font-weight: bold;
 		line-height: 48px;
