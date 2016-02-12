@@ -50,6 +50,13 @@ export default Ember.Route.extend(MetaTagsMixin, {
 				label: 'recent-wiki-activity'
 			});
 			return true;
+		},
+
+		willTransition(transition) {
+			const diff = transition.params.articleDiff,
+				query = '?rc=' + diff.newid + '-' + diff.oldid;
+
+			window.history.replaceState({}, null, query);
 		}
 	}
 });
