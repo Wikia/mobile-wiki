@@ -53,10 +53,15 @@ export default Ember.Route.extend(MetaTagsMixin, {
 		},
 
 		willTransition(transition) {
-			const diff = transition.params.articleDiff,
-				query = `?rc=${diff.newid}-${diff.oldid}`;
+			if (transition.targetName === 'articleDiff') {
+				const diff = transition.params.articleDiff,
+					id = `${diff.newid}-${diff.oldid}`,
+					query = `?rc=${id}`;
 
-			window.history.replaceState({}, null, query);
+				this.controllerFor('articleDiff').set('currRecentChangeId', id);
+
+				window.history.replaceState({}, null, query);
+			}
 		}
 	}
 });
