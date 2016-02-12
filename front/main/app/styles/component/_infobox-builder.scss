@@ -2,8 +2,11 @@ $desktop-infobox-width: 270px;
 $sidebar-width: 296px;
 $padding: 12px;
 $icon-edit-header-size: 50px;
+$back-arrow-icon-size: 16px;
+$icon-edit-item-size: 24px;
 $icon-button-size: 30px;
 $border-width: 2px;
+
 
 .infobox-builder-body-wrapper {
 	//there's no other way to set height 100% on the builder elements
@@ -75,11 +78,22 @@ $border-width: 2px;
 		justify-content: center;
 		width: $icon-edit-header-size;
 
-		svg {
+		.back-arrow {
 			fill: $color-blue-light;
-			height: 16px;
-			width: 16px;
+			height: $back-arrow-icon-size;
+			width: $back-arrow-icon-size;
 		}
+
+		.delete {
+			fill: $color-blue-gray;
+			height: $icon-edit-item-size;
+			width: $icon-edit-item-size;
+
+			&:hover {
+				fill: $color-blue-light;
+			}
+		}
+
 	}
 
 	.edit-header--title {
@@ -157,8 +171,8 @@ $border-width: 2px;
 	float: right;
 
 	svg {
-		height: 24px;
-		width: 24px;
+		height: $icon-edit-item-size;
+		width: $icon-edit-item-size;
 	}
 }
 
