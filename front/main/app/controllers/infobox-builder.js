@@ -2,9 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 	actions: {
-		/**
-		 * Bubbles up to InfoboxBuilder Route
-		 *
+		/***
 		 * @returns {void}
 		 */
 		cancel() {
@@ -12,7 +10,6 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * Bubbles up to InfoboxBuilder Route
 		 * @returns {void}
 		 */
 		save() {
@@ -20,7 +17,6 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * @desc sends addItem action to route
 		 * @param {String} type
 		 * @returns {void}
 		 */
@@ -29,7 +25,6 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * @desc sends removeItem action to route
 		 * @param {Object} item
 		 * @returns {void}
 		 */
@@ -38,7 +33,6 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * @desc sends setEditItem action to route
 		 * @param {Object} item
 		 * @returns {void}
 		 */
