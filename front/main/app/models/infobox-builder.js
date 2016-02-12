@@ -19,9 +19,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc add <data> item
-	 * addItem's methods can be refactored when figure out
-	 * stable version of infobox items and params
 	 * @returns {void}
 	 */
 	addRowItem() {
@@ -46,9 +43,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc add <image> item
-	 * addItem's methods can be refactored when figure out
-	 * stable version of infobox items and params
 	 * @returns {void}
 	 */
 	addImageItem() {
@@ -71,9 +65,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc add <title> item
-	 * addItem's methods can be refactored when figure out
-	 * stable version of infobox items and params
 	 * @returns {void}
 	 */
 	addTitleItem() {
@@ -85,7 +76,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				index,
 				component: this.createComponentName(itemType)
 			},
-			source: `title${index}`,
+			source: `${itemType}${index}`,
 			type: itemType
 		});
 	},
@@ -216,9 +207,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 						reject(data.errors);
 					}
 				},
-				error: (err) => {
-					reject(err);
-				}
+				error: (err) => reject(err)
 			});
 		});
 	}
