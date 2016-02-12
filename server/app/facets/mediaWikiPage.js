@@ -1,5 +1,5 @@
 import * as MediaWikiPage from '../lib/MediaWikiPage';
-import {WikiVariablesRequestError} from '../lib/MediaWiki';
+import {WikiVariablesRequestError, MediaWikiNamespace} from '../lib/MediaWiki';
 import setResponseCaching, * as Caching from '../lib/Caching';
 import Logger from '../lib/Logger';
 import * as Tracking from '../lib/Tracking';
@@ -16,6 +16,12 @@ const cachingTimes = {
 	varnishTTL: Caching.Interval.standard,
 	browserTTL: Caching.Interval.disabled
 };
+
+/**
+ * @typedef {Object} MediaWikiPageData
+ * @param {number} ns
+ * @param {Object} [article]
+ */
 
 /**
  * This is used only locally, normally MediaWiki takes care of this redirect
@@ -58,29 +64,26 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
 function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	let result, response;
 
-	switch (data.type) {
-		case 'article':
+	switch (data.ns) {
+		// disable so we won't blow (for NOW)
+		//case MediaWikiNamespace.MAIN:
+		default:
 			result = prepareArticleData(request, data);
-			result.mediaWikiPageType = 'article';
-			break;
-		case 'main-page':
+
 			// mainPageData is set only on curated main pages - only then we should do some special preparation for data
 			if (data.article.data && data.article.data.isMainPage && data.article.data.mainPageData) {
 				result = deepExtend(prepareArticleData(request, data), prepareMainPageData(data));
-				result.mediaWikiPageType = 'main-page';
 				delete result.adsContext;
-			} else {
-				// main page, but no extra data - it's an article
-				result = prepareArticleData(request, data);
-				result.mediaWikiPageType = 'article';
 			}
 			break;
-		default:
+		// case MediaWikiNamespace.CATEGORY:
+		//default:
 			// unsupported page type
-			// prepare article data, so we won't blow
-			result = prepareArticleData(request, data);
-			result.mediaWikiPageType = data.type;
+			// prepare article data, so we won't blow (for NOW)
 	}
+
+	// pass on what namespace we currently are
+	result.mediaWikiNamespace = data.ns;
 
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);

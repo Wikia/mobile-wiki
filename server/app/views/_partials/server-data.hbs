@@ -12,8 +12,8 @@
 	M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
 	M.prop('discussionBaseRoute', {{{json localSettings.discuss.baseAPIPath}}});
 	M.prop('imageReviewBaseRoute', {{{json localSettings.imageReview.baseAPIPath}}});
-	{{#if mediaWikiPageType}}
-		M.prop('mediaWikiPageType', '{{{mediaWikiPageType}}}');
+	{{#if mediaWikiNamespace}}
+		M.prop('mediaWikiNamespace', '{{{mediaWikiNamespace}}}');
 	{{/if}}
 	{{#if discussionsSplashPageConfig}}
 		M.prop('discussionsSplashPageConfig', {{{json discussionsSplashPageConfig}}});
