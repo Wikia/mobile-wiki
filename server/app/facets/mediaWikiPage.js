@@ -76,8 +76,10 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 			}
 			break;
 		default:
-			result.mediaWikiPageType = data.type;
 			// unsupported page type
+			// prepare article data, so we won't blow
+			result = prepareArticleData(request, data);
+			result.mediaWikiPageType = data.type;
 	}
 
 	// @todo XW-596 we shouldn't rely on side effects of this function
