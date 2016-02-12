@@ -17,15 +17,13 @@ export default Ember.Route.extend(MetaTagsMixin, {
 	},
 
 	/**
-	 * Make sure that RWA is enabled only for one wiki.
+	 * Make sure that RWA is enabled for English wikis only.
+	 * TODO remove to enable globally CE-3326
 	 * @param {EmberState.Transition} transition
 	 * @return {void}
 	 */
 	beforeModel() {
-		const enabled = [41727, 1306324];
-
-		// Enable the RWA for kirkburn.wikia.com and aga.wikia.com only
-		if (enabled.indexOf(Ember.get(Mercury, 'wiki.id')) < 0) {
+		if (Mercury.wiki.language.content !== 'en') {
 			this.transitionTo('mainPage');
 		}
 	},

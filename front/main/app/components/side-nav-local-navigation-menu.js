@@ -26,12 +26,8 @@ export default Ember.Component.extend(
 	{
 		tagName: 'ul',
 		classNames: ['local-nav-menu'],
-		// TODO: Remove to enable RWA globally
-		shouldDisplayRecentWikiActivity: Ember.computed(() => {
-			const enabled = [41727, 1306324];
-
-			return enabled.indexOf(Ember.get(Mercury, 'wiki.id')) >= 0;
-		}),
+		// TODO: Remove to enable RWA globally (CE-3326)
+		shouldDisplayRecentWikiActivity: Mercury.wiki.language.content === 'en',
 
 		actions: {
 			/**
