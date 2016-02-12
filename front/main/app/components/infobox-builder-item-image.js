@@ -9,11 +9,7 @@ export default Ember.Component.extend(
 		thumbnail: '/front/common/images/infobox-builder-image-placeholder.png',
 		width: 270,
 		height: 152,
-		caption: i18n.t('infobox-builder:main.caption-default'),
-
-		videoClasses: Ember.computed(function () {
-			return this.get('isVideo') ? 'video video-thumbnail small' : '';
-		})
+		caption: i18n.t('infobox-builder:main.caption-default')
 	}
 );
 
