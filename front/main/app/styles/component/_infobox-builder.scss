@@ -1,4 +1,3 @@
-$desktop-infobox-width: 270px;
 $sidebar-width: 296px;
 $padding: 12px;
 $icon-edit-header-size: 50px;
@@ -34,11 +33,9 @@ $icon-button-size: 30px;
 }
 
 .infobox-builder-preview {
-	display: inline-block;
 	flex-grow: 1;
 	overflow: auto;
 	padding: 40px 0;
-	width: $desktop-infobox-width;
 
 	.portable-infobox {
 		clear: none;
@@ -54,7 +51,6 @@ $icon-button-size: 30px;
 .infobox-builder-sidebar {
 	box-shadow: -2px 0 6px 0 rgba(0, 0, 0, 0.2);
 	flex-basis: $sidebar-width;
-	vertical-align: top;
 
 	.edit-header {
 		border-bottom: 2px solid $color-blue-gray-light;
