@@ -4,8 +4,8 @@ import getEditToken from '../utils/edit-token';
 const ArticleDiffModel = Ember.Object.extend({
 	diffs: null,
 	namespace: null,
-	newid: null,
-	oldid: null,
+	newId: null,
+	oldId: null,
 	pageid: null,
 	timestamp: null,
 	title: null,
@@ -13,7 +13,7 @@ const ArticleDiffModel = Ember.Object.extend({
 	useravatar: null,
 
 	/**
-	 * Sends request to MW API to undo newid revision of title
+	 * Sends request to MW API to undo newId revision of title
 	 * @param {string} summary Description of reason for undo to be stored as edit summary
 	 * @returns {Ember.RSVP.Promise}
 	 */
@@ -31,8 +31,8 @@ const ArticleDiffModel = Ember.Object.extend({
 							action: 'edit',
 							summary,
 							title: this.title,
-							undo: this.newid,
-							undoafter: this.oldid,
+							undo: this.newId,
+							undoafter: this.oldId,
 							token,
 							format: 'json'
 						},
@@ -57,11 +57,11 @@ const ArticleDiffModel = Ember.Object.extend({
 ArticleDiffModel.reopenClass({
 	/**
 	 * Uses the data received from API to fill needed information
-	 * @param {number} oldid
-	 * @param {number} newid
+	 * @param {number} oldId
+	 * @param {number} newId
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	fetch(oldid, newid) {
+	fetch(oldId, newId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.getJSON(
 				M.buildUrl({
@@ -71,8 +71,8 @@ ArticleDiffModel.reopenClass({
 					controller: 'RevisionApi',
 					method: 'getRevisionsDiff',
 					avatar: true,
-					newId: newid,
-					oldId: oldid
+					newId,
+					oldId
 				}
 			).done(({article, revision, diffs = []}) => {
 				const diffsData = ArticleDiffModel.prepareDiffs(diffs);
@@ -83,8 +83,8 @@ ArticleDiffModel.reopenClass({
 					modelInstance = ArticleDiffModel.create({
 						diffs: diffsData,
 						namespace: article.ns,
-						newid,
-						oldid,
+						newId,
+						oldId,
 						pageid: article.pageId,
 						parsedcomment: revision.parsedComment,
 						timestamp: revision.timestamp,

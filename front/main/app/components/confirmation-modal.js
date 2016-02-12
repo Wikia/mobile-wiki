@@ -13,13 +13,6 @@ export default Ember.Component.extend({
 		confirm() {
 			this.sendAction('confirm', this.get('summary'));
 			this.sendAction('close');
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		close() {
-			this.sendAction('close');
 		}
 	}
 });

@@ -1,8 +1,8 @@
-{{article-diff model=model undo='undo' showConfirmation='showConfirmation'}}
+{{article-diff model=model showConfirmation=(action 'showConfirmation')}}
 
 {{#if shouldShowUndoConfirmation}}
 	{{confirmation-modal
-		close='closeConfirmation'
+		close=(action 'closeConfirmation')
 		confirm='undo'
 		summaryPlaceholder=(i18n 'confirmation.placeholder-undo' ns='recent-wiki-activity')
 		confirmText=(i18n 'main.undo-label' ns='recent-wiki-activity')
