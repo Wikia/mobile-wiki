@@ -95,6 +95,20 @@ $border-width: 2px;
 		line-height: 48px;
 		padding: 0 $padding;
 	}
+
+	.modal-dialog-layover {
+		background-color: transparent;
+	}
+
+	.modal-dialog {
+		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+		font-size: 14px;
+		line-height: 20px;
+		max-width: 230px;
+		padding: 18px;
+		position: absolute;
+		top: 150px;
+	}
 }
 
 .infobox-builder-buttons {
