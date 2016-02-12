@@ -9,6 +9,8 @@ $border-width: 2px;
 
 
 .infobox-builder-body-wrapper {
+	// overwrite default mercury styles
+	overflow-y: auto;
 	//there's no other way to set height 100% on the builder elements
 	.ember-container {
 		height: 100%;
