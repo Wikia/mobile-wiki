@@ -17,7 +17,7 @@ const ArticleDiffModel = Ember.Object.extend({
 	 * @param {string} summary Description of reason for undo to be stored as edit summary
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	undo(summary) {
+	undo(summary = []) {
 		// Fall back to empty array for falsy summary provided to make MW add default summary
 		if (!summary) {
 			summary = [];
