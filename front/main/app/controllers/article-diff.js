@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
 	 * @returns {void}
 	 */
 	handleUndoSuccess() {
-		this.transitionToRoute('recent-wiki-activity', { queryParams: { rc: this.get('currRecentChangeId' ) }})
+		this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}})
 			.then(() => {
 				this.get('application').addAlert({
 					message: i18n.t('main.undo-success', {
@@ -19,7 +19,7 @@ export default Ember.Controller.extend({
 					}),
 					type: 'success'
 				});
-		});
+			});
 
 		track({
 			action: trackActions.impression,

@@ -14,7 +14,7 @@ export default Ember.Component.extend({
 					offsetTop = $recentChange.offset().top - navHeight;
 
 				$('body').scrollTop(offsetTop);
-				$('#recent-changes').find('.current-change').animate( { opacity: 0 }, 2000 );
+				$('#recent-changes').find('.current-change').animate({opacity: 0}, 2000);
 			}
 		}
 	}

@@ -60,7 +60,7 @@ export default Ember.Route.extend(MetaTagsMixin, {
 
 				this.controllerFor('articleDiff').set('currRecentChangeId', id);
 
-				//TODO: let's rethink this approach to preserve scroll position state
+				// TODO: let's rethink this approach to preserve scroll position state
 				window.history.replaceState({}, null, query);
 			}
 		}
