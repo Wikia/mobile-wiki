@@ -9,7 +9,10 @@
 	position: relative;
 
 	&.active {
-		-webkit-animation: colorPulse 5s 1 alternate;
+		-webkit-animation-name: colorPulse;
+		-webkit-animation-duration: 5s;
+		-webkit-animation-iteration-count: 1;
+		-webkit-animation-delay: 2s;
 	}
 
 	.avatar {
