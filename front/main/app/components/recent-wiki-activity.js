@@ -1,17 +1,23 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+	renderRun: false,
+
 	didRender() {
-		const recentChangeId = this.get('rc');
+		if (!this.renderRun) {
+			const recentChangeId = this.get('rc');
 
-		if (recentChangeId) {
-			const $recentChange = $(`#${recentChangeId}`);
+			this.renderRun = true;
 
-			if ($recentChange) {
-				const navHeight = this.get('siteHeadPinned') ? $('.site-head').outerHeight() : 0,
-					offsetTop = $recentChange.offset().top - navHeight;
+			if (recentChangeId) {
+				const $recentChange = $(`#${recentChangeId}`);
 
-				$('body').scrollTop(offsetTop);
+				if ($recentChange) {
+					const navHeight = this.get('siteHeadPinned') ? $('.site-head').outerHeight() : 0,
+						offsetTop = $recentChange.offset().top - navHeight;
+
+					$('body').scrollTop(offsetTop);
+				}
 			}
 		}
 	}
