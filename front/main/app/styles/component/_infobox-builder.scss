@@ -166,10 +166,10 @@ $border-width: 2px;
 .sidebar-edit-area {
 	display: flex;
 	justify-content: space-between;
+}
 
-	.checkbox-title {
-		padding: 15px;
-	}
+.sidebar-content-padding {
+	padding: $padding
 }
 
 .infobox-builder-questionmark {
