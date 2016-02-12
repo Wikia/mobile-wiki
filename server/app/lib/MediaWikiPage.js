@@ -14,7 +14,7 @@ import localSettings from '../../config/localSettings';
  */
 export class MediaWikiPageRequestError {
 	/**
-	 * @param {ArticlePageData} data
+	 * @param {MediaWikiPageData} data
 	 * @returns {void}
 	 */
 	constructor(data) {
@@ -48,7 +48,7 @@ export class MediaWikiPageRequestHelper {
 	/**
 	 * Gets wiki variables and article, returns a promise which is resolved with object containing all the data.
 	 *
-	 * @returns {Promise<ArticlePageData>}
+	 * @returns {Promise<MediaWikiPageData>}
 	 */
 	getFull() {
 		const requests = [
@@ -73,7 +73,7 @@ export class MediaWikiPageRequestHelper {
 		 */
 		return settle(requests)
 			/**
-			 * @param {Promise.Inspection<Promise<ArticlePageData>>[]} results
+			 * @param {Promise.Inspection<Promise<MediaWikiPageData>>[]} results
 			 * @returns {void}
 			 */
 			.then((results) => {

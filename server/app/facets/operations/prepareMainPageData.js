@@ -11,7 +11,7 @@ function getOpenGraphUrl(wikiVariables) {
 /**
  * Prepares main page data to be rendered
  *
- * @param {ArticlePageData} data
+ * @param {MediaWikiPageData} data
  * @returns {object}
  */
 export default function prepareMainPageData(data) {

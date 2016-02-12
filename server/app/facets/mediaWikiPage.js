@@ -50,19 +50,34 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
  *
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
- * @param {ArticlePageData} data
+ * @param {MediaWikiPageData} data
  * @param {boolean} [allowCache=true]
  * @param {number} [code=200]
  * @returns {void}
  */
-function outputResponse(request, reply, data, allowCache = true, code = 200) {
-	let result = prepareArticleData(request, data),
-		response;
+function handleResponse(request, reply, data, allowCache = true, code = 200) {
+	let result, response;
 
-	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
-	if (data.article.data && data.article.data.isMainPage && data.article.data.mainPageData) {
-		result = deepExtend(result, prepareMainPageData(data));
-		delete result.adsContext;
+	switch (data.type) {
+		case 'article':
+			result = prepareArticleData(request, data);
+			result.mediaWikiPageType = 'article';
+			break;
+		case 'main-page':
+			// mainPageData is set only on curated main pages - only then we should do some special preparation for data
+			if (data.article.data && data.article.data.isMainPage && data.article.data.mainPageData) {
+				result = deepExtend(prepareArticleData(request, data), prepareMainPageData(data));
+				result.mediaWikiPageType = 'main-page';
+				delete result.adsContext;
+			} else {
+				// main page, but no extra data - it's an article
+				result = prepareArticleData(request, data);
+				result.mediaWikiPageType = 'article';
+			}
+			break;
+		default:
+			result.mediaWikiPageType = data.type;
+			// unsupported page type
 	}
 
 	// @todo XW-596 we shouldn't rely on side effects of this function
@@ -92,12 +107,12 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 	mediaWikiPageHelper
 		.getFull()
 		/**
-		 * @param {ArticlePageData} data
+		 * @param {MediaWikiPageData} data
 		 * @returns {void}
 		 */
 		.then((data) => {
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
-			outputResponse(request, reply, data, allowCache);
+			handleResponse(request, reply, data, allowCache);
 		})
 		/**
 		 * @param {MWException} error
@@ -123,7 +138,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 			// Clean up exception to not put its details in HTML response
 			delete data.article.exception.details;
 
-			outputResponse(request, reply, data, allowCache, errorCode);
+			handleResponse(request, reply, data, allowCache, errorCode);
 		})
 		/**
 		 * @returns {void}

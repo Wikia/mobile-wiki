@@ -27,7 +27,7 @@ export function getTitle(request, articleData) {
  * Prepares article data to be rendered
  *
  * @param {Hapi.Request} request
- * @param {ArticlePageData} data
+ * @param {MediaWikiPageData} data
  * @returns {object}
  */
 export default function prepareArticleData(request, data) {

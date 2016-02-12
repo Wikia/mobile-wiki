@@ -10,7 +10,7 @@ import deepExtend from 'deep-extend';
  * in the editor preview mode
  *
  * @param {string} title title of article to preview
- * @param {ArticlePageData} article
+ * @param {MediaWikiPageData} article
  * @param {Object} [wikiVariables={}]
  * @returns {Object}
  */
