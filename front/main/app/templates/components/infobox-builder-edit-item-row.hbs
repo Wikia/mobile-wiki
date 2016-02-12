@@ -1,11 +1,3 @@
-{{input type="checkbox" name="useArticleName" checked=useArticleName}}
-{{i18n 'main.title-use-article-name' ns='infobox-builder'}}
-<span class="infobox-builder-questionmark" {{action 'showHelp'}}>{{svg 'question' class='pointer-events-none' viewBox='0 0 18 18'}}</span>
-{{#modal-dialog isVisible=isHelpVisible}}
-	{{i18n 'main.help-title' ns='infobox-builder'}}
-{{/modal-dialog}}
-
-
 <div class="input-container">
 	{{input
 		value=model.label
@@ -14,7 +6,8 @@
 	}}
 	<label class="floating-label" for="label">{{i18n 'main.row-label' ns='infobox-builder'}}</label>
 	<span class="infobox-builder-questionmark" {{action 'showHelp'}}>{{svg 'question' class='pointer-events-none' viewBox='0 0 18 18'}}</span>
-	{{#modal-dialog isVisible=isHelpVisible}}
-		{{i18n 'main.help-row' ns='infobox-builder'}}
-	{{/modal-dialog}}
 </div>
+
+{{#modal-dialog isVisible=isHelpVisible}}
+	{{i18n 'main.help-row' ns='infobox-builder'}}
+{{/modal-dialog}}

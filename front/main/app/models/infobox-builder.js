@@ -23,7 +23,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	addRowItem() {
 		const itemType = 'row',
-			xmlTag = 'data',
 			index = this.increaseItemIndex(itemType);
 
 		this.addToState({
@@ -38,7 +37,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				component: this.createComponentName(itemType)
 			},
 			source: `${itemType}${index}`,
-			type: xmlTag
+			type: itemType
 		});
 	},
 
