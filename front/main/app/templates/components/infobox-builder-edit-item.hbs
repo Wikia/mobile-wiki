@@ -5,8 +5,6 @@
 	<a class="edit-header--delete edit-header-icon" {{action this.attrs.onDeleteItem item}}>
 		{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}</a>
 </div>
-<div class="sidebar-edit-area">
-	{{component editPanelOption
-		item=item
-	}}
-</div>
+{{component editPanelOption
+	item=item
+}}

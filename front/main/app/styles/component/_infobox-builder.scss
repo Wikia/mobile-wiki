@@ -1,9 +1,9 @@
 $desktop-infobox-width: 270px;
 $sidebar-width: 296px;
 $padding: 12px;
-$icon-edit-header-size: 50px;
 $back-arrow-icon-size: 16px;
 $icon-edit-item-size: 24px;
+$icon-wrapper-size: 50px;
 $icon-button-size: 30px;
 $border-width: 2px;
 
@@ -74,9 +74,9 @@ $border-width: 2px;
 		background: inherit;
 		cursor: pointer;
 		display: flex;
-		height: $icon-edit-header-size;
+		height: $icon-wrapper-size;
 		justify-content: center;
-		width: $icon-edit-header-size;
+		width: $icon-wrapper-size;
 
 		.back-arrow {
 			fill: $color-blue-light;
@@ -118,7 +118,7 @@ $border-width: 2px;
 		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
 		font-size: 14px;
 		line-height: 20px;
-		max-width: 230px;
+		max-width: 250px;
 		padding: 18px;
 		position: absolute;
 		top: 150px;
@@ -141,13 +141,13 @@ $border-width: 2px;
 	margin: 3px;
 	padding: 10px;
 	width: 130px;
-}
 
-.infobox-builder-button:hover {
-	border: 2px solid $color-blue-light;
+	&:hover {
+		border: 2px solid $color-blue-light;
 
-	.infobox-builder-button-icon {
-		fill: $color-blue-light;
+		.infobox-builder-button-icon {
+			fill: $color-blue-light;
+		}
 	}
 }
 
@@ -164,15 +164,29 @@ $border-width: 2px;
 }
 
 .sidebar-edit-area {
-	padding: 15px;
+	display: flex;
+	justify-content: space-between;
+
+	.checkbox-title {
+		padding: 15px;
+	}
 }
 
 .infobox-builder-questionmark {
-	float: right;
+	height: $icon-wrapper-size;
+	width: $icon-wrapper-size;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&:hover svg {
+		fill: $color-blue-light;
+	}
 
 	svg {
-		height: $icon-edit-item-size;
-		width: $icon-edit-item-size;
+		fill: $color-blue-gray;
+		height: 24px;
+		width: 24px;
 	}
 }
 

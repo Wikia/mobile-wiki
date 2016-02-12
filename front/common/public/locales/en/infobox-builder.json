@@ -13,7 +13,7 @@
     "add-image": "Image",
     "add-title": "Title",
     "add-section-header": "Section Header",
-    "help-title": "This is the title Helvetica YOLO banjo sartorial. Tote bag taxidermy keffiyeh, dreamcatcher pug photo booth DYI.",
+    "help-title": "This option is used to define how Title field will behave in case user won’t provide and data while using this infobox in article. When not checked and user provides no data, the title field will not be displayed. When checked, and user provides no data, the title field will display the title of the article.",
     "save": "Save",
     "load-error": "Loading error",
     "edit-image-item-description": "Placeholder text for editing image description"
