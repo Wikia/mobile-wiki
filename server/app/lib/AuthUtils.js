@@ -99,5 +99,5 @@ export function getWhoAmIUrl() {
  * @returns {string}
  */
 export function getLanguageWithDefault(lang) {
-	return (authLocaleSettings.hasOwnProperty(lang)) ? lang : 'en';
+	return authLocaleSettings.hasOwnProperty(lang) ? lang : 'en';
 }
