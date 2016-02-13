@@ -4,10 +4,11 @@ export default Ember.Component.extend({
 	editPanelOption: Ember.computed('item.type', function () {
 		return `infobox-builder-edit-item-${this.get('item.type')}`;
 	}),
+
 	header: Ember.computed('item.{data.label,type,value,data.default,infoboxBuilderData.index}', function () {
 		let header;
 
-		switch(this.get('item.type')) {
+		switch (this.get('item.type')) {
 		case 'title':
 			header = this.get('item.data.default') ||
 				i18n.t('main.title-default', {
@@ -25,7 +26,7 @@ export default Ember.Component.extend({
 			});
 			break;
 		default:
-			break
+			break;
 		}
 
 		return header;

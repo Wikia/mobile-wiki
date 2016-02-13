@@ -38,6 +38,10 @@ export default Ember.Controller.extend({
 		 */
 		setEditItem(item) {
 			this.get('target').send('setEditItem', item);
+		},
+
+		editTitleItem(item, value) {
+			this.get('target').send('editTitleItem', item, value);
 		}
 	}
 });

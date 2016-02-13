@@ -128,6 +128,21 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
+	 * @desc sets a new value of the default field
+	 * on the given title element
+	 *
+	 * @param {TitleItem} item
+	 * @param {bool} value
+	 * @returns {void}
+	 */
+	editTitleItem(item, value) {
+		const index = this.get('infoboxState').indexOf(item),
+			defaultValue = value ? '{{PAGENAME}}' : '';
+
+		this.set(`infoboxState.${index}.data.default`, defaultValue);
+	},
+
+	/**
 	 * @desc removes item from state for given position
 	 * @param {DataItem|ImageItem|TitleItem} item
 	 * @returns {void}
