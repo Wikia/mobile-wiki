@@ -11,10 +11,10 @@ export default Ember.Component.extend({
 		switch (this.get('item.type')) {
 		case 'title':
 			header = this.get('item.data.default') ||
-				i18n.t('main.title-default', {
-					ns: 'infobox-builder',
-			 		index: this.get('item.infoboxBuilderData.index')
-				});
+					i18n.t('main.title-default', {
+						ns: 'infobox-builder',
+						index: this.get('item.infoboxBuilderData.index')
+					});
 			break;
 		case 'row':
 			header = this.get('item.data.label');

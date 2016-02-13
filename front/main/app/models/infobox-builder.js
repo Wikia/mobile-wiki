@@ -120,7 +120,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 	/**
 	 * @desc sets item to the edit mode
-	 * @param {DataItem|ImageItem|TitleItem} item
+	 * @param {RowItem|ImageItem|TitleItem} item
 	 * @returns {void}
 	 */
 	setEditItem(item) {
@@ -142,9 +142,15 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		this.set(`infoboxState.${index}.data.default`, defaultValue);
 	},
 
+	editRowItem(item, value) {
+		const index = this.get('infoboxState').indexOf(item);
+
+		this.set(`infoboxState.${index}.data.label`, value);
+	},
+
 	/**
 	 * @desc removes item from state for given position
-	 * @param {DataItem|ImageItem|TitleItem} item
+	 * @param {RowItem|ImageItem|TitleItem} item
 	 * @returns {void}
 	 */
 	removeItem(item) {
@@ -155,7 +161,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	/**
 	 * @desc moves item in infoboxState by given offset
 	 * @param {Number} offset
-	 * @param {DataItem|ImageItem|TitleItem} item
+	 * @param {RowItem|ImageItem|TitleItem} item
 	 * @returns {void}
 	 */
 	moveItem(offset, item) {

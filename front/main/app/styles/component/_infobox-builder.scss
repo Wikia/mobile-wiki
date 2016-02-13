@@ -6,7 +6,6 @@ $icon-wrapper-size: 50px;
 $icon-button-size: 30px;
 $border-width: 2px;
 
-
 .infobox-builder-body-wrapper {
 	// overwrite default mercury styles
 	overflow-y: auto;
@@ -91,7 +90,6 @@ $border-width: 2px;
 				fill: $color-blue-light;
 			}
 		}
-
 	}
 
 	.edit-header--title {
@@ -110,6 +108,30 @@ $border-width: 2px;
 
 	.checkbox-title {
 		font-size: $type-base;
+	}
+
+	.input-container {
+		border-bottom: 1px solid $color-blue-gray;
+		padding-bottom: 0;
+		align-items: flex-end;
+	}
+
+	.infobox-builder-input {
+		border-bottom: none;
+		font-size: $type-base;
+		transition: none;
+
+		&:focus {
+			border-bottom: none;
+		}
+	}
+
+	.item-row-label-text {
+		color: $color-blue-gray;
+		font-size: 10px;
+		font-weight: bold;
+		line-height: 12px;
+		text-transform: uppercase;
 	}
 
 	.modal-dialog-layover {
@@ -166,6 +188,7 @@ $border-width: 2px;
 }
 
 .sidebar-edit-area {
+	align-items: center;
 	display: flex;
 	justify-content: space-between;
 }

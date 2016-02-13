@@ -1,11 +1,15 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+	classNames: ['sidebar-content-padding'],
 	isHelpVisible: false,
+	useArticleName: null,
 
 	/**
 	 * once the item.data.default changes, update useArticleName
 	 * to ensure they're always in sync, also on the first load of component
+	 * and switching between infobox title rows.
+	 * useArticleName should be set to false if item.data.default is empty
 	 *
 	 * @return {void}
 	 */

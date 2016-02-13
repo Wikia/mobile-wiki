@@ -1,10 +1,11 @@
-<div class="input-container">
+<div class="item-row-label-text">Label</div>
+<div class="input-container sidebar-edit-area">
 	{{input
-		value=model.label
+		value=labelValue
 		id='label'
+		class='infobox-builder-input'
 		name='label'
 	}}
-	<label class="floating-label" for="label">{{i18n 'main.row-label' ns='infobox-builder'}}</label>
 	<span class="infobox-builder-questionmark" {{action 'showHelp'}}>{{svg 'question' class='pointer-events-none' viewBox='0 0 18 18'}}</span>
 </div>
 
