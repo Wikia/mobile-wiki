@@ -1,13 +1,12 @@
-<div class="item-row-label-text">Label</div>
-<div class="input-container sidebar-edit-area">
-	{{input
-		value=labelValue
-		id='label'
-		class='infobox-builder-input'
-		name='label'
-	}}
+{{#text-field
+	value=labelValue
+	inputId='infoboxRowLabel'
+	name='infoboxRowLabel'
+	label=(i18n 'main.row-label' ns='infobox-builder')
+	class='infobox-builder-input'
+}}
 	<span class="infobox-builder-questionmark" {{action 'showHelp'}}>{{svg 'question' class='pointer-events-none' viewBox='0 0 18 18'}}</span>
-</div>
+{{/text-field}}
 
 {{#modal-dialog isVisible=isHelpVisible}}
 	{{i18n 'main.help-row' ns='infobox-builder'}}
