@@ -71,6 +71,10 @@ Router.map(function () {
 		});
 	});
 
+	this.route('articleDiff', {
+		path: `/diff/:oldId/:newId`
+	});
+
 	this.route('article', {
 		path: `${articlePath}*title`
 	});
@@ -114,6 +118,8 @@ Router.map(function () {
 	this.route('image-review', {
 		path: '/image-review'
 	});
+
+	this.route('recent-wiki-activity');
 
 	// Route to catch all badly formed URLs
 	this.route('notFound', {
