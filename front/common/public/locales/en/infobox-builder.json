@@ -9,6 +9,7 @@
     "caption-default": "Example caption",
     "alt-default": "Alt",
     "row-default": "Example value",
+    "row-label": "Label",
     "add-row": "Row",
     "add-image": "Image",
     "add-title": "Title",
