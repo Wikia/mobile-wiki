@@ -14,18 +14,21 @@
 		</div>
 	{{/if}}
 	{{#if hasSortMenu}}
-		<div {{action 'showSortComponent'}} class="sort">
-			<span>{{i18n sortMessageKey ns='discussion'}}</span>
-			{{svg 'filter-dropdown-white' viewBox='0 0 7 4' class='icon dropdown'}}
+		<div class="sort {{if isFilterApplied 'applied'}}" id="discussion-mobile-filter">
+			{{svg 'filter-default' class='icon filter-default'}}
+			{{svg 'filter-applied' class='icon filter-applied'}}
 		</div>
+
+		{{#pop-over for='discussion-mobile-filter' on='click' flow='downCentered'}}
+			{{discussion-filters
+				applyFilters=(action this.attrs.applyFilters)
+			}}
+		{{/pop-over}}
 	{{/if}}
 	{{#if canDeleteAll}}
 		<div {{action this.attrs.deleteAllPosts}} class="side-button delete-all">
 			{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
 			{{i18n 'main.delete-all' ns='discussion'}}
 		</div>
-	{{/if}}
-	{{#if overlayIsVisible}}
-		<div {{action 'hideSortComponent'}} class="overlay"></div>
 	{{/if}}
 </div>

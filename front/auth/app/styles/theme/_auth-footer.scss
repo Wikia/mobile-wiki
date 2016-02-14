@@ -5,13 +5,19 @@
 		border-width: 0 1px 1px;
 		margin: 0 31px 32px;
 		min-width: 706px;
-		padding: 0;
 	}
 
 	.footer-callout-link {
 		padding: 0;
 	}
 }
+
+.mobile {
+	.footer-callout-link {
+		padding: 15px;
+	}
+}
+
 .auth-footer {
 	color: $footer-text-color;
 	flex-grow: 0;
@@ -28,10 +34,10 @@
 .footer-callout-link {
 	display: block;
 	height: 100%;
-	padding: 15px;
+	padding: 0 15px;
 	width: 100%;
 
 	&:hover {
-	    opacity: .8;
+		opacity: .8;
 	}
 }
