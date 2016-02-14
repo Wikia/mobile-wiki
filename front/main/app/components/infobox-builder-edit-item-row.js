@@ -24,6 +24,7 @@ export default Ember.Component.extend({
 		if (label.length > maxLabelLength) {
 			// maybe some info that label is too long?
 			label = label.substring(0, maxLabelLength);
+			this.set('labelValue', label);
 		}
 
 		this.get('editRowItem')(this.get('item'), label);
