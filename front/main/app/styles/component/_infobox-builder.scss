@@ -119,6 +119,7 @@ $border-width: 2px;
 	.infobox-builder-input {
 		border-bottom: none;
 		font-size: $type-base;
+		position: relative;
 		transition: none;
 
 		&:focus {
@@ -198,11 +199,14 @@ $border-width: 2px;
 }
 
 .infobox-builder-questionmark {
-	height: $icon-wrapper-size;
-	width: $icon-wrapper-size;
+	align-items: center;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	height: $icon-wrapper-size;
+	position: absolute;
+	right: -10px;
+	top: 0;
+	width: $icon-wrapper-size;
 
 	&:hover svg {
 		fill: $color-blue-light;
