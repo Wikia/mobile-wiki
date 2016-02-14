@@ -1,7 +1,7 @@
 $sidebar-width: 296px;
 $padding: 12px;
 $back-arrow-icon-size: 16px;
-$icon-edit-item-size: 24px;
+$icon-action-size: 24px;
 $icon-wrapper-size: 50px;
 $icon-button-size: 30px;
 $border-width: 2px;
@@ -58,6 +58,7 @@ $border-width: 2px;
 .infobox-builder-sidebar {
 	box-shadow: -$border-width 0 6px 0 rgba(0, 0, 0, 0.2);
 	flex-basis: $sidebar-width;
+	max-width: $sidebar-width;
 
 	.edit-header {
 		border-bottom: $border-width solid $color-blue-gray-light;
@@ -83,8 +84,8 @@ $border-width: 2px;
 
 		.delete {
 			fill: $color-blue-gray;
-			height: $icon-edit-item-size;
-			width: $icon-edit-item-size;
+			height: $icon-action-size;
+			width: $icon-action-size;
 
 			&:hover {
 				fill: $color-blue-light;
@@ -100,7 +101,7 @@ $border-width: 2px;
 	}
 
 	.sidebar-header {
-		border-bottom: 2px solid $color-blue-gray-light;
+		border-bottom: $border-width solid $color-blue-gray-light;
 		font-weight: bold;
 		line-height: 48px;
 		padding: 0 $padding;
@@ -127,7 +128,7 @@ $border-width: 2px;
 		}
 	}
 
-	.item-row-label-text {
+	input[type='text']:valid + .floating-label {
 		color: $color-blue-gray;
 		font-size: 10px;
 		font-weight: bold;
@@ -168,7 +169,7 @@ $border-width: 2px;
 	width: 130px;
 
 	&:hover {
-		border: 2px solid $color-blue-light;
+		border: $border-width solid $color-blue-light;
 
 		.infobox-builder-button-icon {
 			fill: $color-blue-light;
@@ -214,8 +215,8 @@ $border-width: 2px;
 
 	svg {
 		fill: $color-blue-gray;
-		height: 24px;
-		width: 24px;
+		height: $icon-action-size;
+		width: $icon-action-size;
 	}
 }
 

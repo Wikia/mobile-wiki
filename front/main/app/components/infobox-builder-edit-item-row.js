@@ -1,10 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	classNames: ['sidebar-content-padding', 'edit-item-row'],
+	classNames: ['sidebar-content-padding'],
 	isHelpVisible: false,
 	labelValue: Ember.computed.oneWay('item.data.label'),
-	maxLabelLength: 25,
 
 	/**
 	 * once the item.data.label changes, update labelValue
@@ -18,14 +17,7 @@ export default Ember.Component.extend({
 	}),
 
 	labelTextLenghtObserver: Ember.observer('labelValue', function () {
-		const maxLabelLength = this.get('maxLabelLength');
-		let label = this.get('labelValue');
-
-		if (label.length > maxLabelLength) {
-			// maybe some info that label is too long?
-			label = label.substring(0, maxLabelLength);
-			this.set('labelValue', label);
-		}
+		const label = this.get('labelValue');
 
 		this.get('editRowItem')(this.get('item'), label);
 	}),
