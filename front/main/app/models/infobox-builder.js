@@ -131,8 +131,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @desc sets a new value of the default field
 	 * on the given title element
 	 *
-	 * @param {TitleItem} item
-	 * @param {bool} value
+	 * @param {Object} item
+	 * @param {Boolean} value
 	 * @returns {void}
 	 */
 	editTitleItem(item, value) {
@@ -142,10 +142,17 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		this.set(`infoboxState.${index}.data.default`, defaultValue);
 	},
 
+	/**
+	 * @desc sets user custumized label and source created based on this label value
+	 * @param {Object} item
+	 * @param {String} value
+	 * @returns {void}
+	 */
 	editRowItem(item, value) {
 		const index = this.get('infoboxState').indexOf(item);
 
 		this.set(`infoboxState.${index}.data.label`, value);
+		this.set(`infoboxState.${index}.source`, InfoboxBuilderModel.sanitizeCustomRowSource(value));
 	},
 
 	/**
@@ -234,6 +241,20 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				error: (err) => reject(err)
 			});
 		});
+	}
+});
+
+InfoboxBuilderModel.reopenClass({
+	/**
+	 * @desc creates source for row item from user custumized label value
+	 * @param {String} input
+	 * @returns {String}
+	 */
+	sanitizeCustomRowSource(input) {
+		return input
+			.trim()
+			.toLowerCase()
+			.replace(/\s+/g, '_');
 	}
 });
 
