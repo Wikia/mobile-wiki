@@ -6,7 +6,7 @@ moduleFor('model:infobox-builder', 'Unit | Model | infobox builder', {
 	unit: true
 });
 
-test('checks if moving item in infoboxState by given offset is valid', function (assert) {
+test('checks if moving item in infoboxState by given offset is valid', (assert) => {
 	const model = infoboxBuilderModelClass.create(),
 		cases = [
 			{
@@ -61,7 +61,7 @@ test('checks if moving item in infoboxState by given offset is valid', function 
 	});
 });
 
-test('edit title item', function (assert) {
+test('edit title item', (assert) => {
 	const model = infoboxBuilderModelClass.create(),
 		index = 0,
 		cases = [
@@ -77,13 +77,13 @@ test('edit title item', function (assert) {
 
 	model.addTitleItem();
 
-	cases.forEach(testCase => {
+	cases.forEach((testCase) => {
 		model.editTitleItem(model.get('infoboxState').objectAt(index), testCase.useArticletitle);
 		assert.equal(model.get(`infoboxState.${index}.data.default`), testCase.defaultValue);
 	});
 });
 
-test('edit row item', function (assert) {
+test('edit row item', (assert) => {
 	const index = 0,
 		cases = [
 			{
@@ -99,7 +99,7 @@ test('edit row item', function (assert) {
 			}
 		];
 
-	cases.forEach(testCase => {
+	cases.forEach((testCase) => {
 		const model = infoboxBuilderModelClass.create();
 
 		model.addRowItem();
@@ -110,7 +110,7 @@ test('edit row item', function (assert) {
 	});
 });
 
-test('sanitize custom row source', function (assert) {
+test('sanitize custom row source', (assert) => {
 	const cases = [
 		{
 			input: 'TEST',
@@ -130,7 +130,7 @@ test('sanitize custom row source', function (assert) {
 		}
 	];
 
-	cases.forEach(testCase => assert.equal(
+	cases.forEach((testCase) => assert.equal(
 		infoboxBuilderModelClass.sanitizeCustomRowSource(testCase.input), testCase.output
 	));
 });
