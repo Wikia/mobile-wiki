@@ -2,11 +2,12 @@ import {test, moduleFor} from 'ember-qunit';
 
 const infoboxBuilderModelClass = require('main/models/infobox-builder').default;
 
-moduleFor('model:infobox-builder', 'Unit | Model | infobox builder', {});
+moduleFor('model:infobox-builder', 'Unit | Model | infobox builder', {
+	unit: true
+});
 
-
-test('checks if moving item in infoboxState by given offset is valid', (assert) => {
-	const model = infoboxBuilderModelClass.create({}),
+test('checks if moving item in infoboxState by given offset is valid', function (assert) {
+	const model = infoboxBuilderModelClass.create(),
 		cases = [
 			{
 				position: 0,
@@ -60,8 +61,8 @@ test('checks if moving item in infoboxState by given offset is valid', (assert) 
 	});
 });
 
-test('edit title item', (assert) => {
-	const model = infoboxBuilderModelClass.create({}),
+test('edit title item', function (assert) {
+	const model = infoboxBuilderModelClass.create(),
 		index = 0,
 		cases = [
 			{
@@ -82,7 +83,34 @@ test('edit title item', (assert) => {
 	});
 });
 
-test('sanitize custom row source', (asset) => {
+test('edit row item', function (assert) {
+	const index = 0,
+		cases = [
+			{
+				input: 'test',
+				label: 'test',
+				source: 'test',
+				message: 'updates source value based on custom label'
+			},
+			{
+				input: '',
+				label: '',
+				source: 'row1'
+			}
+		];
+
+	cases.forEach(testCase => {
+		const model = infoboxBuilderModelClass.create();
+
+		model.addRowItem();
+		model.editRowItem(model.get('infoboxState').objectAt(index), testCase.input);
+
+		assert.equal(model.get(`infoboxState.${index}.data.label`), testCase.label);
+		assert.equal(model.get(`infoboxState.${index}.source`), testCase.source);
+	});
+});
+
+test('sanitize custom row source', function (assert) {
 	const cases = [
 		{
 			input: 'TEST',
@@ -102,7 +130,7 @@ test('sanitize custom row source', (asset) => {
 		}
 	];
 
-	cases.forEach(testCase => asset.equal(
+	cases.forEach(testCase => assert.equal(
 		infoboxBuilderModelClass.sanitizeCustomRowSource(testCase.input), testCase.output
 	));
 });
