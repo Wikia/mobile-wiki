@@ -18,15 +18,17 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 	/**
 	 * @desc add item to infobox state
-	 * @param {Object} object
-	 * @returns {void}
+	 * @param {RowItem|ImageItem|TitleItem} object
+	 * @returns {RowItem|ImageItem|TitleItem} added item
 	 */
 	addToState(object) {
 		this.get('infoboxState').pushObject(object);
+
+		return object;
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {RowItem} added item
 	 */
 	addRowItem() {
 		const itemType = 'row',
@@ -49,7 +51,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {ImageItem} added item
 	 */
 	addImageItem() {
 		const itemType = 'image',
@@ -71,13 +73,13 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {TitleItem} added item
 	 */
 	addTitleItem() {
 		const itemType = 'title',
 			index = this.increaseItemIndex('title');
 
-		this.addToState({
+		return this.addToState({
 			data: {
 				default: ''
 			},
@@ -150,9 +152,11 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc sets user custumized label and source created based on this label value
-	 * @param {Object} item
-	 * @param {String} value
+	 * @desc sets a new value of the label field
+	 * on the given row (data) element
+	 *
+	 * @param {RowItem} item
+	 * @param {string} value
 	 * @returns {void}
 	 */
 	editRowItem(item, value) {
@@ -256,7 +260,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 InfoboxBuilderModel.reopenClass({
 	/**
-	 * @desc creates source for row item from user custumized label value
+	 * @desc creates source for row item from user customized label value
 	 * @param {String} input
 	 * @returns {String}
 	 */
