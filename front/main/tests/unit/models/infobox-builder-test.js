@@ -60,7 +60,7 @@ test('checks if moving item in infoboxState by given offset is valid', (assert) 
 	});
 });
 
-test('sanitizeCustomRowSource', (asset) => {
+test('sanitize custom row source', (asset) => {
 	const cases = [
 		{
 			input: 'TEST',
