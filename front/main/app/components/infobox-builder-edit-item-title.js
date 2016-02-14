@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	classNames: ['sidebar-content-padding'],
 	isHelpVisible: false,
 	useArticleName: null,
 
