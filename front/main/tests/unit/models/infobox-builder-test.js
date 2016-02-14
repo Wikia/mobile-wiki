@@ -59,3 +59,28 @@ test('checks if moving item in infoboxState by given offset is valid', (assert) 
 		assert.equal(model.isValidMove(testCase.position, testCase.offset), testCase.result);
 	});
 });
+
+test('sanitizeCustomRowSource', (asset) => {
+	const cases = [
+		{
+			input: 'TEST',
+			output: 'test'
+		},
+		{
+			input: 'TEST TEST',
+			output: 'test_test'
+		},
+		{
+			input: 'Test    Test  TEST',
+			output: 'test_test_test'
+		},
+		{
+			input: '  TEST   TEST   ',
+			output: 'test_test'
+		}
+	];
+
+	cases.forEach(testCase => asset.equal(
+		infoboxBuilderModelClass.sanitizeCustomRowSource(testCase.input), testCase.output
+	));
+});
