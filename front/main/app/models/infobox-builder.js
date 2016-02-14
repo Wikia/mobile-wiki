@@ -152,7 +152,10 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		const index = this.get('infoboxState').indexOf(item);
 
 		this.set(`infoboxState.${index}.data.label`, value);
-		this.set(`infoboxState.${index}.source`, InfoboxBuilderModel.sanitizeCustomRowSource(value));
+
+		if (value.trim().length) {
+			this.set(`infoboxState.${index}.source`, InfoboxBuilderModel.sanitizeCustomRowSource(value));
+		}
 	},
 
 	/**
