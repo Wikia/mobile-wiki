@@ -1,13 +1,20 @@
 import Ember from 'ember';
 
 const InfoboxBuilderModel = Ember.Object.extend({
-	_itemIndex: {
-		row: 0,
-		image: 0,
-		title: 0
+	/**
+	 * @returns {void}
+	 */
+	init() {
+		this.setProperties({
+			_itemIndex: {
+				row: 0,
+				image: 0,
+				title: 0
+			},
+			infoboxState: Ember.A([]),
+			itemInEditMode: null
+		})
 	},
-	infoboxState: Ember.A([]),
-	itemInEditMode: null,
 
 	/**
 	 * @desc add item to infobox state
