@@ -60,6 +60,28 @@ test('checks if moving item in infoboxState by given offset is valid', (assert) 
 	});
 });
 
+test('edit title item', (assert) => {
+	const model = infoboxBuilderModelClass.create({}),
+		index = 0,
+		cases = [
+			{
+				useArticletitle: true,
+				defaultValue: '{{PAGENAME}}'
+			},
+			{
+				useArticletitle: false,
+				defaultValue: ''
+			}
+		];
+
+	model.addTitleItem();
+
+	cases.forEach(testCase => {
+		model.editTitleItem(model.get('infoboxState').objectAt(index), testCase.useArticletitle);
+		assert.equal(model.get(`infoboxState.${index}.data.default`), testCase.defaultValue);
+	});
+});
+
 test('sanitize custom row source', (asset) => {
 	const cases = [
 		{
