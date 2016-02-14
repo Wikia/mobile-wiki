@@ -204,10 +204,13 @@ $border-width: 2px;
 	display: flex;
 	justify-content: center;
 	height: $icon-wrapper-size;
-	position: absolute;
-	right: -10px;
-	top: 0;
 	width: $icon-wrapper-size;
+
+	.infobox-builder-input & {
+		position: absolute;
+		right: -10px;
+		top: 0;
+	}
 
 	&:hover svg {
 		fill: $color-blue-light;
