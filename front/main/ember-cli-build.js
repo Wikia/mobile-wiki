@@ -48,7 +48,8 @@ module.exports = function (defaults) {
 				css: {
 					app: 'assets/app.css',
 					'app-dark-theme': 'assets/app-dark-theme.css'
-				}
+				},
+				html: 'ember-main.hbs',
 			}
 		},
 		fingerprint: {

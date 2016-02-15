@@ -57,12 +57,6 @@ gulp.task('build-server-node-modules', function () {
 gulp.task('build-server-views-main', function () {
 	return gulp.src(paths.views.main.src)
 		.pipe(plumber())
-		.pipe(rename(paths.views.main.outputFilename))
-		// Ember rebuilds index.html on every change
-		// Let's not restart server unless this file is actually modified
-		.pipe(changed(paths.views.main.dest, {
-			hasChanged: changed.compareSha1Digest
-		}))
 		.pipe(gulp.dest(paths.views.main.dest));
 });
 

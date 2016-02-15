@@ -88,9 +88,8 @@ module.exports = {
 				src: outputFront + '/auth/views/' + hbsPattern
 			},
 			main: {
-				src: outputFront + '/main/index.html',
+				src: outputFront + '/main/ember-main.hbs',
 				dest: outputServer + '/app/views/_layouts',
-				outputFilename: 'ember-main.hbs'
 			}
 		},
 	},
