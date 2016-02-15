@@ -53,7 +53,9 @@ export default Ember.Component.extend(
 			return this.get('width') <= this.get('articleContent.width');
 		}),
 
-		hasCaption: Ember.computed.notEmpty('caption'),
+		hasFigcaption: Ember.computed('caption', 'title', function () {
+			return this.get('title') || this.get('caption');
+		}),
 
 		viewportOptionsOverride: Ember.on('didInsertElement', function () {
 			Ember.setProperties(this, {

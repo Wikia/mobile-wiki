@@ -6,9 +6,13 @@
 {{else}}
 	<img src="{{thumbnailUrl}}" height="{{height}}" width="{{width}}" data-ref={{ref}} data-gallery-ref={{galleryRef}}>
 {{/if}}
-{{#if hasCaption}}
-	{{#if title}}
-		<div>{{title}}</div>
-	{{/if}}
-	<figcaption>{{{caption}}}</figcaption>
+{{#if hasFigcaption}}
+	<figcaption>
+		{{#if title}}
+			<div>{{title}}</div>
+		{{/if}}
+		{{#if caption}}
+			{{{caption}}}
+		{{/if}}
+	</figcaption>
 {{/if}}
