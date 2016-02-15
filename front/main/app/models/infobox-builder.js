@@ -11,14 +11,14 @@ const InfoboxBuilderModel = Ember.Object.extend({
 			image: 0,
 			title: 0
 		};
-		this.infoboxState = Ember.A([]);
+		this.infoboxState = [];
 		this.itemInEditMode = null;
 	},
 
 	/**
 	 * @desc add item to infobox state
-	 * @param {RowItem|ImageItem|TitleItem} object
-	 * @returns {RowItem|ImageItem|TitleItem} added item
+	 * @param {Object} object
+	 * @returns {Object} added item
 	 */
 	addToState(object) {
 		this.get('infoboxState').pushObject(object);
@@ -27,13 +27,13 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @returns {RowItem} added item
+	 * @returns {Object} added item
 	 */
 	addRowItem() {
 		const itemType = 'row',
 			index = this.increaseItemIndex(itemType);
 
-		this.addToState({
+		return this.addToState({
 			data: {
 				label: i18n.t('main.label-default', {
 					ns: 'infobox-builder',
@@ -50,13 +50,13 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @returns {ImageItem} added item
+	 * @returns {Object} added item
 	 */
 	addImageItem() {
 		const itemType = 'image',
 			index = this.increaseItemIndex(itemType);
 
-		this.addToState({
+		return this.addToState({
 			data: {
 				caption: {
 					source: `caption${index}`
@@ -72,7 +72,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @returns {TitleItem} added item
+	 * @returns {Object} added item
 	 */
 	addTitleItem() {
 		const itemType = 'title',
@@ -128,7 +128,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 	/**
 	 * @desc sets item to the edit mode
-	 * @param {RowItem|ImageItem|TitleItem} item
+	 * @param {Object} item
 	 * @returns {void}
 	 */
 	setEditItem(item) {
@@ -154,7 +154,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @desc sets a new value of the label field
 	 * on the given row (data) element
 	 *
-	 * @param {RowItem} item
+	 * @param {Object} item
 	 * @param {string} value
 	 * @returns {void}
 	 */
@@ -170,7 +170,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 	/**
 	 * @desc removes item from state for given position
-	 * @param {RowItem|ImageItem|TitleItem} item
+	 * @param {Object} item
 	 * @returns {void}
 	 */
 	removeItem(item) {
@@ -181,7 +181,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	/**
 	 * @desc moves item in infoboxState by given offset
 	 * @param {Number} offset
-	 * @param {RowItem|ImageItem|TitleItem} item
+	 * @param {Object} item
 	 * @returns {void}
 	 */
 	moveItem(offset, item) {
