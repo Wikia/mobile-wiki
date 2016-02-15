@@ -89,12 +89,12 @@ export default Ember.Component.extend(
 		/**
 		 * Keep pagination up to date
 		 */
-		currentItemIndexObserver: Ember.observer('currentItemIndex', function () {
+		currentItemIndexObserver: Ember.on('didInsertElement', Ember.observer('currentItemIndex', function () {
 			const $pagination = this.$('.featured-content-pagination');
 
 			$pagination.find('.current').removeClass('current');
 			$pagination.find(`li[data-index=${this.get('currentItemIndex')}]`).addClass('current');
-		}).on('didInsertElement'),
+		})),
 
 		/**
 		 * @returns {void}

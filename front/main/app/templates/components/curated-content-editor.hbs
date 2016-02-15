@@ -3,10 +3,15 @@
 	<button {{action 'save'}} class="sub-head--done">{{i18n 'app.curated-content-editor-publish'}}</button>
 	<div class="sub-head--title">{{i18n 'app.curated-content-editor-editing-header' label=(i18n 'app.curated-content-editor-main-page')}}</div>
 </header>
-{{#if enableCommunityData }}
-	{{curated-content-editor-wikia-description
+{{#if enableCommunityData}}
+	{{curated-content-editor-block
 		model=model.communityData
-		showHelp='showHelp'
+		block='community'
+		title=(i18n 'app.curated-content-editor-community-data')
+		description=(i18n 'app.curated-content-editor-community-data-description')
+		addItemLabel=(i18n 'app.curated-content-editor-edit-community-data-button')
+		addItem='editCommunityData'
+		editItem='editCommunityData'
 	}}
 {{/if}}
 {{curated-content-editor-block

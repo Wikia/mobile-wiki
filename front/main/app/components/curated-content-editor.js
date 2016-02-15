@@ -58,6 +58,13 @@ export default Ember.Component.extend(
 			/**
 			 * @returns {void}
 			 */
+			editCommunityData() {
+				this.sendAction('editCommunityData');
+			},
+
+			/**
+			 * @returns {void}
+			 */
 			openMainPage() {
 				this.sendAction('openMainPage');
 			},

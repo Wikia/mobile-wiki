@@ -1,0 +1,31 @@
+<header class="sub-head">
+	{{#link-to 'recent-wiki-activity' (query-params rc=model.id)
+		class="sub-head--cancel"
+		tracking-category='recent-wiki-activity'
+		tracking-label='article-diff__go-back'
+	}}
+		{{svg 'back-arrow' role='img' class='icon'}}
+	{{/link-to}}
+	<div class="sub-head--title">{{i18n 'main.title' ns='recent-wiki-activity'}}</div>
+</header>
+
+{{recent-change model=model showDiffLink=showDiffLink id=model.id}}
+
+<div class="diff-page-legend">
+	<span class="diff-page-legend__previous"></span>
+	<span class="diff-page-legend__text">
+		{{i18n 'diff.before' ns='recent-wiki-activity'}}
+	</span><br>
+	<span class="diff-page-legend__current"></span>
+	<span class="diff-page-legend__text">
+		{{i18n 'diff.after' ns='recent-wiki-activity'}}
+	</span>
+</div>
+
+{{#each model.diffs as |diff|}}
+	<div class="{{diff.classes}}">{{diff.content}}</div>
+{{/each}}
+
+{{#if showUndoButton}}
+	<button {{action attrs.showConfirmation}} class="diff-page__undo">{{i18n 'main.undo-label' ns='recent-wiki-activity'}}</button>
+{{/if}}
