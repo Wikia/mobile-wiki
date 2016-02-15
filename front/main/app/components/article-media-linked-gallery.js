@@ -16,7 +16,7 @@ export default Ember.Component.extend(
 			return this.get('items.length') > this.get('numberOfItemsRendered');
 		}),
 
-		sortedItems: Ember.computed.sort('sanitizedItems', function (a, b) {
+		sortedItems: Ember.computed.sort('sanitizedItems', (a, b) => {
 			if (a.link && typeof b.link === 'undefined') {
 				return 1;
 			} else if (b.link && typeof a.link === 'undefined') {
@@ -26,7 +26,7 @@ export default Ember.Component.extend(
 			return 0;
 		}),
 
-		sanitizedItems: Ember.computed.map('items', function(item, index) {
+		sanitizedItems: Ember.computed.map('items', (item, index) => {
 			item.galleryRef = index;
 			return item;
 		}),
