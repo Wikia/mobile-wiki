@@ -24,6 +24,10 @@ Router.map(function () {
 		path: '/article-preview'
 	});
 
+	this.route('infoboxBuilder', {
+		path: '/infobox-builder/:templateName'
+	});
+
 	this.route('mainPageSection', {
 		path: '/main/section/:sectionName'
 	});

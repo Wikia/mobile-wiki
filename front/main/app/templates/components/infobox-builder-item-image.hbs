@@ -1,0 +1,18 @@
+{{!
+	This component template and its JS logic part are linked with of app/extensions/wikia/PortableInfobox/templates/PortableInfoboxItemImage.mustache
+	Changing them requires modifying the other in app repo.
+}}
+
+<a class="image image-thumbnail {{if isVideo 'video video-thumbnail small' ''}}"
+	title="{{alt}}">
+	<img src="{{thumbnail}}" class="pi-image-thumbnail" alt="{{alt}}" width="{{width}}" height="{{height}}" />
+	{{#if isVideo}}
+		{{#if duration}}
+			<span class="duration" itemprop="duration">{{duration}}</span>
+		{{/if}}
+		<span class="play-circle"></span>
+	{{/if}}
+</a>
+{{#if caption}}
+	<figcaption class="pi-item-spacing pi-caption">{{caption}}</figcaption>
+{{/if}}

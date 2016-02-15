@@ -31,6 +31,10 @@ module.exports = function (defaults) {
 					sourceDirs: 'app/symbols/discussions',
 					outputFile: '/assets/discussions.svg'
 				},
+				{
+					sourceDirs: 'app/symbols/infobox-builder',
+					outputFile: '/assets/infobox-builder.svg'
+				},
 				// This duplicates build-common-symbols task but we still want to do it
 				// as there is no easy way to use external rev-manifest.json in here
 				{
