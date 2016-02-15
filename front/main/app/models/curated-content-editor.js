@@ -138,7 +138,9 @@ CuratedContentEditorModel.reopenClass({
 				items: [],
 				label: ''
 			},
-			communityData = {};
+			communityData = {
+				community_data: 'true'
+			};
 
 		if (rawData.length) {
 			rawData.forEach((section) => {
