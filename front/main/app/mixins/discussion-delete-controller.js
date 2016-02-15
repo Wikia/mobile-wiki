@@ -45,6 +45,24 @@ export default Ember.Mixin.create({
 		 */
 		undeleteReply(reply) {
 			this.get('target').send('undeleteReply', reply);
-		}
+		},
+
+		/**
+		 * Bubbles up to Route
+		 * @param {object} post
+		 * @returns {void}
+		 */
+		reportPost(post) {
+			this.get('target').send('reportPost', post);
+		},
+
+		/**
+		 * Bubbles up to Route
+		 * @param {object} reply
+		 * @returns {void}
+		 */
+		reportReply(reply) {
+			this.get('target').send('reportPost', reply);
+		},
 	}
 });

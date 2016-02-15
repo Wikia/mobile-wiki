@@ -20,3 +20,11 @@
 		{{i18n 'main.all-posts-by-username' userName=post.createdBy.name ns='discussion'}}
 	{{/link-to}}
 </li>
+{{#if canReport}}
+	<li>
+		<a class="report-link" {{action this.attrs.report post}}>
+			{{svg 'report' viewBox='0 0 18 18' class='icon report'}}
+			<span>{{reportMessage}}</span>
+		</a>
+	</li>
+{{/if}}

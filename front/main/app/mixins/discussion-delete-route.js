@@ -95,6 +95,32 @@ export default Ember.Mixin.create({
 			this.modelFor(this.get('routeName')).undeleteReply(reply).then(() => {
 				Ember.set(reply, 'isLoading', false);
 			});
-		}
+		},
+
+		/**
+		 * Pass post reporting to model
+		 * @param {object} post
+		 * @returns {void}
+		 */
+		reportPost(post) {
+			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
+
+			Ember.set(loadingSpinnerContainer, 'isLoading', true);
+			this.modelFor(this.get('routeName')).reportPost(post).then(() => {
+				Ember.set(loadingSpinnerContainer, 'isLoading', false);
+			});
+		},
+
+		/**
+		 * Pass reply reporting to model
+		 * @param {object} reply
+		 * @returns {void}
+		 */
+		reportReply(reply) {
+			Ember.set(reply, 'isLoading', true);
+			this.modelFor(this.get('routeName')).reportReply(reply).then(() => {
+				Ember.set(reply, 'isLoading', false);
+			});
+		},
 	}
 });

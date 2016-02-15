@@ -105,6 +105,42 @@ export default Ember.Mixin.create({
 		}
 	},
 
+	/**
+	 * Report post in service
+	 * @param {object} post
+	 * @returns {Ember.RSVP.Promise|void}
+	 */
+	reportPost(post) {
+		return ajaxCall({
+			method: 'PUT',
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/report`),
+			success: () => {
+				Ember.set(post, 'isDeleted', true);
+			},
+			error: () => {
+				this.displayError();
+			}
+		});
+	},
+
+	/**
+	 * Report reply in service
+	 * @param {object} reply
+	 * @returns {Ember.RSVP.Promise|void}
+	 */
+	reportReply(reply) {
+		return ajaxCall({
+			method: 'PUT',
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/report/valid`),
+			success: () => {
+				Ember.set(reply, 'isDeleted', false);
+			},
+			error: () => {
+				this.displayError();
+			}
+		});
+	},
+
 	displayError() {
 		alert(i18n.t('editor.post-error-general-error', {ns: 'discussion'}));
 	}
