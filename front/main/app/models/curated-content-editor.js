@@ -245,6 +245,7 @@ CuratedContentEditorModel.reopenClass({
 	 * @desc updates community data state
 	 * @param {Ember.Object} model
 	 * @param {Ember.Object} newState
+	 * @returns {void}
 	 */
 	updateCommunityData(model, newState) {
 		model.communityData = newState;
