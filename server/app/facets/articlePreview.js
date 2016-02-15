@@ -1,4 +1,4 @@
-import * as MediaWikiPage from '../lib/MediaWikiPage';
+import {PageRequestHelper} from '../lib/MediaWikiPage';
 import disableCache from '../lib/Caching';
 import {getCachedWikiDomainName, getCDNBaseUrl, getHtmlTitle} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
@@ -62,7 +62,7 @@ export default function articlePreview(request, reply) {
 			CKmarkup: request.payload.CKmarkup || '',
 			title: request.payload.title || ''
 		},
-		mediaWikiPageHelper = new MediaWikiPage.MediaWikiPageRequestHelper(params);
+		mediaWikiPageHelper = new PageRequestHelper(params);
 
 	mediaWikiPageHelper
 		.getArticleFromMarkup()

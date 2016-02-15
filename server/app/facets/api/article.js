@@ -1,4 +1,4 @@
-import {MediaWikiPageRequestHelper} from '../../lib/MediaWikiPage';
+import {PageRequestHelper} from '../../lib/MediaWikiPage';
 import setResponseCaching, * as Caching from '../../lib/Caching';
 import {getCachedWikiDomainName} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
@@ -60,7 +60,7 @@ export default function get(request, reply) {
 		allowCache = false;
 	}
 
-	mediaWikiPageHelper = new MediaWikiPageRequestHelper(params);
+	mediaWikiPageHelper = new PageRequestHelper(params);
 
 	if (isRequestForRandomTitle(request.query)) {
 		mediaWikiPageHelper

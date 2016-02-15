@@ -1,4 +1,4 @@
-import * as MediaWikiPage from '../lib/MediaWikiPage';
+import {PageRequestHelper, PageRequestError} from '../lib/MediaWikiPage';
 import {WikiVariablesRequestError, namespace as MediaWikiNamespace} from '../lib/MediaWiki';
 import setResponseCaching, * as Caching from '../lib/Caching';
 import Logger from '../lib/Logger';
@@ -29,7 +29,7 @@ const cachingTimes = {
  * although if it does it guarantees graceful fallback.
  *
  * @param {Hapi.Response} reply
- * @param {MediaWikiPageRequestHelper} mediaWikiPageHelper
+ * @param {RequestHelper} mediaWikiPageHelper
  * @returns {void}
  */
 function redirectToMainPage(reply, mediaWikiPageHelper) {
@@ -102,7 +102,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
  *
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
- * @param {MediaWikiPageRequestHelper} mediaWikiPageHelper
+ * @param {RequestHelper} mediaWikiPageHelper
  * @param {boolean} allowCache
  * @returns {void}
  */
@@ -129,7 +129,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 * @param {*} error
 		 * @returns {void}
 		 */
-		.catch(MediaWikiPage.PageRequestError, (error) => {
+		.catch(PageRequestError, (error) => {
 			const data = error.data,
 				errorCode = getStatusCode(data.article, 500);
 
@@ -189,7 +189,7 @@ export default function mediaWikiPageHandler(request, reply) {
 		allowCache = false;
 	}
 
-	mediaWikiPageHelper = new MediaWikiPage.MediaWikiPageRequestHelper(params);
+	mediaWikiPageHelper = new PageRequestHelper(params);
 
 	if (path === '/' || path === '/wiki/') {
 		redirectToMainPage(reply, mediaWikiPageHelper);
