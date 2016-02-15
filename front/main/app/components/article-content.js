@@ -61,6 +61,9 @@ export default Ember.Component.extend(
 				if (content) {
 					this.hackIntoEmberRendering(content);
 
+					this.handleInfoboxes();
+					this.replaceInfoboxesWithInfoboxComponents();
+
 					this.renderedComponents = queryPlaceholders(this.$())
 						.map(this.getAttributesForMedia, this)
 						.map(this.renderComponent);
@@ -68,8 +71,6 @@ export default Ember.Component.extend(
 					this.loadIcons();
 					this.loadTableOfContentsData();
 					this.handleTables();
-					this.handleInfoboxes();
-					this.replaceInfoboxesWithInfoboxComponents();
 					this.replaceMapsWithMapComponents();
 					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
