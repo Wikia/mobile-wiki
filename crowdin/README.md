@@ -5,7 +5,8 @@ Localization is handled by [i18next](http://i18next.com/) JavaScript library and
 If during the development process you've added new keys to the `front/common/public/locales/en/<namespace>.json` file (the source file), then you have to upload it to CrowdIn to enable the translators to work on the other languages. The same applies if you've changed the values of the existing keys in the source file, as the corresponding values in other languages are being invalidated.
 * go to your dev-box and clone the Mercury project (or just upload the `crowdin.conf` (`main.conf`, `auth.conf`, ...) file, but this approach needs more flirting with the configuration, manual updating and command line switches → not recommended)
 * checkout the branch with the desired changes (or just upload the new source file - all `.conf` files should be placed in `/crowdin` directory)
-* from the project root directory run `crowdin --project-config crowdin/NAME_OF_CONF_FILE.conf download`
+* from the project root directory run `crowdin --project-config crowdin/NAME_OF_CONF_FILE.conf download` to make sure you'll not override someones' else changes
+* from the project root directory run `crowdin --project-config crowdin/NAME_OF_CONF_FILE.conf upload` to upload your translation file to CrowdIn
 
 ### Checking the translation status
 * from the project root directory run `crowdin translation-status`
