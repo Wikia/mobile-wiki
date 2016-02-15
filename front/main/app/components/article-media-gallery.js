@@ -76,7 +76,7 @@ export default Ember.Component.extend(
 				scrollOffset = $this.scrollLeft() + $this.width(),
 				numberOfItemsRendered = this.get('numberOfItemsRendered'),
 				totalNumberOfItems = this.get('items.length'),
-				// article-media-image width is the same as imageSize plus margin defined in CSS
+				// article-media-thumbnail width is the same as imageSize plus margin defined in CSS
 				itemWidth = this.imageSize + 8,
 				renderedItemsWidth = numberOfItemsRendered * itemWidth,
 				bufferWidth = renderedItemsWidth - scrollOffset,

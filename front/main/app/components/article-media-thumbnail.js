@@ -9,7 +9,7 @@ export default Ember.Component.extend(
 	InViewportMixin,
 	{
 		attributeBindings: ['data-ref'],
-		classNames: ['article-media-image'],
+		classNames: ['article-media-thumbnail'],
 		classNameBindings: ['hasCaption', 'itemType', 'isSmall', 'loaded'],
 		tagName: 'figure',
 
