@@ -57,6 +57,10 @@ export default Ember.Component.extend(
 			return this.get('title') || this.get('caption');
 		}),
 
+		showTitle: Ember.computed('type', function () {
+			return this.get('type') === 'video' && this.get('title');
+		}),
+
 		viewportOptionsOverride: Ember.on('didInsertElement', function () {
 			Ember.setProperties(this, {
 				viewportTolerance: {
