@@ -89,7 +89,7 @@ gulp.task('build-server', [
  * Watch files that the server build depends on
  */
 gulp.task('watch-server', function () {
-	watch(paths.views.main.src, {ignoreInitial: false}, function () {
+	watch(paths.views.main.src, function () {
 		gulp.start('build-server-views-main');
 	}).on('error', exitOnError);
 

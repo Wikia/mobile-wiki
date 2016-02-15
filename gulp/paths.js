@@ -88,7 +88,12 @@ module.exports = {
 				src: outputFront + '/auth/views/' + hbsPattern
 			},
 			main: {
-				src: outputFront + '/main/ember-main.hbs',
+				/**
+				 * when server watch starts 'main' folder is not there yet
+				 * therefore we need to have ** here to allow file watchers to
+				 * be able to fire event when file is added
+				*/
+				src: outputFront + '/**/ember-main.hbs',
 				dest: outputServer + '/app/views/_layouts',
 			}
 		},
