@@ -49,9 +49,22 @@ $border-width: 2px;
 	.pi-item,
 	// overwrite infobox styles inherited from oasis
 	.pi-item:last-child {
-		box-sizing: border-box;
-		&.active {
+		position: relative;
+
+		&.active:after {
+			background-color: transparent;
 			border: $border-width solid $color-blue-light;
+			content: '';
+			display: block;
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+
+		&:hover {
+			cursor: pointer;
 		}
 	}
 }
