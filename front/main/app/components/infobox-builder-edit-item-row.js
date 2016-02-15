@@ -14,7 +14,7 @@ export default Ember.Component.extend({
 	init() {
 		this._super(...arguments);
 		this.isHelpVisible = false;
-		this.classNames = ['sidebar-content-padding']
+		this.classNames = ['sidebar-content-padding'];
 	},
 
 	actions: {
