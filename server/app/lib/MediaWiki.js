@@ -21,7 +21,7 @@ import Url from 'url';
  * This list is taken from MediaWiki:app/includes/Defines.php
  * @type {{name: number}}
  */
-export const MediaWikiNamespace = {
+export const namespace = {
 	// virtual namespaces
 	MEDIA: -2,
 	SPECIAL: -1,
@@ -315,9 +315,9 @@ export class WikiRequest extends BaseRequest {
 /**
  * Gets article data
  *
- * @class MediaWikiPageRequest
+ * @class PageRequest
  */
-export class MediaWikiPageRequest extends BaseRequest {
+export class PageRequest extends BaseRequest {
 	/**
 	 * Fetch article data
 	 *

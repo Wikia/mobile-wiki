@@ -1,5 +1,5 @@
 import * as MediaWikiPage from '../lib/MediaWikiPage';
-import {WikiVariablesRequestError, MediaWikiNamespace} from '../lib/MediaWiki';
+import {WikiVariablesRequestError, namespace as MediaWikiNamespace} from '../lib/MediaWiki';
 import setResponseCaching, * as Caching from '../lib/Caching';
 import Logger from '../lib/Logger';
 import * as Tracking from '../lib/Tracking';
@@ -127,7 +127,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 * @param {*} error
 		 * @returns {void}
 		 */
-		.catch(MediaWikiPage.MediaWikiPageRequestError, (error) => {
+		.catch(MediaWikiPage.PageRequestError, (error) => {
 			const data = error.data,
 				errorCode = getStatusCode(data.article, 500);
 

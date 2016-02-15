@@ -5,14 +5,14 @@ import logger from './Logger';
 import localSettings from '../../config/localSettings';
 
 /**
- * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and MediaWikiPageRequestHelper
+ * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and PageRequestHelper
  * Common part should be extracted and moved to new class WikiaRequestHelper(?)
  */
 
 /**
- * @class MediaWikiPageRequestError
+ * @class PageRequestError
  */
-export class MediaWikiPageRequestError {
+export class PageRequestError {
 	/**
 	 * @param {MediaWikiPageData} data
 	 * @returns {void}
@@ -22,15 +22,15 @@ export class MediaWikiPageRequestError {
 		this.data = data;
 	}
 }
-MediaWikiPageRequestError.prototype = Object.create(Error.prototype);
+PageRequestError.prototype = Object.create(Error.prototype);
 
 /**
- * @class MediaWikiPageRequestHelper
- * @property {MediaWikiPageRequestParams} params
+ * @class PageRequestHelper
+ * @property {PageRequestParams} params
  */
-export class MediaWikiPageRequestHelper {
+export class PageRequestHelper {
 	/**
-	 * @param {MediaWikiPageRequestParams} params
+	 * @param {PageRequestParams} params
 	 * @returns {void}
 	 */
 	constructor(params) {
@@ -52,7 +52,7 @@ export class MediaWikiPageRequestHelper {
 	 */
 	getFull() {
 		const requests = [
-			new MediaWiki.MediaWikiPageRequest(this.params)
+			new MediaWiki.PageRequest(this.params)
 				.page(this.params.title, this.params.redirect, this.params.sections),
 			new MediaWiki.WikiRequest({
 				wikiDomain: this.params.wikiDomain
@@ -109,7 +109,7 @@ export class MediaWikiPageRequestHelper {
 					return resolve(data);
 				} else {
 					// Even if article promise failed we want to display app using the rest of data
-					return reject(new MediaWikiPageRequestError(data));
+					return reject(new PageRequestError(data));
 				}
 			});
 	}
@@ -133,7 +133,7 @@ export class MediaWikiPageRequestHelper {
 	 * @returns {Promise<ArticleResponse>}
 	 */
 	getArticleFromMarkup() {
-		const mediaWikiPageRequest = new MediaWiki.MediaWikiPageRequest(this.params);
+		const mediaWikiPageRequest = new MediaWiki.PageRequest(this.params);
 
 		logger.debug(this.params, 'Fetching article from markup');
 
@@ -146,7 +146,7 @@ export class MediaWikiPageRequestHelper {
 	 * @returns {Promise<ArticleResponse>}
 	 */
 	getArticle() {
-		const mediaWikiPageRequest = new MediaWiki.MediaWikiPageRequest(this.params);
+		const mediaWikiPageRequest = new MediaWiki.PageRequest(this.params);
 
 		logger.debug(this.params, 'Fetching page');
 
@@ -157,7 +157,7 @@ export class MediaWikiPageRequestHelper {
 	 * @returns {Promise}
 	 */
 	getArticleRandomTitle() {
-		const mediaWikiPageRequest = new MediaWiki.MediaWikiPageRequest(this.params);
+		const mediaWikiPageRequest = new MediaWiki.PageRequest(this.params);
 
 		return mediaWikiPageRequest
 			.randomTitle()
