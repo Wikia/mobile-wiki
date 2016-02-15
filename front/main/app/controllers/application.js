@@ -52,8 +52,7 @@ export default Ember.Controller.extend(
 		init() {
 			this.setProperties({
 				domain: Ember.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
-				language: Ember.get(Mercury, 'wiki.language'),
-				editorPreview: Ember.get(Mercury, 'article.preview')
+				language: Ember.get(Mercury, 'wiki.language')
 			});
 
 			// This event is for tracking mobile sessions between Mercury and WikiaMobile

@@ -1,0 +1,10 @@
+{{input
+	value=value
+	id=inputId
+	name=name
+	focus-out='onBlur'
+	focus-in='onFocus'
+	change=this.attrs.onChange
+}}
+<label class="floating-label {{if isLabelFloating 'active'}}" for={{id}}>{{label}}</label>
+{{{yield}}}

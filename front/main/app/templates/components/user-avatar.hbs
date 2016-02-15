@@ -12,5 +12,9 @@
 	{{/if}}
 </figure>
 {{#if displayProfileName}}
-	<a href="{{profileUrl}}" class="avatar-username">{{profileName}}</a>
+	{{#if shouldWrapInHref}}
+		<a href="{{profileUrl}}" class="avatar-username">{{profileName}}</a>
+	{{else}}
+		{{profileName}}
+	{{/if}}
 {{/if}}

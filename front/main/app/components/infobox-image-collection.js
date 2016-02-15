@@ -58,23 +58,20 @@ export default MediaComponent.extend(
 		 * @returns {void}
 		 */
 		setup() {
-			const mediaArray = Ember.A(),
-				emptyGif = this.get('emptyGif');
+			const emptyGif = this.emptyGif;
 
 			/**
 			 * @param {ArticleMedia} image
 			 * @param {number} index
 			 * @returns {void}
 			 */
-			this.get('media').forEach((image, index) => {
+			this.set('media', this.get('media').map((image, index) => {
 				image.galleryRef = index;
 				image.thumbUrl = emptyGif;
 				image.isActive = (index === this.get('activeRef'));
 
-				mediaArray.pushObject(Ember.Object.create(image));
-			});
-
-			this.set('media', mediaArray);
+				return Ember.Object.create(image);
+			}));
 		},
 
 		/**

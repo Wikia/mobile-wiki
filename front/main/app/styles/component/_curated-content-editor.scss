@@ -66,7 +66,10 @@ $image-photo-icon-size: 32px;
 
 .curated-content-editor-row {
 	display: flex;
-	height: $row-height;
+
+	&.fixed-height {
+		height: $row-height;
+	}
 
 	img {
 		align-self: center;
@@ -164,10 +167,14 @@ $image-photo-icon-size: 32px;
 }
 
 .curated-content-editor-photo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	margin: {
 		bottom: 50px;
 		top: 30px;
 	}
+	min-height: 56.25vw; /* 16:9 */
 	position: relative;
 
 	&.loaded {
@@ -187,7 +194,6 @@ $image-photo-icon-size: 32px;
 
 	img {
 		display: block;
-		height: 56.25vw; /* 16:9 */
 		margin: 0 auto;
 		max-width: 100%;
 	}

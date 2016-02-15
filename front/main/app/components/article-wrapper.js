@@ -143,11 +143,11 @@ export default Ember.Component.extend(
 
 		curatedContentToolButtonVisible: Ember.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
 
-		articleObserver: Ember.observer('model.article', function () {
+		articleObserver: Ember.on('willInsertElement', Ember.observer('model.article', function () {
 			// This check is here because this observer will actually be called for views wherein the state is actually
 			// not valid, IE, the view is in the process of preRender
 			Ember.run.scheduleOnce('afterRender', this, this.performArticleTransforms);
-		}).on('willInsertElement'),
+		})),
 
 		actions: {
 			/**
@@ -282,16 +282,12 @@ export default Ember.Component.extend(
 			if (mediaRef >= 0) {
 				Ember.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 
-				if (!$mediaElement.hasClass('is-small')) {
-					media = this.get('model.media');
-					this.sendAction('openLightbox', 'media', {
-						media,
-						mediaRef,
-						galleryRef
-					});
-				} else {
-					Ember.Logger.debug('Image too small to open in lightbox', target);
-				}
+				media = this.get('model.media');
+				this.sendAction('openLightbox', 'media', {
+					media,
+					mediaRef,
+					galleryRef
+				});
 
 				if (galleryRef >= 0) {
 					track({
@@ -302,6 +298,6 @@ export default Ember.Component.extend(
 			} else {
 				Ember.Logger.debug('Missing ref on', target);
 			}
-		},
+		}
 	}
 );

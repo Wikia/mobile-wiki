@@ -7,10 +7,16 @@ export default Ember.Component.extend(
 	CuratedContentEditorLabelsMixin,
 	{
 		classNames: ['curated-content-editor-row'],
+		classNameBindings: ['fixedHeight'],
+		fixedHeight: true,
 		imageWidth: 48,
 
 		thumbUrl: Ember.computed('model', function () {
 			return this.generateThumbUrl(this.get('model.image_url'));
+		}),
+
+		title: Ember.computed('model', function () {
+			return this.get('model.label') || i18n.t('app.curated-content-editor-enter-wikia-description');
 		}),
 
 		actions: {

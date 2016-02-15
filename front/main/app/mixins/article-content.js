@@ -105,7 +105,7 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	init() {
-		this._super();
+		this._super(...arguments);
 
 		articleContentListeners.add(this);
 	},
@@ -114,7 +114,7 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	willDestroyElement() {
-		this._super();
+		this._super(...arguments);
 
 		articleContentListeners.remove(this);
 	}

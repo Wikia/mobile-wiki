@@ -60,3 +60,12 @@ export function flip() {
 export function popup() {
 	return this.orientAbove.andSnapTo(this.center, this.rightEdge, this.leftEdge, this.center);
 }
+
+/**
+ * Flow pop-over below target, centered
+ *
+ * @returns {*}
+ */
+export function downCentered() {
+	return this.orientBelow.andSlideBetween(this.leftEdge, this.rightEdge);
+}
