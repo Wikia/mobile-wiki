@@ -8,8 +8,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		this._super(...arguments);
 		this._itemIndex = {
 			row: 0,
-				image: 0,
-				title: 0
+			image: 0,
+			title: 0
 		};
 		this.infoboxState = Ember.A([]);
 		this.itemInEditMode = null;
