@@ -11,17 +11,33 @@ import moment from 'moment';
  * @param {boolean} shouldHideAgoPrefix
  * @returns {string}
  */
-export default Ember.Helper.helper(([unixTimestamp, shouldHideAgoPrefix = true]) => {
-	const date = moment.unix(unixTimestamp),
-		now = moment();
-	let output;
+export default Ember.Helper.extend({
+	momentTranslationsService: Ember.inject.service('moment'),
+	onTranslationChange: Ember.observer('momentTranslationsService.isLoaded', function () {
+		this.recompute();
+	}),
 
-	if (now.diff(date, 'days') > 5) {
-		output = date.format('L');
-	} else if (now.diff(date, 'minutes') < 1) {
-		output = i18n.t('app.now-label');
-	} else {
-		output = date.fromNow(shouldHideAgoPrefix);
+	compute([unixTimestamp, shouldHideAgoPrefix = true]) {
+		const date = moment.unix(unixTimestamp),
+			now = moment(),
+			momentTranslationsService = this.get('momentTranslationsService'),
+			lang = Ember.get(Mercury, 'wiki.language.content') || 'en';
+		let output;
+
+		if(!momentTranslationsService.get('isLoaded')) {
+			if(!momentTranslationsService.get('isLoading')) {
+				momentTranslationsService.loadTranslation(lang);
+			}
+			return '<span class="datePlaceholder"/>';
+		} else {
+			if (now.diff(date, 'days') > 5) {
+				output = date.format('L');
+			} else if (now.diff(date, 'minutes') < 1) {
+				output = i18n.t('app.now-label');
+			} else {
+				output = date.fromNow(shouldHideAgoPrefix);
+			}
+			return output;
+		}
 	}
-	return output;
 });
