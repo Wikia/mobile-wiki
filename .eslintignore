@@ -4,6 +4,7 @@ test/
 
 front/auth/bower_components/
 front/common/bower_components/
+front/common/public/locales/moment/
 
 front/main/bower_components/
 front/main/node_modules/
