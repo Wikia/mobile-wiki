@@ -1,0 +1,15 @@
+<div class="sidebar-edit-area">
+	<label for="useArticleName" class="checkbox-title sidebar-content-padding">
+		{{input
+			type='checkbox'
+			id='useArticleName'
+			name='useArticleName'
+			checked=useArticleName
+		}}
+		{{i18n 'main.title-use-article-name' ns='infobox-builder'}}
+	</label>
+	<a class="infobox-builder-questionmark" {{action 'showHelp'}}>{{svg 'question' class='pointer-events-none' viewBox='0 0 18 18'}}</a>
+</div>
+{{#modal-dialog isVisible=isHelpVisible}}
+	{{i18n 'main.help-title' ns='infobox-builder'}}
+{{/modal-dialog}}

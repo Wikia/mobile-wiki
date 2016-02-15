@@ -1,32 +1,39 @@
 import Ember from 'ember';
 
 const InfoboxBuilderModel = Ember.Object.extend({
-	_itemIndex: {
-		row: 0,
-		image: 0,
-		title: 0
+	/**
+	 * @returns {void}
+	 */
+	init() {
+		this._super(...arguments);
+		this._itemIndex = {
+			row: 0,
+			image: 0,
+			title: 0
+		};
+		this.infoboxState = [];
+		this.itemInEditMode = null;
 	},
-	infoboxState: Ember.A([]),
-	itemInEditMode: null,
 
 	/**
 	 * @desc add item to infobox state
 	 * @param {Object} object
-	 * @returns {void}
+	 * @returns {Object} added item
 	 */
 	addToState(object) {
 		this.get('infoboxState').pushObject(object);
+
+		return object;
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {Object} added item
 	 */
 	addRowItem() {
 		const itemType = 'row',
-			xmlTag = 'data',
 			index = this.increaseItemIndex(itemType);
 
-		this.addToState({
+		return this.addToState({
 			data: {
 				label: i18n.t('main.label-default', {
 					ns: 'infobox-builder',
@@ -38,18 +45,18 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				component: this.createComponentName(itemType)
 			},
 			source: `${itemType}${index}`,
-			type: xmlTag
+			type: itemType
 		});
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {Object} added item
 	 */
 	addImageItem() {
 		const itemType = 'image',
 			index = this.increaseItemIndex(itemType);
 
-		this.addToState({
+		return this.addToState({
 			data: {
 				caption: {
 					source: `caption${index}`
@@ -65,13 +72,16 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @returns {void}
+	 * @returns {Object} added item
 	 */
 	addTitleItem() {
 		const itemType = 'title',
 			index = this.increaseItemIndex('title');
 
-		this.addToState({
+		return this.addToState({
+			data: {
+				default: ''
+			},
 			infoboxBuilderData: {
 				index,
 				component: this.createComponentName(itemType)
@@ -118,7 +128,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 	/**
 	 * @desc sets item to the edit mode
-	 * @param {DataItem|ImageItem|TitleItem} item
+	 * @param {Object} item
 	 * @returns {void}
 	 */
 	setEditItem(item) {
@@ -126,8 +136,41 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
+	 * @desc sets a new value of the default field
+	 * on the given title element
+	 *
+	 * @param {Object} item
+	 * @param {Boolean} value
+	 * @returns {void}
+	 */
+	editTitleItem(item, value) {
+		const index = this.get('infoboxState').indexOf(item),
+			defaultValue = value ? '{{PAGENAME}}' : '';
+
+		this.set(`infoboxState.${index}.data.default`, defaultValue);
+	},
+
+	/**
+	 * @desc sets a new value of the label field
+	 * on the given row (data) element
+	 *
+	 * @param {Object} item
+	 * @param {string} value
+	 * @returns {void}
+	 */
+	editRowItem(item, value) {
+		const index = this.get('infoboxState').indexOf(item);
+
+		this.set(`infoboxState.${index}.data.label`, value);
+
+		if (value.trim().length) {
+			this.set(`infoboxState.${index}.source`, InfoboxBuilderModel.sanitizeCustomRowSource(value));
+		}
+	},
+
+	/**
 	 * @desc removes item from state for given position
-	 * @param {DataItem|ImageItem|TitleItem} item
+	 * @param {Object} item
 	 * @returns {void}
 	 */
 	removeItem(item) {
@@ -138,7 +181,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	/**
 	 * @desc moves item in infoboxState by given offset
 	 * @param {Number} offset
-	 * @param {DataItem|ImageItem|TitleItem} item
+	 * @param {Object} item
 	 * @returns {void}
 	 */
 	moveItem(offset, item) {
@@ -211,6 +254,20 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				error: (err) => reject(err)
 			});
 		});
+	}
+});
+
+InfoboxBuilderModel.reopenClass({
+	/**
+	 * @desc creates source for row item from user customized label value
+	 * @param {String} input
+	 * @returns {String}
+	 */
+	sanitizeCustomRowSource(input) {
+		return input
+			.trim()
+			.toLowerCase()
+			.replace(/\s+/g, '_');
 	}
 });
 

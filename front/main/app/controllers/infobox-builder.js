@@ -38,6 +38,24 @@ export default Ember.Controller.extend({
 		 */
 		setEditItem(item) {
 			this.get('target').send('setEditItem', item);
+		},
+
+		/**
+		 * @param {TitleItem} item
+		 * @param {Object} value new default value
+		 * @returns {void}
+		 */
+		editTitleItem(item, value) {
+			this.get('target').send('editTitleItem', item, value);
+		},
+
+		/**
+		 * @param {RowItem} item
+		 * @param {string} value new label value
+		 * @returns {void}
+		 */
+		editRowItem(item, value) {
+			this.get('target').send('editRowItem', item, value);
 		}
 	}
 });

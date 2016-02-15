@@ -214,7 +214,25 @@ export default Ember.Route.extend({
 		},
 
 		/**
-		 * @desc Handles setting item to edit mode and calls proper function on model
+		 * @desc Handles editing title element - calls proper function on model
+		 * @param {TitleItem} item
+		 * @param {bool} value
+		 * @returns {void}
+		 */
+		editTitleItem(item, value) {
+			const model = this.modelFor('infoboxBuilder');
+
+			model.editTitleItem(item, value);
+		},
+
+		editRowItem(item, value) {
+			const model = this.modelFor('infoboxBuilder');
+
+			model.editRowItem(item, value);
+		},
+
+		/**
+		 * @desc Handles setting item to edit mode - calls proper function on model
 		 * @param {Object} item
 		 * @returns {void}
 		 */
