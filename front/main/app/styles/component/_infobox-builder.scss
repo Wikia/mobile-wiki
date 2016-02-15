@@ -49,6 +49,7 @@ $border-width: 2px;
 	.pi-item,
 	// overwrite infobox styles inherited from oasis
 	.pi-item:last-child {
+		box-sizing: border-box;
 		&.active {
 			border: $border-width solid $color-blue-light;
 		}
@@ -134,6 +135,11 @@ $border-width: 2px;
 		font-weight: bold;
 		line-height: 12px;
 		text-transform: uppercase;
+	}
+
+	input[type='text'],
+	input[type='text']:focus {
+		padding-right: 40px;
 	}
 
 	.modal-dialog-layover {
