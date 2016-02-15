@@ -143,11 +143,11 @@ export default Ember.Component.extend(
 
 		curatedContentToolButtonVisible: Ember.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
 
-		articleObserver: Ember.observer('model.article', function () {
+		articleObserver: Ember.on('willInsertElement', Ember.observer('model.article', function () {
 			// This check is here because this observer will actually be called for views wherein the state is actually
 			// not valid, IE, the view is in the process of preRender
 			Ember.run.scheduleOnce('afterRender', this, this.performArticleTransforms);
-		}).on('willInsertElement'),
+		})),
 
 		actions: {
 			/**

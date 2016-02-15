@@ -24,6 +24,10 @@ Router.map(function () {
 		path: '/article-preview'
 	});
 
+	this.route('infoboxBuilder', {
+		path: '/infobox-builder/:templateName'
+	});
+
 	this.route('mainPageSection', {
 		path: '/main/section/:sectionName'
 	});
@@ -49,6 +53,10 @@ Router.map(function () {
 			});
 		});
 
+		this.route('communityData', {
+			path: '/community'
+		});
+
 		this.route('sectionAdd', {
 			path: '/curated/add'
 		});
@@ -65,6 +73,10 @@ Router.map(function () {
 		this.route('invalid', {
 			path: '/*url'
 		});
+	});
+
+	this.route('articleDiff', {
+		path: `/diff/:oldId/:newId`
 	});
 
 	this.route('article', {
@@ -110,6 +122,8 @@ Router.map(function () {
 	this.route('image-review', {
 		path: '/image-review'
 	});
+
+	this.route('recent-wiki-activity');
 
 	// Route to catch all badly formed URLs
 	this.route('notFound', {

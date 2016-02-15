@@ -208,6 +208,14 @@ let routes,
 		},
 		{
 			method: 'GET',
+			path: '/diff/{revisions*}',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
 			// Catch invalid paths and redirect to the main page
 			path: '/main/{invalid}',
 			/**
@@ -242,11 +250,28 @@ let routes,
 		{
 			method: 'GET',
 			path: '/main/category/{categoryName*}',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
+			// We don't care if there is a dynamic segment, Ember router handles that
+			path: '/infobox-builder/{ignore*}',
 			handler: showCuratedContent,
 			config: {
 				cache: routeCacheConfig
 			}
-		}
+		},
+		{
+			method: 'GET',
+			path: '/recent-wiki-activity',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
 	];
 
 /**

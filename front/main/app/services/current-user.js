@@ -23,6 +23,7 @@ import UserModel from '../models/user';
 export default Ember.Service.extend({
 	rights: {},
 	isAuthenticated: Ember.computed.bool('userId'),
+	isBlocked: false,
 	language: null,
 
 	userId: Ember.computed(() => {
@@ -48,6 +49,7 @@ export default Ember.Service.extend({
 
 			this.loadUserInfo()
 				.then(this.loadUserLanguage.bind(this))
+				.then(this.loadBlockedStatus.bind(this))
 				.then(this.loadUserRights.bind(this))
 				.catch((err) => {
 					this.setUserLanguage();
@@ -110,6 +112,22 @@ export default Ember.Service.extend({
 	},
 
 	/**
+	 * @param {QueryUserInfoResponse} result
+	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
+	 */
+	loadBlockedStatus(result) {
+		return new Ember.RSVP.Promise((resolve) => {
+			const blockId = Ember.get(result, 'query.userinfo.blockid');
+
+			if (blockId) {
+				this.set('isBlocked', true);
+			}
+
+			resolve(result);
+		});
+	},
+
+	/**
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo() {
@@ -119,7 +137,7 @@ export default Ember.Service.extend({
 				data: {
 					action: 'query',
 					meta: 'userinfo',
-					uiprop: 'rights|options',
+					uiprop: 'rights|options|blockinfo',
 					format: 'json'
 				},
 				dataType: 'json',

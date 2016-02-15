@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {getQueryParam} from 'common/utils/queryString';
 
 /**

@@ -18,7 +18,9 @@ const cachingTimes = {
 };
 
 /**
- * This is used only locally, normally MediaWiki takes care of this redirect
+ * This is used only locally, normally MediaWiki takes care of this redirect.
+ * Production traffic should not reach this place
+ * although if it does it guarantees graceful fallback.
  *
  * @param {Hapi.Response} reply
  * @param {ArticleRequestHelper} article
