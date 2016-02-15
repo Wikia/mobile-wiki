@@ -9,6 +9,7 @@ export default Ember.Component.extend(
 
 		isHelpVisible: false,
 		persistentSort: true,
+		isCommunityDataBlock: Ember.computed.notEmpty('model.community_data'),
 
 		actions: {
 			/**

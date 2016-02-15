@@ -53,6 +53,10 @@ Router.map(function () {
 			});
 		});
 
+		this.route('communityData', {
+			path: '/community'
+		});
+
 		this.route('sectionAdd', {
 			path: '/curated/add'
 		});

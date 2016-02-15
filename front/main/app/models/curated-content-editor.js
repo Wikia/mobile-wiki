@@ -138,7 +138,9 @@ CuratedContentEditorModel.reopenClass({
 				items: [],
 				label: ''
 			},
-			communityData = {};
+			communityData = {
+				community_data: 'true'
+			};
 
 		if (rawData.length) {
 			rawData.forEach((section) => {
@@ -218,11 +220,14 @@ CuratedContentEditorModel.reopenClass({
 	 * @returns {void}
 	 */
 	updateItem(parentItem, newItem, itemLabel) {
-		parentItem.items.forEach((item, index, parentItems) => {
-			if (item.label === itemLabel) {
-				parentItems[index] = newItem.toPlainObject();
-			}
-		});
+		if (parentItem.items) {
+			parentItem.items.forEach((item, index, parentItems) => {
+				if (item.label === itemLabel) {
+					parentItems[index] = newItem.toPlainObject();
+				}
+			});
+		}
+
 		CuratedContentEditorModel.isDirty = true;
 	},
 
@@ -233,6 +238,17 @@ CuratedContentEditorModel.reopenClass({
 	 */
 	deleteItem(parentItem, itemLabel) {
 		parentItem.items = parentItem.items.filter((item) => item.label !== itemLabel);
+		CuratedContentEditorModel.isDirty = true;
+	},
+
+	/**
+	 * @desc updates community data state
+	 * @param {Ember.Object} model
+	 * @param {Ember.Object} newState
+	 * @returns {void}
+	 */
+	updateCommunityData(model, newState) {
+		model.communityData = newState;
 		CuratedContentEditorModel.isDirty = true;
 	}
 });
