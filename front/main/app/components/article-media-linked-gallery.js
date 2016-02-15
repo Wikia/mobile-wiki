@@ -16,54 +16,7 @@ export default Ember.Component.extend(
 			return this.get('items.length') > this.get('numberOfItemsRendered');
 		}),
 
-		/**
-		 * We don't want to render all child components because galleries can be big
-		 * Initially, we render this.numberOfItemsRendered components
-		 * Then increment this number in this.showMore
-		 */
-		itemsToRender: Ember.computed('items', 'numberOfItemsRendered', function () {
-			return this.get('items').slice(0, this.get('numberOfItemsRendered'));
-		}),
-
-		/**
-		 * @returns {void}
-		 */
-		didReceiveAttrs() {
-			this.sanitizeItems();
-		},
-
-		actions: {
-			showMore() {
-				this.set('numberOfItemsRendered', this.get('items.length'));
-			}
-		},
-
-		/**
-		 * This should be done in the model, really
-		 *
-		 * @returns {void}
-		 */
-		sanitizeItems() {
-			const itemsSanitized = Ember.A(),
-				itemsRaw = this.get('items');
-
-			itemsRaw.forEach((mediaItem, index) => {
-				mediaItem.galleryRef = index;
-				itemsSanitized.pushObject(Ember.Object.create(mediaItem));
-			});
-
-
-			this.set('items', itemsSanitized.sort(this.sortMedia));
-		},
-
-		/**
-		 * Sorts media by a simple criterion: if it's linked or not
-		 *
-		 * @param {ArticleMedia} a
-		 * @param {ArticleMedia} b
-		 * @returns {number}
-		 */
-		sortMedia(a, b) {
+		sortedItems: Ember.computed.sort('sanitizedItems', function (a, b) {
 			if (a.link && typeof b.link === 'undefined') {
 				return 1;
 			} else if (b.link && typeof a.link === 'undefined') {
@@ -71,6 +24,26 @@ export default Ember.Component.extend(
 			}
 
 			return 0;
+		}),
+
+		sanitizedItems: Ember.computed.map('items', function(item, index) {
+			item.galleryRef = index;
+			return item;
+		}),
+
+		/**
+		 * We don't want to render all child components because galleries can be big
+		 * Initially, we render this.numberOfItemsRendered components
+		 * Then increment this number in this.showMore
+		 */
+		itemsToRender: Ember.computed('sortedItems', 'numberOfItemsRendered', function () {
+			return this.get('sortedItems').slice(0, this.get('numberOfItemsRendered'));
+		}),
+
+		actions: {
+			showMore() {
+				this.set('numberOfItemsRendered', this.get('items.length'));
+			}
 		},
 	}
 );
