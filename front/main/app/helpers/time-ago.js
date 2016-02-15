@@ -7,6 +7,8 @@ import moment from 'moment';
  * {{time-ago unixTimestamp shouldHideAgoPrefix}}
  * which returns something like '2 d ago' if interval is below 6 days or formated param date
  *
+ * In case that moment's translation is not downloaded yet returns placeholder
+ *
  * @param {int} unixTimestamp
  * @param {boolean} shouldHideAgoPrefix
  * @returns {string}
@@ -24,8 +26,8 @@ export default Ember.Helper.extend({
 			lang = Ember.get(Mercury, 'wiki.language.content') || 'en';
 		let output;
 
-		if(!momentTranslationsService.get('isLoaded')) {
-			if(!momentTranslationsService.get('isLoading')) {
+		if (!momentTranslationsService.get('isLoaded')) {
+			if (!momentTranslationsService.get('isLoading')) {
 				momentTranslationsService.loadTranslation(lang);
 			}
 			return '<span class="datePlaceholder"/>';

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import moment from 'moment';
+
 export default Ember.Service.extend({
 	isLoaded: false,
 	isLoading: false,
