@@ -1,0 +1,25 @@
+<h2>{{model.name}}</h2>
+
+<h3>Articles</h3>
+<ul>
+{{#each model.articles.items as |item|}}
+	{{mediawiki-category-item model=item action='clickItem'}}
+{{/each}}
+</ul>
+{{#if model.articles.offset}}
+	<button class="load-more-items" {{action 'loadMore' 'articles' model.articles.offset}} disabled={{isLoadingArticles}}>
+		{{i18n 'app.view-more'}}
+	</button>
+{{/if}}
+
+<h3>Subcategories</h3>
+<ul>
+	{{#each model.subcategories.items as |item|}}
+		{{mediawiki-category-item model=item action='clickItem'}}
+	{{/each}}
+</ul>
+{{#if model.subcategories.offset}}
+	<button class="load-more-items" {{action 'loadMore' 'subcategories' model.subcategories.offset}} disabled={{isLoadingSubcategories}}>
+		{{i18n 'app.view-more'}}
+	</button>
+{{/if}}

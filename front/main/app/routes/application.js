@@ -61,6 +61,8 @@ export default Ember.Route.extend(
 				}
 
 				Ember.Logger.error('Route error', error);
+
+				return true;
 			},
 
 			/**
