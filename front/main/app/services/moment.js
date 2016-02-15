@@ -6,7 +6,7 @@ export default Ember.Service.extend({
 
 	loadTranslation(lang = 'en') {
 		this.set('isLoading', true);
-		Ember.$.getScript(M.buildUrl({path: `/front/main/assets/vendor/moment/locales/${lang}.js`})).complete(() => {
+		Ember.$.getScript(M.buildUrl({path: `/front/common/locales/moment/${lang}.js`})).complete(() => {
 			this.set('isLoaded', true);
 			this.set('isLoading', false);
 		}).error(() => {
