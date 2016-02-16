@@ -188,35 +188,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc moves item in infoboxState by given offset
-	 * @param {Number} offset
-	 * @param {Object} item
-	 * @returns {void}
-	 */
-	moveItem(offset, item) {
-		const position = this.get('infoboxState').indexOf(item);
-
-		if (this.isValidMove(position, offset)) {
-			this.get('infoboxState').removeAt(position);
-			this.get('infoboxState').insertAt(position + offset, item);
-		}
-	},
-
-	/**
-	 * @desc checks if move is valid based on item current position in the infoboxState and the move offset
-	 * @param {Number} position
-	 * @param {Number} offset
-	 * @returns {Boolean}
-	 */
-	isValidMove(position, offset) {
-		const lastItemIndex = this.get('infoboxState').length - 1,
-			newPosition = position + offset;
-
-		return position > 0 && offset < 0 && newPosition >= 0 ||
-			position < lastItemIndex && offset > 0 && newPosition <= lastItemIndex;
-	},
-
-	/**
 	 * @desc resets item in edit mode and its position to null
 	 * @returns {void}
 	 */
