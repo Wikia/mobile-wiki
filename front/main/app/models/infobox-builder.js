@@ -79,7 +79,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 			},
 			infoboxBuilderData: {
 				index,
-				component: this.createComponentName(itemType)
+				component: InfoboxBuilderModel.createComponentName(itemType)
 			},
 			source: `${itemType}${index}`,
 			type: itemType
@@ -104,7 +104,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 			},
 			infoboxBuilderData: {
 				index,
-				component: this.createComponentName(itemType)
+				component: InfoboxBuilderModel.createComponentName(itemType)
 			},
 			source: `image${index}`,
 			type: itemType
@@ -127,37 +127,11 @@ const InfoboxBuilderModel = Ember.Object.extend({
 			},
 			infoboxBuilderData: {
 				index,
-				component: this.createComponentName(itemType)
+				component: InfoboxBuilderModel.createComponentName(itemType)
 			},
 			source: `${itemType}${index}`,
 			type: itemType
 		};
-	},
-
-	/**
-	 * @desc creates component name for given item type
-	 * @param {String} type
-	 * @returns {String}
-	 */
-	createComponentName(type) {
-		return `infobox-builder-item-${type}`;
-	},
-
-	/**
-	 * @desc Prepares infobox state to be sent to API.
-	 * The infoboxBuilderData part is needed only on
-	 * client side so remove it and wrap result as data object of the main infobox tag
-	 *
-	 * @param {Em.Array} state
-	 * @returns {String} stringified object
-	 */
-	prepareStateForSaving(state) {
-		const plainState = state.map((item) => {
-			delete item.infoboxBuilderData;
-			return item;
-		}).toArray();
-
-		return JSON.stringify({data: plainState});
 	},
 
 	/**
@@ -290,7 +264,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 					controller: 'PortableInfoboxBuilderController',
 					method: 'publish',
 					title: this.get('title'),
-					data: this.prepareStateForSaving(this.get('infoboxState'))
+					data: InfoboxBuilderModel.prepareStateForSaving(this.get('infoboxState'))
 				},
 				dataType: 'json',
 				method: 'POST',
@@ -318,6 +292,32 @@ InfoboxBuilderModel.reopenClass({
 			.trim()
 			.toLowerCase()
 			.replace(/\s+/g, '_');
+	},
+
+	/**
+	 * @desc creates component name for given item type
+	 * @param {String} type
+	 * @returns {String}
+	 */
+	createComponentName(type) {
+		return `infobox-builder-item-${type}`;
+	},
+
+	/**
+	 * @desc Prepares infobox state to be sent to API.
+	 * The infoboxBuilderData part is needed only on
+	 * client side so remove it and wrap result as data object of the main infobox tag
+	 *
+	 * @param {Em.Array} state
+	 * @returns {String} stringified object
+	 */
+	prepareStateForSaving(state) {
+		const plainState = state.map((item) => {
+			delete item.infoboxBuilderData;
+			return item;
+		}).toArray();
+
+		return JSON.stringify({data: plainState});
 	}
 });
 
