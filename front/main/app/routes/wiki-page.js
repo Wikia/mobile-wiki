@@ -1,18 +1,32 @@
 import Ember from 'ember';
-import ArticleModel from '../models/article';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
 import {normalizeToUnderscore} from 'common/utils/string';
 import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
+import ArticleHandler from '../utils/mediawiki-handlers/article';
+import CategoryHandler from '../utils/mediawiki-handlers/category';
+import {namespace as MediawikiNamespace, getCurrentNamespace} from '../utils/mediawiki-namespace';
 
 export default Ember.Route.extend({
 	redirectEmptyTarget: false,
+
+	getHandler() {
+		switch (getCurrentNamespace()) {
+		case MediawikiNamespace.MAIN:
+			return ArticleHandler;
+		case MediawikiNamespace.CATEGORY:
+			return CategoryHandler;
+		default:
+			// not supported
+			return null;
+		}
+	},
 
 	/**
 	 * @param {EmberStates.Transition} transition
 	 * @returns {void}
 	 */
 	beforeModel(transition) {
-		const title = transition.params.article.articleTitle.replace('wiki/', '');
+		const title = transition.params.wikiPage.title.replace('wiki/', '');
 
 		this.controllerFor('application').send('closeLightbox');
 
@@ -26,7 +40,7 @@ export default Ember.Route.extend({
 		// TODO: This could be improved upon by not using an Ember transition to 'rewrite' the URL
 		// Ticket here: https://wikia-inc.atlassian.net/browse/HG-641
 		if (title.indexOf(' ') > -1) {
-			this.transitionTo('article', normalizeToUnderscore(title));
+			this.transitionTo('page', normalizeToUnderscore(title));
 		}
 	},
 
@@ -35,11 +49,7 @@ export default Ember.Route.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	model(params) {
-		return ArticleModel.find({
-			basePath: Mercury.wiki.basePath,
-			title: params.title,
-			wiki: this.controllerFor('application').get('domain')
-		});
+		return this.getHandler().getModel(this, params);
 	},
 
 	/**
@@ -51,7 +61,7 @@ export default Ember.Route.extend({
 			articleType = model.articleType;
 
 		if (!Ember.isEmpty(exception)) {
-			Ember.Logger.warn('Article model error:', exception);
+			Ember.Logger.warn('Page model error:', exception);
 		}
 
 		if (articleType) {
@@ -71,6 +81,15 @@ export default Ember.Route.extend({
 		model.set('commentsPage', null);
 
 		this.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
+
+	},
+
+	/**
+	 * @param {Ember.controller} controller
+	 * @returns {void}
+     */
+	setupController(controller) {
+		controller.set('wikiPageComponentName', this.getHandler().getComponentName());
 	},
 
 	/**
@@ -101,7 +120,7 @@ export default Ember.Route.extend({
 		 * @returns {boolean}
 		 */
 		didTransition() {
-			this.updateHead();
+			this.getHandler().didTransition(this);
 
 			if (this.get('redirectEmptyTarget')) {
 				this.controllerFor('application').addAlert({
@@ -119,6 +138,8 @@ export default Ember.Route.extend({
 		 * @returns {boolean}
 		 */
 		error(error, transition) {
+			debugger;
+
 			if (transition) {
 				transition.abort();
 			}
@@ -131,86 +152,4 @@ export default Ember.Route.extend({
 			return true;
 		}
 	},
-
-	/**
-	 * @TODO this can be much simpler using ember-cli-meta-tags
-	 *
-	 * @returns {void}
-	 */
-	updateHead() {
-		const model = this.modelFor('article');
-
-		this.updateTitleTag(model);
-		this.updateCanonicalLinkTag(model);
-		this.updateDescriptionMetaTag(model);
-		this.updateIOSSmartBannerMetaTag(model);
-	},
-
-	/**
-	 * @param {ArticleModel} model
-	 * @returns {void}
-	 */
-	updateTitleTag(model) {
-		const defaultHtmlTitleTemplate = '$1 - Wikia',
-			htmlTitleTemplate = Ember.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate;
-
-		document.title = htmlTitleTemplate.replace('$1', model.get('displayTitle'));
-	},
-
-	/**
-	 * @param {ArticleModel} model
-	 * @returns {void}
-	 */
-	updateCanonicalLinkTag(model) {
-		const canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${model.get('url')}`;
-		let $canonicalLinkTag = Ember.$('head link[rel=canonical]');
-
-		if (Ember.isEmpty($canonicalLinkTag)) {
-			$canonicalLinkTag = Ember.$('<link rel="canonical">').appendTo('head');
-		}
-
-		$canonicalLinkTag.prop('href', canonicalUrl);
-	},
-
-	/**
-	 * @param {ArticleModel} model
-	 * @returns {void}
-	 */
-	updateDescriptionMetaTag(model) {
-		const description = model.getWithDefault('description', '');
-		let $descriptionMetaTag = Ember.$('head meta[name=description]');
-
-		if (Ember.isEmpty($descriptionMetaTag)) {
-			$descriptionMetaTag = Ember.$('<meta name="description">').appendTo('head');
-		}
-
-		$descriptionMetaTag.prop('content', description);
-	},
-
-	/**
-	 * @param {ArticleModel} model
-	 * @returns {void}
-	 */
-	updateIOSSmartBannerMetaTag(model) {
-		const articleUrl = model.get('url'),
-			appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios');
-
-		let $descriptionMetaTag, content;
-
-		// If smart banner is available on this wiki
-		if (appId) {
-			$descriptionMetaTag = Ember.$('head meta[name=apple-itunes-app]');
-			content = `app-id=${appId}`;
-
-			if (Ember.isEmpty($descriptionMetaTag)) {
-				$descriptionMetaTag = Ember.$('<meta name="apple-itunes-app">').appendTo('head');
-			}
-
-			if (articleUrl) {
-				content += `, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${articleUrl}`;
-			}
-
-			$descriptionMetaTag.prop('content', content);
-		}
-	}
 });

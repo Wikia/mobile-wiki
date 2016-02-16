@@ -48,8 +48,8 @@ export default Ember.Route.extend(MainPageRouteMixin, {
 				model
 			});
 		} else {
-			this.render('article', {
-				view: 'article',
+			this.render('wikiPage', {
+				view: 'wiki-page',
 				model
 			});
 		}

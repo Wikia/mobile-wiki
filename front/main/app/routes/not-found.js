@@ -6,6 +6,6 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	beforeModel(transition) {
-		this.transitionTo('article', transition.params.notFound.url);
+		this.transitionTo('wikiPage', transition.params.notFound.url);
 	}
 });
