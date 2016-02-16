@@ -14,7 +14,7 @@ import moment from 'moment';
  * @returns {string}
  */
 export default Ember.Helper.extend({
-	momentTranslationsService: Ember.inject.service('moment'),
+	momentTranslationsService: Ember.inject.service('moment-translation'),
 	onTranslationChange: Ember.observer('momentTranslationsService.isLoaded', function () {
 		this.recompute();
 	}),

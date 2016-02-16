@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import moment from 'moment';
 
 export default Ember.Service.extend({
 	isLoaded: false,
@@ -8,13 +9,14 @@ export default Ember.Service.extend({
 		this.set('isLoading', true);
 		if (lang !== 'en') {
 			Ember.$.getScript(M.buildUrl({path: `/front/common/locales/moment/${lang}.js`})).complete(() => {
-				this.set('isLoaded', true);
-				this.set('isLoading', false);
+				this.setProperties({
+					isLoaded: true,
+					isLoading: false
+				});
 			}).error(() => {
 				Ember.Logger.error(`Can't get moment translation for ${lang}`);
 			});
-		}
-		else {
+		} else {
 			moment.locale('en', {
 				relativeTime: {
 					m: '1 m',
@@ -25,6 +27,13 @@ export default Ember.Service.extend({
 					dd: '%d d'
 				}
 			});
+			Ember.run.next(() => {
+				this.setProperties({
+					isLoaded: true,
+					isLoading: false
+				});
+			});
 		}
+
 	}
 });
