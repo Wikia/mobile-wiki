@@ -29,66 +29,84 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	/**
 	 * @returns {Object} added item
 	 */
-	addRowItem(data = {}) {
+	addRowItem(elementData = {}) {
 		const itemType = 'row',
-			index = this.increaseItemIndex(itemType);
+			index = this.increaseItemIndex(itemType),
+			item = {
+				data: {
+					label: i18n.t('main.label-default', {
+						ns: 'infobox-builder',
+						index
+					})
+				},
+				infoboxBuilderData: {
+					index,
+					component: this.createComponentName(itemType)
+				},
+				source: `${itemType}${index}`,
+				type: itemType
+			};
 
-		return this.addToState({
-			data: {
-				label: i18n.t('main.label-default', {
-					ns: 'infobox-builder',
-					index
-				})
-			},
-			infoboxBuilderData: {
-				index,
-				component: this.createComponentName(itemType)
-			},
-			source: `${itemType}${index}`,
-			type: itemType
-		});
+		if (elementData) {
+			item.data = elementData.data;
+			item.source = elementData.source;
+		}
+
+		return this.addToState(item);
 	},
 
 	/**
 	 * @returns {Object} added item
 	 */
-	addImageItem(data = {}) {
+	addImageItem(elementData = {}) {
 		const itemType = 'image',
-			index = this.increaseItemIndex(itemType);
+			index = this.increaseItemIndex(itemType),
+			item = {
+				data: {
+					caption: {
+						source: `caption${index}`
+					}
+				},
+				infoboxBuilderData: {
+					index,
+					component: this.createComponentName(itemType)
+				},
+				source: `image${index}`,
+				type: itemType
+			};
 
-		return this.addToState({
-			data: {
-				caption: {
-					source: `caption${index}`
-				}
-			},
-			infoboxBuilderData: {
-				index,
-				component: this.createComponentName(itemType)
-			},
-			source: `image${index}`,
-			type: itemType
-		});
+		if (elementData) {
+			item.data = elementData.data;
+			item.source = elementData.source;
+		}
+
+		return this.addToState(item);
 	},
 
 	/**
 	 * @returns {Object} added item
 	 */
-	addTitleItem(data = {}) {
+	addTitleItem(elementData = {}) {
 		const itemType = 'title',
-			index = this.increaseItemIndex('title');
+			index = this.increaseItemIndex('title'),
+			item = {
+				data: {
+					defaultValue: ''
+				},
+				infoboxBuilderData: {
+					index,
+					component: this.createComponentName(itemType)
+				},
+				source: `${itemType}${index}`,
+				type: itemType
+			};
 
-		return this.addToState({
-			data: {
-				defaultValue: ''
-			},
-			infoboxBuilderData: {
-				index,
-				component: this.createComponentName(itemType)
-			},
-			source: `${itemType}${index}`,
-			type: itemType
-		});
+		if (elementData) {
+			item.data = elementData.data;
+			item.source = elementData.source;
+		}
+
+		return this.addToState(item);
 	},
 
 	/**
@@ -228,7 +246,20 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 	setupExistingState(state) {
 		state.forEach((element) => {
-			console.log('element!: ', element)
+			console.log('element!: ', element);
+			switch (element.type) {
+				case 'title':
+					this.addTitleItem(element);
+					break;
+				case 'row':
+					this.addRowItem(element);
+					break;
+				case 'image':
+					this.addImageItem(element);
+					break;
+				default:
+					break;
+			}
 		});
 	},
 
