@@ -98,7 +98,7 @@ export default Ember.Component.extend(
 			const clickableElements = this.get('clickableElements');
 
 			return !clickableElements.some((element) => {
-				return $target.is(element);
+				return $target.is(element) || $target.parent().is('figcaption');
 			});
 		},
 
