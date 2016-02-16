@@ -254,6 +254,17 @@ export default Ember.Route.extend({
 		},
 
 		/**
+		 * @desc Handles reordering infoboxState and calls proper function on model
+		 * @param {Ember.Array} newState
+		 * @returns {void}
+		 */
+		updateInfoboxStateOrder(newState) {
+			const model = this.modelFor('infoboxBuilder');
+
+			model.updateInfoboxStateOrder(newState);
+		},
+
+		/**
 		 * @desc Handles moving item in the state and calls proper function on model
 		 * @param {Number} offset
 		 * @param {Object} item

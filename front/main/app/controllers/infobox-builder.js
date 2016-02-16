@@ -56,6 +56,14 @@ export default Ember.Controller.extend({
 		 */
 		editRowItem(item, value) {
 			this.get('target').send('editRowItem', item, value);
+		},
+
+		/**
+		 * @param {Ember.Array} newState
+		 * @returns {void}
+		 */
+		updateInfoboxStateOrder(newState) {
+			this.get('target').send('updateInfoboxStateOrder', newState);
 		}
 	}
 });

@@ -179,6 +179,15 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
+	 * @desc updates infobox state order
+	 * @param {Ember.Array} newState
+	 * @returns {void}
+	 */
+	updateInfoboxStateOrder(newState) {
+		this.set('infoboxState', newState);
+	},
+
+	/**
 	 * @desc moves item in infoboxState by given offset
 	 * @param {Number} offset
 	 * @param {Object} item
