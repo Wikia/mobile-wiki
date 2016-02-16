@@ -53,7 +53,7 @@ export default Ember.Route.extend(MetaTagsMixin, {
 		willTransition(transition) {
 			if (transition.targetName === 'articleDiff') {
 				const diff = transition.params.articleDiff,
-					id = `${diff.newid}-${diff.oldid}`,
+					id = `${diff.newId}-${diff.oldId}`,
 					query = `?rc=${id}`;
 
 				this.controllerFor('articleDiff').set('currRecentChangeId', id);

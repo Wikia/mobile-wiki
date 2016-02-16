@@ -7,7 +7,7 @@ export default Ember.Component.extend({
 		if (recentChangeId) {
 			const $recentChange = $(`#${recentChangeId}`);
 
-			if ($recentChange) {
+			if ($recentChange.length) {
 				const navHeight = this.get('siteHeadPinned') ? $('.site-head').outerHeight() : 0,
 					offsetTop = $recentChange.offset().top - navHeight;
 
