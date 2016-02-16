@@ -9,9 +9,7 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 
 .featured {
 	display: none;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 4em;
+	margin: 4em auto;
 	max-width: 1150px;
 
 	@include media ($desktop-slider) {
@@ -21,9 +19,7 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 
 .featured-mobile-2row {
 	display: none;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 4em;
+	margin: 4em auto 0;
 	max-width: 650px;
 
 	@include media ($mobile-slider-2row) {
@@ -32,8 +28,8 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 }
 
 .featured-mobile-2col-wrapper {
-	width: 550px;
 	position: relative;
+	width: 550px;
 }
 
 .featured-mobile-4col-wrapper {
@@ -68,12 +64,10 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 	}
 
 	@include media ($mobile-slider) {
-		padding-botton: 25px;
 		text-align: center;
 	}
 
 	@include media ($small-mobile-slider) {
-		padding-botton: 25px;
 		font-size: 16px;
 	}
 }
@@ -216,7 +210,7 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 
 	h2 {
 		color: white;
-		font-size: 0.75rem;
+		font-size: .75rem;
 	}
 
 	h3 {
@@ -252,7 +246,7 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 	font-size: 1.3rem;
 
 	@include media ($small-mobile-slider) {
-		font-size: 1.0rem;
+		font-size: 1rem;
 	}
 
 	@include media ($mobile-slider) {
