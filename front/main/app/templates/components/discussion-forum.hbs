@@ -44,18 +44,19 @@
 				{{forum-wrapper
 					create=(action this.attrs.create)
 					deletePost=(action this.attrs.deletePost)
-					loadPage=(action this.attrs.loadPage)
-					undeletePost=(action this.attrs.undeletePost)
-					upvote=(action this.attrs.upvote)
 					forumId=model.forumId
+					loadPage=(action this.attrs.loadPage)
 					minorError=model.minorError
 					name=model.name
 					pageNum=model.pageNum
 					posts=model.posts
 					postsDisplayed=model.posts.length
-					deletePost=(action this.attrs.deletePost)
-					totalPosts=model.totalPosts
+					reportPost=(action this.attrs.reportPost)
 					siteHeadPinned=siteHeadPinned
+					totalPosts=model.totalPosts
+					undeletePost=(action this.attrs.undeletePost)
+					upvote=(action this.attrs.upvote)
+
 				}}
 			</div>
 		{{/if}}
