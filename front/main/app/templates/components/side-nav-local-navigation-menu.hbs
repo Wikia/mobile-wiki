@@ -15,6 +15,9 @@
 			tracking-label='local-nav'
 		}}
 			{{i18n 'main.title' ns='recent-wiki-activity'}}
+			{{#if shouldDisplayNewBadge}}
+				<span class="new-badge-pill">{{i18n 'main.new' ns="recent-wiki-activity"}}</span>
+			{{/if}}
 		{{/link-to}}
 	</li>
 {{/if}}
