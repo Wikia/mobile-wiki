@@ -95,9 +95,11 @@ export function getWhoAmIUrl() {
 }
 
 /**
- * @param {string} lang
+ * @param {object} i18n
  * @returns {string}
  */
-export function getLanguageWithDefault(lang) {
+export function getLanguageWithDefault(i18n = {}) {
+	const lang = i18n.lng() || 'en';
+
 	return authLocaleSettings.hasOwnProperty(lang) ? lang : 'en';
 }

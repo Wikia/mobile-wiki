@@ -4,28 +4,48 @@ QUnit.module('lib/AuthUtils');
 QUnit.test('getLanguageWithDefault', function (assert) {
 	var testCases = [
 		{
-			lang: 'ja',
+			i18n: {
+				lng: function() {
+					return 'ja';
+				}
+			},
 			expected: 'ja'
 		},
 		{
-			lang: 'asd',
+			i18n: {
+				lng: function() {
+					return 'asd';
+				}
+			},
 			expected: 'en'
 		},
 		{
-			lang: 1,
+			i18n: {
+				lng: function() {
+					return 1;
+				}
+			},
 			expected: 'en'
 		},
 		{
-			lang: null,
+			i18n: {
+				lng: function() {
+					return null;
+				}
+			},
 			expected: 'en'
 		},
 		{
-			lang: undefined,
+			i18n: {
+				lng: function() {
+					return undefined;
+				}
+			},
 			expected: 'en'
 		}
 	];
 
 	testCases.forEach(function (testCase) {
-		assert.equal(getLanguageWithDefault(testCase.lang), testCase.expected);
+		assert.equal(getLanguageWithDefault(testCase.i18n), testCase.expected);
 	});
 });
