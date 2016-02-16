@@ -112,6 +112,8 @@ export default Ember.Mixin.create({
 	 */
 	reportPost(post) {
 		return ajaxCall({
+			//Empty reason until we have an input for providing an actual reason
+			data: JSON.stringify({value: ''}),
 			method: 'PUT',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/post/${post.id}/report`),
 			success: () => {
@@ -130,6 +132,8 @@ export default Ember.Mixin.create({
 	 */
 	reportReply(reply) {
 		return ajaxCall({
+			//Empty reason until we have an input for providing an actual reason
+			data: JSON.stringify({value: ''}),
 			method: 'PUT',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/report`),
 			success: () => {
