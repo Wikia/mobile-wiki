@@ -15,7 +15,7 @@ export default Ember.Component.extend(
 		height: null,
 		infoboxHTML: '',
 		collapsed: false,
-		clickableElements: ['a', 'button', 'img'],
+		clickableElements: ['a', 'button', 'img', 'figure', 'figcaption'],
 
 		button: Ember.computed('expandButtonClass', function () {
 			return this.$(`.${this.get('expandButtonClass')}`)[0];
