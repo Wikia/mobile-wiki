@@ -4,7 +4,6 @@ import {checkPermissions} from 'common/utils/discussionPermissions';
 export default Ember.Component.extend({
 	classNames: ['more-options'],
 	tagName: 'ul',
-	currentUser: Ember.inject.service(),
 
 	canDelete: Ember.computed('post.isDeleted', function () {
 		return !this.get('post.isDeleted') && checkPermissions(this.get('post'), 'canDelete');
@@ -16,8 +15,7 @@ export default Ember.Component.extend({
 
 	canDeleteOrUndelete: Ember.computed.or('canDelete', 'canUndelete'),
 
-	canReport: Ember.computed('currentUser.isAuthenticated', 'post.isReported', function () {
-		return this.get('currentUser.isAuthenticated') === false ||
-			this.get('post.isReported') === false;
+	canReport: Ember.computed('post.isReported', function () {
+		return this.get('post.isReported') === false;
 	}),
 });
