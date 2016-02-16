@@ -8,6 +8,7 @@ import getStatusCode from './operations/getStatusCode';
 import localSettings from '../../config/localSettings';
 import prepareArticleData from './operations/prepareArticleData';
 import prepareMainPageData from './operations/prepareMainPageData';
+import prepareMediaWikiData from './operations/prepareMediaWikiData';
 import deepExtend from 'deep-extend';
 
 const cachingTimes = {
@@ -64,24 +65,28 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
  * @returns {void}
  */
 function handleResponse(request, reply, data, allowCache = true, code = 200) {
+	const ns = data.page.data.ns;
+
 	let result, response;
 
-	switch (data.ns) {
+	switch (ns) {
 	case MediaWikiNamespace.MAIN:
-	// use default, so we won't blow (for NOW)
-	default:
 		result = prepareArticleData(request, data);
 
 		// mainPageData is set only on curated main pages - only then we should do some special preparation for data
-		if (data.article.data && data.article.data.isMainPage && data.article.data.mainPageData) {
+		if (data.page.data && data.page.data.isMainPage && data.page.data.mainPageData) {
 			result = deepExtend(result, prepareMainPageData(data));
 			delete result.adsContext;
 		}
 		break;
+
+	default:
+		Logger.info(`Unsupported namespace: ${ns}`);
+		result = prepareMediaWikiData(request, data);
 	}
 
 	// pass on what namespace we currently are
-	result.mediaWikiNamespace = data.ns;
+	result.mediaWikiNamespace = ns;
 
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);

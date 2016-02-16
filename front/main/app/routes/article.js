@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ArticleModel from '../models/article';
+import CategoryModel from '../models/category';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
 import {normalizeToUnderscore} from 'common/utils/string';
 import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';

@@ -100,7 +100,7 @@ export class PageRequestHelper {
 				}
 
 				data = {
-					article: page,
+					page,
 					server: createServerData(localSettings, this.params.wikiDomain),
 					wikiVariables
 				};
