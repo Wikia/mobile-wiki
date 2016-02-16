@@ -10,9 +10,9 @@ export default Ember.Component.extend(
 			const defaultValue = this.get('item.data.defaultValue');
 
 			return defaultValue || i18n.t('infobox-builder:main.title-default', {
-					ns: 'infobox-builder',
-					index: this.get('item.infoboxBuilderData.index')
-				});
+				ns: 'infobox-builder',
+				index: this.get('item.infoboxBuilderData.index')
+			});
 		})
 	}
 );

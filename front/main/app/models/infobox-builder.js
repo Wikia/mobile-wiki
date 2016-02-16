@@ -28,13 +28,14 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc add item to infobox state
-	 * @param type string type of element we want to add
-	 * @param elementData Object optional data if we already have some
+	 * @desc add item to infobox state. Extend it with already existing
+	 * data if present.
+	 * @param {string} type type of element we want to add
+	 * @param {Object} elementData optional data if we already have some
 	 *
 	 * @returns {Object} added item
 	 */
-	addItem(type, elementData) {
+	addItem(type, elementData = false) {
 		let item = {};
 
 		switch (type) {
@@ -60,6 +61,9 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
+	 * @desc create new row item with accurate index
+	 * with default data
+	 *
 	 * @returns {Object} added item
 	 */
 	createRowItem() {
@@ -83,6 +87,9 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
+	 * @desc create new image item with accurate index
+	 * with default data
+	 *
 	 * @returns {Object} added item
 	 */
 	createImageItem() {
@@ -105,6 +112,9 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
+	 * @desc create new title item with accurate index
+	 * with default data
+	 *
 	 * @returns {Object} added item
 	 */
 	createTitleItem() {
@@ -261,7 +271,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 	setupExistingState(state) {
 		state.forEach((element) => {
-			console.log('element!: ', element);
+			console.log('element: ', element);
 			this.addItem(element.type, element);
 		});
 	},

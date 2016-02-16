@@ -75,6 +75,7 @@ export default Ember.Route.extend({
 
 	/**
 	 * loads infobox builder assets from MW
+	 * @param {string} templateName
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadAssets(templateName) {
@@ -137,14 +138,22 @@ export default Ember.Route.extend({
 		});
 	},
 
+	/**
+	 * @desc pass received from MW infobox state (for already existing infobox templates)
+	 * and set it as a property on controller. We don't need to keep this in model as it's
+	 * not connected with data we need there.
+	 *
+	 * @param {Array} promiseResponseArray
+	 * @returns {Array} not modified promiseResponseArray
+	 */
 	setupInfoboxState(promiseResponseArray) {
-		let assets = promiseResponseArray[0].data,
-			lol = {};
+		const assets = promiseResponseArray[0].data;
+		let templateData = {};
 
 		if (assets) {
-			lol = JSON.parse(assets);
-			if (lol.data) {
-				this.controllerFor('infobox-builder').set('templateData', lol.data);
+			templateData = JSON.parse(assets);
+			if (templateData.data) {
+				this.controllerFor('infobox-builder').set('templateData', templateData.data);
 			}
 		}
 
