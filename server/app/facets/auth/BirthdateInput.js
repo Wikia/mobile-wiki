@@ -1,5 +1,4 @@
 import authLocaleSettings from '../../../config/authLocaleSettings';
-import {getLanguageWithDefault} from '../../lib/AuthUtils.js';
 
 /**
  * @typedef {Object} DateEndian
