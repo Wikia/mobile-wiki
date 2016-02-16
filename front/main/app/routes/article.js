@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import ArticleModel from '../models/article';
-import CategoryModel from '../models/category';
 import VisibilityStateManager from '../mixins/visibility-state-manager';
 import {normalizeToUnderscore} from 'common/utils/string';
 import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
@@ -13,7 +12,7 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	beforeModel(transition) {
-		const title = transition.params.article.title.replace('wiki/', '');
+		const title = transition.params.article.articleTitle.replace('wiki/', '');
 
 		this.controllerFor('application').send('closeLightbox');
 

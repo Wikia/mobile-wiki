@@ -79,8 +79,16 @@ Router.map(function () {
 		path: `/diff/:oldId/:newId`
 	});
 
+	this.route('page', {
+		path: `${articlePath}*pageTitle`
+	});
+
 	this.route('article', {
-		path: `${articlePath}*title`
+		path: `${articlePath}*articleTitle`
+	});
+
+	this.route('category', {
+		path: `${articlePath}*categoryTitle`
 	});
 
 	this.route('articleEdit', {

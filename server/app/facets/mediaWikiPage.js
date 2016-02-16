@@ -85,7 +85,6 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		result = prepareMediaWikiData(request, data);
 	}
 
-	// pass on what namespace we currently are
 	result.mediaWikiNamespace = ns;
 
 	// @todo XW-596 we shouldn't rely on side effects of this function
