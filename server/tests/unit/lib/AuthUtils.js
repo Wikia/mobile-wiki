@@ -5,7 +5,7 @@ QUnit.test('getLanguageWithDefault', function (assert) {
 	var testCases = [
 		{
 			i18n: {
-				lng: function() {
+				lng: function () {
 					return 'ja';
 				}
 			},
@@ -13,7 +13,7 @@ QUnit.test('getLanguageWithDefault', function (assert) {
 		},
 		{
 			i18n: {
-				lng: function() {
+				lng: function () {
 					return 'asd';
 				}
 			},
@@ -21,7 +21,7 @@ QUnit.test('getLanguageWithDefault', function (assert) {
 		},
 		{
 			i18n: {
-				lng: function() {
+				lng: function () {
 					return 1;
 				}
 			},
@@ -29,7 +29,7 @@ QUnit.test('getLanguageWithDefault', function (assert) {
 		},
 		{
 			i18n: {
-				lng: function() {
+				lng: function () {
 					return null;
 				}
 			},
@@ -37,7 +37,7 @@ QUnit.test('getLanguageWithDefault', function (assert) {
 		},
 		{
 			i18n: {
-				lng: function() {
+				lng: function () {
 					return undefined;
 				}
 			},
