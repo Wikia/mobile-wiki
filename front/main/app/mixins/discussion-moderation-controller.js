@@ -3,7 +3,6 @@ import Ember from 'ember';
 export default Ember.Mixin.create({
 	actions: {
 		/**
-		 * Bubbles up to Route
 		 * @param {object} post
 		 * @returns {void}
 		 */
@@ -12,7 +11,6 @@ export default Ember.Mixin.create({
 		},
 
 		/**
-		 * Bubbles up to Route
 		 * @param {object} posts
 		 * @returns {void}
 		 */
@@ -21,7 +19,6 @@ export default Ember.Mixin.create({
 		},
 
 		/**
-		 * Bubbles up to Route
 		 * @param {object} post
 		 * @returns {void}
 		 */
@@ -39,7 +36,6 @@ export default Ember.Mixin.create({
 		},
 
 		/**
-		 * Bubbles up to Route
 		 * @param {object} reply
 		 * @returns {void}
 		 */
@@ -48,7 +44,6 @@ export default Ember.Mixin.create({
 		},
 
 		/**
-		 * Bubbles up to Route
 		 * @param {object} post
 		 * @returns {void}
 		 */
@@ -57,7 +52,6 @@ export default Ember.Mixin.create({
 		},
 
 		/**
-		 * Bubbles up to Route
 		 * @param {object} reply
 		 * @returns {void}
 		 */

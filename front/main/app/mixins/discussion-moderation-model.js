@@ -108,7 +108,7 @@ export default Ember.Mixin.create({
 	/**
 	 * Report post in service
 	 * @param {object} post
-	 * @returns {Ember.RSVP.Promise|void}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	reportPost(post) {
 		return ajaxCall({
