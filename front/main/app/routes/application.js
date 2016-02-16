@@ -119,7 +119,7 @@ export default Ember.Route.extend(
 				}
 
 				if (info.article) {
-					this.transitionTo('page', info.article + (info.hash ? info.hash : ''));
+					this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
 				} else if (info.url) {
 					/**
 					 * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link
@@ -146,7 +146,7 @@ export default Ember.Route.extend(
 				ArticleModel
 					.getArticleRandomTitle()
 					.then((articleTitle) => {
-						this.transitionTo('wikiPage', encodeURIComponent(normalizeToUnderscore(articleTitle)));
+						this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(articleTitle)));
 					})
 					.catch((err) => {
 						this.send('error', err);
