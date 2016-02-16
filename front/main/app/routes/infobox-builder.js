@@ -217,24 +217,12 @@ export default Ember.Route.extend({
 		 * @desc Handles the add data, image or title button and call the proper
 		 * function on model.
 		 * @param {String} type - of item type
-		 * @returns {void}
+		 * @returns {Object} added item
 		*/
 		addItem(type) {
 			const model = this.modelFor('infoboxBuilder');
 
-			switch (type) {
-			case 'row':
-				model.addRowItem();
-				break;
-			case 'title':
-				model.addTitleItem();
-				break;
-			case 'image':
-				model.addImageItem();
-				break;
-			default:
-				break;
-			}
+			return model.addItem(type);
 		},
 
 		/**

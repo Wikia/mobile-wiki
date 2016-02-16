@@ -16,8 +16,9 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc add item to infobox state
+	 * @desc add already prepared item to current infobox state
 	 * @param {Object} object
+	 *
 	 * @returns {Object} added item
 	 */
 	addToState(object) {
@@ -27,86 +28,100 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
+	 * @desc add item to infobox state
+	 * @param type string type of element we want to add
+	 * @param elementData Object optional data if we already have some
+	 *
 	 * @returns {Object} added item
 	 */
-	addRowItem(elementData = {}) {
+	addItem(type, elementData) {
+		let item = {};
+
+		switch (type) {
+			case 'title':
+				item = this.createTitleItem();
+				break;
+			case 'row':
+				item = this.createRowItem();
+				break;
+			case 'image':
+				item = this.createImageItem();
+				break;
+			default:
+				break;
+		}
+
+		if (elementData) {
+			item.data = elementData.data;
+			item.source = elementData.source;
+		}
+
+		return this.addToState(item);
+	},
+
+	/**
+	 * @returns {Object} added item
+	 */
+	createRowItem() {
 		const itemType = 'row',
-			index = this.increaseItemIndex(itemType),
-			item = {
-				data: {
-					label: i18n.t('main.label-default', {
-						ns: 'infobox-builder',
-						index
-					})
-				},
-				infoboxBuilderData: {
-					index,
-					component: this.createComponentName(itemType)
-				},
-				source: `${itemType}${index}`,
-				type: itemType
-			};
+			index = this.increaseItemIndex(itemType);
 
-		if (elementData) {
-			item.data = elementData.data;
-			item.source = elementData.source;
-		}
-
-		return this.addToState(item);
+		return {
+			data: {
+				label: i18n.t('main.label-default', {
+					ns: 'infobox-builder',
+					index
+				})
+			},
+			infoboxBuilderData: {
+				index,
+				component: this.createComponentName(itemType)
+			},
+			source: `${itemType}${index}`,
+			type: itemType
+		};
 	},
 
 	/**
 	 * @returns {Object} added item
 	 */
-	addImageItem(elementData = {}) {
+	createImageItem() {
 		const itemType = 'image',
-			index = this.increaseItemIndex(itemType),
-			item = {
-				data: {
-					caption: {
-						source: `caption${index}`
-					}
-				},
-				infoboxBuilderData: {
-					index,
-					component: this.createComponentName(itemType)
-				},
-				source: `image${index}`,
-				type: itemType
-			};
+			index = this.increaseItemIndex(itemType);
 
-		if (elementData) {
-			item.data = elementData.data;
-			item.source = elementData.source;
-		}
-
-		return this.addToState(item);
+		return {
+			data: {
+				caption: {
+					source: `caption${index}`
+				}
+			},
+			infoboxBuilderData: {
+				index,
+				component: this.createComponentName(itemType)
+			},
+			source: `image${index}`,
+			type: itemType
+		};
 	},
 
 	/**
 	 * @returns {Object} added item
 	 */
-	addTitleItem(elementData = {}) {
+	createTitleItem() {
 		const itemType = 'title',
-			index = this.increaseItemIndex('title'),
-			item = {
-				data: {
-					defaultValue: ''
-				},
-				infoboxBuilderData: {
-					index,
-					component: this.createComponentName(itemType)
-				},
-				source: `${itemType}${index}`,
-				type: itemType
-			};
+			index = this.increaseItemIndex('title');
 
-		if (elementData) {
-			item.data = elementData.data;
-			item.source = elementData.source;
-		}
-
-		return this.addToState(item);
+		return {
+			data: {
+				defaultValue: ''
+			},
+			infoboxBuilderData: {
+				index,
+				component: this.createComponentName(itemType)
+			},
+			source: `${itemType}${index}`,
+			type: itemType
+		};
 	},
 
 	/**
@@ -238,28 +253,16 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @returns {void}
 	 */
 	setupInitialState() {
-		this.addTitleItem();
-		this.addImageItem();
-		this.addRowItem();
-		this.addRowItem();
+		this.addItem('title');
+		this.addItem('image');
+		this.addItem('row');
+		this.addItem('row');
 	},
 
 	setupExistingState(state) {
 		state.forEach((element) => {
 			console.log('element!: ', element);
-			switch (element.type) {
-				case 'title':
-					this.addTitleItem(element);
-					break;
-				case 'row':
-					this.addRowItem(element);
-					break;
-				case 'image':
-					this.addImageItem(element);
-					break;
-				default:
-					break;
-			}
+			this.addItem(element.type, element);
 		});
 	},
 
