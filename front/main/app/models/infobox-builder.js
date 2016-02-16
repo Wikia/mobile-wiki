@@ -29,7 +29,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	/**
 	 * @returns {Object} added item
 	 */
-	addRowItem() {
+	addRowItem(data = {}) {
 		const itemType = 'row',
 			index = this.increaseItemIndex(itemType);
 
@@ -52,7 +52,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	/**
 	 * @returns {Object} added item
 	 */
-	addImageItem() {
+	addImageItem(data = {}) {
 		const itemType = 'image',
 			index = this.increaseItemIndex(itemType);
 
@@ -74,13 +74,13 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	/**
 	 * @returns {Object} added item
 	 */
-	addTitleItem() {
+	addTitleItem(data = {}) {
 		const itemType = 'title',
 			index = this.increaseItemIndex('title');
 
 		return this.addToState({
 			data: {
-				default: ''
+				defaultValue: ''
 			},
 			infoboxBuilderData: {
 				index,
@@ -147,7 +147,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		const index = this.get('infoboxState').indexOf(item),
 			defaultValue = value ? '{{PAGENAME}}' : '';
 
-		this.set(`infoboxState.${index}.data.default`, defaultValue);
+		this.set(`infoboxState.${index}.data.defaultValue`, defaultValue);
 	},
 
 	/**
@@ -224,6 +224,12 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		this.addImageItem();
 		this.addRowItem();
 		this.addRowItem();
+	},
+
+	setupExistingState(state) {
+		state.forEach((element) => {
+			console.log('element!: ', element)
+		});
 	},
 
 	/**

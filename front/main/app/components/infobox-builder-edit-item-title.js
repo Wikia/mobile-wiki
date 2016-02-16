@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	useArticleName: Ember.computed('item.data.default', {
+	useArticleName: Ember.computed('item.data.defaultValue', {
 		get() {
-			return Boolean(this.get('item.data.default'));
+			return Boolean(this.get('item.data.defaultValue'));
 		},
 		set(key, value) {
 			this.get('editTitleItem')(this.get('item'), value);

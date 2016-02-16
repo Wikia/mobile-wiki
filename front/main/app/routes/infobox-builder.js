@@ -9,14 +9,17 @@ export default Ember.Route.extend({
 		this.render('infobox-builder');
 	},
 
-	beforeModel() {
+	beforeModel(transition) {
+		const templateName = transition.params.infoboxBuilder.templateName;
+
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
 				Ember.RSVP.Promise.all([
-					this.loadAssets(),
+					this.loadAssets(templateName),
 					this.loadPonto()
 				])
 				.then(this.setupStyles)
+				.then(this.setupInfoboxState.bind(this))
 				.then(this.isWikiaContext)
 				.then(resolve, reject);
 			} else {
@@ -30,7 +33,13 @@ export default Ember.Route.extend({
 	},
 
 	afterModel(model) {
-		model.setupInitialState();
+		const templateData = this.controllerFor('infobox-builder').get('templateData');
+
+		if (templateData) {
+			model.setupExistingState(templateData);
+		} else {
+			model.setupInitialState();
+		}
 	},
 
 	/**
@@ -68,7 +77,7 @@ export default Ember.Route.extend({
 	 * loads infobox builder assets from MW
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadAssets() {
+	loadAssets(templateName) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: M.buildUrl({
@@ -77,7 +86,8 @@ export default Ember.Route.extend({
 				data: {
 					controller: 'PortableInfoboxBuilderController',
 					method: 'getAssets',
-					format: 'json'
+					format: 'json',
+					title: templateName
 				},
 				success: (data) => {
 					if (data && data.css) {
@@ -125,6 +135,20 @@ export default Ember.Route.extend({
 
 			resolve(promiseResponseArray);
 		});
+	},
+
+	setupInfoboxState(promiseResponseArray) {
+		let assets = promiseResponseArray[0].data,
+			lol = {};
+
+		if (assets) {
+			lol = JSON.parse(assets);
+			if (lol.data) {
+				this.controllerFor('infobox-builder').set('templateData', lol.data);
+			}
+		}
+
+		return promiseResponseArray;
 	},
 
 	/**
