@@ -113,9 +113,9 @@ export default Ember.Mixin.create({
 	reportPost(post) {
 		return ajaxCall({
 			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/report`),
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/post/${post.id}/report`),
 			success: () => {
-				Ember.set(post, 'isDeleted', true);
+				Ember.set(post, 'isReported', true);
 			},
 			error: () => {
 				this.displayError();
@@ -131,9 +131,9 @@ export default Ember.Mixin.create({
 	reportReply(reply) {
 		return ajaxCall({
 			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/report/valid`),
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/report`),
 			success: () => {
-				Ember.set(reply, 'isDeleted', false);
+				Ember.set(reply, 'isReported', true);
 			},
 			error: () => {
 				this.displayError();
