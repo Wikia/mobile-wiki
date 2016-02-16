@@ -62,7 +62,7 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		reportReply(reply) {
-			this.get('target').send('reportPost', reply);
+			this.get('target').send('reportReply', reply);
 		},
 	}
 });

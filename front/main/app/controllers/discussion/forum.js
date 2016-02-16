@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import DiscussionDeleteControllerMixin from '../../mixins/discussion-delete-controller';
+import DiscussionModerationControllerMixin from '../../mixins/discussion-moderation-controller';
 import DiscussionUpvoteControllerMixin from '../../mixins/discussion-upvote-controller';
 
 export default Ember.Controller.extend(
-	DiscussionDeleteControllerMixin,
+	DiscussionModerationControllerMixin,
 	DiscussionUpvoteControllerMixin,
 	{
 		application: Ember.inject.controller(),

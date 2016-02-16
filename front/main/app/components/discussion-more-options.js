@@ -16,5 +16,8 @@ export default Ember.Component.extend({
 
 	canDeleteOrUndelete: Ember.computed.or('canDelete', 'canUndelete'),
 
-	canReport: Ember.computed.alias('currentUser.isAuthenticated'),
+	canReport: Ember.computed('currentUser.isAuthenticated', 'post.isReported', function () {
+		return this.get('currentUser.isAuthenticated') === false ||
+			this.get('post.isReported') === false;
+	}),
 });

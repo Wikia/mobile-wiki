@@ -112,32 +112,12 @@ export default Ember.Mixin.create({
 	 */
 	reportPost(post) {
 		return ajaxCall({
-			//Empty reason until we have an input for providing an actual reason
-			data: JSON.stringify({value: ''}),
+			data: JSON.stringify({value: 1}),
+			dataType: 'text',
 			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/post/${post.id}/report`),
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${post.id}/report`),
 			success: () => {
 				Ember.set(post, 'isReported', true);
-			},
-			error: () => {
-				this.displayError();
-			}
-		});
-	},
-
-	/**
-	 * Report reply in service
-	 * @param {object} reply
-	 * @returns {Ember.RSVP.Promise|void}
-	 */
-	reportReply(reply) {
-		return ajaxCall({
-			//Empty reason until we have an input for providing an actual reason
-			data: JSON.stringify({value: ''}),
-			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/report`),
-			success: () => {
-				Ember.set(reply, 'isReported', true);
 			},
 			error: () => {
 				this.displayError();
