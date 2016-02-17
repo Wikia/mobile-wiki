@@ -3,7 +3,7 @@ import moment from 'moment';
 
 export default Ember.Service.extend({
 	isLoaded: false,
-	lang,
+	lang: null,
 	onLanguageChange: Ember.observer('Mercury.wiki.language.content', function () {
 		this.lang = this.loadTranslation();
 	}),
