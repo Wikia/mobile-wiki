@@ -4,6 +4,13 @@
 			{{i18n 'main.user-replied-to' userName=post.threadCreatedBy.name ns='discussion'}}
 		</div>
 	{{/if}}
+	{{#if isReported }}
+		<div class="reported">
+			<span>Reported by username</span>
+			{{svg 'checkmart' viewBox='0 0 40 40' class='validate-icon'}}
+			{{svg 'trash-small' viewBox='0 0 40 40' class='reported-delete-icon'}}
+		</div>
+	{{/if}}
 	<div>
 		<div class="upvotes">
 			{{discussion-upvote-reply
