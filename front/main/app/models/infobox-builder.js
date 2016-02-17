@@ -35,7 +35,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 *
 	 * @returns {Object} added item
 	 */
-	addItem(type, elementData = false) {
+	addItem(type, elementData = null) {
 		let item = {};
 
 		switch (type) {
@@ -52,10 +52,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				break;
 		}
 
-		if (elementData) {
-			item.data = elementData.data;
-			item.source = elementData.source;
-		}
+		item = InfoboxBuilderModel.extendItemData(item, elementData);
 
 		return this.addToState(item);
 	},
@@ -318,6 +315,23 @@ InfoboxBuilderModel.reopenClass({
 		}).toArray();
 
 		return JSON.stringify({data: plainState});
+	},
+
+	/**
+	 * @desc Overrides some properties of given object with additional
+	 * data, obtained from already existing template
+	 *
+	 * @param {Object} item item to extend
+	 * @param {Object} itemData additional data
+	 * @returns {Object}
+	 */
+	extendItemData(item, itemData) {
+		if (itemData) {
+			item.data = itemData.data;
+			item.source = itemData.source;
+		}
+
+		return item;
 	}
 });
 
