@@ -53,7 +53,7 @@ gulp.task('build-server-node-modules', function () {
  * Copy Ember's output index.html to www/server/app/views/ so it can be used as a template by Hapi
  */
 gulp.task('build-server-views-main', function () {
-	return gulp.src(paths.views.main.src)
+	return gulp.src(paths.views.main.src, {base: paths.views.main.base})
 		.pipe(plumber())
 		.pipe(gulp.dest(paths.views.main.dest));
 });

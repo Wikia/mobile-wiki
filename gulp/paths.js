@@ -94,6 +94,7 @@ module.exports = {
 				 * be able to fire event when file is added
 				*/
 				src: outputFront + '/**/ember-main.hbs',
+				base: outputFront + '/main',
 				dest: outputServer + '/app/views/_layouts',
 			}
 		},
