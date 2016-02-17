@@ -4,7 +4,7 @@ import {test, moduleFor} from 'ember-qunit';
 let originalDocumentTitle,
 	originalWikiVariables;
 
-moduleFor('route:article', 'Integration | Route | article', {
+moduleFor('route:wiki-page', 'Integration | Route | article', {
 	beforeEach() {
 		originalDocumentTitle = document.title;
 		originalWikiVariables = Mercury.wiki;

@@ -4,7 +4,7 @@
 		<ul class="mw-content">
 			{{#each pages as |page|}}
 				<li>
-					{{#link-to 'article' page.title data-tracking-category='related'}}
+					{{#link-to 'wiki-page' page.title data-tracking-category='related'}}
 						{{image-media limitHeight=true height=200 url=page.imgUrl caption=page.title}}
 					{{/link-to}}
 				</li>

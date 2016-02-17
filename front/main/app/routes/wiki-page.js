@@ -26,7 +26,7 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	beforeModel(transition) {
-		const title = transition.params.wikiPage.title.replace('wiki/', '');
+		const title = transition.params['wiki-page'].title.replace('wiki/', '');
 
 		this.controllerFor('application').send('closeLightbox');
 
@@ -40,7 +40,7 @@ export default Ember.Route.extend({
 		// TODO: This could be improved upon by not using an Ember transition to 'rewrite' the URL
 		// Ticket here: https://wikia-inc.atlassian.net/browse/HG-641
 		if (title.indexOf(' ') > -1) {
-			this.transitionTo('page', normalizeToUnderscore(title));
+			this.transitionTo('wiki-page', normalizeToUnderscore(title));
 		}
 	},
 
@@ -81,14 +81,15 @@ export default Ember.Route.extend({
 		model.set('commentsPage', null);
 
 		this.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
-
 	},
 
 	/**
 	 * @param {Ember.controller} controller
+	 * @param {Ember.model} model
 	 * @returns {void}
      */
-	setupController(controller) {
+	setupController(controller, model) {
+		controller.set('model', model);
 		controller.set('wikiPageComponentName', this.getHandler().getComponentName());
 	},
 
@@ -138,8 +139,6 @@ export default Ember.Route.extend({
 		 * @returns {boolean}
 		 */
 		error(error, transition) {
-			debugger;
-
 			if (transition) {
 				transition.abort();
 			}

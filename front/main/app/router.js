@@ -79,7 +79,7 @@ Router.map(function () {
 		path: `/diff/:oldId/:newId`
 	});
 
-	this.route('wikiPage', {
+	this.route('wiki-page', {
 		path: `${articlePath}*title`
 	});
 
