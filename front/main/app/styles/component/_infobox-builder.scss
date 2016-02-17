@@ -76,6 +76,7 @@ $shadowColor: rgba(0,0,0,0.3);
 			z-index: 2;
 
 			&:after {
+				box-shadow: 0 $border-width $shadowBlur 0 $shadowColor;
 				cursor: pointer;
 			}
 		}
@@ -88,12 +89,12 @@ $shadowColor: rgba(0,0,0,0.3);
 			}
 		}
 
-		&.is-dragging {
-			&.active,
-			&:after {
-				box-shadow: 0 $border-width $shadowBlur 0 $shadowColor;
-			}
-		}
+		//&.is-dragging {
+		//	&.active,
+		//	&:after {
+		//		box-shadow: 0 $border-width $shadowBlur 0 $shadowColor;
+		//	}
+		//}
 	}
 }
 
