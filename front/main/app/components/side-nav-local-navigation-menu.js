@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import SideNavNewBadge from '../mixins/side-nav-new-badge';
 import TrackClickMixin from '../mixins/track-click';
 import {track, trackActions} from 'common/utils/track';
 
@@ -23,6 +24,7 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	TrackClickMixin,
+	SideNavNewBadge,
 	{
 		tagName: 'ul',
 		classNames: ['local-nav-menu'],

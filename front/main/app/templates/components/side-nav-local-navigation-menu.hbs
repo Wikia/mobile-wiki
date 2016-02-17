@@ -9,7 +9,7 @@
 {{/if}}
 
 {{#if shouldDisplayRecentWikiActivity}}
-	<li class="side-nav-menu__item mw-content">
+	<li class="side-nav-menu__item mw-content" {{action 'hideNewBadge'}}>
 		{{#link-to 'recent-wiki-activity'
 			tracking-category='recent-wiki-activity'
 			tracking-label='local-nav'

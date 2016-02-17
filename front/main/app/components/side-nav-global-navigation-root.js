@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import LoginLinkMixin from '../mixins/login-link';
+import SideNavNewBadge from '../mixins/side-nav-new-badge';
 
 export default Ember.Component.extend(
 	LoginLinkMixin,
+	SideNavNewBadge,
 	{
 		currentUser: Ember.inject.service(),
 		hubsLinks: Ember.get(Mercury, 'wiki.navigation2016.hubsLinks'),

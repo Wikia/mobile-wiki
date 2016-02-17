@@ -1,10 +1,12 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import HeadroomMixin from '../mixins/headroom';
+import SideNavNewBadge from '../mixins/side-nav-new-badge';
 
 export default Ember.Component.extend(
 	TrackClickMixin,
 	HeadroomMixin,
+	SideNavNewBadge,
 	{
 		classNames: ['site-head', 'border-theme-color'],
 		classNameBindings: ['themeBar'],
