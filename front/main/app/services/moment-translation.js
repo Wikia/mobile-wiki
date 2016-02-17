@@ -3,17 +3,13 @@ import moment from 'moment';
 
 export default Ember.Service.extend({
 	isLoaded: false,
-	isLoading: false,
 	lang,
 	onLanguageChange: Ember.observer('Mercury.wiki.language.content', function () {
 		this.lang = this.loadTranslation();
 	}),
 
 	changeLoadingStatus(done = true) {
-		this.setProperties({
-			isLoaded: done,
-			isLoading: !done
-		});
+		this.set('isLoaded', done);
 	},
 	extendEnTranslation() {
 		moment.locale('en', {
@@ -43,7 +39,7 @@ export default Ember.Service.extend({
 			});
 		} else {
 			this.extendEnTranslation();
-			return 'en';
+			return lang;
 		}
 	},
 	init() {
