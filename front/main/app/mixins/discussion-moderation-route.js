@@ -23,9 +23,9 @@ export default Ember.Mixin.create({
 		deletePost(post) {
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
-			loadingSpinnerContainer.set('isLoading', true);
+			Ember.set(loadingSpinnerContainer, 'isLoading', true);
 			this.modelFor(this.get('routeName')).deletePost(post).then(() => {
-				loadingSpinnerContainer.set('isLoading', false);
+				Ember.set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
 
@@ -51,9 +51,9 @@ export default Ember.Mixin.create({
 				i18n.t('main.delete-all', {ns: 'discussion'}),
 				(result) => {
 					if (result) {
-						loadingSpinnerContainer.set('isLoading', true);
+						Ember.set(loadingSpinnerContainer, 'isLoading', true);
 						this.modelFor(this.get('routeName')).deleteAllPosts(posts).then(() => {
-							loadingSpinnerContainer.set('isLoading', false);
+							Ember.set(loadingSpinnerContainer, 'isLoading', false);
 						});
 					}
 				});
@@ -67,9 +67,9 @@ export default Ember.Mixin.create({
 		undeletePost(post) {
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
-			loadingSpinnerContainer.set('isLoading', true);
+			Ember.set(loadingSpinnerContainer, 'isLoading', true);
 			this.modelFor(this.get('routeName')).undeletePost(post).then(() => {
-				loadingSpinnerContainer.set('isLoading', false);
+				Ember.set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
 
@@ -79,9 +79,9 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		deleteReply(reply) {
-			reply.set('isLoading', true);
+			Ember.set(reply, 'isLoading', true);
 			this.modelFor(this.get('routeName')).deleteReply(reply).then(() => {
-				reply.set('isLoading', false);
+				Ember.set(reply, 'isLoading', false);
 			});
 		},
 
@@ -91,9 +91,9 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		undeleteReply(reply) {
-			reply.set('isLoading', true);
+			Ember.set(reply, 'isLoading', true);
 			this.modelFor(this.get('routeName')).undeleteReply(reply).then(() => {
-				reply.set('isLoading', false);
+				Ember.set(reply, 'isLoading', false);
 			});
 		},
 
@@ -105,9 +105,9 @@ export default Ember.Mixin.create({
 		reportPost(post) {
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
-			loadingSpinnerContainer.set('isLoading', true);
+			Ember.set(loadingSpinnerContainer, 'isLoading', true);
 			this.modelFor(this.get('routeName')).reportPost(post).then(() => {
-				loadingSpinnerContainer.set('isLoading', false);
+				Ember.set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
 
@@ -117,9 +117,9 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		reportReply(reply) {
-			reply.set('isLoading', true);
+			Ember.set(reply, 'isLoading', true);
 			this.modelFor(this.get('routeName')).reportPost(reply).then(() => {
-				reply.set('isLoading', false);
+				Ember.set(reply, 'isLoading', false);
 			});
 		},
 	}
