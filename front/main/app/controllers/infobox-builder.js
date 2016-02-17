@@ -74,6 +74,16 @@ export default Ember.Controller.extend({
 		},
 
 		/**
+		 * @desc resets model editItem flag
+		 * @returns {void}
+		 */
+		resetEditItem() {
+			const model = this.get('model');
+
+			model.resetEditMode();
+		},
+
+		/**
 		 * @desc calls editTitleItem on model with new title data
 		 * @param {Object} item
 		 * @param {Boolean} shouldUseArticleName
