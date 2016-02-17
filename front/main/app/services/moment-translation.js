@@ -5,6 +5,10 @@ export default Ember.Service.extend({
 	isLoaded: false,
 	isLoading: false,
 	lang: Ember.get(Mercury, 'wiki.language.content') || 'en',
+	onLanguageChange: Ember.observer('Mercury.wiki.language.content', function () {
+		this.lang = Ember.get(Mercury, 'wiki.language.content');
+		this.loadTranslation();
+	}),
 
 	changeLoadingStatus(done = true) {
 		this.setProperties({
