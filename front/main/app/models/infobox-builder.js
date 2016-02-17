@@ -39,18 +39,18 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		let item = {};
 
 		switch (type) {
-			case 'title':
-				item = this.createTitleItem();
-				break;
-			case 'row':
-				item = this.createRowItem();
-				break;
-			case 'image':
-				item = this.createImageItem();
-				break;
-			default:
-				Ember.Logger.warn(`Unsupported infobox builder type encountered: '${type}'`);
-				break;
+		case 'title':
+			item = this.createTitleItem();
+			break;
+		case 'row':
+			item = this.createRowItem();
+			break;
+		case 'image':
+			item = this.createImageItem();
+			break;
+		default:
+			Ember.Logger.warn(`Unsupported infobox builder type encountered: '${type}'`);
+			break;
 		}
 
 		item = InfoboxBuilderModel.extendItemData(item, elementData);
@@ -242,10 +242,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	setupExistingState(state) {
-		state.forEach((element) => {
-			console.log('element: ', element);
-			this.addItem(element.type, element);
-		});
+		state.forEach((element) => this.addItem(element.type, element));
 	},
 
 	/**

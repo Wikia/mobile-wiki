@@ -1,5 +1,6 @@
-import {test, moduleFor} from 'ember-qunit';
 import Ember from 'ember';
+import {test, moduleFor} from 'ember-qunit';
+import sinon from 'sinon';
 
 const infoboxBuilderModelClass = require('main/models/infobox-builder').default;
 
@@ -7,7 +8,7 @@ moduleFor('model:infobox-builder', 'Unit | Model | infobox builder', {
 	unit: true
 });
 
-test('create new model with initial state', function (assert) {
+test('create new model with initial state', (assert) => {
 	const model = infoboxBuilderModelClass.create();
 
 	assert.equal(model.get('itemInEditMode'), null);
@@ -18,7 +19,7 @@ test('create new model with initial state', function (assert) {
 	assert.equal(model.get('infoboxState').length, 0);
 });
 
-test('add item to infobox state', function (assert) {
+test('add item to infobox state', (assert) => {
 	const cases = [
 		{
 			items: [
@@ -35,10 +36,10 @@ test('add item to infobox state', function (assert) {
 		}
 	];
 
-	cases.forEach(testCase => {
+	cases.forEach((testCase) => {
 		const model = infoboxBuilderModelClass.create();
 
-		testCase.items.forEach(item => model.addToState(item));
+		testCase.items.forEach((item) => model.addToState(item));
 		assert.equal(model.get('infoboxState').length, testCase.length);
 		testCase.items.forEach((item, index) => {
 			assert.equal(model.get(`infoboxState.${index}.test`), item.test);
@@ -46,7 +47,7 @@ test('add item to infobox state', function (assert) {
 	});
 });
 
-test('add items by type', function (assert) {
+test('add items by type', (assert) => {
 	const index = 1,
 		mockComponentName = 'test-component',
 		messageMock = 'testMessage',
@@ -97,7 +98,7 @@ test('add items by type', function (assert) {
 			}
 		];
 
-	cases.forEach(testCase => {
+	cases.forEach((testCase) => {
 		const model = infoboxBuilderModelClass.create(),
 			addToStateSpy = sinon.spy(),
 			createComponentNameStub = sinon
@@ -121,7 +122,7 @@ test('add items by type', function (assert) {
 	});
 });
 
-test('create component name', function (assert) {
+test('create component name', (assert) => {
 	const type = 'test',
 		componentName = `infobox-builder-item-${type}`;
 
@@ -205,37 +206,38 @@ test('sanitize custom row source', (assert) => {
 test('extend row data', (assert) => {
 	const model = infoboxBuilderModelClass.create(),
 		cases = [
-		{
-			additionalItemData: {
-				data: {
-					label: 'custom label'
+			{
+				additionalItemData: {
+					data: {
+						label: 'custom label'
+					},
+					source: 'src',
+					randomInvalidField: 666
 				},
-				source: 'src',
-				randomInvalidField: 666
+				expectedSource: 'src',
+				expectedLabel: 'custom label'
 			},
-			expectedSource: 'src',
-			expectedLabel: 'custom label'
-		},
-		{
-			additionalItemData: {
-				data: {
-					label: ''
+			{
+				additionalItemData: {
+					data: {
+						label: ''
+					},
+					source: ''
 				},
-				source: ''
+				expectedSource: '',
+				expectedLabel: ''
 			},
-			expectedSource: '',
-			expectedLabel: ''
-		},
-		{
-			additionalItemData: null,
-			expected: 'row1',
-			expectedLabel: ''
-		}
-	];
+			{
+				additionalItemData: null,
+				expected: 'row1',
+				expectedLabel: ''
+			}
+		];
 
 	cases.forEach((testCase) => {
-		let item = model.createRowItem(),
+		const item = model.createRowItem(),
 			expected = item;
+
 		// we want new object to have the same structure like the passed
 		// item only with this two fields updated
 		expected.source = testCase.expectedSource;
@@ -244,6 +246,6 @@ test('extend row data', (assert) => {
 		assert.equal(
 			infoboxBuilderModelClass.extendItemData(item, testCase.additionalItemData),
 			expected
-		)
+		);
 	});
 });
