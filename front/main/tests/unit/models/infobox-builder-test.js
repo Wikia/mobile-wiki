@@ -63,7 +63,6 @@ test('add items by type', function (assert) {
 					source: `row${index}`,
 					type: 'row'
 				},
-				addItemMetchod: 'addRowItem',
 				message: 'add row item'
 			},
 			{
@@ -80,13 +79,12 @@ test('add items by type', function (assert) {
 					source: `image${index}`,
 					type: 'image'
 				},
-				addItemMetchod: 'addImageItem',
 				message: 'add image item'
 			},
 			{
 				dataMock: {
 					data: {
-						default: ''
+						defaultValue: ''
 					},
 					infoboxBuilderData: {
 						index,
@@ -95,7 +93,6 @@ test('add items by type', function (assert) {
 					source: `title${index}`,
 					type: 'title'
 				},
-				addItemMetchod: 'addTitleItem',
 				message: 'add title item'
 			}
 		];
@@ -113,7 +110,7 @@ test('add items by type', function (assert) {
 
 		model.increaseItemIndex = sinon.stub().returns(index);
 		model.addToState = addToStateSpy;
-		model[testCase.addItemMetchod]();
+		model.addItem(testCase.dataMock.type);
 
 		assert.equal(addToStateSpy.callCount, 1, testCase.message);
 		assert.equal(addToStateSpy.calledWith(testCase.dataMock), true, testCase.message);
@@ -136,20 +133,20 @@ test('edit title item', (assert) => {
 		index = 0,
 		cases = [
 			{
-				useArticletitle: true,
+				useArticleTitle: true,
 				defaultValue: '{{PAGENAME}}'
 			},
 			{
-				useArticletitle: false,
+				useArticleTitle: false,
 				defaultValue: ''
 			}
 		];
 
-	model.addTitleItem();
+	model.addItem('title');
 
 	cases.forEach((testCase) => {
-		model.editTitleItem(model.get('infoboxState').objectAt(index), testCase.useArticletitle);
-		assert.equal(model.get(`infoboxState.${index}.data.default`), testCase.defaultValue);
+		model.editTitleItem(model.get('infoboxState').objectAt(index), testCase.useArticleTitle);
+		assert.equal(model.get(`infoboxState.${index}.data.defaultValue`), testCase.defaultValue);
 	});
 });
 
@@ -172,7 +169,7 @@ test('edit row item', (assert) => {
 	cases.forEach((testCase) => {
 		const model = infoboxBuilderModelClass.create();
 
-		model.addRowItem();
+		model.addItem('row');
 		model.editRowItem(model.get('infoboxState').objectAt(index), testCase.input);
 
 		assert.equal(model.get(`infoboxState.${index}.data.label`), testCase.label);

@@ -49,6 +49,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				item = this.createImageItem();
 				break;
 			default:
+				Ember.Logger.warn(`Unsupported infobox builder type encountered: '${type}'`);
 				break;
 		}
 
