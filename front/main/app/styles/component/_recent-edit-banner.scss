@@ -1,0 +1,25 @@
+.recent-edit {
+	animation-duration: 2s;
+	animation-iteration-count: 1;
+	animation-name: displayBanner;
+	background-color: $color-white;
+	bottom: 0;
+	height: 100px;
+	left: 0;
+	position: fixed;
+	width: 100%;
+
+	h3 {
+		background-color: $color-blue-light;
+		color: #fff;
+		font-size: $type-smallest;
+		margin-top: 0;
+		padding: 7px 16px;
+		text-transform: uppercase;
+	}
+}
+
+@keyframes displayBanner {
+	from { bottom: -101px; }
+	to { bottom: 0; }
+}
