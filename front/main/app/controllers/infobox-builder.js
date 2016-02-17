@@ -74,13 +74,17 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * @desc resets model editItem flag
+		 * @desc resets edit model if action trigger is different than current item in edit model
+		 * @param {Object} actionTrigger - infobox item that triggers this action
 		 * @returns {void}
+		 * @todo add test
 		 */
-		resetEditItem() {
+		handleItemInEditModel(actionTrigger) {
 			const model = this.get('model');
 
-			model.resetEditMode();
+			if (actionTrigger !== model.get('itemInEditMode')) {
+				model.resetEditMode();
+			}
 		},
 
 		/**
