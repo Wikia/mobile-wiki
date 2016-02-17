@@ -1,2 +1,6 @@
 <h3>{{i18n 'main.title' ns='recent-wiki-activity'}}</h3>
-I'm recent edit
+<p>
+	{{recentEdit.user}} {{i18n 'main.edited' ns='recent-wiki-activity'}} {{recentEdit.title}} {{time-ago recentEdit.timestamp}}
+	{{#link-to 'recent-wiki-activity'}}{{i18n 'main.intro-see-more-recent-edits' ns='recent-wiki-activity'}}{{/link-to}}
+</p>
+<div>{{i18n 'main.dont-show-again' ns='recent-wiki-activity'}}</div>
