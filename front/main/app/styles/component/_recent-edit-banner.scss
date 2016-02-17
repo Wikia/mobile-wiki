@@ -1,12 +1,7 @@
 .recent-edit {
-	animation-name: displayBanner;
-	animation-iteration-count: 1;
 	animation-duration: 2s;
-
-	-webkit-animation-name: displayBanner;
-	-webkit-animation-iteration-count: 1;
-	-webkit-animation-duration: 2s;
-
+	animation-iteration-count: 1;
+	animation-name: displayBanner;
 	background-color: #fff;
 	bottom: 0;
 	height: 100px;
@@ -15,9 +10,9 @@
 	width: 100%;
 
 	h3 {
-		background-color: #1a5eb8;
+		background-color: $color-blue-light;
 		color: #fff;
-		font-size: 12px;
+		font-size: $type-smallest;
 		margin-top: 0;
 		padding: 7px 16px;
 		text-transform: uppercase;
@@ -25,11 +20,6 @@
 }
 
 @keyframes displayBanner {
-	from { bottom: -101px; }
-	to { bottom: 0; }
-}
-
-@-webkit-keyframes displayBanner {
 	from { bottom: -101px; }
 	to { bottom: 0; }
 }
