@@ -103,11 +103,9 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		reportPost(post) {
-			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
-
-			Ember.set(loadingSpinnerContainer, 'isLoading', true);
+			Ember.set(post, 'isLoading', true);
 			this.modelFor(this.get('routeName')).reportPost(post).then(() => {
-				Ember.set(loadingSpinnerContainer, 'isLoading', false);
+				Ember.set(post, 'isLoading', false);
 			});
 		},
 
