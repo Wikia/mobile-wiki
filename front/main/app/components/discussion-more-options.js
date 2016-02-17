@@ -14,4 +14,8 @@ export default Ember.Component.extend({
 	}),
 
 	canDeleteOrUndelete: Ember.computed.or('canDelete', 'canUndelete'),
+
+	canReport: Ember.computed('post._embedded.userData.@each.hasReported', function () {
+		return this.get('post._embedded.userData.0.hasReported') !== true;
+	}),
 });

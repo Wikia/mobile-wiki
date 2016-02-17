@@ -303,6 +303,8 @@ authLocaleSettings['pt-pt'] = deepExtend(
 	}
 );
 
+authLocaleSettings['pt'] = authLocaleSettings['pt-br'];
+
 authLocaleSettings['ru'] = deepExtend(
 	{},
 	authLocaleSettings['en'],

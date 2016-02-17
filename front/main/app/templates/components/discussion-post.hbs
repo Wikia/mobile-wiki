@@ -43,6 +43,7 @@
 						post=model.firstPost
 						postId=model.id
 						replyCount=model.postCount
+						report=(action this.attrs.reportPost)
 						timestamp=model.firstPost.creationDate.epochSecond
 						undelete=(action this.attrs.undeletePost)
 						upvoteCount=model.upvoteCount
@@ -72,6 +73,7 @@
 								delete=(action this.attrs.deleteReply)
 								isDetailsView= true
 								isParentDeleted=model.firstPost.isDeleted
+								report=(action this.attrs.reportReply)
 								timestamp=item.creationDate.epochSecond
 								undelete=(action this.attrs.undeleteReply)
 								upvoteCount=item.upvoteCount

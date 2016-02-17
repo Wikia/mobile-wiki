@@ -105,6 +105,27 @@ export default Ember.Mixin.create({
 		}
 	},
 
+	/**
+	 * Report post in service
+	 * @param {object} post
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	reportPost(post) {
+		return ajaxCall({
+			data: JSON.stringify({value: 1}),
+			dataType: 'text',
+			method: 'PUT',
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${post.id}/report`),
+			success: () => {
+				Ember.set(post, '_embedded.userData.0.hasReported', true);
+				Ember.set(post, 'isReported', true);
+			},
+			error: () => {
+				this.displayError();
+			}
+		});
+	},
+
 	displayError() {
 		alert(i18n.t('editor.post-error-general-error', {ns: 'discussion'}));
 	}

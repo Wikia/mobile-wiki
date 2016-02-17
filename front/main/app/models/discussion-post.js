@@ -1,8 +1,8 @@
 import DiscussionBaseModel from './discussion-base';
-import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
+import DiscussionModerationModelMixin from '../mixins/discussion-moderation-model';
 import ajaxCall from '../utils/ajax-call';
 
-const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
+const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 
 	firstPost: null,
 	contributors: [],
