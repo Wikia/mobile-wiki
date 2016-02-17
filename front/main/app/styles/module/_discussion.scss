@@ -9,18 +9,6 @@ $post-details-reply-upvote-margin-left: 10px;
 $post-details-content-line-height: 1.4rem;
 $post-mark-icon-size: 12px;
 
-@mixin discussion-post-mark-indicator {
-	border-color: transparent;
-	border-style: solid;
-	border-width: $post-mark-icon-size $post-mark-icon-size 0 0;
-	content: "";
-	height: $post-mark-icon-size;
-	left: 0;
-	position: absolute;
-	top: 0;
-	width: $post-mark-icon-size;
-}
-
 body.discussions {
 	background-color: $discussion-desktop-bg-color;
 }
@@ -171,16 +159,29 @@ body.discussions {
 			}
 		}
 
+		&.is-deleted,
+		&.is-reported {
+			&::before {
+				border-color: transparent;
+				border-style: solid;
+				border-width: $post-mark-icon-size $post-mark-icon-size 0 0;
+				content: "";
+				height: $post-mark-icon-size;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: $post-mark-icon-size;
+			}
+		}
+
 		&.is-deleted {
 			&::before {
-				@include discussion-post-mark-indicator;
 				border-top-color: $discussion-deleted-mark-color;
 			}
 		}
 
 		&.is-reported {
 			&::before {
-				@include discussion-post-mark-indicator;
 				border-top-color: $discussion-reported-mark-color;
 			}
 		}
