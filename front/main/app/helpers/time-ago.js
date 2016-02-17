@@ -14,21 +14,19 @@ import moment from 'moment';
  * @returns {string}
  */
 export default Ember.Helper.extend({
-	momentTranslationsService: Ember.inject.service('moment-translation'),
-	onTranslationChange: Ember.observer('momentTranslationsService.isLoaded', function () {
+	onTranslationChange: Ember.observer('momentTranslation.isLoaded', function () {
 		this.recompute();
 	}),
 
 	compute([unixTimestamp, shouldHideAgoPrefix = true]) {
 		const date = moment.unix(unixTimestamp),
 			now = moment(),
-			momentTranslationsService = this.get('momentTranslationsService'),
-			lang = Ember.get(Mercury, 'wiki.language.content') || 'en';
+			momentTranslationsService = this.get('momentTranslation');
 		let output;
 
 		if (!momentTranslationsService.get('isLoaded')) {
-			if (!momentTranslationsService.get('isLoading')) {
-				momentTranslationsService.loadTranslation(lang);
+			if(momentTranslationsService.get('isLoading')) {
+				momentTranslationsService.loadTranslation();
 			}
 			return '<span class="datePlaceholder"/>';
 		} else {
