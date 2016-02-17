@@ -58,12 +58,8 @@ $shadowColor: rgba(0,0,0,0.3);
 		&:hover,
 		&.active,
 		&.is-dragging {
-			z-index: 2;
-
 			&:after {
-				cursor: pointer;
 				border: $border-width solid $color-blue-light;
-				box-shadow: 0 $border-width $shadowBlur 0 $shadowColor;
 				content: ' ';
 				display: block;
 				height: 100%;
@@ -75,10 +71,27 @@ $shadowColor: rgba(0,0,0,0.3);
 			}
 		}
 
+		&:hover,
+		&.active {
+			z-index: 2;
+
+			&:after {
+				cursor: pointer;
+			}
+		}
+
 		&.is-dragging {
+			z-index: 3;
 			&:after {
 				cursor: move;
 				box-shadow: 0 $border-width * 4 $shadowBlur 0 $shadowColor;
+			}
+		}
+
+		&.is-dragging {
+			&.active,
+			&:after {
+				box-shadow: 0 $border-width $shadowBlur 0 $shadowColor;
 			}
 		}
 	}
