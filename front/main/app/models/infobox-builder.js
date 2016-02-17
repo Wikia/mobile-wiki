@@ -31,7 +31,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @desc add item to infobox state. Extend it with already existing
 	 * data if present.
 	 * @param {string} type type of element we want to add
-	 * @param {Object} elementData optional data if we already have some
+	 * @param {Object} [elementData=null] optional data if we already have some
 	 *
 	 * @returns {Object} added item
 	 */
