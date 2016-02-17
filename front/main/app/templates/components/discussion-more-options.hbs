@@ -24,11 +24,7 @@
 	<li>
 		<a class="report-link" {{action this.attrs.report post}}>
 			{{svg 'report' viewBox='0 0 18 18' class='icon report'}}
-			{{#if isReply}}
-				{{i18n 'main.report-reply' ns='discussion'}}
-			{{else}}
-				{{i18n 'main.report-post' ns='discussion'}}
-			{{/if}}
+			{{reportMessage}}
 		</a>
 	</li>
 {{/if}}
