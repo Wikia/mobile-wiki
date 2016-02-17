@@ -4,10 +4,9 @@ import moment from 'moment';
 export default Ember.Service.extend({
 	isLoaded: false,
 	isLoading: false,
-	lang: Ember.get(Mercury, 'wiki.language.content') || 'en',
+	lang,
 	onLanguageChange: Ember.observer('Mercury.wiki.language.content', function () {
-		this.lang = Ember.get(Mercury, 'wiki.language.content');
-		this.loadTranslation();
+		this.lang = this.loadTranslation();
 	}),
 
 	changeLoadingStatus(done = true) {
@@ -36,15 +35,18 @@ export default Ember.Service.extend({
 		if (lang !== 'en') {
 			Ember.$.getScript(M.buildUrl({path: `/front/common/locales/moment/${lang}.js`})).complete(() => {
 				this.changeLoadingStatus();
+				return lang;
 			}).error(() => {
 				Ember.Logger.error(`Can't get moment translation for ${lang}`);
 				this.extendEnTranslation();
+				return 'en';
 			});
 		} else {
 			this.extendEnTranslation();
+			return 'en';
 		}
 	},
 	init() {
-		this.loadTranslation(this.lang);
+		this.lang = this.loadTranslation(Ember.get(Mercury, 'wiki.language.content'));
 	}
 });

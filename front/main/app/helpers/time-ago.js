@@ -14,7 +14,7 @@ import moment from 'moment';
  * @returns {string}
  */
 export default Ember.Helper.extend({
-	onTranslationChange: Ember.observer('momentTranslation.isLoaded', function () {
+	onTranslationChange: Ember.observer('momentTranslation.lang', function () {
 		this.recompute();
 	}),
 
