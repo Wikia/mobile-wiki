@@ -7,7 +7,7 @@ $post-details-post-vertical-padding: 12px;
 $post-details-reply-upvote-width: 12px;
 $post-details-reply-upvote-margin-left: 10px;
 $post-details-content-line-height: 1.4rem;
-$deleted-mark-size: 12px;
+$post-mark-icon-size: 12px;
 
 body.discussions {
 	background-color: $discussion-desktop-bg-color;
@@ -159,17 +159,30 @@ body.discussions {
 			}
 		}
 
-		&.is-deleted {
+		&.is-deleted,
+		&.is-reported {
 			&::before {
-				border-color: $discussion-deleted-mark-color transparent transparent transparent;
+				border-color: transparent;
 				border-style: solid;
-				border-width: $deleted-mark-size $deleted-mark-size 0 0;
+				border-width: $post-mark-icon-size $post-mark-icon-size 0 0;
 				content: "";
-				height: $deleted-mark-size;
+				height: $post-mark-icon-size;
 				left: 0;
 				position: absolute;
 				top: 0;
-				width: $deleted-mark-size;
+				width: $post-mark-icon-size;
+			}
+		}
+
+		&.is-deleted {
+			&::before {
+				border-top-color: $discussion-deleted-mark-color;
+			}
+		}
+
+		&.is-reported {
+			&::before {
+				border-top-color: $discussion-reported-mark-color;
 			}
 		}
 
