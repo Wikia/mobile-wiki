@@ -5,10 +5,13 @@ $icon-action-size: 24px;
 $icon-wrapper-size: 50px;
 $icon-button-size: 30px;
 $border-width: 2px;
+$shadowBlur: 8px;
+$shadowColor: rgba(0,0,0,0.3);
 
+// overwrite default mercury styles
 .infobox-builder-body-wrapper {
-	// overwrite default mercury styles
 	overflow-y: auto;
+
 	//there's no other way to set height 100% on the builder elements
 	.ember-container {
 		height: 100%;
@@ -38,39 +41,51 @@ $border-width: 2px;
 .infobox-builder-preview {
 	flex-grow: 1;
 	overflow: auto;
-	padding: 40px 0;
 
 	.portable-infobox {
-		clear: none;
-		float: none;
-		margin: auto;
+		margin: 40px auto;
 	}
 
-	.pi-item,
-	// overwrite infobox styles inherited from oasis
-	.pi-item:last-child {
+	// styles for adding infobox builder selection bounding box to each infobox item
+	.pi-item {
 		position: relative;
 
-		&.active:after {
-			background-color: transparent;
-			border: $border-width solid $color-blue-light;
-			content: '';
-			display: block;
-			height: 100%;
-			left: 0;
-			position: absolute;
-			top: 0;
-			width: 100%;
+		// transitions during reordering
+		&.sortable-item {
+			transition: all .125s;
 		}
 
-		&:hover {
-			cursor: pointer;
+		&:hover,
+		&.active,
+		&.is-dragging {
+			z-index: 2;
+
+			&:after {
+				cursor: pointer;
+				border: $border-width solid $color-blue-light;
+				box-shadow: 0 $border-width $shadowBlur 0 $shadowColor;
+				content: ' ';
+				display: block;
+				height: 100%;
+				width: 100%;
+				left: -$border-width;
+				position: absolute;
+				top: -$border-width;
+				box-sizing: content-box;
+			}
+		}
+
+		&.is-dragging {
+			&:after {
+				cursor: move;
+				box-shadow: 0 $border-width * 4 $shadowBlur 0 $shadowColor;
+			}
 		}
 	}
 }
 
 .infobox-builder-sidebar {
-	box-shadow: -$border-width 0 6px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: -$border-width 0 $shadowBlur 0 $shadowColor;
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
 
