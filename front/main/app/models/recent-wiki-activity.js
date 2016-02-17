@@ -1,18 +1,18 @@
 import Ember from 'ember';
-const defaultProps = 'user|userid|useravatar|parsedcomment|timestamp|title|ids';
-const RecentWikiActivityModel = Ember.Object.extend({
-	init() {
-		this._super(...arguments);
-		this.recentChanges = {};
-	}
-});
+const defaultProps = 'user|userid|useravatar|parsedcomment|timestamp|title|ids',
+	RecentWikiActivityModel = Ember.Object.extend({
+		init() {
+			this._super(...arguments);
+			this.recentChanges = {};
+		}
+	});
 
 RecentWikiActivityModel.reopenClass({
 	/**
 	 * Gets the last 50 changes on a given wiki.
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	getRecentActivityList(limit = 50, props = defaultProps ) {
+	getRecentActivityList(limit = 50, props = defaultProps) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.getJSON(
 				M.buildUrl({path: '/api.php'}),
