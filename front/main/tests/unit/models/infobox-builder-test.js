@@ -201,3 +201,49 @@ test('sanitize custom row source', (assert) => {
 		infoboxBuilderModelClass.sanitizeCustomRowSource(testCase.input), testCase.output
 	));
 });
+
+test('extend row data', (assert) => {
+	const model = infoboxBuilderModelClass.create(),
+		cases = [
+		{
+			additionalItemData: {
+				data: {
+					label: 'custom label'
+				},
+				source: 'src',
+				randomInvalidField: 666
+			},
+			expectedSource: 'src',
+			expectedLabel: 'custom label'
+		},
+		{
+			additionalItemData: {
+				data: {
+					label: ''
+				},
+				source: ''
+			},
+			expectedSource: '',
+			expectedLabel: ''
+		},
+		{
+			additionalItemData: null,
+			expected: 'row1',
+			expectedLabel: ''
+		}
+	];
+
+	cases.forEach((testCase) => {
+		let item = model.createRowItem(),
+			expected = item;
+		// we want new object to have the same structure like the passed
+		// item only with this two fields updated
+		expected.source = testCase.expectedSource;
+		expected.data = testCase.expectedLabel;
+
+		assert.equal(
+			infoboxBuilderModelClass.extendItemData(item, testCase.additionalItemData),
+			expected
+		)
+	});
+});
