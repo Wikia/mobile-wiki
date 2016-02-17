@@ -25,9 +25,6 @@ export default Ember.Helper.extend({
 		let output;
 
 		if (!momentTranslationsService.get('isLoaded')) {
-			if(momentTranslationsService.get('isLoading')) {
-				momentTranslationsService.loadTranslation();
-			}
 			return '<span class="datePlaceholder"/>';
 		} else {
 			if (now.diff(date, 'days') > 5) {

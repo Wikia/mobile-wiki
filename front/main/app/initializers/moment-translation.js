@@ -1,6 +1,9 @@
-import Ember from 'ember';
-import moment from 'moment';
-
+/**
+ * @param {*} container
+ * @param {*} application
+ *
+ * @returns {void}
+ */
 export function initialize(container, application) {
 	application.inject('helper:time-ago', 'momentTranslation', 'service:moment-translation');
 	application.inject('helper:timestamp-to-date', 'momentTranslation', 'service:moment-translation');
