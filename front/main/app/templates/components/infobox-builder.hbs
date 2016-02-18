@@ -22,10 +22,20 @@
 					handle=".pi-item"
 					position=index
 					setEditItem=setEditItem
-					onDragStart=handleItemInEditModel
+					onDragStart=(action 'onPreviewItemDrag')
+					onDragStop=(action 'onPreviewItemDrop')
+					onMouseEnter=(action 'showReorderTooltip')
+					onMouseLeave=(action 'hideReorderTooltip')
 				}}
 			{{/each}}
 		{{/sortable-group}}
+		{{#if isReorderTooltipVisible}}
+			{{wikia-ui-components/on-hover-tooltip
+				posX=cursorPosX
+				posY=cursorPosY
+				message='lorem ipsum dolor'
+			}}
+		{{/if}}
 	</div>
 
 

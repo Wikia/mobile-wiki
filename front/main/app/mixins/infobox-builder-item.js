@@ -8,5 +8,11 @@ export default Ember.Mixin.create({
 
 	click() {
 		this.get('setEditItem')(this.get('model'));
+	},
+	mouseMove(event) {
+		this.get('onMouseEnter')(event.clientX, event.clientY);
+	},
+	mouseLeave() {
+		this.get('onMouseLeave')();
 	}
 });
