@@ -46,7 +46,9 @@
     "user-post-list-header": "Posts by __userName__",
     "empty-forum-text": "No posts yet. Get the discussion started, create the first post now!",
     "report-post": "Report Post",
-    "report-reply": "Report Reply"
+    "report-reply": "Report Reply",
+    "reported-by-one": "Reported by __userName__",
+    "reported-by-many": "Reported by __number__ users"
   },
   "editor": {
     "post-failed-error": "Post failed.",
