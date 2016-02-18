@@ -112,7 +112,9 @@
 			{{/if}}
 		</section>
 		{{content-recommendations pages=model.relatedPages}}
-		{{recent-edit-banner}}
+		{{#if currentUser.isAuthenticated}}
+			{{recent-edit-banner}}
+		{{/if}}
 	{{/if}}
 	{{wikia-footer}}
 </div>
