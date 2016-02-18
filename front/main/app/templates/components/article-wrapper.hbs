@@ -112,7 +112,7 @@
 			{{/if}}
 		</section>
 		{{content-recommendations pages=model.relatedPages}}
-		{{#if currentUser.isAuthenticated}}
+		{{#if displayRecentEdit}}
 			{{recent-edit-banner}}
 		{{/if}}
 	{{/if}}
