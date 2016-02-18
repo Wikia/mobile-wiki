@@ -9,8 +9,8 @@ export default Ember.Component.extend(
 		tagName: 'figure',
 		classNames: ['pi-item', 'pi-image'],
 		thumbnail: '/front/common/images/infobox-builder-image-placeholder.png',
-		width: 270,
-		height: 152,
+		imgWidth: 270,
+		imgHeight: 152,
 		caption: i18n.t('infobox-builder:main.caption-default')
 	}
 );
