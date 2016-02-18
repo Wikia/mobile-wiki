@@ -84,6 +84,8 @@ export default Ember.Route.extend({
 	},
 
 	/**
+	 * @param {Ember.controller} controller
+	 * @param {Ember.model} model
 	 * @returns {void}
 	 */
 	renderTemplate(controller, model) {

@@ -104,5 +104,10 @@ export default {
 	viewName: 'mediawiki-article',
 	controllerName: 'mediawiki-article',
 	getModel,
-	didTransition
+	didTransition,
+	// all other functions (for unit tests)
+	updateTitleTag,
+	updateCanonicalLinkTag,
+	updateDescriptionMetaTag,
+	updateIOSSmartBannerMetaTag
 };
