@@ -37,7 +37,7 @@ export default Ember.Object.extend({
 
 	loadMore(index, batchToLoad) {
 		const url = getUrlBatchContent(this.get('name'), index, batchToLoad);
-		console.log(batchToLoad);
+
 		return Ember.$.ajax({
 			url,
 			dataType: 'json',
