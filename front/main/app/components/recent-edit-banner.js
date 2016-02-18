@@ -13,8 +13,10 @@ export default Ember.Component.extend({
 	init() {
 		this._super(...arguments);
 		RecentWikiActivityModel.getRecentActivityList().then((recentEdit) => {
-			this.set('loaded', true);
-			this.set('recentEdit', recentEdit.recentChanges.get('firstObject'));
+			this.setProperties({
+				loaded: true,
+				recentEdit: recentEdit.recentChanges.get('firstObject')
+			});
 
 			track({
 				action: trackActions.impression,

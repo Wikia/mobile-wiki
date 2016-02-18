@@ -9,7 +9,11 @@ const defaultProps = 'user|userid|useravatar|parsedcomment|timestamp|title|ids',
 
 RecentWikiActivityModel.reopenClass({
 	/**
-	 * Gets the last 50 changes on a given wiki.
+	 * Gets the last changes on a given wiki.
+	 *
+	 * @param {number} [limit=50] number of changes to fetch
+	 * @param {string} [props=defaultProps]
+	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getRecentActivityList(limit = 50, props = defaultProps) {
