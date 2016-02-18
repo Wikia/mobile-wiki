@@ -246,6 +246,25 @@ test('extend row data', (assert) => {
 				}
 			},
 			{
+				additionalItemData: {
+					data: {
+						label: null
+					},
+					source: ''
+				},
+				expected: {
+					data: {
+						label: ''
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					source: '',
+					type: 'row'
+				}
+			},
+			{
 				additionalItemData: null,
 				expected: {
 					data: {
@@ -277,12 +296,14 @@ test('extend row data', (assert) => {
 
 		assert.equal(
 			extended.source,
-			testCase.expected.source
+			testCase.expected.source,
+			'row source'
 		);
 
 		assert.equal(
 			extended.data.label,
-			testCase.expected.data.label
+			testCase.expected.data.label,
+			'row label'
 		);
 	});
 });
@@ -313,7 +334,7 @@ test('extend title data', (assert) => {
 			{
 				additionalItemData: {
 					data: {
-						defaultValue: ''
+						defaultValue: null
 					},
 					source: ''
 				},
@@ -361,12 +382,14 @@ test('extend title data', (assert) => {
 
 		assert.equal(
 			extended.source,
-			testCase.expected.source
+			testCase.expected.source,
+			'title source'
 		);
 
 		assert.equal(
 			extended.data.label,
-			testCase.expected.data.label
+			testCase.expected.data.label,
+			'title label'
 		);
 	});
 });
@@ -402,7 +425,7 @@ test('extend image data', (assert) => {
 				additionalItemData: {
 					data: {
 						caption: {
-							source: 'my image caption'
+							source: null
 						}
 					},
 					source: ''
@@ -410,7 +433,7 @@ test('extend image data', (assert) => {
 				expected: {
 					data: {
 						caption: {
-							source: 'my image caption'
+							source: ''
 						}
 					},
 					infoboxBuilderData: {
@@ -457,12 +480,14 @@ test('extend image data', (assert) => {
 
 		assert.equal(
 			extended.source,
-			testCase.expected.source
+			testCase.expected.source,
+			'image source'
 		);
 
 		assert.equal(
 			extended.data.caption.source,
-			testCase.expected.data.caption.source
+			testCase.expected.data.caption.source,
+			'image caption source'
 		);
 	});
 });

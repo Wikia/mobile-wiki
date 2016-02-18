@@ -332,6 +332,25 @@ InfoboxBuilderModel.reopenClass({
 		if (itemData) {
 			item.data = itemData.data;
 			item.source = itemData.source;
+
+			// row always has to contain label, even if empty
+			if (item.type === 'row' && (!item.data || !item.data.label)) {
+				item.data = {label: ''};
+			}
+
+			// title always has to contain defaultValue, even if empty
+			if (item.type === 'title' && (!item.data || !item.data.defaultValue)) {
+				item.data = {defaultValue: ''};
+			}
+
+			// image always has to contain caption source, even if empty
+			if (item.type === 'image' && (!item.data || !item.data.caption.source)) {
+				item.data = {
+					caption: {
+						source: ''
+					}
+				};
+			}
 		}
 
 		return item;
