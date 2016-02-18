@@ -1,10 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Object.extend({
+	name: null,
+
 	init() {
 		this._super(...arguments);
-		this.articles = {};
-		this.subcategories = {};
+		this.collections = {};
 
 		this.namespaces = {
 			// FIXME this should come from $wgContentNamespaces
@@ -14,73 +15,66 @@ export default Ember.Object.extend({
 	},
 
 	load() {
-		const name = this.get('name'),
-			articlesPromise = this.get('ajax').request(getUrl(name, this.namespaces.articles)),
-			subcategoriesPromise = this.get('ajax').request(getUrl(name, this.namespaces.subcategories));
+		let name = this.get('name'),
+			url;
 
-		return Ember.RSVP.hashSettled({
-			articlesPromise,
-			subcategoriesPromise
-		}).then((hash) => {
-			const articles = hash.articlesPromise,
-				subcategories = hash.subcategoriesPromise;
+		if (!name.indexOf('/wiki/Category:') > -1) {
+			name = `Category:${name}`;
+		}
 
-			if (articles.state === 'fulfilled') {
-				this.set('articles', {
-					items: articles.value.items,
-					offset: articles.value.offset
-				});
-			}
+		url = getUrlInitalContent(name);
 
-			if (subcategories.state === 'fulfilled') {
-				this.set('subcategories', {
-					items: subcategories.value.items,
-					offset: subcategories.value.offset
-				});
-			}
-
-			this.set('name', name);
+		return Ember.$.ajax({
+			url,
+			dataType: 'json',
+			method: 'get',
+		}).then((pageData) => {
+			this.set('collections', Ember.get(pageData, 'data.nsData.members.collections'));
 
 			return this;
 		});
 	},
 
-	loadMore(type, offset) {
-		const namespace = this.namespaces[type];
+	loadMore(index, batch) {
+		const url = getUrlBatchContent(this.get('name'), index, batch);
+		return Ember.$.ajax({
+			url,
+			dataType: 'json',
+			method: 'get',
+		}).then((pageData) => {
+			this.set(`collections.${index}.items`, pageData.itemsBatch);
 
-		return this.get('ajax')
-			.request(getUrl(this.get('name'), namespace, offset))
-			.then((data) => {
-				assertItemsWereFetched(data);
-
-				this[type].items.pushObjects(data.items);
-				Ember.set(this, `${type}.offset`, data.offset);
-
-				return this;
-			});
+			return this;
+		});
 	}
 });
 
 /**
  * @param {string} categoryName
- * @param {number} namespace
- * @param {string|null=} offset
  * @returns {string}
  */
-function getUrl(categoryName, namespace, offset = null) {
+function getUrlInitalContent(categoryName) {
 	let query = {
-		controller: 'ArticlesApi',
-		method: 'getList',
-		expand: 'true',
-		abstract: 0,
-		category: categoryName,
-		limit: 24,
-		namespaces: namespace
+		controller: 'MercuryApi',
+		method: 'getPage',
+		title: categoryName
 	};
 
-	if (offset) {
-		query.offset = offset;
-	}
+	return M.buildUrl({
+		path: '/wikia.php',
+		query
+	});
+}
+
+function getUrlBatchContent(categoryName, index, batch) {
+	let query = {
+		controller: 'WikiaMobile',
+		method: 'getCategoryBatch',
+		batch,
+		category: categoryName,
+		format: 'json',
+		index
+	};
 
 	return M.buildUrl({
 		path: '/wikia.php',
