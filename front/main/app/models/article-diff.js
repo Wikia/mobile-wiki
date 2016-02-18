@@ -3,8 +3,8 @@ import getEditToken from '../utils/edit-token';
 
 const ArticleDiffModel = Ember.Object.extend({
 	diffs: null,
-	id: Ember.computed('newid', 'oldid', function () {
-		return `${this.get('newid')}-${this.get('oldid')}`;
+	id: Ember.computed('newId', 'oldId', function () {
+		return `${this.get('newId')}-${this.get('oldId')}`;
 	}),
 	namespace: null,
 	newId: null,

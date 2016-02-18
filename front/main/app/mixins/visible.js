@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import VisibilityStateManager from './visibility-state-manager';
+import VisibilityStateManager from '../utils/visibility-state-manager';
 
 /**
  * Mixin that sends 'onVisible' action when element appears on screen for the first time.

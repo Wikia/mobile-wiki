@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import VisibilityStateManager from '../mixins/visibility-state-manager';
+import VisibilityStateManager from '../utils/visibility-state-manager';
 import {normalizeToUnderscore} from 'common/utils/string';
 import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 import ArticleHandler from '../utils/mediawiki-handlers/article';

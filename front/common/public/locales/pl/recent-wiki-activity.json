@@ -1,0 +1,35 @@
+{
+  "main":{
+    "edited":"edytowane",
+    "dont-show-again":"Nie pokazuj mi tego ponownie",
+    "intro-now-on-mobile":"Teraz na urządzeniach mobilnych",
+    "intro-see-more-recent-edits":"Zobacz najnowsze zmiany",
+    "intro-see-the-edit":"Zobacz edycję",
+    "new":"Nowe!",
+    "rollback-error":"Wygląda na to, że coś poszło nie tak podczas przywracania edycji. Spróbój ponownie.",
+    "rollback-failure":"Strony nie można przywrócić ze względu na niezgodność edycji pośrednich.",
+    "rollback-success":"Pomyślnie przywrócono stronę __pageTitle__!",
+    "summary":"Opis:",
+    "title":"Ostatnia aktywność na wiki",
+    "undo-error":"Wygląda na to, że coś poszło nie tak podczas cofania edycji. Spróbój ponownie.",
+    "undo-failure":"Edycja nie może być cofnięta ze względu na niezgodność edycji pośrednich.",
+    "undo-label":"Cofnij",
+    "undo-success":"Pomyślnie cofnięto edycję na stronie __pageTitle__!"
+  },
+  "diff":{
+    "after":"Po",
+    "before":"Przed",
+    "changes":"Zmiany:",
+    "anonymous":"Anonimowy",
+    "menu-button-label":"Działania",
+    "action-view-page":"Zobacz stronę",
+    "action-undo":"Cofnij",
+    "action-rollback":"Przywróć",
+    "action-block-and-rollback":"Zablokuj użytkownika i przywróć"
+  },
+  "confirmation":{
+    "placeholder-undo":"Opisz dlaczego chcesz cofnąć zmianę...",
+    "placeholder-rollback":"Opisz dlaczego chcesz przywrócić zmiany...",
+    "done":"Gotowe"
+  }
+}

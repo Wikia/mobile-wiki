@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import MainPageModel from '../models/main-page';
 import MainPageRouteMixin from '../mixins/main-page-route';
-import VisibilityStateManager from '../mixins/visibility-state-manager';
+import VisibilityStateManager from '../utils/visibility-state-manager';
 import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 
 export default Ember.Route.extend(MainPageRouteMixin, {
