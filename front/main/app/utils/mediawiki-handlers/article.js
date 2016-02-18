@@ -101,7 +101,8 @@ function didTransition(router) {
  * Export Article handler
  */
 export default {
-	componentName: 'article-wrapper',
+	viewName: 'mediawiki-article',
+	controllerName: 'mediawiki-article',
 	getModel,
 	didTransition
 };

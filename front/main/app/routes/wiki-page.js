@@ -84,14 +84,11 @@ export default Ember.Route.extend({
 	},
 
 	/**
-	 * @param {Ember.controller} controller
-	 * @param {Ember.model} model
 	 * @returns {void}
-     */
-	setupController(controller, model) {
-		controller.setProperties({
-			model,
-			wikiPageComponentName: this.getHandler().componentName
+	 */
+	renderTemplate() {
+		this.render(this.getHandler().viewName, {
+			controller: this.getHandler().controllerName
 		});
 	},
 
