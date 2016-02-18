@@ -1,0 +1,23 @@
+{
+  "main": {
+    "header": "Editing: __title__",
+    "sidebar-header": "Add infobox elements",
+    "title-use-article-name": "Use article name",
+    "title-default": "Title __index__",
+    "label-default": "Label __index__",
+    "image-default": "Image __index__",
+    "caption-default": "Example caption",
+    "alt-default": "Alt",
+    "row-default": "Example value",
+    "row-label": "Label",
+    "add-row": "Row",
+    "add-image": "Image",
+    "add-title": "Title",
+    "add-section-header": "Section Header",
+    "help-title": "This option is used to define how Title field will behave in case user won’t provide and data while using this infobox in article. When not checked and user provides no data, the title field will not be displayed. When checked, and user provides no data, the title field will display the title of the article.",
+    "help-row": "Text from label field will be used to describe infobox rows. People using this infobox in articles will use these names to provide the data.",
+    "save": "Save",
+    "load-error": "Loading error",
+    "edit-image-item-description": "Place where users will upload images while using this infobox."
+  }
+}

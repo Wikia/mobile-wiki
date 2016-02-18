@@ -1,0 +1,128 @@
+$sort-label-height: 48px;
+$legend-font-size: 16px;
+
+.discussion-filters {
+	display: block;
+	width: 280px;
+
+	.filters-apply-container {
+		float: right;
+		position: absolute;
+		right: 18px;
+	}
+
+	.filters-apply {
+		background: none;
+		border: none;
+		color: inherit;
+		float: right;
+		font-size: $legend-font-size;
+		font-weight: bold;
+		height: auto;
+		line-height: $line-height-smallest;
+		margin: 0;
+		outline: none;
+		padding: 0;
+		text-transform: none;
+
+		&:hover,
+		&:active,
+		&:focus {
+			background: none;
+			color: inherit;
+		}
+	}
+
+	legend {
+		color: $discussion-filters-color;
+		font-size: $legend-font-size;
+		font-weight: bold;
+		line-height: $line-height-smallest;
+	}
+
+	fieldset {
+		border: none;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+
+	.sort-options {
+		margin: 0;
+		width: auto;
+
+		li {
+			border-bottom: 1px solid $discussion-filters-border;
+			list-style: none;
+			clear: left;
+			color: $discussion-filters-color;
+			height: $sort-label-height;
+			width: 100%;
+
+			&:last-child {
+				border-bottom: none;
+			}
+
+			label {
+				color: $discussion-filters-color;
+				display: block;
+				font-size: $type-smallest;
+				font-weight: normal;
+				line-height: $sort-label-height - 2px;
+				margin: 1px 0;
+				padding-left: 24px;
+				// this is the only option to have clickable fancy-buttons on mobile
+				position: absolute;
+			}
+
+			.radio-fancy {
+				border: 1px solid $discussion-filters-bullet-border;
+				border-radius: 50%;
+				float: left;
+				height: 18px;
+				margin: 15px 6px 0 0;
+				// this is the only option to have clickable fancy-buttons on mobile
+				position: absolute;
+				width: 18px;
+
+				.inside {
+					background-color: inherit;
+					border: 3px solid $discussion-filters-bullet-active-border;
+					border-radius: 50%;
+					display: none;
+					height: 16px;
+					width: 16px;
+				}
+
+				&.active {
+					border-color: transparent;
+
+					.inside {
+						display: block;
+					}
+				}
+			}
+
+			.bullet {
+				display: none;
+			}
+		}
+	}
+}
+
+.header {
+	.orient-below {
+		.pop-over-compass {
+			animation: none;
+			transform: translate(14px, -14px);
+		}
+
+		.pop-over-container {
+			padding: 10px 20px 0;
+		}
+
+		.pop-over-pointer {
+			transform: translateX(-24px);
+		}
+	}
+}

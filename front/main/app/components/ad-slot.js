@@ -12,7 +12,7 @@ export default Component.extend({
 	name: null,
 
 	nameLowerCase: computed('name', function () {
-		return this.get('name').toLowerCase().dasherize();
+		return Ember.String.dasherize(this.get('name').toLowerCase());
 	}),
 
 	/**

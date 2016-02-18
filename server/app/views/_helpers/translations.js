@@ -2,12 +2,14 @@ import Logger from '../../lib/Logger';
 
 /**
  * Currently Hapi doesn't recognize ES6 syntax on exports (ie: "default" keyword)
+ * Default value for language is set 'en' by default, to not perform 'split'
+ * on null or undefined
  *
- * @param {string} language
- * @param {{hash: string}} opts
- * @returns {{}}
+ * @param {string} [language='en']
+ * @param {{hash: string}} [opts={}]
+ * @returns {Object}
  */
-module.exports = function (language, opts) {
+module.exports = function (language = 'en', opts = {}) {
 	const fallbackLanguage = language.split('-')[0],
 		defaultLanguage = 'en',
 		wrapper = {},

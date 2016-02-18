@@ -6,6 +6,7 @@ import Logger from '../lib/Logger';
 import localSettings from '../../config/localSettings';
 import discussionsSplashPageConfig from '../../config/discussionsSplashPageConfig';
 import {gaUserIdHash} from '../lib/Hashing';
+import {isRtl, getUserId, getLocalSettings} from './operations/preparePageData';
 
 /**
  * @typedef {Object} CommunityAppConfig
@@ -58,8 +59,8 @@ export default function showApplication(request, reply, wikiVariables) {
 	// @todo These transforms could be better abstracted, as such, this is a lot like prepareArticleData
 	context.server = Utils.createServerData(localSettings, wikiDomain);
 	context.queryParams = Utils.parseQueryParams(request.query, []);
-	context.localSettings = localSettings;
-	context.userId = request.auth.isAuthenticated ? request.auth.credentials.userId : 0;
+	context.localSettings = getLocalSettings();
+	context.userId = getUserId(request);
 	context.gaUserIdHash = gaUserIdHash(context.userId);
 	context.discussionsSplashPageConfig = getDistilledDiscussionsSplashPageConfig(hostName);
 
@@ -69,20 +70,13 @@ export default function showApplication(request, reply, wikiVariables) {
 		 * @returns {Promise}
 		 */
 		.then((wikiVariables) => {
-			let contentDir,
-				displayTitle;
-
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables);
 
 			context.wikiVariables = wikiVariables;
-			if (context.wikiVariables.language) {
-				contentDir = context.wikiVariables.language.contentDir;
-				context.isRtl = (contentDir === 'rtl');
-			}
+			context.isRtl = isRtl(wikiVariables);
 
 			// @todo Update displayTitle
-			displayTitle = '';
-			context.htmlTitle = Utils.getHtmlTitle(wikiVariables, displayTitle);
+			context.htmlTitle = Utils.getHtmlTitle(wikiVariables);
 
 			return OpenGraph.getAttributes(request, context.wikiVariables);
 		})

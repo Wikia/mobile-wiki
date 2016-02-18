@@ -48,59 +48,13 @@ function search(isTopNav = true) {
  */
 function hideLoadingIndicator() {
 	$('#loading').addClass('loading-done');
-}
-
-/**
- * Calculates and sets compensation for the right slider arrow to account for variable spacing between slides.
- * See INT-319 and INT-329. 250 is the fixed pixel width of each slide
- * @returns {void}
- */
-function calculateCarouselCompensation() {
-	const delta = $('#carousel-1 .slick-slide').width() - 250,
-		deltaMedium = $('#carousel-1-medium .slick-slide').width() - 250;
-
-	for (let i = 1; i <= 5; i++) {
-		$(`#carousel-${i} .slick-prev`).addClass('slick-prev-category');
-		$(`#carousel-${i}-medium .slick-prev`).addClass('slick-prev-category');
-
-		if (delta > 0) {
-			$(`#carousel-${i} .slick-next`).css('right', delta + 10);
-		} else {
-			$(`#carousel-${i} .slick-next`).css('right', '');
-		}
-
-		if (deltaMedium > 0) {
-			$(`#carousel-${i}-medium .slick-next`).css('right', deltaMedium + 10);
-		} else {
-			$(`#carousel-${i}-medium .slick-next`).css('right', 100);
-		}
-	}
-
-	if (delta > 0) {
-		// Compensation for slide not being fully centered due to responsive slider spacing
-		$('.featured').css('padding-left', 54 + delta);
-	} else {
-		$('.featured').css('padding-left', '');
-	}
-
-	if (deltaMedium > 0) {
-		// Compensation for slide not being fully centered due to responsive slider spacing
-		$('.featured-mobile-medium').css('padding-left', 54 + deltaMedium);
-	} else {
-		$('.featured-mobile-medium').css('padding-left', '');
-	}
+	$('#loading-mobile').addClass('loading-done');
 }
 
 $(() => {
-	// Hide loading indicator after load complete
-	$(window).load(() => {
+	$('.hero-image-desktop').load(() => {
 		hideLoadingIndicator();
 	});
-
-	// Or after 6 seconds
-	setTimeout(() => {
-		hideLoadingIndicator();
-	}, 6000);
 
 	$('.hero-carousel').slick({
 		arrows: true,
@@ -108,6 +62,7 @@ $(() => {
 		autoplay: true,
 		autoplaySpeed: 3000,
 		slidesToShow: 1,
+		lazyLoad: 'ondemand',
 		responsive: [
 			{
 				breakpoint: 1000,
@@ -124,30 +79,13 @@ $(() => {
 		autoplay: true,
 		autoplaySpeed: 3000,
 		slidesToShow: 1,
+		lazyLoad: 'ondemand',
 	});
-
-	$('.featured-carousel').slick({
-		arrows: true,
-		dots: false,
-		slidesToShow: 4,
-		slidesToScroll: 4,
-	});
-
-	$('.featured-carousel-medium').slick({
-		arrows: true,
-		dots: false,
-		slidesToShow: 3,
-		slidesToScroll: 3,
-	});
-
-	$(window).resize(() => {
-		calculateCarouselCompensation();
-	});
-
-	calculateCarouselCompensation();
 
 	globals.loadGlobalData().then((data) => {
-		loadSearch(data.mobileBreakpoint);
+		if (window.location.href.indexOf('search') !== -1) {
+			loadSearch(data.mobileBreakpoint);
+		}
 	});
 });
 

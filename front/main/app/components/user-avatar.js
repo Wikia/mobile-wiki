@@ -18,5 +18,5 @@ export default Ember.Component.extend({
 			title: this.get('profileName'),
 		});
 	}),
-	shouldWrapInHref: true
+	shouldWrapInHref: Ember.computed.not('anonymous')
 });
