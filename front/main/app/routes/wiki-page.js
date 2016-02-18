@@ -89,8 +89,10 @@ export default Ember.Route.extend({
 	 * @returns {void}
      */
 	setupController(controller, model) {
-		controller.set('model', model);
-		controller.set('wikiPageComponentName', this.getHandler().getComponentName());
+		controller.setProperties({
+			model,
+			wikiPageComponentName: this.getHandler().componentName
+		});
 	},
 
 	/**

@@ -1,13 +1,6 @@
 import CategoryModel from '../../models/category';
 
 /**
- * @returns {string}
- */
-function getComponentName() {
-	return 'mediawiki-category';
-}
-
-/**
  * @returns {Ember.model}
  */
 function getModel() {
@@ -24,7 +17,7 @@ function didTransition() {
  * Export Category handler
  */
 export default {
-	getComponentName,
+	componentName: 'mediawiki-category',
 	getModel,
 	didTransition
 };

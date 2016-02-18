@@ -69,14 +69,6 @@ function updateIOSSmartBannerMetaTag(model) {
 	}
 }
 
-
-/**
- * @returns {string}
- */
-function getComponentName() {
-	return 'article-wrapper';
-}
-
 /**
  * @param {Ember.router} router
  * @param {*} params
@@ -109,7 +101,7 @@ function didTransition(router) {
  * Export Article handler
  */
 export default {
-	getComponentName,
+	componentName: 'article-wrapper',
 	getModel,
 	didTransition
 };

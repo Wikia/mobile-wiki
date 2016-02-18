@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 
-export default Ember.Component.extend(
+const {Component} = Ember;
+
+export default Component.extend(
 	TrackClickMixin,
 	{
 		classNames: ['category'],
