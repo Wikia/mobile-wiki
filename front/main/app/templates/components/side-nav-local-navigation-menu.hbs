@@ -8,16 +8,14 @@
 	</li>
 {{/if}}
 
-{{#if shouldDisplayRecentWikiActivity}}
-	<li class="side-nav-menu__item mw-content">
-		{{#link-to 'recent-wiki-activity'
-			tracking-category='recent-wiki-activity'
-			tracking-label='local-nav'
-		}}
-			{{i18n 'main.title' ns='recent-wiki-activity'}}
-		{{/link-to}}
-	</li>
-{{/if}}
+<li class="side-nav-menu__item mw-content">
+	{{#link-to 'recent-wiki-activity'
+		tracking-category='recent-wiki-activity'
+		tracking-label='local-nav'
+	}}
+		{{i18n 'main.title' ns='recent-wiki-activity'}}
+	{{/link-to}}
+</li>
 
 {{#each localNavContent.children as |child index|}}
 	{{#if child.children}}
