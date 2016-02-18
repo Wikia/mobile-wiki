@@ -87,6 +87,7 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	renderTemplate() {
+		debugger;
 		this.render(this.getHandler().viewName, {
 			controller: this.getHandler().controllerName
 		});
@@ -141,6 +142,8 @@ export default Ember.Route.extend({
 			if (transition) {
 				transition.abort();
 			}
+
+			Ember.Logger.debug(error);
 
 			this.controllerFor('application').addAlert({
 				message: i18n.t('app.article-error'),
