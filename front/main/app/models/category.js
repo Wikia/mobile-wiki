@@ -35,14 +35,30 @@ export default Ember.Object.extend({
 		});
 	},
 
-	loadMore(index, batch) {
-		const url = getUrlBatchContent(this.get('name'), index, batch);
+	loadMore(index, batchToLoad) {
+		const url = getUrlBatchContent(this.get('name'), index, batchToLoad);
+		console.log(batchToLoad);
 		return Ember.$.ajax({
 			url,
 			dataType: 'json',
 			method: 'get',
 		}).then((pageData) => {
-			this.set(`collections.${index}.items`, pageData.itemsBatch);
+			this.set(
+				`collections.${index}.items`,
+				pageData.itemsBatch
+			);
+			this.set(
+				`collections.${index}.hasPrev`,
+				batchToLoad - 1 > 0
+			);
+			this.set(
+				`collections.${index}.hasNext`,
+				Math.ceil(this.get(`collections.${index}.total`) / this.get(`collections.${index}.batchSize`)) > batchToLoad
+			);
+			this.set(
+				`collections.${index}.prevBatch`,
+				batchToLoad - 1
+			);
 
 			return this;
 		});

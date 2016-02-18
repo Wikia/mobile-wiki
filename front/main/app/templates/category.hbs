@@ -2,7 +2,7 @@
 	<h3>{{id}}</h3>
 	<ul>
 		{{#if data.hasPrev}}
-			<button {{action 'loadMore' data.prevBatch }}>Load More</button>
+			<button {{action 'loadMore' id data.prevBatch }}>Load Previous</button>
 		{{/if}}
 	{{#each data.items as |item|}}
 		<li><a href="{{item.url}}">{{item.name}}</a></li>
