@@ -204,7 +204,7 @@ test('sanitize custom row source', (assert) => {
 });
 
 test('extend row data', (assert) => {
-	const model = infoboxBuilderModelClass.create(),
+	const index = 1,
 		cases = [
 			{
 				additionalItemData: {
@@ -214,8 +214,17 @@ test('extend row data', (assert) => {
 					source: 'src',
 					randomInvalidField: 666
 				},
-				expectedSource: 'src',
-				expectedLabel: 'custom label'
+				expected: {
+					data: {
+						label: 'custom label'
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					source: 'src',
+					type: 'row'
+				}
 			},
 			{
 				additionalItemData: {
@@ -224,28 +233,236 @@ test('extend row data', (assert) => {
 					},
 					source: ''
 				},
-				expectedSource: '',
-				expectedLabel: ''
+				expected: {
+					data: {
+						label: ''
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					source: '',
+					type: 'row'
+				}
 			},
 			{
 				additionalItemData: null,
-				expected: 'row1',
-				expectedLabel: ''
+				expected: {
+					data: {
+						label: 'label 1'
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					source: 'row1',
+					type: 'row'
+				}
 			}
 		];
 
 	cases.forEach((testCase) => {
-		const item = model.createRowItem(),
-			expected = item;
-
-		// we want new object to have the same structure like the passed
-		// item only with this two fields updated
-		expected.source = testCase.expectedSource;
-		expected.data = testCase.expectedLabel;
+		const item = {
+				data: {
+					label: 'label 1'
+				},
+				infoboxBuilderData: {
+					index,
+					component: 'component'
+				},
+				source: 'row1',
+				type: 'row'
+			},
+			extended = infoboxBuilderModelClass.extendItemData(item, testCase.additionalItemData);
 
 		assert.equal(
-			infoboxBuilderModelClass.extendItemData(item, testCase.additionalItemData),
-			expected
+			extended.source,
+			testCase.expected.source
+		);
+
+		assert.equal(
+			extended.data.label,
+			testCase.expected.data.label
+		);
+	});
+});
+
+test('extend title data', (assert) => {
+	const index = 1,
+		cases = [
+			{
+				additionalItemData: {
+					data: {
+						defaultValue: 'some default'
+					},
+					source: 'src',
+					randomInvalidField: 666
+				},
+				expected: {
+					data: {
+						defaultValue: 'some default'
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					source: 'src',
+					type: 'title'
+				}
+			},
+			{
+				additionalItemData: {
+					data: {
+						defaultValue: ''
+					},
+					source: ''
+				},
+				expected: {
+					data: {
+						defaultValue: ''
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					source: '',
+					type: 'title'
+				}
+			},
+			{
+				additionalItemData: null,
+				expected: {
+					data: {
+						defaultValue: 'some default'
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					source: 'title1',
+					type: 'title'
+				}
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const item = {
+				data: {
+					defaultValue: 'label 1'
+				},
+				infoboxBuilderData: {
+					index,
+					component: 'component'
+				},
+				source: 'title1',
+				type: 'title'
+			},
+			extended = infoboxBuilderModelClass.extendItemData(item, testCase.additionalItemData);
+
+		assert.equal(
+			extended.source,
+			testCase.expected.source
+		);
+
+		assert.equal(
+			extended.data.label,
+			testCase.expected.data.label
+		);
+	});
+});
+
+test('extend image data', (assert) => {
+	const index = 1,
+		cases = [
+			{
+				additionalItemData: {
+					data: {
+						caption: {
+							source: 'my image CAPTION!'
+						}
+					},
+					source: 'obrazek',
+					randomInvalidField: 666
+				},
+				expected: {
+					data: {
+						caption: {
+							source: 'my image CAPTION!'
+						}
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					source: 'obrazek',
+					type: 'image'
+				}
+			},
+			{
+				additionalItemData: {
+					data: {
+						caption: {
+							source: 'my image caption'
+						}
+					},
+					source: ''
+				},
+				expected: {
+					data: {
+						caption: {
+							source: 'my image caption'
+						}
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					source: '',
+					type: 'image'
+				}
+			},
+			{
+				additionalItemData: null,
+				expected: {
+					data: {
+						caption: {
+							source: 'my image caption'
+						}
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					source: 'image1',
+					type: 'image'
+				}
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const item = {
+				data: {
+					caption: {
+						source: 'my image caption'
+					}
+				},
+				infoboxBuilderData: {
+					index,
+					component: 'component'
+				},
+				source: 'image1',
+				type: 'image'
+			},
+			extended = infoboxBuilderModelClass.extendItemData(item, testCase.additionalItemData);
+
+		assert.equal(
+			extended.source,
+			testCase.expected.source
+		);
+
+		assert.equal(
+			extended.data.caption.source,
+			testCase.expected.data.caption.source
 		);
 	});
 });
