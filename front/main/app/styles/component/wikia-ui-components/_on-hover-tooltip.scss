@@ -11,6 +11,10 @@ $z-index: 100;
 	display: block;
 	font-size: $small-font-size;
 	padding: 0 $side-padding;
-	position: fixed;
+	position: absolute;
 	z-index: $z-index;
+}
+
+.on-hover-tooltip--fixed {
+	position: fixed;
 }

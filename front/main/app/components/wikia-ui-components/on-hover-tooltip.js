@@ -1,3 +1,16 @@
+/**
+ * Tooltip reusable component usage example:
+ *
+ * {{wikia-ui-components/on-hover-tooltip
+ *      posX=toolTipPosX
+ *      posY=toolTipPosY
+ *      message='lorem ipsum dolor'
+ *      fixed=true
+ * }}
+ *
+ * fixed attribute adds position fixed to the tooltip otherwise it will be absolutely positioned
+ */
+
 import Ember from 'ember';
 
 export default Ember.Component.extend({
@@ -6,10 +19,13 @@ export default Ember.Component.extend({
 
 		this.tagName = 'span';
 		this.classNames = ['on-hover-tooltip'];
+		this.classNameBindings = ['fixed:on-hover-tooltip--fixed'];
 		this.attributeBindings = ['style'];
 	},
 
 	style: Ember.computed('posX', 'posY', function () {
-		return `left: ${this.get('posX') + 20}px; top: ${this.get('posY')}px;`;
+		const style = `left: ${this.get('posX')}px; top: ${this.get('posY')}px;`;
+
+		return Ember.String.htmlSafe(style);
 	})
 });

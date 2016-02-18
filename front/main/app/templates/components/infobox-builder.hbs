@@ -31,8 +31,9 @@
 		{{/sortable-group}}
 		{{#if isReorderTooltipVisible}}
 			{{wikia-ui-components/on-hover-tooltip
-				posX=cursorPosX
-				posY=cursorPosY
+				posX=toolTipPosX
+				posY=toolTipPosY
+				fixed=true
 				message='lorem ipsum dolor'
 			}}
 		{{/if}}
