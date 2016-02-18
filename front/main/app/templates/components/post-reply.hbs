@@ -6,9 +6,11 @@
 	{{/if}}
 	{{#if isReported }}
 		<div class="reported">
-			<span>Reported by username</span>
-			{{svg 'checkmart' viewBox='0 0 40 40' class='validate-icon'}}
-			{{svg 'trash-small' viewBox='0 0 40 40' class='reported-delete-icon'}}
+			<span class="reported-by columns large-8 small-8">Reported by username</span>
+			<div class="actions columns large-4 small-4">
+				{{svg 'checkmark' class='icon validate'}}
+				{{svg 'trash-small' class='icon reported-delete'}}
+			</div>
 		</div>
 	{{/if}}
 	<div>
