@@ -105,7 +105,7 @@ export default Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		editRowItem(item, label) {
-			const model = this.get('infoboxBuilder');
+			const model = this.get('model');
 
 			model.editRowItem(item, label);
 		},
