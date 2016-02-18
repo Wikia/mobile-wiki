@@ -1,0 +1,16 @@
+$background-color: rgba(0, 0, 0, .5);
+$border-radius: 2px;
+$text-color: white;
+$side-padding: 6px;
+$z-index: 100;
+
+.on-hover-tooltip {
+	background-color: $background-color;
+	border-radius: $border-radius;
+	color: $text-color;
+	display: block;
+	font-size: $small-font-size;
+	padding: 0 $side-padding;
+	position: fixed;
+	z-index: $z-index;
+}
