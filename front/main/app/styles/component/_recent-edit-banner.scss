@@ -4,6 +4,7 @@
 	left: 0;
 	position: fixed;
 	width: 100%;
+	z-index: $z-3;
 
 	&.loaded {
 		animation-duration: 1s;
@@ -30,8 +31,9 @@
 		float: right;
 		height: 28px;
 		line-height: 1;
+		margin: 0;
 		padding: 0;
-		width: 20px;
+		width: 26px;
 	}
 
 	.close-icon {
