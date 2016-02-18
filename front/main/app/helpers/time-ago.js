@@ -14,6 +14,7 @@ import moment from 'moment';
  * @returns {string}
  */
 export default Ember.Helper.extend({
+	momentTranslation: Ember.inject.service(),
 	onTranslationChange: Ember.observer('momentTranslation.isLoaded', function () {
 		this.recompute();
 	}),
@@ -25,7 +26,10 @@ export default Ember.Helper.extend({
 		let output;
 
 		if (!momentTranslationsService.get('isLoaded')) {
-			return '<span class="datePlaceholder"/>';
+			if (!momentTranslationsService.get('isLoading')) {
+				momentTranslationsService.loadTranslation();
+			}
+			return '<span class="date-placeholder"/>';
 		} else {
 			if (now.diff(date, 'days') > 5) {
 				output = date.format('L');
