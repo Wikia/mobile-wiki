@@ -88,13 +88,6 @@ $shadowColor: rgba(0,0,0,0.3);
 				box-shadow: 0 $border-width * 4 $shadowBlur 0 $shadowColor;
 			}
 		}
-
-		//&.is-dragging {
-		//	&.active,
-		//	&:after {
-		//		box-shadow: 0 $border-width $shadowBlur 0 $shadowColor;
-		//	}
-		//}
 	}
 }
 
