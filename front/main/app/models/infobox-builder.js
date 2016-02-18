@@ -241,6 +241,11 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		this.addItem('row');
 	},
 
+	/**
+	 * @desc setup infobox builder state from already existing infobox template
+	 * @param {Array} state
+	 * @returns {void}
+	 */
 	setupExistingState(state) {
 		state.forEach((element) => this.addItem(element.type, element));
 	},
