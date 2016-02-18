@@ -119,6 +119,7 @@ DiscussionPostModel.reopenClass({
 					forumId: data.forumId,
 					firstPost: data._embedded.firstPost[0],
 					id: data.id,
+					isReported: data.isReported,
 					page: 0,
 					pivotId,
 					postCount: data.postCount,

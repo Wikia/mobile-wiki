@@ -17,6 +17,7 @@
 		{{post-detail
 			author=item.createdBy
 			delete=(action this.attrs.deletePost)
+			isReported=item.isReported
 			post=item
 			replyCount=item._embedded.thread.[0].postCount
 			undelete=(action this.attrs.undeletePost)
