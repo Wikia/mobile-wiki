@@ -1,0 +1,35 @@
+{
+  "main":{
+    "edited":"modificato",
+    "dont-show-again":"Non visualizzarlo più",
+    "intro-now-on-mobile":"Ora sul cellulare",
+    "intro-see-more-recent-edits":"Visualizza le modifiche più recenti",
+    "intro-see-the-edit":"Visualizza la modifica",
+    "new":"Nuovo!",
+    "rollback-error":"Siamo spiacenti, sembra che qualcosa è andato storto durante il tentativo di rollback della modifica. Si prega di riprovare.",
+    "rollback-failure":"Impossibile eseguire il rollback della pagina a causa di modifiche in conflitto intermedie.",
+    "rollback-success":"Rollback della pagina __pageTitle__ eseguito con successo!",
+    "summary":"Riepilogo:",
+    "title":"Attività Wiki recente",
+    "undo-error":"Siamo spiacenti, sembra che qualcosa è andato storto durante il tentativo di annullare la modifica. Si prega di riprovare.",
+    "undo-failure":"La modifica non poteva essere annullata a causa di modifiche in conflitto intermedie.",
+    "undo-label":"Annulla",
+    "undo-success":"Annullamento modifica alla pagina __pageTitle__ eseguita con successo!"
+  },
+  "diff":{
+    "after":"Dopo",
+    "before":"Prima",
+    "changes":"Modifiche:",
+    "anonymous":"Anonimo",
+    "menu-button-label":"Azioni",
+    "action-view-page":"Visualizza pagina",
+    "action-undo":"Annulla",
+    "action-rollback":"Rollback",
+    "action-block-and-rollback":"Blocca utente e rollback"
+  },
+  "confirmation":{
+    "placeholder-undo":"Descrivere il motivo per cui si desidera annullare la modifica...",
+    "placeholder-rollback":"Descrivere il motivo per cui si desidera eseguire il rollback delle modifiche...",
+    "done":"Fatto"
+  }
+}
