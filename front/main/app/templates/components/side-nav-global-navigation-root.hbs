@@ -20,7 +20,7 @@
 <div class="side-nav-menu__item menu" {{action this.attrs.replaceNavigationContent 'explore'}}>
 	{{exploreWikiaLabel}}
 </div>
-<div class="side-nav-menu__item menu" {{action this.attrs.replaceNavigationContent 'local'}}>
+<div class="side-nav-menu__item menu" {{action 'openLocalNavigation'}}>
 	{{i18n 'app.explore-wiki' wikiName=wikiName}}
 	{{#if shouldDisplayNewBadge}}
 		<span class="new-badge-dot"></span>
