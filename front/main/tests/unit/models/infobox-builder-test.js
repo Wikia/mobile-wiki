@@ -292,7 +292,7 @@ test('extend row data', (assert) => {
 				source: 'row1',
 				type: 'row'
 			},
-			extended = infoboxBuilderModelClass.extendItemData(item, testCase.additionalItemData);
+			extended = infoboxBuilderModelClass.extendRowData(item, testCase.additionalItemData);
 
 		assert.equal(
 			extended.source,
@@ -378,7 +378,7 @@ test('extend title data', (assert) => {
 				source: 'title1',
 				type: 'title'
 			},
-			extended = infoboxBuilderModelClass.extendItemData(item, testCase.additionalItemData);
+			extended = infoboxBuilderModelClass.extendTitleData(item, testCase.additionalItemData);
 
 		assert.equal(
 			extended.source,
@@ -449,7 +449,7 @@ test('extend image data', (assert) => {
 				expected: {
 					data: {
 						caption: {
-							source: 'my image caption'
+							source: 'caption1'
 						}
 					},
 					infoboxBuilderData: {
@@ -466,7 +466,7 @@ test('extend image data', (assert) => {
 		const item = {
 				data: {
 					caption: {
-						source: 'my image caption'
+						source: 'caption1'
 					}
 				},
 				infoboxBuilderData: {
@@ -476,7 +476,7 @@ test('extend image data', (assert) => {
 				source: 'image1',
 				type: 'image'
 			},
-			extended = infoboxBuilderModelClass.extendItemData(item, testCase.additionalItemData);
+			extended = infoboxBuilderModelClass.extendImageData(item, testCase.additionalItemData);
 
 		assert.equal(
 			extended.source,

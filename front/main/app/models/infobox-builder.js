@@ -40,20 +40,18 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		switch (type) {
 		case 'title':
-			item = this.createTitleItem();
+			item = InfoboxBuilderModel.extendTitleData(this.createTitleItem(), elementData);
 			break;
 		case 'row':
-			item = this.createRowItem();
+			item = InfoboxBuilderModel.extendRowData(this.createRowItem(), elementData);
 			break;
 		case 'image':
-			item = this.createImageItem();
+			item = InfoboxBuilderModel.extendRowData(this.createImageItem(), elementData);
 			break;
 		default:
 			Ember.Logger.warn(`Unsupported infobox builder type encountered: '${type}'`);
 			break;
 		}
-
-		item = InfoboxBuilderModel.extendItemData(item, elementData);
 
 		return this.addToState(item);
 	},
@@ -321,36 +319,57 @@ InfoboxBuilderModel.reopenClass({
 	},
 
 	/**
-	 * @desc Overrides some properties of given object with additional
+	 * @desc Overrides some properties of given Row object with additional
 	 * data, obtained from already existing template
 	 *
 	 * @param {Object} item item to extend
 	 * @param {Object} itemData additional data
 	 * @returns {Object}
 	 */
-	extendItemData(item, itemData) {
+	extendRowData(item, itemData) {
 		if (itemData) {
-			item.data = itemData.data;
 			item.source = itemData.source;
+			// if label has been passed and is not null or undefined - use it.
+			item.data.label = itemData.data && itemData.data.label ? itemData.data.label : '';
+		}
 
-			// row always has to contain label, even if empty
-			if (item.type === 'row' && (!item.data || !item.data.label)) {
-				item.data = {label: ''};
-			}
+		return item;
+	},
 
-			// title always has to contain defaultValue, even if empty
-			if (item.type === 'title' && (!item.data || !item.data.defaultValue)) {
-				item.data = {defaultValue: ''};
-			}
+	/**
+	 * @desc Overrides some properties of given Title object with additional
+	 * data, obtained from already existing template
+	 *
+	 * @param {Object} item item to extend
+	 * @param {Object} itemData additional data
+	 * @returns {Object}
+	 */
+	extendTitleData(item, itemData) {
+		if (itemData) {
+			item.source = itemData.source;
+			item.data.defaultValue = itemData.data && itemData.data.defaultValue ? itemData.data.defaultValue : '';
+		}
 
-			// image always has to contain caption source, even if empty
-			if (item.type === 'image' && (!item.data || !item.data.caption.source)) {
-				item.data = {
-					caption: {
-						source: ''
-					}
-				};
-			}
+		return item;
+	},
+
+	/**
+	 * @desc Overrides some properties of given Image object with additional
+	 * data, obtained from already existing template
+	 *
+	 * @param {Object} item item to extend
+	 * @param {Object} itemData additional data
+	 * @returns {Object}
+	 */
+	extendImageData(item, itemData) {
+		if (itemData) {
+			item.source = itemData.source;
+			item.data.caption.source =
+				itemData.data &&
+				itemData.data.caption &&
+				itemData.data.caption.source ?
+					itemData.data.caption.source :
+					'';
 		}
 
 		return item;
