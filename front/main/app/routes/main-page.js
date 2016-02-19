@@ -28,7 +28,7 @@ export default Ember.Route.extend(MainPageRouteMixin, {
 		});
 
 		if (typeof namespace !== 'undefined') {
-			UniversalAnalytics.setDimension(25, `${namespace}`);
+			UniversalAnalytics.setDimension(25, namespace);
 		}
 
 		if (articleType) {

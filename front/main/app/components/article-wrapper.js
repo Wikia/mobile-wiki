@@ -250,26 +250,24 @@ export default Ember.Component.extend(
 
 				updateTrackedUrl(window.location.href);
 
-				this.get('currentUser.powerUserTypes').then((powerUserTypes) => {
-					if (powerUserTypes.poweruser_frequent) {
-						UniversalAnalytics.setDimension(24, 'yes');
-					} else {
-						UniversalAnalytics.setDimension(24, 'no');
-					}
+				this.get('currentUser.userModel').then(({powerUserTypes}) => {
+					if (powerUserTypes) {
+						UniversalAnalytics.setDimension(
+							23,
+							powerUserTypes.contains('poweruser_lifetime') ? 'yes' : 'no'
+						);
 
-					if (powerUserTypes.poweruser_lifetime) {
-						UniversalAnalytics.setDimension(23, 'yes');
+						UniversalAnalytics.setDimension(
+							24,
+							powerUserTypes.contains('poweruser_frequent') ? 'yes' : 'no'
+						);
 					} else {
 						UniversalAnalytics.setDimension(23, 'no');
+						UniversalAnalytics.setDimension(24, 'no');
 					}
 
 					trackPageView(model.get('adsContext.targeting'));
 				}).catch(() => {
-					if (this.get('currentUser.userId') !== null) {
-						UniversalAnalytics.setDimension(23, 'no');
-						UniversalAnalytics.setDimension(24, 'no');
-					}
-
 					trackPageView(model.get('adsContext.targeting'));
 				});
 			}

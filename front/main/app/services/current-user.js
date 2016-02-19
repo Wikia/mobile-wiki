@@ -51,20 +51,6 @@ export default Ember.Service.extend({
 		});
 	}),
 
-	powerUserTypes: Ember.computed('userModel', function () {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			this.get('userModel').then((userModel) => {
-				if (userModel && userModel.powerUserTypes) {
-					resolve(userModel.powerUserTypes);
-				} else {
-					reject();
-				}
-			}).catch(() => {
-				reject();
-			});
-		});
-	}),
-
 	/**
 	 * @returns {void}
 	 */
