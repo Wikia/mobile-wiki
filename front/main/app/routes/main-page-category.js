@@ -45,7 +45,7 @@ export default Ember.Route.extend(MainPageRouteMixin, MetaTagsMixin, {
 				});
 			}
 
-			this.transitionTo('mainPage');
+			this.transitionTo('wiki-page', '');
 			return true;
 		}
 	}
