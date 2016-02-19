@@ -251,3 +251,38 @@ $side-nav-clear-size: 30px;
 	margin: 0;
 	padding: 0;
 }
+
+.new-badge-pill {
+	background-color: $color-blue-light;
+	border-radius: 8px;
+	font-size: 0.6rem;
+	line-height: $line-height-min;
+	padding: 2px 8px;
+	text-transform: uppercase;
+	vertical-align: super;
+}
+
+.new-badge-dot {
+	background-color: $color-white;
+	border: 7px solid $color-blue-light;
+	border-radius: 8px;
+	display: inline-block;
+	height: 18px;
+	width: 18px;
+}
+
+.new-badge-dot__animated {
+	animation: new_badge_animation 2s ease infinite;
+}
+
+.new-badge-dot__pinned {
+	position: absolute;
+	right: 0;
+	top: 10px;
+}
+
+@keyframes new_badge_animation {
+	0% { right: 0; }
+	20% { right: -5px; }
+	40% { right: 0; }
+}
