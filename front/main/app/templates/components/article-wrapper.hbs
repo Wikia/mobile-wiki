@@ -112,6 +112,9 @@
 			{{/if}}
 		</section>
 		{{content-recommendations pages=model.relatedPages}}
+		{{#if displayRecentEdit}}
+			{{recent-edit-banner}}
+		{{/if}}
 	{{/if}}
 	{{wikia-footer}}
 </div>
