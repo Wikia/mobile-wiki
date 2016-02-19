@@ -3,6 +3,7 @@ import LanguagesMixin from '../mixins/languages';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
+import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -248,7 +249,29 @@ export default Ember.Component.extend(
 				});
 
 				updateTrackedUrl(window.location.href);
-				trackPageView(model.get('adsContext.targeting'));
+
+				this.get('currentUser.powerUserTypes').then((powerUserTypes) => {
+					if (powerUserTypes.poweruser_frequent) {
+						UniversalAnalytics.setDimension(24, 'yes');
+					} else {
+						UniversalAnalytics.setDimension(24, 'no');
+					}
+
+					if (powerUserTypes.poweruser_lifetime) {
+						UniversalAnalytics.setDimension(23, 'yes');
+					} else {
+						UniversalAnalytics.setDimension(23, 'no');
+					}
+
+					trackPageView(model.get('adsContext.targeting'));
+				}).catch(() => {
+					if (this.get('currentUser.userId') !== null) {
+						UniversalAnalytics.setDimension(23, 'no');
+						UniversalAnalytics.setDimension(24, 'no');
+					}
+
+					trackPageView(model.get('adsContext.targeting'));
+				});
 			}
 
 			return true;

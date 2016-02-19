@@ -17,7 +17,8 @@ export default Ember.Route.extend(MainPageRouteMixin, {
 	 * @returns {void}
 	 */
 	afterModel(model) {
-		const articleType = model.get('articleType');
+		const articleType = model.get('articleType'),
+			namespace = model.get('ns');
 
 		this.controllerFor('mainPage').setProperties({
 			adsContext: model.get('adsContext'),
@@ -25,6 +26,10 @@ export default Ember.Route.extend(MainPageRouteMixin, {
 			ns: model.get('ns'),
 			title: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 		});
+
+		if (typeof namespace !== 'undefined') {
+			UniversalAnalytics.setDimension(25, `${namespace}`);
+		}
 
 		if (articleType) {
 			UniversalAnalytics.setDimension(19, articleType);

@@ -48,10 +48,15 @@ export default Ember.Route.extend({
 	 */
 	afterModel(model) {
 		const exception = model.exception,
-			articleType = model.articleType;
+			articleType = model.articleType,
+			namespace = model.get('ns');
 
 		if (!Ember.isEmpty(exception)) {
 			Ember.Logger.warn('Article model error:', exception);
+		}
+
+		if (typeof namespace !== 'undefined') {
+			UniversalAnalytics.setDimension(25, `${namespace}`);
 		}
 
 		if (articleType) {

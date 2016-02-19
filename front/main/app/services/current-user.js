@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import UserModel from '../models/user';
+import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 
 /**
  * @typedef {Object} QueryUserInfoResponse
@@ -32,20 +33,45 @@ export default Ember.Service.extend({
 		return cookieUserId > 0 ? cookieUserId : null;
 	}),
 
+	userModel: Ember.computed(function () {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			const userId = this.get('userId');
+
+			if (userId !== null) {
+				UserModel.find({userId})
+					.then((result) => {
+						resolve(result);
+					})
+					.catch((err) => {
+						Ember.Logger.warn('Couldn\'t load current user model', err);
+						reject();
+					});
+			} else {
+				reject();
+			}
+		});
+	}),
+
+	powerUserTypes: Ember.computed('userModel', function () {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			this.get('userModel').then((userModel) => {
+				if (userModel && userModel.powerUserTypes) {
+					resolve(userModel.powerUserTypes);
+				} else {
+					reject();
+				}
+			}).catch(() => {
+				reject();
+			});
+		});
+	}),
+
 	/**
 	 * @returns {void}
 	 */
 	init() {
-		const userId = this.get('userId');
-
-		if (userId !== null) {
-			UserModel.find({userId})
-				.then((result) => {
-					this.setProperties(result);
-				})
-				.catch((err) => {
-					Ember.Logger.warn('Couldn\'t load current user model', err);
-				});
+		this.get('userModel').then((userModel) => {
+			this.setProperties(userModel);
 
 			this.loadUserInfo()
 				.then(this.loadUserLanguage.bind(this))
@@ -55,9 +81,9 @@ export default Ember.Service.extend({
 					this.setUserLanguage();
 					Ember.Logger.warn('Couldn\'t load current user info', err);
 				});
-		} else {
+		}).catch(() => {
 			this.setUserLanguage();
-		}
+		});
 
 		this._super();
 	},
