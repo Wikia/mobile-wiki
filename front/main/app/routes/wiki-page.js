@@ -89,8 +89,10 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	renderTemplate(controller, model) {
-		this.render(this.getHandler().viewName, {
-			controller: this.getHandler().controllerName,
+		const handler = this.getHandler();
+
+		this.render(handler.viewName, {
+			controller: handler.controllerName,
 			model
 		});
 	},
