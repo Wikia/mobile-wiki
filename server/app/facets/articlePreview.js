@@ -32,6 +32,7 @@ function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
 			adsContext: {},
 			htmlTitle: ''
 		},
+		mediaWikiNamespace: 0,
 		articleContent: article.content,
 		wikiVariables,
 		htmlTitle: getHtmlTitle(wikiVariables, title),
