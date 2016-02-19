@@ -28,8 +28,6 @@ export default Ember.Component.extend(
 	{
 		tagName: 'ul',
 		classNames: ['local-nav-menu'],
-		// TODO: Remove to enable RWA globally (CE-3326)
-		shouldDisplayRecentWikiActivity: Mercury.wiki.language.content === 'en',
 
 		actions: {
 			/**

@@ -17,18 +17,6 @@ export default Ember.Route.extend(MetaTagsMixin, {
 	},
 
 	/**
-	 * Make sure that RWA is enabled for English wikis only.
-	 * TODO remove to enable globally CE-3326
-	 * @param {EmberState.Transition} transition
-	 * @return {void}
-	 */
-	beforeModel() {
-		if (Mercury.wiki.language.content !== 'en') {
-			this.transitionTo('mainPage');
-		}
-	},
-
-	/**
 	 * Returns a Promise object with a list
 	 * of the last 50 changes on a wiki.
 	 * @returns {Ember.RSVP.Promise}
@@ -53,7 +41,7 @@ export default Ember.Route.extend(MetaTagsMixin, {
 		willTransition(transition) {
 			if (transition.targetName === 'articleDiff') {
 				const diff = transition.params.articleDiff,
-					id = `${diff.newid}-${diff.oldid}`,
+					id = `${diff.newId}-${diff.oldId}`,
 					query = `?rc=${id}`;
 
 				this.controllerFor('articleDiff').set('currRecentChangeId', id);

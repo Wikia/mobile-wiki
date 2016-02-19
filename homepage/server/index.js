@@ -40,8 +40,14 @@ server.state('session', {
 server.ext('onPreResponse', function (request, reply) {
 	var response = request.response;
 
-	if (response && response.header && request.response.variety !== 'file') {
-		request.response.vary('cookie');
+	if (response && response.header) {
+		if (request.response.variety !== 'file') {
+			request.response.vary('cookie');
+		}
+
+		// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
+		// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
+		request.response.vary('accept-encoding');
 	}
 
 	return reply.continue();
