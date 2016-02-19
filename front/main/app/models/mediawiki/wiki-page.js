@@ -30,6 +30,7 @@ WikiPageModel.reopenClass({
 
 			if (isContentNamespace()) {
 				model = ArticleModel.create(params);
+				debugger;
 
 				if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
 					ArticleModel.setArticle(model);
@@ -42,6 +43,11 @@ WikiPageModel.reopenClass({
 				url: this.url(params),
 				dataType: 'json',
 				success: (data) => {
+					if (isContentNamespace()) {
+						model = ArticleModel.create(params);
+						ArticleModel.setArticle(model, data);
+						return resolve(model);
+					}
 					resolve(WikiPageModel.create(data));
 				},
 				error: (err) => {

@@ -1,4 +1,5 @@
 import CuratedContentModel from '../../models/curated-content';
+import Ember from 'ember';
 
 /**
  * Set curatedContent data if main page has curated content set
@@ -16,7 +17,7 @@ function getCuratedContentModel(mainPageModel) {
 }
 
 function afterModel(router, model) {
-	model.set('curatedContent', this.get('mediaWikiHandler').getCuratedContentModel(model));
+	model.set('curatedContent', getCuratedContentModel(model));
 
 	router.controllerFor('main-page').setProperties({
 		adsContext: model.get('adsContext'),
@@ -32,5 +33,6 @@ export default {
 	getCuratedContentModel,
 	afterModel,
 	controllerName: 'main-page',
-	viewName: 'mainPage'
+	viewName: 'mainPage',
+	didTransition: Ember.K
 };

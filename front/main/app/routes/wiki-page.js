@@ -75,6 +75,7 @@ export default Ember.Route.extend({
 			UniversalAnalytics.setDimension(19, articleType);
 		}
 
+		debugger;
 		this.set('mediaWikiHandler', this.getHandler(model));
 
 		this.get('mediaWikiHandler').afterModel(this, model);
@@ -120,7 +121,7 @@ export default Ember.Route.extend({
 		 * @returns {boolean}
 		 */
 		didTransition() {
-			this.getHandler().didTransition(this);
+			this.get('mediaWikiHandler').didTransition(this);
 
 			if (this.get('redirectEmptyTarget')) {
 				this.controllerFor('application').addAlert({
