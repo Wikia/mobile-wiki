@@ -1,25 +1,30 @@
 import Ember from 'ember';
-import VisibilityStateManager from '../utils/visibility-state-manager';
 import {normalizeToUnderscore} from 'common/utils/string';
 import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 import ArticleHandler from '../utils/mediawiki-handlers/article';
 import CategoryHandler from '../utils/mediawiki-handlers/category';
 import CuratedMainPageHandler from '../utils/mediawiki-handlers/curated-main-page';
 import {namespace as MediawikiNamespace, getCurrentNamespace} from '../utils/mediawiki-namespace';
+import WikiPageModel from '../models/mediawiki/wiki-page';
 
 export default Ember.Route.extend({
 	redirectEmptyTarget: false,
 	mediaWikiHandler: null,
 
-	getHandler() {
+	getHandler(model) {
+
+		if (model.isCuratedMainPage) {
+			return CuratedMainPageHandler;
+		}
+
 		switch (getCurrentNamespace()) {
 		case MediawikiNamespace.MAIN:
 			return ArticleHandler;
 		case MediawikiNamespace.CATEGORY:
 			return CategoryHandler;
 		default:
-			// Default to Article Handler
-			return ArticleHandler;
+			Ember.Logger.debug(`Unsupported NS passed to getHandler - ${getCurrentNamespace()}`);
+			return null;
 		}
 	},
 
@@ -31,8 +36,6 @@ export default Ember.Route.extend({
 		const title = transition.params['wiki-page'].title.replace('wiki/', '');
 
 		this.controllerFor('application').send('closeLightbox');
-
-		this.set('mediaWikiHandler', this.getHandler());
 
 		// If you try to access article with not-yet-sanitized title you can see in logs:
 		// `Transition #1: detected abort.`
@@ -49,7 +52,11 @@ export default Ember.Route.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	model(params) {
-		return this.get('mediaWikiHandler').getModel(this, params);
+		return WikiPageModel.find({
+			basePath: Mercury.wiki.basePath,
+			title: params.title,
+			wiki: this.controllerFor('application').get('domain')
+		});
 	},
 
 	/**
@@ -68,27 +75,9 @@ export default Ember.Route.extend({
 			UniversalAnalytics.setDimension(19, articleType);
 		}
 
-		// if an article is main page, redirect to mainPage route
-		// this will handle accessing /wiki/Main_Page if default main page is different article
-		if (model.isCuratedMainPage) {
-			this.set('mediaWikiHandler', CuratedMainPageHandler);
-			model.set('curatedContent', this.get('mediaWikiHandler').getCuratedContentModel(model));
+		this.set('mediaWikiHandler', this.getHandler(model));
 
-			this.controllerFor(this.get('mediaWikiHandler').controllerName).setProperties({
-				adsContext: model.get('adsContext'),
-				isRoot: true,
-				ns: model.get('ns'),
-				title: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
-			});
-		} else {
-			this.controllerFor('application').set('currentTitle', model.get('title'));
-			VisibilityStateManager.reset();
-
-			// Reset query parameters
-			model.set('commentsPage', null);
-
-			this.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
-		}
+		this.get('mediaWikiHandler').afterModel(this, model);
 	},
 
 	/**

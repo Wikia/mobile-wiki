@@ -15,8 +15,22 @@ function getCuratedContentModel(mainPageModel) {
 	return {};
 }
 
+function afterModel(router, model) {
+	model.set('curatedContent', this.get('mediaWikiHandler').getCuratedContentModel(model));
+
+	router.controllerFor('main-page').setProperties({
+		adsContext: model.get('adsContext'),
+		isRoot: true,
+		ns: model.get('ns'),
+		title: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
+	});
+
+	return model;
+}
+
 export default {
 	getCuratedContentModel,
+	afterModel,
 	controllerName: 'main-page',
 	viewName: 'mainPage'
 };

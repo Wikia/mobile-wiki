@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import MediaModel from './media';
-import {normalizeToWhitespace} from 'common/utils/string';
+import MediaModel from './../media';
+import {normalizeToWhitespace} from '../../../../common/utils/string';
 
 /**
  * @typedef {Object} ArticleModelUrlParams

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ArticleModel from '../models/article';
+import ArticleModel from '../models/mediawiki/article';
 
 export default Ember.Route.extend({
 	model() {
