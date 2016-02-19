@@ -82,7 +82,7 @@ export default Ember.Route.extend(
 					trackingCategory,
 					info;
 
-				if (currentRoute === 'wikiPage') {
+				if (currentRoute === 'wiki-page') {
 					title = this.controllerFor('wikiPage').get('model').get('title');
 				} else {
 					title = '';

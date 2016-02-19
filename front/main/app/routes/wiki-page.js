@@ -44,6 +44,11 @@ export default Ember.Route.extend({
 		if (title.indexOf(' ') > -1) {
 			this.transitionTo('wiki-page', normalizeToUnderscore(title));
 		}
+
+		// if title is empty, we want to redirect to main page
+		if (!title.length) {
+			this.transitionTo('wiki-page', Ember.get(Mercury, 'wiki.mainPageTitle'));
+		}
 	},
 
 	/**
