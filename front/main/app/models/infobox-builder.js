@@ -328,10 +328,14 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendRowData(item, itemData) {
 		if (itemData) {
-			const {data: {label}} = itemData;
+			item.source = itemData.source || '';
+			item.data.label = '';
 
-			item.source = itemData.source;
-			item.data.label = label || '';
+			if (itemData.data) {
+				const {data: {label}} = itemData;
+
+				item.data.label = label || '';
+			}
 		}
 
 		return item;
@@ -347,10 +351,14 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendTitleData(item, itemData) {
 		if (itemData) {
-			const {data: {defaultValue}} = itemData;
+			item.source = itemData.source || '';
+			item.data.defaultValue = '';
 
-			item.source = itemData.source;
-			item.data.defaultValue = defaultValue || '';
+			if (itemData.data) {
+				const {data: {defaultValue}} = itemData;
+
+				item.data.defaultValue = defaultValue || '';
+			}
 		}
 
 		return item;
@@ -366,10 +374,14 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendImageData(item, itemData) {
 		if (itemData) {
-			const {data: {caption: {source}}} = itemData;
+			item.source = itemData.source || '';
+			item.data.caption.source = '';
 
-			item.source = itemData.source;
-			item.data.caption.source = source || '';
+			if (itemData.data && itemData.data.caption) {
+				const {data: {caption: {source: captionSource}}} = itemData;
+
+				item.data.caption.source = captionSource || '';
+			}
 		}
 
 		return item;

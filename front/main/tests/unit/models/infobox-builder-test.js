@@ -265,6 +265,20 @@ test('extend row data', (assert) => {
 				}
 			},
 			{
+				additionalItemData: {},
+				expected: {
+					data: {
+						label: ''
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					source: '',
+					type: 'row'
+				}
+			},
+			{
 				additionalItemData: null,
 				expected: {
 					data: {
@@ -341,6 +355,20 @@ test('extend title data', (assert) => {
 				expected: {
 					data: {
 						defaultValue: ''
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					source: '',
+					type: 'title'
+				}
+			},
+			{
+				additionalItemData: {},
+				expected: {
+					data: {
+						defaultValue: 'some default'
 					},
 					infoboxBuilderData: {
 						index,
@@ -430,6 +458,22 @@ test('extend image data', (assert) => {
 					},
 					source: ''
 				},
+				expected: {
+					data: {
+						caption: {
+							source: ''
+						}
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					source: '',
+					type: 'image'
+				}
+			},
+			{
+				additionalItemData: {},
 				expected: {
 					data: {
 						caption: {
