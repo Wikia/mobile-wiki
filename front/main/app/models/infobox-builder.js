@@ -322,6 +322,7 @@ InfoboxBuilderModel.reopenClass({
 	 * @desc Overrides some properties of given Row object with additional
 	 * data, obtained from already existing template
 	 * TODO: use Object.assign() when we switch to Babel6
+	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
 	 * @param {Object} itemData additional data
@@ -346,6 +347,7 @@ InfoboxBuilderModel.reopenClass({
 	 * @desc Overrides some properties of given Title object with additional
 	 * data, obtained from already existing template
 	 * TODO: use Object.assign() when we switch to Babel6
+	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
 	 * @param {Object} itemData additional data
@@ -370,6 +372,7 @@ InfoboxBuilderModel.reopenClass({
 	 * @desc Overrides some properties of given Image object with additional
 	 * data, obtained from already existing template
 	 * TODO: use Object.assign() when we switch to Babel6
+	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
 	 * @param {Object} itemData additional data
