@@ -34,14 +34,14 @@ export default Ember.Service.extend({
 
 	userModel: Ember.computed('userId', function () {
 		const userId = this.get('userId');
-		
+
 		if (userId !== null) {
 			return UserModel.find({userId})
 					.catch((err) => {
 						Ember.Logger.warn('Couldn\'t load current user model', err);
 					});
 		}
-		
+
 		return Ember.RSVP.reject();
 	}),
 
@@ -51,13 +51,13 @@ export default Ember.Service.extend({
 	init() {
 		Ember.RSVP.all([this.get('userModel'), this.loadUserInfo()]).then(([userModel, userInfo]) => {
 			if (userModel) {
-				this.setProperties(userModel);	
+				this.setProperties(userModel);
 			}
 
 			if (userInfo) {
 				this.setUserLanguage(userInfo);
 				this.setBlockedStatus(userInfo);
-				this.setUserRights(userInfo);	
+				this.setUserRights(userInfo);
 			}
 		});
 
@@ -70,7 +70,7 @@ export default Ember.Service.extend({
 	 */
 	setUserLanguage({query}) {
 		const userLanguage = query.userinfo.options.language;
-		
+
 		if (userLanguage) {
 			this.set('language', userLanguage);
 			M.prop('userLanguage', userLanguage);
@@ -87,11 +87,11 @@ export default Ember.Service.extend({
 			rights = {};
 
 		if (Ember.isArray(rightsArray)) {
-			//TODO - we could use contains instead of making an object out of an array
+			// TODO - we could use contains instead of making an object out of an array
 			rightsArray.forEach((right) => {
 				rights[right] = true;
 			});
-	
+
 			this.set('rights', rights);
 		}
 	},
@@ -102,7 +102,7 @@ export default Ember.Service.extend({
 	 */
 	setBlockedStatus({query}) {
 		const blockId = query.userinfo.blockid;
-	
+
 		if (blockId) {
 			this.set('isBlocked', true);
 		}
