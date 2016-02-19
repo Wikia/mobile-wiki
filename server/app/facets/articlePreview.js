@@ -16,7 +16,7 @@ import deepExtend from 'deep-extend';
  */
 function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
 	return {
-		article: {
+		articlePage: {
 			data: {
 				article: {
 					media: article.media
