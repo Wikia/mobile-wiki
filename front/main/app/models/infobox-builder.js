@@ -328,9 +328,10 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendRowData(item, itemData) {
 		if (itemData) {
+			const {data: {label}} = itemData;
+
 			item.source = itemData.source;
-			// if label has been passed and is not null or undefined - use it.
-			item.data.label = itemData.data && itemData.data.label ? itemData.data.label : '';
+			item.data.label = label || '';
 		}
 
 		return item;
@@ -346,8 +347,10 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendTitleData(item, itemData) {
 		if (itemData) {
+			const {data: {defaultValue}} = itemData;
+
 			item.source = itemData.source;
-			item.data.defaultValue = itemData.data && itemData.data.defaultValue ? itemData.data.defaultValue : '';
+			item.data.defaultValue = defaultValue || '';
 		}
 
 		return item;
@@ -363,13 +366,10 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendImageData(item, itemData) {
 		if (itemData) {
+			const {data: {caption: {source}}} = itemData;
+
 			item.source = itemData.source;
-			item.data.caption.source =
-				itemData.data &&
-				itemData.data.caption &&
-				itemData.data.caption.source ?
-					itemData.data.caption.source :
-					'';
+			item.data.caption.source = source || '';
 		}
 
 		return item;
