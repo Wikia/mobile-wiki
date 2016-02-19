@@ -13,7 +13,7 @@ function getCuratedContentModel(mainPageModel) {
 			items: CuratedContentModel.sanitizeItems(mainPageModel.mainPageData.curatedContent)
 		});
 	}
-	return {};
+	return Ember.Object.create();
 }
 
 /**

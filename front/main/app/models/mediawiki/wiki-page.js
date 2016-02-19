@@ -40,6 +40,9 @@ WikiPageModel.reopenClass({
 				url: this.url(params),
 				dataType: 'json',
 				success: (data) => {
+					// @todo - https://wikia-inc.atlassian.net/browse/XW-1151 (this should be handled differently)
+					M.prop('mediaWikiNamespace', data.ns);
+
 					if (isContentNamespace()) {
 						const model = ArticleModel.create(params);
 
@@ -49,8 +52,13 @@ WikiPageModel.reopenClass({
 					resolve(WikiPageModel.create(data));
 				},
 				error: (err) => {
-					// Temporary solution until we can make error states work - ideally we should reject on errors
-					if (err.status === 404 && isContentNamespace()) {
+					/**
+					 * Temporary solution until we can make error states work
+					 * ideally we should reject on errors
+					 *
+					 * On error always show article (for now)
+					 */
+					if (err.status === 404) {
 						const model = ArticleModel.create(params);
 
 						ArticleModel.setArticle(model, err.responseJSON);
