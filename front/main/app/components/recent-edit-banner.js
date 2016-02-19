@@ -32,8 +32,6 @@ export default Ember.Component.extend({
 			expires,
 			path: '/'
 		});
-
-		this.set('dismissed', true);
 	},
 	sendTracking(label) {
 		track({
@@ -42,14 +40,17 @@ export default Ember.Component.extend({
 			label
 		});
 	},
+	dismissRecentEdit(expires, label) {
+		this.setCookie(expires);
+		this.sendTracking(label);
+		this.set('dismissed', true);
+	},
 	actions: {
 		postpone(label) {
-			this.setCookie(1);
-			this.sendTracking(label);
+			this.dismissRecentEdit(1, label);
 		},
 		dismiss(label) {
-			this.setCookie(10 * 365);
-			this.sendTracking(label);
+			this.dismissRecentEdit(10 * 365, label);
 		}
 	}
 });
