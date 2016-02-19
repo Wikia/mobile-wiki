@@ -15,6 +15,7 @@ test('create new model with initial state', (assert) => {
 	assert.equal(model.get('_itemIndex.row'), 0);
 	assert.equal(model.get('_itemIndex.image'), 0);
 	assert.equal(model.get('_itemIndex.title'), 0);
+	assert.equal(model.get('_itemIndex.section-header'), 0);
 	assert.equal(Ember.isArray(model.get('infoboxState')), true);
 	assert.equal(model.get('infoboxState').length, 0);
 });
