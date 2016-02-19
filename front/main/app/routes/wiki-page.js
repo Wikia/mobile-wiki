@@ -75,7 +75,6 @@ export default Ember.Route.extend({
 			UniversalAnalytics.setDimension(19, articleType);
 		}
 
-		debugger;
 		this.set('mediaWikiHandler', this.getHandler(model));
 
 		this.get('mediaWikiHandler').afterModel(this, model);

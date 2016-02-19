@@ -30,7 +30,6 @@ WikiPageModel.reopenClass({
 
 			if (isContentNamespace()) {
 				model = ArticleModel.create(params);
-				debugger;
 
 				if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
 					ArticleModel.setArticle(model);
