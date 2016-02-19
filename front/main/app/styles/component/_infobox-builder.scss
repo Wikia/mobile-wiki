@@ -4,7 +4,8 @@ $back-arrow-icon-size: 16px;
 $icon-action-size: 24px;
 $icon-wrapper-size: 50px;
 $icon-button-size: 30px;
-$border-width: 2px;
+$border-width: 1px;
+$box-shadow-size: 2px;
 $shadowBlur: 8px;
 $shadowColor: rgba(0,0,0,0.3);
 
@@ -74,25 +75,25 @@ $shadowColor: rgba(0,0,0,0.3);
 		&:hover,
 		&.active {
 			z-index: 2;
+		}
 
-			&:after {
-				box-shadow: 0 $border-width $shadowBlur 0 $shadowColor;
-				cursor: pointer;
-			}
+		&.active:after {
+			box-shadow: 0 $box-shadow-size $shadowBlur 0 $shadowColor;
+			cursor: pointer;
 		}
 
 		&.is-dragging {
 			z-index: 3;
 			&:after {
 				cursor: move;
-				box-shadow: 0 $border-width * 4 $shadowBlur 0 $shadowColor;
+				box-shadow: 0 $box-shadow-size * 4 $shadowBlur 0 $shadowColor;
 			}
 		}
 	}
 }
 
 .infobox-builder-sidebar {
-	box-shadow: -$border-width 0 $shadowBlur 0 $shadowColor;
+	box-shadow: -$box-shadow-size 0 $shadowBlur 0 $shadowColor;
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
 
@@ -137,7 +138,7 @@ $shadowColor: rgba(0,0,0,0.3);
 	}
 
 	.sidebar-header {
-		border-bottom: $border-width solid $color-blue-gray-light;
+		border-bottom: $box-shadow-size solid $color-blue-gray-light;
 		font-weight: bold;
 		line-height: 48px;
 		padding: 0 $padding;
@@ -210,7 +211,7 @@ $shadowColor: rgba(0,0,0,0.3);
 	width: 130px;
 
 	&:hover {
-		border: $border-width solid $color-blue-light;
+		background-color: $color-blue-gray-light;
 
 		.infobox-builder-button-icon {
 			fill: $color-blue-light;
