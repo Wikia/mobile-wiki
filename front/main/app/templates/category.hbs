@@ -1,14 +1,14 @@
 {{#each-in model.collections as |id data|}}
 	<h3>{{id}}</h3>
 	<ul>
-		{{#if data.hasPrev}}
-			<button {{action 'loadMore' id data.prevBatch }}>Load Previous</button>
-		{{/if}}
+	{{#if data.hasPrev}}
+		<button {{action 'loadMore' id data.prevBatch }}>Load Previous</button>
+	{{/if}}
 	{{#each data.items as |item|}}
-		<li><a href="{{item.url}}">{{item.name}}</a></li>
+		<li>{{link-to item.name 'wiki-page' item.url}}</li>
 	{{/each}}
-		{{#if data.hasNext}}
-			<button {{action 'loadMore' id data.nextBatch }}>Load More</button>
-		{{/if}}
+	{{#if data.hasNext}}
+		<button {{action 'loadMore' id data.nextBatch }}>Load More</button>
+	{{/if}}
 	</ul>
 {{/each-in}}
