@@ -35,7 +35,7 @@ test('reacts on curated content change', function (asset) {
 				adsContext,
 				curatedContent: {},
 				currentUser: {
-					powerUserTypes: new Ember.RSVP.Promise(Ember.K)
+					userModel: new Ember.RSVP.Promise(Ember.K)
 				}
 			}
 		});
