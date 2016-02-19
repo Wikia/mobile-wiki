@@ -26,27 +26,30 @@ export default Ember.Component.extend({
 		});
 
 	},
-	setCookie(expires, label) {
+	setCookie(expires) {
 		Ember.$.cookie('recent-edit-dismissed', 1, {
 			domain: getDomain(),
 			expires,
 			path: '/'
 		});
 
+		this.set('dismissed', true);
+	},
+	sendTracking(label) {
 		track({
 			action: trackActions.click,
 			category: 'recent-edit-banner',
 			label
 		});
-
-		this.set('dismissed', true);
 	},
 	actions: {
 		postpone(label) {
-			this.setCookie(1, label);
+			this.setCookie(1);
+			this.sendTracking(label);
 		},
 		dismiss(label) {
-			this.setCookie(10 * 365, label);
+			this.setCookie(10 * 365);
+			this.sendTracking(label);
 		}
 	}
 });
