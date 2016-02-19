@@ -23,6 +23,6 @@
 <div class="side-nav-menu__item menu" {{action 'openLocalNavigation'}}>
 	{{i18n 'app.explore-wiki' wikiName=wikiName}}
 	{{#if shouldDisplayNewBadge}}
-		<span class="new-badge-dot"></span>
+		{{svg 'info-filled' class='icon new-badge'}}
 	{{/if}}
 </div>
