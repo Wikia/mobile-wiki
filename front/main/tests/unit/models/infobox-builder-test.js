@@ -95,6 +95,19 @@ test('add items by type', (assert) => {
 					type: 'title'
 				},
 				message: 'add title item'
+			},
+			{
+				dataMock: {
+					data: {
+						value: messageMock
+					},
+					infoboxBuilderData: {
+						index,
+						component: mockComponentName
+					},
+					type: 'section-header'
+				},
+				message: 'add section-header item'
 			}
 		];
 
