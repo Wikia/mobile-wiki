@@ -8,12 +8,12 @@ export default Ember.Component.extend(
 		tagName: 'h2',
 		classNames: ['pi-item', 'pi-item-spacing', 'pi-title'],
 
-		value: Ember.computed('item.{infoboxBuilderData.index,data.defaultValue}', function () {
-			const defaultValue = this.get('item.data.defaultValue');
+		value: Ember.computed('model.{infoboxBuilderData.index,data.defaultValue}', function () {
+			const defaultValue = this.get('model.data.defaultValue');
 
 			return defaultValue || i18n.t('infobox-builder:main.title-default', {
 				ns: 'infobox-builder',
-				index: this.get('item.infoboxBuilderData.index')
+				index: this.get('model.infoboxBuilderData.index')
 			});
 		})
 	}
