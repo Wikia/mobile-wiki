@@ -48,6 +48,9 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		case 'image':
 			item = InfoboxBuilderModel.extendRowData(this.createImageItem(), elementData);
 			break;
+		case 'section-header':
+			item = this.createSectionHeaderItem();
+			break;
 		default:
 			Ember.Logger.warn(`Unsupported infobox builder type encountered: '${type}'`);
 			break;
@@ -115,7 +118,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	createTitleItem() {
 		const itemType = 'title',
-			index = this.increaseItemIndex('title');
+			index = this.increaseItemIndex(itemType);
 
 		return {
 			data: {
@@ -126,6 +129,25 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				component: InfoboxBuilderModel.createComponentName(itemType)
 			},
 			source: `${itemType}${index}`,
+			type: itemType
+		};
+	},
+
+	createSectionHeaderItem() {
+		const itemType = 'section-header',
+			index = this.increaseItemIndex(itemType);
+
+		return {
+			data: {
+				value: i18n.t('main.section-header-default', {
+					ns: 'infobox-builder',
+					index
+				})
+			},
+			infoboxBuilderData: {
+				index,
+				component: InfoboxBuilderModel.createComponentName(itemType)
+			},
 			type: itemType
 		};
 	},
