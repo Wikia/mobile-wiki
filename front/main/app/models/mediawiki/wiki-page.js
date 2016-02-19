@@ -26,12 +26,10 @@ WikiPageModel.reopenClass({
 	 */
 	find(params) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			let model;
-
 			if (isContentNamespace()) {
-				model = ArticleModel.create(params);
-
 				if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
+					const model = ArticleModel.create(params);
+
 					ArticleModel.setArticle(model);
 					resolve(model);
 					return;
@@ -43,7 +41,8 @@ WikiPageModel.reopenClass({
 				dataType: 'json',
 				success: (data) => {
 					if (isContentNamespace()) {
-						model = ArticleModel.create(params);
+						const model = ArticleModel.create(params);
+
 						ArticleModel.setArticle(model, data);
 						return resolve(model);
 					}
@@ -52,7 +51,8 @@ WikiPageModel.reopenClass({
 				error: (err) => {
 					// Temporary solution until we can make error states work - ideally we should reject on errors
 					if (err.status === 404 && isContentNamespace()) {
-						model = ArticleModel.create(params);
+						const model = ArticleModel.create(params);
+
 						ArticleModel.setArticle(model, err.responseJSON);
 						resolve(model);
 					} else {

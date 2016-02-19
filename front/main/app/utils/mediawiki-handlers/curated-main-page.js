@@ -16,6 +16,11 @@ function getCuratedContentModel(mainPageModel) {
 	return {};
 }
 
+/**
+ * @param {Ember.router} router
+ * @param {Ember.model} model
+ * @returns {void}
+ */
 function afterModel(router, model) {
 	model.set('curatedContent', getCuratedContentModel(model));
 
@@ -30,9 +35,12 @@ function afterModel(router, model) {
 }
 
 export default {
-	getCuratedContentModel,
-	afterModel,
+	// template's and controller's name
 	controllerName: 'main-page',
-	viewName: 'mainPage',
-	didTransition: Ember.K
+	viewName: 'main-page',
+	// hooks
+	afterModel,
+	didTransition: Ember.K,
+	// all other, handler-specific functions
+	getCuratedContentModel,
 };

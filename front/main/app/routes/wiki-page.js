@@ -12,7 +12,6 @@ export default Ember.Route.extend({
 	mediaWikiHandler: null,
 
 	getHandler(model) {
-
 		if (model.isCuratedMainPage) {
 			return CuratedMainPageHandler;
 		}
@@ -65,7 +64,8 @@ export default Ember.Route.extend({
 	 */
 	afterModel(model) {
 		const exception = model.exception,
-			articleType = model.articleType;
+			articleType = model.articleType,
+			handler = this.getHandler(model);
 
 		if (!Ember.isEmpty(exception)) {
 			Ember.Logger.warn('Page model error:', exception);
@@ -75,9 +75,9 @@ export default Ember.Route.extend({
 			UniversalAnalytics.setDimension(19, articleType);
 		}
 
-		this.set('mediaWikiHandler', this.getHandler(model));
+		this.set('mediaWikiHandler', handler);
 
-		this.get('mediaWikiHandler').afterModel(this, model);
+		handler.afterModel(this, model);
 	},
 
 	/**

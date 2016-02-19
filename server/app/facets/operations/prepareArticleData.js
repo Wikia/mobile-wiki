@@ -35,7 +35,7 @@ export default function prepareArticleData(request, data) {
 		articleData = data.page.data,
 		wikiVariables = data.wikiVariables,
 		result = {
-			page: data.page,
+			articlePage: data.page,
 			server: data.server,
 			wikiVariables: data.wikiVariables,
 		};

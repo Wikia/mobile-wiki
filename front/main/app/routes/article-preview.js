@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import ArticleModel from '../models/mediawiki/article';
+import WikiPageModel from '../models/mediawiki/wiki-page';
 
 export default Ember.Route.extend({
 	model() {
-		return ArticleModel.find(Ember.get(Mercury, 'article.data.article'));
+		return WikiPageModel.find(Ember.get(Mercury, 'article.data.article'));
 	},
 
 	actions: {

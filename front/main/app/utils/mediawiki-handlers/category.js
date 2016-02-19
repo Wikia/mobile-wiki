@@ -1,24 +1,11 @@
-import CategoryModel from '../../models/mediawiki/category';
-
-/**
- * @returns {Ember.model}
- */
-function getModel() {
-	return CategoryModel.find();
-}
-
-/**
- * @returns {void}
- */
-function didTransition() {
-}
-
 /**
  * Export Category handler
  */
 export default {
+	// template's and controller's name
 	viewName: 'category',
 	controllerName: 'category',
-	getModel,
-	didTransition
+	// hooks
+	afterModel: Ember.K,
+	didTransition: Ember.K
 };

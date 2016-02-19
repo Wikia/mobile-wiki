@@ -46,6 +46,9 @@ function getCurrentNamespace() {
 	return false;
 }
 
+/**
+ * @returns {boolean}
+ */
 function isContentNamespace() {
 	// In the future this method would be more sophisticated
 	// because each wiki can have its own content namespaces defined

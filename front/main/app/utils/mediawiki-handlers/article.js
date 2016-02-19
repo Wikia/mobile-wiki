@@ -69,6 +69,11 @@ function updateIOSSmartBannerMetaTag(model) {
 	}
 }
 
+/**
+ * @param {Ember.router} router
+ * @param {Ember.model} model
+ * @returns {void}
+ */
 function afterModel(router, model) {
 	router.controllerFor('application').set('currentTitle', model.get('title'));
 	VisibilityStateManager.reset();
@@ -98,13 +103,14 @@ function didTransition(router) {
  * Export Article handler
  */
 export default {
-	viewName: 'article',
+	// template's and controller's name
 	controllerName: 'article',
+	viewName: 'article',
+	afterModel,
 	didTransition,
-	// all other functions (for unit tests)
+	// all other, handler-specific functions
 	updateTitleTag,
 	updateCanonicalLinkTag,
 	updateDescriptionMetaTag,
-	updateIOSSmartBannerMetaTag,
-	afterModel
+	updateIOSSmartBannerMetaTag
 };

@@ -52,40 +52,6 @@ ArticleModel.reopenClass({
 	},
 
 	/**
-	 * @param {ArticleModelFindParams} params
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	find(params) {
-		const model = ArticleModel.create(params);
-
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
-				this.setArticle(model);
-				resolve(model);
-				return;
-			}
-
-			Ember.$.ajax({
-				url: this.url(params),
-				dataType: 'json',
-				success: (data) => {
-					this.setArticle(model, data);
-					resolve(model);
-				},
-				error: (err) => {
-					// Temporary solution until we can make error states work - ideally we should reject on errors
-					if (err.status === 404) {
-						this.setArticle(model, err.responseJSON);
-						resolve(model);
-					} else {
-						reject(err);
-					}
-				}
-			});
-		});
-	},
-
-	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getArticleRandomTitle() {
