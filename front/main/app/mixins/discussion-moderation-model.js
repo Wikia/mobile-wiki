@@ -117,8 +117,45 @@ export default Ember.Mixin.create({
 			method: 'PUT',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${post.id}/report`),
 			success: () => {
+				let postParentObject;
 				Ember.set(post, '_embedded.userData.0.hasReported', true);
-				Ember.set(post, 'isReported', true);
+
+				// this is a hack needed at the moment - under a serious discussion, and the fix will be provided before
+				// merge to dev
+				if (this.get('isReported') === undefined) {
+					if (Ember.get(post, 'isReply') === undefined) {
+						postParentObject = this.get('posts').find((item) => item.firstPostId === Ember.get(post, 'id'));
+						Ember.set(postParentObject, 'isReported', true);
+					}
+					else {
+						Ember.set(post, 'isReported', true);
+					}
+
+				}
+				else {
+					this.set('isReported', true);
+				}
+			},
+			error: () => {
+				this.displayError();
+			}
+		});
+	},
+
+	/**
+	 * Report reply in service
+	 * @param {object} reply
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	reportReply(reply) {
+		return ajaxCall({
+			data: JSON.stringify({value: 1}),
+			dataType: 'text',
+			method: 'PUT',
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/report`),
+			success: () => {
+				Ember.set(reply, '_embedded.userData.0.hasReported', true);
+				Ember.set(reply, 'isReported', true);
 			},
 			error: () => {
 				this.displayError();
