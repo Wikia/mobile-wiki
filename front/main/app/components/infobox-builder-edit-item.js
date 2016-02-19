@@ -5,12 +5,12 @@ export default Ember.Component.extend({
 		return `infobox-builder-edit-item-${this.get('item.type')}`;
 	}),
 
-	header: Ember.computed('item.{data.label,type,value,data.default,infoboxBuilderData.index}', function () {
+	header: Ember.computed('item.{data.label,type,value,data.defaultValue,infoboxBuilderData.index}', function () {
 		let header;
 
 		switch (this.get('item.type')) {
 		case 'title':
-			header = this.get('item.data.default') ||
+			header = this.get('item.data.defaultValue') ||
 					i18n.t('main.title-default', {
 						ns: 'infobox-builder',
 						index: this.get('item.infoboxBuilderData.index')
