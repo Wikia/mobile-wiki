@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import UserModel from '../models/user';
-import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 
 /**
  * @typedef {Object} QueryUserInfoResponse

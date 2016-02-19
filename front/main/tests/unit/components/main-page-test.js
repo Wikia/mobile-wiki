@@ -33,7 +33,10 @@ test('reacts on curated content change', function (asset) {
 		const component = this.subject({
 			attrs: {
 				adsContext,
-				curatedContent: {}
+				curatedContent: {},
+				currentUser: {
+					powerUserTypes: new Ember.RSVP.Promise(Ember.K)
+				}
 			}
 		});
 
