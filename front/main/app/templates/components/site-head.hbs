@@ -1,4 +1,7 @@
 <div {{action 'expandSideNav'}} class="side-nav-toggle side-nav-toggle-2016">
+	{{#if shouldDisplayNewBadge}}
+		<span class="new-badge-dot new-badge-dot__pinned new-badge-dot__animated"></span>
+	{{/if}}
 	{{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
 </div>
 <div class="site-logo site-logo-2016">

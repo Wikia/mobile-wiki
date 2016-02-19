@@ -17,18 +17,6 @@ export default Ember.Route.extend(MetaTagsMixin, {
 	},
 
 	/**
-	 * Make sure that RWA is enabled for English wikis only.
-	 * TODO remove to enable globally CE-3326
-	 * @param {EmberState.Transition} transition
-	 * @return {void}
-	 */
-	beforeModel() {
-		if (Mercury.wiki.language.content !== 'en') {
-			this.transitionTo('mainPage');
-		}
-	},
-
-	/**
 	 * Returns a Promise object with a list
 	 * of the last 50 changes on a wiki.
 	 * @returns {Ember.RSVP.Promise}

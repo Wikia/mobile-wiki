@@ -31,24 +31,12 @@ export default Ember.Controller.extend({
 		/**
 		 * @desc calls different add item action on model
 		 * @param {String} type type
-		 * @returns {void}
+		 * @returns {Object}
 		 */
 		addItem(type) {
 			const model = this.get('model');
 
-			switch (type) {
-				case 'row':
-					model.addRowItem();
-					break;
-				case 'title':
-					model.addTitleItem();
-					break;
-				case 'image':
-					model.addImageItem();
-					break;
-				default:
-					break;
-			}
+			return model.addItem(type);
 		},
 
 		/**
