@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import MediaModel from './media';
+import MediaModel from '../media';
 import {normalizeToWhitespace} from 'common/utils/string';
 
 /**
@@ -33,6 +33,7 @@ const ArticleModel = Ember.Object.extend({
 	user: null,
 	users: [],
 	wiki: null,
+	isCuratedMainPage: false
 });
 
 ArticleModel.reopenClass({

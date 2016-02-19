@@ -329,7 +329,7 @@ export class PageRequest extends BaseRequest {
 	page(title, redirect, sections) {
 		const urlParams = {
 			controller: 'MercuryApi',
-			method: 'getArticle',
+			method: 'getPage',
 			title
 		};
 

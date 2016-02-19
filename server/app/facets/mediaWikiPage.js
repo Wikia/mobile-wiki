@@ -106,7 +106,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
  *
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
- * @param {RequestHelper} mediaWikiPageHelper
+ * @param {PageRequestHelper} mediaWikiPageHelper
  * @param {boolean} allowCache
  * @returns {void}
  */

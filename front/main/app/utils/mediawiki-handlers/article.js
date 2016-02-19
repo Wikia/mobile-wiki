@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ArticleModel from '../../models/article';
+import VisibilityStateManager from '../visibility-state-manager';
 
 /**
  * @param {ArticleModel} model
@@ -69,17 +69,14 @@ function updateIOSSmartBannerMetaTag(model) {
 	}
 }
 
-/**
- * @param {Ember.router} router
- * @param {*} params
- * @returns {Ember.model}
- */
-function getModel(router, params) {
-	return ArticleModel.find({
-		basePath: Mercury.wiki.basePath,
-		title: params.title,
-		wiki: router.controllerFor('application').get('domain')
-	});
+function afterModel(router, model) {
+	router.controllerFor('application').set('currentTitle', model.get('title'));
+	VisibilityStateManager.reset();
+
+	// Reset query parameters
+	model.set('commentsPage', null);
+
+	router.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
 }
 
 /**
@@ -101,13 +98,13 @@ function didTransition(router) {
  * Export Article handler
  */
 export default {
-	viewName: 'mediawiki-article',
-	controllerName: 'mediawiki-article',
-	getModel,
+	viewName: 'article',
+	controllerName: 'article',
 	didTransition,
 	// all other functions (for unit tests)
 	updateTitleTag,
 	updateCanonicalLinkTag,
 	updateDescriptionMetaTag,
-	updateIOSSmartBannerMetaTag
+	updateIOSSmartBannerMetaTag,
+	afterModel
 };

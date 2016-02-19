@@ -46,4 +46,10 @@ function getCurrentNamespace() {
 	return false;
 }
 
-export {namespace, supportedNamespaces, getCurrentNamespace};
+function isContentNamespace() {
+	// In the future this method would be more sophisticated
+	// because each wiki can have its own content namespaces defined
+	return parseInt(M.prop('mediaWikiNamespace'), 10) === 0;
+}
+
+export {namespace, supportedNamespaces, getCurrentNamespace, isContentNamespace};
