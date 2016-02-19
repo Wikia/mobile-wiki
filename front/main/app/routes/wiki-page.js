@@ -4,10 +4,12 @@ import {normalizeToUnderscore} from 'common/utils/string';
 import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 import ArticleHandler from '../utils/mediawiki-handlers/article';
 import CategoryHandler from '../utils/mediawiki-handlers/category';
+import CuratedMainPageHandler from '../utils/mediawiki-handlers/curated-main-page';
 import {namespace as MediawikiNamespace, getCurrentNamespace} from '../utils/mediawiki-namespace';
 
 export default Ember.Route.extend({
 	redirectEmptyTarget: false,
+	mediaWikiHandler: null,
 
 	getHandler() {
 		switch (getCurrentNamespace()) {
@@ -16,8 +18,8 @@ export default Ember.Route.extend({
 		case MediawikiNamespace.CATEGORY:
 			return CategoryHandler;
 		default:
-			// not supported
-			return null;
+			// Default to Article Handler
+			return ArticleHandler;
 		}
 	},
 
@@ -30,9 +32,7 @@ export default Ember.Route.extend({
 
 		this.controllerFor('application').send('closeLightbox');
 
-		if (title === Mercury.wiki.mainPageTitle) {
-			this.transitionTo('mainPage');
-		}
+		this.set('mediaWikiHandler', this.getHandler());
 
 		// If you try to access article with not-yet-sanitized title you can see in logs:
 		// `Transition #1: detected abort.`
@@ -49,7 +49,7 @@ export default Ember.Route.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	model(params) {
-		return this.getHandler().getModel(this, params);
+		return this.get('mediaWikiHandler').getModel(this, params);
 	},
 
 	/**
@@ -70,17 +70,25 @@ export default Ember.Route.extend({
 
 		// if an article is main page, redirect to mainPage route
 		// this will handle accessing /wiki/Main_Page if default main page is different article
-		if (model.isMainPage) {
-			this.replaceWith('mainPage');
+		if (model.isCuratedMainPage) {
+			this.set('mediaWikiHandler', CuratedMainPageHandler);
+			model.set('curatedContent', this.get('mediaWikiHandler').getCuratedContentModel(model));
+
+			this.controllerFor(this.get('mediaWikiHandler').controllerName).setProperties({
+				adsContext: model.get('adsContext'),
+				isRoot: true,
+				ns: model.get('ns'),
+				title: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
+			});
+		} else {
+			this.controllerFor('application').set('currentTitle', model.get('title'));
+			VisibilityStateManager.reset();
+
+			// Reset query parameters
+			model.set('commentsPage', null);
+
+			this.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
 		}
-
-		this.controllerFor('application').set('currentTitle', model.get('title'));
-		VisibilityStateManager.reset();
-
-		// Reset query parameters
-		model.set('commentsPage', null);
-
-		this.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
 	},
 
 	/**
@@ -89,8 +97,8 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	renderTemplate(controller, model) {
-		this.render(this.getHandler().viewName, {
-			controller: this.getHandler().controllerName,
+		this.render(this.get('mediaWikiHandler').viewName, {
+			controller: this.get('mediaWikiHandler').controllerName,
 			model
 		});
 	},

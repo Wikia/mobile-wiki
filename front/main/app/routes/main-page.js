@@ -19,13 +19,6 @@ export default Ember.Route.extend(MainPageRouteMixin, {
 	afterModel(model) {
 		const articleType = model.get('articleType');
 
-		this.controllerFor('mainPage').setProperties({
-			adsContext: model.get('adsContext'),
-			isRoot: true,
-			ns: model.get('ns'),
-			title: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
-		});
-
 		if (articleType) {
 			UniversalAnalytics.setDimension(19, articleType);
 		}

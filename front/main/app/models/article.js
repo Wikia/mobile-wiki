@@ -33,6 +33,7 @@ const ArticleModel = Ember.Object.extend({
 	user: null,
 	users: [],
 	wiki: null,
+	isCuratedMainPage: false
 });
 
 ArticleModel.reopenClass({

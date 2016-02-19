@@ -72,7 +72,7 @@ function updateIOSSmartBannerMetaTag(model) {
 /**
  * @param {Ember.router} router
  * @param {*} params
- * @returns {Ember.model}
+ * @returns {Ember.RSVP.Promise}
  */
 function getModel(router, params) {
 	return ArticleModel.find({
@@ -101,8 +101,8 @@ function didTransition(router) {
  * Export Article handler
  */
 export default {
-	viewName: 'mediawiki-article',
-	controllerName: 'mediawiki-article',
+	viewName: 'article',
+	controllerName: 'article',
 	getModel,
 	didTransition,
 	// all other functions (for unit tests)

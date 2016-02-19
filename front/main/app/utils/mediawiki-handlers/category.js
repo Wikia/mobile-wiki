@@ -17,8 +17,8 @@ function didTransition() {
  * Export Category handler
  */
 export default {
-	viewName: 'mediawiki-category',
-	controllerName: 'mediawiki-category',
+	viewName: 'category',
+	controllerName: 'category',
 	getModel,
 	didTransition
 };
