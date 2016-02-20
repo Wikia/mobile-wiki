@@ -22,10 +22,9 @@ export default Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		save() {
-			const model = this.get('model'),
-				title = model.get('title');
+			const model = this.get('model');
 
-			model.saveStateToTemplate().then(title => this.get('target').send('redirectToTemplatePage', title));
+			model.saveStateToTemplate().then((title) => this.get('target').send('redirectToTemplatePage', title));
 		},
 
 		/**
