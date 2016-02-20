@@ -74,7 +74,7 @@ $shadowColor: rgba(0,0,0,0.3);
 
 		&:hover,
 		&.active {
-			z-index: 2;
+			z-index: 3;
 		}
 
 		&.active:after {
@@ -83,7 +83,7 @@ $shadowColor: rgba(0,0,0,0.3);
 		}
 
 		&.is-dragging {
-			z-index: 3;
+			z-index: 4;
 			&:after {
 				cursor: move;
 				transition: box-shadow 0.5s ease-in-out;
@@ -266,5 +266,16 @@ $shadowColor: rgba(0,0,0,0.3);
 	}
 }
 
-
-
+.is-preview-item-dragged {
+	.pi-item:not(.is-dragging):after {
+		content: "";
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		z-index: 2;
+		background-color: rgba(0,0,0,0.1);
+	}
+}

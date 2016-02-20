@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+	classNameBindings: ['isPreviewItemDragged'],
+
 	init() {
 		this._super(...arguments);
 		this.toolTipPosX = null;
