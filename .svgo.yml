@@ -38,3 +38,6 @@ plugins:
   - removeAttrs
   - addClassesToSVGElement
   - removeStyleElement
+js2svg:
+  pretty: true
+  indent: '  '
