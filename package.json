@@ -84,6 +84,7 @@
     "qunit": "0.7.7",
     "qunitjs": "1.20.0",
     "run-sequence": "1.1.5",
+    "svgo": "0.6.1",
     "through2": "0.6.5"
   }
 }
