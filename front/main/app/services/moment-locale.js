@@ -65,12 +65,12 @@ export default Ember.Service.extend({
 		this._super();
 		moment.locale('en', {
 			relativeTime: {
-				m: '1 m',
-				mm: '%d m',
-				h: '1 h',
-				hh: '%d h',
-				d: '1 d',
-				dd: '%d d'
+				m: '1m',
+				mm: '%dm',
+				h: '1h',
+				hh: '%dh',
+				d: '1d',
+				dd: '%dd'
 			}
 		});
 	}
