@@ -4,7 +4,7 @@
 			{{i18n 'main.user-replied-to' userName=post.threadCreatedBy.name ns='discussion'}}
 		</div>
 	{{/if}}
-	{{#if isModerationTools}}
+	{{#if areModerationTools}}
 		{{discussion-post-reported
 			approve=(action this.attrs.approve)
 			delete=(action this.attrs.delete)
