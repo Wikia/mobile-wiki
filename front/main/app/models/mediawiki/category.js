@@ -92,8 +92,6 @@ CategoryModel.reopenClass({
 			details,
 			article;
 
-		pageProperties.name = Ember.get(data, 'details.title');
-
 		if (exception) {
 			pageProperties = {
 				displayTitle: normalizeToWhitespace(model.title),
@@ -112,6 +110,8 @@ CategoryModel.reopenClass({
 					description: details.description
 				};
 			}
+
+			pageProperties.name = Ember.get(data, 'details.title');
 
 			if (data.article) {
 				article = data.article;
