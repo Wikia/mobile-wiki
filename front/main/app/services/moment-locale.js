@@ -48,6 +48,7 @@ export default Ember.Service.extend({
 		}
 	},
 	init() {
+		this._super();
 		moment.locale('en', {
 			relativeTime: {
 				m: '1 m',
