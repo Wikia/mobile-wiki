@@ -16,10 +16,6 @@ const Router = Ember.Router.extend({
 Router.map(function () {
 	const articlePath = '/wiki/';
 
-	this.route('mainPage', {
-		path: articlePath + Mercury.wiki.mainPageTitle
-	});
-
 	this.route('article-preview', {
 		path: '/article-preview'
 	});
@@ -79,7 +75,7 @@ Router.map(function () {
 		path: `/diff/:oldId/:newId`
 	});
 
-	this.route('article', {
+	this.route('wiki-page', {
 		path: `${articlePath}*title`
 	});
 

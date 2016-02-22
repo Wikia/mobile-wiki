@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
-import ArticleModel from '../models/article';
+import ArticleModel from '../models/mediawiki/article';
 import {activate as variantTestingActivate} from 'common/utils/variantTesting';
 import {getLinkInfo} from 'common/utils/articleLink';
 import {normalizeToUnderscore} from 'common/utils/string';
@@ -82,8 +82,8 @@ export default Ember.Route.extend(
 					trackingCategory,
 					info;
 
-				if (currentRoute === 'article') {
-					title = this.controllerFor('article').get('model').get('title');
+				if (currentRoute === 'wiki-page') {
+					title = this.controllerFor('wikiPage').get('model').get('title');
 				} else {
 					title = '';
 				}
@@ -119,7 +119,7 @@ export default Ember.Route.extend(
 				}
 
 				if (info.article) {
-					this.transitionTo('article', info.article + (info.hash ? info.hash : ''));
+					this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
 				} else if (info.url) {
 					/**
 					 * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link
@@ -146,7 +146,7 @@ export default Ember.Route.extend(
 				ArticleModel
 					.getArticleRandomTitle()
 					.then((articleTitle) => {
-						this.transitionTo('article', encodeURIComponent(normalizeToUnderscore(articleTitle)));
+						this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(articleTitle)));
 					})
 					.catch((err) => {
 						this.send('error', err);
