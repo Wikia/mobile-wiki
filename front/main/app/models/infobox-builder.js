@@ -139,12 +139,10 @@ const InfoboxBuilderModel = Ember.Object.extend({
 			index = this.increaseItemIndex(itemType);
 
 		return {
-			data: {
-				value: i18n.t('main.section-header-default', {
+			data: i18n.t('main.section-header-default', {
 					ns: 'infobox-builder',
 					index
-				})
-			},
+			}),
 			infoboxBuilderData: {
 				index,
 				component: InfoboxBuilderModel.createComponentName(itemType)

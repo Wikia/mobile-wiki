@@ -99,9 +99,7 @@ test('add items by type', (assert) => {
 			},
 			{
 				dataMock: {
-					data: {
-						value: messageMock
-					},
+					data: messageMock,
 					infoboxBuilderData: {
 						index,
 						component: mockComponentName

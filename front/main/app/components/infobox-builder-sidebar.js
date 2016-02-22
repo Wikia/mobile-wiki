@@ -17,8 +17,8 @@ export default Ember.Component.extend({
 			icon: 'image-block'
 		},
 		{
-		name: 'section-header',
-		icon: 'section-block'
+			name: 'section-header',
+			icon: 'section-block'
 		}
 	]
 });
