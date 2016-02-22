@@ -56,7 +56,6 @@ export default function getPageModel(params) {
 				// @todo - https://wikia-inc.atlassian.net/browse/XW-1151 (this should be handled differently)
 				M.prop('mediaWikiNamespace', data.data.ns, true);
 
-				debugger;
 				model = getModelForNamespace(data, params);
 				resolve(model);
 			},
