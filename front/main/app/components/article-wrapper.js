@@ -2,8 +2,7 @@ import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
-import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
-import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -148,12 +147,6 @@ export default Ember.Component.extend(
 			return this.get('currentUser.isAuthenticated') && !Ember.$.cookie('recent-edit-dismissed');
 		}),
 
-		articleObserver: Ember.on('willInsertElement', Ember.observer('model.article', function () {
-			// This check is here because this observer will actually be called for views wherein the state is actually
-			// not valid, IE, the view is in the process of preRender
-			Ember.run.scheduleOnce('afterRender', this, this.performArticleTransforms);
-		})),
-
 		actions: {
 			/**
 			 * @param {string} title
@@ -236,46 +229,6 @@ export default Ember.Component.extend(
 			}
 
 			// Bubble up to ApplicationView#click
-			return true;
-		},
-
-		/**
-		 * @returns {boolean}
-		 */
-		performArticleTransforms() {
-			const model = this.get('model'),
-				articleContent = model.get('content');
-
-			if (articleContent && articleContent.length > 0) {
-				setTrackContext({
-					a: model.title,
-					n: model.ns
-				});
-
-				updateTrackedUrl(window.location.href);
-
-				this.get('currentUser.userModel').then(({powerUserTypes}) => {
-					if (powerUserTypes) {
-						UniversalAnalytics.setDimension(
-							23,
-							powerUserTypes.contains('poweruser_lifetime') ? 'yes' : 'no'
-						);
-
-						UniversalAnalytics.setDimension(
-							24,
-							powerUserTypes.contains('poweruser_frequent') ? 'yes' : 'no'
-						);
-					} else {
-						UniversalAnalytics.setDimension(23, 'no');
-						UniversalAnalytics.setDimension(24, 'no');
-					}
-
-					trackPageView(model.get('adsContext.targeting'));
-				}).catch(() => {
-					trackPageView(model.get('adsContext.targeting'));
-				});
-			}
-
 			return true;
 		},
 

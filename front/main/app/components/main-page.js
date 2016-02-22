@@ -1,8 +1,6 @@
 import Ember from 'ember';
 import AdsMixin from '../mixins/ads';
 import TrackClickMixin from '../mixins/track-click';
-import {setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
-import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 
 export default Ember.Component.extend(
 	AdsMixin,
@@ -39,34 +37,6 @@ export default Ember.Component.extend(
 		 */
 		didReceiveAttrs() {
 			Ember.run.schedule('afterRender', this, () => {
-				setTrackContext({
-					a: this.get('title'),
-					n: this.get('ns'),
-				});
-
-				updateTrackedUrl(window.location.href);
-
-				this.get('currentUser.userModel').then(({powerUserTypes}) => {
-					if (powerUserTypes) {
-						UniversalAnalytics.setDimension(
-							23,
-							powerUserTypes.contains('poweruser_lifetime') ? 'yes' : 'no'
-						);
-
-						UniversalAnalytics.setDimension(
-							24,
-							powerUserTypes.contains('poweruser_frequent') ? 'yes' : 'no'
-						);
-					} else {
-						UniversalAnalytics.setDimension(23, 'no');
-						UniversalAnalytics.setDimension(24, 'no');
-					}
-
-					trackPageView(this.get('adsContext.targeting'));
-				}).catch(() => {
-					trackPageView(this.get('adsContext.targeting'));
-				});
-
 				this.injectMainPageAds();
 				this.setupAdsContext(this.get('adsContext'));
 			});

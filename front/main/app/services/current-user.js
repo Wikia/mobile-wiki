@@ -36,10 +36,11 @@ export default Ember.Service.extend({
 		const userId = this.get('userId');
 
 		if (userId !== null) {
-			return UserModel.find({userId})
-					.catch((err) => {
-						Ember.Logger.warn('Couldn\'t load current user model', err);
-					});
+			return UserModel
+				.find({userId})
+				.catch((err) => {
+					Ember.Logger.warn('Couldn\'t load current user model', err);
+				});
 		}
 
 		return Ember.RSVP.reject();
@@ -49,6 +50,8 @@ export default Ember.Service.extend({
 	 * @returns {void}
 	 */
 	init() {
+		this._super(...arguments);
+
 		Ember.RSVP.all([this.get('userModel'), this.loadUserInfo()]).then(([userModel, userInfo]) => {
 			if (userModel) {
 				this.setProperties(userModel);
@@ -60,12 +63,10 @@ export default Ember.Service.extend({
 				this.setUserRights(userInfo);
 			}
 		});
-
-		this._super(...arguments);
 	},
 
 	/**
-	 * @param {string|null} [userLang=null]
+	 * @param {string} query
 	 * @returns {void}
 	 */
 	setUserLanguage({query}) {
@@ -77,9 +78,8 @@ export default Ember.Service.extend({
 		}
 	},
 
-
 	/**
-	 * @param {QueryUserInfoResponse} result
+	 * @param {QueryUserInfoResponse} query
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	setUserRights({query}) {
@@ -97,7 +97,7 @@ export default Ember.Service.extend({
 	},
 
 	/**
-	 * @param {QueryUserInfoResponse} result
+	 * @param {QueryUserInfoResponse} query
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	setBlockedStatus({query}) {
@@ -109,7 +109,7 @@ export default Ember.Service.extend({
 	},
 
 	/**
-	 * TODO - move to UserModel
+	 * TODO - move to UserModel | XW-1160
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo() {
