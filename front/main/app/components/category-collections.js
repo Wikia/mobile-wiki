@@ -6,6 +6,6 @@ const {Component} = Ember;
 export default Component.extend(
 	TrackClickMixin,
 	{
-		classNames: ['category'],
+		classNames: ['category-collections'],
 	}
 );
