@@ -70,7 +70,7 @@ export default Ember.Route.extend({
 	afterModel(model) {
 		const exception = model.get('exception'),
 			articleType = model.get('articleType'),
-			namespace = model.get('namespace'),
+			namespace = model.get('ns'),
 			handler = this.getHandler(model);
 
 		if (!Ember.isEmpty(exception)) {
