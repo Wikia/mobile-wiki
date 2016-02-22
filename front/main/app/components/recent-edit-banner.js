@@ -46,9 +46,6 @@ export default Ember.Component.extend({
 		this.set('dismissed', true);
 	},
 	actions: {
-		postpone(label) {
-			this.dismissRecentEdit(1, label);
-		},
 		dismiss(label) {
 			this.dismissRecentEdit(10 * 365, label);
 		}
