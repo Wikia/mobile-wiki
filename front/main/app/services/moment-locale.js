@@ -5,16 +5,16 @@ export default Ember.Service.extend({
 	isLoaded: false,
 	isLoading: false,
 	localePath: {
-		de: '/front/main/public/moment/de.js',
-		es: '/front/main/public/moment/es.js',
-		fr: '/front/main/public/moment/fr.js',
-		it: '/front/main/public/moment/it.js',
-		ja: '/front/main/public/moment/ja.js',
-		pl: '/front/main/public/moment/pl.js',
-		'pt-br': '/front/main/public/moment/pt-br.js',
-		ru: '/front/main/public/moment/ru.js',
-		'zh-cn': '/front/main/public/moment/zh-cn.js',
-		'zh-tw': '/front/main/public/moment/zh-tw.js'
+		de: '/front/main/moment/de.js',
+		es: '/front/main/moment/es.js',
+		fr: '/front/main/moment/fr.js',
+		it: '/front/main/moment/it.js',
+		ja: '/front/main/moment/ja.js',
+		pl: '/front/main/moment/pl.js',
+		'pt-br': '/front/main/moment/pt-br.js',
+		ru: '/front/main/moment/ru.js',
+		'zh-cn': '/front/main/moment/zh-cn.js',
+		'zh-tw': '/front/main/moment/zh-tw.js'
 	},
 	onLanguageChange: Ember.observer('Mercury.wiki.language.content', function () {
 		this.loadTranslation();
