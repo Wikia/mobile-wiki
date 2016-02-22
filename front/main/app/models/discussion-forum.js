@@ -74,6 +74,8 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionModerationMode
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
 			success: (post) => {
 				post._embedded.firstPost[0].isNew = true;
+				post.firstPost = post._embedded.firstPost[0];
+
 				this.posts.insertAt(0, post);
 				this.incrementProperty('totalPosts');
 			},

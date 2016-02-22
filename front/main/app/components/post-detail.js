@@ -1,78 +1,63 @@
 import Ember from 'ember';
-import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
-import DiscussionMoreOptionsMixin from '../mixins/discussion-more-options';
+import DiscussionPostCardBaseComponent from './discussion-post-card-base';
 
-export default Ember.Component.extend(
-	DiscussionParsedContentMixin,
-	DiscussionMoreOptionsMixin,
-	{
-		classNames: ['post-detail'],
-		classNameBindings: ['isNew', 'isDeleted', 'isReported'],
+export default DiscussionPostCardBaseComponent.extend({
+	classNames: ['post-detail'],
 
-		areModerationTools: Ember.computed('isReported', 'isDeleted', function () {
-			return this.get('isReported') && !this.get('isDeleted');
-		}),
+	postId: Ember.computed.oneWay('post.threadId'),
 
-		isDeleted: Ember.computed.alias('post.isDeleted'),
-		isReported: Ember.computed.alias('post.isReported'),
+	routing: Ember.inject.service('-routing'),
 
-		postId: Ember.computed.oneWay('post.threadId'),
+	// Whether the component is displayed on the post details discussion page
+	isDetailsView: false,
 
-		routing: Ember.inject.service('-routing'),
+	// Whether the share-feature component is visible inside this component
+	isShareFeatureVisible: false,
 
-		// Whether the component is displayed on the post details discussion page
-		isDetailsView: false,
+	// Timeout used for auto-hiding the sharing icons
+	hideShareTimeout: null,
 
-		// Whether the share-feature component is visible inside this component
-		isShareFeatureVisible: false,
+	// URL passed to the ShareFeatureComponent for sharing a post
+	sharedUrl: Ember.computed('postId', function () {
+		const localPostUrl = this.get('routing').router.generate('discussion.post', this.get('postId'));
 
-		// Timeout used for auto-hiding the sharing icons
-		hideShareTimeout: null,
+		return `${Ember.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)}${localPostUrl}`;
+	}),
 
-		isNew: Ember.computed.oneWay('post.isNew'),
-
-		// URL passed to the ShareFeatureComponent for sharing a post
-		sharedUrl: Ember.computed('postId', function () {
-			const localPostUrl = this.get('routing').router.generate('discussion.post', this.get('postId'));
-
-			return `${Ember.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)}${localPostUrl}`;
-		}),
-
-		actions: {
-			/**
-			 * @returns {void}
-			 */
-			toggleShareComponent() {
-				if (this.get('isShareFeatureVisible')) {
-					this.set('isShareFeatureVisible', false);
-				} else {
-					this.set('isShareFeatureVisible', true);
-					this.hideShareTimeout = Ember.run.later(this, function () {
-						this.set('isShareFeatureVisible', false);
-					}, 5000);
-				}
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			hideShareComponent() {
+	actions: {
+		/**
+		 * @returns {void}
+		 */
+		toggleShareComponent() {
+			if (this.get('isShareFeatureVisible')) {
 				this.set('isShareFeatureVisible', false);
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			cancelHideShareComponent() {
-				Ember.run.cancel(this.hideShareTimeout);
-			},
+			} else {
+				this.set('isShareFeatureVisible', true);
+				this.hideShareTimeout = Ember.run.later(this, function () {
+					this.set('isShareFeatureVisible', false);
+				}, 5000);
+			}
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		willDestroyElement() {
+		hideShareComponent() {
+			this.set('isShareFeatureVisible', false);
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		cancelHideShareComponent() {
 			Ember.run.cancel(this.hideShareTimeout);
 		},
-	}
-);
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	willDestroyElement() {
+		Ember.run.cancel(this.hideShareTimeout);
+	},
+});

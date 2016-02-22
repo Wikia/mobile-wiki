@@ -96,12 +96,6 @@ body.discussions {
 	line-height: $line-height-smallest;
 	max-width: inherit;
 
-	.discussion-reply {
-		.reported {
-			margin-top: -14px;
-		}
-	}
-
 	.reported {
 		border-bottom: 1px solid $discussion-post-card-reported-border;
 		margin-bottom: 5px;
@@ -444,8 +438,19 @@ body.discussions {
 			.post-title {
 				font-size: $type-smallest;
 			}
-		}
 
+			.reported {
+				margin-top: -14px;
+			}
+		}
+	}
+
+	&.user-list-wrapper {
+		.discussion-reply {
+			.reported {
+				margin-top: -8px;
+			}
+		}
 	}
 
 	&.post {
@@ -456,6 +461,12 @@ body.discussions {
 				font-size: $type-smaller;
 				line-height: $line-height-smaller;
 				margin-bottom: 18px;
+			}
+		}
+
+		.discussion-reply {
+			.reported {
+				margin-top: -14px;
 			}
 		}
 	}
