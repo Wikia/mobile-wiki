@@ -1,14 +1,38 @@
-{{#each-in model.collections as |id data|}}
-	<h3>{{id}}</h3>
-	<ul>
-		{{#if data.hasPrev}}
-			<button {{action 'loadMore' id data.prevBatch }}>Load Previous</button>
-		{{/if}}
-	{{#each data.items as |item|}}
-		<li><a href="{{item.url}}">{{item.name}}</a></li>
-	{{/each}}
-		{{#if data.hasNext}}
-			<button {{action 'loadMore' id data.nextBatch }}>Load More</button>
-		{{/if}}
-	</ul>
-{{/each-in}}
+{{ad-slot name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
+{{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
+<div class="wiki-container">
+	<h2 class="wiki-title" {{action 'trackClick' 'wikiname'}}>{{#link-to 'wiki-page' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
+
+	{{#if model.hasArticle}}
+		{{article-wrapper
+		commentsPage=commentsPage
+		mainPageTitle=mainPageTitle
+		model=model
+		noAds=noAds
+		siteName=siteName
+		addPhoto='addPhoto'
+		articleRendered='articleRendered'
+		edit='edit'
+		openLightbox='openLightbox'
+		toggleSideNav='toggleSideNav'
+		}}
+	{{/if}}
+
+
+	{{#each-in model.collections as |id data|}}
+		<h3>{{id}}</h3>
+		<ul>
+			{{#if data.hasPrev}}
+				<button {{action 'loadMore' id data.prevBatch }}>Load Previous</button>
+			{{/if}}
+			{{#each data.items as |item|}}
+				<li><a href="{{item.url}}">{{item.name}}</a></li>
+			{{/each}}
+			{{#if data.hasNext}}
+				<button {{action 'loadMore' id data.nextBatch }}>Load More</button>
+			{{/if}}
+		</ul>
+	{{/each-in}}
+
+	{{wikia-footer}}
+</div>

@@ -1,8 +1,8 @@
 import Ember from 'ember';
-import CategoryModel from '../models/mediawiki/category';
 
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
+	article: Ember.inject.controller(),
 	noAds: Ember.computed.alias('application.noAds'),
 
 	/**
@@ -19,6 +19,27 @@ export default Ember.Controller.extend({
 	actions: {
 		loadMore() {
 			return this.get('model').loadMore(...arguments);
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		edit() {
+			this.get('article').send('edit', ...arguments);
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		addPhoto() {
+			this.get('article').send('addPhoto', ...arguments);
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		articleRendered() {
+			this.get('article').send('articleRendered', ...arguments);
 		}
 	}
 });

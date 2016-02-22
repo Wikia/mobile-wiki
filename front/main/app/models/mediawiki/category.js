@@ -43,7 +43,8 @@ const CategoryModel = Ember.Object.extend({
 	user: null,
 	users: [],
 	wiki: null,
-	name,
+	name: null,
+	hasArticle: false,
 
 	loadMore(index, batchToLoad) {
 		const url = getUrlBatchContent(this.get('name'), index, batchToLoad);
@@ -100,17 +101,22 @@ CategoryModel.reopenClass({
 			if (data.article) {
 				article = data.article;
 
-				pageProperties = $.extend(pageProperties, {
-					content: article.content,
-					displayTitle: article.displayTitle,
-					mediaUsers: article.users,
-					type: article.type,
-					media: MediaModel.create({
-						media: article.media
-					}),
-					categories: article.categories,
-					redirectEmptyTarget: data.redirectEmptyTarget || false
-				});
+				if (article.content.length > 0) {
+					pageProperties = $.extend(pageProperties, {
+						content: article.content,
+						displayTitle: article.displayTitle,
+						mediaUsers: article.users,
+						type: article.type,
+						media: MediaModel.create({
+							media: article.media
+						}),
+						categories: article.categories,
+						redirectEmptyTarget: data.redirectEmptyTarget || false,
+						hasArticle: true
+					});
+				} else {
+					pageProperties.hasArticle = false;
+				}
 			}
 
 			pageProperties.collections = Ember.get(data, 'nsData.members.collections');
