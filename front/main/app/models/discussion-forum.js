@@ -31,7 +31,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionModerationMode
 				const newPosts = data._embedded['doc:threads'];
 				let allPosts;
 
-				posts.forEach((post) => {
+				newPosts.forEach((post) => {
 					post.firstPost = post._embedded.firstPost[0];
 					post.firstPost.isReported = post.isReported;
 				});
