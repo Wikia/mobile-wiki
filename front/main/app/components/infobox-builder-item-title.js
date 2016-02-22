@@ -7,6 +7,8 @@ export default Ember.Component.extend(
 	InfoboxBuilderItemMixin, {
 		tagName: 'h2',
 		classNames: ['pi-item', 'pi-item-spacing', 'pi-title'],
+		// spacing around the element when dragged, used in SortableItem
+		spacing: 8,
 
 		value: Ember.computed('model.{infoboxBuilderData.index,data.defaultValue}', function () {
 			const defaultValue = this.get('model.data.defaultValue');

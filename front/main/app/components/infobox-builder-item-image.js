@@ -8,6 +8,8 @@ export default Ember.Component.extend(
 	{
 		tagName: 'figure',
 		classNames: ['pi-item', 'pi-image'],
+		// spacing around the element when dragged, used in SortableItem
+		spacing: 8,
 		thumbnail: '/front/common/images/infobox-builder-image-placeholder.png',
 		// cannot be 'height' & 'width' because sortable-item uses height & width props for its own purposes
 		imgWidth: 270,
