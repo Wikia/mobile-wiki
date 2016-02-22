@@ -10,13 +10,18 @@ export default Ember.Component.extend({
 	loaded: false,
 	recentEdit: null,
 	recentWikiActivityLink: '/recent-wiki-activity',
+	timeoutId: null,
 	init() {
 		this._super(...arguments);
-		RecentWikiActivityModel.getRecentActivityList().then((recentEdit) => {
+		RecentWikiActivityModel.getRecentActivityList(1, 'user|timestamp|title').then((recentEdit) => {
 			this.setProperties({
 				loaded: true,
 				recentEdit: recentEdit.recentChanges.get('firstObject')
 			});
+
+			this.set('timeoutId', Ember.run.later(this, () => {
+				this.dismissRecentEdit(1, 'postponed');
+			}, 7000));
 
 			track({
 				action: trackActions.impression,
@@ -44,6 +49,10 @@ export default Ember.Component.extend({
 		this.setCookie(expires);
 		this.sendTracking(label);
 		this.set('dismissed', true);
+
+		if(this.get('timeoutId')) {
+			Ember.run.cancel(this.get('timeoutId'));
+		}
 	},
 	actions: {
 		dismiss(label) {
