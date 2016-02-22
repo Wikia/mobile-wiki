@@ -74,7 +74,6 @@ export default Ember.Service.extend({
 
 		if (userLanguage) {
 			this.set('language', userLanguage);
-			M.prop('userLanguage', userLanguage);
 		}
 	},
 
