@@ -4,25 +4,49 @@
 	<h2 class="wiki-title" {{action 'trackClick' 'wikiname'}}>{{#link-to 'wiki-page' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
 
 	{{#if model.hasArticle}}
-		{{article-wrapper
-		commentsPage=commentsPage
-		mainPageTitle=mainPageTitle
-		model=model
-		noAds=noAds
-		siteName=siteName
-		addPhoto='addPhoto'
-		articleRendered='articleRendered'
-		edit='edit'
-		openLightbox='openLightbox'
-		toggleSideNav='toggleSideNav'
+		{{#article-wrapper
+			commentsPage=commentsPage
+			mainPageTitle=mainPageTitle
+			model=model
+			noAds=noAds
+			shouldDisplayArticleFooter=false
+			siteName=siteName
+			addPhoto='addPhoto'
+			articleRendered='articleRendered'
+			edit='edit'
+			openLightbox='openLightbox'
+			toggleSideNav='toggleSideNav'
+		}}
+			{{category-collections
+				adsContext=model.adsContext
+				collections=model.collections
+				loadBatch=(action 'loadMore')
+			}}
+		{{/article-wrapper}}
+	{{else}}
+		{{category-collections
+			adsContext=model.adsContext
+			collections=model.collections
+			loadBatch=(action 'loadMore')
 		}}
 	{{/if}}
 
-
-	{{category-collections
-	collections=model.collections
-	loadBatch=(action 'loadMore')
-	}}
+	<section class="article-footer">
+		{{#collapsible-menu
+			showMenuIcon=false
+			tLabel='app.article-categories-list-label'
+			ordered=false
+			observe=model.displayTitle
+			trackingEvent='category'
+		}}
+			{{#each model.categories as |category|}}
+				<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
+					{{unbound category.title}}
+					{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+				</a></li>
+			{{/each}}
+		{{/collapsible-menu}}
+	</section>
 
 	{{wikia-footer}}
 </div>
