@@ -9,14 +9,17 @@ export default Ember.Route.extend({
 		this.render('infobox-builder');
 	},
 
-	beforeModel() {
+	beforeModel(transition) {
+		const templateName = transition.params.infoboxBuilder.templateName;
+
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
 				Ember.RSVP.Promise.all([
-					this.loadAssets(),
+					this.loadAssets(templateName),
 					this.loadPonto()
 				])
 				.then(this.setupStyles)
+				.then(this.setupInfoboxState.bind(this))
 				.then(this.isWikiaContext)
 				.then(resolve, reject);
 			} else {
@@ -30,7 +33,13 @@ export default Ember.Route.extend({
 	},
 
 	afterModel(model) {
-		model.setupInitialState();
+		const templateData = this.controllerFor('infobox-builder').get('templateData');
+
+		if (templateData) {
+			model.setupExistingState(templateData);
+		} else {
+			model.setupInitialState();
+		}
 	},
 
 	/**
@@ -66,9 +75,10 @@ export default Ember.Route.extend({
 
 	/**
 	 * loads infobox builder assets from MW
+	 * @param {string} templateName
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadAssets() {
+	loadAssets(templateName) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: M.buildUrl({
@@ -77,7 +87,8 @@ export default Ember.Route.extend({
 				data: {
 					controller: 'PortableInfoboxBuilderController',
 					method: 'getAssets',
-					format: 'json'
+					format: 'json',
+					title: templateName
 				},
 				success: (data) => {
 					if (data && data.css) {
@@ -125,6 +136,28 @@ export default Ember.Route.extend({
 
 			resolve(promiseResponseArray);
 		});
+	},
+
+	/**
+	 * @desc pass received from MW infobox state (for already existing infobox templates)
+	 * and set it as a property on controller. We don't need to keep this in model as it's
+	 * not connected with data we need there.
+	 *
+	 * @param {Array} promiseResponseArray
+	 * @returns {Array} not modified promiseResponseArray
+	 */
+	setupInfoboxState(promiseResponseArray) {
+		const assets = promiseResponseArray[0].data;
+		let templateData = {};
+
+		if (assets) {
+			templateData = JSON.parse(assets);
+			if (templateData.data) {
+				this.controllerFor('infobox-builder').set('templateData', templateData.data);
+			}
+		}
+
+		return promiseResponseArray;
 	},
 
 	/**
@@ -193,24 +226,12 @@ export default Ember.Route.extend({
 		 * @desc Handles the add data, image or title button and call the proper
 		 * function on model.
 		 * @param {String} type - of item type
-		 * @returns {void}
+		 * @returns {Object} added item
 		*/
 		addItem(type) {
 			const model = this.modelFor('infoboxBuilder');
 
-			switch (type) {
-			case 'row':
-				model.addRowItem();
-				break;
-			case 'title':
-				model.addTitleItem();
-				break;
-			case 'image':
-				model.addImageItem();
-				break;
-			default:
-				break;
-			}
+			return model.addItem(type);
 		},
 
 		/**
