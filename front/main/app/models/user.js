@@ -18,7 +18,8 @@ const UserModel = Ember.Object.extend({
 	avatarPath: null,
 	name: null,
 	userId: null,
-	rights: null
+	rights: null,
+	powerUserTypes: null
 });
 
 UserModel.reopenClass({
@@ -75,7 +76,7 @@ UserModel.reopenClass({
 	 * @returns {UserProperties}
 	 */
 	sanitizeDetails(userData) {
-		return {
+		const data = {
 			name: userData.name,
 			userId: userData.user_id,
 			avatarPath: userData.avatar,
@@ -84,6 +85,12 @@ UserModel.reopenClass({
 				title: userData.name
 			})
 		};
+
+		if (userData.poweruser_types) {
+			data.powerUserTypes = userData.poweruser_types;
+		}
+
+		return data;
 	}
 });
 
