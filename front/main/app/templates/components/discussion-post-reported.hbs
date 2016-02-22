@@ -3,9 +3,9 @@
 </span>
 <div class="actions columns large-4 small-4">
 	{{#if canModerate}}
-		<a class="validate-link" {{action 'approve' post}}>{{svg 'checkmark' class='icon validate'}}</a>
+		<a class="validate-link" {{action 'approve' post isReply}}>{{svg 'checkmark' class='icon validate'}}</a>
 	{{/if}}
 	{{#if canDelete}}
-		<a class="delete-link" {{action 'delete' post}}>{{svg 'trash-small' class='icon reported-delete'}}</a>
+		<a class="delete-link" {{action 'delete' post isReply}}>{{svg 'trash-small' class='icon reported-delete'}}</a>
 	{{/if}}
 </div>

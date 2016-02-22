@@ -1,10 +1,11 @@
 <div class="discussion-reply">
 	{{#if showModerationTools}}
 		{{discussion-post-reported
-		approve=(action this.attrs.approve)
-		delete=(action this.attrs.delete)
-		post=post
-		reported-text=(i18n 'main.reported-to-moderators-reply' ns='discussion')
+			approve=(action this.attrs.approve)
+			delete=(action this.attrs.delete)
+			isReply=true
+			post=post
+			reported-text=(i18n 'main.reported-to-moderators-reply' ns='discussion')
 		}}
 	{{/if}}
 	{{#if showRepliedTo}}
