@@ -20,7 +20,7 @@
 
 
 	{{#each-in model.collections as |id data|}}
-		<h3>{{id}}</h3>
+		<h3 id="{{id}}">{{id}}</h3>
 		<ul>
 			{{#if data.hasPrev}}
 				<button {{action 'loadMore' id data.prevBatch }}>Load Previous</button>

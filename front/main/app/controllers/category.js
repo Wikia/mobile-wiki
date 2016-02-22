@@ -18,6 +18,8 @@ export default Ember.Controller.extend({
 
 	actions: {
 		loadMore() {
+			window.document.getElementById(arguments[0]).scrollIntoView();
+			window.scrollBy(0, -50);
 			return this.get('model').loadMore(...arguments);
 		},
 
