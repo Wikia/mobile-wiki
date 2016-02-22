@@ -19,21 +19,37 @@ export default Ember.Service.extend({
 	onLanguageChange: Ember.observer('Mercury.wiki.language.content', function () {
 		this.loadTranslation();
 	}),
-
+	/**
+	 * Changes status of downloading moment's locale to trigger observers
+	 *
+	 * @param {boolean} done
+	 * @return {void}
+	 */
 	changeLoadingStatus(done = true) {
 		this.setProperties({
 			isLoaded: done,
 			isLoading: !done
 		});
 	},
+	/**
+	 * Changes moment locale to en. It's loaded by default, so we don't need to download it
+	 *
+	 * @return {void}
+	 */
 	setEnTranslation() {
 		moment.locale('en');
 		Ember.run.next(() => {
 			this.changeLoadingStatus();
 		});
 	},
+	/**
+	 * Downloads locale for moment if content language is not en, otherwise just change to en
+	 *
+	 * @return {void}
+	 */
 	loadTranslation() {
-		const lang = Ember.get(Mercury, 'wiki.language.content') || 'en';
+		const contentLang = Ember.get(Mercury, 'wiki.language.content'),
+			lang = this.localePath.hasOwnProperty(contentLang) ? contentLang : 'en';
 
 		this.changeLoadingStatus(false);
 		if (lang !== 'en') {
@@ -47,6 +63,7 @@ export default Ember.Service.extend({
 			this.setEnTranslation();
 		}
 	},
+	// Extends default en translation by needed relative time on init
 	init() {
 		this._super();
 		moment.locale('en', {
