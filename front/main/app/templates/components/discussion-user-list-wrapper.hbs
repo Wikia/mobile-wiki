@@ -1,12 +1,13 @@
 {{#each posts as |item|}}
 	{{#if item.isReply }}
 		{{post-reply
+			approve=(action this.attrs.approveReply)
 			author=item.createdBy
 			content=item.rawContent
 			delete=(action this.attrs.deleteReply)
 			isParentDeleted=model.firstPost.isDeleted
 			post=item
-			reportReply=(action this.attrs.reportReply)
+			report=(action this.attrs.reportReply)
 			showRepliedTo=true
 			timestamp=item.creationDate.epochSecond
 			undelete=(action this.attrs.undeleteReply)
@@ -16,11 +17,12 @@
 		}}
 	{{else}}
 		{{post-detail
+			approve=(action this.attrs.approvePost)
 			author=item.createdBy
 			delete=(action this.attrs.deletePost)
 			isReported=item.isReported
 			post=item
-			reportPost=(action this.attrs.reportPost)
+			report=(action this.attrs.reportPost)
 			replyCount=item._embedded.thread.[0].postCount
 			undelete=(action this.attrs.undeletePost)
 			upvote=(action this.attrs.upvote)

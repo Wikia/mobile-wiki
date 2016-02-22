@@ -143,6 +143,42 @@ export default Ember.Mixin.create({
 	},
 
 	/**
+	 * Approve post in service
+	 * @param {object} post
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	approvePost(post) {
+		return ajaxCall({
+			data: JSON.stringify({value: 1}),
+			dataType: 'text',
+			method: 'PUT',
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${post.id}/report/valid`),
+			success: () => {
+				let postParentObject;
+
+				// this is a hack needed at the moment - under a serious discussion, and the fix will be provided before
+				// merge to dev
+				if (this.get('isReported') === undefined) {
+					if (Ember.get(post, 'isReply') === undefined) {
+						postParentObject = this.get('posts').find((item) => item.firstPostId === Ember.get(post, 'id'));
+						Ember.set(postParentObject, 'isReported', false);
+					}
+					else {
+						Ember.set(post, 'isReported', false);
+					}
+
+				}
+				else {
+					this.set('isReported', false);
+				}
+			},
+			error: () => {
+				this.displayError();
+			}
+		});
+	},
+
+	/**
 	 * Report reply in service
 	 * @param {object} reply
 	 * @returns {Ember.RSVP.Promise}
@@ -156,6 +192,26 @@ export default Ember.Mixin.create({
 			success: () => {
 				Ember.set(reply, '_embedded.userData.0.hasReported', true);
 				Ember.set(reply, 'isReported', true);
+			},
+			error: () => {
+				this.displayError();
+			}
+		});
+	},
+
+	/**
+	 * Approve reply in service
+	 * @param {object} reply
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	approveReply(reply) {
+		return ajaxCall({
+			data: JSON.stringify({value: 1}),
+			dataType: 'text',
+			method: 'PUT',
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/report/valid`),
+			success: () => {
+				Ember.set(reply, 'isReported', false);
 			},
 			error: () => {
 				this.displayError();

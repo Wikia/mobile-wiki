@@ -52,11 +52,27 @@ export default Ember.Mixin.create({
 		},
 
 		/**
+		 * @param {object} post
+		 * @returns {void}
+		 */
+		approvePost(post) {
+			this.get('target').send('approvePost', post);
+		},
+
+		/**
 		 * @param {object} reply
 		 * @returns {void}
 		 */
 		reportReply(reply) {
 			this.get('target').send('reportReply', reply);
+		},
+
+		/**
+		 * @param {object} reply
+		 * @returns {void}
+		 */
+		approveReply(reply) {
+			this.get('target').send('approveReply', reply);
 		},
 	}
 });

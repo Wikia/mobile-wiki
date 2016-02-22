@@ -1,6 +1,8 @@
 <div>
 	{{#if isReported }}
 		{{discussion-post-reported
+			approve=(action this.attrs.approve)
+			delete=(action this.attrs.delete)
 			reported-text=(i18n 'main.reported-to-moderators' ns='discussion')
 		}}
 	{{/if}}
@@ -22,7 +24,7 @@
 			delete=(action 'delete')
 			deleteMessage=(i18n 'main.delete-post' ns='discussion')
 			post=post
-			report=(action 'reportPost')
+			report=(action 'report')
 			reportMessage=(i18n 'main.report-post' ns='discussion')
 			undelete=(action 'undelete')
 			undeleteMessage=(i18n 'main.undelete-post' ns='discussion')
@@ -68,7 +70,7 @@
 	<div class="share small-5 large-7 columns">
 		{{#if isDetailsView}}
 			{{share-feature sharedUrl=sharedUrl}}
-		{{else}}
+		{{else}}s
 			{{share-feature
 				sharedUrl=sharedUrl
 				isVisible=isShareFeatureVisible

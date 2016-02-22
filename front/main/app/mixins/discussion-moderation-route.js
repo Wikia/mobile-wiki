@@ -120,5 +120,29 @@ export default Ember.Mixin.create({
 				Ember.set(reply, 'isLoading', false);
 			});
 		},
+
+		/**
+		 * Pass post approval to model
+		 * @param {object} post
+		 * @returns {void}
+		 */
+		approvePost(post) {
+			Ember.set(post, 'isLoading', true);
+			this.modelFor(this.get('routeName')).approvePost(post).then(() => {
+				Ember.set(post, 'isLoading', false);
+			});
+		},
+
+		/**
+		 * Pass reply approval to model
+		 * @param {object} reply
+		 * @returns {void}
+		 */
+		approveReply(reply) {
+			Ember.set(reply, 'isLoading', true);
+			this.modelFor(this.get('routeName')).approveReply(reply).then(() => {
+				Ember.set(reply, 'isLoading', false);
+			});
+		},
 	}
 });

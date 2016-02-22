@@ -6,6 +6,8 @@
 	{{/if}}
 	{{#if isReported }}
 		{{discussion-post-reported
+			approve=(action this.attrs.approve)
+			delete=(action this.attrs.delete)
 			reported-text=(i18n 'main.reported-to-moderators-reply' ns='discussion')
 		}}
 	{{/if}}
@@ -34,7 +36,7 @@
 				delete=(action 'delete')
 				deleteMessage=(i18n 'main.delete-reply' ns='discussion')
 				post=post
-				report=(action 'reportReply')
+				report=(action 'report')
 				reportMessage=(i18n 'main.report-reply' ns='discussion')
 				undelete=(action 'undelete')
 				undeleteMessage=(i18n 'main.undelete-reply' ns='discussion')
