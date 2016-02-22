@@ -45,6 +45,8 @@ const CategoryModel = Ember.Object.extend({
 	wiki: null,
 	name: null,
 	hasArticle: false,
+	ns: null,
+	id: null,
 
 	loadMore(index, batchToLoad) {
 		const url = getUrlBatchContent(this.get('name'), index, batchToLoad);
@@ -100,6 +102,15 @@ CategoryModel.reopenClass({
 		} else if (data) {
 			if (data.details) {
 				details = data.details;
+
+				pageProperties = {
+					ns: details.ns,
+					displayTitle: details.title,
+					id: details.id,
+					user: details.revision.user_id,
+					url: details.url,
+					description: details.description
+				};
 			}
 
 			if (data.article) {
@@ -125,15 +136,6 @@ CategoryModel.reopenClass({
 
 			pageProperties.collections = Ember.get(data, 'nsData.members.collections');
 
-			if (data.relatedPages) {
-				/**
-				 * Code to combat a bug observed on the Karen Traviss page on the Star Wars wiki, where there
-				 * are no relatedPages for some reason. Moving forward it would be good for the Wikia API
-				 * to handle this and never return malformed structures.
-				 */
-				pageProperties.relatedPages = data.relatedPages;
-			}
-
 			if (data.otherLanguages) {
 				pageProperties.otherLanguages = data.otherLanguages;
 			}
@@ -144,11 +146,6 @@ CategoryModel.reopenClass({
 				if (pageProperties.adsContext.targeting) {
 					pageProperties.adsContext.targeting.mercuryPageCategories = pageProperties.categories;
 				}
-			}
-
-			if (data.topContributors) {
-				// Same issue: the response to the ajax should always be valid and not undefined
-				pageProperties.topContributors = data.topContributors;
 			}
 
 			// @todo this will be cleaned up in XW-1053
