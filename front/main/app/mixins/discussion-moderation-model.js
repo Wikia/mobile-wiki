@@ -126,24 +126,9 @@ export default Ember.Mixin.create({
 			method: 'PUT',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${post.id}/report`),
 			success: () => {
-				let postParentObject;
 				Ember.set(post, '_embedded.userData.0.hasReported', true);
+				Ember.set(post, 'isReported', true);
 
-				// this is a hack needed at the moment - under a serious discussion, and the fix will be provided before
-				// merge to dev
-				if (this.get('isReported') === undefined) {
-					if (Ember.get(post, 'isReply') === undefined) {
-						postParentObject = this.get('posts').find((item) => item.firstPostId === Ember.get(post, 'id'));
-						Ember.set(postParentObject, 'isReported', true);
-					}
-					else {
-						Ember.set(post, 'isReported', true);
-					}
-
-				}
-				else {
-					this.set('isReported', true);
-				}
 			},
 			error: () => {
 				this.displayError();
@@ -167,23 +152,7 @@ export default Ember.Mixin.create({
 			method: 'PUT',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${post.id}/report/valid`),
 			success: () => {
-				let postParentObject;
-
-				// this is a hack needed at the moment - under a serious discussion, and the fix will be provided before
-				// merge to dev
-				if (this.get('isReported') === undefined) {
-					if (Ember.get(post, 'isReply') === undefined) {
-						postParentObject = this.get('posts').find((item) => item.firstPostId === Ember.get(post, 'id'));
-						Ember.set(postParentObject, 'isReported', false);
-					}
-					else {
-						Ember.set(post, 'isReported', false);
-					}
-
-				}
-				else {
-					this.set('isReported', false);
-				}
+				Ember.set(post, 'isReported', false);
 			},
 			error: () => {
 				this.displayError();

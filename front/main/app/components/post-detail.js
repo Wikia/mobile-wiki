@@ -9,10 +9,13 @@ export default Ember.Component.extend(
 		classNames: ['post-detail'],
 		classNameBindings: ['isNew', 'isDeleted', 'isReported'],
 
-		isDeleted: Ember.computed.alias('post.isDeleted'),
-		areModerationTools: Ember.computed('isReported', 'post.isDeleted', function () {
-			return this.get('isReported') && !this.get('post.isDeleted');
+		areModerationTools: Ember.computed('isReported', 'isDeleted', function () {
+			return this.get('isReported') && !this.get('isDeleted');
 		}),
+
+		isDeleted: Ember.computed.alias('post.isDeleted'),
+		isReported: Ember.computed.alias('post.isReported'),
+
 		postId: Ember.computed.oneWay('post.threadId'),
 
 		routing: Ember.inject.service('-routing'),

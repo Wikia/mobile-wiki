@@ -9,10 +9,11 @@ export default Ember.Component.extend(
 		classNames: ['post-reply'],
 		classNameBindings: ['isNew', 'isDeleted', 'isParentDeleted', 'isReported'],
 
-		isDeleted: Ember.computed.alias('post.isDeleted'),
-		areModerationTools: Ember.computed('post.isReported', 'post.isDeleted', function () {
-			return this.get('post.isReported') && !this.get('post.isDeleted');
+		areModerationTools: Ember.computed('isReported', 'isDeleted', function () {
+			return this.get('isReported') && !this.get('isDeleted');
 		}),
+
+		isDeleted: Ember.computed.alias('post.isDeleted'),
 		isReported: Ember.computed.alias('post.isReported'),
 	}
 );
