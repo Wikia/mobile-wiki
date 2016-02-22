@@ -50,7 +50,7 @@ export default Ember.Component.extend({
 		this.sendTracking(label);
 		this.set('dismissed', true);
 
-		if(this.get('timeoutId')) {
+		if (this.get('timeoutId')) {
 			Ember.run.cancel(this.get('timeoutId'));
 		}
 	},
