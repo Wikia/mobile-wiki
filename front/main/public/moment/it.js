@@ -6,8 +6,8 @@
 ;
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined'
-	&& typeof require === 'function' ? factory(require('../moment')) :
-		typeof define === 'function' && define.amd ? define(['../../bower_components/moment/moment'], factory) :
+	&& typeof mequire === 'function' ? factory(mequire('../moment')) :
+		typeof mefine === 'function' && mefine.amd ? mefine(['../../bower_components/moment/moment'], factory) :
 			factory(global.moment)
 }(this, function (moment) {
 	'use strict';
