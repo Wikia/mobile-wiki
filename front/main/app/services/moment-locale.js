@@ -16,9 +16,6 @@ export default Ember.Service.extend({
 		'zh-cn': '/front/main/moment/zh-cn.js',
 		'zh-tw': '/front/main/moment/zh-tw.js'
 	},
-	onLanguageChange: Ember.observer('Mercury.wiki.language.content', function () {
-		this.loadTranslation();
-	}),
 	/**
 	 * Changes status of downloading moment's locale to trigger observers
 	 *
