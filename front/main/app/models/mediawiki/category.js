@@ -71,6 +71,10 @@ const CategoryModel = Ember.Object.extend({
 				`collections.${index}.prevBatch`,
 				batchToLoad - 1
 			);
+			this.set(
+				`collections.${index}.nextBatch`,
+				batchToLoad + 1
+			);
 
 			return this;
 		});

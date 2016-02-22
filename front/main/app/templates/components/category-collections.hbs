@@ -1,0 +1,14 @@
+{{#each-in collections as |id data|}}
+	<h3 id="{{id}}">{{id}}</h3>
+	<ul>
+		{{#if data.hasPrev}}
+			<button {{action attrs.loadBatch id data.prevBatch }}>Load Previous</button>
+		{{/if}}
+		{{#each data.items as |item|}}
+			<li><a href="{{item.url}}">{{item.name}}</a></li>
+		{{/each}}
+		{{#if data.hasNext}}
+			<button {{action attrs.loadBatch id data.nextBatch }}>Load More</button>
+		{{/if}}
+	</ul>
+{{/each-in}}

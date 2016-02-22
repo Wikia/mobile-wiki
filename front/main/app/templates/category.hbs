@@ -19,20 +19,10 @@
 	{{/if}}
 
 
-	{{#each-in model.collections as |id data|}}
-		<h3 id="{{id}}">{{id}}</h3>
-		<ul>
-			{{#if data.hasPrev}}
-				<button {{action 'loadMore' id data.prevBatch }}>Load Previous</button>
-			{{/if}}
-			{{#each data.items as |item|}}
-				<li><a href="{{item.url}}">{{item.name}}</a></li>
-			{{/each}}
-			{{#if data.hasNext}}
-				<button {{action 'loadMore' id data.nextBatch }}>Load More</button>
-			{{/if}}
-		</ul>
-	{{/each-in}}
+	{{category-collections
+	collections=model.collections
+	loadBatch=(action 'loadMore')
+	}}
 
 	{{wikia-footer}}
 </div>
