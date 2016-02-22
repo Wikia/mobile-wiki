@@ -129,9 +129,7 @@ export default Ember.Route.extend({
 				UniversalAnalytics.setDimension(23, 'no');
 				UniversalAnalytics.setDimension(24, 'no');
 			}
-
-			trackPageView(this.get('adsContext.targeting'));
-		}).catch(() => {
+		}).finally(() => {
 			trackPageView(this.get('adsContext.targeting'));
 		});
 	},
