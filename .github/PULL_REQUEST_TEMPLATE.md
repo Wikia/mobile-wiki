@@ -1,5 +1,3 @@
-# JIRA-123 One Sentence Overview
-
 **Work in progress. Don't merge!** State it here and use labels.
 
 ## Links
