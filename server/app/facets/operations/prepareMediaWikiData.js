@@ -20,11 +20,11 @@ export default function prepareMediaWikiData(request, data) {
 
 	result.isRtl = isRtl(wikiVariables);
 
-	result.htmlTitle = Utils.getHtmlTitle(wikiVariables, result.displayTitle);
+	result.htmlTitle = data.page.data.htmlTitle;
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
-	result.openGraph = getOpenGraphData('article', result.displayTitle, result.canonicalUrl);
+	result.openGraph = getOpenGraphData('wiki-page', data.page.data.htmlTitle, null);
 	// clone object to avoid overriding real localSettings for futurue requests
 	result.localSettings = getLocalSettings();
 
