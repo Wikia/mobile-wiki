@@ -121,10 +121,6 @@ Router.map(function () {
 
 	this.route('recent-wiki-activity');
 
-	this.route('category', {
-		path: '/wiki/category/:name'
-	});
-
 	// Route to catch all badly formed URLs
 	this.route('notFound', {
 		path: '/*url'

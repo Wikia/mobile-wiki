@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import CategoryModel from '../models/mediawiki/category';
 
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),

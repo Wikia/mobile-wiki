@@ -4,8 +4,8 @@ import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 import ArticleHandler from '../utils/mediawiki-handlers/article';
 import CategoryHandler from '../utils/mediawiki-handlers/category';
 import CuratedMainPageHandler from '../utils/mediawiki-handlers/curated-main-page';
+import getPageModel from '../utils/mediawiki-handlers/wiki-page';
 import {namespace as MediawikiNamespace, getCurrentNamespace} from '../utils/mediawiki-namespace';
-import WikiPageModel from '../models/mediawiki/wiki-page';
 
 export default Ember.Route.extend({
 	redirectEmptyTarget: false,
@@ -56,7 +56,7 @@ export default Ember.Route.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	model(params) {
-		return WikiPageModel.find({
+		return getPageModel({
 			basePath: Mercury.wiki.basePath,
 			title: params.title,
 			wiki: this.controllerFor('application').get('domain')
@@ -83,6 +83,8 @@ export default Ember.Route.extend({
 		this.set('mediaWikiHandler', handler);
 
 		handler.afterModel(this, model);
+
+		console.log(model);
 	},
 
 	/**
