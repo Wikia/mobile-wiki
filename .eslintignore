@@ -4,10 +4,10 @@ test/
 
 front/auth/bower_components/
 front/common/bower_components/
-front/common/public/locales/moment/
 
 front/main/bower_components/
 front/main/node_modules/
+front/main/public/moment
 front/main/vendor/
 front/main/tmp/
 
