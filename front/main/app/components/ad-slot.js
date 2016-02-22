@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import Ads from 'common/modules/Ads';
 
-export default Ember.Component.extend({
+const {Component, computed, Logger} = Ember;
+
+export default Component.extend({
 	classNames: ['ad-slot-wrapper'],
 	classNameBindings: ['nameLowerCase', 'noAds'],
 	// This component is created dynamically, and this won't work without it
@@ -9,7 +11,7 @@ export default Ember.Component.extend({
 
 	name: null,
 
-	nameLowerCase: Ember.computed('name', function () {
+	nameLowerCase: computed('name', function () {
 		return Ember.String.dasherize(this.get('name').toLowerCase());
 	}),
 
@@ -23,7 +25,7 @@ export default Ember.Component.extend({
 	 * If getter is accessed before setter (before Ember cache is filled with value)
 	 * the default is false (show ads)
 	 */
-	noAds: Ember.computed({
+	noAds: computed({
 		get() {
 			return false;
 		},
@@ -37,9 +39,9 @@ export default Ember.Component.extend({
 	 */
 	didInsertElement() {
 		if (this.get('noAds') === true) {
-			Ember.Logger.info('Ad disabled for:', this.get('name'));
+			Logger.info('Ad disabled for:', this.get('name'));
 		} else {
-			Ember.Logger.info('Injected ad:', this.get('name'));
+			Logger.info('Injected ad:', this.get('name'));
 			Ads.getInstance().addSlot(this.get('name'));
 		}
 	},
@@ -53,6 +55,6 @@ export default Ember.Component.extend({
 		Ads.getInstance().removeSlot(this.get('name'));
 		this.$().remove();
 
-		Ember.Logger.info('Will destroy ad:', name);
+		Logger.info('Will destroy ad:', name);
 	},
 });

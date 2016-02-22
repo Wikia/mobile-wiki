@@ -22,7 +22,7 @@ export default Ember.Controller.extend({
 			title = normalizeToUnderscore(title);
 		}
 
-		this.transitionToRoute('article', title).then(() => {
+		this.transitionToRoute('wiki-page', title).then(() => {
 			this.get('application').addAlert({
 				message: i18n.t('app.add-photo-success'),
 				type: 'success'
@@ -85,7 +85,7 @@ export default Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		back() {
-			this.transitionToRoute('article', this.get('model.title'));
+			this.transitionToRoute('wiki-page', this.get('model.title'));
 		}
 	}
 });

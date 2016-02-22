@@ -21,7 +21,7 @@ const cachingTimes = {
  *
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
- * @param {ArticlePageData} data
+ * @param {MediaWikiPageData} data
  * @param {boolean} [allowCache=true]
  * @param {number} [code=200]
  *

@@ -1,3 +1,10 @@
+## release-211 (2016-02-18 10:58 UTC)
+* const-Ember: use const {...} = Ember;
+* [INT-337](https://wikia-inc.atlassian.net/browse/INT-337) INT-337 | Page loading optimizations and cleanup
+* [SOC-1933](https://wikia-inc.atlassian.net/browse/SOC-1933) SOC-1933 | Registration modal broken on pt wikis
+* [XW-1133](https://wikia-inc.atlassian.net/browse/XW-1133) XW-1133 | Don't collapse infobox when user clicks on image/video caption
+* content-type-fix: Utils | Use propert content type name for json
+
 ## release-210 (2016-02-16 11:53 UTC)
 * [CE-3368](https://wikia-inc.atlassian.net/browse/CE-3368) Fix RWA when preserved diff is not at the list
 * [XW-41](https://wikia-inc.atlassian.net/browse/XW-41) XW-41 | Replace placeholders with components dynamically

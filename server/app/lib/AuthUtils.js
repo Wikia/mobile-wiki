@@ -5,6 +5,7 @@
 import url from 'url';
 import querystring from 'querystring';
 import localSettings from '../../config/localSettings';
+import authLocaleSettings from '../../config/authLocaleSettings.js';
 
 /**
  * @typedef {Object} WhoAmIResponse
@@ -91,4 +92,14 @@ export function getWhoAmIUrl() {
 		host: localSettings.servicesDomain,
 		pathname: localSettings.whoAmIService.path
 	});
+}
+
+/**
+ * @param {object} i18n
+ * @returns {string}
+ */
+export function getLanguageWithDefault(i18n = {}) {
+	const lang = i18n.lng();
+
+	return authLocaleSettings.hasOwnProperty(lang) ? lang : 'en';
 }
