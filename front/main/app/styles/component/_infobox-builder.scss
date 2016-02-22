@@ -6,8 +6,9 @@ $icon-wrapper-size: 50px;
 $icon-button-size: 30px;
 $border-width: 1px;
 $box-shadow-size: 2px;
-$shadowBlur: 8px;
-$shadowColor: rgba(0,0,0,0.3);
+$shadow-blur: 15px;
+$shadow-color: rgba(0,0,0,0.3);
+$grayout-color: rgba(255,255,255,0.3);
 
 // overwrite default mercury styles
 .infobox-builder-body-wrapper {
@@ -78,7 +79,7 @@ $shadowColor: rgba(0,0,0,0.3);
 		}
 
 		&.active:after {
-			box-shadow: 0 $box-shadow-size $shadowBlur 0 $shadowColor;
+			box-shadow: 0 $box-shadow-size $shadow-blur 0 $shadow-color;
 			cursor: pointer;
 		}
 
@@ -86,15 +87,15 @@ $shadowColor: rgba(0,0,0,0.3);
 			z-index: 4;
 			&:after {
 				cursor: move;
-				transition: box-shadow 0.5s ease-in-out;
-				box-shadow: 0 $box-shadow-size * 4 $shadowBlur 0 $shadowColor;
+				transition: box-shadow 0.2s ease-in-out;
+				box-shadow: 0 $box-shadow-size * 4 $shadow-blur 0 $shadow-color;
 			}
 		}
 	}
 }
 
 .infobox-builder-sidebar {
-	box-shadow: -$box-shadow-size 0 $shadowBlur 0 $shadowColor;
+	box-shadow: -$box-shadow-size 0 $shadow-blur 0 $shadow-color;
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
 
@@ -276,6 +277,6 @@ $shadowColor: rgba(0,0,0,0.3);
 		height: 100%;
 		width: 100%;
 		z-index: 2;
-		background-color: rgba(0,0,0,0.1);
+		background-color: $grayout-color;
 	}
 }
