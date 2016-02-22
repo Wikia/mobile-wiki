@@ -4,6 +4,7 @@ import moment from 'moment';
 export default Ember.Service.extend({
 	isLoaded: false,
 	isLoading: false,
+	// Path to all supported locales, so they can be revved
 	localePath: {
 		de: '/front/main/moment/de.js',
 		es: '/front/main/moment/es.js',
@@ -17,7 +18,7 @@ export default Ember.Service.extend({
 		'zh-tw': '/front/main/moment/zh-tw.js'
 	},
 	/**
-	 * Changes status of downloading moment's locale to trigger observers
+	 * Changes status of downloading moment's locale to trigger helper's observers
 	 *
 	 * @param {boolean} done
 	 * @return {void}
@@ -33,32 +34,45 @@ export default Ember.Service.extend({
 	 *
 	 * @return {void}
 	 */
-	setEnTranslation() {
+	setEnLocale() {
 		moment.locale('en');
 		Ember.run.next(() => {
 			this.changeLoadingStatus();
 		});
 	},
 	/**
-	 * Downloads locale for moment if content language is not en, otherwise just change to en
+	 * Downloads locale for moment if content language is not en, otherwise just changes to en
 	 *
 	 * @return {void}
 	 */
-	loadTranslation() {
+	loadLocale() {
 		const contentLang = Ember.get(Mercury, 'wiki.language.content'),
 			lang = this.localePath.hasOwnProperty(contentLang) ? contentLang : 'en';
 
 		this.changeLoadingStatus(false);
-		if (lang !== 'en') {
+		if (lang === 'en') {
+			this.setEnLocale();
+		} else {
 			Ember.$.getScript(this.localePath[lang]).done(() => {
 				this.changeLoadingStatus();
 			}).fail((jqxhr, settings, exception) => {
 				Ember.Logger.error(`Can't get moment translation for ${lang} | ${exception}`);
-				this.setEnTranslation();
+				this.setEnLocale();
 			});
-		} else {
-			this.setEnTranslation();
 		}
+	},
+	/**
+	 * Returns true when locale is set, so helpers will display date instead of placeholders
+	 *
+	 * @return {boolean}
+	 */
+	isLocaleLoaded() {
+		if (this.isLoaded) {
+			return true;
+		} else if (!this.isLoading) {
+			this.loadLocale();
+		}
+		return false;
 	},
 	// Extends default en translation by needed relative time on init
 	init() {

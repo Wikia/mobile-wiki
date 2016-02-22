@@ -18,10 +18,8 @@ export default Ember.Helper.extend({
 	compute([unixTimestamp, dateFormat = 'LLLL']) {
 		const momentLocaleService = this.get('momentLocale');
 
-		if (momentLocaleService.get('isLoaded')) {
+		if (momentLocaleService.isLocaleLoaded()) {
 			return moment.unix(unixTimestamp).format(dateFormat);
-		} else if (!momentLocaleService.get('isLoading')) {
-			momentLocaleService.loadTranslation();
 		}
 	}
 });
