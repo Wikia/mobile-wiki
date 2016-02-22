@@ -8,7 +8,7 @@
 			{{svg 'back-arrow' role='img' class='icon-back'}}
 		{{/link-to}}
 	{{else}}
-		{{#link-to 'article' model.title
+		{{#link-to 'wiki-page' model.title
 			class='recent-change__see-diff'
 			tracking-category='recent-wiki-activity'
 			tracking-label='recent-change__see-diff'
@@ -26,7 +26,7 @@
 }}
 <small class="recent-change__time-ago">{{time-ago model.timestamp}}</small>
 <h3 class="recent-change__article-title">
-	{{#link-to 'article' model.title
+	{{#link-to 'wiki-page' model.title
 		tracking-category='recent-wiki-activity'
 		tracking-label='recent-change__article-title'
 	}}
