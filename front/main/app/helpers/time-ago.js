@@ -29,7 +29,7 @@ export default Ember.Helper.extend({
 			if (!momentLocaleService.get('isLoading')) {
 				momentLocaleService.loadTranslation();
 			}
-			return Ember.String.htmlSafe('<span class="date-placeholder"> </span>');
+			return new Ember.Handlebars.SafeString('<span class="date-placeholder"> </span>');
 		} else {
 			if (now.diff(date, 'days') > 5) {
 				output = date.format('L');
