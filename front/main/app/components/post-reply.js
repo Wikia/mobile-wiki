@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import DiscussionPostCardBaseComponent from './discussion-post-card-base';
 
 export default DiscussionPostCardBaseComponent.extend({

@@ -124,7 +124,7 @@ DiscussionPostModel.reopenClass({
 				postInstance.setProperties({
 					contributors,
 					forumId: data.forumId,
-					firstPost: firstPost,
+					firstPost,
 					id: data.id,
 					page: 0,
 					pivotId,

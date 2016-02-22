@@ -15,8 +15,8 @@ export default Ember.Mixin.create({
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/delete`),
 				success: () => {
 					Ember.setProperties(post, {
-						'isDeleted' : true,
-						'isReported': false
+						isDeleted: true,
+						isReported: false
 					});
 				},
 				error: () => {
@@ -39,8 +39,8 @@ export default Ember.Mixin.create({
 				success: () => {
 					posts.forEach((post) => {
 						Ember.setProperties(post, {
-							'isDeleted' : true,
-							'isReported': false
+							isDeleted: true,
+							isReported: false
 						});
 					});
 				},
@@ -83,8 +83,8 @@ export default Ember.Mixin.create({
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/delete`),
 				success: () => {
 					Ember.setProperties(reply, {
-						'isDeleted' : true,
-						'isReported': false
+						isDeleted: true,
+						isReported: false
 					});
 				},
 				error: () => {
@@ -142,22 +142,20 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	approvePost(post) {
-		if (!checkPermissions(post, 'canModerate')) {
-			return;
+		if (checkPermissions(post, 'canModerate')) {
+			return ajaxCall({
+				data: JSON.stringify({value: 1}),
+				dataType: 'text',
+				method: 'PUT',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${post.id}/report/valid`),
+				success: () => {
+					Ember.set(post, 'isReported', false);
+				},
+				error: () => {
+					this.displayError();
+				}
+			});
 		}
-
-		return ajaxCall({
-			data: JSON.stringify({value: 1}),
-			dataType: 'text',
-			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${post.id}/report/valid`),
-			success: () => {
-				Ember.set(post, 'isReported', false);
-			},
-			error: () => {
-				this.displayError();
-			}
-		});
 	},
 
 	/**
@@ -187,22 +185,20 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	approveReply(reply) {
-		if (!checkPermissions(reply, 'canModerate')) {
-			return;
+		if (checkPermissions(reply, 'canModerate')) {
+			return ajaxCall({
+				data: JSON.stringify({value: 1}),
+				dataType: 'text',
+				method: 'PUT',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/report/valid`),
+				success: () => {
+					Ember.set(reply, 'isReported', false);
+				},
+				error: () => {
+					this.displayError();
+				}
+			});
 		}
-
-		return ajaxCall({
-			data: JSON.stringify({value: 1}),
-			dataType: 'text',
-			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/report/valid`),
-			success: () => {
-				Ember.set(reply, 'isReported', false);
-			},
-			error: () => {
-				this.displayError();
-			}
-		});
 	},
 
 	displayError() {
