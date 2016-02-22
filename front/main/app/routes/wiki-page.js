@@ -68,23 +68,25 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	afterModel(model) {
-		const exception = model.exception,
-			articleType = model.articleType,
-			handler = this.getHandler(model);
+		if (model) {
+			const exception = model.exception,
+				articleType = model.articleType,
+				handler = this.getHandler(model);
 
-		if (!Ember.isEmpty(exception)) {
-			Ember.Logger.warn('Page model error:', exception);
+			if (!Ember.isEmpty(exception)) {
+				Ember.Logger.warn('Page model error:', exception);
+			}
+
+			if (articleType) {
+				UniversalAnalytics.setDimension(19, articleType);
+			}
+
+			this.set('mediaWikiHandler', handler);
+
+			handler.afterModel(this, model);
+		} else {
+			Ember.Logger.warn('Unsupported page');
 		}
-
-		if (articleType) {
-			UniversalAnalytics.setDimension(19, articleType);
-		}
-
-		this.set('mediaWikiHandler', handler);
-
-		handler.afterModel(this, model);
-
-		console.log(model);
 	},
 
 	/**
@@ -93,10 +95,14 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	renderTemplate(controller, model) {
-		this.render(this.get('mediaWikiHandler').viewName, {
-			controller: this.get('mediaWikiHandler').controllerName,
-			model
-		});
+		const handler = this.get('mediaWikiHandler');
+
+		if (handler) {
+			this.render(handler.viewName, {
+				controller: handler.controllerName,
+				model
+			});
+		}
 	},
 
 	/**
@@ -127,7 +133,11 @@ export default Ember.Route.extend({
 		 * @returns {boolean}
 		 */
 		didTransition() {
-			this.get('mediaWikiHandler').didTransition(this);
+			const handler = this.get('mediaWikiHandler');
+
+			if (handler) {
+				handler.didTransition(this);
+			}
 
 			if (this.get('redirectEmptyTarget')) {
 				this.controllerFor('application').addAlert({
