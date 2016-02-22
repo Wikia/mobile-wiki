@@ -1,4 +1,9 @@
 <div>
+	{{#if isReported }}
+		{{discussion-post-reported
+			reported-text=(i18n 'main.reported-to-moderators' ns='discussion')
+		}}
+	{{/if}}
 	{{user-avatar
 		avatarUrl=author.avatarUrl
 		displayProfileName=true

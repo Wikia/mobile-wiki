@@ -5,15 +5,9 @@
 		</div>
 	{{/if}}
 	{{#if isReported }}
-		<div class="reported">
-			<span class="reported-by columns large-8 small-8">
-				{{i18n 'main.reported-by-one' userName=reporterUserName ns='discussion'}}
-			</span>
-			<div class="actions columns large-4 small-4">
-				{{svg 'checkmark' class='icon validate'}}
-				{{svg 'trash-small' class='icon reported-delete'}}
-			</div>
-		</div>
+		{{discussion-post-reported
+			reported-text=(i18n 'main.reported-to-moderators-reply' ns='discussion')
+		}}
 	{{/if}}
 	<div>
 		<div class="upvotes">
