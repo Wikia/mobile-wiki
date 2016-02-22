@@ -4,6 +4,14 @@ import localSettings from '../../../config/localSettings';
 import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
 
 /**
+ * @param {Hapi.Request} request
+ * @returns {String} title
+ */
+export function getTitle(request) {
+	return request.params.title.replace(/_/g, ' ');
+}
+
+/**
  * Prepares article data to be rendered
  *
  * @param {Hapi.Request} request
@@ -21,6 +29,7 @@ export default function prepareMediaWikiData(request, data) {
 	result.isRtl = isRtl(wikiVariables);
 
 	result.htmlTitle = data.page.data.htmlTitle;
+	result.displayTitle = getTitle(request);
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);

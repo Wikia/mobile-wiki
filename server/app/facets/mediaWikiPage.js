@@ -7,6 +7,7 @@ import * as Utils from '../lib/Utils';
 import getStatusCode from './operations/getStatusCode';
 import localSettings from '../../config/localSettings';
 import prepareArticleData from './operations/prepareArticleData';
+import prepareCategoryData from './operations/prepareCategoryData';
 import prepareMainPageData from './operations/prepareMainPageData';
 import prepareMediaWikiData from './operations/prepareMediaWikiData';
 import deepExtend from 'deep-extend';
@@ -65,16 +66,28 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
  * @returns {void}
  */
 function handleResponse(request, reply, data, allowCache = true, code = 200) {
-	const ns = data.page.data.ns;
+	const pageData = data.page.data,
+		ns = pageData.ns;
 
-	let result, response;
+	let result = {},
+		viewName = 'wikipage',
+		response;
 
 	switch (ns) {
 	case MediaWikiNamespace.MAIN:
-		result = prepareArticleData(request, data);
+	case MediaWikiNamespace.CATEGORY:
+		if (pageData.ns === MediaWikiNamespace.CATEGORY) {
+			result = deepExtend(result, prepareCategoryData(request, data));
+		}
+
+		// if we have article details we can replace data from prepareCategoryData
+		if (pageData.article && pageData.details) {
+			viewName = 'article';
+			result = deepExtend(result, prepareArticleData(request, data));
+		}
 
 		// mainPageData is set only on curated main pages - only then we should do some special preparation for data
-		if (data.page.data && data.page.data.isMainPage && data.page.data.mainPageData) {
+		if (pageData.isMainPage && pageData.mainPageData) {
 			result = deepExtend(result, prepareMainPageData(data));
 			delete result.adsContext;
 		}
@@ -90,7 +103,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
 
-	response = reply.view('article', result);
+	response = reply.view(viewName, result);
 	response.code(code);
 	response.type('text/html; charset=utf-8');
 
