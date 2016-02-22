@@ -14,22 +14,22 @@ import moment from 'moment';
  * @returns {string}
  */
 export default Ember.Helper.extend({
-	momentTranslation: Ember.inject.service(),
-	onTranslationChange: Ember.observer('momentTranslation.isLoaded', function () {
+	momentLocale: Ember.inject.service(),
+	onLocaleChange: Ember.observer('momentLocale.isLoaded', function () {
 		this.recompute();
 	}),
 
 	compute([unixTimestamp, shouldHideAgoPrefix = true]) {
 		const date = moment.unix(unixTimestamp),
 			now = moment(),
-			momentTranslationsService = this.get('momentTranslation');
+			momentLocaleService = this.get('momentLocale');
 		let output;
 
-		if (!momentTranslationsService.get('isLoaded')) {
-			if (!momentTranslationsService.get('isLoading')) {
-				momentTranslationsService.loadTranslation();
+		if (!momentLocaleService.get('isLoaded')) {
+			if (!momentLocaleService.get('isLoading')) {
+				momentLocaleService.loadTranslation();
 			}
-			return '<span class="date-placeholder"/>';
+			return '<span class="date-placeholder"> </span>';
 		} else {
 			if (now.diff(date, 'days') > 5) {
 				output = date.format('L');
