@@ -5,17 +5,33 @@
 }}
 
 {{#each posts as |item|}}
-	{{post-detail
-		author=item.createdBy
-		delete=(action this.attrs.deletePost)
-		isReported=item.isReported
-		post=item._embedded.firstPost.[0]
-		postId=item.id
-		replyCount=item.postCount
-		report=(action this.attrs.reportPost)
-		undelete=(action this.attrs.undeletePost)
-		upvote=(action this.attrs.upvote)
-	}}
+	{{#if item.isReply }}
+		{{post-reply
+			author=item.createdBy
+			content=item.rawContent
+			delete=(action this.attrs.deleteReply)
+			isParentDeleted=model.firstPost.isDeleted
+			post=item
+			showRepliedTo=true
+			timestamp=item.creationDate.epochSecond
+			undelete=(action this.attrs.undeleteReply)
+			upvote=(action this.attrs.upvote)
+			upvoteCount=item.upvoteCount
+			userListView=true
+		}}
+	{{else}}
+		{{post-detail
+			author=item.createdBy
+			delete=(action this.attrs.deletePost)
+			isReported=item.isReported
+			post=item._embedded.firstPost.[0]
+			postId=item.id
+			replyCount=item.postCount
+			report=(action this.attrs.reportPost)
+			undelete=(action this.attrs.undeletePost)
+			upvote=(action this.attrs.upvote)
+		}}
+	{{/if}}
 {{else}}
 	{{discussion-empty-forum-message
 		forumId=forumId

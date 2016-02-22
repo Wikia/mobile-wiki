@@ -8,6 +8,8 @@ export default Ember.Controller.extend(
 	{
 		application: Ember.inject.controller(),
 
+		queryParams: ['reported'],
+		reported: false,
 		smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
 		siteHeadPinned: Ember.computed.oneWay('application.siteHeadPinned'),
 

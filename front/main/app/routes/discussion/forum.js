@@ -11,6 +11,11 @@ export default DiscussionBaseRoute.extend(
 		discussionSort: Ember.inject.service(),
 
 		forumId: null,
+		queryParams: {
+			reported: {
+				refreshModel: true
+			}
+		},
 
 		/**
 		 * @param {object} params
@@ -23,7 +28,10 @@ export default DiscussionBaseRoute.extend(
 
 			this.set('forumId', params.forumId);
 
-			return DiscussionForumModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
+			return DiscussionForumModel.find(Mercury.wiki.id, params.forumId, {
+				sortBy: this.get('discussionSort.sortBy'),
+				reported: params.reported
+			});
 		},
 
 		/**

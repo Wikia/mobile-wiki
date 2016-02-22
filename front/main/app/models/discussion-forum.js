@@ -13,10 +13,13 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionModerationMode
 
 	/**
 	 * @param {number} pageNum
-	 * @param {string} sortBy
+	 * @param {object} options
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadPage(pageNum = 0, sortBy = 'trending') {
+	loadPage(pageNum = 0, options = {}) {
+		const sortBy = options.sortBy || 'trending',
+			reported = Boolean(options.reported);
+
 		this.set('pageNum', pageNum);
 
 		return ajaxCall({
@@ -24,7 +27,8 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionModerationMode
 				page: this.get('pageNum'),
 				pivot: this.get('pivotId'),
 				sortKey: this.getSortKey(sortBy),
-				viewableOnly: false
+				viewableOnly: false,
+				reported
 			},
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 			success: (data) => {
@@ -86,16 +90,19 @@ DiscussionForumModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} forumId
-	 * @param {string} sortBy
+	 * @param {object} options
 	 * @returns { Ember.RSVP.Promise}
 	 */
-	find(wikiId, forumId, sortBy) {
+	find(wikiId, forumId, options) {
 		const forumInstance = DiscussionForumModel.create({
 				wikiId,
 				forumId
 			}),
+			sortBy = options.sortBy || 'trending',
+			reported = Boolean(options.reported),
 			requestData = {
-				viewableOnly: false
+				viewableOnly: false,
+				reported
 			};
 
 		if (sortBy) {
