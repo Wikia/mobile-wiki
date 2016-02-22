@@ -3,6 +3,10 @@
 <div class="wiki-container">
 	<h2 class="wiki-title" {{action 'trackClick' 'wikiname'}}>{{#link-to 'wiki-page' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
 
+	<h1 class="wiki-page-title">
+		{{model.displayTitle}}
+	</h1>
+
 	{{#if model.hasArticle}}
 		{{#article-wrapper
 			commentsPage=commentsPage
@@ -15,6 +19,8 @@
 			edit='edit'
 			openLightbox='openLightbox'
 			toggleSideNav='toggleSideNav'
+			setTopLeadboard=false
+			showPageTitle=false
 		}}
 			{{category-collections
 				adsContext=model.adsContext
