@@ -9,7 +9,6 @@
 			mainPageTitle=mainPageTitle
 			model=model
 			noAds=noAds
-			shouldDisplayArticleFooter=false
 			siteName=siteName
 			addPhoto='addPhoto'
 			articleRendered='articleRendered'
@@ -29,24 +28,24 @@
 			collections=model.collections
 			loadBatch=(action 'loadMore')
 		}}
-	{{/if}}
 
-	<section class="article-footer">
-		{{#collapsible-menu
+		<section class="article-footer">
+			{{#collapsible-menu
 			showMenuIcon=false
 			tLabel='app.article-categories-list-label'
 			ordered=false
 			observe=model.displayTitle
 			trackingEvent='category'
-		}}
-			{{#each model.categories as |category|}}
-				<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
-					{{unbound category.title}}
-					{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-				</a></li>
-			{{/each}}
-		{{/collapsible-menu}}
-	</section>
+			}}
+				{{#each model.categories as |category|}}
+					<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
+						{{unbound category.title}}
+						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+					</a></li>
+				{{/each}}
+			{{/collapsible-menu}}
+		</section>
+	{{/if}}
 
 	{{wikia-footer}}
 </div>

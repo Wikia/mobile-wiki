@@ -66,52 +66,50 @@
 		}}
 		{{yield}}
 	</section>
-	{{#if shouldDisplayArticleFooter}}
-		<section class="article-footer">
-			{{wikia-users
-				users=model.topContributors
-				classes='contributors'
-				label='app.article-top-contributors-label'
-				trackingEvent='contributors'
+	<section class="article-footer">
+		{{wikia-users
+			users=model.topContributors
+			classes='contributors'
+			label='app.article-top-contributors-label'
+			trackingEvent='contributors'
+		}}
+		{{article-comments
+			page=commentsPage
+			articleId=model.id
+			commentsCount=model.comments
+		}}
+		{{#if model.categories}}
+			{{#collapsible-menu
+				showMenuIcon=false
+				tLabel='app.article-categories-list-label'
+				ordered=false
+				observe=model.displayTitle
+				trackingEvent='category'
 			}}
-			{{article-comments
-				page=commentsPage
-				articleId=model.id
-				commentsCount=model.comments
+				{{#each model.categories as |category|}}
+					<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
+						{{unbound category.title}}
+						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+					</a></li>
+				{{/each}}
+			{{/collapsible-menu}}
+		{{/if}}
+		{{#if model.otherLanguages}}
+			{{#collapsible-menu
+				showMenuIcon=false
+				tLabel='app.article-other-languages'
+				ordered=false
+				observe=model.displayTitle
 			}}
-			{{#if model.categories}}
-				{{#collapsible-menu
-					showMenuIcon=false
-					tLabel='app.article-categories-list-label'
-					ordered=false
-					observe=model.displayTitle
-					trackingEvent='category'
-				}}
-					{{#each model.categories as |category|}}
-						<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
-							{{unbound category.title}}
-							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-						</a></li>
-					{{/each}}
-				{{/collapsible-menu}}
-			{{/if}}
-			{{#if model.otherLanguages}}
-				{{#collapsible-menu
-					showMenuIcon=false
-					tLabel='app.article-other-languages'
-					ordered=false
-					observe=model.displayTitle
-				}}
-					{{#each model.otherLanguages as |link|}}
-						<li class="mw-content"><a href="{{unbound link.url}}" title="{{unbound link.title}}">
-							{{unbound link.languageName}} | {{unbound link.articleTitle}}
-							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-						</a></li>
-					{{/each}}
-				{{/collapsible-menu}}
-			{{/if}}
-		</section>
-	{{/if}}
+				{{#each model.otherLanguages as |link|}}
+					<li class="mw-content"><a href="{{unbound link.url}}" title="{{unbound link.title}}">
+						{{unbound link.languageName}} | {{unbound link.articleTitle}}
+						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+					</a></li>
+				{{/each}}
+			{{/collapsible-menu}}
+		{{/if}}
+	</section>
 	{{content-recommendations pages=model.relatedPages}}
 	{{#if displayRecentEdit}}
 		{{recent-edit-banner}}
