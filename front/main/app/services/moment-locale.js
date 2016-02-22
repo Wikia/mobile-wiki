@@ -37,7 +37,7 @@ export default Ember.Service.extend({
 
 		this.changeLoadingStatus(false);
 		if (lang !== 'en') {
-			Ember.$.getScript(M.buildUrl({path: this.localePath[lang]})).done(() => {
+			Ember.$.getScript(this.localePath[lang]).done(() => {
 				this.changeLoadingStatus();
 			}).fail((jqxhr, settings, exception) => {
 				Ember.Logger.error(`Can't get moment translation for ${lang} | ${exception}`);
