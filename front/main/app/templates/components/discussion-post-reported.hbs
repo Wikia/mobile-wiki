@@ -1,9 +1,11 @@
-<div class="reported">
-	<span class="reported-by columns large-8 small-8">
-		{{reported-text}}
-	</span>
-	<div class="actions columns large-4 small-4">
-		{{svg 'checkmark' class='icon validate'}}
-		{{svg 'trash-small' class='icon reported-delete'}}
-	</div>
+<span class="reported-by columns large-8 small-8">
+	{{reported-text}}
+</span>
+<div class="actions columns large-4 small-4">
+	{{#if canModerate}}
+		<a class="validate-link" {{action this.attrs.approve post}}>{{svg 'checkmark' class='icon validate'}}</a>
+	{{/if}}
+	{{#if canDelete}}
+		<a class="delete-link" {{action this.attrs.delete post}}>{{svg 'trash-small' class='icon reported-delete'}}</a>
+	{{/if}}
 </div>

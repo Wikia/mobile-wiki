@@ -7,9 +7,12 @@ export default Ember.Component.extend(
 	DiscussionMoreOptionsMixin,
 	{
 		classNames: ['post-reply'],
-		classNameBindings: ['isNew', 'isDeleted', 'isReported', 'isParentDeleted'],
+		classNameBindings: ['isNew', 'isDeleted', 'isParentDeleted', 'isReported'],
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
-		isReported: Ember.computed.alias('post.isReported')
+		isModerationTools: Ember.computed('post.isReported', 'post.isDeleted', function () {
+			return this.get('post.isReported') && !this.get('post.isDeleted');
+		}),
+		isReported: Ember.computed.alias('post.isReported'),
 	}
 );

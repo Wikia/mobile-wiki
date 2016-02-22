@@ -10,6 +10,9 @@ export default Ember.Component.extend(
 		classNameBindings: ['isNew', 'isDeleted', 'isReported'],
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
+		isModerationTools: Ember.computed('isReported', 'post.isDeleted', function () {
+			return this.get('isReported') && !this.get('post.isDeleted');
+		}),
 		postId: Ember.computed.oneWay('post.threadId'),
 
 		routing: Ember.inject.service('-routing'),

@@ -14,7 +14,10 @@ export default Ember.Mixin.create({
 				method: 'PUT',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/delete`),
 				success: () => {
-					Ember.set(post, 'isDeleted', true);
+					Ember.setProperties(post, {
+						'isDeleted' : true,
+						'isReported': false
+					});
 				},
 				error: () => {
 					this.displayError();
@@ -35,7 +38,10 @@ export default Ember.Mixin.create({
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/users/${posts[0].creatorId}/posts/delete`),
 				success: () => {
 					posts.forEach((post) => {
-						Ember.set(post, 'isDeleted', true);
+						Ember.setProperties(post, {
+							'isDeleted' : true,
+							'isReported': false
+						});
 					});
 				},
 				error: () => {
@@ -76,7 +82,10 @@ export default Ember.Mixin.create({
 				method: 'PUT',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/delete`),
 				success: () => {
-					Ember.set(reply, 'isDeleted', true);
+					Ember.setProperties(reply, {
+						'isDeleted' : true,
+						'isReported': false
+					});
 				},
 				error: () => {
 					this.displayError();
@@ -148,6 +157,10 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	approvePost(post) {
+		if (!checkPermissions(post, 'canModerate')) {
+			return;
+		}
+
 		return ajaxCall({
 			data: JSON.stringify({value: 1}),
 			dataType: 'text',
@@ -205,6 +218,10 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	approveReply(reply) {
+		if (!checkPermissions(reply, 'canModerate')) {
+			return;
+		}
+
 		return ajaxCall({
 			data: JSON.stringify({value: 1}),
 			dataType: 'text',
