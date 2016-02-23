@@ -3,7 +3,7 @@ import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
 import DiscussionMoreOptionsMixin from '../mixins/discussion-more-options';
 
 /**
- * Basic methods/properties for post-detail and post-reply.
+ * Basic methods/properties for discussion-post-card-detail and discussion-post-card-reply.
  */
 export default Ember.Component.extend(
 	DiscussionParsedContentMixin,

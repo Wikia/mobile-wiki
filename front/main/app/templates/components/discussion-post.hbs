@@ -36,7 +36,7 @@
 			}}
 		{{else}}
 				<div class="discussion post small-12 large-8 columns">
-					{{post-detail
+					{{discussion-post-card-detail
 						approve=(action this.attrs.approve)
 						author=model.firstPost.createdBy
 						delete=(action this.attrs.deletePost)
@@ -67,7 +67,7 @@
 					{{/if}}
 					<div class="replies-list">
 						{{#each model.replies as |item index|}}
-							{{post-reply
+							{{discussion-post-card-reply
 								approve=(action this.attrs.approve)
 								author=item.createdBy
 								content=item.rawContent

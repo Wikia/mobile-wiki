@@ -1,6 +1,6 @@
 {{#each posts as |item|}}
 	{{#if item.isReply }}
-		{{post-reply
+		{{discussion-post-card-reply
 			approve=(action this.attrs.approve)
 			author=item.createdBy
 			content=item.rawContent
@@ -16,7 +16,7 @@
 			userListView=true
 		}}
 	{{else}}
-		{{post-detail
+		{{discussion-post-card-detail
 			approve=(action this.attrs.approve)
 			author=item.createdBy
 			delete=(action this.attrs.deletePost)
