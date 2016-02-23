@@ -93,6 +93,8 @@ function addTitlesToCollection(collectionItems) {
  * when used in setCategory context it has to iterate over object that contains
  * all batches for a given category
  *
+ * TODO - this should be done server side XW-1165
+ *
  * @param {Object|Array} collections
  * @returns {Object|Array}
  */
