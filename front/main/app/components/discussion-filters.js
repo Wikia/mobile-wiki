@@ -6,6 +6,7 @@ export default Ember.Component.extend(
 		classNames: ['discussion-filters'],
 		discussionSort: Ember.inject.service(),
 		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
+		shouldShowReported: Ember.computed.oneWay('discussionSort.reported'),
 
 		popover: nearestParent('pop-over'),
 
@@ -13,10 +14,8 @@ export default Ember.Component.extend(
 			applyFilters() {
 				const sortBy = this.get('sortBy');
 
-				if (this.get('discussionSort.sortBy') !== sortBy) {
 					this.attrs.applyFilters(sortBy);
 					this.get('popover').deactivate();
-				}
 			},
 
 			setSortBy(sortBy) {

@@ -8,8 +8,6 @@ export default Ember.Controller.extend(
 	{
 		application: Ember.inject.controller(),
 
-		queryParams: ['reported'],
-		reported: false,
 		smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
 		siteHeadPinned: Ember.computed.oneWay('application.siteHeadPinned'),
 
@@ -54,7 +52,6 @@ export default Ember.Controller.extend(
 			},
 
 			applyFilters(sortBy, shouldShowReported) {
-				// this is completely enough for now, because currently we have only sorting in filters
 				this.get('target').send('applyFilters', sortBy, shouldShowReported);
 			}
 		}

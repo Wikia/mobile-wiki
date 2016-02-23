@@ -106,6 +106,10 @@ Router.map(function () {
 			path: '/f/:forumId/:sortBy'
 		});
 
+		this.route('reported-posts', {
+			path: '/f/:forumId/:sortBy/reported'
+		});
+
 		this.route('post', {
 			path: '/p/:postId'
 		}, function () {

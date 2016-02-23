@@ -13,10 +13,13 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionModerationMode
 
 	/**
 	 * @param {number} pageNum
-	 * @param {string} sortBy
+	 * @param {object} options
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadPage(pageNum = 0, sortBy) {
+	loadPage(pageNum = 0, options = {}) {
+		const sortBy = options.sortBy || 'trending',
+			reported = Boolean(options.reported);
+
 		this.set('pageNum', pageNum);
 
 		return ajaxCall({
@@ -25,10 +28,11 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionModerationMode
 				pivot: this.get('pivotId'),
 				sortKey: this.getSortKey(sortBy),
 				viewableOnly: false,
+				reported
 			},
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
 			success: (data) => {
-				const newPosts = data._embedded['doc:threads'],
+				const newPosts = data._embedded['doc:posts'],
 					allPosts = this.posts.concat(newPosts);
 
 				this.set('posts', allPosts);
@@ -65,11 +69,6 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionModerationMode
 			data: JSON.stringify(postData),
 			method: 'POST',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
-			success: (post) => {
-				post._embedded.firstPost[0].isNew = true;
-				this.posts.insertAt(0, post);
-				this.incrementProperty('totalPosts');
-			},
 			error: (err) => {
 				if (err.status === 401) {
 					this.setFailedState('editor.post-error-not-authorized');
@@ -78,7 +77,6 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionModerationMode
 				}
 			}
 		});
-
 	}
 });
 
@@ -96,6 +94,7 @@ DiscussionForumModel.reopenClass({
 			}),
 			requestData = {
 				viewableOnly: false,
+				reported: true
 			};
 
 		if (sortBy) {
@@ -105,12 +104,12 @@ DiscussionForumModel.reopenClass({
 		return ajaxCall({
 			context: forumInstance,
 			data: requestData,
-			url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
+			url: M.getDiscussionServiceUrl(`/${wikiId}/posts`),
 			success: (data) => {
 				const contributors = [],
-					posts = data._embedded ? data._embedded['doc:threads'] : [],
+					posts = data._embedded ? data._embedded['doc:posts'] : [],
 					pivotId = (posts.length > 0 ? posts[0].id : null),
-					totalPosts = data.threadCount;
+					totalPosts = data.postCount;
 
 				posts.forEach((post) => {
 					if (post.hasOwnProperty('createdBy')) {

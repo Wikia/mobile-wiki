@@ -1,6 +1,6 @@
 import DiscussionBaseRoute from './base';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
-import DiscussionForumModel from '../../models/discussion-forum';
+import DiscussionReportedPostsModel from '../../models/discussion-reported-posts';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 
@@ -23,7 +23,7 @@ export default DiscussionBaseRoute.extend(
 
 			this.set('forumId', params.forumId);
 
-			return DiscussionForumModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
+			return DiscussionReportedPostsModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
 		},
 
 		/**
@@ -32,7 +32,7 @@ export default DiscussionBaseRoute.extend(
 		 */
 		setSortBy(sortBy) {
 			this.get('discussionSort').setSortBy(sortBy);
-			return this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+			return this.transitionTo('discussion.reported-posts', this.get('forumId'), sortBy);
 		},
 
 		actions: {
@@ -41,12 +41,12 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor('discussion.forum').loadPage(pageNum, this.get('discussionSort.sortBy'));
+				this.modelFor('discussion.reported-posts').loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
 			create(postData) {
 				this.setSortBy('latest').promise.then(() => {
-					this.modelFor('discussion.forum').createPost(postData);
+					this.modelFor('discussion.reported-posts').createPost(postData);
 				});
 			},
 
@@ -59,8 +59,8 @@ export default DiscussionBaseRoute.extend(
 			},
 
 			applyFilters(sortBy, shouldShowReported) {
-				if (shouldShowReported === true) {
-					this.transitionTo('discussion.forum.reported-posts', sortBy);
+				if (shouldShowReported === false) {
+					this.transitionTo('discussion.forum', sortBy);
 				}
 			},
 		}
