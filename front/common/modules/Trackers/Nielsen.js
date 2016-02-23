@@ -20,16 +20,6 @@ export default class Nielsen extends BaseTracker {
 				sfcode: 'dcr-cert',
 				apid: nielsen.apid,
 				apn: 'test-static'
-			},
-			staticmeta = {
-				clientid: nielsen.clientid,
-				subbrand: nielsen.subbrand,
-				type: 'static',
-				assetid: nielsen.section,
-				section: nielsen.section,
-				segA: '',
-				segB: '',
-				segC: ''
 			};
 
 		if (!nielsen.enabled) {
@@ -42,10 +32,18 @@ export default class Nielsen extends BaseTracker {
 				return;
 			}
 
-			const gg = window.NOLCMB.getInstance(globalParams);
+			window.gg1 = window.NOLCMB.getInstance(globalParams);
+			window.staticmeta = {
+				type: 'static',
+				assetid: nielsen.section,
+				section: nielsen.section,
+				segA: nielsen.dbName,
+				segB: '',
+				segC: ''
+			};
 
-			gg.ggInitialize(globalParams);
-			gg.ggPM('staticstart', staticmeta);
+			window.gg1.ggInitialize(globalParams);
+			window.gg1.ggPM('staticstart', window.staticmeta);
 		});
 	}
 }
