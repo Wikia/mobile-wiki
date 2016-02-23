@@ -36,6 +36,7 @@ export default Ember.Service.extend({
 	 */
 	setEnLocale() {
 		moment.locale('en');
+		// Change status when moment finished changing locale
 		Ember.run.next(() => {
 			this.changeLoadingStatus();
 		});
