@@ -47,7 +47,8 @@
     "empty-forum-text": "No posts yet. Get the discussion started, create the first post now!",
     "report-post": "Report Post",
     "report-reply": "Report Reply",
-    "reported-content-filter-text": "Show Only Reported Content"
+    "reported-content-filter-text": "Show Only Reported Content",
+    "moderation-filters-header": "Moderation"
   },
   "editor": {
     "post-failed-error": "Post failed.",

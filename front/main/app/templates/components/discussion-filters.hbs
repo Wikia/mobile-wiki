@@ -16,8 +16,11 @@
 			{{/each}}
 		</ul>
 	</fieldset>
-	<label>
-		{{input type='checkbox' checked=onlyReported change=(action 'toggleOnlyReported')}}
-		{{i18n 'main.reported-content-filter-text' ns='discussion'}}
-	</label>
+	<fieldset>
+		<legend>{{i18n 'main.moderation-filters-header' ns='discussion'}}</legend>
+		<label class="moderation-checkbox-label">
+			{{input type='checkbox' checked=onlyReported change=(action 'toggleOnlyReported')}}
+			{{i18n 'main.reported-content-filter-text' ns='discussion'}}
+		</label>
+	</fieldset>
 </form>
