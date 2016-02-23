@@ -1,16 +1,16 @@
 import Ember from 'ember';
 import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
-import ArticleHandler from '../utils/mediawiki-handlers/article';
-import CategoryHandler from '../utils/mediawiki-handlers/category';
-import CuratedMainPageHandler from '../utils/mediawiki-handlers/curated-main-page';
-import getPageModel from '../utils/mediawiki-handlers/wiki-page';
+import ArticleHandler from '../utils/wiki-handlers/article';
+import CategoryHandler from '../utils/wiki-handlers/category';
+import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
+import getPageModel from '../utils/wiki-handlers/wiki-page';
 import {normalizeToUnderscore} from 'common/utils/string';
 import {setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
 import {namespace as MediawikiNamespace, getCurrentNamespace} from '../utils/mediawiki-namespace';
 
 export default Ember.Route.extend({
 	redirectEmptyTarget: false,
-	mediaWikiHandler: null,
+	wikiHandler: null,
 	currentUser: Ember.inject.service(),
 
 	getHandler(model) {
@@ -76,14 +76,14 @@ export default Ember.Route.extend({
 				handler = this.getHandler(model);
 
 			if (!Ember.isEmpty(exception)) {
-				Ember.Logger.warn('Page model error:', exception);
+				Ember.Logger.warn('Wiki page model error:', exception);
 			}
 
 			transition.then(() => {
 				this.updateTrackingData(model);
 			});
 
-			this.set('mediaWikiHandler', handler);
+			this.set('wikiHandler', handler);
 
 			handler.afterModel(this, model);
 		} else {
@@ -135,12 +135,12 @@ export default Ember.Route.extend({
 	},
 
 	/**
-	 * @param {Ember.controller} controller
-	 * @param {Ember.model} model
+	 * @param {Ember.Controller} controller
+	 * @param {Ember.Model} model
 	 * @returns {void}
 	 */
 	renderTemplate(controller, model) {
-		const handler = this.get('mediaWikiHandler');
+		const handler = this.get('wikiHandler');
 
 		if (handler) {
 			this.render(handler.viewName, {
@@ -178,7 +178,7 @@ export default Ember.Route.extend({
 		 * @returns {boolean}
 		 */
 		didTransition() {
-			const handler = this.get('mediaWikiHandler');
+			const handler = this.get('wikiHandler');
 
 			if (handler) {
 				handler.didTransition(this);

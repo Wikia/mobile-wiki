@@ -1,10 +1,10 @@
 import {test} from 'ember-qunit';
 
-module('Unit | Utils | mediawiki-handler | article', (hooks) => {
+module('Unit | Utils | wiki-handler | article', (hooks) => {
 	let originalDocumentTitle,
 		originalWikiVariables;
 
-	const articleHandler = require('main/utils/mediawiki-handlers/article').default;
+	const articleHandler = require('main/utils/wiki-handlers/article').default;
 
 	hooks.beforeEach(() => {
 		originalDocumentTitle = document.title;
@@ -126,4 +126,3 @@ module('Unit | Utils | mediawiki-handler | article', (hooks) => {
 		assert.strictEqual($head.find(selector).length, 0);
 	});
 });
-

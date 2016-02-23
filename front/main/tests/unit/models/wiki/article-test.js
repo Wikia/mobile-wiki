@@ -21,7 +21,7 @@ const articleExample = {
 			userDetails: ['someItem', 'yetOneMore']
 		}
 	},
-	articleModelClass = require('main/models/mediawiki/article').default;
+	articleModelClass = require('main/models/wiki/article').default;
 
 
 /**
@@ -90,7 +90,7 @@ function verifyArticle(model, article, assert) {
 	);
 }
 
-moduleFor('model:mediawiki/article', 'Integration | Model | mediawiki/article', {
+moduleFor('model:wiki/article', 'Integration | Model | wiki/article', {
 	beforeEach() {
 		M.provide('article', articleExample);
 		M.prop('articleContentPreloadedInDOM', true, true);
@@ -146,26 +146,4 @@ test('setArticle with parametrized data', function (assert) {
 
 	articleModelClass.setArticle(model, articleExample);
 	verifyArticle(model, articleExample, assert);
-});
-
-test('find with preloaded data', (assert) => {
-	const params = {
-			wiki: 'wiki',
-			article: 'article'
-		},
-		wikiPageModelClass = require('main/models/mediawiki/wiki-page').default;
-
-	let model;
-
-	assert.ok(M.prop('articleContentPreloadedInDOM'), 'articleContentPreloadedInDOM==true before test, as expected');
-
-	Ember.run(() => {
-		model = wikiPageModelClass.find(params);
-	});
-
-	model.then((resolvedModel) => {
-		verifyArticle(resolvedModel, articleExample, assert);
-	});
-
-	assert.ok(!M.prop('articleContentPreloadedInDOM'), 'articleContentPreloadedInDOM==false after test, as expected');
 });
