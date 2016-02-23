@@ -140,8 +140,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		return {
 			data: i18n.t('main.section-header-default', {
-					ns: 'infobox-builder',
-					index
+				ns: 'infobox-builder',
+				index
 			}),
 			infoboxBuilderData: {
 				index,
@@ -405,7 +405,9 @@ InfoboxBuilderModel.reopenClass({
 	 * @returns {Object}
 	 */
 	extendHeaderData(item, itemData) {
-		// TODO: add support for collapsible attribute
+		if (itemData) {
+			// TODO: add support for collapsible attribute - DAT-3732
+		}
 		return item;
 	}
 });
