@@ -24,7 +24,6 @@
 		}}
 			{{category-collections
 				adsContext=model.adsContext
-			    batchIsLoading=batchIsLoading
 				collections=model.collections
 				setupAds=false
 				loadBatch=(action 'loadBatch')
@@ -33,7 +32,6 @@
 	{{else}}
 		{{category-collections
 			adsContext=model.adsContext
-		    batchIsLoading=batchIsLoading
 			collections=model.collections
 			noAds=noAds
 			setupAds=true
