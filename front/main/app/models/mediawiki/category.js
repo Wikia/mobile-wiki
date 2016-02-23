@@ -2,8 +2,8 @@ import Ember from 'ember';
 import MediaModel from '../media';
 import {normalizeToWhitespace} from 'common/utils/string';
 
-const {Object, get, $, isArray} = Ember;
-const keys = window.Object.keys;
+const {Object, get, $, isArray} = Ember,
+	keys = window.Object.keys;
 
 /**
  * Get url for batch of category members for given index.
@@ -46,6 +46,9 @@ function addTitlesToCollection(collectionItems) {
 
 /**
  * Adds titles to collection
+ * When used in loadMore context it has access only to one batch array
+ * when used in setCategory context it has to iterate over object that contains
+ * all batches for a given category
  *
  * @param {Object|Array} collections
  * @returns {Object|Array}
