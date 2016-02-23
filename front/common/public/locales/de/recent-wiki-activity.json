@@ -14,7 +14,8 @@
     "undo-error":"Es scheint beim Versuch die Bearbeitung rückgängig zu machen leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.",
     "undo-failure":"Die Bearbeitung konnte wegen sich überschneidenden Bearbeitungen nicht rückgängig gemacht werden.",
     "undo-label":"Rückgängig machen",
-    "undo-success":"Die Bearbeitung der Seite __pageTitle__ wurde erfolgreich rückgängig gemacht!"
+    "undo-success":"Die Bearbeitung der Seite __pageTitle__ wurde erfolgreich rückgängig gemacht!",
+    "upvotes": "stimmen"
   },
   "diff":{
     "after":"Danach",

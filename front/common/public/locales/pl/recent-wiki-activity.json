@@ -14,7 +14,8 @@
     "undo-error":"Wygląda na to, że coś poszło nie tak podczas cofania edycji. Spróbój ponownie.",
     "undo-failure":"Edycja nie może być cofnięta ze względu na niezgodność edycji pośrednich.",
     "undo-label":"Cofnij",
-    "undo-success":"Pomyślnie cofnięto edycję na stronie __pageTitle__!"
+    "undo-success":"Pomyślnie cofnięto edycję na stronie __pageTitle__!",
+    "upvotes": "głosy"
   },
   "diff":{
     "after":"Po",

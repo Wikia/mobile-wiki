@@ -14,7 +14,8 @@
     "undo-error":"Siamo spiacenti, sembra che qualcosa è andato storto durante il tentativo di annullare la modifica. Si prega di riprovare.",
     "undo-failure":"La modifica non poteva essere annullata a causa di modifiche in conflitto intermedie.",
     "undo-label":"Annulla",
-    "undo-success":"Annullamento modifica alla pagina __pageTitle__ eseguita con successo!"
+    "undo-success":"Annullamento modifica alla pagina __pageTitle__ eseguita con successo!",
+    "upvotes": "voti"
   },
   "diff":{
     "after":"Dopo",
