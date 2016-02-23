@@ -16,5 +16,8 @@
 			{{/each}}
 		</ul>
 	</fieldset>
-	<label>{{input type='checkbox' change=(action 'toggleOnlyReported')}} Show only reported content</label>
+	<label>
+		{{input type='checkbox' checked=onlyReported change=(action 'toggleOnlyReported')}}
+		{{i18n 'main.reported-content-filter-text' ns='discussion'}}
+	</label>
 </form>

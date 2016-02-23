@@ -21,8 +21,6 @@ export default DiscussionBaseRoute.extend(
 				this.get('discussionSort').setSortBy(params.sortBy);
 			}
 
-			this.get('discussionSort').set('reported', true);
-
 			this.set('forumId', params.forumId);
 
 			return DiscussionReportedPostsModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
@@ -60,10 +58,23 @@ export default DiscussionBaseRoute.extend(
 				this.setSortBy(sortBy);
 			},
 
-			applyFilters(sortBy, shouldShowReported) {
-				if (shouldShowReported === false) {
-					return this.transitionTo('discussion.index');
+			applyFilters(sortBy, onlyReported) {
+				const discussionSort = this.get('discussionSort'),
+					currentSortBy = discussionSort.get('sortBy');
+
+				let targetRoute;
+
+				if (sortBy !== currentSortBy) {
+					discussionSort.setSortBy(sortBy);
+					targetRoute = 'discussion.reported-posts';
 				}
+
+				if (onlyReported === false) {
+					discussionSort.set('onlyReported', false);
+					targetRoute = 'discussion.forum';
+				}
+
+				return this.transitionTo(targetRoute, Mercury.wiki.id, sortBy);
 			},
 		}
 	}
