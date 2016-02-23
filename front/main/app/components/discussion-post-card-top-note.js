@@ -25,25 +25,22 @@ export default Ember.Component.extend({
 	text: Ember.computed('isReported', function () {
 		if (this.get('isReported')) {
 			if (this.get('showRepliedTo')) {
+
 				// post is reported, is a reply and supposed to show reply-to info
 				return i18n.t('main.reported-to-moderators-replied-to', {
-						ns: 'discussion',
-						userName: this.get('threadCreatorName')
-					});
-			}
-			else if (!this.get('showRepliedTo') && this.get('isReply')) {
+					ns: 'discussion',
+					userName: this.get('threadCreatorName')
+				});
+			} else if (!this.get('showRepliedTo') && this.get('isReply')) {
 
 				// post is reported, is a reply, but NOT supposed to show reply-to info
 				return i18n.t('main.reported-to-moderators-reply', {ns: 'discussion'});
-			}
-			else if (!this.get('isReply')) {
+			} else if (!this.get('isReply')) {
 
 				// post is reported and is NOT a reply
 				return i18n.t('main.reported-to-moderators', {ns: 'discussion'});
 			}
-		}
-
-		else if (this.get('showRepliedTo')) {
+		} else if (this.get('showRepliedTo')) {
 
 			// post is NOT reported, is a reply and supposed to show reply-to info
 			return i18n.t('main.user-replied-to', {ns: 'discussion', userName: this.get('threadCreatorName')});
