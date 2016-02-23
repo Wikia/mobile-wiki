@@ -19,6 +19,7 @@ function getUrlBatchContent(categoryName, index, batch) {
 		batch,
 		category: categoryName,
 		format: 'json',
+		isMercury: true,
 		index
 	};
 
