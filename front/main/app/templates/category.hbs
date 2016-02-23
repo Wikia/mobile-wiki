@@ -45,8 +45,8 @@
 			}}
 				{{#each model.categories as |category|}}
 					<li class="mw-content" {{action 'trackClick' 'category' 'link'}}>
-						{{#link-to 'wiki-page' category.url}}
-							{{unbound category.title}}
+						{{#link-to 'wiki-page' category.title}}
+							{{category.title}}
 							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 						{{/link-to}}
 					</li>
