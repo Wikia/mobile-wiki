@@ -79,6 +79,8 @@ export default Ember.Route.extend({
 				Ember.Logger.warn('Wiki page model error:', exception);
 			}
 
+			this.setHtmlTags(model);
+
 			transition.then(() => {
 				this.updateTrackingData(model);
 			});
@@ -89,6 +91,53 @@ export default Ember.Route.extend({
 		} else {
 			Ember.Logger.warn('Unsupported page');
 		}
+	},
+
+	/**
+	 * This function handles updating header tags like title, meta and link after transition.
+	 * It uses ember-cli-meta-tags add-on.
+	 * @param {ArticleModel} model
+	 * @returns {void}
+	 */
+	setHtmlTags(model) {
+		const defaultHtmlTitleTemplate = '$1 - Wikia',
+			articleUrl = model.get('url'),
+			description = model.getWithDefault('description', ''),
+			htmlTitleTemplate = Ember.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate,
+			canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${articleUrl}`,
+			appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios'),
+			appleAppContent = articleUrl ?
+				`app-id=${appId}, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${articleUrl}` :
+				`app-id=${appId}`;
+
+		document.title = htmlTitleTemplate.replace('$1', model.get('displayTitle'));
+
+		this.set('headTags', [
+			{
+				type: 'link',
+				tagId: 'canonical-url',
+				attrs: {
+					rel: 'canonical',
+					href: canonicalUrl
+				}
+			},
+			{
+				type: 'meta',
+				tagId: 'meta-description',
+				attrs: {
+					name: 'description',
+					content: description
+				}
+			},
+			{
+				type: 'meta',
+				tagId: 'meta-apple-app',
+				attrs: {
+					name: 'apple-itunes-app',
+					content: appleAppContent
+				}
+			}
+		]);
 	},
 
 	/**
@@ -151,10 +200,22 @@ export default Ember.Route.extend({
 	},
 
 	/**
+	 * Remove html tags set in server, so ember-cli-meta-tags add-on can handle by his own.
+	 * This is temporary solution. Remove this when fastboot is introduced.
+	 * @returns {void}
+	 */
+	removeHtmlTagsSetInServer() {
+		Ember.$('link[rel=canonical]:not([id])').remove();
+		Ember.$('meta[name=description]:not([id])').remove();
+		Ember.$('meta[name=apple-itunes-app]:not([id])').remove();
+	},
+
+	/**
 	 * @returns {void}
 	 */
 	activate() {
 		this.controllerFor('application').set('enableShareHeader', true);
+		this.removeHtmlTagsSetInServer();
 	},
 
 	/**
