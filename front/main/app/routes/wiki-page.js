@@ -66,7 +66,7 @@ export default Ember.Route.extend({
 	},
 
 	/**
-	 * @param {ArticleModel} model
+	 * @param {Ember.Object} model
 	 * @param {EmberStates.Transition} transition
 	 * @returns {void}
 	 */

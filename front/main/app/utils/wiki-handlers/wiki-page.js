@@ -20,9 +20,9 @@ function getURL(params) {
 
 /**
  *
- * @param data
- * @param params
- * @returns {params|*}
+ * @param {Object} data
+ * @param {Object} params
+ * @returns {Ember.Object}
  */
 function getModelForNamespace(data, params) {
 	let model;
@@ -47,7 +47,7 @@ function getModelForNamespace(data, params) {
 
 /**
  *
- * @param params
+ * @param {Object} params
  * @returns {Ember.RSVP.Promise}
  */
 export default function getPageModel(params) {
