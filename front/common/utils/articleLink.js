@@ -3,6 +3,17 @@
  */
 
 /**
+ * @param {string} title - title fragment of the URL, the string that goes after /wiki/
+ *
+ * @returns {boolean}
+ */
+function isMercuryNamespaceHandlingOverridden(title) {
+	return Ember.getWithDefault(Mercury, 'wiki.enableCategoryPagesInMercury', false) &&
+		typeof title !== 'undefined' &&
+		title.indexOf('Category:') === 0;
+}
+
+/**
  * @typedef {Object} LinkInfo
  * @property {string|null} article
  * @property {string|null} url
@@ -53,21 +64,26 @@ export function getLinkInfo(basePath, title, hash, uri) {
 			};
 		}
 
-		/* eslint no-continue: 0 */
-		for (const ns in namespaces) {
-			if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
-				continue;
-			}
+		if (!isMercuryNamespaceHandlingOverridden(article[3])) {
+			// TODO: When categories SPA are being enabled/disabled sitewide, code below should be rethinked.
+			/* eslint no-continue: 0 */
+			for (const ns in namespaces) {
+				// TODO: see above -- I'm wondering, when it's possible for `namespaces[ns]` to have an `id` param,
+				// while `namespaces` is an object where keys are numbers and values are just plain strings?
+				if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
+					continue;
+				}
 
-			// Style guide advises using dot accessor instead of brackets, but it is difficult
-			// to access a key with an asterisk* in it
-			const regex = `^(\/wiki)?\/${namespaces[ns]}:.*$`;
+				// Style guide advises using dot accessor instead of brackets, but it is difficult
+				// to access a key with an asterisk* in it
+				const regex = `^(\/wiki)?\/${namespaces[ns]}:.*$`;
 
-			if (local.match(regex)) {
-				return {
-					article: null,
-					url: basePath + local
-				};
+				if (local.match(regex)) {
+					return {
+						article: null,
+						url: basePath + local
+					};
+				}
 			}
 		}
 
