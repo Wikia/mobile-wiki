@@ -1,14 +1,18 @@
 {{ad-slot name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
 {{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
-{{article-wrapper
-	commentsPage=commentsPage
-	mainPageTitle=mainPageTitle
-	model=model
-	noAds=noAds
-	siteName=siteName
-	addPhoto='addPhoto'
-	articleRendered='articleRendered'
-	edit='edit'
-	openLightbox='openLightbox'
-	toggleSideNav='toggleSideNav'
-}}
+<div class="wiki-container">
+	<h2 class="wiki-title" {{action 'trackClick' 'wikiname'}}>{{#link-to 'wiki-page' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
+	{{article-wrapper
+		commentsPage=commentsPage
+		model=model
+		noAds=noAds
+		siteName=siteName
+		showPageTitle=true
+		addPhoto='addPhoto'
+		articleRendered='articleRendered'
+		edit='edit'
+		openLightbox='openLightbox'
+		toggleSideNav='toggleSideNav'
+	}}
+{{wiki-footer}}
+</div>

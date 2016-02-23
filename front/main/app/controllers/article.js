@@ -46,8 +46,8 @@ export default Ember.Controller.extend({
 			const photoModel = ArticleAddPhotoModel.load(photoData);
 
 			// We don't want to hold with transition and wait for a promise to resolve.
-            // Instead we set properties on model after resolving promise and Ember scheduler
-            // handles this gracefully.
+			// Instead we set properties on model after resolving promise and Ember scheduler
+			// handles this gracefully.
 			photoModel.then((model) => {
 				model.setProperties({
 					title,

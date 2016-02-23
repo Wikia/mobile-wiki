@@ -150,7 +150,9 @@
     "curated-content-editor-enter-wikia-description": "Wikia description",
     "explore-wiki": "Explore __wikiName__",
     "sign-in-or-register-label": "Sign in / Register",
-    "my-profile-label": "My Profile"
+    "my-profile-label": "My Profile",
+    "categories-load-more": "Load more",
+    "categories-load-previous": "Load previous"
   },
   "userStatus": {
     "anon-cta": "__registerLink__ or __loginLink__",

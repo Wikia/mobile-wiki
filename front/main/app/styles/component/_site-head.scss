@@ -64,6 +64,7 @@ $site-head-height: 50; //unitless
 	float: left;
 	height: $icon-site-head-height;
 	padding-top: rem-calc(15);
+	position: relative;
 	width: $icon-site-head-width;
 
 	svg {

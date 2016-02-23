@@ -16,10 +16,6 @@ const Router = Ember.Router.extend({
 Router.map(function () {
 	const articlePath = '/wiki/';
 
-	this.route('mainPage', {
-		path: articlePath + Mercury.wiki.mainPageTitle
-	});
-
 	this.route('article-preview', {
 		path: '/article-preview'
 	});
@@ -79,7 +75,7 @@ Router.map(function () {
 		path: `/diff/:oldId/:newId`
 	});
 
-	this.route('article', {
+	this.route('wiki-page', {
 		path: `${articlePath}*title`
 	});
 
@@ -124,10 +120,6 @@ Router.map(function () {
 	});
 
 	this.route('recent-wiki-activity');
-
-	this.route('category', {
-		path: '/wiki/category/:name'
-	});
 
 	// Route to catch all badly formed URLs
 	this.route('notFound', {

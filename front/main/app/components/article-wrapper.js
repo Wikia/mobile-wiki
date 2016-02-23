@@ -2,7 +2,7 @@ import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
-import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -143,11 +143,9 @@ export default Ember.Component.extend(
 
 		curatedContentToolButtonVisible: Ember.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
 
-		articleObserver: Ember.on('willInsertElement', Ember.observer('model.article', function () {
-			// This check is here because this observer will actually be called for views wherein the state is actually
-			// not valid, IE, the view is in the process of preRender
-			Ember.run.scheduleOnce('afterRender', this, this.performArticleTransforms);
-		})),
+		displayRecentEdit: Ember.computed('currentUser.isAuthenticated', function () {
+			return this.get('currentUser.isAuthenticated') && !Ember.$.cookie('recent-edit-dismissed');
+		}),
 
 		actions: {
 			/**
@@ -231,26 +229,6 @@ export default Ember.Component.extend(
 			}
 
 			// Bubble up to ApplicationView#click
-			return true;
-		},
-
-		/**
-		 * @returns {boolean}
-		 */
-		performArticleTransforms() {
-			const model = this.get('model'),
-				articleContent = model.get('content');
-
-			if (articleContent && articleContent.length > 0) {
-				setTrackContext({
-					a: model.title,
-					n: model.ns
-				});
-
-				updateTrackedUrl(window.location.href);
-				trackPageView(model.get('adsContext.targeting'));
-			}
-
 			return true;
 		},
 

@@ -1,14 +1,57 @@
-{{#each-in model.collections as |id data|}}
-	<h3>{{id}}</h3>
-	<ul>
-	{{#if data.hasPrev}}
-		<button {{action 'loadMore' id data.prevBatch }}>Load Previous</button>
+{{ad-slot name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
+{{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
+<div class="wiki-container">
+	<h2 class="wiki-title" {{action 'trackClick' 'wikiname'}}>{{#link-to 'wiki-page' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
+
+	<h1 class="wiki-page-title">
+		{{model.displayTitle}}
+	</h1>
+
+	{{#if model.hasArticle}}
+		{{#article-wrapper
+			commentsPage=commentsPage
+			mainPageTitle=mainPageTitle
+			model=model
+			noAds=noAds
+			siteName=siteName
+			addPhoto='addPhoto'
+			articleRendered='articleRendered'
+			edit='edit'
+			openLightbox='openLightbox'
+			toggleSideNav='toggleSideNav'
+			setTopLeadboard=false
+			showPageTitle=false
+		}}
+			{{category-collections
+				adsContext=model.adsContext
+				collections=model.collections
+				loadBatch=(action 'loadBatch')
+			}}
+		{{/article-wrapper}}
+	{{else}}
+		{{category-collections
+			adsContext=model.adsContext
+			collections=model.collections
+			loadBatch=(action 'loadBatch')
+		}}
+
+		<section class="article-footer">
+			{{#collapsible-menu
+			showMenuIcon=false
+			tLabel='app.article-categories-list-label'
+			ordered=false
+			observe=model.displayTitle
+			trackingEvent='category'
+			}}
+				{{#each model.categories as |category|}}
+					<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
+						{{unbound category.title}}
+						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+					</a></li>
+				{{/each}}
+			{{/collapsible-menu}}
+		</section>
 	{{/if}}
-	{{#each data.items as |item|}}
-		<li>{{link-to item.name 'wiki-page' item.url}}</li>
-	{{/each}}
-	{{#if data.hasNext}}
-		<button {{action 'loadMore' id data.nextBatch }}>Load More</button>
-	{{/if}}
-	</ul>
-{{/each-in}}
+
+	{{wikia-footer}}
+</div>
