@@ -5,6 +5,19 @@
 .category-navigation {
 	text-align: center;
 	padding-bottom: 1.125rem;
+	position: relative;
+
+	&.is-loading .category-navigation__button {
+		display: none;
+		pointer-events: none;
+	}
+
+	.spinner {
+		left: auto;
+		margin: 0;
+		position: static;
+		top: auto;
+	}
 }
 
 .category-navigation__button {

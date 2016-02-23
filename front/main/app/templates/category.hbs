@@ -25,6 +25,7 @@
 			{{category-collections
 				adsContext=model.adsContext
 				collections=model.collections
+				batchIsLoading=batchIsLoading
 				loadBatch=(action 'loadBatch')
 			}}
 		{{/article-wrapper}}
@@ -32,16 +33,17 @@
 		{{category-collections
 			adsContext=model.adsContext
 			collections=model.collections
+			batchIsLoading=batchIsLoading
 			loadBatch=(action 'loadBatch')
 		}}
 
 		<section class="article-footer">
 			{{#collapsible-menu
-			showMenuIcon=false
-			tLabel='app.article-categories-list-label'
-			ordered=false
-			observe=model.displayTitle
-			trackingEvent='category'
+				showMenuIcon=false
+				tLabel='app.article-categories-list-label'
+				ordered=false
+				observe=model.displayTitle
+				trackingEvent='category'
 			}}
 				{{#each model.categories as |category|}}
 					<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">

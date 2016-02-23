@@ -7,6 +7,7 @@ export default Ember.Controller.extend(
 		application: Ember.inject.controller(),
 		article: Ember.inject.controller(),
 		noAds: Ember.computed.alias('application.noAds'),
+		batchIsLoading: false,
 
 		/**
 		 * @returns {void}
@@ -21,12 +22,15 @@ export default Ember.Controller.extend(
 
 		actions: {
 			loadBatch(index, batch, label) {
-				window.document.getElementById(arguments[0]).scrollIntoView();
-				window.scrollBy(0, -50);
-
 				this.trackClick('category-load-batch', label);
+				this.set('batchIsLoading', true);
 
-				return this.get('model').loadMore(...arguments);
+				return this.get('model').loadMore(...arguments).then(() => {
+					this.set('batchIsLoading', false);
+
+					window.document.getElementById(arguments[0]).scrollIntoView();
+					window.scrollBy(0, -50);
+				});
 			},
 
 			/**
