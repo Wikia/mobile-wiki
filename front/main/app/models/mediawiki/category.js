@@ -30,6 +30,8 @@ function getUrlBatchContent(categoryName, index, batch) {
 	});
 }
 /**
+ * add title to collectionItem based on url eg. /wiki/Namespace:Title -> Namespace:Title
+ *
  * @param  {Array.<{url: string, name: string}>} collectionItems - array of items
  * @returns {Array.<{url: string, name: string, title: string}>}
  */
@@ -41,8 +43,9 @@ function addTitlesToCollection(collectionItems) {
 }
 
 /**
+ * Adds titles to collection
  *
- * @param collections
+ * @param {Object|Array} collections
  * @returns {Object|Array}
  */
 function addTitles(collections) {
