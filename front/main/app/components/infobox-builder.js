@@ -17,14 +17,18 @@ export default Ember.Component.extend({
 
 	actions: {
 		showReorderTooltip(posX, posY) {
-			this.set('toolTipPosX', posX + this.get('toolTipDistanceFromCursor'));
-			this.set('toolTipPosY', posY);
-			this.set('isPreviewItemHovered', true);
+			this.setProperties({
+				toolTipPosX: posX + this.get('toolTipDistanceFromCursor'),
+				toolTipPosY: posY,
+				isPreviewItemHovered: true
+			});
 		},
 		hideReorderTooltip() {
-			this.set('isPreviewItemHovered', false);
-			this.set('toolTipPosX', null);
-			this.set('toolTipPosy', null);
+			this.setProperties({
+				isPreviewItemHovered: false,
+				toolTipPosX: null,
+				toolTipPosy: null
+			});
 		},
 		onPreviewItemDrag(actionTrigger) {
 			this.set('isPreviewItemDragged', true);

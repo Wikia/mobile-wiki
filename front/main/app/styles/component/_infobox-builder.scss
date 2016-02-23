@@ -54,7 +54,7 @@ $grayout-color: rgba(255,255,255,0.3);
 
 		// transitions during reordering
 		&.sortable-item {
-			transition: all .125s;
+			transition: transform .125s;
 		}
 
 		&:hover,
