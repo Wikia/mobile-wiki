@@ -1,10 +1,12 @@
 <div>
-	{{#if showModerationTools}}
-		{{discussion-post-reported
+	{{#if showTopNote}}
+		{{discussion-post-card-top-note
 			approve=(action this.attrs.approve)
 			delete=(action this.attrs.delete)
+			isReported=isReported
 			post=post
-			reported-text=(i18n 'main.reported-to-moderators' ns='discussion')
+			showButtons=isDetailsView
+			threadCreatorName=post.threadCreatedBy.name
 		}}
 	{{/if}}
 	{{user-avatar

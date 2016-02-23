@@ -2,7 +2,7 @@ import Ember from 'ember';
 import {checkPermissions} from 'common/utils/discussionPermissions';
 
 export default Ember.Component.extend({
-	classNames: ['reported'],
+	classNames: ['top-note'],
 
 	canDelete: Ember.computed(function () {
 		return checkPermissions(this.get('post'), 'canModerate') && checkPermissions(this.get('post'), 'canDelete');
@@ -13,6 +13,42 @@ export default Ember.Component.extend({
 	}),
 
 	modalDialogService: Ember.inject.service('modal-dialog'),
+
+	/**
+	 * Computes text for the post-card note:
+	 *
+	 ** "reply reported to moderator"
+	 ** "post reported to moderator"
+	 ** "a reply to userName, reported to moderator"
+	 ** "a reply to userName"
+	 */
+	text: Ember.computed('isReported', function () {
+		if (this.get('isReported')) {
+			if (this.get('showRepliedTo')) {
+				// post is reported, is a reply and supposed to show reply-to info
+				return i18n.t('main.reported-to-moderators-replied-to', {
+						ns: 'discussion',
+						userName: this.get('threadCreatorName')
+					});
+			}
+			else if (!this.get('showRepliedTo') && this.get('isReply')) {
+
+				// post is reported, is a reply, but NOT supposed to show reply-to info
+				return i18n.t('main.reported-to-moderators-reply', {ns: 'discussion'});
+			}
+			else if (!this.get('isReply')) {
+
+				// post is reported and is NOT a reply
+				return i18n.t('main.reported-to-moderators', {ns: 'discussion'});
+			}
+		}
+
+		else if (this.get('showRepliedTo')) {
+
+			// post is NOT reported, is a reply and supposed to show reply-to info
+			return i18n.t('main.user-replied-to', {ns: 'discussion', userName: this.get('threadCreatorName')});
+		}
+	}),
 
 	actions: {
 		/**

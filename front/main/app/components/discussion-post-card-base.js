@@ -9,14 +9,13 @@ export default Ember.Component.extend(
 	DiscussionParsedContentMixin,
 	DiscussionMoreOptionsMixin,
 	{
-		classNameBindings: ['isNew', 'isDeleted', 'isReported'],
+		classNameBindings: ['isNew', 'isDeleted', 'isReported', 'showTopNote'],
 
 		isDeleted: Ember.computed.alias('post.isDeleted'),
 		isNew: Ember.computed.oneWay('post.isNew'),
 		isReported: Ember.computed.alias('post.isReported'),
-		showModerationTools: Ember.computed('isReported', 'isDeleted', function () {
-			return this.get('isReported') && !this.get('isDeleted');
+		showTopNote: Ember.computed('isDeleted', 'isReported', function () {
+			return !this.get('isDeleted') && this.get('isReported') || this.get('showRepliedTo');
 		})
 	}
 );
-

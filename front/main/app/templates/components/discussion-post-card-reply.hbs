@@ -1,17 +1,15 @@
 <div class="discussion-reply">
-	{{#if showModerationTools}}
-		{{discussion-post-reported
+	{{#if showTopNote}}
+		{{discussion-post-card-top-note
 			approve=(action this.attrs.approve)
 			delete=(action this.attrs.delete)
 			isReply=true
+			isReported=isReported
 			post=post
-			reported-text=(i18n 'main.reported-to-moderators-reply' ns='discussion')
+			showButtons=isDetailsView
+			showRepliedTo=showRepliedTo
+			threadCreatorName=post.threadCreatedBy.name
 		}}
-	{{/if}}
-	{{#if showRepliedTo}}
-		<div class="user-replied-to">
-			{{i18n 'main.user-replied-to' userName=post.threadCreatedBy.name ns='discussion'}}
-		</div>
 	{{/if}}
 	<div>
 		<div class="upvotes">

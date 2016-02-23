@@ -1,5 +1,5 @@
 $horizontal-padding: 18px;
-$post-card-reported-height: 40px;
+$post-card-top-note-height: 40px;
 $post-card-right-icon-margin: -9px;
 $post-details-post-width: 560px;
 $post-details-outer-width: 580px;
@@ -96,16 +96,19 @@ body.discussions {
 	line-height: $line-height-smallest;
 	max-width: inherit;
 
-	.reported {
-		border-bottom: 1px solid $discussion-post-card-reported-border;
+	.top-note {
+		border-bottom: 1px solid $discussion-post-card-top-note-border;
+		font-size: $type-min;
+		height: $post-card-top-note-height;
+		line-height: $post-card-top-note-height;
 		margin-bottom: 5px;
-		min-height: $post-card-reported-height;
 		overflow: hidden;
 
-		.reported-by {
-			color: $discussion-post-card-reported-color;
-			font-size: $type-min;
-			line-height: $post-card-reported-height;
+		.text-content {
+			color: $discussion-post-card-top-note-color;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 
 		.actions {
@@ -184,6 +187,10 @@ body.discussions {
 	.post-reply,
 	.post-detail {
 		position: relative;
+
+		&.show-top-note {
+			padding-top: 0;
+		}
 
 		.loading-overlay {
 			height: 100%;
@@ -308,6 +315,13 @@ body.discussions {
 			}
 		}
 	}
+
+	.show-top-note {
+		.discussion-reply {
+			padding-top: 0;
+		}
+	}
+
 	.discussion-no-replies {
 		color: $discussion-error-text-color;
 		font-size: $type-smallest;
@@ -438,18 +452,6 @@ body.discussions {
 			.post-title {
 				font-size: $type-smallest;
 			}
-
-			.reported {
-				margin-top: -14px;
-			}
-		}
-	}
-
-	&.user-list-wrapper {
-		.discussion-reply {
-			.reported {
-				margin-top: -8px;
-			}
 		}
 	}
 
@@ -461,12 +463,6 @@ body.discussions {
 				font-size: $type-smaller;
 				line-height: $line-height-smaller;
 				margin-bottom: 18px;
-			}
-		}
-
-		.discussion-reply {
-			.reported {
-				margin-top: -14px;
 			}
 		}
 	}
@@ -487,6 +483,10 @@ body.discussions {
 				border-top-color: $discussion-post-detail-border-color;
 				border-width: 0;
 				padding: 20px 30px;
+
+				&.show-top-note {
+					padding-top: 0;
+				}
 			}
 		}
 
@@ -502,6 +502,10 @@ body.discussions {
 					left: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
 				}
 				width: $post-details-outer-width;
+
+				&.show-top-note {
+					padding-top: 0;
+				}
 
 				.discussion-content {
 					line-height: $post-details-content-line-height;
