@@ -58,6 +58,7 @@
     "report-post": "Report Post",
     "report-reply": "Report Reply",
     "reported-to-moderators": "Reported to moderators",
+    "reported-to-moderators-replied-to": "A reply to __userName__, reported to moderators",
     "reported-to-moderators-reply": "Reply reported to moderators",
     "reported-by-one": "Reported by __userName__",
     "reported-by-one-reply": "Reply reported by __userName__",
