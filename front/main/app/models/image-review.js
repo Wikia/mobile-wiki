@@ -129,7 +129,10 @@ ImageReviewModel.reopenClass({
 	getImagesToReviewCount(images, contractId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: M.getImageReviewServiceUrl(`/monitoring?status=UNREVIEWED`),
+				url: M.getImageReviewServiceUrl(`/monitoring`),
+				query: {
+					status: 'UNREVIEWED'
+				},
 				xhrFields: {
 					withCredentials: true
 				},
