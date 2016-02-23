@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import MediaModel from './media';
+import MediaModel from '../media';
 import {normalizeToWhitespace} from 'common/utils/string';
 
 /**
@@ -33,6 +33,7 @@ const ArticleModel = Ember.Object.extend({
 	user: null,
 	users: [],
 	wiki: null,
+	isCuratedMainPage: false
 });
 
 ArticleModel.reopenClass({
@@ -48,40 +49,6 @@ ArticleModel.reopenClass({
 		}
 
 		return `${M.prop('apiBase')}/article/${params.title}${redirect}`;
-	},
-
-	/**
-	 * @param {ArticleModelFindParams} params
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	find(params) {
-		const model = ArticleModel.create(params);
-
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
-				this.setArticle(model);
-				resolve(model);
-				return;
-			}
-
-			Ember.$.ajax({
-				url: this.url(params),
-				dataType: 'json',
-				success: (data) => {
-					this.setArticle(model, data);
-					resolve(model);
-				},
-				error: (err) => {
-					// Temporary solution until we can make error states work - ideally we should reject on errors
-					if (err.status === 404) {
-						this.setArticle(model, err.responseJSON);
-						resolve(model);
-					} else {
-						reject(err);
-					}
-				}
-			});
-		});
 	},
 
 	/**
