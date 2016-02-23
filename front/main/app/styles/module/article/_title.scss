@@ -1,7 +1,6 @@
 $icon-size: 16px;
 
-.article-title,
-.wikipage-title {
+.wiki-page-title {
 	@extend %header-section-title;
 	line-height: 2rem;
 	margin: {

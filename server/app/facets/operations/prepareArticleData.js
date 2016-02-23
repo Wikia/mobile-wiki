@@ -53,6 +53,8 @@ export default function prepareArticleData(request, data) {
 		if (articleData.article) {
 			result.articleContent = articleData.article.content;
 			delete articleData.article.content;
+
+			result.hasToC = Boolean(result.articleContent.trim().length);
 		}
 
 		if (articleData.htmlTitle) {
