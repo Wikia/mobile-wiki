@@ -44,35 +44,19 @@ export default Ember.Mixin.create({
 		},
 
 		/**
-		 * @param {object} post
+		 * @param {object} item
 		 * @returns {void}
 		 */
-		reportPost(post) {
-			this.get('target').send('reportPost', post);
+		approve(item) {
+			this.get('target').send('approve', item);
 		},
 
 		/**
-		 * @param {object} post
+		 * @param {object} item
 		 * @returns {void}
 		 */
-		approvePost(post) {
-			this.get('target').send('approvePost', post);
-		},
-
-		/**
-		 * @param {object} reply
-		 * @returns {void}
-		 */
-		reportReply(reply) {
-			this.get('target').send('reportReply', reply);
-		},
-
-		/**
-		 * @param {object} reply
-		 * @returns {void}
-		 */
-		approveReply(reply) {
-			this.get('target').send('approveReply', reply);
+		report(item) {
+			this.get('target').send('report', item);
 		},
 	}
 });

@@ -115,41 +115,19 @@ export default Ember.Mixin.create({
 	},
 
 	/**
-	 * Report post in service
-	 * @param {object} post
+	 * Approve post/reply in service
+	 * @param {object} item
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	reportPost(post) {
-		return ajaxCall({
-			data: JSON.stringify({value: 1}),
-			dataType: 'text',
-			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${post.id}/report`),
-			success: () => {
-				Ember.set(post, '_embedded.userData.0.hasReported', true);
-				Ember.set(post, 'isReported', true);
-
-			},
-			error: () => {
-				this.displayError();
-			}
-		});
-	},
-
-	/**
-	 * Approve post in service
-	 * @param {object} post
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	approvePost(post) {
-		if (checkPermissions(post, 'canModerate')) {
+	approve(item) {
+		if (checkPermissions(item, 'canModerate')) {
 			return ajaxCall({
 				data: JSON.stringify({value: 1}),
 				dataType: 'text',
 				method: 'PUT',
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${post.id}/report/valid`),
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${item.id}/report/valid`),
 				success: () => {
-					Ember.set(post, 'isReported', false);
+					Ember.set(item, 'isReported', false);
 				},
 				error: () => {
 					this.displayError();
@@ -159,46 +137,24 @@ export default Ember.Mixin.create({
 	},
 
 	/**
-	 * Report reply in service
-	 * @param {object} reply
+	 * Report post/reply in service
+	 * @param {object} item
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	reportReply(reply) {
+	report(item) {
 		return ajaxCall({
 			data: JSON.stringify({value: 1}),
 			dataType: 'text',
 			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/report`),
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${item.id}/report`),
 			success: () => {
-				Ember.set(reply, '_embedded.userData.0.hasReported', true);
-				Ember.set(reply, 'isReported', true);
+				Ember.set(item, '_embedded.userData.0.hasReported', true);
+				Ember.set(item, 'isReported', true);
 			},
 			error: () => {
 				this.displayError();
 			}
 		});
-	},
-
-	/**
-	 * Approve reply in service
-	 * @param {object} reply
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	approveReply(reply) {
-		if (checkPermissions(reply, 'canModerate')) {
-			return ajaxCall({
-				data: JSON.stringify({value: 1}),
-				dataType: 'text',
-				method: 'PUT',
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/report/valid`),
-				success: () => {
-					Ember.set(reply, 'isReported', false);
-				},
-				error: () => {
-					this.displayError();
-				}
-			});
-		}
 	},
 
 	displayError() {

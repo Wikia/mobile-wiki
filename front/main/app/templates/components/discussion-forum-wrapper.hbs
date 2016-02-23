@@ -6,14 +6,14 @@
 
 {{#each posts as |item|}}
 	{{post-detail
-		approve=(action this.attrs.approvePost)
+		approve=(action this.attrs.approve)
 		author=item.createdBy
 		delete=(action this.attrs.deletePost)
 		isReported=item.isReported
 		post=item.firstPost
 		postId=item.id
 		replyCount=item.postCount
-		report=(action this.attrs.reportPost)
+		report=(action this.attrs.report)
 		undelete=(action this.attrs.undeletePost)
 		upvote=(action this.attrs.upvote)
 	}}
