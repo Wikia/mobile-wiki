@@ -56,7 +56,7 @@ export default Ember.Service.extend({
 	 * @return {void}
 	 */
 	loadLocale() {
-		if (!this.isLoading) {
+		if (!this.get('isLoading')) {
 			const contentLang = Ember.get(Mercury, 'wiki.language.content'),
 				lang = this.localePath.hasOwnProperty(contentLang) ? contentLang : this.defaultLocation;
 
