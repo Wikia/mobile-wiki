@@ -3,9 +3,10 @@
 <div class="wiki-container">
 	<h2 class="wiki-title" {{action 'trackClick' 'wikiname'}}>{{#link-to 'wiki-page' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
 
-	<h1 class="wikipage-title">
+	<h1 class="wiki-page-title">
 		{{model.displayTitle}}
 	</h1>
+	<span class="wiki-page-subtitle">{{i18n 'app.category-page-subtitle'}}</span>
 
 	{{#if model.hasArticle}}
 		{{#article-wrapper
@@ -13,35 +14,39 @@
 			mainPageTitle=mainPageTitle
 			model=model
 			noAds=noAds
+			showPageTitle=false
 			siteName=siteName
 			addPhoto='addPhoto'
 			articleRendered='articleRendered'
 			edit='edit'
 			openLightbox='openLightbox'
 			toggleSideNav='toggleSideNav'
-			setTopLeadboard=false
-			showPageTitle=false
 		}}
 			{{category-collections
 				adsContext=model.adsContext
+			    batchIsLoading=batchIsLoading
 				collections=model.collections
+				setupAds=false
 				loadBatch=(action 'loadBatch')
 			}}
 		{{/article-wrapper}}
 	{{else}}
 		{{category-collections
 			adsContext=model.adsContext
+		    batchIsLoading=batchIsLoading
 			collections=model.collections
+			noAds=noAds
+			setupAds=true
 			loadBatch=(action 'loadBatch')
 		}}
 
 		<section class="article-footer">
 			{{#collapsible-menu
-			showMenuIcon=false
-			tLabel='app.article-categories-list-label'
-			ordered=false
-			observe=model.displayTitle
-			trackingEvent='category'
+				showMenuIcon=false
+				tLabel='app.article-categories-list-label'
+				ordered=false
+				observe=model.displayTitle
+				trackingEvent='category'
 			}}
 				{{#each model.categories as |category|}}
 					<li class="mw-content" {{action 'trackClick' 'category' 'link'}}>
