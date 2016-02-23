@@ -25,7 +25,8 @@ export default Ember.Helper.extend({
 			momentLocaleService = this.get('momentLocale');
 		let output;
 
-		if (!momentLocaleService.isLocaleLoaded()) {
+		if (!momentLocaleService.get('isLoaded')) {
+			momentLocaleService.loadLocale();
 			return new Ember.Handlebars.SafeString('<span class="date-placeholder"></span>');
 		} else {
 			if (now.diff(date, 'days') > 5) {

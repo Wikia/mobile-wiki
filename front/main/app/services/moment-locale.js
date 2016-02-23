@@ -46,33 +46,22 @@ export default Ember.Service.extend({
 	 * @return {void}
 	 */
 	loadLocale() {
-		const contentLang = Ember.get(Mercury, 'wiki.language.content'),
-			lang = this.localePath.hasOwnProperty(contentLang) ? contentLang : 'en';
+		if (!this.isLoading) {
+			const contentLang = Ember.get(Mercury, 'wiki.language.content'),
+				lang = this.localePath.hasOwnProperty(contentLang) ? contentLang : 'en';
 
-		this.changeLoadingStatus(false);
-		if (lang === 'en') {
-			this.setEnLocale();
-		} else {
-			Ember.$.getScript(this.localePath[lang]).done(() => {
-				this.changeLoadingStatus();
-			}).fail((jqxhr, settings, exception) => {
-				Ember.Logger.error(`Can't get moment translation for ${lang} | ${exception}`);
+			this.changeLoadingStatus(false);
+			if (lang === 'en') {
 				this.setEnLocale();
-			});
+			} else {
+				Ember.$.getScript(this.localePath[lang]).done(() => {
+					this.changeLoadingStatus();
+				}).fail((jqxhr, settings, exception) => {
+					Ember.Logger.error(`Can't get moment translation for ${lang} | ${exception}`);
+					this.setEnLocale();
+				});
+			}
 		}
-	},
-	/**
-	 * Returns true when locale is set, so helpers will display date instead of placeholders
-	 *
-	 * @return {boolean}
-	 */
-	isLocaleLoaded() {
-		if (this.isLoaded) {
-			return true;
-		} else if (!this.isLoading) {
-			this.loadLocale();
-		}
-		return false;
 	},
 	// Extends default en translation by needed relative time on init
 	init() {
