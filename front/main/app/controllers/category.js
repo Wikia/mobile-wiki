@@ -1,12 +1,14 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 
-export default Ember.Controller.extend(
+const {Controller, inject, computed, get, getWithDefault} = Ember;
+
+export default Controller.extend(
 	TrackClickMixin,
 	{
-		application: Ember.inject.controller(),
-		article: Ember.inject.controller(),
-		noAds: Ember.computed.alias('application.noAds'),
+		application: inject.controller(),
+		article: inject.controller(),
+		noAds: computed.alias('application.noAds'),
 
 		/**
 		 * @returns {void}
@@ -14,8 +16,8 @@ export default Ember.Controller.extend(
 		init() {
 			this._super(...arguments);
 			this.setProperties({
-				mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
-				siteName: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
+				mainPageTitle: get(Mercury, 'wiki.mainPageTitle'),
+				siteName: getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 			});
 		},
 
