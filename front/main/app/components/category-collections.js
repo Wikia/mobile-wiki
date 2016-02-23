@@ -7,7 +7,6 @@ export default Component.extend(
 	AdsMixin,
 	{
 		classNames: ['category-collections'],
-		batchIsLoading: false,
 
 		didReceiveAttrs() {
 			if (this.get('setupAds') === true) {
@@ -16,11 +15,11 @@ export default Component.extend(
 		},
 
 		actions: {
-			loadBatch() {
-				this.set('batchIsLoading', true);
+			loadBatch(index, batch, label) {
+				this.set(`navigationClassNameFor${index}`, ' is-loading');
 
 				this.get('loadBatch')(...arguments).then(() => {
-					this.set('batchIsLoading', false);
+					this.set(`navigationClassNameFor${index}`, '');
 
 					window.document.getElementById(arguments[0]).scrollIntoView();
 					window.scrollBy(0, -50);

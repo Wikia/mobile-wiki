@@ -13,10 +13,22 @@
 	}
 
 	.spinner {
+		display: none;
 		left: auto;
 		margin: 0;
 		position: static;
 		top: auto;
+	}
+}
+
+.category-navigation.is-loading {
+	.spinner {
+		display: inline;
+	}
+
+	.category-navigation__button {
+		display: none;
+		pointer-events: none;
 	}
 }
 
