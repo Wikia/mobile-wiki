@@ -2,9 +2,18 @@ import Ember from 'ember';
 import moment from 'moment';
 
 export default Ember.Service.extend({
+	defaultLocation: 'en',
+	enRelativeTime: {
+		m: '1m',
+		mm: '%dm',
+		h: '1h',
+		hh: '%dh',
+		d: '1d',
+		dd: '%dd'
+	},
 	isLoaded: false,
 	isLoading: false,
-	// Path to all supported locales, so they can be revved
+	// Path to all supported locales, so they can be fingerprinted
 	localePath: {
 		de: '/front/main/moment/de.js',
 		es: '/front/main/moment/es.js',
@@ -49,7 +58,7 @@ export default Ember.Service.extend({
 	loadLocale() {
 		if (!this.isLoading) {
 			const contentLang = Ember.get(Mercury, 'wiki.language.content'),
-				lang = this.localePath.hasOwnProperty(contentLang) ? contentLang : 'en';
+				lang = this.localePath[contentLang] !== undefined ? contentLang : this.defaultLocation;
 
 			this.changeLoadingStatus(false);
 			if (lang === 'en') {
@@ -68,14 +77,7 @@ export default Ember.Service.extend({
 	init() {
 		this._super();
 		moment.locale('en', {
-			relativeTime: {
-				m: '1m',
-				mm: '%dm',
-				h: '1h',
-				hh: '%dh',
-				d: '1d',
-				dd: '%dd'
-			}
+			relativeTime: this.enRelativeTime
 		});
 	}
 });
