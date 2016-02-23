@@ -136,7 +136,7 @@ ImageReviewModel.reopenClass({
 				dataType: 'json',
 				method: 'GET',
 				success: (data) => resolve(ImageReviewModel.sanitize(images, contractId, data.countByStatus)),
-				error: (data) => reject(i18n.t('app.image-review-error-invalid-data'))
+				error: () => reject(i18n.t('app.image-review-error-invalid-data'))
 			});
 		});
 	}
