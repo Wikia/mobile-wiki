@@ -27,15 +27,15 @@ export function getTitle(request, articleData) {
  * Prepares article data to be rendered
  *
  * @param {Hapi.Request} request
- * @param {ArticlePageData} data
+ * @param {MediaWikiPageData} data
  * @returns {object}
  */
 export default function prepareArticleData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
-		articleData = data.article.data,
+		articleData = data.page.data,
 		wikiVariables = data.wikiVariables,
 		result = {
-			article: data.article,
+			articlePage: data.page,
 			server: data.server,
 			wikiVariables: data.wikiVariables,
 		};

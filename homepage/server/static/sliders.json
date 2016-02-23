@@ -19,16 +19,16 @@
           "english": false
         },
         {
-          "image": "/images/categories/popular/slide3.jpg",
-          "url": "http://ja.memory-alpha.wikia.com/",
-          "text": "Memory Alpha (スタートレック)",
-          "english": false
-        },
-        {
           "image": "/images/categories/popular/slide4.jpg",
           "url": "http://marvel.wikia.com/",
           "text": "Marvel",
           "english": true
+        },
+        {
+          "image": "/images/categories/popular/slide8.jpg",
+          "url": "http://ja.seiken.wikia.com/",
+          "text": "政剣マニフェスティア",
+          "english": false
         }
       ]
     },
@@ -36,12 +36,6 @@
       "title": "ゲーム",
       "id": "carousel-2",
       "entries": [
-        {
-          "image": "/images/categories/games/slide1.jpg",
-          "url": "http://ja.battlefront.wikia.com/",
-          "text": "Star Wars Battlefront",
-          "english": false
-        },
         {
           "image": "/images/categories/games/slide2.jpg",
           "url": "http://ja.halo.wikia.com/",
@@ -51,13 +45,19 @@
         {
           "image": "/images/categories/games/slide3.jpg",
           "url": "http://ja.splatoon.wikia.com/",
-          "text": "スプラトゥーン",
+          "text": "Splatoon",
           "english": false
         },
         {
           "image": "/images/categories/games/slide4.jpg",
           "url": "http://ja.gw2.wikia.com/",
           "text": "ギルドウォーズ２ 日本語版",
+          "english": false
+        },
+        {
+          "image": "/images/categories/games/slide5.jpg",
+          "url": "http://ja.leagueoflegends.wikia.com/",
+          "text": "リーグ・オブ・レジェンド",
           "english": false
         }
       ]
@@ -73,10 +73,10 @@
           "english": false
         },
         {
-          "image": "/images/categories/movies/slide2.jpg",
-          "url": "http://dc.wikia.com/",
-          "text": "DC COMICS",
-          "english": true
+          "image": "/images/categories/popular/slide3.jpg",
+          "url": "http://ja.memory-alpha.wikia.com/",
+          "text": "Memory Alpha (スタートレック)",
+          "english": false
         },
         {
           "image": "/images/categories/movies/slide3.jpg",
@@ -103,21 +103,21 @@
           "english": false
         },
         {
-          "image": "/images/categories/anime/slide2.jpg",
-          "url": "http://ja.onepiece.wikia.com/",
-          "text": "One Piece",
-          "english": false
-        },
-        {
-          "image": "/images/categories/anime/slide3.jpg",
-          "url": "http://ja.gundam.wikia.com/",
-          "text": "ガンダム",
-          "english": false
-        },
-        {
           "image": "/images/categories/anime/slide4.jpg",
           "url": "http://ja.yugioh.wikia.com/",
           "text": "遊戯王",
+          "english": false
+        },
+        {
+          "image": "/images/categories/anime/slide5.jpg",
+          "url": "http://ja.attackontitan.wikia.com/",
+          "text": "進撃の巨人",
+          "english": false
+        },
+        {
+          "image": "/images/categories/anime/slide6.jpg",
+          "url": "http://ja.prisonschool.wikia.com/",
+          "text": "監獄学園",
           "english": false
         }
       ]
