@@ -25,7 +25,7 @@ const {Object, get, $, isArray} = Ember,
 		id: null,
 
 		loadMore(index, batchToLoad) {
-			const url = getUrlBatchContent(this.get('name'), index, batchToLoad);
+			const url = CategoryModel.getUrlBatchContent(this.get('name'), index, batchToLoad);
 
 			return $.ajax({
 				url,
@@ -35,7 +35,7 @@ const {Object, get, $, isArray} = Ember,
 				const collectionIndex = `collections.${index}`;
 
 				this.setProperties({
-					[`${collectionIndex}.items`]: addTitles(pageData.itemsBatch),
+					[`${collectionIndex}.items`]: CategoryModel.addTitles(pageData.itemsBatch),
 					[`${collectionIndex}.hasPrev`]: batchToLoad - 1 > 0,
 					[`${collectionIndex}.hasNext`]: Math.ceil(this.get(`${collectionIndex}.total`) /
 						this.get(`${collectionIndex}.batchSize`)) > batchToLoad,
@@ -48,71 +48,12 @@ const {Object, get, $, isArray} = Ember,
 		}
 	});
 
-/**
- * Get url for batch of category members for given index.
- * Index represents the letter members start from.
- *
- * @param {String} categoryName
- * @param {String} index
- * @param {Number} batch
- * @returns {string}
- */
-function getUrlBatchContent(categoryName, index, batch) {
-	const query = {
-		controller: 'WikiaMobile',
-		method: 'getCategoryBatch',
-		batch,
-		category: categoryName,
-		format: 'json',
-		isMercury: true,
-		index
-	};
-
-	return M.buildUrl({
-		path: '/wikia.php',
-		query
-	});
-}
-/**
- * add title to collectionItem based on url eg. /wiki/Namespace:Title -> Namespace:Title
- *
- * @param  {Array.<{url: string, name: string}>} collectionItems - array of items
- * @returns {Array.<{url: string, name: string, title: string}>}
- */
-function addTitlesToCollection(collectionItems) {
-	return collectionItems.map((item) => {
-		item.title = item.url.replace('/wiki/', '');
-
-		return item;
-	});
-}
-
-/**
- * Adds titles to collection
- * When used in loadMore context it has access only to one batch array
- * when used in setCategory context it has to iterate over object that contains
- * all batches for a given category
- *
- * TODO - this should be done server side XW-1165
- *
- * @param {Object|Array} collections
- * @returns {Object|Array}
- */
-function addTitles(collections) {
-	if (isArray(collections)) {
-		collections = addTitlesToCollection(collections);
-	} else {
-		keys(collections).forEach((collectionKey) => {
-			const collectionItem = collections[collectionKey];
-
-			collectionItem.items = addTitlesToCollection(collectionItem.items);
-		});
-	}
-
-	return collections;
-}
-
 CategoryModel.reopenClass({
+	/**
+	 * @param {CategoryModel} model
+	 * @param {Object} pageData
+	 * @returns {void}
+	 */
 	setCategory(model, pageData) {
 		const exception = pageData.exception,
 			data = pageData.data;
@@ -162,7 +103,7 @@ CategoryModel.reopenClass({
 				}
 			}
 
-			pageProperties.collections = addTitles(get(data, 'nsData.members.collections'));
+			pageProperties.collections = CategoryModel.addTitles(get(data, 'nsData.members.collections'));
 
 			if (data.otherLanguages) {
 				pageProperties.otherLanguages = data.otherLanguages;
@@ -181,6 +122,71 @@ CategoryModel.reopenClass({
 		}
 
 		model.setProperties(pageProperties);
+	},
+
+	/**
+	 * Get url for batch of category members for given index.
+	 * Index represents the letter members start from.
+	 *
+	 * @param {String} categoryName
+	 * @param {String} index
+	 * @param {Number} batch
+	 * @returns {string}
+	 */
+	getUrlBatchContent(categoryName, index, batch) {
+		const query = {
+			controller: 'WikiaMobile',
+			method: 'getCategoryBatch',
+			batch,
+			category: categoryName,
+			format: 'json',
+			isMercury: true,
+			index
+		};
+
+		return M.buildUrl({
+			path: '/wikia.php',
+			query
+		});
+	},
+
+	/**
+	 * add title to collectionItem based on url eg. /wiki/Namespace:Title -> Namespace:Title
+	 *
+	 * @param  {Array.<{url: string, name: string}>} collectionItems - array of items
+	 * @returns {Array.<{url: string, name: string, title: string}>}
+	 */
+	addTitlesToCollection(collectionItems) {
+		return collectionItems.map((item) => {
+			item.title = item.url.replace('/wiki/', '');
+
+			return item;
+		});
+	},
+
+	/**
+	 * Adds titles to collection
+	 * When used in loadMore context it has access only to one batch array
+	 * when used in setCategory context it has to iterate over object that contains
+	 * all batches for a given category
+	 *
+	 * TODO - this should be done server side XW-1165
+	 *
+	 * @param {Object|Array} collections
+	 * @returns {Object|Array}
+	 */
+	addTitles(collections) {
+		if (isArray(collections)) {
+			collections = CategoryModel.addTitlesToCollection(collections);
+		} else {
+			keys(collections).forEach((collectionKey) => {
+				const collectionItem = collections[collectionKey];
+
+				collectionItem.items = CategoryModel.addTitlesToCollection(collectionItem.items);
+			});
+		}
+
+		return collections;
 	}
 });
 
