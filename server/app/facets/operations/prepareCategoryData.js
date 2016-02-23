@@ -4,11 +4,16 @@ import localSettings from '../../../config/localSettings';
 import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
 
 /**
+ * @param {Object} data
  * @param {Hapi.Request} request
  * @returns {String} title
  */
-export function getTitle(request) {
-	return request.params.title.replace(/_/g, ' ');
+export function getTitle(data, request) {
+	try {
+		return data.page.data.nsData.name;
+	} catch (e) {
+		return request.params.title.replace(/_/g, ' ');
+	}
 }
 /**
  * Prepares article data to be rendered
@@ -28,7 +33,7 @@ export default function prepareCategoryData(request, data) {
 	result.isRtl = isRtl(wikiVariables);
 
 	result.htmlTitle = data.page.data.htmlTitle;
-	result.displayTitle = getTitle(request);
+	result.displayTitle = getTitle(data, request);
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);

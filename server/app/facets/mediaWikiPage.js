@@ -76,14 +76,14 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	switch (ns) {
 	case MediaWikiNamespace.MAIN:
 	case MediaWikiNamespace.CATEGORY:
-		if (pageData.ns === MediaWikiNamespace.CATEGORY) {
-			result = deepExtend(result, prepareCategoryData(request, data));
-		}
-
-		// if we have article details we can replace data from prepareCategoryData
 		if (pageData.article && pageData.details) {
 			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
+		}
+
+		// if we have article details we can replace data from prepareCategoryData
+		if (pageData.ns === MediaWikiNamespace.CATEGORY) {
+			result = deepExtend(result, prepareCategoryData(request, data));
 		}
 
 		// mainPageData is set only on curated main pages - only then we should do some special preparation for data

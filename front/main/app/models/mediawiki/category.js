@@ -103,7 +103,6 @@ CategoryModel.reopenClass({
 
 				pageProperties = {
 					ns: details.ns,
-					displayTitle: details.title,
 					id: details.id,
 					user: details.revision.user_id,
 					url: details.url,
@@ -111,7 +110,8 @@ CategoryModel.reopenClass({
 				};
 			}
 
-			pageProperties.name = Ember.get(data, 'details.title');
+			pageProperties.name = Ember.get(data, 'nsData.name');
+			pageProperties.displayTitle = Ember.get(data, 'nsData.name');
 
 			if (data.article) {
 				article = data.article;
@@ -119,7 +119,6 @@ CategoryModel.reopenClass({
 				if (article.content.length > 0) {
 					pageProperties = $.extend(pageProperties, {
 						content: article.content,
-						displayTitle: article.displayTitle,
 						mediaUsers: article.users,
 						type: article.type,
 						media: MediaModel.create({
