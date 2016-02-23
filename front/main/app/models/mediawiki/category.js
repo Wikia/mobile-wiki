@@ -2,6 +2,8 @@ import Ember from 'ember';
 import MediaModel from '../media';
 import {normalizeToWhitespace} from 'common/utils/string';
 
+const {Object, get, $, isArray} = Ember;
+const keys = window.Object.keys;
 
 /**
  * Get url for batch of category members for given index.
@@ -27,8 +29,38 @@ function getUrlBatchContent(categoryName, index, batch) {
 		query
 	});
 }
+/**
+ * @param  {Array.<{url: string, name: string}>} collectionItems - array of items
+ * @returns {Array.<{url: string, name: string, title: string}>}
+ */
+function addTitlesToCollection(collectionItems) {
+	return collectionItems.map((item) => {
+		item.title = item.url.replace('/wiki/', '');
+		return item;
+	});
+}
 
-const CategoryModel = Ember.Object.extend({
+/**
+ *
+ * @param collections
+ * @returns {Object|Array}
+ */
+function addTitles(collections) {
+	if (isArray(collections)) {
+		collections = addTitlesToCollection(collections)
+	} else {
+		keys(collections).forEach((collectionKey) => {
+			const collectionItem = collections[collectionKey];
+
+			collectionItem.items = addTitlesToCollection(collectionItem.items);
+		});
+	}
+
+	return collections;
+}
+
+
+const CategoryModel = Object.extend({
 	collections: null,
 	basePath: null,
 	categories: [],
@@ -51,32 +83,21 @@ const CategoryModel = Ember.Object.extend({
 	loadMore(index, batchToLoad) {
 		const url = getUrlBatchContent(this.get('name'), index, batchToLoad);
 
-		return Ember.$.ajax({
+		return $.ajax({
 			url,
 			dataType: 'json',
 			method: 'get',
 		}).then((pageData) => {
-			this.set(
-				`collections.${index}.items`,
-				pageData.itemsBatch
-			);
-			this.set(
-				`collections.${index}.hasPrev`,
-				batchToLoad - 1 > 0
-			);
-			this.set(
-				`collections.${index}.hasNext`,
-				Math.ceil(this.get(`collections.${index}.total`) /
-					this.get(`collections.${index}.batchSize`)) > batchToLoad
-			);
-			this.set(
-				`collections.${index}.prevBatch`,
-				batchToLoad - 1
-			);
-			this.set(
-				`collections.${index}.nextBatch`,
-				batchToLoad + 1
-			);
+			const collectionIndex = `collections.${index}`;
+
+			this.setProperties({
+				[`${collectionIndex}.items`]: addTitles(pageData.itemsBatch),
+				[`${collectionIndex}.hasPrev`]: batchToLoad - 1 > 0,
+				[`${collectionIndex}.hasNext`]: Math.ceil(this.get(`${collectionIndex}.total`) /
+					this.get(`${collectionIndex}.batchSize`)) > batchToLoad,
+				[`${collectionIndex}.prevBatch`]: batchToLoad - 1,
+				[`${collectionIndex}.nextBatch`]: batchToLoad + 1
+			});
 
 			return this;
 		});
@@ -110,8 +131,8 @@ CategoryModel.reopenClass({
 				};
 			}
 
-			pageProperties.name = Ember.get(data, 'nsData.name');
-			pageProperties.displayTitle = Ember.get(data, 'nsData.name');
+			pageProperties.name = get(data, 'nsData.name');
+			pageProperties.displayTitle = get(data, 'nsData.name');
 
 			if (data.article) {
 				article = data.article;
@@ -133,7 +154,7 @@ CategoryModel.reopenClass({
 				}
 			}
 
-			pageProperties.collections = Ember.get(data, 'nsData.members.collections');
+			pageProperties.collections = addTitles(get(data, 'nsData.members.collections'));
 
 			if (data.otherLanguages) {
 				pageProperties.otherLanguages = data.otherLanguages;

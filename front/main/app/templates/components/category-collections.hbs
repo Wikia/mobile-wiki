@@ -9,7 +9,7 @@
 	{{/if}}
 	<ul>
 		{{#each data.items as |item|}}
-			<li>{{link-to item.name item.url}}</li>
+			<li>{{link-to item.name 'wiki-page' item.title}}</li>
 		{{/each}}
 	</ul>
 	{{#if data.hasNext}}
