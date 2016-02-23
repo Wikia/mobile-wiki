@@ -47,10 +47,10 @@ const InfoboxBuilderModel = Ember.Object.extend({
 			item = InfoboxBuilderModel.extendRowData(this.createRowItem(), elementData);
 			break;
 		case 'image':
-			item = InfoboxBuilderModel.extendRowData(this.createImageItem(), elementData);
+			item = InfoboxBuilderModel.extendImageData(this.createImageItem(), elementData);
 			break;
 		case 'section-header':
-			item = Object.assign(this.createSectionHeaderItem(), elementData || {});
+			item = InfoboxBuilderModel.extendHeaderData(this.createSectionHeaderItem(), elementData);
 			break;
 		default:
 			Ember.Logger.warn(`Unsupported infobox builder type encountered: '${type}'`);
@@ -393,6 +393,19 @@ InfoboxBuilderModel.reopenClass({
 			item.data.caption.source = source || '';
 		}
 
+		return item;
+	},
+
+	/**
+	 * @desc Overrides some properties of given header object with additional
+	 * data, obtained from already existing template
+	 *
+	 * @param {Object} item item to extend
+	 * @param {Object} itemData additional data
+	 * @returns {Object}
+	 */
+	extendHeaderData(item, itemData) {
+		// TODO: add support for collapsible attribute
 		return item;
 	}
 });

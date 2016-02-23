@@ -111,26 +111,22 @@ test('add items by type', (assert) => {
 		];
 
 	cases.forEach((testCase) => {
-		const model = infoboxBuilderModelClass.create(),
-			addToStateSpy = sinon.spy(),
-			createComponentNameStub = sinon
-				.stub(infoboxBuilderModelClass, 'createComponentName')
-				.returns(mockComponentName),
-			i18nStub = sinon.stub(i18n, 't').returns(messageMock);
+		const model = infoboxBuilderModelClass.create();
+		let addToStateSpy;
 
-		i18n.t = i18nStub;
-		infoboxBuilderModelClass.createComponentName = createComponentNameStub;
-
+		sinon.stub(i18n, 't').returns(messageMock);
+		sinon.stub(infoboxBuilderModelClass, 'createComponentName').returns(mockComponentName);
 		model.increaseItemIndex = sinon.stub().returns(index);
-		model.addToState = addToStateSpy;
+		addToStateSpy = sinon.spy(model, 'addToState');
+
 		model.addItem(testCase.dataMock.type);
 
 		assert.equal(addToStateSpy.callCount, 1, testCase.message);
 		assert.equal(addToStateSpy.calledWith(testCase.dataMock), true, testCase.message);
 
-		// restore global stubs
-		createComponentNameStub.restore();
-		i18nStub.restore();
+		// restore static methods
+		infoboxBuilderModelClass.createComponentName.restore();
+		i18n.t.restore();
 	});
 });
 
