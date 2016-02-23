@@ -38,6 +38,7 @@ function getUrlBatchContent(categoryName, index, batch) {
 function addTitlesToCollection(collectionItems) {
 	return collectionItems.map((item) => {
 		item.title = item.url.replace('/wiki/', '');
+
 		return item;
 	});
 }
