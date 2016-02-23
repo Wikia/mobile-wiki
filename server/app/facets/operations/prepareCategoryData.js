@@ -25,10 +25,15 @@ export function getTitle(data, request) {
 export default function prepareCategoryData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
 		wikiVariables = data.wikiVariables,
+		articleData = data.page.data,
 		result = {
 			server: data.server,
 			wikiVariables: data.wikiVariables,
 		};
+
+	if (articleData && articleData.details) {
+		result.canonicalUrl = wikiVariables.basePath + articleData.details.url;
+	}
 
 	result.isRtl = isRtl(wikiVariables);
 
@@ -37,7 +42,7 @@ export default function prepareCategoryData(request, data) {
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
-	result.openGraph = getOpenGraphData('category', data.page.data.htmlTitle, null);
+	result.openGraph = getOpenGraphData('category', result.displayTitle, result.canonicalUrl);
 	// clone object to avoid overriding real localSettings for futurue requests
 	result.localSettings = getLocalSettings();
 
