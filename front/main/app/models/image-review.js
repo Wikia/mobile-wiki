@@ -53,7 +53,7 @@ ImageReviewModel.reopenClass({
 				method: 'GET',
 				success: (data) => {
 					if (Ember.isArray(data)) {
-						resolve(ImageReviewModel.sanitize(data, contractId));
+						resolve(ImageReviewModel.getImagesToReviewCount(data, contractId));
 					} else {
 						reject(i18n.t('app.image-review-error-invalid-data'));
 					}
@@ -94,7 +94,7 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	sanitize(rawData, contractId) {
+	sanitize(rawData, contractId, imagesToReviewCount) {
 		const images = [];
 
 		rawData.forEach((image) => {
@@ -108,7 +108,7 @@ ImageReviewModel.reopenClass({
 			}
 			// else skip because is reviewed already
 		});
-		return ImageReviewModel.create({images, contractId});
+		return ImageReviewModel.create({images, contractId, imagesToReviewCount});
 	},
 
 	reviewImages(images) {
@@ -122,6 +122,21 @@ ImageReviewModel.reopenClass({
 				resolve(data);
 			}, (data) => {
 				reject(data);
+			});
+		});
+	},
+
+	getImagesToReviewCount(images, contractId) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
+				url: M.getImageReviewServiceUrl(`/monitoring?status=UNREVIEWED`),
+				xhrFields: {
+					withCredentials: true
+				},
+				dataType: 'json',
+				method: 'GET',
+				success: (data) => resolve(ImageReviewModel.sanitize(images, contractId, data.countByStatus)),
+				error: (data) => reject(i18n.t('app.image-review-error-invalid-data'))
 			});
 		});
 	}
