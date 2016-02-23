@@ -17,6 +17,7 @@ export default Ember.Component.extend({
 	tagName: 'span',
 	classNames: ['on-hover-tooltip'],
 	classNameBindings: ['fixed:on-hover-tooltip--fixed'],
+	attributeBindings: ['style'],
 
 	style: Ember.computed('posX', 'posY', function () {
 		const style = `left: ${this.get('posX')}px; top: ${this.get('posY')}px;`;

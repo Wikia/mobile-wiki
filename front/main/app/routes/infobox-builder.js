@@ -210,7 +210,7 @@ export default Ember.Route.extend({
 					'wikia.infoboxBuilder.ponto',
 					'redirectToTemplatePage',
 					title,
-					resolve(data),
+					(data) => resolve(data),
 					(data) => {
 						reject(data);
 						this.showPontoError(data);
