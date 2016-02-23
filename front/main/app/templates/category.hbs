@@ -47,10 +47,12 @@
 				trackingEvent='category'
 			}}
 				{{#each model.categories as |category|}}
-					<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
-						{{unbound category.title}}
-						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-					</a></li>
+					<li class="mw-content" {{action 'trackClick' 'category' 'link'}}>
+						{{#link-to 'wiki-page' category.title}}
+							{{category.title}}
+							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+						{{/link-to}}
+					</li>
 				{{/each}}
 			{{/collapsible-menu}}
 		</section>

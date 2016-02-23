@@ -15,7 +15,7 @@
 	{{/if}}
 	<ul>
 		{{#each data.items as |item|}}
-			<li><a href="{{item.url}}">{{item.name}}</a></li>
+			<li>{{link-to item.name 'wiki-page' item.title}}</li>
 		{{/each}}
 	</ul>
 	{{#if data.hasNext}}
