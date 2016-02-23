@@ -294,13 +294,7 @@ articlePagePaths.forEach((path) => {
 authenticatedRoutes.push({
 	// Discussion forums
 	method: 'GET',
-	path: '/d/{type}/{id}/{action?}',
-	handler: discussionsHandler
-});
-
-authenticatedRoutes.push({
-	method: 'GET',
-	path: '/d',
+	path: '/d/{rest*}',
 	handler: discussionsHandler
 });
 
