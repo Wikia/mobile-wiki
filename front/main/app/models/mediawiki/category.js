@@ -3,7 +3,50 @@ import MediaModel from '../media';
 import {normalizeToWhitespace} from 'common/utils/string';
 
 const {Object, get, $, isArray} = Ember,
-	keys = window.Object.keys;
+	keys = window.Object.keys,
+	CategoryModel = Object.extend({
+		collections: null,
+		basePath: null,
+		categories: [],
+		displayTitle: null,
+		comments: 0,
+		description: null,
+		media: [],
+		mediaUsers: [],
+		otherLanguages: [],
+		title: null,
+		url: null,
+		user: null,
+		users: [],
+		wiki: null,
+		name: null,
+		hasArticle: false,
+		ns: null,
+		id: null,
+
+		loadMore(index, batchToLoad) {
+			const url = getUrlBatchContent(this.get('name'), index, batchToLoad);
+
+			return $.ajax({
+				url,
+				dataType: 'json',
+				method: 'get',
+			}).then((pageData) => {
+				const collectionIndex = `collections.${index}`;
+
+				this.setProperties({
+					[`${collectionIndex}.items`]: addTitles(pageData.itemsBatch),
+					[`${collectionIndex}.hasPrev`]: batchToLoad - 1 > 0,
+					[`${collectionIndex}.hasNext`]: Math.ceil(this.get(`${collectionIndex}.total`) /
+						this.get(`${collectionIndex}.batchSize`)) > batchToLoad,
+					[`${collectionIndex}.prevBatch`]: batchToLoad - 1,
+					[`${collectionIndex}.nextBatch`]: batchToLoad + 1
+				});
+
+				return this;
+			});
+		}
+	});
 
 /**
  * Get url for batch of category members for given index.
@@ -55,7 +98,7 @@ function addTitlesToCollection(collectionItems) {
  */
 function addTitles(collections) {
 	if (isArray(collections)) {
-		collections = addTitlesToCollection(collections)
+		collections = addTitlesToCollection(collections);
 	} else {
 		keys(collections).forEach((collectionKey) => {
 			const collectionItem = collections[collectionKey];
@@ -66,51 +109,6 @@ function addTitles(collections) {
 
 	return collections;
 }
-
-
-const CategoryModel = Object.extend({
-	collections: null,
-	basePath: null,
-	categories: [],
-	displayTitle: null,
-	comments: 0,
-	description: null,
-	media: [],
-	mediaUsers: [],
-	otherLanguages: [],
-	title: null,
-	url: null,
-	user: null,
-	users: [],
-	wiki: null,
-	name: null,
-	hasArticle: false,
-	ns: null,
-	id: null,
-
-	loadMore(index, batchToLoad) {
-		const url = getUrlBatchContent(this.get('name'), index, batchToLoad);
-
-		return $.ajax({
-			url,
-			dataType: 'json',
-			method: 'get',
-		}).then((pageData) => {
-			const collectionIndex = `collections.${index}`;
-
-			this.setProperties({
-				[`${collectionIndex}.items`]: addTitles(pageData.itemsBatch),
-				[`${collectionIndex}.hasPrev`]: batchToLoad - 1 > 0,
-				[`${collectionIndex}.hasNext`]: Math.ceil(this.get(`${collectionIndex}.total`) /
-					this.get(`${collectionIndex}.batchSize`)) > batchToLoad,
-				[`${collectionIndex}.prevBatch`]: batchToLoad - 1,
-				[`${collectionIndex}.nextBatch`]: batchToLoad + 1
-			});
-
-			return this;
-		});
-	}
-});
 
 CategoryModel.reopenClass({
 	setCategory(model, pageData) {

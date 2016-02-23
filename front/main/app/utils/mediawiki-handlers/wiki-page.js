@@ -3,6 +3,11 @@ import ArticleModel from '../../models/mediawiki/article';
 import CategoryModel from '../../models/mediawiki/category';
 import Ember from 'ember';
 
+/**
+ *
+ * @param {Object} params
+ * @returns {string}
+ */
 function getURL(params) {
 	let redirect = '';
 
@@ -13,7 +18,12 @@ function getURL(params) {
 	return `${M.prop('apiBase')}/article/${params.title}${redirect}`;
 }
 
-
+/**
+ *
+ * @param data
+ * @param params
+ * @returns {params|*}
+ */
 function getModelForNamespace(data, params) {
 	let model;
 
@@ -35,6 +45,11 @@ function getModelForNamespace(data, params) {
 	}
 }
 
+/**
+ *
+ * @param params
+ * @returns {Ember.RSVP.Promise}
+ */
 export default function getPageModel(params) {
 	let model;
 
