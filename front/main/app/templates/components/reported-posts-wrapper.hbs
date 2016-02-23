@@ -1,0 +1,53 @@
+{{discussion-post-editor
+	create=(action this.attrs.create)
+	posts=posts
+	siteHeadPinned=siteHeadPinned
+}}
+
+{{#each posts as |item|}}
+	{{#if item.isReply }}
+		{{post-reply
+			author=item.createdBy
+			content=item.rawContent
+			delete=(action this.attrs.deleteReply)
+			isParentDeleted=model.firstPost.isDeleted
+			post=item
+			showRepliedTo=true
+			timestamp=item.creationDate.epochSecond
+			undelete=(action this.attrs.undeleteReply)
+			upvote=(action this.attrs.upvote)
+			upvoteCount=item.upvoteCount
+			userListView=true
+		}}
+	{{else}}
+		{{post-detail
+			author=item.createdBy
+			delete=(action this.attrs.deletePost)
+			isReported=item.isReported
+			post=item
+			postId=item.id
+			replyCount=item.postCount
+			report=(action this.attrs.reportPost)
+			undelete=(action this.attrs.undeletePost)
+			upvote=(action this.attrs.upvote)
+		}}
+	{{/if}}
+{{else}}
+	{{discussion-empty-forum-message
+		forumId=forumId
+	}}
+{{/each}}
+
+{{#if hasMore}}
+	{{#if isLoading }}
+		{{loading-spinner
+			active=true
+			overlay=false
+			radius=32
+			strokeWidth=2
+		}}
+	{{/if}}
+	<div class="load-more">
+		{{i18n 'main.loading-more-posts' ns='discussion'}}
+	</div>
+{{/if}}
