@@ -29,7 +29,7 @@ export default Ember.Route.extend({
 				type: 'warning',
 				persistent: true
 			});
-			this.transitionTo('mainPage');
+			this.transitionTo('wiki-page', '');
 			return false;
 		},
 
@@ -55,7 +55,7 @@ export default Ember.Route.extend({
 		},
 
 		openMainPage() {
-			this.transitionTo('mainPage');
+			this.transitionTo('wiki-page', '');
 		},
 
 		didTransition() {

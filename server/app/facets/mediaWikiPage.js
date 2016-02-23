@@ -1,5 +1,5 @@
-import * as Article from '../lib/Article';
-import {WikiVariablesRequestError} from '../lib/MediaWiki';
+import {PageRequestHelper, PageRequestError} from '../lib/MediaWikiPage';
+import {WikiVariablesRequestError, namespace as MediaWikiNamespace} from '../lib/MediaWiki';
 import setResponseCaching, * as Caching from '../lib/Caching';
 import Logger from '../lib/Logger';
 import * as Tracking from '../lib/Tracking';
@@ -8,6 +8,7 @@ import getStatusCode from './operations/getStatusCode';
 import localSettings from '../../config/localSettings';
 import prepareArticleData from './operations/prepareArticleData';
 import prepareMainPageData from './operations/prepareMainPageData';
+import prepareMediaWikiData from './operations/prepareMediaWikiData';
 import deepExtend from 'deep-extend';
 
 const cachingTimes = {
@@ -18,16 +19,22 @@ const cachingTimes = {
 };
 
 /**
- * This is used only locally, normally MediaWiki takes care of this redirect.
+ * @typedef {Object} MediaWikiPageData
+ * @param {number} ns
+ * @param {Object} [article]
+ */
+
+/**
+ * This is used only locally, normally MediaWiki takes care of this redirect
  * Production traffic should not reach this place
  * although if it does it guarantees graceful fallback.
  *
  * @param {Hapi.Response} reply
- * @param {ArticleRequestHelper} article
+ * @param {RequestHelper} mediaWikiPageHelper
  * @returns {void}
  */
-function redirectToMainPage(reply, article) {
-	article
+function redirectToMainPage(reply, mediaWikiPageHelper) {
+	mediaWikiPageHelper
 		.getWikiVariables()
 		/**
 		 * @param {*} wikiVariables
@@ -52,20 +59,33 @@ function redirectToMainPage(reply, article) {
  *
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
- * @param {ArticlePageData} data
+ * @param {MediaWikiPageData} data
  * @param {boolean} [allowCache=true]
  * @param {number} [code=200]
  * @returns {void}
  */
-function outputResponse(request, reply, data, allowCache = true, code = 200) {
-	let result = prepareArticleData(request, data),
-		response;
+function handleResponse(request, reply, data, allowCache = true, code = 200) {
+	const ns = data.page.data.ns;
 
-	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
-	if (data.article.data && data.article.data.isMainPage && data.article.data.mainPageData) {
-		result = deepExtend(result, prepareMainPageData(data));
-		delete result.adsContext;
+	let result, response;
+
+	switch (ns) {
+	case MediaWikiNamespace.MAIN:
+		result = prepareArticleData(request, data);
+
+		// mainPageData is set only on curated main pages - only then we should do some special preparation for data
+		if (data.page.data && data.page.data.isMainPage && data.page.data.mainPageData) {
+			result = deepExtend(result, prepareMainPageData(data));
+			delete result.adsContext;
+		}
+		break;
+
+	default:
+		Logger.info(`Unsupported namespace: ${ns}`);
+		result = prepareMediaWikiData(request, data);
 	}
+
+	result.mediaWikiNamespace = ns;
 
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
@@ -86,20 +106,20 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
  *
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
- * @param {ArticleRequestHelper}article
+ * @param {PageRequestHelper} mediaWikiPageHelper
  * @param {boolean} allowCache
  * @returns {void}
  */
-function getArticle(request, reply, article, allowCache) {
-	article
+function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
+	mediaWikiPageHelper
 		.getFull()
 		/**
-		 * @param {ArticlePageData} data
+		 * @param {MediaWikiPageData} data
 		 * @returns {void}
 		 */
 		.then((data) => {
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
-			outputResponse(request, reply, data, allowCache);
+			handleResponse(request, reply, data, allowCache);
 		})
 		/**
 		 * @param {MWException} error
@@ -113,11 +133,11 @@ function getArticle(request, reply, article, allowCache) {
 		 * @param {*} error
 		 * @returns {void}
 		 */
-		.catch(Article.ArticleRequestError, (error) => {
+		.catch(PageRequestError, (error) => {
 			const data = error.data,
 				errorCode = getStatusCode(data.article, 500);
 
-			Logger.error(data.article.exception, 'Article error');
+			Logger.error(data.article.exception, 'MediaWikiPage error');
 
 			// It's possible that the article promise is rejected but we still want to redirect to canonical host
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
@@ -125,7 +145,7 @@ function getArticle(request, reply, article, allowCache) {
 			// Clean up exception to not put its details in HTML response
 			delete data.article.exception.details;
 
-			outputResponse(request, reply, data, allowCache, errorCode);
+			handleResponse(request, reply, data, allowCache, errorCode);
 		})
 		/**
 		 * @returns {void}
@@ -148,7 +168,7 @@ function getArticle(request, reply, article, allowCache) {
  * @param {Hapi.Response} reply
  * @returns {void}
  */
-export default function showArticle(request, reply) {
+export default function mediaWikiPageHandler(request, reply) {
 	const path = request.path,
 		wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
 		params = {
@@ -156,7 +176,7 @@ export default function showArticle(request, reply) {
 			redirect: request.query.redirect
 		};
 
-	let article,
+	let mediaWikiPageHelper,
 		allowCache = true;
 
 	// @todo This is really only a temporary check while we see if loading a smaller
@@ -173,12 +193,12 @@ export default function showArticle(request, reply) {
 		allowCache = false;
 	}
 
-	article = new Article.ArticleRequestHelper(params);
+	mediaWikiPageHelper = new PageRequestHelper(params);
 
 	if (path === '/' || path === '/wiki/') {
-		redirectToMainPage(reply, article);
+		redirectToMainPage(reply, mediaWikiPageHelper);
 	} else {
-		article.setTitle(request.params.title);
-		getArticle(request, reply, article, allowCache);
+		mediaWikiPageHelper.setTitle(request.params.title);
+		getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache);
 	}
 }
