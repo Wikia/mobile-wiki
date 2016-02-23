@@ -4,22 +4,30 @@ import nearestParent from 'ember-pop-over/computed/nearest-parent';
 export default Ember.Component.extend(
 	{
 		classNames: ['discussion-filters'],
-		discussionSort: Ember.inject.service(),
 		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
-		shouldShowReported: Ember.computed.oneWay('discussionSort.reported'),
+		onlyReported: Ember.computed.oneWay('discussionSort.reported'),
 
 		popover: nearestParent('pop-over'),
 
 		actions: {
 			applyFilters() {
-				const sortBy = this.get('sortBy');
+				const sortBy = this.get('sortBy'),
+					onlyReported = this.get('onlyReported');
 
-					this.attrs.applyFilters(sortBy);
+					this.attrs.applyFilters(sortBy, onlyReported);
 					this.get('popover').deactivate();
 			},
 
 			setSortBy(sortBy) {
 				this.set('sortBy', sortBy);
+			},
+
+			toggleOnlyReported(event) {
+				const isCheckboxChecked = event.target.checked;
+
+				if (isCheckboxChecked !== this.get('onlyReported')) {
+					this.set('onlyReported', isCheckboxChecked);
+				}
 			}
 		}
 	}

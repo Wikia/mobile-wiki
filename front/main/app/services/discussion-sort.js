@@ -1,4 +1,5 @@
 export default Ember.Service.extend({
+	onlyReported: false,
 	sortVisible: false,
 
 	sortBy: Ember.computed('sortTypes.@each.active', function () {

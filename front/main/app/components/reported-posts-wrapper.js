@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend(
 	{
-		classNames: ['forum-wrapper', 'discussion', 'forum', 'reported-posts'],
+		classNames: ['forum-wrapper', 'discussion', 'forum', 'discussion-reported-posts'],
 		postsDisplayed: 0,
 		totalPosts: 0,
 		pageNum: null,

@@ -21,6 +21,8 @@ export default DiscussionBaseRoute.extend(
 				this.get('discussionSort').setSortBy(params.sortBy);
 			}
 
+			this.get('discussionSort').set('reported', true);
+
 			this.set('forumId', params.forumId);
 
 			return DiscussionReportedPostsModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
@@ -60,7 +62,7 @@ export default DiscussionBaseRoute.extend(
 
 			applyFilters(sortBy, shouldShowReported) {
 				if (shouldShowReported === false) {
-					this.transitionTo('discussion.forum', sortBy);
+					return this.transitionTo('discussion.index');
 				}
 			},
 		}
