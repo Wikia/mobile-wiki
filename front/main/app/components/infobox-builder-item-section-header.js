@@ -10,6 +10,6 @@ export default Ember.Component.extend(
 				'pi-secondary-background'];
 
 		},
-		value: Ember.computed.oneWay('item.data.value')
+		header: Ember.computed.oneWay('item.data')
 	}
 );

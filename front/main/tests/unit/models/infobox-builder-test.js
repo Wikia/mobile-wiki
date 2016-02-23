@@ -111,13 +111,12 @@ test('add items by type', (assert) => {
 		];
 
 	cases.forEach((testCase) => {
-		const model = infoboxBuilderModelClass.create();
-		let addToStateSpy;
+		const model = infoboxBuilderModelClass.create(),
+			addToStateSpy = sinon.spy(model, 'addToState');
 
 		sinon.stub(i18n, 't').returns(messageMock);
 		sinon.stub(infoboxBuilderModelClass, 'createComponentName').returns(mockComponentName);
 		model.increaseItemIndex = sinon.stub().returns(index);
-		addToStateSpy = sinon.spy(model, 'addToState');
 
 		model.addItem(testCase.dataMock.type);
 
