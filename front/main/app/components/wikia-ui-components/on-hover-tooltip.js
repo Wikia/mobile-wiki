@@ -2,8 +2,8 @@
  * Tooltip reusable component usage example:
  *
  * {{wikia-ui-components/on-hover-tooltip
- *      posX=toolTipPosX
- *      posY=toolTipPosY
+ *      posX=tooltipPosX
+ *      posY=tooltipPosY
  *      message='lorem ipsum dolor'
  *      fixed=true
  * }}
