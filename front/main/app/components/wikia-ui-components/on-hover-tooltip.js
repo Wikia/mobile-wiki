@@ -14,14 +14,9 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	init() {
-		this._super(...arguments);
-
-		this.tagName = 'span';
-		this.classNames = ['on-hover-tooltip'];
-		this.classNameBindings = ['fixed:on-hover-tooltip--fixed'];
-		this.attributeBindings = ['style'];
-	},
+	tagName: 'span',
+	classNames: ['on-hover-tooltip'],
+	classNameBindings: ['fixed:on-hover-tooltip--fixed'],
 
 	style: Ember.computed('posX', 'posY', function () {
 		const style = `left: ${this.get('posX')}px; top: ${this.get('posY')}px;`;
