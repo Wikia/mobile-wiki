@@ -1,10 +1,13 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import HeadroomMixin from '../mixins/headroom';
+import SideNavNewBadge from '../mixins/side-nav-new-badge';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	TrackClickMixin,
 	HeadroomMixin,
+	SideNavNewBadge,
 	{
 		classNames: ['site-head', 'border-theme-color'],
 		classNameBindings: ['themeBar'],
@@ -21,6 +24,9 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			expandSideNav() {
+				if (this.get('shouldDisplayNewBadge')) {
+					this.trackClick('recent-wiki-activity-blue-dot', 'open-navigation');
+				}
 				this.sendAction('toggleSideNav', true);
 			},
 
@@ -34,6 +40,15 @@ export default Ember.Component.extend(
 
 		pinnedObserver: Ember.observer('pinned', function () {
 			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
-		})
+		}),
+
+		didRender() {
+			if (this.get('shouldDisplayNewBadge')) {
+				track({
+					action: trackActions.impression,
+					category: 'recent-wiki-activity-blue-dot'
+				});
+			}
+		}
 	}
 );

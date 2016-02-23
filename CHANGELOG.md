@@ -1,3 +1,78 @@
+## release-211 (2016-02-18 10:58 UTC)
+* const-Ember: use const {...} = Ember;
+* [INT-337](https://wikia-inc.atlassian.net/browse/INT-337) INT-337 | Page loading optimizations and cleanup
+* [SOC-1933](https://wikia-inc.atlassian.net/browse/SOC-1933) SOC-1933 | Registration modal broken on pt wikis
+* [XW-1133](https://wikia-inc.atlassian.net/browse/XW-1133) XW-1133 | Don't collapse infobox when user clicks on image/video caption
+* content-type-fix: Utils | Use propert content type name for json
+
+## release-210 (2016-02-16 11:53 UTC)
+* [CE-3368](https://wikia-inc.atlassian.net/browse/CE-3368) Fix RWA when preserved diff is not at the list
+* [XW-41](https://wikia-inc.atlassian.net/browse/XW-41) XW-41 | Replace placeholders with components dynamically
+* nodemon-app+config: watch only app and config folders
+* [CE-3327](https://wikia-inc.atlassian.net/browse/CE-3327) CE-3327 Adding messages for feature visibility story
+* [DAT-3636](https://wikia-inc.atlassian.net/browse/DAT-3636) DAT-3636 Upload Hero Image using CMP
+* infobox-builder-feature-branch: DAT-3707, Infobox builder feature branch
+* infobox-builder-with-editing: Infobox builder - editing infobox elements
+* [XW-](https://wikia-inc.atlassian.net/browse/XW-) XW | add more descriptive comment
+* [CE-](https://wikia-inc.atlassian.net/browse/CE-) CE - Recent Wiki Activity
+* [CE-3335](https://wikia-inc.atlassian.net/browse/CE-3335) Preserve scroll position on RWA
+* [CE-3362](https://wikia-inc.atlassian.net/browse/CE-3362) CE-3362 Enable RWA on all english communities
+* [XW-802](https://wikia-inc.atlassian.net/browse/XW-802) XW-802 | Disable prototype extensions
+* [XW-808](https://wikia-inc.atlassian.net/browse/XW-808) XW-808 | Fix missing global variable
+* [XW-41](https://wikia-inc.atlassian.net/browse/XW-41) XW-1008 | SVG image placeholders
+* [CE-](https://wikia-inc.atlassian.net/browse/CE-) CE-3264 Limit width of username for recent change module...
+* [CE-3351](https://wikia-inc.atlassian.net/browse/CE-3351) Ce 3351 tracking
+* [CE-3321](https://wikia-inc.atlassian.net/browse/CE-3321) CE-3321 Confirmation modal for undoing revisions
+* [CE-3336](https://wikia-inc.atlassian.net/browse/CE-3336) CE-3336 RWA should include only edits
+* [CE-3324](https://wikia-inc.atlassian.net/browse/CE-3324) Use new revisions diff api
+* [XW-41](https://wikia-inc.atlassian.net/browse/XW-41) XW-41 | Video thumbnails
+* [CE-3317](https://wikia-inc.atlassian.net/browse/CE-3317) CE-3317 Enable on aga.wikia.com for MVP testing
+* [CE-3331](https://wikia-inc.atlassian.net/browse/CE-3331) (CE-3331) Do not show undo button to blocked users
+* [CE-3325](https://wikia-inc.atlassian.net/browse/CE-3325) CE-3325 Handle revisions made by Anonymous users
+* [CE-3326](https://wikia-inc.atlassian.net/browse/CE-3326) CE-3326 Add all future translations
+* [CE-3300](https://wikia-inc.atlassian.net/browse/CE-3300) CE-3300 Add styling of a diff page
+* [CE-3317](https://wikia-inc.atlassian.net/browse/CE-3317) CE-3317 Enable RWA only on kirkburn.wikia.com
+* [CE-3266](https://wikia-inc.atlassian.net/browse/CE-3266) (CE-3266) Add the ability to undo an edit from a diff page
+* [CE-3264](https://wikia-inc.atlassian.net/browse/CE-3264) Ce 3264
+* [CE-3303](https://wikia-inc.atlassian.net/browse/CE-3303) CE-3303 A list of recent changes made on a wiki
+* [DAT-2996](https://wikia-inc.atlassian.net/browse/DAT-2996) Dat 2996 - add item reordering functionality to infobox builder
+* [DAT-2994](https://wikia-inc.atlassian.net/browse/DAT-2994) Dat 2994 - add remove item functionality to Infobox Builder UI
+
+## release-209 (2016-02-11 16:49 UTC)
+* [XW-608](https://wikia-inc.atlassian.net/browse/XW-608) XW-608 clean up prepare* functions
+* [SOC-1945](https://wikia-inc.atlassian.net/browse/SOC-1945) SOC-1945 | Links in discussion replies are now clickable
+* [SOC-1967](https://wikia-inc.atlassian.net/browse/SOC-1967) SOC-1967 | Remove inherited line-height from auth-footer-link
+
+## release-208 (2016-02-09 12:07 UTC)
+* [SOC-1907](https://wikia-inc.atlassian.net/browse/SOC-1907) SOC-1907 FE | As a mobile web user, I want to see a filter icon and a new post list menu
+* [XW-1007](https://wikia-inc.atlassian.net/browse/XW-1007) XW-1076 | Implement prerender.io on 10 communities
+* [INT-337](https://wikia-inc.atlassian.net/browse/INT-337) INT-337 | Convert large images to JPG
+* [SOC-1798](https://wikia-inc.atlassian.net/browse/SOC-1798) SOC-1798 | Fixing bad behavior of ellipses by setting a different editor placeholder height
+
+## release-207 (2016-02-08 11:28 UTC)
+* [DAT-3687](https://wikia-inc.atlassian.net/browse/DAT-3687) DAT-3626 Mercury on preview
+* [CE-3326](https://wikia-inc.atlassian.net/browse/CE-3326) CE-3326 Add strings related to Recent Wiki Activity to start i18n
+* [XW-816](https://wikia-inc.atlassian.net/browse/XW-816) XW-816 | Disable Ember performance sender
+* [XW-439](https://wikia-inc.atlassian.net/browse/XW-439) XW-439 | add favicon to index.html
+* [SOC-1981](https://wikia-inc.atlassian.net/browse/SOC-1981) SOC-1981 | Redirect to discussions right away on /d
+* [XW-1075](https://wikia-inc.atlassian.net/browse/XW-1075) XW-1075 | use display title
+* [ADEN-2862](https://wikia-inc.atlassian.net/browse/ADEN-2862) ADEN-2862 Call krux before Ad Engine
+
+## release-206 hotfix 1 (2016-02-04 14:17 UTC)
+* release-206-hotfix: SOC-1981 | Using ja.tekken wikia instead of tekken
+
+## release-206 (2016-02-04 11:59 UTC)
+* [SOC-1968](https://wikia-inc.atlassian.net/browse/SOC-1968) SOC-1968 | Adding FE config for 3 new communities
+* [INT-333](https://wikia-inc.atlassian.net/browse/INT-333) INT-333 | Adjust arrow position for 3-slide breakpoint. Japan HP
+* [ADEN-2820](https://wikia-inc.atlassian.net/browse/ADEN-2820) ADEN-2820 Use AdEngineRunner and move onLoad callback
+* fix-auth-logo: fix blue wikia logo on signin page
+* [PLATFORM-1855](https://wikia-inc.atlassian.net/browse/PLATFORM-1855) PLATFORM-1855 Image review does not show flagged images
+* [XW-980](https://wikia-inc.atlassian.net/browse/XW-980) XW-980 remove global navigation 2015
+* [INT-323](https://wikia-inc.atlassian.net/browse/INT-323) INT-323 | Change GA tracking ID
+* [INT-323](https://wikia-inc.atlassian.net/browse/INT-323) INT-323 | Fix visual glitch for iphone in portrait mode. Change page …
+* [INT-333](https://wikia-inc.atlassian.net/browse/INT-333) INT-333 | Bugfixes for slider arrows disappearing. Japan HP
+* [SOC-1924](https://wikia-inc.atlassian.net/browse/SOC-1924) SOC-1924 | new text for the top of reply card
+
 ## release-205 hotfix 1 (2016-02-03 11:58 UTC)
 * release-205-hotfix: Revert "SOC-1966 | Hiding delete all button"
 

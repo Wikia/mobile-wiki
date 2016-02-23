@@ -9,7 +9,7 @@ export default Ember.Mixin.create({
 		return i18n.t('app.curated-content-editor-items-count', {count: this.get('model.items.length')});
 	}),
 
-	headerLabel: Ember.computed('model.label', 'isFeatured', 'isSection', function () {
+	headerLabel: Ember.computed('model.label', 'isFeatured', 'isSection', 'model.community_data', function () {
 		const modelLabel = this.get('model.label');
 
 		if (modelLabel) {
@@ -18,6 +18,8 @@ export default Ember.Mixin.create({
 			return i18n.t('app.curated-content-editor-new-featured-content');
 		} else if (this.get('isSection')) {
 			return i18n.t('app.curated-content-editor-new-section');
+		} else if (this.get('model.community_data')) {
+			return i18n.t('app.curated-content-editor-community-data');
 		}
 		return i18n.t('app.curated-content-editor-new-category');
 	}),
@@ -27,5 +29,12 @@ export default Ember.Mixin.create({
 			return i18n.t('app.curated-content-editor-enter-category-name');
 		}
 		return i18n.t('app.curated-content-editor-enter-page-name');
+	}),
+
+	displayNameLabel: Ember.computed('isCommunityData', function () {
+		if (this.get('isCommunityData')) {
+			return i18n.t('app.curated-content-editor-enter-wikia-description');
+		}
+		return i18n.t('app.curated-content-editor-enter-display-name');
 	})
 });

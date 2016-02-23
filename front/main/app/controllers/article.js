@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 import ArticleAddPhotoModel from '../models/article-add-photo';
-import VisibilityStateManager from '../mixins/visibility-state-manager';
+import VisibilityStateManager from '../utils/visibility-state-manager';
 
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
@@ -46,8 +46,8 @@ export default Ember.Controller.extend({
 			const photoModel = ArticleAddPhotoModel.load(photoData);
 
 			// We don't want to hold with transition and wait for a promise to resolve.
-            // Instead we set properties on model after resolving promise and Ember scheduler
-            // handles this gracefully.
+			// Instead we set properties on model after resolving promise and Ember scheduler
+			// handles this gracefully.
 			photoModel.then((model) => {
 				model.setProperties({
 					title,

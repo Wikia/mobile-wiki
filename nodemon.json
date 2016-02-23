@@ -1,6 +1,7 @@
 {
   "ext": "js hbs",
   "watch": [
-    "www/server"
+    "www/server/app",
+    "www/server/config"
   ]
 }

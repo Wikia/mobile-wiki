@@ -8,6 +8,45 @@ import Promise from 'bluebird';
 import Url from 'url';
 
 /**
+ * @typedef {Object} CallbackParams
+ * @property {Function} resolve
+ * @property {Function} reject
+ * @property {Object} err
+ * @property {*} payload
+ * @property {Object} response
+ * @property {string} url
+ */
+
+/**
+ * This list is taken from MediaWiki:app/includes/Defines.php
+ * @type {{name: number}}
+ */
+export const namespace = {
+	// virtual namespaces
+	MEDIA: -2,
+	SPECIAL: -1,
+	// real namespaces
+	MAIN: 0,
+	TALK: 1,
+	USER: 2,
+	USER_TALK: 3,
+	PROJECT: 4,
+	PROJECT_TALK: 5,
+	FILE: 6,
+	FILE_TALK: 7,
+	MEDIAWIKI: 8,
+	MEDIAWIKI_TALK: 9,
+	TEMPLATE: 10,
+	TEMPLATE_TALK: 11,
+	HELP: 12,
+	HELP_TALK: 13,
+	CATEGORY: 14,
+	CATEGORY_TALK: 15,
+	IMAGE: 6,
+	IMAGE_TALK: 7
+};
+
+/**
  * Create request URL
  *
  * @param {string} wikiDomain
@@ -35,6 +74,48 @@ export function createUrl(wikiDomain, path, params = {}) {
 		wikiDomain = localSettings.mediawikiDomain;
 	}
 	return `http://${wikiDomain}/${path}${qsAggregator.length > 0 ? `?${qsAggregator.join('&')}` : ''}`;
+}
+
+/**
+ * Handle request response
+ *
+ * @param {CallbackParams} params
+ * @returns {void}
+ */
+function requestCallback(params) {
+	const {resolve, reject, err, payload, response, url} = params;
+
+	if (err) {
+		Logger.error({
+			url,
+			error: err
+		}, 'Error fetching url');
+		reject({
+			exception: {
+				message: 'Invalid response',
+				code: err.output.statusCode,
+				details: err
+			}
+		});
+	} else if (response.statusCode === 200) {
+		resolve(payload);
+	} else {
+		const info = {
+			exception: {
+				message: 'Invalid response',
+				code: response.statusCode,
+				details: payload ? payload.toString('utf-8') : null
+			}
+		};
+
+		Logger.error({
+			url,
+			headers: response.headers,
+			statusCode: response.statusCode
+		}, 'Bad HTTP response');
+
+		reject(info);
+	}
 }
 
 /**
@@ -89,42 +170,60 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 			json: true,
 			beforeRedirect
 		}, (err, response, payload) => {
-			if (err) {
-				Logger.error({
-					url,
-					error: err
-				}, 'Error fetching url');
-
-				reject({
-					exception: {
-						message: 'Invalid response',
-						code: err.output.statusCode,
-						details: err
-					}
-				});
-			} else if (response.statusCode === 200) {
-				resolve(payload);
-			} else {
-				// Unify error response so it's easier to handle later
-				if (payload === null || !payload.exception) {
-					payload = {
-						exception: {
-							message: 'Invalid response',
-							code: response.statusCode,
-							details: payload ? payload.toString('utf-8') : null
-						}
-					};
-				}
-
-				Logger.error({
-					url,
-					headers: response.headers,
-					statusCode: response.statusCode
-				}, 'Bad HTTP response');
-
-				reject(payload);
-			}
+			return requestCallback({
+				resolve,
+				reject,
+				err,
+				payload,
+				response,
+				url
+			});
 		});
+	});
+}
+
+/**
+ * Post http request
+ *
+ * @param {string} url
+ * @param {string} formData to send in form foo=bar
+ * @param {string} [host='']
+ * @param {*} [headers={}]
+ * @returns {Promise}
+ */
+export function post(url, formData, host = '', headers = {}) {
+	headers.Host = host;
+	headers['User-Agent'] = 'mercury';
+	headers['X-Wikia-Internal-Request'] = 'mercury';
+	headers['Content-Type'] = 'application/x-www-form-urlencoded';
+	// Cannot be 'application/json' due to error in MW: 'Automatically populating $HTTP_RAW_POST_DATA
+	// is deprecated and will be removed in a future version.' which is thrown for requests using
+	// the payload instead of normal x-www-form-urlencoded requests.
+	/**
+	 * @param {Function} resolve
+	 * @param {Function} reject
+	 * @returns {void}
+	 */
+	return new Promise((resolve, reject) => {
+		/**
+		 * @param {*} err
+		 * @param {*} response
+		 * @param {*} payload
+		 * @returns {void}
+		 */
+		Wreck.request('POST', url, {payload: formData, headers}, (err, response) => {
+			Wreck.read(response, null, (err, body) => {
+				return requestCallback({
+					resolve,
+					reject,
+					err,
+					payload: body.toString(),
+					response,
+					url
+				});
+			});
+		});
+
 	});
 }
 
@@ -153,6 +252,10 @@ class BaseRequest {
 	 */
 	fetch(url) {
 		return fetch(url, this.wikiDomain, this.redirects, this.headers);
+	}
+
+	post(url, formData) {
+		return post(url, formData, this.wikiDomain);
 	}
 }
 
@@ -212,9 +315,9 @@ export class WikiRequest extends BaseRequest {
 /**
  * Gets article data
  *
- * @class ArticleRequest
+ * @class PageRequest
  */
-export class ArticleRequest extends BaseRequest {
+export class PageRequest extends BaseRequest {
 	/**
 	 * Fetch article data
 	 *
@@ -223,10 +326,10 @@ export class ArticleRequest extends BaseRequest {
 	 * @param {string} [sections]
 	 * @returns {Promise}
 	 */
-	article(title, redirect, sections) {
+	page(title, redirect, sections) {
 		const urlParams = {
 			controller: 'MercuryApi',
-			method: 'getArticle',
+			method: 'getPage',
 			title
 		};
 
@@ -320,6 +423,32 @@ export class ArticleRequest extends BaseRequest {
 		});
 
 		return this.fetch(url);
+	}
+
+	/**
+	 * prepare POST request body before sending to API
+	 * Encode all params to be able to retrieve correct
+	 * values from the text containing for example '&'
+	 *
+	 * @param {string} title title of edited article
+	 * @param {string} wikitext editor wikitext
+	 * @param {string} CKmarkup CK editor markup
+	 * @returns {Promise}
+	 */
+	articleFromMarkup(title, wikitext, CKmarkup) {
+		const url = createUrl(this.wikiDomain, 'wikia.php', {
+				controller: 'MercuryApi',
+				method: 'getArticleFromMarkup'
+			}),
+			params = {title};
+
+		if (wikitext) {
+			params.wikitext = wikitext;
+		} else {
+			params.CKmarkup = CKmarkup;
+		}
+
+		return this.post(url, Url.format({query: params}).substr(1));
 	}
 }
 

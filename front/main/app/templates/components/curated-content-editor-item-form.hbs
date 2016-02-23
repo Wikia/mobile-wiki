@@ -9,20 +9,20 @@
 	<div class="curated-content-input-wrapper">
 		<div class="input-container {{if labelErrorMessage 'error'}}">
 			{{input
-				value=model.label
+				value=inputValue
 				id='label'
 				class=labelClass
 				name='label'
 				focus-out='setLabelFocusedOut'
 				focus-in='setLabelFocusedIn'
 			}}
-			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">{{i18n 'app.curated-content-editor-enter-display-name'}}</label>
-			<span class="input-icon help" {{action 'showTooltip' (i18n 'app.curated-content-editor-enter-display-name-tooltip')}}></span>
+			<label class="floating-label {{if labelErrorMessage 'error'}} {{if isLabelActive 'active'}}" for="label">{{displayNameLabel}}</label>
+			<span class="input-icon help" {{action 'showTooltip' infoTooltip}}></span>
 			{{#if labelErrorMessage}}
 				<small class="error">{{labelErrorMessage}}</small>
 			{{/if}}
 		</div>
-		{{#unless isSection}}
+		{{#unless shouldHideSecondInput}}
 			<div class="title input-container {{if titleErrorMessage 'error'}}">
 				{{input
 					value=model.title
@@ -58,7 +58,9 @@
 	</div>
 	{{#modal-dialog isVisible=imageMenuVisible type='menu'}}
 		<ul>
-			<li {{action 'cropImage'}} class="crop-image {{unless model.image_url 'disabled'}}">{{i18n 'app.curated-content-editor-crop-image'}}</li>
+			{{#unless isCommunityData}}
+				<li {{action 'cropImage'}} class="crop-image {{unless model.image_url 'disabled'}}">{{i18n 'app.curated-content-editor-crop-image'}}</li>
+			{{/unless}}
 			{{file-input tagName='li' fileUpload=(action 'fileUpload') reset=resetFileInput label=(i18n 'app.curated-content-editor-upload-image') click=(action 'hideImageMenu')}}
 			<li {{action 'showSearchImageForm'}}>{{i18n 'app.curated-content-editor-search-image-label'}}</li>
 		</ul>
@@ -66,7 +68,9 @@
 	{{#modal-dialog isVisible=isTooltipVisible}}
 		{{tooltipMessage}}
 	{{/modal-dialog}}
-	<a {{action 'deleteItem'}} class="curated-content-editor-remove">{{i18n 'app.curated-content-editor-delete-item'}}</a>
+	{{#unless isCommunityData}}
+		<a {{action 'deleteItem'}} class="curated-content-editor-remove">{{i18n 'app.curated-content-editor-delete-item'}}</a>
+	{{/unless}}
 </form>
 {{alert-notifications alerts=alertNotifications}}
 

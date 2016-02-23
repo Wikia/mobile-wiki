@@ -13,6 +13,7 @@ import WidgetTwitterComponent from '../components/widget-twitter';
 import WidgetVKComponent from '../components/widget-vk';
 import WidgetPolldaddyComponent from '../components/widget-polldaddy';
 import WidgetFliteComponent from '../components/widget-flite';
+import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 
 /**
  * HTMLElement
@@ -32,7 +33,7 @@ export default Ember.Component.extend(
 		media: null,
 		contributionEnabled: null,
 		uploadFeatureEnabled: null,
-		cleanTitle: null,
+		displayTitle: null,
 		headers: null,
 
 		newFromMedia(media) {
@@ -50,16 +51,26 @@ export default Ember.Component.extend(
 				return ImageMediaComponent.create();
 			}
 		},
-		articleContentObserver: Ember.observer('content', function () {
+
+		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
 			const content = this.get('content');
+
+			this.destroyChildComponents();
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				if (content) {
 					this.hackIntoEmberRendering(content);
-					this.loadTableOfContentsData();
-					this.handleTables();
+
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
+
+					this.renderedComponents = queryPlaceholders(this.$())
+						.map(this.getAttributesForMedia, this)
+						.map(this.renderComponent);
+
+					this.loadIcons();
+					this.loadTableOfContentsData();
+					this.handleTables();
 					this.replaceMapsWithMapComponents();
 					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
@@ -76,7 +87,7 @@ export default Ember.Component.extend(
 				this.injectAds();
 				this.setupAdsContext(this.get('adsContext'));
 			});
-		}).on('init'),
+		})),
 
 		headerObserver: Ember.observer('headers', function () {
 			if (this.get('contributionEnabled')) {
@@ -92,6 +103,19 @@ export default Ember.Component.extend(
 				});
 			}
 		}),
+
+		init() {
+			this._super(...arguments);
+
+			this.renderComponent = getRenderComponentFor(this);
+			this.renderedComponents = [];
+		},
+
+		willDestroyElement() {
+			this._super(...arguments);
+
+			this.destroyChildComponents();
+		},
 
 		actions: {
 			/**
@@ -152,6 +176,52 @@ export default Ember.Component.extend(
 			}
 		},
 
+		getAttributesForMedia({name, attrs, element}) {
+			const media = this.get('media.media');
+
+			if (attrs.ref >= 0 && media && media[attrs.ref]) {
+				if (name === 'article-media-thumbnail') {
+					attrs = Ember.$.extend(attrs, media[attrs.ref]);
+
+					/**
+					 * Ember has its own context attribute, that is why we have to use different attribute name
+					 */
+					if (attrs.context) {
+						attrs.mediaContext = attrs.context;
+						delete attrs.context;
+					}
+				} else if (name === 'article-media-gallery' || name === 'article-media-linked-gallery') {
+					attrs = Ember.$.extend(attrs, {
+						items: media[attrs.ref]
+					});
+				}
+			}
+
+			return {name, attrs, element};
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		destroyChildComponents() {
+			this.renderedComponents.forEach((renderedComponent) => {
+				renderedComponent.destroy();
+			});
+		},
+
+		/**
+		 * Creating components for small icons isn't good solution because of performance overhead
+		 * Putting all icons in HTML isn't good solution neither because there are articles with a lot of them
+		 * Thus we load them all after the article is rendered
+		 *
+		 * @returns {void}
+		 */
+		loadIcons() {
+			this.$('.article-media-icon[data-src]').each(function () {
+				this.src = this.getAttribute('data-src');
+			});
+		},
+
 		/**
 		 * Instantiate ArticleContributionComponent by looking up the component from container
 		 * in order to have dependency injection.
@@ -167,7 +237,7 @@ export default Ember.Component.extend(
 		 * @returns {JQuery}
 		 */
 		createArticleContributionComponent(section, sectionId) {
-			const title = this.get('cleanTitle'),
+			const title = this.get('displayTitle'),
 				edit = 'edit',
 				addPhoto = 'addPhoto',
 				addPhotoIconVisible = this.get('addPhotoIconVisible'),
@@ -175,9 +245,9 @@ export default Ember.Component.extend(
 				editAllowed = this.get('editAllowed'),
 				addPhotoAllowed = this.get('addPhotoAllowed'),
 				contributionComponent =
-						this.get('container').lookup('component:article-contribution', {
-							singleton: false
-						});
+					this.get('container').lookup('component:article-contribution', {
+						singleton: false
+					});
 
 			contributionComponent.setProperties({
 				section,
@@ -237,7 +307,7 @@ export default Ember.Component.extend(
 					width: parseInt(element.getAttribute('width'), 10),
 					height: parseInt(element.getAttribute('height'), 10),
 					imgWidth: element.offsetWidth,
-					media,
+					media
 				}).createElement();
 
 			return component.$().attr('data-ref', ref);
@@ -249,7 +319,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		replaceMediaPlaceholdersWithMediaComponents(model, numberToProcess = -1) {
-			const $mediaPlaceholders = this.$('.article-media');
+			const $mediaPlaceholders = this.$('.article-media:not([data-component])');
 
 			if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {
 				numberToProcess = $mediaPlaceholders.length;

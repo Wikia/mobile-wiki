@@ -3,20 +3,20 @@ $mobile-slider:  new-breakpoint(max-width 920px);
 .joinwikia {
 	$text-color: white;
 	$title-background: #092344;
-	$community-image: '/images/community.png';
-	$university-image: '/images/university.png';
+	$community-image: '/images/community.jpg';
+	$university-image: '/images/university.jpg';
 
 	color: $text-color;
 	font-size: 26px;
 	width: 100%;
 
 	.description {
-		background-repeat: no repeat;
+		background-repeat: no-repeat;
 		background-size: cover;
 		height: 500px;
 		vertical-align: top;
-		width: 50%;	
-		
+		width: 50%;
+
 		@include media ($mobile-slider) {
 			width: 100%;
 		}

@@ -24,3 +24,9 @@ source_file = front/locales/en/auth-front.json
 source_lang = en
 type = KEYVALUEJSON
 file_filter = front/locales/<lang>/auth-front.json
+
+[mercury.infobox-builderjson]
+source_file = front/locales/en/infobox-builder.json
+source_lang = en
+type = KEYVALUEJSON
+file_filter = front/locales/<lang>/infobox-builder.json

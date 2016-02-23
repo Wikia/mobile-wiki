@@ -1,5 +1,6 @@
 $discussion-header-color-text: #fff;
-
+// header width has to be limited to fit with the buttons on the right side of header
+$discussion-header-mobile-max-width: 205px;
 $site-header-height: 50px;
 
 .discussion-header {
@@ -18,7 +19,6 @@ $site-header-height: 50px;
 
 	.header {
 		height: $discussion-header-height;
-		overflow: hidden;
 		padding-left: 15px;
 	}
 
@@ -28,19 +28,36 @@ $site-header-height: 50px;
 		font-size: $type-smaller;
 		line-height: $discussion-header-height;
 		margin: 0;
+		max-width: $discussion-header-mobile-max-width;
 		overflow: hidden;
+		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 
 	.icon {
 		fill: $discussion-back-button-color;
-	}
 
-	.icon.dropdown {
-		height: 4px;
-		margin-left: 5px;
-		vertical-align: middle;
-		width: 7px;
+		&.filter-default {
+			height: 20px;
+			margin-right: 13px;
+			vertical-align: middle;
+			width: 23px;
+		}
+		&.filter-applied {
+			display: none;
+			height: 10px;
+			position: absolute;
+			right: 4px;
+			top: 4px;
+			vertical-align: top;
+			width: 10px;
+		}
+		&.dropdown {
+			height: 4px;
+			margin-left: 5px;
+			vertical-align: middle;
+			width: 7px;
+		}
 	}
 
 	.overlay {
@@ -57,8 +74,17 @@ $site-header-height: 50px;
 		float: right;
 		font-size: $type-smallest;
 		line-height: $discussion-header-height;
-		margin-right: 15px;
+		position: relative;
+		right: 0;
 		text-align: right;
+		top: 0;
+
+	}
+
+	.applied {
+		.filter-applied {
+			display: inline;
+		}
 	}
 
 	.new-post {
