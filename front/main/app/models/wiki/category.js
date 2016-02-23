@@ -5,7 +5,7 @@ import {normalizeToWhitespace} from 'common/utils/string';
 const {Object, get, $, isArray} = Ember,
 	keys = window.Object.keys,
 	CategoryModel = Object.extend({
-		collections: null,
+		sections: null,
 		basePath: null,
 		categories: [],
 		displayTitle: null,
@@ -32,15 +32,15 @@ const {Object, get, $, isArray} = Ember,
 				dataType: 'json',
 				method: 'get',
 			}).then((pageData) => {
-				const collectionIndex = `collections.${index}`;
+				const sectionIndex = `sections.${index}`;
 
 				this.setProperties({
-					[`${collectionIndex}.items`]: CategoryModel.addTitles(pageData.itemsBatch),
-					[`${collectionIndex}.hasPrev`]: batchToLoad - 1 > 0,
-					[`${collectionIndex}.hasNext`]: Math.ceil(this.get(`${collectionIndex}.total`) /
-						this.get(`${collectionIndex}.batchSize`)) > batchToLoad,
-					[`${collectionIndex}.prevBatch`]: batchToLoad - 1,
-					[`${collectionIndex}.nextBatch`]: batchToLoad + 1
+					[`${sectionIndex}.items`]: CategoryModel.addTitles(pageData.itemsBatch),
+					[`${sectionIndex}.hasPrev`]: batchToLoad - 1 > 0,
+					[`${sectionIndex}.hasNext`]: Math.ceil(this.get(`${sectionIndex}.total`) /
+						this.get(`${sectionIndex}.batchSize`)) > batchToLoad,
+					[`${sectionIndex}.prevBatch`]: batchToLoad - 1,
+					[`${sectionIndex}.nextBatch`]: batchToLoad + 1
 				});
 
 				return this;
@@ -80,8 +80,8 @@ CategoryModel.reopenClass({
 				};
 			}
 
-			pageProperties.name = get(data, 'nsData.name');
-			pageProperties.displayTitle = get(data, 'nsData.name');
+			pageProperties.name = get(data, 'nsSpecificContent.name');
+			pageProperties.displayTitle = get(data, 'nsSpecificContent.name');
 
 			if (data.article) {
 				article = data.article;
@@ -103,7 +103,7 @@ CategoryModel.reopenClass({
 				}
 			}
 
-			pageProperties.collections = CategoryModel.addTitles(get(data, 'nsData.members.collections'));
+			pageProperties.sections = CategoryModel.addTitles(get(data, 'nsSpecificContent.members.sections'));
 
 			if (data.otherLanguages) {
 				pageProperties.otherLanguages = data.otherLanguages;
@@ -151,13 +151,13 @@ CategoryModel.reopenClass({
 	},
 
 	/**
-	 * add title to collectionItem based on url eg. /wiki/Namespace:Title -> Namespace:Title
+	 * add title to sectionItem based on url eg. /wiki/Namespace:Title -> Namespace:Title
 	 *
-	 * @param  {Array.<{url: string, name: string}>} collectionItems - array of items
+	 * @param  {Array.<{url: string, name: string}>} sectionItems - array of items
 	 * @returns {Array.<{url: string, name: string, title: string}>}
 	 */
-	addTitlesToCollection(collectionItems) {
-		return collectionItems.map((item) => {
+	addTitlesToSection(sectionItems) {
+		return sectionItems.map((item) => {
 			item.title = item.url.replace('/wiki/', '');
 
 			return item;
@@ -165,28 +165,28 @@ CategoryModel.reopenClass({
 	},
 
 	/**
-	 * Adds titles to collection
+	 * Adds titles to section
 	 * When used in loadMore context it has access only to one batch array
 	 * when used in setCategory context it has to iterate over object that contains
 	 * all batches for a given category
 	 *
 	 * TODO - this should be done server side XW-1165
 	 *
-	 * @param {Object|Array} collections
+	 * @param {Object|Array} sections
 	 * @returns {Object|Array}
 	 */
-	addTitles(collections) {
-		if (isArray(collections)) {
-			collections = CategoryModel.addTitlesToCollection(collections);
+	addTitles(sections) {
+		if (isArray(sections)) {
+			sections = CategoryModel.addTitlesToSection(sections);
 		} else {
-			keys(collections).forEach((collectionKey) => {
-				const collectionItem = collections[collectionKey];
+			keys(sections).forEach((sectionKey) => {
+				const sectionItem = sections[sectionKey];
 
-				collectionItem.items = CategoryModel.addTitlesToCollection(collectionItem.items);
+				sectionItem.items = CategoryModel.addTitlesToSection(sectionItem.items);
 			});
 		}
 
-		return collections;
+		return sections;
 	}
 });
 

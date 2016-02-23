@@ -22,17 +22,17 @@
 			openLightbox='openLightbox'
 			toggleSideNav='toggleSideNav'
 		}}
-			{{category-collections
+			{{category-sections
 				adsContext=model.adsContext
-				collections=model.collections
+				sections=model.sections
 				setupAds=false
 				loadBatch=(action 'loadBatch')
 			}}
 		{{/article-wrapper}}
 	{{else}}
-		{{category-collections
+		{{category-sections
 			adsContext=model.adsContext
-			collections=model.collections
+			sections=model.sections
 			noAds=noAds
 			setupAds=true
 			loadBatch=(action 'loadBatch')

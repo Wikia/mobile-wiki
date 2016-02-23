@@ -6,7 +6,7 @@ const {Component} = Ember;
 export default Component.extend(
 	AdsMixin,
 	{
-		classNames: ['category-collections'],
+		classNames: ['category-sections'],
 
 		didReceiveAttrs() {
 			if (this.get('setupAds') === true) {
@@ -15,7 +15,7 @@ export default Component.extend(
 		},
 
 		actions: {
-			loadBatch(index, batch, label) {
+			loadBatch(index, batch) {
 				this.set(`navigationClassNameFor${index}`, ' is-loading');
 
 				this.get('loadBatch')(...arguments).then(() => {
