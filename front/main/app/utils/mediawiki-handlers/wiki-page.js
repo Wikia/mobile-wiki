@@ -1,6 +1,6 @@
 import {isContentNamespace, getCurrentNamespace} from '../../utils/mediawiki-namespace';
-import ArticleModel from '../../models/mediawiki/article';
-import CategoryModel from '../../models/mediawiki/category';
+import ArticleModel from '../../models/wiki/article';
+import CategoryModel from '../../models/wiki/category';
 import Ember from 'ember';
 
 function getURL(params) {
