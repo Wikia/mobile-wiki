@@ -6,7 +6,7 @@
 	<h1 class="wiki-page-title">
 		{{model.displayTitle}}
 	</h1>
-	<span class="wiki-page-subtitle">{{i18n 'app.category-page-subtitle'}}</span>
+	<div class="wiki-page-subtitle">{{i18n 'app.category-page-subtitle'}}</div>
 
 	{{#if model.hasArticle}}
 		{{#article-wrapper
@@ -24,7 +24,6 @@
 		}}
 			{{category-collections
 				adsContext=model.adsContext
-			    batchIsLoading=batchIsLoading
 				collections=model.collections
 				setupAds=false
 				loadBatch=(action 'loadBatch')
@@ -33,7 +32,6 @@
 	{{else}}
 		{{category-collections
 			adsContext=model.adsContext
-		    batchIsLoading=batchIsLoading
 			collections=model.collections
 			noAds=noAds
 			setupAds=true

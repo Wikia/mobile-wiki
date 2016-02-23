@@ -8,7 +8,7 @@
 				radius=16
 				strokeWidth=2
 			}}
-			<button class="category-navigation__button" {{action attrs.loadBatch id data.prevBatch 'prev'}}>
+			<button class="category-navigation__button" {{action 'loadBatch' id data.prevBatch 'prev'}}>
 				{{i18n 'app.categories-load-previous'}}
 			</button>
 		</div>
@@ -26,7 +26,7 @@
 				radius=16
 				strokeWidth=2
 			}}
-			<button class="category-navigation__button" {{action attrs.loadBatch id data.nextBatch 'next'}}>
+			<button class="category-navigation__button" {{action 'loadBatch' id data.nextBatch 'next'}}>
 				{{i18n 'app.categories-load-more'}}
 			</button>
 		</div>

@@ -9,7 +9,6 @@ export default Controller.extend(
 		application: inject.controller(),
 		article: inject.controller(),
 		noAds: computed.alias('application.noAds'),
-		batchIsLoading: false,
 
 		/**
 		 * @returns {void}
@@ -25,14 +24,8 @@ export default Controller.extend(
 		actions: {
 			loadBatch(index, batch, label) {
 				this.trackClick('category-load-batch', label);
-				this.set('batchIsLoading', true);
 
-				return this.get('model').loadMore(...arguments).then(() => {
-					this.set('batchIsLoading', false);
-
-					window.document.getElementById(arguments[0]).scrollIntoView();
-					window.scrollBy(0, -50);
-				});
+				return this.get('model').loadMore(...arguments);
 			},
 
 			/**
