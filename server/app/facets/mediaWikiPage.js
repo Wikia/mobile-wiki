@@ -67,10 +67,11 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
  */
 function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	const pageData = data.page.data,
-		ns = pageData.ns;
+		ns = pageData.ns,
+		i18n = request.server.methods.i18n.getInstance();
 
 	let result = {},
-		viewName = 'wikipage',
+		viewName = 'wiki-page',
 		response;
 
 	switch (ns) {
@@ -84,6 +85,9 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		// if we have article details we can replace data from prepareCategoryData
 		if (pageData.ns === MediaWikiNamespace.CATEGORY) {
 			result = deepExtend(result, prepareCategoryData(request, data));
+			// Hide TOC on category pages
+			result.hasToC = false;
+			result.subtitle = i18n.t('app.category-page-subtitle');
 		}
 
 		// mainPageData is set only on curated main pages - only then we should do some special preparation for data

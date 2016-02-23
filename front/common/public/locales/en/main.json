@@ -152,7 +152,8 @@
     "sign-in-or-register-label": "Sign in / Register",
     "my-profile-label": "My Profile",
     "categories-load-more": "Load more",
-    "categories-load-previous": "Load previous"
+    "categories-load-previous": "Load previous",
+    "category-page-subtitle": "Category Page"
   },
   "userStatus": {
     "anon-cta": "__registerLink__ or __loginLink__",
