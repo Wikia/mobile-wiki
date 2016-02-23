@@ -92,6 +92,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 
 		// mainPageData is set only on curated main pages - only then we should do some special preparation for data
 		if (pageData.isMainPage && pageData.mainPageData) {
+			result = deepExtend(result, prepareArticleData(request, data));
 			result = deepExtend(result, prepareMainPageData(data));
 			delete result.adsContext;
 		}
