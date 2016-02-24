@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * Library to parse links in an article and return information about how to process a given link.
  */
@@ -34,7 +36,7 @@ function isMercuryNamespaceHandlingOverridden(title) {
  *
  * @returns {LinkInfo}
  */
-export function getLinkInfo(basePath, title, hash, uri) {
+export default function getLinkInfo(basePath, title, hash, uri) {
 	const localPathMatch = uri.match(`^${window.location.origin}(.*)$`);
 
 	if (localPathMatch) {
