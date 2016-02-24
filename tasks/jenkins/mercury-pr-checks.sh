@@ -76,7 +76,7 @@ setupBower() {
 		cp -R $sourceTarget
 		updateGit "Build" pending "updating bower components in .${1}"
 		cd ".${1}"
-		bower install || error=true
+		bower update || error=true
 		cd $oldPath
 
 		if [[ ! -z $error ]]
