@@ -299,7 +299,8 @@ export default Ember.Route.extend({
 
 			model.saveStateToTemplate().then((title) => {
 				controller.set('isLoading', false);
-				return this.redirectToTemplatePage(title);
+				//return this.redirectToTemplatePage(title);
+				controller.set('showSuccess', true);
 			});
 		},
 

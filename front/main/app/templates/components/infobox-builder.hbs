@@ -28,4 +28,22 @@
 		editRowItem=editRowItem
 	}}
 </div>
-{{loading-spinner active=isLoading}}
+
+
+<div class="infobox-builder-spinner loading-overlay">
+	{{loading-spinner
+		active=true
+		radius=38
+		overlay=false
+		strokeWidth=3
+	}}
+	<div class="saving">
+		{{i18n 'main.saving' ns='infobox-builder'}}
+	</div>
+{{#if showSuccess}}
+	{{svg 'success' class='success-icon' viewBox='0 0 80 80'}}
+	<div class="success">
+		{{i18n 'main.success' ns='infobox-builder'}}
+	</div>
+{{/if}}
+</div>

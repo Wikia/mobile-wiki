@@ -242,5 +242,23 @@ $border-width: 2px;
 	}
 }
 
+.infobox-builder-spinner {
+	color: rgba(0,0,0,0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	.success-icon {
+		height: 80px;
+		width: 80px;
+	}
+
+	.spinner {
+		margin: 0;
+		position: inherit;
+	}
+}
+
 
 
