@@ -163,9 +163,11 @@ export default Ember.Route.extend({
 
 	/**
 	 * @desc setups handlers for events
+	 *
+	 * @returns {void}
 	 */
 	setupEventHandlers() {
-		window.onbeforeunload = function(event) {
+		window.onbeforeunload = function () {
 			return i18n.t('infobox-builder:main.leave-confirmation');
 		};
 	},
@@ -302,10 +304,9 @@ export default Ember.Route.extend({
 		 * @returns {void}
 		 */
 		save() {
-			window.onbeforeunload = null;
-
 			const model = this.modelFor('infoboxBuilder');
 
+			window.onbeforeunload = null;
 			model.saveStateToTemplate().then((title) => {
 				return this.redirectToTemplatePage(title);
 			});
