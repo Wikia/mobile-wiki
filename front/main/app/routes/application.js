@@ -4,7 +4,7 @@ import ArticleModel from '../models/mediawiki/article';
 import {activate as variantTestingActivate} from 'common/utils/variantTesting';
 import {normalizeToUnderscore} from 'common/utils/string';
 import Ads from 'common/modules/Ads';
-import getLinkInfo from '../front/main/app/utils/article-link';
+import getLinkInfo from '../utils/article-link';
 
 export default Ember.Route.extend(
 	Ember.TargetActionSupport,
