@@ -145,11 +145,17 @@ export default Ember.Component.extend(ViewportMixin, {
 			showSuccess: true
 		});
 
-		Ember.set(newItem, 'isVisible', false);
+		if (newItem) {
+			Ember.set(newItem, 'isVisible', false);
 
-		Ember.run.later(this, () => {
-			this.showNewPostAnimations(newItem);
-		}, 2000);
+			Ember.run.later(this, () => {
+				this.showNewPostAnimations(newItem);
+			}, 2000);
+		} else {
+			Ember.run.later(this, () => {
+				this.get('discussionEditor').toggleEditor(false);
+			}, 2000);
+		}
 	},
 
 	/**

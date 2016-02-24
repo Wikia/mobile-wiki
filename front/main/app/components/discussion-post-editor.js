@@ -11,6 +11,9 @@ export default DiscussionEditorComponent.extend({
 
 	didInsertElement() {
 		this._super(...arguments);
+		this.get('discussionEditor').on('newPost', () => {
+			this.handleNewPostCreated();
+		});
 		this.initializeStickyState();
 	},
 
@@ -70,14 +73,16 @@ export default DiscussionEditorComponent.extend({
 	 * Perform animations and logic after post creation
 	 * @returns {void}
 	 */
-	handleNewPostCreated: Ember.observer('posts.@each._embedded.firstPost[0].isNew', function () {
-		const newPosts = this.get('posts').filter((post) => Ember.get(post, '_embedded.firstPost[0].isNew'));
+	handleNewPostCreated () {
+		const newPosts = this.get('posts').filter((post) => Ember.get(post, '_embedded.firstPost.0.isNew'));
 		let newPost = newPosts.get('firstObject');
 
+		Ember.$('html, body').animate({scrollTop: 0});
+
 		if (newPost) {
-			Ember.$('html, body').animate({scrollTop: 0});
 			newPost = newPost._embedded.firstPost[0];
-			this.handleNewItemCreated(newPost);
 		}
-	})
+
+		this.handleNewItemCreated(newPost);
+	}
 });

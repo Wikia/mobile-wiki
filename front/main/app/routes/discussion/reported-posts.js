@@ -8,6 +8,7 @@ export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionModerationRouteMixin, {
+		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
 
 		forumId: null,
@@ -17,9 +18,13 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
+			const discussionSort = this.get('discussionSort');
+
 			if (params.sortBy) {
-				this.get('discussionSort').setSortBy(params.sortBy);
+				discussionSort.setSortBy(params.sortBy);
 			}
+
+			discussionSort.setOnlyReported(true);
 
 			this.set('forumId', params.forumId);
 
@@ -46,7 +51,13 @@ export default DiscussionBaseRoute.extend(
 
 			create(postData) {
 				this.setSortBy('latest').promise.then(() => {
-					this.modelFor('discussion.reported-posts').createPost(postData);
+					const model = this.modelFor('discussion.reported-posts');
+
+					model.createPost(postData).then((xhr)=>{
+						if (xhr.mercuryResponseData && !model.get('errorMessage')) {
+							this.get('discussionEditor').trigger('newPost');
+						}
+					});
 				});
 			},
 
@@ -70,7 +81,6 @@ export default DiscussionBaseRoute.extend(
 				}
 
 				if (onlyReported === false) {
-					discussionSort.set('onlyReported', false);
 					targetRoute = 'discussion.forum';
 				}
 
