@@ -24,7 +24,7 @@ export default Ember.Service.extend({
 	rights: {},
 	isAuthenticated: Ember.computed.bool('userId'),
 	isBlocked: false,
-	language: null,
+	language: Ember.getWithDefault(Mercury, 'wiki.language.content', 'en'),
 
 	userId: Ember.computed(() => {
 		const cookieUserId = parseInt(M.prop('userId'), 10);
@@ -32,102 +32,86 @@ export default Ember.Service.extend({
 		return cookieUserId > 0 ? cookieUserId : null;
 	}),
 
+	userModel: Ember.computed('userId', function () {
+		const userId = this.get('userId');
+
+		if (userId !== null) {
+			return UserModel
+				.find({userId})
+				.catch((err) => {
+					Ember.Logger.warn('Couldn\'t load current user model', err);
+				});
+		}
+
+		return Ember.RSVP.reject();
+	}),
+
 	/**
 	 * @returns {void}
 	 */
 	init() {
+		this._super(...arguments);
 		const userId = this.get('userId');
 
 		if (userId !== null) {
-			UserModel.find({userId})
-				.then((result) => {
-					this.setProperties(result);
-				})
-				.catch((err) => {
-					Ember.Logger.warn('Couldn\'t load current user model', err);
-				});
+			Ember.RSVP.all([this.get('userModel'), this.loadUserInfo()]).then(([userModel, userInfo]) => {
+				if (userModel) {
+					this.setProperties(userModel);
+				}
 
-			this.loadUserInfo()
-				.then(this.loadUserLanguage.bind(this))
-				.then(this.loadBlockedStatus.bind(this))
-				.then(this.loadUserRights.bind(this))
-				.catch((err) => {
-					this.setUserLanguage();
-					Ember.Logger.warn('Couldn\'t load current user info', err);
-				});
-		} else {
-			this.setUserLanguage();
+				if (userInfo) {
+					this.setUserLanguage(userInfo);
+					this.setBlockedStatus(userInfo);
+					this.setUserRights(userInfo);
+				}
+			});
 		}
-
-		this._super();
 	},
 
 	/**
-	 * @param {string|null} [userLang=null]
+	 * @param {string} query
 	 * @returns {void}
 	 */
-	setUserLanguage(userLang = null) {
-		const contentLanguage = Ember.getWithDefault(Mercury, 'wiki.language.content', 'en'),
-			userLanguage = userLang || contentLanguage;
+	setUserLanguage({query}) {
+		const userLanguage = query.userinfo.options.language;
 
-		this.set('language', userLanguage);
-		M.prop('userLanguage', userLanguage);
+		if (userLanguage) {
+			this.set('language', userLanguage);
+		}
 	},
 
 	/**
-	 * @param {QueryUserInfoResponse} result
+	 * @param {QueryUserInfoResponse} query
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
-	loadUserLanguage(result) {
-		return new Ember.RSVP.Promise((resolve) => {
-			const userLanguage = Ember.get(result, 'query.userinfo.options.language');
+	setUserRights({query}) {
+		const rightsArray = query.userinfo.rights,
+			rights = {};
 
-			this.setUserLanguage(userLanguage);
-
-			resolve(result);
-		});
-	},
-
-	/**
-	 * @param {QueryUserInfoResponse} result
-	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
-	 */
-	loadUserRights(result) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			const rightsArray = Ember.get(result, 'query.userinfo.rights'),
-				rights = {};
-
-			if (!Ember.isArray(rightsArray)) {
-				reject(result);
-			}
-
+		if (Ember.isArray(rightsArray)) {
+			// TODO - we could use contains instead of making an object out of an array
 			rightsArray.forEach((right) => {
 				rights[right] = true;
 			});
 
 			this.set('rights', rights);
-
-			resolve(result);
-		});
+		}
 	},
 
 	/**
-	 * @param {QueryUserInfoResponse} result
+	 * @param {QueryUserInfoResponse} query
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
-	loadBlockedStatus(result) {
-		return new Ember.RSVP.Promise((resolve) => {
-			const blockId = Ember.get(result, 'query.userinfo.blockid');
+	setBlockedStatus({query}) {
+		const blockId = query.userinfo.blockid;
 
-			if (blockId) {
-				this.set('isBlocked', true);
-			}
-
-			resolve(result);
-		});
+		if (blockId) {
+			this.set('isBlocked', true);
+		}
 	},
 
 	/**
+	 * TODO - move to UserModel | XW-1160
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo() {

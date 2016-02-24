@@ -11,11 +11,11 @@ function getOpenGraphUrl(wikiVariables) {
 /**
  * Prepares main page data to be rendered
  *
- * @param {ArticlePageData} data
+ * @param {MediaWikiPageData} data
  * @returns {object}
  */
 export default function prepareMainPageData(data) {
-	const articleData = data.article.data,
+	const articleData = data.page.data,
 		wikiVariables = data.wikiVariables,
 		result = {};
 

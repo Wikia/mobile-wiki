@@ -116,7 +116,7 @@ export default Ember.Mixin.create({
 		 */
 		reportReply(reply) {
 			Ember.set(reply, 'isLoading', true);
-			this.modelFor(this.get('routeName')).reportPost(reply).then(() => {
+			this.modelFor(this.get('routeName')).reportReply(reply).then(() => {
 				Ember.set(reply, 'isLoading', false);
 			});
 		},

@@ -7,6 +7,8 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	firstPost: null,
 	contributors: [],
 	isRequesterBlocked: false,
+	isReported: false,
+
 	page: 0,
 	postCount: 0,
 	postId: null,

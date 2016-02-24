@@ -121,7 +121,7 @@ class UniversalAnalytics {
 	 * @returns {void}
 	 */
 	static setDimension(dimension, value) {
-		UniversalAnalytics.dimensions[dimension] = value;
+		UniversalAnalytics.dimensions[dimension] = String(value);
 		UniversalAnalytics.dimensionsSynced = false;
 	}
 

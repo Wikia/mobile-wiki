@@ -6,6 +6,7 @@
 			delete=(action this.attrs.deleteReply)
 			isParentDeleted=model.firstPost.isDeleted
 			post=item
+			reportReply=(action this.attrs.reportReply)
 			showRepliedTo=true
 			timestamp=item.creationDate.epochSecond
 			undelete=(action this.attrs.undeleteReply)
@@ -19,6 +20,7 @@
 			delete=(action this.attrs.deletePost)
 			isReported=item.isReported
 			post=item
+			reportPost=(action this.attrs.reportPost)
 			replyCount=item._embedded.thread.[0].postCount
 			undelete=(action this.attrs.undeletePost)
 			upvote=(action this.attrs.upvote)

@@ -6,7 +6,7 @@ import proxyMW from './facets/operations/proxyMW';
 import assetsHandler from './facets/operations/assets';
 import heartbeatHandler from './facets/operations/heartbeat';
 import discussionsHandler from './facets/showDiscussions';
-import articleHandler from './facets/showArticle';
+import mediaWikiPageHandler from './facets/mediaWikiPage';
 import redirectToRootHandler from './facets/operations/redirectToRoot';
 import getArticleHandler from './facets/api/article';
 import getArticleCommentsHandler from './facets/api/articleComments';
@@ -48,7 +48,7 @@ const routeCacheConfig = {
 			}
 		}
 	},
-	articlePagePaths = [
+	mediaWikiPagePaths = [
 		'/wiki/{title*}',
 		'/{title*}',
 		// TODO this is special case needed for /wiki path, it should be refactored
@@ -193,7 +193,7 @@ let routes,
 			method: 'GET',
 			path: '/',
 			// Currently / path is not available on production because of redirects from / to /wiki/...
-			handler: articleHandler,
+			handler: mediaWikiPageHandler,
 			config: {
 				cache: routeCacheConfig
 			}
@@ -278,11 +278,11 @@ let routes,
  * @param {*} path
  * @returns {void}
  */
-articlePagePaths.forEach((path) => {
+mediaWikiPagePaths.forEach((path) => {
 	authenticatedRoutes.push({
 		method: 'GET',
 		path,
-		handler: articleHandler,
+		handler: mediaWikiPageHandler,
 		config: {
 			cache: routeCacheConfig
 		}

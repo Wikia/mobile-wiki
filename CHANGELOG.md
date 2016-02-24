@@ -1,3 +1,29 @@
+## release-212 hotfix 1 (2016-02-24 03:04 UTC)
+* release-212-hotfix: (MAIN-6507) Only load user info if the user is not an anon
+
+## release-212 (2016-02-23 12:18 UTC)
+* [CE-3427](https://wikia-inc.atlassian.net/browse/CE-3427) Remove X button and hide banner after 7 sec
+* [XW-1120](https://wikia-inc.atlassian.net/browse/XW-1120) XW-1120 | send namespace & poweruser types to GA
+* add-pr-template: XW-1152 | Add PULL_REQUEST_TEMPLATE
+* [INT-344](https://wikia-inc.atlassian.net/browse/INT-344) INT-344 | New featured communities for Japan HP
+* [XW-1103](https://wikia-inc.atlassian.net/browse/XW-1103) XW-1103 | Prepare support for non-article page types
+* [CE-3347](https://wikia-inc.atlassian.net/browse/CE-3347) Banner to notify user about RWA
+* [CE-3394](https://wikia-inc.atlassian.net/browse/CE-3394) CE-3394 Display an info icon instead of a blue dot
+* [XW-1147](https://wikia-inc.atlassian.net/browse/XW-1147) XW-1147 create dedicated handler for main pages
+* [DAT-3744](https://wikia-inc.atlassian.net/browse/DAT-3744) edit already existing template
+* [CE-3365](https://wikia-inc.atlassian.net/browse/CE-3365) CE-3365 Add a blue dot a user can follow to get to Recent Wiki Activity
+* [CE-3327](https://wikia-inc.atlassian.net/browse/CE-3327) CE-3326+CE-3327 Implement RWA translations and enable it globally
+* [CE-3379](https://wikia-inc.atlassian.net/browse/CE-3379) Display/dismiss banner, styling and tracking
+* [CE-3377](https://wikia-inc.atlassian.net/browse/CE-3377) Get recent edit and display on banner
+* [CE-3377](https://wikia-inc.atlassian.net/browse/CE-3377) Add banner with recent edit to article page
+
+## release-211 (2016-02-18 10:58 UTC)
+* const-Ember: use const {...} = Ember;
+* [INT-337](https://wikia-inc.atlassian.net/browse/INT-337) INT-337 | Page loading optimizations and cleanup
+* [SOC-1933](https://wikia-inc.atlassian.net/browse/SOC-1933) SOC-1933 | Registration modal broken on pt wikis
+* [XW-1133](https://wikia-inc.atlassian.net/browse/XW-1133) XW-1133 | Don't collapse infobox when user clicks on image/video caption
+* content-type-fix: Utils | Use propert content type name for json
+
 ## release-210 (2016-02-16 11:53 UTC)
 * [CE-3368](https://wikia-inc.atlassian.net/browse/CE-3368) Fix RWA when preserved diff is not at the list
 * [XW-41](https://wikia-inc.atlassian.net/browse/XW-41) XW-41 | Replace placeholders with components dynamically
