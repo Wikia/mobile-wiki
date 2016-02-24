@@ -79,7 +79,7 @@ export default Ember.Route.extend({
 				Ember.Logger.warn('Wiki page model error:', exception);
 			}
 
-			this.setHtmlTags(model);
+			this.setHeadTags(model);
 
 			transition.then(() => {
 				this.updateTrackingData(model);
@@ -94,25 +94,26 @@ export default Ember.Route.extend({
 	},
 
 	/**
-	 * This function handles updating header tags like title, meta and link after transition.
+	 * This function handles updating head tags like title, meta and link after transition.
 	 * It uses ember-cli-meta-tags add-on.
 	 * @param {ArticleModel} model
 	 * @returns {void}
 	 */
-	setHtmlTags(model) {
-		const defaultHtmlTitleTemplate = '$1 - Wikia',
-			articleUrl = model.get('url'),
+	setHeadTags(model) {
+		const headTags = [],
+			defaultHtmlTitleTemplate = '$1 - Wikia',
+			pageUrl = model.get('url'),
 			description = model.getWithDefault('description', ''),
 			htmlTitleTemplate = Ember.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate,
-			canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${articleUrl}`,
+			canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}`,
 			appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios'),
-			appleAppContent = articleUrl ?
-				`app-id=${appId}, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${articleUrl}` :
+			appleAppContent = pageUrl ?
+				`app-id=${appId}, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}` :
 				`app-id=${appId}`;
 
 		document.title = htmlTitleTemplate.replace('$1', model.get('displayTitle'));
 
-		this.set('headTags', [
+		headTags.push(
 			{
 				type: 'link',
 				tagId: 'canonical-url',
@@ -128,16 +129,21 @@ export default Ember.Route.extend({
 					name: 'description',
 					content: description
 				}
-			},
-			{
+			}
+		);
+
+		if (appId) {
+			headTags.push({
 				type: 'meta',
 				tagId: 'meta-apple-app',
 				attrs: {
 					name: 'apple-itunes-app',
 					content: appleAppContent
 				}
-			}
-		]);
+			});
+		}
+
+		this.set('headTags', headTags);
 	},
 
 	/**
@@ -200,11 +206,11 @@ export default Ember.Route.extend({
 	},
 
 	/**
-	 * Remove html tags set in server, so ember-cli-meta-tags add-on can handle by his own.
+	 * Remove head tags set in server, so ember-cli-meta-tags add-on can handle by his own.
 	 * This is temporary solution. Remove this when fastboot is introduced.
 	 * @returns {void}
 	 */
-	removeHtmlTagsSetInServer() {
+	removeHeadTagsSetInServer() {
 		Ember.$('link[rel=canonical]:not([id])').remove();
 		Ember.$('meta[name=description]:not([id])').remove();
 		Ember.$('meta[name=apple-itunes-app]:not([id])').remove();
@@ -215,7 +221,7 @@ export default Ember.Route.extend({
 	 */
 	activate() {
 		this.controllerFor('application').set('enableShareHeader', true);
-		this.removeHtmlTagsSetInServer();
+		this.removeHeadTagsSetInServer();
 	},
 
 	/**
