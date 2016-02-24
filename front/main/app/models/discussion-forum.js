@@ -1,86 +1,63 @@
 import DiscussionBaseModel from './discussion-base';
 import DiscussionModerationModelMixin from '../mixins/discussion-moderation-model';
+import DiscussionFilteringModelMixin from '../mixins/discussion-filtering-model';
 import ajaxCall from '../utils/ajax-call';
 
-const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
-	contributors: [],
-	isRequesterBlocked: false,
+const DiscussionForumModel = DiscussionBaseModel.extend(
+	DiscussionModerationModelMixin,
+	DiscussionFilteringModelMixin,
+	{
+		/**
+		 * @param {number} pageNum
+		 * @param {string} sortBy
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		loadPage(pageNum = 0, sortBy = 'trending') {
+			this.set('pageNum', pageNum);
 
-	name: null,
-	pageNum: null,
-	posts: null,
-	totalPosts: 0,
+			return ajaxCall({
+				data: {
+					page: this.get('pageNum'),
+					pivot: this.get('pivotId'),
+					sortKey: this.getSortKey(sortBy),
+					viewableOnly: false,
+				},
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
+				success: (data) => {
+					const newPosts = data._embedded['doc:threads'],
+						allPosts = this.posts.concat(newPosts);
 
-	/**
-	 * @param {number} pageNum
-	 * @param {string} sortBy
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	loadPage(pageNum = 0, sortBy) {
-		this.set('pageNum', pageNum);
-
-		return ajaxCall({
-			data: {
-				page: this.get('pageNum'),
-				pivot: this.get('pivotId'),
-				sortKey: this.getSortKey(sortBy),
-				viewableOnly: false,
-			},
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
-			success: (data) => {
-				const newPosts = data._embedded['doc:threads'],
-					allPosts = this.posts.concat(newPosts);
-
-				this.set('posts', allPosts);
-			},
-			error: (err) => {
-				this.handleLoadMoreError(err);
-			}
-		});
-	},
-
-	/**
-	 * @param {string} sortBy
-	 * @returns {string}
-	 */
-	getSortKey(sortBy) {
-		switch (sortBy) {
-		case 'latest':
-			return 'creation_date';
-		case 'trending':
-			return 'trending';
-		default:
-			return '';
-		}
-	},
-
-	/**
-	 * Create new post in Discussion Service
-	 * @param {object} postData
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	createPost(postData) {
-		this.setFailedState(null);
-		return ajaxCall({
-			data: JSON.stringify(postData),
-			method: 'POST',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
-			success: (post) => {
-				post._embedded.firstPost[0].isNew = true;
-				this.posts.insertAt(0, post);
-				this.incrementProperty('totalPosts');
-			},
-			error: (err) => {
-				if (err.status === 401) {
-					this.setFailedState('editor.post-error-not-authorized');
-				} else {
-					this.setFailedState('editor.post-error-general-error');
+					this.set('posts', allPosts);
+				},
+				error: (err) => {
+					this.handleLoadMoreError(err);
 				}
-			}
-		});
+			});
+		},
 
+		/**
+		 * Create new post in Discussion Service
+		 * @param {object} postData
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		createPost(postData) {
+			this.setFailedState(null);
+			return ajaxCall({
+				data: JSON.stringify(postData),
+				method: 'POST',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
+				success: (post) => {
+					post._embedded.firstPost[0].isNew = true;
+					this.posts.insertAt(0, post);
+					this.incrementProperty('totalPosts');
+				},
+				error: (err) => {
+					this.onCreatePostError(err);
+				}
+			});
+		}
 	}
-});
+);
 
 DiscussionForumModel.reopenClass({
 	/**
@@ -89,7 +66,7 @@ DiscussionForumModel.reopenClass({
 	 * @param {string} sortBy
 	 * @returns { Ember.RSVP.Promise}
 	 */
-	find(wikiId, forumId, sortBy) {
+	find(wikiId, forumId, sortBy = 'trending') {
 		const forumInstance = DiscussionForumModel.create({
 				wikiId,
 				forumId
@@ -131,7 +108,7 @@ DiscussionForumModel.reopenClass({
 				});
 			},
 			error: (err) => {
-				forumInstance.setErrorProperty(err);
+				this.onFindError(forumInstance, err);
 			}
 		});
 	}
