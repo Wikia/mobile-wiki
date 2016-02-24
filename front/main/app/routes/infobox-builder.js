@@ -252,6 +252,12 @@ export default Ember.Route.extend({
 			model.editRowItem(item, value);
 		},
 
+		editSectionHeaderItem(item, value) {
+			const model = this.modelFor('infoboxBuilder');
+
+			model.editSectionHeaderItem(item, value);
+		},
+
 		/**
 		 * @desc Handles setting item to edit mode - calls proper function on model
 		 * @param {Object} item
@@ -293,6 +299,11 @@ export default Ember.Route.extend({
 		 */
 		save() {
 			const model = this.modelFor('infoboxBuilder');
+
+			console.log(model.get('infoboxState'));
+			console.log(InfoboxBuilderModel.prepareStateForSaving(model.get('infoboxState')));
+
+			return;
 
 			model.saveStateToTemplate().then((title) => {
 				return this.redirectToTemplatePage(title);

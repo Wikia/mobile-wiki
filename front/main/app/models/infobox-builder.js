@@ -24,7 +24,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	addToState(object) {
 		this.get('infoboxState').pushObject(object);
-
 		return object;
 	},
 
@@ -203,6 +202,20 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
+	 * @desc sets a new value of the data field
+	 * on the given section header element
+	 *
+	 * @param {Object} item
+	 * @param {string} value
+	 * @returns {void}
+	 */
+	editSectionHeaderItem(item, value) {
+		const index = this.get('infoboxState').indexOf(item);
+
+		this.set(`infoboxState.${index}.data`, value);
+	},
+
+	/**
 	 * @desc removes item from state for given position
 	 * @param {Object} item
 	 * @returns {void}
@@ -349,7 +362,8 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendRowData(item, itemData) {
 		if (itemData) {
-			const {data: {label}} = itemData;
+			const {data} = itemData,
+				{label} = data || {}; // as data can be devoid of label value
 
 			item.source = itemData.source;
 			item.data.label = label || '';
@@ -368,7 +382,8 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendTitleData(item, itemData) {
 		if (itemData) {
-			const {data: {defaultValue}} = itemData;
+			const {data} = itemData,
+				{defaultValue} = data || {}; // as title can be devoid of default value
 
 			item.source = itemData.source;
 			item.data.defaultValue = defaultValue || '';
@@ -406,7 +421,9 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendHeaderData(item, itemData) {
 		if (itemData) {
-			// TODO: add support for collapsible attribute - DAT-3732
+			const {data: header, collapsible} = itemData;
+			item.data = header || "";
+			item.collapsible = collapsible;
 		}
 		return item;
 	}

@@ -37,6 +37,7 @@ export default Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		setEditItem(item) {
+			debugger;
 			this.get('target').send('setEditItem', item);
 		},
 
@@ -56,6 +57,15 @@ export default Ember.Controller.extend({
 		 */
 		editRowItem(item, value) {
 			this.get('target').send('editRowItem', item, value);
+		},
+
+		/**
+		 * @param {SectionHeaderItem} item
+		 * @param {string} value new label value
+		 * @returns {void}
+		 */
+		editSectionHeaderItem(item, value) {
+			this.get('target').send('editSectionHeaderItem', item, value);
 		}
 	}
 });
