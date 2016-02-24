@@ -392,7 +392,7 @@ InfoboxBuilderModel.reopenClass({
 	/**
 	 * @desc Overrides some properties of given Image object with additional
 	 * data, obtained from already existing template
-	 * TODO: use Object.assign() when we switch to Babel6
+	 * @todo use Object.assign() when we switch to Babel6
 	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
@@ -423,8 +423,9 @@ InfoboxBuilderModel.reopenClass({
 	 * @returns {Object}
 	 */
 	extendHeaderData(item, itemData) {
-		if (itemData) {
-			// TODO: add support for collapsible attribute - DAT-3732
+		if (itemData && itemData.data) {
+			item.data = itemData.data;
+			// @todo add support for collapsible attribute - DAT-3732
 		}
 		return item;
 	}
