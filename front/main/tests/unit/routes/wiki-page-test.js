@@ -1,10 +1,16 @@
 import {test, moduleFor} from 'ember-qunit';
 
-let originalMercury;
+let originalMercury,
+	model;
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
 	beforeEach() {
 		originalMercury = window.Mercury;
+		model = Ember.Object.create({
+			url: '/wiki/Kermit',
+			description: 'Article about Kermit',
+			displayTitle: 'Kermit The Frog'
+		});
 	},
 	afterEach() {
 		window.Mercury = originalMercury;
@@ -13,11 +19,6 @@ moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
 
 test('set head tags for correct model', function (assert) {
 	const mock = this.subject(),
-		model = Ember.Object.create({
-			url: '/wiki/Kermit',
-			description: 'Article about Kermit',
-			displayTitle: 'Kermit The Frog'
-		}),
 		expectedHeadTags = [
 			{
 				type: 'link',
@@ -52,11 +53,6 @@ test('set head tags for correct model', function (assert) {
 
 test('set head tags without apple-itunes-app when appId is not set', function (assert) {
 	const mock = this.subject(),
-		model = Ember.Object.create({
-			url: '/wiki/Kermit',
-			description: 'Article about Kermit',
-			displayTitle: 'Kermit The Frog'
-		}),
 		expectedHeadTags = [
 			{
 				type: 'link',
@@ -85,11 +81,6 @@ test('set head tags without apple-itunes-app when appId is not set', function (a
 
 test('set correct document title', function (assert) {
 	const mock = this.subject(),
-		model = Ember.Object.create({
-			url: '/wiki/Kermit',
-			description: 'Article about Kermit',
-			displayTitle: 'Kermit The Frog'
-		}),
 		expectedDocumentTitle = 'Kermit The Frog - Muppet Wiki - Wikia';
 
 	mock.setHeadTags(model);
@@ -99,11 +90,6 @@ test('set correct document title', function (assert) {
 
 test('set default document title when htmlTitleTemplate is not set', function (assert) {
 	const mock = this.subject(),
-		model = Ember.Object.create({
-			url: '/wiki/Kermit',
-			description: 'Article about Kermit',
-			displayTitle: 'Kermit The Frog'
-		}),
 		expectedDocumentTitle = 'Kermit The Frog - Wikia';
 
 	delete window.Mercury.wiki.htmlTitleTemplate;
