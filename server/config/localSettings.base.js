@@ -259,8 +259,7 @@ const localSettings = {
 		},
 		nielsen: {
 			apid: 'T26086A07-C7FB-4124-A679-8AC404198BA7',
-			clientId: 'Wikia',
-			subbrand: '',
+			dbName: '',
 			section: '',
 			enabled: false
 		},
