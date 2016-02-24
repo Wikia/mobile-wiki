@@ -292,9 +292,13 @@ export default Ember.Route.extend({
 		 * @returns {void}
 		 */
 		save() {
-			const model = this.modelFor('infoboxBuilder');
+			const model = this.modelFor('infoboxBuilder'),
+				controller = this.controllerFor('infobox-builder');
+
+			controller.set('isLoading', true);
 
 			model.saveStateToTemplate().then((title) => {
+				controller.set('isLoading', false);
 				return this.redirectToTemplatePage(title);
 			});
 		},
