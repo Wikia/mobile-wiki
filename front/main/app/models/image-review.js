@@ -129,8 +129,8 @@ ImageReviewModel.reopenClass({
 	getImagesToReviewCount() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: M.getImageReviewServiceUrl('/monitoring',{
-						status: 'UNREVIEWED'
+				url: M.getImageReviewServiceUrl('/monitoring', {
+					status: 'UNREVIEWED'
 				}),
 				xhrFields: {
 					withCredentials: true
@@ -149,9 +149,9 @@ ImageReviewModel.reopenClass({
 			ImageReviewModel.getImagesToReviewCount()
 		];
 
-		return Ember.RSVP.allSettled(promises).then((promisesArray) => {
-			return ImageReviewModel.sanitize(promisesArray[0].value.data, promisesArray[0].value.contractId,
-				promisesArray[1].value.countByStatus);
+		return Ember.RSVP.allSettled(promises).then(([getImagesPromise, getImagesToReviewCountPromise]) => {
+			return ImageReviewModel.sanitize(getImagesPromise.value.data, getImagesPromise.value.contractId,
+				getImagesToReviewCountPromise.value.countByStatus);
 		});
 	}
 });
