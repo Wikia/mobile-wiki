@@ -1,62 +1,16 @@
 import Ember from 'ember';
 import DiscussionModerationControllerMixin from '../../mixins/discussion-moderation-controller';
 import DiscussionUpvoteControllerMixin from '../../mixins/discussion-upvote-controller';
+import DiscussionFilteringControllerMixin from '../../mixins/discussion-filtering-controller';
 
 export default Ember.Controller.extend(
 	DiscussionModerationControllerMixin,
 	DiscussionUpvoteControllerMixin,
+	DiscussionFilteringControllerMixin,
 	{
 		application: Ember.inject.controller(),
 
-		queryParams: ['reported'],
-		reported: false,
 		smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
 		siteHeadPinned: Ember.computed.oneWay('application.siteHeadPinned'),
-
-		actions: {
-			/**
-			 * Bubbles up to DiscussionForumRoute
-			 *
-			 * @returns {void}
-			 */
-			retry() {
-				this.get('target').send('retry');
-			},
-
-			/**
-			 * Bubbles up to DiscussionForumRoute
-			 *
-			 * @param {object} postData
-			 * @returns {void}
-			 */
-			create(postData) {
-				this.get('target').send('create', postData);
-			},
-
-			/**
-			 * Bubbles up to DiscussionForumRoute
-			 *
-			 * @param {number} pageNum
-			 * @returns {void}
-			 */
-			loadPage(pageNum) {
-				this.get('target').send('loadPage', pageNum);
-			},
-
-			/**
-			 * Bubbles up to DiscussionForumRoute
-			 *
-			 * @param {string} sortBy
-			 * @returns {void}
-			 */
-			setSortBy(sortBy) {
-				this.get('target').send('setSortBy', sortBy);
-			},
-
-			applyFilters(sortBy, shouldShowReported) {
-				// this is completely enough for now, because currently we have only sorting in filters
-				this.get('target').send('applyFilters', sortBy, shouldShowReported);
-			}
-		}
 	}
 );
