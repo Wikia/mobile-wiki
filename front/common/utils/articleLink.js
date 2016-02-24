@@ -9,7 +9,7 @@
  */
 function isMercuryNamespaceHandlingOverridden(title) {
 	return Ember.getWithDefault(Mercury, 'wiki.enableCategoryPagesInMercury', false) &&
-		typeof title !== 'undefined' &&
+		typeof title === 'string' &&
 		title.indexOf('Category:') === 0;
 }
 
