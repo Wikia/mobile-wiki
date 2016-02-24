@@ -26,7 +26,8 @@
     "test": "npm run build-dev && npm run test-front && npm run test-server",
     "test-front": "gulp test-common && gulp test-auth && cd front/main && ember test --path ../../www/front/main",
     "test-server": "gulp test-server",
-    "linter": "eslint ."
+    "linter": "eslint .",
+    "svgo": "./tasks/optimize-svg.sh"
   },
   "repository": "git://github.com/Wikia/mercury.git",
   "license": "MIT",

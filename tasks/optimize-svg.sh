@@ -8,17 +8,19 @@ function optimize_file {
 
 function optimize_dir {
   # get all files in given directory ...
-  for f in $1/*.svg
+  for file in $1/*.svg
   do
-    optimize_file "$f"
+    optimize_file "$file"
   done
 
   # ... and all subdirectories
-  for f in $1/**/*.svg
+  for file in $1/**/*.svg
   do
-    optimize_file "$f"
+    optimize_file "$file"
   done
 }
 
+
+# if you created new SVG directory outside of this list, please add it to this list
 optimize_dir "./front/common/public/symbols"
 optimize_dir "./front/main/app/symbols"
