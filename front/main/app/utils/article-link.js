@@ -1,6 +1,19 @@
+import Ember from 'ember';
+
 /**
  * Library to parse links in an article and return information about how to process a given link.
  */
+
+/**
+ * @param {string} title - title fragment of the URL, the string that goes after /wiki/
+ *
+ * @returns {boolean}
+ */
+function isMercuryNamespaceHandlingOverridden(title) {
+	return Ember.getWithDefault(Mercury, 'wiki.enableCategoryPagesInMercury', false) &&
+		typeof title === 'string' &&
+		title.indexOf('Category:') === 0;
+}
 
 /**
  * @typedef {Object} LinkInfo
@@ -23,7 +36,7 @@
  *
  * @returns {LinkInfo}
  */
-export function getLinkInfo(basePath, title, hash, uri) {
+export default function getLinkInfo(basePath, title, hash, uri) {
 	const localPathMatch = uri.match(`^${window.location.origin}(.*)$`);
 
 	if (localPathMatch) {
@@ -53,21 +66,26 @@ export function getLinkInfo(basePath, title, hash, uri) {
 			};
 		}
 
-		/* eslint no-continue: 0 */
-		for (const ns in namespaces) {
-			if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
-				continue;
-			}
+		if (!isMercuryNamespaceHandlingOverridden(article[3])) {
+			// @todo When categories in SPA are being enabled/disabled sitewide, code below should be rethinked.
+			/* eslint no-continue: 0 */
+			for (const ns in namespaces) {
+				// @todo see above -- I'm wondering, when it's possible for `namespaces[ns]` to have an `id` param,
+				// while `namespaces` is an object where keys are numbers and values are just plain strings?
+				if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
+					continue;
+				}
 
-			// Style guide advises using dot accessor instead of brackets, but it is difficult
-			// to access a key with an asterisk* in it
-			const regex = `^(\/wiki)?\/${namespaces[ns]}:.*$`;
+				// Style guide advises using dot accessor instead of brackets, but it is difficult
+				// to access a key with an asterisk* in it
+				const regex = `^(\/wiki)?\/${namespaces[ns]}:.*$`;
 
-			if (local.match(regex)) {
-				return {
-					article: null,
-					url: basePath + local
-				};
+				if (local.match(regex)) {
+					return {
+						article: null,
+						url: basePath + local
+					};
+				}
 			}
 		}
 

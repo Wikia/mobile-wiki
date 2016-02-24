@@ -51,6 +51,7 @@
     "ember-pop-over": "kvas-damian/ember-pop-over#5aa7c38d437618364e0e5090b57bd49098e3e39d",
     "ember-resolver": "2.0.3",
     "ember-sinon": "0.3.0",
+    "ember-sortable": "1.8.0",
     "loader.js": "4.0.0",
     "moment": "2.11.2",
     "moment-timezone": "0.5.0"
