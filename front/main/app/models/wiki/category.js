@@ -135,7 +135,6 @@ CategoryModel.reopenClass({
 			batch,
 			category: categoryName,
 			format: 'json',
-			isMercury: true,
 			index
 		};
 
