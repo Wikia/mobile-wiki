@@ -1,5 +1,6 @@
 {
   "main": {
+    "leave-confirmation": "All unsaved changes will be lost.",
     "header": "Editing: __title__",
     "sidebar-header": "Add infobox elements",
     "title-use-article-name": "Use article name",

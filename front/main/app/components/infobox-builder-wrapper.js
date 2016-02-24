@@ -4,7 +4,8 @@ export default Ember.Component.extend({
 	classNames: ['infobox-builder-preview']
 });
 
-$( window ).on('beforeunload', function() {
-	return "Are you sure to leave this page? Changes will be lost.";
-});
+window.onbeforeunload = function(event) {
+	return i18n.t('infobox-builder:main.leave-confirmation');
+};
+
 
