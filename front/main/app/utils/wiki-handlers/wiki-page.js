@@ -22,7 +22,7 @@ function getURL(params) {
  *
  * @param {Object} data
  * @param {Object} params
- * @returns {Ember.Object}
+ * @returns {Object}
  */
 function getModelForNamespace(data, params) {
 	let model;
@@ -39,8 +39,7 @@ function getModelForNamespace(data, params) {
 			CategoryModel.setCategory(model, data);
 			return model;
 		default:
-			Ember.Object.create();
-			break;
+			return Ember.Object.create();
 		}
 	}
 }
@@ -59,22 +58,19 @@ export default function getPageModel(params) {
 				model = ArticleModel.create(params);
 
 				ArticleModel.setArticle(model);
-				resolve(model);
-				return;
+				return resolve(model);
 			}
 		}
 
-		Ember.$.ajax({
-			url: getURL(params),
-			dataType: 'json',
-			success: (data) => {
+		Ember.$.getJSON(getURL(params))
+			.done((data) => {
 				// @todo - https://wikia-inc.atlassian.net/browse/XW-1151 (this should be handled differently)
 				M.prop('mediaWikiNamespace', data.data.ns, true);
 
 				model = getModelForNamespace(data, params);
 				resolve(model);
-			},
-			error: (err) => {
+			})
+			.fail((err) => {
 				/**
 				 * Temporary solution until we can make error states work
 				 * ideally we should reject on errors
@@ -89,8 +85,7 @@ export default function getPageModel(params) {
 				} else {
 					reject(err);
 				}
-			}
-		});
+			});
 	});
 }
 

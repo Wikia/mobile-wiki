@@ -56,7 +56,7 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
 }
 
 /**
- * Handles article response from API
+ * Handles getPage response from API
  *
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
@@ -77,12 +77,13 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	switch (ns) {
 	case MediaWikiNamespace.MAIN:
 	case MediaWikiNamespace.CATEGORY:
+		// if we have article and article details we want to set those first
+		// in case of categories and main pages - page specific data would be added later
 		if (pageData.article && pageData.details) {
 			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
 		}
 
-		// if we have article details we can replace data from prepareCategoryData
 		if (pageData.ns === MediaWikiNamespace.CATEGORY) {
 			result = deepExtend(result, prepareCategoryData(request, data));
 			// Hide TOC on category pages
@@ -94,6 +95,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		if (pageData.isMainPage && pageData.mainPageData) {
 			result = deepExtend(result, prepareArticleData(request, data));
 			result = deepExtend(result, prepareMainPageData(data));
+			result.hasToC = false;
 			delete result.adsContext;
 		}
 		break;

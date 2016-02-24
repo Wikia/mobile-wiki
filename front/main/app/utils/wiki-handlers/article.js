@@ -22,6 +22,5 @@ export default {
 	// template's and controller's name
 	controllerName: 'article',
 	viewName: 'article',
-	didTransition: Ember.K,
 	afterModel
 };

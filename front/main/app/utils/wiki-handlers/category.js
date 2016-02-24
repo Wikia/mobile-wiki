@@ -20,5 +20,4 @@ export default {
 	controllerName: 'category',
 	// hooks
 	afterModel,
-	didTransition: Ember.K
 };

@@ -245,12 +245,6 @@ export default Ember.Route.extend({
 		 * @returns {boolean}
 		 */
 		didTransition() {
-			const handler = this.get('wikiHandler');
-
-			if (handler) {
-				handler.didTransition(this);
-			}
-
 			if (this.get('redirectEmptyTarget')) {
 				this.controllerFor('application').addAlert({
 					message: i18n.t('app.article-redirect-empty-target'),

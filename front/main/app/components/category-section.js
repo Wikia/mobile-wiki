@@ -6,20 +6,16 @@ const {Component} = Ember;
 export default Component.extend(
 	AdsMixin,
 	{
-		classNames: ['category-sections'],
-
-		didReceiveAttrs() {
-			if (this.get('setupAds') === true) {
-				this.setupAdsContext(this.get('adsContext'));
-			}
-		},
+		classNames: ['category-section'],
+		classNameBindings: ['loadingBatch'],
+		loadingBatch: false,
 
 		actions: {
 			loadBatch(index) {
-				this.set(`navigationClassNameFor${index}`, ' is-loading');
+				this.set('loadingBatch', true);
 
 				this.get('loadBatch')(...arguments).then(() => {
-					this.set(`navigationClassNameFor${index}`, '');
+					this.set('loadingBatch', false);
 
 					window.document.getElementById(index).scrollIntoView();
 					window.scrollBy(0, -50);

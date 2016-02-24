@@ -27,24 +27,21 @@ const {Object, get, $, isArray} = Ember,
 		loadMore(index, batchToLoad) {
 			const url = CategoryModel.getUrlBatchContent(this.get('name'), index, batchToLoad);
 
-			return $.ajax({
-				url,
-				dataType: 'json',
-				method: 'get',
-			}).then((pageData) => {
-				const sectionIndex = `sections.${index}`;
+			return $.getJSON(url)
+				.done((pageData) => {
+					const sectionIndex = `sections.${index}`;
 
-				this.setProperties({
-					[`${sectionIndex}.items`]: CategoryModel.addTitles(pageData.itemsBatch),
-					[`${sectionIndex}.hasPrev`]: batchToLoad - 1 > 0,
-					[`${sectionIndex}.hasNext`]: Math.ceil(this.get(`${sectionIndex}.total`) /
-						this.get(`${sectionIndex}.batchSize`)) > batchToLoad,
-					[`${sectionIndex}.prevBatch`]: batchToLoad - 1,
-					[`${sectionIndex}.nextBatch`]: batchToLoad + 1
+					this.setProperties({
+						[`${sectionIndex}.items`]: CategoryModel.addTitles(pageData.itemsBatch),
+						[`${sectionIndex}.hasPrev`]: batchToLoad - 1 > 0,
+						[`${sectionIndex}.hasNext`]: Math.ceil(this.get(`${sectionIndex}.total`) /
+							this.get(`${sectionIndex}.batchSize`)) > batchToLoad,
+						[`${sectionIndex}.prevBatch`]: batchToLoad - 1,
+						[`${sectionIndex}.nextBatch`]: batchToLoad + 1
+					});
+
+					return this;
 				});
-
-				return this;
-			});
 		}
 	});
 
@@ -90,7 +87,6 @@ CategoryModel.reopenClass({
 					pageProperties = $.extend(pageProperties, {
 						content: article.content,
 						mediaUsers: article.users,
-						type: article.type,
 						media: MediaModel.create({
 							media: article.media
 						}),
@@ -117,8 +113,7 @@ CategoryModel.reopenClass({
 				}
 			}
 
-			// @todo this will be cleaned up in XW-1053
-			pageProperties.articleType = pageProperties.type || data.articleType;
+			pageProperties.articleType = data.articleType;
 		}
 
 		model.setProperties(pageProperties);
