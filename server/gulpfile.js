@@ -4,12 +4,9 @@
 var fs = require('fs'),
 	gulp = require('gulp'),
 	babel = require('gulp-babel'),
-	changed = require('gulp-changed'),
 	newer = require('gulp-newer'),
 	plumber = require('gulp-plumber'),
-	rename = require('gulp-rename'),
 	watch = require('gulp-watch'),
-	filendir = require('filendir'),
 	path = require('path'),
 	spawn = require('child_process').spawn,
 	nodeDeps = Object.keys(require('./package.json').dependencies),
@@ -56,14 +53,8 @@ gulp.task('build-server-node-modules', function () {
  * Copy Ember's output index.html to www/server/app/views/ so it can be used as a template by Hapi
  */
 gulp.task('build-server-views-main', function () {
-	return gulp.src(paths.views.main.src)
+	return gulp.src(paths.views.main.src, {base: paths.views.main.base})
 		.pipe(plumber())
-		.pipe(rename(paths.views.main.outputFilename))
-		// Ember rebuilds index.html on every change
-		// Let's not restart server unless this file is actually modified
-		.pipe(changed(paths.views.main.dest, {
-			hasChanged: changed.compareSha1Digest
-		}))
 		.pipe(gulp.dest(paths.views.main.dest));
 });
 
@@ -93,22 +84,9 @@ gulp.task('build-server', [
 ]);
 
 /*
- * Create www/front/main/index.html if it doesn't exist (it never does at this point
- * because `ember build --watch` starts simultaneously with watch-server and takes much longer)
- * We need this file to exist so it can be observed by gulp-watch
- */
-gulp.task('create-dummy-main-index', function (done) {
-	filendir.writeFile(paths.views.main.src, '', {
-		flag: 'a'
-	}, done);
-});
-
-/*
  * Watch files that the server build depends on
  */
-gulp.task('watch-server', [
-	'create-dummy-main-index'
-], function () {
+gulp.task('watch-server', function () {
 	watch(paths.views.main.src, function () {
 		gulp.start('build-server-views-main');
 	}).on('error', exitOnError);
