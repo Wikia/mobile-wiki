@@ -67,10 +67,10 @@ export default function getLinkInfo(basePath, title, hash, uri) {
 		}
 
 		if (!isMercuryNamespaceHandlingOverridden(article[3])) {
-			// TODO: When categories SPA are being enabled/disabled sitewide, code below should be rethinked.
+			// @todo When categories in SPA are being enabled/disabled sitewide, code below should be rethinked.
 			/* eslint no-continue: 0 */
 			for (const ns in namespaces) {
-				// TODO: see above -- I'm wondering, when it's possible for `namespaces[ns]` to have an `id` param,
+				// @todo see above -- I'm wondering, when it's possible for `namespaces[ns]` to have an `id` param,
 				// while `namespaces` is an object where keys are numbers and values are just plain strings?
 				if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
 					continue;
