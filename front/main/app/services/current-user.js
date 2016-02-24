@@ -51,18 +51,21 @@ export default Ember.Service.extend({
 	 */
 	init() {
 		this._super(...arguments);
+		const userId = this.get('userId');
 
-		Ember.RSVP.all([this.get('userModel'), this.loadUserInfo()]).then(([userModel, userInfo]) => {
-			if (userModel) {
-				this.setProperties(userModel);
-			}
+		if (userId !== null) {
+			Ember.RSVP.all([this.get('userModel'), this.loadUserInfo()]).then(([userModel, userInfo]) => {
+				if (userModel) {
+					this.setProperties(userModel);
+				}
 
-			if (userInfo) {
-				this.setUserLanguage(userInfo);
-				this.setBlockedStatus(userInfo);
-				this.setUserRights(userInfo);
-			}
-		});
+				if (userInfo) {
+					this.setUserLanguage(userInfo);
+					this.setBlockedStatus(userInfo);
+					this.setUserRights(userInfo);
+				}
+			});
+		}
 	},
 
 	/**
