@@ -6,7 +6,7 @@ import Ember from 'ember';
  */
 export default function (options) {
 	const defaults = {
-			contentType: 'aplication/json',
+			contentType: 'application/json',
 			dataType: 'json',
 			method: 'GET',
 			xhrFields: {

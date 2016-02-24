@@ -1,4 +1,4 @@
-import * as Article from '../../lib/Article';
+import {PageRequestHelper} from '../../lib/MediaWikiPage';
 import setResponseCaching, * as Caching from '../../lib/Caching';
 import {getCachedWikiDomainName} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
@@ -50,7 +50,7 @@ export default function get(request, reply) {
 			redirect: request.params.redirect
 		};
 
-	let article,
+	let mediaWikiPageHelper,
 		allowCache = true;
 
 	if (request.state.wikicities_session) {
@@ -60,10 +60,10 @@ export default function get(request, reply) {
 		allowCache = false;
 	}
 
-	article = new Article.ArticleRequestHelper(params);
+	mediaWikiPageHelper = new PageRequestHelper(params);
 
 	if (isRequestForRandomTitle(request.query)) {
-		article
+		mediaWikiPageHelper
 			.getArticleRandomTitle()
 			/**
 			 * @param {*} result
@@ -80,7 +80,7 @@ export default function get(request, reply) {
 				Caching.disableCache(reply(result).code(getStatusCode(result)));
 			});
 	} else {
-		article
+		mediaWikiPageHelper
 			.getArticle()
 			/**
 			 * @param {*} result
