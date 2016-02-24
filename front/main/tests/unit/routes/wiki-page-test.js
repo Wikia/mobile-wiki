@@ -1,32 +1,15 @@
 import {test, moduleFor} from 'ember-qunit';
 
-let originalMercury,
-	model;
+const originalMercury = Ember.$.extend(true, {}, window.Mercury),
+	model = Ember.Object.create({
+		url: '/wiki/Kermit',
+		description: 'Article about Kermit',
+		displayTitle: 'Kermit The Frog'
+	});
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
-	beforeEach() {
-		originalMercury = window.Mercury;
-
-		window.Mercury = {
-			wiki: {
-				htmlTitleTemplate: '$1 - Muppet Wiki - Wikia',
-				basePath: 'http://muppet.wikia.com',
-				smartBanner: {
-					appId: {
-						ios: 1234
-					}
-				}
-			}
-		};
-
-		model = Ember.Object.create({
-			url: '/wiki/Kermit',
-			description: 'Article about Kermit',
-			displayTitle: 'Kermit The Frog'
-		});
-	},
 	afterEach() {
-		window.Mercury = originalMercury;
+		window.Mercury = Ember.$.extend(true, {}, originalMercury);
 	}
 });
 
