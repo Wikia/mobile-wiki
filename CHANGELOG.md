@@ -1,3 +1,6 @@
+## release-212 hotfix 1 (2016-02-24 03:04 UTC)
+* release-212-hotfix: (MAIN-6507) Only load user info if the user is not an anon
+
 ## release-212 (2016-02-23 12:18 UTC)
 * [CE-3427](https://wikia-inc.atlassian.net/browse/CE-3427) Remove X button and hide banner after 7 sec
 * [XW-1120](https://wikia-inc.atlassian.net/browse/XW-1120) XW-1120 | send namespace & poweruser types to GA
