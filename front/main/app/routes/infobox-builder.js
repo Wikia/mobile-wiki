@@ -16,7 +16,8 @@ export default Ember.Route.extend({
 			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
 				Ember.RSVP.Promise.all([
 					this.loadAssets(templateName),
-					this.loadPonto()
+					this.loadPonto(),
+					this.setupEventHandlers()
 				])
 				.then(this.setupStyles)
 				.then(this.setupInfoboxState.bind(this))
@@ -161,6 +162,15 @@ export default Ember.Route.extend({
 	},
 
 	/**
+	 * @desc setups handlers for events
+	 */
+	setupEventHandlers() {
+		window.onbeforeunload = function(event) {
+			return i18n.t('infobox-builder:main.leave-confirmation');
+		};
+	},
+
+	/**
 	 * @desc shows error message for ponto communication
 	 * @param {String} message - error message
 	 * @returns {void}
@@ -292,6 +302,8 @@ export default Ember.Route.extend({
 		 * @returns {void}
 		 */
 		save() {
+			window.onbeforeunload = null;
+
 			const model = this.modelFor('infoboxBuilder');
 
 			model.saveStateToTemplate().then((title) => {
