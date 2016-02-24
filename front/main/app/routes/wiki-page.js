@@ -1,15 +1,17 @@
 import Ember from 'ember';
-import {normalizeToUnderscore} from 'common/utils/string';
 import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 import ArticleHandler from '../utils/mediawiki-handlers/article';
 import CategoryHandler from '../utils/mediawiki-handlers/category';
 import CuratedMainPageHandler from '../utils/mediawiki-handlers/curated-main-page';
-import {namespace as MediawikiNamespace, getCurrentNamespace} from '../utils/mediawiki-namespace';
 import WikiPageModel from '../models/mediawiki/wiki-page';
+import {normalizeToUnderscore} from 'common/utils/string';
+import {setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
+import {namespace as MediawikiNamespace, getCurrentNamespace} from '../utils/mediawiki-namespace';
 
 export default Ember.Route.extend({
 	redirectEmptyTarget: false,
 	mediaWikiHandler: null,
+	currentUser: Ember.inject.service(),
 
 	getHandler(model) {
 		if (model.isCuratedMainPage) {
@@ -65,24 +67,69 @@ export default Ember.Route.extend({
 
 	/**
 	 * @param {ArticleModel} model
+	 * @param {EmberStates.Transition} transition
 	 * @returns {void}
 	 */
-	afterModel(model) {
-		const exception = model.exception,
-			articleType = model.articleType,
+	afterModel(model, transition) {
+		const exception = model.get('exception'),
 			handler = this.getHandler(model);
 
 		if (!Ember.isEmpty(exception)) {
 			Ember.Logger.warn('Page model error:', exception);
 		}
 
-		if (articleType) {
-			UniversalAnalytics.setDimension(19, articleType);
-		}
+		transition.then(() => {
+			this.updateTrackingData(model);
+		});
 
 		this.set('mediaWikiHandler', handler);
 
 		handler.afterModel(this, model);
+	},
+
+	/**
+	 * @param {ArticleModel} model
+	 * @returns {void}
+	 */
+	updateTrackingData(model) {
+		const articleType = model.get('articleType'),
+			namespace = model.get('ns');
+
+		if (articleType) {
+			UniversalAnalytics.setDimension(19, articleType);
+		}
+
+		if (typeof namespace !== 'undefined') {
+			UniversalAnalytics.setDimension(25, namespace);
+		}
+
+		setTrackContext({
+			a: model.get('title'),
+			n: model.get('ns')
+		});
+
+		updateTrackedUrl(window.location.href);
+
+		this.get('currentUser.userModel').then(({powerUserTypes}) => {
+			if (powerUserTypes) {
+				UniversalAnalytics.setDimension(
+					23,
+					powerUserTypes.contains('poweruser_lifetime') ? 'yes' : 'no'
+				);
+
+				UniversalAnalytics.setDimension(
+					24,
+					powerUserTypes.contains('poweruser_frequent') ? 'yes' : 'no'
+				);
+			} else {
+				UniversalAnalytics.setDimension(23, 'no');
+				UniversalAnalytics.setDimension(24, 'no');
+			}
+
+			trackPageView(this.get('adsContext.targeting'));
+		}).catch(() => {
+			trackPageView(this.get('adsContext.targeting'));
+		});
 	},
 
 	/**

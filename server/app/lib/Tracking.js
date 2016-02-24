@@ -59,7 +59,7 @@ export const Comscore = {
 		 */
 		handleResponse(tracking, vertical, dbName, config) {
 			tracking.nielsen.section = vertical;
-			tracking.nielsen.subbrand = dbName;
+			tracking.nielsen.dbName = dbName;
 			tracking.nielsen.enabled = config.enabled;
 		}
 	};
