@@ -85,7 +85,12 @@ $grayout-color: rgba(255,255,255,0.3);
 		}
 
 		&.is-dragging {
+			// hacks for firefox to make transforms work smoothly
+			backface-visibility: hidden;
+			transform: translate3d(0, 0, 0);
+
 			z-index: 4;
+
 			&:after {
 				cursor: move;
 				box-shadow: 0 $box-shadow-size * 4 $shadow-blur 0 $shadow-color;
@@ -269,15 +274,19 @@ $grayout-color: rgba(255,255,255,0.3);
 }
 
 .is-preview-item-dragged {
-	.pi-item:not(.is-dragging):after {
-		background-color: $grayout-color;
-		content: "";
-		display: block;
-		height: 100%;
-		left: 0;
-		position: absolute;
-		top: 0;
-		width: 100%;
-		z-index: 2;
+	.pi-item:not(.is-dragging) {
+		pointer-events: none;
+
+		&:after {
+			background-color: $grayout-color;
+			content: "";
+			display: block;
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			z-index: 2;
+		}
 	}
 }

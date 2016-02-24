@@ -14,7 +14,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	tagName: 'span',
+	tagName: 'div',
 	classNames: ['on-hover-tooltip'],
 	classNameBindings: ['fixed:on-hover-tooltip--fixed'],
 	attributeBindings: ['style'],
