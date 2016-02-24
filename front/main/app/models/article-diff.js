@@ -76,6 +76,7 @@ ArticleDiffModel.reopenClass({
 					controller: 'RevisionApi',
 					method: 'getRevisionsDiff',
 					avatar: true,
+					upvotes: true,
 					newId,
 					oldId
 				}
@@ -94,6 +95,8 @@ ArticleDiffModel.reopenClass({
 						parsedcomment: revision.parsedComment,
 						timestamp: revision.timestamp,
 						title: article.title,
+						upvotes: revision.upvotes,
+						upvotescount: revision.upvotesCount,
 						user: revision.userName,
 						useravatar: revision.userAvatar
 					});

@@ -40,7 +40,7 @@
 	</small>
 {{/if}}
 <div class="recent-change__upvotes {{if userUpvoted 'user-upvoted'}}">
-	{{svg 'upvote' viewBox='0 0 18 18' class='icon recent-change__upvote'}}<span>{{model.upvotes_count}} {{i18n 'main.upvotes' ns='recent-wiki-activity'}}</span>
+	{{svg 'upvote' viewBox='0 0 18 18' class='icon recent-change__upvote'}}<span>{{model.upvotescount}} {{i18n 'main.upvotes' ns='recent-wiki-activity'}}</span>
 </div>
 {{#if active}}
     <div class="current-change"></div>
