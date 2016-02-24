@@ -2,9 +2,15 @@ import {test, moduleFor} from 'ember-qunit';
 
 const curatedContentModelClass = require('main/models/curated-content').default;
 
+let originalMercury;
+
 moduleFor('model:curated-content', 'Unit | Model | curated content', {
 	beforeEach() {
-		Mercury.wiki.articlePath = '/wiki/';
+		originalMercury = window.Mercury;
+		window.Mercury.wiki.articlePath = '/wiki/';
+	},
+	afterEach() {
+		window.Mercury = originalMercury;
 	}
 });
 

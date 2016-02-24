@@ -31,7 +31,7 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 			}
 		});
 
-		Mercury.wiki = {
+		window.Mercury.wiki = {
 			id: 80433,
 			dbName: testCase.hasOwnProperty('dbName') ? testCase.dbName : 'wikiaglobal',
 			language: {
@@ -50,8 +50,17 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 	});
 }
 
+let originalMercury;
+
+
 moduleForComponent('article-wrapper', 'Unit | Component | article wrapper', {
-	unit: true
+	unit: true,
+	beforeEach() {
+		originalMercury = window.Mercury;
+	},
+	afterEach() {
+		window.Mercury = originalMercury;
+	}
 });
 
 test('shouldHandleMedia returns correct value', function (assert) {
@@ -100,7 +109,7 @@ test('contribution disabled on main page', function (assert) {
 		isMainPage: true,
 		isJapaneseWikia: true,
 		disableMobileSectionEditor: false,
-		expected: false,
+		expected: false
 	}, 'contributionEnabled', assert);
 });
 
