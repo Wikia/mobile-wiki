@@ -70,19 +70,19 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	let result, response;
 
 	switch (ns) {
-	case MediaWikiNamespace.MAIN:
-		result = prepareArticleData(request, data);
+		case MediaWikiNamespace.MAIN:
+			result = prepareArticleData(request, data);
 
-		// mainPageData is set only on curated main pages - only then we should do some special preparation for data
-		if (data.page.data && data.page.data.isMainPage && data.page.data.mainPageData) {
-			result = deepExtend(result, prepareMainPageData(data));
-			delete result.adsContext;
-		}
-		break;
+			// mainPageData is set only on curated main pages - only then we should do some special preparation for data
+			if (data.page.data && data.page.data.isMainPage && data.page.data.mainPageData) {
+				result = deepExtend(result, prepareMainPageData(data));
+				delete result.adsContext;
+			}
+			break;
 
-	default:
-		Logger.info(`Unsupported namespace: ${ns}`);
-		result = prepareMediaWikiData(request, data);
+		default:
+			Logger.info(`Unsupported namespace: ${ns}`);
+			result = prepareMediaWikiData(request, data);
 	}
 
 	result.mediaWikiNamespace = ns;

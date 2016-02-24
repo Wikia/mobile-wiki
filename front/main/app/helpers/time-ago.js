@@ -16,22 +16,22 @@ export default Ember.Helper.helper((params) => {
 		interval = timeAgo(fromDate);
 
 	switch (interval.type) {
-	case dateTimeInterval.Now:
-		return i18n.t('app.now-label');
-	case dateTimeInterval.Second:
-		return i18n.t('app.seconds-ago-label', {count: interval.value});
-	case dateTimeInterval.Minute:
-		return i18n.t('app.minutes-ago-label', {count: interval.value});
-	case dateTimeInterval.Hour:
-		return i18n.t('app.hours-ago-label', {count: interval.value});
-	case dateTimeInterval.Day:
-		return i18n.t('app.days-ago-label', {count: interval.value});
-	case dateTimeInterval.Month:
-		return i18n.t('app.months-ago-label', {count: interval.value});
-	case dateTimeInterval.Year:
-		return i18n.t('app.years-ago-label', {count: interval.value});
-	default:
-		Ember.Logger.error('Unexpected date interval for timestamp', unixTimestamp);
-		return '';
+		case dateTimeInterval.Now:
+			return i18n.t('app.now-label');
+		case dateTimeInterval.Second:
+			return i18n.t('app.seconds-ago-label', {count: interval.value});
+		case dateTimeInterval.Minute:
+			return i18n.t('app.minutes-ago-label', {count: interval.value});
+		case dateTimeInterval.Hour:
+			return i18n.t('app.hours-ago-label', {count: interval.value});
+		case dateTimeInterval.Day:
+			return i18n.t('app.days-ago-label', {count: interval.value});
+		case dateTimeInterval.Month:
+			return i18n.t('app.months-ago-label', {count: interval.value});
+		case dateTimeInterval.Year:
+			return i18n.t('app.years-ago-label', {count: interval.value});
+		default:
+			Ember.Logger.error('Unexpected date interval for timestamp', unixTimestamp);
+			return '';
 	}
 });
