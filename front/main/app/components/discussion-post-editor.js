@@ -73,7 +73,7 @@ export default DiscussionEditorComponent.extend({
 	 * Perform animations and logic after post creation
 	 * @returns {void}
 	 */
-	handleNewPostCreated () {
+	handleNewPostCreated() {
 		const newPosts = this.get('posts').filter((post) => Ember.get(post, '_embedded.firstPost.0.isNew'));
 		let newPost = newPosts.get('firstObject');
 

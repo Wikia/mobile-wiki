@@ -7,7 +7,8 @@ import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-r
 export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
-	DiscussionModerationRouteMixin, {
+	DiscussionModerationRouteMixin,
+	{
 		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
 
@@ -53,7 +54,7 @@ export default DiscussionBaseRoute.extend(
 				this.setSortBy('latest').promise.then(() => {
 					const model = this.modelFor('discussion.reported-posts');
 
-					model.createPost(postData).then((xhr)=>{
+					model.createPost(postData).then((xhr) => {
 						if (xhr.mercuryResponseData && !model.get('errorMessage')) {
 							this.get('discussionEditor').trigger('newPost');
 						}

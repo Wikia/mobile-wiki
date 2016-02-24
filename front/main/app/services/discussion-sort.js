@@ -27,7 +27,7 @@ export default Ember.Service.extend({
 	 * @param {string} sortBy
 	 * @returns {void}
 	 */
-	setSortBy(sortBy, onlyReported) {
+	setSortBy(sortBy) {
 		this.sortTypes.forEach((item) => {
 			item.set('active', item.get('name') === sortBy);
 		});

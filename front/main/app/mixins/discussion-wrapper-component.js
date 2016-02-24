@@ -13,11 +13,7 @@ export default Ember.Mixin.create(
 			return this.get('totalPosts') > this.get('postsDisplayed');
 		}),
 
-		pageLoaded: Ember.observer('postsDisplayed', function () {
-			this.set('currentlyLoadingPage', false);
-		}),
-
-		minorErrorObserver: Ember.observer('minorError', function () {
+		loadingPageResolveObserver: Ember.observer('postsDisplayed', 'minorError', function () {
 			this.set('currentlyLoadingPage', false);
 		}),
 

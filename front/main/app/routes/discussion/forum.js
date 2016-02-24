@@ -51,7 +51,7 @@ export default DiscussionBaseRoute.extend(
 
 			create(postData) {
 				this.setSortBy('latest').promise.then(() => {
-					this.modelFor('discussion.forum').createPost(postData).then((xhr)=>{
+					this.modelFor('discussion.forum').createPost(postData).then((xhr) => {
 						if (xhr.mercuryResponseData) {
 							this.get('discussionEditor').trigger('newPost');
 						}
