@@ -1,8 +1,15 @@
 <div class="discussion-reply">
-	{{#if showRepliedTo}}
-		<div class="user-replied-to">
-			{{i18n 'main.user-replied-to' userName=post.threadCreatedBy.name ns='discussion'}}
-		</div>
+	{{#if showTopNote}}
+		{{discussion-post-card-top-note
+			approve=(action this.attrs.approve)
+			delete=(action this.attrs.delete)
+			isReply=true
+			isReported=isReported
+			post=post
+			showButtons=isDetailsView
+			showRepliedTo=showRepliedTo
+			threadCreatorName=post.threadCreatedBy.name
+		}}
 	{{/if}}
 	<div>
 		<div class="upvotes">
@@ -29,7 +36,7 @@
 				delete=(action 'delete')
 				deleteMessage=(i18n 'main.delete-reply' ns='discussion')
 				post=post
-				report=(action 'reportReply')
+				report=(action 'report')
 				reportMessage=(i18n 'main.report-reply' ns='discussion')
 				undelete=(action 'undelete')
 				undeleteMessage=(i18n 'main.undelete-reply' ns='discussion')

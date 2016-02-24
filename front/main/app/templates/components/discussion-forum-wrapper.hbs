@@ -5,14 +5,15 @@
 }}
 
 {{#each posts as |item|}}
-	{{post-detail
+	{{discussion-post-card-detail
+		approve=(action this.attrs.approve)
 		author=item.createdBy
 		delete=(action this.attrs.deletePost)
 		isReported=item.isReported
-		post=item._embedded.firstPost.[0]
+		post=item.firstPost
 		postId=item.id
 		replyCount=item.postCount
-		reportPost=(action this.attrs.reportPost)
+		report=(action this.attrs.report)
 		undelete=(action this.attrs.undeletePost)
 		upvote=(action this.attrs.upvote)
 	}}

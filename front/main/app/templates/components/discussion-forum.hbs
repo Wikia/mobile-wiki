@@ -41,7 +41,8 @@
 				{{discussion-sort
 					setSortBy=(action this.attrs.setSortBy)
 				}}
-				{{forum-wrapper
+				{{discussion-forum-wrapper
+					approve=(action this.attrs.approve)
 					create=(action this.attrs.create)
 					deletePost=(action this.attrs.deletePost)
 					forumId=model.forumId
@@ -51,7 +52,7 @@
 					pageNum=model.pageNum
 					posts=model.posts
 					postsDisplayed=model.posts.length
-					reportPost=(action this.attrs.reportPost)
+					report=(action this.attrs.report)
 					siteHeadPinned=siteHeadPinned
 					totalPosts=model.totalPosts
 					undeletePost=(action this.attrs.undeletePost)

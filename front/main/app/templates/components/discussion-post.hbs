@@ -36,15 +36,15 @@
 			}}
 		{{else}}
 				<div class="discussion post small-12 large-8 columns">
-					{{post-detail
+					{{discussion-post-card-detail
+						approve=(action this.attrs.approve)
 						author=model.firstPost.createdBy
 						delete=(action this.attrs.deletePost)
 						isDetailsView=true
-						isReported=model.isReported
 						post=model.firstPost
 						postId=model.id
 						replyCount=model.postCount
-						reportPost=(action this.attrs.reportPost)
+						report=(action this.attrs.report)
 						timestamp=model.firstPost.creationDate.epochSecond
 						undelete=(action this.attrs.undeletePost)
 						upvoteCount=model.upvoteCount
@@ -67,19 +67,20 @@
 					{{/if}}
 					<div class="replies-list">
 						{{#each model.replies as |item index|}}
-							{{post-reply
-								post=item
+							{{discussion-post-card-reply
+								approve=(action this.attrs.approve)
 								author=item.createdBy
 								content=item.rawContent
 								delete=(action this.attrs.deleteReply)
 								isDetailsView= true
+								isNew=item.isNew
 								isParentDeleted=model.firstPost.isDeleted
-								reportReply=(action this.attrs.reportReply)
+								report=(action this.attrs.report)
+								post=item
 								timestamp=item.creationDate.epochSecond
 								undelete=(action this.attrs.undeleteReply)
-								upvoteCount=item.upvoteCount
-								isNew=item.isNew
 								upvote=(action this.attrs.upvote)
+								upvoteCount=item.upvoteCount
 							}}
 						{{else}}
 							<div class="discussion-no-replies">

@@ -98,26 +98,26 @@ export default Ember.Mixin.create({
 		},
 
 		/**
-		 * Pass post reporting to model
-		 * @param {object} post
+		 * Pass post/reply reporting to model
+		 * @param {object} item
 		 * @returns {void}
 		 */
-		reportPost(post) {
-			Ember.set(post, 'isLoading', true);
-			this.modelFor(this.get('routeName')).reportPost(post).then(() => {
-				Ember.set(post, 'isLoading', false);
+		report(item) {
+			Ember.set(item, 'isLoading', true);
+			this.modelFor(this.get('routeName')).report(item).then(() => {
+				Ember.set(item, 'isLoading', false);
 			});
 		},
 
 		/**
-		 * Pass reply reporting to model
-		 * @param {object} reply
+		 * Pass post/reply approval to model
+		 * @param {object} item
 		 * @returns {void}
 		 */
-		reportReply(reply) {
-			Ember.set(reply, 'isLoading', true);
-			this.modelFor(this.get('routeName')).reportReply(reply).then(() => {
-				Ember.set(reply, 'isLoading', false);
+		approve(item) {
+			Ember.set(item, 'isLoading', true);
+			this.modelFor(this.get('routeName')).approve(item).then(() => {
+				Ember.set(item, 'isLoading', false);
 			});
 		},
 	}
