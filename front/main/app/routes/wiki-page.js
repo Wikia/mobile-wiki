@@ -103,7 +103,7 @@ export default Ember.Route.extend({
 		const headTags = [],
 			defaultHtmlTitleTemplate = '$1 - Wikia',
 			pageUrl = model.get('url'),
-			description = model.getWithDefault('description', ''),
+			description = model.get('description'),
 			htmlTitleTemplate = Ember.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate,
 			canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}`,
 			appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios'),
