@@ -142,6 +142,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				ns: 'infobox-builder',
 				index
 			}),
+			collapsible: false,
 			infoboxBuilderData: {
 				index,
 				component: InfoboxBuilderModel.createComponentName(itemType)
@@ -206,13 +207,13 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * on the given section header element
 	 *
 	 * @param {Object} item
-	 * @param {string} value
+	 * @param {Object} newValues
 	 * @returns {void}
 	 */
-	editSectionHeaderItem(item, value) {
+	editSectionHeaderItem(item, newValues) {
 		const index = this.get('infoboxState').indexOf(item);
 
-		this.set(`infoboxState.${index}.data`, value);
+		Object.keys(newValues).forEach((key) => this.set(`infoboxState.${index}.${key}`, newValues[key]));
 	},
 
 	/**
