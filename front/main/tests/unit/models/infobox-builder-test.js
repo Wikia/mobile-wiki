@@ -100,6 +100,7 @@ test('add items by type', (assert) => {
 			{
 				dataMock: {
 					data: messageMock,
+					collapsible: false,
 					infoboxBuilderData: {
 						index,
 						component: mockComponentName
@@ -182,6 +183,65 @@ test('edit row item', (assert) => {
 
 		assert.equal(model.get(`infoboxState.${index}.data.label`), testCase.label);
 		assert.equal(model.get(`infoboxState.${index}.source`), testCase.source);
+	});
+});
+
+test('edit section header item', (assert) => {
+	const index = 0,
+		defaultHeader = 'Header 1',
+		defaultCollapsible = false,
+		data = 'custom header',
+		collapsible = true,
+		cases = [
+			{
+				newValues: {
+					data,
+					collapsible
+				},
+				expectedValues: {
+					data,
+					collapsible
+				}
+			},
+			{
+				newValues: {
+					data
+				},
+				expectedValues: {
+					data,
+					collapsible: defaultCollapsible
+				}
+			},
+			{
+				newValues: {
+					collapsible
+				},
+				expectedValues: {
+					data: defaultHeader,
+					collapsible
+				}
+			},
+			{
+				newValues: {},
+				expectedValues: {
+					data: defaultHeader,
+					collapsible: defaultCollapsible
+				}
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create();
+
+		sinon.stub(i18n, 't').returns(defaultHeader);
+
+		model.addItem('section-header');
+		model.editSectionHeaderItem(model.get('infoboxState').objectAt(index), testCase.newValues);
+
+		assert.equal(model.get(`infoboxState.${index}.data`), testCase.expectedValues.data);
+		assert.equal(model.get(`infoboxState.${index}.collapsible`), testCase.expectedValues.collapsible);
+
+		i18n.t.restore();
 	});
 });
 
