@@ -10,7 +10,7 @@ import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettin
  */
 export function getTitle(data, request) {
 	try {
-		return data.page.data.nsSpecificContent.name;
+		return data.page.data.details.title;
 	} catch (e) {
 		return request.params.title.replace(/_/g, ' ');
 	}

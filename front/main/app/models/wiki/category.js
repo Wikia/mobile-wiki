@@ -5,6 +5,8 @@ import {normalizeToWhitespace} from 'common/utils/string';
 const {Object, get, $, isArray} = Ember,
 	keys = window.Object.keys,
 	CategoryModel = Object.extend({
+		adsContext: null,
+		// set when creating model instance
 		basePath: null,
 		categories: null,
 		description: null,
@@ -17,10 +19,11 @@ const {Object, get, $, isArray} = Ember,
 		ns: null,
 		otherLanguages: null,
 		sections: null,
+		// set when creating model instance
 		title: null,
 		url: null,
 		user: null,
-		users: null,
+		// set when creating model instance
 		wiki: null,
 
 		init() {
@@ -29,7 +32,6 @@ const {Object, get, $, isArray} = Ember,
 			this.media = [];
 			this.mediaUsers = [];
 			this.otherLanguages = [];
-			this.users = [];
 		},
 
 		loadMore(index, batchToLoad) {
@@ -63,9 +65,7 @@ CategoryModel.reopenClass({
 		const exception = pageData.exception,
 			data = pageData.data;
 
-		let pageProperties = {},
-			details,
-			article;
+		let pageProperties, article;
 
 		if (exception) {
 			pageProperties = {
@@ -73,23 +73,26 @@ CategoryModel.reopenClass({
 				exception
 			};
 		} else if (data) {
-			if (data.details) {
-				details = data.details;
+			// Category Basic Data
+			// This data should always be set - no matter if category has an article or not
+			pageProperties = {
+				articleType: data.articleType,
+				description: get(data, 'details.description'),
+				displayTitle: get(data, 'details.title'),
+				id: get(data, 'details.id'),
+				name: get(data, 'details.title'),
+				ns: data.ns,
+				sections: CategoryModel.addTitles(get(data, 'nsSpecificContent.members.sections')),
+				url: get(data, 'details.url')
+			};
 
-				pageProperties = {
-					ns: details.ns,
-					id: details.id,
-					user: details.revision.user_id,
-					url: details.url,
-					description: details.description
-				};
-			}
-
-			pageProperties.name = get(data, 'nsSpecificContent.name');
-			pageProperties.displayTitle = get(data, 'nsSpecificContent.name');
-
+			// Article related Data - if Article exists
 			if (data.article) {
 				article = data.article;
+
+				pageProperties = $.extend(pageProperties, {
+					user: get(data, 'details.revision.user_id'),
+				});
 
 				if (article.content.length > 0) {
 					pageProperties = $.extend(pageProperties, {
@@ -102,12 +105,8 @@ CategoryModel.reopenClass({
 						redirectEmptyTarget: data.redirectEmptyTarget || false,
 						hasArticle: true
 					});
-				} else {
-					pageProperties.hasArticle = false;
 				}
 			}
-
-			pageProperties.sections = CategoryModel.addTitles(get(data, 'nsSpecificContent.members.sections'));
 
 			if (data.otherLanguages) {
 				pageProperties.otherLanguages = data.otherLanguages;
@@ -120,8 +119,6 @@ CategoryModel.reopenClass({
 					pageProperties.adsContext.targeting.mercuryPageCategories = pageProperties.categories;
 				}
 			}
-
-			pageProperties.articleType = data.articleType;
 		}
 
 		model.setProperties(pageProperties);
