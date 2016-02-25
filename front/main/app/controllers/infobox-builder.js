@@ -1,6 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+
+	// used by ember-onbeforeunload to determine if confirmation dialog should be shown
+	isDirty: false,
+
 	actions: {
 		/**
 		 * @desc exits infobox builder ui and calls redirect method on route.
@@ -24,6 +28,9 @@ export default Ember.Controller.extend({
 		save() {
 			const model = this.get('model');
 
+			// prevents showing confirmation dialog on save
+			this.set('isDirty', false);
+
 			model.saveStateToTemplate().then((title) => this.get('target').send('redirectToTemplatePage', title));
 		},
 
@@ -35,6 +42,7 @@ export default Ember.Controller.extend({
 		addItem(type) {
 			const model = this.get('model');
 
+			this.set('isDirty', true);
 			return model.addItem(type);
 		},
 
@@ -46,6 +54,7 @@ export default Ember.Controller.extend({
 		removeItem(item) {
 			const model = this.get('model');
 
+			this.set('isDirty', true);
 			model.removeItem(item);
 		},
 
@@ -82,6 +91,7 @@ export default Ember.Controller.extend({
 		editTitleItem(item, shouldUseArticleName) {
 			const model = this.get('model');
 
+			this.set('isDirty', true);
 			model.editTitleItem(item, shouldUseArticleName);
 		},
 
@@ -94,6 +104,7 @@ export default Ember.Controller.extend({
 		editRowItem(item, label) {
 			const model = this.get('model');
 
+			this.set('isDirty', true);
 			model.editRowItem(item, label);
 		},
 
@@ -105,6 +116,7 @@ export default Ember.Controller.extend({
 		updateInfoboxStateOrder(newState) {
 			const model = this.get('model');
 
+			this.set('isDirty', true);
 			model.updateInfoboxStateOrder(newState);
 		}
 	}
