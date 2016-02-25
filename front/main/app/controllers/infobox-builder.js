@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+	showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
+
 	actions: {
 		/**
 		 * @returns {void}

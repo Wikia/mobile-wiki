@@ -243,11 +243,15 @@ $border-width: 2px;
 }
 
 .infobox-builder-spinner {
-	color: rgba(0,0,0,0.5);
-	display: flex;
-	justify-content: center;
 	align-items: center;
+	color: rgba(0, 0, 0, .5);
+	display: flex;
 	flex-direction: column;
+	justify-content: center;
+
+	&.loading-overlay {
+		background: rgba(255, 255, 255, .8);
+	}
 
 	.success-icon {
 		height: 80px;
@@ -257,6 +261,10 @@ $border-width: 2px;
 	.spinner {
 		margin: 0;
 		position: inherit;
+	}
+
+	.spinner-text {
+		margin-top: 15px;
 	}
 }
 
