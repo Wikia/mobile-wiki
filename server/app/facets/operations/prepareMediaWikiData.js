@@ -14,6 +14,7 @@ export default function prepareMediaWikiData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
 		wikiVariables = data.wikiVariables,
 		result = {
+			articlePage: data.page,
 			server: data.server,
 			wikiVariables: data.wikiVariables,
 		};

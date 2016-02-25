@@ -65,13 +65,16 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
  * @returns {void}
  */
 function handleResponse(request, reply, data, allowCache = true, code = 200) {
-	const ns = data.page.data.ns;
+	let result = {}, response, ns;
 
-	let result, response;
+	if (data.page && data.page.data && data.page.data.ns) {
+		ns = data.page.data.ns;
+		result.mediaWikiNamespace = ns;
+	}
 
 	switch (ns) {
 	case MediaWikiNamespace.MAIN:
-		result = prepareArticleData(request, data);
+		result = deepExtend(result, prepareArticleData(request, data));
 
 		// mainPageData is set only on curated main pages - only then we should do some special preparation for data
 		if (data.page.data && data.page.data.isMainPage && data.page.data.mainPageData) {
@@ -84,8 +87,6 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		Logger.info(`Unsupported namespace: ${ns}`);
 		result = prepareMediaWikiData(request, data);
 	}
-
-	result.mediaWikiNamespace = ns;
 
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
@@ -135,15 +136,15 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 */
 		.catch(PageRequestError, (error) => {
 			const data = error.data,
-				errorCode = getStatusCode(data.article, 500);
+				errorCode = getStatusCode(data.page, 500);
 
-			Logger.error(data.article.exception, 'MediaWikiPage error');
+			Logger.error(data.page.exception, 'MediaWikiPage error');
 
 			// It's possible that the article promise is rejected but we still want to redirect to canonical host
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 
 			// Clean up exception to not put its details in HTML response
-			delete data.article.exception.details;
+			delete data.page.exception.details;
 
 			handleResponse(request, reply, data, allowCache, errorCode);
 		})
