@@ -55,9 +55,22 @@ export const localStorageAdapter = {
 	}
 };
 
+//Check if we have local storage available
+let localStorageAvailable = false;
+
+try {
+	const test = 'testLocalStorage';
+
+	localStorage.setItem(test, test);
+	localStorage.removeItem(test);
+	localStorageAvailable = true;
+} catch (e) {
+	localStorageAvailable = false;
+}
+
 /**
  * Returns window.localStorage or compatible in-memory object
  *
  * @returns {LocalStorage}
  */
-export default window.localStorage || localStorageAdapter;
+export default localStorageAvailable ? window.localStorage : localStorageAdapter;
