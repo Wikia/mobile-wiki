@@ -78,6 +78,11 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	switch (ns) {
 	case MediaWikiNamespace.MAIN:
 	case MediaWikiNamespace.CATEGORY:
+
+		// Not existing articles return NS 0 however but article content is set to 0.
+		// We need to do the initial set up.
+		result = prepareMediaWikiData(request, data);
+
 		// if we have article and article details we want to set those first
 		// in case of categories and main pages - page specific data would be added later
 		if (pageData.article && pageData.details) {
