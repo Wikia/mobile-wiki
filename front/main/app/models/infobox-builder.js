@@ -13,7 +13,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		};
 		this.infoboxState = [];
 		this.itemInEditMode = null;
-		this.isDirty = false;
 	},
 
 	/**

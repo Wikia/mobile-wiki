@@ -2,11 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-	isDirty: Ember.computed('model', function () {
-		const model = this.get('model');
-
-		return model.get('isDirty');
-	}),
+	isDirty: false,
 
 	actions: {
 		/**
@@ -42,7 +38,7 @@ export default Ember.Controller.extend({
 		addItem(type) {
 			const model = this.get('model');
 
-			model.isDirty = true;
+			this.isDirty = true;
 			return model.addItem(type);
 		},
 
@@ -54,7 +50,7 @@ export default Ember.Controller.extend({
 		removeItem(item) {
 			const model = this.get('model');
 
-			model.isDirty = true;
+			this.isDirty = true;
 			model.removeItem(item);
 		},
 
@@ -91,7 +87,7 @@ export default Ember.Controller.extend({
 		editTitleItem(item, shouldUseArticleName) {
 			const model = this.get('model');
 
-			model.isDirty = true;
+			this.isDirty = true;
 			model.editTitleItem(item, shouldUseArticleName);
 		},
 
@@ -104,7 +100,7 @@ export default Ember.Controller.extend({
 		editRowItem(item, label) {
 			const model = this.get('model');
 
-			model.isDirty = true;
+			this.isDirty = true;
 			model.editRowItem(item, label);
 		},
 
@@ -116,7 +112,7 @@ export default Ember.Controller.extend({
 		updateInfoboxStateOrder(newState) {
 			const model = this.get('model');
 
-			model.isDirty = true;
+			this.isDirty = true;
 			model.updateInfoboxStateOrder(newState);
 		}
 	}
