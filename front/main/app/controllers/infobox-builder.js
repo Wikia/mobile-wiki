@@ -1,6 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+
+	// used by ember-onbeforeunload to determine if confirmation dialog should be shown
+	isDirty: false,
+
 	actions: {
 		/**
 		 * @desc exits infobox builder ui and calls redirect method on route.
@@ -19,12 +23,17 @@ export default Ember.Controller.extend({
 		/**
 		 * @desc Saves infobox state to template and calls redirect method on route.
 		 * on model and connect with <iframe> parent to redirect to another page.
-		 * @returns {void}
+		 * @returns {Ember.RSVP.Promise}
 		 */
 		save() {
 			const model = this.get('model');
 
-			model.saveStateToTemplate().then((title) => this.get('target').send('redirectToTemplatePage', title));
+			// prevents showing confirmation dialog on save
+			this.set('isDirty', false);
+
+			return model.saveStateToTemplate().then(
+				(title) => this.get('target').send('redirectToTemplatePage', title)
+			);
 		},
 
 		/**
@@ -35,6 +44,7 @@ export default Ember.Controller.extend({
 		addItem(type) {
 			const model = this.get('model');
 
+			this.set('isDirty', true);
 			return model.addItem(type);
 		},
 
@@ -46,6 +56,7 @@ export default Ember.Controller.extend({
 		removeItem(item) {
 			const model = this.get('model');
 
+			this.set('isDirty', true);
 			model.removeItem(item);
 		},
 
@@ -65,7 +76,7 @@ export default Ember.Controller.extend({
 		 * @param {Object} actionTrigger - infobox item that triggers this action
 		 * @returns {void}
 		 */
-		handleItemInEditModel(actionTrigger) {
+		handleItemInEditMode(actionTrigger) {
 			const model = this.get('model');
 
 			if (actionTrigger !== model.get('itemInEditMode')) {
@@ -82,6 +93,7 @@ export default Ember.Controller.extend({
 		editTitleItem(item, shouldUseArticleName) {
 			const model = this.get('model');
 
+			this.set('isDirty', true);
 			model.editTitleItem(item, shouldUseArticleName);
 		},
 
@@ -94,6 +106,7 @@ export default Ember.Controller.extend({
 		editRowItem(item, label) {
 			const model = this.get('model');
 
+			this.set('isDirty', true);
 			model.editRowItem(item, label);
 		},
 
@@ -105,6 +118,7 @@ export default Ember.Controller.extend({
 		updateInfoboxStateOrder(newState) {
 			const model = this.get('model');
 
+			this.set('isDirty', true);
 			model.updateInfoboxStateOrder(newState);
 		}
 	}

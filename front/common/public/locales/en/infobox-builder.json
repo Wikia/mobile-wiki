@@ -1,11 +1,13 @@
 {
   "main": {
+    "leave-confirmation": "All unsaved changes will be lost.",
     "header": "Editing: __title__",
     "sidebar-header": "Add infobox elements",
     "title-use-article-name": "Use article name",
     "title-default": "Title __index__",
     "label-default": "Label __index__",
     "image-default": "Image __index__",
+    "section-header-default": "Header __index__",
     "caption-default": "Example caption",
     "alt-default": "Alt",
     "row-default": "Example value",
@@ -18,6 +20,8 @@
     "help-row": "Text from label field will be used to describe infobox rows. People using this infobox in articles will use these names to provide the data.",
     "save": "Save",
     "load-error": "Loading error",
+    "saving": "Saving your great project",
+    "success": "Success!",
     "edit-image-item-description": "Place where users will upload images while using this infobox.",
     "reorder-tooltip": "Drag to reorder"
   }

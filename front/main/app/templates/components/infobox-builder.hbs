@@ -1,7 +1,7 @@
 {{app-header
 	title=(i18n 'main.header' ns='infobox-builder' title=title)
 	onBackArrowClick=cancelAction
-	onConfirmBtnClick=saveAction
+	onConfirmBtnClick=(action 'save')
 	backArrowTooltip=(i18n 'app.cancel-label')
 	confirmBtnLabel=(i18n 'main.save' ns='infobox-builder')
 	fixed=true
@@ -22,6 +22,7 @@
 					handle=".pi-item"
 					position=index
 					setEditItem=setEditItem
+					spacing=8
 					onDragStart=(action 'onPreviewItemDrag')
 					onDragStop=(action 'onPreviewItemDrop')
 					onMouseEnter=(action 'showReorderTooltip')
@@ -39,7 +40,6 @@
 		{{/if}}
 	</div>
 
-
 	{{infobox-builder-sidebar
 		addItem=addItem
 		removeItem=removeItem
@@ -49,3 +49,24 @@
 		editRowItem=editRowItem
 	}}
 </div>
+{{#if showOverlay}}
+	<div class="infobox-builder-spinner loading-overlay">
+	{{#if isLoading}}
+		{{loading-spinner
+			active=true
+			radius=38
+			overlay=false
+			strokeWidth=3
+		}}
+		<div class="spinner-text">
+			{{i18n 'main.saving' ns='infobox-builder'}}
+		</div>
+	{{/if}}
+	{{#if showSuccess}}
+		{{svg 'success' class='success-icon' viewBox='0 0 80 80'}}
+		<div class="spinner-text">
+			{{i18n 'main.success' ns='infobox-builder'}}
+		</div>
+	{{/if}}
+	</div>
+{{/if}}
