@@ -1,9 +1,14 @@
 import Ember from 'ember';
 import InfoboxBuilderModel from '../models/infobox-builder';
+import ConfirmationMixin from 'ember-onbeforeunload/mixins/confirmation';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(ConfirmationMixin, {
 	pontoLoadingInitialized: false,
 	pontoPath: '/front/main/assets/vendor/ponto/ponto.js',
+
+	confirmationMessage() {
+		return i18n.t('infobox-builder:main.leave-confirmation');
+	},
 
 	renderTemplate() {
 		this.render('infobox-builder');
@@ -16,8 +21,7 @@ export default Ember.Route.extend({
 			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
 				Ember.RSVP.Promise.all([
 					this.loadAssets(templateName),
-					this.loadPonto(),
-					this.setupEventHandlers()
+					this.loadPonto()
 				])
 				.then(this.setupStyles)
 				.then(this.setupInfoboxState.bind(this))
@@ -162,17 +166,6 @@ export default Ember.Route.extend({
 	},
 
 	/**
-	 * @desc setups handlers for events
-	 *
-	 * @returns {void}
-	 */
-	setupEventHandlers() {
-		window.onbeforeunload = function () {
-			return i18n.t('infobox-builder:main.leave-confirmation');
-		};
-	},
-
-	/**
 	 * @desc shows error message for ponto communication
 	 * @param {String} message - error message
 	 * @returns {void}
@@ -306,7 +299,9 @@ export default Ember.Route.extend({
 		save() {
 			const model = this.modelFor('infoboxBuilder');
 
-			window.onbeforeunload = null;
+			// deactivating onbeforeunload handler - ConfirmationMixin
+			this.deactivate();
+
 			model.saveStateToTemplate().then((title) => {
 				return this.redirectToTemplatePage(title);
 			});

@@ -1,6 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+
+	isDirty: Ember.computed('model', () => {
+		return true;
+	}),
+
 	actions: {
 		/**
 		 * @returns {void}
