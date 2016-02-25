@@ -21,7 +21,7 @@ ImageReviewModel.reopenClass({
 				xhrFields: {
 					withCredentials: true
 				},
-				success: (data) => resolve(ImageReviewModel.getImages(data.id)),
+				success: (data) => resolve(ImageReviewModel.getImagesAndCount(data.id)),
 				error: (data) => reject(data)
 			});
 		});
@@ -53,7 +53,7 @@ ImageReviewModel.reopenClass({
 				method: 'GET',
 				success: (data) => {
 					if (Ember.isArray(data)) {
-						resolve(ImageReviewModel.sanitize(data, contractId));
+						resolve({data, contractId});
 					} else {
 						reject(i18n.t('app.image-review-error-invalid-data'));
 					}
@@ -94,7 +94,7 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	sanitize(rawData, contractId) {
+	sanitize(rawData, contractId, imagesToReviewCount) {
 		const images = [];
 
 		rawData.forEach((image) => {
@@ -108,7 +108,7 @@ ImageReviewModel.reopenClass({
 			}
 			// else skip because is reviewed already
 		});
-		return ImageReviewModel.create({images, contractId});
+		return ImageReviewModel.create({images, contractId, imagesToReviewCount});
 	},
 
 	reviewImages(images) {
@@ -123,6 +123,35 @@ ImageReviewModel.reopenClass({
 			}, (data) => {
 				reject(data);
 			});
+		});
+	},
+
+	getImagesToReviewCount() {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
+				url: M.getImageReviewServiceUrl('/monitoring', {
+					status: 'UNREVIEWED'
+				}),
+				xhrFields: {
+					withCredentials: true
+				},
+				dataType: 'json',
+				method: 'GET',
+				success: (data) => resolve(data),
+				error: () => reject(i18n.t('app.image-review-error-invalid-data'))
+			});
+		});
+	},
+
+	getImagesAndCount(contractId) {
+		const promises = [
+			ImageReviewModel.getImages(contractId),
+			ImageReviewModel.getImagesToReviewCount()
+		];
+
+		return Ember.RSVP.allSettled(promises).then(([getImagesPromise, getImagesToReviewCountPromise]) => {
+			return ImageReviewModel.sanitize(getImagesPromise.value.data, getImagesPromise.value.contractId,
+				getImagesToReviewCountPromise.value.countByStatus);
 		});
 	}
 });

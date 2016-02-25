@@ -15,13 +15,13 @@ export default Ember.Route.extend({
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
 				Ember.RSVP.Promise.all([
-					this.loadAssets(templateName),
-					this.loadPonto()
-				])
-				.then(this.setupStyles)
-				.then(this.setupInfoboxState.bind(this))
-				.then(this.isWikiaContext)
-				.then(resolve, reject);
+						this.loadAssets(templateName),
+						this.loadPonto()
+					])
+					.then(this.setupStyles)
+					.then(this.setupInfoboxState.bind(this))
+					.then(this.isWikiaContext)
+					.then(resolve, reject);
 			} else {
 				reject();
 			}
@@ -171,31 +171,6 @@ export default Ember.Route.extend({
 		}
 	},
 
-	/**
-	 * @desc connects with ponto and redirects to template page
-	 * @param {String} title - title of the template
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	redirectToTemplatePage(title) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			const ponto = window.Ponto;
-
-			ponto.invoke(
-				'wikia.infoboxBuilder.ponto',
-				'redirectToTemplatePage',
-				title,
-				(data) => {
-					resolve(data);
-				},
-				(data) => {
-					reject(data);
-					this.showPontoError(data);
-				},
-				false
-			);
-		});
-	},
-
 	actions: {
 		error: () => {
 			this.controllerFor('application').addAlert({
@@ -223,98 +198,26 @@ export default Ember.Route.extend({
 		},
 
 		/**
-		 * @desc Handles the add data, image or title button and call the proper
-		 * function on model.
-		 * @param {String} type - of item type
-		 * @returns {Object} added item
-		*/
-		addItem(type) {
-			const model = this.modelFor('infoboxBuilder');
-
-			return model.addItem(type);
-		},
-
-		/**
-		 * @desc Handles editing title element - calls proper function on model
-		 * @param {TitleItem} item
-		 * @param {bool} value
-		 * @returns {void}
+		 * @desc connects with ponto and redirects to template page
+		 * @param {String} title - title of the template
+		 * @returns {Ember.RSVP.Promise}
 		 */
-		editTitleItem(item, value) {
-			const model = this.modelFor('infoboxBuilder');
+		redirectToTemplatePage(title) {
+			return new Ember.RSVP.Promise((resolve, reject) => {
+				const ponto = window.Ponto;
 
-			model.editTitleItem(item, value);
-		},
-
-		editRowItem(item, value) {
-			const model = this.modelFor('infoboxBuilder');
-
-			model.editRowItem(item, value);
-		},
-
-		/**
-		 * @desc Handles setting item to edit mode - calls proper function on model
-		 * @param {Object} item
-		 * @returns {void}
-		 */
-		setEditItem(item) {
-			const model = this.modelFor('infoboxBuilder');
-
-			model.setEditItem(item);
-		},
-
-		/**
-		 * @desc Handles removing item and calls proper function on model
-		 * @param {Object} item
-		 * @returns {void}
-		 */
-		removeItem(item) {
-			const model = this.modelFor('infoboxBuilder');
-
-			model.removeItem(item);
-		},
-
-		/**
-		 * @desc Handles moving item in the state and calls proper function on model
-		 * @param {Number} offset
-		 * @param {Object} item
-		 * @returns {void}
-		 */
-		moveItem(offset, item) {
-			const model = this.modelFor('infoboxBuilder');
-
-			model.moveItem(offset, item);
-		},
-
-		/**
-		 * @desc Handles the save template button, calls the proper function
-		 * on model and connect with <iframe> parent to redirect to another page.
-		 * @returns {void}
-		 */
-		save() {
-			const model = this.modelFor('infoboxBuilder'),
-				controller = this.controllerFor('infobox-builder');
-
-			controller.set('isLoading', true);
-
-			model.saveStateToTemplate().then((title) => {
-				controller.set('isLoading', false);
-				controller.set('showSuccess', true);
-				return this.redirectToTemplatePage(title);
+				ponto.invoke(
+					'wikia.infoboxBuilder.ponto',
+					'redirectToTemplatePage',
+					title,
+					(data) => resolve(data),
+					(data) => {
+						reject(data);
+						this.showPontoError(data);
+					},
+					false
+				);
 			});
-		},
-
-		/**
-		 * @desc Handles the cancel button click.
-		 * Connect with <iframe> parent to redirect to another page.
-		 * @returns {void}
-		 */
-		cancel() {
-			const title = this.modelFor('infoboxBuilder').get('title');
-
-			// maybe some modal "are you sure? You'll lost your work"
-			// redirect to template page
-			return this.redirectToTemplatePage(title);
 		}
 	}
 });

@@ -20,6 +20,7 @@
     "load-error": "Loading error",
     "saving": "Saving your great project",
     "success": "Success!",
-    "edit-image-item-description": "Place where users will upload images while using this infobox."
+    "edit-image-item-description": "Place where users will upload images while using this infobox.",
+    "reorder-tooltip": "Drag to reorder"
   }
 }
