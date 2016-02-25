@@ -27,6 +27,9 @@ export default Ember.Controller.extend({
 		save() {
 			const model = this.get('model');
 
+			// prevents showing confirmation dialog on save
+			this.isDirty = false;
+
 			model.saveStateToTemplate().then((title) => this.get('target').send('redirectToTemplatePage', title));
 		},
 
