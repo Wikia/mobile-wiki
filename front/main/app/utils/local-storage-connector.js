@@ -55,7 +55,7 @@ export const localStorageAdapter = {
 	}
 };
 
-//Check if we have local storage available
+// Check if we have local storage available
 let localStorageAvailable = false;
 
 try {
