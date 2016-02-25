@@ -6,6 +6,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	pontoLoadingInitialized: false,
 	pontoPath: '/front/main/assets/vendor/ponto/ponto.js',
 
+	// ember-onbeforeunload - message displayed within confirmation dialog
 	confirmationMessage() {
 		return i18n.t('infobox-builder:main.leave-confirmation');
 	},
