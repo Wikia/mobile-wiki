@@ -23,19 +23,30 @@ export function getTitle(data, request) {
 export default function prepareCategoryData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
 		wikiVariables = data.wikiVariables,
-		articleData = data.page.data,
+		pageData = data.page.data,
 		result = {
 			server: data.server,
 			wikiVariables: data.wikiVariables,
+			canonicalUrl: ''
 		};
 
-	if (articleData && articleData.details) {
-		result.canonicalUrl = wikiVariables.basePath + articleData.details.url;
+	if (wikiVariables) {
+		result.canonicalUrl = wikiVariables.basePath;
+	}
+
+	if (pageData && pageData.details) {
+		result.canonicalUrl += pageData.details.url;
+	}
+
+	if (pageData) {
+		result.htmlTitle = pageData.htmlTitle;
+	} else {
+		result.htmlTitle = request.params.title.replace(/_/g, ' ');
 	}
 
 	result.isRtl = isRtl(wikiVariables);
 
-	result.htmlTitle = data.page.data.htmlTitle;
+	result.htmlTitle = pageData.htmlTitle;
 	result.displayTitle = getTitle(data, request);
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names

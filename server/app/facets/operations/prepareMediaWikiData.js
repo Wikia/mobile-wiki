@@ -4,14 +4,6 @@ import localSettings from '../../../config/localSettings';
 import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
 
 /**
- * @param {Hapi.Request} request
- * @returns {String} title
- */
-export function getTitle(request) {
-	return request.params.title.replace(/_/g, ' ');
-}
-
-/**
  * Prepares article data to be rendered
  *
  * @param {Hapi.Request} request
@@ -21,19 +13,34 @@ export function getTitle(request) {
 export default function prepareMediaWikiData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
 		wikiVariables = data.wikiVariables,
+		pageData = data.page.data,
 		result = {
 			server: data.server,
 			wikiVariables: data.wikiVariables,
+			canonicalUrl: ''
 		};
+
+	if (wikiVariables) {
+		result.canonicalUrl = wikiVariables.basePath;
+	}
+
+	if (pageData && pageData.details) {
+		result.canonicalUrl += pageData.details.url;
+	}
+
+	if (pageData) {
+		result.htmlTitle = pageData.htmlTitle;
+	} else {
+		result.htmlTitle = request.params.title.replace(/_/g, ' ');
+	}
 
 	result.isRtl = isRtl(wikiVariables);
 
-	result.htmlTitle = data.page.data.htmlTitle;
-	result.displayTitle = getTitle(request);
+	result.displayTitle = result.htmlTitle;
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
-	result.openGraph = getOpenGraphData('wiki-page', data.page.data.htmlTitle, null);
+	result.openGraph = getOpenGraphData('wiki-page', result.displayTitle, result.canonicalUrl);
 	// clone object to avoid overriding real localSettings for futurue requests
 	result.localSettings = getLocalSettings();
 

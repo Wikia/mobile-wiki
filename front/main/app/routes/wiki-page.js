@@ -81,13 +81,15 @@ export default Ember.Route.extend({
 
 			this.setHeadTags(model);
 
-			transition.then(() => {
-				this.updateTrackingData(model);
-			});
+			if (handler) {
+				transition.then(() => {
+					this.updateTrackingData(model);
+				});
 
-			this.set('wikiHandler', handler);
+				this.set('wikiHandler', handler);
 
-			handler.afterModel(this, model);
+				handler.afterModel(this, model);
+			}
 		} else {
 			Ember.Logger.warn('Unsupported page');
 		}
@@ -253,26 +255,6 @@ export default Ember.Route.extend({
 			}
 
 			return true;
-		},
-
-		/**
-		 * @param {*} error
-		 * @param {EmberStates.Transition} transition
-		 * @returns {boolean}
-		 */
-		error(error, transition) {
-			if (transition) {
-				transition.abort();
-			}
-
-			Ember.Logger.debug(error);
-
-			this.controllerFor('application').addAlert({
-				message: i18n.t('app.article-error'),
-				type: 'alert'
-			});
-
-			return true;
 		}
-	},
+	}
 });

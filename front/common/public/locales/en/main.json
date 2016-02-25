@@ -153,7 +153,9 @@
     "my-profile-label": "My Profile",
     "categories-load-more": "Load more",
     "categories-load-previous": "Load previous",
-    "category-page-subtitle": "Category Page"
+    "category-page-subtitle": "Category Page",
+    "wiki-page-error": "Sorry, we couldn't load the page. Please try again.",
+    "wiki-page-error-reload-button": "Reload page"
   },
   "userStatus": {
     "anon-cta": "__registerLink__ or __loginLink__",
