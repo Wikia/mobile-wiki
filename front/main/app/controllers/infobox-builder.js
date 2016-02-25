@@ -32,7 +32,7 @@ export default Ember.Controller.extend({
 			model.saveStateToTemplate().then((title) => {
 				this.set('isLoading', false);
 				this.set('showSuccess', true);
-				this.get('target').send('redirectToTemplatePage', title)
+				this.get('target').send('redirectToTemplatePage', title);
 			});
 		},
 

@@ -15,13 +15,13 @@ export default Ember.Route.extend({
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
 				Ember.RSVP.Promise.all([
-						this.loadAssets(templateName),
-						this.loadPonto()
-					])
-					.then(this.setupStyles)
-					.then(this.setupInfoboxState.bind(this))
-					.then(this.isWikiaContext)
-					.then(resolve, reject);
+					this.loadAssets(templateName),
+					this.loadPonto()
+				])
+				.then(this.setupStyles)
+				.then(this.setupInfoboxState.bind(this))
+				.then(this.isWikiaContext)
+				.then(resolve, reject);
 			} else {
 				reject();
 			}
