@@ -351,7 +351,7 @@ export function redirectToCanonicalHostIfNeeded(localSettings, request, reply, w
  * @param {string} displayTitle
  * @returns {string}
  */
-export function getHtmlTitle(wikiVariables, displayTitle) {
+export function getHtmlTitle(wikiVariables, displayTitle = '') {
 	const htmlTitleTemplate = (wikiVariables.htmlTitleTemplate) ? wikiVariables.htmlTitleTemplate : '$1 - Wikia';
 
 	if (displayTitle) {

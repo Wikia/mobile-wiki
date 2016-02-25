@@ -8,7 +8,7 @@ export default Ember.Controller.extend(
 	{
 		// This has to be here because we need to access media from ArticleController model to open
 		// lightbox TODO: Should be refactored when decoupling article from application
-		article: Ember.inject.controller(),
+		wikiPage: Ember.inject.controller(),
 		queryParams: ['file', 'map',
 			{
 				noAds: 'noads'
@@ -52,8 +52,7 @@ export default Ember.Controller.extend(
 		init() {
 			this.setProperties({
 				domain: Ember.get(Mercury, 'wiki.dbName') || window.location.href.match(/^https?:\/\/(.*?)\./)[1],
-				language: Ember.get(Mercury, 'wiki.language'),
-				editorPreview: Ember.get(Mercury, 'article.preview')
+				language: Ember.get(Mercury, 'wiki.language')
 			});
 
 			// This event is for tracking mobile sessions between Mercury and WikiaMobile
@@ -238,7 +237,7 @@ export default Ember.Controller.extend(
 		 * @returns {void}
 		 */
 		openLightboxForMedia(file) {
-			const mediaModel = this.get('article.model.media'),
+			const mediaModel = this.get('wikiPage.model.media'),
 				lightboxMediaRefs = mediaModel instanceof MediaModel ?
 					mediaModel.getRefsForLightboxByTitle(file) :
 					null;

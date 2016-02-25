@@ -6,7 +6,7 @@ import proxyMW from './facets/operations/proxyMW';
 import assetsHandler from './facets/operations/assets';
 import heartbeatHandler from './facets/operations/heartbeat';
 import discussionsHandler from './facets/showDiscussions';
-import articleHandler from './facets/showArticle';
+import mediaWikiPageHandler from './facets/mediaWikiPage';
 import redirectToRootHandler from './facets/operations/redirectToRoot';
 import getArticleHandler from './facets/api/article';
 import getArticleCommentsHandler from './facets/api/articleComments';
@@ -14,7 +14,7 @@ import searchHandler from './facets/api/search';
 import mainPageSectionHandler from './facets/api/mainPageSection';
 import mainPageCategoryHandler from './facets/api/mainPageCategory';
 import logoutHandler from './facets/auth/logout';
-import editorPreview from './facets/editorPreview';
+import articlePreview from './facets/articlePreview';
 import joinHandler from './facets/auth/join';
 import {validateRedirect} from './facets/auth/authView';
 import registerHandler from './facets/auth/register';
@@ -48,7 +48,7 @@ const routeCacheConfig = {
 			}
 		}
 	},
-	articlePagePaths = [
+	mediaWikiPagePaths = [
 		'/wiki/{title*}',
 		'/{title*}',
 		// TODO this is special case needed for /wiki path, it should be refactored
@@ -122,8 +122,8 @@ let routes,
 		},
 		{
 			method: 'POST',
-			path: '/editorPreview',
-			handler: editorPreview
+			path: '/article-preview',
+			handler: articlePreview
 		}
 	],
 	// routes where we want to know the user's auth status
@@ -193,7 +193,7 @@ let routes,
 			method: 'GET',
 			path: '/',
 			// Currently / path is not available on production because of redirects from / to /wiki/...
-			handler: articleHandler,
+			handler: mediaWikiPageHandler,
 			config: {
 				cache: routeCacheConfig
 			}
@@ -201,6 +201,14 @@ let routes,
 		{
 			method: 'GET',
 			path: '/image-review',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
+			path: '/diff/{revisions*}',
 			handler: showApplication,
 			config: {
 				cache: routeCacheConfig
@@ -242,22 +250,39 @@ let routes,
 		{
 			method: 'GET',
 			path: '/main/category/{categoryName*}',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
+			// We don't care if there is a dynamic segment, Ember router handles that
+			path: '/infobox-builder/{ignore*}',
 			handler: showCuratedContent,
 			config: {
 				cache: routeCacheConfig
 			}
-		}
+		},
+		{
+			method: 'GET',
+			path: '/recent-wiki-activity',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
 	];
 
 /**
  * @param {*} path
  * @returns {void}
  */
-articlePagePaths.forEach((path) => {
+mediaWikiPagePaths.forEach((path) => {
 	authenticatedRoutes.push({
 		method: 'GET',
 		path,
-		handler: articleHandler,
+		handler: mediaWikiPageHandler,
 		config: {
 			cache: routeCacheConfig
 		}
@@ -270,6 +295,12 @@ authenticatedRoutes.push({
 	// Discussion forums
 	method: 'GET',
 	path: '/d/{type}/{id}/{action?}',
+	handler: discussionsHandler
+});
+
+authenticatedRoutes.push({
+	method: 'GET',
+	path: '/d',
 	handler: discussionsHandler
 });
 

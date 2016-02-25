@@ -45,6 +45,7 @@
     "gulp-newer": "^0.5.1",
     "gulp-sass": "*",
     "gulp-sourcemaps": "^1.5.2",
+    "gulp-strip-comments": "^2.2.1",
     "gulp-tslint": "^4.1.2",
     "gulp-util": "^3.0.6",
     "jshint-stylish": "^2.0.1",

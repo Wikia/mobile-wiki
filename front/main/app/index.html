@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
+<html lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}" {{#if preview}}class='article-preview'{{/if}}>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,15 @@
 		<meta name="robots" content="{{wikiVariables.specialRobotPolicy}}">
 	{{/if}}
 
+	{{#if wikiVariables.favicon}}
+		<link rel="shortcut icon" href="{{wikiVariables.favicon}}">
+	{{/if}}
+
 	{{#if asyncArticle}}
+		<meta name="fragment" content="!">
+	{{/if}}
+
+	{{#if prerenderEnabled}}
 		<meta name="fragment" content="!">
 	{{/if}}
 
@@ -40,6 +48,7 @@
 	{{content-for 'baseline'}}
 	{{> server-data}}
 	{{> tracking}}
+	{{> tracking-experiment}}
 
 	{{content-for 'head-footer'}}
 </head>
@@ -53,7 +62,7 @@
 	Google PageSpeed will mistakenly believe that we have scripts loading and blocking content
 	DO NOT REMOVE THE FOLLOWING LINE:
 --}}
-<div id="ember-container">
+<div id="ember-container" class="ember-container">
 	<div id="preload">
 		<nav class="site-head">
 			<div class="site-logo">
@@ -65,6 +74,7 @@
 		</div>
 	</div>
 </div>
+<div id="ember-component-constructor" style="display: none"></div>
 
 <script>
 	M.loadScripts([
@@ -72,6 +82,7 @@
 		'/front/main/assets/main.js'
 	]);
 	M.loadDOMResource('/front/main/assets/main.svg');
+	M.loadDOMResource('/front/main/assets/infobox-builder.svg');
 	M.loadDOMResource('/front/main/assets/common.svg');
 </script>
 

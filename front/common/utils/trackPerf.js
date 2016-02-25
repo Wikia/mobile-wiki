@@ -27,13 +27,16 @@ let tracker;
  */
 function getTracker() {
 	if (typeof tracker === 'undefined') {
-		if (typeof Weppy === 'function') {
+		const weppyConfig = M.prop('weppyConfig');
+
+		if (weppyConfig && typeof Weppy === 'function') {
 			tracker = Weppy.namespace('mercury');
+
 			tracker.setOptions({
-				aggregationInterval: M.prop('weppyConfig').aggregationInterval,
+				aggregationInterval: weppyConfig.aggregationInterval,
 				context,
-				host: M.prop('weppyConfig').host,
-				sample: M.prop('weppyConfig').samplingRate,
+				host: weppyConfig.host,
+				sample: weppyConfig.samplingRate,
 				transport: 'url'
 			});
 		} else {

@@ -6,8 +6,6 @@
     "ember-cli-shims": "0.1.0",
     "ember-cli-test-loader": "0.2.2",
     "ember-hammer": "1.0.2",
-    "ember-load-initializers": "0.1.7",
-    "ember-performance-sender": "Wikia/ember-performance-sender#ember-2.0",
     "ember-qunit-notifications": "0.1.0",
     "fastclick": "1.0.6",
     "foundation": "5.5.1",
@@ -16,7 +14,6 @@
     "i18next": "1.7.4",
     "jquery.cookie": "1.4.1",
     "jquery": "2.1.4",
-    "loader.js": "3.5.0",
     "numeral": "1.5.3",
     "ponto": "Wikia/ponto#develop",
     "qunit": "1.20.0",
@@ -30,6 +27,8 @@
     "dom-ruler": "0.1.13"
   },
   "resolutions": {
-    "ember": "2.0.2"
+    "ember": "2.0.3",
+    "jquery": "2.1.4",
+    "ember-qunit-notifications": "0.1.0"
   }
 }

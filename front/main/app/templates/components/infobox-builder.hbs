@@ -1,0 +1,51 @@
+{{app-header
+	title=(i18n 'main.header' ns='infobox-builder' title=title)
+	onBackArrowClick=cancelAction
+	onConfirmBtnClick=saveAction
+	backArrowTooltip=(i18n 'app.cancel-label')
+	confirmBtnLabel=(i18n 'main.save' ns='infobox-builder')
+	fixed=true
+}}
+
+<div class="infobox-builder">
+	<div class="infobox-builder-preview">
+		{{#sortable-group
+			tagName="div"
+			classNames='portable-infobox pi-background'
+			onChange=reorder as |group|
+		}}
+			{{#each state as |element index|}}
+				{{component element.infoboxBuilderData.component
+					activeItem=activeItem
+					model=element
+					group=group
+					handle=".pi-item"
+					position=index
+					setEditItem=setEditItem
+					onDragStart=(action 'onPreviewItemDrag')
+					onDragStop=(action 'onPreviewItemDrop')
+					onMouseEnter=(action 'showReorderTooltip')
+					onMouseLeave=(action 'hideReorderTooltip')
+				}}
+			{{/each}}
+		{{/sortable-group}}
+		{{#if isReorderTooltipVisible}}
+			{{wikia-ui-components/on-hover-tooltip
+				posX=tooltipPosX
+				posY=tooltipPosY
+				fixed=true
+				message=(i18n 'main.reorder-tooltip' ns='infobox-builder')
+			}}
+		{{/if}}
+	</div>
+
+
+	{{infobox-builder-sidebar
+		addItem=addItem
+		removeItem=removeItem
+		itemInEditMode=activeItem
+		setEditItem=setEditItem
+		editTitleItem=editTitleItem
+		editRowItem=editRowItem
+	}}
+</div>

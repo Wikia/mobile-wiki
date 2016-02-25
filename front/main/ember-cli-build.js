@@ -31,6 +31,10 @@ module.exports = function (defaults) {
 					sourceDirs: 'app/symbols/discussions',
 					outputFile: '/assets/discussions.svg'
 				},
+				{
+					sourceDirs: 'app/symbols/infobox-builder',
+					outputFile: '/assets/infobox-builder.svg'
+				},
 				// This duplicates build-common-symbols task but we still want to do it
 				// as there is no easy way to use external rev-manifest.json in here
 				{
@@ -44,11 +48,13 @@ module.exports = function (defaults) {
 				css: {
 					app: 'assets/app.css',
 					'app-dark-theme': 'assets/app-dark-theme.css'
-				}
+				},
+				html: 'ember-main.hbs',
 			}
 		},
 		fingerprint: {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
+			replaceExtensions: ['html', 'css', 'js', 'hbs'],
 			prepend: 'http://mercury.nocookie.net/mercury-static/main/'
 		},
 		derequire: {
@@ -83,7 +89,6 @@ module.exports = function (defaults) {
 	app.import(app.bowerDirectory + '/weppy/dist/weppy.js');
 	app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
 	app.import(app.bowerDirectory + '/Autolinker.js/dist/Autolinker.min.js');
-	app.import(app.bowerDirectory + '/ember-performance-sender/dist/ember-performance-sender.js');
 	app.import('vendor/common.js');
 
 	// Assets which are lazy loaded

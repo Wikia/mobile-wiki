@@ -1,5 +1,5 @@
 import {badRequest} from 'boom';
-import {ArticleRequest} from '../../lib/MediaWiki';
+import {PageRequest} from '../../lib/MediaWiki';
 import {getCachedWikiDomainName} from '../../lib/Utils';
 import localSettings from '../../../config/localSettings';
 import getStatusCode from '../operations/getStatusCode';
@@ -91,7 +91,7 @@ export default function get(request, reply) {
 		// @todo ad hoc error handling, use Boom everywhere?
 		reply(badRequest('Invalid articleId'));
 	} else {
-		new ArticleRequest(params).comments(
+		new PageRequest(params).comments(
 			params.articleId,
 			params.page
 		)

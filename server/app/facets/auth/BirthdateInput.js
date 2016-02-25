@@ -46,7 +46,6 @@ export default class BirthdateInput {
 		const langSettings = authLocaleSettings[lang];
 
 		this.endian = endian;
-		this.lang = lang;
 		this.settings = langSettings ? langSettings.date : authLocaleSettings.en.date;
 	}
 

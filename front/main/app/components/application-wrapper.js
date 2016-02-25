@@ -23,6 +23,7 @@ import {trackPerf} from 'common/utils/trackPerf';
  */
 
 export default Ember.Component.extend({
+	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
 
 	verticalClass: Ember.computed(() => {

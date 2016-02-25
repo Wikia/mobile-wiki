@@ -28,9 +28,10 @@ export default Ember.Component.extend(
 
 		// thumb widths
 		thumbSize: {
-			small: 340,
-			medium: 660,
-			large: 900,
+			small: 284,
+			medium: 340,
+			large: 732,
+			maximum: 985
 		},
 
 		// icon width depends on it's real dimensions
@@ -86,9 +87,11 @@ export default Ember.Component.extend(
 				return this.thumbSize.small;
 			} else if (width <= this.thumbSize.medium) {
 				return this.thumbSize.medium;
+			} else if (width <= this.thumbSize.large) {
+				return this.thumbSize.large;
 			}
 
-			return this.thumbSize.medium;
+			return this.thumbSize.maximum;
 		},
 
 		/**
