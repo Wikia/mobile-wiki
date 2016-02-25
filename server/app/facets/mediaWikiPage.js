@@ -70,45 +70,41 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		ns = pageData.ns,
 		i18n = request.server.methods.i18n.getInstance();
 
-	let result = {},
+	let result,
 		viewName = 'wiki-page',
 		response;
 
 	// @todo logic in this code should be cleaned up while https://wikia-inc.atlassian.net/browse/XW-1145
+	// Not existing articles return NS 0 however article isn't set.
+	// Here we need do the initial set up to make sure that basic data is always set
+	result = prepareMediaWikiData(request, data);
+
 	switch (ns) {
 	case MediaWikiNamespace.MAIN:
+		viewName = 'article';
+		result = deepExtend(result, prepareArticleData(request, data));
+		break;
 	case MediaWikiNamespace.CATEGORY:
-
-		// Not existing articles return NS 0 however but article content is set to 0.
-		// We need to do the initial set up.
-		result = prepareMediaWikiData(request, data);
-
-		// if we have article and article details we want to set those first
-		// in case of categories and main pages - page specific data would be added later
 		if (pageData.article && pageData.details) {
 			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
 		}
 
-		if (pageData.ns === MediaWikiNamespace.CATEGORY) {
-			result = deepExtend(result, prepareCategoryData(request, data));
-			// Hide TOC on category pages
-			result.hasToC = false;
-			result.subtitle = i18n.t('app.category-page-subtitle');
-		}
-
-		// mainPageData is set only on curated main pages - only then we should do some special preparation for data
-		if (pageData.isMainPage && pageData.mainPageData) {
-			result = deepExtend(result, prepareArticleData(request, data));
-			result = deepExtend(result, prepareMainPageData(data));
-			result.hasToC = false;
-			delete result.adsContext;
-		}
+		result = deepExtend(result, prepareCategoryData(request, data));
+		// Hide TOC on category pages
+		result.hasToC = false;
+		result.subtitle = i18n.t('app.category-page-subtitle');
 		break;
-
 	default:
 		Logger.info(`Unsupported namespace: ${ns}`);
-		result = prepareMediaWikiData(request, data);
+	}
+
+	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
+	if (pageData.isMainPage && pageData.mainPageData) {
+		result = deepExtend(result, prepareArticleData(request, data));
+		result = deepExtend(result, prepareMainPageData(data));
+		result.hasToC = false;
+		delete result.adsContext;
 	}
 
 	result.mediaWikiNamespace = ns;
