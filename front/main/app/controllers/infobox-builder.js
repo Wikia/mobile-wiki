@@ -86,12 +86,15 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * @param {SectionHeaderItem} item
-		 * @param {string} value new label value
+		 * @desc calls editSectionHeaderItem on model with new section header data
+		 * @param {Object} item
+		 * @param {Object} newValues new section header values
 		 * @returns {void}
 		 */
-		editSectionHeaderItem(item, value) {
-			this.get('target').send('editSectionHeaderItem', item, value);
+		editSectionHeaderItem(item, newValues) {
+			const model = this.get('model');
+
+			model.editSectionHeaderItem(item, newValues);
 		},
 
 		/**
