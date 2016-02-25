@@ -1,10 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-	isLoading: false,
-	showSuccess: false,
-	showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
-
 	actions: {
 		/**
 		 * @desc exits infobox builder ui and calls redirect method on route.
@@ -23,17 +19,14 @@ export default Ember.Controller.extend({
 		/**
 		 * @desc Saves infobox state to template and calls redirect method on route.
 		 * on model and connect with <iframe> parent to redirect to another page.
-		 * @returns {void}
+		 * @returns {Ember.RSVP.Promise}
 		 */
 		save() {
 			const model = this.get('model');
 
-			this.set('isLoading', true);
-			model.saveStateToTemplate().then((title) => {
-				this.set('isLoading', false);
-				this.set('showSuccess', true);
-				this.get('target').send('redirectToTemplatePage', title);
-			});
+			return model.saveStateToTemplate().then(
+				(title) => this.get('target').send('redirectToTemplatePage', title)
+			);
 		},
 
 		/**
@@ -74,7 +67,7 @@ export default Ember.Controller.extend({
 		 * @param {Object} actionTrigger - infobox item that triggers this action
 		 * @returns {void}
 		 */
-		handleItemInEditModel(actionTrigger) {
+		handleItemInEditMode(actionTrigger) {
 			const model = this.get('model');
 
 			if (actionTrigger !== model.get('itemInEditMode')) {
