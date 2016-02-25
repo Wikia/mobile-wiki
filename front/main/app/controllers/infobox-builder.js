@@ -2,8 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-	isDirty: Ember.computed('model', () => {
-		return this.get('model.isDirty');
+	isDirty: Ember.computed('model', function () {
+		const model = this.get('model');
+
+		return model.get('isDirty');
 	}),
 
 	actions: {
