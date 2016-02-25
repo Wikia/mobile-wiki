@@ -5,7 +5,7 @@ export default Ember.Component.extend({
 		return `infobox-builder-edit-item-${this.get('item.type')}`;
 	}),
 
-	header: Ember.computed('item.{data.label,type,value,data.defaultValue,infoboxBuilderData.index}', function () {
+	header: Ember.computed('item.{data,data.label,type,value,data.defaultValue,infoboxBuilderData.index}', function () {
 		let header;
 
 		switch (this.get('item.type')) {
@@ -24,6 +24,9 @@ export default Ember.Component.extend({
 				ns: 'infobox-builder',
 				index: this.get('item.infoboxBuilderData.index')
 			});
+			break;
+		case 'section-header':
+			header = this.get('item.data');
 			break;
 		default:
 			break;
