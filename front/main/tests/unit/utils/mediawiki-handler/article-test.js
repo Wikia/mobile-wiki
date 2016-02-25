@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {test} from 'ember-qunit';
 
 module('Unit | Utils | mediawiki-handler | article', (hooks) => {
@@ -9,6 +10,12 @@ module('Unit | Utils | mediawiki-handler | article', (hooks) => {
 	hooks.beforeEach(() => {
 		originalDocumentTitle = document.title;
 		originalWikiVariables = Mercury.wiki;
+
+		Mercury.wiki = {
+			smartBanner: {
+				appId: {}
+			}
+		};
 	});
 
 	hooks.afterEach(() => {

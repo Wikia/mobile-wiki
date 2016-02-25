@@ -4,11 +4,16 @@ $back-arrow-icon-size: 16px;
 $icon-action-size: 24px;
 $icon-wrapper-size: 50px;
 $icon-button-size: 30px;
-$border-width: 2px;
+$border-width: 1px;
+$box-shadow-size: 2px;
+$shadow-blur: 15px;
+$shadow-color: rgba(0,0,0,0.3);
+$grayout-color: rgba(255,255,255,0.3);
 
+// overwrite default mercury styles
 .infobox-builder-body-wrapper {
-	// overwrite default mercury styles
 	overflow-y: auto;
+
 	//there's no other way to set height 100% on the builder elements
 	.ember-container {
 		height: 100%;
@@ -38,39 +43,65 @@ $border-width: 2px;
 .infobox-builder-preview {
 	flex-grow: 1;
 	overflow: auto;
-	padding: 40px 0;
 
 	.portable-infobox {
-		clear: none;
-		float: none;
-		margin: auto;
+		cursor: pointer;
+		margin: 40px auto;
 	}
 
-	.pi-item,
-	// overwrite infobox styles inherited from oasis
-	.pi-item:last-child {
+	// styles for adding infobox builder selection bounding box to each infobox item
+	.pi-item {
 		position: relative;
 
-		&.active:after {
-			background-color: transparent;
-			border: $border-width solid $color-blue-light;
-			content: '';
-			display: block;
-			height: 100%;
-			left: 0;
-			position: absolute;
-			top: 0;
-			width: 100%;
+		// transitions during reordering
+		&.sortable-item {
+			transition: transform .125s;
 		}
 
-		&:hover {
+		&:hover,
+		&.active,
+		&.is-dragging {
+			&:after {
+				border: $border-width solid $color-blue-light;
+				box-sizing: content-box;
+				content: ' ';
+				display: block;
+				height: 100%;
+				left: -$border-width;
+				position: absolute;
+				top: -$border-width;
+				width: 100%;
+			}
+		}
+
+		&:hover,
+		&.active {
+			z-index: 3;
+		}
+
+		&.active:after {
+			box-shadow: 0 $box-shadow-size $shadow-blur 0 $shadow-color;
 			cursor: pointer;
+		}
+
+		&.is-dragging {
+			// hacks for firefox to make transforms work smoothly
+			backface-visibility: hidden;
+			transform: translate3d(0, 0, 0);
+
+			z-index: 4;
+
+			&:after {
+				cursor: move;
+				box-shadow: 0 $box-shadow-size * 4 $shadow-blur 0 $shadow-color;
+				transition: box-shadow 0.2s ease-in-out;
+			}
 		}
 	}
 }
 
 .infobox-builder-sidebar {
-	box-shadow: -$border-width 0 6px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: -$box-shadow-size 0 $shadow-blur 0 $shadow-color;
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
 
@@ -115,7 +146,7 @@ $border-width: 2px;
 	}
 
 	.sidebar-header {
-		border-bottom: $border-width solid $color-blue-gray-light;
+		border-bottom: $box-shadow-size solid $color-blue-gray-light;
 		font-weight: bold;
 		line-height: 48px;
 		padding: 0 $padding;
@@ -126,9 +157,9 @@ $border-width: 2px;
 	}
 
 	.input-container {
+		align-items: flex-end;
 		border-bottom: 1px solid $color-blue-gray;
 		padding-bottom: 0;
-		align-items: flex-end;
 	}
 
 	.infobox-builder-input {
@@ -188,7 +219,7 @@ $border-width: 2px;
 	width: 130px;
 
 	&:hover {
-		border: $border-width solid $color-blue-light;
+		background-color: $color-blue-gray-light;
 
 		.infobox-builder-button-icon {
 			fill: $color-blue-light;
@@ -197,9 +228,9 @@ $border-width: 2px;
 }
 
 .infobox-builder-button-icon {
+	fill: $color-blue-gray;
 	height: $icon-button-size;
 	width: $icon-button-size;
-	fill: $color-blue-gray;
 }
 
 .infobox-builder-button-label {
@@ -242,5 +273,20 @@ $border-width: 2px;
 	}
 }
 
+.is-preview-item-dragged {
+	.pi-item:not(.is-dragging) {
+		pointer-events: none;
 
-
+		&:after {
+			background-color: $grayout-color;
+			content: "";
+			display: block;
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			z-index: 2;
+		}
+	}
+}
