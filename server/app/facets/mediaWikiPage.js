@@ -123,7 +123,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 }
 
 /**
- * Gets wiki variables and article, handles errors on both promises
+ * Gets wiki variables and wiki page, handles errors on both promises
  *
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply

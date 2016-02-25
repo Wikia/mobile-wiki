@@ -25,7 +25,7 @@ export default Controller.extend(
 			loadBatch(index, batch, label) {
 				this.trackClick('category-load-batch', label);
 
-				return this.get('model').loadMore(...arguments);
+				return this.get('model').loadMore(index, batch);
 			},
 
 			/**

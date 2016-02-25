@@ -139,7 +139,7 @@ export default Ember.Mixin.create({
 	 */
 	injectAds() {
 		const $firstSection = this.$().children('h2').first(),
-			$articleBody = $('.article-body, .wiki-page-body'),
+			$articleBody = $('.article-body'),
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			articleBodyHeight = $articleBody.height(),
 

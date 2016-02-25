@@ -12,19 +12,6 @@ export default Component.extend(
 			if (this.get('setupAds') === true) {
 				this.setupAdsContext(this.get('adsContext'));
 			}
-		},
-
-		actions: {
-			loadBatch(index) {
-				this.set(`navigationClassNameFor${index}`, ' is-loading');
-
-				this.get('loadBatch')(...arguments).then(() => {
-					this.set(`navigationClassNameFor${index}`, '');
-
-					window.document.getElementById(index).scrollIntoView();
-					window.scrollBy(0, -50);
-				});
-			}
 		}
 	}
 );

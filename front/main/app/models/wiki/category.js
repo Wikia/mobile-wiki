@@ -5,24 +5,32 @@ import {normalizeToWhitespace} from 'common/utils/string';
 const {Object, get, $, isArray} = Ember,
 	keys = window.Object.keys,
 	CategoryModel = Object.extend({
-		sections: null,
 		basePath: null,
-		categories: [],
-		displayTitle: null,
-		comments: 0,
+		categories: null,
 		description: null,
-		media: [],
-		mediaUsers: [],
-		otherLanguages: [],
+		displayTitle: null,
+		hasArticle: false,
+		id: null,
+		media: null,
+		mediaUsers: null,
+		name: null,
+		ns: null,
+		otherLanguages: null,
+		sections: null,
 		title: null,
 		url: null,
 		user: null,
-		users: [],
+		users: null,
 		wiki: null,
-		name: null,
-		hasArticle: false,
-		ns: null,
-		id: null,
+
+		init() {
+			this._super(...arguments);
+			this.categories = [];
+			this.media = [];
+			this.mediaUsers = [];
+			this.otherLanguages = [];
+			this.users = [];
+		},
 
 		loadMore(index, batchToLoad) {
 			const url = CategoryModel.getUrlBatchContent(this.get('name'), index, batchToLoad);
