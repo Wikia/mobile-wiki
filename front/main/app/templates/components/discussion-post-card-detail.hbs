@@ -1,4 +1,14 @@
 <div>
+	{{#if showTopNote}}
+		{{discussion-post-card-top-note
+			approve=(action this.attrs.approve)
+			delete=(action this.attrs.delete)
+			isReported=isReported
+			post=post
+			showButtons=isDetailsView
+			threadCreatorName=post.threadCreatedBy.name
+		}}
+	{{/if}}
 	{{user-avatar
 		avatarUrl=author.avatarUrl
 		displayProfileName=true
@@ -17,7 +27,7 @@
 			delete=(action 'delete')
 			deleteMessage=(i18n 'main.delete-post' ns='discussion')
 			post=post
-			report=(action 'reportPost')
+			report=(action 'report')
 			reportMessage=(i18n 'main.report-post' ns='discussion')
 			undelete=(action 'undelete')
 			undeleteMessage=(i18n 'main.undelete-post' ns='discussion')

@@ -2,11 +2,6 @@
 .discussion-reported-posts {
 	.post-reply {
 		background-color: $discussion-desktop-post-detail-bg-color;
-
-		.user-replied-to {
-			border-bottom: 1px solid $discussion-user-replied-to-border-bottom-color;
-			color: $discussion-user-replied-to-text-color;
-		}
 	}
 
 	.discussion {

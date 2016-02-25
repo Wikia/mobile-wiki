@@ -20,12 +20,19 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 					page: this.get('pageNum'),
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
-					viewableOnly: false,
+					viewableOnly: false
 				},
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 				success: (data) => {
-					const newPosts = data._embedded['doc:threads'],
-						allPosts = this.posts.concat(newPosts);
+					const newPosts = data._embedded['doc:threads'];
+					let allPosts;
+
+					newPosts.forEach((post) => {
+						post.firstPost = post._embedded.firstPost[0];
+						post.firstPost.isReported = post.isReported;
+					});
+
+					allPosts = this.posts.concat(newPosts);
 
 					this.set('posts', allPosts);
 				},
@@ -48,6 +55,8 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
 				success: (post) => {
 					post._embedded.firstPost[0].isNew = true;
+					post.firstPost = post._embedded.firstPost[0];
+
 					this.posts.insertAt(0, post);
 					this.incrementProperty('totalPosts');
 				},
@@ -95,8 +104,12 @@ DiscussionForumModel.reopenClass({
 							namespace: 'User',
 							title: post.createdBy.name
 						});
+
 						contributors.push(post.createdBy);
 					}
+
+					post.firstPost = post._embedded.firstPost[0];
+					post.firstPost.isReported = post.isReported;
 				});
 
 				forumInstance.setProperties({

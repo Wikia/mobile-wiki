@@ -1,6 +1,6 @@
-import ForumWrapper from './forum-wrapper';
+import DiscussionForumWrapper from './discussion-forum-wrapper';
 
-export default ForumWrapper.extend(
+export default DiscussionForumWrapper.extend(
 	{
 		classNames: ['user-list-wrapper']
 	}

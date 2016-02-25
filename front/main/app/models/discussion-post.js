@@ -97,6 +97,7 @@ DiscussionPostModel.reopenClass({
 			}),
 			success: (data) => {
 				const contributors = [],
+					firstPost = data._embedded.firstPost[0],
 					replies = data._embedded['doc:posts'];
 				let pivotId;
 
@@ -116,12 +117,15 @@ DiscussionPostModel.reopenClass({
 						}
 					});
 				}
+
+				// making the model a little bit more friendly
+				firstPost.isReported = data.isReported;
+
 				postInstance.setProperties({
 					contributors,
 					forumId: data.forumId,
-					firstPost: data._embedded.firstPost[0],
+					firstPost,
 					id: data.id,
-					isReported: data.isReported,
 					page: 0,
 					pivotId,
 					postCount: data.postCount,

@@ -14,7 +14,10 @@ export default Ember.Mixin.create({
 				method: 'PUT',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/delete`),
 				success: () => {
-					Ember.set(post, 'isDeleted', true);
+					Ember.setProperties(post, {
+						isDeleted: true,
+						isReported: false
+					});
 				},
 				error: () => {
 					this.displayError();
@@ -35,7 +38,10 @@ export default Ember.Mixin.create({
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/users/${posts[0].creatorId}/posts/delete`),
 				success: () => {
 					posts.forEach((post) => {
-						Ember.set(post, 'isDeleted', true);
+						Ember.setProperties(post, {
+							isDeleted: true,
+							isReported: false
+						});
 					});
 				},
 				error: () => {
@@ -76,7 +82,10 @@ export default Ember.Mixin.create({
 				method: 'PUT',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/delete`),
 				success: () => {
-					Ember.set(reply, 'isDeleted', true);
+					Ember.setProperties(reply, {
+						isDeleted: true,
+						isReported: false
+					});
 				},
 				error: () => {
 					this.displayError();
@@ -106,54 +115,41 @@ export default Ember.Mixin.create({
 	},
 
 	/**
-	 * Report post in service
-	 * @param {object} post
+	 * Approve post/reply in service
+	 * @param {object} item
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	reportPost(post) {
-		return ajaxCall({
-			data: JSON.stringify({value: 1}),
-			dataType: 'text',
-			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${post.id}/report`),
-			success: () => {
-				let postParentObject;
-
-				Ember.set(post, '_embedded.userData.0.hasReported', true);
-
-				// this is a hack needed at the moment - under a serious discussion, and the fix will be provided before
-				// merge to dev
-				if (typeof this.get('isReported') === 'undefined') {
-					if (typeof Ember.get(post, 'isReply') === 'undefined') {
-						postParentObject = this.get('posts').find((item) => item.firstPostId === Ember.get(post, 'id'));
-						Ember.set(postParentObject, 'isReported', true);
-					} else {
-						Ember.set(post, 'isReported', true);
-					}
-				} else {
-					this.set('isReported', true);
+	approve(item) {
+		if (checkPermissions(item, 'canModerate')) {
+			return ajaxCall({
+				data: JSON.stringify({value: 1}),
+				dataType: 'text',
+				method: 'PUT',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${item.id}/report/valid`),
+				success: () => {
+					Ember.set(item, 'isReported', false);
+				},
+				error: () => {
+					this.displayError();
 				}
-			},
-			error: () => {
-				this.displayError();
-			}
-		});
+			});
+		}
 	},
 
 	/**
-	 * Report reply in service
-	 * @param {object} reply
+	 * Report post/reply in service
+	 * @param {object} item
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	reportReply(reply) {
+	report(item) {
 		return ajaxCall({
 			data: JSON.stringify({value: 1}),
 			dataType: 'text',
 			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/report`),
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${item.id}/report`),
 			success: () => {
-				Ember.set(reply, '_embedded.userData.0.hasReported', true);
-				Ember.set(reply, 'isReported', true);
+				Ember.set(item, '_embedded.userData.0.hasReported', true);
+				Ember.set(item, 'isReported', true);
 			},
 			error: () => {
 				this.displayError();
