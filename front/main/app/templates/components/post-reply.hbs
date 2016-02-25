@@ -16,10 +16,9 @@
 			displayProfileName=true
 			username=author.name
 		}}
-		<span class="timestamp">
+		<span class="timestamp" title="{{timestamp-to-date post.creationDate.epochSecond}}">
 			&bull; {{time-ago post.creationDate.epochSecond}}
 		</span>
-
 		<div class="discussion-more-options" id="reply-options-{{post.id}}">
 			{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
 		</div>

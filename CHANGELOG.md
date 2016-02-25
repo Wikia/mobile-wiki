@@ -1,3 +1,12 @@
+## release-213 (2016-02-25 12:05 UTC)
+* [XW-1173](https://wikia-inc.atlassian.net/browse/XW-1173) XW-1173 | ASAP send an event to UA that user opened a page
+* [DAT-3770](https://wikia-inc.atlassian.net/browse/DAT-3770) DAT-3770 infobox builder reordering of elements
+* [XW-1105](https://wikia-inc.atlassian.net/browse/XW-1105) XW-1105 | Handle links to category pages in article
+* [PLATFORM-1859](https://wikia-inc.atlassian.net/browse/PLATFORM-1859) PLATFORM-1859 Add information about number of images still in the queue to be reviewed
+* [MAIN-6507](https://wikia-inc.atlassian.net/browse/MAIN-6507) (MAIN-6507) Only load user info if the user is not an anon
+* update-ember-cli: Update ember-cli to 2.3.0
+* [ADEN-3013](https://wikia-inc.atlassian.net/browse/ADEN-3013) ADEN-3013 Fix Nielsen typos
+
 ## release-212 hotfix 1 (2016-02-24 03:04 UTC)
 * release-212-hotfix: (MAIN-6507) Only load user info if the user is not an anon
 
