@@ -61,7 +61,7 @@ $grayout-color: rgba(255,255,255,0.3);
 		&:hover,
 		&.active,
 		&.is-dragging {
-			&:after {
+			&:before {
 				border: $border-width solid $color-blue-light;
 				box-sizing: content-box;
 				content: ' ';
@@ -79,7 +79,7 @@ $grayout-color: rgba(255,255,255,0.3);
 			z-index: 3;
 		}
 
-		&.active:after {
+		&.active:before {
 			box-shadow: 0 $box-shadow-size $shadow-blur 0 $shadow-color;
 			cursor: pointer;
 		}
@@ -91,7 +91,7 @@ $grayout-color: rgba(255,255,255,0.3);
 
 			z-index: 4;
 
-			&:after {
+			&:before {
 				cursor: move;
 				box-shadow: 0 $box-shadow-size * 4 $shadow-blur 0 $shadow-color;
 				transition: box-shadow 0.2s ease-in-out;
@@ -277,7 +277,7 @@ $grayout-color: rgba(255,255,255,0.3);
 	.pi-item:not(.is-dragging) {
 		pointer-events: none;
 
-		&:after {
+		&:before {
 			background-color: $grayout-color;
 			content: "";
 			display: block;
