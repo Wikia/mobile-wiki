@@ -19,6 +19,7 @@
     "help-row": "Text from label field will be used to describe infobox rows. People using this infobox in articles will use these names to provide the data.",
     "save": "Save",
     "load-error": "Loading error",
-    "edit-image-item-description": "Place where users will upload images while using this infobox."
+    "edit-image-item-description": "Place where users will upload images while using this infobox.",
+    "reorder-tooltip": "Drag to reorder"
   }
 }

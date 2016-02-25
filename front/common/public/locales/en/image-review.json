@@ -7,6 +7,7 @@
     "error-invalid-data": "Invalid data was returned from Image Review API",
     "review-and-get-more": "Review & get next batch",
     "get-flagged": "Get flagged",
+    "images-to-review-count": "Remaining images to review:",
     "status-accepted": "OK",
     "status-flagged": "Q",
     "status-rejected": "Del"
