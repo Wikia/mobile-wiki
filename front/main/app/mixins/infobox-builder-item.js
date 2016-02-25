@@ -9,10 +9,10 @@ export default Ember.Mixin.create({
 	click() {
 		// temporary disable editing of section header
 		// will be added as a part of https://wikia-inc.atlassian.net/browse/DAT-3732
-		if (this.get('item.type') === 'section-header') {
+		if (this.get('model.type') === 'section-header') {
 			return;
 		}
-		this.get('setEditItem')(this.get('item'));
+		this.get('setEditItem')(this.get('model'));
 	},
 	mouseMove(event) {
 		this.get('onMouseEnter')(event.clientX, event.clientY);
