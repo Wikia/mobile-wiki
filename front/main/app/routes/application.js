@@ -122,7 +122,6 @@ export default Route.extend(
 					if (target.href.indexOf(`useskin=${defaultSkin}`) > -1) {
 						$.cookie('useskin', defaultSkin, {
 							domain: cookieDomain,
-							expires: date,
 							path: '/'
 						});
 					}
