@@ -67,7 +67,7 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
 function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	let result = {}, response, ns;
 
-	if (data.page && data.page.data && data.page.data.ns) {
+	if (data.page && data.page.data) {
 		ns = data.page.data.ns;
 		result.mediaWikiNamespace = ns;
 	}

@@ -32,6 +32,7 @@ export default function prepareMediaWikiData(request, data) {
 	result.qualarooScript = getQualarooScriptUrl(request);
 	result.userId = getUserId(request);
 	result.gaUserIdHash = gaUserIdHash(result.userId);
+	result.displayTitle = request.params.title.replace(/_/g, ' ');
 
 	if (typeof request.query.buckySampling !== 'undefined') {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
