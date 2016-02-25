@@ -19,34 +19,16 @@
           "english": false
         },
         {
-          "image": "/images/categories/popular/slide3.jpg",
-          "url": "http://ja.memory-alpha.wikia.com/",
-          "text": "Memory Alpha (スタートレック)",
-          "english": false
-        },
-        {
           "image": "/images/categories/popular/slide4.jpg",
           "url": "http://marvel.wikia.com/",
           "text": "Marvel",
           "english": true
         },
         {
-          "image": "/images/categories/popular/slide5.jpg",
-          "url": "http://ja.fallout.wikia.com/",
-          "text": "Fallout",
+          "image": "/images/categories/popular/slide8.jpg",
+          "url": "http://ja.seiken.wikia.com/",
+          "text": "政剣マニフェスティア",
           "english": false
-        },
-        {
-          "image": "/images/categories/popular/slide6.jpg",
-          "url": "http://ja.kirby.wikia.com/",
-          "text": "カービィ",
-          "english": false
-        },
-        {
-          "image": "/images/categories/popular/slide7.jpg",
-          "url": "http://leagueoflegends.wikia.com/",
-          "text": "League of Legends",
-          "english": true
         }
       ]
     },
@@ -54,12 +36,6 @@
       "title": "ゲーム",
       "id": "carousel-2",
       "entries": [
-        {
-          "image": "/images/categories/games/slide1.jpg",
-          "url": "http://ja.battlefront.wikia.com/",
-          "text": "Star Wars Battlefront",
-          "english": false
-        },
         {
           "image": "/images/categories/games/slide2.jpg",
           "url": "http://ja.halo.wikia.com/",
@@ -69,7 +45,7 @@
         {
           "image": "/images/categories/games/slide3.jpg",
           "url": "http://ja.splatoon.wikia.com/",
-          "text": "スプラトゥーン",
+          "text": "Splatoon",
           "english": false
         },
         {
@@ -82,24 +58,6 @@
           "image": "/images/categories/games/slide5.jpg",
           "url": "http://ja.leagueoflegends.wikia.com/",
           "text": "リーグ・オブ・レジェンド",
-          "english": false
-        },
-        {
-          "image": "/images/categories/games/slide6.jpg",
-          "url": "http://ja.assassinscreed.wikia.com/",
-          "text": "アサシンクリード",
-          "english": false
-        },
-        {
-          "image": "/images/categories/games/slide7.jpg",
-          "url": "http://ja.minecraft.wikia.com/",
-          "text": "マインクラフト",
-          "english": false
-        },
-        {
-          "image": "/images/categories/games/slide8.jpg",
-          "url": "http://ja.ingress.wikia.com/",
-          "text": "Ingress",
           "english": false
         }
       ]
@@ -115,10 +73,10 @@
           "english": false
         },
         {
-          "image": "/images/categories/movies/slide2.jpg",
-          "url": "http://dc.wikia.com/",
-          "text": "DC COMICS",
-          "english": true
+          "image": "/images/categories/popular/slide3.jpg",
+          "url": "http://ja.memory-alpha.wikia.com/",
+          "text": "Memory Alpha (スタートレック)",
+          "english": false
         },
         {
           "image": "/images/categories/movies/slide3.jpg",
@@ -131,30 +89,6 @@
           "url": "http://ja.gameofthrones.wikia.com/",
           "text": "ゲーム・オブ・スローンズ",
           "english": false
-        },
-        {
-          "image": "/images/categories/movies/slide5.jpg",
-          "url": "http://ja.sherlock.wikia.com/",
-          "text": "シャーロック",
-          "english": false
-        },
-        {
-          "image": "/images/categories/movies/slide6.jpg",
-          "url": "http://ja.jamesbond.wikia.com/",
-          "text": "007ジェームズ・ボンド",
-          "english": false
-        },
-        {
-          "image": "/images/categories/movies/slide7.jpg",
-          "url": "http://ja.kaijyu.wikia.com/",
-          "text": "怪獣",
-          "english": false
-        },
-        {
-          "image": "/images/categories/movies/slide8.jpg",
-          "url": "http://ja.disney.wikia.com/",
-          "text": "Disney",
-          "english": false
         }
       ]
     },
@@ -166,18 +100,6 @@
           "image": "/images/categories/anime/slide1.jpg",
           "url": "http://ja.ajin.wikia.com/",
           "text": "亜人",
-          "english": false
-        },
-        {
-          "image": "/images/categories/anime/slide2.jpg",
-          "url": "http://ja.onepiece.wikia.com/",
-          "text": "One Piece",
-          "english": false
-        },
-        {
-          "image": "/images/categories/anime/slide3.jpg",
-          "url": "http://ja.gundam.wikia.com/",
-          "text": "ガンダム",
           "english": false
         },
         {
@@ -196,18 +118,6 @@
           "image": "/images/categories/anime/slide6.jpg",
           "url": "http://ja.prisonschool.wikia.com/",
           "text": "監獄学園",
-          "english": false
-        },
-        {
-          "image": "/images/categories/anime/slide7.jpg",
-          "url": "http://ja.love-live.wikia.com/",
-          "text": "ラブライブ！",
-          "english": false
-        },
-        {
-          "image": "/images/categories/anime/slide8.jpg",
-          "url": "http://ja.girls-und-panzer.wikia.com/",
-          "text": "ガールズ&パンツァー",
           "english": false
         }
       ]
@@ -239,30 +149,6 @@
           "url": "http://ja.kanda.wikia.com",
           "text": "神田",
           "english": false
-        },
-        {
-          "image": "/images/categories/lifestyle/slide5.jpg",
-          "url": "http://ja.beyonce.wikia.com/",
-          "text": "ビヨンセ",
-          "english": false
-        },
-        {
-          "image": "/images/categories/lifestyle/slide6.jpg",
-          "url": "http://ja.flamenco.wikia.com/",
-          "text": "全国学生フラメンコ連盟地方総局情報科",
-          "english": false
-        },
-        {
-          "image": "/images/categories/lifestyle/slide7.jpg",
-          "url": "http://cocktails.wikia.com/",
-          "text": "カクテル",
-          "english": true
-        },
-        {
-          "image": "/images/categories/lifestyle/slide8.jpg",
-          "url": "http://recipes.wikia.com/",
-          "text": "レシピ",
-          "english": true
         }
       ]
     }

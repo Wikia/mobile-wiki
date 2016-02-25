@@ -22,6 +22,7 @@
     "help-section-header": "Text from header field will be used to describe the section containing items below. People using this infobox in articles will use these names to provide the data.",
     "save": "Save",
     "load-error": "Loading error",
-    "edit-image-item-description": "Place where users will upload images while using this infobox."
+    "edit-image-item-description": "Place where users will upload images while using this infobox.",
+    "reorder-tooltip": "Drag to reorder"
   }
 }

@@ -8,16 +8,37 @@
 }}
 
 <div class="infobox-builder">
-	{{#infobox-builder-wrapper}}
-		{{#each state as |element index|}}
-			{{component element.infoboxBuilderData.component
-				item=element
-				position=index
-				activeItem=activeItem
-				setEditItem=setEditItem
+	<div class="infobox-builder-preview">
+		{{#sortable-group
+			tagName="div"
+			classNames='portable-infobox pi-background'
+			onChange=reorder as |group|
+		}}
+			{{#each state as |element index|}}
+				{{component element.infoboxBuilderData.component
+					activeItem=activeItem
+					model=element
+					group=group
+					handle=".pi-item"
+					position=index
+					setEditItem=setEditItem
+					onDragStart=(action 'onPreviewItemDrag')
+					onDragStop=(action 'onPreviewItemDrop')
+					onMouseEnter=(action 'showReorderTooltip')
+					onMouseLeave=(action 'hideReorderTooltip')
+				}}
+			{{/each}}
+		{{/sortable-group}}
+		{{#if isReorderTooltipVisible}}
+			{{wikia-ui-components/on-hover-tooltip
+				posX=tooltipPosX
+				posY=tooltipPosY
+				fixed=true
+				message=(i18n 'main.reorder-tooltip' ns='infobox-builder')
 			}}
-		{{/each}}
-	{{/infobox-builder-wrapper}}
+		{{/if}}
+	</div>
+
 
 	{{infobox-builder-sidebar
 		addItem=addItem

@@ -48,11 +48,13 @@ module.exports = function (defaults) {
 				css: {
 					app: 'assets/app.css',
 					'app-dark-theme': 'assets/app-dark-theme.css'
-				}
+				},
+				html: 'ember-main.hbs',
 			}
 		},
 		fingerprint: {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
+			replaceExtensions: ['html', 'css', 'js', 'hbs'],
 			prepend: 'http://mercury.nocookie.net/mercury-static/main/'
 		},
 		derequire: {

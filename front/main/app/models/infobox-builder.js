@@ -226,32 +226,12 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc moves item in infoboxState by given offset
-	 * @param {Number} offset
-	 * @param {Object} item
+	 * @desc updates infobox state order
+	 * @param {Ember.Array} newState
 	 * @returns {void}
 	 */
-	moveItem(offset, item) {
-		const position = this.get('infoboxState').indexOf(item);
-
-		if (this.isValidMove(position, offset)) {
-			this.get('infoboxState').removeAt(position);
-			this.get('infoboxState').insertAt(position + offset, item);
-		}
-	},
-
-	/**
-	 * @desc checks if move is valid based on item current position in the infoboxState and the move offset
-	 * @param {Number} position
-	 * @param {Number} offset
-	 * @returns {Boolean}
-	 */
-	isValidMove(position, offset) {
-		const lastItemIndex = this.get('infoboxState').length - 1,
-			newPosition = position + offset;
-
-		return position > 0 && offset < 0 && newPosition >= 0 ||
-			position < lastItemIndex && offset > 0 && newPosition <= lastItemIndex;
+	updateInfoboxStateOrder(newState) {
+		this.set('infoboxState', newState);
 	},
 
 	/**
@@ -355,6 +335,8 @@ InfoboxBuilderModel.reopenClass({
 	/**
 	 * @desc Overrides some properties of given Row object with additional
 	 * data, obtained from already existing template
+	 * TODO: use Object.assign() when we switch to Babel6
+	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
 	 * @param {Object} itemData additional data
@@ -365,7 +347,7 @@ InfoboxBuilderModel.reopenClass({
 			const {data} = itemData,
 				{label} = data || {}; // as data can be devoid of label value
 
-			item.source = itemData.source;
+			item.source = itemData.source || '';
 			item.data.label = label || '';
 		}
 
@@ -375,6 +357,8 @@ InfoboxBuilderModel.reopenClass({
 	/**
 	 * @desc Overrides some properties of given Title object with additional
 	 * data, obtained from already existing template
+	 * TODO: use Object.assign() when we switch to Babel6
+	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
 	 * @param {Object} itemData additional data
@@ -385,7 +369,7 @@ InfoboxBuilderModel.reopenClass({
 			const {data} = itemData,
 				{defaultValue} = data || {}; // as title can be devoid of default value
 
-			item.source = itemData.source;
+			item.source = itemData.source || '';
 			item.data.defaultValue = defaultValue || '';
 		}
 
@@ -395,6 +379,8 @@ InfoboxBuilderModel.reopenClass({
 	/**
 	 * @desc Overrides some properties of given Image object with additional
 	 * data, obtained from already existing template
+	 * TODO: use Object.assign() when we switch to Babel6
+	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
 	 * @param {Object} itemData additional data
@@ -402,10 +388,14 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendImageData(item, itemData) {
 		if (itemData) {
-			const {data: {caption: {source}}} = itemData;
+			item.source = itemData.source || '';
+			item.data.caption.source = '';
 
-			item.source = itemData.source;
-			item.data.caption.source = source || '';
+			if (itemData.data && itemData.data.caption) {
+				const {data: {caption: {source: captionSource}}} = itemData;
+
+				item.data.caption.source = captionSource || '';
+			}
 		}
 
 		return item;

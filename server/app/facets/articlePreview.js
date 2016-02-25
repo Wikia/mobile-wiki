@@ -1,4 +1,4 @@
-import * as Article from '../lib/Article';
+import {PageRequestHelper} from '../lib/MediaWikiPage';
 import disableCache from '../lib/Caching';
 import {getCachedWikiDomainName, getCDNBaseUrl, getHtmlTitle} from '../lib/Utils';
 import localSettings from '../../config/localSettings';
@@ -10,13 +10,13 @@ import deepExtend from 'deep-extend';
  * in the editor preview mode
  *
  * @param {string} title title of article to preview
- * @param {ArticlePageData} article
+ * @param {MediaWikiPageData} article
  * @param {Object} [wikiVariables={}]
  * @returns {Object}
  */
 function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
 	return {
-		article: {
+		articlePage: {
 			data: {
 				article: {
 					media: article.media
@@ -32,6 +32,7 @@ function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
 			adsContext: {},
 			htmlTitle: ''
 		},
+		mediaWikiNamespace: 0,
 		articleContent: article.content,
 		wikiVariables,
 		htmlTitle: getHtmlTitle(wikiVariables, title),
@@ -62,9 +63,10 @@ export default function articlePreview(request, reply) {
 			CKmarkup: request.payload.CKmarkup || '',
 			title: request.payload.title || ''
 		},
-		article = new Article.ArticleRequestHelper(params);
+		mediaWikiPageHelper = new PageRequestHelper(params);
 
-	article.getArticleFromMarkup()
+	mediaWikiPageHelper
+		.getArticleFromMarkup()
 		.then((payload) => {
 			const content = JSON.parse(payload);
 			let articleData,
