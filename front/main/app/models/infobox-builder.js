@@ -412,10 +412,10 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendHeaderData(item, itemData) {
 		if (itemData) {
-			const {data: header, collapsible} = itemData;
-			item.data = header || "";
-			item.collapsible = collapsible;
+			item.data = itemData.data || "";
+			item.collapsible = itemData.collapsible || false;
 		}
+
 		return item;
 	}
 });
