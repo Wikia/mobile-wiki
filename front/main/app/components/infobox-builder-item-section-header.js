@@ -6,6 +6,6 @@ export default Ember.Component.extend(
 	{
 		tagName: 'h3',
 		classNames: ['pi-item', 'pi-header', 'pi-secondary-font', 'pi-item-spacing', 'pi-secondary-background'],
-		header: Ember.computed.readOnly('item.data')
+		header: Ember.computed.readOnly('model.data')
 	}
 );
