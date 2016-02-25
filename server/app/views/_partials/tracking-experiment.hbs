@@ -20,10 +20,10 @@
 			})[0];
 
 		ga('create', id, 'auto', options);
-		ga(`require`, 'linker');
+		ga('require', 'linker');
 
 		if (autoLinkDomain) {
-			ga(`linker:autoLink`, autoLinkDomain);
+			ga('linker:autoLink', autoLinkDomain);
 		}
 
 		ga('send', {
