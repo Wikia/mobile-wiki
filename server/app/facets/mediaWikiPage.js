@@ -74,6 +74,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		viewName = 'wiki-page',
 		response;
 
+	// @todo logic in this code should be cleaned up while https://wikia-inc.atlassian.net/browse/XW-1145
 	switch (ns) {
 	case MediaWikiNamespace.MAIN:
 	case MediaWikiNamespace.CATEGORY:
