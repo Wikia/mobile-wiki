@@ -24,7 +24,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	addToState(object) {
 		this.get('infoboxState').pushObject(object);
-
 		return object;
 	},
 
@@ -143,6 +142,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				ns: 'infobox-builder',
 				index
 			}),
+			collapsible: false,
 			infoboxBuilderData: {
 				index,
 				component: InfoboxBuilderModel.createComponentName(itemType)
@@ -200,6 +200,20 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		if (value.trim().length) {
 			this.set(`infoboxState.${index}.source`, InfoboxBuilderModel.sanitizeCustomRowSource(value));
 		}
+	},
+
+	/**
+	 * @desc sets a new value of the data field
+	 * on the given section header element
+	 *
+	 * @param {Object} item
+	 * @param {Object} newValues
+	 * @returns {void}
+	 */
+	editSectionHeaderItem(item, newValues) {
+		const index = this.get('infoboxState').indexOf(item);
+
+		Object.keys(newValues).forEach((key) => this.set(`infoboxState.${index}.${key}`, newValues[key]));
 	},
 
 	/**
@@ -331,14 +345,12 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendRowData(item, itemData) {
 		if (itemData) {
+			const {data} = itemData,
+				// as data can be devoid of label value
+				{label} = data || {};
+
 			item.source = itemData.source || '';
-			item.data.label = '';
-
-			if (itemData.data) {
-				const {data: {label}} = itemData;
-
-				item.data.label = label || '';
-			}
+			item.data.label = label || '';
 		}
 
 		return item;
@@ -356,14 +368,12 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendTitleData(item, itemData) {
 		if (itemData) {
+			const {data} = itemData,
+				// as title can be devoid of default value
+				{defaultValue} = data || {};
+
 			item.source = itemData.source || '';
-			item.data.defaultValue = '';
-
-			if (itemData.data) {
-				const {data: {defaultValue}} = itemData;
-
-				item.data.defaultValue = defaultValue || '';
-			}
+			item.data.defaultValue = defaultValue || '';
 		}
 
 		return item;
@@ -403,10 +413,11 @@ InfoboxBuilderModel.reopenClass({
 	 * @returns {Object}
 	 */
 	extendHeaderData(item, itemData) {
-		if (itemData && itemData.data) {
-			item.data = itemData.data;
-			// @todo add support for collapsible attribute - DAT-3732
+		if (itemData) {
+			item.data = itemData.data || '';
+			item.collapsible = itemData.collapsible || false;
 		}
+
 		return item;
 	}
 });
