@@ -35,6 +35,7 @@
     "ember-cli-htmlbars-inline-precompile": "0.3.1",
     "ember-cli-inject-live-reload": "1.4.0",
     "ember-cli-inline-content": "0.4.0",
+    "ember-cli-moment-shim": "1.0.0",
     "ember-cli-qunit": "1.2.1",
     "ember-cli-qunit-eslint": "1.0.1",
     "ember-cli-sass": "5.2.1",
@@ -47,10 +48,13 @@
     "ember-getowner-polyfill": "1.0.0",
     "ember-in-viewport": "2.0.4",
     "ember-load-initializers": "0.5.1",
+    "ember-onbeforeunload": "0.2.0",
     "ember-pop-over": "kvas-damian/ember-pop-over#5aa7c38d437618364e0e5090b57bd49098e3e39d",
     "ember-resolver": "2.0.3",
     "ember-sinon": "0.3.0",
     "ember-sortable": "1.8.0",
-    "loader.js": "4.0.0"
+    "loader.js": "4.0.0",
+    "moment": "2.11.2",
+    "moment-timezone": "0.5.0"
   }
 }

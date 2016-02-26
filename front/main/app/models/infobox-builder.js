@@ -39,21 +39,21 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		let item = {};
 
 		switch (type) {
-		case 'title':
-			item = InfoboxBuilderModel.extendTitleData(this.createTitleItem(), elementData);
-			break;
-		case 'row':
-			item = InfoboxBuilderModel.extendRowData(this.createRowItem(), elementData);
-			break;
-		case 'image':
-			item = InfoboxBuilderModel.extendImageData(this.createImageItem(), elementData);
-			break;
-		case 'section-header':
-			item = InfoboxBuilderModel.extendHeaderData(this.createSectionHeaderItem(), elementData);
-			break;
-		default:
-			Ember.Logger.warn(`Unsupported infobox builder type encountered: '${type}'`);
-			break;
+			case 'title':
+				item = InfoboxBuilderModel.extendTitleData(this.createTitleItem(), elementData);
+				break;
+			case 'row':
+				item = InfoboxBuilderModel.extendRowData(this.createRowItem(), elementData);
+				break;
+			case 'image':
+				item = InfoboxBuilderModel.extendRowData(this.createImageItem(), elementData);
+				break;
+			case 'section-header':
+				item = InfoboxBuilderModel.extendHeaderData(this.createSectionHeaderItem(), elementData);
+				break;
+			default:
+				Ember.Logger.warn(`Unsupported infobox builder type encountered: '${type}'`);
+				break;
 		}
 
 		return this.addToState(item);
@@ -382,7 +382,7 @@ InfoboxBuilderModel.reopenClass({
 	/**
 	 * @desc Overrides some properties of given Image object with additional
 	 * data, obtained from already existing template
-	 * TODO: use Object.assign() when we switch to Babel6
+	 * @todo use Object.assign() when we switch to Babel6
 	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend

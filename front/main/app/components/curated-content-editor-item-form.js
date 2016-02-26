@@ -499,31 +499,31 @@ export default Ember.Component.extend(
 		 */
 		processValidationError(errorMessage) {
 			switch (errorMessage) {
-			case 'articleNotFound':
-				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-article-not-found-error'));
-				break;
-			case 'emptyLabel':
-			case 'tooLongLabel':
-				// error should be displayed with validateLabel method - no need to duplicate messages
-				this.validateLabel();
-				break;
-			case 'videoNotSupportProvider':
-				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-video-provider-not-supported-error'));
-				break;
-			case 'notSupportedType':
-				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-unsupported-page-type-error'));
-				break;
-			case 'duplicatedLabel':
-				this.set('labelErrorMessage', i18n.t('app.curated-content-editor-label-in-use-error'));
-				break;
-			case 'noCategoryInTag':
-				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-only-categories-supported-error'));
-				break;
-			case 'imageMissing':
-				this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
-				break;
-			default:
-				// none
+				case 'articleNotFound':
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-article-not-found-error'));
+					break;
+				case 'emptyLabel':
+				case 'tooLongLabel':
+					// error should be displayed with validateLabel method - no need to duplicate messages
+					this.validateLabel();
+					break;
+				case 'videoNotSupportProvider':
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-video-provider-not-supported-error'));
+					break;
+				case 'notSupportedType':
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-unsupported-page-type-error'));
+					break;
+				case 'duplicatedLabel':
+					this.set('labelErrorMessage', i18n.t('app.curated-content-editor-label-in-use-error'));
+					break;
+				case 'noCategoryInTag':
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-only-categories-supported-error'));
+					break;
+				case 'imageMissing':
+					this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
+					break;
+				default:
+					// none
 			}
 		},
 

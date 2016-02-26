@@ -9,27 +9,27 @@ export default Ember.Component.extend({
 		let header;
 
 		switch (this.get('item.type')) {
-		case 'title':
-			header = this.get('item.data.defaultValue') ||
-					i18n.t('main.title-default', {
-						ns: 'infobox-builder',
-						index: this.get('item.infoboxBuilderData.index')
-					});
-			break;
-		case 'row':
-			header = this.get('item.data.label');
-			break;
-		case 'image':
-			header = i18n.t('main.image-default', {
-				ns: 'infobox-builder',
-				index: this.get('item.infoboxBuilderData.index')
-			});
-			break;
-		case 'section-header':
-			header = this.get('item.data');
-			break;
-		default:
-			break;
+			case 'title':
+				header = this.get('item.data.defaultValue') ||
+						i18n.t('main.title-default', {
+							ns: 'infobox-builder',
+							index: this.get('item.infoboxBuilderData.index')
+						});
+				break;
+			case 'row':
+				header = this.get('item.data.label');
+				break;
+			case 'image':
+				header = i18n.t('main.image-default', {
+					ns: 'infobox-builder',
+					index: this.get('item.infoboxBuilderData.index')
+				});
+				break;
+			case 'section-header':
+				header = this.get('item.data');
+				break;
+			default:
+				break;
 		}
 
 		return header;

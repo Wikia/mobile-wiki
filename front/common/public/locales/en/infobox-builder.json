@@ -1,5 +1,6 @@
 {
   "main": {
+    "leave-confirmation": "All unsaved changes will be lost.",
     "header": "Editing: __title__",
     "sidebar-header": "Add infobox elements",
     "title-use-article-name": "Use article name",
@@ -22,6 +23,8 @@
     "help-section-header": "Text from header field will be used to describe the section containing items below. People using this infobox in articles will use these names to provide the data.",
     "save": "Save",
     "load-error": "Loading error",
+    "saving": "Saving your great project",
+    "success": "Success!",
     "edit-image-item-description": "Place where users will upload images while using this infobox.",
     "reorder-tooltip": "Drag to reorder"
   }

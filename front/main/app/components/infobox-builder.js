@@ -2,6 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 	classNameBindings: ['isPreviewItemDragged'],
+	isLoading: false,
+	showSuccess: false,
+	showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 	tooltipPosX: null,
 	tooltipPosY: null,
 	tooltipDistanceFromCursor: 20,
@@ -19,6 +22,7 @@ export default Ember.Component.extend({
 				isPreviewItemHovered: true
 			});
 		},
+
 		hideReorderTooltip() {
 			this.setProperties({
 				isPreviewItemHovered: false,
@@ -26,13 +30,24 @@ export default Ember.Component.extend({
 				tooltipPosy: null
 			});
 		},
+
 		onPreviewItemDrag(actionTrigger) {
 			this.set('isPreviewItemDragged', true);
-			this.get('handleItemInEditModel')(actionTrigger);
+			this.get('handleItemInEditMode')(actionTrigger);
 		},
+
 		onPreviewItemDrop() {
 			this.set('isPreviewItemDragged', false);
+		},
 
+		save() {
+			this.set('isLoading', true);
+			this.get('saveAction')().then(() =>
+				this.setProperties({
+					isLoading: false,
+					showSuccess: true
+				})
+			);
 		}
 	}
 });
