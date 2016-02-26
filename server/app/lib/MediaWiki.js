@@ -102,7 +102,7 @@ function requestCallback(params) {
 	} else {
 		const rejectData = payload || {};
 
-		// Don't flood logs with 404s (there is a LOT)
+		// Don't flood logs with 404s
 		if (response.statusCode !== 404) {
 			Logger.error({
 				url,
