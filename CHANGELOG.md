@@ -1,3 +1,15 @@
+## release-214 (2016-02-26 14:02 UTC)
+* [XW-1086](https://wikia-inc.atlassian.net/browse/XW-1086) XW-1086 | Mercury should still work even with cookies disabled
+* [XW-1184](https://wikia-inc.atlassian.net/browse/XW-1184) XW-1184 | Fix actions for RWA
+* docs-new-i18n-file: Add an info how to load a newly added i18n file.
+* update-article-preview-route-name: change infobox builder route name from camelcase to dasherize
+* [XW-1183](https://wikia-inc.atlassian.net/browse/XW-1183) XW-1183 fix handling for 404 errors in Mercury
+* eslint-switch-case-indentation: Eslint switch case indentation
+* [DAT-3788](https://wikia-inc.atlassian.net/browse/DAT-3788) DAT-3788 add default mercury spinner when saving infobox builder
+* [SOC-1376](https://wikia-inc.atlassian.net/browse/SOC-1376) SOC-1376 | As a user I would like to see the timestamp of a post or a reply a certain way
+* [DAT-3786](https://wikia-inc.atlassian.net/browse/DAT-3786) add dialog on onbeforeunload
+* [DAT-3711](https://wikia-inc.atlassian.net/browse/DAT-3711) DAT-3711 Adding sections to the infobox builder
+
 ## release-213 (2016-02-25 12:05 UTC)
 * [XW-1173](https://wikia-inc.atlassian.net/browse/XW-1173) XW-1173 | ASAP send an event to UA that user opened a page
 * [DAT-3770](https://wikia-inc.atlassian.net/browse/DAT-3770) DAT-3770 infobox builder reordering of elements
