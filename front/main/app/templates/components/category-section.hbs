@@ -2,28 +2,28 @@
 {{#if data.hasPrev}}
 	<div class="category-navigation">
 		{{loading-spinner
-		active=true
-		overlay=false
-		radius=16
-		strokeWidth=2
+			active=true
+			overlay=false
+			radius=16
+			strokeWidth=2
 		}}
 		<button class="category-navigation__button" {{action 'loadBatch' id data.prevBatch 'prev'}}>
 			{{i18n 'app.categories-load-previous'}}
 		</button>
 	</div>
 {{/if}}
-<ul>
+<ul class="mw-content">
 	{{#each data.items as |item|}}
-		<li>{{link-to item.name 'wiki-page' item.title}}</li>
+		<li>{{link-to item.name 'wiki-page' item.title class: }}</li>
 	{{/each}}
 </ul>
 {{#if data.hasNext}}
 	<div class="category-navigation">
 		{{loading-spinner
-		active=true
-		overlay=false
-		radius=16
-		strokeWidth=2
+			active=true
+			overlay=false
+			radius=16
+			strokeWidth=2
 		}}
 		<button class="category-navigation__button" {{action 'loadBatch' id data.nextBatch 'next'}}>
 			{{i18n 'app.categories-load-more'}}
