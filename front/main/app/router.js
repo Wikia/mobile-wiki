@@ -18,7 +18,7 @@ Router.map(function () {
 
 	this.route('article-preview');
 
-	this.route('infoboxBuilder', {
+	this.route('infobox-builder', {
 		path: '/infobox-builder/:templateName'
 	});
 
