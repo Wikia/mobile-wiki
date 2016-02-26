@@ -71,7 +71,7 @@
     "gulp-vulcanize": "6.1.0",
     "gulp-watch": "4.3.5",
     "gulp-wrap": "0.11.0",
-    "karma": "0.13.19",
+    "karma": "0.13.21",
     "karma-chrome-launcher": "0.2.2",
     "karma-coverage": "0.5.3",
     "karma-phantomjs-launcher": "0.2.1",
