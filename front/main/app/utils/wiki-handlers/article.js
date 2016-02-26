@@ -6,10 +6,6 @@ import VisibilityStateManager from '../visibility-state-manager';
  * @returns {void}
  */
 function afterModel(router, model) {
-	if (!Ember.isEmpty(model.exception)) {
-		Ember.Logger.warn('Article model error:', model.exception);
-	}
-
 	router.controllerFor('application').set('currentTitle', model.get('title'));
 	VisibilityStateManager.reset();
 
