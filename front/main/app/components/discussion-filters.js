@@ -16,7 +16,15 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			applyFilters() {
-				this.attrs.applyFilters(this.get('sortBy'), this.get('onlyReported'));
+				const sortBy = this.get('sortBy'),
+					onlyReported = this.get('onlyReported'),
+					discussionSort = this.get('discussionSort');
+
+				// No need for applying already applied filters again
+				if (sortBy !== discussionSort.get('sortBy') || onlyReported !== discussionSort.get('onlyReported')) {
+					this.attrs.applyFilters(this.get('sortBy'), this.get('onlyReported'));
+				}
+
 				this.get('popover').deactivate();
 			},
 
