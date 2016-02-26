@@ -1,12 +1,12 @@
 import Ember from 'ember';
 import DiscussionModerationControllerMixin from '../../mixins/discussion-moderation-controller';
 import DiscussionUpvoteControllerMixin from '../../mixins/discussion-upvote-controller';
-import DiscussionFilteringControllerMixin from '../../mixins/discussion-filtering-controller';
+import DiscussionForumActionsControllerMixin from '../../mixins/discussion-forum-actions-controller';
 
 export default Ember.Controller.extend(
 	DiscussionModerationControllerMixin,
 	DiscussionUpvoteControllerMixin,
-	DiscussionFilteringControllerMixin,
+	DiscussionForumActionsControllerMixin,
 	{
 		application: Ember.inject.controller(),
 

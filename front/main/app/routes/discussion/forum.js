@@ -3,13 +3,13 @@ import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
 import DiscussionForumModel from '../../models/discussion-forum';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
-import DiscussionFilteringRouteMixin from '../../mixins/discussion-filtering-route';
+import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
 
 export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionModerationRouteMixin,
-	DiscussionFilteringRouteMixin,
+	DiscussionForumActionsRouteMixin,
 	{
 		discussionSort: Ember.inject.service(),
 		discussionEditor: Ember.inject.service(),
@@ -52,10 +52,20 @@ export default DiscussionBaseRoute.extend(
 				this.modelFor('discussion.forum').loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
+			/**
+			 * Applies sorting by date and attempts to create a new post
+			 *
+			 * @param {object} postData
+			 *
+			 * @returns {void}
+			 */
+
 			create(postData) {
 				this.setSortBy('latest').promise.then(() => {
-					this.modelFor('discussion.forum').createPost(postData).then((xhr) => {
-						if (xhr.mercuryResponseData) {
+					const model = this.modelFor('discussion.forum');
+
+					model.createPost(postData).then((xhr) => {
+						if (xhr.mercuryResponseData && !model.get('errorMessage')) {
 							this.get('discussionEditor').trigger('newPost');
 						}
 					});

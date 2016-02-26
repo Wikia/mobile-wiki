@@ -1,11 +1,11 @@
 import DiscussionBaseModel from './discussion-base';
 import DiscussionModerationModelMixin from '../mixins/discussion-moderation-model';
-import DiscussionFilteringModelMixin from '../mixins/discussion-filtering-model';
+import DiscussionForumActionsModelMixin from '../mixins/discussion-forum-actions-model';
 import ajaxCall from '../utils/ajax-call';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
-	DiscussionFilteringModelMixin,
+	DiscussionForumActionsModelMixin,
 	{
 		/**
 		 * @param {number} pageNum
