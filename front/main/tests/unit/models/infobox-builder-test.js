@@ -602,3 +602,76 @@ test('extend image data', (assert) => {
 		);
 	});
 });
+
+test('extend section header data', (assert) => {
+	const index = 1,
+		component = 'test-component',
+		type = 'section-header',
+		defaultName = 'Header 1',
+		infoboxBuilderData = {
+			index,
+			component
+		},
+		cases = [
+			{
+				newValues: {
+					data: 'custom header',
+					collapsible: true
+				},
+				expected: {
+					data:'custom header',
+					collapsible: true
+				}
+			},
+			{
+				newValues: {
+					data: 'custom header'
+				},
+				expected: {
+					data:'custom header',
+					collapsible: false
+				}
+			},
+			{
+				newValues: {
+					data: 'custom header',
+					collapsible: false
+				},
+				expected: {
+					data:'custom header',
+					collapsible: false
+				}
+			},
+			{
+				newValues: {
+					collapsible: true
+				},
+				expected: {
+					data:'',
+					collapsible: true
+				}
+			},
+			{
+				newValues: null,
+				expected: {
+					data: defaultName,
+					collapsible: false
+				}
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const item = {
+				data: defaultName,
+				collapsible: false,
+				infoboxBuilderData,
+				type
+			},
+			extendedObject = infoboxBuilderModelClass.extendHeaderData(item, testCase.newValues);
+
+		assert.equal(extendedObject.data, testCase.expected.data);
+		assert.equal(extendedObject.collapsible, testCase.expected.collapsible);
+		assert.equal(extendedObject.type, type);
+		assert.equal(extendedObject.infoboxBuilderData, infoboxBuilderData);
+	});
+});
