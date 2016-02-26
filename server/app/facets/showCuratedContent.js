@@ -83,15 +83,13 @@ export default function showCuratedContent(request, reply) {
 		 * @returns {void}
 		 */
 		.catch(MainPageDataRequestError, (error) => {
-			Logger.error('Error when fetching ads context and article details', error.data.exception);
 			outputResponse(request, reply, error.data, false);
 		})
 		/**
 		 * @param {MWException} error
 		 * @returns {void}
 		 */
-		.catch(MediaWiki.WikiVariablesRequestError, (error) => {
-			Logger.error('Error when fetching wiki variables', error);
+		.catch(MediaWiki.WikiVariablesRequestError, () => {
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
 		/**
