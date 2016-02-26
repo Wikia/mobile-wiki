@@ -9,7 +9,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 	{
 		/**
 		 * @param {number} pageNum
-		 * @param {string} sortBy
+		 * @param {string} [sortBy='trending']
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(pageNum = 0, sortBy = 'trending') {
@@ -60,10 +60,10 @@ DiscussionForumModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} forumId
-	 * @param {string} sortBy
+	 * @param {string} [sortBy='trending']
 	 * @returns { Ember.RSVP.Promise}
 	 */
-	find(wikiId, forumId, sortBy) {
+	find(wikiId, forumId, sortBy = 'trending') {
 		const forumInstance = DiscussionForumModel.create({
 				wikiId,
 				forumId
