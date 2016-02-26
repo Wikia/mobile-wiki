@@ -1,6 +1,9 @@
 import Ember from 'ember';
+import InfoboxBuilderEditItemMixin from '../mixins/infobox-builder-edit-item';
 
-export default Ember.Component.extend({
+
+export default Ember.Component.extend(
+	InfoboxBuilderEditItemMixin, {
 	labelValue: Ember.computed('item.data.label', {
 		get() {
 			return this.get('item.data.label');
@@ -9,17 +12,5 @@ export default Ember.Component.extend({
 			this.get('editRowItem')(this.get('item'), value);
 			return value;
 		}
-	}),
-
-	init() {
-		this._super(...arguments);
-		this.isHelpVisible = false;
-		this.classNames = ['sidebar-content-padding'];
-	},
-
-	actions: {
-		showHelp() {
-			this.set('isHelpVisible', true);
-		}
-	}
+	})
 });

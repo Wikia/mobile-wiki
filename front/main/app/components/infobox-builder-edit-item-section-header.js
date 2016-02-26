@@ -1,6 +1,8 @@
 import Ember from 'ember';
+import InfoboxBuilderEditItemMixin from '../mixins/infobox-builder-edit-item';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(
+	InfoboxBuilderEditItemMixin, {
 	value: Ember.computed('item.data', {
 		get() {
 			return this.get('item.data');
@@ -10,7 +12,6 @@ export default Ember.Component.extend({
 			return value;
 		}
 	}),
-
 	isCollapsible: Ember.computed('item.collapsible', {
 		get() {
 			return this.get('item.collapsible');
@@ -19,17 +20,5 @@ export default Ember.Component.extend({
 			this.get('editSectionHeaderItem')(this.get('item'), {collapsible: value});
 			return value;
 		}
-	}),
-
-	init() {
-		this._super(...arguments);
-		this.isHelpVisible = false;
-		this.classNames = ['sidebar-content-padding'];
-	},
-
-	actions: {
-		showHelp() {
-			this.set('isHelpVisible', true);
-		}
-	}
+	})
 });
