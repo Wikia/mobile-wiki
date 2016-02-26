@@ -1,5 +1,8 @@
-$sidebar-width: 296px;
+$sidebar-width: 300px;
 $padding: 12px;
+$bigPadding: 18px;
+$imageButtonWidth: 130px;
+$imageButtonHeight: 100px;
 $back-arrow-icon-size: 16px;
 $icon-action-size: 24px;
 $icon-wrapper-size: 50px;
@@ -150,8 +153,8 @@ $overlay-color: rgba(255, 255, 255, .8);
 	.sidebar-header {
 		border-bottom: $box-shadow-size solid $color-blue-gray-light;
 		font-weight: bold;
-		line-height: 48px;
-		padding: 0 $padding;
+		padding: 16px $bigPadding;
+		text-align: center;
 	}
 
 	.checkbox-builder {
@@ -205,8 +208,11 @@ $overlay-color: rgba(255, 255, 255, .8);
 }
 
 .infobox-builder-buttons {
-	display: inline-block;
-	padding: $padding;
+	align-content: space-between;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: $bigPadding;
 }
 
 .infobox-builder-button {
@@ -215,11 +221,12 @@ $overlay-color: rgba(255, 255, 255, .8);
 	display: flex;
 	float: left;
 	flex-direction: column;
-	height: 100px;
+	height: $imageButtonHeight;
 	justify-content: center;
-	margin: 3px;
+	margin-bottom: 4px;
 	padding: 10px;
-	width: 130px;
+	flex-basis: $imageButtonWidth;
+	width: $imageButtonWidth;
 
 	&:hover {
 		background-color: $color-blue-gray-light;
