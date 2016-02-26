@@ -55,6 +55,14 @@ export default Ember.Component.extend(
 				this.trackClick('randomArticle', 'click');
 				this.sendAction('loadRandomArticle');
 			},
+
+			/**
+			 * @returns {void}
+			 */
+			recentWikiActivityClick() {
+				this.hideNewBadge();
+				this.get('collapse')();
+			},
 		}
 	}
 );

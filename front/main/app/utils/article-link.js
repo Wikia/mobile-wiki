@@ -66,7 +66,7 @@ export default function getLinkInfo(basePath, title, hash, uri) {
 			};
 		}
 
-		if (!isMercuryNamespaceHandlingOverridden(article[3])) {
+		if (article[3] && !isMercuryNamespaceHandlingOverridden(article[3])) {
 			// @todo When categories in SPA are being enabled/disabled sitewide, code below should be rethinked.
 			/* eslint no-continue: 0 */
 			for (const ns in namespaces) {
