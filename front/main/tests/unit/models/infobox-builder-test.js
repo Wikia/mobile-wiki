@@ -657,6 +657,22 @@ test('extend section header data', (assert) => {
 					data: defaultName,
 					collapsible: false
 				}
+			},
+			{
+				newValues: {},
+				expected: {
+					data: '',
+					collapsible: false
+				}
+			},
+			{
+				newValues: {
+					data: ''
+				},
+				expected: {
+					data: '',
+					collapsible: false
+				}
 			}
 		];
 
