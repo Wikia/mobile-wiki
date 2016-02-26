@@ -51,6 +51,7 @@ export default DiscussionBaseRoute.extend(
 			},
 
 			create(postData) {
+				this.get('discussionSort').setSortBy('latest');
 				this.transitionTo('discussion.forum', this.get('forumId'), 'latest').promise.then(() => {
 					const model = this.modelFor('discussion.forum');
 
