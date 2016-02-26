@@ -75,20 +75,20 @@ export function trackPerf(params) {
 	}
 
 	switch (params.type) {
-	case 'count':
-		trackFn.count(params.name, params.value, params.annotations);
-		break;
-	case 'store':
-		trackFn.store(params.name, params.value, params.annotations);
-		break;
-	case 'timer':
-		trackFn.timer.send(params.name, params.value, params.annotations);
-		break;
-	case 'mark':
-		trackFn.timer.mark(params.name, params.annotations);
-		break;
-	default:
-		throw new Error('This action not supported in Weppy tracker');
+		case 'count':
+			trackFn.count(params.name, params.value, params.annotations);
+			break;
+		case 'store':
+			trackFn.store(params.name, params.value, params.annotations);
+			break;
+		case 'timer':
+			trackFn.timer.send(params.name, params.value, params.annotations);
+			break;
+		case 'mark':
+			trackFn.timer.mark(params.name, params.annotations);
+			break;
+		default:
+			throw new Error('This action not supported in Weppy tracker');
 	}
 
 	trackFn.flush();
