@@ -8,10 +8,11 @@ export default Component.extend(
 	{
 		classNames: ['category-sections'],
 
-		didReceiveAttrs() {
+		didRender() {
+			this._super(...arguments);
 			if (this.get('setupAds') === true) {
 				this.setupAdsContext(this.get('adsContext'));
 			}
-		}
+		},
 	}
 );
