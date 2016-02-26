@@ -53,7 +53,6 @@ export default function getPageModel(params) {
 	let model;
 
 	return new Ember.RSVP.Promise((resolve, reject) => {
-		debugger;
 		if (isContentNamespace()) {
 			if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
 				model = ArticleModel.create(params);
@@ -61,8 +60,8 @@ export default function getPageModel(params) {
 				ArticleModel.setArticle(model);
 				return resolve(model);
 			}
-		} else if (M.prop('exception')) {
-			return reject(M.prop('exception'));
+		} else if (Mercury.exception) {
+			return reject(Mercury.exception);
 		}
 
 		Ember.$.getJSON(getURL(params))
@@ -73,22 +72,7 @@ export default function getPageModel(params) {
 				model = getModelForNamespace(data, params);
 				resolve(model);
 			})
-			.fail((err) => {
-				/**
-				 * Temporary solution until we can make error states work
-				 * ideally we should reject on errors
-				 *
-				 * On error always show article (for now)
-				 */
-				if (err.status === 404) {
-					const model = ArticleModel.create(params);
-
-					ArticleModel.setArticle(model, err.responseJSON);
-					resolve(model);
-				} else {
-					reject(err);
-				}
-			});
+			.fail(reject());
 	});
 }
 

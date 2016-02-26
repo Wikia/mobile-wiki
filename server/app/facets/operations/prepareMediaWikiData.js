@@ -56,9 +56,6 @@ export default function prepareMediaWikiData(request, data) {
 
 	if (data.page.exception) {
 		result.exception = data.page.exception;
-		console.log("*****************");
-		console.log(result.exception);
-		console.log("*****************");
 	}
 
 	result.asyncArticle = false;
