@@ -294,7 +294,7 @@ mediaWikiPagePaths.forEach((path) => {
 authenticatedRoutes.push({
 	// Discussion forums
 	method: 'GET',
-	path: '/d/{rest*}',
+	path: '/d/{type}/{id}/{action*}',
 	handler: discussionsHandler
 });
 
