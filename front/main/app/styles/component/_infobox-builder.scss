@@ -240,13 +240,14 @@ $overlay-color: rgba(255, 255, 255, .8);
 .infobox-builder-button-icon {
 	fill: $color-blue-gray;
 	height: $icon-button-size;
+	margin-top: $border-width * 2;
 	width: $icon-button-size;
 }
 
 .infobox-builder-button-label {
 	color: $color-blue-light;
-	font-size: 14px;
-	margin-top: 10px;
+	font-size: $type-smallest;
+	margin-top: $border-width * 2;
 }
 
 .sidebar-edit-area {
