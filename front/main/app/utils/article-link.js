@@ -46,6 +46,7 @@ export default function getLinkInfo(basePath, title, hash, uri) {
 			 * NOTE: see below, but we might also have to deal with links in the form /Special:.*
 			 */
 			namespaces = Mercury.wiki.namespaces,
+
 			/**
 			 * Here we test if its an article link. We also have to check for /wiki/something for the jump links,
 			 * because the url will be in that form and there will be a hash
@@ -53,6 +54,13 @@ export default function getLinkInfo(basePath, title, hash, uri) {
 			 * TODO: We currently don't handle links to other pages with jump links appended. If input is a
 			 * link to another page, we'll simply transition to the top of that page regardless of whether or not
 			 * there is a #jumplink appended to it.
+			 *
+			 * Example match array for http://muppet.wikia.com/wiki/Kermit_the_Frog#Kermit_on_Sesame_Street
+			 *     0: "/wiki/Kermit_the_Frog#Kermit on Sesame Street"
+			 *     1: "/wiki"
+			 *     2: "wiki"
+			 *     3: "Kermit_the_Frog"
+			 *     4: "#Kermit on Sesame Street"
 			 */
 			article = local.match(/^(\/(wiki))\/([^#]+)(#.*)?$/);
 
