@@ -15,15 +15,19 @@ export default Ember.Mixin.create({
 			Ember.$.cookie('seenNewBadgeFor') !== 'recent-wiki-activity';
 	}),
 
+	hideNewBadge() {
+		this.trackClick('recent-wiki-activity-blue-dot', 'open-recent-wiki-activity');
+
+		Ember.$.cookie('seenNewBadgeFor', 'recent-wiki-activity', {
+			domain: getDomain(),
+			expires: 10 * 365,
+			path: '/'
+		});
+	},
+
 	actions: {
 		hideNewBadge() {
-			this.trackClick('recent-wiki-activity-blue-dot', 'open-recent-wiki-activity');
-
-			Ember.$.cookie('seenNewBadgeFor', 'recent-wiki-activity', {
-				domain: getDomain(),
-				expires: 10 * 365,
-				path: '/'
-			});
+			this.hideNewBadge();
 		}
 	}
 });

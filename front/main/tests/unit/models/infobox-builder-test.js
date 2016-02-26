@@ -15,6 +15,7 @@ test('create new model with initial state', (assert) => {
 	assert.equal(model.get('_itemIndex.row'), 0);
 	assert.equal(model.get('_itemIndex.image'), 0);
 	assert.equal(model.get('_itemIndex.title'), 0);
+	assert.equal(model.get('_itemIndex.section-header'), 0);
 	assert.equal(Ember.isArray(model.get('infoboxState')), true);
 	assert.equal(model.get('infoboxState').length, 0);
 });
@@ -95,30 +96,36 @@ test('add items by type', (assert) => {
 					type: 'title'
 				},
 				message: 'add title item'
+			},
+			{
+				dataMock: {
+					data: messageMock,
+					infoboxBuilderData: {
+						index,
+						component: mockComponentName
+					},
+					type: 'section-header'
+				},
+				message: 'add section-header item'
 			}
 		];
 
 	cases.forEach((testCase) => {
 		const model = infoboxBuilderModelClass.create(),
-			addToStateSpy = sinon.spy(),
-			createComponentNameStub = sinon
-				.stub(infoboxBuilderModelClass, 'createComponentName')
-				.returns(mockComponentName),
-			i18nStub = sinon.stub(i18n, 't').returns(messageMock);
+			addToStateSpy = sinon.spy(model, 'addToState');
 
-		i18n.t = i18nStub;
-		infoboxBuilderModelClass.createComponentName = createComponentNameStub;
-
+		sinon.stub(i18n, 't').returns(messageMock);
+		sinon.stub(infoboxBuilderModelClass, 'createComponentName').returns(mockComponentName);
 		model.increaseItemIndex = sinon.stub().returns(index);
-		model.addToState = addToStateSpy;
+
 		model.addItem(testCase.dataMock.type);
 
 		assert.equal(addToStateSpy.callCount, 1, testCase.message);
 		assert.equal(addToStateSpy.calledWith(testCase.dataMock), true, testCase.message);
 
-		// restore global stubs
-		createComponentNameStub.restore();
-		i18nStub.restore();
+		// restore static methods
+		infoboxBuilderModelClass.createComponentName.restore();
+		i18n.t.restore();
 	});
 });
 

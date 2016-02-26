@@ -9,7 +9,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		this._itemIndex = {
 			row: 0,
 			image: 0,
-			title: 0
+			title: 0,
+			'section-header': 0
 		};
 		this.infoboxState = [];
 		this.itemInEditMode = null;
@@ -39,18 +40,21 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		let item = {};
 
 		switch (type) {
-		case 'title':
-			item = InfoboxBuilderModel.extendTitleData(this.createTitleItem(), elementData);
-			break;
-		case 'row':
-			item = InfoboxBuilderModel.extendRowData(this.createRowItem(), elementData);
-			break;
-		case 'image':
-			item = InfoboxBuilderModel.extendRowData(this.createImageItem(), elementData);
-			break;
-		default:
-			Ember.Logger.warn(`Unsupported infobox builder type encountered: '${type}'`);
-			break;
+			case 'title':
+				item = InfoboxBuilderModel.extendTitleData(this.createTitleItem(), elementData);
+				break;
+			case 'row':
+				item = InfoboxBuilderModel.extendRowData(this.createRowItem(), elementData);
+				break;
+			case 'image':
+				item = InfoboxBuilderModel.extendRowData(this.createImageItem(), elementData);
+				break;
+			case 'section-header':
+				item = InfoboxBuilderModel.extendHeaderData(this.createSectionHeaderItem(), elementData);
+				break;
+			default:
+				Ember.Logger.warn(`Unsupported infobox builder type encountered: '${type}'`);
+				break;
 		}
 
 		return this.addToState(item);
@@ -115,7 +119,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	createTitleItem() {
 		const itemType = 'title',
-			index = this.increaseItemIndex('title');
+			index = this.increaseItemIndex(itemType);
 
 		return {
 			data: {
@@ -126,6 +130,23 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				component: InfoboxBuilderModel.createComponentName(itemType)
 			},
 			source: `${itemType}${index}`,
+			type: itemType
+		};
+	},
+
+	createSectionHeaderItem() {
+		const itemType = 'section-header',
+			index = this.increaseItemIndex(itemType);
+
+		return {
+			data: i18n.t('main.section-header-default', {
+				ns: 'infobox-builder',
+				index
+			}),
+			infoboxBuilderData: {
+				index,
+				component: InfoboxBuilderModel.createComponentName(itemType)
+			},
 			type: itemType
 		};
 	},
@@ -192,32 +213,12 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc moves item in infoboxState by given offset
-	 * @param {Number} offset
-	 * @param {Object} item
+	 * @desc updates infobox state order
+	 * @param {Ember.Array} newState
 	 * @returns {void}
 	 */
-	moveItem(offset, item) {
-		const position = this.get('infoboxState').indexOf(item);
-
-		if (this.isValidMove(position, offset)) {
-			this.get('infoboxState').removeAt(position);
-			this.get('infoboxState').insertAt(position + offset, item);
-		}
-	},
-
-	/**
-	 * @desc checks if move is valid based on item current position in the infoboxState and the move offset
-	 * @param {Number} position
-	 * @param {Number} offset
-	 * @returns {Boolean}
-	 */
-	isValidMove(position, offset) {
-		const lastItemIndex = this.get('infoboxState').length - 1,
-			newPosition = position + offset;
-
-		return position > 0 && offset < 0 && newPosition >= 0 ||
-			position < lastItemIndex && offset > 0 && newPosition <= lastItemIndex;
+	updateInfoboxStateOrder(newState) {
+		this.set('infoboxState', newState);
 	},
 
 	/**
@@ -371,7 +372,7 @@ InfoboxBuilderModel.reopenClass({
 	/**
 	 * @desc Overrides some properties of given Image object with additional
 	 * data, obtained from already existing template
-	 * TODO: use Object.assign() when we switch to Babel6
+	 * @todo use Object.assign() when we switch to Babel6
 	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
@@ -390,6 +391,22 @@ InfoboxBuilderModel.reopenClass({
 			}
 		}
 
+		return item;
+	},
+
+	/**
+	 * @desc Overrides some properties of given header object with additional
+	 * data, obtained from already existing template
+	 *
+	 * @param {Object} item item to extend
+	 * @param {Object} itemData additional data
+	 * @returns {Object}
+	 */
+	extendHeaderData(item, itemData) {
+		if (itemData && itemData.data) {
+			item.data = itemData.data;
+			// @todo add support for collapsible attribute - DAT-3732
+		}
 		return item;
 	}
 });
