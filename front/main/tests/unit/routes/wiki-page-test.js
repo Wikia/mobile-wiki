@@ -5,11 +5,13 @@ const originalMercury = Ember.$.extend(true, {}, window.Mercury),
 		url: '/wiki/Kermit',
 		description: 'Article about Kermit',
 		displayTitle: 'Kermit The Frog'
-	});
+	}),
+	originalMediaWikiNamespace = M.prop('mediaWikiNamespace');
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
 	afterEach() {
 		window.Mercury = Ember.$.extend(true, {}, originalMercury);
+		M.prop('mediaWikiNamespace', originalMediaWikiNamespace, true);
 	}
 });
 
@@ -93,4 +95,83 @@ test('set default document title when htmlTitleTemplate is not set', function (a
 	mock.setHeadTags(model);
 
 	assert.equal(document.title, expectedDocumentTitle, 'document title is different than expected');
+});
+
+test('get correct handler based on model namespace', function (assert) {
+	const mock = this.subject(),
+		testCases = [
+			{
+				namespace: 0,
+				expectedHandler: {
+					viewName: 'article',
+					controllerName: 'article'
+				}
+			},
+			{
+				namespace: 14,
+				expectedHandler: {
+					viewName: 'category',
+					controllerName: 'category'
+				}
+			},
+			{
+				namespace: 99,
+				expectedHandler: null
+			},
+			{
+				namespace: null,
+				expectedHandler: null
+			}
+		];
+
+	testCases.forEach(({namespace, expectedHandler}) => {
+		M.prop('mediaWikiNamespace', namespace, true);
+
+		const handler = mock.getHandler(model);
+
+		if (handler) {
+			assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
+			assert.equal(handler.controllerName, expectedHandler.controllerName, 'controllerName is different than expected');
+		} else {
+			assert.equal(handler, expectedHandler, 'handler is not null');
+		}
+	});
+});
+
+test('get correct handler based on model isMainPage flag and exception', function (assert) {
+	const mock = this.subject(),
+		testCases = [
+			{
+				model: {
+					isCuratedMainPage: true,
+					exception: null
+				},
+				expectedHandler: {
+					viewName: 'main-page',
+					controllerName: 'main-page'
+				}
+			},
+			{
+				model: {
+					isCuratedMainPage: false,
+					exception: {
+						code: 404
+					}
+				},
+				expectedHandler: {
+					viewName: 'article',
+					controllerName: 'article'
+				}
+			}
+		];
+
+	testCases.forEach(({model: mockedModel, expectedHandler}) => {
+		model.isCuratedMainPage = mockedModel.isCuratedMainPage;
+		model.exception = mockedModel.exception;
+
+		const handler = mock.getHandler(model);
+
+		assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
+		assert.equal(handler.controllerName, expectedHandler.controllerName, 'controllerName is different than expected');
+	});
 });

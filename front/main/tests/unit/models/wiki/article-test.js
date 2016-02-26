@@ -94,7 +94,7 @@ moduleFor('model:wiki/article', 'Integration | Model | wiki/article', {
 	beforeEach() {
 		M.provide('article', articleExample);
 		M.prop('articleContentPreloadedInDOM', true, true);
-		M.prop('mediaWikiNamespace', 0);
+		M.prop('mediaWikiNamespace', 0, true);
 
 		Ember.$('#ember-testing').html('<div class="article-content" id="preloadedContent">Test content</div>');
 	},
