@@ -67,7 +67,7 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
  */
 function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	const i18n = request.server.methods.i18n.getInstance();
-	
+
 	let result = {},
 		pageData = {},
 		viewName = 'wiki-page',
@@ -84,7 +84,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		case MediaWikiNamespace.MAIN:
 			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
-			
+
 			break;
 
 		case MediaWikiNamespace.CATEGORY:
@@ -92,7 +92,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 				viewName = 'article';
 				result = deepExtend(result, prepareArticleData(request, data));
 			}
-	
+
 			result = deepExtend(result, prepareCategoryData(request, data));
 			// Hide TOC on category pages
 			result.hasToC = false;

@@ -34,12 +34,12 @@ function getModelForNamespace(data, params) {
 		return model;
 	} else {
 		switch (getCurrentNamespace()) {
-		case 14:
-			model = CategoryModel.create(params);
-			CategoryModel.setCategory(model, data);
-			return model;
-		default:
-			return Ember.Object.create();
+			case 14:
+				model = CategoryModel.create(params);
+				CategoryModel.setCategory(model, data);
+				return model;
+			default:
+				return Ember.Object.create();
 		}
 	}
 }
