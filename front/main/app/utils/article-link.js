@@ -51,7 +51,7 @@ export default function getLinkInfo(basePath, title, hash, uri) {
 			 * Here we test if its an article link. We also have to check for /wiki/something for the jump links,
 			 * because the url will be in that form and there will be a hash
 			 *
-			 * TODO: We currently don't handle links to other pages with jump links appended. If input is a
+			 * @todo We currently don't handle links to other pages with jump links appended. If input is a
 			 * link to another page, we'll simply transition to the top of that page regardless of whether or not
 			 * there is a #jumplink appended to it.
 			 *
@@ -60,7 +60,7 @@ export default function getLinkInfo(basePath, title, hash, uri) {
 			 *     1: "/wiki"
 			 *     2: "wiki"
 			 *     3: "Kermit_the_Frog"
-			 *     4: "#Kermit on Sesame Street"
+			 *     4: "#Kermit_on_Sesame_Street"
 			 */
 			article = local.match(/^(\/(wiki))\/([^#]+)(#.*)?$/);
 
@@ -74,7 +74,7 @@ export default function getLinkInfo(basePath, title, hash, uri) {
 			};
 		}
 
-		if (article[3] && !isMercuryNamespaceHandlingOverridden(article[3])) {
+		if (Ember.isArray(article) && article[3] && !isMercuryNamespaceHandlingOverridden(article[3])) {
 			// @todo When categories in SPA are being enabled/disabled sitewide, code below should be rethinked.
 			/* eslint no-continue: 0 */
 			for (const ns in namespaces) {
