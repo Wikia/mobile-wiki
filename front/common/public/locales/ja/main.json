@@ -143,7 +143,9 @@
     "curated-content-editor-new-featured-content":"新しい注目のコンテンツ",
     "curated-content-editor-new-section":"新しいセクション",
     "curated-content-editor-new-category":"新しいカテゴリ",
-    "explore-wiki":"__wikiName__を見る"
+    "explore-wiki":"__wikiName__を見る",
+    "wiki-page-error-reload-button": "更新",
+    "wiki-page-error":"申し訳ありませんが、記事を読み込めませんでした。もう一度お試しください。"
   },
   "userStatus":{
     "anon-cta":"__registerLink__または__loginLink__",

@@ -155,7 +155,7 @@
     "categories-load-previous": "Load previous",
     "category-page-subtitle": "Category Page",
     "wiki-page-error": "Sorry, we couldn't load the page. Please try again.",
-    "wiki-page-error-reload-button": "Reload page"
+    "wiki-page-error-reload-button": "Refresh"
   },
   "userStatus": {
     "anon-cta": "__registerLink__ or __loginLink__",
