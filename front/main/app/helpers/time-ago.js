@@ -1,37 +1,42 @@
 import Ember from 'ember';
-import {timeAgo, interval as dateTimeInterval} from 'common/utils/dateTime';
+import moment from 'moment';
 
 /**
  * Helper to give textual representation of time interval between past date
  * and the current time/date in the form
- * {timeAgo unixTimestamp}
- * which returns something like '2 days ago'
+ * {{time-ago unixTimestamp shouldHideAgoPrefix}}
+ * which returns something like '2 d ago' if interval is below 6 days or formated param date
  *
- * @param {Array} params
+ * In case that moment's translation is not downloaded yet returns placeholder
+ *
+ * @param {int} unixTimestamp
+ * @param {boolean} shouldHideAgoPrefix
  * @returns {string}
  */
-export default Ember.Helper.helper((params) => {
-	const unixTimestamp = params[0],
-		fromDate = new Date(unixTimestamp * 1000),
-		interval = timeAgo(fromDate);
+export default Ember.Helper.extend({
+	momentLocale: Ember.inject.service(),
+	onLocaleChange: Ember.observer('momentLocale.isLoaded', function () {
+		this.recompute();
+	}),
 
-	switch (interval.type) {
-	case dateTimeInterval.Now:
-		return i18n.t('app.now-label');
-	case dateTimeInterval.Second:
-		return i18n.t('app.seconds-ago-label', {count: interval.value});
-	case dateTimeInterval.Minute:
-		return i18n.t('app.minutes-ago-label', {count: interval.value});
-	case dateTimeInterval.Hour:
-		return i18n.t('app.hours-ago-label', {count: interval.value});
-	case dateTimeInterval.Day:
-		return i18n.t('app.days-ago-label', {count: interval.value});
-	case dateTimeInterval.Month:
-		return i18n.t('app.months-ago-label', {count: interval.value});
-	case dateTimeInterval.Year:
-		return i18n.t('app.years-ago-label', {count: interval.value});
-	default:
-		Ember.Logger.error('Unexpected date interval for timestamp', unixTimestamp);
-		return '';
+	compute([unixTimestamp, shouldHideAgoPrefix = true]) {
+		const date = moment.unix(unixTimestamp),
+			now = moment(),
+			momentLocaleService = this.get('momentLocale');
+		let output;
+
+		if (!momentLocaleService.get('isLoaded')) {
+			momentLocaleService.loadLocale();
+			return new Ember.Handlebars.SafeString('<span class="date-placeholder"></span>');
+		} else {
+			if (now.diff(date, 'days') > 5) {
+				output = date.format('L');
+			} else if (now.diff(date, 'minutes') < 1) {
+				output = i18n.t('app.now-label');
+			} else {
+				output = date.fromNow(shouldHideAgoPrefix);
+			}
+			return output;
+		}
 	}
 });

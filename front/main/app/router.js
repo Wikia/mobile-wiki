@@ -16,11 +16,9 @@ const Router = Ember.Router.extend({
 Router.map(function () {
 	const articlePath = '/wiki/';
 
-	this.route('article-preview', {
-		path: '/article-preview'
-	});
+	this.route('article-preview');
 
-	this.route('infoboxBuilder', {
+	this.route('infobox-builder', {
 		path: '/infobox-builder/:templateName'
 	});
 
@@ -115,9 +113,7 @@ Router.map(function () {
 		});
 	});
 
-	this.route('image-review', {
-		path: '/image-review'
-	});
+	this.route('image-review');
 
 	this.route('recent-wiki-activity');
 
