@@ -65,7 +65,7 @@ export default DiscussionBaseRoute.extend(
 					const model = this.modelFor('discussion.forum');
 
 					model.createPost(postData).then((xhr) => {
-						if (xhr.mercuryResponseData && !model.get('errorMessage')) {
+						if (xhr.apiResponseData && !model.get('errorMessage')) {
 							this.get('discussionEditor').trigger('newPost');
 						}
 					});

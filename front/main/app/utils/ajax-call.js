@@ -17,7 +17,7 @@ export default function (options) {
 
 	return new Ember.RSVP.Promise((resolve) => {
 		settings.success = function (data) {
-			this.mercuryResponseData = data;
+			this.apiResponseData = data;
 			options.success(data);
 			resolve(this);
 		};
