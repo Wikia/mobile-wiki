@@ -12,9 +12,9 @@
 		</button>
 	</div>
 {{/if}}
-<ul class="mw-content">
+<ul>
 	{{#each data.items as |item|}}
-		<li>{{link-to item.name 'wiki-page' item.title class: }}</li>
+		<li class="mw-content">{{link-to item.name 'wiki-page' item.title class: }}</li>
 	{{/each}}
 </ul>
 {{#if data.hasNext}}
