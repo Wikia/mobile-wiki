@@ -7,6 +7,7 @@ import Krux from '../modules/Trackers/Krux';
 import Nielsen from '../modules/Trackers/Nielsen';
 import Quantserve from '../modules/Trackers/Quantserve';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
+import AbTest from '../modules/AbTest';
 
 /**
  * @typedef {Object} TrackContext
@@ -200,6 +201,23 @@ export function trackPageView(adsContext) {
 			instance.trackPageView(instance.usesAdsContext ? adsContext : context);
 		}
 	});
+}
+
+/**
+ * Function to track an experiement specific event. This is currently
+ * done due to limitations in the DW when it comes to segmentation
+ * of events based on experiment groups
+ *
+ * @param {String} experiment
+ * @param {TrackingParams} params
+ * @returns {void}
+ */
+export function trackExperiment(experiment, params) {
+	const group = AbTest.getGroup(experiment) || 'CONTROL',
+		label = [experiment, group, params.label].join('=');
+
+	params.label = label;
+	track(params);
 }
 
 /**
