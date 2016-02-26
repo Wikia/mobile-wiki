@@ -54,6 +54,13 @@ export default function prepareMediaWikiData(request, data) {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
+	if (data.page.exception) {
+		result.exception = data.page.exception;
+		console.log("*****************");
+		console.log(result.exception);
+		console.log("*****************");
+	}
+
 	result.asyncArticle = false;
 	result.prerenderEnabled = false;
 
