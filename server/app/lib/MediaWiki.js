@@ -100,21 +100,25 @@ function requestCallback(params) {
 	} else if (response.statusCode === 200) {
 		resolve(payload);
 	} else {
-		const info = {
-			exception: {
-				message: 'Invalid response',
-				code: response.statusCode,
-				details: payload ? payload.toString('utf-8') : null
-			}
-		};
+		const rejectData = payload || {};
 
-		Logger.error({
-			url,
-			headers: response.headers,
-			statusCode: response.statusCode
-		}, 'Bad HTTP response');
+		// Don't flood logs with 404s (there is a LOT)
+		if (response.statusCode !== 404) {
+			Logger.error({
+				url,
+				headers: response.headers,
+				statusCode: response.statusCode,
+				details: payload
+			}, 'Bad HTTP response');
+		}
 
-		reject(info);
+		// Make sure that we have exception code as we rely on it later
+		if (!rejectData.exception || !rejectData.exception.code) {
+			rejectData.exception = rejectData.exception || {};
+			rejectData.exception.code = response.statusCode;
+		}
+
+		reject(rejectData);
 	}
 }
 
