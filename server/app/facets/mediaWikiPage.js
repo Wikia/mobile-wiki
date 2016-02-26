@@ -66,48 +66,50 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
  * @returns {void}
  */
 function handleResponse(request, reply, data, allowCache = true, code = 200) {
-	const pageData = data.page.data,
-		ns = pageData.ns,
-		i18n = request.server.methods.i18n.getInstance();
-
-	let result,
+	const i18n = request.server.methods.i18n.getInstance();
+	
+	let result = {},
+		pageData = {},
 		viewName = 'wiki-page',
-		response;
+		response,
+		ns;
 
-	// @todo logic in this code should be cleaned up while https://wikia-inc.atlassian.net/browse/XW-1145
-	// Not existing articles return NS 0 however article isn't set.
-	// Here we need do the initial set up to make sure that basic data is always set
-	result = prepareMediaWikiData(request, data);
+	if (data.page && data.page.data) {
+		pageData = data.page.data;
+		ns = pageData.ns;
+		result.mediaWikiNamespace = ns;
+	}
 
 	switch (ns) {
-	case MediaWikiNamespace.MAIN:
-		viewName = 'article';
-		result = deepExtend(result, prepareArticleData(request, data));
-		break;
-	case MediaWikiNamespace.CATEGORY:
-		if (pageData.article && pageData.details) {
+		case MediaWikiNamespace.MAIN:
 			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
-		}
+			
+			break;
 
-		result = deepExtend(result, prepareCategoryData(request, data));
-		// Hide TOC on category pages
-		result.hasToC = false;
-		result.subtitle = i18n.t('app.category-page-subtitle');
-		break;
-	default:
-		Logger.info(`Unsupported namespace: ${ns}`);
+		case MediaWikiNamespace.CATEGORY:
+			if (pageData.article && pageData.details) {
+				viewName = 'article';
+				result = deepExtend(result, prepareArticleData(request, data));
+			}
+	
+			result = deepExtend(result, prepareCategoryData(request, data));
+			// Hide TOC on category pages
+			result.hasToC = false;
+			result.subtitle = i18n.t('app.category-page-subtitle');
+			break;
+
+		default:
+			Logger.info(`Unsupported namespace: ${ns}`);
+			result = prepareMediaWikiData(request, data);
 	}
 
 	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
 	if (pageData.isMainPage && pageData.mainPageData) {
-		result = deepExtend(result, prepareArticleData(request, data));
 		result = deepExtend(result, prepareMainPageData(data));
 		result.hasToC = false;
 		delete result.adsContext;
 	}
-
-	result.mediaWikiNamespace = ns;
 
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
@@ -157,15 +159,15 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 */
 		.catch(PageRequestError, (error) => {
 			const data = error.data,
-				errorCode = getStatusCode(data.article, 500);
+				errorCode = getStatusCode(data.page, 500);
 
-			Logger.error(data.article.exception, 'MediaWikiPage error');
+			Logger.error(data.page.exception, 'MediaWikiPage error');
 
 			// It's possible that the article promise is rejected but we still want to redirect to canonical host
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 
 			// Clean up exception to not put its details in HTML response
-			delete data.article.exception.details;
+			delete data.page.exception.details;
 
 			handleResponse(request, reply, data, allowCache, errorCode);
 		})

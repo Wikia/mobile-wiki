@@ -119,14 +119,14 @@ export function getExperimentIdForThisEnvironment(experimentIds) {
 	const environment = M.prop('environment');
 
 	switch (environment) {
-	case 'prod':
-	case 'preview':
-	case 'sandbox':
-		return experimentIds.prod;
-	case 'dev':
-		return experimentIds.dev;
-	default:
-		return null;
+		case 'prod':
+		case 'preview':
+		case 'sandbox':
+			return experimentIds.prod;
+		case 'dev':
+			return experimentIds.dev;
+		default:
+			return null;
 	}
 }
 

@@ -16,7 +16,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	},
 
 	beforeModel(transition) {
-		const templateName = transition.params.infoboxBuilder.templateName;
+		const templateName = transition.params['infobox-builder'].templateName;
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {

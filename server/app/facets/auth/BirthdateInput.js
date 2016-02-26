@@ -95,14 +95,14 @@ export default class BirthdateInput {
 		const endian = this.endian.toLowerCase();
 
 		switch (endian) {
-		case 'big':
-			return [data.year, data.month, data.day];
-		case 'middle':
-			return [data.month, data.day, data.year];
-		case 'little':
-			// covered by default block
-		default:
-			return [data.day, data.month, data.year];
+			case 'big':
+				return [data.year, data.month, data.day];
+			case 'middle':
+				return [data.month, data.day, data.year];
+			case 'little':
+				// covered by default block
+			default:
+				return [data.day, data.month, data.year];
 		}
 	}
 }

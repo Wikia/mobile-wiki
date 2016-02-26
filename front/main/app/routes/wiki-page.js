@@ -16,16 +16,20 @@ export default Ember.Route.extend({
 	getHandler(model) {
 		if (model.isCuratedMainPage) {
 			return CuratedMainPageHandler;
+		// This check is done here because promise in article model in case of 404 error
+		// is resolved instead of being rejected
+		} else if (Ember.get(model, 'exception.code') === 404) {
+			return ArticleHandler;
 		}
 
 		switch (getCurrentNamespace()) {
-		case MediawikiNamespace.MAIN:
-			return ArticleHandler;
-		case MediawikiNamespace.CATEGORY:
-			return CategoryHandler;
-		default:
-			Ember.Logger.debug(`Unsupported NS passed to getHandler - ${getCurrentNamespace()}`);
-			return null;
+			case MediawikiNamespace.MAIN:
+				return ArticleHandler;
+			case MediawikiNamespace.CATEGORY:
+				return CategoryHandler;
+			default:
+				Ember.Logger.debug(`Unsupported NS passed to getHandler - ${getCurrentNamespace()}`);
+				return null;
 		}
 	},
 
