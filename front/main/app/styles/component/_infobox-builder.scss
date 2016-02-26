@@ -153,6 +153,7 @@ $grayout-color: rgba(255,255,255,0.3);
 	}
 
 	.checkbox-builder {
+		padding-top: $padding;
 		font-size: $type-base;
 	}
 
@@ -240,9 +241,7 @@ $grayout-color: rgba(255,255,255,0.3);
 }
 
 .sidebar-edit-area {
-	align-items: center;
-	display: flex;
-	justify-content: space-between;
+	position: relative;
 }
 
 .sidebar-content-padding {
@@ -254,13 +253,10 @@ $grayout-color: rgba(255,255,255,0.3);
 	display: flex;
 	justify-content: center;
 	height: $icon-wrapper-size;
+	position: absolute;
+	right: -10px;
+	top: 0;
 	width: $icon-wrapper-size;
-
-	.infobox-builder-input & {
-		position: absolute;
-		right: -10px;
-		top: 0;
-	}
 
 	&:hover svg {
 		fill: $color-blue-light;
