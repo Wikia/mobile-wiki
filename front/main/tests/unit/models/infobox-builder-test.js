@@ -619,7 +619,7 @@ test('extend section header data', (assert) => {
 					collapsible: true
 				},
 				expected: {
-					data:'custom header',
+					data: 'custom header',
 					collapsible: true
 				}
 			},
@@ -628,7 +628,7 @@ test('extend section header data', (assert) => {
 					data: 'custom header'
 				},
 				expected: {
-					data:'custom header',
+					data: 'custom header',
 					collapsible: false
 				}
 			},
@@ -638,7 +638,7 @@ test('extend section header data', (assert) => {
 					collapsible: false
 				},
 				expected: {
-					data:'custom header',
+					data: 'custom header',
 					collapsible: false
 				}
 			},
@@ -647,7 +647,7 @@ test('extend section header data', (assert) => {
 					collapsible: true
 				},
 				expected: {
-					data:'',
+					data: '',
 					collapsible: true
 				}
 			},

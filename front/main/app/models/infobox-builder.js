@@ -346,7 +346,8 @@ InfoboxBuilderModel.reopenClass({
 	extendRowData(item, itemData) {
 		if (itemData) {
 			const {data} = itemData,
-				{label} = data || {}; // as data can be devoid of label value
+				// as data can be devoid of label value
+				{label} = data || {};
 
 			item.source = itemData.source || '';
 			item.data.label = label || '';
@@ -368,7 +369,8 @@ InfoboxBuilderModel.reopenClass({
 	extendTitleData(item, itemData) {
 		if (itemData) {
 			const {data} = itemData,
-				{defaultValue} = data || {}; // as title can be devoid of default value
+				// as title can be devoid of default value
+				{defaultValue} = data || {};
 
 			item.source = itemData.source || '';
 			item.data.defaultValue = defaultValue || '';
@@ -412,7 +414,7 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendHeaderData(item, itemData) {
 		if (itemData) {
-			item.data = itemData.data || "";
+			item.data = itemData.data || '';
 			item.collapsible = itemData.collapsible || false;
 		}
 
