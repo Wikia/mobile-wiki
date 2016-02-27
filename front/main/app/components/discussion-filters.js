@@ -9,6 +9,10 @@ export default Ember.Component.extend(
 		popover: nearestParent('pop-over'),
 		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
 
+		onlyReportedClassName: Ember.computed('onlyReported', function () {
+			return this.get('onlyReported') === true ? 'active-element-background-color' : null;
+		}),
+
 		actions: {
 			/**
 			 * Form handler
