@@ -298,6 +298,13 @@ authenticatedRoutes.push({
 	handler: discussionsHandler
 });
 
+authenticatedRoutes.push({
+	// Discussion index
+	method: 'GET',
+	path: '/d',
+	handler: discussionsHandler
+});
+
 /**
  * @param {*} route
  * @returns {*}
