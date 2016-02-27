@@ -39,12 +39,12 @@ export default Ember.Mixin.create({
 	 */
 	getSortKey(sortBy) {
 		switch (sortBy) {
-		case 'latest':
-			return 'creation_date';
-		case 'trending':
-			return 'trending';
-		default:
-			return '';
+			case 'latest':
+				return 'creation_date';
+			case 'trending':
+				return 'trending';
+			default:
+				return '';
 		}
 	},
 });
