@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
-const firstTagPattern = /^(\s)*<[^>]*>(\s)*/,
-	lastTagPattern = /(\s)*<[^>]*>(\s)*$/,
+const firstTagsPattern = /^((\s)*<[^>]*>(\s)*)*/,
+	lastTagsPattern = /((\s)*<[^>]*>(\s)*)*$/,
 	tagPattern = /(\s)*<[^>]*>(\s)*/g,
 	replacementPattern = '(\n|.*)',
 	tagMagicWord = 'R_TAG';
@@ -33,17 +33,11 @@ export default Ember.Mixin.create({
 	},
 
 	removeTagsFromBegining(text) {
-		while (firstTagPattern.test(text)) {
-			text = text.replace(firstTagPattern, '');
-		}
-		return text;
+		return text.replace(firstTagsPattern, '');
 	},
 
 	removeTagsFromEnd(text) {
-		while (lastTagPattern.test(text)) {
-			text = text.replace(lastTagPattern, '');
-		}
-		return text;
+		return text.replace(lastTagsPattern, '');
 	},
 
 	trimTags(text) {
