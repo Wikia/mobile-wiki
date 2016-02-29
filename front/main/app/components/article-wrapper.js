@@ -149,7 +149,7 @@ export default Ember.Component.extend(
 			return this.get('currentUser.isAuthenticated') && !Ember.$.cookie('recent-edit-dismissed');
 		}),
 
-		highlightedEditorEnabled: Ember.computed(function() {
+		highlightedEditorEnabled: Ember.computed(() => {
 			return getExperimentVariationNumber({dev: '5170910064', prod: '5164060600'}) === 1;
 		}),
 
