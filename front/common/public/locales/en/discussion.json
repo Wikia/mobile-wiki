@@ -57,6 +57,8 @@
     "empty-forum-text": "No posts yet. Get the discussion started, create the first post now!",
     "report-post": "Report Post",
     "report-reply": "Report Reply",
+    "reported-content-filter-text": "Show Only Reported Content",
+    "moderation-filters-header": "Moderation",
     "reported-to-moderators": "Reported to moderators",
     "reported-to-moderators-replied-to": "A reply to __userName__, reported to moderators",
     "reported-to-moderators-reply": "Reply reported to moderators",

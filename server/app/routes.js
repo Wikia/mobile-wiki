@@ -294,11 +294,12 @@ mediaWikiPagePaths.forEach((path) => {
 authenticatedRoutes.push({
 	// Discussion forums
 	method: 'GET',
-	path: '/d/{type}/{id}/{action?}',
+	path: '/d/{type}/{id}/{action*}',
 	handler: discussionsHandler
 });
 
 authenticatedRoutes.push({
+	// Discussion index
 	method: 'GET',
 	path: '/d',
 	handler: discussionsHandler

@@ -3,5 +3,7 @@ import DiscussionWrapperComponentMixin from '../mixins/discussion-wrapper-compon
 
 export default Ember.Component.extend(
 	DiscussionWrapperComponentMixin,
-	{}
+	{
+		classNames: ['discussion-reported-posts'],
+	}
 );

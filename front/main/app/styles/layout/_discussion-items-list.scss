@@ -4,7 +4,8 @@ $discussion-user-list-mobile-header-avatar-size: 30px;
 $discussion-user-list-item-desktop-side-padding: 30px;
 $discussion-user-list-item-mobile-side-padding: 18px;
 
-.discussion-user-list {
+.discussion-user-list,
+.discussion-reported-posts {
 	.discussion-hero-unit {
 		.post-list-header {
 			font-size: $h1-font-size-small;
@@ -35,7 +36,8 @@ $discussion-user-list-item-mobile-side-padding: 18px;
 }
 
 @media #{$mobile-range} {
-	.discussion-user-list {
+	.discussion-user-list,
+	.discussion-reported-posts{
 		.post-list-header-content {
 			.post-list-header {
 				font-size: $h4-font-size-small;
