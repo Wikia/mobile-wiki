@@ -2,8 +2,7 @@ import Ember from 'ember';
 import MediaModel from '../media';
 import {normalizeToWhitespace} from 'common/utils/string';
 
-const {Object, get, $, isArray} = Ember,
-	keys = window.Object.keys,
+const {Object, get, $} = Ember,
 	CategoryModel = Object.extend({
 		adsContext: null,
 		// set when creating model instance
