@@ -9,8 +9,8 @@ const firstTagPattern = /^(\s)*<[^>]*>(\s)*/,
 export default Ember.Mixin.create({
 	selection: null,
 
-	getSelection () {
-		let selection = this.get('selection');
+	getSelection() {
+		const selection = this.get('selection');
 
 		return selection ? selection : window.getSelection();
 	},
@@ -19,11 +19,11 @@ export default Ember.Mixin.create({
 		this.set('selection', selection);
 	},
 
-	getHighlightedText () {
+	getHighlightedText() {
 		return this.getSelection().toString();
 	},
 
-	getHighlightedHtml () {
+	getHighlightedHtml() {
 		const fragment = this.getSelection().getRangeAt(0).cloneContents(),
 			div = document.createElement('div');
 
@@ -33,14 +33,14 @@ export default Ember.Mixin.create({
 	},
 
 	removeTagsFromBegining(text) {
-		while(firstTagPattern.test(text)) {
+		while (firstTagPattern.test(text)) {
 			text = text.replace(firstTagPattern, '');
 		}
 		return text;
 	},
 
 	removeTagsFromEnd(text) {
-		while(lastTagPattern.test(text)) {
+		while (lastTagPattern.test(text)) {
 			text = text.replace(lastTagPattern, '');
 		}
 		return text;
@@ -71,17 +71,17 @@ export default Ember.Mixin.create({
 				text: match[0],
 				start: match.index,
 				end: match.index + match[0].length
-			}
+			};
 		}
 
 		return data;
 	},
 
-	isTextHighlighted () {
+	isTextHighlighted() {
 		return this.getHighlightedText().length;
 	},
 
-	getHighlightedTextSection () {
+	getHighlightedTextSection() {
 		let el = this.getSelection().anchorNode,
 			sectionIndex = 0;
 
@@ -94,10 +94,12 @@ export default Ember.Mixin.create({
 		}
 
 		// Get last parent before article wrapper
-		while (!el.parentElement.classList.contains('article-content') && (el = el.parentElement)) {
+		while (el && !el.parentElement.classList.contains('article-content')) {
+			el = el.parentElement;
 		}
 		// Get section header
-		while (el.nodeName.toLowerCase() !== 'h2' && (el = el.previousElementSibling)) {
+		while (el && el.nodeName.toLowerCase() !== 'h2') {
+			el = el.previousElementSibling;
 		}
 
 		// Get section index
@@ -108,11 +110,11 @@ export default Ember.Mixin.create({
 		return sectionIndex;
 	},
 
-	highlightTextInTextarea (textarea, content, highlightedData) {
+	highlightTextInTextarea(textarea, content, highlightedData) {
 		const textBeforePosition = content.substr(0, highlightedData.end);
 
 		textarea.blur();
-		textarea.value  = textBeforePosition;
+		textarea.value = textBeforePosition;
 		textarea.focus();
 		textarea.value = content;
 

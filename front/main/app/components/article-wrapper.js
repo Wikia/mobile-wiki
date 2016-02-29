@@ -81,8 +81,9 @@ export default Ember.Component.extend(
 			this.setSelection(window.getSelection());
 
 			if (this.isTextHighlighted()) {
-				let sectionIndex = this.getHighlightedTextSection(),
-					highlightedText = this.getHighlightedHtml();
+				const sectionIndex = this.getHighlightedTextSection();
+
+				let highlightedText = this.getHighlightedHtml();
 
 				highlightedText = this.trimTags(highlightedText);
 				highlightedText = this.replaceTags(highlightedText);
