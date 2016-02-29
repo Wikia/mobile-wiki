@@ -3,6 +3,8 @@ import LanguagesMixin from '../mixins/languages';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from 'common/utils/track';
+import {getExperimentVariationNumber} from 'common/utils/variantTesting';
+
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -196,12 +198,21 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
+			var highlightedEditorExperimentIds = {
+				dev:'5170910064',
+				prod:'5164060600'
+			};
+
 			$(window).off('scroll.mercury.preload');
 			window.scrollTo(0, M.prop('scroll'));
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				this.sendAction('articleRendered');
 			});
+
+			if (getExperimentVariationNumber(highlightedEditorExperimentIds) === 1) {
+				// TODO Run highlighted editor experiment here
+			}
 		},
 
 		/**
