@@ -1,7 +1,7 @@
 import hbs from 'htmlbars-inline-precompile';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const fixedClass = 'fixed',
+const fixedClass = 'sub-head--fixed',
 	negativeIndex = -1,
 	title = 'Test Header',
 	buttonLabel = 'Save',
