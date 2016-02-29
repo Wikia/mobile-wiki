@@ -13,7 +13,8 @@ export default Component.extend(
 		loadingBatch: false,
 
 		actions: {
-			loadBatch(index) {
+			loadBatch(index, batch, label) {
+				this.trackClick('category-load-batch', label);
 				this.set('loadingBatch', true);
 
 				this.get('loadBatch')(...arguments).then(() => {

@@ -1,10 +1,8 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 
 const {Controller, inject, computed, get, getWithDefault} = Ember;
 
 export default Controller.extend(
-	TrackClickMixin,
 	{
 		application: inject.controller(),
 		article: inject.controller(),
@@ -22,9 +20,7 @@ export default Controller.extend(
 		},
 
 		actions: {
-			loadBatch(index, batch, label) {
-				this.trackClick('category-load-batch', label);
-
+			loadBatch(index, batch) {
 				return this.get('model').loadMore(index, batch);
 			},
 
