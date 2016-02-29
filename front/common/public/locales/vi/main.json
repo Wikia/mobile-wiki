@@ -143,7 +143,9 @@
     "curated-content-editor-new-featured-content":"New Featured Content",
     "curated-content-editor-new-section":"New Section",
     "curated-content-editor-new-category":"New Category",
-    "explore-wiki":"Explore __wikiName__"
+    "explore-wiki":"Explore __wikiName__",
+    "wiki-page-error-reload-button": "Làm mới",
+    "wiki-page-error":"Sorry, we couldn't load the page. Please try again."
   },
   "userStatus":{
     "anon-cta":"__registerLink__ or __loginLink__",
