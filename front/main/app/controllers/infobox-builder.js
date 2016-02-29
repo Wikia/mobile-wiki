@@ -98,6 +98,18 @@ export default Ember.Controller.extend({
 		},
 
 		/**
+		 * @desc calls editSectionHeaderItem on model with new section header data
+		 * @param {Object} item
+		 * @param {Object} newValues new section header values
+		 * @returns {void}
+		 */
+		editSectionHeaderItem(item, newValues) {
+			const model = this.get('model');
+
+			model.editSectionHeaderItem(item, newValues);
+		},
+
+		/**
 		 * @desc calls editRowItem on model with new label value
 		 * @param {Object} item
 		 * @param {string} label

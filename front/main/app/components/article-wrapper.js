@@ -93,7 +93,9 @@ export default Ember.Component.extend(
 		 */
 		contributionEnabled: Ember.computed('model.isMainPage', function () {
 			return !this.get('model.isMainPage') &&
-				this.get('contributionEnabledForCommunity');
+				this.get('contributionEnabledForCommunity') &&
+				// @todo XW-1196: Enable article editing on category pages
+				this.getWithDefault('model.ns', 0) !== 14;
 		}),
 
 		/**

@@ -9,12 +9,12 @@ export default Ember.Component.extend({
 			icon: 'row-block'
 		},
 		{
-			name: 'title',
-			icon: 'title-block'
-		},
-		{
 			name: 'image',
 			icon: 'image-block'
+		},
+		{
+			name: 'title',
+			icon: 'title-block'
 		},
 		{
 			name: 'section-header',

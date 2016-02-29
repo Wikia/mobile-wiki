@@ -143,7 +143,9 @@
     "curated-content-editor-new-featured-content":"Nouveau contenu à la une",
     "curated-content-editor-new-section":"Nouvelle section",
     "curated-content-editor-new-category":"Nouvelle catégorie",
-    "explore-wiki":"Explorer __wikiName__"
+    "explore-wiki":"Explorer __wikiName__",
+    "wiki-page-error-reload-button": "Actualiser",
+    "wiki-page-error":"Désolés, nous n'avons pas pu charger l'article. Veuillez réessayer."
   },
   "userStatus":{
     "anon-cta":"__registerLink__ ou __loginLink__",
