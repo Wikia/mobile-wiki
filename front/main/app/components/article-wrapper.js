@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
+import TextHighlightMixin from '../mixins/text-highlight';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from 'common/utils/track';
@@ -15,11 +16,16 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	LanguagesMixin,
+	TextHighlightMixin,
 	TrackClickMixin,
 	ViewportMixin,
 	{
 		classNames: ['article-wrapper'],
 		currentUser: Ember.inject.service(),
+
+		highlightedSectionIndex: 0,
+		showHighlightedEdit: null,
+		highlightedText: '',
 
 		hammerOptions: {
 			touchAction: 'auto',
@@ -69,6 +75,28 @@ export default Ember.Component.extend(
 					});
 				}
 			}
+		},
+
+		setHighlightedText() {
+			this.setSelection(window.getSelection());
+
+			if (this.isTextHighlighted()) {
+				let sectionIndex = this.getHighlightedTextSection(),
+					highlightedText = this.getHighlightedHtml();
+
+				highlightedText = this.trimTags(highlightedText);
+				highlightedText = this.replaceTags(highlightedText);
+
+				this.setHighlightedTextVars(sectionIndex, highlightedText, true);
+			} else {
+				this.setHighlightedTextVars(0, '', false);
+			}
+		},
+
+		setHighlightedTextVars(sectionIndex, highlightedText, showEdit) {
+			this.set('highlightedSectionIndex', sectionIndex);
+			this.set('highlightedText', highlightedText);
+			this.set('showHighlightedEdit', showEdit);
 		},
 
 		/**
@@ -151,10 +179,11 @@ export default Ember.Component.extend(
 			/**
 			 * @param {string} title
 			 * @param {number} sectionIndex
+			 * @param {string} highlightedText
 			 * @returns {void}
 			 */
-			edit(title, sectionIndex) {
-				this.sendAction('edit', title, sectionIndex);
+			edit(title, sectionIndex, highlightedText = '') {
+				this.sendAction('edit', title, sectionIndex, highlightedText);
 			},
 
 			/**
@@ -202,6 +231,8 @@ export default Ember.Component.extend(
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				this.sendAction('articleRendered');
 			});
+
+			document.addEventListener('selectionchange', this.setHighlightedText.bind(this));
 		},
 
 		/**
