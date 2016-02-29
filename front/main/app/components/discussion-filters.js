@@ -54,6 +54,10 @@ export default Ember.Component.extend(
 				if (isCheckboxChecked !== this.get('onlyReported')) {
 					this.set('onlyReported', isCheckboxChecked);
 				}
+
+				if (!this.get('showApplyButton')) {
+					this.attrs.applyFilters(this.get('sortBy'), this.get('onlyReported'));
+				}
 			}
 		}
 	}
