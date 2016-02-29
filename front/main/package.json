@@ -35,6 +35,7 @@
     "ember-cli-htmlbars-inline-precompile": "0.3.1",
     "ember-cli-inject-live-reload": "1.4.0",
     "ember-cli-inline-content": "0.4.0",
+    "ember-cli-meta-tags": "1.0.1",
     "ember-cli-moment-shim": "1.0.0",
     "ember-cli-qunit": "1.2.1",
     "ember-cli-qunit-eslint": "1.0.1",

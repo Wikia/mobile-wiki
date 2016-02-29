@@ -143,7 +143,9 @@
     "curated-content-editor-new-featured-content":"Neue empfohlene Inhalte",
     "curated-content-editor-new-section":"Neuer Ordner",
     "curated-content-editor-new-category":"Neue Kategorie",
-    "explore-wiki":"__wikiName__ erkunden"
+    "explore-wiki":"__wikiName__ erkunden",
+    "wiki-page-error-reload-button": "Aktualisieren",
+    "wiki-page-error":"Sorry, wir konnten den Artikel nicht laden. Bitte versuche es noch einmal."
   },
   "userStatus":{
     "anon-cta":"__registerLink__ oder __loginLink__",
