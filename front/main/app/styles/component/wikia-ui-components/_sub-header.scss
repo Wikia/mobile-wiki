@@ -1,8 +1,13 @@
+$sub-head-height: 48px;
+$sub-head-height-medium-breakpoint: 66px;
+$back-arrow-size: 16px;
+
 .sub-head {
 	align-items: center;
 	background: $color-blue-light;
 	color: $white;
 	display: flex;
+	font-size: $type-smallest;
 	height: $sub-head-height;
 	left: 0;
 	margin: 0 auto;
@@ -10,9 +15,14 @@
 	top: 0;
 	z-index: $z-site-head;
 
-	&.fixed {
-		position: fixed;
+	@media (min-width: $medium-break-point) {
+		font-size: $base-font-size;
+		height: $sub-head-height-medium-breakpoint;
 	}
+}
+
+.sub-head--fixed {
+	position: fixed
 }
 
 /*a*/
@@ -32,8 +42,8 @@
 
 	svg {
 		fill: $white;
-		height: 16px;
-		width: 16px;
+		height: $back-arrow-size;
+		width: $back-arrow-size;
 	}
 
 	&:active,
@@ -47,12 +57,15 @@
 	flex: 1;
 	order: 2;
 	overflow: hidden;
+	padding: 0 $article-horizontal-padding;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
+// proper margins already added to .sub-head--title.
+// TODO: This could be removed ones article diff uses sub-header component invocation instead of hardcoded HTML markup
 .sub-head--text-only {
-	padding: 0 13px;
+	padding: 0 $article-horizontal-padding;
 }
 
 /*button*/
@@ -62,11 +75,11 @@
 	color: inherit;
 	cursor: pointer;
 	font: inherit;
-	font-size: 14px;
-	height: inherit;
+	font-weight: bolder;
+	height: $sub-head-height;
 	margin: 0;
 	order: 3;
-	padding: 0 13px;
+	padding: 0 $article-horizontal-padding;
 	text-transform: uppercase;
 
 	&[disabled] {

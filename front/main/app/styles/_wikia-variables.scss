@@ -37,6 +37,10 @@ $z-side-nav: $z-9;
 // Global Variables
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// Break points
+$medium-break-point: 768px;
+
+
 // Border Radius
 $border-radius-global: rem-calc(2);
 
@@ -106,4 +110,3 @@ $discussion-header-height: 50px;
 $theme-bar-height: 10px;
 
 $discussion-post-type-smaller-than-min: .7rem;
-$sub-head-height: 50px;
