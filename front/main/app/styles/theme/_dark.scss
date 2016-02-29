@@ -18,6 +18,10 @@ body.dark-theme {
 		color: $dark-disabled-button-text-color;
 	}
 
+	.date-placeholder {
+		background: $dark-discussion-timestamp-color;
+	}
+
 	.discussions-header {
 		color: $dark-header-text-color;
 	}

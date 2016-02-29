@@ -1,3 +1,43 @@
+## release-214 (2016-02-26 14:02 UTC)
+* [XW-1086](https://wikia-inc.atlassian.net/browse/XW-1086) XW-1086 | Mercury should still work even with cookies disabled
+* [XW-1184](https://wikia-inc.atlassian.net/browse/XW-1184) XW-1184 | Fix actions for RWA
+* docs-new-i18n-file: Add an info how to load a newly added i18n file.
+* update-article-preview-route-name: change infobox builder route name from camelcase to dasherize
+* [XW-1183](https://wikia-inc.atlassian.net/browse/XW-1183) XW-1183 fix handling for 404 errors in Mercury
+* eslint-switch-case-indentation: Eslint switch case indentation
+* [DAT-3788](https://wikia-inc.atlassian.net/browse/DAT-3788) DAT-3788 add default mercury spinner when saving infobox builder
+* [SOC-1376](https://wikia-inc.atlassian.net/browse/SOC-1376) SOC-1376 | As a user I would like to see the timestamp of a post or a reply a certain way
+* [DAT-3786](https://wikia-inc.atlassian.net/browse/DAT-3786) add dialog on onbeforeunload
+* [DAT-3711](https://wikia-inc.atlassian.net/browse/DAT-3711) DAT-3711 Adding sections to the infobox builder
+
+## release-213 (2016-02-25 12:05 UTC)
+* [XW-1173](https://wikia-inc.atlassian.net/browse/XW-1173) XW-1173 | ASAP send an event to UA that user opened a page
+* [DAT-3770](https://wikia-inc.atlassian.net/browse/DAT-3770) DAT-3770 infobox builder reordering of elements
+* [XW-1105](https://wikia-inc.atlassian.net/browse/XW-1105) XW-1105 | Handle links to category pages in article
+* [PLATFORM-1859](https://wikia-inc.atlassian.net/browse/PLATFORM-1859) PLATFORM-1859 Add information about number of images still in the queue to be reviewed
+* [MAIN-6507](https://wikia-inc.atlassian.net/browse/MAIN-6507) (MAIN-6507) Only load user info if the user is not an anon
+* update-ember-cli: Update ember-cli to 2.3.0
+* [ADEN-3013](https://wikia-inc.atlassian.net/browse/ADEN-3013) ADEN-3013 Fix Nielsen typos
+
+## release-212 hotfix 1 (2016-02-24 03:04 UTC)
+* release-212-hotfix: (MAIN-6507) Only load user info if the user is not an anon
+
+## release-212 (2016-02-23 12:18 UTC)
+* [CE-3427](https://wikia-inc.atlassian.net/browse/CE-3427) Remove X button and hide banner after 7 sec
+* [XW-1120](https://wikia-inc.atlassian.net/browse/XW-1120) XW-1120 | send namespace & poweruser types to GA
+* add-pr-template: XW-1152 | Add PULL_REQUEST_TEMPLATE
+* [INT-344](https://wikia-inc.atlassian.net/browse/INT-344) INT-344 | New featured communities for Japan HP
+* [XW-1103](https://wikia-inc.atlassian.net/browse/XW-1103) XW-1103 | Prepare support for non-article page types
+* [CE-3347](https://wikia-inc.atlassian.net/browse/CE-3347) Banner to notify user about RWA
+* [CE-3394](https://wikia-inc.atlassian.net/browse/CE-3394) CE-3394 Display an info icon instead of a blue dot
+* [XW-1147](https://wikia-inc.atlassian.net/browse/XW-1147) XW-1147 create dedicated handler for main pages
+* [DAT-3744](https://wikia-inc.atlassian.net/browse/DAT-3744) edit already existing template
+* [CE-3365](https://wikia-inc.atlassian.net/browse/CE-3365) CE-3365 Add a blue dot a user can follow to get to Recent Wiki Activity
+* [CE-3327](https://wikia-inc.atlassian.net/browse/CE-3327) CE-3326+CE-3327 Implement RWA translations and enable it globally
+* [CE-3379](https://wikia-inc.atlassian.net/browse/CE-3379) Display/dismiss banner, styling and tracking
+* [CE-3377](https://wikia-inc.atlassian.net/browse/CE-3377) Get recent edit and display on banner
+* [CE-3377](https://wikia-inc.atlassian.net/browse/CE-3377) Add banner with recent edit to article page
+
 ## release-211 (2016-02-18 10:58 UTC)
 * const-Ember: use const {...} = Ember;
 * [INT-337](https://wikia-inc.atlassian.net/browse/INT-337) INT-337 | Page loading optimizations and cleanup

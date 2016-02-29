@@ -40,10 +40,7 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 			disableMobileSectionEditor: testCase.disableMobileSectionEditor,
 			isCoppaWiki: testCase.hasOwnProperty('isCoppaWiki') ? testCase.isCoppaWiki : false,
 			disableAnonymousEditing: testCase.hasOwnProperty('disableAnonymousEditing') ?
-				testCase.disableAnonymousEditing : false,
-			smartBanner: {
-				appId: {}
-			}
+				testCase.disableAnonymousEditing : false
 		};
 
 		assert.equal(component.get(property), testCase.expected);
