@@ -114,13 +114,14 @@ $legend-font-size: 16px;
 	}
 
 	.moderation-checkbox-label {
-		align-items: center;
+		align-items: flex-start;
 		display: flex;
 		line-height: $type-smallest;
 	}
 
 	.fancy-checkbox {
 		align-items: center;
+		background-color: $discussion-filters-bullet-background;
 		border: 1px solid $discussion-filters-bullet-border;
 		display: flex;
 		flex-direction: column;
@@ -148,11 +149,15 @@ $legend-font-size: 16px;
 
 .rail {
 	.discussion-filters {
-		padding: 100px 0 0 10px;
+		padding-top: 100px;
 		width: auto;
 
 		legend {
 			background: transparent;
+		}
+
+		label {
+			line-height: $line-height-smallest;
 		}
 	}
 }
