@@ -25,6 +25,9 @@ const {Object, get, $} = Ember,
 		// set when creating model instance
 		wiki: null,
 
+		/**
+		 * @returns {void}
+		 */
 		init() {
 			this._super(...arguments);
 			this.categories = [];
@@ -33,6 +36,11 @@ const {Object, get, $} = Ember,
 			this.otherLanguages = [];
 		},
 
+		/**
+		 * @param {number} index
+		 * @param {number} batchToLoad
+		 * @returns {JQueryDeferred|JQueryPromise<T>}
+		 */
 		loadMore(index, batchToLoad) {
 			const url = CategoryModel.getUrlBatchContent(this.get('name'), index, batchToLoad);
 
@@ -127,9 +135,9 @@ CategoryModel.reopenClass({
 	 * Get url for batch of category members for given index.
 	 * Index represents the letter members start from.
 	 *
-	 * @param {String} categoryName
-	 * @param {String} index
-	 * @param {Number} batch
+	 * @param {string} categoryName
+	 * @param {string} index
+	 * @param {number} batch
 	 * @returns {string}
 	 */
 	getUrlBatchContent(categoryName, index, batch) {
