@@ -146,6 +146,17 @@ $legend-font-size: 16px;
 	}
 }
 
+.rail {
+	.discussion-filters {
+		padding: 100px 0 0 10px;
+		width: auto;
+
+		legend {
+			background: transparent;
+		}
+	}
+}
+
 .header {
 	.orient-below {
 		.pop-over-compass {
