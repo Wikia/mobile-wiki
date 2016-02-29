@@ -1,13 +1,21 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
-import ArticleModel from '../models/mediawiki/article';
+import ArticleModel from '../models/wiki/article';
 import {activate as variantTestingActivate} from 'common/utils/variantTesting';
-import {getLinkInfo} from 'common/utils/articleLink';
 import {normalizeToUnderscore} from 'common/utils/string';
 import Ads from 'common/modules/Ads';
+import getLinkInfo from '../utils/article-link';
 
-export default Ember.Route.extend(
-	Ember.TargetActionSupport,
+const {
+	$,
+	getWithDefault,
+	Logger,
+	Route,
+	TargetActionSupport,
+} = Ember;
+
+export default Route.extend(
+	TargetActionSupport,
 	TrackClickMixin,
 	{
 		queryParams: {
@@ -60,7 +68,7 @@ export default Ember.Route.extend(
 					this.controller.set('isLoading', false);
 				}
 
-				Ember.Logger.error('Route error', error);
+				Logger.error('Route error', error);
 
 				return true;
 			},
@@ -75,8 +83,8 @@ export default Ember.Route.extend(
 					 * exec() returns an array of matches or null if no match is found.
 					 */
 					domainNameRegExpMatchArray = (/\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i).exec(window.location.hostname),
-					cookieDomain = domainNameRegExpMatchArray ? `; domain=${domainNameRegExpMatchArray[0]}` : '',
-					defaultSkin = Ember.getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
+					cookieDomain = domainNameRegExpMatchArray ? domainNameRegExpMatchArray[0] : '',
+					defaultSkin = getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
 
 				let title,
 					trackingCategory,
@@ -112,7 +120,10 @@ export default Ember.Route.extend(
 				 */
 				if (target.className.indexOf('external') > -1) {
 					if (target.href.indexOf(`useskin=${defaultSkin}`) > -1) {
-						document.cookie = `useskin=${defaultSkin}${cookieDomain}; path=/`;
+						$.cookie('useskin', defaultSkin, {
+							domain: cookieDomain,
+							path: '/'
+						});
 					}
 
 					return window.location.assign(target.href);
@@ -133,7 +144,7 @@ export default Ember.Route.extend(
 					}
 				} else {
 					// Reaching this clause means something is probably wrong.
-					Ember.Logger.error('unable to open link', target.href);
+					Logger.error('unable to open link', target.href);
 				}
 			},
 

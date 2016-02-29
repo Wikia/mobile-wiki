@@ -3,11 +3,14 @@ import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
 import DiscussionForumModel from '../../models/discussion-forum';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
+import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
 
 export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
-	DiscussionModerationRouteMixin, {
+	DiscussionModerationRouteMixin,
+	DiscussionForumActionsRouteMixin,
+	{
 		discussionSort: Ember.inject.service(),
 		discussionEditor: Ember.inject.service(),
 
@@ -49,10 +52,20 @@ export default DiscussionBaseRoute.extend(
 				this.modelFor('discussion.forum').loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
+			/**
+			 * Applies sorting by date and attempts to create a new post
+			 *
+			 * @param {object} postData
+			 *
+			 * @returns {void}
+			 */
+
 			create(postData) {
 				this.setSortBy('latest').promise.then(() => {
-					this.modelFor('discussion.forum').createPost(postData).then((xhr) => {
-						if (xhr.mercuryResponseData) {
+					const model = this.modelFor('discussion.forum');
+
+					model.createPost(postData).then((xhr) => {
+						if (xhr.apiResponseData && !model.get('errorMessage')) {
 							this.get('discussionEditor').trigger('newPost');
 						}
 					});
@@ -65,26 +78,6 @@ export default DiscussionBaseRoute.extend(
 			 */
 			setSortBy(sortBy) {
 				this.setSortBy(sortBy);
-			},
-
-			applyFilters(sortBy, onlyReported) {
-				const discussionSort = this.get('discussionSort'),
-					currentSortBy = discussionSort.get('sortBy');
-
-				let targetRoute;
-
-				if (sortBy !== currentSortBy) {
-					discussionSort.setSortBy(sortBy, onlyReported);
-					targetRoute = 'discussion.forum';
-				}
-
-				if (onlyReported === true) {
-					targetRoute = 'discussion.reported-posts';
-				}
-
-				if (targetRoute) {
-					return this.transitionTo(targetRoute, Mercury.wiki.id, sortBy);
-				}
 			},
 		}
 	}

@@ -9,6 +9,10 @@ export default Ember.Component.extend(
 		popover: nearestParent('pop-over'),
 		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
 
+		onlyReportedClassName: Ember.computed('onlyReported', function () {
+			return this.get('onlyReported') === true ? 'active-element-background-color' : null;
+		}),
+
 		actions: {
 			/**
 			 * Form handler
@@ -17,9 +21,14 @@ export default Ember.Component.extend(
 			 */
 			applyFilters() {
 				const sortBy = this.get('sortBy'),
-					onlyReported = this.get('onlyReported');
+					onlyReported = this.get('onlyReported'),
+					discussionSort = this.get('discussionSort');
 
-				this.attrs.applyFilters(sortBy, onlyReported);
+				// No need for applying already applied filters again
+				if (sortBy !== discussionSort.get('sortBy') || onlyReported !== discussionSort.get('onlyReported')) {
+					this.attrs.applyFilters(this.get('sortBy'), this.get('onlyReported'));
+				}
+
 				this.get('popover').deactivate();
 			},
 

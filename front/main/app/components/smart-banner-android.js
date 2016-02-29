@@ -2,12 +2,22 @@ import Ember from 'ember';
 import {track as mercuryTrack, trackActions} from 'common/utils/track';
 import {system, standalone} from 'common/utils/browser';
 
+const {
+	$,
+	Component,
+	computed,
+	get,
+	getWithDefault,
+	Handlebars,
+	run,
+} = Ember;
+
 /**
  * Component for a custom Smart Banner
  * it's visible only for Android devices
  * iOS has its own native smart banner - no need to render it there
  */
-export default Ember.Component.extend({
+export default Component.extend({
 	classNames: ['smart-banner-android'],
 	classNameBindings: ['noIcon'],
 
@@ -23,24 +33,24 @@ export default Ember.Component.extend({
 	},
 	day: 86400000,
 
-	appId: Ember.computed.oneWay(`config.appId.android`),
-	appScheme: Ember.computed.oneWay(`config.appScheme.android`),
-	config: Ember.getWithDefault(Mercury, 'wiki.smartBanner', {}),
-	dbName: Ember.get(Mercury, 'wiki.dbName'),
-	description: Ember.computed.oneWay('config.description'),
-	icon: Ember.computed.oneWay('config.icon'),
+	appId: computed.oneWay(`config.appId.android`),
+	appScheme: computed.oneWay(`config.appScheme.android`),
+	config: getWithDefault(Mercury, 'wiki.smartBanner', {}),
+	dbName: get(Mercury, 'wiki.dbName'),
+	description: computed.oneWay('config.description'),
+	icon: computed.oneWay('config.icon'),
 
-	iconStyle: Ember.computed('icon', function () {
-		return new Ember.Handlebars.SafeString(`background-image: url(${this.get('icon')})`);
+	iconStyle: computed('icon', function () {
+		return new Handlebars.SafeString(`background-image: url(${this.get('icon')})`);
 	}),
 
-	link: Ember.computed('appId', 'dbName', function () {
+	link: computed('appId', 'dbName', function () {
 		return `https://play.google.com/store/apps/details?id=${this.get('appId')}` +
 				`&referrer=utm_source%3Dwikia%26utm_medium%3Dsmartbanner%26utm_term%3D${this.get('dbName')}`;
 	}),
 
-	noIcon: Ember.computed.not('icon'),
-	title: Ember.computed.oneWay('config.name'),
+	noIcon: computed.not('icon'),
+	title: computed.oneWay('config.name'),
 
 	actions: {
 		/**
@@ -88,7 +98,7 @@ export default Ember.Component.extend({
 	willInsertElement() {
 		// this HAVE TO be run while rendering, but it cannot be run on didInsert/willInsert
 		// running this just after render is working too
-		Ember.run.scheduleOnce('afterRender', this, this.checkForHiding);
+		run.scheduleOnce('afterRender', this, this.checkForHiding);
 	},
 
 	/**
@@ -99,7 +109,7 @@ export default Ember.Component.extend({
 
 		// Show custom smart banner only when a device is Android
 		// website isn't loaded in app and user did not dismiss it already
-		if (system === 'android' && !standalone && name && !disabled && Ember.$.cookie('sb-closed') !== '1') {
+		if (system === 'android' && !standalone && name && !disabled && $.cookie('sb-closed') !== '1') {
 			this.sendAction('toggleVisibility', true);
 			this.track(trackActions.impression);
 		}
@@ -115,7 +125,7 @@ export default Ember.Component.extend({
 		this.track(trackActions.open);
 		window.document.location.href = `${appScheme}://`;
 
-		Ember.run.later(this, this.fallbackToStore, 300);
+		run.later(this, this.fallbackToStore, 300);
 	},
 
 	/**

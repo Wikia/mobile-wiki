@@ -77,12 +77,10 @@ export default DiscussionEditorComponent.extend({
 		const newPosts = this.get('posts').filter((post) => Ember.get(post, '_embedded.firstPost.0.isNew'));
 		let newPost = newPosts.get('firstObject');
 
-		Ember.$('html, body').animate({scrollTop: 0});
-
 		if (newPost) {
+			Ember.$('html, body').animate({scrollTop: 0});
 			newPost = newPost._embedded.firstPost[0];
+			this.handleNewItemCreated(newPost);
 		}
-
-		this.handleNewItemCreated(newPost);
 	}
 });

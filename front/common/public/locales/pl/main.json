@@ -144,7 +144,9 @@
     "curated-content-editor-new-section":"Nowa sekcja",
     "curated-content-editor-new-category":"Nowa kategoria",
     "curated-content-editor-community-data": "Promuj swoją wikię",
-    "explore-wiki":"Explore __wikiName__"
+    "explore-wiki":"Explore __wikiName__",
+    "wiki-page-error-reload-button": "Odśwież",
+    "wiki-page-error":"Przepraszamy, nie mogliśmy załadować strony. Spróbuj ponownie."
   },
   "userStatus":{
     "anon-cta":"__registerLink__ lub __loginLink__",

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import WikiPageModel from '../models/mediawiki/wiki-page';
+import WikiPageModel from '../models/wiki/wiki-page';
 
 export default Ember.Route.extend({
 	model() {

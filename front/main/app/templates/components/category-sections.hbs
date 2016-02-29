@@ -1,0 +1,9 @@
+{{#each-in sections as |id data|}}
+	{{category-section
+		data=data
+		id=id
+		loadBatch=attrs.loadBatch
+	}}
+{{else}}
+	{{i18n 'app.category-page-no-members'}}
+{{/each-in}}

@@ -132,6 +132,8 @@
     "curated-content-editor-error-inside-items-message":"Por favor, corrija os erros dentro dos itens.",
     "curated-content-editor-items-count":"__count__ itens",
     "curated-content-editor-exit-prompt":"Você tem alterações não salvas. Tem certeza que deseja sair?",
-    "curated-content-editor-main-page":"Página principal"
+    "curated-content-editor-main-page":"Página principal",
+    "wiki-page-error-reload-button": "Atualizar",
+    "wiki-page-error":"Desculpe, mas não conseguimos encontrar a página que você está procurando."
   },
 }
