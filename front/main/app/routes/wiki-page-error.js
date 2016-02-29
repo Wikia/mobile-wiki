@@ -19,6 +19,9 @@ export default Ember.Route.extend({
 	},
 
 	actions: {
+		/**
+		 * @returns {void}
+		 */
 		reloadPage() {
 			location.reload();
 		}

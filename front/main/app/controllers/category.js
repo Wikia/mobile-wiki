@@ -22,6 +22,12 @@ export default Controller.extend(
 		},
 
 		actions: {
+			/**
+			 * @param {number} index
+			 * @param {number} batch
+			 * @param {string} label
+			 * @returns {*|void|Ember.RSVP.Promise}
+			 */
 			loadBatch(index, batch, label) {
 				this.trackClick('category-load-batch', label);
 

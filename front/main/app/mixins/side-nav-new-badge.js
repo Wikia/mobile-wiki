@@ -8,6 +8,7 @@ export default Ember.Mixin.create({
 
 	/**
 	 * Checks if our currently promoted feature has been viewed on a given device.
+	 *
 	 * @returns {boolean}
 	 */
 	shouldDisplayNewBadge: Ember.computed('currentUser', function () {
@@ -18,6 +19,7 @@ export default Ember.Mixin.create({
 
 	/**
 	 * Hides badge.
+	 *
 	 * We need that because it's called in side-nav-local-navigation-menu.js
 	 * after clicking menu item (method recentWikiActivityClick)
 	 *

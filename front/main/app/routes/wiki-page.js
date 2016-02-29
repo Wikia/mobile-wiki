@@ -13,6 +13,10 @@ export default Ember.Route.extend({
 	wikiHandler: null,
 	currentUser: Ember.inject.service(),
 
+	/**
+	 * @param {Ember.model} model
+	 * @returns {Object} handler for current namespace
+	 */
 	getHandler(model) {
 		if (model.isCuratedMainPage) {
 			return CuratedMainPageHandler;
