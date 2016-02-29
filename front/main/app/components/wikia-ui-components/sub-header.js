@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	tagName: 'header',
 	classNames: ['sub-head'],
-	classNameBindings: ['fixed'],
+	classNameBindings: ['fixed:sub-head--fixed'],
 
 	actions: {
 		back() {
