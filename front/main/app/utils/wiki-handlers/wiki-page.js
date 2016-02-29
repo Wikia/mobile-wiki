@@ -60,8 +60,11 @@ export default function getPageModel(params) {
 				ArticleModel.setArticle(model);
 				return resolve(model);
 			}
-		} else if (Mercury.exception) {
-			return reject(Mercury.exception);
+		} else if (M.prop('exception')) {
+			const exception = M.prop('exception');
+
+			M.prop('exception', null);
+			return reject(exception);
 		}
 
 		Ember.$.getJSON(getURL(params))
@@ -72,7 +75,13 @@ export default function getPageModel(params) {
 				model = getModelForNamespace(data, params);
 				resolve(model);
 			})
-			.fail(reject());
+			.fail((err) => {
+				if (!err.code && err.status) {
+					err.code = err.status;
+				}
+
+				reject(err);
+			});
 	});
 }
 

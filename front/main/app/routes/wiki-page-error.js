@@ -16,5 +16,11 @@ export default Ember.Route.extend({
 				this.render('error-pages/other-errors');
 				break;
 		}
+	},
+
+	actions: {
+		reloadPage() {
+			location.reload();
+		}
 	}
 });

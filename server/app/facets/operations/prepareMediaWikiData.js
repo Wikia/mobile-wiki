@@ -15,7 +15,6 @@ export default function prepareMediaWikiData(request, data) {
 		wikiVariables = data.wikiVariables,
 		pageData = data.page.data,
 		result = {
-			articlePage: data.page,
 			server: data.server,
 			wikiVariables: data.wikiVariables,
 			canonicalUrl: ''
