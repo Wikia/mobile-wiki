@@ -42,7 +42,7 @@ const {Object, get, $, isArray} = Ember,
 					const sectionIndex = `sections.${index}`;
 
 					this.setProperties({
-						[`${sectionIndex}.items`]: CategoryModel.addTitles(pageData.itemsBatch),
+						[`${sectionIndex}.items`]: pageData.itemsBatch,
 						[`${sectionIndex}.hasPrev`]: batchToLoad - 1 > 0,
 						[`${sectionIndex}.hasNext`]: Math.ceil(this.get(`${sectionIndex}.total`) /
 							this.get(`${sectionIndex}.batchSize`)) > batchToLoad,
@@ -82,7 +82,7 @@ CategoryModel.reopenClass({
 				id: get(data, 'details.id'),
 				name: get(data, 'details.title'),
 				ns: data.ns,
-				sections: CategoryModel.addTitles(get(data, 'nsSpecificContent.members.sections')),
+				sections: get(data, 'nsSpecificContent.members.sections'),
 				url: get(data, 'details.url')
 			};
 
@@ -147,45 +147,6 @@ CategoryModel.reopenClass({
 			path: '/wikia.php',
 			query
 		});
-	},
-
-	/**
-	 * add title to sectionItem based on url eg. /wiki/Namespace:Title -> Namespace:Title
-	 *
-	 * @param  {Array.<{url: string, name: string}>} sectionItems - array of items
-	 * @returns {Array.<{url: string, name: string, title: string}>}
-	 */
-	addTitlesToSection(sectionItems) {
-		return sectionItems.map((item) => {
-			item.title = item.url.replace('/wiki/', '');
-
-			return item;
-		});
-	},
-
-	/**
-	 * Adds titles to section
-	 * When used in loadMore context it has access only to one batch array
-	 * when used in setCategory context it has to iterate over object that contains
-	 * all batches for a given category
-	 *
-	 * TODO - this should be done server side XW-1165
-	 *
-	 * @param {Object|Array} sections
-	 * @returns {Object|Array}
-	 */
-	addTitles(sections) {
-		if (isArray(sections)) {
-			sections = CategoryModel.addTitlesToSection(sections);
-		} else {
-			keys(sections).forEach((sectionKey) => {
-				const sectionItem = sections[sectionKey];
-
-				sectionItem.items = CategoryModel.addTitlesToSection(sectionItem.items);
-			});
-		}
-
-		return sections;
 	}
 });
 
