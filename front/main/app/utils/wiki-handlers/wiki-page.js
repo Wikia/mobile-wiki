@@ -60,6 +60,11 @@ export default function getPageModel(params) {
 				ArticleModel.setArticle(model);
 				return resolve(model);
 			}
+		} else if (M.prop('exception')) {
+			const exception = M.prop('exception');
+
+			M.prop('exception', null);
+			return reject(exception);
 		}
 
 		Ember.$.getJSON(getURL(params))
@@ -71,20 +76,11 @@ export default function getPageModel(params) {
 				resolve(model);
 			})
 			.fail((err) => {
-				/**
-				 * Temporary solution until we can make error states work
-				 * ideally we should reject on errors
-				 *
-				 * On error always show article (for now)
-				 */
-				if (err.status === 404) {
-					const model = ArticleModel.create(params);
-
-					ArticleModel.setArticle(model, err.responseJSON);
-					resolve(model);
-				} else {
-					reject(err);
+				if (!err.code && err.status) {
+					err.code = err.status;
 				}
+
+				reject(err);
 			});
 	});
 }

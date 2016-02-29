@@ -16,10 +16,6 @@ export default Ember.Route.extend({
 	getHandler(model) {
 		if (model.isCuratedMainPage) {
 			return CuratedMainPageHandler;
-		// This check is done here because promise in article model in case of 404 error
-		// is resolved instead of being rejected
-		} else if (Ember.get(model, 'exception.code') === 404) {
-			return ArticleHandler;
 		}
 
 		switch (getCurrentNamespace()) {
@@ -76,12 +72,7 @@ export default Ember.Route.extend({
 	 */
 	afterModel(model, transition) {
 		if (model) {
-			const exception = model.exception,
-				handler = this.getHandler(model);
-
-			if (!Ember.isEmpty(exception)) {
-				Ember.Logger.warn('Wiki page model error:', exception);
-			}
+			const handler = this.getHandler(model);
 
 			this.setHeadTags(model);
 

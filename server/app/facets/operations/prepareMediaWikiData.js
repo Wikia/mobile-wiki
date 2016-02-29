@@ -15,7 +15,6 @@ export default function prepareMediaWikiData(request, data) {
 		wikiVariables = data.wikiVariables,
 		pageData = data.page.data,
 		result = {
-			articlePage: data.page,
 			server: data.server,
 			wikiVariables: data.wikiVariables,
 			canonicalUrl: ''
@@ -52,6 +51,10 @@ export default function prepareMediaWikiData(request, data) {
 
 	if (typeof request.query.buckySampling !== 'undefined') {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
+	}
+
+	if (data.page.exception) {
+		result.exception = data.page.exception;
 	}
 
 	result.asyncArticle = false;

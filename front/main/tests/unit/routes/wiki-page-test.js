@@ -140,38 +140,17 @@ test('get correct handler based on model namespace', function (assert) {
 
 test('get correct handler based on model isMainPage flag and exception', function (assert) {
 	const mock = this.subject(),
-		testCases = [
-			{
-				model: {
-					isCuratedMainPage: true,
-					exception: null
-				},
-				expectedHandler: {
-					viewName: 'main-page',
-					controllerName: 'main-page'
-				}
-			},
-			{
-				model: {
-					isCuratedMainPage: false,
-					exception: {
-						code: 404
-					}
-				},
-				expectedHandler: {
-					viewName: 'article',
-					controllerName: 'article'
-				}
-			}
-		];
+		expectedHandler = {
+			viewName: 'main-page',
+			controllerName: 'main-page'
+		};
 
-	testCases.forEach(({model: mockedModel, expectedHandler}) => {
-		model.isCuratedMainPage = mockedModel.isCuratedMainPage;
-		model.exception = mockedModel.exception;
+	let handler;
 
-		const handler = mock.getHandler(model);
+	model.isCuratedMainPage = true;
 
-		assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
-		assert.equal(handler.controllerName, expectedHandler.controllerName, 'controllerName is different than expected');
-	});
+	handler = mock.getHandler(model);
+
+	assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
+	assert.equal(handler.controllerName, expectedHandler.controllerName, 'controllerName is different than expected');
 });
