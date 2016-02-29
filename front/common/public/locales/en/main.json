@@ -153,6 +153,7 @@
     "my-profile-label": "My Profile",
     "categories-load-more": "Load more",
     "categories-load-previous": "Load previous",
+    "category-page-no-members": "This category currently contains no pages or media.",
     "category-page-subtitle": "Category Page",
     "wiki-page-error": "Sorry, we couldn't load the page. Please try again.",
     "wiki-page-error-reload-button": "Refresh"
