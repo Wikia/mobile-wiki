@@ -198,6 +198,12 @@ export function trackPageView(adsContext) {
 			instance.trackPageView(instance.usesAdsContext ? adsContext : context);
 		}
 	});
+
+	if (M.prop('initialPageView')) {
+		M.prop('initialPageView', false, true);
+	} else {
+		window.trackQuantservePageView();
+	}
 }
 
 /**
