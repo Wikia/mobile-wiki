@@ -18,12 +18,17 @@ export default Ember.Component.extend(
 
 		didInsertElement() {
 			const content = this.get('model.content'),
-				highlightedData = this.getHighlightedTextData(content, this.get('highlighted'));
+				highlightedText = this.get('highlighted');
 
-			if (highlightedData) {
-				const textarea = document.getElementsByClassName('edit-textarea')[0];
+			if (highlightedText) {
 
-				this.highlightTextInTextarea(textarea, content, highlightedData);
+				let highlightedData = this.getHighlightedTextData(content, highlightedText);
+
+				if (highlightedData) {
+					const textarea = document.getElementsByClassName('edit-textarea')[0];
+
+					this.highlightTextInTextarea(textarea, content, highlightedData);
+				}
 			}
 		},
 
