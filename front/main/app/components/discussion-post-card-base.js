@@ -2,6 +2,8 @@ import Ember from 'ember';
 import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
 import DiscussionMoreOptionsMixin from '../mixins/discussion-more-options';
 
+const {Component, computed} = Ember;
+
 /**
  * Basic methods/properties for discussion-post-card-detail and discussion-post-card-reply.
  */
