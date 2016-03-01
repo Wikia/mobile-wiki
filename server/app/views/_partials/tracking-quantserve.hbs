@@ -6,8 +6,6 @@
 				scriptTag = document.createElement('script'),
 				firstScriptInDocument = document.getElementsByTagName('script')[0];
 
-			console.info('Track pageView: Quantserve');
-
 			if (M.prop('wikiaVertical')) {
 				quantcastLabels.unshift(M.prop('wikiaVertical'));
 			}
@@ -24,6 +22,8 @@
 			scriptTag.src = prefix + '.quantserve.com/quant.js?' + Math.random();
 
 			firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
+
+			console.info('Track pageView: Quantserve');
 		};
 
 		window._qevents = [];

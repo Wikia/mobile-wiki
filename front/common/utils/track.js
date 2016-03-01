@@ -200,7 +200,7 @@ export function trackPageView(adsContext) {
 	});
 
 	if (M.prop('initialPageView')) {
-		M.prop('initialPageView', false, true);
+		M.prop('initialPageView', false);
 	} else {
 		window.trackQuantservePageView();
 	}
