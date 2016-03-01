@@ -1,20 +1,21 @@
 /**
- * Sub Header reusable component usage example:
+ * Sub Header reusable component usage:
  *
+ * @example
  * FIXED HEADER
  * {{wikia-ui-components/sub-header
- *      title=Example title
+ *      backArrowTooltip='Example tooltip'
+ *      confirmLabel='Save'
+ *      fixed=true
  *      onBack=actionHandler
  *      onConfirm=actionHandler
- *      backArrowTooltip=Example tooltip
- *      confirmLabel=Save
- *      fixed=true
+ *      title='Example title'
  * }}
  *
  * NO ACTION BUTTONS
  * {{wikia-ui-components/sub-header
- *      title=Example title
  *      textOnly=true
+ *      title='Example title'
  * }}
  *
  * "fixed" attribute adds position fixed to the header
