@@ -3,19 +3,18 @@ import nearestParent from 'ember-pop-over/computed/nearest-parent';
 
 export default Ember.Component.extend(
 	{
+		canModerate: false,
 		classNames: ['discussion-filters'],
 		discussionSort: Ember.inject.service(),
 		onlyReported: Ember.computed.oneWay('discussionSort.onlyReported'),
 		popover: nearestParent('pop-over'),
+		showApplyButton: false,
+		showSortSection: false,
 		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
 
 		onlyReportedClassName: Ember.computed('onlyReported', function () {
 			return this.get('onlyReported') === true ? 'active-element-background-color' : null;
 		}),
-
-		showApplyButton: false,
-		showSortSection: false,
-		canModerate: false,
 
 		actions: {
 			/**
