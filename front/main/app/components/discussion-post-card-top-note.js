@@ -57,9 +57,20 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		delete(item, isReply) {
+			let message,
+				header;
+
+			if (isReply) {
+				message = i18n.t(`main.modal-dialog-delete-reply-text`, {ns: 'discussion'});
+				header = i18n.t(`main.modal-dialog-delete-reply-header`, {ns: 'discussion'});
+			} else {
+				message = i18n.t(`main.modal-dialog-delete-text`, {ns: 'discussion'});
+				header = i18n.t(`main.modal-dialog-delete-header`, {ns: 'discussion'});
+			}
+
 			this.get('modalDialogService').display(
-				i18n.t(`main.modal-dialog-delete${isReply ? '-reply' : ''}-text`, {ns: 'discussion'}),
-				i18n.t(`main.modal-dialog-delete${isReply ? '-reply' : ''}-header`, {ns: 'discussion'}),
+				message,
+				header,
 				i18n.t('main.modal-dialog-delete', {ns: 'discussion'}),
 				(() => this.attrs.delete(item))
 			);
@@ -72,9 +83,20 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		approve(item, isReply) {
+			let message,
+				header;
+
+			if (isReply) {
+				message = i18n.t(`main.modal-dialog-approve-reply-text`, {ns: 'discussion'});
+				header = i18n.t(`main.modal-dialog-approve-reply-header`, {ns: 'discussion'});
+			} else {
+				message = i18n.t(`main.modal-dialog-approve-text`, {ns: 'discussion'});
+				header = i18n.t(`main.modal-dialog-approve-header`, {ns: 'discussion'});
+			}
+
 			this.get('modalDialogService').display(
-				i18n.t(`main.modal-dialog-approve${isReply ? '-reply' : ''}-text`, {ns: 'discussion'}),
-				i18n.t(`main.modal-dialog-approve${isReply ? '-reply' : ''}-header`, {ns: 'discussion'}),
+				message,
+				header,
 				i18n.t('main.modal-dialog-approve', {ns: 'discussion'}),
 				(() => this.attrs.approve(item))
 			);
