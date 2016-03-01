@@ -36,6 +36,7 @@ Open http://muppet.127.0.0.1.xip.io:7000/wiki/Kermit
 * `npm run linter` - run ESLint on all js files
 * `npm run clean` - remove all dependencies and build directory
 * `npm run clean-deep` - remove all dependencies, remove build directory and clean the cache
+* `npm run svgo` - optimizes all SVG files in the repository (check out tasks/optimize-svg.sh for details and configuration)
 
 ## localSettings
 `server/config/localSettings` is main configuration structure. All application settings should be stored there.
