@@ -10,7 +10,7 @@ const fixedClass = 'sub-head--fixed',
 	componentSelector = 'header.sub-head',
 	backArrorSelector = 'a.sub-head--cancel',
 	buttonSelector = 'button.sub-head--done',
-	titleSelector = 'div.sub-head--title';
+	titleSelector = 'h2.sub-head--title';
 
 moduleForComponent('wikia-ui-components/sub-header', 'Integration | Component | sub header', {
 	integration: true,

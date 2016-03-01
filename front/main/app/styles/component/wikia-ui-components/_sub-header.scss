@@ -54,7 +54,10 @@ $back-arrow-size: 16px;
 }
 
 .sub-head--title {
+	color: inherit;
 	flex: 1;
+	font: inherit;
+	margin: 0;
 	order: 2;
 	overflow: hidden;
 	padding: 0 $article-horizontal-padding;
