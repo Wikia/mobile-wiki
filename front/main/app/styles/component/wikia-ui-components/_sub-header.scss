@@ -15,7 +15,7 @@ $back-arrow-size: 16px;
 	top: 0;
 	z-index: $z-site-head;
 
-	@media (min-width: $medium-break-point) {
+	@media (min-width: lower-bound($large-range)) {
 		font-size: $base-font-size;
 		height: $sub-head-height-medium-breakpoint;
 	}
