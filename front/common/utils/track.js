@@ -5,7 +5,6 @@ import Internal from '../modules/Trackers/Internal';
 import IVW3 from '../modules/Trackers/IVW3';
 import Krux from '../modules/Trackers/Krux';
 import Nielsen from '../modules/Trackers/Nielsen';
-import Quantserve from '../modules/Trackers/Quantserve';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
 
 /**
@@ -39,7 +38,6 @@ const trackers = {
 		IVW3,
 		Krux,
 		Nielsen,
-		Quantserve,
 		UniversalAnalytics
 	},
 	/**
