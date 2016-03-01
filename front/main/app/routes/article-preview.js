@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import WikiPageModel from '../models/wiki/wiki-page';
+import getPageModel from '../utils/wiki-handlers/wiki-page';
 
 export default Ember.Route.extend({
 	model() {
-		return WikiPageModel.find(Ember.get(Mercury, 'article.data.article'));
+		return getPageModel(Ember.get(Mercury, 'article.data.article'));
 	},
 
 	actions: {
