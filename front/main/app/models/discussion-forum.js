@@ -8,7 +8,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionForumActionsModelMixin,
 	{
 
-		postDataNormalizer (post) {
+		postDataNormalizer(post) {
 			post.firstPost = post._embedded.firstPost[0];
 			post.firstPost.isReported = post.isReported;
 			if (Ember.get(post, 'firstPost._embedded.userData')) {
