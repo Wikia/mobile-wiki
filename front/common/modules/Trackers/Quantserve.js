@@ -10,7 +10,6 @@ export default class Quantserve extends BaseTracker {
 	constructor() {
 		window._qevents = [];
 		super();
-		this.usesAdsContext = true;
 	}
 
 	/**
