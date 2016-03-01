@@ -4,6 +4,8 @@ $back-arrow-size: 16px;
 $cancel-margin-left: 6px;
 $cancel-margin-left-large: 9px;
 $done-margin-right-large: 6px;
+$title-padding: 0 6px;
+$title-padding-large: 0 21px;
 
 .sub-head {
 	align-items: center;
@@ -72,9 +74,13 @@ $done-margin-right-large: 6px;
 	margin: 0;
 	order: 2;
 	overflow: hidden;
-	padding: 0 $article-horizontal-padding;
+	padding: $title-padding;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+
+	@media (min-width: lower-bound($large-range)) {
+		padding: $title-padding-large;
+	}
 }
 
 // proper margins already added to .sub-head--title.
