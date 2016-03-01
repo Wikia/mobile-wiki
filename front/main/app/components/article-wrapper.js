@@ -91,6 +91,11 @@ export default Ember.Component.extend(
 				highlightedText = this.replaceTags(highlightedText);
 
 				this.setHighlightedTextVars(sectionIndex, highlightedText, true);
+				track({
+					action: trackActions.impression,
+					category: 'highlighted-editor',
+					label: 'entry-point'
+				});
 			} else {
 				this.setHighlightedTextVars(0, '', false);
 			}
