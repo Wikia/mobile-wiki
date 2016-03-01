@@ -8,7 +8,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionForumActionsModelMixin,
 	{
 
-		postDataNormalizer(post) {
+		normalizePostData(post) {
 			post.firstPost = post._embedded.firstPost[0];
 			post.firstPost.isReported = post.isReported;
 			if (Ember.get(post, 'firstPost._embedded.userData')) {
@@ -36,7 +36,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 					const newPosts = data._embedded['doc:threads'];
 					let allPosts;
 
-					newPosts.forEach(this.postDataNormalizer);
+					newPosts.forEach(this.normalizePostData);
 
 					allPosts = this.posts.concat(newPosts);
 
@@ -62,7 +62,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				success: (post) => {
 					post._embedded.firstPost[0].isNew = true;
 
-					this.postDataNormalizer(post);
+					this.normalizePostData(post);
 
 					this.posts.insertAt(0, post);
 					this.incrementProperty('totalPosts');
@@ -115,7 +115,7 @@ DiscussionForumModel.reopenClass({
 						contributors.push(post.createdBy);
 					}
 
-					forumInstance.postDataNormalizer(post);
+					forumInstance.normalizePostData(post);
 				});
 
 				forumInstance.setProperties({
