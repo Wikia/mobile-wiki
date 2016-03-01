@@ -82,7 +82,7 @@ $back-arrow-size: 16px;
 	padding: 0 $article-horizontal-padding;
 	text-transform: uppercase;
 
-	&[disabled] {
+	&:disabled {
 		background: inherit;
 		border: 0;
 		color: inherit;
