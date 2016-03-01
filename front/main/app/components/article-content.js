@@ -544,32 +544,29 @@ export default Ember.Component.extend(
 		},
 
 		insertHighlightedTextEditorDemo() {
-			const selection = window.getSelection(),
-				range = document.createRange();
+			const highlightedId = 'highlighted-text__demo',
+				selection = window.getSelection(),
+				range = document.createRange(),
+				$paragraphs = this.$('p');
 
-			let $paragraph, plain, html, word, $highlightedElement;
+			let $paragraph, plain, paragraphHtml, word, $highlightedElement;
 
 			for (let i = 1; i <= 3; i++) {
-				$paragraph = this.$('p:nth-of-type(' + i + ')');
-				html = $paragraph.html();
-				plain = $('<div>').html(html).children().remove().end().html();
+				$paragraph = $($paragraphs[i]);
+				paragraphHtml = $paragraph.html();
+				plain = $('<div>').html(paragraphHtml).children().remove().end().html();
 				if (plain !== '') {
+					word = plain.split(' ')[1];
+					$paragraph.html(paragraphHtml.replace(word, `<span id="${highlightedId}">${word}</span>`));
+					$highlightedElement = $paragraph.find(`#${highlightedId}`);
+
+					Ember.$(window).scrollTop($highlightedElement.offset().top - 150);
+
+					range.selectNodeContents($highlightedElement[0]);
+					selection.removeAllRanges();
+					selection.addRange(range);
 					break;
 				}
-			}
-
-			if (plain !== '') {
-				word = plain.split(' ')[1];
-				//$highlightedElement = $('span').text(word).addClass('highlighted-text');
-				$paragraph.html(html.replace(word, '<span id="highlighted-text">' + word + '</span>'));
-
-				$highlightedElement = $paragraph.find('#highlighted-text');
-
-				Ember.$(window).scrollTop($highlightedElement.offset().top - 150);
-
-				range.selectNodeContents($highlightedElement[0]);
-				selection.removeAllRanges();
-				selection.addRange(range);
 			}
 		}
 	}
