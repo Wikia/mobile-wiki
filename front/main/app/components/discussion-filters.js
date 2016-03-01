@@ -3,10 +3,13 @@ import nearestParent from 'ember-pop-over/computed/nearest-parent';
 
 export default Ember.Component.extend(
 	{
+		canModerate: false,
 		classNames: ['discussion-filters'],
 		discussionSort: Ember.inject.service(),
 		onlyReported: Ember.computed.oneWay('discussionSort.onlyReported'),
 		popover: nearestParent('pop-over'),
+		showApplyButton: false,
+		showSortSection: false,
 		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
 
 		onlyReportedClassName: Ember.computed('onlyReported', function () {
@@ -53,6 +56,10 @@ export default Ember.Component.extend(
 
 				if (isCheckboxChecked !== this.get('onlyReported')) {
 					this.set('onlyReported', isCheckboxChecked);
+				}
+
+				if (!this.get('showApplyButton')) {
+					this.attrs.applyFilters(this.get('sortBy'), this.get('onlyReported'));
 				}
 			}
 		}

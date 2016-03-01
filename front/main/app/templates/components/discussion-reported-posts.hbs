@@ -1,7 +1,8 @@
 {{discussion-header
+	canModerate=model.canModerate
 	hasNewPostButton=true
 	hasSiteName=true
-	hasSortMenu=true
+	hasFilters=true
 	smartBannerVisible=smartBannerVisible
 	applyFilters=(action this.attrs.applyFilters)
 }}
@@ -59,7 +60,11 @@
 				}}
 			</div>
 		{{/if}}
-		<div class="rail large-3 columns">
+		<div class="rail right large-3 columns">
+			{{discussion-filters
+				applyFilters=(action this.attrs.applyFilters)
+				canModerate=model.canModerate
+			}}
 			{{discussion-app-promotion}}
 		</div>
 	</div>

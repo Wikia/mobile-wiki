@@ -3,6 +3,13 @@ import {checkPermissions} from 'common/utils/discussionPermissions';
 import ajaxCall from '../utils/ajax-call';
 
 export default Ember.Mixin.create({
+	canModerate: Ember.computed('posts', function () {
+		const posts = this.get('posts');
+
+		// TODO fix me when API starts sending permissions for bulk operations
+		return posts && checkPermissions(posts[0], 'canModerate');
+	}),
+
 	/**
 	 * Delete post in service
 	 * @param {object} post

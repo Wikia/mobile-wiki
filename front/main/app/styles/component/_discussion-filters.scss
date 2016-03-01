@@ -33,10 +33,6 @@ $legend-font-size: 16px;
 		}
 	}
 
-	.moderation-checkbox-label {
-		padding-top: 18px;
-	}
-
 	legend {
 		color: $discussion-filters-color;
 		font-size: $legend-font-size;
@@ -114,13 +110,15 @@ $legend-font-size: 16px;
 	}
 
 	.moderation-checkbox-label {
-		align-items: center;
+		align-items: flex-start;
 		display: flex;
 		line-height: $type-smallest;
+		padding-top: 18px;
 	}
 
 	.fancy-checkbox {
 		align-items: center;
+		background-color: $discussion-filters-bullet-background;
 		border: 1px solid $discussion-filters-bullet-border;
 		display: flex;
 		flex-direction: column;
@@ -142,6 +140,25 @@ $legend-font-size: 16px;
 
 		&.active-element-background-color {
 			border: none;
+		}
+	}
+}
+
+.rail {
+	.discussion-filters {
+		padding-top: 85px;
+		width: auto;
+
+		legend {
+			background: transparent;
+		}
+
+		label {
+			line-height: $line-height-smallest;
+		}
+
+		.moderation-checkbox-label {
+			padding-top: 13px;
 		}
 	}
 }
