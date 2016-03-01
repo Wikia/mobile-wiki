@@ -63,7 +63,7 @@ $back-arrow-size: 16px;
 }
 
 // proper margins already added to .sub-head--title.
-// TODO: This could be removed ones article diff uses sub-header component invocation instead of hardcoded HTML markup
+// TODO: This could be removed once article diff uses sub-header component invocation instead of hardcoded HTML markup
 .sub-head--text-only {
 	padding: 0 $article-horizontal-padding;
 }
