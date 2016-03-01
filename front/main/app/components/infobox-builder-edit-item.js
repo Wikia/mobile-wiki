@@ -37,7 +37,10 @@ export default Ember.Component.extend({
 
 	actions: {
 		removeItem() {
-			this.get('onDeleteItem')(this.get('item'));
+			const item = this.get('item');
+
+			this.trackClick('infobox-builder', `delete-item-${item}`);
+			this.get('onDeleteItem')(item);
 		},
 		back() {
 			this.get('onBackArrowClick');

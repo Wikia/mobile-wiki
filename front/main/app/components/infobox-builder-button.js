@@ -7,6 +7,9 @@ export default Ember.Component.extend({
 	}),
 
 	click() {
-		this.get('onButtonClick')(this.get('name'));
+		const buttonName = this.get('name');
+
+		this.trackClick('infobox-builder', `add-item-${buttonName}`);
+		this.get('onButtonClick')(buttonName);
 	}
 });

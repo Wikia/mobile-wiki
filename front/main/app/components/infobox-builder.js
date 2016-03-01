@@ -41,13 +41,15 @@ export default Ember.Component.extend({
 		},
 
 		save() {
+			this.trackClick('infobox-builder', 'saving-attempt');
 			this.set('isLoading', true);
-			this.get('saveAction')().then(() =>
-				this.setProperties({
-					isLoading: false,
-					showSuccess: true
-				})
-			);
+			this.get('saveAction')().then(() => {
+				this.trackClick('infobox-builder', 'saving-successful');
+					this.setProperties({
+						isLoading: false,
+						showSuccess: true
+					});
+				});
 		}
 	}
 });

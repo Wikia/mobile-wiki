@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-
 	// used by ember-onbeforeunload to determine if confirmation dialog should be shown
 	isDirty: false,
 
