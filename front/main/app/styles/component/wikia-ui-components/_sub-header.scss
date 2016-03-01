@@ -1,6 +1,9 @@
 $sub-head-height: 48px;
 $sub-head-height-medium-breakpoint: 66px;
 $back-arrow-size: 16px;
+$cancel-margin-left: 6px;
+$cancel-margin-left-large: 9px;
+$done-margin-right-large: 6px;
 
 .sub-head {
 	align-items: center;
@@ -35,7 +38,12 @@ $back-arrow-size: 16px;
 	height: $sub-head-height;
 	justify-content: center;
 	line-height: inherit;
-	margin: 0;
+	margin: {
+		bottom: 0;
+		left: $cancel-margin-left;
+		right: 0;
+		top: 0;
+	};
 	order: 1;
 	padding: 0;
 	width: $sub-head-height;
@@ -50,6 +58,10 @@ $back-arrow-size: 16px;
 	&:visited,
 	&:hover {
 		background: inherit;
+	}
+
+	@media (min-width: lower-bound($large-range)) {
+		margin-left: $cancel-margin-left-large;
 	}
 }
 
@@ -83,11 +95,15 @@ $back-arrow-size: 16px;
 	margin: 0;
 	order: 3;
 	padding: 0 $article-horizontal-padding;
-	text-transform: uppercase;
+	text-transform: none;
 
 	&:disabled {
 		background: inherit;
 		border: 0;
 		color: inherit;
+	}
+
+	@media (min-width: lower-bound($large-range)) {
+		margin-right: $done-margin-right-large;
 	}
 }
