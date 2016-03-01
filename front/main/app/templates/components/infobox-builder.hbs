@@ -1,10 +1,9 @@
-{{app-header
+{{wikia-ui-components/sub-header
 	title=(i18n 'main.header' ns='infobox-builder' title=title)
-	onBackArrowClick=cancelAction
-	onConfirmBtnClick=(action 'save')
+	onBack=(action this.attrs.cancelAction)
+	onConfirm=(action 'save')
 	backArrowTooltip=(i18n 'app.cancel-label')
-	confirmBtnLabel=(i18n 'main.save' ns='infobox-builder')
-	fixed=true
+	confirmLabel=(i18n 'main.save' ns='infobox-builder')
 }}
 
 <div class="infobox-builder">
