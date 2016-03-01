@@ -1,23 +1,30 @@
 <script>
-	var quantcastLabels = ['Category.MobileWeb.Mercury'],
-		prefix = document.location.protocol === 'https:' ? 'https://secure' : 'http://edge',
-		scriptTag = document.createElement('script'),
-		firstScriptInDocument = document.getElementsByTagName('script')[0];
+	if (!M.prop('queryParams.noexternals')) {
+		window.trackQuantservePageView = function() {
+			var quantcastLabels = ['Category.MobileWeb.Mercury'],
+				prefix = document.location.protocol === 'https:' ? 'https://secure' : 'http://edge',
+				scriptTag = document.createElement('script'),
+				firstScriptInDocument = document.getElementsByTagName('script')[0];
 
-	if (M.prop('wikiaVertical')) {
-		quantcastLabels.unshift(M.prop('wikiaVertical'));
+			if (M.prop('wikiaVertical')) {
+				quantcastLabels.unshift(M.prop('wikiaVertical'));
+			}
+
+			// without this quantserve does not want to track 2+ page view
+			window.__qc = null;
+
+			window._qevents = [{
+				qacct: M.prop('tracking.quantserve'),
+				labels: quantcastLabels.join(',')
+			}];
+
+			scriptTag.async = 1;
+			scriptTag.src = prefix + '.quantserve.com/quant.js?' + Math.random();
+
+			firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
+		};
+
+		window._qevents = [];
+		window.trackQuantservePageView();
 	}
-
-	// without this quantserve does not want to track 2+ page view
-	window.__qc = null;
-
-	window._qevents = [{
-		qacct: M.prop('tracking.quantserve'),
-		labels: quantcastLabels.join(',')
-	}];
-
-	scriptTag.async = 1;
-	scriptTag.src = prefix + '.quantserve.com/quant.js?' + Math.random();
-
-	firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
 </script>
