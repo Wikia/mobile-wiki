@@ -20,16 +20,18 @@
 			</ul>
 		</fieldset>
 	{{/if}}
-	<fieldset>
-		<legend>{{i18n 'main.moderation-filters-header' ns='discussion'}}</legend>
-		<label class="moderation-checkbox-label">
-			<span class="fancy-checkbox {{onlyReportedClassName}}">
-				{{input type='checkbox' checked=onlyReported change=(action 'toggleOnlyReported')}}
-				{{#if onlyReported}}
-					{{svg 'checkbox-checkmark' class='icon' viewBox="0 0 20 14"}}
-				{{/if}}
-			</span>
-			{{i18n 'main.reported-content-filter-text' ns='discussion'}}
-		</label>
-	</fieldset>
+	{{#if canModerate}}
+		<fieldset>
+			<legend>{{i18n 'main.moderation-filters-header' ns='discussion'}}</legend>
+			<label class="moderation-checkbox-label">
+				<span class="fancy-checkbox {{onlyReportedClassName}}">
+					{{input type='checkbox' checked=onlyReported change=(action 'toggleOnlyReported')}}
+					{{#if onlyReported}}
+						{{svg 'checkbox-checkmark' class='icon' viewBox="0 0 20 14"}}
+					{{/if}}
+				</span>
+				{{i18n 'main.reported-content-filter-text' ns='discussion'}}
+			</label>
+		</fieldset>
+	{{/if}}
 </form>

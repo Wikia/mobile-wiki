@@ -13,6 +13,10 @@ export default Ember.Component.extend(
 			return this.get('onlyReported') === true ? 'active-element-background-color' : null;
 		}),
 
+		showApplyButton: false,
+		showSortSection: false,
+		canModerate: false,
+
 		actions: {
 			/**
 			 * Form handler

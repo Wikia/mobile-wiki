@@ -7,6 +7,15 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
 	{
+
+		postDataNormalizer (post) {
+			post.firstPost = post._embedded.firstPost[0];
+			post.firstPost.isReported = post.isReported;
+			if (Ember.get(post, 'firstPost._embedded.userData')) {
+				post._embedded.userData = post.firstPost._embedded.userData;
+			}
+		},
+
 		/**
 		 * @param {number} pageNum
 		 * @param {string} [sortBy='trending']
@@ -27,10 +36,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 					const newPosts = data._embedded['doc:threads'];
 					let allPosts;
 
-					newPosts.forEach((post) => {
-						post.firstPost = post._embedded.firstPost[0];
-						post.firstPost.isReported = post.isReported;
-					});
+					newPosts.forEach(this.postDataNormalizer);
 
 					allPosts = this.posts.concat(newPosts);
 
@@ -54,8 +60,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				method: 'POST',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
 				success: (post) => {
-					post._embedded.firstPost[0].isNew = true;
-					post.firstPost = post._embedded.firstPost[0];
+					this.postDataNormalizer(post);
 
 					this.posts.insertAt(0, post);
 					this.incrementProperty('totalPosts');
@@ -108,8 +113,7 @@ DiscussionForumModel.reopenClass({
 						contributors.push(post.createdBy);
 					}
 
-					post.firstPost = post._embedded.firstPost[0];
-					post.firstPost.isReported = post.isReported;
+					forumInstance.postDataNormalizer(post);
 				});
 
 				forumInstance.setProperties({

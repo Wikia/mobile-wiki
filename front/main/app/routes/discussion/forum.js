@@ -11,6 +11,7 @@ export default DiscussionBaseRoute.extend(
 	DiscussionModerationRouteMixin,
 	DiscussionForumActionsRouteMixin,
 	{
+		canModerate: null,
 		discussionSort: Ember.inject.service(),
 		discussionEditor: Ember.inject.service(),
 
