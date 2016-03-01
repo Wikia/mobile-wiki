@@ -21,8 +21,7 @@ export default Ember.Component.extend(
 				highlightedText = this.get('highlighted');
 
 			if (highlightedText) {
-
-				let highlightedData = this.getHighlightedTextData(content, highlightedText);
+				const highlightedData = this.getHighlightedTextData(content, highlightedText);
 
 				if (highlightedData) {
 					const textarea = document.getElementsByClassName('edit-textarea')[0];
