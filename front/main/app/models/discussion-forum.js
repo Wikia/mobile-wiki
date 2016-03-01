@@ -60,6 +60,8 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				method: 'POST',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
 				success: (post) => {
+					post._embedded.firstPost[0].isNew = true;
+
 					this.postDataNormalizer(post);
 
 					this.posts.insertAt(0, post);
