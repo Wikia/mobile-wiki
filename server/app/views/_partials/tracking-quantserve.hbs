@@ -6,8 +6,8 @@
 				scriptTag = document.createElement('script'),
 				firstScriptInDocument = document.getElementsByTagName('script')[0];
 
-			if (M.prop('wikiaVertical')) {
-				quantcastLabels.unshift(M.prop('wikiaVertical'));
+			if (Mercury.wiki.vertical) {
+				quantcastLabels.unshift(Mercury.wiki.vertical);
 			}
 
 			// without this quantserve does not want to track 2+ page view
@@ -23,10 +23,9 @@
 
 			firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
 
-			console.info('Track pageView: Quantserve');
+      console.info('Track pageView: Quantserve');
 		};
 
-		window._qevents = [];
 		window.trackQuantservePageView();
 	}
 </script>
