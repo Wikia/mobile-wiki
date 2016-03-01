@@ -1,5 +1,5 @@
-$sub-head-height: 48px;
-$sub-head-height-medium-breakpoint: 66px;
+$sub-head-height: $wikia-ui-components-sub-head-height;
+$sub-head-height-large: $wikia-ui-components-sub-head-height-large;
 $back-arrow-size: 16px;
 $cancel-margin-left: 6px;
 $cancel-margin-left-large: 9px;
@@ -22,7 +22,7 @@ $title-padding-large: 0 21px;
 
 	@media (min-width: lower-bound($large-range)) {
 		font-size: $base-font-size;
-		height: $sub-head-height-medium-breakpoint;
+		height: $sub-head-height-large;
 	}
 }
 
