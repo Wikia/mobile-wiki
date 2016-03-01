@@ -7,16 +7,16 @@ const {Component, computed} = Ember;
 /**
  * Basic methods/properties for discussion-post-card-detail and discussion-post-card-reply.
  */
-export default Ember.Component.extend(
+export default Component.extend(
 	DiscussionParsedContentMixin,
 	DiscussionMoreOptionsMixin,
 	{
 		classNameBindings: ['isNew', 'isDeleted', 'isReported', 'showTopNote'],
 
-		isDeleted: Ember.computed.alias('post.isDeleted'),
-		isNew: Ember.computed.oneWay('post.isNew'),
-		isReported: Ember.computed.alias('post.isReported'),
-		showTopNote: Ember.computed('isDeleted', 'isReported', function () {
+		isDeleted: computed.alias('post.isDeleted'),
+		isNew: computed.oneWay('post.isNew'),
+		isReported: computed.alias('post.isReported'),
+		showTopNote: computed('isDeleted', 'isReported', function () {
 			return !this.get('isDeleted') && this.get('isReported') || this.get('showRepliedTo');
 		})
 	}
