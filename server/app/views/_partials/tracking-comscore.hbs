@@ -1,0 +1,29 @@
+<script>
+	if (!M.prop('queryParams.noexternals')) {
+		window.trackComscorePageView = function() {
+			var prefix = (document.location.protocol === 'https:' ? 'https://sb' : 'http://b'),
+				scriptTag = document.createElement('script'),
+				firstScriptInDocument = document.getElementsByTagName('script')[0],
+				comscore = M.prop('tracking.comscore');
+
+			window._comscore = window._comscore || [];
+
+			window._comscore.push({
+				c1: '2',
+				c2: comscore.id,
+				options: {
+					url_append: comscore.keyword + "=" + comscore.c7Value
+				}
+			});
+
+			scriptTag.async = 1;
+			scriptTag.src = prefix + 'scorecardresearch.com/beacon.js?' + Math.random();
+
+			firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
+
+			console.info('Track pageView: Comscore');
+		};
+
+		window.trackComscorePageView();
+	}
+</script>
