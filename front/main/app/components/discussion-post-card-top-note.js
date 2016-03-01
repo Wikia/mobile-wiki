@@ -5,7 +5,9 @@ export default Ember.Component.extend({
 	classNames: ['top-note'],
 
 	canDelete: Ember.computed(function () {
-		return checkPermissions(this.get('post'), 'canModerate') && checkPermissions(this.get('post'), 'canDelete');
+		const post = this.get('post');
+
+		return checkPermissions(post, 'canModerate') && checkPermissions(post, 'canDelete');
 	}),
 
 	canModerate: Ember.computed(function () {
