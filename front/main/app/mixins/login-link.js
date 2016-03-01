@@ -7,12 +7,12 @@ export default Ember.Mixin.create(LanguagesMixin, {
 	 * and adding a language code to the querystring
 	 * @returns {void}
 	 */
-	goToLogin() {
+	goToLogin(category = 'user-login-mobile', label = 'join-link') {
 		track({
 			trackingMethod: 'ga',
 			action: trackActions.click,
-			category: 'user-login-mobile',
-			label: 'join-link',
+			category,
+			label,
 		});
 
 		window.location.href = `/join?redirect=` +

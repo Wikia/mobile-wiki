@@ -48,6 +48,11 @@ export default Ember.Component.extend({
 
 	actions: {
 		enter(value) {
+			track({
+				action: trackActions.click,
+				category: 'wiki-nav',
+				label: 'search-open-special-search'
+			});
 			window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${value}&fulltext=Search`);
 		},
 
@@ -55,12 +60,18 @@ export default Ember.Component.extend({
 			// Track when search is opened
 			track({
 				action: trackActions.click,
-				category: 'search',
+				category: 'wiki-nav',
+				label: 'search-focus'
 			});
 			this.sendAction('toggleSearchMode', true);
 		},
 
 		cancelSearch() {
+			track({
+				action: trackActions.click,
+				category: 'wiki-nav',
+				label: 'search-cancel'
+			});
 			this.set('query', null);
 			this.sendAction('toggleSearchMode', false);
 		},
@@ -70,7 +81,12 @@ export default Ember.Component.extend({
 			this.$('.side-search__input').focus();
 		},
 
-		collapse() {
+		searchSuggestionClick() {
+			track({
+				action: trackActions.click,
+				category: 'wiki-nav',
+				label: 'search-open-suggestion-link'
+			});
 			this.sendAction('collapse');
 		}
 	},

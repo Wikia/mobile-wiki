@@ -44,7 +44,7 @@ export default Ember.Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'wiki-nav',
-					label: `header-${index + 1}`
+					label: `local-nav-menu-show-item-${index + 1}`
 				});
 			},
 
@@ -52,7 +52,7 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			loadRandomArticle() {
-				this.trackClick('randomArticle', 'click');
+				this.trackClick('wiki-nav', 'local-nav-open-random-article');
 				this.sendAction('loadRandomArticle');
 			},
 
@@ -63,6 +63,15 @@ export default Ember.Component.extend(
 				this.hideNewBadge();
 				this.get('collapse')();
 			},
+
+			clickLink(index) {
+				track({
+					action: trackActions.click,
+					category: 'wiki-nav',
+					label: `local-nav-open-link-index-${index + 1}`
+				});
+				this.get('collapse')();
+			}
 		}
 	}
 );

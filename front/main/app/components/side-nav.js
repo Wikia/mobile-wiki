@@ -39,7 +39,7 @@ export default Ember.Component.extend({
 			track({
 				action: trackActions.click,
 				category: 'wiki-nav',
-				label: 'home-of-fandom',
+				label: 'open-home-of-fandom',
 			});
 			this.send('collapse');
 		},
@@ -62,8 +62,18 @@ export default Ember.Component.extend({
 
 		replaceNavigationContent(navName) {
 			if (navName === 'explore') {
+				track({
+					action: trackActions.click,
+					category: 'wiki-nav',
+					label: 'menu-show-explore-wikia'
+				});
 				this.set('globalNavContent', 'side-nav-explore-wikia-navigation');
 			} else if (navName === 'local') {
+				track({
+					action: trackActions.click,
+					category: 'wiki-nav',
+					label: 'menu-show-local-navigation'
+				});
 				this.set('globalNavContent', 'side-nav-local-navigation-root');
 			} else if (navName === 'root') {
 				this.set('globalNavContent', 'side-nav-global-navigation-root');
