@@ -75,6 +75,7 @@ export default Ember.Component.extend(
 					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 					this.replaceWikiaWidgetsWithComponents();
+					this.insertHighlightedTextEditorDemo();
 					this.handleWikiaWidgetWrappers();
 					this.handlePollDaddy();
 					this.handleJumpLink();
@@ -540,6 +541,36 @@ export default Ember.Component.extend(
 
 					$element.wrap(wrapper);
 				});
+		},
+
+		insertHighlightedTextEditorDemo() {
+			const selection = window.getSelection(),
+				range = document.createRange();
+
+			let $paragraph, plain, html, word, $highlightedElement;
+
+			for (let i = 1; i <= 3; i++) {
+				$paragraph = this.$('p:nth-of-type(' + i + ')');
+				html = $paragraph.html();
+				plain = $('<div>').html(html).children().remove().end().html();
+				if (plain !== '') {
+					break;
+				}
+			}
+
+			if (plain !== '') {
+				word = plain.split(' ')[1];
+				//$highlightedElement = $('span').text(word).addClass('highlighted-text');
+				$paragraph.html(html.replace(word, '<span id="highlighted-text">' + word + '</span>'));
+
+				$highlightedElement = $paragraph.find('#highlighted-text');
+
+				Ember.$(window).scrollTop($highlightedElement.offset().top - 150);
+
+				range.selectNodeContents($highlightedElement[0]);
+				selection.removeAllRanges();
+				selection.addRange(range);
+			}
 		}
 	}
 );
