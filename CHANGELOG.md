@@ -1,3 +1,6 @@
+## release-215 hotfix 1 (2016-03-01 12:28 UTC)
+* [XW-1221](https://wikia-inc.atlassian.net/browse/XW-1221) XW-1221 fix path to model in article-preview route
+
 ## release-215 (2016-03-01 09:59 UTC)
 * add-version: Add version to Ember inspector
 * [XW-1104](https://wikia-inc.atlassian.net/browse/XW-1104) XW-1104 | Category page
