@@ -13,23 +13,23 @@ const fixedClass = 'sub-head--fixed',
 moduleForComponent('wikia-ui-components/sub-header', 'Integration | Component | sub header', {
 	integration: true,
 	beforeEach() {
-		this.set('onBackArrowClick', sinon.spy());
-		this.set('onConfirmBtnClick', sinon.spy());
+		this.set('onBack', sinon.spy());
+		this.set('onConfirm', sinon.spy());
 	}
 });
 
 test('should have given title', function (assert) {
 	this.set('titleText', title);
-	this.render(hbs`{{wikia-ui-components/sub-header title=titleText onBackArrowClick=onBackArrowClick
-	 onConfirmBtnClick=onConfirmBtnClick}}`);
+	this.render(hbs`{{wikia-ui-components/sub-header title=titleText onBack=onBack
+	 onConfirm=onConfirm}}`);
 
 	assert.equal(this.$('header div').text(), title);
 });
 
 test('should have given button label', function (assert) {
 	this.set('labelText', buttonLabel);
-	this.render(hbs`{{wikia-ui-components/sub-header confirmBtnLabel=labelText onBackArrowClick=onBackArrowClick
-	 onConfirmBtnClick=onConfirmBtnClick}}`);
+	this.render(hbs`{{wikia-ui-components/sub-header confirmBtnLabel=labelText onBack=onBack
+	 onConfirm=onConfirm}}`);
 
 	assert.equal(this.$('header button').text(), buttonLabel);
 });
@@ -37,49 +37,49 @@ test('should have given button label', function (assert) {
 test('should have given back arrow tooltip', function (assert) {
 	this.set('backArrowTooltipText', backArrowTooltip);
 	this.render(hbs`{{wikia-ui-components/sub-header backArrowTooltip=backArrowTooltipText
-	 onBackArrowClick=onBackArrowClick onConfirmBtnClick=onConfirmBtnClick}}`);
+	 onBack=onBack onConfirm=onConfirm}}`);
 
 	assert.equal(this.$('a').attr('title'), backArrowTooltip);
 });
 
 test('should not be fixed', function (assert) {
-	this.render(hbs`{{wikia-ui-components/sub-header onBackArrowClick=onBackArrowClick
-	 onConfirmBtnClick=onConfirmBtnClick}}`);
+	this.render(hbs`{{wikia-ui-components/sub-header onBack=onBack
+	 onConfirm=onConfirm}}`);
 
 	assert.equal(this.$('header').attr('class').indexOf(fixedClass), negativeIndex);
 });
 
 test('should be fixed', function (assert) {
 	this.set('fixedState', true);
-	this.render(hbs`{{wikia-ui-components/sub-header fixed=fixedState onBackArrowClick=onBackArrowClick
-	 onConfirmBtnClick=onConfirmBtnClick}}`);
+	this.render(hbs`{{wikia-ui-components/sub-header fixed=fixedState onBack=onBack
+	 onConfirm=onConfirm}}`);
 
 	assert.notEqual(this.$('header').attr('class').indexOf(fixedClass), negativeIndex);
 });
 
-test('clicking on back arrow triggers onBackArrowClick handler', function (assert) {
-	const onBackArrowClickSpy = this.get('onBackArrowClick');
+test('clicking on back arrow triggers onBack handler', function (assert) {
+	const onBackSpy = this.get('onBack');
 
-	this.render(hbs`{{wikia-ui-components/sub-header onBackArrowClick=onBackArrowClick
-	 onConfirmBtnClick=onConfirmBtnClick}}`);
+	this.render(hbs`{{wikia-ui-components/sub-header onBack=onBack
+	 onConfirm=onConfirm}}`);
 	this.$(backArrorSelector).click();
 
-	assert.equal(onBackArrowClickSpy.called, true);
+	assert.equal(onBackSpy.called, true);
 });
 
-test('clicking on button triggers onConfirmBtnClick handler', function (assert) {
-	const onConfirmBtnClickSpy = this.get('onConfirmBtnClick');
+test('clicking on button triggers onConfirm handler', function (assert) {
+	const onConfirmSpy = this.get('onConfirm');
 
-	this.render(hbs`{{wikia-ui-components/sub-header onBackArrowClick=onBackArrowClick
-	 onConfirmBtnClick=onConfirmBtnClick}}`);
+	this.render(hbs`{{wikia-ui-components/sub-header onBack=onBack
+	 onConfirm=onConfirm}}`);
 	this.$(buttonSelector).click();
 
-	assert.equal(onConfirmBtnClickSpy.called, true);
+	assert.equal(onConfirmSpy.called, true);
 });
 
 test('should render action buttons', function (assert) {
-	this.render(hbs`{{wikia-ui-components/sub-header onBackArrowClick=onBackArrowClick
-	 onConfirmBtnClick=onConfirmBtnClick}}`);
+	this.render(hbs`{{wikia-ui-components/sub-header onBack=onBack
+	 onConfirm=onConfirm}}`);
 
 	assert.notEqual(this.$(backArrorSelector).length, 0);
 	assert.notEqual(this.$(buttonSelector).length, 0);
@@ -87,8 +87,8 @@ test('should render action buttons', function (assert) {
 
 test('should not render action buttons', function (assert) {
 	this.set('textOnly', true);
-	this.render(hbs`{{wikia-ui-components/sub-header textOnly=textOnly onBackArrowClick=onBackArrowClick
-	 onConfirmBtnClick=onConfirmBtnClick}}`);
+	this.render(hbs`{{wikia-ui-components/sub-header textOnly=textOnly onBack=onBack
+	 onConfirm=onConfirm}}`);
 
 	assert.equal(this.$(backArrorSelector).length, 0);
 	assert.equal(this.$(buttonSelector).length, 0);

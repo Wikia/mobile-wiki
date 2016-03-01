@@ -1,7 +1,7 @@
 {{#unless textOnly}}
-	<a {{action this.attrs.onBackArrowClick}} title="{{backArrowTooltip}}" class="sub-head--cancel">
+	<a {{action this.attrs.onBack}} title="{{backArrowTooltip}}" class="sub-head--cancel">
 		{{svg 'back-arrow'role='img' class='icon'}}
 	</a>
-	<button class="sub-head--done" {{action this.attrs.onConfirmBtnClick}}>{{confirmBtnLabel}}</button>
+	<button class="sub-head--done" {{action this.attrs.onConfirm}}>{{confirmBtnLabel}}</button>
 {{/unless}}
 <div class="sub-head--title">{{title}}</div>

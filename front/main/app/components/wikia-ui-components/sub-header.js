@@ -4,8 +4,8 @@
  * FIXED HEADER
  * {{wikia-ui-components/sub-header
  *      title=Example title
- *      onBackArrowClick=actionHandler
- *      onConfirmBtnClick=actionHandler
+ *      onBack=actionHandler
+ *      onConfirm=actionHandler
  *      backArrowTooltip=Example tooltip
  *      confirmBtnLabel=Save
  *      fixed=true
@@ -26,14 +26,5 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	tagName: 'header',
 	classNames: ['sub-head'],
-	classNameBindings: ['fixed:sub-head--fixed'],
-
-	actions: {
-		back() {
-			this.get('onBackArrowClick')();
-		},
-		confirm() {
-			this.get('onConfirmBtnClick')();
-		}
-	}
+	classNameBindings: ['fixed:sub-head--fixed']
 });
