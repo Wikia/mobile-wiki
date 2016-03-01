@@ -30,7 +30,7 @@ test('should have given title', function (assert) {
 
 test('should have given button label', function (assert) {
 	this.set('labelText', buttonLabel);
-	this.render(hbs`{{wikia-ui-components/sub-header confirmBtnLabel=labelText onBack=onBack
+	this.render(hbs`{{wikia-ui-components/sub-header confirmLabel=labelText onBack=onBack
 	 onConfirm=onConfirm}}`);
 
 	assert.equal(this.$(buttonSelector).text(), buttonLabel);

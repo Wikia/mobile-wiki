@@ -7,7 +7,7 @@
  *      onBack=actionHandler
  *      onConfirm=actionHandler
  *      backArrowTooltip=Example tooltip
- *      confirmBtnLabel=Save
+ *      confirmLabel=Save
  *      fixed=true
  * }}
  *
