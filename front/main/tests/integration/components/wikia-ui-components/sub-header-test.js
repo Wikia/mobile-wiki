@@ -7,8 +7,10 @@ const fixedClass = 'sub-head--fixed',
 	title = 'Test Header',
 	buttonLabel = 'Save',
 	backArrowTooltip = 'lorem ipsum dolor',
+	componentSelector = 'header.sub-head',
 	backArrorSelector = 'a.sub-head--cancel',
-	buttonSelector = 'button.sub-head--done';
+	buttonSelector = 'button.sub-head--done',
+	titleSelector = 'div.sub-head--title';
 
 moduleForComponent('wikia-ui-components/sub-header', 'Integration | Component | sub header', {
 	integration: true,
@@ -23,7 +25,7 @@ test('should have given title', function (assert) {
 	this.render(hbs`{{wikia-ui-components/sub-header title=titleText onBack=onBack
 	 onConfirm=onConfirm}}`);
 
-	assert.equal(this.$('header div').text(), title);
+	assert.equal(this.$(titleSelector).text(), title);
 });
 
 test('should have given button label', function (assert) {
@@ -31,7 +33,7 @@ test('should have given button label', function (assert) {
 	this.render(hbs`{{wikia-ui-components/sub-header confirmBtnLabel=labelText onBack=onBack
 	 onConfirm=onConfirm}}`);
 
-	assert.equal(this.$('header button').text(), buttonLabel);
+	assert.equal(this.$(buttonSelector).text(), buttonLabel);
 });
 
 test('should have given back arrow tooltip', function (assert) {
@@ -39,14 +41,14 @@ test('should have given back arrow tooltip', function (assert) {
 	this.render(hbs`{{wikia-ui-components/sub-header backArrowTooltip=backArrowTooltipText
 	 onBack=onBack onConfirm=onConfirm}}`);
 
-	assert.equal(this.$('a').attr('title'), backArrowTooltip);
+	assert.equal(this.$(backArrorSelector).attr('title'), backArrowTooltip);
 });
 
 test('should not be fixed', function (assert) {
 	this.render(hbs`{{wikia-ui-components/sub-header onBack=onBack
 	 onConfirm=onConfirm}}`);
 
-	assert.equal(this.$('header').attr('class').indexOf(fixedClass), negativeIndex);
+	assert.equal(this.$(componentSelector).attr('class').indexOf(fixedClass), negativeIndex);
 });
 
 test('should be fixed', function (assert) {
@@ -54,7 +56,7 @@ test('should be fixed', function (assert) {
 	this.render(hbs`{{wikia-ui-components/sub-header fixed=fixedState onBack=onBack
 	 onConfirm=onConfirm}}`);
 
-	assert.notEqual(this.$('header').attr('class').indexOf(fixedClass), negativeIndex);
+	assert.notEqual(this.$(componentSelector).attr('class').indexOf(fixedClass), negativeIndex);
 });
 
 test('clicking on back arrow triggers onBack handler', function (assert) {
