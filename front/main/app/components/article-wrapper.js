@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
+import TextHighlightMixin from '../mixins/text-highlight';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from 'common/utils/track';
@@ -17,11 +18,16 @@ import {getExperimentVariationNumber} from 'common/utils/variantTesting';
 
 export default Ember.Component.extend(
 	LanguagesMixin,
+	TextHighlightMixin,
 	TrackClickMixin,
 	ViewportMixin,
 	{
 		classNames: ['article-wrapper'],
 		currentUser: Ember.inject.service(),
+
+		highlightedSectionIndex: 0,
+		showHighlightedEdit: null,
+		highlightedText: '',
 
 		hammerOptions: {
 			touchAction: 'auto',
@@ -71,6 +77,31 @@ export default Ember.Component.extend(
 					});
 				}
 			}
+		},
+
+		setHighlightedText() {
+			this.setSelection(window.getSelection());
+
+			if (this.isTextHighlighted()) {
+				const sectionIndex = this.getHighlightedTextSection();
+
+				let highlightedText = this.getHighlightedHtml();
+
+				highlightedText = this.trimTags(highlightedText);
+				highlightedText = this.replaceTags(highlightedText);
+
+				this.setHighlightedTextVars(sectionIndex, highlightedText, true);
+			} else {
+				this.setHighlightedTextVars(0, '', false);
+			}
+		},
+
+		setHighlightedTextVars(highlightedSectionIndex, highlightedText, showHighlightedEdit) {
+			this.setProperties({
+				highlightedSectionIndex,
+				highlightedText,
+				showHighlightedEdit
+			});
 		},
 
 		/**
@@ -157,10 +188,11 @@ export default Ember.Component.extend(
 			/**
 			 * @param {string} title
 			 * @param {number} sectionIndex
+			 * @param {string} highlightedText
 			 * @returns {void}
 			 */
-			edit(title, sectionIndex) {
-				this.sendAction('edit', title, sectionIndex);
+			edit(title, sectionIndex, highlightedText = '') {
+				this.sendAction('edit', title, sectionIndex, highlightedText);
 			},
 
 			/**
@@ -212,7 +244,7 @@ export default Ember.Component.extend(
 			});
 
 			if (this.get('highlightedEditorEnabled')) {
-				// TODO Run highlighted editor experiment here
+				document.addEventListener('selectionchange', this.setHighlightedText.bind(this));
 			}
 		},
 

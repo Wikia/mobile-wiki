@@ -1,7 +1,9 @@
 import Ember from 'ember';
+import TextHighlightMixin from '../mixins/text-highlight';
 import ViewportMixin from '../mixins/viewport';
 
 export default Ember.Component.extend(
+	TextHighlightMixin,
 	ViewportMixin,
 	{
 		classNames: ['article-edit'],
@@ -13,6 +15,17 @@ export default Ember.Component.extend(
 		adjustTextareaHeight: Ember.on('didInsertElement', () => {
 			Ember.$('textarea').css('height', Ember.$(window).height() - Ember.$('.sub-head').outerHeight());
 		}),
+
+		didInsertElement() {
+			const content = this.get('model.content'),
+				highlightedData = this.getHighlightedTextData(content, this.get('highlighted'));
+
+			if (highlightedData) {
+				const textarea = document.getElementsByClassName('edit-textarea')[0];
+
+				this.highlightTextInTextarea(textarea, content, highlightedData);
+			}
+		},
 
 		actions: {
 			/**

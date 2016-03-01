@@ -115,6 +115,13 @@
 		{{#if displayRecentEdit}}
 			{{recent-edit-banner}}
 		{{/if}}
+		{{article-edit-highlighted-entrypoint
+			section=highlightedSectionIndex
+			highlightedText=highlightedText
+			title=model.title
+			showEdit=showHighlightedEdit
+			edit=(action 'edit')
+		}}
 	{{/if}}
 	{{wikia-footer}}
 </div>
