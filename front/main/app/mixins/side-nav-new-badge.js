@@ -13,7 +13,6 @@ export default Ember.Mixin.create({
 	 */
 	shouldDisplayNewBadge: Ember.computed('currentUser', function () {
 		return this.get('currentUser.isAuthenticated') &&
-			Ember.get(Mercury, 'wiki.language.content') === 'en' &&
 			Ember.$.cookie('seenNewBadgeFor') !== 'recent-wiki-activity';
 	}),
 
