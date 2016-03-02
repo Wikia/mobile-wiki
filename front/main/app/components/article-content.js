@@ -547,16 +547,17 @@ export default Ember.Component.extend(
 			const highlightedId = 'highlighted-text__demo',
 				selection = window.getSelection(),
 				range = document.createRange(),
-				$paragraphs = this.$('.article-content').children('p');
+				$paragraphs = this.$('>p');
 
-			let $paragraph, plain, paragraphHtml, word, $highlightedElement;
+			for (let i = 0; i <= 3; i++) {
+				const $paragraph = $paragraphs.eq(i),
+					paragraphHtml = $paragraph.html(),
+					plain = Ember.$('<div>').html(paragraphHtml).children().remove().end().html();
 
-			for (let i = 1; i <= 3; i++) {
-				$paragraph = $($paragraphs[i]);
-				paragraphHtml = $paragraph.html();
-				plain = $('<div>').html(paragraphHtml).children().remove().end().html();
 				if (plain !== '') {
-					word = plain.split(' ')[1];
+					const word = plain.split(' ')[1];
+					let $highlightedElement;
+
 					$paragraph.html(paragraphHtml.replace(word, `<span id="${highlightedId}">${word}</span>`));
 					$highlightedElement = $paragraph.find(`#${highlightedId}`);
 
