@@ -1,5 +1,3 @@
-$sub-head-height: 48px;
-$sub-head-height-medium-breakpoint: 66px;
 $back-arrow-size: 16px;
 $cancel-margin-left: 6px;
 $cancel-margin-left-large: 9px;
@@ -13,7 +11,7 @@ $title-padding-large: 0 21px;
 	color: $white;
 	display: flex;
 	font-size: $type-smallest;
-	height: $sub-head-height;
+	height: $wikia-ui-components-sub-head-height;
 	left: 0;
 	margin: 0 auto;
 	right: 0;
@@ -22,7 +20,7 @@ $title-padding-large: 0 21px;
 
 	@media (min-width: lower-bound($large-range)) {
 		font-size: $base-font-size;
-		height: $sub-head-height-medium-breakpoint;
+		height: $wikia-ui-components-sub-head-height-large;
 	}
 }
 
@@ -37,7 +35,7 @@ $title-padding-large: 0 21px;
 	border: 0;
 	cursor: pointer;
 	display: flex;
-	height: $sub-head-height;
+	height: $wikia-ui-components-sub-head-height;
 	justify-content: center;
 	line-height: inherit;
 	margin: {
@@ -48,7 +46,7 @@ $title-padding-large: 0 21px;
 	};
 	order: 1;
 	padding: 0;
-	width: $sub-head-height;
+	width: $wikia-ui-components-sub-head-height;
 
 	svg {
 		fill: $white;
@@ -97,7 +95,7 @@ $title-padding-large: 0 21px;
 	cursor: pointer;
 	font: inherit;
 	font-weight: bolder;
-	height: $sub-head-height;
+	height: $wikia-ui-components-sub-head-height;
 	margin: 0;
 	order: 3;
 	padding: 0 $article-horizontal-padding;
