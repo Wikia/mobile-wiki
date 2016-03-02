@@ -97,7 +97,7 @@ input[type="submit"],
 		}
 
 		span {
-			visibility: hidden
+			visibility: hidden;
 		}
 	}
 }
@@ -106,8 +106,9 @@ input[type="submit"],
 	button,
 	.button,
 	input[type="submit"] {
+		font-size: $button-text-size;
+		line-height: $button-line-height;
 		min-height:  2.5rem;
-		line-height: 1rem;
 		padding: .75rem;
 	}
 
