@@ -38,7 +38,7 @@ test('scrolls preview element to the bottom', function (assert) {
 					scrollTop: 0
 				}[propName];
 			}
-		}
+		};
 	});
 
 	component.scrollPreviewToBottom();
