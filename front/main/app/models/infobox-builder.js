@@ -37,7 +37,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	addItem(type, elementData = null) {
 		let item = {};
-
+		console.log("type: " + type);
+		console.log("element_data:" + elementData);
 		switch (type) {
 			case 'title':
 				item = InfoboxBuilderModel.extendTitleData(this.createTitleItem(), elementData);
@@ -82,7 +83,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 			},
 			source: `${itemType}${index}`,
 			type: itemType,
-			sourceFreezed: false,
+			sourceFreezed: false
 		};
 	},
 
@@ -354,7 +355,6 @@ InfoboxBuilderModel.reopenClass({
 			item.data.label = label || '';
 			item.sourceFreezed = true;
 		}
-
 		return item;
 	},
 

@@ -63,9 +63,32 @@ test('add items by type', (assert) => {
 						component: mockComponentName
 					},
 					source: `row${index}`,
-					type: 'row'
+					type: 'row',
+					sourceFreezed: false
 				},
 				message: 'add row item'
+			},
+			{
+				dataMock: {
+					data: {
+						label: messageMock
+					},
+					infoboxBuilderData: {
+						index,
+						component: mockComponentName
+					},
+					source: messageMock,
+					type: 'row',
+					sourceFreezed: true
+				},
+				elemData: {
+					data: {
+						label: messageMock
+					},
+					source: messageMock,
+					type: 'row'
+				},
+				message: 'add existing row item'
 			},
 			{
 				dataMock: {
@@ -119,7 +142,7 @@ test('add items by type', (assert) => {
 		sinon.stub(infoboxBuilderModelClass, 'createComponentName').returns(mockComponentName);
 		model.increaseItemIndex = sinon.stub().returns(index);
 
-		model.addItem(testCase.dataMock.type);
+		model.addItem(testCase.dataMock.type, testCase.elemData);
 
 		assert.equal(addToStateSpy.callCount, 1, testCase.message);
 		assert.equal(addToStateSpy.calledWith(testCase.dataMock), true, testCase.message);
@@ -290,7 +313,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: 'src',
-					type: 'row'
+					type: 'row',
+					sourceFreezed: true
 				}
 			},
 			{
@@ -309,7 +333,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFreezed: true
 				}
 			},
 			{
@@ -328,7 +353,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFreezed: true
 				}
 			},
 			{
@@ -342,7 +368,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFreezed: true
 				}
 			},
 			{
@@ -356,7 +383,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: 'row1',
-					type: 'row'
+					type: 'row',
+					sourceFreezed: false
 				}
 			}
 		];
@@ -371,7 +399,8 @@ test('extend row data', (assert) => {
 					component: 'component'
 				},
 				source: 'row1',
-				type: 'row'
+				type: 'row',
+				sourceFreezed: false
 			},
 			extended = infoboxBuilderModelClass.extendRowData(item, testCase.additionalItemData);
 
@@ -386,6 +415,12 @@ test('extend row data', (assert) => {
 			testCase.expected.data.label,
 			'row label'
 		);
+
+		assert.equal(
+			extended.sourceFreezed,
+			testCase.expected.sourceFreezed,
+			'source freezed'
+		)
 	});
 });
 
