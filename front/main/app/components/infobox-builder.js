@@ -15,6 +15,14 @@ export default Ember.Component.extend({
 	}),
 
 	actions: {
+		addItem() {
+			this.get('addItem')(...arguments);
+
+			Ember.run.scheduleOnce('afterRender', this, () => {
+				Ember.run.debounce(this, this.scrollPreviewToBottom, 200);
+			});
+		},
+
 		showReorderTooltip(posX, posY) {
 			this.setProperties({
 				tooltipPosX: posX + this.get('tooltipDistanceFromCursor'),
@@ -48,6 +56,25 @@ export default Ember.Component.extend({
 					showSuccess: true
 				})
 			);
+		}
+	},
+
+	/**
+	 * Scroll to the bottom of preview element minus its height
+	 * If we scrolled to the scrollHeight there would be visual glitches
+	 *
+	 * @returns {void}
+	 */
+	scrollPreviewToBottom() {
+		const $preview = this.$('.infobox-builder-preview'),
+			scrollHeight = $preview.prop('scrollHeight'),
+			scrollTop = $preview.prop('scrollTop'),
+			height = $preview.height();
+
+		if (scrollTop + height < scrollHeight) {
+			$preview.animate({
+				scrollTop: scrollHeight - height
+			}, 200);
 		}
 	}
 });
