@@ -23,22 +23,20 @@ export default Ember.Component.extend(
 				const title = this.get('title'),
 					section = this.get('section'),
 					highlightedText = this.get('highlightedText');
+				let label;
 
 				if (this.get('editAllowed')) {
 					this.sendAction('edit', title, section, highlightedText);
-					track({
-						action: trackActions.click,
-						category: 'highlighted-editor',
-						label: 'entry-point-allowed'
-					});
+					label = 'entry-point-allowed';
 				} else {
 					this.redirectToLogin(title, section, highlightedText);
-					track({
-						action: trackActions.click,
-						category: 'highlighted-editor',
-						label: 'entry-point-not-allowed'
-					});
+					label = 'entry-point-not-allowed';
 				}
+				track({
+					action: trackActions.click,
+					category: 'highlighted-editor',
+					label
+				});
 			}
 		},
 
