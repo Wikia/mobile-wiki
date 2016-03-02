@@ -52,10 +52,8 @@ export default Ember.Component.extend(
 
 			replaceNavigationContent(navName) {
 				if (navName === 'explore') {
-					this.trackClick('side-nav', 'menu-show-explore-wikia');
 					this.set('globalNavContent', 'side-nav-explore-wikia-navigation');
 				} else if (navName === 'local') {
-					this.trackClick('side-nav', 'menu-show-local-navigation');
 					this.set('globalNavContent', 'side-nav-local-navigation-root');
 				} else if (navName === 'root') {
 					this.set('globalNavContent', 'side-nav-global-navigation-root');

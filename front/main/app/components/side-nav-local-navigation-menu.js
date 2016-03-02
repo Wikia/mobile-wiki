@@ -38,7 +38,6 @@ export default Ember.Component.extend(
 			changeMenuItem(index) {
 				const current = this.get('localNavContent');
 
-				this.trackClick('side-nav', `local-nav-menu-show-item-${index + 1}`);
 				this.sendAction('updateContent', current.children[index]);
 			},
 
