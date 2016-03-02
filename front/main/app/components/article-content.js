@@ -545,12 +545,13 @@ export default Ember.Component.extend(
 
 		insertHighlightedTextEditorDemo() {
 			const highlightedId = 'highlighted-text',
+				paragraphsLimit = 3,
 				selection = window.getSelection(),
 				range = document.createRange(),
-				$paragraphs = this.$('>p');
+				$paragraphs = this.$('>p').slice(0, paragraphsLimit);
 
-			for (let i = 0; i <= 3; i++) {
-				const $paragraph = $paragraphs.eq(i),
+			$paragraphs.toArray().some((paragraph) => {
+				const $paragraph = Ember.$(paragraph),
 					paragraphHtml = $paragraph.html(),
 					plain = Ember.$('<div>').html(paragraphHtml).children().remove().end().html();
 
@@ -566,9 +567,11 @@ export default Ember.Component.extend(
 					range.selectNodeContents($highlightedElement[0]);
 					selection.removeAllRanges();
 					selection.addRange(range);
-					break;
+					return true;
+				} else {
+					return false;
 				}
-			}
+			});
 		}
 	}
 );
