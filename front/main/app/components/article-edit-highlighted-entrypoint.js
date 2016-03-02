@@ -32,16 +32,13 @@ export default Ember.Component.extend(
 		},
 
 		redirectToLogin(title, section, highlightedText) {
-			let redirect = `${window.location.origin}/wiki/edit/${title}/${section}`,
-				href = '/join?redirect=';
+			let redirect = `${window.location.origin}/wiki/edit/${title}/${section}`;
 
 			if (highlightedText) {
 				redirect += `?highlighted=${highlightedText}`;
 			}
 
-			href += `${encodeURIComponent(redirect)}${this.getUselangParam()}`;
-
-			window.location.href = href;
+			window.location.assign(M.buildUrl({path: '/join', query: {redirect}}));
 		}
 	}
 );
