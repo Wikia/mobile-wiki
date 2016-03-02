@@ -21,7 +21,13 @@ ImageReviewModel.reopenClass({
 				xhrFields: {
 					withCredentials: true
 				},
-				success: (data) => resolve(ImageReviewModel.getImagesAndCount(data.id)),
+				success: (data, textStatus, xhr) => {
+					if (xhr.status == 204) {
+						resolve(ImageReviewModel.create({}));
+					} else {
+						resolve(ImageReviewModel.getImagesAndCount(data.id))
+					}
+				},
 				error: (data) => reject(data)
 			});
 		});

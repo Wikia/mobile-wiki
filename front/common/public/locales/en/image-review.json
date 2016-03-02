@@ -5,7 +5,7 @@
     "error-no-access-permissions": "Unauthorized, you don't have permissions to see this page",
     "error-other": "Unable to load image review",
     "error-invalid-data": "Invalid data was returned from Image Review API",
-    "error-no-more-images": "No more images to review",
+    "error-no-more-images": "NO MORE IMAGES (╯°□°)╯︵ ┻━┻",
     "review-and-get-more": "Review & get next batch",
     "get-flagged": "Get flagged",
     "images-to-review-count": "Remaining images to review:",
