@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import SideNavNewBadge from '../mixins/side-nav-new-badge';
 import TrackClickMixin from '../mixins/track-click';
-import {track, trackActions} from 'common/utils/track';
 
 /**
  * Type for topmost-level nav item, which doesn't have any of the properties defined in NavItem
@@ -40,19 +39,13 @@ export default Ember.Component.extend(
 				const current = this.get('localNavContent');
 
 				this.sendAction('updateContent', current.children[index]);
-
-				track({
-					action: trackActions.click,
-					category: 'wiki-nav',
-					label: `header-${index + 1}`
-				});
 			},
 
 			/**
 			 * @returns {void}
 			 */
 			loadRandomArticle() {
-				this.trackClick('randomArticle', 'click');
+				this.trackClick('side-nav', 'local-nav-open-random-article');
 				this.sendAction('loadRandomArticle');
 			},
 
@@ -63,6 +56,11 @@ export default Ember.Component.extend(
 				this.hideNewBadge();
 				this.get('collapse')();
 			},
+
+			clickLink(index) {
+				this.trackClick('side-nav', `local-nav-open-link-index-${index + 1}`);
+				this.get('collapse')();
+			}
 		}
 	}
 );
