@@ -4,7 +4,6 @@ import Comscore from '../modules/Trackers/Comscore';
 import Internal from '../modules/Trackers/Internal';
 import IVW3 from '../modules/Trackers/IVW3';
 import Krux from '../modules/Trackers/Krux';
-import Nielsen from '../modules/Trackers/Nielsen';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
 
 /**
