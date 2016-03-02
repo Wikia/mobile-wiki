@@ -1,16 +1,18 @@
 <script>
 	(function () {
-		var sendNielsenPageView = function () {
+		function sendNielsenPageView() {
+			var nielsen, globalParams;
+
 			if (!window.NOLCMB || !window.NOLCMB.getInstance) {
 				return;
 			}
 
-			var nielsen = M.prop('tracking.nielsen'),
-				globalParams = {
-					sfcode: 'dcr-cert',
-					apid: nielsen.apid,
-					apn: 'test-static'
-				};
+			nielsen = M.prop('tracking.nielsen');
+			globalParams = {
+				sfcode: 'dcr-cert',
+				apid: nielsen.apid,
+				apn: 'test-static'
+			};
 
 			window.gg1 = window.NOLCMB.getInstance(globalParams);
 			window.staticmeta = {
@@ -30,10 +32,12 @@
 
 
 		window.trackNielsenPageView = function () {
+			var nielsen, scriptTag, firstScriptInDocument;
+
 			if (!M.prop('queryParams.noexternals')) {
-				var nielsen = M.prop('tracking.nielsen'),
-					scriptTag = document.createElement('script'),
-					firstScriptInDocument = document.getElementsByTagName('script')[0];
+				nielsen = M.prop('tracking.nielsen');
+				scriptTag = document.createElement('script');
+				firstScriptInDocument = document.getElementsByTagName('script')[0];
 
 				if (nielsen.enabled) {
 					delete window.NOLCMB;
