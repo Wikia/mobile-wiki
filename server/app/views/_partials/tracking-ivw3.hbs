@@ -1,32 +1,36 @@
 <script>
-	if (!M.prop('queryParams.noexternals')) {
+	(function() {
+		var allowExternals = !M.prop('queryParams.noexternals'),
+			ivw3 = M.prop('tracking.ivw3');
+
+		if (
+				allowExternals &&
+				!window.iom &&
+				!InstantGlobals.get('wgSitewideDisableIVW3') &&
+				typeof ivw3.countries.indexOf === 'function' &&
+				ivw3.countries.indexOf(M.prop('geo.country')) !== -1
+		) {
+			var scriptTag = document.createElement('script'),
+				firstScriptInDocument = document.getElementsByTagName('script')[0];
+
+			scriptTag.async = 1;
+			scriptTag.src = 'https://script.ioam.de/iam.js';
+
+			firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
+		}
+
 		window.trackIVW3PageView = function() {
-			var ivw3 = M.prop('tracking.ivw3');
-
-			if (
-					window.iom &&
-					!InstantGlobals.get('wgSitewideDisableIVW3') &&
-					typeof ivw3.countries.indexOf === 'function' &&
-					ivw3.countries.indexOf(M.prop('geo.country')) !== -1
-			) {
-				var scriptTag = document.createElement('script'),
-					firstScriptInDocument = document.getElementsByTagName('script')[0];
-
+			if (allowExternals) {
 				window.iom.c({
 					st: 'wikia',
 					cp: ivw3.vertical,
 					sv: 'ke'
 				}, 2);
 
-				scriptTag.async = 1;
-				scriptTag.src = 'https://script.ioam.de/iam.js';
-
-				firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
-
 				console.info('Track pageView: IVW3');
 			}
 		};
 
 		window.trackIVW3PageView();
-	}
+	})();
 </script>
