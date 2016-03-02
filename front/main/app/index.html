@@ -50,8 +50,8 @@
 	{{> tracking-ua}}
 	{{> tracking-experiment}}
 	{{> tracking-quantserve}}
+	<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting"></script>
 	{{> tracking-ivw3}}
-
 	{{content-for 'head-footer'}}
 </head>
 <body>
@@ -87,8 +87,6 @@
 	M.loadDOMResource('/front/main/assets/infobox-builder.svg');
 	M.loadDOMResource('/front/main/assets/common.svg');
 </script>
-
-<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting" async></script>
 
 {{content-for 'body-footer'}}
 
