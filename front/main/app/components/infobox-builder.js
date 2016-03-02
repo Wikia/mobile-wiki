@@ -33,7 +33,10 @@ export default Ember.Component.extend({
 
 		onPreviewItemDrag(actionTrigger) {
 			this.set('isPreviewItemDragged', true);
-			this.get('handleItemInEditMode')(actionTrigger);
+
+			if (actionTrigger !== this.get('activeItem')) {
+				this.get('setEditItem')(null);
+			}
 		},
 
 		onPreviewItemDrop() {

@@ -223,7 +223,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	removeItem(item) {
 		this.get('infoboxState').removeObject(item);
-		this.resetEditMode();
+		this.setEditItem(null);
 	},
 
 	/**
@@ -233,14 +233,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	updateInfoboxStateOrder(newState) {
 		this.set('infoboxState', newState);
-	},
-
-	/**
-	 * @desc resets item in edit mode and its position to null
-	 * @returns {void}
-	 */
-	resetEditMode() {
-		this.set('itemInEditMode', null);
 	},
 
 	/**
