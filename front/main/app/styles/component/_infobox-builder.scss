@@ -41,7 +41,11 @@ $overlay-color: rgba(255, 255, 255, .8);
 .infobox-builder {
 	box-sizing: border-box;
 	display: flex;
-	height: 100%;
+	height: calc(100% - #{$wikia-ui-components-sub-head-height});
+
+	@media (min-width: lower-bound($large-range)) {
+		height: calc(100% - #{$wikia-ui-components-sub-head-height-large});
+	}
 }
 
 .infobox-builder-preview {
