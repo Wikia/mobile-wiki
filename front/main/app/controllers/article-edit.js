@@ -93,6 +93,13 @@ export default Ember.Controller.extend({
 				category: 'sectioneditor',
 				label: 'publish'
 			});
+			if (this.get('highlighted')) {
+				track({
+					action: trackActions.click,
+					category: 'highlighted-editor',
+					label: 'publish'
+				});
+			}
 		},
 		/**
 		 * @returns {void}
