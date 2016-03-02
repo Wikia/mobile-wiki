@@ -13,7 +13,7 @@
 {{/if}}
 
 {{#each hubsLinks as |link|}}
-	<a class="side-nav-menu__item {{link.specialAttr}}" href="{{link.href}}">
+	<a {{action 'hubLinkClick' link.specialAttr preventDefault=false}} class="side-nav-menu__item {{link.specialAttr}}" href="{{link.href}}">
 		{{link.text}}
 	</a>
 {{/each}}

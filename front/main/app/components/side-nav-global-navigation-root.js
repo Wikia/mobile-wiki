@@ -33,6 +33,10 @@ export default Ember.Component.extend(
 				}
 
 				this.sendAction('replaceNavigationContent', 'local');
+			},
+
+			hubLinkClick(hubName) {
+				this.trackClick('side-nav', `open-hub-${hubName}`);
 			}
 		}
 	}
