@@ -568,6 +568,9 @@ export default Ember.Component.extend(
 					break;
 				}
 			}
+			Ember.run.later(function () {
+				$highlightedElement.trigger('mousedown');
+			}, 500);
 		}
 	}
 );
