@@ -144,7 +144,6 @@ ImageReviewModel.reopenClass({
 	},
 
 	getImagesAndCount(contractId) {
-		console.log("Success: " + contractId);
 		const promises = [
 			ImageReviewModel.getImages(contractId),
 			ImageReviewModel.getImagesToReviewCount()
