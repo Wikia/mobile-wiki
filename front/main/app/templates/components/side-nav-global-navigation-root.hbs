@@ -9,7 +9,7 @@
 		<a {{action 'trackClick' 'side-nav' 'open-logout' preventDefault=false}} href="{{unbound logoutLink}}" class="external logout">{{i18n 'app.user-menu-log-out'}}</a>
 	</div>
 {{else}}
-	<a class="side-nav-menu__item main" {{action 'goToLoginPage'}}>{{i18n 'userStatus.login-text'}} / {{i18n 'userStatus.register-text'}}</a>
+	<a class="side-nav-menu__item main" {{action 'goToLogin'}}>{{i18n 'userStatus.login-text'}} / {{i18n 'userStatus.register-text'}}</a>
 {{/if}}
 
 {{#each hubsLinks as |link|}}

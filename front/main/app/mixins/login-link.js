@@ -1,4 +1,5 @@
 import LanguagesMixin from './languages';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Mixin.create(LanguagesMixin, {
 	/**
@@ -7,6 +8,13 @@ export default Ember.Mixin.create(LanguagesMixin, {
 	 * @returns {void}
 	 */
 	goToLogin() {
+		track({
+			trackingMethod: 'ga',
+			action: trackActions.click,
+			category: 'user-login-mobile',
+			label: 'join-link',
+		});
+
 		window.location.href = `/join?redirect=` +
 			`${encodeURIComponent(window.location.href)}` +
 			`${this.getUselangParam()}`;

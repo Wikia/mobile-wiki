@@ -1,5 +1,4 @@
 import LoginLinkMixin from '../mixins/login-link';
-import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(LoginLinkMixin, {
 	classNames: ['discussion-dialog'],
@@ -7,18 +6,6 @@ export default Ember.Component.extend(LoginLinkMixin, {
 	modalDialogService: Ember.inject.service('modal-dialog'),
 
 	actions: {
-		/**
-		 * @returns {void}
-		 */
-		goToLoginPage() {
-			track({
-				trackingMethod: 'ga',
-				action: trackActions.click,
-				category: 'user-login-mobile',
-				label: 'join-link',
-			});
-			this.goToLogin();
-		},
 		/**
 		 * @returns {void}
 		 */
