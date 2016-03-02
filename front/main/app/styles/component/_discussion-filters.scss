@@ -3,6 +3,7 @@ $legend-font-size: 16px;
 
 .discussion-filters {
 	display: block;
+	padding-bottom: 18px;
 	width: 280px;
 
 	.filters-apply-container {
@@ -43,8 +44,12 @@ $legend-font-size: 16px;
 	fieldset {
 		border: none;
 		margin: 0;
-		padding: 0 0 18px;
+		padding: 0;
 		width: 100%;
+	}
+
+	.moderation-fieldset {
+		margin-top: 14px;
 	}
 
 	.sort-options {
@@ -112,7 +117,7 @@ $legend-font-size: 16px;
 	.moderation-checkbox-label {
 		align-items: flex-start;
 		display: flex;
-		line-height: $type-smallest;
+		line-height: $line-height-min;
 		padding-top: 18px;
 	}
 
@@ -146,6 +151,7 @@ $legend-font-size: 16px;
 
 .rail {
 	.discussion-filters {
+		padding-bottom: 0;
 		padding-top: 85px;
 		width: auto;
 
@@ -159,6 +165,10 @@ $legend-font-size: 16px;
 
 		.moderation-checkbox-label {
 			padding-top: 13px;
+		}
+
+		.moderation-fieldset {
+			margin-top: 0;
 		}
 	}
 }
