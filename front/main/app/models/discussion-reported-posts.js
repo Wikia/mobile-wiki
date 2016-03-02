@@ -106,7 +106,7 @@ DiscussionForumModel.reopenClass({
 				});
 			},
 			error: (err) => {
-				this.onFindError(forumInstance, err);
+				forumInstance.setErrorProperty(err);
 			}
 		});
 	}

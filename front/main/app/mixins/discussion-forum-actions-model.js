@@ -23,16 +23,6 @@ export default Ember.Mixin.create({
 	},
 
 	/**
-	 * @param {object} forumInstance
-	 * @param {error} err
-	 *
-	 * @returns {void}
-	 */
-	onFindError(forumInstance, err) {
-		forumInstance.setErrorProperty(err);
-	},
-
-	/**
 	 * @param {string} sortBy
 	 *
 	 * @returns {string}
