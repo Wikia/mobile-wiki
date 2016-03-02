@@ -1,5 +1,5 @@
 <script>
-	(function(){
+	(function() {
 		window.trackQuantservePageView = function() {
 			var quantcastLabels, prefix, scriptTag, firstScriptInDocument;
 
@@ -9,8 +9,8 @@
 				scriptTag = document.createElement('script');
 				firstScriptInDocument = document.getElementsByTagName('script')[0];
 
-				if (Mercury.wiki.vertical) {
-					quantcastLabels.unshift(Mercury.wiki.vertical);
+				if (window.Mercury && window.Mercury.wiki.vertical) {
+					quantcastLabels.unshift(window.Mercury.wiki.vertical);
 				}
 
 				// without this quantserve does not want to track 2+ page view
