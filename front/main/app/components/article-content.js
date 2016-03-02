@@ -544,7 +544,7 @@ export default Ember.Component.extend(
 		},
 
 		insertHighlightedTextEditorDemo() {
-			const highlightedId = 'highlighted-text__demo',
+			const highlightedId = 'highlighted-text',
 				selection = window.getSelection(),
 				range = document.createRange(),
 				$paragraphs = this.$('>p');
