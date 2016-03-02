@@ -10,7 +10,7 @@ export default Ember.Component.extend({
 			this.set('isModalVisible', true);
 		},
 		contextProvided() {
-			return this.get('thumbnailModel').context == "#";
+			return this.get('thumbnailModel').context === '#';
 		}
 	}
 });

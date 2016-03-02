@@ -22,7 +22,7 @@ ImageReviewModel.reopenClass({
 					withCredentials: true
 				},
 				success: (data, textStatus, xhr) => {
-					if (xhr.status == 204) {
+					if (xhr.status === 204) {
 						resolve(ImageReviewModel.create({}));
 					} else {
 						resolve(ImageReviewModel.getImagesAndCount(data.id))
