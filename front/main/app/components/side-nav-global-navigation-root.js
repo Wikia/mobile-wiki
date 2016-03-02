@@ -28,7 +28,7 @@ export default Ember.Component.extend(
 
 		actions: {
 			goToLoginPage() {
-				this.goToLogin('wiki-nav', 'login-signup');
+				this.goToLogin('side-nav', 'open-login-signup');
 			},
 
 			openLocalNavigation() {

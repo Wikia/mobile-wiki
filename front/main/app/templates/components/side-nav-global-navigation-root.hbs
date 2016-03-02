@@ -1,12 +1,12 @@
 {{#if isUserAuthenticated}}
 	<div class="side-nav-menu__item main">
-		<a {{action 'trackClick' 'wiki-nav' 'open-user-profile' preventDefault=false}} href="{{userProfileLink}}" class="external profile-link">
+		<a {{action 'trackClick' 'side-nav' 'open-user-profile' preventDefault=false}} href="{{userProfileLink}}" class="external profile-link">
 			<figure class="avatar">
 				<img src={{currentUser.avatarPath}} alt="{{currentUser.name}}">
 			</figure>
 			{{i18n 'app.user-menu-profile'}}
 		</a>
-		<a {{action 'trackClick' 'wiki-nav' 'open-logout' preventDefault=false}} href="{{unbound logoutLink}}" class="external logout">{{i18n 'app.user-menu-log-out'}}</a>
+		<a {{action 'trackClick' 'side-nav' 'open-logout' preventDefault=false}} href="{{unbound logoutLink}}" class="external logout">{{i18n 'app.user-menu-log-out'}}</a>
 	</div>
 {{else}}
 	<a class="side-nav-menu__item main" {{action 'goToLoginPage'}}>{{i18n 'userStatus.login-text'}} / {{i18n 'userStatus.register-text'}}</a>
