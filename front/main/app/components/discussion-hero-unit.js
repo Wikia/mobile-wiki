@@ -7,6 +7,9 @@ export default Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
 
 	overlay: false,
+
+	siteName: Ember.get(Mercury, 'wiki.siteName'),
+
 	style: null,
 
 	headerImages: {
