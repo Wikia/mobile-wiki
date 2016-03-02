@@ -70,7 +70,7 @@ export default Ember.Component.extend(
 
 			searchSuggestionClick() {
 				this.trackClick('side-nav', 'search-open-suggestion-link');
-				this.sendAction('collapse');
+				this.get('collapse')();
 			}
 		},
 
