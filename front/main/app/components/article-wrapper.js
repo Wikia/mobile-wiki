@@ -196,7 +196,7 @@ export default Ember.Component.extend(
 			 * @param {string} highlightedText
 			 * @returns {void}
 			 */
-			edit(title, sectionIndex, highlightedText = '') {
+			edit(title, sectionIndex, highlightedText = null) {
 				this.sendAction('edit', title, sectionIndex, highlightedText);
 			},
 
