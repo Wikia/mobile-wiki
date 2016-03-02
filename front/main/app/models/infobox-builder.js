@@ -37,8 +37,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	addItem(type, elementData = null) {
 		let item = {};
-		console.log("type: " + type);
-		console.log("element_data:" + elementData);
+
 		switch (type) {
 			case 'title':
 				item = InfoboxBuilderModel.extendTitleData(this.createTitleItem(), elementData);
