@@ -547,7 +547,7 @@ export default Ember.Component.extend(
 			const highlightedId = 'highlighted-text__demo',
 				selection = window.getSelection(),
 				range = document.createRange(),
-				$paragraphs = this.$('p');
+				$paragraphs = this.$('.article-content').children('p');
 
 			let $paragraph, plain, paragraphHtml, word, $highlightedElement;
 
