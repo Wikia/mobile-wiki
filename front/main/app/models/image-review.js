@@ -25,7 +25,7 @@ ImageReviewModel.reopenClass({
 					if (xhr.status === 204) {
 						resolve(ImageReviewModel.create({}));
 					} else {
-						resolve(ImageReviewModel.getImagesAndCount(data.id))
+						resolve(ImageReviewModel.getImagesAndCount(data.id));
 					}
 				},
 				error: (data) => reject(data)
@@ -109,7 +109,7 @@ ImageReviewModel.reopenClass({
 					imageId: image.imageId,
 					fullSizeImageUrl: image.imageUrl,
 					contractId,
-					context: image.context || "#",
+					context: image.context || '#',
 					status: 'accepted'
 				}));
 			}
