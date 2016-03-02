@@ -1,6 +1,6 @@
 form {
 	small.error {
-		color: $input-border-error-color;
+		color: $input-error-color;
 		line-height: .75rem;
 		margin-bottom: 0;
 		padding-left: 0;
@@ -12,13 +12,6 @@ form {
 	min-height: 62px; // Height of input + error message to avoid pushing content down when error is displayed
 	padding-bottom: .25rem;
 	position: relative;
-
-	input,
-	.input {
-		&.error {
-			border-bottom-color: $input-border-error-color;
-		}
-	}
 
 	small.error {
 		padding-bottom: 0;
@@ -53,7 +46,7 @@ input[type='date']:valid + .floating-label {
 }
 
 input:valid + .floating-label.error {
-	color: $input-border-error-color;
+	color: $input-error-color;
 }
 
 .input-password::-ms-clear {
