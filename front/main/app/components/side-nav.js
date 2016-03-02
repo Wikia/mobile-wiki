@@ -18,7 +18,7 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			wordmarkClick() {
-				this.trackClick('side-nav', 'open-wordmark-link');
+				this.trackClick('side-nav', 'open-wikia-link');
 				this.send('collapse');
 			},
 
