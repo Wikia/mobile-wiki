@@ -1,38 +1,24 @@
 .auth-header {
-	font-size: 1.125rem;
-	line-height: 22px;
+	flex-grow: 0;
+	flex-shrink: 0;
 	margin: 19px auto 0;
 	max-width: $desktop-content-max-width;
 	min-width: $desktop-content-min-width;
-	padding: 25px 24px 0;
+	padding: 30px 24px 0;
 	text-align: center;
 
-	h1 {
-		color: inherit;
-		line-height: inherit;
-		font-size: inherit;
-		font-weight: inherit;
-	}
-}
-
-.register-fb-page,
-.fb-connect-page {
-	.auth-header {
-		font-weight: bold;
+	.header-callout-link {
+		padding: 0;
 	}
 }
 
 .desktop {
 	.auth-header {
-		font-size: 2.5rem;
-		font-weight: bold;
 		min-height: 145px;
-		padding: 47px 75px 50px;
+		padding: 40px 24px 50px;
 		position: relative;
 
 		h1 {
-			font-size: 2.25rem;
-			line-height: 2.5rem;
 			margin: 0;
 		}
 
@@ -49,7 +35,6 @@
 		}
 
 		p {
-			line-height: 1.25rem;
 			margin: 1rem 0 0;
 		}
 	}

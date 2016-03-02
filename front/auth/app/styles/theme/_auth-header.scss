@@ -1,12 +1,40 @@
+.auth-header {
+	color: $header-text-color;
+}
+
 .standalone {
 	.auth-header {
 		border: $color-white, solid;
 		border-width: 1px 1px 0;
+		font-size: $type-large;
+
+		h1 {
+			color: inherit;
+			font-size: $type-large;
+			font-weight: bold;
+			line-height: $line-height-large;
+		}
+
+		.header-callout-link {
+			font-size: $type-smallest;
+			line-height: $line-height-smallest;
+
+			&:focus {
+				color: inherit;
+			}
+		}
+
+		.header-callout-emphasis {
+			font-weight: bold;
+			text-decoration: underline;
+		}
 	}
 }
 
-.auth-header {
-	color: $header-text-color;
-	flex-grow: 0;
-	flex-shrink: 0;
+.register-fb-page,
+.fb-connect-page {
+	.auth-header {
+		font-weight: bold;
+	}
 }
+
