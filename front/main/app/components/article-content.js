@@ -543,6 +543,11 @@ export default Ember.Component.extend(
 				});
 		},
 
+		/**
+		 * Initializes a demo of a new Highlighted Text Editor.
+		 * To be thrown away on March 29, 2016.
+		 * @returns {void}
+		 */
 		insertHighlightedTextEditorDemo() {
 			const highlightedId = 'highlighted-text',
 				paragraphsLimit = 3,
