@@ -17,6 +17,14 @@ export default Ember.Component.extend(
 			return this.get('isPreviewItemHovered') && !this.get('isPreviewItemDragged');
 		}),
 
+		trackChangedItems() {
+			const diffArray = this.get('getDiffArray')();
+
+			diffArray.forEach((element) =>
+				this.trackClick('infobox-builder', `changed-element-${element.type}-${element.changedField}`)
+			);
+		},
+
 		actions: {
 			showReorderTooltip(posX, posY) {
 				this.setProperties({
@@ -45,8 +53,10 @@ export default Ember.Component.extend(
 			},
 
 			save() {
-				this.trackClick('infobox-builder', 'saving-attempt');
 				this.set('isLoading', true);
+
+				this.trackClick('infobox-builder', 'saving-attempt');
+				this.trackChangedItems();
 				this.get('saveAction')().then(() => {
 					this.trackClick('infobox-builder', 'saving-successful');
 					this.setProperties({
@@ -54,6 +64,11 @@ export default Ember.Component.extend(
 						showSuccess: true
 					});
 				});
+			},
+
+			cancel() {
+				this.trackClick('infobox-builder', 'navigate-back-from-builder');
+				this.get('cancelAction')();
 			}
 		}
 	}

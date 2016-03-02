@@ -1,9 +1,7 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 
-const InfoboxBuilderModel = Ember.Object.extend(
-	TrackClickMixin,
-	{
+const InfoboxBuilderModel = Ember.Object.extend({
 	/**
 	 * @returns {void}
 	 */
@@ -278,36 +276,38 @@ const InfoboxBuilderModel = Ember.Object.extend(
 		state.forEach((element) => this.addItem(element.type, element));
 	},
 
+	/**
+	 * @desc Provides information about whether and what elements'
+	 * values has been changed, basing on previously saved start data.
+	 *
+	 * @returns {Array} of Objects with element type and changed property
+	 */
 	createDataDiffs() {
 		const currentState = this.get('infoboxState');
-		let diff = {
-			changed: false,
-			changedField: '',
-			added: 0,
-			removed: 0
-		};
+		let diffs = [],
+			diff = [];
 
-		currentState.forEach((element) => {
-			if (element.infoboxBuilderData.oldData) {
-				switch (element.type) {
+		currentState
+			.filter(item => item.infoboxBuilderData.oldData)
+			.forEach((item) => {
+				switch (item.type) {
 					case 'title':
-						diff = InfoboxBuilderModel.createTitleDiff(element.data, element.infoboxBuilderData.oldData);
+						diff = InfoboxBuilderModel.createTitleDiff(item.infoboxBuilderData.oldData, item.data);
 						break;
 					case 'row':
-						diff = InfoboxBuilderModel.createRowDiff(element.data, element.infoboxBuilderData.oldData);
+						diff = InfoboxBuilderModel.createRowDiff(item.infoboxBuilderData.oldData, item.data);
 						break;
 					case 'section-header':
-						diff = InfoboxBuilderModel.createSectionHeaderDiff(element.data, element.infoboxBuilderData.oldData);
+						diff = InfoboxBuilderModel.createSectionHeaderDiff(item.infoboxBuilderData.oldData, item.data, item.collapsible);
 						break;
 					default:
 						break;
 				}
 
-				if (diff.changed) {
-					this.trackClick('infobox-builder', `changed-element-${element.type}-${diff.changedField}`);
-				}
-			}
-		})
+				diffs.push(...diff);
+			});
+
+		return diffs;
 	},
 
 	/**
@@ -315,9 +315,6 @@ const InfoboxBuilderModel = Ember.Object.extend(
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	saveStateToTemplate() {
-		this.createDataDiffs();
-
-		return;
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: M.buildUrl({
@@ -471,68 +468,59 @@ InfoboxBuilderModel.reopenClass({
 		return item;
 	},
 
-	createTitleDiff(data, oldData) {
-		let diff = {
-				changed: false,
-				changedField: '',
-				added: 0,
-				removed: 0
-			};
+	/**
+	 * @desc Provides information about whether and what elements'
+	 * values has been changed, basing on previously saved start data.
+	 * Sends tracking information about changed values.
+	 *
+	 * @param {Object} data current infobox builder state
+	 * @param {Object} oldData data in form as it was when opening infobox builder
+	 * @returns {Object}
+	 */
+	createTitleDiff(oldData, data) {
+		let changedField = [];
 
 		if (data.defaultValue !== oldData.defaultValue) {
-			diff.changed = true;
-			diff.changedField = 'defaultValue';
+			changedField.push({
+				type: 'title',
+				changedField: 'defaultValue'
+			});
 		}
 
-		return diff;
+		return changedField;
 	},
 
-	createRowDiff(data, oldData) {
-		let diffChars = 0,
-			diff = {
-				changed: false,
-				changedField: '',
-				added: 0,
-				removed: 0
-			};
+	createRowDiff(oldData, data) {
+		let changedField = [];
 
 		if (data.label !== oldData.label) {
-			diff.changed = true;
-			diff.changedField = 'label';
-			diffChars = data.label.length - oldData.label.length;
-
-			if (diffChars < 0) {
-				diff.added = diffChars;
-			} else if (diffChars > 0) {
-				diff.removed = diffChars;
-			}
+			changedField.push({
+				type: 'row',
+				changedField: 'label'
+			});
 		}
 
-		return diff;
+		return changedField;
 	},
 
-	createSectionHeaderDiff(data, oldData) {
-		let diffChars = 0,
-			diff = {
-				changed: false,
-				changedField: '',
-				added: 0,
-				removed: 0
-			};
+	createSectionHeaderDiff(oldData, data, collapsible) {
+		let changedField = [];
 
 		if (data !== oldData.value) {
-			diff.changed = true;
-			diff.changedField = 'value';
-			diffChars = data.length - oldData.value.length;
-
-			if (diffChars < 0) {
-				diff.added = diffChars;
-			} else if (diffChars > 0) {
-				diff.removed = diffChars;
-			}
+			changedField.push({
+				type: 'section-header',
+				changedField: 'value'
+			});
 		}
 
-		return diff;
+		if (collapsible !== oldData.collapsible) {
+			changedField.push({
+				type: 'section-header',
+				changedField: 'collapsible'
+			});
+		}
+
+		return changedField;
 	}
 });
 
