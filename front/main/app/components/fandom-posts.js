@@ -14,7 +14,7 @@ export default Ember.Component.extend({
 			})
 			.load()
 			.then((model) => {
-				this.setProperties(model)
+				this.setProperties(model);
 			});
 	},
 

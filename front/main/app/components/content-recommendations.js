@@ -14,7 +14,8 @@ export default Ember.Component.extend({
 	},
 
 	didRender() {
-		var pages = this.get('pages');
+		const pages = this.get('pages');
+
 		if (pages) {
 			Ember.run.throttle(this, 'trackImpression', 200);
 		}
