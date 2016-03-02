@@ -1,29 +1,40 @@
 <script>
-	if (!M.prop('queryParams.noexternals')) {
-		window.trackComscorePageView = function() {
-			var prefix = (document.location.protocol === 'https:' ? 'https://sb' : 'http://b'),
-				scriptTag = document.createElement('script'),
-				firstScriptInDocument = document.getElementsByTagName('script')[0],
-				comscore = M.prop('tracking.comscore');
+	(function () {
+		var prefix = (document.location.protocol === 'https:' ? 'https://sb' : 'http://b'),
+				externalsAllowed = !M.prop('queryParams.noexternals');
+
+		if (externalsAllowed) {
+			M.loadScripts([prefix + '.scorecardresearch.com/beacon.js']);
 
 			window._comscore = window._comscore || [];
+		}
 
-			window._comscore.push({
-				c1: '2',
-				c2: comscore.id,
-				options: {
-					url_append: comscore.keyword + "=" + comscore.c7Value
+		window.trackComscorePageView = function () {
+			if (externalsAllowed) {
+				var comscore = M.prop('tracking.comscore');
+
+				window._comscore.push({
+					c1: '2',
+					c2: comscore.id,
+					options: {
+						url_append: comscore.keyword + "=" + comscore.c7Value
+					}
+				});
+
+				/**
+				 * This is to make sure Comscore sends the beacon
+				 * on first page load COMSCORE won't be there
+				 * but it's fine as whenever their script loads it'll send beacon
+				 * this is needed for 2+ page views
+				 */
+				if (COMSCORE && COMSCORE.purge) {
+					COMSCORE.purge();
 				}
-			});
 
-			scriptTag.async = 1;
-			scriptTag.src = prefix + '.scorecardresearch.com/beacon.js?' + Math.random();
-
-			firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
-
-			console.info('Track pageView: Comscore');
+				console.info('Track pageView: Comscore');
+			}
 		};
 
 		window.trackComscorePageView();
-	}
+	})();
 </script>
