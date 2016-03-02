@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
+import {track as mercuryTrack, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
@@ -237,6 +238,19 @@ export default Ember.Component.extend(ViewportMixin, {
 				overflow: 'hidden'
 			});
 			this.$('.editor-textarea').focus();
+		});
+	},
+
+	/**
+	 * @param {string} label
+	 *
+	 * @returns {void}
+	 */
+	track(label) {
+		mercuryTrack({
+			action: 'PostCreate',
+			category: 'sectionaddphoto',
+			label
 		});
 	},
 

@@ -1,6 +1,7 @@
 import DiscussionBaseModel from './discussion-base';
 import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
 import ajaxCall from '../utils/ajax-call';
+import {track, trackActions} from '../utils/discussion-tracker.js';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 	contributors: [],
@@ -69,6 +70,8 @@ const DiscussionForumModel = DiscussionBaseModel.extend(DiscussionDeleteModelMix
 				post._embedded.firstPost[0].isNew = true;
 				this.posts.insertAt(0, post);
 				this.incrementProperty('totalPosts');
+
+				track(trackActions.CreatePost);
 			},
 			error: (err) => {
 				if (err.status === 401) {
