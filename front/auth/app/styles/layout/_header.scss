@@ -1,6 +1,9 @@
 .auth-header {
 	font-size: 1.125rem;
 	line-height: 22px;
+	margin: 19px auto 0;
+	max-width: $desktop-content-max-width;
+	min-width: $desktop-content-min-width;
 	padding: 25px 24px 0;
 	text-align: center;
 

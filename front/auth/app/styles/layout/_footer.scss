@@ -5,6 +5,14 @@
 		padding: 0;
 	}
 }
+.standalone {
+	.auth-footer {
+		margin: 0 auto 32px;
+		max-width: $desktop-content-max-width;
+		min-width: $desktop-content-min-width;
+	}
+}
+
 .auth-footer {
 	font-size: .75rem;
 	line-height: 18px;

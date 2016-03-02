@@ -43,8 +43,9 @@
 		border-color: $border-color;
 		border-style: solid;
 		border-width: 0 1px;
-		margin: 0 31px;
-		min-width: 768px;
+		margin: 0 auto;
+		max-width: $desktop-content-max-width;
+		min-width: $desktop-content-min-width;
 	}
 }
 
