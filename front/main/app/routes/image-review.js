@@ -22,8 +22,10 @@ export default Ember.Route.extend({
 
 			if (error.status === 401) {
 				errorMessage = i18n.t('main.error-no-access-permissions', {ns: 'image-review'});
+			} else if(error.status == 404) {
+				errorMessage = i18n.t('main.error-no-more-images', {ns: 'image-review'});
 			}
-			Ember.Logger.error(error);
+
 			this.controllerFor('application').addAlert({
 				message: errorMessage,
 				type: 'warning',

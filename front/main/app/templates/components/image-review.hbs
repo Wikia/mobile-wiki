@@ -1,9 +1,9 @@
 {{#if model.showSubHeader}}
-    <header class="sub-head">
-        <a {{action (action this.attrs.openMainPage)}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
-        <button {{action (action this.attrs.reviewAndGetMoreImages)}} class="sub-head--done">{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
-        <div class="sub-head--title">{{i18n 'main.head' ns='image-review'}}</div>
-    </header>
+	<header class="sub-head">
+		<a {{action (action this.attrs.openMainPage)}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
+		<button {{action (action this.attrs.reviewAndGetMoreImages)}} class="sub-head--done">{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
+		<div class="sub-head--title">{{i18n 'main.head' ns='image-review'}}</div>
+	</header>
 {{/if}}
 
 <p>{{i18n 'main.description' ns='image-review'}}</p>
@@ -19,12 +19,16 @@
 </ul>
 
 {{#modal-dialog isVisible=isModalVisible}}
-	<img src="{{modalImageUrl}}"/>
+	<img src="{{thumbnailModel.fullSizeImageUrl}}"/>
+	{{#if contextProvided}}
+        <a href="{{thumbnailModel.context}}"> {{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}} </a>
+	{{else}}
+		<p> {{i18n 'main.image-context-not-provided' ns='image-review'}} </p>
+	{{/if}}
 {{/modal-dialog}}
 
 <div class="action-buttons">
-    <button {{action (action this.attrs.reviewAndGetMoreImages)}}>{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
-    <button {{action (action this.attrs.getFlaggedOnly)}}>{{i18n 'main.get-flagged' ns='image-review'}}</button>
+	<button {{action (action this.attrs.reviewAndGetMoreImages)}}>{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
+	<button {{action (action this.attrs.getFlaggedOnly)}}>{{i18n 'main.get-flagged' ns='image-review'}}</button>
 </div>
-
 {{alert-notifications alerts=alertNotifications}}

@@ -103,10 +103,10 @@ ImageReviewModel.reopenClass({
 					imageId: image.imageId,
 					fullSizeImageUrl: image.imageUrl,
 					contractId,
+					context: image.context || "#",
 					status: 'accepted'
 				}));
 			}
-			// else skip because is reviewed already
 		});
 		return ImageReviewModel.create({images, contractId, imagesToReviewCount});
 	},
@@ -144,6 +144,7 @@ ImageReviewModel.reopenClass({
 	},
 
 	getImagesAndCount(contractId) {
+		console.log("Success: " + contractId);
 		const promises = [
 			ImageReviewModel.getImages(contractId),
 			ImageReviewModel.getImagesToReviewCount()
