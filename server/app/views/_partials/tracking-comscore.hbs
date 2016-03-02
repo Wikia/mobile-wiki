@@ -27,8 +27,8 @@
 				 * but it's fine as whenever their script loads it'll send beacon
 				 * this is needed for 2+ page views
 				 */
-				if (COMSCORE && COMSCORE.purge) {
-					COMSCORE.purge();
+				if (window.COMSCORE && window.COMSCORE.purge) {
+					window.COMSCORE.purge();
 				}
 
 				console.info('Track pageView: Comscore');
