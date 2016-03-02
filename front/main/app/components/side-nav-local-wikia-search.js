@@ -56,12 +56,10 @@ export default Ember.Component.extend(
 			},
 
 			searchFocus() {
-				this.trackClick('side-nav', 'search-focus');
 				this.sendAction('toggleSearchMode', true);
 			},
 
 			cancelSearch() {
-				this.trackClick('side-nav', 'search-cancel');
 				this.set('query', null);
 				this.sendAction('toggleSearchMode', false);
 			},
@@ -235,13 +233,6 @@ export default Ember.Component.extend(
 		 */
 		endedRequest(query) {
 			delete this.get('requestsInProgress')[query];
-			// Track when search suggestions are loaded, we don't want to spam GA with this events
-			// so we track only when request for suggestions has ended.
-			track({
-				action: trackActions.success,
-				category: 'side-nav',
-				label: 'search-suggestions-loaded'
-			});
 		},
 
 		/**
