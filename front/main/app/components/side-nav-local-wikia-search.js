@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {track, trackActions} from 'common/utils/track';
 import TrackClickMixin from '../mixins/track-click';
 
 /**

@@ -28,7 +28,8 @@ export default Ember.Component.extend(
 
 		actions: {
 			goToLoginPage() {
-				this.goToLogin('side-nav', 'open-login-signup');
+				this.trackClick('side-nav', 'open-login-signup');
+				this.goToLogin();
 			},
 
 			openLocalNavigation() {
