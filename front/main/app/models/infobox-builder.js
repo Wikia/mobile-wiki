@@ -1,6 +1,9 @@
 import Ember from 'ember';
+import TrackClickMixin from '../mixins/track-click';
 
-const InfoboxBuilderModel = Ember.Object.extend({
+const InfoboxBuilderModel = Ember.Object.extend(
+	TrackClickMixin,
+	{
 	/**
 	 * @returns {void}
 	 */
@@ -166,6 +169,18 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @returns {void}
 	 */
 	setEditItem(item) {
+		if (item) {
+			let itemData = item.data;
+
+			if (item.type == 'section-header') {
+				itemData = {
+					value: item.data,
+					collapsible: item.collapsible
+				}
+			}
+			item.infoboxBuilderData.oldData = jQuery.extend({}, itemData);
+		}
+
 		this.set('itemInEditMode', item);
 	},
 
@@ -263,11 +278,46 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		state.forEach((element) => this.addItem(element.type, element));
 	},
 
+	createDataDiffs() {
+		const currentState = this.get('infoboxState');
+		let diff = {
+			changed: false,
+			changedField: '',
+			added: 0,
+			removed: 0
+		};
+
+		currentState.forEach((element) => {
+			if (element.infoboxBuilderData.oldData) {
+				switch (element.type) {
+					case 'title':
+						diff = InfoboxBuilderModel.createTitleDiff(element.data, element.infoboxBuilderData.oldData);
+						break;
+					case 'row':
+						diff = InfoboxBuilderModel.createRowDiff(element.data, element.infoboxBuilderData.oldData);
+						break;
+					case 'section-header':
+						diff = InfoboxBuilderModel.createSectionHeaderDiff(element.data, element.infoboxBuilderData.oldData);
+						break;
+					default:
+						break;
+				}
+
+				if (diff.changed) {
+					this.trackClick('infobox-builder', `changed-element-${element.type}-${diff.changedField}`);
+				}
+			}
+		})
+	},
+
 	/**
 	 * @desc saves infobox state to MW template
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	saveStateToTemplate() {
+		this.createDataDiffs();
+
+		return;
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: M.buildUrl({
@@ -419,6 +469,70 @@ InfoboxBuilderModel.reopenClass({
 		}
 
 		return item;
+	},
+
+	createTitleDiff(data, oldData) {
+		let diff = {
+				changed: false,
+				changedField: '',
+				added: 0,
+				removed: 0
+			};
+
+		if (data.defaultValue !== oldData.defaultValue) {
+			diff.changed = true;
+			diff.changedField = 'defaultValue';
+		}
+
+		return diff;
+	},
+
+	createRowDiff(data, oldData) {
+		let diffChars = 0,
+			diff = {
+				changed: false,
+				changedField: '',
+				added: 0,
+				removed: 0
+			};
+
+		if (data.label !== oldData.label) {
+			diff.changed = true;
+			diff.changedField = 'label';
+			diffChars = data.label.length - oldData.label.length;
+
+			if (diffChars < 0) {
+				diff.added = diffChars;
+			} else if (diffChars > 0) {
+				diff.removed = diffChars;
+			}
+		}
+
+		return diff;
+	},
+
+	createSectionHeaderDiff(data, oldData) {
+		let diffChars = 0,
+			diff = {
+				changed: false,
+				changedField: '',
+				added: 0,
+				removed: 0
+			};
+
+		if (data !== oldData.value) {
+			diff.changed = true;
+			diff.changedField = 'value';
+			diffChars = data.length - oldData.value.length;
+
+			if (diffChars < 0) {
+				diff.added = diffChars;
+			} else if (diffChars > 0) {
+				diff.removed = diffChars;
+			}
+		}
+
+		return diff;
 	}
 });
 
