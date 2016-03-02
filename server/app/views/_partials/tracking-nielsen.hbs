@@ -1,0 +1,52 @@
+<script>
+	(function () {
+		var sendNielsenPageView = function () {
+			if (!window.NOLCMB || !window.NOLCMB.getInstance) {
+				return;
+			}
+
+			var nielsen = M.prop('tracking.nielsen'),
+				globalParams = {
+					sfcode: 'dcr-cert',
+					apid: nielsen.apid,
+					apn: 'test-static'
+				};
+
+			window.gg1 = window.NOLCMB.getInstance(globalParams);
+			window.staticmeta = {
+				type: 'static',
+				assetid: nielsen.section,
+				section: nielsen.section,
+				segA: nielsen.dbName,
+				segB: '',
+				segC: ''
+			};
+
+			window.gg1.ggInitialize(globalParams);
+			window.gg1.ggPM('staticstart', window.staticmeta);
+
+			console.info('Track pageView: Nielsen');
+		};
+
+
+		window.trackNielsenPageView = function () {
+			if (!M.prop('queryParams.noexternals')) {
+				var nielsen = M.prop('tracking.nielsen'),
+					scriptTag = document.createElement('script'),
+					firstScriptInDocument = document.getElementsByTagName('script')[0];
+
+				if (nielsen.enabled) {
+					delete window.NOLCMB;
+
+					scriptTag.async = 1;
+					scriptTag.src = 'http://secure-dcr-cert.imrworldwide.com/novms/js/2/ggcmb500.js';
+					scriptTag.onload = sendNielsenPageView;
+
+					firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
+				}
+			}
+		};
+
+		window.trackNielsenPageView();
+	})();
+</script>

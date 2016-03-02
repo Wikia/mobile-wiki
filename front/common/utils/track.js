@@ -37,7 +37,6 @@ const trackers = {
 		Internal,
 		IVW3,
 		Krux,
-		Nielsen,
 		UniversalAnalytics
 	},
 	/**
@@ -203,6 +202,7 @@ export function trackPageView(adsContext) {
 		M.prop('initialPageView', false);
 	} else {
 		window.trackQuantservePageView();
+		window.trackNielsenPageView();
 	}
 }
 
