@@ -8,10 +8,6 @@ export default Ember.Component.extend(
 		classNames: ['side-nav'],
 		classNameBindings: ['shouldBeVisible:slide-into-view:collapsed'],
 
-		shouldBeVisibleObserver: Ember.observer('shouldBeVisible', function () {
-			this.trackClick('side-nav', this.get('shouldBeVisible') ? 'expanded' : 'collapsed');
-		}),
-
 		globalNavContent: 'side-nav-global-navigation-root',
 		isFandomVisible: Ember.computed(() => Mercury.wiki.language.content === 'en'),
 		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
@@ -31,7 +27,6 @@ export default Ember.Component.extend(
 			 */
 			homeOfFandomClick() {
 				this.trackClick('side-nav', 'open-home-of-fandom');
-				this.send('collapse');
 			},
 
 			/**
@@ -40,6 +35,11 @@ export default Ember.Component.extend(
 			collapse() {
 				this.set('globalNavContent', 'side-nav-global-navigation-root');
 				this.sendAction('toggleVisibility', false);
+			},
+
+			closeButtonClick() {
+				this.trackClick('side-nav', 'collapsed');
+				this.send('collapse');
 			},
 
 			/**
