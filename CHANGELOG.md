@@ -1,3 +1,15 @@
+## release-215 hotfix 1 (2016-03-01 12:28 UTC)
+* [XW-1221](https://wikia-inc.atlassian.net/browse/XW-1221) XW-1221 fix path to model in article-preview route
+
+## release-215 (2016-03-01 09:59 UTC)
+* add-version: Add version to Ember inspector
+* [XW-1104](https://wikia-inc.atlassian.net/browse/XW-1104) XW-1104 | Category page
+* [XW-1104](https://wikia-inc.atlassian.net/browse/XW-1104) handle exception
+* [DAT-3732](https://wikia-inc.atlassian.net/browse/DAT-3732) DAT 3732 Infobox builder header section editing
+* jenkins-improve: Jenkins improve
+* [XW-1184](https://wikia-inc.atlassian.net/browse/XW-1184) P2 fixes from XW-1184
+* [XW-1104](https://wikia-inc.atlassian.net/browse/XW-1104) use link-to instead of a tag
+
 ## release-214 (2016-02-26 14:02 UTC)
 * [XW-1086](https://wikia-inc.atlassian.net/browse/XW-1086) XW-1086 | Mercury should still work even with cookies disabled
 * [XW-1184](https://wikia-inc.atlassian.net/browse/XW-1184) XW-1184 | Fix actions for RWA
