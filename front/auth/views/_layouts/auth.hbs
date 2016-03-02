@@ -29,21 +29,17 @@
 		{{#unless hideHeader}}
 		<header class="auth-header splash splash-top">
 			<h1>{{i18n headerText}}</h1>
+
 			{{#if headerSlogan}}
 			<p>{{i18n headerSlogan}}</p>
 			{{/if}}
+			<a href="{{{headerHref}}}" class="header-callout-link">
+				{{i18n headerCallout}} <span class="header-callout-emphasis">{{i18n headerCalloutLink}}</span>
+			</a>
 		</header>
 		{{/unless}}
 
 		{{{content}}}
-
-		{{#unless hideFooter}}
-		<footer class="auth-footer splash splash-bottom">
-			<a href="{{{footerHref}}}" class="footer-callout-link">
-				{{i18n footerCallout}} <span class="footer-callout-emphasis">{{i18n footerCalloutLink}}</span>
-			</a>
-		</footer>
-		{{/unless}}
 
 		<script>
 			var translations = {{{json (translations language ns='auth-front')}}},

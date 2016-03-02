@@ -26,7 +26,6 @@ export default function get(request, reply) {
 			title: 'auth:join.title',
 			signinRoute: authUtils.getSignInUrl(request),
 			hideHeader: true,
-			hideFooter: true,
 			signupHref: authUtils.getRegisterUrl(request),
 			bodyClasses: 'splash join-page',
 			pageType: 'join-page',
