@@ -88,7 +88,7 @@ export default Ember.Mixin.create({
 		}
 
 		// Get last parent before article wrapper
-		while (el && !el.parentElement.classList.contains('article-content')) {
+		while (el && el.parentElement && !el.parentElement.classList.contains('article-content')) {
 			el = el.parentElement;
 		}
 		// Get section header

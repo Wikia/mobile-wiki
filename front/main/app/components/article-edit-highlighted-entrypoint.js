@@ -1,22 +1,44 @@
 import Ember from 'ember';
+import LanguagesMixin from '../mixins/languages';
 
-export default Ember.Component.extend({
-	classNames: ['article-edit-highlighted-entrypoint'],
-	classNameBindings: ['displayEdit'],
-	displayEdit: Ember.computed('showEdit', function () {
-		const showEdit = this.get('showEdit');
+export default Ember.Component.extend(
+	LanguagesMixin,
+	{
+		classNames: ['article-edit-highlighted-entrypoint'],
+		classNameBindings: ['displayEdit'],
+		displayEdit: Ember.computed('showEdit', function () {
+			const showEdit = this.get('showEdit');
 
-		if (showEdit === true) {
-			return 'show-edit';
-		} else if (showEdit === false) {
-			return 'hide-edit';
-		}
+			if (showEdit === true) {
+				return 'show-edit';
+			} else if (showEdit === false) {
+				return 'hide-edit';
+			}
 
-		return '';
-	}),
-	actions: {
-		editSection() {
-			this.sendAction('edit', this.get('title'), this.get('section'), this.get('highlightedText'));
+			return '';
+		}),
+		actions: {
+			editSection() {
+				const title = this.get('title'),
+					section = this.get('section'),
+					highlightedText = this.get('highlightedText');
+
+				if (this.get('editAllowed')) {
+					this.sendAction('edit', title, section, highlightedText);
+				} else {
+					this.redirectToLogin(title, section, highlightedText);
+				}
+			}
+		},
+
+		redirectToLogin(title, section, highlightedText) {
+			let redirect = `${window.location.origin}/wiki/edit/${title}/${section}`;
+
+			if (highlightedText) {
+				redirect += `?highlighted=${highlightedText}`;
+			}
+
+			window.location.assign(M.buildUrl({path: '/join', query: {redirect}}));
 		}
 	}
-});
+);

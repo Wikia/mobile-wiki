@@ -25,7 +25,7 @@ export default Ember.Controller.extend({
 		 * @param {string} highlightedText
 		 * @returns {void}
 		 */
-		edit(title, sectionIndex, highlightedText = '') {
+		edit(title, sectionIndex, highlightedText = null) {
 			VisibilityStateManager.reset();
 			this.transitionToRoute('articleEdit', title, sectionIndex, {queryParams: {highlighted: highlightedText}});
 
