@@ -101,10 +101,12 @@ export default Ember.Component.extend(
 			}
 		},
 
-		setHighlightedTextVars(sectionIndex, highlightedText, showEdit) {
-			this.set('highlightedSectionIndex', sectionIndex);
-			this.set('highlightedText', highlightedText);
-			this.set('showHighlightedEdit', showEdit);
+		setHighlightedTextVars(highlightedSectionIndex, highlightedText, showHighlightedEdit) {
+			this.setProperties({
+				highlightedSectionIndex,
+				highlightedText,
+				showHighlightedEdit
+			});
 		},
 
 		/**
