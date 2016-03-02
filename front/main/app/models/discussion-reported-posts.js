@@ -83,7 +83,8 @@ DiscussionForumModel.reopenClass({
 			url: M.getDiscussionServiceUrl(`/${wikiId}/posts`),
 			success: (data) => {
 				const contributors = [],
-					posts = data._embedded ? data._embedded['doc:posts'] : [],
+					embedded = data._embedded,
+					posts = embedded && embedded['doc:posts'] ? embedded['doc:posts'] : [],
 					pivotId = (posts.length > 0 ? posts[0].id : null),
 					totalPosts = data.postCount;
 
