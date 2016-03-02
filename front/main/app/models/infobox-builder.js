@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 
 const InfoboxBuilderModel = Ember.Object.extend({
 	/**
@@ -162,19 +161,21 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc sets item to the edit mode
+	 * @desc sets item to the edit mode and saves its current
+	 * data in the moment of beginning editing
+	 *
 	 * @param {Object} item
 	 * @returns {void}
 	 */
 	setEditItem(item) {
-		if (item) {
+		if (item && !item.infoboxBuilderData.oldData) {
 			let itemData = item.data;
 
-			if (item.type == 'section-header') {
+			if (item.type === 'section-header') {
 				itemData = {
 					value: item.data,
 					collapsible: item.collapsible
-				}
+				};
 			}
 			item.infoboxBuilderData.oldData = jQuery.extend({}, itemData);
 		}
@@ -283,12 +284,12 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @returns {Array} of Objects with element type and changed property
 	 */
 	createDataDiffs() {
-		const currentState = this.get('infoboxState');
-		let diffs = [],
-			diff = [];
+		const currentState = this.get('infoboxState'),
+			diffs = [];
+		let diff = [];
 
 		currentState
-			.filter(item => item.infoboxBuilderData.oldData)
+			.filter((item) => item.infoboxBuilderData.oldData)
 			.forEach((item) => {
 				switch (item.type) {
 					case 'title':
@@ -298,7 +299,11 @@ const InfoboxBuilderModel = Ember.Object.extend({
 						diff = InfoboxBuilderModel.createRowDiff(item.infoboxBuilderData.oldData, item.data);
 						break;
 					case 'section-header':
-						diff = InfoboxBuilderModel.createSectionHeaderDiff(item.infoboxBuilderData.oldData, item.data, item.collapsible);
+						diff = InfoboxBuilderModel.createSectionHeaderDiff(
+							item.infoboxBuilderData.oldData,
+							item.data,
+							item.collapsible
+						);
 						break;
 					default:
 						break;
@@ -471,56 +476,72 @@ InfoboxBuilderModel.reopenClass({
 	/**
 	 * @desc Provides information about whether and what elements'
 	 * values has been changed, basing on previously saved start data.
-	 * Sends tracking information about changed values.
 	 *
-	 * @param {Object} data current infobox builder state
 	 * @param {Object} oldData data in form as it was when opening infobox builder
+	 * @param {Object} data current infobox builder state
 	 * @returns {Object}
 	 */
 	createTitleDiff(oldData, data) {
-		let changedField = [];
+		const changes = [];
 
 		if (data.defaultValue !== oldData.defaultValue) {
-			changedField.push({
+			changes.push({
 				type: 'title',
 				changedField: 'defaultValue'
 			});
 		}
 
-		return changedField;
+		return changes;
 	},
 
+	/**
+	 * @desc Provides information about whether and what elements'
+	 * values has been changed, basing on previously saved start data.
+	 *
+	 * @param {Object} oldData data in form as it was when opening infobox builder
+	 * @param {Object} data current infobox builder state
+	 * @returns {Object}
+	 */
 	createRowDiff(oldData, data) {
-		let changedField = [];
+		const changes = [];
 
 		if (data.label !== oldData.label) {
-			changedField.push({
+			changes.push({
 				type: 'row',
 				changedField: 'label'
 			});
 		}
 
-		return changedField;
+		return changes;
 	},
 
-	createSectionHeaderDiff(oldData, data, collapsible) {
-		let changedField = [];
+	/**
+	 * @desc Provides information about whether and what elements'
+	 * values has been changed, basing on previously saved start data.
+	 *
+	 * @param {Object} oldData data in form as it was when opening infobox builder
+	 * @param {string} value section header value
+	 * @param {bool} collapsible
+	 * @returns {Object}
+	 */
+	createSectionHeaderDiff(oldData, value, collapsible) {
+		const changes = [];
 
-		if (data !== oldData.value) {
-			changedField.push({
+		if (value !== oldData.value) {
+			changes.push({
 				type: 'section-header',
 				changedField: 'value'
 			});
 		}
 
 		if (collapsible !== oldData.collapsible) {
-			changedField.push({
+			changes.push({
 				type: 'section-header',
 				changedField: 'collapsible'
 			});
 		}
 
-		return changedField;
+		return changes;
 	}
 });
 
