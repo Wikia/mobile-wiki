@@ -72,19 +72,6 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * @desc resets edit model if action trigger is different than current item in edit model
-		 * @param {Object} actionTrigger - infobox item that triggers this action
-		 * @returns {void}
-		 */
-		handleItemInEditMode(actionTrigger) {
-			const model = this.get('model');
-
-			if (actionTrigger !== model.get('itemInEditMode')) {
-				model.resetEditMode();
-			}
-		},
-
-		/**
 		 * @desc calls editTitleItem on model with new title data
 		 * @param {Object} item
 		 * @param {Boolean} shouldUseArticleName
