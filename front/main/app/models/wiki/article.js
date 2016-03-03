@@ -22,7 +22,7 @@ const ArticleModel = Ember.Object.extend({
 	categories: [],
 	displayTitle: null,
 	comments: 0,
-	description: null,
+	description: '',
 	isMainPage: false,
 	mainPageData: null,
 	media: [],

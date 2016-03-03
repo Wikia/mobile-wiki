@@ -40,7 +40,6 @@ export default {
 	viewName: 'main-page',
 	// hooks
 	afterModel,
-	didTransition: Ember.K,
 	// all other, handler-specific functions
 	getCuratedContentModel,
 };
