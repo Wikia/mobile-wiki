@@ -9,8 +9,8 @@ export default Ember.Component.extend({
 			this.set('thumbnailModel', popupModel);
 			this.set('isModalVisible', true);
 		},
-		contextProvided() {
-			return this.get('thumbnailModel').context === '#';
+		isContextProvided() {
+			return this.get('thumbnailModel').context !== '#';
 		}
 	}
 });

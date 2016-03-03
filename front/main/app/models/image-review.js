@@ -22,6 +22,7 @@ ImageReviewModel.reopenClass({
 					withCredentials: true
 				},
 				success: (data, textStatus, xhr) => {
+					// In case there are no more images, create empty model and show `No more images to review` message
 					if (xhr.status === 204) {
 						resolve(ImageReviewModel.create({}));
 					} else {
