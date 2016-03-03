@@ -1,7 +1,6 @@
 /* eslint no-console: 0 */
 
 import Internal from '../modules/Trackers/Internal';
-import IVW3 from '../modules/Trackers/IVW3';
 import Krux from '../modules/Trackers/Krux';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
 
@@ -32,7 +31,6 @@ import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
 
 const trackers = {
 		Internal,
-		IVW3,
 		Krux,
 		UniversalAnalytics
 	},
@@ -201,6 +199,7 @@ export function trackPageView(adsContext) {
 		window.trackQuantservePageView();
 		window.trackNielsenPageView();
 		window.trackComscorePageView();
+		window.trackIVW3PageView();
 	}
 }
 
