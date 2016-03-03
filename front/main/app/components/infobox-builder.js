@@ -21,7 +21,7 @@ export default Ember.Component.extend(
 			const diffArray = this.get('getDiffArray')();
 
 			diffArray.forEach((element) =>
-				this.trackClick('infobox-builder', `changed-element-${element.type}-${element.changedField}`)
+				this.trackChange('infobox-builder', `changed-element-${element.type}-${element.changedField}`)
 			);
 		},
 
@@ -58,7 +58,7 @@ export default Ember.Component.extend(
 				this.trackClick('infobox-builder', 'saving-attempt');
 				this.trackChangedItems();
 				this.get('saveAction')().then(() => {
-					this.trackClick('infobox-builder', 'saving-successful');
+					this.trackSuccess('infobox-builder', 'saving-successful');
 					this.setProperties({
 						isLoading: false,
 						showSuccess: true

@@ -48,6 +48,8 @@ const trackers = {
 	trackActions = {
 		// Generic add
 		add: 'add',
+		// During recent operations some data has been changed
+		change: 'change',
 		// Generic click, mostly javascript clicks
 		// NOTE: When tracking clicks, consider binding to 'onMouseDown' instead of 'onClick'
 		// to allow the browser time to send these events naturally. For more information on

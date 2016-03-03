@@ -31,8 +31,6 @@ export default Ember.Component.extend(
 				case 'section-header':
 					header = this.get('item.data');
 					break;
-				default:
-					break;
 			}
 
 			return header;
