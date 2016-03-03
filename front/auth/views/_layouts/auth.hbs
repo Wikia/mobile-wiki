@@ -11,7 +11,6 @@
 
 		{{> optimizely}}
 		{{> tracking-ua}}
-		{{> tracking-nielsen}}
 		<link rel="canonical" href="{{canonicalUrl}}" />
 	</head>
 	<body class="auth {{pageParams.viewType}} {{bodyClasses}} {{#if standalonePage}}standalone{{/if}}" data-page-type="{{pageType}}">
@@ -70,5 +69,6 @@
 		</script>
 		{{> tracking-quantserve}}
 		{{> tracking-comscore}}
+		{{> tracking-nielsen}}
 	</body>
 </html>
