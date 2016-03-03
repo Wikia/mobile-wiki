@@ -25,7 +25,7 @@
 		</li>
 	{{else}}
 		<li class="side-nav-menu__item mw-content">
-			<a {{action this.attrs.collapse}} href="{{unbound child.href}}">{{unbound child.text}}</a>
+			<a {{action 'clickLink' index preventDefault=false}} href="{{unbound child.href}}">{{unbound child.text}}</a>
 		</li>
 	{{/if}}
 {{/each}}
