@@ -105,12 +105,42 @@ export default Ember.Mixin.create({
 	},
 
 	highlightTextInTextarea(textarea, content, highlightedData) {
-		const textBeforePosition = content.substr(0, highlightedData.end);
+		const textBeforePosition = content.substr(0, highlightedData.end),
+			$textarea = Ember.$(textarea);
+
+		let firstFocus = true;
+
+		this.setTextareaPosition(textarea, $textarea, textBeforePosition, content, highlightedData);
+
+		$textarea.click(() => {
+			$textarea.focus();
+		});
+
+		$textarea.on('focus', Ember.$.proxy(function () {
+			if (firstFocus) {
+				firstFocus = false;
+				this.setTextareaPosition(textarea, $textarea, textBeforePosition, content, highlightedData);
+			}
+		}, this));
+
+		$textarea.on('focusout', () => {
+			firstFocus = false;
+		});
+	},
+
+	setTextareaPosition(textarea, $textarea, textBeforePosition, content, highlightedData) {
+		let top;
 
 		textarea.blur();
 		textarea.value = textBeforePosition;
 		textarea.focus();
 		textarea.value = content;
+
+		top = $textarea.scrollTop();
+
+		if (top > 0) {
+			$textarea.scrollTop(top + $textarea.height() - 50);
+		}
 
 		textarea.setSelectionRange(highlightedData.start, highlightedData.end);
 	}
