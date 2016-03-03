@@ -49,6 +49,7 @@ export default Ember.Component.extend({
 		671485: '/front/common/images/community-badge-tekken.jpg',
 		198492: '/front/common/images/community-badge-xcom.jpg',
 		1350187: '/front/common/images/community-badge-head-fi.jpg',
+		1322734: '/front/common/images/community-badge-league-of-legends.jpg',
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
