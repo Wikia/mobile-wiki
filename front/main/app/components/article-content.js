@@ -9,6 +9,7 @@ import WikiaMapComponent from './wikia-map';
 import PortableInfoboxComponent from './portable-infobox';
 import AdsMixin from '../mixins/ads';
 import PollDaddyMixin from '../mixins/poll-daddy';
+import TrackClickMixin from '../mixins/track-click';
 import WidgetTwitterComponent from '../components/widget-twitter';
 import WidgetVKComponent from '../components/widget-vk';
 import WidgetPolldaddyComponent from '../components/widget-polldaddy';
@@ -24,6 +25,7 @@ import {getRenderComponentFor, queryPlaceholders} from '../utils/render-componen
 export default Ember.Component.extend(
 	AdsMixin,
 	PollDaddyMixin,
+	TrackClickMixin,
 	{
 		tagName: 'article',
 		classNames: ['article-content', 'mw-content'],
@@ -117,6 +119,14 @@ export default Ember.Component.extend(
 			this.destroyChildComponents();
 		},
 
+		click() {
+			const label = this.getTrackingEventLabel(event);
+
+			if (label) {
+				this.trackClick('article', label);
+			}
+		},
+
 		actions: {
 			/**
 			 * @param {string} lightboxType
@@ -174,6 +184,26 @@ export default Ember.Component.extend(
 			if (window.location.hash) {
 				window.location.assign(window.location.hash);
 			}
+		},
+
+		/**
+		 * @param event
+		 * @returns {string}
+		 */
+		getTrackingEventLabel(event) {
+			const $anchor = Ember.$(event.target).closest('a');
+
+			if ($anchor.length) {
+				if ($anchor.closest('.portable-infobox').length) {
+					return 'portable-infobox-link';
+				} else if ($anchor.closest('.context-link').length) {
+					return 'context-link';
+				} else if ($anchor.closest('blockquote').length) {
+					return 'blockquote';
+				}
+				return 'regular-link';
+			}
+			return '';
 		},
 
 		getAttributesForMedia({name, attrs, element}) {
