@@ -22,10 +22,10 @@
 				});
 
 				/**
-				 * This is to make sure Comscore sends the beacon
-				 * on first page load COMSCORE won't be there
-				 * but it's fine as whenever their script loads it'll send beacon
-				 * this is needed for 2+ page views
+				 * Whenever comscore script loads it'll send all the events from the _comscore array
+				 * but on the second page view in a session we don't want to load the script once again
+				 * that is why we have to call purge method here
+				 * It'll make sure that whatever is in _comscore gets send
 				 */
 				if (window.COMSCORE && window.COMSCORE.purge) {
 					window.COMSCORE.purge();
