@@ -246,6 +246,8 @@ $overlay-color: rgba(255, 255, 255, .8);
 	fill: $color-blue-gray;
 	height: $icon-button-size;
 	margin-top: $border-width * 2;
+	// fix no event bubbling on SVGs in IE 11
+	pointer-events: none;
 	width: $icon-button-size;
 }
 
