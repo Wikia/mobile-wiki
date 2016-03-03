@@ -1,7 +1,7 @@
 import {track as mercuryTrack} from 'common/utils/track';
-import ajaxCall from 'ajax-call';
+import ajaxCall from './ajax-call';
 
-const clickStreamURL = 'https://services.wikia.com/clickstream/social';
+const clickStreamURL = 'https://services.wikia-dev.com/events/social';
 
 export const trackActions = {
 	PostCreate: 'PostCreate',
