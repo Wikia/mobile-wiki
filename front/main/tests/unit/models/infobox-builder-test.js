@@ -908,3 +908,172 @@ test('edit section header item', (assert) => {
 	infoboxBuilderModelClass.createRowDiff.restore();
 	infoboxBuilderModelClass.createSectionHeaderDiff.restore();
 });
+
+test('create row diff', (assert) => {
+	const cases = [
+		{
+			oldData: {},
+			data: {},
+			expected: []
+		},
+		{
+			oldData: {},
+			data: {label: 'label'},
+			expected: []
+		},
+		{
+			oldData: {label: 'label'},
+			data: {label: 'label'},
+			expected: []
+		},
+		{
+			oldData: {label: 'label'},
+			data: {},
+			expected: [{
+				type: 'row',
+				changedField: 'label'
+			}]
+		},
+		{
+			oldData: {label: 'test label'},
+			data: {label: ''},
+			expected: [{
+				type: 'row',
+				changedField: 'label'
+			}]
+		},
+		{
+			oldData: {label: ''},
+			data: {label: 'test label'},
+			expected: [{
+				type: 'row',
+				changedField: 'label'
+			}]
+		}
+	];
+
+	cases.forEach((testCase) => {
+		const diff = infoboxBuilderModelClass.createRowDiff(testCase.oldData, testCase.data);
+
+		assert.deepEqual(diff, testCase.expected);
+	});
+});
+
+test('create title diff', (assert) => {
+	const cases = [
+		{
+			oldData: {},
+			data: {},
+			expected: []
+		},
+		{
+			oldData: {},
+			data: {defaultValue: '{{PAGENAME}}'},
+			expected: []
+		},
+		{
+			oldData: {defaultValue: '{{PAGENAME}}'},
+			data: {defaultValue: '{{PAGENAME}}'},
+			expected: []
+		},
+		{
+			oldData: {defaultValue: ''},
+			data: {defaultValue: ''},
+			expected: []
+		},
+		{
+			oldData: {defaultValue: '{{PAGENAME}}'},
+			data: {},
+			expected: [{
+				type: 'title',
+				changedField: 'defaultValue'
+			}]
+		},
+		{
+			oldData: {defaultValue: ''},
+			data: {defaultValue: '{{PAGENAME}}'},
+			expected: [{
+				type: 'title',
+				changedField: 'defaultValue'
+			}]
+		}
+	];
+
+	cases.forEach((testCase) => {
+		const diff = infoboxBuilderModelClass.createTitleDiff(testCase.oldData, testCase.data);
+
+		assert.deepEqual(diff, testCase.expected);
+	});
+});
+
+test('create section-header diff', (assert) => {
+	const cases = [
+		{
+			oldData: {},
+			value: 'some value',
+			collapsible: true,
+			expected: []
+		},
+		{
+			oldData: {
+				value: 'some value',
+				collapsible: true
+			},
+			value: 'some value',
+			collapsible: true,
+			expected: []
+		},
+		{
+			oldData: {
+				value: 'Header',
+				collapsible: false
+			},
+			value: {},
+			collapsible: false,
+			expected: [{
+				type: 'section-header',
+				changedField: 'value'
+			}]
+		},
+		{
+			oldData: {
+				value: 'Header',
+				collapsible: true
+			},
+			value: 'Header',
+			collapsible: false,
+			expected: [{
+				type: 'section-header',
+				changedField: 'collapsible'
+			}]
+		},
+		{
+			oldData: {
+				value: 'Header',
+				collapsible: false
+			},
+			value: 'Header 2',
+			collapsible: true,
+			expected: [
+				{
+					type: 'section-header',
+					changedField: 'value'
+				},
+				{
+					type: 'section-header',
+					changedField: 'collapsible'
+				}
+			]
+		}
+	];
+
+	cases.forEach((testCase) => {
+		const diff = infoboxBuilderModelClass.createSectionHeaderDiff(
+			testCase.oldData,
+			testCase.value,
+			testCase.collapsible
+		);
+
+		assert.deepEqual(diff, testCase.expected);
+	});
+});

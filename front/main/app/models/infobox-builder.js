@@ -491,6 +491,10 @@ InfoboxBuilderModel.reopenClass({
 	createTitleDiff(oldData, data) {
 		const changes = [];
 
+		if (typeof oldData.defaultValue === 'undefined') {
+			return changes;
+		}
+
 		if (data.defaultValue !== oldData.defaultValue) {
 			changes.push({
 				type: 'title',
@@ -511,6 +515,10 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	createRowDiff(oldData, data) {
 		const changes = [];
+
+		if (typeof oldData.label === 'undefined') {
+			return changes;
+		}
 
 		if (data.label !== oldData.label) {
 			changes.push({
@@ -533,6 +541,10 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	createSectionHeaderDiff(oldData, value, collapsible) {
 		const changes = [];
+
+		if (typeof oldData.collapsible === 'undefined' || typeof oldData.value === 'undefined') {
+			return changes;
+		}
 
 		if (value !== oldData.value) {
 			changes.push({
