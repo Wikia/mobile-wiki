@@ -10,32 +10,35 @@ test('calls scrollPreviewToBottom with debounce after new item is added', functi
 		/** stub Ember.run.debounce so we can run it synchronously */
 		debounceStub = sinon.stub(Ember.run, 'debounce', (target, func) => {
 			func.call(target);
-		});
+		}),
+		scrollDebounceDuration = component.get('scrollDebounceDuration');
 
 	component.set('addItem', sinon.spy());
-	component.scrollPreviewToBottom = sinon.spy();
+	component.set('scrollPreviewToBottom', sinon.spy());
 
-	Ember.run(() => {
-		component.send('addItem', 'row');
-	});
+	Ember.run(() => component.send('addItem', 'row'));
 
 	assert.ok(component.scrollPreviewToBottom.calledOnce);
+	assert.ok(debounceStub.calledWith(component, component.scrollPreviewToBottom, scrollDebounceDuration));
 
 	debounceStub.restore();
 });
 
 test('scrolls preview element to the bottom', function (assert) {
 	const component = this.subject(),
-		animateSpy = sinon.spy();
+		animateSpy = sinon.spy(),
+		height = 100,
+		scrollHeight = 200,
+		scrollTop = 0;
 
 	sinon.stub(component, '$', () => {
 		return {
 			animate: animateSpy,
-			height: () => 100,
+			height: () => height,
 			prop: (propName) => {
 				return {
-					scrollHeight: 200,
-					scrollTop: 0
+					scrollHeight: scrollHeight,
+					scrollTop: scrollTop
 				}[propName];
 			}
 		};
@@ -44,6 +47,6 @@ test('scrolls preview element to the bottom', function (assert) {
 	component.scrollPreviewToBottom();
 
 	assert.ok(animateSpy.calledWith({
-		scrollTop: 100
+		scrollTop: scrollHeight - height
 	}));
 });
