@@ -3,7 +3,7 @@
 	 * Normally we would use $.cookie
 	 * but this is loaded in head and we don't have jQuery there yet
 	 *
-	 * @param name
+	 * @param {String} name
 	 * @returns {String}
 	 */
 	function getCookie(name) {
@@ -27,4 +27,4 @@
 	} else {
 		console.debug('Geo cookie is not set');
 	}
-});
+})();
