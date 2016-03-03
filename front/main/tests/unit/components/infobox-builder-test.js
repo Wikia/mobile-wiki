@@ -37,8 +37,8 @@ test('scrolls preview element to the bottom', function (assert) {
 			height: () => height,
 			prop: (propName) => {
 				return {
-					scrollHeight: scrollHeight,
-					scrollTop: scrollTop
+					scrollHeight,
+					scrollTop
 				}[propName];
 			}
 		};

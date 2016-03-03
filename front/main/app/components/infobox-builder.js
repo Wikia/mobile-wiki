@@ -13,7 +13,7 @@ export default Ember.Component.extend({
 	scrollAnimateDuration: 200,
 
 	showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
-	
+
 	isReorderTooltipVisible: Ember.computed('isPreviewItemHovered', 'isPreviewItemDragged', function () {
 		return this.get('isPreviewItemHovered') && !this.get('isPreviewItemDragged');
 	}),
