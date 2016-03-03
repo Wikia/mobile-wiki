@@ -8,7 +8,7 @@ export default class Nielsen extends BaseTracker {
 	 * @returns {string}
 	 */
 	url() {
-		return 'http://secure-dcr-cert.imrworldwide.com/novms/js/2/ggcmb500.js';
+		return `http://secure-dcr-cert.imrworldwide.com/novms/js/2/ggcmb500.js?${Date.now()}`;
 	}
 
 	/**
