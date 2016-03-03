@@ -1,9 +1,7 @@
 /* eslint no-console: 0 */
 
-import Comscore from '../modules/Trackers/Comscore';
 import Internal from '../modules/Trackers/Internal';
 import Krux from '../modules/Trackers/Krux';
-import Nielsen from '../modules/Trackers/Nielsen';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
 
 /**
@@ -32,10 +30,8 @@ import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
  */
 
 const trackers = {
-		Comscore,
 		Internal,
 		Krux,
-		Nielsen,
 		UniversalAnalytics
 	},
 	/**
@@ -201,6 +197,8 @@ export function trackPageView(adsContext) {
 		M.prop('initialPageView', false);
 	} else {
 		window.trackQuantservePageView();
+		window.trackNielsenPageView();
+		window.trackComscorePageView();
 		window.trackIVW3PageView();
 	}
 }
