@@ -82,7 +82,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 			},
 			source: `${itemType}${index}`,
 			type: itemType,
-			sourceFreezed: false
+			sourceFrozen: false
 		};
 	},
 
@@ -198,7 +198,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		this.set(`infoboxState.${index}.data.label`, value);
 
-		if (!item.sourceFreezed && value.trim().length) {
+		if (!item.sourceFrozen && value.trim().length) {
 			this.set(`infoboxState.${index}.source`, InfoboxBuilderModel.sanitizeCustomRowSource(value));
 		}
 	},
@@ -352,7 +352,7 @@ InfoboxBuilderModel.reopenClass({
 
 			item.source = itemData.source || '';
 			item.data.label = label || '';
-			item.sourceFreezed = true;
+			item.sourceFrozen = true;
 		}
 		return item;
 	},

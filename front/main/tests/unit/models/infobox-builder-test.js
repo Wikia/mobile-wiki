@@ -64,7 +64,7 @@ test('add items by type', (assert) => {
 					},
 					source: `row${index}`,
 					type: 'row',
-					sourceFreezed: false
+					sourceFrozen: false
 				},
 				message: 'add row item'
 			},
@@ -292,7 +292,7 @@ test('extend row data', (assert) => {
 					},
 					source: 'src',
 					type: 'row',
-					sourceFreezed: true
+					sourceFrozen: true
 				}
 			},
 			{
@@ -312,7 +312,7 @@ test('extend row data', (assert) => {
 					},
 					source: '',
 					type: 'row',
-					sourceFreezed: true
+					sourceFrozen: true
 				}
 			},
 			{
@@ -332,7 +332,7 @@ test('extend row data', (assert) => {
 					},
 					source: '',
 					type: 'row',
-					sourceFreezed: true
+					sourceFrozen: true
 				}
 			},
 			{
@@ -347,7 +347,7 @@ test('extend row data', (assert) => {
 					},
 					source: '',
 					type: 'row',
-					sourceFreezed: true
+					sourceFrozen: true
 				}
 			},
 			{
@@ -362,7 +362,7 @@ test('extend row data', (assert) => {
 					},
 					source: 'row1',
 					type: 'row',
-					sourceFreezed: false
+					sourceFrozen: false
 				}
 			}
 		];
@@ -378,7 +378,7 @@ test('extend row data', (assert) => {
 				},
 				source: 'row1',
 				type: 'row',
-				sourceFreezed: false
+				sourceFrozen: false
 			},
 			extended = infoboxBuilderModelClass.extendRowData(item, testCase.additionalItemData);
 
@@ -395,8 +395,8 @@ test('extend row data', (assert) => {
 		);
 
 		assert.equal(
-			extended.sourceFreezed,
-			testCase.expected.sourceFreezed,
+			extended.sourceFrozen,
+			testCase.expected.sourceFrozen,
 			'source freezed'
 		);
 	});
