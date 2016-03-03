@@ -38,7 +38,8 @@ export default Ember.Component.extend(
 		displayTitle: null,
 		headers: null,
 		highlightedEditorDemoEnabled: Ember.computed(() => {
-			return getExperimentVariationNumber({dev: '5170910064', prod: '5164060600'}) === 1;
+			return getExperimentVariationNumber({dev: '5170910064', prod: '5164060600'}) === 1 &&
+				!Ember.$.cookie('highlightedEditorDemoShown');
 		}),
 
 		newFromMedia(media) {
@@ -81,6 +82,7 @@ export default Ember.Component.extend(
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 					this.replaceWikiaWidgetsWithComponents();
 					if (this.get('highlightedEditorDemoEnabled')) {
+						Ember.$.cookie('highlightedEditorDemoShown', true);
 						this.insertHighlightedTextEditorDemo();
 					}
 					this.handleWikiaWidgetWrappers();
