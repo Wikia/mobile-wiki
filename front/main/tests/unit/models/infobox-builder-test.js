@@ -699,7 +699,7 @@ test('set edit item', (assert) => {
 		cases = [
 			{
 				item: model.createTitleItem(),
-				expectedOldData: {
+				expectedoriginalData: {
 					defaultValue: ''
 				}
 			},
@@ -716,7 +716,7 @@ test('set edit item', (assert) => {
 					},
 					type: 'image'
 				},
-				expectedOldData: {
+				expectedoriginalData: {
 					caption: {
 						source: 'image caption'
 					}
@@ -733,7 +733,7 @@ test('set edit item', (assert) => {
 					},
 					type: 'row'
 				},
-				expectedOldData: {
+				expectedoriginalData: {
 					label: 'my label'
 				}
 			},
@@ -747,7 +747,7 @@ test('set edit item', (assert) => {
 					},
 					type: 'section-header'
 				},
-				expectedOldData: {
+				expectedoriginalData: {
 					value: 'test header',
 					collapsible: true
 				}
@@ -760,12 +760,12 @@ test('set edit item', (assert) => {
 		model.setEditItem(testCase.item);
 
 		assert.deepEqual(model.get('itemInEditMode'), testCase.item);
-		assert.deepEqual(testCase.item.infoboxBuilderData.oldData, testCase.expectedOldData);
+		assert.deepEqual(testCase.item.infoboxBuilderData.originalData, testCase.expectedoriginalData);
 	});
 });
 
 test('edit section header item', (assert) => {
-	const oldDataMock = {
+	const originalDataMock = {
 			some_value: 'test'
 		},
 		titleDiff = [
@@ -815,7 +815,7 @@ test('edit section header item', (assert) => {
 					},
 					{
 						infoboxBuilderData: {
-							oldData: oldDataMock
+							originalData: originalDataMock
 						},
 						type: 'image'
 					}
@@ -826,7 +826,7 @@ test('edit section header item', (assert) => {
 				infoboxState: [
 					{
 						infoboxBuilderData: {
-							oldData: oldDataMock
+							originalData: originalDataMock
 						},
 						type: 'title'
 					},
@@ -839,13 +839,13 @@ test('edit section header item', (assert) => {
 				infoboxState: [
 					{
 						infoboxBuilderData: {
-							oldData: oldDataMock
+							originalData: originalDataMock
 						},
 						type: 'title'
 					},
 					{
 						infoboxBuilderData: {
-							oldData: oldDataMock
+							originalData: originalDataMock
 						},
 						type: 'row'
 					},
@@ -857,13 +857,13 @@ test('edit section header item', (assert) => {
 				infoboxState: [
 					{
 						infoboxBuilderData: {
-							oldData: oldDataMock
+							originalData: originalDataMock
 						},
 						type: 'title'
 					},
 					{
 						infoboxBuilderData: {
-							oldData: oldDataMock
+							originalData: originalDataMock
 						},
 						type: 'section-header'
 					},
@@ -875,13 +875,13 @@ test('edit section header item', (assert) => {
 				infoboxState: [
 					{
 						infoboxBuilderData: {
-							oldData: null
+							originalData: null
 						},
 						type: 'title'
 					},
 					{
 						infoboxBuilderData: {
-							oldData: oldDataMock
+							originalData: originalDataMock
 						},
 						type: 'row'
 					},
@@ -912,22 +912,22 @@ test('edit section header item', (assert) => {
 test('create row diff', (assert) => {
 	const cases = [
 		{
-			oldData: {},
+			originalData: {},
 			data: {},
 			expected: []
 		},
 		{
-			oldData: {},
+			originalData: {},
 			data: {label: 'label'},
 			expected: []
 		},
 		{
-			oldData: {label: 'label'},
+			originalData: {label: 'label'},
 			data: {label: 'label'},
 			expected: []
 		},
 		{
-			oldData: {label: 'label'},
+			originalData: {label: 'label'},
 			data: {},
 			expected: [{
 				type: 'row',
@@ -935,7 +935,7 @@ test('create row diff', (assert) => {
 			}]
 		},
 		{
-			oldData: {label: 'test label'},
+			originalData: {label: 'test label'},
 			data: {label: ''},
 			expected: [{
 				type: 'row',
@@ -943,7 +943,7 @@ test('create row diff', (assert) => {
 			}]
 		},
 		{
-			oldData: {label: ''},
+			originalData: {label: ''},
 			data: {label: 'test label'},
 			expected: [{
 				type: 'row',
@@ -953,7 +953,7 @@ test('create row diff', (assert) => {
 	];
 
 	cases.forEach((testCase) => {
-		const diff = infoboxBuilderModelClass.createRowDiff(testCase.oldData, testCase.data);
+		const diff = infoboxBuilderModelClass.createRowDiff(testCase.originalData, testCase.data);
 
 		assert.deepEqual(diff, testCase.expected);
 	});
@@ -962,27 +962,27 @@ test('create row diff', (assert) => {
 test('create title diff', (assert) => {
 	const cases = [
 		{
-			oldData: {},
+			originalData: {},
 			data: {},
 			expected: []
 		},
 		{
-			oldData: {},
+			originalData: {},
 			data: {defaultValue: '{{PAGENAME}}'},
 			expected: []
 		},
 		{
-			oldData: {defaultValue: '{{PAGENAME}}'},
+			originalData: {defaultValue: '{{PAGENAME}}'},
 			data: {defaultValue: '{{PAGENAME}}'},
 			expected: []
 		},
 		{
-			oldData: {defaultValue: ''},
+			originalData: {defaultValue: ''},
 			data: {defaultValue: ''},
 			expected: []
 		},
 		{
-			oldData: {defaultValue: '{{PAGENAME}}'},
+			originalData: {defaultValue: '{{PAGENAME}}'},
 			data: {},
 			expected: [{
 				type: 'title',
@@ -990,7 +990,7 @@ test('create title diff', (assert) => {
 			}]
 		},
 		{
-			oldData: {defaultValue: ''},
+			originalData: {defaultValue: ''},
 			data: {defaultValue: '{{PAGENAME}}'},
 			expected: [{
 				type: 'title',
@@ -1000,7 +1000,7 @@ test('create title diff', (assert) => {
 	];
 
 	cases.forEach((testCase) => {
-		const diff = infoboxBuilderModelClass.createTitleDiff(testCase.oldData, testCase.data);
+		const diff = infoboxBuilderModelClass.createTitleDiff(testCase.originalData, testCase.data);
 
 		assert.deepEqual(diff, testCase.expected);
 	});
@@ -1009,13 +1009,13 @@ test('create title diff', (assert) => {
 test('create section-header diff', (assert) => {
 	const cases = [
 		{
-			oldData: {},
+			originalData: {},
 			value: 'some value',
 			collapsible: true,
 			expected: []
 		},
 		{
-			oldData: {
+			originalData: {
 				value: 'some value',
 				collapsible: true
 			},
@@ -1024,7 +1024,7 @@ test('create section-header diff', (assert) => {
 			expected: []
 		},
 		{
-			oldData: {
+			originalData: {
 				value: 'Header',
 				collapsible: false
 			},
@@ -1036,7 +1036,7 @@ test('create section-header diff', (assert) => {
 			}]
 		},
 		{
-			oldData: {
+			originalData: {
 				value: 'Header',
 				collapsible: true
 			},
@@ -1048,7 +1048,7 @@ test('create section-header diff', (assert) => {
 			}]
 		},
 		{
-			oldData: {
+			originalData: {
 				value: 'Header',
 				collapsible: false
 			},
@@ -1069,7 +1069,7 @@ test('create section-header diff', (assert) => {
 
 	cases.forEach((testCase) => {
 		const diff = infoboxBuilderModelClass.createSectionHeaderDiff(
-			testCase.oldData,
+			testCase.originalData,
 			testCase.value,
 			testCase.collapsible
 		);

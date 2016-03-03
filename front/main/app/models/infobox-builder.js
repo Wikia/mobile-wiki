@@ -168,7 +168,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @returns {void}
 	 */
 	setEditItem(item) {
-		if (item && !item.infoboxBuilderData.oldData) {
+		if (item && !item.infoboxBuilderData.originalData) {
 			let itemData = item.data;
 
 			if (item.type === 'section-header') {
@@ -178,7 +178,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				};
 			}
 			// we need a copy of itemData, not a reference to it
-			item.infoboxBuilderData.oldData = jQuery.extend({}, itemData);
+			item.infoboxBuilderData.originalData = Ember.$.extend({}, itemData);
 		}
 
 		this.set('itemInEditMode', item);
@@ -290,24 +290,24 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		let diff = [];
 
 		currentState
-			.filter((item) => item.infoboxBuilderData.oldData)
+			.filter((item) => item.infoboxBuilderData.originalData)
 			.forEach((item) => {
 				switch (item.type) {
 					case 'title':
 						diff = InfoboxBuilderModel.createTitleDiff(
-							item.infoboxBuilderData.oldData,
+							item.infoboxBuilderData.originalData,
 							item.data
 						);
 						break;
 					case 'row':
 						diff = InfoboxBuilderModel.createRowDiff(
-							item.infoboxBuilderData.oldData,
+							item.infoboxBuilderData.originalData,
 							item.data
 						);
 						break;
 					case 'section-header':
 						diff = InfoboxBuilderModel.createSectionHeaderDiff(
-							item.infoboxBuilderData.oldData,
+							item.infoboxBuilderData.originalData,
 							item.data,
 							item.collapsible
 						);
@@ -484,18 +484,18 @@ InfoboxBuilderModel.reopenClass({
 	 * @desc Provides information about whether and what elements'
 	 * values has been changed, basing on previously saved start data.
 	 *
-	 * @param {Object} oldData data in form as it was when opening infobox builder
+	 * @param {Object} originalData data in form as it was when opening infobox builder
 	 * @param {Object} data current infobox builder state
 	 * @returns {Object}
 	 */
-	createTitleDiff(oldData, data) {
+	createTitleDiff(originalData, data) {
 		const changes = [];
 
-		if (typeof oldData.defaultValue === 'undefined') {
+		if (typeof originalData.defaultValue === 'undefined') {
 			return changes;
 		}
 
-		if (data.defaultValue !== oldData.defaultValue) {
+		if (data.defaultValue !== originalData.defaultValue) {
 			changes.push({
 				type: 'title',
 				changedField: 'defaultValue'
@@ -509,18 +509,18 @@ InfoboxBuilderModel.reopenClass({
 	 * @desc Provides information about whether and what elements'
 	 * values has been changed, basing on previously saved start data.
 	 *
-	 * @param {Object} oldData data in form as it was when opening infobox builder
+	 * @param {Object} originalData data in form as it was when opening infobox builder
 	 * @param {Object} data current infobox builder state
 	 * @returns {Object}
 	 */
-	createRowDiff(oldData, data) {
+	createRowDiff(originalData, data) {
 		const changes = [];
 
-		if (typeof oldData.label === 'undefined') {
+		if (typeof originalData.label === 'undefined') {
 			return changes;
 		}
 
-		if (data.label !== oldData.label) {
+		if (data.label !== originalData.label) {
 			changes.push({
 				type: 'row',
 				changedField: 'label'
@@ -534,26 +534,26 @@ InfoboxBuilderModel.reopenClass({
 	 * @desc Provides information about whether and what elements'
 	 * values has been changed, basing on previously saved start data.
 	 *
-	 * @param {Object} oldData data in form as it was when opening infobox builder
+	 * @param {Object} originalData data in form as it was when opening infobox builder
 	 * @param {string} value section header value
 	 * @param {boolean} collapsible
 	 * @returns {Object}
 	 */
-	createSectionHeaderDiff(oldData, value, collapsible) {
+	createSectionHeaderDiff(originalData, value, collapsible) {
 		const changes = [];
 
-		if (typeof oldData.collapsible === 'undefined' || typeof oldData.value === 'undefined') {
+		if (typeof originalData.collapsible === 'undefined' || typeof originalData.value === 'undefined') {
 			return changes;
 		}
 
-		if (value !== oldData.value) {
+		if (value !== originalData.value) {
 			changes.push({
 				type: 'section-header',
 				changedField: 'value'
 			});
 		}
 
-		if (collapsible !== oldData.collapsible) {
+		if (collapsible !== originalData.collapsible) {
 			changes.push({
 				type: 'section-header',
 				changedField: 'collapsible'
