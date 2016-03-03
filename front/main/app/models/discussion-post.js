@@ -1,7 +1,7 @@
 import DiscussionBaseModel from './discussion-base';
 import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
 import ajaxCall from '../utils/ajax-call';
-import {track, trackActions} from '../utils/discussion-tracker';
+import {discussionTrack, discussionTrackActions} from '../utils/discussion-tracker';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
 
@@ -62,7 +62,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 				this.incrementProperty('postCount');
 				this.replies.pushObject(reply);
 
-				track(trackActions.ReplyCreate);
+				discussionTrack(discussionTrackActions.ReplyCreate);
 			},
 			error: (err) => {
 				if (err.status === 401) {
