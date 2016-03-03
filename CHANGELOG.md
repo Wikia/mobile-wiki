@@ -1,3 +1,6 @@
+## release-217 hotfix 1 (2016-03-03 16:54 UTC)
+* release-217-fix-geo: Set up geo in baseline so ivw3 can use that for tracking
+
 ## release-217 (2016-03-03 14:57 UTC)
 * [XW-1204](https://wikia-inc.atlassian.net/browse/XW-1204) XW-1204 Call IVW3 quicker on page view (no tweaks)
 * [XW-1205](https://wikia-inc.atlassian.net/browse/XW-1205) XW-1205 | Move Nielsen initial PV from Ember
