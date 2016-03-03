@@ -1,5 +1,5 @@
 <div class="img-container {{model.status}}">
-	<img src="{{thumbnailUrl}}" {{action (action this.attrs.showModal model)}}>
+	<img src="{{thumbnailUrl}}" {{action this.attrs.showModal model}}>
 	<form class="button-group">
 		<button class="button-group-item {{if isAccepted 'highlighted' 'inactive'}}"
 			{{action (action this.attrs.changeItemModel model.imageId 'accepted')}}>

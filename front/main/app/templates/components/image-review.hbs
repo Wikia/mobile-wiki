@@ -31,8 +31,8 @@
 	{{/modal-dialog}}
 
 	<div class="action-buttons">
-		<button {{action (action this.attrs.reviewAndGetMoreImages)}}>{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
-		<button {{action (action this.attrs.getFlaggedOnly)}}>{{i18n 'main.get-flagged' ns='image-review'}}</button>
+		<button {{action this.attrs.reviewAndGetMoreImages}}>{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
+		<button {{action this.attrs.getFlaggedOnly}}>{{i18n 'main.get-flagged' ns='image-review'}}</button>
 	</div>
 {{else}}
 	<h2>{{i18n 'main.error-no-more-images' ns='image-review'}}</h2>
