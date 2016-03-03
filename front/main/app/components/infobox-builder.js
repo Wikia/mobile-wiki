@@ -15,6 +15,10 @@ export default Ember.Component.extend({
 	}),
 
 	actions: {
+		/**
+		 * @param {Number} posX
+		 * @param {Number} posY
+		 */
 		showReorderTooltip(posX, posY) {
 			this.setProperties({
 				tooltipPosX: posX + this.get('tooltipDistanceFromCursor'),
@@ -31,6 +35,9 @@ export default Ember.Component.extend({
 			});
 		},
 
+		/**
+		 * @param {Object} actionTrigger - dragged item
+		 */
 		onPreviewItemDrag(actionTrigger) {
 			this.set('isPreviewItemDragged', true);
 
@@ -47,15 +54,15 @@ export default Ember.Component.extend({
 		 * After clicking on item propagates to .infobox-builder-preview
 		 * We don't want that so it's prevented here
 		 *
-		 * @param {Ember.Object} model
+		 * @param {Ember.Object} targetItem
 		 * @param {jQuery.Event} event
 		 */
-		setEditItem(model, event) {
+		setEditItemAndStopPropagation(targetItem, event) {
 			if (event && event.stopPropagation) {
 				event.stopPropagation();
 			}
 
-			this.get('setEditItem')(model);
+			this.get('setEditItem')(targetItem);
 		},
 
 		save() {

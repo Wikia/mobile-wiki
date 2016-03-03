@@ -7,7 +7,7 @@
 }}
 
 <div class="infobox-builder">
-	<div class="infobox-builder-preview" {{action (action 'setEditItem' null)}}>
+	<div class="infobox-builder-preview" {{action this.attrs.setEditItem null}}>
 		{{#sortable-group
 			tagName="div"
 			classNames='portable-infobox pi-background'
@@ -20,7 +20,7 @@
 					group=group
 					handle=".pi-item"
 					position=index
-					click=(action 'setEditItem' element)
+					click=(action 'setEditItemAndStopPropagation' element)
 					spacing=8
 					onDragStart=(action 'onPreviewItemDrag')
 					onDragStop=(action 'onPreviewItemDrop')
