@@ -14,6 +14,8 @@ import WidgetVKComponent from '../components/widget-vk';
 import WidgetPolldaddyComponent from '../components/widget-polldaddy';
 import WidgetFliteComponent from '../components/widget-flite';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
+import {getExperimentVariationNumber} from 'common/utils/variantTesting';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * HTMLElement
@@ -35,6 +37,9 @@ export default Ember.Component.extend(
 		uploadFeatureEnabled: null,
 		displayTitle: null,
 		headers: null,
+		highlightedEditorDemoEnabled: Ember.computed(() => {
+			return getExperimentVariationNumber({dev: '5170910064', prod: '5164060600'}) === 1;
+		}),
 
 		newFromMedia(media) {
 			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
@@ -75,6 +80,9 @@ export default Ember.Component.extend(
 					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 					this.replaceWikiaWidgetsWithComponents();
+					if (this.get('highlightedEditorDemoEnabled')) {
+						this.insertHighlightedTextEditorDemo();
+					}
 					this.handleWikiaWidgetWrappers();
 					this.handlePollDaddy();
 					this.handleJumpLink();
@@ -540,6 +548,52 @@ export default Ember.Component.extend(
 
 					$element.wrap(wrapper);
 				});
+		},
+
+		/**
+		 * Initializes a demo of a new Highlighted Text Editor.
+		 * To be thrown away on March 29, 2016.
+		 * @returns {void}
+		 */
+		insertHighlightedTextEditorDemo() {
+			const highlightedId = 'highlighted-text',
+				paragraphsLimit = 3,
+				selection = window.getSelection(),
+				range = document.createRange(),
+				$paragraphs = this.$('>p').slice(0, paragraphsLimit);
+
+			$paragraphs.toArray().some((paragraph) => {
+				const $paragraph = Ember.$(paragraph),
+					paragraphHtml = $paragraph.html(),
+					plain = Ember.$('<div>').html(paragraphHtml).children().remove().end().html();
+
+				if (plain !== '') {
+					const word = plain.split(' ')[1];
+					let $highlightedElement;
+
+					$paragraph.html(paragraphHtml.replace(word, `<span id="${highlightedId}">${word}</span>`));
+					$highlightedElement = $paragraph.find(`#${highlightedId}`);
+
+					Ember.$(window).scrollTop($highlightedElement.offset().top - 150);
+
+					range.selectNodeContents($highlightedElement[0]);
+					selection.removeAllRanges();
+					selection.addRange(range);
+
+					Ember.run.later(() => {
+						$highlightedElement.trigger('mousedown');
+					}, 500);
+
+					track({
+						action: trackActions.impression,
+						category: 'highlighted-editor',
+						label: 'popover'
+					});
+					return true;
+				} else {
+					return false;
+				}
+			});
 		}
 	}
 );
