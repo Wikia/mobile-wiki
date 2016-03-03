@@ -14,6 +14,7 @@ import WidgetVKComponent from '../components/widget-vk';
 import WidgetPolldaddyComponent from '../components/widget-polldaddy';
 import WidgetFliteComponent from '../components/widget-flite';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * HTMLElement
@@ -573,9 +574,15 @@ export default Ember.Component.extend(
 					selection.removeAllRanges();
 					selection.addRange(range);
 
-					Ember.run.later(function () {
+					Ember.run.later(() => {
 						$highlightedElement.trigger('mousedown');
 					}, 500);
+
+					track({
+						action: trackActions.impression,
+						category: 'highlighted-editor',
+						label: 'popover'
+					});
 					return true;
 				} else {
 					return false;
