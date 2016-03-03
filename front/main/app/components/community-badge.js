@@ -37,7 +37,7 @@ export default Ember.Component.extend({
 		255885: '/front/common/images/community-badge-terraria.jpg',
 		509: '/front/common/images/community-badge-harry-potter.jpg',
 		12318: '/front/common/images/community-badge-harry-potter.jpg',
-		1139:'/front/common/images/community-badge-battlefied.jpg',
+		1139: '/front/common/images/community-badge-battlefied.jpg',
 		2188: '/front/common/images/community-badge-battlefront.jpg',
 		321995: '/front/common/images/community-badge-ahs.jpg',
 		2233: '/front/common/images/community-badge-marvel.jpg',
@@ -55,6 +55,7 @@ export default Ember.Component.extend({
 		1322734: '/front/common/images/community-badge-league-of-legends.jpg',
 		1015917: '/front/common/images/community-badge-love-live.jpg',
 		260936: '/front/common/images/community-badge-teen-wolf.jpg',
+		174: '/front/common/images/community-badge-final-fantasy.jpg',
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
