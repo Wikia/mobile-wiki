@@ -543,20 +543,27 @@ export default Ember.Component.extend(
 				});
 		},
 
+		/**
+		 * Initializes a demo of a new Highlighted Text Editor.
+		 * To be thrown away on March 29, 2016.
+		 * @returns {void}
+		 */
 		insertHighlightedTextEditorDemo() {
-			const highlightedId = 'highlighted-text__demo',
+			const highlightedId = 'highlighted-text',
+				paragraphsLimit = 3,
 				selection = window.getSelection(),
 				range = document.createRange(),
-				$paragraphs = this.$('p');
+				$paragraphs = this.$('>p').slice(0, paragraphsLimit);
 
-			let $paragraph, plain, paragraphHtml, word, $highlightedElement;
+			$paragraphs.toArray().some((paragraph) => {
+				const $paragraph = Ember.$(paragraph),
+					paragraphHtml = $paragraph.html(),
+					plain = Ember.$('<div>').html(paragraphHtml).children().remove().end().html();
 
-			for (let i = 1; i <= 3; i++) {
-				$paragraph = $($paragraphs[i]);
-				paragraphHtml = $paragraph.html();
-				plain = $('<div>').html(paragraphHtml).children().remove().end().html();
 				if (plain !== '') {
-					word = plain.split(' ')[1];
+					const word = plain.split(' ')[1];
+					let $highlightedElement;
+
 					$paragraph.html(paragraphHtml.replace(word, `<span id="${highlightedId}">${word}</span>`));
 					$highlightedElement = $paragraph.find(`#${highlightedId}`);
 
@@ -565,12 +572,15 @@ export default Ember.Component.extend(
 					range.selectNodeContents($highlightedElement[0]);
 					selection.removeAllRanges();
 					selection.addRange(range);
-					break;
+
+					Ember.run.later(function () {
+						$highlightedElement.trigger('mousedown');
+					}, 500);
+					return true;
+				} else {
+					return false;
 				}
-			}
-			Ember.run.later(function () {
-				$highlightedElement.trigger('mousedown');
-			}, 500);
+			});
 		}
 	}
 );
