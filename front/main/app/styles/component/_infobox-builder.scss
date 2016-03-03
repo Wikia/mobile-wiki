@@ -1,14 +1,24 @@
-$sidebar-width: 296px;
+$sidebar-width: 300px;
 $padding: 12px;
+$bigPadding: 18px;
+$imageButtonWidth: 130px;
+$imageButtonHeight: 100px;
 $back-arrow-icon-size: 16px;
 $icon-action-size: 24px;
 $icon-wrapper-size: 50px;
 $icon-button-size: 30px;
-$border-width: 2px;
+$border-width: 1px;
+$box-shadow-size: 2px;
+$shadow-blur: 15px;
+$spinner-text-color: rgba(0, 0, 0, .5);
+$shadow-color: rgba(0, 0, 0, .3);
+$grayout-color: rgba(255, 255, 255, .3);
+$overlay-color: rgba(255, 255, 255, .8);
 
+// overwrite default mercury styles
 .infobox-builder-body-wrapper {
-	// overwrite default mercury styles
 	overflow-y: auto;
+
 	//there's no other way to set height 100% on the builder elements
 	.ember-container {
 		height: 100%;
@@ -31,46 +41,77 @@ $border-width: 2px;
 .infobox-builder {
 	box-sizing: border-box;
 	display: flex;
-	height: 100%;
-	padding-top: $sub-head-height;
+	height: calc(100% - #{$wikia-ui-components-sub-head-height});
+
+	@media (min-width: lower-bound($large-range)) {
+		height: calc(100% - #{$wikia-ui-components-sub-head-height-large});
+	}
 }
 
 .infobox-builder-preview {
+	// overwrite mercury default cursor for elements with ember actions attached
+	cursor: auto;
 	flex-grow: 1;
 	overflow: auto;
-	padding: 40px 0;
 
 	.portable-infobox {
-		clear: none;
-		float: none;
-		margin: auto;
+		cursor: pointer;
+		margin: 40px auto;
 	}
 
-	.pi-item,
-	// overwrite infobox styles inherited from oasis
-	.pi-item:last-child {
+	// styles for adding infobox builder selection bounding box to each infobox item
+	.pi-item {
 		position: relative;
 
-		&.active:after {
-			background-color: transparent;
-			border: $border-width solid $color-blue-light;
-			content: '';
-			display: block;
-			height: 100%;
-			left: 0;
-			position: absolute;
-			top: 0;
-			width: 100%;
+		// transitions during reordering
+		&.sortable-item {
+			transition: transform .125s;
 		}
 
-		&:hover {
+		&:hover,
+		&.active,
+		&.is-dragging {
+			&:before {
+				border: $border-width solid $color-blue-light;
+				box-sizing: content-box;
+				content: ' ';
+				display: block;
+				height: 100%;
+				left: -$border-width;
+				position: absolute;
+				top: -$border-width;
+				width: 100%;
+			}
+		}
+
+		&:hover,
+		&.active {
+			z-index: 3;
+		}
+
+		&.active:before {
+			box-shadow: 0 $box-shadow-size $shadow-blur 0 $shadow-color;
 			cursor: pointer;
+		}
+
+		&.is-dragging {
+			// hacks for firefox to make transforms work smoothly
+			backface-visibility: hidden;
+			transform: translate3d(0, 0, 0);
+
+			z-index: 4;
+
+			&:before {
+				cursor: move;
+				box-shadow: 0 $box-shadow-size * 4 $shadow-blur 0 $shadow-color;
+				transition: box-shadow 0.2s ease-in-out;
+			}
 		}
 	}
 }
 
 .infobox-builder-sidebar {
-	box-shadow: -$border-width 0 6px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: -$box-shadow-size 0 $shadow-blur 0 $shadow-color;
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
 
@@ -115,20 +156,21 @@ $border-width: 2px;
 	}
 
 	.sidebar-header {
-		border-bottom: $border-width solid $color-blue-gray-light;
+		border-bottom: $box-shadow-size solid $color-blue-gray-light;
 		font-weight: bold;
-		line-height: 48px;
-		padding: 0 $padding;
+		padding: 16px $bigPadding;
+		text-align: center;
 	}
 
-	.checkbox-title {
+	.checkbox-builder {
+		padding-top: $padding;
 		font-size: $type-base;
 	}
 
 	.input-container {
+		align-items: flex-end;
 		border-bottom: 1px solid $color-blue-gray;
 		padding-bottom: 0;
-		align-items: flex-end;
 	}
 
 	.infobox-builder-input {
@@ -160,7 +202,7 @@ $border-width: 2px;
 	}
 
 	.modal-dialog {
-		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+		box-shadow: 0 0 20px 0 $shadow-color;
 		font-size: 14px;
 		line-height: 20px;
 		max-width: 250px;
@@ -171,8 +213,11 @@ $border-width: 2px;
 }
 
 .infobox-builder-buttons {
-	display: inline-block;
-	padding: $padding;
+	align-content: space-between;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: $bigPadding;
 }
 
 .infobox-builder-button {
@@ -181,14 +226,15 @@ $border-width: 2px;
 	display: flex;
 	float: left;
 	flex-direction: column;
-	height: 100px;
+	height: $imageButtonHeight;
 	justify-content: center;
-	margin: 3px;
+	margin-bottom: 4px;
 	padding: 10px;
-	width: 130px;
+	flex-basis: $imageButtonWidth;
+	width: $imageButtonWidth;
 
 	&:hover {
-		border: $border-width solid $color-blue-light;
+		background-color: $color-blue-gray-light;
 
 		.infobox-builder-button-icon {
 			fill: $color-blue-light;
@@ -197,21 +243,22 @@ $border-width: 2px;
 }
 
 .infobox-builder-button-icon {
-	height: $icon-button-size;
-	width: $icon-button-size;
 	fill: $color-blue-gray;
+	height: $icon-button-size;
+	margin-top: $border-width * 2;
+	// fix no event bubbling on SVGs in IE 11
+	pointer-events: none;
+	width: $icon-button-size;
 }
 
 .infobox-builder-button-label {
 	color: $color-blue-light;
-	font-size: 14px;
-	margin-top: 10px;
+	font-size: $type-smallest;
+	margin-top: $border-width * 2;
 }
 
 .sidebar-edit-area {
-	align-items: center;
-	display: flex;
-	justify-content: space-between;
+	position: relative;
 }
 
 .sidebar-content-padding {
@@ -223,13 +270,10 @@ $border-width: 2px;
 	display: flex;
 	justify-content: center;
 	height: $icon-wrapper-size;
+	position: absolute;
+	right: -10px;
+	top: 0;
 	width: $icon-wrapper-size;
-
-	.infobox-builder-input & {
-		position: absolute;
-		right: -10px;
-		top: 0;
-	}
 
 	&:hover svg {
 		fill: $color-blue-light;
@@ -242,5 +286,46 @@ $border-width: 2px;
 	}
 }
 
+.is-preview-item-dragged {
+	.pi-item:not(.is-dragging) {
+		pointer-events: none;
 
+		&:before {
+			background-color: $grayout-color;
+			content: "";
+			display: block;
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			z-index: 2;
+		}
+	}
+}
 
+.infobox-builder-spinner {
+	align-items: center;
+	color: $spinner-text-color;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	&.loading-overlay {
+		background: $overlay-color;
+	}
+
+	.success-icon {
+		height: 80px;
+		width: 80px;
+	}
+
+	.spinner {
+		margin: 0;
+		position: inherit;
+	}
+
+	.spinner-text {
+		margin-top: 15px;
+	}
+}

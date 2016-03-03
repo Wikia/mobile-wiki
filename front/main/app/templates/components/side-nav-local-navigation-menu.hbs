@@ -8,14 +8,14 @@
 	</li>
 {{/if}}
 
-<li class="side-nav-menu__item mw-content" {{action 'hideNewBadge'}}>
-    {{#link-to 'recent-wiki-activity'
-        tracking-category='recent-wiki-activity'
-        tracking-label='local-nav'
-    }}
-        {{i18n 'main.title' ns='recent-wiki-activity'}}
+<li class="side-nav-menu__item" {{action 'recentWikiActivityClick'}}>
+	{{#link-to 'recent-wiki-activity'
+		tracking-category='recent-wiki-activity'
+		tracking-label='local-nav'
+	}}
+		{{i18n 'main.title' ns='recent-wiki-activity'}}
 		{{svg 'info-filled' class='icon new-badge'}}
-    {{/link-to}}
+	{{/link-to}}
 </li>
 
 {{#each localNavContent.children as |child index|}}
@@ -25,7 +25,7 @@
 		</li>
 	{{else}}
 		<li class="side-nav-menu__item mw-content">
-			<a {{action this.attrs.collapse}} href="{{unbound child.href}}">{{unbound child.text}}</a>
+			<a {{action 'clickLink' index preventDefault=false}} href="{{unbound child.href}}">{{unbound child.text}}</a>
 		</li>
 	{{/if}}
 {{/each}}

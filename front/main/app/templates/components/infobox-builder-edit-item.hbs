@@ -1,5 +1,5 @@
 <div class="edit-header">
-	<a class="edit-header--back edit-header-icon" {{action this.attrs.onBackArrowClick}}>
+	<a class="edit-header--back edit-header-icon" {{action this.attrs.onBackArrowClick null}}>
 		{{svg 'back-arrow' role='img' class='icon back-arrow'}}</a>
 	<div class="edit-header--title">{{header}}</div>
 	<a class="edit-header--delete edit-header-icon" {{action this.attrs.onDeleteItem item}}>
@@ -9,4 +9,5 @@
 	item=item
 	editTitleItem=editTitleItem
 	editRowItem=editRowItem
+	editSectionHeaderItem=editSectionHeaderItem
 }}

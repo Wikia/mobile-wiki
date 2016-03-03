@@ -1,3 +1,50 @@
+## release-216 (2016-03-03 12:28 UTC)
+* [XW-1203](https://wikia-inc.atlassian.net/browse/XW-1203) XW-1203 | send Comscore tracking on server side
+* [ADEN-3043](https://wikia-inc.atlassian.net/browse/ADEN-3043) ADEN-3043 Add timestamp to Nielsen url
+* [XW-](https://wikia-inc.atlassian.net/browse/XW-) XW | stop calling quantserve twice on auth
+* pr-template-update: Remove "work in progress" from PR template
+* [DAT-3789](https://wikia-inc.atlassian.net/browse/DAT-3789) DAT-3789 | Infobox Builder - source attribute immutable after first save
+* [XW-1229](https://wikia-inc.atlassian.net/browse/XW-1229) XW-1229 | Create tracking function, always
+* [XW-1214](https://wikia-inc.atlassian.net/browse/XW-1214) XW-1214 add missing tracking to wiki navigation and unify existing one
+* [CE-3434](https://wikia-inc.atlassian.net/browse/CE-3434) CE-3434 Update translations for Recent Wiki Activity and enable it for all langs
+* [XW-1227](https://wikia-inc.atlassian.net/browse/XW-1227) XW-1227 remove obsolete tracking
+* [DAT-3865](https://wikia-inc.atlassian.net/browse/DAT-3865) DAT-3865 | Fix infobox builder height
+* [XW-1208](https://wikia-inc.atlassian.net/browse/XW-1208) XW-1208 | Fix Quantserve late loading
+* app-header-component-cleanup: DAT-3865 | App header component cleanup
+
+## release-215 hotfix 1 (2016-03-01 12:28 UTC)
+* [XW-1221](https://wikia-inc.atlassian.net/browse/XW-1221) XW-1221 fix path to model in article-preview route
+
+## release-215 (2016-03-01 09:59 UTC)
+* add-version: Add version to Ember inspector
+* [XW-1104](https://wikia-inc.atlassian.net/browse/XW-1104) XW-1104 | Category page
+* [XW-1104](https://wikia-inc.atlassian.net/browse/XW-1104) handle exception
+* [DAT-3732](https://wikia-inc.atlassian.net/browse/DAT-3732) DAT 3732 Infobox builder header section editing
+* jenkins-improve: Jenkins improve
+* [XW-1184](https://wikia-inc.atlassian.net/browse/XW-1184) P2 fixes from XW-1184
+* [XW-1104](https://wikia-inc.atlassian.net/browse/XW-1104) use link-to instead of a tag
+
+## release-214 (2016-02-26 14:02 UTC)
+* [XW-1086](https://wikia-inc.atlassian.net/browse/XW-1086) XW-1086 | Mercury should still work even with cookies disabled
+* [XW-1184](https://wikia-inc.atlassian.net/browse/XW-1184) XW-1184 | Fix actions for RWA
+* docs-new-i18n-file: Add an info how to load a newly added i18n file.
+* update-article-preview-route-name: change infobox builder route name from camelcase to dasherize
+* [XW-1183](https://wikia-inc.atlassian.net/browse/XW-1183) XW-1183 fix handling for 404 errors in Mercury
+* eslint-switch-case-indentation: Eslint switch case indentation
+* [DAT-3788](https://wikia-inc.atlassian.net/browse/DAT-3788) DAT-3788 add default mercury spinner when saving infobox builder
+* [SOC-1376](https://wikia-inc.atlassian.net/browse/SOC-1376) SOC-1376 | As a user I would like to see the timestamp of a post or a reply a certain way
+* [DAT-3786](https://wikia-inc.atlassian.net/browse/DAT-3786) add dialog on onbeforeunload
+* [DAT-3711](https://wikia-inc.atlassian.net/browse/DAT-3711) DAT-3711 Adding sections to the infobox builder
+
+## release-213 (2016-02-25 12:05 UTC)
+* [XW-1173](https://wikia-inc.atlassian.net/browse/XW-1173) XW-1173 | ASAP send an event to UA that user opened a page
+* [DAT-3770](https://wikia-inc.atlassian.net/browse/DAT-3770) DAT-3770 infobox builder reordering of elements
+* [XW-1105](https://wikia-inc.atlassian.net/browse/XW-1105) XW-1105 | Handle links to category pages in article
+* [PLATFORM-1859](https://wikia-inc.atlassian.net/browse/PLATFORM-1859) PLATFORM-1859 Add information about number of images still in the queue to be reviewed
+* [MAIN-6507](https://wikia-inc.atlassian.net/browse/MAIN-6507) (MAIN-6507) Only load user info if the user is not an anon
+* update-ember-cli: Update ember-cli to 2.3.0
+* [ADEN-3013](https://wikia-inc.atlassian.net/browse/ADEN-3013) ADEN-3013 Fix Nielsen typos
+
 ## release-212 hotfix 1 (2016-02-24 03:04 UTC)
 * release-212-hotfix: (MAIN-6507) Only load user info if the user is not an anon
 

@@ -1,30 +1,72 @@
-{{app-header
+{{wikia-ui-components/sub-header
 	title=(i18n 'main.header' ns='infobox-builder' title=title)
-	onBackArrowClick=cancelAction
-	onConfirmBtnClick=saveAction
+	onBack=(action this.attrs.cancelAction)
+	onConfirm=(action 'save')
 	backArrowTooltip=(i18n 'app.cancel-label')
-	confirmBtnLabel=(i18n 'main.save' ns='infobox-builder')
-	fixed=true
+	confirmLabel=(i18n 'main.save' ns='infobox-builder')
 }}
 
 <div class="infobox-builder">
-	{{#infobox-builder-wrapper}}
-		{{#each state as |element index|}}
-			{{component element.infoboxBuilderData.component
-				item=element
-				position=index
-				activeItem=activeItem
-				setEditItem=setEditItem
+	<div class="infobox-builder-preview" {{action this.attrs.setEditItem null}}>
+		{{#sortable-group
+			tagName="div"
+			classNames='portable-infobox pi-background'
+			onChange=reorder as |group|
+		}}
+			{{#each state as |element index|}}
+				{{component element.infoboxBuilderData.component
+					activeItem=activeItem
+					model=element
+					group=group
+					handle=".pi-item"
+					position=index
+					click=(action 'setEditItemAndStopPropagation' element)
+					spacing=8
+					onDragStart=(action 'onPreviewItemDrag')
+					onDragStop=(action 'onPreviewItemDrop')
+					onMouseEnter=(action 'showReorderTooltip')
+					onMouseLeave=(action 'hideReorderTooltip')
+				}}
+			{{/each}}
+		{{/sortable-group}}
+		{{#if isReorderTooltipVisible}}
+			{{wikia-ui-components/on-hover-tooltip
+				posX=tooltipPosX
+				posY=tooltipPosY
+				fixed=true
+				message=(i18n 'main.reorder-tooltip' ns='infobox-builder')
 			}}
-		{{/each}}
-	{{/infobox-builder-wrapper}}
+		{{/if}}
+	</div>
 
 	{{infobox-builder-sidebar
-		addItem=addItem
+		addItem=(action 'addItem')
 		removeItem=removeItem
 		itemInEditMode=activeItem
 		setEditItem=setEditItem
 		editTitleItem=editTitleItem
 		editRowItem=editRowItem
+		editSectionHeaderItem=editSectionHeaderItem
 	}}
 </div>
+{{#if showOverlay}}
+	<div class="infobox-builder-spinner loading-overlay">
+	{{#if isLoading}}
+		{{loading-spinner
+			active=true
+			radius=38
+			overlay=false
+			strokeWidth=3
+		}}
+		<div class="spinner-text">
+			{{i18n 'main.saving' ns='infobox-builder'}}
+		</div>
+	{{/if}}
+	{{#if showSuccess}}
+		{{svg 'success' class='success-icon' viewBox='0 0 80 80'}}
+		<div class="spinner-text">
+			{{i18n 'main.success' ns='infobox-builder'}}
+		</div>
+	{{/if}}
+	</div>
+{{/if}}

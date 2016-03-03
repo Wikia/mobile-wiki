@@ -13,27 +13,48 @@ import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettin
 export default function prepareMediaWikiData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
 		wikiVariables = data.wikiVariables,
+		pageData = data.page.data,
 		result = {
 			server: data.server,
 			wikiVariables: data.wikiVariables,
+			canonicalUrl: ''
 		};
+
+	if (wikiVariables) {
+		result.canonicalUrl = wikiVariables.basePath;
+	}
+
+	if (pageData && pageData.details) {
+		result.canonicalUrl += pageData.details.url;
+	}
+
+	if (pageData) {
+		result.htmlTitle = pageData.htmlTitle;
+	} else {
+		result.htmlTitle = request.params.title.replace(/_/g, ' ');
+	}
 
 	result.isRtl = isRtl(wikiVariables);
 
-	result.htmlTitle = Utils.getHtmlTitle(wikiVariables, result.displayTitle);
+	result.displayTitle = result.htmlTitle;
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
-	result.openGraph = getOpenGraphData('article', result.displayTitle, result.canonicalUrl);
+	result.openGraph = getOpenGraphData('wiki-page', result.displayTitle, result.canonicalUrl);
 	// clone object to avoid overriding real localSettings for futurue requests
 	result.localSettings = getLocalSettings();
 
 	result.qualarooScript = getQualarooScriptUrl(request);
 	result.userId = getUserId(request);
 	result.gaUserIdHash = gaUserIdHash(result.userId);
+	result.displayTitle = request.params.title.replace(/_/g, ' ');
 
 	if (typeof request.query.buckySampling !== 'undefined') {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
+	}
+
+	if (data.page.exception) {
+		result.exception = data.page.exception;
 	}
 
 	result.asyncArticle = false;

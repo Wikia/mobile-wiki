@@ -15,6 +15,7 @@ test('create new model with initial state', (assert) => {
 	assert.equal(model.get('_itemIndex.row'), 0);
 	assert.equal(model.get('_itemIndex.image'), 0);
 	assert.equal(model.get('_itemIndex.title'), 0);
+	assert.equal(model.get('_itemIndex.section-header'), 0);
 	assert.equal(Ember.isArray(model.get('infoboxState')), true);
 	assert.equal(model.get('infoboxState').length, 0);
 });
@@ -62,7 +63,8 @@ test('add items by type', (assert) => {
 						component: mockComponentName
 					},
 					source: `row${index}`,
-					type: 'row'
+					type: 'row',
+					sourceFrozen: false
 				},
 				message: 'add row item'
 			},
@@ -95,30 +97,37 @@ test('add items by type', (assert) => {
 					type: 'title'
 				},
 				message: 'add title item'
+			},
+			{
+				dataMock: {
+					data: messageMock,
+					collapsible: false,
+					infoboxBuilderData: {
+						index,
+						component: mockComponentName
+					},
+					type: 'section-header'
+				},
+				message: 'add section-header item'
 			}
 		];
 
 	cases.forEach((testCase) => {
 		const model = infoboxBuilderModelClass.create(),
-			addToStateSpy = sinon.spy(),
-			createComponentNameStub = sinon
-				.stub(infoboxBuilderModelClass, 'createComponentName')
-				.returns(mockComponentName),
-			i18nStub = sinon.stub(i18n, 't').returns(messageMock);
+			addToStateSpy = sinon.spy(model, 'addToState');
 
-		i18n.t = i18nStub;
-		infoboxBuilderModelClass.createComponentName = createComponentNameStub;
-
+		sinon.stub(i18n, 't').returns(messageMock);
+		sinon.stub(infoboxBuilderModelClass, 'createComponentName').returns(mockComponentName);
 		model.increaseItemIndex = sinon.stub().returns(index);
-		model.addToState = addToStateSpy;
+
 		model.addItem(testCase.dataMock.type);
 
 		assert.equal(addToStateSpy.callCount, 1, testCase.message);
 		assert.equal(addToStateSpy.calledWith(testCase.dataMock), true, testCase.message);
 
-		// restore global stubs
-		createComponentNameStub.restore();
-		i18nStub.restore();
+		// restore static methods
+		infoboxBuilderModelClass.createComponentName.restore();
+		i18n.t.restore();
 	});
 });
 
@@ -178,6 +187,65 @@ test('edit row item', (assert) => {
 	});
 });
 
+test('edit section header item', (assert) => {
+	const index = 0,
+		defaultHeader = 'Header 1',
+		defaultCollapsible = false,
+		data = 'custom header',
+		collapsible = true,
+		cases = [
+			{
+				newValues: {
+					data,
+					collapsible
+				},
+				expectedValues: {
+					data,
+					collapsible
+				}
+			},
+			{
+				newValues: {
+					data
+				},
+				expectedValues: {
+					data,
+					collapsible: defaultCollapsible
+				}
+			},
+			{
+				newValues: {
+					collapsible
+				},
+				expectedValues: {
+					data: defaultHeader,
+					collapsible
+				}
+			},
+			{
+				newValues: {},
+				expectedValues: {
+					data: defaultHeader,
+					collapsible: defaultCollapsible
+				}
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create();
+
+		sinon.stub(i18n, 't').returns(defaultHeader);
+
+		model.addItem('section-header');
+		model.editSectionHeaderItem(model.get('infoboxState').objectAt(index), testCase.newValues);
+
+		assert.equal(model.get(`infoboxState.${index}.data`), testCase.expectedValues.data);
+		assert.equal(model.get(`infoboxState.${index}.collapsible`), testCase.expectedValues.collapsible);
+
+		i18n.t.restore();
+	});
+});
+
 test('sanitize custom row source', (assert) => {
 	const cases = [
 		{
@@ -223,7 +291,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: 'src',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -242,7 +311,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -261,7 +331,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -275,7 +346,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -289,7 +361,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: 'row1',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: false
 				}
 			}
 		];
@@ -304,7 +377,8 @@ test('extend row data', (assert) => {
 					component: 'component'
 				},
 				source: 'row1',
-				type: 'row'
+				type: 'row',
+				sourceFrozen: false
 			},
 			extended = infoboxBuilderModelClass.extendRowData(item, testCase.additionalItemData);
 
@@ -318,6 +392,12 @@ test('extend row data', (assert) => {
 			extended.data.label,
 			testCase.expected.data.label,
 			'row label'
+		);
+
+		assert.equal(
+			extended.sourceFrozen,
+			testCase.expected.sourceFrozen,
+			'source freezed'
 		);
 	});
 });
@@ -533,5 +613,94 @@ test('extend image data', (assert) => {
 			testCase.expected.data.caption.source,
 			'image caption source'
 		);
+	});
+});
+
+test('extend section header data', (assert) => {
+	const index = 1,
+		component = 'test-component',
+		type = 'section-header',
+		defaultName = 'Header 1',
+		infoboxBuilderData = {
+			index,
+			component
+		},
+		cases = [
+			{
+				newValues: {
+					data: 'custom header',
+					collapsible: true
+				},
+				expected: {
+					data: 'custom header',
+					collapsible: true
+				}
+			},
+			{
+				newValues: {
+					data: 'custom header'
+				},
+				expected: {
+					data: 'custom header',
+					collapsible: false
+				}
+			},
+			{
+				newValues: {
+					data: 'custom header',
+					collapsible: false
+				},
+				expected: {
+					data: 'custom header',
+					collapsible: false
+				}
+			},
+			{
+				newValues: {
+					collapsible: true
+				},
+				expected: {
+					data: '',
+					collapsible: true
+				}
+			},
+			{
+				newValues: null,
+				expected: {
+					data: defaultName,
+					collapsible: false
+				}
+			},
+			{
+				newValues: {},
+				expected: {
+					data: '',
+					collapsible: false
+				}
+			},
+			{
+				newValues: {
+					data: ''
+				},
+				expected: {
+					data: '',
+					collapsible: false
+				}
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const item = {
+				data: defaultName,
+				collapsible: false,
+				infoboxBuilderData,
+				type
+			},
+			extendedObject = infoboxBuilderModelClass.extendHeaderData(item, testCase.newValues);
+
+		assert.equal(extendedObject.data, testCase.expected.data);
+		assert.equal(extendedObject.collapsible, testCase.expected.collapsible);
+		assert.equal(extendedObject.type, type);
+		assert.equal(extendedObject.infoboxBuilderData, infoboxBuilderData);
 	});
 });

@@ -27,7 +27,7 @@ export default Ember.Component.extend(
 					track({
 						action: trackActions.click,
 						category: this.get('trackingEvent'),
-						label: this.get('isCollapsed') ? 'close' : 'open'
+						label: this.get('isCollapsed') ? 'collapsed' : 'expanded'
 					});
 				}
 			}
