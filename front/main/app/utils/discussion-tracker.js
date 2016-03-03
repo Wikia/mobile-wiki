@@ -2,7 +2,7 @@ import {track as mercuryTrack} from 'common/utils/track';
 import ajaxCall from './ajax-call';
 
 const isClickstreamEnabled = M.prop('clickstream.social.enable'),
-	clickStreamURL = M.prop('clickstream.social.url');
+	clickstreamURL = M.prop('clickstream.social.url');
 
 export const trackActions = {
 	PostCreate: 'PostCreate',
@@ -19,23 +19,23 @@ function getGACategory() {
 }
 
 /**
- * Sends an XHR request to track an event in ClickStream with payload
+ * Sends an XHR request to track an event in Clickstream with payload
  * compliant with Mobile Apps tracking scheme
  *
  * @param {object} gaContext
  *
  * @returns {void}
  */
-function trackInClickStream(gaContext) {
+function trackInClickstream(gaContext) {
 	ajaxCall({
 		method: 'POST',
 		data: {
-			events: [getClickStreamEvent(gaContext)],
+			events: [getClickstreamEvent(gaContext)],
 			data: {
 				platform: 'web'
 			}
 		},
-		url: clickStreamURL,
+		url: clickstreamURL,
 		success: (data) => {},
 		error: (err) => {}
 	});
@@ -46,7 +46,7 @@ function trackInClickStream(gaContext) {
  *
  * @returns {object}
  */
-function getClickStreamEvent(gaContext) {
+function getClickstreamEvent(gaContext) {
 	return {
 		timestamp: new Date().getTime(),
 		country: '',
@@ -78,8 +78,8 @@ function getGAContext(action) {
 export function track(action) {
 	const gaContext = getGAContext(action);
 
-	if (isClickStreamEnabled) {
-		trackInClickStream(gaContext);
+	if (isClickstreamEnabled) {
+		trackInClickstream(gaContext);
 	}
 
 	mercuryTrack(gaContext);
