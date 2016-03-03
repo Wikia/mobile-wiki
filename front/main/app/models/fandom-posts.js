@@ -3,7 +3,11 @@ import Ember from 'ember';
 const FandomPostsModel = Ember.Object.extend({
 	title: null,
 	type: null,
-	posts: [],
+
+	init() {
+		this._super(...arguments);
+		this.posts = [];
+	},
 
 	/**
 	 * @returns {Ember.RSVP.Promise} model

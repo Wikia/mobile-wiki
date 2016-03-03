@@ -4,19 +4,16 @@ import {trackExperiment, trackActions} from 'common/utils/track';
 export default Ember.Component.extend({
 	experimentName: 'RECIRCULATION_MERCURY_FOOTER',
 
-	trackImpression() {
-		trackExperiment(this.get('experimentName'), {
-			action: trackActions.impression,
-			category: 'recirculation',
-			label: 'footer'
-		});
-	},
-
-	didRender() {
+	didReceiveAttrs() {
+		this._super(...arguments);
 		const pages = this.get('pages');
 
 		if (pages) {
-			Ember.run.throttle(this, 'trackImpression', 200);
+			trackExperiment(this.get('experimentName'), {
+				action: trackActions.impression,
+				category: 'recirculation',
+				label: 'footer'
+			});
 		}
 	},
 

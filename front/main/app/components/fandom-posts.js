@@ -6,7 +6,7 @@ export default Ember.Component.extend({
 	experimentName: 'RECIRCULATION_MERCURY_FOOTER',
 
 	init() {
-		this._super();
+		this._super(...arguments);
 
 		FandomPostsModel
 			.create({
@@ -15,25 +15,22 @@ export default Ember.Component.extend({
 			.load()
 			.then((model) => {
 				this.setProperties(model);
-			}, (error) => {
+			}, () => {
 				// At some point this error should possibly be handled
 			});
 	},
 
-	didRender() {
+	didReceiveAttrs() {
+		this._super(...arguments);
 		const posts = this.get('posts');
 
 		if (posts) {
-			Ember.run.throttle(this, 'trackImpression', 200);
+			trackExperiment(this.get('experimentName'), {
+				action: trackActions.impression,
+				category: 'recirculation',
+				label: 'footer'
+			});
 		}
-	},
-
-	trackImpression() {
-		trackExperiment(this.get('experimentName'), {
-			action: trackActions.impression,
-			category: 'recirculation',
-			label: 'footer'
-		});
 	},
 
 	actions: {
