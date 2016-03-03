@@ -1,8 +1,8 @@
 /* eslint no-console: 0 */
 
 import Internal from '../modules/Trackers/Internal';
-import Krux from '../modules/Trackers/Krux';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
+import Ads from '../modules/Ads';
 
 /**
  * @typedef {Object} TrackContext
@@ -31,7 +31,6 @@ import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
 
 const trackers = {
 		Internal,
-		Krux,
 		UniversalAnalytics
 	},
 	/**
@@ -201,6 +200,8 @@ export function trackPageView(adsContext) {
 		window.trackComscorePageView();
 		window.trackIVW3PageView();
 	}
+
+	Ads.getInstance().trackKruxPageView();
 }
 
 /**
