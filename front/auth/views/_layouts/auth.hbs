@@ -64,9 +64,11 @@
 			M.loadDOMResource('/front/common/symbols.svg');
 			M.prop('tracking', {{{json trackingConfig}}});
 			M.prop('isGASpecialWiki', true);
+			M.prop('initialPageView', true, true);
 
 			require('auth/app/main').init();
 		</script>
 		{{> tracking-quantserve}}
+		{{> tracking-comscore}}
 	</body>
 </html>

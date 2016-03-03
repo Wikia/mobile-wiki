@@ -1,6 +1,5 @@
 /* eslint no-console: 0 */
 
-import Comscore from '../modules/Trackers/Comscore';
 import Internal from '../modules/Trackers/Internal';
 import IVW3 from '../modules/Trackers/IVW3';
 import Krux from '../modules/Trackers/Krux';
@@ -32,7 +31,6 @@ import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
  */
 
 const trackers = {
-		Comscore,
 		Internal,
 		IVW3,
 		Krux,
@@ -201,7 +199,11 @@ export function trackPageView(adsContext) {
 		M.prop('initialPageView', false);
 	} else {
 		window.trackQuantservePageView();
+<<<<<<< HEAD
 		window.trackNielsenPageView();
+=======
+		window.trackComscorePageView();
+>>>>>>> origin/dev
 	}
 }
 

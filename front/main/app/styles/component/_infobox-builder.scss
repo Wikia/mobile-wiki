@@ -49,6 +49,8 @@ $overlay-color: rgba(255, 255, 255, .8);
 }
 
 .infobox-builder-preview {
+	// overwrite mercury default cursor for elements with ember actions attached
+	cursor: auto;
 	flex-grow: 1;
 	overflow: auto;
 
