@@ -1,15 +1,17 @@
+{{#if posts.length}}
 <section class="fandom-posts content-recommendations">
-	<h2>{{ title }}</h2>
+	<h2>{{title}}</h2>
 	<ul class="thumbnails">
 		{{#each posts as |post|}}
-			<li class="title-thumbnail" {{action "trackClick" preventDefault=false}}>
-				<a href="{{ post.url }}" class="image image-thumbnail">
-					<img src="{{ post.image_url }}" alt="{{ post.title }}">
+			<li class="title-thumbnail" {{action 'trackExperimentClick' preventDefault=false}}>
+				<a href="{{post.url}}" class="image image-thumbnail">
+					<img src="{{post.image_url}}" alt="{{post.title}}">
 				</a>
-				<p class="title" title="{{ post.title }}">
-					<a href="{{ post.url }}">{{ post.title }}</a>
+				<p class="title" title="{{post.title}}">
+					<a href="{{post.url}}">{{post.title}}</a>
 				</p>
 			</li>
 		{{/each}}
 	</ul>
 </section>
+{{/if}}

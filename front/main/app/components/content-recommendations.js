@@ -1,6 +1,5 @@
 import Ember from 'ember';
-import {trackExperiment} from 'common/utils/abTesting';
-import {trackActions} from 'common/utils/track';
+import {trackExperiment, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend({
 	experimentName: 'RECIRCULATION_MERCURY_FOOTER',
@@ -22,7 +21,7 @@ export default Ember.Component.extend({
 	},
 
 	actions: {
-		trackClick() {
+		trackExperimentClick() {
 			trackExperiment(this.get('experimentName'), {
 				action: trackActions.click,
 				category: 'recirculation',

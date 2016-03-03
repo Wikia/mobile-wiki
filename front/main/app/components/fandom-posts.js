@@ -15,10 +15,20 @@ export default Ember.Component.extend({
 			.load()
 			.then((model) => {
 				this.setProperties(model);
+			}, (error) => {
+				// At some point this error should possibly be handled
 			});
 	},
 
 	didRender() {
+		const posts = this.get('posts');
+
+		if (posts) {
+			Ember.run.throttle(this, 'trackImpression', 200);
+		}
+	},
+
+	trackImpression() {
 		trackExperiment(this.get('experimentName'), {
 			action: trackActions.impression,
 			category: 'recirculation',
@@ -27,7 +37,7 @@ export default Ember.Component.extend({
 	},
 
 	actions: {
-		trackClick() {
+		trackExperimentClick() {
 			trackExperiment(this.get('experimentName'), {
 				action: trackActions.click,
 				category: 'recirculation',
