@@ -63,7 +63,8 @@ test('add items by type', (assert) => {
 						component: mockComponentName
 					},
 					source: `row${index}`,
-					type: 'row'
+					type: 'row',
+					sourceFrozen: false
 				},
 				message: 'add row item'
 			},
@@ -290,7 +291,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: 'src',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -309,7 +311,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -328,7 +331,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -342,7 +346,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -356,7 +361,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: 'row1',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: false
 				}
 			}
 		];
@@ -371,7 +377,8 @@ test('extend row data', (assert) => {
 					component: 'component'
 				},
 				source: 'row1',
-				type: 'row'
+				type: 'row',
+				sourceFrozen: false
 			},
 			extended = infoboxBuilderModelClass.extendRowData(item, testCase.additionalItemData);
 
@@ -385,6 +392,12 @@ test('extend row data', (assert) => {
 			extended.data.label,
 			testCase.expected.data.label,
 			'row label'
+		);
+
+		assert.equal(
+			extended.sourceFrozen,
+			testCase.expected.sourceFrozen,
+			'source freezed'
 		);
 	});
 });

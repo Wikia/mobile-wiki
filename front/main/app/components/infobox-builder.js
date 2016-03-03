@@ -26,6 +26,11 @@ export default Ember.Component.extend(
 		},
 
 		actions: {
+			/**
+			 * @param {Number} posX
+			 * @param {Number} posY
+			 * @returns {void}
+			 */
 			showReorderTooltip(posX, posY) {
 				this.setProperties({
 					tooltipPosX: posX + this.get('tooltipDistanceFromCursor'),
@@ -42,14 +47,37 @@ export default Ember.Component.extend(
 				});
 			},
 
+			/**
+			 * @param {Object} actionTrigger - dragged item
+			 * @returns {void}
+			 */
 			onPreviewItemDrag(actionTrigger) {
 				this.set('isPreviewItemDragged', true);
 				this.trackClick('infobox-builder', `dragging-element-${actionTrigger.type}`);
-				this.get('handleItemInEditMode')(actionTrigger);
+
+				if (actionTrigger !== this.get('activeItem')) {
+					this.get('setEditItem')(null);
+				}
 			},
 
 			onPreviewItemDrop() {
 				this.set('isPreviewItemDragged', false);
+			},
+
+			/**
+			 * After clicking on item propagates to .infobox-builder-preview
+			 * We don't want that so it's prevented here
+			 *
+			 * @param {Ember.Object} targetItem
+			 * @param {jQuery.Event} event
+			 * @returns {void}
+			 */
+			setEditItemAndStopPropagation(targetItem, event) {
+				if (event && event.stopPropagation) {
+					event.stopPropagation();
+				}
+
+				this.get('setEditItem')(targetItem);
 			},
 
 			save() {

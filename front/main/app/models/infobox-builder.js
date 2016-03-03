@@ -81,7 +81,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				component: InfoboxBuilderModel.createComponentName(itemType)
 			},
 			source: `${itemType}${index}`,
-			type: itemType
+			type: itemType,
+			sourceFrozen: false
 		};
 	},
 
@@ -212,7 +213,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		this.set(`infoboxState.${index}.data.label`, value);
 
-		if (value.trim().length) {
+		if (!item.sourceFrozen && value.trim().length) {
 			this.set(`infoboxState.${index}.source`, InfoboxBuilderModel.sanitizeCustomRowSource(value));
 		}
 	},
@@ -238,7 +239,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	removeItem(item) {
 		this.get('infoboxState').removeObject(item);
-		this.resetEditMode();
+		this.setEditItem(null);
 	},
 
 	/**
@@ -248,14 +249,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	updateInfoboxStateOrder(newState) {
 		this.set('infoboxState', newState);
-	},
-
-	/**
-	 * @desc resets item in edit mode and its position to null
-	 * @returns {void}
-	 */
-	resetEditMode() {
-		this.set('itemInEditMode', null);
 	},
 
 	/**
@@ -410,8 +403,8 @@ InfoboxBuilderModel.reopenClass({
 
 			item.source = itemData.source || '';
 			item.data.label = label || '';
+			item.sourceFrozen = true;
 		}
-
 		return item;
 	},
 
