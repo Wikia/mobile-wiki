@@ -241,19 +241,6 @@ export default Ember.Component.extend(ViewportMixin, {
 		});
 	},
 
-	/**
-	 * @param {string} label
-	 *
-	 * @returns {void}
-	 */
-	track(label) {
-		mercuryTrack({
-			action: 'PostCreate',
-			category: 'sectionaddphoto',
-			label
-		});
-	},
-
 	actions: {
 		/**
 		 * Send request to model to create new post and start animations
