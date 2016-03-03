@@ -1,9 +1,7 @@
 /* eslint no-console: 0 */
 
 import Internal from '../modules/Trackers/Internal';
-import IVW3 from '../modules/Trackers/IVW3';
 import Krux from '../modules/Trackers/Krux';
-import Nielsen from '../modules/Trackers/Nielsen';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
 
 /**
@@ -33,9 +31,7 @@ import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
 
 const trackers = {
 		Internal,
-		IVW3,
 		Krux,
-		Nielsen,
 		UniversalAnalytics
 	},
 	/**
@@ -201,7 +197,9 @@ export function trackPageView(adsContext) {
 		M.prop('initialPageView', false);
 	} else {
 		window.trackQuantservePageView();
+		window.trackNielsenPageView();
 		window.trackComscorePageView();
+		window.trackIVW3PageView();
 	}
 }
 

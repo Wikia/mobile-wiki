@@ -38,27 +38,6 @@
 			setupAds=true
 			loadBatch=(action 'loadBatch')
 		}}
-
-		<section class="article-footer">
-		{{#if model.categories}}
-			{{#collapsible-menu
-				showMenuIcon=false
-				tLabel='app.article-categories-list-label'
-				ordered=false
-				observe=model.displayTitle
-				trackingEvent='category'
-			}}
-				{{#each model.categories as |category|}}
-					<li class="mw-content" {{action 'trackClick' 'category' 'link'}}>
-						{{#link-to 'wiki-page' category.title}}
-							{{category.title}}
-							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-						{{/link-to}}
-					</li>
-				{{/each}}
-			{{/collapsible-menu}}
-		{{/if}}
-		</section>
 	{{/if}}
 
 	{{wikia-footer}}
