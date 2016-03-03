@@ -1,7 +1,8 @@
 import {track as mercuryTrack} from 'common/utils/track';
 import ajaxCall from './ajax-call';
 
-const clickStreamURL = 'https://services.wikia-dev.com/events/social';
+const isClickstreamEnabled = M.prop('clickstream.social.enable'),
+	clickStreamURL = M.prop('clickstream.social.url');
 
 export const trackActions = {
 	PostCreate: 'PostCreate',
@@ -77,7 +78,9 @@ function getGAContext(action) {
 export function track(action) {
 	const gaContext = getGAContext(action);
 
-	trackInClickStream(gaContext);
+	if (isClickStreamEnabled) {
+		trackInClickStream(gaContext);
+	}
 
 	mercuryTrack(gaContext);
 }

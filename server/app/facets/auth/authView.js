@@ -190,8 +190,8 @@ export function getDefaultContext(request) {
 		pageParams: {
 			cookieDomain: localSettings.authCookieDomain,
 			isModal,
-			enableAuthLogger: localSettings.clickstream.auth.enable,
-			authLoggerUrl: localSettings.clickstream.auth.url,
+			enableSocialLogger: localSettings.clickstream.social.enable,
+			socialLoggerUrl: localSettings.clickstream.social.url,
 			viewType,
 			parentOrigin: (isModal ? getOrigin(request) : undefined)
 		}
