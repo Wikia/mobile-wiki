@@ -199,11 +199,8 @@ export function trackPageView(adsContext) {
 		M.prop('initialPageView', false);
 	} else {
 		window.trackQuantservePageView();
-<<<<<<< HEAD
 		window.trackNielsenPageView();
-=======
 		window.trackComscorePageView();
->>>>>>> origin/dev
 	}
 }
 
