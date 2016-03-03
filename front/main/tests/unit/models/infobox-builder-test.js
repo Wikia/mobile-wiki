@@ -71,28 +71,6 @@ test('add items by type', (assert) => {
 			{
 				dataMock: {
 					data: {
-						label: messageMock
-					},
-					infoboxBuilderData: {
-						index,
-						component: mockComponentName
-					},
-					source: messageMock,
-					type: 'row',
-					sourceFreezed: true
-				},
-				elemData: {
-					data: {
-						label: messageMock
-					},
-					source: messageMock,
-					type: 'row'
-				},
-				message: 'add existing row item'
-			},
-			{
-				dataMock: {
-					data: {
 						caption: {
 							source: `caption${index}`
 						}
@@ -142,7 +120,7 @@ test('add items by type', (assert) => {
 		sinon.stub(infoboxBuilderModelClass, 'createComponentName').returns(mockComponentName);
 		model.increaseItemIndex = sinon.stub().returns(index);
 
-		model.addItem(testCase.dataMock.type, testCase.elemData);
+		model.addItem(testCase.dataMock.type);
 
 		assert.equal(addToStateSpy.callCount, 1, testCase.message);
 		assert.equal(addToStateSpy.calledWith(testCase.dataMock), true, testCase.message);
