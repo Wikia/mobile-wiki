@@ -398,7 +398,7 @@ test('extend row data', (assert) => {
 			extended.sourceFreezed,
 			testCase.expected.sourceFreezed,
 			'source freezed'
-		)
+		);
 	});
 });
 
