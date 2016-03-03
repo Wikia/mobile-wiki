@@ -691,3 +691,220 @@ test('extend section header data', (assert) => {
 		assert.equal(extendedObject.infoboxBuilderData, infoboxBuilderData);
 	});
 });
+
+test('set edit item', (assert) => {
+	const model = infoboxBuilderModelClass.create(),
+		index = 1,
+		mockComponentName = 'xyz,',
+		cases = [
+			{
+				item: model.createTitleItem(),
+				expectedOldData: {
+					defaultValue: ''
+				}
+			},
+			{
+				item: {
+					data: {
+						caption: {
+							source: 'image caption'
+						}
+					},
+					infoboxBuilderData: {
+						index,
+						component: 'component'
+					},
+					type: 'image'
+				},
+				expectedOldData: {
+					caption: {
+						source: 'image caption'
+					}
+				}
+			},
+			{
+				item: {
+					data: {
+						label: 'my label'
+					},
+					infoboxBuilderData: {
+						index,
+						component: mockComponentName
+					},
+					type: 'row'
+				},
+				expectedOldData: {
+					label: 'my label'
+				}
+			},
+			{
+				item: {
+					data: 'test header',
+					collapsible: true,
+					infoboxBuilderData: {
+						index,
+						component: mockComponentName
+					},
+					type: 'section-header'
+				},
+				expectedOldData: {
+					value: 'test header',
+					collapsible: true
+				}
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create();
+
+		model.setEditItem(testCase.item);
+
+		assert.deepEqual(model.get('itemInEditMode'), testCase.item);
+		assert.deepEqual(testCase.item.infoboxBuilderData.oldData, testCase.expectedOldData);
+	});
+});
+
+test('edit section header item', (assert) => {
+	const oldDataMock = {
+			some_value: 'test'
+		},
+		titleDiff = [
+			{
+				type: 'title',
+				changedField: 'abc'
+			}
+		],
+		rowDiff = [
+			{
+				type: 'row',
+				changedField: 'abc'
+			}
+		],
+		sectionHeaderDiff = [
+			{
+				type: 'section-header',
+				changedField: 'abc'
+			},
+			{
+				type: 'section-header',
+				changedField: 'xyz'
+			}
+		],
+		cases = [
+			{
+				infoboxState: [],
+				expectedDataDiff: []
+			},
+			{
+				infoboxState: [
+					{infoboxBuilderData: {}},
+					{infoboxBuilderData: {}},
+					{infoboxBuilderData: {}}
+				],
+				expectedDataDiff: []
+			},
+			{
+				infoboxState: [
+					{
+						infoboxBuilderData: {},
+						type: 'title'
+					},
+					{
+						infoboxBuilderData: {},
+						type: 'title'
+					},
+					{
+						infoboxBuilderData: {
+							oldData: oldDataMock
+						},
+						type: 'image'
+					}
+				],
+				expectedDataDiff: []
+			},
+			{
+				infoboxState: [
+					{
+						infoboxBuilderData: {
+							oldData: oldDataMock
+						},
+						type: 'title'
+					},
+					{infoboxBuilderData: {}},
+					{infoboxBuilderData: {}}
+				],
+				expectedDataDiff: titleDiff
+			},
+			{
+				infoboxState: [
+					{
+						infoboxBuilderData: {
+							oldData: oldDataMock
+						},
+						type: 'title'
+					},
+					{
+						infoboxBuilderData: {
+							oldData: oldDataMock
+						},
+						type: 'row'
+					},
+					{infoboxBuilderData: {}}
+				],
+				expectedDataDiff: titleDiff.concat(rowDiff)
+			},
+			{
+				infoboxState: [
+					{
+						infoboxBuilderData: {
+							oldData: oldDataMock
+						},
+						type: 'title'
+					},
+					{
+						infoboxBuilderData: {
+							oldData: oldDataMock
+						},
+						type: 'section-header'
+					},
+					{infoboxBuilderData: {}}
+				],
+				expectedDataDiff: titleDiff.concat(sectionHeaderDiff[0], sectionHeaderDiff[1])
+			},
+			{
+				infoboxState: [
+					{
+						infoboxBuilderData: {
+							oldData: null
+						},
+						type: 'title'
+					},
+					{
+						infoboxBuilderData: {
+							oldData: oldDataMock
+						},
+						type: 'row'
+					},
+					{infoboxBuilderData: {}}
+				],
+				expectedDataDiff: rowDiff
+			}
+		];
+
+	sinon.stub(infoboxBuilderModelClass, 'createTitleDiff').returns(titleDiff);
+	sinon.stub(infoboxBuilderModelClass, 'createRowDiff').returns(rowDiff);
+	sinon.stub(infoboxBuilderModelClass, 'createSectionHeaderDiff').returns(sectionHeaderDiff);
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create();
+
+		model.set('infoboxState', testCase.infoboxState);
+
+		assert.deepEqual(model.createDataDiffs(), testCase.expectedDataDiff);
+
+	});
+
+	infoboxBuilderModelClass.createTitleDiff.restore();
+	infoboxBuilderModelClass.createRowDiff.restore();
+	infoboxBuilderModelClass.createSectionHeaderDiff.restore();
+});

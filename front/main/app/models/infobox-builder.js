@@ -177,6 +177,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 					collapsible: item.collapsible
 				};
 			}
+			// we need a copy of itemData, not a reference to it
 			item.infoboxBuilderData.oldData = jQuery.extend({}, itemData);
 		}
 
@@ -279,7 +280,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 	/**
 	 * @desc Provides information about whether and what elements'
-	 * values has been changed, basing on previously saved start data.
+	 * values has been changed, basing on previously saved old data.
 	 *
 	 * @returns {Array} of Objects with element type and changed property
 	 */
@@ -293,10 +294,16 @@ const InfoboxBuilderModel = Ember.Object.extend({
 			.forEach((item) => {
 				switch (item.type) {
 					case 'title':
-						diff = InfoboxBuilderModel.createTitleDiff(item.infoboxBuilderData.oldData, item.data);
+						diff = InfoboxBuilderModel.createTitleDiff(
+							item.infoboxBuilderData.oldData,
+							item.data
+						);
 						break;
 					case 'row':
-						diff = InfoboxBuilderModel.createRowDiff(item.infoboxBuilderData.oldData, item.data);
+						diff = InfoboxBuilderModel.createRowDiff(
+							item.infoboxBuilderData.oldData,
+							item.data
+						);
 						break;
 					case 'section-header':
 						diff = InfoboxBuilderModel.createSectionHeaderDiff(
@@ -521,7 +528,7 @@ InfoboxBuilderModel.reopenClass({
 	 *
 	 * @param {Object} oldData data in form as it was when opening infobox builder
 	 * @param {string} value section header value
-	 * @param {bool} collapsible
+	 * @param {boolean} collapsible
 	 * @returns {Object}
 	 */
 	createSectionHeaderDiff(oldData, value, collapsible) {
