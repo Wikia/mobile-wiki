@@ -1,4 +1,5 @@
 import {test, moduleForComponent} from 'ember-qunit';
+import sinon from 'sinon';
 
 moduleForComponent('infobox-builder', 'Unit | Component | on hover tooltip', {
 	unit: true

@@ -18,6 +18,7 @@ export default Ember.Component.extend({
 		/**
 		 * @param {Number} posX
 		 * @param {Number} posY
+		 * @returns {void}
 		 */
 		showReorderTooltip(posX, posY) {
 			this.setProperties({
@@ -37,6 +38,7 @@ export default Ember.Component.extend({
 
 		/**
 		 * @param {Object} actionTrigger - dragged item
+		 * @returns {void}
 		 */
 		onPreviewItemDrag(actionTrigger) {
 			this.set('isPreviewItemDragged', true);
@@ -56,6 +58,7 @@ export default Ember.Component.extend({
 		 *
 		 * @param {Ember.Object} targetItem
 		 * @param {jQuery.Event} event
+		 * @returns {void}
 		 */
 		setEditItemAndStopPropagation(targetItem, event) {
 			if (event && event.stopPropagation) {
