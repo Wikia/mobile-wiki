@@ -3,6 +3,10 @@
 	{{#if model.exception}}
 		{{render 'not-found'}}
 	{{else}}
+		{{#pop-over for='highlighted-text' on='click' flow='dropdown' class='highlighted-text-editor-popover'}}
+			<h2>Performing small edits on mobile just got easier!</h2>
+			<p>Highlight the word or phrase you want to fix and tap the button below.</p>
+		{{/pop-over}}
 		<section class="article-body">
 			<h1 class="article-title">
 				{{model.displayTitle}}
@@ -66,10 +70,6 @@
 				editAllowed=editAllowed
 				addPhotoAllowed=addPhotoAllowed
 			}}
-			{{#pop-over for='highlighted-text__demo' on='click' flow='flip' class='highlighted-text-editor-popover'}}
-				<h2>Performing small edits on mobile just got easier!</h2>
-				<p>Highlight the word or phrase you want to fix and tap the button below.</p>
-			{{/pop-over}}
 		</section>
 		<section class="article-footer">
 			{{wikia-users
