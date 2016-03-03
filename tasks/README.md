@@ -38,7 +38,7 @@ Parameters:
 * `-f` - set to force rebuilding package
 
 ## optimize-svg.sh
-This script iterates through all SVG files in predefined directories and optimize them.
+This script iterates through all SVG files in predefined directories and optimizes them.
 Use of `npm run svgo` is recommended to run this script, but you can also invoke it directly: `./tasks/optimize-svg.sh`.
 
 Currently iterated directories:
