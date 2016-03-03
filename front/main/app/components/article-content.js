@@ -14,6 +14,7 @@ import WidgetVKComponent from '../components/widget-vk';
 import WidgetPolldaddyComponent from '../components/widget-polldaddy';
 import WidgetFliteComponent from '../components/widget-flite';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
+import {getExperimentVariationNumber} from 'common/utils/variantTesting';
 import {track, trackActions} from 'common/utils/track';
 
 /**
@@ -36,6 +37,9 @@ export default Ember.Component.extend(
 		uploadFeatureEnabled: null,
 		displayTitle: null,
 		headers: null,
+		highlightedEditorDemoEnabled: Ember.computed(() => {
+			return getExperimentVariationNumber({dev: '5170910064', prod: '5164060600'}) === 1;
+		}),
 
 		newFromMedia(media) {
 			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
@@ -76,7 +80,9 @@ export default Ember.Component.extend(
 					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 					this.replaceWikiaWidgetsWithComponents();
-					this.insertHighlightedTextEditorDemo();
+					if (this.get('highlightedEditorDemoEnabled')) {
+						this.insertHighlightedTextEditorDemo();
+					}
 					this.handleWikiaWidgetWrappers();
 					this.handlePollDaddy();
 					this.handleJumpLink();
