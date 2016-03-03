@@ -7,6 +7,7 @@
 	left: 0;
 	position: fixed;
 	width: 100%;
+	z-index: $z-6 + 1;
 
 	&.show-edit {
 		animation-name: showEdit;
