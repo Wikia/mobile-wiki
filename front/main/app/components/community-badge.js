@@ -37,6 +37,7 @@ export default Ember.Component.extend({
 		255885: '/front/common/images/community-badge-terraria.jpg',
 		509: '/front/common/images/community-badge-harry-potter.jpg',
 		12318: '/front/common/images/community-badge-harry-potter.jpg',
+		1139:'/front/common/images/community-badge-battlefied.jpg',
 		2188: '/front/common/images/community-badge-battlefront.jpg',
 		321995: '/front/common/images/community-badge-ahs.jpg',
 		2233: '/front/common/images/community-badge-marvel.jpg',
