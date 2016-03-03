@@ -58,6 +58,7 @@ export default Ember.Component.extend({
 		174: '/front/common/images/community-badge-final-fantasy.jpg',
 		3313: '/front/common/images/community-badge-riordan.jpg',
 		1353547: '/front/common/images/community-badge-ja-seiken.jpg',
+		650858: '/front/common/images/community-badge-ja-dont-starve.jpg',
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
