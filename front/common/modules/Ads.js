@@ -135,6 +135,8 @@ class Ads {
 	 */
 	trackKruxPageView() {
 		if (this.krus && typeof this.krux.load === 'function') {
+			console.info('Track pageView: Krux');
+
 			this.krux.load(M.prop('tracking.krux.mobileId'));
 		}
 	}
