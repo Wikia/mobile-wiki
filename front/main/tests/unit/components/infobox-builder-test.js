@@ -147,3 +147,18 @@ test('reset item in edit mode on drugging if action trigger is different than it
 
 	component.set('isPreviewItemDragged', false);
 });
+
+test('stopped event propagation while setting edit item', function (assert) {
+	const component = this.subject(),
+		itemMock = {},
+		stopPropagationSpy = sinon.spy(),
+		setEditItemSpy = sinon.spy(),
+		eventMock = {
+			stopPropagation: stopPropagationSpy
+		};
+
+	component.set('setEditItem', setEditItemSpy);
+	component.send('setEditItemAndStopPropagation', itemMock, eventMock);
+
+	assert.equal(stopPropagationSpy.calledOnce, true);
+});
