@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import infoboxBuilderDiff from '../utils/infobox-builder-diff';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	TrackClickMixin,
@@ -99,7 +100,12 @@ export default Ember.Component.extend(
 				this.trackClick('infobox-builder', 'save-attempt');
 				this.trackChangedItems();
 				this.get('saveAction')().then(() => {
-					this.trackSuccess('infobox-builder', 'save-successful');
+					track({
+						action: trackActions.success,
+						category: 'infobox-builder',
+						label: 'save-successful'
+					});
+
 					this.setProperties({
 						isLoading: false,
 						showSuccess: true
@@ -138,9 +144,13 @@ export default Ember.Component.extend(
 		trackChangedItems() {
 			const diffArray = infoboxBuilderDiff(this.get('state'));
 
-			diffArray.forEach((element) =>
-				this.trackChange('infobox-builder', `changed-element-${element.type}-${element.changedField}`)
-			);
+			diffArray.forEach((element) => {
+				track({
+					action: trackActions.change,
+					category: 'infobox-builder',
+					label: `changed-element-${element.type}-${element.changedField}`
+				})
+			});
 		}
 	}
 );
