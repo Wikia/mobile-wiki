@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
+import infoboxBuilderDiff from '../utils/infobox-builder-diff';
 
 export default Ember.Component.extend(
 	TrackClickMixin,
@@ -132,7 +133,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		trackChangedItems() {
-			const diffArray = this.get('getDiffArray')();
+			const diffArray = infoboxBuilderDiff(this.get('state'));
 
 			diffArray.forEach((element) =>
 				this.trackChange('infobox-builder', `changed-element-${element.type}-${element.changedField}`)
