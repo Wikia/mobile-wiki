@@ -65,6 +65,8 @@ const trackers = {
 		enable: 'enable',
 		// Generic error (generally AJAX)
 		error: 'error',
+		// Input focus
+		focus: 'focus',
 		// Generic hover
 		hover: 'hover',
 		// impression of item on page/module
@@ -73,13 +75,13 @@ const trackers = {
 		install: 'install',
 		// Generic keypress
 		keypress: 'keypress',
+		// Generic open
+		open: 'open',
 		paginate: 'paginate',
 		// Video play
 		playVideo: 'play-video',
 		// Removal
 		remove: 'remove',
-		// Generic open
-		open: 'open',
 		// Sharing view email, social network, etc
 		share: 'share',
 		// Form submit, usually a post method
@@ -91,9 +93,7 @@ const trackers = {
 		// Action to take a survey
 		takeSurvey: 'take-survey',
 		// View
-		view: 'view',
-		// Input focus
-		focus: 'focus'
+		view: 'view'
 	};
 
 let context = {
