@@ -3,7 +3,7 @@
 import Internal from '../modules/Trackers/Internal';
 import Krux from '../modules/Trackers/Krux';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
-import AbTest from '../modules/AbTest';
+import {getGroup} from '../modules/AbTest';
 
 /**
  * @typedef {Object} TrackContext
@@ -214,7 +214,7 @@ export function trackPageView(adsContext) {
  * @returns {void}
  */
 export function trackExperiment(experiment, params) {
-	const group = AbTest.getGroup(experiment) || 'CONTROL',
+	const group = getGroup(experiment) || 'CONTROL',
 		label = [experiment, group, params.label].join('=');
 
 	params.label = label;
