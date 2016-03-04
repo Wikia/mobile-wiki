@@ -708,33 +708,33 @@ test('extend section header data', (assert) => {
 test('set edit item', (assert) => {
 	const sanitizeItemDataStub = sinon.stub(infoboxBuilderModelClass, 'sanitizeItemData', (item) => item.data),
 		cases = [
-		{
-			item: {
-				data: {
-					test: 1
+			{
+				item: {
+					data: {
+						test: 1
+					},
+					infoboxBuilderData: {}
 				},
-				infoboxBuilderData: {}
-			},
-			expectedOriginalData: {
-				test: 1
-			}
-		},
-		{
-			item: {
-				data: {
+				expectedOriginalData: {
 					test: 1
-				},
-				infoboxBuilderData: {
-					originalData: {
-						test: 2
-					}
 				}
 			},
-			expectedOriginalData: {
-				test: 2
+			{
+				item: {
+					data: {
+						test: 1
+					},
+					infoboxBuilderData: {
+						originalData: {
+							test: 2
+						}
+					}
+				},
+				expectedOriginalData: {
+					test: 2
+				}
 			}
-		}
-	];
+		];
 
 	cases.forEach((testCase) => {
 		const model = infoboxBuilderModelClass.create();

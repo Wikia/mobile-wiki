@@ -149,7 +149,7 @@ export default Ember.Component.extend(
 					action: trackActions.change,
 					category: 'infobox-builder',
 					label: `changed-element-${element.type}-${element.changedField}`
-				})
+				});
 			});
 		}
 	}
