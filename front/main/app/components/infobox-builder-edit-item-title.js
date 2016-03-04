@@ -13,7 +13,7 @@ export default Ember.Component.extend(
 			set(key, value) {
 				const item = this.get('item');
 
-				this.trackClick('infobox-builder', `edit-item-${item.type}-default-article-name`);
+				this.trackEditItemOption('change', 'default-article-name');
 				this.get('editTitleItem')(item, value);
 				return value;
 			}

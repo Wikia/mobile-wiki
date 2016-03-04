@@ -7,8 +7,15 @@ export default Ember.Mixin.create(
 		isHelpVisible: false,
 		classNames: ['sidebar-content-padding'],
 
-		trackBuilderClick(element) {
-			this.trackClick('infobox-builder', `edit-item-${this.get('item.type')}-${element}`);
+
+		/**
+		 * @desc tracks focus on different edit options
+		 * @param {String} action - tracking action
+		 * @param {String} option - clicked element name
+		 * @returns {void}
+		 */
+		trackEditItemOption(action, option) {
+			this[`track${action.toUpperCase()}`]('infobox-builder', `edit-item-${this.get('item.type')}-${option}`);
 		},
 
 		actions: {

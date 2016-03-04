@@ -11,15 +11,17 @@ export default Ember.Component.extend({
 		/**
 		 * @returns {void}
 		 */
-		onBlur() {
+		onBlur(event) {
 			this.set('isFocused', false);
+			this.get('onBlurHandler')(event);
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		onFocus() {
+		onFocus(event) {
 			this.set('isFocused', true);
+			this.get('onFocusHandler')(event);
 		}
 	}
 });

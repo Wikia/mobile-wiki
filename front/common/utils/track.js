@@ -91,7 +91,9 @@ const trackers = {
 		// Action to take a survey
 		takeSurvey: 'take-survey',
 		// View
-		view: 'view'
+		view: 'view',
+		// Input focus
+		focus: 'focus'
 	};
 
 let context = {
