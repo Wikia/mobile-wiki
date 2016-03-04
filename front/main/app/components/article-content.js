@@ -632,9 +632,9 @@ export default Ember.Component.extend(
 
 		/**
 		 * Debounces the scroll event
-		 * @param event
+		 * @param {Object} event
 		 * @returns {void}
-         */
+		*/
 		debouncedScroll(event) {
 			if (event.data) {
 				Ember.run.debounce(event.data, event.data.onScroll, 500);
