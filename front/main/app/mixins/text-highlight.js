@@ -116,12 +116,12 @@ export default Ember.Mixin.create({
 			$textarea.focus();
 		});
 
-		$textarea.on('focus', Ember.$.proxy(function () {
+		$textarea.on('focus', () => {
 			if (firstFocus) {
 				firstFocus = false;
 				this.setTextareaPosition(textarea, $textarea, textBeforePosition, content, highlightedData);
 			}
-		}, this));
+		});
 
 		$textarea.on('focusout', () => {
 			firstFocus = false;
