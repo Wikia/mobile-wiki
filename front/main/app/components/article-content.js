@@ -36,6 +36,7 @@ export default Ember.Component.extend(
 		contributionEnabled: null,
 		uploadFeatureEnabled: null,
 		displayTitle: null,
+		targetParagraphOffset: null,
 		headers: null,
 		highlightedEditorDemoEnabled: Ember.computed(() => {
 			return getExperimentVariationNumber({dev: '5170910064', prod: '5164060600'}) === 1 &&
@@ -81,13 +82,13 @@ export default Ember.Component.extend(
 					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 					this.replaceWikiaWidgetsWithComponents();
-					if (this.get('highlightedEditorDemoEnabled')) {
-						Ember.$.cookie('highlightedEditorDemoShown', true);
-						this.insertHighlightedTextEditorDemo();
-					}
 					this.handleWikiaWidgetWrappers();
 					this.handlePollDaddy();
 					this.handleJumpLink();
+
+					if (this.get('highlightedEditorDemoEnabled')) {
+						this.setupHighlightedTextEditorDemo();
+					}
 
 					Ember.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
 				} else {
@@ -553,15 +554,17 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * Initializes a demo of a new Highlighted Text Editor.
-		 * To be thrown away on March 29, 2016.
+		 * TO BE THROWN AWAY ON MARCH 29, 2016
+		 *
+		 * Sets up everything for the Highlighted Text Editor demo:
+		 * - a word selected for highlighting in the DOM
+		 * - target paragraph offset
+		 * - events binding
 		 * @returns {void}
 		 */
-		insertHighlightedTextEditorDemo() {
+		setupHighlightedTextEditorDemo() {
 			const highlightedId = 'highlighted-text',
 				paragraphsLimit = 3,
-				selection = window.getSelection(),
-				range = document.createRange(),
 				$paragraphs = this.$('>p').slice(0, paragraphsLimit);
 
 			$paragraphs.toArray().some((paragraph) => {
@@ -569,33 +572,84 @@ export default Ember.Component.extend(
 					paragraphHtml = $paragraph.html(),
 					plain = Ember.$('<div>').html(paragraphHtml).children().remove().end().html();
 
-				if (plain !== '') {
-					const word = plain.split(' ')[1];
-					let $highlightedElement;
-
-					$paragraph.html(paragraphHtml.replace(word, `<span id="${highlightedId}">${word}</span>`));
-					$highlightedElement = $paragraph.find(`#${highlightedId}`);
-
-					Ember.$(window).scrollTop($highlightedElement.offset().top - 150);
-
-					range.selectNodeContents($highlightedElement[0]);
-					selection.removeAllRanges();
-					selection.addRange(range);
-
-					Ember.run.later(() => {
-						$highlightedElement.trigger('mousedown');
-					}, 500);
-
-					track({
-						action: trackActions.impression,
-						category: 'highlighted-editor',
-						label: 'popover'
-					});
-					return true;
-				} else {
+				if (plain === '') {
 					return false;
+				} else {
+					const words = plain.split(' '),
+						minLettersLimit = 3;
+
+					this.set('targetParagraphOffset', $paragraph.offset().top);
+
+					Ember.$(document).on('touchmove', this, this.debouncedScroll);
+					Ember.$(window).on('scroll', this, this.debouncedScroll);
+
+					words.some((word) => {
+						if (word.length < minLettersLimit) {
+							return false;
+						} else {
+							$paragraph.html(paragraphHtml.replace(word, `<span id="${highlightedId}">${word}</span>`));
+							return true;
+						}
+					});
 				}
 			});
+		},
+
+		/**
+		 * TO BE THROWN AWAY ON MARCH 29, 2016
+		 *
+		 * Initializes a demo of a new Highlighted Text Editor.
+		 * @returns {void}
+		 */
+		launchHighlightedTextEditorDemo() {
+			const highlightedId = 'highlighted-text',
+				$highlightedElement = Ember.$(`#${highlightedId}`),
+				selection = window.getSelection(),
+				range = document.createRange();
+
+			Ember.$(document).unbind('touchmove', this.debouncedScroll);
+			Ember.$(window).unbind('scroll', this.debouncedScroll);
+
+			if ($highlightedElement) {
+				range.selectNodeContents($highlightedElement[0]);
+				selection.removeAllRanges();
+				selection.addRange(range);
+
+				Ember.$('html, body').animate({scrollTop: `${$highlightedElement.offset().top - 150}px`});
+
+				Ember.run.later(() => {
+					$highlightedElement.trigger('mousedown');
+					Ember.$.cookie('highlightedEditorDemoShown', true);
+				}, 500);
+
+				track({
+					action: trackActions.impression,
+					category: 'highlighted-editor',
+					label: 'popover'
+				});
+			}
+		},
+
+		/**
+		 * Debounces the scroll event
+		 * @param event
+		 * @returns {void}
+         */
+		debouncedScroll(event) {
+			if (event.data) {
+				Ember.run.debounce(event.data, event.data.onScroll, 500);
+			}
+		},
+
+		/**
+		 * If a user has scrolled through the word selected for highlighting
+		 * it launches the demo of the Hightlighted Text Editor
+		 * @returns {void}
+		 */
+		onScroll() {
+			if (window.scrollY > this.get('targetParagraphOffset')) {
+				this.launchHighlightedTextEditorDemo();
+			}
 		}
 	}
 );
