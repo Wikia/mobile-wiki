@@ -29,6 +29,7 @@ export default Ember.Component.extend(
 			 */
 			addItem(type) {
 				this.trackClick('infobox-builder', `add-item-${type}`);
+
 				this.get('addItem')(type);
 
 				Ember.run.scheduleOnce('afterRender', this, () => {
@@ -63,7 +64,7 @@ export default Ember.Component.extend(
 			 */
 			onPreviewItemDrag(actionTrigger) {
 				this.set('isPreviewItemDragged', true);
-				this.trackClick('infobox-builder', `dragging-element-${actionTrigger.type}`);
+				this.trackClick('infobox-builder', `drag-element-${actionTrigger.type}`);
 
 				if (actionTrigger !== this.get('activeItem')) {
 					this.get('setEditItem')(null);
@@ -87,16 +88,18 @@ export default Ember.Component.extend(
 					event.stopPropagation();
 				}
 
+				this.trackClick('infobox-builder', `item-${targetItem.type}`);
+
 				this.get('setEditItem')(targetItem);
 			},
 
 			save() {
 				this.set('isLoading', true);
 
-				this.trackClick('infobox-builder', 'saving-attempt');
+				this.trackClick('infobox-builder', 'save-attempt');
 				this.trackChangedItems();
 				this.get('saveAction')().then(() => {
-					this.trackSuccess('infobox-builder', 'saving-successful');
+					this.trackSuccess('infobox-builder', 'save-successful');
 					this.setProperties({
 						isLoading: false,
 						showSuccess: true

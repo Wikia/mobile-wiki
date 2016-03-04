@@ -47,7 +47,7 @@ export default Ember.Component.extend(
 				const item = this.get('item');
 
 				this.trackClick('infobox-builder', `navigate-back-from-edit-panel-${item.type}`);
-				this.get('onBackArrowClick');
+				this.get('onBackArrowClick')(null);
 			}
 		}
 	}
