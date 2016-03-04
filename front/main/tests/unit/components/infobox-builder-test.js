@@ -168,7 +168,9 @@ test('stopped event propagation while setting edit item', function (assert) {
 		};
 
 	component.set('setEditItem', setEditItemSpy);
-	component.send('setEditItemAndStopPropagation', itemMock, eventMock);
+	component.set('trackClick', Ember.K);
+
+	Ember.run(() => component.send('setEditItemAndStopPropagation', itemMock, eventMock));
 
 	assert.equal(stopPropagationSpy.calledOnce, true);
 });
