@@ -7,6 +7,12 @@ export default Ember.Mixin.create(
 		isHelpVisible: false,
 		classNames: ['sidebar-content-padding'],
 
+		actions: {
+			showHelp() {
+				this.trackClick('infobox-builder', `show-help-tooltip-${this.get('item.type')}`);
+				this.set('isHelpVisible', true);
+			}
+		},
 
 		/**
 		 * @desc tracks focus on different edit options
@@ -16,13 +22,6 @@ export default Ember.Mixin.create(
 		 */
 		trackEditItemOption(action, option) {
 			this[`track${action.toUpperCase()}`]('infobox-builder', `edit-item-${this.get('item.type')}-${option}`);
-		},
-
-		actions: {
-			showHelp() {
-				this.trackClick('infobox-builder', `show-help-tooltip-${this.get('item.type')}`);
-				this.set('isHelpVisible', true);
-			}
 		}
 	}
 );

@@ -7,25 +7,34 @@ export default Ember.Component.extend(
 		classNameBindings: ['isPreviewItemDragged'],
 		isLoading: false,
 		showSuccess: false,
-		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 		tooltipPosX: null,
 		tooltipPosY: null,
 		tooltipDistanceFromCursor: 20,
 		isPreviewItemHovered: false,
 		isPreviewItemDragged: false,
+		scrollDebounceDuration: 200,
+		scrollAnimateDuration: 200,
+
+		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
+
 		isReorderTooltipVisible: Ember.computed('isPreviewItemHovered', 'isPreviewItemDragged', function () {
 			return this.get('isPreviewItemHovered') && !this.get('isPreviewItemDragged');
 		}),
 
-		trackChangedItems() {
-			const diffArray = this.get('getDiffArray')();
-
-			diffArray.forEach((element) =>
-				this.trackChange('infobox-builder', `changed-element-${element.type}-${element.changedField}`)
-			);
-		},
-
 		actions: {
+			/**
+			 * @param {String} type
+			 * @returns {void}
+			 */
+			addItem(type) {
+				this.trackClick('infobox-builder', `add-item-${type}`);
+				this.get('addItem')(type);
+
+				Ember.run.scheduleOnce('afterRender', this, () => {
+					Ember.run.debounce(this, this.scrollPreviewToBottom, this.get('scrollDebounceDuration'));
+				});
+			},
+
 			/**
 			 * @param {Number} posX
 			 * @param {Number} posY
@@ -65,7 +74,7 @@ export default Ember.Component.extend(
 			},
 
 			/**
-			 * After clicking on item propagates to .infobox-builder-preview
+			 * Clicking on item propagates to .infobox-builder-preview
 			 * We don't want that so it's prevented here
 			 *
 			 * @param {Ember.Object} targetItem
@@ -98,6 +107,36 @@ export default Ember.Component.extend(
 				this.trackClick('infobox-builder', 'navigate-back-from-builder');
 				this.get('cancelAction')();
 			}
+		},
+
+		/**
+		 * Scroll to the bottom of preview element minus its height
+		 * If we scrolled to the scrollHeight there would be visual glitches
+		 *
+		 * @returns {void}
+		 */
+		scrollPreviewToBottom() {
+			const $preview = this.$('.infobox-builder-preview'),
+				scrollHeight = $preview.prop('scrollHeight'),
+				scrollTop = $preview.prop('scrollTop'),
+				height = $preview.height();
+
+			if (scrollTop + height < scrollHeight) {
+				$preview.animate({
+					scrollTop: scrollHeight - height
+				}, this.get('scrollAnimateDuration'));
+			}
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		trackChangedItems() {
+			const diffArray = this.get('getDiffArray')();
+
+			diffArray.forEach((element) =>
+				this.trackChange('infobox-builder', `changed-element-${element.type}-${element.changedField}`)
+			);
 		}
 	}
 );

@@ -99,12 +99,13 @@ test('correct resets properties values for hiding reorder item tooltip', functio
 	assert.equal(component.get('tooltipPosy', null));
 });
 
-test('sets correct properties values when drugging an item', function (assert) {
+test('sets correct properties values when dragging an item', function (assert) {
 	const component = this.subject();
 
 	component.set('activeItem', null);
 	component.set('isPreviewItemDragged', false);
-	component.send('onPreviewItemDrag', null);
+
+	component.send('onPreviewItemDrag', 'title');
 
 	assert.equal(component.get('isPreviewItemDragged'), true);
 	component.set('isPreviewItemDragged', false);
@@ -119,7 +120,7 @@ test('sets correct properties values when dropping an item', function (assert) {
 	assert.equal(component.get('isPreviewItemDragged'), false);
 });
 
-test('reset item in edit mode on drugging if action trigger is different than item in edit mode', function (assert) {
+test('reset item in edit mode on dragging if action trigger is different than item in edit mode', function (assert) {
 	const component = this.subject(),
 		activeItemMock = 1,
 		actionTriggerMock = 2,
@@ -135,7 +136,7 @@ test('reset item in edit mode on drugging if action trigger is different than it
 	component.set('isPreviewItemDragged', false);
 });
 
-test('reset item in edit mode on drugging if action trigger is different than item in edit mode', function (assert) {
+test('reset item in edit mode on dragging if action trigger is different than item in edit mode', function (assert) {
 	const component = this.subject(),
 		actionTriggerMock = 1,
 		setEditItemSpy = sinon.spy();
