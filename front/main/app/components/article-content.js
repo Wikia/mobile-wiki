@@ -576,7 +576,12 @@ export default Ember.Component.extend(
 					$paragraph.html(paragraphHtml.replace(word, `<span id="${highlightedId}">${word}</span>`));
 					$highlightedElement = $paragraph.find(`#${highlightedId}`);
 
-					Ember.$(window).scrollTop($highlightedElement.offset().top - 150);
+					Ember.$('body').animate({scrollTop: $highlightedElement.offset().top - 150}, () => {
+						Ember.$(document).one('selectionchange', () => {
+							$paragraph.html(paragraphHtml.replace(`<span id="${highlightedId}">${word}</span>`, word));
+						});
+
+					});
 
 					range.selectNodeContents($highlightedElement[0]);
 					selection.removeAllRanges();
