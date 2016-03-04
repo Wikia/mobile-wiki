@@ -43,7 +43,7 @@ export default Ember.Mixin.create({
 	 */
 	trackKeypress(category, label = '', isNonInteractive = true) {
 		track({
-			action: trackActions.focus,
+			action: trackActions.keypress,
 			category,
 			label,
 			isNonInteractive
