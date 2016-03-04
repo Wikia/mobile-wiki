@@ -170,14 +170,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	setEditItem(item) {
 		if (item && !item.infoboxBuilderData.originalData) {
-			let itemData = item.data;
+			const itemData = InfoboxBuilderModel.sanitizeItemData(item);
 
-			if (item.type === 'section-header') {
-				itemData = {
-					value: item.data,
-					collapsible: item.collapsible
-				};
-			}
 			// we need a copy of itemData, not a reference to it
 			item.infoboxBuilderData.originalData = Ember.$.extend({}, itemData);
 		}
@@ -427,6 +421,25 @@ InfoboxBuilderModel.reopenClass({
 		}
 
 		return item;
+	},
+
+	/**
+	 * Unifies item data format
+	 *
+	 * @param {Object} item
+	 * @returns {Object}
+	 */
+	sanitizeItemData(item) {
+		let itemData = item.data;
+
+		if (item.type === 'section-header') {
+			itemData = {
+				value: item.data,
+				collapsible: item.collapsible
+			};
+		}
+
+		return itemData;
 	}
 });
 

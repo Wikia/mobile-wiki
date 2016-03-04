@@ -706,66 +706,35 @@ test('extend section header data', (assert) => {
 });
 
 test('set edit item', (assert) => {
-	const model = infoboxBuilderModelClass.create(),
-		index = 1,
-		mockComponentName = 'xyz,',
+	const sanitizeItemDataStub = sinon.stub(infoboxBuilderModelClass, 'sanitizeItemData', (item) => item.data),
 		cases = [
-			{
-				item: model.createTitleItem(),
-				expectedOriginalData: {
-					defaultValue: ''
-				}
-			},
-			{
-				item: {
-					data: {
-						caption: {
-							source: 'image caption'
-						}
-					},
-					infoboxBuilderData: {
-						index,
-						component: 'component'
-					},
-					type: 'image'
+		{
+			item: {
+				data: {
+					test: 1
 				},
-				expectedOriginalData: {
-					caption: {
-						source: 'image caption'
+				infoboxBuilderData: {}
+			},
+			expectedOriginalData: {
+				test: 1
+			}
+		},
+		{
+			item: {
+				data: {
+					test: 1
+				},
+				infoboxBuilderData: {
+					originalData: {
+						test: 2
 					}
 				}
 			},
-			{
-				item: {
-					data: {
-						label: 'my label'
-					},
-					infoboxBuilderData: {
-						index,
-						component: mockComponentName
-					},
-					type: 'row'
-				},
-				expectedOriginalData: {
-					label: 'my label'
-				}
-			},
-			{
-				item: {
-					data: 'test header',
-					collapsible: true,
-					infoboxBuilderData: {
-						index,
-						component: mockComponentName
-					},
-					type: 'section-header'
-				},
-				expectedOriginalData: {
-					value: 'test header',
-					collapsible: true
-				}
+			expectedOriginalData: {
+				test: 2
 			}
-		];
+		}
+	];
 
 	cases.forEach((testCase) => {
 		const model = infoboxBuilderModelClass.create();
@@ -774,5 +743,38 @@ test('set edit item', (assert) => {
 
 		assert.deepEqual(model.get('itemInEditMode'), testCase.item);
 		assert.deepEqual(testCase.item.infoboxBuilderData.originalData, testCase.expectedOriginalData);
+	});
+
+	sanitizeItemDataStub.restore();
+});
+
+test('sanitizes item data', (assert) => {
+	const cases = [
+		{
+			item: {
+				type: 'label',
+				data: {
+					value: '1'
+				}
+			},
+			expectedSanitizedData: {
+				value: '1'
+			}
+		},
+		{
+			item: {
+				type: 'section-header',
+				data: '1',
+				collapsible: true
+			},
+			expectedSanitizedData: {
+				value: '1',
+				collapsible: true
+			}
+		}
+	];
+
+	cases.forEach((testCase) => {
+		assert.deepEqual(infoboxBuilderModelClass.sanitizeItemData(testCase.item), testCase.expectedSanitizedData);
 	});
 });
