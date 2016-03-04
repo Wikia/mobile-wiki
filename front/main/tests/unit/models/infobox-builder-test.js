@@ -712,7 +712,7 @@ test('set edit item', (assert) => {
 		cases = [
 			{
 				item: model.createTitleItem(),
-				expectedoriginalData: {
+				expectedOriginalData: {
 					defaultValue: ''
 				}
 			},
@@ -729,7 +729,7 @@ test('set edit item', (assert) => {
 					},
 					type: 'image'
 				},
-				expectedoriginalData: {
+				expectedOriginalData: {
 					caption: {
 						source: 'image caption'
 					}
@@ -746,7 +746,7 @@ test('set edit item', (assert) => {
 					},
 					type: 'row'
 				},
-				expectedoriginalData: {
+				expectedOriginalData: {
 					label: 'my label'
 				}
 			},
@@ -760,7 +760,7 @@ test('set edit item', (assert) => {
 					},
 					type: 'section-header'
 				},
-				expectedoriginalData: {
+				expectedOriginalData: {
 					value: 'test header',
 					collapsible: true
 				}
@@ -773,6 +773,6 @@ test('set edit item', (assert) => {
 		model.setEditItem(testCase.item);
 
 		assert.deepEqual(model.get('itemInEditMode'), testCase.item);
-		assert.deepEqual(testCase.item.infoboxBuilderData.originalData, testCase.expectedoriginalData);
+		assert.deepEqual(testCase.item.infoboxBuilderData.originalData, testCase.expectedOriginalData);
 	});
 });
