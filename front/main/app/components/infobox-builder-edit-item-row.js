@@ -16,7 +16,7 @@ export default Ember.Component.extend(
 			set(key, value) {
 				const item = this.get('item');
 
-				// check if user interacted with label input
+				// mark that user interacted with label input
 				this.set('wasLabelAltered', true);
 
 				this.get('editRowItem')(item, value);
@@ -26,24 +26,20 @@ export default Ember.Component.extend(
 
 		actions: {
 			onLabelInputFocus() {
-				// save current label value for tracking change on blur
-				this.set('labelValueOnFocus', this.get('labelValue'));
-
-				//tack focus on label input
-				this.trackEditItemOption('focus', this.get('labelFocusTrackingKey'));
+				this.handleInputFocus(
+					'labelValueOnFocus',
+					this.get('labelValue'),
+					this.get('labelFocusTrackingKey')
+				);
 			},
 
 			onLabelInputBlur() {
-				// track interaction with label input
-				if (this.get('wasLabelAltered')) {
-					this.trackEditItemOption('keypress', this.get('labelFocusTrackingKey'));
-					this.set('wasLabelAltered', false);
-				}
-
-				// tack change of label value
-				if (this.get('labelValueOnFocus') !== this.get('labelValue')) {
-					this.trackEditItemOption('change', this.get('labelFocusTrackingKey'));
-				}
+				this.handleInputBlur(
+					'wasLabelAltered',
+					this.get('labelValueOnFocus'),
+					this.get('labelValue'),
+					this.get('labelFocusTrackingKey')
+				);
 			}
 		}
 	}

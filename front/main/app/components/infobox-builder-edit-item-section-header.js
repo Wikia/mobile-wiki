@@ -35,24 +35,20 @@ export default Ember.Component.extend(
 
 		actions: {
 			onHeaderValueInputFocus() {
-				// save current label value for tracking change on blur
-				this.set('headerValueOnFocus', this.get('labelValue'));
-
-				//tack focus on label input
-				this.trackEditItemOption('focus', this.get('headerValueFocusTrackingKey'));
+				this.handleInputFocus(
+					'headerValueOnFocus',
+					this.get('value'),
+					this.get('headerValueFocusTrackingKey')
+				);
 			},
 
 			onHeaderValueInputBlur() {
-				// track interaction with label input
-				if (this.get('wasHeaderValueAltered')) {
-					this.trackEditItemOption('keypress', this.get('headerValueFocusTrackingKey'));
-					this.set('wasHeaderValueAltered', false);
-				}
-
-				// tack change of label value
-				if (this.get('headerValueOnFocus') !== this.get('value')) {
-					this.trackEditItemOption('change', this.get('headerValueFocusTrackingKey'));
-				}
+				this.handleInputBlur(
+					'wasHeaderValueAltered',
+					this.get('headerValueOnFocus'),
+					this.get('value'),
+					this.get('headerValueFocusTrackingKey')
+				);
 			}
 		}
 	}
