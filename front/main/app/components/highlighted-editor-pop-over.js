@@ -8,4 +8,8 @@ export default PopOver.extend({
 		pointerRect.left = $target.position().left + $target.width() / 2 - 26;
 		this._super($compass, pointerRect);
 	},
+	documentClick(evt) {
+		this._super(evt);
+		Ember.set(this, 'disabled', true);
+	}
 });
