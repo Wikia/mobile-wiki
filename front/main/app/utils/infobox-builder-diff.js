@@ -45,6 +45,7 @@ export function getDiffFunctionForItem(type) {
 			return createSectionHeaderDiff;
 			break;
 		default:
+			Ember.Logger.debug(`Diff for item with type ${type} is not available`);
 			return null;
 	}
 }
@@ -111,7 +112,7 @@ export function createRowDiff(originalData, data) {
 export function createSectionHeaderDiff(originalData, value, collapsible) {
 	const changes = [];
 
-	if (typeof originalData.collapsible === 'undefined' || typeof originalData.value === 'undefined') {
+	if (typeof originalData.collapsible === 'undefined' && typeof originalData.value === 'undefined') {
 		return changes;
 	}
 
