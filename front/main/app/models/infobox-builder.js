@@ -274,7 +274,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 							method: 'publish',
 							title: this.get('title'),
 							data: InfoboxBuilderModel.prepareStateForSaving(this.get('infoboxState')),
-							token: token
+							token
 						},
 						dataType: 'json',
 						method: 'POST',
