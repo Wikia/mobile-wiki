@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
+import {track} from 'common/utils/track';
 
 export default Ember.Mixin.create(
 	TrackClickMixin,
@@ -21,7 +22,11 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		trackEditItemOption(action, option) {
-			this[`track${action.toUpperCase()}`]('infobox-builder', `edit-item-${this.get('item.type')}-${option}`);
+			track({
+				action,
+				category: 'infobox-builder',
+				label: `edit-item-${this.get('item.type')}-${option}`
+			});
 		}
 	}
 );
