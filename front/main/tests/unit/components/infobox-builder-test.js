@@ -99,12 +99,17 @@ test('correct resets properties values for hiding reorder item tooltip', functio
 	assert.equal(component.get('tooltipPosy', null));
 });
 
-test('sets correct properties values when drugging an item', function (assert) {
-	const component = this.subject();
+test('sets correct properties values when dragging an item', function (assert) {
+	const component = this.subject(),
+		activeItem = {
+			type: 'title'
+		};
 
-	component.set('activeItem', null);
+	component.set('activeItem', activeItem);
 	component.set('isPreviewItemDragged', false);
-	component.send('onPreviewItemDrag', null);
+	component.set('trackClick', Ember.K);
+
+	Ember.run(() => component.send('onPreviewItemDrag', activeItem));
 
 	assert.equal(component.get('isPreviewItemDragged'), true);
 	component.set('isPreviewItemDragged', false);
@@ -119,7 +124,7 @@ test('sets correct properties values when dropping an item', function (assert) {
 	assert.equal(component.get('isPreviewItemDragged'), false);
 });
 
-test('reset item in edit mode on drugging if action trigger is different than item in edit mode', function (assert) {
+test('reset item in edit mode on dragging if action trigger is different than item in edit mode', function (assert) {
 	const component = this.subject(),
 		activeItemMock = 1,
 		actionTriggerMock = 2,
@@ -127,7 +132,9 @@ test('reset item in edit mode on drugging if action trigger is different than it
 
 	component.set('activeItem', activeItemMock);
 	component.set('setEditItem', setEditItemSpy);
-	component.send('onPreviewItemDrag', actionTriggerMock);
+	component.set('trackClick', Ember.K);
+
+	Ember.run(() => component.send('onPreviewItemDrag', actionTriggerMock));
 
 	assert.equal(setEditItemSpy.called, true);
 	assert.equal(setEditItemSpy.calledWith(null), true);
@@ -135,14 +142,16 @@ test('reset item in edit mode on drugging if action trigger is different than it
 	component.set('isPreviewItemDragged', false);
 });
 
-test('reset item in edit mode on drugging if action trigger is different than item in edit mode', function (assert) {
+test('reset item in edit mode on dragging if action trigger is different than item in edit mode', function (assert) {
 	const component = this.subject(),
 		actionTriggerMock = 1,
 		setEditItemSpy = sinon.spy();
 
 	component.set('activeItem', actionTriggerMock);
 	component.set('setEditItem', setEditItemSpy);
-	component.send('onPreviewItemDrag', actionTriggerMock);
+	component.set('trackClick', Ember.K);
+
+	Ember.run(() => component.send('onPreviewItemDrag', actionTriggerMock));
 
 	assert.equal(setEditItemSpy.called, false);
 
@@ -159,7 +168,9 @@ test('stopped event propagation while setting edit item', function (assert) {
 		};
 
 	component.set('setEditItem', setEditItemSpy);
-	component.send('setEditItemAndStopPropagation', itemMock, eventMock);
+	component.set('trackClick', Ember.K);
+
+	Ember.run(() => component.send('setEditItemAndStopPropagation', itemMock, eventMock));
 
 	assert.equal(stopPropagationSpy.calledOnce, true);
 });
@@ -201,6 +212,7 @@ test('calls scrollPreviewToBottom with debounce after new item is added', functi
 
 	component.set('addItem', sinon.spy());
 	component.set('scrollPreviewToBottom', sinon.spy());
+	component.set('trackClick', Ember.K);
 
 	Ember.run(() => component.send('addItem', 'row'));
 

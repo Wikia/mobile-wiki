@@ -704,3 +704,77 @@ test('extend section header data', (assert) => {
 		assert.equal(extendedObject.infoboxBuilderData, infoboxBuilderData);
 	});
 });
+
+test('set edit item', (assert) => {
+	const sanitizeItemDataStub = sinon.stub(infoboxBuilderModelClass, 'sanitizeItemData', (item) => item.data),
+		cases = [
+			{
+				item: {
+					data: {
+						test: 1
+					},
+					infoboxBuilderData: {}
+				},
+				expectedOriginalData: {
+					test: 1
+				}
+			},
+			{
+				item: {
+					data: {
+						test: 1
+					},
+					infoboxBuilderData: {
+						originalData: {
+							test: 2
+						}
+					}
+				},
+				expectedOriginalData: {
+					test: 2
+				}
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create();
+
+		model.setEditItem(testCase.item);
+
+		assert.deepEqual(model.get('itemInEditMode'), testCase.item);
+		assert.deepEqual(testCase.item.infoboxBuilderData.originalData, testCase.expectedOriginalData);
+	});
+
+	sanitizeItemDataStub.restore();
+});
+
+test('sanitizes item data', (assert) => {
+	const cases = [
+		{
+			item: {
+				type: 'label',
+				data: {
+					value: '1'
+				}
+			},
+			expectedSanitizedData: {
+				value: '1'
+			}
+		},
+		{
+			item: {
+				type: 'section-header',
+				data: '1',
+				collapsible: true
+			},
+			expectedSanitizedData: {
+				value: '1',
+				collapsible: true
+			}
+		}
+	];
+
+	cases.forEach((testCase) => {
+		assert.deepEqual(infoboxBuilderModelClass.sanitizeItemData(testCase.item), testCase.expectedSanitizedData);
+	});
+});
