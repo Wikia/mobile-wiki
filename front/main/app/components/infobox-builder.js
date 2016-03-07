@@ -130,6 +130,11 @@ export default Ember.Component.extend(
 			cancel() {
 				this.trackClick('infobox-builder', 'navigate-back-from-builder');
 				this.get('cancelAction')();
+			},
+
+			onPreviewBackgroundClick() {
+				this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
+				this.get('setEditItem')(null);
 			}
 		},
 
