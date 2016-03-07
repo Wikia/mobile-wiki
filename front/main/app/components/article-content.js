@@ -573,7 +573,7 @@ export default Ember.Component.extend(
 					words = Ember.$('<div>').html(paragraphHtml).children().remove().end().html().split(' '),
 					minLettersLimit = 3;
 
-				words.some((word) => {
+				return words.some((word) => {
 					if (word.length < minLettersLimit) {
 						return false;
 					} else {
@@ -603,11 +603,19 @@ export default Ember.Component.extend(
 			Ember.$(window).unbind('scroll', this.debouncedScroll);
 
 			if ($highlightedElement) {
+				const $paragraph = $highlightedElement.parent(),
+					word = $highlightedElement.text();
+
 				range.selectNodeContents($highlightedElement[0]);
 				selection.removeAllRanges();
 				selection.addRange(range);
 
-				Ember.$('html, body').animate({scrollTop: `${$highlightedElement.offset().top - 150}px`});
+				Ember.$('html, body').animate({scrollTop: $highlightedElement.offset().top - 150}, () => {
+					Ember.$(document).one('selectionchange', () => {
+						$paragraph.html($paragraph.html().replace(`<span id="${highlightedId}">${word}</span>`, word));
+					});
+
+				});
 
 				Ember.run.later(() => {
 					$highlightedElement.trigger('mousedown');
@@ -639,6 +647,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		onScroll() {
+			console.log(window.scrollY , this.get('targetParagraphOffset'));
 			if (window.scrollY > this.get('targetParagraphOffset')) {
 				this.launchHighlightedTextEditorDemo();
 			}
