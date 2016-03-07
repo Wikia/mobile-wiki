@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import ArticleCommentsModel from '../models/article-comments';
-import {track, trackActions} from 'common/utils/track';
 import TrackClickMixin from '../mixins/track-click';
 
 /**
