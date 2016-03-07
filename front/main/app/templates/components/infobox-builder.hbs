@@ -11,7 +11,7 @@
 		{{#sortable-group
 			tagName="div"
 			classNames='portable-infobox pi-background'
-			onChange=reorder as |group|
+			onChange=(action 'onReorderElements') as |group|
 		}}
 			{{#each state as |element index|}}
 				{{component element.infoboxBuilderData.component

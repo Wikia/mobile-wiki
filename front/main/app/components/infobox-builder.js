@@ -77,6 +77,20 @@ export default Ember.Component.extend(
 			},
 
 			/**
+			 * @param {Ember.Array} newState
+			 * @returns {void}
+			 */
+			onReorderElements(newState) {
+				track({
+					action: trackActions.change,
+					category: 'infobox-builder',
+					label: 'reorder-infobox-elements'
+				});
+
+				this.get('reorder')(newState);
+			},
+
+			/**
 			 * Clicking on item propagates to .infobox-builder-preview
 			 * We don't want that so it's prevented here
 			 *
