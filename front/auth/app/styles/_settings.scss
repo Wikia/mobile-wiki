@@ -1,23 +1,19 @@
-// Use Wikia style guide settings
-@import '../../bower_components/wikia-style-guide/src/scss/lib/settings';
 
 $auth-content-background-color: $color-white;
 $body-background: $color-blue-dark;
 $body-background-grey: $vapor;
 $button-color: $color-blue-light;
+$button-color-facebook: #4b6ea8;
 $disabled-button-text-color: #B4D6F2;
 $footer-text-color: $color-white;
 $header-text-color: $color-white;
 $input-color-active: $color-blue-gray;
-$input-error-color: #ed1c24;
 $label-color-active: $color-blue-gray;
 $label-color-inactive: $color-blue-gray;
 $label-color-valid: $color-blue-gray;
 $link-color: $color-blue-light;
 $border-color: $iron;
 
-$circle-logo-size: 62px;
-$desktop-content-max-width: 768px;
+$circle-logo-size: 42px;
+$desktop-content-width: 768px;
 $desktop-content-min-width: 706px;
-$button-text-size: $type-min;
-$button-line-height: $line-height-min;

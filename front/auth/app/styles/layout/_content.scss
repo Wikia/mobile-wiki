@@ -44,8 +44,7 @@
 		border-style: solid;
 		border-width: 0 1px 1px;
 		margin: 0 auto 19px;
-		max-width: $desktop-content-max-width;
-		min-width: $desktop-content-min-width;
+		width: $desktop-content-width;
 	}
 }
 

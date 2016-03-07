@@ -1,33 +1,39 @@
 .auth-header {
 	color: $header-text-color;
+
+	h1 {
+		color: inherit;
+		font-size: $type-large;
+		font-weight: bold;
+		line-height: $line-height-large;
+		padding-bottom: 7px;
+	}
+
+	p {
+		font-size: $type-smallest;
+		line-height: $line-height-smallest;
+	}
+
+	.header-callout-link {
+		font-size: $type-smallest;
+		font-weight: normal;
+		line-height: $line-height-smallest;
+
+		&:focus {
+			color: inherit;
+		}
+	}
+
+	.header-callout-emphasis {
+		font-weight: bold;
+		text-decoration: underline;
+	}
 }
 
 .standalone {
 	.auth-header {
 		border: $color-white, solid;
 		border-width: 1px 1px 0;
-		font-size: $type-large;
-
-		h1 {
-			color: inherit;
-			font-size: $type-large;
-			font-weight: bold;
-			line-height: $line-height-large;
-		}
-
-		.header-callout-link {
-			font-size: $type-smallest;
-			line-height: $line-height-smallest;
-
-			&:focus {
-				color: inherit;
-			}
-		}
-
-		.header-callout-emphasis {
-			font-weight: bold;
-			text-decoration: underline;
-		}
 	}
 }
 

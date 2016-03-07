@@ -2,8 +2,7 @@
 	flex-grow: 0;
 	flex-shrink: 0;
 	margin: 19px auto 0;
-	max-width: $desktop-content-max-width;
-	min-width: $desktop-content-min-width;
+	width: $desktop-content-width;
 	padding: 30px 24px 0;
 	text-align: center;
 
@@ -23,7 +22,7 @@
 		}
 
 		&::after {
-			background-image: url('/front/common/symbols/wikia-logo-circled.svg');
+			background-image: url('/front/common/symbols/wikia-logo-fan-mark.svg');
 			bottom: - $circle-logo-size / 2;
 			content: " ";
 			display: block;

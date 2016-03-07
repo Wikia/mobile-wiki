@@ -1,3 +1,8 @@
+$input-error-color: #ed1c24;
+$button-text-size: $type-min;
+$button-line-height: $line-height-min;
+
+
 form {
 	small.error {
 		color: $input-error-color;
