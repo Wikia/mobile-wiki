@@ -188,11 +188,11 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * @param {jQuery} $element — element of which context is to be checked
+		 * @param {jQuery[]} $element — array of jQuery objects of which context is to be checked
 		 * @returns {string}
 		 */
 		getTrackingEventLabel($element) {
-			if ($element.length) {
+			if ($element && $element.length) {
 				if ($element.closest('.portable-infobox').length) {
 					return 'portable-infobox-link';
 				} else if ($element.closest('.context-link').length) {
@@ -200,8 +200,10 @@ export default Ember.Component.extend(
 				} else if ($element.closest('blockquote').length) {
 					return 'blockquote-link';
 				}
+
 				return 'regular-link';
 			}
+
 			return '';
 		},
 
