@@ -1,5 +1,3 @@
-**Work in progress. Don't merge!** State it here and use labels.
-
 ## Links
 
 * http://wikia-inc.atlassian.net/browse/JIRA-123
@@ -12,4 +10,3 @@ A description written using complete sentences of the changes being made and any
 ## Reviewers
 
 Use `@` mentions here. Alternatively, assign the pull request to a person.
-

@@ -9,23 +9,6 @@ export default Ember.Component.extend(
 
 		actions: {
 			/**
-			 * @param {CuratedContentItem} item
-			 * @returns {void}
-			 */
-			clickItem(item) {
-				const itemType = item.type;
-
-				if (itemType) {
-					this.trackClick('modular-main-page', `curated-content-item-${itemType}`);
-					if (itemType === 'section' || itemType === 'category') {
-						this.sendAction('openCuratedContentItem', item);
-					}
-				} else {
-					this.trackClick('modular-main-page', 'curated-content-item-other');
-				}
-			},
-
-			/**
 			 * @returns {void}
 			 */
 			loadMore() {
@@ -43,6 +26,14 @@ export default Ember.Component.extend(
 						this.set('isLoading', false);
 					});
 			},
-		},
+
+			/**
+			 * @param {CuratedContentItem} item
+			 * @returns {void}
+			 */
+			openCuratedContentItem(item) {
+				this.sendAction('openCuratedContentItem', item);
+			}
+		}
 	}
 );

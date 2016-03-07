@@ -3,11 +3,14 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	classNames: ['image-review'],
 	isModalVisible: false,
-	imageUrl: null,
+
+	isContextProvided: Ember.computed('thumbnailModel.context', function () {
+		return this.get('thumbnailModel.context') !== '#';
+	}),
 
 	actions: {
-		showModal(imageUrl) {
-			this.set('modalImageUrl', imageUrl);
+		showModal(popupModel) {
+			this.set('thumbnailModel', popupModel);
 			this.set('isModalVisible', true);
 		}
 	}
