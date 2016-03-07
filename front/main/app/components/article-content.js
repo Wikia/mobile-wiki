@@ -571,7 +571,7 @@ export default Ember.Component.extend(
 				const $paragraph = Ember.$(paragraph),
 					paragraphHtml = $paragraph.html(),
 					words = Ember.$('<div>').html(paragraphHtml).children().remove().end().html().split(' '),
-					minLettersLimit = 3;
+					minLettersLimit = 5;
 
 				return words.some((word) => {
 					if (word.length < minLettersLimit) {
@@ -608,26 +608,27 @@ export default Ember.Component.extend(
 
 				range.selectNodeContents($highlightedElement[0]);
 				selection.removeAllRanges();
-				selection.addRange(range);
 
-				Ember.$('html, body').animate({scrollTop: $highlightedElement.offset().top - 150}, () => {
+				Ember.$('body').animate({scrollTop: $highlightedElement.offset().top - 150}, () => {
+					selection.addRange(range);
 					$highlightedElement.addClass('highlighted');
 
-					Ember.$(document).one('selectionchange', () => {
-						$paragraph.html($paragraph.html().replace($highlightedElement[0].outerHTML, word));
-					});
+					Ember.run.later(() => {
+						$highlightedElement.trigger('mousedown');
+						Ember.$.cookie('highlightedEditorDemoShown', true);
+						Ember.$(document).one('selectionchange', () => {
+							$paragraph.html($paragraph.html().replace($highlightedElement[0].outerHTML, word));
+						});
+					}, 500);
 				});
-
-				Ember.run.later(() => {
-					$highlightedElement.trigger('mousedown');
-					Ember.$.cookie('highlightedEditorDemoShown', true);
-				}, 500);
 
 				track({
 					action: trackActions.impression,
 					category: 'highlighted-editor',
 					label: 'popover'
 				});
+
+
 			}
 		},
 
