@@ -78,14 +78,17 @@ export default Ember.Component.extend(
 
 			/**
 			 * @param {Ember.Array} newState
+			 * @param {Ember.Object} movedItem
 			 * @returns {void}
 			 */
-			onReorderElements(newState) {
-				track({
-					action: trackActions.change,
-					category: 'infobox-builder',
-					label: 'reorder-infobox-elements'
-				});
+			onReorderElements(newState, movedItem) {
+				if (newState.indexOf(movedItem) !== this.get('state').indexOf(movedItem)) {
+					track({
+						action: trackActions.change,
+						category: 'infobox-builder',
+						label: 'reorder-infobox-elements'
+					});
+				}
 
 				this.get('reorder')(newState);
 			},
