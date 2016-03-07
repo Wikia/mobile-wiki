@@ -2,12 +2,11 @@ import {track as mercuryTrack} from 'common/utils/track';
 import ajaxCall from './ajax-call';
 
 const isClickstreamEnabled = M.prop('clickstream.social.enable'),
-	clickstreamURL = M.prop('clickstream.social.url');
-
-export const trackActions = {
-	PostCreate: 'PostCreate',
-	ReplyCreate: 'ReplyCreate',
-};
+	clickstreamURL = M.prop('clickstream.social.url'),
+	trackActions = {
+		PostCreate: 'PostCreate',
+		ReplyCreate: 'ReplyCreate',
+	};
 
 /**
  * Currently we change mobile to desktop layout
@@ -15,7 +14,23 @@ export const trackActions = {
  * @returns {string}
  */
 function getGACategory() {
-	 return window.innerWidth < 1064 ? 'MobileWebDiscussions' : 'DesktopWebDiscussions';
+	return window.innerWidth < 1064 ? 'MobileWebDiscussions' : 'DesktopWebDiscussions';
+}
+
+/**
+ * @param {object} gaContext
+ *
+ * @returns {object}
+ */
+function getClickstreamEvent(gaContext) {
+	return {
+		timestamp: new Date().getTime(),
+		country: '',
+		beacon_id: '',
+		device_language: window.navigator.language,
+		category: 'event',
+		ga: gaContext
+	};
 }
 
 /**
@@ -39,32 +54,16 @@ function trackInClickstream(gaContext) {
 }
 
 /**
- * @param gaContext
- *
- * @returns {object}
- */
-function getClickstreamEvent(gaContext) {
-	return {
-		timestamp: new Date().getTime(),
-		country: '',
-		beacon_id: '',
-		device_language: window.navigator.language,
-		category: 'event',
-		ga: gaContext
-	}
-}
-
-/**
  * @param {string} action
  *
  * @returns {object}
  */
 function getGAContext(action) {
 	return {
-		action: action,
+		action,
 		category: getGACategory(),
 		label: window.location.hostname
-	}
+	};
 }
 
 /**
@@ -81,3 +80,5 @@ export function track(action) {
 
 	mercuryTrack(gaContext);
 }
+
+export {trackActions};

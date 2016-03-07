@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
-import {track as mercuryTrack, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
