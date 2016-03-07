@@ -30,6 +30,8 @@ export function integrateAbTestWithUA(dimensions) {
 			abSlot = AbTest.getGASlot(abExp.name);
 
 		if (abExp && abExp.flags && abExp.flags.ga_tracking) {
+			// GA Slots 40-49 are reserved for our AB Testing tool. Anything outside that
+			// range could potentially overwrite something that we don't want to
 			if (abSlot >= 40 && abSlot <= 49) {
 				const noGroup = abList.nouuid ? 'NOBEACON' : 'NOT_IN_ANY_GROUP',
 					abGroupName = abExp.group ? abExp.group.name : noGroup;
