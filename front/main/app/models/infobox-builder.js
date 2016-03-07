@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import getEditToken from '../utils/edit-token';
 
 const InfoboxBuilderModel = Ember.Object.extend({
 	/**
@@ -262,27 +263,31 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	saveStateToTemplate() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php'
-				}),
-				data: {
-					controller: 'PortableInfoboxBuilderController',
-					method: 'publish',
-					title: this.get('title'),
-					data: InfoboxBuilderModel.prepareStateForSaving(this.get('infoboxState'))
-				},
-				dataType: 'json',
-				method: 'POST',
-				success: (data) => {
-					if (data && data.success) {
-						resolve(this.get('title'));
-					} else {
-						reject(data.errors);
-					}
-				},
-				error: (err) => reject(err)
-			});
+			getEditToken(this.get('title'))
+				.then((token) => {
+					Ember.$.ajax({
+						url: M.buildUrl({
+							path: '/wikia.php'
+						}),
+						data: {
+							controller: 'PortableInfoboxBuilderController',
+							method: 'publish',
+							title: this.get('title'),
+							data: InfoboxBuilderModel.prepareStateForSaving(this.get('infoboxState')),
+							token
+						},
+						dataType: 'json',
+						method: 'POST',
+						success: (data) => {
+							if (data && data.success) {
+								resolve(this.get('title'));
+							} else {
+								reject(data.errors);
+							}
+						},
+						error: (err) => reject(err)
+					});
+				});
 		});
 	}
 });

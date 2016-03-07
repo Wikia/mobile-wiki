@@ -1,30 +1,39 @@
 {{#if model.showSubHeader}}
-    <header class="sub-head">
-        <a {{action (action this.attrs.openMainPage)}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
-        <button {{action (action this.attrs.reviewAndGetMoreImages)}} class="sub-head--done">{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
-        <div class="sub-head--title">{{i18n 'main.head' ns='image-review'}}</div>
-    </header>
+	<header class="sub-head">
+		<a {{action this.attrs.openMainPage}}
+				class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
+		<button {{action this.attrs.reviewAndGetMoreImages}}
+				class="sub-head--done">{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
+		<div class="sub-head--title">{{i18n 'main.head' ns='image-review'}}</div>
+	</header>
 {{/if}}
 
-<p>{{i18n 'main.description' ns='image-review'}}</p>
-<p>{{i18n 'main.images-to-review-count' ns='image-review'}} <strong>{{model.imagesToReviewCount}}</strong></p>
+{{#if model.images}}
+	<p>{{i18n 'main.description' ns='image-review'}}</p>
+	<p>{{i18n 'main.images-to-review-count' ns='image-review'}} <strong>{{model.imagesToReviewCount}}</strong></p>
 
-<ul class="image-review-list">
-	{{#each model.images as |item|}}
-		<li class="image-review-item">
-			{{image-review-item model=item showModal=(action 'showModal')
+	<ul class="image-review-list">
+		{{#each model.images as |item|}}
+			<li class="image-review-item">
+				{{image-review-item model=item showModal=(action 'showModal')
 				changeItemModel=(action (action this.attrs.changeItemModel))}}
-		</li>
-	{{/each}}
-</ul>
+			</li>
+		{{/each}}
+	</ul>
 
-{{#modal-dialog isVisible=isModalVisible}}
-	<img src="{{modalImageUrl}}"/>
-{{/modal-dialog}}
+	{{#modal-dialog isVisible=isModalVisible}}
+		<img src="{{thumbnailModel.fullSizeImageUrl}}"/>
+		{{#if isContextProvided}}
+			<a href="{{thumbnailModel.context}}">{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}}</a>
+		{{else}}
+			<p>{{i18n 'main.image-context-not-provided' ns='image-review'}}</p>
+		{{/if}}
+	{{/modal-dialog}}
 
-<div class="action-buttons">
-    <button {{action (action this.attrs.reviewAndGetMoreImages)}}>{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
-    <button {{action (action this.attrs.getFlaggedOnly)}}>{{i18n 'main.get-flagged' ns='image-review'}}</button>
-</div>
-
-{{alert-notifications alerts=alertNotifications}}
+	<div class="action-buttons">
+		<button {{action this.attrs.reviewAndGetMoreImages}}>{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
+		<button {{action this.attrs.getFlaggedOnly}}>{{i18n 'main.get-flagged' ns='image-review'}}</button>
+	</div>
+{{else}}
+	<h2>{{i18n 'main.error-no-more-images' ns='image-review'}}</h2>
+{{/if}}
