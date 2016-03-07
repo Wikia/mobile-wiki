@@ -3,6 +3,7 @@ import Ember from 'ember';
 
 export default PopOver.extend({
 	layoutName: 'components/pop-over',
+
 	positionPointer($compass, pointerRect) {
 		const $target = Ember.$(this.get('targets')[0].element),
 			// shift is padding-left and half of pointer width
@@ -12,6 +13,7 @@ export default PopOver.extend({
 		pointerRect.left = $target.position().left + $target.width() / 2 - shift;
 		this._super($compass, pointerRect);
 	},
+
 	documentClick(evt) {
 		this._super(evt);
 		this.set('disabled', true);
