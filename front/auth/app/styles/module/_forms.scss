@@ -40,7 +40,7 @@ form {
 .floating-label.active {
 	color: $label-color-active;
 	font-size: 0.75rem;
-	top: 0;
+	top: 3px;
 }
 
 input[type='text']:valid  + .floating-label,
