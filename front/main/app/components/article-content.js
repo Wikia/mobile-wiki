@@ -199,6 +199,8 @@ export default Ember.Component.extend(
 					return 'context-link';
 				} else if ($element.closest('blockquote').length) {
 					return 'blockquote-link';
+				} else if ($element.closest('figcaption').length) {
+					return 'caption-link';
 				}
 
 				return 'regular-link';
