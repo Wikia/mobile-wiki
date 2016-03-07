@@ -1,6 +1,7 @@
 .terms-of-use {
 	display: block;
-	line-height: 1rem;
+	font-size: $type-min;
+	line-height: $line-height-min;
 	text-align: center;
 	width: 100%;
 }
@@ -14,12 +15,9 @@ label {
 }
 
 .desktop {
-	.terms-of-use {
-		font-size: 10px;
-	}
 	label {
 		&.inline {
-			font-size: 12px;
+			font-size: $type-min;
 			margin: 2px 0 10px;
 			padding: 5px 0 5px 20px;
 		}
