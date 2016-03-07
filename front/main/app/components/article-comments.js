@@ -125,7 +125,7 @@ export default Ember.Component.extend(
 			toggleComments() {
 				this.set('page', this.get('page') ? null : 1);
 				this.toggleProperty('isCollapsed');
-				this.trackClick('comments', this.get('page') ? 'open' : 'close');
+				this.trackClick('comments', this.get('page') ? 'expanded' : 'collapsed');
 			}
 		},
 
