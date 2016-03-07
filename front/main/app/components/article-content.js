@@ -119,8 +119,9 @@ export default Ember.Component.extend(
 			this.destroyChildComponents();
 		},
 
-		click() {
-			const label = this.getTrackingEventLabel(event);
+		click(event) {
+			const $anchor = Ember.$(event.target).closest('a'),
+				label = this.getTrackingEventLabel($anchor);
 
 			if (label) {
 				this.trackClick('article', label);
@@ -187,19 +188,17 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * @param event
+		 * @param {jQuery} $element — element of which context is to be checked
 		 * @returns {string}
 		 */
-		getTrackingEventLabel(event) {
-			const $anchor = Ember.$(event.target).closest('a');
-
-			if ($anchor.length) {
-				if ($anchor.closest('.portable-infobox').length) {
+		getTrackingEventLabel($element) {
+			if ($element.length) {
+				if ($element.closest('.portable-infobox').length) {
 					return 'portable-infobox-link';
-				} else if ($anchor.closest('.context-link').length) {
+				} else if ($element.closest('.context-link').length) {
 					return 'context-link';
-				} else if ($anchor.closest('blockquote').length) {
-					return 'blockquote';
+				} else if ($element.closest('blockquote').length) {
+					return 'blockquote-link';
 				}
 				return 'regular-link';
 			}
