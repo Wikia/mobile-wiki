@@ -1,5 +1,4 @@
-import {module} from 'qunit';
-import {test} from 'ember-qunit';
+import {module, test} from 'qunit';
 
 module('Unit | Utils | domain', (hooks) => {
 	let infoboxBuilderDiff;
