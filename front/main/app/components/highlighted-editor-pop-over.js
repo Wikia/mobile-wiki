@@ -2,6 +2,7 @@ import PopOver from 'ember-pop-over/components/pop-over';
 import Ember from 'ember';
 
 export default PopOver.extend({
+	layoutName: 'components/pop-over',
 	positionPointer($compass, pointerRect) {
 		const $target = Ember.$(this.get('targets')[0].element),
 			// shift is padding-left and half of pointer width
