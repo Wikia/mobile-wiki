@@ -137,6 +137,7 @@ class Ads {
 		if (this.krux && typeof this.krux.load === 'function') {
 			console.info('Track pageView: Krux');
 
+			// @todo XW-123 add logging to kibana how many times failed to load
 			this.krux.load(M.prop('tracking.krux.mobileId'));
 		}
 	}
