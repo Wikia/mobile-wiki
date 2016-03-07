@@ -29,15 +29,12 @@ function getGACategory() {
 function trackInClickstream(gaContext) {
 	ajaxCall({
 		method: 'POST',
-		data: {
-			events: [getClickstreamEvent(gaContext)],
-			data: {
-				platform: 'web'
-			}
-		},
+		data: JSON.stringify({
+			events: [
+				getClickstreamEvent(gaContext)
+			],
+		}),
 		url: clickstreamURL,
-		success: (data) => {},
-		error: (err) => {}
 	});
 }
 
