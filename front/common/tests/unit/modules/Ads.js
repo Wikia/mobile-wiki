@@ -1,12 +1,11 @@
 QUnit.module('mercury/modules/Ads', function (hooks) {
 	var Ads,
-		loadStub = sinon.stub().callsArg(1),
-		origRequire;
+		loadStub = sinon.stub().callsArg(1);
 
 	hooks.beforeEach(function () {
 		var exports = {};
 
-		require.entries['common/modules/Ads'].callback(exports, sinon.stub(), {}, loadStub);
+		require.entries['common/modules/Ads'].callback(exports, {}, loadStub);
 
 		Ads = exports.default;
 	});
@@ -23,12 +22,13 @@ QUnit.module('mercury/modules/Ads', function (hooks) {
 	QUnit.test('Init method works', function (assert) {
 		var testAdsUrl = 'http://exampleAdsUrl.com/',
 			reloadWhenReadyStub = sinon.stub(),
-			instance;
+			instance,
+			origRequire;
 
 		instance = Ads.getInstance();
 
 		instance.reloadWhenReady = reloadWhenReadyStub;
-		instance.kruxTrackFirstPage = sinon.stub();
+		instance.trackKruxPageView = sinon.stub();
 
 		origRequire = window.require;
 		window.require = function (modules, callback) {

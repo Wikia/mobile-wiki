@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import ThirdsClickMixin from '../mixins/thirds-click';
-import {trackEvent} from 'common/utils/variantTesting';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * ImageCropData
@@ -55,7 +55,11 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			swipeLeft() {
-				trackEvent('featured-content-next');
+				track({
+					category: 'main-page-featured-content',
+					label: 'next',
+					action: trackActions.swipe
+				});
 				this.nextItem();
 			},
 
@@ -63,9 +67,13 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			swipeRight() {
-				trackEvent('featured-content-prev');
+				track({
+					category: 'main-page-featured-content',
+					label: 'previous',
+					action: trackActions.swipe
+				});
 				this.prevItem();
-			},
+			}
 		},
 
 		hasMultipleItems: Ember.computed('model', function () {
@@ -126,9 +134,10 @@ export default Ember.Component.extend(
 		 * @returns {boolean}
 		 */
 		rightClickHandler() {
-			trackEvent('featured-content-next');
+			this.trackClick('main-page-featured-content', 'next');
 			this.nextItem();
 			this.resetCycleTimeout();
+
 			return true;
 		},
 
@@ -136,9 +145,10 @@ export default Ember.Component.extend(
 		 * @returns {boolean}
 		 */
 		leftClickHandler() {
-			trackEvent('featured-content-prev');
+			this.trackClick('main-page-featured-content', 'previous');
 			this.prevItem();
 			this.resetCycleTimeout();
+
 			return true;
 		},
 
@@ -146,9 +156,9 @@ export default Ember.Component.extend(
 		 * @returns {boolean}
 		 */
 		centerClickHandler() {
+			this.trackClick('main-page-featured-content', 'open');
 			this.stopCyclingThroughItems();
-			this.trackClick('modular-main-page', 'featured-content');
-			trackEvent('featured-content-click');
+
 			return false;
 		},
 
@@ -206,6 +216,6 @@ export default Ember.Component.extend(
 		 */
 		willDestroyElement() {
 			this.stopCyclingThroughItems();
-		},
+		}
 	}
 );
