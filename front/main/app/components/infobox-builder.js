@@ -138,7 +138,6 @@ export default Ember.Component.extend(
 			onPreviewBackgroundClick() {
 				if (this.get('activeItem') !== null) {
 					this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
-
 				}
 				this.get('setEditItem')(null);
 			}
