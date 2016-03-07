@@ -18,6 +18,28 @@ export default Ember.Component.extend({
 		return this.get('isPreviewItemHovered') && !this.get('isPreviewItemDragged');
 	}),
 
+	init() {
+		this._super(...arguments);
+		this.addItemButtons = [
+			{
+				name: 'row',
+				icon: 'row-block'
+			},
+			{
+				name: 'image',
+				icon: 'image-block'
+			},
+			{
+				name: 'title',
+				icon: 'title-block'
+			},
+			{
+				name: 'section-header',
+				icon: 'section-block'
+			}
+		];
+	},
+
 	actions: {
 		addItem() {
 			this.get('addItem')(...arguments);

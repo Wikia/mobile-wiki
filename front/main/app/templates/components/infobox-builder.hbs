@@ -11,7 +11,7 @@
 		{{#sortable-group
 			tagName="div"
 			classNames='portable-infobox pi-background'
-			onChange=reorder as |group|
+			onChange=(action this.attrs.reorder) as |group|
 		}}
 			{{#each state as |element index|}}
 				{{component element.infoboxBuilderData.component
@@ -39,15 +39,29 @@
 		{{/if}}
 	</div>
 
-	{{infobox-builder-sidebar
-		addItem=(action 'addItem')
-		removeItem=removeItem
-		itemInEditMode=activeItem
-		setEditItem=setEditItem
-		editTitleItem=editTitleItem
-		editRowItem=editRowItem
-		editSectionHeaderItem=editSectionHeaderItem
-	}}
+	<div class="infobox-builder-sidebar">
+		{{#if activeItem.type}}
+			{{infobox-builder-edit-item
+				item=activeItem
+				onBackArrowClick=(action this.attrs.setEditItem)
+				onDeleteItem=(action this.attrs.removeItem)
+				editTitleItem=(action this.attrs.editTitleItem)
+				editRowItem=(action this.attrs.editRowItem)
+				editSectionHeaderItem=(action this.attrs.editSectionHeaderItem)
+			}}
+		{{else}}
+			<div class="sidebar-header">{{i18n 'main.sidebar-header' ns='infobox-builder'}}</div>
+			<div class="infobox-builder-buttons">
+				{{#each addItemButtons as |button|}}
+					{{infobox-builder-button
+						name=button.name
+						icon=button.icon
+						onButtonClick=(action 'addItem')
+					}}
+				{{/each}}
+			</div>
+		{{/if}}
+	</div>
 </div>
 {{#if showOverlay}}
 	<div class="infobox-builder-spinner loading-overlay">
