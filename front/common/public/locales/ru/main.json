@@ -143,7 +143,9 @@
     "curated-content-editor-new-featured-content":"Новый Избранный контент",
     "curated-content-editor-new-section":"Новый раздел",
     "curated-content-editor-new-category":"Новая категория",
-    "explore-wiki":"Исследуйте __wikiName__"
+    "explore-wiki":"Исследуйте __wikiName__",
+    "wiki-page-error-reload-button": "Обновить",
+    "wiki-page-error":"Произошла ошибка во время загрузки статьи. Пожалуйста, попробуйте ещё раз."
   },
   "userStatus":{
     "anon-cta":"__registerLink__ или __loginLink__",

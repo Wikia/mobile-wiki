@@ -1,0 +1,25 @@
+{{#text-field
+	value=value
+	inputId='infoboxSectionHeader'
+	name='infoboxSectionHeader'
+	label=(i18n 'main.section-header' ns='infobox-builder')
+	class='infobox-builder-input'
+	onFocusHandler=(action 'onHeaderValueInputFocus')
+	onBlurHandler=(action 'onHeaderValueInputBlur')
+}}
+	<span class="infobox-builder-questionmark" {{action 'showHelp'}}>{{svg 'question' class='pointer-events-none' viewBox='0 0 18 18'}}</span>
+{{/text-field}}
+
+<label for="isCollapsible" class="checkbox-builder">
+	{{input
+		type='checkbox'
+		id='isCollapsible'
+		name='isCollapsible'
+		checked=isCollapsible
+	}}
+	{{i18n 'main.section-header-collapsible' ns='infobox-builder'}}
+</label>
+
+{{#modal-dialog isVisible=isHelpVisible}}
+	{{i18n 'main.help-section-header' ns='infobox-builder'}}
+{{/modal-dialog}}

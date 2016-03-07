@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import getEditToken from '../utils/edit-token';
 
 const InfoboxBuilderModel = Ember.Object.extend({
 	/**
@@ -24,7 +25,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	addToState(object) {
 		this.get('infoboxState').pushObject(object);
-
 		return object;
 	},
 
@@ -82,7 +82,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				component: InfoboxBuilderModel.createComponentName(itemType)
 			},
 			source: `${itemType}${index}`,
-			type: itemType
+			type: itemType,
+			sourceFrozen: false
 		};
 	},
 
@@ -143,6 +144,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				ns: 'infobox-builder',
 				index
 			}),
+			collapsible: false,
 			infoboxBuilderData: {
 				index,
 				component: InfoboxBuilderModel.createComponentName(itemType)
@@ -161,11 +163,20 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc sets item to the edit mode
+	 * @desc sets item to the edit mode and saves its current
+	 * data in the moment of beginning editing
+	 *
 	 * @param {Object} item
 	 * @returns {void}
 	 */
 	setEditItem(item) {
+		if (item && !item.infoboxBuilderData.originalData) {
+			const itemData = InfoboxBuilderModel.sanitizeItemData(item);
+
+			// we need a copy of itemData, not a reference to it
+			item.infoboxBuilderData.originalData = Ember.$.extend({}, itemData);
+		}
+
 		this.set('itemInEditMode', item);
 	},
 
@@ -197,9 +208,23 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		this.set(`infoboxState.${index}.data.label`, value);
 
-		if (value.trim().length) {
+		if (!item.sourceFrozen && value.trim().length) {
 			this.set(`infoboxState.${index}.source`, InfoboxBuilderModel.sanitizeCustomRowSource(value));
 		}
+	},
+
+	/**
+	 * @desc sets a new value of the data field
+	 * on the given section header element
+	 *
+	 * @param {Object} item
+	 * @param {Object} newValues
+	 * @returns {void}
+	 */
+	editSectionHeaderItem(item, newValues) {
+		const index = this.get('infoboxState').indexOf(item);
+
+		Object.keys(newValues).forEach((key) => this.set(`infoboxState.${index}.${key}`, newValues[key]));
 	},
 
 	/**
@@ -209,7 +234,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	removeItem(item) {
 		this.get('infoboxState').removeObject(item);
-		this.resetEditMode();
+		this.setEditItem(null);
 	},
 
 	/**
@@ -219,14 +244,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	updateInfoboxStateOrder(newState) {
 		this.set('infoboxState', newState);
-	},
-
-	/**
-	 * @desc resets item in edit mode and its position to null
-	 * @returns {void}
-	 */
-	resetEditMode() {
-		this.set('itemInEditMode', null);
 	},
 
 	/**
@@ -255,27 +272,31 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	saveStateToTemplate() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php'
-				}),
-				data: {
-					controller: 'PortableInfoboxBuilderController',
-					method: 'publish',
-					title: this.get('title'),
-					data: InfoboxBuilderModel.prepareStateForSaving(this.get('infoboxState'))
-				},
-				dataType: 'json',
-				method: 'POST',
-				success: (data) => {
-					if (data && data.success) {
-						resolve(this.get('title'));
-					} else {
-						reject(data.errors);
-					}
-				},
-				error: (err) => reject(err)
-			});
+			getEditToken(this.get('title'))
+				.then((token) => {
+					Ember.$.ajax({
+						url: M.buildUrl({
+							path: '/wikia.php'
+						}),
+						data: {
+							controller: 'PortableInfoboxBuilderController',
+							method: 'publish',
+							title: this.get('title'),
+							data: InfoboxBuilderModel.prepareStateForSaving(this.get('infoboxState')),
+							token
+						},
+						dataType: 'json',
+						method: 'POST',
+						success: (data) => {
+							if (data && data.success) {
+								resolve(this.get('title'));
+							} else {
+								reject(data.errors);
+							}
+						},
+						error: (err) => reject(err)
+					});
+				});
 		});
 	}
 });
@@ -322,7 +343,7 @@ InfoboxBuilderModel.reopenClass({
 	/**
 	 * @desc Overrides some properties of given Row object with additional
 	 * data, obtained from already existing template
-	 * TODO: use Object.assign() when we switch to Babel6
+	 * @todo: use Object.assign() when we switch to Babel6
 	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
@@ -331,23 +352,21 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendRowData(item, itemData) {
 		if (itemData) {
+			const {data} = itemData,
+				// as data can be devoid of label value
+				{label} = data || {};
+
 			item.source = itemData.source || '';
-			item.data.label = '';
-
-			if (itemData.data) {
-				const {data: {label}} = itemData;
-
-				item.data.label = label || '';
-			}
+			item.data.label = label || '';
+			item.sourceFrozen = true;
 		}
-
 		return item;
 	},
 
 	/**
 	 * @desc Overrides some properties of given Title object with additional
 	 * data, obtained from already existing template
-	 * TODO: use Object.assign() when we switch to Babel6
+	 * @todo: use Object.assign() when we switch to Babel6
 	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
@@ -356,14 +375,12 @@ InfoboxBuilderModel.reopenClass({
 	 */
 	extendTitleData(item, itemData) {
 		if (itemData) {
+			const {data} = itemData,
+				// as title can be devoid of default value
+				{defaultValue} = data || {};
+
 			item.source = itemData.source || '';
-			item.data.defaultValue = '';
-
-			if (itemData.data) {
-				const {data: {defaultValue}} = itemData;
-
-				item.data.defaultValue = defaultValue || '';
-			}
+			item.data.defaultValue = defaultValue || '';
 		}
 
 		return item;
@@ -403,11 +420,31 @@ InfoboxBuilderModel.reopenClass({
 	 * @returns {Object}
 	 */
 	extendHeaderData(item, itemData) {
-		if (itemData && itemData.data) {
-			item.data = itemData.data;
-			// @todo add support for collapsible attribute - DAT-3732
+		if (itemData) {
+			item.data = itemData.data || '';
+			item.collapsible = itemData.collapsible || false;
 		}
+
 		return item;
+	},
+
+	/**
+	 * Unifies item data format
+	 *
+	 * @param {Object} item
+	 * @returns {Object}
+	 */
+	sanitizeItemData(item) {
+		let itemData = item.data;
+
+		if (item.type === 'section-header') {
+			itemData = {
+				value: item.data,
+				collapsible: item.collapsible
+			};
+		}
+
+		return itemData;
 	}
 });
 

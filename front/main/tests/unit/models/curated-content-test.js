@@ -1,10 +1,14 @@
 import {test, moduleFor} from 'ember-qunit';
 
-const curatedContentModelClass = require('main/models/curated-content').default;
+const curatedContentModelClass = require('main/models/curated-content').default,
+	originalMercury = Ember.$.extend(true, {}, window.Mercury);
 
 moduleFor('model:curated-content', 'Unit | Model | curated content', {
 	beforeEach() {
-		Mercury.wiki.articlePath = '/wiki/';
+		window.Mercury.wiki.articlePath = '/wiki/';
+	},
+	afterEach() {
+		window.Mercury = Ember.$.extend(true, {}, originalMercury);
 	}
 });
 

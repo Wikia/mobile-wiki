@@ -1,5 +1,8 @@
-$sidebar-width: 296px;
+$sidebar-width: 300px;
 $padding: 12px;
+$bigPadding: 18px;
+$imageButtonWidth: 130px;
+$imageButtonHeight: 100px;
 $back-arrow-icon-size: 16px;
 $icon-action-size: 24px;
 $icon-wrapper-size: 50px;
@@ -38,11 +41,16 @@ $overlay-color: rgba(255, 255, 255, .8);
 .infobox-builder {
 	box-sizing: border-box;
 	display: flex;
-	height: 100%;
-	padding-top: $sub-head-height;
+	height: calc(100% - #{$wikia-ui-components-sub-head-height});
+
+	@media (min-width: lower-bound($large-range)) {
+		height: calc(100% - #{$wikia-ui-components-sub-head-height-large});
+	}
 }
 
 .infobox-builder-preview {
+	// overwrite mercury default cursor for elements with ember actions attached
+	cursor: auto;
 	flex-grow: 1;
 	overflow: auto;
 
@@ -63,7 +71,7 @@ $overlay-color: rgba(255, 255, 255, .8);
 		&:hover,
 		&.active,
 		&.is-dragging {
-			&:after {
+			&:before {
 				border: $border-width solid $color-blue-light;
 				box-sizing: content-box;
 				content: ' ';
@@ -81,7 +89,7 @@ $overlay-color: rgba(255, 255, 255, .8);
 			z-index: 3;
 		}
 
-		&.active:after {
+		&.active:before {
 			box-shadow: 0 $box-shadow-size $shadow-blur 0 $shadow-color;
 			cursor: pointer;
 		}
@@ -93,7 +101,7 @@ $overlay-color: rgba(255, 255, 255, .8);
 
 			z-index: 4;
 
-			&:after {
+			&:before {
 				cursor: move;
 				box-shadow: 0 $box-shadow-size * 4 $shadow-blur 0 $shadow-color;
 				transition: box-shadow 0.2s ease-in-out;
@@ -150,11 +158,12 @@ $overlay-color: rgba(255, 255, 255, .8);
 	.sidebar-header {
 		border-bottom: $box-shadow-size solid $color-blue-gray-light;
 		font-weight: bold;
-		line-height: 48px;
-		padding: 0 $padding;
+		padding: 16px $bigPadding;
+		text-align: center;
 	}
 
-	.checkbox-title {
+	.checkbox-builder {
+		padding-top: $padding;
 		font-size: $type-base;
 	}
 
@@ -204,8 +213,11 @@ $overlay-color: rgba(255, 255, 255, .8);
 }
 
 .infobox-builder-buttons {
-	display: inline-block;
-	padding: $padding;
+	align-content: space-between;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: $bigPadding;
 }
 
 .infobox-builder-button {
@@ -214,11 +226,12 @@ $overlay-color: rgba(255, 255, 255, .8);
 	display: flex;
 	float: left;
 	flex-direction: column;
-	height: 100px;
+	height: $imageButtonHeight;
 	justify-content: center;
-	margin: 3px;
+	margin-bottom: 4px;
 	padding: 10px;
-	width: 130px;
+	flex-basis: $imageButtonWidth;
+	width: $imageButtonWidth;
 
 	&:hover {
 		background-color: $color-blue-gray-light;
@@ -232,19 +245,20 @@ $overlay-color: rgba(255, 255, 255, .8);
 .infobox-builder-button-icon {
 	fill: $color-blue-gray;
 	height: $icon-button-size;
+	margin-top: $border-width * 2;
+	// fix no event bubbling on SVGs in IE 11
+	pointer-events: none;
 	width: $icon-button-size;
 }
 
 .infobox-builder-button-label {
 	color: $color-blue-light;
-	font-size: 14px;
-	margin-top: 10px;
+	font-size: $type-smallest;
+	margin-top: $border-width * 2;
 }
 
 .sidebar-edit-area {
-	align-items: center;
-	display: flex;
-	justify-content: space-between;
+	position: relative;
 }
 
 .sidebar-content-padding {
@@ -256,13 +270,10 @@ $overlay-color: rgba(255, 255, 255, .8);
 	display: flex;
 	justify-content: center;
 	height: $icon-wrapper-size;
+	position: absolute;
+	right: -10px;
+	top: 0;
 	width: $icon-wrapper-size;
-
-	.infobox-builder-input & {
-		position: absolute;
-		right: -10px;
-		top: 0;
-	}
 
 	&:hover svg {
 		fill: $color-blue-light;
@@ -279,7 +290,7 @@ $overlay-color: rgba(255, 255, 255, .8);
 	.pi-item:not(.is-dragging) {
 		pointer-events: none;
 
-		&:after {
+		&:before {
 			background-color: $grayout-color;
 			content: "";
 			display: block;

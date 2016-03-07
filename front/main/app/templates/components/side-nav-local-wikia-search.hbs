@@ -23,7 +23,7 @@
 <ul class="side-search__results">
 	{{#each suggestions as |suggestion|}}
 		<li class="side-nav-menu__item search-result mw-content">
-			{{#link-to 'wiki-page' suggestion.uri action=collapse }}
+			{{#link-to 'wiki-page' suggestion.uri action='searchSuggestionClick'}}
 				{{suggestion.title}}
 			{{/link-to}}
 		</li>

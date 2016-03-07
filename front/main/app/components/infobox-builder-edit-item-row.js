@@ -1,25 +1,46 @@
 import Ember from 'ember';
+import InfoboxBuilderEditItemMixin from '../mixins/infobox-builder-edit-item';
 
-export default Ember.Component.extend({
-	labelValue: Ember.computed('item.data.label', {
-		get() {
-			return this.get('item.data.label');
-		},
-		set(key, value) {
-			this.get('editRowItem')(this.get('item'), value);
-			return value;
-		}
-	}),
+export default Ember.Component.extend(
+	InfoboxBuilderEditItemMixin,
+	{
+		// params required for tracking edit actions
+		labelFocusTrackingKey: 'label',
+		labelValueOnFocus: null,
+		wasLabelAltered: false,
 
-	init() {
-		this._super(...arguments);
-		this.isHelpVisible = false;
-		this.classNames = ['sidebar-content-padding'];
-	},
+		labelValue: Ember.computed('item.data.label', {
+			get() {
+				return this.get('item.data.label');
+			},
+			set(key, value) {
+				const item = this.get('item');
 
-	actions: {
-		showHelp() {
-			this.set('isHelpVisible', true);
+				// mark that user interacted with label input
+				this.set('wasLabelAltered', true);
+
+				this.get('editRowItem')(item, value);
+				return value;
+			}
+		}),
+
+		actions: {
+			onLabelInputFocus() {
+				this.handleInputFocus(
+					'labelValueOnFocus',
+					this.get('labelValue'),
+					this.get('labelFocusTrackingKey')
+				);
+			},
+
+			onLabelInputBlur() {
+				this.handleInputBlur(
+					'wasLabelAltered',
+					this.get('labelValueOnFocus'),
+					this.get('labelValue'),
+					this.get('labelFocusTrackingKey')
+				);
+			}
 		}
 	}
-});
+);
