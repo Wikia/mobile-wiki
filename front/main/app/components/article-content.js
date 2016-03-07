@@ -570,28 +570,20 @@ export default Ember.Component.extend(
 			$paragraphs.toArray().some((paragraph) => {
 				const $paragraph = Ember.$(paragraph),
 					paragraphHtml = $paragraph.html(),
-					plain = Ember.$('<div>').html(paragraphHtml).children().remove().end().html();
+					words = Ember.$('<div>').html(paragraphHtml).children().remove().end().html().split(' '),
+					minLettersLimit = 3;
 
-				if (plain === '') {
-					return false;
-				} else {
-					const words = plain.split(' '),
-						minLettersLimit = 3;
-
-					this.set('targetParagraphOffset', $paragraph.offset().top);
-
-					Ember.$(document).on('touchmove', this, this.debouncedScroll);
-					Ember.$(window).on('scroll', this, this.debouncedScroll);
-
-					words.some((word) => {
-						if (word.length < minLettersLimit) {
-							return false;
-						} else {
-							$paragraph.html(paragraphHtml.replace(word, `<span id="${highlightedId}">${word}</span>`));
-							return true;
-						}
-					});
-				}
+				words.some((word) => {
+					if (word.length < minLettersLimit) {
+						return false;
+					} else {
+						this.set('targetParagraphOffset', $paragraph.offset().top);
+						$paragraph.html(paragraphHtml.replace(word, `<span id="${highlightedId}">${word}</span>`));
+						Ember.$(document).on('touchmove', this, this.debouncedScroll);
+						Ember.$(window).on('scroll', this, this.debouncedScroll);
+						return true;
+					}
+				});
 			});
 		},
 
