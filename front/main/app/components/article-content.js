@@ -647,7 +647,6 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		onScroll() {
-			console.log(window.scrollY , this.get('targetParagraphOffset'));
 			if (window.scrollY > this.get('targetParagraphOffset')) {
 				this.launchHighlightedTextEditorDemo();
 			}
