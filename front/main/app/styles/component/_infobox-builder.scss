@@ -41,10 +41,16 @@ $overlay-color: rgba(255, 255, 255, .8);
 .infobox-builder {
 	box-sizing: border-box;
 	display: flex;
-	height: 100%;
+	height: calc(100% - #{$wikia-ui-components-sub-head-height});
+
+	@media (min-width: lower-bound($large-range)) {
+		height: calc(100% - #{$wikia-ui-components-sub-head-height-large});
+	}
 }
 
 .infobox-builder-preview {
+	// overwrite mercury default cursor for elements with ember actions attached
+	cursor: auto;
 	flex-grow: 1;
 	overflow: auto;
 
@@ -240,6 +246,8 @@ $overlay-color: rgba(255, 255, 255, .8);
 	fill: $color-blue-gray;
 	height: $icon-button-size;
 	margin-top: $border-width * 2;
+	// fix no event bubbling on SVGs in IE 11
+	pointer-events: none;
 	width: $icon-button-size;
 }
 

@@ -1,3 +1,28 @@
+## release-217 hotfix 1 (2016-03-03 16:54 UTC)
+* release-217-fix-geo: Set up geo in baseline so ivw3 can use that for tracking
+
+## release-217 (2016-03-03 14:57 UTC)
+* [XW-1204](https://wikia-inc.atlassian.net/browse/XW-1204) XW-1204 Call IVW3 quicker on page view (no tweaks)
+* [XW-1205](https://wikia-inc.atlassian.net/browse/XW-1205) XW-1205 | Move Nielsen initial PV from Ember
+* [XW-1216](https://wikia-inc.atlassian.net/browse/XW-1216) XW-1216 | Unify labels for events related with categories menu under the article
+* [DAT-3862](https://wikia-inc.atlassian.net/browse/DAT-3862) DAT-3862 | Scroll to the bottom of infobox builder preview after new item is added
+* [SOC-1943](https://wikia-inc.atlassian.net/browse/SOC-1943) SOC-1943 | Change Brave Frontier discussion community badge
+* [DAT-3804](https://wikia-inc.atlassian.net/browse/DAT-3804) Dat 3804 clicking on infobox preview background exits edit mode on currently selected item
+
+## release-216 (2016-03-03 12:28 UTC)
+* [XW-1203](https://wikia-inc.atlassian.net/browse/XW-1203) XW-1203 | send Comscore tracking on server side
+* [ADEN-3043](https://wikia-inc.atlassian.net/browse/ADEN-3043) ADEN-3043 Add timestamp to Nielsen url
+* XW | stop calling quantserve twice on auth
+* pr-template-update: Remove "work in progress" from PR template
+* [DAT-3789](https://wikia-inc.atlassian.net/browse/DAT-3789) DAT-3789 | Infobox Builder - source attribute immutable after first save
+* [XW-1229](https://wikia-inc.atlassian.net/browse/XW-1229) XW-1229 | Create tracking function, always
+* [XW-1214](https://wikia-inc.atlassian.net/browse/XW-1214) XW-1214 add missing tracking to wiki navigation and unify existing one
+* [CE-3434](https://wikia-inc.atlassian.net/browse/CE-3434) CE-3434 Update translations for Recent Wiki Activity and enable it for all langs
+* [XW-1227](https://wikia-inc.atlassian.net/browse/XW-1227) XW-1227 remove obsolete tracking
+* [DAT-3865](https://wikia-inc.atlassian.net/browse/DAT-3865) DAT-3865 | Fix infobox builder height
+* [XW-1208](https://wikia-inc.atlassian.net/browse/XW-1208) XW-1208 | Fix Quantserve late loading
+* app-header-component-cleanup: DAT-3865 | App header component cleanup
+
 ## release-215 hotfix 1 (2016-03-01 12:28 UTC)
 * [XW-1221](https://wikia-inc.atlassian.net/browse/XW-1221) XW-1221 fix path to model in article-preview route
 
