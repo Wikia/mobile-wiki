@@ -250,7 +250,7 @@ let routes,
 		{
 			method: 'GET',
 			path: '/main/category/{categoryName*}',
-			handler: showApplication,
+			handler: showCuratedContent,
 			config: {
 				cache: routeCacheConfig
 			}
@@ -259,7 +259,7 @@ let routes,
 			method: 'GET',
 			// We don't care if there is a dynamic segment, Ember router handles that
 			path: '/infobox-builder/{ignore*}',
-			handler: showCuratedContent,
+			handler: showApplication,
 			config: {
 				cache: routeCacheConfig
 			}
