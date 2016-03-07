@@ -8,12 +8,11 @@ export default Ember.Component.extend({
 	init() {
 		this._super(...arguments);
 
-		const model = FandomPostsModel.create({
+		this.model = FandomPostsModel.create({
 			type: this.get('type')
 		});
 
-		model.load();
-		this.set('model', model);
+		this.model.load();
 	},
 
 	didReceiveAttrs() {
