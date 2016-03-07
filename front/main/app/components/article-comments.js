@@ -6,6 +6,8 @@ import TrackClickMixin from '../mixins/track-click';
  * Component that displays article comments
  *
  * Subject to refactor as it uses observers instead of computed properties
+ *
+ * TODO: Great refactor XW-1237
  */
 export default Ember.Component.extend(
 	TrackClickMixin,
