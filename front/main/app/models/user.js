@@ -78,6 +78,7 @@ UserModel.reopenClass({
 	sanitizeDetails(userData) {
 		const data = {
 			name: userData.name,
+			userId: userData.user_id,
 			avatarPath: userData.avatar,
 			profileUrl: M.buildUrl({
 				namespace: 'User',
