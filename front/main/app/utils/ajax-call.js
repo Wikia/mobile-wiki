@@ -17,12 +17,18 @@ export default function (options) {
 
 	return new Ember.RSVP.Promise((resolve) => {
 		settings.success = function (data) {
-			options.success(data);
+			if (typeof options.success === 'function') {
+				options.success(data);
+			}
+
 			resolve(this);
 		};
 		settings.error = function (err) {
-			options.error(err);
-			/** Becouse error substate doesn't work in mercury we resolve instead of reject.
+			if (typeof options.error === 'function') {
+				options.error(err);
+			}
+
+			/** Resolve instead of reject until we implement error substates
 			 *  To handle errors we use custom method in discussionBase model
 			 */
 			resolve(this);
