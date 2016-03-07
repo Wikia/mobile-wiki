@@ -27,3 +27,8 @@
 		border-color: transparent;
 	}
 }
+
+// iOS quick fix to show that text is highlighted
+#highlighted-text {
+	background-color: rgba(201, 224, 253, 0.8);
+}
