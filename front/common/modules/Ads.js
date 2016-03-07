@@ -33,7 +33,7 @@ import {isSpecialWiki} from '../utils/track';
  * @property {*} adConfigMobile
  * @property {AdLogicPageViewCounterModule} adLogicPageViewCounterModule
  * @property {AdMercuryListenerModule} adMercuryListenerModule
- * @property {Krux} kruxTracker
+ * @property {Krux} krux
  * @property {Object} currentAdsContext
  * @property {boolean} isLoaded
  * @property {Array<string[]>} slotsQueue
