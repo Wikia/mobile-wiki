@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import getEditToken from '../utils/edit-token';
 
 const InfoboxBuilderModel = Ember.Object.extend({
 	/**
@@ -81,7 +82,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				component: InfoboxBuilderModel.createComponentName(itemType)
 			},
 			source: `${itemType}${index}`,
-			type: itemType
+			type: itemType,
+			sourceFrozen: false
 		};
 	},
 
@@ -197,7 +199,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		this.set(`infoboxState.${index}.data.label`, value);
 
-		if (value.trim().length) {
+		if (!item.sourceFrozen && value.trim().length) {
 			this.set(`infoboxState.${index}.source`, InfoboxBuilderModel.sanitizeCustomRowSource(value));
 		}
 	},
@@ -223,7 +225,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	removeItem(item) {
 		this.get('infoboxState').removeObject(item);
-		this.resetEditMode();
+		this.setEditItem(null);
 	},
 
 	/**
@@ -233,14 +235,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	updateInfoboxStateOrder(newState) {
 		this.set('infoboxState', newState);
-	},
-
-	/**
-	 * @desc resets item in edit mode and its position to null
-	 * @returns {void}
-	 */
-	resetEditMode() {
-		this.set('itemInEditMode', null);
 	},
 
 	/**
@@ -269,27 +263,31 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	saveStateToTemplate() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php'
-				}),
-				data: {
-					controller: 'PortableInfoboxBuilderController',
-					method: 'publish',
-					title: this.get('title'),
-					data: InfoboxBuilderModel.prepareStateForSaving(this.get('infoboxState'))
-				},
-				dataType: 'json',
-				method: 'POST',
-				success: (data) => {
-					if (data && data.success) {
-						resolve(this.get('title'));
-					} else {
-						reject(data.errors);
-					}
-				},
-				error: (err) => reject(err)
-			});
+			getEditToken(this.get('title'))
+				.then((token) => {
+					Ember.$.ajax({
+						url: M.buildUrl({
+							path: '/wikia.php'
+						}),
+						data: {
+							controller: 'PortableInfoboxBuilderController',
+							method: 'publish',
+							title: this.get('title'),
+							data: InfoboxBuilderModel.prepareStateForSaving(this.get('infoboxState')),
+							token
+						},
+						dataType: 'json',
+						method: 'POST',
+						success: (data) => {
+							if (data && data.success) {
+								resolve(this.get('title'));
+							} else {
+								reject(data.errors);
+							}
+						},
+						error: (err) => reject(err)
+					});
+				});
 		});
 	}
 });
@@ -351,8 +349,8 @@ InfoboxBuilderModel.reopenClass({
 
 			item.source = itemData.source || '';
 			item.data.label = label || '';
+			item.sourceFrozen = true;
 		}
-
 		return item;
 	},
 

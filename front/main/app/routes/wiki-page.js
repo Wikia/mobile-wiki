@@ -1,25 +1,25 @@
 import Ember from 'ember';
 import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
-import ArticleHandler from '../utils/mediawiki-handlers/article';
-import CategoryHandler from '../utils/mediawiki-handlers/category';
-import CuratedMainPageHandler from '../utils/mediawiki-handlers/curated-main-page';
-import WikiPageModel from '../models/mediawiki/wiki-page';
+import ArticleHandler from '../utils/wiki-handlers/article';
+import CategoryHandler from '../utils/wiki-handlers/category';
+import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
+import getPageModel from '../utils/wiki-handlers/wiki-page';
 import {normalizeToUnderscore} from 'common/utils/string';
 import {setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
 import {namespace as MediawikiNamespace, getCurrentNamespace} from '../utils/mediawiki-namespace';
 
 export default Ember.Route.extend({
 	redirectEmptyTarget: false,
-	mediaWikiHandler: null,
+	wikiHandler: null,
 	currentUser: Ember.inject.service(),
 
+	/**
+	 * @param {Ember.model} model
+	 * @returns {Object} handler for current namespace
+	 */
 	getHandler(model) {
 		if (model.isCuratedMainPage) {
 			return CuratedMainPageHandler;
-		// This check is done here because promise in article model in case of 404 error
-		// is resolved instead of being rejected
-		} else if (Ember.get(model, 'exception.code') === 404) {
-			return ArticleHandler;
 		}
 
 		switch (getCurrentNamespace()) {
@@ -62,7 +62,7 @@ export default Ember.Route.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	model(params) {
-		return WikiPageModel.find({
+		return getPageModel({
 			basePath: Mercury.wiki.basePath,
 			title: params.title,
 			wiki: this.controllerFor('application').get('domain')
@@ -70,27 +70,81 @@ export default Ember.Route.extend({
 	},
 
 	/**
-	 * @param {ArticleModel} model
+	 * @param {Ember.Object} model
 	 * @param {EmberStates.Transition} transition
 	 * @returns {void}
 	 */
 	afterModel(model, transition) {
-		const exception = model.get('exception'),
-			handler = this.getHandler(model);
+		if (model) {
+			const handler = this.getHandler(model);
 
-		if (!Ember.isEmpty(exception)) {
-			Ember.Logger.warn('Page model error:', exception);
+			this.setHeadTags(model);
+
+			if (handler) {
+				transition.then(() => {
+					this.updateTrackingData(model);
+				});
+
+				this.set('wikiHandler', handler);
+
+				handler.afterModel(this, model);
+			}
+		} else {
+			Ember.Logger.warn('Unsupported page');
+		}
+	},
+
+	/**
+	 * This function handles updating head tags like title, meta and link after transition.
+	 * It uses ember-cli-meta-tags add-on.
+	 * @param {ArticleModel} model
+	 * @returns {void}
+	 */
+	setHeadTags(model) {
+		const headTags = [],
+			defaultHtmlTitleTemplate = '$1 - Wikia',
+			pageUrl = model.get('url'),
+			description = model.get('description'),
+			htmlTitleTemplate = Ember.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate,
+			canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}`,
+			appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios'),
+			appleAppContent = pageUrl ?
+				`app-id=${appId}, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}` :
+				`app-id=${appId}`;
+
+		document.title = htmlTitleTemplate.replace('$1', model.get('displayTitle'));
+
+		headTags.push(
+			{
+				type: 'link',
+				tagId: 'canonical-url',
+				attrs: {
+					rel: 'canonical',
+					href: canonicalUrl
+				}
+			},
+			{
+				type: 'meta',
+				tagId: 'meta-description',
+				attrs: {
+					name: 'description',
+					content: description
+				}
+			}
+		);
+
+		if (appId) {
+			headTags.push({
+				type: 'meta',
+				tagId: 'meta-apple-app',
+				attrs: {
+					name: 'apple-itunes-app',
+					content: appleAppContent
+				}
+			});
 		}
 
-		transition.then(() => {
-			this.updateTrackingData(model);
-		});
-
-		this.set('mediaWikiHandler', handler);
-
-		if (handler) {
-			handler.afterModel(this, model);
-		}
+		this.set('headTags', headTags);
 	},
 
 	/**
@@ -131,23 +185,36 @@ export default Ember.Route.extend({
 				UniversalAnalytics.setDimension(23, 'no');
 				UniversalAnalytics.setDimension(24, 'no');
 			}
-
-			trackPageView(this.get('adsContext.targeting'));
-		}).catch(() => {
+		}).finally(() => {
 			trackPageView(this.get('adsContext.targeting'));
 		});
 	},
 
 	/**
-	 * @param {Ember.controller} controller
-	 * @param {Ember.model} model
+	 * @param {Ember.Controller} controller
+	 * @param {Ember.Model} model
 	 * @returns {void}
 	 */
 	renderTemplate(controller, model) {
-		this.render(this.get('mediaWikiHandler').viewName, {
-			controller: this.get('mediaWikiHandler').controllerName,
-			model
-		});
+		const handler = this.get('wikiHandler');
+
+		if (handler) {
+			this.render(handler.viewName, {
+				controller: handler.controllerName,
+				model
+			});
+		}
+	},
+
+	/**
+	 * Remove head tags set in server, so ember-cli-meta-tags add-on can handle by his own.
+	 * This is temporary solution. Remove this when fastboot is introduced.
+	 * @returns {void}
+	 */
+	removeHeadTagsSetInServer() {
+		Ember.$('link[rel=canonical]:not([id])').remove();
+		Ember.$('meta[name=description]:not([id])').remove();
+		Ember.$('meta[name=apple-itunes-app]:not([id])').remove();
 	},
 
 	/**
@@ -155,6 +222,7 @@ export default Ember.Route.extend({
 	 */
 	activate() {
 		this.controllerFor('application').set('enableShareHeader', true);
+		this.removeHeadTagsSetInServer();
 	},
 
 	/**
@@ -178,8 +246,6 @@ export default Ember.Route.extend({
 		 * @returns {boolean}
 		 */
 		didTransition() {
-			this.get('mediaWikiHandler').didTransition(this);
-
 			if (this.get('redirectEmptyTarget')) {
 				this.controllerFor('application').addAlert({
 					message: i18n.t('app.article-redirect-empty-target'),
@@ -188,26 +254,6 @@ export default Ember.Route.extend({
 			}
 
 			return true;
-		},
-
-		/**
-		 * @param {*} error
-		 * @param {EmberStates.Transition} transition
-		 * @returns {boolean}
-		 */
-		error(error, transition) {
-			if (transition) {
-				transition.abort();
-			}
-
-			Ember.Logger.debug(error);
-
-			this.controllerFor('application').addAlert({
-				message: i18n.t('app.article-error'),
-				type: 'alert'
-			});
-
-			return true;
 		}
-	},
+	}
 });
