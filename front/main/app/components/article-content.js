@@ -611,10 +611,11 @@ export default Ember.Component.extend(
 				selection.addRange(range);
 
 				Ember.$('html, body').animate({scrollTop: $highlightedElement.offset().top - 150}, () => {
-					Ember.$(document).one('selectionchange', () => {
-						$paragraph.html($paragraph.html().replace(`<span id="${highlightedId}">${word}</span>`, word));
-					});
+					$highlightedElement.addClass('highlighted');
 
+					Ember.$(document).one('selectionchange', () => {
+						$paragraph.html($paragraph.html().replace($highlightedElement[0].outerHTML, word));
+					});
 				});
 
 				Ember.run.later(() => {
