@@ -21,7 +21,14 @@ ImageReviewModel.reopenClass({
 				xhrFields: {
 					withCredentials: true
 				},
-				success: (data) => resolve(ImageReviewModel.getImagesAndCount(data.id)),
+				success: (data, textStatus, xhr) => {
+					// In case there are no more images, create empty model and show `No more images to review` message
+					if (xhr.status === 204) {
+						resolve(ImageReviewModel.create({}));
+					} else {
+						resolve(ImageReviewModel.getImagesAndCount(data.id));
+					}
+				},
 				error: (data) => reject(data)
 			});
 		});
@@ -103,10 +110,10 @@ ImageReviewModel.reopenClass({
 					imageId: image.imageId,
 					fullSizeImageUrl: image.imageUrl,
 					contractId,
+					context: image.context || '#',
 					status: 'accepted'
 				}));
 			}
-			// else skip because is reviewed already
 		});
 		return ImageReviewModel.create({images, contractId, imagesToReviewCount});
 	},

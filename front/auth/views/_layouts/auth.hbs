@@ -10,7 +10,7 @@
 		<!-- endbuild -->
 
 		{{> optimizely}}
-		{{> tracking}}
+		{{> tracking-ua}}
 		<link rel="canonical" href="{{canonicalUrl}}" />
 	</head>
 	<body class="auth {{pageParams.viewType}} {{bodyClasses}} {{#if standalonePage}}standalone{{/if}}" data-page-type="{{pageType}}">
@@ -63,8 +63,12 @@
 			M.loadDOMResource('/front/common/symbols.svg');
 			M.prop('tracking', {{{json trackingConfig}}});
 			M.prop('isGASpecialWiki', true);
+			M.prop('initialPageView', true, true);
 
 			require('auth/app/main').init();
 		</script>
+		{{> tracking-quantserve}}
+		{{> tracking-comscore}}
+		{{> tracking-nielsen}}
 	</body>
 </html>

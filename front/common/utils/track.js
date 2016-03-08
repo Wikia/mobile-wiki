@@ -1,12 +1,8 @@
 /* eslint no-console: 0 */
 
-import Comscore from '../modules/Trackers/Comscore';
 import Internal from '../modules/Trackers/Internal';
-import IVW3 from '../modules/Trackers/IVW3';
-import Krux from '../modules/Trackers/Krux';
-import Nielsen from '../modules/Trackers/Nielsen';
-import Quantserve from '../modules/Trackers/Quantserve';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
+import Ads from '../modules/Ads';
 
 /**
  * @typedef {Object} TrackContext
@@ -34,12 +30,7 @@ import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
  */
 
 const trackers = {
-		Comscore,
 		Internal,
-		IVW3,
-		Krux,
-		Nielsen,
-		Quantserve,
 		UniversalAnalytics
 	},
 	/**
@@ -50,6 +41,8 @@ const trackers = {
 	trackActions = {
 		// Generic add
 		add: 'add',
+		// During recent operations some data has been changed
+		change: 'change',
 		// Generic click, mostly javascript clicks
 		// NOTE: When tracking clicks, consider binding to 'onMouseDown' instead of 'onClick'
 		// to allow the browser time to send these events naturally. For more information on
@@ -71,6 +64,8 @@ const trackers = {
 		enable: 'enable',
 		// Generic error (generally AJAX)
 		error: 'error',
+		// Input focus
+		focus: 'focus',
 		// Generic hover
 		hover: 'hover',
 		// impression of item on page/module
@@ -79,13 +74,13 @@ const trackers = {
 		install: 'install',
 		// Generic keypress
 		keypress: 'keypress',
+		// Generic open
+		open: 'open',
 		paginate: 'paginate',
 		// Video play
 		playVideo: 'play-video',
 		// Removal
 		remove: 'remove',
-		// Generic open
-		open: 'open',
 		// Sharing view email, social network, etc
 		share: 'share',
 		// Form submit, usually a post method
@@ -200,6 +195,17 @@ export function trackPageView(adsContext) {
 			instance.trackPageView(instance.usesAdsContext ? adsContext : context);
 		}
 	});
+
+	if (M.prop('initialPageView')) {
+		M.prop('initialPageView', false);
+	} else {
+		window.trackQuantservePageView();
+		window.trackNielsenPageView();
+		window.trackComscorePageView();
+		window.trackIVW3PageView();
+	}
+
+	Ads.getInstance().trackKruxPageView();
 }
 
 /**

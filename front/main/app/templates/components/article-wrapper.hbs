@@ -69,8 +69,6 @@
 	{{wikia-users
 		users=model.topContributors
 		classes='contributors'
-		label='app.article-top-contributors-label'
-		trackingEvent='contributors'
 	}}
 	{{#if showComments}}
 		{{article-comments
@@ -85,10 +83,10 @@
 			tLabel='app.article-categories-list-label'
 			ordered=false
 			observe=model.displayTitle
-			trackingEvent='category'
+			trackingEvent='category-menu'
 		}}
 			{{#each model.categories as |category|}}
-				<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
+				<li class="mw-content" {{action 'trackClick' 'category-menu' 'open-category'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
 					{{unbound category.title}}
 					{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 				</a></li>
@@ -115,3 +113,15 @@
 {{#if displayRecentEdit}}
 	{{recent-edit-banner}}
 {{/if}}
+{{article-edit-highlighted-entrypoint
+	section=highlightedSectionIndex
+	highlightedText=highlightedText
+	title=model.title
+	editAllowed=editAllowed
+	showEdit=showHighlightedEdit
+	edit=(action 'edit')
+}}
+{{#highlighted-editor-pop-over for='highlighted-text' on='click' flow='dropdown' class='highlighted-text-editor-popover'}}
+    <h2>Performing small edits on mobile just got easier!</h2>
+    <p>Highlight the word or phrase you want to fix and tap the button below.</p>
+{{/highlighted-editor-pop-over}}

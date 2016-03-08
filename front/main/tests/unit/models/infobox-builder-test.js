@@ -63,7 +63,8 @@ test('add items by type', (assert) => {
 						component: mockComponentName
 					},
 					source: `row${index}`,
-					type: 'row'
+					type: 'row',
+					sourceFrozen: false
 				},
 				message: 'add row item'
 			},
@@ -290,7 +291,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: 'src',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -309,7 +311,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -328,7 +331,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -342,7 +346,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -356,7 +361,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: 'row1',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: false
 				}
 			}
 		];
@@ -371,7 +377,8 @@ test('extend row data', (assert) => {
 					component: 'component'
 				},
 				source: 'row1',
-				type: 'row'
+				type: 'row',
+				sourceFrozen: false
 			},
 			extended = infoboxBuilderModelClass.extendRowData(item, testCase.additionalItemData);
 
@@ -385,6 +392,12 @@ test('extend row data', (assert) => {
 			extended.data.label,
 			testCase.expected.data.label,
 			'row label'
+		);
+
+		assert.equal(
+			extended.sourceFrozen,
+			testCase.expected.sourceFrozen,
+			'source freezed'
 		);
 	});
 });
@@ -689,5 +702,79 @@ test('extend section header data', (assert) => {
 		assert.equal(extendedObject.collapsible, testCase.expected.collapsible);
 		assert.equal(extendedObject.type, type);
 		assert.equal(extendedObject.infoboxBuilderData, infoboxBuilderData);
+	});
+});
+
+test('set edit item', (assert) => {
+	const sanitizeItemDataStub = sinon.stub(infoboxBuilderModelClass, 'sanitizeItemData', (item) => item.data),
+		cases = [
+			{
+				item: {
+					data: {
+						test: 1
+					},
+					infoboxBuilderData: {}
+				},
+				expectedOriginalData: {
+					test: 1
+				}
+			},
+			{
+				item: {
+					data: {
+						test: 1
+					},
+					infoboxBuilderData: {
+						originalData: {
+							test: 2
+						}
+					}
+				},
+				expectedOriginalData: {
+					test: 2
+				}
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create();
+
+		model.setEditItem(testCase.item);
+
+		assert.deepEqual(model.get('itemInEditMode'), testCase.item);
+		assert.deepEqual(testCase.item.infoboxBuilderData.originalData, testCase.expectedOriginalData);
+	});
+
+	sanitizeItemDataStub.restore();
+});
+
+test('sanitizes item data', (assert) => {
+	const cases = [
+		{
+			item: {
+				type: 'label',
+				data: {
+					value: '1'
+				}
+			},
+			expectedSanitizedData: {
+				value: '1'
+			}
+		},
+		{
+			item: {
+				type: 'section-header',
+				data: '1',
+				collapsible: true
+			},
+			expectedSanitizedData: {
+				value: '1',
+				collapsible: true
+			}
+		}
+	];
+
+	cases.forEach((testCase) => {
+		assert.deepEqual(infoboxBuilderModelClass.sanitizeItemData(testCase.item), testCase.expectedSanitizedData);
 	});
 });
