@@ -124,6 +124,7 @@ $legend-font-size: 16px;
 
 	.moderation-checkbox-label {
 		align-items: flex-start;
+		color: $discussion-filters-color;
 		display: flex;
 		line-height: $line-height-min;
 		padding-top: 18px;
