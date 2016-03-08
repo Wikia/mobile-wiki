@@ -307,6 +307,15 @@ body.dark-theme {
 					color: $dark-discussion-sort-color;
 				}
 			}
+
+			&.no-trending {
+				li {
+					&.sort-trending {
+						border-bottom-color: $dark-discussion-sort-inactive-color;
+						color: $dark-discussion-sort-inactive-color;
+					}
+				}
+			}
 		}
 
 		.discussion-no-replies {

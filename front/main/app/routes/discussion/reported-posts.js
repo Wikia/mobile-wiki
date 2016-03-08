@@ -18,19 +18,37 @@ export default DiscussionBaseRoute.extend(
 		forumId: null,
 
 		/**
+		 * Redirect to 'latest' if any other (yet) unsupported sort called
+		 *
+		 * @param {EmberStates.Transition} transition
+		 *
+		 * @returns {void}
+		 */
+		beforeModel(transition) {
+			const routeParams = transition.params['discussion.reported-posts'],
+				forumId = routeParams.forumId,
+				sortBy = routeParams.sortBy;
+
+			this.set('forumId', forumId);
+
+			if (sortBy !== 'latest') {
+				this.setSortBy('latest');
+			}
+		},
+
+		/**
 		 * @param {object} params
+		 *
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
 			const discussionSort = this.get('discussionSort');
 
-			if (params.sortBy) {
+			if (params.sortBy !== discussionSort.get('sortBy')) {
 				discussionSort.setSortBy(params.sortBy);
 			}
 
 			discussionSort.setOnlyReported(true);
-
-			this.set('forumId', params.forumId);
 
 			return DiscussionReportedPostsModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
 		},

@@ -46,6 +46,14 @@ $legend-font-size: 16px;
 		margin: 0;
 		padding: 0;
 		width: 100%;
+
+		&:disabled {
+			.sort-trending {
+				label {
+					color: $discussion-filter-inactive-color;
+				}
+			}
+		}
 	}
 
 	.moderation-fieldset {

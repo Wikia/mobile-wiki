@@ -16,6 +16,10 @@ export default Ember.Component.extend(
 			return this.get('onlyReported') === true ? 'active-element-background-color' : null;
 		}),
 
+		trendingDisabled: Ember.computed('onlyReported', function () {
+			return this.get('onlyReported') === true ? 'disabled' : undefined;
+		}),
+
 		actions: {
 			/**
 			 * Form handler
@@ -56,6 +60,10 @@ export default Ember.Component.extend(
 
 				if (isCheckboxChecked !== this.get('onlyReported')) {
 					this.set('onlyReported', isCheckboxChecked);
+				}
+
+				if (isCheckboxChecked === true) {
+					this.send('setSortBy', 'latest');
 				}
 
 				if (!this.get('showApplyButton')) {
