@@ -22,6 +22,16 @@ export default Ember.Component.extend(
 		isReorderTooltipVisible: Ember.computed('isPreviewItemHovered', 'isPreviewItemDragged', function () {
 			return this.get('isPreviewItemHovered') && !this.get('isPreviewItemDragged');
 		}),
+		
+		themeClassName: Ember.computed('theme', function () {
+			const theme = this.get('theme');
+
+			if (theme) {
+				return ` theme-${theme}`;
+			}
+
+			return null;
+		}),
 
 		actions: {
 			/**

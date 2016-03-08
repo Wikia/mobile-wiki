@@ -15,6 +15,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		};
 		this.infoboxState = [];
 		this.itemInEditMode = null;
+		this.theme = null;
 	},
 
 	/**
@@ -255,6 +256,10 @@ const InfoboxBuilderModel = Ember.Object.extend({
 			this.setupExistingState(data.data);
 		} else {
 			this.setupInitialState();
+		}
+
+		if (!Ember.isEmpty(data.theme)) {
+			this.set('theme', data.theme);
 		}
 	},
 
