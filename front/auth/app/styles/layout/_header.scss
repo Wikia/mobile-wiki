@@ -1,5 +1,5 @@
 .auth-header {
-	padding: 30px 24px 0;
+	padding: 20px 24px 20px;
 	text-align: center;
 
 	.header-callout-link {
@@ -20,6 +20,7 @@
 .desktop {
 	.auth-header {
 		min-height: 145px;
+		margin: 19px auto 0;
 		padding: 40px 24px 50px;
 		position: relative;
 
