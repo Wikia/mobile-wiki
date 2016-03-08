@@ -250,6 +250,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * Uses data from API to setup the model
 	 *
 	 * @param {Object} data
+	 * @returns {void}
 	 */
 	setupInfoboxData(data) {
 		if (data.data) {
