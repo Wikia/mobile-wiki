@@ -3,7 +3,7 @@ import getEditToken from '../utils/edit-token';
 
 const InfoboxBuilderModel = Ember.Object.extend({
 	defaultTheme: 'europa',
-	
+
 	/**
 	 * @returns {void}
 	 */

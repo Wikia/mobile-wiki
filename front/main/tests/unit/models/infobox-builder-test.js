@@ -783,7 +783,7 @@ test('setups infobox data', (assert) => {
 	const cases = [
 		{
 			isNew: true,
-			assertions: function (model, setupInitialStateStub, setupExistingStateStub) {
+			assertions: (model, setupInitialStateStub) => {
 				assert.ok(setupInitialStateStub.calledOnce, 'setups initial state for new infobox');
 				assert.equal(model.get('theme'), model.get('defaultTheme'), 'sets default theme for new infobox');
 			}
@@ -794,7 +794,7 @@ test('setups infobox data', (assert) => {
 					test: true
 				}
 			},
-			assertions: function (model, setupInitialStateStub, setupExistingStateStub) {
+			assertions: (model, setupInitialStateStub, setupExistingStateStub) => {
 				assert.ok(setupExistingStateStub.calledWith({
 					test: true
 				}), 'setups state for existing infobox without a theme');
@@ -808,7 +808,7 @@ test('setups infobox data', (assert) => {
 			data: {
 				theme: 'test'
 			},
-			assertions: function (model, setupInitialStateStub, setupExistingStateStub) {
+			assertions: (model, setupInitialStateStub, setupExistingStateStub) => {
 				assert.ok(setupExistingStateStub.calledOnce, 'setups state for existing infobox with a theme');
 				assert.ok(
 					model.get('theme') === 'test',
