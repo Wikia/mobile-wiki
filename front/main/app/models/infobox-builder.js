@@ -2,6 +2,8 @@ import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 
 const InfoboxBuilderModel = Ember.Object.extend({
+	defaultTheme: 'europa',
+	
 	/**
 	 * @returns {void}
 	 */
@@ -250,17 +252,19 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * Uses data from API to setup the model
 	 *
 	 * @param {Object} data
+	 * @param {Boolean} isNew
 	 * @returns {void}
 	 */
-	setupInfoboxData(data) {
-		if (data.data) {
-			this.setupExistingState(data.data);
-		} else {
+	setupInfoboxData(data, isNew) {
+		if (isNew) {
 			this.setupInitialState();
-		}
+			this.set('theme', this.get('defaultTheme'));
+		} else {
+			this.setupExistingState(data.data);
 
-		if (!Ember.isEmpty(data.theme)) {
-			this.set('theme', data.theme);
+			if (!Ember.isEmpty(data.theme)) {
+				this.set('theme', data.theme);
+			}
 		}
 	},
 
@@ -303,7 +307,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 							controller: 'PortableInfoboxBuilderController',
 							method: 'publish',
 							title: this.get('title'),
-							data: InfoboxBuilderModel.prepareStateForSaving(this.get('infoboxState')),
+							data: InfoboxBuilderModel.prepareDataForSaving(this),
 							token
 						},
 						dataType: 'json',
@@ -347,20 +351,28 @@ InfoboxBuilderModel.reopenClass({
 	},
 
 	/**
-	 * Prepares infobox state to be sent to API.
+	 * Prepares infobox data to be sent to API.
 	 * The infoboxBuilderData part is needed only on client side
 	 * so remove it and wrap result as data object of the main infobox tag
 	 *
-	 * @param {Em.Array} state
+	 * @param {Ember.Object} model
 	 * @returns {String} stringified object
 	 */
-	prepareStateForSaving(state) {
-		const plainState = state.map((item) => {
-			delete item.infoboxBuilderData;
-			return item;
-		}).toArray();
+	prepareDataForSaving(model) {
+		const plainState = model.get('infoboxState').map((item) => {
+				delete item.infoboxBuilderData;
+				return item;
+			}).toArray(),
+			theme = model.get('theme'),
+			dataToSave = {
+				data: plainState
+			};
 
-		return JSON.stringify({data: plainState});
+		if (!Ember.isEmpty(theme)) {
+			dataToSave.theme = theme;
+		}
+
+		return JSON.stringify(dataToSave);
 	},
 
 	/**

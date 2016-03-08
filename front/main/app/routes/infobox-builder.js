@@ -52,9 +52,9 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {void}
 	 */
 	afterModel(model) {
-		const infoboxData = this.controllerFor('infobox-builder').get('infoboxData');
+		const controller = this.controllerFor('infobox-builder');
 
-		model.setupInfoboxData(infoboxData);
+		model.setupInfoboxData(controller.get('infoboxData'), controller.get('isNew'));
 	},
 
 	actions: {
@@ -213,20 +213,22 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	},
 
 	/**
-	 * Accepts data received from MW and sets it as a property on controller
-	 * which is then used to add data to the model in afterModel
+	 * Accepts data received from MW and sets it on controller to be used in afterModel
 	 *
 	 * @param {Object} serverResponse
 	 * @returns {void}
 	 */
 	setupInfoboxData(serverResponse) {
-		const infoboxData = serverResponse.data;
+		const infoboxData = serverResponse.data,
+			controller = this.controllerFor('infobox-builder');
 		let infoboxDataParsed = {};
 
 		if (infoboxData) {
 			infoboxDataParsed = JSON.parse(infoboxData);
-			this.controllerFor('infobox-builder').set('infoboxData', infoboxDataParsed);
+			controller.set('infoboxData', infoboxDataParsed);
 		}
+
+		controller.set('isNew', serverResponse.isNew);
 	},
 
 	/**

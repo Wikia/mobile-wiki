@@ -778,3 +778,52 @@ test('sanitizes item data', (assert) => {
 		assert.deepEqual(infoboxBuilderModelClass.sanitizeItemData(testCase.item), testCase.expectedSanitizedData);
 	});
 });
+
+test('setups infobox data', (assert) => {
+	const cases = [
+		{
+			isNew: true,
+			assertions: function (model, setupInitialStateStub, setupExistingStateStub) {
+				assert.ok(setupInitialStateStub.calledOnce, 'setups initial state for new infobox');
+				assert.equal(model.get('theme'), model.get('defaultTheme'), 'sets default theme for new infobox');
+			}
+		},
+		{
+			data: {
+				data: {
+					test: true
+				}
+			},
+			assertions: function (model, setupInitialStateStub, setupExistingStateStub) {
+				assert.ok(setupExistingStateStub.calledWith({
+					test: true
+				}), 'setups state for existing infobox without a theme');
+				assert.ok(
+					model.get('theme') === null,
+					'does not set theme if there is none returned from API for existing infobox'
+				);
+			}
+		},
+		{
+			data: {
+				theme: 'test'
+			},
+			assertions: function (model, setupInitialStateStub, setupExistingStateStub) {
+				assert.ok(setupExistingStateStub.calledOnce, 'setups state for existing infobox with a theme');
+				assert.ok(
+					model.get('theme') === 'test',
+					'sets theme if there is one returned from API for existing infobox'
+				);
+			}
+		}
+	];
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create(),
+			setupInitialStateStub = sinon.stub(model, 'setupInitialState'),
+			setupExistingStateStub = sinon.stub(model, 'setupExistingState');
+
+		model.setupInfoboxData(testCase.data, testCase.isNew);
+		testCase.assertions(model, setupInitialStateStub, setupExistingStateStub);
+	});
+});
