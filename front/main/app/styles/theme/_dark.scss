@@ -134,6 +134,10 @@ body.dark-theme {
 					}
 				}
 			}
+
+			&.is-reported {
+				background-color: $dark-discussion-post-card-reported-background;
+			}
 		}
 
 		.post-reply ~ .post-reply {
@@ -249,6 +253,16 @@ body.dark-theme {
 
 		.no-replies-message {
 			color: $dark-discussion-no-replies-text-color;
+		}
+
+		.discussion-filters {
+			legend {
+				color: $dark-discussion-rail-header-color;
+			}
+
+			label {
+				color: $dark-discussion-rail-label-color;
+			}
 		}
 	}
 
