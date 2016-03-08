@@ -11,13 +11,13 @@
     // Sets the time (as an integer) this tag was executed.  Used for timing hits.
 		window['ga'].l = 1 * new Date();
 
-		$script(['{{server.gaUrl}}'], 'ua', function() {
-        console.info('UA loaded');
-    });
+		$script(['{{server.gaUrl}}'], 'ua');
 
 		$script.ready(['ua', 'optimizely'], function(){
 				console.info('UA and Optimizely loaded');
 		});
 	</script>
 	<!-- End Universal Analyitcs -->
+{{else}}
+	<script>$script.done('ua');</script>
 {{/unless}}
