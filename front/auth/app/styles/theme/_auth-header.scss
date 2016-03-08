@@ -10,6 +10,7 @@
 		margin: 0;
 	}
 
+	p,
 	.header-callout-link {
 		font-size: $type-smallest;
 		font-weight: normal;
@@ -32,10 +33,10 @@
 			font-size: $type-large;
 			line-height: $line-height-large;
 			margin-top: 0.2rem;
-			margin-bottom: 1.4rem;
 			padding-bottom: 7px;
 		}
 
+		p,
 		.header-callout-link {
 			font-size: $type-smallest;
 			line-height: $line-height-smallest;
