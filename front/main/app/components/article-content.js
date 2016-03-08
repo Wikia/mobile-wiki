@@ -128,6 +128,7 @@ export default Ember.Component.extend(
 			this._super(...arguments);
 
 			this.destroyChildComponents();
+			this.destroyHighlightedEditorEvents();
 		},
 
 		click(event) {
@@ -612,8 +613,8 @@ export default Ember.Component.extend(
 					} else {
 						this.set('targetParagraphOffset', $paragraph.offset().top);
 						$paragraph.html(paragraphHtml.replace(word, `<span id="${highlightedId}">${word}</span>`));
-						Ember.$(document).on('touchmove', this, this.debouncedScroll);
-						Ember.$(window).on('scroll', this, this.debouncedScroll);
+						Ember.$(document).on('touchmove.launchDemo', this, this.debouncedScroll);
+						Ember.$(window).on('scroll.launchDemo', this, this.debouncedScroll);
 						return true;
 					}
 				});
@@ -632,8 +633,7 @@ export default Ember.Component.extend(
 				selection = window.getSelection(),
 				range = document.createRange();
 
-			Ember.$(document).unbind('touchmove', this.debouncedScroll);
-			Ember.$(window).unbind('scroll', this.debouncedScroll);
+			this.destroyHighlightedEditorEvents();
 
 			if ($highlightedElement) {
 				const $paragraph = $highlightedElement.parent(),
@@ -663,6 +663,11 @@ export default Ember.Component.extend(
 
 
 			}
+		},
+
+		destroyHighlightedEditorEvents() {
+			Ember.$(document).off('touchmove.launchDemo', this.debouncedScroll);
+			Ember.$(window).off('scroll.launchDemo', this.debouncedScroll);
 		},
 
 		/**
