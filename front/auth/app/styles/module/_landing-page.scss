@@ -22,14 +22,20 @@
 }
 
 .register-message {
+	align-items: center;
 	display: flex;
 	flex: 1;
+	flex-direction: column;
 	height: 100%;
-	justify-content: center;
+	justify-content: flex-end;
+
+	&.content-from-top {
+		justify-content: flex-start;
+	}
 
 	p {
-		font-size: 2.5rem;
-		line-height: 1.25;
+		font-size: $type-smaller;
+		line-height: $line-height-smaller;
 		margin: 0;
 	}
 
