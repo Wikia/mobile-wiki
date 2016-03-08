@@ -9,8 +9,26 @@
 label {
 	&.inline {
 		margin-bottom: .5rem;
-		padding-left: 20px;
+		padding-left: 24px;
 		text-indent: -20px;
+		position: relative;
+		top: 4px;
+
+		.fancy-checkbox {
+			background-color: $checkbox-color-bg;
+			border: 1px solid $checkbox-color-border;
+			height: 18px;
+			left: 0;
+			position: absolute;
+			width: 18px;
+		}
+
+		&.checked {
+			.fancy-checkbox {
+				background-image: url('/front/common/symbols/checkbox-checked.svg');
+				border: none;
+			}
+		}
 	}
 }
 
@@ -19,7 +37,7 @@ label {
 		&.inline {
 			font-size: $type-min;
 			margin: 2px 0 10px;
-			padding: 5px 0 5px 20px;
+			padding: 5px 0 5px 24px;
 		}
 	}
 }
