@@ -17,7 +17,7 @@ export default Ember.Component.extend(
 		}),
 
 		trendingDisabled: Ember.computed('onlyReported', function () {
-			return this.get('onlyReported') === true ? 'disabled' : undefined;
+			return this.get('onlyReported') === true ? 'disabled' : false;
 		}),
 
 		actions: {
