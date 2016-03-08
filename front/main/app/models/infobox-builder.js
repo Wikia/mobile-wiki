@@ -163,11 +163,20 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc sets item to the edit mode
+	 * @desc sets item to the edit mode and saves its current
+	 * data in the moment of beginning editing
+	 *
 	 * @param {Object} item
 	 * @returns {void}
 	 */
 	setEditItem(item) {
+		if (item && !item.infoboxBuilderData.originalData) {
+			const itemData = InfoboxBuilderModel.sanitizeItemData(item);
+
+			// we need a copy of itemData, not a reference to it
+			item.infoboxBuilderData.originalData = Ember.$.extend({}, itemData);
+		}
+
 		this.set('itemInEditMode', item);
 	},
 
@@ -334,7 +343,7 @@ InfoboxBuilderModel.reopenClass({
 	/**
 	 * @desc Overrides some properties of given Row object with additional
 	 * data, obtained from already existing template
-	 * TODO: use Object.assign() when we switch to Babel6
+	 * @todo: use Object.assign() when we switch to Babel6
 	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
@@ -357,7 +366,7 @@ InfoboxBuilderModel.reopenClass({
 	/**
 	 * @desc Overrides some properties of given Title object with additional
 	 * data, obtained from already existing template
-	 * TODO: use Object.assign() when we switch to Babel6
+	 * @todo: use Object.assign() when we switch to Babel6
 	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
@@ -417,6 +426,25 @@ InfoboxBuilderModel.reopenClass({
 		}
 
 		return item;
+	},
+
+	/**
+	 * Unifies item data format
+	 *
+	 * @param {Object} item
+	 * @returns {Object}
+	 */
+	sanitizeItemData(item) {
+		let itemData = item.data;
+
+		if (item.type === 'section-header') {
+			itemData = {
+				value: item.data,
+				collapsible: item.collapsible
+			};
+		}
+
+		return itemData;
 	}
 });
 
