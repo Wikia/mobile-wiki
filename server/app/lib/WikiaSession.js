@@ -41,8 +41,8 @@ export default function scheme() {
 						return reply(unauthorized('WhoAmI connection error'));
 					}
 
-					if (parsed.status && parsed.status !== 200) {
-						if (parsed.status === 401) {
+					if (response.statusCode && response.statusCode !== 200) {
+						if (response.statusCode === 401) {
 							reply.unstate('access_token');
 						}
 						return reply(unauthorized('Token not authorized by WhoAmI'));
