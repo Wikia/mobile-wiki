@@ -27,6 +27,14 @@ export default Ember.Mixin.create(
 
 				return this.transitionTo(targetRoute, Mercury.wiki.id, sortBy);
 			},
+
+			/**
+			 * @param {string} sortBy
+			 * @returns {void}
+			 */
+			setSortBy(sortBy) {
+				this.setSortBy(sortBy);
+			},
 		}
 	}
 );

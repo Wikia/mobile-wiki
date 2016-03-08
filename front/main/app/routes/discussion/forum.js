@@ -72,14 +72,6 @@ export default DiscussionBaseRoute.extend(
 					});
 				});
 			},
-
-			/**
-			 * @param {string} sortBy
-			 * @returns {void}
-			 */
-			setSortBy(sortBy) {
-				this.setSortBy(sortBy);
-			},
 		}
 	}
 );
