@@ -37,7 +37,7 @@ $discussion-user-list-item-mobile-side-padding: 18px;
 
 @media #{$mobile-range} {
 	.discussion-user-list,
-	.discussion-reported-posts{
+	.discussion-reported-posts {
 		.post-list-header-content {
 			.post-list-header {
 				font-size: $h4-font-size-small;
