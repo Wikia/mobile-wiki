@@ -243,8 +243,6 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
-
-
 			$(window).off('scroll.mercury.preload');
 			window.scrollTo(0, M.prop('scroll'));
 
@@ -253,8 +251,14 @@ export default Ember.Component.extend(
 			});
 
 			if (this.get('highlightedEditorEnabled')) {
-				document.addEventListener('selectionchange', this.setHighlightedText.bind(this));
+				Ember.$(document).on('selectionchange.highlight', this.setHighlightedText.bind(this));
 			}
+		},
+
+		willDestroyElement() {
+			this._super(...arguments);
+
+			Ember.$(document).off('selectionchange.highlight');
 		},
 
 		/**
