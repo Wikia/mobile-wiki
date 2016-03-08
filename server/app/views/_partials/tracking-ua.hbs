@@ -8,13 +8,15 @@
 			(window['ga'].q = window['ga'].q || []).push(arguments);
 		};
 
-    // Sets the time (as an integer) this tag was executed.  Used for timing hits.
+		// Sets the time (as an integer) this tag was executed.  Used for timing hits.
 		window['ga'].l = 1 * new Date();
 
 		$script(['{{server.gaUrl}}'], 'ua');
 
-		$script.ready(['ua', 'optimizely'], function(){
-				console.info('UA and Optimizely loaded');
+		$script.ready(['ua', 'optimizely'], function() {
+			$.getJSON('/wikia.php?controller=MercuryApi&method=getWikiVariables', function(data) {
+				console.info('Tracking PageView: DUMMY UNIVERSAL ANALYTICS', data);
+			});
 		});
 	</script>
 	<!-- End Universal Analyitcs -->

@@ -74,7 +74,11 @@ module.exports = function (defaults) {
 			// By default vendor is not watched by Ember CLI and we want to rebuild when common scripts are modified
 			vendor: 'vendor'
 		},
-		hinting: false
+		hinting: false,
+		vendorFiles: {
+			// we'll load jQuery on our own
+			'jquery.js': false
+		}
 	});
 
 	// Files below are concatenated to assets/vendor.js
@@ -96,9 +100,13 @@ module.exports = function (defaults) {
 			include: ['*.min.*'],
 			destDir: 'assets/vendor/cropper'
 		}),
+		jQueryAssets = new Funnel(app.bowerDirectory + '/jquery/dist', {
+			include: ['*.min.*'],
+			destDir: 'assets/vendor/jquery'
+		}),
 		pontoAssets = new Funnel(app.bowerDirectory + '/ponto/web/src', {
 			destDir: 'assets/vendor/ponto'
 		});
 
-	return app.toTree([cropperAssets, pontoAssets]);
+	return app.toTree([jQueryAssets, cropperAssets, pontoAssets]);
 };
