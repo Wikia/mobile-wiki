@@ -1,7 +1,7 @@
 import * as Utils from '../../lib/Utils';
 import {gaUserIdHash} from '../../lib/Hashing';
 import localSettings from '../../../config/localSettings';
-import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
+import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
 
 
 /**
@@ -73,6 +73,7 @@ export default function prepareArticleData(request, data) {
 	result.localSettings = getLocalSettings();
 
 	result.qualarooScript = getQualarooScriptUrl(request);
+	result.optimizelyScript = getOptimizelyScriptUrl(request);
 	result.userId = getUserId(request);
 	result.gaUserIdHash = gaUserIdHash(result.userId);
 

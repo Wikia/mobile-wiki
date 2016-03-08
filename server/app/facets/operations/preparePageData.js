@@ -46,6 +46,22 @@ export function getQualarooScriptUrl(request) {
 }
 
 /**
+ * @param {Hapi.Request} request
+ * @returns {boolean|String}
+ */
+export function getOptimizelyScriptUrl(request) {
+	// all the third party scripts we don't want to load on noexternals
+	if (!request.query.noexternals) {
+		// optimizely
+		if (localSettings.optimizely.enabled) {
+			return `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`;
+		}
+	}
+
+	return false;
+}
+
+/**
  *
  * @param {String} type
  * @param {String} title

@@ -1,3 +1,7 @@
 {{#if optimizelyScript}}
-	<script src="{{optimizelyScript}}"></script>
+	<script>
+		$script(['{{optimizelyScript}}'], 'optimizely', function() {
+			console.info('Optimizely loaded');
+		});
+	</script>
 {{/if}}

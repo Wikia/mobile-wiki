@@ -275,11 +275,6 @@ export function createServerData(localSettings, wikiDomain = '') {
 			cdnBaseUrl: getCDNBaseUrl(localSettings),
 			gaUrl: localSettings.tracking.ua.scriptUrl
 		};
-
-	if (localSettings.optimizely.enabled) {
-		data.optimizelyScript = `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`;
-	}
-
 	return data;
 }
 

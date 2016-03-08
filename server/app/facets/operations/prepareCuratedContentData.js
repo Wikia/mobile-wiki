@@ -1,6 +1,6 @@
 import {parseQueryParams} from '../../lib/Utils';
 import {gaUserIdHash} from '../../lib/Hashing';
-import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
+import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
 
 /**
  * @param {Hapi.Request} request
@@ -57,6 +57,7 @@ export default function prepareCuratedContentData(request, curatedContentPageDat
 	result.gaUserIdHash = gaUserIdHash(result.userId);
 
 	result.qualarooScript = getQualarooScriptUrl(request);
+	result.optimizelyScript = getOptimizelyScriptUrl(request);
 
 	return result;
 }

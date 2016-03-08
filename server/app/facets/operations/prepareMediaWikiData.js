@@ -1,7 +1,7 @@
 import * as Utils from '../../lib/Utils';
 import {gaUserIdHash} from '../../lib/Hashing';
 import localSettings from '../../../config/localSettings';
-import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
+import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
 
 /**
  * Prepares article data to be rendered
@@ -45,6 +45,7 @@ export default function prepareMediaWikiData(request, data) {
 	result.localSettings = getLocalSettings();
 
 	result.qualarooScript = getQualarooScriptUrl(request);
+	result.optimizelyScript = getOptimizelyScriptUrl(request);
 	result.userId = getUserId(request);
 	result.gaUserIdHash = gaUserIdHash(result.userId);
 	result.displayTitle = request.params.title.replace(/_/g, ' ');
