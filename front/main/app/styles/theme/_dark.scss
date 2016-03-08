@@ -138,6 +138,14 @@ body.dark-theme {
 			&.is-reported {
 				background-color: $dark-discussion-post-card-reported-background;
 			}
+
+			.top-note {
+				border-bottom-color: $dark-discussion-top-note-border-bottom-color;
+
+				.text-content {
+					color: $dark-discussion-top-note-border-bottom-color;
+				}
+			}
 		}
 
 		.post-reply ~ .post-reply {
@@ -271,13 +279,6 @@ body.dark-theme {
 			img, svg {
 				border-color: $dark-discussion-avatar-border-color;
 			}
-		}
-	}
-
-	.discussion-user-list,
-	.discussion-reported-posts {
-		.post-reply {
-			background-color: $dark-discussion-desktop-post-detail-bg-color;
 		}
 	}
 }
