@@ -81,6 +81,11 @@
 	display: inline-block;
 	margin: .25rem 0 0;
 	text-align: right;
+
+	.footer-callout-emphasis {
+		font-weight: bold;
+		text-decoration: underline;
+	}
 }
 
 .sign-in {
@@ -88,5 +93,5 @@
 }
 
 .sign-in, .sign-in-message {
-	font-size: 0.75rem;
+	font-size: $type-smallest;
 }

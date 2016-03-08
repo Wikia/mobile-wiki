@@ -1,13 +1,19 @@
 .auth-header {
-	flex-grow: 0;
-	flex-shrink: 0;
-	margin: 19px auto 0;
-	width: $desktop-content-width;
 	padding: 30px 24px 0;
 	text-align: center;
 
 	.header-callout-link {
 		padding: 0;
+	}
+}
+
+.standalone {
+	.auth-header {
+		flex-grow: 0;
+		flex-shrink: 0;
+		margin: 19px auto 0;
+		max-width: $desktop-content-max-width;
+		min-width: $desktop-content-min-width;
 	}
 }
 
