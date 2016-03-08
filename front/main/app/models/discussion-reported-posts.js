@@ -7,15 +7,6 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
 	{
-
-		normalizePostData(post) {
-			post.firstPost = post._embedded.firstPost[0];
-			post.firstPost.isReported = post.isReported;
-			if (Ember.get(post, 'firstPost._embedded.userData')) {
-				post._embedded.userData = post.firstPost._embedded.userData;
-			}
-		},
-
 		/**
 		 * @param {number} pageNum
 		 * @param {string} [sortBy='trending']
@@ -29,16 +20,13 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 					page: this.get('pageNum'),
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
-					viewableOnly: false
+					viewableOnly: false,
+					reported: true
 				},
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
 				success: (data) => {
-					const newPosts = data._embedded['doc:threads'];
-					let allPosts;
-
-					newPosts.forEach(this.normalizePostData);
-
-					allPosts = this.posts.concat(newPosts);
+					const newPosts = data._embedded['doc:posts'],
+						allPosts = this.posts.concat(newPosts);
 
 					this.set('posts', allPosts);
 				},
@@ -59,14 +47,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				data: JSON.stringify(postData),
 				method: 'POST',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
-				success: (post) => {
-					post._embedded.firstPost[0].isNew = true;
-
-					this.normalizePostData(post);
-
-					this.posts.insertAt(0, post);
-					this.incrementProperty('totalPosts');
-				},
+				success() {},
 				error: (err) => {
 					this.onCreatePostError(err);
 				}
@@ -89,6 +70,7 @@ DiscussionForumModel.reopenClass({
 			}),
 			requestData = {
 				viewableOnly: false,
+				reported: true
 			};
 
 		if (sortBy) {
@@ -98,13 +80,13 @@ DiscussionForumModel.reopenClass({
 		return ajaxCall({
 			context: forumInstance,
 			data: requestData,
-			url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
+			url: M.getDiscussionServiceUrl(`/${wikiId}/posts`),
 			success: (data) => {
 				const contributors = [],
 					embedded = data._embedded,
-					posts = embedded && embedded['doc:threads'] ? embedded['doc:threads'] : [],
+					posts = embedded && embedded['doc:posts'] ? embedded['doc:posts'] : [],
 					pivotId = (posts.length > 0 ? posts[0].id : null),
-					totalPosts = data.threadCount;
+					totalPosts = data.postCount;
 
 				posts.forEach((post) => {
 					if (post.hasOwnProperty('createdBy')) {
@@ -112,11 +94,8 @@ DiscussionForumModel.reopenClass({
 							namespace: 'User',
 							title: post.createdBy.name
 						});
-
 						contributors.push(post.createdBy);
 					}
-
-					forumInstance.normalizePostData(post);
 				});
 
 				forumInstance.setProperties({

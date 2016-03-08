@@ -1,9 +1,10 @@
 import DiscussionBaseRoute from './base';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
-import DiscussionForumModel from '../../models/discussion-forum';
+import DiscussionReportedPostsModel from '../../models/discussion-reported-posts';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
+
 
 export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
@@ -11,28 +12,45 @@ export default DiscussionBaseRoute.extend(
 	DiscussionModerationRouteMixin,
 	DiscussionForumActionsRouteMixin,
 	{
-		canModerate: null,
-		discussionSort: Ember.inject.service(),
 		discussionEditor: Ember.inject.service(),
+		discussionSort: Ember.inject.service(),
 
 		forumId: null,
 
 		/**
+		 * Redirect to 'latest' if any other (yet) unsupported sort called
+		 *
+		 * @param {EmberStates.Transition} transition
+		 *
+		 * @returns {void}
+		 */
+		beforeModel(transition) {
+			const routeParams = transition.params['discussion.reported-posts'],
+				forumId = routeParams.forumId,
+				sortBy = routeParams.sortBy;
+
+			this.set('forumId', forumId);
+
+			if (sortBy !== 'latest') {
+				this.setSortBy('latest');
+			}
+		},
+
+		/**
 		 * @param {object} params
+		 *
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
 			const discussionSort = this.get('discussionSort');
 
-			if (params.sortBy) {
+			if (params.sortBy !== discussionSort.get('sortBy')) {
 				discussionSort.setSortBy(params.sortBy);
 			}
 
-			discussionSort.setOnlyReported(false);
+			discussionSort.setOnlyReported(true);
 
-			this.set('forumId', params.forumId);
-
-			return DiscussionForumModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
+			return DiscussionReportedPostsModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
 		},
 
 		/**
@@ -41,7 +59,7 @@ export default DiscussionBaseRoute.extend(
 		 */
 		setSortBy(sortBy) {
 			this.get('discussionSort').setSortBy(sortBy);
-			return this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+			return this.transitionTo('discussion.reported-posts', this.get('forumId'), sortBy);
 		},
 
 		actions: {
@@ -50,19 +68,19 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor('discussion.forum').loadPage(pageNum, this.get('discussionSort.sortBy'));
+				this.modelFor('discussion.reported-posts').loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
 			/**
-			 * Applies sorting by date and attempts to create a new post
+			 * Goes to post list page and attempts to create a new post there
 			 *
 			 * @param {object} postData
 			 *
 			 * @returns {void}
 			 */
-
 			create(postData) {
-				this.setSortBy('latest').promise.then(() => {
+				this.get('discussionSort').setSortBy('latest');
+				this.transitionTo('discussion.forum', this.get('forumId'), 'latest').promise.then(() => {
 					const model = this.modelFor('discussion.forum');
 
 					model.createPost(postData).then((xhr) => {

@@ -1,23 +1,19 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend(
+export default Ember.Mixin.create(
 	{
 		classNames: ['forum-wrapper', 'discussion', 'forum'],
-		postsDisplayed: 0,
-		totalPosts: 0,
-		pageNum: null,
 		currentlyLoadingPage: false,
 		isLoading: true,
+		pageNum: null,
+		postsDisplayed: 0,
+		totalPosts: 0,
 
 		hasMore: Ember.computed('totalPosts', 'postsDisplayed', function () {
 			return this.get('totalPosts') > this.get('postsDisplayed');
 		}),
 
-		pageLoaded: Ember.observer('postsDisplayed', function () {
-			this.set('currentlyLoadingPage', false);
-		}),
-
-		minorErrorObserver: Ember.observer('minorError', function () {
+		loadingPageResolveObserver: Ember.observer('postsDisplayed', 'minorError', function () {
 			this.set('currentlyLoadingPage', false);
 		}),
 

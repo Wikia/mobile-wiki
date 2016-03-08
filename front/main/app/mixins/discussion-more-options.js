@@ -27,6 +27,18 @@ export default Ember.Mixin.create({
 			// the only way to close it after triggering an action from it
 			this.$('.discussion-more-options').mousedown();
 			this.attrs.undelete(item);
-		}
+		},
+
+		/**
+		 * Report an item and close pop-over
+		 * @param {object} item - post or reply
+		 * @returns {void}
+		 */
+		report(item) {
+			// There's no API for closing Ember Pop-Up, so that's
+			// the only way to close it after triggering an action from it
+			this.$('.discussion-more-options').mousedown();
+			this.attrs.report(item);
+		},
 	}
 });
