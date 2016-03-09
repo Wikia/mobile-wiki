@@ -96,6 +96,10 @@ body.discussions {
 	line-height: $line-height-smallest;
 	max-width: inherit;
 
+	.top-note-icon {
+		fill: $discussion-post-card-top-note-color;
+	}
+
 	.top-note {
 		border-bottom: 1px solid $discussion-post-card-top-note-border;
 		font-size: $type-min;

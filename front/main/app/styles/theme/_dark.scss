@@ -139,6 +139,10 @@ body.dark-theme {
 				background-color: $dark-discussion-post-card-reported-background;
 			}
 
+			.top-note-icon {
+				fill: $dark-discussion-post-card-top-note-color;
+			}
+
 			.top-note {
 				border-bottom-color: $dark-discussion-top-note-border-bottom-color;
 
