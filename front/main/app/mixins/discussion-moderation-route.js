@@ -95,6 +95,30 @@ export default Ember.Mixin.create({
 			this.modelFor(this.get('routeName')).undeleteReply(reply).then(() => {
 				Ember.set(reply, 'isLoading', false);
 			});
-		}
+		},
+
+		/**
+		 * Pass post/reply reporting to model
+		 * @param {object} item
+		 * @returns {void}
+		 */
+		report(item) {
+			Ember.set(item, 'isLoading', true);
+			this.modelFor(this.get('routeName')).report(item).then(() => {
+				Ember.set(item, 'isLoading', false);
+			});
+		},
+
+		/**
+		 * Pass post/reply approval to model
+		 * @param {object} item
+		 * @returns {void}
+		 */
+		approve(item) {
+			Ember.set(item, 'isLoading', true);
+			this.modelFor(this.get('routeName')).approve(item).then(() => {
+				Ember.set(item, 'isLoading', false);
+			});
+		},
 	}
 });

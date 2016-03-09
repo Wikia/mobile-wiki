@@ -1,7 +1,10 @@
 import Ember from 'ember';
 
-/** This is a wrapper for ajax calls
+/**
+ * Wrapper for AJAX calls
+ *
  * @param {object} options
+ *
  * @returns {Ember.RSVP.Promise}
  */
 export default function (options) {
@@ -17,16 +20,17 @@ export default function (options) {
 
 	return new Ember.RSVP.Promise((resolve) => {
 		settings.success = function (data) {
+			this.apiResponseData = data;
 			options.success(data);
 			resolve(this);
 		};
+
 		settings.error = function (err) {
 			options.error(err);
-			/** Becouse error substate doesn't work in mercury we resolve instead of reject.
-			 *  To handle errors we use custom method in discussionBase model
-			 */
+			// ToDo reject the promise and use error substates (SOC-2093)
 			resolve(this);
 		};
+
 		Ember.$.ajax(settings);
 	});
 }

@@ -18,8 +18,10 @@ Router.map(function () {
 
 	this.route('article-preview');
 
+	// we use here wilcard instead of a dynamic segment to be able to
+	// handle in builder also sub-templates (with /)
 	this.route('infobox-builder', {
-		path: '/infobox-builder/:templateName'
+		path: '/infobox-builder/*templateName'
 	});
 
 	this.route('mainPageSection', {
@@ -98,6 +100,10 @@ Router.map(function () {
 
 		this.route('forum', {
 			path: '/f/:forumId/:sortBy'
+		});
+
+		this.route('reported-posts', {
+			path: '/f/:forumId/:sortBy/reported'
 		});
 
 		this.route('post', {

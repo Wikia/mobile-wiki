@@ -1,7 +1,7 @@
 {{#if model.items}}
 	<nav class='curated-content-items'>
-		{{#each model.items as |item|}}
-			{{curated-content-item model=item action='clickItem'}}
+		{{#each model.items as |item index|}}
+			{{curated-content-item index=index openCuratedContentItem=openCuratedContentItem model=item}}
 		{{/each}}
 
 	{{! the empty newline above lets the last inline item to be justified to the right if it's even }}

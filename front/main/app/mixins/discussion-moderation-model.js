@@ -3,6 +3,13 @@ import {checkPermissions} from 'common/utils/discussionPermissions';
 import ajaxCall from '../utils/ajax-call';
 
 export default Ember.Mixin.create({
+	canModerate: Ember.computed('posts', function () {
+		const posts = this.get('posts');
+
+		// TODO fix me when API starts sending permissions for bulk operations
+		return posts && checkPermissions(posts[0], 'canModerate');
+	}),
+
 	/**
 	 * Delete post in service
 	 * @param {object} post
@@ -14,7 +21,10 @@ export default Ember.Mixin.create({
 				method: 'PUT',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/delete`),
 				success: () => {
-					Ember.set(post, 'isDeleted', true);
+					Ember.setProperties(post, {
+						isDeleted: true,
+						isReported: false
+					});
 				},
 				error: () => {
 					this.displayError();
@@ -35,7 +45,10 @@ export default Ember.Mixin.create({
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/users/${posts[0].creatorId}/posts/delete`),
 				success: () => {
 					posts.forEach((post) => {
-						Ember.set(post, 'isDeleted', true);
+						Ember.setProperties(post, {
+							isDeleted: true,
+							isReported: false
+						});
 					});
 				},
 				error: () => {
@@ -76,7 +89,10 @@ export default Ember.Mixin.create({
 				method: 'PUT',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/delete`),
 				success: () => {
-					Ember.set(reply, 'isDeleted', true);
+					Ember.setProperties(reply, {
+						isDeleted: true,
+						isReported: false
+					});
 				},
 				error: () => {
 					this.displayError();
@@ -103,6 +119,49 @@ export default Ember.Mixin.create({
 				}
 			});
 		}
+	},
+
+	/**
+	 * Approve post/reply in service
+	 * @param {object} item
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	approve(item) {
+		if (checkPermissions(item, 'canModerate')) {
+			return ajaxCall({
+				data: JSON.stringify({value: 1}),
+				dataType: 'text',
+				method: 'PUT',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${item.id}/report/valid`),
+				success: () => {
+					Ember.set(item, 'isReported', false);
+				},
+				error: () => {
+					this.displayError();
+				}
+			});
+		}
+	},
+
+	/**
+	 * Report post/reply in service
+	 * @param {object} item
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	report(item) {
+		return ajaxCall({
+			data: JSON.stringify({value: 1}),
+			dataType: 'text',
+			method: 'PUT',
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${item.id}/report`),
+			success: () => {
+				Ember.set(item, '_embedded.userData.0.hasReported', true);
+				Ember.set(item, 'isReported', true);
+			},
+			error: () => {
+				this.displayError();
+			}
+		});
 	},
 
 	displayError() {

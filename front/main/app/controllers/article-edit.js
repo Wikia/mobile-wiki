@@ -4,6 +4,9 @@ import {track, trackActions} from 'common/utils/track';
 import {normalizeToUnderscore} from 'common/utils/string';
 
 export default Ember.Controller.extend({
+	queryParams: ['highlighted'],
+	highlighted: null,
+
 	application: Ember.inject.controller(),
 
 	isPublishing: false,
@@ -90,6 +93,13 @@ export default Ember.Controller.extend({
 				category: 'sectioneditor',
 				label: 'publish'
 			});
+			if (this.get('highlighted')) {
+				track({
+					action: trackActions.click,
+					category: 'highlighted-editor',
+					label: 'publish'
+				});
+			}
 		},
 		/**
 		 * @returns {void}
