@@ -23,6 +23,17 @@ export default Ember.Component.extend(
 			return this.get('isPreviewItemHovered') && !this.get('isPreviewItemDragged');
 		}),
 
+		sortableGroupClassNames: Ember.computed('theme', function () {
+			const theme = this.get('theme'),
+				classNames = ['portable-infobox', 'pi-background'];
+
+			if (theme) {
+				classNames.push(`pi-theme-${theme}`);
+			}
+
+			return classNames.join(' ');
+		}),
+
 		actions: {
 			/**
 			 * @param {String} type
