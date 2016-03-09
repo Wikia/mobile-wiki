@@ -251,19 +251,19 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	/**
 	 * Uses data from API to setup the model
 	 *
-	 * @param {Object} data
+	 * @param {Object} infoboxData
 	 * @param {Boolean} isNew
 	 * @returns {void}
 	 */
-	setupInfoboxData(data, isNew) {
+	setupInfoboxData(infoboxData, isNew) {
 		if (isNew) {
 			this.setupInitialState();
 			this.set('theme', this.get('defaultTheme'));
 		} else {
-			this.setupExistingState(data.data);
+			this.setupExistingState(infoboxData.data);
 
-			if (!Ember.isEmpty(data.theme)) {
-				this.set('theme', data.theme);
+			if (!Ember.isEmpty(infoboxData.theme)) {
+				this.set('theme', infoboxData.theme);
 			}
 		}
 	},
