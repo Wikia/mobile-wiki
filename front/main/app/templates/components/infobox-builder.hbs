@@ -7,10 +7,10 @@
 }}
 
 <div class="infobox-builder">
-	<div class="infobox-builder-preview" {{action 'onPreviewBackgroundClick'}}>
+		<div class="infobox-builder-preview article-background-color" {{action 'onPreviewBackgroundClick'}}>
 		{{#sortable-group
-			tagName="div"
-			classNames='portable-infobox pi-background'
+			tagName='div'
+			class=sortableGroupClassNames
 			onChange=(action 'onReorderElements') as |group|
 		}}
 			{{#each state as |element index|}}

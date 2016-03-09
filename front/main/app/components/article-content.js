@@ -209,6 +209,8 @@ export default Ember.Component.extend(
 					return 'portable-infobox-link';
 				} else if ($element.closest('.context-link').length) {
 					return 'context-link';
+				} else if ($element.closest('.article-image')) {
+					return 'image-link';
 				} else if ($element.closest('blockquote').length) {
 					return 'blockquote-link';
 				} else if ($element.closest('figcaption').length) {
