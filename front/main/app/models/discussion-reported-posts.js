@@ -8,6 +8,18 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionForumActionsModelMixin,
 	{
 		/**
+		 * Adds thread data to a post's first level
+		 *
+		 * @param {object} post
+		 *
+		 * @returns {void}
+		 */
+		normalizeThreadData(post) {
+			if (Ember.get(post, '_embedded.thread.0')) {
+				post.postCount = post._embedded.thread[0].postCount;
+			}
+		},
+		/**
 		 * @param {number} pageNum
 		 * @param {string} [sortBy='trending']
 		 * @returns {Ember.RSVP.Promise}
@@ -25,9 +37,13 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				},
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
 				success: (data) => {
-					const newPosts = data._embedded['doc:posts'],
-						allPosts = this.posts.concat(newPosts);
+					const newPosts = data._embedded['doc:posts'];
 
+					let allPosts;
+
+					newPosts.forEach(this.normalizePostData);
+
+					allPosts = this.posts.concat(newPosts);
 					this.set('posts', allPosts);
 				},
 				error: (err) => {
@@ -96,6 +112,8 @@ DiscussionForumModel.reopenClass({
 						});
 						contributors.push(post.createdBy);
 					}
+
+					forumInstance.normalizeThreadData(post);
 				});
 
 				forumInstance.setProperties({
