@@ -42,43 +42,6 @@ export default Ember.Component.extend(
 			}
 		},
 
-		gestures: {
-			/**
-			 * @param {JQueryEventObject} event
-			 * @returns {void}
-			 */
-			swipeLeft(event) {
-				// Track swipe events
-				if ($(event.target).parents('.article-table').length) {
-					track({
-						action: trackActions.swipe,
-						category: 'tables'
-					});
-				} else if ($(event.target).parents('.article-gallery').length) {
-					track({
-						action: trackActions.paginate,
-						category: 'gallery',
-						label: 'next'
-					});
-				}
-			},
-
-			/**
-			 * @param {JQueryEventObject} event
-			 * @returns {void}
-			 */
-			swipeRight(event) {
-				// Track swipe events
-				if ($(event.target).parents('.article-gallery').length) {
-					track({
-						action: trackActions.paginate,
-						category: 'gallery',
-						label: 'previous'
-					});
-				}
-			}
-		},
-
 		setHighlightedText() {
 			this.setSelection(window.getSelection());
 
@@ -324,12 +287,7 @@ export default Ember.Component.extend(
 					galleryRef
 				});
 
-				if (galleryRef >= 0) {
-					track({
-						action: trackActions.click,
-						category: 'gallery'
-					});
-				}
+				this.trackClick('media', 'open');
 			} else {
 				Ember.Logger.debug('Missing ref on', target);
 			}
