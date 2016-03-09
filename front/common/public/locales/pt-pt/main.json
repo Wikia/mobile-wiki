@@ -143,9 +143,16 @@
     "curated-content-editor-new-featured-content":"New Featured Content",
     "curated-content-editor-new-section":"New Section",
     "curated-content-editor-new-category":"New Category",
+    "curated-content-editor-community-data":"Promote your wikia",
+    "curated-content-editor-community-data-description":"Add image and a summary to let visitors know what this wikia is all about and encourage them to visit. We'll use this information to promote your wiki in search results, Wikia mobile apps, and more.",
+    "curated-content-editor-edit-community-data-button":"Edit",
+    "curated-content-editor-wikia-description-tooltip":"Add a summary that will promote your wikia in search results and in other promotional areas.",
+    "curated-content-editor-enter-wikia-description":"Wikia description",
     "explore-wiki":"Explore __wikiName__",
-    "wiki-page-error-reload-button": "Atualizar",
-    "wiki-page-error":"Sorry, we couldn't load the page. Please try again."
+    "sign-in-or-register-label":"Sign in \/ Register",
+    "my-profile-label":"My Profile",
+    "wiki-page-error":"Sorry, we couldn't load the page. Please try again.",
+    "wiki-page-error-reload-button":"Atualizar"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ or __loginLink__",

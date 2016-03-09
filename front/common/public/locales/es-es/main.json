@@ -129,7 +129,7 @@
     "curated-content-editor-add-items-message":"Agrega elementos a esta sección.",
     "curated-content-editor-error-inside-items-message":"Arregla los errores dentro de los elementos.",
     "curated-content-editor-items-count":"__count__ elementos",
-    "wiki-page-error-reload-button": "Actualizar",
+    "wiki-page-error-reload-button":"Actualizar",
     "wiki-page-error":"Lo sentimos, no podemos encontrar la página que estás buscando."
   }
 }
