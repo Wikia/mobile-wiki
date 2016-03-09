@@ -143,6 +143,8 @@ export default class Form {
 	/**
 	 * adding or removing 'checked' class to/from an element
 	 *
+	 * @param {HTMLElement} element
+	 * @param {Boolean} enabled
 	 * @returns {void}
 	 */
 	checkedClassToggle(element, enabled) {
@@ -171,10 +173,10 @@ export default class Form {
 		Array.prototype.forEach.call(
 			this.form.querySelectorAll('[type=checkbox]'),
 			(element) => {
-				//initial state
+				// initial state
 				this.checkedClassToggle(element.parentNode, element.checked);
 
-				//listener for the change of the checkbox state
+				// listener for the change of the checkbox state
 				element.addEventListener('change', (e) => {
 					this.checkedClassToggle(e.target.parentNode, e.target.checked);
 				});
