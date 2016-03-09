@@ -200,13 +200,9 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		Ember.$('body').addClass('infobox-builder-body-wrapper');
 
 		if (serverResponse.css) {
-			let html = '';
-
-			serverResponse.css.forEach(
-				(url) => {
-					html += `<link type="text/css" rel="stylesheet" href="${url}">`;
-				}
-			);
+			const html = serverResponse.css.map((url) => {
+				return `<link type="text/css" rel="stylesheet" href="${url}">`
+			}).join('');
 
 			$(html).appendTo('head');
 		}
