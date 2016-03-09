@@ -1,7 +1,6 @@
 /* eslint no-console: 0 */
 
 import Internal from '../modules/Trackers/Internal';
-import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
 import Ads from '../modules/Ads';
 
 /**
@@ -30,8 +29,7 @@ import Ads from '../modules/Ads';
  */
 
 const trackers = {
-		Internal,
-		UniversalAnalytics
+		Internal
 	},
 	/**
 	 * These actions were ported over from legacy Wikia app code:
@@ -113,18 +111,6 @@ function pruneParams(params) {
 }
 
 /**
- * @returns {boolean}
- */
-export function isSpecialWiki() {
-	try {
-		return Boolean(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
-	} catch (e) {
-		// Property doesn't exist
-		return false;
-	}
-}
-
-/**
  * @param {TrackingParams} params
  * @returns {void}
  */
@@ -136,8 +122,7 @@ export function track(params) {
 		value = params.value || 0,
 		isNonInteractive = params.isNonInteractive !== false;
 
-	let tracker,
-		uaTracker;
+	let tracker;
 
 	if (M.prop('queryParams.noexternals')) {
 		return;
@@ -159,8 +144,7 @@ export function track(params) {
 			throw new Error('Missing required GA params');
 		}
 
-		uaTracker = new trackers.UniversalAnalytics(isSpecialWiki());
-		uaTracker.track(category, action, label, value, isNonInteractive);
+		M.tracker.UniversalAnalytics.track(category, action, label, value, isNonInteractive);
 	}
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
@@ -189,7 +173,7 @@ export function trackPageView(adsContext) {
 		const Tracker = trackers[tracker];
 
 		if (typeof Tracker.prototype.trackPageView === 'function') {
-			const instance = new Tracker(isSpecialWiki());
+			const instance = new Tracker();
 
 			console.info('Track pageView:', tracker);
 			instance.trackPageView(instance.usesAdsContext ? adsContext : context);
@@ -203,6 +187,8 @@ export function trackPageView(adsContext) {
 		window.trackNielsenPageView();
 		window.trackComscorePageView();
 		window.trackIVW3PageView();
+
+		M.tracker.UniversalAnalytics.trackPageView();
 	}
 
 	Ads.getInstance().trackKruxPageView();
@@ -225,15 +211,7 @@ export function updateTrackedUrl(url) {
 		return;
 	}
 
-	Object.keys(trackers).forEach((tracker) => {
-		const Tracker = trackers[tracker];
-
-		if (typeof Tracker.prototype.updateTrackedUrl === 'function') {
-			const instance = new Tracker(isSpecialWiki());
-
-			instance.updateTrackedUrl(url);
-		}
-	});
+	M.tracker.UniversalAnalytics.updateTrackedUrl(url);
 }
 
 /**

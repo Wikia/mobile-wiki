@@ -1,5 +1,4 @@
 import Ads from 'common/modules/Ads';
-import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 import {integrateOptimizelyWithUA} from 'common/utils/variantTesting';
 import {getQueryParam} from 'common/utils/queryString';
 
@@ -70,7 +69,7 @@ export function initialize(container, application) {
 		application.deferReadiness();
 
 		$script.ready(['optimizely', 'ua'], () => {
-			UniversalAnalytics.setDimensions(dimensions);
+			// UniversalAnalytics.setDimensions(dimensions);
 			// UniversalAnalytics.setDimensions(window.dimensions);
 			application.advanceReadiness();
 		});

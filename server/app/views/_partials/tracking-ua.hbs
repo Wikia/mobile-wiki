@@ -1,24 +1,29 @@
 {{#unless queryParams.noexternals}}
-	<!-- Universal Analytics -->
 	<script>
-		window['GoogleAnalyticsObject'] = 'ga';
+		// Create initial ga() function and set initial execution time
+		// This code is based on code from Google that shows one how to include UA Tracking.
+		(function(win){
+			win['GoogleAnalyticsObject'] = 'ga';
+			win['ga'] = win['ga'] || function () {
+				(win['ga'].q = win['ga'].q || []).push(arguments);
+			};
+			win['ga'].l = 1 * new Date();
+		})(window);
 
-		// create initial ga() function
-		window['ga'] = window['ga'] || function () {
-			(window['ga'].q = window['ga'].q || []).push(arguments);
-		};
-
-		// Sets the time (as an integer) this tag was executed.  Used for timing hits.
-		window['ga'].l = 1 * new Date();
-
+		// Load UA
 		$script(['{{server.gaUrl}}'], 'ua');
-		$script(['/wikia.php?controller=MercuryApi&method=getWikiVariables'], 'dimensions');
+		// load window.trackingDimensions
+		$script(['/wikia.php?controller=MercuryApi&method=getTrackingDimensions'], 'dimensions');
 
+		// when everything loads, track pageview
 		$script.ready(['dimensions', 'ua', 'optimizely'], function() {
-			console.info('Tracking PageView: DUMMY UNIVERSAL ANALYTICS');
+			var ua = M.tracker.UniversalAnalytics;
+
+			ua.initialize(window.trackingDimensions);
+			ua.updateTrackedUrl();
+			ua.trackPageView();
 		});
 	</script>
-	<!-- End Universal Analyitcs -->
 {{else}}
 	<script>$script.done('ua');</script>
 {{/unless}}
