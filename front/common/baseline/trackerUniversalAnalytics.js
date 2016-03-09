@@ -40,13 +40,6 @@ if (typeof window.M.tracker === 'undefined') {
 		accountAds = 'ads';
 
 	/**
-	 * @returns {void}
-	 */
-	function info() {
-		console.info('Tracker UA:', ...arguments);
-	}
-
-	/**
 	 * We create new tracker instance every time mercury/utils/track #track or #trackPageView is called
 	 * Google wants us to call methods below just once per account
 	 *
@@ -106,7 +99,7 @@ if (typeof window.M.tracker === 'undefined') {
 			// ga(`${prefix}linker:autoLink`, domain);
 		}
 
-		info('Initialized account', trackerName);
+		console.info('Initialized UA account', trackerName);
 
 		tracked.push(accounts[trackerName]);
 	}
@@ -283,7 +276,7 @@ if (typeof window.M.tracker === 'undefined') {
 			// ga(`${prefix}send`, 'pageview');
 		});
 
-		info('Track PageView', dimensions);
+		console.info('Track PageView: Universal Analytics');
 	}
 
 	/**
@@ -291,31 +284,31 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @returns {void}
 	 */
 	function initialize(dimensions) {
-		if (!dimensions.length) {
-			throw new Error(
+		if (typeof dimensions === 'undefined') {
+			console.error(
 				'Cannot unitialize UA; please provide dimensions'
 			);
-		}
+		} else {
+			setDimensions(dimensions);
 
-		setDimensions(dimensions);
-
-		// All domains that host content for Wikia
-		// Use one of the domains below. If none matches, the tag will fall back to
-		// the default which is 'auto', probably good enough in edge cases.
-		const domain = [
+			// All domains that host content for Wikia
+			// Use one of the domains below. If none matches, the tag will fall back to
+			// the default which is 'auto', probably good enough in edge cases.
+			const domain = [
 				'wikia.com', 'ffxiclopedia.org', 'jedipedia.de',
 				'marveldatabase.com', 'memory-alpha.org', 'uncyclopedia.org',
 				'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
-			].filter((domain) => document.location.hostname.indexOf(domain) > -1)[0],
-			isSpecialWiki = Boolean(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
+			].filter((domain) => document.location.hostname.indexOf(domain) > -1)[0];
 
-		accounts = M.prop('tracking.ua');
+			accounts = M.prop('tracking.ua');
 
-		initAccount(accountPrimary, domain);
-		initAccount(accountAds, domain);
+			initAccount(accountPrimary, domain);
+			initAccount(accountAds, domain);
 
-		if (isSpecialWiki) {
-			initAccount(accountSpecial, domain);
+			if (Boolean(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki)) {
+				initAccount(accountSpecial, domain);
+			}
+
 		}
 	}
 

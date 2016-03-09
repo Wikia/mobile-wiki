@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 import ArticleHandler from '../utils/wiki-handlers/article';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
@@ -156,11 +155,11 @@ export default Ember.Route.extend({
 			namespace = model.get('ns');
 
 		if (articleType) {
-			UniversalAnalytics.setDimension(19, articleType);
+			M.tracker.UniversalAnalytics.setDimension(19, articleType);
 		}
 
 		if (typeof namespace !== 'undefined') {
-			UniversalAnalytics.setDimension(25, namespace);
+			M.tracker.UniversalAnalytics.setDimension(25, namespace);
 		}
 
 		setTrackContext({
@@ -169,25 +168,7 @@ export default Ember.Route.extend({
 		});
 
 		updateTrackedUrl(window.location.href);
-
-		this.get('currentUser.userModel').then(({powerUserTypes}) => {
-			if (powerUserTypes) {
-				UniversalAnalytics.setDimension(
-					23,
-					powerUserTypes.contains('poweruser_lifetime') ? 'yes' : 'no'
-				);
-
-				UniversalAnalytics.setDimension(
-					24,
-					powerUserTypes.contains('poweruser_frequent') ? 'yes' : 'no'
-				);
-			} else {
-				UniversalAnalytics.setDimension(23, 'no');
-				UniversalAnalytics.setDimension(24, 'no');
-			}
-		}).finally(() => {
-			trackPageView(this.get('adsContext.targeting'));
-		});
+		trackPageView();
 	},
 
 	/**
