@@ -224,7 +224,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 			try {
 				infoboxDataParsed = JSON.parse(infoboxData);
 			} catch (e) {
-				Ember.Logger.error('Could not parse infobox data as JSON', infoboxData);
+				throw new Error('Could not parse infobox data as JSON');
 			}
 		}
 
