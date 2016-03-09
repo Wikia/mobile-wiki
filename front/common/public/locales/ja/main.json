@@ -151,7 +151,11 @@
     "explore-wiki":"__wikiName__を見る",
     "sign-in-or-register-label":"ログイン \/ 登録",
     "my-profile-label":"プロフィール",
-    "wiki-page-error":"申し訳ありませんが、記事を読み込めませんでした。もう一度お試しください。",
+    "category-page-load-more":"Load more",
+    "category-page-load-previous":"Load previous",
+    "category-page-no-members":"This category currently contains no pages.",
+    "category-page-subtitle":"Category Page",
+    "wiki-page-error":"Sorry, we couldn't load the page. Please try again.",
     "wiki-page-error-reload-button":"更新"
   },
   "userStatus":{

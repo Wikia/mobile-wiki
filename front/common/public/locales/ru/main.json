@@ -151,7 +151,11 @@
     "explore-wiki":"Исследуйте __wikiName__",
     "sign-in-or-register-label":"Войти \/ Зарегистрироваться",
     "my-profile-label":"Мой профиль",
-    "wiki-page-error":"Произошла ошибка во время загрузки статьи. Пожалуйста, попробуйте ещё раз.",
+    "category-page-load-more":"Load more",
+    "category-page-load-previous":"Load previous",
+    "category-page-no-members":"This category currently contains no pages.",
+    "category-page-subtitle":"Category Page",
+    "wiki-page-error":"Sorry, we couldn't load the page. Please try again.",
     "wiki-page-error-reload-button":"Обновить"
   },
   "userStatus":{

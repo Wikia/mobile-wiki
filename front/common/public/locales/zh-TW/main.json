@@ -129,7 +129,7 @@
     "curated-content-editor-add-items-message":"請將項目添加到這個版塊。",
     "curated-content-editor-error-inside-items-message":"請修復各個項目中的錯誤。",
     "curated-content-editor-items-count":"__count__ 個項目",
-    "wiki-page-error-reload-button":"刷新",
+    "wiki-page-error-reload-button": "刷新",
     "wiki-page-error":"對不起，我們找不到您要查找的頁面。"
   }
 }
