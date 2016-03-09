@@ -14,7 +14,7 @@ label {
 		position: relative;
 		top: 4px;
 
-		.fancy-checkbox {
+		.custom-checkbox {
 			background-color: $checkbox-color-bg;
 			border: 1px solid $checkbox-color-border;
 			height: 18px;
@@ -24,7 +24,7 @@ label {
 		}
 
 		&.checked {
-			.fancy-checkbox {
+			.custom-checkbox {
 				background-image: url('/front/common/symbols/checkbox-checked.svg');
 				border: none;
 			}
