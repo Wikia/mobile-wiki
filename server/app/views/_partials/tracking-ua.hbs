@@ -19,7 +19,8 @@
 		$script.ready(['dimensions', 'ua', 'optimizely'], function() {
 			var ua = M.tracker.UniversalAnalytics;
 
-			ua.initialize(window.trackingDimensions);
+//			ua.initialize(window.trackingDimensions);
+			ua.initialize();
 			ua.updateTrackedUrl();
 			ua.trackPageView();
 		});

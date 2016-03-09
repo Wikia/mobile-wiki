@@ -29,7 +29,7 @@ if (typeof window.M.tracker === 'undefined') {
  */
 
 (function (M) {
-	let dimensions = {},
+	let dimensions = [],
 		dimensionsSynced = false,
 		accounts;
 
@@ -265,9 +265,6 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @returns {void}
 	 */
 	function trackPageView() {
-		if (!getDimension(8)) {
-			throw new Error('missing page type dimension (#8)');
-		}
 		syncDimensions();
 
 		tracked.forEach((account) => {
@@ -285,8 +282,8 @@ if (typeof window.M.tracker === 'undefined') {
 	 */
 	function initialize(dimensions) {
 		if (typeof dimensions === 'undefined') {
-			console.error(
-				'Cannot unitialize UA; please provide dimensions'
+			console.log(
+				'Cannot initialize UA; please provide dimensions'
 			);
 		} else {
 			setDimensions(dimensions);
