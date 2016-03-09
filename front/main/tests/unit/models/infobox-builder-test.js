@@ -924,7 +924,6 @@ test('gets infobox state without builder data', (assert) => {
 	];
 
 	cases.forEach((testCase) => {
-		debugger;
 		assert.deepEqual(infoboxBuilderModelClass.getStateWithoutBuilderData(testCase.state), testCase.expected);
 	});
 });
