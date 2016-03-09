@@ -221,14 +221,19 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	setupInfoboxData(serverResponse) {
 		const infoboxData = serverResponse.data,
 			controller = this.controllerFor('infobox-builder');
-		let infoboxDataParsed = {};
+
+		let infoboxDataParsed = null;
 
 		if (infoboxData) {
-			infoboxDataParsed = JSON.parse(infoboxData);
-			controller.set('infoboxData', infoboxDataParsed);
+			try {
+				infoboxDataParsed = JSON.parse(infoboxData);
+			} catch (e) {
+				Ember.Logger.error('Could not parse infobox data as JSON', infoboxData);
+			}
 		}
 
-		controller.set('isNew', serverResponse.isNew);
+		controller.set('infoboxData', infoboxDataParsed);
+		controller.set('isNew', serverResponse.isNew || false);
 	},
 
 	/**

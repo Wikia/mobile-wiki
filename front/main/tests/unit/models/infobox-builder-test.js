@@ -782,6 +782,7 @@ test('sanitizes item data', (assert) => {
 test('setups infobox data', (assert) => {
 	const cases = [
 		{
+			data: null,
 			isNew: true,
 			assertions: (model, setupInitialStateStub) => {
 				assert.ok(setupInitialStateStub.calledOnce, 'setups initial state for new infobox');
@@ -794,6 +795,7 @@ test('setups infobox data', (assert) => {
 					test: true
 				}
 			},
+			isNew: false,
 			assertions: (model, setupInitialStateStub, setupExistingStateStub) => {
 				assert.ok(setupExistingStateStub.calledWith({
 					test: true
@@ -808,6 +810,7 @@ test('setups infobox data', (assert) => {
 			data: {
 				theme: 'test'
 			},
+			isNew: false,
 			assertions: (model, setupInitialStateStub, setupExistingStateStub) => {
 				assert.ok(setupExistingStateStub.calledOnce, 'setups state for existing infobox with a theme');
 				assert.ok(
