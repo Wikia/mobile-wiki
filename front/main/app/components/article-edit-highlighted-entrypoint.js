@@ -5,8 +5,7 @@ import LanguagesMixin from '../mixins/languages';
 export default Ember.Component.extend(
 	LanguagesMixin,
 	{
-		classNames: ['article-edit-highlighted-entrypoint'],
-		classNameBindings: ['displayEdit'],
+		classNameBindings: ['displayEdit', 'entrypoinClass'],
 		displayEdit: Ember.computed('showEdit', function () {
 			const showEdit = this.get('showEdit');
 
@@ -17,6 +16,12 @@ export default Ember.Component.extend(
 			}
 
 			return '';
+		}),
+		entrypoinClass: Ember.computed(() => {
+			// CE-3475 Shift for Android due to Tap to Search
+			return navigator.userAgent.toLowerCase().indexOf('android') > -1 ?
+				'article-edit-highlighted-entrypoint--shifted' :
+				'article-edit-highlighted-entrypoint';
 		}),
 		actions: {
 			editSection() {
