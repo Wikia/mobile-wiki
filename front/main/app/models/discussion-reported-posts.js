@@ -19,6 +19,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				post.postCount = post._embedded.thread[0].postCount;
 			}
 		},
+
 		/**
 		 * @param {number} pageNum
 		 * @param {string} [sortBy='trending']
