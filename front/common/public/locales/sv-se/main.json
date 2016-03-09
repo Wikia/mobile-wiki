@@ -151,6 +151,10 @@
     "explore-wiki":"Explore __wikiName__",
     "sign-in-or-register-label":"Sign in \/ Register",
     "my-profile-label":"My Profile",
+    "category-page-load-more":"Load more",
+    "category-page-load-previous":"Load previous",
+    "category-page-no-members":"This category currently contains no pages.",
+    "category-page-subtitle":"Category Page",
     "wiki-page-error":"Sorry, we couldn't load the page. Please try again.",
     "wiki-page-error-reload-button":"Uppdatera"
   },

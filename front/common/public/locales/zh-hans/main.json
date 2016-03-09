@@ -151,8 +151,12 @@
     "explore-wiki":"浏览__wikiName__",
     "sign-in-or-register-label":"登入\/注册",
     "my-profile-label":"我的主页",
-    "wiki-page-error":"对不起，我们无法加载这篇文章。请再试一次。",
-    "wiki-page-error-reload-button":"刷新"
+    "category-page-load-more":"Load more",
+    "category-page-load-previous":"Load previous",
+    "category-page-no-members":"This category currently contains no pages.",
+    "category-page-subtitle":"Category Page",
+    "wiki-page-error":"Sorry, we couldn't load the page. Please try again.",
+    "wiki-page-error-reload-button":"Refresh"
   },
   "userStatus":{
     "anon-cta":"__registerLink__或__loginLink__",

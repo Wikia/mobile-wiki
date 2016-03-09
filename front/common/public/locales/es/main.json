@@ -151,7 +151,11 @@
     "explore-wiki":"Explora __wikiName__",
     "sign-in-or-register-label":"Iniciar sesión \/ registrarse",
     "my-profile-label":"Mi perfil",
-    "wiki-page-error":"Lo sentimos, no pudimos cargar el artículo. Por favor, inténtelo de nuevo.",
+    "category-page-load-more":"Load more",
+    "category-page-load-previous":"Load previous",
+    "category-page-no-members":"This category currently contains no pages.",
+    "category-page-subtitle":"Category Page",
+    "wiki-page-error":"Sorry, we couldn't load the page. Please try again.",
     "wiki-page-error-reload-button":"Actualizar"
   },
   "userStatus":{
