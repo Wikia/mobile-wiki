@@ -14,14 +14,14 @@
 		margin: 19px auto 0;
 		max-width: $desktop-content-max-width;
 		min-width: $desktop-content-min-width;
+		padding: 38px 24px 50px;
 	}
 }
 
 .desktop {
 	.auth-header {
-		min-height: 145px;
-		margin: 19px auto 0;
-		padding: 40px 24px 50px;
+		min-height: 58px;
+		padding: 30px 24px 32px;
 		position: relative;
 
 		h1 {
