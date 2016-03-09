@@ -44,6 +44,7 @@ export default Component.extend({
 
 	iconStyle: computed('icon', function () {
 		const icon = Thumbnailer.getThumbURL(this.get('icon'), {
+			mode: Thumbnailer.mode.thumbnailDown,
 			width: this.iconSize,
 			height: this.iconSize
 		});
