@@ -45,7 +45,6 @@ export default class MarketingOptIn {
 	init() {
 		if (this.shouldBeChecked()) {
 			this.checkbox.checked = true;
-			this.checkbox.parentNode.classList.add('checked');
 		}
 
 		if (this.shouldBeEnabled()) {
