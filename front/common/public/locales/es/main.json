@@ -143,9 +143,16 @@
     "curated-content-editor-new-featured-content":"Nuevo contenido destacado",
     "curated-content-editor-new-section":"Nueva sección",
     "curated-content-editor-new-category":"Nueva categoría",
+    "curated-content-editor-community-data":"Promociona tu wikia",
+    "curated-content-editor-community-data-description":"Añade una imagen y un resumen para que los visitantes sepan de que se trata esta wikia y para animarles a visitarla. Usaremos esta información para promocionar tu wikia en resultados de búsqueda, aplicaciones móviles de Wikia y mucho más.",
+    "curated-content-editor-edit-community-data-button":"Editar",
+    "curated-content-editor-wikia-description-tooltip":"Añade un resumen que promocione tu wikia en los resultados de búsqueda y en otras áreas promocionales.",
+    "curated-content-editor-enter-wikia-description":"Descripción de la wikia",
     "explore-wiki":"Explora __wikiName__",
-    "wiki-page-error-reload-button": "Actualizar",
-    "wiki-page-error":"Lo sentimos, no pudimos cargar el artículo. Por favor, inténtelo de nuevo."
+    "sign-in-or-register-label":"Iniciar sesión \/ registrarse",
+    "my-profile-label":"Mi perfil",
+    "wiki-page-error":"Lo sentimos, no pudimos cargar el artículo. Por favor, inténtelo de nuevo.",
+    "wiki-page-error-reload-button":"Actualizar"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ o __loginLink__",
