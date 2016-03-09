@@ -13,22 +13,6 @@ label {
 		text-indent: -20px;
 		position: relative;
 		top: 4px;
-
-		.custom-checkbox {
-			background-color: $checkbox-color-bg;
-			border: 1px solid $checkbox-color-border;
-			height: 18px;
-			left: 0;
-			position: absolute;
-			width: 18px;
-		}
-
-		&.checked {
-			.custom-checkbox {
-				background-image: url('/front/common/symbols/checkbox-checked.svg');
-				border: none;
-			}
-		}
 	}
 }
 

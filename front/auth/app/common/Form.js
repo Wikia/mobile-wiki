@@ -141,21 +141,6 @@ export default class Form {
 	}
 
 	/**
-	 * adding or removing 'checked' class to/from an element
-	 *
-	 * @param {HTMLElement} element
-	 * @param {Boolean} enabled
-	 * @returns {void}
-	 */
-	checkedClassToggle(element, enabled) {
-		if (enabled) {
-			element.classList.add('checked');
-		} else {
-			element.classList.remove('checked');
-		}
-	}
-
-	/**
 	 * Starts continuous checking for new input
 	 *
 	 * @returns {void}
@@ -166,21 +151,5 @@ export default class Form {
 		this.form.addEventListener('blur', this.onBlur.bind(this), true);
 		this.form.addEventListener('change', this.onChange.bind(this), true);
 		this.form.addEventListener('click', this.onClick.bind(this));
-
-		// Custom checkboxes handling.
-		// For each checkbox parent, it sets 'checked' class when the checkbox is checked,
-		// and removes the class when it is unchecked.
-		Array.prototype.forEach.call(
-			this.form.querySelectorAll('[type=checkbox]'),
-			(element) => {
-				// initial state
-				this.checkedClassToggle(element.parentNode, element.checked);
-
-				// listener for the change of the checkbox state
-				element.addEventListener('change', (e) => {
-					this.checkedClassToggle(e.target.parentNode, e.target.checked);
-				});
-			}
-		);
 	}
 }
