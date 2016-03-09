@@ -184,7 +184,7 @@ export default class SignupForm {
 	 */
 	watch() {
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
-		this.form.elements.namedItem('marketingallowed').addEventListener('change',(e) => {
+		this.form.elements.namedItem('marketingallowed').addEventListener('change', (e) => {
 			$(e.target.parentNode).toggleClass('checked', e.target.value);
 		});
 	}
