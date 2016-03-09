@@ -1,11 +1,16 @@
 import Ads from 'common/modules/Ads';
 import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 import {integrateOptimizelyWithUA} from 'common/utils/variantTesting';
+import {getQueryParam} from 'common/utils/queryString';
 
 /**
+ * @param {*} container
+ * @param {*} application
+ *
  * @returns {void}
  */
-export function initialize() {
+export function initialize(container, application) {
+	// THIS WHOLE BLOCK WILL BE OUT - START
 	const adsContext = Ads.getInstance().getContext();
 
 	let dimensions = [];
@@ -59,8 +64,17 @@ export function initialize() {
 	}
 
 	dimensions = integrateOptimizelyWithUA(dimensions);
+	// THIS WHOLE BLOCK WILL BE OUT - END
 
-	UniversalAnalytics.setDimensions(dimensions);
+	if (!getQueryParam('noexternals')) {
+		application.deferReadiness();
+
+		$script.ready(['optimizely', 'ua'], () => {
+			UniversalAnalytics.setDimensions(dimensions);
+			// UniversalAnalytics.setDimensions(window.dimensions);
+			application.advanceReadiness();
+		});
+	}
 }
 
 export default {

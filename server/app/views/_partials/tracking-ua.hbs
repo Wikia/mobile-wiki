@@ -16,6 +16,8 @@
 		$script.ready(['ua', 'optimizely'], function() {
 			$.getJSON('/wikia.php?controller=MercuryApi&method=getWikiVariables', function(data) {
 				console.info('Tracking PageView: DUMMY UNIVERSAL ANALYTICS', data);
+
+				window.dimenstions = {};
 			});
 		});
 	</script>
