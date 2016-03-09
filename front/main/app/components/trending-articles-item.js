@@ -43,7 +43,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		click() {
-			this.trackClick('modular-main-page', 'trending-articles');
+			this.trackClick('main-page-trending-articles', `open-item-${this.get('index')}`);
 		},
 
 		/**

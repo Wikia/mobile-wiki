@@ -61,7 +61,7 @@ export default Route.extend(
 
 			/**
 			 * @param {*} error
-			 * @returns {void}
+			 * @returns {Boolean}
 			 */
 			error(error) {
 				if (this.controller) {

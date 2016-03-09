@@ -10,5 +10,5 @@ export default Ember.Component.extend({
 	limit: 5,
 	thumbMode: Thumbnailer.mode.fixedAspectRatio,
 	trackingEvent: null,
-	users: [],
+	users: []
 });
