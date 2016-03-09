@@ -1,13 +1,11 @@
 import Ember from 'ember';
 import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
-import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 
 export default Ember.Component.extend(
 	CuratedContentEditorLayoutMixin,
 	CuratedContentThumbnailMixin,
-	TrackClickMixin,
 	ViewportMixin,
 	{
 		imgSelector: '.curated-content-editor-photo-crop > img',
@@ -42,7 +40,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			goBack() {
-				this.trackClick('curated-content-editor', 'image-crop-go-back');
 				this.sendAction('changeLayout', this.get('imageCropLayout.previous'));
 			},
 
@@ -57,8 +54,6 @@ export default Ember.Component.extend(
 
 				let cropData,
 					imageCrop;
-
-				this.trackClick('curated-content-editor', 'image-crop-done');
 
 				// Set values on model only if imageProperties are set.
 				// When cropping already added image values on model are already set
