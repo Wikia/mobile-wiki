@@ -85,7 +85,7 @@ test('sets correct value for sortableGroupClassNames property', function (assert
 			},
 			{
 				theme: 'europa',
-				sortableGroupClassNames: baseClassNames + ' pi-theme-europa'
+				sortableGroupClassNames: `${baseClassNames} pi-theme-europa`
 			}
 		];
 

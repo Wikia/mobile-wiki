@@ -201,7 +201,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 
 		if (serverResponse.css) {
 			const html = serverResponse.css.map((url) => {
-				return `<link type="text/css" rel="stylesheet" href="${url}">`
+				return `<link type="text/css" rel="stylesheet" href="${url}">`;
 			}).join('');
 
 			$(html).appendTo('head');

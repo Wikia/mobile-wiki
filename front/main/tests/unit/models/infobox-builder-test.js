@@ -846,41 +846,41 @@ test('setups infobox data', (assert) => {
 
 test('prepares infobox data for saving', (assert) => {
 	const cases = [
-			{
-				model: {
-					infoboxState: [],
-					theme: null
-				},
-				expected: '{"data":[]}'
+		{
+			model: {
+				infoboxState: [],
+				theme: null
 			},
-			{
-				model: {
-					infoboxState: [
-						{
-							test: true
-						}
-					],
-					theme: null
-				},
-				expected: '{"data":[{"test":true}]}'
+			expected: '{"data":[]}'
+		},
+		{
+			model: {
+				infoboxState: [
+					{
+						test: true
+					}
+				],
+				theme: null
 			},
-			{
-				model: {
-					infoboxState: [],
-					theme: 'europa'
-				},
-				expected: '{"data":[],"theme":"europa"}'
+			expected: '{"data":[{"test":true}]}'
+		},
+		{
+			model: {
+				infoboxState: [],
+				theme: 'europa'
 			},
-			{
-				model: {
-					infoboxState: [],
-					theme: ''
-				},
-				expected: '{"data":[],"theme":""}'
-			}
-		],
-		getStateWithoutBuilderDataStub = sinon.stub(infoboxBuilderModelClass, 'getStateWithoutBuilderData')
-			.returnsArg(0);
+			expected: '{"data":[],"theme":"europa"}'
+		},
+		{
+			model: {
+				infoboxState: [],
+				theme: ''
+			},
+			expected: '{"data":[],"theme":""}'
+		}
+	];
+
+	sinon.stub(infoboxBuilderModelClass, 'getStateWithoutBuilderData').returnsArg(0);
 
 	cases.forEach((testCase) => {
 		const model = infoboxBuilderModelClass.create();
@@ -889,7 +889,7 @@ test('prepares infobox data for saving', (assert) => {
 		assert.equal(infoboxBuilderModelClass.prepareDataForSaving(model), testCase.expected);
 	});
 
-	getStateWithoutBuilderDataStub.restore();
+	infoboxBuilderModelClass.getStateWithoutBuilderData.restore();
 });
 
 test('gets infobox state without builder data', (assert) => {
@@ -922,8 +922,9 @@ test('gets infobox state without builder data', (assert) => {
 			]
 		}
 	];
-	
+
 	cases.forEach((testCase) => {
+		debugger;
 		assert.deepEqual(infoboxBuilderModelClass.getStateWithoutBuilderData(testCase.state), testCase.expected);
 	});
 });
