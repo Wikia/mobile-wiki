@@ -41,7 +41,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 
 					let allPosts;
 
-					newPosts.forEach(this.normalizePostData);
+					newPosts.forEach(this.normalizeThreadData);
 
 					allPosts = this.posts.concat(newPosts);
 					this.set('posts', allPosts);
