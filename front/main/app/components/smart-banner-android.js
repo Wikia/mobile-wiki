@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import {track as mercuryTrack, trackActions} from 'common/utils/track';
 import {system, standalone} from 'common/utils/browser';
+import Thumbnailer from 'common/modules/Thumbnailer';
 
 const {
 	$,
@@ -39,9 +40,15 @@ export default Component.extend({
 	dbName: get(Mercury, 'wiki.dbName'),
 	description: computed.oneWay('config.description'),
 	icon: computed.oneWay('config.icon'),
+	iconSize: 92,
 
 	iconStyle: computed('icon', function () {
-		return new Handlebars.SafeString(`background-image: url(${this.get('icon')})`);
+		const icon = Thumbnailer.getThumbURL(this.get('icon'), {
+			width: this.iconSize,
+			height: this.iconSize
+		});
+
+		return new Handlebars.SafeString(`background-image: url(${icon})`);
 	}),
 
 	link: computed('appId', 'dbName', function () {
