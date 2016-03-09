@@ -155,7 +155,7 @@
     "category-page-load-previous":"Load previous",
     "category-page-no-members":"This category currently contains no pages.",
     "category-page-subtitle":"Category Page",
-    "wiki-page-error":"Sorry, we couldn't load the page. Please try again.",
+    "wiki-page-error":"Non è possibile caricare l'articolo al momento. Riprova.",
     "wiki-page-error-reload-button":"Aggiorna"
   },
   "userStatus":{
