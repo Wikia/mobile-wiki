@@ -25,10 +25,17 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				},
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
 				success: (data) => {
-					const newPosts = data._embedded['doc:posts'],
-						allPosts = this.posts.concat(newPosts);
+					const newPosts = data._embedded['doc:posts'];
 
-					this.set('posts', allPosts);
+					newPosts.forEach((post) => {
+						if (post.hasOwnProperty('createdBy')) {
+							post.createdBy.profileUrl = this.get('userProfileUrl');
+						}
+
+						post.isLocked = !post.isReply && !post._embedded.thread.isEditable;
+					});
+
+					this.set('posts', this.posts.concat(newPosts));
 				},
 				error: (err) => {
 					this.handleLoadMoreError(err);
@@ -94,6 +101,8 @@ DiscussionForumModel.reopenClass({
 							namespace: 'User',
 							title: post.createdBy.name
 						});
+
+						post.isLocked = !post.isReply && !post._embedded.thread.isEditable;
 						contributors.push(post.createdBy);
 					}
 				});
