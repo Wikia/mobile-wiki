@@ -1,7 +1,7 @@
 import Ember from 'ember';
+import Thumbnailer from 'common/modules/Thumbnailer';
 import {track as mercuryTrack, trackActions} from 'common/utils/track';
 import {system, standalone} from 'common/utils/browser';
-import Thumbnailer from 'common/modules/Thumbnailer';
 
 const {
 	$,
