@@ -262,7 +262,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		} else {
 			this.setupExistingState(infoboxData.data);
 
-			if (!Ember.isEmpty(infoboxData.theme)) {
+			if (typeof infoboxData.theme === 'string') {
 				this.set('theme', infoboxData.theme);
 			}
 		}
@@ -359,20 +359,28 @@ InfoboxBuilderModel.reopenClass({
 	 * @returns {String} stringified object
 	 */
 	prepareDataForSaving(model) {
-		const plainState = model.get('infoboxState').map((item) => {
-				delete item.infoboxBuilderData;
-				return item;
-			}).toArray(),
-			theme = model.get('theme'),
+		const plainState = InfoboxBuilderModel.getStateWithoutBuilderData(model.get('infoboxState')),
 			dataToSave = {
 				data: plainState
-			};
+			},
+			theme = model.get('theme');
 
-		if (!Ember.isEmpty(theme)) {
+		if (typeof theme === 'string') {
 			dataToSave.theme = theme;
 		}
 
 		return JSON.stringify(dataToSave);
+	},
+
+	/**
+	 * @param {Array} infoboxState
+	 * @returns {Array}
+	 */
+	getStateWithoutBuilderData(infoboxState) {
+		return infoboxState.map((item) => {
+			delete item.infoboxBuilderData;
+			return item;
+		}).toArray();
 	},
 
 	/**

@@ -800,8 +800,9 @@ test('setups infobox data', (assert) => {
 				assert.ok(setupExistingStateStub.calledWith({
 					test: true
 				}), 'setups state for existing infobox without a theme');
-				assert.ok(
-					model.get('theme') === null,
+				assert.equal(
+					model.get('theme'),
+					null,
 					'does not set theme if there is none returned from API for existing infobox'
 				);
 			}
@@ -818,6 +819,18 @@ test('setups infobox data', (assert) => {
 					'sets theme if there is one returned from API for existing infobox'
 				);
 			}
+		},
+		{
+			data: {
+				theme: ''
+			},
+			isNew: false,
+			assertions: (model) => {
+				assert.ok(
+					model.get('theme') === '',
+					'sets theme if it is an empty string'
+				);
+			}
 		}
 	];
 
@@ -828,5 +841,89 @@ test('setups infobox data', (assert) => {
 
 		model.setupInfoboxData(testCase.data, testCase.isNew);
 		testCase.assertions(model, setupInitialStateStub, setupExistingStateStub);
+	});
+});
+
+test('prepares infobox data for saving', (assert) => {
+	const cases = [
+			{
+				model: {
+					infoboxState: [],
+					theme: null
+				},
+				expected: '{"data":[]}'
+			},
+			{
+				model: {
+					infoboxState: [
+						{
+							test: true
+						}
+					],
+					theme: null
+				},
+				expected: '{"data":[{"test":true}]}'
+			},
+			{
+				model: {
+					infoboxState: [],
+					theme: 'europa'
+				},
+				expected: '{"data":[],"theme":"europa"}'
+			},
+			{
+				model: {
+					infoboxState: [],
+					theme: ''
+				},
+				expected: '{"data":[],"theme":""}'
+			}
+		],
+		getStateWithoutBuilderDataStub = sinon.stub(infoboxBuilderModelClass, 'getStateWithoutBuilderData')
+			.returnsArg(0);
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create();
+
+		model.setProperties(testCase.model);
+		assert.equal(infoboxBuilderModelClass.prepareDataForSaving(model), testCase.expected);
+	});
+
+	getStateWithoutBuilderDataStub.restore();
+});
+
+test('gets infobox state without builder data', (assert) => {
+	const cases = [
+		{
+			state: [
+				{
+					infoboxBuilderData: {
+						test: 1
+					},
+					test: 2
+				}
+			],
+			expected: [
+				{
+					test: 2
+				}
+			]
+		},
+		{
+			state: [
+				{
+					test: 1
+				}
+			],
+			expected: [
+				{
+					test: 1
+				}
+			]
+		}
+	];
+	
+	cases.forEach((testCase) => {
+		assert.deepEqual(infoboxBuilderModelClass.getStateWithoutBuilderData(testCase.state), testCase.expected);
 	});
 });
