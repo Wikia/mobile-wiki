@@ -43,6 +43,10 @@ export default Component.extend({
 	iconSize: 92,
 
 	iconStyle: computed('icon', function () {
+		if (this.get('noIcon')) {
+			return null;
+		}
+
 		const icon = Thumbnailer.getThumbURL(this.get('icon'), {
 			mode: Thumbnailer.mode.thumbnailDown,
 			width: this.iconSize,
