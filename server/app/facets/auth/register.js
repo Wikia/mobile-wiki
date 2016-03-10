@@ -47,8 +47,8 @@ function getDefaultRegistrationContext(request, i18n) {
 
 	return deepExtend(authView.getDefaultContext(request),
 		{
-			usernameMaxLength: localSettings.helios.usernameMaxLength,
-			passwordMaxLength: localSettings.helios.passwordMaxLength,
+			usernameMaxLength: localSettings.userRegistationService.usernameMaxLength,
+			passwordMaxLength: localSettings.userRegistationService.passwordMaxLength,
 			langCode: lang,
 			defaultBirthdate: '1970-01-01',
 			pageParams: {
@@ -109,7 +109,7 @@ function getEmailRegistrationPage(request, reply) {
 				headerText: (viewType === authView.VIEW_TYPE_MOBILE) ?
 					'auth:join.sign-up-with-email' :
 					'auth:register.desktop-header',
-				heliosRegistrationURL: authUtils.getHeliosUrl('/users'),
+				heliosRegistrationURL: authUtils.getUserRegistrationUrl('/users'),
 				heliosFacebookURL: authUtils.getHeliosUrl('/facebook/token'),
 				title: (viewType === authView.VIEW_TYPE_MOBILE) ?
 					'auth:join.sign-up-with-email' :
