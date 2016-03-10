@@ -1,4 +1,4 @@
-{{#text-field
+{{#wikia-ui-components/text-field
 	value=labelValue
 	inputId='infoboxRowLabel'
 	name='infoboxRowLabel'
@@ -8,7 +8,7 @@
 	onBlurHandler=(action 'onLabelInputBlur')
 }}
 	<span class="infobox-builder-questionmark" {{action 'showHelp'}}>{{svg 'question' class='pointer-events-none' viewBox='0 0 18 18'}}</span>
-{{/text-field}}
+{{/wikia-ui-components/text-field}}
 
 {{#modal-dialog isVisible=isHelpVisible}}
 	{{i18n 'main.help-row' ns='infobox-builder'}}
