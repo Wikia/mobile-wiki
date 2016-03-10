@@ -1,19 +1,19 @@
-$sidebar-width: 300px;
-$padding: 12px;
-$bigPadding: 18px;
-$imageButtonWidth: 130px;
-$imageButtonHeight: 100px;
 $back-arrow-icon-size: 16px;
-$icon-action-size: 24px;
-$icon-wrapper-size: 50px;
-$icon-button-size: 30px;
+$big-padding: 18px;
 $border-width: 1px;
 $box-shadow-size: 2px;
-$shadow-blur: 15px;
-$spinner-text-color: rgba(0, 0, 0, .5);
-$shadow-color: rgba(0, 0, 0, .3);
+$icon-action-size: 24px;
+$icon-button-size: 30px;
+$icon-wrapper-size: 50px;
+$image-button-width: 130px;
+$image-button-height: 100px;
 $grayout-color: rgba(255, 255, 255, .3);
 $overlay-color: rgba(255, 255, 255, .8);
+$padding: 12px;
+$sidebar-width: 300px;
+$shadow-blur: 15px;
+$shadow-color: rgba(0, 0, 0, .3);
+$spinner-text-color: rgba(0, 0, 0, .5);
 
 // overwrite default mercury styles
 .infobox-builder-body-wrapper {
@@ -115,53 +115,6 @@ $overlay-color: rgba(255, 255, 255, .8);
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
 
-	.edit-header {
-		border-bottom: $border-width solid $color-blue-gray-light;
-		display: flex;
-		font-weight: bold;
-		line-height: 48px;
-	}
-
-	.edit-header-icon {
-		align-items: center;
-		background: inherit;
-		cursor: pointer;
-		display: flex;
-		height: $icon-wrapper-size;
-		justify-content: center;
-		width: $icon-wrapper-size;
-
-		.back-arrow {
-			fill: $color-blue-light;
-			height: $back-arrow-icon-size;
-			width: $back-arrow-icon-size;
-		}
-
-		.delete {
-			fill: $color-blue-gray;
-			height: $icon-action-size;
-			width: $icon-action-size;
-
-			&:hover {
-				fill: $color-blue-light;
-			}
-		}
-	}
-
-	.edit-header--title {
-		flex: 1;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.sidebar-header {
-		border-bottom: $box-shadow-size solid $color-blue-gray-light;
-		font-weight: bold;
-		padding: 16px $bigPadding;
-		text-align: center;
-	}
-
 	.checkbox-builder {
 		padding-top: $padding;
 		font-size: $type-base;
@@ -212,12 +165,54 @@ $overlay-color: rgba(255, 255, 255, .8);
 	}
 }
 
+.infobox-builder-sidebar-header {
+	align-items: center;
+	border-bottom: $border-width solid $color-blue-gray-light;
+	display: flex;
+	font-weight: bold;
+	text-align: center;
+}
+
+.infobox-builder-sidebar-header-icon {
+	align-items: center;
+	background: inherit;
+	cursor: pointer;
+	display: flex;
+	height: $icon-wrapper-size;
+	justify-content: center;
+	width: $icon-wrapper-size;
+}
+
+.infobox-builder-sidebar-header-icon--back-arrow {
+	fill: $color-blue-light;
+	height: $back-arrow-icon-size;
+	width: $back-arrow-icon-size;
+}
+
+.infobox-builder-sidebar-header-icon--delete {
+	fill: $color-blue-gray;
+	height: $icon-action-size;
+	width: $icon-action-size;
+
+	&:hover {
+		fill: $color-blue-light;
+	}
+}
+
+.infobox-builder-sidebar-header-title {
+	flex: 1;
+	overflow: hidden;
+	padding: 16px 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 .infobox-builder-buttons {
 	align-content: space-between;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	padding: $bigPadding;
+	padding: $big-padding;
 }
 
 .infobox-builder-button {
@@ -226,12 +221,12 @@ $overlay-color: rgba(255, 255, 255, .8);
 	display: flex;
 	float: left;
 	flex-direction: column;
-	height: $imageButtonHeight;
+	height: $image-button-height;
 	justify-content: center;
 	margin-bottom: 4px;
 	padding: 10px;
-	flex-basis: $imageButtonWidth;
-	width: $imageButtonWidth;
+	flex-basis: $image-button-width;
+	width: $image-button-width;
 
 	&:hover {
 		background-color: $color-blue-gray-light;

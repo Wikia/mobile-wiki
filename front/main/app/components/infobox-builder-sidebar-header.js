@@ -4,7 +4,7 @@ import TrackClickMixin from '../mixins/track-click';
 export default Ember.Component.extend(
 	TrackClickMixin,
 	{
-		classNames: ['edit-header'],
+		classNames: ['infobox-builder-sidebar-header'],
 		title: Ember.computed('item.{data,data.label,type,value,data.defaultValue,infoboxBuilderData.index}', function () {
 			let title;
 

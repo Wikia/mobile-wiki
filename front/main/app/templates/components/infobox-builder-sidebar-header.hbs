@@ -1,11 +1,12 @@
 {{#if showActionButtons}}
-	<a class="edit-header--back edit-header-icon" {{action (action 'back')}}>
+	<a class="infobox-builder-sidebar-header-icon--back infobox-builder-sidebar-header-icon" {{action (action 'back')}}>
 		{{svg 'back-arrow' role='img' class='icon back-arrow'}}
 	</a>
 {{/if}}
-<div class="edit-header--title">{{title}}</div>
+<div class="infobox-builder-sidebar-header-title">{{title}}</div>
 {{#if showActionButtons}}
-	<a class="edit-header--delete edit-header-icon" {{action (action 'removeItem')}}>
+	<a class="infobox-builder-sidebar-header-icon--delete infobox-builder-sidebar-header-icon"
+		{{action (action 'removeItem')}}>
 		{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
 	</a>
 {{/if}}
