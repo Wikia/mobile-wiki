@@ -4,6 +4,7 @@ import AuthUtils from '../common/AuthUtils';
 import Cookie from '../common/Cookie';
 import FormErrors from '../common/FormErrors';
 import HttpCodes from '../common/HttpCodes';
+import ProofOfWork from '../common/ProofOfWork'
 import UrlHelper from '../common/UrlHelper';
 import VisitSourceWrapper from '../common/VisitSourceWrapper';
 import MarketingOptIn from '../signup/MarketingOptIn';
@@ -159,6 +160,45 @@ export default class SignupForm {
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				enableSubmitButton();
 				this.formErrors.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
+			} else if (status === HttpCodes.TOO_MANY_REQUESTS) {
+				let challengeResponse = JSON.parse(registrationXhr.responseText),
+					registrationProofOfWorkXhr = new XMLHttpRequest(),
+					proofOfWorkValue;
+
+				proofOfWorkValue = challengeResponse.challenge + ProofOfWork.proof(challengeResponse.challenge, challengeResponse.bits).counter;
+
+				registrationProofOfWorkXhr.onload = (e) => {
+					const status = e.target.status;
+
+					if (status === HttpCodes.OK) {
+						this.onSuccessfulRegistration(JSON.parse(registrationXhr.responseText).user_id);
+					} else if (status === HttpCodes.BAD_REQUEST) {
+						enableSubmitButton();
+						this.formErrors.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
+					} else if (status === HttpCodes.TOO_MANY_REQUESTS) {
+						// TODO error handling
+						alert('Proof of work error');
+					} else {
+						enableSubmitButton();
+						this.formErrors.displayGeneralError();
+						this.authLogger.xhrError(registrationXhr);
+					}
+				};
+
+				registrationProofOfWorkXhr.onerror = () => {
+					enableSubmitButton();
+					this.formErrors.displayGeneralError();
+					this.authLogger.xhrError(registrationXhr);
+				};
+
+				// TODO use X-Proof-Of-Work header when API gateway allows it
+				registrationProofOfWorkXhr.open('POST', `${this.form.action}?proof_of_work=${proofOfWorkValue}`, true);
+				registrationProofOfWorkXhr.withCredentials = true;
+				registrationProofOfWorkXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+				// TODO escape POW value
+				//registrationProofOfWorkXhr.setRequestHeader('X-Proof-Of-Work', proofOfWorkValue);
+				registrationProofOfWorkXhr.send((new UrlHelper()).urlEncode(data));
 			} else {
 				enableSubmitButton();
 				this.formErrors.displayGeneralError();
