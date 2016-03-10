@@ -1,7 +1,8 @@
 {{discussion-header
+	canModerate=model.canModerate
+	hasFilters=true
 	hasNewPostButton=true
 	hasSiteName=true
-	hasSortMenu=true
 	smartBannerVisible=smartBannerVisible
 	applyFilters=(action this.attrs.applyFilters)
 }}
@@ -41,24 +42,30 @@
 				{{discussion-sort
 					setSortBy=(action this.attrs.setSortBy)
 				}}
-				{{forum-wrapper
+				{{discussion-forum-wrapper
+					approve=(action this.attrs.approve)
 					create=(action this.attrs.create)
 					deletePost=(action this.attrs.deletePost)
-					loadPage=(action this.attrs.loadPage)
-					undeletePost=(action this.attrs.undeletePost)
-					upvote=(action this.attrs.upvote)
 					forumId=model.forumId
+					loadPage=(action this.attrs.loadPage)
 					minorError=model.minorError
 					name=model.name
 					pageNum=model.pageNum
 					posts=model.posts
 					postsDisplayed=model.posts.length
-					totalPosts=model.totalPosts
+					report=(action this.attrs.report)
 					siteHeadPinned=siteHeadPinned
+					totalPosts=model.totalPosts
+					undeletePost=(action this.attrs.undeletePost)
+					upvote=(action this.attrs.upvote)
 				}}
 			</div>
 		{{/if}}
-		<div class="rail large-3 columns">
+		<div class="rail right large-3 columns">
+			{{discussion-filters
+				applyFilters=(action this.attrs.applyFilters)
+				canModerate=model.canModerate
+			}}
 			{{discussion-app-promotion}}
 		</div>
 	</div>

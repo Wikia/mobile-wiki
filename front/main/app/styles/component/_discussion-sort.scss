@@ -22,4 +22,14 @@
 			color: $discussion-sort-color;
 		}
 	}
+
+	&.no-trending {
+		li {
+			&.sort-trending {
+				border-bottom-color: $discussion-sort-inactive-color;
+				color: $discussion-sort-inactive-color;
+				pointer-events: none;
+			}
+		}
+	}
 }

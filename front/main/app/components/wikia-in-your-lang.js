@@ -3,11 +3,13 @@ import AlertNotificationsMixin from '../mixins/alert-notifications';
 import LanguagesMixin from '../mixins/languages';
 import WikiaInYourLangModel from '../models/wikia-in-your-lang';
 import localStorageConnector from '../utils/local-storage-connector';
+import TrackClickMixin from '../mixins/track-click';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	AlertNotificationsMixin,
 	LanguagesMixin,
+	TrackClickMixin,
 	{
 		alertKey: 'wikiaInYourLang.alertDismissed',
 
@@ -30,14 +32,14 @@ export default Ember.Component.extend(
 							track({
 								action: trackActions.impression,
 								category: 'wikiaInYourLangAlert',
-								label: 'shown',
+								label: 'shown'
 							});
 						}
 					}, (err) => {
 						track({
 							action: trackActions.impression,
 							category: 'wikiaInYourLangAlert',
-							label: err || 'error',
+							label: err || 'error'
 						});
 					});
 			}
@@ -55,22 +57,14 @@ export default Ember.Component.extend(
 				callbacks: {
 					onInsertElement: (alert) => {
 						alert.on('click', 'a:not(.close)', () => {
-							track({
-								action: trackActions.click,
-								category: 'wikiaInYourLangAlert',
-								label: 'link',
-							});
+							this.trackClick('wikiaInYourLangAlert', 'link');
 						});
 					},
 					onCloseAlert: () => {
 						localStorageConnector.setItem(this.get('alertKey'), new Date().getTime().toString());
-						track({
-							action: trackActions.click,
-							category: 'wikiaInYourLangAlert',
-							label: 'close',
-						});
-					},
-				},
+						this.trackClick('wikiaInYourLangAlert', 'close');
+					}
+				}
 			};
 
 			this.addAlert(alertData);
@@ -102,6 +96,7 @@ export default Ember.Component.extend(
 			if (eligibleCountries.indexOf(userLang) !== -1) {
 				isDifferent = userLang !== Ember.get(Mercury, 'wiki.language.content');
 			}
+
 			return isDifferent;
 		}
 	}

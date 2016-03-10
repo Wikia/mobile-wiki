@@ -7,14 +7,14 @@
 			radius=16
 			strokeWidth=2
 		}}
-		<button class="category-navigation__button" {{action 'loadBatch' id data.prevBatch 'prev'}}>
+		<button class="category-navigation__button" {{action 'loadBatch' id data.prevBatch 'previous'}}>
 			{{i18n 'app.category-page-load-previous'}}
 		</button>
 	</div>
 {{/if}}
 <ul class="mw-content">
 	{{#each data.items as |item|}}
-		<li><a {{action 'trackClick' 'category-page' 'link'}} href="{{item.url}}">{{item.name}}</a></li>
+		<li><a {{action 'trackClick' 'category-page' 'open-link'}} href="{{item.url}}">{{item.name}}</a></li>
 	{{/each}}
 </ul>
 {{#if data.hasNext}}
