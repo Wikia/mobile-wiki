@@ -50,8 +50,8 @@ if (typeof window.M.tracker === 'undefined') {
 	 */
 	function setupAccountOnce(id, prefix, options) {
 		if (createdAccounts.indexOf(id) === -1) {
-			// ga('create', id, 'auto', options);
-			// ga(`${prefix}require`, 'linker');
+			ga('create', id, 'auto', options);
+			ga(`${prefix}require`, 'linker');
 
 			createdAccounts.push(id);
 		}
@@ -96,7 +96,7 @@ if (typeof window.M.tracker === 'undefined') {
 		setupAccountOnce(accounts[trackerName].id, prefix, options);
 
 		if (domain) {
-			// ga(`${prefix}linker:autoLink`, domain);
+			ga(`${prefix}linker:autoLink`, domain);
 		}
 
 		tracked.push(accounts[trackerName]);
@@ -132,7 +132,7 @@ if (typeof window.M.tracker === 'undefined') {
 				const prefix = getPrefix(account);
 
 				dimensions.forEach((dimension, idx) => {
-					// ga(`${prefix}set`, `dimension${idx}`, getDimension(idx));
+					ga(`${prefix}set`, `dimension${idx}`, getDimension(idx));
 				});
 			});
 
@@ -193,17 +193,17 @@ if (typeof window.M.tracker === 'undefined') {
 			if (account.prefix !== accountAds) {
 				const prefix = getPrefix(account);
 
-				// ga(
-				// 	`${prefix}send`,
-				// 	{
-				// 		hitType: 'event',
-				// 		eventCategory: category,
-				// 		eventAction: action,
-				// 		eventLabel: label,
-				// 		eventValue: value,
-				// 		nonInteraction: nonInteractive
-				// 	}
-				// );
+				ga(
+					`${prefix}send`,
+					{
+						hitType: 'event',
+						eventCategory: category,
+						eventAction: action,
+						eventLabel: label,
+						eventValue: value,
+						nonInteraction: nonInteractive
+					}
+				);
 			}
 		});
 	}
@@ -222,17 +222,17 @@ if (typeof window.M.tracker === 'undefined') {
 	function trackAds(category, action, label, value, nonInteractive) {
 		syncDimensions();
 
-		// ga(
-		// 	`${accounts[accountAds].prefix}.send`,
-		// 	{
-		// 		hitType: 'event',
-		// 		eventCategory: category,
-		// 		eventAction: action,
-		// 		eventLabel: label,
-		// 		eventValue: value,
-		// 		nonInteraction: nonInteractive
-		// 	}
-		// );
+		ga(
+			`${accounts[accountAds].prefix}.send`,
+			{
+				hitType: 'event',
+				eventCategory: category,
+				eventAction: action,
+				eventLabel: label,
+				eventValue: value,
+				nonInteraction: nonInteractive
+			}
+		);
 	}
 
 	/**
@@ -253,7 +253,7 @@ if (typeof window.M.tracker === 'undefined') {
 		tracked.forEach((account) => {
 			const prefix = getPrefix(account);
 
-			// ga(`${prefix}set`, 'page', location.pathname);
+			ga(`${prefix}set`, 'page', location.pathname);
 		});
 	}
 
@@ -275,7 +275,7 @@ if (typeof window.M.tracker === 'undefined') {
 		tracked.forEach((account) => {
 			const prefix = getPrefix(account);
 
-			// ga(`${prefix}send`, 'pageview');
+			ga(`${prefix}send`, 'pageview');
 		});
 
 		console.info('Track PageView: Universal Analytics');

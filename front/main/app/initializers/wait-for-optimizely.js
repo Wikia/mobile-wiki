@@ -10,13 +10,13 @@ export function initialize(container, application) {
 	if (!getQueryParam('noexternals')) {
 		application.deferReadiness();
 
-		$script.ready(['optimizely', 'ua'], () => {
+		$script.ready(['optimizely'], () => {
 			application.advanceReadiness();
 		});
 	}
 }
 
 export default {
-	name: 'wait-for-ua-and-optimizely',
+	name: 'wait-for-optimizely',
 	initialize
 };
