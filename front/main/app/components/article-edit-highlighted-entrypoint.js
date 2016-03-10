@@ -3,6 +3,9 @@ import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
 import {system, isChromeMinVer} from 'common/utils/browser';
 
+const entrypointClassDefault = 'article-edit-highlighted-entrypoint',
+	entrypointClassShifted = 'article-edit-highlighted-entrypoint--shifted';
+
 export default Ember.Component.extend(
 	LanguagesMixin,
 	TrackClickMixin,
@@ -19,25 +22,23 @@ export default Ember.Component.extend(
 
 			return '';
 		}),
-		shouldShift: Ember.computed(() => {
-			// CE-3475 Shift for Android due to Tap to Search
-			// Only for Chrome v43+ on Android
-			return system === 'android' && isChromeMinVer(43);
-		}),
-		scrollObserver: Ember.observer('showEdit', function () {
-			if (this.get('showEdit')) {
-				this.set('entrypointClass', this.get('shouldShift') ?
-					'article-edit-highlighted-entrypoint--shifted' :
-					'article-edit-highlighted-entrypoint'
-				);
-				Ember.$(document).on('touchmove.shiftEditButton', this, this.unShift.bind(this));
-				Ember.$(window).on('scroll.shiftEditButton', this, this.unShift.bind(this));
+		/* CE-3475 Shift for Android due to Tap to Search, only for Chrome v43+ on Android */
+		shouldShift: system === 'android' && isChromeMinVer(43),
+		shouldRestorePosition: false,
+		entrypointClass: Ember.computed('showEdit', 'shouldRestorePosition', function () {
+			if (this.shouldRestorePosition) {
+				this.set('shouldRestorePosition', false);
+				return entrypointClassDefault;
 			}
+			if (this.get('showEdit') && this.shouldShift) {
+				Ember.$(document).one('touchmove', this, this.triggerRestore.bind(this));
+				Ember.$(window).one('scroll', this, this.triggerRestore.bind(this));
+				return entrypointClassShifted;
+			}
+			return entrypointClassDefault;
 		}),
-		unShift() {
-			this.set('entrypointClass', 'article-edit-highlighted-entrypoint');
-			Ember.$(document).off('touchmove.shiftEditButton', this.debouncedScroll);
-			Ember.$(window).off('scroll.shiftEditButton', this.debouncedScroll);
+		triggerRestore() {
+			this.set('shouldRestorePosition', true);
 		},
 
 		actions: {
