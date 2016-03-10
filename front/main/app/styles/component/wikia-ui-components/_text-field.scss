@@ -1,17 +1,22 @@
 $animation-time: 0.1s;
-$empty-input-label-position: 1.25rem;
+$empty-input-label-position: 1.05rem;
+$input-bottom-padding: 0.3rem;
+$input-top-padding: 1.3rem;
 
 .text-field {
-	align-items: flex-end;
 	padding-bottom: 0;
 	position: relative;
 
 	.text-field-input {
 		border-bottom: 1px solid $color-blue-gray-dark;
 		color: $color-gray-dark;
+		font-size: $type-base;
+		padding: $input-top-padding 0 $input-bottom-padding;
 
 		&:focus {
 			border-bottom-color: $color-blue-light;
+			// overwriting default mercury input padding
+			padding: $input-top-padding 0 $input-bottom-padding;
 		}
 	}
 }
@@ -19,7 +24,6 @@ $empty-input-label-position: 1.25rem;
 .text-field-label {
 	color: $color-blue-gray-dark;
 	font-size: $type-base;
-	padding: 0;
 	pointer-events: none;
 	position: absolute;
 	top: $empty-input-label-position;
