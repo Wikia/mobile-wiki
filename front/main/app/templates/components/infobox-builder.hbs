@@ -1,18 +1,17 @@
-{{app-header
+{{wikia-ui-components/sub-header
 	title=(i18n 'main.header' ns='infobox-builder' title=title)
-	onBackArrowClick=cancelAction
-	onConfirmBtnClick=(action 'save')
+	onBack=(action 'cancel')
+	onConfirm=(action 'save')
 	backArrowTooltip=(i18n 'app.cancel-label')
-	confirmBtnLabel=(i18n 'main.save' ns='infobox-builder')
-	fixed=true
+	confirmLabel=(i18n 'main.save' ns='infobox-builder')
 }}
 
 <div class="infobox-builder">
-	<div class="infobox-builder-preview">
+		<div class="infobox-builder-preview article-background-color" {{action 'onPreviewBackgroundClick'}}>
 		{{#sortable-group
-			tagName="div"
-			classNames='portable-infobox pi-background'
-			onChange=reorder as |group|
+			tagName='div'
+			class=sortableGroupClassNames
+			onChange=(action 'onReorderElements') as |group|
 		}}
 			{{#each state as |element index|}}
 				{{component element.infoboxBuilderData.component
@@ -21,7 +20,7 @@
 					group=group
 					handle=".pi-item"
 					position=index
-					setEditItem=setEditItem
+					click=(action 'setEditItemAndStopPropagation' element)
 					spacing=8
 					onDragStart=(action 'onPreviewItemDrag')
 					onDragStop=(action 'onPreviewItemDrop')
@@ -41,7 +40,7 @@
 	</div>
 
 	{{infobox-builder-sidebar
-		addItem=addItem
+		addItem=(action 'addItem')
 		removeItem=removeItem
 		itemInEditMode=activeItem
 		setEditItem=setEditItem

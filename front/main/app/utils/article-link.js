@@ -10,9 +10,7 @@ import Ember from 'ember';
  * @returns {boolean}
  */
 function isMercuryNamespaceHandlingOverridden(title) {
-	return Ember.getWithDefault(Mercury, 'wiki.enableCategoryPagesInMercury', false) &&
-		typeof title === 'string' &&
-		title.indexOf('Category:') === 0;
+	return typeof title === 'string' && title.indexOf('Category:') === 0;
 }
 
 /**
@@ -46,13 +44,21 @@ export default function getLinkInfo(basePath, title, hash, uri) {
 			 * NOTE: see below, but we might also have to deal with links in the form /Special:.*
 			 */
 			namespaces = Mercury.wiki.namespaces,
+
 			/**
 			 * Here we test if its an article link. We also have to check for /wiki/something for the jump links,
 			 * because the url will be in that form and there will be a hash
 			 *
-			 * TODO: We currently don't handle links to other pages with jump links appended. If input is a
+			 * @todo We currently don't handle links to other pages with jump links appended. If input is a
 			 * link to another page, we'll simply transition to the top of that page regardless of whether or not
 			 * there is a #jumplink appended to it.
+			 *
+			 * Example match array for http://muppet.wikia.com/wiki/Kermit_the_Frog#Kermit_on_Sesame_Street
+			 *     0: "/wiki/Kermit_the_Frog#Kermit on Sesame Street"
+			 *     1: "/wiki"
+			 *     2: "wiki"
+			 *     3: "Kermit_the_Frog"
+			 *     4: "#Kermit_on_Sesame_Street"
 			 */
 			article = local.match(/^(\/(wiki))\/([^#]+)(#.*)?$/);
 
@@ -66,9 +72,9 @@ export default function getLinkInfo(basePath, title, hash, uri) {
 			};
 		}
 
-		if (article[3] && !isMercuryNamespaceHandlingOverridden(article[3])) {
+		if (Ember.isArray(article) && article[3] && !isMercuryNamespaceHandlingOverridden(article[3])) {
 			// @todo When categories in SPA are being enabled/disabled sitewide, code below should be rethinked.
-			/* eslint no-continue: 0 */
+			/* eslint no-continue: 0, max-depth: 0*/
 			for (const ns in namespaces) {
 				// @todo see above -- I'm wondering, when it's possible for `namespaces[ns]` to have an `id` param,
 				// while `namespaces` is an object where keys are numbers and values are just plain strings?

@@ -17,12 +17,19 @@
 	{{content-for 'baseline'}}
 
 	<script>
-		M.prop('apiBase', '/api/mercury', true);
-		M.provide('wiki', {
-			language: {
-				content: 'en'
+		window.Mercury = {
+			wiki: {
+				htmlTitleTemplate: '$1 - Muppet Wiki - Wikia',
+				basePath: 'http://muppet.wikia.com',
+				smartBanner: {
+					appId: {
+						ios: 1234
+					}
+				}
 			}
-		});
+		};
+
+		M.prop('apiBase', '/api/mercury', true);
 	</script>
 
 </head>

@@ -1,10 +1,12 @@
 import Ember from 'ember';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import ViewportMixin from '../mixins/viewport';
+import TrackClickMixin from '../mixins/track-click';
 
 export default Ember.Component.extend(
 	CuratedContentThumbnailMixin,
 	ViewportMixin,
+	TrackClickMixin,
 	{
 		tagName: 'a',
 		attributeBindings: ['href'],
@@ -56,7 +58,13 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		click() {
-			this.sendAction('action', this.get('model'));
+			const itemType = this.get('type');
+
+			this.trackClick('main-page-curated-content', `open-item-${this.get('index')}`);
+
+			if (itemType && itemType === 'section' || itemType === 'category') {
+				this.sendAction('openCuratedContentItem', this.get('model'));
+			}
 		},
 
 		/**
@@ -66,6 +74,6 @@ export default Ember.Component.extend(
 			const imageSize = String(Math.floor((this.get('viewportDimensions.width') - 20) / 2));
 
 			this.set('style', new Ember.Handlebars.SafeString(`height: ${imageSize}px; width: ${imageSize}px;`));
-		},
+		}
 	}
 );

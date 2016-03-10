@@ -33,10 +33,6 @@ export default Ember.Component.extend({
 
 			this.scrollToTop();
 		},
-
-		collapse() {
-			this.sendAction('collapse');
-		}
 	},
 
 	scrollToTop() {

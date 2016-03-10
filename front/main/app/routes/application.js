@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
-import ArticleModel from '../models/mediawiki/article';
+import ArticleModel from '../models/wiki/article';
 import {activate as variantTestingActivate} from 'common/utils/variantTesting';
 import {normalizeToUnderscore} from 'common/utils/string';
 import Ads from 'common/modules/Ads';
@@ -61,7 +61,7 @@ export default Route.extend(
 
 			/**
 			 * @param {*} error
-			 * @returns {void}
+			 * @returns {Boolean}
 			 */
 			error(error) {
 				if (this.controller) {

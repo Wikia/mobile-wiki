@@ -1,0 +1,37 @@
+<script>
+	(function() {
+		var allowExternals = !M.prop('queryParams.noexternals'),
+			ivw3 = M.prop('tracking.ivw3');
+
+		if (
+			allowExternals &&
+			!Wikia.InstantGlobals['wgSitewideDisableIVW3'] &&
+			typeof ivw3.countries.indexOf === 'function' &&
+			ivw3.countries.indexOf(M.prop('geo.country')) !== -1
+		) {
+			var scriptTag = document.createElement('script'),
+				firstScriptInDocument = document.getElementsByTagName('script')[0];
+
+			scriptTag.async = 1;
+			scriptTag.src = 'https://script.ioam.de/iam.js';
+
+			firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
+
+			scriptTag.onload = function () {
+				window.trackIVW3PageView();
+			}
+		}
+
+		window.trackIVW3PageView = function() {
+			if (allowExternals && window.iom) {
+				window.iom.c({
+					st: 'wikia',
+					cp: ivw3.cmKey,
+					sv: 'ke'
+				}, 2);
+
+				console.info('Track pageView: IVW3');
+			}
+		};
+	})();
+</script>

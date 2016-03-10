@@ -27,22 +27,20 @@ test('reacts on curated content change', function (asset) {
 			valid: true
 		},
 		injectMainPageAdsSpy = sinon.spy(),
-		setupAdsContextSpy = sinon.spy();
-
-	Ember.run(() => {
-		const component = this.subject({
+		setupAdsContextSpy = sinon.spy(),
+		component = this.subject({
 			attrs: {
 				adsContext,
 				curatedContent: {},
 				currentUser: {
 					userModel: new Ember.RSVP.Promise(Ember.K)
 				}
-			}
+			},
+			injectMainPageAds: injectMainPageAdsSpy,
+			setupAdsContext: setupAdsContextSpy
 		});
 
-		component.injectMainPageAds = injectMainPageAdsSpy;
-		component.setupAdsContext = setupAdsContextSpy;
-	});
+	component.didRender();
 
 	asset.ok(injectMainPageAdsSpy.calledOnce);
 	asset.ok(setupAdsContextSpy.calledOnce);

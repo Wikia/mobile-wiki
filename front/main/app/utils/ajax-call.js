@@ -1,7 +1,10 @@
 import Ember from 'ember';
 
-/** This is a wrapper for ajax calls
+/**
+ * Wrapper for AJAX calls
+ *
  * @param {object} options
+ *
  * @returns {Ember.RSVP.Promise}
  */
 export default function (options) {
@@ -20,9 +23,10 @@ export default function (options) {
 			if (typeof options.success === 'function') {
 				options.success(data);
 			}
-
+			this.apiResponseData = data;
 			resolve(this);
 		};
+
 		settings.error = function (err) {
 			if (typeof options.error === 'function') {
 				options.error(err);
@@ -33,6 +37,7 @@ export default function (options) {
 			 */
 			resolve(this);
 		};
+
 		Ember.$.ajax(settings);
 	});
 }

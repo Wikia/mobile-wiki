@@ -1,0 +1,38 @@
+{{discussion-post-editor
+	create=(action this.attrs.create)
+	posts=posts
+	siteHeadPinned=siteHeadPinned
+}}
+
+{{#each posts as |item|}}
+	{{discussion-post-card-detail
+		approve=(action this.attrs.approve)
+		author=item.createdBy
+		delete=(action this.attrs.deletePost)
+		isReported=item.isReported
+		post=item.firstPost
+		postId=item.id
+		replyCount=item.postCount
+		report=(action this.attrs.report)
+		undelete=(action this.attrs.undeletePost)
+		upvote=(action this.attrs.upvote)
+	}}
+{{else}}
+	{{discussion-empty-forum-message
+		forumId=forumId
+	}}
+{{/each}}
+
+{{#if hasMore}}
+	{{#if isLoading }}
+		{{loading-spinner
+			active=true
+			overlay=false
+			radius=32
+			strokeWidth=2
+		}}
+	{{/if}}
+	<div class="load-more">
+		{{i18n 'main.loading-more-posts' ns='discussion'}}
+	</div>
+{{/if}}

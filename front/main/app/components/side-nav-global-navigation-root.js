@@ -27,16 +27,16 @@ export default Ember.Component.extend(
 		}),
 
 		actions: {
-			goToLoginPage() {
-				this.goToLogin();
-			},
-
 			openLocalNavigation() {
 				if (this.get('shouldDisplayNewBadge')) {
 					this.trackClick('recent-wiki-activity-blue-dot', 'open-local-menu');
 				}
 
 				this.sendAction('replaceNavigationContent', 'local');
+			},
+
+			hubLinkClick(hubName) {
+				this.trackClick('side-nav', `open-hub-${hubName}`);
 			}
 		}
 	}

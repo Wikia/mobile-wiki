@@ -1,13 +1,15 @@
 import DiscussionBaseModel from './discussion-base';
-import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
+import DiscussionModerationModelMixin from '../mixins/discussion-moderation-model';
 import ajaxCall from '../utils/ajax-call';
 import {track, trackActions} from '../utils/discussion-tracker';
 
-const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
+const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 
 	firstPost: null,
 	contributors: [],
 	isRequesterBlocked: false,
+	isReported: false,
+
 	page: 0,
 	postCount: 0,
 	postId: null,
@@ -98,6 +100,7 @@ DiscussionPostModel.reopenClass({
 			}),
 			success: (data) => {
 				const contributors = [],
+					firstPost = data._embedded.firstPost[0],
 					replies = data._embedded['doc:posts'];
 				let pivotId;
 
@@ -117,12 +120,15 @@ DiscussionPostModel.reopenClass({
 						}
 					});
 				}
+
+				// making the model a little bit more friendly
+				firstPost.isReported = data.isReported;
+
 				postInstance.setProperties({
 					contributors,
 					forumId: data.forumId,
-					firstPost: data._embedded.firstPost[0],
+					firstPost,
 					id: data.id,
-					isDeleted: data.isDeleted,
 					page: 0,
 					pivotId,
 					postCount: data.postCount,

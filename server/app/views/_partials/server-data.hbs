@@ -1,4 +1,5 @@
 <script>
+	M.prop('initialPageView', true, true);
 	M.prop('apiBase', '{{{server.apiBase}}}' || '/api/mercury');
 	M.prop('environment', '{{{server.environment}}}');
 	M.prop('queryParams', {{{json queryParams}}});
@@ -34,7 +35,7 @@
 		M.prop('mainPageData', {{{json mainPageData}}});
 	{{/if}}
 	{{#if exception}}
-		M.provide('exception', {{{json exception}}});
+		M.prop('exception', {{{json exception}}}, true);
 	{{/if}}
 	{{#if server.optimizelyScript}}
 		M.prop('optimizelyScript', '{{{server.optimizelyScript}}}');
