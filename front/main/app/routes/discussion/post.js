@@ -2,12 +2,12 @@ import DiscussionBaseRoute from './base';
 import DiscussionPostModel from '../../models/discussion-post';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
-import DiscussionDeleteRouteMixin from '../../mixins/discussion-delete-route';
+import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 
 export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
-	DiscussionDeleteRouteMixin, {
+	DiscussionModerationRouteMixin, {
 		postDeleteFullScreenOverlay: true,
 
 		/**

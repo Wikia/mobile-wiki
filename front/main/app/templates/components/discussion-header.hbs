@@ -13,7 +13,7 @@
 			{{svg 'new-post-icon' viewBox='0 0 56 50'}}
 		</div>
 	{{/if}}
-	{{#if hasSortMenu}}
+	{{#if hasFilters}}
 		<div class="sort {{if isFilterApplied 'applied'}}" id="discussion-mobile-filter">
 			{{svg 'filter-default' class='icon filter-default'}}
 			{{svg 'filter-applied' class='icon filter-applied'}}
@@ -22,6 +22,9 @@
 		{{#pop-over for='discussion-mobile-filter' on='click' flow='downCentered'}}
 			{{discussion-filters
 				applyFilters=(action this.attrs.applyFilters)
+				showApplyButton=true
+				showSortSection=true
+				canModerate=canModerate
 			}}
 		{{/pop-over}}
 	{{/if}}

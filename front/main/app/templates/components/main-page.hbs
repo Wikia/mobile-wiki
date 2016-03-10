@@ -6,7 +6,7 @@
 		{{title}}
 		{{#if curatedContentToolButtonVisible}}
 			<div>
-				{{#link-to 'curatedContentEditor' bubbles=false class="main-page-edit"}}
+				{{#link-to 'curatedContentEditor' tracking-category='main-page' tracking-label='open-editor' bubbles=false class='main-page-edit'}}
 					{{svg 'pen' role='img' class='icon pencil'}}
 					{{i18n 'app.curated-content-editor-edit-main-page'}}
 				{{/link-to}}

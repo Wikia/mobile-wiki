@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-
 	// used by ember-onbeforeunload to determine if confirmation dialog should be shown
 	isDirty: false,
 
@@ -15,8 +14,6 @@ export default Ember.Controller.extend({
 			const model = this.get('model'),
 				title = model.get('title');
 
-			// maybe some modal "are you sure? You'll lost your work"
-			// redirect to template page
 			this.get('target').send('redirectToTemplatePage', title);
 		},
 
@@ -119,6 +116,10 @@ export default Ember.Controller.extend({
 
 			this.set('isDirty', true);
 			model.updateInfoboxStateOrder(newState);
+		},
+
+		getDiffArray() {
+			return this.get('model').createDataDiffs();
 		}
 	}
 });

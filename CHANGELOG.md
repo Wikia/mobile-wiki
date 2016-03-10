@@ -1,7 +1,45 @@
+## release-218 (2016-03-08 12:38 UTC)
+* [DAT-3907](https://wikia-inc.atlassian.net/browse/DAT-3907) DAT-3907 | Fix ads on CMP categories
+* [CE-3429](https://wikia-inc.atlassian.net/browse/CE-3429) Destroy event bindings
+* [CE-3429](https://wikia-inc.atlassian.net/browse/CE-3429) editing highlighed text
+* sg-update-183: StyleGuide | Update to 1.8.3
+* [XW-1215](https://wikia-inc.atlassian.net/browse/XW-1215) XW-1215 | review tracking on comments
+* [XW-1211](https://wikia-inc.atlassian.net/browse/XW-1211) XW-1211 | track specific article click events
+* [DAT-3769](https://wikia-inc.atlassian.net/browse/DAT-3769) DAT-3769 add tracking to infobox builder & element change recognition
+* [XW-1207](https://wikia-inc.atlassian.net/browse/XW-1207) XW-1207 | Remove obsolete abstract logic for Krux
+* [CE-3464](https://wikia-inc.atlassian.net/browse/CE-3464) (CE-3464,CE-3466) Improve arrow and popover
+* [CE-3460](https://wikia-inc.atlassian.net/browse/CE-3460) CE-3460 Initialize the HTE demo when user scrolls to content
+* [XW-1217](https://wikia-inc.atlassian.net/browse/XW-1217) XW-1217 | add tracking for related pages
+* [CE-3467](https://wikia-inc.atlassian.net/browse/CE-3467) Disable recent edit banner
+* [MAIN-6584](https://wikia-inc.atlassian.net/browse/MAIN-6584) MAIN-6584 | Use forked version of ember-cli-qunit-eslint
+* [CE-3445](https://wikia-inc.atlassian.net/browse/CE-3445) Highlight text on ios
+* [DAT-3793](https://wikia-inc.atlassian.net/browse/DAT-3793) DAT-3793 make infobox-builder accept subtemplates
+* [XW-1212](https://wikia-inc.atlassian.net/browse/XW-1212) XW-1212 | Review tracking on curated main pages
+* [DAT-3894](https://wikia-inc.atlassian.net/browse/DAT-3894) Get edit token for save
+* [PLATFORM-1860](https://wikia-inc.atlassian.net/browse/PLATFORM-1860) PLATFORM-1860 Context for image review
+* [CE-3441](https://wikia-inc.atlassian.net/browse/CE-3441) Improve highlighted text position in edit mode
+* [XW-1218](https://wikia-inc.atlassian.net/browse/XW-1218) XW-1218 track top contributors
+* [CE-3445](https://wikia-inc.atlassian.net/browse/CE-3445) CE-3445 Catch an event of scrolling to the first <p> and select a word
+* [CE-3446](https://wikia-inc.atlassian.net/browse/CE-3446) CE-3446 Add popover
+* [CE-3443](https://wikia-inc.atlassian.net/browse/CE-3443) CE-3443 Add tracking for highlighted editor
+* [CE-3442](https://wikia-inc.atlassian.net/browse/CE-3442) Force login modal before edit.
+* [CE-3440](https://wikia-inc.atlassian.net/browse/CE-3440) Edit highlighted text
+
+## release-217 hotfix 1 (2016-03-03 16:54 UTC)
+* release-217-fix-geo: Set up geo in baseline so ivw3 can use that for tracking
+
+## release-217 (2016-03-03 14:57 UTC)
+* [XW-1204](https://wikia-inc.atlassian.net/browse/XW-1204) XW-1204 Call IVW3 quicker on page view (no tweaks)
+* [XW-1205](https://wikia-inc.atlassian.net/browse/XW-1205) XW-1205 | Move Nielsen initial PV from Ember
+* [XW-1216](https://wikia-inc.atlassian.net/browse/XW-1216) XW-1216 | Unify labels for events related with categories menu under the article
+* [DAT-3862](https://wikia-inc.atlassian.net/browse/DAT-3862) DAT-3862 | Scroll to the bottom of infobox builder preview after new item is added
+* [SOC-1943](https://wikia-inc.atlassian.net/browse/SOC-1943) SOC-1943 | Change Brave Frontier discussion community badge
+* [DAT-3804](https://wikia-inc.atlassian.net/browse/DAT-3804) Dat 3804 clicking on infobox preview background exits edit mode on currently selected item
+
 ## release-216 (2016-03-03 12:28 UTC)
 * [XW-1203](https://wikia-inc.atlassian.net/browse/XW-1203) XW-1203 | send Comscore tracking on server side
 * [ADEN-3043](https://wikia-inc.atlassian.net/browse/ADEN-3043) ADEN-3043 Add timestamp to Nielsen url
-* [XW-](https://wikia-inc.atlassian.net/browse/XW-) XW | stop calling quantserve twice on auth
+* XW | stop calling quantserve twice on auth
 * pr-template-update: Remove "work in progress" from PR template
 * [DAT-3789](https://wikia-inc.atlassian.net/browse/DAT-3789) DAT-3789 | Infobox Builder - source attribute immutable after first save
 * [XW-1229](https://wikia-inc.atlassian.net/browse/XW-1229) XW-1229 | Create tracking function, always

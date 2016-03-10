@@ -9,7 +9,10 @@ export default Ember.Component.extend(
 				return Boolean(this.get('item.data.defaultValue'));
 			},
 			set(key, value) {
-				this.get('editTitleItem')(this.get('item'), value);
+				const item = this.get('item');
+
+				this.trackEditItemOption('change', 'default-article-name');
+				this.get('editTitleItem')(item, value);
 				return value;
 			}
 		})
