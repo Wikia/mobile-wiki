@@ -10,6 +10,7 @@ $grayout-color: rgba(255, 255, 255, .3);
 $overlay-color: rgba(255, 255, 255, .8);
 $padding: 18px;
 $sidebar-width: 300px;
+$sidebar-items-padding: 30px;
 $shadow-blur: 15px;
 $shadow-color: rgba(0, 0, 0, .3);
 $spinner-text-color: rgba(0, 0, 0, .5);
@@ -114,6 +115,10 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
 
+	.text-field {
+		padding-bottom: $sidebar-items-padding;
+	}
+
 	.checkbox-builder {
 		padding-top: $padding;
 		font-size: $type-base;
@@ -160,6 +165,14 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	padding: 16px 0;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+.infobox-builder-sidebar-tooltip {
+	color: $color-blue-gray-dark;
+	font-size: $type-smallest;
+	line-height: $line-height-smallest;
+	margin: 0;
+	padding: 0;
 }
 
 .infobox-builder-buttons {
