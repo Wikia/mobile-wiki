@@ -8,6 +8,19 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionForumActionsModelMixin,
 	{
 		/**
+		 * Adds thread data to a post's first level
+		 *
+		 * @param {object} post
+		 *
+		 * @returns {void}
+		 */
+		normalizeThreadData(post) {
+			if (Ember.get(post, '_embedded.thread.0')) {
+				post.postCount = post._embedded.thread[0].postCount;
+			}
+		},
+
+		/**
 		 * @param {number} pageNum
 		 * @param {string} [sortBy='trending']
 		 * @returns {Ember.RSVP.Promise}
@@ -32,6 +45,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 							post.createdBy.profileUrl = this.get('userProfileUrl');
 						}
 
+						this.normalizeThreadData(post);
 						post.isLocked = !post.isReply && !post._embedded.thread.isEditable;
 					});
 
@@ -149,6 +163,8 @@ DiscussionForumModel.reopenClass({
 						post.isLocked = !post.isReply && !post._embedded.thread.isEditable;
 						contributors.push(post.createdBy);
 					}
+
+					forumInstance.normalizeThreadData(post);
 				});
 
 				forumInstance.setProperties({
