@@ -7,7 +7,9 @@ export default Ember.Component.extend({
 	showButtons: Ember.computed.and('currentUser.isAuthenticated', 'userNotBlocked'),
 	showDiffLink: false,
 	upvoted: Ember.computed('model.upvotes', 'currentUser.userId', function () {
-		return this.get('model.upvotes').some((upvote) => {
+		const upvotes = this.get('model.upvotes');
+
+		return upvotes && this.get('model.upvotes').some((upvote) => {
 			return parseInt(upvote.from_user, 10) === this.get('currentUser.userId');
 		});
 	}),

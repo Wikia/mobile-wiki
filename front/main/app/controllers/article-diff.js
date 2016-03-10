@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import {track, trackActions} from 'common/utils/track';
+import getEditToken from '../utils/edit-token';
 
 export default Ember.Controller.extend(
 	TrackClickMixin,
@@ -28,6 +29,28 @@ export default Ember.Controller.extend(
 				action: trackActions.impression,
 				category: 'recent-wiki-activity',
 				label: 'undo-success'
+			});
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		handleUpvoteSuccess() {
+			this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}})
+				.then(() => {
+					this.get('application').addAlert({
+						message: i18n.t('main.upvote-success', {
+							pageTitle: this.get('model.title'),
+							ns: 'recent-wiki-activity'
+						}),
+						type: 'success'
+					});
+				});
+
+			track({
+				action: trackActions.impression,
+				category: 'recent-wiki-activity',
+				label: 'upvote-success'
 			});
 		},
 
@@ -96,10 +119,36 @@ export default Ember.Controller.extend(
 					label: 'undo-confirmation-close'
 				});
 			},
+
 			/**
+			 * Send info to server that user upvoted a revision
 			 * @returns {void}
 			 */
 			upvote() {
+				getEditToken(this.get('model.title'))
+					.then((token) => {
+						Ember.$.ajax({
+							url: M.buildUrl({
+								path: '/wikia.php?controller=RevisionUpvotesApiController&method=addUpvote',
+							}),
+							data: {
+								revisionId: this.get('model.newId'),
+								token
+							},
+							dataType: 'json',
+							method: 'POST',
+							success: (data) => {
+								if (data && data.success) {
+									this.handleUpvoteSuccess();
+								} else {
+									// TODO throw error
+									// reject(data.errors);
+								}
+							},
+							// TODO throw error
+							// error: (err) => reject(err)
+						});
+					});
 				this.trackClick('recent-wiki-activity', 'upvote');
 			}
 		}
