@@ -7,16 +7,15 @@
 	height: 46px;
 	left: 0;
 	position: fixed;
+	transition: bottom 0.7s;
 	width: 100%;
 	z-index: $z-6 + 1;
 
 	&.show-edit {
-		animation-name: showEdit;
 		bottom: 0;
 	}
 
 	&.hide-edit {
-		animation-name: hideEdit;
 		bottom: -50px;
 	}
 }

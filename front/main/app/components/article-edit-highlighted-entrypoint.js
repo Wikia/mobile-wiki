@@ -1,12 +1,13 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
+import {system} from 'common/utils/browser';
 
 export default Ember.Component.extend(
 	LanguagesMixin,
 	TrackClickMixin,
 	{
-		classNameBindings: ['displayEdit', 'entrypoinClass'],
+		classNameBindings: ['displayEdit', 'entrypointClass'],
 		displayEdit: Ember.computed('showEdit', function () {
 			const showEdit = this.get('showEdit');
 
@@ -18,12 +19,31 @@ export default Ember.Component.extend(
 
 			return '';
 		}),
-		entrypoinClass: Ember.computed(() => {
+		shouldShift: Ember.computed(() => {
 			// CE-3475 Shift for Android due to Tap to Search
-			return navigator.userAgent.toLowerCase().indexOf('android') > -1 ?
-				'article-edit-highlighted-entrypoint--shifted' :
-				'article-edit-highlighted-entrypoint';
+			// Only for Chrome v43+ on Android
+			const regex = 'chrome\/([0-9]*)',
+				agent = navigator.userAgent.toLowerCase(),
+				match = agent.match(regex);
+
+			return system === 'android' && match && parseInt(match[1], 10) > 42;
 		}),
+		scrollObserver: Ember.observer('showEdit', function () {
+			if (this.get('showEdit')) {
+				this.set('entrypointClass', this.get('shouldShift') ?
+					'article-edit-highlighted-entrypoint--shifted' :
+					'article-edit-highlighted-entrypoint'
+				);
+				Ember.$(document).on('touchmove.shiftEditButton', this, this.unShift.bind(this));
+				Ember.$(window).on('scroll.shiftEditButton', this, this.unShift.bind(this));
+			}
+		}),
+		unShift() {
+			this.set('entrypointClass', 'article-edit-highlighted-entrypoint');
+			Ember.$(document).off('touchmove.shiftEditButton', this.debouncedScroll);
+			Ember.$(window).off('scroll.shiftEditButton', this.debouncedScroll);
+		},
+
 		actions: {
 			editSection() {
 				const title = this.get('title'),
