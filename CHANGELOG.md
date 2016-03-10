@@ -1,3 +1,25 @@
+## release-219 (2016-03-10 10:31 UTC)
+* [RECIRC-49](https://wikia-inc.atlassian.net/browse/RECIRC-49) ABTest Fandom content in footer
+* upgrade-ember-cli: Upgrade Ember CLI to 2.4.2
+* [XW-1112](https://wikia-inc.atlassian.net/browse/XW-1112) XW-1112 | fix ellipsis in (Android) smart banner
+* reporting-fixes: Discussions | Reporting fixes
+* [SOC-2002](https://wikia-inc.atlassian.net/browse/SOC-2002) SOC-2002 | Adding discussions assets
+* [XW-1236](https://wikia-inc.atlassian.net/browse/XW-1236) XW-1236 | remove $wgEnableCategoryPagesInMercury
+* [XW-1112](https://wikia-inc.atlassian.net/browse/XW-1112) XW-1112 | smart banner image scaling
+* fix-discussion-filters-paddings: Discussion | Fixing filters paddings
+* [DAT-3856](https://wikia-inc.atlassian.net/browse/DAT-3856) DAT-3856 | Use infobox theme property to set additional class
+* [XW-1219](https://wikia-inc.atlassian.net/browse/XW-1219) XW-1219 | update tracking
+* [XW-1213](https://wikia-inc.atlassian.net/browse/XW-1213) XW-1213 | review tracking on category pages
+* reporting-translations: i18n | Translations of reporting
+* [SOC-](https://wikia-inc.atlassian.net/browse/SOC-) SOC-957 | SOC-1906 | SOC-1241 | SOC-1242 | SOC-1908 Reporting tools for Discussions
+* [SOC-2121](https://wikia-inc.atlassian.net/browse/SOC-2121) SOC-2121 | Fix expired session handling
+* save-exact: add .npmrc with save-exact=true
+* [SOC-1908](https://wikia-inc.atlassian.net/browse/SOC-1908) SOC-1908 As a mod+ in desktop web, I want to see a filter for showing only reported content
+* [SOC-1241](https://wikia-inc.atlassian.net/browse/SOC-1241) SOC-1241 | Reported posts page and CTA
+* [SOC-1242](https://wikia-inc.atlassian.net/browse/SOC-1242) SOC-1242 | update the status of a reported post by taking an action on the content
+* [SOC-957](https://wikia-inc.atlassian.net/browse/SOC-957) SOC-957 | Reporting posts and replies
+* [SOC-1906](https://wikia-inc.atlassian.net/browse/SOC-1906) SOC-1906 reported indicator on posts
+
 ## release-218 (2016-03-08 12:38 UTC)
 * [DAT-3907](https://wikia-inc.atlassian.net/browse/DAT-3907) DAT-3907 | Fix ads on CMP categories
 * [CE-3429](https://wikia-inc.atlassian.net/browse/CE-3429) Destroy event bindings
