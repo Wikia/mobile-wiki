@@ -94,7 +94,9 @@ $legend-line-height: $type-smallest;
 	vertical-align: middle;
 }
 
-.diff-page__undo {
+.diff-page__undo,
+.diff-page__upvote,
+.diff-page__upvote--upvoted {
 	background: $color-white;
 	border: solid $color-gray-light;
 	border-width: 5px 0 0;
@@ -107,8 +109,18 @@ $legend-line-height: $type-smallest;
 	margin: 0;
 	padding: 17px 15px;
 	position: fixed;
-	width: 100%;
+	width: 50%;
 	z-index: $z-site-head;
+}
+
+.diff-page__upvote,
+.diff-page__upvote--upvoted {
+	right: 0;
+	border-left: 1px solid $color-blue-gray;
+}
+
+.diff-page__upvote--upvoted {
+	color: $body-font-color;
 }
 
 .confirmation-message {
