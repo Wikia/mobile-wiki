@@ -284,6 +284,54 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
+	 * Integrate Optimizely data with UA dimensions
+	 *
+	 * @param {Array} dimensions
+	 * @returns {Array}
+	 */
+	function integrateOptimizely(dimensions) {
+		/**
+		 * @returns {boolean}
+		 */
+		function isOptimizelyLoadedAndActive() {
+			const optimizely = window.optimizely;
+
+			return optimizely &&
+				optimizely.activeExperiments &&
+				Array.isArray(optimizely.activeExperiments) &&
+				optimizely.activeExperiments.length > 0 &&
+				typeof optimizely.allExperiments === 'object' &&
+				Object.keys(optimizely.allExperiments).length > 0 &&
+				typeof optimizely.variationNamesMap === 'object' &&
+				Object.keys(optimizely.variationNamesMap).length > 0;
+		}
+
+		const activeExperiments = isOptimizelyLoadedAndActive() ? window.optimizely.activeExperiments : null;
+
+		// UA integration code is also used in MediaWiki app - if you change it here, change it there too:
+		// https://github.com/Wikia/app/blob/dev/extensions/wikia/AnalyticsEngine/js/universal_analytics.js
+		if (activeExperiments) {
+			/**
+			 * @param {string} experimentId
+			 */
+			activeExperiments.forEach((experimentId) => {
+				if (
+					optimizely.allExperiments.hasOwnProperty(experimentId) &&
+					typeof optimizely.allExperiments[experimentId].universal_analytics === 'object'
+				) {
+					const dimension = optimizely.allExperiments[experimentId].universal_analytics.slot,
+						experimentName = optimizely.allExperiments[experimentId].name,
+						variationName = optimizely.variationNamesMap[experimentId];
+
+					dimensions[dimension] = `Optimizely ${experimentName} (${experimentId}): ${variationName}`;
+				}
+			});
+		}
+
+		return dimensions;
+	}
+
+	/**
 	 * @param {UniversalAnalyticsDimensions} dimensions
 	 * @returns {void}
 	 */
@@ -293,6 +341,7 @@ if (typeof window.M.tracker === 'undefined') {
 				'Cannot initialize UA; please provide dimensions'
 			);
 		} else {
+			dimensions = integrateOptimizely(dimensions);
 			setDimensions(dimensions);
 
 			// All domains that host content for Wikia
