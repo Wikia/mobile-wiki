@@ -152,9 +152,7 @@ export default Ember.Component.extend(
 				!this.get('highlightedEditorEnabled');
 		}),
 
-		highlightedEditorEnabled: Ember.computed(() => {
-			return getExperimentVariationNumber({dev: '5170910064', prod: '5164060600'}) === 1;
-		}),
+		highlightedEditorEnabled: Ember.computed(() => Mercury.wiki.language.content === 'en'),
 
 		actions: {
 			/**
