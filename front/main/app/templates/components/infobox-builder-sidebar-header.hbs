@@ -1,12 +1,12 @@
 {{#if showActionButtons}}
-	<a class="infobox-builder-sidebar-header-icon--back infobox-builder-sidebar-header-icon" {{action (action 'back')}}>
-		{{svg 'back-arrow' role='img' class='icon back-arrow'}}
+	<a class="infobox-builder-sidebar-header-icon-wrapper" {{action (action 'back')}}>
+		{{svg 'back-arrow' role='img' class='icon infobox-builder-sidebar-header-icon-back-arrow'}}
 	</a>
 {{/if}}
 <div class="infobox-builder-sidebar-header-title">{{title}}</div>
 {{#if showActionButtons}}
-	<a class="infobox-builder-sidebar-header-icon--delete infobox-builder-sidebar-header-icon"
+	<a class="infobox-builder-sidebar-header-icon-wrapper"
 		{{action (action 'removeItem')}}>
-		{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
+		{{svg 'delete' viewBox='0 0 16 19' class='icon infobox-builder-sidebar-header-icon-delete'}}
 	</a>
 {{/if}}

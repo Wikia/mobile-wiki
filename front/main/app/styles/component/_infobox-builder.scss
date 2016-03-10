@@ -173,7 +173,7 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	text-align: center;
 }
 
-.infobox-builder-sidebar-header-icon {
+.infobox-builder-sidebar-header-icon-wrapper {
 	align-items: center;
 	background: inherit;
 	cursor: pointer;
@@ -181,21 +181,21 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	height: $icon-wrapper-size;
 	justify-content: center;
 	width: $icon-wrapper-size;
-}
 
-.infobox-builder-sidebar-header-icon--back-arrow {
-	fill: $color-blue-light;
-	height: $back-arrow-icon-size;
-	width: $back-arrow-icon-size;
-}
-
-.infobox-builder-sidebar-header-icon--delete {
-	fill: $color-blue-gray;
-	height: $icon-action-size;
-	width: $icon-action-size;
-
-	&:hover {
+	.infobox-builder-sidebar-header-icon-back-arrow {
 		fill: $color-blue-light;
+		height: $back-arrow-icon-size;
+		width: $back-arrow-icon-size;
+	}
+
+	.infobox-builder-sidebar-header-icon-delete {
+		fill: $color-blue-gray;
+		height: $icon-action-size;
+		width: $icon-action-size;
+
+		.infobox-builder-sidebar-header-icon-wrapper:hover & {
+			fill: $color-blue-light;
+		}
 	}
 }
 
