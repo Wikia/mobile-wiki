@@ -1,10 +1,19 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	classNames: ['input-container'],
+	classNames: ['text-field'],
 	isFocused: false,
 	isLabelFloating: Ember.computed('isFocused', 'value', function () {
 		return this.get('isFocused') || this.get('value');
+	}),
+	labelClassNames: Ember.computed('isLabelFloating', function () {
+		const classNames = ['text-field-label'];
+
+		if (this.get('isLabelFloating')) {
+			classNames.push('text-field-label--floating')
+		}
+
+		return classNames.join(' ');
 	}),
 
 	actions: {

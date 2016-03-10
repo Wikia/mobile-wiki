@@ -120,36 +120,6 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 		font-size: $type-base;
 	}
 
-	.input-container {
-		align-items: flex-end;
-		border-bottom: 1px solid $color-blue-gray;
-		padding-bottom: 0;
-	}
-
-	.infobox-builder-input {
-		border-bottom: none;
-		font-size: $type-base;
-		position: relative;
-		transition: none;
-
-		&:focus {
-			border-bottom: none;
-		}
-	}
-
-	input[type='text']:valid + .floating-label {
-		color: $color-blue-gray;
-		font-size: 10px;
-		font-weight: bold;
-		line-height: 12px;
-		text-transform: uppercase;
-	}
-
-	input[type='text'],
-	input[type='text']:focus {
-		padding-right: 40px;
-	}
-
 	.modal-dialog-layover {
 		background-color: transparent;
 	}

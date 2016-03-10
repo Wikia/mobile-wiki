@@ -1,0 +1,32 @@
+$animation-time: 0.1s;
+$empty-input-label-position: 1.25rem;
+
+.text-field {
+	align-items: flex-end;
+	padding-bottom: 0;
+	position: relative;
+
+	.text-field-input {
+		border-bottom: 1px solid $color-blue-gray-dark;
+		color: $color-gray-dark;
+
+		&:focus {
+			border-bottom-color: $color-blue-light;
+		}
+	}
+}
+
+.text-field-label {
+	color: $color-blue-gray-dark;
+	font-size: $type-base;
+	padding: 0;
+	pointer-events: none;
+	position: absolute;
+	top: $empty-input-label-position;
+	transition: font-size ease-in $animation-time, top ease-in $animation-time;
+}
+
+.text-field-label--floating {
+	font-size: $type-min;
+	top: 0;
+}
