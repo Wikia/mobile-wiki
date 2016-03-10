@@ -50,6 +50,7 @@
 					deletePost=(action this.attrs.deletePost)
 					deleteReply=(action this.attrs.deleteReply)
 					loadPage=(action this.attrs.loadPage)
+					lockPost=(action this.attrs.lockPost)
 					report=(action this.attrs.report)
 					undeletePost=(action this.attrs.undeletePost)
 					undeleteReply=(action this.attrs.undeleteReply)
@@ -60,6 +61,7 @@
 					posts=model.posts
 					postsDisplayed=model.posts.length
 					totalPosts=model.totalPosts
+					dunlockPost=(action this.attrs.unlockPost)
 				}}
 			</div>
 		{{/if}}

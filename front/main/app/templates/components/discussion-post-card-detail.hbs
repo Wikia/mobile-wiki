@@ -25,11 +25,14 @@
 		{{discussion-more-options
 			delete=(action 'delete')
 			deleteMessage=(i18n 'main.delete-post' ns='discussion')
+			isLockable=true
+			lock=(action 'lock')
 			post=post
 			report=(action 'report')
 			reportMessage=(i18n 'main.report-post' ns='discussion')
 			undelete=(action 'undelete')
 			undeleteMessage=(i18n 'main.undelete-post' ns='discussion')
+			unlock=(action 'unlock')
 		}}
 	{{/pop-over}}
 </div>

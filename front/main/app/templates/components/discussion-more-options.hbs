@@ -28,3 +28,19 @@
 		</a>
 	</li>
 {{/if}}
+{{#if canLock}}
+	<li>
+		<a class="report-link" {{action this.attrs.lock post}}>
+			{{svg 'lock' viewBox='0 0 14 16' class='icon lock'}}
+			{{lockMessage}}
+		</a>
+	</li>
+{{/if}}
+{{#if canUnlock}}
+	<li>
+		<a class="report-link" {{action this.attrs.unlock post}}>
+			{{svg 'lock' viewBox='0 0 14 16' class='icon lock'}}
+			{{unlockMessage}}
+		</a>
+	</li>
+{{/if}}
