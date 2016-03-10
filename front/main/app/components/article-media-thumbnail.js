@@ -2,7 +2,6 @@ import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import ArticleContentMixin from '../mixins/article-content';
 import Thumbnailer from 'common/modules/Thumbnailer';
-import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	ArticleContentMixin,
@@ -77,18 +76,6 @@ export default Ember.Component.extend(
 		 */
 		didEnterViewport() {
 			this.set('shouldBeLoaded', true);
-		},
-
-		actions: {
-			/**
-			 * @returns {void}
-			 */
-			clickLinkedImage() {
-				track({
-					action: trackActions.click,
-					category: 'linked-image'
-				});
-			}
 		},
 
 		/**

@@ -3,7 +3,6 @@ $legend-font-size: 16px;
 
 .discussion-filters {
 	display: block;
-	padding-bottom: 18px;
 	width: 280px;
 
 	.filters-apply-container {
@@ -60,6 +59,7 @@ $legend-font-size: 16px;
 
 	.moderation-fieldset {
 		margin-top: 14px;
+		padding-bottom: 18px;
 	}
 
 	.sort-options {
