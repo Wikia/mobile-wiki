@@ -80,6 +80,14 @@ body.dark-theme {
 		color: $dark-label-color;
 	}
 
+	.post-list-view {
+		.discussion {
+			.post-reply {
+				background-color: $dark-discussion-post-card-reported-background;
+			}
+		}
+	}
+
 	.discussion {
 		.avatar {
 			img {
