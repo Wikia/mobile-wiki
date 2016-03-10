@@ -22,11 +22,12 @@ export default Ember.Controller.extend({
 		/**
 		 * @param {string} title
 		 * @param {number} sectionIndex
+		 * @param {string} highlightedText
 		 * @returns {void}
 		 */
-		edit(title, sectionIndex) {
+		edit(title, sectionIndex, highlightedText = null) {
 			VisibilityStateManager.reset();
-			this.transitionToRoute('articleEdit', title, sectionIndex);
+			this.transitionToRoute('articleEdit', title, sectionIndex, {queryParams: {highlighted: highlightedText}});
 
 			track({
 				action: trackActions.click,
