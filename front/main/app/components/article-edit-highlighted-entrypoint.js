@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
-import {system} from 'common/utils/browser';
+import {system, isChromeMinVer} from 'common/utils/browser';
 
 export default Ember.Component.extend(
 	LanguagesMixin,
@@ -22,11 +22,7 @@ export default Ember.Component.extend(
 		shouldShift: Ember.computed(() => {
 			// CE-3475 Shift for Android due to Tap to Search
 			// Only for Chrome v43+ on Android
-			const regex = 'chrome\/([0-9]*)',
-				agent = navigator.userAgent.toLowerCase(),
-				match = agent.match(regex);
-
-			return system === 'android' && match && parseInt(match[1], 10) > 42;
+			return system === 'android' && isChromeMinVer(43);
 		}),
 		scrollObserver: Ember.observer('showEdit', function () {
 			if (this.get('showEdit')) {
