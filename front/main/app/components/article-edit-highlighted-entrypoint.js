@@ -3,8 +3,6 @@ import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
 import {system, isChromeMinVer} from 'common/utils/browser';
 
-const entrypointClassDefault = 'article-edit-highlighted-entrypoint',
-	entrypointClassShifted = 'article-edit-highlighted-entrypoint--shifted';
 
 export default Ember.Component.extend(
 	LanguagesMixin,
@@ -26,6 +24,8 @@ export default Ember.Component.extend(
 		shouldShift: system === 'android' && isChromeMinVer(43),
 		shouldRestorePosition: false,
 		entrypointClass: Ember.computed('showEdit', 'shouldRestorePosition', function () {
+			const entrypointClassDefault = 'article-edit-highlighted-entrypoint';
+
 			if (this.shouldRestorePosition) {
 				this.set('shouldRestorePosition', false);
 				return entrypointClassDefault;
@@ -33,7 +33,7 @@ export default Ember.Component.extend(
 			if (this.get('showEdit') && this.shouldShift) {
 				Ember.$(document).one('touchmove', this, this.triggerRestore.bind(this));
 				Ember.$(window).one('scroll', this, this.triggerRestore.bind(this));
-				return entrypointClassShifted;
+				return `${entrypointClassDefault}--shifted`;
 			}
 			return entrypointClassDefault;
 		}),
