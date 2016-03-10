@@ -10,7 +10,7 @@ export default Ember.Component.extend({
 		const classNames = ['text-field-label'];
 
 		if (this.get('isLabelFloating')) {
-			classNames.push('text-field-label--floating')
+			classNames.push('text-field-label--floating');
 		}
 
 		return classNames.join(' ');
