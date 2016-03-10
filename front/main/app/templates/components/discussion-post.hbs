@@ -90,12 +90,12 @@
 								{{i18n 'main.no-replies-be-the-first' ns='discussion'}}
 							</div>
 						{{/each}}
-						{{#unless model.firstPost.isDeleted}}
+						{{#if canShowEditor}}
 							{{discussion-reply-editor
 								create=(action this.attrs.create)
 								replies=model.replies
 							}}
-						{{/unless}}
+						{{/if}}
 					</div>
 				</div>
 		{{/if}}

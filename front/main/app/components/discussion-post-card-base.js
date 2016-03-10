@@ -16,8 +16,9 @@ export default Component.extend(
 		isDeleted: computed.alias('post.isDeleted'),
 		isNew: computed.oneWay('post.isNew'),
 		isReported: computed.alias('post.isReported'),
-		showTopNote: computed('isDeleted', 'isReported', function () {
-			return !this.get('isDeleted') && this.get('isReported') || this.get('showRepliedTo');
+		showTopNote: computed('isDeleted', 'isReported', 'post.isLocked', function () {
+			return !this.get('isDeleted') && this.get('isReported') || this.get('showRepliedTo') ||
+				this.get('post.isLocked');
 		})
 	}
 );
