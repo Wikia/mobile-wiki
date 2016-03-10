@@ -66,4 +66,10 @@ export function init() {
 
 		initTracking();
 	});
+
+	window.addEventListener('message', (event) => {
+		if (window.location.origin === event.origin) {
+			window.parent = event.source;
+		}
+	}, false);
 }
