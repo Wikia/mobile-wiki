@@ -187,6 +187,7 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 .infobox-builder-button {
 	align-items: center;
 	background-color: $color-gray-light;
+	cursor: pointer;
 	display: flex;
 	float: left;
 	flex-direction: column;
