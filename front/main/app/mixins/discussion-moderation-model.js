@@ -164,6 +164,52 @@ export default Ember.Mixin.create({
 		});
 	},
 
+
+	/**
+	 * Locks a post in the service
+	 * @param {object} post
+	 * @returns {Ember.RSVP.Promise|void}
+	 */
+	lockPost(post) {
+		if (checkPermissions(post, 'canDelete')) {
+			return ajaxCall({
+				method: 'PUT',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
+				success: () => {
+					Ember.setProperties(post, {
+						isLocked: true
+					});
+				},
+				error: () => {
+					this.displayError();
+				}
+			});
+		}
+	},
+
+	/**
+	 * Unlocks a post in the service
+	 * @param {object} post
+	 * @returns {Ember.RSVP.Promise|void}
+	 */
+	unlockPost(post) {
+		if (checkPermissions(post, 'canDelete')) {
+			return ajaxCall({
+				method: 'DELETE',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
+				success: () => {
+					Ember.setProperties(post, {
+						isLocked: false
+					});
+				},
+				error: () => {
+					this.displayError();
+				}
+			});
+		}
+	},
+
+
 	displayError() {
 		alert(i18n.t('editor.post-error-general-error', {ns: 'discussion'}));
 	}

@@ -58,50 +58,6 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		},
 
 		/**
-		 * Locks a post in the service
-		 * @param {object} post
-		 * @returns {Ember.RSVP.Promise|void}
-		 */
-		lockPost(post) {
-			if (checkPermissions(post, 'canDelete')) {
-				return ajaxCall({
-					method: 'PUT',
-					url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
-					success: () => {
-						Ember.setProperties(post, {
-							isLocked: true
-						});
-					},
-					error: () => {
-						this.displayError();
-					}
-				});
-			}
-		},
-
-		/**
-		 * Unlocks a post in the service
-		 * @param {object} post
-		 * @returns {Ember.RSVP.Promise|void}
-		 */
-		unlockPost(post) {
-			if (checkPermissions(post, 'canDelete')) {
-				return ajaxCall({
-					method: 'DELETE',
-					url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
-					success: () => {
-						Ember.setProperties(post, {
-							isLocked: false
-						});
-					},
-					error: () => {
-						this.displayError();
-					}
-				});
-			}
-		},
-
-		/**
 		 * Create new post in Discussion Service
 		 * @param {object} postData
 		 * @returns {Ember.RSVP.Promise}

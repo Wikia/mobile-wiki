@@ -40,5 +40,29 @@ export default Ember.Mixin.create({
 			this.$('.discussion-more-options').mousedown();
 			this.attrs.report(item);
 		},
+
+		/**
+		 * Locks an item and closes pop-over
+		 * @param {object} item - post
+		 * @returns {void}
+		 */
+		lock(item) {
+			// There's no API for closing Ember Pop-Up, so that's
+			// the only way to close it after triggering an action from it
+			this.$('.discussion-more-options').mousedown();
+			this.attrs.lock(item);
+		},
+
+		/**
+		 * Unocks an item and closes pop-over
+		 * @param {object} item - post
+		 * @returns {void}
+		 */
+		unlock(item) {
+			// There's no API for closing Ember Pop-Up, so that's
+			// the only way to close it after triggering an action from it
+			this.$('.discussion-more-options').mousedown();
+			this.attrs.unlock(item);
+		},
 	}
 });
