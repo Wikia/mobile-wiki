@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import InfoboxBuilderEditItemMixin from '../mixins/infobox-builder-edit-item';
+import InfoboxBuilderSidebarOptions from '../mixins/infobox-builder-sidebar-options';
 
 export default Ember.Component.extend(
+	InfoboxBuilderSidebarOptions,
 	InfoboxBuilderEditItemMixin,
 	{
 		useArticleName: Ember.computed('item.data.defaultValue', {
