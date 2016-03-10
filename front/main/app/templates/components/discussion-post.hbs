@@ -41,14 +41,14 @@
 						author=model.firstPost.createdBy
 						delete=(action this.attrs.deletePost)
 						isDetailsView=true
-						lock=(action this.attrs.lock)
+						lock=(action this.attrs.lockPost)
 						post=model.firstPost
 						postId=model.id
 						replyCount=model.postCount
 						report=(action this.attrs.report)
 						timestamp=model.firstPost.creationDate.epochSecond
 						undelete=(action this.attrs.undeletePost)
-						unlock=(action this.attrs.unlock)
+						unlock=(action this.attrs.unlockPost)
 						upvoteCount=model.upvoteCount
 						upvote=(action this.attrs.upvote)
 					}}

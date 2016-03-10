@@ -10,10 +10,10 @@ export default Ember.Component.extend(DiscussionModalDialogMixin,
 			return model.get('replies.length') < model.get('postCount');
 		}),
 
-		canShowEditor () {
+		canShowEditor: Ember.computed('model.firstPost.isDeleted', 'model.firstPost.isLocked', function () {
 			const model = this.get('model');
 
 			return !model.firstPost.isDeleted && !model.firstPost.isLocked;
-		}
+		}),
 	}
 );

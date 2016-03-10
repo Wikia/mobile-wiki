@@ -54,7 +54,7 @@ export default Ember.Mixin.create({
 		},
 
 		/**
-		 * Unocks an item and closes pop-over
+		 * Unlocks an item and closes pop-over
 		 * @param {object} item - post
 		 * @returns {void}
 		 */

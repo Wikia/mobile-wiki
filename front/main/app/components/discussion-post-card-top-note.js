@@ -14,6 +14,10 @@ export default Ember.Component.extend({
 		return checkPermissions(this.get('post'), 'canModerate');
 	}),
 
+	showButtons: Ember.computed('isReported', function () {
+		return this.get('canShowModButtons') && this.get('isReported');
+	}),
+
 	modalDialogService: Ember.inject.service('modal-dialog'),
 
 	/**
