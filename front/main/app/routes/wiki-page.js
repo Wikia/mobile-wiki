@@ -4,7 +4,7 @@ import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import {normalizeToUnderscore} from 'common/utils/string';
-import {setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
+import {setTrackContext, trackPageView} from 'common/utils/track';
 import {namespace as MediawikiNamespace, getCurrentNamespace} from '../utils/mediawiki-namespace';
 
 export default Ember.Route.extend({
@@ -167,7 +167,6 @@ export default Ember.Route.extend({
 			n: model.get('ns')
 		});
 
-		updateTrackedUrl(window.location.href);
 		trackPageView();
 	},
 

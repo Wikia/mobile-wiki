@@ -24,7 +24,6 @@ import Ads from '../modules/Ads';
  * @typedef {Object} TrackerInstance
  * @property {Function} track
  * @property {Function} trackPageView
- * @property {Function} updateTrackedUrl
  * @property {boolean} usesAdsContext
  */
 
@@ -155,16 +154,10 @@ export function track(params) {
 }
 
 /**
- * function for aggregating all page tracking that Wikia uses.
- * To make trackPageView work with your tracker,
- * make it a class in Mercury.Modules.Trackers and export one function 'trackPageView'
- *
- * trackPageView is called in ArticleView.onArticleChange
- *
- * @param {*} adsContext
+ * @param {string} [overrideUrl] - if you want to override URL sent to UA
  * @returns {void}
  */
-export function trackPageView(adsContext) {
+export function trackPageView(overrideUrl) {
 	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
@@ -176,7 +169,7 @@ export function trackPageView(adsContext) {
 			const instance = new Tracker();
 
 			console.info('Track pageView:', tracker);
-			instance.trackPageView(instance.usesAdsContext ? adsContext : context);
+			instance.trackPageView(context);
 		}
 	});
 
@@ -188,30 +181,10 @@ export function trackPageView(adsContext) {
 		window.trackComscorePageView();
 		window.trackIVW3PageView();
 
-		M.tracker.UniversalAnalytics.trackPageView();
+		M.tracker.UniversalAnalytics.trackPageView(overrideUrl);
 	}
 
 	Ads.getInstance().trackKruxPageView();
-}
-
-/**
- * Function that updates tracker's saved location to given path.
- * To be called after transition so tracker knows that URL is new.
- *
- * This is essential for UA pageview tracker which get's location
- * from window on page load and never updates it (despite changing
- * title) - all subsequent events including pageviews are tracked
- * for original location.
- *
- * @param {string} url
- * @returns {void}
- */
-export function updateTrackedUrl(url) {
-	if (M.prop('queryParams.noexternals')) {
-		return;
-	}
-
-	M.tracker.UniversalAnalytics.updateTrackedUrl(url);
 }
 
 /**

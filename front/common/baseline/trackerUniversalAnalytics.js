@@ -244,10 +244,10 @@ if (typeof window.M.tracker === 'undefined') {
 	 * Note: if you send a hit that includes both the location and page fields and the path values are different,
 	 * Google Analytics will use the value specified for the page field.
 	 *
-	 * @param {string} [url=false] - get URL from window location
+	 * @param {string} [url=false] - if not set, get current location from window
 	 * @returns {void}
 	 */
-	function updateTrackedUrl(url = false) {
+	function updateTrackedUrl(url) {
 		const location = document.createElement('a');
 
 		location.href = url || window.location.href;
@@ -262,10 +262,17 @@ if (typeof window.M.tracker === 'undefined') {
 	/**
 	 * Tracks the current page view
 	 *
+	 * overrideUrl is essential for UA pageview tracker which get's location
+	 * from window on page load and never updates it (despite changing
+	 * title) - all subsequent events including pageviews are tracked
+	 * for original location.
+	 *
+	 * @param {string} [overrideUrl]
 	 * @returns {void}
 	 */
-	function trackPageView() {
+	function trackPageView(overrideUrl) {
 		syncDimensions();
+		updateTrackedUrl(overrideUrl);
 
 		tracked.forEach((account) => {
 			const prefix = getPrefix(account);
@@ -316,7 +323,6 @@ if (typeof window.M.tracker === 'undefined') {
 		setDimension,
 		track,
 		trackAds,
-		updateTrackedUrl,
 		trackPageView
 	};
 })(M);
