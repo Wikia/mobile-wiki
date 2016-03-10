@@ -174,6 +174,7 @@ export default Ember.Mixin.create({
 		if (checkPermissions(post, 'canDelete')) {
 			return ajaxCall({
 				method: 'PUT',
+				dataType: 'text',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
 				success: () => {
 					Ember.setProperties(post, {
@@ -196,6 +197,7 @@ export default Ember.Mixin.create({
 		if (checkPermissions(post, 'canDelete')) {
 			return ajaxCall({
 				method: 'DELETE',
+				dataType: 'text',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
 				success: () => {
 					Ember.setProperties(post, {

@@ -66,9 +66,9 @@
     "reported-by-one-reply": "Reply reported by __userName__",
     "reported-by-many": "Reported by __number__ users",
     "reported-by-many-reply": "Reply reported by __number__ users",
-    "locked-post-text": "This post is locked."
+    "locked-post-text": "This post is locked.",
     "lock-post": "Lock post",
-    "unlock-post": "Unock post"
+    "unlock-post": "Unlock post"
   },
   "editor": {
     "post-failed-error": "Post failed.",
