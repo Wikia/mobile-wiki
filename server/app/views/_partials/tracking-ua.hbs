@@ -13,13 +13,17 @@
 		// Load UA
 		$script(['{{server.gaUrl}}'], 'ua');
 		// load window.trackingDimensions
-		$script(['/wikia.php?controller=MercuryApi&method=getTrackingDimensions'], 'dimensions');
+		const params = {
+				controller: 'MercuryApi',
+				method: 'getTrackingDimensions',
+				title: Mercury.article.data.article.displayTitle
+		};
+		$script(['/wikia.php?' + $.param(params)], 'dimensions');
 
 		// when everything loads, initialize trackers and track initial pageview
 		$script.ready(['dimensions', 'ua', 'optimizely'], function() {
 			var ua = M.tracker.UniversalAnalytics;
 
-      window.trackingDimensions = []; // override for now
 			ua.initialize(window.trackingDimensions);
 			ua.trackPageView();
 		});

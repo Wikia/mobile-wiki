@@ -99,8 +99,6 @@ if (typeof window.M.tracker === 'undefined') {
 			// ga(`${prefix}linker:autoLink`, domain);
 		}
 
-		console.info('Initialized UA account', trackerName);
-
 		tracked.push(accounts[trackerName]);
 	}
 
@@ -361,7 +359,6 @@ if (typeof window.M.tracker === 'undefined') {
 			if (Boolean(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki)) {
 				initAccount(accountSpecial, domain);
 			}
-
 		}
 	}
 
