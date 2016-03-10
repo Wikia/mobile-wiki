@@ -115,8 +115,9 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
 
-	.text-field {
-		padding-bottom: $sidebar-items-padding;
+	.text-field,
+	.check-box {
+		margin-bottom: $sidebar-items-padding;
 	}
 
 	.checkbox-builder {
@@ -220,33 +221,8 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	margin-top: $border-width * 2;
 }
 
-.sidebar-edit-area {
-	position: relative;
-}
-
 .sidebar-content-padding {
 	padding: $padding
-}
-
-.infobox-builder-questionmark {
-	align-items: center;
-	display: flex;
-	justify-content: center;
-	height: $icon-wrapper-size;
-	position: absolute;
-	right: -10px;
-	top: 0;
-	width: $icon-wrapper-size;
-
-	&:hover svg {
-		fill: $color-blue-light;
-	}
-
-	svg {
-		fill: $color-blue-gray;
-		height: $icon-action-size;
-		width: $icon-action-size;
-	}
 }
 
 .is-preview-item-dragged {
