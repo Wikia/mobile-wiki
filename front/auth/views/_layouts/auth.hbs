@@ -18,6 +18,9 @@
 			<nav class="global-nav">
 				<a class="main-page" href="{{mainPage}}"><span>Wikia</span></a>
 			</nav>
+			<nav class="auth-nav">
+				<a class="back" href="{{exitTo}}">{{i18n 'auth:common.to-wiki-link-text'}}</a>
+			</nav>
 		{{else}}
 			{{#unless pageParams.isModal}}
 			<a class="close" href="{{exitTo}}">
