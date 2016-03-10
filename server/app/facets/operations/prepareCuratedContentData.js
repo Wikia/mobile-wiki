@@ -1,5 +1,6 @@
 import {parseQueryParams} from '../../lib/Utils';
 import {gaUserIdHash} from '../../lib/Hashing';
+// eslint-disable-next-line max-len
 import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
 
 /**

@@ -1,7 +1,6 @@
 /* eslint no-console: 0 */
 
 import load from '../utils/load';
-import {isSpecialWiki} from '../utils/track';
 
 /**
  * @typedef {Object} SourcePointDetectionModule

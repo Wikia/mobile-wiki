@@ -267,15 +267,15 @@ export function shouldAsyncArticle(localSettings, host) {
  */
 export function createServerData(localSettings, wikiDomain = '') {
 	// if no environment, pass dev
-	const env = localSettings.environment || Environment.Dev,
-		data = {
-			mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
-			apiBase: localSettings.apiBase,
-			environment: getEnvironmentString(env),
-			cdnBaseUrl: getCDNBaseUrl(localSettings),
-			gaUrl: localSettings.tracking.ua.scriptUrl
-		};
-	return data;
+	const env = localSettings.environment || Environment.Dev;
+
+	return {
+		mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
+		apiBase: localSettings.apiBase,
+		environment: getEnvironmentString(env),
+		cdnBaseUrl: getCDNBaseUrl(localSettings),
+		gaUrl: localSettings.tracking.ua.scriptUrl
+	};
 }
 
 /**

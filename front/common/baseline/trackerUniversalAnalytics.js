@@ -4,7 +4,6 @@ if (typeof window.M === 'undefined') {
 if (typeof window.M.tracker === 'undefined') {
 	window.M.tracker = {};
 }
-/*eslint no-console: 0*/
 
 /**
  * @typedef {Object} TrackerOptions
@@ -278,6 +277,7 @@ if (typeof window.M.tracker === 'undefined') {
 			ga(`${prefix}send`, 'pageview');
 		});
 
+		// eslint-disable-next-line no-console
 		console.info('Track PageView: Universal Analytics');
 	}
 
@@ -335,9 +335,9 @@ if (typeof window.M.tracker === 'undefined') {
 	 */
 	function initialize(dimensions) {
 		if (typeof dimensions === 'undefined') {
-			console.log(
-				'Cannot initialize UA; please provide dimensions'
-			);
+
+			// eslint-disable-next-line no-console
+			console.log('Cannot initialize UA; please provide dimensions');
 		} else {
 			dimensions = integrateOptimizely(dimensions);
 			setDimensions(dimensions);

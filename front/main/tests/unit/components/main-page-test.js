@@ -3,7 +3,7 @@ import {test, moduleForComponent} from 'ember-qunit';
 import sinon from 'sinon';
 
 const setTrackContext = require('common/utils/track').setTrackContext,
-	trackPageView = require('common/utils/track').trackPageView
+	trackPageView = require('common/utils/track').trackPageView;
 
 moduleForComponent('main-page', 'Unit | Component | main page', {
 	unit: true,

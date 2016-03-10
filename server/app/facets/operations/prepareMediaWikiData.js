@@ -1,6 +1,7 @@
 import * as Utils from '../../lib/Utils';
 import {gaUserIdHash} from '../../lib/Hashing';
 import localSettings from '../../../config/localSettings';
+// eslint-disable-next-line max-len
 import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
 
 /**
