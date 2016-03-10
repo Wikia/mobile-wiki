@@ -11,9 +11,10 @@ export default Component.extend(
 	DiscussionParsedContentMixin,
 	DiscussionMoreOptionsMixin,
 	{
-		classNameBindings: ['isNew', 'isDeleted', 'isReported', 'showTopNote'],
+		classNameBindings: ['isNew', 'isDeleted', 'isReported', 'isLocked', 'showTopNote'],
 
 		isDeleted: computed.alias('post.isDeleted'),
+		isLocked: computed.oneWay('post.isLocked'),
 		isNew: computed.oneWay('post.isNew'),
 		isReported: computed.alias('post.isReported'),
 		showTopNote: computed('isDeleted', 'isReported', 'post.isLocked', function () {

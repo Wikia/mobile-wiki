@@ -205,6 +205,16 @@ body.dark-theme {
 		.post-detail {
 			background-color: $dark-discussion-desktop-post-detail-bg-color;
 			border-top-color: $dark-discussion-post-detail-border-color;
+
+			&.is-locked {
+				.replies-area {
+					color: $dark-discussion-locked-post-replies-color;
+
+					.replies {
+						fill: $dark-discussion-locked-post-replies-color;
+					}
+				}
+			}
 		}
 
 		.editor-container {

@@ -85,12 +85,14 @@
 								upvoteCount=item.upvoteCount
 							}}
 						{{else}}
-							<div class="discussion-no-replies">
-								{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
-								{{i18n 'main.no-replies-be-the-first' ns='discussion'}}
-							</div>
+							{{#if canReply}}
+								<div class="discussion-no-replies">
+									{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
+									{{i18n 'main.no-replies-be-the-first' ns='discussion'}}
+								</div>
+							{{/if}}
 						{{/each}}
-						{{#if canShowEditor}}
+						{{#if canReply}}
 							{{discussion-reply-editor
 								create=(action this.attrs.create)
 								replies=model.replies
