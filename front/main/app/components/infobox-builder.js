@@ -34,27 +34,11 @@ export default Ember.Component.extend(
 			return classNames.join(' ');
 		}),
 
-		init() {
-			this._super(...arguments);
-			this.addItemButtons = [
-				{
-					name: 'row',
-					icon: 'row-block'
-				},
-				{
-					name: 'image',
-					icon: 'image-block'
-				},
-				{
-					name: 'title',
-					icon: 'title-block'
-				},
-				{
-					name: 'section-header',
-					icon: 'section-block'
-				}
-			];
-		},
+		sideBarOptionsComponent: Ember.computed('activeItem', function () {
+			return this.get('activeItem') ?
+				`infobox-builder-edit-item-${this.get('activeItem.type')}` :
+				'infobox-builder-add-items';
+		}),
 
 		actions: {
 			/**

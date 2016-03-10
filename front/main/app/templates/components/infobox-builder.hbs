@@ -7,7 +7,7 @@
 }}
 
 <div class="infobox-builder">
-		<div class="infobox-builder-preview article-background-color" {{action 'onPreviewBackgroundClick'}}>
+	<div class="infobox-builder-preview article-background-color" {{action 'onPreviewBackgroundClick'}}>
 		{{#sortable-group
 			tagName='div'
 			class=sortableGroupClassNames
@@ -38,49 +38,39 @@
 			}}
 		{{/if}}
 	</div>
-
 	<div class="infobox-builder-sidebar">
-		{{#if activeItem.type}}
-			{{infobox-builder-edit-item
-				item=activeItem
-				onBackArrowClick=(action this.attrs.setEditItem)
-				onDeleteItem=(action this.attrs.removeItem)
-				editTitleItem=(action this.attrs.editTitleItem)
-				editRowItem=(action this.attrs.editRowItem)
-				editSectionHeaderItem=(action this.attrs.editSectionHeaderItem)
-			}}
-		{{else}}
-			<div class="sidebar-header">{{i18n 'main.sidebar-header' ns='infobox-builder'}}</div>
-			<div class="infobox-builder-buttons">
-				{{#each addItemButtons as |button|}}
-					{{infobox-builder-button
-						name=button.name
-						icon=button.icon
-						click=(action 'addItem' button.name)
-					}}
-				{{/each}}
-			</div>
-		{{/if}}
+		{{infobox-builder-sidebar-header
+			item=activeItem
+			onBackArrowClick=(action this.attrs.setEditItem null)
+			onDeleteItem=(action this.attrs.removeItem)
+		}}
+		{{component sideBarOptionsComponent
+			item=activeItem
+			addItem=(action 'addItem')
+ 			editRowItem=(action this.attrs.editRowItem)
+			editSectionHeaderItem=(action this.attrs.editSectionHeaderItem)
+			editTitleItem=(action this.attrs.editTitleItem)
+		}}
 	</div>
 </div>
 {{#if showOverlay}}
 	<div class="infobox-builder-spinner loading-overlay">
-	{{#if isLoading}}
-		{{loading-spinner
-			active=true
-			radius=38
-			overlay=false
-			strokeWidth=3
-		}}
-		<div class="spinner-text">
-			{{i18n 'main.saving' ns='infobox-builder'}}
-		</div>
-	{{/if}}
-	{{#if showSuccess}}
-		{{svg 'success' class='success-icon' viewBox='0 0 80 80'}}
-		<div class="spinner-text">
-			{{i18n 'main.success' ns='infobox-builder'}}
-		</div>
-	{{/if}}
+		{{#if isLoading}}
+			{{loading-spinner
+				active=true
+				radius=38
+				overlay=false
+				strokeWidth=3
+			}}
+			<div class="spinner-text">
+				{{i18n 'main.saving' ns='infobox-builder'}}
+			</div>
+		{{/if}}
+		{{#if showSuccess}}
+			{{svg 'success' class='success-icon' viewBox='0 0 80 80'}}
+			<div class="spinner-text">
+				{{i18n 'main.success' ns='infobox-builder'}}
+			</div>
+		{{/if}}
 	</div>
 {{/if}}

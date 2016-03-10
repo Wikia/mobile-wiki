@@ -4,39 +4,41 @@ import TrackClickMixin from '../mixins/track-click';
 export default Ember.Component.extend(
 	TrackClickMixin,
 	{
-		editPanelOption: Ember.computed('item.type', function () {
-			return `infobox-builder-edit-item-${this.get('item.type')}`;
-		}),
-
-		header: Ember.computed('item.{data,data.label,type,value,data.defaultValue,infoboxBuilderData.index}', function () {
-			let header;
+		classNames: ['edit-header'],
+		title: Ember.computed('item.{data,data.label,type,value,data.defaultValue,infoboxBuilderData.index}', function () {
+			let title;
 
 			switch (this.get('item.type')) {
 				case 'title':
-					header = this.get('item.data.defaultValue') ||
-							i18n.t('main.title-default', {
-								ns: 'infobox-builder',
-								index: this.get('item.infoboxBuilderData.index')
-							});
+					title = this.get('item.data.defaultValue') ||
+						i18n.t('main.title-default', {
+							ns: 'infobox-builder',
+							index: this.get('item.infoboxBuilderData.index')
+						});
 					break;
 				case 'row':
-					header = this.get('item.data.label');
+					title = this.get('item.data.label');
 					break;
 				case 'image':
-					header = i18n.t('main.image-default', {
+					title = i18n.t('main.image-default', {
 						ns: 'infobox-builder',
 						index: this.get('item.infoboxBuilderData.index')
 					});
 					break;
 				case 'section-header':
-					header = this.get('item.data');
+					title = this.get('item.data');
 					break;
 				default:
+					title = i18n.t('main.sidebar-header', {
+						ns: 'infobox-builder'
+					});
 					break;
 			}
 
-			return header;
+			return title;
 		}),
+
+		showActionButtons: Ember.computed.bool('item'),
 
 		actions: {
 			removeItem() {
