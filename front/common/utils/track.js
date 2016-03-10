@@ -2,6 +2,7 @@
 
 import Internal from '../modules/Trackers/Internal';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
+import {getGroup} from '../modules/AbTest';
 import Ads from '../modules/Ads';
 
 /**
@@ -206,6 +207,23 @@ export function trackPageView(adsContext) {
 	}
 
 	Ads.getInstance().trackKruxPageView();
+}
+
+/**
+ * Function to track an experiement specific event. This is currently
+ * done due to limitations in the DW when it comes to segmentation
+ * of events based on experiment groups
+ *
+ * @param {String} experiment
+ * @param {TrackingParams} params
+ * @returns {void}
+ */
+export function trackExperiment(experiment, params) {
+	const group = getGroup(experiment) || 'CONTROL',
+		label = [experiment, group, params.label].join('=');
+
+	params.label = label;
+	track(params);
 }
 
 /**
