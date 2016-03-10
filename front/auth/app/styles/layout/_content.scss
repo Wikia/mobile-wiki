@@ -35,6 +35,7 @@
 
 .standalone {
 	.desktop-view {
+		align-self: center;
 		border: $border-color solid;
 		border-width: 0 1px 1px;
 		flex-grow: 0;
@@ -53,5 +54,9 @@
 		}
 		margin-bottom: 15px;
 		padding-bottom: 0;
+	}
+
+	.desktop-view {
+		min-width: $desktop-content-min-width;
 	}
 }

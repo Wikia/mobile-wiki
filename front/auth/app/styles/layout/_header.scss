@@ -9,6 +9,7 @@
 
 .standalone {
 	.auth-header {
+		align-self: center;
 		flex-grow: 0;
 		flex-shrink: 0;
 		margin: 19px auto 0;
@@ -21,6 +22,7 @@
 .desktop {
 	.auth-header {
 		min-height: 58px;
+		min-width: $desktop-content-min-width;
 		padding: 30px 24px 32px;
 		position: relative;
 
@@ -44,6 +46,7 @@
 			margin: 0 0 1rem;
 		}
 	}
+
 	&.register-fb-page,
 	&.fb-connect-page {
 		.auth-header {

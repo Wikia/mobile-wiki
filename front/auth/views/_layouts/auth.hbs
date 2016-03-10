@@ -18,9 +18,6 @@
 			<nav class="global-nav">
 				<a class="main-page" href="{{mainPage}}"><span>Wikia</span></a>
 			</nav>
-			<nav class="auth-nav">
-				<a class="back" href="{{exitTo}}">{{i18n 'auth:common.to-wiki-link-text'}}</a>
-			</nav>
 		{{else}}
 			{{#unless pageParams.isModal}}
 			<a class="close" href="{{exitTo}}">
@@ -29,20 +26,27 @@
 			{{/unless}}
 		{{/if}}
 
-		{{#unless hideHeader}}
-		<header class="auth-header splash splash-top">
-			<h1>{{i18n headerText}}</h1>
-
-			{{#if headerSlogan}}
-			<p>{{i18n headerSlogan}}</p>
+		<main class="page-view">
+			{{#if standalonePage}}
+				<nav class="auth-nav">
+					<a class="back" href="{{exitTo}}">{{i18n 'auth:common.to-wiki-link-text'}}</a>
+				</nav>
 			{{/if}}
-			<a href="{{{headerHref}}}" class="header-callout-link">
-				{{i18n headerCallout}} <span class="header-callout-emphasis">{{i18n headerCalloutLink}}</span>
-			</a>
-		</header>
-		{{/unless}}
+			{{#unless hideHeader}}
+			<header class="auth-header splash splash-top">
+				<h1>{{i18n headerText}}</h1>
 
-		{{{content}}}
+				{{#if headerSlogan}}
+				<p>{{i18n headerSlogan}}</p>
+				{{/if}}
+				<a href="{{{headerHref}}}" class="header-callout-link">
+					{{i18n headerCallout}} <span class="header-callout-emphasis">{{i18n headerCalloutLink}}</span>
+				</a>
+			</header>
+			{{/unless}}
+
+			{{{content}}}
+		</main>
 
 		<script>
 			var translations = {{{json (translations language ns='auth-front')}}},
