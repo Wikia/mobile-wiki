@@ -8,20 +8,17 @@ import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenG
 /**
  * @param {Hapi.Request} request
  * @param {Object} articleData
- * @returns {String} title
+ * @returns {String}
  */
 export function getTitle(request, articleData) {
-	let title;
-
-	if (articleData.article && articleData.article.displayTitle) {
-		title = articleData.article.displayTitle;
-	} else if (articleData.details && articleData.details.title) {
-		title = articleData.details.title;
-	} else {
-		title = request.params.title.replace(/_/g, ' ');
+	if (articleData) {
+		if (articleData.article && articleData.article.displayTitle) {
+			return articleData.article.displayTitle;
+		} else if (articleData.details && articleData.details.title) {
+			return articleData.details.title;
+		}
 	}
-
-	return title;
+	return request.params.title.replace(/_/g, ' ');
 }
 
 /**
@@ -39,14 +36,13 @@ export default function prepareArticleData(request, data) {
 			articlePage: data.page,
 			server: data.server,
 			wikiVariables: data.wikiVariables,
-			displayTitle: request.params.title.replace(/_/g, ' '),
+			displayTitle: getTitle(request, articleData),
 		};
 
 	let htmlTitle;
 
 	if (articleData) {
 		result.isMainPage = articleData.isMainPage;
-		result.displayTitle = getTitle(request, articleData);
 
 		if (articleData.details) {
 			result.canonicalUrl = wikiVariables.basePath + articleData.details.url;
