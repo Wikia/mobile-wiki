@@ -172,7 +172,7 @@ export default Ember.Component.extend(
 
 			this.trackClick('infobox-builder', 'save-attempt');
 			this.trackChangedItems();
-			
+
 			return this.get('saveAction')(redirectToTemplatePage).then(() => {
 				track({
 					action: trackActions.success,
