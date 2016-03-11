@@ -6,62 +6,47 @@ import Ember from 'ember';
 export default Ember.Mixin.create({
 	actions: {
 		/**
-		 * Delete item and close pop-over
+		 * Delete item
 		 * @param {object} item - post or reply
 		 * @returns {void}
 		 */
 		delete(item) {
-			// There's no API for closing Ember Pop-Up, so that's
-			// the only way to close it after triggering an action from it
-			this.$('.discussion-more-options').mousedown();
 			this.attrs.delete(item);
 		},
 
 		/**
-		 * Undelete item and close pop-over
+		 * Undelete item
 		 * @param {object} item - post or reply
 		 * @returns {void}
 		 */
 		undelete(item) {
-			// There's no API for closing Ember Pop-Up, so that's
-			// the only way to close it after triggering an action from it
-			this.$('.discussion-more-options').mousedown();
 			this.attrs.undelete(item);
 		},
 
 		/**
-		 * Report an item and close pop-over
+		 * Report an item
 		 * @param {object} item - post or reply
 		 * @returns {void}
 		 */
 		report(item) {
-			// There's no API for closing Ember Pop-Up, so that's
-			// the only way to close it after triggering an action from it
-			this.$('.discussion-more-options').mousedown();
 			this.attrs.report(item);
 		},
 
 		/**
-		 * Locks an item and closes pop-over
+		 * Locks an item
 		 * @param {object} item - post
 		 * @returns {void}
 		 */
 		lock(item) {
-			// There's no API for closing Ember Pop-Up, so that's
-			// the only way to close it after triggering an action from it
-			//this.get('popover').deactivate();
 			this.attrs.lock(item);
 		},
 
 		/**
-		 * Unlocks an item and closes pop-over
+		 * Unlocks an item
 		 * @param {object} item - post
 		 * @returns {void}
 		 */
 		unlock(item) {
-			// There's no API for closing Ember Pop-Up, so that's
-			// the only way to close it after triggering an action from it
-			this.$('.discussion-more-options').mousedown();
 			this.attrs.unlock(item);
 		},
 	}
