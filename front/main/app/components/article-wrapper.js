@@ -26,7 +26,6 @@ export default Ember.Component.extend(
 		currentUser: Ember.inject.service(),
 
 		highlightedSectionIndex: 0,
-		showHighlightedEdit: null,
 		highlightedText: '',
 
 		hammerOptions: {
