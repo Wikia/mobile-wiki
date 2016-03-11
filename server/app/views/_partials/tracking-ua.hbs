@@ -14,8 +14,10 @@
 			format: 'json'
 		}, function(data) {
 				if (data && data.dimensions) {
-					let dimensions = [];
-					$.each(data.dimensions, (index, value) => dimensions[index] = value);
+					var dimensions = [];
+					$.each(data.dimensions, function(index, value) {
+						dimensions[index] = value;
+					});
 
 					// when everything loads, initialize trackers and track initial pageview
 					$script.ready(['optimizely'], function() {
