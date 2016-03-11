@@ -9,6 +9,16 @@
 		bottom: 45px;
 		position: absolute;
 		z-index: $z-portable-infobox-collapse + 1;
+
+		&::before {
+			background: linear-gradient(to top, $color-gray-light 5%, transparentize($color-gray-light, 1));
+			content: '';
+			height: 45px;
+			left :0;
+			position: absolute;
+			top: -51px;
+			width: 100%;
+		}
 	}
 }
 .portable-infobox-question__input[type="text"] {
