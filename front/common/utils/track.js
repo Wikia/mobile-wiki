@@ -27,10 +27,7 @@ import Ads from '../modules/Ads';
  * @property {boolean} usesAdsContext
  */
 
-const trackers = {
-		Internal
-	},
-	/**
+const /**
 	 * These actions were ported over from legacy Wikia app code:
 	 * https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
 	 * The property keys were modified to fit style rules
@@ -147,7 +144,7 @@ export function track(params) {
 	}
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
-		tracker = new trackers.Internal();
+		tracker = new Internal();
 		params = $.extend(context, params);
 		tracker.track(params);
 	}
@@ -162,16 +159,10 @@ export function trackPageView(overrideUrl) {
 		return;
 	}
 
-	Object.keys(trackers).forEach((tracker) => {
-		const Tracker = trackers[tracker];
+	const instance = new Internal();
 
-		if (typeof Tracker.prototype.trackPageView === 'function') {
-			const instance = new Tracker();
-
-			console.info('Track pageView:', tracker);
-			instance.trackPageView(context);
-		}
-	});
+	console.info('Track pageView: Internal');
+	instance.trackPageView(context);
 
 	if (M.prop('initialPageView')) {
 		M.prop('initialPageView', false);
