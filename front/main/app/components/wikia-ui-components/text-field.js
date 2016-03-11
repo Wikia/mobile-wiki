@@ -1,3 +1,17 @@
+/**
+ * Text-fiels reusable component usage:
+ *
+ * @example
+ * {{wikia-ui-components/text-field
+ *      value='example value'
+ *      inputId='userName'
+ *      name='userName'
+ *      label='User name'
+ *      class='additional-custom-cass'
+ *      onFocusHandler=onFocusHandlerFunction
+ *      onBlurHandler=onBlurHandlerFunction
+ * }}
+ */
 import Ember from 'ember';
 
 export default Ember.Component.extend({

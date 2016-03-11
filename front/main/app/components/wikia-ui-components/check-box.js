@@ -1,3 +1,13 @@
+/**
+ * Check-box reusable component usage:
+ *
+ * @example
+ * {{wikia-ui-components/check-box
+ *      inputId='isCollapsible'
+ *      label='Collapse section'
+ * }}
+ */
+
 import Ember from 'ember';
 
 export default Ember.Component.extend({
