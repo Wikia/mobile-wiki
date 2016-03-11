@@ -49,7 +49,7 @@ export default Ember.Mixin.create({
 		lock(item) {
 			// There's no API for closing Ember Pop-Up, so that's
 			// the only way to close it after triggering an action from it
-			this.$('.discussion-more-options').mousedown();
+			//this.get('popover').deactivate();
 			this.attrs.lock(item);
 		},
 

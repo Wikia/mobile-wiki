@@ -6,7 +6,7 @@
 </li>
 {{#if canReport}}
 	<li>
-		<a class="report-link" {{action this.attrs.report post}}>
+		<a class="report-link" {{action 'report' post}}>
 			{{svg 'report' viewBox='0 0 18 18' class='icon report'}}
 			{{reportMessage}}
 		</a>
@@ -14,7 +14,7 @@
 {{/if}}
 {{#if canLock}}
 	<li>
-		<a class="report-link" {{action this.attrs.lock post}}>
+		<a class="report-link" {{action 'lock' post}}>
 			{{svg 'lock' viewBox='0 0 18 18' class='icon lock'}}
 			{{lockMessage}}
 		</a>
@@ -22,7 +22,7 @@
 {{/if}}
 {{#if canUnlock}}
 	<li>
-		<a class="report-link" {{action this.attrs.unlock post}}>
+		<a class="report-link" {{action 'unlock' post}}>
 			{{svg 'unlock' viewBox='0 0 18 18' class='icon unlock'}}
 			{{unlockMessage}}
 		</a>
@@ -31,13 +31,13 @@
 {{#if canDeleteOrUndelete}}
 	<li>
 		{{#if canUndelete}}
-			<a class="undelete-link" {{action this.attrs.undelete post}}>
+			<a class="undelete-link" {{action 'undelete' post}}>
 				{{svg 'undelete' viewBox='0 0 16 19' class='icon undelete'}}
 				<span>{{undeleteMessage}}</span>
 			</a>
 		{{/if}}
 		{{#if canDelete}}
-			<a class="delete-link" {{action this.attrs.delete post}}>
+			<a class="delete-link" {{action 'delete' post}}>
 				{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
 				<span>{{deleteMessage}}</span>
 			</a>
