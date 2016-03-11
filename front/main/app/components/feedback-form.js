@@ -90,7 +90,11 @@ export default BottomBanner.extend({
 			});
 		},
 		feedback() {
-			// get feedback
+			this.setProperties({
+				displayInput: false,
+				displayThanks: true,
+				message: completed['no'].message
+			});
 		}
 	}
 });
