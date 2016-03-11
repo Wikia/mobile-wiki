@@ -1,4 +1,4 @@
 import Ember from 'ember';
-import InfoboxBuilderSidebarOptions from '../mixins/infobox-builder-sidebar-options';
+import InfoboxBuilderSidebarOptionsMixin from '../mixins/infobox-builder-sidebar-options';
 
-export default Ember.Component.extend(InfoboxBuilderSidebarOptions, {});
+export default Ember.Component.extend(InfoboxBuilderSidebarOptionsMixin, {});
