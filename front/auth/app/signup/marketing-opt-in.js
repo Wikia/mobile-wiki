@@ -1,4 +1,4 @@
-import Geo from '../common/Geo';
+import Geo from '../common/geo';
 
 /**
  * Creates new Marketing Opt In.
