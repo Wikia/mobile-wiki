@@ -150,12 +150,14 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	}
 
 	.infobox-builder-sidebar-header-icon-delete {
-		fill: $color-blue-gray;
+		fill: $color-blue-gray-dark;
 		height: $icon-action-size;
 		width: $icon-action-size;
+	}
 
-		.infobox-builder-sidebar-header-icon-wrapper:hover & {
-			fill: $color-blue-light;
+	&:hover {
+		.infobox-builder-sidebar-header-icon-delete {
+			fill: $color-gray-dark;
 		}
 	}
 }
