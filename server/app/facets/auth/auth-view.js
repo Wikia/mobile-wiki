@@ -1,4 +1,4 @@
-import {disableCache} from '../../lib/Caching';
+import {disableCache} from '../../lib/caching';
 import {parse} from 'url';
 import localSettings from '../../../config/localSettings';
 

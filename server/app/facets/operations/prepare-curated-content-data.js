@@ -1,6 +1,6 @@
-import {parseQueryParams} from '../../lib/Utils';
-import {gaUserIdHash} from '../../lib/Hashing';
-import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
+import {parseQueryParams} from '../../lib/utils';
+import {gaUserIdHash} from '../../lib/hashing';
+import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './prepare-page-data';
 
 /**
  * @param {Hapi.Request} request

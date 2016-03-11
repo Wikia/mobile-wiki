@@ -1,15 +1,15 @@
-import {PageRequestHelper, PageRequestError} from '../lib/MediaWikiPage';
-import {WikiVariablesRequestError, namespace as MediaWikiNamespace} from '../lib/MediaWiki';
-import setResponseCaching, * as Caching from '../lib/Caching';
-import Logger from '../lib/Logger';
-import * as Tracking from '../lib/Tracking';
-import * as Utils from '../lib/Utils';
-import getStatusCode from './operations/getStatusCode';
+import {PageRequestHelper, PageRequestError} from '../lib/mediawiki-page';
+import {WikiVariablesRequestError, namespace as MediaWikiNamespace} from '../lib/mediawiki';
+import setResponseCaching, * as Caching from '../lib/caching';
+import Logger from '../lib/logger';
+import * as Tracking from '../lib/tracking';
+import * as Utils from '../lib/utils';
+import getStatusCode from './operations/get-status-code';
 import localSettings from '../../config/localSettings';
-import prepareArticleData from './operations/prepareArticleData';
-import prepareCategoryData from './operations/prepareCategoryData';
-import prepareMainPageData from './operations/prepareMainPageData';
-import prepareMediaWikiData from './operations/prepareMediaWikiData';
+import prepareArticleData from './operations/prepare-article-data';
+import prepareCategoryData from './operations/prepare-category-data';
+import prepareMainPageData from './operations/prepare-main-page-data';
+import prepareMediaWikiData from './operations/prepare-mediawiki-data';
 import deepExtend from 'deep-extend';
 
 const cachingTimes = {

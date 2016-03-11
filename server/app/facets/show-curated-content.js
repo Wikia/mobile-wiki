@@ -1,13 +1,13 @@
-import Logger from '../lib/Logger';
-import {CuratedMainPageRequestHelper, MainPageDataRequestError} from '../lib/CuratedMainPage';
-import * as MediaWiki from '../lib/MediaWiki';
+import Logger from '../lib/logger';
+import {CuratedMainPageRequestHelper, MainPageDataRequestError} from '../lib/curated-main-page';
+import * as MediaWiki from '../lib/mediawiki';
 import {getCachedWikiDomainName,
 		redirectToCanonicalHostIfNeeded,
-		RedirectedToCanonicalHost} from '../lib/Utils';
+		RedirectedToCanonicalHost} from '../lib/utils';
 import localSettings from '../../config/localSettings';
-import prepareCuratedContentData from './operations/prepareCuratedContentData';
-import setResponseCaching, * as Caching from '../lib/Caching';
-import * as Tracking from '../lib/Tracking';
+import prepareCuratedContentData from './operations/prepare-curated-content-data';
+import setResponseCaching, * as Caching from '../lib/caching';
+import * as Tracking from '../lib/tracking';
 
 const cachingTimes = {
 	enabled: true,

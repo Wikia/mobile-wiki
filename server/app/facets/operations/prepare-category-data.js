@@ -1,7 +1,7 @@
-import * as Utils from '../../lib/Utils';
-import {gaUserIdHash} from '../../lib/Hashing';
+import * as Utils from '../../lib/utils';
+import {gaUserIdHash} from '../../lib/hashing';
 import localSettings from '../../../config/localSettings';
-import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './preparePageData';
+import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './prepare-page-data';
 
 /**
  * @param {Object} data

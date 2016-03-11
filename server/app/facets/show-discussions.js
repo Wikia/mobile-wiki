@@ -1,7 +1,7 @@
-import {WikiRequest} from '../lib/MediaWiki';
-import {getCachedWikiDomainName} from '../lib/Utils';
+import {WikiRequest} from '../lib/mediawiki';
+import {getCachedWikiDomainName} from '../lib/utils';
 import localSettings from '../../config/localSettings';
-import showApplication from './showApplication';
+import showApplication from './show-application';
 
 /**
  * Renders discussions page

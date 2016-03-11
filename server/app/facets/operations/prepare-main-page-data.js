@@ -1,4 +1,4 @@
-import {getOpenGraphData} from './preparePageData';
+import {getOpenGraphData} from './prepare-page-data';
 
 /**
  * @param {Object} wikiVariables

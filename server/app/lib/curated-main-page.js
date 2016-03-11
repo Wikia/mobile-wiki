@@ -1,7 +1,7 @@
 import {resolve, reject, settle} from 'bluebird';
-import * as MediaWiki from './MediaWiki';
-import {createServerData} from './Utils';
-import logger from './Logger';
+import * as MediaWiki from './mediawiki';
+import {createServerData} from './utils';
+import logger from './logger';
 import localSettings from '../../config/localSettings';
 
 /**

@@ -1,5 +1,5 @@
 import localSettings from '../../config/localSettings';
-import Logger from './Logger';
+import Logger from './logger';
 
 export const Comscore = {
 		/**

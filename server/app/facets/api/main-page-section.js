@@ -1,7 +1,7 @@
-import {PageRequest} from '../../lib/MediaWiki';
-import {getCachedWikiDomainName} from '../../lib/Utils';
+import {PageRequest} from '../../lib/mediawiki';
+import {getCachedWikiDomainName} from '../../lib/utils';
 import localSettings from '../../../config/localSettings';
-import getStatusCode from '../operations/getStatusCode';
+import getStatusCode from '../operations/get-status-code';
 
 /**
  * @param {Hapi.Request} request

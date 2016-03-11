@@ -1,12 +1,12 @@
-import * as MW from '../lib/MediaWiki';
-import * as Utils from '../lib/Utils';
-import * as Tracking from '../lib/Tracking';
-import * as OpenGraph from '../lib/OpenGraph';
-import Logger from '../lib/Logger';
+import * as MW from '../lib/mediawiki';
+import * as Utils from '../lib/utils';
+import * as Tracking from '../lib/tracking';
+import * as OpenGraph from '../lib/open-graph';
+import Logger from '../lib/logger';
 import localSettings from '../../config/localSettings';
 import discussionsSplashPageConfig from '../../config/discussionsSplashPageConfig';
-import {gaUserIdHash} from '../lib/Hashing';
-import {isRtl, getUserId, getLocalSettings} from './operations/preparePageData';
+import {gaUserIdHash} from '../lib/hashing';
+import {isRtl, getUserId, getLocalSettings} from './operations/prepare-page-data';
 
 /**
  * @typedef {Object} CommunityAppConfig

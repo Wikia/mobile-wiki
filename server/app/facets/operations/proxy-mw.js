@@ -1,6 +1,6 @@
-import {createUrl} from '../../lib/MediaWiki';
+import {createUrl} from '../../lib/mediawiki';
 import localSettings from '../../../config/localSettings';
-import {getCachedWikiDomainName} from '../../lib/Utils';
+import {getCachedWikiDomainName} from '../../lib/utils';
 
 /**
  * @param {Hapi.Request} request

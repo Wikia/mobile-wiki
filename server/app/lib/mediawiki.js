@@ -2,7 +2,7 @@
  * @description Mediawiki API functions
  */
 import localSettings from '../../config/localSettings';
-import Logger from './Logger';
+import Logger from './logger';
 import Wreck from 'wreck';
 import Promise from 'bluebird';
 import Url from 'url';

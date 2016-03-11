@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 import localSettings from '../../config/localSettings';
-import * as MW from './MediaWiki';
-import {getStaticAssetPath} from './Utils';
+import * as MW from './mediawiki';
+import {getStaticAssetPath} from './utils';
 
 /**
  * @typedef {Object} OpenGraphAttributes

@@ -1,8 +1,8 @@
 import {unauthorized} from 'boom';
 import Wreck from 'wreck';
 import localSettings from '../../config/localSettings';
-import Logger from './Logger';
-import {getWhoAmIUrl} from './AuthUtils';
+import Logger from './logger';
+import {getWhoAmIUrl} from './auth-utils';
 
 /**
  * @returns {Object}

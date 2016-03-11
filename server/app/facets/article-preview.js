@@ -1,8 +1,8 @@
-import {PageRequestHelper} from '../lib/MediaWikiPage';
-import disableCache from '../lib/Caching';
-import {getCachedWikiDomainName, getCDNBaseUrl, getHtmlTitle} from '../lib/Utils';
+import {PageRequestHelper} from '../lib/mediawiki-page';
+import disableCache from '../lib/caching';
+import {getCachedWikiDomainName, getCDNBaseUrl, getHtmlTitle} from '../lib/utils';
 import localSettings from '../../config/localSettings';
-import Logger from '../lib/Logger';
+import Logger from '../lib/logger';
 import deepExtend from 'deep-extend';
 
 /**
