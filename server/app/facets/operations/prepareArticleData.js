@@ -39,6 +39,7 @@ export default function prepareArticleData(request, data) {
 			articlePage: data.page,
 			server: data.server,
 			wikiVariables: data.wikiVariables,
+			displayTitle: request.params.title.replace(/_/g, ' '),
 		};
 
 	let htmlTitle;

@@ -1,5 +1,12 @@
 {{#if optimizelyScript}}
+{{!--
+	We need to load optimizely via $script, because $script will tell us
+	when it loads - see tracking-ua.hbs for the usage
+--}}
 	<script>$script(['{{optimizelyScript}}'], 'optimizely');</script>
 {{else}}
+{{!--
+	Mark 'optimizely' as already loaded
+--}}
 	<script>$script.done('optimizely');</script>
 {{/if}}

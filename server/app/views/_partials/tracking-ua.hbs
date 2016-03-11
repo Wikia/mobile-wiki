@@ -4,17 +4,27 @@
 		// This code is based on code from Google that shows one how to include UA Tracking.
 		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 
-		// Load UA
+		// Load UA async and flag $script when ready (used by Ember initializer)
 		$script(['{{server.gaUrl}}'], 'ua');
-		// load window.trackingDimensions
-		$script(['/wikia.php?controller=MercuryApi&method=getTrackingDimensions&title=' + encodeURIComponent(Mercury.article.data.article.displayTitle)], 'dimensions');
 
-		// when everything loads, initialize trackers and track initial pageview
-		$script.ready(['dimensions', 'optimizely'], function() {
-			var ua = M.tracker.UniversalAnalytics;
+		$.getJSON('/wikia.php', {
+			controller: 'MercuryApi',
+			method: 'getTrackingDimensions',
+			title: M.prop('displayTitle'),
+			format: 'json'
+		}, function(data) {
+				if (data && data.dimensions) {
+					let dimensions = [];
+					$.each(data.dimensions, (index, value) => dimensions[index] = value);
 
-			ua.initialize(window.trackingDimensions);
-			ua.trackPageView();
+					// when everything loads, initialize trackers and track initial pageview
+					$script.ready(['optimizely'], function() {
+						var ua = M.tracker.UniversalAnalytics;
+
+						ua.initialize(dimensions);
+						ua.trackPageView();
+					});
+				}
 		});
 	</script>
 {{else}}

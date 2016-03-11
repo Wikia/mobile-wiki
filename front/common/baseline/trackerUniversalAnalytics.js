@@ -335,7 +335,6 @@ if (typeof window.M.tracker === 'undefined') {
 	 */
 	function initialize(dimensions) {
 		if (typeof dimensions === 'undefined') {
-
 			// eslint-disable-next-line no-console
 			console.log('Cannot initialize UA; please provide dimensions');
 		} else {
