@@ -3,6 +3,8 @@ import {track as mercuryTrack} from 'common/utils/track';
 const trackActions = {
 		PostCreate: 'PostCreate',
 		ReplyCreate: 'ReplyCreate',
+		UndoUpvotePost: 'UndoUpvotePost',
+		UpvotePost: 'UpvotePost',
 	};
 
 /**
