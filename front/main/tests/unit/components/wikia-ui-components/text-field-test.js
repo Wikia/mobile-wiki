@@ -34,7 +34,7 @@ test('sets correct value for isLabelFloating', function (assert) {
 		component.set('isFocused', testCase.isFocused);
 		component.set('value', testCase.value);
 		assert.equal(component.get('isLabelFloating'), testCase.isLabelFloating);
-	})
+	});
 });
 
 test('sets correct value for labelClassNames', function (assert) {
@@ -55,7 +55,7 @@ test('sets correct value for labelClassNames', function (assert) {
 	cases.forEach((testCase) => {
 		component.set('isLabelFloating', testCase.isLabelFloating);
 		assert.equal(component.get('labelClassNames'), testCase.classNames);
-	})
+	});
 });
 
 test('correctly sets isFocused flag on input focus and blur', function (assert) {
@@ -99,7 +99,7 @@ test('calls appropriate handler on focus and blur', function (assert) {
 	cases.forEach((testCase) => {
 		component.set(testCase.handlerName, testCase.handler);
 		component.send(testCase.action, eventMock);
-		assert.equal( testCase.handler.called, true);
-		assert.equal( testCase.handler.calledWith(eventMock), true);
+		assert.equal(testCase.handler.called, true);
+		assert.equal(testCase.handler.calledWith(eventMock), true);
 	});
 });
