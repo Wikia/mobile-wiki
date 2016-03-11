@@ -123,27 +123,31 @@ export default Ember.Component.extend(
 			},
 
 			save() {
-				this.set('isLoading', true);
-
-				this.trackClick('infobox-builder', 'save-attempt');
-				this.trackChangedItems();
-				this.get('saveAction')().then(() => {
-					track({
-						action: trackActions.success,
-						category: 'infobox-builder',
-						label: 'save-successful'
-					});
-
-					this.setProperties({
-						isLoading: false,
-						showSuccess: true
-					});
-				});
+				this.save();
 			},
 
 			cancel() {
 				this.trackClick('infobox-builder', 'navigate-back-from-builder');
 				this.get('cancelAction')();
+			},
+
+			goToSourceEditor() {
+				const controllerAction = this.get('goToSourceEditor');
+
+				if (this.get('isDirty') && window.confirm('Wanna save?')) {
+					this.save(false).then(() => {
+						controllerAction();
+					});
+				} else {
+					this.setProperties({
+						isLoading: true,
+						loadingText: i18n.t('main.loading-source-editor', {
+							ns: 'infobox-builder'
+						})
+					});
+
+					controllerAction();
+				}
 			},
 
 			onPreviewBackgroundClick() {
@@ -152,6 +156,35 @@ export default Ember.Component.extend(
 				}
 				this.get('setEditItem')(null);
 			}
+		},
+
+		/**
+		 * @param {Boolean} [redirectToTemplatePage=true]
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		save(redirectToTemplatePage = true) {
+			this.setProperties({
+				isLoading: true,
+				loadingText: i18n.t('main.saving', {
+					ns: 'infobox-builder'
+				})
+			});
+
+			this.trackClick('infobox-builder', 'save-attempt');
+			this.trackChangedItems();
+			
+			return this.get('saveAction')(redirectToTemplatePage).then(() => {
+				track({
+					action: trackActions.success,
+					category: 'infobox-builder',
+					label: 'save-successful'
+				});
+
+				this.setProperties({
+					isLoading: false,
+					showSuccess: true
+				});
+			});
 		},
 
 		/**

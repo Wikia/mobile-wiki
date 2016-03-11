@@ -40,13 +40,14 @@
 	</div>
 
 	{{infobox-builder-sidebar
-		addItem=(action 'addItem')
 		removeItem=removeItem
 		itemInEditMode=activeItem
 		setEditItem=setEditItem
 		editTitleItem=editTitleItem
 		editRowItem=editRowItem
 		editSectionHeaderItem=editSectionHeaderItem
+		addItem=(action 'addItem')
+		goToSourceEditor=(action 'goToSourceEditor')
 	}}
 </div>
 {{#if showOverlay}}
@@ -59,7 +60,7 @@
 			strokeWidth=3
 		}}
 		<div class="spinner-text">
-			{{i18n 'main.saving' ns='infobox-builder'}}
+			{{loadingText}}
 		</div>
 	{{/if}}
 	{{#if showSuccess}}

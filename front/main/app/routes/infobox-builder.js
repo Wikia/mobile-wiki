@@ -95,17 +95,16 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		/**
 		 * Connects with ponto and redirects to template page
 		 *
-		 * @param {String} title - title of the template
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		redirectToTemplatePage(title) {
+		redirectToTemplatePage() {
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				const ponto = window.Ponto;
 
 				ponto.invoke(
 					'wikia.infoboxBuilder.ponto',
 					'redirectToTemplatePage',
-					title,
+					null,
 					(data) => resolve(data),
 					(data) => {
 						reject(data);
@@ -114,6 +113,23 @@ export default Ember.Route.extend(ConfirmationMixin, {
 					false
 				);
 			});
+		},
+
+		goToSourceEditor() {
+			const ponto = window.Ponto;
+
+			ponto.invoke(
+				'wikia.infoboxBuilder.ponto',
+				'redirectToSourceEditor',
+				null,
+				() => {
+
+				},
+				function (data) {
+					this.showPontoError(data);
+				},
+				false
+			);
 		}
 	},
 

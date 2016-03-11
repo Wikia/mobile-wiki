@@ -6,35 +6,43 @@ export default Ember.Controller.extend({
 
 	actions: {
 		/**
-		 * @desc exits infobox builder ui and calls redirect method on route.
-		 * Connect with <iframe> parent to redirect to another page.
+		 * Exits infobox builder ui and calls redirect method on route.
+		 *
 		 * @returns {void}
 		 */
 		cancel() {
-			const model = this.get('model'),
-				title = model.get('title');
-
-			this.get('target').send('redirectToTemplatePage', title);
+			this.get('target').send('redirectToTemplatePage');
 		},
 
 		/**
-		 * @desc Saves infobox state to template and calls redirect method on route.
-		 * on model and connect with <iframe> parent to redirect to another page.
+		 * Saves infobox state to template and calls redirect method on route.
+		 *
+		 * @param {Boolean} [redirectToTemplatePage=true]
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		save() {
+		save(redirectToTemplatePage = true) {
 			const model = this.get('model');
 
 			// prevents showing confirmation dialog on save
 			this.set('isDirty', false);
 
-			return model.saveStateToTemplate().then(
-				(title) => this.get('target').send('redirectToTemplatePage', title)
-			);
+			return model.saveStateToTemplate().then(() => {
+				if (redirectToTemplatePage) {
+					this.get('target').send('redirectToTemplatePage');
+				}
+			});
+		},
+
+		goToSourceEditor() {
+			// prevents showing confirmation dialog on save
+			this.set('isDirty', false);
+
+			this.get('target').send('goToSourceEditor');
 		},
 
 		/**
-		 * @desc calls different add item action on model
+		 * Calls add item method on model
+		 *
 		 * @param {String} type type
 		 * @returns {Object}
 		 */
@@ -42,11 +50,13 @@ export default Ember.Controller.extend({
 			const model = this.get('model');
 
 			this.set('isDirty', true);
+
 			return model.addItem(type);
 		},
 
 		/**
-		 * @desc removes item from models state
+		 * Removes item from models state
+		 *
 		 * @param {Object} item
 		 * @returns {void}
 		 */
@@ -58,7 +68,8 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * @desc sets currently edited item on model
+		 * Sets currently edited item on model
+		 *
 		 * @param {Object} item
 		 * @returns {void}
 		 */
@@ -69,7 +80,8 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * @desc calls editTitleItem on model with new title data
+		 * Calls editTitleItem on model with new title data
+		 *
 		 * @param {Object} item
 		 * @param {Boolean} shouldUseArticleName
 		 * @returns {void}
@@ -82,7 +94,8 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * @desc calls editSectionHeaderItem on model with new section header data
+		 * Calls editSectionHeaderItem on model with new section header data
+		 *
 		 * @param {Object} item
 		 * @param {Object} newValues new section header values
 		 * @returns {void}
@@ -94,7 +107,8 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * @desc calls editRowItem on model with new label value
+		 * Calls editRowItem on model with new label value
+		 *
 		 * @param {Object} item
 		 * @param {string} label
 		 * @returns {void}
@@ -107,7 +121,8 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * @desc updated models state to new order
+		 * Updated models state to new order
+		 *
 		 * @param {Ember.Array} newState
 		 * @returns {void}
 		 */
@@ -118,6 +133,9 @@ export default Ember.Controller.extend({
 			model.updateInfoboxStateOrder(newState);
 		},
 
+		/**
+		 * @returns {Array}
+		 */
 		getDiffArray() {
 			return this.get('model').createDataDiffs();
 		}
