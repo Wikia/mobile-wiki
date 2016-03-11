@@ -109,7 +109,15 @@
 		{{/collapsible-menu}}
 	{{/if}}
 </section>
-{{content-recommendations pages=model.relatedPages}}
+{{#ab-test experiment='RECIRCULATION_MERCURY_FOOTER' as |group| }}
+	{{#if (equal group 'RECENT_POPULAR') }}
+		{{fandom-posts type='recent_popular'}}
+	{{else if (equal group 'POPULAR')}}
+		{{fandom-posts type='popular'}}
+	{{else}}
+		{{content-recommendations pages=model.relatedPages}}
+	{{/if}}
+{{/ab-test}}
 {{#if displayRecentEdit}}
 	{{recent-edit-banner}}
 {{/if}}
