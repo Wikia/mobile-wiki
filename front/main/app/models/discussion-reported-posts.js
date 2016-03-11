@@ -18,6 +18,8 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 			if (Ember.get(post, '_embedded.thread.0')) {
 				post.postCount = post._embedded.thread[0].postCount;
 			}
+
+			post.isLocked = !post.isReply && !post._embedded.thread.isEditable;
 		},
 
 		/**
@@ -46,7 +48,6 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 						}
 
 						this.normalizeThreadData(post);
-						post.isLocked = !post.isReply && !post._embedded.thread.isEditable;
 					});
 
 					this.set('posts', this.posts.concat(newPosts));
@@ -116,7 +117,6 @@ DiscussionForumModel.reopenClass({
 							title: post.createdBy.name
 						});
 
-						post.isLocked = !post.isReply && !post._embedded.thread.isEditable;
 						contributors.push(post.createdBy);
 					}
 

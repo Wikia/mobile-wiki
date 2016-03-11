@@ -177,9 +177,7 @@ export default Ember.Mixin.create({
 				dataType: 'text',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
 				success: () => {
-					Ember.setProperties(post, {
-						isLocked: true
-					});
+					Ember.set(post, 'isLocked', true);
 				},
 				error: () => {
 					this.displayError();
@@ -200,9 +198,7 @@ export default Ember.Mixin.create({
 				dataType: 'text',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
 				success: () => {
-					Ember.setProperties(post, {
-						isLocked: false
-					});
+					Ember.set(post, 'isLocked', false);
 				},
 				error: () => {
 					this.displayError();
@@ -210,7 +206,6 @@ export default Ember.Mixin.create({
 			});
 		}
 	},
-
 
 	displayError() {
 		alert(i18n.t('editor.post-error-general-error', {ns: 'discussion'}));
