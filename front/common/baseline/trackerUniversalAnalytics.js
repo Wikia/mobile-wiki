@@ -4,6 +4,7 @@ if (typeof window.M === 'undefined') {
 if (typeof window.M.tracker === 'undefined') {
 	window.M.tracker = {};
 }
+/* eslint-disable no-console */
 
 /**
  * @typedef {Object} TrackerOptions
@@ -277,7 +278,6 @@ if (typeof window.M.tracker === 'undefined') {
 			ga(`${prefix}send`, 'pageview');
 		});
 
-		// eslint-disable-next-line no-console
 		console.info('Track PageView: Universal Analytics');
 	}
 
@@ -335,20 +335,12 @@ if (typeof window.M.tracker === 'undefined') {
 	 */
 	function initialize(dimensions) {
 		if (typeof dimensions === 'undefined') {
-			// eslint-disable-next-line no-console
 			console.log('Cannot initialize UA; please provide dimensions');
 		} else {
+			const domain = 'wikia.com';
+
 			dimensions = integrateOptimizely(dimensions);
 			setDimensions(dimensions);
-
-			// All domains that host content for Wikia
-			// Use one of the domains below. If none matches, the tag will fall back to
-			// the default which is 'auto', probably good enough in edge cases.
-			const domain = [
-				'wikia.com', 'ffxiclopedia.org', 'jedipedia.de',
-				'marveldatabase.com', 'memory-alpha.org', 'uncyclopedia.org',
-				'websitewiki.de', 'wowwiki.com', 'yoyowiki.org'
-			].filter((domain) => document.location.hostname.indexOf(domain) > -1)[0];
 
 			accounts = M.prop('tracking.ua');
 

@@ -27,67 +27,67 @@ import Ads from '../modules/Ads';
  * @property {boolean} usesAdsContext
  */
 
-const /**
-	 * These actions were ported over from legacy Wikia app code:
-	 * https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
-	 * The property keys were modified to fit style rules
-	 */
-	trackActions = {
-		// Generic add
-		add: 'add',
-		// During recent operations some data has been changed
-		change: 'change',
-		// Generic click, mostly javascript clicks
-		// NOTE: When tracking clicks, consider binding to 'onMouseDown' instead of 'onClick'
-		// to allow the browser time to send these events naturally. For more information on
-		// this issue, see the `track()` method in "resources/modules/tracker.js"
-		click: 'click',
-		// Click on navigational button
-		clickLinkButton: 'click-link-button',
-		// Click on image link
-		clickLinkImage: 'click-link-image',
-		// Click on text link
-		clickLinkText: 'click-link-text',
-		// Generic close
-		close: 'close',
-		// Clicking okay in a confirmation modal
-		confirm: 'confirm',
-		// Generic disable
-		disable: 'disable',
-		// Generic enable
-		enable: 'enable',
-		// Generic error (generally AJAX)
-		error: 'error',
-		// Input focus
-		focus: 'focus',
-		// Generic hover
-		hover: 'hover',
-		// impression of item on page/module
-		impression: 'impression',
-		// App installation
-		install: 'install',
-		// Generic keypress
-		keypress: 'keypress',
-		// Generic open
-		open: 'open',
-		paginate: 'paginate',
-		// Video play
-		playVideo: 'play-video',
-		// Removal
-		remove: 'remove',
-		// Sharing view email, social network, etc
-		share: 'share',
-		// Form submit, usually a post method
-		submit: 'submit',
-		// Successful ajax response
-		success: 'success',
-		// General swipe event
-		swipe: 'swipe',
-		// Action to take a survey
-		takeSurvey: 'take-survey',
-		// View
-		view: 'view'
-	};
+/**
+ * These actions were ported over from legacy Wikia app code:
+ * https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
+ * The property keys were modified to fit style rules
+ */
+const trackActions = {
+	// Generic add
+	add: 'add',
+	// During recent operations some data has been changed
+	change: 'change',
+	// Generic click, mostly javascript clicks
+	// NOTE: When tracking clicks, consider binding to 'onMouseDown' instead of 'onClick'
+	// to allow the browser time to send these events naturally. For more information on
+	// this issue, see the `track()` method in "resources/modules/tracker.js"
+	click: 'click',
+	// Click on navigational button
+	clickLinkButton: 'click-link-button',
+	// Click on image link
+	clickLinkImage: 'click-link-image',
+	// Click on text link
+	clickLinkText: 'click-link-text',
+	// Generic close
+	close: 'close',
+	// Clicking okay in a confirmation modal
+	confirm: 'confirm',
+	// Generic disable
+	disable: 'disable',
+	// Generic enable
+	enable: 'enable',
+	// Generic error (generally AJAX)
+	error: 'error',
+	// Input focus
+	focus: 'focus',
+	// Generic hover
+	hover: 'hover',
+	// impression of item on page/module
+	impression: 'impression',
+	// App installation
+	install: 'install',
+	// Generic keypress
+	keypress: 'keypress',
+	// Generic open
+	open: 'open',
+	paginate: 'paginate',
+	// Video play
+	playVideo: 'play-video',
+	// Removal
+	remove: 'remove',
+	// Sharing view email, social network, etc
+	share: 'share',
+	// Form submit, usually a post method
+	submit: 'submit',
+	// Successful ajax response
+	success: 'success',
+	// General swipe event
+	swipe: 'swipe',
+	// Action to take a survey
+	takeSurvey: 'take-survey',
+	// View
+	view: 'view'
+};
 
 let context = {
 	a: null,
