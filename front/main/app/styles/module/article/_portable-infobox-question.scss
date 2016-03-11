@@ -1,0 +1,24 @@
+.portable-infobox-question {
+	background: $color-gray-light;
+	border: solid $color-blue-light;
+	border-width: 6px 0;
+	padding: 14px;
+	width: 100%;
+
+	&.collapsed {
+		bottom: 45px;
+		position: absolute;
+		z-index: $z-portable-infobox-collapse + 1;
+	}
+}
+.portable-infobox-question__input[type="text"] {
+	background: transparent;
+	border-bottom: 1px solid $color-blue-gray;
+	box-shadow: none;
+
+	&:focus {
+		border-bottom: 1px solid $color-blue-light;
+		background: transparent;
+		box-shadow: none;
+	}
+}
