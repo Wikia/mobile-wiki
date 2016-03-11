@@ -19,7 +19,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				post.postCount = post._embedded.thread[0].postCount;
 			}
 
-			post.isLocked = !post.isReply && !post._embedded.thread.isEditable;
+			post.isLocked = !post.isReply && !post._embedded.thread[0].isEditable;
 		},
 
 		/**
