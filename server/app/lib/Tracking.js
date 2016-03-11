@@ -40,12 +40,11 @@ export const Comscore = {
 	IVW3 = {
 		/**
 		 * @param {*} tracking
-		 * @param {string} vertical
 		 * @param {object} config
 		 * @returns {void}
 		 */
-		handleResponse(tracking, vertical, config) {
-			tracking.ivw3.vertical = vertical;
+		handleResponse(tracking, config) {
+			tracking.ivw3.cmKey = config.cmKey || '';
 			tracking.ivw3.countries = config.countries || [];
 		}
 	},
@@ -85,7 +84,7 @@ export function handleResponse(result, request) {
 	vertical = trackingConfig.vertical || '';
 
 	Comscore.handleResponse(tracking, vertical, request);
-	IVW3.handleResponse(tracking, vertical, trackingConfig.ivw3 || {});
+	IVW3.handleResponse(tracking, trackingConfig.ivw3 || {});
 	Nielsen.handleResponse(tracking, vertical, dbName, trackingConfig.nielsen || {});
 
 	// export tracking code to layout and front end code

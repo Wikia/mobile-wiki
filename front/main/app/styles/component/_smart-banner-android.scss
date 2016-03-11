@@ -45,6 +45,7 @@
 .sb-info {
 	flex: 1;
 	margin: 0 rem-calc(10);
+	overflow: hidden;
 
 	.sb-title {
 		@include ellipsis;
@@ -69,6 +70,7 @@
 	}
 
 	.sb-in-store {
+		@include ellipsis;
 		color: #555;
 		font-size: rem-calc(10);
 		font-weight: bold;
