@@ -1,11 +1,11 @@
 import {track as mercuryTrack} from 'common/utils/track';
 
 const trackActions = {
-		PostCreate: 'PostCreate',
-		ReplyCreate: 'ReplyCreate',
-		UndoUpvotePost: 'UndoUpvotePost',
-		UpvotePost: 'UpvotePost',
-	};
+	PostCreate: 'PostCreate',
+	ReplyCreate: 'ReplyCreate',
+	UndoUpvotePost: 'UndoUpvotePost',
+	UpvotePost: 'UpvotePost',
+};
 
 /**
  * Currently we change mobile to desktop layout
