@@ -1,5 +1,5 @@
 /* global Mercury, ga */
-QUnit.module('mercury/modules/Trackers/UniversalAnalytics', function (hooks) {
+QUnit.module('mercury/modules/trackers/universal-analytics', function (hooks) {
 	var UniversalAnalytics,
 		queue,
 		p,
@@ -87,7 +87,7 @@ QUnit.module('mercury/modules/Trackers/UniversalAnalytics', function (hooks) {
 			dimensions = [];
 
 		dimensions[8] = 'test/article';
-		require.entries['common/modules/Trackers/UniversalAnalytics'].callback(exports);
+		require.entries['common/modules/trackers/universal-analytics'].callback(exports);
 
 		UniversalAnalytics = exports.default;
 		UniversalAnalytics.setDimensions(dimensions);

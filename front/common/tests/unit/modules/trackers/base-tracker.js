@@ -1,4 +1,4 @@
-QUnit.module('mercury/modules/Trackers/BaseTracker', function (hooks) {
+QUnit.module('mercury/modules/trackers/base-tracker', function (hooks) {
 	var scriptsArray = [],
 		BaseTracker;
 
@@ -18,7 +18,7 @@ QUnit.module('mercury/modules/Trackers/BaseTracker', function (hooks) {
 			return nodeElementMock;
 		};
 
-		require.entries['common/modules/Trackers/BaseTracker'].callback(exports);
+		require.entries['common/modules/trackers/base-tracker'].callback(exports);
 		BaseTracker = exports.default;
 		BaseTracker.script = nodeElementMock;
 	});

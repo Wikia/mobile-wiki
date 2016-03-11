@@ -1,11 +1,11 @@
-QUnit.module('mercury/modules/Ads', function (hooks) {
+QUnit.module('mercury/modules/ads', function (hooks) {
 	var Ads,
 		loadStub = sinon.stub().callsArg(1);
 
 	hooks.beforeEach(function () {
 		var exports = {};
 
-		require.entries['common/modules/Ads'].callback(exports, {}, loadStub);
+		require.entries['common/modules/ads'].callback(exports, {}, loadStub);
 
 		Ads = exports.default;
 	});

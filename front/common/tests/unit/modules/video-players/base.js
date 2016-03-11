@@ -1,4 +1,4 @@
-QUnit.module('mercury/modules/VideoPlayers/Base', function (hooks) {
+QUnit.module('mercury/modules/video-players/base', function (hooks) {
 	var BasePlayer,
 		loadStub = sinon.stub().callsArg(1),
 		trackStub = sinon.stub(),
@@ -15,7 +15,7 @@ QUnit.module('mercury/modules/VideoPlayers/Base', function (hooks) {
 	hooks.beforeEach(function () {
 		var exports = {};
 
-		require.entries['common/modules/VideoPlayers/Base'].callback(exports, loadStub, {}, {
+		require.entries['common/modules/video-players/base'].callback(exports, loadStub, {}, {
 			track: trackStub
 		});
 

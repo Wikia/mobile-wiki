@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import UniversalAnalytics from './Trackers/UniversalAnalytics';
+import UniversalAnalytics from 'trackers/universal-analytics';
 import load from '../utils/load';
 import {isSpecialWiki} from '../utils/track';
 

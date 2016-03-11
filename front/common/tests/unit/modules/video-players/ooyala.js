@@ -1,4 +1,4 @@
-QUnit.module('mercury/modules/VideoPlayers/Ooyala', function (hooks) {
+QUnit.module('mercury/modules/video-players/ooyala', function (hooks) {
 	var OoyalaPlayer,
 		getInstance = function () {
 			var instance = new OoyalaPlayer('ooyala', {
@@ -21,8 +21,8 @@ QUnit.module('mercury/modules/VideoPlayers/Ooyala', function (hooks) {
 			baseExports = {},
 			exports = {};
 
-		require.entries['common/modules/VideoPlayers/Base'].callback(baseExports, loadStub);
-		require.entries['common/modules/VideoPlayers/Ooyala'].callback(exports, baseExports.default);
+		require.entries['common/modules/video-players/base'].callback(baseExports, loadStub);
+		require.entries['common/modules/video-players/ooyala'].callback(exports, baseExports.default);
 
 		OoyalaPlayer = exports.default;
 	});

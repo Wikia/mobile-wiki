@@ -1,4 +1,4 @@
-QUnit.module('mercury/modules/VideoPlayers/YouTube', function (hooks) {
+QUnit.module('mercury/modules/video-players/youtube', function (hooks) {
 	var YouTubePlayer,
 		getInstance = function () {
 			var instance = new YouTubePlayer('youtube', {
@@ -19,8 +19,8 @@ QUnit.module('mercury/modules/VideoPlayers/YouTube', function (hooks) {
 			baseExports = {},
 			exports = {};
 
-		require.entries['common/modules/VideoPlayers/Base'].callback(baseExports, loadStub);
-		require.entries['common/modules/VideoPlayers/YouTube'].callback(exports, baseExports.default);
+		require.entries['common/modules/VideoPlayers/base'].callback(baseExports, loadStub);
+		require.entries['common/modules/VideoPlayers/youtube'].callback(exports, baseExports.default);
 
 		YouTubePlayer = exports.default;
 	});

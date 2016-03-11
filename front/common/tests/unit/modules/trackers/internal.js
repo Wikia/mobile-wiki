@@ -11,7 +11,7 @@ QUnit.module('Internal tracker createRequestURL method tests when isPageView ret
 			}
 		});
 
-		require.entries['common/modules/Trackers/Internal'].callback(InternalModule);
+		require.entries['common/modules/trackers/internal'].callback(InternalModule);
 		InternalTracker = InternalModule.default;
 		InternalTracker.isPageView = function () {
 			return true;
@@ -55,7 +55,7 @@ QUnit.test('params are object with empty values', function (assert) {
 
 QUnit.module('Internal tracker createRequestURL method tests when isPageView returns false', {
 	setup: function () {
-		require.entries['common/modules/Trackers/Internal'].callback(InternalModule);
+		require.entries['common/modules/trackers/internal'].callback(InternalModule);
 		InternalTracker = InternalModule.default;
 		InternalTracker.isPageView = function () {
 			return false;
@@ -77,7 +77,7 @@ QUnit.test('params are object without empty values', function (assert) {
 
 QUnit.module('Internal tracker loadTrackingScript', {
 	setup: function () {
-		require.entries['common/modules/Trackers/Internal'].callback(InternalModule);
+		require.entries['common/modules/trackers/internal'].callback(InternalModule);
 		InternalTracker = InternalModule.default;
 		this.tracker = new InternalTracker();
 		this.tracker.scriptLoadedHandler = function () {};
@@ -112,7 +112,7 @@ QUnit.test('load tracking script', function (assert) {
 
 QUnit.module('Track', {
 	setup: function () {
-		require.entries['common/modules/Trackers/Internal'].callback(InternalModule);
+		require.entries['common/modules/trackers/internal'].callback(InternalModule);
 		InternalTracker = InternalModule.default;
 		this.tracker = new InternalTracker();
 		this.tracker.loadTrackingScript = sinon.spy();

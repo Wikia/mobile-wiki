@@ -1,4 +1,4 @@
-import BasePlayer from './Base';
+import BasePlayer from './base';
 import {trackActions} from '../../utils/track';
 
 export default class OoyalaPlayer extends BasePlayer {
