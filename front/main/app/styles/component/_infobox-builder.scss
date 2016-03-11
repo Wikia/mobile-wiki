@@ -41,10 +41,11 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 .infobox-builder {
 	box-sizing: border-box;
 	display: flex;
-	height: calc(100% - #{$wikia-ui-components-sub-head-height});
+	height: 100%;
+	padding-top: $wikia-ui-components-sub-head-height;
 
 	@media (min-width: lower-bound($large-range)) {
-		height: calc(100% - #{$wikia-ui-components-sub-head-height-large});
+		padding-top: $wikia-ui-components-sub-head-height-large;
 	}
 }
 
