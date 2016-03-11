@@ -1,4 +1,4 @@
-QUnit.module('lib/Utils');
+QUnit.module('lib/utils');
 
 QUnit.test('getWikiName', function (assert) {
 	var testCases = [

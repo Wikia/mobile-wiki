@@ -1,4 +1,4 @@
-QUnit.module('facets/operations/prepareArticleData');
+QUnit.module('facets/operations/prepare-article-data');
 
 QUnit.test('getTitle', function (assert) {
 	var testCases = [

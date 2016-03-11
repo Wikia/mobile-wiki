@@ -1,5 +1,5 @@
 /* globals getLanguageWithDefault:true */
-QUnit.module('lib/AuthUtils');
+QUnit.module('lib/auth-utils');
 
 QUnit.test('getLanguageWithDefault', function (assert) {
 	var testCases = [

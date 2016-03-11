@@ -1,4 +1,4 @@
-QUnit.module('lib/Hashing');
+QUnit.module('lib/hashing');
 
 QUnit.test('gaUserIdHash', function (assert) {
 	global.localSettings.default.gaUserSalt = 'foo';

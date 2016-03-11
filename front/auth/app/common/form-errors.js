@@ -1,4 +1,4 @@
-import AuthTracker from '../common/AuthTracker';
+import AuthTracker from '../common/auth-tracker';
 import {trackActions} from 'common/utils/track';
 
 /**

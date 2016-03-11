@@ -1,4 +1,4 @@
-QUnit.module('lib/Caching');
+QUnit.module('lib/caching');
 
 /**
  * @param {int} statusCode

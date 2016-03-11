@@ -1,10 +1,10 @@
-QUnit.module('auth/common/UrlHelper', function () {
+QUnit.module('auth/common/url-helper', function () {
 	QUnit.test('UrlHelper is loaded', function (assert) {
-		assert.ok(typeof require('auth/app/common/UrlHelper').default === 'function');
+		assert.ok(typeof require('auth/app/common/url-helper').default === 'function');
 	});
 
 	QUnit.test('UrlHelper urlEncode', function (assert) {
-		var urlHelperClass = require('auth/app/common/UrlHelper').default,
+		var urlHelperClass = require('auth/app/common/url-helper').default,
 			urlHelper = new urlHelperClass(),
 			testCases = [
 				{
@@ -39,7 +39,7 @@ QUnit.module('auth/common/UrlHelper', function () {
 	});
 
 	QUnit.test('UrlHelper ulrDecode', function (assert) {
-		var urlHelperClass = require('auth/app/common/UrlHelper').default,
+		var urlHelperClass = require('auth/app/common/url-helper').default,
 			urlHelper = new urlHelperClass(),
 			testCases = [
 				{

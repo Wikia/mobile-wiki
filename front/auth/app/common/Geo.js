@@ -1,4 +1,4 @@
-import Cookie from '../common/Cookie';
+import Cookie from '../common/cookie';
 
 /**
  * @typedef {Object} GeoCookie

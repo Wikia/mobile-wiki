@@ -1,4 +1,4 @@
-QUnit.module('auth/signup/SignupForm', function (hooks) {
+QUnit.module('auth/signup/signup-form', function (hooks) {
 	hooks.beforeEach(function () {
 		var form = document.createElement('form'),
 			self = this,
@@ -57,7 +57,7 @@ QUnit.module('auth/signup/SignupForm', function (hooks) {
 		self.validationErrorsSpy = sinon.spy();
 		self.successfulRegistration = sinon.spy();
 
-		require.entries['auth/app/signup/SignupForm'].callback(
+		require.entries['auth/app/signup/signup-form'].callback(
 			SignupForm,
 			AuthTracker,
 			AuthLogger,
@@ -86,7 +86,7 @@ QUnit.module('auth/signup/SignupForm', function (hooks) {
 	});
 
 	QUnit.test('SignupForm is loaded', function (assert) {
-		assert.ok(typeof require('auth/app/signup/SignupForm').default === 'function');
+		assert.ok(typeof require('auth/app/signup/signup-form').default === 'function');
 	});
 
 	QUnit.test('SignupForm successful path', function (assert) {

@@ -1,9 +1,9 @@
-import AuthTracker from '../common/AuthTracker';
-import AuthUtils from '../common/AuthUtils';
-import FacebookSDK from './FacebookSDK';
-import HttpCodes from '../common/HttpCodes';
-import Login from '../common/Login';
-import UrlHelper from '../common/UrlHelper';
+import AuthTracker from '../common/auth-tracker';
+import AuthUtils from '../common/auth-utils';
+import FacebookSDK from './facebook-sdk';
+import HttpCodes from '../common/http-codes';
+import Login from '../common/login';
+import UrlHelper from '../common/url-helper';
 import {trackActions} from 'common/utils/track';
 
 /**

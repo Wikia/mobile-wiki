@@ -1,4 +1,4 @@
-QUnit.module('facets/auth/authView');
+QUnit.module('facets/auth/auth-view');
 
 QUnit.test('getRedirectUrl', function (assert) {
 	var testCases = [

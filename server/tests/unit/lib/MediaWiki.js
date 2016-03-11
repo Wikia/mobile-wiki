@@ -1,4 +1,4 @@
-QUnit.module('lib/MediaWiki', {
+QUnit.module('lib/mediawiki', {
 });
 
 QUnit.test('createURL', function (assert) {

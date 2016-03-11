@@ -1,13 +1,13 @@
-import AuthTracker from '../common/AuthTracker';
-import AuthLogger from '../common/AuthLogger';
-import AuthUtils from '../common/AuthUtils';
-import Cookie from '../common/Cookie';
-import FormErrors from '../common/FormErrors';
-import HttpCodes from '../common/HttpCodes';
-import UrlHelper from '../common/UrlHelper';
-import VisitSourceWrapper from '../common/VisitSourceWrapper';
-import MarketingOptIn from '../signup/MarketingOptIn';
-import TermsOfUse from '../signup/TermsOfUse';
+import AuthTracker from '../common/auth-tracker';
+import AuthLogger from '../common/auth-logger';
+import AuthUtils from '../common/auth-utils';
+import Cookie from '../common/cookie';
+import FormErrors from '../common/form-errors';
+import HttpCodes from '../common/http-codes';
+import UrlHelper from '../common/url-helper';
+import VisitSourceWrapper from '../common/visit-source-wrapper';
+import MarketingOptIn from '../signup/marketing-opt-in';
+import TermsOfUse from '../signup/terms-of-use';
 import {track as mercuryTrack, trackActions} from 'common/utils/track';
 
 /**

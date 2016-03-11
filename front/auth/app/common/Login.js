@@ -1,8 +1,8 @@
-import AuthTracker from '../common/AuthTracker';
-import AuthLogger from '../common/AuthLogger';
-import AuthUtils from '../common/AuthUtils';
-import HttpCodes from '../common/HttpCodes';
-import UrlHelper from '../common/UrlHelper';
+import AuthTracker from '../common/auth-tracker';
+import AuthLogger from '../common/auth-logger';
+import AuthUtils from '../common/auth-utils';
+import HttpCodes from '../common/http-codes';
+import UrlHelper from '../common/url-helper';
 import {trackActions} from 'common/utils/track';
 
 /**
