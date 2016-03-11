@@ -187,6 +187,30 @@ test('edit row item', (assert) => {
 	});
 });
 
+test('multiple edits', (assert) => {
+	const index = 0,
+		cases = [
+			{
+				inputSteps: [ '', 'test 1', 'test 2' ],
+				source: 'test_2'
+			},
+			{
+				inputSteps: [ 'test 1', '' ],
+				source: 'row1'
+			}
+		];
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create();
+
+		model.addItem('row');
+		testCase.inputSteps.forEach((input) => {
+			model.editRowItem(model.get('infoboxState').objectAt(index), input);
+		});
+
+		assert.equal(model.get(`infoboxState.${index}.source`), testCase.source);
+	});
+});
+
 test('edit section header item', (assert) => {
 	const index = 0,
 		defaultHeader = 'Header 1',

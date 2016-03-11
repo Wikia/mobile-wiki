@@ -209,7 +209,9 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		this.set(`infoboxState.${index}.data.label`, value);
 
-		if (!item.sourceFrozen && value.trim().length) {
+		if (!item.sourceFrozen) {
+			//set itemType + index source, when empty value provided
+			value = value.trim().length ? value : `${item.type}${index}`;
 			this.set(`infoboxState.${index}.source`, InfoboxBuilderModel.sanitizeCustomRowSource(value));
 		}
 	},
