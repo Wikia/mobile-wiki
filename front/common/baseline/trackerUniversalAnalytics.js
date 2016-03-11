@@ -287,7 +287,7 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @param {Array} dimensions
 	 * @returns {Array}
 	 */
-	function integrateOptimizely(dimensions) {
+	function setDimensionsForOptimizelyExperiments(dimensions) {
 		/**
 		 * @returns {boolean}
 		 */
@@ -339,7 +339,7 @@ if (typeof window.M.tracker === 'undefined') {
 		} else {
 			const domain = 'wikia.com';
 
-			dimensions = integrateOptimizely(dimensions);
+			dimensions = setDimensionsForOptimizelyExperiments(dimensions);
 			setDimensions(dimensions);
 
 			accounts = M.prop('tracking.ua');
