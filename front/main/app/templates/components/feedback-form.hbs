@@ -1,3 +1,23 @@
 {{#bottom-banner}}
-    Dont worry! This is just a test! Will be replaced in further work ;)
+	{{#if displayQuestion}}
+		<p>{{message}}</p>
+		{{#if textButtons}}
+			<button class="button-feedback button-yes" {{action 'yes'}}>Yes</button>
+			<button class="button-feedback button-no" {{action 'no'}}>No</button>
+		{{else if emotButtons}}
+            <button class="button-feedback-icon button-yes" {{action 'yes'}}>{{svg 'smile' role='button' class='button-icon'}}</button>
+            <button class="button-feedback-icon button-no" {{action 'no'}}>{{svg 'sad' role='button' class='button-icon'}}</button>
+		{{else}}
+            <button class="button-feedback-icon button-yes" {{action 'yes'}}>{{svg 'yes' role='button' class='button-icon'}}</button>
+            <button class="button-feedback-icon button-no" {{action 'no'}}>{{svg 'no' role='button' class='button-icon'}}</button>
+		{{/if}}
+	{{else if displayInput}}
+		<p>Your input helps to improve this wiki. Every bit of feedback is highly valued. What information was missing?</p>
+		<form {{action "feedback" on="submit"}}>
+			{{input name="feedback" placeholder="Missing information" action="feedback" on="submit"}}
+		</form>
+	{{else if displayThanks}}
+		<h3>Thank you!</h3>
+        <p>{{message}}</p>
+	{{/if}}
 {{/bottom-banner}}
