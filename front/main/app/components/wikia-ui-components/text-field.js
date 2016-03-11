@@ -18,7 +18,7 @@ export default Ember.Component.extend({
 	classNames: ['text-field'],
 	isFocused: false,
 	isLabelFloating: Ember.computed('isFocused', 'value', function () {
-		return this.get('isFocused') || this.get('value') !== '';
+		return this.get('isFocused') || !Ember.isEmpty(this.get('value'));
 	}),
 	labelClassNames: Ember.computed('isLabelFloating', function () {
 		const classNames = ['text-field-label'];
