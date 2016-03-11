@@ -48,30 +48,30 @@
 		{{component sideBarOptionsComponent
 			item=activeItem
 			addItem=(action 'addItem')
- 			editRowItem=(action this.attrs.editRowItem)
-			editSectionHeaderItem=(action this.attrs.editSectionHeaderItem)
-			editTitleItem=(action this.attrs.editTitleItem)
+ 			editRowItem=editRowItem
+			editSectionHeaderItem=editSectionHeaderItem
+			editTitleItem=editTitleItem
 		}}
 	</div>
 </div>
 {{#if showOverlay}}
 	<div class="infobox-builder-spinner loading-overlay">
-		{{#if isLoading}}
-			{{loading-spinner
-				active=true
-				radius=38
-				overlay=false
-				strokeWidth=3
-			}}
-			<div class="spinner-text">
-				{{i18n 'main.saving' ns='infobox-builder'}}
-			</div>
-		{{/if}}
-		{{#if showSuccess}}
-			{{svg 'success' class='success-icon' viewBox='0 0 80 80'}}
-			<div class="spinner-text">
-				{{i18n 'main.success' ns='infobox-builder'}}
-			</div>
-		{{/if}}
+	{{#if isLoading}}
+		{{loading-spinner
+			active=true
+			radius=38
+			overlay=false
+			strokeWidth=3
+		}}
+		<div class="spinner-text">
+			{{i18n 'main.saving' ns='infobox-builder'}}
+		</div>
+	{{/if}}
+	{{#if showSuccess}}
+		{{svg 'success' class='success-icon' viewBox='0 0 80 80'}}
+		<div class="spinner-text">
+			{{i18n 'main.success' ns='infobox-builder'}}
+		</div>
+	{{/if}}
 	</div>
 {{/if}}
