@@ -1,9 +1,9 @@
 import {track as mercuryTrack} from 'common/utils/track';
 
 const trackActions = {
-		PostCreate: 'PostCreate',
-		ReplyCreate: 'ReplyCreate',
-	};
+	PostCreate: 'PostCreate',
+	ReplyCreate: 'ReplyCreate',
+};
 
 /**
  * Currently we change mobile to desktop layout
