@@ -1,4 +1,4 @@
-QUnit.module('auth/common/cookie', function (hooks) {
+QUnit.module('auth/app/common/cookie', function (hooks) {
 	/**
 	 * TODO: replace this with a class method to delete a cookie
 	 * @param {string} name
