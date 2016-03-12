@@ -1,4 +1,5 @@
 .article-edit-highlighted-entrypoint,
+.article-edit-highlighted-entrypoint--hidden,
 .article-edit-highlighted-entrypoint--shifted {
 	animation-duration: 1s;
 	animation-iteration-count: 1;
@@ -10,21 +11,18 @@
 	transition: bottom 0.7s;
 	width: 100%;
 	z-index: $z-6 + 1;
+}
 
-	&.show-edit {
-		bottom: 0;
-	}
+.article-edit-highlighted-entrypoint {
+	bottom: 0;
+}
 
-	&.hide-edit {
-		bottom: -50px;
-	}
+.article-edit-highlighted-entrypoint--hidden {
+	bottom: -50px;
 }
 
 .article-edit-highlighted-entrypoint--shifted {
-
-	&.show-edit {
-		bottom: 52px;
-	}
+	bottom: 52px;
 }
 
 .article-edit-highlighted-button {
