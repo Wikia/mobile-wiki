@@ -1,0 +1,63 @@
+<div class="discussion-reply">
+	{{#if showTopNote}}
+		{{discussion-post-card-top-note
+			approve=(action this.attrs.approve)
+			delete=(action this.attrs.delete)
+			isReply=true
+			isReported=isReported
+			post=post
+			showButtons=isDetailsView
+			showRepliedTo=showRepliedTo
+			threadCreatorName=post.threadCreatedBy.name
+		}}
+	{{/if}}
+	<div>
+		<div class="upvotes">
+			{{discussion-upvote-reply
+				post=post
+				upvote=(action this.attrs.upvote)
+			}}
+		</div>
+		{{user-avatar
+			avatarUrl=author.avatarUrl
+			displayProfileName=true
+			username=author.name
+		}}
+		<span class="timestamp" title="{{timestamp-to-date post.creationDate.epochSecond}}">
+			&bull; {{time-ago post.creationDate.epochSecond}}
+		</span>
+		<div class="discussion-more-options" id="reply-options-{{post.id}}">
+			{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
+		</div>
+
+		{{#pop-over for=(concat 'reply-options-' post.id) on='click' flow='flip'}}
+			{{discussion-more-options
+				delete=(action 'delete')
+				deleteMessage=(i18n 'main.delete-reply' ns='discussion')
+				post=post
+				report=(action 'report')
+				reportMessage=(i18n 'main.report-reply' ns='discussion')
+				undelete=(action 'undelete')
+				undeleteMessage=(i18n 'main.undelete-reply' ns='discussion')
+			}}
+		{{/pop-over}}
+	</div>
+	{{#if userListView}}
+		<div class="discussion-content">
+			{{#link-to 'discussion.post.reply' post.threadId post.id class="post-details-link clamp"}}
+				{{{parsedContent}}}
+			{{/link-to}}
+		</div>
+	{{else}}
+		<div class="discussion-content">
+			{{{parsedContent}}}
+		</div>
+	{{/if}}
+</div>
+{{#if post.isLoading}}
+	{{loading-spinner
+	active=post.isLoading
+	radius=32
+	strokeWidth=2
+	}}
+{{/if}}

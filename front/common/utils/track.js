@@ -1,8 +1,9 @@
 /* eslint no-console: 0 */
 
 import Internal from '../modules/Trackers/Internal';
-import Krux from '../modules/Trackers/Krux';
 import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
+import {getGroup} from '../modules/AbTest';
+import Ads from '../modules/Ads';
 
 /**
  * @typedef {Object} TrackContext
@@ -31,7 +32,6 @@ import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
 
 const trackers = {
 		Internal,
-		Krux,
 		UniversalAnalytics
 	},
 	/**
@@ -42,6 +42,8 @@ const trackers = {
 	trackActions = {
 		// Generic add
 		add: 'add',
+		// During recent operations some data has been changed
+		change: 'change',
 		// Generic click, mostly javascript clicks
 		// NOTE: When tracking clicks, consider binding to 'onMouseDown' instead of 'onClick'
 		// to allow the browser time to send these events naturally. For more information on
@@ -63,6 +65,8 @@ const trackers = {
 		enable: 'enable',
 		// Generic error (generally AJAX)
 		error: 'error',
+		// Input focus
+		focus: 'focus',
 		// Generic hover
 		hover: 'hover',
 		// impression of item on page/module
@@ -71,13 +75,13 @@ const trackers = {
 		install: 'install',
 		// Generic keypress
 		keypress: 'keypress',
+		// Generic open
+		open: 'open',
 		paginate: 'paginate',
 		// Video play
 		playVideo: 'play-video',
 		// Removal
 		remove: 'remove',
-		// Generic open
-		open: 'open',
 		// Sharing view email, social network, etc
 		share: 'share',
 		// Form submit, usually a post method
@@ -201,6 +205,25 @@ export function trackPageView(adsContext) {
 		window.trackComscorePageView();
 		window.trackIVW3PageView();
 	}
+
+	Ads.getInstance().trackKruxPageView();
+}
+
+/**
+ * Function to track an experiement specific event. This is currently
+ * done due to limitations in the DW when it comes to segmentation
+ * of events based on experiment groups
+ *
+ * @param {String} experiment
+ * @param {TrackingParams} params
+ * @returns {void}
+ */
+export function trackExperiment(experiment, params) {
+	const group = getGroup(experiment) || 'CONTROL',
+		label = [experiment, group, params.label].join('=');
+
+	params.label = label;
+	track(params);
 }
 
 /**

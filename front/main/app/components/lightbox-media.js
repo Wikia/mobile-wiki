@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import MediaModel from '../models/media';
-import {track, trackActions} from 'common/utils/track';
 import {normalizeToUnderscore} from 'common/utils/string';
 
 export default Ember.Component.extend(
@@ -165,12 +164,6 @@ export default Ember.Component.extend(
 		 */
 		nextMedia() {
 			this.incrementProperty('currentGalleryRef');
-
-			track({
-				action: trackActions.paginate,
-				category: 'lightbox',
-				label: 'next'
-			});
 		},
 
 		/**
@@ -178,12 +171,6 @@ export default Ember.Component.extend(
 		 */
 		prevMedia() {
 			this.decrementProperty('currentGalleryRef');
-
-			track({
-				action: trackActions.paginate,
-				category: 'lightbox',
-				label: 'previous'
-			});
 		},
 
 		/**

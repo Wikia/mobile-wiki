@@ -4,14 +4,43 @@ import InfoboxBuilderEditItemMixin from '../mixins/infobox-builder-edit-item';
 export default Ember.Component.extend(
 	InfoboxBuilderEditItemMixin,
 	{
+		// params required for tracking edit actions
+		labelFocusTrackingKey: 'label',
+		labelValueOnFocus: null,
+		wasLabelAltered: false,
+
 		labelValue: Ember.computed('item.data.label', {
 			get() {
 				return this.get('item.data.label');
 			},
 			set(key, value) {
-				this.get('editRowItem')(this.get('item'), value);
+				const item = this.get('item');
+
+				// mark that user interacted with label input
+				this.set('wasLabelAltered', true);
+
+				this.get('editRowItem')(item, value);
 				return value;
 			}
-		})
+		}),
+
+		actions: {
+			onLabelInputFocus() {
+				this.handleInputFocus(
+					'labelValueOnFocus',
+					this.get('labelValue'),
+					this.get('labelFocusTrackingKey')
+				);
+			},
+
+			onLabelInputBlur() {
+				this.handleInputBlur(
+					'wasLabelAltered',
+					this.get('labelValueOnFocus'),
+					this.get('labelValue'),
+					this.get('labelFocusTrackingKey')
+				);
+			}
+		}
 	}
 );

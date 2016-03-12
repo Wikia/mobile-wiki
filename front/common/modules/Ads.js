@@ -1,6 +1,5 @@
 /* eslint no-console: 0 */
 
-import Krux from './Trackers/Krux';
 import UniversalAnalytics from './Trackers/UniversalAnalytics';
 import load from '../utils/load';
 import {isSpecialWiki} from '../utils/track';
@@ -34,7 +33,7 @@ import {isSpecialWiki} from '../utils/track';
  * @property {*} adConfigMobile
  * @property {AdLogicPageViewCounterModule} adLogicPageViewCounterModule
  * @property {AdMercuryListenerModule} adMercuryListenerModule
- * @property {Krux} kruxTracker
+ * @property {Krux} krux
  * @property {Object} currentAdsContext
  * @property {boolean} isLoaded
  * @property {Array<string[]>} slotsQueue
@@ -45,7 +44,7 @@ class Ads {
 		this.adsContext = null;
 		this.currentAdsContext = null;
 		this.isLoaded = false;
-		this.kruxTracker = null;
+		this.krux = null;
 		this.slotsQueue = [];
 	}
 
@@ -95,7 +94,7 @@ class Ads {
 					this.adConfigMobile = adConfigMobile;
 					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
 					this.adMercuryListenerModule = adMercuryListener;
-					this.kruxTracker = new Krux(krux);
+					this.krux = krux;
 					this.isLoaded = true;
 					this.addDetectionListeners();
 					this.reloadWhenReady();
@@ -127,15 +126,20 @@ class Ads {
 	}
 
 	/**
-	 * Function fired when this.kruxTracker is ready (see init()).
-	 * Calls the trackPageView() function on krux tracker.
-	 * load() in krux.js (/app) automatically detect that
-	 * there is a first page load (needs to load Krux scripts).
+	 * Track pageview in Krux (imported from Oasis/MediaWiki)
+	 *
+	 * mobileId variable is the ID referencing to the mobile site
+	 * (see ads_run.js and krux.js in app repository)
 	 *
 	 * @returns {void}
 	 */
-	kruxTrackFirstPage() {
-		this.kruxTracker.trackPageView();
+	trackKruxPageView() {
+		if (this.krux && typeof this.krux.load === 'function') {
+			console.info('Track pageView: Krux');
+
+			// @todo XW-123 add logging to kibana how many times failed to load
+			this.krux.load(M.prop('tracking.krux.mobileId'));
+		}
 	}
 
 	/**
@@ -237,7 +241,7 @@ class Ads {
 	reloadWhenReady() {
 		this.reload(this.currentAdsContext, () => {
 			this.adMercuryListenerModule.startOnLoadQueue();
-			this.kruxTrackFirstPage();
+			this.trackKruxPageView();
 		});
 	}
 
