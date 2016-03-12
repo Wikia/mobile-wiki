@@ -3,8 +3,6 @@ import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
 import {system, isChromeMinVer} from 'common/utils/browser';
 
-const entrypointClassDefault = 'article-edit-highlighted-entrypoint';
-
 export default Ember.Component.extend(
 	LanguagesMixin,
 	TrackClickMixin,
@@ -15,7 +13,8 @@ export default Ember.Component.extend(
 		/* CE-3475 Shift for Android due to Tap to Search, only for Chrome v43+ on Android */
 		shouldShift: system === 'android' && isChromeMinVer(43),
 		entrypointClass: Ember.computed('highlightedText', 'shouldRestorePosition', function () {
-			const highlightedText = this.get('highlightedText');
+			const highlightedText = this.get('highlightedText'),
+				entrypointClassDefault = 'article-edit-highlighted-entrypoint';
 
 			if (this.shouldRestorePosition) {
 				this.set('shouldRestorePosition', false);
