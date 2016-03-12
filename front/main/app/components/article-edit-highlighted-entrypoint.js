@@ -25,21 +25,60 @@ export default Ember.Component.extend(
 			if (highlightedText && highlightedText !== this.highlightedTextCurrent) {
 				this.set('highlightedTextCurrent', highlightedText);
 				if (this.shouldShift) {
-					Ember.$(document).one('touchmove', this, this.triggerRestore.bind(this));
-					Ember.$(window).one('scroll', this, this.triggerRestore.bind(this));
+					this.bindButtonRestoreEvents();
 					return `${entrypointClassDefault}--shifted`;
 				}
 				return entrypointClassDefault;
 			}
+			this.unbindButtonRestoreEvents();
 			this.set('highlightedTextCurrent', highlightedText);
 			return `${entrypointClassDefault}--hidden`;
 		}),
+
+		isBound($element, eventName, namespace) {
+			const touchmove = Ember.$._data($element[0], 'events');
+
+			return touchmove &&
+				touchmove[eventName] &&
+				touchmove[eventName].some((elem) => elem.namespace === namespace);
+		},
+
+		bindButtonRestoreEvents() {
+			const $document = Ember.$(document),
+				$window = Ember.$(window),
+				eventNamespace = 'restoreEditBtnPos',
+				eventTouchmove = 'touchmove',
+				eventScroll = 'scroll';
+
+			if (!this.isBound($document, eventTouchmove, eventNamespace)) {
+				$document.one(`${eventTouchmove}.${eventNamespace}`, this, this.triggerRestore.bind(this));
+			}
+			if (!this.isBound($window, eventScroll, eventNamespace)) {
+				$window.one(`${eventScroll}.${eventNamespace}`, this, this.triggerRestore.bind(this));
+			}
+		},
+
+		unbindButtonRestoreEvents() {
+			const $document = Ember.$(document),
+				$window = Ember.$(window),
+				eventNamespace = 'restoreEditBtnPos',
+				eventTouchmove = 'touchmove',
+				eventScroll = 'scroll';
+
+			if (this.isBound($document, eventTouchmove, eventNamespace)) {
+				$document.unbind(`${eventTouchmove}.${eventNamespace}`);
+			}
+			if (this.isBound($window, eventScroll, eventNamespace)) {
+				$window.unbind(`${eventScroll}.${eventNamespace}`);
+			}
+		},
 
 		/**
 		 * Set shouldRestorePosition to true to trigger button move to default position
 		 * @returns {void}
 		 */
 		triggerRestore() {
+			this.unbindButtonRestoreEvents();
 			this.set('shouldRestorePosition', true);
 		},
 
