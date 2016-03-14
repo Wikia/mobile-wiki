@@ -8,8 +8,10 @@ export default class AuthUtils {
 	 * @returns {void}
 	 */
 	static authSuccessCallback(url) {
-		if (window.opener && pageParams.parentOrigin) {
-			window.opener.postMessage({isUserAuthorized: true}, pageParams.parentOrigin);
+		const windowOpener = window.opener || window.parent;
+
+		if (windowOpener && pageParams.parentOrigin) {
+			windowOpener.postMessage({isUserAuthorized: true}, pageParams.parentOrigin);
 			return;
 		} else if (url) {
 			window.location.href = url;
@@ -25,7 +27,7 @@ export default class AuthUtils {
 	 * @returns {void}
 	 */
 	static loadUrl(url) {
-		const win = (pageParams.isModal ? window.opener : window);
+		const win = (pageParams.isModal ? window.opener ? window.opener : window.parent : window);
 
 		if (url) {
 			win.location.href = url;
