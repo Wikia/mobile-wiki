@@ -5,6 +5,7 @@
  * {{wikia-ui-components/check-box
  *      inputId='isCollapsible'
  *      label='Collapse section'
+ *      isChecked='true'
  * }}
  */
 
