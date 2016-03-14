@@ -1,9 +1,12 @@
 import BirthdateInput from './BirthdateInput';
 import * as authUtils from '../../lib/AuthUtils';
+import {PageRequestHelper} from '../../lib/MediaWikiPage';
+import Logger from '../../lib/Logger';
 import localSettings from '../../../config/localSettings';
 import authLocaleSettings from '../../../config/authLocaleSettings';
 import * as authView from './authView';
 import deepExtend from 'deep-extend';
+import {parse} from 'url';
 
 /**
  * @typedef {Object} RegisterViewContext
@@ -43,9 +46,27 @@ import deepExtend from 'deep-extend';
  * @returns {DefaultRegistrationContext}
  */
 function getDefaultRegistrationContext(request, i18n) {
-	const lang = authUtils.getLanguageWithDefault(i18n);
+	const lang = authUtils.getLanguageWithDefault(i18n),
+		defaultContext = authView.getDefaultContext(request),
+		wikiDomain = parse(defaultContext.exitTo).host || request.headers.host,
+		mediaWikiPageHelper = new PageRequestHelper({wikiDomain});
 
-	return deepExtend(authView.getDefaultContext(request),
+	mediaWikiPageHelper.getWikiVariables()
+		.then((wikiVariables) => {
+			Logger.info(`Sucessfully fetched wikiVariables for ${wikiDomain}`);
+			console.log(wikiVariables.id);
+		})
+		/**
+		 * @param {MWException} error
+		 * @returns {void}
+		 */
+		.catch((error) => {
+			Logger.error(error, 'WikiVariables error');
+		});
+
+
+
+	return deepExtend(defaultContext,
 		{
 			usernameMaxLength: localSettings.userRegistationService.usernameMaxLength,
 			passwordMaxLength: localSettings.userRegistationService.passwordMaxLength,

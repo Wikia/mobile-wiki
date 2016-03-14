@@ -192,12 +192,12 @@ export default class SignupForm {
 				};
 
 				// TODO use X-Proof-Of-Work header when API gateway allows it
-				registrationProofOfWorkXhr.open('POST', `${this.form.action}?proof_of_work=${proofOfWorkValue}`, true);
+				registrationProofOfWorkXhr.open('POST', `${this.form.action}?proof_of_work=${encodeURIComponent(proofOfWorkValue)}`, true);
 				registrationProofOfWorkXhr.withCredentials = true;
 				registrationProofOfWorkXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-				// TODO escape POW value
-				//registrationProofOfWorkXhr.setRequestHeader('X-Proof-Of-Work', proofOfWorkValue);
+				// TODO check if value should be escaped
+				//registrationProofOfWorkXhr.setRequestHeader('X-Proof-Of-Work', encodeURIComponent(proofOfWorkValue));
 				registrationProofOfWorkXhr.send((new UrlHelper()).urlEncode(data));
 			} else {
 				enableSubmitButton();
