@@ -44,6 +44,27 @@ export default Ember.Component.extend(
 			return getExperimentVariationNumber({dev: '5170910064', prod: '5164060600'}) === 1 &&
 				!Ember.$.cookie('highlightedEditorDemoShown');
 		}),
+		question: Ember.computed('displayTitle', function() {
+			const experimentMap = {
+				// harrypotter.wikia.com
+				'Hermione Granger': 'What is Hermione Granger\'s House?',
+				'Harry Potter': 'What is Harry Potter\'s Patronus?',
+				'Ginevra Weasley': 'What is Ginevra Weasley\'s Bogart?',
+				'Luna Lovegood': 'What is Luna Lovegood\'s wand?',
+				// marvel.wikia.com
+				'Wolverine (James "Logan" Howlett)': 'What is Wolverine (James "Logan" Howlett)\'s gender?',
+				'Spider-Man (Peter Parker)': 'What is Spider-Man (Peter Parker)\'s citizenship?',
+				'Deadpool (Wade Wilson)': 'What is Deadpool (Wade Wilson)\'s place of birth?',
+				'Hive (Earth-616)': 'hat is Hive (Earth-616)\'s origin?',
+				// gameofthrones.wikia.com
+				'Sansa Starks': 'Who is Sansa Stark\'s sister?',
+				'Tyrion Lannister': 'Who is Tyrion Lannister\'s brother?',
+				'Tyrion Lannister': 'Who is Tyrion Lannister\'s brother?',
+				'Daenerys Targaryen': 'What is Daenerys Targaryen\'s religion?',
+				'Gregor Clegane': 'Who is Gregor Clegane\'s brother?',
+			};
+			return experimentMap[this.displayTitle];
+		}),
 
 		newFromMedia(media) {
 			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
@@ -469,7 +490,7 @@ export default Ember.Component.extend(
 				infoboxComponent = this.createChildView(PortableInfoboxComponent.create({
 					infoboxHTML: elem.innerHTML,
 					height: $infoboxPlaceholder.outerHeight(),
-					title: this.displayTitle
+					question: this.get('question')
 				}));
 
 			infoboxComponent.createElement();
