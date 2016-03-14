@@ -9,13 +9,13 @@ $icon-button-size: 48px;
 	justify-content: center;
 	width: $icon-button-size;
 
-	.icon-button-icon {
-		fill: $color-blue-gray;
-	}
-
 	&:hover {
 		.icon-button-icon {
 			fill: $color-blue-gray-dark;
 		}
 	}
+}
+
+.icon-button-icon {
+	fill: $color-blue-gray;
 }
