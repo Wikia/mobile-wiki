@@ -38,6 +38,11 @@ export default class AuthUtils {
 
 		if (url) {
 			mainWindow.location.href = url;
+
+			// TODO remove when SOC-719 is ready
+			if (mainWindow !== window) {
+				window.close();
+			}
 			return;
 		}
 
