@@ -27,7 +27,13 @@ export default class AuthUtils {
 	 * @returns {void}
 	 */
 	static loadUrl(url) {
-		const win = (pageParams.isModal ? window.opener ? window.opener : window.parent : window);
+		let win;
+
+		if (pageParams.isModal) {
+			win = window.opener || window.parent;
+		} else {
+			win = window;
+		}
 
 		if (url) {
 			win.location.href = url;
