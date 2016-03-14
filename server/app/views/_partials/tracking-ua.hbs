@@ -1,5 +1,8 @@
 {{#unless queryParams.noexternals}}
 	<script>
+		// Load UA async and flag $script when ready
+		$script(['{{server.gaUrl}}'], 'ua');
+
 		$.getJSON('/wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getTrackingDimensions',
