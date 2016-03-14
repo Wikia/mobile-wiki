@@ -25,7 +25,7 @@ function getGAContext(action) {
 	return {
 		action,
 		category: getGACategory(),
-		label: window.location.hostname
+		label: window.location.origin
 	};
 }
 
