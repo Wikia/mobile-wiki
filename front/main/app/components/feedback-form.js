@@ -129,6 +129,24 @@ export default BottomBanner.extend({
 	getCookieCounter(cookieName) {
 		return Ember.$.cookie(cookieName) || 0;
 	},
+	getCSRFToken() {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.getJSON(
+				M.buildUrl({path: '/wikia.php'}),
+				{
+					controller: 'UserFeedbackStorageApi',
+					method: 'getEditToken'
+				},
+				(response) => {
+					if (response.token) {
+						resolve(response.token);
+					} else {
+						reject();
+					}
+				}
+			).fail(reject);
+		});
+	},
 	actions: {
 		yes() {
 			this.setProperties({
@@ -161,29 +179,33 @@ export default BottomBanner.extend({
 				});
 				this.dismissBanner(completed.no.timeout);
 
-				Ember.$.ajax({
-					method: 'POST',
-					url: M.buildUrl({
-						path: '/wikia.php',
-						query: {
-							controller: 'UserFeedbackStorageApi',
-							method: 'saveUserFeedback'
-						}
-					}),
-					dataType: 'json',
-					data: {
-						experimentId,
-						variationId: this.get('variationId'),
-						wikiId: Ember.get(Mercury, 'wiki.id'),
-						pageId: this.get('articleId'),
-						feedback: userFeedback,
-						feedbackImpressionsCount: userFeedbackImpressions,
-						feedbackPreviousCount: userFeedbackCount
-					},
-					success: () => {
-						this.incrementCookieCounter('userFeedbackCount');
-					}
-				});
+				this.getCSRFToken()
+					.then((token) => {
+						Ember.$.ajax({
+							method: 'POST',
+							url: M.buildUrl({
+								path: '/wikia.php',
+								query: {
+									controller: 'UserFeedbackStorageApi',
+									method: 'saveUserFeedback'
+								}
+							}),
+							dataType: 'json',
+							data: {
+								token,
+								experimentId,
+								variationId: this.get('variationId'),
+								wikiId: Ember.get(Mercury, 'wiki.id'),
+								pageId: this.get('articleId'),
+								feedback: userFeedback,
+								feedbackImpressionsCount: userFeedbackImpressions,
+								feedbackPreviousCount: userFeedbackCount
+							},
+							success: () => {
+								this.incrementCookieCounter('userFeedbackCount');
+							}
+						});
+					});
 			}
 		}
 	}
