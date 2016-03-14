@@ -17,7 +17,8 @@ export default Ember.Component.extend(
 		height: null,
 		infoboxHTML: '',
 		collapsed: false,
-		clickableElements: ['a', 'button', 'img', 'figure', 'figcaption', 'input'],
+		clickableElements: ['a', 'button', 'img', 'figure', 'figcaption', 'input', 'portable-infobox-question'],
+		clickableParents: ['figcaption', 'portable-infobox-question'],
 
 		button: Ember.computed('expandButtonClass', function () {
 			return this.$(`.${this.get('expandButtonClass')}`)[0];
@@ -101,10 +102,14 @@ export default Ember.Component.extend(
 		 * @returns {bool}
 		 */
 		shouldHandleCollapsing($target) {
-			const clickableElements = this.get('clickableElements');
+			const clickableElements = this.get('clickableElements'),
+				clickableParents = this.get('clickableParents');
 
 			return !clickableElements.some((element) => {
-				return $target.is(element) || $target.parent().is('figcaption');
+				return $target.is(element) ||
+					!clickableParents.some((parent) => {
+						return $target.parent().is(parent);
+					});
 			});
 		},
 

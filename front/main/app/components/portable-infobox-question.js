@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+	tagName: 'portable-infobox-question',
 	classNames: ['portable-infobox-question'],
 	classNameBindings: ['collapsed', 'submitted'],
 	thankYou: false,
@@ -16,7 +17,9 @@ export default Ember.Component.extend({
 			const answer = Ember.$('.portable-infobox-question__input')[0].value;
 
 			this.set('answer', answer);
-			this.set('thankYou', true);
+			if (answer) {
+				this.set('thankYou', true);
+			}
 		}
 	}
 });
