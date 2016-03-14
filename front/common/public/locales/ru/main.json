@@ -143,9 +143,20 @@
     "curated-content-editor-new-featured-content":"Новый Избранный контент",
     "curated-content-editor-new-section":"Новый раздел",
     "curated-content-editor-new-category":"Новая категория",
+    "curated-content-editor-community-data":"Продвижение вики",
+    "curated-content-editor-community-data-description":"Добавьте изображение и описание вики, чтобы помочь посетителям понять тематику вашего проекта. Мы используем эту информацию для продвижения вашей вики в поисковой выдаче и мобильных приложениях Викия.",
+    "curated-content-editor-edit-community-data-button":"Править",
+    "curated-content-editor-wikia-description-tooltip":"Добавьте описание, которое поможет продвинуть вашу вики в поисковых системах.",
+    "curated-content-editor-enter-wikia-description":"Описание вики",
     "explore-wiki":"Исследуйте __wikiName__",
-    "wiki-page-error-reload-button": "Обновить",
-    "wiki-page-error":"Произошла ошибка во время загрузки статьи. Пожалуйста, попробуйте ещё раз."
+    "sign-in-or-register-label":"Войти \/ Зарегистрироваться",
+    "my-profile-label":"Мой профиль",
+    "category-page-load-more":"Load more",
+    "category-page-load-previous":"Load previous",
+    "category-page-no-members":"This category currently contains no pages.",
+    "category-page-subtitle":"Category Page",
+    "wiki-page-error":"Произошла ошибка во время загрузки статьи. Пожалуйста, попробуйте ещё раз.",
+    "wiki-page-error-reload-button":"Обновить"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ или __loginLink__",
