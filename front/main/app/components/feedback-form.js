@@ -50,26 +50,28 @@ export default BottomBanner.extend({
 	firstDisplay: false,
 	// This is for testing only. Will be removed after setuping an experiment
 	variationId: Math.floor(Math.random() * 6),
+	variation: Ember.computed(function () {
+		return variations[this.variationId];
+	}),
 	message: '',
-	textButtons: true,
-	emotButtons: false,
-	iconButtons: false,
 	displayQuestion: true,
 	displayInput: false,
 	displayThanks: false,
 	shouldDisplay: Ember.$.cookie('feedback-form'),
 	init() {
 		this._super(...arguments);
-		this.setVariation(this.get('variationId'));
 
 		if (!Ember.$.cookie(cookieName)) {
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				const pageHeight = document.getElementsByClassName('wiki-container')[0].offsetHeight;
 
 				this.set('bannerOffset', Math.floor(pageHeight * offsetLimit));
-				Ember.$(window).on('scroll.feedbackForm', this.checkOffsetPosition.bind(this));
+				Ember.$(window).on('scroll.feedbackForm', () => this.checkOffsetPosition());
 			});
 		}
+	},
+	willDestroyElement() {
+		Ember.$(window).off('scroll.feedbackForm');
 	},
 	checkOffsetPosition() {
 		const scrollY = window.scrollY,
@@ -79,35 +81,15 @@ export default BottomBanner.extend({
 
 		Ember.run.debounce({}, () => {
 			if ((this.get('firstDisplay') || scrollY > this.get('bannerOffset')) && direction) {
-				this.set('loaded', true);
-				this.set('dismissed', false);
-				this.set('firstDisplay', true);
+				this.setProperties({
+					loaded: true,
+					dismissed: false,
+					firstDisplay: true
+				});
 			} else {
 				this.set('dismissed', true);
 			}
 		}, 500);
-	},
-	setVariation(id) {
-		const variation = variations[id];
-
-		this.resetVariations();
-
-		if (variation.buttons === 'text') {
-			this.set('textButtons', true);
-		} else if (variation.buttons === 'emots') {
-			this.set('emotButtons', true);
-		} else {
-			this.set('iconButtons', true);
-		}
-
-		this.set('message', variation.question);
-	},
-	resetVariations() {
-		this.setProperties({
-			textButtons: false,
-			emotButtons: false,
-			iconButtons: false
-		});
 	},
 	dismissBanner(timeout) {
 		Ember.$(window).off('scroll.feedbackForm');
