@@ -1,9 +1,8 @@
 
 .auth-content {
 	background-color: $auth-content-background-color;
-	// stick the footer to the bottom
 	flex-grow: 1;
-	flex-shrink: 0;
+	flex-shrink: 1;
 	padding: 14px 18px;
 
 	* {
@@ -21,17 +20,13 @@
 	background-color: $auth-content-background-color;
 	display: flex;
 	flex-direction: row;
-	flex-shrink: 0;
-
-	// stick the footer to the bottom
-	flex-grow: 1;
 	justify-content: center;
 	padding: 25px 0;
 
 	.auth-content {
 		flex-grow: initial;
 		float: left;
-		margin: 25px;
+		margin: 0 25px 25px;
 		min-width: 200px;
 		max-width: 350px;
 		width: calc(50% - 50px);
@@ -40,11 +35,14 @@
 
 .standalone {
 	.desktop-view {
-		border-color: $border-color;
-		border-style: solid;
-		border-width: 0 1px;
-		margin: 0 31px;
-		min-width: 768px;
+		align-self: center;
+		border: $border-color solid;
+		border-width: 0 1px 1px;
+		flex-grow: 0;
+		flex-shrink: 0;
+		margin: 0 auto 19px;
+		max-width: $desktop-content-max-width;
+		min-width: $desktop-content-min-width;
 	}
 }
 
@@ -56,5 +54,9 @@
 		}
 		margin-bottom: 15px;
 		padding-bottom: 0;
+	}
+
+	.desktop-view {
+		min-width: $desktop-content-min-width;
 	}
 }
