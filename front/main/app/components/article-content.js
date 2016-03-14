@@ -469,6 +469,7 @@ export default Ember.Component.extend(
 				infoboxComponent = this.createChildView(PortableInfoboxComponent.create({
 					infoboxHTML: elem.innerHTML,
 					height: $infoboxPlaceholder.outerHeight(),
+					title: this.displayTitle
 				}));
 
 			infoboxComponent.createElement();
