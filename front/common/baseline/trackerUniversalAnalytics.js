@@ -330,16 +330,14 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
-	 * Integrates AbTest with Universal Analytics
-	 *
-	 * @param {Array} dimensions
-	 * @returns {Array}
+	 * @param {array} dimensions
+	 * @returns {array}
 	 */
 	function setDimensionsForWikiaAbTest(dimensions) {
 		const AbTest = window.Wikia && window.Wikia.AbTest;
-		
+
 		let abList;
-		
+
 		if (!AbTest) {
 			return dimensions;
 		}

@@ -178,6 +178,10 @@ export function trackPageView(overrideUrl) {
 	Ads.getInstance().trackKruxPageView();
 }
 
+/**
+ * @param {string} experimentName
+ * @returns {*}
+ */
 function getAbTestGroup(experimentName) {
 	const AbTest = window.Wikia && window.Wikia.AbTest;
 

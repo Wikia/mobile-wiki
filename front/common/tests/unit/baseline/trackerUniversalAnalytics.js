@@ -8,8 +8,10 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 	 * @param {Object} x
 	 * @param {Object} y
 	 * @returns {boolean}
-     */
+	 */
 	function objectEquals(x, y) {
+		var p;
+
 		if (x === null || x === undefined || y === null || y === undefined) {
 			return x === y;
 		}
@@ -46,7 +48,7 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 		}
 
 		// recursive object equality check
-		var p = Object.keys(x);
+		p = Object.keys(x);
 
 		return Object.keys(y).every(function (i) {
 			return p.indexOf(i) !== -1;
@@ -60,7 +62,7 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 	 * @param {*} command
 	 * @returns {int}
 	 */
-	 function queueCount(command) {
+	function queueCount(command) {
 		var count = 0,
 			i = 0;
 
@@ -78,7 +80,9 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 	 * @returns {boolean}
 	 */
 	function queueContains(commandArray) {
-		for (var i = 0; i < queue.length; i++) {
+		var i = 0;
+
+		for (; i < queue.length; i++) {
 			if (objectEquals(queue[i], commandArray)) {
 				return true;
 			}
