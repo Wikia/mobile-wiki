@@ -290,6 +290,34 @@ test('sanitize custom row source', (assert) => {
 		{
 			input: '  TEST   TEST   ',
 			output: 'test_test'
+		},
+		{
+			input: '...',
+			output: ''
+		},
+		{
+			input: '-',
+			output: ''
+		},
+		{
+			input: '...test-1',
+			output: 'test-1'
+		},
+		{
+			input: '-.*.+!._',
+			output: ''
+		},
+		{
+			input: '-.*.+test!._',
+			output: '-test_'
+		},
+		{
+			input: '-*_?_!-%^&.',
+			output: ''
+		},
+		{
+			input: '    ?   ! ',
+			output: ''
 		}
 	];
 
