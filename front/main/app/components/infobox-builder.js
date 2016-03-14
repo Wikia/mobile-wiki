@@ -34,6 +34,12 @@ export default Ember.Component.extend(
 			return classNames.join(' ');
 		}),
 
+		sideBarOptionsComponent: Ember.computed('activeItem', function () {
+			return this.get('activeItem') ?
+				`infobox-builder-edit-item-${this.get('activeItem.type')}` :
+				'infobox-builder-add-items';
+		}),
+
 		actions: {
 			/**
 			 * @param {String} type

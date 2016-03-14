@@ -1,19 +1,19 @@
-$sidebar-width: 300px;
-$padding: 12px;
-$bigPadding: 18px;
-$imageButtonWidth: 130px;
-$imageButtonHeight: 100px;
 $back-arrow-icon-size: 16px;
-$icon-action-size: 24px;
-$icon-wrapper-size: 50px;
-$icon-button-size: 30px;
 $border-width: 1px;
 $box-shadow-size: 2px;
-$shadow-blur: 15px;
-$spinner-text-color: rgba(0, 0, 0, .5);
-$shadow-color: rgba(0, 0, 0, .3);
+$icon-action-size: 24px;
+$icon-button-size: 30px;
+$icon-wrapper-size: 50px;
+$image-button-width: 130px;
+$image-button-height: 100px;
 $grayout-color: rgba(255, 255, 255, .3);
 $overlay-color: rgba(255, 255, 255, .8);
+$padding: 18px;
+$sidebar-width: 300px;
+$sidebar-items-padding: 30px;
+$shadow-blur: 15px;
+$shadow-color: rgba(0, 0, 0, .3);
+$spinner-text-color: rgba(0, 0, 0, .5);
 
 // overwrite default mercury styles
 .infobox-builder-body-wrapper {
@@ -41,10 +41,11 @@ $overlay-color: rgba(255, 255, 255, .8);
 .infobox-builder {
 	box-sizing: border-box;
 	display: flex;
-	height: calc(100% - #{$wikia-ui-components-sub-head-height});
+	height: 100%;
+	padding-top: $wikia-ui-components-sub-head-height;
 
 	@media (min-width: lower-bound($large-range)) {
-		height: calc(100% - #{$wikia-ui-components-sub-head-height-large});
+		padding-top: $wikia-ui-components-sub-head-height-large;
 	}
 }
 
@@ -115,101 +116,67 @@ $overlay-color: rgba(255, 255, 255, .8);
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
 
-	.edit-header {
-		border-bottom: $border-width solid $color-blue-gray-light;
-		display: flex;
-		font-weight: bold;
-		line-height: 48px;
-	}
-
-	.edit-header-icon {
-		align-items: center;
-		background: inherit;
-		cursor: pointer;
-		display: flex;
-		height: $icon-wrapper-size;
-		justify-content: center;
-		width: $icon-wrapper-size;
-
-		.back-arrow {
-			fill: $color-blue-light;
-			height: $back-arrow-icon-size;
-			width: $back-arrow-icon-size;
-		}
-
-		.delete {
-			fill: $color-blue-gray;
-			height: $icon-action-size;
-			width: $icon-action-size;
-
-			&:hover {
-				fill: $color-blue-light;
-			}
-		}
-	}
-
-	.edit-header--title {
-		flex: 1;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.sidebar-header {
-		border-bottom: $box-shadow-size solid $color-blue-gray-light;
-		font-weight: bold;
-		padding: 16px $bigPadding;
-		text-align: center;
+	.text-field,
+	.check-box {
+		margin-bottom: $sidebar-items-padding;
 	}
 
 	.checkbox-builder {
 		padding-top: $padding;
 		font-size: $type-base;
 	}
+}
 
-	.input-container {
-		align-items: flex-end;
-		border-bottom: 1px solid $color-blue-gray;
-		padding-bottom: 0;
+.infobox-builder-sidebar-header {
+	align-items: center;
+	border-bottom: $border-width solid $color-blue-gray-light;
+	display: flex;
+	font-weight: bold;
+	text-align: center;
+}
+
+.infobox-builder-sidebar-header-icon-wrapper {
+	align-items: center;
+	background: inherit;
+	cursor: pointer;
+	display: flex;
+	height: $icon-wrapper-size;
+	justify-content: center;
+	width: $icon-wrapper-size;
+
+	.infobox-builder-sidebar-header-icon-back-arrow {
+		fill: $color-blue-light;
+		height: $back-arrow-icon-size;
+		width: $back-arrow-icon-size;
 	}
 
-	.infobox-builder-input {
-		border-bottom: none;
-		font-size: $type-base;
-		position: relative;
-		transition: none;
+	.infobox-builder-sidebar-header-icon-delete {
+		fill: $color-blue-gray-dark;
+		height: $icon-action-size;
+		width: $icon-action-size;
+	}
 
-		&:focus {
-			border-bottom: none;
+	&:hover {
+		.infobox-builder-sidebar-header-icon-delete {
+			fill: $color-gray-dark;
 		}
 	}
+}
 
-	input[type='text']:valid + .floating-label {
-		color: $color-blue-gray;
-		font-size: 10px;
-		font-weight: bold;
-		line-height: 12px;
-		text-transform: uppercase;
-	}
+.infobox-builder-sidebar-header-title {
+	flex: 1;
+	overflow: hidden;
+	padding: 16px 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 
-	input[type='text'],
-	input[type='text']:focus {
-		padding-right: 40px;
-	}
-
-	.modal-dialog-layover {
-		background-color: transparent;
-	}
-
-	.modal-dialog {
-		box-shadow: 0 0 20px 0 $shadow-color;
-		font-size: 14px;
-		line-height: 20px;
-		max-width: 250px;
-		padding: 18px;
-		position: absolute;
-		top: 150px;
-	}
+.infobox-builder-sidebar-info {
+	color: $color-blue-gray-dark;
+	font-size: $type-smallest;
+	line-height: $line-height-smallest;
+	margin: 0;
+	padding: 0;
 }
 
 .infobox-builder-buttons {
@@ -217,21 +184,22 @@ $overlay-color: rgba(255, 255, 255, .8);
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	padding: $bigPadding;
+	padding: $padding;
 }
 
 .infobox-builder-button {
 	align-items: center;
 	background-color: $color-gray-light;
+	cursor: pointer;
 	display: flex;
 	float: left;
 	flex-direction: column;
-	height: $imageButtonHeight;
+	height: $image-button-height;
 	justify-content: center;
 	margin-bottom: 4px;
 	padding: 10px;
-	flex-basis: $imageButtonWidth;
-	width: $imageButtonWidth;
+	flex-basis: $image-button-width;
+	width: $image-button-width;
 
 	&:hover {
 		background-color: $color-blue-gray-light;
@@ -257,33 +225,8 @@ $overlay-color: rgba(255, 255, 255, .8);
 	margin-top: $border-width * 2;
 }
 
-.sidebar-edit-area {
-	position: relative;
-}
-
-.sidebar-content-padding {
+.infobox-builder-sidebar-padding {
 	padding: $padding
-}
-
-.infobox-builder-questionmark {
-	align-items: center;
-	display: flex;
-	justify-content: center;
-	height: $icon-wrapper-size;
-	position: absolute;
-	right: -10px;
-	top: 0;
-	width: $icon-wrapper-size;
-
-	&:hover svg {
-		fill: $color-blue-light;
-	}
-
-	svg {
-		fill: $color-blue-gray;
-		height: $icon-action-size;
-		width: $icon-action-size;
-	}
 }
 
 .is-preview-item-dragged {
