@@ -52,7 +52,10 @@
 			editSectionHeaderItem=editSectionHeaderItem
 			editTitleItem=editTitleItem
 		}}
-		<a {{action attrs.goToSourceEditor}} >[ ] MAKE ME PRETTY</a>
+		<a{{action attrs.goToSourceEditor}} class="infobox-builder-source-mode-wrapper">
+			{{svg 'source' role='img' class='infobox-builder-source-mode-icon'}}
+
+		</a>
 	</div>
 </div>
 {{#if showOverlay}}
