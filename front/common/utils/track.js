@@ -182,7 +182,7 @@ export function trackPageView(overrideUrl) {
  * @param {string} experimentName
  * @returns {*}
  */
-function getAbTestGroup(experimentName) {
+export function getAbTestGroup(experimentName) {
 	const AbTest = window.Wikia && window.Wikia.AbTest;
 
 	if (AbTest && typeof AbTest.getGroup === 'function') {
