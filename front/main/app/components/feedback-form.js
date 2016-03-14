@@ -44,11 +44,10 @@ const variations = {
 
 export default BottomBanner.extend({
 	classNames: ['feedback-form'],
-	classNameBindings: ['variationId'],
 	bannerOffset: 0,
 	lastOffset: 0,
 	firstDisplay: false,
-	variationId: Math.floor(Math.random() * 6),
+	variationId: Math.floor(Math.random() * 6), // This is for testing only. Will be removed after setuping an experiment
 	message: '',
 	textButtons: true,
 	emotButtons: false,

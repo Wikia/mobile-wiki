@@ -1,16 +1,13 @@
 import Ember from 'ember';
-import {getDomain} from '../utils/domain';
 import {track, trackActions} from 'common/utils/track';
+import BottomBanner from './bottom-banner';
 import TrackClickMixin from '../mixins/track-click';
 import RecentWikiActivityModel from '../models/recent-wiki-activity';
 
-export default Ember.Component.extend(
+export default BottomBanner.extend(
 	TrackClickMixin,
 	{
 		classNames: ['recent-edit'],
-		classNameBindings: ['loaded', 'dismissed'],
-		dismissed: false,
-		loaded: false,
 		recentEdit: null,
 		recentWikiActivityLink: '/recent-wiki-activity',
 		timeoutId: null,
@@ -36,20 +33,12 @@ export default Ember.Component.extend(
 
 		},
 
-		setCookie(expires) {
-			Ember.$.cookie('recent-edit-dismissed', 1, {
-				domain: getDomain(),
-				expires,
-				path: '/'
-			});
-		},
-
 		sendTracking(label) {
 			this.trackClick('recent-edit-banner', label);
 		},
 
 		dismissRecentEdit(expires, label) {
-			this.setCookie(expires);
+			this.setCookie('recent-edit-dismissed', expires);
 			this.sendTracking(label);
 			this.set('dismissed', true);
 
