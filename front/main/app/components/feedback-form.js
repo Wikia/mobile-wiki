@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import BottomBanner from './bottom-banner';
-import getEditToken from '../utils/edit-token';
 
 const experimentId = 1,
 	variations = {
@@ -122,6 +121,14 @@ export default BottomBanner.extend({
 		}, timeout);
 
 	},
+	incrementCookieCounter(cookieName) {
+		const cookieValue = parseInt(Ember.$.cookie(cookieName), 10) || 0;
+
+		Ember.$.cookie(cookieName, cookieValue + 1);
+	},
+	getCookieCounter(cookieName) {
+		return Ember.$.cookie(cookieName) || 0;
+	},
 	actions: {
 		yes() {
 			this.setProperties({
@@ -138,9 +145,13 @@ export default BottomBanner.extend({
 				displayInput: true,
 				message: helpImproveMessage
 			});
+
+			this.incrementCookieCounter('userFeedbackImpressions');
 		},
 		feedback() {
-			const userFeedback = this.get('userFeedback') || '';
+			const userFeedback = this.get('userFeedback') || '',
+				userFeedbackImpressions = this.getCookieCounter('userFeedbackImpressions'),
+				userFeedbackCount = this.getCookieCounter('userFeedbackCount');
 
 			if (userFeedback !== '') {
 				this.setProperties({
@@ -165,7 +176,12 @@ export default BottomBanner.extend({
 						variationId: this.get('variationId'),
 						wikiId: Ember.get(Mercury, 'wiki.id'),
 						pageId: this.get('articleId'),
-						feedback: userFeedback
+						feedback: userFeedback,
+						feedbackImpressionsCount: userFeedbackImpressions,
+						feedbackPreviousCount: userFeedbackCount
+					},
+					success: () => {
+						this.incrementCookieCounter('userFeedbackCount');
 					}
 				});
 			}
