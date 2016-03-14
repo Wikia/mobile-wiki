@@ -1,4 +1,4 @@
-import AutoTab from '../component/AutoTab';
+import AutoTab from '../component/auto-tab';
 
 /**
  * @typedef {Object} FormElements

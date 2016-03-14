@@ -19,8 +19,8 @@ QUnit.module('mercury/modules/video-players/youtube', function (hooks) {
 			baseExports = {},
 			exports = {};
 
-		require.entries['common/modules/VideoPlayers/base'].callback(baseExports, loadStub);
-		require.entries['common/modules/VideoPlayers/youtube'].callback(exports, baseExports.default);
+		require.entries['common/modules/video-players/base'].callback(baseExports, loadStub);
+		require.entries['common/modules/video-players/youtube'].callback(exports, baseExports.default);
 
 		YouTubePlayer = exports.default;
 	});

@@ -1,12 +1,12 @@
-import AuthLogger from '../common/AuthLogger';
-import AuthTracker from '../common/AuthTracker';
-import AuthUtils from '../common/AuthUtils';
-import FacebookSDK from './FacebookSDK';
-import FormErrors from '../common/FormErrors';
-import HttpCodes from '../common/HttpCodes';
-import MarketingOptIn from '../signup/MarketingOptIn';
-import TermsOfUse from '../signup/TermsOfUse';
-import UrlHelper from '../common/UrlHelper';
+import AuthLogger from '../common/auth-logger';
+import AuthTracker from '../common/auth-tracker';
+import AuthUtils from '../common/auth-utils';
+import FacebookSDK from './facebook-sdk';
+import FormErrors from '../common/form-errors';
+import HttpCodes from '../common/http-codes';
+import MarketingOptIn from '../signup/marketing-opt-in';
+import TermsOfUse from '../signup/terms-of-use';
+import UrlHelper from '../common/url-helper';
 import {trackActions} from 'common/utils/track';
 
 /**
