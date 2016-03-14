@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import BottomBanner from './bottom-banner';
+import getEditToken from '../utils/edit-token';
 
-const variations = {
+const experimentId = 1,
+	variations = {
 		0: {
 			question: 'Did you find what you were looking for?',
 			buttons: 'text'
@@ -28,16 +30,17 @@ const variations = {
 		}
 	},
 	completed = {
-		'no': {
+		no: {
 			message: 'This site is created and maintained by fans like you. We welcome you to edit!',
 			timeout: 10000
 		},
-		'yes': {
+		yes: {
 			message: 'We\'ll share your appreciation with the users who wrote this article.',
 			timeout: 7000
 		}
 	},
-	helpImproveMessage = 'Your input helps to improve this wiki. Every bit of feedback is highly valued. What information was missing?',
+	helpImproveMessage = 'Your input helps to improve this wiki. ' +
+		'Every bit of feedback is highly valued. What information was missing?',
 	offsetLimit = 0.2,
 	cookieName = 'feedback-form';
 
@@ -48,7 +51,6 @@ export default BottomBanner.extend({
 	bannerOffset: 0,
 	lastOffset: 0,
 	firstDisplay: false,
-	variationId: Math.floor(Math.random() * 6),
 	message: '',
 	textButtons: true,
 	emotButtons: false,
@@ -57,11 +59,14 @@ export default BottomBanner.extend({
 	displayInput: false,
 	displayThanks: false,
 	shouldDisplay: Ember.$.cookie('feedback-form'),
+	variationId: Ember.computed(() => {
+		return Math.floor(Math.random() * 6);
+	}),
 	init() {
 		this._super(...arguments);
 		this.setVariation(this.get('variationId'));
 
-		if(!Ember.$.cookie(cookieName)) {
+		if (!Ember.$.cookie(cookieName)) {
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				const pageHeight = document.getElementsByClassName('wiki-container')[0].offsetHeight;
 
@@ -71,7 +76,7 @@ export default BottomBanner.extend({
 		}
 	},
 	checkOffsetPosition() {
-		let scrollY = window.scrollY,
+		const scrollY = window.scrollY,
 			direction = scrollY >= this.get('lastOffset') ? 0 : 1;
 
 		this.set('lastOffset', scrollY);
@@ -122,10 +127,10 @@ export default BottomBanner.extend({
 			this.setProperties({
 				displayQuestion: false,
 				displayThanks: true,
-				message: completed['yes'].message
+				message: completed.yes.message
 			});
 
-			this.dismissBanner(completed['yes'].timeout);
+			this.dismissBanner(completed.yes.timeout);
 		},
 		no() {
 			this.setProperties({
@@ -135,13 +140,35 @@ export default BottomBanner.extend({
 			});
 		},
 		feedback() {
-			this.setProperties({
-				displayInput: false,
-				displayThanks: true,
-				message: completed['no'].message
-			});
+			const userFeedback = this.get('userFeedback') || '';
 
-			this.dismissBanner(completed['no'].timeout);
+			if (userFeedback !== '') {
+				this.setProperties({
+					displayInput: false,
+					displayThanks: true,
+					message: completed.no.message
+				});
+				this.dismissBanner(completed.no.timeout);
+
+				Ember.$.ajax({
+					method: 'POST',
+					url: M.buildUrl({
+						path: '/wikia.php',
+						query: {
+							controller: 'UserFeedbackStorageApi',
+							method: 'saveUserFeedback'
+						}
+					}),
+					dataType: 'json',
+					data: {
+						experimentId,
+						variationId: this.get('variationId'),
+						wikiId: Ember.get(Mercury, 'wiki.id'),
+						pageId: this.get('articleId'),
+						feedback: userFeedback
+					}
+				});
+			}
 		}
 	}
 });
