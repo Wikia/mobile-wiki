@@ -23,17 +23,17 @@
 
 	{{#pop-over for=(concat 'post-options-' post.id) on='click' flow='flip'}}
 		{{discussion-more-options
-			delete=(action 'delete')
+			delete=(action this.attrs.delete)
 			deleteMessage=(i18n 'main.delete-post' ns='discussion')
 			isLockable=true
-			lock=(action 'lock')
+			lock=(action this.attrs.lock)
 			lockMessage=(i18n 'main.lock-post' ns='discussion')
 			post=post
-			report=(action 'report')
+			report=(action this.attrs.report)
 			reportMessage=(i18n 'main.report-post' ns='discussion')
-			undelete=(action 'undelete')
+			undelete=(action this.attrs.undelete)
 			undeleteMessage=(i18n 'main.undelete-post' ns='discussion')
-			unlock=(action 'unlock')
+			unlock=(action this.attrs.unlock)
 			unlockMessage=(i18n 'main.unlock-post' ns='discussion')
 		}}
 	{{/pop-over}}

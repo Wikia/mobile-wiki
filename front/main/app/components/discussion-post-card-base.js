@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
-import DiscussionMoreOptionsMixin from '../mixins/discussion-more-options';
 
 const {Component, computed} = Ember;
 
@@ -9,7 +8,6 @@ const {Component, computed} = Ember;
  */
 export default Component.extend(
 	DiscussionParsedContentMixin,
-	DiscussionMoreOptionsMixin,
 	{
 		classNameBindings: ['isNew', 'isDeleted', 'isReported', 'isLocked', 'showTopNote'],
 
