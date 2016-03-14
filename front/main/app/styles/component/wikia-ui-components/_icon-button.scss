@@ -1,0 +1,21 @@
+$icon-button-size: 48px;
+
+.icon-button {
+	align-items: center;
+	background: inherit;
+	cursor: pointer;
+	display: flex;
+	height: $icon-button-size;
+	justify-content: center;
+	width: $icon-button-size;
+
+	.icon-button-icon {
+		fill: $color-blue-gray;
+	}
+
+	&:hover {
+		.icon-button-icon {
+			fill: $color-blue-gray-dark;
+		}
+	}
+}
