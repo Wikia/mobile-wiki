@@ -192,11 +192,13 @@ test('multiple edits', (assert) => {
 		cases = [
 			{
 				inputSteps: [ '', 'test 1', 'test 2' ],
-				source: 'test_2'
+				source: 'test_2',
+				message: 'should have last source after multiple consecutive edits'
 			},
 			{
 				inputSteps: [ 'test 1', '' ],
-				source: 'row1'
+				source: 'row1',
+				message: 'should have default source value, when empty label'
 			}
 		];
 	cases.forEach((testCase) => {
