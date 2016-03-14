@@ -4,7 +4,7 @@ import TextHighlightMixin from '../mixins/text-highlight';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from 'common/utils/track';
-import {getExperimentVariationNumber} from 'common/utils/varian-testing';
+import {getExperimentVariationNumber} from 'common/utils/variant-testing';
 
 
 /**
