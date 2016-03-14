@@ -25,6 +25,11 @@ test('sets correct value for isLabelFloating', function (assert) {
 			},
 			{
 				isFocused: false,
+				value: '0',
+				isLabelFloating: true
+			},
+			{
+				isFocused: false,
 				value: '',
 				isLabelFloating: false
 			}
