@@ -52,10 +52,13 @@
 			editSectionHeaderItem=editSectionHeaderItem
 			editTitleItem=editTitleItem
 		}}
-		<a{{action attrs.goToSourceEditor}} class="infobox-builder-source-mode-wrapper">
-			{{svg 'source' role='img' class='infobox-builder-source-mode-icon'}}
-
-		</a>
+		{{wikia-ui-components/icon-button
+			class='infobox-builder-go-to-source-button'
+			click=(action 'goToSourceEditor')
+			icon='source'
+			iconSize=24
+			title=(i18n 'main.source-editor-tooltip' ns='infobox-builder')
+		}}
 	</div>
 </div>
 {{#if showOverlay}}

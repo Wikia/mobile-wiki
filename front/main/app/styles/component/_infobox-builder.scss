@@ -13,6 +13,7 @@ $sidebar-width: 300px;
 $sidebar-items-padding: 30px;
 $shadow-blur: 15px;
 $shadow-color: rgba(0, 0, 0, .3);
+$source-icon-margins: 6px;
 $spinner-text-color: rgba(0, 0, 0, .5);
 
 // overwrite default mercury styles
@@ -271,4 +272,10 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	.spinner-text {
 		margin-top: 15px;
 	}
+}
+
+.infobox-builder-go-to-source-button {
+	bottom: $source-icon-margins;
+	position: absolute;
+	right: $source-icon-margins;
 }
