@@ -26,6 +26,8 @@
     "saving": "Saving your great project",
     "success": "Success!",
     "edit-image-item-description": "Place where users will upload images while using this infobox.",
-    "reorder-tooltip": "Drag to reorder"
+    "reorder-tooltip": "Drag to reorder",
+    "source-editor-save-confirmation": "Do you want to save your changes before going to source editor?",
+    "source-editor-loading": "Loading source editor"
   }
 }

@@ -122,28 +122,45 @@ export default Ember.Component.extend(
 				this.get('setEditItem')(targetItem);
 			},
 
+			/**
+			 * @returns {void}
+			 */
 			save() {
 				this.save();
 			},
 
+			/**
+			 * @returns {void}
+			 */
 			cancel() {
 				this.trackClick('infobox-builder', 'navigate-back-from-builder');
 				this.get('cancelAction')();
 			},
 
+			/**
+			 * Shows loading spinner and message, then sends action to controller to redirect to source editor
+			 * If model is dirty, asks user if changes should be saved
+			 * If user wants to save changes it does that and only then redirects
+			 *
+			 * @returns {void}
+			 */
 			goToSourceEditor() {
-				const controllerAction = this.get('goToSourceEditor');
+				const controllerAction = this.get('goToSourceEditor'),
+					confirmationMessage = i18n.t('main.source-editor-save-confirmation', {
+						ns: 'infobox-builder'
+					}),
+					loadingMessage = i18n.t('main.source-editor-loading', {
+						ns: 'infobox-builder'
+					});
 
-				if (this.get('isDirty') && window.confirm('Wanna save?')) {
+				if (this.get('isDirty') && window.confirm(confirmationMessage)) {
 					this.save(false).then(() => {
 						controllerAction();
 					});
 				} else {
 					this.setProperties({
 						isLoading: true,
-						loadingText: i18n.t('main.loading-source-editor', {
-							ns: 'infobox-builder'
-						})
+						loadingMessage
 					});
 
 					controllerAction();
@@ -159,13 +176,13 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * @param {Boolean} [redirectToTemplatePage=true]
+		 * @param {Boolean} [shouldRedirectToTemplatePage=true]
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		save(redirectToTemplatePage = true) {
+		save(shouldRedirectToTemplatePage = true) {
 			this.setProperties({
 				isLoading: true,
-				loadingText: i18n.t('main.saving', {
+				loadingMessage: i18n.t('main.saving', {
 					ns: 'infobox-builder'
 				})
 			});
@@ -173,7 +190,7 @@ export default Ember.Component.extend(
 			this.trackClick('infobox-builder', 'save-attempt');
 			this.trackChangedItems();
 
-			return this.get('saveAction')(redirectToTemplatePage).then(() => {
+			return this.get('saveAction')(shouldRedirectToTemplatePage).then(() => {
 				track({
 					action: trackActions.success,
 					category: 'infobox-builder',

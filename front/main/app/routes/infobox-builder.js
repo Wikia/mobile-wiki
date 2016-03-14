@@ -115,6 +115,11 @@ export default Ember.Route.extend(ConfirmationMixin, {
 			});
 		},
 
+		/**
+		 * Connects with ponto and redirects to source editor
+		 *
+		 * @returns {void}
+		 */
 		goToSourceEditor() {
 			const ponto = window.Ponto;
 
@@ -122,10 +127,8 @@ export default Ember.Route.extend(ConfirmationMixin, {
 				'wikia.infoboxBuilder.ponto',
 				'redirectToSourceEditor',
 				null,
-				() => {
-
-				},
-				function (data) {
+				Ember.K,
+				(data) => {
 					this.showPontoError(data);
 				},
 				false
@@ -156,7 +159,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 						// currently this else block isn't called even for anons
 					}
 				},
-				function (data) {
+				(data) => {
 					this.showPontoError(data);
 					reject();
 				},
