@@ -370,7 +370,8 @@ if (typeof window.M.tracker === 'undefined') {
 		if (typeof dimensions === 'undefined') {
 			console.log('Cannot initialize UA; please provide dimensions');
 			return false;
-		} else if (!tracked.length) {
+		}
+		if (tracked.length) {
 			console.log('Cannot initialize UA again');
 			return false;
 		}
