@@ -1,6 +1,6 @@
 import Ads from 'common/modules/ads';
 import UniversalAnalytics from 'common/modules/trackers/universal-analytics';
-import {integrateOptimizelyWithUA} from 'common/utils/variantTesting';
+import {integrateOptimizelyWithUA} from 'common/utils/variant-testing';
 import {integrateAbTestWithUA} from 'common/modules/abtest';
 
 /**

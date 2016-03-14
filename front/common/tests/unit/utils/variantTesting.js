@@ -1,4 +1,4 @@
-QUnit.module('mercury/utils/variantTesting', function (hooks) {
+QUnit.module('mercury/utils/variant-testing', function (hooks) {
 	var getLastItem = function () {
 		return window.optimizely[window.optimizely.length - 1];
 	};
@@ -8,13 +8,13 @@ QUnit.module('mercury/utils/variantTesting', function (hooks) {
 	});
 
 	QUnit.test('Activate Optimizely', function (assert) {
-		require('common/utils/variantTesting').activate();
+		require('common/utils/variant-testing').activate();
 
 		assert.deepEqual(getLastItem(), ['activate']);
 	});
 
 	QUnit.test('Event tracking', function (assert) {
-		require('common/utils/variantTesting').trackEvent('herd_cats');
+		require('common/utils/variant-testing').trackEvent('herd_cats');
 
 		assert.deepEqual(getLastItem(), ['trackEvent', 'herd_cats']);
 	});
