@@ -1,2 +1,6 @@
-<span class="portable-infobox-question__text">{{question}}</span>
-<input type="text" placeholder="Fill in the data" class="portable-infobox-question__input">
+{{#if thankYou}}
+	Thank you for providing the info!
+{{else}}
+	<span class="portable-infobox-question__text">{{question}}</span>
+	<input type="text" placeholder="Fill in the data" class="portable-infobox-question__input">
+{{/if}}
