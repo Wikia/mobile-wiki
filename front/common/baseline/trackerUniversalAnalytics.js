@@ -364,29 +364,34 @@ if (typeof window.M.tracker === 'undefined') {
 
 	/**
 	 * @param {UniversalAnalyticsDimensions} dimensions
-	 * @returns {void}
+	 * @returns {boolean}
 	 */
 	function initialize(dimensions) {
 		if (typeof dimensions === 'undefined') {
 			console.log('Cannot initialize UA; please provide dimensions');
-		} else {
-			const domain = 'wikia.com';
-
-			dimensions = setDimensionsForOptimizelyExperiments(dimensions);
-			dimensions = setDimensionsForWikiaAbTest(dimensions);
-			setDimensions(dimensions);
-
-			accounts = M.prop('tracking.ua');
-
-			initAccount(accountPrimary, domain);
-			initAccount(accountAds, domain);
-
-			if (Boolean(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki)) {
-				initAccount(accountSpecial, domain);
-			}
+			return false;
+		} else if (!tracked.length) {
+			console.log('Cannot initialize UA again');
+			return false;
 		}
-	}
 
+		const domain = 'wikia.com';
+
+		dimensions = setDimensionsForOptimizelyExperiments(dimensions);
+		dimensions = setDimensionsForWikiaAbTest(dimensions);
+		setDimensions(dimensions);
+
+		accounts = M.prop('tracking.ua');
+
+		initAccount(accountPrimary, domain);
+		initAccount(accountAds, domain);
+
+		if (Boolean(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki)) {
+			initAccount(accountSpecial, domain);
+		}
+
+		return true;
+	}
 
 	// API
 	M.tracker.UniversalAnalytics = {

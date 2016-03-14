@@ -3,26 +3,27 @@
 		// Load UA async and flag $script when ready
 		$script(['{{server.gaUrl}}'], 'ua');
 
-		$.getJSON('/wikia.php', {
-			controller: 'MercuryApi',
-			method: 'getTrackingDimensions',
-			title: M.prop('displayTitle'),
-			format: 'json'
-		}, function(data) {
-				if (data && data.dimensions) {
-					var dimensions = [];
-					$.each(data.dimensions, function(index, value) {
-						dimensions[index] = value;
-					});
+    // when optimizely loads, initialize trackers and track initial pageview
+    $script.ready(['optimizely'], function() {
+			$.getJSON('/wikia.php', {
+				controller: 'MercuryApi',
+				method: 'getTrackingDimensions',
+				title: M.prop('displayTitle'),
+				format: 'json',
+				cb: Date.now
+			}, function(data) {
+					if (data && data.dimensions) {
+						var ua = M.tracker.UniversalAnalytics,
+							dimensions = [];
 
-					// when everything loads, initialize trackers and track initial pageview
-					$script.ready(['optimizely'], function() {
-						var ua = M.tracker.UniversalAnalytics;
-
-						ua.initialize(dimensions);
-						ua.trackPageView();
-					});
-				}
-		});
+						$.each(data.dimensions, function(index, value) {
+							dimensions[index] = value;
+						});
+						if (ua.initialize(dimensions)) {
+							ua.trackPageView();
+						}
+					}
+			});
+    });
 	</script>
 {{/unless}}
