@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import BottomBanner from './bottom-banner';
+import {track, trackActions} from 'common/utils/track';
 
 const variations = {
 		0: {
@@ -81,7 +82,11 @@ export default BottomBanner.extend({
 			if ((this.get('firstDisplay') || scrollY > this.get('bannerOffset')) && direction) {
 				this.set('loaded', true);
 				this.set('dismissed', false);
-				this.set('firstDisplay', true);
+
+				if(!this.get('firstDisplay')) {
+					this.trackImpresion('user-feedback-first-prompt');
+					this.set('firstDisplay', true);
+				}
 			} else {
 				this.set('dismissed', true);
 			}
@@ -118,6 +123,20 @@ export default BottomBanner.extend({
 		}, timeout);
 
 	},
+	trackClick(label) {
+		track({
+			action: trackActions.click,
+			category: 'user-feedback',
+			label: label
+		});
+	},
+	trackImpresion(label) {
+		track({
+			action: trackActions.impression,
+			category: 'app',
+			label: label
+		});
+	},
 	actions: {
 		yes() {
 			this.setProperties({
@@ -125,6 +144,9 @@ export default BottomBanner.extend({
 				displayThanks: true,
 				message: completed.yes.message
 			});
+
+			this.trackClick('user-feedback-yes');
+			this.trackImpression('user-feedback-second-prompt-thankyou');
 
 			this.dismissBanner(completed.yes.timeout);
 		},
@@ -134,6 +156,9 @@ export default BottomBanner.extend({
 				displayInput: true,
 				message: helpImproveMessage
 			});
+
+			this.trackClick('user-feedback-no');
+			this.trackImpression('user-feedback-second-prompt-feedback');
 		},
 		feedback() {
 			this.setProperties({
@@ -141,6 +166,8 @@ export default BottomBanner.extend({
 				displayThanks: true,
 				message: completed.no.message
 			});
+
+			this.trackImpression('user-feedback-third-prompt-thankyou');
 
 			this.dismissBanner(completed.no.timeout);
 		}
