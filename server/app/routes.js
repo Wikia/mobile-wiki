@@ -7,7 +7,6 @@ import assetsHandler from './facets/operations/assets';
 import heartbeatHandler from './facets/operations/heartbeat';
 import discussionsHandler from './facets/show-discussions';
 import mediaWikiPageHandler from './facets/mediawiki-page';
-import redirectToRootHandler from './facets/operations/redirect-to-root';
 import getArticleHandler from './facets/api/article';
 import getArticleCommentsHandler from './facets/api/article-comments';
 import searchHandler from './facets/api/search';
@@ -50,9 +49,7 @@ const routeCacheConfig = {
 	},
 	mediaWikiPagePaths = [
 		'/wiki/{title*}',
-		'/{title*}',
-		// TODO this is special case needed for /wiki path, it should be refactored
-		'/{title}'
+		'/{title*}'
 	];
 
 // routes that don't care if the user is logged in or not, i.e. lazily loaded modules
@@ -84,9 +81,14 @@ let routes,
 			handler: heartbeatHandler
 		},
 		{
+			method: 'POST',
+			path: '/article-preview',
+			handler: articlePreview
+		},
+		{
 			method: 'GET',
-			path: '/wiki',
-			handler: redirectToRootHandler
+			path: '/logout',
+			handler: logoutHandler
 		},
 		// API Routes - The following routes should just be API routes
 		{
@@ -114,16 +116,6 @@ let routes,
 			method: 'GET',
 			path: `${localSettings.apiBase}/main/category/{categoryName}`,
 			handler: mainPageCategoryHandler
-		},
-		{
-			method: 'GET',
-			path: '/logout',
-			handler: logoutHandler
-		},
-		{
-			method: 'POST',
-			path: '/article-preview',
-			handler: articlePreview
 		}
 	],
 	// routes where we want to know the user's auth status
@@ -187,15 +179,6 @@ let routes,
 			 */
 			handler(request, reply) {
 				return reply.redirect(getRedirectUrlWithQueryString('register', request));
-			}
-		},
-		{
-			method: 'GET',
-			path: '/',
-			// Currently / path is not available on production because of redirects from / to /wiki/...
-			handler: mediaWikiPageHandler,
-			config: {
-				cache: routeCacheConfig
 			}
 		},
 		{
