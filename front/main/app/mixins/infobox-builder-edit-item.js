@@ -5,16 +5,6 @@ import {track} from 'common/utils/track';
 export default Ember.Mixin.create(
 	TrackClickMixin,
 	{
-		isHelpVisible: false,
-		classNames: ['sidebar-content-padding'],
-
-		actions: {
-			showHelp() {
-				this.trackClick('infobox-builder', `show-help-tooltip-${this.get('item.type')}`);
-				this.set('isHelpVisible', true);
-			}
-		},
-
 		/**
 		 * @desc tracks events on different edit options
 		 * @param {String} action - tracking action

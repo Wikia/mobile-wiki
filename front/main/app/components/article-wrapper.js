@@ -24,7 +24,6 @@ export default Ember.Component.extend(
 		currentUser: Ember.inject.service(),
 
 		highlightedSectionIndex: 0,
-		showHighlightedEdit: null,
 		highlightedText: '',
 
 		hammerOptions: {
@@ -51,22 +50,21 @@ export default Ember.Component.extend(
 				highlightedText = this.trimTags(highlightedText);
 				highlightedText = this.replaceTags(highlightedText);
 
-				this.setHighlightedTextVars(sectionIndex, highlightedText, true);
+				this.setHighlightedTextVars(sectionIndex, highlightedText);
 				track({
 					action: trackActions.impression,
 					category: 'highlighted-editor',
 					label: 'entry-point'
 				});
 			} else {
-				this.setHighlightedTextVars(0, '', false);
+				this.setHighlightedTextVars(0, '');
 			}
 		},
 
-		setHighlightedTextVars(highlightedSectionIndex, highlightedText, showHighlightedEdit) {
+		setHighlightedTextVars(highlightedSectionIndex, highlightedText) {
 			this.setProperties({
 				highlightedSectionIndex,
-				highlightedText,
-				showHighlightedEdit
+				highlightedText
 			});
 		},
 

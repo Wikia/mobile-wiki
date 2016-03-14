@@ -1,0 +1,16 @@
+$margin: 12px;
+
+.check-box {
+	align-items: center;
+	display: flex;
+	font-size: $type-base;
+
+	.check-box-input {
+		display: block;
+		margin: 0 $margin 0 0;
+	}
+}
+
+.check-box-label {
+	display: block;
+}
