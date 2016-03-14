@@ -144,35 +144,15 @@ export default Ember.Component.extend(
 			},
 
 			/**
-			 * Shows loading spinner and message, then sends action to controller to redirect to source editor
-			 * If model is dirty, asks user if changes should be saved
-			 * If user wants to save changes it does that and only then redirects
-			 *
 			 * @returns {void}
 			 */
-			goToSourceEditor() {
-				const controllerAction = this.get('goToSourceEditor'),
-					confirmationMessage = i18n.t('main.source-editor-save-confirmation', {
-						ns: 'infobox-builder'
-					}),
-					loadingMessage = i18n.t('main.source-editor-loading', {
-						ns: 'infobox-builder'
-					});
-
-				if (this.get('isDirty') && window.confirm(confirmationMessage)) {
-					this.save(false).then(() => {
-						controllerAction();
-					});
-				} else {
-					this.setProperties({
-						isLoading: true,
-						loadingMessage
-					});
-
-					controllerAction();
-				}
+			onSourceEditorClick() {
+				this.handleSourceEditorClick();
 			},
 
+			/**
+			 * @returns {void}
+			 */
 			onPreviewBackgroundClick() {
 				if (this.get('activeItem') !== null) {
 					this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
@@ -207,6 +187,40 @@ export default Ember.Component.extend(
 					isLoading: false,
 					showSuccess: true
 				});
+			});
+		},
+
+		/**
+		 * Shows loading spinner and message, then sends action to controller to redirect to source editor
+		 * If model is dirty, asks user if changes should be saved
+		 * If user wants to save changes it does that and only then redirects
+		 *
+		 * @returns {Ember.RSVP.Promise} return promise so it's always async and testable
+		 */
+		handleSourceEditorClick() {
+			const controllerAction = this.get('goToSourceEditor'),
+				confirmationMessage = i18n.t('main.source-editor-save-confirmation', {
+					ns: 'infobox-builder'
+				}),
+				loadingMessage = i18n.t('main.source-editor-loading', {
+					ns: 'infobox-builder'
+				});
+
+			return new Ember.RSVP.Promise((resolve) => {
+				if (this.get('isDirty') && window.confirm(confirmationMessage)) {
+					this.save(false).then(() => {
+						controllerAction();
+						resolve();
+					});
+				} else {
+					this.setProperties({
+						isLoading: true,
+						loadingMessage
+					});
+
+					controllerAction();
+					resolve();
+				}
 			});
 		},
 

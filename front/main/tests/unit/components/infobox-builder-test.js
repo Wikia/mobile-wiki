@@ -269,3 +269,110 @@ test('correctly sets sideBarOptionsComponent name', function (assert) {
 		assert.equal(component.get('sideBarOptionsComponent'), testCase.sideBarOptionsComponentName, testCase.message);
 	});
 });
+
+function prepareForHandleSourceEditorClickTest(assert) {
+	const component = this.subject(),
+		confirmStub = sinon.stub(window, 'confirm'),
+		done = assert.async(),
+		goToSourceEditorStub = sinon.stub(),
+		saveStub = sinon.stub().returns(Ember.RSVP.Promise.resolve());
+
+	return {
+		component,
+		confirmStub,
+		done,
+		goToSourceEditorStub,
+		saveStub
+	}
+}
+
+test('saves model and sends goToSourceEditor action to the controller', function (assert) {
+	const {
+		component,
+		confirmStub,
+		done,
+		goToSourceEditorStub,
+		saveStub
+	} = prepareForHandleSourceEditorClickTest.call(this, assert);
+
+	component.set('goToSourceEditor', goToSourceEditorStub);
+
+	component.setProperties({
+		isDirty: true,
+		isLoading: false,
+		save: saveStub
+	});
+	confirmStub.returns(true);
+
+	component.handleSourceEditorClick().then(() => {
+		assert.ok(saveStub.calledWith(false), 'model is saved before redirection');
+		assert.ok(
+			goToSourceEditorStub.calledOnce,
+			'controller\'s goToSourceEditor action is called after model is saved'
+		);
+
+		confirmStub.restore();
+		done();
+	});
+});
+
+test(
+	'sends goToSourceEditor action to the controller without saving model when user doesn\'t want to save',
+	function (assert) {
+		const {
+			component,
+			confirmStub,
+			done,
+			goToSourceEditorStub,
+			saveStub
+		} = prepareForHandleSourceEditorClickTest.call(this, assert);
+
+		component.set('goToSourceEditor', goToSourceEditorStub);
+
+		component.setProperties({
+			isDirty: true,
+			save: saveStub
+		});
+		confirmStub.returns(false);
+
+		component.handleSourceEditorClick().then(() => {
+			assert.ok(!saveStub.called, 'model is not saved before redirection');
+			assert.ok(
+				goToSourceEditorStub.calledOnce,
+				'controller\'s goToSourceEditor action is called after user rejects saving'
+			);
+
+			confirmStub.restore();
+			done();
+		});
+	}
+);
+
+test('sends goToSourceEditor action to the controller when there are no changes in model', function (assert) {
+	const {
+		component,
+		confirmStub,
+		done,
+		goToSourceEditorStub,
+		saveStub
+	} = prepareForHandleSourceEditorClickTest.call(this, assert);
+
+	component.set('goToSourceEditor', goToSourceEditorStub);
+
+	component.setProperties({
+		isDirty: false,
+		save: saveStub
+	});
+
+	component.handleSourceEditorClick().then(() => {
+		assert.ok(!saveStub.called, 'model is not saved when it is not dirty');
+		assert.equal(component.get('isLoading'), true, 'isLoading flag is set to true');
+		assert.ok(
+			goToSourceEditorStub.calledOnce,
+			'controller\'s goToSourceEditor action is called when model is not dirty'
+		);
+
+		confirmStub.restore();
+		done();
+	});
+});
