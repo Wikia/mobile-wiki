@@ -83,13 +83,14 @@ export function createUrl(wikiDomain, path, params = {}) {
  * @returns {void}
  */
 function requestCallback(params) {
-	const {resolve, reject, err, payload, response, url} = params;
+	const {resolve, reject, err, payload, response, url, host} = params;
 
 	if (err) {
 		Logger.error({
 			url,
 			error: err
 		}, 'Error fetching url');
+
 		reject({
 			exception: {
 				message: 'Invalid response',
@@ -111,10 +112,30 @@ function requestCallback(params) {
 		Logger.error({
 			url,
 			headers: response.headers,
-			statusCode: response.statusCode
+			statusCode: response.statusCode,
+			host
 		}, 'Bad HTTP response');
 
 		reject(info);
+	}
+}
+
+/**
+ * We send requests to Consul URL and the target wiki is passed in the Host header.
+ * When Wreck gets a redirection response it updates URL only, not headers.
+ * That's why we need to update Host header manually.
+ *
+ * @param {string} redirectMethod
+ * @param {number} statusCode
+ * @param {string} location
+ * @param {*} redirectOptions
+ * @returns {void}
+ */
+function beforeRedirect(redirectMethod, statusCode, location, redirectOptions) {
+	const redirectHost = Url.parse(location).hostname;
+
+	if (redirectHost) {
+		redirectOptions.headers.Host = redirectHost;
 	}
 }
 
@@ -128,25 +149,6 @@ function requestCallback(params) {
  * @returns {Promise}
  */
 export function fetch(url, host = '', redirects = 1, headers = {}) {
-	/**
-	 * We send requests to Consul URL and the target wiki is passed in the Host header.
-	 * When Wreck gets a redirection response it updates URL only, not headers.
-	 * That's why we need to update Host header manually.
-	 *
-	 * @param {string} redirectMethod
-	 * @param {number} statusCode
-	 * @param {string} location
-	 * @param {*} redirectOptions
-	 * @returns {void}
-	 */
-	const beforeRedirect = (redirectMethod, statusCode, location, redirectOptions) => {
-		const redirectHost = Url.parse(location).hostname;
-
-		if (redirectHost) {
-			redirectOptions.headers.Host = redirectHost;
-		}
-	};
-
 	headers.Host = host;
 	headers['User-Agent'] = 'mercury';
 	headers['X-Wikia-Internal-Request'] = 'mercury';
@@ -176,7 +178,8 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 				err,
 				payload,
 				response,
-				url
+				url,
+				host
 			});
 		});
 	});

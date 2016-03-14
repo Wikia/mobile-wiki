@@ -219,7 +219,7 @@ export default function mediaWikiPageHandler(request, reply) {
 
 	mediaWikiPageHelper = new PageRequestHelper(params);
 
-	if (path === '/' || path === '/wiki/') {
+	if (path === '/' || path === '/wiki') {
 		redirectToMainPage(reply, mediaWikiPageHelper);
 	} else {
 		mediaWikiPageHelper.setTitle(request.params.title);

@@ -6,7 +6,7 @@
 
 const userAgent = navigator.userAgent;
 
-export let system,
+let system,
 	standalone;
 
 if (/iPad|iPhone|iPod/i.test(userAgent)) {
@@ -16,3 +16,17 @@ if (/iPad|iPhone|iPod/i.test(userAgent)) {
 }
 
 standalone = navigator.standalone;
+
+/**
+ * Checks if current browser is Chrome of version higher or equal to provided
+ * @param {int} fullVersion Full version number without decimals
+ * @returns {boolean}
+ */
+function isChromeMinVer(fullVersion) {
+	const regex = 'chrome\/([0-9]*)',
+		match = userAgent.toLowerCase().match(regex);
+
+	return match && parseInt(match[1], 10) >= fullVersion;
+}
+
+export {system, standalone, isChromeMinVer};
