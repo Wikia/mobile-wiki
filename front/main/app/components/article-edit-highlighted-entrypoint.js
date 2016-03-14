@@ -1,24 +1,86 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
+import {system, isChromeMinVer} from 'common/utils/browser';
 
 export default Ember.Component.extend(
 	LanguagesMixin,
 	TrackClickMixin,
 	{
-		classNames: ['article-edit-highlighted-entrypoint'],
-		classNameBindings: ['displayEdit'],
-		displayEdit: Ember.computed('showEdit', function () {
-			const showEdit = this.get('showEdit');
+		classNameBindings: ['entrypointClass'],
+		highlightedTextCurrent: '',
+		shouldRestorePosition: false,
+		/* CE-3475 Shift for Android due to Tap to Search, only for Chrome v43+ on Android */
+		shouldShift: system === 'android' && isChromeMinVer(43),
+		entrypointClass: Ember.computed('highlightedText', 'shouldRestorePosition', function () {
+			const highlightedText = this.get('highlightedText'),
+				entrypointClassDefault = 'article-edit-highlighted-entrypoint';
 
-			if (showEdit === true) {
-				return 'show-edit';
-			} else if (showEdit === false) {
-				return 'hide-edit';
+			if (this.shouldRestorePosition) {
+				this.set('shouldRestorePosition', false);
+				return entrypointClassDefault;
 			}
 
-			return '';
+			if (highlightedText && highlightedText !== this.highlightedTextCurrent) {
+				this.set('highlightedTextCurrent', highlightedText);
+				if (this.shouldShift) {
+					this.bindButtonRestoreEvents();
+					return `${entrypointClassDefault}--shifted`;
+				}
+				return entrypointClassDefault;
+			}
+			this.unbindButtonRestoreEvents();
+			this.set('highlightedTextCurrent', highlightedText);
+			return `${entrypointClassDefault}--hidden`;
 		}),
+
+		isBound($element, eventName, namespace) {
+			const touchmove = Ember.$._data($element[0], 'events');
+
+			return touchmove &&
+				touchmove[eventName] &&
+				touchmove[eventName].some((elem) => elem.namespace === namespace);
+		},
+
+		bindButtonRestoreEvents() {
+			const $document = Ember.$(document),
+				$window = Ember.$(window),
+				eventNamespace = 'restoreEditBtnPos',
+				eventTouchmove = 'touchmove',
+				eventScroll = 'scroll';
+
+			if (!this.isBound($document, eventTouchmove, eventNamespace)) {
+				$document.one(`${eventTouchmove}.${eventNamespace}`, this, this.triggerRestore.bind(this));
+			}
+			if (!this.isBound($window, eventScroll, eventNamespace)) {
+				$window.one(`${eventScroll}.${eventNamespace}`, this, this.triggerRestore.bind(this));
+			}
+		},
+
+		unbindButtonRestoreEvents() {
+			const $document = Ember.$(document),
+				$window = Ember.$(window),
+				eventNamespace = 'restoreEditBtnPos',
+				eventTouchmove = 'touchmove',
+				eventScroll = 'scroll';
+
+			if (this.isBound($document, eventTouchmove, eventNamespace)) {
+				$document.unbind(`${eventTouchmove}.${eventNamespace}`);
+			}
+			if (this.isBound($window, eventScroll, eventNamespace)) {
+				$window.unbind(`${eventScroll}.${eventNamespace}`);
+			}
+		},
+
+		/**
+		 * Set shouldRestorePosition to true to trigger button move to default position
+		 * @returns {void}
+		 */
+		triggerRestore() {
+			this.unbindButtonRestoreEvents();
+			this.set('shouldRestorePosition', true);
+		},
+
 		actions: {
 			editSection() {
 				const title = this.get('title'),
