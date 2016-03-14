@@ -28,6 +28,13 @@
 		text-align: center;
 	}
 }
+
+.portable-infobox-question__text {
+
+	&.invalid {
+		color: $input-error-message-font-color;
+	}
+}
 .portable-infobox-question__input[type="text"] {
 	background: transparent;
 	border-bottom: 1px solid $color-blue-gray;
@@ -37,5 +44,17 @@
 		border-bottom: 1px solid $color-blue-light;
 		background: transparent;
 		box-shadow: none;
+	}
+}
+
+.portable-infobox-question__error {
+	display: block;
+	font-size: $input-error-message-font-size;
+	font-weight: $input-error-message-font-weight;
+	color: $input-error-message-font-color;
+	visibility: hidden;
+
+	&.invalid {
+		visibility: visible;
 	}
 }

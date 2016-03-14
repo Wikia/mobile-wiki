@@ -8,6 +8,7 @@ export default Ember.Component.extend({
 	submitted: Ember.computed('thankYou', function () {
 		return this.thankYou;
 	}),
+	invalid: '',
 	answer: '',
 
 	actions: {
@@ -18,7 +19,10 @@ export default Ember.Component.extend({
 
 			this.set('answer', answer);
 			if (answer) {
+				this.set('invalid', '');
 				this.set('thankYou', true);
+			} else {
+				this.set('invalid', 'invalid');
 			}
 		}
 	}
