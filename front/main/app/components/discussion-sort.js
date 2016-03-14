@@ -2,7 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 	classNames: ['discussion-sort', 'clearfix', 'mobile-hidden'],
+	classNameBindings: ['noTrending'],
+	discussionSort: Ember.inject.service(),
 	tagName: 'ul',
 
-	discussionSort: Ember.inject.service()
+	noTrending: Ember.computed.oneWay('discussionSort.onlyReported'),
 });

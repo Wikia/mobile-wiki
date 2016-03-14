@@ -143,9 +143,20 @@
     "curated-content-editor-new-featured-content":"Neue empfohlene Inhalte",
     "curated-content-editor-new-section":"Neuer Ordner",
     "curated-content-editor-new-category":"Neue Kategorie",
+    "curated-content-editor-community-data":"Mache dein Wikia bekannt",
+    "curated-content-editor-community-data-description":"Füge ein Bild und eine Zusammenfassung hinzu, damit die Besucher dieses Wikias wissen, worum es darin geht und sie ermutigt werden, vorbei zu schauen. Wir verwenden diese Informationen dazu, dein Wikia unter anderem über die Suchergebnisse und über Wikias mobile Apps bekannt zu machen.",
+    "curated-content-editor-edit-community-data-button":"Bearbeiten",
+    "curated-content-editor-wikia-description-tooltip":"Füge eine Zusammenfassung hinzu und mache dein Wikia dadurch über die Suchergebnisse und andere Werbebereiche bekannter,",
+    "curated-content-editor-enter-wikia-description":"Beschreibung des Wikias",
     "explore-wiki":"__wikiName__ erkunden",
-    "wiki-page-error-reload-button": "Aktualisieren",
-    "wiki-page-error":"Sorry, wir konnten den Artikel nicht laden. Bitte versuche es noch einmal."
+    "sign-in-or-register-label":"Anmelden\/Registrieren",
+    "my-profile-label":"Mein Profil",
+    "category-page-load-more":"Load more",
+    "category-page-load-previous":"Load previous",
+    "category-page-no-members":"This category currently contains no pages.",
+    "category-page-subtitle":"Category Page",
+    "wiki-page-error":"Sorry, wir konnten den Artikel nicht laden. Bitte versuche es noch einmal.",
+    "wiki-page-error-reload-button":"Aktualisieren"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ oder __loginLink__",

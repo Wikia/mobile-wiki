@@ -178,6 +178,30 @@ export function trackPageView(overrideUrl) {
 	Ads.getInstance().trackKruxPageView();
 }
 
+function getAbTestGroup(experimentName) {
+	const AbTest = window.Wikia && window.Wikia.AbTest;
+
+	if (AbTest && typeof AbTest.getGroup === 'function') {
+		return Wikia.AbTest.getGroup(experimentName);
+	}
+}
+
+/**
+ * Function to track an experiement specific event. This is currently
+ * done due to limitations in the DW when it comes to segmentation
+ * of events based on experiment groups
+ *
+ * @param {String} experiment
+ * @param {TrackingParams} params
+ * @returns {void}
+ */
+export function trackExperiment(experiment, params) {
+	const group = getAbTestGroup(experiment) || 'CONTROL';
+
+	params.label = [experiment, group, params.label].join('=');
+	track(params);
+}
+
 /**
  * @param {TrackContext} data
  * @returns {void}

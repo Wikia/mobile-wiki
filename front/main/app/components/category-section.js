@@ -14,7 +14,7 @@ export default Component.extend(
 
 		actions: {
 			loadBatch(index, batch, label) {
-				this.trackClick('category-load-batch', label);
+				this.trackClick('category-page', `load-${label}`);
 				this.set('loadingBatch', true);
 
 				this.get('loadBatch')(...arguments).then(() => {

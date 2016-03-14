@@ -1,9 +1,10 @@
 import Ember from 'ember';
-import {track, trackActions} from 'common/utils/track';
+import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
 
 export default Ember.Component.extend(
 	LanguagesMixin,
+	TrackClickMixin,
 	{
 		classNames: ['article-edit-highlighted-entrypoint'],
 		classNameBindings: ['displayEdit'],
@@ -32,11 +33,8 @@ export default Ember.Component.extend(
 					this.redirectToLogin(title, section, highlightedText);
 					label = 'entry-point-not-allowed';
 				}
-				track({
-					action: trackActions.click,
-					category: 'highlighted-editor',
-					label
-				});
+
+				this.trackClick('highlighted-editor', label);
 			}
 		},
 

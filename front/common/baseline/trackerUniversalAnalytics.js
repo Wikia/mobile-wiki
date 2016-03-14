@@ -330,6 +330,41 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
+	 * Integrates AbTest with Universal Analytics
+	 *
+	 * @param {Array} dimensions
+	 * @returns {Array}
+	 */
+	function setDimensionsForWikiaAbTest(dimensions) {
+		const AbTest = window.Wikia && window.Wikia.AbTest;
+		
+		let abList;
+		
+		if (!AbTest) {
+			return dimensions;
+		}
+
+		abList = AbTest.getExperiments(true);
+
+		for (let abIndex = 0; abIndex < abList.length; abIndex++) {
+			const abExp = abList[abIndex],
+				abSlot = AbTest.getGASlot(abExp.name);
+
+			if (abExp && abExp.flags && abExp.flags.ga_tracking) {
+				// GA Slots 40-49 are reserved for our AB Testing tool. Anything outside that
+				// range could potentially overwrite something that we don't want to
+				if (abSlot >= 40 && abSlot <= 49) {
+					const noGroup = abList.nouuid ? 'NOBEACON' : 'NOT_IN_ANY_GROUP';
+
+					dimensions[abSlot] = abExp.group ? abExp.group.name : noGroup;
+				}
+			}
+		}
+
+		return dimensions;
+	}
+
+	/**
 	 * @param {UniversalAnalyticsDimensions} dimensions
 	 * @returns {void}
 	 */
@@ -340,6 +375,7 @@ if (typeof window.M.tracker === 'undefined') {
 			const domain = 'wikia.com';
 
 			dimensions = setDimensionsForOptimizelyExperiments(dimensions);
+			dimensions = setDimensionsForWikiaAbTest(dimensions);
 			setDimensions(dimensions);
 
 			accounts = M.prop('tracking.ua');

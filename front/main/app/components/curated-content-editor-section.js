@@ -3,7 +3,6 @@ import AlertNotificationsMixin from '../mixins/alert-notifications';
 import CuratedContentEditorSortableItemsMixin from '../mixins/curated-content-editor-sortable-items';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
 import CuratedContentEditorLabelsMixin from '../mixins/curated-content-editor-labels';
-import TrackClickMixin from '../mixins/track-click';
 import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
 
 export default Ember.Component.extend(
@@ -11,7 +10,6 @@ export default Ember.Component.extend(
 	CuratedContentEditorSortableItemsMixin,
 	CuratedContentThumbnailMixin,
 	CuratedContentEditorLabelsMixin,
-	TrackClickMixin,
 	{
 		imageWidth: 300,
 		thumbUrl: Ember.computed('model', function () {
@@ -24,7 +22,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			addItem() {
-				this.trackClick('curated-content-editor', 'section-item-add');
 				this.sendAction('addItem');
 			},
 
@@ -33,7 +30,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			editItem(item) {
-				this.trackClick('curated-content-editor', 'section-item-edit');
 				this.sendAction('editItem', item);
 			},
 
@@ -41,7 +37,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			editSection() {
-				this.trackClick('curated-content-editor', 'section-edit');
 				this.sendAction('editSection', this.get('model'));
 			},
 
@@ -49,7 +44,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			goBack() {
-				this.trackClick('curated-content-editor', 'section-go-back');
 				this.sendAction('goBack');
 			},
 
@@ -57,8 +51,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			done() {
-				this.trackClick('curated-content-editor', 'section-done');
-
 				if (this.get('notEmptyItems')) {
 					this.validateAndDone();
 				} else {

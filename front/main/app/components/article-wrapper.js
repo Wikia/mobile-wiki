@@ -4,8 +4,6 @@ import TextHighlightMixin from '../mixins/text-highlight';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from 'common/utils/track';
-import {getExperimentVariationNumber} from 'common/utils/variantTesting';
-
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -39,43 +37,6 @@ export default Ember.Component.extend(
 				 * hammer.js sets it to 'none' by default so we have to override
 				 */
 				touchCallout: 'default',
-			}
-		},
-
-		gestures: {
-			/**
-			 * @param {JQueryEventObject} event
-			 * @returns {void}
-			 */
-			swipeLeft(event) {
-				// Track swipe events
-				if ($(event.target).parents('.article-table').length) {
-					track({
-						action: trackActions.swipe,
-						category: 'tables'
-					});
-				} else if ($(event.target).parents('.article-gallery').length) {
-					track({
-						action: trackActions.paginate,
-						category: 'gallery',
-						label: 'next'
-					});
-				}
-			},
-
-			/**
-			 * @param {JQueryEventObject} event
-			 * @returns {void}
-			 */
-			swipeRight(event) {
-				// Track swipe events
-				if ($(event.target).parents('.article-gallery').length) {
-					track({
-						action: trackActions.paginate,
-						category: 'gallery',
-						label: 'previous'
-					});
-				}
 			}
 		},
 
@@ -189,9 +150,7 @@ export default Ember.Component.extend(
 				!this.get('highlightedEditorEnabled');
 		}),
 
-		highlightedEditorEnabled: Ember.computed(() => {
-			return getExperimentVariationNumber({dev: '5170910064', prod: '5164060600'}) === 1;
-		}),
+		highlightedEditorEnabled: Ember.computed(() => Mercury.wiki.language.content === 'en'),
 
 		actions: {
 			/**
@@ -324,12 +283,7 @@ export default Ember.Component.extend(
 					galleryRef
 				});
 
-				if (galleryRef >= 0) {
-					track({
-						action: trackActions.click,
-						category: 'gallery'
-					});
-				}
+				this.trackClick('media', 'open');
 			} else {
 				Ember.Logger.debug('Missing ref on', target);
 			}

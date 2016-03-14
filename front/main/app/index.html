@@ -53,7 +53,7 @@
 	{{> tracking-comscore}}
 	{{> tracking-nielsen}}
 	{{> optimizely}}
-	{{> tracking-ua}}
+	{{> tracking-ua-init}}
 
 	{{content-for 'head-footer'}}
 </head>
@@ -91,7 +91,8 @@
 	M.loadDOMResource('/front/main/assets/common.svg');
 </script>
 
-<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting"></script>
+<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
+{{> tracking-ua}}
 {{> tracking-ivw3}}
 
 {{content-for 'body-footer'}}
