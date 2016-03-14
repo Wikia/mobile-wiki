@@ -5,8 +5,12 @@ export default Ember.Component.extend({
 	classNameBindings: ['loaded', 'dismissed'],
 	dismissed: false,
 	loaded: false,
-	init() {
-		this._super(...arguments);
-		this.set('loaded', true);
+
+	setCookie(cookieName, expires) {
+		Ember.$.cookie(cookieName, 1, {
+			domain: getDomain(),
+			expires,
+			path: '/'
+		});
 	}
 });
