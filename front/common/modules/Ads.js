@@ -117,7 +117,7 @@ class Ads {
 		// Sampling on GA side will kill the performance as we need to allocate object each time we track
 		// ToDo: Optimize object allocation for tracking all events
 		if (Math.random() * 100 <= adHitSample) {
-			M.tracker.UniversalAnalytics.trackAds(arguments);
+			M.tracker.UniversalAnalytics.trackAds(...arguments);
 		}
 	}
 
