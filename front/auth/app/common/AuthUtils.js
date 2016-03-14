@@ -8,10 +8,11 @@ export default class AuthUtils {
 	 * @returns {void}
 	 */
 	static authSuccessCallback(url) {
-		const windowOpener = window.opener || window.parent;
+		// Need to know which window should be reloaded
+		const mainWindow = window.opener || window.parent;
 
-		if (windowOpener && pageParams.parentOrigin) {
-			windowOpener.postMessage({isUserAuthorized: true}, pageParams.parentOrigin);
+		if (mainWindow && pageParams.parentOrigin) {
+			mainWindow.postMessage({isUserAuthorized: true}, pageParams.parentOrigin);
 			return;
 		} else if (url) {
 			window.location.href = url;
@@ -27,19 +28,19 @@ export default class AuthUtils {
 	 * @returns {void}
 	 */
 	static loadUrl(url) {
-		let win;
+		let mainWindow;
 
 		if (pageParams.isModal) {
-			win = window.opener || window.parent;
+			mainWindow = window.opener || window.parent;
 		} else {
-			win = window;
+			mainWindow = window;
 		}
 
 		if (url) {
-			win.location.href = url;
+			mainWindow.location.href = url;
 			return;
 		}
 
-		win.location.reload();
+		mainWindow.location.reload();
 	}
 }
