@@ -62,7 +62,7 @@ export default Ember.Component.extend(
 					},
 					// gameofthrones.wikia.com
 					130814: {
-						'Sansa Starks': 'Who is Sansa Stark\'s sister?',
+						'Sansa Stark': 'Who is Sansa Stark\'s sister?',
 						'Tyrion Lannister': 'Who is Tyrion Lannister\'s brother?',
 						'Daenerys Targaryen': 'What is Daenerys Targaryen\'s religion?',
 						'Gregor Clegane': 'Who is Gregor Clegane\'s brother?'
