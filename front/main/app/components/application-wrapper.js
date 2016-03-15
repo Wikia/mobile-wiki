@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {trackPerf} from 'common/utils/trackPerf';
+import {trackPerf} from 'common/utils/track-perf';
 
 /**
  * HTMLMouseEvent
