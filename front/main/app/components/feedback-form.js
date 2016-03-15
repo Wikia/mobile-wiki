@@ -150,7 +150,7 @@ export default BottomBanner.extend(
 						experimentId,
 						variationId: this.get('variationId'),
 						wikiId: Ember.get(Mercury, 'wiki.id'),
-						pageId: this.get('articleId'),
+						pageTitle: this.get('pageTitle'),
 						feedback: userFeedback,
 						feedbackImpressionsCount: this.getCookieCounter('userFeedbackImpressions'),
 						feedbackPreviousCount: this.getCookieCounter('userFeedbackCount')
