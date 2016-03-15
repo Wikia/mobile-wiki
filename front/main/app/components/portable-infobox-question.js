@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import UserFeedbackStorageMixin from '../mixins/user-feedback-storage';
 import {getDomain} from '../utils/domain';
+import {track, trackActions} from 'common/utils/track';
 
-const answeredCookieName = 'portableInfoboxQuestionAnswered';
+const answeredCookieName = 'portableInfoboxQuestionAnswered',
+	trackingCategory = 'portable-infobox-question';
 
 export default Ember.Component.extend(
 	UserFeedbackStorageMixin,
@@ -103,8 +105,18 @@ export default Ember.Component.extend(
 						feedback: answer,
 						feedbackImpressionsCount: this.getCookieCounter('infoboxQuestionsImpressions')
 					});
+					track({
+						action: trackActions.submit,
+						category: trackingCategory,
+						label: 'answered'
+					});
 				} else {
 					this.set('classInvalid', 'invalid');
+					track({
+						action: trackActions.submit,
+						category: trackingCategory,
+						label: 'empty'
+					});
 				}
 			},
 
@@ -112,6 +124,11 @@ export default Ember.Component.extend(
 				this._super(...arguments);
 				if (!Ember.isEmpty(this.get('question'))) {
 					this.incrementCookieCounter('infoboxQuestionsImpressions');
+					track({
+						action: trackActions.impression,
+						category: trackingCategory,
+						label: 'question'
+					});
 				}
 			}
 		}
