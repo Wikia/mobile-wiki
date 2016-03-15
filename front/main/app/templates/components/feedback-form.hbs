@@ -13,7 +13,7 @@
 {{else if displayInput}}
 	<p>{{message}}</p>
 	<form {{action "feedback" on="submit"}}>
-		{{input name="feedback" placeholder="Missing information" action="feedback" on="submit"}}
+		{{input name="feedback" placeholder="Missing information" value=userFeedback}}
 	</form>
 {{else if displayThanks}}
 	<h3>Thank you!</h3>
