@@ -1,9 +1,9 @@
 {{#if displayQuestion}}
-	<p>{{message}}</p>
-	{{#if textButtons}}
+	<p>{{variation.question}}</p>
+	{{#if (equal variation.buttons 'text')}}
 		<button class="button-feedback button-yes" {{action 'yes'}}>Yes</button>
 		<button class="button-feedback button-no" {{action 'no'}}>No</button>
-	{{else if emotButtons}}
+	{{else if (equal variation.buttons 'emots')}}
 		<button class="button-feedback-icon button-yes" {{action 'yes'}}>{{svg 'smile' role='button' class='button-icon'}}</button>
 		<button class="button-feedback-icon button-no" {{action 'no'}}>{{svg 'sad' role='button' class='button-icon'}}</button>
 	{{else}}

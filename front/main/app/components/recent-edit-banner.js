@@ -38,7 +38,7 @@ export default BottomBanner.extend(
 		},
 
 		dismissRecentEdit(expires, label) {
-			this.setCookie('recent-edit-dismissed', expires);
+			this.setCookie('recent-edit-dismissed', 1, expires);
 			this.sendTracking(label);
 			this.set('dismissed', true);
 
