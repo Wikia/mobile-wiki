@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import BottomBanner from './bottom-banner';
+import UserFeedbackStorageMixin from '../mixins/user-feedback-storage';
 
 const experimentId = 1,
 	variations = {
@@ -44,149 +45,118 @@ const experimentId = 1,
 	cookieName = 'feedback-form';
 
 
-export default BottomBanner.extend({
-	classNames: ['feedback-form'],
-	bannerOffset: 0,
-	lastOffset: 0,
-	firstDisplay: false,
-	// This is for testing only. Will be removed after setuping an experiment
-	variationId: Math.floor(Math.random() * 6),
-	variation: Ember.computed(function () {
-		return variations[this.variationId];
-	}),
-	message: '',
-	displayQuestion: true,
-	displayInput: false,
-	displayThanks: false,
-	shouldDisplay: Ember.$.cookie('feedback-form'),
-	init() {
-		this._super(...arguments);
+export default BottomBanner.extend(
+	UserFeedbackStorageMixin,
+	{
+		classNames: ['feedback-form'],
+		bannerOffset: 0,
+		lastOffset: 0,
+		firstDisplay: false,
+		// This is for testing only. Will be removed after setuping an experiment
+		variationId: Math.floor(Math.random() * 6),
+		variation: Ember.computed(function () {
+			return variations[this.variationId];
+		}),
+		message: '',
+		displayQuestion: true,
+		displayInput: false,
+		displayThanks: false,
+		shouldDisplay: Ember.$.cookie('feedback-form'),
+		init() {
+			this._super(...arguments);
 
-		if (!Ember.$.cookie(cookieName)) {
-			Ember.run.scheduleOnce('afterRender', this, () => {
-				const pageHeight = document.getElementsByClassName('wiki-container')[0].offsetHeight;
+			if (!Ember.$.cookie(cookieName)) {
+				Ember.run.scheduleOnce('afterRender', this, () => {
+					const pageHeight = document.getElementsByClassName('wiki-container')[0].offsetHeight;
 
-				this.set('bannerOffset', Math.floor(pageHeight * offsetLimit));
-				Ember.$(window).on('scroll.feedbackForm', () => this.checkOffsetPosition());
-			});
-		}
-	},
-	willDestroyElement() {
-		Ember.$(window).off('scroll.feedbackForm');
-	},
-	checkOffsetPosition() {
-		const scrollY = window.scrollY,
-			direction = scrollY >= this.get('lastOffset') ? 0 : 1;
-
-		this.set('lastOffset', scrollY);
-
-		Ember.run.debounce({}, () => {
-			if ((this.get('firstDisplay') || scrollY > this.get('bannerOffset')) && direction) {
-				this.setProperties({
-					loaded: true,
-					dismissed: false,
-					firstDisplay: true
+					this.set('bannerOffset', Math.floor(pageHeight * offsetLimit));
+					Ember.$(window).on('scroll.feedbackForm', () => this.checkOffsetPosition());
 				});
-			} else {
-				this.set('dismissed', true);
 			}
-		}, 500);
-	},
-	dismissBanner(timeout) {
-		Ember.$(window).off('scroll.feedbackForm');
-
-		Ember.run.later(this, () => {
-			this.setCookie(cookieName, 1);
-			this.set('dismissed', true);
-		}, timeout);
-
-	},
-	incrementCookieCounter(cookieName) {
-		const cookieValue = parseInt(Ember.$.cookie(cookieName), 10) || 0;
-
-		Ember.$.cookie(cookieName, cookieValue + 1);
-	},
-	getCookieCounter(cookieName) {
-		return Ember.$.cookie(cookieName) || 0;
-	},
-	getCSRFToken() {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.getJSON(
-				M.buildUrl({path: '/wikia.php'}),
-				{
-					controller: 'UserFeedbackStorageApi',
-					method: 'getEditToken'
-				},
-				(response) => {
-					if (response.token) {
-						resolve(response.token);
-					} else {
-						reject();
-					}
-				}
-			).fail(reject);
-		});
-	},
-	actions: {
-		yes() {
-			this.setProperties({
-				displayQuestion: false,
-				displayThanks: true,
-				message: completed.yes.message
-			});
-
-			this.dismissBanner(completed.yes.timeout);
 		},
-		no() {
-			this.setProperties({
-				displayQuestion: false,
-				displayInput: true,
-				message: helpImproveMessage
-			});
-
-			this.incrementCookieCounter('userFeedbackImpressions');
+		willDestroyElement() {
+			Ember.$(window).off('scroll.feedbackForm');
 		},
-		feedback() {
-			const userFeedback = this.get('userFeedback') || '',
-				userFeedbackImpressions = this.getCookieCounter('userFeedbackImpressions'),
-				userFeedbackCount = this.getCookieCounter('userFeedbackCount');
+		checkOffsetPosition() {
+			const scrollY = window.scrollY,
+				direction = scrollY >= this.get('lastOffset') ? 0 : 1;
 
-			if (userFeedback !== '') {
-				this.setProperties({
-					displayInput: false,
-					displayThanks: true,
-					message: completed.no.message
-				});
-				this.dismissBanner(completed.no.timeout);
+			this.set('lastOffset', scrollY);
 
-				this.getCSRFToken()
-					.then((token) => {
-						Ember.$.ajax({
-							method: 'POST',
-							url: M.buildUrl({
-								path: '/wikia.php',
-								query: {
-									controller: 'UserFeedbackStorageApi',
-									method: 'saveUserFeedback'
-								}
-							}),
-							dataType: 'json',
-							data: {
-								token,
-								experimentId,
-								variationId: this.get('variationId'),
-								wikiId: Ember.get(Mercury, 'wiki.id'),
-								pageId: this.get('articleId'),
-								feedback: userFeedback,
-								feedbackImpressionsCount: userFeedbackImpressions,
-								feedbackPreviousCount: userFeedbackCount
-							},
-							success: () => {
-								this.incrementCookieCounter('userFeedbackCount');
-							}
-						});
+			Ember.run.debounce({}, () => {
+				if ((this.get('firstDisplay') || scrollY > this.get('bannerOffset')) && direction) {
+					this.setProperties({
+						loaded: true,
+						dismissed: false,
+						firstDisplay: true
 					});
+				} else {
+					this.set('dismissed', true);
+				}
+			}, 500);
+		},
+		dismissBanner(timeout) {
+			Ember.$(window).off('scroll.feedbackForm');
+
+			Ember.run.later(this, () => {
+				this.setCookie(cookieName, 1);
+				this.set('dismissed', true);
+			}, timeout);
+
+		},
+		actions: {
+			/**
+			 * Displays a Thank you screen if a user clicks a Yes button.
+			 * @returns {void}
+			 */
+			yes() {
+				this.setProperties({
+					displayQuestion: false,
+					displayThanks: true,
+					message: completed.yes.message
+				});
+
+				this.dismissBanner(completed.yes.timeout);
+			},
+			/**
+			 * Displays a feedback form if a user clicks a No button.
+			 * @returns {void}
+			 */
+			no() {
+				this.setProperties({
+					displayQuestion: false,
+					displayInput: true,
+					message: helpImproveMessage
+				});
+
+				this.incrementCookieCounter('userFeedbackImpressions');
+			},
+			/**
+			 * If a feedback provided is not empty it saves it and displays a Thank you screen.
+			 * @returns {void}
+			 */
+			feedback() {
+				const userFeedback = this.get('userFeedback');
+
+				if (!Ember.isEmpty(userFeedback)) {
+					this.setProperties({
+						displayInput: false,
+						displayThanks: true,
+						message: completed.no.message
+					});
+					this.dismissBanner(completed.no.timeout);
+
+					this.saveUserFeedback({
+						experimentId,
+						variationId: this.get('variationId'),
+						wikiId: Ember.get(Mercury, 'wiki.id'),
+						pageId: this.get('articleId'),
+						feedback: userFeedback,
+						feedbackImpressionsCount: this.getCookieCounter('userFeedbackImpressions'),
+						feedbackPreviousCount: this.getCookieCounter('userFeedbackCount')
+					});
+				}
 			}
 		}
 	}
-});
+);
