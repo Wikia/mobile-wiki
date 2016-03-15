@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ImageMediaComponent from './image-media';
 import ViewportMixin from '../mixins/viewport';
-import Thumbnailer from 'common/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 export default ImageMediaComponent.extend(
 	ViewportMixin,
