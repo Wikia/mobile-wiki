@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import UserFeedbackStorageMixin from '../mixins/user-feedback-storage';
+import {getDomain} from '../utils/domain';
 
 export default Ember.Component.extend(
 	UserFeedbackStorageMixin,
@@ -78,7 +79,7 @@ export default Ember.Component.extend(
 				experimentMapWiki = experimentMap[Ember.get(Mercury, 'wiki.id')],
 				answered = Ember.$.cookie(this.get('answeredCookieName'));
 
-			return !answered && experimentMapWiki ? experimentMapWiki[this.get('pageTitle')] : '';
+			return !answered && !Ember.isEmpty(experimentMapWiki) ? experimentMapWiki[this.get('pageTitle')] : null;
 		}),
 
 		actions: {
@@ -90,18 +91,26 @@ export default Ember.Component.extend(
 				if (!Ember.isEmpty(answer)) {
 					this.set('invalid', '');
 					this.set('thankYou', true);
-					Ember.$.cookie(this.get('answeredCookieName'), true, 90);
+					Ember.$.cookie(this.get('answeredCookieName'), true, {expires: 90, path: '/', domain: getDomain()});
 
 					this.saveUserFeedback({
 						experimentId: this.get('experimentId'),
 						variationId: this.get('question').level,
 						pageTitle: this.get('pageTitle'),
 						wikiId: Ember.get(Mercury, 'wiki.id'),
-						feedback: answer
+						feedback: answer,
+						feedbackImpressionsCount: this.getCookieCounter('infoboxQuestionsImpressions')
 					});
 				} else {
 					this.set('invalid', 'invalid');
 				}
+			}
+		},
+
+		init() {
+			this._super(...arguments);
+			if (!Ember.isEmpty(this.get('question'))) {
+				this.incrementCookieCounter('infoboxQuestionsImpressions');
 			}
 		}
 	}
