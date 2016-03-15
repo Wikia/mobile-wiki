@@ -49,6 +49,7 @@ export default BottomBanner.extend({
 	bannerOffset: 0,
 	lastOffset: 0,
 	firstDisplay: false,
+	firstHide: false,
 	// This is for testing only. Will be removed after setuping an experiment
 	variationId: Math.floor(Math.random() * 6),
 	message: '',
@@ -84,11 +85,16 @@ export default BottomBanner.extend({
 				this.set('dismissed', false);
 
 				if(!this.get('firstDisplay')) {
-					this.trackImpresion('user-feedback-first-prompt');
+					this.trackImpression('user-feedback-first-prompt');
 					this.set('firstDisplay', true);
 				}
 			} else {
 				this.set('dismissed', true);
+
+				if(this.get('firstDisplay') && !this.get('firstHide')) {
+					this.trackImpression('user-feedback-first-prompt-hide');
+					this.set('firstHide', true);
+				}
 			}
 		}, 500);
 	},
@@ -130,10 +136,10 @@ export default BottomBanner.extend({
 			label: label
 		});
 	},
-	trackImpresion(label) {
+	trackImpression(label) {
 		track({
 			action: trackActions.impression,
-			category: 'app',
+			category: 'user-feedback',
 			label: label
 		});
 	},
