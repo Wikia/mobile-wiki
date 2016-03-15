@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {checkPermissions} from 'common/utils/discussionPermissions';
+import {checkPermissions} from 'common/utils/discussion-permissions';
 import ajaxCall from '../utils/ajax-call';
 
 export default Ember.Mixin.create({

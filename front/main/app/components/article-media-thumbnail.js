@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import ArticleContentMixin from '../mixins/article-content';
-import Thumbnailer from 'common/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 export default Ember.Component.extend(
 	ArticleContentMixin,

@@ -1,7 +1,7 @@
 import DiscussionBaseModel from './discussion-base';
 import DiscussionModerationModelMixin from '../mixins/discussion-moderation-model';
 import ajaxCall from '../utils/ajax-call';
-import {checkPermissions} from 'common/utils/discussionPermissions';
+import {checkPermissions} from 'common/utils/discussion-permissions';
 
 
 const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
