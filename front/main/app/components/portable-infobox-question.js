@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+const answeredCookieName = 'portableInfoboxQuestionAnswered';
+
 export default Ember.Component.extend({
 	tagName: 'portable-infobox-question',
 	classNames: ['portable-infobox-question'],
@@ -35,9 +37,10 @@ export default Ember.Component.extend({
 					'Gregor Clegane': 'Who is Gregor Clegane\'s brother?'
 				}
 			},
-			experimentMapWiki = experimentMap[Ember.get(Mercury, 'wiki.id')];
+			experimentMapWiki = experimentMap[Ember.get(Mercury, 'wiki.id')],
+			answered = Ember.$.cookie(answeredCookieName);
 
-		return experimentMapWiki ? experimentMapWiki[this.get('pageTitle')] : '';
+		return !answered && experimentMapWiki ? experimentMapWiki[this.get('pageTitle')] : '';
 	}),
 
 	actions: {
@@ -50,6 +53,7 @@ export default Ember.Component.extend({
 			if (answer) {
 				this.set('invalid', '');
 				this.set('thankYou', true);
+				Ember.$.cookie(answeredCookieName, true, 90);
 			} else {
 				this.set('invalid', 'invalid');
 			}
