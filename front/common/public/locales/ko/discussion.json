@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"Share your favourite discussions with your social networks to bring more fans into the fold."
   },
   "main":{
+    "discussions-header-title":"Discussions",
     "pagination-post-show-more":"View Older Replies",
     "share-default-title":"Discussion on __siteName__",
     "contributors-title":"All Contributors",
@@ -44,8 +45,8 @@
     "modal-dialog-delete":"Delete",
     "modal-dialog-delete-header":"Delete Post?",
     "modal-dialog-delete-reply-header":"Delete Reply?",
-    "modal-dialog-delete-text":"By deleting this post all of it’s contents will be removed.",
-    "modal-dialog-delete-reply-text":"By deleting this reply all of it’s contents will be removed.",
+    "modal-dialog-delete-text":"By deleting this post all of its contents will be removed.",
+    "modal-dialog-delete-reply-text":"By deleting this reply all of its contents will be removed.",
     "modal-dialog-approve":"Approve",
     "modal-dialog-approve-header":"Approve Post?",
     "modal-dialog-approve-reply-header":"Approve Reply?",
@@ -65,7 +66,11 @@
     "reported-by-one":"Reported by __userName__",
     "reported-by-one-reply":"Reply reported by __userName__",
     "reported-by-many":"Reported by __number__ users",
-    "reported-by-many-reply":"Reply reported by __number__ users"
+    "reported-by-many-reply":"Reply reported by __number__ users",
+    "locked-post-text":"This post is locked.",
+    "lock-post":"Lock post",
+    "unlock-post":"Unlock post",
+    "locked-and-reported-to-moderators-text":"This post is locked, and has been reported."
   },
   "editor":{
     "post-failed-error":"Post failed.",
