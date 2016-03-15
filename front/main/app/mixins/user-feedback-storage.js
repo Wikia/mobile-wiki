@@ -18,7 +18,7 @@ export default Ember.Mixin.create({
 	 * @returns {Number|number}
      */
 	getCookieCounter(cookieName) {
-		return parseInt(Ember.$.cookie(cookieName)) || 0;
+		return parseInt(Ember.$.cookie(cookieName), 10) || 0;
 	},
 	/**
 	 * Uses the UserFeedbackStorageApi to retrieve an anti-CSRF token for a user.
