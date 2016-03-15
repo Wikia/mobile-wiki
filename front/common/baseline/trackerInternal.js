@@ -114,11 +114,11 @@ if (typeof window.M.tracker === 'undefined') {
 			head.removeChild(script);
 		}
 
-		if (!abort && typeof onSuccess === 'function') {
-			setTimeout(onSuccess, callbackTimeout);
+		if (!abort && typeof defaults.onSuccess === 'function') {
+			setTimeout(defaults.onSuccess, callbackTimeout);
 
-		} else if (abort && typeof onError === 'function') {
-			setTimeout(onError, callbackTimeout);
+		} else if (abort && typeof defaults.onError === 'function') {
+			setTimeout(defaults.onError, callbackTimeout);
 		}
 	}
 
@@ -165,6 +165,8 @@ if (typeof window.M.tracker === 'undefined') {
 	M.tracker.Internal = {
 		initialize,
 		track,
-		trackPageView
+		trackPageView,
+		// those are needed for unit test
+		createRequestURL,
 	};
 })(M);
