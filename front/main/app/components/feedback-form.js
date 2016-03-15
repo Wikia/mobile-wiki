@@ -88,14 +88,14 @@ export default BottomBanner.extend({
 					dismissed: false
 				});
 
-				if(!this.get('firstDisplay')) {
+				if (!this.get('firstDisplay')) {
 					this.trackImpression('user-feedback-first-prompt');
 					this.set('firstDisplay', true);
 				}
 			} else {
 				this.set('dismissed', true);
 
-				if(this.get('firstDisplay') && !this.get('firstHide')) {
+				if (this.get('firstDisplay') && !this.get('firstHide')) {
 					this.trackImpression('user-feedback-first-prompt-hide');
 					this.set('firstHide', true);
 				}
@@ -115,14 +115,14 @@ export default BottomBanner.extend({
 		track({
 			action: trackActions.click,
 			category: 'user-feedback',
-			label: label
+			label
 		});
 	},
 	trackImpression(label) {
 		track({
 			action: trackActions.impression,
 			category: 'user-feedback',
-			label: label
+			label
 		});
 	},
 	actions: {
