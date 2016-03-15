@@ -96,7 +96,7 @@ export default BottomBanner.extend(
 					if (!this.get('firstDisplay')) {
 						this.trackImpression('user-feedback-first-prompt');
 						this.set('firstDisplay', true);
-						this.setCookie(cookieName, 1);
+						//this.setCookie(cookieName, 1);
 					}
 				} else {
 					this.set('dismissed', true);
