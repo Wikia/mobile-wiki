@@ -1,29 +1,30 @@
 import Ember from 'ember';
 import BottomBanner from './bottom-banner';
+import {getGroup} from 'common/modules/AbTest';
 import {track, trackActions} from 'common/utils/track';
 
 const variations = {
-		0: {
+		SATISFACTION_Q1_TEXT: {
 			question: 'Did you find what you were looking for?',
 			buttons: 'text'
 		},
-		1: {
+		SATISFACTION_Q1_ICON: {
 			question: 'Did you find what you were looking for?',
 			buttons: 'icons'
 		},
-		2: {
+		SATISFACTION_Q2_TEXT: {
 			question: 'Did this answer your question?',
 			buttons: 'text'
 		},
-		3: {
+		SATISFACTION_Q3_TEXT: {
 			question: 'Was this article accurate?',
 			buttons: 'text'
 		},
-		4: {
+		EMOTIONS_Q1_EMOT: {
 			question: 'What did you think of this article?',
 			buttons: 'emots'
 		},
-		5: {
+		EMOTIONS_Q2_EMOT: {
 			question: 'How did this article make you feel?',
 			buttons: 'emots'
 		}
@@ -41,7 +42,8 @@ const variations = {
 	helpImproveMessage = 'Your input helps to improve this wiki. Every bit of feedback is highly valued. ' +
 		'What information was missing?',
 	offsetLimit = 0.2,
-	cookieName = 'feedback-form';
+	cookieName = 'feedback-form',
+	experimentName = 'USER_SATISFACTION_FEEDBACK';
 
 
 export default BottomBanner.extend({
@@ -49,9 +51,8 @@ export default BottomBanner.extend({
 	bannerOffset: 0,
 	lastOffset: 0,
 	firstDisplay: false,
+	variationId: null,
 	firstHide: false,
-	// This is for testing only. Will be removed after setuping an experiment
-	variationId: Math.floor(Math.random() * 6),
 	variation: Ember.computed(function () {
 		return variations[this.variationId];
 	}),
@@ -62,8 +63,9 @@ export default BottomBanner.extend({
 	shouldDisplay: Ember.$.cookie('feedback-form'),
 	init() {
 		this._super(...arguments);
+		this.set('variationId', getGroup(experimentName));
 
-		if (!Ember.$.cookie(cookieName)) {
+		if (!Ember.$.cookie(cookieName) && this.get('variationId')) {
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				const pageHeight = document.getElementsByClassName('wiki-container')[0].offsetHeight;
 
