@@ -2,20 +2,19 @@ import Ember from 'ember';
 import UserFeedbackStorageMixin from '../mixins/user-feedback-storage';
 import {getDomain} from '../utils/domain';
 
+const answeredCookieName = 'portableInfoboxQuestionAnswered';
+
 export default Ember.Component.extend(
 	UserFeedbackStorageMixin,
 	{
 		tagName: 'portable-infobox-question',
 		classNames: ['portable-infobox-question'],
 		classNameBindings: ['collapsed', 'submitted'],
+		answer: '',
+		classInvalid: '',
 		experimentId: 'INFOBOX_BASED_QUESTIONS',
-		answeredCookieName: 'portableInfoboxQuestionAnswered',
-		thankYou: false,
-		submitted: Ember.computed('thankYou', function () {
-			return this.thankYou;
-		}),
 		isVisible: Ember.computed.notEmpty('question'),
-		invalid: '',
+		submitted: false,
 		question: Ember.computed('pageTitle', function () {
 			const experimentMap = {
 					// harrypotter.wikia.com
@@ -77,7 +76,7 @@ export default Ember.Component.extend(
 					}
 				},
 				experimentMapWiki = experimentMap[Ember.get(Mercury, 'wiki.id')],
-				answered = Ember.$.cookie(this.get('answeredCookieName'));
+				answered = Ember.$.cookie(answeredCookieName);
 
 			return !answered && !Ember.isEmpty(experimentMapWiki) ? experimentMapWiki[this.get('pageTitle')] : null;
 		}),
@@ -86,12 +85,15 @@ export default Ember.Component.extend(
 			submit() {
 				// Because article content is not inserted to the page in ember way value from the intupt field
 				// is not propagating to answer variable, hence hack below
-				const answer = Ember.$('.portable-infobox-question__input')[0].value;
+				const answer = this.$('.portable-infobox-question__input')[0].value;
 
+				this.set('answer', answer);
 				if (!Ember.isEmpty(answer)) {
-					this.set('invalid', '');
-					this.set('thankYou', true);
-					Ember.$.cookie(this.get('answeredCookieName'), true, {expires: 90, path: '/', domain: getDomain()});
+					this.setProperties({
+						classInvalid: '',
+						submitted: true,
+					});
+					Ember.$.cookie(answeredCookieName, true, {expires: 90, path: '/', domain: getDomain()});
 
 					this.saveUserFeedback({
 						experimentId: this.get('experimentId'),
@@ -102,15 +104,15 @@ export default Ember.Component.extend(
 						feedbackImpressionsCount: this.getCookieCounter('infoboxQuestionsImpressions')
 					});
 				} else {
-					this.set('invalid', 'invalid');
+					this.set('classInvalid', 'invalid');
 				}
-			}
-		},
+			},
 
-		init() {
-			this._super(...arguments);
-			if (!Ember.isEmpty(this.get('question'))) {
-				this.incrementCookieCounter('infoboxQuestionsImpressions');
+			init() {
+				this._super(...arguments);
+				if (!Ember.isEmpty(this.get('question'))) {
+					this.incrementCookieCounter('infoboxQuestionsImpressions');
+				}
 			}
 		}
 	}
