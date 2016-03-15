@@ -43,7 +43,7 @@ const variations = {
 		'What information was missing?',
 	offsetLimit = 0.2,
 	cookieName = 'feedback-form',
-	EXPERIMENT_NAME = 'USER_SATISFACTION_FEEDBACK';
+	experimentName = 'USER_SATISFACTION_FEEDBACK';
 
 
 export default BottomBanner.extend({
@@ -63,7 +63,7 @@ export default BottomBanner.extend({
 	shouldDisplay: Ember.$.cookie('feedback-form'),
 	init() {
 		this._super(...arguments);
-		this.set('variationId', getGroup(EXPERIMENT_NAME));
+		this.set('variationId', getGroup(experimentName));
 
 		if (!Ember.$.cookie(cookieName) && this.get('variationId')) {
 			Ember.run.scheduleOnce('afterRender', this, () => {
