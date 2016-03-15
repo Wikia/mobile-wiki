@@ -1,16 +1,19 @@
 $infobox-item-margin: 6px;
-$infobox-background: $color-gray-light;
-$infobox-section-secondary-background: $color-blue-gray-light;
+// 5% button color, 5% black and 90% white
+$infobox-background: mix(mix($button-color, $black, 50%), $white, 10%);
+$infobox-secondary-background: $color-blue-light;
+$infobox-secondary-font-color: $white;
+$infobox-secondary-color: $color-blue-gray-light;
 $infobox-hero-overlay-color: rgba(0, 0, 0, .6);
 $infobox-hero-outline-color: rgba(0, 0, 0, .8);
-$infobox-hero-font-color: #fff;
+$infobox-hero-font-color: $white;
 $min-hero-item-height: 110px;
 
 $infobox-image-collection-button-width: 60px;
 
 //fonts used in infobox
-$infobox-title-font-size: 18px;
-$infobox-title-line-height: 28px;
+$infobox-title-font-size: 20px;
+$infobox-title-line-height: 24px;
 $infobox-default-font-size: 14px;
 $infobox-default-line-height: 20px;
 $hero-caption-font-size: 12px;
@@ -48,7 +51,8 @@ $hero-caption-line-height: 18px;
 		}
 
 		.pi-secondary-background {
-			background-color: $infobox-section-secondary-background;
+			background-color: $infobox-secondary-background;
+			color: $infobox-secondary-font-color;
 		}
 
 		.pi-secondary-font {
@@ -137,6 +141,10 @@ $hero-caption-line-height: 18px;
 			z-index: 1;
 		}
 
+		.pi-hero-title{
+			font-size: 24px;
+		}
+
 		.pi-hero-title,
 		.pi-hero-caption {
 			@include ellipsis;
@@ -159,18 +167,26 @@ $hero-caption-line-height: 18px;
 
 		// infobox title
 		.pi-title {
+			background-color: $infobox-secondary-background;
+			color: $infobox-secondary-font-color;
+			display: flex;
+			flex-direction: column;
 			font-size: $infobox-title-font-size;
+			height: 54px;
+			justify-content: center;
 			line-height: $infobox-title-line-height;
-			padding-bottom: 5px;
-			padding-top: 5px;
+			text-align: center;
 		}
 
 		// infobox images
 		.media-component {
 			figcaption {
-				font-style: italic;
-				height: auto;
-				padding: $infobox-item-margin $article-horizontal-padding $infobox-item-margin * 2;
+				color: $black;
+				display: flex;
+				flex-direction: column;
+				height: 44px;
+				justify-content: center;
+				padding: 0 $article-horizontal-padding;
 			}
 
 			.gallery-image img {
@@ -190,7 +206,7 @@ $hero-caption-line-height: 18px;
 		}
 
 		.pi-data-label {
-			flex-basis: 40%;
+			flex-basis: 30%;
 			hyphens: auto;
 		}
 
@@ -198,7 +214,7 @@ $hero-caption-line-height: 18px;
 			padding-left: 0;
 
 			&:not(:first-child) {
-				flex-basis: 60%;
+				flex-basis: 70%;
 				padding-left: 20px;
 			}
 
@@ -215,6 +231,24 @@ $hero-caption-line-height: 18px;
 				line-height: inherit;
 				list-style-position: inside;
 			}
+
+			ol,
+			ul {
+				margin-left: 6px;
+
+				li {
+					list-style-position: outside;
+					margin-bottom: 8px;
+					margin-left: 10px;
+				}
+			}
+		}
+
+		// infobox group
+
+		.pi-group .pi-header {
+			text-align: center;
+			font-size: 16px;
 		}
 
 		// infobox horizontal group
@@ -226,6 +260,7 @@ $hero-caption-line-height: 18px;
 			width: 100%;
 
 			.pi-header {
+				font-size: 16px;
 				text-align: left;
 			}
 
@@ -254,7 +289,7 @@ $hero-caption-line-height: 18px;
 			width: 100%;
 
 			&::before {
-				border-top: 1px solid $infobox-section-secondary-background;
+				border-top: 1px solid $infobox-secondary-color;
 				content: '';
 				display: block;
 				margin-bottom: $infobox-item-margin * 2;
