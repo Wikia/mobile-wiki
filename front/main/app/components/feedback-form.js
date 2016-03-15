@@ -96,6 +96,7 @@ export default BottomBanner.extend(
 					if (!this.get('firstDisplay')) {
 						this.trackImpression('user-feedback-first-prompt');
 						this.set('firstDisplay', true);
+						this.setCookie(cookieName, 1);
 					}
 				} else {
 					this.set('dismissed', true);
@@ -111,7 +112,6 @@ export default BottomBanner.extend(
 			Ember.$(window).off('scroll.feedbackForm');
 
 			Ember.run.later(this, () => {
-				this.setCookie(cookieName, 1);
 				this.set('dismissed', true);
 			}, timeout);
 		},
