@@ -57,8 +57,12 @@
 			click=(action 'onSourceEditorClick')
 			icon='source'
 			iconSize=24
-			title=(i18n 'main.source-editor-tooltip' ns='infobox-builder')
+			id='go-to-source'
 		}}
+		{{#pop-over for="go-to-source" on="hover" flow='leftCenter'}}
+			<p class="infobox-builder-go-to-source-tooltip-text">{{i18n 'main.source-editor-tooltip'
+			ns='infobox-builder'}}</p>
+		{{/pop-over}}
 	</div>
 </div>
 {{#if showOverlay}}

@@ -9,6 +9,8 @@ $image-button-height: 100px;
 $grayout-color: rgba(255, 255, 255, .3);
 $overlay-color: rgba(255, 255, 255, .8);
 $padding: 18px;
+$popover-vertical-padding: 8px;
+$popover-horizontal-padding: 15px;
 $sidebar-width: 300px;
 $sidebar-items-padding: 30px;
 $shadow-blur: 15px;
@@ -126,6 +128,19 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 		padding-top: $padding;
 		font-size: $type-base;
 	}
+
+	// overwrite default mercury pop over styles
+	.pop-over-container {
+		color: $color-gray-dark;
+		font-size: $type-smallest;
+		padding: $popover-vertical-padding $popover-horizontal-padding;
+	}
+}
+
+// fix safari and firefox issues with pop up width calculation and text wrapping
+.infobox-builder-go-to-source-tooltip-text {
+	margin: 0;
+	white-space: nowrap
 }
 
 .infobox-builder-sidebar-header {
