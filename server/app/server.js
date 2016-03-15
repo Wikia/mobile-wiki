@@ -7,7 +7,7 @@
 
 import cluster from 'cluster';
 import localSettings from '../config/localSettings';
-import logger from './lib/Logger';
+import logger from './lib/logger';
 
 /**
  * Is the application stopping
