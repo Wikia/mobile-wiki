@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {checkPermissions} from 'common/utils/discussionPermissions';
+import {checkPermissions} from 'common/utils/discussion-permissions';
 
 export default Ember.Component.extend({
 	classNames: ['more-options'],

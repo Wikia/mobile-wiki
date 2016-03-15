@@ -14,8 +14,6 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function () {
-	const articlePath = '/wiki/';
-
 	this.route('article-preview');
 
 	// we use here wilcard instead of a dynamic segment to be able to
@@ -72,23 +70,19 @@ Router.map(function () {
 	});
 
 	this.route('articleDiff', {
-		path: `/diff/:oldId/:newId`
+		path: '/diff/:oldId/:newId'
 	});
 
 	this.route('wiki-page', {
-		path: `${articlePath}*title`
+		path: '/wiki/*title'
 	});
 
 	this.route('articleEdit', {
-		path: `${articlePath}edit/:title/:sectionIndex`
+		path: '/wiki/edit/:title/:sectionIndex'
 	});
 
 	this.route('articleAddPhoto', {
-		path: `${articlePath}addPhoto/:title`
-	});
-
-	this.route('searchResults', {
-		path: '/search'
+		path: '/wiki/addPhoto/:title'
 	});
 
 	this.route('discussion', {

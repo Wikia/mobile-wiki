@@ -1,7 +1,7 @@
-import setResponseCaching, {Policy, Interval} from './lib/Caching';
-import Logger from './lib/Logger';
-import {Environment} from './lib/Utils';
-import wikiaSessionScheme from './lib/WikiaSession';
+import setResponseCaching, {Policy, Interval} from './lib/caching';
+import Logger from './lib/logger';
+import {Environment} from './lib/utils';
+import wikiaSessionScheme from './lib/wikia-session';
 import localSettings from '../config/localSettings';
 import {routes} from './routes';
 import cluster from 'cluster';
