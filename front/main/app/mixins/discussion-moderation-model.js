@@ -27,7 +27,7 @@ export default Ember.Mixin.create({
 					});
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
@@ -52,7 +52,7 @@ export default Ember.Mixin.create({
 					});
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
@@ -72,7 +72,7 @@ export default Ember.Mixin.create({
 					Ember.set(post, 'isDeleted', false);
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
@@ -95,7 +95,7 @@ export default Ember.Mixin.create({
 					});
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
@@ -115,7 +115,7 @@ export default Ember.Mixin.create({
 					Ember.set(reply, 'isDeleted', false);
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
@@ -137,7 +137,7 @@ export default Ember.Mixin.create({
 					Ember.set(item, 'isReported', false);
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
@@ -159,7 +159,7 @@ export default Ember.Mixin.create({
 				Ember.set(item, 'isReported', true);
 			},
 			error: () => {
-				this.displayError();
+				this.setFailedState('editor.post-error-general-error');
 			}
 		});
 	},
@@ -180,7 +180,7 @@ export default Ember.Mixin.create({
 					Ember.set(post, 'isLocked', true);
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
@@ -201,13 +201,9 @@ export default Ember.Mixin.create({
 					Ember.set(post, 'isLocked', false);
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
 	},
-
-	displayError() {
-		alert(i18n.t('editor.post-error-general-error', {ns: 'discussion'}));
-	}
 });
