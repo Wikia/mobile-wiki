@@ -270,6 +270,11 @@ test('correctly sets sideBarOptionsComponent name', function (assert) {
 	});
 });
 
+/**
+ * helper function for testing go to source action
+ * @param {Object} assert
+ * @returns {Object}
+ */
 function prepareForHandleSourceEditorClickTest(assert) {
 	const component = this.subject(),
 		confirmStub = sinon.stub(window, 'confirm'),
@@ -283,7 +288,7 @@ function prepareForHandleSourceEditorClickTest(assert) {
 		done,
 		goToSourceEditorStub,
 		saveStub
-	}
+	};
 }
 
 test('saves model and sends goToSourceEditor action to the controller', function (assert) {
