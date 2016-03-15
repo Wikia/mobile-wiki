@@ -57,6 +57,11 @@ $group-header-font-size: 16px;
 		.pi-secondary-background {
 			background-color: $infobox-secondary-background;
 			color: $infobox-secondary-font-color;
+
+			a {
+				color: inherit;
+				text-decoration: underline;
+			}
 		}
 
 		.pi-secondary-font {
