@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 
-import Internal from '../modules/Trackers/Internal';
-import Ads from '../modules/Ads';
+import Internal from '../modules/trackers/internal';
+import Ads from '../modules/ads';
 
 /**
  * @typedef {Object} TrackContext

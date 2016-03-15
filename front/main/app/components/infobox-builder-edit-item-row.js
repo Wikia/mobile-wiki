@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import InfoboxBuilderEditItemMixin from '../mixins/infobox-builder-edit-item';
+import InfoboxBuilderSidebarOptionsMixin from '../mixins/infobox-builder-sidebar-options';
 
 export default Ember.Component.extend(
+	InfoboxBuilderSidebarOptionsMixin,
 	InfoboxBuilderEditItemMixin,
 	{
 		// params required for tracking edit actions
