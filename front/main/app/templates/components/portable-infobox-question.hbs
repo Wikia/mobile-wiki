@@ -1,2 +1,9 @@
-<span class="portable-infobox-question__text">When Batman was borned?</span>
-<input type="text" placeholder="Fill in the data" class="portable-infobox-question__input">
+{{#if submitted}}
+	Thank you for providing the info!
+{{else}}
+	<form {{action 'submit' on='submit'}}>
+		<label class="portable-infobox-question__text {{classInvalid}}" for="portable-infobox-question">{{question}}</label>
+		{{input type="text" value=answer placeholder="Fill in the data" class="portable-infobox-question__input" name='portable-infobox-question'}}
+		<span class="portable-infobox-question__error {{classInvalid}}">Please provide your response</span>
+	</form>
+{{/if}}
