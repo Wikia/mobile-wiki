@@ -2,7 +2,7 @@
 	Thank you for providing the info!
 {{else}}
 	<form {{action 'submit' on='submit'}}>
-		<label class="portable-infobox-question__text {{invalid}}" for="portable-infobox-question">{{question}}</label>
+		<label class="portable-infobox-question__text {{invalid}}" for="portable-infobox-question">{{question.text}}</label>
 		{{input type="text" value=answer placeholder="Fill in the data" class="portable-infobox-question__input" name='portable-infobox-question'}}
 		<span class="portable-infobox-question__error {{invalid}}">Please provide your response</span>
 	</form>
