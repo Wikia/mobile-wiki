@@ -1,4 +1,4 @@
-import Logger from '../../lib/Logger';
+import Logger from '../../lib/logger';
 
 /**
  * Currently Hapi doesn't recognize ES6 syntax on exports (ie: "default" keyword)

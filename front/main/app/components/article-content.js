@@ -15,7 +15,7 @@ import WidgetVKComponent from '../components/widget-vk';
 import WidgetPolldaddyComponent from '../components/widget-polldaddy';
 import WidgetFliteComponent from '../components/widget-flite';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
-import {getExperimentVariationNumber} from 'common/utils/variantTesting';
+import {getExperimentVariationNumber} from 'common/utils/variant-testing';
 import {track, trackActions} from 'common/utils/track';
 
 /**

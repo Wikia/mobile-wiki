@@ -1,8 +1,8 @@
-import {PageRequestHelper} from '../../lib/MediaWikiPage';
-import setResponseCaching, * as Caching from '../../lib/Caching';
-import {getCachedWikiDomainName} from '../../lib/Utils';
+import {PageRequestHelper} from '../../lib/mediawiki-page';
+import setResponseCaching, * as Caching from '../../lib/caching';
+import {getCachedWikiDomainName} from '../../lib/utils';
 import localSettings from '../../../config/localSettings';
-import getStatusCode from '../operations/getStatusCode';
+import getStatusCode from '../operations/get-status-code';
 
 const cachingTimes = {
 	enabled: true,

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {getGroup} from 'common/modules/AbTest';
+import {getGroup} from 'common/modules/abtest';
 
 export default Ember.Component.extend({
 	didReceiveAttrs() {

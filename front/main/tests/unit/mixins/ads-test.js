@@ -2,7 +2,7 @@ import Ember from 'ember';
 import {test} from 'ember-qunit';
 import {module} from 'qunit';
 import AdsMixin from 'main/mixins/ads';
-import Ads from 'common/modules/Ads';
+import Ads from 'common/modules/ads';
 
 module('Unit | Mixin | ads', () => {
 	test('setup ads context', (assert) => {

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
+import UniversalAnalytics from 'common/modules/trackers/universal-analytics';
 import ArticleHandler from '../utils/wiki-handlers/article';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
