@@ -44,7 +44,7 @@ const variations = {
 		'What information was missing?',
 	offsetLimit = 0.2,
 	cookieName = 'feedback-form',
-	experimentName = 'USER_SATISFACTION_FEEDBACK';
+	experimentId = 'USER_SATISFACTION_FEEDBACK';
 
 
 export default BottomBanner.extend(
@@ -66,11 +66,11 @@ export default BottomBanner.extend(
 		shouldDisplay: Ember.$.cookie('feedback-form'),
 		init() {
 			this._super(...arguments);
-			this.set('variationId', getGroup(experimentName));
+			this.set('variationId', getGroup(experimentId));
 
-		if (!Ember.$.cookie(cookieName) && this.get('variationId')) {
-			Ember.run.scheduleOnce('afterRender', this, () => {
-				const pageHeight = document.getElementsByClassName('wiki-container')[0].offsetHeight;
+			if (!Ember.$.cookie(cookieName) && this.get('variationId')) {
+				Ember.run.scheduleOnce('afterRender', this, () => {
+					const pageHeight = document.getElementsByClassName('wiki-container')[0].offsetHeight;
 
 					this.set('bannerOffset', Math.floor(pageHeight * offsetLimit));
 					Ember.$(window).on('scroll.feedbackForm', () => this.checkOffsetPosition());
@@ -86,60 +86,59 @@ export default BottomBanner.extend(
 
 			this.set('lastOffset', scrollY);
 
-		Ember.run.debounce({}, () => {
-			if ((this.get('firstDisplay') || scrollY > this.get('bannerOffset')) && direction) {
-				this.setProperties({
-					loaded: true,
-					dismissed: false
-				});
+			Ember.run.debounce({}, () => {
+				if ((this.get('firstDisplay') || scrollY > this.get('bannerOffset')) && direction) {
+					this.setProperties({
+						loaded: true,
+						dismissed: false
+					});
 
-				if (!this.get('firstDisplay')) {
-					this.trackImpression('user-feedback-first-prompt');
-					this.set('firstDisplay', true);
-				}
-			} else {
-				this.set('dismissed', true);
+					if (!this.get('firstDisplay')) {
+						this.trackImpression('user-feedback-first-prompt');
+						this.set('firstDisplay', true);
+					}
+				} else {
+					this.set('dismissed', true);
 
-				if (this.get('firstDisplay') && !this.get('firstHide')) {
-					this.trackImpression('user-feedback-first-prompt-hide');
-					this.set('firstHide', true);
+					if (this.get('firstDisplay') && !this.get('firstHide')) {
+						this.trackImpression('user-feedback-first-prompt-hide');
+						this.set('firstHide', true);
+					}
 				}
-			}
-		}, 500);
-	},
-	dismissBanner(timeout) {
-		Ember.$(window).off('scroll.feedbackForm');
+			}, 500);
+		},
+		dismissBanner(timeout) {
+			Ember.$(window).off('scroll.feedbackForm');
 
 			Ember.run.later(this, () => {
 				this.setCookie(cookieName, 1);
 				this.set('dismissed', true);
 			}, timeout);
-
-	},
-	trackClick(label) {
-		track({
-			action: trackActions.click,
-			category: 'user-feedback',
-			label
-		});
-	},
-	trackImpression(label) {
-		track({
-			action: trackActions.impression,
-			category: 'user-feedback',
-			label
-		});
-	},
-	actions: {
-		yes() {
-			this.setProperties({
-				displayQuestion: false,
-				displayThanks: true,
-				message: completed.yes.message
+		},
+		trackClick(label) {
+			track({
+				action: trackActions.click,
+				category: 'user-feedback',
+				label
 			});
+		},
+		trackImpression(label) {
+			track({
+				action: trackActions.impression,
+				category: 'user-feedback',
+				label
+			});
+		},
+		actions: {
+			yes() {
+				this.setProperties({
+					displayQuestion: false,
+					displayThanks: true,
+					message: completed.yes.message
+				});
 
-			this.trackClick('user-feedback-yes');
-			this.trackImpression('user-feedback-second-prompt-thankyou');
+				this.trackClick('user-feedback-yes');
+				this.trackImpression('user-feedback-second-prompt-thankyou');
 
 				this.dismissBanner(completed.yes.timeout);
 			},
