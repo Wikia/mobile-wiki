@@ -1,6 +1,9 @@
 {{#unless queryParams.noexternals}}
 	<script>
-		debugger;
-		M.tracker.Internal.trackPageView(context);
+		M.tracker.Internal.initialize();
+		M.tracker.Internal.trackPageView({
+			a: M.prop('pageTitle'),
+			n: M.prop('mediaWikiNamespace')
+		});
 	</script>
 {{/unless}}
