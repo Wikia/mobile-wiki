@@ -1,6 +1,5 @@
 /* eslint no-console: 0 */
 
-import Internal from '../modules/Trackers/Internal';
 import Ads from '../modules/Ads';
 
 /**
@@ -118,8 +117,6 @@ export function track(params) {
 		value = params.value || 0,
 		isNonInteractive = params.isNonInteractive !== false;
 
-	let tracker;
-
 	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
@@ -144,9 +141,8 @@ export function track(params) {
 	}
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
-		tracker = new Internal();
 		params = $.extend(context, params);
-		tracker.track(params);
+		M.tracker.Internal.track(params);
 	}
 }
 
@@ -159,11 +155,6 @@ export function trackPageView(overrideUrl) {
 		return;
 	}
 
-	const instance = new Internal();
-
-	console.info('Track pageView: Internal');
-	instance.trackPageView(context);
-
 	if (M.prop('initialPageView')) {
 		M.prop('initialPageView', false);
 	} else {
@@ -172,6 +163,7 @@ export function trackPageView(overrideUrl) {
 		window.trackComscorePageView();
 		window.trackIVW3PageView();
 
+		M.tracker.Internal.trackPageView(context);
 		M.tracker.UniversalAnalytics.trackPageView(overrideUrl);
 	}
 

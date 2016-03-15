@@ -1,3 +1,10 @@
+if (typeof window.M === 'undefined') {
+	window.M = {};
+}
+if (typeof window.M.tracker === 'undefined') {
+	window.M.tracker = {};
+}
+/* eslint-disable no-console */
 /**
  * @typedef {Object} InternalTrackingConfig
  * @property {number} c - wgCityId
@@ -27,21 +34,18 @@
  * @property {Function} success
  * @property {Function} error
  */
-export default class Internal {
-	/**
-	 * @returns {void}
-	 */
-	constructor() {
-		this.baseUrl = 'https://beacon.wikia-services.com/__track/';
-		this.callbackTimeout = 200;
-		this.head = document.head || document.getElementsByTagName('head')[0];
-		this.defaults = Internal.getConfig();
-	}
+
+(function (M) {
+	const baseUrl = 'https://beacon.wikia-services.com/__track/',
+		callbackTimeout = 200,
+		head = document.head || document.getElementsByTagName('head')[0];
+
+	let defaults;
 
 	/**
 	 * @returns {InternalTrackingConfig}
 	 */
-	static getConfig() {
+	function getConfig() {
 		const mercury = window.Mercury;
 
 		return {
@@ -56,10 +60,17 @@ export default class Internal {
 	}
 
 	/**
+	 * @returns {void}
+	 */
+	function initialize() {
+		defaults = getConfig();
+	}
+
+	/**
 	 * @param {string} category
 	 * @returns {boolean}
 	 */
-	static isPageView(category) {
+	function isPageView(category) {
 		return category.toLowerCase() === 'view';
 	}
 
@@ -68,9 +79,9 @@ export default class Internal {
 	 * @param {*} params
 	 * @returns {string}
 	 */
-	createRequestURL(category, params) {
+	function createRequestURL(category, params) {
 		const parts = [],
-			targetRoute = Internal.isPageView(category) ? 'view' : 'special/trackingevent';
+			targetRoute = isPageView(category) ? 'view' : 'special/trackingevent';
 
 		Object.keys(params).forEach((key) => {
 			const value = params[key];
@@ -82,7 +93,7 @@ export default class Internal {
 			}
 		});
 
-		return `${this.baseUrl}${targetRoute}?${parts.join('&')}`;
+		return `${baseUrl}${targetRoute}?${parts.join('&')}`;
 	}
 
 	/**
@@ -90,8 +101,7 @@ export default class Internal {
 	 * @param {HTMLScriptElement} script
 	 * @returns {void}
 	 */
-	scriptLoadedHandler(abort, script) {
-
+	function scriptLoadedHandler(abort, script) {
 		if (!abort || script.readyState || !(/loaded|complete/).test(script.readyState)) {
 			return;
 		}
@@ -100,15 +110,15 @@ export default class Internal {
 		script.onload = script.onreadystatechange = null;
 
 		// Remove the script
-		if (this.head && script.parentNode) {
-			this.head.removeChild(script);
+		if (head && script.parentNode) {
+			head.removeChild(script);
 		}
 
-		if (!abort && typeof this.success === 'function') {
-			setTimeout(this.success, this.callbackTimeout);
+		if (!abort && typeof onSuccess === 'function') {
+			setTimeout(onSuccess, callbackTimeout);
 
-		} else if (abort && typeof this.error === 'function') {
-			setTimeout(this.error, this.callbackTimeout);
+		} else if (abort && typeof onError === 'function') {
+			setTimeout(onError, callbackTimeout);
 		}
 	}
 
@@ -117,36 +127,44 @@ export default class Internal {
 	 * @param {Element} [script=document.createElement('script')]
 	 * @returns {void}
 	 */
-	loadTrackingScript(url, script = document.createElement('script')) {
+	function loadTrackingScript(url, script = document.createElement('script')) {
 		script.src = url;
 		script.onload = script.onreadystatechange = (abort) => {
-			this.scriptLoadedHandler(abort, script);
+			scriptLoadedHandler(abort, script);
 		};
 
-		this.head.insertBefore(script, this.head.firstChild);
+		head.insertBefore(script, head.firstChild);
 	}
 
 	/**
 	 * @param {InternalTrackingParams} params
 	 * @returns {void}
 	 */
-	track(params) {
-		const config = $.extend(params, this.defaults);
+	function track(params) {
+		const config = $.extend(params, defaults);
 
-		this.loadTrackingScript(
-			this.createRequestURL(config.ga_category, config)
+		loadTrackingScript(
+			createRequestURL(config.ga_category, config)
 		);
 	}
 
 	/**
-	 * Alias to track a page view
-	 *
 	 * @param {TrackContext} context
 	 * @returns {void}
 	 */
-	trackPageView(context) {
-		this.track($.extend({
+	function trackPageView(context) {
+		track($.extend({
 			ga_category: 'view'
 		}, context));
+
+		console.info('Track pageView: Internal');
 	}
-}
+
+
+	// API
+	M.tracker.Internal = {
+		initialize,
+		track,
+		trackPageView
+	};
+})(M);
