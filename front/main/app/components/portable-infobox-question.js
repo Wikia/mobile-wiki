@@ -23,66 +23,108 @@ export default Ember.Component.extend(
 					509: {
 						'Hermione Granger': {
 							text: 'What is Hermione Granger\'s House?',
-							level: 'easy'
+							level: 'easy',
+							fieldToHide: 'House'
 						},
 						'Harry Potter': {
 							text: 'What is Harry Potter\'s Patronus?',
-							level: 'easy'
+							level: 'easy',
+							fieldToHide: 'Patronus'
 						},
 						'Ginevra Weasley': {
 							text: 'What is Ginevra Weasley\'s Bogart?',
-							level: 'hard'
+							level: 'hard',
+							fieldToHide: ''
 						},
 						'Luna Lovegood': {
 							text: 'What is Luna Lovegood\'s wand?',
-							level: 'hard'
+							level: 'hard',
+							fieldToHide: 'Wand'
 						}
 					},
 					// marvel.wikia.com
 					2233: {
 						'Wolverine (James "Logan" Howlett)': {
 							text: 'What is Wolverine (James "Logan" Howlett)\'s gender?',
-							level: 'easy'
+							level: 'easy',
+							fieldToHide: 'Gender'
 						},
 						'Spider-Man (Peter Parker)': {
 							text: 'What is Spider-Man (Peter Parker)\'s citizenship?',
-							level: 'easy'
+							level: 'easy',
+							fieldToHide: 'Citizenship'
 						},
 						'Deadpool (Wade Wilson)': {
 							text: 'What is Deadpool (Wade Wilson)\'s place of birth?',
-							level: 'hard'
+							level: 'hard',
+							fieldToHide: 'Place of Birth'
 						},
 						'Hive (Earth-616)': {
 							text: 'What is Hive (Earth-616)\'s origin?',
-							level: 'hard'
+							level: 'hard',
+							fieldToHide: ''
 						}
 					},
 					// gameofthrones.wikia.com
 					130814: {
 						'Sansa Stark': {
 							text: 'Who is Sansa Stark\'s sister?',
-							level: 'easy'
+							level: 'easy',
+							fieldToHide: 'Family',
+							valueToHide: 'sister'
 						},
 						'Tyrion Lannister': {
 							text: 'Who is Tyrion Lannister\'s brother?',
-							level: 'easy'
+							level: 'easy',
+							fieldToHide: 'Family',
+							valueToHide: 'brother'
 						},
 						'Daenerys Targaryen': {
 							text: 'What is Daenerys Targaryen\'s religion?',
-							level: 'hard'
+							level: 'hard',
+							fieldToHide: ''
 						},
 						'Gregor Clegane': {
 							text: 'Who is Gregor Clegane\'s brother?',
-							level: 'hard'
+							level: 'hard',
+							fieldToHide: 'Family',
+							valueToHide: 'brother'
 						}
 					}
 				},
 				experimentMapWiki = experimentMap[Ember.get(Mercury, 'wiki.id')],
+				experimentWikiPage = !Ember.isEmpty(experimentMapWiki) ? experimentMapWiki[this.get('pageTitle')] : null,
 				answered = Ember.$.cookie(answeredCookieName);
 
-			return !answered && !Ember.isEmpty(experimentMapWiki) ? experimentMapWiki[this.get('pageTitle')] : null;
-		}),
+			if (!experimentWikiPage || answered) {
+				return '';
+			}
 
+			// We want to hide field in portable infobox with answer to our question
+			if (experimentWikiPage.fieldToHide) {
+				Ember.run.scheduleOnce('afterRender', this, () => {
+					this.hideInfoboxField(experimentWikiPage.fieldToHide, experimentWikiPage.valueToHide);
+				});
+			}
+
+			return experimentWikiPage;
+		}),
+		hideInfoboxField(field, value) {
+			Ember.$('.portable-infobox').find('h3').filter((index, elem) => {
+				if (elem.textContent === field) {
+					if (value) {
+						const $valueNode = Ember.$(elem).next('.pi-data-value'),
+							values = $valueNode.html().split('<br>').filter((currentValue) => {
+								return currentValue.indexOf(value) === -1;
+							});
+
+						$valueNode.html(values.join('<br>'));
+					} else {
+						Ember.$(elem).parent('.pi-item').remove();
+					}
+				}
+			});
+		},
 		actions: {
 			submit() {
 				// Because article content is not inserted to the page in ember way value from the intupt field
@@ -142,7 +184,7 @@ export default Ember.Component.extend(
 						.focusout(() => {
 							this.set('classInvalid', '');
 						});
-				}, 100);
+				});
 			}
 		}
 	}
