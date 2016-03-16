@@ -11,8 +11,7 @@ export default Ember.Component.extend(
 		thumbnail: '/front/common/images/infobox-builder-image-placeholder.png',
 		// cannot be 'height' & 'width' because sortable-item uses height & width props for its own purposes
 		imgWidth: 270,
-		imgHeight: 152,
-		caption: i18n.t('infobox-builder:main.caption-default')
+		imgHeight: 152
 	}
 );
 
