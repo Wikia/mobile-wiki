@@ -11,3 +11,16 @@ export function getGroup(experimentName) {
 		return AbTest.getGroup(experimentName);
 	}
 }
+
+/**
+ * Check if a user is in a group for an experiment
+ *
+ * @param {String} experimentName
+ * @param {String} groupName
+ * @returns {Boolean}
+ */
+export function inGroup(experimentName, groupName) {
+	if (AbTest && typeof AbTest.inGroup === 'function') {
+		return AbTest.inGroup(experimentName, groupName);
+	}
+}
