@@ -76,6 +76,7 @@ export default Ember.Component.extend(
 		})),
 
 		headerObserver: Ember.observer('headers', function () {
+			this.bindHeaderClicks();
 			if (this.get('contributionEnabled')) {
 				const headers = this.get('headers');
 				let $sectionHeader = null,
@@ -271,6 +272,22 @@ export default Ember.Component.extend(
 			}
 
 			return {name, attrs, element};
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		bindHeaderClicks() {
+			if (!this.$('.collapsible-section-header').length) {
+				return;
+			}
+
+			this.$('.collapsible-section-header').click(function () {
+				const $header = $(this);
+
+				$header.toggleClass('open');
+				$header.next('.collapsible-section-body').toggleClass('hidden');
+			});
 		},
 
 		/**

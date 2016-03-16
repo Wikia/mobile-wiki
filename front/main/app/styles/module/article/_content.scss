@@ -20,4 +20,32 @@
 			margin-bottom: 0;
 		}
 	}
+
+	.collapsible-section-header {
+		border-bottom: 1px solid $gainsboro;
+		margin-bottom: 0.7rem;
+		padding-bottom: 0.7rem;
+		padding-left: 1.4rem;
+
+		.contribution-container {
+			display: none;
+		}
+
+		.chevron {
+			position: absolute;
+			height: 1.6875rem; // This is the font size of an h2
+			top: 50%;
+			left: 0;
+		}
+
+		&.open {
+			.chevron {
+				transform: scaleY(-1);
+			}
+
+			.contribution-container {
+				display: block;
+			}
+		}
+	}
 }

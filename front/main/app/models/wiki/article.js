@@ -2,6 +2,7 @@ import Ember from 'ember';
 import MediaModel from '../media';
 import {normalizeToWhitespace} from 'common/utils/string';
 import request from 'ember-ajax/request';
+import {inGroup} from 'common/modules/abtest';
 
 /**
  * @typedef {Object} ArticleModelUrlParams
@@ -141,7 +142,7 @@ ArticleModel.reopenClass({
 				article = data.article;
 
 				articleProperties = $.extend(articleProperties, {
-					content: article.content,
+					content: this.injectSections(article.content),
 					displayTitle: article.displayTitle,
 					mediaUsers: article.users,
 					type: article.type,
@@ -198,6 +199,44 @@ ArticleModel.reopenClass({
 		}
 
 		model.setProperties(articleProperties);
+	},
+
+	injectSections(content) {
+		if (!inGroup('RECIRCULATION_MERCURY_COLLAPSE', 'YES')) {
+			return content;
+		}
+
+		const $fragment = $(document.createDocumentFragment()),
+			nodes = this.getContentNodes(content);
+
+		let $root = $fragment;
+
+		for (let i = 0; i < nodes.length; i++) {
+			const $node = $(nodes[i]);
+
+			if ($node.is('h2')) {
+				const $currentSection = $('<section class="collapsible-section-body hidden">'),
+					$sectionHeader = $node.clone(true).addClass('collapsible-section-header');
+
+				$sectionHeader.prepend('<svg viewBox="0 0 12 7" class="icon chevron"><use xlink:href="#chevron"></use></svg>');
+
+				$fragment.append($sectionHeader);
+				$fragment.append($currentSection);
+
+				$root = $currentSection;
+			} else {
+				$root.append($node.clone(true));
+			}
+		}
+
+		return $fragment;
+	},
+
+	getContentNodes(content) {
+		const article = document.createElement('div');
+
+		article.innerHTML = content;
+		return article.childNodes;
 	}
 });
 
