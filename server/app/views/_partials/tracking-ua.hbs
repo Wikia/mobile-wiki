@@ -3,8 +3,13 @@
 		// Load UA async and flag $script when ready
 		$script(['{{server.gaUrl}}'], 'ua');
 
-    // when optimizely loads, initialize trackers and track initial pageview
-    $script.ready(['optimizely'], function() {
+		// when optimizely loads, initialize trackers and track initial pageview
+		$script.ready(['optimizely'], function() {
+			/**
+			 * If urlTitleParam is empty - for non-wiki-page pages
+			 * (eg. discussion, recent wiki activity) - we're sending
+			 * empty string that is handled by MercuryAPI.
+			 */
 			$.getJSON('/wikia.php', {
 				controller: 'MercuryApi',
 				method: 'getTrackingDimensions',
@@ -19,6 +24,7 @@
 						$.each(data.dimensions, function(index, value) {
 							dimensions[index] = value;
 						});
+
 						if (ua.initialize(dimensions)) {
 							ua.trackPageView();
 						}

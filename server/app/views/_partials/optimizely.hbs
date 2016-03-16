@@ -6,7 +6,8 @@
 	<script>$script(['{{optimizelyScript}}'], 'optimizely');</script>
 {{else}}
 {{!--
-	Mark 'optimizely' as already loaded
+	Mark 'optimizely' as already loaded, so Ember can proceed
+	@see front/main/app/initializers/wait-for-optimizely.js
 --}}
 	<script>$script.done('optimizely');</script>
 {{/if}}
