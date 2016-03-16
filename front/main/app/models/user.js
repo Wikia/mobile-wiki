@@ -17,7 +17,6 @@ import Ember from 'ember';
 const UserModel = Ember.Object.extend({
 	avatarPath: null,
 	name: null,
-	userId: null,
 	rights: null,
 	powerUserTypes: null
 });
