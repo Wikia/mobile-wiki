@@ -108,12 +108,12 @@ export default Ember.Component.extend(
 			return experimentWikiPage;
 		}),
 		hideInfoboxField(field, value) {
-			Ember.$('.portable-infobox').find('h3').filter(function () {
-				if (this.textContent === field) {
+			Ember.$('.portable-infobox').find('h3').filter((index, elem) => {
+				if (elem.textContent === field) {
 					if (value) {
-						this.hideFieldValue($(this).next('.pi-data-value'), value);
+						this.hideFieldValue($(elem).next('.pi-data-value'), value);
 					} else {
-						$(this).parent('.pi-item').remove();
+						$(elem).parent('.pi-item').remove();
 					}
 				}
 			});
