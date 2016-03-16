@@ -70,28 +70,16 @@ export default BottomBanner.extend(
 		shouldDisplay: Ember.$.cookie('feedback-form'),
 		viewportHeight: 0,
 		isiOS: Ember.computed(() => {
-			const iOSDevices = [
-				'iPad Simulator',
-				'iPhone Simulator',
-				'iPod Simulator',
-				'iPad',
-				'iPhone',
-				'iPod'
-			];
-
-			while (iOSDevices.length) {
-				if (navigator.platform === iOSDevices.pop()) {
-					return true;
-				}
-			}
-			return false;
+			return navigator.userAgent.match(/iP(od|hone|ad)/) &&
+				navigator.userAgent.match(/AppleWebKit/) &&
+				!navigator.userAgent.match(/CriOS/);
 		}),
+		inputFocused: false,
 		init() {
 			this._super(...arguments);
 			this.set('variationId', getGroup(experimentId));
 
-			// if (!Ember.$.cookie(cookieName) && this.get('variationId')) {
-			if (this.get('variationId')) {
+			if (!Ember.$.cookie(cookieName) && this.get('variationId')) {
 				Ember.run.scheduleOnce('afterRender', this, () => {
 					const pageHeight = document.getElementsByClassName('wiki-container')[0].offsetHeight;
 
@@ -112,6 +100,7 @@ export default BottomBanner.extend(
 
 					this.set('absolute', true);
 					Ember.$(window).off('scroll.feedbackForm');
+					Ember.$(window).on('scroll.absoluteFeedbackForm');
 
 					// Calculate it better
 					topValue = window.scrollY + bannerHeight - 55;
@@ -122,17 +111,18 @@ export default BottomBanner.extend(
 		willDestroyElement() {
 			Ember.$(window).off('scroll.feedbackForm');
 		},
-		adjustAbsoluteFeedbackForm(mode) {
-			const bottomBanner = Ember.$('.feedback-form');
-			let topValue;
+		adjustAbsoluteFeedbackForm() {
+			Ember.run.debounce({}, () => {
+				const bottomBanner = Ember.$('.feedback-form');
+				let topValue;
 
-			if (mode === 'initial') {
-				topValue = window.scrollY + bottomBanner.height() - 55;
-			} else if (mode === 'focused') {
-				topValue = window.scrollY - bottomBanner.height() - 55;
-			}
-
-			bottomBanner.css('top', topValue);
+				if (this.get('inputFocused')) {
+					topValue = window.scrollY - bottomBanner.height() - 55;
+				} else {
+					topValue = window.scrollY + bottomBanner.height() - 55;
+				}
+				bottomBanner.animate({top: `${topValue}px`});
+			}, 500);
 		},
 		checkOffsetPosition() {
 			const scrollY = window.scrollY,
@@ -248,14 +238,20 @@ export default BottomBanner.extend(
 			},
 			onFocusOut() {
 				if (this.get('isiOS')) {
-					this.adjustAbsoluteFeedbackForm('initial');
-					$(window).on('scroll.absoluteFeedbackForm', () => this.adjustAbsoluteFeedbackForm('initial'));
+					const userFeedback = this.get('userFeedback');
+
+					this.set('inputFocused', false);
+					if (Ember.isEmpty(userFeedback)) {
+						this.adjustAbsoluteFeedbackForm();
+					} else {
+						this.send('feedback');
+					}
 				}
 			},
 			onFocusIn() {
 				if (this.get('isiOS')) {
-					this.adjustAbsoluteFeedbackForm('focused');
-					$(window).on('scroll.absoluteFeedbackForm', () => this.adjustAbsoluteFeedbackForm('focused'));
+					this.set('inputFocused', true);
+					this.adjustAbsoluteFeedbackForm();
 				}
 			}
 		}
