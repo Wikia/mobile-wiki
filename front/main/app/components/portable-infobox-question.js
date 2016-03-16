@@ -94,17 +94,17 @@ export default Ember.Component.extend(
 					},
 					// warframe.wikia.com
 					544934: {
-						'Manic': {
+						Manic: {
 							text: 'What is the Faction of Manic?',
 							level: 'easy',
 							fieldToHide: 'Faction'
 						},
-						'Seeker': {
+						Seeker: {
 							text: 'What is the Faction of Seeker?',
 							level: 'easy',
 							fieldToHide: 'Faction'
 						},
-						'Ivara': {
+						Ivara: {
 							text: 'What is the Armor of Ivara?',
 							level: 'hard',
 							fieldToHide: 'Armor'
@@ -129,7 +129,7 @@ export default Ember.Component.extend(
 							fieldToHide: 'Appearance',
 							valueToHide: 'eyes'
 						},
-						'Bellwether': {
+						Bellwether: {
 							text: 'What color are Bellwether\'s eyes?',
 							level: 'easy',
 							fieldToHide: 'Appearance',
@@ -159,7 +159,7 @@ export default Ember.Component.extend(
 							level: 'easy',
 							fieldToHide: 'Eye color'
 						},
-						'Snoke': {
+						Snoke: {
 							text: 'What color are Snoke\'s eyes?',
 							level: 'easy',
 							fieldToHide: 'Eye color'
