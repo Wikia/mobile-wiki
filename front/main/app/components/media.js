@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import VisibleMixin from '../mixins/visible';
-import Thumbnailer from 'common/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 /**
  * @typedef {Object} ThumbnailOptions
