@@ -1,12 +1,12 @@
-import BirthdateInput from './common/BirthdateInput';
-import FacebookConnect from './facebook/FacebookConnect';
-import FacebookLogin from './facebook/FacebookLogin';
-import FacebookRegistration from './facebook/FacebookRegistration';
-import Form from './common/Form';
-import Login from './common/Login';
-import SignupForm from './signup/SignupForm';
-import SubmitValidator from './login/SubmitValidator';
-import VisitSourceWrapper from './common/VisitSourceWrapper';
+import BirthdateInput from './common/birthdate-input';
+import FacebookConnect from './facebook/facebook-connect';
+import FacebookLogin from './facebook/facebook-login';
+import FacebookRegistration from './facebook/facebook-registration';
+import Form from './common/form';
+import Login from './common/login';
+import SignupForm from './signup/signup-form';
+import SubmitValidator from './login/submit-validator';
+import VisitSourceWrapper from './common/visit-source-wrapper';
 import {init as initTracking} from './tracking';
 
 /**

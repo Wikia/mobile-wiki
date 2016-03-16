@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import AdSlotComponent from '../components/ad-slot';
-import Ads from 'common/modules/Ads';
+import Ads from 'common/modules/ads';
 
 export default Ember.Mixin.create({
 	adsData: {
