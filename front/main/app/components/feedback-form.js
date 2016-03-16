@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import BottomBanner from './bottom-banner';
 import UserFeedbackStorageMixin from '../mixins/user-feedback-storage';
+import ViewportMixin from '../mixins/viewport';
 import {getGroup} from 'common/modules/AbTest';
 import {track, trackActions} from 'common/utils/track';
 
@@ -49,8 +50,11 @@ const variations = {
 
 export default BottomBanner.extend(
 	UserFeedbackStorageMixin,
+	ViewportMixin,
 	{
+		absolute: false,
 		classNames: ['feedback-form'],
+		classNameBindings: ['absolute'],
 		bannerOffset: 0,
 		lastOffset: 0,
 		firstDisplay: false,
@@ -64,21 +68,45 @@ export default BottomBanner.extend(
 		displayInput: false,
 		displayThanks: false,
 		shouldDisplay: Ember.$.cookie('feedback-form'),
+		viewportHeight: 0,
 		init() {
 			this._super(...arguments);
 			this.set('variationId', getGroup(experimentId));
 
-			if (!Ember.$.cookie(cookieName) && this.get('variationId')) {
+			// if (!Ember.$.cookie(cookieName) && this.get('variationId')) {
+			if (this.get('variationId')) {
 				Ember.run.scheduleOnce('afterRender', this, () => {
 					const pageHeight = document.getElementsByClassName('wiki-container')[0].offsetHeight;
 
 					this.set('bannerOffset', Math.floor(pageHeight * offsetLimit));
+					Ember.$('.article-wrapper').css('position', 'relative');
 					Ember.$(window).on('scroll.feedbackForm', () => this.checkOffsetPosition());
 				});
 			}
 		},
+		didRender() {
+			const bottomBanner = Ember.$('.feedback-form'),
+				input = bottomBanner.find('input');
+
+			if (!Ember.isEmpty(input) && !this.get('absolute')) {
+				const bannerHeight = bottomBanner.height();
+				let topValue;
+
+				this.set('absolute', true);
+				Ember.$(window).off('scroll.feedbackForm');
+
+				topValue = window.scrollY + bannerHeight - 55;
+				bottomBanner.css('top', topValue);
+			}
+		},
 		willDestroyElement() {
 			Ember.$(window).off('scroll.feedbackForm');
+		},
+		adjustAbsoluteFeedbackForm() {
+			const bottomBanner = Ember.$('.feedback-form'),
+				topValue = window.scrollY + bottomBanner.height() - 55;
+
+			bottomBanner.css('top', topValue);
 		},
 		checkOffsetPosition() {
 			const scrollY = window.scrollY,
@@ -184,6 +212,10 @@ export default BottomBanner.extend(
 						feedbackPreviousCount: this.getCookieCounter('userFeedbackCount')
 					});
 				}
+			},
+			onFocusOut() {
+				this.adjustAbsoluteFeedbackForm();
+				$(window).on('scroll.absoluteFeedbackForm', () => this.adjustAbsoluteFeedbackForm());
 			}
 		}
 	}
