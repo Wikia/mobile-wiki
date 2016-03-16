@@ -51,7 +51,7 @@ export default Ember.Component.extend(
 							level: 'hard'
 						},
 						'Hive (Earth-616)': {
-							text: 'hat is Hive (Earth-616)\'s origin?',
+							text: 'What is Hive (Earth-616)\'s origin?',
 							level: 'hard'
 						}
 					},
