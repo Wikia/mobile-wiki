@@ -40,6 +40,8 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 					if (post.hasOwnProperty('createdBy')) {
 						post.createdBy.profileUrl = this.get('userProfileUrl');
 					}
+
+					post.isLocked = !post.isReply && !post._embedded.thread.isEditable;
 				});
 
 				this.set('posts', this.get('posts').concat(newPosts));
@@ -92,6 +94,8 @@ DiscussionUserModel.reopenClass({
 						if (post.hasOwnProperty('createdBy')) {
 							post.createdBy.profileUrl = userProfileUrl;
 						}
+
+						post.isLocked = !post.isReply && !post._embedded.thread[0].isEditable;
 					});
 				}
 

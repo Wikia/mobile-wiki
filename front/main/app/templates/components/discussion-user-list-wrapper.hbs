@@ -21,10 +21,12 @@
 			author=item.createdBy
 			delete=(action this.attrs.deletePost)
 			isReported=item.isReported
+			lock=(action this.attrs.lock)
 			post=item
 			report=(action this.attrs.report)
 			replyCount=item._embedded.thread.[0].postCount
 			undelete=(action this.attrs.undeletePost)
+			unlock=(action this.attrs.unlock)
 			upvote=(action this.attrs.upvote)
 		}}
 	{{/if}}
