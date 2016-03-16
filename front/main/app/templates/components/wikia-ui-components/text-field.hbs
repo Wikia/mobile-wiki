@@ -1,0 +1,10 @@
+{{input
+	class='text-field-input'
+	value=value
+	id=inputId
+	name=name
+	focus-out='onBlur'
+	focus-in='onFocus'
+	change=this.attrs.onChange
+}}
+<label class={{labelClassNames}} for={{inputId}}>{{label}}</label>

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {sendPagePerformance} from 'common/utils/trackPerf';
+import {sendPagePerformance} from 'common/utils/track-perf';
 
 /**
  * @returns {void}

@@ -1,13 +1,14 @@
 {{wikia-ui-components/sub-header
-	title=(i18n 'main.header' ns='infobox-builder' title=title)
-	onBack=(action 'cancel')
-	onConfirm=(action 'save')
 	backArrowTooltip=(i18n 'app.cancel-label')
 	confirmLabel=(i18n 'main.save' ns='infobox-builder')
+	fixed=true
+	onBack=(action 'cancel')
+	onConfirm=(action 'save')
+	title=(i18n 'main.header' ns='infobox-builder' title=title)
 }}
 
 <div class="infobox-builder">
-		<div class="infobox-builder-preview article-background-color" {{action 'onPreviewBackgroundClick'}}>
+	<div class="infobox-builder-preview article-background-color" {{action 'onPreviewBackgroundClick'}}>
 		{{#sortable-group
 			tagName='div'
 			class=sortableGroupClassNames
@@ -38,16 +39,20 @@
 			}}
 		{{/if}}
 	</div>
-
-	{{infobox-builder-sidebar
-		addItem=(action 'addItem')
-		removeItem=removeItem
-		itemInEditMode=activeItem
-		setEditItem=setEditItem
-		editTitleItem=editTitleItem
-		editRowItem=editRowItem
-		editSectionHeaderItem=editSectionHeaderItem
-	}}
+	<div class="infobox-builder-sidebar">
+		{{infobox-builder-sidebar-header
+			item=activeItem
+			onBackArrowClick=(action this.attrs.setEditItem null)
+			onDeleteItem=(action this.attrs.removeItem)
+		}}
+		{{component sideBarOptionsComponent
+			item=activeItem
+			addItem=(action 'addItem')
+ 			editRowItem=editRowItem
+			editSectionHeaderItem=editSectionHeaderItem
+			editTitleItem=editTitleItem
+		}}
+	</div>
 </div>
 {{#if showOverlay}}
 	<div class="infobox-builder-spinner loading-overlay">
