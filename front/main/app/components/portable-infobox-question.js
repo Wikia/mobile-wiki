@@ -119,17 +119,30 @@ export default Ember.Component.extend(
 					});
 				}
 			},
+		},
 
-			init() {
-				this._super(...arguments);
-				if (!Ember.isEmpty(this.get('question'))) {
-					this.incrementCookieCounter('infoboxQuestionsImpressions');
-					track({
-						action: trackActions.impression,
-						category: trackingCategory,
-						label: 'question'
-					});
-				}
+		init() {
+			this._super(...arguments);
+			if (!Ember.isEmpty(this.get('question'))) {
+				this.incrementCookieCounter('infoboxQuestionsImpressions');
+				track({
+					action: trackActions.impression,
+					category: trackingCategory,
+					label: 'question'
+				});
+				Ember.run.scheduleOnce('afterRender', this, () => {
+					this.$('.portable-infobox-question__input')
+						.one('focusin', () => {
+							track({
+								action: trackActions.focus,
+								category: trackingCategory,
+								label: 'input'
+							});
+						})
+						.focusout(() => {
+							this.set('classInvalid', '');
+						});
+				}, 100);
 			}
 		}
 	}

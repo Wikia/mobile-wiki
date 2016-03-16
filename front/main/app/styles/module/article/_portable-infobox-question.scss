@@ -36,7 +36,8 @@
 		color: $input-error-message-font-color;
 	}
 }
-.portable-infobox-question__input[type="text"] {
+
+.portable-infobox-question__input .ember-text-field {
 	background: transparent;
 	border-bottom: 1px solid $color-blue-gray;
 	box-shadow: none;

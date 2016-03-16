@@ -3,7 +3,12 @@
 {{else}}
 	<form {{action 'submit' on='submit'}}>
 		<label class="portable-infobox-question__text {{classInvalid}}" for="portable-infobox-question">{{question.text}}</label>
-		{{input type="text" value=answer placeholder="Fill in the data" class="portable-infobox-question__input" name='portable-infobox-question'}}
-		<span class="portable-infobox-question__error {{classInvalid}}">Please provide your response</span>
-	</form>
+		{{wikia-ui-components/text-field
+			value=answer
+			name='portable-infobox-question'
+			class='portable-infobox-question__input'
+			placeholder='Fill in the data'
+		}}
+	<span class="portable-infobox-question__error {{classInvalid}}">Please provide your response</span>
+</form>
 {{/if}}
