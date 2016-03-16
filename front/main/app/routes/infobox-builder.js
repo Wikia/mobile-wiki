@@ -249,6 +249,8 @@ export default Ember.Route.extend(ConfirmationMixin, {
 
 		controller.set('infoboxData', infoboxDataParsed);
 		controller.set('isNew', serverResponse.isNew || false);
+		// explicitly require confirmation on exitting from a newly created infobox
+		controller.set('isDirty', serverResponse.isNew || false);
 	},
 
 	/**
