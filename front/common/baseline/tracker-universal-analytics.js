@@ -284,7 +284,7 @@ if (typeof window.M.tracker === 'undefined') {
 	/**
 	 * Integrate Optimizely data with UA dimensions
 	 *
-	 * @notice This function relies on external dependency (Optimizely)
+	 * this function relies on external dependency (Optimizely)
 	 * accessible via `window`.
 	 * It's not ideal to put it here, but out UA dimensions relies
 	 * on Optimizely - we're sending data about A/B tests set in Optimizely.
@@ -337,7 +337,7 @@ if (typeof window.M.tracker === 'undefined') {
 	/**
 	 * Integrate AbTest data with UA dimensions
 	 *
-	 * @notice This function relies on external dependency (our in-house
+	 * This function relies on external dependency (our in-house
 	 * A/B testing framework called AbTest).
 	 * It's not ideal to put it here, but out UA dimensions relies
 	 * on AbTest - we're sending data about A/B tests set in AbTest.
