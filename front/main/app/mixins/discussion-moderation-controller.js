@@ -58,5 +58,21 @@ export default Ember.Mixin.create({
 		report(item) {
 			this.get('target').send('report', item);
 		},
+
+		/**
+		 * @param {object} post
+		 * @returns {void}
+		 */
+		lockPost(post) {
+			this.get('target').send('lock', post);
+		},
+
+		/**
+		 * @param {object} post
+		 * @returns {void}
+		 */
+		unlockPost(post) {
+			this.get('target').send('unlock', post);
+		},
 	}
 });

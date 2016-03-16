@@ -151,11 +151,11 @@
     "explore-wiki":"瀏覽__wikiName__",
     "sign-in-or-register-label":"登錄\/註冊",
     "my-profile-label":"用戶檔案",
-    "category-page-load-more":"Load more",
-    "category-page-load-previous":"Load previous",
-    "category-page-no-members":"This category currently contains no pages.",
-    "category-page-subtitle":"Category Page",
-    "wiki-page-error":"對不起，我們無法載入這篇文章。請再試一次。",
+    "category-page-load-more":"加載更多",
+    "category-page-load-previous":"載入前一個",
+    "category-page-no-members":"這一類目前不包含頁面。",
+    "category-page-subtitle":"類別頁面",
+    "wiki-page-error":"對不起，我們不能載入頁面。請再試一次。",
     "wiki-page-error-reload-button":"刷新"
   },
   "userStatus":{
