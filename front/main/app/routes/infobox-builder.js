@@ -95,17 +95,16 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		/**
 		 * Connects with ponto and redirects to template page
 		 *
-		 * @param {String} title - title of the template
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		redirectToTemplatePage(title) {
+		redirectToTemplatePage() {
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				const ponto = window.Ponto;
 
 				ponto.invoke(
 					'wikia.infoboxBuilder.ponto',
 					'redirectToTemplatePage',
-					title,
+					null,
 					(data) => resolve(data),
 					(data) => {
 						reject(data);
@@ -114,6 +113,26 @@ export default Ember.Route.extend(ConfirmationMixin, {
 					false
 				);
 			});
+		},
+
+		/**
+		 * Connects with ponto and redirects to source editor
+		 *
+		 * @returns {void}
+		 */
+		goToSourceEditor() {
+			const ponto = window.Ponto;
+
+			ponto.invoke(
+				'wikia.infoboxBuilder.ponto',
+				'redirectToSourceEditor',
+				null,
+				Ember.K,
+				(data) => {
+					this.showPontoError(data);
+				},
+				false
+			);
 		}
 	},
 
@@ -140,7 +159,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 						// currently this else block isn't called even for anons
 					}
 				},
-				function (data) {
+				(data) => {
 					this.showPontoError(data);
 					reject();
 				},
@@ -230,6 +249,11 @@ export default Ember.Route.extend(ConfirmationMixin, {
 
 		controller.set('infoboxData', infoboxDataParsed);
 		controller.set('isNew', serverResponse.isNew || false);
+		// explicitly set the state as dirty for new template to make sure
+		// user gets prompted for confirmation on page exit / go to source
+		// to avoid confusion - without explicit prompt the default new
+		// infobox would disappear on a transition to source
+		controller.set('isDirty', serverResponse.isNew || false);
 	},
 
 	/**

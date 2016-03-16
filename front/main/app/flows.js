@@ -69,3 +69,12 @@ export function popup() {
 export function downCentered() {
 	return this.orientBelow.andSlideBetween(this.leftEdge, this.rightEdge);
 }
+
+/**
+ * snaps to left center
+ *
+ * @returns {*}
+ */
+export function leftCenter() {
+	return this.orientLeft.andSnapTo(this.center);
+}
