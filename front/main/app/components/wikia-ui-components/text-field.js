@@ -10,12 +10,15 @@
  *      class='additional-custom-class'
  *      onFocusHandler=onFocusHandlerAction
  *      onBlurHandler=onBlurHandlerAction
+ *      placeholder='placeholder text'
+ *      transparent=false
  * }}
  */
 import Ember from 'ember';
 
 export default Ember.Component.extend({
 	classNames: ['text-field'],
+	classNameBindings: ['transparent'],
 	isFocused: false,
 	isLabelFloating: Ember.computed('isFocused', 'value', function () {
 		return this.get('isFocused') || !Ember.isEmpty(this.get('value'));
