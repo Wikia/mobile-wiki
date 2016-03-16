@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"在社交網路上分享您最喜愛的話題，讓更多的粉絲參與其中。"
   },
   "main":{
+    "discussions-header-title":"討論區",
     "pagination-post-show-more":"查看過往回復",
     "share-default-title":"__siteName__上的討論",
     "contributors-title":"所有貢獻者",
@@ -65,7 +66,11 @@
     "reported-by-one":"由__userName__舉報",
     "reported-by-one-reply":"由__userName__舉報的回復",
     "reported-by-many":"被__number__名用戶舉報",
-    "reported-by-many-reply":"被__number__名用戶舉報的回復"
+    "reported-by-many-reply":"被__number__名用戶舉報的回復",
+    "locked-post-text":"這篇帖子被鎖定。",
+    "lock-post":"鎖定帖子",
+    "unlock-post":"解鎖帖子",
+    "locked-and-reported-to-moderators-text":"這篇帖子被鎖定並且被報告。"
   },
   "editor":{
     "post-failed-error":"發佈失敗",
