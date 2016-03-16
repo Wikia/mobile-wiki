@@ -3,13 +3,13 @@ import DiscussionContributor from 'contributor';
 
 const DiscussionContributors = Ember.object.extend({
 	count: null,
-	contributors: [],
+	users: [],
 
 	getNormalizedData(data){
 		this.set('count', data.count);
 
 		data.userInfo.forEach((contributor) => {
-			this.contributors.push(
+			this.users.push(
 				DiscussionContributor.getNormalizedData(contributor)
 			);
 		});
