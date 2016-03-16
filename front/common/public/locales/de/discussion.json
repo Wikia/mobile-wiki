@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"Teile deine Lieblingsdiskussionen mit deinen Sozialen Netzwerken und vergrößere damit unsere Fan-Community."
   },
   "main":{
+    "discussions-header-title":"Diskussionen",
     "pagination-post-show-more":"Ältere Antworten anzeigen",
     "share-default-title":"Diskussion in __siteName__",
     "contributors-title":"Alle Beitragenden",
@@ -65,7 +66,11 @@
     "reported-by-one":"Von __userName__ gemeldet",
     "reported-by-one-reply":"Antwort von __userName__ gemeldet",
     "reported-by-many":"Von __number__ Benutzern gemeldet",
-    "reported-by-many-reply":"Antwort von __number__ Benutzern gemeldet"
+    "reported-by-many-reply":"Antwort von __number__ Benutzern gemeldet",
+    "locked-post-text":"Dieser Beitrag wurde gesperrt.",
+    "lock-post":"Beitrag sperren",
+    "unlock-post":"Beitrag entsperren",
+    "locked-and-reported-to-moderators-text":"Dieser Beitrag ist gesperrt und wurde gemeldet."
   },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",
