@@ -1,26 +1,25 @@
 import Hoek from 'hoek';
 import localSettings from '../config/localSettings';
-import {Policy} from './lib/Caching';
-import {getRedirectUrlWithQueryString} from './lib/AuthUtils';
-import proxyMW from './facets/operations/proxyMW';
+import {Policy} from './lib/caching';
+import {getRedirectUrlWithQueryString} from './lib/auth-utils';
+import proxyMW from './facets/operations/proxy-mw';
 import assetsHandler from './facets/operations/assets';
 import heartbeatHandler from './facets/operations/heartbeat';
-import discussionsHandler from './facets/showDiscussions';
-import mediaWikiPageHandler from './facets/mediaWikiPage';
-import redirectToRootHandler from './facets/operations/redirectToRoot';
+import discussionsHandler from './facets/show-discussions';
+import mediaWikiPageHandler from './facets/mediawiki-page';
 import getArticleHandler from './facets/api/article';
-import getArticleCommentsHandler from './facets/api/articleComments';
+import getArticleCommentsHandler from './facets/api/article-comments';
 import searchHandler from './facets/api/search';
-import mainPageSectionHandler from './facets/api/mainPageSection';
-import mainPageCategoryHandler from './facets/api/mainPageCategory';
+import mainPageSectionHandler from './facets/api/main-page-section';
+import mainPageCategoryHandler from './facets/api/main-page-category';
 import logoutHandler from './facets/auth/logout';
-import articlePreview from './facets/articlePreview';
+import articlePreview from './facets/article-preview';
 import joinHandler from './facets/auth/join';
-import {validateRedirect} from './facets/auth/authView';
+import {validateRedirect} from './facets/auth/auth-view';
 import registerHandler from './facets/auth/register';
 import signinHandler from './facets/auth/signin';
-import showApplication from './facets/showApplication';
-import showCuratedContent from './facets/showCuratedContent';
+import showApplication from './facets/show-application';
+import showCuratedContent from './facets/show-curated-content';
 
 /**
  * @typedef {Object} RouteDefinition
@@ -50,9 +49,7 @@ const routeCacheConfig = {
 	},
 	mediaWikiPagePaths = [
 		'/wiki/{title*}',
-		'/{title*}',
-		// TODO this is special case needed for /wiki path, it should be refactored
-		'/{title}'
+		'/{title*}'
 	];
 
 // routes that don't care if the user is logged in or not, i.e. lazily loaded modules
@@ -84,9 +81,14 @@ let routes,
 			handler: heartbeatHandler
 		},
 		{
+			method: 'POST',
+			path: '/article-preview',
+			handler: articlePreview
+		},
+		{
 			method: 'GET',
-			path: '/wiki',
-			handler: redirectToRootHandler
+			path: '/logout',
+			handler: logoutHandler
 		},
 		// API Routes - The following routes should just be API routes
 		{
@@ -114,16 +116,6 @@ let routes,
 			method: 'GET',
 			path: `${localSettings.apiBase}/main/category/{categoryName}`,
 			handler: mainPageCategoryHandler
-		},
-		{
-			method: 'GET',
-			path: '/logout',
-			handler: logoutHandler
-		},
-		{
-			method: 'POST',
-			path: '/article-preview',
-			handler: articlePreview
 		}
 	],
 	// routes where we want to know the user's auth status
@@ -187,15 +179,6 @@ let routes,
 			 */
 			handler(request, reply) {
 				return reply.redirect(getRedirectUrlWithQueryString('register', request));
-			}
-		},
-		{
-			method: 'GET',
-			path: '/',
-			// Currently / path is not available on production because of redirects from / to /wiki/...
-			handler: mediaWikiPageHandler,
-			config: {
-				cache: routeCacheConfig
 			}
 		},
 		{

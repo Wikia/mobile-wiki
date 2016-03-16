@@ -121,25 +121,25 @@ export default Ember.Component.extend(
 							text: 'What color are Judy Hopps\' eyes?',
 							level: 'easy',
 							fieldToHide: 'Appearance',
-							valueToHide: 'eyes',
+							valueToHide: 'eyes'
 						},
 						'Nick Wilde': {
 							text: 'What color are Nick Wilde\'s eyes?',
 							level: 'easy',
 							fieldToHide: 'Appearance',
-							valueToHide: 'eyes',
+							valueToHide: 'eyes'
 						},
 						'Bellwether': {
 							text: 'What color are Bellwether\'s eyes?',
 							level: 'easy',
 							fieldToHide: 'Appearance',
-							valueToHide: 'eyes',
+							valueToHide: 'eyes'
 						},
 						'Mr. Big (Zootopia)': {
 							text: 'What color are Bellwether\'s eyes?',
 							level: 'easy',
 							fieldToHide: 'Appearance',
-							valueToHide: 'eyes',
+							valueToHide: 'eyes'
 						}
 					},
 					// starwars.wikia.com
@@ -211,27 +211,21 @@ export default Ember.Component.extend(
 			return experimentWikiPage;
 		}),
 		hideInfoboxField(field, value, separator) {
-			Ember.$('.portable-infobox').find('h3').filter(function () {
-				if (this.textContent === field) {
-					separator = separator || ',';
+			Ember.$('.portable-infobox').find('h3').filter((index, elem) => {
+				if (elem.textContent === field) {
 					if (value) {
-						this.hideFieldValue($(this).next('.pi-data-value'), value, separator);
+						separator = separator || ',';
+						const $valueNode = Ember.$(elem).next('.pi-data-value'),
+							values = $valueNode.html().split(separator).filter((currentValue) => {
+								return currentValue.indexOf(value) === -1;
+							});
+
+						$valueNode.html(values.join(separator));
 					} else {
-						$(this).parent('.pi-item').remove();
+						Ember.$(elem).parent('.pi-item').remove();
 					}
 				}
 			});
-		},
-		hideFieldValue($valueNode, value, separator) {
-			const values = $valueNode.html().split(separator);
-			let i = values.length - 1;
-
-			for (i; i >= 0; i--) {
-				if (values[i].indexOf(value) !== -1) {
-					values.splice(i, 1);
-				}
-			}
-			$valueNode.html(values.join(separator));
 		},
 		actions: {
 			submit() {

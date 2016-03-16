@@ -1,9 +1,9 @@
 /* eslint no-console: 0 */
 
-import Internal from '../modules/Trackers/Internal';
-import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
-import {getGroup} from '../modules/AbTest';
-import Ads from '../modules/Ads';
+import Internal from '../modules/trackers/internal';
+import UniversalAnalytics from '../modules/trackers/universal-analytics';
+import {getGroup} from '../modules/abtest';
+import Ads from '../modules/ads';
 
 /**
  * @typedef {Object} TrackContext
