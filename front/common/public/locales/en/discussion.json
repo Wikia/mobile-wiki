@@ -12,6 +12,7 @@
     "share-your-knowledge-text": "Share your favorite discussions with your social networks to bring more fans into the fold."
   },
   "main": {
+    "discussions-header-title": "Discussions",
     "pagination-post-show-more": "View Older Replies",
     "share-default-title": "Discussion on __siteName__",
     "contributors-title": "All Contributors",
