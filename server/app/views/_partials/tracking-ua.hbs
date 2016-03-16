@@ -8,7 +8,7 @@
 			$.getJSON('/wikia.php', {
 				controller: 'MercuryApi',
 				method: 'getTrackingDimensions',
-				title: M.prop('pageTitle'),
+				title: M.prop('urlTitleParam'),
 				format: 'json',
 				cb: Date.now
 			}, function(data) {

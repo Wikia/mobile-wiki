@@ -284,6 +284,11 @@ if (typeof window.M.tracker === 'undefined') {
 	/**
 	 * Integrate Optimizely data with UA dimensions
 	 *
+	 * @notice This function relies on external dependency (Optimizely)
+	 * accessible via `window`.
+	 * It's not ideal to put it here, but out UA dimensions relies
+	 * on Optimizely - we're sending data about A/B tests set in Optimizely.
+	 *
 	 * @param {Array} dimensions
 	 * @returns {Array}
 	 */
@@ -330,6 +335,13 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
+	 * Integrate AbTest data with UA dimensions
+	 *
+	 * @notice This function relies on external dependency (our in-house
+	 * A/B testing framework called AbTest).
+	 * It's not ideal to put it here, but out UA dimensions relies
+	 * on AbTest - we're sending data about A/B tests set in AbTest.
+	 *
 	 * @param {array} dimensions
 	 * @returns {array}
 	 */
@@ -372,7 +384,7 @@ if (typeof window.M.tracker === 'undefined') {
 			return false;
 		}
 		if (tracked.length) {
-			console.log('Cannot initialize UA again');
+			console.log('Cannot initialize UA mutltiple times.');
 			return false;
 		}
 

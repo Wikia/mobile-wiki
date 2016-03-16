@@ -1,6 +1,7 @@
 /* eslint no-console: 0 */
 
 import Internal from '../modules/trackers/internal';
+import {getGroup} from '../modules/abtest';
 import Ads from '../modules/ads';
 
 /**
@@ -179,18 +180,6 @@ export function trackPageView(overrideUrl) {
 }
 
 /**
- * @param {string} experimentName
- * @returns {*}
- */
-export function getAbTestGroup(experimentName) {
-	const AbTest = window.Wikia && window.Wikia.AbTest;
-
-	if (AbTest && typeof AbTest.getGroup === 'function') {
-		return Wikia.AbTest.getGroup(experimentName);
-	}
-}
-
-/**
  * Function to track an experiement specific event. This is currently
  * done due to limitations in the DW when it comes to segmentation
  * of events based on experiment groups
@@ -200,7 +189,7 @@ export function getAbTestGroup(experimentName) {
  * @returns {void}
  */
 export function trackExperiment(experiment, params) {
-	const group = getAbTestGroup(experiment) || 'CONTROL';
+	const group = getGroup(experiment) || 'CONTROL';
 
 	params.label = [experiment, group, params.label].join('=');
 	track(params);
