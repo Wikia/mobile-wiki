@@ -17,8 +17,9 @@ export default Ember.Component.extend(
 		height: null,
 		infoboxHTML: '',
 		collapsed: false,
-		clickableElements: ['a', 'button', 'img', 'figure', 'figcaption', 'input', 'portable-infobox-question'],
-		clickableParents: ['figcaption', 'portable-infobox-question'],
+		clickableElements: ['a', 'button', 'img', 'figure', 'figcaption', 'input', 'portable-infobox-question',
+			'portable-infobox-question *'],
+		clickableParent: 'figcaption',
 
 		button: Ember.computed('expandButtonClass', function () {
 			return this.$(`.${this.get('expandButtonClass')}`)[0];
@@ -99,18 +100,11 @@ export default Ember.Component.extend(
 		 * As this element has it's own action, not connected to collapsing/uncollapsing infobox.
 		 *
 		 * @param {JQuery} $target
-		 * @returns {bool}
+		 * @returns {boolean}
 		 */
 		shouldHandleCollapsing($target) {
-			const clickableElements = this.get('clickableElements'),
-				clickableParents = this.get('clickableParents');
-
-			return !clickableElements.some((element) => {
-				return $target.is(element) ||
-					!clickableParents.some((parent) => {
-						return $target.parent().is(parent);
-					});
-			});
+			return !$target.is(this.get('clickableElements').join(',')) &&
+				!$target.parent().is(this.get('clickableParent'));
 		},
 
 		/**
