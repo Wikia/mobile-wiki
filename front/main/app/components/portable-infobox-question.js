@@ -14,7 +14,6 @@ export default Ember.Component.extend(
 		classInvalid: '',
 		experimentId: 'INFOBOX_BASED_QUESTIONS',
 		isVisible: Ember.computed.notEmpty('question'),
-		invalid: '',
 		submitted: false,
 		question: Ember.computed('pageTitle', function () {
 			const experimentMap = {
