@@ -10,9 +10,7 @@ import Ember from 'ember';
  * @returns {boolean}
  */
 function isMercuryNamespaceHandlingOverridden(title) {
-	return Ember.getWithDefault(Mercury, 'wiki.enableCategoryPagesInMercury', false) &&
-		typeof title === 'string' &&
-		title.indexOf('Category:') === 0;
+	return typeof title === 'string' && title.indexOf('Category:') === 0;
 }
 
 /**
@@ -76,7 +74,7 @@ export default function getLinkInfo(basePath, title, hash, uri) {
 
 		if (Ember.isArray(article) && article[3] && !isMercuryNamespaceHandlingOverridden(article[3])) {
 			// @todo When categories in SPA are being enabled/disabled sitewide, code below should be rethinked.
-			/* eslint no-continue: 0 */
+			/* eslint no-continue: 0, max-depth: 0*/
 			for (const ns in namespaces) {
 				// @todo see above -- I'm wondering, when it's possible for `namespaces[ns]` to have an `id` param,
 				// while `namespaces` is an object where keys are numbers and values are just plain strings?

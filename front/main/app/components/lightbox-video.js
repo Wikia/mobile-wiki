@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ArticleContentMixin from '../mixins/article-content';
-import VideoLoader from 'common/modules/VideoLoader';
+import VideoLoader from 'common/modules/video-loader';
 
 /**
  * Component that is used inside ligthbox-media component

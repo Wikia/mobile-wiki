@@ -14,12 +14,12 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function () {
-	const articlePath = '/wiki/';
-
 	this.route('article-preview');
 
+	// we use here wilcard instead of a dynamic segment to be able to
+	// handle in builder also sub-templates (with /)
 	this.route('infobox-builder', {
-		path: '/infobox-builder/:templateName'
+		path: '/infobox-builder/*templateName'
 	});
 
 	this.route('mainPageSection', {
@@ -70,23 +70,19 @@ Router.map(function () {
 	});
 
 	this.route('articleDiff', {
-		path: `/diff/:oldId/:newId`
+		path: '/diff/:oldId/:newId'
 	});
 
 	this.route('wiki-page', {
-		path: `${articlePath}*title`
+		path: '/wiki/*title'
 	});
 
 	this.route('articleEdit', {
-		path: `${articlePath}edit/:title/:sectionIndex`
+		path: '/wiki/edit/:title/:sectionIndex'
 	});
 
 	this.route('articleAddPhoto', {
-		path: `${articlePath}addPhoto/:title`
-	});
-
-	this.route('searchResults', {
-		path: '/search'
+		path: '/wiki/addPhoto/:title'
 	});
 
 	this.route('discussion', {
@@ -98,6 +94,10 @@ Router.map(function () {
 
 		this.route('forum', {
 			path: '/f/:forumId/:sortBy'
+		});
+
+		this.route('reported-posts', {
+			path: '/f/:forumId/:sortBy/reported'
 		});
 
 		this.route('post', {

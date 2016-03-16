@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {getQueryParam} from 'common/utils/queryString';
+import {getQueryParam} from 'common/utils/querystring';
 
 /**
  * @param {*} container

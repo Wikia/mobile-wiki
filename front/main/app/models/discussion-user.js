@@ -1,10 +1,10 @@
 import DiscussionBaseModel from './discussion-base';
-import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
+import DiscussionModerationModelMixin from '../mixins/discussion-moderation-model';
 import ajaxCall from '../utils/ajax-call';
-import {checkPermissions} from 'common/utils/discussionPermissions';
+import {checkPermissions} from 'common/utils/discussion-permissions';
 
 
-const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
+const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	contributors: [],
 	pageNum: null,
 	replyLimit: 10,

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import {updateTrackedUrl, trackPageView} from 'common/utils/track';
-import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
+import UniversalAnalytics from 'common/modules/trackers/universal-analytics';
 
 export default Ember.Route.extend({
 	postDeleteFullScreenOverlay: false,

@@ -1,6 +1,9 @@
 import Ember from 'ember';
+import getEditToken from '../utils/edit-token';
 
 const InfoboxBuilderModel = Ember.Object.extend({
+	defaultTheme: 'europa',
+
 	/**
 	 * @returns {void}
 	 */
@@ -14,25 +17,26 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		};
 		this.infoboxState = [];
 		this.itemInEditMode = null;
+		this.theme = null;
 	},
 
 	/**
-	 * @desc add already prepared item to current infobox state
-	 * @param {Object} object
+	 * Adds already prepared item to the current infobox state
 	 *
+	 * @param {Object} object
 	 * @returns {Object} added item
 	 */
 	addToState(object) {
 		this.get('infoboxState').pushObject(object);
+
 		return object;
 	},
 
 	/**
-	 * @desc add item to infobox state. Extend it with already existing
-	 * data if present.
+	 * Adds item to infobox state. Extend it with already existing data if present.
+	 *
 	 * @param {string} type type of element we want to add
 	 * @param {Object} [elementData=null] optional data if we already have some
-	 *
 	 * @returns {Object} added item
 	 */
 	addItem(type, elementData = null) {
@@ -60,10 +64,9 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc create new row item with accurate index
-	 * with default data
+	 * Creates new row item with accurate index with default data
 	 *
-	 * @returns {Object} added item
+	 * @returns {Object}
 	 */
 	createRowItem() {
 		const itemType = 'row',
@@ -81,15 +84,15 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				component: InfoboxBuilderModel.createComponentName(itemType)
 			},
 			source: `${itemType}${index}`,
-			type: itemType
+			type: itemType,
+			sourceFrozen: false
 		};
 	},
 
 	/**
-	 * @desc create new image item with accurate index
-	 * with default data
+	 * Creates new image item with accurate index with default data
 	 *
-	 * @returns {Object} added item
+	 * @returns {Object}
 	 */
 	createImageItem() {
 		const itemType = 'image',
@@ -111,10 +114,9 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc create new title item with accurate index
-	 * with default data
+	 * Create new title item with accurate index with default data
 	 *
-	 * @returns {Object} added item
+	 * @returns {Object}
 	 */
 	createTitleItem() {
 		const itemType = 'title',
@@ -133,6 +135,9 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		};
 	},
 
+	/**
+	 * @returns {Object}
+	 */
 	createSectionHeaderItem() {
 		const itemType = 'section-header',
 			index = this.increaseItemIndex(itemType);
@@ -152,7 +157,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc increase index for given item type
+	 * Increases index for given item type
+	 *
 	 * @param {String} indexType
 	 * @returns {Number}
 	 */
@@ -161,17 +167,24 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc sets item to the edit mode
+	 * Sets item to the edit mode and saves its current data in the moment of beginning editing
+	 *
 	 * @param {Object} item
 	 * @returns {void}
 	 */
 	setEditItem(item) {
+		if (item && !item.infoboxBuilderData.originalData) {
+			const itemData = InfoboxBuilderModel.sanitizeItemData(item);
+
+			// we need a copy of itemData, not a reference to it
+			item.infoboxBuilderData.originalData = Ember.$.extend({}, itemData);
+		}
+
 		this.set('itemInEditMode', item);
 	},
 
 	/**
-	 * @desc sets a new value of the default field
-	 * on the given title element
+	 * Sets a new value of the default field on the given title element
 	 *
 	 * @param {Object} item
 	 * @param {Boolean} value
@@ -185,8 +198,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc sets a new value of the label field
-	 * on the given row (data) element
+	 * Sets a new value of the label field on the given row (data) element
 	 *
 	 * @param {Object} item
 	 * @param {string} value
@@ -197,14 +209,17 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		this.set(`infoboxState.${index}.data.label`, value);
 
-		if (value.trim().length) {
-			this.set(`infoboxState.${index}.source`, InfoboxBuilderModel.sanitizeCustomRowSource(value));
+		if (!item.sourceFrozen) {
+			const sanitizedSource = InfoboxBuilderModel.sanitizeCustomRowSource(value),
+				// set itemType + index source, when empty value provided
+				sourceValue = sanitizedSource.length ? sanitizedSource : `${item.type}${item.infoboxBuilderData.index}`;
+
+			this.set(`infoboxState.${index}.source`, sourceValue);
 		}
 	},
 
 	/**
-	 * @desc sets a new value of the data field
-	 * on the given section header element
+	 * Sets a new value of the data field on the given section header element
 	 *
 	 * @param {Object} item
 	 * @param {Object} newValues
@@ -213,21 +228,25 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	editSectionHeaderItem(item, newValues) {
 		const index = this.get('infoboxState').indexOf(item);
 
-		Object.keys(newValues).forEach((key) => this.set(`infoboxState.${index}.${key}`, newValues[key]));
+		Object.keys(newValues).forEach(
+			(key) => this.set(`infoboxState.${index}.${key}`, newValues[key])
+		);
 	},
 
 	/**
-	 * @desc removes item from state for given position
+	 * Removes item from state for given position
+	 *
 	 * @param {Object} item
 	 * @returns {void}
 	 */
 	removeItem(item) {
 		this.get('infoboxState').removeObject(item);
-		this.resetEditMode();
+		this.setEditItem(null);
 	},
 
 	/**
-	 * @desc updates infobox state order
+	 * Updates infobox state order
+	 *
 	 * @param {Ember.Array} newState
 	 * @returns {void}
 	 */
@@ -236,15 +255,28 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc resets item in edit mode and its position to null
+	 * Uses data from API to setup the model
+	 *
+	 * @param {Object} infoboxData
+	 * @param {Boolean} isNew
 	 * @returns {void}
 	 */
-	resetEditMode() {
-		this.set('itemInEditMode', null);
+	setupInfoboxData(infoboxData, isNew) {
+		if (isNew) {
+			this.setupInitialState();
+			this.set('theme', this.get('defaultTheme'));
+		} else {
+			this.setupExistingState(infoboxData.data);
+
+			if (typeof infoboxData.theme === 'string') {
+				this.set('theme', infoboxData.theme);
+			}
+		}
 	},
 
 	/**
-	 * @desc setup infobox builder initial state
+	 * Setups infobox builder initial state
+	 *
 	 * @returns {void}
 	 */
 	setupInitialState() {
@@ -255,7 +287,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc setup infobox builder state from already existing infobox template
+	 * Setups infobox builder state from already existing infobox template
+	 *
 	 * @param {Array} state
 	 * @returns {void}
 	 */
@@ -264,51 +297,63 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @desc saves infobox state to MW template
+	 * Saves infobox state to MW template
+	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	saveStateToTemplate() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php'
-				}),
-				data: {
-					controller: 'PortableInfoboxBuilderController',
-					method: 'publish',
-					title: this.get('title'),
-					data: InfoboxBuilderModel.prepareStateForSaving(this.get('infoboxState'))
-				},
-				dataType: 'json',
-				method: 'POST',
-				success: (data) => {
-					if (data && data.success) {
-						resolve(this.get('title'));
-					} else {
-						reject(data.errors);
-					}
-				},
-				error: (err) => reject(err)
-			});
+			getEditToken(this.get('title'))
+				.then((token) => {
+					Ember.$.ajax({
+						url: M.buildUrl({
+							path: '/wikia.php'
+						}),
+						data: {
+							controller: 'PortableInfoboxBuilderController',
+							method: 'publish',
+							title: this.get('title'),
+							data: InfoboxBuilderModel.prepareDataForSaving(this),
+							token
+						},
+						dataType: 'json',
+						method: 'POST',
+						success: (data) => {
+							if (data && data.success) {
+								resolve(this.get('title'));
+							} else {
+								reject(data.errors);
+							}
+						},
+						error: (err) => reject(err)
+					});
+				});
 		});
 	}
 });
 
 InfoboxBuilderModel.reopenClass({
 	/**
-	 * @desc creates source for row item from user customized label value
+	 * Creates source for row item from user customized label value
+	 *
 	 * @param {String} input
 	 * @returns {String}
 	 */
 	sanitizeCustomRowSource(input) {
-		return input
-			.trim()
-			.toLowerCase()
-			.replace(/\s+/g, '_');
+		const notValidChars = /[^a-z0-9_-]+/g,
+			isEmpty = /^[-_]+$/,
+			output = input
+				.trim()
+				.toLowerCase()
+				.replace(/\s+/g, '_')
+				.replace(notValidChars, '');
+
+		return isEmpty.test(output) ? '' : output;
 	},
 
 	/**
-	 * @desc creates component name for given item type
+	 * Creates component name for given item type
+	 *
 	 * @param {String} type
 	 * @returns {String}
 	 */
@@ -317,26 +362,42 @@ InfoboxBuilderModel.reopenClass({
 	},
 
 	/**
-	 * @desc Prepares infobox state to be sent to API.
-	 * The infoboxBuilderData part is needed only on
-	 * client side so remove it and wrap result as data object of the main infobox tag
+	 * Prepares infobox data to be sent to API.
+	 * The infoboxBuilderData part is needed only on client side
+	 * so remove it and wrap result as data object of the main infobox tag
 	 *
-	 * @param {Em.Array} state
+	 * @param {Ember.Object} model
 	 * @returns {String} stringified object
 	 */
-	prepareStateForSaving(state) {
-		const plainState = state.map((item) => {
-			delete item.infoboxBuilderData;
-			return item;
-		}).toArray();
+	prepareDataForSaving(model) {
+		const plainState = InfoboxBuilderModel.getStateWithoutBuilderData(model.get('infoboxState')),
+			dataToSave = {
+				data: plainState
+			},
+			theme = model.get('theme');
 
-		return JSON.stringify({data: plainState});
+		if (typeof theme === 'string') {
+			dataToSave.theme = theme;
+		}
+
+		return JSON.stringify(dataToSave);
 	},
 
 	/**
-	 * @desc Overrides some properties of given Row object with additional
+	 * @param {Array} infoboxState
+	 * @returns {Array}
+	 */
+	getStateWithoutBuilderData(infoboxState) {
+		return infoboxState.map((item) => {
+			delete item.infoboxBuilderData;
+			return item;
+		}).toArray();
+	},
+
+	/**
+	 * Overrides some properties of given Row object with additional
 	 * data, obtained from already existing template
-	 * TODO: use Object.assign() when we switch to Babel6
+	 * @todo: use Object.assign() when we switch to Babel6
 	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
@@ -346,20 +407,20 @@ InfoboxBuilderModel.reopenClass({
 	extendRowData(item, itemData) {
 		if (itemData) {
 			const {data} = itemData,
-				// as data can be devoid of label value
+			// as data can be devoid of label value
 				{label} = data || {};
 
 			item.source = itemData.source || '';
 			item.data.label = label || '';
+			item.sourceFrozen = true;
 		}
-
 		return item;
 	},
 
 	/**
-	 * @desc Overrides some properties of given Title object with additional
+	 * Overrides some properties of given Title object with additional
 	 * data, obtained from already existing template
-	 * TODO: use Object.assign() when we switch to Babel6
+	 * @todo: use Object.assign() when we switch to Babel6
 	 * https://wikia-inc.atlassian.net/browse/DAT-3825
 	 *
 	 * @param {Object} item item to extend
@@ -369,7 +430,7 @@ InfoboxBuilderModel.reopenClass({
 	extendTitleData(item, itemData) {
 		if (itemData) {
 			const {data} = itemData,
-				// as title can be devoid of default value
+			// as title can be devoid of default value
 				{defaultValue} = data || {};
 
 			item.source = itemData.source || '';
@@ -380,7 +441,7 @@ InfoboxBuilderModel.reopenClass({
 	},
 
 	/**
-	 * @desc Overrides some properties of given Image object with additional
+	 * Overrides some properties of given Image object with additional
 	 * data, obtained from already existing template
 	 * @todo use Object.assign() when we switch to Babel6
 	 * https://wikia-inc.atlassian.net/browse/DAT-3825
@@ -405,7 +466,7 @@ InfoboxBuilderModel.reopenClass({
 	},
 
 	/**
-	 * @desc Overrides some properties of given header object with additional
+	 * Overrides some properties of given header object with additional
 	 * data, obtained from already existing template
 	 *
 	 * @param {Object} item item to extend
@@ -419,6 +480,25 @@ InfoboxBuilderModel.reopenClass({
 		}
 
 		return item;
+	},
+
+	/**
+	 * Unifies item data format
+	 *
+	 * @param {Object} item
+	 * @returns {Object}
+	 */
+	sanitizeItemData(item) {
+		let itemData = item.data;
+
+		if (item.type === 'section-header') {
+			itemData = {
+				value: item.data,
+				collapsible: item.collapsible
+			};
+		}
+
+		return itemData;
 	}
 });
 

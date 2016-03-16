@@ -7,6 +7,9 @@ export default Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
 
 	overlay: false,
+
+	siteName: Ember.get(Mercury, 'wiki.siteName'),
+
 	style: null,
 
 	headerImages: {
@@ -40,9 +43,12 @@ export default Ember.Component.extend(ViewportMixin, {
 		949: 'discussion-header-mortal-kombat.jpg',
 		255885: 'discussion-header-terraria.jpg',
 		509: 'discussion-header-harry-potter.jpg',
+		12318: 'discussion-header-harry-potter.jpg',
+		1139: 'discussion-header-battlefield.jpg',
 		2188: 'discussion-header-battlefront.jpg',
 		321995: 'discussion-header-ahs.jpg',
 		2233: 'discussion-header-marvel.jpg',
+		183473: 'discussion-header-marvel.jpg',
 		2237: 'discussion-header-dc.jpg',
 		604797: 'discussion-header-destiny.jpg',
 		1074920: 'discussion-header-weihnachts.jpg',
@@ -52,6 +58,14 @@ export default Ember.Component.extend(ViewportMixin, {
 		1233861: 'discussion-header-community-connect.jpg',
 		671485: 'discussion-header-tekken.jpg',
 		198492: 'discussion-header-xcom.jpg',
+		1322734: 'discussion-header-league-of-legends.jpg',
+		1015917: 'discussion-header-love-live.jpg',
+		260936: 'discussion-header-teen-wolf.jpg',
+		174: 'discussion-header-final-fantasy.jpg',
+		3313: 'discussion-header-riordan.jpg',
+		1353547: 'discussion-header-ja-seiken.jpg',
+		650858: 'discussion-header-ja-dont-starve.jpg',
+		125: 'discussion-header-tardis.jpg',
 	},
 
 	/**
