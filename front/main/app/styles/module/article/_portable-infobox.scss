@@ -1,5 +1,7 @@
 // 5% button color, 5% black and 90% white
 $infobox-background: mix(mix($button-color, $black, 50%), $white, 10%);
+// 10% button color, 5% black and 85% white
+$horizontal-group-stripe-background: mix(mix($button-color, $black, 66%), $white, 15%);
 $infobox-secondary-background: $color-blue-light;
 $infobox-secondary-font-color: $white;
 $infobox-secondary-color: $color-blue-gray-light;
@@ -32,8 +34,8 @@ $group-header-font-size: 16px;
 		margin: $infobox-item-margin * 4 #{-$article-horizontal-padding};
 
 		.article-gallery {
-			/* position:relative needed here for proper setting the
-			* offsetParent property for images in galleries in infoboxes */
+			// position:relative needed here for proper setting the
+			// offsetParent property for images in galleries in infoboxes
 			position: relative;
 		}
 
@@ -222,7 +224,7 @@ $group-header-font-size: 16px;
 
 			&:not(:first-child) {
 				flex-basis: 70%;
-				padding-left: 20px;
+				padding-left: 14px;
 			}
 
 			// remove margins on all elements inside data value
@@ -261,12 +263,12 @@ $group-header-font-size: 16px;
 		.pi-horizontal-group {
 			border-spacing: 0;
 			table-layout: fixed;
-			text-align: center;
+			text-align: left;
 			width: 100%;
 
 			.pi-header {
 				font-size: $group-header-font-size;
-				text-align: left;
+				text-align: center;
 			}
 
 			.pi-horizontal-group-item {
@@ -276,13 +278,37 @@ $group-header-font-size: 16px;
 			.pi-data-label {
 				padding-bottom: 0;
 			}
+
+			.pi-data-value:nth-child(even),
+			.pi-data-label:nth-child(even) {
+				background-color: $horizontal-group-stripe-background;
+			}
+
+			.pi-data-value,
+			.pi-data-label {
+				padding-left: 14px;
+				padding-right: 14px;
+
+				&:first-child {
+					padding-left: $article-horizontal-padding;
+				}
+
+				&:last-child {
+					padding-right: $article-horizontal-padding;
+				}
+			}
 		}
 
 		// infobox navigation
 		.pi-navigation {
+			color: inherit;
+			background-color: inherit;
 			font-weight: normal;
-			padding: $infobox-item-margin * 2 $infobox-item-margin * 3;
-			text-align: center;
+
+			a {
+				color: $link-color;
+				text-decoration: none;
+			}
 		}
 
 		// styles for infobox collapse / expand UI
@@ -292,13 +318,6 @@ $group-header-font-size: 16px;
 			padding: $infobox-item-margin * 5 0 $infobox-item-margin * 2;
 			text-align: center;
 			width: 100%;
-
-			&::before {
-				border-top: 1px solid $infobox-secondary-color;
-				content: '';
-				display: block;
-				margin-bottom: $infobox-item-margin * 2;
-			}
 		}
 
 		.pi-expand-icon {
