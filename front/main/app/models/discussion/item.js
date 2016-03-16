@@ -1,6 +1,5 @@
 import Ember from 'ember';
 
-
 const DiscussionItem = Ember.Object.extend({
 	createdBy: null,
 	id: null,

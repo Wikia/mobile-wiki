@@ -1,6 +1,5 @@
 import Ember from 'ember';
 
-
 const DiscussionForum = Ember.object.extend({
 	contributors: null,
 	count: null,

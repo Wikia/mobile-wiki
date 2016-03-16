@@ -1,6 +1,4 @@
 import Ember from 'ember';
-import DiscussionItem from 'item';
-
 
 const DiscussionThread = Ember.object.extend({
 	count: null,
