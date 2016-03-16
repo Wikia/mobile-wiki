@@ -129,7 +129,7 @@ export default Ember.Component.extend(
 			submit() {
 				// Because article content is not inserted to the page in ember way value from the intupt field
 				// is not propagating to answer variable, hence hack below
-				const answer = this.$('.portable-infobox-question__input')[0].value;
+				const answer = this.$('.portable-infobox-question__input .text-field-input')[0].value;
 
 				this.set('answer', answer);
 				if (!Ember.isEmpty(answer)) {
