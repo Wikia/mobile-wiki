@@ -64,9 +64,11 @@ export default BottomBanner.extend(
 		displayInput: false,
 		displayThanks: false,
 		shouldDisplay: Ember.$.cookie('feedback-form'),
-		init() {
+		didReceiveAttrs() {
 			this._super(...arguments);
 			this.set('variationId', getGroup(experimentId));
+
+			this.resetBanner();
 
 			if (!Ember.$.cookie(cookieName) && this.get('variationId')) {
 				Ember.run.scheduleOnce('afterRender', this, () => {
@@ -96,7 +98,7 @@ export default BottomBanner.extend(
 					if (!this.get('firstDisplay')) {
 						this.trackImpression('user-feedback-first-prompt');
 						this.set('firstDisplay', true);
-						this.setCookie(cookieName, 1);
+						this.setCookie(cookieName, 1, 1);
 					}
 				} else {
 					this.set('dismissed', true);
@@ -107,6 +109,19 @@ export default BottomBanner.extend(
 					}
 				}
 			}, 500);
+		},
+		resetBanner() {
+			this.setProperties({
+				dismissed: false,
+				displayQuestion: true,
+				displayInput: false,
+				displayThanks: false,
+				firstDisplay: false,
+				firstHide: false,
+				loaded: false
+			});
+
+			Ember.$(window).off('scroll.feedbackForm');
 		},
 		dismissBanner(timeout) {
 			Ember.$(window).off('scroll.feedbackForm');
