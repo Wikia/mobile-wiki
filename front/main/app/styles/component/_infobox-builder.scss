@@ -46,6 +46,7 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	display: flex;
 	height: 100%;
 	padding-top: $wikia-ui-components-sub-head-height;
+	position: relative;
 
 	@media (min-width: lower-bound($large-range)) {
 		padding-top: $wikia-ui-components-sub-head-height-large;
@@ -284,4 +285,18 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	bottom: $source-icon-margins;
 	position: absolute;
 	right: $source-icon-margins;
+}
+
+// fix modal overlay positions for source mode
+.infobox-builder-go-to-source-modal {
+	left: 0;
+
+	.modal-dialog {
+		margin: 0 auto;
+		text-align: center;
+	}
+}
+
+.infobox-builder-go-to-source-modal-message {
+	text-align: left;
 }

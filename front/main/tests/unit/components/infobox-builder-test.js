@@ -270,6 +270,58 @@ test('correctly sets sideBarOptionsComponent name', function (assert) {
 	});
 });
 
+test('onSourceEditorClick handles opening of go to source modal', function (assert) {
+	const component = this.subject(),
+		cases = [
+			{
+				isDirty: true,
+				modalVisible: true,
+				message: 'should open modal'
+			},
+			{
+				isDirty: false,
+				modalVisible: false,
+				message: 'should not open modal'
+			}
+		];
+
+	component.set('trackClick', Ember.K);
+	component.set('handleGoToSource', sinon.spy());
+
+	cases.forEach((testCase) => {
+		component.set('showGoToSourceModal', false);
+		component.set('isDirty', testCase.isDirty);
+
+		component.send('onSourceEditorClick');
+
+		assert.equal(component.get('showGoToSourceModal'), testCase.modalVisible, testCase.message);
+	});
+});
+
+test('onSourceEditorClick triggers go to source action when no unsaved chagnes', function (assert) {
+	const component = this.subject(),
+		handleGoToSource = sinon.spy();
+
+	component.set('isDirty', false);
+	component.set('handleGoToSource', handleGoToSource);
+
+	component.send('onSourceEditorClick');
+
+	assert.equal(handleGoToSource.called, true);
+});
+
+test('goToSourceAction hides go to source modal', function (assert) {
+	const component = this.subject();
+
+	component.set('handleGoToSource', sinon.spy());
+	component.set('trackClick', Ember.K);
+	component.set('showGoToSourceModal', true);
+
+	component.send('goToSource');
+
+	assert.equal(component.get('showGoToSourceModal'), false);
+});
+
 /**
  * helper function for testing go to source action
  * @param {Object} assert
@@ -277,16 +329,14 @@ test('correctly sets sideBarOptionsComponent name', function (assert) {
  */
 function prepareForHandleSourceEditorClickTest(assert) {
 	const component = this.subject(),
-		confirmStub = sinon.stub(window, 'confirm'),
 		done = assert.async(),
-		goToSourceEditorStub = sinon.stub(),
+		goToSourceControllerActionStub = sinon.stub(),
 		saveStub = sinon.stub().returns(Ember.RSVP.Promise.resolve());
 
 	return {
 		component,
-		confirmStub,
 		done,
-		goToSourceEditorStub,
+		goToSourceControllerActionStub,
 		saveStub
 	};
 }
@@ -294,29 +344,23 @@ function prepareForHandleSourceEditorClickTest(assert) {
 test('saves model and sends goToSourceEditor action to the controller', function (assert) {
 	const {
 		component,
-		confirmStub,
 		done,
-		goToSourceEditorStub,
+		goToSourceControllerActionStub,
 		saveStub
 	} = prepareForHandleSourceEditorClickTest.call(this, assert);
 
-	component.set('goToSourceEditor', goToSourceEditorStub);
-
 	component.setProperties({
-		isDirty: true,
-		isLoading: false,
+		goToSourceEditor: goToSourceControllerActionStub,
 		save: saveStub
 	});
-	confirmStub.returns(true);
 
-	component.handleSourceEditorClick().then(() => {
+	component.handleGoToSource(true).then(() => {
 		assert.ok(saveStub.calledWith(false), 'model is saved before redirection');
 		assert.ok(
-			goToSourceEditorStub.calledOnce,
+			goToSourceControllerActionStub.calledOnce,
 			'controller\'s goToSourceEditor action is called after model is saved'
 		);
 
-		confirmStub.restore();
 		done();
 	});
 });
@@ -326,58 +370,48 @@ test(
 	function (assert) {
 		const {
 			component,
-			confirmStub,
 			done,
-			goToSourceEditorStub,
+			goToSourceControllerActionStub,
 			saveStub
 		} = prepareForHandleSourceEditorClickTest.call(this, assert);
 
-		component.set('goToSourceEditor', goToSourceEditorStub);
-
 		component.setProperties({
-			isDirty: true,
+			goToSourceEditor: goToSourceControllerActionStub,
 			save: saveStub
 		});
-		confirmStub.returns(false);
 
-		component.handleSourceEditorClick().then(() => {
+		component.handleGoToSource(false).then(() => {
 			assert.ok(!saveStub.called, 'model is not saved before redirection');
 			assert.ok(
-				goToSourceEditorStub.calledOnce,
+				goToSourceControllerActionStub.calledOnce,
 				'controller\'s goToSourceEditor action is called after user rejects saving'
 			);
 
-			confirmStub.restore();
 			done();
 		});
 	}
 );
 
-test('sends goToSourceEditor action to the controller when there are no changes in model', function (assert) {
+test('sends goToSourceEditor action to the controller without saving model - default action', function (assert) {
 	const {
 		component,
-		confirmStub,
 		done,
-		goToSourceEditorStub,
+		goToSourceControllerActionStub,
 		saveStub
-	} = prepareForHandleSourceEditorClickTest.call(this, assert);
-
-	component.set('goToSourceEditor', goToSourceEditorStub);
+		} = prepareForHandleSourceEditorClickTest.call(this, assert);
 
 	component.setProperties({
-		isDirty: false,
+		goToSourceEditor: goToSourceControllerActionStub,
 		save: saveStub
 	});
 
-	component.handleSourceEditorClick().then(() => {
-		assert.ok(!saveStub.called, 'model is not saved when it is not dirty');
-		assert.equal(component.get('isLoading'), true, 'isLoading flag is set to true');
+	component.handleGoToSource().then(() => {
+		assert.ok(!saveStub.called, 'model is not saved before redirection');
 		assert.ok(
-			goToSourceEditorStub.calledOnce,
-			'controller\'s goToSourceEditor action is called when model is not dirty'
+			goToSourceControllerActionStub.calledOnce,
+			'controller\'s goToSourceEditor action is called after user rejects saving'
 		);
 
-		confirmStub.restore();
 		done();
 	});
 });

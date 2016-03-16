@@ -16,6 +16,7 @@ export default Ember.Component.extend(
 		isPreviewItemDragged: false,
 		scrollDebounceDuration: 200,
 		scrollAnimateDuration: 200,
+		showGoToSourceModal: false,
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 
@@ -147,7 +148,25 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			onSourceEditorClick() {
-				this.handleSourceEditorClick();
+				this.trackClick('infobox-builder', 'go-to-source-icon');
+
+				if (this.get('isDirty')) {
+					this.set('showGoToSourceModal', true);
+				} else {
+					this.handleGoToSource();
+				}
+			},
+
+			/**
+			 * @param {Boolean} saveChanges
+			 * @returns {void}
+			 */
+			goToSource(saveChanges) {
+				const trackingLabel = `go-to-source-modal-${saveChanges ? 'save-changes-and-' : ''}go-to-source`;
+
+				this.trackClick('infobox-builder', trackingLabel);
+				this.set('showGoToSourceModal', false);
+				this.handleGoToSource(saveChanges);
 			},
 
 			/**
@@ -195,19 +214,17 @@ export default Ember.Component.extend(
 		 * If model is dirty, asks user if changes should be saved
 		 * If user wants to save changes it does that and only then redirects
 		 *
+		 * @param {Boolean} saveChanges
 		 * @returns {Ember.RSVP.Promise} return promise so it's always async and testable
 		 */
-		handleSourceEditorClick() {
+		handleGoToSource(saveChanges = false) {
 			const controllerAction = this.get('goToSourceEditor'),
-				confirmationMessage = i18n.t('main.source-editor-save-confirmation', {
-					ns: 'infobox-builder'
-				}),
 				loadingMessage = i18n.t('main.source-editor-loading', {
 					ns: 'infobox-builder'
 				});
 
 			return new Ember.RSVP.Promise((resolve) => {
-				if (this.get('isDirty') && window.confirm(confirmationMessage)) {
+				if (saveChanges) {
 					this.save(false).then(() => {
 						controllerAction();
 						resolve();
