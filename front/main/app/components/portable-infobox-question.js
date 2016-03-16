@@ -111,23 +111,17 @@ export default Ember.Component.extend(
 			Ember.$('.portable-infobox').find('h3').filter((index, elem) => {
 				if (elem.textContent === field) {
 					if (value) {
-						this.hideFieldValue($(elem).next('.pi-data-value'), value);
+						const $valueNode = Ember.$(elem).next('.pi-data-value'),
+							values = $valueNode.html().split('<br>').filter((currentValue) => {
+								return currentValue.indexOf(value) === -1;
+							});
+
+						$valueNode.html(values.join('<br>'));
 					} else {
-						$(elem).parent('.pi-item').remove();
+						Ember.$(elem).parent('.pi-item').remove();
 					}
 				}
 			});
-		},
-		hideFieldValue($valueNode, value) {
-			const values = $valueNode.html().split('<br>');
-			let i = values.length - 1;
-
-			for (i; i >= 0; i--) {
-				if (values[i].indexOf(value) !== -1) {
-					values.splice(i, 1);
-				}
-			}
-			$valueNode.html(values.join('<br>'));
 		},
 		actions: {
 			submit() {
