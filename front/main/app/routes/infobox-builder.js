@@ -249,7 +249,10 @@ export default Ember.Route.extend(ConfirmationMixin, {
 
 		controller.set('infoboxData', infoboxDataParsed);
 		controller.set('isNew', serverResponse.isNew || false);
-		// explicitly require confirmation on exitting from a newly created infobox
+		// explicitly set the state as dirty for new template to make sure
+		// user gets prompted for confirmation on page exit / go to source
+		// to avoid confusion - without explicit prompt the default new
+		// infobox would disappear on a transition to source
 		controller.set('isDirty', serverResponse.isNew || false);
 	},
 
