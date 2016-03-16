@@ -65,11 +65,7 @@
 		{{/pop-over}}
 	</div>
 	{{#modal-dialog isVisible=showGoToSourceModal class='infobox-builder-go-to-source-modal'}}
-		{{infobox-builder-go-to-source-modal
-			message=(i18n 'main.source-editor-save-confirmation' ns='infobox-builder')
-			goToSource=(action 'goToSource')
-			goToSourceButtonLabel='No'
-			saveAndGoToSourceButtonLabel='Yes'
+		{{infobox-builder-go-to-source-modal goToSource=(action 'goToSource')
 		}}
 	{{/modal-dialog}}
 </div>
