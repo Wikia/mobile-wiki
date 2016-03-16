@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import DiscussionContributor from 'contributor';
+import DiscussionContributors from 'contributors';
 
 const DiscussionForum = Ember.object.extend({
 	contributors: null,
@@ -11,7 +11,7 @@ const DiscussionForum = Ember.object.extend({
 
 	getNormalizedData(data) {
 		return {
-			contributors:
+			contributors: DiscussionContributors.getNormalizedData(data._embedded.contributors),
 		}
 	}
 });
