@@ -11,6 +11,7 @@ export default Ember.Component.extend(
 				const type = this.get('item.type');
 
 				return type ?
+					// possible message keys: add-title, add-image, add-row, add-section-header
 					i18n.t(`main.add-${this.get('item.type')}`, {
 						ns: 'infobox-builder'
 					}) :
