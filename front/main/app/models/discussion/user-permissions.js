@@ -1,11 +1,26 @@
 import Ember from 'ember';
 
 const DiscussionUserPermissions = Ember.object.extend({
-	canDelete: null,
-	canLock: null,
-	canModerate: null,
-	canUndelete: null,
-	canUnlock: null,
+	canDelete: false,
+	canLock: false,
+	canModerate: false,
+	canUndelete: false,
+	canUnlock: false,
+
+	/**
+	 * Creates a permissions dict from API's permissions array
+	 *
+	 * @param permissionsData
+	 */
+	create(permissionsData) {
+		const permissions = {};
+
+		permissionsData.forEach(function (permission) {
+			permissions[permission] = true;
+		});
+
+		this._super(permissions);
+	}
 });
 
 export default DiscussionUserPermissions;
