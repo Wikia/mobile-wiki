@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Thumbnailer from 'common/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 export default Ember.Component.extend({
 	emptyGif: 'data:image/gif;base64,R0lGODlhEAAJAIAAAP///////yH5BAEKAAEALAAAAAAQAAkAAAIKjI+py+0Po5yUFQA7',

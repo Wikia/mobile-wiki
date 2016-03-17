@@ -9,8 +9,12 @@
 		<link rel="stylesheet" href="/front/auth/assets/app.css">
 		<!-- endbuild -->
 
+		{{! we need to load $script.js first, as new optimizely loading method depends on it }}
+		<!-- build:js /front/auth/assets/script.js -->
+		<script src="/front/auth/bower_components/script.js/dist/script.js"></script>
+		<!-- endbuild -->
 		{{> optimizely}}
-		{{> tracking-ua}}
+		{{> tracking-ua-init}}
 		<link rel="canonical" href="{{canonicalUrl}}" />
 	</head>
 	<body class="auth {{pageParams.viewType}} {{bodyClasses}} {{#if standalonePage}}standalone{{/if}}" data-page-type="{{pageType}}">
@@ -64,11 +68,14 @@
 			M.prop('tracking', {{{json trackingConfig}}});
 			M.prop('isGASpecialWiki', true);
 			M.prop('initialPageView', true, true);
+			M.prop('urlTitleParam', '');
 
 			require('auth/app/main').init();
 		</script>
 		{{> tracking-quantserve}}
 		{{> tracking-comscore}}
 		{{> tracking-nielsen}}
+		{{> tracking-ua}}
+		{{> tracking-ivw3}}
 	</body>
 </html>

@@ -15,7 +15,7 @@ import WidgetVKComponent from '../components/widget-vk';
 import WidgetPolldaddyComponent from '../components/widget-polldaddy';
 import WidgetFliteComponent from '../components/widget-flite';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
-import {getExperimentVariationNumber} from 'common/utils/variantTesting';
+import {getExperimentVariationNumber} from 'common/utils/variant-testing';
 import {track, trackActions} from 'common/utils/track';
 
 /**
@@ -205,16 +205,19 @@ export default Ember.Component.extend(
 		 */
 		getTrackingEventLabel($element) {
 			if ($element && $element.length) {
+
+				// Mind the order -- 'figcaption' check has to be done before '.article-image',
+				// as the 'figcaption' is contained in the 'figure' element which has the '.article-image' class.
 				if ($element.closest('.portable-infobox').length) {
 					return 'portable-infobox-link';
 				} else if ($element.closest('.context-link').length) {
 					return 'context-link';
-				} else if ($element.closest('.article-image')) {
-					return 'image-link';
 				} else if ($element.closest('blockquote').length) {
 					return 'blockquote-link';
 				} else if ($element.closest('figcaption').length) {
 					return 'caption-link';
+				} else if ($element.closest('.article-image').length) {
+					return 'image-link';
 				}
 
 				return 'regular-link';
@@ -469,6 +472,7 @@ export default Ember.Component.extend(
 				infoboxComponent = this.createChildView(PortableInfoboxComponent.create({
 					infoboxHTML: elem.innerHTML,
 					height: $infoboxPlaceholder.outerHeight(),
+					pageTitle: this.get('displayTitle'),
 				}));
 
 			infoboxComponent.createElement();
@@ -578,7 +582,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		handleTables() {
-			this.$('table:not([class*=infobox], .dirbox)')
+			this.$('table:not([class*=infobox], .dirbox, .pi-horizontal-group)')
 				.not('table table')
 				.each((index, element) => {
 					const $element = this.$(element),

@@ -1,8 +1,8 @@
-import BirthdateInput from './BirthdateInput';
-import * as authUtils from '../../lib/AuthUtils';
+import BirthdateInput from './birthdate-input';
+import * as authUtils from '../../lib/auth-utils';
 import localSettings from '../../../config/localSettings';
 import authLocaleSettings from '../../../config/authLocaleSettings';
-import * as authView from './authView';
+import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 
 /**

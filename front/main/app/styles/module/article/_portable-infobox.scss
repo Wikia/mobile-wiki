@@ -1,22 +1,43 @@
-$infobox-item-margin: 6px;
-$infobox-background: $color-gray-light;
-$infobox-section-secondary-background: $color-blue-gray-light;
+// background colors
+$page-background-color: $white;
+
+// we are using the same page mix as on desktop infoboxes
+// 5% button color, 5% black and 90% white
+$infobox-background: mix(mix($button-color, $black, 50%), $white, 10%);
+// 10% button color, 5% black and 85% white
+$tabular-layout-stripe-background: mix(mix($button-color, $black, 66%), $page-background-color, 15%);
+
+// secondary fields colors
+$infobox-secondary-background: $color-blue-light;
+$infobox-secondary-font-color: $white;
+$infobox-secondary-color: $color-blue-gray-light;
+
+// hero module colors
 $infobox-hero-overlay-color: rgba(0, 0, 0, .6);
 $infobox-hero-outline-color: rgba(0, 0, 0, .8);
-$infobox-hero-font-color: #fff;
-$min-hero-item-height: 110px;
+$infobox-hero-font-color: $white;
 
+// spacing
+$infobox-item-margin: 6px;
+$tabular-layout-padding: 14px;
+
+// field dimensions
+$infobox-title-cell-height: 54px;
+$min-hero-item-height: 110px;
 $infobox-image-collection-button-width: 60px;
 
 //fonts used in infobox
-$infobox-title-font-size: 18px;
-$infobox-title-line-height: 28px;
-$infobox-default-font-size: 14px;
-$infobox-default-line-height: 20px;
+$infobox-title-font-size: 20px;
+$infobox-title-line-height: 24px;
+$infobox-default-font-size: $type-smallest;
+$infobox-default-line-height: $line-height-smallest;
+$hero-title-font-size: $type-small;
+$hero-title-line-height: $line-height-small;
 $hero-caption-font-size: 12px;
 $hero-caption-line-height: 18px;
+$group-header-font-size: 16px;
 
-.article-content{
+.article-content {
 	.portable-infobox {
 		background-color: $infobox-background;
 		font-size: $infobox-default-font-size;
@@ -25,8 +46,8 @@ $hero-caption-line-height: 18px;
 		margin: $infobox-item-margin * 4 #{-$article-horizontal-padding};
 
 		.article-gallery {
-			/* position:relative needed here for proper setting the
-			* offsetParent property for images in galleries in infoboxes */
+			// position:relative needed here for proper setting the
+			// offsetParent property for images in galleries in infoboxes
 			position: relative;
 		}
 
@@ -48,7 +69,13 @@ $hero-caption-line-height: 18px;
 		}
 
 		.pi-secondary-background {
-			background-color: $infobox-section-secondary-background;
+			background-color: $infobox-secondary-background;
+			color: $infobox-secondary-font-color;
+
+			a {
+				color: inherit;
+				text-decoration: underline;
+			}
 		}
 
 		.pi-secondary-font {
@@ -94,7 +121,7 @@ $hero-caption-line-height: 18px;
 					position: absolute;
 					top: 0;
 					width: $infobox-image-collection-button-width;
-					z-index: 2;
+					z-index: $z-portable-infobox-collapse;
 				}
 
 				svg {
@@ -137,6 +164,11 @@ $hero-caption-line-height: 18px;
 			z-index: 1;
 		}
 
+		.pi-hero-title {
+			font-size: $hero-title-font-size;
+			line-height: $hero-title-line-height;
+		}
+
 		.pi-hero-title,
 		.pi-hero-caption {
 			@include ellipsis;
@@ -159,18 +191,23 @@ $hero-caption-line-height: 18px;
 
 		// infobox title
 		.pi-title {
+			background-color: $infobox-secondary-background;
+			color: $infobox-secondary-font-color;
+			display: flex;
+			flex-direction: column;
 			font-size: $infobox-title-font-size;
+			height: $infobox-title-cell-height;
+			justify-content: center;
 			line-height: $infobox-title-line-height;
-			padding-bottom: 5px;
-			padding-top: 5px;
+			text-align: center;
 		}
 
 		// infobox images
 		.media-component {
 			figcaption {
-				font-style: italic;
+				color: $black;
 				height: auto;
-				padding: $infobox-item-margin $article-horizontal-padding $infobox-item-margin * 2;
+				padding: $infobox-item-margin * 2 $article-horizontal-padding;
 			}
 
 			.gallery-image img {
@@ -190,7 +227,7 @@ $hero-caption-line-height: 18px;
 		}
 
 		.pi-data-label {
-			flex-basis: 40%;
+			flex-basis: 30%;
 			hyphens: auto;
 		}
 
@@ -198,8 +235,8 @@ $hero-caption-line-height: 18px;
 			padding-left: 0;
 
 			&:not(:first-child) {
-				flex-basis: 60%;
-				padding-left: 20px;
+				flex-basis: 70%;
+				padding-left: $tabular-layout-padding;
 			}
 
 			// remove margins on all elements inside data value
@@ -215,18 +252,35 @@ $hero-caption-line-height: 18px;
 				line-height: inherit;
 				list-style-position: inside;
 			}
+
+			ol,
+			ul {
+				margin-left: 6px;
+
+				> li {
+					list-style-position: outside;
+					margin-bottom: 8px;
+					margin-left: 10px;
+				}
+			}
+		}
+
+		// infobox group
+		.pi-group .pi-header {
+			text-align: center;
+			font-size: $group-header-font-size;
 		}
 
 		// infobox horizontal group
-
 		.pi-horizontal-group {
 			border-spacing: 0;
 			table-layout: fixed;
-			text-align: center;
+			text-align: left;
 			width: 100%;
 
 			.pi-header {
-				text-align: left;
+				font-size: $group-header-font-size;
+				text-align: center;
 			}
 
 			.pi-horizontal-group-item {
@@ -236,13 +290,37 @@ $hero-caption-line-height: 18px;
 			.pi-data-label {
 				padding-bottom: 0;
 			}
+
+			.pi-data-value:nth-child(even),
+			.pi-data-label:nth-child(even) {
+				background-color: $tabular-layout-stripe-background;
+			}
+
+			.pi-data-value,
+			.pi-data-label {
+				padding-left: $tabular-layout-padding;
+				padding-right: $tabular-layout-padding;
+
+				&:first-child {
+					padding-left: $article-horizontal-padding;
+				}
+
+				&:last-child {
+					padding-right: $article-horizontal-padding;
+				}
+			}
 		}
 
 		// infobox navigation
 		.pi-navigation {
+			background-color: inherit;
+			color: inherit;
 			font-weight: normal;
-			padding: $infobox-item-margin * 2 $infobox-item-margin * 3;
-			text-align: center;
+
+			a {
+				color: $link-color;
+				text-decoration: none;
+			}
 		}
 
 		// styles for infobox collapse / expand UI
@@ -252,13 +330,6 @@ $hero-caption-line-height: 18px;
 			padding: $infobox-item-margin * 5 0 $infobox-item-margin * 2;
 			text-align: center;
 			width: 100%;
-
-			&::before {
-				border-top: 1px solid $infobox-section-secondary-background;
-				content: '';
-				display: block;
-				margin-bottom: $infobox-item-margin * 2;
-			}
 		}
 
 		.pi-expand-icon {

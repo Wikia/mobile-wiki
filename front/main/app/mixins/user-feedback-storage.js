@@ -16,7 +16,7 @@ export default Ember.Mixin.create({
 	 * Returns the current value of a given counter.
 	 * @param {string} cookieName
 	 * @returns {Number|number}
-     */
+	 */
 	getCookieCounter(cookieName) {
 		return parseInt(Ember.$.cookie(cookieName), 10) || 0;
 	},

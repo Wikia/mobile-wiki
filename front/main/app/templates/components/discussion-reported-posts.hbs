@@ -42,11 +42,13 @@
 				{{discussion-sort
 					setSortBy=(action this.attrs.setSortBy)
 				}}
-				{{reported-posts-wrapper
+				{{discussion-reported-posts-wrapper
 					create=(action this.attrs.create)
 					deletePost=(action this.attrs.deletePost)
+					deleteReply=(action this.attrs.deleteReply)
 					forumId=model.forumId
 					loadPage=(action this.attrs.loadPage)
+					lockPost=(action this.attrs.lockPost)
 					minorError=model.minorError
 					name=model.name
 					pageNum=model.pageNum
@@ -56,6 +58,7 @@
 					siteHeadPinned=siteHeadPinned
 					totalPosts=model.totalPosts
 					undeletePost=(action this.attrs.undeletePost)
+					unlockPost=(action this.attrs.unlockPost)
 					upvote=(action this.attrs.upvote)
 				}}
 			</div>

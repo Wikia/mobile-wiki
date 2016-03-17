@@ -151,11 +151,11 @@
     "explore-wiki":"Исследуйте __wikiName__",
     "sign-in-or-register-label":"Войти \/ Зарегистрироваться",
     "my-profile-label":"Мой профиль",
-    "category-page-load-more":"Load more",
-    "category-page-load-previous":"Load previous",
-    "category-page-no-members":"This category currently contains no pages.",
-    "category-page-subtitle":"Category Page",
-    "wiki-page-error":"Произошла ошибка во время загрузки статьи. Пожалуйста, попробуйте ещё раз.",
+    "category-page-load-more":"Загрузить ещё",
+    "category-page-load-previous":"Загрузить предыдущие",
+    "category-page-no-members":"В настоящее время эта категория пуста.",
+    "category-page-subtitle":"Страница категории",
+    "wiki-page-error":"Произошла ошибка во время загрузки страницы. Пожалуйста, попробуйте ещё раз.",
     "wiki-page-error-reload-button":"Обновить"
   },
   "userStatus":{
