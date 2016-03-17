@@ -9,10 +9,13 @@ $image-button-height: 100px;
 $grayout-color: rgba(255, 255, 255, .3);
 $overlay-color: rgba(255, 255, 255, .8);
 $padding: 18px;
+$popover-vertical-padding: 8px;
+$popover-horizontal-padding: 15px;
 $sidebar-width: 300px;
 $sidebar-items-padding: 30px;
 $shadow-blur: 15px;
 $shadow-color: rgba(0, 0, 0, .3);
+$source-icon-margins: 6px;
 $spinner-text-color: rgba(0, 0, 0, .5);
 
 // overwrite default mercury styles
@@ -43,6 +46,7 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	display: flex;
 	height: 100%;
 	padding-top: $wikia-ui-components-sub-head-height;
+	position: relative;
 
 	@media (min-width: lower-bound($large-range)) {
 		padding-top: $wikia-ui-components-sub-head-height-large;
@@ -125,6 +129,19 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 		padding-top: $padding;
 		font-size: $type-base;
 	}
+
+	// overwrite default mercury pop over styles
+	.pop-over-container {
+		color: $color-gray-dark;
+		font-size: $type-smallest;
+		padding: $popover-vertical-padding $popover-horizontal-padding;
+	}
+}
+
+// fix safari and firefox issues with pop up width calculation and text wrapping
+.infobox-builder-go-to-source-tooltip-text {
+	margin: 0;
+	white-space: nowrap
 }
 
 .infobox-builder-sidebar-header {
@@ -133,31 +150,22 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	display: flex;
 	font-weight: bold;
 	text-align: center;
-}
 
-.infobox-builder-sidebar-header-icon-wrapper {
-	align-items: center;
-	background: inherit;
-	cursor: pointer;
-	display: flex;
-	height: $icon-wrapper-size;
-	justify-content: center;
-	width: $icon-wrapper-size;
-
-	.infobox-builder-sidebar-header-icon-back-arrow {
-		fill: $color-blue-light;
-		height: $back-arrow-icon-size;
-		width: $back-arrow-icon-size;
+	.infobox-builder-sidebar-header-icon-back,
+	.infobox-builder-sidebar-header-icon-back:hover {
+		.icon-button-icon {
+			fill: $color-blue-light;
+		}
 	}
 
 	.infobox-builder-sidebar-header-icon-delete {
-		fill: $color-blue-gray-dark;
-		height: $icon-action-size;
-		width: $icon-action-size;
-	}
+		margin: $source-icon-margins;
 
-	&:hover {
-		.infobox-builder-sidebar-header-icon-delete {
+		.icon-button-icon {
+			fill: $color-blue-gray-dark
+		}
+
+		&:hover .icon-button-icon {
 			fill: $color-gray-dark;
 		}
 	}
@@ -271,4 +279,24 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	.spinner-text {
 		margin-top: 15px;
 	}
+}
+
+.infobox-builder-go-to-source-button {
+	bottom: $source-icon-margins;
+	position: absolute;
+	right: $source-icon-margins;
+}
+
+// fix modal overlay positions for source mode
+.infobox-builder-go-to-source-modal {
+	left: 0;
+
+	.modal-dialog {
+		margin: 0 auto;
+		text-align: center;
+	}
+}
+
+.infobox-builder-go-to-source-modal-message {
+	text-align: left;
 }
