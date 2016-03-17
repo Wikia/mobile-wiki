@@ -75,8 +75,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		return {
 			data: {
 				label: i18n.t('main.label-default', {
-					ns: 'infobox-builder'}
-				)
+					ns: 'infobox-builder'
+				})
 			},
 			infoboxBuilderData: {
 				index,
