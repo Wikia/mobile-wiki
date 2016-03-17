@@ -6,20 +6,20 @@ import {getQueryParam} from 'common/utils/querystring';
  * @returns {void}
  */
 function setTrackingDimensions() {
-	const dimensions = [];
+	const dimensions = {
+		// Skin
+		4: 'mercury',
+		// LoginStatus
+		5: 'anon',
+		// Page type
+		8: 'authPage',
+		// IsCorporatePage
+		15: 'No',
+		// newAuthEntryPage
+		10: getQueryParam('redirect')
+	};
 
-	// Skin
-	dimensions[4] = 'mercury';
-	// LoginStatus
-	dimensions[5] = 'anon';
-	// Page type
-	dimensions[8] = 'authPage';
-	// IsCorporatePage
-	dimensions[15] = 'No';
-	// newAuthEntryPage
-	dimensions[10] = getQueryParam('redirect');
-
-	M.tracker.UniversalAnalytics.setDimensions(dimensions);
+	M.tracker.UniversalAnalytics.initialize(dimensions);
 }
 
 /**
