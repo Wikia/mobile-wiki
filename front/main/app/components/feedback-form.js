@@ -91,7 +91,7 @@ export default BottomBanner.extend(
 			}
 		},
 		willDestroyElement() {
-			Ember.$(window).off('scroll.feedbackForm');
+			Ember.$(window).off('scroll.feedbackForm scroll.absoluteFeedbackForm');
 		},
 		adjustAbsoluteFeedbackForm() {
 			const bottomBanner = Ember.$('.feedback-form');
@@ -144,7 +144,7 @@ export default BottomBanner.extend(
 				loaded: false
 			});
 
-			Ember.$(window).off('scroll.feedbackForm');
+			Ember.$(window).off('scroll.feedbackForm scroll.absoluteFeedbackForm');
 		},
 		dismissBanner(timeout) {
 			Ember.$(window).off('scroll.feedbackForm');
