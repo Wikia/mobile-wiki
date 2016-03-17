@@ -72,13 +72,15 @@ export default Ember.Component.extend(
 							text: 'Who is Sansa Stark\'s sister?',
 							level: 'easy',
 							fieldToHide: 'Family',
-							valueToHide: 'sister'
+							valueToHide: 'sister',
+							valueSeparator: '<br>'
 						},
 						'Tyrion Lannister': {
 							text: 'Who is Tyrion Lannister\'s brother?',
 							level: 'easy',
 							fieldToHide: 'Family',
-							valueToHide: 'brother'
+							valueToHide: 'brother',
+							valueSeparator: '<br>'
 						},
 						'Daenerys Targaryen': {
 							text: 'What is Daenerys Targaryen\'s religion?',
@@ -89,7 +91,104 @@ export default Ember.Component.extend(
 							text: 'Who is Gregor Clegane\'s brother?',
 							level: 'hard',
 							fieldToHide: 'Family',
-							valueToHide: 'brother'
+							valueToHide: 'brother',
+							valueSeparator: '<br>'
+						}
+					},
+					// warframe.wikia.com
+					544934: {
+						Manic: {
+							text: 'What is the Faction of Manic?',
+							level: 'easy',
+							fieldToHide: 'Faction'
+						},
+						Seeker: {
+							text: 'What is the Faction of Seeker?',
+							level: 'easy',
+							fieldToHide: 'Faction'
+						},
+						Ivara: {
+							text: 'What is the Armor of Ivara?',
+							level: 'hard',
+							fieldToHide: 'Armor'
+						},
+						'Nikana Prime': {
+							text: 'What is the Attack Speed of Nikana Prime?',
+							level: 'hard',
+							fieldToHide: 'Attack Speed'
+						}
+					},
+					// disney.wikia.com
+					374: {
+						'Judy Hopps': {
+							text: 'What color are Judy Hopps\' eyes?',
+							level: 'easy',
+							fieldToHide: 'Appearance',
+							valueToHide: 'eyes'
+						},
+						'Nick Wilde': {
+							text: 'What color are Nick Wilde\'s eyes?',
+							level: 'easy',
+							fieldToHide: 'Appearance',
+							valueToHide: 'eyes'
+						},
+						Bellwether: {
+							text: 'What color are Bellwether\'s eyes?',
+							level: 'easy',
+							fieldToHide: 'Appearance',
+							valueToHide: 'eyes'
+						},
+						'Mr. Big (Zootopia)': {
+							text: 'What color are Mr. Big\'s eyes?',
+							level: 'easy',
+							fieldToHide: 'Appearance',
+							valueToHide: 'eyes'
+						}
+					},
+					// starwars.wikia.com
+					147: {
+						'Darth Maul': {
+							text: 'What color are Darth Maul\'s eyes?',
+							level: 'easy',
+							fieldToHide: 'Eye color'
+						},
+						'Kylo Ren': {
+							text: 'What color are Kylo Ren\'s eyes?',
+							level: 'easy',
+							fieldToHide: 'Eye color'
+						},
+						'Anakin Skywalker': {
+							text: 'What color are Anakin Skywalker\'s eyes?',
+							level: 'easy',
+							fieldToHide: 'Eye color'
+						},
+						Snoke: {
+							text: 'What color are Snoke\'s eyes?',
+							level: 'easy',
+							fieldToHide: 'Eye color'
+						}
+					},
+					// walkingdead.wikia.com
+					13346: {
+						'Negan (TV Series)': {
+							text: 'What gender is Negan?',
+							level: 'easy',
+							fieldToHide: 'Gender'
+						},
+						'Carol Peletier (TV Series)': {
+							text: 'What gender is Carol Peletier?',
+							level: 'easy',
+							fieldToHide: 'Gender'
+						},
+						'Glenn Rhee (TV Series)': {
+							text: 'What gender is Glenn Rhee?',
+							level: 'easy',
+							fieldToHide: 'Gender'
+						},
+						'Sam Anderson (TV Series)': {
+							text: 'What gender is Sam Anderson?',
+							level: 'easy',
+							fieldToHide: 'Gender'
 						}
 					}
 				},
@@ -104,22 +203,26 @@ export default Ember.Component.extend(
 			// We want to hide field in portable infobox with answer to our question
 			if (experimentWikiPage.fieldToHide) {
 				Ember.run.scheduleOnce('afterRender', this, () => {
-					this.hideInfoboxField(experimentWikiPage.fieldToHide, experimentWikiPage.valueToHide);
+					this.hideInfoboxField(
+						experimentWikiPage.fieldToHide,
+						experimentWikiPage.valueToHide,
+						experimentWikiPage.valueSeparator
+					);
 				});
 			}
 
 			return experimentWikiPage;
 		}),
-		hideInfoboxField(field, value) {
+		hideInfoboxField(field, value, separator = ',') {
 			Ember.$('.portable-infobox').find('h3').filter((index, elem) => {
 				if (elem.textContent === field) {
 					if (value) {
 						const $valueNode = Ember.$(elem).next('.pi-data-value'),
-							values = $valueNode.html().split('<br>').filter((currentValue) => {
+							values = $valueNode.html().split(separator).filter((currentValue) => {
 								return currentValue.indexOf(value) === -1;
 							});
 
-						$valueNode.html(values.join('<br>'));
+						$valueNode.html(values.join(separator));
 					} else {
 						Ember.$(elem).parent('.pi-item').remove();
 					}
