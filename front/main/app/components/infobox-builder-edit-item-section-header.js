@@ -25,6 +25,14 @@ export default Ember.Component.extend(
 			}
 		}),
 
+		textInputId: Ember.computed(function() {
+			this.createInputId('infoboxSectionHeader');
+		}),
+
+		checkboxInputId: Ember.computed(function() {
+			this.createInputId('isCollapsible');
+		}),
+
 		isCollapsible: Ember.computed('item.collapsible', {
 			get() {
 				return this.get('item.collapsible');

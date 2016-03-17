@@ -26,6 +26,10 @@ export default Ember.Component.extend(
 			}
 		}),
 
+		inputId: Ember.computed(function() {
+			this.createInputId('infoboxRowLabel');
+		}),
+
 		actions: {
 			onLabelInputFocus() {
 				this.handleInputFocus(

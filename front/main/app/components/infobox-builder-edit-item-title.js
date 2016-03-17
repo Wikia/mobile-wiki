@@ -17,6 +17,10 @@ export default Ember.Component.extend(
 				this.get('editTitleItem')(item, value);
 				return value;
 			}
+		}),
+
+		inputId: Ember.computed(function() {
+			this.createInputId('useArticleName');
 		})
 	}
 );

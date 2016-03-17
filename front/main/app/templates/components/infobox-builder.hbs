@@ -40,19 +40,19 @@
 		{{/if}}
 	</div>
 	<div class="infobox-builder-sidebar">
-		{{#liquid-bind sideBarOptionsComponent use="toLeft" as |currentActiveComponentName|}}
-			{{infobox-builder-sidebar-header
-				item=activeItem
-				onBackArrowClick=(action this.attrs.setEditItem null)
-				onDeleteItem=(action this.attrs.removeItem)
-			}}
-			{{component currentActiveComponentName
-				item=activeItem
-				addItem=(action 'addItem')
-				editRowItem=editRowItem
-				editSectionHeaderItem=editSectionHeaderItem
-				editTitleItem=editTitleItem
-			}}
+		{{#liquid-bind activeItem use="toLeft" as |activeItem|}}
+				{{infobox-builder-sidebar-header
+					item=activeItem
+					onBackArrowClick=(action this.attrs.setEditItem null)
+					onDeleteItem=(action this.attrs.removeItem)
+				}}
+				{{component sideBarOptionsComponent
+					item=activeItem
+					addItem=(action 'addItem')
+					editRowItem=editRowItem
+					editSectionHeaderItem=editSectionHeaderItem
+					editTitleItem=editTitleItem
+				}}
 		{{/liquid-bind}}
 	</div>
 </div>
