@@ -3,28 +3,6 @@ import {trackActions} from 'common/utils/track';
 import {getQueryParam} from 'common/utils/querystring';
 
 /**
- * @returns {void}
- */
-function setTrackingDimensions() {
-	const dimensions = {
-		// Skin
-		4: 'mercury',
-		// LoginStatus
-		5: 'anon',
-		// Page type
-		8: 'authPage',
-		// IsCorporatePage
-		15: 'No',
-		// newAuthEntryPage
-		10: getQueryParam('redirect')
-	};
-
-	// re-initialize UA trackers
-	M.tracker.UniversalAnalytics.destroy();
-	M.tracker.UniversalAnalytics.initialize(dimensions);
-}
-
-/**
  * Auth pages live on www.wikia.com and don't have access to WikiVariables
  * hence there's a need to provide this data inline
  *
@@ -38,8 +16,6 @@ function setupTracking() {
 			user: 'en',
 		},
 	});
-
-	setTrackingDimensions();
 }
 
 /**

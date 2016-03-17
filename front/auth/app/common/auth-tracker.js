@@ -45,7 +45,18 @@ export default class AuthTracker {
 	 * @returns {void}
 	 */
 	trackPageView() {
-		mercuryTrackPageView();
+		mercuryTrackPageView({
+			// Skin
+			4: 'mercury',
+			// LoginStatus
+			5: 'anon',
+			// Page type
+			8: 'authPage',
+			// IsCorporatePage
+			15: 'No',
+			// newAuthEntryPage
+			10: getQueryParam('redirect')
+		});
 	}
 
 	/**
