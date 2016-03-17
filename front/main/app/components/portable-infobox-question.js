@@ -218,9 +218,9 @@ export default Ember.Component.extend(
 				if (elem.textContent === field) {
 					if (value) {
 						const $valueNode = Ember.$(elem).next('.pi-data-value'),
-							values = $valueNode.html().split(separator).filter((currentValue) => {
-								return currentValue.indexOf(value) === -1;
-							});
+							values = $valueNode.html().split(separator).filter((currentValue) =>
+								currentValue.indexOf(value) === -1
+							);
 
 						$valueNode.html(values.join(separator));
 					} else {
