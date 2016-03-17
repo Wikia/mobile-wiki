@@ -5,6 +5,7 @@ if (typeof window.M.tracker === 'undefined') {
 	window.M.tracker = {};
 }
 /* eslint-disable no-console */
+
 /**
  * @typedef {Object} InternalTrackingConfig
  * @property {number} c - wgCityId
@@ -24,20 +25,8 @@ if (typeof window.M.tracker === 'undefined') {
  * @property {string} [sourceUrl]
  */
 
-/**
- * @class Internal
- *
- * @property {string} baseUrl
- * @property {number} callbackTimeout
- * @property {HTMLElement} head
- * @property {InternalTrackingConfig} defaults
- * @property {Function} success
- * @property {Function} error
- */
-
 (function (M) {
 	const baseUrl = 'https://beacon.wikia-services.com/__track/',
-		callbackTimeout = 200,
 		head = document.head || document.getElementsByTagName('head')[0];
 
 	let defaults;
@@ -112,13 +101,6 @@ if (typeof window.M.tracker === 'undefined') {
 		// Remove the script
 		if (head && script.parentNode) {
 			head.removeChild(script);
-		}
-
-		if (!abort && typeof defaults.onSuccess === 'function') {
-			setTimeout(defaults.onSuccess, callbackTimeout);
-
-		} else if (abort && typeof defaults.onError === 'function') {
-			setTimeout(defaults.onError, callbackTimeout);
 		}
 	}
 
