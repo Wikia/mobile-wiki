@@ -255,8 +255,6 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 
 		assert.notOk(M.tracker.UniversalAnalytics._getDimensionsSynced());
 
-		console.log(M.tracker.UniversalAnalytics._dimensions);
-
 		assert.ok(objectEquals(
 			M.tracker.UniversalAnalytics._dimensions,
 			dimensionsThatShouldBeSet
