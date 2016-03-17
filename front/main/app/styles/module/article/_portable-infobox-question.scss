@@ -30,10 +30,12 @@
 	}
 }
 
-.portable-infobox-question__text {
+.portable-infobox-question__input {
+	display: flex;
+	flex-direction: column-reverse;
 
-	&.invalid {
-		color: $input-error-message-font-color;
+	.text-field-label {
+		position: static;
 	}
 }
 
