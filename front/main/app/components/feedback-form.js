@@ -65,7 +65,6 @@ export default BottomBanner.extend(
 		displayQuestion: true,
 		displayInput: false,
 		displayThanks: false,
-		shouldDisplay: Ember.$.cookie('feedback-form'),
 		isiOS: Ember.computed(() => {
 			return navigator.userAgent.match(/iP(od|hone|ad)/) &&
 				navigator.userAgent.match(/AppleWebKit/) &&
@@ -73,11 +72,16 @@ export default BottomBanner.extend(
 		}),
 		inputFocused: false,
 		adjustingHeight: null,
-		init() {
+		didReceiveAttrs() {
 			this._super(...arguments);
 			this.set('variationId', getGroup(experimentId));
 
-			if (!Ember.$.cookie(cookieName) && this.get('variationId')) {
+			this.resetBanner();
+
+			if (Ember.get(Mercury, 'wiki.language.content') === 'en' &&
+				!Ember.$.cookie(cookieName) &&
+				this.get('variationId')
+			) {
 				Ember.run.scheduleOnce('afterRender', this, () => {
 					const pageHeight = document.getElementsByClassName('wiki-container')[0].offsetHeight;
 
@@ -117,7 +121,7 @@ export default BottomBanner.extend(
 					if (!this.get('firstDisplay')) {
 						this.trackImpression('user-feedback-first-prompt');
 						this.set('firstDisplay', true);
-						this.setCookie(cookieName, 1);
+						this.setCookie(cookieName, 1, 1);
 					}
 				} else {
 					this.set('dismissed', true);
@@ -128,6 +132,19 @@ export default BottomBanner.extend(
 					}
 				}
 			}, 500);
+		},
+		resetBanner() {
+			this.setProperties({
+				dismissed: false,
+				displayQuestion: true,
+				displayInput: false,
+				displayThanks: false,
+				firstDisplay: false,
+				firstHide: false,
+				loaded: false
+			});
+
+			Ember.$(window).off('scroll.feedbackForm');
 		},
 		dismissBanner(timeout) {
 			Ember.$(window).off('scroll.feedbackForm');
@@ -183,7 +200,7 @@ export default BottomBanner.extend(
 						.on('scroll.absoluteFeedbackForm', () => {
 							Ember.run.debounce(this, this.adjustAbsoluteFeedbackForm, 500);
 						});
-		
+
 					bottomBanner.css('top', topValue);
 				}
 
