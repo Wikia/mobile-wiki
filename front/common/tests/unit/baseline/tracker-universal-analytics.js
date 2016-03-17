@@ -114,6 +114,10 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 		};
 	});
 
+	hooks.afterEach(function () {
+		M.tracker.UniversalAnalytics.destroy();
+	});
+
 	QUnit.test('UniversalAnalytics initializer', function (assert) {
 		M.tracker.UniversalAnalytics.initialize({});
 
@@ -129,8 +133,6 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 			'create', '789', 'auto',
 			{name: 'ads', allowLinker: true, sampleRate: 100, userId: 'foo'}
 		]));
-
-		M.tracker.UniversalAnalytics.destroy();
 	});
 
 	QUnit.test('Track event', function (assert) {
@@ -148,8 +150,6 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 				nonInteraction: true
 			}
 		]));
-
-		M.tracker.UniversalAnalytics.destroy();
 	});
 
 	QUnit.test('Track page view', function (assert) {
@@ -176,8 +176,6 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 				nonInteraction: true
 			}
 		]));
-
-		M.tracker.UniversalAnalytics.destroy();
 	});
 
 	QUnit.test('Test overwriting dimensions', function (assert) {
@@ -203,7 +201,5 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 			M.tracker.UniversalAnalytics.dimensions,
 			dimensionsThatShouldBeSet
 		));
-
-		M.tracker.UniversalAnalytics.destroy();
 	});
 });
