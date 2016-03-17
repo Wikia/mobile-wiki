@@ -97,8 +97,7 @@ export class PageRequestHelper {
 					wikiVariablesPromise.value() :
 					wikiVariablesPromise.reason();
 
-
-				console.log(">>>>>>>>>>>>>>> ",wikiVariablesPromise.isFulfilled());
+				console.log(">>>>>>>>>>>>>>> ",wikiVariablesPromise.isFulfilled(),wikiVariables);
 
 				if (!isWikiVariablesPromiseFulfilled || !wikiVariables) {
 					console.log(">>>>>>>>>>>>>>>>>>>>>> !isWikiVariablesPromiseFulfilled || !wikiVariables <<<<<<<<<<<<<<<<");
