@@ -182,7 +182,6 @@ export function getDefaultContext(request) {
 		mainPage: 'http://www.wikia.com',
 		language: request.server.methods.i18n.getInstance().lng(),
 		trackingConfig: localSettings.tracking,
-		optimizelyScript: `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`,
 		server: {
 			gaUrl: localSettings.tracking.ua.scriptUrl
 		},
