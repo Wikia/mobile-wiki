@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import UserFeedbackStorageMixin from '../mixins/user-feedback-storage';
 import BottomBannerMixin from '../mixins/bottom-banner';
-import {getGroup} from 'common/modules/AbTest';
+import {getGroup} from 'common/modules/abtest';
 import {track, trackActions} from 'common/utils/track';
 
 const variations = {
