@@ -63,40 +63,6 @@ export function getActiveExperimentsList() {
 }
 
 /**
- * Integrates Optimizely with Universal Analytics
- *
- * @param {Array} dimensions
- * @returns {Array}
- */
-export function integrateOptimizelyWithUA(dimensions) {
-	const optimizely = window.optimizely,
-		activeExperiments = getActiveExperimentsList();
-
-	// UA integration code is also used in MediaWiki app - if you change it here, change it there too:
-	// isOptimizelyLoadedAndActive function and below
-	// https://github.com/Wikia/app/blob/dev/extensions/wikia/AnalyticsEngine/js/universal_analytics.js
-	if (activeExperiments) {
-		/**
-		 * @param {string} experimentId
-		 */
-		activeExperiments.forEach((experimentId) => {
-			if (
-				optimizely.allExperiments.hasOwnProperty(experimentId) &&
-				typeof optimizely.allExperiments[experimentId].universal_analytics === 'object'
-			) {
-				const dimension = optimizely.allExperiments[experimentId].universal_analytics.slot,
-					experimentName = optimizely.allExperiments[experimentId].name,
-					variationName = optimizely.variationNamesMap[experimentId];
-
-				dimensions[dimension] = `Optimizely ${experimentName} (${experimentId}): ${variationName}`;
-			}
-		});
-	}
-
-	return dimensions;
-}
-
-/**
  * Get number of the Optimizely experiment variation the user is running for given experiment ID
  *
  * @param {string} experimentId
