@@ -168,7 +168,7 @@ if (typeof window.M.tracker === 'undefined') {
 			 * If it's not equal we can assume that there was a change
 			 * and we need to re-sync dimensions.
 			 * Also do not lose previous dimensionsSynced status.
-             */
+			 */
 			dimensionsSynced = dimensionsSynced &&
 				(Object.keys(oldDimensions).length === Object.keys(dimensions).length);
 
