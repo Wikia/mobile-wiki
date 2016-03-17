@@ -446,6 +446,14 @@ if (typeof window.M.tracker === 'undefined') {
 	function destroy() {
 		tracked = [];
 		createdAccounts = [];
+		dimensionsSynced = false;
+	}
+
+	/**
+	 * @returns {boolean}
+	 */
+	function getDimensionsSynced() {
+		return dimensionsSynced;
 	}
 
 	// API
@@ -457,6 +465,8 @@ if (typeof window.M.tracker === 'undefined') {
 		trackAds,
 		trackPageView,
 		// expose internals for unit test
-		dimensions
+		_setDimensions: setDimensions,
+		_getDimensionsSynced: getDimensionsSynced,
+		_dimensions: dimensions,
 	};
 })(M);

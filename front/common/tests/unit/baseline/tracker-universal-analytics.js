@@ -179,7 +179,7 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 	});
 
 	QUnit.test('Test overwriting dimensions', function (assert) {
-		const dimensions = {
+		var dimensions = {
 				1: 'foo-1',
 				2: 'bar-2',
 				3: 'lorem-3'
@@ -198,7 +198,67 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 		M.tracker.UniversalAnalytics.trackPageView(pageRelatedDimensions);
 
 		assert.ok(objectEquals(
-			M.tracker.UniversalAnalytics.dimensions,
+			M.tracker.UniversalAnalytics._dimensions,
+			dimensionsThatShouldBeSet
+		));
+	});
+
+	QUnit.test('Test setDimensions with empty data', function (assert) {
+		var dimensionsThatShouldBeSet = {
+			1: 'foo-1',
+			2: 'foo-2',
+			3: '',
+			14: '',
+			19: '',
+			25: '',
+		};
+
+		M.tracker.UniversalAnalytics.initialize(dimensionsThatShouldBeSet);
+
+		assert.notOk(M.tracker.UniversalAnalytics._getDimensionsSynced());
+
+		M.tracker.UniversalAnalytics.trackPageView();
+
+		assert.ok(M.tracker.UniversalAnalytics._getDimensionsSynced());
+
+		M.tracker.UniversalAnalytics._setDimensions({});
+
+		assert.ok(M.tracker.UniversalAnalytics._getDimensionsSynced());
+
+		assert.ok(objectEquals(
+			M.tracker.UniversalAnalytics._dimensions,
+			dimensionsThatShouldBeSet
+		));
+	});
+
+	QUnit.test('Test setDimensions with non-empty data', function (assert) {
+		var dimensionsThatShouldBeSet = {
+			1: 'foo-1',
+			2: 'foo-2',
+			3: '',
+			14: '',
+			19: '',
+			25: '',
+		};
+
+		M.tracker.UniversalAnalytics.initialize({
+			1: 'bar-bar-bar-1',
+		});
+
+		assert.notOk(M.tracker.UniversalAnalytics._getDimensionsSynced());
+
+		M.tracker.UniversalAnalytics.trackPageView();
+
+		assert.ok(M.tracker.UniversalAnalytics._getDimensionsSynced());
+
+		M.tracker.UniversalAnalytics._setDimensions(dimensionsThatShouldBeSet);
+
+		assert.notOk(M.tracker.UniversalAnalytics._getDimensionsSynced());
+
+		console.log(M.tracker.UniversalAnalytics._dimensions);
+
+		assert.ok(objectEquals(
+			M.tracker.UniversalAnalytics._dimensions,
 			dimensionsThatShouldBeSet
 		));
 	});
