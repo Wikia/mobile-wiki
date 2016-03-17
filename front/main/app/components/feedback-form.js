@@ -63,14 +63,16 @@ export default BottomBanner.extend(
 		displayQuestion: true,
 		displayInput: false,
 		displayThanks: false,
-		shouldDisplay: Ember.$.cookie('feedback-form'),
 		didReceiveAttrs() {
 			this._super(...arguments);
 			this.set('variationId', getGroup(experimentId));
 
 			this.resetBanner();
 
-			if (!Ember.$.cookie(cookieName) && this.get('variationId')) {
+			if (Ember.get(Mercury, 'wiki.language.content') === 'en' &&
+				!Ember.$.cookie(cookieName) &&
+				this.get('variationId')
+			) {
 				Ember.run.scheduleOnce('afterRender', this, () => {
 					const pageHeight = document.getElementsByClassName('wiki-container')[0].offsetHeight;
 
