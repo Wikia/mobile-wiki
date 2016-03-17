@@ -45,6 +45,9 @@ export default class AuthTracker {
 	 * @returns {void}
 	 */
 	trackPageView() {
+		// All trackers on auth page are called inside their partials.
+		// UA doesn't have such paritial - hence we have to call it manully here
+		// We still need to call mercuryTrackPageView in order to call Internal tracking
 		M.tracker.UniversalAnalytics.trackPageView({
 			// Skin
 			4: 'mercury',
