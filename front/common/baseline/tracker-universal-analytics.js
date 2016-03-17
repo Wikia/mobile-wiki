@@ -116,8 +116,6 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
-	 * Syncs dimensions for all trackers - sends dimensions to UA trackers
-	 *
 	 * This function is being executed before each track and page view events.
 	 * It checks if there were any changes to `UniversalAnalytics.dimensions`
 	 * and it sends dimensions to all Universal Analytics tracker when necessary.
@@ -142,55 +140,49 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
-	 * Synchronously sets the UA dimensional context
-	 *
-	 * @param {UniversalAnalyticsDimensions} dimensionsToSet - array of dimensions to set, may be strings or functions
-	 * @param {boolean} [overwrite=true] - set to true to overwrite all preexisting dimensions and unset ones not declared
-	 * @returns {boolean} true if dimensions were successfully set
+	 * @param {UniversalAnalyticsDimensions} dimensionsToSet
+	 * @param {boolean} [overwrite=true] - overwrite all preexisting dimensions and unset ones not declared
+	 * @returns {void}
 	 */
 	function setDimensions(dimensionsToSet, overwrite) {
-		if (!Object.keys(dimensionsToSet).length) {
-			return false;
-		}
+		if (Object.keys(dimensionsToSet).length) {
+			if (overwrite === true) {
+				dimensionsSynced = false;
+				dimensions = dimensionsToSet;
+			} else {
+				// copy old dimensions
+				const oldDimensions = $.extend({}, dimensions);
 
-		if (overwrite === true) {
-			dimensionsSynced = false;
-			dimensions = dimensionsToSet;
-		} else {
-			// copy old dimensions
-			const oldDimensions = $.extend({}, dimensions);
+				// extend dimensions
+				$.extend(dimensions, dimensionsToSet);
 
-			// extend dimensions
-			$.extend(dimensions, dimensionsToSet);
-
-			/**
-			 * Compare old dimensions' and new dimensions' length.
-			 * If it's not equal we can assume that there was a change
-			 * and we need to re-sync dimensions.
-			 * Also do not lose previous dimensionsSynced status.
-			 */
-			dimensionsSynced = dimensionsSynced &&
-				(Object.keys(oldDimensions).length === Object.keys(dimensions).length);
-
-			/**
-			 * If new dimension array is not the same length as the old one,
-			 * it's definitely different.
-			 */
-			if (dimensionsSynced) {
 				/**
-				 * Iterate trough new dimensions and compare its values
-				 * with the old one. Result of this loop is a logical
-				 * conjunction of equality of those values.
-				 * Which, ultimately, tells us if new dimensions are
-				 * different from the old ones and if we need a re-syncing.
+				 * Compare old dimensions' and new dimensions' length.
+				 * If it's not equal we can assume that there was a change
+				 * and we need to re-sync dimensions.
+				 * Also do not lose previous dimensionsSynced status.
 				 */
-				$.each(dimensions, (index, value) => {
-					dimensionsSynced = dimensionsSynced && (oldDimensions[index] === value);
-				});
+				dimensionsSynced = dimensionsSynced &&
+					(Object.keys(oldDimensions).length === Object.keys(dimensions).length);
+
+				/**
+				 * If new dimension array is not the same length as the old one,
+				 * it's definitely different.
+				 */
+				if (dimensionsSynced) {
+					/**
+					 * Iterate trough new dimensions and compare its values
+					 * with the old one. Result of this loop is a logical
+					 * conjunction of equality of those values.
+					 * Which, ultimately, tells us if new dimensions are
+					 * different from the old ones and if we need a re-syncing.
+					 */
+					$.each(dimensions, (index, value) => {
+						dimensionsSynced = dimensionsSynced && (oldDimensions[index] === value);
+					});
+				}
 			}
 		}
-
-		return true;
 	}
 
 	/**
@@ -302,16 +294,21 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @returns {void}
 	 */
 	function trackPageView(uaDimensions, overrideUrl) {
-		// reset per-page dimensions
+		/**
+		 * We have some dimensions that are changing per-page - those include
+		 * articleType, namespace and so on. We can't unset once sent
+		 * dimension, so we're resetting them by overwriting previous
+		 * value by empty string.
+		 *
+		 * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/command-queue-reference#require
+		 */
 		$.each(pageDimensions, function () {
 			setDimension(this, '');
 		});
 
 		// set per-page dimensions if they were passed
 		if (typeof uaDimensions === 'object') {
-			$.each(uaDimensions, (key, value) => {
-				setDimension(key, value);
-			});
+			$.each(uaDimensions, setDimension);
 		}
 
 		syncDimensions();
