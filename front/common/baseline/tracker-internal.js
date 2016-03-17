@@ -167,6 +167,6 @@ if (typeof window.M.tracker === 'undefined') {
 		track,
 		trackPageView,
 		// those are needed for unit test
-		createRequestURL,
+		_createRequestURL: createRequestURL
 	};
 })(M);
