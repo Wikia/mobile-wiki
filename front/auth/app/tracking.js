@@ -1,6 +1,5 @@
 import AuthTracker from './common/auth-tracker';
 import {trackActions} from 'common/utils/track';
-import {getQueryParam} from 'common/utils/querystring';
 
 /**
  * Auth pages live on www.wikia.com and don't have access to WikiVariables
