@@ -1,11 +1,12 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
-import BottomBanner from './bottom-banner';
+import BottomBannerMixin from '../mixins/bottom-banner';
 import TrackClickMixin from '../mixins/track-click';
 import RecentWikiActivityModel from '../models/recent-wiki-activity';
 
-export default BottomBanner.extend(
+export default Ember.Component.extend(
 	TrackClickMixin,
+	BottomBannerMixin,
 	{
 		classNames: ['recent-edit'],
 		recentEdit: null,
