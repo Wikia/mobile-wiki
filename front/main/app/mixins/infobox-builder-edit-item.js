@@ -51,6 +51,14 @@ export default Ember.Mixin.create(
 			if (originalValue !== currentValue) {
 				this.trackEditItemOption('change', trackingKey);
 			}
+		},
+
+		/**
+		 * @param {String} label to create id from
+		 * @returns {String} unique string id
+		 */
+		createInputId(label) {
+			return `${label}${Date.now()}`;
 		}
 	}
 );

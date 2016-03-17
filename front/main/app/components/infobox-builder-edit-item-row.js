@@ -26,7 +26,7 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		inputId: Ember.computed(function() {
+		inputId: Ember.computed(function () {
 			this.createInputId('infoboxRowLabel');
 		}),
 

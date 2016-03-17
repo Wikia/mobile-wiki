@@ -13,6 +13,7 @@ $sidebar-width: 300px;
 $sidebar-items-padding: 30px;
 $shadow-blur: 15px;
 $shadow-color: rgba(0, 0, 0, .3);
+$shadow-color-sidebar: rgba(0, 0, 0, .2);
 $spinner-text-color: rgba(0, 0, 0, .5);
 
 // overwrite default mercury styles
@@ -54,8 +55,8 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	cursor: auto;
 	flex-grow: 1;
 	overflow: auto;
-	// to hide animation of sidebar below
-	z-index: 100;
+	// to hide elements in animation of sidebar
+	z-index: $z-1;
 
 	.portable-infobox {
 		cursor: pointer;
@@ -114,9 +115,17 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 }
 
 .infobox-builder-sidebar {
-	box-shadow: -$box-shadow-size 0 $shadow-blur 0 $shadow-color;
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
+
+	&:before {
+		box-shadow: -$box-shadow-size * 2 0 6px $shadow-color-sidebar;
+		content: '';
+		height: 100%;
+		width: 10px;
+		position: absolute;
+		z-index: $z-2;
+	}
 
 	.text-field,
 	.check-box {
