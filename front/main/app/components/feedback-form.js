@@ -71,7 +71,7 @@ export default Ember.Component.extend(
 			this.resetBanner();
 
 			if (Ember.get(Mercury, 'wiki.language.content') === 'en' &&
-				//!Ember.$.cookie(cookieName) &&
+				!Ember.$.cookie(cookieName) &&
 				this.get('variationId')
 			) {
 				Ember.run.scheduleOnce('afterRender', this, () => {
