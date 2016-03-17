@@ -19,6 +19,8 @@ function setTrackingDimensions() {
 		10: getQueryParam('redirect')
 	};
 
+	// re-initialize UA trackers
+	M.tracker.UniversalAnalytics.destroy();
 	M.tracker.UniversalAnalytics.initialize(dimensions);
 }
 
