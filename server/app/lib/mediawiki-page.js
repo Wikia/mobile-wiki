@@ -77,6 +77,8 @@ export class PageRequestHelper {
 			 * @returns {void}
 			 */
 			.then((results) => {
+
+				console.log(">>>>>>>>>>>>>>>>>>>>>> SETTLE <<<<<<<<<<<<<<<<");
 				const mediaWikiPagePromise = results[0],
 					wikiVariablesPromise = results[1],
 					isMediaWikiPagePromiseFulfilled = mediaWikiPagePromise.isFulfilled(),
@@ -95,7 +97,11 @@ export class PageRequestHelper {
 					wikiVariablesPromise.value() :
 					wikiVariablesPromise.reason();
 
+
+				console.log(">>>>>>>>>>>>>>> ",wikiVariablesPromise.isFulfilled());
+
 				if (!isWikiVariablesPromiseFulfilled || !wikiVariables) {
+					console.log(">>>>>>>>>>>>>>>>>>>>>> !isWikiVariablesPromiseFulfilled || !wikiVariables <<<<<<<<<<<<<<<<");
 					return reject(new MediaWiki.WikiVariablesRequestError(wikiVariables));
 				}
 
@@ -106,8 +112,10 @@ export class PageRequestHelper {
 				};
 
 				if (isMediaWikiPagePromiseFulfilled && page) {
+					console.log(">>>>>>>>>>>>>>>>>>>>>> isMediaWikiPagePromiseFulfilled && page : true <<<<<<<<<<<<<<<<");
 					return resolve(data);
 				} else {
+					console.log(">>>>>>>>>>>>>>>>>>>>>> isMediaWikiPagePromiseFulfilled && page : false <<<<<<<<<<<<<<<<");
 					// Even if article promise failed we want to display app using the rest of data
 					return reject(new PageRequestError(data));
 				}

@@ -85,11 +85,15 @@ export function createUrl(wikiDomain, path, params = {}) {
 function requestCallback(params) {
 	const {resolve, reject, err, payload, response, url, host} = params;
 
+	console.log(">>>>>>>>>>>>>>>>> STATUS CODE <<<<<<<<<<<<<<<<<<<",response.statusCode,"#########################");
+
 	if (err) {
 		Logger.error({
 			url,
 			error: err
 		}, 'Error fetching url');
+
+		console.log(">>>>>>>>>>>>>>>>> ERROR STATUS CODE <<<<<<<<<<<<<<<<<<<",err.output.statusCode,"#########################");
 
 		reject({
 			exception: {
@@ -172,6 +176,13 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 			json: true,
 			beforeRedirect
 		}, (err, response, payload) => {
+			//console.log(">>>>>>>>>>>>>>>>>>>>>>>",
+			//	err,
+			//	payload,
+			//	response,
+			//	url,
+			//	host
+			//,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			return requestCallback({
 				resolve,
 				reject,
@@ -298,6 +309,7 @@ export class WikiRequest extends BaseRequest {
 	 * @returns {Promise<any>}
 	 */
 	wikiVariables() {
+		//console.log(">>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<");
 		const url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getWikiVariables'
@@ -310,6 +322,7 @@ export class WikiRequest extends BaseRequest {
 			 * @returns {Promise}
 			 */
 			.then((wikiVariables) => {
+				//console.log(">>>>>>>>>>>>>>>>>>>>>>>>",wikiVariables,">>>>>>>>>>>>>>>>>>>>>>>>");
 				return Promise.resolve(wikiVariables.data);
 			});
 	}
