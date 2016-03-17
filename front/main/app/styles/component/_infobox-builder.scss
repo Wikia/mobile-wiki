@@ -112,6 +112,7 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 			&:before {
 				cursor: move;
 				box-shadow: 0 $box-shadow-size * 4 $shadow-blur 0 $shadow-color;
+				pointer-events: none;
 				transition: box-shadow 0.2s ease-in-out;
 			}
 		}
@@ -317,4 +318,14 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 
 .infobox-builder-go-to-source-modal-message {
 	text-align: left;
+}
+
+.infobox-builder-chevron-area {
+	display: block;
+	height: 100%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 44px;
+	z-index: 1;
 }
