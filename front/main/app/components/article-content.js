@@ -578,7 +578,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		handleTables() {
-			this.$('table:not([class*=infobox], .dirbox)')
+			this.$('table:not([class*=infobox], .dirbox, .pi-horizontal-group)')
 				.not('table table')
 				.each((index, element) => {
 					const $element = this.$(element),

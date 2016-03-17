@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"Condividi i tuoi forum preferiti con i social network per allargare la tua schiera di fan."
   },
   "main":{
+    "discussions-header-title":"Forum",
     "pagination-post-show-more":"Risposte precedenti",
     "share-default-title":"Forum su __siteName__",
     "contributors-title":"Tutti i collaboratori",
@@ -65,7 +66,11 @@
     "reported-by-one":"Segnalato da __userName__",
     "reported-by-one-reply":"Risposta segnalata da __userName__",
     "reported-by-many":"Segnalato da __number__ users",
-    "reported-by-many-reply":"Risposta segnalata da __number__ users"
+    "reported-by-many-reply":"Risposta segnalata da __number__ users",
+    "locked-post-text":"Questo post è bloccato.",
+    "lock-post":"Blocca post",
+    "unlock-post":"Sblocca post",
+    "locked-and-reported-to-moderators-text":"Questo post è bloccato ed è stato segnalato."
   },
   "editor":{
     "post-failed-error":"Post non pubblicato",
