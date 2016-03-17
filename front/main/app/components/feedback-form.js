@@ -68,13 +68,13 @@ export default BottomBanner.extend(
 		displayInput: false,
 		displayThanks: false,
 		shouldDisplay: Ember.$.cookie('feedback-form'),
-		viewportHeight: 0,
 		isiOS: Ember.computed(() => {
 			return navigator.userAgent.match(/iP(od|hone|ad)/) &&
 				navigator.userAgent.match(/AppleWebKit/) &&
 				!navigator.userAgent.match(/CriOS/);
 		}),
 		inputFocused: false,
+		adjustingHeight: null,
 		init() {
 			this._super(...arguments);
 			this.set('variationId', getGroup(experimentId));
@@ -84,45 +84,24 @@ export default BottomBanner.extend(
 					const pageHeight = document.getElementsByClassName('wiki-container')[0].offsetHeight;
 
 					this.set('bannerOffset', Math.floor(pageHeight * offsetLimit));
-					Ember.$('.article-wrapper').css('position', 'relative');
 					Ember.$(window).on('scroll.feedbackForm', () => this.checkOffsetPosition());
 				});
-			}
-		},
-		didRender() {
-			if (this.get('isiOS')) {
-				const bottomBanner = Ember.$('.feedback-form'),
-					input = bottomBanner.find('input');
-
-				if (!Ember.isEmpty(input) && !this.get('absolute')) {
-					const bannerHeight = bottomBanner.height();
-					let topValue;
-
-					this.set('absolute', true);
-					Ember.$(window).off('scroll.feedbackForm');
-					Ember.$(window).on('scroll.absoluteFeedbackForm');
-
-					// Calculate it better
-					topValue = window.scrollY + bannerHeight - 55;
-					bottomBanner.css('top', topValue);
-				}
 			}
 		},
 		willDestroyElement() {
 			Ember.$(window).off('scroll.feedbackForm');
 		},
 		adjustAbsoluteFeedbackForm() {
-			Ember.run.debounce({}, () => {
-				const bottomBanner = Ember.$('.feedback-form');
-				let topValue;
+			const bottomBanner = Ember.$('.feedback-form');
+			let topValue;
 
-				if (this.get('inputFocused')) {
-					topValue = window.scrollY - bottomBanner.height() - 55;
-				} else {
-					topValue = window.scrollY + bottomBanner.height() - 55;
-				}
-				bottomBanner.animate({top: `${topValue}px`});
-			}, 500);
+			if (this.get('inputFocused')) {
+				topValue = Ember.$(window).scrollTop() - Ember.$('.site-head').height();
+			} else {
+				topValue = Ember.$(window).scrollTop() + this.get('adjustingHeight');
+			}
+
+			bottomBanner.animate({top: `${topValue}px`});
 		},
 		checkOffsetPosition() {
 			const scrollY = window.scrollY,
@@ -191,6 +170,25 @@ export default BottomBanner.extend(
 			 * @returns {void}
 			 */
 			no() {
+				if (this.get('isiOS')) {
+					const bottomBanner = Ember.$('.feedback-form'),
+						win = Ember.$(window);
+					let topValue;
+
+					this.setProperties({
+						absolute: true,
+						adjustingHeight: win.height() - Ember.$('.site-head').height() - bottomBanner.height() - 50
+					});
+
+					win.off('scroll.feedbackForm')
+						.on('scroll.absoluteFeedbackForm', () => {
+							Ember.run.debounce(this, this.adjustAbsoluteFeedbackForm, 500);
+						});
+
+					topValue = win.scrollTop() + this.get('adjustingHeight');
+					bottomBanner.css('top', topValue);
+				}
+
 				this.setProperties({
 					displayQuestion: false,
 					displayInput: true,
