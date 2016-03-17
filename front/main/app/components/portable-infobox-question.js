@@ -115,7 +115,7 @@ export default Ember.Component.extend(
 							fieldToHide: 'Attack Speed'
 						}
 					},
-					// warframe.wikia.com
+					// disney.wikia.com
 					374: {
 						'Judy Hopps': {
 							text: 'What color are Judy Hopps\' eyes?',
@@ -136,7 +136,7 @@ export default Ember.Component.extend(
 							valueToHide: 'eyes'
 						},
 						'Mr. Big (Zootopia)': {
-							text: 'What color are Bellwether\'s eyes?',
+							text: 'What color are Mr. Big\'s eyes?',
 							level: 'easy',
 							fieldToHide: 'Appearance',
 							valueToHide: 'eyes'
@@ -210,11 +210,10 @@ export default Ember.Component.extend(
 
 			return experimentWikiPage;
 		}),
-		hideInfoboxField(field, value, separator) {
+		hideInfoboxField(field, value, separator = ',') {
 			Ember.$('.portable-infobox').find('h3').filter((index, elem) => {
 				if (elem.textContent === field) {
 					if (value) {
-						separator = separator || ',';
 						const $valueNode = Ember.$(elem).next('.pi-data-value'),
 							values = $valueNode.html().split(separator).filter((currentValue) => {
 								return currentValue.indexOf(value) === -1;
