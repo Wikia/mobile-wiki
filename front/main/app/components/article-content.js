@@ -3,6 +3,7 @@ import InfoboxImageCollectionComponent from './infobox-image-collection';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {track, trackActions} from 'common/utils/track';
+import {inGroup} from 'common/modules/abtest';
 
 /**
  * HTMLElement
@@ -41,12 +42,14 @@ export default Ember.Component.extend(
 		},
 
 		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
-			const content = this.get('content');
+			let content = this.get('content');
 
 			this.destroyChildComponents();
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				if (content) {
+					content = this.injectSections(content);
+
 					this.hackIntoEmberRendering(content);
 
 					this.handleInfoboxes();
@@ -613,6 +616,57 @@ export default Ember.Component.extend(
 
 					$element.wrap(wrapper);
 				});
+		},
+
+		/**
+		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_COLLAPSE AB TEST
+		 *
+		 * @param {string} content
+		 * @returns {documentFragment}
+		 */
+		injectSections(content) {
+			if (!inGroup('RECIRCULATION_MERCURY_COLLAPSE', 'YES')) {
+				return content;
+			}
+
+			const $fragment = $(document.createDocumentFragment()),
+				nodes = this.getContentNodes(content);
+
+			let $root = $fragment;
+
+			for (let i = 0; i < nodes.length; i++) {
+				const $node = $(nodes[i]);
+
+				if ($node.is('h2')) {
+					const $currentSection = $('<section class="collapsible-section-body hidden">'),
+						$sectionHeader = $node.clone(true).addClass('collapsible-section-header'),
+						svg = '<svg viewBox="0 0 12 7" class="icon chevron"><use xlink:href="#chevron"></use></svg>';
+
+					$sectionHeader.prepend(svg);
+
+					$fragment.append($sectionHeader);
+					$fragment.append($currentSection);
+
+					$root = $currentSection;
+				} else {
+					$root.append($node.clone(true));
+				}
+			}
+
+			return $fragment;
+		},
+
+		/**
+		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_COLLAPSE AB TEST
+		 *
+		 * @param {string} content
+		 * @returns {array}
+		 */
+		getContentNodes(content) {
+			const article = document.createElement('div');
+
+			article.innerHTML = content;
+			return article.childNodes;
 		},
 
 		/**

@@ -4,7 +4,7 @@ const AbTest = window.Wikia && window.Wikia.AbTest;
  * Get the users group for an experiment
  *
  * @param {String} experimentName
- * @returns {String}
+ * @returns {String|void}
  */
 export function getGroup(experimentName) {
 	if (AbTest && typeof AbTest.getGroup === 'function') {
@@ -22,5 +22,7 @@ export function getGroup(experimentName) {
 export function inGroup(experimentName, groupName) {
 	if (AbTest && typeof AbTest.inGroup === 'function') {
 		return AbTest.inGroup(experimentName, groupName);
+	} else {
+		return false;
 	}
 }
