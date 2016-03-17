@@ -18,6 +18,11 @@
 			bottom: -250px;
 		}
 	}
+
+	&.absolute {
+		bottom: auto;
+		position: absolute;
+	}
 }
 
 @keyframes displayBanner {

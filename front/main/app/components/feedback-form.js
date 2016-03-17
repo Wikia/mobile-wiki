@@ -51,7 +51,9 @@ export default Ember.Component.extend(
 	UserFeedbackStorageMixin,
 	BottomBannerMixin,
 	{
+		absolute: false,
 		classNames: ['feedback-form'],
+		classNameBindings: ['absolute'],
 		bannerOffset: 0,
 		lastOffset: 0,
 		firstDisplay: false,
@@ -64,6 +66,13 @@ export default Ember.Component.extend(
 		displayQuestion: true,
 		displayInput: false,
 		displayThanks: false,
+		isiOS: Ember.computed(() => {
+			return navigator.userAgent.match(/iP(od|hone|ad)/) &&
+				navigator.userAgent.match(/AppleWebKit/) &&
+				!navigator.userAgent.match(/CriOS/);
+		}),
+		inputFocused: false,
+		adjustingHeight: null,
 		didReceiveAttrs() {
 			this._super(...arguments);
 			this.set('variationId', getGroup(experimentId));
@@ -83,7 +92,19 @@ export default Ember.Component.extend(
 			}
 		},
 		willDestroyElement() {
-			Ember.$(window).off('scroll.feedbackForm');
+			Ember.$(window).off('scroll.feedbackForm scroll.absoluteFeedbackForm');
+		},
+		adjustAbsoluteFeedbackForm() {
+			const bottomBanner = Ember.$('.feedback-form');
+			let topValue;
+
+			if (this.get('inputFocused')) {
+				topValue = Ember.$(window).scrollTop() - Ember.$('.site-head').height();
+			} else {
+				topValue = Ember.$(window).scrollTop() + this.get('adjustingHeight');
+			}
+
+			bottomBanner.animate({top: `${topValue}px`});
 		},
 		checkOffsetPosition() {
 			const scrollY = window.scrollY,
@@ -124,7 +145,7 @@ export default Ember.Component.extend(
 				loaded: false
 			});
 
-			Ember.$(window).off('scroll.feedbackForm');
+			Ember.$(window).off('scroll.feedbackForm scroll.absoluteFeedbackForm');
 		},
 		dismissBanner(timeout) {
 			Ember.$(window).off('scroll.feedbackForm');
@@ -165,6 +186,25 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			no() {
+				if (this.get('isiOS')) {
+					const bottomBanner = Ember.$('.feedback-form'),
+						win = Ember.$(window),
+						adjustingHeight = win.height() - Ember.$('.site-head').height() - bottomBanner.height() - 50,
+						topValue = win.scrollTop() + adjustingHeight;
+
+					this.setProperties({
+						absolute: true,
+						adjustingHeight
+					});
+
+					win.off('scroll.feedbackForm')
+						.on('scroll.absoluteFeedbackForm', () => {
+							Ember.run.debounce(this, this.adjustAbsoluteFeedbackForm, 500);
+						});
+
+					bottomBanner.css('top', topValue);
+				}
+
 				this.setProperties({
 					displayQuestion: false,
 					displayInput: true,
@@ -190,6 +230,13 @@ export default Ember.Component.extend(
 						message: completed.no.message
 					});
 					this.trackImpression('user-feedback-third-prompt-thankyou');
+
+					if (this.get('isiOS')) {
+						Ember.$('.bottom-banner').css('top', 'auto');
+						this.set('absolute', false);
+						$(window).off('scroll.absoluteFeedbackForm').on('scroll.feedbackForm');
+					}
+
 					this.dismissBanner(completed.no.timeout);
 
 					this.saveUserFeedback({
@@ -201,6 +248,24 @@ export default Ember.Component.extend(
 						feedbackImpressionsCount: this.getCookieCounter('userFeedbackImpressions'),
 						feedbackPreviousCount: this.getCookieCounter('userFeedbackCount')
 					});
+				}
+			},
+			onFocusOut() {
+				if (this.get('isiOS')) {
+					const userFeedback = this.get('userFeedback');
+
+					this.set('inputFocused', false);
+					if (Ember.isEmpty(userFeedback)) {
+						this.adjustAbsoluteFeedbackForm();
+					} else {
+						this.send('feedback');
+					}
+				}
+			},
+			onFocusIn() {
+				if (this.get('isiOS')) {
+					this.set('inputFocused', true);
+					this.adjustAbsoluteFeedbackForm();
 				}
 			}
 		}
