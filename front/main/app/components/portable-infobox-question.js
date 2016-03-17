@@ -15,6 +15,7 @@ export default Ember.Component.extend(
 		answer: '',
 		classInvalid: '',
 		experimentId: 'INFOBOX_BASED_QUESTIONS',
+		inputId: 'portableInfoboxQuestion',
 		isVisible: Ember.computed.notEmpty('question'),
 		submitted: false,
 		question: Ember.computed('pageTitle', function () {
@@ -129,7 +130,7 @@ export default Ember.Component.extend(
 			submit() {
 				// Because article content is not inserted to the page in ember way value from the intupt field
 				// is not propagating to answer variable, hence hack below
-				const answer = this.$('.portable-infobox-question__input .text-field-input')[0].value;
+				const answer = this.$(`#${this.inputId}`)[0].value;
 
 				this.set('answer', answer);
 				if (!Ember.isEmpty(answer)) {
@@ -173,7 +174,7 @@ export default Ember.Component.extend(
 					label: 'question'
 				});
 				Ember.run.scheduleOnce('afterRender', this, () => {
-					this.$('.portable-infobox-question__input')
+					this.$(`#${this.inputId}`)
 						.one('focusin', () => {
 							track({
 								action: trackActions.focus,

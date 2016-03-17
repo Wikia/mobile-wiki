@@ -2,14 +2,15 @@
 	Thank you for providing the info!
 {{else}}
 	<form {{action 'submit' on='submit'}}>
-		<label class="portable-infobox-question__text {{classInvalid}}" for="portable-infobox-question">{{question.text}}</label>
 		{{wikia-ui-components/text-field
-			value=answer
-			name='portable-infobox-question'
 			class='portable-infobox-question__input'
+			inputId=inputId
+			label=question.text
+			name=inputId
 			placeholder='Fill in the data'
 			transparent = true
+			value=answer
 		}}
-	<span class="portable-infobox-question__error {{classInvalid}}">Please provide your response</span>
-</form>
+		<span class="portable-infobox-question__error {{classInvalid}}">Please provide your response</span>
+	</form>
 {{/if}}
