@@ -2,6 +2,7 @@ import DiscussionBaseModel from './discussion-base';
 import DiscussionModerationModelMixin from '../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../mixins/discussion-forum-actions-model';
 import ajaxCall from '../utils/ajax-call';
+import DiscussionContributors from 'discussion/contributors';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
@@ -105,7 +106,8 @@ DiscussionForumModel.reopenClass({
 					posts = embedded && embedded['doc:threads'] ? embedded['doc:threads'] : [],
 					pivotId = (posts.length > 0 ? posts[0].id : null),
 					totalPosts = data.threadCount;
-
+				debugger;
+				DiscussionContributors.create(data._embedded.contributors);
 				posts.forEach((post) => {
 					if (post.hasOwnProperty('createdBy')) {
 						post.createdBy.profileUrl = M.buildUrl({

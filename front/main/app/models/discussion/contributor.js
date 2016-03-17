@@ -5,7 +5,7 @@ const DiscussionContributor = Ember.object.extend({
 	id: null,
 	name: null,
 
-	getNormalizedData(data){
+	getNormalizedData(data) {
 		this.setProperties({
 			avatarUrl: data.avatarUrl,
 			id: data.id,

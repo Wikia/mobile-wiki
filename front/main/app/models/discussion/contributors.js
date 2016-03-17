@@ -5,7 +5,8 @@ const DiscussionContributors = Ember.object.extend({
 	count: null,
 	users: [],
 
-	getNormalizedData(data){
+	create(data) {
+		this._super();
 		this.set('count', data.count);
 
 		data.userInfo.forEach((contributor) => {
@@ -15,7 +16,6 @@ const DiscussionContributors = Ember.object.extend({
 		});
 
 		return this;
-
 	},
 });
 

@@ -126,9 +126,9 @@ export function getWikiDomainName(localSettings, hostName = '') {
 		const regex = /^\.?(.+?)\.((?:[\d]{1,3}\.){3}[\d]{1,3}\.xip.io)$/,
 			match = hostName.match(regex);
 
-		return match ? `${match[1]}.${localSettings.devboxDomain}.wikia-dev.com` : hostName;
+		return match ? `${match[1]}.saipetch.wikia-dev.com` : hostName;
 	} else {
-		return hostName;
+		return 'muppet.saipetch.wikia-dev.com';
 	}
 }
 

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DiscussionContributors from 'contributors';
+import DiscussionPosts from 'posts';
 
 const DiscussionForum = Ember.object.extend({
 	contributors: null,
@@ -11,7 +12,11 @@ const DiscussionForum = Ember.object.extend({
 
 	getNormalizedData(data) {
 		return {
-			contributors: DiscussionContributors.getNormalizedData(data._embedded.contributors),
+			count: data.threadCount,
+			forumId: data.forumId,
+			contributors: DiscussionContributors.create(data._embedded.contributors),
+			pivotId: (posts.length > 0 ? posts[0].id : null),
+			posts: DiscussionPosts.getNormalizedData(data._embedded['doc:threads'])
 		}
 	}
 });

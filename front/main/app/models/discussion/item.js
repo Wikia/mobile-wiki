@@ -10,7 +10,7 @@ const DiscussionItem = Ember.Object.extend({
 	rawContent: null,
 	threadId: null,
 	title: null,
-	upvoteCount: null
+	upvoteCount: null,
 	userData: null,
 });
 
