@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import BottomBanner from './bottom-banner';
 import UserFeedbackStorageMixin from '../mixins/user-feedback-storage';
-import ViewportMixin from '../mixins/viewport';
 import {getGroup} from 'common/modules/AbTest';
 import {track, trackActions} from 'common/utils/track';
 
@@ -50,7 +49,6 @@ const variations = {
 
 export default BottomBanner.extend(
 	UserFeedbackStorageMixin,
-	ViewportMixin,
 	{
 		absolute: false,
 		classNames: ['feedback-form'],
@@ -172,20 +170,20 @@ export default BottomBanner.extend(
 			no() {
 				if (this.get('isiOS')) {
 					const bottomBanner = Ember.$('.feedback-form'),
-						win = Ember.$(window);
-					let topValue;
+						win = Ember.$(window),
+						adjustingHeight = win.height() - Ember.$('.site-head').height() - bottomBanner.height() - 50,
+						topValue = win.scrollTop() + adjustingHeight;
 
 					this.setProperties({
 						absolute: true,
-						adjustingHeight: win.height() - Ember.$('.site-head').height() - bottomBanner.height() - 50
+						adjustingHeight
 					});
 
 					win.off('scroll.feedbackForm')
 						.on('scroll.absoluteFeedbackForm', () => {
 							Ember.run.debounce(this, this.adjustAbsoluteFeedbackForm, 500);
 						});
-
-					topValue = win.scrollTop() + this.get('adjustingHeight');
+		
 					bottomBanner.css('top', topValue);
 				}
 
