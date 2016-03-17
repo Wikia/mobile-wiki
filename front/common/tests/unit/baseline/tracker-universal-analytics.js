@@ -1,8 +1,5 @@
 QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (hooks) {
-	var queue,
-		dimensions = [];
-
-	dimensions[8] = 'test/article';
+	var queue;
 
 	/**
 	 * @param {Object} x
@@ -118,7 +115,7 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 	});
 
 	QUnit.test('UniversalAnalytics initializer', function (assert) {
-		M.tracker.UniversalAnalytics.initialize(dimensions);
+		M.tracker.UniversalAnalytics.initialize({});
 
 		assert.strictEqual(queueCount('create'), 2);
 		assert.strictEqual(queueCount('require'), 1);
@@ -132,10 +129,12 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 			'create', '789', 'auto',
 			{name: 'ads', allowLinker: true, sampleRate: 100, userId: 'foo'}
 		]));
+
+		M.tracker.UniversalAnalytics.destroy();
 	});
 
 	QUnit.test('Track event', function (assert) {
-		M.tracker.UniversalAnalytics.initialize(dimensions);
+		M.tracker.UniversalAnalytics.initialize({});
 		M.tracker.UniversalAnalytics.track('category', 'action', 'label', 42, true);
 
 		assert.ok(queueContains([
@@ -149,17 +148,21 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 				nonInteraction: true
 			}
 		]));
+
+		M.tracker.UniversalAnalytics.destroy();
 	});
 
 	QUnit.test('Track page view', function (assert) {
-		M.tracker.UniversalAnalytics.initialize(dimensions);
+		M.tracker.UniversalAnalytics.initialize({});
 		M.tracker.UniversalAnalytics.trackPageView();
 
 		assert.ok(queueContains(['send', 'pageview']));
+
+		M.tracker.UniversalAnalytics.destroy();
 	});
 
 	QUnit.test('Track ads-related event', function (assert) {
-		M.tracker.UniversalAnalytics.initialize(dimensions);
+		M.tracker.UniversalAnalytics.initialize({});
 		M.tracker.UniversalAnalytics.trackAds('testCategory', 'testAction', 'testLabel', 0, true);
 
 		assert.ok(queueContains([
@@ -173,5 +176,34 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 				nonInteraction: true
 			}
 		]));
+
+		M.tracker.UniversalAnalytics.destroy();
+	});
+
+	QUnit.test('Test overwriting dimensions', function (assert) {
+		const dimensions = {
+				1: 'foo-1',
+				2: 'bar-2',
+				3: 'lorem-3'
+			},
+			pageRelatedDimensions = {
+				19: 'page-related-19'
+			},
+			dimensionsThatShouldBeSet = $.extend(dimensions, {
+				3: '',
+				14: '',
+				19: '',
+				25: '',
+			}, pageRelatedDimensions);
+
+		M.tracker.UniversalAnalytics.initialize(dimensions);
+		M.tracker.UniversalAnalytics.trackPageView(pageRelatedDimensions);
+
+		assert.ok(objectEquals(
+			M.tracker.UniversalAnalytics.dimensions,
+			dimensionsThatShouldBeSet
+		));
+
+		M.tracker.UniversalAnalytics.destroy();
 	});
 });

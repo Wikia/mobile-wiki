@@ -152,18 +152,19 @@ export default Ember.Route.extend({
 	 */
 	updateTrackingData(model) {
 		const articleType = model.get('articleType'),
-			namespace = model.get('ns');
+			namespace = model.get('ns'),
+			uaDimensions = {};
 
 		// update UA dimensions
 		if (model.adsContext) {
-			M.tracker.UniversalAnalytics.setDimension(3, model.adsContext.targeting.wikiVertical);
-			M.tracker.UniversalAnalytics.setDimension(14, model.adsContext.opts.showAds ? 'yes' : 'no');
+			uaDimensions[3] = model.adsContext.targeting.wikiVertical;
+			uaDimensions[14] = model.adsContext.opts.showAds ? 'yes' : 'no';
 		}
 		if (articleType) {
-			M.tracker.UniversalAnalytics.setDimension(19, articleType);
+			uaDimensions[19] = articleType;
 		}
 		if (typeof namespace !== 'undefined') {
-			M.tracker.UniversalAnalytics.setDimension(25, namespace);
+			uaDimensions[25] = namespace;
 		}
 
 		setTrackContext({
@@ -171,7 +172,7 @@ export default Ember.Route.extend({
 			n: model.get('ns')
 		});
 
-		trackPageView();
+		trackPageView(uaDimensions);
 	},
 
 	/**

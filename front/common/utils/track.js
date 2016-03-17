@@ -152,10 +152,11 @@ export function track(params) {
 }
 
 /**
+ * @param {UniversalAnalyticsDimensions} [uaDimensions]
  * @param {string} [overrideUrl] - if you want to override URL sent to UA
  * @returns {void}
  */
-export function trackPageView(overrideUrl) {
+export function trackPageView(uaDimensions, overrideUrl) {
 	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
@@ -173,7 +174,7 @@ export function trackPageView(overrideUrl) {
 		window.trackComscorePageView();
 		window.trackIVW3PageView();
 
-		M.tracker.UniversalAnalytics.trackPageView(overrideUrl);
+		M.tracker.UniversalAnalytics.trackPageView(uaDimensions, overrideUrl);
 	}
 
 	Ads.getInstance().trackKruxPageView();

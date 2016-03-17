@@ -18,14 +18,9 @@
 				cb: Date.now
 			}, function(data) {
 					if (data && data.dimensions) {
-						var ua = M.tracker.UniversalAnalytics,
-							dimensions = [];
+						var ua = M.tracker.UniversalAnalytics;
 
-						$.each(data.dimensions, function(index, value) {
-							dimensions[index] = value;
-						});
-
-						if (ua.initialize(dimensions)) {
+						if (ua.initialize(data.dimensions)) {
 							ua.trackPageView();
 						}
 					}

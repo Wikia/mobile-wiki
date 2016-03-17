@@ -4,7 +4,7 @@ if (typeof window.M === 'undefined') {
 if (typeof window.M.tracker === 'undefined') {
 	window.M.tracker = {};
 }
-/* eslint-disable no-console */
+/* eslint-disable no-console, max-depth */
 
 /**
  * @typedef {Object} TrackerOptions
@@ -18,7 +18,7 @@ if (typeof window.M.tracker === 'undefined') {
  */
 
 /**
- * @typedef {UniversalAnalyticsDimension[]} UniversalAnalyticsDimensions
+ * @typedef {Map<UniversalAnalyticsDimension*>} UniversalAnalyticsDimensions
  */
 
 /**
@@ -29,12 +29,13 @@ if (typeof window.M.tracker === 'undefined') {
  */
 
 (function (M) {
-	let dimensions = [],
+	let tracked = [],
+		createdAccounts = [],
+		dimensions = {},
 		dimensionsSynced = false,
 		accounts;
 
-	const createdAccounts = [],
-		tracked = [],
+	const pageDimensions = [3, 14, 19, 25],
 		accountPrimary = 'primary',
 		accountSpecial = 'special',
 		accountAds = 'ads';
@@ -131,8 +132,8 @@ if (typeof window.M.tracker === 'undefined') {
 			tracked.forEach((account) => {
 				const prefix = getPrefix(account);
 
-				dimensions.forEach((dimension, idx) => {
-					ga(`${prefix}set`, `dimension${idx}`, getDimension(idx));
+				$.each(dimensions, (index) => {
+					ga(`${prefix}set`, `dimension${index}`, getDimension(index));
 				});
 			});
 
@@ -148,17 +149,46 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @returns {boolean} true if dimensions were successfully set
 	 */
 	function setDimensions(dimensionsToSet, overwrite) {
-		if (!dimensionsToSet.length) {
+		if (!Object.keys(dimensionsToSet).length) {
 			return false;
 		}
 
 		if (overwrite === true) {
+			dimensionsSynced = false;
 			dimensions = dimensionsToSet;
 		} else {
-			$.extend(dimensions, dimensionsToSet);
-		}
+			// copy old dimensions
+			const oldDimensions = $.extend({}, dimensions);
 
-		dimensionsSynced = false;
+			// extend dimensions
+			$.extend(dimensions, dimensionsToSet);
+
+			/**
+			 * Compare old dimensions' and new dimensions' length.
+			 * If it's not equal we can assume that there was a change
+			 * and we need to re-sync dimensions.
+			 * Also do not lose previous dimensionsSynced status.
+             */
+			dimensionsSynced = dimensionsSynced &&
+				(Object.keys(oldDimensions).length === Object.keys(dimensions).length);
+
+			/**
+			 * If new dimension array is not the same length as the old one,
+			 * it's definitely different.
+			 */
+			if (dimensionsSynced) {
+				/**
+				 * Iterate trough new dimensions and compare its values
+				 * with the old one. Result of this loop is a logical
+				 * conjunction of equality of those values.
+				 * Which, ultimately, tells us if new dimensions are
+				 * different from the old ones and if we need a re-syncing.
+				 */
+				$.each(dimensions, (index, value) => {
+					dimensionsSynced = dimensionsSynced && (oldDimensions[index] === value);
+				});
+			}
+		}
 
 		return true;
 	}
@@ -265,10 +295,23 @@ if (typeof window.M.tracker === 'undefined') {
 	 * title) - all subsequent events including pageviews are tracked
 	 * for original location.
 	 *
+	 * @param {UniversalAnalyticsDimensions} [uaDimensions]
 	 * @param {string} [overrideUrl]
 	 * @returns {void}
 	 */
-	function trackPageView(overrideUrl) {
+	function trackPageView(uaDimensions, overrideUrl) {
+		// reset per-page dimensions
+		$.each(pageDimensions, function () {
+			setDimension(this, '');
+		});
+
+		// set per-page dimensions if they were passed
+		if (typeof uaDimensions === 'object') {
+			$.each(uaDimensions, (key, value) => {
+				setDimension(key, value);
+			});
+		}
+
 		syncDimensions();
 		updateTrackedUrl(overrideUrl);
 
@@ -289,10 +332,9 @@ if (typeof window.M.tracker === 'undefined') {
 	 * It's not ideal to put it here, but out UA dimensions relies
 	 * on Optimizely - we're sending data about A/B tests set in Optimizely.
 	 *
-	 * @param {Array} dimensions
-	 * @returns {Array}
+	 * @returns {void}
 	 */
-	function setDimensionsForOptimizelyExperiments(dimensions) {
+	function setDimensionsForOptimizelyExperiments() {
 		/**
 		 * @returns {boolean}
 		 */
@@ -327,11 +369,10 @@ if (typeof window.M.tracker === 'undefined') {
 						variationName = optimizely.variationNamesMap[experimentId];
 
 					dimensions[dimension] = `Optimizely ${experimentName} (${experimentId}): ${variationName}`;
+					dimensionsSynced = false;
 				}
 			});
 		}
-
-		return dimensions;
 	}
 
 	/**
@@ -342,36 +383,30 @@ if (typeof window.M.tracker === 'undefined') {
 	 * It's not ideal to put it here, but out UA dimensions relies
 	 * on AbTest - we're sending data about A/B tests set in AbTest.
 	 *
-	 * @param {array} dimensions
-	 * @returns {array}
+	 * @returns {void}
 	 */
-	function setDimensionsForWikiaAbTest(dimensions) {
+	function setDimensionsForWikiaAbTest() {
 		const AbTest = window.Wikia && window.Wikia.AbTest;
 
-		let abList;
+		if (AbTest) {
+			const abList = AbTest.getExperiments(true);
 
-		if (!AbTest) {
-			return dimensions;
-		}
+			for (let abIndex = 0; abIndex < abList.length; abIndex++) {
+				const abExp = abList[abIndex],
+					abSlot = AbTest.getGASlot(abExp.name);
 
-		abList = AbTest.getExperiments(true);
+				if (abExp && abExp.flags && abExp.flags.ga_tracking) {
+					// GA Slots 40-49 are reserved for our AB Testing tool. Anything outside that
+					// range could potentially overwrite something that we don't want to
+					if (abSlot >= 40 && abSlot <= 49) {
+						const noGroup = abList.nouuid ? 'NOBEACON' : 'NOT_IN_ANY_GROUP';
 
-		for (let abIndex = 0; abIndex < abList.length; abIndex++) {
-			const abExp = abList[abIndex],
-				abSlot = AbTest.getGASlot(abExp.name);
-
-			if (abExp && abExp.flags && abExp.flags.ga_tracking) {
-				// GA Slots 40-49 are reserved for our AB Testing tool. Anything outside that
-				// range could potentially overwrite something that we don't want to
-				if (abSlot >= 40 && abSlot <= 49) {
-					const noGroup = abList.nouuid ? 'NOBEACON' : 'NOT_IN_ANY_GROUP';
-
-					dimensions[abSlot] = abExp.group ? abExp.group.name : noGroup;
+						dimensions[abSlot] = abExp.group ? abExp.group.name : noGroup;
+						dimensionsSynced = false;
+					}
 				}
 			}
 		}
-
-		return dimensions;
 	}
 
 	/**
@@ -390,9 +425,9 @@ if (typeof window.M.tracker === 'undefined') {
 
 		const domain = 'wikia.com';
 
-		dimensions = setDimensionsForOptimizelyExperiments(dimensions);
-		dimensions = setDimensionsForWikiaAbTest(dimensions);
 		setDimensions(dimensions);
+		setDimensionsForOptimizelyExperiments();
+		setDimensionsForWikiaAbTest();
 
 		accounts = M.prop('tracking.ua');
 
@@ -406,12 +441,23 @@ if (typeof window.M.tracker === 'undefined') {
 		return true;
 	}
 
+	/**
+	 * @returns {void}
+	 */
+	function destroy() {
+		tracked = [];
+		createdAccounts = [];
+	}
+
 	// API
 	M.tracker.UniversalAnalytics = {
 		initialize,
+		destroy,
 		setDimension,
 		track,
 		trackAds,
-		trackPageView
+		trackPageView,
+		// expose internals for unit test
+		dimensions
 	};
 })(M);
