@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import UserFeedbackStorageMixin from '../mixins/user-feedback-storage';
 import {getDomain} from '../utils/domain';
+import {track, trackActions} from 'common/utils/track';
 
-const answeredCookieName = 'portableInfoboxQuestionAnswered';
+const answeredCookieName = 'portableInfoboxQuestionAnswered',
+	trackingCategory = 'portable-infobox-question';
 
 export default Ember.Component.extend(
 	UserFeedbackStorageMixin,
@@ -127,7 +129,7 @@ export default Ember.Component.extend(
 			submit() {
 				// Because article content is not inserted to the page in ember way value from the intupt field
 				// is not propagating to answer variable, hence hack below
-				const answer = this.$('.portable-infobox-question__input')[0].value;
+				const answer = this.$('.portable-infobox-question__input .text-field-input')[0].value;
 
 				this.set('answer', answer);
 				if (!Ember.isEmpty(answer)) {
@@ -145,15 +147,44 @@ export default Ember.Component.extend(
 						feedback: answer,
 						feedbackImpressionsCount: this.getCookieCounter('infoboxQuestionsImpressions')
 					});
+					track({
+						action: trackActions.submit,
+						category: trackingCategory,
+						label: 'answered'
+					});
 				} else {
 					this.set('classInvalid', 'invalid');
+					track({
+						action: trackActions.submit,
+						category: trackingCategory,
+						label: 'empty'
+					});
 				}
 			},
-			init() {
-				this._super(...arguments);
-				if (!Ember.isEmpty(this.get('question'))) {
-					this.incrementCookieCounter('infoboxQuestionsImpressions');
-				}
+		},
+
+		init() {
+			this._super(...arguments);
+			if (!Ember.isEmpty(this.get('question'))) {
+				this.incrementCookieCounter('infoboxQuestionsImpressions');
+				track({
+					action: trackActions.impression,
+					category: trackingCategory,
+					label: 'question'
+				});
+				Ember.run.scheduleOnce('afterRender', this, () => {
+					this.$('.portable-infobox-question__input')
+						.one('focusin', () => {
+							track({
+								action: trackActions.focus,
+								category: trackingCategory,
+								label: 'input'
+							});
+						})
+						.focusout(() => {
+							this.set('classInvalid', '');
+						});
+				});
 			}
 		}
 	}
