@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import {getQueryParam} from 'common/utils/querystring';
 
 /**
@@ -8,18 +7,16 @@ import {getQueryParam} from 'common/utils/querystring';
  * @returns {void}
  */
 export function initialize(container, application) {
-	const optimizelyScript = M.prop('optimizelyScript');
-
-	if (!Ember.isEmpty(optimizelyScript) && !getQueryParam('noexternals')) {
+	if (!getQueryParam('noexternals')) {
 		application.deferReadiness();
 
-		Ember.$.getScript(optimizelyScript).always(() => {
+		$script.ready(['optimizely'], () => {
 			application.advanceReadiness();
 		});
 	}
 }
 
 export default {
-	name: 'optimizely',
+	name: 'wait-for-optimizely',
 	initialize
 };

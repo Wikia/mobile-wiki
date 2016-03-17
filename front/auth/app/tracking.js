@@ -1,5 +1,4 @@
 import AuthTracker from './common/auth-tracker';
-import UniversalAnalytics from 'common/modules/trackers/universal-analytics';
 import {trackActions} from 'common/utils/track';
 import {getQueryParam} from 'common/utils/querystring';
 
@@ -20,7 +19,7 @@ function setTrackingDimensions() {
 	// newAuthEntryPage
 	dimensions[10] = getQueryParam('redirect');
 
-	UniversalAnalytics.setDimensions(dimensions);
+	M.tracker.UniversalAnalytics.setDimensions(dimensions);
 }
 
 /**
