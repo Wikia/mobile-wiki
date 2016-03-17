@@ -112,10 +112,10 @@ export default Ember.Component.extend(
 							level: 'hard',
 							fieldToHide: 'Armor'
 						},
-						'Nikana Prime': {
-							text: 'What is the Attack Speed of Nikana Prime?',
+						Jackal: {
+							text: 'What is the Alloy Armor of Jackal?',
 							level: 'hard',
-							fieldToHide: 'Attack Speed'
+							fieldToHide: 'Alloy Armor'
 						}
 					},
 					// disney.wikia.com
