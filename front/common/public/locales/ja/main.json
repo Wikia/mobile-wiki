@@ -143,9 +143,20 @@
     "curated-content-editor-new-featured-content":"新しい注目のコンテンツ",
     "curated-content-editor-new-section":"新しいセクション",
     "curated-content-editor-new-category":"新しいカテゴリ",
+    "curated-content-editor-community-data":"Wikiaコミュニティを紹介しよう",
+    "curated-content-editor-community-data-description":"画像と短い説明文を追加すると、このWikiaコミュニティの内容を伝えて訪問者を呼び込むことができます。この情報は、検索結果やWikiaモバイルアプリなどでのコミュニティの紹介にも使用されます。",
+    "curated-content-editor-edit-community-data-button":"編集",
+    "curated-content-editor-wikia-description-tooltip":"検索結果やその他の場所であなたのWikiaコミュニティを紹介するための短い説明文を追加してください。",
+    "curated-content-editor-enter-wikia-description":"Wikiaコミュニティの説明",
     "explore-wiki":"__wikiName__を見る",
-    "wiki-page-error-reload-button": "更新",
-    "wiki-page-error":"申し訳ありませんが、記事を読み込めませんでした。もう一度お試しください。"
+    "sign-in-or-register-label":"ログイン \/ 登録",
+    "my-profile-label":"プロフィール",
+    "category-page-load-more":"もっと見る",
+    "category-page-load-previous":"前のページ",
+    "category-page-no-members":"このカテゴリにはページがありません。",
+    "category-page-subtitle":"カテゴリページ",
+    "wiki-page-error":"申し訳ありませんが、ページを読み込めませんでした。もう一度お試しください。",
+    "wiki-page-error-reload-button":"更新"
   },
   "userStatus":{
     "anon-cta":"__registerLink__または__loginLink__",

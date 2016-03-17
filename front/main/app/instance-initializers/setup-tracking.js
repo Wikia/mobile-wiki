@@ -1,6 +1,7 @@
-import Ads from 'common/modules/Ads';
-import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
-import {integrateOptimizelyWithUA} from 'common/utils/variantTesting';
+import Ads from 'common/modules/ads';
+import UniversalAnalytics from 'common/modules/trackers/universal-analytics';
+import {integrateOptimizelyWithUA} from 'common/utils/variant-testing';
+import {integrateAbTestWithUA} from 'common/modules/abtest';
 
 /**
  * @returns {void}
@@ -59,6 +60,7 @@ export function initialize() {
 	}
 
 	dimensions = integrateOptimizelyWithUA(dimensions);
+	dimensions = integrateAbTestWithUA(dimensions);
 
 	UniversalAnalytics.setDimensions(dimensions);
 }

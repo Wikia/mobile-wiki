@@ -8,7 +8,7 @@
     "jquery": "2.1.4",
     "loader.js": "3.5.0",
     "visit-source": "Wikia/visit-source#0.1.1",
-    "wikia-style-guide": "Wikia/style-guide#v1.8.2"
+    "wikia-style-guide": "Wikia/style-guide#v1.8.3"
   },
   "devDependencies": {
     "sinonjs": "1.17.1"

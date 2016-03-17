@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import InfoboxBuilderEditItemMixin from '../mixins/infobox-builder-edit-item';
-import TrackClickMixin from '../mixins/track-click';
+import InfoboxBuilderSidebarOptionsMixin from '../mixins/infobox-builder-sidebar-options';
 
 export default Ember.Component.extend(
+	InfoboxBuilderSidebarOptionsMixin,
 	InfoboxBuilderEditItemMixin,
-	TrackClickMixin,
 	{
 		useArticleName: Ember.computed('item.data.defaultValue', {
 			get() {

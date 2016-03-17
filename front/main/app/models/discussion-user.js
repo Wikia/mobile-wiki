@@ -1,10 +1,10 @@
 import DiscussionBaseModel from './discussion-base';
-import DiscussionDeleteModelMixin from '../mixins/discussion-delete-model';
+import DiscussionModerationModelMixin from '../mixins/discussion-moderation-model';
 import ajaxCall from '../utils/ajax-call';
-import {checkPermissions} from 'common/utils/discussionPermissions';
+import {checkPermissions} from 'common/utils/discussion-permissions';
 
 
-const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixin, {
+const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	contributors: [],
 	pageNum: null,
 	replyLimit: 10,
@@ -40,6 +40,8 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionDeleteModelMixi
 					if (post.hasOwnProperty('createdBy')) {
 						post.createdBy.profileUrl = this.get('userProfileUrl');
 					}
+
+					post.isLocked = !post.isReply && !post._embedded.thread.isEditable;
 				});
 
 				this.set('posts', this.get('posts').concat(newPosts));
@@ -92,6 +94,8 @@ DiscussionUserModel.reopenClass({
 						if (post.hasOwnProperty('createdBy')) {
 							post.createdBy.profileUrl = userProfileUrl;
 						}
+
+						post.isLocked = !post.isReply && !post._embedded.thread[0].isEditable;
 					});
 				}
 

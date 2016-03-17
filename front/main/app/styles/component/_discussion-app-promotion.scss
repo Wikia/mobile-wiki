@@ -5,12 +5,10 @@ $discussion-app-join-text-line-height: 125%;
 
 $discussion-app-join-text-spacing-top: (
 	details-view: 85px,
-	list-view: 82px
+	list-view: 42px
 );
 
 .discussion-app-promotion {
-	padding-left: 10px;
-
 	.discussion-app-join-text {
 		color: $app-promotion-text-color;
 		font-size: $type-smaller;

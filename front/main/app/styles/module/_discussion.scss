@@ -1,4 +1,6 @@
 $horizontal-padding: 18px;
+$post-card-top-note-height: 40px;
+$post-card-right-icon-margin: -9px;
 $post-details-post-width: 560px;
 $post-details-outer-width: 580px;
 $post-details-reply-width: 524px;
@@ -7,7 +9,7 @@ $post-details-post-vertical-padding: 12px;
 $post-details-reply-upvote-width: 12px;
 $post-details-reply-upvote-margin-left: 10px;
 $post-details-content-line-height: 1.4rem;
-$deleted-mark-size: 12px;
+$post-mark-icon-size: 12px;
 
 body.discussions {
 	background-color: $discussion-desktop-bg-color;
@@ -68,8 +70,31 @@ body.discussions {
 		width: 16px;
 	}
 
+	&.report,
+	&.lock,
+	&.unlock {
+		height: 18px;
+		width: 18px;
+	}
+
 	&.arrow-left {
 		height: 16px;
+		width: 16px;
+	}
+
+	&.validate,
+	&.reported-delete {
+		height: 40px;
+		width: 40px;
+	}
+
+	&.reported-delete {
+		margin-right: $post-card-right-icon-margin;
+	}
+
+	&.locked {
+		height: 16px;
+		margin-right: 6px;
 		width: 16px;
 	}
 }
@@ -78,6 +103,33 @@ body.discussions {
 	font-size: $type-smallest;
 	line-height: $line-height-smallest;
 	max-width: inherit;
+
+	.top-note-icon {
+		fill: $discussion-post-card-top-note-color;
+	}
+
+	.top-note {
+		border-bottom: 1px solid $discussion-post-card-top-note-border;
+		font-size: $type-min;
+		height: $post-card-top-note-height;
+		line-height: $post-card-top-note-height;
+		margin-bottom: 5px;
+		overflow: hidden;
+
+		.text-content {
+			align-items: center;
+			color: $discussion-post-card-top-note-color;
+			display: flex;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		.actions {
+			min-width: 85px;
+			text-align: right;
+		}
+	}
 
 	.avatar {
 		display: inline-block;
@@ -109,7 +161,7 @@ body.discussions {
 		display: inline-block;
 		float: right;
 		height: 24px;
-		margin-right: -9px;
+		margin-right: $post-card-right-icon-margin;
 		margin-top: 6px;
 		text-align: center;
 		width: 24px;
@@ -150,6 +202,10 @@ body.discussions {
 	.post-detail {
 		position: relative;
 
+		&.show-top-note {
+			padding-top: 0;
+		}
+
 		.loading-overlay {
 			height: 100%;
 			position: absolute;
@@ -159,17 +215,32 @@ body.discussions {
 			}
 		}
 
-		&.is-deleted {
+		&.is-deleted,
+		&.is-reported {
 			&::before {
-				border-color: $discussion-deleted-mark-color transparent transparent transparent;
+				border-color: transparent;
 				border-style: solid;
-				border-width: $deleted-mark-size $deleted-mark-size 0 0;
+				border-width: $post-mark-icon-size $post-mark-icon-size 0 0;
 				content: "";
-				height: $deleted-mark-size;
+				height: $post-mark-icon-size;
 				left: 0;
 				position: absolute;
 				top: 0;
-				width: $deleted-mark-size;
+				width: $post-mark-icon-size;
+			}
+		}
+
+		&.is-deleted {
+			&::before {
+				border-top-color: $discussion-deleted-mark-color;
+			}
+		}
+
+		&.is-reported {
+			background-color: $discussion-post-card-reported-background;
+
+			&::before {
+				border-top-color: $discussion-reported-mark-color;
 			}
 		}
 
@@ -214,11 +285,7 @@ body.discussions {
 
 	.discussion-reply {
 		border: none;
-		padding: {
-			top: 12px;
-			left: $horizontal-padding;
-			right: $horizontal-padding;
-		}
+		padding: 12px $horizontal-padding 5px;
 
 		.author {
 			font-size: $type-min;
@@ -234,6 +301,7 @@ body.discussions {
 		.discussion-content {
 			font-size: $type-min;
 			line-height: $line-height-min;
+			margin-bottom: 0;
 			margin-left: $post-details-reply-upvote-width + $post-details-reply-upvote-margin-left;
 			padding: 0 0 10px;
 		}
@@ -261,6 +329,13 @@ body.discussions {
 			}
 		}
 	}
+
+	.show-top-note {
+		.discussion-reply {
+			padding-top: 0;
+		}
+	}
+
 	.discussion-no-replies {
 		color: $discussion-error-text-color;
 		font-size: $type-smallest;
@@ -337,6 +412,16 @@ body.discussions {
 		&.is-new {
 			opacity: 0;
 		}
+
+		&.is-locked {
+			.replies-area {
+				color: $discussion-locked-post-replies-color;
+
+				.replies {
+					fill: $discussion-locked-post-replies-color;
+				}
+			}
+		}
 	}
 
 	.post-reply {
@@ -392,7 +477,6 @@ body.discussions {
 				font-size: $type-smallest;
 			}
 		}
-
 	}
 
 	&.post {
@@ -423,6 +507,10 @@ body.discussions {
 				border-top-color: $discussion-post-detail-border-color;
 				border-width: 0;
 				padding: 20px 30px;
+
+				&.show-top-note {
+					padding-top: 0;
+				}
 			}
 		}
 
@@ -438,6 +526,10 @@ body.discussions {
 					left: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
 				}
 				width: $post-details-outer-width;
+
+				&.show-top-note {
+					padding-top: 0;
+				}
 
 				.discussion-content {
 					line-height: $post-details-content-line-height;

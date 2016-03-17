@@ -1,8 +1,9 @@
 /* eslint no-console: 0 */
 
-import Internal from '../modules/Trackers/Internal';
-import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
-import Ads from '../modules/Ads';
+import Internal from '../modules/trackers/internal';
+import UniversalAnalytics from '../modules/trackers/universal-analytics';
+import {getGroup} from '../modules/abtest';
+import Ads from '../modules/ads';
 
 /**
  * @typedef {Object} TrackContext
@@ -206,6 +207,23 @@ export function trackPageView(adsContext) {
 	}
 
 	Ads.getInstance().trackKruxPageView();
+}
+
+/**
+ * Function to track an experiement specific event. This is currently
+ * done due to limitations in the DW when it comes to segmentation
+ * of events based on experiment groups
+ *
+ * @param {String} experiment
+ * @param {TrackingParams} params
+ * @returns {void}
+ */
+export function trackExperiment(experiment, params) {
+	const group = getGroup(experiment) || 'CONTROL',
+		label = [experiment, group, params.label].join('=');
+
+	params.label = label;
+	track(params);
 }
 
 /**

@@ -1,16 +1,17 @@
 {{wikia-ui-components/sub-header
-	title=(i18n 'main.header' ns='infobox-builder' title=title)
-	onBack=(action 'cancel')
-	onConfirm=(action 'save')
 	backArrowTooltip=(i18n 'app.cancel-label')
 	confirmLabel=(i18n 'main.save' ns='infobox-builder')
+	fixed=true
+	onBack=(action 'cancel')
+	onConfirm=(action 'save')
+	title=(i18n 'main.header' ns='infobox-builder' title=title)
 }}
 
 <div class="infobox-builder">
-	<div class="infobox-builder-preview" {{action 'onPreviewBackgroundClick'}}>
+	<div class="infobox-builder-preview article-background-color" {{action 'onPreviewBackgroundClick'}}>
 		{{#sortable-group
-			tagName="div"
-			classNames='portable-infobox pi-background'
+			tagName='div'
+			class=sortableGroupClassNames
 			onChange=(action 'onReorderElements') as |group|
 		}}
 			{{#each state as |element index|}}
@@ -38,16 +39,35 @@
 			}}
 		{{/if}}
 	</div>
-
-	{{infobox-builder-sidebar
-		addItem=(action 'addItem')
-		removeItem=removeItem
-		itemInEditMode=activeItem
-		setEditItem=setEditItem
-		editTitleItem=editTitleItem
-		editRowItem=editRowItem
-		editSectionHeaderItem=editSectionHeaderItem
-	}}
+	<div class="infobox-builder-sidebar">
+		{{infobox-builder-sidebar-header
+			item=activeItem
+			onBackArrowClick=(action this.attrs.setEditItem null)
+			onDeleteItem=(action this.attrs.removeItem)
+		}}
+		{{component sideBarOptionsComponent
+			item=activeItem
+			addItem=(action 'addItem')
+ 			editRowItem=editRowItem
+			editSectionHeaderItem=editSectionHeaderItem
+			editTitleItem=editTitleItem
+		}}
+		{{wikia-ui-components/icon-button
+			class='infobox-builder-go-to-source-button'
+			click=(action 'onSourceEditorClick')
+			icon='source'
+			iconSize=24
+			id='go-to-source'
+		}}
+		{{#pop-over for="go-to-source" on="hover" flow='leftCenter'}}
+			<p class="infobox-builder-go-to-source-tooltip-text">{{i18n 'main.source-editor-tooltip'
+			ns='infobox-builder'}}</p>
+		{{/pop-over}}
+	</div>
+	{{#modal-dialog isVisible=showGoToSourceModal class='infobox-builder-go-to-source-modal'}}
+		{{infobox-builder-go-to-source-modal goToSource=(action 'goToSource')
+		}}
+	{{/modal-dialog}}
 </div>
 {{#if showOverlay}}
 	<div class="infobox-builder-spinner loading-overlay">
@@ -59,7 +79,7 @@
 			strokeWidth=3
 		}}
 		<div class="spinner-text">
-			{{i18n 'main.saving' ns='infobox-builder'}}
+			{{loadingMessage}}
 		</div>
 	{{/if}}
 	{{#if showSuccess}}

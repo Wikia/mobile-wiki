@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import ArticleModel from '../models/wiki/article';
-import {activate as variantTestingActivate} from 'common/utils/variantTesting';
+import {activate as variantTestingActivate} from 'common/utils/variant-testing';
 import {normalizeToUnderscore} from 'common/utils/string';
-import Ads from 'common/modules/Ads';
+import Ads from 'common/modules/ads';
 import getLinkInfo from '../utils/article-link';
 
 const {
@@ -61,7 +61,7 @@ export default Route.extend(
 
 			/**
 			 * @param {*} error
-			 * @returns {void}
+			 * @returns {Boolean}
 			 */
 			error(error) {
 				if (this.controller) {

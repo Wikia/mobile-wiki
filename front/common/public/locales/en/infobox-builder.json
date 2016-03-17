@@ -8,7 +8,6 @@
     "label-default": "Label __index__",
     "image-default": "Image __index__",
     "section-header-default": "Header __index__",
-    "caption-default": "Example caption",
     "alt-default": "Alt",
     "row-default": "Example value",
     "row-label": "Label",
@@ -26,6 +25,11 @@
     "saving": "Saving your great project",
     "success": "Success!",
     "edit-image-item-description": "Place where users will upload images while using this infobox.",
-    "reorder-tooltip": "Drag to reorder"
+    "reorder-tooltip": "Drag to reorder",
+    "source-editor-tooltip": "Source Editor",
+    "source-editor-save-confirmation": "Do you want to save your changes before going to source editor?",
+    "source-editor-save-confirmation-button-yes": "Yes",
+    "source-editor-save-confirmation-button-no": "No",
+    "source-editor-loading": "Loading source editor"
   }
 }

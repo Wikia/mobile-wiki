@@ -1,15 +1,18 @@
 {{infobox-builder
-	state=model.infoboxState
-	title=model.title
 	activeItem=model.itemInEditMode
-	cancelAction=(action 'cancel')
-	saveAction=(action 'save')
+	isDirty=isDirty
+	state=model.infoboxState
+	theme=model.theme
+	title=model.title
 	addItem=(action 'addItem')
-	setEditItem=(action 'setEditItem')
-	getDiffArray=(action 'getDiffArray')
-	editTitleItem=(action 'editTitleItem')
+	cancelAction=(action 'cancel')
 	editRowItem=(action 'editRowItem')
 	editSectionHeaderItem=(action 'editSectionHeaderItem')
+	editTitleItem=(action 'editTitleItem')
+	getDiffArray=(action 'getDiffArray')
+	goToSourceEditor=(action 'goToSourceEditor')
 	removeItem=(action 'removeItem')
 	reorder=(action 'updateInfoboxStateOrder')
+	saveAction=(action 'save')
+	setEditItem=(action 'setEditItem')
 }}

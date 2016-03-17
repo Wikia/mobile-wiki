@@ -1,4 +1,4 @@
-import {getEnvironment, stripDevboxDomain} from '../app/lib/Utils';
+import {getEnvironment, stripDevboxDomain} from '../app/lib/utils';
 import deepExtend from 'deep-extend';
 
 /* eslint max-len:0 */
@@ -130,7 +130,7 @@ import deepExtend from 'deep-extend';
 
 /**
  * @typedef {Object} IVW3TrackingLocalSettings
- * @property {string} vertical
+ * @property {string} cmKey
  * @property {boolean} enabled
  * @property {string[]} countries
  */
@@ -254,7 +254,7 @@ const localSettings = {
 			c7Value: ''
 		},
 		ivw3: {
-			vertical: '',
+			cmKey: '',
 			countries: []
 		},
 		nielsen: {
