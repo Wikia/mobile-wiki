@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import BottomBanner from './bottom-banner';
 import UserFeedbackStorageMixin from '../mixins/user-feedback-storage';
+import BottomBannerMixin from '../mixins/bottom-banner';
 import {getGroup} from 'common/modules/AbTest';
 import {track, trackActions} from 'common/utils/track';
 
@@ -47,8 +47,9 @@ const variations = {
 	experimentId = 'USER_SATISFACTION_FEEDBACK';
 
 
-export default BottomBanner.extend(
+export default Ember.Component.extend(
 	UserFeedbackStorageMixin,
+	BottomBannerMixin,
 	{
 		classNames: ['feedback-form'],
 		bannerOffset: 0,
@@ -86,7 +87,7 @@ export default BottomBanner.extend(
 		},
 		checkOffsetPosition() {
 			const scrollY = window.scrollY,
-				direction = scrollY >= this.get('lastOffset') ? 0 : 1;
+				direction = scrollY < this.get('lastOffset');
 
 			this.set('lastOffset', scrollY);
 

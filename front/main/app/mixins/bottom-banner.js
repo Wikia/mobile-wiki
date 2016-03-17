@@ -5,7 +5,7 @@ import {getDomain} from '../utils/domain';
  * Banner sticked to the bottom of page.
  * It's displayed when 'loaded' class is added and hidden on 'dismissed' class addition.
  */
-export default Ember.Component.extend({
+export default Ember.Mixin.create({
 	classNames: ['bottom-banner'],
 	classNameBindings: ['loaded', 'dismissed'],
 	dismissed: false,
