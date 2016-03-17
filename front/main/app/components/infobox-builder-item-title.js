@@ -13,7 +13,7 @@ export default Ember.Component.extend(
 				articleTitle = i18n.t('infobox-builder:main.title-article-name', {
 					ns: 'infobox-builder'
 				}),
-				defaultTitle = index === 1 ?
+				defaultTitle = (index === 1) ?
 					i18n.t('infobox-builder:main.first-title-default', {
 						ns: 'infobox-builder'
 					}) :
