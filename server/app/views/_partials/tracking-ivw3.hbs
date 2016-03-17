@@ -1,6 +1,7 @@
 <script>
 	(function() {
 		var allowExternals = !M.prop('queryParams.noexternals'),
+			triedToTrackWithoutLoadedLibrary = false,
 			ivw3 = M.prop('tracking.ivw3');
 
 		if (
@@ -18,12 +19,18 @@
 			firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);
 
 			scriptTag.onload = function () {
-				window.trackIVW3PageView();
-			}
+				if (triedToTrackWithoutLoadedLibrary) {
+					window.trackIVW3PageView();
+				}
+			};
 		}
 
 		window.trackIVW3PageView = function() {
-			if (allowExternals && window.iom) {
+			if (!allowExternals) {
+				return;
+			}
+			if (window.iom) {
+				window.iam_skiponload = true;
 				window.iom.c({
 					st: 'wikia',
 					cp: ivw3.cmKey,
@@ -31,6 +38,8 @@
 				}, 2);
 
 				console.info('Track pageView: IVW3');
+			} else {
+				triedToTrackWithoutLoadedLibrary = true;
 			}
 		};
 	})();
