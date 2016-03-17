@@ -32,7 +32,7 @@ DiscussionPost.reopenClass({
 				threadData._embedded.firstPost._embedded.userData
 			)
 		});
-	}
+	},
 
 	/**
 	 * Normalizes API post data into a post object
@@ -59,7 +59,6 @@ DiscussionPost.reopenClass({
 			)
 		});
 	}
-
 });
 
 export default DiscussionPost;

@@ -1,25 +1,99 @@
 import Ember from 'ember';
-import DiscussionContributors from 'contributors';
-import DiscussionPosts from 'posts';
+import DiscussionBaseModel from './discussion-base';
+import DiscussionModerationModelMixin from '../mixins/discussion-moderation-model';
+import DiscussionForumActionsModelMixin from '../mixins/discussion-forum-actions-model';
+import ajaxCall from '../utils/ajax-call';
+import DiscussionContributors from 'discussion/contributors';
 
-const DiscussionForum = Ember.object.extend({
-	contributors: null,
-	count: null,
-	forumId: null,
-	pageNum: null,
-	pivotId: null,
-	posts: null,
+const DiscussionForum = DiscussionBaseModel.extend(
+	DiscussionModerationModelMixin,
+	DiscussionForumActionsModelMixin,
+	{
+		contributors: null,
+		count: null,
+		forumId: null,
+		pageNum: 0,
+		pivotId: null,
+		posts: null,
+		wikiId: null,
 
-	getNormalizedData(data) {
-		return {
-			count: data.threadCount,
-			forumId: data.forumId,
-			contributors: DiscussionContributors.create(data._embedded.contributors),
-			pivotId: (posts.length > 0 ? posts[0].id : null),
-			posts: DiscussionPosts.getNormalizedData(data._embedded['doc:threads'])
+		/**
+		 * @param {number} pageNum
+		 * @param {string} [sortBy='trending']
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		loadPage(pageNum = 0, sortBy = 'trending') {
+			this.set('pageNum', pageNum);
+
+			return ajaxCall({
+				data: {
+					page: this.get('pageNum'),
+					pivot: this.get('pivotId'),
+					sortKey: this.getSortKey(sortBy),
+					viewableOnly: false
+				},
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
+				success: (data) => {
+					const newPosts = data._embedded['doc:threads'];
+					let allPosts;
+
+					allPosts = this.get('posts').concat(
+						DiscussionPosts.getNormalizedData(newPosts)
+					);
+
+					this.set('posts', allPosts);
+				},
+				error: (err) => {
+					this.handleLoadMoreError(err);
+				}
+			});
+		},
+
+		/**
+		 * Create new post in Discussion Service
+		 * @param {object} postData
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		createPost(postData) {
+			this.setFailedState(null);
+			return ajaxCall({
+				data: JSON.stringify(postData),
+				method: 'POST',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
+				success: (post) => {
+					post._embedded.firstPost[0].isNew = true;
+
+					this.normalizePostData(post);
+
+					this.posts.insertAt(0, post);
+					this.incrementProperty('totalPosts');
+				},
+				error: (err) => {
+					this.onCreatePostError(err);
+				}
+			});
+		},
+
+		/**
+		 * @param {object} data
+		 *
+		 * @returns {object}
+		 */
+		getNormalizedData(data) {
+			const contributors = [],
+				embedded = data._embedded,
+				posts = embedded && embedded['doc:threads'] ? embedded['doc:threads'] : [];
+
+			return {
+				count: data.threadCount,
+				forumId: data.forumId,
+				contributors: DiscussionContributors.create(data._embedded.contributors),
+				pivotId: (posts.length > 0 ? posts[0].id : null),
+				posts: DiscussionPosts.getNormalizedData(posts)
+			}
 		}
 	}
-});
+);
 
 DiscussionForum.reopenClass({
 	/**
@@ -29,7 +103,7 @@ DiscussionForum.reopenClass({
 	 * @returns { Ember.RSVP.Promise}
 	 */
 	find(wikiId, forumId, sortBy = 'trending') {
-		const forumInstance = DiscussionForumModel.create({
+		const forumInstance = DiscussionForum.create({
 				wikiId,
 				forumId
 			}),
@@ -46,32 +120,9 @@ DiscussionForum.reopenClass({
 			data: requestData,
 			url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
 			success: (data) => {
-				const contributors = [],
-					embedded = data._embedded,
-					posts = embedded && embedded['doc:threads'] ? embedded['doc:threads'] : [],
-					pivotId = (posts.length > 0 ? posts[0].id : null),
-					totalPosts = data.threadCount;
-
-				posts.forEach((post) => {
-					if (post.hasOwnProperty('createdBy')) {
-						post.createdBy.profileUrl = M.buildUrl({
-							namespace: 'User',
-							title: post.createdBy.name
-						});
-
-						contributors.push(post.createdBy);
-					}
-
-					forumInstance.normalizePostData(post);
-				});
-
-				forumInstance.setProperties({
-					contributors,
-					name: data.name,
-					pivotId,
-					posts,
-					totalPosts
-				});
+				forumInstance.setProperties(
+					forumInstance.getNormalizedData(data)
+				);
 			},
 			error: (err) => {
 				forumInstance.setErrorProperty(err);

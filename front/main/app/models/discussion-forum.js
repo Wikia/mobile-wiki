@@ -106,7 +106,7 @@ DiscussionForumModel.reopenClass({
 					posts = embedded && embedded['doc:threads'] ? embedded['doc:threads'] : [],
 					pivotId = (posts.length > 0 ? posts[0].id : null),
 					totalPosts = data.threadCount;
-				debugger;
+
 				DiscussionContributors.create(data._embedded.contributors);
 				posts.forEach((post) => {
 					if (post.hasOwnProperty('createdBy')) {

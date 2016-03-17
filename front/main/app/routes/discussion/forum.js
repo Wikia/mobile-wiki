@@ -1,6 +1,6 @@
 import DiscussionBaseRoute from './base';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
-import DiscussionForumModel from '../../models/discussion-forum';
+import DiscussionForum from '../../models/discussion/forum';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
@@ -34,7 +34,7 @@ export default DiscussionBaseRoute.extend(
 
 			this.set('forumId', params.forumId);
 
-			return DiscussionForumModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
+			return DiscussionForum.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
 		},
 
 		/**
