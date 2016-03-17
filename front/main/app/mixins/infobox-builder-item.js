@@ -9,11 +9,6 @@ export default Ember.Mixin.create(
 			return this.get('model') === this.get('activeItem');
 		}),
 
-		click() {
-			this.trackClick('infobox-builder', `click-element-${this.get('model.type')}`);
-			this.get('setEditItem')(this.get('model'));
-		},
-
 		mouseMove(event) {
 			this.get('onMouseEnter')(event.clientX, event.clientY);
 		},

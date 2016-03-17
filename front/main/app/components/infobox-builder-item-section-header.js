@@ -10,6 +10,12 @@ export default Ember.Component.extend(
 		classNames: ['pi-item', 'pi-header', 'pi-secondary-font', 'pi-item-spacing', 'pi-secondary-background'],
 		classNameBindings: ['collapsible'],
 		collapsible: Ember.computed.readOnly('model.collapsible'),
-		header: Ember.computed.readOnly('model.data')
+		header: Ember.computed.readOnly('model.data'),
+
+		actions: {
+			chevronClick() {
+				console.info('chevron captured');
+			}
+		}
 	}
 );
