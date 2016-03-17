@@ -172,11 +172,11 @@ export function trackPageView(uaDimensions, overrideUrl) {
 		window.trackQuantservePageView();
 		window.trackNielsenPageView();
 		window.trackComscorePageView();
-		window.trackIVW3PageView();
 
 		M.tracker.UniversalAnalytics.trackPageView(uaDimensions, overrideUrl);
 	}
 
+	window.trackIVW3PageView();
 	Ads.getInstance().trackKruxPageView();
 }
 
