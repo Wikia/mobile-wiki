@@ -1,11 +1,11 @@
 import Ember from 'ember';
-import {getAbTestGroup} from 'common/utils/track';
+import {getGroup} from 'common/modules/abtest';
 
 export default Ember.Component.extend({
 	didReceiveAttrs() {
 		this._super(...arguments);
 		const experiment = this.get('experiment'),
-			usersGroup = getAbTestGroup(experiment);
+			usersGroup = getGroup(experiment);
 
 		this.set('group', usersGroup);
 	}

@@ -75,8 +75,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		return {
 			data: {
 				label: i18n.t('main.label-default', {
-					ns: 'infobox-builder',
-					index
+					ns: 'infobox-builder'
 				})
 			},
 			infoboxBuilderData: {
@@ -144,8 +143,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		return {
 			data: i18n.t('main.section-header-default', {
-				ns: 'infobox-builder',
-				index
+				ns: 'infobox-builder'
 			}),
 			collapsible: false,
 			infoboxBuilderData: {
@@ -209,8 +207,12 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		this.set(`infoboxState.${index}.data.label`, value);
 
-		if (!item.sourceFrozen && value.trim().length) {
-			this.set(`infoboxState.${index}.source`, InfoboxBuilderModel.sanitizeCustomRowSource(value));
+		if (!item.sourceFrozen) {
+			const sanitizedSource = InfoboxBuilderModel.sanitizeCustomRowSource(value),
+				// set itemType + index source, when empty value provided
+				sourceValue = sanitizedSource.length ? sanitizedSource : `${item.type}${item.infoboxBuilderData.index}`;
+
+			this.set(`infoboxState.${index}.source`, sourceValue);
 		}
 	},
 
@@ -224,7 +226,9 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	editSectionHeaderItem(item, newValues) {
 		const index = this.get('infoboxState').indexOf(item);
 
-		Object.keys(newValues).forEach((key) => this.set(`infoboxState.${index}.${key}`, newValues[key]));
+		Object.keys(newValues).forEach(
+			(key) => this.set(`infoboxState.${index}.${key}`, newValues[key])
+		);
 	},
 
 	/**
@@ -334,10 +338,15 @@ InfoboxBuilderModel.reopenClass({
 	 * @returns {String}
 	 */
 	sanitizeCustomRowSource(input) {
-		return input
-			.trim()
-			.toLowerCase()
-			.replace(/\s+/g, '_');
+		const notValidChars = /[^a-z0-9_-]+/g,
+			isEmpty = /^[-_]+$/,
+			output = input
+				.trim()
+				.toLowerCase()
+				.replace(/\s+/g, '_')
+				.replace(notValidChars, '');
+
+		return isEmpty.test(output) ? '' : output;
 	},
 
 	/**

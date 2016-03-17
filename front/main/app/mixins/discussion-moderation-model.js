@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {checkPermissions} from 'common/utils/discussionPermissions';
+import {checkPermissions} from 'common/utils/discussion-permissions';
 import ajaxCall from '../utils/ajax-call';
 
 export default Ember.Mixin.create({
@@ -27,7 +27,7 @@ export default Ember.Mixin.create({
 					});
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
@@ -52,7 +52,7 @@ export default Ember.Mixin.create({
 					});
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
@@ -72,7 +72,7 @@ export default Ember.Mixin.create({
 					Ember.set(post, 'isDeleted', false);
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
@@ -95,7 +95,7 @@ export default Ember.Mixin.create({
 					});
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
@@ -115,7 +115,7 @@ export default Ember.Mixin.create({
 					Ember.set(reply, 'isDeleted', false);
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
@@ -137,7 +137,7 @@ export default Ember.Mixin.create({
 					Ember.set(item, 'isReported', false);
 				},
 				error: () => {
-					this.displayError();
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		}
@@ -159,12 +159,51 @@ export default Ember.Mixin.create({
 				Ember.set(item, 'isReported', true);
 			},
 			error: () => {
-				this.displayError();
+				this.setFailedState('editor.post-error-general-error');
 			}
 		});
 	},
 
-	displayError() {
-		alert(i18n.t('editor.post-error-general-error', {ns: 'discussion'}));
-	}
+
+	/**
+	 * Locks a post in the service
+	 * @param {object} post
+	 * @returns {Ember.RSVP.Promise|void}
+	 */
+	lockPost(post) {
+		if (checkPermissions(post, 'canDelete')) {
+			return ajaxCall({
+				method: 'PUT',
+				dataType: 'text',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
+				success: () => {
+					Ember.set(post, 'isLocked', true);
+				},
+				error: () => {
+					this.setFailedState('editor.post-error-general-error');
+				}
+			});
+		}
+	},
+
+	/**
+	 * Unlocks a post in the service
+	 * @param {object} post
+	 * @returns {Ember.RSVP.Promise|void}
+	 */
+	unlockPost(post) {
+		if (checkPermissions(post, 'canDelete')) {
+			return ajaxCall({
+				method: 'DELETE',
+				dataType: 'text',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
+				success: () => {
+					Ember.set(post, 'isLocked', false);
+				},
+				error: () => {
+					this.setFailedState('editor.post-error-general-error');
+				}
+			});
+		}
+	},
 });

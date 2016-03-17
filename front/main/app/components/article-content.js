@@ -15,7 +15,7 @@ import WidgetVKComponent from '../components/widget-vk';
 import WidgetPolldaddyComponent from '../components/widget-polldaddy';
 import WidgetFliteComponent from '../components/widget-flite';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
-import {getExperimentVariationNumber} from 'common/utils/variantTesting';
+import {getExperimentVariationNumber} from 'common/utils/variant-testing';
 import {track, trackActions} from 'common/utils/track';
 
 /**
@@ -578,7 +578,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		handleTables() {
-			this.$('table:not([class*=infobox], .dirbox)')
+			this.$('table:not([class*=infobox], .dirbox, .pi-horizontal-group)')
 				.not('table table')
 				.each((index, element) => {
 					const $element = this.$(element),

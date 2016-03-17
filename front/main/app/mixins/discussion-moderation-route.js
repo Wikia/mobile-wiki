@@ -120,5 +120,33 @@ export default Ember.Mixin.create({
 				Ember.set(item, 'isLoading', false);
 			});
 		},
+
+		/**
+		 * Pass post locking to the model
+		 * @param {object} post
+		 * @returns {void}
+		 */
+		lock(post) {
+			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
+
+			Ember.set(loadingSpinnerContainer, 'isLoading', true);
+			this.modelFor(this.get('routeName')).lockPost(post).then(() => {
+				Ember.set(loadingSpinnerContainer, 'isLoading', false);
+			});
+		},
+
+		/**
+		 * Pass post unlocking to the model
+		 * @param {object} post
+		 * @returns {void}
+		 */
+		unlock(post) {
+			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
+
+			Ember.set(loadingSpinnerContainer, 'isLoading', true);
+			this.modelFor(this.get('routeName')).unlockPost(post).then(() => {
+				Ember.set(loadingSpinnerContainer, 'isLoading', false);
+			});
+		},
 	}
 });

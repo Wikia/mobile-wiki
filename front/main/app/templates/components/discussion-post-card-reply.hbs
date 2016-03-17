@@ -2,11 +2,11 @@
 	{{#if showTopNote}}
 		{{discussion-post-card-top-note
 			approve=(action this.attrs.approve)
+			canShowModButtons=isDetailsView
 			delete=(action this.attrs.delete)
 			isReply=true
 			isReported=isReported
 			post=post
-			showButtons=isDetailsView
 			showRepliedTo=showRepliedTo
 			threadCreatorName=post.threadCreatedBy.name
 		}}
@@ -32,12 +32,13 @@
 
 		{{#pop-over for=(concat 'reply-options-' post.id) on='click' flow='flip'}}
 			{{discussion-more-options
-				delete=(action 'delete')
+				delete=(action this.attrs.delete)
 				deleteMessage=(i18n 'main.delete-reply' ns='discussion')
+				isLockable=false
 				post=post
-				report=(action 'report')
+				report=(action this.attrs.report)
 				reportMessage=(i18n 'main.report-reply' ns='discussion')
-				undelete=(action 'undelete')
+				undelete=(action this.attrs.undelete)
 				undeleteMessage=(i18n 'main.undelete-reply' ns='discussion')
 			}}
 		{{/pop-over}}

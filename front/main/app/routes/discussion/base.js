@@ -18,7 +18,6 @@ export default Ember.Route.extend({
 		didTransition() {
 			this.controllerFor('application').set('noMargins', true);
 
-			M.tracker.UniversalAnalytics.setDimension(19, null);
 			trackPageView();
 
 			return true;

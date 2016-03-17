@@ -246,3 +246,172 @@ test('calls scrollPreviewToBottom with debounce after new item is added', functi
 
 	debounceStub.restore();
 });
+
+test('correctly sets sideBarOptionsComponent name', function (assert) {
+	const component = this.subject(),
+		cases = [
+			{
+				activeItem: {
+					type: 'test'
+				},
+				sideBarOptionsComponentName: `infobox-builder-edit-item-test`,
+				message: 'options for item editing'
+			},
+			{
+				activeItem: null,
+				sideBarOptionsComponentName: 'infobox-builder-add-items',
+				message: 'options for adding items'
+			}
+		];
+
+	cases.forEach((testCase) => {
+		component.set('activeItem', testCase.activeItem);
+		assert.equal(component.get('sideBarOptionsComponent'), testCase.sideBarOptionsComponentName, testCase.message);
+	});
+});
+
+test('onSourceEditorClick handles opening of go to source modal', function (assert) {
+	const component = this.subject(),
+		cases = [
+			{
+				isDirty: true,
+				modalVisible: true,
+				message: 'should open modal'
+			},
+			{
+				isDirty: false,
+				modalVisible: false,
+				message: 'should not open modal'
+			}
+		];
+
+	component.set('trackClick', Ember.K);
+	component.set('handleGoToSource', sinon.spy());
+
+	cases.forEach((testCase) => {
+		component.set('showGoToSourceModal', false);
+		component.set('isDirty', testCase.isDirty);
+
+		component.send('onSourceEditorClick');
+
+		assert.equal(component.get('showGoToSourceModal'), testCase.modalVisible, testCase.message);
+	});
+});
+
+test('onSourceEditorClick triggers go to source action when no unsaved chagnes', function (assert) {
+	const component = this.subject(),
+		handleGoToSource = sinon.spy();
+
+	component.set('isDirty', false);
+	component.set('handleGoToSource', handleGoToSource);
+
+	component.send('onSourceEditorClick');
+
+	assert.equal(handleGoToSource.called, true);
+});
+
+test('goToSourceAction hides go to source modal', function (assert) {
+	const component = this.subject();
+
+	component.set('handleGoToSource', sinon.spy());
+	component.set('trackClick', Ember.K);
+	component.set('showGoToSourceModal', true);
+
+	component.send('goToSource');
+
+	assert.equal(component.get('showGoToSourceModal'), false);
+});
+
+/**
+ * helper function for testing go to source action
+ * @param {Object} assert
+ * @returns {Object}
+ */
+function prepareForHandleSourceEditorClickTest(assert) {
+	const component = this.subject(),
+		done = assert.async(),
+		goToSourceControllerActionStub = sinon.stub(),
+		saveStub = sinon.stub().returns(Ember.RSVP.Promise.resolve());
+
+	return {
+		component,
+		done,
+		goToSourceControllerActionStub,
+		saveStub
+	};
+}
+
+test('saves model and sends goToSourceEditor action to the controller', function (assert) {
+	const {
+		component,
+		done,
+		goToSourceControllerActionStub,
+		saveStub
+	} = prepareForHandleSourceEditorClickTest.call(this, assert);
+
+	component.setProperties({
+		goToSourceEditor: goToSourceControllerActionStub,
+		save: saveStub
+	});
+
+	component.handleGoToSource(true).then(() => {
+		assert.ok(saveStub.calledWith(false), 'model is saved before redirection');
+		assert.ok(
+			goToSourceControllerActionStub.calledOnce,
+			'controller\'s goToSourceEditor action is called after model is saved'
+		);
+
+		done();
+	});
+});
+
+test(
+	'sends goToSourceEditor action to the controller without saving model when user doesn\'t want to save',
+	function (assert) {
+		const {
+			component,
+			done,
+			goToSourceControllerActionStub,
+			saveStub
+		} = prepareForHandleSourceEditorClickTest.call(this, assert);
+
+		component.setProperties({
+			goToSourceEditor: goToSourceControllerActionStub,
+			save: saveStub
+		});
+
+		component.handleGoToSource(false).then(() => {
+			assert.ok(!saveStub.called, 'model is not saved before redirection');
+			assert.ok(
+				goToSourceControllerActionStub.calledOnce,
+				'controller\'s goToSourceEditor action is called after user rejects saving'
+			);
+
+			done();
+		});
+	}
+);
+
+test('sends goToSourceEditor action to the controller without saving model - default action', function (assert) {
+	const {
+		component,
+		done,
+		goToSourceControllerActionStub,
+		saveStub
+		} = prepareForHandleSourceEditorClickTest.call(this, assert);
+
+	component.setProperties({
+		goToSourceEditor: goToSourceControllerActionStub,
+		save: saveStub
+	});
+
+	component.handleGoToSource().then(() => {
+		assert.ok(!saveStub.called, 'model is not saved before redirection');
+		assert.ok(
+			goToSourceControllerActionStub.calledOnce,
+			'controller\'s goToSourceEditor action is called after user rejects saving'
+		);
+
+		done();
+	});
+});

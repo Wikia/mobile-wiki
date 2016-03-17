@@ -1,6 +1,7 @@
 /* eslint no-console: 0 */
 
-import Ads from '../modules/Ads';
+import Ads from '../modules/ads';
+import {getGroup} from '../modules/abtest';
 
 /**
  * @typedef {Object} TrackContext
@@ -147,10 +148,11 @@ export function track(params) {
 }
 
 /**
+ * @param {UniversalAnalyticsDimensions} [uaDimensions]
  * @param {string} [overrideUrl] - if you want to override URL sent to UA
  * @returns {void}
  */
-export function trackPageView(overrideUrl) {
+export function trackPageView(uaDimensions, overrideUrl) {
 	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
@@ -161,25 +163,13 @@ export function trackPageView(overrideUrl) {
 		window.trackQuantservePageView();
 		window.trackNielsenPageView();
 		window.trackComscorePageView();
-		window.trackIVW3PageView();
 
 		M.tracker.Internal.trackPageView(context);
-		M.tracker.UniversalAnalytics.trackPageView(overrideUrl);
+		M.tracker.UniversalAnalytics.trackPageView(uaDimensions, overrideUrl);
 	}
 
+	window.trackIVW3PageView();
 	Ads.getInstance().trackKruxPageView();
-}
-
-/**
- * @param {string} experimentName
- * @returns {*}
- */
-export function getAbTestGroup(experimentName) {
-	const AbTest = window.Wikia && window.Wikia.AbTest;
-
-	if (AbTest && typeof AbTest.getGroup === 'function') {
-		return Wikia.AbTest.getGroup(experimentName);
-	}
 }
 
 /**
@@ -192,7 +182,7 @@ export function getAbTestGroup(experimentName) {
  * @returns {void}
  */
 export function trackExperiment(experiment, params) {
-	const group = getAbTestGroup(experiment) || 'CONTROL';
+	const group = getGroup(experiment) || 'CONTROL';
 
 	params.label = [experiment, group, params.label].join('=');
 	track(params);
