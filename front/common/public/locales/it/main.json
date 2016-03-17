@@ -151,11 +151,11 @@
     "explore-wiki":"Esplora __wikiName__",
     "sign-in-or-register-label":"Accedi \/ Registrati",
     "my-profile-label":"Il mio profilo",
-    "category-page-load-more":"Load more",
-    "category-page-load-previous":"Load previous",
-    "category-page-no-members":"This category currently contains no pages.",
-    "category-page-subtitle":"Category Page",
-    "wiki-page-error":"Non è possibile caricare l'articolo al momento. Riprova.",
+    "category-page-load-more":"Carica altro",
+    "category-page-load-previous":"Carica precedente",
+    "category-page-no-members":"Al momento questa categoria non contiene pagine.",
+    "category-page-subtitle":"Pagina della categoria",
+    "wiki-page-error":"Spiacente, non è stato possibile caricare la pagina. Si prega di riprovare.",
     "wiki-page-error-reload-button":"Aggiorna"
   },
   "userStatus":{

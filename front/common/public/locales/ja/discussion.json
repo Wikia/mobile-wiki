@@ -1,6 +1,6 @@
 {
   "landing-page":{
-    "to-the-wiki-title":"ウィキアへ",
+    "to-the-wiki-title":"コミュニティへ",
     "page-main-header":"熱烈なファン同士、__applicationName__のトークで盛り上がろう。",
     "download-the-app-header":"アプリをダウンロードしてトークに参加しよう！",
     "google-play-button-alt":"Google Playで取得",
@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"ソーシャル・ネットワークでお気に入りのスレッドを共有して、もっと多くのファンを呼び込んでみましょう。"
   },
   "main":{
+    "discussions-header-title":"トーク",
     "pagination-post-show-more":"古い返信を表示",
     "share-default-title":"__siteName__についてのトーク",
     "contributors-title":"すべての投稿者",
@@ -20,7 +21,7 @@
     "sort-by-latest":"最新",
     "sort-by-trending":"人気",
     "loading-more-posts":"他の投稿を読み込んでいます",
-    "back-to-wikia-link":"ウィキアに戻る",
+    "back-to-wikia-link":"コミュニティへ",
     "number-of-posts":"投稿__numberOfPosts__件",
     "connection-error":"接続できません。もう一度お試しください。",
     "not-found-error":"このページは存在しないようです。",
@@ -65,7 +66,11 @@
     "reported-by-one":"報告者：__userName__さん",
     "reported-by-one-reply":"返信の報告者：__userName__さん",
     "reported-by-many":"報告件数：__number__件",
-    "reported-by-many-reply":"返信の報告件数：__number__件"
+    "reported-by-many-reply":"返信の報告件数：__number__件",
+    "locked-post-text":"この投稿はロックされています。",
+    "lock-post":"投稿をロック",
+    "unlock-post":"投稿のロックを解除",
+    "locked-and-reported-to-moderators-text":"この投稿はロックされており、報告されています。"
   },
   "editor":{
     "post-failed-error":"投稿できませんでした。",

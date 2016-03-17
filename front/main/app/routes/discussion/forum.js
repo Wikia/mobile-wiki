@@ -4,12 +4,14 @@ import DiscussionForumModel from '../../models/discussion-forum';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
+import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 
 export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionModerationRouteMixin,
 	DiscussionForumActionsRouteMixin,
+	DiscussionModalDialogMixin,
 	{
 		canModerate: null,
 		discussionSort: Ember.inject.service(),
@@ -60,7 +62,6 @@ export default DiscussionBaseRoute.extend(
 			 *
 			 * @returns {void}
 			 */
-
 			create(postData) {
 				this.setSortBy('latest').promise.then(() => {
 					const model = this.modelFor('discussion.forum');
