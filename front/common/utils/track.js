@@ -203,9 +203,9 @@ export function trackPageView(adsContext) {
 		window.trackQuantservePageView();
 		window.trackNielsenPageView();
 		window.trackComscorePageView();
-		window.trackIVW3PageView();
 	}
 
+	window.trackIVW3PageView();
 	Ads.getInstance().trackKruxPageView();
 }
 
