@@ -258,11 +258,6 @@ export default Ember.Component.extend(
 					});
 				} else {
 					this.set('classInvalid', 'invalid');
-					track({
-						action: trackActions.submit,
-						category: trackingCategory,
-						label: 'empty'
-					});
 				}
 			},
 		},
