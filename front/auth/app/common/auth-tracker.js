@@ -45,7 +45,7 @@ export default class AuthTracker {
 	 * @returns {void}
 	 */
 	trackPageView() {
-		mercuryTrackPageView({
+		M.tracker.UniversalAnalytics.trackPageView({
 			// Skin
 			4: 'mercury',
 			// LoginStatus
@@ -57,6 +57,7 @@ export default class AuthTracker {
 			// newAuthEntryPage
 			10: getQueryParam('redirect')
 		});
+		mercuryTrackPageView();
 	}
 
 	/**
