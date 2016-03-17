@@ -18,7 +18,7 @@ if (typeof window.M.tracker === 'undefined') {
  */
 
 /**
- * @typedef {Map<UniversalAnalyticsDimension*>} UniversalAnalyticsDimensions
+ * @typedef {Object<UniversalAnalyticsDimension>} UniversalAnalyticsDimensions
  */
 
 /**
@@ -199,8 +199,10 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @returns {void}
 	 */
 	function setDimension(dimension, value) {
-		dimensions[dimension] = String(value);
-		dimensionsSynced = false;
+		if (typeof value !== 'undefined') {
+			dimensions[dimension] = String(value);
+			dimensionsSynced = false;
+		}
 	}
 
 	/**
