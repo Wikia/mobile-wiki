@@ -69,7 +69,10 @@ export default BottomBanner.extend(
 
 			this.resetBanner();
 
-			if (Mercury.wiki.language.content === 'en' && !Ember.$.cookie(cookieName) && this.get('variationId')) {
+			if (Ember.get(Mercury, 'wiki.language.content') === 'en' &&
+				!Ember.$.cookie(cookieName) &&
+				this.get('variationId')
+			) {
 				Ember.run.scheduleOnce('afterRender', this, () => {
 					const pageHeight = document.getElementsByClassName('wiki-container')[0].offsetHeight;
 
