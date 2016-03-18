@@ -8,10 +8,11 @@ export default Ember.Mixin.create(
 		/**
 		 * We should never change properties on components during
 		 * didRender because it causes significant performance degradation.
+		 * @returns {void}
 		 */
 		didRender() {
 			this._super(...arguments);
-			Ember.run.scheduleOnce('afterRender', this, () => this.focusFirstInput());
+			Ember.run.scheduleOnce('afterRender', this, 'focusFirstInput');
 		},
 
 		/**
@@ -19,7 +20,7 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		focusFirstInput() {
-			let input = this.$('input')[0];
+			const input = this.$('input')[0];
 
 			if (input) {
 				input.focus();
