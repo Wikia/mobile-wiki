@@ -232,6 +232,7 @@ $group-header-font-size: 16px;
 		}
 
 		.pi-data-value {
+			overflow: auto;
 			padding-left: 0;
 
 			&:not(:first-child) {
