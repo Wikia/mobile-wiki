@@ -10,6 +10,7 @@
  *      class='additional-custom-class'
  *      onFocusHandler=onFocusHandlerAction
  *      onBlurHandler=onBlurHandlerAction
+ *      placeholder='placeholder text'
  * }}
  */
 import Ember from 'ember';

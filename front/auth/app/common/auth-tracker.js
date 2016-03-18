@@ -45,7 +45,7 @@ export default class AuthTracker {
 	 * @returns {void}
 	 */
 	trackPageView() {
-		mercuryTrackPageView(null);
+		mercuryTrackPageView();
 	}
 
 	/**

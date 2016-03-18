@@ -1,0 +1,9 @@
+{{#unless queryParams.noexternals}}
+	<script>
+		// Create initial ga() function and set initial execution time
+		// This code is based on code from Google that shows one how to include UA Tracking.
+		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	</script>
+{{else}}
+	<script>$script.done('ua');</script>
+{{/unless}}
