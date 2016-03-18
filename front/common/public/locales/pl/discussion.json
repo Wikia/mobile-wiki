@@ -12,6 +12,7 @@
     "share-your-knowledge-text":"Podziel się swoimi ulubionym dyskusjami na sieciach społecznościowych, aby przyciągnąć więcej fanów do dyskusji."
   },
   "main":{
+    "discussions-header-title":"Dyskusje",
     "pagination-post-show-more":"Zobacz wcześniejsze odpowiedzi",
     "share-default-title":"Dyskusja na __siteName__",
     "contributors-title":"Wszyscy użytkownicy",
@@ -65,7 +66,11 @@
     "reported-by-one":"Zgłoszono przez __userName__",
     "reported-by-one-reply":"Odpowiedź zgłoszona przez __userName__",
     "reported-by-many":"Zgłoszono przez __number__ użytkowników",
-    "reported-by-many-reply":"Odpowiedź zgłoszona przez __number__ użytkowników"
+    "reported-by-many-reply":"Odpowiedź zgłoszona przez __number__ użytkowników",
+    "locked-post-text":"Ten post jest zablokowany.",
+    "lock-post":"Zablokuj post",
+    "unlock-post":"Odblokuj post",
+    "locked-and-reported-to-moderators-text":"Ten post jest zablokowany i został zgłoszony."
   },
   "editor":{
     "post-failed-error":"Publikacja nie powiodła się.",

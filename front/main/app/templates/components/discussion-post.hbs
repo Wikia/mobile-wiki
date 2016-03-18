@@ -41,12 +41,14 @@
 						author=model.firstPost.createdBy
 						delete=(action this.attrs.deletePost)
 						isDetailsView=true
+						lock=(action this.attrs.lockPost)
 						post=model.firstPost
 						postId=model.id
 						replyCount=model.postCount
 						report=(action this.attrs.report)
 						timestamp=model.firstPost.creationDate.epochSecond
 						undelete=(action this.attrs.undeletePost)
+						unlock=(action this.attrs.unlockPost)
 						upvoteCount=model.upvoteCount
 						upvote=(action this.attrs.upvote)
 					}}
@@ -83,17 +85,19 @@
 								upvoteCount=item.upvoteCount
 							}}
 						{{else}}
-							<div class="discussion-no-replies">
-								{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
-								{{i18n 'main.no-replies-be-the-first' ns='discussion'}}
-							</div>
+							{{#if canReply}}
+								<div class="discussion-no-replies">
+									{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
+									{{i18n 'main.no-replies-be-the-first' ns='discussion'}}
+								</div>
+							{{/if}}
 						{{/each}}
-						{{#unless model.firstPost.isDeleted}}
+						{{#if canReply}}
 							{{discussion-reply-editor
 								create=(action this.attrs.create)
 								replies=model.replies
 							}}
-						{{/unless}}
+						{{/if}}
 					</div>
 				</div>
 		{{/if}}

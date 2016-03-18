@@ -3,8 +3,7 @@ import {test, moduleForComponent} from 'ember-qunit';
 import sinon from 'sinon';
 
 const setTrackContext = require('common/utils/track').setTrackContext,
-	trackPageView = require('common/utils/track').trackPageView,
-	updateTrackedUrl = require('common/utils/track').updateTrackedUrl;
+	trackPageView = require('common/utils/track').trackPageView;
 
 moduleForComponent('main-page', 'Unit | Component | main page', {
 	unit: true,
@@ -12,11 +11,9 @@ moduleForComponent('main-page', 'Unit | Component | main page', {
 	beforeEach() {
 		require('common/utils/track').setTrackContext = Ember.K;
 		require('common/utils/track').trackPageView = Ember.K;
-		require('common/utils/track').updateTrackedUrl = Ember.K;
 	},
 
 	afterEach() {
-		require('common/utils/track').updateTrackedUrl = updateTrackedUrl;
 		require('common/utils/track').trackPageView = trackPageView;
 		require('common/utils/track').setTrackContext = setTrackContext;
 	}
