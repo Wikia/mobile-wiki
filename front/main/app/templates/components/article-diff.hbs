@@ -26,6 +26,7 @@
 	<div class="{{diff.classes}}">{{diff.content}}</div>
 {{/each}}
 
-{{#if showUndoButton}}
+{{#if showButtons}}
+	<button {{action attrs.upvote}} class="{{classUpvote}}">{{i18n 'main.upvote-label' ns='recent-wiki-activity'}}</button>
 	<button {{action attrs.showConfirmation}} class="diff-page__undo">{{i18n 'main.undo-label' ns='recent-wiki-activity'}}</button>
 {{/if}}
