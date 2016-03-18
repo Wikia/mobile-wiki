@@ -14,7 +14,8 @@
     "undo-error":"Desculpe, parece que algo deu errado durante a tentativa de desfazer a edição. Por favor, tente novamente.",
     "undo-failure":"Não foi possível desfazer a edição devido às edições intermediárias conflitantes.",
     "undo-label":"Desfazer",
-    "undo-success":"Edição de __pageTitle__desfeita com sucesso!"
+    "undo-success":"Edição de __pageTitle__desfeita com sucesso!",
+    "upvotes": "votos"
   },
   "diff":{
     "after":"Depois",

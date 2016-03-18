@@ -15,6 +15,7 @@
     "undo-failure":"Edycja nie może być anulowana ze względu na niezgodność edycji pośrednich.",
     "undo-label":"Anuluj edycję",
     "undo-success":"Pomyślnie anulowano edycję na stronie __pageTitle__!"
+    "upvotes": "głosy"
   },
   "diff":{
     "after":"Po",

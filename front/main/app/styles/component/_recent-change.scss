@@ -50,6 +50,28 @@
 	text-transform: uppercase;
 }
 
+.recent-change__upvotes {
+	color: $aluminum;
+	font-size: $type-min;
+	line-height: 1;
+	margin-top: 10px;
+
+	.icon {
+		border: none;
+		height: 18px;
+		margin-right: 6px;
+		width: 18px;
+	}
+
+	&.user-upvoted .icon {
+		fill: $upvote-icon-activated-color;
+	}
+
+	span {
+		vertical-align: middle;
+	}
+}
+
 .recent-change__see-diff {
 	height: 48px;
 	line-height: 48px;

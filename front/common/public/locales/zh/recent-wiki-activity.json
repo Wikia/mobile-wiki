@@ -14,7 +14,8 @@
     "undo-error":"很抱歉，撤銷編輯時出錯。 請再試一次。",
     "undo-failure":"由於編輯已經被新內容覆蓋，不能撤銷此次編輯。",
     "undo-label":"撤銷",
-    "undo-success":"成功地撤銷了對頁面__pageTitle__的編輯!"
+    "undo-success":"成功地撤銷了對頁面__pageTitle__的編輯!",
+    "upvotes": "個讚"
   },
   "diff":{
     "after":"之後",

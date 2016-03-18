@@ -14,7 +14,8 @@
     "undo-error":"Lo sentimos, parece que algo salió mal al intentar deshacer la edición. Por favor, inténtalo de nuevo.",
     "undo-failure":"La edición no puede ser deshecha debido a un conflicto de ediciones intermedias.",
     "undo-label":"Deshacer",
-    "undo-success":"¡Se ha deshecho satisfactoriamente la edición a la página __pageTitle__!"
+    "undo-success":"¡Se ha deshecho satisfactoriamente la edición a la página __pageTitle__!",
+    "upvotes": "votos"
   },
   "diff":{
     "after":"Después",
