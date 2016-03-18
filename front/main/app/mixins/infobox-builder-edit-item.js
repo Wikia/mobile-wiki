@@ -6,7 +6,27 @@ export default Ember.Mixin.create(
 	TrackClickMixin,
 	{
 		/**
-		 * @desc tracks events on different edit options
+		 * We should never change properties on components during
+		 * didRender because it causes significant performance degradation.
+		 */
+		didRender() {
+			this._super(...arguments);
+			Ember.run.scheduleOnce('afterRender', this, () => this.focusFirstInput());
+		},
+
+		/**
+		 * Focuses first input element of the component
+		 * @returns {void}
+		 */
+		focusFirstInput() {
+			let input = this.$('input')[0];
+
+			if (input) {
+				input.focus();
+			}
+		},
+		/**
+		 * Tracks events on different edit options
 		 * @param {String} action - tracking action
 		 * @param {String} option - clicked element name
 		 * @returns {void}
