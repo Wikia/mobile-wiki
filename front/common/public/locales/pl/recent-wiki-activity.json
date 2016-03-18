@@ -14,7 +14,7 @@
     "undo-error":"Wygląda na to, że coś poszło nie tak podczas anulowania edycji. Spróbuj ponownie.",
     "undo-failure":"Edycja nie może być anulowana ze względu na niezgodność edycji pośrednich.",
     "undo-label":"Anuluj edycję",
-    "undo-success":"Pomyślnie anulowano edycję na stronie __pageTitle__!"
+    "undo-success":"Pomyślnie anulowano edycję na stronie __pageTitle__!",
     "upvotes": "głosy"
   },
   "diff":{
