@@ -71,6 +71,13 @@
 			M.prop('urlTitleParam', '');
 			M.prop('pageTitle', window.location.pathname);
 			M.prop('mediaWikiNamespace', '-1');
+			M.provide('wiki', {
+				id: 80433,
+				dbName: 'wikiaglobal',
+				language: {
+					user: 'en',
+				},
+			});
 
 			require('auth/app/main').init();
 		</script>
