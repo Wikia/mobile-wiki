@@ -76,7 +76,6 @@ export default Ember.Component.extend(
 		didReceiveAttrs() {
 			this._super(...arguments);
 			this.set('variationId', getGroup(experimentId));
-
 			this.resetBanner();
 
 			if (Ember.get(Mercury, 'wiki.language.content') === 'en' &&
@@ -92,6 +91,7 @@ export default Ember.Component.extend(
 			}
 		},
 		willDestroyElement() {
+			this._super(...arguments);
 			Ember.$(window).off('scroll.feedbackForm scroll.absoluteFeedbackForm');
 		},
 		adjustAbsoluteFeedbackForm() {
@@ -136,6 +136,8 @@ export default Ember.Component.extend(
 		},
 		resetBanner() {
 			this.setProperties({
+				absolute: false,
+				adjustingHeight: 0,
 				dismissed: false,
 				displayQuestion: true,
 				displayInput: false,
@@ -145,6 +147,7 @@ export default Ember.Component.extend(
 				loaded: false
 			});
 
+			Ember.$('.feedback-form').css('top', 'auto');
 			Ember.$(window).off('scroll.feedbackForm scroll.absoluteFeedbackForm');
 		},
 		dismissBanner(timeout) {
