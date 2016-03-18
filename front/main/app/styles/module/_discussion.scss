@@ -70,7 +70,9 @@ body.discussions {
 		width: 16px;
 	}
 
-	&.report {
+	&.report,
+	&.lock,
+	&.unlock {
 		height: 18px;
 		width: 18px;
 	}
@@ -89,12 +91,22 @@ body.discussions {
 	&.reported-delete {
 		margin-right: $post-card-right-icon-margin;
 	}
+
+	&.locked {
+		height: 16px;
+		margin-right: 6px;
+		width: 16px;
+	}
 }
 
 .discussion {
 	font-size: $type-smallest;
 	line-height: $line-height-smallest;
 	max-width: inherit;
+
+	.top-note-icon {
+		fill: $discussion-post-card-top-note-color;
+	}
 
 	.top-note {
 		border-bottom: 1px solid $discussion-post-card-top-note-border;
@@ -105,7 +117,9 @@ body.discussions {
 		overflow: hidden;
 
 		.text-content {
+			align-items: center;
 			color: $discussion-post-card-top-note-color;
+			display: flex;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
@@ -397,6 +411,16 @@ body.discussions {
 
 		&.is-new {
 			opacity: 0;
+		}
+
+		&.is-locked {
+			.replies-area {
+				color: $discussion-locked-post-replies-color;
+
+				.replies {
+					fill: $discussion-locked-post-replies-color;
+				}
+			}
 		}
 	}
 

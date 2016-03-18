@@ -10,12 +10,14 @@
 		author=item.createdBy
 		delete=(action this.attrs.deletePost)
 		isReported=item.isReported
+		lock=(action this.attrs.lockPost)
 		post=item.firstPost
 		postId=item.id
 		replyCount=item.postCount
 		report=(action this.attrs.report)
 		undelete=(action this.attrs.undeletePost)
 		upvote=(action this.attrs.upvote)
+		unlock=(action this.attrs.unlockPost)
 	}}
 {{else}}
 	{{discussion-empty-forum-message

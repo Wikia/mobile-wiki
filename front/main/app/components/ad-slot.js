@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Ads from 'common/modules/Ads';
+import Ads from 'common/modules/ads';
 
 const {Component, computed, Logger} = Ember;
 

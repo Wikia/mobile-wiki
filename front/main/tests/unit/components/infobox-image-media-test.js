@@ -1,18 +1,18 @@
 import {test, moduleForComponent} from 'ember-qunit';
 
-const originalThumbnailerGetThumbURL = require('common/modules/Thumbnailer').default.getThumbURL;
+const originalThumbnailerGetThumbURL = require('common/modules/thumbnailer').default.getThumbURL;
 
 moduleForComponent('infobox-image-media', 'Unit | Component | infobox image media', {
 	unit: true,
 
 	beforeEach() {
-		require('common/modules/Thumbnailer').default.getThumbURL = function (url, options) {
+		require('common/modules/thumbnailer').default.getThumbURL = function (url, options) {
 			return `${url}/${options.mode}/${options.width}/${options.height}`;
 		};
 	},
 
 	afterEach() {
-		require('common/modules/Thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
+		require('common/modules/thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
 	}
 });
 

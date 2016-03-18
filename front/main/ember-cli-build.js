@@ -14,6 +14,7 @@ module.exports = function (defaults) {
 		},
 		inlineContent: {
 			baseline: 'vendor/baseline.js',
+			$script: 'bower_components/script.js/dist/script.js',
 			'wikia-logo': '../common/public/symbols/wikia-logo.svg'
 		},
 		sassOptions: {
@@ -73,11 +74,14 @@ module.exports = function (defaults) {
 			// By default vendor is not watched by Ember CLI and we want to rebuild when common scripts are modified
 			vendor: 'vendor'
 		},
-		hinting: false
+		hinting: false,
+		vendorFiles: {
+			// we'll load jQuery on our own
+			'jquery.js': false
+		}
 	});
 
 	// Files below are concatenated to assets/vendor.js
-	app.import(app.bowerDirectory + '/script.js/dist/script.js');
 	app.import(app.bowerDirectory + '/fastclick/lib/fastclick.js');
 	app.import(app.bowerDirectory + '/hammerjs/hammer.js');
 	app.import(app.bowerDirectory + '/headroom.js/dist/headroom.js');
@@ -96,9 +100,13 @@ module.exports = function (defaults) {
 			include: ['*.min.*'],
 			destDir: 'assets/vendor/cropper'
 		}),
+		jQueryAssets = new Funnel(app.bowerDirectory + '/jquery/dist', {
+			include: ['*.min.*'],
+			destDir: 'assets/vendor/jquery'
+		}),
 		pontoAssets = new Funnel(app.bowerDirectory + '/ponto/web/src', {
 			destDir: 'assets/vendor/ponto'
 		});
 
-	return app.toTree([cropperAssets, pontoAssets]);
+	return app.toTree([jQueryAssets, cropperAssets, pontoAssets]);
 };

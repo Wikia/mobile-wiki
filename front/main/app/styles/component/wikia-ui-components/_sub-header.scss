@@ -29,6 +29,8 @@ $title-padding-large: 0 21px;
 }
 
 /*a*/
+// todo: cleanup sub-head--cancel ones all subheders in mercury use sub-header component
+// https://wikia-inc.atlassian.net/browse/DAT-3965
 .sub-head--cancel {
 	align-items: center;
 	background: inherit;
@@ -54,10 +56,18 @@ $title-padding-large: 0 21px;
 		width: $back-arrow-size;
 	}
 
+	.icon-button-icon {
+		fill: $white;
+	}
+
 	&:active,
 	&:visited,
 	&:hover {
 		background: inherit;
+
+		.icon-button-icon {
+			fill: $white;
+		}
 	}
 
 	@media (min-width: lower-bound($large-range)) {
