@@ -37,10 +37,6 @@ export default Ember.Component.extend(
 			this.setCookie('recent-edit-dismissed', 1, expires);
 			this.sendTracking(label);
 			this.set('dismissed', true);
-
-			if (this.get('timeoutId')) {
-				Ember.run.cancel(this.get('timeoutId'));
-			}
 		},
 
 		actions: {
