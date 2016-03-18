@@ -162,6 +162,8 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		.getFull()
 		/**
 		 * If both requests for Wiki Variables and for Page Details success
+		 * @param {MediaWikiPageData} data
+		 * @returns {void}
 		 */
 		.then((data) => {
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
@@ -169,6 +171,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		})
 		/**
 		 * If request for Wiki Variables fails
+		 * @returns {void}
 		 */
 		.catch(MediaWiki.WikiVariablesRequestError, () => {
 			Logger.error('WikiVariables error: Request failed');
@@ -176,6 +179,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		})
 		/**
 		 * If request for Wiki Variables success, but wiki does not exist
+		 * @returns {void}
 		 */
 		.catch(MediaWiki.WikiVariablesNotValidWikiError, () => {
 			Logger.error('WikiVariables error: Not valid wiki');
@@ -183,6 +187,8 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		})
 		/**
 		 * If request for Wiki Variables success, but request for Page Details fails
+		 * @param {*} error
+		 * @returns {void}
 		 */
 		.catch(PageRequestError, (error) => {
 			const data = error.data,
@@ -206,6 +212,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		})
 		/**
 		 * Other errors
+		 * @returns {void}
 		 */
 		.catch((error) => {
 			Logger.fatal(error, 'Unhandled error, code issue');

@@ -455,9 +455,6 @@ export class PageRequest extends BaseRequest {
 	}
 }
 
-/**
- * @class WikiVariablesRequestError
- */
 export class WikiVariablesRequestError {
 	/**
 	 * @param {MWException} error
@@ -469,9 +466,6 @@ export class WikiVariablesRequestError {
 	}
 }
 
-/**
- * @class WikiVariablesNotValidWikiError
- */
 export class WikiVariablesNotValidWikiError {
 	/**
 	 * @param {MWException} error
