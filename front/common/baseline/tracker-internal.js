@@ -100,7 +100,6 @@ if (typeof window.M.tracker === 'undefined') {
 
 	// API
 	M.tracker.Internal = {
-		initialize,
 		track,
 		trackPageView,
 		// those are needed for unit test
