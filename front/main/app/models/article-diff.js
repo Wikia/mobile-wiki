@@ -18,7 +18,7 @@ const ArticleDiffModel = Ember.Object.extend({
 	/**
 	 * Sends request to MW API to undo newId revision of title
 	 * @param {*} summary Description of reason for undo to be stored as edit summary
-	 * COUTION: if summary is {string} it will be used as a summary on MediaWiki side
+	 * CAUTION: if summary is {string} it will be used as a summary on MediaWiki side
 	 *          if summary is empty {Array} MediaWiki will provide default summary
 	 * @returns {Ember.RSVP.Promise}
 	 */
@@ -55,6 +55,37 @@ const ArticleDiffModel = Ember.Object.extend({
 						error: reject
 					});
 				}, (err) => reject(err));
+		});
+	},
+
+	/**
+	 * Sends request to MW API to upvote newId revision of title
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	upvote() {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			getEditToken(this.title)
+			.then((token) => {
+				Ember.$.ajax({
+					url: M.buildUrl({
+						path: '/wikia.php?controller=RevisionUpvotesApiController&method=addUpvote',
+					}),
+					data: {
+						revisionId: this.newId,
+						token
+					},
+					dataType: 'json',
+					method: 'POST',
+					success: (resp) => {
+						if (resp && resp.success) {
+							resolve();
+						} else {
+							reject();
+						}
+					},
+					error: (err) => reject(err)
+				});
+			});
 		});
 	}
 });

@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import {track, trackActions} from 'common/utils/track';
-import getEditToken from '../utils/edit-token';
+
+const trackCategory = 'recent-wiki-activity';
 
 export default Ember.Controller.extend(
 	TrackClickMixin,
@@ -11,13 +12,16 @@ export default Ember.Controller.extend(
 		currRecentChangeId: null,
 
 		/**
+		 * Redirects back to Recent Wiki Activity list and adds success message
+		 * @param {string} messageKey message key with prefix (taken from recent-wiki-activity namespace)
+		 * @param {string} label
 		 * @returns {void}
 		 */
-		handleUndoSuccess() {
+		handleSuccess(messageKey, label) {
 			this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}})
 				.then(() => {
 					this.get('application').addAlert({
-						message: i18n.t('main.undo-success', {
+						message: i18n.t(messageKey, {
 							pageTitle: this.get('model.title'),
 							ns: 'recent-wiki-activity'
 						}),
@@ -25,33 +29,28 @@ export default Ember.Controller.extend(
 					});
 				});
 
-			track({
-				action: trackActions.impression,
-				category: 'recent-wiki-activity',
-				label: 'undo-success'
-			});
+			this.trackImpression(label);
 		},
 
-		/**
-		 * @returns {void}
-		 */
-		handleUpvoteSuccess() {
-			this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}})
-				.then(() => {
-					this.get('application').addAlert({
-						message: i18n.t('main.upvote-success', {
-							pageTitle: this.get('model.title'),
-							ns: 'recent-wiki-activity'
-						}),
-						type: 'success'
-					});
-				});
+		handleUndoSuccess() {
+			this.handleSuccess('main.undo-success', 'undo-success');
+		},
 
-			track({
-				action: trackActions.impression,
-				category: 'recent-wiki-activity',
-				label: 'upvote-success'
+		handleUpvoteSuccess() {
+			this.handleSuccess('main.upvote-success', 'upvote-success');
+		},
+
+		handleError(messageKey, label) {
+			const application = this.get('application');
+
+			application.addAlert({
+				message: i18n.t(messageKey, {ns: 'recent-wiki-activity'}),
+				type: 'alert'
 			});
+
+			application.set('isLoading', false);
+
+			this.trackImpression(label);
 		},
 
 		/**
@@ -59,20 +58,25 @@ export default Ember.Controller.extend(
 		 * @returns {void}
 		 */
 		handleUndoError(error) {
-			const application = this.get('application'),
-				errorMsg = error === 'undofailure' ? 'main.undo-failure' : 'main.undo-error';
+			const errorMsg = error === 'undofailure' ? 'main.undo-failure' : 'main.undo-error';
 
-			application.addAlert({
-				message: i18n.t(errorMsg, {ns: 'recent-wiki-activity'}),
-				type: 'alert'
-			});
+			this.handleError(errorMsg, 'undo-error');
+		},
 
-			application.set('isLoading', false);
+		handleUpvoteError() {
+			this.handleError('main.upvote-error', 'upvote-error');
+		},
 
+		/**
+		 * Sends impression tracking for recent-wiki-activity category
+		 * @param {string} label
+		 * @returns {void}
+		 */
+		trackImpression(label) {
 			track({
-				action: trackActions.impression,
-				category: 'recent-wiki-activity',
-				label: 'undo-error'
+				action: trackActions.open,
+				category: trackCategory,
+				label
 			});
 		},
 
@@ -89,7 +93,7 @@ export default Ember.Controller.extend(
 					this.handleUndoError.bind(this)
 				);
 
-				TrackClickMixin.trackClick('recent-wiki-activity', 'undo');
+				this.trackClick(trackCategory, 'undo');
 			},
 
 			/**
@@ -101,7 +105,7 @@ export default Ember.Controller.extend(
 
 				track({
 					action: trackActions.open,
-					category: 'recent-wiki-activity',
+					category: trackCategory,
 					label: 'undo-confirmation-open'
 				});
 			},
@@ -115,7 +119,7 @@ export default Ember.Controller.extend(
 
 				track({
 					action: trackActions.close,
-					category: 'recent-wiki-activity',
+					category: trackCategory,
 					label: 'undo-confirmation-close'
 				});
 			},
@@ -125,31 +129,11 @@ export default Ember.Controller.extend(
 			 * @returns {void}
 			 */
 			upvote() {
-				getEditToken(this.get('model.title'))
-					.then((token) => {
-						Ember.$.ajax({
-							url: M.buildUrl({
-								path: '/wikia.php?controller=RevisionUpvotesApiController&method=addUpvote',
-							}),
-							data: {
-								revisionId: this.get('model.newId'),
-								token
-							},
-							dataType: 'json',
-							method: 'POST',
-							success: (data) => {
-								if (data && data.success) {
-									this.handleUpvoteSuccess();
-								} else {
-									// TODO throw error
-									// reject(data.errors);
-								}
-							},
-							// TODO throw error
-							// error: (err) => reject(err)
-						});
-					});
-				this.trackClick('recent-wiki-activity', 'upvote');
+				this.get('model').upvote().then(
+					this.handleUpvoteSuccess.bind(this),
+					this.handleUpvoteError.bind(this)
+				);
+				this.trackClick(trackCategory, 'upvote');
 			}
 		}
 	}
