@@ -95,8 +95,7 @@ $legend-line-height: $type-smallest;
 }
 
 .diff-page__undo,
-.diff-page__upvote,
-.diff-page__upvote--upvoted {
+.diff-page__vote {
 	background: $color-white;
 	border: solid $color-gray-light;
 	border-width: 5px 0 0;
@@ -113,14 +112,9 @@ $legend-line-height: $type-smallest;
 	z-index: $z-site-head;
 }
 
-.diff-page__upvote,
-.diff-page__upvote--upvoted {
-	right: 0;
+.diff-page__vote {
 	border-left: 1px solid $color-blue-gray;
-}
-
-.diff-page__upvote--upvoted {
-	color: $body-font-color;
+	right: 0;
 }
 
 .confirmation-message {

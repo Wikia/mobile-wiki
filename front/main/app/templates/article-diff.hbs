@@ -1,4 +1,9 @@
-{{article-diff model=model showConfirmation=(action 'showConfirmation') upvote=(action 'upvote')}}
+{{article-diff
+	model=model
+	showConfirmation=(action 'showConfirmation')
+	upvote=(action 'upvote')
+	downvote=(action 'downvote')
+}}
 
 {{#if shouldShowUndoConfirmation}}
 	{{confirmation-modal

@@ -12,24 +12,36 @@ export default Ember.Controller.extend(
 		currRecentChangeId: null,
 
 		/**
-		 * Redirects back to Recent Wiki Activity list and adds success message
+		 * Adds success banner
 		 * @param {string} messageKey message key with prefix (taken from recent-wiki-activity namespace)
-		 * @param {string} label
+		 * @returns {void}
+		 */
+		showSuccess(messageKey) {
+			this.get('application').addAlert({
+				message: i18n.t(messageKey, {
+					pageTitle: this.get('model.title'),
+					ns: 'recent-wiki-activity'
+				}),
+				type: 'success'
+			});
+		},
+
+		/**
+		 * Redirects back to Recent Wiki Activity list and adds success banner
+		 * @param {string} messageKey message key with prefix (taken from recent-wiki-activity namespace)
+		 * @param {string} label Label for tracking
 		 * @returns {void}
 		 */
 		handleSuccess(messageKey, label) {
 			this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}})
-				.then(() => {
-					this.get('application').addAlert({
-						message: i18n.t(messageKey, {
-							pageTitle: this.get('model.title'),
-							ns: 'recent-wiki-activity'
-						}),
-						type: 'success'
-					});
-				});
+				.then(() => this.showSuccess(messageKey));
 
 			this.trackImpression(label);
+		},
+
+		handleDownvoteSuccess() {
+			this.showSuccess('main.downvote-success');
+			this.trackImpression('downvote-success');
 		},
 
 		handleUndoSuccess() {
@@ -40,6 +52,12 @@ export default Ember.Controller.extend(
 			this.handleSuccess('main.upvote-success', 'upvote-success');
 		},
 
+		/**
+		 * Adds error banner
+		 * @param {string} messageKey message key with prefix (taken from recent-wiki-activity namespace)
+		 * @param {string} label Label for tracking
+		 * @returns {void}
+		 */
 		handleError(messageKey, label) {
 			const application = this.get('application');
 
@@ -51,6 +69,10 @@ export default Ember.Controller.extend(
 			application.set('isLoading', false);
 
 			this.trackImpression(label);
+		},
+
+		handleDownvoteError() {
+			this.handleError('main.downvote-error', 'downvote-error');
 		},
 
 		/**
@@ -82,21 +104,6 @@ export default Ember.Controller.extend(
 
 		actions: {
 			/**
-			 * @param {string} summary Description of reason for undo to be stored as edit summary
-			 * @returns {void}
-			 */
-			undo(summary) {
-				this.get('application').set('isLoading', true);
-
-				this.get('model').undo(summary).then(
-					this.handleUndoSuccess.bind(this),
-					this.handleUndoError.bind(this)
-				);
-
-				this.trackClick(trackCategory, 'undo');
-			},
-
-			/**
 			 * Shows confirmation modal
 			 * @returns {void}
 			 */
@@ -122,6 +129,34 @@ export default Ember.Controller.extend(
 					category: trackCategory,
 					label: 'undo-confirmation-close'
 				});
+			},
+
+			/**
+			 * Send info to server that user downvoted a revision
+			 * @param {int} upvoteId ID of upvote record to remove
+			 * @returns {void}
+			 */
+			downvote(upvoteId) {
+				this.get('model').downvote(upvoteId).then(
+					this.handleDownvoteSuccess.bind(this),
+					this.handleDownvoteError.bind(this)
+				);
+				this.trackClick(trackCategory, 'downvote');
+			},
+
+			/**
+			 * @param {string} summary Description of reason for undo to be stored as edit summary
+			 * @returns {void}
+			 */
+			undo(summary) {
+				this.get('application').set('isLoading', true);
+
+				this.get('model').undo(summary).then(
+					this.handleUndoSuccess.bind(this),
+					this.handleUndoError.bind(this)
+				);
+
+				this.trackClick(trackCategory, 'undo');
 			},
 
 			/**

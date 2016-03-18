@@ -27,6 +27,10 @@
 {{/each}}
 
 {{#if showButtons}}
-	<button {{action attrs.upvote}} class="{{classUpvote}}">{{i18n 'main.upvote-label' ns='recent-wiki-activity'}}</button>
+	{{#if upvoted}}
+		<button {{action 'downvote'}} class="diff-page__vote">{{i18n 'main.downvote-label' ns='recent-wiki-activity'}}</button>
+	{{else}}
+		<button {{action attrs.upvote}} class="diff-page__vote">{{i18n 'main.upvote-label' ns='recent-wiki-activity'}}</button>
+	{{/if}}
 	<button {{action attrs.showConfirmation}} class="diff-page__undo">{{i18n 'main.undo-label' ns='recent-wiki-activity'}}</button>
 {{/if}}

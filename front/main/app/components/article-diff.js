@@ -3,6 +3,16 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	classNames: ['diff-page'],
 	currentUser: Ember.inject.service(),
+	currentUserUpvoteId: Ember.computed(function () {
+		const upvotes = this.get('model.upvotes');
+
+		for (const upvote of upvotes) {
+			if (parseInt(upvote.from_user, 10) === this.get('currentUser.userId')) {
+				return parseInt(upvote.id, 10);
+			}
+		}
+		return null;
+	}),
 	userNotBlocked: Ember.computed.not('currentUser.isBlocked'),
 	showButtons: Ember.computed.and('currentUser.isAuthenticated', 'userNotBlocked'),
 	showDiffLink: false,
@@ -16,4 +26,10 @@ export default Ember.Component.extend({
 	classUpvote: Ember.computed('upvoted', function () {
 		return this.get('upvoted') ? 'diff-page__upvote--upvoted' : 'diff-page__upvote';
 	}),
+
+	actions: {
+		downvote() {
+			this.downvote(this.get('currentUserUpvoteId'));
+		}
+	}
 });

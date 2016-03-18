@@ -87,6 +87,38 @@ const ArticleDiffModel = Ember.Object.extend({
 				});
 			});
 		});
+	},
+
+	/**
+	 * Send info to server that user downvoted a revision
+	 * @param {int} upvoteId ID of upvote record to remove
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	downvote(upvoteId) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			getEditToken(this.title)
+				.then((token) => {
+					Ember.$.ajax({
+						url: M.buildUrl({
+							path: '/wikia.php?controller=RevisionUpvotesApiController&method=removeUpvote',
+						}),
+						data: {
+							id: upvoteId,
+							token
+						},
+						dataType: 'json',
+						method: 'POST',
+						success: (resp) => {
+							if (resp && resp.success) {
+								resolve();
+							} else {
+								reject();
+							}
+						},
+						error: (err) => reject(err)
+					});
+				});
+		});
 	}
 });
 
