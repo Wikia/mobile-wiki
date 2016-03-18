@@ -174,7 +174,6 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 * @returns {void}
 		 */
 		.catch(MediaWiki.WikiVariablesRequestError, () => {
-			Logger.error('WikiVariables error: Request failed');
 			showWikiVariablesErrorPage(reply);
 		})
 		/**
@@ -182,7 +181,6 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 * @returns {void}
 		 */
 		.catch(MediaWiki.WikiVariablesNotValidWikiError, () => {
-			Logger.error('WikiVariables error: Not valid wiki');
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
 		/**
