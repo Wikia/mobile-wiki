@@ -26,10 +26,7 @@ if (typeof window.M.tracker === 'undefined') {
  */
 
 (function (M) {
-	const baseUrl = 'https://beacon.wikia-services.com/__track/',
-		head = document.head || document.getElementsByTagName('head')[0];
-
-	let defaults;
+	const baseUrl = 'https://beacon.wikia-services.com/__track/';
 
 	/**
 	 * @returns {InternalTrackingConfig}
@@ -46,13 +43,6 @@ if (typeof window.M.tracker === 'undefined') {
 			beacon: '',
 			cb: Math.floor(Math.random() * 99999)
 		};
-	}
-
-	/**
-	 * @returns {void}
-	 */
-	function initialize() {
-		defaults = getConfig();
 	}
 
 	/**
@@ -86,48 +76,13 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
-	 * @param {boolean} abort
-	 * @param {HTMLScriptElement} script
-	 * @returns {void}
-	 */
-	function scriptLoadedHandler(abort, script) {
-		if (!abort || script.readyState || !(/loaded|complete/).test(script.readyState)) {
-			return;
-		}
-
-		// Handle memory leak in IE
-		script.onload = script.onreadystatechange = null;
-
-		// Remove the script
-		if (head && script.parentNode) {
-			head.removeChild(script);
-		}
-	}
-
-	/**
-	 * @param {string} url
-	 * @param {Element} [script=document.createElement('script')]
-	 * @returns {void}
-	 */
-	function loadTrackingScript(url, script = document.createElement('script')) {
-		script.src = url;
-		script.onload = script.onreadystatechange = (abort) => {
-			scriptLoadedHandler(abort, script);
-		};
-
-		head.insertBefore(script, head.firstChild);
-	}
-
-	/**
 	 * @param {InternalTrackingParams} params
 	 * @returns {void}
 	 */
 	function track(params) {
-		const config = $.extend(params, defaults);
+		const config = $.extend(params, getConfig());
 
-		loadTrackingScript(
-			createRequestURL(config.ga_category, config)
-		);
+		$script(createRequestURL(config.ga_category, config));
 	}
 
 	/**

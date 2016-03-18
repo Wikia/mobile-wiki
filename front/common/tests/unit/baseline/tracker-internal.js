@@ -8,8 +8,6 @@ QUnit.module('M.tracker.Internal (loaded with baseline)', function (hooks) {
 				content: 'en'
 			}
 		});
-
-		M.tracker.Internal.initialize();
 	});
 
 	QUnit.test('createRequestURL - empty params', function (assert) {
