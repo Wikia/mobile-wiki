@@ -43,7 +43,6 @@ export default Ember.Component.extend(
 		pinnedObserver: Ember.observer('pinned', function () {
 			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
 		}),
-
 		didRender() {
 			if (this.get('shouldDisplayNewBadge')) {
 				track({

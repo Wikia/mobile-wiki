@@ -5,6 +5,9 @@ import TrackClickMixin from './track-click';
 export default Ember.Mixin.create({
 	TrackClickMixin,
 	currentUser: Ember.inject.service(),
+	newBadges: {
+		shouldDisplay: false
+	},
 
 	/**
 	 * Checks if our currently promoted feature has been viewed on a given device.
@@ -12,8 +15,12 @@ export default Ember.Mixin.create({
 	 * @returns {boolean}
 	 */
 	shouldDisplayNewBadge: Ember.computed('currentUser', function () {
-		return this.get('currentUser.isAuthenticated') &&
+		const shouldDisplay = this.get('currentUser.isAuthenticated') &&
 			Ember.$.cookie('seenNewBadgeFor') !== 'recent-wiki-activity';
+
+		this.set('newBadges.shouldDisplay', shouldDisplay);
+
+		return shouldDisplay;
 	}),
 
 	/**
@@ -26,6 +33,7 @@ export default Ember.Mixin.create({
 	 */
 	hideNewBadge() {
 		this.trackClick('recent-wiki-activity-blue-dot', 'open-recent-wiki-activity');
+		this.set('newBadges.shouldDisplay', false);
 
 		Ember.$.cookie('seenNewBadgeFor', 'recent-wiki-activity', {
 			domain: getDomain(),

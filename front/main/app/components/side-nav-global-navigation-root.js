@@ -28,7 +28,7 @@ export default Ember.Component.extend(
 
 		actions: {
 			openLocalNavigation() {
-				if (this.get('shouldDisplayNewBadge')) {
+				if (this.get('newBadges.shouldDisplay')) {
 					this.trackClick('recent-wiki-activity-blue-dot', 'open-local-menu');
 				}
 

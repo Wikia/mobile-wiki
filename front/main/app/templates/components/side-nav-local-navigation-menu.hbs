@@ -14,7 +14,9 @@
 		tracking-label='local-nav'
 	}}
 		{{i18n 'main.title' ns='recent-wiki-activity'}}
-		{{svg 'info-filled' class='icon new-badge'}}
+		{{#if newBadges.shouldDisplay}}
+			{{svg 'info-filled' class='icon new-badge'}}
+		{{/if}}
 	{{/link-to}}
 </li>
 
