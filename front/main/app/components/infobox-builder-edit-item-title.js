@@ -20,7 +20,7 @@ export default Ember.Component.extend(
 		}),
 
 		inputId: Ember.computed(function () {
-			this.createInputId('useArticleName');
+			return this.createInputId('useArticleName');
 		})
 	}
 );

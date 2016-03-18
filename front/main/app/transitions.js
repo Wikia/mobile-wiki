@@ -3,20 +3,17 @@
  * @returns {void}
  */
 export default function () {
-	const durationOut = 300,
-		durationIn = 400;
+	const durationOut = 200,
+		durationIn = 350;
 
 	this.transition(
 		this.childOf('#infobox-builder-sidebar-liquid'),
 		this.use('explode', {
 			pickOld: '.infobox-builder-sidebar-area',
-			use: ['toLeft', {duration: durationOut}]
+			use: ['fade', {duration: durationOut}]
 		}, {
 			pickNew: '.infobox-builder-sidebar-area',
-			use: ['toLeft', {duration: durationIn}]
-		}, {
-			// For everything else that didn't match the above.
-			use: ['toLeft', {duration: durationOut}]
+			use: ['toLeft', {duration: durationIn, easing: "easeInSine"}]
 		})
 	);
 }
