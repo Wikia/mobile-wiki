@@ -77,6 +77,25 @@ export function createUrl(wikiDomain, path, params = {}) {
 }
 
 /**
+ * @param {*} payload
+ * @returns {Object}
+ */
+export function sanitizeRejectData(payload, response) {
+	const sanitizedData = (typeof payload === 'object' && payload !== null) ? payload : {
+		payloadString: payload
+	};
+
+	if (typeof sanitizedData.exception !== 'object') {
+		sanitizedData.exception = {};
+	}
+
+	// Make sure that we have exception code as we rely on it later
+	sanitizedData.exception.code = sanitizedData.exception.code || response.statusCode;
+
+	return sanitizedData;
+}
+
+/**
  * Handle request response
  *
  * @param {CallbackParams} params
@@ -101,26 +120,18 @@ function requestCallback(params) {
 	} else if (response.statusCode === 200) {
 		resolve(payload);
 	} else {
-		const rejectData = payload || {};
-
 		// Don't flood logs with 404s
 		if (response.statusCode !== 404) {
 			Logger.error({
 				url,
 				headers: response.headers,
 				statusCode: response.statusCode,
-				details: payload,
+				details: (payload instanceof Buffer) ? payload.toString('utf-8') : payload,
 				host
 			}, 'Bad HTTP response');
 		}
 
-		// Make sure that we have exception code as we rely on it later
-		if (!rejectData.exception || !rejectData.exception.code) {
-			rejectData.exception = rejectData.exception || {};
-			rejectData.exception.code = response.statusCode;
-		}
-
-		reject(rejectData);
+		reject(sanitizeRejectData(payload, response));
 	}
 }
 
