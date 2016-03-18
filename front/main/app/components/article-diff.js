@@ -9,11 +9,11 @@ export default Ember.Component.extend({
 	upvoted: Ember.computed('model.upvotes', 'currentUser.userId', function () {
 		const upvotes = this.get('model.upvotes');
 
-		return upvotes && this.get('model.upvotes').some((upvote) => {
+		return upvotes && upvotes.some((upvote) => {
 			return parseInt(upvote.from_user, 10) === this.get('currentUser.userId');
 		});
 	}),
-	upvotedClassState: Ember.computed('upvoted', function () {
-		return this.get('upvoted') ? '--upvoted' : '';
-	})
+	classUpvote: Ember.computed('upvoted', function () {
+		return this.get('upvoted') ? 'diff-page__upvote--upvoted' : 'diff-page__upvote';
+	}),
 });
