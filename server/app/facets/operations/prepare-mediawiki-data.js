@@ -1,7 +1,8 @@
 import * as Utils from '../../lib/utils';
 import {gaUserIdHash} from '../../lib/hashing';
 import localSettings from '../../../config/localSettings';
-import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './prepare-page-data';
+import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData,
+	getLocalSettings} from './prepare-page-data';
 
 /**
  * Prepares article data to be rendered
@@ -17,7 +18,8 @@ export default function prepareMediaWikiData(request, data) {
 		result = {
 			server: data.server,
 			wikiVariables: data.wikiVariables,
-			canonicalUrl: ''
+			canonicalUrl: '',
+			displayTitle: request.params.title.replace(/_/g, ' '),
 		};
 
 	if (wikiVariables) {
@@ -31,23 +33,22 @@ export default function prepareMediaWikiData(request, data) {
 	if (pageData) {
 		result.htmlTitle = pageData.htmlTitle;
 	} else {
-		result.htmlTitle = request.params.title.replace(/_/g, ' ');
+		result.htmlTitle = result.displayTitle;
 	}
 
 	result.isRtl = isRtl(wikiVariables);
 
-	result.displayTitle = result.htmlTitle;
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
-	result.openGraph = getOpenGraphData('wiki-page', result.displayTitle, result.canonicalUrl);
+	result.openGraph = getOpenGraphData('wiki-page', result.htmlTitle, result.canonicalUrl);
 	// clone object to avoid overriding real localSettings for futurue requests
 	result.localSettings = getLocalSettings();
 
 	result.qualarooScript = getQualarooScriptUrl(request);
+	result.optimizelyScript = getOptimizelyScriptUrl(request);
 	result.userId = getUserId(request);
 	result.gaUserIdHash = gaUserIdHash(result.userId);
-	result.displayTitle = request.params.title.replace(/_/g, ' ');
 
 	if (typeof request.query.buckySampling !== 'undefined') {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;

@@ -7,6 +7,9 @@ $icon-button-size: 30px;
 $icon-wrapper-size: 50px;
 $image-button-width: 130px;
 $image-button-height: 100px;
+$info-icon-position-left: -12px;
+$info-icon-position-top: -10px;
+$info-message-left-padding: 34px;
 $grayout-color: rgba(255, 255, 255, .3);
 $overlay-color: rgba(255, 255, 255, .8);
 $padding: 18px;
@@ -198,10 +201,25 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 
 .infobox-builder-sidebar-info {
 	color: $color-blue-gray-dark;
-	font-size: $type-smallest;
-	line-height: $line-height-smallest;
+	font-size: $type-min;
+	line-height: $line-height-min;
 	margin: 0;
 	padding: 0;
+	position: relative;
+
+	.infobox-builder-sidebar-info-icon {
+		left: $info-icon-position-left;
+		position: absolute;
+		top: $info-icon-position-top;
+
+		&:hover .icon-button-icon {
+			fill: $color-blue-gray;
+		}
+	}
+}
+
+.infobox-builder-sidebar-info-message {
+	padding-left: $info-message-left-padding;
 }
 
 .infobox-builder-buttons {
