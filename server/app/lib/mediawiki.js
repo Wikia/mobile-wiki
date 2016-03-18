@@ -176,13 +176,6 @@ export function fetch(url, host = '', redirects = 1, headers = {}) {
 			json: true,
 			beforeRedirect
 		}, (err, response, payload) => {
-			//console.log(">>>>>>>>>>>>>>>>>>>>>>>",
-			//	err,
-			//	payload,
-			//	response,
-			//	url,
-			//	host
-			//,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			return requestCallback({
 				resolve,
 				reject,
@@ -309,7 +302,6 @@ export class WikiRequest extends BaseRequest {
 	 * @returns {Promise<any>}
 	 */
 	wikiVariables() {
-		//console.log(">>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<");
 		const url = createUrl(this.wikiDomain, 'wikia.php', {
 			controller: 'MercuryApi',
 			method: 'getWikiVariables'
@@ -322,7 +314,6 @@ export class WikiRequest extends BaseRequest {
 			 * @returns {Promise}
 			 */
 			.then((wikiVariables) => {
-				//console.log(">>>>>>>>>>>>>>>>>>>>>>>>",wikiVariables,">>>>>>>>>>>>>>>>>>>>>>>>");
 				return Promise.resolve(wikiVariables.data);
 			});
 	}
@@ -482,4 +473,19 @@ export class WikiVariablesRequestError {
 	}
 }
 
+/**
+ * @class WikiVariablesNotValidWikiError
+ */
+export class WikiVariablesNotValidWikiError {
+	/**
+	 * @param {MWException} error
+	 * @returns {void}
+	 */
+	constructor(error) {
+		Error.apply(this, arguments);
+		this.error = error;
+	}
+}
+
 WikiVariablesRequestError.prototype = Object.create(Error.prototype);
+WikiVariablesNotValidWikiError.prototype = Object.create(Error.prototype);

@@ -1,7 +1,7 @@
 import {PageRequestHelper, PageRequestError} from '../lib/mediawiki-page';
-import {WikiVariablesRequestError, namespace as MediaWikiNamespace} from '../lib/mediawiki';
-import setResponseCaching, * as Caching from '../lib/caching';
 import Logger from '../lib/logger';
+import * as MediaWiki from '../lib/mediawiki';
+import * as Caching from '../lib/caching';
 import * as Tracking from '../lib/tracking';
 import * as Utils from '../lib/utils';
 import getStatusCode from './operations/get-status-code';
@@ -81,13 +81,13 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	}
 
 	switch (ns) {
-		case MediaWikiNamespace.MAIN:
+		case MediaWiki.namespace.MAIN:
 			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
 
 			break;
 
-		case MediaWikiNamespace.CATEGORY:
+		case MediaWiki.namespace.CATEGORY:
 			if (pageData.article && pageData.details) {
 				viewName = 'article';
 				result = deepExtend(result, prepareArticleData(request, data));
@@ -119,10 +119,31 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	response.type('text/html; charset=utf-8');
 
 	if (allowCache) {
-		return setResponseCaching(response, cachingTimes);
+		Caching.setResponseCaching(response, cachingTimes);
+	} else {
+		Caching.disableCache(response);
 	}
+}
 
-	return Caching.disableCache(response);
+/**
+ * Redirects to error page without Ember
+ *
+ * @param {Hapi.Response} reply
+ * @returns {void}
+ */
+function showWikiVariablesErrorPage(reply) {
+	const statusCode = 200,
+		data = {},
+		viewName = 'wiki-variables-error',
+		options = {
+			layout: 'error'
+		},
+		response = reply.view(viewName, data, options);
+
+	response.code(statusCode);
+	response.type('text/html; charset=utf-8');
+
+	Caching.disableCache(response);
 }
 
 /**
@@ -138,24 +159,28 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 	mediaWikiPageHelper
 		.getFull()
 		/**
-		 * @param {MediaWikiPageData} data
-		 * @returns {void}
+		 * If both requests for Wiki Variables and for Page Details success
 		 */
 		.then((data) => {
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 			handleResponse(request, reply, data, allowCache);
 		})
 		/**
-		 * @param {MWException} error
-		 * @returns {void}
+		 * If request for Wiki Variables fails
 		 */
-		.catch(WikiVariablesRequestError, (error) => {
-			Logger.error(error, 'WikiVariables error');
+		.catch(MediaWiki.WikiVariablesRequestError, () => {
+			Logger.error('WikiVariables error: Request failed');
+			showWikiVariablesErrorPage(reply);
+		})
+		/**
+		 * If request for Wiki Variables success, but wiki does not exist
+		 */
+		.catch(MediaWiki.WikiVariablesNotValidWikiError, () => {
+			Logger.error('WikiVariables error: Not valid wiki');
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
 		/**
-		 * @param {*} error
-		 * @returns {void}
+		 * If request for Wiki Variables success, but request for Page Details fails
 		 */
 		.catch(PageRequestError, (error) => {
 			const data = error.data,
@@ -178,8 +203,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 			Logger.info('Redirected to canonical host');
 		})
 		/**
-		 * @param {*} error
-		 * @returns {void}
+		 * Other errors
 		 */
 		.catch((error) => {
 			Logger.fatal(error, 'Unhandled error, code issue');
