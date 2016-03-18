@@ -18,6 +18,7 @@
 				{{component element.infoboxBuilderData.component
 					activeItem=activeItem
 					model=element
+					id=element.infoboxBuilderData.id
 					group=group
 					handle=".pi-item"
 					position=index
@@ -38,6 +39,12 @@
 				message=(i18n 'main.reorder-tooltip' ns='infobox-builder')
 			}}
 		{{/if}}
+		{{infobox-builder-edit-options-pop-over
+			visible=isEditPopOverVisible
+			offsetX=15
+			onDeleteItem=(action this.attrs.removeItem)
+			targetItem=activeItem
+		}}
 	</div>
 	<div class="infobox-builder-sidebar">
 		{{infobox-builder-sidebar-header

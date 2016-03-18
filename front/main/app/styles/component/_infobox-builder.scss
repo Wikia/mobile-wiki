@@ -1,6 +1,7 @@
 $back-arrow-icon-size: 16px;
 $border-width: 1px;
 $box-shadow-size: 2px;
+$edit-options-pop-over-arrow-size: 14px;
 $icon-action-size: 24px;
 $icon-button-size: 30px;
 $icon-wrapper-size: 50px;
@@ -50,6 +51,16 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 
 	@media (min-width: lower-bound($large-range)) {
 		padding-top: $wikia-ui-components-sub-head-height-large;
+	}
+
+	.infobox-builder-sidebar-header-icon-delete {
+		.icon-button-icon {
+			fill: $color-blue-gray-dark
+		}
+
+		&:hover .icon-button-icon {
+			fill: $alert-color;
+		}
 	}
 }
 
@@ -113,6 +124,20 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 			}
 		}
 	}
+
+	.infobox-builder-edit-options-pop-over {
+		position: absolute;
+	}
+}
+
+.infobox-builder-edit-options-pop-over {
+	.pop-over-container {
+		padding: 0;
+	}
+
+	.pop-over-pointer {
+		top: calc(50% - #{$edit-options-pop-over-arrow-size / 2});
+	}
 }
 
 .infobox-builder-sidebar {
@@ -160,14 +185,6 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 
 	.infobox-builder-sidebar-header-icon-delete {
 		margin: $source-icon-margins;
-
-		.icon-button-icon {
-			fill: $color-blue-gray-dark
-		}
-
-		&:hover .icon-button-icon {
-			fill: $color-gray-dark;
-		}
 	}
 }
 
