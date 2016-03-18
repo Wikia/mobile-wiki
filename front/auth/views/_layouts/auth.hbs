@@ -69,9 +69,10 @@
 			M.prop('isGASpecialWiki', true);
 			M.prop('initialPageView', true, true);
 			M.prop('urlTitleParam', '');
+
+			require('auth/app/main').init();
+
 			// properties needed for Internal
-			M.prop('displayTitle', window.location.pathname);
-			M.prop('mediaWikiNamespace', '-1');
 			M.provide('wiki', {
 				id: 80433,
 				dbName: 'wikiaglobal',
@@ -79,14 +80,15 @@
 					user: 'en',
 				},
 			});
-
-			require('auth/app/main').init();
+			M.tracker.Internal.trackPageView({
+				a: window.location.pathname,
+				n: '-1'
+			});
 		</script>
 		{{> tracking-quantserve}}
 		{{> tracking-comscore}}
 		{{> tracking-nielsen}}
 		{{> tracking-ua-auth}}
 		{{> tracking-ivw3}}
-		{{> tracking-internal}}
 	</body>
 </html>
