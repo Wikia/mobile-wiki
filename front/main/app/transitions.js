@@ -3,7 +3,7 @@
  * @returns {void}
  */
 export default function () {
-	const durationOut = 80,
+	const durationOut = 300,
 		durationIn = 400;
 
 	this.transition(
