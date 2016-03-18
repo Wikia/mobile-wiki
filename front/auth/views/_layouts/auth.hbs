@@ -69,7 +69,8 @@
 			M.prop('isGASpecialWiki', true);
 			M.prop('initialPageView', true, true);
 			M.prop('urlTitleParam', '');
-			M.prop('pageTitle', window.location.pathname);
+			// properties needed for Internal
+			M.prop('displayTitle', window.location.pathname);
 			M.prop('mediaWikiNamespace', '-1');
 			M.provide('wiki', {
 				id: 80433,
