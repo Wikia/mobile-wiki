@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import DiscussionItem from 'item';
-import DiscussionContributor from 'contributor';
-import DiscussionUserData from 'user-data';
+import DiscussionItem from './item';
+import DiscussionContributor from './contributor';
+import DiscussionUserData from './user-data';
 
 const DiscussionReply = DiscussionItem.extend({
 	/**
@@ -13,12 +13,12 @@ const DiscussionReply = DiscussionItem.extend({
 	 */
 	create(postData) {
 		return this._super({
-			createdBy: DiscussionContributor.getNormalizedData(postData.createdBy),
+			createdBy: DiscussionContributor.create(postData.createdBy),
 			id: postData.id,
 			isDeleted: postData.isDeleted,
 			isLocked: !postData.isEditable,
 			isReported: !postData.isReported,
-			isRequesterBlocked: postData,isRequesterBlocked,
+			isRequesterBlocked: postData.isRequesterBlocked,
 			rawContent: postData.rawContent,
 			threadId: postData.threadId,
 			title: postData.title,

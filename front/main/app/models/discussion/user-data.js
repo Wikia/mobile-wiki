@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import DiscussionUserPermissions from 'user-permissions';
+import DiscussionUserPermissions from './user-permissions';
 
-const DiscussionUserData = Ember.object.extend({
+const DiscussionUserData = Ember.Object.extend({
 	hasReported: null,
 	hasUpvoted: null,
 	permissions: null,

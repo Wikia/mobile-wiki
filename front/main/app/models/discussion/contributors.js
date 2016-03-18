@@ -1,21 +1,17 @@
 import Ember from 'ember';
-import DiscussionContributor from 'contributor';
+import DiscussionContributor from './contributor';
 
-const DiscussionContributors = Ember.object.extend({
+const DiscussionContributors = Ember.Object.extend({
 	count: null,
 	users: [],
 
 	create(data) {
-		this._super();
-		this.set('count', data.count);
-
-		data.userInfo.forEach((contributor) => {
-			this.users.push(
-				DiscussionContributor.getNormalizedData(contributor)
-			);
+		return this._super({
+			count: data.count,
+			users: data.userInfo.map((contributor) => {
+				return DiscussionContributor.create(contributor);
+			})
 		});
-
-		return this;
 	},
 });
 

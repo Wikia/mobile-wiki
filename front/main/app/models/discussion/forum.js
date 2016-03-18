@@ -1,9 +1,10 @@
 import Ember from 'ember';
-import DiscussionBaseModel from './discussion-base';
-import DiscussionModerationModelMixin from '../mixins/discussion-moderation-model';
-import DiscussionForumActionsModelMixin from '../mixins/discussion-forum-actions-model';
-import ajaxCall from '../utils/ajax-call';
-import DiscussionContributors from 'discussion/contributors';
+import DiscussionBaseModel from '../discussion-base';
+import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
+import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
+import ajaxCall from '../../utils/ajax-call';
+import DiscussionContributors from './contributors';
+import DiscussionPosts from './posts';
 
 const DiscussionForum = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
@@ -80,16 +81,15 @@ const DiscussionForum = DiscussionBaseModel.extend(
 		 * @returns {object}
 		 */
 		getNormalizedData(data) {
-			const contributors = [],
-				embedded = data._embedded,
+			const embedded = data._embedded,
 				posts = embedded && embedded['doc:threads'] ? embedded['doc:threads'] : [];
 
 			return {
 				count: data.threadCount,
-				forumId: data.forumId,
-				contributors: DiscussionContributors.create(data._embedded.contributors),
+				forumId: data.id,
+				contributors: DiscussionContributors.create(embedded.contributors[0]),
 				pivotId: (posts.length > 0 ? posts[0].id : null),
-				posts: DiscussionPosts.getNormalizedData(posts)
+				posts: DiscussionPosts.create().getNormalizedDataFromThreadData(posts)
 			}
 		}
 	}
@@ -114,7 +114,6 @@ DiscussionForum.reopenClass({
 		if (sortBy) {
 			requestData.sortKey = forumInstance.getSortKey(sortBy);
 		}
-
 		return ajaxCall({
 			context: forumInstance,
 			data: requestData,
@@ -123,6 +122,8 @@ DiscussionForum.reopenClass({
 				forumInstance.setProperties(
 					forumInstance.getNormalizedData(data)
 				);
+
+				debugger;
 			},
 			error: (err) => {
 				forumInstance.setErrorProperty(err);

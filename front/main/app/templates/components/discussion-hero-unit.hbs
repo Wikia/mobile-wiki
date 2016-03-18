@@ -2,7 +2,7 @@
 	{{#if userName}}
 		{{discussion-post-list-header
 			userName=userName
-			contributors=contributors
+			contributors=contributors.users
 			numberOfPosts=numberOfPosts
 		}}
 	{{else}}
@@ -12,9 +12,9 @@
 		{{/if}}
 		{{#if contributors}}
 			{{discussion-contributors
-				contributors=contributors
+				contributors=contributors.users
 				maxContributorDisplayCount=6
-				totalContributorCount=numberOfPosts
+				totalContributorCount=contributors.count
 			}}
 		{{/if}}
 	{{/if}}

@@ -1,24 +1,23 @@
 import Ember from 'ember';
 
-const DiscussionContributor = Ember.object.extend({
+const DiscussionContributor = Ember.Object.extend({
 	avatarUrl: null,
 	id: null,
 	name: null,
+	profileUrl: null,
 
 	/**
 	 * @param {object} data
 	 *
-	 * @returns {DiscussionContributor}
+	 * @returns {object}
 	 */
-	getNormalizedData(data) {
-		this.setProperties({
+	create(data) {
+		this._super({
 			avatarUrl: data.avatarUrl,
 			id: data.id,
 			name: data.name,
 			profileUrl: this.getProfileUrl(data.name)
 		});
-
-		return this;
 	},
 
 	/**

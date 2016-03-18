@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const DiscussionUserList = Ember.object.extend({
+const DiscussionUserList = Ember.Object.extend({
 	contributors: null,
 	count: null,
 	forumId: null,

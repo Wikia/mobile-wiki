@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const DiscussionUserPermissions = Ember.object.extend({
+const DiscussionUserPermissions = Ember.Object.extend({
 	canDelete: false,
 	canLock: false,
 	canModerate: false,

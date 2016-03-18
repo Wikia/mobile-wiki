@@ -1,8 +1,8 @@
 import Ember from 'ember';
-import DiscussionPost from 'post';
-import DiscussionReplies from 'replies';
+import DiscussionPost from './post';
+import DiscussionReplies from './replies';
 
-const DiscussionThread = Ember.object.extend({
+const DiscussionThread = Ember.Object.extend({
 	count: null,
 	forumId: null,
 	contributors: null,
