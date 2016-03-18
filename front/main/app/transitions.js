@@ -3,17 +3,19 @@
  * @returns {void}
  */
 export default function () {
-	const durationOut = 200,
+	const infoboxBuilderSidebarId = '#infobox-builder-sidebar-liquid',
+		infoboxBuilderSidebarAreaClass = '.infobox-builder-sidebar-area',
+		durationOut = 200,
 		durationIn = 350;
 
 	this.transition(
-		this.childOf('#infobox-builder-sidebar-liquid'),
+		this.childOf(infoboxBuilderSidebarId),
 		this.use('explode', {
-			pickOld: '.infobox-builder-sidebar-area',
+			pickOld: infoboxBuilderSidebarAreaClass,
 			use: ['fade', {duration: durationOut}]
 		}, {
-			pickNew: '.infobox-builder-sidebar-area',
-			use: ['toLeft', {duration: durationIn, easing: "easeInSine"}]
+			pickNew: infoboxBuilderSidebarAreaClass,
+			use: ['toLeft', {duration: durationIn, easing: 'easeInSine'}]
 		})
 	);
 }

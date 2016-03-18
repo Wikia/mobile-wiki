@@ -129,8 +129,8 @@ $source-icon-margins: 6px;
 		box-shadow: -$box-shadow-size * 2 0 6px $shadow-color-sidebar;
 		content: '';
 		height: 100%;
-		width: 10px;
 		position: absolute;
+		width: 10px;
 		z-index: $z-2;
 	}
 
