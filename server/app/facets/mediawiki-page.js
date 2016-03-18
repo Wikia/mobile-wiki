@@ -134,7 +134,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
  * @returns {void}
  */
 function showWikiVariablesErrorPage(reply) {
-	const statusCode = 200,
+	const statusCode = 500,
 		data = {},
 		viewName = 'wiki-variables-error',
 		options = {
