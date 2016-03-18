@@ -85,15 +85,11 @@ export function createUrl(wikiDomain, path, params = {}) {
 function requestCallback(params) {
 	const {resolve, reject, err, payload, response, url, host} = params;
 
-	console.log(">>>>>>>>>>>>>>>>> STATUS CODE <<<<<<<<<<<<<<<<<<<",response.statusCode,"#########################");
-
 	if (err) {
 		Logger.error({
 			url,
 			error: err
 		}, 'Error fetching url');
-
-		console.log(">>>>>>>>>>>>>>>>> ERROR STATUS CODE <<<<<<<<<<<<<<<<<<<",err.output.statusCode,"#########################");
 
 		reject({
 			exception: {
