@@ -5,7 +5,7 @@
     "intro-now-on-mobile":"Ahora en móvil",
     "intro-see-more-recent-edits":"Ver más ediciones recientes",
     "intro-see-the-edit":"Ver la edición",
-    "new":"Nuevo!",
+    "new":"¡Nuevo!",
     "rollback-error":"Lo sentimos, parece que algo salió mal al intentar revertir la edición. Por favor, inténtalo de nuevo.",
     "rollback-failure":"La página no pudo ser revertida debido a un conflicto de ediciones intermedias.",
     "rollback-success":"¡Se ha revertido satisfactoriamente la página __pageTitle__!",
@@ -29,8 +29,8 @@
     "action-block-and-rollback":"Bloquear usuario y revertir"
   },
   "confirmation":{
-    "placeholder-undo":"Describir la razón por la cual quieres deshacer el cambio...",
-    "placeholder-rollback":"Describir la razón por la cual quieres revertir los cambios...",
+    "placeholder-undo":"Describe la razón por la cual quieres deshacer el cambio...",
+    "placeholder-rollback":"Describe la razón por la cual quieres revertir los cambios...",
     "done":"Hecho"
   }
 }

@@ -1,4 +1,5 @@
 <script>
+	M.prop('initialPageView', true, true);
 	M.prop('apiBase', '{{{server.apiBase}}}' || '/api/mercury');
 	M.prop('environment', '{{{server.environment}}}');
 	M.prop('queryParams', {{{json queryParams}}});
@@ -7,6 +8,8 @@
 	M.prop('weppyConfig', {{{json localSettings.weppy}}});
 	M.prop('wikiaLanguage', '{{{wikiVariables.language.content}}}');
 	M.prop('userId', {{{userId}}});
+	M.prop('displayTitle', '{{{displayTitle}}}');
+	M.prop('urlTitleParam', '{{{urlTitleParam}}}');
 	M.prop('gaUserIdHash', '{{{gaUserIdHash}}}');
 	M.prop('cookieDomain', {{{json localSettings.authCookieDomain}}});
 	M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
@@ -33,9 +36,6 @@
 		M.prop('mainPageData', {{{json mainPageData}}});
 	{{/if}}
 	{{#if exception}}
-		M.provide('exception', {{{json exception}}});
-	{{/if}}
-	{{#if server.optimizelyScript}}
-		M.prop('optimizelyScript', '{{{server.optimizelyScript}}}');
+		M.prop('exception', {{{json exception}}}, true);
 	{{/if}}
 </script>

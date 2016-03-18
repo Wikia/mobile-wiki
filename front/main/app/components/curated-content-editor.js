@@ -1,11 +1,9 @@
 import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
-import TrackClickMixin from '../mixins/track-click';
 import CuratedContentEditorModel from '../models/curated-content-editor';
 
 export default Ember.Component.extend(
 	AlertNotificationsMixin,
-	TrackClickMixin,
 	{
 		classNames: ['curated-content-editor'],
 		enableCommunityData: Ember.get(Mercury, 'wiki.enableCommunityData'),
@@ -81,7 +79,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			save() {
-				this.trackClick('curated-content-editor', 'save');
 				this.validateAndSave();
 			}
 		},

@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import VisibleMixin from '../mixins/visible';
-import Thumbnailer from 'common/modules/Thumbnailer';
-import {track, trackActions} from 'common/utils/track';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 /**
  * @typedef {Object} ThumbnailOptions
@@ -65,16 +64,6 @@ export default Ember.Component.extend(
 			 */
 			onVisible() {
 				this.load();
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			clickLinkedImage() {
-				track({
-					action: trackActions.click,
-					category: 'linked-image'
-				});
 			}
 		},
 

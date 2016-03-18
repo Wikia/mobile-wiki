@@ -3,7 +3,6 @@ import AlertNotificationsMixin from '../mixins/alert-notifications';
 import CuratedContentEditorLabelsMixin from '../mixins/curated-content-editor-labels';
 import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
-import TrackClickMixin from '../mixins/track-click';
 import IEIFrameFocusFixMixin from '../mixins/ieiframe-focus-fix';
 import ArticleAddPhotoModel from '../models/article-add-photo';
 import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
@@ -13,7 +12,6 @@ export default Ember.Component.extend(
 	CuratedContentEditorLabelsMixin,
 	CuratedContentEditorLayoutMixin,
 	CuratedContentThumbnailMixin,
-	TrackClickMixin,
 	IEIFrameFocusFixMixin,
 	{
 		classNames: ['curated-content-editor-item'],
@@ -194,17 +192,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			goBack() {
-				let trackLabel;
-
-				if (this.get('isSection')) {
-					trackLabel = 'section-edit-go-back';
-				} else if (this.get('isCommunityData')) {
-					trackLabel = 'community-data-go-back';
-				} else {
-					trackLabel = 'item-edit-go-back';
-				}
-
-				this.trackClick('curated-content-editor', trackLabel);
 				this.sendAction('goBack');
 			},
 
@@ -212,21 +199,9 @@ export default Ember.Component.extend(
 			 * @returns {void|Boolean}
 			 */
 			done() {
-				let trackLabel;
-
-				if (this.get('isSection')) {
-					trackLabel = 'section-edit-done';
-				} else if (this.get('isCommunityData')) {
-					trackLabel = 'comunity-data-edit-done';
-				} else {
-					trackLabel = 'item-edit-done';
-				}
-
-				this.trackClick('curated-content-editor', trackLabel);
-
-
 				if (this.get('isCommunityData')) {
 					this.sendAction('done', this.get('model'));
+
 					return false;
 				}
 
@@ -245,9 +220,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			deleteItem() {
-				const trackLabel = this.get('isSection') ? 'section-delete' : 'item-delete';
-
-				this.trackClick('curated-content-editor', trackLabel);
 				if (confirm(i18n.t('app.curated-content-editor-remove-item-confirmation'))) {
 					this.sendAction('deleteItem');
 				}
@@ -260,7 +232,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			fileUpload(files) {
-				this.trackClick('curated-content-editor', 'item-file-upload');
 				this.set('isLoading', true);
 
 				ArticleAddPhotoModel.load(files[0])
@@ -302,7 +273,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			showImageMenu() {
-				this.trackClick('curated-content-editor', 'item-image-menu');
 				this.set('imageMenuVisible', true);
 			},
 
@@ -317,7 +287,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			showSearchImageForm() {
-				this.trackClick('curated-content-editor', 'item-image-search');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.name'));
 			},
 
@@ -330,7 +299,6 @@ export default Ember.Component.extend(
 					'imageProperties.id': this.get('model.image_id'),
 					'imageCropLayout.previous': this.get('itemFormLayout.name')
 				});
-				this.trackClick('curated-content-editor', 'item-crop-image');
 				this.sendAction('changeLayout', this.get('imageCropLayout.name'));
 			},
 
@@ -350,7 +318,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			showTooltip(tooltipMessage) {
-				this.trackClick('curated-content-editor', 'tooltip-show');
 				this.setProperties({
 					tooltipMessage,
 					isTooltipVisible: true
@@ -499,31 +466,31 @@ export default Ember.Component.extend(
 		 */
 		processValidationError(errorMessage) {
 			switch (errorMessage) {
-			case 'articleNotFound':
-				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-article-not-found-error'));
-				break;
-			case 'emptyLabel':
-			case 'tooLongLabel':
-				// error should be displayed with validateLabel method - no need to duplicate messages
-				this.validateLabel();
-				break;
-			case 'videoNotSupportProvider':
-				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-video-provider-not-supported-error'));
-				break;
-			case 'notSupportedType':
-				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-unsupported-page-type-error'));
-				break;
-			case 'duplicatedLabel':
-				this.set('labelErrorMessage', i18n.t('app.curated-content-editor-label-in-use-error'));
-				break;
-			case 'noCategoryInTag':
-				this.set('titleErrorMessage', i18n.t('app.curated-content-editor-only-categories-supported-error'));
-				break;
-			case 'imageMissing':
-				this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
-				break;
-			default:
-				// none
+				case 'articleNotFound':
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-article-not-found-error'));
+					break;
+				case 'emptyLabel':
+				case 'tooLongLabel':
+					// error should be displayed with validateLabel method - no need to duplicate messages
+					this.validateLabel();
+					break;
+				case 'videoNotSupportProvider':
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-video-provider-not-supported-error'));
+					break;
+				case 'notSupportedType':
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-unsupported-page-type-error'));
+					break;
+				case 'duplicatedLabel':
+					this.set('labelErrorMessage', i18n.t('app.curated-content-editor-label-in-use-error'));
+					break;
+				case 'noCategoryInTag':
+					this.set('titleErrorMessage', i18n.t('app.curated-content-editor-only-categories-supported-error'));
+					break;
+				case 'imageMissing':
+					this.set('imageErrorMessage', i18n.t('app.curated-content-editor-image-missing-error'));
+					break;
+				default:
+					// none
 			}
 		},
 

@@ -128,6 +128,8 @@
     "curated-content-editor-general-section-error":"请修复此版块中的错误。",
     "curated-content-editor-add-items-message":"请将项目添加到这个版块。",
     "curated-content-editor-error-inside-items-message":"请修复各项目中的错误。",
-    "curated-content-editor-items-count":"__count__ 个项目"
+    "curated-content-editor-items-count":"__count__ 个项目",
+    "wiki-page-error-reload-button": "刷新",
+    "wiki-page-error":"对不起，我们找不到您正在查找的页面。"
   }
 }

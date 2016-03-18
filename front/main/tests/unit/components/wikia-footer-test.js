@@ -3,16 +3,6 @@ import {test, moduleForComponent} from 'ember-qunit';
 import {getDomain} from 'main/utils/domain';
 import sinon from 'sinon';
 
-const originalTrackClick = require.entries['main/mixins/track-click'];
-
-require.entries['main/mixins/track-click'].callback = () => {
-	return Ember.Mixin.create({
-		actions: {
-			trackClick: Ember.K
-		}
-	});
-};
-
 moduleForComponent('wikia-footer', 'Unit | Component | wikia-footer', {
 	unit: true,
 	beforeEach() {
@@ -22,8 +12,6 @@ moduleForComponent('wikia-footer', 'Unit | Component | wikia-footer', {
 		Ember.$.cookie.restore();
 	}
 });
-
-require.entries['main/mixins/track-click'] = originalTrackClick;
 
 test('checkLinkForOasisSkinOverwrite returns true if skin is overwritten to oasis', function (assert) {
 	const testUrls = [

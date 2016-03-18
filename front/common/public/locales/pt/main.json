@@ -143,7 +143,20 @@
     "curated-content-editor-new-featured-content":"Novo conteúdo destacado",
     "curated-content-editor-new-section":"Nova seção",
     "curated-content-editor-new-category":"Nova categoria",
-    "explore-wiki":"Explore a __wikiName__"
+    "curated-content-editor-community-data":"Promova sua wikia",
+    "curated-content-editor-community-data-description":"Adicione imagem e um resumo para que os visitantes saibam do que se trata esta wikia e para incentivá-los a visitá-la. Nós usaremos esta informação para promover sua wikia em resultados de pesquisa, apps móveis da Wikia e muito mais.",
+    "curated-content-editor-edit-community-data-button":"Editar",
+    "curated-content-editor-wikia-description-tooltip":"Adicione um resumo que irá promover sua wikia em resultados de pesquisa e em outras áreas promocionais.",
+    "curated-content-editor-enter-wikia-description":"Descrição da Wikia",
+    "explore-wiki":"Explore a __wikiName__",
+    "sign-in-or-register-label":"Iniciar sessão\/ Registrar",
+    "my-profile-label":"Meu perfil",
+    "category-page-load-more":"Carregar mais",
+    "category-page-load-previous":"Carregar anterior",
+    "category-page-no-members":"Esta categoria atualmente não contém páginas.",
+    "category-page-subtitle":"Página de categoria",
+    "wiki-page-error":"Não foi possível carregar a página. Por favor, tente novamente.",
+    "wiki-page-error-reload-button":"Atualizar"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ ou __loginLink__",

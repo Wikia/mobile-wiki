@@ -1,61 +1,148 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+	// used by ember-onbeforeunload to determine if confirmation dialog should be shown
+	isDirty: false,
+
 	actions: {
 		/**
+		 * Exits infobox builder ui and calls redirect method on route.
+		 *
 		 * @returns {void}
 		 */
 		cancel() {
-			this.get('target').send('cancel');
+			this.get('target').send('redirectToTemplatePage');
+		},
+
+		/**
+		 * Saves infobox state to template,
+		 * sends redirectToTemplatePage action to route if desired,
+		 * return a promise so it can be chained
+		 *
+		 * @param {Boolean} [shouldRedirectToTemplatePage=true]
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		save(shouldRedirectToTemplatePage = true) {
+			const model = this.get('model');
+
+			// prevents showing confirmation dialog on save
+			this.set('isDirty', false);
+
+			return model.saveStateToTemplate().then(() => {
+				if (shouldRedirectToTemplatePage) {
+					this.get('target').send('redirectToTemplatePage');
+				}
+			});
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		save() {
-			this.get('target').send('save');
+		goToSourceEditor() {
+			// prevents showing confirmation dialog on save
+			this.set('isDirty', false);
+
+			this.get('target').send('goToSourceEditor');
 		},
 
 		/**
-		 * @param {String} type
-		 * @returns {void}
+		 * Calls add item method on model
+		 *
+		 * @param {String} type type
+		 * @returns {Object}
 		 */
 		addItem(type) {
-			this.get('target').send('addItem', type);
+			const model = this.get('model');
+
+			this.set('isDirty', true);
+
+			return model.addItem(type);
 		},
 
 		/**
+		 * Removes item from models state
+		 *
 		 * @param {Object} item
 		 * @returns {void}
 		 */
 		removeItem(item) {
-			this.get('target').send('removeItem', item);
+			const model = this.get('model');
+
+			this.set('isDirty', true);
+			model.removeItem(item);
 		},
 
 		/**
+		 * Sets currently edited item on model
+		 *
 		 * @param {Object} item
 		 * @returns {void}
 		 */
 		setEditItem(item) {
-			this.get('target').send('setEditItem', item);
+			const model = this.get('model');
+
+			model.setEditItem(item);
 		},
 
 		/**
-		 * @param {TitleItem} item
-		 * @param {Object} value new default value
+		 * Calls editTitleItem on model with new title data
+		 *
+		 * @param {Object} item
+		 * @param {Boolean} shouldUseArticleName
 		 * @returns {void}
 		 */
-		editTitleItem(item, value) {
-			this.get('target').send('editTitleItem', item, value);
+		editTitleItem(item, shouldUseArticleName) {
+			const model = this.get('model');
+
+			this.set('isDirty', true);
+			model.editTitleItem(item, shouldUseArticleName);
 		},
 
 		/**
-		 * @param {RowItem} item
-		 * @param {string} value new label value
+		 * Calls editSectionHeaderItem on model with new section header data
+		 *
+		 * @param {Object} item
+		 * @param {Object} newValues new section header values
 		 * @returns {void}
 		 */
-		editRowItem(item, value) {
-			this.get('target').send('editRowItem', item, value);
+		editSectionHeaderItem(item, newValues) {
+			const model = this.get('model');
+
+			model.editSectionHeaderItem(item, newValues);
+		},
+
+		/**
+		 * Calls editRowItem on model with new label value
+		 *
+		 * @param {Object} item
+		 * @param {string} label
+		 * @returns {void}
+		 */
+		editRowItem(item, label) {
+			const model = this.get('model');
+
+			this.set('isDirty', true);
+			model.editRowItem(item, label);
+		},
+
+		/**
+		 * Updated models state to new order
+		 *
+		 * @param {Ember.Array} newState
+		 * @returns {void}
+		 */
+		updateInfoboxStateOrder(newState) {
+			const model = this.get('model');
+
+			this.set('isDirty', true);
+			model.updateInfoboxStateOrder(newState);
+		},
+
+		/**
+		 * @returns {Array}
+		 */
+		getDiffArray() {
+			return this.get('model').createDataDiffs();
 		}
 	}
 });

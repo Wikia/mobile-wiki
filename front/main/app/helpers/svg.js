@@ -20,7 +20,9 @@ export default Ember.Helper.helper((params, options) => {
 	const optionalParams = [
 			'class',
 			'role',
-			'viewBox'
+			'viewBox',
+			'width',
+			'height'
 		],
 		name = params[0];
 

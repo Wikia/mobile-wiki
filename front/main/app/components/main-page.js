@@ -35,11 +35,10 @@ export default Ember.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didReceiveAttrs() {
-			Ember.run.schedule('afterRender', this, () => {
-				this.injectMainPageAds();
-				this.setupAdsContext(this.get('adsContext'));
-			});
+		didRender() {
+			this._super(...arguments);
+			this.injectMainPageAds();
+			this.setupAdsContext(this.get('adsContext'));
 		},
 	}
 );

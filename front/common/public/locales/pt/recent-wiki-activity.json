@@ -2,7 +2,7 @@
   "main":{
     "edited":"editado",
     "dont-show-again":"Não mostrar novamente",
-    "intro-now-on-mobile":"Agora no celular",
+    "intro-now-on-mobile":"Agora no site móvel",
     "intro-see-more-recent-edits":"Ver edições mais recentes",
     "intro-see-the-edit":"Veja a edição",
     "new":"Novo!",
@@ -10,7 +10,7 @@
     "rollback-failure":"Não foi possível reverter a página devido às edições intermediárias conflitantes.",
     "rollback-success":"Reversão de __pageTitle__concluída com sucesso!",
     "summary":"Resumo:",
-    "title":"Atividade recente da Wikia",
+    "title":"Atividade recente da wikia",
     "undo-error":"Desculpe, parece que algo deu errado durante a tentativa de desfazer a edição. Por favor, tente novamente.",
     "undo-failure":"Não foi possível desfazer a edição devido às edições intermediárias conflitantes.",
     "undo-label":"Desfazer",
@@ -18,9 +18,9 @@
     "upvotes": "votos"
   },
   "diff":{
-    "after":"Posterior",
-    "before":"Anterior",
-    "changes":"Alterações:",
+    "after":"Depois",
+    "before":"Antes",
+    "changes":"Mudanças:",
     "anonymous":"Anônimo",
     "menu-button-label":"Ações",
     "action-view-page":"Visualizar página",

@@ -27,6 +27,8 @@ export default Ember.Component.extend(
 				if (this.get('shouldDisplayNewBadge')) {
 					this.trackClick('recent-wiki-activity-blue-dot', 'open-navigation');
 				}
+
+				this.trackClick('side-nav', 'expanded');
 				this.sendAction('toggleSideNav', true);
 			},
 

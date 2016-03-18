@@ -1,20 +1,20 @@
 {
   "main":{
     "edited":"modificato",
-    "dont-show-again":"Non visualizzarlo più",
-    "intro-now-on-mobile":"Ora sul cellulare",
+    "dont-show-again":"Non mostrarmelo più",
+    "intro-now-on-mobile":"Ora su mobile",
     "intro-see-more-recent-edits":"Visualizza le modifiche più recenti",
     "intro-see-the-edit":"Visualizza la modifica",
     "new":"Nuovo!",
-    "rollback-error":"Siamo spiacenti, sembra che qualcosa è andato storto durante il tentativo di rollback della modifica. Si prega di riprovare.",
-    "rollback-failure":"Impossibile eseguire il rollback della pagina a causa di modifiche in conflitto intermedie.",
+    "rollback-error":"Siamo spiacenti, sembra che qualcosa sia andato storto durante il tentativo di rollback della modifica. Si prega di riprovare.",
+    "rollback-failure":"Impossibile eseguire il rollback della pagina a causa di un conflitto con delle modifiche intermedie.",
     "rollback-success":"Rollback della pagina __pageTitle__ eseguito con successo!",
     "summary":"Riepilogo:",
-    "title":"Attività Wiki recente",
-    "undo-error":"Siamo spiacenti, sembra che qualcosa è andato storto durante il tentativo di annullare la modifica. Si prega di riprovare.",
-    "undo-failure":"La modifica non poteva essere annullata a causa di modifiche in conflitto intermedie.",
+    "title":"Attività recente della wiki",
+    "undo-error":"Siamo spiacenti, sembra che qualcosa sia andato storto durante il tentativo di annullamento della modifica. Si prega di riprovare.",
+    "undo-failure":"Non è stato possibile annullare la modifica a causa di un conflitto con delle modifiche intermedie.",
     "undo-label":"Annulla",
-    "undo-success":"Annullamento modifica alla pagina __pageTitle__ eseguita con successo!",
+    "undo-success":"Annullamento della modifica alla pagina __pageTitle__ eseguito con successo!",
     "upvotes": "voti"
   },
   "diff":{
@@ -26,11 +26,11 @@
     "action-view-page":"Visualizza pagina",
     "action-undo":"Annulla",
     "action-rollback":"Rollback",
-    "action-block-and-rollback":"Blocca utente e rollback"
+    "action-block-and-rollback":"Rollback e blocca utente"
   },
   "confirmation":{
-    "placeholder-undo":"Descrivere il motivo per cui si desidera annullare la modifica...",
-    "placeholder-rollback":"Descrivere il motivo per cui si desidera eseguire il rollback delle modifiche...",
+    "placeholder-undo":"Spiega il motivo per cui vuoi annullare la modifica...",
+    "placeholder-rollback":"Spiega il motivo per cui vuoi eseguire il rollback delle modifiche...",
     "done":"Fatto"
   }
 }

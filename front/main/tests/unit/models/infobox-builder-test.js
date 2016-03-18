@@ -15,6 +15,7 @@ test('create new model with initial state', (assert) => {
 	assert.equal(model.get('_itemIndex.row'), 0);
 	assert.equal(model.get('_itemIndex.image'), 0);
 	assert.equal(model.get('_itemIndex.title'), 0);
+	assert.equal(model.get('_itemIndex.section-header'), 0);
 	assert.equal(Ember.isArray(model.get('infoboxState')), true);
 	assert.equal(model.get('infoboxState').length, 0);
 });
@@ -62,7 +63,8 @@ test('add items by type', (assert) => {
 						component: mockComponentName
 					},
 					source: `row${index}`,
-					type: 'row'
+					type: 'row',
+					sourceFrozen: false
 				},
 				message: 'add row item'
 			},
@@ -95,30 +97,37 @@ test('add items by type', (assert) => {
 					type: 'title'
 				},
 				message: 'add title item'
+			},
+			{
+				dataMock: {
+					data: messageMock,
+					collapsible: false,
+					infoboxBuilderData: {
+						index,
+						component: mockComponentName
+					},
+					type: 'section-header'
+				},
+				message: 'add section-header item'
 			}
 		];
 
 	cases.forEach((testCase) => {
 		const model = infoboxBuilderModelClass.create(),
-			addToStateSpy = sinon.spy(),
-			createComponentNameStub = sinon
-				.stub(infoboxBuilderModelClass, 'createComponentName')
-				.returns(mockComponentName),
-			i18nStub = sinon.stub(i18n, 't').returns(messageMock);
+			addToStateSpy = sinon.spy(model, 'addToState');
 
-		i18n.t = i18nStub;
-		infoboxBuilderModelClass.createComponentName = createComponentNameStub;
-
+		sinon.stub(i18n, 't').returns(messageMock);
+		sinon.stub(infoboxBuilderModelClass, 'createComponentName').returns(mockComponentName);
 		model.increaseItemIndex = sinon.stub().returns(index);
-		model.addToState = addToStateSpy;
+
 		model.addItem(testCase.dataMock.type);
 
 		assert.equal(addToStateSpy.callCount, 1, testCase.message);
 		assert.equal(addToStateSpy.calledWith(testCase.dataMock), true, testCase.message);
 
-		// restore global stubs
-		createComponentNameStub.restore();
-		i18nStub.restore();
+		// restore static methods
+		infoboxBuilderModelClass.createComponentName.restore();
+		i18n.t.restore();
 	});
 });
 
@@ -178,6 +187,92 @@ test('edit row item', (assert) => {
 	});
 });
 
+test('multiple edits', (assert) => {
+	const index = 0,
+		cases = [
+			{
+				inputSteps: ['', 'test 1', 'test 2'],
+				source: 'test_2',
+				message: 'should have last source after multiple consecutive edits'
+			},
+			{
+				inputSteps: ['test 1', ''],
+				source: 'row1',
+				message: 'should have default source value, when empty label'
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create();
+
+		model.addItem('row');
+		testCase.inputSteps.forEach((input) => {
+			model.editRowItem(model.get('infoboxState').objectAt(index), input);
+		});
+
+		assert.equal(model.get(`infoboxState.${index}.source`), testCase.source);
+	});
+});
+
+test('edit section header item', (assert) => {
+	const index = 0,
+		defaultHeader = 'Header 1',
+		defaultCollapsible = false,
+		data = 'custom header',
+		collapsible = true,
+		cases = [
+			{
+				newValues: {
+					data,
+					collapsible
+				},
+				expectedValues: {
+					data,
+					collapsible
+				}
+			},
+			{
+				newValues: {
+					data
+				},
+				expectedValues: {
+					data,
+					collapsible: defaultCollapsible
+				}
+			},
+			{
+				newValues: {
+					collapsible
+				},
+				expectedValues: {
+					data: defaultHeader,
+					collapsible
+				}
+			},
+			{
+				newValues: {},
+				expectedValues: {
+					data: defaultHeader,
+					collapsible: defaultCollapsible
+				}
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create();
+
+		sinon.stub(i18n, 't').returns(defaultHeader);
+
+		model.addItem('section-header');
+		model.editSectionHeaderItem(model.get('infoboxState').objectAt(index), testCase.newValues);
+
+		assert.equal(model.get(`infoboxState.${index}.data`), testCase.expectedValues.data);
+		assert.equal(model.get(`infoboxState.${index}.collapsible`), testCase.expectedValues.collapsible);
+
+		i18n.t.restore();
+	});
+});
+
 test('sanitize custom row source', (assert) => {
 	const cases = [
 		{
@@ -195,6 +290,34 @@ test('sanitize custom row source', (assert) => {
 		{
 			input: '  TEST   TEST   ',
 			output: 'test_test'
+		},
+		{
+			input: '...',
+			output: ''
+		},
+		{
+			input: '-',
+			output: ''
+		},
+		{
+			input: '...test-1',
+			output: 'test-1'
+		},
+		{
+			input: '-.*.+!._',
+			output: ''
+		},
+		{
+			input: '-.*.+test!._',
+			output: '-test_'
+		},
+		{
+			input: '-*_?_!-%^&.',
+			output: ''
+		},
+		{
+			input: '    ?   ! ',
+			output: ''
 		}
 	];
 
@@ -223,7 +346,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: 'src',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -242,7 +366,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -261,7 +386,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -275,7 +401,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: '',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: true
 				}
 			},
 			{
@@ -289,7 +416,8 @@ test('extend row data', (assert) => {
 						component: 'component'
 					},
 					source: 'row1',
-					type: 'row'
+					type: 'row',
+					sourceFrozen: false
 				}
 			}
 		];
@@ -304,7 +432,8 @@ test('extend row data', (assert) => {
 					component: 'component'
 				},
 				source: 'row1',
-				type: 'row'
+				type: 'row',
+				sourceFrozen: false
 			},
 			extended = infoboxBuilderModelClass.extendRowData(item, testCase.additionalItemData);
 
@@ -318,6 +447,12 @@ test('extend row data', (assert) => {
 			extended.data.label,
 			testCase.expected.data.label,
 			'row label'
+		);
+
+		assert.equal(
+			extended.sourceFrozen,
+			testCase.expected.sourceFrozen,
+			'source freezed'
 		);
 	});
 });
@@ -533,5 +668,317 @@ test('extend image data', (assert) => {
 			testCase.expected.data.caption.source,
 			'image caption source'
 		);
+	});
+});
+
+test('extend section header data', (assert) => {
+	const index = 1,
+		component = 'test-component',
+		type = 'section-header',
+		defaultName = 'Header 1',
+		infoboxBuilderData = {
+			index,
+			component
+		},
+		cases = [
+			{
+				newValues: {
+					data: 'custom header',
+					collapsible: true
+				},
+				expected: {
+					data: 'custom header',
+					collapsible: true
+				}
+			},
+			{
+				newValues: {
+					data: 'custom header'
+				},
+				expected: {
+					data: 'custom header',
+					collapsible: false
+				}
+			},
+			{
+				newValues: {
+					data: 'custom header',
+					collapsible: false
+				},
+				expected: {
+					data: 'custom header',
+					collapsible: false
+				}
+			},
+			{
+				newValues: {
+					collapsible: true
+				},
+				expected: {
+					data: '',
+					collapsible: true
+				}
+			},
+			{
+				newValues: null,
+				expected: {
+					data: defaultName,
+					collapsible: false
+				}
+			},
+			{
+				newValues: {},
+				expected: {
+					data: '',
+					collapsible: false
+				}
+			},
+			{
+				newValues: {
+					data: ''
+				},
+				expected: {
+					data: '',
+					collapsible: false
+				}
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const item = {
+				data: defaultName,
+				collapsible: false,
+				infoboxBuilderData,
+				type
+			},
+			extendedObject = infoboxBuilderModelClass.extendHeaderData(item, testCase.newValues);
+
+		assert.equal(extendedObject.data, testCase.expected.data);
+		assert.equal(extendedObject.collapsible, testCase.expected.collapsible);
+		assert.equal(extendedObject.type, type);
+		assert.equal(extendedObject.infoboxBuilderData, infoboxBuilderData);
+	});
+});
+
+test('set edit item', (assert) => {
+	const sanitizeItemDataStub = sinon.stub(infoboxBuilderModelClass, 'sanitizeItemData', (item) => item.data),
+		cases = [
+			{
+				item: {
+					data: {
+						test: 1
+					},
+					infoboxBuilderData: {}
+				},
+				expectedOriginalData: {
+					test: 1
+				}
+			},
+			{
+				item: {
+					data: {
+						test: 1
+					},
+					infoboxBuilderData: {
+						originalData: {
+							test: 2
+						}
+					}
+				},
+				expectedOriginalData: {
+					test: 2
+				}
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create();
+
+		model.setEditItem(testCase.item);
+
+		assert.deepEqual(model.get('itemInEditMode'), testCase.item);
+		assert.deepEqual(testCase.item.infoboxBuilderData.originalData, testCase.expectedOriginalData);
+	});
+
+	sanitizeItemDataStub.restore();
+});
+
+test('sanitizes item data', (assert) => {
+	const cases = [
+		{
+			item: {
+				type: 'label',
+				data: {
+					value: '1'
+				}
+			},
+			expectedSanitizedData: {
+				value: '1'
+			}
+		},
+		{
+			item: {
+				type: 'section-header',
+				data: '1',
+				collapsible: true
+			},
+			expectedSanitizedData: {
+				value: '1',
+				collapsible: true
+			}
+		}
+	];
+
+	cases.forEach((testCase) => {
+		assert.deepEqual(infoboxBuilderModelClass.sanitizeItemData(testCase.item), testCase.expectedSanitizedData);
+	});
+});
+
+test('setups infobox data', (assert) => {
+	const cases = [
+		{
+			data: null,
+			isNew: true,
+			assertions: (model, setupInitialStateStub) => {
+				assert.ok(setupInitialStateStub.calledOnce, 'setups initial state for new infobox');
+				assert.equal(model.get('theme'), model.get('defaultTheme'), 'sets default theme for new infobox');
+			}
+		},
+		{
+			data: {
+				data: {
+					test: true
+				}
+			},
+			isNew: false,
+			assertions: (model, setupInitialStateStub, setupExistingStateStub) => {
+				assert.ok(setupExistingStateStub.calledWith({
+					test: true
+				}), 'setups state for existing infobox without a theme');
+				assert.equal(
+					model.get('theme'),
+					null,
+					'does not set theme if there is none returned from API for existing infobox'
+				);
+			}
+		},
+		{
+			data: {
+				theme: 'test'
+			},
+			isNew: false,
+			assertions: (model, setupInitialStateStub, setupExistingStateStub) => {
+				assert.ok(setupExistingStateStub.calledOnce, 'setups state for existing infobox with a theme');
+				assert.ok(
+					model.get('theme') === 'test',
+					'sets theme if there is one returned from API for existing infobox'
+				);
+			}
+		},
+		{
+			data: {
+				theme: ''
+			},
+			isNew: false,
+			assertions: (model) => {
+				assert.ok(
+					model.get('theme') === '',
+					'sets theme if it is an empty string'
+				);
+			}
+		}
+	];
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create(),
+			setupInitialStateStub = sinon.stub(model, 'setupInitialState'),
+			setupExistingStateStub = sinon.stub(model, 'setupExistingState');
+
+		model.setupInfoboxData(testCase.data, testCase.isNew);
+		testCase.assertions(model, setupInitialStateStub, setupExistingStateStub);
+	});
+});
+
+test('prepares infobox data for saving', (assert) => {
+	const cases = [
+		{
+			model: {
+				infoboxState: [],
+				theme: null
+			},
+			expected: '{"data":[]}'
+		},
+		{
+			model: {
+				infoboxState: [
+					{
+						test: true
+					}
+				],
+				theme: null
+			},
+			expected: '{"data":[{"test":true}]}'
+		},
+		{
+			model: {
+				infoboxState: [],
+				theme: 'europa'
+			},
+			expected: '{"data":[],"theme":"europa"}'
+		},
+		{
+			model: {
+				infoboxState: [],
+				theme: ''
+			},
+			expected: '{"data":[],"theme":""}'
+		}
+	];
+
+	sinon.stub(infoboxBuilderModelClass, 'getStateWithoutBuilderData').returnsArg(0);
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create();
+
+		model.setProperties(testCase.model);
+		assert.equal(infoboxBuilderModelClass.prepareDataForSaving(model), testCase.expected);
+	});
+
+	infoboxBuilderModelClass.getStateWithoutBuilderData.restore();
+});
+
+test('gets infobox state without builder data', (assert) => {
+	const cases = [
+		{
+			state: [
+				{
+					infoboxBuilderData: {
+						test: 1
+					},
+					test: 2
+				}
+			],
+			expected: [
+				{
+					test: 2
+				}
+			]
+		},
+		{
+			state: [
+				{
+					test: 1
+				}
+			],
+			expected: [
+				{
+					test: 1
+				}
+			]
+		}
+	];
+
+	cases.forEach((testCase) => {
+		assert.deepEqual(infoboxBuilderModelClass.getStateWithoutBuilderData(testCase.state), testCase.expected);
 	});
 });

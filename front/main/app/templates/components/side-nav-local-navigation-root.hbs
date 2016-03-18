@@ -6,12 +6,12 @@
 {{side-nav-local-wikia-search
 toggleSearchMode='toggleSearchMode'
 localNavigationVisible=localNavigationVisible
-collapse='collapse'
+collapse=attrs.collapse
 }}
 
 {{#if localNavigationVisible}}
 	{{side-nav-local-navigation-menu
-	collapse=this.attrs.collapse
+	collapse=attrs.collapse
 	loadRandomArticle=this.attrs.loadRandomArticle
 	localNavContent=localNavContent
 	updateContent=(action 'updateContent')

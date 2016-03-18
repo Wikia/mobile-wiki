@@ -1,7 +1,7 @@
-import * as authUtils from '../../lib/AuthUtils';
-import {disableCache} from '../../lib/Caching';
+import * as authUtils from '../../lib/auth-utils';
+import {disableCache} from '../../lib/caching';
 import localSettings from '../../../config/localSettings';
-import * as authView from './authView';
+import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 import {format} from 'url';
 

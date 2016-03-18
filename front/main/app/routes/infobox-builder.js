@@ -1,49 +1,144 @@
 import Ember from 'ember';
+import {track, trackActions} from 'common/utils/track';
 import InfoboxBuilderModel from '../models/infobox-builder';
+import ConfirmationMixin from 'ember-onbeforeunload/mixins/confirmation';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(ConfirmationMixin, {
 	pontoLoadingInitialized: false,
 	pontoPath: '/front/main/assets/vendor/ponto/ponto.js',
 
-	renderTemplate() {
-		this.render('infobox-builder');
-	},
-
+	/**
+	 * Load infobox data and additional assets with AJAX request and run methods that will handle them
+	 *
+	 * @param {Transition} transition
+	 * @returns {Ember.RSVP.Promise}
+	 */
 	beforeModel(transition) {
-		const templateName = transition.params.infoboxBuilder.templateName;
+		const templateName = transition.params['infobox-builder'].templateName;
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
-				Ember.RSVP.Promise.all([
-					this.loadAssets(templateName),
-					this.loadPonto()
-				])
-				.then(this.setupStyles)
-				.then(this.setupInfoboxState.bind(this))
-				.then(this.isWikiaContext)
-				.then(resolve, reject);
+				const promises = {
+					dataAndAssets: this.loadInfoboxDataAndAssets(templateName),
+					ponto: this.loadPonto()
+				};
+
+				Ember.RSVP.hash(promises)
+					.then((responses) => {
+						this.setupStyles(responses.dataAndAssets);
+						this.setupInfoboxData(responses.dataAndAssets);
+					})
+					.then(this.isWikiaContext)
+					.then(resolve)
+					.catch(reject);
 			} else {
-				reject();
+				reject('Infobox builder has to be loaded in an iframe');
 			}
 		});
 	},
 
+	/**
+	 * @param {Object} params
+	 * @returns {Object}
+	 */
 	model(params) {
 		return InfoboxBuilderModel.create({title: params.templateName});
 	},
 
+	/**
+	 * Uses data loaded in beforeModel to set model properties
+	 *
+	 * @param {Object} model
+	 * @returns {void}
+	 */
 	afterModel(model) {
-		const templateData = this.controllerFor('infobox-builder').get('templateData');
+		const controller = this.controllerFor('infobox-builder');
 
-		if (templateData) {
-			model.setupExistingState(templateData);
-		} else {
-			model.setupInitialState();
+		model.setupInfoboxData(controller.get('infoboxData'), controller.get('isNew'));
+	},
+
+	actions: {
+		/**
+		 * @param {Object} error
+		 * @returns {Boolean}
+		 */
+		error(error) {
+			Ember.Logger.error(error);
+
+			this.controllerFor('application').addAlert({
+				message: i18n.t('infobox-builder:main.load-error'),
+				type: 'alert'
+			});
+
+			M.track({
+				action: M.trackActions.impression,
+				category: 'infoboxBuilder',
+				label: 'load-error'
+			});
+
+			return true;
+		},
+
+		/**
+		 * @returns {Boolean}
+		 */
+		didTransition() {
+			// InfoboxBuilderRoute works in "fullPage mode" (unlike ArticleRoute) which means that it takes
+			// over whole page (so navigation, share feature, etc. are not displayed). To understand
+			// better take a look at application.hbs.
+			this.controllerFor('application').set('fullPage', true);
+			window.scrollTo(0, 0);
+
+			return true;
+		},
+
+		/**
+		 * Connects with ponto and redirects to template page
+		 *
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		redirectToTemplatePage() {
+			return new Ember.RSVP.Promise((resolve, reject) => {
+				const ponto = window.Ponto;
+
+				ponto.invoke(
+					'wikia.infoboxBuilder.ponto',
+					'redirectToTemplatePage',
+					null,
+					(data) => resolve(data),
+					(data) => {
+						reject(data);
+						this.showPontoError(data);
+					},
+					false
+				);
+			});
+		},
+
+		/**
+		 * Connects with ponto and redirects to source editor
+		 *
+		 * @returns {void}
+		 */
+		goToSourceEditor() {
+			const ponto = window.Ponto;
+
+			ponto.invoke(
+				'wikia.infoboxBuilder.ponto',
+				'redirectToSourceEditor',
+				null,
+				Ember.K,
+				(data) => {
+					this.showPontoError(data);
+				},
+				false
+			);
 		}
 	},
 
 	/**
-	 * @desc checks wikia context using ponto invoke
+	 * Checks wikia context using ponto invoke
+	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	isWikiaContext() {
@@ -60,11 +155,11 @@ export default Ember.Route.extend({
 					if (data && data.isWikiaContext && data.isLoggedIn) {
 						resolve();
 					} else {
-						// TODO: show message that no permissions part of
-						// TODO: https://wikia-inc.atlassian.net/browse/DAT-3757
+						// @todo DAT-3757 show message that user doesn't have proper permission
+						// currently this else block isn't called even for anons
 					}
 				},
-				function (data) {
+				(data) => {
 					this.showPontoError(data);
 					reject();
 				},
@@ -74,11 +169,12 @@ export default Ember.Route.extend({
 	},
 
 	/**
-	 * loads infobox builder assets from MW
+	 * Loads infobox data and builder assets from MW
+	 *
 	 * @param {string} templateName
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadAssets(templateName) {
+	loadInfoboxDataAndAssets(templateName) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: M.buildUrl({
@@ -91,7 +187,7 @@ export default Ember.Route.extend({
 					title: templateName
 				},
 				success: (data) => {
-					if (data && data.css) {
+					if (data && data.css && data.data) {
 						resolve(data);
 					} else {
 						reject('Invalid data was returned from Infobox Builder API');
@@ -103,7 +199,8 @@ export default Ember.Route.extend({
 	},
 
 	/**
-	 * loads ponto and sets ponto target
+	 * Loads ponto and sets ponto target
+	 *
 	 * @returns {JQueryXHR}
 	 */
 	loadPonto() {
@@ -113,203 +210,74 @@ export default Ember.Route.extend({
 	},
 
 	/**
-	 * @desc add oasis portable infobox styles to DOM
-	 * and add class to main application body to be
-	 * able to style whole containter as we want
+	 * Adds oasis portable infobox styles to the DOM and a class to the body element
 	 *
-	 * @param {Array} promiseResponseArray
+	 * @param {Object} serverResponse
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	setupStyles(promiseResponseArray) {
+	setupStyles(serverResponse) {
 		Ember.$('body').addClass('infobox-builder-body-wrapper');
 
-		return new Ember.RSVP.Promise((resolve) => {
-			let html = '';
-
-			promiseResponseArray[0].css.forEach(
-				(url) => {
-					html += `<link type="text/css" rel="stylesheet" href="${url}">`;
-				}
-			);
+		if (serverResponse.css) {
+			const html = serverResponse.css.map((url) => {
+				return `<link type="text/css" rel="stylesheet" href="${url}">`;
+			}).join('');
 
 			$(html).appendTo('head');
-
-			resolve(promiseResponseArray);
-		});
+		}
 	},
 
 	/**
-	 * @desc pass received from MW infobox state (for already existing infobox templates)
-	 * and set it as a property on controller. We don't need to keep this in model as it's
-	 * not connected with data we need there.
+	 * Accepts data received from MW and sets it on controller to be used in afterModel
 	 *
-	 * @param {Array} promiseResponseArray
-	 * @returns {Array} not modified promiseResponseArray
+	 * @param {Object} serverResponse
+	 * @returns {void}
 	 */
-	setupInfoboxState(promiseResponseArray) {
-		const assets = promiseResponseArray[0].data;
-		let templateData = {};
+	setupInfoboxData(serverResponse) {
+		const infoboxData = serverResponse.data,
+			controller = this.controllerFor('infobox-builder');
 
-		if (assets) {
-			templateData = JSON.parse(assets);
-			if (templateData.data) {
-				this.controllerFor('infobox-builder').set('templateData', templateData.data);
+		let infoboxDataParsed = null;
+
+		if (infoboxData) {
+			try {
+				infoboxDataParsed = JSON.parse(infoboxData);
+			} catch (e) {
+				throw new Error('Could not parse infobox data as JSON');
 			}
 		}
 
-		return promiseResponseArray;
+		controller.set('infoboxData', infoboxDataParsed);
+		controller.set('isNew', serverResponse.isNew || false);
+		// explicitly set the state as dirty for new template to make sure
+		// user gets prompted for confirmation on page exit / go to source
+		// to avoid confusion - without explicit prompt the default new
+		// infobox would disappear on a transition to source
+		controller.set('isDirty', serverResponse.isNew || false);
 	},
 
 	/**
-	 * @desc shows error message for ponto communication
+	 * Shows error message for ponto communication
+	 *
 	 * @param {String} message - error message
 	 * @returns {void}
 	 */
 	showPontoError(message) {
-		if (window.console) {
-			window.console.error('Ponto Error', message);
-		}
+		Ember.Logger.error('Ponto Error', message);
 	},
 
 	/**
-	 * @desc connects with ponto and redirects to template page
-	 * @param {String} title - title of the template
-	 * @returns {Ember.RSVP.Promise}
+	 * ember-onbeforeunload - message displayed within confirmation dialog
+	 *
+	 * @returns {String}
 	 */
-	redirectToTemplatePage(title) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			const ponto = window.Ponto;
-
-			ponto.invoke(
-				'wikia.infoboxBuilder.ponto',
-				'redirectToTemplatePage',
-				title,
-				(data) => {
-					resolve(data);
-				},
-				(data) => {
-					reject(data);
-					this.showPontoError(data);
-				},
-				false
-			);
+	confirmationMessage() {
+		track({
+			action: trackActions.confirm,
+			category: 'infobox-builder',
+			label: 'show-unsaved-changes-on-exit-prompt'
 		});
-	},
 
-	actions: {
-		error: () => {
-			this.controllerFor('application').addAlert({
-				message: i18n.t('infobox-builder:main.load-error'),
-				type: 'alert'
-			});
-			M.track({
-				action: M.trackActions.impression,
-				category: 'infoboxBuilder',
-				label: 'load-error'
-			});
-			return true;
-		},
-
-		/**
-		 * @returns {Boolean}
-		 */
-		didTransition() {
-			// InfoboxBuilderRoute works in "fullPage mode" (unlike ArticleRoute) which means that it takes
-			// over whole page (so navigation, share feature, etc. are not displayed). To understand
-			// better take a look at application.hbs.
-			this.controllerFor('application').set('fullPage', true);
-			window.scrollTo(0, 0);
-			return true;
-		},
-
-		/**
-		 * @desc Handles the add data, image or title button and call the proper
-		 * function on model.
-		 * @param {String} type - of item type
-		 * @returns {Object} added item
-		*/
-		addItem(type) {
-			const model = this.modelFor('infoboxBuilder');
-
-			return model.addItem(type);
-		},
-
-		/**
-		 * @desc Handles editing title element - calls proper function on model
-		 * @param {TitleItem} item
-		 * @param {bool} value
-		 * @returns {void}
-		 */
-		editTitleItem(item, value) {
-			const model = this.modelFor('infoboxBuilder');
-
-			model.editTitleItem(item, value);
-		},
-
-		editRowItem(item, value) {
-			const model = this.modelFor('infoboxBuilder');
-
-			model.editRowItem(item, value);
-		},
-
-		/**
-		 * @desc Handles setting item to edit mode - calls proper function on model
-		 * @param {Object} item
-		 * @returns {void}
-		 */
-		setEditItem(item) {
-			const model = this.modelFor('infoboxBuilder');
-
-			model.setEditItem(item);
-		},
-
-		/**
-		 * @desc Handles removing item and calls proper function on model
-		 * @param {Object} item
-		 * @returns {void}
-		 */
-		removeItem(item) {
-			const model = this.modelFor('infoboxBuilder');
-
-			model.removeItem(item);
-		},
-
-		/**
-		 * @desc Handles moving item in the state and calls proper function on model
-		 * @param {Number} offset
-		 * @param {Object} item
-		 * @returns {void}
-		 */
-		moveItem(offset, item) {
-			const model = this.modelFor('infoboxBuilder');
-
-			model.moveItem(offset, item);
-		},
-
-		/**
-		 * @desc Handles the save template button, calls the proper function
-		 * on model and connect with <iframe> parent to redirect to another page.
-		 * @returns {void}
-		 */
-		save() {
-			const model = this.modelFor('infoboxBuilder');
-
-			model.saveStateToTemplate().then((title) => {
-				return this.redirectToTemplatePage(title);
-			});
-		},
-
-		/**
-		 * @desc Handles the cancel button click.
-		 * Connect with <iframe> parent to redirect to another page.
-		 * @returns {void}
-		 */
-		cancel() {
-			const title = this.modelFor('infoboxBuilder').get('title');
-
-			// maybe some modal "are you sure? You'll lost your work"
-			// redirect to template page
-			return this.redirectToTemplatePage(title);
-		}
+		return i18n.t('infobox-builder:main.leave-confirmation');
 	}
 });

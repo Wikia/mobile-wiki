@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
 import TrackClickMixin from '../mixins/track-click';
-import Thumbnailer from 'common/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 export default Ember.Component.extend(
 	ViewportMixin,
@@ -43,7 +43,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		click() {
-			this.trackClick('modular-main-page', 'trending-articles');
+			this.trackClick('main-page-trending-articles', `open-item-${this.get('index')}`);
 		},
 
 		/**

@@ -143,8 +143,20 @@
     "curated-content-editor-new-featured-content":"Nowa Wyróżniona Treść",
     "curated-content-editor-new-section":"Nowa sekcja",
     "curated-content-editor-new-category":"Nowa kategoria",
-    "curated-content-editor-community-data": "Promuj swoją wikię",
-    "explore-wiki":"Explore __wikiName__"
+    "curated-content-editor-community-data":"Promuj swoją wikię",
+    "curated-content-editor-community-data-description":"Dodaj obraz i opis, aby informować odwiedzających o tematyce tej wikii oraz w celu zachęcenia do jej odwiedzania. Wykorzystamy te informacje do promocji twojej wikii w wynikach wyszukiwania, w aplikacjach mobilnych Wikia i w innych miejscach.",
+    "curated-content-editor-edit-community-data-button":"Edytuj",
+    "curated-content-editor-wikia-description-tooltip":"Dodaj opis, który będzie promował twoją wikię w wynikach wyszukiwania i innych obszarach promocyjnych.",
+    "curated-content-editor-enter-wikia-description":"Opis wikii",
+    "explore-wiki":"Przeglądaj __wikiName__",
+    "sign-in-or-register-label":"Zaloguj się \/ Zarejestruj się",
+    "my-profile-label":"Mój profil",
+    "category-page-load-more":"Załaduj więcej",
+    "category-page-load-previous":"Załaduj poprzednie",
+    "category-page-no-members":"Obecnie brak stron w tej kategorii.",
+    "category-page-subtitle":"Strona kategorii",
+    "wiki-page-error":"Przepraszamy, nie mogliśmy załadować strony. Spróbuj ponownie.",
+    "wiki-page-error-reload-button":"Odśwież"
   },
   "userStatus":{
     "anon-cta":"__registerLink__ lub __loginLink__",

@@ -1,120 +1,135 @@
-<div class="wiki-container">
-	<h2 class="wiki-title" {{action 'trackClick' 'wikiname'}}>{{#link-to 'wiki-page' mainPageTitle alt=siteName}}{{siteName}}{{/link-to}}</h2>
-	{{#if model.exception}}
-		{{render 'not-found'}}
-	{{else}}
-		<section class="article-body">
-			<h1 class="article-title">
-				{{model.displayTitle}}
-				{{#if curatedContentToolButtonVisible}}
-					<div>
-						{{#link-to 'curatedContentEditor' bubbles=false class="main-page-edit"}}
-							{{svg 'pen' role='img' class='icon pencil'}}
-							{{i18n 'app.curated-content-editor-edit-main-page'}}
-						{{/link-to}}
-					</div>
-				{{/if}}
-			</h1>
-			{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
-			{{#if headers.length}}
-				{{#collapsible-menu
-					showMenuIcon=true
-					additionalClasses='table-of-contents'
-					tLabel='app.article-toc-label'
-					ordered=true
-					observe=model.displayTitle
-					trackingEvent='toc'
-				}}
-					{{#each headers as |section|}}
-						<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
-							<a href="#{{unbound section.id}}" title="{{unbound section.name}}">
-								{{unbound section.name}}
-								{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-							</a>
-						</li>
-					{{/each}}
-				{{/collapsible-menu}}
-			{{/if}}
-			{{#if contributionEnabled}}
-				<div class="top-contribution-container">
-					{{article-contribution
-						addPhotoAllowed=addPhotoAllowed
-						addPhotoIconVisible=addPhotoIconVisible
-						editAllowed=editAllowed
-						editIconVisible=editIconVisible
-						section=0
-						title=model.displayTitle
-						addPhoto='addPhoto'
-						edit='edit'
-					}}
+<section class="article-body">
+	{{#if showPageTitle}}
+		<h1 class="wiki-page-title">
+			{{model.displayTitle}}
+			{{#if curatedContentToolButtonVisible}}
+				<div>
+					{{#link-to 'curatedContentEditor' bubbles=false class="main-page-edit"}}
+						{{svg 'pen' role='img' class='icon pencil'}}
+						{{i18n 'app.curated-content-editor-edit-main-page'}}
+					{{/link-to}}
 				</div>
 			{{/if}}
-			{{article-content
-				adsContext=model.adsContext
-				content=model.content
-				media=model.media
-				noAds=noAds
-				openLightbox='openLightbox'
-				updateHeaders='updateHeaders'
-				contributionEnabled=contributionEnabled
-				uploadFeatureEnabled=uploadFeatureEnabled
-				displayTitle=model.displayTitle
-				edit='edit'
-				addPhoto='addPhoto'
-				addPhotoIconVisible=addPhotoIconVisible
-				editIconVisible=editIconVisible
-				editAllowed=editAllowed
-				addPhotoAllowed=addPhotoAllowed
-			}}
-		</section>
-		<section class="article-footer">
-			{{wikia-users
-				users=model.topContributors
-				classes='contributors'
-				label='app.article-top-contributors-label'
-				trackingEvent='contributors'
-			}}
-			{{article-comments
-				page=commentsPage
-				articleId=model.id
-				commentsCount=model.comments
-			}}
-			{{#if model.categories}}
-				{{#collapsible-menu
-					showMenuIcon=false
-					tLabel='app.article-categories-list-label'
-					ordered=false
-					observe=model.displayTitle
-					trackingEvent='category'
-				}}
-					{{#each model.categories as |category|}}
-						<li class="mw-content" {{action 'trackClick' 'category' 'link'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
-							{{unbound category.title}}
-							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-						</a></li>
-					{{/each}}
-				{{/collapsible-menu}}
-			{{/if}}
-			{{#if model.otherLanguages}}
-				{{#collapsible-menu
-					showMenuIcon=false
-					tLabel='app.article-other-languages'
-					ordered=false
-					observe=model.displayTitle
-				}}
-					{{#each model.otherLanguages as |link|}}
-						<li class="mw-content"><a href="{{unbound link.url}}" title="{{unbound link.title}}">
-							{{unbound link.languageName}} | {{unbound link.articleTitle}}
-							{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-						</a></li>
-					{{/each}}
-				{{/collapsible-menu}}
-			{{/if}}
-		</section>
-		{{content-recommendations pages=model.relatedPages}}
-		{{#if displayRecentEdit}}
-			{{recent-edit-banner}}
-		{{/if}}
+		</h1>
 	{{/if}}
-	{{wikia-footer}}
-</div>
+	{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
+	{{#if headers.length}}
+		{{#collapsible-menu
+			showMenuIcon=true
+			additionalClasses='table-of-contents'
+			tLabel='app.article-toc-label'
+			ordered=true
+			observe=model.displayTitle
+			trackingEvent='toc'
+		}}
+			{{#each headers as |section|}}
+				<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
+					<a href="#{{unbound section.id}}" title="{{unbound section.name}}">
+						{{unbound section.name}}
+						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+					</a>
+				</li>
+			{{/each}}
+		{{/collapsible-menu}}
+	{{/if}}
+	{{#if contributionEnabled}}
+		<div class="top-contribution-container">
+			{{article-contribution
+				addPhotoAllowed=addPhotoAllowed
+				addPhotoIconVisible=addPhotoIconVisible
+				editAllowed=editAllowed
+				editIconVisible=editIconVisible
+				section=0
+				title=model.displayTitle
+				addPhoto='addPhoto'
+				edit='edit'
+			}}
+		</div>
+	{{/if}}
+	{{article-content
+		adsContext=model.adsContext
+		content=model.content
+		media=model.media
+		noAds=noAds
+		openLightbox='openLightbox'
+		updateHeaders='updateHeaders'
+		contributionEnabled=contributionEnabled
+		uploadFeatureEnabled=uploadFeatureEnabled
+		displayTitle=model.displayTitle
+		edit='edit'
+		addPhoto='addPhoto'
+		addPhotoIconVisible=addPhotoIconVisible
+		editIconVisible=editIconVisible
+		editAllowed=editAllowed
+		addPhotoAllowed=addPhotoAllowed
+	}}
+</section>
+{{yield}}
+<section class="article-footer">
+	{{wikia-users
+		users=model.topContributors
+		classes='contributors'
+	}}
+	{{#if showComments}}
+		{{article-comments
+			page=commentsPage
+			articleId=model.id
+			commentsCount=model.comments
+		}}
+	{{/if}}
+	{{#if model.categories}}
+		{{#collapsible-menu
+			showMenuIcon=false
+			tLabel='app.article-categories-list-label'
+			ordered=false
+			observe=model.displayTitle
+			trackingEvent='category-menu'
+		}}
+			{{#each model.categories as |category|}}
+				<li class="mw-content" {{action 'trackClick' 'category-menu' 'open-category'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
+					{{unbound category.title}}
+					{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+				</a></li>
+			{{/each}}
+		{{/collapsible-menu}}
+	{{/if}}
+	{{#if model.otherLanguages}}
+		{{#collapsible-menu
+			showMenuIcon=false
+			tLabel='app.article-other-languages'
+			ordered=false
+			observe=model.displayTitle
+		}}
+			{{#each model.otherLanguages as |link|}}
+				<li class="mw-content"><a href="{{unbound link.url}}" title="{{unbound link.title}}">
+					{{unbound link.languageName}} | {{unbound link.articleTitle}}
+					{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+				</a></li>
+			{{/each}}
+		{{/collapsible-menu}}
+	{{/if}}
+</section>
+{{#ab-test experiment='RECIRCULATION_MERCURY_FOOTER' as |group| }}
+	{{#if (equal group 'RECENT_POPULAR') }}
+		{{fandom-posts type='recent_popular'}}
+	{{else if (equal group 'POPULAR')}}
+		{{fandom-posts type='popular'}}
+	{{else}}
+		{{content-recommendations pages=model.relatedPages}}
+	{{/if}}
+{{/ab-test}}
+{{#if displayRecentEdit}}
+	{{recent-edit-banner}}
+{{/if}}
+{{feedback-form pageTitle=model.title}}
+{{article-edit-highlighted-entrypoint
+	section=highlightedSectionIndex
+	highlightedText=highlightedText
+	title=model.title
+	editAllowed=editAllowed
+	edit=(action 'edit')
+}}
+{{#highlighted-editor-pop-over for='highlighted-text' on='click' flow='dropdown' class='highlighted-text-editor-popover'}}
+    <h2>Performing small edits on mobile just got easier!</h2>
+    <p>Highlight the word or phrase you want to fix and tap the button below.</p>
+{{/highlighted-editor-pop-over}}
