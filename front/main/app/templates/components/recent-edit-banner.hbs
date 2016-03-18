@@ -1,5 +1,6 @@
 <h3 class="recent-edit-header">
 	{{i18n 'main.title' ns='recent-wiki-activity'}}
+    <button class="recent-edit-close" {{action 'postpone'}}>{{svg 'close' role='img' class='close-icon'}}</button>
 </h3>
 <a class="recent-edit-rwa-link" href="{{recentWikiActivityLink}}" {{action 'dismiss' 'rwa-link' preventDefault=false}}>
 	<div class="recent-edit-revision">

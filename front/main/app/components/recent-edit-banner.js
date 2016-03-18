@@ -11,7 +11,6 @@ export default Ember.Component.extend(
 		classNames: ['recent-edit'],
 		recentEdit: null,
 		recentWikiActivityLink: '/recent-wiki-activity',
-		timeoutId: null,
 
 		init() {
 			this._super(...arguments);
@@ -20,10 +19,6 @@ export default Ember.Component.extend(
 					loaded: true,
 					recentEdit: recentEdit.recentChanges.get('firstObject')
 				});
-
-				this.set('timeoutId', Ember.run.later(this, () => {
-					this.dismissRecentEdit(1, 'postponed');
-				}, 7000));
 
 				track({
 					action: trackActions.impression,
@@ -49,6 +44,9 @@ export default Ember.Component.extend(
 		},
 
 		actions: {
+			postpone() {
+				this.dismissRecentEdit(1, 'postponed');
+			},
 			dismiss(label) {
 				this.dismissRecentEdit(10 * 365, label);
 			}
