@@ -7,18 +7,21 @@
 $auth-nav-min-resolution: $desktop-content-max-width + $desktop-nav-auth-shift * 2 + $desktop-nav-auth-margin-left;
 
 .auth-nav {
-	background-image: url('/front/common/symbols/back-arrow.svg');
-	background-position: left center;
-	background-repeat: no-repeat;
-	background-size: 16px 12px;
 	color: $auth-back-link-color;
 	display: none;
 	font-size: $type-smallest;
 	left: 50%;
 	margin-left: -($desktop-content-max-width / 2 + $desktop-nav-auth-shift);
 	margin-top: 14px;
-	padding-left: 22px;
 	position: absolute;
+
+	a {
+		background-image: url('/front/common/symbols/back-nav-arrow.svg');
+		background-position: left center;
+		background-repeat: no-repeat;
+		background-size: 16px 12px;
+		padding-left: 22px;
+	}
 }
 
 @media(min-width: $auth-nav-min-resolution) {
