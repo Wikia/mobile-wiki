@@ -21,7 +21,7 @@ const localSettings = {
 	},
 	port: 7000,
 	clickstream: {
-		auth: {
+		social: {
 			enable: true,
 			url: 'https://services.wikia-dev.com/clickstream/events/social'
 		}
