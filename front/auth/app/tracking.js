@@ -1,27 +1,5 @@
 import AuthTracker from './common/auth-tracker';
-import UniversalAnalytics from 'common/modules/trackers/universal-analytics';
 import {trackActions} from 'common/utils/track';
-import {getQueryParam} from 'common/utils/querystring';
-
-/**
- * @returns {void}
- */
-function setTrackingDimensions() {
-	const dimensions = [];
-
-	// Skin
-	dimensions[4] = 'mercury';
-	// LoginStatus
-	dimensions[5] = 'anon';
-	// Page type
-	dimensions[8] = 'authPage';
-	// IsCorporatePage
-	dimensions[15] = 'No';
-	// newAuthEntryPage
-	dimensions[10] = getQueryParam('redirect');
-
-	UniversalAnalytics.setDimensions(dimensions);
-}
 
 /**
  * Auth pages live on www.wikia.com and don't have access to WikiVariables
@@ -37,8 +15,6 @@ function setupTracking() {
 			user: 'en',
 		},
 	});
-
-	setTrackingDimensions();
 }
 
 /**

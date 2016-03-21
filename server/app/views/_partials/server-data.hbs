@@ -8,6 +8,8 @@
 	M.prop('weppyConfig', {{{json localSettings.weppy}}});
 	M.prop('wikiaLanguage', '{{{wikiVariables.language.content}}}');
 	M.prop('userId', {{{userId}}});
+	M.prop('displayTitle', '{{{displayTitle}}}');
+	M.prop('urlTitleParam', '{{{urlTitleParam}}}');
 	M.prop('gaUserIdHash', '{{{gaUserIdHash}}}');
 	M.prop('cookieDomain', {{{json localSettings.authCookieDomain}}});
 	M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
@@ -35,8 +37,5 @@
 	{{/if}}
 	{{#if exception}}
 		M.prop('exception', {{{json exception}}}, true);
-	{{/if}}
-	{{#if server.optimizelyScript}}
-		M.prop('optimizelyScript', '{{{server.optimizelyScript}}}');
 	{{/if}}
 </script>

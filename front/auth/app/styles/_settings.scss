@@ -1,18 +1,24 @@
-@import '../../bower_components/wikia-style-guide/src/scss/lib/settings';
 
 $auth-content-background-color: $color-white;
 $body-background: $color-blue-dark;
-$body-background-grey: $vapor;
+$body-background-desktop: $color-white;
+$body-background-standalone: $vapor;
+$splash-background-color: $color-blue-dark;
 $button-color: $color-blue-light;
+$button-color-facebook: #38528a;
 $disabled-button-text-color: #B4D6F2;
 $footer-text-color: $color-white;
 $header-text-color: $color-white;
 $input-color-active: $color-blue-gray;
-$input-border-error-color: $alert-color;
-$label-color-active: $color-blue-gray-dark;
+$label-color-active: $color-blue-gray;
 $label-color-inactive: $color-blue-gray;
-$label-color-valid: $color-blue-gray-dark;
+$label-color-valid: $color-blue-gray;
 $link-color: $color-blue-light;
 $border-color: $iron;
+$auth-back-link-color: #092344;
 
-$circle-logo-size: 62px;
+$circle-logo-size: 42px;
+$desktop-content-max-width: 768px;
+$desktop-content-min-width: 706px;
+$desktop-nav-auth-shift: 80px;
+$desktop-nav-auth-margin-left: 10px;

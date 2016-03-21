@@ -15,11 +15,8 @@ import localSettings from '../../../config/localSettings';
  * @property {string} mainPage
  * @property {string} optimizelyScript
  * @property {PageParams} pageParams
- * @property {boolean} [hideHeader]
- * @property {boolean} [hideFooter]
- * @property {string} [footerHref]
- * @property {string} [footerCallout]
- * @property {string} [footerCalloutLink]
+ * @property {string} [headerCallout]
+ * @property {string} [headerCalloutLink]
  * @property {string} [headerText]
  * @property {string} [bodyClasses]
  * @property {string} [pageType]
@@ -182,7 +179,6 @@ export function getDefaultContext(request) {
 		mainPage: 'http://www.wikia.com',
 		language: request.server.methods.i18n.getInstance().lng(),
 		trackingConfig: localSettings.tracking,
-		optimizelyScript: `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`,
 		server: {
 			gaUrl: localSettings.tracking.ua.scriptUrl
 		},

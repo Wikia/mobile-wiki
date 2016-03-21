@@ -77,6 +77,8 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		ns = pageData.ns;
 		result.mediaWikiNamespace = ns;
 	}
+	// pass page title to front
+	result.urlTitleParam = request.params.title;
 
 	switch (ns) {
 		case MediaWikiNamespace.MAIN:

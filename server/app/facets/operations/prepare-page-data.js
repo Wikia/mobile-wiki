@@ -34,12 +34,22 @@ export function getUserId(request) {
  * @returns {boolean|String}
  */
 export function getQualarooScriptUrl(request) {
-	// all the third party scripts we don't want to load on noexternals
-	if (!request.query.noexternals) {
-		// qualaroo
-		if (localSettings.qualaroo.enabled) {
-			return localSettings.qualaroo.scriptUrl;
-		}
+	// we don't want to load Qualaroo on noexternals
+	if (!request.query.noexternals && localSettings.qualaroo.enabled) {
+		return localSettings.qualaroo.scriptUrl;
+	}
+
+	return false;
+}
+
+/**
+ * @param {Hapi.Request} request
+ * @returns {boolean|String}
+ */
+export function getOptimizelyScriptUrl(request) {
+	// we don't want to load Optimizely on noexternals
+	if (!request.query.noexternals && localSettings.optimizely.enabled) {
+		return `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`;
 	}
 
 	return false;
