@@ -19,7 +19,7 @@ export default Ember.Service.extend({
 			return false;
 		}
 
-		return !this.get('badges').contains(badge) ;
+		return !this.get('badges').contains(badge);
 	},
 	setBadge(badge, expires = 1, path = '/') {
 		this.get('badges').addObject(badge);
