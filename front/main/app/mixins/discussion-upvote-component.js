@@ -8,11 +8,5 @@ export default Ember.Mixin.create({
 	classNameBindings: ['hasUpvoted'],
 
 	post: null,
-	hasUpvoted: Ember.computed('post._embedded.userData.@each.hasUpvoted', function () {
-		if (Ember.isArray(this.get('post._embedded.userData'))) {
-			return this.get('post._embedded.userData.0.hasUpvoted');
-		}
-
-		return false;
-	})
+	hasUpvoted: Ember.computed.alias('post.userData.hasUpvoted'),
 });
