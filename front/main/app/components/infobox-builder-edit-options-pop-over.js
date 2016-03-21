@@ -27,8 +27,9 @@ export default Ember.Component.extend(
 		 *
 		 * A. to check if attrs for this component have changed and set didAttrsChange flag
 		 *    in order to control when DOM operations from didRender() hook should be done
-		 *
 		 * B. reset attrs for position calculation when pop over is hidden
+		 *
+		 * @returns {void}
 		 */
 		didUpdateAttrs() {
 			this._super(...arguments);
