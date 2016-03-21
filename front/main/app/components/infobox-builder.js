@@ -41,6 +41,10 @@ export default Ember.Component.extend(
 				'infobox-builder-add-items';
 		}),
 
+		isEditPopOverVisible: Ember.computed('activeItem', 'isPreviewItemDragged', function () {
+			return Boolean(this.get('activeItem')) && !this.get('isPreviewItemDragged');
+		}),
+
 		actions: {
 			/**
 			 * @param {String} type

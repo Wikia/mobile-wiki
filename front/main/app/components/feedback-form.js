@@ -7,27 +7,45 @@ import {track, trackActions} from 'common/utils/track';
 const variations = {
 		SATISFACTION_Q1_TEXT: {
 			question: 'Did you find what you were looking for?',
-			buttons: 'text'
+			buttons: 'text',
+			feedbackQuestion: 'Your input helps to improve this wiki. Every bit of feedback is highly valued. ' +
+				'What information was missing?',
+			placeholder: 'Missing information'
 		},
 		SATISFACTION_Q1_ICON: {
 			question: 'Did you find what you were looking for?',
-			buttons: 'icons'
+			buttons: 'icons',
+			feedbackQuestion: 'Your input helps to improve this wiki. Every bit of feedback is highly valued. ' +
+				'What information was missing?',
+			placeholder: 'Missing information'
 		},
 		SATISFACTION_Q2_TEXT: {
 			question: 'Did this answer your question?',
-			buttons: 'text'
+			buttons: 'text',
+			feedbackQuestion: 'Your input helps to improve this wiki. Every bit of feedback is highly valued. ' +
+				'What information was missing?',
+			placeholder: 'Missing information'
 		},
 		SATISFACTION_Q3_TEXT: {
 			question: 'Was this article accurate?',
-			buttons: 'text'
+			buttons: 'text',
+			feedbackQuestion: 'Your input helps to improve this wiki. Every bit of feedback is highly valued. ' +
+				'What information was inaccurate?',
+			placeholder: 'Inaccurate information'
 		},
 		EMOTIONS_Q1_EMOT: {
 			question: 'What did you think of this article?',
-			buttons: 'emots'
+			buttons: 'emots',
+			feedbackQuestion: 'Your input helps to improve this wiki. Every bit of feedback is highly valued. ' +
+				'What didn\'t you like about the article?',
+			placeholder: 'Your feedback'
 		},
 		EMOTIONS_Q2_EMOT: {
 			question: 'How did this article make you feel?',
-			buttons: 'emots'
+			buttons: 'emots',
+			feedbackQuestion: 'Your input helps to improve this wiki. Every bit of feedback is highly valued. ' +
+				'Why did the article make you feel that way?',
+			placeholder: 'Your feedback'
 		}
 	},
 	completed = {
@@ -40,8 +58,6 @@ const variations = {
 			timeout: 7000
 		}
 	},
-	helpImproveMessage = 'Your input helps to improve this wiki. Every bit of feedback is highly valued. ' +
-		'What information was missing?',
 	offsetLimit = 0.2,
 	cookieName = 'feedback-form',
 	experimentId = 'USER_SATISFACTION_FEEDBACK';
@@ -76,7 +92,6 @@ export default Ember.Component.extend(
 		didReceiveAttrs() {
 			this._super(...arguments);
 			this.set('variationId', getGroup(experimentId));
-
 			this.resetBanner();
 
 			if (Ember.get(Mercury, 'wiki.language.content') === 'en' &&
@@ -92,6 +107,7 @@ export default Ember.Component.extend(
 			}
 		},
 		willDestroyElement() {
+			this._super(...arguments);
 			Ember.$(window).off('scroll.feedbackForm scroll.absoluteFeedbackForm');
 		},
 		adjustAbsoluteFeedbackForm() {
@@ -136,6 +152,8 @@ export default Ember.Component.extend(
 		},
 		resetBanner() {
 			this.setProperties({
+				absolute: false,
+				adjustingHeight: 0,
 				dismissed: false,
 				displayQuestion: true,
 				displayInput: false,
@@ -145,6 +163,7 @@ export default Ember.Component.extend(
 				loaded: false
 			});
 
+			Ember.$('.feedback-form').css('top', 'auto');
 			Ember.$(window).off('scroll.feedbackForm scroll.absoluteFeedbackForm');
 		},
 		dismissBanner(timeout) {
@@ -208,7 +227,7 @@ export default Ember.Component.extend(
 				this.setProperties({
 					displayQuestion: false,
 					displayInput: true,
-					message: helpImproveMessage
+					message: this.get('variation').feedbackQuestion
 				});
 
 				this.trackClick('user-feedback-no');
