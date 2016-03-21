@@ -12,6 +12,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		normalizePostData(post) {
 			post.firstPost = post._embedded.firstPost[0];
 			post.firstPost.isReported = post.isReported;
+			post.firstPost.isLocked = !post.isEditable;
 			if (Ember.get(post, 'firstPost._embedded.userData')) {
 				post._embedded.userData = post.firstPost._embedded.userData;
 			}

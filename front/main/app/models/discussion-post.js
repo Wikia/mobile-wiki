@@ -123,6 +123,7 @@ DiscussionPostModel.reopenClass({
 
 				// making the model a little bit more friendly
 				firstPost.isReported = data.isReported;
+				firstPost.isLocked = !data.isEditable;
 
 				postInstance.setProperties({
 					contributors,

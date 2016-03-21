@@ -18,6 +18,8 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 			if (Ember.get(post, '_embedded.thread.0')) {
 				post.postCount = post._embedded.thread[0].postCount;
 			}
+
+			post.isLocked = !post.isReply && !post._embedded.thread[0].isEditable;
 		},
 
 		/**
@@ -40,12 +42,15 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				success: (data) => {
 					const newPosts = data._embedded['doc:posts'];
 
-					let allPosts;
+					newPosts.forEach((post) => {
+						if (post.hasOwnProperty('createdBy')) {
+							post.createdBy.profileUrl = this.get('userProfileUrl');
+						}
 
-					newPosts.forEach(this.normalizeThreadData);
+						this.normalizeThreadData(post);
+					});
 
-					allPosts = this.posts.concat(newPosts);
-					this.set('posts', allPosts);
+					this.set('posts', this.posts.concat(newPosts));
 				},
 				error: (err) => {
 					this.handleLoadMoreError(err);
@@ -111,6 +116,7 @@ DiscussionForumModel.reopenClass({
 							namespace: 'User',
 							title: post.createdBy.name
 						});
+
 						contributors.push(post.createdBy);
 					}
 

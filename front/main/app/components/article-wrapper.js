@@ -24,7 +24,6 @@ export default Ember.Component.extend(
 		currentUser: Ember.inject.service(),
 
 		highlightedSectionIndex: 0,
-		showHighlightedEdit: null,
 		highlightedText: '',
 
 		hammerOptions: {
@@ -51,22 +50,21 @@ export default Ember.Component.extend(
 				highlightedText = this.trimTags(highlightedText);
 				highlightedText = this.replaceTags(highlightedText);
 
-				this.setHighlightedTextVars(sectionIndex, highlightedText, true);
+				this.setHighlightedTextVars(sectionIndex, highlightedText);
 				track({
 					action: trackActions.impression,
 					category: 'highlighted-editor',
 					label: 'entry-point'
 				});
 			} else {
-				this.setHighlightedTextVars(0, '', false);
+				this.setHighlightedTextVars(0, '');
 			}
 		},
 
-		setHighlightedTextVars(highlightedSectionIndex, highlightedText, showHighlightedEdit) {
+		setHighlightedTextVars(highlightedSectionIndex, highlightedText) {
 			this.setProperties({
 				highlightedSectionIndex,
-				highlightedText,
-				showHighlightedEdit
+				highlightedText
 			});
 		},
 
@@ -144,10 +142,8 @@ export default Ember.Component.extend(
 
 		curatedContentToolButtonVisible: Ember.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
 
-		displayRecentEdit: Ember.computed('currentUser.isAuthenticated', 'highlightedEditorEnabled', function () {
-			return this.get('currentUser.isAuthenticated') &&
-				!Ember.$.cookie('recent-edit-dismissed') &&
-				!this.get('highlightedEditorEnabled');
+		displayRecentEdit: Ember.computed('currentUser.isAuthenticated', function () {
+			return this.get('currentUser.isAuthenticated') && !Ember.$.cookie('recent-edit-dismissed');
 		}),
 
 		highlightedEditorEnabled: Ember.computed(() => Mercury.wiki.language.content === 'en'),
