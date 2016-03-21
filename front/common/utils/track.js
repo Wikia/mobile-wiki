@@ -1,8 +1,7 @@
 /* eslint no-console: 0 */
 
-import Internal from '../modules/trackers/internal';
-import {getGroup} from '../modules/abtest';
 import Ads from '../modules/ads';
+import {getGroup} from '../modules/abtest';
 
 /**
  * @typedef {Object} TrackContext
@@ -119,8 +118,6 @@ export function track(params) {
 		value = params.value || 0,
 		isNonInteractive = params.isNonInteractive !== false;
 
-	let tracker;
-
 	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
@@ -145,9 +142,8 @@ export function track(params) {
 	}
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
-		tracker = new Internal();
 		params = $.extend(context, params);
-		tracker.track(params);
+		M.tracker.Internal.track(params);
 	}
 }
 
@@ -161,11 +157,6 @@ export function trackPageView(uaDimensions, overrideUrl) {
 		return;
 	}
 
-	const instance = new Internal();
-
-	console.info('Track pageView: Internal');
-	instance.trackPageView(context);
-
 	if (M.prop('initialPageView')) {
 		M.prop('initialPageView', false);
 	} else {
@@ -173,6 +164,7 @@ export function trackPageView(uaDimensions, overrideUrl) {
 		window.trackNielsenPageView();
 		window.trackComscorePageView();
 
+		M.tracker.Internal.trackPageView(context);
 		M.tracker.UniversalAnalytics.trackPageView(uaDimensions, overrideUrl);
 	}
 
