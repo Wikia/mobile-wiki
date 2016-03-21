@@ -12,8 +12,8 @@ export default Ember.Component.extend(
 		exploreWikiaLabel: Ember.get(Mercury, 'wiki.navigation2016.exploreWikia.textEscaped'),
 		wikiName: Ember.get(Mercury, 'wiki.siteName'),
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
-		shouldDisplayNewBadge: Ember.computed('newBadges', function () {
-			return !this.get('newBadges.badges').contains('recent-wiki-activity');
+		shouldDisplayNewBadge: Ember.computed('newBadges.badges.[]', function () {
+			return this.get('newBadges.badges').shouldDisplay('recent-wiki-activity');
 		}),
 
 		logoutLink: M.buildUrl({
