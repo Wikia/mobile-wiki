@@ -1,6 +1,6 @@
-import * as authUtils from '../../lib/AuthUtils';
+import * as authUtils from '../../lib/auth-utils';
 import localSettings from '../../../config/localSettings';
-import * as authView from './authView';
+import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 
 /**
@@ -23,9 +23,9 @@ function getSignInViewContext(request, redirect) {
 		{
 			title: 'auth:signin.signin-title',
 			headerText: 'auth:signin.welcome-back',
-			footerCallout: 'auth:signin.register-callout',
-			footerCalloutLink: 'auth:signin.register-now',
-			footerHref: authUtils.getRegisterUrl(request),
+			headerCallout: 'auth:signin.register-callout',
+			headerCalloutLink: 'auth:signin.register-now',
+			headerHref: authUtils.getRegisterUrl(request),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'signin-page',
 			pageType: 'signin-page',
@@ -50,9 +50,9 @@ function getFBSignInViewContext(request, redirect) {
 		{
 			title: 'auth:common.connect-with-facebook',
 			headerText: 'auth:common.connect-with-facebook',
-			footerCallout: 'auth:signin.register-callout',
-			footerCalloutLink: 'auth:signin.register-now',
-			footerHref: authUtils.getRegisterUrl(request),
+			headerCallout: 'auth:signin.register-callout',
+			headerCalloutLink: 'auth:signin.register-now',
+			headerHref: authUtils.getRegisterUrl(request),
 			forgotPasswordHref: authUtils.getForgotPasswordUrlFromRedirect(redirect),
 			bodyClasses: 'fb-connect-page',
 			pageType: 'fb-connect-page',

@@ -2,7 +2,7 @@ import Ember from 'ember';
 import MediaComponent from './media';
 import ArticleContentMixin from '../mixins/article-content';
 import ViewportMixin from '../mixins/viewport';
-import Thumbnailer from 'common/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 export default MediaComponent.extend(
 	ArticleContentMixin,

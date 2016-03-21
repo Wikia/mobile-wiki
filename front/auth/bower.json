@@ -7,6 +7,7 @@
     "i18next": "1.7.4",
     "jquery": "2.1.4",
     "loader.js": "3.5.0",
+    "script.js": "2.5.7",
     "visit-source": "Wikia/visit-source#0.1.1",
     "wikia-style-guide": "Wikia/style-guide#v1.8.3"
   },
