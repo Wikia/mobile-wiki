@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import imageReviewModel from '../models/image-review';
 
 export default Ember.Component.extend({
 	classNames: ['image-review'],
@@ -10,6 +11,11 @@ export default Ember.Component.extend({
 
 	actions: {
 		showModal(popupModel) {
+			imageReviewModel.getImageContext(popupModel.imageId).then((context) => {
+				console.log("ELO " + context);
+			}).catch(() => {
+				console.log(":<");
+			});
 			this.set('thumbnailModel', popupModel);
 			this.set('isModalVisible', true);
 		}

@@ -269,4 +269,26 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 			assert.equal(M.getImageReviewServiceUrl(testCase.path, testCase.query), testCase.expectedOutput);
 		});
 	});
+
+	QUnit.test('static-asssets url is computed properly', function (assert) {
+		var testCases = [
+			{
+				path: '',
+				query: {},
+				expectedOutput: 'https://services.wikia.com/static-assets'
+			},
+			{
+				path: '/image/de305d54-75b4-431b-adb2-eb6b9e546014',
+				query: {},
+				expectedOutput: 'https://services.wikia.com/static-assets/image/de305d54-75b4-431b-adb2-eb6b9e546014'
+			}
+		];
+
+		M.prop('servicesDomain', 'services.wikia.com');
+		M.prop('staticAssetsBaseRoute', 'image-review');
+
+		testCases.forEach(function (testCase) {
+			assert.equal(M.getStaticAssetsServiceUrl(testCase.path, testCase.query), testCase.expectedOutput);
+		});
+	});
 });

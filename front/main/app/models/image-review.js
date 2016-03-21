@@ -160,6 +160,21 @@ ImageReviewModel.reopenClass({
 			return ImageReviewModel.sanitize(getImagesPromise.value.data, getImagesPromise.value.contractId,
 				getImagesToReviewCountPromise.value.countByStatus);
 		});
+	},
+
+	getImageContext(imageId) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
+				url: M.getStaticAssetsServiceUrl(`/context/${imageId}`),
+				xhrFields: {
+					withCredentials: true
+				},
+				dataType: 'json',
+				method: 'GET',
+				success: (data) => resolve(data),
+				error: () => reject(i18n.t('app.image-review-error-invalid-data'))
+			});
+		});
 	}
 });
 
