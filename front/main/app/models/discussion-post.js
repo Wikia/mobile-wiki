@@ -1,6 +1,7 @@
 import DiscussionBaseModel from './discussion-base';
 import DiscussionModerationModelMixin from '../mixins/discussion-moderation-model';
 import ajaxCall from '../utils/ajax-call';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 
@@ -62,6 +63,8 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				reply.isNew = true;
 				this.incrementProperty('postCount');
 				this.replies.pushObject(reply);
+
+				track(trackActions.ReplyCreate);
 			},
 			error: (err) => {
 				if (err.status === 401) {
