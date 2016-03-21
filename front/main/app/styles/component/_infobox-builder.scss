@@ -73,8 +73,11 @@ $sidebar-z-index: 1;
 	cursor: auto;
 	flex-grow: 1;
 	overflow: auto;
-	// set relative parent for infobox-builder-edit-options-pop-over
-	position: relative;
+
+	.infobox-builder-infobox-wrapper {
+		// set relative parent for infobox-builder-edit-options-pop-over
+		position: relative;
+	}
 
 	.portable-infobox {
 		cursor: pointer;
