@@ -21,6 +21,7 @@ $shadow-blur: 15px;
 $shadow-color: rgba(0, 0, 0, .3);
 $source-icon-margins: 6px;
 $spinner-text-color: rgba(0, 0, 0, .5);
+$sidebar-z-index: 1;
 
 // overwrite default mercury styles
 .infobox-builder-body-wrapper {
@@ -72,6 +73,8 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	cursor: auto;
 	flex-grow: 1;
 	overflow: auto;
+	// set relative parent for infobox-builder-edit-options-pop-over
+	position: relative;
 
 	.portable-infobox {
 		cursor: pointer;
@@ -147,6 +150,8 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	box-shadow: -$box-shadow-size 0 $shadow-blur 0 $shadow-color;
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
+	// required for displaying sidebar shadow when preview scrollbar appear
+	z-index: $sidebar-z-index;
 
 	.text-field,
 	.check-box {
