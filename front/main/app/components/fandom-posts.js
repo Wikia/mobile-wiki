@@ -17,24 +17,25 @@ export default Ember.Component.extend({
 
 	didReceiveAttrs() {
 		this._super(...arguments);
-		const posts = this.get('posts');
 
-		if (posts) {
-			trackExperiment(this.get('experimentName'), {
-				action: trackActions.impression,
-				category: 'recirculation',
-				label: 'footer'
-			});
-		}
+		trackExperiment(this.get('experimentName'), {
+			action: trackActions.impression,
+			category: 'recirculation',
+			label: 'footer'
+		});
 	},
 
 	actions: {
-		trackExperimentClick() {
+		trackExperimentClick(url) {
 			trackExperiment(this.get('experimentName'), {
 				action: trackActions.click,
 				category: 'recirculation',
 				label: 'footer'
 			});
+
+			setTimeout(() => {
+				window.location.assign(url);
+			}, 100);
 		}
 	}
 });

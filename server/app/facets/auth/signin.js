@@ -1,6 +1,6 @@
-import * as authUtils from '../../lib/AuthUtils';
+import * as authUtils from '../../lib/auth-utils';
 import localSettings from '../../../config/localSettings';
-import * as authView from './authView';
+import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 
 /**

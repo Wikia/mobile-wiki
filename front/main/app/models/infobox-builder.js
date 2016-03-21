@@ -75,11 +75,11 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		return {
 			data: {
 				label: i18n.t('main.label-default', {
-					ns: 'infobox-builder',
-					index
+					ns: 'infobox-builder'
 				})
 			},
 			infoboxBuilderData: {
+				id: itemType + index,
 				index,
 				component: InfoboxBuilderModel.createComponentName(itemType)
 			},
@@ -105,6 +105,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				}
 			},
 			infoboxBuilderData: {
+				id: itemType + index,
 				index,
 				component: InfoboxBuilderModel.createComponentName(itemType)
 			},
@@ -127,6 +128,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				defaultValue: ''
 			},
 			infoboxBuilderData: {
+				id: itemType + index,
 				index,
 				component: InfoboxBuilderModel.createComponentName(itemType)
 			},
@@ -144,11 +146,11 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		return {
 			data: i18n.t('main.section-header-default', {
-				ns: 'infobox-builder',
-				index
+				ns: 'infobox-builder'
 			}),
 			collapsible: false,
 			infoboxBuilderData: {
+				id: itemType + index,
 				index,
 				component: InfoboxBuilderModel.createComponentName(itemType)
 			},

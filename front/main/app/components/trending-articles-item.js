@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
 import TrackClickMixin from '../mixins/track-click';
-import Thumbnailer from 'common/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 export default Ember.Component.extend(
 	ViewportMixin,

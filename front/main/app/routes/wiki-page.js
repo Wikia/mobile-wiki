@@ -1,11 +1,10 @@
 import Ember from 'ember';
-import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
 import ArticleHandler from '../utils/wiki-handlers/article';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import {normalizeToUnderscore} from 'common/utils/string';
-import {setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
+import {setTrackContext, trackPageView} from 'common/utils/track';
 import {namespace as MediawikiNamespace, getCurrentNamespace} from '../utils/mediawiki-namespace';
 
 export default Ember.Route.extend({
@@ -153,14 +152,19 @@ export default Ember.Route.extend({
 	 */
 	updateTrackingData(model) {
 		const articleType = model.get('articleType'),
-			namespace = model.get('ns');
+			namespace = model.get('ns'),
+			uaDimensions = {};
 
-		if (articleType) {
-			UniversalAnalytics.setDimension(19, articleType);
+		// update UA dimensions
+		if (model.adsContext) {
+			uaDimensions[3] = model.adsContext.targeting.wikiVertical;
+			uaDimensions[14] = model.adsContext.opts.showAds ? 'yes' : 'no';
 		}
-
+		if (articleType) {
+			uaDimensions[19] = articleType;
+		}
 		if (typeof namespace !== 'undefined') {
-			UniversalAnalytics.setDimension(25, namespace);
+			uaDimensions[25] = namespace;
 		}
 
 		setTrackContext({
@@ -168,26 +172,7 @@ export default Ember.Route.extend({
 			n: model.get('ns')
 		});
 
-		updateTrackedUrl(window.location.href);
-
-		this.get('currentUser.userModel').then(({powerUserTypes}) => {
-			if (powerUserTypes) {
-				UniversalAnalytics.setDimension(
-					23,
-					powerUserTypes.contains('poweruser_lifetime') ? 'yes' : 'no'
-				);
-
-				UniversalAnalytics.setDimension(
-					24,
-					powerUserTypes.contains('poweruser_frequent') ? 'yes' : 'no'
-				);
-			} else {
-				UniversalAnalytics.setDimension(23, 'no');
-				UniversalAnalytics.setDimension(24, 'no');
-			}
-		}).finally(() => {
-			trackPageView(this.get('adsContext.targeting'));
-		});
+		trackPageView(uaDimensions);
 	},
 
 	/**

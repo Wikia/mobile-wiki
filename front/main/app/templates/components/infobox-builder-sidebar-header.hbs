@@ -1,12 +1,16 @@
 {{#if showActionButtons}}
-	<a class="infobox-builder-sidebar-header-icon-wrapper" {{action 'back'}}>
-		{{svg 'back-arrow' role='img' class='icon infobox-builder-sidebar-header-icon-back-arrow'}}
-	</a>
+	{{wikia-ui-components/icon-button
+		class='infobox-builder-sidebar-header-icon-back'
+		click=(action 'back')
+		icon='back-arrow'
+	}}
 {{/if}}
 <div class="infobox-builder-sidebar-header-title">{{title}}</div>
 {{#if showActionButtons}}
-	<a class="infobox-builder-sidebar-header-icon-wrapper"
-		{{action 'removeItem'}}>
-		{{svg 'delete-large' viewBox='0 0 16 19' class='icon infobox-builder-sidebar-header-icon-delete'}}
-	</a>
+	{{wikia-ui-components/icon-button
+		class='infobox-builder-sidebar-header-icon-delete'
+		click=(action 'removeItem')
+		icon='delete-large'
+		iconSize=24
+	}}
 {{/if}}
