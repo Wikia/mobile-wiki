@@ -13,6 +13,7 @@ export default Ember.Component.extend(
 		popOverWidth: null,
 		popOverElementClassName: 'pop-over-compass',
 		didAttrsChange: false,
+		offsetX: 0,
 		posX: Ember.computed('targetPosX', 'popOverWidth', 'offsetX', function () {
 			return this.get('targetPosX') - this.get('popOverWidth') - this.get('offsetX');
 		}),

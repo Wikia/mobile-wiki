@@ -10,17 +10,32 @@ moduleForComponent(
 
 test('correctly sets posX', function (assert) {
 	const component = this.subject(),
-		targetPosX = 100,
-		popOverWidth = 50,
-		offsetX = 10;
+		cases = [
+			{
+				targetPosX: 100,
+				popOverWidth: 50,
+				message: `use default offsetX`
+			},
+			{
+				targetPosX: 100,
+				popOverWidth: 50,
+				offsetX: 10,
+				message: `use custom offsetX`
+			}
+		];
 
-	component.setProperties({
-		targetPosX,
-		popOverWidth,
-		offsetX
+	cases.forEach((testCase) => {
+		component.setProperties({
+			targetPosX: testCase.targetPosX,
+			popOverWidth: testCase.popOverWidth
+		});
+
+		if (testCase.offsetX) {
+			component.set('offsetX', testCase.offsetX);
+		}
+
+		assert.equal(component.get('posX'), testCase.targetPosX - testCase.popOverWidth - (testCase.offsetX || 0));
 	});
-
-	assert.equal(component.get('posX'), targetPosX - popOverWidth - offsetX);
 });
 
 test('correctly sets posY', function (assert) {
