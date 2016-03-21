@@ -10,6 +10,7 @@ $image-button-height: 100px;
 $info-icon-position-left: -12px;
 $info-icon-position-top: -10px;
 $info-message-left-padding: 34px;
+$infobox-wrapper-padding: 40px;
 $grayout-color: rgba(255, 255, 255, .3);
 $overlay-color: rgba(255, 255, 255, .8);
 $padding: 18px;
@@ -75,13 +76,14 @@ $sidebar-z-index: 1;
 	overflow: auto;
 
 	.infobox-builder-infobox-wrapper {
+		padding: $infobox-wrapper-padding 0;
 		// set relative parent for infobox-builder-edit-options-pop-over
 		position: relative;
 	}
 
 	.portable-infobox {
+		margin: 0 auto;
 		cursor: pointer;
-		margin: 40px auto;
 	}
 
 	// styles for adding infobox builder selection bounding box to each infobox item
