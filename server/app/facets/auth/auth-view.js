@@ -15,11 +15,8 @@ import localSettings from '../../../config/localSettings';
  * @property {string} mainPage
  * @property {string} optimizelyScript
  * @property {PageParams} pageParams
- * @property {boolean} [hideHeader]
- * @property {boolean} [hideFooter]
- * @property {string} [footerHref]
- * @property {string} [footerCallout]
- * @property {string} [footerCalloutLink]
+ * @property {string} [headerCallout]
+ * @property {string} [headerCalloutLink]
  * @property {string} [headerText]
  * @property {string} [bodyClasses]
  * @property {string} [pageType]

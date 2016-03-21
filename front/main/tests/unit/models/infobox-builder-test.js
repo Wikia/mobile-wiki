@@ -59,6 +59,7 @@ test('add items by type', (assert) => {
 						label: messageMock
 					},
 					infoboxBuilderData: {
+						id: `row${index}`,
 						index,
 						component: mockComponentName
 					},
@@ -76,6 +77,7 @@ test('add items by type', (assert) => {
 						}
 					},
 					infoboxBuilderData: {
+						id: `image${index}`,
 						index,
 						component: mockComponentName
 					},
@@ -90,6 +92,7 @@ test('add items by type', (assert) => {
 						defaultValue: ''
 					},
 					infoboxBuilderData: {
+						id: `title${index}`,
 						index,
 						component: mockComponentName
 					},
@@ -103,6 +106,7 @@ test('add items by type', (assert) => {
 					data: messageMock,
 					collapsible: false,
 					infoboxBuilderData: {
+						id: `section-header${index}`,
 						index,
 						component: mockComponentName
 					},
