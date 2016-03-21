@@ -35,7 +35,7 @@ test('correctly sets posY', function (assert) {
 		popOverHeight
 	});
 
-	assert.equal(component.get('posY'), targetPosY + targetHeight /2  - popOverHeight / 2);
+	assert.equal(component.get('posY'), targetPosY + targetHeight / 2 - popOverHeight / 2);
 });
 
 test('shouldUpdatePosition returns correct value', function (assert) {
@@ -165,12 +165,12 @@ test('didRender hook handles updating position', function (assert) {
 			setComponentCSSPosition: setComponentCSSPositionSpy
 		});
 
-		Ember.run(function() {
+		Ember.run(() => {
 			component.didRender();
 		});
 
 		assert.equal(setDataForCalculationComponentPositionSpy.called, testCase.spysCalled, testCase.message);
 		assert.equal(setComponentCSSPositionSpy.called, testCase.spysCalled, testCase.message);
-		assert.equal(component.get('didAttrsChange'), testCase.didAttrsChange , testCase.message);
+		assert.equal(component.get('didAttrsChange'), testCase.didAttrsChange, testCase.message);
 	});
 });
