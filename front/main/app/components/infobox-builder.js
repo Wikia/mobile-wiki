@@ -36,9 +36,16 @@ export default Ember.Component.extend(
 		}),
 
 		sideBarOptionsComponent: Ember.computed('activeItem', function () {
-			return this.get('activeItem') ?
-				`infobox-builder-edit-item-${this.get('activeItem.type')}` :
-				'infobox-builder-add-items';
+			const activeItem = this.get('activeItem');
+			let name = 'infobox-builder-add-items',
+				id = 0;
+
+			if (activeItem) {
+				name = `infobox-builder-edit-item-${this.get('activeItem.type')}`;
+				id = activeItem.type + activeItem.infoboxBuilderData.id;
+			}
+
+			return {name, id};
 		}),
 
 		isEditPopOverVisible: Ember.computed('activeItem', 'isPreviewItemDragged', function () {

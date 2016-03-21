@@ -13,7 +13,9 @@ export default Ember.Component.extend(
 
 		labelValue: Ember.computed('item.data.label', {
 			get() {
-				return this.get('item.data.label');
+				const label = this.get('item.data.label');
+
+				return (typeof label === 'string' || label instanceof String) ? label : '';
 			},
 			set(key, value) {
 				const item = this.get('item');

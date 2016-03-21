@@ -20,7 +20,11 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		focusFirstInput() {
-			this.$('input').first().focus();
+			const input = this.$('.text-field-input');
+
+			if (input) {
+				input.first().focus();
+			}
 		},
 		/**
 		 * Tracks events on different edit options

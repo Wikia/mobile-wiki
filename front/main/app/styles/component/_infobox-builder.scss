@@ -158,15 +158,14 @@ $sidebar-z-index: 1;
 .infobox-builder-sidebar {
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
-	// required for displaying sidebar shadow when preview scrollbar appear
-	z-index: $sidebar-z-index;
 
 	&:before {
 		box-shadow: -$box-shadow-size * 2 0 $sidebar-blur-radius $shadow-color-sidebar;
 		content: '';
 		height: 100%;
+		pointer-events: none;
 		position: absolute;
-		width: 10px;
+		width: 100%;
 		z-index: $z-2;
 	}
 
