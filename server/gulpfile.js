@@ -33,6 +33,7 @@ gulp.task('build-server-scripts', ['build-server-init-config'], function (done) 
 		.pipe(newer({dest: paths.scripts.dest, ext: '.js'}))
 		.pipe(babel({
 			presets: ['es2015'],
+			plugins: ['rewire']
 		}))
 		.on('error', exitOnError)
 		.pipe(gulp.dest(paths.scripts.dest))

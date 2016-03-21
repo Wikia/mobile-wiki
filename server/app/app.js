@@ -327,10 +327,14 @@ process.on('message', (msg) => {
 	}
 });
 
-/**
- * @returns {void}
- */
-server.start(() => {
-	Logger.info({url: server.info.uri}, 'Server started');
-	process.send('Server started');
-});
+if (!module.parent) {
+	/**
+	 * @returns {void}
+	 */
+	server.start(() => {
+		Logger.info({url: server.info.uri}, 'Server started');
+		process.send('Server started');
+	});
+}
+
+module.exports = server;
