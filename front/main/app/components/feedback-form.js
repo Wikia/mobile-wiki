@@ -44,7 +44,7 @@ const variations = {
 			question: 'How did this article make you feel?',
 			buttons: 'emots',
 			feedbackQuestion: 'Your input helps to improve this wiki. Every bit of feedback is highly valued. ' +
-				'Why did you feel bad?',
+				'Why did the article make you feel that way?',
 			placeholder: 'Your feedback'
 		}
 	},
