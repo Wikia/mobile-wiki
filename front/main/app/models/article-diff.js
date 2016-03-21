@@ -13,6 +13,7 @@ const ArticleDiffModel = Ember.Object.extend({
 	timestamp: null,
 	title: null,
 	user: null,
+	userId: null,
 	useravatar: null,
 
 	/**
@@ -92,9 +93,10 @@ const ArticleDiffModel = Ember.Object.extend({
 	/**
 	 * Send info to server that user downvoted a revision
 	 * @param {int} upvoteId ID of upvote record to remove
+	 * @param {int} userId user ID who made an edit
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	downvote(upvoteId) {
+	downvote(upvoteId, userId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			getEditToken(this.title)
 				.then((token) => {
@@ -104,6 +106,7 @@ const ArticleDiffModel = Ember.Object.extend({
 						}),
 						data: {
 							id: upvoteId,
+							userId,
 							token
 						},
 						dataType: 'json',
@@ -161,6 +164,7 @@ ArticleDiffModel.reopenClass({
 						upvotes: revision.upvotes,
 						upvotescount: revision.upvotesCount,
 						user: revision.userName,
+						userId: revision.userId,
 						useravatar: revision.userAvatar
 					});
 				}

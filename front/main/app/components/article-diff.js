@@ -29,7 +29,7 @@ export default Ember.Component.extend({
 
 	actions: {
 		downvote() {
-			this.downvote(this.get('currentUserUpvoteId'));
+			this.downvote(this.get('currentUserUpvoteId'), this.get('model.userId'));
 		}
 	}
 });

@@ -134,10 +134,11 @@ export default Ember.Controller.extend(
 			/**
 			 * Send info to server that user downvoted a revision
 			 * @param {int} upvoteId ID of upvote record to remove
+			 * @param {int} userId user ID who made an edit
 			 * @returns {void}
 			 */
-			downvote(upvoteId) {
-				this.get('model').downvote(upvoteId).then(
+			downvote(upvoteId, userId) {
+				this.get('model').downvote(upvoteId, userId).then(
 					this.handleDownvoteSuccess.bind(this),
 					this.handleDownvoteError.bind(this)
 				);
