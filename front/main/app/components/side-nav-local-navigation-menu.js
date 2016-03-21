@@ -27,7 +27,7 @@ export default Ember.Component.extend(
 		classNames: ['local-nav-menu'],
 		newBadges: Ember.inject.service(),
 		shouldDisplayNewBadge: Ember.computed('newBadges.badges.[]', function () {
-			return this.get('newBadges.badges').shouldDisplay('recent-wiki-activity');
+			return this.get('newBadges').shouldDisplay('recent-wiki-activity');
 		}),
 
 		actions: {

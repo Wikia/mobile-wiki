@@ -3,7 +3,7 @@ import {getDomain} from '../utils/domain';
 
 export default Ember.Service.extend({
 	currentUser: Ember.inject.service(),
-	badges: [],
+	badges: null,
 	init() {
 		const badgeCookies = Ember.$.cookie('seenNewBadgeFor');
 
@@ -14,7 +14,7 @@ export default Ember.Service.extend({
 		}
 		this.set('badges', badges);
 	},
-	shouldDisplayBadge(badge, checkAuthentication = true) {
+	shouldDisplay(badge, checkAuthentication = true) {
 		if (checkAuthentication && !this.get('currentUser.isAuthenticated')) {
 			return false;
 		}

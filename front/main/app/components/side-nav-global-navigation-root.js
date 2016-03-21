@@ -13,7 +13,7 @@ export default Ember.Component.extend(
 		wikiName: Ember.get(Mercury, 'wiki.siteName'),
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
 		shouldDisplayNewBadge: Ember.computed('newBadges.badges.[]', function () {
-			return this.get('newBadges.badges').shouldDisplay('recent-wiki-activity');
+			return this.get('newBadges').shouldDisplay('recent-wiki-activity');
 		}),
 
 		logoutLink: M.buildUrl({
