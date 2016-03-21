@@ -21,6 +21,14 @@ export default Ember.Component.extend(
 		}),
 		shouldUpdatePosition: Ember.computed.and('visible', 'didAttrsChange'),
 
+		/**
+		 * didUpdateAttrs hook is used for two things:
+		 *
+		 * A. to check if attrs for this component have changed and set didAttrsChange flag
+		 *    in order to control when DOM operations from didRender() hook should be done
+		 *
+		 * B. reset attrs for position calculation when pop over is hidden
+		 */
 		didUpdateAttrs() {
 			this._super(...arguments);
 
@@ -34,6 +42,7 @@ export default Ember.Component.extend(
 		didRender() {
 			this._super(...arguments);
 
+			// manipulate DOM only if pop over should be displayed and its attrs have changed
 			if (this.get('shouldUpdatePosition')) {
 				// delayed position to after render in order to get proper target item DOM position
 				Ember.run.scheduleOnce('afterRender', this, function () {
