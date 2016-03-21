@@ -78,6 +78,7 @@ export function createUrl(wikiDomain, path, params = {}) {
 
 /**
  * @param {*} payload
+ * @param {Hapi.Response} response
  * @returns {Object}
  */
 export function sanitizeRejectData(payload, response) {
