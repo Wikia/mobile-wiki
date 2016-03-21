@@ -7,13 +7,13 @@ export default Ember.Component.extend(
 	TrackClickMixin,
 	{
 		currentUser: Ember.inject.service(),
-		newBadges: Ember.inject.service(),
+		newFeaturesBadges: Ember.inject.service(),
 		hubsLinks: Ember.get(Mercury, 'wiki.navigation2016.hubsLinks'),
 		exploreWikiaLabel: Ember.get(Mercury, 'wiki.navigation2016.exploreWikia.textEscaped'),
 		wikiName: Ember.get(Mercury, 'wiki.siteName'),
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
-		shouldDisplayNewBadge: Ember.computed('newBadges.badges.[]', function () {
-			return this.get('newBadges').shouldDisplay('recent-wiki-activity');
+		shouldDisplayNewBadge: Ember.computed('newFeaturesBadges.features.[]', function () {
+			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
 		}),
 
 		logoutLink: M.buildUrl({

@@ -25,9 +25,9 @@ export default Ember.Component.extend(
 	{
 		tagName: 'ul',
 		classNames: ['local-nav-menu'],
-		newBadges: Ember.inject.service(),
-		shouldDisplayNewBadge: Ember.computed('newBadges.badges.[]', function () {
-			return this.get('newBadges').shouldDisplay('recent-wiki-activity');
+		newFeaturesBadges: Ember.inject.service(),
+		shouldDisplayNewBadge: Ember.computed('newFeaturesBadges.features.[]', function () {
+			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
 		}),
 
 		actions: {
@@ -56,7 +56,7 @@ export default Ember.Component.extend(
 			 */
 			recentWikiActivityClick() {
 				this.trackClick('recent-wiki-activity-blue-dot', 'open-recent-wiki-activity');
-				this.get('newBadges').setBadge('recent-wiki-activity', 10 * 365);
+				this.get('newFeaturesBadges').addFeature('recent-wiki-activity');
 				this.get('collapse')();
 			},
 
