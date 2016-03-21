@@ -20,11 +20,7 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		focusFirstInput() {
-			const input = this.$('input')[0];
-
-			if (input) {
-				input.focus();
-			}
+			this.$('input').first().focus();
 		},
 		/**
 		 * Tracks events on different edit options
@@ -75,6 +71,8 @@ export default Ember.Mixin.create(
 		},
 
 		/**
+		 * @todo consider cleanup this function or move it to utils folder.
+		 * Will be addressed as a part of DAT-3984
 		 * @param {String} label to create id from
 		 * @returns {String} unique string id
 		 */

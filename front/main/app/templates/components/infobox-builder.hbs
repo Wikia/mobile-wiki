@@ -39,9 +39,9 @@
 			}}
 		{{/if}}
 	</div>
-	<div class="infobox-builder-sidebar" id="infobox-builder-sidebar-liquid">
+	<div class="infobox-builder-sidebar liquid-fire-container">
 		{{#liquid-bind activeItem as |activeItem|}}
-			<div class="infobox-builder-sidebar-area">
+			<div class="liquid-fire-slide-to-left-item">
 				{{infobox-builder-sidebar-header
 					item=activeItem
 					onBackArrowClick=(action this.attrs.setEditItem null)

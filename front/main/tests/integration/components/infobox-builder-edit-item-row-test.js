@@ -9,11 +9,7 @@ test('should focus on infoboxRowLabel input', function (assert) {
 	const inputSelector = 'input[name=\'infoboxRowLabel\']';
 	let input;
 
-	this.render(hbs`{{infobox-builder-edit-item-row
-		editRowItem=someFunction
-		editSectionHeaderItem=someFunction
-		editTitleItem=someFunction
-	}}`);
+	this.render(hbs`{{infobox-builder-edit-item-row}}`);
 
 	input = this.$(inputSelector);
 

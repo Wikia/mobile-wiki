@@ -16,6 +16,7 @@ $popover-vertical-padding: 8px;
 $popover-horizontal-padding: 15px;
 $sidebar-width: 300px;
 $sidebar-items-padding: 30px;
+$sidebar-blur-radius: 6px;
 $shadow-blur: 15px;
 $spinner-text-color: rgba(0, 0, 0, .5);
 $shadow-color: rgba(0, 0, 0, .3);
@@ -126,7 +127,7 @@ $source-icon-margins: 6px;
 	max-width: $sidebar-width;
 
 	&:before {
-		box-shadow: -$box-shadow-size * 2 0 6px $shadow-color-sidebar;
+		box-shadow: -$box-shadow-size * 2 0 $sidebar-blur-radius $shadow-color-sidebar;
 		content: '';
 		height: 100%;
 		position: absolute;

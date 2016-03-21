@@ -3,18 +3,18 @@
  * @returns {void}
  */
 export default function () {
-	const infoboxBuilderSidebarId = '#infobox-builder-sidebar-liquid',
-		infoboxBuilderSidebarAreaClass = '.infobox-builder-sidebar-area',
+	const liquidFireSlideToLeftContainer = '.liquid-fire-slide-to-left-container',
+		liquidFireSlideToLeftItem = '.liquid-fire-slide-to-left-item',
 		durationOut = 200,
 		durationIn = 350;
 
 	this.transition(
-		this.childOf(infoboxBuilderSidebarId),
+		this.childOf(liquidFireSlideToLeftContainer),
 		this.use('explode', {
-			pickOld: infoboxBuilderSidebarAreaClass,
+			pickOld: liquidFireSlideToLeftItem,
 			use: ['fade', {duration: durationOut}]
 		}, {
-			pickNew: infoboxBuilderSidebarAreaClass,
+			pickNew: liquidFireSlideToLeftItem,
 			use: ['toLeft', {duration: durationIn, easing: 'easeInSine'}]
 		})
 	);
