@@ -270,7 +270,7 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 		});
 	});
 
-	QUnit.test('static-asssets url is computed properly', function (assert) {
+	QUnit.test('static-assets url is computed properly', function (assert) {
 		var testCases = [
 			{
 				path: '',
@@ -285,7 +285,7 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 		];
 
 		M.prop('servicesDomain', 'services.wikia.com');
-		M.prop('staticAssetsBaseRoute', 'image-review');
+		M.prop('staticAssetsBaseRoute', 'static-assets');
 
 		testCases.forEach(function (testCase) {
 			assert.equal(M.getStaticAssetsServiceUrl(testCase.path, testCase.query), testCase.expectedOutput);
