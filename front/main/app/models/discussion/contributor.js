@@ -5,21 +5,9 @@ const DiscussionContributor = Ember.Object.extend({
 	id: null,
 	name: null,
 	profileUrl: null,
+});
 
-	/**
-	 * @param {object} data
-	 *
-	 * @returns {object}
-	 */
-	create(data) {
-		this._super({
-			avatarUrl: data.avatarUrl,
-			id: data.id,
-			name: data.name,
-			profileUrl: this.getProfileUrl(data.name)
-		});
-	},
-
+DiscussionContributor.reopenClass({
 	/**
 	 * @param {string} username
 	 *
@@ -30,7 +18,20 @@ const DiscussionContributor = Ember.Object.extend({
 			namespace: 'User',
 			title: username
 		});
-	}
+	},
+	/**
+	 * @param {object} data
+	 *
+	 * @returns {object}
+	 */
+	create(data) {
+		return this._super({
+			avatarUrl: data.avatarUrl,
+			id: data.id,
+			name: data.name,
+			profileUrl: DiscussionContributor.getProfileUrl(data.name)
+		});
+	},
 });
 
 export default DiscussionContributor;

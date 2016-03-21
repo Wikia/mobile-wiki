@@ -5,7 +5,9 @@ const DiscussionUserData = Ember.Object.extend({
 	hasReported: null,
 	hasUpvoted: null,
 	permissions: null,
+});
 
+DiscussionUserData.reopenClass({
 	/**
 	 * @param {object} userData
 	 *

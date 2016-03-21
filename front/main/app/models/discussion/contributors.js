@@ -4,7 +4,14 @@ import DiscussionContributor from './contributor';
 const DiscussionContributors = Ember.Object.extend({
 	count: null,
 	users: [],
+});
 
+DiscussionContributors.reopenClass({
+	/**
+	 * @param data
+	 *
+	 * @returns {object}
+	 */
 	create(data) {
 		return this._super({
 			count: data.count,

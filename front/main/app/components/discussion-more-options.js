@@ -9,28 +9,28 @@ export default Ember.Component.extend({
 	popover: nearestParent('pop-over'),
 
 	canDelete: Ember.computed('post.isDeleted', function () {
-		return !this.get('post.isDeleted') && checkPermissions(this.get('post'), 'canDelete');
+		return !this.get('post.isDeleted') && this.get('post.userData.permissions.canDelete');
 	}),
 
 	canUndelete: Ember.computed('post.isDeleted', function () {
-		return this.get('post.isDeleted') && checkPermissions(this.get('post'), 'canUndelete');
+		return this.get('post.isDeleted') && this.get('post.userData.permissions.canUndelete');
 	}),
 
 	canDeleteOrUndelete: Ember.computed.or('canDelete', 'canUndelete'),
 
-	canReport: Ember.computed('currentUser.isAuthenticated', 'post._embedded.userData.@each.hasReported', function () {
-		return this.get('post._embedded.userData.0.hasReported') !== true &&
+	canReport: Ember.computed('currentUser.isAuthenticated', 'post.userData.hasReported', function () {
+		return this.get('post.userData.hasReported') !== true &&
 			this.get('currentUser.isAuthenticated') === true;
 	}),
 
 	canLock: Ember.computed('post.isEditable', 'post.canDelete', function () {
 		// @ToDo use canLock for this -> SOC-2144
-		return this.get('isLockable') && !this.get('post.isLocked') && checkPermissions(this.get('post'), 'canDelete');
+		return this.get('isLockable') && !this.get('post.isLocked') && this.get('post.userData.permissions.canDelete');
 	}),
 
 	canUnlock: Ember.computed('post.isEditable', 'post.canDelete', function () {
 		// @ToDo use canLock for this -> SOC-2144
-		return this.get('isLockable') && this.get('post.isLocked') && checkPermissions(this.get('post'), 'canUndelete');
+		return this.get('isLockable') && this.get('post.isLocked') && this.get('post.userData.permissions.canUndelete');
 	}),
 
 	actions: {

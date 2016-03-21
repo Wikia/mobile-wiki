@@ -6,7 +6,9 @@ const DiscussionUserPermissions = Ember.Object.extend({
 	canModerate: false,
 	canUndelete: false,
 	canUnlock: false,
+});
 
+DiscussionUserPermissions.reopenClass({
 	/**
 	 * Creates a permissions dict from API's permissions array
 	 *
@@ -19,7 +21,7 @@ const DiscussionUserPermissions = Ember.Object.extend({
 			permissions[permission] = true;
 		});
 
-		this._super(permissions);
+		return this._super(permissions);
 	}
 });
 
