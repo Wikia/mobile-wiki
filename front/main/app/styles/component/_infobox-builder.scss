@@ -329,3 +329,26 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	width: 44px;
 	z-index: 1;
 }
+
+.is-group-highlighted {
+	.pi-item.in-group {
+		&:before {
+			border-left: $border-width solid $color-blue-light;
+			border-right: $border-width solid $color-blue-light;
+			box-sizing: content-box;
+			content: ' ';
+			display: block;
+			height: 100%;
+			left: -$border-width;
+			position: absolute;
+			top: -$border-width;
+			width: 100%;
+		}
+		&:last-of-type:before {
+			border-bottom: $border-width solid $color-blue-light;
+		}
+	}
+	.pi-header.in-group {
+		border-top: $border-width solid $color-blue-light;
+	}
+}

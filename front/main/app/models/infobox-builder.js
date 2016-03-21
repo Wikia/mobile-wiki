@@ -18,6 +18,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		this.infoboxState = [];
 		this.itemInEditMode = null;
 		this.theme = null;
+		this.groupItems = [];
 	},
 
 	/**
@@ -179,6 +180,34 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		}
 
 		this.set('itemInEditMode', item);
+	},
+
+	setGroup(header) {
+		//TODO: move this logic to controller, add tests
+		let items = [];
+		if (header) {
+			let done = false,
+				state = this.get('infoboxState'),
+				// set start at first group item
+				current = state.indexOf(header) + 1;
+
+			items.push(header);
+			while (!done && current < state.length ) {
+				let item = state.get(current);
+				switch (item.type) {
+					case 'title':
+					case 'section-header':
+						done = true;
+						break;
+					default:
+						items.push(item);
+						break;
+				}
+				current += 1;
+			}
+		}
+		console.info(items);
+		this.set('groupItems', items);
 	},
 
 	/**

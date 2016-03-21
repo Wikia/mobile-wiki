@@ -1,2 +1,11 @@
 {{header}}
-{{#if collapsible}}<div class="infobox-builder-chevron-area" {{action 'chevronClick' bubbles=false}}></div>{{/if}}
+{{#if collapsible}}
+	<div id="infobox-builder-header-chevron-{{index}}" class="infobox-builder-chevron-area"
+			{{action onGroupPreviewStart on="mouseEnter"}}
+			{{action onGroupPreviewStop on="mouseLeave"}}></div>
+	{{#if isGroupHighlighted}}
+		{{#pop-over for=(concat 'infobox-builder-header-chevron-' index) on="hover" flow="topLeft"}}
+			<p class="infobox-builder-chevron-popup">aksdjflkajsd flasjdlkfjal</p>
+		{{/pop-over}}
+	{{/if}}
+{{/if}}

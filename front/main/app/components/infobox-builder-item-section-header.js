@@ -11,11 +11,6 @@ export default Ember.Component.extend(
 		classNameBindings: ['collapsible'],
 		collapsible: Ember.computed.readOnly('model.collapsible'),
 		header: Ember.computed.readOnly('model.data'),
-
-		actions: {
-			chevronClick() {
-				console.info('chevron captured');
-			}
-		}
+		index: Ember.computed.readOnly('model.infoboxBuilderData.index')
 	}
 );

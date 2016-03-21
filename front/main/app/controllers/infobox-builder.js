@@ -143,6 +143,12 @@ export default Ember.Controller.extend({
 		 */
 		getDiffArray() {
 			return this.get('model').createDataDiffs();
+		},
+
+		setGroup(header) {
+			const model = this.get('model');
+
+			model.setGroup(header);
 		}
 	}
 });

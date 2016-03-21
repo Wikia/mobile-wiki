@@ -6,7 +6,7 @@ import {track, trackActions} from 'common/utils/track';
 export default Ember.Component.extend(
 	TrackClickMixin,
 	{
-		classNameBindings: ['isPreviewItemDragged'],
+		classNameBindings: ['isPreviewItemDragged', 'isGroupHighlighted'],
 		isLoading: false,
 		showSuccess: false,
 		tooltipPosX: null,
@@ -14,14 +14,19 @@ export default Ember.Component.extend(
 		tooltipDistanceFromCursor: 20,
 		isPreviewItemHovered: false,
 		isPreviewItemDragged: false,
+		isGroupTooltipVisible: false,
 		scrollDebounceDuration: 200,
 		scrollAnimateDuration: 200,
 		showGoToSourceModal: false,
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 
-		isReorderTooltipVisible: Ember.computed('isPreviewItemHovered', 'isPreviewItemDragged', function () {
-			return this.get('isPreviewItemHovered') && !this.get('isPreviewItemDragged');
+		isReorderTooltipVisible: Ember.computed('isPreviewItemHovered', 'isPreviewItemDragged', 'isGroupTooltipVisible', function () {
+			return this.get('isPreviewItemHovered') && !this.get('isPreviewItemDragged') && !this.get('isGroupTooltipVisible');
+		}),
+
+		isGroupHighlighted: Ember.computed('isPreviewItemDragged', 'isGroupTooltipVisible', function() {
+			return !this.get('isPreviewItemDragged') && this.get('isGroupTooltipVisible');
 		}),
 
 		sortableGroupClassNames: Ember.computed('theme', function () {
@@ -84,6 +89,7 @@ export default Ember.Component.extend(
 			onPreviewItemDrag(actionTrigger) {
 				this.set('isPreviewItemDragged', true);
 				this.trackClick('infobox-builder', `drag-element-${actionTrigger.type}`);
+				this.hideGroupPreview();
 
 				if (actionTrigger !== this.get('activeItem')) {
 					this.get('setEditItem')(null);
@@ -177,6 +183,20 @@ export default Ember.Component.extend(
 					this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
 				}
 				this.get('setEditItem')(null);
+			},
+
+			showGroupPreview(header) {
+				this.setProperties({
+					isGroupTooltipVisible: true
+				});
+				this.get('setGroup')(header);
+			},
+
+			hideGroupPreview() {
+				this.setProperties({
+					isGroupTooltipVisible: false
+				});
+				this.get('setGroup')(null);
 			}
 		},
 
