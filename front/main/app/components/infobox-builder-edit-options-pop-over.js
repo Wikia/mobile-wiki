@@ -63,14 +63,14 @@ export default Ember.Component.extend(
 			const $popOver = this.$(`.${this.get('popOverElementClassName')}`),
 				targetItem = this.get('targetItem'),
 				$targetItem = Ember.$(`#${targetItem.infoboxBuilderData.id}`),
-				position = $targetItem.position();
+				{left, top} = $targetItem.position();
 
 			this.setProperties({
 				popOverHeight: $popOver.outerHeight(),
 				popOverWidth: $popOver.outerWidth(),
 				targetHeight: $targetItem.outerHeight(),
-				targetPosX: position.left,
-				targetPosY: position.top
+				targetPosX: left,
+				targetPosY: top
 			});
 		},
 
