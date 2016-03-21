@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import SideNavNewBadge from '../mixins/side-nav-new-badge';
 import TrackClickMixin from '../mixins/track-click';
 
 /**
@@ -23,10 +22,13 @@ import TrackClickMixin from '../mixins/track-click';
 
 export default Ember.Component.extend(
 	TrackClickMixin,
-	SideNavNewBadge,
 	{
 		tagName: 'ul',
 		classNames: ['local-nav-menu'],
+		newBadges: Ember.inject.service(),
+		shouldDisplayNewBadge: Ember.computed('newBadges', function () {
+			return !this.get('newBadges.badges').contains('recent-wiki-activity');
+		}),
 
 		actions: {
 			/**
@@ -53,7 +55,8 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			recentWikiActivityClick() {
-				this.hideNewBadge();
+				this.trackClick('recent-wiki-activity-blue-dot', 'open-recent-wiki-activity');
+				this.get('newBadges').setBadge('recent-wiki-activity', 10 * 365);
 				this.get('collapse')();
 			},
 

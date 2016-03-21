@@ -1,18 +1,20 @@
 import Ember from 'ember';
 import LoginLinkMixin from '../mixins/login-link';
-import SideNavNewBadge from '../mixins/side-nav-new-badge';
 import TrackClickMixin from '../mixins/track-click';
 
 export default Ember.Component.extend(
 	LoginLinkMixin,
-	SideNavNewBadge,
 	TrackClickMixin,
 	{
 		currentUser: Ember.inject.service(),
+		newBadges: Ember.inject.service(),
 		hubsLinks: Ember.get(Mercury, 'wiki.navigation2016.hubsLinks'),
 		exploreWikiaLabel: Ember.get(Mercury, 'wiki.navigation2016.exploreWikia.textEscaped'),
 		wikiName: Ember.get(Mercury, 'wiki.siteName'),
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
+		shouldDisplayNewBadge: Ember.computed('newBadges', function () {
+			return !this.get('newBadges.badges').contains('recent-wiki-activity');
+		}),
 
 		logoutLink: M.buildUrl({
 			namespace: 'Special',
@@ -28,7 +30,7 @@ export default Ember.Component.extend(
 
 		actions: {
 			openLocalNavigation() {
-				if (this.get('newBadges.shouldDisplay')) {
+				if (this.get('shouldDisplayNewBadge')) {
 					this.trackClick('recent-wiki-activity-blue-dot', 'open-local-menu');
 				}
 

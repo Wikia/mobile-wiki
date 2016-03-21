@@ -1,13 +1,11 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import HeadroomMixin from '../mixins/headroom';
-import SideNavNewBadge from '../mixins/side-nav-new-badge';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	TrackClickMixin,
 	HeadroomMixin,
-	SideNavNewBadge,
 	{
 		classNames: ['site-head', 'border-theme-color'],
 		classNameBindings: ['themeBar'],
@@ -17,7 +15,12 @@ export default Ember.Component.extend(
 		pinned: true,
 
 		currentUser: Ember.inject.service(),
+		newBadges: Ember.inject.service(),
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
+		shouldDisplayNewBadge: Ember.computed('newBadges.badges', function(){
+			console.log(this.get('newBadges.badges'));
+			return !this.get('newBadges.badges').contains('recent-wiki-activity');
+		}),
 
 		actions: {
 			/**
