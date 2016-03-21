@@ -5,6 +5,7 @@ import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-acti
 import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributors from './contributors';
 import DiscussionPosts from './posts';
+import DiscussionPost from './post';
 
 const DiscussionForum = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
@@ -35,11 +36,11 @@ const DiscussionForum = DiscussionBaseModel.extend(
 				},
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 				success: (data) => {
-					const newPosts = data._embedded['doc:threads'];
+					const newThreads = data._embedded['doc:threads'];
 					let allPosts;
 
 					allPosts = this.get('posts').concat(
-						DiscussionPosts.getNormalizedData(newPosts)
+						DiscussionPosts.create().getNormalizedDataFromThreadData(newThreads)
 					);
 
 					this.set('posts', allPosts);
@@ -61,12 +62,11 @@ const DiscussionForum = DiscussionBaseModel.extend(
 				data: JSON.stringify(postData),
 				method: 'POST',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
-				success: (post) => {
-					post._embedded.firstPost[0].isNew = true;
+				success: (thread) => {
+					const newPost = DiscussionPost.createFromThreadData(thread);
+					newPost.isNew = true;
 
-					this.normalizePostData(post);
-
-					this.posts.insertAt(0, post);
+					this.posts.insertAt(0, newPost);
 					this.incrementProperty('totalPosts');
 				},
 				error: (err) => {
@@ -122,8 +122,6 @@ DiscussionForum.reopenClass({
 				forumInstance.setProperties(
 					forumInstance.getNormalizedData(data)
 				);
-
-				debugger;
 			},
 			error: (err) => {
 				forumInstance.setErrorProperty(err);
