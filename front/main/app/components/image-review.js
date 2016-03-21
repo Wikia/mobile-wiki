@@ -11,13 +11,17 @@ export default Ember.Component.extend({
 
 	actions: {
 		showModal(popupModel) {
-			imageReviewModel.getImageContext(popupModel.imageId).then((context) => {
-				console.log("ELO " + context);
+			imageReviewModel.getImageContext(popupModel.imageId).then((data) => {
+				popupModel.context = data.context || '#';
+				popupModel.isLink = new RegExp('(http|https)?:\/\/[^\s]+').test(data.context);
+				this.set('thumbnailModel', popupModel);
+				this.set('isModalVisible', true);
 			}).catch(() => {
-				console.log(":<");
+				popupModel.context = '#';
+				popupModel.isLink = false;
+				this.set('thumbnailModel', popupModel);
+				this.set('isModalVisible', true);
 			});
-			this.set('thumbnailModel', popupModel);
-			this.set('isModalVisible', true);
 		}
 	}
 });

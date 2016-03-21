@@ -165,7 +165,7 @@ ImageReviewModel.reopenClass({
 	getImageContext(imageId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
-				url: M.getStaticAssetsServiceUrl(`/context/${imageId}`),
+				url: M.getStaticAssetsServiceUrl(`/image/context/${imageId}`),
 				xhrFields: {
 					withCredentials: true
 				},
