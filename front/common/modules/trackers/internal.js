@@ -42,13 +42,12 @@ export default class Internal {
 	 * @returns {InternalTrackingConfig}
 	 */
 	static getConfig() {
-		const mercury = window.Mercury,
-			language = mercury.wiki.language;
+		const mercury = window.Mercury;
 
 		return {
 			c: mercury.wiki.id,
 			x: mercury.wiki.dbName,
-			lc: language ? language.content : 'en',
+			lc: mercury.wiki.language.content,
 			u: parseInt(M.prop('userId'), 10) || 0,
 			s: 'mercury',
 			beacon: '',

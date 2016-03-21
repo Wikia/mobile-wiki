@@ -1,6 +1,7 @@
 $back-arrow-icon-size: 16px;
 $border-width: 1px;
 $box-shadow-size: 2px;
+$edit-options-pop-over-arrow-size: 14px;
 $icon-action-size: 24px;
 $icon-button-size: 30px;
 $icon-wrapper-size: 50px;
@@ -9,6 +10,7 @@ $image-button-height: 100px;
 $info-icon-position-left: -12px;
 $info-icon-position-top: -10px;
 $info-message-left-padding: 34px;
+$infobox-wrapper-padding: 40px;
 $grayout-color: rgba(255, 255, 255, .3);
 $overlay-color: rgba(255, 255, 255, .8);
 $padding: 18px;
@@ -22,6 +24,7 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 $shadow-color: rgba(0, 0, 0, .3);
 $shadow-color-sidebar: rgba(0, 0, 0, .2);
 $source-icon-margins: 6px;
+$sidebar-z-index: 1;
 
 // overwrite default mercury styles
 .infobox-builder-body-wrapper {
@@ -56,6 +59,16 @@ $source-icon-margins: 6px;
 	@media (min-width: lower-bound($large-range)) {
 		padding-top: $wikia-ui-components-sub-head-height-large;
 	}
+
+	.infobox-builder-sidebar-header-icon-delete {
+		.icon-button-icon {
+			fill: $color-blue-gray-dark
+		}
+
+		&:hover .icon-button-icon {
+			fill: $alert-color;
+		}
+	}
 }
 
 .infobox-builder-preview {
@@ -66,9 +79,15 @@ $source-icon-margins: 6px;
 	// to hide elements in animation of sidebar
 	z-index: $z-1;
 
+	.infobox-builder-infobox-wrapper {
+		padding: $infobox-wrapper-padding 0;
+		// set relative parent for infobox-builder-edit-options-pop-over
+		position: relative;
+	}
+
 	.portable-infobox {
+		margin: 0 auto;
 		cursor: pointer;
-		margin: 40px auto;
 	}
 
 	// styles for adding infobox builder selection bounding box to each infobox item
@@ -120,11 +139,27 @@ $source-icon-margins: 6px;
 			}
 		}
 	}
+
+	.infobox-builder-edit-options-pop-over {
+		position: absolute;
+	}
+}
+
+.infobox-builder-edit-options-pop-over {
+	.pop-over-container {
+		padding: 0;
+	}
+
+	.pop-over-pointer {
+		top: calc(50% - #{$edit-options-pop-over-arrow-size / 2});
+	}
 }
 
 .infobox-builder-sidebar {
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
+	// required for displaying sidebar shadow when preview scrollbar appear
+	z-index: $sidebar-z-index;
 
 	&:before {
 		box-shadow: -$box-shadow-size * 2 0 $sidebar-blur-radius $shadow-color-sidebar;
@@ -175,14 +210,6 @@ $source-icon-margins: 6px;
 
 	.infobox-builder-sidebar-header-icon-delete {
 		margin: $source-icon-margins;
-
-		.icon-button-icon {
-			fill: $color-blue-gray-dark
-		}
-
-		&:hover .icon-button-icon {
-			fill: $color-gray-dark;
-		}
 	}
 }
 
