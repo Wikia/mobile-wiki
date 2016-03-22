@@ -15,9 +15,5 @@ export default Ember.Component.extend({
 	userNotBlocked: Ember.computed.not('currentUser.isBlocked'),
 	showButtons: Ember.computed.and('currentUser.isAuthenticated', 'userNotBlocked'),
 	showDiffLink: false,
-	upvoted: Ember.computed.bool('currentUserUpvoteId'),
-	classUpvote: Ember.computed('upvoted', function () {
-		return this.get('upvoted') ? 'diff-page__upvote--upvoted' : 'diff-page__upvote';
-	})
-
+	upvoted: Ember.computed.bool('currentUserUpvoteId')
 });
