@@ -18,6 +18,12 @@
 	background-position: center bottom;
 }
 
+.join-page {
+	.footer-callout-emphasis {
+		font-weight: bold;
+		text-decoration: underline;
+	}
+}
 
 @media(min-width: 550px) {
 	.splash {
