@@ -171,33 +171,31 @@ export default class SignupForm {
 					const status = e.target.status;
 
 					if (status === HttpCodes.OK) {
-						this.onSuccessfulRegistration(JSON.parse(registrationXhr.responseText).user_id);
+						this.onSuccessfulRegistration(JSON.parse(registrationProofOfWorkXhr.responseText).user_id);
 					} else if (status === HttpCodes.BAD_REQUEST) {
 						enableSubmitButton();
-						this.formErrors.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
+						this.formErrors.displayValidationErrors(JSON.parse(registrationProofOfWorkXhr.responseText).errors);
 					} else if (status === HttpCodes.TOO_MANY_REQUESTS) {
 						// TODO error handling
 						alert('Proof of work error');
 					} else {
 						enableSubmitButton();
 						this.formErrors.displayGeneralError();
-						this.authLogger.xhrError(registrationXhr);
+						this.authLogger.xhrError(registrationProofOfWorkXhr);
 					}
 				};
 
 				registrationProofOfWorkXhr.onerror = () => {
 					enableSubmitButton();
 					this.formErrors.displayGeneralError();
-					this.authLogger.xhrError(registrationXhr);
+					this.authLogger.xhrError(registrationProofOfWorkXhr);
 				};
 
-				// TODO use X-Proof-Of-Work header when API gateway allows it
-				registrationProofOfWorkXhr.open('POST', `${this.form.action}?proof_of_work=${encodeURIComponent(proofOfWorkValue)}`, true);
+				registrationProofOfWorkXhr.open('POST', this.form.action, true);
 				registrationProofOfWorkXhr.withCredentials = true;
 				registrationProofOfWorkXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-				// TODO check if value should be escaped
-				//registrationProofOfWorkXhr.setRequestHeader('X-Proof-Of-Work', encodeURIComponent(proofOfWorkValue));
+				registrationProofOfWorkXhr.setRequestHeader('X-Proof-Of-Work', proofOfWorkValue);
 				registrationProofOfWorkXhr.send((new UrlHelper()).urlEncode(data));
 			} else {
 				enableSubmitButton();
