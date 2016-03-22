@@ -25,11 +25,11 @@ const DiscussionForum = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(pageNum = 0, sortBy = 'trending') {
-			this.set('pageNum', pageNum);
+			this.set('data.pageNum', pageNum);
 
 			return ajaxCall({
 				data: {
-					page: this.get('pageNum'),
+					page: this.get('data.pageNum'),
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false
@@ -39,11 +39,13 @@ const DiscussionForum = DiscussionBaseModel.extend(
 					const newThreads = data._embedded['doc:threads'];
 					let allPosts;
 
-					allPosts = this.get('posts').concat(
-						DiscussionPosts.create().getNormalizedDataFromThreadData(newThreads)
+					allPosts = this.get('data.entities').concat(
+						newThreads.map(function (newThread) {
+							return DiscussionPost.createFromThreadListData(newThread);
+						})
 					);
 
-					this.set('posts', allPosts);
+					this.set('data.entities', allPosts);
 				},
 				error: (err) => {
 					this.handleLoadMoreError(err);
@@ -76,19 +78,25 @@ const DiscussionForum = DiscussionBaseModel.extend(
 		},
 
 		/**
-		 * @param {object} data
+		 * @param {object} apiData
 		 *
-		 * @returns {object}
+		 * @returns {void}
 		 */
-		getNormalizedData(data) {
-			const embedded = data._embedded,
-				posts = embedded && embedded['doc:threads'] ? embedded['doc:threads'] : [];
+		setNormalizedData(apiData) {
+			const embedded = apiData._embedded,
+				posts = embedded && embedded['doc:threads'] ? embedded['doc:threads'] : [],
+				pivotId = (posts.length > 0 ? posts[0].id : null),
+				normalizedData = Ember.Object.create({
+					forumId: apiData.id,
+					contributors: DiscussionContributors.create(embedded.contributors[0]),
+					entities: DiscussionEntities.createFromThreadsData(posts),
+					pageNum: 0,
+					postCount: apiData.threadCount,
+				});
 
-			return Ember.Object.create({
-				forumId: data.id,
-				contributors: DiscussionContributors.create(embedded.contributors[0]),
-				pivotId: (posts.length > 0 ? posts[0].id : null),
-				entities: DiscussionEntities.createFromThreadData()
+			this.setProperties({
+				pivotId,
+				data: normalizedData
 			});
 		}
 	}
@@ -118,7 +126,7 @@ DiscussionForum.reopenClass({
 			data: requestData,
 			url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
 			success: (data) => {
-				forumInstance.set('data', forumInstance.getNormalizedData(data));
+				forumInstance.setNormalizedData(data);
 			},
 			error: (err) => {
 				forumInstance.setErrorProperty(err);
