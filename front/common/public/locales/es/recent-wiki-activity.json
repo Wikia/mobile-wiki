@@ -6,16 +6,13 @@
     "intro-see-more-recent-edits":"Ver más ediciones recientes",
     "intro-see-the-edit":"Ver la edición",
     "new":"¡Nuevo!",
-    "rollback-error":"Lo sentimos, parece que algo salió mal al intentar revertir la edición. Por favor, inténtalo de nuevo.",
     "rollback-failure":"La página no pudo ser revertida debido a un conflicto de ediciones intermedias.",
     "rollback-success":"¡Se ha revertido satisfactoriamente la página __pageTitle__!",
     "summary":"Resumen:",
     "title":"Actividad Reciente",
-    "undo-error":"Lo sentimos, parece que algo salió mal al intentar deshacer la edición. Por favor, inténtalo de nuevo.",
     "undo-failure":"La edición no puede ser deshecha debido a un conflicto de ediciones intermedias.",
     "undo-label":"Deshacer",
     "undo-success":"¡Se ha deshecho satisfactoriamente la edición a la página __pageTitle__!",
-    "upvotes": "votos"
   },
   "diff":{
     "after":"Después",

@@ -26,30 +26,23 @@ export default Ember.Controller.extend(
 			});
 		},
 
-		/**
-		 * Redirects back to Recent Wiki Activity list and adds success banner
-		 * @param {string} messageKey message key with prefix (taken from recent-wiki-activity namespace)
-		 * @param {string} label Label for tracking
-		 * @returns {void}
-		 */
-		handleSuccess(messageKey, label) {
-			this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}})
-				.then(() => this.showSuccess(messageKey));
-
-			this.trackImpression(label);
-		},
-
 		handleDownvoteSuccess() {
-			this.showSuccess('main.downvote-success');
 			this.trackImpression('downvote-success');
 		},
 
+		/**
+		 * Redirects back to Recent Wiki Activity list and adds success banner
+		 * @returns {void}
+		 */
 		handleUndoSuccess() {
-			this.handleSuccess('main.undo-success', 'undo-success');
+			this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}})
+				.then(() => this.showSuccess('main.undo-success'));
+
+			this.trackImpression('undo-success');
 		},
 
 		handleUpvoteSuccess() {
-			this.handleSuccess('main.upvote-success', 'upvote-success');
+			this.trackImpression('upvote-success');
 		},
 
 		/**
@@ -72,7 +65,7 @@ export default Ember.Controller.extend(
 		},
 
 		handleDownvoteError() {
-			this.handleError('main.downvote-error', 'downvote-error');
+			this.handleError('main.error', 'downvote-error');
 		},
 
 		/**
@@ -86,7 +79,7 @@ export default Ember.Controller.extend(
 		},
 
 		handleUpvoteError() {
-			this.handleError('main.upvote-error', 'upvote-error');
+			this.handleError('main.error', 'upvote-error');
 		},
 
 		/**

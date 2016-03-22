@@ -6,16 +6,13 @@
     "intro-see-more-recent-edits":"Visualizza le modifiche più recenti",
     "intro-see-the-edit":"Visualizza la modifica",
     "new":"Nuovo!",
-    "rollback-error":"Siamo spiacenti, sembra che qualcosa sia andato storto durante il tentativo di rollback della modifica. Si prega di riprovare.",
     "rollback-failure":"Impossibile eseguire il rollback della pagina a causa di un conflitto con delle modifiche intermedie.",
     "rollback-success":"Rollback della pagina __pageTitle__ eseguito con successo!",
     "summary":"Riepilogo:",
     "title":"Attività recente della wiki",
-    "undo-error":"Siamo spiacenti, sembra che qualcosa sia andato storto durante il tentativo di annullamento della modifica. Si prega di riprovare.",
     "undo-failure":"Non è stato possibile annullare la modifica a causa di un conflitto con delle modifiche intermedie.",
     "undo-label":"Annulla",
     "undo-success":"Annullamento della modifica alla pagina __pageTitle__ eseguito con successo!",
-    "upvotes": "voti"
   },
   "diff":{
     "after":"Dopo",

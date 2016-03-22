@@ -6,16 +6,13 @@
     "intro-see-more-recent-edits":"Voir plus de modifications récentes",
     "intro-see-the-edit":"Voir la modification",
     "new":"Nouveauté !",
-    "rollback-error":"Il semble qu'un problème soit survenu au cours de la révocation. Veuillez réessayer.",
     "rollback-failure":"Révocation impossible en raison d'un conflit entre des modifications intermédiaires.",
     "rollback-success":"La page __pageTitle__ a été révoquée avec succès !",
     "summary":"Résumé :",
     "title":"Activité récente du wikia",
-    "undo-error":"Il semble qu'un problème soit survenu au cours de l'annulation de la modification. Veuillez réessayer.",
     "undo-failure":"Impossible d'annuler la modification en raison d'un conflit entre des modifications intermédiaires.",
     "undo-label":"Annuler",
     "undo-success":"La modification de la page __pageTitle__ a été annulée avec succès !",
-    "upvotes": "votes"
   },
   "diff":{
     "after":"Après",
