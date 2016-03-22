@@ -28,7 +28,7 @@
 
 {{#if showButtons}}
 	{{#if upvoted}}
-		<button {{action 'downvote'}} class="diff-page__vote">{{i18n 'main.downvote-label' ns='recent-wiki-activity'}}</button>
+		<button {{action attrs.downvote currentUserUpvoteId model.userId}} class="diff-page__vote">{{i18n 'main.downvote-label' ns='recent-wiki-activity'}}</button>
 	{{else}}
 		<button {{action attrs.upvote}} class="diff-page__vote">{{i18n 'main.upvote-label' ns='recent-wiki-activity'}}</button>
 	{{/if}}
