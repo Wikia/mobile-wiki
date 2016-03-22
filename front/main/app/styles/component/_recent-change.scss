@@ -51,20 +51,31 @@
 }
 
 .recent-change__upvotes {
-	color: $aluminum;
 	font-size: $type-min;
 	line-height: 1;
 	margin-top: 10px;
 
 	.icon {
 		border: none;
+		fill: $aluminum;
 		height: 18px;
 		margin-right: 6px;
 		width: 18px;
 	}
 
-	&.user-upvoted .icon {
-		fill: $upvote-icon-activated-color;
+	.text {
+		color: $aluminum;
+		vertical-align: bottom;
+	}
+
+	&.user-upvoted {
+
+		.icon {
+			fill: $appreciate-activated-color;
+		}
+		.text {
+			color: $appreciate-activated-color;
+		}
 	}
 
 	span {

@@ -19,7 +19,7 @@
     "undo-label": "Undo",
     "undo-success": "Successfully undid edit to page __pageTitle__!",
     "upvotes": "upvotes",
-    "upvote-label": "Upvote",
+    "upvote-button-label": "Nice work!",
     "upvote-error": "Sorry, it looks like something went wrong while trying to upvote the edit. Please try again.",
     "upvote-success": "Successfully upvoted edit to page __pageTitle__!"
   },

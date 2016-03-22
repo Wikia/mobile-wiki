@@ -1,9 +1,13 @@
 // Use Wikia style guide settings
 @import '../../bower_components/wikia-style-guide/src/scss/lib/settings';
 
+$appreciate-activated-color: $success-color;
 $auth-content-background-color: $color-white;
 $body-background: $color-blue-dark;
 $button-color: $color-blue-light;
+$button-enabled-color: #4a90e2;
+$button-tapped-color: mix($button-enabled-color, $color-black, 80%);
+$button-disabled-color: mix($button-enabled-color, $color-white, 70%);;
 $disabled-button-text-color: #B4D6F2;
 $footer-text-color: $color-white;
 $header-text-color: $color-white;
