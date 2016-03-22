@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import DiscussionItem from './item';
+import DiscussionEntity from './entity';
 import DiscussionContributor from './contributor';
 import DiscussionUserData from './user-data';
 
-const DiscussionReply = DiscussionItem.extend({
+const DiscussionReply = DiscussionEntity.extend({
 	/**
 	 * Creates a reply object from API's post data
 	 *

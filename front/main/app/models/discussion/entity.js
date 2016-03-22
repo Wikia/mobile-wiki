@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const DiscussionItem = Ember.Object.extend({
+const DiscussionEntity = Ember.Object.extend({
 	createdBy: null,
 	id: null,
 	isDeleted: null,
@@ -14,4 +14,4 @@ const DiscussionItem = Ember.Object.extend({
 	userData: null,
 });
 
-export default DiscussionItem;
+export default DiscussionEntity;

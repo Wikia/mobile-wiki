@@ -4,7 +4,7 @@ import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-m
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributors from './contributors';
-import DiscussionPosts from './posts';
+import DiscussionEntities from './entities';
 import DiscussionPost from './post';
 
 const DiscussionForum = DiscussionBaseModel.extend(
@@ -84,13 +84,12 @@ const DiscussionForum = DiscussionBaseModel.extend(
 			const embedded = data._embedded,
 				posts = embedded && embedded['doc:threads'] ? embedded['doc:threads'] : [];
 
-			return {
-				count: data.threadCount,
+			return Ember.Object.create({
 				forumId: data.id,
 				contributors: DiscussionContributors.create(embedded.contributors[0]),
 				pivotId: (posts.length > 0 ? posts[0].id : null),
-				posts: DiscussionPosts.create().getNormalizedDataFromThreadData(posts)
-			}
+				entities: DiscussionEntities.createFromThreadData()
+			});
 		}
 	}
 );
@@ -119,9 +118,7 @@ DiscussionForum.reopenClass({
 			data: requestData,
 			url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
 			success: (data) => {
-				forumInstance.setProperties(
-					forumInstance.getNormalizedData(data)
-				);
+				forumInstance.set('data', forumInstance.getNormalizedData(data));
 			},
 			error: (err) => {
 				forumInstance.setErrorProperty(err);
