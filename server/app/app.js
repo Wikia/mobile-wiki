@@ -1,4 +1,4 @@
-import setResponseCaching, {Policy, Interval} from './lib/caching';
+import {setResponseCaching, Policy, Interval} from './lib/caching';
 import Logger from './lib/logger';
 import {Environment} from './lib/utils';
 import wikiaSessionScheme from './lib/wikia-session';

@@ -1,7 +1,7 @@
 import {PageRequestHelper, PageRequestError} from '../lib/mediawiki-page';
 import Logger from '../lib/logger';
 import * as MediaWiki from '../lib/mediawiki';
-import * as Caching from '../lib/caching';
+import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
 import * as Tracking from '../lib/tracking';
 import * as Utils from '../lib/utils';
 import getStatusCode from './operations/get-status-code';
@@ -14,9 +14,9 @@ import deepExtend from 'deep-extend';
 
 const cachingTimes = {
 	enabled: true,
-	cachingPolicy: Caching.Policy.Public,
-	varnishTTL: Caching.Interval.standard,
-	browserTTL: Caching.Interval.disabled
+	cachingPolicy: CachingPolicy.Public,
+	varnishTTL: CachingInterval.standard,
+	browserTTL: CachingInterval.disabled
 };
 
 /**
@@ -121,9 +121,9 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	response.type('text/html; charset=utf-8');
 
 	if (allowCache) {
-		Caching.setResponseCaching(response, cachingTimes);
+		setResponseCaching(response, cachingTimes);
 	} else {
-		Caching.disableCache(response);
+		disableCache(response);
 	}
 }
 
@@ -145,7 +145,7 @@ function showWikiVariablesErrorPage(reply) {
 	response.code(statusCode);
 	response.type('text/html; charset=utf-8');
 
-	Caching.disableCache(response);
+	disableCache(response);
 }
 
 /**

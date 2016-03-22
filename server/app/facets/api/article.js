@@ -1,14 +1,14 @@
 import {PageRequestHelper} from '../../lib/mediawiki-page';
-import setResponseCaching, * as Caching from '../../lib/caching';
+import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../../lib/caching';
 import {getCachedWikiDomainName} from '../../lib/utils';
 import localSettings from '../../../config/localSettings';
 import getStatusCode from '../operations/get-status-code';
 
 const cachingTimes = {
 	enabled: true,
-	cachingPolicy: Caching.Policy.Public,
-	varnishTTL: Caching.Interval.standard,
-	browserTTL: Caching.Interval.disabled
+	cachingPolicy: CachingPolicy.Public,
+	varnishTTL: CachingInterval.standard,
+	browserTTL: CachingInterval.disabled
 };
 
 /**
@@ -31,7 +31,7 @@ function handleArticleResponse(reply, result, allowCache) {
 	if (allowCache) {
 		setResponseCaching(response, cachingTimes);
 	} else {
-		Caching.disableCache(response);
+		disableCache(response);
 	}
 }
 
@@ -70,14 +70,14 @@ export default function get(request, reply) {
 			 * @returns {void}
 			 */
 			.then((result) => {
-				Caching.disableCache(reply(result));
+				disableCache(reply(result));
 			})
 			/**
 			 * @param {*} result
 			 * @returns {void}
 			 */
 			.catch((result) => {
-				Caching.disableCache(reply(result).code(getStatusCode(result)));
+				disableCache(reply(result).code(getStatusCode(result)));
 			});
 	} else {
 		mediaWikiPageHelper

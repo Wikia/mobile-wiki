@@ -6,14 +6,14 @@ import {getCachedWikiDomainName,
 		RedirectedToCanonicalHost} from '../lib/utils';
 import localSettings from '../../config/localSettings';
 import prepareCuratedContentData from './operations/prepare-curated-content-data';
-import setResponseCaching, * as Caching from '../lib/caching';
+import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
 import * as Tracking from '../lib/tracking';
 
 const cachingTimes = {
 	enabled: true,
-	cachingPolicy: Caching.Policy.Public,
-	varnishTTL: Caching.Interval.standard,
-	browserTTL: Caching.Interval.disabled
+	cachingPolicy: CachingPolicy.Public,
+	varnishTTL: CachingInterval.standard,
+	browserTTL: CachingInterval.disabled
 };
 
 /**
@@ -43,7 +43,7 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 		return setResponseCaching(response, cachingTimes);
 	}
 
-	return Caching.disableCache(response);
+	return disableCache(response);
 }
 
 /**
