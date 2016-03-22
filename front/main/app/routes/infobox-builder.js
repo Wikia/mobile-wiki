@@ -42,7 +42,10 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Object}
 	 */
 	model(params) {
-		return InfoboxBuilderModel.create({title: params.templateName});
+		// temporary disable passing title to model
+		const test = {};
+
+		return InfoboxBuilderModel.create({title: test.templateName});
 	},
 
 	/**
