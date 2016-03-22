@@ -73,8 +73,7 @@ export function createUrl(wikiDomain, path, params = {}) {
 	if (localSettings.mediawikiDomain) {
 		wikiDomain = localSettings.mediawikiDomain;
 	}
-	return `http://muppet.saipetch.wikia-dev.com/${path}${qsAggregator.length > 0 ? `?${qsAggregator.join('&')}` : ''}`;
-}
+	return `http://${wikiDomain}/${path}${qsAggregator.length > 0 ? `?${qsAggregator.join('&')}` : ''}`;}
 
 /**
  * Handle request response
