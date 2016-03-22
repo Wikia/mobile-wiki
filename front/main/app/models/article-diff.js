@@ -95,7 +95,8 @@ ArticleDiffModel.reopenClass({
 						timestamp: revision.timestamp,
 						title: article.title,
 						user: revision.userName,
-						useravatar: revision.userAvatar
+						useravatar: revision.userAvatar,
+						lengthChange: revision.bytechange > 0 ? `+${revision.bytechange}` : revision.bytechange
 					});
 				}
 
