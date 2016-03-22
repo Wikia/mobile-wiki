@@ -26,7 +26,7 @@
     "test": "npm run build-dev && npm run test-front && npm run test-server",
     "test-front": "gulp test-common && gulp test-auth && cd front/main && ember test --path ../../www/front/main",
     "test-server": "gulp test-server",
-    "test-server-acceptance": "lab -v server/tests/api.js",
+    "test-server-acceptance": "lab -v server/tests/acceptance/*.js",
     "linter": "eslint .",
     "svgo": "bash ./tasks/optimize-svg.sh"
   },
