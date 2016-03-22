@@ -150,7 +150,7 @@ export default Ember.Controller.extend({
 		setGroup(header) {
 			let items = [],
 				last = null;
-			if (header) {
+			if (header && header.type === 'section-header') {
 				let done = false,
 					state = this.get('model').get('infoboxState'),
 					// set start at first group item
@@ -174,7 +174,6 @@ export default Ember.Controller.extend({
 			}
 			this.set('groupItems', items);
 			this.set('lastGroupItem', last);
-			console.info(items);
 		}
 	}
 });

@@ -329,7 +329,7 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	position: absolute;
 	right: 0;
 	top: 0;
-	width: 44px;
+	width: 40px;
 	z-index: 1;
 }
 
@@ -351,7 +351,7 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 			border-bottom: $border-width solid $color-blue-light;
 		}
 	}
-	.pi-header.in-group {
+	.pi-header.in-group:before {
 		border-top: $border-width solid $color-blue-light;
 	}
 }
