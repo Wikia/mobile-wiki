@@ -121,12 +121,12 @@
 {{#if displayRecentEdit}}
 	{{recent-edit-banner}}
 {{/if}}
+{{feedback-form pageTitle=model.title}}
 {{article-edit-highlighted-entrypoint
 	section=highlightedSectionIndex
 	highlightedText=highlightedText
 	title=model.title
 	editAllowed=editAllowed
-	showEdit=showHighlightedEdit
 	edit=(action 'edit')
 }}
 {{#highlighted-editor-pop-over for='highlighted-text' on='click' flow='dropdown' class='highlighted-text-editor-popover'}}

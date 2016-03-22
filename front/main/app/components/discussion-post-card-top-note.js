@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {checkPermissions} from 'common/utils/discussionPermissions';
+import {checkPermissions} from 'common/utils/discussion-permissions';
 
 export default Ember.Component.extend({
 	classNames: ['top-note'],
@@ -14,6 +14,10 @@ export default Ember.Component.extend({
 		return checkPermissions(this.get('post'), 'canModerate');
 	}),
 
+	showButtons: Ember.computed('isReported', function () {
+		return this.get('canShowModButtons') && this.get('isReported');
+	}),
+
 	modalDialogService: Ember.inject.service('modal-dialog'),
 
 	/**
@@ -24,7 +28,7 @@ export default Ember.Component.extend({
 	 ** "a reply to userName, reported to moderator"
 	 ** "a reply to userName"
 	 */
-	text: Ember.computed('isReported', function () {
+	text: Ember.computed('isReported', 'post.isLocked', function () {
 		if (this.get('isReported')) {
 			if (this.get('showRepliedTo')) {
 
@@ -38,14 +42,17 @@ export default Ember.Component.extend({
 				// post is reported, is a reply, but NOT supposed to show reply-to info
 				return i18n.t('main.reported-to-moderators-reply', {ns: 'discussion'});
 			} else if (!this.get('isReply')) {
-
+				if (this.get('post.isLocked')) {
+					return i18n.t('main.locked-and-reported-to-moderators-text', {ns: 'discussion'});
+				}
 				// post is reported and is NOT a reply
 				return i18n.t('main.reported-to-moderators', {ns: 'discussion'});
 			}
 		} else if (this.get('showRepliedTo')) {
-
 			// post is NOT reported, is a reply and supposed to show reply-to info
 			return i18n.t('main.user-replied-to', {ns: 'discussion', userName: this.get('threadCreatorName')});
+		} else if (this.get('post.isLocked')) {
+			return i18n.t('main.locked-post-text', {ns: 'discussion'});
 		}
 	}),
 

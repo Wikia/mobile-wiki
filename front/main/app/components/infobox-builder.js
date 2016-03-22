@@ -16,6 +16,7 @@ export default Ember.Component.extend(
 		isPreviewItemDragged: false,
 		scrollDebounceDuration: 200,
 		scrollAnimateDuration: 200,
+		showGoToSourceModal: false,
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 
@@ -32,6 +33,16 @@ export default Ember.Component.extend(
 			}
 
 			return classNames.join(' ');
+		}),
+
+		sideBarOptionsComponent: Ember.computed('activeItem', function () {
+			return this.get('activeItem') ?
+				`infobox-builder-edit-item-${this.get('activeItem.type')}` :
+				'infobox-builder-add-items';
+		}),
+
+		isEditPopOverVisible: Ember.computed('activeItem', 'isPreviewItemDragged', function () {
+			return Boolean(this.get('activeItem')) && !this.get('isPreviewItemDragged');
 		}),
 
 		actions: {
@@ -122,36 +133,116 @@ export default Ember.Component.extend(
 				this.get('setEditItem')(targetItem);
 			},
 
+			/**
+			 * @returns {void}
+			 */
 			save() {
-				this.set('isLoading', true);
-
-				this.trackClick('infobox-builder', 'save-attempt');
-				this.trackChangedItems();
-				this.get('saveAction')().then(() => {
-					track({
-						action: trackActions.success,
-						category: 'infobox-builder',
-						label: 'save-successful'
-					});
-
-					this.setProperties({
-						isLoading: false,
-						showSuccess: true
-					});
-				});
+				this.save();
 			},
 
+			/**
+			 * @returns {void}
+			 */
 			cancel() {
 				this.trackClick('infobox-builder', 'navigate-back-from-builder');
 				this.get('cancelAction')();
 			},
 
+			/**
+			 * @returns {void}
+			 */
+			onSourceEditorClick() {
+				this.trackClick('infobox-builder', 'go-to-source-icon');
+
+				if (this.get('isDirty')) {
+					this.set('showGoToSourceModal', true);
+				} else {
+					this.handleGoToSource();
+				}
+			},
+
+			/**
+			 * @param {Boolean} saveChanges
+			 * @returns {void}
+			 */
+			goToSource(saveChanges) {
+				const trackingLabel = `go-to-source-modal-${saveChanges ? 'save-changes-and-' : ''}go-to-source`;
+
+				this.trackClick('infobox-builder', trackingLabel);
+				this.set('showGoToSourceModal', false);
+				this.handleGoToSource(saveChanges);
+			},
+
+			/**
+			 * @returns {void}
+			 */
 			onPreviewBackgroundClick() {
 				if (this.get('activeItem') !== null) {
 					this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
 				}
 				this.get('setEditItem')(null);
 			}
+		},
+
+		/**
+		 * @param {Boolean} [shouldRedirectToTemplatePage=true]
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		save(shouldRedirectToTemplatePage = true) {
+			this.setProperties({
+				isLoading: true,
+				loadingMessage: i18n.t('main.saving', {
+					ns: 'infobox-builder'
+				})
+			});
+
+			this.trackClick('infobox-builder', 'save-attempt');
+			this.trackChangedItems();
+
+			return this.get('saveAction')(shouldRedirectToTemplatePage).then(() => {
+				track({
+					action: trackActions.success,
+					category: 'infobox-builder',
+					label: 'save-successful'
+				});
+
+				this.setProperties({
+					isLoading: false,
+					showSuccess: true
+				});
+			});
+		},
+
+		/**
+		 * Shows loading spinner and message, then sends action to controller to redirect to source editor
+		 * If model is dirty, asks user if changes should be saved
+		 * If user wants to save changes it does that and only then redirects
+		 *
+		 * @param {Boolean} saveChanges
+		 * @returns {Ember.RSVP.Promise} return promise so it's always async and testable
+		 */
+		handleGoToSource(saveChanges = false) {
+			const controllerAction = this.get('goToSourceEditor'),
+				loadingMessage = i18n.t('main.source-editor-loading', {
+					ns: 'infobox-builder'
+				});
+
+			return new Ember.RSVP.Promise((resolve) => {
+				if (saveChanges) {
+					this.save(false).then(() => {
+						controllerAction();
+						resolve();
+					});
+				} else {
+					this.setProperties({
+						isLoading: true,
+						loadingMessage
+					});
+
+					controllerAction();
+					resolve();
+				}
+			});
 		},
 
 		/**

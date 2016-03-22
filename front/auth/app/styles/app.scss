@@ -12,7 +12,6 @@
 // layout
 @import 'layout/body';
 @import 'layout/content';
-@import 'layout/footer';
 @import 'layout/header';
 
 // modules
@@ -25,10 +24,10 @@
 @import 'module/landing-page';
 @import 'module/signin-page';
 @import 'module/register-page';
+@import 'module/desktop-nav';
 
 // theme
 @import 'theme/auth-global-nav';
-@import 'theme/auth-footer';
 @import 'theme/auth-header';
 @import 'theme/body';
 @import 'theme/splash';

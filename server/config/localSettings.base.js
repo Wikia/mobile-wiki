@@ -1,4 +1,4 @@
-import {getEnvironment, stripDevboxDomain} from '../app/lib/Utils';
+import {getEnvironment, stripDevboxDomain} from '../app/lib/utils';
 import deepExtend from 'deep-extend';
 
 /* eslint max-len:0 */
@@ -300,10 +300,10 @@ const localSettings = {
 	},
 	enableDiscussions: true,
 	clickstream: {
-		auth: {
+		social: {
 			enable: true,
 			url: 'https://services.wikia.com/clickstream/events/social'
-		}
+		},
 	},
 	translationFiles: ['main', 'discussion', 'image-review', 'infobox-builder', 'recent-wiki-activity']
 };

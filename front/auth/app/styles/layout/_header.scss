@@ -1,40 +1,37 @@
 .auth-header {
-	font-size: 1.125rem;
-	line-height: 22px;
-	padding: 25px 24px 0;
+	padding: 20px 24px 20px;
 	text-align: center;
 
-	h1 {
-		color: inherit;
-		line-height: inherit;
-		font-size: inherit;
-		font-weight: inherit;
+	.header-callout-link {
+		padding: 0;
 	}
 }
 
-.register-fb-page,
-.fb-connect-page {
+.standalone {
 	.auth-header {
-		font-weight: bold;
+		align-self: center;
+		flex-grow: 0;
+		flex-shrink: 0;
+		margin: 19px auto 0;
+		max-width: $desktop-content-max-width;
+		min-width: $desktop-content-min-width;
+		padding: 38px 24px 50px;
 	}
 }
 
 .desktop {
 	.auth-header {
-		font-size: 2.5rem;
-		font-weight: bold;
-		min-height: 145px;
-		padding: 47px 75px 50px;
+		min-height: 58px;
+		min-width: $desktop-content-min-width;
+		padding: 30px 24px 32px;
 		position: relative;
 
 		h1 {
-			font-size: 2.25rem;
-			line-height: 2.5rem;
 			margin: 0;
 		}
 
 		&::after {
-			background-image: url('/front/common/symbols/wikia-logo-circled.svg');
+			background-image: url('/front/common/symbols/wikia-logo-fan-mark.svg');
 			bottom: - $circle-logo-size / 2;
 			content: " ";
 			display: block;
@@ -46,10 +43,10 @@
 		}
 
 		p {
-			line-height: 1.25rem;
-			margin: 1rem 0 0;
+			margin: 0 0 1rem;
 		}
 	}
+
 	&.register-fb-page,
 	&.fb-connect-page {
 		.auth-header {

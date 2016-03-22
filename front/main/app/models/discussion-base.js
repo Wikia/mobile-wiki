@@ -63,6 +63,6 @@ export default Ember.Object.extend({
 	 * @returns {void}
 	 */
 	setFailedState(errorMessage) {
-		this.set('errorMessage', errorMessage);
+		this.set('dialogMessage', errorMessage);
 	}
 });

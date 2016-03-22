@@ -1,10 +1,10 @@
-import BirthdateInput from './BirthdateInput';
-import * as authUtils from '../../lib/AuthUtils';
-import {PageRequestHelper} from '../../lib/MediaWikiPage';
-import Logger from '../../lib/Logger';
+import BirthdateInput from './birthdate-input';
+import * as authUtils from '../../lib/auth-utils';
+import {PageRequestHelper} from '../../lib/mediawiki-page';
+import Logger from '../../lib/logger';
 import localSettings from '../../../config/localSettings';
 import authLocaleSettings from '../../../config/authLocaleSettings';
-import * as authView from './authView';
+import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 import {parse} from 'url';
 
@@ -95,9 +95,9 @@ function getFacebookRegistrationPage(request, reply) {
 				heliosFacebookRegistrationURL: authUtils.getHeliosUrl('/facebook/users'),
 				title: 'auth:fb-register.register-with-facebook',
 				termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
-				footerCallout: 'auth:common.signin-callout',
-				footerHref: authUtils.getSignInUrl(request),
-				footerCalloutLink: 'auth:fb-register.footer-callout-link',
+				headerCallout: 'auth:common.signin-callout',
+				headerHref: authUtils.getSignInUrl(request),
+				headerCalloutLink: 'auth:fb-register.callout-link',
 				bodyClasses: 'register-fb-page',
 				pageType: 'register-fb-page',
 				facebookAppId: localSettings.facebook.appId,
@@ -137,9 +137,9 @@ function getEmailRegistrationPage(request, reply) {
 					'auth:register.desktop-header',
 				termsOfUseLink: `<a href="${authLocaleSettings[lang].urls.termsOfUseLinkUrl}` +
 					`" target="_blank">${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
-				footerCallout: 'auth:common.signin-callout',
-				footerHref: authUtils.getSignInUrl(request),
-				footerCalloutLink: 'auth:common.signin-link-text',
+				headerCallout: 'auth:common.signin-callout',
+				headerHref: authUtils.getSignInUrl(request),
+				headerCalloutLink: 'auth:common.signin-link-text',
 				birthdateInputs: birthdateInput.getInputData(),
 				bodyClasses: 'register-page',
 				pageType: 'register-page',

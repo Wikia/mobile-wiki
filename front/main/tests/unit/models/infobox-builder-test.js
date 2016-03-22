@@ -59,6 +59,7 @@ test('add items by type', (assert) => {
 						label: messageMock
 					},
 					infoboxBuilderData: {
+						id: `row${index}`,
 						index,
 						component: mockComponentName
 					},
@@ -76,6 +77,7 @@ test('add items by type', (assert) => {
 						}
 					},
 					infoboxBuilderData: {
+						id: `image${index}`,
 						index,
 						component: mockComponentName
 					},
@@ -90,6 +92,7 @@ test('add items by type', (assert) => {
 						defaultValue: ''
 					},
 					infoboxBuilderData: {
+						id: `title${index}`,
 						index,
 						component: mockComponentName
 					},
@@ -103,6 +106,7 @@ test('add items by type', (assert) => {
 					data: messageMock,
 					collapsible: false,
 					infoboxBuilderData: {
+						id: `section-header${index}`,
 						index,
 						component: mockComponentName
 					},
@@ -187,6 +191,33 @@ test('edit row item', (assert) => {
 	});
 });
 
+test('multiple edits', (assert) => {
+	const index = 0,
+		cases = [
+			{
+				inputSteps: ['', 'test 1', 'test 2'],
+				source: 'test_2',
+				message: 'should have last source after multiple consecutive edits'
+			},
+			{
+				inputSteps: ['test 1', ''],
+				source: 'row1',
+				message: 'should have default source value, when empty label'
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const model = infoboxBuilderModelClass.create();
+
+		model.addItem('row');
+		testCase.inputSteps.forEach((input) => {
+			model.editRowItem(model.get('infoboxState').objectAt(index), input);
+		});
+
+		assert.equal(model.get(`infoboxState.${index}.source`), testCase.source);
+	});
+});
+
 test('edit section header item', (assert) => {
 	const index = 0,
 		defaultHeader = 'Header 1',
@@ -263,6 +294,34 @@ test('sanitize custom row source', (assert) => {
 		{
 			input: '  TEST   TEST   ',
 			output: 'test_test'
+		},
+		{
+			input: '...',
+			output: ''
+		},
+		{
+			input: '-',
+			output: ''
+		},
+		{
+			input: '...test-1',
+			output: 'test-1'
+		},
+		{
+			input: '-.*.+!._',
+			output: ''
+		},
+		{
+			input: '-.*.+test!._',
+			output: '-test_'
+		},
+		{
+			input: '-*_?_!-%^&.',
+			output: ''
+		},
+		{
+			input: '    ?   ! ',
+			output: ''
 		}
 	];
 

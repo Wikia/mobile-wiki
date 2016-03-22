@@ -143,9 +143,20 @@
     "curated-content-editor-new-featured-content":"新的特色内容",
     "curated-content-editor-new-section":"新的部分",
     "curated-content-editor-new-category":"新的类别",
+    "curated-content-editor-community-data":"提升你的Wikia",
+    "curated-content-editor-community-data-description":"添加图片和摘要，让访问者了解有关这个Wikia社区并且鼓励他们经常访问。我们将使用这些信息在搜索和Wikia手机App中帮助您提升维基社区的影响力。",
+    "curated-content-editor-edit-community-data-button":"编辑",
+    "curated-content-editor-wikia-description-tooltip":"添加摘要将有助于提升你的Wikia社区在搜索和其他功能中的影响力。",
+    "curated-content-editor-enter-wikia-description":"描述Wikias社区",
     "explore-wiki":"浏览__wikiName__",
-    "wiki-page-error-reload-button": "刷新",
-    "wiki-page-error":"对不起，我们无法加载这篇文章。请再试一次。"
+    "sign-in-or-register-label":"登入\/注册",
+    "my-profile-label":"我的主页",
+    "category-page-load-more":"加载更多",
+    "category-page-load-previous":"加载前一个",
+    "category-page-no-members":"当前类别不包含任何页面。",
+    "category-page-subtitle":"类别页面",
+    "wiki-page-error":"对不起，我们无法加载页面。请再试一次。",
+    "wiki-page-error-reload-button":"刷新"
   },
   "userStatus":{
     "anon-cta":"__registerLink__或__loginLink__",
