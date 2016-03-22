@@ -20,14 +20,21 @@ export default function (options) {
 
 	return new Ember.RSVP.Promise((resolve) => {
 		settings.success = function (data) {
+			if (typeof options.success === 'function') {
+				options.success(data);
+			}
 			this.apiResponseData = data;
-			options.success(data);
 			resolve(this);
 		};
 
 		settings.error = function (err) {
-			options.error(err);
-			// ToDo reject the promise and use error substates (SOC-2093)
+			if (typeof options.error === 'function') {
+				options.error(err);
+			}
+
+			/** Resolve instead of reject until we implement error substates
+			 *  To handle errors we use custom method in discussionBase model
+			 */
 			resolve(this);
 		};
 

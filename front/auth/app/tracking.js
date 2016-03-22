@@ -2,22 +2,6 @@ import AuthTracker from './common/auth-tracker';
 import {trackActions} from 'common/utils/track';
 
 /**
- * Auth pages live on www.wikia.com and don't have access to WikiVariables
- * hence there's a need to provide this data inline
- *
- * @returns {void}
- */
-function setupTracking() {
-	M.provide('wiki', {
-		id: 80433,
-		dbName: 'wikiaglobal',
-		language: {
-			user: 'en',
-		},
-	});
-}
-
-/**
  * @returns {void}
  */
 function setTrackingForSignInPage() {
@@ -191,8 +175,6 @@ function setTrackingForFBRegisterPage() {
  * @returns {void}
  */
 export function init() {
-	setupTracking();
-
 	const pageType = document.body.getAttribute('data-page-type'),
 		trackingSets = {
 			'join-page': setTrackingForJoinPage,
