@@ -179,6 +179,9 @@ const localSettings = {
 	imageReview: {
 		baseAPIPath: 'image-review'
 	},
+	staticAssets: {
+		baseAPIPath: 'static-assets'
+	},
 	whoAmIService: {
 		path: '/whoami',
 		timeout: 3000
@@ -297,10 +300,10 @@ const localSettings = {
 	},
 	enableDiscussions: true,
 	clickstream: {
-		auth: {
+		social: {
 			enable: true,
 			url: 'https://services.wikia.com/clickstream/events/social'
-		}
+		},
 	},
 	translationFiles: ['main', 'discussion', 'image-review', 'infobox-builder', 'recent-wiki-activity']
 };
