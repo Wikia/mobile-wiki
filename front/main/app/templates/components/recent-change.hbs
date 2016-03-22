@@ -39,6 +39,9 @@
 		<strong class="recent-change__summary-label">{{i18n 'main.summary' ns='recent-wiki-activity'}}</strong> {{{model.parsedcomment}}}
 	</small>
 {{/if}}
+<div class="recent-change__meta clearfix">
+	<span class="recent-change__byte-change">{{model.lengthChange}}</span>
+</div>
 {{#if active}}
     <div class="current-change"></div>
 {{/if}}
