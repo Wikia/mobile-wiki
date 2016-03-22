@@ -6,7 +6,7 @@ export default Ember.Component.extend({
 	isModalVisible: false,
 
 	isContextProvided: Ember.computed('thumbnailModel.context', function () {
-		return this.get('thumbnailModel.context') || false;
+		return Boolean(this.get('thumbnailModel.context'));
 	}),
 
 	actions: {
