@@ -17,6 +17,7 @@ export default Ember.Component.extend(
 		scrollDebounceDuration: 200,
 		scrollAnimateDuration: 200,
 		showGoToSourceModal: false,
+		isEditTitleModalVisible: false,
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 
@@ -46,7 +47,7 @@ export default Ember.Component.extend(
 		}),
 
 		infoboxTemplateTitle: Ember.computed('title', function () {
-			return this.get('title') || i18n.t('infobox-builder:main.untitled-infobox-template')
+			return this.get('title') || i18n.t('infobox-builder:main.untitled-infobox-template');
 		}),
 
 		actions: {
@@ -141,7 +142,11 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			save() {
-				this.save();
+				if (this.get('title')) {
+					this.save();
+				} else {
+					this.showEditTitleModal();
+				}
 			},
 
 			/**
@@ -281,6 +286,19 @@ export default Ember.Component.extend(
 					label: `changed-element-${element.type}-${element.changedField}`
 				});
 			});
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		showEditTitleModal() {
+			track({
+				action: trackActions.open,
+				category: 'infobox-builder',
+				label: `open-edit-title-modal-before-save`
+			});
+
+			this.set('isEditTitleModalVisible', true);
 		}
 	}
 );

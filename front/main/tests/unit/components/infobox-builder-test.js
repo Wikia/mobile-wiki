@@ -441,3 +441,14 @@ test('correctly calculates infoboxTemplateTitle computed property', function (as
 
 	i18n.t.restore();
 });
+
+test('opens edit item modal for untitled infobox template on save', function (assert) {
+	const component = this.subject(),
+		showEditTitleModalSpy = sinon.spy();
+
+	component.set('title', null);
+	component.set('showEditTitleModal', showEditTitleModalSpy);
+	component.send('save');
+
+	assert.equal(showEditTitleModalSpy.called, true);
+});
