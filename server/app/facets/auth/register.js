@@ -51,7 +51,7 @@ function getDefaultRegistrationContext(request, i18n) {
 		wikiDomain = parse(defaultContext.exitTo).host || request.headers.host,
 		mediaWikiPageHelper = new PageRequestHelper({wikiDomain});
 
-	let context = deepExtend(defaultContext,
+	const context = deepExtend(defaultContext,
 		{
 			usernameMaxLength: localSettings.userRegistationService.usernameMaxLength,
 			passwordMaxLength: localSettings.userRegistationService.passwordMaxLength,
@@ -63,7 +63,8 @@ function getDefaultRegistrationContext(request, i18n) {
 				privacyPolicyLink: `<a href="${authLocaleSettings[lang].urls.privacyPolicyLinkUrl}" target="_blank">` +
 				`${i18n.t('auth:register.privacy-policy-link-title')}</a>`
 			},
-			entryPointWikiId: 80433 // default wikiId when redirect query param not provided
+			/* default wikiId when redirect query param not provided */
+			entryPointWikiId: 80433
 		}
 	);
 
@@ -90,7 +91,7 @@ function getDefaultRegistrationContext(request, i18n) {
 function getFacebookRegistrationPage(request, reply) {
 	const i18n = request.server.methods.i18n.getInstance();
 
-	getDefaultRegistrationContext(request, i18n).then(function(defaultContext) {
+	getDefaultRegistrationContext(request, i18n).then((defaultContext) => {
 		const context = deepExtend(defaultContext,
 			{
 				headerText: 'auth:fb-register.register-with-facebook',
@@ -124,42 +125,41 @@ function getFacebookRegistrationPage(request, reply) {
  * @returns {void}
  */
 function getEmailRegistrationPage(request, reply) {
-	const i18n = request.server.methods.i18n.getInstance();
-
-	getDefaultRegistrationContext(request, i18n).then(function(defaultContext) {
-		const lang = authUtils.getLanguageWithDefault(i18n),
-			viewType = authView.getViewType(request),
-			birthdateInput = new BirthdateInput(authLocaleSettings[lang].date.endian, lang),
-			context = deepExtend(defaultContext,
-			{
-				headerText: (viewType === authView.VIEW_TYPE_MOBILE) ?
-					'auth:join.sign-up-with-email' :
-					'auth:register.desktop-header',
-				heliosRegistrationURL: authUtils.getUserRegistrationUrl('/users'),
-				heliosFacebookURL: authUtils.getHeliosUrl('/facebook/token'),
-				title: (viewType === authView.VIEW_TYPE_MOBILE) ?
-					'auth:join.sign-up-with-email' :
-					'auth:register.desktop-header',
-				termsOfUseLink: `<a href="${authLocaleSettings[lang].urls.termsOfUseLinkUrl}` +
-				`" target="_blank">${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
-				headerCallout: 'auth:common.signin-callout',
-				headerHref: authUtils.getSignInUrl(request),
-				headerCalloutLink: 'auth:common.signin-link-text',
-				birthdateInputs: birthdateInput.getInputData(),
-				bodyClasses: 'register-page',
-				pageType: 'register-page',
-				usernameMaxLength: localSettings.helios.usernameMaxLength,
-				passwordMaxLength: localSettings.helios.passwordMaxLength,
-				langCode: lang,
-				pageParams: {
-					termsOfUseLink: `<a href="${authLocaleSettings[lang].urls.termsOfUseLinkUrl}" target="_blank">` +
-					`${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
-					privacyPolicyLink: `<a href="${authLocaleSettings[lang].urls.privacyPolicyLinkUrl}" target="_blank">` +
-					`${i18n.t('auth:register.privacy-policy-link-title')}</a>`,
-					facebookAppId: localSettings.facebook.appId
-				}
+	const i18n = request.server.methods.i18n.getInstance(),
+		lang = authUtils.getLanguageWithDefault(i18n),
+		viewType = authView.getViewType(request),
+		birthdateInput = new BirthdateInput(authLocaleSettings[lang].date.endian, lang),
+		emailRegistrationContext = {
+			headerText: (viewType === authView.VIEW_TYPE_MOBILE) ?
+				'auth:join.sign-up-with-email' :
+				'auth:register.desktop-header',
+			heliosRegistrationURL: authUtils.getUserRegistrationUrl('/users'),
+			heliosFacebookURL: authUtils.getHeliosUrl('/facebook/token'),
+			title: (viewType === authView.VIEW_TYPE_MOBILE) ?
+				'auth:join.sign-up-with-email' :
+				'auth:register.desktop-header',
+			termsOfUseLink: `<a href="${authLocaleSettings[lang].urls.termsOfUseLinkUrl}` +
+			`" target="_blank">${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
+			headerCallout: 'auth:common.signin-callout',
+			headerHref: authUtils.getSignInUrl(request),
+			headerCalloutLink: 'auth:common.signin-link-text',
+			birthdateInputs: birthdateInput.getInputData(),
+			bodyClasses: 'register-page',
+			pageType: 'register-page',
+			usernameMaxLength: localSettings.helios.usernameMaxLength,
+			passwordMaxLength: localSettings.helios.passwordMaxLength,
+			langCode: lang,
+			pageParams: {
+				termsOfUseLink: `<a href="${authLocaleSettings[lang].urls.termsOfUseLinkUrl}" target="_blank">` +
+				`${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
+				privacyPolicyLink: `<a href="${authLocaleSettings[lang].urls.privacyPolicyLinkUrl}" target="_blank">` +
+				`${i18n.t('auth:register.privacy-policy-link-title')}</a>`,
+				facebookAppId: localSettings.facebook.appId
 			}
-		);
+		};
+
+	getDefaultRegistrationContext(request, i18n).then((defaultContext) => {
+		const context = deepExtend(defaultContext, emailRegistrationContext);
 
 		if (request.auth.isAuthenticated) {
 			return authView.onAuthenticatedRequestReply(request, reply, context);

@@ -4,7 +4,7 @@ import AuthUtils from '../common/auth-utils';
 import Cookie from '../common/cookie';
 import FormErrors from '../common/form-errors';
 import HttpCodes from '../common/http-codes';
-import ProofOfWork from '../common/proof-of-work'
+import ProofOfWork from '../common/proof-of-work';
 import UrlHelper from '../common/url-helper';
 import VisitSourceWrapper from '../common/visit-source-wrapper';
 import MarketingOptIn from '../signup/marketing-opt-in';
@@ -173,13 +173,15 @@ export default class SignupForm {
 					this.formErrors.displayGeneralError();
 					this.authLogger.xhrError(registrationXhr);
 				} else {
-					let challengeResponse = JSON.parse(registrationXhr.responseText),
-						currentChallengeValue,
+					const challengeResponse = JSON.parse(registrationXhr.responseText);
+
+					let currentChallengeValue,
 						challengeStartTime,
 						challengeEndTime;
 
 					challengeStartTime = performance.now();
-					currentChallengeValue = challengeResponse.challenge + ProofOfWork.proof(challengeResponse.challenge, challengeResponse.bits).counter;
+					currentChallengeValue = challengeResponse.challenge +
+						ProofOfWork.proof(challengeResponse.challenge, challengeResponse.bits).counter;
 					challengeEndTime = performance.now();
 
 					this.authLogger.info({
