@@ -16,14 +16,18 @@ export default Ember.Mixin.create(
 		},
 
 		/**
-		 * Focuses first input element of the component
+		 * Focuses on the end of the first text input element of this component
 		 * @returns {void}
 		 */
 		focusFirstInput() {
 			const input = this.$('.text-field-input');
+			let firstInput;
 
 			if (input) {
+				firstInput = input.first().get(0);
 				input.first().focus();
+				// required for moving cursor to the end of input on FF
+				firstInput.selectionStart = firstInput.selectionEnd = firstInput.value.length;
 			}
 		},
 
