@@ -3,9 +3,9 @@ import DiscussionBaseModel from '../discussion-base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import ajaxCall from '../../utils/ajax-call';
-import DiscussionContributors from './contributors';
-import DiscussionEntities from './entities';
-import DiscussionPost from './post';
+import DiscussionContributors from './objects/contributors';
+import DiscussionEntities from './objects/entities';
+import DiscussionPost from './objects/post';
 
 const DiscussionForum = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
@@ -66,10 +66,14 @@ const DiscussionForum = DiscussionBaseModel.extend(
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
 				success: (thread) => {
 					const newPost = DiscussionPost.createFromThreadData(thread);
-					newPost.isNew = true;
 
-					this.posts.insertAt(0, newPost);
+					let allPosts;
+
+					newPost.isNew = true;
+					allPosts = this.get('data.entities');
+					allPosts.insertAt(0, newPost);
 					this.incrementProperty('totalPosts');
+					this.set(data, 'entities', allPosts);
 				},
 				error: (err) => {
 					this.onCreatePostError(err);

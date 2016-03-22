@@ -8,15 +8,6 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
 	{
-		normalizePostData(post) {
-			post.firstPost = post._embedded.firstPost[0];
-			post.firstPost.isReported = post.isReported;
-			post.firstPost.isLocked = !post.isEditable;
-			if (Ember.get(post, 'firstPost._embedded.userData')) {
-				post._embedded.userData = post.firstPost._embedded.userData;
-			}
-		},
-
 		/**
 		 * @param {number} pageNum
 		 * @param {string} [sortBy='trending']

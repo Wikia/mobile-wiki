@@ -20,7 +20,7 @@
 				{{discussion-contributors
 					contributors=model.contributors
 					maxContributorDisplayCount=7
-					totalContributorCount=model.postCount
+					totalContributorCount=model.repliesCount
 				}}
 			{{else}}
 				<span class="no-replies-message">{{i18n 'main.no-replies' ns='discussion'}}</span>
@@ -38,15 +38,15 @@
 				<div class="discussion post small-12 large-8 columns">
 					{{discussion-post-card-detail
 						approve=(action this.attrs.approve)
-						author=model.firstPost.createdBy
+						author=model.createdBy
 						delete=(action this.attrs.deletePost)
 						isDetailsView=true
 						lock=(action this.attrs.lockPost)
-						post=model.firstPost
+						post=model
 						postId=model.id
-						replyCount=model.postCount
+						replyCount=model.repliesCount
 						report=(action this.attrs.report)
-						timestamp=model.firstPost.creationDate.epochSecond
+						timestamp=model.creationDate.epochSecond
 						undelete=(action this.attrs.undeletePost)
 						unlock=(action this.attrs.unlockPost)
 						upvoteCount=model.upvoteCount
@@ -57,7 +57,7 @@
 							{{discussion-contributors
 								contributors=model.contributors
 								maxContributorDisplayCount=7
-								totalContributorCount=model.postCount
+								totalContributorCount=model.repliesCount
 							}}
 						</div>
 						{{#if canShowMore}}
@@ -76,7 +76,7 @@
 								delete=(action this.attrs.deleteReply)
 								isDetailsView= true
 								isNew=item.isNew
-								isParentDeleted=model.firstPost.isDeleted
+								isParentDeleted=model.isDeleted
 								report=(action this.attrs.report)
 								post=item
 								timestamp=item.creationDate.epochSecond

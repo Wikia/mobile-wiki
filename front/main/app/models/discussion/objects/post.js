@@ -36,7 +36,7 @@ DiscussionPost.reopenClass({
 			}),
 			userData = Ember.get(threadData, '._embedded.firstPost[0]._embedded.userData[0]');
 
-		post.userData = userData ? DiscussionUserData.create() : null;
+		post.userData = userData ? DiscussionUserData.create(userData) : null;
 
 		return post;
 	},
@@ -64,7 +64,7 @@ DiscussionPost.reopenClass({
 			}),
 			userData = Ember.get(postData, '._embedded.userData[0]');
 
-		post.userData = userData ? DiscussionUserData.create() : null;
+		post.userData = userData ? DiscussionUserData.create(userData) : null;
 
 		return post;
 	},
@@ -92,7 +92,7 @@ DiscussionPost.reopenClass({
 			}),
 			userData = Ember.get(threadData, '._embedded.firstPost[0]._embedded.userData[0]');
 
-		post.userData = userData ? DiscussionUserData.create() : null;
+		post.userData = userData ? DiscussionUserData.create(userData) : null;
 
 		return post;
 	},

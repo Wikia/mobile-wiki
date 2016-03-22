@@ -1,7 +1,10 @@
-import DiscussionBaseModel from './discussion-base';
-import DiscussionModerationModelMixin from '../mixins/discussion-moderation-model';
-import ajaxCall from '../utils/ajax-call';
-import DiscussionPost from 'objects/post';
+import DiscussionBaseModel from '../discussion-base';
+import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
+import ajaxCall from '../../utils/ajax-call';
+import DiscussionEntities from './objects/entities';
+import DiscussionPost from './objects/post';
+import DiscussionReply from './objects/reply';
+import DiscussionContributor from './objects/contributor';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 
@@ -33,15 +36,17 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				viewableOnly: false
 			}),
 			success: (data) => {
-				let newReplies = data._embedded['doc:posts'];
+				const newReplies = data._embedded['doc:posts'];
 
-				// Note that we have to reverse the list we get back because how we're displaying
-				// replies on the page; we want to see the newest replies first but show them
-				// starting with oldest of the current list at the top.
+				let allReplies;
+
 				newReplies.reverse();
-				newReplies = newReplies.concat(this.replies);
-				this.setProperties({
-					page: this.page + 1,
+				allReplies = newReplies.map(function (reply) {
+					return DiscussionReply.create(reply)
+				}).concat(this.get('data.replies'));
+
+				this.get('data').setProperties({
+					page: this.get('data.page') + 1,
 					replies: newReplies
 				});
 			},
@@ -75,23 +80,35 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	},
 
 	setNormalizedData(apiData) {
-		const embedded = apiData.embedded,
-			normalizedData = DiscussionPost.createFromThreadData(embedded),
+		const embedded = apiData._embedded,
+			normalizedData = DiscussionPost.createFromThreadData(apiData),
 			apiRepliesData = embedded['doc:posts'] || [];
-		let normalizedRepliesData;
 
-		let pivotId;
-		contributors.push(reply.createdBy);
-		if (apiRepliesData.length) {
-			pivotId = apiRepliesData[0].id;
-			apiRepliesData.reverse();
+		let normalizedRepliesData,
+			contributors,
+			pivotId;
+
+		normalizedRepliesData = DiscussionEntities.createFromPostsData(apiRepliesData);
+
+		if (normalizedRepliesData.length) {
+			pivotId = normalizedRepliesData[0].id;
+			normalizedRepliesData.reverse();
 		}
 
-		normalizedRepliesData.forEach()
+		contributors = normalizedRepliesData.map(function (reply) {
+			return DiscussionContributor.create(reply.createdBy);
+		});
 
 		normalizedData.setProperties({
-			replies: ,
+			contributors: contributors,
+			page: 0,
+			replies: normalizedRepliesData,
 			repliesCount: apiData.postCount
+		});
+
+		this.setProperties({
+			data: normalizedData,
+			pivotId
 		});
 	}
 });
@@ -118,29 +135,7 @@ DiscussionPostModel.reopenClass({
 				viewableOnly: false
 			}),
 			success: (data) => {
-				const contributors = [],
-					firstPost = data._embedded.firstPost[0],
-					replies = data._embedded['doc:posts'];
-				let pivotId;
-
-
-
-				// making the model a little bit more friendly
-				firstPost.isReported = data.isReported;
-				firstPost.isLocked = !data.isEditable;
-
-				postInstance.setProperties({
-					contributors,
-					forumId: data.forumId,
-					firstPost,
-					id: data.id,
-					page: 0,
-					pivotId,
-					postCount: data.postCount,
-					replies: replies || [],
-					title: data.title,
-					upvoteCount: data.upvoteCount
-				});
+				postInstance.setNormalizedData(data);
 			},
 			error: (err) => {
 				postInstance.setErrorProperty(err);

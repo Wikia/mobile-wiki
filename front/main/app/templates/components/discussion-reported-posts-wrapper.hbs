@@ -10,7 +10,7 @@
 			author=item.createdBy
 			content=item.rawContent
 			delete=(action this.attrs.deleteReply)
-			isParentDeleted=model.firstPost.isDeleted
+			isParentDeleted=model.isDeleted
 			post=item
 			showRepliedTo=true
 			timestamp=item.creationDate.epochSecond
