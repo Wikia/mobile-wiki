@@ -27,8 +27,7 @@
 		}}{{i18n "auth:register.wikia-newsletter-prompt"}}
 	</label>
 	<input type="hidden" name="langCode" value="{{langCode}}">
-	{{! TODO use real wikiID }}
-	<input type="hidden" name="registrationWikiaId" value="3035">
+	<input type="hidden" name="registrationWikiaId" value="{{entryPointWikiId}}">
 	<button id="signupSubmit" type="submit" disabled><span>{{i18n "auth:register.register-action"}}</span></button>
 	<small class="terms-of-use" id="termsOfUse">
 		{{{i18n "auth:register.terms-of-use-text" termsOfUseLink=pageParams.termsOfUseLink}}}

@@ -43,7 +43,7 @@ import {parse} from 'url';
 /**
  * @param {Hapi.Request} request
  * @param {*} i18n
- * @returns {DefaultRegistrationContext}
+ * @returns {Promise}
  */
 function getDefaultRegistrationContext(request, i18n) {
 	const lang = authUtils.getLanguageWithDefault(i18n),
@@ -51,22 +51,7 @@ function getDefaultRegistrationContext(request, i18n) {
 		wikiDomain = parse(defaultContext.exitTo).host || request.headers.host,
 		mediaWikiPageHelper = new PageRequestHelper({wikiDomain});
 
-	mediaWikiPageHelper.getWikiVariables()
-		.then((wikiVariables) => {
-			Logger.info(`Sucessfully fetched wikiVariables for ${wikiDomain}`);
-			console.log(wikiVariables.id);
-		})
-		/**
-		 * @param {MWException} error
-		 * @returns {void}
-		 */
-		.catch((error) => {
-			Logger.error(error, 'WikiVariables error');
-		});
-
-
-
-	return deepExtend(defaultContext,
+	let context = deepExtend(defaultContext,
 		{
 			usernameMaxLength: localSettings.userRegistationService.usernameMaxLength,
 			passwordMaxLength: localSettings.userRegistationService.passwordMaxLength,
@@ -74,22 +59,39 @@ function getDefaultRegistrationContext(request, i18n) {
 			defaultBirthdate: '1970-01-01',
 			pageParams: {
 				termsOfUseLink: `<a href="${authLocaleSettings[lang].urls.termsOfUseLinkUrl}" target="_blank">` +
-					`${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
+				`${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
 				privacyPolicyLink: `<a href="${authLocaleSettings[lang].urls.privacyPolicyLinkUrl}" target="_blank">` +
-					`${i18n.t('auth:register.privacy-policy-link-title')}</a>`
-			}
+				`${i18n.t('auth:register.privacy-policy-link-title')}</a>`
+			},
+			entryPointWikiId: 80433 // default wikiId when redirect query param not provided
 		}
 	);
+
+	return mediaWikiPageHelper.getWikiVariables()
+		.then((wikiVariables) => {
+			context.entryPointWikiId = wikiVariables.id;
+			return context;
+		})
+		/**
+		 * @param {MWException} error
+		 * @returns {void}
+		 */
+		.catch((error) => {
+			Logger.error(error, 'Can\'t fetch wikiVariables');
+			return context;
+		});
 }
 
 /**
  * @param {Hapi.Request} request
  * @param {*} reply
- * @returns {Hapi.Response}
+ * @returns {void}
  */
 function getFacebookRegistrationPage(request, reply) {
-	const i18n = request.server.methods.i18n.getInstance(),
-		context = deepExtend(getDefaultRegistrationContext(request, i18n),
+	const i18n = request.server.methods.i18n.getInstance();
+
+	getDefaultRegistrationContext(request, i18n).then(function(defaultContext) {
+		const context = deepExtend(defaultContext,
 			{
 				headerText: 'auth:fb-register.register-with-facebook',
 				heliosFacebookRegistrationURL: authUtils.getHeliosUrl('/facebook/users'),
@@ -108,24 +110,27 @@ function getFacebookRegistrationPage(request, reply) {
 			}
 		);
 
-	if (request.auth.isAuthenticated) {
-		return authView.onAuthenticatedRequestReply(request, reply, context);
-	}
+		if (request.auth.isAuthenticated) {
+			return authView.onAuthenticatedRequestReply(request, reply, context);
+		}
 
-	return authView.view('register-fb', context, request, reply);
+		return authView.view('register-fb', context, request, reply);
+	});
 }
 
 /**
  * @param {Hapi.Request} request
  * @param {*} reply
- * @returns {Hapi.Response}
+ * @returns {void}
  */
 function getEmailRegistrationPage(request, reply) {
-	const i18n = request.server.methods.i18n.getInstance(),
-		lang = authUtils.getLanguageWithDefault(i18n),
-		viewType = authView.getViewType(request),
-		birthdateInput = new BirthdateInput(authLocaleSettings[lang].date.endian, lang),
-		context = deepExtend(getDefaultRegistrationContext(request, i18n),
+	const i18n = request.server.methods.i18n.getInstance();
+
+	getDefaultRegistrationContext(request, i18n).then(function(defaultContext) {
+		const lang = authUtils.getLanguageWithDefault(i18n),
+			viewType = authView.getViewType(request),
+			birthdateInput = new BirthdateInput(authLocaleSettings[lang].date.endian, lang),
+			context = deepExtend(defaultContext,
 			{
 				headerText: (viewType === authView.VIEW_TYPE_MOBILE) ?
 					'auth:join.sign-up-with-email' :
@@ -136,7 +141,7 @@ function getEmailRegistrationPage(request, reply) {
 					'auth:join.sign-up-with-email' :
 					'auth:register.desktop-header',
 				termsOfUseLink: `<a href="${authLocaleSettings[lang].urls.termsOfUseLinkUrl}` +
-					`" target="_blank">${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
+				`" target="_blank">${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
 				headerCallout: 'auth:common.signin-callout',
 				headerHref: authUtils.getSignInUrl(request),
 				headerCalloutLink: 'auth:common.signin-link-text',
@@ -148,19 +153,20 @@ function getEmailRegistrationPage(request, reply) {
 				langCode: lang,
 				pageParams: {
 					termsOfUseLink: `<a href="${authLocaleSettings[lang].urls.termsOfUseLinkUrl}" target="_blank">` +
-						`${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
+					`${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
 					privacyPolicyLink: `<a href="${authLocaleSettings[lang].urls.privacyPolicyLinkUrl}" target="_blank">` +
-						`${i18n.t('auth:register.privacy-policy-link-title')}</a>`,
+					`${i18n.t('auth:register.privacy-policy-link-title')}</a>`,
 					facebookAppId: localSettings.facebook.appId
 				}
 			}
 		);
 
-	if (request.auth.isAuthenticated) {
-		return authView.onAuthenticatedRequestReply(request, reply, context);
-	}
+		if (request.auth.isAuthenticated) {
+			return authView.onAuthenticatedRequestReply(request, reply, context);
+		}
 
-	return authView.view('register', context, request, reply);
+		return authView.view('register', context, request, reply);
+	});
 }
 
 /**
