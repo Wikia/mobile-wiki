@@ -179,6 +179,9 @@ const localSettings = {
 	imageReview: {
 		baseAPIPath: 'image-review'
 	},
+	staticAssets: {
+		baseAPIPath: 'static-assets'
+	},
 	whoAmIService: {
 		path: '/whoami',
 		timeout: 3000
