@@ -257,6 +257,9 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 }
 
 .is-preview-item-dragged {
+	.infobox-builder-chevron-area {
+		pointer-events: none;
+	}
 	.pi-item:not(.is-dragging) {
 		pointer-events: none;
 
@@ -344,7 +347,7 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 			top: -$border-width;
 			width: 100%;
 		}
-		&:last-of-type:before {
+		&.last:before {
 			border-bottom: $border-width solid $color-blue-light;
 		}
 	}

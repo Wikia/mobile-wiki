@@ -82,6 +82,16 @@ export default Ember.Component.extend(
 				});
 			},
 
+			showGroupPreview(header) {
+				this.set('isGroupTooltipVisible', true);
+				this.get('setGroup')(header);
+			},
+
+			hideGroupPreview() {
+				this.set('isGroupTooltipVisible', false);
+				this.get('setGroup')(null);
+			},
+
 			/**
 			 * @param {Object} actionTrigger - dragged item
 			 * @returns {void}
@@ -89,7 +99,6 @@ export default Ember.Component.extend(
 			onPreviewItemDrag(actionTrigger) {
 				this.set('isPreviewItemDragged', true);
 				this.trackClick('infobox-builder', `drag-element-${actionTrigger.type}`);
-				this.hideGroupPreview();
 
 				if (actionTrigger !== this.get('activeItem')) {
 					this.get('setEditItem')(null);
@@ -183,20 +192,6 @@ export default Ember.Component.extend(
 					this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
 				}
 				this.get('setEditItem')(null);
-			},
-
-			showGroupPreview(header) {
-				this.setProperties({
-					isGroupTooltipVisible: true
-				});
-				this.get('setGroup')(header);
-			},
-
-			hideGroupPreview() {
-				this.setProperties({
-					isGroupTooltipVisible: false
-				});
-				this.get('setGroup')(null);
 			}
 		},
 
@@ -230,9 +225,9 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * Shows loading spinner and message, then sends action to controller to redirect to source editor
-		 * If model is dirty, asks user if changes should be saved
-		 * If user wants to save changes it does that and only then redirects
+		 * Shows loading spinner and message, then sends action to controller to redirect to source
+		 * editor If model is dirty, asks user if changes should be saved If user wants to save
+		 * changes it does that and only then redirects
 		 *
 		 * @param {Boolean} saveChanges
 		 * @returns {Ember.RSVP.Promise} return promise so it's always async and testable
