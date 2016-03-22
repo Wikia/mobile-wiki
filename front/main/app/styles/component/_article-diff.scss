@@ -130,6 +130,13 @@ $legend-line-height: $type-smallest;
 	margin: 0;
 	padding: 8px 15px 6px;
 	width: 50%;
+
+	// TODO move the stylling to global button look definition
+	// https://github.com/Wikia/style-guide/blob/dev/src/scss/lib/components/buttons.scss
+	&:hover,
+	&:focus {
+		background: $button-tapped-color;
+	}
 }
 
 .diff-page__vote,
@@ -138,6 +145,8 @@ $legend-line-height: $type-smallest;
 	right: 0;
 }
 
+// TODO make this default disabled button state (button[disabled])
+// https://github.com/Wikia/style-guide/blob/dev/src/scss/lib/components/buttons.scss
 .diff-page__vote--upvoted {
 	background: $button-disabled-color;
 }
