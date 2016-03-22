@@ -45,6 +45,10 @@ export default Ember.Component.extend(
 			return Boolean(this.get('activeItem')) && !this.get('isPreviewItemDragged');
 		}),
 
+		infoboxTemplateTitle: Ember.computed('title', function () {
+			return this.get('title') || i18n.t('infobox-builder:main.untitled-infobox-template')
+		}),
+
 		actions: {
 			/**
 			 * @param {String} type

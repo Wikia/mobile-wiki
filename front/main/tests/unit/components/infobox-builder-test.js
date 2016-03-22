@@ -415,3 +415,29 @@ test('sends goToSourceEditor action to the controller without saving model - def
 		done();
 	});
 });
+
+test('correctly calculates infoboxTemplateTitle computed property', function (assert) {
+	const component = this.subject(),
+		defaultTitle = 'lorem ipsum',
+		customTitle = 'ipsum dolor',
+		cases = [
+			{
+				title: customTitle,
+				infoboxTemplateTitle: customTitle,
+				message: 'returns custom title'
+			},
+			{
+				infoboxTemplateTitle: defaultTitle,
+				message: 'returns defaulttitle title'
+			}
+		];
+
+	sinon.stub(i18n, 't').returns(defaultTitle);
+
+	cases.forEach((testCase) => {
+		component.set('title', testCase.title || null);
+		assert.equal(component.get('infoboxTemplateTitle'), testCase.infoboxTemplateTitle);
+	});
+
+	i18n.t.restore();
+});
