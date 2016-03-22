@@ -30,5 +30,8 @@
     "ember": "2.0.3",
     "jquery": "2.1.4",
     "ember-qunit-notifications": "0.1.0"
+  },
+  "devDependencies": {
+    "blanket": "5e94fc30f2e694bb5c3718ddcbf60d467f4b4d26"
   }
 }

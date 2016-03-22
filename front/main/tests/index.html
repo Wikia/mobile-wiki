@@ -11,6 +11,7 @@
 	{{content-for 'test-head'}}
 
 	<link rel="stylesheet" href="assets/test-support.css">
+    <style>#blanket-main { position: relative; z-index: 99999; }</style>
 
 	{{content-for 'head-footer'}}
 	{{content-for 'test-head-footer'}}
@@ -52,6 +53,8 @@
 </script>
 <script src="assets/test-support.js"></script>
 <script src="assets/main.js"></script>
+    <script src="assets/blanket-options.js"></script>
+    <script src="assets/blanket-loader.js"></script>
 <script src="assets/tests.js"></script>
 <script src="assets/test-loader.js"></script>
 

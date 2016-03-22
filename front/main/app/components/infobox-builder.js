@@ -4,7 +4,7 @@ import infoboxBuilderDiff from '../utils/infobox-builder-diff';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
+	//TrackClickMixin,
 	{
 		classNameBindings: ['isPreviewItemDragged'],
 		isLoading: false,
@@ -51,7 +51,7 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			addItem(type) {
-				this.trackClick('infobox-builder', `add-item-${type}`);
+				//this.trackClick('infobox-builder', `add-item-${type}`);
 
 				this.get('addItem')(type);
 
@@ -87,7 +87,7 @@ export default Ember.Component.extend(
 			 */
 			onPreviewItemDrag(actionTrigger) {
 				this.set('isPreviewItemDragged', true);
-				this.trackClick('infobox-builder', `drag-element-${actionTrigger.type}`);
+				//this.trackClick('infobox-builder', `drag-element-${actionTrigger.type}`);
 
 				if (actionTrigger !== this.get('activeItem')) {
 					this.get('setEditItem')(null);
@@ -105,11 +105,11 @@ export default Ember.Component.extend(
 			 */
 			onReorderElements(newState, movedItem) {
 				if (newState.indexOf(movedItem) !== this.get('state').indexOf(movedItem)) {
-					track({
-						action: trackActions.change,
-						category: 'infobox-builder',
-						label: 'reorder-infobox-elements'
-					});
+					// track({
+					// 	action: trackActions.change,
+					// 	category: 'infobox-builder',
+					// 	label: 'reorder-infobox-elements'
+					// });
 				}
 
 				this.get('reorder')(newState);
@@ -128,7 +128,7 @@ export default Ember.Component.extend(
 					event.stopPropagation();
 				}
 
-				this.trackClick('infobox-builder', `item-${targetItem.type}`);
+				//this.trackClick('infobox-builder', `item-${targetItem.type}`);
 
 				this.get('setEditItem')(targetItem);
 			},
@@ -144,7 +144,7 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			cancel() {
-				this.trackClick('infobox-builder', 'navigate-back-from-builder');
+				//this.trackClick('infobox-builder', 'navigate-back-from-builder');
 				this.get('cancelAction')();
 			},
 
@@ -152,7 +152,7 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			onSourceEditorClick() {
-				this.trackClick('infobox-builder', 'go-to-source-icon');
+				//this.trackClick('infobox-builder', 'go-to-source-icon');
 
 				if (this.get('isDirty')) {
 					this.set('showGoToSourceModal', true);
@@ -168,7 +168,7 @@ export default Ember.Component.extend(
 			goToSource(saveChanges) {
 				const trackingLabel = `go-to-source-modal-${saveChanges ? 'save-changes-and-' : ''}go-to-source`;
 
-				this.trackClick('infobox-builder', trackingLabel);
+				//this.trackClick('infobox-builder', trackingLabel);
 				this.set('showGoToSourceModal', false);
 				this.handleGoToSource(saveChanges);
 			},
@@ -178,7 +178,7 @@ export default Ember.Component.extend(
 			 */
 			onPreviewBackgroundClick() {
 				if (this.get('activeItem') !== null) {
-					this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
+					//this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
 				}
 				this.get('setEditItem')(null);
 			}
@@ -196,15 +196,15 @@ export default Ember.Component.extend(
 				})
 			});
 
-			this.trackClick('infobox-builder', 'save-attempt');
+			//this.trackClick('infobox-builder', 'save-attempt');
 			this.trackChangedItems();
 
 			return this.get('saveAction')(shouldRedirectToTemplatePage).then(() => {
-				track({
-					action: trackActions.success,
-					category: 'infobox-builder',
-					label: 'save-successful'
-				});
+				// track({
+				// 	action: trackActions.success,
+				// 	category: 'infobox-builder',
+				// 	label: 'save-successful'
+				// });
 
 				this.setProperties({
 					isLoading: false,
@@ -271,11 +271,11 @@ export default Ember.Component.extend(
 			const diffArray = infoboxBuilderDiff(this.get('state'));
 
 			diffArray.forEach((element) => {
-				track({
-					action: trackActions.change,
-					category: 'infobox-builder',
-					label: `changed-element-${element.type}-${element.changedField}`
-				});
+				// track({
+				// 	action: trackActions.change,
+				// 	category: 'infobox-builder',
+				// 	label: `changed-element-${element.type}-${element.changedField}`
+				// });
 			});
 		}
 	}

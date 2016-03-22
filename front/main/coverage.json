@@ -1,0 +1,164 @@
+{
+  "stats": {
+    "suites": 0,
+    "tests": 0,
+    "passes": 0,
+    "pending": 0,
+    "failures": 0,
+    "start": "2016-03-22T07:26:48.490Z",
+    "end": "2016-03-22T07:26:48.492Z"
+  },
+  "coverage": {
+    "total": {
+      "statementsTotal": 487,
+      "statementsCovered": 65,
+      "percentage": 13.35
+    },
+    "files": [
+      {
+        "name": "main/resolver",
+        "statementsTotal": 2,
+        "statementsCovered": 2,
+        "percentage": 100
+      },
+      {
+        "name": "main/config/environment",
+        "statementsTotal": 8,
+        "statementsCovered": 7,
+        "percentage": 87.5
+      },
+      {
+        "name": "main/components/ab-test",
+        "statementsTotal": 5,
+        "statementsCovered": 2,
+        "percentage": 40
+      },
+      {
+        "name": "main/mixins/track-click",
+        "statementsTotal": 2,
+        "statementsCovered": 2,
+        "percentage": 100
+      },
+      {
+        "name": "main/models/media",
+        "statementsTotal": 22,
+        "statementsCovered": 2,
+        "percentage": 9.09
+      },
+      {
+        "name": "main/utils/domain",
+        "statementsTotal": 6,
+        "statementsCovered": 3,
+        "percentage": 50
+      },
+      {
+        "name": "main/helpers/duration",
+        "statementsTotal": 10,
+        "statementsCovered": 2,
+        "percentage": 20
+      },
+      {
+        "name": "main/helpers/i18n",
+        "statementsTotal": 10,
+        "statementsCovered": 2,
+        "percentage": 20
+      },
+      {
+        "name": "main/helpers/svg",
+        "statementsTotal": 9,
+        "statementsCovered": 2,
+        "percentage": 22.22
+      },
+      {
+        "name": "main/helpers/thumbnail",
+        "statementsTotal": 18,
+        "statementsCovered": 2,
+        "percentage": 11.11
+      },
+      {
+        "name": "main/utils/truncate",
+        "statementsTotal": 15,
+        "statementsCovered": 2,
+        "percentage": 13.33
+      },
+      {
+        "name": "main/helpers/truncate",
+        "statementsTotal": 4,
+        "statementsCovered": 2,
+        "percentage": 50
+      },
+      {
+        "name": "main/components/ad-slot",
+        "statementsTotal": 16,
+        "statementsCovered": 5,
+        "percentage": 31.25
+      },
+      {
+        "name": "main/mixins/ads",
+        "statementsTotal": 47,
+        "statementsCovered": 2,
+        "percentage": 4.26
+      },
+      {
+        "name": "main/mixins/color-utils",
+        "statementsTotal": 9,
+        "statementsCovered": 2,
+        "percentage": 22.22
+      },
+      {
+        "name": "main/mixins/viewport",
+        "statementsTotal": 11,
+        "statementsCovered": 2,
+        "percentage": 18.18
+      },
+      {
+        "name": "main/mixins/curated-content-thumbnail",
+        "statementsTotal": 20,
+        "statementsCovered": 2,
+        "percentage": 10
+      },
+      {
+        "name": "main/mixins/thirds-click",
+        "statementsTotal": 15,
+        "statementsCovered": 2,
+        "percentage": 13.33
+      },
+      {
+        "name": "main/models/curated-content",
+        "statementsTotal": 45,
+        "statementsCovered": 4,
+        "percentage": 8.89
+      },
+      {
+        "name": "main/utils/edit-token",
+        "statementsTotal": 12,
+        "statementsCovered": 2,
+        "percentage": 16.67
+      },
+      {
+        "name": "main/models/infobox-builder",
+        "statementsTotal": 113,
+        "statementsCovered": 4,
+        "percentage": 3.54
+      },
+      {
+        "name": "main/models/wiki/article",
+        "statementsTotal": 48,
+        "statementsCovered": 4,
+        "percentage": 8.33
+      },
+      {
+        "name": "main/utils/ajax-call",
+        "statementsTotal": 14,
+        "statementsCovered": 2,
+        "percentage": 14.29
+      },
+      {
+        "name": "main/utils/article-link",
+        "statementsTotal": 26,
+        "statementsCovered": 4,
+        "percentage": 15.38
+      }
+    ]
+  }
+}
