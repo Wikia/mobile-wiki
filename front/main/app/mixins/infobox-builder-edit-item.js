@@ -20,14 +20,16 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		focusFirstInput() {
-			const input = this.$('.text-field-input');
-			let firstInput;
+			const inputs = this.$('.text-field-input');
+			let firstInput,
+				inputProperties;
 
-			if (input) {
-				firstInput = input.first().get(0);
-				input.first().focus();
+			if (inputs) {
+				firstInput = inputs.first();
+				inputProperties = firstInput.get(0);
+				firstInput.focus();
 				// required for moving cursor to the end of input on FF
-				firstInput.selectionStart = firstInput.selectionEnd = firstInput.value.length;
+				inputProperties.selectionStart = inputProperties.selectionEnd = inputProperties.value.length;
 			}
 		},
 
