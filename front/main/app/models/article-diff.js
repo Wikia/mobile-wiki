@@ -76,13 +76,19 @@ ArticleDiffModel.reopenClass({
 					controller: 'RevisionApi',
 					method: 'getRevisionsDiff',
 					avatar: true,
+					oldRev: true,
 					newId,
 					oldId
 				}
-			).done(({article, revision, diffs = []}) => {
+			).done(({article, revision, oldRevision, diffs = []}) => {
 				const diffsData = ArticleDiffModel.prepareDiffs(diffs);
 
-				let modelInstance = null;
+				let modelInstance = null,
+					lengthChange = revision.size;
+
+				if (!Ember.isNone(oldRevision)) {
+					lengthChange = lengthChange - oldRevision.size;
+				}
 
 				if (diffs) {
 					modelInstance = ArticleDiffModel.create({
@@ -96,7 +102,7 @@ ArticleDiffModel.reopenClass({
 						title: article.title,
 						user: revision.userName,
 						useravatar: revision.userAvatar,
-						lengthChange: revision.bytechange > 0 ? `+${revision.bytechange}` : revision.bytechange
+						lengthChange: lengthChange > 0 ? `+${lengthChange}` : lengthChange
 					});
 				}
 
