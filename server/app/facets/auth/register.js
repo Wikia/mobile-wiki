@@ -49,10 +49,8 @@ function getDefaultRegistrationContext(request, i18n) {
 	const lang = authUtils.getLanguageWithDefault(i18n),
 		defaultContext = authView.getDefaultContext(request),
 		wikiDomain = parse(defaultContext.exitTo).host || request.headers.host,
-		mediaWikiPageHelper = new PageRequestHelper({wikiDomain});
-
-	const context = deepExtend(defaultContext,
-		{
+		mediaWikiPageHelper = new PageRequestHelper({wikiDomain}),
+		context = deepExtend(defaultContext, {
 			usernameMaxLength: localSettings.userRegistationService.usernameMaxLength,
 			passwordMaxLength: localSettings.userRegistationService.passwordMaxLength,
 			langCode: lang,
