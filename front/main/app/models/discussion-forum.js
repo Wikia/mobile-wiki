@@ -2,6 +2,7 @@ import DiscussionBaseModel from './discussion-base';
 import DiscussionModerationModelMixin from '../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../mixins/discussion-forum-actions-model';
 import ajaxCall from '../utils/ajax-call';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
@@ -67,6 +68,8 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 
 					this.posts.insertAt(0, post);
 					this.incrementProperty('totalPosts');
+
+					track(trackActions.PostCreate);
 				},
 				error: (err) => {
 					this.onCreatePostError(err);

@@ -1,16 +1,23 @@
 QUnit.module('mercury/modules/ads', function (hooks) {
-	var Ads,
+	var Ads, trackerUA,
 		loadStub = sinon.stub().callsArg(1);
 
 	hooks.beforeEach(function () {
 		var exports = {};
 
-		require.entries['common/modules/ads'].callback(exports, {}, loadStub);
+		require.entries['common/modules/ads'].callback(exports, loadStub);
 
 		Ads = exports.default;
+		trackerUA = M.tracker.UniversalAnalytics;
+		M.tracker.UniversalAnalytics = {
+			trackAds: sinon.stub(),
+			track: sinon.stub(),
+			setDimension: sinon.stub(),
+		};
 	});
 
 	hooks.afterEach(function () {
+		M.tracker.UniversalAnalytics = trackerUA;
 		loadStub.reset();
 	});
 

@@ -8,11 +8,14 @@
 	M.prop('weppyConfig', {{{json localSettings.weppy}}});
 	M.prop('wikiaLanguage', '{{{wikiVariables.language.content}}}');
 	M.prop('userId', {{{userId}}});
+	M.prop('displayTitle', '{{{displayTitle}}}');
+	M.prop('urlTitleParam', '{{{urlTitleParam}}}');
 	M.prop('gaUserIdHash', '{{{gaUserIdHash}}}');
 	M.prop('cookieDomain', {{{json localSettings.authCookieDomain}}});
 	M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
 	M.prop('discussionBaseRoute', {{{json localSettings.discuss.baseAPIPath}}});
 	M.prop('imageReviewBaseRoute', {{{json localSettings.imageReview.baseAPIPath}}});
+	M.prop('clickstream', {{{json localSettings.clickstream}}});
 	{{#if discussionsSplashPageConfig}}
 		M.prop('discussionsSplashPageConfig', {{{json discussionsSplashPageConfig}}});
 	{{/if}}
@@ -35,8 +38,5 @@
 	{{/if}}
 	{{#if exception}}
 		M.prop('exception', {{{json exception}}}, true);
-	{{/if}}
-	{{#if server.optimizelyScript}}
-		M.prop('optimizelyScript', '{{{server.optimizelyScript}}}');
 	{{/if}}
 </script>
