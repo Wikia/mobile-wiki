@@ -39,9 +39,11 @@
 		<strong class="recent-change__summary-label">{{i18n 'main.summary' ns='recent-wiki-activity'}}</strong> {{{model.parsedcomment}}}
 	</small>
 {{/if}}
-<div class="recent-change__upvotes {{if userUpvoted 'user-upvoted'}}">
-	{{svg 'kudos' viewBox='0 0 18 18' class='icon'}}<span class="text">{{model.upvotescount}}</span>
-</div>
+{{#if upvotesEnabled}}
+	<div class="recent-change__upvotes {{if userUpvoted 'user-upvoted'}}">
+		{{svg 'kudos' viewBox='0 0 18 18' class='icon'}}<span class="text">{{model.upvotescount}}</span>
+	</div>
+{{/if}}
 {{#if active}}
     <div class="current-change"></div>
 {{/if}}
