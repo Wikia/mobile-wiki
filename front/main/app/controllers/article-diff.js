@@ -73,7 +73,7 @@ export default Ember.Controller.extend(
 		 * @returns {void}
 		 */
 		handleUndoError(error) {
-			const errorMsg = error === 'undofailure' ? 'main.undo-failure' : 'main.undo-error';
+			const errorMsg = error === 'undofailure' ? 'main.undo-failure' : 'main.error';
 
 			this.handleError(errorMsg, 'undo-error');
 		},
