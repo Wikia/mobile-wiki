@@ -5,7 +5,7 @@ $appreciate-activated-color: $success-color;
 $auth-content-background-color: $color-white;
 $body-background: $color-blue-dark;
 $button-color: $color-blue-light;
-// TODO move these button colors to styleguide
+// TODO CE-3548 move these button colors to styleguide
 // https://github.com/Wikia/style-guide/blob/dev/src/scss/lib/_settings.scss
 $button-enabled-color: $button-bg-color;
 $button-tapped-color: mix($button-enabled-color, $color-black, 80%);

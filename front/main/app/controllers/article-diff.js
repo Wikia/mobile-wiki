@@ -28,10 +28,10 @@ export default Ember.Controller.extend(
 			});
 		},
 
-		handleDownvoteSuccess(upvoteId) {
+		handleRemoveUpvoteSuccess() {
 			this.decrementProperty('model.upvotescount');
 			this.get('model.upvotes').removeObject(this.get('model.upvotes').findBy('id', upvoteId));
-			this.trackImpression('downvote-success');
+			this.trackImpression('remove-upvote-success');
 		},
 
 		/**
@@ -73,8 +73,8 @@ export default Ember.Controller.extend(
 			this.trackImpression(label);
 		},
 
-		handleDownvoteError() {
-			this.handleError('main.error', 'downvote-error');
+		handleRemoveUpvoteError() {
+			this.handleError('main.error', 'remove-upvote-error');
 		},
 
 		/**
@@ -82,7 +82,7 @@ export default Ember.Controller.extend(
 		 * @returns {void}
 		 */
 		handleUndoError(error) {
-			const errorMsg = error === 'undofailure' ? 'main.undo-failure' : 'main.undo-error';
+			const errorMsg = error === 'undofailure' ? 'main.undo-failure' : 'main.error';
 
 			this.handleError(errorMsg, 'undo-error');
 		},
@@ -134,17 +134,17 @@ export default Ember.Controller.extend(
 			},
 
 			/**
-			 * Send info to server that user downvoted a revision
+			 * Send request to server to remove previously added upvote for a revision
 			 * @param {int} upvoteId ID of upvote record to remove
 			 * @param {int} userId user ID who made an edit
 			 * @returns {void}
 			 */
-			downvote(upvoteId) {
-				this.get('model').downvote(upvoteId).then(
-					this.handleDownvoteSuccess.bind(this, upvoteId),
-					this.handleDownvoteError.bind(this)
+			removeUpvote(upvoteId) {
+				this.get('model').removeUpvote(upvoteId).then(
+					this.handleRemoveUpvoteSuccess.bind(this, upvoteId),
+					this.handleRemoveUpvoteError.bind(this)
 				);
-				this.trackClick(trackCategory, 'downvote');
+				this.trackClick(trackCategory, 'remove-upvote');
 			},
 
 			/**

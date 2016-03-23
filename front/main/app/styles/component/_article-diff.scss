@@ -99,10 +99,10 @@ $legend-line-height: $type-smallest;
 	border-width: 5px 0 0;
 	bottom: 0;
 	box-shadow: 0px -20px 30px 10px rgba(255,255,255,0.68);
+	overflow: hidden;
 	position: fixed;
 	width: 100%;
 	z-index: $z-site-head;
-	overflow: hidden;
 }
 
 .diff-page__button-icon {
@@ -131,7 +131,7 @@ $legend-line-height: $type-smallest;
 	padding: 8px 15px 6px;
 	width: 50%;
 
-	// TODO move the stylling to global button look definition
+	// TODO CE-3548 move the stylling to global button look definition
 	// https://github.com/Wikia/style-guide/blob/dev/src/scss/lib/components/buttons.scss
 	&:focus,
 	&:hover {
@@ -145,7 +145,7 @@ $legend-line-height: $type-smallest;
 	right: 0;
 }
 
-// TODO make this default disabled button state (button[disabled])
+// TODO CE-3548 make this default disabled button state (button[disabled])
 // https://github.com/Wikia/style-guide/blob/dev/src/scss/lib/components/buttons.scss
 .diff-page__vote--upvoted {
 	background: $button-disabled-color;

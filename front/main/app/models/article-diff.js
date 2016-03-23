@@ -71,7 +71,8 @@ const ArticleDiffModel = Ember.Object.extend({
 			.then((token) => {
 				Ember.$.ajax({
 					url: M.buildUrl({
-						path: '/wikia.php?controller=RevisionUpvotesApiController&method=addUpvote',
+						path: '/wikia.php',
+						query: {controller: 'RevisionUpvotesApiController', method: 'addUpvote'}
 					}),
 					data: {
 						revisionId: this.newId,
@@ -93,18 +94,19 @@ const ArticleDiffModel = Ember.Object.extend({
 	},
 
 	/**
-	 * Send info to server that user downvoted a revision
+	 * Send request to server to remove previously added upvote for a revision
 	 * @param {int} upvoteId ID of upvote record to remove
 	 * @param {int} userId user ID who made an edit
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	downvote(upvoteId) {
+	removeUpvote(upvoteId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			getEditToken(this.title)
 				.then((token) => {
 					Ember.$.ajax({
 						url: M.buildUrl({
-							path: '/wikia.php?controller=RevisionUpvotesApiController&method=removeUpvote',
+							path: '/wikia.php',
+							query: {controller: 'RevisionUpvotesApiController', method: 'removeUpvote'}
 						}),
 						data: {
 							id: upvoteId,

@@ -11,7 +11,6 @@
     "rollback-success":"Successfully rolled back the page __pageTitle__!",
     "summary":"Summary:",
     "title":"Recent Wiki Activity",
-    "undo-error":"Sorry, it looks like something went wrong while trying to undo the edit. Please try again.",
     "undo-failure":"The edit could not be undone due to conflicting intermediate edits.",
     "undo-label":"Undo",
     "undo-success":"Successfully undid edit to page __pageTitle__!"
