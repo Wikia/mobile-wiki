@@ -51,9 +51,31 @@ describe('wiki-page', function () {
 		});
 	});
 
-	it('renders error page when request for wiki variables fails', function (done) {
+	it('renders error page when request for wiki variables fails (payload is an empty object)', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, article);
 		wreckGetStub.onCall(1).yields(null, {statusCode: 503}, {});
+
+		server.inject(requestParams, function (response) {
+			expect(response.statusCode).to.equal(503);
+			expect(response.payload).to.include('<h1>Error</h1>');
+			done();
+		});
+	});
+
+	it('renders error page when request for wiki variables fails (payload is an empty string)', function (done) {
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, article);
+		wreckGetStub.onCall(1).yields(null, {statusCode: 503}, '');
+
+		server.inject(requestParams, function (response) {
+			expect(response.statusCode).to.equal(503);
+			expect(response.payload).to.include('<h1>Error</h1>');
+			done();
+		});
+	});
+
+	it('renders error page when request for wiki variables fails (payload is a string)', function (done) {
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, article);
+		wreckGetStub.onCall(1).yields(null, {statusCode: 503}, 'error');
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(503);
@@ -71,6 +93,32 @@ describe('wiki-page', function () {
 			expect(response.headers.location).to.equal(
 				'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia'
 			);
+			done();
+		});
+	});
+
+	it('renders page with correct M.prop when request for article returns 404', function (done) {
+		wreckGetStub.onCall(0).yields(null, {statusCode: 404}, {});
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariables);
+
+		server.inject(requestParams, function (response) {
+			expect(response.statusCode).to.equal(404);
+
+			// Ember displays 404 page based on that
+			expect(response.payload).to.include('M.prop(\'exception\', {"code":404}, true);');
+			done();
+		});
+	});
+
+	it('renders page with correct M.prop when request for article returns 503', function (done) {
+		wreckGetStub.onCall(0).yields(null, {statusCode: 503}, {});
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariables);
+
+		server.inject(requestParams, function (response) {
+			expect(response.statusCode).to.equal(503);
+
+			// Ember displays error page with reload button based on that
+			expect(response.payload).to.include('M.prop(\'exception\', {"code":503}, true);');
 			done();
 		});
 	});
