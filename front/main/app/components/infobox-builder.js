@@ -187,7 +187,9 @@ export default Ember.Component.extend(
 			},
 
 			saveTemplateName() {
-				console.log("saveTemplateName")
+				// @todo: DAT-3994 send request to app - check if title already exists
+				this.showEditTitleModal(false);
+				this.save();
 			},
 
 			/**
@@ -298,7 +300,7 @@ export default Ember.Component.extend(
 
 		/**
 		 * @returns {void}
-		 * @param {bool} show true if showing modal, false if hiding
+		 * @param {boolean} show true if showing modal, false if hiding
 		 */
 		showEditTitleModal(show) {
 			track({
