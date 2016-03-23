@@ -9,11 +9,11 @@ export default Ember.Mixin.create(
 			return this.get('model') === this.get('activeItem');
 		}),
 
-		inGroup: Ember.computed('model', 'groupItems', function() {
+		inGroup: Ember.computed('model', 'groupItems', function () {
 			return this.get('groupItems').contains(this.get('model'));
 		}),
 
-		last: Ember.computed('model', 'lastGroupItem', function() {
+		last: Ember.computed('model', 'lastGroupItem', function () {
 			return this.get('model') === this.get('lastGroupItem');
 		}),
 

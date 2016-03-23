@@ -295,6 +295,7 @@ $sidebar-z-index: 1;
 	.infobox-builder-chevron-area {
 		pointer-events: none;
 	}
+
 	.pi-item:not(.is-dragging) {
 		pointer-events: none;
 
@@ -382,21 +383,26 @@ $sidebar-z-index: 1;
 			top: -$border-width;
 			width: 100%;
 		}
+
 		&.last:before {
 			border-bottom: $border-width solid $color-blue-light;
 		}
+
 		&.pi-data:not(.active):before {
 			height: calc(100% + #{$border-width});
 		}
 	}
+
 	&.pi-header {
 		&:before {
 			border-top: $border-width solid $color-blue-light;
 		}
+
 		&:not(.active):before {
 			border-bottom: transparent;
 		}
 	}
+
 	.pop-over {
 		color: $color-gray-dark;
 		position: fixed;

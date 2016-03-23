@@ -148,17 +148,19 @@ export default Ember.Controller.extend({
 		},
 
 		setGroup(header) {
-			let items = [],
-				last = null;
+			const items = [];
+			let last = null;
+
 			if (header && header.type === 'section-header') {
+				const state = this.get('model').get('infoboxState');
 				let done = false,
-					state = this.get('model').get('infoboxState'),
 					// set start at first group item
 					current = state.indexOf(header) + 1;
 
 				items.push(header);
 				while (!done && current < state.length) {
-					let item = state.get(current);
+					const item = state.get(current);
+
 					switch (item.type) {
 						case 'title':
 						case 'section-header':

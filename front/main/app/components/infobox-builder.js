@@ -21,15 +21,17 @@ export default Ember.Component.extend(
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 
-		isReorderTooltipVisible: Ember.computed('isPreviewItemHovered', 'isPreviewItemDragged', 'isGroupTooltipVisible', function () {
-			return this.get('isPreviewItemHovered')
-				   && !this.get('isPreviewItemDragged')
-				   && !this.get('isGroupTooltipVisible');
-		}),
+		isReorderTooltipVisible: Ember.computed('isPreviewItemHovered', 'isPreviewItemDragged', 'isGroupTooltipVisible',
+			function () {
+				return this.get('isPreviewItemHovered') &&
+					!this.get('isPreviewItemDragged') &&
+					!this.get('isGroupTooltipVisible');
+			}
+		),
 
-		isGroupHighlighted: Ember.computed('isPreviewItemDragged', 'isGroupTooltipVisible', function() {
-			return !this.get('isPreviewItemDragged')
-				   && this.get('isGroupTooltipVisible');
+		isGroupHighlighted: Ember.computed('isPreviewItemDragged', 'isGroupTooltipVisible', function () {
+			return !this.get('isPreviewItemDragged') &&
+				this.get('isGroupTooltipVisible');
 		}),
 
 		sortableGroupClassNames: Ember.computed('theme', function () {

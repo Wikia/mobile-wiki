@@ -12,7 +12,8 @@ export default Ember.Component.extend(
 		collapsible: Ember.computed.readOnly('model.collapsible'),
 		header: Ember.computed.readOnly('model.data'),
 		uniq: Ember.computed.readOnly('model.infoboxBuilderData.id'),
-		flow: Ember.computed('position', function() {
+		// position states current item placement inside infobox
+		flow: Ember.computed('position', function () {
 			return this.$().position().top < 200 ? 'bottomLeft' : 'topLeft';
 		})
 	}
