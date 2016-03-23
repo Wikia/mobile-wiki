@@ -390,4 +390,11 @@ $sidebar-z-index: 1;
 	.pi-header.in-group:before {
 		border-top: $border-width solid $color-blue-light;
 	}
+	.pop-over {
+		color: $color-gray-dark;
+		.infobox-builder-popup-text {
+
+			font-size: $type-smallest;
+		}
+	}
 }
