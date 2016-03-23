@@ -133,8 +133,8 @@ $legend-line-height: $type-smallest;
 
 	// TODO move the stylling to global button look definition
 	// https://github.com/Wikia/style-guide/blob/dev/src/scss/lib/components/buttons.scss
-	&:hover,
-	&:focus {
+	&:focus,
+	&:hover {
 		background: $button-tapped-color;
 	}
 }
