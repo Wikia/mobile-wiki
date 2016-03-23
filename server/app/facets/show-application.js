@@ -6,8 +6,11 @@ import Logger from '../lib/logger';
 import localSettings from '../../config/localSettings';
 import discussionsSplashPageConfig from '../../config/discussionsSplashPageConfig';
 import {gaUserIdHash} from '../lib/hashing';
-import {RedirectedToCanonicalHost} from '../lib/custom-errors';
+import {
+	RedirectedToCanonicalHost, WikiVariablesNotValidWikiError, WikiVariablesRequestError
+} from '../lib/custom-errors';
 import {isRtl, getUserId, getLocalSettings} from './operations/prepare-page-data';
+import showServerErrorPage from './operations/show-server-error-page';
 
 /**
  * @typedef {Object} CommunityAppConfig
@@ -91,19 +94,31 @@ export default function showApplication(request, reply, wikiVariables) {
 			outputResponse(request, reply, context);
 		})
 		/**
+		 * If request for Wiki Variables fails
+		 * @returns {void}
+		 */
+		.catch(WikiVariablesRequestError, () => {
+			showServerErrorPage(reply);
+		})
+		/**
+		 * If request for Wiki Variables succeeds, but wiki does not exist
+		 * @returns {void}
+		 */
+		.catch(WikiVariablesNotValidWikiError, () => {
+			reply.redirect(localSettings.redirectUrlOnNoData);
+		})
+		/**
 		 * @returns {void}
 		 */
 		.catch(RedirectedToCanonicalHost, () => {
 			Logger.info('Redirected to canonical host');
 		})
 		/**
-		 * @param {*} error
+		 * Other errors
 		 * @returns {void}
 		 */
 		.catch((error) => {
-			// `error` could be an object or a string here
-			Logger.warn({error}, 'Failed to get complete app view context');
-			// In case of any unforeseeable error, attempt to output with the context we have so far
-			outputResponse(request, reply, context);
+			Logger.fatal(error, 'Unhandled error, code issue');
+			showServerErrorPage(reply);
 		});
 }

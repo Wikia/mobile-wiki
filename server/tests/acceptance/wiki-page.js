@@ -1,14 +1,14 @@
 var Lab = require('lab'),
 	sinon = require('sinon'),
-	server = require('../../../www/server/app/app'),
-	lab = exports.lab = Lab.script(),
 	code = require('code'),
+	lab = exports.lab = Lab.script(),
 	describe = lab.experiment,
 	it = lab.it,
 	before = lab.before,
 	after = lab.after,
 	afterEach = lab.afterEach,
 	expect = code.expect,
+	server = require('../../../www/server/app/app'),
 	mediawiki = require('../../../www/server/app/lib/mediawiki'),
 	wikiVariables = require('../fixtures/wiki-variables'),
 	article = require('../fixtures/article');
@@ -92,6 +92,27 @@ describe('wiki-page', function () {
 			expect(response.statusCode).to.equal(302);
 			expect(response.headers.location).to.equal(
 				'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia'
+			);
+			done();
+		});
+	});
+
+	it('redirects to primary URL when requested wiki by alias host', function (done) {
+		var requestParamsWithAliasHost = {
+			url: '/wiki/Yoda',
+			method: 'GET',
+			headers: {
+				host: 'www.starwars.wikia.com',
+			}
+		};
+		
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, article);
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariables);
+
+		server.inject(requestParamsWithAliasHost, function (response) {
+			expect(response.statusCode).to.equal(301);
+			expect(response.headers.location).to.equal(
+				'http://starwars.wikia.com/wiki/Yoda'
 			);
 			done();
 		});

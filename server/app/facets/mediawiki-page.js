@@ -145,7 +145,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 	mediaWikiPageHelper
 		.getFull()
 		/**
-		 * If both requests for Wiki Variables and for Page Details success
+		 * If both requests for Wiki Variables and for Page Details succeed
 		 * @param {MediaWikiPageData} data
 		 * @returns {void}
 		 */
@@ -161,14 +161,14 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 			showServerErrorPage(reply);
 		})
 		/**
-		 * If request for Wiki Variables success, but wiki does not exist
+		 * If request for Wiki Variables succeeds, but wiki does not exist
 		 * @returns {void}
 		 */
 		.catch(WikiVariablesNotValidWikiError, () => {
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
 		/**
-		 * If request for Wiki Variables success, but request for Page Details fails
+		 * If request for Wiki Variables succeeds, but request for Page Details fails
 		 * @param {*} error
 		 * @returns {void}
 		 */
