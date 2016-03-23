@@ -8,8 +8,10 @@ export default Ember.Controller.extend(
 	TrackClickMixin,
 	{
 		application: Ember.inject.controller(),
+		currentUser: Ember.inject.service(),
 		shouldShowUndoConfirmation: false,
 		currRecentChangeId: null,
+
 
 		/**
 		 * Adds success banner
@@ -26,7 +28,9 @@ export default Ember.Controller.extend(
 			});
 		},
 
-		handleDownvoteSuccess() {
+		handleDownvoteSuccess(upvoteId) {
+			this.decrementProperty('model.upvotescount');
+			this.get('model.upvotes').removeObject(this.get('model.upvotes').findBy('id', upvoteId));
 			this.trackImpression('downvote-success');
 		},
 
@@ -41,7 +45,12 @@ export default Ember.Controller.extend(
 			this.trackImpression('undo-success');
 		},
 
-		handleUpvoteSuccess() {
+		handleUpvoteSuccess(id) {
+			this.incrementProperty('model.upvotescount');
+			this.get('model.upvotes').addObject({
+				id,
+				from_user: this.get('currentUser.userId').toString()
+			});
 			this.trackImpression('upvote-success');
 		},
 
@@ -132,7 +141,7 @@ export default Ember.Controller.extend(
 			 */
 			downvote(upvoteId) {
 				this.get('model').downvote(upvoteId).then(
-					this.handleDownvoteSuccess.bind(this),
+					this.handleDownvoteSuccess.bind(this, upvoteId),
 					this.handleDownvoteError.bind(this)
 				);
 				this.trackClick(trackCategory, 'downvote');

@@ -7,7 +7,7 @@ export default Ember.Component.extend({
 	active: Ember.computed('id', 'rc', function () {
 		return this.get('id') === this.get('rc');
 	}),
-	userUpvoted: Ember.computed('model.upvotes', 'currentUser.userId', function () {
+	userUpvoted: Ember.computed('model.upvotes.[]', 'currentUser.userId', function () {
 		const upvotes = this.get('model.upvotes'),
 			userId = this.get('currentUser.userId');
 

@@ -12,6 +12,8 @@ const ArticleDiffModel = Ember.Object.extend({
 	pageid: null,
 	timestamp: null,
 	title: null,
+	upvotes: null,
+	upvotescount: 0,
 	user: null,
 	userId: null,
 	useravatar: null,
@@ -79,7 +81,7 @@ const ArticleDiffModel = Ember.Object.extend({
 					method: 'POST',
 					success: (resp) => {
 						if (resp && resp.success) {
-							resolve();
+							resolve(resp.id);
 						} else {
 							reject();
 						}
@@ -161,7 +163,7 @@ ArticleDiffModel.reopenClass({
 						parsedcomment: revision.parsedComment,
 						timestamp: revision.timestamp,
 						title: article.title,
-						upvotes: revision.upvotes,
+						upvotes: revision.upvotes || [],
 						upvotescount: revision.upvotesCount,
 						user: revision.userName,
 						userId: revision.userId,
