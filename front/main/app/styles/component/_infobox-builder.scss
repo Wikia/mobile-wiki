@@ -342,15 +342,40 @@ $sidebar-z-index: 1;
 }
 
 // fix modal overlay positions for source mode
-.infobox-builder-go-to-source-modal {
+.infobox-builder-modal {
 	left: 0;
+
+	button {
+		background-color: inherit;
+		border: none;
+		color: $link-color;
+		margin: 0;
+		min-width: 57px;
+
+		&:hover {
+			background-color: #F2F6FA;
+		}
+	}
 
 	.modal-dialog {
 		margin: 0 auto;
 		text-align: center;
+		padding: 0;
+	}
+
+	.modal-text-area {
+		padding: 25px;
+	}
+
+	.modal-bottom-row {
+		border-top: 1px #E6EBF2 solid;
+		font-size: 16px;
+		line-height: 26px;
+		text-align: right;
+		padding: 6px;
 	}
 }
 
-.infobox-builder-go-to-source-modal-message {
+.infobox-builder-modal-message {
 	text-align: left;
 }
