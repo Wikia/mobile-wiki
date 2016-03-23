@@ -58,8 +58,21 @@ describe('wiki-page', function () {
 		wreckGetStub.onCall(1).yields(null, {statusCode: 503}, {});
 
 		server.inject(options, function (response) {
-			expect(response.statusCode).to.equal(500);
+			expect(response.statusCode).to.equal(503);
 			expect(response.payload).to.include('<h1>Error</h1>');
+			done();
+		});
+	});
+
+	it('redirects to community wikia when requested wiki does not exist', function (done) {
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, article);
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, 'not a valid wikia');
+
+		server.inject(options, function (response) {
+			expect(response.statusCode).to.equal(302);
+			expect(response.headers.location).to.equal(
+				'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia'
+			);
 			done();
 		});
 	});
