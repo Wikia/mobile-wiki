@@ -88,7 +88,6 @@ ArticleDiffModel.reopenClass({
 
 				if (diffs) {
 					modelInstance = ArticleDiffModel.create({
-
 						diffs: diffsData,
 						namespace: article.ns,
 						newId,
