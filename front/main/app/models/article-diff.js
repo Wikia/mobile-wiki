@@ -69,7 +69,8 @@ const ArticleDiffModel = Ember.Object.extend({
 			.then((token) => {
 				Ember.$.ajax({
 					url: M.buildUrl({
-						path: '/wikia.php?controller=RevisionUpvotesApiController&method=addUpvote',
+						path: '/wikia.php',
+						query: {controller: 'RevisionUpvotesApiController', method: 'addUpvote'}
 					}),
 					data: {
 						revisionId: this.newId,
@@ -102,7 +103,8 @@ const ArticleDiffModel = Ember.Object.extend({
 				.then((token) => {
 					Ember.$.ajax({
 						url: M.buildUrl({
-							path: '/wikia.php?controller=RevisionUpvotesApiController&method=removeUpvote',
+							path: '/wikia.php',
+							query: {controller: 'RevisionUpvotesApiController', method: 'removeUpvote'}
 						}),
 						data: {
 							id: upvoteId,
