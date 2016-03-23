@@ -16,7 +16,7 @@ export default Ember.Component.extend({
 	showButtons: Ember.computed.and('currentUser.isAuthenticated', 'userNotBlocked'),
 	showDiffLink: false,
 	upvoted: Ember.computed.bool('currentUserUpvoteId'),
-	upvotesEnabled: Mercury.wiki.language.content === 'en',
+	upvotesEnabled: Ember.get(Mercury, 'wiki.language.content') === 'en',
 	buttonUndoClass: Ember.computed(function () {
 		return this.upvotesEnabled ? 'diff-page__undo' : 'diff-page__undo--alone';
 	}),
