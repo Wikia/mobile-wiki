@@ -320,6 +320,9 @@ process.on('message', (msg) => {
 	}
 });
 
+// Make sure that if the script is being required as a module by another script, we don’t start the server.
+// This is done to prevent the server from starting when we’re testing it.
+// With Hapi, we don’t need to have the server listening to test it.
 if (!module.parent) {
 	/**
 	 * @returns {void}
