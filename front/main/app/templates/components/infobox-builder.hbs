@@ -9,15 +9,17 @@
 
 <div class="infobox-builder">
 	<div class="infobox-builder-preview article-background-color" {{action 'onPreviewBackgroundClick'}}>
-		{{#sortable-group
-			tagName='div'
-			class=sortableGroupClassNames
-			onChange=(action 'onReorderElements') as |group|
-		}}
-			{{#each state as |element index|}}
-				{{component element.infoboxBuilderData.component
+		<div class="infobox-builder-infobox-wrapper">
+			{{#sortable-group
+				tagName='div'
+				class=sortableGroupClassNames
+				onChange=(action 'onReorderElements') as |group|
+			}}
+				{{#each state as |element index|}}
+					{{component element.infoboxBuilderData.component
 					activeItem=activeItem
 					model=element
+					id=element.infoboxBuilderData.id
 					group=group
 					handle=".pi-item"
 					position=index
@@ -32,9 +34,16 @@
 					onGroupPreviewStop=(action 'hideGroupPreview')
 					groupItems=groupItems
 					lastGroupItem=lastGroupItem
-				}}
-			{{/each}}
-		{{/sortable-group}}
+					}}
+				{{/each}}
+			{{/sortable-group}}
+			{{infobox-builder-edit-options-pop-over
+				visible=isEditPopOverVisible
+				offsetX=15
+				onDeleteItem=(action this.attrs.removeItem)
+				targetItem=activeItem
+			}}
+		</div>
 		{{#if isReorderTooltipVisible}}
 			{{wikia-ui-components/on-hover-tooltip
 				posX=tooltipPosX

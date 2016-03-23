@@ -66,7 +66,6 @@ export default function prepareCategoryData(request, data) {
 	}
 
 	result.asyncArticle = false;
-	result.prerenderEnabled = false;
 
 	return result;
 }

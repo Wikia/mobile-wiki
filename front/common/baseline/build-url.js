@@ -139,4 +139,13 @@ if (typeof window.M === 'undefined') {
 	M.getImageReviewServiceUrl = function (path = '', query = {}) {
 		return `https://${M.prop('servicesDomain')}/${M.prop('imageReviewBaseRoute')}${path}${getQueryString(query)}`;
 	};
+
+	/**
+	 * @param {string} [path='']
+	 * @param {Object} [query={}]
+	 * @returns {string}
+	 */
+	M.getStaticAssetsServiceUrl = function (path = '', query = {}) {
+		return `https://${M.prop('servicesDomain')}/${M.prop('staticAssetsBaseRoute')}${path}${getQueryString(query)}`;
+	};
 })(M);

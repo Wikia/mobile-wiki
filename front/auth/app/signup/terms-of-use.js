@@ -41,6 +41,7 @@ export default class TermsOfUse {
 			checkbox.type = 'checkbox';
 			checkbox.name = 'termsOfUse';
 			checkbox.id = 'termsOfUseCheckbox';
+			checkbox.classList.add('custom-checkbox');
 			checkbox.required = true;
 			label.appendChild(checkbox);
 			label.innerHTML += i18n.t(

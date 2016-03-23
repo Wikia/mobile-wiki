@@ -15,11 +15,8 @@ import localSettings from '../../../config/localSettings';
  * @property {string} mainPage
  * @property {string} optimizelyScript
  * @property {PageParams} pageParams
- * @property {boolean} [hideHeader]
- * @property {boolean} [hideFooter]
- * @property {string} [footerHref]
- * @property {string} [footerCallout]
- * @property {string} [footerCalloutLink]
+ * @property {string} [headerCallout]
+ * @property {string} [headerCalloutLink]
  * @property {string} [headerText]
  * @property {string} [bodyClasses]
  * @property {string} [pageType]
@@ -189,8 +186,8 @@ export function getDefaultContext(request) {
 		pageParams: {
 			cookieDomain: localSettings.authCookieDomain,
 			isModal,
-			enableAuthLogger: localSettings.clickstream.auth.enable,
-			authLoggerUrl: localSettings.clickstream.auth.url,
+			enableSocialLogger: localSettings.clickstream.social.enable,
+			socialLoggerUrl: localSettings.clickstream.social.url,
 			viewType,
 			parentOrigin: (isModal ? getOrigin(request) : undefined)
 		}
