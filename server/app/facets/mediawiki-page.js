@@ -69,39 +69,36 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	let result = {},
 		pageData = {},
 		viewName = 'wiki-page',
+		isContentNamespace = false,
 		response,
 		ns;
 
 	if (data.page && data.page.data) {
 		pageData = data.page.data;
 		ns = pageData.ns;
+		isContentNamespace = pageData.isContentNamespace;
 		result.mediaWikiNamespace = ns;
+		result.isContentNamespace = isContentNamespace;
 	}
 	// pass page title to front
 	result.urlTitleParam = request.params.title;
 
-	switch (ns) {
-		case MediaWikiNamespace.MAIN:
+	if (isContentNamespace) {
+		viewName = 'article';
+		result = deepExtend(result, prepareArticleData(request, data));
+	} else if (ns === MediaWikiNamespace.CATEGORY) {
+		if (pageData.article && pageData.details) {
 			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
+		}
 
-			break;
-
-		case MediaWikiNamespace.CATEGORY:
-			if (pageData.article && pageData.details) {
-				viewName = 'article';
-				result = deepExtend(result, prepareArticleData(request, data));
-			}
-
-			result = deepExtend(result, prepareCategoryData(request, data));
-			// Hide TOC on category pages
-			result.hasToC = false;
-			result.subtitle = i18n.t('app.category-page-subtitle');
-			break;
-
-		default:
-			Logger.warn(`Unsupported namespace: ${ns}`);
-			result = prepareMediaWikiData(request, data);
+		result = deepExtend(result, prepareCategoryData(request, data));
+		// Hide TOC on category pages
+		result.hasToC = false;
+		result.subtitle = i18n.t('app.category-page-subtitle');
+	} else {
+		Logger.warn(`Unsupported namespace: ${ns}`);
+		result = prepareMediaWikiData(request, data);
 	}
 
 	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
