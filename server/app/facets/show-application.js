@@ -6,6 +6,7 @@ import Logger from '../lib/logger';
 import localSettings from '../../config/localSettings';
 import discussionsSplashPageConfig from '../../config/discussionsSplashPageConfig';
 import {gaUserIdHash} from '../lib/hashing';
+import {RedirectedToCanonicalHost} from '../lib/custom-errors';
 import {isRtl, getUserId, getLocalSettings} from './operations/prepare-page-data';
 
 /**
@@ -92,7 +93,7 @@ export default function showApplication(request, reply, wikiVariables) {
 		/**
 		 * @returns {void}
 		 */
-		.catch(Utils.RedirectedToCanonicalHost, () => {
+		.catch(RedirectedToCanonicalHost, () => {
 			Logger.info('Redirected to canonical host');
 		})
 		/**

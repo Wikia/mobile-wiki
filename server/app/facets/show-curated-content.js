@@ -1,9 +1,9 @@
 import Logger from '../lib/logger';
-import {CuratedMainPageRequestHelper, MainPageDataRequestError} from '../lib/curated-main-page';
-import * as MediaWiki from '../lib/mediawiki';
-import {getCachedWikiDomainName,
-		redirectToCanonicalHostIfNeeded,
-		RedirectedToCanonicalHost} from '../lib/utils';
+import {CuratedMainPageRequestHelper} from '../lib/curated-main-page';
+import {
+	MainPageDataRequestError, RedirectedToCanonicalHost, WikiVariablesNotValidWikiError, WikiVariablesRequestError
+} from '../lib/custom-errors';
+import {getCachedWikiDomainName, redirectToCanonicalHostIfNeeded} from '../lib/utils';
 import localSettings from '../../config/localSettings';
 import prepareCuratedContentData from './operations/prepare-curated-content-data';
 import showServerErrorPage from './operations/show-server-error-page';
@@ -89,13 +89,13 @@ export default function showCuratedContent(request, reply) {
 		/**
 		 * @returns {void}
 		 */
-		.catch(MediaWiki.WikiVariablesRequestError, () => {
+		.catch(WikiVariablesRequestError, () => {
 			showServerErrorPage(reply);
 		})
 		/**
 		 * @returns {void}
 		 */
-		.catch(MediaWiki.WikiVariablesNotValidWikiError, () => {
+		.catch(WikiVariablesNotValidWikiError, () => {
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
 		/**

@@ -1,6 +1,7 @@
 import {resolve, reject, settle} from 'bluebird';
 import * as MediaWiki from './mediawiki';
 import {createServerData} from './utils';
+import {MainPageDataRequestError, WikiVariablesRequestError} from '../lib/custom-errors';
 import logger from './logger';
 import localSettings from '../../config/localSettings';
 
@@ -8,21 +9,6 @@ import localSettings from '../../config/localSettings';
  * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and MediaWikiPageRequestHelper
  * Common part should be extracted and moved to new class WikiaRequestHelper(?)
  */
-
-/**
- * @class MainPageDataRequestError
- */
-export class MainPageDataRequestError {
-	/**
-	 * @param {*} data
-	 * @returns {void}
-	 */
-	constructor(data) {
-		Error.apply(this, arguments);
-		this.data = data;
-	}
-}
-MainPageDataRequestError.prototype = Object.create(Error.prototype);
 
 /**
  * @class CuratedMainPageRequestHelper
@@ -93,7 +79,7 @@ export class CuratedMainPageRequestHelper {
 					wikiVariablesPromise.reason();
 
 				if (!isWikiVariablesPromiseFulfilled) {
-					return reject(new MediaWiki.WikiVariablesRequestError(wikiVariables));
+					return reject(new WikiVariablesRequestError(wikiVariables));
 				}
 
 				if (mainPageData && mainPageData.data) {

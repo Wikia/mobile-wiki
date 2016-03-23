@@ -1,4 +1,10 @@
-import {PageRequestHelper, PageRequestError} from '../lib/mediawiki-page';
+import {PageRequestHelper} from '../lib/mediawiki-page';
+import {
+	PageRequestError,
+	RedirectedToCanonicalHost,
+	WikiVariablesNotValidWikiError,
+	WikiVariablesRequestError
+} from '../lib/custom-errors';
 import Logger from '../lib/logger';
 import * as MediaWiki from '../lib/mediawiki';
 import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
@@ -151,14 +157,14 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 * If request for Wiki Variables fails
 		 * @returns {void}
 		 */
-		.catch(MediaWiki.WikiVariablesRequestError, () => {
+		.catch(WikiVariablesRequestError, () => {
 			showServerErrorPage(reply);
 		})
 		/**
 		 * If request for Wiki Variables success, but wiki does not exist
 		 * @returns {void}
 		 */
-		.catch(MediaWiki.WikiVariablesNotValidWikiError, () => {
+		.catch(WikiVariablesNotValidWikiError, () => {
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
 		/**
@@ -181,7 +187,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		/**
 		 * @returns {void}
 		 */
-		.catch(Utils.RedirectedToCanonicalHost, () => {
+		.catch(RedirectedToCanonicalHost, () => {
 			Logger.info('Redirected to canonical host');
 		})
 		/**

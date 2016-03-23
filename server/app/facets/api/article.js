@@ -1,5 +1,7 @@
 import {PageRequestHelper} from '../../lib/mediawiki-page';
-import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../../lib/caching';
+import {
+	disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy
+} from '../../lib/caching';
 import {getCachedWikiDomainName} from '../../lib/utils';
 import localSettings from '../../../config/localSettings';
 import getStatusCode from '../operations/get-status-code';

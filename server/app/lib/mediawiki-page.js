@@ -1,6 +1,7 @@
 import {resolve, reject, settle} from 'bluebird';
 import * as MediaWiki from './mediawiki';
 import {createServerData} from './utils';
+import {PageRequestError} from './custom-errors';
 import logger from './logger';
 import localSettings from '../../config/localSettings';
 
@@ -8,21 +9,6 @@ import localSettings from '../../config/localSettings';
  * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and PageRequestHelper
  * Common part should be extracted and moved to new class WikiaRequestHelper(?)
  */
-
-/**
- * @class PageRequestError
- */
-export class PageRequestError {
-	/**
-	 * @param {MediaWikiPageData} data
-	 * @returns {void}
-	 */
-	constructor(data) {
-		Error.apply(this, arguments);
-		this.data = data;
-	}
-}
-PageRequestError.prototype = Object.create(Error.prototype);
 
 /**
  * @class PageRequestHelper

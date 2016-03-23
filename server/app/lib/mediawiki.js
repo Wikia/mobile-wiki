@@ -6,6 +6,7 @@ import Logger from './logger';
 import Wreck from 'wreck';
 import Promise from 'bluebird';
 import Url from 'url';
+import {WikiVariablesNotValidWikiError, WikiVariablesRequestError} from './custom-errors';
 
 /**
  * @typedef {Object} CallbackParams
@@ -477,25 +478,3 @@ export class PageRequest extends BaseRequest {
 		return this.post(url, Url.format({query: params}).substr(1));
 	}
 }
-
-export class WikiVariablesRequestError {
-	/**
-	 * @returns {void}
-	 */
-	constructor() {
-		Error.apply(this, arguments);
-	}
-}
-
-WikiVariablesRequestError.prototype = Object.create(Error.prototype);
-
-export class WikiVariablesNotValidWikiError {
-	/**
-	 * @returns {void}
-	 */
-	constructor() {
-		Error.apply(this, arguments);
-	}
-}
-
-WikiVariablesNotValidWikiError.prototype = Object.create(Error.prototype);
