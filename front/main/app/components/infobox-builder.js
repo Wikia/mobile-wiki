@@ -298,6 +298,7 @@ export default Ember.Component.extend(
 
 		/**
 		 * @returns {void}
+		 * @param {bool} show true if showing modal, false if hiding
 		 */
 		showEditTitleModal(show) {
 			track({
