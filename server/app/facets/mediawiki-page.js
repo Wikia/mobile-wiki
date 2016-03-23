@@ -6,7 +6,7 @@ import {
 	WikiVariablesRequestError
 } from '../lib/custom-errors';
 import Logger from '../lib/logger';
-import * as MediaWiki from '../lib/mediawiki';
+import {namespace as MediaWikiNamespace} from '../lib/mediawiki';
 import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
 import * as Tracking from '../lib/tracking';
 import * as Utils from '../lib/utils';
@@ -88,13 +88,13 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	result.urlTitleParam = request.params.title;
 
 	switch (ns) {
-		case MediaWiki.namespace.MAIN:
+		case MediaWikiNamespace.MAIN:
 			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
 
 			break;
 
-		case MediaWiki.namespace.CATEGORY:
+		case MediaWikiNamespace.CATEGORY:
 			if (pageData.article && pageData.details) {
 				viewName = 'article';
 				result = deepExtend(result, prepareArticleData(request, data));
@@ -192,6 +192,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		})
 		/**
 		 * Other errors
+		 * @param {*} error
 		 * @returns {void}
 		 */
 		.catch((error) => {

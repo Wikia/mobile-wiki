@@ -65,8 +65,7 @@ export class CuratedMainPageRequestHelper {
 					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled();
 
 				let mainPageData,
-					mainPageDataException,
-					wikiVariables;
+					mainPageDataException;
 
 				if (mainPageDataPromise.isFulfilled()) {
 					mainPageData = mainPageDataPromise.value();
@@ -74,24 +73,20 @@ export class CuratedMainPageRequestHelper {
 					mainPageDataException = mainPageDataPromise.reason();
 				}
 
-				wikiVariables = isWikiVariablesPromiseFulfilled ?
-					wikiVariablesPromise.value() :
-					wikiVariablesPromise.reason();
-
 				if (!isWikiVariablesPromiseFulfilled) {
-					return reject(new WikiVariablesRequestError(wikiVariables));
+					return reject(wikiVariablesPromise.reason());
 				}
 
 				if (mainPageData && mainPageData.data) {
 					return resolve({
 						mainPageData: mainPageData.data,
-						wikiVariables,
+						wikiVariables: wikiVariablesPromise.value(),
 						server: createServerData(localSettings, this.params.wikiDomain)
 					});
 				} else {
 					return reject(new MainPageDataRequestError({
 						exception: mainPageDataException,
-						wikiVariables,
+						wikiVariables: wikiVariablesPromise.value(),
 						server: createServerData(localSettings, this.params.wikiDomain)
 					}));
 				}

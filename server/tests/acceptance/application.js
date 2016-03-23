@@ -72,7 +72,7 @@ describe('application', function () {
 
 	it('redirects to primary URL when requested wiki by alias host', function (done) {
 		var requestParamsWithAliasHost = {
-			url: '/wiki/Yoda',
+			url: '/recent-wiki-activity',
 			method: 'GET',
 			headers: {
 				host: 'www.starwars.wikia.com',
@@ -84,7 +84,7 @@ describe('application', function () {
 		server.inject(requestParamsWithAliasHost, function (response) {
 			expect(response.statusCode).to.equal(301);
 			expect(response.headers.location).to.equal(
-				'http://starwars.wikia.com/wiki/Yoda'
+				'http://starwars.wikia.com/recent-wiki-activity'
 			);
 			done();
 		});

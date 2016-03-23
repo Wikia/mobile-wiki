@@ -115,6 +115,7 @@ export default function showApplication(request, reply, wikiVariables) {
 		})
 		/**
 		 * Other errors
+		 * @param {*} error
 		 * @returns {void}
 		 */
 		.catch((error) => {
