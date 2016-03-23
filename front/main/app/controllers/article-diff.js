@@ -28,7 +28,7 @@ export default Ember.Controller.extend(
 			});
 		},
 
-		handleRemoveUpvoteSuccess() {
+		handleRemoveUpvoteSuccess(upvoteId) {
 			this.decrementProperty('model.upvotescount');
 			this.get('model.upvotes').removeObject(this.get('model.upvotes').findBy('id', upvoteId));
 			this.trackImpression('remove-upvote-success');
@@ -136,7 +136,6 @@ export default Ember.Controller.extend(
 			/**
 			 * Send request to server to remove previously added upvote for a revision
 			 * @param {int} upvoteId ID of upvote record to remove
-			 * @param {int} userId user ID who made an edit
 			 * @returns {void}
 			 */
 			removeUpvote(upvoteId) {
