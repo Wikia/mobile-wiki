@@ -24,10 +24,10 @@
     "watch-server": "gulp watch-server",
     "start": "nodemon --delay 2",
     "start-on-change": "nodemon --delay 2 --on-change-only",
-    "test": "npm run build-dev && npm run test-front && npm run test-server",
+    "test": "npm run build-dev && npm run test-front && npm run test-server && npm run test-server-acceptance",
     "test-front": "gulp test-common && gulp test-auth && cd front/main && ember test --path ../../www/front/main",
     "test-server": "gulp test-server",
-    "test-server-acceptance": "rm -rf www/server && gulp build-server-for-acceptance-tests && lab -v server/tests/acceptance/*.js",
+    "test-server-acceptance": "gulp build-server-scripts-for-acceptance-tests && lab -v server/tests/acceptance/*.js",
     "linter": "eslint .",
     "svgo": "bash ./tasks/optimize-svg.sh"
   },

@@ -40,11 +40,10 @@ gulp.task('build-server-scripts', ['build-server-init-config'], function (done) 
 });
 
 /*
- * Compile server scripts for acceptance tests (with rewire plugin)
+ * Compile server scripts for acceptance tests (with rewire plugin enabled)
  */
-gulp.task('build-server-scripts-for-acceptance-tests', ['build-server-init-config'], function (done) {
+gulp.task('build-server-scripts-for-acceptance-tests', function (done) {
 	gulp.src(paths.scripts.src, {base: './'})
-		.pipe(newer({dest: paths.scripts.dest, ext: '.js'}))
 		.pipe(babel({
 			presets: ['es2015'],
 			plugins: ['rewire']
@@ -95,12 +94,6 @@ gulp.task('build-server-views', [
 gulp.task('build-server', [
 	'build-server-node-modules',
 	'build-server-scripts',
-	'build-server-views'
-]);
-
-gulp.task('build-server-for-acceptance-tests', [
-	'build-server-node-modules',
-	'build-server-scripts-for-acceptance-tests',
 	'build-server-views'
 ]);
 
