@@ -1,4 +1,5 @@
 import Ember from 'ember';
+
 const defaultProps = 'user|userid|useravatar|parsedcomment|timestamp|title|ids|sizes',
 	RecentWikiActivityModel = Ember.Object.extend({
 		init() {
@@ -41,11 +42,9 @@ RecentWikiActivityModel.reopenClass({
 
 	prepareData(recentChanges) {
 		return recentChanges.map((recentChange) => {
-			const lengthChange = recentChange.newlen - recentChange.oldlen;
-
 			recentChange.timestamp = new Date(recentChange.timestamp).getTime() / 1000;
 			recentChange.id = `${recentChange.revid}-${recentChange.old_revid}`;
-			recentChange.lengthChange = lengthChange > 0 ? `+${lengthChange}` : lengthChange;
+			recentChange.lengthChange = recentChange.newlen - recentChange.oldlen;
 			return recentChange;
 		});
 	}

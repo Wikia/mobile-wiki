@@ -102,7 +102,7 @@ ArticleDiffModel.reopenClass({
 						title: article.title,
 						user: revision.userName,
 						useravatar: revision.userAvatar,
-						lengthChange: lengthChange > 0 ? `+${lengthChange}` : lengthChange
+						lengthChange
 					});
 				}
 
