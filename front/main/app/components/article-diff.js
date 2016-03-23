@@ -5,10 +5,10 @@ export default Ember.Component.extend({
 	currentUser: Ember.inject.service(),
 	currentUserUpvoteId: Ember.computed('model.upvotes', 'currentUser.userId', function () {
 		const upvotes = this.get('model.upvotes'),
-			currentUserUpvote = upvotes ? upvotes.filterBy(
+			currentUserUpvote = upvotes ? upvotes.findBy(
 				'from_user',
 				String(this.get('currentUser.userId'))
-			)[0] : null;
+			) : null;
 
 		return currentUserUpvote ? currentUserUpvote.id : null;
 	}),
