@@ -23,7 +23,7 @@ export default Ember.Component.extend({
 	actions: {
 		handleVote() {
 			if (this.get('upvoted')) {
-				this.downvote(this.get('currentUserUpvoteId'), this.get('model.userId'));
+				this.downvote(this.get('currentUserUpvoteId'));
 			} else {
 				this.upvote();
 			}

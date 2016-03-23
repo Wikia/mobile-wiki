@@ -130,8 +130,8 @@ export default Ember.Controller.extend(
 			 * @param {int} userId user ID who made an edit
 			 * @returns {void}
 			 */
-			downvote(upvoteId, userId) {
-				this.get('model').downvote(upvoteId, userId).then(
+			downvote(upvoteId) {
+				this.get('model').downvote(upvoteId).then(
 					this.handleDownvoteSuccess.bind(this),
 					this.handleDownvoteError.bind(this)
 				);

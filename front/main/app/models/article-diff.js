@@ -96,7 +96,7 @@ const ArticleDiffModel = Ember.Object.extend({
 	 * @param {int} userId user ID who made an edit
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	downvote(upvoteId, userId) {
+	downvote(upvoteId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			getEditToken(this.title)
 				.then((token) => {
@@ -106,7 +106,7 @@ const ArticleDiffModel = Ember.Object.extend({
 						}),
 						data: {
 							id: upvoteId,
-							userId,
+							userId: this.userId,
 							token
 						},
 						dataType: 'json',
