@@ -77,6 +77,26 @@ export function createUrl(wikiDomain, path, params = {}) {
 }
 
 /**
+ * @param {*} payload
+ * @param {Hapi.Response} response
+ * @returns {Object}
+ */
+export function sanitizeRejectData(payload, response) {
+	const sanitizedData = (typeof payload === 'object' && payload !== null) ? payload : {
+		payloadString: payload
+	};
+
+	if (typeof sanitizedData.exception !== 'object') {
+		sanitizedData.exception = {};
+	}
+
+	// Make sure that we have exception code as we rely on it later
+	sanitizedData.exception.code = sanitizedData.exception.code || response.statusCode;
+
+	return sanitizedData;
+}
+
+/**
  * Handle request response
  *
  * @param {CallbackParams} params
@@ -101,22 +121,18 @@ function requestCallback(params) {
 	} else if (response.statusCode === 200) {
 		resolve(payload);
 	} else {
-		const info = {
-			exception: {
-				message: 'Invalid response',
-				code: response.statusCode,
-				details: payload ? payload.toString('utf-8') : null
-			}
-		};
+		// Don't flood logs with 404s
+		if (response.statusCode !== 404) {
+			Logger.error({
+				url,
+				headers: response.headers,
+				statusCode: response.statusCode,
+				details: (payload instanceof Buffer) ? payload.toString('utf-8') : payload,
+				host
+			}, 'Bad HTTP response');
+		}
 
-		Logger.error({
-			url,
-			headers: response.headers,
-			statusCode: response.statusCode,
-			host
-		}, 'Bad HTTP response');
-
-		reject(info);
+		reject(sanitizeRejectData(payload, response));
 	}
 }
 

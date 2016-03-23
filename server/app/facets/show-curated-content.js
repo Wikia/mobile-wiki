@@ -84,7 +84,6 @@ export default function showCuratedContent(request, reply) {
 		 * @returns {void}
 		 */
 		.catch(MainPageDataRequestError, (error) => {
-			Logger.error('Error when fetching ads context and article details', error.data.exception);
 			outputResponse(request, reply, error.data, false);
 		})
 		/**

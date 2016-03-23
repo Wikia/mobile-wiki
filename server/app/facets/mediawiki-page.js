@@ -101,7 +101,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 			break;
 
 		default:
-			Logger.info(`Unsupported namespace: ${ns}`);
+			Logger.warn(`Unsupported namespace: ${ns}`);
 			result = prepareMediaWikiData(request, data);
 	}
 
@@ -169,8 +169,6 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		.catch(PageRequestError, (error) => {
 			const data = error.data,
 				errorCode = getStatusCode(data.page, 500);
-
-			Logger.error(data.page.exception, 'MediaWikiPage error');
 
 			// It's possible that the article promise is rejected but we still want to redirect to canonical host
 			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
