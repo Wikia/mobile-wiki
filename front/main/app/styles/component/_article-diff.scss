@@ -118,6 +118,7 @@ $legend-line-height: $type-smallest;
 }
 
 .diff-page__undo,
+.diff-page__undo--alone,
 .diff-page__vote,
 .diff-page__vote--upvoted {
 	background: $button-enabled-color;
@@ -137,6 +138,10 @@ $legend-line-height: $type-smallest;
 	&:hover {
 		background: $button-tapped-color;
 	}
+}
+
+.diff-page__undo--alone {
+	width: 100%;
 }
 
 .diff-page__vote,
