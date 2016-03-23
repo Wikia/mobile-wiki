@@ -11,7 +11,8 @@ var Lab = require('lab'),
 	server = require('../../../www/server/app/app'),
 	mediawiki = require('../../../www/server/app/lib/mediawiki'),
 	wikiVariables = require('../fixtures/wiki-variables'),
-	article = require('../fixtures/article');
+	article = require('../fixtures/article'),
+	curatedMainPage = require('../fixtures/curated-main-page');
 
 describe('wiki-page', function () {
 	var requestParams = {
@@ -47,6 +48,19 @@ describe('wiki-page', function () {
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
 			expect(response.payload).to.include('<p>This is a test</p>');
+			done();
+		});
+	});
+
+	it('renders curated main page', function (done) {
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, curatedMainPage);
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariables);
+
+		server.inject(requestParams, function (response) {
+			expect(response.statusCode).to.equal(200);
+			expect(response.payload).to.include(
+				'M.provide(\'article\', {"data":{"isMainPage":true,"ns":0,"mainPageData":{"curatedContent"'
+			);
 			done();
 		});
 	});
