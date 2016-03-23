@@ -26,30 +26,23 @@ export default Ember.Controller.extend(
 			});
 		},
 
+		handleRemoveUpvoteSuccess() {
+			this.trackImpression('remove-upvote-success');
+		},
+
 		/**
 		 * Redirects back to Recent Wiki Activity list and adds success banner
-		 * @param {string} messageKey message key with prefix (taken from recent-wiki-activity namespace)
-		 * @param {string} label Label for tracking
 		 * @returns {void}
 		 */
-		handleSuccess(messageKey, label) {
-			this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}})
-				.then(() => this.showSuccess(messageKey));
-
-			this.trackImpression(label);
-		},
-
-		handleDownvoteSuccess() {
-			this.showSuccess('main.downvote-success');
-			this.trackImpression('downvote-success');
-		},
-
 		handleUndoSuccess() {
-			this.handleSuccess('main.undo-success', 'undo-success');
+			this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}})
+				.then(() => this.showSuccess('main.undo-success'));
+
+			this.trackImpression('undo-success');
 		},
 
 		handleUpvoteSuccess() {
-			this.handleSuccess('main.upvote-success', 'upvote-success');
+			this.trackImpression('upvote-success');
 		},
 
 		/**
@@ -71,8 +64,8 @@ export default Ember.Controller.extend(
 			this.trackImpression(label);
 		},
 
-		handleDownvoteError() {
-			this.handleError('main.downvote-error', 'downvote-error');
+		handleRemoveUpvoteError() {
+			this.handleError('main.error', 'remove-upvote-error');
 		},
 
 		/**
@@ -80,13 +73,13 @@ export default Ember.Controller.extend(
 		 * @returns {void}
 		 */
 		handleUndoError(error) {
-			const errorMsg = error === 'undofailure' ? 'main.undo-failure' : 'main.undo-error';
+			const errorMsg = error === 'undofailure' ? 'main.undo-failure' : 'main.error';
 
 			this.handleError(errorMsg, 'undo-error');
 		},
 
 		handleUpvoteError() {
-			this.handleError('main.upvote-error', 'upvote-error');
+			this.handleError('main.error', 'upvote-error');
 		},
 
 		/**
@@ -132,17 +125,17 @@ export default Ember.Controller.extend(
 			},
 
 			/**
-			 * Send info to server that user downvoted a revision
+			 * Send request to server to remove previously added upvote for a revision
 			 * @param {int} upvoteId ID of upvote record to remove
 			 * @param {int} userId user ID who made an edit
 			 * @returns {void}
 			 */
-			downvote(upvoteId, userId) {
-				this.get('model').downvote(upvoteId, userId).then(
-					this.handleDownvoteSuccess.bind(this),
-					this.handleDownvoteError.bind(this)
+			removeUpvote(upvoteId) {
+				this.get('model').removeUpvote(upvoteId).then(
+					this.handleRemoveUpvoteSuccess.bind(this),
+					this.handleRemoveUpvoteError.bind(this)
 				);
-				this.trackClick(trackCategory, 'downvote');
+				this.trackClick(trackCategory, 'remove-upvote');
 			},
 
 			/**

@@ -94,27 +94,61 @@ $legend-line-height: $type-smallest;
 	vertical-align: middle;
 }
 
-.diff-page__undo,
-.diff-page__vote {
-	background: $color-white;
+.diff-page__buttons {
 	border: solid $color-gray-light;
 	border-width: 5px 0 0;
 	bottom: 0;
 	box-shadow: 0px -20px 30px 10px rgba(255,255,255,0.68);
-	color: $anchor-font-color;
-	display: block;
-	height: auto;
-	line-height: $line-height-smallest;
-	margin: 0;
-	padding: 17px 15px;
+	overflow: hidden;
 	position: fixed;
-	width: 50%;
+	width: 100%;
 	z-index: $z-site-head;
 }
 
-.diff-page__vote {
-	border-left: 1px solid $color-blue-gray;
+.diff-page__button-icon {
+	fill: $color-white;
+	height: 30px;
+	margin-right: 2px;
+	vertical-align: middle;
+	width: 20px;
+}
+
+.diff-page__button-text {
+	vertical-align: middle;
+}
+
+.diff-page__undo,
+.diff-page__vote,
+.diff-page__vote--upvoted {
+	background: $button-enabled-color;
+	border: 0;
+	color: $color-white;
+	display: inline-block;
+	float: left;
+	height: auto;
+	line-height: $line-height-smallest;
+	margin: 0;
+	padding: 8px 15px 6px;
+	width: 50%;
+
+	// TODO CE-3548 move the stylling to global button look definition
+	// https://github.com/Wikia/style-guide/blob/dev/src/scss/lib/components/buttons.scss
+	&:focus,
+	&:hover {
+		background: $button-tapped-color;
+	}
+}
+
+.diff-page__vote,
+.diff-page__vote--upvoted {
+	border-left: 1px solid $color-gray-light;
 	right: 0;
+}
+
+// TODO CE-3548 make this default disabled button state (button[disabled])
+// https://github.com/Wikia/style-guide/blob/dev/src/scss/lib/components/buttons.scss
+.diff-page__vote--upvoted {
+	background: $button-disabled-color;
 }
 
 .confirmation-message {

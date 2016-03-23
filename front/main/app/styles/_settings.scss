@@ -1,9 +1,15 @@
 // Use Wikia style guide settings
 @import '../../bower_components/wikia-style-guide/src/scss/lib/settings';
 
+$appreciate-activated-color: $success-color;
 $auth-content-background-color: $color-white;
 $body-background: $color-blue-dark;
 $button-color: $color-blue-light;
+// TODO CE-3548 move these button colors to styleguide
+// https://github.com/Wikia/style-guide/blob/dev/src/scss/lib/_settings.scss
+$button-enabled-color: $button-bg-color;
+$button-tapped-color: mix($button-enabled-color, $color-black, 80%);
+$button-disabled-color: mix($button-enabled-color, $color-white, 70%);
 $disabled-button-text-color: #B4D6F2;
 $footer-text-color: $color-white;
 $header-text-color: $color-white;
