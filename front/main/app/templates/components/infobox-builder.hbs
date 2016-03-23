@@ -73,12 +73,19 @@
 			ns='infobox-builder'}}</p>
 		{{/pop-over}}
 	</div>
-	{{#modal-dialog isVisible=showGoToSourceModal class='infobox-builder-go-to-source-modal'}}
-		{{infobox-builder-go-to-source-modal goToSource=(action 'goToSource')
+	{{#modal-dialog isVisible=showGoToSourceModal class='infobox-builder-modal infobox-builder-go-to-source-modal'}}
+		{{infobox-builder-go-to-source-modal
+			goToSource=(action 'goToSource')
 		}}
 	{{/modal-dialog}}
-	{{#modal-dialog isVisible=isEditTitleModalVisible class='infobox-builder-edit-title-modal'}}
-		<p>LOREM IPSUM DOLOR NEED CONTENT</p>
+	{{#modal-dialog isVisible=isEditTitleModalVisible class='infobox-builder-modal infobox-builder-edit-title-modal'}}
+		{{infobox-builder-edit-title-modal
+			title=infoboxTemplateTitle
+			leftButtonAction=(action 'hideEditTitleModal')
+			leftButtonText=(i18n 'main.edit-title-modal-cancel' ns='infobox-builder')
+			rightButtonAction=(action 'saveTemplateName')
+			rightButtonText=(i18n 'main.edit-title-modal-ok' ns='infobox-builder')
+		}}
 	{{/modal-dialog}}
 </div>
 {{#if showOverlay}}

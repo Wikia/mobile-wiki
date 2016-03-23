@@ -86,6 +86,10 @@ export default Ember.Component.extend(
 				});
 			},
 
+			hideEditTitleModal() {
+				this.showEditTitleModal(false);
+			},
+
 			/**
 			 * @param {Object} actionTrigger - dragged item
 			 * @returns {void}
@@ -145,7 +149,7 @@ export default Ember.Component.extend(
 				if (this.get('title')) {
 					this.save();
 				} else {
-					this.showEditTitleModal();
+					this.showEditTitleModal(true);
 				}
 			},
 
@@ -180,6 +184,10 @@ export default Ember.Component.extend(
 				this.trackClick('infobox-builder', trackingLabel);
 				this.set('showGoToSourceModal', false);
 				this.handleGoToSource(saveChanges);
+			},
+
+			saveTemplateName() {
+				console.log("saveTemplateName")
 			},
 
 			/**
@@ -291,14 +299,14 @@ export default Ember.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		showEditTitleModal() {
+		showEditTitleModal(show) {
 			track({
 				action: trackActions.open,
 				category: 'infobox-builder',
-				label: `open-edit-title-modal-before-save`
+				label: `${show ? 'open' : 'close'}-edit-title-modal-before-save`
 			});
 
-			this.set('isEditTitleModalVisible', true);
+			this.set('isEditTitleModalVisible', show);
 		}
 	}
 );

@@ -1,0 +1,15 @@
+<div class="modal-text-area">
+	<p>{{i18n 'main.edit-title-modal-header' ns='infobox-builder'}}</p>
+	<p class="infobox-builder-edit-title-modal-message">{{i18n 'main.edit-title-modal-text' ns='infobox-builder'}}</p>
+	{{wikia-ui-components/text-field
+		value=title
+		inputId='editTemplateTitle'
+		name='editTemplateTitle'
+		onFocusHandler=(action 'onInputFocus')
+		onBlurHandler=(action 'onInputBlur')
+	}}
+</div>
+<div class="modal-bottom-row">
+	<button {{action this.attrs.leftButtonAction}}>{{leftButtonText}}</button>
+	<button {{action this.attrs.rightButtonAction}}>{{rightButtonText}}</button>
+</div>
