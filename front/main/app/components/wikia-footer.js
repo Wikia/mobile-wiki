@@ -5,6 +5,7 @@ export default Ember.Component.extend({
 	classNames: ['wikia-footer'],
 	tagName: 'footer',
 
+	// Keep this in sync with /server/app/views/_partials/wikia-footer.hbs
 	links: [
 		{
 			href: '//gameshub.wikia.com/wiki/Games_Hub',
