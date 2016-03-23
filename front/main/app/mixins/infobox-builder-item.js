@@ -10,7 +10,7 @@ export default Ember.Mixin.create(
 		}),
 
 		inGroup: Ember.computed('model', 'groupItems', function() {
-			return this.get('groupItems').indexOf(this.get('model')) > -1;
+			return this.get('groupItems').contains(this.get('model'));
 		}),
 
 		last: Ember.computed('model', 'lastGroupItem', function() {

@@ -11,6 +11,6 @@ export default Ember.Component.extend(
 		classNameBindings: ['collapsible'],
 		collapsible: Ember.computed.readOnly('model.collapsible'),
 		header: Ember.computed.readOnly('model.data'),
-		index: Ember.computed.readOnly('model.infoboxBuilderData.index')
+		uniq: Ember.computed.readOnly('model.infoboxBuilderData.id')
 	}
 );

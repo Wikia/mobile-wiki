@@ -22,11 +22,14 @@ export default Ember.Component.extend(
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 
 		isReorderTooltipVisible: Ember.computed('isPreviewItemHovered', 'isPreviewItemDragged', 'isGroupTooltipVisible', function () {
-			return this.get('isPreviewItemHovered') && !this.get('isPreviewItemDragged') && !this.get('isGroupTooltipVisible');
+			return this.get('isPreviewItemHovered')
+				   && !this.get('isPreviewItemDragged')
+				   && !this.get('isGroupTooltipVisible');
 		}),
 
 		isGroupHighlighted: Ember.computed('isPreviewItemDragged', 'isGroupTooltipVisible', function() {
-			return !this.get('isPreviewItemDragged') && this.get('isGroupTooltipVisible');
+			return !this.get('isPreviewItemDragged')
+				   && this.get('isGroupTooltipVisible');
 		}),
 
 		sortableGroupClassNames: Ember.computed('theme', function () {
@@ -86,14 +89,9 @@ export default Ember.Component.extend(
 				});
 			},
 
-			showGroupPreview(header) {
-				this.set('isGroupTooltipVisible', true);
-				this.get('setGroup')(header);
-			},
-
-			hideGroupPreview() {
-				this.set('isGroupTooltipVisible', false);
-				this.get('setGroup')(null);
+			toggleGroupPreview(header) {
+				this.set('isGroupTooltipVisible', Boolean(header));
+				this.setGroup(header);
 			},
 
 			/**
