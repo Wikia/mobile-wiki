@@ -119,7 +119,7 @@ describe('wiki-page', function () {
 				host: 'www.starwars.wikia.com',
 			}
 		};
-		
+
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, article);
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariables);
 

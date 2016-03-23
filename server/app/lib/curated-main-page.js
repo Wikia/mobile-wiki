@@ -1,7 +1,7 @@
 import {resolve, reject, settle} from 'bluebird';
 import * as MediaWiki from './mediawiki';
 import {createServerData} from './utils';
-import {MainPageDataRequestError, WikiVariablesRequestError} from '../lib/custom-errors';
+import {MainPageDataRequestError} from '../lib/custom-errors';
 import logger from './logger';
 import localSettings from '../../config/localSettings';
 
