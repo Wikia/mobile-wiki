@@ -28,9 +28,7 @@ export default Ember.Controller.extend(
 			});
 		},
 
-		handleRemoveUpvoteSuccess(upvoteId) {
-			this.decrementProperty('model.upvotescount');
-			this.get('model.upvotes').removeObject(this.get('model.upvotes').findBy('id', upvoteId));
+		handleRemoveUpvoteSuccess() {
 			this.trackImpression('remove-upvote-success');
 		},
 
@@ -45,12 +43,7 @@ export default Ember.Controller.extend(
 			this.trackImpression('undo-success');
 		},
 
-		handleUpvoteSuccess(id) {
-			this.incrementProperty('model.upvotescount');
-			this.get('model.upvotes').addObject({
-				id,
-				from_user: this.get('currentUser.userId').toString()
-			});
+		handleUpvoteSuccess() {
 			this.trackImpression('upvote-success');
 		},
 
@@ -140,7 +133,7 @@ export default Ember.Controller.extend(
 			 */
 			removeUpvote(upvoteId) {
 				this.get('model').removeUpvote(upvoteId).then(
-					this.handleRemoveUpvoteSuccess.bind(this, upvoteId),
+					this.handleRemoveUpvoteSuccess.bind(this),
 					this.handleRemoveUpvoteError.bind(this)
 				);
 				this.trackClick(trackCategory, 'remove-upvote');
@@ -166,7 +159,7 @@ export default Ember.Controller.extend(
 			 * @returns {void}
 			 */
 			upvote() {
-				this.get('model').upvote().then(
+				this.get('model').upvote(this.get('currentUser.userId').toString()).then(
 					this.handleUpvoteSuccess.bind(this),
 					this.handleUpvoteError.bind(this)
 				);

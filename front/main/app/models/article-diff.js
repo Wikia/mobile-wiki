@@ -63,9 +63,10 @@ const ArticleDiffModel = Ember.Object.extend({
 
 	/**
 	 * Sends request to MW API to upvote newId revision of title
+	 * @param {string} currentUserId Id of user who is adding an upvote to a revision
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	upvote() {
+	upvote(currentUserId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			getEditToken(this.title)
 			.then((token) => {
@@ -82,7 +83,12 @@ const ArticleDiffModel = Ember.Object.extend({
 					method: 'POST',
 					success: (resp) => {
 						if (resp && resp.success) {
-							resolve(resp.id);
+							this.incrementProperty('upvotescount');
+							this.get('upvotes').addObject({
+								id: resp.id,
+								from_user: currentUserId
+							});
+							resolve();
 						} else {
 							reject();
 						}
@@ -116,7 +122,11 @@ const ArticleDiffModel = Ember.Object.extend({
 						dataType: 'json',
 						method: 'POST',
 						success: (resp) => {
+							const upvotes = this.get('upvotes');
+
 							if (resp && resp.success) {
+								this.decrementProperty('upvotescount');
+								upvotes.removeObject(upvotes.findBy('id', upvoteId));
 								resolve();
 							} else {
 								reject();
