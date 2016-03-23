@@ -87,3 +87,12 @@ export function leftCenter() {
 export function topLeft() {
 	return this.orientAbove.andSnapTo(this.leftEdge);
 }
+
+/**
+ * snaps pop-over below target, on left edge
+ *
+ * @returns {*}
+ */
+export function bottomLeft() {
+	return this.orientBelow.andSnapTo(this.leftEdge);
+}
