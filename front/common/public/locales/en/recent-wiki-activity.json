@@ -2,6 +2,9 @@
   "main": {
     "edited": "edited",
     "dont-show-again": "Don't show me this again",
+    "downvote-error": "Sorry, it looks like something went wrong while trying to remove your upvote from the edit. Please try again.",
+    "downvote-label": "Downvote",
+    "downvote-success": "Successfully removed your upvote from edit to page __pageTitle__!",
     "intro-now-on-mobile": "Now on mobile",
     "intro-see-more-recent-edits": "See more recent edits",
     "intro-see-the-edit": "See the edit",
