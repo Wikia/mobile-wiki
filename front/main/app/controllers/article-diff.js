@@ -12,7 +12,6 @@ export default Ember.Controller.extend(
 		shouldShowUndoConfirmation: false,
 		currRecentChangeId: null,
 
-
 		/**
 		 * Adds success banner
 		 * @param {string} messageKey message key with prefix (taken from recent-wiki-activity namespace)
