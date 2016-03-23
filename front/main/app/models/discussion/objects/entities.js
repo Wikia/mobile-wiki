@@ -35,7 +35,7 @@ DiscussionEntities.reopenClass({
 
 			return DiscussionPost.createFromPostData(postData);
 		});
-	}
+	},
 });
 
 export default DiscussionEntities;
