@@ -310,7 +310,14 @@ export class WikiRequest extends BaseRequest {
 			 * @returns {Promise}
 			 */
 			.then((wikiVariables) => {
-				return Promise.resolve(wikiVariables.data);
+				if (wikiVariables.data) {
+					return Promise.resolve(wikiVariables.data);
+				} else {
+					// If we got status 200 but not the expected format we assume it was a redirect to "Not valid wiki"
+					throw new WikiVariablesNotValidWikiError();
+				}
+			}, () => {
+				throw new WikiVariablesRequestError();
 			});
 	}
 }
@@ -457,25 +464,22 @@ export class PageRequest extends BaseRequest {
 
 export class WikiVariablesRequestError {
 	/**
-	 * @param {MWException} error
 	 * @returns {void}
 	 */
-	constructor(error) {
+	constructor() {
 		Error.apply(this, arguments);
-		this.error = error;
-	}
-}
-
-export class WikiVariablesNotValidWikiError {
-	/**
-	 * @param {MWException} error
-	 * @returns {void}
-	 */
-	constructor(error) {
-		Error.apply(this, arguments);
-		this.error = error;
 	}
 }
 
 WikiVariablesRequestError.prototype = Object.create(Error.prototype);
+
+export class WikiVariablesNotValidWikiError {
+	/**
+	 * @returns {void}
+	 */
+	constructor() {
+		Error.apply(this, arguments);
+	}
+}
+
 WikiVariablesNotValidWikiError.prototype = Object.create(Error.prototype);

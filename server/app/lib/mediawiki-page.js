@@ -83,7 +83,6 @@ export class PageRequestHelper {
 					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled();
 
 				let page,
-					wikiVariables,
 					data;
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
@@ -91,22 +90,14 @@ export class PageRequestHelper {
 					mediaWikiPagePromise.value() :
 					mediaWikiPagePromise.reason();
 
-				wikiVariables = isWikiVariablesPromiseFulfilled ?
-					wikiVariablesPromise.value() :
-					wikiVariablesPromise.reason();
-
 				if (!isWikiVariablesPromiseFulfilled) {
-					return reject(new MediaWiki.WikiVariablesRequestError());
-				}
-
-				if (!wikiVariables) {
-					return reject(new MediaWiki.WikiVariablesNotValidWikiError());
+					return reject(wikiVariablesPromise.reason());
 				}
 
 				data = {
 					page,
 					server: createServerData(localSettings, this.params.wikiDomain),
-					wikiVariables
+					wikiVariables: wikiVariablesPromise.value()
 				};
 
 				if (isMediaWikiPagePromiseFulfilled && page) {

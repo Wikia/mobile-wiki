@@ -10,6 +10,7 @@ import prepareArticleData from './operations/prepare-article-data';
 import prepareCategoryData from './operations/prepare-category-data';
 import prepareMainPageData from './operations/prepare-main-page-data';
 import prepareMediaWikiData from './operations/prepare-mediawiki-data';
+import showServerErrorPage from './operations/show-server-error-page';
 import deepExtend from 'deep-extend';
 
 const cachingTimes = {
@@ -46,12 +47,10 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
 			reply.redirect(wikiVariables.articlePath + encodeURIComponent(wikiVariables.mainPageTitle));
 		})
 		/**
-		 * @param {MWException} error
 		 * @returns {void}
 		 */
-		.catch((error) => {
-			Logger.error(error, 'WikiVariables error');
-			reply.redirect(localSettings.redirectUrlOnNoData);
+		.catch(() => {
+			showServerErrorPage(reply);
 		});
 }
 
@@ -128,27 +127,6 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 }
 
 /**
- * Redirects to error page without Ember
- *
- * @param {Hapi.Response} reply
- * @returns {void}
- */
-function showWikiVariablesErrorPage(reply) {
-	const statusCode = 500,
-		data = {},
-		viewName = 'wiki-variables-error',
-		options = {
-			layout: 'error'
-		},
-		response = reply.view(viewName, data, options);
-
-	response.code(statusCode);
-	response.type('text/html; charset=utf-8');
-
-	disableCache(response);
-}
-
-/**
  * Gets wiki variables and wiki page, handles errors on both promises
  *
  * @param {Hapi.Request} request
@@ -174,7 +152,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 * @returns {void}
 		 */
 		.catch(MediaWiki.WikiVariablesRequestError, () => {
-			showWikiVariablesErrorPage(reply);
+			showServerErrorPage(reply);
 		})
 		/**
 		 * If request for Wiki Variables success, but wiki does not exist
@@ -214,7 +192,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 */
 		.catch((error) => {
 			Logger.fatal(error, 'Unhandled error, code issue');
-			reply.redirect(localSettings.redirectUrlOnNoData);
+			showServerErrorPage(reply);
 		});
 }
 

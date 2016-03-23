@@ -6,6 +6,7 @@ import {getCachedWikiDomainName,
 		RedirectedToCanonicalHost} from '../lib/utils';
 import localSettings from '../../config/localSettings';
 import prepareCuratedContentData from './operations/prepare-curated-content-data';
+import showServerErrorPage from './operations/show-server-error-page';
 import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
 import * as Tracking from '../lib/tracking';
 
@@ -87,11 +88,15 @@ export default function showCuratedContent(request, reply) {
 			outputResponse(request, reply, error.data, false);
 		})
 		/**
-		 * @param {MWException} error
 		 * @returns {void}
 		 */
-		.catch(MediaWiki.WikiVariablesRequestError, (error) => {
-			Logger.error('Error when fetching wiki variables', error);
+		.catch(MediaWiki.WikiVariablesRequestError, () => {
+			showServerErrorPage(reply);
+		})
+		/**
+		 * @returns {void}
+		 */
+		.catch(MediaWiki.WikiVariablesNotValidWikiError, () => {
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
 		/**
@@ -106,6 +111,6 @@ export default function showCuratedContent(request, reply) {
 		 */
 		.catch((error) => {
 			Logger.fatal('Unhandled error, code issue', error);
-			reply.redirect(localSettings.redirectUrlOnNoData);
+			showServerErrorPage(reply);
 		});
 }
