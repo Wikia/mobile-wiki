@@ -12,8 +12,8 @@ export default Ember.Component.extend(
 		collapsible: Ember.computed.readOnly('model.collapsible'),
 		header: Ember.computed.readOnly('model.data'),
 		uniq: Ember.computed.readOnly('model.infoboxBuilderData.id'),
-		inTop: Ember.computed('position', function(){
-			return this.$().position().top < 200;
+		flow: Ember.computed('position', function() {
+			return this.$().position().top < 200 ? 'bottomLeft' : 'topLeft';
 		})
 	}
 );
