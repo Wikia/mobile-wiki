@@ -27,7 +27,7 @@ function getURL(params) {
 function getModelForNamespace(data, params) {
 	let model;
 
-	if (isContentNamespace()) {
+	if (data && data.data && data.data.isContentNamespace) {
 		model = ArticleModel.create(params);
 
 		ArticleModel.setArticle(model, data);

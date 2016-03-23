@@ -5,15 +5,6 @@ import Ember from 'ember';
  */
 
 /**
- * @param {string} title - title fragment of the URL, the string that goes after /wiki/
- *
- * @returns {boolean}
- */
-function isMercuryNamespaceHandlingOverridden(title) {
-	return typeof title === 'string' && title.indexOf('Category:') === 0;
-}
-
-/**
  * @typedef {Object} LinkInfo
  * @property {string|null} article
  * @property {string|null} url
@@ -39,11 +30,6 @@ export default function getLinkInfo(basePath, title, hash, uri) {
 
 	if (localPathMatch) {
 		const local = localPathMatch[1],
-			/**
-			 * Special internal link, we want to treat it as an external.
-			 * NOTE: see below, but we might also have to deal with links in the form /Special:.*
-			 */
-			namespaces = Mercury.wiki.namespaces,
 
 			/**
 			 * Here we test if its an article link. We also have to check for /wiki/something for the jump links,
@@ -70,29 +56,6 @@ export default function getLinkInfo(basePath, title, hash, uri) {
 				article: '',
 				url: basePath + local
 			};
-		}
-
-		if (Ember.isArray(article) && article[3] && !isMercuryNamespaceHandlingOverridden(article[3])) {
-			// @todo When categories in SPA are being enabled/disabled sitewide, code below should be rethinked.
-			/* eslint no-continue: 0, max-depth: 0*/
-			for (const ns in namespaces) {
-				// @todo see above -- I'm wondering, when it's possible for `namespaces[ns]` to have an `id` param,
-				// while `namespaces` is an object where keys are numbers and values are just plain strings?
-				if (!namespaces.hasOwnProperty(ns) || namespaces[ns].id === 0) {
-					continue;
-				}
-
-				// Style guide advises using dot accessor instead of brackets, but it is difficult
-				// to access a key with an asterisk* in it
-				const regex = `^(\/wiki)?\/${namespaces[ns]}:.*$`;
-
-				if (local.match(regex)) {
-					return {
-						article: null,
-						url: basePath + local
-					};
-				}
-			}
 		}
 
 		if (article) {
