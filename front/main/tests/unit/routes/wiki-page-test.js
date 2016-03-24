@@ -99,30 +99,23 @@ test('get correct handler based on model namespace', function (assert) {
 	const mock = this.subject(),
 		testCases = [
 			{
-				namespace: 0,
 				expectedHandler: {
 					viewName: 'article',
 					controllerName: 'article'
 				}
 			},
 			{
-				namespace: 14,
 				expectedHandler: {
 					viewName: 'category',
 					controllerName: 'category'
 				}
 			},
 			{
-				namespace: 99,
-				expectedHandler: null
-			},
-			{
-				namespace: null,
 				expectedHandler: null
 			}
 		];
 
-	testCases.forEach(({namespace, expectedHandler}) => {
+	testCases.forEach((expectedHandler) => {
 		const handler = mock.getHandler(model);
 
 		if (handler) {
