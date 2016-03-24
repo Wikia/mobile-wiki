@@ -94,7 +94,7 @@ describe('curated-content', function () {
 			url: '/main/section/Test',
 			method: 'GET',
 			headers: {
-				host: 'www.starwars.wikia.com',
+				host: 'starwars-alias.wikia.com',
 			}
 		};
 

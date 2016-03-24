@@ -116,7 +116,7 @@ describe('wiki-page', function () {
 			url: '/wiki/Yoda',
 			method: 'GET',
 			headers: {
-				host: 'www.starwars.wikia.com',
+				host: 'starwars-alias.wikia.com',
 			}
 		};
 

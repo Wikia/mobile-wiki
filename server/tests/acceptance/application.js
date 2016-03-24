@@ -75,7 +75,7 @@ describe('application', function () {
 			url: '/recent-wiki-activity',
 			method: 'GET',
 			headers: {
-				host: 'www.starwars.wikia.com',
+				host: 'starwars-alias.wikia.com',
 			}
 		};
 
