@@ -69,6 +69,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	let result = {},
 		pageData = {},
 		viewName = 'wiki-page',
+		isContentNamespace,
 		isCustomContentNamespace = false,
 		response,
 		ns;
@@ -83,10 +84,13 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		}
 	}
 
+	isContentNamespace = ns === MediaWikiNamespace.MAIN || isCustomContentNamespace;
+	result.isContentNamespace = isContentNamespace;
+
 	// pass page title to front
 	result.urlTitleParam = request.params.title;
 
-	if (ns === MediaWikiNamespace.MAIN || isCustomContentNamespace) {
+	if (isContentNamespace) {
 		viewName = 'article';
 		result = deepExtend(result, prepareArticleData(request, data));
 	} else if (ns === MediaWikiNamespace.CATEGORY) {
