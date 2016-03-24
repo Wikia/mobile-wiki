@@ -5,6 +5,7 @@
 import Hoek from 'hoek';
 import Url from 'url';
 import QueryString from 'querystring';
+import {RedirectedToCanonicalHost} from './custom-errors';
 
 /**
  * @typedef {Object} ServerData
@@ -293,21 +294,6 @@ export function getStaticAssetPath(localSettings, request) {
 		`${localSettings.cdnBaseUrl}/mercury-static/` :
 		`//${getCachedWikiDomainName(localSettings, request)}/front/`;
 }
-
-/**
- * @class RedirectedToCanonicalHost
- */
-export class RedirectedToCanonicalHost {
-	/**
-	 * @param {*} data
-	 * @returns {void}
-	 */
-	constructor(data) {
-		Error.apply(this, arguments);
-		this.data = data;
-	}
-}
-RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
 
 /**
  * If user tried to load wiki by its alternative URL then redirect to the primary one based on wikiVariables.basePath
