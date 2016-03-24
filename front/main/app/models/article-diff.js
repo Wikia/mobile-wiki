@@ -51,6 +51,7 @@ const ArticleDiffModel = Ember.Object.extend({
 								resolve();
 							} else if (resp && resp.error) {
 								const errorMsg = resp.error.code === 'undofailure' ? 'main.undo-failure' : 'main.error';
+
 								reject(errorMsg);
 							} else {
 								reject();
