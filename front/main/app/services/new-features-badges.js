@@ -17,7 +17,7 @@ export default Ember.Service.extend({
 			}
 
 			if (typeof features === 'string') {
-				features = []
+				features = [];
 			}
 		}
 
