@@ -33,12 +33,8 @@ const cachingTimes = {
  */
 
 /**
- * This is used only locally, normally MediaWiki takes care of this redirect
- * Production traffic should not reach this place
- * although if it does it guarantees graceful fallback.
- *
  * @param {Hapi.Response} reply
- * @param {RequestHelper} mediaWikiPageHelper
+ * @param {PageRequestHelper} mediaWikiPageHelper
  * @returns {void}
  */
 function redirectToMainPage(reply, mediaWikiPageHelper) {
@@ -53,9 +49,25 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
 			reply.redirect(wikiVariables.articlePath + encodeURIComponent(wikiVariables.mainPageTitle));
 		})
 		/**
+		 * If request for Wiki Variables fails
 		 * @returns {void}
 		 */
-		.catch(() => {
+		.catch(WikiVariablesRequestError, () => {
+			showServerErrorPage(reply);
+		})
+		/**
+		 * If request for Wiki Variables succeeds, but wiki does not exist
+		 * @returns {void}
+		 */
+		.catch(WikiVariablesNotValidWikiError, () => {
+			reply.redirect(localSettings.redirectUrlOnNoData);
+		})
+		/**
+		 * @param {*} error
+		 * @returns {void}
+		 */
+		.catch((error) => {
+			Logger.fatal(error, 'Unhandled error, code issue');
 			showServerErrorPage(reply);
 		});
 }
