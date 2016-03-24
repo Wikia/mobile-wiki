@@ -1,6 +1,7 @@
 $back-arrow-icon-size: 16px;
 $border-width: 1px;
 $box-shadow-size: 2px;
+$chevron-area-width: 40px;
 $edit-options-pop-over-arrow-size: 14px;
 $icon-action-size: 24px;
 $icon-button-size: 30px;
@@ -16,6 +17,7 @@ $overlay-color: rgba(255, 255, 255, .8);
 $padding: 18px;
 $popover-vertical-padding: 8px;
 $popover-horizontal-padding: 15px;
+$popover-width: 250px;
 $sidebar-width: 300px;
 $sidebar-items-padding: 30px;
 $sidebar-blur-radius: 6px;
@@ -365,7 +367,7 @@ $sidebar-z-index: 1;
 	position: absolute;
 	right: 0;
 	top: 0;
-	width: 40px;
+	width: $chevron-area-width;
 	z-index: 1;
 }
 
@@ -406,7 +408,7 @@ $sidebar-z-index: 1;
 	.pop-over {
 		color: $color-gray-dark;
 		position: fixed;
-		width: 250px;
+		width: $popover-width;
 
 		.infobox-builder-popup-text {
 			margin: 0;
