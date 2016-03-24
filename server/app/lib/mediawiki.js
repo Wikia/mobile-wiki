@@ -330,7 +330,7 @@ export class WikiRequest extends BaseRequest {
 				if (wikiVariables.data) {
 					return Promise.resolve(wikiVariables.data);
 				} else {
-					// If we got status 200 but not the expected format we assume it was a redirect to "Not valid wiki"
+					// If we got status 200 but not the expected format we handle it as a redirect to "Not valid wiki"
 					throw new WikiVariablesNotValidWikiError();
 				}
 			}, () => {
