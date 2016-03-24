@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import DiscussionBaseModel from '../discussion-base';
+import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import ajaxCall from '../../utils/ajax-call';
@@ -7,7 +7,7 @@ import DiscussionContributors from './objects/contributors';
 import DiscussionEntities from './objects/entities';
 import DiscussionPost from './objects/post';
 
-const DiscussionForum = DiscussionBaseModel.extend(
+const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
 	{
@@ -100,7 +100,7 @@ const DiscussionForum = DiscussionBaseModel.extend(
 	}
 );
 
-DiscussionForum.reopenClass({
+DiscussionForumModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} forumId
@@ -108,7 +108,7 @@ DiscussionForum.reopenClass({
 	 * @returns { Ember.RSVP.Promise}
 	 */
 	find(wikiId, forumId, sortBy = 'trending') {
-		const forumInstance = DiscussionForum.create({
+		const forumInstance = DiscussionForumModel.create({
 				wikiId,
 				forumId
 			}),
@@ -134,4 +134,4 @@ DiscussionForum.reopenClass({
 	}
 });
 
-export default DiscussionForum;
+export default DiscussionForumModel;

@@ -1,4 +1,4 @@
-import DiscussionBaseModel from '../discussion-base';
+import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import ajaxCall from '../../utils/ajax-call';
@@ -7,7 +7,7 @@ import DiscussionContributors from './objects/contributors';
 import DiscussionEntities from './objects/entities';
 import DiscussionPost from './objects/post';
 
-const DiscussionForumModel = DiscussionBaseModel.extend(
+const DiscussionReportedPosts = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
 	{
@@ -64,7 +64,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 	}
 );
 
-DiscussionForumModel.reopenClass({
+DiscussionReportedPosts.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} forumId
@@ -72,7 +72,7 @@ DiscussionForumModel.reopenClass({
 	 * @returns { Ember.RSVP.Promise}
 	 */
 	find(wikiId, forumId, sortBy = 'trending') {
-		const reportedPostsInstance = DiscussionForumModel.create({
+		const reportedPostsInstance = DiscussionReportedPosts.create({
 				wikiId,
 				forumId
 			}),
@@ -99,4 +99,4 @@ DiscussionForumModel.reopenClass({
 	}
 });
 
-export default DiscussionForumModel;
+export default DiscussionReportedPosts;

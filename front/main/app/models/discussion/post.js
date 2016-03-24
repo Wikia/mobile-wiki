@@ -1,4 +1,4 @@
-import DiscussionBaseModel from '../discussion-base';
+import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import ajaxCall from '../../utils/ajax-call';
 import DiscussionEntities from './objects/entities';
@@ -17,8 +17,8 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		return ajaxCall({
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
 				limit: this.replyLimit,
-				pivot: this.pivotId,
 				page: this.page + 1,
+				pivot: this.pivotId,
 				responseGroup: 'full',
 				sortDirection: 'descending',
 				sortKey: 'creation_date',

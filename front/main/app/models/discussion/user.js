@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import DiscussionBaseModel from '../discussion-base';
+import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import ajaxCall from '../../utils/ajax-call';
@@ -8,7 +8,7 @@ import DiscussionEntities from './objects/entities';
 import DiscussionPost from './objects/post';
 import {checkPermissions} from 'common/utils/discussion-permissions';
 
-const DiscussionUser = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
+const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	contributors: [],
 	pageNum: null,
 	posts: null,
@@ -81,7 +81,7 @@ DiscussionUserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, userId) {
-		const userInstance = DiscussionUser.create({
+		const userInstance = DiscussionUserModel.create({
 			wikiId,
 			userId
 		});
@@ -104,4 +104,4 @@ DiscussionUserModel.reopenClass({
 	}
 });
 
-export default DiscussionUser;
+export default DiscussionUserModel;
