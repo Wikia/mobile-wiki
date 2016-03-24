@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * This list is taken from MediaWiki:app/includes/Defines.php
  * @type {{name: number}}
@@ -42,7 +44,7 @@ function getCurrentNamespace(model) {
  * @returns {boolean}
  */
 function isContentNamespace(ns) {
-	return ns === namespace.MAIN || Mercury.wiki.contentNamespaces.indexOf(ns) >= 0;
+	return ns === namespace.MAIN || Ember.getWithDefault(Mercury, 'wiki.contentNamespaces', []).indexOf(ns) >= 0;
 }
 
 export {namespace, getCurrentNamespace, isContentNamespace};
