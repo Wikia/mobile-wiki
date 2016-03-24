@@ -1,6 +1,9 @@
 import Ember from 'ember';
 
 /**
+ * A helper allowing you to localize numbers in your templates.
+ * Usage: {{number (true)}}. If you pass true as the second parameter, the number will be signed
+ * so for positive numbers it will have a `+` sign (e.g. 1345 becomes +1,345). Useful for diffs and byte changes.
  * @param {Array} params
  * @returns {string}
  */
@@ -10,6 +13,12 @@ export default Ember.Helper.extend({
 		this.recompute();
 	}),
 
+	/**
+	 * Until a local configuration is loaded it returns a raw number and then applies the localization.
+	 * @param {number} number
+	 * @param {bool} signed If a `+` should be added to positive numbers
+	 * @returns {number|string}
+	 */
 	compute([number, signed = false]) {
 		const numeralLocaleService = this.get('numeralLocale');
 

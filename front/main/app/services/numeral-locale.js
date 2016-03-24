@@ -19,7 +19,7 @@ export default Ember.Service.extend({
 		'zh-tw': '/front/vendor/assets/numeral/zh-tw.js'
 	},
 	/**
-	 * Changes status of downloading moment's locale to trigger helper's observers
+	 * Changes status of downloading numeral's locale to trigger helper's observers
 	 *
 	 * @param {boolean} done
 	 * @return {void}
@@ -31,7 +31,7 @@ export default Ember.Service.extend({
 		});
 	},
 	/**
-	 * Changes moment locale to en. It's loaded by default, so we don't need to download it
+	 * Changes numeral locale to en. It's loaded by default, so we don't need to download it
 	 *
 	 * @return {void}
 	 */
@@ -43,7 +43,7 @@ export default Ember.Service.extend({
 		});
 	},
 	/**
-	 * Downloads locale for moment if content language is not en, otherwise just changes to en
+	 * Downloads locale for numeral if content language is not en, otherwise just changes to en
 	 *
 	 * @return {void}
 	 */
