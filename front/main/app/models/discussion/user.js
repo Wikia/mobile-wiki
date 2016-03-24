@@ -58,7 +58,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	 */
 	setNormalizedData(apiData) {
 		const posts = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
-			pivotId = Ember.getWithDefault(items, '[0].id', 0),
+			pivotId = Ember.getWithDefault(posts, '[0].id', 0),
 			normalizedData = Ember.Object.create({
 				forumId: apiData.id,
 				contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]')),
@@ -95,7 +95,7 @@ DiscussionUserModel.reopenClass({
 				viewableOnly: false
 			},
 			success: (data) => {
-				forumInstance.setNormalizedData(data);
+				userInstance.setNormalizedData(data);
 			},
 			error: (err) => {
 				userInstance.setErrorProperty(err);
