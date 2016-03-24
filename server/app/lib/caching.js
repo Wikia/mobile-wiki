@@ -60,7 +60,7 @@ export function disableCache(response) {
  * @param {CachingSettings} cachingSettings
  * @returns {void}
  */
-export default function setResponseCaching(response, cachingSettings) {
+export function setResponseCaching(response, cachingSettings) {
 	if (cachingSettings && cachingSettings.enabled && response.statusCode === 200) {
 		if (cachingSettings.browserTTL === Interval.default) {
 			cachingSettings.browserTTL = cachingSettings.varnishTTL;
