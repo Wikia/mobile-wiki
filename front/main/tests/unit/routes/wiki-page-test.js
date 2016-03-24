@@ -102,20 +102,40 @@ test('get correct handler based on model namespace', function (assert) {
 				expectedHandler: {
 					viewName: 'article',
 					controllerName: 'article'
-				}
+				},
+				model: Ember.Object.create({
+					ns: 0
+				})
+			},
+			{
+				expectedHandler: {
+					viewName: 'article',
+					controllerName: 'article'
+				},
+				model: Ember.Object.create({
+					ns: 112
+				})
 			},
 			{
 				expectedHandler: {
 					viewName: 'category',
 					controllerName: 'category'
-				}
+				},
+				model: Ember.Object.create({
+					ns: 14
+				})
 			},
 			{
-				expectedHandler: null
+				expectedHandler: null,
+				model: Ember.Object.create({
+					ns: 200
+				})
 			}
 		];
 
-	testCases.forEach((expectedHandler) => {
+	window.Mercury.wiki.contentNamespaces = [0, 112];
+
+	testCases.forEach(({expectedHandler, model}) => {
 		const handler = mock.getHandler(model);
 
 		if (handler) {
