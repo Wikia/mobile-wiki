@@ -15,5 +15,14 @@ export default Ember.Component.extend({
 		return upvotes && userId && upvotes.isAny('from_user', userId);
 	}),
 	hasDiff: Ember.computed.and('model.old_revid', 'model.revid'),
-	showDiffLink: true
+	showDiffLink: true,
+
+	actions: {
+		handleVote() {
+			// Process only if handler provided on invocation
+			if (this.attrs.handleVote) {
+				this.attrs.handleVote();
+			}
+		}
+	}
 });
