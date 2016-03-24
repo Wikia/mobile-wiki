@@ -18,10 +18,12 @@ $popover-vertical-padding: 8px;
 $popover-horizontal-padding: 15px;
 $sidebar-width: 300px;
 $sidebar-items-padding: 30px;
+$sidebar-blur-radius: 6px;
 $shadow-blur: 15px;
-$shadow-color: rgba(0, 0, 0, .3);
-$source-icon-margins: 6px;
 $spinner-text-color: rgba(0, 0, 0, .5);
+$shadow-color: rgba(0, 0, 0, .3);
+$shadow-color-sidebar: rgba(0, 0, 0, .2);
+$source-icon-margins: 6px;
 $sidebar-z-index: 1;
 
 // overwrite default mercury styles
@@ -152,11 +154,18 @@ $sidebar-z-index: 1;
 }
 
 .infobox-builder-sidebar {
-	box-shadow: -$box-shadow-size 0 $shadow-blur 0 $shadow-color;
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
-	// required for displaying sidebar shadow when preview scrollbar appear
-	z-index: $sidebar-z-index;
+
+	&:before {
+		box-shadow: -$box-shadow-size * 2 0 $sidebar-blur-radius $shadow-color-sidebar;
+		content: '';
+		height: 100%;
+		pointer-events: none;
+		position: absolute;
+		width: 100%;
+		z-index: $z-2;
+	}
 
 	.text-field,
 	.check-box {
@@ -340,8 +349,4 @@ $sidebar-z-index: 1;
 		margin: 0 auto;
 		text-align: center;
 	}
-}
-
-.infobox-builder-go-to-source-modal-message {
-	text-align: left;
 }

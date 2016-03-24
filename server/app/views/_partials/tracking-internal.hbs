@@ -1,0 +1,8 @@
+{{#unless queryParams.noexternals}}
+	<script>
+		M.tracker.Internal.trackPageView({
+			a: M.prop('urlTitleParam'),
+			n: M.prop('mediaWikiNamespace')
+		});
+	</script>
+{{/unless}}

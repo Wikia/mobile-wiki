@@ -8,17 +8,19 @@
 	</li>
 {{/if}}
 
-<li class="side-nav-menu__item" {{action 'recentWikiActivityClick'}}>
-	{{#link-to 'recent-wiki-activity'
-		tracking-category='recent-wiki-activity'
-		tracking-label='local-nav'
-	}}
-		{{i18n 'main.title' ns='recent-wiki-activity'}}
-		{{#if shouldDisplayNewBadge}}
-			{{svg 'info-filled' class='icon new-badge'}}
-		{{/if}}
-	{{/link-to}}
-</li>
+{{#unless localNavContent.parent}}
+	<li class="side-nav-menu__item" {{action 'recentWikiActivityClick'}}>
+		{{#link-to 'recent-wiki-activity'
+			tracking-category='recent-wiki-activity'
+			tracking-label='local-nav'
+		}}
+			{{i18n 'main.title' ns='recent-wiki-activity'}}
+			{{#if shouldDisplayNewBadge}}
+				{{svg 'info-filled' class='icon new-badge'}}
+			{{/if}}
+		{{/link-to}}
+	</li>
+{{/unless}}
 
 {{#each localNavContent.children as |child index|}}
 	{{#if child.children}}
