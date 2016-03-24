@@ -13,9 +13,11 @@ DiscussionContributors.reopenClass({
 	 * @returns {object}
 	 */
 	create(data) {
+		const apiContributors = data.userInfo || data;
+
 		return this._super({
-			count: data.count,
-			users: data.userInfo.map((contributor) => {
+			count: data.count || data.length,
+			users: apiContributors.map((contributor) => {
 				return DiscussionContributor.create(contributor);
 			})
 		});

@@ -11,13 +11,7 @@ const DiscussionForum = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
 	{
-		contributors: null,
-		count: null,
-		forumId: null,
-		pageNum: 0,
 		pivotId: null,
-		posts: null,
-		wikiId: null,
 
 		/**
 		 * @param {number} pageNum
@@ -119,6 +113,7 @@ DiscussionForum.reopenClass({
 				forumId
 			}),
 			requestData = {
+				limit: 10,
 				viewableOnly: false,
 			};
 

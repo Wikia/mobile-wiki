@@ -1,6 +1,6 @@
 import DiscussionBaseRoute from './base';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
-import DiscussionReportedPostsModel from '../../models/discussion-reported-posts';
+import DiscussionReportedPosts from '../../models/discussion/reported-posts';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
@@ -51,7 +51,7 @@ export default DiscussionBaseRoute.extend(
 
 			discussionSort.setOnlyReported(true);
 
-			return DiscussionReportedPostsModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
+			return DiscussionReportedPosts.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
 		},
 
 		/**

@@ -7,19 +7,8 @@ import DiscussionReply from './objects/reply';
 import DiscussionContributor from './objects/contributor';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
-
-	firstPost: null,
-	contributors: [],
-	isRequesterBlocked: false,
-	isReported: false,
-
-	page: 0,
-	postCount: 0,
-	postId: null,
 	pivotId: null,
-	replies: [],
 	replyLimit: 10,
-	upvoteCount: 0,
 
 	/**
 	 * @returns {Ember.RSVP.Promise}
