@@ -14,24 +14,41 @@ moduleForComponent('infobox-builder-edit-title-modal', 'Integration | Component 
 	}
 });
 
-test('should focus on infoboxRowLabel input', function (assert) {
+test('when showCancelButton set to true display 2 buttons', function (assert) {
 	const buttonSelector = 'button';
 	let buttons;
 
 	this.set('showCancelButton', true);
+	this.set('cancelButtonAction', sinon.spy());
+	this.set('confirmButtonAction', sinon.spy());
 
 	this.render(hbs`{{infobox-builder-edit-title-modal
-			title=title
-			showCancelButton=showEditTitleModalCancelButton
-			cancelButtonAction=(action 'hideEditTitleModal')
-			cancelButtonText=(i18n 'main.edit-title-modal-cancel' ns='infobox-builder')
-			confirmButtonAction=(action 'changeTemplateTitle')
-			confirmButtonText=editTitleModalConfirmButtonLabel
+			showCancelButton=showCancelButton
+			cancelButtonAction=cancelButtonAction
+			confirmButtonAction=confirmButtonAction
 		}}`);
 
 	buttons = this.$(buttonSelector);
 
 	assert.equal(buttons.length, 2);
+});
+
+test('when showCancelButton not set display 1 button', function (assert) {
+	const buttonSelector = 'button';
+	let buttons;
+
+	this.set('cancelButtonAction', sinon.spy());
+	this.set('confirmButtonAction', sinon.spy());
+
+	this.render(hbs`{{infobox-builder-edit-title-modal
+			showCancelButton=showCancelButton
+			cancelButtonAction=cancelButtonAction
+			confirmButtonAction=confirmButtonAction
+		}}`);
+
+	buttons = this.$(buttonSelector);
+
+	assert.equal(buttons.length, 1);
 });
 
 test('should focus on edit template title input', function (assert) {
