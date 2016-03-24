@@ -12,7 +12,7 @@ export default Ember.Component.extend({
 		const upvotes = this.get('model.upvotes'),
 			userId = this.get('currentUser.userId');
 
-		return upvotes && userId && upvotes.isAny('from_user', userId.toString());
+		return upvotes && userId && upvotes.isAny('from_user', userId);
 	}),
 	hasDiff: Ember.computed.and('model.old_revid', 'model.revid'),
 	showDiffLink: true

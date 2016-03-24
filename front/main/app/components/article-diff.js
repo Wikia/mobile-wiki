@@ -7,7 +7,7 @@ export default Ember.Component.extend({
 		const upvotes = this.get('model.upvotes'),
 			currentUserUpvote = upvotes ? upvotes.findBy(
 				'from_user',
-				String(this.get('currentUser.userId'))
+				this.get('currentUser.userId')
 			) : null;
 
 		return currentUserUpvote ? currentUserUpvote.id : null;
