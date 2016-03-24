@@ -79,13 +79,16 @@
 		}}
 	{{/modal-dialog}}
 	{{#modal-dialog isVisible=isEditTitleModalVisible class='infobox-builder-modal infobox-builder-edit-title-modal'}}
-		{{infobox-builder-edit-title-modal
-			title=infoboxTemplateTitle
-			leftButtonAction=(action 'hideEditTitleModal')
-			leftButtonText=(i18n 'main.edit-title-modal-cancel' ns='infobox-builder')
-			rightButtonAction=(action 'saveTemplateName')
-			rightButtonText=(i18n 'main.edit-title-modal-ok' ns='infobox-builder')
-		}}
+		{{#if isEditTitleModalVisible}}
+			{{infobox-builder-edit-title-modal
+				title=title
+				showCancelButton=showEditTitleModalCancelButton
+				cancelButtonAction=(action 'hideEditTitleModal')
+				cancelButtonText=(i18n 'main.edit-title-modal-cancel' ns='infobox-builder')
+				confirmButtonAction=(action 'changeTemplateTitle')
+				confirmButtonText=editTitleModalConfirmButtonLabel
+			}}
+		{{/if}}
 	{{/modal-dialog}}
 </div>
 {{#if showOverlay}}

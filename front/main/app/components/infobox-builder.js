@@ -18,6 +18,7 @@ export default Ember.Component.extend(
 		scrollAnimateDuration: 200,
 		showGoToSourceModal: false,
 		isEditTitleModalVisible: false,
+		editTitleModalTrigger: null,
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 
@@ -48,6 +49,20 @@ export default Ember.Component.extend(
 
 		infoboxTemplateTitle: Ember.computed('title', function () {
 			return this.get('title') || i18n.t('infobox-builder:main.untitled-infobox-template');
+		}),
+
+		editTitleModalConfirmButtonLabel: Ember.computed('editTitleModalTrigger', function () {
+			const messageKey = this.get('editTitleModalTrigger') === 'go-to-source' ? 
+				'edit-title-modal-ok' :
+				'save';
+
+			return i18n.t(`main.${messageKey}`, {
+				ns: 'infobox-builder'
+			});
+		}),
+
+		showEditTitleModalCancelButton: Ember.computed('editTitleModalTrigger', function () {
+			return this.get('editTitleModalTrigger') === 'go-to-source';
 		}),
 
 		actions: {
@@ -87,7 +102,7 @@ export default Ember.Component.extend(
 			},
 
 			hideEditTitleModal() {
-				this.showEditTitleModal(false);
+				this.hideEditTitleModal();
 			},
 
 			/**
@@ -149,7 +164,7 @@ export default Ember.Component.extend(
 				if (this.get('title')) {
 					this.save();
 				} else {
-					this.showEditTitleModal(true);
+					this.showEditTitleModal('publish');
 				}
 			},
 
@@ -186,10 +201,16 @@ export default Ember.Component.extend(
 				this.handleGoToSource(saveChanges);
 			},
 
-			saveTemplateName() {
+			/**
+			 *
+			 * @param {String} title
+			 * @returns {void}
+			 */
+			changeTemplateTitle(title) {
+				this.set('title', title);
 				// @todo: DAT-3994 send request to app - check if title already exists
 				this.showEditTitleModal(false);
-				this.save();
+				// this.save();
 			},
 
 			/**
@@ -299,17 +320,32 @@ export default Ember.Component.extend(
 		},
 
 		/**
+		 * @param {String} trigger true if showing modal, false if hiding
 		 * @returns {void}
-		 * @param {boolean} show true if showing modal, false if hiding
 		 */
-		showEditTitleModal(show) {
+		showEditTitleModal(trigger) {
 			track({
 				action: trackActions.open,
 				category: 'infobox-builder',
-				label: `${show ? 'open' : 'close'}-edit-title-modal-before-save`
+				label: `edit-title-modal-before-triggered-on-${trigger}`
 			});
 
-			this.set('isEditTitleModalVisible', show);
+			this.set('editTitleModalTrigger', trigger);
+			this.set('isEditTitleModalVisible', true);
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		hideEditTitleModal() {
+			track({
+				action: trackActions.close,
+				category: 'infobox-builder',
+				label: 'edit-title-modal'
+			});
+
+			this.set('editTitleModalTrigger', null);
+			this.set('isEditTitleModalVisible', false);
 		}
 	}
 );

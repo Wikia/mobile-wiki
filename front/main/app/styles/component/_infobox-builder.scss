@@ -364,7 +364,7 @@ $sidebar-z-index: 1;
 	}
 
 	.modal-text-area {
-		padding: 25px;
+		padding: 25px 25px 35px;
 	}
 
 	.modal-bottom-row {
@@ -378,4 +378,14 @@ $sidebar-z-index: 1;
 
 .infobox-builder-modal-message {
 	text-align: left;
+}
+
+.infobox-builder-edit-title-modal-title {
+	font-size: $type-small;
+	line-height: $line-height-small;
+	margin: 0;
+}
+
+.infobox-builder-edit-title-modal-message {
+	margin: 10px 0 0;
 }
