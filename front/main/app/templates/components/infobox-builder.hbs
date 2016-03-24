@@ -3,7 +3,7 @@
 	confirmLabel=(i18n 'main.save' ns='infobox-builder')
 	fixed=true
 	onBack=(action 'cancel')
-	onConfirm=(action 'save')
+	onConfirm=(action 'publish')
 	title=(i18n 'main.header' ns='infobox-builder' title=infoboxTemplateTitle)
 }}
 
@@ -63,7 +63,7 @@
 		}}
 		{{wikia-ui-components/icon-button
 			class='infobox-builder-go-to-source-button'
-			click=(action 'onSourceEditorClick')
+			click=(action 'tryGoToSource')
 			icon='source'
 			iconSize=24
 			id='go-to-source'
@@ -73,11 +73,13 @@
 			ns='infobox-builder'}}</p>
 		{{/pop-over}}
 	</div>
-	{{#modal-dialog isVisible=showGoToSourceModal class='infobox-builder-modal infobox-builder-go-to-source-modal'}}
-		{{infobox-builder-go-to-source-modal
-			goToSource=(action 'goToSource')
-		}}
-	{{/modal-dialog}}
+	{{#if canGoToSourceModal}}
+		{{#modal-dialog isVisible=showGoToSourceModal class='infobox-builder-modal infobox-builder-go-to-source-modal'}}
+			{{infobox-builder-go-to-source-modal
+				goToSource=(action 'goToSource')
+			}}
+		{{/modal-dialog}}
+	{{/if}}
 	{{#modal-dialog isVisible=isEditTitleModalVisible class='infobox-builder-modal infobox-builder-edit-title-modal'}}
 		{{#if isEditTitleModalVisible}}
 			{{infobox-builder-edit-title-modal

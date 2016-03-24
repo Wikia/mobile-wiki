@@ -26,6 +26,12 @@ export default Ember.Component.extend(
 			return this.get('isPreviewItemHovered') && !this.get('isPreviewItemDragged');
 		}),
 
+		canGoToSourceModal: Ember.computed('showGoToSourceModal', 'isEditTitleModalVisible', 'title', function () {
+			return Boolean(this.get('title')) &&
+				this.get('showGoToSourceModal') &&
+				!this.get('isEditTitleModalVisible');
+		}),
+
 		sortableGroupClassNames: Ember.computed('theme', function () {
 			const theme = this.get('theme'),
 				classNames = ['portable-infobox', 'pi-background'];
@@ -52,9 +58,9 @@ export default Ember.Component.extend(
 		}),
 
 		editTitleModalConfirmButtonLabel: Ember.computed('editTitleModalTrigger', function () {
-			const messageKey = this.get('editTitleModalTrigger') === 'go-to-source' ? 
-				'edit-title-modal-ok' :
-				'save';
+			const messageKey = this.get('editTitleModalTrigger') === 'publish' ?
+				'save' :
+				'edit-title-modal-ok';
 
 			return i18n.t(`main.${messageKey}`, {
 				ns: 'infobox-builder'
@@ -62,7 +68,7 @@ export default Ember.Component.extend(
 		}),
 
 		showEditTitleModalCancelButton: Ember.computed('editTitleModalTrigger', function () {
-			return this.get('editTitleModalTrigger') === 'go-to-source';
+			return this.get('editTitleModalTrigger') !== 'publish';
 		}),
 
 		actions: {
@@ -160,7 +166,7 @@ export default Ember.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			save() {
+			publish() {
 				if (this.get('title')) {
 					this.save();
 				} else {
@@ -179,13 +185,17 @@ export default Ember.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			onSourceEditorClick() {
+			tryGoToSource() {
 				this.trackClick('infobox-builder', 'go-to-source-icon');
 
-				if (this.get('isDirty')) {
-					this.set('showGoToSourceModal', true);
+				if (this.get('title')) {
+					if (this.get('isDirty')) {
+						this.set('showGoToSourceModal', true);
+					} else {
+						this.handleGoToSource();
+					}
 				} else {
-					this.handleGoToSource();
+					this.showEditTitleModal('tryGoToSource');
 				}
 			},
 
@@ -207,10 +217,12 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			changeTemplateTitle(title) {
+				const callback = this.get('editTitleModalTrigger');
+
 				this.set('title', title);
 				// @todo: DAT-3994 send request to app - check if title already exists
-				this.showEditTitleModal(false);
-				// this.save();
+				this.hideEditTitleModal();
+				this.send(callback);
 			},
 
 			/**
