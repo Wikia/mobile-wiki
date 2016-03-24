@@ -1,3 +1,5 @@
+$add-item-button-padding: 10px;
+$add-item-button-margin: 4px;
 $back-arrow-icon-size: 16px;
 $border-width: 1px;
 $box-shadow-size: 2px;
@@ -12,19 +14,27 @@ $info-icon-position-top: -10px;
 $info-message-left-padding: 34px;
 $infobox-wrapper-padding: 40px;
 $grayout-color: rgba(255, 255, 255, .3);
+$modal-bottom-row-padding: 6px;
+$modal-button-min-width: 57px;
+$modal-text-bottom-padding: 35px;
+$modal-text-message-top-margin: 10px;
+$modal-text-padding: 25px;
 $overlay-color: rgba(255, 255, 255, .8);
 $padding: 18px;
-$popover-vertical-padding: 8px;
 $popover-horizontal-padding: 15px;
-$sidebar-width: 300px;
-$sidebar-items-padding: 30px;
+$popover-vertical-padding: 8px;
 $sidebar-blur-radius: 6px;
+$sidebar-items-padding: 30px;
+$sidebar-header-padding: 16px;
+$sidebar-width: 300px;
+$sidebar-z-index: 1;
 $shadow-blur: 15px;
-$spinner-text-color: rgba(0, 0, 0, .5);
 $shadow-color: rgba(0, 0, 0, .3);
 $shadow-color-sidebar: rgba(0, 0, 0, .2);
+$spinner-text-color: rgba(0, 0, 0, .5);
+$spinner-test-margin: 15px;
 $source-icon-margins: 6px;
-$sidebar-z-index: 1;
+$success-icon-size: 80px;
 
 // overwrite default mercury styles
 .infobox-builder-body-wrapper {
@@ -213,7 +223,7 @@ $sidebar-z-index: 1;
 .infobox-builder-sidebar-header-title {
 	flex: 1;
 	overflow: hidden;
-	padding: 16px 0;
+	padding: $sidebar-header-padding 0;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
@@ -258,8 +268,8 @@ $sidebar-z-index: 1;
 	flex-direction: column;
 	height: $image-button-height;
 	justify-content: center;
-	margin-bottom: 4px;
-	padding: 10px;
+	margin-bottom: $add-item-button-margin;
+	padding: $add-item-button-padding;
 	flex-basis: $image-button-width;
 	width: $image-button-width;
 
@@ -321,8 +331,8 @@ $sidebar-z-index: 1;
 	}
 
 	.success-icon {
-		height: 80px;
-		width: 80px;
+		height: $success-icon-size;
+		width: $success-icon-size;
 	}
 
 	.spinner {
@@ -331,7 +341,7 @@ $sidebar-z-index: 1;
 	}
 
 	.spinner-text {
-		margin-top: 15px;
+		margin-top: $spinner-test-margin;
 	}
 }
 
@@ -350,10 +360,10 @@ $sidebar-z-index: 1;
 		border: none;
 		color: $link-color;
 		margin: 0;
-		min-width: 57px;
+		min-width: $modal-button-min-width;
 
 		&:hover {
-			background-color: #F2F6FA;
+			background-color: $color-gray-light;
 		}
 	}
 
@@ -364,15 +374,13 @@ $sidebar-z-index: 1;
 	}
 
 	.modal-text-area {
-		padding: 25px 25px 35px;
+		padding: $modal-text-padding $modal-text-padding $modal-text-bottom-padding;
 	}
 
 	.modal-bottom-row {
-		border-top: 1px #E6EBF2 solid;
-		font-size: 16px;
-		line-height: 26px;
+		border-top: $border-width $color-blue-gray-light solid;
 		text-align: right;
-		padding: 6px;
+		padding: $modal-bottom-row-padding;
 	}
 }
 
@@ -387,5 +395,5 @@ $sidebar-z-index: 1;
 }
 
 .infobox-builder-edit-title-modal-message {
-	margin: 10px 0 0;
+	margin: $modal-text-message-top-margin 0 0;
 }
