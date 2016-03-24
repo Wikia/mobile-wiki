@@ -42,10 +42,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Object}
 	 */
 	model(params) {
-		// temporary disable passing title to model
-		const test = {};
-
-		return InfoboxBuilderModel.create({title: test.templateName});
+		return InfoboxBuilderModel.create({title: params.templateName});
 	},
 
 	/**
@@ -164,8 +161,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 					if (data && data.isWikiaContext && data.isLoggedIn) {
 						resolve();
 					} else {
-						// @todo DAT-3757 show message that user doesn't have proper permission
-						// currently this else block isn't called even for anons
+						reject('Builder launched not in Wikia context');
 					}
 				},
 				(data) => {
