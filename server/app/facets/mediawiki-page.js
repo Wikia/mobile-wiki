@@ -76,9 +76,9 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	let result = {},
 		pageData = {},
 		viewName = 'wiki-page',
-		ns = false,
 		isCustomContentNamespace = false,
 		isContentNamespace,
+		ns,
 		response;
 
 	if (data.page && data.page.data) {
