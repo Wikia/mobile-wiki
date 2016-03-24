@@ -1,4 +1,4 @@
-import {isContentNamespace, getCurrentNamespace} from '../../utils/mediawiki-namespace';
+import {namespace as MediawikiNamespace, getCurrentNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
 import ArticleModel from '../../models/wiki/article';
 import CategoryModel from '../../models/wiki/category';
 import Ember from 'ember';
@@ -25,22 +25,21 @@ function getURL(params) {
  * @returns {Object}
  */
 function getModelForNamespace(data, params) {
+	const currentNamespace = getCurrentNamespace();
 	let model;
 
-	if (data && data.data && data.data.isContentNamespace) {
+	if (isContentNamespace(currentNamespace)) {
 		model = ArticleModel.create(params);
-
 		ArticleModel.setArticle(model, data);
+
+		return model;
+	} else if (currentNamespace === MediawikiNamespace.CATEGORY) {
+		model = CategoryModel.create(params);
+		CategoryModel.setCategory(model, data);
+
 		return model;
 	} else {
-		switch (getCurrentNamespace()) {
-			case 14:
-				model = CategoryModel.create(params);
-				CategoryModel.setCategory(model, data);
-				return model;
-			default:
-				return Ember.Object.create();
-		}
+		return Ember.Object.create();
 	}
 }
 

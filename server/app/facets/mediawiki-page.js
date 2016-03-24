@@ -76,14 +76,17 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	if (data.page && data.page.data) {
 		pageData = data.page.data;
 		ns = pageData.ns;
-		isContentNamespace = pageData.isContentNamespace;
 		result.mediaWikiNamespace = ns;
-		result.isContentNamespace = isContentNamespace;
+
+		if (data.wikiVariables && data.wikiVariables.contentNamespaces) {
+			isContentNamespace = data.wikiVariables.contentNamespaces.indexOf(ns) >= 0;
+		}
 	}
+
 	// pass page title to front
 	result.urlTitleParam = request.params.title;
 
-	if (isContentNamespace) {
+	if (ns === MediaWikiNamespace.MAIN || isContentNamespace) {
 		viewName = 'article';
 		result = deepExtend(result, prepareArticleData(request, data));
 	} else if (ns === MediaWikiNamespace.CATEGORY) {

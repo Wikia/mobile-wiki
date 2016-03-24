@@ -5,7 +5,7 @@ import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import {normalizeToUnderscore} from 'common/utils/string';
 import {setTrackContext, trackPageView} from 'common/utils/track';
-import {namespace as MediawikiNamespace, getCurrentNamespace} from '../utils/mediawiki-namespace';
+import {namespace as MediawikiNamespace, getCurrentNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
 export default Ember.Route.extend({
 	redirectEmptyTarget: false,
@@ -17,18 +17,19 @@ export default Ember.Route.extend({
 	 * @returns {Object} handler for current namespace
 	 */
 	getHandler(model) {
+		const currentNamespace = getCurrentNamespace();
+
 		if (model.isCuratedMainPage) {
 			return CuratedMainPageHandler;
 		}
 
-		switch (getCurrentNamespace()) {
-			case MediawikiNamespace.MAIN:
-				return ArticleHandler;
-			case MediawikiNamespace.CATEGORY:
-				return CategoryHandler;
-			default:
-				Ember.Logger.debug(`Unsupported NS passed to getHandler - ${getCurrentNamespace()}`);
-				return null;
+		if (isContentNamespace(currentNamespace)) {
+			return ArticleHandler;
+		} else if (currentNamespace === MediawikiNamespace.CATEGORY) {
+			return CategoryHandler;
+		} else {
+			Ember.Logger.debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
+			return null;
 		}
 	},
 
