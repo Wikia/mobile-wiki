@@ -1,4 +1,4 @@
-import {namespace as MediawikiNamespace, getCurrentNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
+import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
 import ArticleModel from '../../models/wiki/article';
 import CategoryModel from '../../models/wiki/category';
 import Ember from 'ember';
@@ -25,7 +25,7 @@ function getURL(params) {
  * @returns {Object}
  */
 function getModelForNamespace(data, params) {
-	const currentNamespace = getCurrentNamespace();
+	const currentNamespace = data.data.ns;
 	let model;
 
 	if (isContentNamespace(currentNamespace)) {

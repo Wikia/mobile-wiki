@@ -30,15 +30,6 @@ const namespace = {
 };
 
 /**
- * Returns current MediaWiki namespace
- *
- * @returns {number}
- */
-function getCurrentNamespace(model) {
-	return model.get('ns');
-}
-
-/**
  * @param {number} ns
  *
  * @returns {boolean}
@@ -47,4 +38,4 @@ function isContentNamespace(ns) {
 	return ns === namespace.MAIN || Ember.getWithDefault(Mercury, 'wiki.contentNamespaces', []).indexOf(ns) >= 0;
 }
 
-export {namespace, getCurrentNamespace, isContentNamespace};
+export {namespace, isContentNamespace};
