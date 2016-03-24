@@ -158,7 +158,7 @@ export default Ember.Controller.extend(
 			 * @returns {void}
 			 */
 			upvote() {
-				this.get('model').upvote(this.get('currentUser.userId').toString()).then(
+				this.get('model').upvote(this.get('currentUser.userId')).then(
 					this.handleUpvoteSuccess.bind(this),
 					this.handleUpvoteError.bind(this)
 				);
