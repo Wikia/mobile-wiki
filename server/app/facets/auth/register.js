@@ -93,7 +93,7 @@ function getFacebookRegistrationPage(request, reply) {
 		const context = deepExtend(defaultContext,
 			{
 				headerText: 'auth:fb-register.register-with-facebook',
-				heliosFacebookRegistrationURL: authUtils.getHeliosUrl('/facebook/users'),
+				heliosFacebookRegistrationURL: authUtils.getUserRegistrationUrl('/facebook/users'),
 				title: 'auth:fb-register.register-with-facebook',
 				termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
 				headerCallout: 'auth:common.signin-callout',

@@ -81,7 +81,7 @@ export default class SignupForm {
 			email: formElements.namedItem('email').value,
 			birthdate: formElements.namedItem('birthdate').value,
 			langCode: formElements.namedItem('langCode').value,
-			marketingallowed: formElements.namedItem('marketingallowed').value,
+			marketingAllowed: formElements.namedItem('marketingAllowed').value,
 			registrationWikiaId: formElements.namedItem('registrationWikiaId').value
 		};
 	}
