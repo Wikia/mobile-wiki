@@ -101,12 +101,18 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		redirectToTemplatePage() {
+			let action = 'redirectToPreviousPage';
+
+			if (this.controllerFor('infobox-builder').get('model.title')) {
+				action = 'redirectToTemplatePage';
+			}
+
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				const ponto = window.Ponto;
 
 				ponto.invoke(
 					'wikia.infoboxBuilder.ponto',
-					'redirectToTemplatePage',
+					action,
 					null,
 					(data) => resolve(data),
 					(data) => {
