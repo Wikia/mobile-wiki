@@ -1,5 +1,4 @@
-QUnit.module('lib/mediawiki', {
-});
+QUnit.module('lib/mediawiki');
 
 QUnit.test('createURL', function (assert) {
 	global.localSettings.default.environment = 'dev';
@@ -50,5 +49,80 @@ QUnit.test('Constructors', function (assert) {
 		assert.equal(typeof global[testCase.name], 'function', testCase.name + ' be a function');
 		assert.equal(typeof new global[testCase.name](testCase.data), 'object',
 			testCase.name + ' be a constructor function');
+	});
+});
+
+QUnit.test('sanitizeRejectData', function (assert) {
+	var response = {
+			statusCode: 503
+		},
+		testCases = [
+			{
+				payload: '',
+				response: response,
+				expected: {
+					exception: {
+						code: 503
+					},
+					payloadString: ''
+				}
+			},
+			{
+				payload: 'error',
+				response: response,
+				expected: {
+					exception: {
+						code: 503
+					},
+					payloadString: 'error'
+				}
+			},
+			{
+				payload: null,
+				response: response,
+				expected: {
+					exception: {
+						code: 503
+					},
+					payloadString: null
+				}
+			},
+			{
+				payload: {},
+				response: response,
+				expected: {
+					exception: {
+						code: 503
+					}
+				}
+			},
+			{
+				payload: {},
+				response: response,
+				expected: {
+					exception: {
+						code: 503
+					}
+				}
+			},
+			{
+				payload: {
+					exception: {
+						code: 404
+					},
+					test: true
+				},
+				response: response,
+				expected: {
+					exception: {
+						code: 404
+					},
+					test: true
+				}
+			},
+		];
+
+	testCases.forEach(function (testCase) {
+		assert.deepEqual(global.sanitizeRejectData(testCase.payload, testCase.response), testCase.expected);
 	});
 });
