@@ -1,15 +1,6 @@
 {{article-diff
 	model=model
-	showConfirmation=(action 'showConfirmation')
-	upvote=(action 'upvote')
-	removeUpvote=(action 'removeUpvote')
+	redirect=(action 'redirectToRWA')
+	loading=(action 'setLoading')
+	error=(action 'showError')
 }}
-
-{{#if shouldShowUndoConfirmation}}
-	{{confirmation-modal
-		close=(action 'closeConfirmation')
-		confirm='undo'
-		summaryPlaceholder=(i18n 'confirmation.placeholder-undo' ns='recent-wiki-activity')
-		confirmText=(i18n 'main.undo-label' ns='recent-wiki-activity')
-	}}
-{{/if}}

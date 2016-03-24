@@ -1,36 +1,155 @@
 import Ember from 'ember';
+import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
-export default Ember.Component.extend({
-	classNames: ['diff-page'],
-	currentUser: Ember.inject.service(),
-	currentUserUpvoteId: Ember.computed('model.upvotes.[]', 'currentUser.userId', function () {
-		const upvotes = this.get('model.upvotes'),
-			currentUserUpvote = upvotes ? upvotes.findBy(
-				'from_user',
-				this.get('currentUser.userId')
-			) : null;
+const trackCategory = 'recent-wiki-activity';
 
-		return currentUserUpvote ? currentUserUpvote.id : null;
-	}),
-	userNotBlocked: Ember.computed.not('currentUser.isBlocked'),
-	showButtons: Ember.computed.and('currentUser.isAuthenticated', 'userNotBlocked'),
-	showDiffLink: false,
-	upvoted: Ember.computed.bool('currentUserUpvoteId'),
-	upvotesEnabled: Ember.get(Mercury, 'wiki.language.content') === 'en',
-	buttonUndoClass: Ember.computed(function () {
-		return this.upvotesEnabled ? 'diff-page__undo' : 'diff-page__undo--alone';
-	}),
-	buttonVoteClass: Ember.computed('upvoted', function () {
-		return this.get('upvoted') ? 'diff-page__vote--upvoted' : 'diff-page__vote';
-	}),
+export default Ember.Component.extend(
+	TrackClickMixin,
+	{
+		classNames: ['diff-page'],
+		currentUser: Ember.inject.service(),
+		currentUserUpvoteId: Ember.computed('model.upvotes.[]', 'currentUser.userId', function () {
+			const upvotes = this.get('model.upvotes'),
+				currentUserUpvote = upvotes ? upvotes.findBy(
+					'from_user',
+					this.get('currentUser.userId')
+				) : null;
 
-	actions: {
-		handleVote() {
-			if (this.get('upvoted')) {
-				this.removeUpvote(this.get('currentUserUpvoteId'));
-			} else {
-				this.upvote();
+			return currentUserUpvote ? currentUserUpvote.id : null;
+		}),
+		userNotBlocked: Ember.computed.not('currentUser.isBlocked'),
+		showButtons: Ember.computed.and('currentUser.isAuthenticated', 'userNotBlocked'),
+		showDiffLink: false,
+		upvoted: Ember.computed.bool('currentUserUpvoteId'),
+		upvotesEnabled: Ember.get(Mercury, 'wiki.language.content') === 'en',
+		shouldShowUndoConfirmation: false,
+
+		/**
+		 * Displays error message
+		 *
+		 * @param {string} messageKey
+         * @param {string} label
+		 * @returns {void}
+         */
+		handleError(messageKey, label) {
+			this.trackError(label);
+			this.get('error')(messageKey);
+		},
+
+		/**
+		 * Send request to server to remove previously added upvote for a revision
+		 * @param {int} upvoteId ID of upvote record to remove
+		 * @returns {void}
+		 */
+		removeUpvote(upvoteId) {
+			this.get('model').removeUpvote(upvoteId).then(
+				this.trackSuccess.bind(this, 'remove-upvote-success'),
+				this.handleError.bind(this, 'main.error', 'remove-upvote-error')
+			);
+			this.trackClick(trackCategory, 'remove-upvote');
+		},
+
+		/**
+		 * Send info to server that user upvoted a revision
+		 * @returns {void}
+		 */
+		upvote() {
+			this.get('model').upvote(this.get('currentUser.userId')).then(
+				this.trackSuccess.bind(this, 'upvote-success'),
+				this.handleError.bind(this, 'main.error', 'upvote-error')
+			);
+			this.trackClick(trackCategory, 'upvote');
+		},
+
+		/**
+		 * Sends impression success tracking for recent-wiki-activity category
+		 * @param {string} label
+		 * @returns {void}
+		 */
+		trackSuccess(label) {
+			track({
+				action: trackActions.success,
+				category: trackCategory,
+				label
+			});
+		},
+
+		/**
+		 * Sends impression error tracking for recent-wiki-activity category
+		 * @param {string} label
+		 * @returns {void}
+		 */
+		trackError(label) {
+			track({
+				action: trackActions.error,
+				category: trackCategory,
+				label
+			});
+		},
+
+		actions: {
+			/**
+			 * Adds or removes upvote
+			 * @returns {void}
+			 */
+			handleVote() {
+				if (this.get('upvoted')) {
+					this.removeUpvote(this.get('currentUserUpvoteId'));
+				} else {
+					this.upvote();
+				}
+			},
+
+			/**
+			 * Shows confirmation modal
+			 * @returns {void}
+			 */
+			showConfirmation() {
+				this.set('shouldShowUndoConfirmation', true);
+
+				console.log(this.get('shouldShowUndoConfirmation'));
+
+				track({
+					action: trackActions.open,
+					category: trackCategory,
+					label: 'undo-confirmation-open'
+				});
+			},
+
+			/**
+			 * Closes confirmation modal
+			 * @returns {void}
+			 */
+			closeConfirmation() {
+				this.set('shouldShowUndoConfirmation', false);
+
+				track({
+					action: trackActions.close,
+					category: trackCategory,
+					label: 'undo-confirmation-close'
+				});
+			},
+
+			/**
+			 * @param {string} summary Description of reason for undo to be stored as edit summary
+			 * @returns {void}
+			 */
+			undo(summary) {
+				this.get('loading')();
+
+				this.get('model').undo(summary).then(
+					() => {
+						this.trackSuccess('undo-success');
+						this.get('redirect')();
+					},
+					(errorMsg) => {
+						this.handleError(errorMsg, 'undo-error');
+					}
+				);
+
+				this.trackClick(trackCategory, 'undo');
 			}
 		}
 	}
-});
+);

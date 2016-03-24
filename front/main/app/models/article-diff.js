@@ -50,7 +50,8 @@ const ArticleDiffModel = Ember.Object.extend({
 							if (resp && resp.edit && resp.edit.result === 'Success') {
 								resolve();
 							} else if (resp && resp.error) {
-								reject(resp.error.code);
+								const errorMsg = resp.error.code === 'undofailure' ? 'main.undo-failure' : 'main.error';
+								reject(errorMsg);
 							} else {
 								reject();
 							}
