@@ -29,9 +29,9 @@ export default Ember.Component.extend(
 		 * Displays error message
 		 *
 		 * @param {string} messageKey
-         * @param {string} label
+		 * @param {string} label
 		 * @returns {void}
-         */
+		 */
 		handleError(messageKey, label) {
 			this.trackError(label);
 			this.get('error')(messageKey);
