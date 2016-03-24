@@ -8,6 +8,7 @@ export default Ember.Controller.extend(
 	TrackClickMixin,
 	{
 		application: Ember.inject.controller(),
+		currentUser: Ember.inject.service(),
 		shouldShowUndoConfirmation: false,
 		currRecentChangeId: null,
 
@@ -127,7 +128,6 @@ export default Ember.Controller.extend(
 			/**
 			 * Send request to server to remove previously added upvote for a revision
 			 * @param {int} upvoteId ID of upvote record to remove
-			 * @param {int} userId user ID who made an edit
 			 * @returns {void}
 			 */
 			removeUpvote(upvoteId) {
@@ -158,7 +158,7 @@ export default Ember.Controller.extend(
 			 * @returns {void}
 			 */
 			upvote() {
-				this.get('model').upvote().then(
+				this.get('model').upvote(this.get('currentUser.userId')).then(
 					this.handleUpvoteSuccess.bind(this),
 					this.handleUpvoteError.bind(this)
 				);
