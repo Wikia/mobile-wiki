@@ -212,7 +212,6 @@ export default Ember.Component.extend(
 			},
 
 			/**
-			 *
 			 * @param {String} title
 			 * @returns {void}
 			 */

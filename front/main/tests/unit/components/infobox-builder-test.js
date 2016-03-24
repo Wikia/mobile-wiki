@@ -499,3 +499,53 @@ test('opens edit item modal for untitled infobox template on save', function (as
 
 	assert.equal(showEditTitleModalSpy.called, true);
 });
+
+test('correctly calculates editTitleModalConfirmButtonLabel', function (assert) {
+	const component = this.subject(),
+		messageMock = 'test',
+		i18nOptions = {
+			ns: 'infobox-builder'
+		},
+		cases = [
+			{
+				editTitleModalTrigger: 'publish',
+				messageKey: 'save',
+			},
+			{
+				editTitleModalTrigger: 'test123',
+				messageKey: 'edit-title-modal-ok'
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const messageKey = `main.${testCase.messageKey}`;
+
+		sinon.stub(i18n, 't').returns(messageMock);
+
+		component.set('editTitleModalTrigger', testCase.editTitleModalTrigger);
+
+		assert.equal(component.get('editTitleModalConfirmButtonLabel'), messageMock);
+		assert.equal(i18n.t.calledWith(messageKey, i18nOptions), true);
+
+		i18n.t.restore();
+	});
+});
+
+test('correctly calculates showEditTitleModalCancelButton', function (assert) {
+	const component = this.subject(),
+		cases = [
+			{
+				editTitleModalTrigger: 'publish',
+				showEditTitleModalCancelButton: false
+			},
+			{
+				editTitleModalTrigger: 'test123',
+				showEditTitleModalCancelButton: true
+			}
+		];
+
+	cases.forEach((testCase) => {
+		component.set('editTitleModalTrigger', testCase.editTitleModalTrigger);
+		assert.equal(component.get('showEditTitleModalCancelButton'), testCase.showEditTitleModalCancelButton);
+	});
+});
