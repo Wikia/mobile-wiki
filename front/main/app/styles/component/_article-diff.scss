@@ -152,7 +152,8 @@ $legend-line-height: $type-smallest;
 
 // TODO CE-3548 make this default disabled button state (button[disabled])
 // https://github.com/Wikia/style-guide/blob/dev/src/scss/lib/components/buttons.scss
-.diff-page__vote--upvoted {
+.diff-page__vote--upvoted,
+.diff-page__vote--upvoted:focus {
 	background: $button-disabled-color;
 }
 
