@@ -35,7 +35,11 @@ const namespace = {
  * @returns {boolean}
  */
 function isContentNamespace(ns) {
-	return ns === namespace.MAIN || Ember.getWithDefault(Mercury, 'wiki.contentNamespaces', []).indexOf(ns) >= 0;
+	const contentNamespaces = Ember.getWithDefault(Mercury, 'wiki.contentNamespaces', []);
+
+	return ns === namespace.MAIN || contentNamespaces.find((contentNamespace) => {
+		return contentNamespace == ns; // eslint-disable-line eqeqeq
+	});
 }
 
 export {namespace, isContentNamespace};
