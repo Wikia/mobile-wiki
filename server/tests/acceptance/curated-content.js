@@ -53,7 +53,7 @@ describe('curated-content', function () {
 
 	it('renders error page when request for wiki variables fails', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, mainPageDetailsAndContext);
-		wreckGetStub.onCall(1).yields(null, {statusCode: 503}, wikiVariables);
+		wreckGetStub.onCall(1).yields(null, {statusCode: 503}, {});
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(503);
