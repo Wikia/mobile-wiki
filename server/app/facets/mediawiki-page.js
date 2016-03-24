@@ -1,7 +1,13 @@
-import {PageRequestHelper, PageRequestError} from '../lib/mediawiki-page';
-import {WikiVariablesRequestError, namespace as MediaWikiNamespace} from '../lib/mediawiki';
-import setResponseCaching, * as Caching from '../lib/caching';
+import {PageRequestHelper} from '../lib/mediawiki-page';
+import {
+	PageRequestError,
+	RedirectedToCanonicalHost,
+	WikiVariablesNotValidWikiError,
+	WikiVariablesRequestError
+} from '../lib/custom-errors';
 import Logger from '../lib/logger';
+import {namespace as MediaWikiNamespace} from '../lib/mediawiki';
+import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
 import * as Tracking from '../lib/tracking';
 import * as Utils from '../lib/utils';
 import getStatusCode from './operations/get-status-code';
@@ -10,13 +16,14 @@ import prepareArticleData from './operations/prepare-article-data';
 import prepareCategoryData from './operations/prepare-category-data';
 import prepareMainPageData from './operations/prepare-main-page-data';
 import prepareMediaWikiData from './operations/prepare-mediawiki-data';
+import showServerErrorPage from './operations/show-server-error-page';
 import deepExtend from 'deep-extend';
 
 const cachingTimes = {
 	enabled: true,
-	cachingPolicy: Caching.Policy.Public,
-	varnishTTL: Caching.Interval.standard,
-	browserTTL: Caching.Interval.disabled
+	cachingPolicy: CachingPolicy.Public,
+	varnishTTL: CachingInterval.standard,
+	browserTTL: CachingInterval.disabled
 };
 
 /**
@@ -49,7 +56,7 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
 		 * @returns {void}
 		 */
 		.catch(() => {
-			reply.redirect(localSettings.redirectUrlOnNoData);
+			showServerErrorPage(reply);
 		});
 }
 
@@ -123,10 +130,10 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	response.type('text/html; charset=utf-8');
 
 	if (allowCache) {
-		return setResponseCaching(response, cachingTimes);
+		setResponseCaching(response, cachingTimes);
+	} else {
+		disableCache(response);
 	}
-
-	return Caching.disableCache(response);
 }
 
 /**
@@ -142,6 +149,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 	mediaWikiPageHelper
 		.getFull()
 		/**
+		 * If both requests for Wiki Variables and for Page Details succeed
 		 * @param {MediaWikiPageData} data
 		 * @returns {void}
 		 */
@@ -150,12 +158,21 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 			handleResponse(request, reply, data, allowCache);
 		})
 		/**
+		 * If request for Wiki Variables fails
 		 * @returns {void}
 		 */
 		.catch(WikiVariablesRequestError, () => {
+			showServerErrorPage(reply);
+		})
+		/**
+		 * If request for Wiki Variables succeeds, but wiki does not exist
+		 * @returns {void}
+		 */
+		.catch(WikiVariablesNotValidWikiError, () => {
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
 		/**
+		 * If request for Wiki Variables succeeds, but request for Page Details fails
 		 * @param {*} error
 		 * @returns {void}
 		 */
@@ -174,16 +191,17 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		/**
 		 * @returns {void}
 		 */
-		.catch(Utils.RedirectedToCanonicalHost, () => {
+		.catch(RedirectedToCanonicalHost, () => {
 			Logger.info('Redirected to canonical host');
 		})
 		/**
+		 * Other errors
 		 * @param {*} error
 		 * @returns {void}
 		 */
 		.catch((error) => {
 			Logger.fatal(error, 'Unhandled error, code issue');
-			reply.redirect(localSettings.redirectUrlOnNoData);
+			showServerErrorPage(reply);
 		});
 }
 

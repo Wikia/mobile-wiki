@@ -90,6 +90,6 @@ export default function articlePreview(request, reply) {
 		 */
 		.catch((error) => {
 			Logger.error(error);
-			reply.view('error');
+			reply.view('article-preview-error');
 		});
 }
