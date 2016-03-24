@@ -81,7 +81,7 @@
     "karma": "0.13.21",
     "karma-chrome-launcher": "0.2.2",
     "karma-coverage": "0.5.3",
-    "karma-phantomjs-launcher": "0.2.1",
+    "karma-phantomjs-launcher": "1.0.0",
     "karma-qunit": "0.1.8",
     "multipipe": "0.1.2",
     "nodemon": "1.8.1",
