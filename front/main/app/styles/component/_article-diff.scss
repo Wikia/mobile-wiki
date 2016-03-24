@@ -117,10 +117,7 @@ $legend-line-height: $type-smallest;
 	vertical-align: middle;
 }
 
-.diff-page__undo,
-.diff-page__undo--alone,
-.diff-page__vote,
-.diff-page__vote--upvoted {
+.diff-page__button {
 	background: $button-enabled-color;
 	border: 0;
 	color: $color-white;
@@ -138,6 +135,12 @@ $legend-line-height: $type-smallest;
 	&:hover {
 		background: $button-tapped-color;
 	}
+
+	&.diff-page__vote--upvoted,
+	&.diff-page__vote--upvoted:focus,
+	&.diff-page__vote--upvoted:hover {
+		background: $button-disabled-color;
+	}
 }
 
 .diff-page__undo--alone {
@@ -148,13 +151,6 @@ $legend-line-height: $type-smallest;
 .diff-page__vote--upvoted {
 	border-left: 1px solid $color-gray-light;
 	right: 0;
-}
-
-// TODO CE-3548 make this default disabled button state (button[disabled])
-// https://github.com/Wikia/style-guide/blob/dev/src/scss/lib/components/buttons.scss
-.diff-page__vote--upvoted,
-.diff-page__vote--upvoted:focus {
-	background: $button-disabled-color;
 }
 
 .confirmation-message {

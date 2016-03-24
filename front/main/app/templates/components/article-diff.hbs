@@ -28,12 +28,12 @@
 
 {{#if showButtons}}
 	<div class="diff-page__buttons">
-		<button {{action attrs.showConfirmation}} class="{{buttonUndoClass}}">
+		<button {{action attrs.showConfirmation}} class="diff-page__button {{buttonUndoClass}}">
 			{{svg 'undo' viewBox='0 0 18 18' class='diff-page__button-icon'}}
 			<span class="diff-page__button-text">{{i18n 'main.undo-label' ns='recent-wiki-activity'}}</span>
 		</button>
 	{{#if upvotesEnabled}}
-		<button {{action 'handleVote'}} class="{{buttonVoteClass}}">
+		<button {{action 'handleVote'}} class="diff-page__button {{buttonVoteClass}}">
 			{{svg 'kudos' viewBox='0 4 18 18' class='diff-page__button-icon'}}
 			<span class="diff-page__button-text">{{i18n 'main.nice-work-button-label' ns='recent-wiki-activity'}}</span>
 		</button>
