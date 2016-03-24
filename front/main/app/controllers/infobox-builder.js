@@ -11,26 +11,26 @@ export default Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		cancel() {
-			this.get('target').send('redirectToTemplatePage');
+			this.get('target').send('redirectToPage');
 		},
 
 		/**
 		 * Saves infobox state to template,
-		 * sends redirectToTemplatePage action to route if desired,
+		 * sends redirectToPage action to route if desired,
 		 * return a promise so it can be chained
 		 *
-		 * @param {Boolean} [shouldRedirectToTemplatePage=true]
+		 * @param {Boolean} [shouldRedirectToPage=true]
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		save(shouldRedirectToTemplatePage = true) {
+		save(shouldRedirectToPage = true) {
 			const model = this.get('model');
 
 			// prevents showing confirmation dialog on save
 			this.set('isDirty', false);
 
-			return model.saveStateToTemplate().then(() => {
-				if (shouldRedirectToTemplatePage) {
-					this.get('target').send('redirectToTemplatePage');
+			return model.saveStateToTemplate().then((urls = {}) => {
+				if (shouldRedirectToPage) {
+					this.get('target').send('redirectToPage', urls.templatePageUrl);
 				}
 			});
 		},
