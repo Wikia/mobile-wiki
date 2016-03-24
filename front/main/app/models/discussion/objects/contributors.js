@@ -7,17 +7,22 @@ const DiscussionContributors = Ember.Object.extend({
 });
 
 DiscussionContributors.reopenClass({
+
 	/**
-	 * @param data
+	 * @typedef {Object} contributorsObject
+	 * @property {number} count - number of all contributors
+	 * @property {Array} userInfo - list of DiscussionContributor that supposed to be displayed
+	 */
+
+	/**
+	 * @param {contributorsObject} data
 	 *
 	 * @returns {object}
 	 */
 	create(data) {
-		const apiContributors = data.userInfo || data;
-
 		return this._super({
-			count: data.count || data.length,
-			users: apiContributors.map((contributor) => {
+			count: data.count,
+			users: data.userInfo.map((contributor) => {
 				return DiscussionContributor.create(contributor);
 			})
 		});

@@ -45,12 +45,9 @@ const DiscussionReportedPosts = DiscussionBaseModel.extend(
 			const embedded = apiData._embedded,
 				posts = embedded && embedded['doc:posts'] ? embedded['doc:posts'] : [],
 				pivotId = (posts.length > 0 ? posts[0].id : null),
-				contributors = posts.map((post) => {
-					return post.createdBy;
-				}),
 				normalizedData = Ember.Object.create({
 					forumId: Ember.get(Mercury, 'wiki.id'),
-					contributors: DiscussionContributors.create(contributors),
+					contributors: DiscussionContributors.create(embedded.contributors[0]),
 					entities: DiscussionEntities.createFromPostsData(posts),
 					pageNum: 0,
 					postCount: apiData.postCount,
