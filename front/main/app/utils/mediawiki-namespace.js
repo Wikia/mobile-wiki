@@ -33,7 +33,7 @@ const namespace = {
  * @returns {number}
  */
 function getCurrentNamespace() {
-	return parseInt(M.prop('mediaWikiNamespace'), 10);
+	return M.prop('mediaWikiNamespace');
 }
 
 /**

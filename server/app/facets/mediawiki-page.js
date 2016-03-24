@@ -69,20 +69,21 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	let result = {},
 		pageData = {},
 		viewName = 'wiki-page',
-		isContentNamespace,
+		ns = false,
 		isCustomContentNamespace = false,
-		response,
-		ns;
+		isContentNamespace,
+		response;
 
 	if (data.page && data.page.data) {
 		pageData = data.page.data;
 		ns = pageData.ns;
-		result.mediaWikiNamespace = ns;
 
 		if (data.wikiVariables && data.wikiVariables.contentNamespaces) {
 			isCustomContentNamespace = data.wikiVariables.contentNamespaces.indexOf(ns) >= 0;
 		}
 	}
+
+	result.mediaWikiNamespace = ns;
 
 	isContentNamespace = ns === MediaWikiNamespace.MAIN || isCustomContentNamespace;
 	result.isContentNamespace = isContentNamespace;

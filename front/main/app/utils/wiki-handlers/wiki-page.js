@@ -52,7 +52,6 @@ export default function getPageModel(params) {
 	let model;
 
 	return new Ember.RSVP.Promise((resolve, reject) => {
-		debugger;
 		if (M.prop('isContentNamespace') && M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
 			model = ArticleModel.create(params);
 			ArticleModel.setArticle(model);
