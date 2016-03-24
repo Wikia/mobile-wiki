@@ -1,8 +1,6 @@
 /* eslint no-console: 0 */
 
-import UniversalAnalytics from 'common/modules/trackers/universal-analytics';
 import load from '../utils/load';
-import {isSpecialWiki} from '../utils/track';
 
 /**
  * @typedef {Object} SourcePointDetectionModule
@@ -119,9 +117,7 @@ class Ads {
 		// Sampling on GA side will kill the performance as we need to allocate object each time we track
 		// ToDo: Optimize object allocation for tracking all events
 		if (Math.random() * 100 <= adHitSample) {
-			const GATracker = new UniversalAnalytics(isSpecialWiki());
-
-			GATracker.trackAds.apply(GATracker, arguments);
+			M.tracker.UniversalAnalytics.trackAds(...arguments);
 		}
 	}
 
@@ -147,13 +143,9 @@ class Ads {
 	 * @returns {void}
 	 */
 	trackBlocking(value) {
-		let GATracker;
+		M.tracker.UniversalAnalytics.setDimension(6, value);
+		M.tracker.UniversalAnalytics.track('ads-sourcepoint-detection', 'impression', value, 0, true);
 
-		UniversalAnalytics.setDimension(6, value);
-
-		GATracker = new UniversalAnalytics(isSpecialWiki());
-
-		GATracker.track('ads-sourcepoint-detection', 'impression', value, 0, true);
 		Ads.gaTrackAdEvent.call(this, 'ad/sourcepoint/detection', value, '', 0, true);
 
 		Ads.blocking = value === 'Yes';

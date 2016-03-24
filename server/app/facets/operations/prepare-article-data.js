@@ -1,26 +1,24 @@
 import * as Utils from '../../lib/utils';
 import {gaUserIdHash} from '../../lib/hashing';
 import localSettings from '../../../config/localSettings';
-import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './prepare-page-data';
+import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData,
+	getLocalSettings} from './prepare-page-data';
 
 
 /**
  * @param {Hapi.Request} request
  * @param {Object} articleData
- * @returns {String} title
+ * @returns {String}
  */
 export function getTitle(request, articleData) {
-	let title;
-
-	if (articleData.article && articleData.article.displayTitle) {
-		title = articleData.article.displayTitle;
-	} else if (articleData.details && articleData.details.title) {
-		title = articleData.details.title;
-	} else {
-		title = request.params.title.replace(/_/g, ' ');
+	if (articleData) {
+		if (articleData.article && articleData.article.displayTitle) {
+			return articleData.article.displayTitle;
+		} else if (articleData.details && articleData.details.title) {
+			return articleData.details.title;
+		}
 	}
-
-	return title;
+	return request.params.title.replace(/_/g, ' ');
 }
 
 /**
@@ -38,13 +36,13 @@ export default function prepareArticleData(request, data) {
 			articlePage: data.page,
 			server: data.server,
 			wikiVariables: data.wikiVariables,
+			displayTitle: getTitle(request, articleData),
 		};
 
 	let htmlTitle;
 
 	if (articleData) {
 		result.isMainPage = articleData.isMainPage;
-		result.displayTitle = getTitle(request, articleData);
 
 		if (articleData.details) {
 			result.canonicalUrl = wikiVariables.basePath + articleData.details.url;
@@ -73,6 +71,7 @@ export default function prepareArticleData(request, data) {
 	result.localSettings = getLocalSettings();
 
 	result.qualarooScript = getQualarooScriptUrl(request);
+	result.optimizelyScript = getOptimizelyScriptUrl(request);
 	result.userId = getUserId(request);
 	result.gaUserIdHash = gaUserIdHash(result.userId);
 
@@ -84,10 +83,6 @@ export default function prepareArticleData(request, data) {
 		request.query._escaped_fragment_ !== '0' ?
 			Utils.shouldAsyncArticle(localSettings, request.headers.host) :
 			false
-	);
-
-	result.prerenderEnabled = localSettings.prerenderHost.some(
-		(host) => request.headers.host === host
 	);
 
 	return result;

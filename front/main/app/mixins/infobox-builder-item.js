@@ -4,15 +4,18 @@ import TrackClickMixin from '../mixins/track-click';
 export default Ember.Mixin.create(
 	TrackClickMixin,
 	{
-		classNameBindings: ['active'],
+		classNameBindings: ['active', 'inGroup', 'last'],
 		active: Ember.computed('model', 'activeItem', function () {
 			return this.get('model') === this.get('activeItem');
 		}),
 
-		click() {
-			this.trackClick('infobox-builder', `click-element-${this.get('model.type')}`);
-			this.get('setEditItem')(this.get('model'));
-		},
+		inGroup: Ember.computed('model', 'groupItems', function () {
+			return this.get('groupItems').contains(this.get('model'));
+		}),
+
+		last: Ember.computed('model', 'lastGroupItem', function () {
+			return this.get('model') === this.get('lastGroupItem');
+		}),
 
 		mouseMove(event) {
 			this.get('onMouseEnter')(event.clientX, event.clientY);

@@ -5,6 +5,7 @@ import DiscussionEntities from './objects/entities';
 import DiscussionPost from './objects/post';
 import DiscussionReply from './objects/reply';
 import DiscussionContributor from './objects/contributor';
+import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	data: null,
@@ -26,6 +27,10 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				viewableOnly: false,
 			}),
 			success: (data) => {
+
+				// Note that we have to reverse the list we get back because how we're displaying
+				// replies on the page; we want to see the newest replies first but show them
+				// starting with oldest of the current list at the top.
 				const allReplies = Ember.get(data, '._embedded.doc:posts').reverse()
 					.map((reply) => DiscussionReply.create(reply))
 					.concat(this.get('data.replies'));
@@ -53,6 +58,8 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				reply.isNew = true;
 				this.incrementProperty('postCount');
 				this.replies.pushObject(reply);
+
+				track(trackActions.ReplyCreate);
 			},
 			error: (err) => {
 				if (err.status === 401) {
@@ -77,6 +84,8 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 
 		if (normalizedRepliesData.length) {
 			pivotId = normalizedRepliesData[0].id;
+
+			// See note in previous reverse above on why this is necessary
 			normalizedRepliesData.reverse();
 		}
 

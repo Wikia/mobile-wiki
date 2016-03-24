@@ -1,22 +1,32 @@
 $back-arrow-icon-size: 16px;
 $border-width: 1px;
 $box-shadow-size: 2px;
+$chevron-area-width: 40px;
+$edit-options-pop-over-arrow-size: 14px;
 $icon-action-size: 24px;
 $icon-button-size: 30px;
 $icon-wrapper-size: 50px;
 $image-button-width: 130px;
 $image-button-height: 100px;
+$info-icon-position-left: -12px;
+$info-icon-position-top: -10px;
+$info-message-left-padding: 34px;
+$infobox-wrapper-padding: 40px;
 $grayout-color: rgba(255, 255, 255, .3);
 $overlay-color: rgba(255, 255, 255, .8);
 $padding: 18px;
 $popover-vertical-padding: 8px;
 $popover-horizontal-padding: 15px;
+$popover-width: 250px;
 $sidebar-width: 300px;
 $sidebar-items-padding: 30px;
+$sidebar-blur-radius: 6px;
 $shadow-blur: 15px;
-$shadow-color: rgba(0, 0, 0, .3);
-$source-icon-margins: 6px;
 $spinner-text-color: rgba(0, 0, 0, .5);
+$shadow-color: rgba(0, 0, 0, .3);
+$shadow-color-sidebar: rgba(0, 0, 0, .2);
+$source-icon-margins: 6px;
+$sidebar-z-index: 1;
 
 // overwrite default mercury styles
 .infobox-builder-body-wrapper {
@@ -51,6 +61,16 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	@media (min-width: lower-bound($large-range)) {
 		padding-top: $wikia-ui-components-sub-head-height-large;
 	}
+
+	.infobox-builder-sidebar-header-icon-delete {
+		.icon-button-icon {
+			fill: $color-blue-gray-dark
+		}
+
+		&:hover .icon-button-icon {
+			fill: $alert-color;
+		}
+	}
 }
 
 .infobox-builder-preview {
@@ -59,9 +79,15 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	flex-grow: 1;
 	overflow: auto;
 
+	.infobox-builder-infobox-wrapper {
+		padding: $infobox-wrapper-padding 0;
+		// set relative parent for infobox-builder-edit-options-pop-over
+		position: relative;
+	}
+
 	.portable-infobox {
+		margin: 0 auto;
 		cursor: pointer;
-		margin: 40px auto;
 	}
 
 	// styles for adding infobox builder selection bounding box to each infobox item
@@ -109,16 +135,39 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 			&:before {
 				cursor: move;
 				box-shadow: 0 $box-shadow-size * 4 $shadow-blur 0 $shadow-color;
+				pointer-events: none;
 				transition: box-shadow 0.2s ease-in-out;
 			}
 		}
 	}
+
+	.infobox-builder-edit-options-pop-over {
+		position: absolute;
+	}
+}
+
+.infobox-builder-edit-options-pop-over {
+	.pop-over-container {
+		padding: 0;
+	}
+
+	.pop-over-pointer {
+		top: calc(50% - #{$edit-options-pop-over-arrow-size / 2});
+	}
 }
 
 .infobox-builder-sidebar {
-	box-shadow: -$box-shadow-size 0 $shadow-blur 0 $shadow-color;
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
+
+	&:before {
+		box-shadow: -$box-shadow-size * 2 0 $sidebar-blur-radius $shadow-color-sidebar;
+		content: '';
+		height: 100%;
+		pointer-events: none;
+		position: absolute;
+		width: 100%;
+	}
 
 	.text-field,
 	.check-box {
@@ -160,14 +209,6 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 
 	.infobox-builder-sidebar-header-icon-delete {
 		margin: $source-icon-margins;
-
-		.icon-button-icon {
-			fill: $color-blue-gray-dark
-		}
-
-		&:hover .icon-button-icon {
-			fill: $color-gray-dark;
-		}
 	}
 }
 
@@ -181,10 +222,25 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 
 .infobox-builder-sidebar-info {
 	color: $color-blue-gray-dark;
-	font-size: $type-smallest;
-	line-height: $line-height-smallest;
+	font-size: $type-min;
+	line-height: $line-height-min;
 	margin: 0;
 	padding: 0;
+	position: relative;
+
+	.infobox-builder-sidebar-info-icon {
+		left: $info-icon-position-left;
+		position: absolute;
+		top: $info-icon-position-top;
+
+		&:hover .icon-button-icon {
+			fill: $color-blue-gray;
+		}
+	}
+}
+
+.infobox-builder-sidebar-info-message {
+	padding-left: $info-message-left-padding;
 }
 
 .infobox-builder-buttons {
@@ -238,6 +294,10 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 }
 
 .is-preview-item-dragged {
+	.infobox-builder-chevron-area {
+		pointer-events: none;
+	}
+
 	.pi-item:not(.is-dragging) {
 		pointer-events: none;
 
@@ -297,6 +357,62 @@ $spinner-text-color: rgba(0, 0, 0, .5);
 	}
 }
 
-.infobox-builder-go-to-source-modal-message {
-	text-align: left;
+.infobox-builder-chevron-area {
+	display: block;
+	height: 100%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: $chevron-area-width;
+	z-index: 1;
+}
+
+.is-group-highlighted .in-group {
+	&.pi-item {
+		&:before {
+			border-left: $border-width solid $color-blue-light;
+			border-right: $border-width solid $color-blue-light;
+			box-sizing: content-box;
+			content: ' ';
+			display: block;
+			height: 100%;
+			left: -$border-width;
+			position: absolute;
+			top: -$border-width;
+			width: 100%;
+		}
+
+		&.last:before {
+			border-bottom: $border-width solid $color-blue-light;
+		}
+
+		&.pi-data:not(.active):before {
+			height: calc(100% + #{$border-width});
+		}
+	}
+
+	&.pi-header {
+		&:before {
+			border-top: $border-width solid $color-blue-light;
+		}
+
+		&:not(.active):before {
+			border-bottom: transparent;
+		}
+	}
+
+	.pop-over {
+		color: $color-gray-dark;
+		position: fixed;
+		width: $popover-width;
+
+		.infobox-builder-popup-text {
+			margin: 0;
+			font-size: $type-smallest;
+		}
+
+		.pop-over-container {
+			padding: $popover-horizontal-padding;
+		}
+	}
 }

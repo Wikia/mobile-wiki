@@ -6,6 +6,7 @@ import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributors from './objects/contributors';
 import DiscussionEntities from './objects/entities';
 import DiscussionPost from './objects/post';
+import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
@@ -66,6 +67,8 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 					allPosts.insertAt(0, newPost);
 					this.incrementProperty('totalPosts');
 					this.set('data.entities', allPosts);
+
+					track(trackActions.PostCreate);
 				},
 				error: (err) => {
 					this.onCreatePostError(err);

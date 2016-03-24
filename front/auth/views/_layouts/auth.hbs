@@ -9,8 +9,12 @@
 		<link rel="stylesheet" href="/front/auth/assets/app.css">
 		<!-- endbuild -->
 
+		{{! we need to load $script.js first, as new optimizely loading method depends on it }}
+		<!-- build:js /front/auth/assets/script.js -->
+		<script src="/front/auth/bower_components/script.js/dist/script.js"></script>
+		<!-- endbuild -->
 		{{> optimizely}}
-		{{> tracking-ua}}
+		{{> tracking-ua-init}}
 		<link rel="canonical" href="{{canonicalUrl}}" />
 	</head>
 	<body class="auth {{pageParams.viewType}} {{bodyClasses}} {{#if standalonePage}}standalone{{/if}}" data-page-type="{{pageType}}">
@@ -26,24 +30,27 @@
 			{{/unless}}
 		{{/if}}
 
-		{{#unless hideHeader}}
-		<header class="auth-header splash splash-top">
-			<h1>{{i18n headerText}}</h1>
-			{{#if headerSlogan}}
-			<p>{{i18n headerSlogan}}</p>
+		<main class="page-view">
+			{{#if standalonePage}}
+				<nav class="auth-nav">
+					<a class="back" href="{{exitTo}}">{{i18n 'auth:common.to-wiki-link-text'}}</a>
+				</nav>
 			{{/if}}
-		</header>
-		{{/unless}}
+			{{#unless hideHeader}}
+			<header class="auth-header splash splash-top">
+				<h1>{{i18n headerText}}</h1>
 
-		{{{content}}}
+				{{#if headerSlogan}}
+				<p>{{i18n headerSlogan}}</p>
+				{{/if}}
+				<a href="{{{headerHref}}}" class="header-callout-link">
+					{{i18n headerCallout}} <span class="header-callout-emphasis">{{i18n headerCalloutLink}}</span>
+				</a>
+			</header>
+			{{/unless}}
 
-		{{#unless hideFooter}}
-		<footer class="auth-footer splash splash-bottom">
-			<a href="{{{footerHref}}}" class="footer-callout-link">
-				{{i18n footerCallout}} <span class="footer-callout-emphasis">{{i18n footerCalloutLink}}</span>
-			</a>
-		</footer>
-		{{/unless}}
+			{{{content}}}
+		</main>
 
 		<script>
 			var translations = {{{json (translations language ns='auth-front')}}},
@@ -64,11 +71,27 @@
 			M.prop('tracking', {{{json trackingConfig}}});
 			M.prop('isGASpecialWiki', true);
 			M.prop('initialPageView', true, true);
+			M.prop('urlTitleParam', '');
 
 			require('auth/app/main').init();
+
+			// properties needed for Internal
+			M.provide('wiki', {
+				id: 80433,
+				dbName: 'wikiaglobal',
+				language: {
+					user: 'en',
+				},
+			});
+			M.tracker.Internal.trackPageView({
+				a: window.location.pathname,
+				n: '-1'
+			});
 		</script>
 		{{> tracking-quantserve}}
 		{{> tracking-comscore}}
 		{{> tracking-nielsen}}
+		{{> tracking-ua-auth}}
+		{{> tracking-ivw3}}
 	</body>
 </html>

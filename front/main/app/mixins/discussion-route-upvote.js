@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ajaxCall from '../utils/ajax-call';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 /**
  * Handles posts upvoting.
@@ -32,6 +33,12 @@ export default Ember.Mixin.create({
 				url: M.getDiscussionServiceUrl(`/${Ember.get(Mercury, 'wiki.id')}/votes/post/${Ember.get(post, 'id')}`),
 				success: (data) => {
 					Ember.set(post, 'upvoteCount', data.upvoteCount);
+
+					if (hasUpvoted) {
+						track(trackActions.UndoUpvotePost);
+					} else {
+						track(trackActions.UpvotePost);
+					}
 				},
 				error: () => {
 					Ember.set(post.userData, 'hasUpvoted', hasUpvoted);

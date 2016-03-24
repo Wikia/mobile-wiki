@@ -27,10 +27,6 @@
 		<meta name="fragment" content="!">
 	{{/if}}
 
-	{{#if prerenderEnabled}}
-		<meta name="fragment" content="!">
-	{{/if}}
-
 	{{#if isRtl}}
 		<link rel="stylesheet" href="/front/main/assets/app.rtl.css">
 	{{else}}
@@ -45,12 +41,15 @@
 	<link rel="canonical" href="{{canonicalUrl}}">
 
 	{{> nirvana }}
+	<script src="/front/main/assets/vendor/jquery/jquery.min.js"></script>
 	{{content-for 'baseline'}}
+	{{content-for '$script'}}
 	{{> server-data}}
-	{{> tracking-ua}}
 	{{> tracking-quantserve}}
 	{{> tracking-comscore}}
 	{{> tracking-nielsen}}
+	{{> optimizely}}
+	{{> tracking-ua-init}}
 
 	{{content-for 'head-footer'}}
 </head>
@@ -89,6 +88,8 @@
 </script>
 
 <script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
+{{> tracking-ua}}
+{{> tracking-internal}}
 {{> tracking-ivw3}}
 
 {{content-for 'body-footer'}}

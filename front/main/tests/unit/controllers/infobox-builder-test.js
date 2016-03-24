@@ -51,3 +51,89 @@ test('sets dirty flag to "false" on save', function (assert) {
 
 	assert.equal(controller.get('isDirty'), false);
 });
+
+test('test group items calculation', function (assert) {
+	const controller = this.subject(),
+		cases = [
+			{
+				model: Ember.Object.create({
+					infoboxState: [
+						{type: 'section-header', id: 1},
+						{type: 'row', id: 2},
+						{type: 'row', id: 3}
+					]
+				}),
+				itemIndex: 0,
+				expected: [
+					{type: 'section-header', id: 1},
+					{type: 'row', id: 2},
+					{type: 'row', id: 3}
+				]
+			},
+			{
+				model: Ember.Object.create({
+					infoboxState: [
+						{type: 'section-header', id: 1},
+						{type: 'row', id: 2},
+						{type: 'row', id: 3},
+						{type: 'section-header', id: 4}
+					]
+				}),
+				itemIndex: 0,
+				expected: [
+					{type: 'section-header', id: 1},
+					{type: 'row', id: 2},
+					{type: 'row', id: 3}
+				]
+			},
+			{
+				model: Ember.Object.create({
+					infoboxState: [
+						{type: 'section-header', id: 1},
+						{type: 'row', id: 2},
+						{type: 'row', id: 3},
+						{type: 'section-header', id: 4}
+					]
+				}),
+				itemIndex: 1,
+				expected: []
+			},
+			{
+				model: Ember.Object.create({
+					infoboxState: [
+						{type: 'section-header', id: 1},
+						{type: 'row', id: 2},
+						{type: 'title', id: 3},
+						{type: 'row', id: 4},
+						{type: 'section-header', id: 5}
+					]
+				}),
+				itemIndex: 0,
+				expected: [
+					{type: 'section-header', id: 1},
+					{type: 'row', id: 2}
+				]
+			},
+			{
+				model: Ember.Object.create({
+					infoboxState: [
+						{type: 'section-header', id: 1},
+						{type: 'row', id: 2},
+						{type: 'section-header', id: 3},
+						{type: 'image', id: 4}
+					]
+				}),
+				itemIndex: 2,
+				expected: [
+					{type: 'section-header', id: 3},
+					{type: 'image', id: 4}
+				]
+			}
+		];
+
+	cases.forEach((testCase) => {
+		controller.set('model', testCase.model);
+		controller.send('setGroup', testCase.model.infoboxState[testCase.itemIndex]);
+		assert.deepEqual(controller.get('groupItems'), testCase.expected);
+	});
+});

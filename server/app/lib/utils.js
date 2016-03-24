@@ -5,6 +5,7 @@
 import Hoek from 'hoek';
 import Url from 'url';
 import QueryString from 'querystring';
+import {RedirectedToCanonicalHost} from './custom-errors';
 
 /**
  * @typedef {Object} ServerData
@@ -267,20 +268,15 @@ export function shouldAsyncArticle(localSettings, host) {
  */
 export function createServerData(localSettings, wikiDomain = '') {
 	// if no environment, pass dev
-	const env = localSettings.environment || Environment.Dev,
-		data = {
-			mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
-			apiBase: localSettings.apiBase,
-			environment: getEnvironmentString(env),
-			cdnBaseUrl: getCDNBaseUrl(localSettings),
-			gaUrl: localSettings.tracking.ua.scriptUrl
-		};
+	const env = localSettings.environment || Environment.Dev;
 
-	if (localSettings.optimizely.enabled) {
-		data.optimizelyScript = `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`;
-	}
-
-	return data;
+	return {
+		mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
+		apiBase: localSettings.apiBase,
+		environment: getEnvironmentString(env),
+		cdnBaseUrl: getCDNBaseUrl(localSettings),
+		gaUrl: localSettings.tracking.ua.scriptUrl
+	};
 }
 
 /**
@@ -298,21 +294,6 @@ export function getStaticAssetPath(localSettings, request) {
 		`${localSettings.cdnBaseUrl}/mercury-static/` :
 		`//${getCachedWikiDomainName(localSettings, request)}/front/`;
 }
-
-/**
- * @class RedirectedToCanonicalHost
- */
-export class RedirectedToCanonicalHost {
-	/**
-	 * @param {*} data
-	 * @returns {void}
-	 */
-	constructor(data) {
-		Error.apply(this, arguments);
-		this.data = data;
-	}
-}
-RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
 
 /**
  * If user tried to load wiki by its alternative URL then redirect to the primary one based on wikiVariables.basePath

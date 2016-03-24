@@ -1,7 +1,8 @@
 import * as Utils from '../../lib/utils';
 import {gaUserIdHash} from '../../lib/hashing';
 import localSettings from '../../../config/localSettings';
-import {isRtl, getUserId, getQualarooScriptUrl, getOpenGraphData, getLocalSettings} from './prepare-page-data';
+import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData,
+	getLocalSettings} from './prepare-page-data';
 
 /**
  * @param {Object} data
@@ -56,6 +57,7 @@ export default function prepareCategoryData(request, data) {
 	result.localSettings = getLocalSettings();
 
 	result.qualarooScript = getQualarooScriptUrl(request);
+	result.optimizelyScript = getOptimizelyScriptUrl(request);
 	result.userId = getUserId(request);
 	result.gaUserIdHash = gaUserIdHash(result.userId);
 
@@ -64,7 +66,6 @@ export default function prepareCategoryData(request, data) {
 	}
 
 	result.asyncArticle = false;
-	result.prerenderEnabled = false;
 
 	return result;
 }
