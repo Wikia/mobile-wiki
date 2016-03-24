@@ -10,10 +10,20 @@ export default Ember.Service.extend({
 		let features = [];
 
 		if (badgesCookie) {
-			features = JSON.parse(badgesCookie);
+			try {
+				features = JSON.parse(badgesCookie);
+			} catch (e) {
+				Ember.Logger.error('Cannot parse new features badges cookie.');
+			}
+
+			if (typeof features === 'string') {
+				features = []
+			}
 		}
+
 		this.set('features', features);
 	},
+
 	/**
 	 * Checks if current user was already informed about new feature (based on data in cookie)
 	 *
@@ -28,6 +38,7 @@ export default Ember.Service.extend({
 
 		return !this.get('features').contains(featureName);
 	},
+
 	/**
 	 * Store information that user has seen information about new feature
 	 *
