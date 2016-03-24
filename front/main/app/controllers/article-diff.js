@@ -28,8 +28,6 @@ export default Ember.Controller.extend({
 		showError(messageKey) {
 			const application = this.get('application');
 
-			console.log('help');
-
 			application.addAlert({
 				message: i18n.t(messageKey, {ns: 'recent-wiki-activity'}),
 				type: 'alert'

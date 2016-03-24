@@ -108,8 +108,6 @@ export default Ember.Component.extend(
 			showConfirmation() {
 				this.set('shouldShowUndoConfirmation', true);
 
-				console.log(this.get('shouldShowUndoConfirmation'));
-
 				track({
 					action: trackActions.open,
 					category: trackCategory,
