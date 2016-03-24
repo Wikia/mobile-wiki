@@ -5,13 +5,11 @@ const originalMercury = Ember.$.extend(true, {}, window.Mercury),
 		url: '/wiki/Kermit',
 		description: 'Article about Kermit',
 		displayTitle: 'Kermit The Frog'
-	}),
-	originalMediaWikiNamespace = M.prop('mediaWikiNamespace');
+	});
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
 	afterEach() {
 		window.Mercury = Ember.$.extend(true, {}, originalMercury);
-		M.prop('mediaWikiNamespace', originalMediaWikiNamespace, true);
 	}
 });
 
@@ -125,8 +123,6 @@ test('get correct handler based on model namespace', function (assert) {
 		];
 
 	testCases.forEach(({namespace, expectedHandler}) => {
-		M.prop('mediaWikiNamespace', namespace, true);
-
 		const handler = mock.getHandler(model);
 
 		if (handler) {

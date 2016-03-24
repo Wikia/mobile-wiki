@@ -17,7 +17,7 @@ export default Ember.Route.extend({
 	 * @returns {Object} handler for current namespace
 	 */
 	getHandler(model) {
-		const currentNamespace = getCurrentNamespace();
+		const currentNamespace = getCurrentNamespace(model);
 
 		if (model.isCuratedMainPage) {
 			return CuratedMainPageHandler;

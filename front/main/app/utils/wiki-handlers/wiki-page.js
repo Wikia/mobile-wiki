@@ -52,12 +52,18 @@ export default function getPageModel(params) {
 	let model;
 
 	return new Ember.RSVP.Promise((resolve, reject) => {
-		if (M.prop('isContentNamespace') && M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
-			model = ArticleModel.create(params);
-			ArticleModel.setArticle(model);
+		if (M.prop('articleContentPreloadedInDOM')) {
+			const article = ArticleModel.getPreloadedData();
 
-			return resolve(model);
-		} else if (M.prop('exception')) {
+			if (Ember.get(article, 'isContentNamespace')) {
+				model = ArticleModel.create(params);
+				ArticleModel.setArticle(model, article);
+
+				return resolve(model);
+			}
+		}
+
+		if (M.prop('exception')) {
 			const exception = M.prop('exception');
 
 			M.prop('exception', null);
@@ -67,9 +73,6 @@ export default function getPageModel(params) {
 
 		Ember.$.getJSON(getURL(params))
 			.done((data) => {
-				// @todo - https://wikia-inc.atlassian.net/browse/XW-1151 (this should be handled differently)
-				M.prop('mediaWikiNamespace', data.data.ns, true);
-
 				model = getModelForNamespace(data, params);
 				resolve(model);
 			})
