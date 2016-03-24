@@ -49,7 +49,7 @@ const DiscussionUser = DiscussionBaseModel.extend(DiscussionModerationModelMixin
 				this.handleLoadMoreError(err);
 			}
 		});
-	}
+	},
 
 	/**
 	 * @param {object} apiData
