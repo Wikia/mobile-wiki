@@ -12,14 +12,14 @@ DiscussionUserPermissions.reopenClass({
 	/**
 	 * Creates a permissions dict from API's permissions array
 	 *
-	 * @param permissionsData
+	 * @param {object} permissionsData
+	 *
+	 * @returns {object}
 	 */
 	create(permissionsData) {
 		const permissions = {};
 
-		permissionsData.forEach(function (permission) {
-			permissions[permission] = true;
-		});
+		permissionsData.forEach((permission) => permissions[permission] = true);
 
 		return this._super(permissions);
 	}

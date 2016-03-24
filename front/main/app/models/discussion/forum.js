@@ -34,9 +34,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 					let allPosts;
 
 					allPosts = this.get('data.entities').concat(
-						newThreads.map(function (newThread) {
-							return DiscussionPost.createFromThreadListData(newThread);
-						})
+						newThreads.map((newThread) => DiscussionPost.createFromThreadListData(newThread))
 					);
 
 					this.set('data.entities', allPosts);
@@ -67,7 +65,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 					allPosts = this.get('data.entities');
 					allPosts.insertAt(0, newPost);
 					this.incrementProperty('totalPosts');
-					this.set(data, 'entities', allPosts);
+					this.set('data.entities', allPosts);
 				},
 				error: (err) => {
 					this.onCreatePostError(err);

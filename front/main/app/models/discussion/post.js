@@ -7,6 +7,7 @@ import DiscussionReply from './objects/reply';
 import DiscussionContributor from './objects/contributor';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
+	data: null,
 	pivotId: null,
 	replyLimit: 10,
 
@@ -22,26 +23,21 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				responseGroup: 'full',
 				sortDirection: 'descending',
 				sortKey: 'creation_date',
-				viewableOnly: false
+				viewableOnly: false,
 			}),
 			success: (data) => {
-				const newReplies = data._embedded['doc:posts'];
-
-				let allReplies;
-
-				newReplies.reverse();
-				allReplies = newReplies.map(function (reply) {
-					return DiscussionReply.create(reply)
-				}).concat(this.get('data.replies'));
+				const allReplies = Ember.get(data, '._embedded.doc:posts').reverse()
+					.map((reply) => DiscussionReply.create(reply))
+					.concat(this.get('data.replies'));
 
 				this.get('data').setProperties({
 					page: this.get('data.page') + 1,
-					replies: newReplies
+					replies: allRepliess,
 				});
 			},
 			error: (err) => {
 				this.handleLoadMoreError(err);
-			}
+			},
 		});
 	},
 
@@ -84,12 +80,10 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			normalizedRepliesData.reverse();
 		}
 
-		contributors = normalizedRepliesData.map(function (reply) {
-			return DiscussionContributor.create(reply.createdBy);
-		});
+		contributors = normalizedRepliesData.map((reply) => DiscussionContributor.create(reply.createdBy));
 
 		normalizedData.setProperties({
-			contributors: contributors,
+			contributors,
 			page: 0,
 			replies: normalizedRepliesData,
 			repliesCount: apiData.postCount

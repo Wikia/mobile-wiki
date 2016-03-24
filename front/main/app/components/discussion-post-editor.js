@@ -74,8 +74,8 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	handleNewPostCreated() {
-		const newPosts = this.get('posts').filter((post) => Ember.get(post, 'isNew'));
-		let newPost = newPosts.get('firstObject');
+		const newPosts = this.get('posts').filter((post) => Ember.get(post, 'isNew')),
+			newPost = newPosts.get('firstObject');
 
 		if (newPost) {
 			Ember.$('html, body').animate({scrollTop: 0});

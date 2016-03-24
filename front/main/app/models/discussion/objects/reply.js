@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import DiscussionEntity from './entity';
 import DiscussionContributor from './contributor';
 import DiscussionUserData from './user-data';
@@ -7,7 +6,7 @@ const DiscussionReply = DiscussionEntity.extend({
 	/**
 	 * Creates a reply object from API's post data
 	 *
-	 * @param postData
+	 * @param {object} postData
 	 *
 	 * @returns {object}
 	 */

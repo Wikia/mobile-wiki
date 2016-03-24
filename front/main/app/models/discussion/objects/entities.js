@@ -11,25 +11,23 @@ DiscussionEntities.reopenClass({
 	/**
 	 * Returns an array of DiscussionPost objects created from API's threads
 	 *
-	 * @param threadsData
+	 * @param {array} threadsData
 	 *
 	 * @returns {array}
 	 */
 	createFromThreadsData(threadsData) {
-		return threadsData.map(function (threadData) {
-			return DiscussionPost.createFromThreadListData(threadData);
-		});
+		return threadsData.map((threadData) => DiscussionPost.createFromThreadListData(threadData));
 	},
 
 	/**
 	 * Returns an array of DiscussionPost objects created from API's posts
 	 *
-	 * @param postsData
+	 * @param {array} postsData
 	 *
 	 * @returns {array}
 	 */
 	createFromPostsData(postsData) {
-		return postsData.map(function (postData) {
+		return postsData.map((postData) => {
 			if (postData.isReply === true) {
 				return DiscussionReply.create(postData);
 			}

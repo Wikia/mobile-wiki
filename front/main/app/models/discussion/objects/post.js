@@ -16,7 +16,7 @@ DiscussionPost.reopenClass({
 	/**
 	 * Normalizes single entity from thread list into a post object
 	 *
-	 * @param threadData
+	 * @param {object} threadData
 	 *
 	 * @returns {object}
 	 */
@@ -44,7 +44,7 @@ DiscussionPost.reopenClass({
 	/**
 	 * Normalizes single entity from post list into a post object
 	 *
-	 * @param postData
+	 * @param {object} postData
 	 *
 	 * @returns {object}
 	 */
@@ -72,7 +72,7 @@ DiscussionPost.reopenClass({
 	/**
 	 * Normalizes API thread data into a post object
 	 *
-	 * @param threadData
+	 * @param {object} threadData
 	 *
 	 * @returns {object}
 	 */

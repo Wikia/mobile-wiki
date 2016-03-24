@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
-import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributors from './objects/contributors';
 import DiscussionEntities from './objects/entities';
@@ -65,7 +64,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			}),
 			normalizedData = Ember.Object.create({
 				forumId: apiData.id,
-				contributors: contributors,
+				contributors,
 				entities: DiscussionEntities.createFromPostsData(posts),
 				pageNum: 0,
 				postCount: apiData.postCount,
