@@ -32,7 +32,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 
 				this.get('data').setProperties({
 					page: this.get('data.page') + 1,
-					replies: allRepliess,
+					replies: allReplies,
 				});
 			},
 			error: (err) => {
