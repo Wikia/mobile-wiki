@@ -1,7 +1,5 @@
 import {test, moduleForComponent} from 'ember-qunit';
 
-const track = require('common/utils/track').track;
-
 moduleForComponent('infobox-builder-edit-title-modal', 'Unit | Component | infobox builder edit title modal', {
 	unit: true
 });
