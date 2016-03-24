@@ -26,10 +26,15 @@ export default Ember.Component.extend(
 			return this.get('isPreviewItemHovered') && !this.get('isPreviewItemDragged');
 		}),
 
-		canGoToSourceModal: Ember.computed('showGoToSourceModal', 'isEditTitleModalVisible', 'title', function () {
-			return Boolean(this.get('title')) &&
-				this.get('showGoToSourceModal') &&
-				!this.get('isEditTitleModalVisible');
+		canGoToSourceModal: Ember.computed('showGoToSourceModal', 'isEditTitleModalVisible', 'title', {
+			set(key, value) {
+				this.set('showGoToSourceModal', value);
+			},
+			get() {
+				return Boolean(this.get('title')) &&
+					this.get('showGoToSourceModal') &&
+					!this.get('isEditTitleModalVisible');
+			}
 		}),
 
 		sortableGroupClassNames: Ember.computed('theme', function () {
@@ -58,8 +63,8 @@ export default Ember.Component.extend(
 		}),
 
 		editTitleModalConfirmButtonLabel: Ember.computed('editTitleModalTrigger', function () {
-			const messageKey = this.get('editTitleModalTrigger') === 'publish' ?
-				'save' :
+			const messageKey = this.get('editTitleModalTrigger') === 'edit-title-modal-publish' ?
+				'edit-title-modal-save' :
 				'edit-title-modal-ok';
 
 			return i18n.t(`main.${messageKey}`, {
@@ -341,8 +346,10 @@ export default Ember.Component.extend(
 				label: `edit-title-modal-before-triggered-on-${trigger}`
 			});
 
-			this.set('editTitleModalTrigger', trigger);
-			this.set('isEditTitleModalVisible', true);
+			this.setProperties({
+				editTitleModalTrigger: trigger,
+				isEditTitleModalVisible: true
+			});
 		},
 
 		/**
