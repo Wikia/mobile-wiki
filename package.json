@@ -45,6 +45,7 @@
     "babel-preset-es2015": "6.3.13",
     "babel-template": "6.7.0",
     "babel-types": "6.7.2",
+    "code": "1.5.0",
     "ember-template-compiler": "1.9.0-alpha",
     "eslint": "1.10.3",
     "flipcss": "0.2.8",
@@ -83,12 +84,14 @@
     "karma-coverage": "0.5.3",
     "karma-phantomjs-launcher": "1.0.0",
     "karma-qunit": "0.1.8",
+    "lab": "6.2.0",
     "multipipe": "0.1.2",
     "nodemon": "1.8.1",
     "npm-run-all": "1.4.0",
     "qunit": "0.7.7",
     "qunitjs": "1.20.0",
     "run-sequence": "1.1.5",
+    "sinon": "1.17.3",
     "svgo": "0.6.1",
     "through2": "0.6.5"
   }

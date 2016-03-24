@@ -28,10 +28,5 @@
     "newrelic": "1.25.1",
     "vision": "3.0.0",
     "wreck": "6.3.0"
-  },
-  "devDependencies": {
-    "code": "1.5.0",
-    "lab": "6.2.0",
-    "sinon": "1.17.3"
   }
 }
