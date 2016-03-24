@@ -11,11 +11,11 @@ import {checkPermissions} from 'common/utils/discussion-permissions';
 const DiscussionUser = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	contributors: [],
 	pageNum: null,
-	replyLimit: 10,
+	posts: null,
+	postsLimit: 10,
+	totalPosts: null,
 	userId: null,
 	userName: null,
-	posts: null,
-	totalPosts: null,
 	userProfileUrl: null,
 
 	canDeleteAll: Ember.computed('data.entities', function () {
@@ -30,11 +30,11 @@ const DiscussionUser = DiscussionBaseModel.extend(DiscussionModerationModelMixin
 
 		return ajaxCall({
 			data: {
+				limit: this.get('postsLimit'),
 				page: this.get('pageNum'),
 				pivot: this.get('pivotId'),
-				viewableOnly: false,
-				limit: this.get('replyLimit'),
-				responseGroup: 'full'
+				responseGroup: 'full',
+				viewableOnly: false
 			},
 			url: M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`),
 			success: (data) => {
@@ -90,10 +90,8 @@ DiscussionUserModel.reopenClass({
 			context: userInstance,
 			url: M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`),
 			data: {
-				limit: userInstance.replyLimit,
+				limit: userInstance.postsLimit,
 				responseGroup: 'full',
-				sortDirection: 'descending',
-				sortKey: 'creation_date',
 				viewableOnly: false
 			},
 			success: (data) => {
