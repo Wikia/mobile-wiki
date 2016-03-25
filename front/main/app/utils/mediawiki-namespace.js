@@ -26,8 +26,7 @@ const namespace = {
 	CATEGORY: 14,
 	CATEGORY_TALK: 15,
 	IMAGE: 6,
-	IMAGE_TALK: 7,
-	PORTAL: 116
+	IMAGE_TALK: 7
 };
 
 /**
@@ -38,7 +37,7 @@ const namespace = {
 function isContentNamespace(ns) {
 	const contentNamespaces = Ember.getWithDefault(Mercury, 'wiki.contentNamespaces', []);
 
-	return ns === namespace.MAIN || ns === namespace.PORTAL || Boolean(contentNamespaces.some(
+	return ns === namespace.MAIN || Boolean(contentNamespaces.some(
 			// custom namespaces can be in a string format
 			(contentNamespace) => parseInt(contentNamespace, 10) === ns
 		));

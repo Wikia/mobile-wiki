@@ -24,9 +24,7 @@ export const namespace = {
 	CATEGORY: 14,
 	CATEGORY_TALK: 15,
 	IMAGE: 6,
-	IMAGE_TALK: 7,
-	// communities use Portal as a content namespace but without adding it to wgContentNamespaces
-	PORTAL: 116
+	IMAGE_TALK: 7
 };
 
 /**
@@ -35,7 +33,7 @@ export const namespace = {
  * @returns {boolean}
  */
 export function isContentNamespace(ns, contentNamespaces = []) {
-	return ns === namespace.MAIN || ns === namespace.PORTAL || Boolean(contentNamespaces.some(
+	return ns === namespace.MAIN || Boolean(contentNamespaces.some(
 			// custom namespaces can be in a string format
 			(contentNamespace) => parseInt(contentNamespace, 10) === ns
 		));

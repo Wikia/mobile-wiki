@@ -18,10 +18,6 @@ QUnit.test('isContentNamespace', function (assert) {
 			contentNamespaces: [0, 112],
 			namespace: 0,
 			expected: true
-		}, {
-			contentNamespaces: [0, 112],
-			namespace: 116,
-			expected: true
 		}
 	];
 
