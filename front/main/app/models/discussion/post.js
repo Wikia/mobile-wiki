@@ -18,9 +18,9 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	loadNextPage() {
 		return ajaxCall({
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
-				limit: this.replyLimit,
-				page: this.page + 1,
-				pivot: this.pivotId,
+				limit: this.get('replyLimit'),
+				page: this.get('data.page') + 1,
+				pivot: this.get('pivotId'),
 				responseGroup: 'full',
 				sortDirection: 'descending',
 				sortKey: 'creation_date',
