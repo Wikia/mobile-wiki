@@ -43,6 +43,11 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		});
 	},
 
+	/**
+	 * @param replyData
+	 *
+	 * @returns {Ember.RSVP.Promise}
+	 */
 	createReply(replyData) {
 		this.setFailedState(null);
 		replyData.threadId = this.get('postId');
@@ -68,6 +73,11 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		});
 	},
 
+	/**
+	 * @param {object} apiData
+	 *
+	 * @returns {void}
+	 */
 	setNormalizedData(apiData) {
 		const normalizedData = DiscussionPost.createFromThreadData(apiData),
 			apiRepliesData = Ember.getWithDefault(apiData, '_embedded.doc:posts', []);
@@ -93,9 +103,8 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		});
 
 		normalizedData.setProperties({
-			canModerate,
-			contributors,
 			canModerate: Ember.getWithDefault(normalizedRepliesData, '0.userData.permissions.canModerate', false),
+			contributors,
 			forumId: apiData.forumId,
 			page: 0,
 			replies: normalizedRepliesData,
@@ -113,6 +122,7 @@ DiscussionPostModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} postId
+	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, postId) {

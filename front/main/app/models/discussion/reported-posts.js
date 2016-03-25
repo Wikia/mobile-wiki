@@ -13,6 +13,7 @@ const DiscussionReportedPosts = DiscussionBaseModel.extend(
 		/**
 		 * @param {number} pageNum
 		 * @param {string} [sortBy='trending']
+		 *
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(pageNum = 0, sortBy = 'trending') {
@@ -73,7 +74,8 @@ DiscussionReportedPosts.reopenClass({
 	 * @param {number} wikiId
 	 * @param {number} forumId
 	 * @param {string} [sortBy='trending']
-	 * @returns { Ember.RSVP.Promise}
+	 *
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, forumId, sortBy = 'trending') {
 		const reportedPostsInstance = DiscussionReportedPosts.create({

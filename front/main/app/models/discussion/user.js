@@ -10,6 +10,11 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	postsLimit: 10,
 	userId: null,
 
+	/**
+	 * @param {number} pageNum
+	 *
+	 * @returns {Ember.RSVP.Promise}
+	 */
 	loadPage(pageNum = 0) {
 		this.set('pageNum', pageNum);
 
@@ -68,6 +73,7 @@ DiscussionUserModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} userId
+	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, userId) {

@@ -11,7 +11,7 @@ DiscussionUserData.reopenClass({
 	/**
 	 * @param {object} userData
 	 *
-	 * @returns {object}
+	 * @returns {Ember.Object}
 	 */
 	create(userData) {
 		return this._super({

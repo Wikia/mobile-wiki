@@ -18,7 +18,7 @@ DiscussionPost.reopenClass({
 	 *
 	 * @param {object} threadData
 	 *
-	 * @returns {object}
+	 * @returns {Ember.Object}
 	 */
 	createFromThreadListData(threadData) {
 		const post = DiscussionPost.create({
@@ -48,7 +48,7 @@ DiscussionPost.reopenClass({
 	 *
 	 * @param {object} postData
 	 *
-	 * @returns {object}
+	 * @returns {Ember.Object}
 	 */
 	createFromPostListData(postData) {
 		const post = DiscussionPost.create({
@@ -78,7 +78,7 @@ DiscussionPost.reopenClass({
 	 *
 	 * @param {object} threadData
 	 *
-	 * @returns {object}
+	 * @returns {Ember.Object}
 	 */
 	createFromThreadData(threadData) {
 		const post = DiscussionPost.create({

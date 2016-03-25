@@ -8,5 +8,5 @@ export default Ember.Mixin.create({
 	classNameBindings: ['hasUpvoted'],
 
 	post: null,
-	hasUpvoted: Ember.computed.alias('post.userData.hasUpvoted'),
+	hasUpvoted: Ember.computed.readOnly('post.userData.hasUpvoted'),
 });

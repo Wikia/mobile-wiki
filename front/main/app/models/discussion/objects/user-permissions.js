@@ -14,7 +14,7 @@ DiscussionUserPermissions.reopenClass({
 	 *
 	 * @param {object} permissionsData
 	 *
-	 * @returns {object}
+	 * @returns {Ember.Object}
 	 */
 	create(permissionsData) {
 		const permissions = {};

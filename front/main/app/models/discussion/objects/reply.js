@@ -10,7 +10,7 @@ DiscussionReply.reopenClass({
 	 *
 	 * @param {object} postData
 	 *
-	 * @returns {object}
+	 * @returns {Ember.Object}
 	 */
 	create(postData) {
 		return this._super({

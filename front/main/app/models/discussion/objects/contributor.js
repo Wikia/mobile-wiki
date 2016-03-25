@@ -22,7 +22,7 @@ DiscussionContributor.reopenClass({
 	/**
 	 * @param {object} data
 	 *
-	 * @returns {object}
+	 * @returns {Ember.Object}
 	 */
 	create(data) {
 		return this._super({

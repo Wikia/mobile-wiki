@@ -34,6 +34,7 @@ export default Ember.Object.extend({
 
 	/**
 	 * @param {Object} err
+	 *
 	 * @returns {void}
 	 */
 	setErrorProperty(err) {
@@ -47,6 +48,7 @@ export default Ember.Object.extend({
 
 	/**
 	 * @param {Object} err
+	 *
 	 * @returns {void}
 	 */
 	handleLoadMoreError(err) {
@@ -59,6 +61,7 @@ export default Ember.Object.extend({
 
 	/**
 	 * @param {string} errorMessage
+	 *
 	 * @returns {void}
 	 */
 	setFailedState(errorMessage) {
