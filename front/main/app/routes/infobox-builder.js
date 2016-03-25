@@ -128,10 +128,10 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		goToSourceEditor(title) {
 			this.getRedirectUrls(title)
 				.then((urls) => {
-					this.redirectToPage(urls.sourceEditorUrl);
+					this.send('redirectToPage', urls.sourceEditorUrl);
 				})
 				.catch((error) => {
-					Ember.logger.error('Error while getting redirect Urls: ', error);
+					Ember.Logger.error('Error while getting redirect Urls: ', error);
 				});
 		}
 	},
@@ -294,12 +294,10 @@ export default Ember.Route.extend(ConfirmationMixin, {
 				data: {
 					controller: 'PortableInfoboxBuilderController',
 					method: 'getRedirectUrls',
-					data: {
-						title
-					}
+					title
 				},
 				dataType: 'json',
-				method: 'GET',
+				method: 'POST',
 				success: (data) => {
 					if (data && data.success) {
 						resolve(data.urls);
