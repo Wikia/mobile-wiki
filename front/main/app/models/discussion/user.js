@@ -7,14 +7,8 @@ import DiscussionEntities from './objects/entities';
 import DiscussionPost from './objects/post';
 
 const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
-	contributors: [],
-	pageNum: null,
-	posts: null,
-	postCount: null,
 	postsLimit: 10,
 	userId: null,
-	userName: null,
-	userProfileUrl: null,
 
 	canDeleteAll: Ember.computed('data.entities', function () {
 		const posts = this.get('data.entities');

@@ -2,16 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Object.extend({
 	wikiId: null,
-	forumId: null,
 
 	errorCodes: {
 		notFound: 404
 	},
 	errorClass: 'discussion-error-page',
-	errorMessage: null,
-	hasErrorMessage: false,
-	connectionError: null,
-	notFoundError: null,
 	pivotId: null,
 
 	data: Ember.Object.create(),
@@ -54,7 +49,7 @@ export default Ember.Object.extend({
 	 */
 	handleLoadMoreError(err) {
 		if (err.status === this.errorCodes.notFound) {
-			this.set('minorError', true);
+			this.set('data.minorError', true);
 		} else {
 			this.setErrorProperty(err);
 		}

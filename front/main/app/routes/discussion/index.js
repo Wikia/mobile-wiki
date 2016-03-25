@@ -10,11 +10,4 @@ export default Ember.Route.extend({
 	beforeModel() {
 		this.transitionTo('discussion.forum', Mercury.wiki.id, this.get('discussionSort.sortBy'));
 	},
-
-	/**
-	 * @returns {*}
-	 */
-	model() {
-		return DiscussionIndexModel.find(Mercury.wiki.id);
-	}
 });
