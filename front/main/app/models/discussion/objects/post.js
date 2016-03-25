@@ -34,7 +34,7 @@ DiscussionPost.reopenClass({
 				title: threadData.title,
 				upvoteCount: threadData.upvoteCount,
 			}),
-			userData = Ember.get(threadData, '._embedded.firstPost[0]._embedded.userData[0]');
+			userData = Ember.get(threadData, '_embedded.firstPost.0._embedded.userData.0');
 
 		post.userData = userData ? DiscussionUserData.create(userData) : null;
 
@@ -62,7 +62,7 @@ DiscussionPost.reopenClass({
 				title: postData.title,
 				upvoteCount: postData.upvoteCount,
 			}),
-			userData = Ember.get(postData, '._embedded.userData[0]');
+			userData = Ember.get(postData, '_embedded.userData.0');
 
 		post.userData = userData ? DiscussionUserData.create(userData) : null;
 
@@ -90,7 +90,7 @@ DiscussionPost.reopenClass({
 				title: threadData.title,
 				upvoteCount: threadData.upvoteCount,
 			}),
-			userData = Ember.get(threadData, '._embedded.firstPost[0]._embedded.userData[0]');
+			userData = Ember.get(threadData, '_embedded.firstPost.0._embedded.userData.0');
 
 		post.userData = userData ? DiscussionUserData.create(userData) : null;
 

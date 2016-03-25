@@ -39,9 +39,9 @@ export default Ember.Object.extend({
 	 */
 	setErrorProperty(err) {
 		if (err.status === this.errorCodes.notFound) {
-			this.set('notFoundError', true);
+			this.set('data.notFoundError', true);
 		} else {
-			this.set('connectionError', true);
+			this.set('data.connectionError', true);
 		}
 		Ember.$('body').addClass(this.errorClass);
 	},
@@ -63,6 +63,6 @@ export default Ember.Object.extend({
 	 * @returns {void}
 	 */
 	setFailedState(errorMessage) {
-		this.set('dialogMessage', errorMessage);
+		this.set('data.dialogMessage', errorMessage);
 	}
 });
