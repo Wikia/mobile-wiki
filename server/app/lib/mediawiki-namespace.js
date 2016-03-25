@@ -1,10 +1,8 @@
-import Ember from 'ember';
-
 /**
  * This list is taken from MediaWiki:app/includes/Defines.php
  * @type {{name: number}}
  */
-const namespace = {
+export const namespace = {
 	// virtual namespaces
 	MEDIA: -2,
 	SPECIAL: -1,
@@ -29,18 +27,9 @@ const namespace = {
 	IMAGE_TALK: 7
 };
 
-/**
- * @param {number} ns
- *
- * @returns {boolean}
- */
-function isContentNamespace(ns) {
-	const contentNamespaces = Ember.getWithDefault(Mercury, 'wiki.contentNamespaces', []);
-
+export function isContentNamespace(ns, contentNamespaces = []) {
 	return ns === namespace.MAIN || Boolean(contentNamespaces.some(
 			// custom namespaces can be in a string format
 			(contentNamespace) => contentNamespace == ns // eslint-disable-line eqeqeq
 		));
 }
-
-export {namespace, isContentNamespace};

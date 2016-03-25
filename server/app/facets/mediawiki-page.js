@@ -5,8 +5,10 @@ import {
 	WikiVariablesNotValidWikiError,
 	WikiVariablesRequestError
 } from '../lib/custom-errors';
-import Logger from '../lib/logger';
-import {namespace as MediaWikiNamespace} from '../lib/mediawiki';
+import {
+	namespace as MediaWikiNamespace,
+	isContentNamespace as MediaWikiIsContentNamespace
+} from '../lib/mediawiki-namespace';
 import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
 import * as Tracking from '../lib/tracking';
 import * as Utils from '../lib/utils';
@@ -17,6 +19,7 @@ import prepareCategoryData from './operations/prepare-category-data';
 import prepareMainPageData from './operations/prepare-main-page-data';
 import prepareMediaWikiData from './operations/prepare-mediawiki-data';
 import showServerErrorPage from './operations/show-server-error-page';
+import Logger from '../lib/logger';
 import deepExtend from 'deep-extend';
 
 const cachingTimes = {
@@ -76,7 +79,6 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	let result = {},
 		pageData = {},
 		viewName = 'wiki-page',
-		isCustomContentNamespace = false,
 		isContentNamespace,
 		ns,
 		response;
@@ -84,15 +86,11 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	if (data.page && data.page.data) {
 		pageData = data.page.data;
 		ns = pageData.ns;
-
-		if (data.wikiVariables && data.wikiVariables.contentNamespaces) {
-			isCustomContentNamespace = data.wikiVariables.contentNamespaces.indexOf(ns) >= 0;
-		}
 	}
 
 	result.mediaWikiNamespace = ns;
 
-	isContentNamespace = ns === MediaWikiNamespace.MAIN || isCustomContentNamespace;
+	isContentNamespace = MediaWikiIsContentNamespace(ns, data.wikiVariables.contentNamespaces);
 
 	// pass page title to front
 	result.urlTitleParam = request.params.title;
