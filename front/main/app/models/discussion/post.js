@@ -102,7 +102,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			forumId: apiData.forumId,
 			page: 0,
 			replies: normalizedRepliesData,
-			repliesCount: apiData.postCount
+			repliesCount: Ember.get(apiData, 'postCount'),
 		});
 
 		this.setProperties({

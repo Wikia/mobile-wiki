@@ -30,12 +30,11 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			},
 			url: M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`),
 			success: (data) => {
-				const newPosts = Ember.get(data, '_embedded.doc:posts'),
-					allPosts = this.get('data.entities').concat(
-						newPosts.map((newPosts) => DiscussionPost.createFromThreadListData(newPosts))
-					);
-
-				this.set('data.entities', allPosts);
+				this.get('data.entities').pushObjects(
+					Ember.get(data, '_embedded.doc:posts').map(
+						(newPosts) => DiscussionPost.createFromThreadListData(newPosts)
+					)
+				);
 			},
 			error: (err) => {
 				this.handleLoadMoreError(err);
@@ -64,7 +63,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			entities,
 			forumId: Ember.get(Mercury, 'wiki.id'),
 			pageNum: 0,
-			postCount: apiData.postCount,
+			postCount: Ember.get(apiData, 'postCount'),
 			userName: contributors.get('users.0.name'),
 		});
 
