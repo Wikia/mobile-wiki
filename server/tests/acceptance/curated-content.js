@@ -8,6 +8,7 @@ var Lab = require('lab'),
 	after = lab.after,
 	afterEach = lab.afterEach,
 	expect = code.expect,
+	clone = require('../utils/clone'),
 	server = require('../../../www/server/app/app'),
 	mediawiki = require('../../../www/server/app/lib/mediawiki'),
 	wikiVariables = require('../fixtures/wiki-variables'),
@@ -41,8 +42,8 @@ describe('curated-content', function () {
 	});
 
 	it('renders application when all server requests succeed', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, mainPageDetailsAndContext);
-		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariables);
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(mainPageDetailsAndContext));
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
@@ -52,7 +53,7 @@ describe('curated-content', function () {
 	});
 
 	it('renders error page when request for wiki variables fails', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, mainPageDetailsAndContext);
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(mainPageDetailsAndContext));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 503}, {});
 
 		server.inject(requestParams, function (response) {
@@ -66,7 +67,7 @@ describe('curated-content', function () {
 		'renders page without ads context and meta data when request for main page details and context fails',
 		function (done) {
 			wreckGetStub.onCall(0).yields(null, {statusCode: 503}, {});
-			wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariables);
+			wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
 
 			server.inject(requestParams, function (response) {
 				expect(response.statusCode).to.equal(200);
@@ -77,7 +78,7 @@ describe('curated-content', function () {
 	);
 
 	it('redirects to community wikia when requested wiki does not exist', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, mainPageDetailsAndContext);
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(mainPageDetailsAndContext));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, 'not a valid wikia');
 
 		server.inject(requestParams, function (response) {
@@ -90,16 +91,12 @@ describe('curated-content', function () {
 	});
 
 	it('redirects to primary URL when requested wiki by alias host', function (done) {
-		var requestParamsWithAliasHost = {
-			url: '/main/section/Test',
-			method: 'GET',
-			headers: {
-				host: 'starwars-alias.wikia.com',
-			}
-		};
+		var requestParamsWithAliasHost = clone(requestParams);
 
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, mainPageDetailsAndContext);
-		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariables);
+		requestParamsWithAliasHost.headers.host = 'starwars-alias.wikia.com';
+
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(mainPageDetailsAndContext));
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
 
 		server.inject(requestParamsWithAliasHost, function (response) {
 			expect(response.statusCode).to.equal(301);
