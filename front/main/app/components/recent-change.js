@@ -22,7 +22,7 @@ export default Ember.Component.extend({
 			if (this.get('userUpvoted')) {
 				// TODO this.removeUpvote(this.get('currentUserUpvoteId'));
 			} else {
-				this.upvote(revisionId, title, this.get('currentUser.userId')).then(
+				this.get('upvote')(revisionId, title, this.get('currentUser.userId')).then(
 					() => {},
 					() => {
 						this.get('application').addAlert({

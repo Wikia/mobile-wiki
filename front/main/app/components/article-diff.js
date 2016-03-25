@@ -52,14 +52,10 @@ export default Ember.Component.extend(
 
 		/**
 		 * Send info to server that user upvoted a revision
-		 * @returns {void}
+		 * @returns {Ember.RSVP.Promise}
 		 */
-		upvote() {
-			this.get('addRevisionUpvote')(this.get('currentUser.userId')).then(
-				this.trackSuccess.bind(this, 'upvote-success'),
-				this.handleError.bind(this, 'main.error', 'upvote-error')
-			);
-			this.trackClick(trackCategory, 'upvote');
+		upvoteHandler() {
+			return this.get('addRevisionUpvote')(this.get('currentUser.userId'));
 		},
 
 		/**
@@ -97,8 +93,16 @@ export default Ember.Component.extend(
 				if (this.get('upvoted')) {
 					this.removeUpvote(this.get('currentUserUpvoteId'));
 				} else {
-					this.upvote();
+					this.upvoteHandler().then(
+						this.trackSuccess.bind(this, 'upvote-success'),
+						this.handleError.bind(this, 'main.error', 'upvote-error')
+					);
+					this.trackClick(trackCategory, 'upvote');
 				}
+			},
+
+			upvote() {
+				return this.upvoteHandler();
 			},
 
 			/**
