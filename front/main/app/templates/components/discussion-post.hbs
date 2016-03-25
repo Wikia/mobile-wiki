@@ -16,11 +16,11 @@
 				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
 			{{/link-to}}
 			<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
-			{{#if model.replies}}
+			{{#if model.repliesCount}}
 				{{discussion-contributors
-					contributors=model.contributors
+					contributorsUsers=model.contributors.users
 					maxContributorDisplayCount=7
-					totalContributorCount=model.repliesCount
+					totalContributorCount=model.contributors.count
 				}}
 			{{else}}
 				<span class="no-replies-message">{{i18n 'main.no-replies' ns='discussion'}}</span>
@@ -55,9 +55,9 @@
 					{{#if model.replies}}
 						<div class="desktop-hidden discussion-contributors-mobile">
 							{{discussion-contributors
-								contributors=model.contributors
+								contributorsUsers=model.contributors.users
 								maxContributorDisplayCount=7
-								totalContributorCount=model.repliesCount
+								totalContributorCount=model.contributors.count
 							}}
 						</div>
 						{{#if canShowMore}}

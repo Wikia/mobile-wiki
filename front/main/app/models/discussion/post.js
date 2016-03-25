@@ -1,10 +1,11 @@
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import ajaxCall from '../../utils/ajax-call';
+import DiscussionContributor from './objects/contributor';
+import DiscussionContributors from './objects/contributors';
 import DiscussionEntities from './objects/entities';
 import DiscussionPost from './objects/post';
 import DiscussionReply from './objects/reply';
-import DiscussionContributor from './objects/contributor';
 import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
@@ -72,12 +73,11 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	},
 
 	setNormalizedData(apiData) {
-		const embedded = apiData._embedded,
-			normalizedData = DiscussionPost.createFromThreadData(apiData),
-			apiRepliesData = embedded['doc:posts'] || [];
+		const normalizedData = DiscussionPost.createFromThreadData(apiData),
+			apiRepliesData = Ember.getWithDefault(apiData, '_embedded.doc:posts', []);
 
-		let normalizedRepliesData,
-			contributors,
+		let contributors,
+			normalizedRepliesData,
 			pivotId;
 
 		normalizedRepliesData = DiscussionEntities.createFromPostsData(apiRepliesData);
@@ -89,7 +89,12 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			normalizedRepliesData.reverse();
 		}
 
-		contributors = normalizedRepliesData.map((reply) => DiscussionContributor.create(reply.createdBy));
+		// contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]'));
+		// Work in Progress: szpachla until is SOC-1586 is done
+		contributors = DiscussionContributors.create({
+			count: apiData.postCount,
+			userInfo: normalizedRepliesData.map((reply) => DiscussionContributor.create(reply.createdBy)),
+		});
 
 		normalizedData.setProperties({
 			contributors,

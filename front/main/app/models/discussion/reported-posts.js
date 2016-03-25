@@ -2,6 +2,7 @@ import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import ajaxCall from '../../utils/ajax-call';
+import DiscussionContributor from './objects/contributor';
 import DiscussionContributors from './objects/contributors';
 import DiscussionEntities from './objects/entities';
 
@@ -43,9 +44,15 @@ const DiscussionReportedPosts = DiscussionBaseModel.extend(
 			const embedded = apiData._embedded,
 				posts = embedded && embedded['doc:posts'] ? embedded['doc:posts'] : [],
 				pivotId = (posts.length > 0 ? posts[0].id : null),
+				// contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]'));
+				// Work in Progress: szpachla until is SOC-1586 is done
+				contributors = DiscussionContributors.create({
+					count: apiData.postCount,
+					userInfo: posts.map((post) => DiscussionContributor.create(post.createdBy)),
+				}),
 				normalizedData = Ember.Object.create({
 					forumId: Ember.get(Mercury, 'wiki.id'),
-					contributors: DiscussionContributors.create(embedded.contributors[0]),
+					contributors,
 					entities: DiscussionEntities.createFromPostsData(posts),
 					pageNum: 0,
 					postCount: apiData.postCount,

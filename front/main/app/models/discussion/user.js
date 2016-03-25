@@ -11,8 +11,8 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	contributors: [],
 	pageNum: null,
 	posts: null,
+	postCount: null,
 	postsLimit: 10,
-	totalPosts: null,
 	userId: null,
 	userName: null,
 	userProfileUrl: null,
@@ -57,17 +57,18 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	 */
 	setNormalizedData(apiData) {
 		const posts = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
-			pivotId = Ember.getWithDefault(posts, '[0].id', 0),
+			pivotId = Ember.getWithDefault(posts, '0.id', 0),
 			contributors = DiscussionContributors.create({
 				count: 1,
-				users: [posts[0].createdBy],
+				userInfo: [posts[0].createdBy],
 			}),
 			normalizedData = Ember.Object.create({
-				forumId: apiData.id,
 				contributors,
 				entities: DiscussionEntities.createFromPostsData(posts),
+				forumId: apiData.id,
 				pageNum: 0,
 				postCount: apiData.postCount,
+				userName: contributors.get('users.0.name'),
 			});
 
 		this.setProperties({
