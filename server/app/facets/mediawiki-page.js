@@ -79,6 +79,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	let result = {},
 		pageData = {},
 		viewName = 'wiki-page',
+		isMainPage = false,
 		isContentNamespace,
 		ns,
 		response;
@@ -86,6 +87,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	if (data.page && data.page.data) {
 		pageData = data.page.data;
 		ns = pageData.ns;
+		isMainPage = pageData.isMainPage;
 	}
 
 	result.mediaWikiNamespace = ns;
@@ -95,7 +97,8 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	// pass page title to front
 	result.urlTitleParam = request.params.title;
 
-	if (isContentNamespace) {
+	// Main pages can live in namespaces which are not marked as content
+	if (isContentNamespace || isMainPage) {
 		viewName = 'article';
 		result = deepExtend(result, prepareArticleData(request, data));
 	} else if (ns === MediaWikiNamespace.CATEGORY) {
@@ -114,7 +117,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	}
 
 	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
-	if (pageData.isMainPage && pageData.mainPageData) {
+	if (isMainPage && pageData.mainPageData) {
 		result = deepExtend(result, prepareMainPageData(data));
 		result.hasToC = false;
 		delete result.adsContext;

@@ -28,7 +28,8 @@ function getModelForNamespace(data, params) {
 	const currentNamespace = data.data.ns;
 	let model;
 
-	if (isContentNamespace(currentNamespace)) {
+	// Main pages can live in namespaces which are not marked as content
+	if (isContentNamespace(currentNamespace) || data.data.isMainPage) {
 		model = ArticleModel.create(params);
 		ArticleModel.setArticle(model, data);
 
