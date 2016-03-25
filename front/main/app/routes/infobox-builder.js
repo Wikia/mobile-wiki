@@ -121,23 +121,18 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		},
 
 		/**
-		 * Connects with ponto and redirects to source editor
-		 *
+		 * redirects to source editor
+		 * @params {String} title
 		 * @returns {void}
 		 */
-		goToSourceEditor() {
-			const ponto = window.Ponto;
-
-			ponto.invoke(
-				'wikia.infoboxBuilder.ponto',
-				'redirectToSourceEditor',
-				null,
-				Ember.K,
-				(data) => {
-					this.showPontoError(data);
-				},
-				false
-			);
+		goToSourceEditor(title) {
+			this.getRedirectUrls(title)
+				.then((urls) => {
+					this.redirectToPage(urls.sourceEditorUrl);
+				})
+				.catch((error) => {
+					Ember.logger.error('Error while getting redirect Urls: ', error);
+				});
 		}
 	},
 
@@ -283,5 +278,37 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		});
 
 		return i18n.t('infobox-builder:main.leave-confirmation');
+	},
+
+	/**
+	 * send request to backend for redirect urls
+	 * @params {String} title
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	getRedirectUrls(title) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
+				url: M.buildUrl({
+					path: '/wikia.php'
+				}),
+				data: {
+					controller: 'PortableInfoboxBuilderController',
+					method: 'getRedirectUrls',
+					data: {
+						title
+					}
+				},
+				dataType: 'json',
+				method: 'GET',
+				success: (data) => {
+					if (data && data.success) {
+						resolve(data.urls);
+					} else {
+						reject(data.errors);
+					}
+				},
+				error: (err) => reject(err)
+			});
+		});
 	}
 });

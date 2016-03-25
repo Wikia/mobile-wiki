@@ -39,10 +39,12 @@ export default Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		goToSourceEditor() {
+			const model = this.get('model');
+
 			// prevents showing confirmation dialog on save
 			this.set('isDirty', false);
 
-			this.get('target').send('goToSourceEditor');
+			this.get('target').send('goToSourceEditor', model.get('title'));
 		},
 
 		/**
