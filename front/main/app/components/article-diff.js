@@ -43,7 +43,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		removeUpvote(upvoteId) {
-			this.get('removeUpvote')(upvoteId).then(
+			this.get('removeRevisionUpvote')(upvoteId).then(
 				this.trackSuccess.bind(this, 'remove-upvote-success'),
 				this.handleError.bind(this, 'main.error', 'remove-upvote-error')
 			);
@@ -55,7 +55,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		upvote() {
-			this.get('addUpvote')(this.get('currentUser.userId')).then(
+			this.get('addRevisionUpvote')(this.get('currentUser.userId')).then(
 				this.trackSuccess.bind(this, 'upvote-success'),
 				this.handleError.bind(this, 'main.error', 'upvote-error')
 			);
