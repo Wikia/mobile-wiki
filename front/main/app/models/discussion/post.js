@@ -52,11 +52,9 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			method: 'POST',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
 			success: (reply) => {
-				let allReplies;
-
 				reply.isNew = true;
-				this.incrementProperty('postCount');
-				this.get('data.replies').pushObject(reply);
+				this.incrementProperty('data.repliesCount');
+				this.get('data.replies').pushObject(DiscussionReply.create(reply));
 
 				track(trackActions.ReplyCreate);
 			},
