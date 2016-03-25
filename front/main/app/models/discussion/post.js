@@ -98,6 +98,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 
 		normalizedData.setProperties({
 			contributors,
+			forumId: apiData.forumId,
 			page: 0,
 			replies: normalizedRepliesData,
 			repliesCount: apiData.postCount
