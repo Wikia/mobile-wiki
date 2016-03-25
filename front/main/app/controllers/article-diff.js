@@ -14,13 +14,13 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * Adds upvote for given revision
-		 *
-		 * @param {int} currentUserId
+		 * @param {string} revisionId Revision id that was upvoted
+		 * @param {string} title Text title from main namespace that revision was upvoted
+		 * @param {int} fromUser User id who upvoted
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		addUpvoteAction(currentUserId) {
-			return this.get('model').upvote(currentUserId);
+		addUpvoteAction(revisionId, title, fromUser) {
+			return this.get('model').upvote(revisionId, title, fromUser);
 		},
 
 		/**

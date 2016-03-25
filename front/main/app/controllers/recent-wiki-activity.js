@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
 		/**
 		 * Adds upvote for given revision from provided user
 		 *
-		 * @param {int} revisionId Revision id that was upvoted
+		 * @param {string} revisionId Revision id that was upvoted
 		 * @param {string} title Text title from main namespace that revision was upvoted
 		 * @param {int} fromUser User id who upvoted
 		 * @returns {Ember.RSVP.Promise}

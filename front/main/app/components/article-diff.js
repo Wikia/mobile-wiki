@@ -51,11 +51,13 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * Send info to server that user upvoted a revision
+		 * @param {string} revisionId Revision id that was upvoted
+		 * @param {string} title Text title from main namespace that revision was upvoted
+		 * @param {int} fromUser User id who upvoted
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		upvoteHandler() {
-			return this.get('addRevisionUpvote')(this.get('currentUser.userId'));
+		upvoteHandler(revisionId, title, fromUser) {
+			return this.get('addRevisionUpvote')(revisionId, title, fromUser);
 		},
 
 		/**
@@ -93,16 +95,23 @@ export default Ember.Component.extend(
 				if (this.get('upvoted')) {
 					this.removeUpvote(this.get('currentUserUpvoteId'));
 				} else {
-					this.upvoteHandler().then(
-						this.trackSuccess.bind(this, 'upvote-success'),
-						this.handleError.bind(this, 'main.error', 'upvote-error')
-					);
+					this.upvoteHandler(this.get('model.newId'), this.get('model.title'), this.get('currentUser.userId'))
+						.then(
+							this.trackSuccess.bind(this, 'upvote-success'),
+							this.handleError.bind(this, 'main.error', 'upvote-error')
+						);
 					this.trackClick(trackCategory, 'upvote');
 				}
 			},
 
-			upvote() {
-				return this.upvoteHandler();
+			/**
+			 * @param {string} revisionId Revision id that was upvoted
+			 * @param {string} title Text title from main namespace that revision was upvoted
+			 * @param {int} fromUser User id who upvoted
+			 * @returns {Ember.RSVP.Promise}
+			 */
+			upvote(revisionId, title, fromUser) {
+				return this.upvoteHandler(revisionId, title, fromUser);
 			},
 
 			/**

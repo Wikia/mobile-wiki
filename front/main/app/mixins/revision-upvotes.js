@@ -4,7 +4,7 @@ import getEditToken from '../utils/edit-token';
 export default Ember.Mixin.create({
 	/**
 	 * Sends request to MW API to upvote newId revision of title
-	 * @param {int} revisionId ID of revision that is upvoted
+	 * @param {string} revisionId ID of revision that is upvoted
 	 * @param {string} title Text tilte of article in main namespace which revision is upvoted
 	 * @returns {Ember.RSVP.Promise}
 	 */
