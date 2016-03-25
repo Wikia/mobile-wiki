@@ -78,7 +78,6 @@ export default class FormErrors {
 	 */
 	displayFieldValidationError(err) {
 		const errorNode = this.createValidationErrorHTMLNode(err.description),
-			// TODO handling `additional` attribute
 			input = this.form.elements[err.field];
 
 		let specialFieldContainer;
