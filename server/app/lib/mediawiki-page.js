@@ -1,6 +1,7 @@
 import {resolve, reject, settle} from 'bluebird';
 import * as MediaWiki from './mediawiki';
 import {createServerData} from './utils';
+import {PageRequestError} from './custom-errors';
 import logger from './logger';
 import localSettings from '../../config/localSettings';
 
@@ -8,21 +9,6 @@ import localSettings from '../../config/localSettings';
  * @todo XW-608 move setTitile to common part for CuratedMainPageRequestHelper and PageRequestHelper
  * Common part should be extracted and moved to new class WikiaRequestHelper(?)
  */
-
-/**
- * @class PageRequestError
- */
-export class PageRequestError {
-	/**
-	 * @param {MediaWikiPageData} data
-	 * @returns {void}
-	 */
-	constructor(data) {
-		Error.apply(this, arguments);
-		this.data = data;
-	}
-}
-PageRequestError.prototype = Object.create(Error.prototype);
 
 /**
  * @class PageRequestHelper
@@ -83,7 +69,6 @@ export class PageRequestHelper {
 					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled();
 
 				let page,
-					wikiVariables,
 					data;
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
@@ -91,18 +76,14 @@ export class PageRequestHelper {
 					mediaWikiPagePromise.value() :
 					mediaWikiPagePromise.reason();
 
-				wikiVariables = isWikiVariablesPromiseFulfilled ?
-					wikiVariablesPromise.value() :
-					wikiVariablesPromise.reason();
-
-				if (!isWikiVariablesPromiseFulfilled || !wikiVariables) {
-					return reject(new MediaWiki.WikiVariablesRequestError(wikiVariables));
+				if (!isWikiVariablesPromiseFulfilled) {
+					return reject(wikiVariablesPromise.reason());
 				}
 
 				data = {
 					page,
 					server: createServerData(localSettings, this.params.wikiDomain),
-					wikiVariables
+					wikiVariables: wikiVariablesPromise.value()
 				};
 
 				if (isMediaWikiPagePromiseFulfilled && page) {

@@ -1,6 +1,7 @@
 $back-arrow-icon-size: 16px;
 $border-width: 1px;
 $box-shadow-size: 2px;
+$chevron-area-width: 40px;
 $edit-options-pop-over-arrow-size: 14px;
 $icon-action-size: 24px;
 $icon-button-size: 30px;
@@ -16,12 +17,15 @@ $overlay-color: rgba(255, 255, 255, .8);
 $padding: 18px;
 $popover-vertical-padding: 8px;
 $popover-horizontal-padding: 15px;
+$popover-width: 250px;
 $sidebar-width: 300px;
 $sidebar-items-padding: 30px;
+$sidebar-blur-radius: 6px;
 $shadow-blur: 15px;
-$shadow-color: rgba(0, 0, 0, .3);
-$source-icon-margins: 6px;
 $spinner-text-color: rgba(0, 0, 0, .5);
+$shadow-color: rgba(0, 0, 0, .3);
+$shadow-color-sidebar: rgba(0, 0, 0, .2);
+$source-icon-margins: 6px;
 $sidebar-z-index: 1;
 
 // overwrite default mercury styles
@@ -131,6 +135,7 @@ $sidebar-z-index: 1;
 			&:before {
 				cursor: move;
 				box-shadow: 0 $box-shadow-size * 4 $shadow-blur 0 $shadow-color;
+				pointer-events: none;
 				transition: box-shadow 0.2s ease-in-out;
 			}
 		}
@@ -152,11 +157,17 @@ $sidebar-z-index: 1;
 }
 
 .infobox-builder-sidebar {
-	box-shadow: -$box-shadow-size 0 $shadow-blur 0 $shadow-color;
 	flex-basis: $sidebar-width;
 	max-width: $sidebar-width;
-	// required for displaying sidebar shadow when preview scrollbar appear
-	z-index: $sidebar-z-index;
+
+	&:before {
+		box-shadow: -$box-shadow-size * 2 0 $sidebar-blur-radius $shadow-color-sidebar;
+		content: '';
+		height: 100%;
+		pointer-events: none;
+		position: absolute;
+		width: 100%;
+	}
 
 	.text-field,
 	.check-box {
@@ -283,6 +294,10 @@ $sidebar-z-index: 1;
 }
 
 .is-preview-item-dragged {
+	.infobox-builder-chevron-area {
+		pointer-events: none;
+	}
+
 	.pi-item:not(.is-dragging) {
 		pointer-events: none;
 
@@ -342,6 +357,62 @@ $sidebar-z-index: 1;
 	}
 }
 
-.infobox-builder-go-to-source-modal-message {
-	text-align: left;
+.infobox-builder-chevron-area {
+	display: block;
+	height: 100%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: $chevron-area-width;
+	z-index: 1;
+}
+
+.is-group-highlighted .in-group {
+	&.pi-item {
+		&:before {
+			border-left: $border-width solid $color-blue-light;
+			border-right: $border-width solid $color-blue-light;
+			box-sizing: content-box;
+			content: ' ';
+			display: block;
+			height: 100%;
+			left: -$border-width;
+			position: absolute;
+			top: -$border-width;
+			width: 100%;
+		}
+
+		&.last:before {
+			border-bottom: $border-width solid $color-blue-light;
+		}
+
+		&.pi-data:not(.active):before {
+			height: calc(100% + #{$border-width});
+		}
+	}
+
+	&.pi-header {
+		&:before {
+			border-top: $border-width solid $color-blue-light;
+		}
+
+		&:not(.active):before {
+			border-bottom: transparent;
+		}
+	}
+
+	.pop-over {
+		color: $color-gray-dark;
+		position: fixed;
+		width: $popover-width;
+
+		.infobox-builder-popup-text {
+			margin: 0;
+			font-size: $type-smallest;
+		}
+
+		.pop-over-container {
+			padding: $popover-horizontal-padding;
+		}
+	}
 }

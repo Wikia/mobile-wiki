@@ -59,7 +59,6 @@ export default function prepareMediaWikiData(request, data) {
 	}
 
 	result.asyncArticle = false;
-	result.prerenderEnabled = false;
 
 	return result;
 }
