@@ -294,7 +294,7 @@ export default Ember.Component.extend(
 						isLoading: true,
 						loadingMessage
 					});
-					//figure out where to take url from
+					// figure out where to take url from
 					controllerAction();
 					resolve();
 				}

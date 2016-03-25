@@ -96,6 +96,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		 * Connects with ponto and redirects to page from url if given.
 		 * If url not passed, redirect to previously visited page.
 		 *
+		 * @param {String} url
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		redirectToPage(url) {
@@ -122,7 +123,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 
 		/**
 		 * redirects to source editor
-		 * @params {String} title
+		 * @param {String} title
 		 * @returns {void}
 		 */
 		goToSourceEditor(title) {
@@ -282,7 +283,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 
 	/**
 	 * send request to backend for redirect urls
-	 * @params {String} title
+	 * @param {String} title
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getRedirectUrls(title) {
