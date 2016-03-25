@@ -28,11 +28,9 @@ const DiscussionReportedPosts = DiscussionBaseModel.extend(
 				},
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
 				success: (data) => {
-					const newPosts = data._embedded['doc:posts'];
-
-					DiscussionEntities.createFromPostsData(newPosts);
-
-					this.set('data.entities', this.get('data.entities').concat(newPosts));
+					this.get('data.entities').pushObjects(
+						DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'))
+					);
 				},
 				error: (err) => {
 					this.handleLoadMoreError(err);
@@ -46,9 +44,8 @@ const DiscussionReportedPosts = DiscussionBaseModel.extend(
 		 * @returns {void}
 		 */
 		setNormalizedData(apiData) {
-			const embedded = apiData._embedded,
-				posts = embedded && embedded['doc:posts'] ? embedded['doc:posts'] : [],
-				pivotId = (posts.length > 0 ? posts[0].id : null),
+			const posts = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
+				pivotId = Ember.getWithDefault(posts, '0.id', 0),
 				// contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]'));
 				// Work in Progress: szpachla until is SOC-1586 is done
 				contributors = DiscussionContributors.create({

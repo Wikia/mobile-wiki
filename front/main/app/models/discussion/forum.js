@@ -31,14 +31,11 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				},
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
 				success: (data) => {
-					const newThreads = data._embedded['doc:threads'];
-					let allPosts;
-
-					allPosts = this.get('data.entities').concat(
-						newThreads.map((newThread) => DiscussionPost.createFromThreadListData(newThread))
+					this.get('data.entities').pushObjects(
+						Ember.get(data, '_embedded.doc:threads').map(
+							(newThread) => DiscussionPost.createFromThreadListData(newThread)
+						)
 					);
-
-					this.set('data.entities', allPosts);
 				},
 				error: (err) => {
 					this.handleLoadMoreError(err);
@@ -60,13 +57,9 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				success: (thread) => {
 					const newPost = DiscussionPost.createFromThreadData(thread);
 
-					let allPosts;
-
-					newPost.isNew = true;
-					allPosts = this.get('data.entities');
-					allPosts.insertAt(0, newPost);
+					newPost.set('isNew', true);
+					this.get('data.entities').insertAt(0, newPost);
 					this.incrementProperty('totalPosts');
-					this.set('data.entities', allPosts);
 
 					track(trackActions.PostCreate);
 				},
@@ -82,16 +75,15 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		 * @returns {void}
 		 */
 		setNormalizedData(apiData) {
-			const embedded = apiData._embedded,
-				posts = embedded && embedded['doc:threads'] ? embedded['doc:threads'] : [],
-				pivotId = (posts.length > 0 ? posts[0].id : null),
+			const posts = Ember.getWithDefault(apiData, '_embedded.doc:threads', []),
+				pivotId = Ember.getWithDefault(posts, '0.id', 0),
 				entities = DiscussionEntities.createFromThreadsData(posts),
 				canModerate = Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false);
 
 			this.get('data').setProperties({
 				forumId: apiData.id,
 				canModerate,
-				contributors: DiscussionContributors.create(embedded.contributors[0]),
+				contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities,
 				pageNum: 0,
 				postCount: apiData.threadCount,

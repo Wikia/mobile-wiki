@@ -27,17 +27,15 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				viewableOnly: false,
 			}),
 			success: (data) => {
-				// Note that we have to reverse the list we get back because how we're displaying
-				// replies on the page; we want to see the newest replies first but show them
-				// starting with oldest of the current list at the top.
-				const allReplies = Ember.get(data, '._embedded.doc:posts').reverse()
-					.map((reply) => DiscussionReply.create(reply))
-					.concat(this.get('data.replies'));
+				this.get('data.replies').unshiftObjects(
+					// Note that we have to reverse the list we get back because how we're displaying
+					// replies on the page; we want to see the newest replies first but show them
+					// starting with oldest of the current list at the top.
+					Ember.get(data, '._embedded.doc:posts').reverse()
+						.map((reply) => DiscussionReply.create(reply))
+				);
 
-				this.get('data').setProperties({
-					page: this.get('data.page') + 1,
-					replies: allReplies,
-				});
+				this.incrementProperty('data.page');
 			},
 			error: (err) => {
 				this.handleLoadMoreError(err);
@@ -54,9 +52,11 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			method: 'POST',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
 			success: (reply) => {
+				let allReplies;
+
 				reply.isNew = true;
 				this.incrementProperty('postCount');
-				this.replies.pushObject(reply);
+				this.get('data.replies').pushObject(reply);
 
 				track(trackActions.ReplyCreate);
 			},
