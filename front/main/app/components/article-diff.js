@@ -34,7 +34,7 @@ export default Ember.Component.extend(
 		 */
 		handleError(messageKey, label) {
 			this.trackError(label);
-			this.get('error')(messageKey);
+			this.get('showError')(messageKey);
 		},
 
 		/**
@@ -43,7 +43,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		removeUpvote(upvoteId) {
-			this.get('model').removeUpvote(upvoteId).then(
+			this.get('removeUpvote')(upvoteId).then(
 				this.trackSuccess.bind(this, 'remove-upvote-success'),
 				this.handleError.bind(this, 'main.error', 'remove-upvote-error')
 			);
@@ -55,7 +55,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		upvote() {
-			this.get('model').upvote(this.get('currentUser.userId')).then(
+			this.get('addUpvote')(this.get('currentUser.userId')).then(
 				this.trackSuccess.bind(this, 'upvote-success'),
 				this.handleError.bind(this, 'main.error', 'upvote-error')
 			);
@@ -134,12 +134,10 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			undo(summary) {
-				this.get('loading')();
-
-				this.get('model').undo(summary).then(
+				this.get('undo')(summary).then(
 					() => {
 						this.trackSuccess('undo-success');
-						this.get('redirect')();
+						this.get('redirectToRWA')().then(() => this.get('showSuccess')('main.undo-success'));
 					},
 					(errorMsg) => {
 						this.handleError(errorMsg, 'undo-error');

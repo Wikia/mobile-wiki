@@ -1,6 +1,9 @@
 {{article-diff
 	model=model
-	redirect=(action 'redirectToRWA')
-	loading=(action 'setLoading')
-	error=(action 'showError')
+	addUpvote=(action 'addRevisionUpvote')
+	redirectToRWA=(action 'redirect')
+	removeUpvote=(action 'removeRevisionUpvote')
+	showError=(action 'error')
+	showSuccess=(action 'success')
+	undo=(action 'undoRevision')
 }}

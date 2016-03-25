@@ -4,28 +4,52 @@ export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
 	currRecentChangeId: null,
 
-	/**
-	 * Adds success banner
-	 * @param {string} messageKey message key with prefix (taken from recent-wiki-activity namespace)
-	 * @returns {void}
-	 */
-	showSuccess(messageKey) {
-		this.get('application').addAlert({
-			message: i18n.t(messageKey, {
-				pageTitle: this.get('model.title'),
-				ns: 'recent-wiki-activity'
-			}),
-			type: 'success'
-		});
-	},
-
 	actions: {
+		/**
+		 * Redirects back to Recent Wiki Activity list
+		 * @returns {void}
+		 */
+		redirect() {
+			return this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}});
+		},
+
+		/**
+		 * Adds upvote for given revision
+		 *
+		 * @param {int} currentUserId
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		addRevisionUpvote(currentUserId) {
+			return this.get('model').upvote(currentUserId);
+		},
+
+		/**
+		 * Removes upvote for given revision
+		 *
+		 * @param {int} upvoteId
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		removeRevisionUpvote(upvoteId) {
+			return this.get('model').removeUpvote(upvoteId);
+		},
+
+		/**
+		 * Undo given revision
+		 *
+		 * @param {string} summary
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		undoRevision(summary) {
+			this.get('application').set('isLoading', true);
+			return this.get('model').undo(summary);
+		},
+
 		/**
 		 * Adds error banner
 		 * @param {string} messageKey message key with prefix (taken from recent-wiki-activity namespace)
 		 * @returns {void}
 		 */
-		showError(messageKey) {
+		error(messageKey) {
 			const application = this.get('application');
 
 			application.addAlert({
@@ -37,16 +61,18 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * Redirects back to Recent Wiki Activity list and adds success banner
+		 * Adds success banner
+		 * @param {string} messageKey message key with prefix (taken from recent-wiki-activity namespace)
 		 * @returns {void}
 		 */
-		redirectToRWA() {
-			this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}})
-				.then(() => this.showSuccess('main.undo-success'));
+		success(messageKey) {
+			this.get('application').addAlert({
+				message: i18n.t(messageKey, {
+					pageTitle: this.get('model.title'),
+					ns: 'recent-wiki-activity'
+				}),
+				type: 'success'
+			});
 		},
-
-		setLoading() {
-			this.get('application').set('isLoading', true);
-		}
 	}
 });
