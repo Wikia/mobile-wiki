@@ -53,14 +53,11 @@ export default function getPageModel(params) {
 
 	return new Ember.RSVP.Promise((resolve, reject) => {
 		if (M.prop('articleContentPreloadedInDOM')) {
-			const article = ArticleModel.getPreloadedData();
+			// This happens also for categories with article
+			const preloadedData = ArticleModel.getPreloadedData();
+			model = getModelForNamespace(preloadedData, params);
 
-			if (Ember.get(article, 'isContentNamespace')) {
-				model = ArticleModel.create(params);
-				ArticleModel.setArticle(model, article);
-
-				return resolve(model);
-			}
+			return resolve(model);
 		}
 
 		if (M.prop('exception')) {

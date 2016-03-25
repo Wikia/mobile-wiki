@@ -41,8 +41,6 @@ export default function prepareArticleData(request, data) {
 
 	let htmlTitle;
 
-	result.articlePage.isContentNamespace = true;
-
 	if (articleData) {
 		result.isMainPage = articleData.isMainPage;
 
