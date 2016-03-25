@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ajaxCall from '../utils/ajax-call';
+import ajaxCall from '../../utils/ajax-call';
 
 const DiscussionIndexModel = Ember.Object.extend({});
 
