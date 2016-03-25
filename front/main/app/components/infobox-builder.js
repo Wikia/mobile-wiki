@@ -222,7 +222,7 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			changeTemplateTitle(title) {
-				this.get('checkIfTemplateExistsAction')(title).then((exists) => {
+				this.get('getTemplateExistsAction')(title).then((exists) => {
 					this.set('titleExists', exists);
 
 					if (!exists) {

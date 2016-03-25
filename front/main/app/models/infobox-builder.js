@@ -298,7 +298,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		state.forEach((element) => this.addItem(element.type, element));
 	},
 
-	checkIfTemplateExists(title) {
+	getTemplateExists(title) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			Ember.$.ajax({
 				url: M.buildUrl({
@@ -306,7 +306,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 				}),
 				data: {
 					controller: 'PortableInfoboxBuilderController',
-					method: 'checkIfTemplateExists',
+					method: 'getTemplateExists',
 					title
 				},
 				dataType: 'json',
