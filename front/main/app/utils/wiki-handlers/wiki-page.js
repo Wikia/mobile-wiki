@@ -24,7 +24,7 @@ function getURL(params) {
  * @param {Object} params
  * @returns {Object}
  */
-function getModelForNamespace(data, params) {
+export function getModelForNamespace(data, params) {
 	const currentNamespace = data.data.ns;
 	let model;
 
