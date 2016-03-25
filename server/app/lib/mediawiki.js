@@ -6,6 +6,7 @@ import Logger from './logger';
 import Wreck from 'wreck';
 import Promise from 'bluebird';
 import Url from 'url';
+import {WikiVariablesNotValidWikiError, WikiVariablesRequestError} from './custom-errors';
 
 /**
  * @typedef {Object} CallbackParams
@@ -326,7 +327,14 @@ export class WikiRequest extends BaseRequest {
 			 * @returns {Promise}
 			 */
 			.then((wikiVariables) => {
-				return Promise.resolve(wikiVariables.data);
+				if (wikiVariables.data) {
+					return Promise.resolve(wikiVariables.data);
+				} else {
+					// If we got status 200 but not the expected format we handle it as a redirect to "Not valid wiki"
+					throw new WikiVariablesNotValidWikiError();
+				}
+			}, () => {
+				throw new WikiVariablesRequestError();
 			});
 	}
 }
@@ -470,19 +478,3 @@ export class PageRequest extends BaseRequest {
 		return this.post(url, Url.format({query: params}).substr(1));
 	}
 }
-
-/**
- * @class WikiVariablesRequestError
- */
-export class WikiVariablesRequestError {
-	/**
-	 * @param {MWException} error
-	 * @returns {void}
-	 */
-	constructor(error) {
-		Error.apply(this, arguments);
-		this.error = error;
-	}
-}
-
-WikiVariablesRequestError.prototype = Object.create(Error.prototype);
