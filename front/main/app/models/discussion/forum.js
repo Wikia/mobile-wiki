@@ -77,12 +77,11 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		setNormalizedData(apiData) {
 			const posts = Ember.getWithDefault(apiData, '_embedded.doc:threads', []),
 				pivotId = Ember.getWithDefault(posts, '0.id', 0),
-				entities = DiscussionEntities.createFromThreadsData(posts),
-				canModerate = Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false);
+				entities = DiscussionEntities.createFromThreadsData(posts);
 
 			this.get('data').setProperties({
 				forumId: apiData.id,
-				canModerate,
+				canModerate: Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
 				contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities,
 				pageNum: 0,

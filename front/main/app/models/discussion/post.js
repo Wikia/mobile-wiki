@@ -74,11 +74,9 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 
 		let contributors,
 			normalizedRepliesData,
-			pivotId,
-			canModerate;
+			pivotId;
 
 		normalizedRepliesData = DiscussionEntities.createFromPostsData(apiRepliesData);
-		canModerate = Ember.getWithDefault(normalizedRepliesData, '0.userData.permissions.canModerate', false);
 
 		if (normalizedRepliesData.length) {
 			pivotId = normalizedRepliesData[0].id;
@@ -97,6 +95,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		normalizedData.setProperties({
 			canModerate,
 			contributors,
+			canModerate: Ember.getWithDefault(normalizedRepliesData, '0.userData.permissions.canModerate', false),
 			forumId: apiData.forumId,
 			page: 0,
 			replies: normalizedRepliesData,

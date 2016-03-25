@@ -52,11 +52,10 @@ const DiscussionReportedPosts = DiscussionBaseModel.extend(
 					count: apiData.postCount,
 					userInfo: posts.map((post) => DiscussionContributor.create(post.createdBy)),
 				}),
-				entities = DiscussionEntities.createFromPostsData(posts),
-				canModerate = Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false);
+				entities = DiscussionEntities.createFromPostsData(posts);
 
 			this.get('data').setProperties({
-				canModerate,
+				canModerate: Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
 				forumId: Ember.get(Mercury, 'wiki.id'),
 				contributors,
 				entities,

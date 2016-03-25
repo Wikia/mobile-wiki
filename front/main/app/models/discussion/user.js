@@ -10,13 +10,6 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	postsLimit: 10,
 	userId: null,
 
-	canDeleteAll: Ember.computed('data.entities', function () {
-		const posts = this.get('data.entities');
-
-		// TODO fix me when API starts sending permissions for bulk operations
-		return posts && posts[0] && posts[0].get('userData.permissions.canModerate');
-	}),
-
 	loadPage(pageNum = 0) {
 		this.set('pageNum', pageNum);
 
@@ -54,11 +47,11 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				count: 1,
 				userInfo: [posts[0].createdBy],
 			}),
-			entities = DiscussionEntities.createFromPostsData(posts),
-			canModerate = Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false);
+			entities = DiscussionEntities.createFromPostsData(posts);
 
 		this.get('data').setProperties({
-			canModerate,
+			canDeleteAll: Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
+			canModerate: Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
 			contributors,
 			entities,
 			forumId: Ember.get(Mercury, 'wiki.id'),
