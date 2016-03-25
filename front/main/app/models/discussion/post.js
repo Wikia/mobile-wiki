@@ -96,7 +96,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		}
 
 		// contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]'));
-		// Work in Progress: szpachla until is SOC-1586 is done
+		// Work in Progress: szpachla until SOC-1586 is done
 		contributors = DiscussionContributors.create({
 			count: apiData.postCount,
 			userInfo: normalizedRepliesData.map((reply) => DiscussionContributor.create(reply.createdBy)),

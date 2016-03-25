@@ -48,7 +48,7 @@ const DiscussionReportedPosts = DiscussionBaseModel.extend(
 			const posts = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
 				pivotId = Ember.getWithDefault(posts, '0.id', 0),
 				// contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]'));
-				// Work in Progress: szpachla until is SOC-1586 is done
+				// Work in Progress: szpachla until SOC-1586 is done
 				contributors = DiscussionContributors.create({
 					count: apiData.postCount,
 					userInfo: posts.map((post) => DiscussionContributor.create(post.createdBy)),
