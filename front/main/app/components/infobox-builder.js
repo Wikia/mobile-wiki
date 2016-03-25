@@ -241,10 +241,10 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * @param {Boolean} [shouldRedirectToTemplatePage=true]
+		 * @param {Boolean} [shouldRedirectToPage=true]
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		save(shouldRedirectToTemplatePage = true) {
+		save(shouldRedirectToPage = true) {
 			this.setProperties({
 				isLoading: true,
 				loadingMessage: i18n.t('main.saving', {
@@ -255,7 +255,7 @@ export default Ember.Component.extend(
 			this.trackClick('infobox-builder', 'save-attempt');
 			this.trackChangedItems();
 
-			return this.get('saveAction')(shouldRedirectToTemplatePage).then(() => {
+			return this.get('saveAction')(shouldRedirectToPage).then(() => {
 				track({
 					action: trackActions.success,
 					category: 'infobox-builder',
@@ -294,7 +294,7 @@ export default Ember.Component.extend(
 						isLoading: true,
 						loadingMessage
 					});
-
+					// figure out where to take url from
 					controllerAction();
 					resolve();
 				}

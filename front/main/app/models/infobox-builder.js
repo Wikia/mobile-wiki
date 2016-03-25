@@ -322,7 +322,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 						method: 'POST',
 						success: (data) => {
 							if (data && data.success) {
-								resolve(this.get('title'));
+								resolve(data.urls);
 							} else {
 								reject(data.errors);
 							}

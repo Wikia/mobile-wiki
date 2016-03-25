@@ -93,13 +93,15 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		},
 
 		/**
-		 * Connects with ponto and redirects to template page
+		 * Connects with ponto and redirects to page from url if given.
+		 * If url not passed, redirect to previously visited page.
 		 *
+		 * @param {String} url
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		redirectToTemplatePage() {
-			const action = this.controllerFor('infobox-builder').get('model.title') ?
-				'redirectToTemplatePage' :
+		redirectToPage(url) {
+			const action = url ?
+				'redirectToPage' :
 				'redirectToPreviousPage';
 
 			return new Ember.RSVP.Promise((resolve, reject) => {
@@ -108,7 +110,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 				ponto.invoke(
 					'wikia.infoboxBuilder.ponto',
 					action,
-					null,
+					url,
 					(data) => resolve(data),
 					(data) => {
 						reject(data);
@@ -120,23 +122,18 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		},
 
 		/**
-		 * Connects with ponto and redirects to source editor
-		 *
+		 * redirects to source editor
+		 * @param {String} title
 		 * @returns {void}
 		 */
-		goToSourceEditor() {
-			const ponto = window.Ponto;
-
-			ponto.invoke(
-				'wikia.infoboxBuilder.ponto',
-				'redirectToSourceEditor',
-				null,
-				Ember.K,
-				(data) => {
-					this.showPontoError(data);
-				},
-				false
-			);
+		goToSourceEditor(title) {
+			this.getRedirectUrls(title)
+				.then((urls) => {
+					this.send('redirectToPage', urls.sourceEditorUrl);
+				})
+				.catch((error) => {
+					Ember.Logger.error('Error while getting redirect Urls: ', error);
+				});
 		}
 	},
 
@@ -282,5 +279,35 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		});
 
 		return i18n.t('infobox-builder:main.leave-confirmation');
+	},
+
+	/**
+	 * send request to backend for redirect urls
+	 * @param {String} title
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	getRedirectUrls(title) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
+				url: M.buildUrl({
+					path: '/wikia.php'
+				}),
+				data: {
+					controller: 'PortableInfoboxBuilderController',
+					method: 'getRedirectUrls',
+					title
+				},
+				dataType: 'json',
+				method: 'GET',
+				success: (data) => {
+					if (data && data.success) {
+						resolve(data.urls);
+					} else {
+						reject(data.errors);
+					}
+				},
+				error: (err) => reject(err)
+			});
+		});
 	}
 });
