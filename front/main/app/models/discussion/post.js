@@ -9,7 +9,6 @@ import DiscussionReply from './objects/reply';
 import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
-	data: null,
 	pivotId: null,
 	replyLimit: 10,
 

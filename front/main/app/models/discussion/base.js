@@ -14,6 +14,8 @@ export default Ember.Object.extend({
 	notFoundError: null,
 	pivotId: null,
 
+	data: Ember.Object.create(),
+
 	/*
 	 * Set minorError to true, when you don't want to display error message e.g.:
 	 * 404 on infinite scroll, when unable to load non-existing pages

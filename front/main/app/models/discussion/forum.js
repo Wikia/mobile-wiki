@@ -86,20 +86,18 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				posts = embedded && embedded['doc:threads'] ? embedded['doc:threads'] : [],
 				pivotId = (posts.length > 0 ? posts[0].id : null),
 				entities = DiscussionEntities.createFromThreadsData(posts),
-				canModerate = Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
-				normalizedData = Ember.Object.create({
-					forumId: apiData.id,
-					canModerate,
-					contributors: DiscussionContributors.create(embedded.contributors[0]),
-					entities,
-					pageNum: 0,
-					postCount: apiData.threadCount,
-				});
+				canModerate = Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false);
 
-			this.setProperties({
-				pivotId,
-				data: normalizedData
+			this.get('data').setProperties({
+				forumId: apiData.id,
+				canModerate,
+				contributors: DiscussionContributors.create(embedded.contributors[0]),
+				entities,
+				pageNum: 0,
+				postCount: apiData.threadCount,
 			});
+
+			this.set('pivotId', pivotId);
 		}
 	}
 );

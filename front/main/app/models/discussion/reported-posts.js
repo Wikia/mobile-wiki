@@ -56,20 +56,18 @@ const DiscussionReportedPosts = DiscussionBaseModel.extend(
 					userInfo: posts.map((post) => DiscussionContributor.create(post.createdBy)),
 				}),
 				entities = DiscussionEntities.createFromPostsData(posts),
-				canModerate = Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
-				normalizedData = Ember.Object.create({
-					canModerate,
-					forumId: Ember.get(Mercury, 'wiki.id'),
-					contributors,
-					entities,
-					pageNum: 0,
-					postCount: apiData.postCount,
-				});
+				canModerate = Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false);
 
-			this.setProperties({
-				pivotId,
-				data: normalizedData
+			this.get('data').setProperties({
+				canModerate,
+				forumId: Ember.get(Mercury, 'wiki.id'),
+				contributors,
+				entities,
+				pageNum: 0,
+				postCount: apiData.postCount,
 			});
+
+			this.set('pivotId', pivotId);
 		}
 	}
 );

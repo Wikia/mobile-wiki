@@ -62,21 +62,19 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				userInfo: [posts[0].createdBy],
 			}),
 			entities = DiscussionEntities.createFromPostsData(posts),
-			canModerate = Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
-			normalizedData = Ember.Object.create({
-				canModerate,
-				contributors,
-				entities,
-				forumId: Ember.get(Mercury, 'wiki.id'),
-				pageNum: 0,
-				postCount: apiData.postCount,
-				userName: contributors.get('users.0.name'),
-			});
+			canModerate = Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false);
 
-		this.setProperties({
-			pivotId,
-			data: normalizedData
+		this.get('data').setProperties({
+			canModerate,
+			contributors,
+			entities,
+			forumId: Ember.get(Mercury, 'wiki.id'),
+			pageNum: 0,
+			postCount: apiData.postCount,
+			userName: contributors.get('users.0.name'),
 		});
+
+		this.setProperties('pivotId', pivotId);
 	}
 });
 
