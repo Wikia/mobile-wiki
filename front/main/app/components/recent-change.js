@@ -17,6 +17,10 @@ export default Ember.Component.extend({
 	hasDiff: Ember.computed.and('model.old_revid', 'model.revid'),
 	showDiffLink: true,
 
+	handleError() {
+		this.get('showError')('main.error');
+	},
+
 	actions: {
 		handleVote(revisionId, title) {
 			if (this.get('userUpvoted')) {
@@ -24,12 +28,7 @@ export default Ember.Component.extend({
 			} else {
 				this.get('upvote')(revisionId, title, this.get('currentUser.userId')).then(
 					() => {},
-					() => {
-						this.get('application').addAlert({
-							message: i18n.t('main.error', {ns: 'recent-wiki-activity'}),
-							type: 'alert'
-						});
-					}
+					this.handleError.bind(this)
 				);
 			}
 		}
