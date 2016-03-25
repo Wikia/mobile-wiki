@@ -1,9 +1,10 @@
 import Ember from 'ember';
 
 /**
- * A helper allowing you to localize numbers in your templates.
- * Usage: {{number (true)}}. If you pass true as the second parameter, the number will be signed
- * so for positive numbers it will have a `+` sign (e.g. 1345 becomes +1,345). Useful for diffs and byte changes.
+ * A helper allowing you to localize numbers in your templates. Usage: {{localize-number 1234}}.
+ * If you pass true as the second parameter, the number will be signed
+ * so for positive numbers it will have a `+` sign. Useful for diffs and byte changes.
+ * Example: {{localize-number 1234 true}} will result in +1,234 in English.
  * @param {Array} params
  * @returns {string}
  */

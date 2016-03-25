@@ -31,16 +31,13 @@ export default Ember.Service.extend({
 		});
 	},
 	/**
-	 * Changes numeral locale to en. It's loaded by default, so we don't need to download it
+	 * Changes numeral locale. By default it's English which is always preloaded.
 	 *
 	 * @return {void}
 	 */
-	setEnLocale() {
-		numeral.language('en');
-		// Change status when moment finished changing locale
-		Ember.run.next(() => {
-			this.changeLoadingStatus();
-		});
+	setLocale(locale = 'en') {
+		numeral.language(locale);
+		this.changeLoadingStatus();
 	},
 	/**
 	 * Downloads locale for numeral if content language is not en, otherwise just changes to en
@@ -54,14 +51,13 @@ export default Ember.Service.extend({
 
 			this.changeLoadingStatus(false);
 			if (lang === 'en') {
-				this.setEnLocale();
+				this.setLocale();
 			} else {
 				Ember.$.getScript(this.localePath[lang]).done(() => {
-					numeral.language(lang);
-					this.changeLoadingStatus();
+					this.setLocale(lang);
 				}).fail((jqxhr, settings, exception) => {
 					Ember.Logger.error(`Can't get numeral translation for ${lang} | ${exception}`);
-					this.setEnLocale();
+					this.setLocale();
 				});
 			}
 		}
