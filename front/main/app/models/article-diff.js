@@ -69,6 +69,8 @@ const ArticleDiffModel = Ember.Object.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	upvote(currentUserId) {
+		debugger;
+		//zonk
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			getEditToken(this.title)
 			.then((token) => {

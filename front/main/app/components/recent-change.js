@@ -18,10 +18,19 @@ export default Ember.Component.extend({
 	showDiffLink: true,
 
 	actions: {
-		handleVote() {
-			// Process only if handler provided on invocation
-			if (this.attrs.handleVote) {
-				this.attrs.handleVote();
+		handleVote(revisionId, title) {
+			if (this.get('userUpvoted')) {
+				// TODO this.removeUpvote(this.get('currentUserUpvoteId'));
+			} else {
+				this.upvote(revisionId, title, this.get('currentUser.userId')).then(
+					() => {},
+					() => {
+						this.get('application').addAlert({
+							message: i18n.t('main.error', {ns: 'recent-wiki-activity'}),
+							type: 'alert'
+						});
+					}
+				);
 			}
 		}
 	}
