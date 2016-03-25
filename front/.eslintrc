@@ -17,7 +17,7 @@
     "Mercury": true,
     "numeral": true,
     "optimizely": true,
-    "sha1": true,
+    "CryptoJS": true,
     "state": false,
     "VisitSource": true,
     "Weppy": true,

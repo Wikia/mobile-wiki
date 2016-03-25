@@ -17,7 +17,7 @@ export default class ProofOfWork {
 			out;
 
 		do {
-			digest = sha1(`${challenge}${counter.toString(16)}`);
+			digest = CryptoJS.SHA1(`${challenge}${counter.toString(16)}`).toString();
 
 			out = {
 				counter: counter.toString(16),
