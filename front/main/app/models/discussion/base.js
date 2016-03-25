@@ -9,7 +9,7 @@ export default Ember.Object.extend({
 	errorClass: 'discussion-error-page',
 	pivotId: null,
 
-	data: Ember.Object.create(),
+	data: null,
 
 	/*
 	 * Set minorError to true, when you don't want to display error message e.g.:
@@ -25,6 +25,7 @@ export default Ember.Object.extend({
 		const wikiId = Ember.get(Mercury, 'wiki.id');
 
 		this.setProperties({
+			data: Ember.Object.create(),
 			forumId: wikiId,
 			wikiId
 		});

@@ -3,11 +3,18 @@ import DiscussionContributor from './contributor';
 
 const DiscussionContributors = Ember.Object.extend({
 	count: null,
-	users: [],
+	users: null,
 });
 
 DiscussionContributors.reopenClass({
-
+	/**
+	 * @returns {void}
+	 */
+	init() {
+		this.setProperties({
+			users: []
+		})
+	},
 	/**
 	 * @typedef {Object} contributorsObject
 	 * @property {number} count - number of all contributors
