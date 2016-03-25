@@ -19,6 +19,7 @@ export default Ember.Component.extend(
 		showGoToSourceModal: false,
 		isEditTitleModalVisible: false,
 		editTitleModalTrigger: null,
+		titleExists: false,
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 
@@ -221,12 +222,19 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			changeTemplateTitle(title) {
-				const callback = this.get('editTitleModalTrigger');
+				this.get('checkIfTemplateExistsAction')(title).then((exists) => {
+					this.set('titleExists', exists);
 
-				this.set('title', title);
-				// @todo: DAT-3994 send request to app - check if title already exists
-				this.hideEditTitleModal();
-				this.send(callback);
+					if (!exists) {
+						const callback = this.get('editTitleModalTrigger');
+
+						this.set('title', title);
+						this.hideEditTitleModal();
+						this.send(callback);
+					} else {
+						// user tries again
+					}
+				});
 			},
 
 			/**

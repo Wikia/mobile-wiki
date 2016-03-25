@@ -47,6 +47,10 @@ export default Ember.Controller.extend({
 			this.get('target').send('goToSourceEditor', model.get('title'));
 		},
 
+		checkIfTemplateExists(title) {
+			return this.get('model').checkIfTemplateExists(title);
+		},
+
 		/**
 		 * Calls add item method on model
 		 *

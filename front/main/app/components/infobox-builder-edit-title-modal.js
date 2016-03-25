@@ -9,8 +9,13 @@ export default Ember.Component.extend(
 		value: Ember.computed('title', function () {
 			return this.get('title') || '';
 		}),
+
 		isConfirmButtonDisabled: Ember.computed('value', function () {
 			return this.get('value').trim() === '';
+		}),
+
+		errorMessage: Ember.computed('titleExists', function () {
+			return this.get('titleExists') ? 'juz istnieje!' : '';
 		}),
 
 		actions: {
