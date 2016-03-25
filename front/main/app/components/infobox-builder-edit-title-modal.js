@@ -15,7 +15,11 @@ export default Ember.Component.extend(
 		}),
 
 		errorMessage: Ember.computed('titleExists', function () {
-			return this.get('titleExists') ? 'juz istnieje!' : '';
+			return this.get('titleExists') ?
+				i18n.t('main.title-naming-conflict-error', {
+					ns: 'infobox-builder'
+				}) :
+				'';
 		}),
 
 		actions: {
