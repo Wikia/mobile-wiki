@@ -85,10 +85,13 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 			const embedded = apiData._embedded,
 				posts = embedded && embedded['doc:threads'] ? embedded['doc:threads'] : [],
 				pivotId = (posts.length > 0 ? posts[0].id : null),
+				entities = DiscussionEntities.createFromThreadsData(posts),
+				canModerate = Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
 				normalizedData = Ember.Object.create({
 					forumId: apiData.id,
+					canModerate,
 					contributors: DiscussionContributors.create(embedded.contributors[0]),
-					entities: DiscussionEntities.createFromThreadsData(posts),
+					entities,
 					pageNum: 0,
 					postCount: apiData.threadCount,
 				});

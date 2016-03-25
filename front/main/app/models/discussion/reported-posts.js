@@ -40,6 +40,11 @@ const DiscussionReportedPosts = DiscussionBaseModel.extend(
 			});
 		},
 
+		/**
+		 * @param {object} apiData
+		 *
+		 * @returns {void}
+		 */
 		setNormalizedData(apiData) {
 			const embedded = apiData._embedded,
 				posts = embedded && embedded['doc:posts'] ? embedded['doc:posts'] : [],
@@ -50,10 +55,13 @@ const DiscussionReportedPosts = DiscussionBaseModel.extend(
 					count: apiData.postCount,
 					userInfo: posts.map((post) => DiscussionContributor.create(post.createdBy)),
 				}),
+				entities = DiscussionEntities.createFromPostsData(posts),
+				canModerate = Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
 				normalizedData = Ember.Object.create({
+					canModerate,
 					forumId: Ember.get(Mercury, 'wiki.id'),
 					contributors,
-					entities: DiscussionEntities.createFromPostsData(posts),
+					entities,
 					pageNum: 0,
 					postCount: apiData.postCount,
 				});

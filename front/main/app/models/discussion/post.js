@@ -28,7 +28,6 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				viewableOnly: false,
 			}),
 			success: (data) => {
-
 				// Note that we have to reverse the list we get back because how we're displaying
 				// replies on the page; we want to see the newest replies first but show them
 				// starting with oldest of the current list at the top.
@@ -78,9 +77,11 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 
 		let contributors,
 			normalizedRepliesData,
-			pivotId;
+			pivotId,
+			canModerate;
 
 		normalizedRepliesData = DiscussionEntities.createFromPostsData(apiRepliesData);
+		canModerate = Ember.getWithDefault(normalizedRepliesData, '0.userData.permissions.canModerate', false);
 
 		if (normalizedRepliesData.length) {
 			pivotId = normalizedRepliesData[0].id;
@@ -97,6 +98,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		});
 
 		normalizedData.setProperties({
+			canModerate,
 			contributors,
 			forumId: apiData.forumId,
 			page: 0,

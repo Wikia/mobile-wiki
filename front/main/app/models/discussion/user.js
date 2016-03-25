@@ -61,9 +61,12 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				count: 1,
 				userInfo: [posts[0].createdBy],
 			}),
+			entities = DiscussionEntities.createFromPostsData(posts),
+			canModerate = Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
 			normalizedData = Ember.Object.create({
+				canModerate,
 				contributors,
-				entities: DiscussionEntities.createFromPostsData(posts),
+				entities,
 				forumId: Ember.get(Mercury, 'wiki.id'),
 				pageNum: 0,
 				postCount: apiData.postCount,
