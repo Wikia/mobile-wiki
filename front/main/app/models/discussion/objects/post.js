@@ -24,6 +24,7 @@ DiscussionPost.reopenClass({
 		const post = DiscussionPost.create({
 				count: threadData.postCount,
 				createdBy: DiscussionContributor.create(threadData.createdBy),
+				creationDate: threadData.creationDate.epochSecond,
 				id: threadData.firstPostId,
 				isDeleted: threadData.isDeleted,
 				isLocked: !threadData.isEditable,
@@ -52,6 +53,7 @@ DiscussionPost.reopenClass({
 		const post = DiscussionPost.create({
 				repliesCount: postData.postCount,
 				createdBy: DiscussionContributor.create(postData.createdBy),
+				creationDate: postData.creationDate.epochSecond,
 				id: postData.id,
 				isDeleted: postData.isDeleted,
 				isLocked: !postData.isEditable,
@@ -80,6 +82,7 @@ DiscussionPost.reopenClass({
 		const post = DiscussionPost.create({
 				repliesCount: threadData.postCount,
 				createdBy: DiscussionContributor.create(threadData.createdBy),
+				creationDate: threadData.creationDate.epochSecond,
 				id: threadData.firstPostId,
 				isDeleted: threadData.isDeleted,
 				isLocked: !threadData.isEditable,
