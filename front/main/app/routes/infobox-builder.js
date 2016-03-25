@@ -298,7 +298,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 					title
 				},
 				dataType: 'json',
-				method: 'POST',
+				method: 'GET',
 				success: (data) => {
 					if (data && data.success) {
 						resolve(data.urls);
