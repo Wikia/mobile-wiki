@@ -37,8 +37,8 @@ const namespace = {
 function isContentNamespace(ns) {
 	const contentNamespaces = Ember.getWithDefault(Mercury, 'wiki.contentNamespaces', []);
 
-	return ns === namespace.MAIN || Boolean(contentNamespaces.some(
-			// custom namespaces can be in a string format
+	// custom namespaces can be in a string format
+	return ns === namespace.MAIN || ns == namespace.PORTAL || Boolean(contentNamespaces.some(
 			(contentNamespace) => contentNamespace == ns // eslint-disable-line eqeqeq
 		));
 }

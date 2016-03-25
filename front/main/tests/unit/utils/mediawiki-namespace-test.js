@@ -23,6 +23,10 @@ module('Unit | Utils | mediawiki namespace', () => {
 				contentNamespaces: [0, 112],
 				namespace: 0,
 				expected: true
+			}, {
+				contentNamespaces: [0, 112],
+				namespace: 116,
+				expected: true
 			}
 		];
 
