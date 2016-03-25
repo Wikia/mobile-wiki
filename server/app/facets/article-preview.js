@@ -1,5 +1,5 @@
 import {PageRequestHelper} from '../lib/mediawiki-page';
-import disableCache from '../lib/caching';
+import {disableCache} from '../lib/caching';
 import {getCachedWikiDomainName, getCDNBaseUrl, getHtmlTitle} from '../lib/utils';
 import localSettings from '../../config/localSettings';
 import Logger from '../lib/logger';
@@ -90,6 +90,6 @@ export default function articlePreview(request, reply) {
 		 */
 		.catch((error) => {
 			Logger.error(error);
-			reply.view('error');
+			reply.view('article-preview-error');
 		});
 }

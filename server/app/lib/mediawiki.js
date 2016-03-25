@@ -6,6 +6,7 @@ import Logger from './logger';
 import Wreck from 'wreck';
 import Promise from 'bluebird';
 import Url from 'url';
+import {WikiVariablesNotValidWikiError, WikiVariablesRequestError} from './custom-errors';
 
 /**
  * @typedef {Object} CallbackParams
@@ -77,6 +78,26 @@ export function createUrl(wikiDomain, path, params = {}) {
 }
 
 /**
+ * @param {*} payload
+ * @param {Hapi.Response} response
+ * @returns {Object}
+ */
+export function sanitizeRejectData(payload, response) {
+	const sanitizedData = (typeof payload === 'object' && payload !== null) ? payload : {
+		payloadString: payload
+	};
+
+	if (typeof sanitizedData.exception !== 'object') {
+		sanitizedData.exception = {};
+	}
+
+	// Make sure that we have exception code as we rely on it later
+	sanitizedData.exception.code = sanitizedData.exception.code || response.statusCode;
+
+	return sanitizedData;
+}
+
+/**
  * Handle request response
  *
  * @param {CallbackParams} params
@@ -101,22 +122,18 @@ function requestCallback(params) {
 	} else if (response.statusCode === 200) {
 		resolve(payload);
 	} else {
-		const info = {
-			exception: {
-				message: 'Invalid response',
-				code: response.statusCode,
-				details: payload ? payload.toString('utf-8') : null
-			}
-		};
+		// Don't flood logs with 404s
+		if (response.statusCode !== 404) {
+			Logger.error({
+				url,
+				headers: response.headers,
+				statusCode: response.statusCode,
+				details: (payload instanceof Buffer) ? payload.toString('utf-8') : payload,
+				host
+			}, 'Bad HTTP response');
+		}
 
-		Logger.error({
-			url,
-			headers: response.headers,
-			statusCode: response.statusCode,
-			host
-		}, 'Bad HTTP response');
-
-		reject(info);
+		reject(sanitizeRejectData(payload, response));
 	}
 }
 
@@ -310,7 +327,14 @@ export class WikiRequest extends BaseRequest {
 			 * @returns {Promise}
 			 */
 			.then((wikiVariables) => {
-				return Promise.resolve(wikiVariables.data);
+				if (wikiVariables.data) {
+					return Promise.resolve(wikiVariables.data);
+				} else {
+					// If we got status 200 but not the expected format we handle it as a redirect to "Not valid wiki"
+					throw new WikiVariablesNotValidWikiError();
+				}
+			}, () => {
+				throw new WikiVariablesRequestError();
 			});
 	}
 }
@@ -454,19 +478,3 @@ export class PageRequest extends BaseRequest {
 		return this.post(url, Url.format({query: params}).substr(1));
 	}
 }
-
-/**
- * @class WikiVariablesRequestError
- */
-export class WikiVariablesRequestError {
-	/**
-	 * @param {MWException} error
-	 * @returns {void}
-	 */
-	constructor(error) {
-		Error.apply(this, arguments);
-		this.error = error;
-	}
-}
-
-WikiVariablesRequestError.prototype = Object.create(Error.prototype);

@@ -19,7 +19,7 @@ export default Ember.Controller.extend({
 		 * @param {int} currentUserId
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		addRevisionUpvote(currentUserId) {
+		addUpvoteAction(currentUserId) {
 			return this.get('model').upvote(currentUserId);
 		},
 
@@ -29,7 +29,7 @@ export default Ember.Controller.extend({
 		 * @param {int} upvoteId
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		removeRevisionUpvote(upvoteId) {
+		removeUpvoteAction(upvoteId) {
 			return this.get('model').removeUpvote(upvoteId);
 		},
 

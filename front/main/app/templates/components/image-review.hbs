@@ -24,7 +24,11 @@
 	{{#modal-dialog isVisible=isModalVisible}}
 		<img src="{{thumbnailModel.fullSizeImageUrl}}"/>
 		{{#if isContextProvided}}
-			<a href="{{thumbnailModel.context}}">{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}}</a>
+			{{#if thumbnailModel.isLink}}
+				<a href="{{thumbnailModel.context}}" target="_blank">{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}}</a>
+			{{else}}
+				<span>{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}}</span>
+			{{/if}}
 		{{else}}
 			<p>{{i18n 'main.image-context-not-provided' ns='image-review'}}</p>
 		{{/if}}
