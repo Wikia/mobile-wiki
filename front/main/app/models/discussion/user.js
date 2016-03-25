@@ -23,7 +23,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		return ajaxCall({
 			data: {
 				limit: this.get('postsLimit'),
-				page: this.get('pageNum'),
+				page: this.get('data.pageNum'),
 				pivot: this.get('pivotId'),
 				responseGroup: 'full',
 				viewableOnly: false
