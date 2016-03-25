@@ -11,9 +11,7 @@ DiscussionContributors.reopenClass({
 	 * @returns {void}
 	 */
 	init() {
-		this.setProperties({
-			users: []
-		})
+		this.set('users', []);
 	},
 	/**
 	 * @typedef {Object} contributorsObject
