@@ -63,7 +63,7 @@ export default Ember.Component.extend(
 		}),
 
 		editTitleModalConfirmButtonLabel: Ember.computed('editTitleModalTrigger', function () {
-			const messageKey = this.get('editTitleModalTrigger') === 'edit-title-modal-publish' ?
+			const messageKey = this.get('editTitleModalTrigger') === 'publish' ?
 				'edit-title-modal-save' :
 				'edit-title-modal-ok';
 
