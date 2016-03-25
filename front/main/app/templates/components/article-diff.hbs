@@ -28,15 +28,26 @@
 
 {{#if showButtons}}
 	<div class="diff-page__buttons">
-		<button {{action attrs.showConfirmation}} class="diff-page__button {{buttonUndoClass}}">
+		<button {{action 'showConfirmation'}}
+				class="diff-page__button {{if upvotesEnabled 'diff-page__undo' 'diff-page__undo--alone'}}">
 			{{svg 'undo' viewBox='0 0 18 18' class='diff-page__button-icon'}}
 			<span class="diff-page__button-text">{{i18n 'main.undo-label' ns='recent-wiki-activity'}}</span>
 		</button>
 	{{#if upvotesEnabled}}
-		<button {{action 'handleVote'}} class="diff-page__button {{buttonVoteClass}}">
+		<button {{action 'handleVote'}}
+				class="diff-page__button {{if upvoted 'diff-page__vote--upvoted' 'diff-page__vote'}}">
 			{{svg 'kudos' viewBox='0 4 18 18' class='diff-page__button-icon'}}
 			<span class="diff-page__button-text">{{i18n 'main.nice-work-button-label' ns='recent-wiki-activity'}}</span>
 		</button>
 	{{/if}}
 	</div>
+{{/if}}
+
+{{#if shouldShowUndoConfirmation}}
+	{{confirmation-modal
+		close=(action 'closeConfirmation')
+		confirm='undo'
+		summaryPlaceholder=(i18n 'confirmation.placeholder-undo' ns='recent-wiki-activity')
+		confirmText=(i18n 'main.undo-label' ns='recent-wiki-activity')
+	}}
 {{/if}}
