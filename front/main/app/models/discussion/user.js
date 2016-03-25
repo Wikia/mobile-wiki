@@ -5,7 +5,6 @@ import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributors from './objects/contributors';
 import DiscussionEntities from './objects/entities';
 import DiscussionPost from './objects/post';
-import {checkPermissions} from 'common/utils/discussion-permissions';
 
 const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	contributors: [],
@@ -21,7 +20,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		const posts = this.get('data.entities');
 
 		// TODO fix me when API starts sending permissions for bulk operations
-		return posts && checkPermissions(posts[0], 'canDelete');
+		return posts && posts[0] && posts[0].get('userData.permissions.canModerate');
 	}),
 
 	loadPage(pageNum = 0) {

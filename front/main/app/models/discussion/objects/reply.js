@@ -13,6 +13,7 @@ const DiscussionReply = DiscussionEntity.extend({
 	create(postData) {
 		return this._super({
 			createdBy: DiscussionContributor.create(postData.createdBy),
+			creationDate: postData.creationDate.epochSecond,
 			id: postData.id,
 			isDeleted: postData.isDeleted,
 			isLocked: !postData.isEditable,

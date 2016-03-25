@@ -1,21 +1,14 @@
 import Ember from 'ember';
-import {checkPermissions} from 'common/utils/discussion-permissions';
 
 export default Ember.Component.extend({
 	classNames: ['top-note'],
 
-	canDelete: Ember.computed(function () {
-		const post = this.get('post');
+	canDelete: Ember.computed.readOnly('post.userData.permissions.canDelete'),
 
-		return checkPermissions(post, 'canModerate') && checkPermissions(post, 'canDelete');
-	}),
-
-	canModerate: Ember.computed(function () {
-		return checkPermissions(this.get('post'), 'canModerate');
-	}),
+	canModerate: Ember.computed.readOnly('post.userData.permissions.canModerate'),
 
 	showButtons: Ember.computed('isReported', function () {
-		return this.get('canShowModButtons') && this.get('isReported');
+		return this.get('canShowModButtons') && this.get('isReported') && this.get('canModerate');
 	}),
 
 	modalDialogService: Ember.inject.service('modal-dialog'),
