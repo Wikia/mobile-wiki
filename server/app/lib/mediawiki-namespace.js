@@ -29,9 +29,14 @@ export const namespace = {
 	PORTAL: 116
 };
 
+/**
+ * @param {Number} ns
+ * @param {Array} contentNamespaces
+ * @returns {boolean}
+ */
 export function isContentNamespace(ns, contentNamespaces = []) {
-	// custom namespaces can be in a string format
-	return ns === namespace.MAIN || ns == namespace.PORTAL || Boolean(contentNamespaces.some(
-			(contentNamespace) => contentNamespace == ns // eslint-disable-line eqeqeq
+	return ns === namespace.MAIN || ns === namespace.PORTAL || Boolean(contentNamespaces.some(
+			// custom namespaces can be in a string format
+			(contentNamespace) => parseInt(contentNamespace, 10) === ns
 		));
 }

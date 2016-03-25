@@ -55,6 +55,7 @@ export default function getPageModel(params) {
 		if (M.prop('articleContentPreloadedInDOM')) {
 			// This happens also for categories with article
 			const preloadedData = ArticleModel.getPreloadedData();
+
 			model = getModelForNamespace(preloadedData, params);
 
 			return resolve(model);
