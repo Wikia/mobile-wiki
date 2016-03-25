@@ -509,7 +509,7 @@ test('correctly calculates editTitleModalConfirmButtonLabel', function (assert) 
 		cases = [
 			{
 				editTitleModalTrigger: 'publish',
-				messageKey: 'save',
+				messageKey: 'save'
 			},
 			{
 				editTitleModalTrigger: 'test123',
