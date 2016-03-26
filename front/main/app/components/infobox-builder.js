@@ -27,17 +27,6 @@ export default Ember.Component.extend(
 			return this.get('isPreviewItemHovered') && !this.get('isPreviewItemDragged');
 		}),
 
-		canGoToSourceModal: Ember.computed('showGoToSourceModal', 'isEditTitleModalVisible', 'title', {
-			set(key, value) {
-				this.set('showGoToSourceModal', value);
-			},
-			get() {
-				return Boolean(this.get('title')) &&
-					this.get('showGoToSourceModal') &&
-					!this.get('isEditTitleModalVisible');
-			}
-		}),
-
 		sortableGroupClassNames: Ember.computed('theme', function () {
 			const theme = this.get('theme'),
 				classNames = ['portable-infobox', 'pi-background'];
@@ -231,8 +220,6 @@ export default Ember.Component.extend(
 						this.set('title', title);
 						this.hideEditTitleModal();
 						this.send(callback);
-					} else {
-						// user tries again
 					}
 				});
 			},
@@ -302,7 +289,6 @@ export default Ember.Component.extend(
 						isLoading: true,
 						loadingMessage
 					});
-					// figure out where to take url from
 					controllerAction();
 					resolve();
 				}

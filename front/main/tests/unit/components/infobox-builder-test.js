@@ -303,48 +303,6 @@ test('tryGoToSource handles opening of go to source modal', function (assert) {
 	});
 });
 
-test('tryGoToSource handles edit title modal used', function (assert) {
-	const component = this.subject(),
-		cases = [
-			{
-				isDirty: true,
-				expected: true,
-				message: 'should open modal'
-			},
-			{
-				isDirty: false,
-				expected: false,
-				message: 'should not open modal'
-			}
-		];
-
-	component.set('handleGoToSource', sinon.spy());
-
-	cases.forEach((testCase) => {
-		component.set('showGoToSourceModal', false);
-		component.set('isDirty', testCase.isDirty);
-		component.set('title', false);
-
-		component.send('tryGoToSource');
-		component.send('changeTemplateTitle', 'test');
-
-		assert.equal(component.get('canGoToSourceModal'), testCase.expected, testCase.message);
-	});
-});
-
-test('tryGoToSource handles edit title modal quit', function (assert) {
-	const component = this.subject();
-
-	component.set('showGoToSourceModal', false);
-	component.set('isDirty', true);
-	component.set('title', false);
-
-	component.send('tryGoToSource');
-	component.send('hideEditTitleModal');
-
-	assert.equal(component.get('canGoToSourceModal'), false);
-});
-
 test('tryGoToSource triggers go to source action when no unsaved chagnes', function (assert) {
 	const component = this.subject(),
 		handleGoToSource = sinon.spy();
@@ -509,7 +467,7 @@ test('correctly calculates editTitleModalConfirmButtonLabel', function (assert) 
 		cases = [
 			{
 				editTitleModalTrigger: 'publish',
-				messageKey: 'edit-title-modal-save'
+				messageKey: 'edit-title-modal-publish'
 			},
 			{
 				editTitleModalTrigger: 'test123',
