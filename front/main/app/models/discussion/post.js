@@ -44,7 +44,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	},
 
 	/**
-	 * @param replyData
+	 * @param {object} replyData
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
