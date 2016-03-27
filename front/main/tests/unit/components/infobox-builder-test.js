@@ -1,7 +1,7 @@
+import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
-import {track, trackActions} from 'common/utils/track';
 
-const TrackClickMixin = require.entries['main/mixins/track-click'].callback = () => {
+require.entries['main/mixins/track-click'].callback = () => {
 	return Ember.Mixin.create({
 		actions: {
 			trackClick: Ember.K
@@ -12,15 +12,7 @@ const TrackClickMixin = require.entries['main/mixins/track-click'].callback = ()
 };
 
 moduleForComponent('infobox-builder', 'Unit | Component | infobox builder', {
-	unit: true,
-
-	beforeEach() {
-		require('common/utils/track').track = Ember.K;
-	},
-
-	afterEach() {
-		require('common/utils/track').track = track;
-	}
+	unit: true
 });
 
 test('sets correct value for showOverlay property', function (assert) {
