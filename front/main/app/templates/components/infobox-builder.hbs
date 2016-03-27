@@ -29,6 +29,11 @@
 					onDragStop=(action 'onPreviewItemDrop')
 					onMouseEnter=(action 'showReorderTooltip')
 					onMouseLeave=(action 'hideReorderTooltip')
+					isGroupHighlighted=isGroupHighlighted
+					onGroupPreviewStart=(action 'toggleGroupPreview' element)
+					onGroupPreviewStop=(action 'toggleGroupPreview')
+					groupItems=groupItems
+					lastGroupItem=lastGroupItem
 					}}
 				{{/each}}
 			{{/sortable-group}}

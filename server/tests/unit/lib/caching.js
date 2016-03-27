@@ -162,7 +162,7 @@ QUnit.test('setResponseCaching works', function (assert) {
 	testCases.forEach(function (testCase) {
 		var request = newRequest(testCase.statusCode);
 
-		global.default(request, testCase.given);
+		global.setResponseCaching(request, testCase.given);
 		assert.deepEqual(request.getHeaders(), testCase.expected, testCase.description);
 	});
 });
