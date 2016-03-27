@@ -1,18 +1,18 @@
 {
   "stats": {
-    "suites": 0,
-    "tests": 0,
-    "passes": 0,
+    "suites": 56,
+    "tests": 213,
+    "passes": 213,
     "pending": 0,
     "failures": 0,
-    "start": "2016-03-22T07:26:48.490Z",
-    "end": "2016-03-22T07:26:48.492Z"
+    "start": "2016-03-27T15:38:09.455Z",
+    "end": "2016-03-27T15:38:15.867Z"
   },
   "coverage": {
     "total": {
-      "statementsTotal": 487,
-      "statementsCovered": 65,
-      "percentage": 13.35
+      "statementsTotal": 1791,
+      "statementsCovered": 874,
+      "percentage": 48.8
     },
     "files": [
       {
@@ -34,100 +34,94 @@
         "percentage": 40
       },
       {
-        "name": "main/mixins/track-click",
-        "statementsTotal": 2,
-        "statementsCovered": 2,
-        "percentage": 100
-      },
-      {
         "name": "main/models/media",
         "statementsTotal": 22,
-        "statementsCovered": 2,
-        "percentage": 9.09
+        "statementsCovered": 6,
+        "percentage": 27.27
       },
       {
         "name": "main/utils/domain",
         "statementsTotal": 6,
-        "statementsCovered": 3,
-        "percentage": 50
+        "statementsCovered": 6,
+        "percentage": 100
       },
       {
         "name": "main/helpers/duration",
         "statementsTotal": 10,
-        "statementsCovered": 2,
-        "percentage": 20
+        "statementsCovered": 10,
+        "percentage": 100
       },
       {
         "name": "main/helpers/i18n",
         "statementsTotal": 10,
-        "statementsCovered": 2,
-        "percentage": 20
+        "statementsCovered": 10,
+        "percentage": 100
       },
       {
         "name": "main/helpers/svg",
         "statementsTotal": 9,
-        "statementsCovered": 2,
-        "percentage": 22.22
+        "statementsCovered": 9,
+        "percentage": 100
       },
       {
         "name": "main/helpers/thumbnail",
         "statementsTotal": 18,
-        "statementsCovered": 2,
-        "percentage": 11.11
+        "statementsCovered": 18,
+        "percentage": 100
       },
       {
         "name": "main/utils/truncate",
         "statementsTotal": 15,
-        "statementsCovered": 2,
-        "percentage": 13.33
+        "statementsCovered": 14,
+        "percentage": 93.33
       },
       {
         "name": "main/helpers/truncate",
         "statementsTotal": 4,
-        "statementsCovered": 2,
-        "percentage": 50
+        "statementsCovered": 4,
+        "percentage": 100
       },
       {
         "name": "main/components/ad-slot",
         "statementsTotal": 16,
-        "statementsCovered": 5,
-        "percentage": 31.25
+        "statementsCovered": 12,
+        "percentage": 75
       },
       {
         "name": "main/mixins/ads",
         "statementsTotal": 47,
-        "statementsCovered": 2,
-        "percentage": 4.26
+        "statementsCovered": 3,
+        "percentage": 6.38
       },
       {
         "name": "main/mixins/color-utils",
         "statementsTotal": 9,
-        "statementsCovered": 2,
-        "percentage": 22.22
+        "statementsCovered": 9,
+        "percentage": 100
       },
       {
         "name": "main/mixins/viewport",
         "statementsTotal": 11,
-        "statementsCovered": 2,
-        "percentage": 18.18
+        "statementsCovered": 10,
+        "percentage": 90.91
       },
       {
         "name": "main/mixins/curated-content-thumbnail",
         "statementsTotal": 20,
-        "statementsCovered": 2,
-        "percentage": 10
+        "statementsCovered": 17,
+        "percentage": 85
       },
       {
         "name": "main/mixins/thirds-click",
         "statementsTotal": 15,
-        "statementsCovered": 2,
-        "percentage": 13.33
+        "statementsCovered": 9,
+        "percentage": 60
       },
       {
         "name": "main/models/curated-content",
         "statementsTotal": 45,
-        "statementsCovered": 4,
-        "percentage": 8.89
+        "statementsCovered": 19,
+        "percentage": 42.22
       },
       {
         "name": "main/utils/edit-token",
@@ -138,26 +132,404 @@
       {
         "name": "main/models/infobox-builder",
         "statementsTotal": 113,
-        "statementsCovered": 4,
-        "percentage": 3.54
+        "statementsCovered": 93,
+        "percentage": 82.3
       },
       {
         "name": "main/models/wiki/article",
         "statementsTotal": 48,
-        "statementsCovered": 4,
-        "percentage": 8.33
+        "statementsCovered": 33,
+        "percentage": 68.75
       },
       {
         "name": "main/utils/ajax-call",
         "statementsTotal": 14,
-        "statementsCovered": 2,
-        "percentage": 14.29
+        "statementsCovered": 10,
+        "percentage": 71.43
       },
       {
         "name": "main/utils/article-link",
         "statementsTotal": 26,
+        "statementsCovered": 23,
+        "percentage": 88.46
+      },
+      {
+        "name": "main/router",
+        "statementsTotal": 34,
         "statementsCovered": 4,
-        "percentage": 15.38
+        "percentage": 11.76
+      },
+      {
+        "name": "main/mixins/track-click",
+        "statementsTotal": 2,
+        "statementsCovered": 2,
+        "percentage": 100
+      },
+      {
+        "name": "main/utils/infobox-builder-diff",
+        "statementsTotal": 46,
+        "statementsCovered": 37,
+        "percentage": 80.43
+      },
+      {
+        "name": "main/components/infobox-builder",
+        "statementsTotal": 67,
+        "statementsCovered": 50,
+        "percentage": 74.63
+      },
+      {
+        "name": "main/components/wikia-ui-components/sub-header",
+        "statementsTotal": 2,
+        "statementsCovered": 2,
+        "percentage": 100
+      },
+      {
+        "name": "main/components/wikia-ui-components/icon-button",
+        "statementsTotal": 2,
+        "statementsCovered": 2,
+        "percentage": 100
+      },
+      {
+        "name": "main/components/sortable-group",
+        "statementsTotal": 2,
+        "statementsCovered": 2,
+        "percentage": 100
+      },
+      {
+        "name": "main/components/infobox-builder-edit-options-pop-over",
+        "statementsTotal": 26,
+        "statementsCovered": 15,
+        "percentage": 57.69
+      },
+      {
+        "name": "main/components/infobox-builder-sidebar-header",
+        "statementsTotal": 10,
+        "statementsCovered": 4,
+        "percentage": 40
+      },
+      {
+        "name": "main/mixins/infobox-builder-sidebar-options",
+        "statementsTotal": 2,
+        "statementsCovered": 2,
+        "percentage": 100
+      },
+      {
+        "name": "main/components/infobox-builder-add-items",
+        "statementsTotal": 4,
+        "statementsCovered": 4,
+        "percentage": 100
+      },
+      {
+        "name": "main/components/infobox-builder-button",
+        "statementsTotal": 3,
+        "statementsCovered": 3,
+        "percentage": 100
+      },
+      {
+        "name": "main/components/pop-over",
+        "statementsTotal": 2,
+        "statementsCovered": 2,
+        "percentage": 100
+      },
+      {
+        "name": "main/components/modal-dialog",
+        "statementsTotal": 4,
+        "statementsCovered": 2,
+        "percentage": 50
+      },
+      {
+        "name": "main/components/alert-notifications",
+        "statementsTotal": 3,
+        "statementsCovered": 3,
+        "percentage": 100
+      },
+      {
+        "name": "main/components/application-wrapper",
+        "statementsTotal": 33,
+        "statementsCovered": 6,
+        "percentage": 18.18
+      },
+      {
+        "name": "main/components/article-comment",
+        "statementsTotal": 31,
+        "statementsCovered": 5,
+        "percentage": 16.13
+      },
+      {
+        "name": "main/models/article-comments",
+        "statementsTotal": 13,
+        "statementsCovered": 5,
+        "percentage": 38.46
+      },
+      {
+        "name": "main/components/article-comments",
+        "statementsTotal": 29,
+        "statementsCovered": 17,
+        "percentage": 58.62
+      },
+      {
+        "name": "main/mixins/languages",
+        "statementsTotal": 19,
+        "statementsCovered": 5,
+        "percentage": 26.32
+      },
+      {
+        "name": "main/components/article-contribution",
+        "statementsTotal": 20,
+        "statementsCovered": 14,
+        "percentage": 70
+      },
+      {
+        "name": "main/mixins/text-highlight",
+        "statementsTotal": 54,
+        "statementsCovered": 3,
+        "percentage": 5.56
+      },
+      {
+        "name": "main/components/article-wrapper",
+        "statementsTotal": 56,
+        "statementsCovered": 12,
+        "percentage": 21.43
+      },
+      {
+        "name": "main/components/collapsible-menu",
+        "statementsTotal": 9,
+        "statementsCovered": 4,
+        "percentage": 44.44
+      },
+      {
+        "name": "main/components/curated-content-item",
+        "statementsTotal": 20,
+        "statementsCovered": 13,
+        "percentage": 65
+      },
+      {
+        "name": "main/components/featured-content-item",
+        "statementsTotal": 6,
+        "statementsCovered": 5,
+        "percentage": 83.33
+      },
+      {
+        "name": "main/components/featured-content",
+        "statementsTotal": 53,
+        "statementsCovered": 15,
+        "percentage": 28.3
+      },
+      {
+        "name": "main/utils/visibility-state-manager",
+        "statementsTotal": 25,
+        "statementsCovered": 15,
+        "percentage": 60
+      },
+      {
+        "name": "main/mixins/visible",
+        "statementsTotal": 4,
+        "statementsCovered": 4,
+        "percentage": 100
+      },
+      {
+        "name": "main/components/media",
+        "statementsTotal": 23,
+        "statementsCovered": 7,
+        "percentage": 30.43
+      },
+      {
+        "name": "main/mixins/article-content",
+        "statementsTotal": 29,
+        "statementsCovered": 18,
+        "percentage": 62.07
+      },
+      {
+        "name": "main/components/image-media",
+        "statementsTotal": 31,
+        "statementsCovered": 6,
+        "percentage": 19.35
+      },
+      {
+        "name": "main/components/infobox-image-collection",
+        "statementsTotal": 32,
+        "statementsCovered": 11,
+        "percentage": 34.38
+      },
+      {
+        "name": "main/components/infobox-image-media",
+        "statementsTotal": 18,
+        "statementsCovered": 16,
+        "percentage": 88.89
+      },
+      {
+        "name": "main/components/lightbox-media",
+        "statementsTotal": 54,
+        "statementsCovered": 30,
+        "percentage": 55.56
+      },
+      {
+        "name": "main/components/lightbox-wrapper",
+        "statementsTotal": 23,
+        "statementsCovered": 5,
+        "percentage": 21.74
+      },
+      {
+        "name": "main/components/gallery-media",
+        "statementsTotal": 39,
+        "statementsCovered": 2,
+        "percentage": 5.13
+      },
+      {
+        "name": "main/components/linked-gallery-media",
+        "statementsTotal": 19,
+        "statementsCovered": 7,
+        "percentage": 36.84
+      },
+      {
+        "name": "main/components/loading-spinner",
+        "statementsTotal": 5,
+        "statementsCovered": 3,
+        "percentage": 60
+      },
+      {
+        "name": "main/components/side-nav-local-wikia-search",
+        "statementsTotal": 58,
+        "statementsCovered": 15,
+        "percentage": 25.86
+      },
+      {
+        "name": "main/components/main-page",
+        "statementsTotal": 7,
+        "statementsCovered": 5,
+        "percentage": 71.43
+      },
+      {
+        "name": "main/components/trending-articles-item",
+        "statementsTotal": 11,
+        "statementsCovered": 9,
+        "percentage": 81.82
+      },
+      {
+        "name": "main/components/trending-videos-item",
+        "statementsTotal": 13,
+        "statementsCovered": 9,
+        "percentage": 69.23
+      },
+      {
+        "name": "main/components/trending-videos",
+        "statementsTotal": 4,
+        "statementsCovered": 4,
+        "percentage": 100
+      },
+      {
+        "name": "main/components/wikia-footer",
+        "statementsTotal": 5,
+        "statementsCovered": 5,
+        "percentage": 100
+      },
+      {
+        "name": "main/mixins/alert-notifications",
+        "statementsTotal": 7,
+        "statementsCovered": 4,
+        "percentage": 57.14
+      },
+      {
+        "name": "main/utils/local-storage-connector",
+        "statementsTotal": 20,
+        "statementsCovered": 18,
+        "percentage": 90
+      },
+      {
+        "name": "main/models/wikia-in-your-lang",
+        "statementsTotal": 21,
+        "statementsCovered": 4,
+        "percentage": 19.05
+      },
+      {
+        "name": "main/components/wikia-in-your-lang",
+        "statementsTotal": 24,
+        "statementsCovered": 5,
+        "percentage": 20.83
+      },
+      {
+        "name": "main/components/wikia-ui-components/on-hover-tooltip",
+        "statementsTotal": 4,
+        "statementsCovered": 4,
+        "percentage": 100
+      },
+      {
+        "name": "main/components/wikia-ui-components/text-field",
+        "statementsTotal": 15,
+        "statementsCovered": 15,
+        "percentage": 100
+      },
+      {
+        "name": "main/controllers/infobox-builder",
+        "statementsTotal": 32,
+        "statementsCovered": 22,
+        "percentage": 68.75
+      },
+      {
+        "name": "main/mixins/main-page-route",
+        "statementsTotal": 17,
+        "statementsCovered": 9,
+        "percentage": 52.94
+      },
+      {
+        "name": "main/mixins/meta-tags",
+        "statementsTotal": 30,
+        "statementsCovered": 2,
+        "percentage": 6.67
+      },
+      {
+        "name": "main/routes/main-page-category",
+        "statementsTotal": 9,
+        "statementsCovered": 2,
+        "percentage": 22.22
+      },
+      {
+        "name": "main/routes/main-page-section",
+        "statementsTotal": 9,
+        "statementsCovered": 2,
+        "percentage": 22.22
+      },
+      {
+        "name": "main/utils/wiki-handlers/article",
+        "statementsTotal": 7,
+        "statementsCovered": 3,
+        "percentage": 42.86
+      },
+      {
+        "name": "main/utils/wiki-handlers/category",
+        "statementsTotal": 4,
+        "statementsCovered": 3,
+        "percentage": 75
+      },
+      {
+        "name": "main/utils/wiki-handlers/curated-main-page",
+        "statementsTotal": 10,
+        "statementsCovered": 4,
+        "percentage": 40
+      },
+      {
+        "name": "main/utils/mediawiki-namespace",
+        "statementsTotal": 13,
+        "statementsCovered": 12,
+        "percentage": 92.31
+      },
+      {
+        "name": "main/models/wiki/category",
+        "statementsTotal": 40,
+        "statementsCovered": 8,
+        "percentage": 20
+      },
+      {
+        "name": "main/utils/wiki-handlers/wiki-page",
+        "statementsTotal": 37,
+        "statementsCovered": 5,
+        "percentage": 13.51
+      },
+      {
+        "name": "main/routes/wiki-page",
+        "statementsTotal": 55,
+        "statementsCovered": 15,
+        "percentage": 27.27
       }
     ]
   }
