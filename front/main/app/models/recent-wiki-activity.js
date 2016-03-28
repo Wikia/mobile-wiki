@@ -1,35 +1,12 @@
 import Ember from 'ember';
-import revisionUpvotesMixin from '../mixins/revision-upvotes';
 
 const defaultProps = 'user|userid|useravatar|parsedcomment|timestamp|title|ids|upvotes',
-	RecentWikiActivityModel = Ember.Object.extend(
-		revisionUpvotesMixin,
-		{
-			init() {
-				this._super(...arguments);
-				this.recentChanges = {};
-			},
-
-			revisionUpvoteModel(revisionId, title, fromUser) {
-				return new Ember.RSVP.Promise((resolve, reject) => {
-					this.revisionUpvote(revisionId, title)
-						.then(
-							(upvoteId) => {
-								const recentChange = this.get('recentChanges').findBy('revid', revisionId);
-
-								recentChange.upvotes.addObject({
-									from_user: fromUser,
-									id: upvoteId
-								});
-								Ember.set(recentChange, 'upvotescount', recentChange.upvotescount + 1);
-								resolve();
-							},
-							reject
-						);
-				});
-			}
+	RecentWikiActivityModel = Ember.Object.extend({
+		init() {
+			this._super(...arguments);
+			this.recentChanges = {};
 		}
-	);
+	});
 
 RecentWikiActivityModel.reopenClass({
 	/**

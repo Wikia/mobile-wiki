@@ -4,11 +4,15 @@ export default Ember.Component.extend({
 	classNames: ['recent-change'],
 	classNameBindings: ['active'],
 	currentUser: Ember.inject.service(),
+	revisionUpvotes: Ember.inject.service(),
 	active: Ember.computed('id', 'rc', function () {
 		return this.get('id') === this.get('rc');
 	}),
+	upvotesCount: Ember.computed('revisionUpvotes.upvotes.@each.count', function() {
+		return this.get('revisionUpvotes.upvotes').findBy('revisionId', this.get('model.newId')).upvotes.length;
+	}),
 	upvotesEnabled: Ember.get(Mercury, 'wiki.language.content') === 'en',
-	userUpvoted: Ember.computed('model.upvotes.[]', 'currentUser.userId', function () {
+	userUpvoted: Ember.computed('revisionUpvotes.upvotes.@each.count', 'currentUser.userId', function () {
 		const upvotes = this.get('model.upvotes'),
 			userId = this.get('currentUser.userId');
 
@@ -16,6 +20,10 @@ export default Ember.Component.extend({
 	}),
 	hasDiff: Ember.computed.and('model.old_revid', 'model.revid'),
 	showDiffLink: true,
+
+	didReceiveAttrs() {
+		this.get('revisionUpvotes').addVote(this.get('model.newId'), this.get('model.upvotes'));
+	},
 
 	actions: {
 		handleVote(revisionId, title) {

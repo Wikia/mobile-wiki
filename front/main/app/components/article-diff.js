@@ -9,6 +9,7 @@ export default Ember.Component.extend(
 	{
 		classNames: ['diff-page'],
 		currentUser: Ember.inject.service(),
+		revisionUpvotes: Ember.inject.service(),
 		currentUserUpvoteId: Ember.computed('model.upvotes.[]', 'currentUser.userId', function () {
 			const upvotes = this.get('model.upvotes'),
 				currentUserUpvote = upvotes ? upvotes.findBy(
@@ -25,16 +26,13 @@ export default Ember.Component.extend(
 		upvotesEnabled: Ember.get(Mercury, 'wiki.language.content') === 'en',
 		shouldShowUndoConfirmation: false,
 
-		/**
-		 * Displays error message
-		 *
-		 * @param {string} messageKey
-		 * @param {string} label
-		 * @returns {void}
-		 */
-		handleError(messageKey, label) {
-			this.trackError(label);
-			this.get('showError')(messageKey);
+		addUpvote() {
+			this.get('revisionUpvotes').upvote(this.get('model.newId'), this.get('model.title'), this.get('currentUser.userId'))
+				.then(
+					this.trackSuccess.bind(this, 'upvote-success'),
+					this.handleError.bind(this, 'main.error', 'upvote-error')
+				);
+			this.trackClick(trackCategory, 'upvote');
 		},
 
 		/**
@@ -43,21 +41,11 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		removeUpvote(upvoteId) {
-			this.get('removeRevisionUpvote')(upvoteId).then(
+			this.get('revisionUpvotes').removeUpvote(this.get('model.newId'), upvoteId, this.get('model.title'), this.get('model.userId')).then(
 				this.trackSuccess.bind(this, 'remove-upvote-success'),
 				this.handleError.bind(this, 'main.error', 'remove-upvote-error')
 			);
 			this.trackClick(trackCategory, 'remove-upvote');
-		},
-
-		/**
-		 * @param {string} revisionId Revision id that was upvoted
-		 * @param {string} title Text title from main namespace that revision was upvoted
-		 * @param {int} fromUser User id who upvoted
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		upvoteHandler(revisionId, title, fromUser) {
-			return this.get('addRevisionUpvote')(revisionId, title, fromUser);
 		},
 
 		/**
@@ -86,6 +74,18 @@ export default Ember.Component.extend(
 			});
 		},
 
+		/**
+		 * Displays error message
+		 *
+		 * @param {string} messageKey
+		 * @param {string} label
+		 * @returns {void}
+		 */
+		handleError(messageKey, label) {
+			this.trackError(label);
+			this.get('showError')(messageKey);
+		},
+
 		actions: {
 			/**
 			 * Adds or removes upvote
@@ -95,23 +95,8 @@ export default Ember.Component.extend(
 				if (this.get('upvoted')) {
 					this.removeUpvote(this.get('currentUserUpvoteId'));
 				} else {
-					this.upvoteHandler(this.get('model.newId'), this.get('model.title'), this.get('currentUser.userId'))
-						.then(
-							this.trackSuccess.bind(this, 'upvote-success'),
-							this.handleError.bind(this, 'main.error', 'upvote-error')
-						);
-					this.trackClick(trackCategory, 'upvote');
+					this.addUpvote();
 				}
-			},
-
-			/**
-			 * @param {string} revisionId Revision id that was upvoted
-			 * @param {string} title Text title from main namespace that revision was upvoted
-			 * @param {int} fromUser User id who upvoted
-			 * @returns {Ember.RSVP.Promise}
-			 */
-			upvote(revisionId, title, fromUser) {
-				return this.upvoteHandler(revisionId, title, fromUser);
 			},
 
 			/**
