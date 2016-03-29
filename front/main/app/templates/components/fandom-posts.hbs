@@ -2,7 +2,7 @@
 <section class="fandom-posts content-recommendations">
 	<h2>{{model.title}}</h2>
 	<ul class="thumbnails">
-		{{#each model.posts as |post|}}
+		{{#each posts as |post|}}
 			<li class="title-thumbnail" {{action 'trackExperimentClick' post.url}}>
 				<a href="{{post.url}}">
 					<div class="image image-thumbnail">
