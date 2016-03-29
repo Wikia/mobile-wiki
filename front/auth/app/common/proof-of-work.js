@@ -9,18 +9,28 @@ function repeatString(string, count) {
 }
 
 export default class ProofOfWork {
+	/**
+	 * JS Hashcash implementation
+	 * https://en.wikipedia.org/wiki/Hashcash#Technical_details
+	 *
+	 * @param {string} challenge
+	 * @param {number} bits
+	 * @returns {object}
+	 */
 	static proof(challenge, bits) {
 		const zeros = Math.floor(bits / 4),
 			paddedZeros = repeatString('0', zeros);
 		let counter = 0,
 			digest,
-			out;
+			out,
+			counterHex;
 
 		do {
-			digest = CryptoJS.SHA1(`${challenge}${counter.toString(16)}`).toString();
+			counterHex = counter.toString(16);
+			digest = CryptoJS.SHA1(`${challenge}${counterHex}`).toString();
 
 			out = {
-				counter: counter.toString(16),
+				counter: counterHex,
 				digest
 			};
 			counter++;
