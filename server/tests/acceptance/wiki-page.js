@@ -23,6 +23,20 @@ describe('wiki-page', function () {
 				host: 'starwars.wikia.com',
 			}
 		},
+		requestParamsWithAliasHost = {
+			url: '/wiki/Yoda',
+			method: 'GET',
+			headers: {
+				host: 'starwars-alias.wikia.com',
+			}
+		},
+		requestParamsWithoutTitle = {
+			url: '/wiki/',
+			method: 'GET',
+			headers: {
+				host: 'starwars.wikia.com',
+			}
+		},
 		wreckGetStub = sinon.stub();
 
 	before(function (done) {
@@ -151,6 +165,40 @@ describe('wiki-page', function () {
 
 			// Ember displays error page with reload button based on that
 			expect(response.payload).to.include('M.prop(\'exception\', {"code":503}, true);');
+			done();
+		});
+	});
+
+	it('redirects to main page on /wiki/', function (done) {
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, wikiVariables);
+
+		server.inject(requestParamsWithoutTitle, function (response) {
+			expect(response.statusCode).to.equal(302);
+			expect(response.headers.location).to.equal(
+				'/wiki/Main_Page'
+			);
+			done();
+		});
+	});
+
+	it('shows error page when wiki variables request fails on /wiki/', function (done) {
+		wreckGetStub.onCall(0).yields(null, {statusCode: 503}, {});
+
+		server.inject(requestParamsWithoutTitle, function (response) {
+			expect(response.statusCode).to.equal(503);
+			expect(response.payload).to.include('<h1>Error</h1>');
+			done();
+		});
+	});
+
+	it('redirects to community wikia on /wiki/ when requested wiki does not exist', function (done) {
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, 'not a valid wikia');
+
+		server.inject(requestParamsWithoutTitle, function (response) {
+			expect(response.statusCode).to.equal(302);
+			expect(response.headers.location).to.equal(
+				'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia'
+			);
 			done();
 		});
 	});
