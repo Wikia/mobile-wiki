@@ -29,9 +29,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			url: M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`),
 			success: (data) => {
 				this.get('data.entities').pushObjects(
-					Ember.get(data, '_embedded.doc:posts').map(
-						(newPosts) => DiscussionPost.createFromThreadListData(newPosts)
-					)
+					DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'))
 				);
 			},
 			error: (err) => {
