@@ -11,10 +11,10 @@
 	}}
 </div>
 <div class="modal-bottom-row">
-	{{#if showCancelButton}}
-		<button {{action this.attrs.cancelButtonAction}}>{{cancelButtonText}}</button>
-	{{/if}}
 	<button {{action this.attrs.confirmButtonAction value}} disabled={{isConfirmButtonDisabled}}>
 		{{confirmButtonText}}
 	</button>
+	{{#if showCancelButton}}
+		<button {{action this.attrs.cancelButtonAction}}>{{cancelButtonText}}</button>
+	{{/if}}
 </div>
