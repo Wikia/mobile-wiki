@@ -114,7 +114,7 @@ describe('wiki-page', function () {
 
 	it('redirects to primary URL when requested wiki by alias host', function (done) {
 		var requestParamsWithAliasHost = clone(requestParams);
-		
+
 		requestParamsWithAliasHost.headers.host = 'starwars-alias.wikia.com';
 
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
