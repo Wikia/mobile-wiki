@@ -300,25 +300,21 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 	getTemplateExists(title) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.buildUrl({
+			Ember.$.getJSON(
+				M.buildUrl({
 					path: '/wikia.php'
 				}),
-				data: {
+				{
 					controller: 'PortableInfoboxBuilderController',
 					method: 'getTemplateExists',
 					title
-				},
-				dataType: 'json',
-				method: 'GET',
-				success: (data) => {
-					if (data && data.success) {
-						resolve(data.exists);
-					} else {
-						reject(data);
-					}
-				},
-				error: (err) => reject(err)
+				}
+			).done((data) => {
+				if (data && data.success) {
+					resolve(data.exists);
+				} else {
+					reject(data);
+				}
 			});
 		});
 	},
