@@ -28,7 +28,7 @@
 	justify-content: center;
 
 	p {
-		font-size: 2.5rem;
+		font-size: $type-largest;
 		line-height: 1.25;
 		margin: 0;
 	}
@@ -78,9 +78,7 @@
 }
 
 .sign-in {
-	font-weight: bold;
-	text-align: left;
-	text-transform: uppercase;
+	text-align: center;
 }
 
 .sign-in, .sign-in-message {

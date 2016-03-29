@@ -1,4 +1,4 @@
-import {getEnvironment, stripDevboxDomain} from '../app/lib/Utils';
+import {getEnvironment, stripDevboxDomain} from '../app/lib/utils';
 import deepExtend from 'deep-extend';
 
 /* eslint max-len:0 */
@@ -62,7 +62,6 @@ import deepExtend from 'deep-extend';
  * @property {*} host
  * @property {string} ironSecret
  * @property {string} [mediawikiDomain]
- * @property {string} mwPreviewSalt
  * @property {string} gaUserSalt
  * @property {LoggerInterface} loggers
  * @property {number} maxRequestsPerChild
@@ -130,7 +129,7 @@ import deepExtend from 'deep-extend';
 
 /**
  * @typedef {Object} IVW3TrackingLocalSettings
- * @property {string} vertical
+ * @property {string} cmKey
  * @property {boolean} enabled
  * @property {string[]} countries
  */
@@ -179,6 +178,9 @@ const localSettings = {
 	imageReview: {
 		baseAPIPath: 'image-review'
 	},
+	staticAssets: {
+		baseAPIPath: 'static-assets'
+	},
 	whoAmIService: {
 		path: '/whoami',
 		timeout: 3000
@@ -187,8 +189,6 @@ const localSettings = {
 	// NOTE: On your devbox, use your eth0 address in able to bind route to something accessible
 	host: process.env.HOST,
 	mediawikiDomain: process.env.MEDIAWIKI_DOMAIN || null,
-	// Special salt for accepting HTML from MediaWiki for /editor_preview/
-	mwPreviewSalt: process.env.MW_PREVIEW_SALT,
 	// Special salt for calculating GA userID
 	gaUserSalt: process.env.GA_USERID_SALT,
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
@@ -239,13 +239,12 @@ const localSettings = {
 			c7Value: ''
 		},
 		ivw3: {
-			vertical: '',
+			cmKey: '',
 			countries: []
 		},
 		nielsen: {
 			apid: 'T26086A07-C7FB-4124-A679-8AC404198BA7',
-			clientId: 'Wikia',
-			subbrand: '',
+			dbName: '',
 			section: '',
 			enabled: false
 		},
@@ -283,12 +282,12 @@ const localSettings = {
 	},
 	enableDiscussions: true,
 	clickstream: {
-		auth: {
+		social: {
 			enable: true,
 			url: 'https://services.wikia.com/clickstream/events/social'
-		}
+		},
 	},
-	translationFiles: ['main', 'discussion', 'image-review']
+	translationFiles: ['main', 'discussion', 'image-review', 'infobox-builder', 'recent-wiki-activity']
 };
 
 /**

@@ -4,6 +4,9 @@ import {track, trackActions} from 'common/utils/track';
 import {normalizeToUnderscore} from 'common/utils/string';
 
 export default Ember.Controller.extend({
+	queryParams: ['highlighted'],
+	highlighted: null,
+
 	application: Ember.inject.controller(),
 
 	isPublishing: false,
@@ -31,7 +34,7 @@ export default Ember.Controller.extend({
 			title = normalizeToUnderscore(title);
 		}
 
-		this.transitionToRoute('article', title).then(() => {
+		this.transitionToRoute('wiki-page', title).then(() => {
 			this.get('application').addAlert({
 				message: i18n.t('app.edit-success', {
 					pageTitle: title
@@ -90,12 +93,19 @@ export default Ember.Controller.extend({
 				category: 'sectioneditor',
 				label: 'publish'
 			});
+			if (this.get('highlighted')) {
+				track({
+					action: trackActions.click,
+					category: 'highlighted-editor',
+					label: 'publish'
+				});
+			}
 		},
 		/**
 		 * @returns {void}
 		 */
 		back() {
-			this.transitionToRoute('article', this.get('model.title'));
+			this.transitionToRoute('wiki-page', this.get('model.title'));
 			track({
 				action: trackActions.click,
 				category: 'sectioneditor',

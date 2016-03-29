@@ -18,6 +18,10 @@ body.dark-theme {
 		color: $dark-disabled-button-text-color;
 	}
 
+	.date-placeholder {
+		background: $dark-discussion-timestamp-color;
+	}
+
 	.discussions-header {
 		color: $dark-header-text-color;
 	}
@@ -76,6 +80,14 @@ body.dark-theme {
 		color: $dark-label-color;
 	}
 
+	.post-list-view {
+		.discussion {
+			.post-reply {
+				background-color: $dark-discussion-post-card-reported-background;
+			}
+		}
+	}
+
 	.discussion {
 		.avatar {
 			img {
@@ -122,12 +134,28 @@ body.dark-theme {
 					}
 				}
 
-				.icon:not(.undelete):not(.delete) {
+				.icon:not(.delete) {
 					fill: $dark-discussion-deleted-actions-color;
 
 					&.upvote-reply {
 						stroke: $dark-discussion-deleted-actions-color;
 					}
+				}
+			}
+
+			&.is-reported {
+				background-color: $dark-discussion-post-card-reported-background;
+			}
+
+			.top-note-icon {
+				fill: $dark-discussion-post-card-top-note-color;
+			}
+
+			.top-note {
+				border-bottom-color: $dark-discussion-top-note-border-bottom-color;
+
+				.text-content {
+					color: $dark-discussion-top-note-border-bottom-color;
 				}
 			}
 		}
@@ -177,6 +205,16 @@ body.dark-theme {
 		.post-detail {
 			background-color: $dark-discussion-desktop-post-detail-bg-color;
 			border-top-color: $dark-discussion-post-detail-border-color;
+
+			&.is-locked {
+				.replies-area {
+					color: $dark-discussion-locked-post-replies-color;
+
+					.replies {
+						fill: $dark-discussion-locked-post-replies-color;
+					}
+				}
+			}
 		}
 
 		.editor-container {
@@ -239,12 +277,22 @@ body.dark-theme {
 			color: $dark-discussion-contributors-rail-title;
 		}
 
-		.back-button {
+		.side-button {
 			border-color: $dark-discussion-rail-border-color;
 		}
 
 		.no-replies-message {
 			color: $dark-discussion-no-replies-text-color;
+		}
+
+		.discussion-filters {
+			legend {
+				color: $dark-discussion-rail-header-color;
+			}
+
+			label {
+				color: $dark-discussion-rail-label-color;
+			}
 		}
 	}
 
@@ -252,17 +300,6 @@ body.dark-theme {
 		&.avatar {
 			img, svg {
 				border-color: $dark-discussion-avatar-border-color;
-			}
-		}
-	}
-
-	.discussion-user-list {
-		.post-reply {
-			background-color: $dark-discussion-desktop-post-detail-bg-color;
-
-			.user-replied-to {
-				border-bottom-color: $dark-discussion-user-replied-to-border-bottom-color;
-				color: $dark-discussion-user-replied-to-text-color;
 			}
 		}
 	}
@@ -308,6 +345,15 @@ body.dark-theme {
 					color: $dark-discussion-sort-color;
 				}
 			}
+
+			&.no-trending {
+				li {
+					&.sort-trending {
+						border-bottom-color: $dark-discussion-sort-inactive-color;
+						color: $dark-discussion-sort-inactive-color;
+					}
+				}
+			}
 		}
 
 		.discussion-no-replies {
@@ -319,6 +365,14 @@ body.dark-theme {
 				&.desktop-hidden {
 					border-top-color: $discussion-post-detail-border-color;
 				}
+			}
+		}
+	}
+
+	.post-list-view {
+		.rail {
+			.delete-all {
+				color: $dark-discussion-actions-color;
 			}
 		}
 	}

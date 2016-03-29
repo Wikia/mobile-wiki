@@ -1,26 +1,11 @@
-{{#unless globalNav2016}}
-	<div {{action 'expandSideNav'}} class="side-nav-toggle">
-		{{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
-	</div>
-	{{#if isUserAuthenticated}}
-		<figure {{action 'showUserMenu'}} class="avatar">
-			<img src={{currentUser.avatarPath}} alt={{currentUser.name}}>
-		</figure>
-	{{else}}
-		{{login-icon}}
+<div {{action 'expandSideNav'}} class="side-nav-toggle side-nav-toggle-2016">
+	{{#if shouldDisplayNewBadge}}
+		{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
 	{{/if}}
-	<div class="site-logo">
-		<a {{action 'trackClick' 'wordmark' preventDefault=false}} href={{wikiaHomepage}}>
-			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
-		</a>
-	</div>
-{{else}}
-	<div {{action 'expandSideNav'}} class="side-nav-toggle side-nav-toggle-2016">
-		{{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
-	</div>
-	<div class="site-logo site-logo-2016">
-		<a {{action 'trackClick' 'wordmark' preventDefault=false}} href={{wikiaHomepage}}>
-			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
-		</a>
-	</div>
-{{/unless}}
+	{{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
+</div>
+<div class="site-logo site-logo-2016">
+	<a {{action 'trackClick' 'wordmark' preventDefault=false}} href={{wikiaHomepage}}>
+		{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+	</a>
+</div>

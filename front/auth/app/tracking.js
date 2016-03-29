@@ -1,45 +1,5 @@
-import AuthTracker from './common/AuthTracker';
-import UniversalAnalytics from 'common/modules/Trackers/UniversalAnalytics';
+import AuthTracker from './common/auth-tracker';
 import {trackActions} from 'common/utils/track';
-import {getQueryParam} from 'common/utils/queryString';
-
-/**
- * @returns {void}
- */
-function setTrackingDimensions() {
-	const dimensions = [];
-
-	// Skin
-	dimensions[4] = 'mercury';
-	// LoginStatus
-	dimensions[5] = 'anon';
-	// Page type
-	dimensions[8] = 'authPage';
-	// IsCorporatePage
-	dimensions[15] = 'No';
-	// newAuthEntryPage
-	dimensions[10] = getQueryParam('redirect');
-
-	UniversalAnalytics.setDimensions(dimensions);
-}
-
-/**
- * Auth pages live on www.wikia.com and don't have access to WikiVariables
- * hence there's a need to provide this data inline
- *
- * @returns {void}
- */
-function setupTracking() {
-	M.provide('wiki', {
-		id: 80433,
-		dbName: 'wikiaglobal',
-		language: {
-			user: 'en',
-		},
-	});
-
-	setTrackingDimensions();
-}
 
 /**
  * @returns {void}
@@ -215,8 +175,6 @@ function setTrackingForFBRegisterPage() {
  * @returns {void}
  */
 export function init() {
-	setupTracking();
-
 	const pageType = document.body.getAttribute('data-page-type'),
 		trackingSets = {
 			'join-page': setTrackingForJoinPage,

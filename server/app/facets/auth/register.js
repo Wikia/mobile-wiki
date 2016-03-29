@@ -1,8 +1,8 @@
-import BirthdateInput from './BirthdateInput';
-import * as authUtils from '../../lib/AuthUtils';
+import BirthdateInput from './birthdate-input';
+import * as authUtils from '../../lib/auth-utils';
 import localSettings from '../../../config/localSettings';
 import authLocaleSettings from '../../../config/authLocaleSettings';
-import * as authView from './authView';
+import * as authView from './auth-view';
 import deepExtend from 'deep-extend';
 
 /**
@@ -43,7 +43,7 @@ import deepExtend from 'deep-extend';
  * @returns {DefaultRegistrationContext}
  */
 function getDefaultRegistrationContext(request, i18n) {
-	const lang = i18n.lng();
+	const lang = authUtils.getLanguageWithDefault(i18n);
 
 	return deepExtend(authView.getDefaultContext(request),
 		{
@@ -74,9 +74,9 @@ function getFacebookRegistrationPage(request, reply) {
 				heliosFacebookRegistrationURL: authUtils.getHeliosUrl('/facebook/users'),
 				title: 'auth:fb-register.register-with-facebook',
 				termsOfUseLink: 'http://www.wikia.com/Terms_of_Use',
-				footerCallout: 'auth:common.signin-callout',
-				footerHref: authUtils.getSignInUrl(request),
-				footerCalloutLink: 'auth:fb-register.footer-callout-link',
+				headerCallout: 'auth:common.signin-callout',
+				headerHref: authUtils.getSignInUrl(request),
+				headerCalloutLink: 'auth:fb-register.callout-link',
 				bodyClasses: 'register-fb-page',
 				pageType: 'register-fb-page',
 				facebookAppId: localSettings.facebook.appId,
@@ -101,7 +101,7 @@ function getFacebookRegistrationPage(request, reply) {
  */
 function getEmailRegistrationPage(request, reply) {
 	const i18n = request.server.methods.i18n.getInstance(),
-		lang = i18n.lng(),
+		lang = authUtils.getLanguageWithDefault(i18n),
 		viewType = authView.getViewType(request),
 		birthdateInput = new BirthdateInput(authLocaleSettings[lang].date.endian, lang),
 		context = deepExtend(getDefaultRegistrationContext(request, i18n),
@@ -116,9 +116,9 @@ function getEmailRegistrationPage(request, reply) {
 					'auth:register.desktop-header',
 				termsOfUseLink: `<a href="${authLocaleSettings[lang].urls.termsOfUseLinkUrl}` +
 					`" target="_blank">${i18n.t('auth:register.terms-of-use-link-title')}</a>`,
-				footerCallout: 'auth:common.signin-callout',
-				footerHref: authUtils.getSignInUrl(request),
-				footerCalloutLink: 'auth:common.signin-link-text',
+				headerCallout: 'auth:common.signin-callout',
+				headerHref: authUtils.getSignInUrl(request),
+				headerCalloutLink: 'auth:common.signin-link-text',
 				birthdateInputs: birthdateInput.getInputData(),
 				bodyClasses: 'register-page',
 				pageType: 'register-page',

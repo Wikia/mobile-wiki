@@ -1,3 +1,242 @@
+## release-219 (2016-03-10 10:31 UTC)
+* [RECIRC-49](https://wikia-inc.atlassian.net/browse/RECIRC-49) ABTest Fandom content in footer
+* upgrade-ember-cli: Upgrade Ember CLI to 2.4.2
+* [XW-1112](https://wikia-inc.atlassian.net/browse/XW-1112) XW-1112 | fix ellipsis in (Android) smart banner
+* reporting-fixes: Discussions | Reporting fixes
+* [SOC-2002](https://wikia-inc.atlassian.net/browse/SOC-2002) SOC-2002 | Adding discussions assets
+* [XW-1236](https://wikia-inc.atlassian.net/browse/XW-1236) XW-1236 | remove $wgEnableCategoryPagesInMercury
+* [XW-1112](https://wikia-inc.atlassian.net/browse/XW-1112) XW-1112 | smart banner image scaling
+* fix-discussion-filters-paddings: Discussion | Fixing filters paddings
+* [DAT-3856](https://wikia-inc.atlassian.net/browse/DAT-3856) DAT-3856 | Use infobox theme property to set additional class
+* [XW-1219](https://wikia-inc.atlassian.net/browse/XW-1219) XW-1219 | update tracking
+* [XW-1213](https://wikia-inc.atlassian.net/browse/XW-1213) XW-1213 | review tracking on category pages
+* reporting-translations: i18n | Translations of reporting
+* [SOC-](https://wikia-inc.atlassian.net/browse/SOC-) SOC-957 | SOC-1906 | SOC-1241 | SOC-1242 | SOC-1908 Reporting tools for Discussions
+* [SOC-2121](https://wikia-inc.atlassian.net/browse/SOC-2121) SOC-2121 | Fix expired session handling
+* save-exact: add .npmrc with save-exact=true
+* [SOC-1908](https://wikia-inc.atlassian.net/browse/SOC-1908) SOC-1908 As a mod+ in desktop web, I want to see a filter for showing only reported content
+* [SOC-1241](https://wikia-inc.atlassian.net/browse/SOC-1241) SOC-1241 | Reported posts page and CTA
+* [SOC-1242](https://wikia-inc.atlassian.net/browse/SOC-1242) SOC-1242 | update the status of a reported post by taking an action on the content
+* [SOC-957](https://wikia-inc.atlassian.net/browse/SOC-957) SOC-957 | Reporting posts and replies
+* [SOC-1906](https://wikia-inc.atlassian.net/browse/SOC-1906) SOC-1906 reported indicator on posts
+
+## release-218 (2016-03-08 12:38 UTC)
+* [DAT-3907](https://wikia-inc.atlassian.net/browse/DAT-3907) DAT-3907 | Fix ads on CMP categories
+* [CE-3429](https://wikia-inc.atlassian.net/browse/CE-3429) Destroy event bindings
+* [CE-3429](https://wikia-inc.atlassian.net/browse/CE-3429) editing highlighed text
+* sg-update-183: StyleGuide | Update to 1.8.3
+* [XW-1215](https://wikia-inc.atlassian.net/browse/XW-1215) XW-1215 | review tracking on comments
+* [XW-1211](https://wikia-inc.atlassian.net/browse/XW-1211) XW-1211 | track specific article click events
+* [DAT-3769](https://wikia-inc.atlassian.net/browse/DAT-3769) DAT-3769 add tracking to infobox builder & element change recognition
+* [XW-1207](https://wikia-inc.atlassian.net/browse/XW-1207) XW-1207 | Remove obsolete abstract logic for Krux
+* [CE-3464](https://wikia-inc.atlassian.net/browse/CE-3464) (CE-3464,CE-3466) Improve arrow and popover
+* [CE-3460](https://wikia-inc.atlassian.net/browse/CE-3460) CE-3460 Initialize the HTE demo when user scrolls to content
+* [XW-1217](https://wikia-inc.atlassian.net/browse/XW-1217) XW-1217 | add tracking for related pages
+* [CE-3467](https://wikia-inc.atlassian.net/browse/CE-3467) Disable recent edit banner
+* [MAIN-6584](https://wikia-inc.atlassian.net/browse/MAIN-6584) MAIN-6584 | Use forked version of ember-cli-qunit-eslint
+* [CE-3445](https://wikia-inc.atlassian.net/browse/CE-3445) Highlight text on ios
+* [DAT-3793](https://wikia-inc.atlassian.net/browse/DAT-3793) DAT-3793 make infobox-builder accept subtemplates
+* [XW-1212](https://wikia-inc.atlassian.net/browse/XW-1212) XW-1212 | Review tracking on curated main pages
+* [DAT-3894](https://wikia-inc.atlassian.net/browse/DAT-3894) Get edit token for save
+* [PLATFORM-1860](https://wikia-inc.atlassian.net/browse/PLATFORM-1860) PLATFORM-1860 Context for image review
+* [CE-3441](https://wikia-inc.atlassian.net/browse/CE-3441) Improve highlighted text position in edit mode
+* [XW-1218](https://wikia-inc.atlassian.net/browse/XW-1218) XW-1218 track top contributors
+* [CE-3445](https://wikia-inc.atlassian.net/browse/CE-3445) CE-3445 Catch an event of scrolling to the first <p> and select a word
+* [CE-3446](https://wikia-inc.atlassian.net/browse/CE-3446) CE-3446 Add popover
+* [CE-3443](https://wikia-inc.atlassian.net/browse/CE-3443) CE-3443 Add tracking for highlighted editor
+* [CE-3442](https://wikia-inc.atlassian.net/browse/CE-3442) Force login modal before edit.
+* [CE-3440](https://wikia-inc.atlassian.net/browse/CE-3440) Edit highlighted text
+
+## release-217 hotfix 1 (2016-03-03 16:54 UTC)
+* release-217-fix-geo: Set up geo in baseline so ivw3 can use that for tracking
+
+## release-217 (2016-03-03 14:57 UTC)
+* [XW-1204](https://wikia-inc.atlassian.net/browse/XW-1204) XW-1204 Call IVW3 quicker on page view (no tweaks)
+* [XW-1205](https://wikia-inc.atlassian.net/browse/XW-1205) XW-1205 | Move Nielsen initial PV from Ember
+* [XW-1216](https://wikia-inc.atlassian.net/browse/XW-1216) XW-1216 | Unify labels for events related with categories menu under the article
+* [DAT-3862](https://wikia-inc.atlassian.net/browse/DAT-3862) DAT-3862 | Scroll to the bottom of infobox builder preview after new item is added
+* [SOC-1943](https://wikia-inc.atlassian.net/browse/SOC-1943) SOC-1943 | Change Brave Frontier discussion community badge
+* [DAT-3804](https://wikia-inc.atlassian.net/browse/DAT-3804) Dat 3804 clicking on infobox preview background exits edit mode on currently selected item
+
+## release-216 (2016-03-03 12:28 UTC)
+* [XW-1203](https://wikia-inc.atlassian.net/browse/XW-1203) XW-1203 | send Comscore tracking on server side
+* [ADEN-3043](https://wikia-inc.atlassian.net/browse/ADEN-3043) ADEN-3043 Add timestamp to Nielsen url
+* XW | stop calling quantserve twice on auth
+* pr-template-update: Remove "work in progress" from PR template
+* [DAT-3789](https://wikia-inc.atlassian.net/browse/DAT-3789) DAT-3789 | Infobox Builder - source attribute immutable after first save
+* [XW-1229](https://wikia-inc.atlassian.net/browse/XW-1229) XW-1229 | Create tracking function, always
+* [XW-1214](https://wikia-inc.atlassian.net/browse/XW-1214) XW-1214 add missing tracking to wiki navigation and unify existing one
+* [CE-3434](https://wikia-inc.atlassian.net/browse/CE-3434) CE-3434 Update translations for Recent Wiki Activity and enable it for all langs
+* [XW-1227](https://wikia-inc.atlassian.net/browse/XW-1227) XW-1227 remove obsolete tracking
+* [DAT-3865](https://wikia-inc.atlassian.net/browse/DAT-3865) DAT-3865 | Fix infobox builder height
+* [XW-1208](https://wikia-inc.atlassian.net/browse/XW-1208) XW-1208 | Fix Quantserve late loading
+* app-header-component-cleanup: DAT-3865 | App header component cleanup
+
+## release-215 hotfix 1 (2016-03-01 12:28 UTC)
+* [XW-1221](https://wikia-inc.atlassian.net/browse/XW-1221) XW-1221 fix path to model in article-preview route
+
+## release-215 (2016-03-01 09:59 UTC)
+* add-version: Add version to Ember inspector
+* [XW-1104](https://wikia-inc.atlassian.net/browse/XW-1104) XW-1104 | Category page
+* [XW-1104](https://wikia-inc.atlassian.net/browse/XW-1104) handle exception
+* [DAT-3732](https://wikia-inc.atlassian.net/browse/DAT-3732) DAT 3732 Infobox builder header section editing
+* jenkins-improve: Jenkins improve
+* [XW-1184](https://wikia-inc.atlassian.net/browse/XW-1184) P2 fixes from XW-1184
+* [XW-1104](https://wikia-inc.atlassian.net/browse/XW-1104) use link-to instead of a tag
+
+## release-214 (2016-02-26 14:02 UTC)
+* [XW-1086](https://wikia-inc.atlassian.net/browse/XW-1086) XW-1086 | Mercury should still work even with cookies disabled
+* [XW-1184](https://wikia-inc.atlassian.net/browse/XW-1184) XW-1184 | Fix actions for RWA
+* docs-new-i18n-file: Add an info how to load a newly added i18n file.
+* update-article-preview-route-name: change infobox builder route name from camelcase to dasherize
+* [XW-1183](https://wikia-inc.atlassian.net/browse/XW-1183) XW-1183 fix handling for 404 errors in Mercury
+* eslint-switch-case-indentation: Eslint switch case indentation
+* [DAT-3788](https://wikia-inc.atlassian.net/browse/DAT-3788) DAT-3788 add default mercury spinner when saving infobox builder
+* [SOC-1376](https://wikia-inc.atlassian.net/browse/SOC-1376) SOC-1376 | As a user I would like to see the timestamp of a post or a reply a certain way
+* [DAT-3786](https://wikia-inc.atlassian.net/browse/DAT-3786) add dialog on onbeforeunload
+* [DAT-3711](https://wikia-inc.atlassian.net/browse/DAT-3711) DAT-3711 Adding sections to the infobox builder
+
+## release-213 (2016-02-25 12:05 UTC)
+* [XW-1173](https://wikia-inc.atlassian.net/browse/XW-1173) XW-1173 | ASAP send an event to UA that user opened a page
+* [DAT-3770](https://wikia-inc.atlassian.net/browse/DAT-3770) DAT-3770 infobox builder reordering of elements
+* [XW-1105](https://wikia-inc.atlassian.net/browse/XW-1105) XW-1105 | Handle links to category pages in article
+* [PLATFORM-1859](https://wikia-inc.atlassian.net/browse/PLATFORM-1859) PLATFORM-1859 Add information about number of images still in the queue to be reviewed
+* [MAIN-6507](https://wikia-inc.atlassian.net/browse/MAIN-6507) (MAIN-6507) Only load user info if the user is not an anon
+* update-ember-cli: Update ember-cli to 2.3.0
+* [ADEN-3013](https://wikia-inc.atlassian.net/browse/ADEN-3013) ADEN-3013 Fix Nielsen typos
+
+## release-212 hotfix 1 (2016-02-24 03:04 UTC)
+* release-212-hotfix: (MAIN-6507) Only load user info if the user is not an anon
+
+## release-212 (2016-02-23 12:18 UTC)
+* [CE-3427](https://wikia-inc.atlassian.net/browse/CE-3427) Remove X button and hide banner after 7 sec
+* [XW-1120](https://wikia-inc.atlassian.net/browse/XW-1120) XW-1120 | send namespace & poweruser types to GA
+* add-pr-template: XW-1152 | Add PULL_REQUEST_TEMPLATE
+* [INT-344](https://wikia-inc.atlassian.net/browse/INT-344) INT-344 | New featured communities for Japan HP
+* [XW-1103](https://wikia-inc.atlassian.net/browse/XW-1103) XW-1103 | Prepare support for non-article page types
+* [CE-3347](https://wikia-inc.atlassian.net/browse/CE-3347) Banner to notify user about RWA
+* [CE-3394](https://wikia-inc.atlassian.net/browse/CE-3394) CE-3394 Display an info icon instead of a blue dot
+* [XW-1147](https://wikia-inc.atlassian.net/browse/XW-1147) XW-1147 create dedicated handler for main pages
+* [DAT-3744](https://wikia-inc.atlassian.net/browse/DAT-3744) edit already existing template
+* [CE-3365](https://wikia-inc.atlassian.net/browse/CE-3365) CE-3365 Add a blue dot a user can follow to get to Recent Wiki Activity
+* [CE-3327](https://wikia-inc.atlassian.net/browse/CE-3327) CE-3326+CE-3327 Implement RWA translations and enable it globally
+* [CE-3379](https://wikia-inc.atlassian.net/browse/CE-3379) Display/dismiss banner, styling and tracking
+* [CE-3377](https://wikia-inc.atlassian.net/browse/CE-3377) Get recent edit and display on banner
+* [CE-3377](https://wikia-inc.atlassian.net/browse/CE-3377) Add banner with recent edit to article page
+
+## release-211 (2016-02-18 10:58 UTC)
+* const-Ember: use const {...} = Ember;
+* [INT-337](https://wikia-inc.atlassian.net/browse/INT-337) INT-337 | Page loading optimizations and cleanup
+* [SOC-1933](https://wikia-inc.atlassian.net/browse/SOC-1933) SOC-1933 | Registration modal broken on pt wikis
+* [XW-1133](https://wikia-inc.atlassian.net/browse/XW-1133) XW-1133 | Don't collapse infobox when user clicks on image/video caption
+* content-type-fix: Utils | Use propert content type name for json
+
+## release-210 (2016-02-16 11:53 UTC)
+* [CE-3368](https://wikia-inc.atlassian.net/browse/CE-3368) Fix RWA when preserved diff is not at the list
+* [XW-41](https://wikia-inc.atlassian.net/browse/XW-41) XW-41 | Replace placeholders with components dynamically
+* nodemon-app+config: watch only app and config folders
+* [CE-3327](https://wikia-inc.atlassian.net/browse/CE-3327) CE-3327 Adding messages for feature visibility story
+* [DAT-3636](https://wikia-inc.atlassian.net/browse/DAT-3636) DAT-3636 Upload Hero Image using CMP
+* infobox-builder-feature-branch: DAT-3707, Infobox builder feature branch
+* infobox-builder-with-editing: Infobox builder - editing infobox elements
+* [XW-](https://wikia-inc.atlassian.net/browse/XW-) XW | add more descriptive comment
+* [CE-](https://wikia-inc.atlassian.net/browse/CE-) CE - Recent Wiki Activity
+* [CE-3335](https://wikia-inc.atlassian.net/browse/CE-3335) Preserve scroll position on RWA
+* [CE-3362](https://wikia-inc.atlassian.net/browse/CE-3362) CE-3362 Enable RWA on all english communities
+* [XW-802](https://wikia-inc.atlassian.net/browse/XW-802) XW-802 | Disable prototype extensions
+* [XW-808](https://wikia-inc.atlassian.net/browse/XW-808) XW-808 | Fix missing global variable
+* [XW-41](https://wikia-inc.atlassian.net/browse/XW-41) XW-1008 | SVG image placeholders
+* [CE-](https://wikia-inc.atlassian.net/browse/CE-) CE-3264 Limit width of username for recent change module...
+* [CE-3351](https://wikia-inc.atlassian.net/browse/CE-3351) Ce 3351 tracking
+* [CE-3321](https://wikia-inc.atlassian.net/browse/CE-3321) CE-3321 Confirmation modal for undoing revisions
+* [CE-3336](https://wikia-inc.atlassian.net/browse/CE-3336) CE-3336 RWA should include only edits
+* [CE-3324](https://wikia-inc.atlassian.net/browse/CE-3324) Use new revisions diff api
+* [XW-41](https://wikia-inc.atlassian.net/browse/XW-41) XW-41 | Video thumbnails
+* [CE-3317](https://wikia-inc.atlassian.net/browse/CE-3317) CE-3317 Enable on aga.wikia.com for MVP testing
+* [CE-3331](https://wikia-inc.atlassian.net/browse/CE-3331) (CE-3331) Do not show undo button to blocked users
+* [CE-3325](https://wikia-inc.atlassian.net/browse/CE-3325) CE-3325 Handle revisions made by Anonymous users
+* [CE-3326](https://wikia-inc.atlassian.net/browse/CE-3326) CE-3326 Add all future translations
+* [CE-3300](https://wikia-inc.atlassian.net/browse/CE-3300) CE-3300 Add styling of a diff page
+* [CE-3317](https://wikia-inc.atlassian.net/browse/CE-3317) CE-3317 Enable RWA only on kirkburn.wikia.com
+* [CE-3266](https://wikia-inc.atlassian.net/browse/CE-3266) (CE-3266) Add the ability to undo an edit from a diff page
+* [CE-3264](https://wikia-inc.atlassian.net/browse/CE-3264) Ce 3264
+* [CE-3303](https://wikia-inc.atlassian.net/browse/CE-3303) CE-3303 A list of recent changes made on a wiki
+* [DAT-2996](https://wikia-inc.atlassian.net/browse/DAT-2996) Dat 2996 - add item reordering functionality to infobox builder
+* [DAT-2994](https://wikia-inc.atlassian.net/browse/DAT-2994) Dat 2994 - add remove item functionality to Infobox Builder UI
+
+## release-209 (2016-02-11 16:49 UTC)
+* [XW-608](https://wikia-inc.atlassian.net/browse/XW-608) XW-608 clean up prepare* functions
+* [SOC-1945](https://wikia-inc.atlassian.net/browse/SOC-1945) SOC-1945 | Links in discussion replies are now clickable
+* [SOC-1967](https://wikia-inc.atlassian.net/browse/SOC-1967) SOC-1967 | Remove inherited line-height from auth-footer-link
+
+## release-208 (2016-02-09 12:07 UTC)
+* [SOC-1907](https://wikia-inc.atlassian.net/browse/SOC-1907) SOC-1907 FE | As a mobile web user, I want to see a filter icon and a new post list menu
+* [XW-1007](https://wikia-inc.atlassian.net/browse/XW-1007) XW-1076 | Implement prerender.io on 10 communities
+* [INT-337](https://wikia-inc.atlassian.net/browse/INT-337) INT-337 | Convert large images to JPG
+* [SOC-1798](https://wikia-inc.atlassian.net/browse/SOC-1798) SOC-1798 | Fixing bad behavior of ellipses by setting a different editor placeholder height
+
+## release-207 (2016-02-08 11:28 UTC)
+* [DAT-3687](https://wikia-inc.atlassian.net/browse/DAT-3687) DAT-3626 Mercury on preview
+* [CE-3326](https://wikia-inc.atlassian.net/browse/CE-3326) CE-3326 Add strings related to Recent Wiki Activity to start i18n
+* [XW-816](https://wikia-inc.atlassian.net/browse/XW-816) XW-816 | Disable Ember performance sender
+* [XW-439](https://wikia-inc.atlassian.net/browse/XW-439) XW-439 | add favicon to index.html
+* [SOC-1981](https://wikia-inc.atlassian.net/browse/SOC-1981) SOC-1981 | Redirect to discussions right away on /d
+* [XW-1075](https://wikia-inc.atlassian.net/browse/XW-1075) XW-1075 | use display title
+* [ADEN-2862](https://wikia-inc.atlassian.net/browse/ADEN-2862) ADEN-2862 Call krux before Ad Engine
+
+## release-206 hotfix 1 (2016-02-04 14:17 UTC)
+* release-206-hotfix: SOC-1981 | Using ja.tekken wikia instead of tekken
+
+## release-206 (2016-02-04 11:59 UTC)
+* [SOC-1968](https://wikia-inc.atlassian.net/browse/SOC-1968) SOC-1968 | Adding FE config for 3 new communities
+* [INT-333](https://wikia-inc.atlassian.net/browse/INT-333) INT-333 | Adjust arrow position for 3-slide breakpoint. Japan HP
+* [ADEN-2820](https://wikia-inc.atlassian.net/browse/ADEN-2820) ADEN-2820 Use AdEngineRunner and move onLoad callback
+* fix-auth-logo: fix blue wikia logo on signin page
+* [PLATFORM-1855](https://wikia-inc.atlassian.net/browse/PLATFORM-1855) PLATFORM-1855 Image review does not show flagged images
+* [XW-980](https://wikia-inc.atlassian.net/browse/XW-980) XW-980 remove global navigation 2015
+* [INT-323](https://wikia-inc.atlassian.net/browse/INT-323) INT-323 | Change GA tracking ID
+* [INT-323](https://wikia-inc.atlassian.net/browse/INT-323) INT-323 | Fix visual glitch for iphone in portrait mode. Change page …
+* [INT-333](https://wikia-inc.atlassian.net/browse/INT-333) INT-333 | Bugfixes for slider arrows disappearing. Japan HP
+* [SOC-1924](https://wikia-inc.atlassian.net/browse/SOC-1924) SOC-1924 | new text for the top of reply card
+
+## release-205 hotfix 1 (2016-02-03 11:58 UTC)
+* release-205-hotfix: Revert "SOC-1966 | Hiding delete all button"
+
+## release-205 (2016-02-02 12:19 UTC)
+* [SOC-955](https://wikia-inc.atlassian.net/browse/SOC-955) SOC-955 | SOC-956 | SOC-1508 | SOC-1509 | SOC-1738 | SOC-1719 | SOC-1924
+* [XW-821](https://wikia-inc.atlassian.net/browse/XW-821) XW-821 | don't use deprecated functionality in article-comments
+* [XW-821](https://wikia-inc.atlassian.net/browse/XW-821) XW-821 | don't set properties in didInsertElement
+* [XW-1036](https://wikia-inc.atlassian.net/browse/XW-1036) XW-1036 | Create fallback for localStorage
+* [XW-997](https://wikia-inc.atlassian.net/browse/XW-997) XW-977 | Show native smart banner on ios
+* [SOC-1719](https://wikia-inc.atlassian.net/browse/SOC-1719) SOC-1719 | Discussion - delete all posts by user
+* [SOC-1924](https://wikia-inc.atlassian.net/browse/SOC-1924) SOC-1924 user posts/replies lists - reply card header text - 2nd PR
+* discussion-refactors: Discussion refactors
+* [INT-332](https://wikia-inc.atlassian.net/browse/INT-332) INT-332 | Adjust text for create a wikia button
+* [INT-319](https://wikia-inc.atlassian.net/browse/INT-319) INT-319 | Fix center alignment for category sliders on Japan HP
+* [XW-821](https://wikia-inc.atlassian.net/browse/XW-821) XW-821 | don't use fmt
+* revert-1915-SOC-1924: Revert "SOC-1924 user posts/replies lists - reply card header text"
+* [SOC-1924](https://wikia-inc.atlassian.net/browse/SOC-1924) SOC-1924 user posts/replies lists - reply card header text
+* [SOC-905](https://wikia-inc.atlassian.net/browse/SOC-905) SOC-905 - made entire footer clickable on auth page
+* [INT-324](https://wikia-inc.atlassian.net/browse/INT-324) INT-324 | Add Mediakit link to Japan HP footer
+* [INT-332](https://wikia-inc.atlassian.net/browse/INT-332) INT-332 | Change text for create wikia button for Japan HP
+* [XW-773](https://wikia-inc.atlassian.net/browse/XW-773) XW-773 | add links to github after jenkins job is done
+* [XW-918](https://wikia-inc.atlassian.net/browse/XW-918) XW-918 | Update article.js to get new API response; unify UA dimensions set up
+* [DAT-3639](https://wikia-inc.atlassian.net/browse/DAT-3639) DAT-3639 | Be able to edit Wikia Description via CC editor
+* [XW-982](https://wikia-inc.atlassian.net/browse/XW-982) XW-982 | Fix random gulp-watch crashes
+
+## release-204 (2016-01-28 11:08 UTC)
+* fix-ember-tests-styles: Fix styles when running Ember tests in a browser
+* [XW-1019](https://wikia-inc.atlassian.net/browse/XW-1019) XW-1019 | scroll back to top while navigating through local nav
+* [PLATFORM-1833](https://wikia-inc.atlassian.net/browse/PLATFORM-1833) PLATFORM-1833 imageReviewBaseRoute fix
+* [XW-1035](https://wikia-inc.atlassian.net/browse/XW-1035) Click on clear should not close keyboard
+* [INT-285](https://wikia-inc.atlassian.net/browse/INT-285) INT-285 | Google custom search with Optimizely integration for Japan HP
+* [INT-320](https://wikia-inc.atlassian.net/browse/INT-320) INT-320 | Implement loading indicator
+* [INT-310](https://wikia-inc.atlassian.net/browse/INT-310) INT-310 | Final text and assets for hero slider
+* [ADEN-2812](https://wikia-inc.atlassian.net/browse/ADEN-2812) ADEN-2812 IVW3 tracker integration
+
+## release-203 hotfix 1 (2016-01-27 13:00 UTC)
+* release-203-XW-905: XW-905 | Upgrade New Relic agent to v1.25.1
+
 ## release-203 (2016-01-25 14:30 UTC)
 * [XW-960](https://wikia-inc.atlassian.net/browse/XW-960) XW-960 | update translations for explore-wiki
 * [XW-1024](https://wikia-inc.atlassian.net/browse/XW-1024) XW-1024 | Fix moving top bar, fix height on discussions and not only

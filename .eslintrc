@@ -137,7 +137,7 @@
     "func-style": 0,
     "id-length": 0,
     "id-match": 0,
-    "indent": [2, "tab", {"VariableDeclarator": 1}],
+    "indent": [2, "tab", {"VariableDeclarator": 1, "SwitchCase": 1}],
     "jsx-quotes": 0,
     "key-spacing": [2, {"beforeColon": false, "afterColon": true}],
     "lines-around-comment": [0, { "beforeBlockComment": true}],

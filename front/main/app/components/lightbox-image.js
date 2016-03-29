@@ -32,7 +32,7 @@ export default Ember.Component.extend(
 				y = this.get('newY').toFixed(2),
 				transform = `transform: scale(${scale}) translate3d(${x}px,${y}px,0);`;
 
-			return (`-webkit-${transform}${transform}`).htmlSafe();
+			return Ember.String.htmlSafe(`-webkit-${transform}${transform}`);
 		}),
 
 		viewportSize: Ember.computed(() => {

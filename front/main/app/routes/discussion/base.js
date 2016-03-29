@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {updateTrackedUrl, trackPageView} from 'common/utils/track';
+import {trackPageView} from 'common/utils/track';
 
 export default Ember.Route.extend({
 	postDeleteFullScreenOverlay: false,
@@ -18,8 +18,7 @@ export default Ember.Route.extend({
 		didTransition() {
 			this.controllerFor('application').set('noMargins', true);
 
-			updateTrackedUrl(window.location.href);
-			trackPageView(null);
+			trackPageView();
 
 			return true;
 		}

@@ -2,10 +2,6 @@ import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('wikia-in-your-lang', 'Unit | Component | wikia-in-your-lang', {
 	unit: true,
-
-	beforeEach() {
-		window.localStorage.clear();
-	}
 });
 
 test('createAlert', function (assert) {

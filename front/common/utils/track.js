@@ -1,12 +1,7 @@
 /* eslint no-console: 0 */
 
-import Comscore from '../modules/Trackers/Comscore';
-import Internal from '../modules/Trackers/Internal';
-import IVW3 from '../modules/Trackers/IVW3';
-import Krux from '../modules/Trackers/Krux';
-import Nielsen from '../modules/Trackers/Nielsen';
-import Quantserve from '../modules/Trackers/Quantserve';
-import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
+import Ads from '../modules/ads';
+import {getGroup} from '../modules/abtest';
 
 /**
  * @typedef {Object} TrackContext
@@ -29,76 +24,70 @@ import UniversalAnalytics from '../modules/Trackers/UniversalAnalytics';
  * @typedef {Object} TrackerInstance
  * @property {Function} track
  * @property {Function} trackPageView
- * @property {Function} updateTrackedUrl
  * @property {boolean} usesAdsContext
  */
 
-const trackers = {
-		Comscore,
-		Internal,
-		IVW3,
-		Krux,
-		Nielsen,
-		Quantserve,
-		UniversalAnalytics
-	},
-	/**
-	 * These actions were ported over from legacy Wikia app code:
-	 * https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
-	 * The property keys were modified to fit style rules
-	 */
-	trackActions = {
-		// Generic add
-		add: 'add',
-		// Generic click, mostly javascript clicks
-		// NOTE: When tracking clicks, consider binding to 'onMouseDown' instead of 'onClick'
-		// to allow the browser time to send these events naturally. For more information on
-		// this issue, see the `track()` method in "resources/modules/tracker.js"
-		click: 'click',
-		// Click on navigational button
-		clickLinkButton: 'click-link-button',
-		// Click on image link
-		clickLinkImage: 'click-link-image',
-		// Click on text link
-		clickLinkText: 'click-link-text',
-		// Generic close
-		close: 'close',
-		// Clicking okay in a confirmation modal
-		confirm: 'confirm',
-		// Generic disable
-		disable: 'disable',
-		// Generic enable
-		enable: 'enable',
-		// Generic error (generally AJAX)
-		error: 'error',
-		// Generic hover
-		hover: 'hover',
-		// impression of item on page/module
-		impression: 'impression',
-		// App installation
-		install: 'install',
-		// Generic keypress
-		keypress: 'keypress',
-		paginate: 'paginate',
-		// Video play
-		playVideo: 'play-video',
-		// Removal
-		remove: 'remove',
-		// Generic open
-		open: 'open',
-		// Sharing view email, social network, etc
-		share: 'share',
-		// Form submit, usually a post method
-		submit: 'submit',
-		// Successful ajax response
-		success: 'success',
-		// General swipe event
-		swipe: 'swipe',
-		// Action to take a survey
-		takeSurvey: 'take-survey',
-		// View
-		view: 'view'
-	};
+/**
+ * These actions were ported over from legacy Wikia app code:
+ * https://github.com/Wikia/app/blob/dev/resources/wikia/modules/tracker.stub.js
+ * The property keys were modified to fit style rules
+ */
+const trackActions = {
+	// Generic add
+	add: 'add',
+	// During recent operations some data has been changed
+	change: 'change',
+	// Generic click, mostly javascript clicks
+	// NOTE: When tracking clicks, consider binding to 'onMouseDown' instead of 'onClick'
+	// to allow the browser time to send these events naturally. For more information on
+	// this issue, see the `track()` method in "resources/modules/tracker.js"
+	click: 'click',
+	// Click on navigational button
+	clickLinkButton: 'click-link-button',
+	// Click on image link
+	clickLinkImage: 'click-link-image',
+	// Click on text link
+	clickLinkText: 'click-link-text',
+	// Generic close
+	close: 'close',
+	// Clicking okay in a confirmation modal
+	confirm: 'confirm',
+	// Generic disable
+	disable: 'disable',
+	// Generic enable
+	enable: 'enable',
+	// Generic error (generally AJAX)
+	error: 'error',
+	// Input focus
+	focus: 'focus',
+	// Generic hover
+	hover: 'hover',
+	// impression of item on page/module
+	impression: 'impression',
+	// App installation
+	install: 'install',
+	// Generic keypress
+	keypress: 'keypress',
+	// Generic open
+	open: 'open',
+	paginate: 'paginate',
+	// Video play
+	playVideo: 'play-video',
+	// Removal
+	remove: 'remove',
+	// Sharing view email, social network, etc
+	share: 'share',
+	// Form submit, usually a post method
+	submit: 'submit',
+	// Successful ajax response
+	success: 'success',
+	// General swipe event
+	swipe: 'swipe',
+	// Action to take a survey
+	takeSurvey: 'take-survey',
+	// View
+	view: 'view'
+};
 
 let context = {
 	a: null,
@@ -118,18 +107,6 @@ function pruneParams(params) {
 }
 
 /**
- * @returns {boolean}
- */
-function isSpecialWiki() {
-	try {
-		return Boolean(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki);
-	} catch (e) {
-		// Property doesn't exist
-		return false;
-	}
-}
-
-/**
  * @param {TrackingParams} params
  * @returns {void}
  */
@@ -140,9 +117,6 @@ export function track(params) {
 		label = params.label || '',
 		value = params.value || 0,
 		isNonInteractive = params.isNonInteractive !== false;
-
-	let tracker,
-		uaTracker;
 
 	if (M.prop('queryParams.noexternals')) {
 		return;
@@ -164,70 +138,54 @@ export function track(params) {
 			throw new Error('Missing required GA params');
 		}
 
-		uaTracker = new trackers.UniversalAnalytics(isSpecialWiki());
-		uaTracker.track(category, action, label, value, isNonInteractive);
+		M.tracker.UniversalAnalytics.track(category, action, label, value, isNonInteractive);
 	}
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
-		tracker = new trackers.Internal();
 		params = $.extend(context, params);
-		tracker.track(params);
+		M.tracker.Internal.track(params);
 	}
 }
 
 /**
- * function for aggregating all page tracking that Wikia uses.
- * To make trackPageView work with your tracker,
- * make it a class in Mercury.Modules.Trackers and export one function 'trackPageView'
- *
- * trackPageView is called in ArticleView.onArticleChange
- *
- * @param {*} adsContext
+ * @param {UniversalAnalyticsDimensions} [uaDimensions]
+ * @param {string} [overrideUrl] - if you want to override URL sent to UA
  * @returns {void}
  */
-export function trackPageView(adsContext) {
+export function trackPageView(uaDimensions, overrideUrl) {
 	if (M.prop('queryParams.noexternals')) {
 		return;
 	}
 
-	Object.keys(trackers).forEach((tracker) => {
-		const Tracker = trackers[tracker];
+	if (M.prop('initialPageView')) {
+		M.prop('initialPageView', false);
+	} else {
+		window.trackQuantservePageView();
+		window.trackNielsenPageView();
+		window.trackComscorePageView();
 
-		if (typeof Tracker.prototype.trackPageView === 'function') {
-			const instance = new Tracker(isSpecialWiki());
+		M.tracker.Internal.trackPageView(context);
+		M.tracker.UniversalAnalytics.trackPageView(uaDimensions, overrideUrl);
+	}
 
-			console.info('Track pageView:', tracker);
-			instance.trackPageView(instance.usesAdsContext ? adsContext : context);
-		}
-	});
+	window.trackIVW3PageView();
+	Ads.getInstance().trackKruxPageView();
 }
 
 /**
- * Function that updates tracker's saved location to given path.
- * To be called after transition so tracker knows that URL is new.
+ * Function to track an experiement specific event. This is currently
+ * done due to limitations in the DW when it comes to segmentation
+ * of events based on experiment groups
  *
- * This is essential for UA pageview tracker which get's location
- * from window on page load and never updates it (despite changing
- * title) - all subsequent events including pageviews are tracked
- * for original location.
- *
- * @param {string} url
+ * @param {String} experiment
+ * @param {TrackingParams} params
  * @returns {void}
  */
-export function updateTrackedUrl(url) {
-	if (M.prop('queryParams.noexternals')) {
-		return;
-	}
+export function trackExperiment(experiment, params) {
+	const group = getGroup(experiment) || 'CONTROL';
 
-	Object.keys(trackers).forEach((tracker) => {
-		const Tracker = trackers[tracker];
-
-		if (typeof Tracker.prototype.updateTrackedUrl === 'function') {
-			const instance = new Tracker(isSpecialWiki());
-
-			instance.updateTrackedUrl(url);
-		}
-	});
+	params.label = [experiment, group, params.label].join('=');
+	track(params);
 }
 
 /**

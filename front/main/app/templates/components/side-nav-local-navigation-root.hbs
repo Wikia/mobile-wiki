@@ -3,17 +3,17 @@
 		{{i18n 'app.navigation-back-label'}}
 	</div>
 {{/if}}
-{{side-nav-local-wikia-search-2016
-	toggleSearchMode='toggleSearchMode'
-	localNavigationVisible=localNavigationVisible
-	collapse='collapse'
+{{side-nav-local-wikia-search
+toggleSearchMode='toggleSearchMode'
+localNavigationVisible=localNavigationVisible
+collapse=attrs.collapse
 }}
 
 {{#if localNavigationVisible}}
-	{{side-nav-local-navigation-menu-2016
-		collapse=this.attrs.collapse
-		loadRandomArticle=this.attrs.loadRandomArticle
-		localNavContent=localNavContent
-		updateContent=(action 'updateContent')
+	{{side-nav-local-navigation-menu
+	collapse=attrs.collapse
+	loadRandomArticle=this.attrs.loadRandomArticle
+	localNavContent=localNavContent
+	updateContent=(action 'updateContent')
 	}}
 {{/if}}

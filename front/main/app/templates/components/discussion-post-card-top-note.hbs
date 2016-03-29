@@ -1,0 +1,16 @@
+<span class="text-content columns {{if showButtons 'large-8 small-8' 'large-12 small-12'}}">
+	{{#if post.isLocked}}
+		{{svg 'locked' viewBox='0 0 14 16' class='icon locked'}}
+	{{/if}}
+	{{text}}
+</span>
+{{#if showButtons}}
+	<div class="actions columns large-4 small-4">
+		{{#if canModerate}}
+			<a class="validate-link" {{action 'approve' post isReply}}>{{svg 'checkmark' class='icon validate'}}</a>
+		{{/if}}
+		{{#if canDelete}}
+			<a class="delete-link" {{action 'delete' post isReply}}>{{svg 'trash-small' class='icon reported-delete'}}</a>
+		{{/if}}
+	</div>
+{{/if}}

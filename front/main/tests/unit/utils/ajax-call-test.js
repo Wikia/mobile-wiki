@@ -29,7 +29,7 @@ module('Unit | Utils | ajax call', (hooks) => {
 					}
 				},
 				expected: {
-					contentType: 'aplication/json',
+					contentType: 'application/json',
 					dataType: 'json',
 					method: 'GET',
 					xhrFields: {
@@ -45,7 +45,7 @@ module('Unit | Utils | ajax call', (hooks) => {
 			}, {
 				title: 'Passing options to ajax call',
 				options: {
-					contentType: 'aplication/json',
+					contentType: 'application/json',
 					dataType: 'json',
 					method: 'PUT',
 					success() {
@@ -56,7 +56,7 @@ module('Unit | Utils | ajax call', (hooks) => {
 					}
 				},
 				expected: {
-					contentType: 'aplication/json',
+					contentType: 'application/json',
 					dataType: 'json',
 					method: 'PUT',
 					xhrFields: {
@@ -84,7 +84,7 @@ module('Unit | Utils | ajax call', (hooks) => {
 					}
 				},
 				expected: {
-					contentType: 'aplication/json',
+					contentType: 'application/json',
 					dataType: 'xml',
 					method: 'GET',
 					xhrFields: {

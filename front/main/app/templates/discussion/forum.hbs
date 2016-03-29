@@ -1,12 +1,17 @@
 {{discussion-forum
-	model=model
+	applyFilters=(action 'applyFilters')
+	approve=(action 'approve')
 	create=(action 'create')
 	deletePost=(action 'deletePost')
 	loadPage=(action 'loadPage')
+	lockPost=(action 'lockPost')
+	model=model.data
+	report=(action 'report')
 	setSortBy=(action 'setSortBy')
 	siteHeadPinned=siteHeadPinned
 	smartBannerVisible=smartBannerVisible
 	retry=(action 'retry')
 	undeletePost=(action 'undeletePost')
+	unlockPost=(action 'unlockPost')
 	upvote=(action 'upvote')
 }}

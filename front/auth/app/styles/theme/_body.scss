@@ -1,6 +1,11 @@
 body {
 	background-color: $body-background;
+
+	&.desktop {
+		background-color: $body-background-desktop;
+	}
+
 	&.standalone {
-		background-color: $body-background-grey;
+		background-color: $body-background-standalone;
 	}
 }

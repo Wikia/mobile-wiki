@@ -18,5 +18,11 @@ export default Ember.Mixin.create(LanguagesMixin, {
 		window.location.href = `/join?redirect=` +
 			`${encodeURIComponent(window.location.href)}` +
 			`${this.getUselangParam()}`;
+	},
+
+	actions: {
+		goToLogin() {
+			this.goToLogin(...arguments);
+		}
 	}
 });

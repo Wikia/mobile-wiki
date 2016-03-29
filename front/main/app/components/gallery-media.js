@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import MediaComponent from './media';
 import ArticleContentMixin from '../mixins/article-content';
-import Thumbnailer from 'common/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 /**
  * ArticleMedia
@@ -35,21 +35,18 @@ export default MediaComponent.extend(
 		/**
 		 * @returns {void}
 		 */
-		setUp() {
-			const mediaArray = Ember.A(),
-				emptyGif = this.get('emptyGif');
-
+		setup() {
 			/**
 			 * @property {ArticleMedia} media
 			 * @property {number} index
 			 * @return {void}
 			 */
-			this.get('media').forEach((media, index) => {
+			const mediaArray = this.get('media').map((media, index) => {
 				media.galleryRef = index;
-				media.thumbUrl = emptyGif;
+				media.thumbUrl = this.emptyGif;
 				media.captionClass = Ember.get(media, 'caption.length') > 0 ? ' has-caption' : '';
 
-				mediaArray.pushObject(Ember.Object.create(media));
+				return Ember.Object.create(media);
 			});
 
 			this.setProperties({
@@ -108,7 +105,7 @@ export default MediaComponent.extend(
 				thumbSize = this.get('thumbSize'),
 				maxImages = Math.ceil(galleryWidth / thumbSize);
 
-			this.setUp();
+			this.setup();
 			this.loadImages(0, maxImages);
 
 			$this.on('scroll', () => {

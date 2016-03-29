@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ajaxCall from '../utils/ajax-call';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 /**
  * Handles posts upvoting.
@@ -15,26 +16,32 @@ export default Ember.Mixin.create({
 		 */
 		upvote(post) {
 			const postId = Ember.get(post, 'id'),
-				hasUpvoted = Ember.get(post._embedded.userData[0], 'hasUpvoted'),
+				hasUpvoted = Ember.get(post.userData, 'hasUpvoted'),
 				method = hasUpvoted ? 'delete' : 'post';
 
-			if (this.upvotingInProgress[postId] || typeof Ember.get(post, '_embedded.userData') === 'undefined') {
+			if (this.upvotingInProgress[postId] || typeof Ember.get(post, 'userData') === 'undefined') {
 				return null;
 			}
 
 			this.upvotingInProgress[postId] = true;
 
 			// the change in the front-end is done here
-			Ember.set(post._embedded.userData[0], 'hasUpvoted', !hasUpvoted);
+			Ember.set(post.userData, 'hasUpvoted', !hasUpvoted);
 
 			ajaxCall({
 				method,
-				url: M.getDiscussionServiceUrl(`/${Ember.get(post, 'siteId')}/votes/post/${Ember.get(post, 'id')}`),
+				url: M.getDiscussionServiceUrl(`/${Ember.get(Mercury, 'wiki.id')}/votes/post/${Ember.get(post, 'id')}`),
 				success: (data) => {
 					Ember.set(post, 'upvoteCount', data.upvoteCount);
+
+					if (hasUpvoted) {
+						track(trackActions.UndoUpvotePost);
+					} else {
+						track(trackActions.UpvotePost);
+					}
 				},
 				error: () => {
-					Ember.set(post._embedded.userData[0], 'hasUpvoted', hasUpvoted);
+					Ember.set(post.userData, 'hasUpvoted', hasUpvoted);
 				},
 				complete: () => {
 					this.upvotingInProgress[postId] = false;

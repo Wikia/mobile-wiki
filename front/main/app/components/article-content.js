@@ -9,10 +9,14 @@ import WikiaMapComponent from './wikia-map';
 import PortableInfoboxComponent from './portable-infobox';
 import AdsMixin from '../mixins/ads';
 import PollDaddyMixin from '../mixins/poll-daddy';
+import TrackClickMixin from '../mixins/track-click';
 import WidgetTwitterComponent from '../components/widget-twitter';
 import WidgetVKComponent from '../components/widget-vk';
 import WidgetPolldaddyComponent from '../components/widget-polldaddy';
 import WidgetFliteComponent from '../components/widget-flite';
+import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
+import {getExperimentVariationNumber} from 'common/utils/variant-testing';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * HTMLElement
@@ -23,6 +27,7 @@ import WidgetFliteComponent from '../components/widget-flite';
 export default Ember.Component.extend(
 	AdsMixin,
 	PollDaddyMixin,
+	TrackClickMixin,
 	{
 		tagName: 'article',
 		classNames: ['article-content', 'mw-content'],
@@ -32,8 +37,13 @@ export default Ember.Component.extend(
 		media: null,
 		contributionEnabled: null,
 		uploadFeatureEnabled: null,
-		cleanTitle: null,
+		displayTitle: null,
+		targetParagraphOffset: null,
 		headers: null,
+		highlightedEditorDemoEnabled: Ember.computed(() => {
+			return getExperimentVariationNumber({dev: '5170910064', prod: '5164060600'}) === 1 &&
+				!Ember.$.cookie('highlightedEditorDemoShown');
+		}),
 
 		newFromMedia(media) {
 			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
@@ -50,16 +60,26 @@ export default Ember.Component.extend(
 				return ImageMediaComponent.create();
 			}
 		},
-		articleContentObserver: Ember.observer('content', function () {
+
+		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
 			const content = this.get('content');
+
+			this.destroyChildComponents();
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				if (content) {
 					this.hackIntoEmberRendering(content);
-					this.loadTableOfContentsData();
-					this.handleTables();
+
 					this.handleInfoboxes();
 					this.replaceInfoboxesWithInfoboxComponents();
+
+					this.renderedComponents = queryPlaceholders(this.$())
+						.map(this.getAttributesForMedia, this)
+						.map(this.renderComponent);
+
+					this.loadIcons();
+					this.loadTableOfContentsData();
+					this.handleTables();
 					this.replaceMapsWithMapComponents();
 					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
@@ -67,6 +87,10 @@ export default Ember.Component.extend(
 					this.handleWikiaWidgetWrappers();
 					this.handlePollDaddy();
 					this.handleJumpLink();
+
+					if (this.get('highlightedEditorDemoEnabled')) {
+						this.setupHighlightedTextEditorDemo();
+					}
 
 					Ember.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
 				} else {
@@ -76,7 +100,7 @@ export default Ember.Component.extend(
 				this.injectAds();
 				this.setupAdsContext(this.get('adsContext'));
 			});
-		}).on('init'),
+		})),
 
 		headerObserver: Ember.observer('headers', function () {
 			if (this.get('contributionEnabled')) {
@@ -92,6 +116,29 @@ export default Ember.Component.extend(
 				});
 			}
 		}),
+
+		init() {
+			this._super(...arguments);
+
+			this.renderComponent = getRenderComponentFor(this);
+			this.renderedComponents = [];
+		},
+
+		willDestroyElement() {
+			this._super(...arguments);
+
+			this.destroyChildComponents();
+			this.destroyHighlightedEditorEvents();
+		},
+
+		click(event) {
+			const $anchor = Ember.$(event.target).closest('a'),
+				label = this.getTrackingEventLabel($anchor);
+
+			if (label) {
+				this.trackClick('article', label);
+			}
+		},
 
 		actions: {
 			/**
@@ -153,6 +200,79 @@ export default Ember.Component.extend(
 		},
 
 		/**
+		 * @param {jQuery[]} $element — array of jQuery objects of which context is to be checked
+		 * @returns {string}
+		 */
+		getTrackingEventLabel($element) {
+			if ($element && $element.length) {
+
+				// Mind the order -- 'figcaption' check has to be done before '.article-image',
+				// as the 'figcaption' is contained in the 'figure' element which has the '.article-image' class.
+				if ($element.closest('.portable-infobox').length) {
+					return 'portable-infobox-link';
+				} else if ($element.closest('.context-link').length) {
+					return 'context-link';
+				} else if ($element.closest('blockquote').length) {
+					return 'blockquote-link';
+				} else if ($element.closest('figcaption').length) {
+					return 'caption-link';
+				} else if ($element.closest('.article-image').length) {
+					return 'image-link';
+				}
+
+				return 'regular-link';
+			}
+
+			return '';
+		},
+
+		getAttributesForMedia({name, attrs, element}) {
+			const media = this.get('media.media');
+
+			if (attrs.ref >= 0 && media && media[attrs.ref]) {
+				if (name === 'article-media-thumbnail') {
+					attrs = Ember.$.extend(attrs, media[attrs.ref]);
+
+					/**
+					 * Ember has its own context attribute, that is why we have to use different attribute name
+					 */
+					if (attrs.context) {
+						attrs.mediaContext = attrs.context;
+						delete attrs.context;
+					}
+				} else if (name === 'article-media-gallery' || name === 'article-media-linked-gallery') {
+					attrs = Ember.$.extend(attrs, {
+						items: media[attrs.ref]
+					});
+				}
+			}
+
+			return {name, attrs, element};
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		destroyChildComponents() {
+			this.renderedComponents.forEach((renderedComponent) => {
+				renderedComponent.destroy();
+			});
+		},
+
+		/**
+		 * Creating components for small icons isn't good solution because of performance overhead
+		 * Putting all icons in HTML isn't good solution neither because there are articles with a lot of them
+		 * Thus we load them all after the article is rendered
+		 *
+		 * @returns {void}
+		 */
+		loadIcons() {
+			this.$('.article-media-icon[data-src]').each(function () {
+				this.src = this.getAttribute('data-src');
+			});
+		},
+
+		/**
 		 * Instantiate ArticleContributionComponent by looking up the component from container
 		 * in order to have dependency injection.
 		 *
@@ -167,7 +287,7 @@ export default Ember.Component.extend(
 		 * @returns {JQuery}
 		 */
 		createArticleContributionComponent(section, sectionId) {
-			const title = this.get('cleanTitle'),
+			const title = this.get('displayTitle'),
 				edit = 'edit',
 				addPhoto = 'addPhoto',
 				addPhotoIconVisible = this.get('addPhotoIconVisible'),
@@ -175,9 +295,9 @@ export default Ember.Component.extend(
 				editAllowed = this.get('editAllowed'),
 				addPhotoAllowed = this.get('addPhotoAllowed'),
 				contributionComponent =
-						this.get('container').lookup('component:article-contribution', {
-							singleton: false
-						});
+					this.get('container').lookup('component:article-contribution', {
+						singleton: false
+					});
 
 			contributionComponent.setProperties({
 				section,
@@ -237,7 +357,7 @@ export default Ember.Component.extend(
 					width: parseInt(element.getAttribute('width'), 10),
 					height: parseInt(element.getAttribute('height'), 10),
 					imgWidth: element.offsetWidth,
-					media,
+					media
 				}).createElement();
 
 			return component.$().attr('data-ref', ref);
@@ -249,7 +369,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		replaceMediaPlaceholdersWithMediaComponents(model, numberToProcess = -1) {
-			const $mediaPlaceholders = this.$('.article-media');
+			const $mediaPlaceholders = this.$('.article-media:not([data-component])');
 
 			if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {
 				numberToProcess = $mediaPlaceholders.length;
@@ -352,6 +472,7 @@ export default Ember.Component.extend(
 				infoboxComponent = this.createChildView(PortableInfoboxComponent.create({
 					infoboxHTML: elem.innerHTML,
 					height: $infoboxPlaceholder.outerHeight(),
+					pageTitle: this.get('displayTitle'),
 				}));
 
 			infoboxComponent.createElement();
@@ -400,17 +521,17 @@ export default Ember.Component.extend(
 		 */
 		createWidgetComponent(widgetType, data) {
 			switch (widgetType) {
-			case 'twitter':
-				return WidgetTwitterComponent.create({data});
-			case 'vk':
-				return WidgetVKComponent.create({data});
-			case 'polldaddy':
-				return WidgetPolldaddyComponent.create({data});
-			case 'flite':
-				return WidgetFliteComponent.create({data});
-			default:
-				Ember.Logger.warn(`Can't create widget with type '${widgetType}'`);
-				return null;
+				case 'twitter':
+					return WidgetTwitterComponent.create({data});
+				case 'vk':
+					return WidgetVKComponent.create({data});
+				case 'polldaddy':
+					return WidgetPolldaddyComponent.create({data});
+				case 'flite':
+					return WidgetFliteComponent.create({data});
+				default:
+					Ember.Logger.warn(`Can't create widget with type '${widgetType}'`);
+					return null;
 			}
 		},
 
@@ -461,7 +582,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		handleTables() {
-			this.$('table:not([class*=infobox], .dirbox)')
+			this.$('table:not([class*=infobox], .dirbox, .pi-horizontal-group)')
 				.not('table table')
 				.each((index, element) => {
 					const $element = this.$(element),
@@ -470,6 +591,111 @@ export default Ember.Component.extend(
 
 					$element.wrap(wrapper);
 				});
+		},
+
+		/**
+		 * TO BE THROWN AWAY ON MARCH 29, 2016
+		 *
+		 * Sets up everything for the Highlighted Text Editor demo:
+		 * - a word selected for highlighting in the DOM
+		 * - target paragraph offset
+		 * - events binding
+		 * @returns {void}
+		 */
+		setupHighlightedTextEditorDemo() {
+			const highlightedId = 'highlighted-text',
+				paragraphsLimit = 3,
+				$paragraphs = this.$('>p').slice(0, paragraphsLimit);
+
+			$paragraphs.toArray().some((paragraph) => {
+				const $paragraph = Ember.$(paragraph),
+					paragraphHtml = $paragraph.html(),
+					words = Ember.$('<div>').html(paragraphHtml).children().remove().end().html().split(' '),
+					minLettersLimit = 5;
+
+				return words.some((word) => {
+					if (word.length < minLettersLimit) {
+						return false;
+					} else {
+						this.set('targetParagraphOffset', $paragraph.offset().top);
+						$paragraph.html(paragraphHtml.replace(word, `<span id="${highlightedId}">${word}</span>`));
+						Ember.$(document).on('touchmove.launchDemo', this, this.debouncedScroll);
+						Ember.$(window).on('scroll.launchDemo', this, this.debouncedScroll);
+						return true;
+					}
+				});
+			});
+		},
+
+		/**
+		 * TO BE THROWN AWAY ON MARCH 29, 2016
+		 *
+		 * Initializes a demo of a new Highlighted Text Editor.
+		 * @returns {void}
+		 */
+		launchHighlightedTextEditorDemo() {
+			const highlightedId = 'highlighted-text',
+				$highlightedElement = Ember.$(`#${highlightedId}`),
+				selection = window.getSelection(),
+				range = document.createRange();
+
+			this.destroyHighlightedEditorEvents();
+
+			if ($highlightedElement) {
+				const $paragraph = $highlightedElement.parent(),
+					word = $highlightedElement.text();
+
+				range.selectNodeContents($highlightedElement[0]);
+				selection.removeAllRanges();
+
+				Ember.$('body').animate({scrollTop: $highlightedElement.offset().top - 150}, () => {
+					selection.addRange(range);
+					$highlightedElement.addClass('highlighted');
+
+					Ember.run.later(() => {
+						$highlightedElement.trigger('mousedown');
+						Ember.$.cookie('highlightedEditorDemoShown', true);
+						Ember.$(document).one('selectionchange', () => {
+							$paragraph.html($paragraph.html().replace($highlightedElement[0].outerHTML, word));
+						});
+					}, 500);
+				});
+
+				track({
+					action: trackActions.impression,
+					category: 'highlighted-editor',
+					label: 'popover'
+				});
+
+
+			}
+		},
+
+		destroyHighlightedEditorEvents() {
+			Ember.$(document).off('touchmove.launchDemo', this.debouncedScroll);
+			Ember.$(window).off('scroll.launchDemo', this.debouncedScroll);
+		},
+
+		/**
+		 * Debounces the scroll event
+		 * @param {Object} event
+		 * @returns {void}
+		*/
+		debouncedScroll(event) {
+			if (event.data) {
+				Ember.run.debounce(event.data, event.data.onScroll, 500);
+			}
+		},
+
+		/**
+		 * If a user has scrolled through the word selected for highlighting
+		 * it launches the demo of the Hightlighted Text Editor
+		 * @returns {void}
+		 */
+		onScroll() {
+			if (window.scrollY > this.get('targetParagraphOffset')) {
+				this.launchHighlightedTextEditorDemo();
+			}
 		}
 	}
 );

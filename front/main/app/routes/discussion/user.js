@@ -1,14 +1,16 @@
 import DiscussionBaseRoute from './base';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
-import DiscussionUserModel from '../../models/discussion-user';
+import DiscussionUserModel from '../../models/discussion/user';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
-import DiscussionDeleteRouteMixin from '../../mixins/discussion-delete-route';
+import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
+import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 
 export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
-	DiscussionDeleteRouteMixin, {
-
+	DiscussionModerationRouteMixin,
+	DiscussionModalDialogMixin,
+	{
 		userId: null,
 
 		/**

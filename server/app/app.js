@@ -1,7 +1,7 @@
-import setResponseCaching, {Policy, Interval} from './lib/Caching';
-import Logger from './lib/Logger';
-import {Environment} from './lib/Utils';
-import wikiaSessionScheme from './lib/WikiaSession';
+import {setResponseCaching, Policy, Interval} from './lib/caching';
+import Logger from './lib/logger';
+import {Environment} from './lib/utils';
+import wikiaSessionScheme from './lib/wikia-session';
 import localSettings from '../config/localSettings';
 import {routes} from './routes';
 import cluster from 'cluster';
@@ -320,10 +320,17 @@ process.on('message', (msg) => {
 	}
 });
 
-/**
- * @returns {void}
- */
-server.start(() => {
-	Logger.info({url: server.info.uri}, 'Server started');
-	process.send('Server started');
-});
+// Make sure that if the script is being required as a module by another script, we don’t start the server.
+// This is done to prevent the server from starting when we’re testing it.
+// With Hapi, we don’t need to have the server listening to test it.
+if (!module.parent) {
+	/**
+	 * @returns {void}
+	 */
+	server.start(() => {
+		Logger.info({url: server.info.uri}, 'Server started');
+		process.send('Server started');
+	});
+}
+
+module.exports = server;

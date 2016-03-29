@@ -4,33 +4,21 @@ import HeadroomMixin from '../mixins/headroom';
 export default Ember.Component.extend(
 	HeadroomMixin,
 	{
+		canDeleteAll: false,
+
 		classNames: ['discussion-header', 'background-theme-color'],
 
 		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
-
-		overlayIsVisible: Ember.computed.oneWay('discussionSort.sortVisible'),
+		isFilterApplied: Ember.computed('discussionSort.sortTypes.@each.active', function () {
+			return this.get('discussionSort.sortTypes.0.active') === false;
+		}),
 
 		siteName: Ember.computed(() => {
 			return Ember.get(Mercury, 'wiki.siteName');
 		}),
-		sortMessageKey: Ember.computed.oneWay('discussionSort.sortMessageKey'),
 
 		actions: {
-			/**
-			 * @returns {void}
-			 */
-			showSortComponent() {
-				this.get('discussionSort').showSortComponent();
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			hideSortComponent() {
-				this.get('discussionSort').hideSortComponent();
-			},
-
 			toggleEditor(active) {
 				this.get('discussionEditor').toggleEditor(active);
 			}

@@ -2,7 +2,7 @@ import {test, moduleForComponent} from 'ember-qunit';
 
 const track = require('common/utils/track').track;
 
-moduleForComponent('local-wikia-search', 'Unit | Component | local wikia search', {
+moduleForComponent('side-nav-local-wikia-search', 'Unit | Component | local wikia search', {
 	unit: true,
 
 	beforeEach() {

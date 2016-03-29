@@ -54,9 +54,7 @@
     "photos-label":"圖片",
     "pages-label":"頁面",
     "username-anonymous":"Wikia用户",
-    "smartbanner-store-ios":"在App商店上",
     "smartbanner-store-android":"在Google Play上",
-    "smartbanner-install-ios":"獲取App",
     "smartbanner-install-android":"安裝",
     "smartbanner-price":"免費",
     "view-more":"查看更多",
@@ -130,6 +128,8 @@
     "curated-content-editor-general-section-error":"請修復這個版塊中的錯誤。",
     "curated-content-editor-add-items-message":"請將項目添加到這個版塊。",
     "curated-content-editor-error-inside-items-message":"請修復各個項目中的錯誤。",
-    "curated-content-editor-items-count":"__count__ 個項目"
+    "curated-content-editor-items-count":"__count__ 個項目",
+    "wiki-page-error-reload-button": "刷新",
+    "wiki-page-error":"對不起，我們找不到您要查找的頁面。"
   }
 }

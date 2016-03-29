@@ -1,10 +1,15 @@
 {{discussion-post
-	model=model
+	approve=(action 'approve')
 	create=(action 'create')
+	deleteAllPosts=(action 'deleteAllPosts')
 	deletePost=(action 'deletePost')
 	deleteReply=(action 'deleteReply')
 	loadMoreComments=(action 'loadMoreComments')
+	lockPost=(action 'lockPost')
+	model=model.data
+	report=(action 'report')
 	undeletePost=(action 'undeletePost')
 	undeleteReply=(action 'undeleteReply')
+	unlockPost=(action 'unlockPost')
 	upvote=(action 'upvote')
 }}

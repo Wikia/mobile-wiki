@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import MediaModel from '../models/media';
-import {track, trackActions} from 'common/utils/track';
 import {normalizeToUnderscore} from 'common/utils/string';
 
 export default Ember.Component.extend(
@@ -101,13 +100,9 @@ export default Ember.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didInsertElement() {
-			// this.updateState modifies header and footer rendered in LightboxWrapperComponent
-			// This isn't allowed by Ember to do on didInsertElement
-			// That's why we need to schedule it in the afterRender queue
-			Ember.run.scheduleOnce('afterRender', this, () => {
-				this.updateState();
-			});
+		didRender() {
+			this._super(...arguments);
+			this.updateState();
 		},
 
 		/**
@@ -169,12 +164,6 @@ export default Ember.Component.extend(
 		 */
 		nextMedia() {
 			this.incrementProperty('currentGalleryRef');
-
-			track({
-				action: trackActions.paginate,
-				category: 'lightbox',
-				label: 'next'
-			});
 		},
 
 		/**
@@ -182,12 +171,6 @@ export default Ember.Component.extend(
 		 */
 		prevMedia() {
 			this.decrementProperty('currentGalleryRef');
-
-			track({
-				action: trackActions.paginate,
-				category: 'lightbox',
-				label: 'previous'
-			});
 		},
 
 		/**

@@ -54,9 +54,7 @@
     "photos-label":"Fotos",
     "pages-label":"Páginas",
     "username-anonymous":"Um contribuidor da Wikia",
-    "smartbanner-store-ios":"Na App Store",
     "smartbanner-store-android":"No Google Play",
-    "smartbanner-install-ios":"Baixe o aplicativo",
     "smartbanner-install-android":"Instalar",
     "smartbanner-price":"GRÁTIS",
     "view-more":"Ver mais",
@@ -134,6 +132,8 @@
     "curated-content-editor-error-inside-items-message":"Por favor, corrija os erros dentro dos itens.",
     "curated-content-editor-items-count":"__count__ itens",
     "curated-content-editor-exit-prompt":"Você tem alterações não salvas. Tem certeza que deseja sair?",
-    "curated-content-editor-main-page":"Página principal"
+    "curated-content-editor-main-page":"Página principal",
+    "wiki-page-error-reload-button": "Atualizar",
+    "wiki-page-error":"Desculpe, mas não conseguimos encontrar a página que você está procurando."
   },
 }

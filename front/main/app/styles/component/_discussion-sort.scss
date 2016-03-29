@@ -1,53 +1,35 @@
 .discussion-sort {
-	// This is intentional for theming -- use text color as background color
-	background-color: $color-white;
-	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+	background-color: transparent;
+	box-shadow: none;
 	list-style-type: none;
-	margin: 0;
-	padding: 4px 20px 4px 0;
-	position: absolute;
-	right: 5px;
-	text-align: right;
-	top: 5px;
-	width: 110px;
-	z-index: $z-modal-dialog;
+	margin: 17px auto 10px;
+	padding: 0;
+	text-align: center;
+	width: $discussion-page-width;
 
 	li {
+		border-bottom: 4px solid;
 		cursor: pointer;
+		float: left;
 		font-size: $type-base;
-		line-height: 28px;
+		font-weight: $font-weight-bold;
+		height: 50px;
+		line-height: 50px;
+		width: 50%;
+
+		&.not-active {
+			border-bottom-color: $discussion-sort-color;
+			color: $discussion-sort-color;
+		}
 	}
-}
 
-@media #{$mobile-range} {
-	.discussion-sort.mobile-hidden {
-		display: none;
-	}
-}
-
-@media #{$desktop-range} {
-	.discussion-sort {
-		background-color: transparent;
-		box-shadow: none;
-		margin: 17px auto 10px auto;
-		padding: 0;
-		position: static;
-		text-align: center;
-		width: $discussion-page-width;
-		z-index: auto;
-
+	&.no-trending {
 		li {
-			&.not-active {
-				border-bottom-color: $discussion-sort-color;
-				color: $discussion-sort-color;
+			&.sort-trending {
+				border-bottom-color: $discussion-sort-inactive-color;
+				color: $discussion-sort-inactive-color;
+				pointer-events: none;
 			}
-
-			border-bottom: 4px solid;
-			float: left;
-			font-weight: $font-weight-bold;
-			height: 50px;
-			line-height: 50px;
-			width: 50%;
 		}
 	}
 }

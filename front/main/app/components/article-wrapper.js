@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
+import TextHighlightMixin from '../mixins/text-highlight';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
-import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -15,11 +16,15 @@ import {track, trackActions, setTrackContext, updateTrackedUrl, trackPageView} f
 
 export default Ember.Component.extend(
 	LanguagesMixin,
+	TextHighlightMixin,
 	TrackClickMixin,
 	ViewportMixin,
 	{
 		classNames: ['article-wrapper'],
 		currentUser: Ember.inject.service(),
+
+		highlightedSectionIndex: 0,
+		highlightedText: '',
 
 		hammerOptions: {
 			touchAction: 'auto',
@@ -34,41 +39,33 @@ export default Ember.Component.extend(
 			}
 		},
 
-		gestures: {
-			/**
-			 * @param {JQueryEventObject} event
-			 * @returns {void}
-			 */
-			swipeLeft(event) {
-				// Track swipe events
-				if ($(event.target).parents('.article-table').length) {
-					track({
-						action: trackActions.swipe,
-						category: 'tables'
-					});
-				} else if ($(event.target).parents('.article-gallery').length) {
-					track({
-						action: trackActions.paginate,
-						category: 'gallery',
-						label: 'next'
-					});
-				}
-			},
+		setHighlightedText() {
+			this.setSelection(window.getSelection());
 
-			/**
-			 * @param {JQueryEventObject} event
-			 * @returns {void}
-			 */
-			swipeRight(event) {
-				// Track swipe events
-				if ($(event.target).parents('.article-gallery').length) {
-					track({
-						action: trackActions.paginate,
-						category: 'gallery',
-						label: 'previous'
-					});
-				}
+			if (this.isTextHighlighted()) {
+				const sectionIndex = this.getHighlightedTextSection();
+
+				let highlightedText = this.getHighlightedHtml();
+
+				highlightedText = this.trimTags(highlightedText);
+				highlightedText = this.replaceTags(highlightedText);
+
+				this.setHighlightedTextVars(sectionIndex, highlightedText);
+				track({
+					action: trackActions.impression,
+					category: 'highlighted-editor',
+					label: 'entry-point'
+				});
+			} else {
+				this.setHighlightedTextVars(0, '');
 			}
+		},
+
+		setHighlightedTextVars(highlightedSectionIndex, highlightedText) {
+			this.setProperties({
+				highlightedSectionIndex,
+				highlightedText
+			});
 		},
 
 		/**
@@ -93,7 +90,9 @@ export default Ember.Component.extend(
 		 */
 		contributionEnabled: Ember.computed('model.isMainPage', function () {
 			return !this.get('model.isMainPage') &&
-				this.get('contributionEnabledForCommunity');
+				this.get('contributionEnabledForCommunity') &&
+				// @todo XW-1196: Enable article editing on category pages
+				this.getWithDefault('model.ns', 0) !== 14;
 		}),
 
 		/**
@@ -143,20 +142,21 @@ export default Ember.Component.extend(
 
 		curatedContentToolButtonVisible: Ember.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
 
-		articleObserver: Ember.observer('model.article', function () {
-			// This check is here because this observer will actually be called for views wherein the state is actually
-			// not valid, IE, the view is in the process of preRender
-			Ember.run.scheduleOnce('afterRender', this, this.performArticleTransforms);
-		}).on('willInsertElement'),
+		displayRecentEdit: Ember.computed('currentUser.isAuthenticated', function () {
+			return this.get('currentUser.isAuthenticated') && !Ember.$.cookie('recent-edit-dismissed');
+		}),
+
+		highlightedEditorEnabled: Ember.computed(() => Mercury.wiki.language.content === 'en'),
 
 		actions: {
 			/**
 			 * @param {string} title
 			 * @param {number} sectionIndex
+			 * @param {string} highlightedText
 			 * @returns {void}
 			 */
-			edit(title, sectionIndex) {
-				this.sendAction('edit', title, sectionIndex);
+			edit(title, sectionIndex, highlightedText = null) {
+				this.sendAction('edit', title, sectionIndex, highlightedText);
 			},
 
 			/**
@@ -204,6 +204,16 @@ export default Ember.Component.extend(
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				this.sendAction('articleRendered');
 			});
+
+			if (this.get('highlightedEditorEnabled')) {
+				Ember.$(document).on('selectionchange.highlight', this.setHighlightedText.bind(this));
+			}
+		},
+
+		willDestroyElement() {
+			this._super(...arguments);
+
+			Ember.$(document).off('selectionchange.highlight');
 		},
 
 		/**
@@ -235,26 +245,6 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * @returns {boolean}
-		 */
-		performArticleTransforms() {
-			const model = this.get('model'),
-				articleContent = model.get('content');
-
-			if (articleContent && articleContent.length > 0) {
-				setTrackContext({
-					a: model.title,
-					n: model.ns
-				});
-
-				updateTrackedUrl(window.location.href);
-				trackPageView(model.get('adsContext.targeting'));
-			}
-
-			return true;
-		},
-
-		/**
 		 * Returns true if handleMedia() should be executed
 		 *
 		 * @param {EventTarget} target
@@ -282,26 +272,17 @@ export default Ember.Component.extend(
 			if (mediaRef >= 0) {
 				Ember.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 
-				if (!$mediaElement.hasClass('is-small')) {
-					media = this.get('model.media');
-					this.sendAction('openLightbox', 'media', {
-						media,
-						mediaRef,
-						galleryRef
-					});
-				} else {
-					Ember.Logger.debug('Image too small to open in lightbox', target);
-				}
+				media = this.get('model.media');
+				this.sendAction('openLightbox', 'media', {
+					media,
+					mediaRef,
+					galleryRef
+				});
 
-				if (galleryRef >= 0) {
-					track({
-						action: trackActions.click,
-						category: 'gallery'
-					});
-				}
+				this.trackClick('media', 'open');
 			} else {
 				Ember.Logger.debug('Missing ref on', target);
 			}
-		},
+		}
 	}
 );

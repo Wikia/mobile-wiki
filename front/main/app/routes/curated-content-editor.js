@@ -115,6 +115,11 @@ export default Ember.Route.extend(
 				this.transitionTo('curatedContentEditor.blockEditItem', block, encodeURIComponent(item.label));
 			},
 
+			editCommunityData() {
+				this.trackClick('curated-content-editor', 'community-data-edit');
+				this.transitionTo('curatedContentEditor.communityData');
+			},
+
 			/**
 			 * @returns {void}
 			 */
@@ -213,7 +218,7 @@ export default Ember.Route.extend(
 			if (ponto && typeof ponto.invoke === 'function') {
 				this.closeModalUsingPonto(ponto);
 			} else {
-				this.transitionTo('mainPage');
+				this.transitionTo('wiki-page', '');
 			}
 		},
 

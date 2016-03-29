@@ -1,25 +1,46 @@
 
 $horizontal-bar-mode: 800px;
+$mobile-hero-slider: new-breakpoint(max-width 750px);
+$desktop-hero-slider: new-breakpoint(min-width 751px);
 $small-mobile-slider: new-breakpoint(max-width 380px);
-$mobile-slider:  new-breakpoint(min-width 381px max-width 750px);
-$medium-slider: new-breakpoint(min-width 751px max-width 1000px);
-$desktop-slider: new-breakpoint(min-width 1001px);
+$mobile-slider:  new-breakpoint(min-width 381px max-width 615px);
+$mobile-slider-2row: new-breakpoint(min-width 616px max-width 1140px);
+$desktop-slider: new-breakpoint(min-width 1141px);
 
 .featured {
-	margin-top: 4em;
+	display: none;
+	margin: 4em auto;
+	max-width: 1150px;
 
-	@include media ($small-mobile-slider) {
-		display: none;
+	@include media ($desktop-slider) {
+		display: block;
 	}
+}
 
-	@include media ($mobile-slider) {
-		display: none;
+.featured-mobile-2row {
+	display: none;
+	margin: 4em auto 0;
+	max-width: 650px;
+
+	@include media ($mobile-slider-2row) {
+		display: block;
 	}
+}
+
+.featured-mobile-2col-wrapper {
+	position: relative;
+	width: 550px;
+}
+
+.featured-mobile-4col-wrapper {
+	position: relative;
 }
 
 .featured-mobile {
 	display: none;
 	max-width: 250px;
+	padding-left: 0;
+	padding-right: 0;
 
 	@include media ($small-mobile-slider) {
 		display: block;
@@ -33,13 +54,20 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 .featured-title {
 	font-size: 26px;
 
+	@include media ($desktop-hero-slider) {
+		padding-top: 25px;
+	}
+
+	@include media ($mobile-slider-2row) {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+
 	@include media ($mobile-slider) {
-		padding: .5em 0;
 		text-align: center;
 	}
 
 	@include media ($small-mobile-slider) {
-		padding: .5em 0;
 		font-size: 16px;
 	}
 }
@@ -49,6 +77,7 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 }
 
 .featured-mobile-slide {
+	display: inline-block;
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
@@ -56,41 +85,43 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 }
 
 .featured-mobile-slide-padding {
-	height: 1em;
+	height: 25px;
 	width: 100%;
 }
 
+.featured-mobile-slide-2col {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.featured-mobile-slide-4col {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
 .hero {
-	display: block;
+	display: none;
 	margin-left: auto;
 	margin-right: auto;
 	max-height: 500px;
 	max-width: 1280px;
 	padding-top: 54px;
 
-	@include media ($small-mobile-slider) {
-		display: none;
-	}
-
-	@include media ($mobile-slider) {
-		display: none;
+	@include media ($desktop-hero-slider) {
+		display: block;
 	}
 }
 
 .hero-mobile {
-	display: block;
+	display: none;
 	margin-left: auto;
 	margin-right: auto;
 	max-height: 560px;
 	max-width: 615px;
 	padding-top: 54px;
 
-	@include media ($medium-slider) {
-		display: none;
-	}
-
-	@include media ($desktop-slider) {
-		display: none;
+	@include media ($mobile-hero-slider) {
+		display: block;
 	}
 }
 
@@ -99,10 +130,6 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 	left: 100px;
 	position: absolute;
 	z-index: 1;
-
-	@include media ($medium-slider) {
-		bottom: 5px;
-	}
 
 	h1 {
 		color: white;
@@ -183,7 +210,7 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 
 	h2 {
 		color: white;
-		font-size: 0.75rem;
+		font-size: .75rem;
 	}
 
 	h3 {
@@ -208,75 +235,9 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 }
 
 .hero-image-mobile {
-	@include media ($medium-slider) {
-		display: none;
-	}
-
 	@include media ($desktop-slider) {
 		display: none;
 	}
-}
-
-.hero-prev,
-.hero-next {
-	background: transparent;
-	border: 0;
-	color: transparent;
-	cursor: pointer;
-	display: block;
-	font-size: 0;
-	height: 28px;
-	line-height: 0;
-	outline: none;
-	padding: 0;
-	position: absolute;
-	top: 50%;
-	width: 20px;
-}
-
-.hero-prev {
-	left: 30px;
-	top: 50%;
-	transform: translateY(-50%);
-	z-index: 1;
-
-	@include media ($small-mobile-slider) {
-		right: 15px;
-		top: 30%;
-	}
-
-	@include media ($mobile-slider) {
-		left: 15px;
-		top: 30%;
-	}
-}
-
-.hero-next {
-	right: 30px;
-	top: 50%;
-	transform: translateY(-50%);
-	z-index: 1;
-
-	@include media ($small-mobile-slider) {
-		right: 15px;
-		top: 30%;
-	}
-
-	@include media ($mobile-slider) {
-		right: 15px;
-		top: 30%;
-	}
-}
-
-.hero-hide-arrow {
-	display: none;
-}
-
-.hero-arrow {
-	background: url('/images/arrow-right.png') no-repeat 0 0;
-	display: inline-block;
-	height: 16px;
-	width: 16px;
 }
 
 .hero-link {
@@ -285,7 +246,7 @@ $desktop-slider: new-breakpoint(min-width 1001px);
 	font-size: 1.3rem;
 
 	@include media ($small-mobile-slider) {
-		font-size: 1.0rem;
+		font-size: 1rem;
 	}
 
 	@include media ($mobile-slider) {

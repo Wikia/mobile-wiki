@@ -1,10 +1,12 @@
 $icon-size: 16px;
 
-.article-title {
+.wiki-page-title {
 	@extend %header-section-title;
 	line-height: 2rem;
 	margin: {
 		bottom: 1em;
+		left: 1rem;
+		right: 1rem;
 		top: 3px;
 	}
 	word-break: break-word;
@@ -29,4 +31,9 @@ $icon-size: 16px;
 			fill: $black;
 		}
 	}
+}
+
+.wiki-page-subtitle {
+	margin-top: -1.75rem;
+	text-align: center;
 }

@@ -1,4 +1,4 @@
-export default Ember.Service.extend({
+export default Ember.Service.extend(Ember.Evented, {
 	isAnon: true,
 	isEditorOpen: false,
 	isUserBlocked: false,
@@ -29,7 +29,7 @@ export default Ember.Service.extend({
 	 * @returns {void}
 	 */
 	openDialog(message) {
-		this.get('modalDialogService').display(message);
+		this.get('modalDialogService').display(i18n.t(message, {ns: 'discussion'}));
 	},
 
 	/**

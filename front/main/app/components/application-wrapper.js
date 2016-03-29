@@ -1,6 +1,5 @@
 import Ember from 'ember';
-import {trackPerf} from 'common/utils/trackPerf';
-import {getSystem} from 'common/utils/browser';
+import {trackPerf} from 'common/utils/track-perf';
 
 /**
  * HTMLMouseEvent
@@ -24,7 +23,8 @@ import {getSystem} from 'common/utils/browser';
  */
 
 export default Ember.Component.extend({
-	classNameBindings: ['systemClass', 'smartBannerVisible', 'verticalClass'],
+	classNames: ['application-wrapper'],
+	classNameBindings: ['smartBannerVisible', 'verticalClass'],
 
 	verticalClass: Ember.computed(() => {
 		const vertical = Ember.get(Mercury, 'wiki.vertical');
@@ -32,17 +32,10 @@ export default Ember.Component.extend({
 		return `${vertical}-vertical`;
 	}),
 
-	systemClass: Ember.computed(() => {
-		const system = getSystem();
-
-		return system ? `system-${system}` : '';
-	}),
-
 	noScroll: false,
 	scrollLocation: null,
 	smartBannerVisible: false,
 	firstRender: true,
-	globalNav2016: Ember.get(Mercury, 'wiki.enableGlobalNav2016'),
 
 	noScrollObserver: Ember.observer('noScroll', function () {
 		const $body = Ember.$('body');

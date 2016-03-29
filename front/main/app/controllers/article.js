@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 import ArticleAddPhotoModel from '../models/article-add-photo';
-import VisibilityStateManager from '../mixins/visibility-state-manager';
+import VisibilityStateManager from '../utils/visibility-state-manager';
 
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
@@ -22,11 +22,12 @@ export default Ember.Controller.extend({
 		/**
 		 * @param {string} title
 		 * @param {number} sectionIndex
+		 * @param {string} highlightedText
 		 * @returns {void}
 		 */
-		edit(title, sectionIndex) {
+		edit(title, sectionIndex, highlightedText = null) {
 			VisibilityStateManager.reset();
-			this.transitionToRoute('articleEdit', title, sectionIndex);
+			this.transitionToRoute('articleEdit', title, sectionIndex, {queryParams: {highlighted: highlightedText}});
 
 			track({
 				action: trackActions.click,
@@ -46,8 +47,8 @@ export default Ember.Controller.extend({
 			const photoModel = ArticleAddPhotoModel.load(photoData);
 
 			// We don't want to hold with transition and wait for a promise to resolve.
-            // Instead we set properties on model after resolving promise and Ember scheduler
-            // handles this gracefully.
+			// Instead we set properties on model after resolving promise and Ember scheduler
+			// handles this gracefully.
 			photoModel.then((model) => {
 				model.setProperties({
 					title,

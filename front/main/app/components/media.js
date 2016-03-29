@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import VisibleMixin from '../mixins/visible';
-import Thumbnailer from 'common/modules/Thumbnailer';
-import {track, trackActions} from 'common/utils/track';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 /**
  * @typedef {Object} ThumbnailOptions
@@ -28,9 +27,10 @@ export default Ember.Component.extend(
 
 		// thumb widths
 		thumbSize: {
-			small: 340,
-			medium: 660,
-			large: 900,
+			small: 284,
+			medium: 340,
+			large: 732,
+			maximum: 985
 		},
 
 		// icon width depends on it's real dimensions
@@ -64,16 +64,6 @@ export default Ember.Component.extend(
 			 */
 			onVisible() {
 				this.load();
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			clickLinkedImage() {
-				track({
-					action: trackActions.click,
-					category: 'linked-image'
-				});
 			}
 		},
 
@@ -86,9 +76,11 @@ export default Ember.Component.extend(
 				return this.thumbSize.small;
 			} else if (width <= this.thumbSize.medium) {
 				return this.thumbSize.medium;
+			} else if (width <= this.thumbSize.large) {
+				return this.thumbSize.large;
 			}
 
-			return this.thumbSize.medium;
+			return this.thumbSize.maximum;
 		},
 
 		/**

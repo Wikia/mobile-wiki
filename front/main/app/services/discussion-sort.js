@@ -1,4 +1,5 @@
 export default Ember.Service.extend({
+	onlyReported: false,
 	sortVisible: false,
 
 	sortBy: Ember.computed('sortTypes.@each.active', function () {
@@ -23,27 +24,22 @@ export default Ember.Service.extend({
 	],
 
 	/**
-	 * @returns {void}
-	 */
-	showSortComponent() {
-		this.set('sortVisible', true);
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	hideSortComponent() {
-		this.set('sortVisible', false);
-	},
-
-	/**
 	 * @param {string} sortBy
 	 * @returns {void}
 	 */
 	setSortBy(sortBy) {
-		this.set('sortVisible', false);
 		this.sortTypes.forEach((item) => {
 			item.set('active', item.get('name') === sortBy);
 		});
+	},
+
+	/**
+	 * @param {boolean} onlyReported
+	 * @returns {void}
+	 */
+	setOnlyReported(onlyReported) {
+		if (onlyReported !== this.get('onlyReported')) {
+			this.set('onlyReported', onlyReported);
+		}
 	}
 });

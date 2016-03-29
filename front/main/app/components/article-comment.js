@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Thumbnailer from 'common/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 /**
  * @typedef {Object} ArticleCommentThumbnailData
@@ -77,11 +77,9 @@ export default Ember.Component.extend({
 						width: this.thumbnailWidth
 					}),
 					$thumbnail = $('<img/>').attr('src', thumbnailURL),
-					href = '%@%@:%@'.fmt(
-						Ember.get(Mercury, 'wiki.articlePath'),
-						Ember.getWithDefault(Mercury, 'wiki.namespaces.6', 'File'),
-						thumbnailData.name
-					),
+					articlePath = Ember.get(Mercury, 'wiki.articlePath'),
+					fileNamespace = Ember.getWithDefault(Mercury, 'wiki.namespaces.6', 'File'),
+					href = `${articlePath}${fileNamespace}:${thumbnailData.name}`,
 					$anchor = $('<a/>').attr('href', href).append($thumbnail),
 					$figure = $('<figure/>');
 

@@ -6,15 +6,15 @@
 			numberOfPosts=numberOfPosts
 		}}
 	{{else}}
-		<h1>{{name}}</h1>
+		<h1>{{i18n 'main.discussions-header-title' ns='discussion'}}</h1>
 		{{#if numberOfPosts}}
 			<p>{{i18n 'main.number-of-posts' numberOfPosts=numberOfPosts ns='discussion'}}</p>
 		{{/if}}
 		{{#if contributors}}
 			{{discussion-contributors
-				contributors=contributors
+				contributorsUsers=contributors.users
 				maxContributorDisplayCount=6
-				totalContributorCount=numberOfPosts
+				totalContributorCount=contributors.count
 			}}
 		{{/if}}
 	{{/if}}

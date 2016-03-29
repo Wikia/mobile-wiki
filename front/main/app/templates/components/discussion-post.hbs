@@ -1,22 +1,26 @@
-{{discussion-error-dialog
-	isVisible=shouldShowErrorMessage
-	errorMessage=errorMessage
+{{discussion-dialog
+	confirmButtonText=confirmButtonText
+	confirmCallback=confirmCallback
+	dialogMessage=dialogMessage
+	headerText=dialogHeaderText
+	isConfirm=isConfirm
+	isVisible=shouldShowDialogMessage
 }}
 <div class="site-body-discussion post-details-view">
 	<div class="minimized discussion-hero-unit background-theme-color"></div>
 	<div class="discussion-page row">
 		<div class="rail large-2 columns">
 			{{community-badge}}
-			{{#link-to 'discussion.forum' model.forumId discussionSort.sortBy class="back-button active-element-theme-color"}}
+			{{#link-to 'discussion.forum' model.forumId discussionSort.sortBy class="side-button back-button active-element-theme-color"}}
 				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
 				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
 			{{/link-to}}
 			<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
-			{{#if model.replies}}
+			{{#if model.repliesCount}}
 				{{discussion-contributors
-					contributors=model.contributors
+					contributorsUsers=model.contributors.users
 					maxContributorDisplayCount=7
-					totalContributorCount=model.postCount
+					totalContributorCount=model.contributors.count
 				}}
 			{{else}}
 				<span class="no-replies-message">{{i18n 'main.no-replies' ns='discussion'}}</span>
@@ -32,24 +36,28 @@
 			}}
 		{{else}}
 				<div class="discussion post small-12 large-8 columns">
-					{{post-detail
-						author=model.firstPost.createdBy
+					{{discussion-post-card-detail
+						approve=(action this.attrs.approve)
+						author=model.createdBy
 						delete=(action this.attrs.deletePost)
 						isDetailsView=true
-						post=model.firstPost
+						lock=(action this.attrs.lockPost)
+						post=model
 						postId=model.id
-						replyCount=model.postCount
-						timestamp=model.firstPost.creationDate.epochSecond
+						replyCount=model.repliesCount
+						report=(action this.attrs.report)
+						timestamp=model.creationDate
 						undelete=(action this.attrs.undeletePost)
+						unlock=(action this.attrs.unlockPost)
 						upvoteCount=model.upvoteCount
 						upvote=(action this.attrs.upvote)
 					}}
 					{{#if model.replies}}
 						<div class="desktop-hidden discussion-contributors-mobile">
 							{{discussion-contributors
-								contributors=model.contributors
+								contributorsUsers=model.contributors.users
 								maxContributorDisplayCount=7
-								totalContributorCount=model.postCount
+								totalContributorCount=model.contributors.count
 							}}
 						</div>
 						{{#if canShowMore}}
@@ -61,30 +69,35 @@
 					{{/if}}
 					<div class="replies-list">
 						{{#each model.replies as |item index|}}
-							{{post-reply
-								post=item
+							{{discussion-post-card-reply
+								approve=(action this.attrs.approve)
 								author=item.createdBy
 								content=item.rawContent
 								delete=(action this.attrs.deleteReply)
-								isParentDeleted=model.firstPost.isDeleted
-								timestamp=item.creationDate.epochSecond
-								undelete=(action this.attrs.undeleteReply)
-								upvoteCount=item.upvoteCount
+								isDetailsView= true
 								isNew=item.isNew
+								isParentDeleted=model.isDeleted
+								report=(action this.attrs.report)
+								post=item
+								timestamp=item.creationDate
+								undelete=(action this.attrs.undeleteReply)
 								upvote=(action this.attrs.upvote)
+								upvoteCount=item.upvoteCount
 							}}
 						{{else}}
-							<div class="discussion-no-replies">
-								{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
-								{{i18n 'main.no-replies-be-the-first' ns='discussion'}}
-							</div>
+							{{#if canReply}}
+								<div class="discussion-no-replies">
+									{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
+									{{i18n 'main.no-replies-be-the-first' ns='discussion'}}
+								</div>
+							{{/if}}
 						{{/each}}
-						{{#unless model.firstPost.isDeleted}}
+						{{#if canReply}}
 							{{discussion-reply-editor
 								create=(action this.attrs.create)
 								replies=model.replies
 							}}
-						{{/unless}}
+						{{/if}}
 					</div>
 				</div>
 		{{/if}}

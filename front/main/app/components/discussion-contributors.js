@@ -3,16 +3,16 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	classNames: ['discussion-contributors'],
 
-	contributors: [],
+	contributorsUsers: [],
 
 	maxContributorDisplayCount: 7,
 
 	totalContributorCount: 0,
 
-	latestContributors: Ember.computed('contributors', function () {
+	latestContributors: Ember.computed('contributorsUsers', function () {
 		const max = this.get('maxContributorDisplayCount');
 
-		return this.get('contributors').slice(0, max);
+		return this.get('contributorsUsers').slice(0, max);
 	}),
 
 	additionalContributorCount: Ember.computed('latestContributors', 'totalContributorCount', function () {

@@ -2,7 +2,6 @@ import Ember from 'ember';
 import CuratedContentEditorLabelsMixin from '../mixins/curated-content-editor-labels';
 import CuratedContentEditorLayoutMixin from '../mixins/curated-content-editor-layout';
 import CuratedContentThumbnailMixin from '../mixins/curated-content-thumbnail';
-import TrackClickMixin from '../mixins/track-click';
 import IEIFrameFocusFixMixin from '../mixins/ieiframe-focus-fix';
 import SearchImagesModel from '../models/search-images';
 
@@ -10,7 +9,6 @@ export default Ember.Component.extend(
 	CuratedContentEditorLabelsMixin,
 	CuratedContentEditorLayoutMixin,
 	CuratedContentThumbnailMixin,
-	TrackClickMixin,
 	IEIFrameFocusFixMixin,
 	{
 		classNames: ['curated-content-editor-image-search'],
@@ -39,7 +37,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			goBack() {
-				this.trackClick('curated-content-editor', 'image-search-go-back');
 				this.sendAction('changeLayout', this.get('imageSearchLayout.previous'));
 			},
 
@@ -48,21 +45,30 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			select(image) {
-				this.trackClick('curated-content-editor', 'image-search-select');
 				this.setProperties({
 					'imageProperties.url': image.url,
 					'imageProperties.id': image.id,
 					// Make cropper back button go back here
 					'imageCropLayout.previous': this.get('imageSearchLayout.name')
 				});
-				this.sendAction('changeLayout', this.get('imageSearchLayout.next'));
+
+				// we don't want to crop main community image
+				if (this.get('model.community_data')) {
+					this.setProperties({
+						'model.image_id': image.id,
+						'model.image_url': image.url
+					});
+
+					this.sendAction('changeLayout', this.get('imageSearchLayout.previous'));
+				} else {
+					this.sendAction('changeLayout', this.get('imageSearchLayout.next'));
+				}
 			},
 
 			/**
 			 * @returns {void}
 			 */
 			loadMore() {
-				this.trackClick('curated-content-editor', 'image-search-load-more');
 				this.setProperties({
 					spinnerOverlay: true,
 					isLoading: true,

@@ -3,16 +3,30 @@
  *
  * @returns {string}
  */
-export function getSystem() {
-	const ua = window.navigator.userAgent;
 
-	let system;
+const userAgent = navigator.userAgent;
 
-	if (ua.match(/iPad|iPhone|iPod/i) !== null) {
-		system = 'ios';
-	} else if (ua.match(/Android/i) !== null) {
-		system = 'android';
-	}
+let system,
+	standalone;
 
-	return system;
+if (/iPad|iPhone|iPod/i.test(userAgent)) {
+	system = 'ios';
+} else if (/Android/i.test(userAgent)) {
+	system = 'android';
 }
+
+standalone = navigator.standalone;
+
+/**
+ * Checks if current browser is Chrome of version higher or equal to provided
+ * @param {int} fullVersion Full version number without decimals
+ * @returns {boolean}
+ */
+function isChromeMinVer(fullVersion) {
+	const regex = 'chrome\/([0-9]*)',
+		match = userAgent.toLowerCase().match(regex);
+
+	return match && parseInt(match[1], 10) >= fullVersion;
+}
+
+export {system, standalone, isChromeMinVer};

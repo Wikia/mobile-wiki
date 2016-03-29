@@ -1,25 +1,32 @@
 {{#each posts as |item|}}
 	{{#if item.isReply }}
-		{{post-reply
+		{{discussion-post-card-reply
+			approve=(action this.attrs.approve)
 			author=item.createdBy
 			content=item.rawContent
 			delete=(action this.attrs.deleteReply)
-			isParentDeleted=model.firstPost.isDeleted
+			isParentDeleted=model.isDeleted
 			post=item
+			report=(action this.attrs.report)
 			showRepliedTo=true
-			timestamp=item.creationDate.epochSecond
+			timestamp=item.creationDate
 			undelete=(action this.attrs.undeleteReply)
 			upvote=(action this.attrs.upvote)
 			upvoteCount=item.upvoteCount
 			userListView=true
 		}}
 	{{else}}
-		{{post-detail
+		{{discussion-post-card-detail
+			approve=(action this.attrs.approve)
 			author=item.createdBy
 			delete=(action this.attrs.deletePost)
+			isReported=item.isReported
+			lock=(action this.attrs.lock)
 			post=item
-			replyCount=item.postCount
+			report=(action this.attrs.report)
+			replyCount=item.repliesCount
 			undelete=(action this.attrs.undeletePost)
+			unlock=(action this.attrs.unlock)
 			upvote=(action this.attrs.upvote)
 		}}
 	{{/if}}

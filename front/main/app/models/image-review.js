@@ -21,7 +21,14 @@ ImageReviewModel.reopenClass({
 				xhrFields: {
 					withCredentials: true
 				},
-				success: (data) => resolve(ImageReviewModel.getImages(data.id)),
+				success: (data, textStatus, xhr) => {
+					// In case there are no more images, create empty model and show `No more images to review` message
+					if (xhr.status === 204) {
+						resolve(ImageReviewModel.create({}));
+					} else {
+						resolve(ImageReviewModel.getImagesAndCount(data.id));
+					}
+				},
 				error: (data) => reject(data)
 			});
 		});
@@ -53,7 +60,7 @@ ImageReviewModel.reopenClass({
 				method: 'GET',
 				success: (data) => {
 					if (Ember.isArray(data)) {
-						resolve(ImageReviewModel.sanitize(data, contractId));
+						resolve({data, contractId});
 					} else {
 						reject(i18n.t('app.image-review-error-invalid-data'));
 					}
@@ -94,21 +101,21 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	sanitize(rawData, contractId) {
+	sanitize(rawData, contractId, imagesToReviewCount) {
 		const images = [];
 
 		rawData.forEach((image) => {
-			if (image.reviewStatus === 'UNREVIEWED') {
+			if (image.reviewStatus === 'UNREVIEWED' || image.reviewStatus === 'FLAGGED') {
 				images.push(Ember.Object.create({
 					imageId: image.imageId,
 					fullSizeImageUrl: image.imageUrl,
 					contractId,
+					context: image.context || '#',
 					status: 'accepted'
 				}));
 			}
-			// else skip because is reviewed already
 		});
-		return ImageReviewModel.create({images, contractId});
+		return ImageReviewModel.create({images, contractId, imagesToReviewCount});
 	},
 
 	reviewImages(images) {
@@ -123,6 +130,35 @@ ImageReviewModel.reopenClass({
 			}, (data) => {
 				reject(data);
 			});
+		});
+	},
+
+	getImagesToReviewCount() {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
+				url: M.getImageReviewServiceUrl('/monitoring', {
+					status: 'UNREVIEWED'
+				}),
+				xhrFields: {
+					withCredentials: true
+				},
+				dataType: 'json',
+				method: 'GET',
+				success: (data) => resolve(data),
+				error: () => reject(i18n.t('app.image-review-error-invalid-data'))
+			});
+		});
+	},
+
+	getImagesAndCount(contractId) {
+		const promises = [
+			ImageReviewModel.getImages(contractId),
+			ImageReviewModel.getImagesToReviewCount()
+		];
+
+		return Ember.RSVP.allSettled(promises).then(([getImagesPromise, getImagesToReviewCountPromise]) => {
+			return ImageReviewModel.sanitize(getImagesPromise.value.data, getImagesPromise.value.contractId,
+				getImagesToReviewCountPromise.value.countByStatus);
 		});
 	}
 });

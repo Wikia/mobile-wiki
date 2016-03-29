@@ -1,24 +1,29 @@
 {{discussion-header
+	canModerate=model.canModerate
+	hasFilters=true
 	hasNewPostButton=true
 	hasSiteName=true
-	hasSortMenu=true
 	smartBannerVisible=smartBannerVisible
+	applyFilters=(action this.attrs.applyFilters)
 }}
-{{discussion-error-dialog
-	isVisible=shouldShowErrorMessage
-	errorMessage=errorMessage
+{{discussion-dialog
+	confirmButtonText=confirmButtonText
+	confirmCallback=confirmCallback
+	dialogMessage=dialogMessage
+	headerText=dialogHeaderText
+	isConfirm=isConfirm
+	isVisible=shouldShowDialogMessage
 }}
 
 <div class="site-body-discussion post-list-view">
 	{{discussion-hero-unit
 		contributors=model.contributors
-		name=model.name
-		numberOfPosts=model.totalPosts
+		numberOfPosts=model.postCount
 	}}
 	<div class="discussion-page row">
 		<div class="rail large-3 columns">
 			{{community-badge}}
-			<a href="/" class="back-button active-element-theme-color">
+			<a href="/" class="side-button back-button active-element-theme-color">
 				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
 				{{i18n 'main.back-to-wikia-link' ns='discussion'}}
 			</a>
@@ -36,24 +41,32 @@
 				{{discussion-sort
 					setSortBy=(action this.attrs.setSortBy)
 				}}
-				{{forum-wrapper
+				{{discussion-forum-wrapper
+					approve=(action this.attrs.approve)
 					create=(action this.attrs.create)
 					deletePost=(action this.attrs.deletePost)
-					loadPage=(action this.attrs.loadPage)
-					undeletePost=(action this.attrs.undeletePost)
-					upvote=(action this.attrs.upvote)
 					forumId=model.forumId
+					loadPage=(action this.attrs.loadPage)
+					lockPost=(action this.attrs.lockPost)
 					minorError=model.minorError
 					name=model.name
 					pageNum=model.pageNum
-					posts=model.posts
-					postsDisplayed=model.posts.length
-					totalPosts=model.totalPosts
+					posts=model.entities
+					postsDisplayed=model.entities.length
+					report=(action this.attrs.report)
 					siteHeadPinned=siteHeadPinned
+					totalPosts=model.postCount
+					undeletePost=(action this.attrs.undeletePost)
+					upvote=(action this.attrs.upvote)
+					unlockPost=(action this.attrs.unlockPost)
 				}}
 			</div>
 		{{/if}}
-		<div class="rail large-3 columns">
+		<div class="rail right large-3 columns">
+			{{discussion-filters
+				applyFilters=(action this.attrs.applyFilters)
+				canModerate=model.canModerate
+			}}
 			{{discussion-app-promotion}}
 		</div>
 	</div>

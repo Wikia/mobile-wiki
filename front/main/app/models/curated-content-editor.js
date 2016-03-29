@@ -41,6 +41,7 @@ import CuratedContentEditorItemModel from '../models/curated-content-editor-item
 const CuratedContentEditorModel = Ember.Object.extend({
 	featured: null,
 	curated: null,
+	communityData: null,
 	optional: null,
 	isDirty: false
 });
@@ -109,7 +110,8 @@ CuratedContentEditorModel.reopenClass({
 	 */
 	prepareDataForSave(model) {
 		return {
-			data: [].concat(model.featured, model.curated.items, model.optional)
+			data: [].concat(model.featured, model.curated.items, model.optional),
+			community_data: model.communityData
 		};
 	},
 
@@ -130,17 +132,22 @@ CuratedContentEditorModel.reopenClass({
 		};
 		let featured = {
 				items: [],
-				featured: 'true',
+				featured: 'true'
 			},
 			optional = {
 				items: [],
 				label: ''
+			},
+			communityData = {
+				community_data: 'true'
 			};
 
 		if (rawData.length) {
 			rawData.forEach((section) => {
 				if (section.featured === 'true') {
 					featured = section;
+				} else if (section.community_data === 'true') {
+					communityData = section;
 				} else if (section.label === '') {
 					optional = section;
 				} else {
@@ -152,7 +159,8 @@ CuratedContentEditorModel.reopenClass({
 		return CuratedContentEditorModel.create({
 			featured,
 			curated,
-			optional
+			optional,
+			communityData
 		});
 	},
 
@@ -212,11 +220,14 @@ CuratedContentEditorModel.reopenClass({
 	 * @returns {void}
 	 */
 	updateItem(parentItem, newItem, itemLabel) {
-		parentItem.items.forEach((item, index, parentItems) => {
-			if (item.label === itemLabel) {
-				parentItems[index] = newItem.toPlainObject();
-			}
-		});
+		if (parentItem.items) {
+			parentItem.items.forEach((item, index, parentItems) => {
+				if (item.label === itemLabel) {
+					parentItems[index] = newItem.toPlainObject();
+				}
+			});
+		}
+
 		CuratedContentEditorModel.isDirty = true;
 	},
 
@@ -227,6 +238,17 @@ CuratedContentEditorModel.reopenClass({
 	 */
 	deleteItem(parentItem, itemLabel) {
 		parentItem.items = parentItem.items.filter((item) => item.label !== itemLabel);
+		CuratedContentEditorModel.isDirty = true;
+	},
+
+	/**
+	 * @desc updates community data state
+	 * @param {Ember.Object} model
+	 * @param {Ember.Object} newState
+	 * @returns {void}
+	 */
+	updateCommunityData(model, newState) {
+		model.communityData = newState;
 		CuratedContentEditorModel.isDirty = true;
 	}
 });

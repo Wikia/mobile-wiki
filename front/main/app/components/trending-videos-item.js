@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
 import TrackClickMixin from '../mixins/track-click';
-import Thumbnailer from 'common/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 export default Ember.Component.extend(
 	ViewportMixin,
@@ -26,7 +26,7 @@ export default Ember.Component.extend(
 			const options = {
 					width: this.get('imageWidth'),
 					height: this.get('imageHeight'),
-					mode: this.get('cropMode'),
+					mode: this.get('cropMode')
 				},
 				videoUrl = this.get('video.url');
 
@@ -45,7 +45,7 @@ export default Ember.Component.extend(
 		 * @returns {boolean}
 		 */
 		click() {
-			this.trackClick('modular-main-page', 'trending-videos');
+			this.trackClick('main-page-trending-videos', `open-item-${this.get('index')}`);
 			this.sendAction('action', this.get('video'));
 
 			return false;
@@ -58,6 +58,6 @@ export default Ember.Component.extend(
 			const imageHeightString = String(Math.floor((this.get('viewportDimensions.width') - 10) * 9 / 16));
 
 			this.set('imageStyle', new Ember.Handlebars.SafeString(`height: ${imageHeightString}px;`));
-		},
+		}
 	}
 );

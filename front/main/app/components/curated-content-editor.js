@@ -1,13 +1,12 @@
 import Ember from 'ember';
 import AlertNotificationsMixin from '../mixins/alert-notifications';
-import TrackClickMixin from '../mixins/track-click';
 import CuratedContentEditorModel from '../models/curated-content-editor';
 
 export default Ember.Component.extend(
 	AlertNotificationsMixin,
-	TrackClickMixin,
 	{
 		classNames: ['curated-content-editor'],
+		enableCommunityData: Ember.get(Mercury, 'wiki.enableCommunityData'),
 
 		/**
 		 * When user enters curated content editor we want to clear all notifications that might be still there
@@ -50,6 +49,20 @@ export default Ember.Component.extend(
 			/**
 			 * @returns {void}
 			 */
+			editWikiaDescription() {
+				this.sendAction('editWikiaDescription');
+			},
+
+			/**
+			 * @returns {void}
+			 */
+			editCommunityData() {
+				this.sendAction('editCommunityData');
+			},
+
+			/**
+			 * @returns {void}
+			 */
 			openMainPage() {
 				this.sendAction('openMainPage');
 			},
@@ -66,7 +79,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			save() {
-				this.trackClick('curated-content-editor', 'save');
 				this.validateAndSave();
 			}
 		},

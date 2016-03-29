@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Thumbnailer from 'common/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 export default Ember.Component.extend({
 	classNames: ['community-badge'],
@@ -36,16 +36,30 @@ export default Ember.Component.extend({
 		949: '/front/common/images/community-badge-mortal-kombat.jpg',
 		255885: '/front/common/images/community-badge-terraria.jpg',
 		509: '/front/common/images/community-badge-harry-potter.jpg',
+		12318: '/front/common/images/community-badge-harry-potter.jpg',
+		1139: '/front/common/images/community-badge-battlefied.jpg',
 		2188: '/front/common/images/community-badge-battlefront.jpg',
 		321995: '/front/common/images/community-badge-ahs.jpg',
 		2233: '/front/common/images/community-badge-marvel.jpg',
+		183473: '/front/common/images/community-badge-marvel.jpg',
 		2237: '/front/common/images/community-badge-dc.jpg',
 		604797: '/front/common/images/community-badge-destiny.jpg',
 		1074920: '/front/common/images/community-badge-weihnachts.jpg',
 		3676: '/front/common/images/community-badge-ja-halo.jpg',
 		1147260: '/front/common/images/community-badge-ja-ajin.jpg',
 		1144697: '/front/common/images/community-badge-ja-knights-of-sidonia.jpg',
-		1233861: '/front/common/images/community-badge-connect.jpg'
+		1233861: '/front/common/images/community-badge-connect.jpg',
+		671485: '/front/common/images/community-badge-tekken.jpg',
+		198492: '/front/common/images/community-badge-xcom.jpg',
+		1350187: '/front/common/images/community-badge-head-fi.jpg',
+		1322734: '/front/common/images/community-badge-league-of-legends.jpg',
+		1015917: '/front/common/images/community-badge-love-live.jpg',
+		260936: '/front/common/images/community-badge-teen-wolf.jpg',
+		174: '/front/common/images/community-badge-final-fantasy.jpg',
+		3313: '/front/common/images/community-badge-riordan.jpg',
+		1353547: '/front/common/images/community-badge-ja-seiken.jpg',
+		650858: '/front/common/images/community-badge-ja-dont-starve.jpg',
+		125: '/front/common/images/community-badge-tardis.jpg'
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {

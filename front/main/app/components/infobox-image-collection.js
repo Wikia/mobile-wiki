@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import MediaComponent from './media';
 import ViewportMixin from '../mixins/viewport';
-import Thumbnailer from 'common/modules/Thumbnailer';
+import Thumbnailer from 'common/modules/thumbnailer';
 
 export default MediaComponent.extend(
 	ViewportMixin,
@@ -58,23 +58,20 @@ export default MediaComponent.extend(
 		 * @returns {void}
 		 */
 		setup() {
-			const mediaArray = Ember.A(),
-				emptyGif = this.get('emptyGif');
+			const emptyGif = this.emptyGif;
 
 			/**
 			 * @param {ArticleMedia} image
 			 * @param {number} index
 			 * @returns {void}
 			 */
-			this.get('media').forEach((image, index) => {
+			this.set('media', this.get('media').map((image, index) => {
 				image.galleryRef = index;
 				image.thumbUrl = emptyGif;
 				image.isActive = (index === this.get('activeRef'));
 
-				mediaArray.pushObject(Ember.Object.create(image));
-			});
-
-			this.set('media', mediaArray);
+				return Ember.Object.create(image);
+			}));
 		},
 
 		/**

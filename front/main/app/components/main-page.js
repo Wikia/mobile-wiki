@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import AdsMixin from '../mixins/ads';
 import TrackClickMixin from '../mixins/track-click';
-import {setTrackContext, updateTrackedUrl, trackPageView} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	AdsMixin,
@@ -36,19 +35,10 @@ export default Ember.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		didReceiveAttrs() {
-			Ember.run.schedule('afterRender', this, () => {
-				setTrackContext({
-					a: this.get('title'),
-					n: this.get('ns'),
-				});
-
-				updateTrackedUrl(window.location.href);
-				trackPageView(this.get('adsContext.targeting'));
-
-				this.injectMainPageAds();
-				this.setupAdsContext(this.get('adsContext'));
-			});
+		didRender() {
+			this._super(...arguments);
+			this.injectMainPageAds();
+			this.setupAdsContext(this.get('adsContext'));
 		},
 	}
 );

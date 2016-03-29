@@ -1,6 +1,6 @@
 <div class="header clearfix background-theme-color">
 	{{#if hasBackButton }}
-		{{#link-to 'discussion.forum' forumId discussionSort.sortBy class="back-button"}}
+		{{#link-to 'discussion.forum' forumId discussionSort.sortBy class="side-button back-button"}}
 			{{svg 'back-arrow' role='img' class='icon arrow-left'}}
 			{{i18n 'main.back-to-discussions-link' ns='discussion'}}
 		{{/link-to}}
@@ -13,13 +13,25 @@
 			{{svg 'new-post-icon' viewBox='0 0 56 50'}}
 		</div>
 	{{/if}}
-	{{#if hasSortMenu}}
-		<div {{action 'showSortComponent'}} class="sort">
-			<span>{{i18n sortMessageKey ns='discussion'}}</span>
-			{{svg 'filter-dropdown-white' viewBox='0 0 7 4' class='icon dropdown'}}
+	{{#if hasFilters}}
+		<div class="sort {{if isFilterApplied 'applied'}}" id="discussion-mobile-filter">
+			{{svg 'filter-default' class='icon filter-default'}}
+			{{svg 'filter-applied' class='icon filter-applied'}}
 		</div>
+
+		{{#pop-over for='discussion-mobile-filter' on='click' flow='downCentered'}}
+			{{discussion-filters
+				applyFilters=(action this.attrs.applyFilters)
+				showApplyButton=true
+				showSortSection=true
+				canModerate=canModerate
+			}}
+		{{/pop-over}}
 	{{/if}}
-	{{#if overlayIsVisible}}
-		<div {{action 'hideSortComponent'}} class="overlay"></div>
+	{{#if canDeleteAll}}
+		<div {{action this.attrs.deleteAllPosts}} class="side-button delete-all">
+			{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
+			{{i18n 'main.delete-all' ns='discussion'}}
+		</div>
 	{{/if}}
 </div>

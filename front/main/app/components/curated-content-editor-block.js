@@ -9,6 +9,7 @@ export default Ember.Component.extend(
 
 		isHelpVisible: false,
 		persistentSort: true,
+		isCommunityDataBlock: Ember.computed.notEmpty('model.community_data'),
 
 		actions: {
 			/**
@@ -38,7 +39,6 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			showHelp() {
-				this.trackClick('curated-content-editor', 'help-show');
 				this.set('isHelpVisible', true);
 			}
 		}

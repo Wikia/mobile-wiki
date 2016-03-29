@@ -1,14 +1,21 @@
 import DiscussionBaseRoute from './base';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
-import DiscussionForumModel from '../../models/discussion-forum';
+import DiscussionForumModel from '../../models/discussion/forum';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
-import DiscussionDeleteRouteMixin from '../../mixins/discussion-delete-route';
+import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
+import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
+import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 
 export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
-	DiscussionDeleteRouteMixin, {
+	DiscussionModerationRouteMixin,
+	DiscussionForumActionsRouteMixin,
+	DiscussionModalDialogMixin,
+	{
+		canModerate: null,
 		discussionSort: Ember.inject.service(),
+		discussionEditor: Ember.inject.service(),
 
 		forumId: null,
 
@@ -17,9 +24,13 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
+			const discussionSort = this.get('discussionSort');
+
 			if (params.sortBy) {
-				this.get('discussionSort').setSortBy(params.sortBy);
+				discussionSort.setSortBy(params.sortBy);
 			}
+
+			discussionSort.setOnlyReported(false);
 
 			this.set('forumId', params.forumId);
 
@@ -44,18 +55,24 @@ export default DiscussionBaseRoute.extend(
 				this.modelFor(this.routeName).loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
-			create(postData) {
-				this.setSortBy('latest').promise.then(() => {
-					this.modelFor(this.routeName).createPost(postData);
-				});
-			},
 
 			/**
-			 * @param {string} sortBy
+			 * Applies sorting by date and attempts to create a new post
+			 *
+			 * @param {object} postData
+			 *
 			 * @returns {void}
 			 */
-			setSortBy(sortBy) {
-				this.setSortBy(sortBy);
+			create(postData) {
+				this.setSortBy('latest').promise.then(() => {
+					const model = this.modelFor('discussion.forum');
+
+					model.createPost(postData).then((xhr) => {
+						if (xhr.apiResponseData && !model.get('errorMessage')) {
+							this.get('discussionEditor').trigger('newPost');
+						}
+					});
+				});
 			},
 		}
 	}

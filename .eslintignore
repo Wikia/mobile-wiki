@@ -7,6 +7,7 @@ front/common/bower_components/
 
 front/main/bower_components/
 front/main/node_modules/
+front/main/public/moment
 front/main/vendor/
 front/main/tmp/
 

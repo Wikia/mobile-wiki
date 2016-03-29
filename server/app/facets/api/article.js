@@ -1,14 +1,16 @@
-import * as Article from '../../lib/Article';
-import setResponseCaching, * as Caching from '../../lib/Caching';
-import {getCachedWikiDomainName} from '../../lib/Utils';
+import {PageRequestHelper} from '../../lib/mediawiki-page';
+import {
+	disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy
+} from '../../lib/caching';
+import {getCachedWikiDomainName} from '../../lib/utils';
 import localSettings from '../../../config/localSettings';
-import getStatusCode from '../operations/getStatusCode';
+import getStatusCode from '../operations/get-status-code';
 
 const cachingTimes = {
 	enabled: true,
-	cachingPolicy: Caching.Policy.Public,
-	varnishTTL: Caching.Interval.standard,
-	browserTTL: Caching.Interval.disabled
+	cachingPolicy: CachingPolicy.Public,
+	varnishTTL: CachingInterval.standard,
+	browserTTL: CachingInterval.disabled
 };
 
 /**
@@ -31,7 +33,7 @@ function handleArticleResponse(reply, result, allowCache) {
 	if (allowCache) {
 		setResponseCaching(response, cachingTimes);
 	} else {
-		Caching.disableCache(response);
+		disableCache(response);
 	}
 }
 
@@ -50,7 +52,7 @@ export default function get(request, reply) {
 			redirect: request.params.redirect
 		};
 
-	let article,
+	let mediaWikiPageHelper,
 		allowCache = true;
 
 	if (request.state.wikicities_session) {
@@ -60,27 +62,27 @@ export default function get(request, reply) {
 		allowCache = false;
 	}
 
-	article = new Article.ArticleRequestHelper(params);
+	mediaWikiPageHelper = new PageRequestHelper(params);
 
 	if (isRequestForRandomTitle(request.query)) {
-		article
+		mediaWikiPageHelper
 			.getArticleRandomTitle()
 			/**
 			 * @param {*} result
 			 * @returns {void}
 			 */
 			.then((result) => {
-				Caching.disableCache(reply(result));
+				disableCache(reply(result));
 			})
 			/**
 			 * @param {*} result
 			 * @returns {void}
 			 */
 			.catch((result) => {
-				Caching.disableCache(reply(result).code(getStatusCode(result)));
+				disableCache(reply(result).code(getStatusCode(result)));
 			});
 	} else {
-		article
+		mediaWikiPageHelper
 			.getArticle()
 			/**
 			 * @param {*} result

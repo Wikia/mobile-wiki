@@ -40,7 +40,12 @@ $discussion-see-more-color: #E6E6E6;
 $discussion-timestamp-color: #999;
 $discussion-post-detail-border-color: $border-color;
 $discussion-deleted-mark-color: #ed1c24;
+$discussion-reported-mark-color: #f08a24;
 $discussion-more-options-divider-color: #e6e6e6;
+$discussion-post-card-top-note-border: #e6e6e6;
+$discussion-post-card-top-note-color: #999;
+$discussion-post-card-reported-background: #fff;
+$discussion-locked-post-replies-color: #ccc;
 
 $discussion-desktop-bg-color: #f6f6f6;
 $discussion-desktop-post-detail-bg-color: $color-white;
@@ -64,10 +69,10 @@ $discussion-editor-toolbar-background-color: #f6f6f6;
 $discussion-editor-label-color: #999;
 $discussion-editor-textarea-border-color: #e1e1e1;
 
-$discussion-error-dialog-text-color: #333;
-$discussion-error-dialog-background-color: $color-white;
-$discussion-error-dialog-button-hover-background-color: #f6f6f6;
-$discussion-error-dialog-separator-color: #e6e6e6;
+$discussion-dialog-text-color: #333;
+$discussion-dialog-background-color: $color-white;
+$discussion-dialog-button-hover-background-color: #f6f6f6;
+$discussion-dialog-separator-color: #e6e6e6;
 
 $discussion-empty-forum-message-border-color: #e6e6e6;
 
@@ -77,9 +82,14 @@ $collapsible-menu-border-color: #d0d0d0;
 $collapsible-menu-title-color: $body-font-color;
 $collapsible-menu-list-link-color: $color-black;
 $discussion-sort-color: $border-color;
-
-$discussion-user-replied-to-border-bottom-color: #e6e6e6;
-$discussion-user-replied-to-text-color: #ccc;
+$discussion-sort-inactive-color: #e6e6e6;
+$discussion-filter-inactive-color: #ccc;
+$discussion-filters-border: #ccc;
+$discussion-filters-color: #333;
+$discussion-filters-bullet-border: #999;
+$discussion-filters-bullet-background: #fff;
+$discussion-filters-label-background: #fff;
+$discussion-filters-bullet-active-border: #fff;
 
 $app-promotion-text-color: #999;
 
@@ -142,8 +152,15 @@ $dark-discussion-no-replies-text-color: #999;
 $dark-discussion-rail-border-color: #666;
 
 $dark-discussion-sort-color: #999;
-
-$dark-discussion-user-replied-to-border-bottom-color: #666;
-$dark-discussion-user-replied-to-text-color: #666;
+$dark-discussion-sort-inactive-color: #333;
+$dark-discussion-rail-header-color: $color-white;
+$dark-discussion-rail-label-color: #ccc;
+$dark-discussion-post-card-reported-background: #262626;
+$dark-discussion-top-note-border-bottom-color: #666;
+$dark-discussion-post-card-top-note-color: #666;
+$dark-discussion-locked-post-replies-color: #666;
 
 $dark-app-promotion-text-color: $color-white;
+
+$wikia-ui-components-sub-head-height: 48px;
+$wikia-ui-components-sub-head-height-large: 66px;

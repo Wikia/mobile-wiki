@@ -14,6 +14,7 @@ module.exports = function (defaults) {
 		},
 		inlineContent: {
 			baseline: 'vendor/baseline.js',
+			$script: 'bower_components/script.js/dist/script.js',
 			'wikia-logo': '../common/public/symbols/wikia-logo.svg'
 		},
 		sassOptions: {
@@ -31,6 +32,10 @@ module.exports = function (defaults) {
 					sourceDirs: 'app/symbols/discussions',
 					outputFile: '/assets/discussions.svg'
 				},
+				{
+					sourceDirs: 'app/symbols/infobox-builder',
+					outputFile: '/assets/infobox-builder.svg'
+				},
 				// This duplicates build-common-symbols task but we still want to do it
 				// as there is no easy way to use external rev-manifest.json in here
 				{
@@ -44,11 +49,13 @@ module.exports = function (defaults) {
 				css: {
 					app: 'assets/app.css',
 					'app-dark-theme': 'assets/app-dark-theme.css'
-				}
+				},
+				html: 'ember-main.hbs',
 			}
 		},
 		fingerprint: {
 			extensions: ['js', 'css', 'svg', 'png', 'jpg', 'gif', 'map'],
+			replaceExtensions: ['html', 'css', 'js', 'hbs'],
 			prepend: 'http://mercury.nocookie.net/mercury-static/main/'
 		},
 		derequire: {
@@ -67,11 +74,14 @@ module.exports = function (defaults) {
 			// By default vendor is not watched by Ember CLI and we want to rebuild when common scripts are modified
 			vendor: 'vendor'
 		},
-		hinting: false
+		hinting: false,
+		vendorFiles: {
+			// we'll load jQuery on our own
+			'jquery.js': false
+		}
 	});
 
 	// Files below are concatenated to assets/vendor.js
-	app.import(app.bowerDirectory + '/script.js/dist/script.js');
 	app.import(app.bowerDirectory + '/fastclick/lib/fastclick.js');
 	app.import(app.bowerDirectory + '/hammerjs/hammer.js');
 	app.import(app.bowerDirectory + '/headroom.js/dist/headroom.js');
@@ -83,7 +93,6 @@ module.exports = function (defaults) {
 	app.import(app.bowerDirectory + '/weppy/dist/weppy.js');
 	app.import(app.bowerDirectory + '/visit-source/dist/visit-source.js');
 	app.import(app.bowerDirectory + '/Autolinker.js/dist/Autolinker.min.js');
-	app.import(app.bowerDirectory + '/ember-performance-sender/dist/ember-performance-sender.js');
 	app.import('vendor/common.js');
 
 	// Assets which are lazy loaded
@@ -91,9 +100,13 @@ module.exports = function (defaults) {
 			include: ['*.min.*'],
 			destDir: 'assets/vendor/cropper'
 		}),
+		jQueryAssets = new Funnel(app.bowerDirectory + '/jquery/dist', {
+			include: ['*.min.*'],
+			destDir: 'assets/vendor/jquery'
+		}),
 		pontoAssets = new Funnel(app.bowerDirectory + '/ponto/web/src', {
 			destDir: 'assets/vendor/ponto'
 		});
 
-	return app.toTree([cropperAssets, pontoAssets]);
+	return app.toTree([jQueryAssets, cropperAssets, pontoAssets]);
 };

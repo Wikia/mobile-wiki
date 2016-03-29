@@ -4,10 +4,12 @@ export default Ember.Component.extend(DiscussionModalDialogMixin,
 	{
 		discussionSort: Ember.inject.service(),
 
-		canShowMore: Ember.computed('model.postCount', 'model.replies.length', function () {
-			const model = this.get('model');
+		canShowMore: Ember.computed('model.repliesCount', 'model.replies.length', function () {
+			return this.get('model.replies.length') < this.get('model.repliesCount');
+		}),
 
-			return model.get('replies.length') < model.get('postCount');
+		canReply: Ember.computed('model.isDeleted', 'model.isLocked', function () {
+			return !this.get('model.isDeleted') && !this.get('model.isLocked');
 		}),
 	}
 );

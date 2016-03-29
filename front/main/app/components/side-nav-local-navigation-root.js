@@ -19,6 +19,7 @@ export default Ember.Component.extend({
 
 		updateContent(newLocalNavContent) {
 			this.set('localNavContent', newLocalNavContent);
+			this.scrollToTop();
 		},
 
 		goBack() {
@@ -29,11 +30,13 @@ export default Ember.Component.extend({
 			} else {
 				this.sendAction('replaceNavigationContent', 'root');
 			}
-		},
 
-		collapse() {
-			this.sendAction('collapse');
-		}
+			this.scrollToTop();
+		},
+	},
+
+	scrollToTop() {
+		this.element.scrollTop = 0;
 	},
 
 	/**

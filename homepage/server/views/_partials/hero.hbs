@@ -1,52 +1,39 @@
 <p class="hero-mobile-padding"></p>
 <div class="hero">
+	{{> loading}}
 	<div id="hero-carousel" class="hero-carousel slick-slider">
 		{{#each heroSlider}}
 			<div class="slick-list">
-				<img class="hero-image-desktop" src="{{image}}">
+				<img class="hero-image-desktop" data-lazy="{{image}}">
 				<div class="hero-text">
 					<h1>{{title}}</h1>
 					<h2>{{subtitle}}</h2>
 					{{#if button}}
 						<a class="hero-link" href="{{buttonLink}}" id="{{buttonId}}">
 							{{buttonText}}
-							<span class="hero-arrow"></span>
 						</a>
 					{{/if}}
 				</div>
 			</div>
 		{{/each}}
 	</div>
-	<div id="hero-prev" class="hero-prev hero-hide-arrow">
-		<img src="/images/slider-back-button.png">
-	</div>
-	<div id="hero-next" class="hero-next hero-hide-arrow">
-		<img src="/images/slider-fwd-button.png">
-	</div>
 </div>
 <div class="hero-mobile">
+	{{> loading-mobile}}
 	<div id="hero-carousel-mobile" class="hero-carousel slick-slider">
 		{{#each heroSlider}}
 			<div class="slick-list">
-				<img class="hero-image-mobile" src="{{imageMobile}}">
+				<img class="hero-image-mobile" data-lazy="{{imageMobile}}">
 				<div class="hero-text-overlay-large">
 					<h1>{{title}}</h1>
 					<h2>{{subtitle}}</h2>
 					{{#if button}}
 						<a class="hero-link" href="{{buttonLink}}" id="{{buttonId}}">
 							{{buttonText}}
-							<span class="hero-arrow"></span>
 						</a>
 					{{/if}}
 				</div>
 			</div>
 		{{/each}}
 	</div>
-	<div id="hero-prev-mobile" class="hero-prev hero-hide-arrow">
-		<img src="/images/slider-back-button.png">
-	</div>
-	<div id="hero-next-mobile" class="hero-next hero-hide-arrow">
-		<img src="/images/slider-fwd-button.png">
-	</div>
 </div>
-
