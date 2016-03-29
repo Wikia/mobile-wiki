@@ -61,7 +61,7 @@ function getDefaultRegistrationContext(request, i18n) {
 				privacyPolicyLink: `<a href="${authLocaleSettings[lang].urls.privacyPolicyLinkUrl}" target="_blank">` +
 				`${i18n.t('auth:register.privacy-policy-link-title')}</a>`
 			},
-			/* default wikiId when redirect query param not provided */
+			// default wikiId (for www wikia) when redirect query param not provided
 			entryPointWikiId: 80433
 		}
 	);
