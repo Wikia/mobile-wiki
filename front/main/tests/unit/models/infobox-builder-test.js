@@ -987,7 +987,7 @@ test('gets infobox state without builder data', (assert) => {
 	});
 });
 
-test('creates correct initial state for new infobox template', function (assert) {
+test('creates correct initial state for new infobox template', (assert) => {
 	const model = infoboxBuilderModelClass.create();
 	let state;
 
