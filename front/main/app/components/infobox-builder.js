@@ -6,7 +6,7 @@ import {track, trackActions} from 'common/utils/track';
 export default Ember.Component.extend(
 	TrackClickMixin,
 	{
-		classNameBindings: ['isPreviewItemDragged'],
+		classNameBindings: ['isPreviewItemDragged', 'isGroupHighlighted'],
 		isLoading: false,
 		showSuccess: false,
 		tooltipPosX: null,
@@ -14,25 +14,24 @@ export default Ember.Component.extend(
 		tooltipDistanceFromCursor: 20,
 		isPreviewItemHovered: false,
 		isPreviewItemDragged: false,
+		isGroupTooltipVisible: false,
 		scrollDebounceDuration: 200,
 		scrollAnimateDuration: 200,
 		showGoToSourceModal: false,
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 
-		isReorderTooltipVisible: Ember.computed('isPreviewItemHovered', 'isPreviewItemDragged', function () {
-			return this.get('isPreviewItemHovered') && !this.get('isPreviewItemDragged');
-		}),
-
-		sortableGroupClassNames: Ember.computed('theme', function () {
-			const theme = this.get('theme'),
-				classNames = ['portable-infobox', 'pi-background'];
-
-			if (theme) {
-				classNames.push(`pi-theme-${theme}`);
+		isReorderTooltipVisible: Ember.computed('isPreviewItemHovered', 'isPreviewItemDragged', 'isGroupTooltipVisible',
+			function () {
+				return this.get('isPreviewItemHovered') &&
+					!this.get('isPreviewItemDragged') &&
+					!this.get('isGroupTooltipVisible');
 			}
+		),
 
-			return classNames.join(' ');
+		isGroupHighlighted: Ember.computed('isPreviewItemDragged', 'isGroupTooltipVisible', function () {
+			return !this.get('isPreviewItemDragged') &&
+				this.get('isGroupTooltipVisible');
 		}),
 
 		sideBarOptionsComponent: Ember.computed('activeItem', function () {
@@ -79,6 +78,11 @@ export default Ember.Component.extend(
 					tooltipPosX: null,
 					tooltipPosy: null
 				});
+			},
+
+			toggleGroupPreview(header) {
+				this.set('isGroupTooltipVisible', Boolean(header));
+				this.setGroup(header);
 			},
 
 			/**
@@ -214,9 +218,9 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * Shows loading spinner and message, then sends action to controller to redirect to source editor
-		 * If model is dirty, asks user if changes should be saved
-		 * If user wants to save changes it does that and only then redirects
+		 * Shows loading spinner and message, then sends action to controller to redirect to source
+		 * editor If model is dirty, asks user if changes should be saved If user wants to save
+		 * changes it does that and only then redirects
 		 *
 		 * @param {Boolean} saveChanges
 		 * @returns {Ember.RSVP.Promise} return promise so it's always async and testable

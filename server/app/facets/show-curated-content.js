@@ -1,19 +1,20 @@
 import Logger from '../lib/logger';
-import {CuratedMainPageRequestHelper, MainPageDataRequestError} from '../lib/curated-main-page';
-import * as MediaWiki from '../lib/mediawiki';
-import {getCachedWikiDomainName,
-		redirectToCanonicalHostIfNeeded,
-		RedirectedToCanonicalHost} from '../lib/utils';
+import {CuratedMainPageRequestHelper} from '../lib/curated-main-page';
+import {
+	MainPageDataRequestError, RedirectedToCanonicalHost, WikiVariablesNotValidWikiError, WikiVariablesRequestError
+} from '../lib/custom-errors';
+import {getCachedWikiDomainName, redirectToCanonicalHostIfNeeded} from '../lib/utils';
 import localSettings from '../../config/localSettings';
 import prepareCuratedContentData from './operations/prepare-curated-content-data';
-import setResponseCaching, * as Caching from '../lib/caching';
+import showServerErrorPage from './operations/show-server-error-page';
+import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
 import * as Tracking from '../lib/tracking';
 
 const cachingTimes = {
 	enabled: true,
-	cachingPolicy: Caching.Policy.Public,
-	varnishTTL: Caching.Interval.standard,
-	browserTTL: Caching.Interval.disabled
+	cachingPolicy: CachingPolicy.Public,
+	varnishTTL: CachingInterval.standard,
+	browserTTL: CachingInterval.disabled
 };
 
 /**
@@ -43,7 +44,7 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 		return setResponseCaching(response, cachingTimes);
 	}
 
-	return Caching.disableCache(response);
+	return disableCache(response);
 }
 
 /**
@@ -86,10 +87,15 @@ export default function showCuratedContent(request, reply) {
 			outputResponse(request, reply, error.data, false);
 		})
 		/**
-		 * @param {MWException} error
 		 * @returns {void}
 		 */
-		.catch(MediaWiki.WikiVariablesRequestError, () => {
+		.catch(WikiVariablesRequestError, () => {
+			showServerErrorPage(reply);
+		})
+		/**
+		 * @returns {void}
+		 */
+		.catch(WikiVariablesNotValidWikiError, () => {
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
 		/**
@@ -104,6 +110,6 @@ export default function showCuratedContent(request, reply) {
 		 */
 		.catch((error) => {
 			Logger.fatal('Unhandled error, code issue', error);
-			reply.redirect(localSettings.redirectUrlOnNoData);
+			showServerErrorPage(reply);
 		});
 }
