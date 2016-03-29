@@ -34,8 +34,8 @@ export default Ember.Component.extend(
 
 		addUpvote() {
 			this.get('revisionUpvotes').upvote(this.get('revisionId'), this.get('model.title')).then(
-				this.trackSuccess.bind(this, 'upvote-icon-success'),
-				this.handleError.bind(this, 'upvote-icon-error')
+				this.trackSuccess('upvote-icon-success'),
+				this.handleError('upvote-icon-error')
 			);
 			this.trackClick(trackCategory, 'upvote-icon');
 		},
@@ -47,8 +47,8 @@ export default Ember.Component.extend(
 				this.get('model.title'),
 				this.get('model.userId')
 			).then(
-				this.trackSuccess.bind(this, 'remove-upvote-success'),
-				this.handleError.bind(this, 'main.error', 'remove-upvote-error')
+				this.trackSuccess('remove-upvote-success'),
+				this.handleError('main.error', 'remove-upvote-error')
 			);
 			this.trackClick(trackCategory, 'remove-upvote-icon');
 		},
