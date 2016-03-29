@@ -33,16 +33,16 @@ test('correctly computes value property', function (assert) {
 			}
 		];
 
-	cases.forEach((testCase) => {
+	cases.forEach(({modelMock, messageKey}) => {
 		const component = this.subject(),
-			messageKey = `main.${testCase.messageKey}`;
+			messageKeyMock = `main.${messageKey}`;
 
 		sinon.stub(i18n, 't').returns('test');
 
-		component.set('model', testCase.modelMock);
+		component.set('model', modelMock);
 		component.get('value');
 
-		assert.equal(i18n.t.calledWith(messageKey, i18nParamsMock), true);
+		assert.equal(i18n.t.calledWith(messageKeyMock, i18nParamsMock), true);
 
 		i18n.t.restore();
 	});
