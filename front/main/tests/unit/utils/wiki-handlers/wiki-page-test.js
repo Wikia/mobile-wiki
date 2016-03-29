@@ -5,37 +5,30 @@ import Ember from 'ember';
 import sinon from 'sinon';
 
 module('Unit | Utils | wiki-handlers/wiki-page', (hooks) => {
-	const originalArticleCreate = require('main/models/wiki/article').default.create,
-		originalArticleSetArticle = require('main/models/wiki/article').default.setArticle,
-		originalCategoryCreate = require('main/models/wiki/category').default.create,
-		originalCategorySetCategory = require('main/models/wiki/category').default.setCategory,
-		originalIsContentNamespace = require('main/utils/mediawiki-namespace').default.isContentNamespace,
-		articleCreateStub = sinon.stub(),
-		articleSetArticleStub = sinon.stub(),
-		categoryCreateStub = sinon.stub(),
-		categorySetCategoryStub = sinon.stub(),
-		isContentNamespaceStub = sinon.stub();
+	const articleModel = require('main/models/wiki/article').default,
+		categoryModel = require('main/models/wiki/category').default,
+		mediawikiNamespace = require('main/utils/mediawiki-namespace').default;
+
+	let articleCreateStub,
+		articleSetArticleStub,
+		categoryCreateStub,
+		categorySetCategoryStub,
+		isContentNamespaceStub;
 
 	hooks.beforeEach(() => {
-		require('main/models/wiki/article').default.create = articleCreateStub;
-		require('main/models/wiki/article').default.setArticle = articleSetArticleStub;
-		require('main/models/wiki/category').default.create = categoryCreateStub;
-		require('main/models/wiki/category').default.setCategory = categorySetCategoryStub;
-		require('main/utils/mediawiki-namespace').default.isContentNamespace = isContentNamespaceStub;
+		articleCreateStub = sinon.stub(articleModel, 'create');
+		articleSetArticleStub = sinon.stub(articleModel, 'setArticle');
+		categoryCreateStub = sinon.stub(categoryModel, 'create');
+		categorySetCategoryStub = sinon.stub(categoryModel, 'setCategory');
+		isContentNamespaceStub = sinon.stub(mediawikiNamespace, 'isContentNamespace');
 	});
 
 	hooks.afterEach(() => {
-		require('main/models/wiki/article').default.create = originalArticleCreate;
-		require('main/models/wiki/article').default.setArticle = originalArticleSetArticle;
-		require('main/models/wiki/category').default.create = originalCategoryCreate;
-		require('main/models/wiki/category').default.setCategory = originalCategorySetCategory;
-		require('main/utils/mediawiki-namespace').default.isContentNamespace = originalIsContentNamespace;
-
-		articleCreateStub.reset();
-		articleSetArticleStub.reset();
-		categoryCreateStub.reset();
-		categorySetCategoryStub.reset();
-		isContentNamespaceStub.reset();
+		articleCreateStub.restore();
+		articleSetArticleStub.restore();
+		categoryCreateStub.restore();
+		categorySetCategoryStub.restore();
+		isContentNamespaceStub.restore();
 	});
 
 	test('getModelForNamespace - article', (assert) => {
