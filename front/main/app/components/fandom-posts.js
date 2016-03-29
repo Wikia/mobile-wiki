@@ -25,6 +25,18 @@ export default Ember.Component.extend({
 		});
 	},
 
+	posts: Ember.computed.map('model.posts', (post, index) => {
+		const params = {
+			utm_source: 'wikia',
+			utm_campaign: 'recirc',
+			utm_medium: 'footer',
+			utm_content: index + 1
+		};
+
+		post.url = `${post.url}?${Ember.$.param(params)}`;
+		return post;
+	}),
+
 	actions: {
 		trackExperimentClick(url) {
 			trackExperiment(this.get('experimentName'), {

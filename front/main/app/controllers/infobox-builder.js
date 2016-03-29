@@ -3,6 +3,8 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
 	// used by ember-onbeforeunload to determine if confirmation dialog should be shown
 	isDirty: false,
+	groupItems: [],
+	lastGroupItem: null,
 
 	actions: {
 		/**
@@ -145,6 +147,37 @@ export default Ember.Controller.extend({
 		 */
 		getDiffArray() {
 			return this.get('model').createDataDiffs();
+		},
+
+		setGroup(header) {
+			const items = [];
+			let last = null;
+
+			if (header && header.type === 'section-header') {
+				const state = this.get('model').get('infoboxState');
+				let done = false,
+					// set start at first group item
+					current = state.indexOf(header) + 1;
+
+				items.push(header);
+				while (!done && current < state.length) {
+					const item = state.get(current);
+
+					switch (item.type) {
+						case 'title':
+						case 'section-header':
+							done = true;
+							break;
+						default:
+							last = item;
+							items.push(item);
+							break;
+					}
+					current += 1;
+				}
+			}
+			this.set('groupItems', items);
+			this.set('lastGroupItem', last);
 		}
 	}
 });

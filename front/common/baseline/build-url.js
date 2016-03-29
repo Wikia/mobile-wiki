@@ -6,6 +6,7 @@
  * @property {Object} [query] - Querystring data, which is converted to a string and properly escaped
  * @property {string} [title] - Article title - value of the parameter will be encoded
  * @property {string} [wiki] - Wiki name, as it would be used as a subdomain
+ * @property {string} [wikiPage] - Page inside /wiki/ directory - not necessarily an article
  */
 
 if (typeof window.M === 'undefined') {
@@ -109,6 +110,10 @@ if (typeof window.M === 'undefined') {
 			url += Mercury.wiki.articlePath +
 				(urlParams.namespace ? `${urlParams.namespace}:` : '') +
 				encodeURIComponent(urlParams.title);
+		}
+
+		if (urlParams.wikiPage) {
+			url += Mercury.wiki.articlePath + urlParams.wikiPage;
 		}
 
 		if (urlParams.path) {
