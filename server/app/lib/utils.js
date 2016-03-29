@@ -340,3 +340,18 @@ export function getHtmlTitle(wikiVariables, displayTitle = '') {
 	}
 	return htmlTitleTemplate.replace('$1 - ', '');
 }
+
+/**
+ * @param {Hapi.Request} request
+ * @param {Hapi.Response} reply
+ * @param {string} skin
+ */
+export function redirectToSkin(request, reply, skin) {
+	const queryParams = QueryString.stringify(
+		Hoek.applyToDefaults(request.query, {
+			useskin: skin
+		})
+	);
+
+	reply.redirect(`${request.url.pathname}?${queryParams}`);
+}
