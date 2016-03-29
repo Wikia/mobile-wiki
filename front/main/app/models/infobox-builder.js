@@ -2,8 +2,6 @@ import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 
 const InfoboxBuilderModel = Ember.Object.extend({
-	defaultTheme: 'europa',
-
 	/**
 	 * @returns {void}
 	 */
@@ -17,7 +15,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		};
 		this.infoboxState = [];
 		this.itemInEditMode = null;
-		this.theme = null;
 	},
 
 	/**
@@ -266,13 +263,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	setupInfoboxData(infoboxData, isNew) {
 		if (isNew) {
 			this.setupInitialState();
-			this.set('theme', this.get('defaultTheme'));
 		} else {
 			this.setupExistingState(infoboxData.data);
-
-			if (typeof infoboxData.theme === 'string') {
-				this.set('theme', infoboxData.theme);
-			}
 		}
 	},
 
@@ -375,12 +367,7 @@ InfoboxBuilderModel.reopenClass({
 		const plainState = InfoboxBuilderModel.getStateWithoutBuilderData(model.get('infoboxState')),
 			dataToSave = {
 				data: plainState
-			},
-			theme = model.get('theme');
-
-		if (typeof theme === 'string') {
-			dataToSave.theme = theme;
-		}
+			};
 
 		return JSON.stringify(dataToSave);
 	},

@@ -29,7 +29,7 @@
 	{{#if asyncArticle}}
 		M.prop('asyncArticle', {{asyncArticle}});
 	{{/if}}
-	M.prop('mediaWikiNamespace', '{{{mediaWikiNamespace}}}', true);
+	M.prop('mediaWikiNamespace', '{{{mediaWikiNamespace}}}');
 	{{#if articlePage}}
 		M.prop('articleContentPreloadedInDOM', true, true);
 		M.provide('article', {{{json articlePage}}});
