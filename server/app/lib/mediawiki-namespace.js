@@ -1,5 +1,6 @@
 /**
  * This list is taken from MediaWiki:app/includes/Defines.php
+ * This module is the backend twin of front/main/app/utils/mediawiki-namespace.js - they should be in sync
  * @type {{name: number}}
  */
 export const namespace = {

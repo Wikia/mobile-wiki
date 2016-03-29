@@ -86,8 +86,6 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
  * @returns {void}
  */
 function handleResponse(request, reply, data, allowCache = true, code = 200) {
-	const i18n = request.server.methods.i18n.getInstance();
-
 	let result = {},
 		pageData = {},
 		viewName = 'wiki-page',
@@ -120,9 +118,6 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		}
 
 		result = deepExtend(result, prepareCategoryData(request, data));
-		// Hide TOC on category pages
-		result.hasToC = false;
-		result.subtitle = i18n.t('app.category-page-subtitle');
 	} else {
 		Logger.warn(`Unsupported namespace: ${ns}`);
 		result = prepareMediaWikiData(request, data);
@@ -131,8 +126,6 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
 	if (isMainPage && pageData.mainPageData) {
 		result = deepExtend(result, prepareMainPageData(data));
-		result.hasToC = false;
-		delete result.adsContext;
 	}
 
 	// @todo XW-596 we shouldn't rely on side effects of this function

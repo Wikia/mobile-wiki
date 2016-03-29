@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 /**
  * This list is taken from MediaWiki:app/includes/Defines.php
+ * This module is the front end twin of server/app/lib/mediawiki-namespace.js - they should be in sync
  * @type {{name: number}}
  */
 const namespace = {
