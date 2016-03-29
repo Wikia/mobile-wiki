@@ -10,14 +10,10 @@ export default Ember.Component.extend(
 		classNames: ['diff-page'],
 		currentUser: Ember.inject.service(),
 		revisionUpvotes: Ember.inject.service(),
-		currentUserUpvoteId: Ember.computed('model.upvotes.[]', 'currentUser.userId', function () {
-			const upvotes = this.get('model.upvotes'),
-				currentUserUpvote = upvotes ? upvotes.findBy(
-					'from_user',
-					this.get('currentUser.userId')
-				) : null;
+		currentUserUpvoteId: Ember.computed('revisionUpvotes.upvotes.@each.count', 'currentUser.userId', function () {
+			const upvotes = this.get('revisionUpvotes.upvotes').findBy('revisionId', this.get('model.newId')) || [];
 
-			return currentUserUpvote ? currentUserUpvote.id : null;
+			return upvotes.userUpvoteId;
 		}),
 		userNotBlocked: Ember.computed.not('currentUser.isBlocked'),
 		showButtons: Ember.computed.and('currentUser.isAuthenticated', 'userNotBlocked'),
@@ -25,6 +21,11 @@ export default Ember.Component.extend(
 		upvoted: Ember.computed.bool('currentUserUpvoteId'),
 		upvotesEnabled: Ember.get(Mercury, 'wiki.language.content') === 'en',
 		shouldShowUndoConfirmation: false,
+
+		init() {
+			this._super(...arguments);
+			this.get('revisionUpvotes').addVote(this.get('model.newId'), this.get('model.upvotes'));
+		},
 
 		addUpvote() {
 			this.get('revisionUpvotes').upvote(this.get('model.newId'), this.get('model.title'), this.get('currentUser.userId'))

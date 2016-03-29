@@ -14,21 +14,22 @@ export default Ember.Component.extend(
 		active: Ember.computed('id', 'rc', function () {
 			return this.get('id') === this.get('rc');
 		}),
-		upvotesCount: Ember.computed('revisionUpvotes.upvotes.@each.count', function() {
-			return this.get('revisionUpvotes.upvotes').findBy('revisionId', this.get('model.newId')).upvotes.length;
+		currentUpvotes: null,
+		upvotesCount: Ember.computed('revisionUpvotes.upvotes.@each.count',  function() {
+			return this.get('currentUpvotes').count || 0;
 		}),
 		upvotesEnabled: Ember.get(Mercury, 'wiki.language.content') === 'en',
-		userUpvoted: Ember.computed('revisionUpvotes.upvotes.@each.count', 'currentUser.userId', function () {
-				const upvotes = this.get('model.upvotes'),
-					userId = this.get('currentUser.userId');
-
-			return upvotes && userId && upvotes.isAny('from_user', userId);
+		currentUserUpvoteId: Ember.computed('upvotesCount', 'currentUser.userId', function () {
+			return this.get('currentUpvotes').userUpvoteId || 0;
 		}),
 		hasDiff: Ember.computed.and('model.old_revid', 'model.revid'),
 		showDiffLink: true,
 
-		didReceiveAttrs() {
-			this.get('revisionUpvotes').addVote(this.get('model.newId'), this.get('model.upvotes'));
+		init() {
+			this._super(...arguments);
+			const currentUpvotes = this.get('revisionUpvotes.upvotes').findBy('revisionId', this.get('revisionId')) || [];
+
+			this.set('currentUpvotes', currentUpvotes);
 		},
 
 		handleError(label) {
@@ -63,11 +64,20 @@ export default Ember.Component.extend(
 		},
 
 		actions: {
-			handleVote(revisionId, title) {
-				if (this.get('userUpvoted')) {
-					// TODO this.removeUpvote(this.get('currentUserUpvoteId'));
+			handleVote() {
+				if (this.get('currentUserUpvoteId')) {
+					this.get('revisionUpvotes').removeUpvote(
+						this.get('revisionId'),
+						this.get('currentUserUpvoteId'),
+						this.get('model.title'),
+						this.get('model.userId')
+					).then(
+						this.trackSuccess.bind(this, 'remove-upvote-success'),
+						this.handleError.bind(this, 'main.error', 'remove-upvote-error')
+					);
+					this.trackClick(trackCategory, 'remove-upvote-icon');
 				} else {
-					this.get('upvote')(revisionId, title, this.get('currentUser.userId')).then(
+					this.get('revisionUpvotes').upvote(this.get('revisionId'), this.get('model.title')).then(
 						this.trackSuccess.bind(this, 'upvote-icon-success'),
 						this.handleError.bind(this, 'upvote-icon-error')
 					);

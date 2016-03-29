@@ -8,7 +8,7 @@ export default Ember.Route.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	model(params) {
-		return ArticleDiffModel.fetch(params.oldId, params.newId);
+		return ArticleDiffModel.fetch(parseInt(params.oldId), parseInt(params.newId));
 	},
 
 	actions: {
