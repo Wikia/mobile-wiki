@@ -18,6 +18,9 @@ QUnit.test('isContentNamespace', function (assert) {
 			contentNamespaces: [0, 112],
 			namespace: 0,
 			expected: true
+		}, {
+			// test with undefined params
+			expected: false
 		}
 	];
 
