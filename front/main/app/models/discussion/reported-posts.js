@@ -6,7 +6,7 @@ import DiscussionContributor from './objects/contributor';
 import DiscussionContributors from './objects/contributors';
 import DiscussionEntities from './objects/entities';
 
-const DiscussionReportedPosts = DiscussionBaseModel.extend(
+const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
 	{
@@ -69,7 +69,7 @@ const DiscussionReportedPosts = DiscussionBaseModel.extend(
 	}
 );
 
-DiscussionReportedPosts.reopenClass({
+DiscussionReportedPostsModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} forumId
@@ -105,4 +105,4 @@ DiscussionReportedPosts.reopenClass({
 	}
 });
 
-export default DiscussionReportedPosts;
+export default DiscussionReportedPostsModel;
