@@ -10,7 +10,7 @@ function repeatString(string, count) {
 
 export default class ProofOfWork {
 	static proof(challenge, bits) {
-		const zeros = Math.floor(bits / 4.0),
+		const zeros = Math.floor(bits / 4),
 			paddedZeros = repeatString('0', zeros);
 		let counter = 0,
 			digest,
