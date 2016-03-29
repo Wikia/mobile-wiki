@@ -5,6 +5,13 @@ export default Ember.Service.extend({
 	upvotes: [],
 	currentUser: Ember.inject.service(),
 
+	/**
+	 * Add votes
+	 *
+	 * @param {number} revisionId
+	 * @param {object|array} upvotes
+	 * @returns {void}
+     */
 	addVote(revisionId, upvotes) {
 		const upvote = this.get('upvotes').findBy('revisionId', revisionId);
 
@@ -31,6 +38,13 @@ export default Ember.Service.extend({
 		}
 	},
 
+	/**
+	 * Remove upvote
+	 *
+	 * @param {number} revisionId
+	 * @param {number} upvoteId
+	 * @returns {void}
+     */
 	removeVote(revisionId, upvoteId) {
 		const revision = this.get('upvotes').findBy('revisionId', revisionId);
 
@@ -44,7 +58,7 @@ export default Ember.Service.extend({
 
 	/**
 	 * Sends request to MW API to upvote newId revision of title
-	 * @param {string} revisionId ID of revision that is upvoted
+	 * @param {number} revisionId ID of revision that is upvoted
 	 * @param {string} title Text tilte of article in main namespace which revision is upvoted
 	 * @returns {Ember.RSVP.Promise}
 	 */
@@ -79,8 +93,11 @@ export default Ember.Service.extend({
 
 	/**
 	 * Send request to server to remove previously added upvote for a revision
-	 * @param {int} upvoteId ID of upvote record to remove
-	 * @param {int} userId user ID who made an edit
+	 *
+	 * @param {number} revisionId
+	 * @param {number} upvoteId ID of upvote record to remove
+	 * @param {string} title article title
+	 * @param {number} userId user ID who made an edit
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	removeUpvote(revisionId, upvoteId, title, userId) {

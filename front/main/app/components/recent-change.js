@@ -15,7 +15,7 @@ export default Ember.Component.extend(
 			return this.get('id') === this.get('rc');
 		}),
 		currentUpvotes: null,
-		upvotesCount: Ember.computed('revisionUpvotes.upvotes.@each.count',  function() {
+		upvotesCount: Ember.computed('revisionUpvotes.upvotes.@each.count', function () {
 			return this.get('currentUpvotes').count || 0;
 		}),
 		upvotesEnabled: Ember.get(Mercury, 'wiki.language.content') === 'en',
@@ -32,16 +32,32 @@ export default Ember.Component.extend(
 			this.set('currentUpvotes', currentUpvotes);
 		},
 
+		addUpvote() {
+			this.get('revisionUpvotes').upvote(this.get('revisionId'), this.get('model.title')).then(
+				this.trackSuccess.bind(this, 'upvote-icon-success'),
+				this.handleError.bind(this, 'upvote-icon-error')
+			);
+			this.trackClick(trackCategory, 'upvote-icon');
+		},
+
+		removeUpvote() {
+			this.get('revisionUpvotes').removeUpvote(
+				this.get('revisionId'),
+				this.get('currentUserUpvoteId'),
+				this.get('model.title'),
+				this.get('model.userId')
+			).then(
+				this.trackSuccess.bind(this, 'remove-upvote-success'),
+				this.handleError.bind(this, 'main.error', 'remove-upvote-error')
+			);
+			this.trackClick(trackCategory, 'remove-upvote-icon');
+		},
+
 		handleError(label) {
 			this.trackError(label);
 			this.get('showError')('main.error');
 		},
 
-		/**
-		 * Sends impression success tracking for recent-wiki-activity category
-		 * @param {string} label
-		 * @returns {void}
-		 */
 		trackSuccess(label) {
 			track({
 				action: trackActions.success,
@@ -50,11 +66,6 @@ export default Ember.Component.extend(
 			});
 		},
 
-		/**
-		 * Sends impression error tracking for recent-wiki-activity category
-		 * @param {string} label
-		 * @returns {void}
-		 */
 		trackError(label) {
 			track({
 				action: trackActions.error,
@@ -66,22 +77,9 @@ export default Ember.Component.extend(
 		actions: {
 			handleVote() {
 				if (this.get('currentUserUpvoteId')) {
-					this.get('revisionUpvotes').removeUpvote(
-						this.get('revisionId'),
-						this.get('currentUserUpvoteId'),
-						this.get('model.title'),
-						this.get('model.userId')
-					).then(
-						this.trackSuccess.bind(this, 'remove-upvote-success'),
-						this.handleError.bind(this, 'main.error', 'remove-upvote-error')
-					);
-					this.trackClick(trackCategory, 'remove-upvote-icon');
+					this.removeUpvote();
 				} else {
-					this.get('revisionUpvotes').upvote(this.get('revisionId'), this.get('model.title')).then(
-						this.trackSuccess.bind(this, 'upvote-icon-success'),
-						this.handleError.bind(this, 'upvote-icon-error')
-					);
-					this.trackClick(trackCategory, 'upvote-icon');
+					this.addUpvote();
 				}
 			}
 		}

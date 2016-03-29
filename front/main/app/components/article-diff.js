@@ -28,11 +28,14 @@ export default Ember.Component.extend(
 		},
 
 		addUpvote() {
-			this.get('revisionUpvotes').upvote(this.get('model.newId'), this.get('model.title'), this.get('currentUser.userId'))
-				.then(
-					this.trackSuccess.bind(this, 'upvote-success'),
-					this.handleError.bind(this, 'main.error', 'upvote-error')
-				);
+			this.get('revisionUpvotes').upvote(
+				this.get('model.newId'),
+				this.get('model.title'),
+				this.get('currentUser.userId')
+			).then(
+				this.trackSuccess.bind(this, 'upvote-success'),
+				this.handleError.bind(this, 'main.error', 'upvote-error')
+			);
 			this.trackClick(trackCategory, 'upvote');
 		},
 
@@ -42,7 +45,12 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		removeUpvote(upvoteId) {
-			this.get('revisionUpvotes').removeUpvote(this.get('model.newId'), upvoteId, this.get('model.title'), this.get('model.userId')).then(
+			this.get('revisionUpvotes').removeUpvote(
+				this.get('model.newId'),
+				upvoteId,
+				this.get('model.title'),
+				this.get('model.userId')
+			).then(
 				this.trackSuccess.bind(this, 'remove-upvote-success'),
 				this.handleError.bind(this, 'main.error', 'remove-upvote-error')
 			);
