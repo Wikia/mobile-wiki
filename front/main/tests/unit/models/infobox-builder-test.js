@@ -986,3 +986,18 @@ test('gets infobox state without builder data', (assert) => {
 		assert.deepEqual(infoboxBuilderModelClass.getStateWithoutBuilderData(testCase.state), testCase.expected);
 	});
 });
+
+test('creates correct initial state for new infobox template', function (assert) {
+	const model = infoboxBuilderModelClass.create();
+	let state;
+
+	model.setupInitialState();
+	state = model.get('infoboxState');
+
+	assert.equal(state.length, 4);
+	assert.equal(state.objectAt(0).type, 'title');
+	assert.equal(state.objectAt(1).type, 'image');
+	assert.equal(state.objectAt(2).type, 'row');
+	assert.equal(state.objectAt(3).type, 'row');
+	assert.equal(state.objectAt(0).data.defaultValue, '{{PAGENAME}}', 'Default title item inherits article title');
+});
