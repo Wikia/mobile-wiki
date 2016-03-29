@@ -34,17 +34,6 @@ export default Ember.Component.extend(
 				this.get('isGroupTooltipVisible');
 		}),
 
-		sortableGroupClassNames: Ember.computed('theme', function () {
-			const theme = this.get('theme'),
-				classNames = ['portable-infobox', 'pi-background'];
-
-			if (theme) {
-				classNames.push(`pi-theme-${theme}`);
-			}
-
-			return classNames.join(' ');
-		}),
-
 		sideBarOptionsComponent: Ember.computed('activeItem', function () {
 			return this.get('activeItem') ?
 				`infobox-builder-edit-item-${this.get('activeItem.type')}` :
