@@ -23,13 +23,6 @@ describe('wiki-page', function () {
 				host: 'starwars.wikia.com',
 			}
 		},
-		requestParamsWithAliasHost = {
-			url: '/wiki/Yoda',
-			method: 'GET',
-			headers: {
-				host: 'starwars-alias.wikia.com',
-			}
-		},
 		requestParamsWithoutTitle = {
 			url: '/wiki/',
 			method: 'GET',
@@ -170,7 +163,7 @@ describe('wiki-page', function () {
 	});
 
 	it('redirects to main page on /wiki/', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, wikiVariables);
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(wikiVariables));
 
 		server.inject(requestParamsWithoutTitle, function (response) {
 			expect(response.statusCode).to.equal(302);
