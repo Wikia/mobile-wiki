@@ -3,7 +3,7 @@ import localSettings from '../config/localSettings';
 import {Policy} from './lib/caching';
 import {getRedirectUrlWithQueryString} from './lib/auth-utils';
 import proxyMW from './facets/operations/proxy-mw';
-import assetsHandler from './facets/operations/assets';
+import {handler as assetsHandler} from './facets/operations/assets';
 import heartbeatHandler from './facets/operations/heartbeat';
 import discussionsHandler from './facets/show-discussions';
 import mediaWikiPageHandler from './facets/mediawiki-page';
