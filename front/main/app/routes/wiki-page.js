@@ -91,7 +91,7 @@ export default Ember.Route.extend({
 			} else {
 				transition.abort();
 				window.location.assign(M.buildUrl({
-					wikiPage: Ember.get(transition , 'params.wiki-page.title'),
+					wikiPage: Ember.get(transition, 'params.wiki-page.title'),
 					query: {
 						useskin: 'oasis'
 					}
