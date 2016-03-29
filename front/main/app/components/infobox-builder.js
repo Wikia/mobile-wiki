@@ -219,7 +219,10 @@ export default Ember.Component.extend(
 
 						this.set('title', title);
 						this.hideEditTitleModal();
-						this.send(callback);
+
+						if (callback) {
+							this.send(callback);
+						}
 					}
 				});
 			},
@@ -232,6 +235,11 @@ export default Ember.Component.extend(
 					this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
 				}
 				this.get('setEditItem')(null);
+			},
+
+			editTitle() {
+				this.showEditTitleModal(null);
+				//jesli zmiana jest na ten wejsciowy to nie sprawdzaj czy istnieje
 			}
 		},
 
