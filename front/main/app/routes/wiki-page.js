@@ -21,9 +21,7 @@ export default Ember.Route.extend({
 
 		if (model.isCuratedMainPage) {
 			return CuratedMainPageHandler;
-		}
-
-		if (isContentNamespace(currentNamespace)) {
+		} else if (isContentNamespace(currentNamespace)) {
 			return ArticleHandler;
 		} else if (currentNamespace === MediawikiNamespace.CATEGORY) {
 			return CategoryHandler;
