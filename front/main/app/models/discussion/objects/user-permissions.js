@@ -16,7 +16,7 @@ DiscussionUserPermissions.reopenClass({
 	 *
 	 * @returns {Ember.Object}
 	 */
-	create(permissionsData) {
+	create(permissionsData = []) {
 		const permissions = {};
 
 		permissionsData.forEach((permission) => permissions[permission] = true);
