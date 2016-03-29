@@ -88,6 +88,14 @@ export default Ember.Route.extend({
 				this.set('wikiHandler', handler);
 
 				handler.afterModel(this, model);
+			} else {
+				transition.abort();
+				window.location.assign(M.buildUrl({
+					wikiPage: Ember.get(transition , 'params.wiki-page.title'),
+					query: {
+						useskin: 'oasis'
+					}
+				}));
 			}
 		} else {
 			Ember.Logger.warn('Unsupported page');
