@@ -21,16 +21,24 @@
     "help-title":"如果选中此选项，讯息框将使用它所在文章页的标题。如果不选中此选项，您或者其他用户需要在文章页面中的讯息框编辑标题。",
     "help-row":"行允许您将在讯息框中添加讯息。标签用于特别说明行的名称 （比如眼睛的颜色、族谱等讯息）。",
     "help-section-header":"标题可以将讯息框分成不同的大类。使用标签指定每一大类的名称 (比如，体征描述)。在标题下添加行将自动成为这一大类的一部部分。如果您选中\"折叠\"选项，当文章页面使用讯息框时，您将能够展开或者折叠每个大类。",
+    "edit-image-item-description":"当文章页使用讯息框时，这个图像区域允许您稍后再上传图片。",
+    "edit-title-modal-cancel":"Cancel",
+    "edit-title-modal-header":"Name your template",
+    "edit-title-modal-publish":"Publish",
+    "edit-title-modal-save":"Save",
+    "edit-title-modal-ok":"Ok",
+    "edit-title-modal-text":"To publish your template you have to provide name for it.",
+    "edit-title-placeholder":"Untitled template",
     "save":"发布",
     "load-error":"加载出错",
     "saving":"对项目进行保存",
     "success":"操作成功！",
-    "edit-image-item-description":"当文章页使用讯息框时，这个图像区域允许您稍后再上传图片。",
     "reorder-tooltip":"拖动鼠标以重新排序",
     "source-editor-tooltip":"源代码编辑器",
-    "source-editor-save-confirmation":"您想要在使用源代码编辑器之前保存您的更改吗？",
+    "source-editor-save-confirmation":"You are about to move to advanced source mode editor. Would you like to save your changes before?",
     "source-editor-save-confirmation-button-yes":"是的",
     "source-editor-save-confirmation-button-no":"不是",
-    "source-editor-loading":"正在加载源代码编辑器"
+    "source-editor-loading":"正在加载源代码编辑器",
+    "untitled-infobox-template":"Untitled Infobox Template"
   }
 }
