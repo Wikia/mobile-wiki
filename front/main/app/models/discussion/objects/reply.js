@@ -20,6 +20,7 @@ DiscussionReply.reopenClass({
 			isDeleted: postData.isDeleted,
 			isLocked: !postData.isEditable,
 			isNew: postData.isNew,
+			isReply: true,
 			isReported: postData.isReported,
 			isRequesterBlocked: postData.isRequesterBlocked,
 			rawContent: postData.rawContent,
