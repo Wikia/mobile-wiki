@@ -24,6 +24,8 @@ export default function prepareMainPageData(data) {
 	result.mainPageData.ns = articleData.details.ns;
 
 	result.openGraph = getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables));
+	result.hasToC = false;
+	delete result.adsContext;
 
 	return result;
 }

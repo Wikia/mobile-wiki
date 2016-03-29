@@ -8,6 +8,7 @@ var Lab = require('lab'),
 	after = lab.after,
 	afterEach = lab.afterEach,
 	expect = code.expect,
+	clone = require('../utils/clone'),
 	server = require('../../../www/server/app/app'),
 	mediawiki = require('../../../www/server/app/lib/mediawiki'),
 	wikiVariables = require('../fixtures/wiki-variables');
@@ -40,7 +41,7 @@ describe('application', function () {
 	});
 
 	it('renders application when request for wiki variables succeeds', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, wikiVariables);
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(wikiVariables));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
@@ -71,15 +72,11 @@ describe('application', function () {
 	});
 
 	it('redirects to primary URL when requested wiki by alias host', function (done) {
-		var requestParamsWithAliasHost = {
-			url: '/recent-wiki-activity',
-			method: 'GET',
-			headers: {
-				host: 'starwars-alias.wikia.com',
-			}
-		};
+		var requestParamsWithAliasHost = clone(requestParams);
 
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, wikiVariables);
+		requestParamsWithAliasHost.headers.host = 'starwars-alias.wikia.com';
+
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(wikiVariables));
 
 		server.inject(requestParamsWithAliasHost, function (response) {
 			expect(response.statusCode).to.equal(301);
