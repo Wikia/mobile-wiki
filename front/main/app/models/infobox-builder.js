@@ -274,7 +274,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @returns {void}
 	 */
 	setupInitialState() {
-		this.addItem('title');
+		this.editTitleItem(this.addItem('title'), true);
 		this.addItem('image');
 		this.addItem('row');
 		this.addItem('row');
