@@ -1,6 +1,9 @@
 {
   "data": {
     "cacheBuster": 1458582005,
+    "contentNamespaces": [
+      0
+    ],
     "dbName": "starwars",
     "defaultSkin": "oasis",
     "disableAnonymousEditing": false,

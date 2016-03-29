@@ -71,31 +71,6 @@ test('sets correct value for isReorderTooltipVisible property', function (assert
 	});
 });
 
-test('sets correct value for sortableGroupClassNames property', function (assert) {
-	const component = this.subject(),
-		baseClassNames = 'portable-infobox pi-background',
-		cases = [
-			{
-				theme: null,
-				sortableGroupClassNames: baseClassNames
-			},
-			{
-				theme: '',
-				sortableGroupClassNames: baseClassNames
-			},
-			{
-				theme: 'europa',
-				sortableGroupClassNames: `${baseClassNames} pi-theme-europa`
-			}
-		];
-
-	cases.forEach((testCase) => {
-		component.set('theme', testCase.theme);
-
-		assert.equal(component.get('sortableGroupClassNames'), testCase.sortableGroupClassNames);
-	});
-});
-
 test('sets correct properties values for showing reorder item tooltip', function (assert) {
 	const component = this.subject(),
 		tooltipDistanceFromCursor = 10,
