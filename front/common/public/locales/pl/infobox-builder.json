@@ -21,16 +21,24 @@
     "help-title":"Jeśli ta opcja jest zaznaczona, infoboks przyjmie tytuł artykułu, na którego stronie jest wykorzystywany. Pozostawienie tej opcji niezaznaczonej oznacza, że ty lub inni użytkownicy będą musieli samodzielnie edytować tytuł, w momencie gdy infoboks będzie użyty na stronie artykułu.",
     "help-row":"Wiersz pozwala na dodanie informacji do infoboksa. Korzystaj z pola etykiety, aby sprecyzować nazwę wiersza (np. kolor oczu, rodzina, etc.).",
     "help-section-header":"Nagłówek pozwala organizować infoboks według sekcji. Użyj etykiety pola, aby określić nazwę sekcji (np. wygląd zewnętrzny). Każdy wiersz dodany do danego nagłówka będzie automatycznie stanowił część danej sekcji. Jeśli zaznaczysz opcję \"rozwijany\", będziesz mógł otwierać i zamykać sekcje, kiedy infoboks będzie wykorzystywany na stronie artykułu.",
+    "edit-image-item-description":"To jest obraz zastępujący docelowy obraz, który możesz załadować później, kiedy infoboks będzie wykorzystywany na stronie artykułu.",
+    "edit-title-modal-cancel":"Cancel",
+    "edit-title-modal-header":"Name your template",
+    "edit-title-modal-publish":"Publish",
+    "edit-title-modal-save":"Save",
+    "edit-title-modal-ok":"Ok",
+    "edit-title-modal-text":"To publish your template you have to provide name for it.",
+    "edit-title-placeholder":"Untitled template",
     "save":"Opublikuj",
     "load-error":"Błąd ładowania",
     "saving":"Zapisywanie twojego wspaniałego projektu",
     "success":"Udało się!",
-    "edit-image-item-description":"To jest obraz zastępujący docelowy obraz, który możesz załadować później, kiedy infoboks będzie wykorzystywany na stronie artykułu.",
     "reorder-tooltip":"Przeciągnij, aby zmienić kolejność",
     "source-editor-tooltip":"Edytor źródłowy",
-    "source-editor-save-confirmation":"Czy chcesz zapisać zmiany przed przejściem do edytora źródłowego?",
+    "source-editor-save-confirmation":"You are about to move to advanced source mode editor. Would you like to save your changes before?",
     "source-editor-save-confirmation-button-yes":"Tak",
     "source-editor-save-confirmation-button-no":"Nie",
-    "source-editor-loading":"Ładowanie edytora źródłowego"
+    "source-editor-loading":"Ładowanie edytora źródłowego",
+    "untitled-infobox-template":"Untitled Infobox Template"
   }
 }
