@@ -20,7 +20,7 @@
     "restart": "npm-run-all --parallel watch-auth watch-common watch-main watch-server start-on-change",
     "watch-auth": "gulp watch-auth",
     "watch-common": "gulp watch-common",
-    "watch-main": "cd front/main && rm -rf temp && ember build --watch",
+    "watch-main": "cd front/main && rm -rf tmp && ember build --watch",
     "watch-server": "gulp watch-server",
     "start": "nodemon --delay 2",
     "start-on-change": "nodemon --delay 2 --on-change-only",
