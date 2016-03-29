@@ -20,7 +20,7 @@ const ArticleDiffModel = Ember.Object.extend({
 
 	/**
 	 * Sends request to MW API to undo newId revision of title
-	 * @param {*} summary Description of reason for undo to be stored as edit summary
+	 * @param {string|Array} [summary=[]] summary Description of reason for undo to be stored as edit summary
 	 * CAUTION: if summary is {string} it will be used as a summary on MediaWiki side
 	 *          if summary is empty {Array} MediaWiki will provide default summary
 	 * @returns {Ember.RSVP.Promise}
