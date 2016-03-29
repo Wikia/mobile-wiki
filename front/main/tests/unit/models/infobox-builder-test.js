@@ -845,7 +845,6 @@ test('setups infobox data', (assert) => {
 			isNew: true,
 			assertions: (model, setupInitialStateStub) => {
 				assert.ok(setupInitialStateStub.calledOnce, 'setups initial state for new infobox');
-				assert.equal(model.get('theme'), model.get('defaultTheme'), 'sets default theme for new infobox');
 			}
 		},
 		{
@@ -858,37 +857,7 @@ test('setups infobox data', (assert) => {
 			assertions: (model, setupInitialStateStub, setupExistingStateStub) => {
 				assert.ok(setupExistingStateStub.calledWith({
 					test: true
-				}), 'setups state for existing infobox without a theme');
-				assert.equal(
-					model.get('theme'),
-					null,
-					'does not set theme if there is none returned from API for existing infobox'
-				);
-			}
-		},
-		{
-			data: {
-				theme: 'test'
-			},
-			isNew: false,
-			assertions: (model, setupInitialStateStub, setupExistingStateStub) => {
-				assert.ok(setupExistingStateStub.calledOnce, 'setups state for existing infobox with a theme');
-				assert.ok(
-					model.get('theme') === 'test',
-					'sets theme if there is one returned from API for existing infobox'
-				);
-			}
-		},
-		{
-			data: {
-				theme: ''
-			},
-			isNew: false,
-			assertions: (model) => {
-				assert.ok(
-					model.get('theme') === '',
-					'sets theme if it is an empty string'
-				);
+				}), 'setups state for existing infobox');
 			}
 		}
 	];
@@ -908,7 +877,6 @@ test('prepares infobox data for saving', (assert) => {
 		{
 			model: {
 				infoboxState: [],
-				theme: null
 			},
 			expected: '{"data":[]}'
 		},
@@ -919,23 +887,8 @@ test('prepares infobox data for saving', (assert) => {
 						test: true
 					}
 				],
-				theme: null
 			},
 			expected: '{"data":[{"test":true}]}'
-		},
-		{
-			model: {
-				infoboxState: [],
-				theme: 'europa'
-			},
-			expected: '{"data":[],"theme":"europa"}'
-		},
-		{
-			model: {
-				infoboxState: [],
-				theme: ''
-			},
-			expected: '{"data":[],"theme":""}'
 		}
 	];
 
