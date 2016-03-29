@@ -7,19 +7,6 @@ export default Ember.Controller.extend({
 	rc: null,
 
 	actions: {
-
-		/**
-		 * Adds upvote for given revision from provided user
-		 *
-		 * @param {string} revisionId Revision id that was upvoted
-		 * @param {string} title Text title from main namespace that revision was upvoted
-		 * @param {int} fromUser User id who upvoted
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		addRevisionUpvote(revisionId, title, fromUser) {
-			return this.get('model').revisionUpvoteModel(revisionId, title, fromUser);
-		},
-
 		/**
 		 * Adds error banner
 		 * @param {string} messageKey message key with prefix (taken from recent-wiki-activity namespace)

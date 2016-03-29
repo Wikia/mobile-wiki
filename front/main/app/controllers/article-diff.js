@@ -14,26 +14,6 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * @param {string} revisionId Revision id that was upvoted
-		 * @param {string} title Text title from main namespace that revision was upvoted
-		 * @param {int} fromUser User id who upvoted
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		addUpvoteAction(revisionId, title, fromUser) {
-			return this.get('model').upvote(revisionId, title, fromUser);
-		},
-
-		/**
-		 * Removes upvote for given revision
-		 *
-		 * @param {int} upvoteId
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		removeUpvoteAction(upvoteId) {
-			return this.get('model').removeUpvote(upvoteId);
-		},
-
-		/**
 		 * Undo given revision
 		 *
 		 * @param {string} summary
