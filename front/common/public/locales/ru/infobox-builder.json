@@ -21,16 +21,24 @@
     "help-title":"При включении этой опции инфобокс будет использовать название статьи в качестве заголовка.",
     "help-row":"Строки позволяют добавить новую информацию в инфобокс. Используйте поле \"Заголовок\", чтобы задать название для строки.",
     "help-section-header":"Заголовки разделов позволяют разбить данные в инфобоксе на секции. Используйте поле \"Заголовок\" для указания текста заголовка. Каждая строка, добавленная под заголовком, будет автоматически добавлена в соответствующую секцию. Если применить к заголовку опцию \"Сворачивание\", то секцию можно будет скрывать и открывать по клику на соответствующий заголовок.",
+    "edit-image-item-description":"Это заглушка для изображения, которое вы сможете загрузить позже, когда этот инфобокс будет использоваться на странице.",
+    "edit-title-modal-cancel":"Cancel",
+    "edit-title-modal-header":"Name your template",
+    "edit-title-modal-publish":"Publish",
+    "edit-title-modal-save":"Save",
+    "edit-title-modal-ok":"Ok",
+    "edit-title-modal-text":"To publish your template you have to provide name for it.",
+    "edit-title-placeholder":"Untitled template",
     "save":"Опубликовать",
     "load-error":"Ошибка загрузки",
     "saving":"Идёт сохранение инфобокса...",
     "success":"Инфобокс сохранён.",
-    "edit-image-item-description":"Это заглушка для изображения, которое вы сможете загрузить позже, когда этот инфобокс будет использоваться на странице.",
     "reorder-tooltip":"Перетащите, чтобы изменить порядок",
     "source-editor-tooltip":"Редактор исходного кода",
-    "source-editor-save-confirmation":"Хотите сохранить изменения перед переходом в режим редактирования исходного кода?",
+    "source-editor-save-confirmation":"You are about to move to advanced source mode editor. Would you like to save your changes before?",
     "source-editor-save-confirmation-button-yes":"Да",
     "source-editor-save-confirmation-button-no":"Нет",
-    "source-editor-loading":"Загрузка исходного кода..."
+    "source-editor-loading":"Загрузка исходного кода...",
+    "untitled-infobox-template":"Untitled Infobox Template"
   }
 }

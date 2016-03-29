@@ -21,16 +21,24 @@
     "help-title":"このオプションをオンにすると、インフォボックスを使用している記事のタイトルがインフォボックスに適用されます。オプションをオフのままにしておくと、インフォボックスが記事ページで使用された後に誰かがタイトルを編集する必要があります。",
     "help-row":"行を使用するとインフォボックスに情報を追加できます。ラベル欄を使用して行の名前（例：目の色、家族）を指定できます。",
     "help-section-header":"見出しは、インフォボックスをセクションに分けて整理するためのものです。ラベル欄を使用してセクションの名前（例：体の特徴）を指定できます。見出しの下に追加した各行は自動的にそのセクションの一部になります。「折りたたみ可能にする」オプションをオンにすると、インフォボックスが記事ページで使用された場合にセクションを閉じたり開いたりできます。",
+    "edit-image-item-description":"画像のプレースホルダです。インフォボックスが記事ページで使用された場合に後から画像をアップロードできます。",
+    "edit-title-modal-cancel":"Cancel",
+    "edit-title-modal-header":"Name your template",
+    "edit-title-modal-publish":"Publish",
+    "edit-title-modal-save":"Save",
+    "edit-title-modal-ok":"Ok",
+    "edit-title-modal-text":"To publish your template you have to provide name for it.",
+    "edit-title-placeholder":"Untitled template",
     "save":"公開",
     "load-error":"読み込みエラー",
     "saving":"プロジェクトを保存しています",
     "success":"保存しました",
-    "edit-image-item-description":"画像のプレースホルダです。インフォボックスが記事ページで使用された場合に後から画像をアップロードできます。",
     "reorder-tooltip":"ドラッグして順序を変更できます",
     "source-editor-tooltip":"ソースエディタ",
-    "source-editor-save-confirmation":"ソースエディタに移動する前に変更内容を保存しますか？",
+    "source-editor-save-confirmation":"You are about to move to advanced source mode editor. Would you like to save your changes before?",
     "source-editor-save-confirmation-button-yes":"はい",
     "source-editor-save-confirmation-button-no":"いいえ",
-    "source-editor-loading":"ソースエディタを読み込んでいます"
+    "source-editor-loading":"ソースエディタを読み込んでいます",
+    "untitled-infobox-template":"Untitled Infobox Template"
   }
 }
