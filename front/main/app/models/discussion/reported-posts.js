@@ -78,7 +78,7 @@ DiscussionReportedPostsModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, forumId, sortBy = 'trending') {
-		const reportedPostsInstance = DiscussionReportedPosts.create({
+		const reportedPostsInstance = DiscussionReportedPostsModel.create({
 				wikiId,
 				forumId
 			}),
