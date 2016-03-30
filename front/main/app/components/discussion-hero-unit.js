@@ -64,7 +64,8 @@ export default Ember.Component.extend(ViewportMixin, {
 		1353547: 'discussion-header-ja-seiken.jpg',
 		650858: 'discussion-header-ja-dont-starve.jpg',
 		125: 'discussion-header-tardis.jpg',
-		537616: 'discussion-header-creepy-pasta.jpg'
+		537616: 'discussion-header-creepy-pasta.jpg',
+		7474: 'discussion-header-de-animanga.jpg'
 	},
 
 	/**
