@@ -13,7 +13,6 @@ const DiscussionPost = DiscussionEntity.extend({
 });
 
 DiscussionPost.reopenClass({
-
 	/**
 	 * Normalizes single entity from post list into a post object
 	 *
@@ -28,7 +27,7 @@ DiscussionPost.reopenClass({
 				creationTimestamp: postData.creationDate.epochSecond,
 				id: postData.id,
 				isDeleted: postData.isDeleted,
-				isLocked: !Ember.get(postData, '_embedded.thread.isEditable'),
+				isLocked: !Ember.get(postData, '_embedded.thread.0.isEditable'),
 				isNew: postData.isNew,
 				isReported: postData.isReported,
 				isRequesterBlocked: postData.isRequesterBlocked,
