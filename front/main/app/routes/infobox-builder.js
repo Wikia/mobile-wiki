@@ -43,8 +43,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 */
 	model(params) {
 		return InfoboxBuilderModel.create({
-			title: params.templateName,
-			initialTitle: params.templateName
+			title: params.templateName
 		});
 	},
 
@@ -57,6 +56,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	afterModel(model) {
 		const controller = this.controllerFor('infobox-builder');
 
+		this.controllerFor('infobox-builder').set('initialTitle', model.get('title'));
 		model.setupInfoboxData(controller.get('infoboxData'), controller.get('isNew'));
 	},
 

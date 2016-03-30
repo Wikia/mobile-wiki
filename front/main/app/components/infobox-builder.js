@@ -307,7 +307,7 @@ export default Ember.Component.extend(
 		/**
 		 * Set new title, hide modal and call callback function if set.
 		 *
-		 * @param {String} title new title
+		 * @param {String} title
 		 * @returns {void}
 		 */
 		changeTemplateTitle(title) {

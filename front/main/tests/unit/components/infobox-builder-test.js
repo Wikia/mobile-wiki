@@ -508,7 +508,6 @@ test('correctly calculates showEditTitleModalCancelButton', function (assert) {
 	});
 });
 
-
 test('changeTemplateTitle changes title and closes modal', function (assert) {
 	const component = this.subject(),
 		newTitle = 'newTitle';
@@ -519,4 +518,3 @@ test('changeTemplateTitle changes title and closes modal', function (assert) {
 	assert.equal(component.get('title'), newTitle);
 	assert.equal(component.get('isEditTitleModalVisible'), false);
 });
-
