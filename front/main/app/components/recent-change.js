@@ -76,10 +76,12 @@ export default Ember.Component.extend(
 
 		actions: {
 			handleVote() {
-				if (this.get('currentUserUpvoteId')) {
-					this.removeUpvote();
-				} else {
-					this.addUpvote();
+				if (this.get('currentUser.isAuthenticated')) {
+					if (this.get('currentUserUpvoteId')) {
+						this.removeUpvote();
+					} else {
+						this.addUpvote();
+					}
 				}
 			}
 		}
