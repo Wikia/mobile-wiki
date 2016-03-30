@@ -2,9 +2,9 @@ import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import ajaxCall from '../../utils/ajax-call';
-import DiscussionContributor from './objects/contributor';
-import DiscussionContributors from './objects/contributors';
-import DiscussionEntities from './objects/entities';
+import DiscussionContributor from './domain/contributor';
+import DiscussionContributors from './domain/contributors';
+import DiscussionEntities from './domain/entities';
 
 const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,

@@ -1,11 +1,11 @@
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import ajaxCall from '../../utils/ajax-call';
-import DiscussionContributor from './objects/contributor';
-import DiscussionContributors from './objects/contributors';
-import DiscussionEntities from './objects/entities';
-import DiscussionPost from './objects/post';
-import DiscussionReply from './objects/reply';
+import DiscussionContributor from './domain/contributor';
+import DiscussionContributors from './domain/contributors';
+import DiscussionEntities from './domain/entities';
+import DiscussionPost from './domain/post';
+import DiscussionReply from './domain/reply';
 import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {

@@ -3,9 +3,9 @@ import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import ajaxCall from '../../utils/ajax-call';
-import DiscussionContributors from './objects/contributors';
-import DiscussionEntities from './objects/entities';
-import DiscussionPost from './objects/post';
+import DiscussionContributors from './domain/contributors';
+import DiscussionEntities from './domain/entities';
+import DiscussionPost from './domain/post';
 import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(

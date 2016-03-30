@@ -2,9 +2,9 @@ import Ember from 'ember';
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import ajaxCall from '../../utils/ajax-call';
-import DiscussionContributors from './objects/contributors';
-import DiscussionEntities from './objects/entities';
-import DiscussionPost from './objects/post';
+import DiscussionContributors from './domain/contributors';
+import DiscussionEntities from './domain/entities';
+import DiscussionPost from './domain/post';
 
 const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	postsLimit: 10,
