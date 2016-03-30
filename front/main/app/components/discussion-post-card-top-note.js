@@ -7,9 +7,7 @@ export default Ember.Component.extend({
 
 	canModerate: Ember.computed.readOnly('post.userData.permissions.canModerate'),
 
-	showButtons: Ember.computed('isReported', function () {
-		return this.get('canShowModButtons') && this.get('isReported') && this.get('canModerate');
-	}),
+	showButtons: Ember.computed.and('canShowModButtons', 'isReported', 'canModerate'),
 
 	modalDialogService: Ember.inject.service('modal-dialog'),
 

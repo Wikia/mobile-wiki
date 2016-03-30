@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import ajaxCall from '../../utils/ajax-call';
+import {track, trackActions} from '../../utils/discussion-tracker';
 
 export default Ember.Object.extend({
 	wikiId: null,
@@ -10,6 +12,8 @@ export default Ember.Object.extend({
 	pivotId: null,
 
 	data: null,
+
+	upvotingInProgress: {},
 
 	/*
 	 * Set minorError to true, when you don't want to display error message e.g.:
@@ -66,5 +70,44 @@ export default Ember.Object.extend({
 	 */
 	setFailedState(errorMessage) {
 		this.set('data.dialogMessage', errorMessage);
+	},
+
+	/**
+	 * @param {*} entity
+	 * @returns {void}
+	 */
+	upvote(entity) {
+		const entityId = Ember.get(entity, 'id'),
+			hasUpvoted = Ember.get(entity.userData, 'hasUpvoted'),
+			method = hasUpvoted ? 'delete' : 'post';
+
+		if (this.upvotingInProgress[entityId] || typeof Ember.get(entity, 'userData') === 'undefined') {
+			return null;
+		}
+
+		this.upvotingInProgress[entityId] = true;
+
+		// the change in the front-end is done here
+		Ember.set(entity.userData, 'hasUpvoted', !hasUpvoted);
+
+		ajaxCall({
+			method,
+			url: M.getDiscussionServiceUrl(`/${Ember.get(Mercury, 'wiki.id')}/votes/post/${Ember.get(entity, 'id')}`),
+			success: (data) => {
+				Ember.set(entity, 'upvoteCount', data.upvoteCount);
+
+				if (hasUpvoted) {
+					track(trackActions.UndoUpvotePost);
+				} else {
+					track(trackActions.UpvotePost);
+				}
+			},
+			error: () => {
+				Ember.set(entity.userData, 'hasUpvoted', hasUpvoted);
+			},
+			complete: () => {
+				this.upvotingInProgress[entityId] = false;
+			}
+		});
 	}
 });

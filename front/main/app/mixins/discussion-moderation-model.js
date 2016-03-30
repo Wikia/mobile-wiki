@@ -12,7 +12,7 @@ export default Ember.Mixin.create({
 			method: 'PUT',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/delete`),
 			success: () => {
-				Ember.setProperties(post, {
+				post.setProperties({
 					isDeleted: true,
 					isReported: false
 				});
@@ -34,7 +34,7 @@ export default Ember.Mixin.create({
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/users/${posts[0].creatorId}/posts/delete`),
 			success: () => {
 				posts.forEach((post) => {
-					Ember.setProperties(post, {
+					post.setProperties({
 						isDeleted: true,
 						isReported: false
 					});
@@ -56,7 +56,7 @@ export default Ember.Mixin.create({
 			method: 'PUT',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/undelete`),
 			success: () => {
-				Ember.set(post, 'isDeleted', false);
+				post.set('isDeleted', false);
 			},
 			error: () => {
 				this.setFailedState('editor.post-error-general-error');
@@ -74,7 +74,7 @@ export default Ember.Mixin.create({
 			method: 'PUT',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/delete`),
 			success: () => {
-				Ember.setProperties(reply, {
+				reply.setProperties({
 					isDeleted: true,
 					isReported: false
 				});
@@ -95,7 +95,7 @@ export default Ember.Mixin.create({
 			method: 'PUT',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/undelete`),
 			success: () => {
-				Ember.set(reply, 'isDeleted', false);
+				reply.set('isDeleted', false);
 			},
 			error: () => {
 				this.setFailedState('editor.post-error-general-error');
@@ -105,17 +105,17 @@ export default Ember.Mixin.create({
 
 	/**
 	 * Approve post/reply in service
-	 * @param {object} item
+	 * @param {object} entity
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	approve(item) {
+	approve(entity) {
 		return ajaxCall({
 			data: JSON.stringify({value: 1}),
 			dataType: 'text',
 			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${item.id}/report/valid`),
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${entity.id}/report/valid`),
 			success: () => {
-				Ember.set(item, 'isReported', false);
+				entity.set('isReported', false);
 			},
 			error: () => {
 				this.setFailedState('editor.post-error-general-error');
@@ -125,18 +125,18 @@ export default Ember.Mixin.create({
 
 	/**
 	 * Report post/reply in service
-	 * @param {object} item
+	 * @param {object} entity
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	report(item) {
+	report(entity) {
 		return ajaxCall({
 			data: JSON.stringify({value: 1}),
 			dataType: 'text',
 			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${item.id}/report`),
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${entity.id}/report`),
 			success: () => {
-				Ember.set(item, 'userData.hasReported', true);
-				Ember.set(item, 'isReported', true);
+				entity.set('userData.hasReported', true);
+				entity.set('isReported', true);
 			},
 			error: () => {
 				this.setFailedState('editor.post-error-general-error');
@@ -156,7 +156,7 @@ export default Ember.Mixin.create({
 			dataType: 'text',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
 			success: () => {
-				Ember.set(post, 'isLocked', true);
+				post.set('isLocked', true);
 			},
 			error: () => {
 				this.setFailedState('editor.post-error-general-error');
@@ -175,7 +175,7 @@ export default Ember.Mixin.create({
 			dataType: 'text',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
 			success: () => {
-				Ember.set(post, 'isLocked', false);
+				post.set('isLocked', false);
 			},
 			error: () => {
 				this.setFailedState('editor.post-error-general-error');
