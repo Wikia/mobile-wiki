@@ -20,6 +20,7 @@ export default Ember.Component.extend(
 		showGoToSourceModal: false,
 		isEditTitleModalVisible: false,
 		editTitleModalTrigger: null,
+		titleExists: false,
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 
@@ -72,7 +73,7 @@ export default Ember.Component.extend(
 
 		editTitleModalConfirmButtonLabel: Ember.computed('editTitleModalTrigger', function () {
 			const messageKey = this.get('editTitleModalTrigger') === 'publish' ?
-				'edit-title-modal-save' :
+				'edit-title-modal-publish' :
 				'edit-title-modal-ok';
 
 			return i18n.t(`main.${messageKey}`, {
@@ -234,12 +235,17 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			changeTemplateTitle(title) {
-				const callback = this.get('editTitleModalTrigger');
+				this.get('getTemplateExistsAction')(title).then((exists) => {
+					this.set('titleExists', exists);
 
-				this.set('title', title);
-				// @todo: DAT-3994 send request to app - check if title already exists
-				this.hideEditTitleModal();
-				this.send(callback);
+					if (!exists) {
+						const callback = this.get('editTitleModalTrigger');
+
+						this.set('title', title);
+						this.hideEditTitleModal();
+						this.send(callback);
+					}
+				});
 			},
 
 			/**
@@ -307,7 +313,6 @@ export default Ember.Component.extend(
 						isLoading: true,
 						loadingMessage
 					});
-					// figure out where to take url from
 					controllerAction();
 					resolve();
 				}
