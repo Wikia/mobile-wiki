@@ -215,6 +215,20 @@ export default Ember.Component.extend(
 					this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
 				}
 				this.get('setEditItem')(null);
+			},
+
+			/**
+			 * @returns {void}
+			 */
+			selectNextActiveItem() {
+				this.get('setEditItem')(this.get('nextActiveItem'));
+			},
+
+			/**
+			 * @returns {void}
+			 */
+			selectPreviousActiveItem() {
+				this.get('setEditItem')(this.get('previousActiveItem'));
 			}
 		},
 
@@ -318,11 +332,11 @@ export default Ember.Component.extend(
 		}),
 
 		onArrowDownKeyUp: Ember.on(keyUp('ArrowDown'), function () {
-			this.get('setEditItem')(this.get('nextActiveItem'));
+			this.send('selectNextActiveItem');
 		}),
 
 		onArrowUpKeyUp: Ember.on(keyUp('ArrowUp'), function () {
-			this.get('setEditItem')(this.get('previousActiveItem'));
+			this.send('selectPreviousActiveItem');
 		})
 	}
 );

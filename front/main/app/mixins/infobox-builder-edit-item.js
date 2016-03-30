@@ -75,6 +75,39 @@ export default Ember.Mixin.create(
 			if (originalValue !== currentValue) {
 				this.trackEditItemOption('change', trackingKey);
 			}
+		},
+
+		actions: {
+			/**
+			 * ember-keyboard add-on prevents Ember.TextField and Ember.TextArea from responding to key events attached
+			 * by ember-keyboard api. In order to have consistent functionality while being focused inside input we
+			 * need to trigger them manually. 
+			 * @param {Event} event
+			 * @returns {void}
+			 */
+			handleKeyboardActionsInsideFocusedInput(event) {
+				// stop propagation of click event to prevent triggering selectPrevious / selectNext two tiems
+				// when switching from item with focused input to item without input where ember-keyboard add-on
+				// handles keyboard events
+				event.stopPropagation();
+
+				const supportedKeyboardActions = {
+						// onEnterHandler
+						13: this.get('exitEditMode'),
+						// onEscapeHandler
+						27: this.get('exitEditMode'),
+						// on ArrowUpHandler
+						38: this.get('selectPreviousActiveItem'),
+						// onArrowDownHandler
+						40: this.get('selectNextActiveItem')
+					},
+					actionHandler = supportedKeyboardActions[event.keyCode];
+
+				if (typeof actionHandler === 'function') {
+					actionHandler();
+				}
+
+			}
 		}
 	}
 );
