@@ -1,5 +1,6 @@
 $animation-time: 0.1s;
 $empty-input-label-position: 1.05rem;
+$error-message-top-margin: 4px;
 $input-bottom-padding: 0.3rem;
 $input-top-padding: 1.3rem;
 
@@ -45,4 +46,24 @@ $input-top-padding: 1.3rem;
 .text-field-label--floating {
 	font-size: $type-min;
 	top: 0;
+}
+
+.text-field--invalid {
+	.text-field-label {
+		color: $alert-color;
+	}
+
+	.text-field-input,
+	.text-field-input:focus {
+		border-bottom-color: $alert-color;
+	}
+}
+
+.text-field-error-message {
+	color: $alert-color;
+	display: block;
+	font-size: $type-min;
+	line-height: $line-height-min;
+	margin-top: $error-message-top-margin;
+	text-align: left;
 }
