@@ -3,7 +3,6 @@ import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-m
 import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributor from './domain/contributor';
 import DiscussionContributors from './domain/contributors';
-import DiscussionEntities from './domain/entities';
 import DiscussionPost from './domain/post';
 import DiscussionReply from './domain/reply';
 import {track, trackActions} from '../../utils/discussion-tracker';
