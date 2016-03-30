@@ -76,6 +76,7 @@ export default Ember.Component.extend({
 		83115: '/front/common/images/community-badge-de-the-vampire-diaries.jpg',
 		1043693: '/front/common/images/community-badge-zh-terrabattle.jpg',
 		848428: '/front/common/images/community-badge-zh-kancolle.jpg',
+		89404: '/front/common/images/community-badge-pt-assassins-creed.jpg',
 		366313: '/front/common/images/community-badge-zh-assassins-creed.jpg',
 		681646: '/front/common/images/community-badge-zh-tower-of-saviors.jpg',
 		501184: '/front/common/images/community-badge-zh-puzzle-and-dragons.jpg',
