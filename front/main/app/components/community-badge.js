@@ -45,6 +45,7 @@ export default Ember.Component.extend({
 		255885: '/front/common/images/community-badge-terraria.jpg',
 		509: '/front/common/images/community-badge-harry-potter.jpg',
 		12318: '/front/common/images/community-badge-harry-potter.jpg',
+		2158: '/front/common/images/community-badge-zh-harry-potter.jpg',
 		865669: '/front/common/images/community-badge-zh-harry-potter.jpg',
 		1139: '/front/common/images/community-badge-battlefied.jpg',
 		2188: '/front/common/images/community-badge-battlefront.jpg',
@@ -85,7 +86,8 @@ export default Ember.Component.extend({
 		7060: '/front/common/images/community-badge-gran-turismo.png',
 		558403: '/front/common/images/community-badge-pt-dragonball.jpg',
 		231674: '/front/common/images/community-badge-ru-my-little-pony.jpg',
-		486874: '/front/common/images/community-badge-ru-angry-birds.jpg'
+		486874: '/front/common/images/community-badge-ru-angry-birds.jpg',
+		744464: '/front/common/images/community-badge-ru-gravity-falls.jpg'
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {

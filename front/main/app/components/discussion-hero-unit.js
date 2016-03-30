@@ -49,6 +49,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		255885: 'discussion-header-terraria.jpg',
 		509: 'discussion-header-harry-potter.jpg',
 		12318: 'discussion-header-harry-potter.jpg',
+		2158: 'discussion-header-zh-harry-potter.jpg',
 		865669: 'discussion-header-zh-harry-potter.jpg',
 		1139: 'discussion-header-battlefield.jpg',
 		2188: 'discussion-header-battlefront.jpg',
@@ -88,7 +89,8 @@ export default Ember.Component.extend(ViewportMixin, {
 		7060: 'discussion-header-gran-turismo.png',
 		558403: 'discussion-header-pt-dragonball.jpg',
 		231674: 'discussion-header-ru-my-little-pony.jpg',
-		486874: 'discussion-header-ru-angry-birds.jpg'
+		486874: 'discussion-header-ru-angry-birds.jpg',
+		744464: 'discussion-header-ru-gravity-falls.jpg'
 	},
 
 	/**
