@@ -507,3 +507,16 @@ test('correctly calculates showEditTitleModalCancelButton', function (assert) {
 		assert.equal(component.get('showEditTitleModalCancelButton'), testCase.showEditTitleModalCancelButton);
 	});
 });
+
+
+test('changeTemplateTitle changes title and closes modal', function (assert) {
+	const component = this.subject(),
+		newTitle = 'newTitle';
+
+	component.set('isEditTitleModalVisible', true);
+	component.changeTemplateTitle(newTitle);
+
+	assert.equal(component.get('title'), newTitle);
+	assert.equal(component.get('isEditTitleModalVisible'), false);
+});
+
