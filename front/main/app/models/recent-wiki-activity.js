@@ -44,6 +44,7 @@ RecentWikiActivityModel.reopenClass({
 		return recentChanges.map((recentChange) => {
 			recentChange.timestamp = new Date(recentChange.timestamp).getTime() / 1000;
 			recentChange.id = `${recentChange.revid}-${recentChange.old_revid}`;
+			recentChange.anonymous = !Ember.isNone(recentChange.anon);
 			recentChange.lengthChange = recentChange.newlen - recentChange.oldlen;
 			return recentChange;
 		});

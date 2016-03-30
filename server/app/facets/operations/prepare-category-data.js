@@ -23,6 +23,7 @@ export function getTitle(data, request) {
  */
 export default function prepareCategoryData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
+		i18n = request.server.methods.i18n.getInstance(),
 		wikiVariables = data.wikiVariables,
 		pageData = data.page.data,
 		result = {
@@ -66,7 +67,10 @@ export default function prepareCategoryData(request, data) {
 	}
 
 	result.asyncArticle = false;
-	result.prerenderEnabled = false;
+
+	// Hide TOC on category pages
+	result.hasToC = false;
+	result.subtitle = i18n.t('app.category-page-subtitle');
 
 	return result;
 }

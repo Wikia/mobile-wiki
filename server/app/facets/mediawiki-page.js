@@ -1,7 +1,15 @@
-import {PageRequestHelper, PageRequestError} from '../lib/mediawiki-page';
-import {WikiVariablesRequestError, namespace as MediaWikiNamespace} from '../lib/mediawiki';
-import setResponseCaching, * as Caching from '../lib/caching';
-import Logger from '../lib/logger';
+import {PageRequestHelper} from '../lib/mediawiki-page';
+import {
+	PageRequestError,
+	RedirectedToCanonicalHost,
+	WikiVariablesNotValidWikiError,
+	WikiVariablesRequestError
+} from '../lib/custom-errors';
+import {
+	namespace as MediaWikiNamespace,
+	isContentNamespace as MediaWikiIsContentNamespace
+} from '../lib/mediawiki-namespace';
+import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
 import * as Tracking from '../lib/tracking';
 import * as Utils from '../lib/utils';
 import getStatusCode from './operations/get-status-code';
@@ -10,13 +18,15 @@ import prepareArticleData from './operations/prepare-article-data';
 import prepareCategoryData from './operations/prepare-category-data';
 import prepareMainPageData from './operations/prepare-main-page-data';
 import prepareMediaWikiData from './operations/prepare-mediawiki-data';
+import showServerErrorPage from './operations/show-server-error-page';
+import Logger from '../lib/logger';
 import deepExtend from 'deep-extend';
 
 const cachingTimes = {
 	enabled: true,
-	cachingPolicy: Caching.Policy.Public,
-	varnishTTL: Caching.Interval.standard,
-	browserTTL: Caching.Interval.disabled
+	cachingPolicy: CachingPolicy.Public,
+	varnishTTL: CachingInterval.standard,
+	browserTTL: CachingInterval.disabled
 };
 
 /**
@@ -26,12 +36,8 @@ const cachingTimes = {
  */
 
 /**
- * This is used only locally, normally MediaWiki takes care of this redirect
- * Production traffic should not reach this place
- * although if it does it guarantees graceful fallback.
- *
  * @param {Hapi.Response} reply
- * @param {RequestHelper} mediaWikiPageHelper
+ * @param {PageRequestHelper} mediaWikiPageHelper
  * @returns {void}
  */
 function redirectToMainPage(reply, mediaWikiPageHelper) {
@@ -46,10 +52,26 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
 			reply.redirect(wikiVariables.articlePath + encodeURIComponent(wikiVariables.mainPageTitle));
 		})
 		/**
+		 * If request for Wiki Variables fails
 		 * @returns {void}
 		 */
-		.catch(() => {
+		.catch(WikiVariablesRequestError, () => {
+			showServerErrorPage(reply);
+		})
+		/**
+		 * If request for Wiki Variables succeeds, but wiki does not exist
+		 * @returns {void}
+		 */
+		.catch(WikiVariablesNotValidWikiError, () => {
 			reply.redirect(localSettings.redirectUrlOnNoData);
+		})
+		/**
+		 * @param {*} error
+		 * @returns {void}
+		 */
+		.catch((error) => {
+			Logger.fatal(error, 'Unhandled error, code issue');
+			showServerErrorPage(reply);
 		});
 }
 
@@ -64,51 +86,46 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
  * @returns {void}
  */
 function handleResponse(request, reply, data, allowCache = true, code = 200) {
-	const i18n = request.server.methods.i18n.getInstance();
-
 	let result = {},
 		pageData = {},
 		viewName = 'wiki-page',
-		response,
-		ns;
+		isMainPage = false,
+		isContentNamespace,
+		ns,
+		response;
 
 	if (data.page && data.page.data) {
 		pageData = data.page.data;
 		ns = pageData.ns;
-		result.mediaWikiNamespace = ns;
+		isMainPage = pageData.isMainPage;
 	}
+
+	result.mediaWikiNamespace = ns;
+
+	isContentNamespace = MediaWikiIsContentNamespace(ns, data.wikiVariables.contentNamespaces);
+
 	// pass page title to front
 	result.urlTitleParam = request.params.title;
 
-	switch (ns) {
-		case MediaWikiNamespace.MAIN:
+	// Main pages can live in namespaces which are not marked as content
+	if (isContentNamespace || isMainPage) {
+		viewName = 'article';
+		result = deepExtend(result, prepareArticleData(request, data));
+	} else if (ns === MediaWikiNamespace.CATEGORY) {
+		if (pageData.article && pageData.details) {
 			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
+		}
 
-			break;
-
-		case MediaWikiNamespace.CATEGORY:
-			if (pageData.article && pageData.details) {
-				viewName = 'article';
-				result = deepExtend(result, prepareArticleData(request, data));
-			}
-
-			result = deepExtend(result, prepareCategoryData(request, data));
-			// Hide TOC on category pages
-			result.hasToC = false;
-			result.subtitle = i18n.t('app.category-page-subtitle');
-			break;
-
-		default:
-			Logger.warn(`Unsupported namespace: ${ns}`);
-			result = prepareMediaWikiData(request, data);
+		result = deepExtend(result, prepareCategoryData(request, data));
+	} else {
+		Logger.warn(`Unsupported namespace: ${ns}`);
+		result = prepareMediaWikiData(request, data);
 	}
 
 	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
-	if (pageData.isMainPage && pageData.mainPageData) {
+	if (isMainPage && pageData.mainPageData) {
 		result = deepExtend(result, prepareMainPageData(data));
-		result.hasToC = false;
-		delete result.adsContext;
 	}
 
 	// @todo XW-596 we shouldn't rely on side effects of this function
@@ -119,10 +136,10 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	response.type('text/html; charset=utf-8');
 
 	if (allowCache) {
-		return setResponseCaching(response, cachingTimes);
+		setResponseCaching(response, cachingTimes);
+	} else {
+		disableCache(response);
 	}
-
-	return Caching.disableCache(response);
 }
 
 /**
@@ -138,6 +155,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 	mediaWikiPageHelper
 		.getFull()
 		/**
+		 * If both requests for Wiki Variables and for Page Details succeed
 		 * @param {MediaWikiPageData} data
 		 * @returns {void}
 		 */
@@ -146,12 +164,21 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 			handleResponse(request, reply, data, allowCache);
 		})
 		/**
+		 * If request for Wiki Variables fails
 		 * @returns {void}
 		 */
 		.catch(WikiVariablesRequestError, () => {
+			showServerErrorPage(reply);
+		})
+		/**
+		 * If request for Wiki Variables succeeds, but wiki does not exist
+		 * @returns {void}
+		 */
+		.catch(WikiVariablesNotValidWikiError, () => {
 			reply.redirect(localSettings.redirectUrlOnNoData);
 		})
 		/**
+		 * If request for Wiki Variables succeeds, but request for Page Details fails
 		 * @param {*} error
 		 * @returns {void}
 		 */
@@ -170,16 +197,17 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		/**
 		 * @returns {void}
 		 */
-		.catch(Utils.RedirectedToCanonicalHost, () => {
+		.catch(RedirectedToCanonicalHost, () => {
 			Logger.info('Redirected to canonical host');
 		})
 		/**
+		 * Other errors
 		 * @param {*} error
 		 * @returns {void}
 		 */
 		.catch((error) => {
 			Logger.fatal(error, 'Unhandled error, code issue');
-			reply.redirect(localSettings.redirectUrlOnNoData);
+			showServerErrorPage(reply);
 		});
 }
 

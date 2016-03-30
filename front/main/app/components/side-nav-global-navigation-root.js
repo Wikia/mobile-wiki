@@ -1,18 +1,20 @@
 import Ember from 'ember';
 import LoginLinkMixin from '../mixins/login-link';
-import SideNavNewBadge from '../mixins/side-nav-new-badge';
 import TrackClickMixin from '../mixins/track-click';
 
 export default Ember.Component.extend(
 	LoginLinkMixin,
-	SideNavNewBadge,
 	TrackClickMixin,
 	{
 		currentUser: Ember.inject.service(),
+		newFeaturesBadges: Ember.inject.service(),
 		hubsLinks: Ember.get(Mercury, 'wiki.navigation2016.hubsLinks'),
 		exploreWikiaLabel: Ember.get(Mercury, 'wiki.navigation2016.exploreWikia.textEscaped'),
 		wikiName: Ember.get(Mercury, 'wiki.siteName'),
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
+		shouldDisplayNewBadge: Ember.computed('newFeaturesBadges.features.[]', function () {
+			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
+		}),
 
 		logoutLink: M.buildUrl({
 			namespace: 'Special',
