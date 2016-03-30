@@ -37,6 +37,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		1706: 'discussion-header-elder-scrolls.jpg',
 		74: 'discussion-header-pokemon.jpg',
 		544934: 'discussion-header-warframe.jpg',
+		750724: 'discussion-header-zh-warframe.jpg',
 		841905: 'discussion-header-brave-frontier.jpg',
 		1081: 'discussion-header-one-piece.jpg',
 		6083: 'discussion-header-zh-one-piece.jpg',
