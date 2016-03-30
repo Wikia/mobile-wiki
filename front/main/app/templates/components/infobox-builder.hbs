@@ -13,7 +13,7 @@
 		<div class="infobox-builder-infobox-wrapper">
 			{{#sortable-group
 				tagName='div'
-				class=sortableGroupClassNames
+				class='portable-infobox pi-background pi-europa'
 				onChange=(action 'onReorderElements') as |group|
 			}}
 				{{#each state as |element index|}}
@@ -30,6 +30,11 @@
 					onDragStop=(action 'onPreviewItemDrop')
 					onMouseEnter=(action 'showReorderTooltip')
 					onMouseLeave=(action 'hideReorderTooltip')
+					isGroupHighlighted=isGroupHighlighted
+					onGroupPreviewStart=(action 'toggleGroupPreview' element)
+					onGroupPreviewStop=(action 'toggleGroupPreview')
+					groupItems=groupItems
+					lastGroupItem=lastGroupItem
 					}}
 				{{/each}}
 			{{/sortable-group}}
