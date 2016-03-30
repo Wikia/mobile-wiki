@@ -18,7 +18,7 @@ export default function (options) {
 		},
 		settings = Ember.$.extend({}, defaults, options);
 
-	return new Ember.RSVP.Promise((resolve) => {
+	return new Ember.RSVP.Promise((resolve, reject) => {
 		settings.success = function (data) {
 			if (typeof options.success === 'function') {
 				options.success(data);
@@ -32,10 +32,7 @@ export default function (options) {
 				options.error(err);
 			}
 
-			/** Resolve instead of reject until we implement error substates
-			 *  To handle errors we use custom method in discussionBase model
-			 */
-			resolve(this);
+			reject(this);
 		};
 
 		Ember.$.ajax(settings);
