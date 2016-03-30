@@ -16,11 +16,11 @@ export default Ember.Component.extend(
 		}),
 		currentUpvotes: null,
 		upvotesCount: Ember.computed('revisionUpvotes.upvotes.@each.count', function () {
-			return this.get('currentUpvotes').count || 0;
+			return this.get('currentUpvotes.count') || 0;
 		}),
 		upvotesEnabled: Ember.get(Mercury, 'wiki.language.content') === 'en',
-		currentUserUpvoteId: Ember.computed('upvotesCount', 'currentUser.userId', function () {
-			return this.get('currentUpvotes').userUpvoteId || 0;
+		currentUserUpvoteId: Ember.computed('upvotesCount', function () {
+			return this.get('currentUpvotes.userUpvoteId') || 0;
 		}),
 		hasDiff: Ember.computed.and('model.old_revid', 'model.revid'),
 		showDiffLink: true,

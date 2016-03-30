@@ -40,8 +40,8 @@
 	</small>
 {{/if}}
 {{#if upvotesEnabled}}
-	<div {{action 'handleVote'}} class="recent-change__upvotes {{if currentUserUpvoteId 'user-upvoted'}}">
-		{{svg 'kudos' viewBox='0 0 18 18' class='icon'}}<span class="text">{{upvotesCount}}</span>
+	<div class="recent-change__upvotes {{if currentUserUpvoteId 'user-upvoted'}}">
+		<span {{action 'handleVote'}}>{{svg 'kudos' viewBox='0 0 18 18' class='icon'}}</span><span class="text">{{upvotesCount}}</span>
 	</div>
 {{/if}}
 {{#if active}}

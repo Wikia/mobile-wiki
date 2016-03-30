@@ -10,7 +10,7 @@ export default Ember.Component.extend(
 		classNames: ['diff-page'],
 		currentUser: Ember.inject.service(),
 		revisionUpvotes: Ember.inject.service(),
-		currentUserUpvoteId: Ember.computed('revisionUpvotes.upvotes.@each.count', 'currentUser.userId', function () {
+		currentUserUpvoteId: Ember.computed('revisionUpvotes.upvotes.@each.count', function () {
 			const upvotes = this.get('revisionUpvotes.upvotes').findBy('revisionId', this.get('model.newId'));
 
 			return upvotes.userUpvoteId || 0;
@@ -35,7 +35,7 @@ export default Ember.Component.extend(
 
 		/**
 		 * Send request to server to remove previously added upvote for a revision
-		 * @param {int} upvoteId ID of upvote record to remove
+		 * @param {number} upvoteId ID of upvote record to remove
 		 * @returns {void}
 		 */
 		removeUpvote(upvoteId) {
