@@ -58,6 +58,18 @@ export default Ember.Component.extend({
 			if (typeof onFocusHandler === 'function') {
 				onFocusHandler(event);
 			}
+		},
+
+		/**
+		 * @param {String} value
+		 * @param {Event} event
+		 */
+		onKeyUp: function(value, event) {
+			const onKeyUpHandler = this.get('onKeyUpHandler');
+
+			if (typeof onKeyUpHandler === 'function') {
+				onKeyUpHandler(event);
+			}
 		}
 	}
 });
