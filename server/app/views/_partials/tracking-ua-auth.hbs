@@ -14,7 +14,7 @@
 				controller: 'MercuryApi',
 				method: 'getTrackingDimensions',
 				title: M.prop('urlTitleParam'),
-				uid: M.prop('userId'),
+				isanon: M.prop('userId') === 0,
 				format: 'json'
 			}, function (data) {
 				if (data && data.dimensions) {

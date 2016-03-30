@@ -13,7 +13,8 @@
 			$.getJSON('/wikia.php', {
 				controller: 'MercuryApi',
 				method: 'getTrackingDimensions',
-				title: M.prop('urlTitleParam')
+				title: M.prop('urlTitleParam'),
+				isanon: M.prop('userId') === 0,
 				format: 'json'
 			}, function(data) {
 					if (data && data.dimensions) {
