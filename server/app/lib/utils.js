@@ -2,9 +2,9 @@
  * Utility functions
  */
 
-import Hoek from 'hoek';
-import Url from 'url';
-import QueryString from 'querystring';
+import {applyToDefaults, escapeHtml} from 'hoek';
+import {parse} from 'url';
+import {stringify} from 'querystring';
 import {RedirectedToCanonicalHost} from './custom-errors';
 
 /**
@@ -231,7 +231,7 @@ export function parseQueryParams(obj, allowedKeys) {
 				} else if (rawProp.toLowerCase() === 'false') {
 					prop = false;
 				} else {
-					prop = Hoek.escapeHtml(rawProp);
+					prop = escapeHtml(rawProp);
 				}
 
 				parsed[key] = prop;
@@ -310,14 +310,14 @@ export function getStaticAssetPath(localSettings, request) {
  */
 export function redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables) {
 	const requestedHost = getCachedWikiDomainName(localSettings, request),
-		canonicalHost = Url.parse(wikiVariables.basePath).hostname,
+		canonicalHost = parse(wikiVariables.basePath).hostname,
 		isLocal = isXipHost(localSettings, clearHost(getHostFromRequest(request)));
 
 	if (!isLocal && requestedHost !== canonicalHost) {
 		let redirectLocation = wikiVariables.basePath + request.path;
 
 		if (Object.keys(request.query).length > 0) {
-			redirectLocation += `?${QueryString.stringify(request.query)}`;
+			redirectLocation += `?${stringify(request.query)}`;
 		}
 
 		reply.redirect(redirectLocation).permanent(true);
@@ -347,8 +347,8 @@ export function getHtmlTitle(wikiVariables, displayTitle = '') {
  * @returns {void}
  */
 export function redirectToOasis(request, reply) {
-	const queryParams = QueryString.stringify(
-		Hoek.applyToDefaults(request.query, {
+	const queryParams = stringify(
+		applyToDefaults(request.query, {
 			useskin: 'oasis'
 		})
 	);
