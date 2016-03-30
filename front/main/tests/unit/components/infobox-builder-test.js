@@ -1,8 +1,18 @@
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
+const track = require('common/utils/track').track;
+
 moduleForComponent('infobox-builder', 'Unit | Component | infobox builder', {
-	unit: true
+	unit: true,
+
+	beforeEach() {
+		require('common/utils/track').track = Ember.K;
+	},
+
+	afterEach() {
+		require('common/utils/track').track = track;
+	}
 });
 
 test('sets correct value for showOverlay property', function (assert) {
@@ -107,7 +117,6 @@ test('sets correct properties values when dragging an item', function (assert) {
 
 	component.set('activeItem', activeItem);
 	component.set('isPreviewItemDragged', false);
-	component.set('trackClick', Ember.K);
 
 	Ember.run(() => component.send('onPreviewItemDrag', activeItem));
 
@@ -132,7 +141,6 @@ test('reset item in edit mode on dragging if action trigger is different than it
 
 	component.set('activeItem', activeItemMock);
 	component.set('setEditItem', setEditItemSpy);
-	component.set('trackClick', Ember.K);
 
 	Ember.run(() => component.send('onPreviewItemDrag', actionTriggerMock));
 
@@ -149,7 +157,6 @@ test('reset item in edit mode on dragging if action trigger is different than it
 
 	component.set('activeItem', actionTriggerMock);
 	component.set('setEditItem', setEditItemSpy);
-	component.set('trackClick', Ember.K);
 
 	Ember.run(() => component.send('onPreviewItemDrag', actionTriggerMock));
 
@@ -168,7 +175,6 @@ test('stopped event propagation while setting edit item', function (assert) {
 		};
 
 	component.set('setEditItem', setEditItemSpy);
-	component.set('trackClick', Ember.K);
 
 	Ember.run(() => component.send('setEditItemAndStopPropagation', itemMock, eventMock));
 
@@ -212,7 +218,6 @@ test('calls scrollPreviewToBottom with debounce after new item is added', functi
 
 	component.set('addItem', sinon.spy());
 	component.set('scrollPreviewToBottom', sinon.spy());
-	component.set('trackClick', Ember.K);
 
 	Ember.run(() => component.send('addItem', 'row'));
 
@@ -245,7 +250,7 @@ test('correctly sets sideBarOptionsComponent name', function (assert) {
 	});
 });
 
-test('onSourceEditorClick handles opening of go to source modal', function (assert) {
+test('tryGoToSource handles opening of go to source modal', function (assert) {
 	const component = this.subject(),
 		cases = [
 			{
@@ -260,27 +265,28 @@ test('onSourceEditorClick handles opening of go to source modal', function (asse
 			}
 		];
 
-	component.set('trackClick', Ember.K);
 	component.set('handleGoToSource', sinon.spy());
 
 	cases.forEach((testCase) => {
 		component.set('showGoToSourceModal', false);
 		component.set('isDirty', testCase.isDirty);
+		component.set('title', true);
 
-		component.send('onSourceEditorClick');
+		component.send('tryGoToSource');
 
 		assert.equal(component.get('showGoToSourceModal'), testCase.modalVisible, testCase.message);
 	});
 });
 
-test('onSourceEditorClick triggers go to source action when no unsaved chagnes', function (assert) {
+test('tryGoToSource triggers go to source action when no unsaved chagnes', function (assert) {
 	const component = this.subject(),
 		handleGoToSource = sinon.spy();
 
 	component.set('isDirty', false);
 	component.set('handleGoToSource', handleGoToSource);
+	component.set('title', true);
 
-	component.send('onSourceEditorClick');
+	component.send('tryGoToSource');
 
 	assert.equal(handleGoToSource.called, true);
 });
@@ -289,7 +295,6 @@ test('goToSourceAction hides go to source modal', function (assert) {
 	const component = this.subject();
 
 	component.set('handleGoToSource', sinon.spy());
-	component.set('trackClick', Ember.K);
 	component.set('showGoToSourceModal', true);
 
 	component.send('goToSource');
@@ -388,5 +393,92 @@ test('sends goToSourceEditor action to the controller without saving model - def
 		);
 
 		done();
+	});
+});
+
+test('correctly calculates infoboxTemplateTitle computed property', function (assert) {
+	const component = this.subject(),
+		defaultTitle = 'lorem ipsum',
+		customTitle = 'ipsum dolor',
+		cases = [
+			{
+				title: customTitle,
+				infoboxTemplateTitle: customTitle,
+				message: 'returns custom title'
+			},
+			{
+				infoboxTemplateTitle: defaultTitle,
+				message: 'returns defaulttitle title'
+			}
+		];
+
+	sinon.stub(i18n, 't').returns(defaultTitle);
+
+	cases.forEach((testCase) => {
+		component.set('title', testCase.title || null);
+		assert.equal(component.get('infoboxTemplateTitle'), testCase.infoboxTemplateTitle);
+	});
+
+	i18n.t.restore();
+});
+
+test('opens edit item modal for untitled infobox template on save', function (assert) {
+	const component = this.subject(),
+		showEditTitleModalSpy = sinon.spy();
+
+	component.set('title', null);
+	component.set('showEditTitleModal', showEditTitleModalSpy);
+	component.send('publish');
+
+	assert.equal(showEditTitleModalSpy.called, true);
+});
+
+test('correctly calculates editTitleModalConfirmButtonLabel', function (assert) {
+	const component = this.subject(),
+		messageMock = 'test',
+		i18nOptions = {
+			ns: 'infobox-builder'
+		},
+		cases = [
+			{
+				editTitleModalTrigger: 'publish',
+				messageKey: 'edit-title-modal-publish'
+			},
+			{
+				editTitleModalTrigger: 'test123',
+				messageKey: 'edit-title-modal-ok'
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const messageKey = `main.${testCase.messageKey}`;
+
+		sinon.stub(i18n, 't').returns(messageMock);
+
+		component.set('editTitleModalTrigger', testCase.editTitleModalTrigger);
+
+		assert.equal(component.get('editTitleModalConfirmButtonLabel'), messageMock);
+		assert.equal(i18n.t.calledWith(messageKey, i18nOptions), true);
+
+		i18n.t.restore();
+	});
+});
+
+test('correctly calculates showEditTitleModalCancelButton', function (assert) {
+	const component = this.subject(),
+		cases = [
+			{
+				editTitleModalTrigger: 'publish',
+				showEditTitleModalCancelButton: false
+			},
+			{
+				editTitleModalTrigger: 'test123',
+				showEditTitleModalCancelButton: true
+			}
+		];
+
+	cases.forEach((testCase) => {
+		component.set('editTitleModalTrigger', testCase.editTitleModalTrigger);
+		assert.equal(component.get('showEditTitleModalCancelButton'), testCase.showEditTitleModalCancelButton);
 	});
 });
