@@ -15,7 +15,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		pivotId: null,
 
 		/**
-		 * @param {number} pageNum
+		 * @param {number} [pageNum=0]
 		 * @param {string} [sortBy='trending']
 		 * @returns {Ember.RSVP.Promise}
 		 */

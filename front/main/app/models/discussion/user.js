@@ -11,7 +11,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	userId: null,
 
 	/**
-	 * @param {number} pageNum
+	 * @param {number} [pageNum=0]
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
