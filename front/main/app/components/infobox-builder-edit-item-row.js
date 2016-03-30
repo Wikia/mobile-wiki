@@ -1,10 +1,13 @@
 import Ember from 'ember';
 import InfoboxBuilderEditItemMixin from '../mixins/infobox-builder-edit-item';
 import InfoboxBuilderSidebarOptionsMixin from '../mixins/infobox-builder-sidebar-options';
+import InfoboxBuilderInputAutoFocusMixin from '../mixins/infobox-builder-input-auto-focus';
+
 
 export default Ember.Component.extend(
 	InfoboxBuilderSidebarOptionsMixin,
 	InfoboxBuilderEditItemMixin,
+	InfoboxBuilderInputAutoFocusMixin,
 	{
 		// params required for tracking edit actions
 		labelFocusTrackingKey: 'label',

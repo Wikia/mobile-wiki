@@ -238,4 +238,24 @@ describe('wiki-page', function () {
 			done();
 		});
 	});
+
+	it('redirects to oasis on unsupported namespace', function (done) {
+		var requestParamsWithQueryInUrl = clone(requestParams),
+			pageWithUnsupportedNamespace = clone(article);
+
+		requestParamsWithQueryInUrl.url = '/wiki/Yoda?test=1';
+		pageWithUnsupportedNamespace.data.ns = 999;
+
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, pageWithUnsupportedNamespace);
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
+
+		server.inject(requestParamsWithQueryInUrl, function (response) {
+			expect(response.statusCode).to.equal(302);
+			expect(response.headers.location).to.equal(
+				'/wiki/Yoda?test=1&useskin=oasis'
+			);
+
+			done();
+		});
+	});
 });

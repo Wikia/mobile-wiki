@@ -1,14 +1,14 @@
 {
   "main":{
     "leave-confirmation":"All unsaved changes will be lost.",
-    "header":"Editing: __title__",
+    "header":"Editing template: __title__",
     "sidebar-header":"Add infobox elements",
     "title-use-article-name":"Use article name",
     "first-title-default":"Infobox Title",
     "title-default":"Infobox Title __index__",
     "title-article-name":"Article Name",
-    "label-default":"Add label",
-    "section-header-default":"Add text",
+    "label-default":"Label",
+    "section-header-default":"Section Header",
     "alt-default":"Alt",
     "row-default":"Value edited by user",
     "row-label":"Label",
@@ -21,11 +21,11 @@
     "help-title":"If this option is checked, the infobox will take on the title of the article it’s used in. Leaving the option unchecked means you or other users will need to edit the title once the infobox is used on an article page.",
     "help-row":"A row allows you to add information to your infobox. Use label field to specify the name of the row (like eye color, family, etc.).",
     "help-section-header":"Header organizes your infobox into sections. Use label field to specify the name of the section (eg. physical description). Each row added under a header will automatically be a part of its section. If you check the “collapsible” option, you will be able to close and open sections when the infobox will be used on an article page.",
+    "help-section-collapsible":"If you check the “collapsible” option, you will be able to close and open sections when the infobox will be used on an article page.",
     "edit-image-item-description":"This is a placeholder for an image that you can upload later when the infobox is used on an article page.",
     "edit-title-modal-cancel":"Cancel",
     "edit-title-modal-header":"Name your template",
     "edit-title-modal-publish":"Publish",
-    "edit-title-modal-save":"Save",
     "edit-title-modal-ok":"Ok",
     "edit-title-modal-text":"To publish your template you have to provide name for it.",
     "edit-title-placeholder":"Untitled template",
@@ -39,6 +39,7 @@
     "source-editor-save-confirmation-button-yes":"Yes",
     "source-editor-save-confirmation-button-no":"No",
     "source-editor-loading":"Loading source editor",
-    "untitled-infobox-template":"Untitled Infobox Template"
+    "untitled-infobox-template":"Untitled Infobox Template",
+    "title-naming-conflict-error":"This name is already taken"
   }
 }
