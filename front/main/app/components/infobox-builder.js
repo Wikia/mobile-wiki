@@ -2,8 +2,10 @@ import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import infoboxBuilderDiff from '../utils/infobox-builder-diff';
 import {track, trackActions} from 'common/utils/track';
+import { EKMixin, keyUp } from 'ember-keyboard';
 
 export default Ember.Component.extend(
+	EKMixin,
 	TrackClickMixin,
 	{
 		classNameBindings: ['isPreviewItemDragged', 'isGroupHighlighted'],
@@ -292,6 +294,14 @@ export default Ember.Component.extend(
 					label: `changed-element-${element.type}-${element.changedField}`
 				});
 			});
-		}
+		},
+
+		activateKeyboard: Ember.on('init', function () {
+			this.set('keyboardActivated', true);
+		}),
+
+		aFunction: Ember.on(keyUp('Tab'), function () {
+			console.log('`Tab` was pressed');
+		}),
 	}
 );
