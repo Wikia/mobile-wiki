@@ -163,3 +163,24 @@ test('get correct handler based on model isMainPage flag and exception', functio
 	assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
 	assert.equal(handler.controllerName, expectedHandler.controllerName, 'controllerName is different than expected');
 });
+
+test('reset ads variables on before model', function (assert) {
+	const mock = this.subject();
+
+	mock.controllerFor = () => {
+		return {
+			send: () => {}
+		};
+	};
+	window.wgNow = null;
+
+	mock.beforeModel({
+		params: {
+			'wiki-page': {
+				title: 'foo'
+			}
+		}
+	});
+
+	assert.notEqual(window.wgNow, null);
+});

@@ -71,3 +71,12 @@ test('sets controller properties', function (assert) {
 	};
 	routeMock.afterModel(modelWithDoubleEncodedTitle);
 });
+
+test('reset ads variables on before model', function (assert) {
+	const mock = this.subject();
+
+	window.wgNow = null;
+	mock.beforeModel();
+
+	assert.notEqual(window.wgNow, null);
+});
