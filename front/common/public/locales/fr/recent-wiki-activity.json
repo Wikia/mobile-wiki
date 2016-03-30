@@ -2,6 +2,7 @@
   "main":{
     "edited":"a modifié",
     "dont-show-again":"Ne plus afficher",
+    "error":"Un problème est survenu. Veuillez réessayer.",
     "intro-now-on-mobile":"Désormais disponible sur le site mobile",
     "intro-see-more-recent-edits":"Voir plus de modifications récentes",
     "intro-see-the-edit":"Voir la modification",
@@ -13,6 +14,7 @@
     "undo-failure":"Impossible d'annuler la modification en raison d'un conflit entre des modifications intermédiaires.",
     "undo-label":"Annuler",
     "undo-success":"La modification de la page __pageTitle__ a été annulée avec succès !",
+    "nice-work-button-label":"Bon travail !"
   },
   "diff":{
     "after":"Après",

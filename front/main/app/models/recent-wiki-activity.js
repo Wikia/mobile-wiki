@@ -35,7 +35,6 @@ RecentWikiActivityModel.reopenClass({
 					recentChanges = RecentWikiActivityModel.prepareData(data.query.recentchanges);
 
 				model.set('recentChanges', recentChanges);
-
 				resolve(model);
 			}).fail((err) => reject(err));
 		});
@@ -45,6 +44,7 @@ RecentWikiActivityModel.reopenClass({
 		return recentChanges.map((recentChange) => {
 			recentChange.timestamp = new Date(recentChange.timestamp).getTime() / 1000;
 			recentChange.id = `${recentChange.revid}-${recentChange.old_revid}`;
+			recentChange.anonymous = !Ember.isNone(recentChange.anon);
 			return recentChange;
 		});
 	}

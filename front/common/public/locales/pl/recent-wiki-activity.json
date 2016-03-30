@@ -2,6 +2,7 @@
   "main":{
     "edited":"edytował(a)",
     "dont-show-again":"Nie pokazuj mi tego ponownie",
+    "error":"Przepraszamy, coś poszło nie tak. Spróbuj ponownie.",
     "intro-now-on-mobile":"Teraz na urządzeniach mobilnych",
     "intro-see-more-recent-edits":"Zobacz najnowsze zmiany",
     "intro-see-the-edit":"Zobacz edycję",
@@ -13,6 +14,7 @@
     "undo-failure":"Edycja nie może być anulowana ze względu na niezgodność edycji pośrednich.",
     "undo-label":"Anuluj edycję",
     "undo-success":"Pomyślnie anulowano edycję na stronie __pageTitle__!",
+    "nice-work-button-label":"Dobra robota!"
   },
   "diff":{
     "after":"Po",

@@ -2,6 +2,7 @@ import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 
 const ArticleDiffModel = Ember.Object.extend({
+	anonymous: Ember.computed.equal('userId', 0),
 	diffs: null,
 	id: Ember.computed('newId', 'oldId', function () {
 		return `${this.get('newId')}-${this.get('oldId')}`;

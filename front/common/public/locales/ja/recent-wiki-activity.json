@@ -2,6 +2,7 @@
   "main":{
     "edited":"編集済み",
     "dont-show-again":"次回から表示しない",
+    "error":"エラーが発生したようです。もう一度お試しください。",
     "intro-now-on-mobile":"モバイルの新機能",
     "intro-see-more-recent-edits":"その他の最近の編集を見る",
     "intro-see-the-edit":"編集を見る",
@@ -13,6 +14,7 @@
     "undo-failure":"編集中の版が競合しているため、編集を取り消せませんでした。",
     "undo-label":"取り消し",
     "undo-success":"__pageTitle__のページへの編集を取り消しました。",
+    "nice-work-button-label":"ナイス！"
   },
   "diff":{
     "after":"後",

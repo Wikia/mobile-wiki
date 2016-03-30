@@ -2,6 +2,7 @@
   "main":{
     "edited":"已編輯",
     "dont-show-again":"下次不要再顯示",
+    "error":"哎呀，出錯了。請再試一次。",
     "intro-now-on-mobile":"手機版本已發佈",
     "intro-see-more-recent-edits":"查看最近編輯",
     "intro-see-the-edit":"查看編輯",
@@ -13,6 +14,7 @@
     "undo-failure":"由於編輯已經被新內容覆蓋，不能撤銷此次編輯。",
     "undo-label":"撤銷",
     "undo-success":"成功地撤銷了對頁面__pageTitle__的編輯!",
+    "nice-work-button-label":"做的漂亮！"
   },
   "diff":{
     "after":"之後",

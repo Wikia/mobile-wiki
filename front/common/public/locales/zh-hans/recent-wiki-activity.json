@@ -2,6 +2,7 @@
   "main":{
     "edited":"已编辑",
     "dont-show-again":"请不要再显示",
+    "error":"哎呀，出错了。请再试一次。",
     "intro-now-on-mobile":"手机版已发布",
     "intro-see-more-recent-edits":"查看最近编辑",
     "intro-see-the-edit":"查阅编辑",
@@ -13,6 +14,7 @@
     "undo-failure":"由于编辑已经被新内容覆盖，不能撤消此次编辑。",
     "undo-label":"撤销",
     "undo-success":"成功地撤消了对页面__pageTitle__的编辑!",
+    "nice-work-button-label":"做的漂亮！"
   },
   "diff":{
     "after":"之后",

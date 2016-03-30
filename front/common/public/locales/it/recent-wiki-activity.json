@@ -2,6 +2,7 @@
   "main":{
     "edited":"modificato",
     "dont-show-again":"Non mostrarmelo più",
+    "error":"Spiacente, qualcosa è andato storto. Riprovare.",
     "intro-now-on-mobile":"Ora su mobile",
     "intro-see-more-recent-edits":"Visualizza le modifiche più recenti",
     "intro-see-the-edit":"Visualizza la modifica",
@@ -13,6 +14,7 @@
     "undo-failure":"Non è stato possibile annullare la modifica a causa di un conflitto con delle modifiche intermedie.",
     "undo-label":"Annulla",
     "undo-success":"Annullamento della modifica alla pagina __pageTitle__ eseguito con successo!",
+    "nice-work-button-label":"Bel lavoro!"
   },
   "diff":{
     "after":"Dopo",
