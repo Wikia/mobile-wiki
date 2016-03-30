@@ -86,6 +86,7 @@ CategoryModel.reopenClass({
 				articleType: data.articleType,
 				description: get(data, 'details.description'),
 				displayTitle: get(data, 'details.title'),
+				documentTitle: get(data, 'details.documentTitle'),
 				id: get(data, 'details.id'),
 				name: get(data, 'details.title'),
 				ns: data.ns,
