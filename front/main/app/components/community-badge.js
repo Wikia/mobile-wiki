@@ -89,7 +89,8 @@ export default Ember.Component.extend({
 		231674: '/front/common/images/community-badge-ru-my-little-pony.jpg',
 		486874: '/front/common/images/community-badge-ru-angry-birds.jpg',
 		744464: '/front/common/images/community-badge-ru-gravity-falls.jpg',
-		1030684: '/front/common/images/community-badge-ru-five-nights-at-freddys.jpg'
+		1030684: '/front/common/images/community-badge-ru-five-nights-at-freddys.jpg',
+		89210: '/front/common/images/community-badge-fr-fairy-tail.jpg'
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
