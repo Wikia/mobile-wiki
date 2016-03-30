@@ -7,6 +7,7 @@ export default Ember.Component.extend({
 
 	badgeImages: {
 		24357: '/front/common/images/community-badge-adventure-time.png',
+		531317: '/front/common/images/community-badge-ru-adventure-time.jpg',
 		8390: '/front/common/images/community-badge-cocktails.png',
 		3035: '/front/common/images/community-badge-fallout.png',
 		119235: '/front/common/images/community-badge-hawaii-five-o.png',
