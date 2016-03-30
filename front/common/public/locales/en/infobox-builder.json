@@ -1,14 +1,14 @@
 {
   "main": {
     "leave-confirmation": "All unsaved changes will be lost.",
-    "header": "Editing: __title__",
+    "header": "Editing template: __title__",
     "sidebar-header": "Add infobox elements",
     "title-use-article-name": "Use article name",
     "first-title-default": "Infobox Title",
     "title-default": "Infobox Title __index__",
     "title-article-name": "Article Name",
-    "label-default": "Add label",
-    "section-header-default": "Add text",
+    "label-default": "Label",
+    "section-header-default": "Section Header",
     "alt-default": "Alt",
     "row-default": "Value edited by user",
     "row-label": "Label",
