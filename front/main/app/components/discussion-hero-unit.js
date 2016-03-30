@@ -46,6 +46,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		255885: 'discussion-header-terraria.jpg',
 		509: 'discussion-header-harry-potter.jpg',
 		12318: 'discussion-header-harry-potter.jpg',
+		865669: 'discussion-header-zh-harry-potter.jpg',
 		1139: 'discussion-header-battlefield.jpg',
 		2188: 'discussion-header-battlefront.jpg',
 		321995: 'discussion-header-ahs.jpg',
