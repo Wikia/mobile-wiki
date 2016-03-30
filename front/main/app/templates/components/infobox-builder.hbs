@@ -4,6 +4,7 @@
 	fixed=true
 	onBack=(action 'cancel')
 	onConfirm=(action 'publish')
+	onTitleClick=(action 'editTitle')
 	title=(i18n 'main.header' ns='infobox-builder' title=infoboxTemplateTitle)
 }}
 
@@ -90,7 +91,7 @@
 				showCancelButton=showEditTitleModalCancelButton
 				cancelButtonAction=(action 'hideEditTitleModal')
 				cancelButtonText=(i18n 'main.edit-title-modal-cancel' ns='infobox-builder')
-				confirmButtonAction=(action 'changeTemplateTitle')
+				confirmButtonAction=(action 'onTemplateTitleChangeAttempt')
 				confirmButtonText=editTitleModalConfirmButtonLabel
 				titleExists=titleExists
 			}}

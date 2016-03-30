@@ -21,6 +21,7 @@ export default Ember.Component.extend(
 		isEditTitleModalVisible: false,
 		editTitleModalTrigger: null,
 		titleExists: false,
+		initialTitle: null,
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 
@@ -231,21 +232,25 @@ export default Ember.Component.extend(
 			},
 
 			/**
+			 * Check if title can be changed - check if it doesn't exist already.
+			 * Do not perform request when changing back to initial title - name
+			 * will always exist in this case.
+			 *
 			 * @param {String} title
 			 * @returns {void}
 			 */
-			changeTemplateTitle(title) {
-				this.get('getTemplateExistsAction')(title).then((exists) => {
-					this.set('titleExists', exists);
+			onTemplateTitleChangeAttempt(title) {
+				if (title === this.get('initialTitle')) {
+					this.changeTemplateTitle(title);
+				} else {
+					this.get('getTemplateExistsAction')(title).then((exists) => {
+						this.set('titleExists', exists);
 
-					if (!exists) {
-						const callback = this.get('editTitleModalTrigger');
-
-						this.set('title', title);
-						this.hideEditTitleModal();
-						this.send(callback);
-					}
-				});
+						if (!exists) {
+							this.changeTemplateTitle(title);
+						}
+					});
+				}
 			},
 
 			/**
@@ -256,6 +261,10 @@ export default Ember.Component.extend(
 					this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
 				}
 				this.get('setEditItem')(null);
+			},
+
+			editTitle() {
+				this.showEditTitleModal();
 			}
 		},
 
@@ -317,6 +326,23 @@ export default Ember.Component.extend(
 					resolve();
 				}
 			});
+		},
+
+		/**
+		 * Set new title, hide modal and call callback function if set.
+		 *
+		 * @param {String} title
+		 * @returns {void}
+		 */
+		changeTemplateTitle(title) {
+			const callback = this.get('editTitleModalTrigger');
+
+			this.set('title', title);
+			this.hideEditTitleModal();
+
+			if (callback) {
+				this.send(callback);
+			}
 		},
 
 		/**
