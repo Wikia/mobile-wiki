@@ -16,14 +16,13 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 		 *
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		loadPage(pageNum = 0, sortBy = 'trending') {
+		loadPage(pageNum = 0) {
 			this.set('pageNum', pageNum);
 
 			return ajaxCall({
 				data: {
 					page: this.get('pageNum'),
 					pivot: this.get('pivotId'),
-					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false,
 					reported: true
 				},
@@ -77,7 +76,7 @@ DiscussionReportedPostsModel.reopenClass({
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, forumId, sortBy = 'trending') {
+	find(wikiId, forumId) {
 		const reportedPostsInstance = DiscussionReportedPostsModel.create({
 				wikiId,
 				forumId
@@ -86,10 +85,6 @@ DiscussionReportedPostsModel.reopenClass({
 				viewableOnly: false,
 				reported: true
 			};
-
-		if (sortBy) {
-			requestData.sortKey = reportedPostsInstance.getSortKey(sortBy);
-		}
 
 		return ajaxCall({
 			context: reportedPostsInstance,
