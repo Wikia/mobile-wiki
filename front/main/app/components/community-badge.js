@@ -27,6 +27,7 @@ export default Ember.Component.extend({
 		586931: '/front/common/images/community-badge-clash-clans.jpg',
 		2714: '/front/common/images/community-badge-smash-bros.jpg',
 		3124: '/front/common/images/community-badge-en-ben-10.jpg',
+		5918: '/front/common/images/community-badge-pt-ben-10.jpg',
 		130814: '/front/common/images/community-badge-got.jpg',
 		443588: '/front/common/images/community-badge-got.jpg',
 		4541: '/front/common/images/community-badge-gta.jpg',
