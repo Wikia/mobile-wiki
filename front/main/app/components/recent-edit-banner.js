@@ -20,6 +20,10 @@ export default Ember.Component.extend(
 					recentEdit: recentEdit.recentChanges.get('firstObject')
 				});
 
+				if (this.get('recentEdit.anonymous')) {
+					this.set('recentEdit.user', i18n.t('app.username-anonymous'));
+				}
+
 				track({
 					action: trackActions.impression,
 					category: 'recent-edit-banner',

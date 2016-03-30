@@ -5,8 +5,8 @@
 
 /**
  * @typedef {Object} PageParams
- * @property {boolean} enableAuthLogger
- * @property {string} authLoggerUrl
+ * @property {boolean} enableSocialLogger
+ * @property {string} socialLoggerUrl
  */
 
 /**
@@ -42,8 +42,8 @@ export default class AuthLogger {
 	 */
 	constructor() {
 		if (window.pageParams) {
-			this.isEnabled = window.pageParams.enableAuthLogger;
-			this.url = window.pageParams.authLoggerUrl;
+			this.isEnabled = window.pageParams.enableSocialLogger;
+			this.url = window.pageParams.socialLoggerUrl;
 		}
 	}
 
