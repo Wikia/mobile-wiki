@@ -354,7 +354,10 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * @param {String} trigger true if showing modal, false if hiding
+		 * We set titleExists: false explicitly here, instead of in hideEditTitleModal(),
+		 * because hideEditTitleModal() is not called when clicking on background.
+		 *
+		 * @param {String} trigger true if showing modal, false if hiding.
 		 * @returns {void}
 		 */
 		showEditTitleModal(trigger) {
@@ -366,6 +369,7 @@ export default Ember.Component.extend(
 
 			this.setProperties({
 				editTitleModalTrigger: trigger,
+				titleExists: false,
 				isEditTitleModalVisible: true
 			});
 		},
@@ -380,8 +384,10 @@ export default Ember.Component.extend(
 				label: 'edit-title-modal'
 			});
 
-			this.set('editTitleModalTrigger', null);
-			this.set('isEditTitleModalVisible', false);
+			this.setProperties({
+				editTitleModalTrigger: null,
+				isEditTitleModalVisible: false
+			});
 		}
 	}
 );

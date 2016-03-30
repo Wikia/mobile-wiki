@@ -10,8 +10,15 @@ export default Ember.Component.extend(
 			return this.get('title') || '';
 		}),
 
-		isConfirmButtonDisabled: Ember.computed('value', function () {
-			return this.get('value').trim() === '';
+		/**
+		 * On each value in input change, reset error.
+		 */
+		valueObserver: Ember.observer('value', function () {
+			this.set('titleExists', false);
+		}),
+
+		isConfirmButtonDisabled: Ember.computed('value', 'errorMessage', function () {
+			return !this.get('value').trim() || this.get('errorMessage');
 		}),
 
 		errorMessage: Ember.computed('titleExists', function () {
