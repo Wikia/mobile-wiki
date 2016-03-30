@@ -9,7 +9,7 @@
  *      fixed=true
  *      onBack=actionHandler
  *      onConfirm=actionHandler
- *      titleClickAction=actionHandler
+ *      onTitleClick=actionHandler
  *      title='Example title'
  * }}
  *
