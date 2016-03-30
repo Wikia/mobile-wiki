@@ -91,7 +91,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		if (normalizedRepliesData.length) {
 			pivotId = normalizedRepliesData[0].id;
 
-			// See note in previous reverse above on why this is necessary
+			// We need oldest replies displayed first
 			normalizedRepliesData.reverse();
 		}
 

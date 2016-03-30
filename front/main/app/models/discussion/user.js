@@ -4,7 +4,6 @@ import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-m
 import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributors from './domain/contributors';
 import DiscussionEntities from './domain/entities';
-import DiscussionPost from './domain/post';
 
 const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	postsLimit: 10,
