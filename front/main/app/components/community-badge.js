@@ -76,7 +76,8 @@ export default Ember.Component.extend({
 		366313: '/front/common/images/community-badge-zh-assassins-creed.jpg',
 		681646: '/front/common/images/community-badge-zh-tower-of-saviors.jpg',
 		501184: '/front/common/images/community-badge-zh-puzzle-and-dragons.jpg',
-		7060: '/front/common/images/community-badge-gran-turismo.png'
+		7060: '/front/common/images/community-badge-gran-turismo.png',
+		558403: '/front/common/images/community-badge-pt-dragonball.jpg'
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
