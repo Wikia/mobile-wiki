@@ -12,7 +12,11 @@ export default Ember.Mixin.create(
 		}),
 
 		onEscapeKeyUp: Ember.on(keyUp('Escape'), function () {
-			this.get('exitEditMode')();
+			const onEscapeKeyUpHandler = this.get('exitEditMode');
+
+			if (typeof onEscapeKeyUpHandler === 'function') {
+				onEscapeKeyUpHandler()
+			}
 		})
 	}
 );
