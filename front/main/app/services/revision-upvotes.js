@@ -10,6 +10,7 @@ export default Ember.Service.extend({
 	 *
 	 * @param {number} revisionId
 	 * @param {array} upvotes
+	 * @returns {void}
      */
 	initUpvotes(revisionId, upvotes) {
 		const revisionUpvotes = this.get('upvotes').findBy('revisionId', revisionId),
