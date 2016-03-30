@@ -62,6 +62,7 @@ export default Ember.Component.extend({
 		198492: '/front/common/images/community-badge-xcom.jpg',
 		1350187: '/front/common/images/community-badge-head-fi.jpg',
 		1322734: '/front/common/images/community-badge-league-of-legends.jpg',
+		595609: '/front/common/images/community-badge-pt-league-of-legends.jpg',
 		1015917: '/front/common/images/community-badge-love-live.jpg',
 		260936: '/front/common/images/community-badge-teen-wolf.jpg',
 		174: '/front/common/images/community-badge-final-fantasy.jpg',

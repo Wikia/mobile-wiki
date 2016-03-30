@@ -65,6 +65,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		671485: 'discussion-header-tekken.jpg',
 		198492: 'discussion-header-xcom.jpg',
 		1322734: 'discussion-header-league-of-legends.jpg',
+		595609: 'discussion-header-pt-league-of-legends.jpg',
 		1015917: 'discussion-header-love-live.jpg',
 		260936: 'discussion-header-teen-wolf.jpg',
 		174: 'discussion-header-final-fantasy.jpg',
