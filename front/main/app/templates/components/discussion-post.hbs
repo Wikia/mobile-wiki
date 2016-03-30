@@ -18,7 +18,7 @@
 			<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
 			{{#if model.repliesCount}}
 				{{discussion-contributors
-					contributorsUsers=model.contributors.users
+					users=model.contributors.users
 					maxContributorDisplayCount=7
 					totalContributorCount=model.contributors.count
 				}}
@@ -55,7 +55,7 @@
 					{{#if model.replies}}
 						<div class="desktop-hidden discussion-contributors-mobile">
 							{{discussion-contributors
-								contributorsUsers=model.contributors.users
+								users=model.contributors.users
 								maxContributorDisplayCount=7
 								totalContributorCount=model.contributors.count
 							}}
