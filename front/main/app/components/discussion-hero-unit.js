@@ -27,6 +27,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		280741: 'discussion-header-star-wars.jpg',
 		13346: 'discussion-header-walking-dead.jpg',
 		558247: 'discussion-header-clash-clans.jpg',
+		586931: 'discussion-header-clash-clans.jpg',
 		2714: 'discussion-header-smash-bros.jpg',
 		3124: 'discussion-header-en-ben-10.jpg',
 		130814: 'discussion-header-got.jpg',
@@ -62,7 +63,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		3313: 'discussion-header-riordan.jpg',
 		1353547: 'discussion-header-ja-seiken.jpg',
 		650858: 'discussion-header-ja-dont-starve.jpg',
-		125: 'discussion-header-tardis.jpg',
+		125: 'discussion-header-tardis.jpg'
 	},
 
 	/**
