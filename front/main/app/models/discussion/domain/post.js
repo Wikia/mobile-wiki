@@ -13,35 +13,6 @@ const DiscussionPost = DiscussionEntity.extend({
 });
 
 DiscussionPost.reopenClass({
-	/**
-	 * Normalizes single entity from thread list into a post object
-	 *
-	 * @param {object} threadData
-	 *
-	 * @returns {Ember.Object}
-	 */
-	createFromThreadListData(threadData) {
-		const post = DiscussionPost.create({
-				repliesCount: threadData.postCount,
-				createdBy: DiscussionContributor.create(threadData.createdBy),
-				creationTimestamp: threadData.creationDate.epochSecond,
-				id: threadData.firstPostId,
-				isDeleted: threadData.isDeleted,
-				isLocked: !threadData.isEditable,
-				isNew: threadData.isNew,
-				isReported: threadData.isReported,
-				isRequesterBlocked: threadData.isRequesterBlocked,
-				rawContent: Ember.get(threadData, '_embedded.firstPost.0.rawContent'),
-				threadId: threadData.id,
-				title: threadData.title,
-				upvoteCount: threadData.upvoteCount,
-			}),
-			userData = Ember.get(threadData, '_embedded.firstPost.0._embedded.userData.0');
-
-		post.userData = userData ? DiscussionUserData.create(userData) : null;
-
-		return post;
-	},
 
 	/**
 	 * Normalizes single entity from post list into a post object
@@ -57,7 +28,7 @@ DiscussionPost.reopenClass({
 				creationTimestamp: postData.creationDate.epochSecond,
 				id: postData.id,
 				isDeleted: postData.isDeleted,
-				isLocked: !postData.isEditable,
+				isLocked: !postData._embedded.thread.isEditable,
 				isNew: postData.isNew,
 				isReported: postData.isReported,
 				isRequesterBlocked: postData.isRequesterBlocked,

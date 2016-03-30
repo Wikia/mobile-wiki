@@ -86,7 +86,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			normalizedRepliesData,
 			pivotId;
 
-		normalizedRepliesData = DiscussionEntities.createFromPostsData(apiRepliesData);
+		normalizedRepliesData = apiRepliesData.map((replyData) => DiscussionReply.create(replyData));
 
 		if (normalizedRepliesData.length) {
 			pivotId = normalizedRepliesData[0].id;

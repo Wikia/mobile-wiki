@@ -16,7 +16,7 @@ DiscussionEntities.reopenClass({
 	 * @returns {array}
 	 */
 	createFromThreadsData(threadsData) {
-		return threadsData.map((threadData) => DiscussionPost.createFromThreadListData(threadData));
+		return threadsData.map((threadData) => DiscussionPost.createFromThreadData(threadData));
 	},
 
 	/**

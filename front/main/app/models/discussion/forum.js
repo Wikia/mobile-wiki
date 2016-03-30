@@ -33,7 +33,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				success: (data) => {
 					this.get('data.entities').pushObjects(
 						Ember.get(data, '_embedded.doc:threads').map(
-							(newThread) => DiscussionPost.createFromThreadListData(newThread)
+							(newThread) => DiscussionPost.createFromThreadData(newThread)
 						)
 					);
 				},
