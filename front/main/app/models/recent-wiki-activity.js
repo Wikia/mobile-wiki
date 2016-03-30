@@ -1,4 +1,5 @@
 import Ember from 'ember';
+
 const defaultProps = 'user|userid|useravatar|parsedcomment|timestamp|title|ids|upvotes',
 	RecentWikiActivityModel = Ember.Object.extend({
 		init() {

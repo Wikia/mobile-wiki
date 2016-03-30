@@ -20,7 +20,7 @@ const ArticleDiffModel = Ember.Object.extend({
 
 	/**
 	 * Sends request to MW API to undo newId revision of title
-	 * @param {*} summary Description of reason for undo to be stored as edit summary
+	 * @param {string|Array} [summary=[]] summary Description of reason for undo to be stored as edit summary
 	 * CAUTION: if summary is {string} it will be used as a summary on MediaWiki side
 	 *          if summary is empty {Array} MediaWiki will provide default summary
 	 * @returns {Ember.RSVP.Promise}
@@ -60,83 +60,6 @@ const ArticleDiffModel = Ember.Object.extend({
 						error: reject
 					});
 				}, (err) => reject(err));
-		});
-	},
-
-	/**
-	 * Sends request to MW API to upvote newId revision of title
-	 * @param {string} currentUserId Id of user who is adding an upvote to a revision
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	upvote(currentUserId) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			getEditToken(this.title)
-			.then((token) => {
-				Ember.$.ajax({
-					url: M.buildUrl({
-						path: '/wikia.php',
-						query: {controller: 'RevisionUpvotesApiController', method: 'addUpvote'}
-					}),
-					data: {
-						revisionId: this.newId,
-						token
-					},
-					dataType: 'json',
-					method: 'POST',
-					success: (resp) => {
-						if (resp && resp.success) {
-							this.incrementProperty('upvotescount');
-							this.get('upvotes').addObject({
-								id: resp.id,
-								from_user: currentUserId
-							});
-							resolve();
-						} else {
-							reject();
-						}
-					},
-					error: (err) => reject(err)
-				});
-			});
-		});
-	},
-
-	/**
-	 * Send request to server to remove previously added upvote for a revision
-	 * @param {int} upvoteId ID of upvote record to remove
-	 * @param {int} userId user ID who made an edit
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	removeUpvote(upvoteId) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			getEditToken(this.title)
-				.then((token) => {
-					Ember.$.ajax({
-						url: M.buildUrl({
-							path: '/wikia.php',
-							query: {controller: 'RevisionUpvotesApiController', method: 'removeUpvote'}
-						}),
-						data: {
-							id: upvoteId,
-							userId: this.userId,
-							token
-						},
-						dataType: 'json',
-						method: 'POST',
-						success: (resp) => {
-							const upvotes = this.get('upvotes');
-
-							if (resp && resp.success) {
-								this.decrementProperty('upvotescount');
-								upvotes.removeObject(upvotes.findBy('id', upvoteId));
-								resolve();
-							} else {
-								reject();
-							}
-						},
-						error: (err) => reject(err)
-					});
-				});
 		});
 	}
 });

@@ -15,5 +15,5 @@ export default Ember.Component.extend({
 				$('#recent-changes').find('.current-change').animate({opacity: 0}, 2000);
 			}
 		}
-	}
+	},
 });

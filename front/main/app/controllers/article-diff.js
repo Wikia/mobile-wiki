@@ -14,26 +14,6 @@ export default Ember.Controller.extend({
 		},
 
 		/**
-		 * Adds upvote for given revision
-		 *
-		 * @param {int} currentUserId
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		addUpvoteAction(currentUserId) {
-			return this.get('model').upvote(currentUserId);
-		},
-
-		/**
-		 * Removes upvote for given revision
-		 *
-		 * @param {int} upvoteId
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		removeUpvoteAction(upvoteId) {
-			return this.get('model').removeUpvote(upvoteId);
-		},
-
-		/**
 		 * Undo given revision
 		 *
 		 * @param {string} summary
