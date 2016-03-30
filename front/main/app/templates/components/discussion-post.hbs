@@ -68,21 +68,21 @@
 						{{/if}}
 					{{/if}}
 					<div class="replies-list">
-						{{#each model.replies as |item index|}}
+						{{#each model.replies as |entity index|}}
 							{{discussion-post-card-reply
 								approve=(action this.attrs.approve)
-								author=item.createdBy
-								content=item.rawContent
+								author=entity.createdBy
+								content=entity.rawContent
 								delete=(action this.attrs.deleteReply)
 								isDetailsView= true
-								isNew=item.isNew
+								isNew=entity.isNew
 								isParentDeleted=model.isDeleted
 								report=(action this.attrs.report)
-								post=item
-								timestamp=item.creationDate
+								post=entity
+								timestamp=entity.creationDate
 								undelete=(action this.attrs.undeleteReply)
 								upvote=(action this.attrs.upvote)
-								upvoteCount=item.upvoteCount
+								upvoteCount=entity.upvoteCount
 							}}
 						{{else}}
 							{{#if canReply}}

@@ -74,7 +74,7 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	handleNewPostCreated() {
-		const newPosts = this.get('posts').filter((post) => Ember.get(post, 'isNew')),
+		const newPosts = this.get('posts').filter((post) => post.get('isNew')),
 			newPost = newPosts.get('firstObject');
 
 		if (newPost) {
