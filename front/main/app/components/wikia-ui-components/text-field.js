@@ -12,11 +12,23 @@
  *      onBlurHandler=onBlurHandlerAction
  *      placeholder='placeholder text'
  * }}
+ *
+ * @example with error message
+ * {{wikia-ui-components/text-field
+ *      value='example value'
+ *      inputId='userName'
+ *      name='userName'
+ *      label='User name'
+ *      onFocusHandler=onFocusHandlerAction
+ *      onBlurHandler=onBlurHandlerAction
+ *      errorMessage='this value is required'
+ * }}
  */
 import Ember from 'ember';
 
 export default Ember.Component.extend({
 	classNames: ['text-field'],
+	classNameBindings: ['isInvalid:text-field--invalid'],
 	isFocused: false,
 	isLabelFloating: Ember.computed('isFocused', 'value', function () {
 		return this.get('isFocused') || !Ember.isEmpty(this.get('value'));
@@ -30,6 +42,7 @@ export default Ember.Component.extend({
 
 		return classNames.join(' ');
 	}),
+	isInvalid: Ember.computed.bool('errorMessage'),
 
 	actions: {
 		/**
