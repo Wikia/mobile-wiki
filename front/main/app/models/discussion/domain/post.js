@@ -22,7 +22,7 @@ DiscussionPost.reopenClass({
 	 */
 	createFromPostListData(postData) {
 		const post = DiscussionPost.create({
-				repliesCount: postData.postCount,
+				repliesCount: parseInt(Ember.get(postData, '_embedded.thread.0.postCount'), 10),
 				createdBy: DiscussionContributor.create(postData.createdBy),
 				creationTimestamp: postData.creationDate.epochSecond,
 				id: postData.id,
@@ -34,7 +34,7 @@ DiscussionPost.reopenClass({
 				rawContent: postData.rawContent,
 				threadId: postData.threadId,
 				title: postData.title,
-				upvoteCount: postData.upvoteCount,
+				upvoteCount: parseInt(postData.upvoteCount, 10),
 			}),
 			userData = Ember.get(postData, '_embedded.userData.0');
 
@@ -52,7 +52,7 @@ DiscussionPost.reopenClass({
 	 */
 	createFromThreadData(threadData) {
 		const post = DiscussionPost.create({
-				repliesCount: threadData.postCount,
+				repliesCount: parseInt(threadData.postCount, 10),
 				createdBy: DiscussionContributor.create(threadData.createdBy),
 				creationTimestamp: threadData.creationDate.epochSecond,
 				id: threadData.firstPostId,
@@ -64,7 +64,7 @@ DiscussionPost.reopenClass({
 				rawContent: Ember.get(threadData, '_embedded.firstPost.0.rawContent'),
 				threadId: threadData.id,
 				title: threadData.title,
-				upvoteCount: threadData.upvoteCount,
+				upvoteCount: parseInt(threadData.upvoteCount, 10),
 			}),
 			userData = Ember.get(threadData, '_embedded.firstPost.0._embedded.userData.0');
 

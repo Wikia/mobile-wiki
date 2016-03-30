@@ -49,7 +49,7 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 				// contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]'));
 				// Work in Progress: szpachla until SOC-1586 is done
 				contributors = DiscussionContributors.create({
-					count: apiData.postCount,
+					count: parseInt(apiData.postCount, 10),
 					userInfo: posts.map((post) => DiscussionContributor.create(post.createdBy)),
 				}),
 				entities = DiscussionEntities.createFromPostsData(posts);
@@ -60,7 +60,7 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 				contributors,
 				entities,
 				pageNum: 0,
-				postCount: apiData.postCount,
+				postCount: parseInt(apiData.postCount, 10),
 			});
 
 			this.set('pivotId', pivotId);

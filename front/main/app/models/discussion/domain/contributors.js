@@ -26,7 +26,7 @@ DiscussionContributors.reopenClass({
 	 */
 	create(data) {
 		return this._super({
-			count: data.count,
+			count: parseInt(data.count, 10),
 			users: data.userInfo.map((contributor) => {
 				return DiscussionContributor.create(contributor);
 			})

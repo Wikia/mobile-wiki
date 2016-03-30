@@ -26,7 +26,7 @@ DiscussionReply.reopenClass({
 			rawContent: postData.rawContent,
 			threadId: postData.threadId,
 			title: postData.title,
-			upvoteCount: postData.upvoteCount,
+			upvoteCount: parseInt(postData.upvoteCount, 10),
 			userData: DiscussionUserData.create(
 				Ember.get(postData, '_embedded.userData.0')
 			)

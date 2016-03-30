@@ -85,7 +85,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities,
 				pageNum: 0,
-				postCount: apiData.threadCount,
+				postCount: parseInt(apiData.threadCount, 10),
 			});
 
 			this.set('pivotId', pivotId);

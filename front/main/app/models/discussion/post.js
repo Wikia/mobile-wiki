@@ -97,7 +97,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		// contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]'));
 		// Work in Progress: szpachla until SOC-1586 is done
 		contributors = DiscussionContributors.create({
-			count: apiData.postCount,
+			count: parseInt(apiData.postCount, 10),
 			userInfo: normalizedRepliesData.map((reply) => DiscussionContributor.create(reply.createdBy)),
 		});
 
@@ -107,7 +107,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			forumId: apiData.forumId,
 			page: 0,
 			replies: normalizedRepliesData,
-			repliesCount: Ember.get(apiData, 'postCount'),
+			repliesCount: parseInt(apiData.postCount, 10),
 		});
 
 		this.setProperties({
