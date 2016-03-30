@@ -345,6 +345,7 @@ export function getHtmlTitle(wikiVariables, displayTitle = '') {
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
  * @param {string} skin
+ * @returns {void}
  */
 export function redirectToSkin(request, reply, skin) {
 	const queryParams = QueryString.stringify(
