@@ -208,12 +208,15 @@ export default Ember.Component.extend(
 			},
 
 			/**
+			 * Check if title can be changed - check if it doesn't exist already.
+			 * Do not perform request when changing back to initial title - name
+			 * will always exist in this case.
+			 *
 			 * @param {String} title
 			 * @returns {void}
 			 */
-			handleTemplateTitleChange(title) {
+			onTemplateTitleChangeAttempt(title) {
 				if (title === this.get('initialTitle')) {
-					// this title will always exist so we don't need to perform check
 					this.changeTemplateTitle(title);
 				} else {
 					this.get('getTemplateExistsAction')(title).then((exists) => {
@@ -301,6 +304,12 @@ export default Ember.Component.extend(
 			});
 		},
 
+		/**
+		 * Set new title, hide modal and call callback function if set.
+		 *
+		 * @param title {String} new title
+		 * @returns {void}
+		 */
 		changeTemplateTitle(title) {
 			const callback = this.get('editTitleModalTrigger');
 
