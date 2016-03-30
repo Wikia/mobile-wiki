@@ -57,6 +57,23 @@ export default Ember.Component.extend(
 			return Boolean(this.get('activeItem')) && !this.get('isPreviewItemDragged');
 		}),
 
+		nextActiveItem: Ember.computed('activeItem', 'state', function () {
+			const state = this.get('state'),
+				activeItem = this.get('activeItem'),
+				current = activeItem ? state.indexOf(activeItem) : -1;
+
+			return state.objectAt((current + 1) % state.length);
+		}),
+
+		previousActiveItem: Ember.computed('activeItem', 'state', function () {
+			const state = this.get('state'),
+				length = state.length,
+				activeItem = this.get('activeItem'),
+				current = activeItem ? state.indexOf(activeItem) : 0;
+
+			return state.objectAt((length + current - 1)  % length);
+		}),
+
 		actions: {
 			/**
 			 * @param {String} type
@@ -300,8 +317,12 @@ export default Ember.Component.extend(
 			this.set('keyboardActivated', true);
 		}),
 
-		aFunction: Ember.on(keyUp('Tab'), function () {
-			console.log('`Tab` was pressed');
+		onArrowDownKeyUp: Ember.on(keyUp('ArrowDown'), function () {
+			this.get('setEditItem')(this.get('nextActiveItem'));
 		}),
+
+		onArrowUpKeyUp: Ember.on(keyUp('ArrowUp'), function () {
+			this.get('setEditItem')(this.get('previousActiveItem'));
+		})
 	}
 );
