@@ -14,13 +14,13 @@ DiscussionContributors.reopenClass({
 		this.set('users', []);
 	},
 	/**
-	 * @typedef {Object} contributorsObject
+	 * @typedef {Object} apiContributorsObject - API object with contributors information
 	 * @property {number} count - number of all contributors
 	 * @property {Array} userInfo - list of DiscussionContributor that supposed to be displayed
 	 */
 
 	/**
-	 * @param {contributorsObject} data
+	 * @param {apiContributorsObject} data
 	 *
 	 * @returns {Ember.Object}
 	 */
