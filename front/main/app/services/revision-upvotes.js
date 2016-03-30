@@ -14,7 +14,7 @@ export default Ember.Service.extend({
      */
 	initUpvotes(revisionId, upvotes) {
 		const revisionUpvotes = this.get('upvotes').findBy('revisionId', revisionId),
-			userUpvote = upvotes.findBy('from_user', this.get('currentUser.userId')) || [];
+			userUpvote = upvotes.findBy('from_user', this.get('currentUser.userId')) || {};
 
 		this.addVote(revisionId, revisionUpvotes, userUpvote, upvotes);
 	},
@@ -28,7 +28,7 @@ export default Ember.Service.extend({
      */
 	addRevisionUpvote(revisionId, upvote) {
 		const revisionUpvotes = this.get('upvotes').findBy('revisionId', revisionId),
-			userUpvote = revisionUpvotes ? upvote : upvote.findBy('from_user', this.get('currentUser.userId')) || [];
+			userUpvote = upvote && (upvote.from_user === this.get('currentUser.userId')) ? upvote : {};
 
 		this.addVote(revisionId, revisionUpvotes, userUpvote, upvote);
 	},
@@ -53,7 +53,7 @@ export default Ember.Service.extend({
 
 	addVote(revisionId, revisionUpvotes, userUpvote, upvotes) {
 		if (revisionUpvotes) {
-			if (Ember.isEmpty(revisionUpvotes.userUpvoteId) && userUpvote) {
+			if (Ember.isEmpty(revisionUpvotes.userUpvoteId) && Object.keys(userUpvote).length) {
 				Ember.set(revisionUpvotes, 'count', revisionUpvotes.count + 1);
 				Ember.set(revisionUpvotes, 'userUpvoteId', userUpvote.id);
 			}
