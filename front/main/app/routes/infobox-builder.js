@@ -42,7 +42,10 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Object}
 	 */
 	model(params) {
-		return InfoboxBuilderModel.create({title: params.templateName});
+		return InfoboxBuilderModel.create({
+			title: params.templateName,
+			initialTitle: params.templateName
+		});
 	},
 
 	/**

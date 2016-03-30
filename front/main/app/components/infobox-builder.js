@@ -20,6 +20,7 @@ export default Ember.Component.extend(
 		isEditTitleModalVisible: false,
 		editTitleModalTrigger: null,
 		titleExists: false,
+		initialTitle: null,
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 
@@ -210,21 +211,19 @@ export default Ember.Component.extend(
 			 * @param {String} title
 			 * @returns {void}
 			 */
-			changeTemplateTitle(title) {
-				this.get('getTemplateExistsAction')(title).then((exists) => {
-					this.set('titleExists', exists);
+			handleTemplateTitleChange(title) {
+				if (title === this.get('initialTitle')) {
+					// this title will always exist so we don't need to perform check
+					this.changeTemplateTitle(title);
+				} else {
+					this.get('getTemplateExistsAction')(title).then((exists) => {
+						this.set('titleExists', exists);
 
-					if (!exists) {
-						const callback = this.get('editTitleModalTrigger');
-
-						this.set('title', title);
-						this.hideEditTitleModal();
-
-						if (callback) {
-							this.send(callback);
+						if (!exists) {
+							this.changeTemplateTitle(title);
 						}
-					}
-				});
+					});
+				}
 			},
 
 			/**
@@ -238,8 +237,7 @@ export default Ember.Component.extend(
 			},
 
 			editTitle() {
-				this.showEditTitleModal(null);
-				//jesli zmiana jest na ten wejsciowy to nie sprawdzaj czy istnieje
+				this.showEditTitleModal();
 			}
 		},
 
@@ -301,6 +299,17 @@ export default Ember.Component.extend(
 					resolve();
 				}
 			});
+		},
+
+		changeTemplateTitle(title) {
+			const callback = this.get('editTitleModalTrigger');
+
+			this.set('title', title);
+			this.hideEditTitleModal();
+
+			if (callback) {
+				this.send(callback);
+			}
 		},
 
 		/**
