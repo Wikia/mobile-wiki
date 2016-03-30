@@ -19,7 +19,7 @@ export default Ember.Helper.helper((params, options) => {
 		if (key === 'ns') {
 			namespace = options[key];
 		} else if (options.hasOwnProperty(key)) {
-			i18nParams[key] = String(options[key]);
+			i18nParams[key] = options[key];
 		}
 	});
 
