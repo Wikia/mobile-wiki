@@ -49,6 +49,7 @@ export default function prepareCategoryData(request, data) {
 	result.isRtl = isRtl(wikiVariables);
 
 	result.htmlTitle = pageData.htmlTitle;
+	result.documentTitle = pageData.details.documentTitle;
 	result.displayTitle = getTitle(data, request);
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names

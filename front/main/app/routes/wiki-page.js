@@ -118,26 +118,27 @@ export default Ember.Route.extend({
 				`app-id=${appId}, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}` :
 				`app-id=${appId}`;
 
-		document.title = htmlTitleTemplate.replace('$1', model.get('displayTitle'));
+		document.title = htmlTitleTemplate.replace('$1', model.get('documentTitle') || model.get('displayTitle'));
 
-		headTags.push(
-			{
-				type: 'link',
-				tagId: 'canonical-url',
-				attrs: {
-					rel: 'canonical',
-					href: canonicalUrl
-				}
-			},
-			{
+		headTags.push({
+			type: 'link',
+			tagId: 'canonical-url',
+			attrs: {
+				rel: 'canonical',
+				href: canonicalUrl
+			}
+		});
+
+		if (description) {
+			headTags.push({
 				type: 'meta',
 				tagId: 'meta-description',
 				attrs: {
 					name: 'description',
 					content: description
 				}
-			}
-		);
+			});
+		}
 
 		if (appId) {
 			headTags.push({
