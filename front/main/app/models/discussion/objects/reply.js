@@ -15,7 +15,7 @@ DiscussionReply.reopenClass({
 	create(postData) {
 		return this._super({
 			createdBy: DiscussionContributor.create(postData.createdBy),
-			creationDate: postData.creationDate.epochSecond,
+			creationTimestamp: postData.creationDate.epochSecond,
 			id: postData.id,
 			isDeleted: postData.isDeleted,
 			isLocked: !postData.isEditable,
