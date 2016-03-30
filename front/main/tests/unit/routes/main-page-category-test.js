@@ -6,6 +6,7 @@ let originalM;
 moduleFor('route:MainPageCategory', 'Unit | Route | main page category', {
 	beforeEach() {
 		originalM = M;
+		window.wgNow = null;
 	},
 	afterEach() {
 		M = originalM;
@@ -77,7 +78,6 @@ test('reset ads variables on before model', function (assert) {
 	const mock = this.subject();
 
 	M.prop('initialPageView', false);
-	window.wgNow = null;
 	mock.beforeModel();
 
 	assert.notEqual(window.wgNow, null);

@@ -8,6 +8,9 @@ const originalMercury = Ember.$.extend(true, {}, window.Mercury),
 	});
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
+	beforeEach() {
+		window.wgNow = null;
+	},
 	afterEach() {
 		window.Mercury = Ember.$.extend(true, {}, originalMercury);
 	}
@@ -173,7 +176,6 @@ test('reset ads variables on before model', function (assert) {
 			send: () => {}
 		};
 	};
-	window.wgNow = null;
 
 	mock.beforeModel({
 		params: {
