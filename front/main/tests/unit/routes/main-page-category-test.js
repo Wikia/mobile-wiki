@@ -76,6 +76,7 @@ test('sets controller properties', function (assert) {
 test('reset ads variables on before model', function (assert) {
 	const mock = this.subject();
 
+	M.prop('initialPageView', false);
 	window.wgNow = null;
 	mock.beforeModel();
 

@@ -167,6 +167,7 @@ test('get correct handler based on model isMainPage flag and exception', functio
 test('reset ads variables on before model', function (assert) {
 	const mock = this.subject();
 
+	M.prop('initialPageView', false);
 	mock.controllerFor = () => {
 		return {
 			send: () => {}
