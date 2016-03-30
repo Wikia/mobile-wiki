@@ -59,7 +59,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 
 					newPost.set('isNew', true);
 					this.get('data.entities').insertAt(0, newPost);
-					this.incrementProperty('totalPosts');
+					this.incrementProperty('postCount');
 
 					track(trackActions.PostCreate);
 				},
