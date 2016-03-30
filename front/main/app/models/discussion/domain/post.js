@@ -22,7 +22,7 @@ DiscussionPost.reopenClass({
 	 */
 	createFromThreadListData(threadData) {
 		const post = DiscussionPost.create({
-				count: threadData.postCount,
+				repliesCount: threadData.postCount,
 				createdBy: DiscussionContributor.create(threadData.createdBy),
 				creationTimestamp: threadData.creationDate.epochSecond,
 				id: threadData.firstPostId,
