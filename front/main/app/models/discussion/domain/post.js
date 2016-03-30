@@ -28,7 +28,7 @@ DiscussionPost.reopenClass({
 				creationTimestamp: postData.creationDate.epochSecond,
 				id: postData.id,
 				isDeleted: postData.isDeleted,
-				isLocked: !postData._embedded.thread.isEditable,
+				isLocked: !Ember.get(postData, '_embedded.thread.isEditable'),
 				isNew: postData.isNew,
 				isReported: postData.isReported,
 				isRequesterBlocked: postData.isRequesterBlocked,
