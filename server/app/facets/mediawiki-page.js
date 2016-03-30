@@ -14,7 +14,7 @@ import {PageRequestHelper} from '../lib/mediawiki-page';
 import {
 	getCachedWikiDomainName,
 	redirectToCanonicalHostIfNeeded,
-	redirectToSkin,
+	redirectToOasis,
 	shouldAsyncArticle
 } from '../lib/utils';
 import * as Tracking from '../lib/tracking';
@@ -129,7 +129,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		result = prepareMediaWikiData(request, data);
 	} else {
 		Logger.info(`Unsupported namespace: ${ns}`);
-		redirectToSkin(request, reply, 'oasis');
+		redirectToOasis(request, reply);
 		return;
 	}
 

@@ -344,13 +344,12 @@ export function getHtmlTitle(wikiVariables, displayTitle = '') {
 /**
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
- * @param {string} skin
  * @returns {void}
  */
-export function redirectToSkin(request, reply, skin) {
+export function redirectToOasis(request, reply) {
 	const queryParams = QueryString.stringify(
 		Hoek.applyToDefaults(request.query, {
-			useskin: skin
+			useskin: 'oasis'
 		})
 	);
 

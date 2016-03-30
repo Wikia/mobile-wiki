@@ -443,12 +443,11 @@ QUnit.test('getHtmlTitle', function (assert) {
 	});
 });
 
-QUnit.test('redirectToSkin', function (assert) {
+QUnit.test('redirectToOasis', function (assert) {
 	var testCases = [
 		{
 			pathname: '/wiki/Yoda',
 			query: {},
-			skin: 'oasis',
 			expected: '/wiki/Yoda?useskin=oasis'
 		},
 		{
@@ -456,15 +455,13 @@ QUnit.test('redirectToSkin', function (assert) {
 			query: {
 				test: 1
 			},
-			skin: 'monobook',
-			expected: '/wiki/Yoda?test=1&useskin=monobook'
+			expected: '/wiki/Yoda?test=1&useskin=oasis'
 		},
 		{
 			pathname: '/wiki/Yoda',
 			query: {
 				useskin: 'monobook'
 			},
-			skin: 'oasis',
 			expected: '/wiki/Yoda?useskin=oasis'
 		}
 	];
@@ -472,14 +469,14 @@ QUnit.test('redirectToSkin', function (assert) {
 	testCases.forEach(function (testCase) {
 		var redirectStub = sinon.stub();
 
-		global.redirectToSkin({
+		global.redirectToOasis({
 			url: {
 				pathname: testCase.pathname
 			},
 			query: testCase.query
 		}, {
 			redirect: redirectStub
-		}, testCase.skin);
+		});
 
 		assert.ok(redirectStub.calledWith(testCase.expected));
 	});
