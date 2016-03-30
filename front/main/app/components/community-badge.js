@@ -69,7 +69,8 @@ export default Ember.Component.extend({
 		537616: '/front/common/images/community-badge-creepy-pasta.jpg',
 		7474: '/front/common/images/community-badge-de-animanga.jpg',
 		83115: '/front/common/images/community-badge-de-the-vampire-diaries.jpg',
-		1043693: '/front/common/images/community-badge-zh-terrabattle.jpg'
+		1043693: '/front/common/images/community-badge-zh-terrabattle.jpg',
+		848428: '/front/common/images/community-badge-zh-kancolle.jpg'
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
