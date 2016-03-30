@@ -4,6 +4,6 @@
 
 <div id="recent-changes">
 	{{#each model.recentChanges as |change|}}
-		{{recent-change model=change id=change.id rc=rc revisionId=change.revid}}
+		{{recent-change model=change id=change.id rc=rc revisionId=change.revid showError=showError}}
 	{{/each}}
 </div>

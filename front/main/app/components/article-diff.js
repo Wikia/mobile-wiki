@@ -11,9 +11,9 @@ export default Ember.Component.extend(
 		currentUser: Ember.inject.service(),
 		revisionUpvotes: Ember.inject.service(),
 		currentUserUpvoteId: Ember.computed('revisionUpvotes.upvotes.@each.count', 'currentUser.userId', function () {
-			const upvotes = this.get('revisionUpvotes.upvotes').findBy('revisionId', this.get('model.newId')) || [];
+			const upvotes = this.get('revisionUpvotes.upvotes').findBy('revisionId', this.get('model.newId'));
 
-			return upvotes.userUpvoteId;
+			return upvotes.userUpvoteId || 0;
 		}),
 		userNotBlocked: Ember.computed.not('currentUser.isBlocked'),
 		showButtons: Ember.computed.and('currentUser.isAuthenticated', 'userNotBlocked'),
@@ -22,18 +22,13 @@ export default Ember.Component.extend(
 		upvotesEnabled: Ember.get(Mercury, 'wiki.language.content') === 'en',
 		shouldShowUndoConfirmation: false,
 
-		init() {
-			this._super(...arguments);
-			this.get('revisionUpvotes').addVote(this.get('model.newId'), this.get('model.upvotes'));
-		},
-
 		addUpvote() {
 			this.get('revisionUpvotes').upvote(
 				this.get('model.newId'),
 				this.get('model.title')
 			).then(
-				this.trackSuccess('upvote-success'),
-				this.handleError('main.error', 'upvote-error')
+				() => this.trackSuccess('upvote-success'),
+				() => this.handleError('main.error', 'upvote-error')
 			);
 			this.trackClick(trackCategory, 'upvote');
 		},
@@ -50,8 +45,8 @@ export default Ember.Component.extend(
 				this.get('model.title'),
 				this.get('model.userId')
 			).then(
-				this.trackSuccess('remove-upvote-success'),
-				this.handleError('main.error', 'remove-upvote-error')
+				() => this.trackSuccess('remove-upvote-success'),
+				() => this.handleError('main.error', 'remove-upvote-error')
 			);
 			this.trackClick(trackCategory, 'remove-upvote');
 		},

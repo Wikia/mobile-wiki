@@ -6,46 +6,40 @@ export default Ember.Service.extend({
 	currentUser: Ember.inject.service(),
 
 	/**
-	 * Add votes
+	 * Init upvotes
 	 *
 	 * @param {number} revisionId
-	 * @param {object|array} upvotes
-	 * @returns {void}
+	 * @param {array} upvotes
      */
-	addVote(revisionId, upvotes) {
-		const upvote = this.get('upvotes').findBy('revisionId', revisionId);
+	initUpvotes(revisionId, upvotes) {
+		const revisionUpvotes = this.get('upvotes').findBy('revisionId', revisionId),
+			userUpvote = upvotes.findBy('from_user', this.get('currentUser.userId')) || [];
 
-		if (upvote) {
-			let userUpvote = upvotes;
-
-			if (Ember.isArray(userUpvote)) {
-				userUpvote = userUpvote.findBy('from_user', this.get('currentUser.userId'));
-			}
-
-			if (Ember.isEmpty(upvote.userUpvoteId) && userUpvote) {
-				Ember.set(upvote, 'count', upvote.count + 1);
-				Ember.set(upvote, 'userUpvoteId', userUpvote.id);
-			}
-
-		} else {
-			const userUpvote = upvotes.findBy('from_user', this.get('currentUser.userId')) || [];
-
-			this.get('upvotes').addObject({
-				revisionId,
-				count: upvotes.length,
-				userUpvoteId: userUpvote.id
-			});
-		}
+		this.addVote(revisionId, revisionUpvotes, userUpvote, upvotes);
 	},
 
 	/**
-	 * Remove upvote
+	 * Add upvote to revision
+	 *
+	 * @param {number} revisionId
+	 * @param {object} upvote
+	 * @returns {void}
+     */
+	addRevisionUpvote(revisionId, upvote) {
+		const revisionUpvotes = this.get('upvotes').findBy('revisionId', revisionId),
+			userUpvote = revisionUpvotes ? upvote : upvote.findBy('from_user', this.get('currentUser.userId')) || [];
+
+		this.addVote(revisionId, revisionUpvotes, userUpvote, upvote);
+	},
+
+	/**
+	 * Remove upvote from revision
 	 *
 	 * @param {number} revisionId
 	 * @param {number} upvoteId
 	 * @returns {void}
      */
-	removeVote(revisionId, upvoteId) {
+	removeRevisionUpvote(revisionId, upvoteId) {
 		const revision = this.get('upvotes').findBy('revisionId', revisionId);
 
 		if (revision) {
@@ -53,6 +47,22 @@ export default Ember.Service.extend({
 				Ember.set(revision, 'count', revision.count - 1);
 				Ember.set(revision, 'userUpvoteId', null);
 			}
+		}
+	},
+
+	addVote(revisionId, revisionUpvotes, userUpvote, upvotes) {
+		if (revisionUpvotes) {
+			if (Ember.isEmpty(revisionUpvotes.userUpvoteId) && userUpvote) {
+				Ember.set(revisionUpvotes, 'count', revisionUpvotes.count + 1);
+				Ember.set(revisionUpvotes, 'userUpvoteId', userUpvote.id);
+			}
+
+		} else {
+			this.get('upvotes').addObject({
+				revisionId,
+				count: upvotes.length,
+				userUpvoteId: userUpvote.id
+			});
 		}
 	},
 
@@ -79,7 +89,7 @@ export default Ember.Service.extend({
 						method: 'POST',
 						success: (resp) => {
 							if (resp && resp.success) {
-								this.addVote(revisionId, {id: resp.id, from_user: this.get('currentUser.userId')});
+								this.addRevisionUpvote(revisionId, {id: resp.id, from_user: this.get('currentUser.userId')});
 								resolve();
 							} else {
 								reject();
@@ -118,7 +128,7 @@ export default Ember.Service.extend({
 						method: 'POST',
 						success: (resp) => {
 							if (resp && resp.success) {
-								this.removeVote(revisionId, upvoteId);
+								this.removeRevisionUpvote(revisionId, upvoteId);
 								resolve();
 							} else {
 								reject();
