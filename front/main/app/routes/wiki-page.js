@@ -121,7 +121,7 @@ export default Ember.Route.extend(RouteWithAdsMixin, {
 				`app-id=${appId}, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}` :
 				`app-id=${appId}`;
 
-		document.title = htmlTitleTemplate.replace('$1', model.get('documentTitle') || model.get('displayTitle'));
+		document.title = htmlTitleTemplate.replace('$1', model.get('documentTitle'));
 
 		headTags.push({
 			type: 'link',
