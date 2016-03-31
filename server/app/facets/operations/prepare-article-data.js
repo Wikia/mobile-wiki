@@ -46,6 +46,7 @@ export default function prepareArticleData(request, data) {
 
 		if (articleData.details) {
 			result.canonicalUrl = wikiVariables.basePath + articleData.details.url;
+			result.documentTitle = articleData.details.documentTitle;
 		}
 
 		if (articleData.article) {
