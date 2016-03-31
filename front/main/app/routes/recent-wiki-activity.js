@@ -4,6 +4,7 @@ import MetaTagsMixin from '../mixins/meta-tags';
 import RecentWikiActivityModel from '../models/recent-wiki-activity';
 
 export default Ember.Route.extend(MetaTagsMixin, {
+	revisionUpvotes: Ember.inject.service(),
 
 	/**
 	 * @returns {{name: {robots: string}}}
@@ -23,6 +24,12 @@ export default Ember.Route.extend(MetaTagsMixin, {
 	 */
 	model() {
 		return RecentWikiActivityModel.getRecentActivityList();
+	},
+
+	afterModel(recentActivity) {
+		recentActivity.recentChanges.forEach((item) => {
+			this.get('revisionUpvotes').initUpvotes(item.revid, item.upvotes);
+		});
 	},
 
 	actions: {
