@@ -44,6 +44,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		841905: 'discussion-header-brave-frontier.jpg',
 		1081: 'discussion-header-one-piece.jpg',
 		12113: 'discussion-header-pt-one-piece.jpg',
+		13060: 'discussion-header-pt-one-piece.jpg',
 		6083: 'discussion-header-zh-one-piece.jpg',
 		410: 'discussion-header-yu-gi-oh.jpg',
 		949: 'discussion-header-mortal-kombat.jpg',

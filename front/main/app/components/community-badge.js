@@ -40,6 +40,7 @@ export default Ember.Component.extend({
 		841905: '/front/common/images/community-badge-brave-frontier.jpg',
 		1081: '/front/common/images/community-badge-one-piece.jpg',
 		12113: '/front/common/images/community-badge-pt-one-piece.png',
+		13060: '/front/common/images/community-badge-pt-one-piece.png',
 		6083: '/front/common/images/community-badge-zh-one-piece.jpg',
 		410: '/front/common/images/community-badge-yu-gi-oh.jpg',
 		949: '/front/common/images/community-badge-mortal-kombat.jpg',
