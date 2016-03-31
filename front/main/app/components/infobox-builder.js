@@ -2,10 +2,8 @@ import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import infoboxBuilderDiff from '../utils/infobox-builder-diff';
 import {track, trackActions} from 'common/utils/track';
-import { EKMixin, keyUp } from 'ember-keyboard';
 
 export default Ember.Component.extend(
-	EKMixin,
 	TrackClickMixin,
 	{
 		classNameBindings: ['isPreviewItemDragged', 'isGroupHighlighted'],
@@ -67,23 +65,6 @@ export default Ember.Component.extend(
 
 		isEditPopOverVisible: Ember.computed('activeItem', 'isPreviewItemDragged', function () {
 			return Boolean(this.get('activeItem')) && !this.get('isPreviewItemDragged');
-		}),
-
-		nextActiveItem: Ember.computed('activeItem', 'state', function () {
-			const state = this.get('state'),
-				activeItem = this.get('activeItem'),
-				current = activeItem ? state.indexOf(activeItem) : -1;
-
-			return state.objectAt((current + 1) % state.length);
-		}),
-
-		previousActiveItem: Ember.computed('activeItem', 'state', function () {
-			const state = this.get('state'),
-				length = state.length,
-				activeItem = this.get('activeItem'),
-				current = activeItem ? state.indexOf(activeItem) : 0;
-
-			return state.objectAt((length + current - 1) % length);
 		}),
 
 		infoboxTemplateTitle: Ember.computed('title', function () {
@@ -275,20 +256,6 @@ export default Ember.Component.extend(
 					this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
 				}
 				this.get('setEditItem')(null);
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			selectNextActiveItem() {
-				this.get('setEditItem')(this.get('nextActiveItem'));
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			selectPreviousActiveItem() {
-				this.get('setEditItem')(this.get('previousActiveItem'));
 			}
 		},
 
@@ -385,18 +352,6 @@ export default Ember.Component.extend(
 				});
 			});
 		},
-
-		activateKeyboard: Ember.on('init', function () {
-			this.set('keyboardActivated', true);
-		}),
-
-		onArrowDownKeyUp: Ember.on(keyUp('ArrowDown'), function () {
-			this.send('selectNextActiveItem');
-		}),
-
-		onArrowUpKeyUp: Ember.on(keyUp('ArrowUp'), function () {
-			this.send('selectPreviousActiveItem');
-		}),
 
 		/**
 		 * We set titleExists: false explicitly here, instead of in hideEditTitleModal(),
