@@ -58,7 +58,7 @@ export default Ember.Mixin.create(
 			 * @param {Event} event
 			 * @returns {void}
 			 */
-			handleKeyboardActionsInsideFocusedInput(event) {
+			onEnterKeyUpInsideFocusedInput(event) {
 				const actionHandler = this.get('exitEditMode'),
 					enterKeyCode = 13;
 
