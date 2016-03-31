@@ -20,8 +20,31 @@ export default Ember.Component.extend(
 		scrollDebounceDuration: 200,
 		scrollAnimateDuration: 200,
 		showGoToSourceModal: false,
+		isEditTitleModalVisible: false,
+		editTitleModalTrigger: null,
+		titleExists: false,
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
+
+		canGoToSourceModal: Ember.computed('showGoToSourceModal', 'isEditTitleModalVisible', 'title', {
+			set(key, value) {
+				this.set('showGoToSourceModal', value);
+			},
+			get() {
+				return Boolean(this.get('title')) &&
+					this.get('showGoToSourceModal') &&
+					!this.get('isEditTitleModalVisible');
+			}
+		}),
+
+		sortableGroupClassNames: Ember.computed('theme', function () {
+			const theme = this.get('theme'),
+				classNames = ['portable-infobox', 'pi-background'];
+
+			if (theme) {
+				classNames.push(`pi-theme-${theme}`);
+			}
+		}),
 
 		isReorderTooltipVisible: Ember.computed('isPreviewItemHovered', 'isPreviewItemDragged', 'isGroupTooltipVisible',
 			function () {
@@ -34,17 +57,6 @@ export default Ember.Component.extend(
 		isGroupHighlighted: Ember.computed('isPreviewItemDragged', 'isGroupTooltipVisible', function () {
 			return !this.get('isPreviewItemDragged') &&
 				this.get('isGroupTooltipVisible');
-		}),
-
-		sortableGroupClassNames: Ember.computed('theme', function () {
-			const theme = this.get('theme'),
-				classNames = ['portable-infobox', 'pi-background'];
-
-			if (theme) {
-				classNames.push(`pi-theme-${theme}`);
-			}
-
-			return classNames.join(' ');
 		}),
 
 		sideBarOptionsComponent: Ember.computed('activeItem', function () {
@@ -71,7 +83,25 @@ export default Ember.Component.extend(
 				activeItem = this.get('activeItem'),
 				current = activeItem ? state.indexOf(activeItem) : 0;
 
-			return state.objectAt((length + current - 1)  % length);
+			return state.objectAt((length + current - 1) % length);
+		}),
+
+		infoboxTemplateTitle: Ember.computed('title', function () {
+			return this.get('title') || i18n.t('infobox-builder:main.untitled-infobox-template');
+		}),
+
+		editTitleModalConfirmButtonLabel: Ember.computed('editTitleModalTrigger', function () {
+			const messageKey = this.get('editTitleModalTrigger') === 'publish' ?
+				'edit-title-modal-publish' :
+				'edit-title-modal-ok';
+
+			return i18n.t(`main.${messageKey}`, {
+				ns: 'infobox-builder'
+			});
+		}),
+
+		showEditTitleModalCancelButton: Ember.computed('editTitleModalTrigger', function () {
+			return this.get('editTitleModalTrigger') !== 'publish';
 		}),
 
 		actions: {
@@ -108,6 +138,10 @@ export default Ember.Component.extend(
 					tooltipPosX: null,
 					tooltipPosy: null
 				});
+			},
+
+			hideEditTitleModal() {
+				this.hideEditTitleModal();
 			},
 
 			toggleGroupPreview(header) {
@@ -170,8 +204,12 @@ export default Ember.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			save() {
-				this.save();
+			publish() {
+				if (this.get('title')) {
+					this.save();
+				} else {
+					this.showEditTitleModal('publish');
+				}
 			},
 
 			/**
@@ -185,13 +223,17 @@ export default Ember.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			onSourceEditorClick() {
+			tryGoToSource() {
 				this.trackClick('infobox-builder', 'go-to-source-icon');
 
-				if (this.get('isDirty')) {
-					this.set('showGoToSourceModal', true);
+				if (this.get('title')) {
+					if (this.get('isDirty')) {
+						this.set('showGoToSourceModal', true);
+					} else {
+						this.handleGoToSource();
+					}
 				} else {
-					this.handleGoToSource();
+					this.showEditTitleModal('tryGoToSource');
 				}
 			},
 
@@ -205,6 +247,24 @@ export default Ember.Component.extend(
 				this.trackClick('infobox-builder', trackingLabel);
 				this.set('showGoToSourceModal', false);
 				this.handleGoToSource(saveChanges);
+			},
+
+			/**
+			 * @param {String} title
+			 * @returns {void}
+			 */
+			changeTemplateTitle(title) {
+				this.get('getTemplateExistsAction')(title).then((exists) => {
+					this.set('titleExists', exists);
+
+					if (!exists) {
+						const callback = this.get('editTitleModalTrigger');
+
+						this.set('title', title);
+						this.hideEditTitleModal();
+						this.send(callback);
+					}
+				});
 			},
 
 			/**
@@ -233,10 +293,10 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * @param {Boolean} [shouldRedirectToTemplatePage=true]
+		 * @param {Boolean} [shouldRedirectToPage=true]
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		save(shouldRedirectToTemplatePage = true) {
+		save(shouldRedirectToPage = true) {
 			this.setProperties({
 				isLoading: true,
 				loadingMessage: i18n.t('main.saving', {
@@ -247,7 +307,7 @@ export default Ember.Component.extend(
 			this.trackClick('infobox-builder', 'save-attempt');
 			this.trackChangedItems();
 
-			return this.get('saveAction')(shouldRedirectToTemplatePage).then(() => {
+			return this.get('saveAction')(shouldRedirectToPage).then(() => {
 				track({
 					action: trackActions.success,
 					category: 'infobox-builder',
@@ -286,7 +346,6 @@ export default Ember.Component.extend(
 						isLoading: true,
 						loadingMessage
 					});
-
 					controllerAction();
 					resolve();
 				}
@@ -337,6 +396,43 @@ export default Ember.Component.extend(
 
 		onArrowUpKeyUp: Ember.on(keyUp('ArrowUp'), function () {
 			this.send('selectPreviousActiveItem');
-		})
+		}),
+
+		/**
+		 * We set titleExists: false explicitly here, instead of in hideEditTitleModal(),
+		 * because hideEditTitleModal() is not called when clicking on background.
+		 *
+		 * @param {String} trigger true if showing modal, false if hiding.
+		 * @returns {void}
+		 */
+		showEditTitleModal(trigger) {
+			track({
+				action: trackActions.open,
+				category: 'infobox-builder',
+				label: `edit-title-modal-before-triggered-on-${trigger}`
+			});
+
+			this.setProperties({
+				editTitleModalTrigger: trigger,
+				titleExists: false,
+				isEditTitleModalVisible: true
+			});
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		hideEditTitleModal() {
+			track({
+				action: trackActions.close,
+				category: 'infobox-builder',
+				label: 'edit-title-modal'
+			});
+
+			this.setProperties({
+				editTitleModalTrigger: null,
+				isEditTitleModalVisible: false
+			});
+		}
 	}
 );

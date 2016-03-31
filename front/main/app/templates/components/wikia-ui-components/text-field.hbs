@@ -10,3 +10,6 @@
 	key-up='onKeyUp'
 }}
 <label class={{labelClassNames}} for={{inputId}}>{{label}}</label>
+{{#if errorMessage}}
+	<span class="text-field-error-message">{{errorMessage}}</span>
+{{/if}}

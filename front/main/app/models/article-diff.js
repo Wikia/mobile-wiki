@@ -2,6 +2,7 @@ import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 
 const ArticleDiffModel = Ember.Object.extend({
+	anonymous: Ember.computed.equal('userId', 0),
 	diffs: null,
 	id: Ember.computed('newId', 'oldId', function () {
 		return `${this.get('newId')}-${this.get('oldId')}`;
@@ -13,6 +14,7 @@ const ArticleDiffModel = Ember.Object.extend({
 	timestamp: null,
 	title: null,
 	user: null,
+	userId: null,
 	useravatar: null,
 
 	/**
@@ -76,13 +78,19 @@ ArticleDiffModel.reopenClass({
 					controller: 'RevisionApi',
 					method: 'getRevisionsDiff',
 					avatar: true,
+					oldRev: true,
 					newId,
 					oldId
 				}
-			).done(({article, revision, diffs = []}) => {
+			).done(({article, revision, oldRevision, diffs = []}) => {
 				const diffsData = ArticleDiffModel.prepareDiffs(diffs);
 
-				let modelInstance = null;
+				let modelInstance = null,
+					lengthChange = revision.size;
+
+				if (!Ember.isNone(oldRevision)) {
+					lengthChange = lengthChange - oldRevision.size;
+				}
 
 				if (diffs) {
 					modelInstance = ArticleDiffModel.create({
@@ -95,7 +103,9 @@ ArticleDiffModel.reopenClass({
 						timestamp: revision.timestamp,
 						title: article.title,
 						user: revision.userName,
-						useravatar: revision.userAvatar
+						userId: revision.userId,
+						useravatar: revision.userAvatar,
+						lengthChange
 					});
 				}
 
