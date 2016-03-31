@@ -21,6 +21,7 @@ const ArticleModel = Ember.Object.extend({
 	basePath: null,
 	categories: [],
 	displayTitle: null,
+	documentTitle: '',
 	comments: 0,
 	description: '',
 	isMainPage: false,
@@ -118,6 +119,7 @@ ArticleModel.reopenClass({
 				articleProperties = {
 					ns: details.ns,
 					displayTitle: details.title,
+					documentTitle: details.documentTitle,
 					comments: details.comments,
 					id: details.id,
 					user: details.revision.user_id,
