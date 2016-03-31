@@ -77,24 +77,24 @@ export default Ember.Object.extend({
 	 * @returns {void}
 	 */
 	upvote(entity) {
-		const entityId = Ember.get(entity, 'id'),
-			hasUpvoted = Ember.get(entity.userData, 'hasUpvoted'),
+		const entityId = entity.get('id'),
+			hasUpvoted = entity.get('userData.hasUpvoted'),
 			method = hasUpvoted ? 'delete' : 'post';
 
-		if (this.upvotingInProgress[entityId] || typeof Ember.get(entity, 'userData') === 'undefined') {
+		if (this.upvotingInProgress[entityId] || typeof entity.get('userData') === 'undefined') {
 			return null;
 		}
 
 		this.upvotingInProgress[entityId] = true;
 
 		// the change in the front-end is done here
-		Ember.set(entity.userData, 'hasUpvoted', !hasUpvoted);
+		entity.set('userData.hasUpvoted', !hasUpvoted);
 
 		ajaxCall({
 			method,
-			url: M.getDiscussionServiceUrl(`/${Ember.get(Mercury, 'wiki.id')}/votes/post/${Ember.get(entity, 'id')}`),
+			url: M.getDiscussionServiceUrl(`/${Ember.get(Mercury, 'wiki.id')}/votes/post/${entity.get('id')}`),
 			success: (data) => {
-				Ember.set(entity, 'upvoteCount', data.upvoteCount);
+				entity.set('upvoteCount', data.upvoteCount);
 
 				if (hasUpvoted) {
 					track(trackActions.UndoUpvotePost);
@@ -103,7 +103,7 @@ export default Ember.Object.extend({
 				}
 			},
 			error: () => {
-				Ember.set(entity.userData, 'hasUpvoted', hasUpvoted);
+				entity.set('userData.hasUpvoted', hasUpvoted);
 			},
 			complete: () => {
 				this.upvotingInProgress[entityId] = false;
