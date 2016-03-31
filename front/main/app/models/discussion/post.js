@@ -31,7 +31,10 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 					// replies on the page; we want to see the newest replies first but show them
 					// starting with oldest of the current list at the top.
 					Ember.get(data, '._embedded.doc:posts').reverse()
-						.map((reply) => DiscussionReply.create(reply))
+						.map((reply) => {
+							reply.threadCreatedBy = this.get('data.createdBy');
+							return DiscussionReply.create(reply);
+						})
 				);
 
 				this.incrementProperty('data.page');
@@ -57,6 +60,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
 			success: (reply) => {
 				reply.isNew = true;
+				reply.threadCreatedBy = this.get('data.createdBy');
 				this.incrementProperty('data.repliesCount');
 				this.get('data.replies').pushObject(DiscussionReply.create(reply));
 
@@ -85,7 +89,10 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			normalizedRepliesData,
 			pivotId;
 
-		normalizedRepliesData = apiRepliesData.map((replyData) => DiscussionReply.create(replyData));
+		normalizedRepliesData = apiRepliesData.map((replyData) => {
+			replyData.threadCreatedBy = normalizedData.get('createdBy');
+			return DiscussionReply.create(replyData);
+		});
 
 		if (normalizedRepliesData.length) {
 			pivotId = normalizedRepliesData[0].id;
