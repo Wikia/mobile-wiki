@@ -1,5 +1,5 @@
 import DiscussionPostRoute from './post';
-import DiscussionPostModel from '../../models/discussion-post';
+import DiscussionPostModel from '../../models/discussion/post';
 
 export default DiscussionPostRoute.extend({
 	controllerName: 'discussion.post',
