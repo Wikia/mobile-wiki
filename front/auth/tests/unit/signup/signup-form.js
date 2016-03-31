@@ -65,6 +65,7 @@ QUnit.module('auth/signup/signup-form', function (hooks) {
 			null,
 			FormErrors,
 			HttpCodes,
+			null,
 			UrlHelper,
 			null,
 			MarketingOptIn,
