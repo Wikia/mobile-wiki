@@ -76,8 +76,9 @@ export default Ember.Component.extend({
 		/**
 		 * @param {String} value
 		 * @param {Event} event
+		 * @returns {void}
 		 */
-		onKeyUp: function(value, event) {
+		onKeyUp(value, event) {
 			const onKeyUpHandler = this.get('onKeyUpHandler');
 
 			if (typeof onKeyUpHandler === 'function') {
