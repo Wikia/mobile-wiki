@@ -1,25 +1,8 @@
-import * as Utils from '../../lib/utils';
-import {gaUserIdHash} from '../../lib/hashing';
 import localSettings from '../../../config/localSettings';
-import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData,
-	getLocalSettings} from './prepare-page-data';
-
-
-/**
- * @param {Hapi.Request} request
- * @param {Object} articleData
- * @returns {String}
- */
-export function getTitle(request, articleData) {
-	if (articleData) {
-		if (articleData.article && articleData.article.displayTitle) {
-			return articleData.article.displayTitle;
-		} else if (articleData.details && articleData.details.title) {
-			return articleData.details.title;
-		}
-	}
-	return request.params.title.replace(/_/g, ' ');
-}
+import {gaUserIdHash} from '../../lib/hashing';
+import {getTitle, shouldAsyncArticle, parseQueryParams, getVerticalColor} from '../../lib/utils';
+import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData, getLocalSettings}
+	from './prepare-page-data';
 
 /**
  * Prepares article data to be rendered
@@ -31,21 +14,36 @@ export function getTitle(request, articleData) {
 export default function prepareArticleData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
 		articleData = data.page.data,
+		displayTitle = getTitle(request, articleData),
+		userId = getUserId(request),
 		wikiVariables = data.wikiVariables,
+
 		result = {
 			articlePage: data.page,
+			asyncArticle: request.query._escaped_fragment_ !== '0' ?
+				shouldAsyncArticle(localSettings, request.headers.host) :
+				false,
+			canonicalUrl: wikiVariables.basePath,
+			documentTitle: displayTitle,
+			displayTitle,
+			gaUserIdHash: gaUserIdHash(userId),
+			isRtl: isRtl(wikiVariables),
+			// clone object to avoid overriding real localSettings for future requests
+			localSettings: getLocalSettings(),
+			optimizelyScript: getOptimizelyScriptUrl(request),
+			qualarooScript: getQualarooScriptUrl(request),
+			queryParams: parseQueryParams(request.query, allowedQueryParams),
 			server: data.server,
-			wikiVariables: data.wikiVariables,
-			displayTitle: getTitle(request, articleData),
+			themeColor: getVerticalColor(localSettings, wikiVariables.vertical),
+			userId,
+			wikiVariables: data.wikiVariables
 		};
-
-	let htmlTitle;
 
 	if (articleData) {
 		result.isMainPage = articleData.isMainPage;
 
 		if (articleData.details) {
-			result.canonicalUrl = wikiVariables.basePath + articleData.details.url;
+			result.canonicalUrl += articleData.details.url;
 			result.documentTitle = articleData.details.documentTitle;
 		}
 
@@ -55,36 +53,13 @@ export default function prepareArticleData(request, data) {
 
 			result.hasToC = Boolean(result.articleContent.trim().length);
 		}
-
-		if (articleData.htmlTitle) {
-			htmlTitle = articleData.htmlTitle;
-		}
 	}
-
-	result.isRtl = isRtl(wikiVariables);
-
-	result.htmlTitle = (htmlTitle) ? htmlTitle : Utils.getHtmlTitle(wikiVariables, result.displayTitle);
-	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
-	// the second argument is a whitelist of acceptable parameter names
-	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
-	result.openGraph = getOpenGraphData('article', result.displayTitle, result.canonicalUrl, articleData);
-	// clone object to avoid overriding real localSettings for futurue requests
-	result.localSettings = getLocalSettings();
-
-	result.qualarooScript = getQualarooScriptUrl(request);
-	result.optimizelyScript = getOptimizelyScriptUrl(request);
-	result.userId = getUserId(request);
-	result.gaUserIdHash = gaUserIdHash(result.userId);
 
 	if (typeof request.query.buckySampling !== 'undefined') {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
-	result.asyncArticle = (
-		request.query._escaped_fragment_ !== '0' ?
-			Utils.shouldAsyncArticle(localSettings, request.headers.host) :
-			false
-	);
+	result.openGraph = getOpenGraphData('article', result.displayTitle, result.canonicalUrl, articleData);
 
 	return result;
 }

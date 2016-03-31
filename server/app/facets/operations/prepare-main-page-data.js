@@ -17,15 +17,17 @@ function getOpenGraphUrl(wikiVariables) {
 export default function prepareMainPageData(data) {
 	const articleData = data.page.data,
 		wikiVariables = data.wikiVariables,
-		result = {};
+		result = {
+			hasToC: false,
+			mainPageData: {
+				adsContext: articleData.adsContext
+			},
+			openGraph: getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables))
+		};
 
-	result.mainPageData = {};
-	result.mainPageData.adsContext = articleData.adsContext;
-	result.mainPageData.ns = articleData.details.ns;
-
-	result.openGraph = getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables));
-	result.hasToC = false;
-	delete result.adsContext;
+	if (articleData.details && articleData.details.ns) {
+		result.mainPageData.ns = articleData.details.ns;
+	}
 
 	return result;
 }
