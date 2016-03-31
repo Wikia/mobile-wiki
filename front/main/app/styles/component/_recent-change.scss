@@ -108,3 +108,10 @@
 		}
 	}
 }
+
+.recent-change__byte-change {
+	color: $color-blue-gray;
+	float: right;
+	font-size: $type-min;
+	line-height: $line-height-min;
+}

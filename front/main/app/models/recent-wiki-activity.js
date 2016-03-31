@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const defaultProps = 'user|userid|useravatar|parsedcomment|timestamp|title|ids|upvotes',
+const defaultProps = 'user|userid|useravatar|parsedcomment|timestamp|title|ids|sizes|upvotes',
 	RecentWikiActivityModel = Ember.Object.extend({
 		init() {
 			this._super(...arguments);
@@ -45,6 +45,7 @@ RecentWikiActivityModel.reopenClass({
 			recentChange.timestamp = new Date(recentChange.timestamp).getTime() / 1000;
 			recentChange.id = `${recentChange.revid}-${recentChange.old_revid}`;
 			recentChange.anonymous = !Ember.isNone(recentChange.anon);
+			recentChange.lengthChange = recentChange.newlen - recentChange.oldlen;
 			return recentChange;
 		});
 	}

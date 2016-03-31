@@ -106,7 +106,10 @@ module.exports = function (defaults) {
 		}),
 		pontoAssets = new Funnel(app.bowerDirectory + '/ponto/web/src', {
 			destDir: 'assets/vendor/ponto'
+		}),
+		numeralAssets = new Funnel(app.bowerDirectory + '/numeral/languages', {
+			destDir: 'assets/vendor/numeral'
 		});
 
-	return app.toTree([jQueryAssets, cropperAssets, pontoAssets]);
+	return app.toTree([jQueryAssets, cropperAssets, pontoAssets, numeralAssets]);
 };

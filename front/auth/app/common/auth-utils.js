@@ -8,8 +8,11 @@ export default class AuthUtils {
 	 * @returns {void}
 	 */
 	static authSuccessCallback(url) {
-		if (window.parent && pageParams.parentOrigin) {
-			window.parent.postMessage({isUserAuthorized: true}, pageParams.parentOrigin);
+		// Need to know which window should be reloaded
+		const mainWindow = window.opener || window.parent;
+
+		if (mainWindow && pageParams.parentOrigin) {
+			mainWindow.postMessage({isUserAuthorized: true}, pageParams.parentOrigin);
 			return;
 		} else if (url) {
 			window.location.href = url;
@@ -25,13 +28,24 @@ export default class AuthUtils {
 	 * @returns {void}
 	 */
 	static loadUrl(url) {
-		const win = (pageParams.isModal ? window.parent : window);
+		let mainWindow;
+
+		if (pageParams.isModal) {
+			mainWindow = window.opener || window.parent;
+		} else {
+			mainWindow = window;
+		}
 
 		if (url) {
-			win.location.href = url;
+			mainWindow.location.href = url;
+
+			// TODO remove when SOC-719 is ready
+			if (mainWindow !== window) {
+				window.close();
+			}
 			return;
 		}
 
-		win.location.reload();
+		mainWindow.location.reload();
 	}
 }
