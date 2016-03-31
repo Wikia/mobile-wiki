@@ -326,19 +326,20 @@ export function redirectToCanonicalHostIfNeeded(localSettings, request, reply, w
 }
 
 /**
- * Get HTML title
- *
- * @param {*} wikiVariables
- * @param {string} displayTitle
- * @returns {string}
+ * @param {Hapi.Request} request
+ * @param {Object} articleData
+ * @returns {String}
  */
-export function getHtmlTitle(wikiVariables, displayTitle = '') {
-	const htmlTitleTemplate = (wikiVariables.htmlTitleTemplate) ? wikiVariables.htmlTitleTemplate : '$1 - Wikia';
-
-	if (displayTitle) {
-		return htmlTitleTemplate.replace('$1', displayTitle);
+export function getTitle(request, articleData) {
+	if (articleData) {
+		if (articleData.article && articleData.article.displayTitle) {
+			return articleData.article.displayTitle;
+		} else if (articleData.details && articleData.details.title) {
+			return articleData.details.title;
+		}
 	}
-	return htmlTitleTemplate.replace('$1 - ', '');
+
+	return request.params.title.replace(/_/g, ' ');
 }
 
 /**
