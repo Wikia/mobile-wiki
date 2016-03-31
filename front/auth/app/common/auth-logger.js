@@ -77,6 +77,18 @@ export default class AuthLogger {
 	/**
 	 * @param {Object} data
 	 *
+	 * @returns {void}
+	 */
+	info(data) {
+		data.level = AuthLoggerLevels.info;
+		data.clientUrl = window.location.href;
+
+		return this.log(data);
+	}
+
+	/**
+	 * @param {Object} data
+	 *
 	 * @returns {ClickStreamPayload}
 	 */
 	getClickStreamPayload(data) {
