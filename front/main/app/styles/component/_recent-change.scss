@@ -51,6 +51,7 @@
 }
 
 .recent-change__upvotes {
+	float: left;
 	font-size: $type-min;
 	line-height: 1;
 	margin-top: 10px;
@@ -114,4 +115,5 @@
 	float: right;
 	font-size: $type-min;
 	line-height: $line-height-min;
+	margin-top: 12px;
 }
