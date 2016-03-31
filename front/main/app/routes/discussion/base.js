@@ -21,6 +21,20 @@ export default Ember.Route.extend({
 			trackPageView();
 
 			return true;
+		},
+
+		/**
+		 * Handler for a rejected model (or a throw from within model)
+		 *
+		 * @param {Ember.Object} model
+		 * @param {Ember.Transition} transition
+		 *
+		 * @returns {boolean}
+		 */
+		error(model, transition) {
+			model.get('error').set('transition', transition);
+
+			return true;
 		}
 	}
 });
