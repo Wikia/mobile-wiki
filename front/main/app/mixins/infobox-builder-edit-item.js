@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
-import {track} from 'common/utils/track';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Mixin.create(
 	TrackClickMixin,
@@ -63,6 +63,11 @@ export default Ember.Mixin.create(
 					enterKeyCode = 13;
 
 				if (event.keyCode === enterKeyCode && typeof actionHandler === 'function') {
+					track({
+						action: trackActions.keypress,
+						category: 'infobox-builder',
+						label: `exit-edit-mode-on-enter-key-up`
+					});
 					actionHandler();
 				}
 			}
