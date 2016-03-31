@@ -594,7 +594,7 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * TO BE THROWN AWAY ON MARCH 29, 2016
+		 * TO BE THROWN AWAY ON APRIL 8, 2016
 		 *
 		 * Sets up everything for the Highlighted Text Editor demo:
 		 * - a word selected for highlighting in the DOM

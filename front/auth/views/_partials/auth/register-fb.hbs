@@ -14,11 +14,12 @@
 			<span class="input-icon password-toggler"></span>
 		</div>
 		<label for="signupNewsletter" class="inline signup-newsletter-label hide">
-			<input type="checkbox" name="marketingallowed" id="signupNewsletter" class="inline custom-checkbox">{{! removed new line to avoid space between inline elements
+			<input type="checkbox" name="marketingAllowed" id="signupNewsletter" class="inline custom-checkbox">{{! removed new line to avoid space between inline elements
 		}}{{i18n "auth:register.wikia-newsletter-prompt"}}
 		</label>
 		<input type="hidden" name="birthdate" value="{{defaultBirthdate}}">
 		<input type="hidden" name="langCode" value="{{langCode}}">
+		<input type="hidden" name="registrationWikiaId" value="{{entryPointWikiId}}">
 		<button id="signupSubmit" type="submit" disabled><span>{{i18n "auth:register.register-action"}}</span></button>
 		<small class="terms-of-use" id="termsOfUse">
 			{{{i18n "auth:register.terms-of-use-text" termsOfUseLink=pageParams.termsOfUseLink}}}
