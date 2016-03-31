@@ -1,4 +1,4 @@
-import {PageRequestHelper} from '../lib/mediawiki-page';
+import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
 import {
 	PageRequestError,
 	RedirectedToCanonicalHost,
@@ -6,10 +6,18 @@ import {
 	WikiVariablesRequestError
 } from '../lib/custom-errors';
 import Logger from '../lib/logger';
-import {namespace as MediaWikiNamespace} from '../lib/mediawiki';
-import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
+import {
+	namespace as MediaWikiNamespace,
+	isContentNamespace as MediaWikiIsContentNamespace
+} from '../lib/mediawiki-namespace';
+import {PageRequestHelper} from '../lib/mediawiki-page';
+import {
+	getCachedWikiDomainName,
+	redirectToCanonicalHostIfNeeded,
+	redirectToOasis,
+	shouldAsyncArticle
+} from '../lib/utils';
 import * as Tracking from '../lib/tracking';
-import * as Utils from '../lib/utils';
 import getStatusCode from './operations/get-status-code';
 import localSettings from '../../config/localSettings';
 import prepareArticleData from './operations/prepare-article-data';
@@ -83,51 +91,51 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
  * @returns {void}
  */
 function handleResponse(request, reply, data, allowCache = true, code = 200) {
-	const i18n = request.server.methods.i18n.getInstance();
-
 	let result = {},
 		pageData = {},
 		viewName = 'wiki-page',
-		response,
-		ns;
+		isMainPage = false,
+		isContentNamespace,
+		ns,
+		response;
 
 	if (data.page && data.page.data) {
 		pageData = data.page.data;
 		ns = pageData.ns;
-		result.mediaWikiNamespace = ns;
+		isMainPage = pageData.isMainPage;
 	}
+
+	result.mediaWikiNamespace = ns;
+
+	isContentNamespace = MediaWikiIsContentNamespace(ns, data.wikiVariables.contentNamespaces);
+
 	// pass page title to front
 	result.urlTitleParam = request.params.title;
 
-	switch (ns) {
-		case MediaWikiNamespace.MAIN:
+	// Main pages can live in namespaces which are not marked as content
+	if (isContentNamespace || isMainPage) {
+		viewName = 'article';
+		result = deepExtend(result, prepareArticleData(request, data));
+	} else if (ns === MediaWikiNamespace.CATEGORY) {
+		if (pageData.article && pageData.details) {
 			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
+		}
 
-			break;
-
-		case MediaWikiNamespace.CATEGORY:
-			if (pageData.article && pageData.details) {
-				viewName = 'article';
-				result = deepExtend(result, prepareArticleData(request, data));
-			}
-
-			result = deepExtend(result, prepareCategoryData(request, data));
-			// Hide TOC on category pages
-			result.hasToC = false;
-			result.subtitle = i18n.t('app.category-page-subtitle');
-			break;
-
-		default:
-			Logger.warn(`Unsupported namespace: ${ns}`);
-			result = prepareMediaWikiData(request, data);
+		result = deepExtend(result, prepareCategoryData(request, data));
+	} else if (code !== 200) {
+		// In case of status code different than 200 we want Ember to display an error page
+		// This method sets all the data required to start the app
+		result = prepareMediaWikiData(request, data);
+	} else {
+		Logger.info(`Unsupported namespace: ${ns}`);
+		redirectToOasis(request, reply);
+		return;
 	}
 
 	// mainPageData is set only on curated main pages - only then we should do some special preparation for data
-	if (pageData.isMainPage && pageData.mainPageData) {
+	if (isMainPage && pageData.mainPageData) {
 		result = deepExtend(result, prepareMainPageData(data));
-		result.hasToC = false;
-		delete result.adsContext;
 	}
 
 	// @todo XW-596 we shouldn't rely on side effects of this function
@@ -162,7 +170,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 * @returns {void}
 		 */
 		.then((data) => {
-			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
+			redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 			handleResponse(request, reply, data, allowCache);
 		})
 		/**
@@ -189,7 +197,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 				errorCode = getStatusCode(data.page, 500);
 
 			// It's possible that the article promise is rejected but we still want to redirect to canonical host
-			Utils.redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
+			redirectToCanonicalHostIfNeeded(localSettings, request, reply, data.wikiVariables);
 
 			// Clean up exception to not put its details in HTML response
 			delete data.page.exception.details;
@@ -220,7 +228,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
  */
 export default function mediaWikiPageHandler(request, reply) {
 	const path = request.path,
-		wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
+		wikiDomain = getCachedWikiDomainName(localSettings, request),
 		params = {
 			wikiDomain,
 			redirect: request.query.redirect
@@ -231,7 +239,7 @@ export default function mediaWikiPageHandler(request, reply) {
 
 	// @todo This is really only a temporary check while we see if loading a smaller
 	// article has any noticable effect on engagement
-	if (Utils.shouldAsyncArticle(localSettings, request.headers.host)) {
+	if (shouldAsyncArticle(localSettings, request.headers.host)) {
 		// Only request an adequate # of sessions to populate above the fold
 		params.sections = '0,1,2';
 	}

@@ -1,4 +1,4 @@
-import {isContentNamespace, getCurrentNamespace} from '../../utils/mediawiki-namespace';
+import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
 import ArticleModel from '../../models/wiki/article';
 import CategoryModel from '../../models/wiki/category';
 import Ember from 'ember';
@@ -24,23 +24,23 @@ function getURL(params) {
  * @param {Object} params
  * @returns {Object}
  */
-function getModelForNamespace(data, params) {
+export function getModelForNamespace(data, params) {
+	const currentNamespace = data.data.ns;
 	let model;
 
-	if (isContentNamespace()) {
+	// Main pages can live in namespaces which are not marked as content
+	if (isContentNamespace(currentNamespace) || data.data.isMainPage) {
 		model = ArticleModel.create(params);
-
 		ArticleModel.setArticle(model, data);
+
+		return model;
+	} else if (currentNamespace === MediawikiNamespace.CATEGORY) {
+		model = CategoryModel.create(params);
+		CategoryModel.setCategory(model, data);
+
 		return model;
 	} else {
-		switch (getCurrentNamespace()) {
-			case 14:
-				model = CategoryModel.create(params);
-				CategoryModel.setCategory(model, data);
-				return model;
-			default:
-				return Ember.Object.create();
-		}
+		return Ember.Object.create();
 	}
 }
 
@@ -53,25 +53,25 @@ export default function getPageModel(params) {
 	let model;
 
 	return new Ember.RSVP.Promise((resolve, reject) => {
-		if (isContentNamespace()) {
-			if (M.prop('articleContentPreloadedInDOM') && !M.prop('asyncArticle')) {
-				model = ArticleModel.create(params);
+		if (M.prop('articleContentPreloadedInDOM')) {
+			// This happens also for categories with article
+			const preloadedData = ArticleModel.getPreloadedData();
 
-				ArticleModel.setArticle(model);
-				return resolve(model);
-			}
-		} else if (M.prop('exception')) {
+			model = getModelForNamespace(preloadedData, params);
+
+			return resolve(model);
+		}
+
+		if (M.prop('exception')) {
 			const exception = M.prop('exception');
 
 			M.prop('exception', null);
+
 			return reject(exception);
 		}
 
 		Ember.$.getJSON(getURL(params))
 			.done((data) => {
-				// @todo - https://wikia-inc.atlassian.net/browse/XW-1151 (this should be handled differently)
-				M.prop('mediaWikiNamespace', data.data.ns, true);
-
 				model = getModelForNamespace(data, params);
 				resolve(model);
 			})

@@ -13,8 +13,8 @@
 </figure>
 {{#if displayProfileName}}
 	{{#if shouldWrapInHref}}
-		<a href="{{profileUrl}}" class="avatar-username">{{profileName}}</a>
+		<a href="{{profileUrl}}" class="avatar-username">{{displayName}}</a>
 	{{else}}
-		{{profileName}}
+		<span class="avatar-username">{{displayName}}</span>
 	{{/if}}
 {{/if}}
