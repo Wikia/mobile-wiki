@@ -5,6 +5,9 @@ import {track} from 'common/utils/track';
 export default Ember.Mixin.create(
 	TrackClickMixin,
 	{
+		item: Ember.on('init', function() {
+			this.set('item', this.get('itemModel'))
+		}),
 		/**
 		 * We should never change properties on components during
 		 * didRender because it causes significant performance degradation.

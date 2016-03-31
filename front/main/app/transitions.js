@@ -5,8 +5,8 @@
 export default function () {
 	const liquidFireSlideToLeftContainer = '.liquid-fire-slide-to-left-container',
 		liquidFireSlideToLeftItem = '.liquid-fire-slide-to-left-item',
-		durationOut = 150,
-		durationIn = 350;
+		durationOut = 1250,
+		durationIn = 1250;
 
 	this.transition(
 		this.childOf(liquidFireSlideToLeftContainer),
