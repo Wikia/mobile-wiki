@@ -108,3 +108,26 @@ test('calls appropriate handler on focus and blur', function (assert) {
 		assert.equal(testCase.handler.calledWith(eventMock), true);
 	});
 });
+
+test('correctly calculates isInvalid', function (assert) {
+	const component = this.subject(),
+		cases = [
+			{
+				errorMessage: 'error message',
+				isInvalid: true
+			},
+			{
+				errorMessage: null,
+				isInvalid: false
+			},
+			{
+				errorMessage: '',
+				isInvalid: false
+			}
+		];
+
+	cases.forEach((testCase) => {
+		component.set('errorMessage', testCase.errorMessage);
+		assert.equal(component.get('isInvalid'), testCase.isInvalid);
+	});
+});

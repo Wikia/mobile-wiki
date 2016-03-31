@@ -2,8 +2,6 @@ import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 
 const InfoboxBuilderModel = Ember.Object.extend({
-	defaultTheme: 'europa',
-
 	/**
 	 * @returns {void}
 	 */
@@ -17,7 +15,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		};
 		this.infoboxState = [];
 		this.itemInEditMode = null;
-		this.theme = null;
 	},
 
 	/**
@@ -266,13 +263,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	setupInfoboxData(infoboxData, isNew) {
 		if (isNew) {
 			this.setupInitialState();
-			this.set('theme', this.get('defaultTheme'));
 		} else {
 			this.setupExistingState(infoboxData.data);
-
-			if (typeof infoboxData.theme === 'string') {
-				this.set('theme', infoboxData.theme);
-			}
 		}
 	},
 
@@ -282,7 +274,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @returns {void}
 	 */
 	setupInitialState() {
-		this.addItem('title');
+		this.editTitleItem(this.addItem('title'), true);
 		this.addItem('image');
 		this.addItem('row');
 		this.addItem('row');
@@ -296,6 +288,27 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	setupExistingState(state) {
 		state.forEach((element) => this.addItem(element.type, element));
+	},
+
+	getTemplateExists(title) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.getJSON(
+				M.buildUrl({
+					path: '/wikia.php'
+				}),
+				{
+					controller: 'PortableInfoboxBuilderController',
+					method: 'getTemplateExists',
+					title
+				}
+			).done((data) => {
+				if (data && data.success) {
+					resolve(data.exists);
+				} else {
+					reject(data);
+				}
+			});
+		});
 	},
 
 	/**
@@ -322,7 +335,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 						method: 'POST',
 						success: (data) => {
 							if (data && data.success) {
-								resolve(this.get('title'));
+								resolve(data.urls);
 							} else {
 								reject(data.errors);
 							}
@@ -375,12 +388,7 @@ InfoboxBuilderModel.reopenClass({
 		const plainState = InfoboxBuilderModel.getStateWithoutBuilderData(model.get('infoboxState')),
 			dataToSave = {
 				data: plainState
-			},
-			theme = model.get('theme');
-
-		if (typeof theme === 'string') {
-			dataToSave.theme = theme;
-		}
+			};
 
 		return JSON.stringify(dataToSave);
 	},

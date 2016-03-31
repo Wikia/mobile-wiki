@@ -3,9 +3,9 @@ import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import ajaxCall from '../../utils/ajax-call';
-import DiscussionContributors from './objects/contributors';
-import DiscussionEntities from './objects/entities';
-import DiscussionPost from './objects/post';
+import DiscussionContributors from './domain/contributors';
+import DiscussionEntities from './domain/entities';
+import DiscussionPost from './domain/post';
 import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(
@@ -15,7 +15,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		pivotId: null,
 
 		/**
-		 * @param {number} pageNum
+		 * @param {number} [pageNum=0]
 		 * @param {string} [sortBy='trending']
 		 * @returns {Ember.RSVP.Promise}
 		 */
@@ -33,7 +33,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				success: (data) => {
 					this.get('data.entities').pushObjects(
 						Ember.get(data, '_embedded.doc:threads').map(
-							(newThread) => DiscussionPost.createFromThreadListData(newThread)
+							(newThread) => DiscussionPost.createFromThreadData(newThread)
 						)
 					);
 				},
@@ -59,7 +59,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 
 					newPost.set('isNew', true);
 					this.get('data.entities').insertAt(0, newPost);
-					this.incrementProperty('totalPosts');
+					this.incrementProperty('postCount');
 
 					track(trackActions.PostCreate);
 				},
@@ -85,7 +85,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities,
 				pageNum: 0,
-				postCount: apiData.threadCount,
+				postCount: parseInt(apiData.threadCount, 10),
 			});
 
 			this.set('pivotId', pivotId);

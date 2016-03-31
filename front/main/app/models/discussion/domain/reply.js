@@ -2,7 +2,9 @@ import DiscussionEntity from './entity';
 import DiscussionContributor from './contributor';
 import DiscussionUserData from './user-data';
 
-const DiscussionReply = DiscussionEntity.extend({});
+const DiscussionReply = DiscussionEntity.extend({
+	threadCreatedBy: null,
+});
 
 DiscussionReply.reopenClass({
 	/**
@@ -15,17 +17,19 @@ DiscussionReply.reopenClass({
 	create(postData) {
 		return this._super({
 			createdBy: DiscussionContributor.create(postData.createdBy),
-			creationDate: postData.creationDate.epochSecond,
+			creationTimestamp: postData.creationDate.epochSecond,
 			id: postData.id,
 			isDeleted: postData.isDeleted,
 			isLocked: !postData.isEditable,
 			isNew: postData.isNew,
+			isReply: true,
 			isReported: postData.isReported,
 			isRequesterBlocked: postData.isRequesterBlocked,
 			rawContent: postData.rawContent,
 			threadId: postData.threadId,
+			threadCreatedBy: DiscussionContributor.create(postData.threadCreatedBy),
 			title: postData.title,
-			upvoteCount: postData.upvoteCount,
+			upvoteCount: parseInt(postData.upvoteCount, 10),
 			userData: DiscussionUserData.create(
 				Ember.get(postData, '_embedded.userData.0')
 			)

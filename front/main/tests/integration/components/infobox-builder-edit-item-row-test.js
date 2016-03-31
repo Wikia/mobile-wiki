@@ -1,6 +1,6 @@
 import hbs from 'htmlbars-inline-precompile';
 import {test, moduleForComponent} from 'ember-qunit';
-const track = require('common/utils/track').track;
+import {track} from 'common/utils/track';
 
 moduleForComponent('infobox-builder-edit-item-row', 'Integration | Component | infobox builder edit item row', {
 	integration: true,

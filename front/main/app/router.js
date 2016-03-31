@@ -22,6 +22,8 @@ Router.map(function () {
 		path: '/infobox-builder/*templateName'
 	});
 
+	this.route('infobox-builder');
+
 	this.route('mainPageSection', {
 		path: '/main/section/:sectionName'
 	});

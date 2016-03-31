@@ -9,14 +9,14 @@ const DiscussionContributor = Ember.Object.extend({
 
 DiscussionContributor.reopenClass({
 	/**
-	 * @param {string} username
+	 * @param {string} name
 	 *
 	 * @returns {string}
 	 */
-	getProfileUrl(username) {
+	getProfileUrl(name) {
 		return M.buildUrl({
 			namespace: 'User',
-			title: username
+			title: name
 		});
 	},
 	/**

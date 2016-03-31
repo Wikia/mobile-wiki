@@ -6,6 +6,7 @@ const DiscussionEntity = Ember.Object.extend({
 	isDeleted: null,
 	isLocked: null,
 	isNew: null,
+	isReply: null,
 	isReported: null,
 	isRequesterBlocked: null,
 	rawContent: null,

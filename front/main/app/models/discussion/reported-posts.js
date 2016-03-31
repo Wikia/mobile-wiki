@@ -2,28 +2,27 @@ import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import ajaxCall from '../../utils/ajax-call';
-import DiscussionContributor from './objects/contributor';
-import DiscussionContributors from './objects/contributors';
-import DiscussionEntities from './objects/entities';
+import DiscussionContributor from './domain/contributor';
+import DiscussionContributors from './domain/contributors';
+import DiscussionEntities from './domain/entities';
 
 const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
 	{
 		/**
-		 * @param {number} pageNum
+		 * @param {number} [pageNum=0]
 		 * @param {string} [sortBy='trending']
 		 *
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		loadPage(pageNum = 0, sortBy = 'trending') {
+		loadPage(pageNum = 0) {
 			this.set('pageNum', pageNum);
 
 			return ajaxCall({
 				data: {
 					page: this.get('pageNum'),
 					pivot: this.get('pivotId'),
-					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false,
 					reported: true
 				},
@@ -50,7 +49,7 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 				// contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]'));
 				// Work in Progress: szpachla until SOC-1586 is done
 				contributors = DiscussionContributors.create({
-					count: apiData.postCount,
+					count: parseInt(apiData.postCount, 10),
 					userInfo: posts.map((post) => DiscussionContributor.create(post.createdBy)),
 				}),
 				entities = DiscussionEntities.createFromPostsData(posts);
@@ -61,7 +60,7 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 				contributors,
 				entities,
 				pageNum: 0,
-				postCount: apiData.postCount,
+				postCount: parseInt(apiData.postCount, 10),
 			});
 
 			this.set('pivotId', pivotId);
@@ -77,7 +76,7 @@ DiscussionReportedPostsModel.reopenClass({
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, forumId, sortBy = 'trending') {
+	find(wikiId, forumId) {
 		const reportedPostsInstance = DiscussionReportedPostsModel.create({
 				wikiId,
 				forumId
@@ -86,10 +85,6 @@ DiscussionReportedPostsModel.reopenClass({
 				viewableOnly: false,
 				reported: true
 			};
-
-		if (sortBy) {
-			requestData.sortKey = reportedPostsInstance.getSortKey(sortBy);
-		}
 
 		return ajaxCall({
 			context: reportedPostsInstance,

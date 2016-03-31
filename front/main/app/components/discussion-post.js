@@ -4,7 +4,7 @@ export default Ember.Component.extend(DiscussionModalDialogMixin,
 	{
 		discussionSort: Ember.inject.service(),
 
-		canShowMore: Ember.computed('model.repliesCount', 'model.replies.length', function () {
+		canShowMore: Ember.computed('model.replies.length', 'model.repliesCount', function () {
 			return this.get('model.replies.length') < this.get('model.repliesCount');
 		}),
 

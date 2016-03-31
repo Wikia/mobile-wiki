@@ -2,16 +2,15 @@ import Ember from 'ember';
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import ajaxCall from '../../utils/ajax-call';
-import DiscussionContributors from './objects/contributors';
-import DiscussionEntities from './objects/entities';
-import DiscussionPost from './objects/post';
+import DiscussionContributors from './domain/contributors';
+import DiscussionEntities from './domain/entities';
 
 const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	postsLimit: 10,
 	userId: null,
 
 	/**
-	 * @param {number} pageNum
+	 * @param {number} [pageNum=0]
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
@@ -29,9 +28,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			url: M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`),
 			success: (data) => {
 				this.get('data.entities').pushObjects(
-					Ember.get(data, '_embedded.doc:posts').map(
-						(newPosts) => DiscussionPost.createFromThreadListData(newPosts)
-					)
+					DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'))
 				);
 			},
 			error: (err) => {
@@ -61,7 +58,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			entities,
 			forumId: Ember.get(Mercury, 'wiki.id'),
 			pageNum: 0,
-			postCount: Ember.get(apiData, 'postCount'),
+			postCount: parseInt(apiData.postCount, 10),
 			userName: contributors.get('users.0.name'),
 		});
 
