@@ -19,7 +19,6 @@ export default Ember.Component.extend(
 		showButtons: Ember.computed.and('currentUser.isAuthenticated', 'userNotBlocked'),
 		showDiffLink: false,
 		upvoted: Ember.computed.bool('currentUserUpvoteId'),
-		upvotesEnabled: Ember.get(Mercury, 'wiki.language.content') === 'en',
 		shouldShowUndoConfirmation: false,
 
 		addUpvote() {
