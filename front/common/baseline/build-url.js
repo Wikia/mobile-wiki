@@ -6,6 +6,7 @@
  * @property {Object} [query] - Querystring data, which is converted to a string and properly escaped
  * @property {string} [title] - Article title - value of the parameter will be encoded
  * @property {string} [wiki] - Wiki name, as it would be used as a subdomain
+ * @property {string} [wikiPage] - Page inside /wiki/ directory - not necessarily an article
  */
 
 if (typeof window.M === 'undefined') {
@@ -111,6 +112,10 @@ if (typeof window.M === 'undefined') {
 				encodeURIComponent(urlParams.title);
 		}
 
+		if (urlParams.wikiPage) {
+			url += Mercury.wiki.articlePath + urlParams.wikiPage;
+		}
+
 		if (urlParams.path) {
 			url += urlParams.path;
 		}
@@ -138,5 +143,14 @@ if (typeof window.M === 'undefined') {
 	 */
 	M.getImageReviewServiceUrl = function (path = '', query = {}) {
 		return `https://${M.prop('servicesDomain')}/${M.prop('imageReviewBaseRoute')}${path}${getQueryString(query)}`;
+	};
+
+	/**
+	 * @param {string} [path='']
+	 * @param {Object} [query={}]
+	 * @returns {string}
+	 */
+	M.getStaticAssetsServiceUrl = function (path = '', query = {}) {
+		return `https://${M.prop('servicesDomain')}/${M.prop('staticAssetsBaseRoute')}${path}${getQueryString(query)}`;
 	};
 })(M);

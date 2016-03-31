@@ -6,7 +6,7 @@ export default Ember.Mixin.create(
 	TrackClickMixin,
 	{
 		/**
-		 * @desc tracks events on different edit options
+		 * Tracks events on different edit options
 		 * @param {String} action - tracking action
 		 * @param {String} option - clicked element name
 		 * @returns {void}

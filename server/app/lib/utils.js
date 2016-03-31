@@ -2,9 +2,10 @@
  * Utility functions
  */
 
-import Hoek from 'hoek';
-import Url from 'url';
-import QueryString from 'querystring';
+import {applyToDefaults, escapeHtml} from 'hoek';
+import {parse} from 'url';
+import {stringify} from 'querystring';
+import {RedirectedToCanonicalHost} from './custom-errors';
 
 /**
  * @typedef {Object} ServerData
@@ -230,7 +231,7 @@ export function parseQueryParams(obj, allowedKeys) {
 				} else if (rawProp.toLowerCase() === 'false') {
 					prop = false;
 				} else {
-					prop = Hoek.escapeHtml(rawProp);
+					prop = escapeHtml(rawProp);
 				}
 
 				parsed[key] = prop;
@@ -295,21 +296,6 @@ export function getStaticAssetPath(localSettings, request) {
 }
 
 /**
- * @class RedirectedToCanonicalHost
- */
-export class RedirectedToCanonicalHost {
-	/**
-	 * @param {*} data
-	 * @returns {void}
-	 */
-	constructor(data) {
-		Error.apply(this, arguments);
-		this.data = data;
-	}
-}
-RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
-
-/**
  * If user tried to load wiki by its alternative URL then redirect to the primary one based on wikiVariables.basePath
  * If it's a local machine then ignore, no point in redirecting to devbox
  * Throws RedirectedToCanonicalHost so promises can catch it and handle properly
@@ -324,14 +310,14 @@ RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
  */
 export function redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables) {
 	const requestedHost = getCachedWikiDomainName(localSettings, request),
-		canonicalHost = Url.parse(wikiVariables.basePath).hostname,
+		canonicalHost = parse(wikiVariables.basePath).hostname,
 		isLocal = isXipHost(localSettings, clearHost(getHostFromRequest(request)));
 
 	if (!isLocal && requestedHost !== canonicalHost) {
 		let redirectLocation = wikiVariables.basePath + request.path;
 
 		if (Object.keys(request.query).length > 0) {
-			redirectLocation += `?${QueryString.stringify(request.query)}`;
+			redirectLocation += `?${stringify(request.query)}`;
 		}
 
 		reply.redirect(redirectLocation).permanent(true);
@@ -353,4 +339,19 @@ export function getHtmlTitle(wikiVariables, displayTitle = '') {
 		return htmlTitleTemplate.replace('$1', displayTitle);
 	}
 	return htmlTitleTemplate.replace('$1 - ', '');
+}
+
+/**
+ * @param {Hapi.Request} request
+ * @param {Hapi.Response} reply
+ * @returns {void}
+ */
+export function redirectToOasis(request, reply) {
+	const queryParams = stringify(
+		applyToDefaults(request.query, {
+			useskin: 'oasis'
+		})
+	);
+
+	reply.redirect(`${request.url.pathname}?${queryParams}`);
 }
