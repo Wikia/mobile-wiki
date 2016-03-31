@@ -15,9 +15,7 @@ export default Ember.Component.extend(
 
 		value: Ember.computed('item.data', {
 			get() {
-				const label = this.get('item.data');
-
-				return (typeof label === 'string' || label instanceof String) ? label : '';
+				return this.get('item.data');
 			},
 			set(key, value) {
 				// check if user interacted with header value input
