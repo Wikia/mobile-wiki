@@ -56,7 +56,7 @@ export default Ember.Component.extend({
 
 			this.set('isFocused', false);
 
-			if (typeof onBlurHandler === 'function') {
+			if (onBlurHandler) {
 				onBlurHandler(event);
 			}
 		},
@@ -70,7 +70,7 @@ export default Ember.Component.extend({
 
 			this.set('isFocused', true);
 
-			if (typeof onFocusHandler === 'function') {
+			if (onFocusHandler) {
 				onFocusHandler(event);
 			}
 		},
@@ -83,7 +83,7 @@ export default Ember.Component.extend({
 		onKeyUp(value, event) {
 			const onKeyUpHandler = this.get('onKeyUpHandler');
 
-			if (typeof onKeyUpHandler === 'function') {
+			if (onKeyUpHandler) {
 				onKeyUpHandler(event);
 			}
 		}
