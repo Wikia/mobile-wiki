@@ -111,17 +111,15 @@ export default Ember.Route.extend(RouteWithAdsMixin, {
 	 */
 	setHeadTags(model) {
 		const headTags = [],
-			defaultHtmlTitleTemplate = '$1 - Wikia',
 			pageUrl = model.get('url'),
 			description = model.get('description'),
-			htmlTitleTemplate = Ember.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate,
 			canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}`,
 			appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios'),
 			appleAppContent = pageUrl ?
 				`app-id=${appId}, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}` :
 				`app-id=${appId}`;
 
-		document.title = htmlTitleTemplate.replace('$1', model.get('documentTitle'));
+		document.title = model.get('documentTitle');
 
 		headTags.push({
 			type: 'link',

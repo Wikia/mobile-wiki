@@ -21,7 +21,7 @@ export default function prepareMediaWikiData(request, data) {
 			server: data.server,
 			wikiVariables: data.wikiVariables,
 			canonicalUrl: '',
-			displayTitle: request.params.title.replace(/_/g, ' '),
+			documentTitle: ''
 		};
 
 	if (wikiVariables) {
@@ -33,18 +33,12 @@ export default function prepareMediaWikiData(request, data) {
 		result.documentTitle = pageData.details.documentTitle;
 	}
 
-	if (pageData) {
-		result.htmlTitle = pageData.htmlTitle;
-	} else {
-		result.htmlTitle = result.displayTitle;
-	}
-
 	result.isRtl = isRtl(wikiVariables);
 
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
-	result.openGraph = getOpenGraphData('wiki-page', result.htmlTitle, result.canonicalUrl);
+	result.openGraph = getOpenGraphData('wiki-page', result.documentTitle, result.canonicalUrl);
 	// clone object to avoid overriding real localSettings for future requests
 	result.localSettings = getLocalSettings();
 

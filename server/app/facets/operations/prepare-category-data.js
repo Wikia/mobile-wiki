@@ -41,13 +41,6 @@ export default function prepareCategoryData(request, data) {
 		result.documentTitle = pageData.details.documentTitle;
 	}
 
-	if (pageData) {
-		result.htmlTitle = pageData.htmlTitle;
-		result.htmlTitle = pageData.htmlTitle;
-	} else {
-		result.htmlTitle = request.params.title.replace(/_/g, ' ');
-	}
-
 	result.isRtl = isRtl(wikiVariables);
 	result.displayTitle = getTitle(data, request);
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
