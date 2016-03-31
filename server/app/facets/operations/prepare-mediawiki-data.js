@@ -1,11 +1,13 @@
 import * as Utils from '../../lib/utils';
 import {gaUserIdHash} from '../../lib/hashing';
 import localSettings from '../../../config/localSettings';
-import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData,
-	getLocalSettings} from './prepare-page-data';
+import {
+	isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData,
+	getLocalSettings
+} from './prepare-page-data';
 
 /**
- * Prepares article data to be rendered
+ * Sets minimum data that is required to start the Ember app
  *
  * @param {Hapi.Request} request
  * @param {MediaWikiPageData} data
@@ -42,7 +44,7 @@ export default function prepareMediaWikiData(request, data) {
 	// the second argument is a whitelist of acceptable parameter names
 	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
 	result.openGraph = getOpenGraphData('wiki-page', result.htmlTitle, result.canonicalUrl);
-	// clone object to avoid overriding real localSettings for futurue requests
+	// clone object to avoid overriding real localSettings for future requests
 	result.localSettings = getLocalSettings();
 
 	result.qualarooScript = getQualarooScriptUrl(request);
