@@ -196,6 +196,27 @@ $success-icon-size: 80px;
 		font-size: $type-smallest;
 		padding: $popover-vertical-padding $popover-horizontal-padding;
 	}
+
+	// styles for liquid-fire animation of sidebar
+
+	.liquid-fire-slide-to-left-item {
+		background-color: $white;
+		border-left: 1px solid black;
+		height: 100%;
+	}
+
+	.liquid-fire-slide-to-left-container {
+		height: 100%;
+	}
+
+	.liquid-container:nth-of-type(2) {
+		height: 100%;
+
+		.liquid-child {
+			height: 100%;
+		}
+	}
+
 }
 
 // fix safari and firefox issues with pop up width calculation and text wrapping
@@ -459,9 +480,4 @@ $success-icon-size: 80px;
 			padding: $popover-horizontal-padding;
 		}
 	}
-}
-
-.liquid-fire-slide-to-left-item {
-	background-color: white;
-	height: 100%;
 }
