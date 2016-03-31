@@ -10,6 +10,7 @@
  *      class='additional-custom-class'
  *      onFocusHandler=onFocusHandlerAction
  *      onBlurHandler=onBlurHandlerAction
+ *      onKeyUpHandler=onKeyUpHandler
  *      placeholder='placeholder text'
  * }}
  *
@@ -21,6 +22,7 @@
  *      label='User name'
  *      onFocusHandler=onFocusHandlerAction
  *      onBlurHandler=onBlurHandlerAction
+ *      onKeyUpHandler=onKeyUpHandler
  *      errorMessage='this value is required'
  * }}
  */
