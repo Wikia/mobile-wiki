@@ -31,7 +31,7 @@ export default Ember.Mixin.create({
 	deleteAllPosts(posts) {
 		return ajaxCall({
 			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/users/${posts[0].creatorId}/posts/delete`),
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/users/${posts.get('0.createdBy.id')}/posts/delete`),
 			success: () => {
 				posts.forEach((post) => {
 					post.setProperties({
