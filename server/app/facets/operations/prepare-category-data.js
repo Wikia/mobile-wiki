@@ -38,18 +38,17 @@ export default function prepareCategoryData(request, data) {
 
 	if (pageData && pageData.details) {
 		result.canonicalUrl += pageData.details.url;
+		result.documentTitle = pageData.details.documentTitle;
 	}
 
 	if (pageData) {
+		result.htmlTitle = pageData.htmlTitle;
 		result.htmlTitle = pageData.htmlTitle;
 	} else {
 		result.htmlTitle = request.params.title.replace(/_/g, ' ');
 	}
 
 	result.isRtl = isRtl(wikiVariables);
-
-	result.htmlTitle = pageData.htmlTitle;
-	result.documentTitle = pageData.details.documentTitle;
 	result.displayTitle = getTitle(data, request);
 	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
 	// the second argument is a whitelist of acceptable parameter names
