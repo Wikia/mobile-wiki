@@ -4,7 +4,8 @@ const originalMercury = Ember.$.extend(true, {}, window.Mercury),
 	model = Ember.Object.create({
 		url: '/wiki/Kermit',
 		description: 'Article about Kermit',
-		displayTitle: 'Kermit The Frog'
+		displayTitle: 'Kermit The Frog',
+		documentTitle: 'Kermit The Frog'
 	});
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
