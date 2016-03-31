@@ -89,8 +89,6 @@ $success-icon-size: 80px;
 	cursor: auto;
 	flex-grow: 1;
 	overflow: auto;
-	// to hide elements in animation of sidebar
-	z-index: $z-1;
 
 	.infobox-builder-infobox-wrapper {
 		padding: $infobox-wrapper-padding 0;
@@ -218,10 +216,6 @@ $success-icon-size: 80px;
 		.icon-button-icon {
 			fill: $color-blue-light;
 		}
-	}
-
-	.infobox-builder-sidebar-header-icon-delete {
-		margin: $source-icon-margins;
 	}
 }
 
