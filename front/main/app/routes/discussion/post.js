@@ -1,12 +1,10 @@
 import DiscussionBaseRoute from './base';
 import DiscussionPostModel from '../../models/discussion/post';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
-import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 
 export default DiscussionBaseRoute.extend(
-	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionModerationRouteMixin,
 	DiscussionModalDialogMixin,

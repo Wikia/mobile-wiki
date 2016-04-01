@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	classNames: ['discussion-error', 'columns', 'large-6'],
+	classNames: ['discussion-error'],
 	discussionSort: Ember.inject.service(),
 });
