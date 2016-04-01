@@ -1,15 +1,15 @@
 <script>
 	M.prop('initialPageView', true, true);
-	M.prop('apiBase', '{{{server.apiBase}}}' || '/api/mercury');
-	M.prop('environment', '{{{server.environment}}}');
+	M.prop('apiBase', '{{server.apiBase}}' || '/api/mercury');
+	M.prop('environment', '{{server.environment}}');
 	M.prop('queryParams', {{{json queryParams}}});
 	M.prop('tracking', {{{json tracking}}});
 	M.prop('translations', {{{json (translations wikiVariables.language.content ns=localSettings.translationFiles)}}});
 	M.prop('weppyConfig', {{{json localSettings.weppy}}});
 	M.prop('wikiaLanguage', '{{{wikiVariables.language.content}}}');
-	M.prop('userId', {{{userId}}});
-	M.prop('displayTitle', '{{{displayTitle}}}');
-	M.prop('urlTitleParam', '{{{urlTitleParam}}}');
+	M.prop('userId', {{userId}});
+	M.prop('displayTitle', '{{displayTitle}}');
+	M.prop('urlTitleParam', '{{urlTitleParam}}');
 	M.prop('gaUserIdHash', '{{{gaUserIdHash}}}');
 	M.prop('cookieDomain', {{{json localSettings.authCookieDomain}}});
 	M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});
@@ -29,7 +29,7 @@
 	{{#if asyncArticle}}
 		M.prop('asyncArticle', {{asyncArticle}});
 	{{/if}}
-	M.prop('mediaWikiNamespace', '{{{mediaWikiNamespace}}}');
+	M.prop('mediaWikiNamespace', '{{mediaWikiNamespace}}');
 	{{#if articlePage}}
 		M.prop('articleContentPreloadedInDOM', true, true);
 		M.provide('article', {{{json articlePage}}});
