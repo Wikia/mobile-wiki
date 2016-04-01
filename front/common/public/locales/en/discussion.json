@@ -74,7 +74,8 @@
     "upvote-link-label": "__count__ upvote",
     "upvote-link-label_plural": "__count__ upvotes",
     "replies-link-label": "__count__ reply",
-    "replies-link-label_plural": "__count__ replies"
+    "replies-link-label_plural": "__count__ replies",
+    "share-header": "Share Post"
 
   },
   "editor": {

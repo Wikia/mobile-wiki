@@ -55,11 +55,6 @@ body.discussions {
 		width: 40px;
 	}
 
-	&.toggle-share {
-		height: 20px;
-		width: 18px;
-	}
-
 	&.delete, &.undelete {
 		height: 19px;
 		width: 16px;
@@ -179,12 +174,6 @@ body.discussions {
 		}
 	}
 
-	.toggle-share-area {
-		display: block;
-		height: 30px;
-		line-height: 30px;
-	}
-
 	.discussion-content {
 		margin: 5px 0;
 		padding: .3rem 0;
@@ -270,7 +259,7 @@ body.discussions {
 				}
 			}
 
-			.upvote a, .count a, .toggle-share-area {
+			.upvote a, .count a {
 				cursor: default;
 			}
 		}
@@ -279,7 +268,7 @@ body.discussions {
 			width: 320px;
 		}
 
-		.pop-over-container {
+		.more-options-pop-over .pop-over-container {
 			padding: 0 18px;
 		}
 	}
@@ -579,10 +568,6 @@ body.discussions {
 	.post-details-view {
 		.post-detail {
 			padding-bottom: 14px;
-
-			.share {
-				display: none;
-			}
 		}
 
 		.discussion-reply {
