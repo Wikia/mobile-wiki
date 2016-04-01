@@ -201,7 +201,7 @@ $success-icon-size: 80px;
 
 	.liquid-fire-slide-to-left-item {
 		background-color: $white;
-		border-left: 1px solid black;
+		border-left: 1px solid $color-blue-gray-light;
 		height: 100%;
 	}
 
@@ -209,14 +209,10 @@ $success-icon-size: 80px;
 		height: 100%;
 	}
 
-	.liquid-container:nth-of-type(2) {
+	.liquid-child {
 		height: 100%;
-
-		.liquid-child {
-			height: 100%;
-		}
+		position: absolute;
 	}
-
 }
 
 // fix safari and firefox issues with pop up width calculation and text wrapping
