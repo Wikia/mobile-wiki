@@ -1,8 +1,6 @@
-import DiscussionBaseRoute from './base';
 import DiscussionPostRoute from './post';
 
-export default DiscussionBaseRoute.extend(
-	DiscussionPostRoute,
+export default DiscussionPostRoute.extend(
 	{
 		controllerName: 'discussion.post',
 		templateName: 'discussion.post',
