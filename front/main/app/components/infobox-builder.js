@@ -58,10 +58,19 @@ export default Ember.Component.extend(
 				this.get('isGroupTooltipVisible');
 		}),
 
-		sideBarOptionsComponent: Ember.computed('activeItem', function () {
-			return this.get('activeItem') ?
-				`infobox-builder-edit-item-${this.get('activeItem.type')}` :
-				'infobox-builder-add-items';
+		/**
+		 * Basing on current active item, creates object with name of component
+		 * that should be used in sidebar and item type, that is passed to sidebar header.
+		 * activeItem used with liquid fire animation changes too fast, that's why we pass type needed
+		 * for header text creation in property that liquid fire watches on.
+		 */
+		sidebarItemProperties: Ember.computed('activeItem', function () {
+			const activeItem = this.get('activeItem');
+
+			return {
+				name: activeItem ? `infobox-builder-edit-item-${activeItem.type}` : 'infobox-builder-add-items',
+				type: activeItem ? activeItem.type : null
+			};
 		}),
 
 		isEditPopOverVisible: Ember.computed('activeItem', 'isPreviewItemDragged', function () {
