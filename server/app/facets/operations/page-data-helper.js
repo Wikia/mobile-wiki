@@ -1,5 +1,7 @@
-import localSettings from '../../../config/localSettings';
 import deepExtend from 'deep-extend';
+import localSettings from '../../../config/localSettings';
+import {gaUserIdHash} from '../../lib/hashing';
+import {getVerticalColor} from '../../lib/utils';
 
 /**
  * @typedef {Object} OpenGraphData
@@ -105,4 +107,27 @@ export function getTitle(request, articleData) {
 	}
 
 	return request.params.title.replace(/_/g, ' ');
+}
+
+export function getStandardResult(request, data) {
+	const pageData = data.page.data,
+		wikiVariables = data.wikiVariables,
+		displayTitle = getTitle(request, pageData),
+		userId = getUserId(request);
+
+	return {
+		canonicalUrl: wikiVariables.basePath,
+		documentTitle: displayTitle,
+		displayTitle,
+		gaUserIdHash: gaUserIdHash(userId),
+		isRtl: isRtl(wikiVariables),
+		// clone object to avoid overriding real localSettings for future requests
+		localSettings: getLocalSettings(),
+		optimizelyScript: getOptimizelyScriptUrl(request),
+		qualarooScript: getQualarooScriptUrl(request),
+		server: data.server,
+		themeColor: getVerticalColor(localSettings, wikiVariables.vertical),
+		userId,
+		wikiVariables
+	};
 }
