@@ -15,6 +15,10 @@ export default function prepareCuratedContentData(request, data) {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
+	if (data.mainPageData && data.mainPageData.details) {
+		result.description = data.mainPageData.details.description;
+	}
+
 	result.displayTitle = getCuratedMainPageTitle(request, wikiVariables);
 	result.documentTitle = result.displayTitle;
 	result.isMainPage = true;
