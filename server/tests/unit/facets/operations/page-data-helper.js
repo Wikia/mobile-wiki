@@ -223,7 +223,7 @@ QUnit.test('getOpenGraphData', function (assert) {
 	});
 });
 
-QUnit.test('getStandardTitle', function (assert) {
+QUnit.test('getDefaultTitle', function (assert) {
 	var testCases = [
 		{
 			request: {
@@ -270,7 +270,7 @@ QUnit.test('getStandardTitle', function (assert) {
 
 	testCases.forEach(function (testCase) {
 		assert.equal(
-			global.getStandardTitle(testCase.request, testCase.articleData),
+			global.getDefaultTitle(testCase.request, testCase.articleData),
 			testCase.expected,
 			testCase.description
 		);

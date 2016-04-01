@@ -192,20 +192,6 @@ export function getCachedWikiDomainName(localSettings, request) {
 }
 
 /**
- * Get vertical color from localSettings
- *
- * @param {LocalSettings} localSettings
- * @param {string} vertical
- * @returns {string}
- */
-export function getVerticalColor(localSettings, vertical) {
-	if (localSettings.verticalColors.hasOwnProperty(vertical)) {
-		return localSettings.verticalColors[vertical];
-	}
-	return null;
-}
-
-/**
  * @param {*} obj
  * @param {string[]} allowedKeys - a whitelist of acceptable parameter names
  * @returns {*}
