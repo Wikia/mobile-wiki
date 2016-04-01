@@ -223,9 +223,18 @@ export default Ember.Component.extend(
 		 * @returns {boolean}
 		 */
 		click(event) {
-			const $anchor = Ember.$(event.target).closest('a');
+			const $map = Ember.$(event.target).closest('.article-media-map-thumbnail'),
+				$anchor = Ember.$(event.target).closest('a');
 
 			let target;
+
+			// Wikia Map - it's not a link, but we handled it already
+			if ($map.length > 0) {
+				event.preventDefault();
+
+				// Don't bubble up
+				return false;
+			}
 
 			// Here, we want to handle media only, no links
 			if ($anchor.length === 0) {
@@ -273,13 +282,12 @@ export default Ember.Component.extend(
 				Ember.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 
 				media = this.get('model.media');
+				this.trackClick('media', 'open');
 				this.sendAction('openLightbox', 'media', {
 					media,
 					mediaRef,
 					galleryRef
 				});
-
-				this.trackClick('media', 'open');
 			} else {
 				Ember.Logger.debug('Missing ref on', target);
 			}
