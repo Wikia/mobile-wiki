@@ -6,7 +6,9 @@
 	<title>{{documentTitle}}</title>
 	<meta name="keywords"
 		  content="{{#if wikiVariables.siteMessage}}{{wikiVariables.siteMessage}},{{/if}}{{wikiVariables.siteName}},{{wikiVariables.dbName}},{{displayTitle}}">
-	<meta name="description" content="{{article.data.details.description}}">
+	{{#if description}}
+		<meta name="description" content="{{description}}">
+	{{/if}}
 	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 
 	{{content-for 'head'}}

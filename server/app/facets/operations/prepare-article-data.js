@@ -27,6 +27,7 @@ export default function prepareArticleData(request, data) {
 
 		if (pageData.details) {
 			result.canonicalUrl += pageData.details.url;
+			result.description = pageData.details.description;
 		}
 
 		if (pageData.article) {
