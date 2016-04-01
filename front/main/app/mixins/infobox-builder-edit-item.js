@@ -5,30 +5,13 @@ import {track} from 'common/utils/track';
 export default Ember.Mixin.create(
 	TrackClickMixin,
 	{
-		item: Ember.on('init', function() {
-			this.set('item', this.get('itemModel'))
+		/**
+		 * allows to set item property after liquid-fire animation happened
+		 */
+		item: Ember.on('init', function () {
+			this.set('item', this.get('itemModel'));
 		}),
-		/**
-		 * We should never change properties on components during
-		 * didRender because it causes significant performance degradation.
-		 * @returns {void}
-		 */
-		didRender() {
-			this._super(...arguments);
-			Ember.run.scheduleOnce('afterRender', this, 'focusFirstInput');
-		},
 
-		/**
-		 * Focuses first input element of the component
-		 * @returns {void}
-		 */
-		focusFirstInput() {
-			const input = this.$('.text-field-input');
-
-			if (input) {
-				input.first().focus();
-			}
-		},
 		/**
 		 * Tracks events on different edit options
 		 * @param {String} action - tracking action
