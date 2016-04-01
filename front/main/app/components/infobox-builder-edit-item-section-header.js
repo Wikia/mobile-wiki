@@ -31,11 +31,11 @@ export default Ember.Component.extend(
 		 * liquid-fire requires all ids have to be unique in order to not
 		 * have two the same id's in view at a time
 		 */
-		textInputId: Ember.computed(function () {
+		textInputId: Ember.computed(() => {
 			return generateGuid('infoboxSectionHeader');
 		}),
 
-		checkboxInputId: Ember.computed(function () {
+		checkboxInputId: Ember.computed(() => {
 			return generateGuid('isCollapsible');
 		}),
 

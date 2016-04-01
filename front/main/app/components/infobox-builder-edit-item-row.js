@@ -33,7 +33,7 @@ export default Ember.Component.extend(
 		 * liquid-fire requires all ids have to be unique in order to not
 		 * have two the same id's in view at a time
 		 */
-		inputId: Ember.computed(function () {
+		inputId: Ember.computed(() => {
 			return generateGuid('infoboxRowLabel');
 		}),
 
