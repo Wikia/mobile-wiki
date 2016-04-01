@@ -1,6 +1,6 @@
 import {parseQueryParams} from '../../lib/utils';
 import {gaUserIdHash} from '../../lib/hashing';
-import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData, getLocalSettings}
+import {getStandardResult, isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData, getLocalSettings}
 	from './page-data-helper';
 
 /**
@@ -32,32 +32,15 @@ export function getTitle(request, wikiVariables) {
  * @returns {Object}
  */
 export default function prepareCuratedContentData(request, data) {
-	const wikiVariables = data.wikiVariables,
-		displayTitle = getTitle(request, wikiVariables),
-		userId = getUserId(request),
-
-		result = {
-			canonicalUrl: `${wikiVariables.basePath}/`,
-			documentTitle: displayTitle,
-			displayTitle,
-			gaUserIdHash: gaUserIdHash(userId),
-			isMainPage: true,
-			isRtl: isRtl(wikiVariables),
-			// clone object to avoid overriding real localSettings for future requests
-			localSettings: getLocalSettings(),
-			mainPageData: data.mainPageData,
-			optimizelyScript: getOptimizelyScriptUrl(request),
-			qualarooScript: getQualarooScriptUrl(request),
-			queryParams: parseQueryParams(request.query, ['noexternals', 'buckysampling']),
-			server: data.server,
-			userId,
-			wikiVariables
-		};
+	const result = getStandardResult(request, data);
 
 	if (typeof request.query.buckySampling !== 'undefined') {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
+	result.canonicalUrl += '/';
+	result.isMainPage = true;
+	result.mainPageData = data.mainPageData;
 	result.openGraph = getOpenGraphData('website', result.displayTitle, result.canonicalUrl, result.mainPageData);
 
 	return result;
