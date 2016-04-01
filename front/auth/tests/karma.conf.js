@@ -7,6 +7,8 @@ module.exports = function (config) {
 
 		basePath: '../../../',
 		files: [
+			'www/front/auth/bower_components/crypto-js/core.js',
+			'www/front/auth/bower_components/crypto-js/sha1.js',
 			'www/front/auth/bower_components/jquery/dist/jquery.js',
 			'www/front/auth/bower_components/loader.js/loader.js',
 			'www/front/auth/bower_components/sinonjs/sinon.js',
