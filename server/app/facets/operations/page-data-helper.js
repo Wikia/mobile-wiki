@@ -1,7 +1,6 @@
 import deepExtend from 'deep-extend';
 import localSettings from '../../../config/localSettings';
 import {gaUserIdHash} from '../../lib/hashing';
-import {getVerticalColor} from '../../lib/utils';
 
 /**
  * @typedef {Object} OpenGraphData
@@ -11,6 +10,7 @@ import {getVerticalColor} from '../../lib/utils';
  * @property {String} [description]
  * @property {String} [image]
  */
+
 /**
  * @param {Object} wikiVariables
  * @returns {boolean}
@@ -58,7 +58,6 @@ export function getOptimizelyScriptUrl(request) {
 }
 
 /**
- *
  * @param {String} type
  * @param {String} title
  * @param {String} url
@@ -69,7 +68,7 @@ export function getOpenGraphData(type, title, url, pageData = {}) {
 	const openGraphData = {
 		type,
 		title,
-		url,
+		url
 	};
 
 	if (pageData && pageData.details) {
@@ -94,6 +93,20 @@ export function getOpenGraphUrl(wikiVariables) {
 }
 
 /**
+ * Get vertical color from localSettings
+ *
+ * @param {string} vertical
+ * @returns {string}
+ */
+export function getVerticalColor(vertical) {
+	if (localSettings.verticalColors.hasOwnProperty(vertical)) {
+		return localSettings.verticalColors[vertical];
+	}
+
+	return null;
+}
+
+/**
  * @returns {LocalSettings}
  */
 export function getLocalSettings() {
@@ -102,19 +115,27 @@ export function getLocalSettings() {
 
 /**
  * @param {Hapi.Request} request
- * @param {Object} articleData
+ * @param {Object} pageData
  * @returns {String}
  */
-export function getStandardTitle(request, articleData) {
-	if (articleData) {
-		if (articleData.article && articleData.article.displayTitle) {
-			return articleData.article.displayTitle;
-		} else if (articleData.details && articleData.details.title) {
-			return articleData.details.title;
+export function getDefaultTitle(request, pageData) {
+	if (pageData) {
+		if (pageData.article && pageData.article.displayTitle) {
+			return pageData.article.displayTitle;
+		} else if (pageData.details && pageData.details.title) {
+			return pageData.details.title;
 		}
 	}
 
 	return request.params.title.replace(/_/g, ' ');
+}
+
+/**
+ * @param {MediaWikiPageData} pageData
+ * @returns {string}
+ */
+export function getDocumentTitle(pageData) {
+	return (pageData && pageData.details && pageData.details.documentTitle) ? pageData.details.documentTitle : '';
 }
 
 /**
@@ -143,7 +164,7 @@ export function getCuratedMainPageTitle(request, wikiVariables) {
  * @param {MediaWikiPageData|CuratedContentPageData} data
  * @returns {object}
  */
-export function getStandardResult(request, data) {
+export function getBaseResult(request, data) {
 	const wikiVariables = data.wikiVariables,
 		userId = getUserId(request);
 
@@ -156,7 +177,7 @@ export function getStandardResult(request, data) {
 		optimizelyScript: getOptimizelyScriptUrl(request),
 		qualarooScript: getQualarooScriptUrl(request),
 		server: data.server,
-		themeColor: getVerticalColor(localSettings, wikiVariables.vertical),
+		themeColor: getVerticalColor(wikiVariables.vertical),
 		userId,
 		wikiVariables
 	};

@@ -1,6 +1,6 @@
 import localSettings from '../../../config/localSettings';
 import {shouldAsyncArticle, parseQueryParams} from '../../lib/utils';
-import {getStandardTitle, getStandardResult, getOpenGraphData} from './page-data-helper';
+import {getDocumentTitle, getDefaultTitle, getBaseResult, getOpenGraphData} from './page-data-helper';
 
 /**
  * Prepares article data to be rendered
@@ -12,11 +12,10 @@ import {getStandardTitle, getStandardResult, getOpenGraphData} from './page-data
 export default function prepareArticleData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
 		pageData = data.page.data,
-		displayTitle = getStandardTitle(request, pageData),
-		result = getStandardResult(request, data);
+		result = getBaseResult(request, data);
 
-	result.displayTitle = displayTitle;
-	result.documentTitle = displayTitle;
+	result.displayTitle = getDefaultTitle(request, pageData);
+	result.documentTitle = getDocumentTitle(pageData) || result.displayTitle;
 	result.articlePage = data.page;
 	result.queryParams = parseQueryParams(request.query, allowedQueryParams);
 	result.asyncArticle = request.query._escaped_fragment_ !== '0' ?
@@ -28,7 +27,6 @@ export default function prepareArticleData(request, data) {
 
 		if (pageData.details) {
 			result.canonicalUrl += pageData.details.url;
-			result.documentTitle = pageData.details.documentTitle;
 		}
 
 		if (pageData.article) {
