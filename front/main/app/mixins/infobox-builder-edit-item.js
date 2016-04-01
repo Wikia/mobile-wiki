@@ -1,33 +1,16 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
-import {track} from 'common/utils/track';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Mixin.create(
 	TrackClickMixin,
 	{
 		/**
-		 * We should never change properties on components during
-		 * didRender because it causes significant performance degradation.
-		 * @returns {void}
+		 * allows to set item property after liquid-fire animation happened
 		 */
-		didRender() {
-			this._super(...arguments);
-			Ember.run.scheduleOnce('afterRender', this, 'focusFirstInput');
-		},
-
-		/**
-		 * Focuses on the end of the first text input element of this component
-		 * @returns {void}
-		 */
-		focusFirstInput() {
-			const $firstInput = this.$('.text-field-input').get(0);
-
-			if ($firstInput) {
-				$firstInput.focus();
-				// required for moving cursor to the end of input on FF
-				$firstInput.selectionStart = $firstInput.selectionEnd = $firstInput.value.length;
-			}
-		},
+		item: Ember.on('init', function () {
+			this.set('item', this.get('itemModel'));
+		}),
 
 		/**
 		 * Tracks events on different edit options
@@ -74,6 +57,26 @@ export default Ember.Mixin.create(
 			// track change of input value
 			if (originalValue !== currentValue) {
 				this.trackEditItemOption('change', trackingKey);
+			}
+		},
+
+		actions: {
+			/**
+			 * @param {Event} event
+			 * @returns {void}
+			 */
+			onEnterKeyUpInsideFocusedInput(event) {
+				const actionHandler = this.get('exitEditMode'),
+					enterKeyCode = 13;
+
+				if (event.keyCode === enterKeyCode && typeof actionHandler === 'function') {
+					track({
+						action: trackActions.keypress,
+						category: 'infobox-builder',
+						label: `exit-edit-mode-on-enter-key-up`
+					});
+					actionHandler();
+				}
 			}
 		}
 	}

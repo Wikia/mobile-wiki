@@ -290,6 +290,27 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		state.forEach((element) => this.addItem(element.type, element));
 	},
 
+	getTemplateExists(title) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.getJSON(
+				M.buildUrl({
+					path: '/wikia.php'
+				}),
+				{
+					controller: 'PortableInfoboxBuilderController',
+					method: 'getTemplateExists',
+					title
+				}
+			).done((data) => {
+				if (data && data.success) {
+					resolve(data.exists);
+				} else {
+					reject(data);
+				}
+			});
+		});
+	},
+
 	/**
 	 * Saves infobox state to MW template
 	 *
@@ -314,7 +335,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 						method: 'POST',
 						success: (data) => {
 							if (data && data.success) {
-								resolve(this.get('title'));
+								resolve(data.urls);
 							} else {
 								reject(data.errors);
 							}

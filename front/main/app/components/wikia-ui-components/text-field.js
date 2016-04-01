@@ -10,13 +10,27 @@
  *      class='additional-custom-class'
  *      onFocusHandler=onFocusHandlerAction
  *      onBlurHandler=onBlurHandlerAction
+ *      onKeyUpHandler=onKeyUpHandler
  *      placeholder='placeholder text'
+ * }}
+ *
+ * @example with error message
+ * {{wikia-ui-components/text-field
+ *      value='example value'
+ *      inputId='userName'
+ *      name='userName'
+ *      label='User name'
+ *      onFocusHandler=onFocusHandlerAction
+ *      onBlurHandler=onBlurHandlerAction
+ *      onKeyUpHandler=onKeyUpHandler
+ *      errorMessage='this value is required'
  * }}
  */
 import Ember from 'ember';
 
 export default Ember.Component.extend({
 	classNames: ['text-field'],
+	classNameBindings: ['isInvalid:text-field--invalid'],
 	isFocused: false,
 	isLabelFloating: Ember.computed('isFocused', 'value', function () {
 		return this.get('isFocused') || !Ember.isEmpty(this.get('value'));
@@ -30,6 +44,7 @@ export default Ember.Component.extend({
 
 		return classNames.join(' ');
 	}),
+	isInvalid: Ember.computed.bool('errorMessage'),
 
 	actions: {
 		/**
@@ -41,7 +56,7 @@ export default Ember.Component.extend({
 
 			this.set('isFocused', false);
 
-			if (typeof onBlurHandler === 'function') {
+			if (onBlurHandler) {
 				onBlurHandler(event);
 			}
 		},
@@ -55,8 +70,21 @@ export default Ember.Component.extend({
 
 			this.set('isFocused', true);
 
-			if (typeof onFocusHandler === 'function') {
+			if (onFocusHandler) {
 				onFocusHandler(event);
+			}
+		},
+
+		/**
+		 * @param {String} value
+		 * @param {Event} event
+		 * @returns {void}
+		 */
+		onKeyUp(value, event) {
+			const onKeyUpHandler = this.get('onKeyUpHandler');
+
+			if (onKeyUpHandler) {
+				onKeyUpHandler(event);
 			}
 		}
 	}

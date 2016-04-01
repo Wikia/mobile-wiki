@@ -1,10 +1,7 @@
-{{article-diff model=model showConfirmation=(action 'showConfirmation')}}
-
-{{#if shouldShowUndoConfirmation}}
-	{{confirmation-modal
-		close=(action 'closeConfirmation')
-		confirm='undo'
-		summaryPlaceholder=(i18n 'confirmation.placeholder-undo' ns='recent-wiki-activity')
-		confirmText=(i18n 'main.undo-label' ns='recent-wiki-activity')
-	}}
-{{/if}}
+{{article-diff
+	model=model
+	redirectToRWA=(action 'redirect')
+	showError=(action 'error')
+	showSuccess=(action 'success')
+	undo=(action 'undoRevision')
+}}
