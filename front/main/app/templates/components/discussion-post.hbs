@@ -60,7 +60,7 @@
 								totalContributorCount=model.contributors.count
 							}}
 						</div>
-						{{#if canShowMore}}
+						{{#if canShowOlder}}
 							<button {{action this.attrs.loadMoreComments}} class="see-more active-element-theme-color">
 								{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
 								{{i18n 'main.pagination-post-show-more' ns='discussion'}}
