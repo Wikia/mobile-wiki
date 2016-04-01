@@ -1,6 +1,9 @@
 import DiscussionModalDialogMixin from '../mixins/discussion-modal-dialog';
+import DiscussionPermalinkMixin from '../mixins/discussion-permalink';
 
-export default Ember.Component.extend(DiscussionModalDialogMixin,
+export default Ember.Component.extend(
+	DiscussionModalDialogMixin,
+	DiscussionPermalinkMixin,
 	{
 		discussionSort: Ember.inject.service(),
 
@@ -13,5 +16,9 @@ export default Ember.Component.extend(DiscussionModalDialogMixin,
 		canReply: Ember.computed('model.isDeleted', 'model.isLocked', function () {
 			return !this.get('model.isDeleted') && !this.get('model.isLocked');
 		}),
+
+		didInsertElement() {
+			this.showLiknedElement();
+		},
 	}
 );
