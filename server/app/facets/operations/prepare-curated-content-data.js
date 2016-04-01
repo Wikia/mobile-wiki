@@ -1,7 +1,7 @@
-import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData,
-	getLocalSettings} from './prepare-page-data';
 import {parseQueryParams} from '../../lib/utils';
 import {gaUserIdHash} from '../../lib/hashing';
+import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData, getLocalSettings}
+	from './page-data-helper';
 
 /**
  * @param {Hapi.Request} request
@@ -28,37 +28,37 @@ export function getTitle(request, wikiVariables) {
  * Handles category or section response for Curated Main Page from API
  *
  * @param {Hapi.Request} request
- * @param {CuratedContentPageData} curatedContentPageData
+ * @param {CuratedContentPageData} data
  * @returns {Object}
  */
-export default function prepareCuratedContentData(request, curatedContentPageData) {
-	const result = {
-			mainPageData: curatedContentPageData.mainPageData,
-			wikiVariables: curatedContentPageData.wikiVariables,
-			server: curatedContentPageData.server
-		},
-		wikiVariables = result.wikiVariables;
+export default function prepareCuratedContentData(request, data) {
+	const wikiVariables = data.wikiVariables,
+		displayTitle = getTitle(request, wikiVariables),
+		userId = getUserId(request),
 
-	result.isRtl = isRtl(wikiVariables);
-
-	result.displayTitle = getTitle(request, wikiVariables);
-	result.isMainPage = true;
-	result.canonicalUrl = `${wikiVariables.basePath}/`;
-	result.queryParams = parseQueryParams(request.query, ['noexternals', 'buckysampling']);
-
-	result.openGraph = getOpenGraphData('website', wikiVariables.siteName, result.canonicalUrl, result.mainPageData);
-	// clone object to avoid overriding real localSettings for future requests
-	result.localSettings = getLocalSettings();
+		result = {
+			canonicalUrl: `${wikiVariables.basePath}/`,
+			documentTitle: displayTitle,
+			displayTitle,
+			gaUserIdHash: gaUserIdHash(userId),
+			isMainPage: true,
+			isRtl: isRtl(wikiVariables),
+			// clone object to avoid overriding real localSettings for future requests
+			localSettings: getLocalSettings(),
+			mainPageData: data.mainPageData,
+			optimizelyScript: getOptimizelyScriptUrl(request),
+			qualarooScript: getQualarooScriptUrl(request),
+			queryParams: parseQueryParams(request.query, ['noexternals', 'buckysampling']),
+			server: data.server,
+			userId,
+			wikiVariables
+		};
 
 	if (typeof request.query.buckySampling !== 'undefined') {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
-	result.userId = getUserId(request);
-	result.gaUserIdHash = gaUserIdHash(result.userId);
-
-	result.qualarooScript = getQualarooScriptUrl(request);
-	result.optimizelyScript = getOptimizelyScriptUrl(request);
+	result.openGraph = getOpenGraphData('website', result.displayTitle, result.canonicalUrl, result.mainPageData);
 
 	return result;
 }

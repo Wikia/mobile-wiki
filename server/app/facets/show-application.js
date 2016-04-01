@@ -9,7 +9,7 @@ import {gaUserIdHash} from '../lib/hashing';
 import {
 	RedirectedToCanonicalHost, WikiVariablesNotValidWikiError, WikiVariablesRequestError
 } from '../lib/custom-errors';
-import {isRtl, getUserId, getLocalSettings} from './operations/prepare-page-data';
+import {isRtl, getUserId, getLocalSettings} from './operations/page-data-helper';
 import showServerErrorPage from './operations/show-server-error-page';
 
 /**
