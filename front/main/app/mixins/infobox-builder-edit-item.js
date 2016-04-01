@@ -6,6 +6,13 @@ export default Ember.Mixin.create(
 	TrackClickMixin,
 	{
 		/**
+		 * allows to set item property after liquid-fire animation happened
+		 */
+		item: Ember.on('init', function () {
+			this.set('item', this.get('itemModel'));
+		}),
+
+		/**
 		 * Tracks events on different edit options
 		 * @param {String} action - tracking action
 		 * @param {String} option - clicked element name

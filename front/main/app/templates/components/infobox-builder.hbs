@@ -53,20 +53,24 @@
 			}}
 		{{/if}}
 	</div>
-	<div class="infobox-builder-sidebar">
-		{{infobox-builder-sidebar-header
-			item=activeItem
-			onBackArrowClick=(action this.attrs.setEditItem null)
-			onDeleteItem=(action this.attrs.removeItem)
-		}}
-		{{component sideBarOptionsComponent
-			item=activeItem
-			addItem=(action 'addItem')
-			exitEditMode=(action this.attrs.setEditItem null)
- 			editRowItem=editRowItem
-			editSectionHeaderItem=editSectionHeaderItem
-			editTitleItem=editTitleItem
-		}}
+	<div class="infobox-builder-sidebar liquid-fire-slide-to-left-container">
+		{{#liquid-bind sidebarItemProperties as |sidebarItemProperties|}}
+			<div class="liquid-fire-slide-to-left-item">
+				{{infobox-builder-sidebar-header
+					item=activeItem
+					type=sidebarItemProperties.type
+					onBackArrowClick=(action this.attrs.setEditItem null)
+					onDeleteItem=(action this.attrs.removeItem)
+				}}
+				{{component sidebarItemProperties.name
+					itemModel=activeItem
+					addItem=(action 'addItem')
+					editRowItem=editRowItem
+					editSectionHeaderItem=editSectionHeaderItem
+					editTitleItem=editTitleItem
+				}}
+			</div>
+		{{/liquid-bind}}
 		{{wikia-ui-components/icon-button
 			class='infobox-builder-go-to-source-button'
 			click=(action 'tryGoToSource')
