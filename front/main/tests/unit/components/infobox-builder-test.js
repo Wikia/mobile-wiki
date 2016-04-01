@@ -227,26 +227,32 @@ test('calls scrollPreviewToBottom with debounce after new item is added', functi
 	debounceStub.restore();
 });
 
-test('correctly sets sideBarOptionsComponent name', function (assert) {
+test('correctly sets sidebarItemProperties name', function (assert) {
 	const component = this.subject(),
 		cases = [
 			{
 				activeItem: {
 					type: 'test'
 				},
-				sideBarOptionsComponentName: `infobox-builder-edit-item-test`,
+				sidebarItemProperties: {
+					name: 'infobox-builder-edit-item-test',
+					type: 'test'
+				},
 				message: 'options for item editing'
 			},
 			{
 				activeItem: null,
-				sideBarOptionsComponentName: 'infobox-builder-add-items',
+				sidebarItemProperties: {
+					name: 'infobox-builder-add-items',
+					type: null
+				},
 				message: 'options for adding items'
 			}
 		];
 
 	cases.forEach((testCase) => {
 		component.set('activeItem', testCase.activeItem);
-		assert.equal(component.get('sideBarOptionsComponent'), testCase.sideBarOptionsComponentName, testCase.message);
+		assert.deepEqual(component.get('sidebarItemProperties'), testCase.sidebarItemProperties, testCase.message);
 	});
 });
 
