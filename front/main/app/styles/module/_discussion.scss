@@ -274,6 +274,10 @@ body.discussions {
 			}
 		}
 
+		&.is-linked {
+			background-color: $discussion-post-card-linked-background;
+		}
+
 		.pop-over-compass {
 			width: 320px;
 		}

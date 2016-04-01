@@ -147,6 +147,10 @@ body.dark-theme {
 				background-color: $dark-discussion-post-card-reported-background;
 			}
 
+			&.is-linked {
+				background-color: $dark-discussion-post-card-linked-background;
+			}
+
 			.top-note-icon {
 				fill: $dark-discussion-post-card-top-note-color;
 			}

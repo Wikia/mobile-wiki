@@ -150,6 +150,9 @@ DiscussionPostModel.reopenClass({
 			},
 			url: M.getDiscussionServiceUrl(urlData),
 			success: (data) => {
+				if (replyId) {
+					data.permalinkReplyId = replyId;
+				}
 				postInstance.setNormalizedData(data);
 			},
 			error: (err) => {
