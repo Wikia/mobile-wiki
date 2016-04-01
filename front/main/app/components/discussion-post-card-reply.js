@@ -4,7 +4,7 @@ export default DiscussionPostCardBaseComponent.extend({
 	classNames: ['post-reply'],
 	classNameBindings: ['isParentDeleted', 'isLinked'],
 
-	isLinked: Ember.computed('post.id', 'permalinkReplyId', function(){
+	isLinked: Ember.computed('post.id', 'permalinkReplyId', function () {
 		return this.get('post.id') === this.get('permalinkReplyId');
 	}),
 });
