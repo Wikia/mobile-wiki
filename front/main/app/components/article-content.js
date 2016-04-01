@@ -5,7 +5,6 @@ import GalleryMediaComponent from './gallery-media';
 import VideoMediaComponent from './video-media';
 import ImageMediaComponent from './image-media';
 import InfoboxImageCollectionComponent from './infobox-image-collection';
-import WikiaMapComponent from './article-media-map-thumbnail';
 import PortableInfoboxComponent from './portable-infobox';
 import AdsMixin from '../mixins/ads';
 import PollDaddyMixin from '../mixins/poll-daddy';
