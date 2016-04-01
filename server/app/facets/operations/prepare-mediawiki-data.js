@@ -1,5 +1,5 @@
 import {parseQueryParams} from '../../lib/utils';
-import {getStandardResult, getOpenGraphData} from './page-data-helper';
+import {getStandardTitle, getStandardResult, getOpenGraphData} from './page-data-helper';
 
 /**
  * Sets minimum data that is required to start the Ember app
@@ -11,7 +11,13 @@ import {getStandardResult, getOpenGraphData} from './page-data-helper';
 export default function prepareMediaWikiData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
 		pageData = data.page.data,
+		displayTitle = getStandardTitle(request, pageData),
 		result = getStandardResult(request, data);
+
+	result.displayTitle = displayTitle;
+	result.documentTitle = displayTitle;
+	result.asyncArticle = false;
+	result.queryParams = parseQueryParams(request.query, allowedQueryParams);
 
 	if (pageData && pageData.details) {
 		result.canonicalUrl += pageData.details.url;
@@ -26,8 +32,6 @@ export default function prepareMediaWikiData(request, data) {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
-	result.asyncArticle = false;
-	result.queryParams = parseQueryParams(request.query, allowedQueryParams);
 	result.openGraph = getOpenGraphData('wiki-page', result.displayTitle, result.canonicalUrl);
 
 	return result;

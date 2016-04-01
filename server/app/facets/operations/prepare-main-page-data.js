@@ -1,12 +1,4 @@
-import {getOpenGraphData} from './page-data-helper';
-
-/**
- * @param {Object} wikiVariables
- * @returns {String} url for openGraph
- */
-function getOpenGraphUrl(wikiVariables) {
-	return wikiVariables.basePath + wikiVariables.articlePath + wikiVariables.siteName.replace(/ /g, '_');
-}
+import {getOpenGraphData, getOpenGraphUrl} from './page-data-helper';
 
 /**
  * Prepares main page data to be rendered

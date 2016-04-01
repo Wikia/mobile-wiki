@@ -1,6 +1,6 @@
 QUnit.module('facets/operations/prepare-curated-content-data');
 
-QUnit.test('getTitle', function (assert) {
+QUnit.test('getStandardTitle', function (assert) {
 	var testCases = [
 		{
 			request: {

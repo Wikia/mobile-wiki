@@ -1,5 +1,5 @@
 import {parseQueryParams} from '../../lib/utils';
-import {getStandardResult, getOpenGraphData} from './page-data-helper';
+import {getStandardTitle, getStandardResult, getOpenGraphData} from './page-data-helper';
 
 /**
  * @param {Hapi.Request} request
@@ -9,8 +9,16 @@ import {getStandardResult, getOpenGraphData} from './page-data-helper';
 export default function prepareCategoryData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
 		pageData = data.page.data,
+		displayTitle = getStandardTitle(request, pageData),
 		i18n = request.server.methods.i18n.getInstance(),
 		result = getStandardResult(request, data);
+
+	result.displayTitle = displayTitle;
+	result.documentTitle = displayTitle;
+	result.asyncArticle = false;
+	result.hasToC = false;
+	result.queryParams = parseQueryParams(request.query, allowedQueryParams);
+	result.subtitle = i18n.t('app.category-page-subtitle');
 
 	if (pageData && pageData.details) {
 		result.canonicalUrl += pageData.details.url;
@@ -21,10 +29,6 @@ export default function prepareCategoryData(request, data) {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
-	result.asyncArticle = false;
-	result.hasToC = false;
-	result.queryParams = parseQueryParams(request.query, allowedQueryParams);
-	result.subtitle = i18n.t('app.category-page-subtitle');
 	result.openGraph = getOpenGraphData('category', result.displayTitle, result.canonicalUrl);
 
 	return result;
