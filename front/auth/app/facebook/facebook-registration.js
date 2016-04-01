@@ -124,54 +124,9 @@ export default class FacebookRegistration {
 			email: formElements.namedItem('email').value,
 			birthdate: formElements.namedItem('birthdate').value,
 			langCode: formElements.namedItem('langCode').value,
-			marketingallowed: formElements.namedItem('marketingallowed').value,
-			fb_access_token: window.FB.getAccessToken()
+			marketingAllowed: formElements.namedItem('marketingAllowed').value,
+			registrationWikiaId: formElements.namedItem('registrationWikiaId').value
 		};
-	}
-
-	/**
-	 * @param {string} facebookToken
-	 * @param {string} heliosTokenUrl
-	 *
-	 * @returns {void}
-	 */
-	loginWithFacebookAccessToken(facebookToken, heliosTokenUrl) {
-		const facebookTokenXhr = new XMLHttpRequest(),
-			data = {
-				fb_access_token: facebookToken
-			};
-
-		/**
-		 * @param {Event} e
-		 * @returns {void}
-		 */
-		facebookTokenXhr.onload = (e) => {
-			const status = e.target.status;
-
-			if (status === HttpCodes.OK) {
-				this.tracker.track('facebook-signup-join-wikia-success', trackActions.success);
-				AuthUtils.authSuccessCallback(this.redirect);
-			} else if (status === HttpCodes.BAD_REQUEST) {
-				this.formErrors.displayGeneralError();
-			} else {
-				this.formErrors.displayGeneralError();
-			}
-		};
-
-		/**
-		 * @returns {void}
-		 */
-		facebookTokenXhr.onerror = () => {
-			this.formErrors.displayGeneralError();
-			this.authLogger.xhrError(facebookTokenXhr);
-
-			this.tracker.track('facebook-signup-join-wikia-error', trackActions.error);
-		};
-
-		facebookTokenXhr.open('POST', heliosTokenUrl, true);
-		facebookTokenXhr.withCredentials = true;
-		facebookTokenXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		facebookTokenXhr.send(this.urlHelper.urlEncode(data));
 	}
 
 	/**
@@ -184,7 +139,8 @@ export default class FacebookRegistration {
 
 		const facebookRegistrationXhr = new XMLHttpRequest(),
 			data = this.getHeliosRegistrationDataFromForm(),
-			url = this.form.getAttribute('action');
+			url = this.form.getAttribute('action'),
+			facebookRegistrationUrl = `${url}?${this.urlHelper.urlEncode({access_token: window.FB.getAccessToken()})}`;
 
 		this.formErrors.clearValidationErrors();
 
@@ -196,7 +152,8 @@ export default class FacebookRegistration {
 			const status = e.target.status;
 
 			if (status === HttpCodes.OK) {
-				this.loginWithFacebookAccessToken(window.FB.getAccessToken(), url.replace('/users', '/token'));
+				this.tracker.track('facebook-signup-join-wikia-success', trackActions.success);
+				AuthUtils.authSuccessCallback(this.redirect);
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				this.formErrors.displayValidationErrors(JSON.parse(facebookRegistrationXhr.responseText).errors);
 			} else {
@@ -215,7 +172,7 @@ export default class FacebookRegistration {
 			this.tracker.track('facebook-signup-join-wikia-error', trackActions.error);
 		};
 
-		facebookRegistrationXhr.open('POST', url, true);
+		facebookRegistrationXhr.open('POST', facebookRegistrationUrl, true);
 		facebookRegistrationXhr.withCredentials = true;
 		facebookRegistrationXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		facebookRegistrationXhr.send(this.urlHelper.urlEncode(data));

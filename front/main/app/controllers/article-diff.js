@@ -1,100 +1,57 @@
 import Ember from 'ember';
-import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
-	shouldShowUndoConfirmation: false,
 	currRecentChangeId: null,
-
-	/**
-	 * @returns {void}
-	 */
-	handleUndoSuccess() {
-		this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}})
-			.then(() => {
-				this.get('application').addAlert({
-					message: i18n.t('main.undo-success', {
-						pageTitle: this.get('model.title'),
-						ns: 'recent-wiki-activity'
-					}),
-					type: 'success'
-				});
-			});
-
-		track({
-			action: trackActions.impression,
-			category: 'recent-wiki-activity',
-			label: 'undo-success'
-		});
-	},
-
-	/**
-	 * @param {*} error
-	 * @returns {void}
-	 */
-	handleUndoError(error) {
-		const application = this.get('application'),
-			errorMsg = error === 'undofailure' ? 'main.undo-failure' : 'main.undo-error';
-
-		application.addAlert({
-			message: i18n.t(errorMsg, {ns: 'recent-wiki-activity'}),
-			type: 'alert'
-		});
-
-		application.set('isLoading', false);
-
-		track({
-			action: trackActions.impression,
-			category: 'recent-wiki-activity',
-			label: 'undo-error'
-		});
-	},
 
 	actions: {
 		/**
-		 * @param {string} summary Description of reason for undo to be stored as edit summary
+		 * Redirects back to Recent Wiki Activity list
 		 * @returns {void}
 		 */
-		undo(summary) {
+		redirect() {
+			return this.transitionToRoute('recent-wiki-activity', {queryParams: {rc: this.get('currRecentChangeId')}});
+		},
+
+		/**
+		 * Undo given revision
+		 *
+		 * @param {string} summary
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		undoRevision(summary) {
 			this.get('application').set('isLoading', true);
-
-			this.get('model').undo(summary).then(
-				this.handleUndoSuccess.bind(this),
-				this.handleUndoError.bind(this)
-			);
-
-			track({
-				action: trackActions.click,
-				category: 'recent-wiki-activity',
-				label: 'undo'
-			});
+			return this.get('model').undo(summary);
 		},
 
 		/**
-		 * Shows confirmation modal
+		 * Adds error banner
+		 * @param {string} messageKey message key with prefix (taken from recent-wiki-activity namespace)
 		 * @returns {void}
 		 */
-		showConfirmation() {
-			this.set('shouldShowUndoConfirmation', true);
+		error(messageKey) {
+			const application = this.get('application');
 
-			track({
-				action: trackActions.open,
-				category: 'recent-wiki-activity',
-				label: 'undo-confirmation-open'
+			application.addAlert({
+				message: i18n.t(messageKey, {ns: 'recent-wiki-activity'}),
+				type: 'alert'
 			});
+
+			application.set('isLoading', false);
 		},
 
 		/**
-		 * Closes confirmation modal
+		 * Adds success banner
+		 * @param {string} messageKey message key with prefix (taken from recent-wiki-activity namespace)
 		 * @returns {void}
 		 */
-		closeConfirmation() {
-			this.set('shouldShowUndoConfirmation', false);
-
-			track({
-				action: trackActions.close,
-				category: 'recent-wiki-activity',
-				label: 'undo-confirmation-close'
+		success(messageKey) {
+			this.get('application').addAlert({
+				message: i18n.t(messageKey, {
+					pageTitle: this.get('model.title'),
+					ns: 'recent-wiki-activity'
+				}),
+				type: 'success'
 			});
 		},
 	}
