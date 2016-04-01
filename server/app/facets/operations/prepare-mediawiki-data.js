@@ -11,7 +11,6 @@ import {getDocumentTitle, getDefaultTitle, getBaseResult, getOpenGraphData} from
 export default function prepareMediaWikiData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
 		pageData = data.page.data,
-		displayTitle = getDefaultTitle(request, pageData),
 		result = getBaseResult(request, data);
 
 	result.displayTitle = getDefaultTitle(request, pageData);

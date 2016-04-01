@@ -1,4 +1,4 @@
-import {getDocumentTitle, getBaseResult, getCuratedMainPageTitle, getOpenGraphData} from './page-data-helper';
+import {getBaseResult, getCuratedMainPageTitle, getOpenGraphData} from './page-data-helper';
 
 /**
  * Handles category or section response for Curated Main Page from API
