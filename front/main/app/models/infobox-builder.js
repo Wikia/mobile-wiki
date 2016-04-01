@@ -263,7 +263,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	setupInfoboxData(infoboxData, isNew) {
 		if (isNew) {
 			this.setupInitialState();
-		} else {
+		} else if (infoboxData.data) {
 			this.setupExistingState(infoboxData.data);
 		}
 	},
