@@ -22,13 +22,14 @@ done
 
 if [ -z "$FROM" ]
 then
-	FROM=$(git tag -l | sed 's/^.\{8\}//' | sort -nr | head -1)
+	FROM=$(git tag -l | sed 's/^.\{8\}//' | sort -nr | head -2 | tail -1)
 	FROM="release-"$FROM
 fi
 
 if [ -z "$TO" ]
 then
-	TO=HEAD
+	TO=$(git tag -l | sed 's/^.\{8\}//' | sort -nr | head -1)
+	TO="release-"$TO
 fi
 
 git --no-pager log $FROM..$TO --merges --pretty=tformat:'* %s: %b' |
