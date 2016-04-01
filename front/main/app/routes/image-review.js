@@ -39,7 +39,7 @@ export default Ember.Route.extend({
 			this.controllerFor('application').set('isLoading', true);
 			this.set('onlyFlagged', false);
 
-			window.scrollTo(0,0);
+			window.scrollTo(0, 0);
 
 			ImageReviewModel.reviewImages(model.images).then(() => {
 				this.refresh();
@@ -53,7 +53,7 @@ export default Ember.Route.extend({
 		},
 
 		getFlaggedOnly() {
-			window.scrollTo(0,0);
+			window.scrollTo(0, 0);
 
 			this.set('onlyFlagged', true);
 			this.refresh();
