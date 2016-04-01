@@ -1,4 +1,4 @@
-QUnit.module('facets/operations/prepare-page-data');
+QUnit.module('facets/operations/page-data-helper');
 
 QUnit.test('isRtl', function (assert) {
 	var testCases = [

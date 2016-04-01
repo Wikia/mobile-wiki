@@ -89,3 +89,20 @@ export function getOpenGraphData(type, title, url, pageData = {}) {
 export function getLocalSettings() {
 	return deepExtend({}, localSettings);
 }
+
+/**
+ * @param {Hapi.Request} request
+ * @param {Object} articleData
+ * @returns {String}
+ */
+export function getTitle(request, articleData) {
+	if (articleData) {
+		if (articleData.article && articleData.article.displayTitle) {
+			return articleData.article.displayTitle;
+		} else if (articleData.details && articleData.details.title) {
+			return articleData.details.title;
+		}
+	}
+
+	return request.params.title.replace(/_/g, ' ');
+}
