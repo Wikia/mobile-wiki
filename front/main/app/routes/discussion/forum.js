@@ -55,7 +55,6 @@ export default DiscussionBaseRoute.extend(
 				this.modelFor('discussion.forum').loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
-
 			/**
 			 * Applies sorting by date and attempts to create a new post
 			 *
