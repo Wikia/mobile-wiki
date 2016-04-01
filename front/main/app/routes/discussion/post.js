@@ -66,7 +66,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			create(replyData) {
-				this.modelFor(this.routeName).createReply(replyData);
+				this.modelFor('discussion.post').createReply(replyData);
 			},
 
 			/**
@@ -74,7 +74,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadMoreComments() {
-				const model = this.modelFor(this.routeName);
+				const model = this.modelFor('discussion.post');
 
 				model.loadNextPage().then(() => {
 					if (model.get('minorError')) {
