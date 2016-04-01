@@ -2,6 +2,7 @@ import Ember from 'ember';
 import InfoboxBuilderEditItemMixin from '../mixins/infobox-builder-edit-item';
 import InfoboxBuilderSidebarOptionsMixin from '../mixins/infobox-builder-sidebar-options';
 import InfoboxBuilderInputAutoFocusMixin from '../mixins/infobox-builder-input-auto-focus';
+import generateGuid from '../utils/generate-guid';
 
 export default Ember.Component.extend(
 	InfoboxBuilderSidebarOptionsMixin,
@@ -26,12 +27,16 @@ export default Ember.Component.extend(
 			}
 		}),
 
+		/**
+		 * liquid-fire requires all ids have to be unique in order to not
+		 * have two the same id's in view at a time
+		 */
 		textInputId: Ember.computed(function () {
-			return this.createInputId('infoboxSectionHeader');
+			return generateGuid('infoboxSectionHeader');
 		}),
 
 		checkboxInputId: Ember.computed(function () {
-			return this.createInputId('isCollapsible');
+			return generateGuid('isCollapsible');
 		}),
 
 		isCollapsible: Ember.computed('item.collapsible', {
