@@ -54,17 +54,14 @@
 		{{/if}}
 	</div>
 	<div class="infobox-builder-sidebar liquid-fire-slide-to-left-container">
-		{{#liquid-bind activeItem as |activeItem|}}
+		{{#liquid-bind sideBarOptionsComponent as |sideBarOptionsComponent|}}
 			<div class="liquid-fire-slide-to-left-item">
 				{{infobox-builder-sidebar-header
 					item=activeItem
+					type=sideBarOptionsComponent.type
 					onBackArrowClick=(action this.attrs.setEditItem null)
 					onDeleteItem=(action this.attrs.removeItem)
 				}}
-			</div>
-		{{/liquid-bind}}
-		{{#liquid-bind sideBarOptionsComponent as |sideBarOptionsComponent|}}
-			<div class="liquid-fire-slide-to-left-item">
 				{{component sideBarOptionsComponent.name
 					itemModel=activeItem
 					addItem=(action 'addItem')

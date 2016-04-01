@@ -5,23 +5,17 @@ export default Ember.Component.extend(
 	TrackClickMixin,
 	{
 		classNames: ['infobox-builder-sidebar-header'],
-		title: Ember.computed(
-			'item.{data,data.label,type,value,data.defaultValue,infoboxBuilderData.index}',
-			function () {
-				const type = this.get('item.type');
+		title: Ember.computed( 'type', function () {
+				const type = this.get('type');
 
 				return type ?
 					// possible message keys: add-title, add-image, add-row, add-section-header
-					i18n.t(`main.add-${this.get('item.type')}`, {
-						ns: 'infobox-builder'
-					}) :
-					i18n.t('main.sidebar-header', {
-						ns: 'infobox-builder'
-					});
+					i18n.t(`main.add-${type}`, { ns: 'infobox-builder' }) :
+					i18n.t('main.sidebar-header', { ns: 'infobox-builder' });
 			}
 		),
 
-		showActionButtons: Ember.computed.bool('item'),
+		showActionButtons: Ember.computed.bool('type'),
 
 		actions: {
 			removeItem() {

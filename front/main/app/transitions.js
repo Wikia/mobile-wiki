@@ -12,7 +12,7 @@ export default function () {
 		this.childOf(liquidFireSlideToLeftContainer),
 		this.use('explode', {
 			pickOld: liquidFireSlideToLeftItem,
-			use: ['fade', {duration: durationOut}]
+			use: ['wait', durationOut]
 		}, {
 			pickNew: liquidFireSlideToLeftItem,
 			use: ['toLeft', {duration: durationIn, easing: 'easeInSine'}]
