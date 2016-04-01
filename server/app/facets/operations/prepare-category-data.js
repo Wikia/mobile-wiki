@@ -1,21 +1,9 @@
-import * as Utils from '../../lib/utils';
-import {gaUserIdHash} from '../../lib/hashing';
 import localSettings from '../../../config/localSettings';
-import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData,
-	getLocalSettings} from './prepare-page-data';
+import {gaUserIdHash} from '../../lib/hashing';
+import {parseQueryParams, getVerticalColor} from '../../lib/utils';
+import {getTitle, isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData, getLocalSettings}
+	from './page-data-helper';
 
-/**
- * @param {Object} data
- * @param {Hapi.Request} request
- * @returns {String} title
- */
-export function getTitle(data, request) {
-	try {
-		return data.page.data.details.title;
-	} catch (e) {
-		return request.params.title.replace(/_/g, ' ');
-	}
-}
 /**
  * @param {Hapi.Request} request
  * @param {MediaWikiPageData} data
@@ -23,47 +11,42 @@ export function getTitle(data, request) {
  */
 export default function prepareCategoryData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
-		i18n = request.server.methods.i18n.getInstance(),
-		wikiVariables = data.wikiVariables,
 		pageData = data.page.data,
-		result = {
-			server: data.server,
-			wikiVariables: data.wikiVariables,
-			canonicalUrl: ''
-		};
+		wikiVariables = data.wikiVariables,
+		displayTitle = getTitle(request, pageData),
+		i18n = request.server.methods.i18n.getInstance(),
+		userId = getUserId(request),
 
-	if (wikiVariables) {
-		result.canonicalUrl = wikiVariables.basePath;
-	}
+		result = {
+			asyncArticle: false,
+			canonicalUrl: wikiVariables.basePath,
+			documentTitle: displayTitle,
+			displayTitle,
+			gaUserIdHash: gaUserIdHash(userId),
+			hasToC: false,
+			isRtl: isRtl(wikiVariables),
+			// clone object to avoid overriding real localSettings for future requests
+			localSettings: getLocalSettings(),
+			optimizelyScript: getOptimizelyScriptUrl(request),
+			qualarooScript: getQualarooScriptUrl(request),
+			queryParams: parseQueryParams(request.query, allowedQueryParams),
+			server: data.server,
+			subtitle: i18n.t('app.category-page-subtitle'),
+			themeColor: getVerticalColor(localSettings, wikiVariables.vertical),
+			userId,
+			wikiVariables
+		};
 
 	if (pageData && pageData.details) {
 		result.canonicalUrl += pageData.details.url;
 		result.documentTitle = pageData.details.documentTitle;
 	}
 
-	result.isRtl = isRtl(wikiVariables);
-	result.displayTitle = getTitle(data, request);
-	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
-	// the second argument is a whitelist of acceptable parameter names
-	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
-	result.openGraph = getOpenGraphData('category', result.displayTitle, result.canonicalUrl);
-	// clone object to avoid overriding real localSettings for futurue requests
-	result.localSettings = getLocalSettings();
-
-	result.qualarooScript = getQualarooScriptUrl(request);
-	result.optimizelyScript = getOptimizelyScriptUrl(request);
-	result.userId = getUserId(request);
-	result.gaUserIdHash = gaUserIdHash(result.userId);
-
 	if (typeof request.query.buckySampling !== 'undefined') {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
-	result.asyncArticle = false;
-
-	// Hide TOC on category pages
-	result.hasToC = false;
-	result.subtitle = i18n.t('app.category-page-subtitle');
+	result.openGraph = getOpenGraphData('category', result.displayTitle, result.canonicalUrl);
 
 	return result;
 }

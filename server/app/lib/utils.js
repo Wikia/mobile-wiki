@@ -327,23 +327,6 @@ export function redirectToCanonicalHostIfNeeded(localSettings, request, reply, w
 
 /**
  * @param {Hapi.Request} request
- * @param {Object} articleData
- * @returns {String}
- */
-export function getTitle(request, articleData) {
-	if (articleData) {
-		if (articleData.article && articleData.article.displayTitle) {
-			return articleData.article.displayTitle;
-		} else if (articleData.details && articleData.details.title) {
-			return articleData.details.title;
-		}
-	}
-
-	return request.params.title.replace(/_/g, ' ');
-}
-
-/**
- * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
  * @returns {void}
  */

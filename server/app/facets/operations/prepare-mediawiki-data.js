@@ -1,10 +1,8 @@
-import * as Utils from '../../lib/utils';
-import {gaUserIdHash} from '../../lib/hashing';
 import localSettings from '../../../config/localSettings';
-import {
-	isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData,
-	getLocalSettings
-} from './prepare-page-data';
+import {gaUserIdHash} from '../../lib/hashing';
+import {parseQueryParams, getVerticalColor} from '../../lib/utils';
+import {getTitle, isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData, getLocalSettings}
+	from './page-data-helper';
 
 /**
  * Sets minimum data that is required to start the Ember app
@@ -17,45 +15,41 @@ export default function prepareMediaWikiData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
 		wikiVariables = data.wikiVariables,
 		pageData = data.page.data,
-		result = {
-			server: data.server,
-			wikiVariables: data.wikiVariables,
-			canonicalUrl: '',
-			documentTitle: ''
-		};
+		displayTitle = getTitle(request, wikiVariables),
+		userId = getUserId(request),
 
-	if (wikiVariables) {
-		result.canonicalUrl = wikiVariables.basePath;
-	}
+		result = {
+			asyncArticle: false,
+			canonicalUrl: wikiVariables.basePath,
+			documentTitle: displayTitle,
+			displayTitle,
+			gaUserIdHash: gaUserIdHash(userId),
+			isRtl: isRtl(wikiVariables),
+			// clone object to avoid overriding real localSettings for future requests
+			localSettings: getLocalSettings(),
+			optimizelyScript: getOptimizelyScriptUrl(request),
+			qualarooScript: getQualarooScriptUrl(request),
+			queryParams: parseQueryParams(request.query, allowedQueryParams),
+			server: data.server,
+			themeColor: getVerticalColor(localSettings, wikiVariables.vertical),
+			userId,
+			wikiVariables
+		};
 
 	if (pageData && pageData.details) {
 		result.canonicalUrl += pageData.details.url;
 		result.documentTitle = pageData.details.documentTitle;
 	}
 
-	result.isRtl = isRtl(wikiVariables);
-
-	result.themeColor = Utils.getVerticalColor(localSettings, wikiVariables.vertical);
-	// the second argument is a whitelist of acceptable parameter names
-	result.queryParams = Utils.parseQueryParams(request.query, allowedQueryParams);
-	result.openGraph = getOpenGraphData('wiki-page', result.documentTitle, result.canonicalUrl);
-	// clone object to avoid overriding real localSettings for future requests
-	result.localSettings = getLocalSettings();
-
-	result.qualarooScript = getQualarooScriptUrl(request);
-	result.optimizelyScript = getOptimizelyScriptUrl(request);
-	result.userId = getUserId(request);
-	result.gaUserIdHash = gaUserIdHash(result.userId);
+	if (data.page.exception) {
+		result.exception = data.page.exception;
+	}
 
 	if (typeof request.query.buckySampling !== 'undefined') {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
-	if (data.page.exception) {
-		result.exception = data.page.exception;
-	}
-
-	result.asyncArticle = false;
+	result.openGraph = getOpenGraphData('wiki-page', result.displayTitle, result.canonicalUrl);
 
 	return result;
 }

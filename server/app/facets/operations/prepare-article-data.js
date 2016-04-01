@@ -1,8 +1,8 @@
 import localSettings from '../../../config/localSettings';
 import {gaUserIdHash} from '../../lib/hashing';
-import {getTitle, shouldAsyncArticle, parseQueryParams, getVerticalColor} from '../../lib/utils';
-import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData, getLocalSettings}
-	from './prepare-page-data';
+import {shouldAsyncArticle, parseQueryParams, getVerticalColor} from '../../lib/utils';
+import {getTitle, isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenGraphData, getLocalSettings}
+	from './page-data-helper';
 
 /**
  * Prepares article data to be rendered
@@ -13,10 +13,10 @@ import {isRtl, getUserId, getQualarooScriptUrl, getOptimizelyScriptUrl, getOpenG
  */
 export default function prepareArticleData(request, data) {
 	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
-		articleData = data.page.data,
-		displayTitle = getTitle(request, articleData),
-		userId = getUserId(request),
+		pageData = data.page.data,
 		wikiVariables = data.wikiVariables,
+		displayTitle = getTitle(request, pageData),
+		userId = getUserId(request),
 
 		result = {
 			articlePage: data.page,
@@ -36,20 +36,20 @@ export default function prepareArticleData(request, data) {
 			server: data.server,
 			themeColor: getVerticalColor(localSettings, wikiVariables.vertical),
 			userId,
-			wikiVariables: data.wikiVariables
+			wikiVariables
 		};
 
-	if (articleData) {
-		result.isMainPage = articleData.isMainPage;
+	if (pageData) {
+		result.isMainPage = pageData.isMainPage;
 
-		if (articleData.details) {
-			result.canonicalUrl += articleData.details.url;
-			result.documentTitle = articleData.details.documentTitle;
+		if (pageData.details) {
+			result.canonicalUrl += pageData.details.url;
+			result.documentTitle = pageData.details.documentTitle;
 		}
 
-		if (articleData.article) {
-			result.articleContent = articleData.article.content;
-			delete articleData.article.content;
+		if (pageData.article) {
+			result.articleContent = pageData.article.content;
+			delete pageData.article.content;
 
 			result.hasToC = Boolean(result.articleContent.trim().length);
 		}
@@ -59,7 +59,7 @@ export default function prepareArticleData(request, data) {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
-	result.openGraph = getOpenGraphData('article', result.displayTitle, result.canonicalUrl, articleData);
+	result.openGraph = getOpenGraphData('article', result.displayTitle, result.canonicalUrl, pageData);
 
 	return result;
 }
