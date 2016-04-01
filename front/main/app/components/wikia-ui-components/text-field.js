@@ -10,6 +10,7 @@
  *      class='additional-custom-class'
  *      onFocusHandler=onFocusHandlerAction
  *      onBlurHandler=onBlurHandlerAction
+ *      onKeyUpHandler=onKeyUpHandler
  *      placeholder='placeholder text'
  * }}
  *
@@ -21,6 +22,7 @@
  *      label='User name'
  *      onFocusHandler=onFocusHandlerAction
  *      onBlurHandler=onBlurHandlerAction
+ *      onKeyUpHandler=onKeyUpHandler
  *      errorMessage='this value is required'
  * }}
  */
@@ -54,7 +56,7 @@ export default Ember.Component.extend({
 
 			this.set('isFocused', false);
 
-			if (typeof onBlurHandler === 'function') {
+			if (onBlurHandler) {
 				onBlurHandler(event);
 			}
 		},
@@ -68,8 +70,21 @@ export default Ember.Component.extend({
 
 			this.set('isFocused', true);
 
-			if (typeof onFocusHandler === 'function') {
+			if (onFocusHandler) {
 				onFocusHandler(event);
+			}
+		},
+
+		/**
+		 * @param {String} value
+		 * @param {Event} event
+		 * @returns {void}
+		 */
+		onKeyUp(value, event) {
+			const onKeyUpHandler = this.get('onKeyUpHandler');
+
+			if (onKeyUpHandler) {
+				onKeyUpHandler(event);
 			}
 		}
 	}
