@@ -63,6 +63,7 @@
 		{{component sideBarOptionsComponent
 			item=activeItem
 			addItem=(action 'addItem')
+			exitEditMode=(action this.attrs.setEditItem null)
  			editRowItem=editRowItem
 			editSectionHeaderItem=editSectionHeaderItem
 			editTitleItem=editTitleItem
