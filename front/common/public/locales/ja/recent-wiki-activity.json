@@ -2,19 +2,19 @@
   "main":{
     "edited":"編集済み",
     "dont-show-again":"次回から表示しない",
+    "error":"エラーが発生したようです。もう一度お試しください。",
     "intro-now-on-mobile":"モバイルの新機能",
     "intro-see-more-recent-edits":"その他の最近の編集を見る",
     "intro-see-the-edit":"編集を見る",
     "new":"New!",
-    "rollback-error":"編集を巻き戻す際にエラーが発生したようです。申し訳ありませんが、もう一度お試しください。",
     "rollback-failure":"編集中の版が競合しているため、巻き戻しできませんでした。",
     "rollback-success":"__pageTitle__のページを巻き戻しました。",
     "summary":"要約",
     "title":"最近のウィキアクティビティ",
-    "undo-error":"編集を取り消す際にエラーが発生したようです。申し訳ありませんが、もう一度お試しください。",
     "undo-failure":"編集中の版が競合しているため、編集を取り消せませんでした。",
     "undo-label":"取り消し",
-    "undo-success":"__pageTitle__のページへの編集を取り消しました。"
+    "undo-success":"__pageTitle__のページへの編集を取り消しました。",
+    "nice-work-button-label":"ナイス！"
   },
   "diff":{
     "after":"後",

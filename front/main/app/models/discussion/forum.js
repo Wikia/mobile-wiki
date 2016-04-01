@@ -33,7 +33,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				success: (data) => {
 					this.get('data.entities').pushObjects(
 						Ember.get(data, '_embedded.doc:threads').map(
-							(newThread) => DiscussionPost.createFromThreadListData(newThread)
+							(newThread) => DiscussionPost.createFromThreadData(newThread)
 						)
 					);
 				},
@@ -59,7 +59,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 
 					newPost.set('isNew', true);
 					this.get('data.entities').insertAt(0, newPost);
-					this.incrementProperty('totalPosts');
+					this.incrementProperty('postCount');
 
 					track(trackActions.PostCreate);
 				},
@@ -85,7 +85,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities,
 				pageNum: 0,
-				postCount: apiData.threadCount,
+				postCount: parseInt(apiData.threadCount, 10),
 			});
 
 			this.set('pivotId', pivotId);

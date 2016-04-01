@@ -50,6 +50,40 @@
 	text-transform: uppercase;
 }
 
+.recent-change__upvotes {
+	float: left;
+	font-size: $type-min;
+	line-height: 1;
+	margin-top: 10px;
+
+	.icon {
+		border: none;
+		fill: $aluminum;
+		height: 18px;
+		margin-right: 6px;
+		width: 18px;
+	}
+
+	.text {
+		color: $aluminum;
+		vertical-align: bottom;
+	}
+
+	&.user-upvoted {
+
+		.icon {
+			fill: $appreciate-activated-color;
+		}
+		.text {
+			color: $appreciate-activated-color;
+		}
+	}
+
+	span {
+		vertical-align: middle;
+	}
+}
+
 .recent-change__see-diff {
 	height: 48px;
 	line-height: 48px;
@@ -74,4 +108,12 @@
 			fill: $color-blue-gray;
 		}
 	}
+}
+
+.recent-change__byte-change {
+	color: $color-blue-gray;
+	float: right;
+	font-size: $type-min;
+	line-height: $line-height-min;
+	margin-top: 12px;
 }

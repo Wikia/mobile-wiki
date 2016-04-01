@@ -50,7 +50,7 @@ input[type='checkbox'] {
 		&::before {
 			background-color: $checkbox-color-bg;
 			border: 1px solid $checkbox-color-border;
-			content: " ";
+			content: '';
 			display: block;
 			height: 18px;
 			width: 18px;

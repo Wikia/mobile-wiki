@@ -3,7 +3,6 @@ import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-m
 import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributor from './domain/contributor';
 import DiscussionContributors from './domain/contributors';
-import DiscussionEntities from './domain/entities';
 import DiscussionPost from './domain/post';
 import DiscussionReply from './domain/reply';
 import {track, trackActions} from '../../utils/discussion-tracker';
@@ -32,7 +31,10 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 					// replies on the page; we want to see the newest replies first but show them
 					// starting with oldest of the current list at the top.
 					Ember.get(data, '._embedded.doc:posts').reverse()
-						.map((reply) => DiscussionReply.create(reply))
+						.map((reply) => {
+							reply.threadCreatedBy = this.get('data.createdBy');
+							return DiscussionReply.create(reply);
+						})
 				);
 
 				this.incrementProperty('data.page');
@@ -58,6 +60,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
 			success: (reply) => {
 				reply.isNew = true;
+				reply.threadCreatedBy = this.get('data.createdBy');
 				this.incrementProperty('data.repliesCount');
 				this.get('data.replies').pushObject(DiscussionReply.create(reply));
 
@@ -86,7 +89,10 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			normalizedRepliesData,
 			pivotId;
 
-		normalizedRepliesData = DiscussionEntities.createFromPostsData(apiRepliesData);
+		normalizedRepliesData = apiRepliesData.map((replyData) => {
+			replyData.threadCreatedBy = normalizedData.get('createdBy');
+			return DiscussionReply.create(replyData);
+		});
 
 		if (normalizedRepliesData.length) {
 			pivotId = normalizedRepliesData[0].id;
@@ -98,7 +104,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		// contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]'));
 		// Work in Progress: szpachla until SOC-1586 is done
 		contributors = DiscussionContributors.create({
-			count: apiData.postCount,
+			count: parseInt(apiData.postCount, 10),
 			userInfo: normalizedRepliesData.map((reply) => DiscussionContributor.create(reply.createdBy)),
 		});
 
@@ -108,7 +114,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			forumId: apiData.forumId,
 			page: 0,
 			replies: normalizedRepliesData,
-			repliesCount: Ember.get(apiData, 'postCount'),
+			repliesCount: parseInt(apiData.postCount, 10),
 		});
 
 		this.setProperties({

@@ -17,8 +17,8 @@ export default Ember.Component.extend({
 
 	canReport: Ember.computed('currentUser.isAuthenticated', 'post.userData.hasReported', 'post.isDeleted', function () {
 		return !this.get('post.userData.hasReported') &&
-			this.get('currentUser.isAuthenticated') === true &&
-			this.get('post.isDeleted') === false;
+			this.get('currentUser.isAuthenticated') &&
+			this.get('post.isDeleted');
 	}),
 
 	canLock: Ember.computed('isLockable', 'post.isLocked', 'post.userData.permissions.canDelete', function () {

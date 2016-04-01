@@ -58,7 +58,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			entities,
 			forumId: Ember.get(Mercury, 'wiki.id'),
 			pageNum: 0,
-			postCount: Ember.get(apiData, 'postCount'),
+			postCount: parseInt(apiData.postCount, 10),
 			userName: contributors.get('users.0.name'),
 		});
 

@@ -2,19 +2,19 @@
   "main":{
     "edited":"bearbeitet",
     "dont-show-again":"Nicht mehr anzeigen",
+    "error":"Leider ist etwas schief gelaufen. Versuche es bitte noch einmal.",
     "intro-now-on-mobile":"Jetzt auch mobil",
     "intro-see-more-recent-edits":"Letzte Bearbeitungen anzeigen",
     "intro-see-the-edit":"Bearbeitung anzeigen",
     "new":"Neu!",
-    "rollback-error":"Beim Versuch die Bearbeitung zurückzusetzen scheint leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.",
     "rollback-failure":"Die Bearbeitung konnte wegen sich überschneidenden Bearbeitungen nicht zurückgesetzt werden.",
     "rollback-success":"Die Seite __pageTitle__ wurde erfolgreich zurückgesetzt!",
     "summary":"Zusammenfassung:",
     "title":"Letzte Aktivitäten",
-    "undo-error":"Beim Versuch die Bearbeitung rückgängig zu machen scheint leider etwas schief gelaufen zu sein. Versuche es bitte noch einmal.",
     "undo-failure":"Die Bearbeitung konnte wegen sich überschneidenden Bearbeitungen nicht rückgängig gemacht werden.",
     "undo-label":"Rückgängig machen",
-    "undo-success":"Die Bearbeitung der Seite __pageTitle__ wurde erfolgreich zurückgesetzt!"
+    "undo-success":"Die Bearbeitung der Seite __pageTitle__ wurde erfolgreich zurückgesetzt!",
+    "nice-work-button-label":"Gut gemacht!"
   },
   "diff":{
     "after":"Danach",

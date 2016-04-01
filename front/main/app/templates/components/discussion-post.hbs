@@ -17,7 +17,7 @@
 {{#if model.replies}}
 	<div class="desktop-hidden discussion-contributors-mobile">
 		{{discussion-contributors
-			contributorsUsers=model.contributors.users
+			users=model.contributors.users
 			maxContributorDisplayCount=7
 			totalContributorCount=model.contributors.count
 		}}
@@ -36,7 +36,7 @@
 			author=entity.createdBy
 			content=entity.rawContent
 			delete=(action this.attrs.deleteReply)
-			isDetailsView= true
+			isDetailsView=true
 			isNew=entity.isNew
 			isParentDeleted=model.isDeleted
 			report=(action this.attrs.report)
