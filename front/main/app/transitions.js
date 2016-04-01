@@ -5,17 +5,16 @@
 export default function () {
 	const liquidFireSlideToLeftContainer = '.liquid-fire-slide-to-left-container',
 		liquidFireSlideToLeftItem = '.liquid-fire-slide-to-left-item',
-		durationOut = 1250,
-		durationIn = 1250;
+		duration = 450;
 
 	this.transition(
 		this.childOf(liquidFireSlideToLeftContainer),
 		this.use('explode', {
 			pickOld: liquidFireSlideToLeftItem,
-			use: ['wait', durationOut]
+			use: ['wait', duration]
 		}, {
 			pickNew: liquidFireSlideToLeftItem,
-			use: ['toLeft', {duration: durationIn, easing: 'easeInSine'}]
+			use: ['toLeft', {duration, easing: 'easeInSine'}]
 		})
 	);
 }
