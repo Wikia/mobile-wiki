@@ -140,6 +140,7 @@ DiscussionPostModel.reopenClass({
 			urlData = replyId ? `/${wikiId}/permalinks/posts/${replyId}` : `/${wikiId}/threads/${postId}`;
 
 		return ajaxCall({
+			context: postInstance,
 			data: {
 				limit: postInstance.get('replyLimit'),
 				responseGroup: 'full',
