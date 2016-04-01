@@ -18,8 +18,14 @@ export default function prepareMainPageData(data) {
 			}
 		};
 
-	if (pageData.details && pageData.details.ns) {
-		result.mainPageData.ns = pageData.details.ns;
+	if (pageData.details) {
+		if (pageData.details.description) {
+			result.description = pageData.details.description;
+		}
+
+		if (pageData.details.ns) {
+			result.mainPageData.ns = pageData.details.ns;
+		}
 	}
 
 	return result;

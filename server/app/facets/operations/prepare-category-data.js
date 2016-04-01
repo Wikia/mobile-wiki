@@ -20,6 +20,7 @@ export default function prepareCategoryData(request, data) {
 
 	if (pageData && pageData.details) {
 		result.canonicalUrl += pageData.details.url;
+		result.description = pageData.details.description;
 	}
 
 	if (typeof request.query.buckySampling !== 'undefined') {
