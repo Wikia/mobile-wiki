@@ -18,7 +18,7 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
-			return DiscussionPostModel.find(Mercury.wiki.id, params.postId);
+			return DiscussionPostModel.find(Mercury.wiki.id, params.postId, params.replyId);
 		},
 
 		/**

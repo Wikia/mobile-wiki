@@ -106,7 +106,7 @@ Router.map(function () {
 			path: '/p/:postId'
 		});
 
-		this.route('postPermalink', {
+		this.route('reply', {
 			path: '/p/:postId/r/:replyId'
 		});
 

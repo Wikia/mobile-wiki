@@ -131,21 +131,23 @@ DiscussionPostModel.reopenClass({
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, postId) {
+	find(wikiId, postId, replyId = 0) {
 		const postInstance = DiscussionPostModel.create({
-			wikiId,
-			postId
-		});
+				wikiId,
+				postId,
+				replyId
+			}),
+			urlData = replyId ? `/${wikiId}/permalinks/posts/${replyId}` : `/${wikiId}/threads/${postId}`;
 
 		return ajaxCall({
 			data: {
-				limit: this.get('postsLimit'),
-				page: this.get('data.pageNum'),
-				pivot: this.get('pivotId'),
+				limit: postInstance.get('replyLimit'),
 				responseGroup: 'full',
+				sortDirection: 'descending',
+				sortKey: 'creation_date',
 				viewableOnly: false
 			},
-			url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`),
+			url: M.getDiscussionServiceUrl(urlData),
 			success: (data) => {
 				postInstance.setNormalizedData(data);
 			},
@@ -154,36 +156,6 @@ DiscussionPostModel.reopenClass({
 			}
 		});
 	},
-
-		/**
-	 * @param {number} wikiId
-	 * @param {number} postId
-	 * @param {number} replyId
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	permalink(wikiId, postId, replyId) {
-		const postInstance = DiscussionPostModel.create({
-			wikiId,
-			postId,
-			replyId
-		});
-
-		return ajaxCall({
-			url: M.getDiscussionServiceUrl(`/${wikiId}/permalinks/posts/${replyId}`, {
-				limit: postInstance.get('replyLimit'),
-				responseGroup: 'full',
-				sortDirection: 'descending',
-				sortKey: 'creation_date',
-				viewableOnly: false
-			}),
-			success: (data) => {
-				postInstance.setNormalizedData(data);
-			},
-			error: (err) => {
-				postInstance.setErrorProperty(err);
-			}
-		});
-	}
 });
 
 export default DiscussionPostModel;
