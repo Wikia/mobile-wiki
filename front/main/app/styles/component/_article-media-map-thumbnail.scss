@@ -1,0 +1,34 @@
+.article-media-map-thumbnail {
+  margin: 40px 0;
+  position: relative;
+  text-align: center;
+
+  a {
+	display: block;
+  }
+
+  .icon {
+	fill: #fff;
+	position: absolute;
+	top: 5%;
+	right: 5%;
+  }
+
+  figcaption {
+	bottom: 0;
+	color: #fff;
+	font-size: 1.6rem;
+	font-weight: 700;
+	height: 50px;
+	left: 5%;
+	overflow: hidden;
+	padding: 5px 0;
+	position: absolute;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 90%;
+  }
+}
+
+
+

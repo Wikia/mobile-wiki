@@ -223,18 +223,9 @@ export default Ember.Component.extend(
 		 * @returns {boolean}
 		 */
 		click(event) {
-			const $map = Ember.$(event.target).closest('.article-media-map-thumbnail'),
-				$anchor = Ember.$(event.target).closest('a');
+			const $anchor = Ember.$(event.target).closest('a');
 
 			let target;
-
-			// Wikia Map - it's not a link, but we handled it already
-			if ($map.length > 0) {
-				event.preventDefault();
-
-				// Don't bubble up
-				return false;
-			}
 
 			// Here, we want to handle media only, no links
 			if ($anchor.length === 0) {

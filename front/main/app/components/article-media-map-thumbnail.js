@@ -6,10 +6,9 @@ export default Ember.Component.extend(
 	{
 		classNames: ['article-media-map-thumbnail'],
 		tagName: 'figure',
-		caption: Ember.computed.alias('title'),
 
 		/**
-		 * @returns {void}
+		 * @returns {void|boolean}
 		 */
 		click() {
 			const url = this.get('url'),
@@ -25,6 +24,8 @@ export default Ember.Component.extend(
 					title,
 					url
 				});
+
+				return false;
 			}
 		}
 	}
