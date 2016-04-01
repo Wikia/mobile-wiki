@@ -222,3 +222,126 @@ QUnit.test('getOpenGraphData', function (assert) {
 		assert.equal(result.description, testCase.expected.description, 'Description is set as expected');
 	});
 });
+
+QUnit.test('getStandardTitle', function (assert) {
+	var testCases = [
+		{
+			request: {
+				params: {
+					title: 'Rachel_Berry'
+				}
+			},
+			articleData: {
+				article: {
+					displayTitle: 'Brittany Pierce'
+				},
+				details: {
+					title: 'Burt Hummel'
+				}
+			},
+			expected: 'Brittany Pierce',
+			description: 'When possible title is taken from displayTitle'
+		},
+		{
+			request: {
+				params: {
+					title: 'Rachel_Berry'
+				}
+			},
+			articleData: {
+				details: {
+					title: 'Burt Hummel'
+				}
+			},
+			expected: 'Burt Hummel',
+			description: 'When displayTitle not available title is taken from details'
+		},
+		{
+			request: {
+				params: {
+					title: 'Rachel_Berry'
+				}
+			},
+			articleData: {},
+			expected: 'Rachel Berry',
+			description: 'When displayTitle and title from details not available title is taken from request'
+		}
+	];
+
+	testCases.forEach(function (testCase) {
+		assert.equal(
+			global.getStandardTitle(testCase.request, testCase.articleData),
+			testCase.expected,
+			testCase.description
+		);
+	});
+});
+
+QUnit.test('getCuratedMainPageTitle', function (assert) {
+	var testCases = [
+		{
+			request: {
+				url: {
+					path: '/main/section/category:C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।'
+				}
+			},
+			wikiVariables: {
+				mainPageTitle: 'Muppet Wiki'
+			},
+			expected: 'category:C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।',
+			description: 'For sections title is taken from request\'s url path when possible'
+		}, {
+			request: {
+				url: {
+					path: '/main/section/category:%20C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।'
+				}
+			},
+			wikiVariables: {
+				mainPageTitle: 'Muppet Wiki'
+			},
+			expected: 'category: C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।',
+			description: 'For sections %20 is replaced to space in request\'s url path'
+		}, {
+			request: {
+				url: {
+					path: '/main/category/C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।'
+				}
+			},
+			wikiVariables: {
+				mainPageTitle: 'Muppet Wiki'
+			},
+			expected: 'C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।',
+			description: 'For categories title is taken from request\'s url path when possible'
+		}, {
+			request: {
+				url: {
+					path: '/main/category/%20C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।'
+				}
+			},
+			wikiVariables: {
+				mainPageTitle: 'Muppet Wiki'
+			},
+			expected: ' C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।',
+			description: 'For categories %20 is replaced to space in request\'s url path'
+		}, {
+			request: {
+				url: {
+					path: 'আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।'
+				}
+			},
+			wikiVariables: {
+				mainPageTitle: 'Muppet_Wiki'
+			},
+			expected: 'Muppet Wiki',
+			description: 'Title is taken from wiki variables when "category" or "section" not in URL'
+		}
+	];
+
+	testCases.forEach(function (testCase) {
+		assert.equal(
+			global.getCuratedMainPageTitle(testCase.request, testCase.wikiVariables),
+			testCase.expected,
+			testCase.description
+		);
+	});
+});
