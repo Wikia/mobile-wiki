@@ -86,6 +86,14 @@ export function getOpenGraphData(type, title, url, pageData = {}) {
 }
 
 /**
+ * @param {Object} wikiVariables
+ * @returns {String} url for openGraph
+ */
+export function getOpenGraphUrl(wikiVariables) {
+	return wikiVariables.basePath + wikiVariables.articlePath + wikiVariables.siteName.replace(/ /g, '_');
+}
+
+/**
  * @returns {LocalSettings}
  */
 export function getLocalSettings() {
@@ -97,7 +105,7 @@ export function getLocalSettings() {
  * @param {Object} articleData
  * @returns {String}
  */
-export function getTitle(request, articleData) {
+export function getStandardTitle(request, articleData) {
 	if (articleData) {
 		if (articleData.article && articleData.article.displayTitle) {
 			return articleData.article.displayTitle;
@@ -109,16 +117,38 @@ export function getTitle(request, articleData) {
 	return request.params.title.replace(/_/g, ' ');
 }
 
+/**
+ * @param {Hapi.Request} request
+ * @param {Object} wikiVariables
+ * @returns {String} title
+ */
+export function getCuratedMainPageTitle(request, wikiVariables) {
+	/**
+	 * Title is double encoded because Ember's RouteRecognizer does decodeURI while processing path.
+	 * See the MainPageRoute for more details.
+	 */
+	if (request.url.path.indexOf('section') > -1) {
+		return decodeURIComponent(decodeURI(request.url.path.replace('\/main\/section\/', '')))
+			.replace(/%20/g, ' ');
+	} else if (request.url.path.indexOf('category') > -1) {
+		return decodeURIComponent(decodeURI(request.url.path.replace('\/main\/category\/', '')))
+			.replace(/%20/g, ' ');
+	} else {
+		return wikiVariables.mainPageTitle.replace(/_/g, ' ');
+	}
+}
+
+/**
+ * @param {Hapi.Request} request
+ * @param {MediaWikiPageData|CuratedContentPageData} data
+ * @returns {object}
+ */
 export function getStandardResult(request, data) {
-	const pageData = data.page.data,
-		wikiVariables = data.wikiVariables,
-		displayTitle = getTitle(request, pageData),
+	const wikiVariables = data.wikiVariables,
 		userId = getUserId(request);
 
 	return {
 		canonicalUrl: wikiVariables.basePath,
-		documentTitle: displayTitle,
-		displayTitle,
 		gaUserIdHash: gaUserIdHash(userId),
 		isRtl: isRtl(wikiVariables),
 		// clone object to avoid overriding real localSettings for future requests
