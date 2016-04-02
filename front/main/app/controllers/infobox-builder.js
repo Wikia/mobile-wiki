@@ -25,12 +25,13 @@ export default Ember.Controller.extend({
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		save(shouldRedirectToPage = true) {
-			const model = this.get('model');
+			const model = this.get('model'),
+				initialTitle = this.get('initialTitle');
 
 			// prevents showing confirmation dialog on save
 			this.set('isDirty', false);
 
-			return model.saveStateToTemplate().then((urls = {}) => {
+			return model.saveStateToTemplate(initialTitle).then((urls = {}) => {
 				if (shouldRedirectToPage) {
 					this.get('target').send('redirectToPage', urls.templatePageUrl);
 				}

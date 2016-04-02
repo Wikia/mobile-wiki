@@ -250,13 +250,13 @@ export default Ember.Component.extend(
 			 */
 			onTemplateTitleChangeAttempt(title) {
 				if (title === this.get('initialTitle')) {
-					this.changeTemplateTitle(title);
+					this.setTemplateTitle(title);
 				} else {
 					this.get('getTemplateExistsAction')(title).then((exists) => {
 						this.set('titleExists', exists);
 
 						if (!exists) {
-							this.changeTemplateTitle(title);
+							this.setTemplateTitle(title);
 						}
 					});
 				}
@@ -343,7 +343,7 @@ export default Ember.Component.extend(
 		 * @param {String} title
 		 * @returns {void}
 		 */
-		changeTemplateTitle(title) {
+		setTemplateTitle(title) {
 			const callback = this.get('editTitleModalTrigger');
 
 			this.set('title', title);
