@@ -81,6 +81,18 @@ export default Ember.Component.extend(
 			return this.get('title') || i18n.t('infobox-builder:main.untitled-infobox-template');
 		}),
 
+		editTitleModalMessageText: Ember.computed('editTitleModalTrigger', function () {
+			return this.get('editTitleModalTrigger') ?
+				i18n.t('infobox-builder:main.edit-title-modal-text-on-leave') :
+				i18n.t('infobox-builder:main.edit-title-modal-text-on-rename');
+		}),
+
+		editTitleModalHeaderText: Ember.computed('editTitleModalTrigger', function () {
+			return this.get('editTitleModalTrigger') ?
+				i18n.t('infobox-builder:main.edit-title-modal-header-on-leave') :
+				i18n.t('infobox-builder:main.edit-title-modal-header-on-rename');
+		}),
+
 		editTitleModalConfirmButtonLabel: Ember.computed('editTitleModalTrigger', function () {
 			const messageKey = this.get('editTitleModalTrigger') === 'publish' ?
 				'edit-title-modal-publish' :
