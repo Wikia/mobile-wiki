@@ -19,7 +19,7 @@ function getCuratedContentModel(mainPageModel) {
 /**
  * @param {Ember.router} router
  * @param {Ember.model} model
- * @returns {void}
+ * @returns {Object}
  */
 function afterModel(router, model) {
 	model.set('curatedContent', getCuratedContentModel(model));
@@ -30,6 +30,9 @@ function afterModel(router, model) {
 		ns: model.get('ns'),
 		title: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 	});
+
+	router.set('curatedMainPageData.ns', model.get('ns'));
+	router.set('curatedMainPageData.adsContext', model.get('adsContext'));
 
 	return model;
 }

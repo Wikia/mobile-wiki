@@ -3,6 +3,28 @@ import {normalizeToWhitespace} from 'common/utils/string';
 import {setTrackContext, trackPageView} from 'common/utils/track';
 
 export default Ember.Mixin.create({
+	curatedMainPageData: Ember.inject.service(),
+	ns: Ember.computed('curatedMainPageData.ns', function() {
+		if (!Ember.isEmpty(this.get('curatedMainPageData.ns'))) {
+			return this.getWithDefault('curatedMainPageData.ns', 0);
+		} else {
+			const ns = Ember.getWithDefault(M.prop('mainPageData'), 'details.ns', 0);
+
+			this.set('curatedMainPageData.ns', ns);
+			return ns;
+		}
+	}),
+	adsContext: Ember.computed('curatedMainPageData.adsContext', function() {
+		if (this.get('curatedMainPageData.adsContext')) {
+			return this.get('curatedMainPageData.adsContext');
+		} else {
+			const adsContext = M.prop('mainPageData.adsContext');
+
+			this.set('curatedMainPageData.adsContext', adsContext);
+			return adsContext;
+		}
+	}),
+
 	/**
 	 * @returns {void}
 	 */
@@ -23,8 +45,7 @@ export default Ember.Mixin.create({
 	 */
 	afterModel(model, transition) {
 		const title = model.get('title'),
-			mainPageController = this.controllerFor('mainPage'),
-			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
+			mainPageController = this.controllerFor('mainPage');
 
 		let sectionOrCategoryName;
 
@@ -42,8 +63,8 @@ export default Ember.Mixin.create({
 		mainPageController.setProperties({
 			isRoot: false,
 			title: sectionOrCategoryName,
-			adsContext,
-			ns: M.prop('mainPageData.ns')
+			adsContext: this.get('adsContext'),
+			ns: this.get('ns')
 		});
 
 		transition.then(() => {
@@ -53,20 +74,20 @@ export default Ember.Mixin.create({
 
 	updateTrackingData(model) {
 		const uaDimensions = {},
-			mainPageData = $.extend({}, M.prop('mainPageData')),
-			adsContext = Ember.get(mainPageData, 'adsContext'),
-			namespace = Ember.getWithDefault(mainPageData, 'details.ns', -1);
+			adsContext = this.get('adsContext'),
+			ns = this.get('ns');
+
 
 		if (adsContext) {
 			uaDimensions[3] = Ember.get(adsContext, 'targeting.wikiVertical');
 			uaDimensions[14] = Ember.get(adsContext, 'opts.showAds') ? 'yes' : 'no';
 		}
 
-		uaDimensions[25] = namespace;
+		uaDimensions[25] = ns;
 
 		setTrackContext({
 			a: model.get('title'),
-			n: namespace
+			n: ns
 		});
 
 		trackPageView(uaDimensions);
