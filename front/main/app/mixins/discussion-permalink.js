@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-	showLiknedElement() {
+	showLikedElement() {
 		const linkedElement = this.$('.is-highlighted');
 
 		if (linkedElement.lenght === 0) {
@@ -12,6 +12,6 @@ export default Ember.Mixin.create({
 	},
 
 	didInsertElement() {
-		this.showLiknedElement();
+		this.showLikedElement();
 	},
 });
