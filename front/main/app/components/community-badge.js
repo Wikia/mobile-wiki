@@ -81,7 +81,7 @@ export default Ember.Component.extend({
 		638551: '/front/common/images/community-badge-ru-dont-starve.jpg',
 		749375: '/front/common/images/community-badge-zh-dont-starve.jpg',
 		125: '/front/common/images/community-badge-tardis.jpg',
-		537616: '/front/common/images/community-badge-creepy-pasta.jpg',
+		537616: '/front/common/images/community-badge-de-creepy-pasta.jpg',
 		7474: '/front/common/images/community-badge-de-animanga.jpg',
 		83115: '/front/common/images/community-badge-de-the-vampire-diaries.jpg',
 		1043693: '/front/common/images/community-badge-zh-terrabattle.jpg',
