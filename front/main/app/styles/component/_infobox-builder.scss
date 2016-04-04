@@ -31,6 +31,7 @@ $sidebar-header-padding: 16px;
 $sidebar-width: 300px;
 $sidebar-z-index: 1;
 $shadow-blur: 15px;
+$spinner-text-color: rgba(0, 0, 0, .5);
 $shadow-color: rgba(0, 0, 0, .3);
 $shadow-color-sidebar: rgba(0, 0, 0, .2);
 $spinner-text-color: rgba(0, 0, 0, .5);
@@ -195,6 +196,23 @@ $success-icon-size: 80px;
 		font-size: $type-smallest;
 		padding: $popover-vertical-padding $popover-horizontal-padding;
 	}
+
+	// styles for liquid-fire animation of sidebar
+
+	.liquid-fire-slide-to-left-item {
+		background-color: $white;
+		border-left: 1px solid $color-blue-gray;
+		height: 100%;
+	}
+
+	.liquid-fire-slide-to-left-container {
+		height: 100%;
+	}
+
+	.liquid-child {
+		height: 100%;
+		position: absolute;
+	}
 }
 
 // fix safari and firefox issues with pop up width calculation and text wrapping
@@ -215,10 +233,6 @@ $success-icon-size: 80px;
 		.icon-button-icon {
 			fill: $color-blue-light;
 		}
-	}
-
-	.infobox-builder-sidebar-header-icon-delete {
-		margin: $source-icon-margins;
 	}
 }
 

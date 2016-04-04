@@ -8,6 +8,9 @@ const originalMercury = Ember.$.extend(true, {}, window.Mercury),
 	});
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
+	beforeEach() {
+		window.wgNow = null;
+	},
 	afterEach() {
 		window.Mercury = Ember.$.extend(true, {}, originalMercury);
 	}
@@ -162,4 +165,25 @@ test('get correct handler based on model isMainPage flag and exception', functio
 
 	assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
 	assert.equal(handler.controllerName, expectedHandler.controllerName, 'controllerName is different than expected');
+});
+
+test('reset ads variables on before model', function (assert) {
+	const mock = this.subject();
+
+	M.prop('initialPageView', false);
+	mock.controllerFor = () => {
+		return {
+			send: () => {}
+		};
+	};
+
+	mock.beforeModel({
+		params: {
+			'wiki-page': {
+				title: 'foo'
+			}
+		}
+	});
+
+	assert.notEqual(window.wgNow, null);
 });

@@ -4,6 +4,7 @@ import AuthUtils from '../common/auth-utils';
 import Cookie from '../common/cookie';
 import FormErrors from '../common/form-errors';
 import HttpCodes from '../common/http-codes';
+import ProofOfWork from '../common/proof-of-work';
 import UrlHelper from '../common/url-helper';
 import VisitSourceWrapper from '../common/visit-source-wrapper';
 import MarketingOptIn from '../signup/marketing-opt-in';
@@ -80,7 +81,8 @@ export default class SignupForm {
 			email: formElements.namedItem('email').value,
 			birthdate: formElements.namedItem('birthdate').value,
 			langCode: formElements.namedItem('langCode').value,
-			marketingallowed: formElements.namedItem('marketingallowed').value
+			marketingAllowed: formElements.namedItem('marketingAllowed').value,
+			registrationWikiaId: formElements.namedItem('registrationWikiaId').value
 		};
 	}
 
@@ -134,6 +136,12 @@ export default class SignupForm {
 	 * @returns {void}
 	 */
 	onSubmit(event) {
+		this.sendRegistrationXhr();
+
+		event.preventDefault();
+	}
+
+	sendRegistrationXhr(proofOfWorkValue = null) {
 		const registrationXhr = new XMLHttpRequest(),
 			data = this.getFormValues(),
 			submitButton = this.form.querySelector('button'),
@@ -158,6 +166,33 @@ export default class SignupForm {
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				enableSubmitButton();
 				this.formErrors.displayValidationErrors(JSON.parse(registrationXhr.responseText).errors);
+			} else if (status === HttpCodes.TOO_MANY_REQUESTS) {
+
+				if (proofOfWorkValue) {
+					enableSubmitButton();
+					this.formErrors.displayGeneralError();
+					this.authLogger.xhrError(registrationXhr);
+				} else {
+					const challengeResponse = JSON.parse(registrationXhr.responseText);
+
+					let currentChallengeValue,
+						challengeStartTime,
+						challengeEndTime;
+
+					challengeStartTime = performance.now();
+					currentChallengeValue = challengeResponse.challenge +
+						ProofOfWork.proof(challengeResponse.challenge, challengeResponse.bits).counter;
+					challengeEndTime = performance.now();
+
+					this.authLogger.info({
+						message: 'Proof of Work challenge solving time',
+						value: challengeEndTime - challengeStartTime,
+						challenge: challengeResponse.challenge,
+						challengeBits: challengeResponse.bits
+					});
+
+					this.sendRegistrationXhr(currentChallengeValue);
+				}
 			} else {
 				enableSubmitButton();
 				this.formErrors.displayGeneralError();
@@ -174,9 +209,12 @@ export default class SignupForm {
 		registrationXhr.open('POST', this.form.action, true);
 		registrationXhr.withCredentials = true;
 		registrationXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		registrationXhr.send((new UrlHelper()).urlEncode(data));
 
-		event.preventDefault();
+		if (proofOfWorkValue) {
+			registrationXhr.setRequestHeader('X-Proof-Of-Work', proofOfWorkValue);
+		}
+
+		registrationXhr.send((new UrlHelper()).urlEncode(data));
 	}
 
 	/**
