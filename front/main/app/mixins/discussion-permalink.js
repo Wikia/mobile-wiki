@@ -8,7 +8,7 @@ export default Ember.Mixin.create({
 			return;
 		}
 
-		window.scrollTo(0, linkedElement.offset().top - Ember.$('.headroom').outerHeight());
+		window.scrollTo(0, linkedElement.offset().top - Ember.$('.site-body-discussion').offset().top);
 	},
 
 	didInsertElement() {
