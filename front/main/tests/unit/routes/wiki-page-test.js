@@ -4,7 +4,8 @@ const originalMercury = Ember.$.extend(true, {}, window.Mercury),
 	model = Ember.Object.create({
 		url: '/wiki/Kermit',
 		description: 'Article about Kermit',
-		displayTitle: 'Kermit The Frog'
+		displayTitle: 'Kermit The Frog',
+		documentTitle: 'Kermit The Frog - Muppet Wiki - Wikia'
 	});
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
@@ -81,17 +82,6 @@ test('set head tags without apple-itunes-app when appId is not set', function (a
 test('set correct document title', function (assert) {
 	const mock = this.subject(),
 		expectedDocumentTitle = 'Kermit The Frog - Muppet Wiki - Wikia';
-
-	mock.setHeadTags(model);
-
-	assert.equal(document.title, expectedDocumentTitle, 'document title is different than expected');
-});
-
-test('set default document title when htmlTitleTemplate is not set', function (assert) {
-	const mock = this.subject(),
-		expectedDocumentTitle = 'Kermit The Frog - Wikia';
-
-	delete window.Mercury.wiki.htmlTitleTemplate;
 
 	mock.setHeadTags(model);
 
