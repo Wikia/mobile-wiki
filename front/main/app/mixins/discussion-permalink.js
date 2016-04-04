@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import ViewportMixin from './viewport';
 
-export default Ember.Mixin.create(ViewportMixin, {
+export default Ember.Mixin.create({
 	showLiknedElement() {
 		const linkedElement = this.$('.is-highlighted');
 
