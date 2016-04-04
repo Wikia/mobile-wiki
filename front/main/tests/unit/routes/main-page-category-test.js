@@ -6,6 +6,7 @@ let originalM;
 moduleFor('route:MainPageCategory', 'Unit | Route | main page category', {
 	beforeEach() {
 		originalM = M;
+		window.wgNow = null;
 	},
 	afterEach() {
 		M = originalM;
@@ -71,4 +72,13 @@ test('sets controller properties', function (assert) {
 		};
 	};
 	routeMock.afterModel(modelWithDoubleEncodedTitle);
+});
+
+test('reset ads variables on before model', function (assert) {
+	const mock = this.subject();
+
+	M.prop('initialPageView', false);
+	mock.beforeModel();
+
+	assert.notEqual(window.wgNow, null);
 });
