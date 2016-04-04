@@ -312,7 +312,7 @@ export default Ember.Component.extend(
 
 			return this.get('saveAction')(shouldRedirectToPage).then((data) => {
 				this.set('isLoading', false);
-				this.handleSaveResults(data);
+				this.handleSaveResults(data, shouldRedirectToPage);
 			});
 		},
 
@@ -375,9 +375,10 @@ export default Ember.Component.extend(
 		 * information that title exists.
 		 *
 		 * @param {Object} data
+		 * @param {Boolean} shouldRedirectToPage
 		 * @returns {void}
 		 */
-		handleSaveResults(data) {
+		handleSaveResults(data, shouldRedirectToPage) {
 			if (data.success) {
 				this.set('showSuccess', true);
 
