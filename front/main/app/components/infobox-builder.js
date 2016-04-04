@@ -25,6 +25,13 @@ export default Ember.Component.extend(
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
 
+		titleWasChanged: Ember.computed('title', 'initialTitle', function () {
+			const initialTitle = this.get('initialTitle'),
+				title = this.get('title');
+
+			return initialTitle && initialTitle !== title;
+		}),
+
 		canGoToSourceModal: Ember.computed('showGoToSourceModal', 'isEditTitleModalVisible', 'title', {
 			set(key, value) {
 				this.set('showGoToSourceModal', value);
@@ -230,13 +237,10 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			tryGoToSource() {
-				const initialTitle = this.get('initialTitle'),
-					title = this.get('title');
-
 				this.trackClick('infobox-builder', 'go-to-source-icon');
 
-				if (title) {
-					if (this.get('isDirty') || (initialTitle && initialTitle !== title)) {
+				if (this.get('title')) {
+					if (this.get('isDirty') || this.get('titleWasChanged')) {
 						this.set('showGoToSourceModal', true);
 					} else {
 						this.handleGoToSource();
@@ -310,7 +314,7 @@ export default Ember.Component.extend(
 			this.trackClick('infobox-builder', 'save-attempt');
 			this.trackChangedItems();
 
-			return this.get('saveAction')(shouldRedirectToPage).then((data) => {
+			return this.get('saveAction')(this.get('initialTitle')).then((data) => {
 				this.set('isLoading', false);
 				this.handleSaveResults(data, shouldRedirectToPage);
 			});
@@ -389,7 +393,7 @@ export default Ember.Component.extend(
 				});
 
 				if (shouldRedirectToPage) {
-					this.get('redirectToPage')(data.urls.templatePageUrl);
+					this.get('redirectToPageAction')(data.urls.templatePageUrl);
 				}
 			} else if (data.conflict) {
 				this.set('titleExists', true);

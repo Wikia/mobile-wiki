@@ -578,7 +578,7 @@ test('handleSaveResults', function (assert) {
 			showEditTitleModalSpy = sinon.spy();
 
 		component.set('showEditTitleModal', showEditTitleModalSpy);
-		component.set('redirectToPage', redirectToPageSpy);
+		component.set('redirectToPageAction', redirectToPageSpy);
 		component.set('showSuccess', false);
 		component.set('titleExists', false);
 		component.handleSaveResults(testCase.data, testCase.shouldRedirectToPage);

@@ -21,16 +21,14 @@ export default Ember.Controller.extend({
 		 * sends redirectToPage action to route if desired,
 		 * return a promise so it can be chained
 		 *
+		 * @param {String} initialTitle
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		save() {
-			const model = this.get('model'),
-				initialTitle = this.get('initialTitle');
-
+		save(initialTitle) {
 			// prevents showing confirmation dialog on save
 			this.set('isDirty', false);
 
-			return model.saveStateToTemplate(initialTitle).then((data) => data);
+			return this.get('model').saveStateToTemplate(initialTitle).then((data) => data);
 		},
 
 		/**
