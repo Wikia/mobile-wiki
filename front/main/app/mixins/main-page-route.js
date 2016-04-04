@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {normalizeToWhitespace} from 'common/utils/string';
+import {setTrackContext, trackPageView} from 'common/utils/track';
 
 export default Ember.Mixin.create({
 	/**
@@ -20,7 +21,7 @@ export default Ember.Mixin.create({
 	 * @param {*} model
 	 * @returns {void}
 	 */
-	afterModel(model) {
+	afterModel(model, transition) {
 		const title = model.get('title'),
 			mainPageController = this.controllerFor('mainPage'),
 			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
@@ -44,6 +45,28 @@ export default Ember.Mixin.create({
 			adsContext,
 			ns: M.prop('mainPageData.ns')
 		});
+
+		transition.then(() => {
+			this.updateTrackingData(model);
+		});
+	},
+
+	updateTrackingData(model) {
+		const uaDimensions = {},
+			mainPageData = $.extend({}, M.prop('mainPageData')),
+			adsContext = Ember.get(mainPageData, 'adsContext');
+
+		if (adsContext) {
+			uaDimensions[3] = Ember.get(adsContext, 'targeting.wikiVertical');
+			uaDimensions[14] = Ember.get(adsContext, 'opts.showAds') ? 'yes' : 'no';
+		}
+
+		setTrackContext({
+			a: model.get('title'),
+			n: Ember.getWithDefault(mainPageData, 'details.ns', 0)
+		});
+
+		trackPageView(uaDimensions);
 	},
 
 	/**
