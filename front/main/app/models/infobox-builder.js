@@ -318,15 +318,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	saveStateToTemplate(initialTitle) {
-		const currentTitle = this.get('title');
-		let title = currentTitle,
-			action = 'publish';
-
-		// if title of existing template has been edited
-		if (initialTitle && (initialTitle !== currentTitle)) {
-			title = initialTitle;
-			action = 'publishAndRename';
-		}
+		const title = this.get('title');
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			getEditToken(this.get('title'))
@@ -337,26 +329,15 @@ const InfoboxBuilderModel = Ember.Object.extend({
 						}),
 						data: {
 							controller: 'PortableInfoboxBuilderController',
-							method: action,
+							method: 'publish',
 							title,
-							// used only in 'publishAndRename'
-							newTitle: currentTitle,
+							oldTitle: initialTitle || title,
 							data: InfoboxBuilderModel.prepareDataForSaving(this),
 							token
 						},
 						dataType: 'json',
 						method: 'POST',
-						success: (data) => {
-							if (data && data.urls && data.success && data.templateMoved) {
-								resolve(data.urls);
-							} else if (data && data.urls && data.success) {
-								// @todo handle case when move operation was unsuccessful
-								// - target template exists
-								resolve(data.urls);
-							} else {
-								reject(data.errors);
-							}
-						},
+						success: (data) => resolve(data),
 						error: (err) => reject(err)
 					});
 				});

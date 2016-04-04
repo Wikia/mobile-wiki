@@ -310,17 +310,9 @@ export default Ember.Component.extend(
 			this.trackClick('infobox-builder', 'save-attempt');
 			this.trackChangedItems();
 
-			return this.get('saveAction')(shouldRedirectToPage).then(() => {
-				track({
-					action: trackActions.success,
-					category: 'infobox-builder',
-					label: 'save-successful'
-				});
-
-				this.setProperties({
-					isLoading: false,
-					showSuccess: true
-				});
+			return this.get('saveAction')(shouldRedirectToPage).then((data) => {
+				this.set('isLoading', false);
+				this.handleSaveResults(data);
 			});
 		},
 
@@ -372,6 +364,35 @@ export default Ember.Component.extend(
 
 			if (callback) {
 				this.send(callback);
+			}
+		},
+
+		/**
+		 * Process save attempt response.
+		 * If save was successful - show success and redirect to
+		 * template page if needed.
+		 * If there was moving / saving conflict - display modal with
+		 * information that title exists.
+		 *
+		 * @param {Object} data
+		 * @returns {void}
+		 */
+		handleSaveResults(data) {
+			if (data.success) {
+				this.set('showSuccess', true);
+
+				track({
+					action: trackActions.success,
+					category: 'infobox-builder',
+					label: 'save-successful'
+				});
+
+				if (shouldRedirectToPage) {
+					this.get('redirectToPage')(data.urls.templatePageUrl);
+				}
+			} else if (data.conflict) {
+				this.set('titleExists', true);
+				this.showEditTitleModal();
 			}
 		},
 
