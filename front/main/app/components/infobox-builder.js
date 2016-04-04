@@ -224,13 +224,19 @@ export default Ember.Component.extend(
 			},
 
 			/**
+			 * Perform go to source only if title exists. If infobox was edited or title
+			 * was changed, ask if user wants to save the progress.
+			 *
 			 * @returns {void}
 			 */
 			tryGoToSource() {
+				const initialTitle = this.get('initialTitle'),
+					title = this.get('title');
+
 				this.trackClick('infobox-builder', 'go-to-source-icon');
 
-				if (this.get('title')) {
-					if (this.get('isDirty')) {
+				if (title) {
+					if (this.get('isDirty') || (initialTitle && initialTitle !== title)) {
 						this.set('showGoToSourceModal', true);
 					} else {
 						this.handleGoToSource();
@@ -320,8 +326,10 @@ export default Ember.Component.extend(
 
 		/**
 		 * Shows loading spinner and message, then sends action to controller to redirect to source
-		 * editor If model is dirty, asks user if changes should be saved If user wants to save
-		 * changes it does that and only then redirects
+		 * editor. If model is dirty, asks user if changes should be saved.
+		 * If user wants to save changes it does that and only then redirects.
+		 * If user doesn't want to save changes, he doesn't want to save new title as well, so
+		 * rollback title to initial one.
 		 *
 		 * @param {Boolean} saveChanges
 		 * @returns {Ember.RSVP.Promise} return promise so it's always async and testable
@@ -341,6 +349,7 @@ export default Ember.Component.extend(
 				} else {
 					this.setProperties({
 						isLoading: true,
+						title: this.get('initialTitle'),
 						loadingMessage
 					});
 					controllerAction();
