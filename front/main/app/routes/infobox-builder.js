@@ -28,7 +28,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 						this.setupStyles(responses.dataAndAssets);
 						this.setupInfoboxData(responses.dataAndAssets);
 					})
-					.then(this.isWikiaContext)
+					.then(this.isWikiaContext.bind(this))
 					.then(resolve)
 					.catch(reject);
 			} else {
@@ -154,6 +154,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 				null,
 				(data) => {
 					if (data && data.isWikiaContext && data.isLoggedIn) {
+						this.setVEContext(data.isVEContext);
 						resolve();
 					} else {
 						reject('Builder launched not in Wikia context');
@@ -309,5 +310,14 @@ export default Ember.Route.extend(ConfirmationMixin, {
 				error: (err) => reject(err)
 			});
 		});
+	},
+
+	/**
+	 * set VE context - true if IB opened inside visual editor
+	 * @param {Boolean} isVEContext
+	 * @returns {void}
+	 */
+	setVEContext(isVEContext = false) {
+		this.controllerFor('infobox-builder').set('isVEContext', isVEContext);
 	}
 });
