@@ -5,6 +5,7 @@ export default Ember.Controller.extend({
 	isDirty: false,
 	groupItems: [],
 	lastGroupItem: null,
+	isVEContext: false,
 
 	actions: {
 		/**
@@ -13,7 +14,11 @@ export default Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		cancel() {
-			this.get('target').send('redirectToPage');
+			if (this.get('isVEContext')) {
+				this.get('target').send('returnToVE');
+			} else {
+				this.get('target').send('redirectToPage');
+			}
 		},
 
 		/**
@@ -31,7 +36,9 @@ export default Ember.Controller.extend({
 			this.set('isDirty', false);
 
 			return model.saveStateToTemplate().then((urls = {}) => {
-				if (shouldRedirectToPage) {
+				if (this.get('isVEContext')) {
+					this.get('target').send('returnToVE');
+				} else if (shouldRedirectToPage) {
 					this.get('target').send('redirectToPage', urls.templatePageUrl);
 				}
 			});
