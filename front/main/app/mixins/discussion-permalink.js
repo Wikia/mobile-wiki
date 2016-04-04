@@ -3,7 +3,7 @@ import ViewportMixin from './viewport';
 
 export default Ember.Mixin.create(ViewportMixin, {
 	showLiknedElement() {
-		const linkedElement = this.$('.is-linked');
+		const linkedElement = this.$('.is-highlighted');
 
 		if (linkedElement.lenght === 0) {
 			return;
