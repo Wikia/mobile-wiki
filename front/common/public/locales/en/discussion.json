@@ -70,8 +70,7 @@
     "locked-post-text": "This post is locked.",
     "lock-post": "Lock Post",
     "unlock-post": "Unlock Post",
-    "locked-and-reported-to-moderators-text": "This post is locked, and has been reported.",
-    "all-discussions-link-text": "Show me all discussions"
+    "locked-and-reported-to-moderators-text": "This post is locked, and has been reported."
   },
   "editor": {
     "post-failed-error": "Post failed.",
