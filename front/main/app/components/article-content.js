@@ -243,9 +243,7 @@ export default Ember.Component.extend(
 						items: media[attrs.ref]
 					});
 				}
-			}
-
-			if (name === 'article-media-map-thumbnail') {
+			} else if (name === 'article-media-map-thumbnail') {
 				attrs = Ember.$.extend(attrs, {
 					openLightbox: this.get('openLightbox')
 				});
