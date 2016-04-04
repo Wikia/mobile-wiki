@@ -347,11 +347,13 @@ const InfoboxBuilderModel = Ember.Object.extend({
 						dataType: 'json',
 						method: 'POST',
 						success: (data) => {
-							if (data && data.success) {
+							if (data && data.urls && data.success && data.templateMoved) {
+								resolve(data.urls);
+							} else if (data && data.urls && data.success) {
+								// @todo handle case when move operation was unsuccessful
+								// - target template exists
 								resolve(data.urls);
 							} else {
-								// @todo handle error articleexists!
-								// set titleExists to true and display edit title modal
 								reject(data.errors);
 							}
 						},
