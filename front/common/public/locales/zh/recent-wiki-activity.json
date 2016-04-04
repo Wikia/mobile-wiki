@@ -14,7 +14,7 @@
     "undo-failure":"由於編輯已經被新內容覆蓋，不能撤銷此次編輯。",
     "undo-label":"撤銷",
     "undo-success":"成功地撤銷了對頁面__pageTitle__的編輯!",
-    "nice-work-button-label":"做的漂亮！"
+    "nice-work-button-label":"贊！"
   },
   "diff":{
     "after":"之後",

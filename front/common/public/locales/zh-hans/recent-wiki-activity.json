@@ -14,7 +14,7 @@
     "undo-failure":"由于编辑已经被新内容覆盖，不能撤消此次编辑。",
     "undo-label":"撤销",
     "undo-success":"成功地撤消了对页面__pageTitle__的编辑!",
-    "nice-work-button-label":"做的漂亮！"
+    "nice-work-button-label":"赞！"
   },
   "diff":{
     "after":"之后",
