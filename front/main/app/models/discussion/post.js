@@ -138,7 +138,7 @@ DiscussionPostModel.reopenClass({
 				postId,
 				replyId
 			}),
-			urlData = replyId ? `/${wikiId}/permalinks/posts/${replyId}` : `/${wikiId}/threads/${postId}`;
+			urlPath = replyId ? `/${wikiId}/permalinks/posts/${replyId}` : `/${wikiId}/threads/${postId}`;
 
 		return ajaxCall({
 			context: postInstance,
@@ -149,7 +149,7 @@ DiscussionPostModel.reopenClass({
 				sortKey: 'creation_date',
 				viewableOnly: false
 			},
-			url: M.getDiscussionServiceUrl(urlData),
+			url: M.getDiscussionServiceUrl(urlPath),
 			success: (data) => {
 				if (replyId) {
 					data.permalinkedReplyId = replyId;
