@@ -1,10 +1,4 @@
 import Ember from 'ember';
+import DiscussionBaseController from './base';
 
-export default Ember.Controller.extend(
-	{
-		application: Ember.inject.controller(),
-
-		smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
-		siteHeadPinned: Ember.computed.oneWay('application.siteHeadPinned'),
-	}
-);
+export default DiscussionBaseController.extend({});
