@@ -23,6 +23,7 @@ export default Ember.Component.extend({
 		5931: '/front/common/images/community-badge-star-wars.png',
 		280741: '/front/common/images/community-badge-star-wars.png',
 		13346: '/front/common/images/community-badge-walking-dead.png',
+		190497: '/front/common/images/community-badge-es-walking-dead.png',
 		504037: '/front/common/images/community-badge-de-walking-dead.jpg',
 		1014363: '/front/common/images/community-badge-ja-walking-dead.jpg',
 		558247: '/front/common/images/community-badge-clash-clans.jpg',
