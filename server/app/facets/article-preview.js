@@ -21,6 +21,7 @@ function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
 				article: {
 					media: article.media
 				},
+				ns: 0,
 				details: {
 					ns: 0,
 					title,

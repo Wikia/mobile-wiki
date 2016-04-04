@@ -168,7 +168,10 @@ const localSettings = {
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
-		path: '/auth',
+		path: '/auth'
+	},
+	userRegistationService: {
+		path: '/user-registration',
 		usernameMaxLength: 50,
 		passwordMaxLength: 50
 	},
