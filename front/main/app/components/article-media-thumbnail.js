@@ -9,7 +9,7 @@ export default Ember.Component.extend(
 	{
 		attributeBindings: ['data-ref'],
 		classNames: ['article-media-thumbnail'],
-		classNameBindings: ['hasCaption', 'itemType', 'isSmall', 'loaded'],
+		classNameBindings: ['hasFigcaption', 'itemType', 'isSmall', 'loaded'],
 		tagName: 'figure',
 
 		smallImageSize: {
@@ -53,7 +53,7 @@ export default Ember.Component.extend(
 		}),
 
 		hasFigcaption: Ember.computed('caption', 'title', function () {
-			return this.get('title') || this.get('caption');
+			return Boolean(this.get('title') || this.get('caption'));
 		}),
 
 		showTitle: Ember.computed('type', function () {
