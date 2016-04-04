@@ -31,8 +31,10 @@ function afterModel(router, model) {
 		title: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 	});
 
-	router.set('curatedMainPageData.ns', model.get('ns'));
-	router.set('curatedMainPageData.adsContext', model.get('adsContext'));
+	router.setProperties({
+		'curatedMainPageData.ns': model.get('ns'),
+		'curatedMainPageData.adsContext': model.get('adsContext')
+	});
 
 	return model;
 }

@@ -23,6 +23,7 @@ export default Ember.Mixin.create({
 
 	/**
 	 * @param {*} model
+	 * @param {Ember.Transition} transition
 	 * @returns {void}
 	 */
 	afterModel(model, transition) {
