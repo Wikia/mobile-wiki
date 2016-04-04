@@ -9,7 +9,7 @@ import {gaUserIdHash} from '../lib/hashing';
 import {
 	RedirectedToCanonicalHost, WikiVariablesNotValidWikiError, WikiVariablesRequestError
 } from '../lib/custom-errors';
-import {isRtl, getUserId, getLocalSettings} from './operations/prepare-page-data';
+import {isRtl, getUserId, getLocalSettings} from './operations/page-data-helper';
 import showServerErrorPage from './operations/show-server-error-page';
 
 /**
@@ -78,9 +78,6 @@ export default function showApplication(request, reply, wikiVariables) {
 
 			context.wikiVariables = wikiVariables;
 			context.isRtl = isRtl(wikiVariables);
-
-			// @todo Update displayTitle
-			context.htmlTitle = Utils.getHtmlTitle(wikiVariables);
 
 			return OpenGraph.getAttributes(request, context.wikiVariables);
 		})
