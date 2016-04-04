@@ -137,3 +137,53 @@ test('test group items calculation', function (assert) {
 		assert.deepEqual(controller.get('groupItems'), testCase.expected);
 	});
 });
+
+/**
+ * @returns {Object}
+ */
+function getRouteMock() {
+	return {
+		send: sinon.spy()
+	};
+}
+
+test('check the appropriate action is sent on save and cancel', function (assert) {
+	const controller = this.subject(),
+		model = {
+			saveStateToTemplate: sinon.stub().returns(Ember.RSVP.Promise.resolve()),
+		},
+		cases = [
+			{
+				action: 'cancel',
+				isVEContext: true,
+				calledWith: 'returnToVE'
+			},
+			{
+				action: 'cancel',
+				isVEContext: false,
+				calledWith: 'redirectToPage'
+			},
+			{
+				action: 'save',
+				isVEContext: true,
+				calledWith: 'returnToVE'
+			},
+			{
+				action: 'save',
+				isVEContext: false,
+				calledWith: 'redirectToPage'
+			}
+		];
+
+	controller.set('model', model);
+
+	cases.forEach((testCase) => {
+		const route = getRouteMock();
+
+		controller.set('isVEContext', testCase.isVEContext);
+		controller.set('target', route);
+
+		Ember.run(() => controller.send(testCase.action));
+		assert.equal(route.send.calledWith(testCase.calledWith), true);
+	});
+});
