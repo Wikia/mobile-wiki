@@ -15,7 +15,7 @@ DiscussionReply.reopenClass({
 	 * @returns {Ember.Object}
 	 */
 	create(postData) {
-		return this._super({
+		const reply = this._super({
 			createdBy: DiscussionContributor.create(postData.createdBy),
 			creationTimestamp: postData.creationDate.epochSecond,
 			id: postData.id,
@@ -30,10 +30,14 @@ DiscussionReply.reopenClass({
 			threadCreatedBy: DiscussionContributor.create(postData.threadCreatedBy),
 			title: postData.title,
 			upvoteCount: parseInt(postData.upvoteCount, 10),
-			userData: DiscussionUserData.create(
-				Ember.get(postData, '_embedded.userData.0')
-			)
-		});
+		}),
+		userData = Ember.get(postData, '_embedded.firstPost.0._embedded.userData.0');
+
+		if (userData) {
+			reply.set('userData', DiscussionUserData.create(userData));
+		}
+
+		return reply;
 	}
 });
 
