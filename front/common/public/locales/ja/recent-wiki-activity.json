@@ -10,7 +10,7 @@
     "rollback-failure":"編集中の版が競合しているため、巻き戻しできませんでした。",
     "rollback-success":"__pageTitle__のページを巻き戻しました。",
     "summary":"要約",
-    "title":"最近のウィキアクティビティ",
+    "title":"最近のWikiアクティビティ",
     "undo-failure":"編集中の版が競合しているため、編集を取り消せませんでした。",
     "undo-label":"取り消し",
     "undo-success":"__pageTitle__のページへの編集を取り消しました。",

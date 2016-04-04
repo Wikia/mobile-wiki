@@ -408,41 +408,6 @@ QUnit.test('redirectToCanonicalHostIfNeeded', function (assert) {
 	});
 });
 
-QUnit.test('getHtmlTitle', function (assert) {
-	var testCases = [
-		{
-			htmlTitleTemplate: '$1 - Muppet Wiki - Wikia',
-			displayTitle: 'Kermit the Frog',
-			expected: 'Kermit the Frog - Muppet Wiki - Wikia'
-		},
-		{
-			htmlTitleTemplate: '$1 - Muppet Wiki - Wikia',
-			displayTitle: 'test title',
-			expected: 'test title - Muppet Wiki - Wikia'
-		},
-		{
-			htmlTitleTemplate: '$1 - Muppet Wiki - Wikia',
-			displayTitle: '',
-			expected: 'Muppet Wiki - Wikia'
-		},
-		{
-			htmlTitleTemplate: 'sandbox - $1 - Muppet Wiki - Wikia',
-			displayTitle: '',
-			expected: 'sandbox - Muppet Wiki - Wikia'
-		},
-		{
-			htmlTitleTemplate: '$1 - Wikia',
-			displayTitle: '',
-			expected: 'Wikia'
-		}
-	];
-
-	testCases.forEach(function (testCase) {
-		assert.equal(global.getHtmlTitle({htmlTitleTemplate: testCase.htmlTitleTemplate},
-			testCase.displayTitle), testCase.expected);
-	});
-});
-
 QUnit.test('redirectToOasis', function (assert) {
 	var testCases = [
 		{
