@@ -128,7 +128,7 @@ DiscussionPostModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} postId
-	 * @param {number} replyId
+	 * @param {number} [replyId=null]
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
