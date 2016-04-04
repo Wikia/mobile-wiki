@@ -4,7 +4,7 @@ export default Ember.Mixin.create({
 	showLikedElement() {
 		const linkedElement = this.$('.is-highlighted');
 
-		if (linkedElement.lenght === 0) {
+		if (linkedElement.length === 0) {
 			return;
 		}
 

@@ -5,6 +5,7 @@ export default DiscussionPostCardBaseComponent.extend({
 	classNameBindings: ['isParentDeleted', 'isHighlighted'],
 
 	isHighlighted: Ember.computed.equal('post.id', 'permalinkedReplyId', function () {
+		console.log('------', this.get('post.id'), this.get('permalinkedReplyId'));
 		return this.get('post.id') === this.get('permalinkedReplyId');
 	}),
 });
