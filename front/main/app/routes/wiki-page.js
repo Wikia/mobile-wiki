@@ -120,6 +120,7 @@ export default Ember.Route.extend(RouteWithAdsMixin, {
 				`app-id=${appId}`,
 			htmlTitleTemplate = Ember.get(Mercury, 'wiki.htmlTitleTemplate') || '$1 - Wikia';
 
+		// @todo XW-1321 - cleanup f8d310943ee5564fe8117f95c436b48e86d03f8b
 		document.title = model.get('documentTitle') || htmlTitleTemplate.replace('$1', model.get('displayTitle'));
 
 		headTags.push({
