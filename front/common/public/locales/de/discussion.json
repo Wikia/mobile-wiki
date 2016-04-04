@@ -70,7 +70,12 @@
     "locked-post-text":"Dieser Beitrag wurde gesperrt.",
     "lock-post":"Beitrag sperren",
     "unlock-post":"Beitrag entsperren",
-    "locked-and-reported-to-moderators-text":"Dieser Beitrag ist gesperrt und wurde gemeldet."
+    "locked-and-reported-to-moderators-text":"Dieser Beitrag ist gesperrt und wurde gemeldet.",
+    "upvote-link-label":"__count__ Stimme",
+    "upvote-link-label_plural":"__count__ Stimmen",
+    "replies-link-label":"__count__ Antwort",
+    "replies-link-label_plural":"__count__ Antworten",
+    "share-header":"Beitrag teilen"
   },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",

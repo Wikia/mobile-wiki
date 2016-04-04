@@ -70,7 +70,12 @@
     "locked-post-text":"这篇帖子被锁定。",
     "lock-post":"锁定帖子",
     "unlock-post":"解锁帖子",
-    "locked-and-reported-to-moderators-text":"这篇帖子被锁定并且被举报。"
+    "locked-and-reported-to-moderators-text":"这篇帖子被锁定并且被举报。",
+    "upvote-link-label":"__count__个赞",
+    "upvote-link-label_plural":"__count__个赞",
+    "replies-link-label":"__count__个回复",
+    "replies-link-label_plural":"__count__个回复",
+    "share-header":"分享话题"
   },
   "editor":{
     "post-failed-error":"发布失败",
