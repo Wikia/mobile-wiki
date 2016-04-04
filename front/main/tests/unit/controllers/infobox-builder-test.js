@@ -138,19 +138,13 @@ test('test group items calculation', function (assert) {
 	});
 });
 
-/**
- * @returns {Object}
- */
-function getRouteMock() {
-	return {
-		send: sinon.spy()
-	};
-}
-
 test('check the appropriate action is sent on save and cancel', function (assert) {
 	const controller = this.subject(),
 		model = {
 			saveStateToTemplate: sinon.stub().returns(Ember.RSVP.Promise.resolve()),
+		},
+		route = {
+			send: sinon.spy()
 		},
 		cases = [
 			{
@@ -176,12 +170,12 @@ test('check the appropriate action is sent on save and cancel', function (assert
 		];
 
 	controller.set('model', model);
+	controller.set('target', route);
 
 	cases.forEach((testCase) => {
-		const route = getRouteMock();
+		route.send.reset();
 
 		controller.set('isVEContext', testCase.isVEContext);
-		controller.set('target', route);
 
 		Ember.run(() => controller.send(testCase.action));
 		assert.equal(route.send.calledWith(testCase.calledWith), true);
