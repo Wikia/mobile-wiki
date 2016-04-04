@@ -16,9 +16,5 @@ export default Ember.Component.extend(
 		canReply: Ember.computed('model.isDeleted', 'model.isLocked', function () {
 			return !this.get('model.isDeleted') && !this.get('model.isLocked');
 		}),
-
-		didInsertElement() {
-			this.showLiknedElement();
-		},
 	}
 );

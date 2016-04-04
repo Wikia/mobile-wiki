@@ -11,4 +11,8 @@ export default Ember.Mixin.create(ViewportMixin, {
 
 		window.scrollTo(0, linkedElement.offset().top - Ember.$('.headroom').outerHeight());
 	},
+
+	didInsertElement() {
+		this.showLiknedElement();
+	},
 });
