@@ -19,3 +19,20 @@ test('reset item in edit mode on clicking preview background', function (assert)
 	assert.equal(setEditItemSpy.calledWith(null), true);
 });
 
+test('Go to source is rendered if not in VE context', function (assert) {
+	const goToSourceSelector = '.infobox-builder-go-to-source-button';
+
+	this.set('isVEContext', false);
+	this.render(hbs`{{infobox-builder isVEContext=isVEContext}}`);
+
+	assert.equal(this.$(goToSourceSelector).length, 1);
+});
+
+test('Go to source is not rendered if in VE context', function (assert) {
+	const goToSourceSelector = '.infobox-builder-go-to-source-button';
+
+	this.set('isVEContext', true);
+	this.render(hbs`{{infobox-builder isVEContext=isVEContext}}`);
+
+	assert.equal(this.$(goToSourceSelector).length, 0);
+});
