@@ -132,7 +132,7 @@ DiscussionPostModel.reopenClass({
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, postId, replyId = 0) {
+	find(wikiId, postId, replyId = null) {
 		const postInstance = DiscussionPostModel.create({
 				wikiId,
 				postId,
@@ -152,7 +152,7 @@ DiscussionPostModel.reopenClass({
 			url: M.getDiscussionServiceUrl(urlData),
 			success: (data) => {
 				if (replyId) {
-					data.permalinkReplyId = replyId;
+					data.permalinkedReplyId = replyId;
 				}
 				postInstance.setNormalizedData(data);
 			},

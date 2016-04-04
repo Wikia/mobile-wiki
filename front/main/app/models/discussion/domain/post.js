@@ -7,7 +7,7 @@ const DiscussionPost = DiscussionEntity.extend({
 	contributors: null,
 	pivotId: null,
 	pageNum: null,
-	permalinkReplyId: null,
+	permalinkedReplyId: null,
 	replies: null,
 	repliesCount: null,
 	repliesLimit: 10
@@ -62,7 +62,7 @@ DiscussionPost.reopenClass({
 				isNew: threadData.isNew,
 				isReported: threadData.isReported,
 				isRequesterBlocked: threadData.isRequesterBlocked,
-				permalinkReplyId: threadData.permalinkReplyId,
+				permalinkedReplyId: threadData.permalinkedReplyId,
 				rawContent: Ember.get(threadData, '_embedded.firstPost.0.rawContent'),
 				threadId: threadData.id,
 				title: threadData.title,
