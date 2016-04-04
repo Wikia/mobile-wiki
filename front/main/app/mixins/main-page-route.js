@@ -4,26 +4,8 @@ import {setTrackContext, trackPageView} from 'common/utils/track';
 
 export default Ember.Mixin.create({
 	curatedMainPageData: Ember.inject.service(),
-	ns: Ember.computed('curatedMainPageData.ns', function() {
-		if (!Ember.isEmpty(this.get('curatedMainPageData.ns'))) {
-			return this.getWithDefault('curatedMainPageData.ns', 0);
-		} else {
-			const ns = Ember.getWithDefault(M.prop('mainPageData'), 'details.ns', 0);
-
-			this.set('curatedMainPageData.ns', ns);
-			return ns;
-		}
-	}),
-	adsContext: Ember.computed('curatedMainPageData.adsContext', function() {
-		if (this.get('curatedMainPageData.adsContext')) {
-			return this.get('curatedMainPageData.adsContext');
-		} else {
-			const adsContext = M.prop('mainPageData.adsContext');
-
-			this.set('curatedMainPageData.adsContext', adsContext);
-			return adsContext;
-		}
-	}),
+	ns: Ember.computed.readOnly('curatedMainPageData.ns'),
+	adsContext: Ember.computed.readOnly('curatedMainPageData.adsContext'),
 
 	/**
 	 * @returns {void}

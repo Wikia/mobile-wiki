@@ -1,4 +1,19 @@
 export default Ember.Service.extend({
-	adsContext: null,
-	namespace: null
+	adsContext: Ember.computed({
+		get() {
+			return M.prop('mainPageData.adsContext');
+		},
+		set(_, value) {
+			return value;
+		}
+	}),
+
+	ns: Ember.computed({
+		get() {
+			return M.prop('mainPageData.ns');
+		},
+		set(_, value) {
+			return value;
+		}
+	})
 });
