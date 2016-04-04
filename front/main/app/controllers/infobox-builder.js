@@ -14,11 +14,7 @@ export default Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		cancel() {
-			if (this.get('isVEContext')) {
-				this.get('target').send('returnToVE');
-			} else {
-				this.get('target').send('redirectToPage');
-			}
+			this.get('target').send(this.get('isVEContext') ? 'returnToVE' : 'redirectToPage');
 		},
 
 		/**
@@ -36,10 +32,12 @@ export default Ember.Controller.extend({
 			this.set('isDirty', false);
 
 			return model.saveStateToTemplate().then((urls = {}) => {
+				const route = this.get('target');
+
 				if (this.get('isVEContext')) {
-					this.get('target').send('returnToVE');
+					route.send('returnToVE');
 				} else if (shouldRedirectToPage) {
-					this.get('target').send('redirectToPage', urls.templatePageUrl);
+					route.send('redirectToPage', urls.templatePageUrl);
 				}
 			});
 		},
