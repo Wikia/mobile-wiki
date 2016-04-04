@@ -54,16 +54,19 @@ export default Ember.Mixin.create({
 	updateTrackingData(model) {
 		const uaDimensions = {},
 			mainPageData = $.extend({}, M.prop('mainPageData')),
-			adsContext = Ember.get(mainPageData, 'adsContext');
+			adsContext = Ember.get(mainPageData, 'adsContext'),
+			namespace = Ember.getWithDefault(mainPageData, 'details.ns', -1);
 
 		if (adsContext) {
 			uaDimensions[3] = Ember.get(adsContext, 'targeting.wikiVertical');
 			uaDimensions[14] = Ember.get(adsContext, 'opts.showAds') ? 'yes' : 'no';
 		}
 
+		uaDimensions[25] = namespace;
+
 		setTrackContext({
 			a: model.get('title'),
-			n: Ember.getWithDefault(mainPageData, 'details.ns', 0)
+			n: namespace
 		});
 
 		trackPageView(uaDimensions);
