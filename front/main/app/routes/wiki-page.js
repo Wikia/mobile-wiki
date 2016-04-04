@@ -2,12 +2,13 @@ import Ember from 'ember';
 import ArticleHandler from '../utils/wiki-handlers/article';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
+import RouteWithAdsMixin from '../mixins/route-with-ads';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import {normalizeToUnderscore} from 'common/utils/string';
 import {setTrackContext, trackPageView} from 'common/utils/track';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(RouteWithAdsMixin, {
 	redirectEmptyTarget: false,
 	wikiHandler: null,
 	currentUser: Ember.inject.service(),
@@ -36,6 +37,8 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	beforeModel(transition) {
+		this._super();
+
 		const title = transition.params['wiki-page'].title.replace('wiki/', '');
 
 		this.controllerFor('application').send('closeLightbox');
@@ -108,36 +111,35 @@ export default Ember.Route.extend({
 	 */
 	setHeadTags(model) {
 		const headTags = [],
-			defaultHtmlTitleTemplate = '$1 - Wikia',
 			pageUrl = model.get('url'),
 			description = model.get('description'),
-			htmlTitleTemplate = Ember.get(Mercury, 'wiki.htmlTitleTemplate') || defaultHtmlTitleTemplate,
 			canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}`,
 			appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios'),
 			appleAppContent = pageUrl ?
 				`app-id=${appId}, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}` :
 				`app-id=${appId}`;
 
-		document.title = htmlTitleTemplate.replace('$1', model.get('displayTitle'));
+		document.title = model.get('documentTitle');
 
-		headTags.push(
-			{
-				type: 'link',
-				tagId: 'canonical-url',
-				attrs: {
-					rel: 'canonical',
-					href: canonicalUrl
-				}
-			},
-			{
+		headTags.push({
+			type: 'link',
+			tagId: 'canonical-url',
+			attrs: {
+				rel: 'canonical',
+				href: canonicalUrl
+			}
+		});
+
+		if (description) {
+			headTags.push({
 				type: 'meta',
 				tagId: 'meta-description',
 				attrs: {
 					name: 'description',
 					content: description
 				}
-			}
-		);
+			});
+		}
 
 		if (appId) {
 			headTags.push({
