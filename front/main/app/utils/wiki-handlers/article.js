@@ -1,18 +1,18 @@
 import VisibilityStateManager from '../visibility-state-manager';
 
 /**
- * @param {Ember.router} router
+ * @param {Ember.Route} route
  * @param {Ember.model} model
  * @returns {void}
  */
-function afterModel(router, model) {
-	router.controllerFor('application').set('currentTitle', model.get('title'));
+function afterModel(route, model) {
+	route.controllerFor('application').set('currentTitle', model.get('title'));
 	VisibilityStateManager.reset();
 
 	// Reset query parameters
 	model.set('commentsPage', null);
 
-	router.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
+	route.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
 }
 
 /**
