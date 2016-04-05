@@ -121,14 +121,14 @@ export default Ember.Route.extend(ConfirmationMixin, {
 			});
 		},
 
-		returnToVE() {
+		returnToVE(isOnPublish = false) {
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				const ponto = window.Ponto;
 
 				ponto.invoke(
 					'wikia.infoboxBuilder.ponto',
 					'returnToVE',
-					null,
+					isOnPublish,
 					(data) => resolve(data),
 					(data) => {
 						reject(data);

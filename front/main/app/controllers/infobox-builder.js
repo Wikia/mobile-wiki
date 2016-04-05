@@ -35,7 +35,7 @@ export default Ember.Controller.extend({
 				const route = this.get('target');
 
 				if (this.get('isVEContext')) {
-					route.send('returnToVE');
+					route.send('returnToVE', true);
 				} else if (shouldRedirectToPage) {
 					route.send('redirectToPage', urls.templatePageUrl);
 				}
