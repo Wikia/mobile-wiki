@@ -245,6 +245,12 @@ export default Ember.Component.extend(
 						items: media[attrs.ref]
 					});
 				}
+			} else if (name === 'portable-infobox-image-collection' && attrs.refs && media) {
+				const collectionItems = attrs.refs.map((ref) => media[ref]);
+
+				attrs = Ember.$.extend(attrs, {
+					items: collectionItems
+				});
 			}
 
 			return {name, attrs, element};
@@ -385,7 +391,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		replaceImageCollectionPlaceholdersWithComponents(model) {
-			const $placeholders = this.$('.pi-image-collection'),
+			const $placeholders = this.$('.pi-image-collection:not([data-component])'),
 				articleMedia = model.get('media'),
 				numberToProcess = $placeholders.length,
 				getCollectionMediaFromRefs = (ref) => {

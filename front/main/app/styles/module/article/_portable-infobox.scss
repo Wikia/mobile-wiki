@@ -59,7 +59,9 @@ $group-header-font-size: 16px;
 		.pi-data-label,
 		.pi-hero-title,
 		.pi-hero-caption,
-		.media-component {
+		.media-component,
+		.portable-infobox-image,
+		.portable-infobox-image-collection-image {
 			margin: 0;
 			padding: 0;
 		}
@@ -91,14 +93,7 @@ $group-header-font-size: 16px;
 		.pi-image-collection {
 			position: relative;
 
-			.pi-item {
-				display: none;
-
-				&.active {
-					display: block;
-				}
-			}
-
+			// @todo check how videos behave
 			.article-video::before {
 				background-position: center;
 			}
@@ -203,6 +198,7 @@ $group-header-font-size: 16px;
 		}
 
 		// infobox images
+		// @todo do we need to update it?
 		.media-component {
 			figcaption {
 				color: $black;
@@ -215,11 +211,6 @@ $group-header-font-size: 16px;
 				background-image: none;
 				width: auto;
 			}
-		}
-
-		// hero image
-		.portable-infobox-image {
-			margin: 0;
 		}
 
 		// infobox data fields in tabular layout

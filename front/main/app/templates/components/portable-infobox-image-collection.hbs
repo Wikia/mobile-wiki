@@ -1,0 +1,21 @@
+{{article-media-thumbnail
+	url=currentImage.url
+	ref=currentImage.ref
+	itemContext='portable-infobox-image-collection'
+	type=currentImage.type
+	cropMode=cropMode
+	forcedHeight=height
+	forcedWidth=width
+}}
+<div class="image-collection-actions">
+	{{#if hasPreviousImage}}
+		<button class="action-previous" {{action 'switchImage' -1}}>
+			{{svg 'chevron-linked' viewBox='0 0 12 7'}}
+		</button>
+	{{/if}}
+	{{#if hasNextImage}}
+		<button class="action-next" {{action 'switchImage' 1}}>
+			{{svg 'chevron-linked' viewBox='0 0 12 7'}}
+		</button>
+	{{/if}}
+</div>
