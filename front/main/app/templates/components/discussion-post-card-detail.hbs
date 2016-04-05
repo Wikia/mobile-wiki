@@ -60,14 +60,14 @@
 	}}
 
 	{{#if isDetailsView}}
-		<div class="small-5 columns count">
+		<div class="small-5 large-4 columns count">
 			<span class="replies-area">
 				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
 				{{i18n 'main.replies-link-label' ns='discussion' count=replyCount}}
 			</span>
 		</div>
 	{{else}}
-		<div class="small-5 columns count">
+		<div class="small-5 large-4 columns count">
 			{{#link-to 'discussion.post' postId class='replies-area'}}
 				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
 				{{i18n 'main.replies-link-label' ns='discussion' count=replyCount}}
@@ -75,7 +75,7 @@
 		</div>
 	{{/if}}
 
-	<div class="small-2 columns share">
+	<div class="small-2 large-4 columns share">
 		{{#unless isDeleted }}
 			{{share-feature
 				header=(i18n 'main.share-header' ns='discussion')
