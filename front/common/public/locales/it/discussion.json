@@ -70,7 +70,12 @@
     "locked-post-text":"Questo post è bloccato.",
     "lock-post":"Blocca post",
     "unlock-post":"Sblocca post",
-    "locked-and-reported-to-moderators-text":"Questo post è bloccato ed è stato segnalato."
+    "locked-and-reported-to-moderators-text":"Questo post è bloccato ed è stato segnalato.",
+    "upvote-link-label":"__count__ voto",
+    "upvote-link-label_plural":"__count__ voti",
+    "replies-link-label":"__count__ risposta",
+    "replies-link-label_plural":"__count__ risposte",
+    "share-header":"Condividi post"
   },
   "editor":{
     "post-failed-error":"Post non pubblicato",
