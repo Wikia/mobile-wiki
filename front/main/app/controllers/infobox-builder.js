@@ -27,10 +27,12 @@ export default Ember.Controller.extend({
 		cancel() {
 			if (this.get('isVEContext')) {
 				if (!this.get('isDirty') || window.confirm(this.confirmationMessage())) {
+					const model = this.get('model');
+
 					this.get('target').send('returnToVE');
 					this.set('isDirty', false);
-					this.get('model').initInfoboxState();
-					this.get('model').setupInitialState();
+					model.initInfoboxState();
+					model.setupInitialState();
 				}
 			} else {
 				this.get('target').send('redirectToPage');
@@ -56,6 +58,8 @@ export default Ember.Controller.extend({
 
 				if (this.get('isVEContext')) {
 					route.send('returnToVE');
+					model.initInfoboxState();
+					model.setupInitialState();
 				} else if (shouldRedirectToPage) {
 					route.send('redirectToPage', urls.templatePageUrl);
 				}
