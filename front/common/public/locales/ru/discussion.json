@@ -71,11 +71,11 @@
     "lock-post":"Закрыть обсуждение",
     "unlock-post":"Открыть обсуждение",
     "locked-and-reported-to-moderators-text":"Это обсуждение было закрыто и отправлено на проверку.",
-    "upvote-link-label":"__count__ upvote",
-    "upvote-link-label_plural":"__count__ upvotes",
-    "replies-link-label":"__count__ reply",
-    "replies-link-label_plural":"__count__ replies",
-    "share-header":"Share Post"
+    "upvote-link-label":"__count__ голос",
+    "upvote-link-label_plural":"__count__ голосов",
+    "replies-link-label":"__count__ ответ",
+    "replies-link-label_plural":"__count__ ответов",
+    "share-header":"Поделиться"
   },
   "editor":{
     "post-failed-error":"Не удалось записать сообщение.",
