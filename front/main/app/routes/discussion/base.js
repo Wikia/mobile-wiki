@@ -37,6 +37,8 @@ export default Ember.Route.extend(
 			error(model, transition) {
 				this.controllerFor('application').set('noMargins', true);
 
+				// Model is the only place we can use to send the transition to the
+				// error subroute, and try to retry it from an error component
 				model.get('error').set('transition', transition);
 
 				return true;
