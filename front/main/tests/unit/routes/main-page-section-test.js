@@ -5,6 +5,7 @@ let originalM;
 moduleFor('route:mainPageSection', 'Unit | Route | main page section', {
 	beforeEach() {
 		originalM = M;
+		window.wgNow = null;
 	},
 	afterEach() {
 		M = originalM;
@@ -26,7 +27,11 @@ test('sets controller properties', function (assert) {
 		adsContext = {
 			type: 'main'
 		},
-		ns = 0;
+		ns = 0,
+		transitionMock = {
+			then: () => {}
+		};
+
 
 	M = {
 		prop(propName) {
@@ -45,6 +50,14 @@ test('sets controller properties', function (assert) {
 		}
 	};
 
+	// We want to mock adsContext and ns inside route
+	// Normally adsContext and ns are taken from curated-main-paga-data service
+	routeMock.setProperties({
+		adsContext,
+		ns
+	});
+
+
 	// Single encoded title - user goes straight to the page by URL and Ember does decodeURI automatically
 	routeMock.controllerFor = function () {
 		return {
@@ -56,7 +69,7 @@ test('sets controller properties', function (assert) {
 			}
 		};
 	};
-	routeMock.afterModel(modelWithEncodedTitle);
+	routeMock.afterModel(modelWithEncodedTitle, transitionMock);
 
 	// Double encoded title - user goes to the page from link (transition) and Ember doesn't do decodeURI
 	routeMock.controllerFor = function () {
@@ -69,5 +82,14 @@ test('sets controller properties', function (assert) {
 			}
 		};
 	};
-	routeMock.afterModel(modelWithDoubleEncodedTitle);
+	routeMock.afterModel(modelWithDoubleEncodedTitle, transitionMock);
+});
+
+test('reset ads variables on before model', function (assert) {
+	const mock = this.subject();
+
+	M.prop('initialPageView', false);
+	mock.beforeModel();
+
+	assert.notEqual(window.wgNow, null);
 });

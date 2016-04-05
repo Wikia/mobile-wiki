@@ -40,11 +40,9 @@
 	</small>
 {{/if}}
 <div class="recent-change__meta clearfix">
-	{{#if upvotesEnabled}}
-        <div class="recent-change__upvotes {{if currentUserUpvoteId 'user-upvoted'}}">
-            <span {{action 'handleVote'}}>{{svg 'kudos' viewBox='0 0 18 18' class='icon'}}</span><span class="text">{{upvotesCount}}</span>
-        </div>
-	{{/if}}
+	<div class="recent-change__upvotes {{if currentUserUpvoteId 'user-upvoted'}}">
+		<span {{action 'handleVote'}}>{{svg 'kudos' viewBox='0 0 18 18' class='icon'}}</span><span class="text">{{upvotesCount}}</span>
+	</div>
 	<div class="recent-change__byte-change">{{localize-number model.lengthChange true}}</div>
 </div>
 {{#if active}}

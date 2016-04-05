@@ -4,6 +4,7 @@
 	fixed=true
 	onBack=(action 'cancel')
 	onConfirm=(action 'publish')
+	onTitleClick=(action 'editTitle')
 	title=(i18n 'main.header' ns='infobox-builder' title=infoboxTemplateTitle)
 }}
 
@@ -53,19 +54,24 @@
 			}}
 		{{/if}}
 	</div>
-	<div class="infobox-builder-sidebar">
-		{{infobox-builder-sidebar-header
-			item=activeItem
-			onBackArrowClick=(action this.attrs.setEditItem null)
-			onDeleteItem=(action this.attrs.removeItem)
-		}}
-		{{component sideBarOptionsComponent
-			item=activeItem
-			addItem=(action 'addItem')
- 			editRowItem=editRowItem
-			editSectionHeaderItem=editSectionHeaderItem
-			editTitleItem=editTitleItem
-		}}
+	<div class="infobox-builder-sidebar liquid-fire-slide-to-left-container">
+		{{#liquid-bind sidebarItemProperties as |sidebarItemProperties|}}
+			<div class="liquid-fire-slide-to-left-item">
+				{{infobox-builder-sidebar-header
+					item=activeItem
+					type=sidebarItemProperties.type
+					onBackArrowClick=(action this.attrs.setEditItem null)
+					onDeleteItem=(action this.attrs.removeItem)
+				}}
+				{{component sidebarItemProperties.name
+					itemModel=activeItem
+					addItem=(action 'addItem')
+					editRowItem=editRowItem
+					editSectionHeaderItem=editSectionHeaderItem
+					editTitleItem=editTitleItem
+				}}
+			</div>
+		{{/liquid-bind}}
 		{{wikia-ui-components/icon-button
 			class='infobox-builder-go-to-source-button'
 			click=(action 'tryGoToSource')
@@ -87,10 +93,12 @@
 		{{#if isEditTitleModalVisible}}
 			{{infobox-builder-edit-title-modal
 				title=title
+				messageText=editTitleModalMessageText
+				headerText=editTitleModalHeaderText
 				showCancelButton=showEditTitleModalCancelButton
 				cancelButtonAction=(action 'hideEditTitleModal')
 				cancelButtonText=(i18n 'main.edit-title-modal-cancel' ns='infobox-builder')
-				confirmButtonAction=(action 'changeTemplateTitle')
+				confirmButtonAction=(action 'onTemplateTitleChangeAttempt')
 				confirmButtonText=editTitleModalConfirmButtonLabel
 				titleExists=titleExists
 			}}

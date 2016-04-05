@@ -1,6 +1,6 @@
 import {PageRequestHelper} from '../lib/mediawiki-page';
 import {disableCache} from '../lib/caching';
-import {getCachedWikiDomainName, getCDNBaseUrl, getHtmlTitle} from '../lib/utils';
+import {getCachedWikiDomainName, getCDNBaseUrl} from '../lib/utils';
 import localSettings from '../../config/localSettings';
 import Logger from '../lib/logger';
 import deepExtend from 'deep-extend';
@@ -36,7 +36,7 @@ function prepareArticleDataToPreview(title, article, wikiVariables = {}) {
 		mediaWikiNamespace: 0,
 		articleContent: article.content,
 		wikiVariables,
-		htmlTitle: getHtmlTitle(wikiVariables, title),
+		htmlTitle: 'Article preview - Wikia',
 		// required in server-data.hbs
 		userId: 0,
 		server: {
