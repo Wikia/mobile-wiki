@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Controller.extend({
 	// used by ember-onbeforeunload to determine if confirmation dialog should be shown
@@ -7,6 +8,16 @@ export default Ember.Controller.extend({
 	lastGroupItem: null,
 	isVEContext: false,
 
+	confirmationMessage() {
+		track({
+			action: trackActions.confirm,
+			category: 'infobox-builder',
+			label: 'show-unsaved-changes-on-exit-prompt'
+		});
+
+		return i18n.t('infobox-builder:main.leave-confirmation');
+	},
+
 	actions: {
 		/**
 		 * Exits infobox builder ui and calls redirect method on route.
@@ -14,7 +25,16 @@ export default Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		cancel() {
-			this.get('target').send(this.get('isVEContext') ? 'returnToVE' : 'redirectToPage');
+			if (this.get('isVEContext')) {
+				if (!this.get('isDirty') || window.confirm(this.confirmationMessage())) {
+					this.get('target').send('returnToVE');
+					this.set('isDirty', false);
+					this.get('model').initInfoboxState();
+					this.get('model').setupInitialState();
+				}
+			} else {
+				this.get('target').send('redirectToPage');
+			}
 		},
 
 		/**

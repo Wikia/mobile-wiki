@@ -291,13 +291,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {String}
 	 */
 	confirmationMessage() {
-		track({
-			action: trackActions.confirm,
-			category: 'infobox-builder',
-			label: 'show-unsaved-changes-on-exit-prompt'
-		});
-
-		return i18n.t('infobox-builder:main.leave-confirmation');
+		return this.controllerFor('infobox-builder').confirmationMessage();
 	},
 
 	/**
@@ -336,6 +330,11 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {void}
 	 */
 	setVEContext(isVEContext = false) {
-		this.controllerFor('infobox-builder').set('isVEContext', isVEContext);
+		const controller = this.controllerFor('infobox-builder');
+
+		controller.set('isVEContext', isVEContext);
+		if (isVEContext) {
+			controller.set('isDirty', false);
+		}
 	}
 });
