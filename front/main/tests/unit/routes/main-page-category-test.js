@@ -30,7 +30,7 @@ test('sets controller properties', function (assert) {
 		},
 		ns = 0,
 		transitionMock = {
-			then: function(){}
+			then: () => {}
 		};
 
 	M = {
