@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {track, trackActions} from 'common/utils/track';
 import InfoboxBuilderModel from '../models/infobox-builder';
 import ConfirmationMixin from 'ember-onbeforeunload/mixins/confirmation';
 

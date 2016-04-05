@@ -14,9 +14,9 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		this.setProperties({
 			_itemIndex: {
 				row: 0,
-					image: 0,
-					title: 0,
-					'section-header': 0
+				image: 0,
+				title: 0,
+				'section-header': 0
 			},
 			infoboxState: [],
 			itemInEditMode: null
