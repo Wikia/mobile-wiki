@@ -218,7 +218,7 @@ export default Ember.Route.extend(
 			if (ponto && typeof ponto.invoke === 'function') {
 				this.closeModalUsingPonto(ponto);
 			} else {
-				this.transitionTo('wiki-page', '');
+				this.transitionTo('wiki-page', Ember.get(Mercury, 'wiki.mainPageTitle'));
 			}
 		},
 

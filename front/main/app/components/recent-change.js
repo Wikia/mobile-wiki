@@ -18,7 +18,6 @@ export default Ember.Component.extend(
 		upvotesCount: Ember.computed('revisionUpvotes.upvotes.@each.count', function () {
 			return this.get('currentUpvotes.count') || 0;
 		}),
-		upvotesEnabled: Ember.get(Mercury, 'wiki.language.content') === 'en',
 		currentUserUpvoteId: Ember.computed('upvotesCount', function () {
 			return this.get('currentUpvotes.userUpvoteId') || 0;
 		}),

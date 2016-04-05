@@ -227,26 +227,32 @@ test('calls scrollPreviewToBottom with debounce after new item is added', functi
 	debounceStub.restore();
 });
 
-test('correctly sets sideBarOptionsComponent name', function (assert) {
+test('correctly sets sidebarItemProperties name', function (assert) {
 	const component = this.subject(),
 		cases = [
 			{
 				activeItem: {
 					type: 'test'
 				},
-				sideBarOptionsComponentName: `infobox-builder-edit-item-test`,
+				sidebarItemProperties: {
+					name: 'infobox-builder-edit-item-test',
+					type: 'test'
+				},
 				message: 'options for item editing'
 			},
 			{
 				activeItem: null,
-				sideBarOptionsComponentName: 'infobox-builder-add-items',
+				sidebarItemProperties: {
+					name: 'infobox-builder-add-items',
+					type: null
+				},
 				message: 'options for adding items'
 			}
 		];
 
 	cases.forEach((testCase) => {
 		component.set('activeItem', testCase.activeItem);
-		assert.equal(component.get('sideBarOptionsComponent'), testCase.sideBarOptionsComponentName, testCase.message);
+		assert.deepEqual(component.get('sidebarItemProperties'), testCase.sidebarItemProperties, testCase.message);
 	});
 });
 
@@ -480,5 +486,122 @@ test('correctly calculates showEditTitleModalCancelButton', function (assert) {
 	cases.forEach((testCase) => {
 		component.set('editTitleModalTrigger', testCase.editTitleModalTrigger);
 		assert.equal(component.get('showEditTitleModalCancelButton'), testCase.showEditTitleModalCancelButton);
+	});
+});
+
+test('setTemplateTitle changes title and closes modal', function (assert) {
+	const component = this.subject(),
+		newTitle = 'newTitle';
+
+	component.set('isEditTitleModalVisible', true);
+	component.setTemplateTitle(newTitle);
+
+	assert.equal(component.get('title'), newTitle);
+	assert.equal(component.get('isEditTitleModalVisible'), false);
+});
+
+test('handleSaveResults', function (assert) {
+	const component = this.subject(),
+		cases = [
+			{
+				data: {
+					success: true,
+					conflict: false,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: false,
+				expected: {
+					showSuccess: true,
+					titleExists: false,
+					redirectToPageCalled: false,
+					showEditTitleModalCalled: false
+				},
+				message: 'correctly saved template with no redirect needed'
+			},
+			{
+				data: {
+					success: true,
+					conflict: false,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: true,
+				expected: {
+					showSuccess: true,
+					titleExists: false,
+					redirectToPageCalled: true,
+					showEditTitleModalCalled: false
+				},
+				message: 'correctly saved template with redirect'
+			},
+			{
+				data: {
+					success: false,
+					conflict: true,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: false,
+				expected: {
+					showSuccess: false,
+					titleExists: true,
+					redirectToPageCalled: false,
+					showEditTitleModalCalled: true
+				},
+				message: 'naming conflict with no redirect'
+			},
+			{
+				data: {
+					success: false,
+					conflict: true,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: true,
+				expected: {
+					showSuccess: false,
+					titleExists: true,
+					redirectToPageCalled: false,
+					showEditTitleModalCalled: true
+				},
+				message: 'naming conflict with redirect'
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const redirectToPageSpy = sinon.spy(),
+			showEditTitleModalSpy = sinon.spy();
+
+		component.set('showEditTitleModal', showEditTitleModalSpy);
+		component.set('redirectToPageAction', redirectToPageSpy);
+		component.set('showSuccess', false);
+		component.set('titleExists', false);
+		component.handleSaveResults(testCase.data, testCase.shouldRedirectToPage);
+
+		assert.equal(
+			component.get('showSuccess'),
+			testCase.expected.showSuccess,
+			`${testCase.message}- showSuccess`
+		);
+		assert.equal(
+			component.get('titleExists'),
+			testCase.expected.titleExists,
+			`${testCase.message}- titleExists`
+		);
+		assert.equal(
+			redirectToPageSpy.called,
+			testCase.expected.redirectToPageCalled,
+			`${testCase.message}- redirectToPageCalled`
+		);
+		assert.equal(
+			showEditTitleModalSpy.called,
+			testCase.expected.showEditTitleModalCalled,
+			`${testCase.message}- showEditTitleModalCalled`
+		);
 	});
 });

@@ -84,6 +84,18 @@ export function getHeliosUrl(path) {
 }
 
 /**
+ * @param {string} path
+ * @returns {string}
+ */
+export function getUserRegistrationUrl(path) {
+	return url.format({
+		protocol: 'https',
+		host: localSettings.servicesDomain,
+		pathname: localSettings.userRegistationService.path + path
+	});
+}
+
+/**
  * @returns {string}
  */
 export function getWhoAmIUrl() {

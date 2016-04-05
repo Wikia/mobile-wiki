@@ -192,20 +192,6 @@ export function getCachedWikiDomainName(localSettings, request) {
 }
 
 /**
- * Get vertical color from localSettings
- *
- * @param {LocalSettings} localSettings
- * @param {string} vertical
- * @returns {string}
- */
-export function getVerticalColor(localSettings, vertical) {
-	if (localSettings.verticalColors.hasOwnProperty(vertical)) {
-		return localSettings.verticalColors[vertical];
-	}
-	return null;
-}
-
-/**
  * @param {*} obj
  * @param {string[]} allowedKeys - a whitelist of acceptable parameter names
  * @returns {*}
@@ -323,22 +309,6 @@ export function redirectToCanonicalHostIfNeeded(localSettings, request, reply, w
 		reply.redirect(redirectLocation).permanent(true);
 		throw new RedirectedToCanonicalHost();
 	}
-}
-
-/**
- * Get HTML title
- *
- * @param {*} wikiVariables
- * @param {string} displayTitle
- * @returns {string}
- */
-export function getHtmlTitle(wikiVariables, displayTitle = '') {
-	const htmlTitleTemplate = (wikiVariables.htmlTitleTemplate) ? wikiVariables.htmlTitleTemplate : '$1 - Wikia';
-
-	if (displayTitle) {
-		return htmlTitleTemplate.replace('$1', displayTitle);
-	}
-	return htmlTitleTemplate.replace('$1 - ', '');
 }
 
 /**
