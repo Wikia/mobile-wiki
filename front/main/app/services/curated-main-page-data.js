@@ -10,7 +10,7 @@ export default Ember.Service.extend({
 
 	ns: Ember.computed({
 		get() {
-			return M.prop('mainPageData.ns');
+			return M.prop('mainPageData.details.ns');
 		},
 		set(_, value) {
 			return value;
