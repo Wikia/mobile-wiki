@@ -1,12 +1,4 @@
-import {getOpenGraphData} from './prepare-page-data';
-
-/**
- * @param {Object} wikiVariables
- * @returns {String} url for openGraph
- */
-function getOpenGraphUrl(wikiVariables) {
-	return wikiVariables.basePath + wikiVariables.articlePath + wikiVariables.siteName.replace(/ /g, '_');
-}
+import {getOpenGraphData, getOpenGraphUrl} from './page-data-helper';
 
 /**
  * Prepares main page data to be rendered
@@ -15,17 +7,26 @@ function getOpenGraphUrl(wikiVariables) {
  * @returns {object}
  */
 export default function prepareMainPageData(data) {
-	const articleData = data.page.data,
+	const pageData = data.page.data,
 		wikiVariables = data.wikiVariables,
-		result = {};
 
-	result.mainPageData = {};
-	result.mainPageData.adsContext = articleData.adsContext;
-	result.mainPageData.ns = articleData.details.ns;
+		result = {
+			hasToC: false,
+			openGraph: getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables)),
+			mainPageData: {
+				adsContext: pageData.adsContext
+			}
+		};
 
-	result.openGraph = getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables));
-	result.hasToC = false;
-	delete result.adsContext;
+	if (pageData.details) {
+		if (pageData.details.description) {
+			result.description = pageData.details.description;
+		}
+
+		if (pageData.details.ns) {
+			result.mainPageData.ns = pageData.details.ns;
+		}
+	}
 
 	return result;
 }
