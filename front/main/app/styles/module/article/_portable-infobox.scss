@@ -60,7 +60,7 @@ $group-header-font-size: 16px;
 		.pi-hero-title,
 		.pi-hero-caption,
 		.media-component,
-		.article-media-thumbnail{
+		.article-media-thumbnail {
 			margin: 0;
 			padding: 0;
 		}
@@ -92,7 +92,15 @@ $group-header-font-size: 16px;
 		.pi-image-collection {
 			position: relative;
 
-			// @todo check how videos behave
+			// @todo it's for old markup only, remove in XW-1225
+			.pi-item {
+				display: none;
+
+				&.active {
+					display: block;
+				}
+			}
+
 			.article-video::before {
 				background-position: center;
 			}
