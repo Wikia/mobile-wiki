@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Thumbnailer from 'common/modules/thumbnailer';
 import ViewportMixin from '../mixins/viewport';
 
 export default Ember.Component.extend(
@@ -7,11 +8,9 @@ export default Ember.Component.extend(
 		classNames: ['pi-image-collection'],
 
 		imageAspectRatio: 16 / 9,
-
 		currentImageIndex: 0,
 
 		currentImage: Ember.computed('items', 'currentImageIndex', function () {
-			debugger;
 			return this.get('items')[this.get('currentImageIndex')];
 		}),
 
@@ -23,10 +22,17 @@ export default Ember.Component.extend(
 
 		hasPreviousImage: Ember.computed.gt('currentImageIndex', 0),
 
+		cropMode: Ember.computed('currentImage', function () {
+			const currentImage = this.get('currentImage');
+
+			return currentImage.height > currentImage.width ?
+				Thumbnailer.mode.topCropDown :
+				Thumbnailer.mode.zoomCrop
+		}),
+
 		width: Ember.computed.readOnly('viewportDimensions.width'),
 
-		// @todo make sure that these calculations are correct
-		// this should probably be normalized
+		// @todo widths should be normalized
 		height: Ember.computed('width', 'currentImage', function () {
 			const width = this.get('width'),
 				imageAspectRatio = this.get('imageAspectRatio'),
