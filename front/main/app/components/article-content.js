@@ -12,8 +12,6 @@ import PollDaddyMixin from '../mixins/poll-daddy';
 import TrackClickMixin from '../mixins/track-click';
 import WidgetTwitterComponent from '../components/widget-twitter';
 import WidgetVKComponent from '../components/widget-vk';
-import WidgetPolldaddyComponent from '../components/widget-polldaddy';
-import WidgetFliteComponent from '../components/widget-flite';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {getExperimentVariationNumber} from 'common/utils/variant-testing';
 import {track, trackActions} from 'common/utils/track';
@@ -520,15 +518,27 @@ export default Ember.Component.extend(
 		 * @returns {string|null}
 		 */
 		createWidgetComponent(widgetType, data) {
+			let component;
+
 			switch (widgetType) {
 				case 'twitter':
 					return WidgetTwitterComponent.create({data});
 				case 'vk':
 					return WidgetVKComponent.create({data});
 				case 'polldaddy':
-					return WidgetPolldaddyComponent.create({data});
+					component = this.get('container').lookup('component:widget-polldaddy', {
+						singleton: false
+					});
+
+					component.set('data', data);
+					return component;
 				case 'flite':
-					return WidgetFliteComponent.create({data});
+					component = this.get('container').lookup('component:widget-flite', {
+						singleton: false
+					});
+
+					component.set('data', data);
+					return component;
 				default:
 					Ember.Logger.warn(`Can't create widget with type '${widgetType}'`);
 					return null;
