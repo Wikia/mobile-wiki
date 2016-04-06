@@ -70,7 +70,12 @@
     "locked-post-text":"This post is locked.",
     "lock-post":"Lock Post",
     "unlock-post":"Unlock Post",
-    "locked-and-reported-to-moderators-text":"This post is locked, and has been reported."
+    "locked-and-reported-to-moderators-text":"This post is locked, and has been reported.",
+    "upvote-link-label":"__count__ upvote",
+    "upvote-link-label_plural":"__count__ upvotes",
+    "replies-link-label":"__count__ reply",
+    "replies-link-label_plural":"__count__ replies",
+    "share-header":"Share Post"
   },
   "editor":{
     "post-failed-error":"Post failed.",

@@ -70,7 +70,12 @@
     "locked-post-text":"Cette publication est verrouillée.",
     "lock-post":"Verrouiller la publication",
     "unlock-post":"Déverrouiller la publication",
-    "locked-and-reported-to-moderators-text":"Cette publication est verrouillée et a été signalée."
+    "locked-and-reported-to-moderators-text":"Cette publication est verrouillée et a été signalée.",
+    "upvote-link-label":"__count__ vote",
+    "upvote-link-label_plural":"__count__ votes",
+    "replies-link-label":"__count__ réponse",
+    "replies-link-label_plural":"__count__ réponses",
+    "share-header":"Partagez la publication"
   },
   "editor":{
     "post-failed-error":"Échec de la publication.",
