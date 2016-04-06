@@ -312,6 +312,11 @@ test('sanitize custom row source', (assert) => {
 			output: 'testing'
 		},
 		{
+			input: 'test [link]',
+			output: 'test_link'
+		},
+
+		{
 			input: 'Введе́ние',
 			output: 'введе́ние'
 		},
@@ -321,6 +326,10 @@ test('sanitize custom row source', (assert) => {
 		},
 		{
 			input: '-',
+			output: ''
+		},
+		{
+			input: '___',
 			output: ''
 		},
 		{
