@@ -7,14 +7,20 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	init() {
 		this._super(...arguments);
-		this._itemIndex = {
-			row: 0,
-			image: 0,
-			title: 0,
-			'section-header': 0
-		};
-		this.infoboxState = [];
-		this.itemInEditMode = null;
+		this.initInfoboxState();
+	},
+
+	initInfoboxState() {
+		this.setProperties({
+			_itemIndex: {
+				row: 0,
+				image: 0,
+				title: 0,
+				'section-header': 0
+			},
+			infoboxState: [],
+			itemInEditMode: null
+		});
 	},
 
 	/**

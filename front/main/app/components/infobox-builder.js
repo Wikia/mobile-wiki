@@ -292,7 +292,7 @@ export default Ember.Component.extend(
 
 				this.setProperties({
 					isLoading: false,
-					showSuccess: true
+					showSuccess: !this.get('isVEContext')
 				});
 			});
 		},
