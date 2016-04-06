@@ -355,7 +355,7 @@ InfoboxBuilderModel.reopenClass({
 	 * @returns {String}
 	 */
 	sanitizeCustomRowSource(input) {
-		const notValidChars = /[^a-z0-9_-]+/g,
+		const notValidChars = /[!|*}{*?%^&.+']+/g,
 			isEmpty = /^[-_]+$/,
 			output = input
 				.trim()
