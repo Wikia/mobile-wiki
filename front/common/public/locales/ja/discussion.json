@@ -70,7 +70,12 @@
     "locked-post-text":"この投稿はロックされています。",
     "lock-post":"投稿をロック",
     "unlock-post":"投稿のロックを解除",
-    "locked-and-reported-to-moderators-text":"この投稿はロックされており、報告されています。"
+    "locked-and-reported-to-moderators-text":"この投稿はロックされており、報告されています。",
+    "upvote-link-label":"賛成__count__票",
+    "upvote-link-label_plural":"賛成__count__票",
+    "replies-link-label":"返信__count__件",
+    "replies-link-label_plural":"返信__count__件",
+    "share-header":"投稿を共有"
   },
   "editor":{
     "post-failed-error":"投稿できませんでした。",

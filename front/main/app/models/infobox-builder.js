@@ -320,9 +320,12 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	/**
 	 * Saves infobox state to MW template
 	 *
+	 * @param {String} initialTitle of the template or null if new template
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	saveStateToTemplate() {
+	saveStateToTemplate(initialTitle) {
+		const title = this.get('title');
+
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			getEditToken(this.get('title'))
 				.then((token) => {
@@ -333,19 +336,14 @@ const InfoboxBuilderModel = Ember.Object.extend({
 						data: {
 							controller: 'PortableInfoboxBuilderController',
 							method: 'publish',
-							title: this.get('title'),
+							title,
+							oldTitle: initialTitle || title,
 							data: InfoboxBuilderModel.prepareDataForSaving(this),
 							token
 						},
 						dataType: 'json',
 						method: 'POST',
-						success: (data) => {
-							if (data && data.success) {
-								resolve(data.urls);
-							} else {
-								reject(data.errors);
-							}
-						},
+						success: (data) => resolve(data),
 						error: (err) => reject(err)
 					});
 				});

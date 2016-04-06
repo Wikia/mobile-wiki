@@ -40,7 +40,7 @@
     "modal-dialog-confirm":"OK",
     "modal-dialog-cancel":"Cancelar",
     "modal-dialog-delete-all-header":"¿Borrar todas las discusiones?",
-    "modal-dialog-delete-all-message":"¿Está seguro que deseas borrar todas las discusiones de __userName__ en __wikiName__? Ten en cuenta que sólo las discusiones individuales pueden ser restauradas y que no se puede recuperar las discusiones en volumen.",
+    "modal-dialog-delete-all-message":"¿Estás seguro que deseas borrar todas las discusiones de __userName__ en __wikiName__? Ten en cuenta que sólo las discusiones individuales pueden ser restauradas y que no se pueden recuperar las discusiones en volumen.",
     "modal-dialog-log-in":"Iniciar sesión",
     "modal-dialog-delete":"Borrar",
     "modal-dialog-delete-header":"¿Borrar discusión?",
@@ -70,7 +70,12 @@
     "locked-post-text":"Esta discusión ha sido cerrada.",
     "lock-post":"Cerrar discusión",
     "unlock-post":"Reabrir discusión",
-    "locked-and-reported-to-moderators-text":"Esta discusión ha sido cerrada y ha sido reportada."
+    "locked-and-reported-to-moderators-text":"Esta discusión ha sido cerrada y ha sido reportada.",
+    "upvote-link-label":"__count__ voto",
+    "upvote-link-label_plural":"__count__ votos",
+    "replies-link-label":"__count__ respuesta",
+    "replies-link-label_plural":"__count__ respuestas",
+    "share-header":"Comparte"
   },
   "editor":{
     "post-failed-error":"Fallo en discusión.",
