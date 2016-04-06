@@ -135,7 +135,7 @@ body.discussions {
 		}
 	}
 
-	.count {
+	.action {
 		color: $discussion-count-color;
 		font-size: $type-min;
 		font-weight: bold;
@@ -254,13 +254,13 @@ body.discussions {
 				}
 			}
 
-			.count {
+			.action {
 				a, span {
 					color: $discussion-deleted-actions-color;
 				}
 			}
 
-			.upvote a, .count a {
+			.action a {
 				cursor: default;
 			}
 		}
@@ -306,7 +306,7 @@ body.discussions {
 			margin: -5px $post-details-reply-upvote-margin-left 0 0;
 			text-align: center;
 
-			.count {
+			.action {
 				min-width: $post-details-reply-upvote-width;
 				text-align: center;
 			}
@@ -560,6 +560,7 @@ body.discussions {
 
 		.replies {
 			text-align: center;
+
 			.replies-area {
 				float: none;
 			}
