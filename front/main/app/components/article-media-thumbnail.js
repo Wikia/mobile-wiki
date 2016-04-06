@@ -54,8 +54,8 @@ export default Ember.Component.extend(
 			return this.get('width') <= this.get('articleContent.width');
 		}),
 
-		hasFigcaption: Ember.computed('caption', 'title', function () {
-			return Boolean(this.get('title') || this.get('caption'));
+		hasFigcaption: Ember.computed('caption', 'showTitle', function () {
+			return Boolean(this.get('caption') || this.get('showTitle'));
 		}),
 
 		showTitle: Ember.computed('type', function () {
