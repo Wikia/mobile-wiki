@@ -70,7 +70,12 @@
     "locked-post-text":"Este post está bloqueado.",
     "lock-post":"Encerrar post",
     "unlock-post":"Reabrir post",
-    "locked-and-reported-to-moderators-text":"Este post está encerrado e foi relatado."
+    "locked-and-reported-to-moderators-text":"Este post está encerrado e foi relatado.",
+    "upvote-link-label":"__count__ voto",
+    "upvote-link-label_plural":"__count__ votos",
+    "replies-link-label":"__count__ resposta",
+    "replies-link-label_plural":"__count__ respostas",
+    "share-header":"Compartilhar post"
   },
   "editor":{
     "post-failed-error":"O post falhou.",
