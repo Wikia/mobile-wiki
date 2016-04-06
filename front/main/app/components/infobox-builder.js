@@ -290,10 +290,10 @@ export default Ember.Component.extend(
 					label: 'save-successful'
 				});
 
-				this.set('isLoading', false);
-				if (!this.get('isVEContext')) {
-					this.set('showSuccess', true);
-				}
+				this.setProperties({
+					isLoading: false,
+					showSuccess: !this.get('isVEContext')
+				});
 			});
 		},
 
