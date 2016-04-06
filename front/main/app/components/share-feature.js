@@ -6,7 +6,7 @@ export default Ember.Component.extend(
 	TrackClickMixin,
 	LanguagesMixin,
 	{
-		classNames: ['share-feature'],
+		classNames: ['share-feature', 'count'],
 
 		currentUser: Ember.inject.service(),
 

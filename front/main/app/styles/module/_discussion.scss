@@ -141,7 +141,8 @@ body.discussions {
 		font-weight: bold;
 
 		.upvote-area,
-		.replies-area {
+		.replies-area,
+		.toggle-share-area {
 			color: $discussion-count-color;
 			display: block;
 			float: left;
@@ -555,6 +556,13 @@ body.discussions {
 
 		.discussion-no-replies {
 			border-bottom: 1px solid $discussion-reply-border-color;
+		}
+
+		.replies {
+			text-align: center;
+			.replies-area {
+				float: none;
+			}
 		}
 	}
 }
