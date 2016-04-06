@@ -1,6 +1,5 @@
 .article-media-thumbnail {
 	margin: 40px 0;
-	position: relative;
 	text-align: center;
 
 	figcaption {
@@ -13,10 +12,10 @@
 	}
 
 	img {
+		@extend %image-placeholder;
+
 		display: inline-block;
 		width: 100%;
-
-		@extend %image-placeholder;
 	}
 
 	&.loaded {
@@ -41,13 +40,10 @@
 		width: 20px;
 		z-index: $z-1;
 	}
+}
 
-	// First line is for single images
-	// Second is for galleries
-	&.has-figcaption .chevron,
-	.has-figcaption .chevron {
-		margin-bottom: 50px;
-	}
+.article-media-thumbnail-image-wrapper {
+	position: relative;
 }
 
 .article-media-gallery {
@@ -60,7 +56,6 @@
 
 	img {
 		height: 195px;
-		margin-right: 8px;
 		// Fixes iOS Safari repaint bug when scrolling through gallery
 		transform: translate3d(0, 0, 0);
 		width: 195px;
@@ -68,7 +63,12 @@
 
 	.article-media-thumbnail {
 		display: inline-block;
-		margin: 20px 0;
+		margin: {
+			bottom: 20px;
+			left: 0;
+			right: 8px;
+			top: 20px;
+		}
 	}
 }
 
@@ -85,6 +85,13 @@
 
 .article-media-icon {
 	margin-right: 6px;
+}
+
+.article-media-placeholder {
+	@extend %image-placeholder;
+
+	display: inline-block;
+	width: 100%;
 }
 
 @keyframes lazyImage {
