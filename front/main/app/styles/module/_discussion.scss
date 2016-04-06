@@ -146,7 +146,7 @@ body.discussions {
 			color: $discussion-count-color;
 			display: block;
 			float: left;
-			font-weight: 500;
+			font-weight: $font-weight-medium;
 			height: 30px;
 			line-height: 30px;
 			padding: 0 2px;
