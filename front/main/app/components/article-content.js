@@ -246,7 +246,7 @@ export default Ember.Component.extend(
 					});
 				}
 			} else if (name === 'portable-infobox-image-collection' && attrs.refs && media) {
-				const collectionItems = attrs.refs.map((ref) => media[ref]);
+				const collectionItems = attrs.refs.map((ref) => Ember.$.extend({ref}, media[ref]));
 
 				attrs = Ember.$.extend(attrs, {
 					items: collectionItems
