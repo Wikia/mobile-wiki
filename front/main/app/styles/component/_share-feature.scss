@@ -17,6 +17,19 @@
 	.pop-over-container {
 		padding: 24px 24px 38px;
 		text-align: center;
+	}
+
+	.social-networks-list {
+		list-style: none;
+		margin: 0 auto;
+
+		li {
+			display: inline-block;
+
+			&:not(:last-child) {
+				margin-right: 15px;
+			}
+		}
 
 		.icon {
 			background-position: center;
@@ -24,7 +37,6 @@
 			background-size: contain;
 			display: inline-block;
 			height: 26px;
-			margin-left: 15px;
 			width: 26px;
 		}
 	}
