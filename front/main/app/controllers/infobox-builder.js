@@ -21,20 +21,14 @@ export default Ember.Controller.extend({
 		 * sends redirectToPage action to route if desired,
 		 * return a promise so it can be chained
 		 *
-		 * @param {Boolean} [shouldRedirectToPage=true]
+		 * @param {String} initialTitle
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		save(shouldRedirectToPage = true) {
-			const model = this.get('model');
-
+		save(initialTitle) {
 			// prevents showing confirmation dialog on save
 			this.set('isDirty', false);
 
-			return model.saveStateToTemplate().then((urls = {}) => {
-				if (shouldRedirectToPage) {
-					this.get('target').send('redirectToPage', urls.templatePageUrl);
-				}
-			});
+			return this.get('model').saveStateToTemplate(initialTitle).then((data) => data);
 		},
 
 		/**
@@ -51,6 +45,10 @@ export default Ember.Controller.extend({
 
 		getTemplateExists(title) {
 			return this.get('model').getTemplateExists(title);
+		},
+
+		redirectToPage(url) {
+			return this.get('target').send('redirectToPage', url);
 		},
 
 		/**

@@ -33,7 +33,7 @@ DiscussionReply.reopenClass({
 				title: postData.title,
 				upvoteCount: parseInt(postData.upvoteCount, 10),
 			}),
-			userData = Ember.get(postData, '_embedded.firstPost.0._embedded.userData.0');
+			userData = Ember.get(postData, '_embedded.userData.0');
 
 		if (userData) {
 			reply.set('userData', DiscussionUserData.create(userData));

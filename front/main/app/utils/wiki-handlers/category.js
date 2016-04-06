@@ -3,12 +3,12 @@ import ArticleHandler from './article';
 /**
  * afterModel hook
  *
- * @param {Ember.Router} router
+ * @param {Ember.Route} route
  * @param {Ember.Object} model
  * @returns {void}
  */
-function afterModel(router, model) {
-	ArticleHandler.afterModel(router, model);
+function afterModel(route, model) {
+	ArticleHandler.afterModel(route, model);
 }
 
 /**
