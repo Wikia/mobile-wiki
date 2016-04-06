@@ -135,7 +135,7 @@ export default Ember.Mixin.create({
 			method: 'PUT',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${entity.id}/report`),
 			success: () => {
-				entity.set('userData.hasReported', true);
+				entity.get('userData').set('hasReported', true);
 				entity.set('isReported', true);
 			},
 			error: () => {
