@@ -10,13 +10,19 @@
 	active=isLoading
 	overlay=false
 }}
-{{#if hasFigcaption}}
-	<figcaption>
-		{{#if showTitle}}
-			<div>{{title}}</div>
-		{{/if}}
-		{{#if caption}}
-			{{{caption}}}
-		{{/if}}
-	</figcaption>
+
+{{! Allow custom captions }}
+{{#if hasBlock}}
+	{{yield}}
+{{else}}
+	{{#if hasFigcaption}}
+		<figcaption>
+			{{#if showTitle}}
+				<div>{{title}}</div>
+			{{/if}}
+			{{#if caption}}
+				{{{caption}}}
+			{{/if}}
+		</figcaption>
+	{{/if}}
 {{/if}}

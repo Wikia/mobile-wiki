@@ -1,4 +1,4 @@
-{{article-media-thumbnail
+{{#article-media-thumbnail
 	url=currentImage.url
 	ref=currentImage.ref
 	itemContext='portable-infobox-image-collection'
@@ -7,6 +7,12 @@
 	forcedHeight=height
 	forcedWidth=width
 }}
+	{{#if currentImage.caption}}
+		<hgroup class="pi-hero-title-wrapper pi-item-spacing">
+			<h3 class="pi-hero-caption">{{currentImage.caption}}</h3>
+		</hgroup>
+	{{/if}}
+{{/article-media-thumbnail}}
 <div class="image-collection-actions">
 	{{#if hasPreviousImage}}
 		<button class="action-previous" {{action 'switchImage' -1}}>
