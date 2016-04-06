@@ -19,6 +19,25 @@ export default class AuthTracker {
 			a: pageType,
 			n: -1
 		});
+
+		this.trackCloseWindow();
+	}
+
+	/**
+	 * @returns {void}
+	 */
+
+	trackCloseWindow() {
+		if (!window.opener) {
+			return;
+		}
+
+		window.onbeforeunload = function () {
+			// to avoid tracking 'close' action whenever the window is reloaded;
+			if (pageParams.parentOrigin) {
+				window.opener.postMessage({beforeunload: true}, pageParams.parentOrigin);
+			}
+		};
 	}
 
 	/**
