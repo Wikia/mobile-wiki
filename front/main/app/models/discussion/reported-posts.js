@@ -89,7 +89,7 @@ DiscussionReportedPostsModel.reopenClass({
 		return ajaxCall({
 			context: reportedPostsInstance,
 			data: requestData,
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
+			url: M.getDiscussionServiceUrl(`/${wikiId}/posts`),
 			success: (data) => {
 				reportedPostsInstance.setNormalizedData(data);
 			},
