@@ -488,3 +488,120 @@ test('correctly calculates showEditTitleModalCancelButton', function (assert) {
 		assert.equal(component.get('showEditTitleModalCancelButton'), testCase.showEditTitleModalCancelButton);
 	});
 });
+
+test('setTemplateTitle changes title and closes modal', function (assert) {
+	const component = this.subject(),
+		newTitle = 'newTitle';
+
+	component.set('isEditTitleModalVisible', true);
+	component.setTemplateTitle(newTitle);
+
+	assert.equal(component.get('title'), newTitle);
+	assert.equal(component.get('isEditTitleModalVisible'), false);
+});
+
+test('handleSaveResults', function (assert) {
+	const component = this.subject(),
+		cases = [
+			{
+				data: {
+					success: true,
+					conflict: false,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: false,
+				expected: {
+					showSuccess: true,
+					titleExists: false,
+					redirectToPageCalled: false,
+					showEditTitleModalCalled: false
+				},
+				message: 'correctly saved template with no redirect needed'
+			},
+			{
+				data: {
+					success: true,
+					conflict: false,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: true,
+				expected: {
+					showSuccess: true,
+					titleExists: false,
+					redirectToPageCalled: true,
+					showEditTitleModalCalled: false
+				},
+				message: 'correctly saved template with redirect'
+			},
+			{
+				data: {
+					success: false,
+					conflict: true,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: false,
+				expected: {
+					showSuccess: false,
+					titleExists: true,
+					redirectToPageCalled: false,
+					showEditTitleModalCalled: true
+				},
+				message: 'naming conflict with no redirect'
+			},
+			{
+				data: {
+					success: false,
+					conflict: true,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: true,
+				expected: {
+					showSuccess: false,
+					titleExists: true,
+					redirectToPageCalled: false,
+					showEditTitleModalCalled: true
+				},
+				message: 'naming conflict with redirect'
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const redirectToPageSpy = sinon.spy(),
+			showEditTitleModalSpy = sinon.spy();
+
+		component.set('showEditTitleModal', showEditTitleModalSpy);
+		component.set('redirectToPageAction', redirectToPageSpy);
+		component.set('showSuccess', false);
+		component.set('titleExists', false);
+		component.handleSaveResults(testCase.data, testCase.shouldRedirectToPage);
+
+		assert.equal(
+			component.get('showSuccess'),
+			testCase.expected.showSuccess,
+			`${testCase.message}- showSuccess`
+		);
+		assert.equal(
+			component.get('titleExists'),
+			testCase.expected.titleExists,
+			`${testCase.message}- titleExists`
+		);
+		assert.equal(
+			redirectToPageSpy.called,
+			testCase.expected.redirectToPageCalled,
+			`${testCase.message}- redirectToPageCalled`
+		);
+		assert.equal(
+			showEditTitleModalSpy.called,
+			testCase.expected.showEditTitleModalCalled,
+			`${testCase.message}- showEditTitleModalCalled`
+		);
+	});
+});

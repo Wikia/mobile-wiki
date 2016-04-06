@@ -191,7 +191,7 @@ $group-header-font-size: 16px;
 			display: flex;
 			flex-direction: column;
 			font-size: $infobox-title-font-size;
-			height: $infobox-title-cell-height;
+			min-height: $infobox-title-cell-height;
 			justify-content: center;
 			line-height: $infobox-title-line-height;
 			text-align: center;
