@@ -9,13 +9,17 @@ export default Ember.Component.extend(
 	{
 		attributeBindings: ['data-ref'],
 		classNames: ['article-media-thumbnail'],
-		classNameBindings: ['itemType', 'isSmall', 'loaded'],
+		classNameBindings: ['itemType', 'isSmall', 'isLoaded'],
 		tagName: 'figure',
 
 		smallImageSize: {
 			height: 64,
 			width: 64
 		},
+
+		isLoaded: false,
+		isLoading: false,
+		loadingError: false,
 
 		/**
 		 * Default is `article`
@@ -27,19 +31,23 @@ export default Ember.Component.extend(
 			return `${this.get('itemContext')}-${this.get('type')}`;
 		}),
 
-		isLoading: Ember.computed.not('loaded'),
-
 		// Needed for lightbox, should be refactored
 		'data-ref': Ember.computed.oneWay('ref'),
 
 		thumbnailUrl: Ember.computed('url', 'shouldBeLoaded', function () {
 			const url = this.get('url');
 
+			this.setProperties({
+				isLoaded: false,
+				loadingError: false
+			});
+
 			if (url && this.get('shouldBeLoaded')) {
 				const thumbParams = this.getThumbnailParams(),
 					thumbURL = Thumbnailer.getThumbURL(url, thumbParams);
 
-				this.hideBackgroundAfterImageIsLoaded(thumbURL);
+				this.set('isLoading', true);
+				this.setImageEvents(thumbURL);
 
 				return thumbURL;
 			} else {
@@ -81,21 +89,6 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * @param {Object} oldAttrs
-		 * @param {Object} newAttrs
-		 * @returns {void}
-		 */
-		didUpdateAttrs({oldAttrs, newAttrs}) {
-			if (
-				oldAttrs &&
-				newAttrs &&
-				Ember.get(oldAttrs, 'url.value') !== Ember.get(newAttrs, 'url.value')
-			) {
-				this.set('loaded', false);
-			}
-		},
-
-		/**
 		 * Returns placeholder SVG (in form of DataURI).
 		 *
 		 * @returns {string}
@@ -111,15 +104,30 @@ export default Ember.Component.extend(
 		 * @param {string} url
 		 * @returns {void}
 		 */
-		hideBackgroundAfterImageIsLoaded(url) {
+		setImageEvents(url) {
 			const image = new Image();
 
 			image.src = url;
+
 			image.onload = () => {
 				if (!this.get('isDestroyed')) {
-					this.set('loaded', true);
+					this.setProperties({
+						isLoaded: true,
+						isLoading: false,
+						loadingError: false
+					});
 				}
 			};
+
+			image.onerror = () => {
+				if (!this.get('isDestroyed')) {
+					this.setProperties({
+						isLoaded: false,
+						isLoading: false,
+						loadingError: true
+					});
+				}
+			}
 		},
 
 		/**

@@ -18,7 +18,7 @@
 		width: 100%;
 	}
 
-	&.loaded {
+	&.is-loaded {
 		img {
 			animation: lazyImage .3s;
 			background: none;
