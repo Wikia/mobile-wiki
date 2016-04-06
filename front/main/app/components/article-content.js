@@ -518,31 +518,29 @@ export default Ember.Component.extend(
 		 * @returns {string|null}
 		 */
 		createWidgetComponent(widgetType, data) {
-			let component;
+			let component, componentName;
 
 			switch (widgetType) {
 				case 'twitter':
-					return WidgetTwitterComponent.create({data});
+					componentName = 'component:widget-twitter';
+					break;
 				case 'vk':
-					return WidgetVKComponent.create({data});
+					componentName = 'component:widget-vk';
+					break;
 				case 'polldaddy':
-					component = this.get('container').lookup('component:widget-polldaddy', {
-						singleton: false
-					});
-
-					component.set('data', data);
-					return component;
+					componentName = 'component:widget-polldaddy';
+					break;
 				case 'flite':
-					component = this.get('container').lookup('component:widget-flite', {
-						singleton: false
-					});
-
-					component.set('data', data);
-					return component;
+					componentName = 'component:widget-flite';
+					break;
 				default:
 					Ember.Logger.warn(`Can't create widget with type '${widgetType}'`);
 					return null;
 			}
+
+			component = this.get('container').lookup(componentName);
+			component.set('data', data);
+			return component;
 		},
 
 		/**
