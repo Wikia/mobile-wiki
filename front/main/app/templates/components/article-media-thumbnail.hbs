@@ -6,6 +6,10 @@
 {{else}}
 	<img src="{{thumbnailUrl}}" height="{{height}}" width="{{width}}" data-ref={{ref}} data-gallery-ref={{galleryRef}}>
 {{/if}}
+{{loading-spinner
+	active=isLoading
+	overlay=false
+}}
 {{#if hasFigcaption}}
 	<figcaption>
 		{{#if showTitle}}

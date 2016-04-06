@@ -27,6 +27,8 @@ export default Ember.Component.extend(
 			return `${this.get('itemContext')}-${this.get('type')}`;
 		}),
 
+		isLoading: Ember.computed.not('loaded'),
+
 		// Needed for lightbox, should be refactored
 		'data-ref': Ember.computed.oneWay('ref'),
 
@@ -76,6 +78,21 @@ export default Ember.Component.extend(
 		 */
 		didEnterViewport() {
 			this.set('shouldBeLoaded', true);
+		},
+
+		/**
+		 * @param {Object} oldAttrs
+		 * @param {Object} newAttrs
+		 * @returns {void}
+		 */
+		didUpdateAttrs({oldAttrs, newAttrs}) {
+			if (
+				oldAttrs &&
+				newAttrs &&
+				Ember.get(oldAttrs, 'url.value') !== Ember.get(newAttrs, 'url.value')
+			) {
+				this.set('loaded', false);
+			}
 		},
 
 		/**
