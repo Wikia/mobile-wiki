@@ -12,7 +12,7 @@
     "share-your-knowledge-text":"在社交网络上分享您最喜爱的话题，让更多的粉丝参与其中。"
   },
   "main":{
-    "discussions-header-title":"讨论区",
+    "discussions-header-title":"讨论版",
     "pagination-post-show-more":"查看以往回复",
     "share-default-title":"__siteName__上的讨论",
     "contributors-title":"所有贡献者",
@@ -70,7 +70,12 @@
     "locked-post-text":"这篇帖子被锁定。",
     "lock-post":"锁定帖子",
     "unlock-post":"解锁帖子",
-    "locked-and-reported-to-moderators-text":"这篇帖子被锁定并且被举报。"
+    "locked-and-reported-to-moderators-text":"这篇帖子被锁定并且被举报。",
+    "upvote-link-label":"__count__个赞",
+    "upvote-link-label_plural":"__count__个赞",
+    "replies-link-label":"__count__个回复",
+    "replies-link-label_plural":"__count__个回复",
+    "share-header":"分享话题"
   },
   "editor":{
     "post-failed-error":"发布失败",
