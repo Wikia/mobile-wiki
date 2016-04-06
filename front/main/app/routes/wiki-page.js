@@ -12,6 +12,9 @@ export default Ember.Route.extend(RouteWithAdsMixin, {
 	redirectEmptyTarget: false,
 	wikiHandler: null,
 	currentUser: Ember.inject.service(),
+	curatedMainPageData: Ember.inject.service(),
+	ns: Ember.computed.alias('curatedMainPageData.ns'),
+	adsContext: Ember.computed.alias('curatedMainPageData.adsContext'),
 
 	/**
 	 * @param {Ember.model} model
