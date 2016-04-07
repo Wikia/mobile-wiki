@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import HeadroomMixin from '../mixins/headroom';
-import {track, trackActions, trackExperiment} from 'common/utils/track';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	TrackClickMixin,
@@ -13,7 +13,6 @@ export default Ember.Component.extend(
 		themeBar: false,
 		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 		pinned: true,
-		experimentName: 'FAN_KNOWLEDGE_MERCURY_GLOBAL_NAV',
 
 		currentUser: Ember.inject.service(),
 		newFeaturesBadges: Ember.inject.service(),
@@ -31,11 +30,6 @@ export default Ember.Component.extend(
 					this.trackClick('recent-wiki-activity-blue-dot', 'open-navigation');
 				}
 
-				trackExperiment(this.get('experimentName'), {
-					action: trackActions.click,
-					category: 'entrypoint',
-					label: 'nav-icon'
-				});
 				this.trackClick('side-nav', 'expanded');
 				this.sendAction('toggleSideNav', true);
 			},
