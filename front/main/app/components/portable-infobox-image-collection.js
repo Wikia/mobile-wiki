@@ -32,7 +32,6 @@ export default Ember.Component.extend(
 
 		width: Ember.computed.readOnly('viewportDimensions.width'),
 
-		// @todo widths should be normalized
 		height: Ember.computed('width', 'currentImage', function () {
 			const width = this.get('width'),
 				imageAspectRatio = this.get('imageAspectRatio'),
