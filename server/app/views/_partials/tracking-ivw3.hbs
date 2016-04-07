@@ -8,7 +8,7 @@
 			allowExternals &&
 			window.Wikia && Wikia.InstantGlobals &&
 			!Wikia.InstantGlobals['wgSitewideDisableIVW3'] &&
-			window.ivw3 && ivw3.countries &&
+			ivw3 && ivw3.countries &&
 			typeof ivw3.countries.indexOf === 'function' &&
 			ivw3.countries.indexOf(M.prop('geo.country')) !== -1
 		) {
