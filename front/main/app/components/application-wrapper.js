@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import {trackPerf} from 'common/utils/track-perf';
+// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 import {trackExperiment, trackActions} from 'common/utils/track';
 import {getGroup} from 'common/modules/abtest';
 
