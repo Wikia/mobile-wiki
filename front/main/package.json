@@ -50,7 +50,7 @@
     "ember-in-viewport": "2.0.4",
     "ember-load-initializers": "0.5.1",
     "ember-onbeforeunload": "0.2.0",
-    "ember-pop-over": "kvas-damian/ember-pop-over#c9a54404b48017c9b5bd524017c500e939a4d2b2",
+    "ember-pop-over": "kvas-damian/ember-pop-over#8688fbf8805a9c3d474b99d4844066012ad5ce78",
     "ember-resolver": "2.0.3",
     "ember-sinon": "0.3.0",
     "ember-sortable": "1.8.0",
