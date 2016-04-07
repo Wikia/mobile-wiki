@@ -74,7 +74,7 @@ export default Ember.Controller.extend({
 			const model = this.get('model'),
 				route = this.get('target');
 
-			route.send('returnToVE');
+			route.send('returnToVE', true);
 			model.initInfoboxState();
 			model.setupInitialState();
 		},
