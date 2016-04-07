@@ -75,7 +75,8 @@
     "upvote-link-label_plural":"賛成__count__票",
     "replies-link-label":"返信__count__件",
     "replies-link-label_plural":"返信__count__件",
-    "share-header":"投稿を共有"
+    "share-header":"投稿を共有",
+    "share-label":"共有"
   },
   "editor":{
     "post-failed-error":"投稿できませんでした。",

@@ -75,7 +75,8 @@
     "upvote-link-label_plural":"__count__ votes",
     "replies-link-label":"__count__ réponse",
     "replies-link-label_plural":"__count__ réponses",
-    "share-header":"Partagez la publication"
+    "share-header":"Partagez la publication",
+    "share-label":"Partager"
   },
   "editor":{
     "post-failed-error":"Échec de la publication.",
