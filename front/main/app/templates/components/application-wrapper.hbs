@@ -6,25 +6,43 @@
 		toggleVisibility=attrs.toggleSmartBanner
 	}}
 
+	{{!--
+		temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+		cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+
+		previous code:
+
+		{{site-head
+			smartBannerVisible=smartBannerVisible
+			toggleSideNav=attrs.toggleSideNav
+			toggleUserMenu=attrs.toggleUserMenu
+			toggleSiteHeadPinned=attrs.toggleSiteHeadPinned
+			themeBar=themeBar
+		}}
+	--}}
 	{{site-head
 		smartBannerVisible=smartBannerVisible
 		toggleSideNav=attrs.toggleSideNav
 		toggleUserMenu=attrs.toggleUserMenu
 		toggleSiteHeadPinned=attrs.toggleSiteHeadPinned
 		themeBar=themeBar
+		navABTest=navABTest
+		showSearch=(action 'showSearch')
 	}}
 
 	{{!--
 		temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
 		cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 	--}}
-	{{wikia-ui-components/icon-button
+	{{#if navABTest}}
+		{{wikia-ui-components/icon-button
 		class='fab-button-navigation'
 		click=(action 'fabIconClick')
 		icon='menu'
 		iconSize=24
 		title='Open Navigation'
-	}}
+		}}
+	{{/if}}
 
 	{{#if enableShareHeader}}
 		{{share-header
@@ -33,9 +51,12 @@
 			language=language
 		}}
 	{{/if}}
+
 	{{!--
 		temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
 		cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+
+		previous code:
 
 		{{side-nav
 			shouldBeVisible=sideNavVisible
@@ -49,6 +70,7 @@
 		toggleVisibility=attrs.toggleSideNav
 		shouldOpenNavSearch=shouldOpenNavSearch
 	}}
+
 	{{#if noMargins}}
 		{{outlet}}
 	{{else}}

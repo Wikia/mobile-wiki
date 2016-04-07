@@ -7,16 +7,7 @@ export default Ember.Component.extend(
 		tagName: 'nav',
 		classNames: ['side-nav'],
 		classNameBindings: ['shouldBeVisible:slide-into-view:collapsed'],
-
-		// globalNavContent: 'side-nav-global-navigation-root',
-
-		// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-		// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-		globalNavContent: Ember.computed('shouldOpenNavSearch', function () {
-			return this.setNavContentForExperiment();
-		}),
-		hideLocalNav: Ember.computed.bool('shouldOpenNavSearch'),
-
+		globalNavContent: 'side-nav-global-navigation-root',
 		isFandomVisible: Ember.computed(() => Mercury.wiki.language.content === 'en'),
 		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 		homeOfFandomLabel: Ember.get(Mercury, 'wiki.navigation2016.fandomLabel'),
@@ -47,6 +38,7 @@ export default Ember.Component.extend(
 				// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 				this.set('globalNavContent', this.setNavContentForExperiment());
 				this.sendAction('toggleVisibility', false);
+				this.set('shouldOpenNavSearch', false);
 			},
 
 			closeButtonClick() {
@@ -64,6 +56,7 @@ export default Ember.Component.extend(
 				// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 				this.set('globalNavContent', this.setNavContentForExperiment());
 				this.sendAction('loadRandomArticle');
+				this.set('shouldOpenNavSearch', false);
 			},
 
 			replaceNavigationContent(navName) {
@@ -79,6 +72,10 @@ export default Ember.Component.extend(
 
 		// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
 		// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+		hideLocalNav: Ember.computed.bool('shouldOpenNavSearch'),
+		setNavContent: Ember.observer('shouldOpenNavSearch', function() {
+			this.set('globalNavContent', this.setNavContentForExperiment())
+		}),
 		/**
 		 * @returns {string}
 		 */

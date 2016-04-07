@@ -171,21 +171,36 @@ export default Ember.Component.extend({
 
 	// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
 	// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+	navABTest: true,
 	shouldOpenNavSearch: false,
 	actions: {
-		fabIconClick() {
+		/**
+		 * return {void}
+		 */
+		fubIconClick() {
 			trackExperiment(this.get('experimentName'), {
 				action: trackActions.click,
 				category: 'entrypoint',
 				label: 'fab-icon'
 			});
+
+			this.send('showNav');
+		},
+
+		/**
+		 * return {void}
+		 */
+		showNav() {
+			this.set('shouldOpenNavSearch', false);
+			this.get('toggleSideNav')(true);
+		},
+
+		/**
+		 * return {void}
+		 */
+		showSearch() {
 			this.set('shouldOpenNavSearch', true);
 			this.get('toggleSideNav')(true);
 		}
-	},
-	resetNavContent: Ember.observer('sideNavVisible', function () {
-		if (this.get('sideNavVisible') === false) {
-			this.set('shouldOpenNavSearch', false);
-		}
-	})
+	}
 });
