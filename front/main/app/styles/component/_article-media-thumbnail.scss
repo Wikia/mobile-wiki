@@ -13,10 +13,9 @@
 	}
 
 	img {
+		@extend %image-placeholder;
 		display: inline-block;
 		width: 100%;
-
-		@extend %image-placeholder;
 	}
 
 	&.loaded {
@@ -48,43 +47,6 @@
 	.has-caption .chevron {
 		margin-bottom: 50px;
 	}
-}
-
-.article-media-gallery {
-	-webkit-overflow-scrolling: touch;
-	overflow: {
-		x: auto;
-		y: hidden;
-	}
-	white-space: nowrap;
-
-	img {
-		height: 195px;
-		margin-right: 8px;
-		// Fixes iOS Safari repaint bug when scrolling through gallery
-		transform: translate3d(0, 0, 0);
-		width: 195px;
-	}
-
-	.article-media-thumbnail {
-		display: inline-block;
-		margin: 20px 0;
-	}
-}
-
-.article-media-linked-gallery {
-	text-align: center;
-
-	.article-media-thumbnail {
-		display: inline-block;
-		margin: 0 0 20px;
-		width: 49%;
-		vertical-align: top;
-	}
-}
-
-.article-media-icon {
-	margin-right: 6px;
 }
 
 @keyframes lazyImage {

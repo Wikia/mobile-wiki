@@ -79,7 +79,6 @@ export default Ember.Component.extend(
 					this.loadIcons();
 					this.loadTableOfContentsData();
 					this.handleTables();
-					this.replaceMapsWithMapComponents();
 					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 					this.replaceWikiaWidgetsWithComponents();
@@ -146,7 +145,7 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			openLightbox(lightboxType, lightboxData) {
-				this.sendAction('openLightbox', lightboxType, lightboxData);
+				this.get('openLightbox')(lightboxType, lightboxData);
 			},
 
 			/**
@@ -244,6 +243,10 @@ export default Ember.Component.extend(
 						items: media[attrs.ref]
 					});
 				}
+			} else if (name === 'article-media-map-thumbnail') {
+				attrs = Ember.$.extend(attrs, {
+					openLightbox: this.get('openLightbox')
+				});
 			}
 
 			return {name, attrs, element};
@@ -417,49 +420,6 @@ export default Ember.Component.extend(
 			}
 
 			model.set('media', articleMedia);
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		replaceMapsWithMapComponents() {
-			/**
-			 * @param {number} i
-			 * @param {Element} elem
-			 * @returns {void}
-			 */
-			this.$('.wikia-interactive-map-thumbnail').map((i, elem) => {
-				this.replaceMapWithMapComponent(elem);
-			});
-		},
-
-		/**
-		 * @param {Element} elem
-		 * @returns {void}
-		 */
-		replaceMapWithMapComponent(elem) {
-			const $mapPlaceholder = $(elem),
-				$a = $mapPlaceholder.children('a'),
-				$img = $a.children('img'),
-				mapComponent = this.get('container').lookup('wikia-map', {
-					singleton: false
-				});
-
-			let mapView;
-
-			mapComponent.setProperties({
-				url: $a.data('map-url'),
-				imageSrc: $img.data('src'),
-				id: $a.data('map-id'),
-				title: $a.data('map-title'),
-				click: 'openLightbox',
-			});
-
-			mapView = this.createChildView(mapComponent);
-
-			mapView.createElement();
-			$mapPlaceholder.replaceWith(mapView.$());
-			mapView.trigger('didInsertElement');
 		},
 
 		/**
