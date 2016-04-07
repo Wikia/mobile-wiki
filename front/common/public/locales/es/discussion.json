@@ -71,11 +71,12 @@
     "lock-post":"Cerrar discusión",
     "unlock-post":"Reabrir discusión",
     "locked-and-reported-to-moderators-text":"Esta discusión ha sido cerrada y ha sido reportada.",
-    "upvote-link-label":"__count__ voto",
-    "upvote-link-label_plural":"__count__ votos",
-    "replies-link-label":"__count__ respuesta",
-    "replies-link-label_plural":"__count__ respuestas",
-    "share-header":"Comparte"
+    "upvote-link-label":"__count__ Upvote",
+    "upvote-link-label_plural":"__count__ Upvotes",
+    "replies-link-label":"__count__ Reply",
+    "replies-link-label_plural":"__count__ Replies",
+    "share-header":"Comparte",
+    "share-label":"Share"
   },
   "editor":{
     "post-failed-error":"Fallo en discusión.",

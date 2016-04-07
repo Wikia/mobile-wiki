@@ -18,13 +18,13 @@
 	{{discussion-hero-unit
 		userName=model.userName
 		contributors=model.contributors
-		numberOfPosts=model.totalPosts
+		numberOfPosts=model.postCount
 	}}
 	<div class="desktop-hidden post-list-header-content">
 		{{discussion-post-list-header
 			userName=model.userName
 			contributors=model.contributors
-			numberOfPosts=model.totalPosts
+			numberOfPosts=model.postCount
 		}}
 	</div>
 	<div class="discussion-page row">
@@ -58,9 +58,9 @@
 					minorError=model.minorError
 					name=model.name
 					pageNum=model.pageNum
-					posts=model.posts
-					postsDisplayed=model.posts.length
-					totalPosts=model.totalPosts
+					posts=model.entities
+					postsDisplayed=model.entities.length
+					totalPosts=model.postCount
 					unlockPost=(action this.attrs.unlockPost)
 				}}
 			</div>
