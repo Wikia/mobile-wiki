@@ -51,6 +51,9 @@ export default Ember.Component.extend(
 		/**
 		 * We should never change properties on components during
 		 * didRender because it causes significant performance degradation.
+		 * 
+		 * This is temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+		 * TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 		 * @returns {void}
 		 */
 		didRender() {
