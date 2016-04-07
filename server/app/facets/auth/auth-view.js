@@ -185,11 +185,12 @@ export function getDefaultContext(request) {
 		standalonePage: (viewType === VIEW_TYPE_DESKTOP && !isModal),
 		pageParams: {
 			cookieDomain: localSettings.authCookieDomain,
-			isModal,
 			enableSocialLogger: localSettings.clickstream.social.enable,
+			windowOrigin: (request.query.windowOrigin || undefined),
+			isModal,
+			parentOrigin: (isModal ? getOrigin(request) : undefined),
 			socialLoggerUrl: localSettings.clickstream.social.url,
 			viewType,
-			parentOrigin: (isModal ? getOrigin(request) : undefined)
 		}
 	};
 }
