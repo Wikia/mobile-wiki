@@ -73,8 +73,8 @@ export default Ember.Component.extend(
 		// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
 		// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 		hideLocalNav: Ember.computed.bool('shouldOpenNavSearch'),
-		setNavContent: Ember.observer('shouldOpenNavSearch', function() {
-			this.set('globalNavContent', this.setNavContentForExperiment())
+		setNavContent: Ember.observer('shouldOpenNavSearch', function () {
+			this.set('globalNavContent', this.setNavContentForExperiment());
 		}),
 		/**
 		 * @returns {string}

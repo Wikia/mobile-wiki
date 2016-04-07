@@ -185,7 +185,7 @@ export default Ember.Component.extend({
 		return this.get('navABTestCurrentGroup') !== this.get('navABTestDefaultGroup');
 	}),
 	fabIcon: Ember.computed('navABTestIsFabSearchIcon', function () {
-		return this.get('navABTestIsFabSearchIcon')  ? 'search-for-ab-test' : 'menu';
+		return this.get('navABTestIsFabSearchIcon') ? 'search-for-ab-test' : 'menu';
 	}),
 
 	// used to set initial  content to search when opening side-nav
@@ -193,7 +193,7 @@ export default Ember.Component.extend({
 
 	actions: {
 		/**
-		 * return {void}
+		 * @returns {void}
 		 */
 		fabIconClick() {
 			const actionHandler = this.get('navABTestIsFabSearchIcon') ? 'showSearch' : 'showNav';
@@ -208,7 +208,7 @@ export default Ember.Component.extend({
 		},
 
 		/**
-		 * return {void}
+		 * @returns {void}
 		 */
 		siteHeadIconClick() {
 			const actionHandler = this.get('navABTestIsFabSearchIcon') ? 'showNav' : 'showSearch';
@@ -224,7 +224,7 @@ export default Ember.Component.extend({
 	},
 
 	/**
-	 * return {void}
+	 * @returns {void}
 	 */
 	showNav() {
 		this.set('shouldOpenNavSearch', false);
@@ -232,7 +232,7 @@ export default Ember.Component.extend({
 	},
 
 	/**
-	 * return {void}
+	 * @returns {void}
 	 */
 	showSearch() {
 		this.set('shouldOpenNavSearch', true);
