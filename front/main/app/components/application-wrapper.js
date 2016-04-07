@@ -199,13 +199,7 @@ export default Ember.Component.extend({
 		fabIconClick() {
 			const actionHandler = this.get('navABTestIsFabSearchIcon') ? 'showSearch' : 'showNav';
 
-			trackExperiment(this.get('navABTestExperimentName'), {
-				action: trackActions.click,
-				category: 'entrypoint',
-				label: 'fab-icon'
-			});
-
-			this.get(actionHandler)();
+			this.trackAndTrigger('fab-icon', actionHandler);
 		},
 
 		/**
@@ -214,14 +208,23 @@ export default Ember.Component.extend({
 		siteHeadIconClick() {
 			const actionHandler = this.get('navABTestIsFabSearchIcon') ? 'showNav' : 'showSearch';
 
-			trackExperiment(this.get('navABTestExperimentName'), {
-				action: trackActions.click,
-				category: 'entrypoint',
-				label: 'site-head-icon'
-			});
-
-			this.get(actionHandler)();
+			this.trackAndTrigger('site-head-icon', actionHandler);
 		}
+	},
+
+	/**
+	 * @param {String} trackingLabel
+	 * @param  {String} actionHandler
+	 * @returns {void}
+	 */
+	trackAndTrigger(trackingLabel, actionHandler) {
+		trackExperiment(this.get('navABTestExperimentName'), {
+			action: trackActions.click,
+			category: 'entrypoint',
+			label: trackingLabel
+		});
+
+		this[actionHandler]();
 	},
 
 	/**
