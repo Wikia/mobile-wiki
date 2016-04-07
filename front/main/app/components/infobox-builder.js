@@ -394,7 +394,7 @@ export default Ember.Component.extend(
 				});
 
 				if (this.get('isVEContext')) {
-					this.get('goBackToVE')();
+					this.get('goBackToVE')(this.get('title'));
 					this.set('showSuccess', false);
 				} else if (shouldRedirectToPage) {
 					this.get('redirectToPageAction')(data.urls.templatePageUrl);

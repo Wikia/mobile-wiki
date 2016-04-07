@@ -55,10 +55,11 @@ export default Ember.Controller.extend({
 		/**
 		 * Triggers action to communicate VE that creating infobox is completed
 		 *
+		 * @param {string} title Title of newly created infobox template
 		 * @returns {void}
          */
-		goBackToVE() {
-			this.get('target').send('returnToVE', true);
+		goBackToVE(title) {
+			this.get('target').send('returnToVE', title);
 		},
 
 		redirectToPage(url) {
