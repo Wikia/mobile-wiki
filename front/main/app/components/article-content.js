@@ -230,7 +230,7 @@ export default Ember.Component.extend(
 			const media = this.get('media.media');
 
 			if (attrs.ref >= 0 && media && media[attrs.ref]) {
-				if (name === 'article-media-thumbnail') {
+				if (name === 'article-media-thumbnail' || name === 'portable-infobox-hero-image') {
 					attrs = Ember.$.extend(attrs, media[attrs.ref]);
 
 					/**
