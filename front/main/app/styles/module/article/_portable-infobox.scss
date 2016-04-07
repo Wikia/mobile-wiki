@@ -121,7 +121,7 @@ $group-header-font-size: 16px;
 					position: absolute;
 					top: 0;
 					width: $infobox-image-collection-button-width;
-					z-index: $z-portable-infobox-collapse;
+					z-index: 2;
 				}
 
 				svg {
