@@ -171,7 +171,13 @@ export default Ember.Component.extend({
 	shouldOpenNavSearch: false,
 	actions: {
 		fubIconClick() {
+			this.set('shouldOpenNavSearch', true);
 			this.get('toggleSideNav')(true);
 		}
-	}
+	},
+	resetNavContent: Ember.observer('sideNavVisible', function () {
+		if (this.get('sideNavVisible') === false) {
+			this.set('shouldOpenNavSearch', false);
+		}
+	})
 });
