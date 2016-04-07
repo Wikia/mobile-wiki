@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import {trackPerf} from 'common/utils/track-perf';
 import {trackExperiment, trackActions} from 'common/utils/track';
+import {getGroup} from 'common/modules/abtest';
 
 /**
  * HTMLMouseEvent
@@ -33,7 +34,6 @@ export default Ember.Component.extend({
 		return `${vertical}-vertical`;
 	}),
 
-	experimentName: 'FAN_KNOWLEDGE_MERCURY_GLOBAL_NAV',
 	noScroll: false,
 	scrollLocation: null,
 	smartBannerVisible: false,
@@ -171,13 +171,18 @@ export default Ember.Component.extend({
 
 	// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
 	// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-	navABTest: true,
+	navABTestExperimentName: 'FAN_KNOWLEDGE_MERCURY_GLOBAL_NAV',
+	navABTestDefaultGroup: 'DEFAULT',
+
+	navABTestChangeUI: Ember.computed('navABTestDefaultGroup', 'navABTestDefaultGroup', function () {
+		return getGroup(this.get('navABTestExperimentName')) !== this.get('navABTestDefaultGroup');
+	}),
 	shouldOpenNavSearch: false,
 	actions: {
 		/**
 		 * return {void}
 		 */
-		fubIconClick() {
+		fabIconClick() {
 			trackExperiment(this.get('experimentName'), {
 				action: trackActions.click,
 				category: 'entrypoint',

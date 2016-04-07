@@ -26,7 +26,7 @@
 		toggleUserMenu=attrs.toggleUserMenu
 		toggleSiteHeadPinned=attrs.toggleSiteHeadPinned
 		themeBar=themeBar
-		navABTest=navABTest
+		navABTestChangeUI=navABTestChangeUI
 		showSearch=(action 'showSearch')
 	}}
 
@@ -34,7 +34,7 @@
 		temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
 		cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 	--}}
-	{{#if navABTest}}
+	{{#if navABTestChangeUI}}
 		{{wikia-ui-components/icon-button
 		class='fab-button-navigation'
 		click=(action 'fabIconClick')
