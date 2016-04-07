@@ -235,8 +235,10 @@ export default Ember.Component.extend({
 	 * @returns {void}
 	 */
 	showNav() {
-		this.set('shouldFocusSearchInput', false);
-		this.set('shouldOpenNavSearch', false);
+		this.setProperties({
+			shouldFocusSearchInput: false,
+			shouldOpenNavSearch: false
+		});
 		this.get('toggleSideNav')(true);
 	},
 
@@ -244,8 +246,10 @@ export default Ember.Component.extend({
 	 * @returns {void}
 	 */
 	showSearch() {
-		this.set('shouldFocusSearchInput', true);
-		this.set('shouldOpenNavSearch', true);
+		this.setProperties({
+			shouldFocusSearchInput: true,
+			shouldOpenNavSearch: true
+		});
 		this.get('toggleSideNav')(true);
 	}
 });
