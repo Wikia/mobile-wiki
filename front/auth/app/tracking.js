@@ -5,7 +5,7 @@ import {trackActions} from 'common/utils/track';
  * @returns {void}
  */
 function setTrackingForSignInPage() {
-	const gaCategory = (pageParams.windowOrigin ? 'force-login-window' : 'user-login-mobile'),
+	const gaCategory = (pageParams.forceLogin ? 'force-login-modal' : 'user-login-mobile'),
 		tracker = new AuthTracker(gaCategory, '/signin');
 
 	// Impression of the Signin page
@@ -29,6 +29,7 @@ function setTrackingForSignInPage() {
 		'forgot-password-link'
 	);
 
+	// Click on 'connect with facebook'
 	tracker.trackClick(
 		document.querySelector('.signup-provider-facebook'),
 		'facebook-connect'
@@ -39,7 +40,7 @@ function setTrackingForSignInPage() {
  * @returns {void}
  */
 function setTrackingForRegisterPage() {
-	const gaCategory = (pageParams.windowOrigin ? 'force-login-window' : 'user-signup-mobile'),
+	const gaCategory = (pageParams.forceLogin ? 'force-login-modal' : 'user-signup-mobile'),
 		tracker = new AuthTracker(gaCategory, '/register');
 
 	// Impression of the Register page
@@ -57,10 +58,6 @@ function setTrackingForRegisterPage() {
 		'signin-link-on-register-page'
 	);
 
-	if (pageParams.windowOrigin) {
-		tracker = new AuthTracker('force-login-modal', '/register');
-	}
-
 	// Click on 'connect with facebook'
 	tracker.trackClick(
 		document.querySelector('.signup-provider-facebook'),
@@ -72,7 +69,7 @@ function setTrackingForRegisterPage() {
  * @returns {void}
  */
 function setTrackingForJoinPage() {
-	const gaCategory = (pageParams.windowOrigin ? 'force-login-window' : 'user-login-mobile'),
+	const gaCategory = (pageParams.forceLogin ? 'force-login-modal' : 'user-login-mobile'),
 		tracker = new AuthTracker(gaCategory, '/join');
 
 	// Impression of the Join page
@@ -101,7 +98,7 @@ function setTrackingForJoinPage() {
  * @returns {void}
  */
 function setTrackingForFBConnectPage() {
-	const gaCategory = (pageParams.windowOrigin ? 'force-login-window' : 'user-login-mobile'),
+	const gaCategory = (pageParams.forceLogin ? 'force-login-modal' : 'user-login-mobile'),
 		tracker = new AuthTracker(gaCategory, '/signin');
 
 	// Impression of the Facebook Connect page
@@ -130,7 +127,7 @@ function setTrackingForFBConnectPage() {
  * @returns {void}
  */
 function setTrackingForFBRegisterPage() {
-	const gaCategory = (pageParams.windowOrigin ? 'force-login-modal' : 'user-signup-mobile'),
+	const gaCategory = (pageParams.forceLogin ? 'force-login-modal' : 'user-signup-mobile'),
 		tracker = new AuthTracker(gaCategory, '/register');
 
 	// Impression of the Facebook Register page
