@@ -2,7 +2,6 @@ import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
 import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
-import {track, trackActions} from 'common/utils/track';
 
 /**
  * @typedef {Object} ArticleSectionHeader
