@@ -343,7 +343,7 @@ export default Ember.Component.extend(
 				media = model.find(ref),
 				component = this.newFromMedia(media);
 
-			let view;
+			let componentElement;
 
 			component.setProperties({
 				ref,
@@ -353,9 +353,9 @@ export default Ember.Component.extend(
 				media
 			});
 
-			view = this.createChildView(component).createElement();
+			componentElement = this.createChildView(component).createElement();
 
-			return view.$().attr('data-ref', ref);
+			return componentElement.$().attr('data-ref', ref);
 		},
 
 		/**
@@ -431,7 +431,7 @@ export default Ember.Component.extend(
 			const infoboxComponent = this.createComponentInstance('portable-infobox'),
 				$infoboxPlaceholder = $(elem);
 
-			let infoboxView;
+			let infoboxComponentElement;
 
 			infoboxComponent.setProperties({
 				infoboxHTML: elem.innerHTML,
@@ -439,11 +439,10 @@ export default Ember.Component.extend(
 				pageTitle: this.get('displayTitle'),
 			});
 
-			infoboxView = this.createChildView(infoboxComponent);
+			infoboxComponentElement = this.createChildView(infoboxComponent).createElement();
 
-			infoboxView.createElement();
-			$infoboxPlaceholder.replaceWith(infoboxView.$());
-			infoboxView.trigger('didInsertElement');
+			$infoboxPlaceholder.replaceWith(infoboxComponentElement.$());
+			infoboxComponentElement.trigger('didInsertElement');
 		},
 
 		/**
@@ -470,13 +469,12 @@ export default Ember.Component.extend(
 				widgetType = widgetData.wikiaWidget,
 				widgetComponent = this.createWidgetComponent(widgetType, $widgetPlaceholder.data());
 
-			let component;
+			let widgetComponentElement;
 
 			if (widgetComponent) {
-				component = this.createChildView(widgetComponent);
-				component.createElement();
-				$widgetPlaceholder.replaceWith(component.$());
-				component.trigger('didInsertElement');
+				widgetComponentElement = this.createChildView(widgetComponent).createElement();
+				$widgetPlaceholder.replaceWith(widgetComponentElement.$());
+				widgetComponentElement.trigger('didInsertElement');
 			}
 		},
 
