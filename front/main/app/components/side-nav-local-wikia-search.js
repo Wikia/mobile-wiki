@@ -48,6 +48,20 @@ export default Ember.Component.extend(
 		// key: query string, value: Array<SearchSuggestionItem>
 		cachedResults: {},
 
+		/**
+		 * We should never change properties on components during
+		 * didRender because it causes significant performance degradation.
+		 * @returns {void}
+		 */
+		didRender() {
+			this._super(...arguments);
+			Ember.run.scheduleOnce('afterRender', this, 'focusSearchInput');
+		},
+
+		focusSearchInput() {
+			this.$('.side-search__input').get(0).focus();
+		},
+
 		actions: {
 			enter(value) {
 				this.trackClick('side-nav', 'search-open-special-search');
@@ -65,7 +79,7 @@ export default Ember.Component.extend(
 
 			clearSearch() {
 				this.set('query', null);
-				this.$('.side-search__input').focus();
+				this.focusSearchInput();
 			},
 
 			searchSuggestionClick() {
