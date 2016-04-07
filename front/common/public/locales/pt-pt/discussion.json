@@ -71,11 +71,12 @@
     "lock-post":"Lock Post",
     "unlock-post":"Unlock Post",
     "locked-and-reported-to-moderators-text":"This post is locked, and has been reported.",
-    "upvote-link-label":"__count__ upvote",
-    "upvote-link-label_plural":"__count__ upvotes",
-    "replies-link-label":"__count__ reply",
-    "replies-link-label_plural":"__count__ replies",
-    "share-header":"Share Post"
+    "upvote-link-label":"__count__ Upvote",
+    "upvote-link-label_plural":"__count__ Upvotes",
+    "replies-link-label":"__count__ Reply",
+    "replies-link-label_plural":"__count__ Replies",
+    "share-header":"Share Post",
+    "share-label":"Share"
   },
   "editor":{
     "post-failed-error":"Post failed.",
