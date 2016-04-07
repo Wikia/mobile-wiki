@@ -45,25 +45,25 @@ export default Ember.Component.extend(
 
 		newFromMedia(media) {
 			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
-				return this.get('container').lookup('infobox-image-media', {
+				return this.get('container').lookup('component:infobox-image-media', {
 					singleton: false
 				});
 			} else if (Ember.isArray(media)) {
 				if (media.some((media) => Boolean(media.link))) {
-					return this.get('container').lookup('linked-gallery-media', {
+					return this.get('container').lookup('component:linked-gallery-media', {
 						singleton: false
 					});
 				} else {
-					return this.get('container').lookup('gallery-media', {
+					return this.get('container').lookup('component:gallery-media', {
 						singleton: false
 					});
 				}
 			} else if (media.type === 'video') {
-				return this.get('container').lookup('video-media', {
+				return this.get('container').lookup('component:video-media', {
 					singleton: false
 				});
 			} else {
-				return this.get('container').lookup('image-media', {
+				return this.get('container').lookup('component:image-media', {
 					singleton: false
 				});
 			}
@@ -360,15 +360,22 @@ export default Ember.Component.extend(
 		createMediaComponent(element, model) {
 			const ref = parseInt(element.dataset.ref, 10),
 				media = model.find(ref),
-				component = this.createChildView(this.newFromMedia(media), {
-					ref,
-					width: parseInt(element.getAttribute('width'), 10),
-					height: parseInt(element.getAttribute('height'), 10),
-					imgWidth: element.offsetWidth,
-					media
-				}).createElement();
+				component = this.newFromMedia(media);
 
-			return component.$().attr('data-ref', ref);
+			debugger;
+			let view;
+
+			component.setProperties({
+				ref,
+				width: parseInt(element.getAttribute('width'), 10),
+				height: parseInt(element.getAttribute('height'), 10),
+				imgWidth: element.offsetWidth,
+				media
+			});
+
+			view = this.createChildView(component).createElement();
+
+			return view.$().attr('data-ref', ref);
 		},
 
 		/**
@@ -484,15 +491,20 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		replaceInfoboxWithInfoboxComponent(elem) {
-			const infoboxComponent = this.get('container').lookup('portable-infobox', {
+			const infoboxComponent = this.get('container').lookup('component:portable-infobox', {
 					singleton: false
 				}),
-				$infoboxPlaceholder = $(elem),
-				infoboxView = this.createChildView(infoboxComponent.setProperties({
-					infoboxHTML: elem.innerHTML,
-					height: $infoboxPlaceholder.outerHeight(),
-					pageTitle: this.get('displayTitle'),
-				}));
+				$infoboxPlaceholder = $(elem);
+
+			let infoboxView;
+
+			infoboxComponent.setProperties({
+				infoboxHTML: elem.innerHTML,
+				height: $infoboxPlaceholder.outerHeight(),
+				pageTitle: this.get('displayTitle'),
+			});
+
+			infoboxView = this.createChildView(infoboxComponent);
 
 			infoboxView.createElement();
 			$infoboxPlaceholder.replaceWith(infoboxView.$());
