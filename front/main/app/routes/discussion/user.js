@@ -1,6 +1,6 @@
 import DiscussionBaseRoute from './base';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
-import DiscussionUserModel from '../../models/discussion-user';
+import DiscussionUserModel from '../../models/discussion/user';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
