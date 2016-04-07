@@ -165,4 +165,13 @@ export default Ember.Component.extend({
 			}
 		}
 	},
+
+	// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+	// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+	shouldOpenNavSearch: false,
+	actions: {
+		fubIconClick() {
+			this.get('toggleSideNav')(true);
+		}
+	}
 });

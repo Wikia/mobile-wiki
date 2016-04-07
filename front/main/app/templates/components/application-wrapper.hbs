@@ -14,6 +14,18 @@
 		themeBar=themeBar
 	}}
 
+	{{!--
+		temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+		cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+	--}}
+	{{wikia-ui-components/icon-button
+		class='fab-button-navigation'
+		click=(action 'fubIconClick')
+		icon='menu'
+		iconSize=24
+		title='Open Navigation'
+	}}
+
 	{{#if enableShareHeader}}
 		{{share-header
 			smartBannerVisible=smartBannerVisible
@@ -21,10 +33,21 @@
 			language=language
 		}}
 	{{/if}}
+	{{!--
+		temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+		cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+
+		{{side-nav
+			shouldBeVisible=sideNavVisible
+			loadRandomArticle=attrs.loadRandomArticle
+			toggleVisibility=attrs.toggleSideNav
+		}}
+	--}}
 	{{side-nav
 		shouldBeVisible=sideNavVisible
 		loadRandomArticle=attrs.loadRandomArticle
 		toggleVisibility=attrs.toggleSideNav
+		shouldOpenNavSearch=shouldOpenNavSearch
 	}}
 	{{#if noMargins}}
 		{{outlet}}
