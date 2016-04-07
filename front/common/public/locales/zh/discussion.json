@@ -75,7 +75,8 @@
     "upvote-link-label_plural":"__count__個讚",
     "replies-link-label":"__count__個回覆",
     "replies-link-label_plural":"__count__個回覆",
-    "share-header":"分享話題"
+    "share-header":"分享話題",
+    "share-label":"分享"
   },
   "editor":{
     "post-failed-error":"發佈失敗",
