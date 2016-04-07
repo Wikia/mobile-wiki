@@ -45,17 +45,27 @@ export default Ember.Component.extend(
 
 		newFromMedia(media) {
 			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
-				return InfoboxImageMediaComponent.create();
+				return this.get('container').lookup('infobox-image-media', {
+					singleton: false
+				});
 			} else if (Ember.isArray(media)) {
 				if (media.some((media) => Boolean(media.link))) {
-					return LinkedGalleryMediaComponent.create();
+					return this.get('container').lookup('linked-gallery-media', {
+						singleton: false
+					});
 				} else {
-					return GalleryMediaComponent.create();
+					return this.get('container').lookup('gallery-media', {
+						singleton: false
+					});
 				}
 			} else if (media.type === 'video') {
-				return VideoMediaComponent.create();
+				return this.get('container').lookup('video-media', {
+					singleton: false
+				});
 			} else {
-				return ImageMediaComponent.create();
+				return this.get('container').lookup('image-media', {
+					singleton: false
+				});
 			}
 		},
 
@@ -434,17 +444,25 @@ export default Ember.Component.extend(
 			const $mapPlaceholder = $(elem),
 				$a = $mapPlaceholder.children('a'),
 				$img = $a.children('img'),
-				mapComponent = this.createChildView(WikiaMapComponent.create({
-					url: $a.data('map-url'),
-					imageSrc: $img.data('src'),
-					id: $a.data('map-id'),
-					title: $a.data('map-title'),
-					click: 'openLightbox',
-				}));
+				mapComponent = this.get('container').lookup('wikia-map', {
+					singleton: false
+				});
 
-			mapComponent.createElement();
-			$mapPlaceholder.replaceWith(mapComponent.$());
-			mapComponent.trigger('didInsertElement');
+			let mapView;
+
+			mapComponent.setProperties({
+				url: $a.data('map-url'),
+				imageSrc: $img.data('src'),
+				id: $a.data('map-id'),
+				title: $a.data('map-title'),
+				click: 'openLightbox',
+			});
+
+			mapView = this.createChildView(mapComponent);
+
+			mapView.createElement();
+			$mapPlaceholder.replaceWith(mapView.$());
+			mapView.trigger('didInsertElement');
 		},
 
 		/**
@@ -466,16 +484,19 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		replaceInfoboxWithInfoboxComponent(elem) {
-			const $infoboxPlaceholder = $(elem),
-				infoboxComponent = this.createChildView(PortableInfoboxComponent.create({
+			const infoboxComponent = this.get('container').lookup('portable-infobox', {
+					singleton: false
+				}),
+				$infoboxPlaceholder = $(elem),
+				infoboxView = this.createChildView(infoboxComponent.setProperties({
 					infoboxHTML: elem.innerHTML,
 					height: $infoboxPlaceholder.outerHeight(),
 					pageTitle: this.get('displayTitle'),
 				}));
 
-			infoboxComponent.createElement();
-			$infoboxPlaceholder.replaceWith(infoboxComponent.$());
-			infoboxComponent.trigger('didInsertElement');
+			infoboxView.createElement();
+			$infoboxPlaceholder.replaceWith(infoboxView.$());
+			infoboxView.trigger('didInsertElement');
 		},
 
 		/**
@@ -538,7 +559,9 @@ export default Ember.Component.extend(
 					return null;
 			}
 
-			component = this.get('container').lookup(componentName);
+			component = this.get('container').lookup(componentName, {
+				singleton: false
+			});
 			component.set('data', data);
 			return component;
 		},
