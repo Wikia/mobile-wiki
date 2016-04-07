@@ -27,7 +27,7 @@ export default Ember.Component.extend(
 
 			return currentImage.height > currentImage.width ?
 				Thumbnailer.mode.topCropDown :
-				Thumbnailer.mode.zoomCrop
+				Thumbnailer.mode.zoomCrop;
 		}),
 
 		width: Ember.computed.readOnly('viewportDimensions.width'),

@@ -127,7 +127,7 @@ export default Ember.Component.extend(
 						loadingError: true
 					});
 				}
-			}
+			};
 		},
 
 		/**
