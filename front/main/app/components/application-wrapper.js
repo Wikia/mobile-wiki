@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {trackPerf} from 'common/utils/track-perf';
+import {trackExperiment, trackActions} from 'common/utils/track';
 
 /**
  * HTMLMouseEvent
@@ -32,10 +33,12 @@ export default Ember.Component.extend({
 		return `${vertical}-vertical`;
 	}),
 
+	experimentName: 'FAN_KNOWLEDGE_MERCURY_GLOBAL_NAV',
 	noScroll: false,
 	scrollLocation: null,
 	smartBannerVisible: false,
 	firstRender: true,
+	navABtest: true,
 
 	noScrollObserver: Ember.observer('noScroll', function () {
 		const $body = Ember.$('body');
@@ -170,7 +173,12 @@ export default Ember.Component.extend({
 	// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 	shouldOpenNavSearch: false,
 	actions: {
-		fubIconClick() {
+		fabIconClick() {
+			trackExperiment(this.get('experimentName'), {
+				action: trackActions.click,
+				category: 'entrypoint',
+				label: 'fab-icon'
+			});
 			this.set('shouldOpenNavSearch', true);
 			this.get('toggleSideNav')(true);
 		}
