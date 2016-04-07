@@ -33,43 +33,6 @@ export default Ember.Component.extend(
 			}
 		},
 
-		gestures: {
-			/**
-			 * @param {JQueryEventObject} event
-			 * @returns {void}
-			 */
-			swipeLeft(event) {
-				// Track swipe events
-				if ($(event.target).parents('.article-table').length) {
-					track({
-						action: trackActions.swipe,
-						category: 'tables'
-					});
-				} else if ($(event.target).parents('.article-gallery').length) {
-					track({
-						action: trackActions.paginate,
-						category: 'gallery',
-						label: 'next'
-					});
-				}
-			},
-
-			/**
-			 * @param {JQueryEventObject} event
-			 * @returns {void}
-			 */
-			swipeRight(event) {
-				// Track swipe events
-				if ($(event.target).parents('.article-gallery').length) {
-					track({
-						action: trackActions.paginate,
-						category: 'gallery',
-						label: 'previous'
-					});
-				}
-			}
-		},
-
 		/**
 		 * Checks if contribution component should be enabled
 		 *
