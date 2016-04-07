@@ -273,13 +273,12 @@ export default Ember.Component.extend(
 				Ember.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 
 				media = this.get('model.media');
+				this.trackClick('media', 'open');
 				this.sendAction('openLightbox', 'media', {
 					media,
 					mediaRef,
 					galleryRef
 				});
-
-				this.trackClick('media', 'open');
 			} else {
 				Ember.Logger.debug('Missing ref on', target);
 			}
