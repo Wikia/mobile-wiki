@@ -173,39 +173,69 @@ export default Ember.Component.extend({
 	// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 	navABTestExperimentName: 'FAN_KNOWLEDGE_MERCURY_GLOBAL_NAV',
 	navABTestDefaultGroup: 'DEFAULT',
+	navABTestFabIconSearchGroup: 'FAB_ICON_SEARCH',
 
-	navABTestChangeUI: Ember.computed('navABTestDefaultGroup', 'navABTestDefaultGroup', function () {
-		return getGroup(this.get('navABTestExperimentName')) !== this.get('navABTestDefaultGroup');
+	navABTestCurrentGroup: Ember.computed('navABTestExperimentName', function () {
+		return getGroup(this.get('navABTestExperimentName'));
 	}),
+	navABTestIsFabSearchIcon: Ember.computed('navABTestCurrentGroup', 'navABTestFabIconSearchGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestFabIconSearchGroup');
+	}),
+	navABTestChangeUI: Ember.computed('navABTestCurrentGroup', 'navABTestDefaultGroup', function () {
+		return this.get('navABTestCurrentGroup') !== this.get('navABTestDefaultGroup');
+	}),
+	fabIcon: Ember.computed('navABTestIsFabSearchIcon', function () {
+		return this.get('navABTestIsFabSearchIcon')  ? 'search-for-ab-test' : 'menu';
+	}),
+
+	// used to set initial  content to search when opening side-nav
 	shouldOpenNavSearch: false,
+
 	actions: {
 		/**
 		 * return {void}
 		 */
 		fabIconClick() {
-			trackExperiment(this.get('experimentName'), {
+			const actionHandler = this.get('navABTestIsFabSearchIcon') ? 'showSearch' : 'showNav';
+
+			trackExperiment(this.get('navABTestExperimentName'), {
 				action: trackActions.click,
 				category: 'entrypoint',
 				label: 'fab-icon'
 			});
 
-			this.send('showNav');
+			this.get(actionHandler)();
 		},
 
 		/**
 		 * return {void}
 		 */
-		showNav() {
-			this.set('shouldOpenNavSearch', false);
-			this.get('toggleSideNav')(true);
-		},
+		siteHeadIconClick() {
+			const actionHandler = this.get('navABTestIsFabSearchIcon') ? 'showNav' : 'showSearch';
 
-		/**
-		 * return {void}
-		 */
-		showSearch() {
-			this.set('shouldOpenNavSearch', true);
-			this.get('toggleSideNav')(true);
+			trackExperiment(this.get('navABTestExperimentName'), {
+				action: trackActions.click,
+				category: 'entrypoint',
+				label: 'site-head-icon'
+			});
+
+			this.get(actionHandler)();
 		}
+	},
+
+	/**
+	 * return {void}
+	 */
+	showNav() {
+		this.set('shouldOpenNavSearch', false);
+		this.get('toggleSideNav')(true);
+	},
+
+	/**
+	 * return {void}
+	 */
+	showSearch() {
+		this.set('shouldOpenNavSearch', true);
+		this.get('toggleSideNav')(true);
 	}
 });

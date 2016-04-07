@@ -3,15 +3,15 @@
 	cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 --}}
 {{#if navABTestChangeUI}}
-	{{#if navABTestSearch}}
-		<div {{action 'expandSideNav'}} class="side-nav-toggle side-nav-toggle-2016">
+	{{#if navABTestIsFabSearchIcon}}
+		<div {{action this.attrs.siteHeadIconClick}} class="side-nav-toggle side-nav-toggle-2016">
 			{{#if shouldDisplayNewBadge}}
 				{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
 			{{/if}}
 			{{svg 'menu' viewBox='0 0 24 14' class='icon nav'}}
 		</div>
 	{{else}}
-		<div {{action this.attrs.showSearch}} class="side-nav-toggle side-nav-toggle-2016 search-button">
+		<div {{action this.attrs.siteHeadIconClick}} class="side-nav-toggle side-nav-toggle-2016 search-button">
 			{{svg 'search-for-ab-test' viewBox='0 0 24 14' class='icon nav'}}
 		</div>
 	{{/if}}

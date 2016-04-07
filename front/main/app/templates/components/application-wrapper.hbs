@@ -27,7 +27,8 @@
 		toggleSiteHeadPinned=attrs.toggleSiteHeadPinned
 		themeBar=themeBar
 		navABTestChangeUI=navABTestChangeUI
-		showSearch=(action 'showSearch')
+		navABTestIsFabSearchIcon=navABTestIsFabSearchIcon
+		siteHeadIconClick=(action 'siteHeadIconClick')
 	}}
 
 	{{!--
@@ -38,9 +39,8 @@
 		{{wikia-ui-components/icon-button
 		class='fab-button-navigation'
 		click=(action 'fabIconClick')
-		icon='menu'
+		icon=fabIcon
 		iconSize=24
-		title='Open Navigation'
 		}}
 	{{/if}}
 
