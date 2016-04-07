@@ -36,27 +36,17 @@ export default Ember.Component.extend(
 
 		newFromMedia(media) {
 			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
-				return this.get('container').lookup('component:infobox-image-media', {
-					singleton: false
-				});
+				return this.createComponentInstance('infobox-image-media');
 			} else if (Ember.isArray(media)) {
 				if (media.some((media) => Boolean(media.link))) {
-					return this.get('container').lookup('component:linked-gallery-media', {
-						singleton: false
-					});
+					return this.createComponentInstance('linked-gallery-media');
 				} else {
-					return this.get('container').lookup('component:gallery-media', {
-						singleton: false
-					});
+					return this.createComponentInstance('gallery-media');
 				}
 			} else if (media.type === 'video') {
-				return this.get('container').lookup('component:video-media', {
-					singleton: false
-				});
+				return this.createComponentInstance('video-media');
 			} else {
-				return this.get('container').lookup('component:image-media', {
-					singleton: false
-				});
+				return this.createComponentInstance('image-media');
 			}
 		},
 
@@ -296,10 +286,7 @@ export default Ember.Component.extend(
 				editIconVisible = this.get('editIconVisible'),
 				editAllowed = this.get('editAllowed'),
 				addPhotoAllowed = this.get('addPhotoAllowed'),
-				contributionComponent =
-					this.get('container').lookup('component:article-contribution', {
-						singleton: false
-					});
+				contributionComponent = this.createComponentInstance('article-contribution');
 
 			contributionComponent.setProperties({
 				section,
@@ -441,9 +428,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		replaceInfoboxWithInfoboxComponent(elem) {
-			const infoboxComponent = this.get('container').lookup('component:portable-infobox', {
-					singleton: false
-				}),
+			const infoboxComponent = this.createComponentInstance('portable-infobox'),
 				$infoboxPlaceholder = $(elem);
 
 			let infoboxView;
@@ -505,25 +490,23 @@ export default Ember.Component.extend(
 
 			switch (widgetType) {
 				case 'twitter':
-					componentName = 'component:widget-twitter';
+					componentName = 'widget-twitter';
 					break;
 				case 'vk':
-					componentName = 'component:widget-vk';
+					componentName = 'widget-vk';
 					break;
 				case 'polldaddy':
-					componentName = 'component:widget-polldaddy';
+					componentName = 'widget-polldaddy';
 					break;
 				case 'flite':
-					componentName = 'component:widget-flite';
+					componentName = 'widget-flite';
 					break;
 				default:
 					Ember.Logger.warn(`Can't create widget with type '${widgetType}'`);
 					return null;
 			}
 
-			component = this.get('container').lookup(componentName, {
-				singleton: false
-			});
+			component = this.createComponentInstance(componentName);
 			component.set('data', data);
 			return component;
 		},
@@ -689,6 +672,17 @@ export default Ember.Component.extend(
 			if (window.scrollY > this.get('targetParagraphOffset')) {
 				this.launchHighlightedTextEditorDemo();
 			}
+		},
+
+		/**
+		 * Create component instance using container lookup.
+		 * @param {String} componentName
+		 * @returns {Ember.Component}
+		 */
+		createComponentInstance(componentName) {
+			return this.get('container').lookup(`component:${componentName}`, {
+				singleton: false
+			});
 		}
 	}
 );
