@@ -172,6 +172,7 @@ export default Ember.Component.extend({
 
 	// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
 	// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+	shouldFocusSearchInput: false,
 	navABTestExperimentName: 'FAN_KNOWLEDGE_MERCURY_GLOBAL_NAV',
 	navABTestDefaultGroup: 'DEFAULT',
 	navABTestFabIconSearchGroup: 'FAB_ICON_SEARCH',
@@ -179,12 +180,15 @@ export default Ember.Component.extend({
 	navABTestCurrentGroup: Ember.computed('navABTestExperimentName', function () {
 		return getGroup(this.get('navABTestExperimentName'));
 	}),
+
 	navABTestIsFabSearchIcon: Ember.computed('navABTestCurrentGroup', 'navABTestFabIconSearchGroup', function () {
 		return this.get('navABTestCurrentGroup') === this.get('navABTestFabIconSearchGroup');
 	}),
+
 	navABTestChangeUI: Ember.computed('navABTestCurrentGroup', 'navABTestDefaultGroup', function () {
 		return this.get('navABTestCurrentGroup') !== this.get('navABTestDefaultGroup');
 	}),
+
 	fabIcon: Ember.computed('navABTestIsFabSearchIcon', function () {
 		return this.get('navABTestIsFabSearchIcon') ? 'search-for-ab-test' : 'menu';
 	}),
@@ -231,6 +235,7 @@ export default Ember.Component.extend({
 	 * @returns {void}
 	 */
 	showNav() {
+		this.set('shouldFocusSearchInput', false);
 		this.set('shouldOpenNavSearch', false);
 		this.get('toggleSideNav')(true);
 	},
@@ -239,6 +244,7 @@ export default Ember.Component.extend({
 	 * @returns {void}
 	 */
 	showSearch() {
+		this.set('shouldFocusSearchInput', true);
 		this.set('shouldOpenNavSearch', true);
 		this.get('toggleSideNav')(true);
 	}

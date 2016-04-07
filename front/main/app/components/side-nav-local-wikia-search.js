@@ -58,7 +58,9 @@ export default Ember.Component.extend(
 		 */
 		didRender() {
 			this._super(...arguments);
-			Ember.run.scheduleOnce('afterRender', this, 'focusSearchInput');
+			if (this.get('shouldFocusInput')) {
+				Ember.run.scheduleOnce('afterRender', this, 'focusSearchInput');
+			}
 		},
 
 		focusSearchInput() {
