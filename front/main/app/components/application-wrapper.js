@@ -38,7 +38,6 @@ export default Ember.Component.extend({
 	scrollLocation: null,
 	smartBannerVisible: false,
 	firstRender: true,
-	navABtest: true,
 
 	noScrollObserver: Ember.observer('noScroll', function () {
 		const $body = Ember.$('body');
