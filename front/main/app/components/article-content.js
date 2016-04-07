@@ -1,17 +1,8 @@
 import Ember from 'ember';
-import InfoboxImageMediaComponent from './infobox-image-media';
-import LinkedGalleryMediaComponent from './linked-gallery-media';
-import GalleryMediaComponent from './gallery-media';
-import VideoMediaComponent from './video-media';
-import ImageMediaComponent from './image-media';
 import InfoboxImageCollectionComponent from './infobox-image-collection';
-import WikiaMapComponent from './wikia-map';
-import PortableInfoboxComponent from './portable-infobox';
 import AdsMixin from '../mixins/ads';
 import PollDaddyMixin from '../mixins/poll-daddy';
 import TrackClickMixin from '../mixins/track-click';
-import WidgetTwitterComponent from '../components/widget-twitter';
-import WidgetVKComponent from '../components/widget-vk';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {getExperimentVariationNumber} from 'common/utils/variant-testing';
 import {track, trackActions} from 'common/utils/track';
@@ -362,7 +353,6 @@ export default Ember.Component.extend(
 				media = model.find(ref),
 				component = this.newFromMedia(media);
 
-			debugger;
 			let view;
 
 			component.setProperties({

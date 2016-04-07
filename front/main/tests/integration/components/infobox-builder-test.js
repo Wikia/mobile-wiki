@@ -8,10 +8,15 @@ moduleForComponent('infobox-builder', 'Integration | Component | infobox builder
 
 test('reset item in edit mode on clicking preview background', function (assert) {
 	const setEditItemSpy = sinon.spy(),
+		removeItemMock = () => {},
 		previewSelector = 'div.infobox-builder-preview';
 
-	this.set('setEditItem', setEditItemSpy);
-	this.render(hbs`{{infobox-builder setEditItem=setEditItem}}`);
+	this.setProperties({
+		setEditItem: setEditItemSpy,
+		removeItem: removeItemMock
+	});
+
+	this.render(hbs`{{infobox-builder setEditItem=(action setEditItem) removeItem=(action removeItem)}}`);
 
 	this.$(previewSelector).click();
 
