@@ -39,7 +39,7 @@ export default Ember.Mixin.create({
 				message = i18n.t(
 					'main.modal-dialog-delete-all-message',
 					{
-						userName: posts[0].createdBy.name,
+						userName: posts.get('0.createdBy.name'),
 						wikiName: Mercury.wiki.siteName,
 						ns: 'discussion'
 					}
