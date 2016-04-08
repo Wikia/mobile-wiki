@@ -21,6 +21,14 @@ export default Ember.Component.extend(
 			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
 		}),
 
+		shouldDisplaySearchIcon: Ember.computed('navABTestIsFabSearchIcon', 'navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', function() {
+			return this.get('navABTestIsFabSearchIcon') || this.get('navABTestIsBarMenuIcon') || this.get('navABTestIsBarDropdownIcon');
+		}),
+
+		shouldDisplayHamburgerIcon: Ember.computed('navABTestIsFabSearchIcon', 'navABTestIsBarMenuIcon', function() {
+			return this.get('navABTestIsFabSearchIcon') || this.get('navABTestIsBarMenuIcon');
+		}),
+
 		actions: {
 			/**
 			 * @returns {void}
