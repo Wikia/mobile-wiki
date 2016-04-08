@@ -296,11 +296,40 @@ test('sanitize custom row source', (assert) => {
 			output: 'test_test'
 		},
 		{
+			input: '  TEST   TEST   ',
+			output: 'test_test'
+		},
+		{
+			input: '  źdźbło',
+			output: 'źdźbło'
+		},
+		{
+			input: '行を使用するとイン!',
+			output: '行を使用するとイン'
+		},
+		{
+			input: 'test{ing|}',
+			output: 'testing'
+		},
+		{
+			input: 'test [link]',
+			output: 'test_link'
+		},
+
+		{
+			input: 'Введе́ние',
+			output: 'введе́ние'
+		},
+		{
 			input: '...',
 			output: ''
 		},
 		{
 			input: '-',
+			output: ''
+		},
+		{
+			input: '___',
 			output: ''
 		},
 		{
