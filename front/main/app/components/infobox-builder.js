@@ -384,7 +384,7 @@ export default Ember.Component.extend(
 		 */
 		handleSaveResults(data, shouldRedirectToPage) {
 			if (data.success) {
-				this.set('showSuccess', !this.get('isVEContext'));
+				this.set('showSuccess', true);
 
 				track({
 					action: trackActions.success,
@@ -394,6 +394,7 @@ export default Ember.Component.extend(
 
 				if (this.get('isVEContext')) {
 					this.get('goBackToVE')();
+					this.set('showSuccess', false);
 				} else if (shouldRedirectToPage) {
 					this.get('redirectToPageAction')(data.urls.templatePageUrl);
 				}

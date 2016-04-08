@@ -7,10 +7,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	init() {
 		this._super(...arguments);
-		this.initInfoboxState();
-	},
-
-	initInfoboxState() {
 		this.setProperties({
 			_itemIndex: {
 				row: 0,

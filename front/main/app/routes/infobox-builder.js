@@ -16,7 +16,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		const templateName = transition.params['infobox-builder'].templateName;
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
+			if (window.self !== window.top) {
 				const promises = {
 					dataAndAssets: this.loadInfoboxDataAndAssets(templateName),
 					ponto: this.loadPonto()
@@ -131,7 +131,10 @@ export default Ember.Route.extend(ConfirmationMixin, {
 					'wikia.infoboxBuilder.ponto',
 					'returnToVE',
 					isOnPublish,
-					(data) => resolve(data),
+					(data) => {
+						resolve(data);
+						this.refresh();
+					},
 					(data) => {
 						reject(data);
 						this.showPontoError(data);
@@ -225,9 +228,12 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {JQueryXHR}
 	 */
 	loadPonto() {
-		this.set('pontoLoadingInitialized', true);
+		if (!window.Ponto || !this.get('pontoLoadingInitialized')) {
+			this.set('pontoLoadingInitialized', true);
+			return Ember.$.getScript(this.pontoPath);
+		}
 
-		return Ember.$.getScript(this.pontoPath);
+		return true;
 	},
 
 	/**
