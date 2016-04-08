@@ -30,12 +30,12 @@ export default class AuthTracker {
 			return;
 		}
 
-		window.onbeforeunload = function () {
+		window.addEventListener('beforeunload', () => {
 			// to avoid tracking 'close' action whenever the window is reloaded;
 			if (pageParams.parentOrigin) {
 				window.opener.postMessage({beforeunload: true}, pageParams.parentOrigin);
 			}
-		};
+		});
 	}
 
 	/**
