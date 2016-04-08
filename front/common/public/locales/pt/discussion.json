@@ -75,7 +75,8 @@
     "upvote-link-label_plural":"__count__ votos",
     "replies-link-label":"__count__ resposta",
     "replies-link-label_plural":"__count__ respostas",
-    "share-header":"Compartilhar post"
+    "share-header":"Compartilhar post",
+    "share-label":"Compartilhar"
   },
   "editor":{
     "post-failed-error":"O post falhou.",

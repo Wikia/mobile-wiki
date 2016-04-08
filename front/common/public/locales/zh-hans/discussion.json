@@ -75,7 +75,8 @@
     "upvote-link-label_plural":"__count__个赞",
     "replies-link-label":"__count__个回复",
     "replies-link-label_plural":"__count__个回复",
-    "share-header":"分享话题"
+    "share-header":"分享话题",
+    "share-label":"分享"
   },
   "editor":{
     "post-failed-error":"发布失败",
