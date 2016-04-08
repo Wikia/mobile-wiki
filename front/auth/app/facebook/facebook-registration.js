@@ -177,4 +177,11 @@ export default class FacebookRegistration {
 		facebookRegistrationXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		facebookRegistrationXhr.send(this.urlHelper.urlEncode(data));
 	}
+
+	/**
+	 * @returns {void}
+	 */
+	watch() {
+		this.tracker.trackCloseWindow();
+	}
 }

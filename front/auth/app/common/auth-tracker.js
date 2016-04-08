@@ -19,8 +19,6 @@ export default class AuthTracker {
 			a: pageType,
 			n: -1
 		});
-
-		this.trackCloseWindow();
 	}
 
 	/**

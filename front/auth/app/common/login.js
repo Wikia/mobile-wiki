@@ -130,6 +130,7 @@ export default class Login {
 	 * @returns {void}
 	 */
 	watch() {
+		this.tracker.trackCloseWindow();
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 
 		// TODO remove when SOC-719 is ready

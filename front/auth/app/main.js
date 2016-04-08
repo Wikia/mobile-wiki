@@ -50,7 +50,7 @@ export function init() {
 			} else if (formElement.id === 'signupForm') {
 				new SignupForm(formElement).watch();
 			} else if (formElement.id === 'facebookRegistrationForm') {
-				new FacebookRegistration(formElement);
+				new FacebookRegistration(formElement).watch();
 			}
 		}
 
