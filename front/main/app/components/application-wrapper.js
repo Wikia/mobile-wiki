@@ -176,6 +176,9 @@ export default Ember.Component.extend({
 	navABTestExperimentName: 'FAN_KNOWLEDGE_MERCURY_GLOBAL_NAV',
 	navABTestDefaultGroup: 'DEFAULT',
 	navABTestFabIconSearchGroup: 'FAB_ICON_SEARCH',
+	navABTestFabIconMenuGroup: 'FAB_ICON_MENU',
+	navABTestBarMenuIconGroup: 'BAR_MENU_ICON',
+	navABTestBarDropdownIconGroup: 'BAR_DROPDOWN_ICON',
 
 	navABTestCurrentGroup: Ember.computed('navABTestExperimentName', function () {
 		return getGroup(this.get('navABTestExperimentName'));
@@ -183,6 +186,18 @@ export default Ember.Component.extend({
 
 	navABTestIsFabSearchIcon: Ember.computed('navABTestCurrentGroup', 'navABTestFabIconSearchGroup', function () {
 		return this.get('navABTestCurrentGroup') === this.get('navABTestFabIconSearchGroup');
+	}),
+
+	navABTestIsFabMenuIcon: Ember.computed('navABTestCurrentGroup', 'navABTestFabIconMenuGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestFabIconMenuGroup');
+	}),
+
+	navABTestIsBarMenuIcon: Ember.computed('navABTestCurrentGroup', 'navABTestBarMenuIconGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestBarMenuIconGroup');
+	}),
+
+	navABTestIsBarDropdownIcon: Ember.computed('navABTestCurrentGroup', 'navABTestBarDropdownIconGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestBarDropdownIconGroup');
 	}),
 
 	navABTestChangeUI: Ember.computed('navABTestCurrentGroup', 'navABTestDefaultGroup', function () {
@@ -209,10 +224,15 @@ export default Ember.Component.extend({
 		/**
 		 * @returns {void}
 		 */
-		siteHeadIconClick() {
-			const actionHandler = this.get('navABTestIsFabSearchIcon') ? 'showNav' : 'showSearch';
+		leftSiteHeadIconClick() {
+			this.trackAndTrigger('site-head-icon', 'showNav');
+		},
 
-			this.trackAndTrigger('site-head-icon', actionHandler);
+		/**
+		 * @returns {void}
+		 */
+		rightSiteHeadIconClick() {
+			this.trackAndTrigger('site-head-icon', 'showSearch');
 		}
 	},
 
