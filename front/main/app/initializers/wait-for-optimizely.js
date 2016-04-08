@@ -1,12 +1,11 @@
 import {getQueryParam} from 'common/utils/querystring';
 
 /**
- * @param {*} container
  * @param {*} application
  *
  * @returns {void}
  */
-export function initialize(container, application) {
+export function initialize(application) {
 	if (!getQueryParam('noexternals')) {
 		application.deferReadiness();
 
