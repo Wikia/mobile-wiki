@@ -17,7 +17,7 @@ export default Ember.Component.extend(
 		height: null,
 		infoboxHTML: '',
 		collapsed: false,
-		clickableElements: ['a', 'button', 'img', 'figure', 'figcaption', 'input', 'portable-infobox-question',
+		clickableElements: ['a', 'button', 'img', 'svg', 'figure', 'figcaption', 'input', 'portable-infobox-question',
 			'portable-infobox-question *'],
 		clickableParent: 'figcaption',
 
