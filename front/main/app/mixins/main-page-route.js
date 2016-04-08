@@ -1,7 +1,12 @@
 import Ember from 'ember';
 import {normalizeToWhitespace} from 'common/utils/string';
+import {setTrackContext, trackPageView} from 'common/utils/track';
 
 export default Ember.Mixin.create({
+	curatedMainPageData: Ember.inject.service(),
+	ns: Ember.computed.oneWay('curatedMainPageData.ns'),
+	adsContext: Ember.computed.oneWay('curatedMainPageData.adsContext'),
+
 	/**
 	 * @returns {void}
 	 */
@@ -18,12 +23,12 @@ export default Ember.Mixin.create({
 
 	/**
 	 * @param {*} model
+	 * @param {Ember.Transition} transition
 	 * @returns {void}
 	 */
-	afterModel(model) {
+	afterModel(model, transition) {
 		const title = model.get('title'),
-			mainPageController = this.controllerFor('mainPage'),
-			adsContext = $.extend({}, M.prop('mainPageData.adsContext'));
+			mainPageController = this.controllerFor('mainPage');
 
 		let sectionOrCategoryName;
 
@@ -41,9 +46,34 @@ export default Ember.Mixin.create({
 		mainPageController.setProperties({
 			isRoot: false,
 			title: sectionOrCategoryName,
-			adsContext,
-			ns: M.prop('mainPageData.ns')
+			adsContext: this.get('adsContext'),
+			ns: this.get('ns')
 		});
+
+		transition.then(() => {
+			this.updateTrackingData(model);
+		});
+	},
+
+	updateTrackingData(model) {
+		const uaDimensions = {},
+			adsContext = this.get('adsContext'),
+			ns = this.get('ns');
+
+
+		if (adsContext) {
+			uaDimensions[3] = Ember.get(adsContext, 'targeting.wikiVertical');
+			uaDimensions[14] = Ember.get(adsContext, 'opts.showAds') ? 'yes' : 'no';
+		}
+
+		uaDimensions[25] = ns;
+
+		setTrackContext({
+			a: model.get('title'),
+			n: ns
+		});
+
+		trackPageView(uaDimensions);
 	},
 
 	/**
