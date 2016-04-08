@@ -250,7 +250,15 @@ export default Ember.Component.extend(
 					openLightbox: this.get('openLightbox')
 				});
 			} else if (name === 'portable-infobox-image-collection' && attrs.refs && media) {
-				const collectionItems = attrs.refs.map((ref) => Ember.$.extend({ref}, media[ref]));
+				const getMediaItemsForCollection = (ref) => Ember.$.extend({
+						// We will push new item to media so use its length as index of new gallery element
+						ref: media.length
+					}, media[ref]),
+					collectionItems = attrs.refs.map(getMediaItemsForCollection);
+
+				// Add new gallery to media object
+				// @todo it's an ugly hack, we should return proper data from API
+				media.push(collectionItems);
 
 				attrs = Ember.$.extend(attrs, {
 					items: collectionItems
