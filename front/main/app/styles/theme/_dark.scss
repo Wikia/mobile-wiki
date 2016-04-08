@@ -80,14 +80,6 @@ body.dark-theme {
 		color: $dark-label-color;
 	}
 
-	.post-list-view {
-		.discussion {
-			.post-reply {
-				background-color: $dark-discussion-post-card-reported-background;
-			}
-		}
-	}
-
 	.discussion {
 		.avatar {
 			img {
@@ -141,10 +133,6 @@ body.dark-theme {
 						stroke: $dark-discussion-deleted-actions-color;
 					}
 				}
-			}
-
-			&.is-reported {
-				background-color: $dark-discussion-post-card-reported-background;
 			}
 
 			&.is-highlighted {

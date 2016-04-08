@@ -237,8 +237,6 @@ body.discussions {
 		}
 
 		&.is-reported {
-			background-color: $discussion-post-card-reported-background;
-
 			&::before {
 				border-top-color: $discussion-reported-mark-color;
 			}
