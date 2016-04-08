@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Controller.extend({
 	// used by ember-onbeforeunload to determine if confirmation dialog should be shown
@@ -7,16 +6,6 @@ export default Ember.Controller.extend({
 	groupItems: [],
 	lastGroupItem: null,
 	isVEContext: false,
-
-	confirmationMessage() {
-		track({
-			action: trackActions.confirm,
-			category: 'infobox-builder',
-			label: 'show-unsaved-changes-on-exit-prompt'
-		});
-
-		return i18n.t('infobox-builder:main.leave-confirmation');
-	},
 
 	actions: {
 		/**
@@ -63,8 +52,13 @@ export default Ember.Controller.extend({
 			return this.get('model').getTemplateExists(title);
 		},
 
+		/**
+		 * Triggers action to communicate VE that creating infobox is completed
+		 *
+		 * @returns {void}
+         */
 		goBackToVE() {
-			return this.get('target').send('returnToVE', true);
+			this.get('target').send('returnToVE', true);
 		},
 
 		redirectToPage(url) {

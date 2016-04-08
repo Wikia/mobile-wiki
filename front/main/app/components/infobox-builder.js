@@ -374,7 +374,8 @@ export default Ember.Component.extend(
 		/**
 		 * Process save attempt response.
 		 * If save was successful - show success and redirect to
-		 * template page if needed.
+		 * template page if needed or back to VE if infobox builder
+		 * was launched in VE context.
 		 * If there was moving / saving conflict - display modal with
 		 * information that title exists.
 		 *

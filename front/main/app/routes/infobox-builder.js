@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import InfoboxBuilderModel from '../models/infobox-builder';
 import ConfirmationMixin from 'ember-onbeforeunload/mixins/confirmation';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Route.extend(ConfirmationMixin, {
 	pontoLoadingInitialized: false,
@@ -299,7 +300,13 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {String}
 	 */
 	confirmationMessage() {
-		return this.controllerFor('infobox-builder').confirmationMessage();
+		track({
+			action: trackActions.confirm,
+			category: 'infobox-builder',
+			label: 'show-unsaved-changes-on-exit-prompt'
+		});
+
+		return i18n.t('infobox-builder:main.leave-confirmation');
 	},
 
 	/**
