@@ -8,8 +8,11 @@ export default Ember.Component.extend({
 	popover: nearestParent('pop-over'),
 
 	canDelete: Ember.computed('post.isDeleted', function () {
+		console.log(this.get('post.userData.permissions.canEdit'));
 		return !this.get('post.isDeleted') && this.get('post.userData.permissions.canDelete');
 	}),
+
+	canEdit: Ember.computed.readOnly('post.userData.permissions.canEdit'),
 
 	canUndelete: Ember.computed.and('post.isDeleted', 'post.userData.permissions.canUndelete'),
 
@@ -28,7 +31,13 @@ export default Ember.Component.extend({
 
 	canUnlock: Ember.computed.and('isLockable', 'post.isLocked', 'post.userData.permissions.canDelete'),
 
+	discussionEditor: Ember.inject.service(),
+
 	actions: {
+		edit(post) {
+			this.get('popover').deactivate();
+		},
+
 		/**
 		 * @param {object} post
 		 *
