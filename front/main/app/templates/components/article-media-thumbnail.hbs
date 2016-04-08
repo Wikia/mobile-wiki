@@ -10,9 +10,7 @@
 	{{else}}
 		<img src="{{thumbnailUrl}}"
 			height="{{if forcedHeight forcedHeight height}}"
-			width="{{if forcedWidth forcedWidth width}}"
-			data-ref={{ref}}
-			data-gallery-ref={{galleryRef}}>
+			width="{{if forcedWidth forcedWidth width}}">
 	{{/if}}
 	{{loading-spinner
 		active=isLoading

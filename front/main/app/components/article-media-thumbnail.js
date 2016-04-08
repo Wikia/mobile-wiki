@@ -7,7 +7,7 @@ export default Ember.Component.extend(
 	ArticleContentMixin,
 	InViewportMixin,
 	{
-		attributeBindings: ['data-ref'],
+		attributeBindings: ['data-ref', 'data-gallery-ref'],
 		classNames: ['article-media-thumbnail'],
 		classNameBindings: ['itemType', 'isSmall', 'isLoaded'],
 		tagName: 'figure',
@@ -32,7 +32,8 @@ export default Ember.Component.extend(
 		}),
 
 		// Needed for lightbox, should be refactored
-		'data-ref': Ember.computed.oneWay('ref'),
+		'data-ref': Ember.computed.readOnly('ref'),
+		'data-gallery-ref': Ember.computed.readOnly('galleryRef'),
 
 		thumbnailUrl: Ember.computed('url', 'shouldBeLoaded', function () {
 			const url = this.get('url');
