@@ -1,10 +1,3 @@
-.article-media-placeholder img {
-	@extend %image-placeholder;
-
-	display: inline-block;
-	width: 100%;
-}
-
 .article-media-thumbnail {
 	margin: 40px 0;
 	text-align: center;
@@ -47,6 +40,13 @@
 		width: 20px;
 		z-index: $z-1;
 	}
+}
+
+img.article-media-placeholder{
+	@extend %image-placeholder;
+
+	display: inline-block;
+	width: 100%;
 }
 
 .article-media-thumbnail-image-wrapper {

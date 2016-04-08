@@ -153,6 +153,11 @@ $group-header-font-size: 16px;
 			> .media-component img {
 				width: 100%;
 			}
+
+			img.article-media-placeholder {
+				max-height: 100vw;
+			}
+
 		}
 
 		.pi-hero-title-wrapper {
@@ -362,8 +367,4 @@ $group-header-font-size: 16px;
 			}
 		}
 	}
-}
-
-.pi-hero img.article-media-placeholder {
-	max-height: 100vw;
 }
