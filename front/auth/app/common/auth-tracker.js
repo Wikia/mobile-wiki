@@ -24,7 +24,6 @@ export default class AuthTracker {
 	/**
 	 * @returns {void}
 	 */
-
 	trackCloseWindow() {
 		if (!window.opener) {
 			return;
