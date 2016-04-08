@@ -93,6 +93,9 @@
 								</div>
 							{{/if}}
 						{{/each}}
+						{{#if canShowNewer}}
+							<div class="show-newer">{{i18n 'main.pagination-post-show-newer' ns='discussion'}}</div>
+						{{/if}}
 						{{#if canReply}}
 							{{discussion-reply-editor
 								create=(action this.attrs.create)

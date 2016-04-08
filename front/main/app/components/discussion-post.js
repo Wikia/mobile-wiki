@@ -7,10 +7,12 @@ export default Ember.Component.extend(
 	{
 		discussionSort: Ember.inject.service(),
 
-		// we can't use: Ember.computed.gt('model.replies.0.position', 1),
-		// because we don't change the 'position' property of first reply - we add new objects there
-		canShowOlder: Ember.computed('model.replies.@each.position', function () {
-			return this.get('model.replies.0.position') > 1;
+		canShowOlder: Ember.computed('model.replies.firstObject.position', function () {
+			return this.get('model.replies.firstObject.position') > 1;
+		}),
+
+		canShowNewer: Ember.computed('model.repliesCount', function () {
+			return this.get('model.replies.lastObject.position') < this.get('model.repliesCount');
 		}),
 
 		canReply: Ember.computed('model.isDeleted', 'model.isLocked', function () {
