@@ -186,7 +186,9 @@ export default Ember.Component.extend({
 	}),
 
 	navABTestChangeUI: Ember.computed('navABTestCurrentGroup', 'navABTestDefaultGroup', function () {
-		return this.get('navABTestCurrentGroup') !== this.get('navABTestDefaultGroup');
+		const currentGroup = this.get('navABTestCurrentGroup');
+
+		return currentGroup && currentGroup !== this.get('navABTestDefaultGroup');
 	}),
 
 	fabIcon: Ember.computed('navABTestIsFabSearchIcon', function () {
