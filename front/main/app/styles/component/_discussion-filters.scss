@@ -188,15 +188,12 @@ $legend-font-size: 16px;
 	.orient-below {
 		.pop-over-compass {
 			animation: none;
-			transform: translate(14px, -14px);
+			transform: translate(0, -14px);
 		}
 
 		.pop-over-container {
 			padding: 10px 20px 0;
 		}
 
-		.pop-over-pointer {
-			transform: translateX(-24px);
-		}
 	}
 }
