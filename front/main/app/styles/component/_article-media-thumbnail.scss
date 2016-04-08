@@ -1,3 +1,10 @@
+.article-media-placeholder img {
+	@extend %image-placeholder;
+
+	display: inline-block;
+	width: 100%;
+}
+
 .article-media-thumbnail {
 	margin: 40px 0;
 	text-align: center;
