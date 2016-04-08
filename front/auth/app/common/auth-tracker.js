@@ -32,10 +32,11 @@ export default class AuthTracker {
 		window.addEventListener('beforeunload', () => {
 			// to avoid tracking 'close' action whenever the window is reloaded;
 			if (pageParams.parentOrigin) {
-				window.opener.postMessage({
+				window.opener.postMessage(
+					{
 						beforeunload: true,
 						// we're expecting 0 or 1, but it comes from querystring - that's why parseInt
-						forceLogin: !!parseInt(pageParams.forceLogin, 10)
+						forceLogin: Boolean(parseInt(pageParams.forceLogin, 10))
 					},
 					pageParams.parentOrigin
 				);
