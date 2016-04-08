@@ -30,31 +30,31 @@ export default Ember.Component.extend(
 				Thumbnailer.mode.zoomCrop;
 		}),
 
-		width: Ember.computed.readOnly('viewportDimensions.width'),
+		computedWidth: Ember.computed.readOnly('viewportDimensions.width'),
 
-		height: Ember.computed('width', 'currentImage', function () {
-			const width = this.get('width'),
+		computedHeight: Ember.computed('currentImage', function () {
+			const windowWidth = this.get('viewportDimensions.width'),
 				imageAspectRatio = this.get('imageAspectRatio'),
 				currentImage = this.get('currentImage'),
-				imageWidth = currentImage.width || width,
+				imageWidth = currentImage.width || windowWidth,
 				imageHeight = currentImage.height,
 				maxWidth = Math.floor(imageHeight * imageAspectRatio);
 
 			let computedHeight = imageHeight;
 
-			if (imageWidth > width) {
-				computedHeight = Math.floor(width * (imageHeight / imageWidth));
+			if (imageWidth > windowWidth) {
+				computedHeight = Math.floor(windowWidth * (imageHeight / imageWidth));
 			}
 
 			// wide image - image wider than 16:9 aspect ratio
 			// Crop it to have 16:9 ratio.
 			if (imageWidth > maxWidth) {
-				return Math.floor(width / imageAspectRatio);
+				return Math.floor(windowWidth / imageAspectRatio);
 			}
 
 			// high image - image higher than square
-			if (width < computedHeight) {
-				return width;
+			if (windowWidth < computedHeight) {
+				return windowWidth;
 			}
 
 			return computedHeight;
