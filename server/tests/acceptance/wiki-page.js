@@ -8,6 +8,7 @@ var Lab = require('lab'),
 	after = lab.after,
 	afterEach = lab.afterEach,
 	expect = code.expect,
+	clone = require('../utils/clone'),
 	server = require('../../../www/server/app/app'),
 	mediawiki = require('../../../www/server/app/lib/mediawiki'),
 	wikiVariables = require('../fixtures/wiki-variables'),
@@ -20,13 +21,6 @@ describe('wiki-page', function () {
 			method: 'GET',
 			headers: {
 				host: 'starwars.wikia.com',
-			}
-		},
-		requestParamsWithAliasHost = {
-			url: '/wiki/Yoda',
-			method: 'GET',
-			headers: {
-				host: 'starwars-alias.wikia.com',
 			}
 		},
 		requestParamsWithoutTitle = {
@@ -56,8 +50,8 @@ describe('wiki-page', function () {
 	});
 
 	it('renders existing article', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, article);
-		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariables);
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
@@ -67,8 +61,8 @@ describe('wiki-page', function () {
 	});
 
 	it('renders curated main page', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, curatedMainPage);
-		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariables);
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(curatedMainPage));
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
@@ -80,7 +74,7 @@ describe('wiki-page', function () {
 	});
 
 	it('renders error page when request for wiki variables fails (payload is an empty object)', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, article);
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 503}, {});
 
 		server.inject(requestParams, function (response) {
@@ -91,7 +85,7 @@ describe('wiki-page', function () {
 	});
 
 	it('renders error page when request for wiki variables fails (payload is an empty string)', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, article);
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 503}, '');
 
 		server.inject(requestParams, function (response) {
@@ -102,7 +96,7 @@ describe('wiki-page', function () {
 	});
 
 	it('renders error page when request for wiki variables fails (payload is a string)', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, article);
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 503}, 'error');
 
 		server.inject(requestParams, function (response) {
@@ -113,7 +107,7 @@ describe('wiki-page', function () {
 	});
 
 	it('redirects to community wikia when requested wiki does not exist', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, article);
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, 'not a valid wikia');
 
 		server.inject(requestParams, function (response) {
@@ -126,8 +120,12 @@ describe('wiki-page', function () {
 	});
 
 	it('redirects to primary URL when requested wiki by alias host', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, article);
-		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariables);
+		var requestParamsWithAliasHost = clone(requestParams);
+
+		requestParamsWithAliasHost.headers.host = 'starwars-alias.wikia.com';
+
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
 
 		server.inject(requestParamsWithAliasHost, function (response) {
 			expect(response.statusCode).to.equal(301);
@@ -140,7 +138,7 @@ describe('wiki-page', function () {
 
 	it('renders page with correct M.prop when request for article returns 404', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 404}, {});
-		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariables);
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(404);
@@ -153,7 +151,7 @@ describe('wiki-page', function () {
 
 	it('renders page with correct M.prop when request for article returns 503', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 503}, {});
-		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariables);
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(503);
@@ -165,7 +163,7 @@ describe('wiki-page', function () {
 	});
 
 	it('redirects to main page on /wiki/', function (done) {
-		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, wikiVariables);
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(wikiVariables));
 
 		server.inject(requestParamsWithoutTitle, function (response) {
 			expect(response.statusCode).to.equal(302);
@@ -194,6 +192,69 @@ describe('wiki-page', function () {
 			expect(response.headers.location).to.equal(
 				'http://community.wikia.com/wiki/Community_Central:Not_a_valid_Wikia'
 			);
+			done();
+		});
+	});
+
+	it('renders article with custom namespace', function (done) {
+		var requestParamsWithCustomNamespace = clone(requestParams),
+			articleWithCustomNamespace = clone(article),
+			wikiVariablesWithCustomNamespace = clone(wikiVariables);
+
+		requestParamsWithCustomNamespace.url = '/wiki/Portal:Whatever';
+		articleWithCustomNamespace.data.ns = 112;
+		wikiVariablesWithCustomNamespace.data.contentNamespaces = [0, 112];
+
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, articleWithCustomNamespace);
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariablesWithCustomNamespace);
+
+		server.inject(requestParamsWithCustomNamespace, function (response) {
+			expect(response.statusCode).to.equal(200);
+
+			// required for internal tracking
+			expect(response.payload).to.include('M.prop(\'mediaWikiNamespace\', \'112\')');
+
+			// required for preload to work
+			expect(response.payload).to.include('M.prop(\'articleContentPreloadedInDOM\', true, true)');
+			expect(response.payload).to.include('M.provide(\'article\', {"data":{"isMainPage":false,"ns":112');
+			expect(response.payload).to.include('<p>This is a test</p>');
+			done();
+		});
+	});
+
+	it('renders curated main page with custom namespace', function (done) {
+		var curatedMainPageWithCustomNamespace = clone(curatedMainPage);
+
+		curatedMainPageWithCustomNamespace.data.ns = 999;
+
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, curatedMainPageWithCustomNamespace);
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
+
+		server.inject(requestParams, function (response) {
+			expect(response.statusCode).to.equal(200);
+			expect(response.payload).to.include(
+				'M.provide(\'article\', {"data":{"isMainPage":true,"ns":999,"mainPageData":{"curatedContent"'
+			);
+			done();
+		});
+	});
+
+	it('redirects to oasis on unsupported namespace', function (done) {
+		var requestParamsWithQueryInUrl = clone(requestParams),
+			pageWithUnsupportedNamespace = clone(article);
+
+		requestParamsWithQueryInUrl.url = '/wiki/Yoda?test=1';
+		pageWithUnsupportedNamespace.data.ns = 999;
+
+		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, pageWithUnsupportedNamespace);
+		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
+
+		server.inject(requestParamsWithQueryInUrl, function (response) {
+			expect(response.statusCode).to.equal(302);
+			expect(response.headers.location).to.equal(
+				'/wiki/Yoda?test=1&useskin=oasis'
+			);
+
 			done();
 		});
 	});

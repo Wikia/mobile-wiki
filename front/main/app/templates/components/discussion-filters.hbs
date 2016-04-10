@@ -8,12 +8,12 @@
 		<fieldset disabled={{trendingDisabled}}>
 			<legend>{{i18n 'main.sort-by-header' ns='discussion'}}</legend>
 			<ul class="sort-options">
-				{{#each discussionSort.sortTypes as |item|}}
-					<li class="sort-{{item.name}}">
-						<input type="radio" value="{{item.name}}" {{action 'setSortBy' item.name}} name="sort-button" class="bullet" id="sort-button-{{item.messageKey}}">
-						<div class="radio-fancy {{if (equal item.name sortBy) 'active active-element-background-color'}}"><div class="inside"></div></div>
-						<label for="sort-button-{{item.messageKey}}">
-							{{i18n item.messageKey ns='discussion'}}
+				{{#each discussionSort.sortTypes as |sortType|}}
+					<li class="sort-{{sortType.name}}">
+						<input type="radio" value="{{sortType.name}}" {{action 'setSortBy' sortType.name}} name="sort-button" class="bullet" id="sort-button-{{sortType.messageKey}}">
+						<div class="radio-fancy {{if (equal sortType.name sortBy) 'active active-element-background-color'}}"><div class="inside"></div></div>
+						<label for="sort-button-{{sortType.messageKey}}">
+							{{i18n sortType.messageKey ns='discussion'}}
 						</label>
 					</li>
 				{{/each}}

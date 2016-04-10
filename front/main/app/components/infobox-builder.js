@@ -18,8 +18,39 @@ export default Ember.Component.extend(
 		scrollDebounceDuration: 200,
 		scrollAnimateDuration: 200,
 		showGoToSourceModal: false,
+		isEditTitleModalVisible: false,
+		editTitleModalTrigger: null,
+		titleExists: false,
+		initialTitle: null,
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
+
+		titleWasChanged: Ember.computed('title', 'initialTitle', function () {
+			const initialTitle = this.get('initialTitle'),
+				title = this.get('title');
+
+			return initialTitle && initialTitle !== title;
+		}),
+
+		canGoToSourceModal: Ember.computed('showGoToSourceModal', 'isEditTitleModalVisible', 'title', {
+			set(key, value) {
+				this.set('showGoToSourceModal', value);
+			},
+			get() {
+				return Boolean(this.get('title')) &&
+					this.get('showGoToSourceModal') &&
+					!this.get('isEditTitleModalVisible');
+			}
+		}),
+
+		sortableGroupClassNames: Ember.computed('theme', function () {
+			const theme = this.get('theme'),
+				classNames = ['portable-infobox', 'pi-background'];
+
+			if (theme) {
+				classNames.push(`pi-theme-${theme}`);
+			}
+		}),
 
 		isReorderTooltipVisible: Ember.computed('isPreviewItemHovered', 'isPreviewItemDragged', 'isGroupTooltipVisible',
 			function () {
@@ -34,25 +65,53 @@ export default Ember.Component.extend(
 				this.get('isGroupTooltipVisible');
 		}),
 
-		sortableGroupClassNames: Ember.computed('theme', function () {
-			const theme = this.get('theme'),
-				classNames = ['portable-infobox', 'pi-background'];
+		/**
+		 * Basing on current active item, creates object with name of component
+		 * that should be used in sidebar and item type, that is passed to sidebar header.
+		 * activeItem used with liquid fire animation changes too fast, that's why we pass type needed
+		 * for header text creation in property that liquid fire watches on.
+		 */
+		sidebarItemProperties: Ember.computed('activeItem', function () {
+			const activeItem = this.get('activeItem');
 
-			if (theme) {
-				classNames.push(`pi-theme-${theme}`);
-			}
-
-			return classNames.join(' ');
-		}),
-
-		sideBarOptionsComponent: Ember.computed('activeItem', function () {
-			return this.get('activeItem') ?
-				`infobox-builder-edit-item-${this.get('activeItem.type')}` :
-				'infobox-builder-add-items';
+			return {
+				name: activeItem ? `infobox-builder-edit-item-${activeItem.type}` : 'infobox-builder-add-items',
+				type: activeItem ? activeItem.type : null
+			};
 		}),
 
 		isEditPopOverVisible: Ember.computed('activeItem', 'isPreviewItemDragged', function () {
 			return Boolean(this.get('activeItem')) && !this.get('isPreviewItemDragged');
+		}),
+
+		infoboxTemplateTitle: Ember.computed('title', function () {
+			return this.get('title') || i18n.t('infobox-builder:main.untitled-infobox-template');
+		}),
+
+		editTitleModalMessageText: Ember.computed('editTitleModalTrigger', function () {
+			return this.get('editTitleModalTrigger') ?
+				i18n.t('infobox-builder:main.edit-title-modal-text-on-leave') :
+				i18n.t('infobox-builder:main.edit-title-modal-text-on-rename');
+		}),
+
+		editTitleModalHeaderText: Ember.computed('editTitleModalTrigger', function () {
+			return this.get('editTitleModalTrigger') ?
+				i18n.t('infobox-builder:main.edit-title-modal-header-on-leave') :
+				i18n.t('infobox-builder:main.edit-title-modal-header-on-rename');
+		}),
+
+		editTitleModalConfirmButtonLabel: Ember.computed('editTitleModalTrigger', function () {
+			const messageKey = this.get('editTitleModalTrigger') === 'publish' ?
+				'edit-title-modal-publish' :
+				'edit-title-modal-ok';
+
+			return i18n.t(`main.${messageKey}`, {
+				ns: 'infobox-builder'
+			});
+		}),
+
+		showEditTitleModalCancelButton: Ember.computed('editTitleModalTrigger', function () {
+			return this.get('editTitleModalTrigger') !== 'publish';
 		}),
 
 		actions: {
@@ -89,6 +148,10 @@ export default Ember.Component.extend(
 					tooltipPosX: null,
 					tooltipPosy: null
 				});
+			},
+
+			hideEditTitleModal() {
+				this.hideEditTitleModal();
 			},
 
 			toggleGroupPreview(header) {
@@ -151,8 +214,12 @@ export default Ember.Component.extend(
 			/**
 			 * @returns {void}
 			 */
-			save() {
-				this.save();
+			publish() {
+				if (this.get('title')) {
+					this.save();
+				} else {
+					this.showEditTitleModal('publish');
+				}
 			},
 
 			/**
@@ -164,15 +231,22 @@ export default Ember.Component.extend(
 			},
 
 			/**
+			 * Perform go to source only if title exists. If infobox was edited or title
+			 * was changed, ask if user wants to save the progress.
+			 *
 			 * @returns {void}
 			 */
-			onSourceEditorClick() {
+			tryGoToSource() {
 				this.trackClick('infobox-builder', 'go-to-source-icon');
 
-				if (this.get('isDirty')) {
-					this.set('showGoToSourceModal', true);
+				if (this.get('title')) {
+					if (this.get('isDirty') || this.get('titleWasChanged')) {
+						this.set('showGoToSourceModal', true);
+					} else {
+						this.handleGoToSource();
+					}
 				} else {
-					this.handleGoToSource();
+					this.showEditTitleModal('tryGoToSource');
 				}
 			},
 
@@ -189,6 +263,28 @@ export default Ember.Component.extend(
 			},
 
 			/**
+			 * Check if title can be changed - check if it doesn't exist already.
+			 * Do not perform request when changing back to initial title - name
+			 * will always exist in this case.
+			 *
+			 * @param {String} title
+			 * @returns {void}
+			 */
+			onTemplateTitleChangeAttempt(title) {
+				if (title === this.get('initialTitle')) {
+					this.setTemplateTitle(title);
+				} else {
+					this.get('getTemplateExistsAction')(title).then((exists) => {
+						this.set('titleExists', exists);
+
+						if (!exists) {
+							this.setTemplateTitle(title);
+						}
+					});
+				}
+			},
+
+			/**
 			 * @returns {void}
 			 */
 			onPreviewBackgroundClick() {
@@ -196,14 +292,18 @@ export default Ember.Component.extend(
 					this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
 				}
 				this.get('setEditItem')(null);
+			},
+
+			editTitle() {
+				this.showEditTitleModal();
 			}
 		},
 
 		/**
-		 * @param {Boolean} [shouldRedirectToTemplatePage=true]
+		 * @param {Boolean} [shouldRedirectToPage=true]
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		save(shouldRedirectToTemplatePage = true) {
+		save(shouldRedirectToPage = true) {
 			this.setProperties({
 				isLoading: true,
 				loadingMessage: i18n.t('main.saving', {
@@ -214,24 +314,18 @@ export default Ember.Component.extend(
 			this.trackClick('infobox-builder', 'save-attempt');
 			this.trackChangedItems();
 
-			return this.get('saveAction')(shouldRedirectToTemplatePage).then(() => {
-				track({
-					action: trackActions.success,
-					category: 'infobox-builder',
-					label: 'save-successful'
-				});
-
-				this.setProperties({
-					isLoading: false,
-					showSuccess: true
-				});
+			return this.get('saveAction')(this.get('initialTitle')).then((data) => {
+				this.set('isLoading', false);
+				this.handleSaveResults(data, shouldRedirectToPage);
 			});
 		},
 
 		/**
 		 * Shows loading spinner and message, then sends action to controller to redirect to source
-		 * editor If model is dirty, asks user if changes should be saved If user wants to save
-		 * changes it does that and only then redirects
+		 * editor. If model is dirty, asks user if changes should be saved.
+		 * If user wants to save changes it does that and only then redirects.
+		 * If user doesn't want to save changes, he doesn't want to save new title as well, so
+		 * rollback title to initial one.
 		 *
 		 * @param {Boolean} saveChanges
 		 * @returns {Ember.RSVP.Promise} return promise so it's always async and testable
@@ -251,13 +345,60 @@ export default Ember.Component.extend(
 				} else {
 					this.setProperties({
 						isLoading: true,
+						title: this.get('initialTitle'),
 						loadingMessage
 					});
-
 					controllerAction();
 					resolve();
 				}
 			});
+		},
+
+		/**
+		 * Set new title, hide modal and call callback function if set.
+		 *
+		 * @param {String} title
+		 * @returns {void}
+		 */
+		setTemplateTitle(title) {
+			const callback = this.get('editTitleModalTrigger');
+
+			this.set('title', title);
+			this.hideEditTitleModal();
+
+			if (callback) {
+				this.send(callback);
+			}
+		},
+
+		/**
+		 * Process save attempt response.
+		 * If save was successful - show success and redirect to
+		 * template page if needed.
+		 * If there was moving / saving conflict - display modal with
+		 * information that title exists.
+		 *
+		 * @param {Object} data
+		 * @param {Boolean} shouldRedirectToPage
+		 * @returns {void}
+		 */
+		handleSaveResults(data, shouldRedirectToPage) {
+			if (data.success) {
+				this.set('showSuccess', true);
+
+				track({
+					action: trackActions.success,
+					category: 'infobox-builder',
+					label: 'save-successful'
+				});
+
+				if (shouldRedirectToPage) {
+					this.get('redirectToPageAction')(data.urls.templatePageUrl);
+				}
+			} else if (data.conflict) {
+				this.set('titleExists', true);
+				this.showEditTitleModal();
+			}
 		},
 
 		/**
@@ -291,6 +432,43 @@ export default Ember.Component.extend(
 					category: 'infobox-builder',
 					label: `changed-element-${element.type}-${element.changedField}`
 				});
+			});
+		},
+
+		/**
+		 * We set titleExists: false explicitly here, instead of in hideEditTitleModal(),
+		 * because hideEditTitleModal() is not called when clicking on background.
+		 *
+		 * @param {String} trigger true if showing modal, false if hiding.
+		 * @returns {void}
+		 */
+		showEditTitleModal(trigger) {
+			track({
+				action: trackActions.open,
+				category: 'infobox-builder',
+				label: `edit-title-modal-before-triggered-on-${trigger}`
+			});
+
+			this.setProperties({
+				editTitleModalTrigger: trigger,
+				titleExists: false,
+				isEditTitleModalVisible: true
+			});
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		hideEditTitleModal() {
+			track({
+				action: trackActions.close,
+				category: 'infobox-builder',
+				label: 'edit-title-modal'
+			});
+
+			this.setProperties({
+				editTitleModalTrigger: null,
+				isEditTitleModalVisible: false
 			});
 		}
 	}

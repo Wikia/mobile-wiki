@@ -2,8 +2,6 @@ import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 
 const InfoboxBuilderModel = Ember.Object.extend({
-	defaultTheme: 'europa',
-
 	/**
 	 * @returns {void}
 	 */
@@ -17,7 +15,6 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		};
 		this.infoboxState = [];
 		this.itemInEditMode = null;
-		this.theme = null;
 	},
 
 	/**
@@ -266,13 +263,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	setupInfoboxData(infoboxData, isNew) {
 		if (isNew) {
 			this.setupInitialState();
-			this.set('theme', this.get('defaultTheme'));
-		} else {
+		} else if (infoboxData.data) {
 			this.setupExistingState(infoboxData.data);
-
-			if (typeof infoboxData.theme === 'string') {
-				this.set('theme', infoboxData.theme);
-			}
 		}
 	},
 
@@ -282,7 +274,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 * @returns {void}
 	 */
 	setupInitialState() {
-		this.addItem('title');
+		this.editTitleItem(this.addItem('title'), true);
 		this.addItem('image');
 		this.addItem('row');
 		this.addItem('row');
@@ -298,12 +290,36 @@ const InfoboxBuilderModel = Ember.Object.extend({
 		state.forEach((element) => this.addItem(element.type, element));
 	},
 
+	getTemplateExists(title) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.getJSON(
+				M.buildUrl({
+					path: '/wikia.php'
+				}),
+				{
+					controller: 'PortableInfoboxBuilderController',
+					method: 'getTemplateExists',
+					title
+				}
+			).done((data) => {
+				if (data && data.success) {
+					resolve(data.exists);
+				} else {
+					reject(data);
+				}
+			});
+		});
+	},
+
 	/**
 	 * Saves infobox state to MW template
 	 *
+	 * @param {String} initialTitle of the template or null if new template
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	saveStateToTemplate() {
+	saveStateToTemplate(initialTitle) {
+		const title = this.get('title');
+
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			getEditToken(this.get('title'))
 				.then((token) => {
@@ -314,19 +330,14 @@ const InfoboxBuilderModel = Ember.Object.extend({
 						data: {
 							controller: 'PortableInfoboxBuilderController',
 							method: 'publish',
-							title: this.get('title'),
+							title,
+							oldTitle: initialTitle || title,
 							data: InfoboxBuilderModel.prepareDataForSaving(this),
 							token
 						},
 						dataType: 'json',
 						method: 'POST',
-						success: (data) => {
-							if (data && data.success) {
-								resolve(this.get('title'));
-							} else {
-								reject(data.errors);
-							}
-						},
+						success: (data) => resolve(data),
 						error: (err) => reject(err)
 					});
 				});
@@ -342,13 +353,13 @@ InfoboxBuilderModel.reopenClass({
 	 * @returns {String}
 	 */
 	sanitizeCustomRowSource(input) {
-		const notValidChars = /[^a-z0-9_-]+/g,
+		const invalidChars = /[!|*}{*?%^&.+'\[\]]+/g,
 			isEmpty = /^[-_]+$/,
 			output = input
 				.trim()
 				.toLowerCase()
 				.replace(/\s+/g, '_')
-				.replace(notValidChars, '');
+				.replace(invalidChars, '');
 
 		return isEmpty.test(output) ? '' : output;
 	},
@@ -375,12 +386,7 @@ InfoboxBuilderModel.reopenClass({
 		const plainState = InfoboxBuilderModel.getStateWithoutBuilderData(model.get('infoboxState')),
 			dataToSave = {
 				data: plainState
-			},
-			theme = model.get('theme');
-
-		if (typeof theme === 'string') {
-			dataToSave.theme = theme;
-		}
+			};
 
 		return JSON.stringify(dataToSave);
 	},

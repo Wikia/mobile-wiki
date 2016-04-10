@@ -10,16 +10,16 @@ export default Ember.Component.extend(
 			this._super(...arguments);
 			this.buttons = [
 				{
-					name: 'row',
-					icon: 'row-block'
+					name: 'title',
+					icon: 'title-block'
 				},
 				{
 					name: 'image',
 					icon: 'image-block'
 				},
 				{
-					name: 'title',
-					icon: 'title-block'
+					name: 'row',
+					icon: 'row-block'
 				},
 				{
 					name: 'section-header',

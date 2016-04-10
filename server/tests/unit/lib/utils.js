@@ -1,3 +1,5 @@
+var sinon = require('sinon');
+
 QUnit.module('lib/utils');
 
 QUnit.test('getWikiName', function (assert) {
@@ -223,7 +225,7 @@ QUnit.test('getEnvironment', function (assert) {
 
 	testCases.forEach(function (testCase) {
 		assert.equal(global.getEnvironment(testCase.environment, testCase.default), testCase.expected,
-			Environment[testCase.expected]);
+			global.Environment[testCase.expected]);
 	});
 });
 
@@ -255,27 +257,27 @@ QUnit.test('parseQueryParams', function (assert) {
 QUnit.test('isXipHost', function (assert) {
 	var testCases = [
 		{
-			environment: Environment.Dev,
+			environment: global.Environment.Dev,
 			hostName: 'muppet.127.0.0.1.xip.io',
 			expected: true
 		},
 		{
-			environment: Environment.Dev,
+			environment: global.Environment.Dev,
 			hostName: 'muppet.igor.wikia-dev.com',
 			expected: false
 		},
 		{
-			environment: Environment.Prod,
+			environment: global.Environment.Prod,
 			hostName: 'muppet.127.0.0.1.xip.io',
 			expected: false
 		},
 		{
-			environment: Environment.Dev,
+			environment: global.Environment.Dev,
 			hostName: 'muppet.xip.io',
 			expected: false
 		},
 		{
-			environment: Environment.Dev,
+			environment: global.Environment.Dev,
 			hostName: 'xip.io.wikia.com',
 			expected: false
 		}
@@ -304,7 +306,7 @@ QUnit.test('redirectToCanonicalHostIfNeeded', function (assert) {
 					basePath: 'http://starwars.wikia.com'
 				},
 				localSettings: {
-					environment: Environment.Prod
+					environment: global.Environment.Prod
 				},
 				expected: {
 					redirected: true,
@@ -323,7 +325,7 @@ QUnit.test('redirectToCanonicalHostIfNeeded', function (assert) {
 					basePath: 'http://starwars.wikia.com'
 				},
 				localSettings: {
-					environment: Environment.Prod
+					environment: global.Environment.Prod
 				},
 				expected: {
 					redirected: false
@@ -341,7 +343,7 @@ QUnit.test('redirectToCanonicalHostIfNeeded', function (assert) {
 					basePath: 'http://starwars.igor.wikia-dev.com'
 				},
 				localSettings: {
-					environment: Environment.Dev
+					environment: global.Environment.Dev
 				},
 				expected: {
 					redirected: false
@@ -361,7 +363,7 @@ QUnit.test('redirectToCanonicalHostIfNeeded', function (assert) {
 					basePath: 'http://starwars.igor.wikia-dev.com'
 				},
 				localSettings: {
-					environment: Environment.Dev
+					environment: global.Environment.Dev
 				},
 				expected: {
 					redirected: true,
@@ -406,37 +408,41 @@ QUnit.test('redirectToCanonicalHostIfNeeded', function (assert) {
 	});
 });
 
-QUnit.test('getHtmlTitle', function (assert) {
+QUnit.test('redirectToOasis', function (assert) {
 	var testCases = [
 		{
-			htmlTitleTemplate: '$1 - Muppet Wiki - Wikia',
-			displayTitle: 'Kermit the Frog',
-			expected: 'Kermit the Frog - Muppet Wiki - Wikia'
+			pathname: '/wiki/Yoda',
+			query: {},
+			expected: '/wiki/Yoda?useskin=oasis'
 		},
 		{
-			htmlTitleTemplate: '$1 - Muppet Wiki - Wikia',
-			displayTitle: 'test title',
-			expected: 'test title - Muppet Wiki - Wikia'
+			pathname: '/wiki/Yoda',
+			query: {
+				test: 1
+			},
+			expected: '/wiki/Yoda?test=1&useskin=oasis'
 		},
 		{
-			htmlTitleTemplate: '$1 - Muppet Wiki - Wikia',
-			displayTitle: '',
-			expected: 'Muppet Wiki - Wikia'
-		},
-		{
-			htmlTitleTemplate: 'sandbox - $1 - Muppet Wiki - Wikia',
-			displayTitle: '',
-			expected: 'sandbox - Muppet Wiki - Wikia'
-		},
-		{
-			htmlTitleTemplate: '$1 - Wikia',
-			displayTitle: '',
-			expected: 'Wikia'
+			pathname: '/wiki/Yoda',
+			query: {
+				useskin: 'monobook'
+			},
+			expected: '/wiki/Yoda?useskin=oasis'
 		}
 	];
 
 	testCases.forEach(function (testCase) {
-		assert.equal(global.getHtmlTitle({htmlTitleTemplate: testCase.htmlTitleTemplate},
-			testCase.displayTitle), testCase.expected);
+		var redirectStub = sinon.stub();
+
+		global.redirectToOasis({
+			url: {
+				pathname: testCase.pathname
+			},
+			query: testCase.query
+		}, {
+			redirect: redirectStub
+		});
+
+		assert.ok(redirectStub.calledWith(testCase.expected));
 	});
 });

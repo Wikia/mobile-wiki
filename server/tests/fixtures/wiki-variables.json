@@ -1,6 +1,9 @@
 {
   "data": {
     "cacheBuster": 1458582005,
+    "contentNamespaces": [
+      0
+    ],
     "dbName": "starwars",
     "defaultSkin": "oasis",
     "disableAnonymousEditing": false,
@@ -409,7 +412,6 @@
       }
     },
     "image": "http:\/\/vignette4.wikia.nocookie.net\/wikiaglobal\/images\/6\/66\/Wikia-Visualization-Main%2Cstarwars.png\/revision\/latest\/scale-to-width-down\/500?cb=20120828154207&format=jpg",
-    "specialRobotPolicy": null,
-    "htmlTitleTemplate": "$1 - Wookieepedia - Wikia"
+    "specialRobotPolicy": null
   }
 }

@@ -83,28 +83,63 @@ test('correctly sets isFocused flag on input focus and blur', function (assert) 
 	});
 });
 
-test('calls appropriate handler on focus and blur', function (assert) {
+test('calls appropriate handler on focus, blur and keyUp', function (assert) {
 	const component = this.subject(),
 		onFocusHandler = sinon.spy(),
 		onBlurHandler = sinon.spy(),
+		onKeyUpHandler = sinon.spy(),
 		eventMock = {},
 		cases = [
 			{
 				action: 'onFocus',
 				handlerName: 'onFocusHandler',
-				handler: onFocusHandler
+				handler: onFocusHandler,
+				calledWidthArguments: [eventMock]
 			},
 			{
 				action: 'onBlur',
 				handlerName: 'onBlurHandler',
-				handler: onBlurHandler
+				handler: onBlurHandler,
+				calledWidthArguments: [eventMock]
+
+			},
+			{
+				action: 'onKeyUp',
+				handlerName: 'onKeyUpHandler',
+				handler: onKeyUpHandler,
+				calledWidthArguments: ['test value', eventMock]
 			}
 		];
 
 	cases.forEach((testCase) => {
+		const calledWidthArguments = testCase.calledWidthArguments;
+
 		component.set(testCase.handlerName, testCase.handler);
-		component.send(testCase.action, eventMock);
+		component.send(testCase.action, ...calledWidthArguments);
 		assert.equal(testCase.handler.called, true);
 		assert.equal(testCase.handler.calledWith(eventMock), true);
+	});
+});
+
+test('correctly calculates isInvalid', function (assert) {
+	const component = this.subject(),
+		cases = [
+			{
+				errorMessage: 'error message',
+				isInvalid: true
+			},
+			{
+				errorMessage: null,
+				isInvalid: false
+			},
+			{
+				errorMessage: '',
+				isInvalid: false
+			}
+		];
+
+	cases.forEach((testCase) => {
+		component.set('errorMessage', testCase.errorMessage);
+		assert.equal(component.get('isInvalid'), testCase.isInvalid);
 	});
 });

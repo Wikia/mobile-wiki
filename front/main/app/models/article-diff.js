@@ -2,6 +2,7 @@ import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 
 const ArticleDiffModel = Ember.Object.extend({
+	anonymous: Ember.computed.equal('userId', 0),
 	diffs: null,
 	id: Ember.computed('newId', 'oldId', function () {
 		return `${this.get('newId')}-${this.get('oldId')}`;
@@ -12,13 +13,16 @@ const ArticleDiffModel = Ember.Object.extend({
 	pageid: null,
 	timestamp: null,
 	title: null,
+	upvotes: null,
+	upvotescount: 0,
 	user: null,
+	userId: null,
 	useravatar: null,
 
 	/**
 	 * Sends request to MW API to undo newId revision of title
-	 * @param {*} summary Description of reason for undo to be stored as edit summary
-	 * COUTION: if summary is {string} it will be used as a summary on MediaWiki side
+	 * @param {string|Array} [summary=[]] summary Description of reason for undo to be stored as edit summary
+	 * CAUTION: if summary is {string} it will be used as a summary on MediaWiki side
 	 *          if summary is empty {Array} MediaWiki will provide default summary
 	 * @returns {Ember.RSVP.Promise}
 	 */
@@ -47,7 +51,9 @@ const ArticleDiffModel = Ember.Object.extend({
 							if (resp && resp.edit && resp.edit.result === 'Success') {
 								resolve();
 							} else if (resp && resp.error) {
-								reject(resp.error.code);
+								const errorMsg = resp.error.code === 'undofailure' ? 'main.undo-failure' : 'main.error';
+
+								reject(errorMsg);
 							} else {
 								reject();
 							}
@@ -76,13 +82,20 @@ ArticleDiffModel.reopenClass({
 					controller: 'RevisionApi',
 					method: 'getRevisionsDiff',
 					avatar: true,
+					upvotes: true,
+					oldRev: true,
 					newId,
 					oldId
 				}
-			).done(({article, revision, diffs = []}) => {
+			).done(({article, revision, oldRevision, diffs = []}) => {
 				const diffsData = ArticleDiffModel.prepareDiffs(diffs);
 
-				let modelInstance = null;
+				let modelInstance = null,
+					lengthChange = revision.size;
+
+				if (!Ember.isNone(oldRevision)) {
+					lengthChange = lengthChange - oldRevision.size;
+				}
 
 				if (diffs) {
 					modelInstance = ArticleDiffModel.create({
@@ -94,8 +107,12 @@ ArticleDiffModel.reopenClass({
 						parsedcomment: revision.parsedComment,
 						timestamp: revision.timestamp,
 						title: article.title,
+						upvotes: revision.upvotes || [],
+						upvotescount: revision.upvotesCount,
 						user: revision.userName,
-						useravatar: revision.userAvatar
+						userId: revision.userId,
+						useravatar: revision.userAvatar,
+						lengthChange
 					});
 				}
 

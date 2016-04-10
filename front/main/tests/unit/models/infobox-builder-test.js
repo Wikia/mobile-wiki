@@ -296,11 +296,40 @@ test('sanitize custom row source', (assert) => {
 			output: 'test_test'
 		},
 		{
+			input: '  TEST   TEST   ',
+			output: 'test_test'
+		},
+		{
+			input: '  źdźbło',
+			output: 'źdźbło'
+		},
+		{
+			input: '行を使用するとイン!',
+			output: '行を使用するとイン'
+		},
+		{
+			input: 'test{ing|}',
+			output: 'testing'
+		},
+		{
+			input: 'test [link]',
+			output: 'test_link'
+		},
+
+		{
+			input: 'Введе́ние',
+			output: 'введе́ние'
+		},
+		{
 			input: '...',
 			output: ''
 		},
 		{
 			input: '-',
+			output: ''
+		},
+		{
+			input: '___',
 			output: ''
 		},
 		{
@@ -845,7 +874,6 @@ test('setups infobox data', (assert) => {
 			isNew: true,
 			assertions: (model, setupInitialStateStub) => {
 				assert.ok(setupInitialStateStub.calledOnce, 'setups initial state for new infobox');
-				assert.equal(model.get('theme'), model.get('defaultTheme'), 'sets default theme for new infobox');
 			}
 		},
 		{
@@ -858,37 +886,7 @@ test('setups infobox data', (assert) => {
 			assertions: (model, setupInitialStateStub, setupExistingStateStub) => {
 				assert.ok(setupExistingStateStub.calledWith({
 					test: true
-				}), 'setups state for existing infobox without a theme');
-				assert.equal(
-					model.get('theme'),
-					null,
-					'does not set theme if there is none returned from API for existing infobox'
-				);
-			}
-		},
-		{
-			data: {
-				theme: 'test'
-			},
-			isNew: false,
-			assertions: (model, setupInitialStateStub, setupExistingStateStub) => {
-				assert.ok(setupExistingStateStub.calledOnce, 'setups state for existing infobox with a theme');
-				assert.ok(
-					model.get('theme') === 'test',
-					'sets theme if there is one returned from API for existing infobox'
-				);
-			}
-		},
-		{
-			data: {
-				theme: ''
-			},
-			isNew: false,
-			assertions: (model) => {
-				assert.ok(
-					model.get('theme') === '',
-					'sets theme if it is an empty string'
-				);
+				}), 'setups state for existing infobox');
 			}
 		}
 	];
@@ -908,7 +906,6 @@ test('prepares infobox data for saving', (assert) => {
 		{
 			model: {
 				infoboxState: [],
-				theme: null
 			},
 			expected: '{"data":[]}'
 		},
@@ -919,23 +916,8 @@ test('prepares infobox data for saving', (assert) => {
 						test: true
 					}
 				],
-				theme: null
 			},
 			expected: '{"data":[{"test":true}]}'
-		},
-		{
-			model: {
-				infoboxState: [],
-				theme: 'europa'
-			},
-			expected: '{"data":[],"theme":"europa"}'
-		},
-		{
-			model: {
-				infoboxState: [],
-				theme: ''
-			},
-			expected: '{"data":[],"theme":""}'
 		}
 	];
 
@@ -985,4 +967,19 @@ test('gets infobox state without builder data', (assert) => {
 	cases.forEach((testCase) => {
 		assert.deepEqual(infoboxBuilderModelClass.getStateWithoutBuilderData(testCase.state), testCase.expected);
 	});
+});
+
+test('creates correct initial state for new infobox template', (assert) => {
+	const model = infoboxBuilderModelClass.create();
+	let state;
+
+	model.setupInitialState();
+	state = model.get('infoboxState');
+
+	assert.equal(state.length, 4);
+	assert.equal(state.objectAt(0).type, 'title');
+	assert.equal(state.objectAt(1).type, 'image');
+	assert.equal(state.objectAt(2).type, 'row');
+	assert.equal(state.objectAt(3).type, 'row');
+	assert.equal(state.objectAt(0).data.defaultValue, '{{PAGENAME}}', 'Default title item inherits article title');
 });
