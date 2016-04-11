@@ -17,9 +17,16 @@
 		</div>
 	{{/if}}
 	<div class="site-logo site-logo-2016">
-		<a {{action 'trackClick' 'wordmark' preventDefault=false}} href={{wikiaHomepage}}>
-			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
-		</a>
+		{{#if shouldDisplayHamburgerIcon}}
+			<a {{action 'trackClick' 'wordmark' preventDefault=false}} href={{wikiaHomepage}}>
+				{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+			</a>
+		{{else}}
+			<a {{action this.attrs.leftSiteHeadIconClick}}>
+				{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+				{{svg 'chevron' role='img' class='icon arrow-down'}}
+			</a>
+		{{/if}}
 	</div>
 {{else}}
 	<div {{action 'expandSideNav'}} class="side-nav-toggle side-nav-toggle-2016">
