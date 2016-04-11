@@ -9,6 +9,7 @@ import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	replyLimit: 10,
+	threadId: null,
 	loadDir: {
 		older: 'olderthan',
 		newer: 'newerthan',
@@ -77,7 +78,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	 */
 	createReply(replyData) {
 		this.setFailedState(null);
-		replyData.threadId = this.get('postId');
+		replyData.threadId = this.get('threadId');
 
 		return ajaxCall({
 			data: JSON.stringify(replyData),
@@ -134,33 +135,29 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			canModerate: Ember.getWithDefault(normalizedRepliesData, '0.userData.permissions.canModerate', false),
 			contributors,
 			forumId: apiData.forumId,
-			page: 0,
 			replies: normalizedRepliesData,
 			repliesCount: parseInt(apiData.postCount, 10),
 		});
 
-		this.setProperties({
-			data: normalizedData,
-			pivotId
-		});
+		this.set('data', normalizedData);
 	}
 });
 
 DiscussionPostModel.reopenClass({
 	/**
 	 * @param {number} wikiId
-	 * @param {number} postId
+	 * @param {number} threadId
 	 * @param {number} [replyId=null]
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, postId, replyId = null) {
+	find(wikiId, threadId, replyId = null) {
 		const postInstance = DiscussionPostModel.create({
 				wikiId,
-				postId,
+				threadId,
 				replyId
 			}),
-			urlPath = replyId ? `/${wikiId}/permalinks/posts/${replyId}` : `/${wikiId}/threads/${postId}`;
+			urlPath = replyId ? `/${wikiId}/permalinks/posts/${replyId}` : `/${wikiId}/threads/${threadId}`;
 
 		return ajaxCall({
 			context: postInstance,
