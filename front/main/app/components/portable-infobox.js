@@ -53,10 +53,14 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		handleCollapsing() {
-			const collapsedHeight = this.get('collapsedHeight');
+			const collapsedHeight = this.get('collapsedHeight'),
+				isLongInfobox = this.get('isLongInfobox');
 
 			this.set('collapsed', true);
-			this.$().height(collapsedHeight);
+
+			if (isLongInfobox) {
+				this.$().height(collapsedHeight);
+			}
 		},
 
 		didInsertElement() {
