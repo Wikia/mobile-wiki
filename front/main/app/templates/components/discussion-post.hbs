@@ -61,7 +61,7 @@
 							}}
 						</div>
 						{{#if canShowOlder}}
-							<button {{action this.attrs.loadMoreComments}} class="see-more active-element-theme-color">
+							<button {{action this.attrs.loadOlderComments}} class="see-more active-element-theme-color">
 								{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
 								{{i18n 'main.pagination-post-show-more' ns='discussion'}}
 							</button>
@@ -94,7 +94,7 @@
 							{{/if}}
 						{{/each}}
 						{{#if canShowNewer}}
-							<div class="show-newer">{{i18n 'main.pagination-post-show-newer' ns='discussion'}}</div>
+							<div {{action this.attrs.loadNewerComments}} class="show-newer">{{i18n 'main.pagination-post-show-newer' ns='discussion'}}</div>
 						{{/if}}
 						{{#if canReply}}
 							{{discussion-reply-editor

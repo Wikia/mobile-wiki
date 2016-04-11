@@ -73,16 +73,21 @@ export default DiscussionBaseRoute.extend(
 			 * Load more replies
 			 * @returns {void}
 			 */
-			loadMoreComments() {
+			loadOlderComments() {
 				const model = this.modelFor(this.get('routeName'));
 
-				model.loadNextPage().then(() => {
-					if (model.get('minorError')) {
-						// Hide more posts button when error occurred
-						model.set('postCount', model.get('replies.length'));
-					}
-				});
-			}
+				model.loadPreviousPage();
+			},
+
+			/**
+			 * Load more replies
+			 * @returns {void}
+			 */
+			loadNewerComments() {
+				const model = this.modelFor(this.get('routeName'));
+
+				model.loadNextPage();
+			},
 		}
 	}
 );
