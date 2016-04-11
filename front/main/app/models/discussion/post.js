@@ -10,39 +10,65 @@ import {track, trackActions} from '../../utils/discussion-tracker';
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	pivotId: null,
 	replyLimit: 10,
+	loadDir: {
+		older: 'olderthan',
+		newer: 'newerthan',
+	},
 
 	/**
+	 * @param {Object} data - result from xhr request
+	 *
+	 * @returns {void}
+	 */
+	loadAnotherPageSuccess(data) {
+		const newReplies = Ember.get(data, '._embedded.doc:posts')
+				.map((reply) => {
+					reply.threadCreatedBy = this.get('data.createdBy');
+					return DiscussionReply.create(reply);
+				});
+
+		if (this.get('data.replies.firstObject.position') > Ember.get(newReplies, 'lastObject.position')) {
+			this.get('data.replies').unshiftObjects(newReplies);
+		} else {
+			this.get('data.replies').pushObjects(newReplies);
+		}
+	},
+
+
+	/**
+	 * @param {String} direction - load directory, 'newerthan' or 'olderthan'
+	 * @param {Number} replyId
+	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadNextPage() {
+	loadAnotherPage(direction, replyId) {
 		return ajaxCall({
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
+			url: M.getDiscussionServiceUrl(`/${this.get('wikiId')}/threads/${this.get('threadId')}/${direction}/${replyId}`, {
 				limit: this.get('replyLimit'),
-				page: this.get('data.page') + 1,
-				pivot: this.get('pivotId'),
 				responseGroup: 'full',
-				sortDirection: 'descending',
-				sortKey: 'creation_date',
 				viewableOnly: false,
 			}),
 			success: (data) => {
-				this.get('data.replies').unshiftObjects(
-					// Note that we have to reverse the list we get back because how we're displaying
-					// replies on the page; we want to see the newest replies first but show them
-					// starting with oldest of the current list at the top.
-					Ember.get(data, '._embedded.doc:posts').reverse()
-						.map((reply) => {
-							reply.threadCreatedBy = this.get('data.createdBy');
-							return DiscussionReply.create(reply);
-						})
-				);
-
-				this.incrementProperty('data.page');
+				this.loadAnotherPageSuccess(data);
 			},
 			error: (err) => {
 				this.handleLoadMoreError(err);
 			},
 		});
+	},
+
+	/**
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	loadPreviousPage() {
+		return this.loadAnotherPage(this.get('loadDir.older'), this.get('data.replies.firstObject.id'));
+	},
+
+	/**
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	loadNextPage() {
+		return this.loadAnotherPage(this.get('loadDir.newer'), this.get('data.replies.lastObject.id'));
 	},
 
 	/**
