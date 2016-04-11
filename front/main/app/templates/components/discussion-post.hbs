@@ -94,7 +94,9 @@
 							{{/if}}
 						{{/each}}
 						{{#if canShowNewer}}
-							<div {{action this.attrs.loadNewerComments}} class="show-newer">{{i18n 'main.pagination-post-show-newer' ns='discussion'}}</div>
+							<button {{action this.attrs.loadNewerComments}} class="load-newer active-element-background-color">
+								{{i18n 'main.pagination-post-show-newer' ns='discussion'}}
+							</button>
 						{{/if}}
 						{{#if canReply}}
 							{{discussion-reply-editor

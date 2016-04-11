@@ -440,6 +440,18 @@ body.discussions {
 		}
 	}
 
+	.load-newer {
+		align-self: center;
+		box-align: ceneter;
+		display: flex;
+		color: $discussion-load-newer-color;
+		font-size: $type-min;
+		line-height: $line-height-min;
+		margin: 0 auto;
+		padding: 10px 17px 9px;
+		text-transform: none;
+	}
+
 	.spinner {
 		display: block;
 		left: auto;
