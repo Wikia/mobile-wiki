@@ -58,7 +58,7 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	handleNewReplyCreated: Ember.observer('replies.@each.isNew', function () {
-		const newReplies = this.get('replies').filter((reply) => reply.isNew),
+		const newReplies = this.get('replies').filter((reply) => reply.get('isNew')),
 			newReply = newReplies.get('firstObject');
 
 		if (newReply) {
