@@ -4,7 +4,7 @@ import ConfirmationMixin from 'ember-onbeforeunload/mixins/confirmation';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Route.extend(ConfirmationMixin, {
-	pontoLoadingInitialized: false,
+	modelInitialized: false,
 	pontoPath: '/front/main/assets/vendor/ponto/ponto.js',
 
 	/**
@@ -19,16 +19,22 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (window.self !== window.top) {
 				const promises = {
-					dataAndAssets: this.loadInfoboxDataAndAssets(templateName),
-					ponto: this.loadPonto()
+					dataAndAssets: this.loadInfoboxDataAndAssets(templateName)
 				};
+
+				if (!window.Ponto || !this.get('modelInitialized')) {
+					promises.ponto = this.loadPonto();
+				}
 
 				Ember.RSVP.hash(promises)
 					.then((responses) => {
-						this.setupStyles(responses.dataAndAssets);
+						if (!this.get('modelInitialized')) {
+							this.setupStyles(responses.dataAndAssets);
+							this.isWikiaContext();
+						}
 						this.setupInfoboxData(responses.dataAndAssets);
+						this.set('modelInitialized', true);
 					})
-					.then(this.isWikiaContext.bind(this))
 					.then(resolve)
 					.catch(reject);
 			} else {
@@ -229,12 +235,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {JQueryXHR}
 	 */
 	loadPonto() {
-		if (!window.Ponto || !this.get('pontoLoadingInitialized')) {
-			this.set('pontoLoadingInitialized', true);
-			return Ember.$.getScript(this.pontoPath);
-		}
-
-		return true;
+		return Ember.$.getScript(this.pontoPath);
 	},
 
 	/**
@@ -345,11 +346,6 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {void}
 	 */
 	setVEContext(isVEContext = false) {
-		const controller = this.controllerFor('infobox-builder');
-
-		controller.set('isVEContext', isVEContext);
-		if (isVEContext) {
-			controller.set('isDirty', false);
-		}
+		this.controllerFor('infobox-builder').set('isVEContext', isVEContext);
 	}
 });

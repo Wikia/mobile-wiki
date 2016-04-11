@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
 		 */
 		cancel() {
 			if (this.get('isVEContext')) {
-				this.get('target').send('returnToVE');
+				this.send('goBackToVE');
 			} else {
 				this.get('target').send('redirectToPage');
 			}
