@@ -512,11 +512,13 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: false,
+				isVEContext: false,
 				expected: {
 					showSuccess: true,
 					titleExists: false,
 					redirectToPageCalled: false,
-					showEditTitleModalCalled: false
+					showEditTitleModalCalled: false,
+					goBackToVECalled: false
 				},
 				message: 'correctly saved template with no redirect needed'
 			},
@@ -529,13 +531,53 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: true,
+				isVEContext: false,
 				expected: {
 					showSuccess: true,
 					titleExists: false,
 					redirectToPageCalled: true,
-					showEditTitleModalCalled: false
+					showEditTitleModalCalled: false,
+					goBackToVECalled: false
 				},
 				message: 'correctly saved template with redirect'
+			},
+			{
+				data: {
+					success: true,
+					conflict: false,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: false,
+				isVEContext: true,
+				expected: {
+					showSuccess: false,
+					titleExists: false,
+					redirectToPageCalled: false,
+					showEditTitleModalCalled: false,
+					goBackToVECalled: true
+				},
+				message: 'correctly saved template with going back to VE'
+			},
+			{
+				data: {
+					success: true,
+					conflict: false,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: true,
+				isVEContext: true,
+				expected: {
+					showSuccess: false,
+					titleExists: false,
+					redirectToPageCalled: false,
+					showEditTitleModalCalled: false,
+					goBackToVECalled: true
+				},
+				message: 'correctly saved template with with going back to VE'
 			},
 			{
 				data: {
@@ -546,11 +588,13 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: false,
+				isVEContext: false,
 				expected: {
 					showSuccess: false,
 					titleExists: true,
 					redirectToPageCalled: false,
-					showEditTitleModalCalled: true
+					showEditTitleModalCalled: true,
+					goBackToVECalled: false
 				},
 				message: 'naming conflict with no redirect'
 			},
@@ -563,11 +607,13 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: true,
+				isVEContext: false,
 				expected: {
 					showSuccess: false,
 					titleExists: true,
 					redirectToPageCalled: false,
-					showEditTitleModalCalled: true
+					showEditTitleModalCalled: true,
+					goBackToVECalled: false
 				},
 				message: 'naming conflict with redirect'
 			}
@@ -575,12 +621,15 @@ test('handleSaveResults', function (assert) {
 
 	cases.forEach((testCase) => {
 		const redirectToPageSpy = sinon.spy(),
+			goBackToVESpy = sinon.spy(),
 			showEditTitleModalSpy = sinon.spy();
 
 		component.set('showEditTitleModal', showEditTitleModalSpy);
 		component.set('redirectToPageAction', redirectToPageSpy);
+		component.set('goBackToVE', goBackToVESpy);
 		component.set('showSuccess', false);
 		component.set('titleExists', false);
+		component.set('isVEContext', testCase.isVEContext);
 		component.handleSaveResults(testCase.data, testCase.shouldRedirectToPage);
 
 		assert.equal(
@@ -602,6 +651,11 @@ test('handleSaveResults', function (assert) {
 			showEditTitleModalSpy.called,
 			testCase.expected.showEditTitleModalCalled,
 			`${testCase.message}- showEditTitleModalCalled`
+		);
+		assert.equal(
+			goBackToVESpy.called,
+			testCase.expected.goBackToVECalled,
+			`${testCase.message}- goBackToVECalled`
 		);
 	});
 });
