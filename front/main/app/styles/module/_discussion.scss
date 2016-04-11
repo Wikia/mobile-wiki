@@ -425,7 +425,7 @@ body.discussions {
 		}
 	}
 
-	.see-more {
+	.load-older {
 		background-color: $discussion-see-more-color;
 		border-width: 0;
 		display: block;
@@ -543,7 +543,7 @@ body.discussions {
 				width: $post-details-reply-width;
 			}
 
-			.see-more {
+			.load-older {
 				text-align: center;
 				width: $post-details-post-width;
 			}
@@ -551,7 +551,7 @@ body.discussions {
 
 		.post-detail,
 		.post-reply,
-		.see-more {
+		.load-older {
 			margin-left: auto;
 			margin-right: auto;
 		}
