@@ -210,10 +210,11 @@ export default Ember.Component.extend({
 		return !this.get('navABTestIsBarMenuIcon') && !this.get('navABTestIsBarDropdownIcon');
 	}),
 
-	displayFabIcon: Ember.computed('navABTestCurrentGroup', 'navABTestIsFabSearchIcon', 'navABTestFabIconMenuGroup', function () {
-		return (this.get('navABTestCurrentGroup') === this.get('navABTestFabIconMenuGroup')) ||
-				(this.get('navABTestCurrentGroup') === this.get('navABTestIsFabSearchIcon'));
-	}),
+	displayFabIcon: Ember.computed('navABTestCurrentGroup', 'navABTestIsFabSearchIcon', 'navABTestFabIconMenuGroup',
+		function () {
+			return (this.get('navABTestCurrentGroup') === this.get('navABTestFabIconMenuGroup')) ||
+					(this.get('navABTestCurrentGroup') === this.get('navABTestIsFabSearchIcon'));
+		}),
 
 	fabIcon: Ember.computed('navABTestIsFabSearchIcon', function () {
 		return this.get('navABTestIsFabSearchIcon') ? 'search-for-ab-test' : 'menu';

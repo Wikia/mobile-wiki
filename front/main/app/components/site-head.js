@@ -27,11 +27,15 @@ export default Ember.Component.extend(
 			return !this.get('shouldDisplaySearchIcon') && !this.get('shouldDisplayHamburgerIcon');
 		}),
 
-		shouldDisplaySearchIcon: Ember.computed('navABTestIsFabSearchIcon', 'navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', function() {
-			return this.get('navABTestIsFabSearchIcon') || this.get('navABTestIsBarMenuIcon') || this.get('navABTestIsBarDropdownIcon');
-		}),
+		shouldDisplaySearchIcon: Ember.computed(
+			'navABTestIsFabSearchIcon', 'navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon',
+			function () {
+				return this.get('navABTestIsFabSearchIcon') ||
+					this.get('navABTestIsBarMenuIcon') ||
+					this.get('navABTestIsBarDropdownIcon');
+			}),
 
-		shouldDisplayHamburgerIcon: Ember.computed('navABTestIsFabSearchIcon', 'navABTestIsBarMenuIcon', function() {
+		shouldDisplayHamburgerIcon: Ember.computed('navABTestIsFabSearchIcon', 'navABTestIsBarMenuIcon', function () {
 			return this.get('navABTestIsFabSearchIcon') || this.get('navABTestIsBarMenuIcon');
 		}),
 
