@@ -5,7 +5,7 @@
 			{{#each pages as |page index|}}
 				<li {{action 'trackExperimentClick' preventDefault=false}}>
 					{{#link-to 'wiki-page' page.title tracking-category='read-more' tracking-label=(concat 'open-item-' index)}}
-						{{article-media-thumbnail url=page.imgUrl caption=page.title forcedHeight=200 cropMode='top-crop'}}
+						{{content-recommendation-thumbnail url=page.imgUrl caption=page.title}}
 					{{/link-to}}
 				</li>
 			{{/each}}
