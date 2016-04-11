@@ -8,7 +8,6 @@ import DiscussionReply from './domain/reply';
 import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
-	pivotId: null,
 	replyLimit: 10,
 	loadDir: {
 		older: 'olderthan',
@@ -112,8 +111,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			apiRepliesData = Ember.getWithDefault(apiData, '_embedded.doc:posts', []);
 
 		let contributors,
-			normalizedRepliesData,
-			pivotId;
+			normalizedRepliesData;
 
 		normalizedRepliesData = apiRepliesData.map((replyData) => {
 			replyData.threadCreatedBy = normalizedData.get('createdBy');
@@ -121,8 +119,6 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		});
 
 		if (normalizedRepliesData.length) {
-			pivotId = normalizedRepliesData[0].id;
-
 			// We need oldest replies displayed first
 			normalizedRepliesData.reverse();
 		}
