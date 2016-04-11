@@ -11,7 +11,7 @@ export default Ember.Component.extend(
 			return this.get('model.replies.firstObject.position') > 1;
 		}),
 
-		canShowNewer: Ember.computed('model.repliesCount', function () {
+		canShowNewer: Ember.computed('model.replies.lastObject.position', 'model.repliesCount', function () {
 			return this.get('model.replies.lastObject.position') < this.get('model.repliesCount');
 		}),
 
