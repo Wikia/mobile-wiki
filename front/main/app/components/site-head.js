@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import HeadroomMixin from '../mixins/headroom';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions, trackExperiment} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	TrackClickMixin,
@@ -28,6 +28,14 @@ export default Ember.Component.extend(
 			expandSideNav() {
 				if (this.get('shouldDisplayNewBadge')) {
 					this.trackClick('recent-wiki-activity-blue-dot', 'open-navigation');
+				}
+
+				if (this.get('navABTestIsControlGroup')) {
+					trackExperiment(this.get('navABTestExperimentName'), {
+						action: trackActions.click,
+						category: 'entrypoint',
+						label: 'site-head-icon'
+					});
 				}
 
 				this.trackClick('side-nav', 'expanded');
