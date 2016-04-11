@@ -142,8 +142,6 @@ test('check the appropriate action is sent on save and cancel', function (assert
 	const controller = this.subject(),
 		model = {
 			saveStateToTemplate: sinon.stub().returns(Ember.RSVP.Promise.resolve()),
-			initInfoboxState: sinon.stub(),
-			setupInitialState: sinon.stub()
 		},
 		route = {
 			send: sinon.spy()
@@ -156,16 +154,6 @@ test('check the appropriate action is sent on save and cancel', function (assert
 			},
 			{
 				action: 'cancel',
-				isVEContext: false,
-				calledWith: 'redirectToPage'
-			},
-			{
-				action: 'save',
-				isVEContext: true,
-				calledWith: 'returnToVE'
-			},
-			{
-				action: 'save',
 				isVEContext: false,
 				calledWith: 'redirectToPage'
 			}
