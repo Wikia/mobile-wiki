@@ -12,6 +12,9 @@ export default Ember.Component.extend(
 		tagName: 'nav',
 		themeBar: false,
 		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
+		headroomEnabled: Ember.computed('shouldDisplaySearchIcon', 'shouldDisplayHamburgerIcon', function () {
+			return !this.get('shouldDisplaySearchIcon') && !this.get('shouldDisplayHamburgerIcon');
+		}),
 		pinned: true,
 
 		currentUser: Ember.inject.service(),

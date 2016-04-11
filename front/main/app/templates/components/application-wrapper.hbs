@@ -47,12 +47,14 @@
 		}}
 	{{/if}}
 
-	{{#if enableShareHeader}}
-		{{share-header
-			smartBannerVisible=smartBannerVisible
-			title=currentTitle
-			language=language
-		}}
+	{{#if navABTestEnableShare}}
+		{{#if enableShareHeader}}
+			{{share-header
+				smartBannerVisible=smartBannerVisible
+				title=currentTitle
+				language=language
+			}}
+		{{/if}}
 	{{/if}}
 
 	{{!--

@@ -206,6 +206,10 @@ export default Ember.Component.extend({
 		return currentGroup && currentGroup !== this.get('navABTestDefaultGroup');
 	}),
 
+	navABTestEnableShare: Ember.computed('navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', function () {
+		return !this.get('navABTestIsBarMenuIcon') && !this.get('navABTestIsBarDropdownIcon');
+	}),
+
 	displayFabIcon: Ember.computed('navABTestCurrentGroup', 'navABTestIsFabSearchIcon', 'navABTestFabIconMenuGroup', function () {
 		return (this.get('navABTestCurrentGroup') === this.get('navABTestFabIconMenuGroup')) ||
 				(this.get('navABTestCurrentGroup') === this.get('navABTestIsFabSearchIcon'));
