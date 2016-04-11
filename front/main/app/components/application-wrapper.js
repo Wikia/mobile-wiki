@@ -199,7 +199,9 @@ export default Ember.Component.extend({
 		}
 	),
 
-	navABTestIsControlGroup: Ember.computed.match('navABTestCurrentGroup', this.get('navABTestDefaultGroup')),
+	navABTestIsControlGroup: Ember.computed('navABTestCurrentGroup', 'navABTestControlGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestControlGroup');
+	}),
 
 	fabIcon: Ember.computed('navABTestIsFabSearchIcon', function () {
 		return this.get('navABTestIsFabSearchIcon') ? 'search-for-ab-test' : 'menu';
