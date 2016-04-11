@@ -30,7 +30,7 @@ export default Ember.Component.extend(
 					this.trackClick('recent-wiki-activity-blue-dot', 'open-navigation');
 				}
 
-				if(this.get('navABTestIsControlGroup')) {
+				if (this.get('navABTestIsControlGroup')) {
 					trackExperiment(this.get('navABTestExperimentName'), {
 						action: trackActions.click,
 						category: 'entrypoint',
