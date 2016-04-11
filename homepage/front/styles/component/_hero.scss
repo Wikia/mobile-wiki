@@ -132,13 +132,11 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 	z-index: 1;
 
 	h1 {
-		color: white;
 		font-size: 2.5em;
 		line-height: 1;
 	}
 
 	h2 {
-		color: white;
 		font-size: 1.3em;
 		line-height: 1;
 	}
@@ -164,6 +162,34 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 	width: 250px;
 }
 
+.hero-text-shadow {
+	color: white;
+	text-shadow:
+	1px 2px 0 #000,
+	-1px -1px 0 #000,
+	1px -1px 0 #000,
+	-1px 1px 0 #000,
+	1px 1px 0 #000;
+}
+
+.hero-text-shadow:hover {
+	color: white;
+	text-shadow:
+	1px 2px 0 #000,
+	-1px -1px 0 #000,
+	1px -1px 0 #000,
+	-1px 1px 0 #000,
+	1px 1px 0 #000;
+}
+
+.hero-text-white {
+	color: white;
+}
+
+.hero-text-white:hover {
+	color: white;
+}
+
 .hero-english-overlay {
 	background-color: blue;
 	color: white;
@@ -185,7 +211,6 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 .hero-text-overlay-large {
 	background-color: black;
 	bottom: 0;
-	color: white;
 	font-size: 15px;
 	font-weight: bold;
 	height: 140px;
@@ -204,12 +229,10 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 	}
 
 	h1 {
-		color: white;
 		font-size: 1.3em;
 	}
 
 	h2 {
-		color: white;
 		font-size: .75rem;
 	}
 
@@ -241,7 +264,6 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 }
 
 .hero-link {
-	color: white;
 	cursor: pointer;
 	font-size: 1.3rem;
 
@@ -252,8 +274,4 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 	@include media ($mobile-slider) {
 		font-size: 1.1rem;
 	}
-}
-
-.hero-link:hover {
-	color: white;
 }
