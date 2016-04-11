@@ -191,11 +191,9 @@ export default Ember.Component.extend({
 		function () {
 			const currentGroup = this.get('navABTestCurrentGroup');
 
-			console.log(currentGroup);
-
 			return currentGroup &&
 				currentGroup !== this.get('navABTestDefaultGroup') &&
-				currentGroup !== this.get('navABTestControlGroup')
+				currentGroup !== this.get('navABTestControlGroup');
 		}
 	),
 
