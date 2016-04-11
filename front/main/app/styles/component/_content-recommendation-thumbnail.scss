@@ -1,0 +1,57 @@
+.content-recommendation-thumbnail {
+  margin: 40px 0;
+  text-align: center;
+
+  figcaption {
+	@include ellipsis;
+	color: #999;
+	height: 50px;
+	padding: 5px 0;
+	pointer-events: auto;
+	text-align: left;
+  }
+
+  img {
+	@extend %image-placeholder;
+
+	display: inline-block;
+	width: 100%;
+  }
+
+  &.is-loaded {
+	img {
+	  animation: lazyImage .3s;
+	  background: none;
+	}
+  }
+
+  .chevron {
+	background-color: #fff;
+	bottom: 0;
+	height: 20px;
+	position: absolute;
+	right: 0;
+	width: 20px;
+	z-index: $z-1;
+  }
+}
+
+img.content-recommendation-placeholder{
+  @extend %image-placeholder;
+
+  display: inline-block;
+  width: 100%;
+}
+
+.content-recommendation-thumbnail-image-wrapper {
+  position: relative;
+}
+
+@keyframes lazyImage {
+  0% {
+	opacity: 0;
+  }
+  100% {
+	opacity: 1;
+  }
+}
