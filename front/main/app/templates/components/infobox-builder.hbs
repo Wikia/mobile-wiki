@@ -72,7 +72,7 @@
 				}}
 			</div>
 		{{/liquid-bind}}
-		{{#unless isVEContext}}
+		{{#unless isGoToSourceEnabled}}
 			{{wikia-ui-components/icon-button
 				class='infobox-builder-go-to-source-button'
 				click=(action 'tryGoToSource')

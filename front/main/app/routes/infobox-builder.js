@@ -22,14 +22,14 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			if (this.get('isIframeContext')) {
 				if (!this.get('isEnvironmentSet')) {
-					this.setupEnvironment(templateName)
+					this.setupEnvironmentAndInfoboxData(templateName)
 						.then(() => {
 							this.set('isEnvironmentSet', true);
 							resolve();
 						})
 						.catch(reject);
 				} else {
-					this.updateInfoboxData(templateName)
+					this.loadAndSetupInfoboxData(templateName)
 						.then(resolve)
 						.catch(reject);
 				}
@@ -171,7 +171,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @param {string} templateName
 	 * @returns {Promise}
 	 */
-	setupEnvironment(templateName) {
+	setupEnvironmentAndInfoboxData(templateName) {
 		// TODO CE-3600 extract data and assets into services
 		const promises = {
 			dataAndAssets: this.loadInfoboxDataAndAssets(templateName),
@@ -194,7 +194,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @param {string} templateName
 	 * @returns {Promise}
 	 */
-	updateInfoboxData(templateName) {
+	loadAndSetupInfoboxData(templateName) {
 		return this.loadInfoboxDataAndAssets(templateName)
 			.then((response) => {
 				this.setupInfoboxData(response);
