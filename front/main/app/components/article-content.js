@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import InfoboxImageCollectionComponent from './infobox-image-collection';
 import AdsMixin from '../mixins/ads';
-import PollDaddyMixin from '../mixins/poll-daddy';
 import TrackClickMixin from '../mixins/track-click';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {getExperimentVariationNumber} from 'common/utils/variant-testing';
@@ -15,7 +14,6 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	AdsMixin,
-	PollDaddyMixin,
 	TrackClickMixin,
 	{
 		tagName: 'article',
@@ -73,7 +71,6 @@ export default Ember.Component.extend(
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
-					this.handlePollDaddy();
 					this.handleJumpLink();
 
 					if (this.get('highlightedEditorDemoEnabled')) {
