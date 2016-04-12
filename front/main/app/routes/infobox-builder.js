@@ -172,6 +172,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Promise}
 	 */
 	setupEnvironment(templateName) {
+		// TODO CE-3600 extract data and assets into services
 		const promises = {
 			dataAndAssets: this.loadInfoboxDataAndAssets(templateName),
 			ponto: this.loadPonto()
