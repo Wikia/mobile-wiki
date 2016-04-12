@@ -153,13 +153,6 @@ $group-header-font-size: 16px;
 			> .media-component img {
 				width: 100%;
 			}
-
-			.article-media-placeholder {
-				// in case of long image (longer than wider)
-				// we want to crop its height to equal its width (which takes 100% of screen width)
-				max-height: 100vw;
-			}
-
 		}
 
 		.pi-hero-title-wrapper {
@@ -365,6 +358,14 @@ $group-header-font-size: 16px;
 				bottom: 0;
 				padding-top: 45px;
 				position: absolute;
+			}
+		}
+
+		.pi-hero, .pi-image-collection {
+			.article-media-placeholder {
+				// in case of long image (longer than wider)
+				// we want to crop its height to equal its width (which takes 100% of screen width)
+				max-height: 100vw;
 			}
 		}
 	}
