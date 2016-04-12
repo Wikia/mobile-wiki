@@ -5,6 +5,8 @@ import Thumbnailer from 'common/modules/thumbnailer';
 export default Ember.Mixin.create(
 	InViewportMixin,
 	{
+		classNameBindings: ['isLoaded'],
+
 		isLoaded: false,
 		isLoading: false,
 		loadingError: false,
