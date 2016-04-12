@@ -1,4 +1,3 @@
-import localSettings from '../../../config/localSettings';
 import {parseQueryParams} from '../../lib/utils';
 import {getDocumentTitle, getDefaultTitle, getBaseResult, getOpenGraphData} from './page-data-helper';
 
