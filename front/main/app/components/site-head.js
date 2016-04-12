@@ -23,8 +23,8 @@ export default Ember.Component.extend(
 
 		// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
 		// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-		headroomEnabled: Ember.computed('shouldDisplaySearchIcon', 'shouldDisplayHamburgerIcon', function () {
-			return !this.get('shouldDisplaySearchIcon') && !this.get('shouldDisplayHamburgerIcon');
+		headroomEnabled: Ember.computed('navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', function () {
+			return !this.get('navABTestIsBarMenuIcon') && !this.get('navABTestIsBarDropdownIcon');
 		}),
 
 		shouldDisplaySearchIcon: Ember.computed(
