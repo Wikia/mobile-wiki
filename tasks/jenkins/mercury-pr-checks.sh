@@ -120,7 +120,7 @@ fi
 
 ### Front tests - running
 updateGit "Front tests" pending running
-{ gulp test-common && gulp test-auth && cd front/main && ember test --path ../../www/front/main } 2>&1 | tee jenkins/front-tests.log || { error1=true && failJob=true; }
+gulp test-common && gulp test-auth && cd front/main && ember test --path ../../www/front/main 2>&1 | tee jenkins/front-tests.log || { error1=true && failJob=true; }
 vim -e -s -c ':set bomb' -c ':wq' jenkins/front-tests.log
 
 if [ -z $error1 ]
