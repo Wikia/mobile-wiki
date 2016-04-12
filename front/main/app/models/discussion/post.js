@@ -34,7 +34,6 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		}
 	},
 
-
 	/**
 	 * @param {String} direction - load directory, 'newerthan' or 'olderthan'
 	 * @param {Number} replyId
