@@ -5,6 +5,23 @@ const trackActions = {
 	ReplyCreate: 'ReplyCreate',
 	UndoUpvotePost: 'UndoUpvotePost',
 	UpvotePost: 'UpvotePost',
+	LatestPostTapped: 'LatestPostTapped',
+	TrendingPostTapped: 'TrendingPostTapped',
+	PostShare: 'PostShare',
+	PostClose: 'PostClose',
+	ReplyClose: 'ReplyClose',
+	UserTapped: 'UserTapped',
+	PostStart: 'PostStart',
+	PostContent: 'PostContent',
+	ReplyMore: 'ReplyMore',
+	AnonUpvotePost: 'AnonUpvotePost',
+	ReplyContent: 'ReplyContent',
+	MorePostActions: 'MorePostActions',
+	Report: 'Report',
+	PostLock: 'PostLock',
+	PostUnlock: 'PostUnlock',
+	DeleteAllConfirmed: 'DeleteAllConfirmed',
+	DeleteAllTapped: 'DeleteAllTapped',
 };
 
 /**
