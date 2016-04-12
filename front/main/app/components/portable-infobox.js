@@ -49,38 +49,33 @@ export default Ember.Component.extend(
 			return Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
 		}),
 
-		/**
-		 * @returns {void}
-		 */
-		handleCollapsing() {
-			const collapsedHeight = this.get('collapsedHeight'),
-				isLongInfobox = this.get('isLongInfobox');
-
-			this.set('collapsed', true);
-
-			if (isLongInfobox) {
-				this.$().height(collapsedHeight);
+		didInsertElement() {
+			if (this.get('isLongInfobox')) {
+				this.collapse();
 			}
 		},
 
-		didInsertElement() {
-			this.handleCollapsing();
+		collapse() {
+			this.set('collapsed', true);
+			this.$().height(this.get('collapsedHeight'));
+		},
+
+		expand() {
+			this.set('collapsed', false);
+			this.$().height('auto');
 		},
 
 		actions: {
 			toogleInfobox() {
-				const collapsed = this.get('collapsed');
-
-				if (!collapsed) {
+				if (!this.get('collapsed')) {
 					const body = window.document.body,
 						scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
-					this.handleCollapsing();
+					this.collapse();
 					this.trackClick('portable-infobox', `collapsed-by-button`);
 					scrollTo.apply(this.get('button'));
 				} else {
-					this.set('collapsed', false);
-					this.$().height('auto');
+					this.expand();
 					this.trackClick('portable-infobox', `expanded-by-button`);
 				}
 			}

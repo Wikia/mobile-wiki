@@ -42,14 +42,14 @@ export default Ember.Component.extend(
 
 			let computedHeight = imageHeight;
 
-			if (imageWidth > windowWidth) {
-				computedHeight = Math.floor(windowWidth * (imageHeight / imageWidth));
-			}
-
 			// wide image - image wider than 16:9 aspect ratio
 			// Crop it to have 16:9 ratio.
 			if (imageWidth > maxWidth) {
 				return Math.floor(windowWidth / imageAspectRatio);
+			}
+
+			if (imageWidth > windowWidth) {
+				computedHeight = Math.floor(windowWidth * (imageHeight / imageWidth));
 			}
 
 			// high image - image higher than square
