@@ -69,6 +69,10 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 			});
 		},
 
+		editPost(postData) {
+			console.log('edit');
+		},
+
 		/**
 		 * @param {object} apiData
 		 *

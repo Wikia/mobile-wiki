@@ -2,6 +2,7 @@ export default Ember.Service.extend(Ember.Evented, {
 	isAnon: true,
 	isEditorOpen: false,
 	isUserBlocked: false,
+	discussionEntity: null,
 
 	modalDialogService: Ember.inject.service('modal-dialog'),
 
@@ -62,4 +63,8 @@ export default Ember.Service.extend(Ember.Evented, {
 			this.set('isEditorOpen', false);
 		}
 	},
+
+	setDiscussionEntity(discussionEntity) {
+		this.set('discussionEntity', discussionEntity);
+	}
 });

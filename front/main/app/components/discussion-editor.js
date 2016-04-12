@@ -19,7 +19,9 @@ export default Ember.Component.extend(ViewportMixin, {
 	offsetTop: 0,
 	siteHeadHeight: 0,
 
-	bodyText: '',
+	bodyText: Ember.computed('discussionEditor.discussionEntity.rawContent', function() {
+		return this.get('discussionEditor.discussionEntity.rawContent') || '';
+	}),
 	layoutName: 'components/discussion-editor',
 
 	/**
@@ -245,14 +247,20 @@ export default Ember.Component.extend(ViewportMixin, {
 		 * Send request to model to create new post and start animations
 		 * @returns {void}
 		 */
-		create() {
+		submit() {
 			if (!this.get('submitDisabled')) {
 				this.set('isLoading', true);
 
-				this.attrs.create({
+				// TODO handle isEdit
+				//this.attrs.create({
+				//	body: this.get('bodyText'),
+				//	creatorId: this.get('currentUser.userId'),
+				//	siteId: Mercury.wiki.id
+				//});
+
+				this.attrs.edit({
 					body: this.get('bodyText'),
-					creatorId: this.get('currentUser.userId'),
-					siteId: Mercury.wiki.id
+					id: this.get('discussionEditor.discussionEntity.id')
 				});
 			}
 		},
@@ -274,7 +282,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		handleKeyPress(event) {
 			if ((event.keyCode === 10 || event.keyCode === 13) && event.ctrlKey) {
 				// Create post on CTRL + ENTER
-				this.send('create');
+				this.send('submit');
 			}
 		},
 
