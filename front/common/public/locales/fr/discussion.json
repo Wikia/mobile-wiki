@@ -14,6 +14,7 @@
   "main":{
     "discussions-header-title":"Discussions",
     "pagination-post-show-more":"Réponses plus anciennes",
+    "pagination-post-show-newer":"Voir plus récentes",
     "share-default-title":"Discussion sur __siteName__",
     "contributors-title":"Tous les contributeurs",
     "sort-by-header":"Trier par",

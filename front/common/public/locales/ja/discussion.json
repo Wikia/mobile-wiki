@@ -14,6 +14,7 @@
   "main":{
     "discussions-header-title":"トーク",
     "pagination-post-show-more":"古い返信を表示",
+    "pagination-post-show-newer":"新しい投稿を表示",
     "share-default-title":"__siteName__についてのトーク",
     "contributors-title":"すべての投稿者",
     "sort-by-header":"並べ替え",
