@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ajaxCall from '../utils/ajax-call';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Mixin.create({
 	/**
@@ -157,6 +158,8 @@ export default Ember.Mixin.create({
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
 			success: () => {
 				post.set('isLocked', true);
+
+				track(trackActions.PostLock);
 			},
 			error: () => {
 				this.setFailedState('editor.post-error-general-error');
@@ -176,6 +179,8 @@ export default Ember.Mixin.create({
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
 			success: () => {
 				post.set('isLocked', false);
+
+				track(trackActions.PostUnlock);
 			},
 			error: () => {
 				this.setFailedState('editor.post-error-general-error');
