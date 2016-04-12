@@ -1,13 +1,11 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import HeadroomMixin from '../mixins/headroom';
-import SideNavNewBadge from '../mixins/side-nav-new-badge';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions, trackExperiment} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	TrackClickMixin,
 	HeadroomMixin,
-	SideNavNewBadge,
 	{
 		classNames: ['site-head', 'border-theme-color'],
 		classNameBindings: ['themeBar'],
@@ -17,7 +15,11 @@ export default Ember.Component.extend(
 		pinned: true,
 
 		currentUser: Ember.inject.service(),
+		newFeaturesBadges: Ember.inject.service(),
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
+		shouldDisplayNewBadge: Ember.computed('newFeaturesBadges.features.[]', function () {
+			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
+		}),
 
 		actions: {
 			/**
@@ -26,6 +28,14 @@ export default Ember.Component.extend(
 			expandSideNav() {
 				if (this.get('shouldDisplayNewBadge')) {
 					this.trackClick('recent-wiki-activity-blue-dot', 'open-navigation');
+				}
+
+				if (this.get('navABTestIsControlGroup')) {
+					trackExperiment(this.get('navABTestExperimentName'), {
+						action: trackActions.click,
+						category: 'entrypoint',
+						label: 'site-head-icon'
+					});
 				}
 
 				this.trackClick('side-nav', 'expanded');
@@ -43,7 +53,6 @@ export default Ember.Component.extend(
 		pinnedObserver: Ember.observer('pinned', function () {
 			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
 		}),
-
 		didRender() {
 			if (this.get('shouldDisplayNewBadge')) {
 				track({

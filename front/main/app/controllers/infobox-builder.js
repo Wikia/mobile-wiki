@@ -3,6 +3,8 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
 	// used by ember-onbeforeunload to determine if confirmation dialog should be shown
 	isDirty: false,
+	groupItems: [],
+	lastGroupItem: null,
 
 	actions: {
 		/**
@@ -11,38 +13,42 @@ export default Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		cancel() {
-			this.get('target').send('redirectToTemplatePage');
+			this.get('target').send('redirectToPage');
 		},
 
 		/**
 		 * Saves infobox state to template,
-		 * sends redirectToTemplatePage action to route if desired,
+		 * sends redirectToPage action to route if desired,
 		 * return a promise so it can be chained
 		 *
-		 * @param {Boolean} [shouldRedirectToTemplatePage=true]
+		 * @param {String} initialTitle
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		save(shouldRedirectToTemplatePage = true) {
-			const model = this.get('model');
-
+		save(initialTitle) {
 			// prevents showing confirmation dialog on save
 			this.set('isDirty', false);
 
-			return model.saveStateToTemplate().then(() => {
-				if (shouldRedirectToTemplatePage) {
-					this.get('target').send('redirectToTemplatePage');
-				}
-			});
+			return this.get('model').saveStateToTemplate(initialTitle).then((data) => data);
 		},
 
 		/**
 		 * @returns {void}
 		 */
 		goToSourceEditor() {
+			const model = this.get('model');
+
 			// prevents showing confirmation dialog on save
 			this.set('isDirty', false);
 
-			this.get('target').send('goToSourceEditor');
+			this.get('target').send('goToSourceEditor', model.get('title'));
+		},
+
+		getTemplateExists(title) {
+			return this.get('model').getTemplateExists(title);
+		},
+
+		redirectToPage(url) {
+			return this.get('target').send('redirectToPage', url);
 		},
 
 		/**
@@ -143,6 +149,37 @@ export default Ember.Controller.extend({
 		 */
 		getDiffArray() {
 			return this.get('model').createDataDiffs();
+		},
+
+		setGroup(header) {
+			const items = [];
+			let last = null;
+
+			if (header && header.type === 'section-header') {
+				const state = this.get('model').get('infoboxState');
+				let done = false,
+					// set start at first group item
+					current = state.indexOf(header) + 1;
+
+				items.push(header);
+				while (!done && current < state.length) {
+					const item = state.get(current);
+
+					switch (item.type) {
+						case 'title':
+						case 'section-header':
+							done = true;
+							break;
+						default:
+							last = item;
+							items.push(item);
+							break;
+					}
+					current += 1;
+				}
+			}
+			this.set('groupItems', items);
+			this.set('lastGroupItem', last);
 		}
 	}
 });

@@ -63,7 +63,6 @@ import deepExtend from 'deep-extend';
  * @property {string} ironSecret
  * @property {string} [mediawikiDomain]
  * @property {string} gaUserSalt
- * @property {string} prerenderApiKey
  * @property {LoggerInterface} loggers
  * @property {number} maxRequestsPerChild
  * @property {OptimizelyLocalSettings} [optimizely]
@@ -169,7 +168,10 @@ const localSettings = {
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
-		path: '/auth',
+		path: '/auth'
+	},
+	userRegistationService: {
+		path: '/user-registration',
 		usernameMaxLength: 50,
 		passwordMaxLength: 50
 	},
@@ -178,6 +180,9 @@ const localSettings = {
 	},
 	imageReview: {
 		baseAPIPath: 'image-review'
+	},
+	staticAssets: {
+		baseAPIPath: 'static-assets'
 	},
 	whoAmIService: {
 		path: '/whoami',
@@ -189,23 +194,6 @@ const localSettings = {
 	mediawikiDomain: process.env.MEDIAWIKI_DOMAIN || null,
 	// Special salt for calculating GA userID
 	gaUserSalt: process.env.GA_USERID_SALT,
-	// Prerender.io API Key
-	prerenderApiKey: process.env.PRERENDER_API,
-	// prerendered host lists
-	prerenderHost: [
-		'assassinscreed.wikia.com',
-		'onepiece.wikia.com',
-		'vampirediaries.wikia.com',
-		'gameofthrones.wikia.com',
-		'dragonball.wikia.com',
-		'fairytail.wikia.com',
-		'ja.starwars.wikia.com',
-		'gta.wikia.com',
-		'animalcrossing.wikia.com',
-		'adventuretime.wikia.com',
-		'borderlands.wikia.com',
-		'ttte.wikia.com'
-	],
 	// By default send logs to local syslog only. Possible targets are [syslog, console, default]
 	// The value represent the minimum logging level
 	loggers: {
@@ -297,10 +285,10 @@ const localSettings = {
 	},
 	enableDiscussions: true,
 	clickstream: {
-		auth: {
+		social: {
 			enable: true,
 			url: 'https://services.wikia.com/clickstream/events/social'
-		}
+		},
 	},
 	translationFiles: ['main', 'discussion', 'image-review', 'infobox-builder', 'recent-wiki-activity']
 };

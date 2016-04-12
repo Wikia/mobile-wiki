@@ -57,7 +57,7 @@
     "user-post-list-header":"Beiträge von __userName__",
     "empty-forum-text":"Bisher gibt es noch keine Beiträge. Bringe du doch einfach die Diskussion ans Laufen und verfasse jetzt den ersten Beitrag!",
     "report-post":"Beitrag melden",
-    "report-reply":"Antwort auf den Beitrag",
+    "report-reply":"Antwort melden",
     "reported-content-filter-text":"Nur gemeldete Inhalte anzeigen",
     "moderation-filters-header":"Moderation",
     "reported-to-moderators":"Den Moderatoren gemeldet",
@@ -70,7 +70,13 @@
     "locked-post-text":"Dieser Beitrag wurde gesperrt.",
     "lock-post":"Beitrag sperren",
     "unlock-post":"Beitrag entsperren",
-    "locked-and-reported-to-moderators-text":"Dieser Beitrag ist gesperrt und wurde gemeldet."
+    "locked-and-reported-to-moderators-text":"Dieser Beitrag ist gesperrt und wurde gemeldet.",
+    "upvote-link-label":"__count__ Stimme",
+    "upvote-link-label_plural":"__count__ Stimmen",
+    "replies-link-label":"__count__ Antwort",
+    "replies-link-label_plural":"__count__ Antworten",
+    "share-header":"Beitrag teilen",
+    "share-label":"Teilen"
   },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",

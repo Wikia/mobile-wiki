@@ -4,14 +4,16 @@ const originalMercury = Ember.$.extend(true, {}, window.Mercury),
 	model = Ember.Object.create({
 		url: '/wiki/Kermit',
 		description: 'Article about Kermit',
-		displayTitle: 'Kermit The Frog'
-	}),
-	originalMediaWikiNamespace = M.prop('mediaWikiNamespace');
+		displayTitle: 'Kermit The Frog',
+		documentTitle: 'Kermit The Frog - Muppet Wiki - Wikia'
+	});
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
+	beforeEach() {
+		window.wgNow = null;
+	},
 	afterEach() {
 		window.Mercury = Ember.$.extend(true, {}, originalMercury);
-		M.prop('mediaWikiNamespace', originalMediaWikiNamespace, true);
 	}
 });
 
@@ -86,47 +88,47 @@ test('set correct document title', function (assert) {
 	assert.equal(document.title, expectedDocumentTitle, 'document title is different than expected');
 });
 
-test('set default document title when htmlTitleTemplate is not set', function (assert) {
-	const mock = this.subject(),
-		expectedDocumentTitle = 'Kermit The Frog - Wikia';
-
-	delete window.Mercury.wiki.htmlTitleTemplate;
-
-	mock.setHeadTags(model);
-
-	assert.equal(document.title, expectedDocumentTitle, 'document title is different than expected');
-});
-
 test('get correct handler based on model namespace', function (assert) {
 	const mock = this.subject(),
 		testCases = [
 			{
-				namespace: 0,
 				expectedHandler: {
 					viewName: 'article',
 					controllerName: 'article'
-				}
+				},
+				model: Ember.Object.create({
+					ns: 0
+				})
 			},
 			{
-				namespace: 14,
+				expectedHandler: {
+					viewName: 'article',
+					controllerName: 'article'
+				},
+				model: Ember.Object.create({
+					ns: 112
+				})
+			},
+			{
 				expectedHandler: {
 					viewName: 'category',
 					controllerName: 'category'
-				}
+				},
+				model: Ember.Object.create({
+					ns: 14
+				})
 			},
 			{
-				namespace: 99,
-				expectedHandler: null
-			},
-			{
-				namespace: null,
-				expectedHandler: null
+				expectedHandler: null,
+				model: Ember.Object.create({
+					ns: 200
+				})
 			}
 		];
 
-	testCases.forEach(({namespace, expectedHandler}) => {
-		M.prop('mediaWikiNamespace', namespace, true);
+	window.Mercury.wiki.contentNamespaces = [0, 112];
 
+	testCases.forEach(({expectedHandler, model}) => {
 		const handler = mock.getHandler(model);
 
 		if (handler) {
@@ -153,4 +155,25 @@ test('get correct handler based on model isMainPage flag and exception', functio
 
 	assert.equal(handler.viewName, expectedHandler.viewName, 'viewName is different than expected');
 	assert.equal(handler.controllerName, expectedHandler.controllerName, 'controllerName is different than expected');
+});
+
+test('reset ads variables on before model', function (assert) {
+	const mock = this.subject();
+
+	M.prop('initialPageView', false);
+	mock.controllerFor = () => {
+		return {
+			send: () => {}
+		};
+	};
+
+	mock.beforeModel({
+		params: {
+			'wiki-page': {
+				title: 'foo'
+			}
+		}
+	});
+
+	assert.notEqual(window.wgNow, null);
 });

@@ -1,15 +1,53 @@
-.standalone {
-	.auth-header {
-		border-color: $color-white;
-		border-style: solid;
-		border-width: 1px 1px 0;
-		margin: 19px 31px 0;
-		min-width: 706px;
+.auth-header {
+	color: $header-text-color;
+	min-height: 95px;
+
+	h1 {
+		color: inherit;
+		font-size: $type-smaller;
+		font-weight: bold;
+		line-height: $line-height-smaller;
+		margin: 0;
+	}
+
+	p,
+	.header-callout-link {
+		font-size: $type-smallest;
+		font-weight: normal;
+		line-height: $line-height-smallest;
+
+		&:focus {
+			color: inherit;
+		}
+	}
+
+	.header-callout-emphasis {
+		font-weight: bold;
+		text-decoration: underline;
 	}
 }
 
-.auth-header {
-	color: $header-text-color;
-	flex-grow: 0;
-	flex-shrink: 0;
+.desktop {
+	.auth-header {
+		h1 {
+			font-size: $type-large;
+			line-height: $line-height-large;
+			margin-top: .2rem;
+			padding-bottom: 7px;
+		}
+
+		p,
+		.header-callout-link {
+			font-size: $type-smallest;
+			line-height: $line-height-smallest;
+		}
+	}
 }
+
+.register-fb-page,
+.fb-connect-page {
+	.auth-header {
+		font-weight: bold;
+	}
+}
+

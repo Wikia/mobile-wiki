@@ -28,9 +28,13 @@ $help-svg: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" widt
 }
 
 .password-toggler {
-	background-image: url('/front/common/symbols/eye-crossed.svg');
+	background-image: url('/front/common/symbols/eye-crossed-small.svg');
+	background-position: center 22px;
+	background-size: 16px 16px;
 
 	&.on {
-		background-image: url('/front/common/symbols/eye.svg');
+		background-image: url('/front/common/symbols/eye-view-small.svg');
+		background-position: center 24px;
+		background-size: 16px 12px;
 	}
 }

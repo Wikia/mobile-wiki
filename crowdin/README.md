@@ -12,7 +12,7 @@ If during the development process you've added new keys to the `front/common/pub
 * from the project root directory run `crowdin --project-config crowdin/NAME_OF_CONF_FILE.conf upload` to upload your translation file to CrowdIn
 
 ### Checking the translation status
-* from the project root directory run `crowdin translation-status`
+* from the project root directory run `crowdin --project-config crowdin/NAME_OF_CONF_FILE.conf translation-status`
 * you can also go to [the project's web page](https://crowdin.com/project/mercury) (more info on access on [Internal](https://one.wikia-inc.com/wiki/Crowdin))
 
 ### Downloading the translations

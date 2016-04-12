@@ -5,6 +5,7 @@
     "jquery": true
   },
   "globals": {
+    "$script": true,
     "Ember": true,
     "EmPerfSender": true,
     "FastClick": true,
@@ -16,6 +17,7 @@
     "Mercury": true,
     "numeral": true,
     "optimizely": true,
+    "CryptoJS": true,
     "state": false,
     "VisitSource": true,
     "Weppy": true,

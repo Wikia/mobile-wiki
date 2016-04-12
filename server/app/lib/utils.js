@@ -2,9 +2,10 @@
  * Utility functions
  */
 
-import Hoek from 'hoek';
-import Url from 'url';
-import QueryString from 'querystring';
+import {applyToDefaults, escapeHtml} from 'hoek';
+import {parse} from 'url';
+import {stringify} from 'querystring';
+import {RedirectedToCanonicalHost} from './custom-errors';
 
 /**
  * @typedef {Object} ServerData
@@ -191,20 +192,6 @@ export function getCachedWikiDomainName(localSettings, request) {
 }
 
 /**
- * Get vertical color from localSettings
- *
- * @param {LocalSettings} localSettings
- * @param {string} vertical
- * @returns {string}
- */
-export function getVerticalColor(localSettings, vertical) {
-	if (localSettings.verticalColors.hasOwnProperty(vertical)) {
-		return localSettings.verticalColors[vertical];
-	}
-	return null;
-}
-
-/**
  * @param {*} obj
  * @param {string[]} allowedKeys - a whitelist of acceptable parameter names
  * @returns {*}
@@ -230,7 +217,7 @@ export function parseQueryParams(obj, allowedKeys) {
 				} else if (rawProp.toLowerCase() === 'false') {
 					prop = false;
 				} else {
-					prop = Hoek.escapeHtml(rawProp);
+					prop = escapeHtml(rawProp);
 				}
 
 				parsed[key] = prop;
@@ -295,21 +282,6 @@ export function getStaticAssetPath(localSettings, request) {
 }
 
 /**
- * @class RedirectedToCanonicalHost
- */
-export class RedirectedToCanonicalHost {
-	/**
-	 * @param {*} data
-	 * @returns {void}
-	 */
-	constructor(data) {
-		Error.apply(this, arguments);
-		this.data = data;
-	}
-}
-RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
-
-/**
  * If user tried to load wiki by its alternative URL then redirect to the primary one based on wikiVariables.basePath
  * If it's a local machine then ignore, no point in redirecting to devbox
  * Throws RedirectedToCanonicalHost so promises can catch it and handle properly
@@ -324,14 +296,14 @@ RedirectedToCanonicalHost.prototype = Object.create(Error.prototype);
  */
 export function redirectToCanonicalHostIfNeeded(localSettings, request, reply, wikiVariables) {
 	const requestedHost = getCachedWikiDomainName(localSettings, request),
-		canonicalHost = Url.parse(wikiVariables.basePath).hostname,
+		canonicalHost = parse(wikiVariables.basePath).hostname,
 		isLocal = isXipHost(localSettings, clearHost(getHostFromRequest(request)));
 
 	if (!isLocal && requestedHost !== canonicalHost) {
 		let redirectLocation = wikiVariables.basePath + request.path;
 
 		if (Object.keys(request.query).length > 0) {
-			redirectLocation += `?${QueryString.stringify(request.query)}`;
+			redirectLocation += `?${stringify(request.query)}`;
 		}
 
 		reply.redirect(redirectLocation).permanent(true);
@@ -340,17 +312,16 @@ export function redirectToCanonicalHostIfNeeded(localSettings, request, reply, w
 }
 
 /**
- * Get HTML title
- *
- * @param {*} wikiVariables
- * @param {string} displayTitle
- * @returns {string}
+ * @param {Hapi.Request} request
+ * @param {Hapi.Response} reply
+ * @returns {void}
  */
-export function getHtmlTitle(wikiVariables, displayTitle = '') {
-	const htmlTitleTemplate = (wikiVariables.htmlTitleTemplate) ? wikiVariables.htmlTitleTemplate : '$1 - Wikia';
+export function redirectToOasis(request, reply) {
+	const queryParams = stringify(
+		applyToDefaults(request.query, {
+			useskin: 'oasis'
+		})
+	);
 
-	if (displayTitle) {
-		return htmlTitleTemplate.replace('$1', displayTitle);
-	}
-	return htmlTitleTemplate.replace('$1 - ', '');
+	reply.redirect(`${request.url.pathname}?${queryParams}`);
 }

@@ -3,21 +3,24 @@
 	confirmLabel=(i18n 'main.save' ns='infobox-builder')
 	fixed=true
 	onBack=(action 'cancel')
-	onConfirm=(action 'save')
-	title=(i18n 'main.header' ns='infobox-builder' title=title)
+	onConfirm=(action 'publish')
+	onTitleClick=(action 'editTitle')
+	title=(i18n 'main.header' ns='infobox-builder' title=infoboxTemplateTitle)
 }}
 
 <div class="infobox-builder">
 	<div class="infobox-builder-preview article-background-color" {{action 'onPreviewBackgroundClick'}}>
-		{{#sortable-group
-			tagName='div'
-			class=sortableGroupClassNames
-			onChange=(action 'onReorderElements') as |group|
-		}}
-			{{#each state as |element index|}}
-				{{component element.infoboxBuilderData.component
+		<div class="infobox-builder-infobox-wrapper">
+			{{#sortable-group
+				tagName='div'
+				class='portable-infobox pi-background pi-europa'
+				onChange=(action 'onReorderElements') as |group|
+			}}
+				{{#each state as |element index|}}
+					{{component element.infoboxBuilderData.component
 					activeItem=activeItem
 					model=element
+					id=element.infoboxBuilderData.id
 					group=group
 					handle=".pi-item"
 					position=index
@@ -27,9 +30,21 @@
 					onDragStop=(action 'onPreviewItemDrop')
 					onMouseEnter=(action 'showReorderTooltip')
 					onMouseLeave=(action 'hideReorderTooltip')
-				}}
-			{{/each}}
-		{{/sortable-group}}
+					isGroupHighlighted=isGroupHighlighted
+					onGroupPreviewStart=(action 'toggleGroupPreview' element)
+					onGroupPreviewStop=(action 'toggleGroupPreview')
+					groupItems=groupItems
+					lastGroupItem=lastGroupItem
+					}}
+				{{/each}}
+			{{/sortable-group}}
+			{{infobox-builder-edit-options-pop-over
+				visible=isEditPopOverVisible
+				offsetX=15
+				onDeleteItem=(action this.attrs.removeItem)
+				targetItem=activeItem
+			}}
+		</div>
 		{{#if isReorderTooltipVisible}}
 			{{wikia-ui-components/on-hover-tooltip
 				posX=tooltipPosX
@@ -39,22 +54,27 @@
 			}}
 		{{/if}}
 	</div>
-	<div class="infobox-builder-sidebar">
-		{{infobox-builder-sidebar-header
-			item=activeItem
-			onBackArrowClick=(action this.attrs.setEditItem null)
-			onDeleteItem=(action this.attrs.removeItem)
-		}}
-		{{component sideBarOptionsComponent
-			item=activeItem
-			addItem=(action 'addItem')
- 			editRowItem=editRowItem
-			editSectionHeaderItem=editSectionHeaderItem
-			editTitleItem=editTitleItem
-		}}
+	<div class="infobox-builder-sidebar liquid-fire-slide-to-left-container">
+		{{#liquid-bind sidebarItemProperties as |sidebarItemProperties|}}
+			<div class="liquid-fire-slide-to-left-item">
+				{{infobox-builder-sidebar-header
+					item=activeItem
+					type=sidebarItemProperties.type
+					onBackArrowClick=(action this.attrs.setEditItem null)
+					onDeleteItem=(action this.attrs.removeItem)
+				}}
+				{{component sidebarItemProperties.name
+					itemModel=activeItem
+					addItem=(action 'addItem')
+					editRowItem=editRowItem
+					editSectionHeaderItem=editSectionHeaderItem
+					editTitleItem=editTitleItem
+				}}
+			</div>
+		{{/liquid-bind}}
 		{{wikia-ui-components/icon-button
 			class='infobox-builder-go-to-source-button'
-			click=(action 'onSourceEditorClick')
+			click=(action 'tryGoToSource')
 			icon='source'
 			iconSize=24
 			id='go-to-source'
@@ -64,9 +84,25 @@
 			ns='infobox-builder'}}</p>
 		{{/pop-over}}
 	</div>
-	{{#modal-dialog isVisible=showGoToSourceModal class='infobox-builder-go-to-source-modal'}}
-		{{infobox-builder-go-to-source-modal goToSource=(action 'goToSource')
+	{{#modal-dialog isVisible=showGoToSourceModal class='infobox-builder-modal infobox-builder-go-to-source-modal'}}
+		{{infobox-builder-go-to-source-modal
+			goToSource=(action 'goToSource')
 		}}
+	{{/modal-dialog}}
+	{{#modal-dialog isVisible=isEditTitleModalVisible class='infobox-builder-modal infobox-builder-edit-title-modal'}}
+		{{#if isEditTitleModalVisible}}
+			{{infobox-builder-edit-title-modal
+				title=title
+				messageText=editTitleModalMessageText
+				headerText=editTitleModalHeaderText
+				showCancelButton=showEditTitleModalCancelButton
+				cancelButtonAction=(action 'hideEditTitleModal')
+				cancelButtonText=(i18n 'main.edit-title-modal-cancel' ns='infobox-builder')
+				confirmButtonAction=(action 'onTemplateTitleChangeAttempt')
+				confirmButtonText=editTitleModalConfirmButtonLabel
+				titleExists=titleExists
+			}}
+		{{/if}}
 	{{/modal-dialog}}
 </div>
 {{#if showOverlay}}

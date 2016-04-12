@@ -42,7 +42,9 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Object}
 	 */
 	model(params) {
-		return InfoboxBuilderModel.create({title: params.templateName});
+		return InfoboxBuilderModel.create({
+			title: params.templateName
+		});
 	},
 
 	/**
@@ -54,6 +56,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	afterModel(model) {
 		const controller = this.controllerFor('infobox-builder');
 
+		this.controllerFor('infobox-builder').set('initialTitle', model.get('title'));
 		model.setupInfoboxData(controller.get('infoboxData'), controller.get('isNew'));
 	},
 
@@ -93,18 +96,24 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		},
 
 		/**
-		 * Connects with ponto and redirects to template page
+		 * Connects with ponto and redirects to page from url if given.
+		 * If url not passed, redirect to previously visited page.
 		 *
+		 * @param {String} url
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		redirectToTemplatePage() {
+		redirectToPage(url) {
+			const action = url ?
+				'redirectToPage' :
+				'redirectToPreviousPage';
+
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				const ponto = window.Ponto;
 
 				ponto.invoke(
 					'wikia.infoboxBuilder.ponto',
-					'redirectToTemplatePage',
-					null,
+					action,
+					url,
 					(data) => resolve(data),
 					(data) => {
 						reject(data);
@@ -116,23 +125,18 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		},
 
 		/**
-		 * Connects with ponto and redirects to source editor
-		 *
+		 * redirects to source editor
+		 * @param {String} title
 		 * @returns {void}
 		 */
-		goToSourceEditor() {
-			const ponto = window.Ponto;
-
-			ponto.invoke(
-				'wikia.infoboxBuilder.ponto',
-				'redirectToSourceEditor',
-				null,
-				Ember.K,
-				(data) => {
-					this.showPontoError(data);
-				},
-				false
-			);
+		goToSourceEditor(title) {
+			this.getRedirectUrls(title)
+				.then((urls) => {
+					this.send('redirectToPage', urls.sourceEditorUrl);
+				})
+				.catch((error) => {
+					Ember.Logger.error('Error while getting redirect Urls: ', error);
+				});
 		}
 	},
 
@@ -155,8 +159,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 					if (data && data.isWikiaContext && data.isLoggedIn) {
 						resolve();
 					} else {
-						// @todo DAT-3757 show message that user doesn't have proper permission
-						// currently this else block isn't called even for anons
+						reject('Builder launched not in Wikia context');
 					}
 				},
 				(data) => {
@@ -279,5 +282,35 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		});
 
 		return i18n.t('infobox-builder:main.leave-confirmation');
+	},
+
+	/**
+	 * send request to backend for redirect urls
+	 * @param {String} title
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	getRedirectUrls(title) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			Ember.$.ajax({
+				url: M.buildUrl({
+					path: '/wikia.php'
+				}),
+				data: {
+					controller: 'PortableInfoboxBuilderController',
+					method: 'getRedirectUrls',
+					title
+				},
+				dataType: 'json',
+				method: 'GET',
+				success: (data) => {
+					if (data && data.success) {
+						resolve(data.urls);
+					} else {
+						reject(data.errors);
+					}
+				},
+				error: (err) => reject(err)
+			});
+		});
 	}
 });

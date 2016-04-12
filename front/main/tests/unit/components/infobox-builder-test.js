@@ -1,8 +1,18 @@
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
+const track = require('common/utils/track').track;
+
 moduleForComponent('infobox-builder', 'Unit | Component | infobox builder', {
-	unit: true
+	unit: true,
+
+	beforeEach() {
+		require('common/utils/track').track = Ember.K;
+	},
+
+	afterEach() {
+		require('common/utils/track').track = track;
+	}
 });
 
 test('sets correct value for showOverlay property', function (assert) {
@@ -71,31 +81,6 @@ test('sets correct value for isReorderTooltipVisible property', function (assert
 	});
 });
 
-test('sets correct value for sortableGroupClassNames property', function (assert) {
-	const component = this.subject(),
-		baseClassNames = 'portable-infobox pi-background',
-		cases = [
-			{
-				theme: null,
-				sortableGroupClassNames: baseClassNames
-			},
-			{
-				theme: '',
-				sortableGroupClassNames: baseClassNames
-			},
-			{
-				theme: 'europa',
-				sortableGroupClassNames: `${baseClassNames} pi-theme-europa`
-			}
-		];
-
-	cases.forEach((testCase) => {
-		component.set('theme', testCase.theme);
-
-		assert.equal(component.get('sortableGroupClassNames'), testCase.sortableGroupClassNames);
-	});
-});
-
 test('sets correct properties values for showing reorder item tooltip', function (assert) {
 	const component = this.subject(),
 		tooltipDistanceFromCursor = 10,
@@ -132,7 +117,6 @@ test('sets correct properties values when dragging an item', function (assert) {
 
 	component.set('activeItem', activeItem);
 	component.set('isPreviewItemDragged', false);
-	component.set('trackClick', Ember.K);
 
 	Ember.run(() => component.send('onPreviewItemDrag', activeItem));
 
@@ -157,7 +141,6 @@ test('reset item in edit mode on dragging if action trigger is different than it
 
 	component.set('activeItem', activeItemMock);
 	component.set('setEditItem', setEditItemSpy);
-	component.set('trackClick', Ember.K);
 
 	Ember.run(() => component.send('onPreviewItemDrag', actionTriggerMock));
 
@@ -174,7 +157,6 @@ test('reset item in edit mode on dragging if action trigger is different than it
 
 	component.set('activeItem', actionTriggerMock);
 	component.set('setEditItem', setEditItemSpy);
-	component.set('trackClick', Ember.K);
 
 	Ember.run(() => component.send('onPreviewItemDrag', actionTriggerMock));
 
@@ -193,7 +175,6 @@ test('stopped event propagation while setting edit item', function (assert) {
 		};
 
 	component.set('setEditItem', setEditItemSpy);
-	component.set('trackClick', Ember.K);
 
 	Ember.run(() => component.send('setEditItemAndStopPropagation', itemMock, eventMock));
 
@@ -237,7 +218,6 @@ test('calls scrollPreviewToBottom with debounce after new item is added', functi
 
 	component.set('addItem', sinon.spy());
 	component.set('scrollPreviewToBottom', sinon.spy());
-	component.set('trackClick', Ember.K);
 
 	Ember.run(() => component.send('addItem', 'row'));
 
@@ -247,30 +227,36 @@ test('calls scrollPreviewToBottom with debounce after new item is added', functi
 	debounceStub.restore();
 });
 
-test('correctly sets sideBarOptionsComponent name', function (assert) {
+test('correctly sets sidebarItemProperties name', function (assert) {
 	const component = this.subject(),
 		cases = [
 			{
 				activeItem: {
 					type: 'test'
 				},
-				sideBarOptionsComponentName: `infobox-builder-edit-item-test`,
+				sidebarItemProperties: {
+					name: 'infobox-builder-edit-item-test',
+					type: 'test'
+				},
 				message: 'options for item editing'
 			},
 			{
 				activeItem: null,
-				sideBarOptionsComponentName: 'infobox-builder-add-items',
+				sidebarItemProperties: {
+					name: 'infobox-builder-add-items',
+					type: null
+				},
 				message: 'options for adding items'
 			}
 		];
 
 	cases.forEach((testCase) => {
 		component.set('activeItem', testCase.activeItem);
-		assert.equal(component.get('sideBarOptionsComponent'), testCase.sideBarOptionsComponentName, testCase.message);
+		assert.deepEqual(component.get('sidebarItemProperties'), testCase.sidebarItemProperties, testCase.message);
 	});
 });
 
-test('onSourceEditorClick handles opening of go to source modal', function (assert) {
+test('tryGoToSource handles opening of go to source modal', function (assert) {
 	const component = this.subject(),
 		cases = [
 			{
@@ -285,27 +271,28 @@ test('onSourceEditorClick handles opening of go to source modal', function (asse
 			}
 		];
 
-	component.set('trackClick', Ember.K);
 	component.set('handleGoToSource', sinon.spy());
 
 	cases.forEach((testCase) => {
 		component.set('showGoToSourceModal', false);
 		component.set('isDirty', testCase.isDirty);
+		component.set('title', true);
 
-		component.send('onSourceEditorClick');
+		component.send('tryGoToSource');
 
 		assert.equal(component.get('showGoToSourceModal'), testCase.modalVisible, testCase.message);
 	});
 });
 
-test('onSourceEditorClick triggers go to source action when no unsaved chagnes', function (assert) {
+test('tryGoToSource triggers go to source action when no unsaved chagnes', function (assert) {
 	const component = this.subject(),
 		handleGoToSource = sinon.spy();
 
 	component.set('isDirty', false);
 	component.set('handleGoToSource', handleGoToSource);
+	component.set('title', true);
 
-	component.send('onSourceEditorClick');
+	component.send('tryGoToSource');
 
 	assert.equal(handleGoToSource.called, true);
 });
@@ -314,7 +301,6 @@ test('goToSourceAction hides go to source modal', function (assert) {
 	const component = this.subject();
 
 	component.set('handleGoToSource', sinon.spy());
-	component.set('trackClick', Ember.K);
 	component.set('showGoToSourceModal', true);
 
 	component.send('goToSource');
@@ -413,5 +399,209 @@ test('sends goToSourceEditor action to the controller without saving model - def
 		);
 
 		done();
+	});
+});
+
+test('correctly calculates infoboxTemplateTitle computed property', function (assert) {
+	const component = this.subject(),
+		defaultTitle = 'lorem ipsum',
+		customTitle = 'ipsum dolor',
+		cases = [
+			{
+				title: customTitle,
+				infoboxTemplateTitle: customTitle,
+				message: 'returns custom title'
+			},
+			{
+				infoboxTemplateTitle: defaultTitle,
+				message: 'returns defaulttitle title'
+			}
+		];
+
+	sinon.stub(i18n, 't').returns(defaultTitle);
+
+	cases.forEach((testCase) => {
+		component.set('title', testCase.title || null);
+		assert.equal(component.get('infoboxTemplateTitle'), testCase.infoboxTemplateTitle);
+	});
+
+	i18n.t.restore();
+});
+
+test('opens edit item modal for untitled infobox template on save', function (assert) {
+	const component = this.subject(),
+		showEditTitleModalSpy = sinon.spy();
+
+	component.set('title', null);
+	component.set('showEditTitleModal', showEditTitleModalSpy);
+	component.send('publish');
+
+	assert.equal(showEditTitleModalSpy.called, true);
+});
+
+test('correctly calculates editTitleModalConfirmButtonLabel', function (assert) {
+	const component = this.subject(),
+		messageMock = 'test',
+		i18nOptions = {
+			ns: 'infobox-builder'
+		},
+		cases = [
+			{
+				editTitleModalTrigger: 'publish',
+				messageKey: 'edit-title-modal-publish'
+			},
+			{
+				editTitleModalTrigger: 'test123',
+				messageKey: 'edit-title-modal-ok'
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const messageKey = `main.${testCase.messageKey}`;
+
+		sinon.stub(i18n, 't').returns(messageMock);
+
+		component.set('editTitleModalTrigger', testCase.editTitleModalTrigger);
+
+		assert.equal(component.get('editTitleModalConfirmButtonLabel'), messageMock);
+		assert.equal(i18n.t.calledWith(messageKey, i18nOptions), true);
+
+		i18n.t.restore();
+	});
+});
+
+test('correctly calculates showEditTitleModalCancelButton', function (assert) {
+	const component = this.subject(),
+		cases = [
+			{
+				editTitleModalTrigger: 'publish',
+				showEditTitleModalCancelButton: false
+			},
+			{
+				editTitleModalTrigger: 'test123',
+				showEditTitleModalCancelButton: true
+			}
+		];
+
+	cases.forEach((testCase) => {
+		component.set('editTitleModalTrigger', testCase.editTitleModalTrigger);
+		assert.equal(component.get('showEditTitleModalCancelButton'), testCase.showEditTitleModalCancelButton);
+	});
+});
+
+test('setTemplateTitle changes title and closes modal', function (assert) {
+	const component = this.subject(),
+		newTitle = 'newTitle';
+
+	component.set('isEditTitleModalVisible', true);
+	component.setTemplateTitle(newTitle);
+
+	assert.equal(component.get('title'), newTitle);
+	assert.equal(component.get('isEditTitleModalVisible'), false);
+});
+
+test('handleSaveResults', function (assert) {
+	const component = this.subject(),
+		cases = [
+			{
+				data: {
+					success: true,
+					conflict: false,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: false,
+				expected: {
+					showSuccess: true,
+					titleExists: false,
+					redirectToPageCalled: false,
+					showEditTitleModalCalled: false
+				},
+				message: 'correctly saved template with no redirect needed'
+			},
+			{
+				data: {
+					success: true,
+					conflict: false,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: true,
+				expected: {
+					showSuccess: true,
+					titleExists: false,
+					redirectToPageCalled: true,
+					showEditTitleModalCalled: false
+				},
+				message: 'correctly saved template with redirect'
+			},
+			{
+				data: {
+					success: false,
+					conflict: true,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: false,
+				expected: {
+					showSuccess: false,
+					titleExists: true,
+					redirectToPageCalled: false,
+					showEditTitleModalCalled: true
+				},
+				message: 'naming conflict with no redirect'
+			},
+			{
+				data: {
+					success: false,
+					conflict: true,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: true,
+				expected: {
+					showSuccess: false,
+					titleExists: true,
+					redirectToPageCalled: false,
+					showEditTitleModalCalled: true
+				},
+				message: 'naming conflict with redirect'
+			}
+		];
+
+	cases.forEach((testCase) => {
+		const redirectToPageSpy = sinon.spy(),
+			showEditTitleModalSpy = sinon.spy();
+
+		component.set('showEditTitleModal', showEditTitleModalSpy);
+		component.set('redirectToPageAction', redirectToPageSpy);
+		component.set('showSuccess', false);
+		component.set('titleExists', false);
+		component.handleSaveResults(testCase.data, testCase.shouldRedirectToPage);
+
+		assert.equal(
+			component.get('showSuccess'),
+			testCase.expected.showSuccess,
+			`${testCase.message}- showSuccess`
+		);
+		assert.equal(
+			component.get('titleExists'),
+			testCase.expected.titleExists,
+			`${testCase.message}- titleExists`
+		);
+		assert.equal(
+			redirectToPageSpy.called,
+			testCase.expected.redirectToPageCalled,
+			`${testCase.message}- redirectToPageCalled`
+		);
+		assert.equal(
+			showEditTitleModalSpy.called,
+			testCase.expected.showEditTitleModalCalled,
+			`${testCase.message}- showEditTitleModalCalled`
+		);
 	});
 });
