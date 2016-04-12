@@ -5,7 +5,8 @@ import MediaThumbnailUtilsMixin from '../mixins/media-thumbnail-utils';
 export default Ember.Component.extend(
 	MediaThumbnailUtilsMixin,
 	{
-		classNames: ['content-recommendation-thumbnail'],
+		// we want to re-use styles from article-media-thumbnail component
+		classNames: ['article-media-thumbnail'],
 		classNameBindings: ['isLoaded'],
 		tagName: 'figure',
 
