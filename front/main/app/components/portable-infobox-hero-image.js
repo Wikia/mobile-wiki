@@ -46,14 +46,14 @@ export default Ember.Component.extend(
 
 			let computedHeight = imageHeight;
 
-			// image needs resizing
-			if (windowWidth < imageWidth) {
-				computedHeight = Math.floor(windowWidth * (imageHeight / imageWidth));
-			}
-
 			// wide image - crop images wider than 16:9 aspect ratio to 16:9
 			if (imageWidth > maxWidth) {
 				return Math.floor(windowWidth / imageAspectRatio);
+			}
+
+			// image needs resizing
+			if (windowWidth < imageWidth) {
+				computedHeight = Math.floor(windowWidth * (imageHeight / imageWidth));
 			}
 
 			// tall image - use top-crop-down for images taller than square
