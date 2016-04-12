@@ -512,7 +512,7 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: false,
-				isGoToSourceEnabled: false,
+				isGoToSourceEnabled: true,
 				expected: {
 					showSuccess: true,
 					titleExists: false,
@@ -531,7 +531,7 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: true,
-				isGoToSourceEnabled: false,
+				isGoToSourceEnabled: true,
 				expected: {
 					showSuccess: true,
 					titleExists: false,
@@ -550,7 +550,7 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: false,
-				isGoToSourceEnabled: true,
+				isGoToSourceEnabled: false,
 				expected: {
 					showSuccess: false,
 					titleExists: false,
@@ -569,7 +569,7 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: true,
-				isGoToSourceEnabled: true,
+				isGoToSourceEnabled: false,
 				expected: {
 					showSuccess: false,
 					titleExists: false,
@@ -588,7 +588,7 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: false,
-				isGoToSourceEnabled: false,
+				isGoToSourceEnabled: true,
 				expected: {
 					showSuccess: false,
 					titleExists: true,
@@ -607,7 +607,7 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: true,
-				isGoToSourceEnabled: false,
+				isGoToSourceEnabled: true,
 				expected: {
 					showSuccess: false,
 					titleExists: true,

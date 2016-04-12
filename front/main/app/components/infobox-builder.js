@@ -393,7 +393,7 @@ export default Ember.Component.extend(
 					label: 'save-successful'
 				});
 
-				if (this.get('isGoToSourceEnabled')) {
+				if (!this.get('isGoToSourceEnabled')) {
 					this.get('returnToVE')();
 					this.set('showSuccess', false);
 				} else if (shouldRedirectToPage) {

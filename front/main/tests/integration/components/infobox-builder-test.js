@@ -22,8 +22,8 @@ test('reset item in edit mode on clicking preview background', function (assert)
 test('Go to source is rendered if not in VE context', function (assert) {
 	const goToSourceSelector = '.infobox-builder-go-to-source-button';
 
-	this.set('isVEContext', false);
-	this.render(hbs`{{infobox-builder isGoToSourceEnabled=isVEContext}}`);
+	this.set('isGoToSourceEnabled', true);
+	this.render(hbs`{{infobox-builder isGoToSourceEnabled=isGoToSourceEnabled}}`);
 
 	assert.equal(this.$(goToSourceSelector).length, 1);
 });
@@ -31,8 +31,8 @@ test('Go to source is rendered if not in VE context', function (assert) {
 test('Go to source is not rendered if in VE context', function (assert) {
 	const goToSourceSelector = '.infobox-builder-go-to-source-button';
 
-	this.set('isVEContext', true);
-	this.render(hbs`{{infobox-builder isGoToSourceEnabled=isVEContext}}`);
+	this.set('isGoToSourceEnabled', false);
+	this.render(hbs`{{infobox-builder isGoToSourceEnabled=isGoToSourceEnabled}}`);
 
 	assert.equal(this.$(goToSourceSelector).length, 0);
 });
