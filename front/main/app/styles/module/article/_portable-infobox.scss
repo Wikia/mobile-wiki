@@ -155,6 +155,8 @@ $group-header-font-size: 16px;
 			}
 
 			.article-media-placeholder {
+				// in case of long image (longer than wider)
+				// we want to crop its height to equal its width (which takes 100% of screen width)
 				max-height: 100vw;
 			}
 
@@ -211,7 +213,6 @@ $group-header-font-size: 16px;
 		}
 
 		// infobox images
-		// @todo do we need to update it?
 		.media-component,
 		.pi-image {
 			figcaption {

@@ -7,7 +7,7 @@ export default Ember.Component.extend(
 	{
 		imageAspectRatio: 16 / 9,
 
-		// @todo keep it DRY
+		// @todo XW-1363 - keep it DRY
 		// or should it be the same as in portable-infobox-image-collection?
 		cropMode: Ember.computed('viewportDimensions.width', function () {
 			const windowWidth = this.get('viewportDimensions.width'),
@@ -36,7 +36,7 @@ export default Ember.Component.extend(
 			return Thumbnailer.mode.thumbnailDown;
 		}),
 
-		// @todo keep it DRY
+		// @todo XW-1363 - keep it DRY
 		computedHeight: Ember.computed('viewportDimensions.width', function () {
 			const windowWidth = this.get('viewportDimensions.width'),
 				imageAspectRatio = this.get('imageAspectRatio'),

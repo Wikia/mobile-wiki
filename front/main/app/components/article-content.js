@@ -257,7 +257,7 @@ export default Ember.Component.extend(
 					collectionItems = attrs.refs.map(getMediaItemsForCollection);
 
 				// Add new gallery to media object
-				// @todo it's an ugly hack, we should return proper data from API
+				// @todo - XW-1362 - it's an ugly hack, we should return proper data from API
 				media.push(collectionItems);
 
 				attrs = Ember.$.extend(attrs, {
