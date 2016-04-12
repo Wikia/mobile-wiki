@@ -72,7 +72,12 @@ export function getPromiseForDiscussionData(request, wikiVars) {
 					 * @returns {void}
 					 */
 					.catch((error) => {
-						reject(error);
+						if (error.exception && error.exception.code === 404) {
+							// Let fronted handle 404 error when post doesn't exist
+							resolve();
+						} else {
+							reject(error);
+						}
 					});
 			});
 		}
