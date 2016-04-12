@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DiscussionEditorComponent from './discussion-editor';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default DiscussionEditorComponent.extend({
 	editorBottomSpacing: null,
@@ -103,5 +104,16 @@ export default DiscussionEditorComponent.extend({
 		Ember.run.later(this, () => {
 			this.initializeStickyState();
 		}, 200);
+	},
+
+	actions: {
+		/**
+		 * @returns {void}
+		 */
+		close() {
+			this.send('toggleEditorActive', false);
+
+			track(trackActions.ReplyClose);
+		}
 	}
 });

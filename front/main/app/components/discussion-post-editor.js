@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DiscussionEditorComponent from './discussion-editor';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default DiscussionEditorComponent.extend({
 	classNames: ['mobile-hidden'],
@@ -57,15 +58,15 @@ export default DiscussionEditorComponent.extend({
 			const $editorTextarea = $('.editor-textarea');
 
 			$editorTextarea
-					.css('height', '100px')
-					.on('focus', () => {
-						setTimeout(() => {
-							$editorTextarea.css('height', '100%');
-						}, 500);
-					})
-					.on('blur', () => {
-						$editorTextarea.css('height', '100px');
-					});
+				.css('height', '100px')
+				.on('focus', () => {
+					setTimeout(() => {
+						$editorTextarea.css('height', '100%');
+					}, 500);
+				})
+				.on('blur', () => {
+					$editorTextarea.css('height', '100px');
+				});
 		}
 	},
 
@@ -80,6 +81,17 @@ export default DiscussionEditorComponent.extend({
 		if (newPost) {
 			Ember.$('html, body').animate({scrollTop: 0});
 			this.handleNewItemCreated(newPost);
+		}
+	},
+
+	actions: {
+		/**
+		 * @returns {void}
+		 */
+		close() {
+			this.send('toggleEditorActive', false);
+
+			track(trackActions.PostClose);
 		}
 	}
 });
