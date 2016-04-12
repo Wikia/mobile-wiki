@@ -264,6 +264,13 @@ body.dark-theme {
 		background-color: $dark-discussion-contributors-background-color;
 	}
 
+	.discussion-user-list,
+	.discussion-reported-posts {
+		.post-reply {
+			background-color: $dark-discussion-desktop-post-detail-bg-color;
+		}
+	}
+
 	.rail {
 		.discussion-contributors-title {
 			color: $dark-discussion-contributors-rail-title;
