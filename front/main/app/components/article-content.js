@@ -1,18 +1,8 @@
 import Ember from 'ember';
-import InfoboxImageMediaComponent from './infobox-image-media';
-import LinkedGalleryMediaComponent from './linked-gallery-media';
-import GalleryMediaComponent from './gallery-media';
-import VideoMediaComponent from './video-media';
-import ImageMediaComponent from './image-media';
 import InfoboxImageCollectionComponent from './infobox-image-collection';
-import PortableInfoboxComponent from './portable-infobox';
 import AdsMixin from '../mixins/ads';
 import PollDaddyMixin from '../mixins/poll-daddy';
 import TrackClickMixin from '../mixins/track-click';
-import WidgetTwitterComponent from '../components/widget-twitter';
-import WidgetVKComponent from '../components/widget-vk';
-import WidgetPolldaddyComponent from '../components/widget-polldaddy';
-import WidgetFliteComponent from '../components/widget-flite';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {getExperimentVariationNumber} from 'common/utils/variant-testing';
 import {track, trackActions} from 'common/utils/track';
@@ -46,17 +36,17 @@ export default Ember.Component.extend(
 
 		newFromMedia(media) {
 			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
-				return InfoboxImageMediaComponent.create();
+				return this.createComponentInstance('infobox-image-media');
 			} else if (Ember.isArray(media)) {
 				if (media.some((media) => Boolean(media.link))) {
-					return LinkedGalleryMediaComponent.create();
+					return this.createComponentInstance('linked-gallery-media');
 				} else {
-					return GalleryMediaComponent.create();
+					return this.createComponentInstance('gallery-media');
 				}
 			} else if (media.type === 'video') {
-				return VideoMediaComponent.create();
+				return this.createComponentInstance('video-media');
 			} else {
-				return ImageMediaComponent.create();
+				return this.createComponentInstance('image-media');
 			}
 		},
 
@@ -296,10 +286,7 @@ export default Ember.Component.extend(
 				editIconVisible = this.get('editIconVisible'),
 				editAllowed = this.get('editAllowed'),
 				addPhotoAllowed = this.get('addPhotoAllowed'),
-				contributionComponent =
-					this.get('container').lookup('component:article-contribution', {
-						singleton: false
-					});
+				contributionComponent = this.createComponentInstance('article-contribution');
 
 			contributionComponent.setProperties({
 				section,
@@ -354,15 +341,21 @@ export default Ember.Component.extend(
 		createMediaComponent(element, model) {
 			const ref = parseInt(element.dataset.ref, 10),
 				media = model.find(ref),
-				component = this.createChildView(this.newFromMedia(media), {
-					ref,
-					width: parseInt(element.getAttribute('width'), 10),
-					height: parseInt(element.getAttribute('height'), 10),
-					imgWidth: element.offsetWidth,
-					media
-				}).createElement();
+				component = this.newFromMedia(media);
 
-			return component.$().attr('data-ref', ref);
+			let componentElement;
+
+			component.setProperties({
+				ref,
+				width: parseInt(element.getAttribute('width'), 10),
+				height: parseInt(element.getAttribute('height'), 10),
+				imgWidth: element.offsetWidth,
+				media
+			});
+
+			componentElement = this.createChildView(component).createElement();
+
+			return componentElement.$().attr('data-ref', ref);
 		},
 
 		/**
@@ -435,15 +428,21 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		replaceInfoboxWithInfoboxComponent(elem) {
-			const $infoboxPlaceholder = $(elem),
-				infoboxComponent = this.createChildView(PortableInfoboxComponent.create({
-					infoboxHTML: elem.innerHTML,
-					height: $infoboxPlaceholder.outerHeight(),
-				}));
+			const infoboxComponent = this.createComponentInstance('portable-infobox'),
+				$infoboxPlaceholder = $(elem);
 
-			infoboxComponent.createElement();
-			$infoboxPlaceholder.replaceWith(infoboxComponent.$());
-			infoboxComponent.trigger('didInsertElement');
+			let infoboxComponentElement;
+
+			infoboxComponent.setProperties({
+				infoboxHTML: elem.innerHTML,
+				height: $infoboxPlaceholder.outerHeight(),
+				pageTitle: this.get('displayTitle'),
+			});
+
+			infoboxComponentElement = this.createChildView(infoboxComponent).createElement();
+
+			$infoboxPlaceholder.replaceWith(infoboxComponentElement.$());
+			infoboxComponentElement.trigger('didInsertElement');
 		},
 
 		/**
@@ -470,13 +469,12 @@ export default Ember.Component.extend(
 				widgetType = widgetData.wikiaWidget,
 				widgetComponent = this.createWidgetComponent(widgetType, $widgetPlaceholder.data());
 
-			let component;
+			let widgetComponentElement;
 
 			if (widgetComponent) {
-				component = this.createChildView(widgetComponent);
-				component.createElement();
-				$widgetPlaceholder.replaceWith(component.$());
-				component.trigger('didInsertElement');
+				widgetComponentElement = this.createChildView(widgetComponent).createElement();
+				$widgetPlaceholder.replaceWith(widgetComponentElement.$());
+				widgetComponentElement.trigger('didInsertElement');
 			}
 		},
 
@@ -486,19 +484,29 @@ export default Ember.Component.extend(
 		 * @returns {string|null}
 		 */
 		createWidgetComponent(widgetType, data) {
+			let component, componentName;
+
 			switch (widgetType) {
 				case 'twitter':
-					return WidgetTwitterComponent.create({data});
+					componentName = 'widget-twitter';
+					break;
 				case 'vk':
-					return WidgetVKComponent.create({data});
+					componentName = 'widget-vk';
+					break;
 				case 'polldaddy':
-					return WidgetPolldaddyComponent.create({data});
+					componentName = 'widget-polldaddy';
+					break;
 				case 'flite':
-					return WidgetFliteComponent.create({data});
+					componentName = 'widget-flite';
+					break;
 				default:
 					Ember.Logger.warn(`Can't create widget with type '${widgetType}'`);
 					return null;
 			}
+
+			component = this.createComponentInstance(componentName);
+			component.set('data', data);
+			return component;
 		},
 
 		/**
@@ -662,6 +670,17 @@ export default Ember.Component.extend(
 			if (window.scrollY > this.get('targetParagraphOffset')) {
 				this.launchHighlightedTextEditorDemo();
 			}
+		},
+
+		/**
+		 * Create component instance using container lookup.
+		 * @param {String} componentName
+		 * @returns {Ember.Component}
+		 */
+		createComponentInstance(componentName) {
+			return this.get('container').lookup(`component:${componentName}`, {
+				singleton: false
+			});
 		}
 	}
 );
