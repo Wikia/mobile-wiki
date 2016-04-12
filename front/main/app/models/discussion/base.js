@@ -82,7 +82,13 @@ export default Ember.Object.extend({
 			hasUpvoted = entity.get('userData.hasUpvoted'),
 			method = hasUpvoted ? 'delete' : 'post';
 
-		if (this.upvotingInProgress[entityId] || typeof entity.get('userData') === 'undefined') {
+		if (this.upvotingInProgress[entityId]) {
+			return null;
+		}
+
+		if (typeof entity.get('userData') === 'undefined') {
+			track(trackActions.AnonUpvotePost);
+
 			return null;
 		}
 
