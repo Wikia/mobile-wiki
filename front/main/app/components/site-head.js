@@ -28,9 +28,9 @@ export default Ember.Component.extend(
 		}),
 
 		shouldDisplaySearchIcon: Ember.computed(
-			'navABTestIsFabSearchIcon', 'navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon',
+			'navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', 'navABTestIsFabMenuIcon',
 			function () {
-				return this.get('navABTestIsFabSearchIcon') ||
+				return this.get('navABTestIsFabMenuIcon') ||
 					this.get('navABTestIsBarMenuIcon') ||
 					this.get('navABTestIsBarDropdownIcon');
 			}),
@@ -38,6 +38,8 @@ export default Ember.Component.extend(
 		shouldDisplayHamburgerIcon: Ember.computed('navABTestIsFabSearchIcon', 'navABTestIsBarMenuIcon', function () {
 			return this.get('navABTestIsFabSearchIcon') || this.get('navABTestIsBarMenuIcon');
 		}),
+
+		shouldDisplayDropdownIcon: Ember.computed.alias('navABTestIsBarDropdownIcon'),
 
 		actions: {
 			/**
