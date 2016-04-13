@@ -1,20 +1,22 @@
+<a {{action this.attrs.onLinkClick 'fandom' preventDefault=false}} href="http://wikia.com">
+	{{wikia-ui-components/icon-button
+		icon='fandom-logo'
+		iconSize=24
+	}}
+</a>
+<a {{action this.attrs.onLinkClick 'home' preventDefault=false}} href={{this.attrs.linkToHomePage}}>
+	{{wikia-ui-components/icon-button
+		icon='home'
+		iconSize=24
+	}}
+</a>
 {{wikia-ui-components/icon-button
-	click=action
-	icon='fandom-logo'
-	iconSize=24
-}}
-{{wikia-ui-components/icon-button
-	click=action
-	icon='home'
-	iconSize=24
-}}
-{{wikia-ui-components/icon-button
-	click=action
+	click=(action this.attrs.onButtonClick 'showSearch')
 	icon='search-for-ab-test'
 	iconSize=24
 }}
 {{wikia-ui-components/icon-button
-	click=action
+	click=(action this.attrs.onButtonClick 'showNav')
 	icon='menu'
 	iconSize=24
 }}

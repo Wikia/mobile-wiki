@@ -103,4 +103,13 @@
 {{wikia-in-your-lang}}
 {{alert-notifications alerts=alertNotifications}}
 {{loading-spinner active=isLoading}}
-{{bottom-bar}}
+
+{{!--
+	temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+	cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+--}}
+{{bottom-bar
+	linkToHomePage=linkToHomePage
+	onButtonClick=(action 'bottomBarIconClick')
+	onLinkClick=(action 'bottomBarLinkClick')
+}}

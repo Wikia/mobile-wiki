@@ -234,6 +234,11 @@ export default Ember.Component.extend({
 	// used to set initial  content to search when opening side-nav
 	shouldOpenNavSearch: false,
 
+	linkToHomePage: Ember.computed(function () {
+		return `${window.location.protocol}//${window.location.hostname}/wiki/${Ember.get(
+			Mercury, 'wiki.mainPageTitle')}`;
+	}),
+
 	actions: {
 		/**
 		 * @returns {void}
@@ -241,37 +246,54 @@ export default Ember.Component.extend({
 		fabIconClick() {
 			const actionHandler = this.get('navABTestIsFabSearchIcon') ? 'showSearch' : 'showNav';
 
-			this.trackAndTrigger('fab-icon', actionHandler);
+			this.trackExperimentClicks('fab-icon');
+			this[actionHandler]();
 		},
 
 		/**
 		 * @returns {void}
 		 */
 		leftSiteHeadIconClick() {
-			this.trackAndTrigger('site-head-icon', 'showNav');
+			this.trackExperimentClicks('site-head-icon');
+			this.showNav();
 		},
 
 		/**
 		 * @returns {void}
 		 */
 		rightSiteHeadIconClick() {
-			this.trackAndTrigger('site-head-icon', 'showSearch');
+			this.trackExperimentClicks('site-head-icon');
+			this.showSearch();
+		},
+
+		/**
+		 * @param {String} actionHandler
+		 * @returns {void}
+		 */
+		bottomBarIconClick(actionHandler) {
+			this.trackExperimentClicks(`bottom-bar-${actionHandler}`);
+			this[actionHandler]();
+		},
+
+		/**
+		 * @param {String} type
+		 * @returns {void}
+		 */
+		bottomBarLinkClick(type) {
+			this.trackExperimentClicks(`bottom-bar-${type}`);
 		}
 	},
 
 	/**
 	 * @param {String} trackingLabel
-	 * @param  {String} actionHandler
 	 * @returns {void}
 	 */
-	trackAndTrigger(trackingLabel, actionHandler) {
+	trackExperimentClicks(trackingLabel) {
 		trackExperiment(this.get('navABTestExperimentName'), {
 			action: trackActions.click,
 			category: 'entrypoint',
 			label: trackingLabel
 		});
-
-		this[actionHandler]();
 	},
 
 	/**
