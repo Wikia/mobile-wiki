@@ -34,6 +34,25 @@ $site-head-height: 50; //unitless
 			height: 3.125rem;
 			width: 5rem;
 		}
+
+		// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+		// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+		.dropdown {
+			display: inline-block;
+			position: relative;
+
+			&:after {
+				background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNyIgaGVpZ2h0PSI0IiB2aWV3Qm94PSIwIDAgNyA0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxwYXRoIGQ9Ik0wIDBoNy4wMzNMMy41MTYgMy41MjYgMCAweiIgZmlsbD0iIzk5OSIvPgo8L3N2Zz4K');
+				background-size: 9px 9px;
+				content: "";
+				display: block;
+				height: 8px;
+				position: absolute;
+				right: -15px;
+				top: 26px;
+				width: 9px;
+			}
+		}
 	}
 
 	.avatar {
