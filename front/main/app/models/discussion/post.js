@@ -128,32 +128,39 @@ DiscussionPostModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} postId
+	 * @param {number} [replyId=null]
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, postId) {
+	find(wikiId, postId, replyId = null) {
 		const postInstance = DiscussionPostModel.create({
-			wikiId,
-			postId
-		});
+				wikiId,
+				postId,
+				replyId
+			}),
+			urlPath = replyId ? `/${wikiId}/permalinks/posts/${replyId}` : `/${wikiId}/threads/${postId}`;
 
 		return ajaxCall({
 			context: postInstance,
-			url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`, {
-				limit: postInstance.replyLimit,
+			data: {
+				limit: postInstance.get('replyLimit'),
 				responseGroup: 'full',
 				sortDirection: 'descending',
 				sortKey: 'creation_date',
 				viewableOnly: false
-			}),
+			},
+			url: M.getDiscussionServiceUrl(urlPath),
 			success: (data) => {
+				if (replyId) {
+					data.permalinkedReplyId = replyId;
+				}
 				postInstance.setNormalizedData(data);
 			},
 			error: (err) => {
 				postInstance.setErrorProperty(err);
 			}
 		});
-	}
+	},
 });
 
 export default DiscussionPostModel;
