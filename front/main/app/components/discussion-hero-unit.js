@@ -14,6 +14,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		531317: 'discussion-header-ru-adventure-time.jpg',
 		8390: 'discussion-header-cocktails.jpg',
 		3035: 'discussion-header-fallout.jpg',
+		3469: 'discussion-header-ru-fallout.jpg',
 		119235: 'discussion-header-hawaii-five-o.jpg',
 		35171: 'discussion-header-hunger-games.jpg',
 		203914: 'discussion-header-one-direction.jpg',

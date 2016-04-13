@@ -10,6 +10,7 @@ export default Ember.Component.extend({
 		531317: '/front/common/images/community-badge-ru-adventure-time.jpg',
 		8390: '/front/common/images/community-badge-cocktails.png',
 		3035: '/front/common/images/community-badge-fallout.png',
+		3469: '/front/common/images/community-badge-ru-fallout.png',
 		119235: '/front/common/images/community-badge-hawaii-five-o.png',
 		35171: '/front/common/images/community-badge-hunger-games.png',
 		203914: '/front/common/images/community-badge-one-direction.png',
