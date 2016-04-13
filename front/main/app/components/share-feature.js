@@ -6,7 +6,7 @@ export default Ember.Component.extend(
 	TrackClickMixin,
 	LanguagesMixin,
 	{
-		classNames: ['share-feature'],
+		classNames: ['share-feature', 'action'],
 
 		currentUser: Ember.inject.service(),
 
@@ -216,24 +216,6 @@ export default Ember.Component.extend(
 				if (typeof link === 'string') {
 					window.open(link);
 				}
-			}
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		mouseEnter() {
-			if (this.attrs && typeof this.attrs.onMouseEnter === 'function') {
-				this.attrs.onMouseEnter();
-			}
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		mouseLeave() {
-			if (this.attrs && typeof this.attrs.onMouseLeave === 'function') {
-				this.attrs.onMouseLeave();
 			}
 		},
 	}

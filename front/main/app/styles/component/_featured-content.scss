@@ -9,6 +9,8 @@ $featured-content-caption-line-height: 32px;
 		fill: $white;
 		height: 100%;
 		position: absolute;
+		stroke: rgba(0, 0, 0, .5);
+		stroke-width: .25;
 		top: 0;
 
 		&-left {
