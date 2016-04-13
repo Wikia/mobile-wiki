@@ -103,7 +103,8 @@ export default Ember.Component.extend({
 		89210: '/front/common/images/community-badge-fr-fairy-tail.jpg',
 		121040: '/front/common/images/community-badge-fr-fairy-tail.jpg',
 		1365992: '/front/common/images/community-badge-onelove.jpg',
-		1320480: '/front/common/images/community-badge-js-downtown-abbey.jpg'
+		1320480: '/front/common/images/community-badge-js-downtown-abbey.jpg',
+		734209: '/front/common/images/community-badge-star-trek.jpg'
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
