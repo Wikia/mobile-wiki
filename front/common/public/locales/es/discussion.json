@@ -14,7 +14,6 @@
   "main":{
     "discussions-header-title":"Discusiones",
     "pagination-post-show-more":"Ver respuestas más antiguas",
-    "pagination-post-show-newer":"Ver nuevos",
     "share-default-title":"Discusión en __siteName__",
     "contributors-title":"Todos los editores",
     "sort-by-header":"Ordenar por",
@@ -72,13 +71,12 @@
     "lock-post":"Cerrar discusión",
     "unlock-post":"Reabrir discusión",
     "locked-and-reported-to-moderators-text":"Esta discusión ha sido cerrada y ha sido reportada.",
-    "upvote-link-label":"__count__ Voto",
-    "upvote-link-label_plural":"__count__ Votos",
-    "replies-link-label":"__count__ Respuesta",
-    "replies-link-label_plural":"__count__ Respuestas",
+    "upvote-link-label":"__count__ Upvote",
+    "upvote-link-label_plural":"__count__ Upvotes",
+    "replies-link-label":"__count__ Reply",
+    "replies-link-label_plural":"__count__ Replies",
     "share-header":"Comparte",
-    "share-label":"Compartir",
-    "reported-not-found-error":"No hay discusiones ni respuestas reportadas."
+    "share-label":"Share"
   },
   "editor":{
     "post-failed-error":"Fallo en discusión.",
