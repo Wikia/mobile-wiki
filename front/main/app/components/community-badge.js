@@ -112,7 +112,8 @@ export default Ember.Component.extend({
 		51: '/front/common/images/community-badge-doom.jpg',
 		2304: '/front/common/images/community-badge-doom.jpg',
 		1071836: '/front/common/images/community-badge-overwatch.jpg',
-		5481: '/front/common/images/community-badge-uncharted.png'
+		5481: '/front/common/images/community-badge-uncharted.png',
+		8226: '/front/common/images/community-badge-mirrors-edge.png'
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
