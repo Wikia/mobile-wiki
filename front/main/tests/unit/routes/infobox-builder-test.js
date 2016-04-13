@@ -37,9 +37,7 @@ test('test is it iframe context', function(assert) {
 	window.top = windowTop;
 	window.self = windowSelf;
 
-	let route;
-
-	Ember.run(() => {route = this.subject();});
+	const route = this.subject();
 
 	assert.equal(route.get('isIframeContext'), true);
 });
@@ -47,9 +45,7 @@ test('test is it iframe context', function(assert) {
 test('test is not it iframe context', function(assert) {
 	window.self = window.top;
 
-	let route;
-
-	Ember.run(() => {route = this.subject();});
+	const route = this.subject();
 
 	assert.equal(route.get('isIframeContext'), false);
 });
