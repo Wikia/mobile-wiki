@@ -7,6 +7,7 @@ export default Ember.Component.extend(
 	TrackClickMixin,
 	HeadroomMixin,
 	{
+		classNames: ['nav-ab-test-bottom-bar'],
 		headroomOptions: {
 			classes: {
 				initial: 'bottombar',
@@ -17,7 +18,6 @@ export default Ember.Component.extend(
 				// at bottom
 				bottom: ""
 			},
-			offset,
 			onPin: () => {
 				this.set('pinned', true);
 			},
