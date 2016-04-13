@@ -45,6 +45,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		1287710: 'discussion-header-ja-got.jpg',
 		4541: 'discussion-header-gta.jpg',
 		1733: 'discussion-header-de-gta.jpg',
+		3253: 'discussion-header-de-gta.jpg',
 		1706: 'discussion-header-elder-scrolls.jpg',
 		2520: 'discussion-header-elder-scrolls.jpg',
 		74: 'discussion-header-pokemon.jpg',
