@@ -113,6 +113,7 @@ export default Ember.Component.extend({
 		470065: '/front/common/images/community-badge-darksouls.jpg',
 		629602: '/front/common/images/community-badge-darksouls.jpg',
 		780741: '/front/common/images/community-badge-darksouls.jpg',
+		928967: '/front/common/images/community-badge-darksouls.jpg',
 		51: '/front/common/images/community-badge-doom.jpg',
 		2304: '/front/common/images/community-badge-doom.jpg',
 		1071836: '/front/common/images/community-badge-overwatch.png',

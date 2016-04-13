@@ -115,6 +115,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		470065: 'discussion-header-darksouls.jpg',
 		629602: 'discussion-header-darksouls.jpg',
 		780741: 'discussion-header-darksouls.jpg',
+		928967: 'discussion-header-darksouls.jpg',
 		51: 'discussion-header-doom.jpg',
 		2304: 'discussion-header-doom.jpg',
 		1071836: 'discussion-header-overwatch.jpg',
