@@ -15,8 +15,10 @@
 	icon='search-for-ab-test'
 	iconSize=24
 }}
-{{wikia-ui-components/icon-button
-	click=(action this.attrs.onButtonClick 'showNav')
-	icon='menu'
-	iconSize=24
-}}
+{{#if navABTestIsButtonBar}}
+	{{wikia-ui-components/icon-button
+		click=(action this.attrs.onButtonClick 'showNav')
+		icon='menu'
+		iconSize=24
+	}}
+{{/if}}

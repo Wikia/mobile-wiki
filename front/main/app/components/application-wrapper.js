@@ -181,6 +181,7 @@ export default Ember.Component.extend({
 	navABTestBarMenuIconGroup: 'BAR_MENU_ICON',
 	navABTestBarDropdownIconGroup: 'BAR_DROPDOWN_ICON',
 	navABTestButtonBarGroup: 'BUTTON_BAR',
+	navABTestButtonBarMenuGroup: 'BUTTON_BAR_MENU_ICON',
 
 	navABTestCurrentGroup: Ember.computed('navABTestExperimentName', function () {
 		return getGroup(this.get('navABTestExperimentName'));
@@ -206,11 +207,17 @@ export default Ember.Component.extend({
 		return this.get('navABTestCurrentGroup') === this.get('navABTestButtonBarGroup');
 	}),
 
+	navABTestIsButtonBarMenu: Ember.computed('navABTestCurrentGroup', 'navABTestButtonBarMenuGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestButtonBarMenuGroup');
+	}),
+
 	navABTestEnableShare: Ember.computed('navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', function () {
 		return !this.get('navABTestIsBarMenuIcon') && !this.get('navABTestIsBarDropdownIcon');
 	}),
 
 	displayFabIcon: Ember.computed.or('navABTestIsFabSearchIcon', 'navABTestIsFabMenuIcon'),
+
+	displayButtonBar: Ember.computed.or('navABTestIsButtonBar', 'navABTestIsButtonBarMenu'),
 
 	navABTestChangeUI: Ember.computed(
 		'navABTestCurrentGroup', 'navABTestDefaultGroup', 'navABTestControlGroup',

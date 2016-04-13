@@ -33,6 +33,7 @@
 		navABTestExperimentName=navABTestExperimentName
 		navABTestIsBarMenuIcon=navABTestIsBarMenuIcon
 		navABTestIsBarDropdownIcon=navABTestIsBarDropdownIcon
+		navABTestIsButtonBarMenu=navABTestIsButtonBarMenu
 		leftSiteHeadIconClick=(action 'leftSiteHeadIconClick')
 		rightSiteHeadIconClick=(action 'rightSiteHeadIconClick')
 	}}
@@ -108,8 +109,11 @@
 	temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
 	cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 --}}
-{{bottom-bar
-	homePageTitle=homePageTitle
-	onButtonClick=(action 'bottomBarIconClick')
-	onLinkClick=(action 'bottomBarLinkClick')
-}}
+{{#if displayButtonBar}}
+	{{bottom-bar
+		homePageTitle=homePageTitle
+		onButtonClick=(action 'bottomBarIconClick')
+		onLinkClick=(action 'bottomBarLinkClick')
+		navABTestIsButtonBar=navABTestIsButtonBar
+	}}
+{{/if}}
