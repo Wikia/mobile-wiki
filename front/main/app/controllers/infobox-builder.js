@@ -58,7 +58,7 @@ export default Ember.Controller.extend({
 		 * @param {string} title Title of newly created infobox template
 		 * @returns {void}
          */
-		goBackToVE(title) {
+		goBackToVE(title = null) {
 			this.get('target').send('returnToVE', title);
 		},
 
