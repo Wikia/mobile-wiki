@@ -104,7 +104,12 @@ export default Ember.Component.extend({
 		121040: '/front/common/images/community-badge-fr-fairy-tail.jpg',
 		1365992: '/front/common/images/community-badge-onelove.jpg',
 		1320480: '/front/common/images/community-badge-js-downtown-abbey.jpg',
-		734209: '/front/common/images/community-badge-star-trek.jpg'
+		734209: '/front/common/images/community-badge-star-trek.jpg',
+		208733: '/front/common/images/community-badge-darksouls.jpg',
+		470065: '/front/common/images/community-badge-darksouls.jpg',
+		629602: '/front/common/images/community-badge-darksouls.jpg',
+		780741: '/front/common/images/community-badge-darksouls.jpg',
+		928967: '/front/common/images/community-badge-darksouls.jpg'
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
