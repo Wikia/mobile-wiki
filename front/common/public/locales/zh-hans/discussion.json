@@ -14,6 +14,7 @@
   "main":{
     "discussions-header-title":"讨论版",
     "pagination-post-show-more":"查看以往回复",
+    "pagination-post-show-newer":"查看更新",
     "share-default-title":"__siteName__上的讨论",
     "contributors-title":"所有贡献者",
     "sort-by-header":"排序",
@@ -76,7 +77,8 @@
     "replies-link-label":"__count__个回复",
     "replies-link-label_plural":"__count__个回复",
     "share-header":"分享话题",
-    "share-label":"分享"
+    "share-label":"分享",
+    "reported-not-found-error":"暂时没有被举报的帖子或者回复。"
   },
   "editor":{
     "post-failed-error":"发布失败",
