@@ -60,7 +60,7 @@
 								totalContributorCount=model.contributors.count
 							}}
 						</div>
-						{{#if canShowOlder}}
+						{{#if canShowMore}}
 							<button {{action this.attrs.loadMoreComments}} class="see-more active-element-theme-color">
 								{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
 								{{i18n 'main.pagination-post-show-more' ns='discussion'}}
@@ -79,7 +79,6 @@
 								isParentDeleted=model.isDeleted
 								report=(action this.attrs.report)
 								post=entity
-								permalinkedReplyId=model.permalinkedReplyId
 								timestamp=entity.creationTimestamp
 								undelete=(action this.attrs.undeleteReply)
 								upvote=(action this.attrs.upvote)
