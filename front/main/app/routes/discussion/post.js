@@ -18,7 +18,7 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
-			return DiscussionPostModel.find(Mercury.wiki.id, params.postId, params.replyId);
+			return DiscussionPostModel.find(Mercury.wiki.id, params.postId);
 		},
 
 		/**
@@ -66,7 +66,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			create(replyData) {
-				this.modelFor(this.get('routeName')).createReply(replyData);
+				this.modelFor('discussion.post').createReply(replyData);
 			},
 
 			/**
@@ -74,7 +74,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadMoreComments() {
-				const model = this.modelFor(this.get('routeName'));
+				const model = this.modelFor('discussion.post');
 
 				model.loadNextPage().then(() => {
 					if (model.get('minorError')) {
