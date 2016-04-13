@@ -111,7 +111,8 @@ export default Ember.Component.extend(ViewportMixin, {
 		470065: 'discussion-header-darksouls',
 		629602: 'discussion-header-darksouls',
 		780741: 'discussion-header-darksouls',
-		928967: 'discussion-header-darksouls'
+		51: 'discussion-header-doom',
+		2304: 'discussion-header-doom'
 	},
 
 	/**
