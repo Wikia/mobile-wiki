@@ -77,7 +77,8 @@
     "replies-link-label":"__count__个回复",
     "replies-link-label_plural":"__count__个回复",
     "share-header":"分享话题",
-    "share-label":"分享"
+    "share-label":"分享",
+    "reported-not-found-error":"暂时没有被举报的帖子或者回复。"
   },
   "editor":{
     "post-failed-error":"发布失败",

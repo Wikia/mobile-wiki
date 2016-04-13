@@ -77,7 +77,8 @@
     "replies-link-label":"__count__ Antwort",
     "replies-link-label_plural":"__count__ Antworten",
     "share-header":"Beitrag teilen",
-    "share-label":"Teilen"
+    "share-label":"Teilen",
+    "reported-not-found-error":"Es gibt keine gemeldeten Beiträge oder Antworten."
   },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",

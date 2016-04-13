@@ -77,7 +77,8 @@
     "replies-link-label":"__count__ Ответ",
     "replies-link-label_plural":"Ответов: __count__ ",
     "share-header":"Поделиться записью",
-    "share-label":"Поделиться"
+    "share-label":"Поделиться",
+    "reported-not-found-error":"Требующих проверки сообщений или ответов нет."
   },
   "editor":{
     "post-failed-error":"Не удалось записать сообщение.",
