@@ -9,7 +9,7 @@ export default DiscussionPostRoute.extend(
 		actions: {
 			/**
 			 * Triggers new reply creation on a model
-			 * @param {object} replyData
+			 * @param {Object} replyData
 			 * @returns {void}
 			 */
 			create(replyData) {
