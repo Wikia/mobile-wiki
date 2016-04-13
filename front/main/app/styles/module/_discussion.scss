@@ -92,6 +92,13 @@ body.discussions {
 		margin-right: 6px;
 		width: 16px;
 	}
+
+	&.down-small {
+		height: 10px;
+		width: 12px;
+		margin-right: 4px;
+
+	}
 }
 
 .discussion {
@@ -441,8 +448,7 @@ body.discussions {
 	}
 
 	.load-newer {
-		align-self: center;
-		box-align: ceneter;
+		align-items: center;
 		display: flex;
 		color: $discussion-load-newer-color;
 		font-size: $type-min;
