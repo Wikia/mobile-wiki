@@ -14,6 +14,7 @@
   "main":{
     "discussions-header-title":"Discussions",
     "pagination-post-show-more":"Oudere antwoorden weergeven",
+    "pagination-post-show-newer":"View Newer",
     "share-default-title":"Discussion on __siteName__",
     "contributors-title":"All Contributors",
     "sort-by-header":"Sort By",
@@ -76,7 +77,8 @@
     "replies-link-label":"__count__ Reply",
     "replies-link-label_plural":"__count__ Replies",
     "share-header":"Share Post",
-    "share-label":"Share"
+    "share-label":"Share",
+    "reported-not-found-error":"There are no reported posts or replies."
   },
   "editor":{
     "post-failed-error":"Post failed.",
