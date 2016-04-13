@@ -234,7 +234,9 @@ export default Ember.Component.extend({
 	// used to set initial  content to search when opening side-nav
 	shouldOpenNavSearch: false,
 
-	homePageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
+	homePageTitle: Ember.computed(function() {
+		return Ember.get(Mercury, 'wiki.mainPageTitle');
+	}),
 
 	actions: {
 		/**
