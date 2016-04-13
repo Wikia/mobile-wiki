@@ -4,12 +4,12 @@
 		iconSize=24
 	}}
 </a>
-<a {{action this.attrs.onLinkClick 'home' preventDefault=false}} href={{this.attrs.linkToHomePage}}>
+{{#link-to 'wiki-page' this.attrs.homePageTitle invokeAction=(action this.attrs.onLinkClick 'home')}}
 	{{wikia-ui-components/icon-button
-		icon='home'
-		iconSize=24
+	icon='home'
+	iconSize=24
 	}}
-</a>
+{{/link-to}}
 {{wikia-ui-components/icon-button
 	click=(action this.attrs.onButtonClick 'showSearch')
 	icon='search-for-ab-test'
