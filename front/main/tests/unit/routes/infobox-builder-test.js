@@ -14,7 +14,7 @@ const params = {
 	originalWindowTop = window.top,
 	originalWindowSelf = window.self;
 
-let setupEnvironmentAndInfoboxDataSpy ,loadAndSetupInfoboxDataSpy;
+let setupEnvironmentAndInfoboxDataSpy, loadAndSetupInfoboxDataSpy;
 
 moduleFor('route:infoboxBuilder', 'Unit | Route | infobox builder', {
 	beforeEach() {
@@ -28,12 +28,19 @@ moduleFor('route:infoboxBuilder', 'Unit | Route | infobox builder', {
 	}
 });
 
-function initRoute (route) {
+/**
+ * Mock setupEnvironmentAndInfoboxData and loadAndSetupInfoboxData
+ * route methods
+ *
+ * @param {object} route
+ * @returns {void}
+ */
+function mockRouteMethods(route) {
 	route.setupEnvironmentAndInfoboxData = setupEnvironmentAndInfoboxDataSpy;
 	route.loadAndSetupInfoboxData = loadAndSetupInfoboxDataSpy;
 }
 
-test('test is it iframe context', function(assert) {
+test('test is it iframe context', function (assert) {
 	window.top = windowTop;
 	window.self = windowSelf;
 
@@ -42,7 +49,7 @@ test('test is it iframe context', function(assert) {
 	assert.equal(route.get('isIframeContext'), true);
 });
 
-test('test is not it iframe context', function(assert) {
+test('test is not it iframe context', function (assert) {
 	window.self = window.top;
 
 	const route = this.subject();
@@ -50,17 +57,19 @@ test('test is not it iframe context', function(assert) {
 	assert.equal(route.get('isIframeContext'), false);
 });
 
-test('test are environment and infobox data set', function(assert) {
+test('test are environment and infobox data set', function (assert) {
 	window.top = windowTop;
 	window.self = windowSelf;
 
 	const route = this.subject();
 
-	initRoute(route);
+	mockRouteMethods(route);
 
 	assert.equal(route.get('isEnvironmentSet'), false);
 
-	Ember.run(() => { route.beforeModel(params) });
+	Ember.run(() => {
+		route.beforeModel(params);
+	});
 
 	assert.equal(route.get('isIframeContext'), true);
 	assert.equal(route.get('isEnvironmentSet'), true);
@@ -68,7 +77,7 @@ test('test are environment and infobox data set', function(assert) {
 	assert.equal(loadAndSetupInfoboxDataSpy.called, false);
 });
 
-test('test are evnironment resources not load again', function(assert) {
+test('test are evnironment resources not load again', function (assert) {
 	window.top = windowTop;
 	window.self = windowSelf;
 
@@ -76,9 +85,11 @@ test('test are evnironment resources not load again', function(assert) {
 		isEnvironmentSet: true
 	});
 
-	initRoute(route);
+	mockRouteMethods(route);
 
-	Ember.run(() => { route.beforeModel(params) });
+	Ember.run(() => {
+		route.beforeModel(params);
+	});
 
 	assert.equal(route.get('isIframeContext'), true);
 	assert.equal(setupEnvironmentAndInfoboxDataSpy.called, false);
