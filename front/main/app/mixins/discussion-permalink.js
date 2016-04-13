@@ -12,6 +12,7 @@ export default Ember.Mixin.create({
 	},
 
 	didInsertElement() {
+		this._super(...arguments);
 		this.showLinkedElement();
 	},
 });
