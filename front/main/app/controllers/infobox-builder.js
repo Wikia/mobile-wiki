@@ -6,7 +6,6 @@ export default Ember.Controller.extend({
 	groupItems: [],
 	lastGroupItem: null,
 	isVEContext: false,
-	isGoToSourceEnabled: Ember.computed.not('isVEContext'),
 
 	actions: {
 		/**
