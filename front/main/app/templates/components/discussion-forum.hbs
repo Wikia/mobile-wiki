@@ -18,8 +18,7 @@
 <div class="site-body-discussion post-list-view">
 	{{discussion-hero-unit
 		contributors=model.contributors
-		name=model.name
-		numberOfPosts=model.totalPosts
+		numberOfPosts=model.postCount
 	}}
 	<div class="discussion-page row">
 		<div class="rail large-3 columns">
@@ -52,11 +51,11 @@
 					minorError=model.minorError
 					name=model.name
 					pageNum=model.pageNum
-					posts=model.posts
-					postsDisplayed=model.posts.length
+					posts=model.entities
+					postsDisplayed=model.entities.length
 					report=(action this.attrs.report)
 					siteHeadPinned=siteHeadPinned
-					totalPosts=model.totalPosts
+					totalPosts=model.postCount
 					undeletePost=(action this.attrs.undeletePost)
 					upvote=(action this.attrs.upvote)
 					unlockPost=(action this.attrs.unlockPost)

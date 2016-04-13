@@ -355,13 +355,13 @@ InfoboxBuilderModel.reopenClass({
 	 * @returns {String}
 	 */
 	sanitizeCustomRowSource(input) {
-		const notValidChars = /[^a-z0-9_-]+/g,
+		const invalidChars = /[!|*}{*?%^&.+'\[\]]+/g,
 			isEmpty = /^[-_]+$/,
 			output = input
 				.trim()
 				.toLowerCase()
 				.replace(/\s+/g, '_')
-				.replace(notValidChars, '');
+				.replace(invalidChars, '');
 
 		return isEmpty.test(output) ? '' : output;
 	},

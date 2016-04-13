@@ -18,8 +18,7 @@
 <div class="site-body-discussion post-list-view">
 	{{discussion-hero-unit
 		contributors=model.contributors
-		name=model.name
-		numberOfPosts=model.totalPosts
+		numberOfPosts=model.postCount
 	}}
 	<div class="discussion-page row">
 		<div class="rail large-3 columns">
@@ -43,6 +42,7 @@
 					setSortBy=(action this.attrs.setSortBy)
 				}}
 				{{discussion-reported-posts-wrapper
+					approve=(action this.attrs.approve)
 					create=(action this.attrs.create)
 					deletePost=(action this.attrs.deletePost)
 					deleteReply=(action this.attrs.deleteReply)
@@ -52,12 +52,13 @@
 					minorError=model.minorError
 					name=model.name
 					pageNum=model.pageNum
-					posts=model.posts
-					postsDisplayed=model.posts.length
+					posts=model.entities
+					postsDisplayed=model.entities.length
 					report=(action this.attrs.report)
 					siteHeadPinned=siteHeadPinned
-					totalPosts=model.totalPosts
+					totalPosts=model.postCount
 					undeletePost=(action this.attrs.undeletePost)
+					undeleteReply=(action this.attrs.undeleteReply)
 					unlockPost=(action this.attrs.unlockPost)
 					upvote=(action this.attrs.upvote)
 				}}

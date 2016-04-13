@@ -1,0 +1,25 @@
+.article-media-gallery {
+	-webkit-overflow-scrolling: touch;
+	overflow: {
+		x: auto;
+		y: hidden;
+	}
+	white-space: nowrap;
+
+	img {
+		height: 195px;
+		// Fixes iOS Safari repaint bug when scrolling through gallery
+		transform: translate3d(0, 0, 0);
+		width: 195px;
+	}
+
+	.article-media-thumbnail {
+		display: inline-block;
+		margin: {
+			bottom: 20px;
+			left: 0;
+			right: 8px;
+			top: 20px;
+		}
+	}
+}
