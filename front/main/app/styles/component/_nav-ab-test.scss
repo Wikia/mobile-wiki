@@ -42,7 +42,14 @@ $button-size: 56px;
 	justify-content: space-around;
 	height: 69px;
 	position: fixed;
+	transition: bottom 0.1s ease-in;
 	width: 100%;
+	z-index: 101;
+
+	&.bottom-unpinned {
+		bottom: -69px;
+		transition: bottom 0.3s ease-in;
+	}
 
 	.icon-button-icon,
 	.icon-button:hover .icon-button-icon {

@@ -10,19 +10,7 @@ export default Ember.Component.extend(
 		classNames: ['nav-ab-test-bottom-bar'],
 		headroomOptions: {
 			classes: {
-				initial: 'bottombar',
-				// scroll up
-				pinned: '',
-				// scroll down - dis
-				unpinned: '',
-				// at bottom
-				bottom: ""
-			},
-			onPin: () => {
-				this.set('pinned', true);
-			},
-			onUnpin: () => {
-				this.set('pinned', false);
+				unpinned: 'bottom-unpinned'
 			}
 		}
 	});
