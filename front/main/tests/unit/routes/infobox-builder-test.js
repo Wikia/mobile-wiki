@@ -9,17 +9,17 @@ const params = {
 			}
 		}
 	},
-	windowTop = {name: 'top'},
-	windowSelf = {name: 'iframe'},
+	mockWindowTop = {name: 'top'},
+	mockWindowSelf = {name: 'iframe'},
 	originalWindowTop = window.top,
 	originalWindowSelf = window.self;
 
-let setupEnvironmentAndInfoboxDataSpy, loadAndSetupInfoboxDataSpy;
+let setupEnvironmentAndInfoboxDataStub, loadAndSetupInfoboxDataStub;
 
 moduleFor('route:infoboxBuilder', 'Unit | Route | infobox builder', {
 	beforeEach() {
-		setupEnvironmentAndInfoboxDataSpy = sinon.stub().returns(Ember.RSVP.Promise.resolve());
-		loadAndSetupInfoboxDataSpy = sinon.stub().returns(Ember.RSVP.Promise.resolve());
+		setupEnvironmentAndInfoboxDataStub = sinon.stub().returns(Ember.RSVP.Promise.resolve());
+		loadAndSetupInfoboxDataStub = sinon.stub().returns(Ember.RSVP.Promise.resolve());
 	},
 
 	afterEach() {
@@ -32,17 +32,30 @@ moduleFor('route:infoboxBuilder', 'Unit | Route | infobox builder', {
  * Mock setupEnvironmentAndInfoboxData and loadAndSetupInfoboxData
  * route methods
  *
- * @param {object} route
+ * @param {Ember.Route} route
  * @returns {void}
  */
 function mockRouteMethods(route) {
-	route.setupEnvironmentAndInfoboxData = setupEnvironmentAndInfoboxDataSpy;
-	route.loadAndSetupInfoboxData = loadAndSetupInfoboxDataSpy;
+	route.setProperties({
+		setupEnvironmentAndInfoboxData: setupEnvironmentAndInfoboxDataStub,
+		loadAndSetupInfoboxData: loadAndSetupInfoboxDataStub
+	});
+}
+
+/**
+ * Set window top and self properties
+ *
+ * @param {object} windowTop
+ * @param {object} windowSelf
+ * @returns {void}
+ */
+function setWindowProperties(windowTop = mockWindowTop, windowSelf = mockWindowSelf) {
+	window.top = windowTop;
+	window.self = windowSelf;
 }
 
 test('test is it iframe context', function (assert) {
-	window.top = windowTop;
-	window.self = windowSelf;
+	setWindowProperties();
 
 	const route = this.subject();
 
@@ -50,7 +63,7 @@ test('test is it iframe context', function (assert) {
 });
 
 test('test is not it iframe context', function (assert) {
-	window.self = window.top;
+	setWindowProperties(window.top, window.top);
 
 	const route = this.subject();
 
@@ -58,8 +71,7 @@ test('test is not it iframe context', function (assert) {
 });
 
 test('test are environment and infobox data set', function (assert) {
-	window.top = windowTop;
-	window.self = windowSelf;
+	setWindowProperties();
 
 	const route = this.subject();
 
@@ -73,13 +85,12 @@ test('test are environment and infobox data set', function (assert) {
 
 	assert.equal(route.get('isIframeContext'), true);
 	assert.equal(route.get('isEnvironmentSet'), true);
-	assert.equal(setupEnvironmentAndInfoboxDataSpy.called, true);
-	assert.equal(loadAndSetupInfoboxDataSpy.called, false);
+	assert.equal(setupEnvironmentAndInfoboxDataStub.called, true);
+	assert.equal(loadAndSetupInfoboxDataStub.called, false);
 });
 
 test('test are evnironment resources not load again', function (assert) {
-	window.top = windowTop;
-	window.self = windowSelf;
+	setWindowProperties();
 
 	const route = this.subject({
 		isEnvironmentSet: true
@@ -92,7 +103,7 @@ test('test are evnironment resources not load again', function (assert) {
 	});
 
 	assert.equal(route.get('isIframeContext'), true);
-	assert.equal(setupEnvironmentAndInfoboxDataSpy.called, false);
-	assert.equal(loadAndSetupInfoboxDataSpy.called, true);
+	assert.equal(setupEnvironmentAndInfoboxDataStub.called, false);
+	assert.equal(loadAndSetupInfoboxDataStub.called, true);
 });
 
