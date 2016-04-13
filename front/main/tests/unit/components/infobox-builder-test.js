@@ -512,7 +512,7 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: false,
-				isGoToSourceEnabled: true,
+				isVEContext: false,
 				expected: {
 					showSuccess: true,
 					titleExists: false,
@@ -531,7 +531,7 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: true,
-				isGoToSourceEnabled: true,
+				isVEContext: false,
 				expected: {
 					showSuccess: true,
 					titleExists: false,
@@ -550,7 +550,7 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: false,
-				isGoToSourceEnabled: false,
+				isVEContext: true,
 				expected: {
 					showSuccess: false,
 					titleExists: false,
@@ -569,7 +569,7 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: true,
-				isGoToSourceEnabled: false,
+				isVEContext: true,
 				expected: {
 					showSuccess: false,
 					titleExists: false,
@@ -588,7 +588,7 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: false,
-				isGoToSourceEnabled: true,
+				isVEContext: false,
 				expected: {
 					showSuccess: false,
 					titleExists: true,
@@ -607,7 +607,7 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: true,
-				isGoToSourceEnabled: true,
+				isVEContext: false,
 				expected: {
 					showSuccess: false,
 					titleExists: true,
@@ -629,7 +629,7 @@ test('handleSaveResults', function (assert) {
 		component.set('returnToVE', returnToVESpy);
 		component.set('showSuccess', false);
 		component.set('titleExists', false);
-		component.set('isGoToSourceEnabled', testCase.isGoToSourceEnabled);
+		component.set('isVEContext', testCase.isVEContext);
 		component.handleSaveResults(testCase.data, testCase.shouldRedirectToPage);
 
 		assert.equal(
