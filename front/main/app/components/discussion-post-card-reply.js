@@ -1,6 +1,6 @@
-import DiscussionPostCardBaseComponent from './discussion-post-card-base';
+import DiscussionPostCardBaseComponent from '../mixins/discussion-post-card-base';
 
-export default DiscussionPostCardBaseComponent.extend({
+export default Ember.Component.extend(DiscussionPostCardBaseComponent, {
 	classNames: ['post-reply'],
 	classNameBindings: ['isParentDeleted']
 });

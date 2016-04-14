@@ -1,12 +1,12 @@
 import Ember from 'ember';
 import DiscussionParsedContentMixin from '../mixins/discussion-parsed-content';
 
-const {Component, computed} = Ember;
+const {Mixin, computed} = Ember;
 
 /**
  * Basic methods/properties for discussion-post-card-detail and discussion-post-card-reply.
  */
-export default Component.extend(
+export default Mixin.create(
 	DiscussionParsedContentMixin,
 	{
 		classNameBindings: ['isNew', 'isDeleted', 'isReported', 'isLocked', 'showTopNote'],
