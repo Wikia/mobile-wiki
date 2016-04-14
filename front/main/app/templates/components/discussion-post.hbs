@@ -61,7 +61,7 @@
 							}}
 						</div>
 						{{#if canShowOlder}}
-							<button {{action this.attrs.loadOlderComments}} class="load-older active-element-theme-color">
+							<button {{action this.attrs.loadOlderReplies}} class="load-older active-element-theme-color">
 								{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
 								{{i18n 'main.pagination-post-show-more' ns='discussion'}}
 							</button>
@@ -94,12 +94,12 @@
 							{{/if}}
 						{{/each}}
 						{{#if canShowNewer}}
-							<button {{action this.attrs.loadNewerComments}} class="load-newer floating active-element-background-color">
+							<button {{action this.attrs.loadNewerReplies}} class="load-newer floating active-element-background-color">
 								{{svg 'down-small' viewBox='0 0 10 12' class='icon down-small'}}
 								{{i18n 'main.pagination-post-show-new-replies' ns='discussion'}}
 							</button>
 							<div class="load-newer-container">
-								<button {{action this.attrs.loadNewerComments}} class="load-newer wide active-element-theme-color">
+								<button {{action this.attrs.loadNewerReplies}} class="load-newer wide active-element-theme-color">
 									{{i18n 'main.pagination-post-show-newer-replies' ns='discussion'}}
 								</button>
 							</div>

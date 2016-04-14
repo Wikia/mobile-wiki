@@ -73,7 +73,6 @@ export default DiscussionBaseRoute.extend(
 			 * Load more replies
 			 * @returns {void}
 			 */
-			loadOlderComments() {
 				const model = this.modelFor(this.get('routeName'));
 
 				model.loadPreviousPage();
@@ -83,7 +82,6 @@ export default DiscussionBaseRoute.extend(
 			 * Load more replies
 			 * @returns {void}
 			 */
-			loadNewerComments() {
 				const model = this.modelFor(this.get('routeName'));
 
 				model.loadNextPage();

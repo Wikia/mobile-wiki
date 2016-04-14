@@ -33,8 +33,8 @@ export default Ember.Controller.extend(
 			 *
 			 * @returns {void}
 			 */
-			loadOlderComments() {
-				this.get('target').send('loadOlderComments');
+			loadOlderReplies() {
+				this.get('target').send('loadOlderReplies');
 			},
 
 			/**
@@ -42,8 +42,8 @@ export default Ember.Controller.extend(
 			 *
 			 * @returns {void}
 			 */
-			loadNewerComments() {
-				this.get('target').send('loadNewerComments');
+			loadNewerReplies() {
+				this.get('target').send('loadNewerReplies');
 			},
 		}
 	}
