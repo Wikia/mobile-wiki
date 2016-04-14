@@ -108,21 +108,15 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	 */
 	setNormalizedData(apiData) {
 		const normalizedData = DiscussionPost.createFromThreadData(apiData),
-			apiRepliesData = Ember.getWithDefault(apiData, '_embedded.doc:posts', []);
-
-		let contributors,
-			normalizedRepliesData;
-
-		normalizedRepliesData = apiRepliesData.map((replyData) => {
-			replyData.threadCreatedBy = normalizedData.get('createdBy');
-			return DiscussionReply.create(replyData);
-		});
-
-		contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0'));
+			apiRepliesData = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
+			normalizedRepliesData = apiRepliesData.map((replyData) => {
+				replyData.threadCreatedBy = normalizedData.get('createdBy');
+				return DiscussionReply.create(replyData);
+			});
 
 		normalizedData.setProperties({
-			canModerate: Ember.getWithDefault(normalizedRepliesData, '0.userData.permissions.canModerate', false),
-			contributors,
+			canModerate: normalizedRepliesData.getWithDefault('firstObject.userData.permissions.canModerate', false),
+			contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 			forumId: apiData.forumId,
 			replies: normalizedRepliesData,
 			repliesCount: parseInt(apiData.postCount, 10),
