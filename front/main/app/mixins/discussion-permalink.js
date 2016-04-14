@@ -11,8 +11,9 @@ export default Ember.Mixin.create({
 		window.scrollTo(0, highlightedElement.offset().top - Ember.$('.site-body-discussion').offset().top);
 	},
 
-	didInsertElement() {
-		this._super(...arguments);
+	didInsertElement(...params) {
 		this.showLinkedElement();
+
+		this._super(...params);
 	},
 });

@@ -458,9 +458,8 @@ body.discussions {
 		margin: 0 auto;
 
 		&.floating {
-			display: flex;
+			display: none;
 			align-items: center;
-			bottom: 50px;
 			color: $discussion-load-newer-color;
 			height: 30px;
 			justify-content: center;
@@ -475,7 +474,8 @@ body.discussions {
 			background-color: transparent;
 			border-width: 0;
 			font-weight: bold;
-			padding-top: 1px;
+			height: 40px;
+			line-height: 40px;
 		}
 	}
 
