@@ -20,18 +20,6 @@ $input-top-padding: 1.3rem;
 			padding: $input-top-padding 0 $input-bottom-padding;
 		}
 	}
-
-	&.transparent {
-		.text-field-input {
-			background: transparent;
-			box-shadow: none;
-
-			&:focus {
-				background: transparent;
-				box-shadow: none;
-			}
-		}
-	}
 }
 
 .text-field-label {
