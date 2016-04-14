@@ -48,12 +48,12 @@ function getDistilledDiscussionsSplashPageConfig(hostName) {
 /**
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
- * @param {object} wikiVariables
+ * @param {Object} wikiVariables
+ * @param {Object} context
  * @returns {void}
  */
-export default function showApplication(request, reply, wikiVariables) {
+export default function showApplication(request, reply, wikiVariables, context = {}) {
 	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
-		context = {},
 		hostName = Utils.getWikiaSubdomain(request.info.host);
 
 	if (typeof wikiVariables === 'undefined') {
