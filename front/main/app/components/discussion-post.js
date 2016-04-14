@@ -22,11 +22,12 @@ export default Ember.Component.extend(
 		newRepliesLoadedObserver: Ember.observer('model.replies.length', function () {
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				this.scrollToMarkedReply();
-			})
+			});
 		}),
 
 		scrollToMarkedReply() {
 			const $markedElements = Ember.$('.scroll-to-mark');
+
 			if ($markedElements.length) {
 				window.scrollTo(0, $markedElements.offset().top - Ember.$('.site-body-discussion').offset().top);
 				$markedElements.removeClass('scroll-to-mark');
