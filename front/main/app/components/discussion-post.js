@@ -25,7 +25,10 @@ export default Ember.Component.extend(
 		}),
 
 		/**
-		 * This method displays the floating 'load newer replies' button when it's needed
+		 * This method displays the floating 'load newer replies' button when it's needed.
+		 * It appears when:
+		 * 1. there is no wide 'newer replies' bottom button visible
+		 * 2. after 1 sec visibility, when user starts to scroll the document it disappears
 		 * @return {void}
 		 */
 		initializeNewerButtons() {
