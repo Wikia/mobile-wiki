@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
@@ -22,11 +23,20 @@ export default Ember.Component.extend(ViewportMixin, {
 	bodyText: '',
 	layoutName: 'components/discussion-editor',
 
+	wasPostContentTracked: false,
+
 	/**
 	 * @returns {boolean}
 	 */
 	submitDisabled: Ember.computed('bodyText', 'currentUser.userId', function () {
 		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null;
+	}),
+
+	onTextContent: Ember.observer('bodyText', function () {
+		if (bodyText.length > 0 && !this.get('wasPostContentTracked')) {
+			track(trackActions.PostContent);
+			this.set('wasPostContentTracked', true);
+		}
 	}),
 
 	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
@@ -214,7 +224,10 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	afterCloseActions() {
-		this.set('isActive', false);
+		this.setProperties({
+			isActive: false,
+			wasPostContentTracked: false
+		});
 		this.setiOSSpecificStyles({
 			height: '',
 			overflow: ''
@@ -263,6 +276,10 @@ export default Ember.Component.extend(ViewportMixin, {
 		 * @returns {void}
 		 */
 		toggleEditorActive(active) {
+			if (active) {
+				track(trackActions.PostStart);
+			}
+
 			this.get('discussionEditor').toggleEditor(active);
 		},
 

@@ -13,7 +13,6 @@ const trackActions = {
 	UserTapped: 'UserTapped',
 	PostStart: 'PostStart',
 	PostContent: 'PostContent',
-	ReplyMore: 'ReplyMore',
 	AnonUpvotePost: 'AnonUpvotePost',
 	ReplyContent: 'ReplyContent',
 	MorePostActions: 'MorePostActions',
