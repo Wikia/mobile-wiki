@@ -447,9 +447,6 @@ body.discussions {
 	}
 
 	.load-newer-container {
-		border-top: 1px solid $discussion-reply-border-color;
-		display: flex;
-		justify-content: center;
 	}
 
 	.load-newer {
@@ -471,11 +468,15 @@ body.discussions {
 		}
 
 		&.wide {
+			border: none;
+			border-top: 1px solid $discussion-reply-border-color;
+			display: flex;
+			justify-content: center;
 			background-color: transparent;
-			border-width: 0;
 			font-weight: bold;
 			height: 40px;
 			line-height: 40px;
+			width: 100%;
 		}
 	}
 
