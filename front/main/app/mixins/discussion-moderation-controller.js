@@ -11,11 +11,10 @@ export default Ember.Mixin.create({
 		},
 
 		/**
-		 * @param {object} posts
 		 * @returns {void}
 		 */
-		deleteAllPosts(posts) {
-			this.get('target').send('deleteAllPosts', posts);
+		deleteAllPosts() {
+			this.get('target').send('deleteAllPosts', this.get('model.data.entities'));
 		},
 
 		/**
