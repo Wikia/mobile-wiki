@@ -10,7 +10,7 @@ import {track, trackActions} from '../../utils/discussion-tracker';
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	replyLimit: 10,
 	threadId: null,
-	loadDir: {
+	loadDirection: {
 		older: 'olderthan',
 		newer: 'newerthan',
 	},
@@ -60,14 +60,14 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadPreviousPage() {
-		return this.loadAnotherPage(this.get('loadDir.older'), this.get('data.replies.firstObject.id'));
+		return this.loadAnotherPage(this.get('loadDirection.older'), this.get('data.replies.firstObject.id'));
 	},
 
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadNextPage() {
-		return this.loadAnotherPage(this.get('loadDir.newer'), this.get('data.replies.lastObject.id'));
+		return this.loadAnotherPage(this.get('loadDirection.newer'), this.get('data.replies.lastObject.id'));
 	},
 
 	/**
