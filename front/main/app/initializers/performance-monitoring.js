@@ -18,7 +18,7 @@ export function initialize() {
 	if (!Ember.isEmpty(firstRenderTime)) {
 		trackPerf({
 			type: 'timer',
-			name: 'firstRenderTime',
+			name: 'firstRender',
 			value: firstRenderTime
 		});
 	}
