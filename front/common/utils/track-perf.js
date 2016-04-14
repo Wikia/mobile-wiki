@@ -90,8 +90,6 @@ export function trackPerf(params) {
 		default:
 			throw new Error('This action not supported in Weppy tracker');
 	}
-
-	trackFn.flush();
 }
 
 /**
