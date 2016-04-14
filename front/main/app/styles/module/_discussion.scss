@@ -94,9 +94,9 @@ body.discussions {
 	}
 
 	&.down-small {
-		height: 10px;
-		width: 12px;
+		height: 12px;
 		margin-right: 4px;
+		width: 10px;
 	}
 }
 
@@ -458,11 +458,14 @@ body.discussions {
 
 		&.floating {
 			border-radius: 2px;
+			border-width: 0;
 			color: $discussion-load-newer-color;
 			display: none;
+			font-weight: bold;
 			height: 30px;
 			left: 50%;
 			line-height: 30px;
+			padding: 0 12px;
 			position: fixed;
 			transform: translateX(-50%);
 		}
