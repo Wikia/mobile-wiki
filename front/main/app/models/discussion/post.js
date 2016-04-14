@@ -118,11 +118,6 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			return DiscussionReply.create(replyData);
 		});
 
-		if (normalizedRepliesData.length) {
-			// We need oldest replies displayed first
-			normalizedRepliesData.reverse();
-		}
-
 		// contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]'));
 		// Work in Progress: szpachla until SOC-1586 is done
 		contributors = DiscussionContributors.create({
@@ -163,7 +158,7 @@ DiscussionPostModel.reopenClass({
 			data: {
 				limit: postInstance.get('replyLimit'),
 				responseGroup: 'full',
-				sortDirection: 'descending',
+				sortDirection: 'ascending',
 				sortKey: 'creation_date',
 				viewableOnly: false
 			},
