@@ -34,7 +34,7 @@ export default Ember.Component.extend(
 		initializeNewerButtons() {
 			const $floatingButton = Ember.$('.load-newer.floating'),
 				$wideButton = Ember.$('.load-newer.wide'),
-				$editor = Ember.$('.editor-container'),
+				$editor = Ember.$('.editor-container');
 
 			if (window.innerHeight <= $wideButton.offset().top) {
 				$floatingButton.css('bottom', 80).show();
