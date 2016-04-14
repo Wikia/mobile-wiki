@@ -20,7 +20,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	 *
 	 * @returns {void}
 	 */
-	loadAnotherPageSuccess(data) {
+	onLoadAnotherPageSuccess(data) {
 		const newReplies = Ember.get(data, '._embedded.doc:posts')
 				.map((reply) => {
 					reply.threadCreatedBy = this.get('data.createdBy');
@@ -48,7 +48,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				viewableOnly: false,
 			}),
 			success: (data) => {
-				this.loadAnotherPageSuccess(data);
+				this.onLoadAnotherPageSuccess(data);
 			},
 			error: (err) => {
 				this.handleLoadMoreError(err);
