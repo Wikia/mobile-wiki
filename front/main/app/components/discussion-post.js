@@ -1,14 +1,13 @@
 import DiscussionModalDialogMixin from '../mixins/discussion-modal-dialog';
-import DiscussionPermalinkMixin from '../mixins/discussion-permalink';
 
 export default Ember.Component.extend(
 	DiscussionModalDialogMixin,
-	DiscussionPermalinkMixin,
 	{
 		discussionSort: Ember.inject.service(),
 
 		didInsertElement(...params) {
 			this._super(...params);
+			this.scrollToMarkedReply();
 			this.initializeNewerButtons();
 		},
 
@@ -18,6 +17,15 @@ export default Ember.Component.extend(
 		canReply: Ember.computed('model.isDeleted', 'model.isLocked', function () {
 			return !this.get('model.isDeleted') && !this.get('model.isLocked');
 		}),
+
+		scrollToMarkedReply() {
+			const $markedElements = this.$('.scroll-to-mark');
+
+			if ($markedElements.length) {
+				window.scrollTo(0, $markedElements.offset().top - Ember.$('.site-body-discussion').offset().top);
+				$markedElements.removeClass('scroll-to-mark');
+			}
+		},
 
 		/**
 		 * This method displays the floating 'load newer replies' button when it's needed.

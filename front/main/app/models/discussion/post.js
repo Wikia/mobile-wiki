@@ -28,6 +28,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		let url;
 
 		if (Ember.get(data, 'isNextPageCall')) {
+			newReplies.get('firstObject').set('scrollToMark', true);
 			this.get('data.replies').pushObjects(newReplies);
 
 			url = Ember.getWithDefault(data, '_links.next.0.href', null);
