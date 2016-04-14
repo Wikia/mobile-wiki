@@ -1,7 +1,6 @@
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import ajaxCall from '../../utils/ajax-call';
-import DiscussionContributor from './domain/contributor';
 import DiscussionContributors from './domain/contributors';
 import DiscussionPost from './domain/post';
 import DiscussionReply from './domain/reply';
