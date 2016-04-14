@@ -18,6 +18,7 @@ export default DiscussionPostRoute.extend(
 
 				this.transitionTo('discussion.post', model.get('threadId')).promise.then(() => {
 					// this is on purpose - we need to be specific about the model for this action
+					// because otherwise it won't work after the transition
 					this.modelFor('discussion.post').createReply(replyData);
 				});
 			},
