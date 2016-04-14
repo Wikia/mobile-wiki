@@ -26,12 +26,10 @@ test('reacts on curated content change', function (asset) {
 		injectMainPageAdsSpy = sinon.spy(),
 		setupAdsContextSpy = sinon.spy(),
 		component = this.subject({
-			attrs: {
-				adsContext,
-				curatedContent: {},
-				currentUser: {
-					userModel: new Ember.RSVP.Promise(Ember.K)
-				}
+			adsContext,
+			curatedContent: {},
+			currentUser: {
+				userModel: new Ember.RSVP.Promise(Ember.K)
 			},
 			injectMainPageAds: injectMainPageAdsSpy,
 			setupAdsContext: setupAdsContextSpy

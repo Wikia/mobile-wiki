@@ -15,19 +15,17 @@ function contributionTestHelper(testThis, testCase, property, assert) {
 
 	Ember.run(() => {
 		const component = testThis.subject({
-			attrs: {
-				section,
-				sectionId,
-				title,
-				uploadFeatureEnabled: testCase.uploadFeatureEnabled,
-				isJapaneseWikia: testCase.isJapaneseWikia,
-				model: {
-					isMainPage: testCase.isMainPage
-				},
-				currentUser: {
-					isAuthenticated: testCase.hasOwnProperty('isAuthenticated') ?
-						testCase.isAuthenticated : 'false'
-				}
+			section,
+			sectionId,
+			title,
+			uploadFeatureEnabled: testCase.uploadFeatureEnabled,
+			isJapaneseWikia: testCase.isJapaneseWikia,
+			model: {
+				isMainPage: testCase.isMainPage
+			},
+			currentUser: {
+				isAuthenticated: testCase.hasOwnProperty('isAuthenticated') ?
+					testCase.isAuthenticated : 'false'
 			}
 		});
 
