@@ -4,7 +4,11 @@ import DiscussionContributor from './contributor';
 import DiscussionUserData from './user-data';
 
 const DiscussionPost = DiscussionEntity.extend({
+	canModerate: null,
 	contributors: null,
+	isNextLink: null,
+	isPreviousPage: null,
+	forumId: null,
 	pivotId: null,
 	pageNum: null,
 	permalinkedReplyId: null,

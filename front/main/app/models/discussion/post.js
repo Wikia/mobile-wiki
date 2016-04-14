@@ -8,11 +8,11 @@ import DiscussionReply from './domain/reply';
 import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
-	replyLimit: 10,
+	repliesLimit: 10,
 	threadId: null,
-	loadDirection: {
-		older: 'olderthan',
-		newer: 'newerthan',
+	links: {
+		previous: null,
+		next: null,
 	},
 
 	/**
@@ -26,28 +26,38 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 					reply.threadCreatedBy = this.get('data.createdBy');
 					return DiscussionReply.create(reply);
 				});
+		let url;
 
-		if (this.get('data.replies.firstObject.position') > Ember.get(newReplies, 'lastObject.position')) {
-			this.get('data.replies').unshiftObjects(newReplies);
-		} else {
+		if (Ember.get(data, 'isNextPageCall')) {
 			this.get('data.replies').pushObjects(newReplies);
+
+			url = Ember.getWithDefault(data, '_links.next.0.href', null);
+			this.setProperties({
+				'links.next': url,
+				'data.isNextPage': !Ember.isEmpty(url),
+			});
+		} else {
+			this.get('data.replies').unshiftObjects(newReplies);
+
+			url = Ember.getWithDefault(data, '_links.previous.0.href', null);
+			this.setProperties({
+				'links.previous': url,
+				'data.isPreviousPage': !Ember.isEmpty(url),
+			});
 		}
 	},
 
 	/**
-	 * @param {String} direction - load directory, 'newerthan' or 'olderthan'
-	 * @param {Number} replyId
+	 * @param {String} serviceUrl - service url path to call
+	 * @param {Boolean} isNextPageCall - is this a request for the next page
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadAnotherPage(direction, replyId) {
+	loadAnotherPage(serviceUrl, isNextPageCall) {
 		return ajaxCall({
-			url: M.getDiscussionServiceUrl(`/${this.get('wikiId')}/threads/${this.get('threadId')}/${direction}/${replyId}`, {
-				limit: this.get('replyLimit'),
-				responseGroup: 'full',
-				viewableOnly: false,
-			}),
+			url: M.getDiscussionServiceUrl(serviceUrl),
 			success: (data) => {
+				data.isNextPageCall = isNextPageCall;
 				this.onLoadAnotherPageSuccess(data);
 			},
 			error: (err) => {
@@ -60,18 +70,18 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadPreviousPage() {
-		return this.loadAnotherPage(this.get('loadDirection.older'), this.get('data.replies.firstObject.id'));
+		return this.loadAnotherPage(this.get('links.previous'), false);
 	},
 
 	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadNextPage() {
-		return this.loadAnotherPage(this.get('loadDirection.newer'), this.get('data.replies.lastObject.id'));
+		return this.loadAnotherPage(this.get('links.next'), true);
 	},
 
 	/**
-	 * @param {object} replyData
+	 * @param {Object} replyData
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
@@ -114,10 +124,17 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				return DiscussionReply.create(replyData);
 			});
 
+		this.setProperties({
+			'links.previous': Ember.getWithDefault(apiData, '_links.previous.0.href', null),
+			'links.next': Ember.getWithDefault(apiData, '_links.next.0.href', null)
+		});
+
 		normalizedData.setProperties({
 			canModerate: normalizedRepliesData.getWithDefault('firstObject.userData.permissions.canModerate', false),
 			contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 			forumId: apiData.forumId,
+			isNextPage: !Ember.isEmpty(this.get('links.next')),
+			isPreviousPage: !Ember.isEmpty(this.get('links.previous')),
 			replies: normalizedRepliesData,
 			repliesCount: parseInt(apiData.postCount, 10),
 		});
@@ -145,7 +162,7 @@ DiscussionPostModel.reopenClass({
 		return ajaxCall({
 			context: postInstance,
 			data: {
-				limit: postInstance.get('replyLimit'),
+				limit: postInstance.get('repliesLimit'),
 				responseGroup: 'full',
 				sortDirection: 'ascending',
 				sortKey: 'creation_date',
@@ -156,6 +173,7 @@ DiscussionPostModel.reopenClass({
 				if (replyId) {
 					data.permalinkedReplyId = replyId;
 				}
+
 				postInstance.setNormalizedData(data);
 			},
 			error: (err) => {

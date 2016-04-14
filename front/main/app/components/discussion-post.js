@@ -12,13 +12,8 @@ export default Ember.Component.extend(
 			this.initializeNewerButtons();
 		},
 
-		canShowOlder: Ember.computed('model.replies.firstObject.position', function () {
-			return this.get('model.replies.firstObject.position') > 1;
-		}),
-
-		canShowNewer: Ember.computed('model.replies.lastObject.position', 'model.repliesCount', function () {
-			return this.get('model.replies.lastObject.position') < this.get('model.repliesCount');
-		}),
+		canShowOlder: Ember.computed.oneWay('model.isPreviousPage'),
+		canShowNewer: Ember.computed.oneWay('model.isNextPage'),
 
 		canReply: Ember.computed('model.isDeleted', 'model.isLocked', function () {
 			return !this.get('model.isDeleted') && !this.get('model.isLocked');
