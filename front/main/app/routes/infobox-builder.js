@@ -4,7 +4,10 @@ import ConfirmationMixin from 'ember-onbeforeunload/mixins/confirmation';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Route.extend(ConfirmationMixin, {
-	modelInitialized: false,
+	isIframeContext: Ember.computed(() => {
+		return window.self !== window.top;
+	}),
+	isEnvironmentSet: false,
 	pontoPath: '/front/main/assets/vendor/ponto/ponto.js',
 
 	/**
@@ -17,26 +20,19 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		const templateName = transition.params['infobox-builder'].templateName;
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			if (window.self !== window.top) {
-				const promises = {
-					dataAndAssets: this.loadInfoboxDataAndAssets(templateName)
-				};
-
-				if (!window.Ponto || !this.get('modelInitialized')) {
-					promises.ponto = this.loadPonto();
+			if (this.get('isIframeContext')) {
+				if (!this.get('isEnvironmentSet')) {
+					this.setupEnvironmentAndInfoboxData(templateName)
+						.then(() => {
+							this.set('isEnvironmentSet', true);
+							resolve();
+						})
+						.catch(reject);
+				} else {
+					this.loadAndSetupInfoboxData(templateName)
+						.then(resolve)
+						.catch(reject);
 				}
-
-				Ember.RSVP.hash(promises)
-					.then((responses) => {
-						if (!this.get('modelInitialized')) {
-							this.setupStyles(responses.dataAndAssets);
-							this.isWikiaContext();
-						}
-						this.setupInfoboxData(responses.dataAndAssets);
-						this.set('modelInitialized', true);
-					})
-					.then(resolve)
-					.catch(reject);
 			} else {
 				reject('Infobox builder has to be loaded in an iframe');
 			}
@@ -165,6 +161,44 @@ export default Ember.Route.extend(ConfirmationMixin, {
 					Ember.Logger.error('Error while getting redirect Urls: ', error);
 				});
 		}
+	},
+
+	/**
+	 * Setup infobox builder by loading infobox data and styles.
+	 * Also initialize ponto and checks in what context
+	 * infobox builder was opened
+	 *
+	 * @param {string} templateName
+	 * @returns {Promise}
+	 */
+	setupEnvironmentAndInfoboxData(templateName) {
+		// TODO CE-3600 extract data and assets into services
+		const promises = {
+			dataAndAssets: this.loadInfoboxDataAndAssets(templateName),
+			ponto: this.loadPonto()
+		};
+
+		return Ember.RSVP.hash(promises)
+			.then((response) => {
+				this.setupStyles(response.dataAndAssets);
+				this.setupInfoboxData(response.dataAndAssets);
+			})
+			.then(this.isWikiaContext.bind(this));
+	},
+
+	/**
+	 * Setup infobox data.
+	 * It's invoke on model refresh
+	 * to avoid loading all existing resources again
+	 *
+	 * @param {string} templateName
+	 * @returns {Promise}
+	 */
+	loadAndSetupInfoboxData(templateName) {
+		return this.loadInfoboxDataAndAssets(templateName)
+			.then((response) => {
+				this.setupInfoboxData(response);
+			});
 	},
 
 	/**

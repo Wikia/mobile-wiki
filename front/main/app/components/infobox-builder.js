@@ -12,6 +12,7 @@ export default Ember.Component.extend(
 		tooltipPosX: null,
 		tooltipPosY: null,
 		tooltipDistanceFromCursor: 20,
+		isGoToSourceEnabled: Ember.computed.not('isVEContext'),
 		isPreviewItemHovered: false,
 		isPreviewItemDragged: false,
 		isGroupTooltipVisible: false,
@@ -394,7 +395,7 @@ export default Ember.Component.extend(
 				});
 
 				if (this.get('isVEContext')) {
-					this.get('goBackToVE')(this.get('title'));
+					this.get('returnToVE')(this.get('title'));
 					this.set('showSuccess', false);
 				} else if (shouldRedirectToPage) {
 					this.get('redirectToPageAction')(data.urls.templatePageUrl);

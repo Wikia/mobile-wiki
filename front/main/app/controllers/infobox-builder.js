@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
 		 */
 		cancel() {
 			if (this.get('isVEContext')) {
-				this.send('goBackToVE');
+				this.get('target').send('returnToVE');
 			} else {
 				this.get('target').send('redirectToPage');
 			}
@@ -23,7 +23,6 @@ export default Ember.Controller.extend({
 
 		/**
 		 * Saves infobox state to template,
-		 * sends redirectToPage action to route if desired,
 		 * return a promise so it can be chained
 		 *
 		 * @param {String} initialTitle
@@ -57,8 +56,8 @@ export default Ember.Controller.extend({
 		 *
 		 * @param {string} title Title of newly created infobox template
 		 * @returns {void}
-         */
-		goBackToVE(title = null) {
+		 */
+		returnToVE(title = null) {
 			this.get('target').send('returnToVE', title);
 		},
 

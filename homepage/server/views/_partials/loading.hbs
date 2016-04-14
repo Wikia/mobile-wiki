@@ -2,10 +2,10 @@
 	<div class="loading-wrapper">
 		<img class="hero-image-desktop" src="{{heroSlider.0.image}}">
 		<div class="hero-text">
-			<h1>{{heroSlider.0.title}}</h1>
-			<h2>{{heroSlider.0.subtitle}}</h2>
+			<h1 class="{{heroSlider.0.textColorClass}}">{{heroSlider.0.title}}</h1>
+			<h2 class="{{heroSlider.0.textColorClass}}">{{heroSlider.0.subtitle}}</h2>
 			{{#if heroSlider.0.button}}
-				<a class="hero-link" href="{{heroSlider.0.buttonLink}}" id="{{heroSlider.0.buttonId}}">
+				<a class="hero-link {{heroSlider.0.textColorClass}}" href="{{heroSlider.0.buttonLink}}" id="{{heroSlider.0.buttonId}}">
 					{{heroSlider.0.buttonText}}
 				</a>
 			{{/if}}

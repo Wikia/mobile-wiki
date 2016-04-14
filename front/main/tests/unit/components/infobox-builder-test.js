@@ -518,7 +518,7 @@ test('handleSaveResults', function (assert) {
 					titleExists: false,
 					redirectToPageCalled: false,
 					showEditTitleModalCalled: false,
-					goBackToVECalled: false
+					returnToVECalled: false
 				},
 				message: 'correctly saved template with no redirect needed'
 			},
@@ -537,7 +537,7 @@ test('handleSaveResults', function (assert) {
 					titleExists: false,
 					redirectToPageCalled: true,
 					showEditTitleModalCalled: false,
-					goBackToVECalled: false
+					returnToVECalled: false
 				},
 				message: 'correctly saved template with redirect'
 			},
@@ -556,7 +556,7 @@ test('handleSaveResults', function (assert) {
 					titleExists: false,
 					redirectToPageCalled: false,
 					showEditTitleModalCalled: false,
-					goBackToVECalled: true
+					returnToVECalled: true
 				},
 				message: 'correctly saved template with going back to VE'
 			},
@@ -575,7 +575,7 @@ test('handleSaveResults', function (assert) {
 					titleExists: false,
 					redirectToPageCalled: false,
 					showEditTitleModalCalled: false,
-					goBackToVECalled: true
+					returnToVECalled: true
 				},
 				message: 'correctly saved template with with going back to VE'
 			},
@@ -594,7 +594,7 @@ test('handleSaveResults', function (assert) {
 					titleExists: true,
 					redirectToPageCalled: false,
 					showEditTitleModalCalled: true,
-					goBackToVECalled: false
+					returnToVECalled: false
 				},
 				message: 'naming conflict with no redirect'
 			},
@@ -613,7 +613,7 @@ test('handleSaveResults', function (assert) {
 					titleExists: true,
 					redirectToPageCalled: false,
 					showEditTitleModalCalled: true,
-					goBackToVECalled: false
+					returnToVECalled: false
 				},
 				message: 'naming conflict with redirect'
 			}
@@ -621,12 +621,12 @@ test('handleSaveResults', function (assert) {
 
 	cases.forEach((testCase) => {
 		const redirectToPageSpy = sinon.spy(),
-			goBackToVESpy = sinon.spy(),
+			returnToVESpy = sinon.spy(),
 			showEditTitleModalSpy = sinon.spy();
 
 		component.set('showEditTitleModal', showEditTitleModalSpy);
 		component.set('redirectToPageAction', redirectToPageSpy);
-		component.set('goBackToVE', goBackToVESpy);
+		component.set('returnToVE', returnToVESpy);
 		component.set('showSuccess', false);
 		component.set('titleExists', false);
 		component.set('isVEContext', testCase.isVEContext);
@@ -653,9 +653,9 @@ test('handleSaveResults', function (assert) {
 			`${testCase.message}- showEditTitleModalCalled`
 		);
 		assert.equal(
-			goBackToVESpy.called,
-			testCase.expected.goBackToVECalled,
-			`${testCase.message}- goBackToVECalled`
+			returnToVESpy.called,
+			testCase.expected.returnToVECalled,
+			`${testCase.message}- returnToVECalled`
 		);
 	});
 });
