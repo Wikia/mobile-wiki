@@ -260,7 +260,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		leftSiteHeadIconClick() {
-			this.trackExperimentClicks('site-head-icon');
+			this.trackExperimentClicks('site-head-icon-menu');
 			this.showNav();
 		},
 
@@ -268,7 +268,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		rightSiteHeadIconClick() {
-			this.trackExperimentClicks('site-head-icon');
+			this.trackExperimentClicks('site-head-icon-search');
 			this.showSearch();
 		},
 
