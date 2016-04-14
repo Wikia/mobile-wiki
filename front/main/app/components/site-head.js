@@ -69,13 +69,11 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			clickWordMark() {
-				if (this.get('navABTestIsControlGroup')) {
-					trackExperiment(this.get('navABTestExperimentName'), {
-						action: trackActions.click,
-						category: 'entrypoint',
-						label: 'word-mark-clicked'
-					});
-				}
+				trackExperiment(this.get('navABTestExperimentName'), {
+					action: trackActions.click,
+					category: 'entrypoint',
+					label: 'wordmark-clicked'
+				});
 
 				this.send('trackClick', 'wordmark');
 			}
