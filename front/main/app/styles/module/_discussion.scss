@@ -457,12 +457,10 @@ body.discussions {
 		margin: 0 auto;
 
 		&.floating {
-			align-items: center;
 			border-radius: 1px;
 			color: $discussion-load-newer-color;
 			display: none;
 			height: 30px;
-			justify-content: center;
 			left: 50%;
 			line-height: 30px;
 			position: fixed;
@@ -470,7 +468,6 @@ body.discussions {
 		}
 
 		&.wide {
-			align-items: center;
 			background-color: transparent;
 			border-width: 0;
 			font-weight: bold;
