@@ -9,13 +9,12 @@ import {getDocumentTitle, getDefaultTitle, getBaseResult, getOpenGraphData} from
  * @returns {object}
  */
 export default function prepareMediaWikiData(request, data) {
-	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
+	const allowedQueryParams = ['noexternals', 'buckysampling'],
 		pageData = data.page.data,
 		result = getBaseResult(request, data);
 
 	result.displayTitle = getDefaultTitle(request, pageData);
 	result.documentTitle = getDocumentTitle(pageData) || result.displayTitle;
-	result.asyncArticle = false;
 	result.queryParams = parseQueryParams(request.query, allowedQueryParams);
 
 	if (pageData && pageData.details) {

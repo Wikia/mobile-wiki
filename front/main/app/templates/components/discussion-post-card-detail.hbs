@@ -21,7 +21,7 @@
 		{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
 	</div>
 
-	{{#pop-over for=(concat 'post-options-' post.id) on='click' flow='flip' class='more-options-pop-over'}}
+	{{#pop-over for=(concat 'post-options-' post.id) on='click' flow='flip'}}
 		{{discussion-more-options
 			delete=(action this.attrs.delete)
 			deleteMessage=(i18n 'main.delete-post' ns='discussion')
@@ -60,30 +60,34 @@
 	}}
 
 	{{#if isDetailsView}}
-		<div class="small-5 large-4 columns action replies">
+		<div class="small-5 large-2 columns count">
 			<span class="replies-area">
 				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
-				{{i18n 'main.replies-link-label' ns='discussion' count=replyCount}}
+				{{replyCount}}
 			</span>
 		</div>
 	{{else}}
-		<div class="small-5 large-4 columns action replies">
+		<div class="small-2 large-2 columns count">
 			{{#link-to 'discussion.post' post.threadId class='replies-area'}}
 				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
-				{{i18n 'main.replies-link-label' ns='discussion' count=replyCount}}
+				{{replyCount}}
 			{{/link-to}}
 		</div>
 	{{/if}}
-
-	<div class="small-2 large-4 columns share">
-		{{#unless isDeleted }}
+	<div class="share small-5 large-7 columns">
+		{{#if isDetailsView}}
+			{{share-feature sharedUrl=sharedUrl}}
+		{{else}}
 			{{share-feature
-				entryPointLabel=(i18n 'main.share-label' ns='discussion')
-				header=(i18n 'main.share-header' ns='discussion')
 				sharedUrl=sharedUrl
-				uniqueIdentifier=post.id
+				isVisible=isShareFeatureVisible
+				onMouseEnter=(action 'cancelHideShareComponent')
+				onMouseLeave=(action 'hideShareComponent')
 			}}
-		{{/unless}}
+			<span class="toggle-share-area" {{action 'toggleShareComponent'}}>
+				{{svg 'share' class='icon toggle-share'}}
+			</span>
+		{{/if}}
 	</div>
 </div>
 {{#if post.isLoading}}

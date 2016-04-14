@@ -137,3 +137,37 @@ test('test group items calculation', function (assert) {
 		assert.deepEqual(controller.get('groupItems'), testCase.expected);
 	});
 });
+
+test('check the appropriate action is sent on cancel', function (assert) {
+	const controller = this.subject(),
+		model = {
+			saveStateToTemplate: sinon.stub().returns(Ember.RSVP.Promise.resolve()),
+		},
+		route = {
+			send: sinon.spy()
+		},
+		cases = [
+			{
+				action: 'cancel',
+				isVEContext: true,
+				calledWith: 'returnToVE'
+			},
+			{
+				action: 'cancel',
+				isVEContext: false,
+				calledWith: 'redirectToPage'
+			}
+		];
+
+	controller.set('model', model);
+	controller.set('target', route);
+
+	cases.forEach((testCase) => {
+		route.send.reset();
+
+		controller.set('isVEContext', testCase.isVEContext);
+
+		Ember.run(() => controller.send(testCase.action));
+		assert.equal(route.send.calledWith(testCase.calledWith), true);
+	});
+});

@@ -14,8 +14,7 @@ import {PageRequestHelper} from '../lib/mediawiki-page';
 import {
 	getCachedWikiDomainName,
 	redirectToCanonicalHostIfNeeded,
-	redirectToOasis,
-	shouldAsyncArticle
+	redirectToOasis
 } from '../lib/utils';
 import * as Tracking from '../lib/tracking';
 import getStatusCode from './operations/get-status-code';
@@ -236,13 +235,6 @@ export default function mediaWikiPageHandler(request, reply) {
 
 	let mediaWikiPageHelper,
 		allowCache = true;
-
-	// @todo This is really only a temporary check while we see if loading a smaller
-	// article has any noticable effect on engagement
-	if (shouldAsyncArticle(localSettings, request.headers.host)) {
-		// Only request an adequate # of sessions to populate above the fold
-		params.sections = '0,1,2';
-	}
 
 	if (request.state.wikicities_session) {
 		params.headers = {
