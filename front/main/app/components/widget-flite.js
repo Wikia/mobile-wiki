@@ -11,24 +11,19 @@ export default Ember.Component.extend({
 			width = this.get('data.width'),
 			height = this.get('data.height');
 
-		return `<script src="${src}" async="async" ` +
+		// make sure globl configuration for this widget is initialized
+		this.setUpConfig(guid);
+
+		return Ember.String.htmlSafe(`<script src="${src}" async="async" ` +
 			`data-instance="${guid}" data-width="${width}" data-height="${height}"></` +
-			'script>';
+			'script>');
 	}),
 
 	/**
+	 * @param {string} guid
 	 * @return {void}
 	 */
-	willInsertElement() {
-		this.setUpConfig();
-	},
-
-	/**
-	 * @return {void}
-	 */
-	setUpConfig() {
-		const guid = this.get('data.guid');
-
+	setUpConfig(guid) {
 		window.FLITE = window.FLITE || {};
 		window.FLITE.config = window.FLITE.config || {};
 		window.FLITE.config[guid] = window.FLITE.config[guid] || {};
