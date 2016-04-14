@@ -14,6 +14,7 @@
   "main":{
     "discussions-header-title":"Обсуждения",
     "pagination-post-show-more":"Просмотр старых ответов",
+    "pagination-post-show-newer":"Просмотреть новые",
     "share-default-title":"Обсуждение на __siteName__",
     "contributors-title":"Все участники",
     "sort-by-header":"Отсортировать:",
@@ -71,12 +72,13 @@
     "lock-post":"Закрыть обсуждение",
     "unlock-post":"Открыть обсуждение",
     "locked-and-reported-to-moderators-text":"Это обсуждение было закрыто и отправлено на проверку.",
-    "upvote-link-label":"__count__ Upvote",
-    "upvote-link-label_plural":"__count__ Upvotes",
-    "replies-link-label":"__count__ Reply",
-    "replies-link-label_plural":"__count__ Replies",
-    "share-header":"Поделиться",
-    "share-label":"Share"
+    "upvote-link-label":"__count__ Голос",
+    "upvote-link-label_plural":" Голосов: __count__",
+    "replies-link-label":"__count__ Ответ",
+    "replies-link-label_plural":"Ответов: __count__ ",
+    "share-header":"Поделиться записью",
+    "share-label":"Поделиться",
+    "reported-not-found-error":"Требующих проверки сообщений или ответов нет."
   },
   "editor":{
     "post-failed-error":"Не удалось записать сообщение.",

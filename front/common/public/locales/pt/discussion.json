@@ -14,6 +14,7 @@
   "main":{
     "discussions-header-title":"Discussões",
     "pagination-post-show-more":"Visualizar respostas mais antigas",
+    "pagination-post-show-newer":"Ver os mais recentes",
     "share-default-title":"Discussão em __siteName__",
     "contributors-title":"Todos os colaboradores",
     "sort-by-header":"Ordenar por",
@@ -71,12 +72,13 @@
     "lock-post":"Encerrar post",
     "unlock-post":"Reabrir post",
     "locked-and-reported-to-moderators-text":"Este post está encerrado e foi relatado.",
-    "upvote-link-label":"__count__ voto",
-    "upvote-link-label_plural":"__count__ votos",
-    "replies-link-label":"__count__ resposta",
-    "replies-link-label_plural":"__count__ respostas",
+    "upvote-link-label":"__count__ Voto",
+    "upvote-link-label_plural":"__count__ Votos",
+    "replies-link-label":"__count__ Resposta",
+    "replies-link-label_plural":"__count__ Respostas",
     "share-header":"Compartilhar post",
-    "share-label":"Compartilhar"
+    "share-label":"Compartilhar",
+    "reported-not-found-error":"Não há posts ou respostas relatados."
   },
   "editor":{
     "post-failed-error":"O post falhou.",
