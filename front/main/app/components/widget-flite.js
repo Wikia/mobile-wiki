@@ -5,7 +5,7 @@ export default Ember.Component.extend({
 	layoutName: 'components/widget-flite',
 	data: null,
 
-	scriptTag: Em.computed('data', function () {
+	scriptTag: Ember.computed('data', function () {
 		const src = '//s.flite.com/syndication/combo.js',
 			guid = this.get('data.guid'),
 			width = this.get('data.width'),
@@ -27,6 +27,6 @@ export default Ember.Component.extend({
 		window.FLITE = window.FLITE || {};
 		window.FLITE.config = window.FLITE.config || {};
 		window.FLITE.config[guid] = window.FLITE.config[guid] || {};
-		window.FLITE.config[guid].ts = (+ new Date());
+		window.FLITE.config[guid].ts = Number(new Date());
 	},
 });
