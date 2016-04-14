@@ -73,18 +73,16 @@ export default DiscussionBaseRoute.extend(
 			 * Load more replies
 			 * @returns {void}
 			 */
-				const model = this.modelFor(this.get('routeName'));
-
-				model.loadPreviousPage();
+			loadOlderReplies() {
+				this.modelFor(this.get('routeName')).loadPreviousPage();
 			},
 
 			/**
 			 * Load more replies
 			 * @returns {void}
 			 */
-				const model = this.modelFor(this.get('routeName'));
-
-				model.loadNextPage();
+			loadNewerReplies() {
+				this.modelFor(this.get('routeName')).loadNextPage();
 			},
 		}
 	}
