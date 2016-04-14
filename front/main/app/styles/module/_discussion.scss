@@ -55,6 +55,11 @@ body.discussions {
 		width: 40px;
 	}
 
+	&.toggle-share {
+		height: 20px;
+		width: 18px;
+	}
+
 	&.delete, &.undelete {
 		height: 19px;
 		width: 16px;
@@ -135,18 +140,16 @@ body.discussions {
 		}
 	}
 
-	.action {
+	.count {
 		color: $discussion-count-color;
 		font-size: $type-min;
 		font-weight: bold;
 
 		.upvote-area,
-		.replies-area,
-		.toggle-share-area {
+		.replies-area {
 			color: $discussion-count-color;
 			display: block;
 			float: left;
-			font-weight: $font-weight-medium;
 			height: 30px;
 			line-height: 30px;
 			padding: 0 2px;
@@ -173,6 +176,12 @@ body.discussions {
 		.discussion-more-options {
 			margin-top: 3px;
 		}
+	}
+
+	.toggle-share-area {
+		display: block;
+		height: 30px;
+		line-height: 30px;
 	}
 
 	.discussion-content {
@@ -254,13 +263,13 @@ body.discussions {
 				}
 			}
 
-			.action {
+			.count {
 				a, span {
 					color: $discussion-deleted-actions-color;
 				}
 			}
 
-			.action a {
+			.upvote a, .count a, .toggle-share-area {
 				cursor: default;
 			}
 		}
@@ -269,7 +278,7 @@ body.discussions {
 			width: 320px;
 		}
 
-		.more-options-pop-over .pop-over-container {
+		.pop-over-container {
 			padding: 0 18px;
 		}
 	}
@@ -306,7 +315,7 @@ body.discussions {
 			margin: -5px $post-details-reply-upvote-margin-left 0 0;
 			text-align: center;
 
-			.action {
+			.count {
 				min-width: $post-details-reply-upvote-width;
 				text-align: center;
 			}
@@ -557,14 +566,6 @@ body.discussions {
 		.discussion-no-replies {
 			border-bottom: 1px solid $discussion-reply-border-color;
 		}
-
-		.replies {
-			text-align: center;
-
-			.replies-area {
-				float: none;
-			}
-		}
 	}
 }
 
@@ -577,6 +578,10 @@ body.discussions {
 	.post-details-view {
 		.post-detail {
 			padding-bottom: 14px;
+
+			.share {
+				display: none;
+			}
 		}
 
 		.discussion-reply {

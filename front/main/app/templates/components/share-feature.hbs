@@ -1,13 +1,3 @@
-<a id="share-{{uniqueIdentifier}}" class="toggle-share-area">
-	{{svg 'share' class='icon toggle-share'}} <span class="mobile-hidden">{{entryPointLabel}}</span>
-</a>
-
-{{#pop-over for=(concat 'share-' uniqueIdentifier) on='click' flow='flip'}}
-	<h6>{{header}}</h6>
-
-	<ul class="social-networks-list">
-		{{#each currentSocialNetworks as |currentSocialNetwork|}}
-			<li><a {{action 'share' currentSocialNetwork}} class="{{currentSocialNetwork}} icon" href="#"></a></li>
-		{{/each}}
-	</ul>
-{{/pop-over}}
+{{#each currentSocialNetworks as |currentSocialNetwork|}}
+	<a {{action 'share' currentSocialNetwork}} class="{{currentSocialNetwork}} icon" href="#"></a>
+{{/each}}
