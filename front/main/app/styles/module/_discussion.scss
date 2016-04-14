@@ -272,6 +272,22 @@ body.discussions {
 		.more-options-pop-over .pop-over-container {
 			padding: 0 18px;
 		}
+
+		.share-pop-over {
+			.pop-over-container {
+				padding: 24px 24px 38px;
+				text-align: center;
+			}
+
+			.share-feature {
+				text-align: center;
+			}
+
+			.icon {
+				height: 26px;
+				width: 26px;
+			}
+		}
 	}
 
 	.discussion-reply {
