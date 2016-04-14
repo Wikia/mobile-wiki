@@ -37,7 +37,7 @@ export default Ember.Component.extend(
 				floatingBtnSpace = 80,
 				floatingBtnScrollHideDelay = 1000;
 
-			if (window.innerHeight <= $wideButton.offset().top) {
+			if ($wideButton.length && window.innerHeight <= $wideButton.offset().top) {
 				$floatingButton.css('bottom', floatingBtnSpace).show();
 
 				Ember.run.later(() => {
