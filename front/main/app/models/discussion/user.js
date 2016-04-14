@@ -45,10 +45,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	setNormalizedData(apiData) {
 		const posts = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
 			pivotId = Ember.getWithDefault(posts, '0.id', 0),
-			contributors = DiscussionContributors.create({
-				count: 1,
-				userInfo: [posts[0].createdBy],
-			}),
+			contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 			entities = DiscussionEntities.createFromPostsData(posts);
 
 		this.get('data').setProperties({

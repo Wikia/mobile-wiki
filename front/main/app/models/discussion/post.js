@@ -118,12 +118,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			return DiscussionReply.create(replyData);
 		});
 
-		// contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]'));
-		// Work in Progress: szpachla until SOC-1586 is done
-		contributors = DiscussionContributors.create({
-			count: parseInt(apiData.postCount, 10),
-			userInfo: normalizedRepliesData.map((reply) => DiscussionContributor.create(reply.createdBy)),
-		});
+		contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0'));
 
 		normalizedData.setProperties({
 			canModerate: Ember.getWithDefault(normalizedRepliesData, '0.userData.permissions.canModerate', false),
