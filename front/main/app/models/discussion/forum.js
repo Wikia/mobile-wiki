@@ -70,7 +70,26 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		},
 
 		editPost(postData) {
-			console.log('edit');
+			this.setFailedState(null);
+			return ajaxCall({
+				data: JSON.stringify(postData),
+				method: 'POST',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`),
+				success: (thread) => {
+					console.log('success');
+
+					//const newPost = DiscussionPost.createFromThreadData(thread);
+					//
+					//newPost.set('isNew', true);
+					//this.get('data.entities').insertAt(0, newPost);
+					//this.incrementProperty('postCount');
+
+					track(trackActions.PostEdit);
+				},
+				error: (err) => {
+					this.onCreatePostError(err);
+				}
+			});
 		},
 
 		/**

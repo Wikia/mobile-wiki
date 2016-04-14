@@ -22,6 +22,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	bodyText: Ember.computed('discussionEditor.discussionEntity.rawContent', function() {
 		return this.get('discussionEditor.discussionEntity.rawContent') || '';
 	}),
+	isEdit: Ember.computed.notEmpty('discussionEditor.discussionEntity'),
 	layoutName: 'components/discussion-editor',
 
 	/**
@@ -251,17 +252,18 @@ export default Ember.Component.extend(ViewportMixin, {
 			if (!this.get('submitDisabled')) {
 				this.set('isLoading', true);
 
-				// TODO handle isEdit
-				//this.attrs.create({
-				//	body: this.get('bodyText'),
-				//	creatorId: this.get('currentUser.userId'),
-				//	siteId: Mercury.wiki.id
-				//});
-
-				this.attrs.edit({
-					body: this.get('bodyText'),
-					id: this.get('discussionEditor.discussionEntity.id')
-				});
+				if (this.get('isEdit')) {
+					this.attrs.edit({
+						body: this.get('bodyText'),
+						id: this.get('discussionEditor.discussionEntity.id')
+					});
+				} else {
+					this.attrs.create({
+						body: this.get('bodyText'),
+						creatorId: this.get('currentUser.userId'),
+						siteId: Mercury.wiki.id
+					});
+				}
 			}
 		},
 

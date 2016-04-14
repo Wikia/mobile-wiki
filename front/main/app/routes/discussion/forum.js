@@ -73,6 +73,21 @@ export default DiscussionBaseRoute.extend(
 					});
 				});
 			},
+
+
+
+			/**
+			 * Attempt to edit a new post
+			 *
+			 * @param {object} postData
+			 *
+			 * @returns {void}
+			 */
+			edit(postData) {
+				const model = this.modelFor('discussion.forum');
+
+				model.editPost(postData);
+			},
 		}
 	}
 );

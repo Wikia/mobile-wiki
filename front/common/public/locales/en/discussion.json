@@ -80,10 +80,14 @@
     "post-error-not-authorized": "You cannot post because your account has been blocked.",
     "post-error-general-error": "Oops, looks like something went wrong! Please try again later.",
     "post-editor-label": "Create a post",
+    "post-edit-editor-label": "Edit your post",
     "post-action-button-label": "Post",
+    "post-edit-action-button-label": "Save",
     "post-editor-placeholder-text": "Share a thought, question or link...",
     "reply-editor-placeholder-text": "Write a reply...",
     "reply-editor-label": "Add to the Discussion",
-    "reply-action-button-label": "Reply"
+    "reply-edit-editor-label": "Edit your reply",
+    "reply-action-button-label": "Reply",
+    "reply-edit-action-button-label": "Save"
   }
 }

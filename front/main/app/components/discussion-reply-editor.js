@@ -8,8 +8,20 @@ export default DiscussionEditorComponent.extend({
 	pinnedClassName: 'pinned-bottom',
 
 	placeholderText: 'editor.reply-editor-placeholder-text',
-	submitText: 'editor.reply-action-button-label',
-	labelText: 'editor.reply-editor-label',
+	submitText: Ember.computed('isEdit', function() {
+		if (this.get('isEdit')) {
+			return 'editor.reply-edit-action-button-label';
+		} else {
+			return 'editor.reply-action-button-label';
+		}
+	}),
+	labelText: Ember.computed('isEdit', function() {
+		if (this.get('isEdit')) {
+			return 'editor.reply-edit-editor-label';
+		} else {
+			return 'editor.reply-editor-label';
+		}
+	}),
 
 	/**
 	 * Initialize onScroll binding for sticky logic
