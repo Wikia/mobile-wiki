@@ -447,15 +447,36 @@ body.discussions {
 		}
 	}
 
-	.load-newer {
-		align-items: center;
+	.load-newer-container {
+		border-top: 1px solid $discussion-reply-border-color;
 		display: flex;
-		color: $discussion-load-newer-color;
-		font-size: $type-min;
-		line-height: $line-height-min;
+		justify-content: center;
+	}
+
+	.load-newer {
+		font-size: 10px;
 		margin: 0 auto;
-		padding: 10px 17px 9px;
-		text-transform: none;
+
+		&.floating {
+			display: flex;
+			align-items: center;
+			bottom: 50px;
+			color: $discussion-load-newer-color;
+			height: 30px;
+			justify-content: center;
+			line-height: 30px;
+			left: 50%;
+			position: fixed;
+			transform: translateX(-50%);
+		}
+
+		&.wide {
+			align-items: center;
+			background-color: transparent;
+			border-width: 0;
+			font-weight: bold;
+			padding-top: 1px;
+		}
 	}
 
 	.spinner {
