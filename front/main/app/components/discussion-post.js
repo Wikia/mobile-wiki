@@ -18,9 +18,15 @@ export default Ember.Component.extend(
 			return !this.get('model.isDeleted') && !this.get('model.isLocked');
 		}),
 
-		scrollToMarkedReply() {
-			const $markedElements = this.$('.scroll-to-mark');
+		// this observer is in use because didInsertElement is not fired when new portion of replies is loaded
+		newRepliesLoadedObserver: Ember.observer('model.replies.length', function () {
+			Ember.run.scheduleOnce('afterRender', this, () => {
+				this.scrollToMarkedReply();
+			})
+		}),
 
+		scrollToMarkedReply() {
+			const $markedElements = Ember.$('.scroll-to-mark');
 			if ($markedElements.length) {
 				window.scrollTo(0, $markedElements.offset().top - Ember.$('.site-body-discussion').offset().top);
 				$markedElements.removeClass('scroll-to-mark');
