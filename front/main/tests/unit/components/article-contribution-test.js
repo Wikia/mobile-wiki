@@ -15,13 +15,11 @@ function createComponent(testThis, editAllowed = true) {
 		uploadFeatureEnabled = true;
 
 	return testThis.subject({
-		attrs: {
-			section,
-			sectionId,
-			title,
-			uploadFeatureEnabled,
-			editAllowed
-		}
+		section,
+		sectionId,
+		title,
+		uploadFeatureEnabled,
+		editAllowed
 	});
 }
 
