@@ -1,5 +1,9 @@
 import Ember from 'ember';
 import {trackPerf} from 'common/utils/track-perf';
+// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+import {trackExperiment, trackActions} from 'common/utils/track';
+import {getGroup} from 'common/modules/abtest';
 
 /**
  * HTMLMouseEvent
@@ -165,4 +169,125 @@ export default Ember.Component.extend({
 			}
 		}
 	},
+
+	// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+	// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+	shouldFocusSearchInput: false,
+	navABTestExperimentName: 'FAN_KNOWLEDGE_MERCURY_GLOBAL_NAV',
+	navABTestDefaultGroup: 'DEFAULT',
+	navABTestControlGroup: 'CONTROL',
+	navABTestFabIconSearchGroup: 'FAB_ICON_SEARCH',
+	navABTestFabIconMenuGroup: 'FAB_ICON_MENU',
+	navABTestBarMenuIconGroup: 'BAR_MENU_ICON',
+	navABTestBarDropdownIconGroup: 'BAR_DROPDOWN_ICON',
+
+	navABTestCurrentGroup: Ember.computed('navABTestExperimentName', function () {
+		return getGroup(this.get('navABTestExperimentName'));
+	}),
+
+	navABTestIsFabSearchIcon: Ember.computed('navABTestCurrentGroup', 'navABTestFabIconSearchGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestFabIconSearchGroup');
+	}),
+
+	navABTestIsFabMenuIcon: Ember.computed('navABTestCurrentGroup', 'navABTestFabIconMenuGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestFabIconMenuGroup');
+	}),
+
+	navABTestIsBarMenuIcon: Ember.computed('navABTestCurrentGroup', 'navABTestBarMenuIconGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestBarMenuIconGroup');
+	}),
+
+	navABTestIsBarDropdownIcon: Ember.computed('navABTestCurrentGroup', 'navABTestBarDropdownIconGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestBarDropdownIconGroup');
+	}),
+
+	navABTestEnableShare: Ember.computed('navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', function () {
+		return !this.get('navABTestIsBarMenuIcon') && !this.get('navABTestIsBarDropdownIcon');
+	}),
+
+	displayFabIcon: Ember.computed.or('navABTestIsFabSearchIcon', 'navABTestIsFabMenuIcon'),
+
+	navABTestChangeUI: Ember.computed(
+		'navABTestCurrentGroup', 'navABTestDefaultGroup', 'navABTestControlGroup',
+		function () {
+			const currentGroup = this.get('navABTestCurrentGroup');
+
+			return currentGroup &&
+				currentGroup !== this.get('navABTestDefaultGroup') &&
+				currentGroup !== this.get('navABTestControlGroup');
+		}
+	),
+
+	navABTestIsControlGroup: Ember.computed('navABTestCurrentGroup', 'navABTestControlGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestControlGroup');
+	}),
+
+	fabIcon: Ember.computed('navABTestIsFabSearchIcon', function () {
+		return this.get('navABTestIsFabSearchIcon') ? 'search-for-ab-test' : 'menu';
+	}),
+
+	// used to set initial  content to search when opening side-nav
+	shouldOpenNavSearch: false,
+
+	actions: {
+		/**
+		 * @returns {void}
+		 */
+		fabIconClick() {
+			const actionHandler = this.get('navABTestIsFabSearchIcon') ? 'showSearch' : 'showNav';
+
+			this.trackAndTrigger('fab-icon', actionHandler);
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		leftSiteHeadIconClick() {
+			this.trackAndTrigger('site-head-icon', 'showNav');
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		rightSiteHeadIconClick() {
+			this.trackAndTrigger('site-head-icon', 'showSearch');
+		}
+	},
+
+	/**
+	 * @param {String} trackingLabel
+	 * @param  {String} actionHandler
+	 * @returns {void}
+	 */
+	trackAndTrigger(trackingLabel, actionHandler) {
+		trackExperiment(this.get('navABTestExperimentName'), {
+			action: trackActions.click,
+			category: 'entrypoint',
+			label: trackingLabel
+		});
+
+		this[actionHandler]();
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	showNav() {
+		this.setProperties({
+			shouldFocusSearchInput: false,
+			shouldOpenNavSearch: false
+		});
+		this.get('toggleSideNav')(true);
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	showSearch() {
+		this.setProperties({
+			shouldFocusSearchInput: true,
+			shouldOpenNavSearch: true
+		});
+		this.get('toggleSideNav')(true);
+	}
 });

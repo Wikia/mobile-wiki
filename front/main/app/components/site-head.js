@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import HeadroomMixin from '../mixins/headroom';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions, trackExperiment} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	TrackClickMixin,
@@ -21,6 +21,26 @@ export default Ember.Component.extend(
 			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
 		}),
 
+		// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+		// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+		headroomEnabled: Ember.computed('navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', function () {
+			return !this.get('navABTestIsBarMenuIcon') && !this.get('navABTestIsBarDropdownIcon');
+		}),
+
+		shouldDisplaySearchIcon: Ember.computed(
+			'navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', 'navABTestIsFabMenuIcon',
+			function () {
+				return this.get('navABTestIsFabMenuIcon') ||
+					this.get('navABTestIsBarMenuIcon') ||
+					this.get('navABTestIsBarDropdownIcon');
+			}),
+
+		shouldDisplayHamburgerIcon: Ember.computed('navABTestIsFabSearchIcon', 'navABTestIsBarMenuIcon', function () {
+			return this.get('navABTestIsFabSearchIcon') || this.get('navABTestIsBarMenuIcon');
+		}),
+
+		shouldDisplayDropdownIcon: Ember.computed.alias('navABTestIsBarDropdownIcon'),
+
 		actions: {
 			/**
 			 * @returns {void}
@@ -28,6 +48,14 @@ export default Ember.Component.extend(
 			expandSideNav() {
 				if (this.get('shouldDisplayNewBadge')) {
 					this.trackClick('recent-wiki-activity-blue-dot', 'open-navigation');
+				}
+
+				if (this.get('navABTestIsControlGroup')) {
+					trackExperiment(this.get('navABTestExperimentName'), {
+						action: trackActions.click,
+						category: 'entrypoint',
+						label: 'site-head-icon'
+					});
 				}
 
 				this.trackClick('side-nav', 'expanded');

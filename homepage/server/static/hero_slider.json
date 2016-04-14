@@ -5,8 +5,20 @@
       "title": "THE HOME OF FANDOM",
       "subtitle": "ファンの愛と知識を集めよう！",
       "button": false,
-      "image": "/images/heroslider/slider-fandom.jpg",
-      "imageMobile": "/images/heroslider/slider-fandom-small.jpg"
+      "image": "/images/heroslider/slider-wikialive.jpg",
+      "imageMobile": "/images/heroslider/slider-wikialive-small.jpg",
+      "textColorClass": "hero-text-white"
+    },
+    {
+      "title": "",
+      "subtitle": "世界最大級のマーベル・コミュニティが日本上陸！",
+      "button": true,
+      "buttonText": "詳しくはこちらから",
+      "buttonId": "marvel",
+      "buttonLink": "http://ja.wikia.com/superfan/marvel/",
+      "image": "/images/heroslider/slider-marvel.jpg",
+      "imageMobile": "/images/heroslider/slider-marvel-small.jpg",
+      "textColorClass": "hero-text-shadow"
     },
     {
       "title": "#MayTheFansBeWithYou",
@@ -16,17 +28,8 @@
       "buttonId": "starwars",
       "buttonLink": "http://www.wikia.com/starwars/?uselang=ja",
       "image": "/images/heroslider/slider-starwars.jpg",
-      "imageMobile": "/images/heroslider/slider-starwars-small.jpg"
-    },
-    {
-      "title": "Wikia Live",
-      "subtitle": "スーパーファン・クルーによるライブレポートをお届け",
-      "button": true,
-      "buttonText": "レポートはこちら",
-      "buttonId": "wikialive",
-      "buttonLink": "http://ja.live.wikia.com/wiki/Wikia_Live",
-      "image": "/images/heroslider/slider-wikialive.jpg",
-      "imageMobile": "/images/heroslider/slider-wikialive-small.jpg"
+      "imageMobile": "/images/heroslider/slider-starwars-small.jpg",
+      "textColorClass": "hero-text-white"
     }
   ]
 }

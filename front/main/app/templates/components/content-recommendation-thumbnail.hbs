@@ -1,0 +1,9 @@
+<div class="article-media-thumbnail-image-wrapper">
+	<img src="{{thumbnailUrl}}" height="200">
+	{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
+	{{loading-spinner
+		active=isLoading
+		overlay=false
+	}}
+</div>
+<figcaption>{{{caption}}}</figcaption>

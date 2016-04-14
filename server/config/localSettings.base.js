@@ -49,7 +49,6 @@ import deepExtend from 'deep-extend';
 /**
  * @typedef {Object} LocalSettings
  * @property {string} apiBase
- * @property {string[]} asyncArticle
  * @property {string} [authCookieDomain]
  * @property {number} backendRequestTimeout
  * @property {string} cdnBaseUrl
@@ -274,8 +273,6 @@ const localSettings = {
 	workerDisconnectTimeout: 3000,
 	// CDN prefix with no trailing slash
 	cdnBaseUrl: '//mercury.nocookie.net',
-	// array of wiki dbnames to load first article async instead of in page source
-	asyncArticle: [],
 	facebook: {
 		appId: 112328095453510
 	},
