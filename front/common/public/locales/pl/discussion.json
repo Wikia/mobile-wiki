@@ -14,7 +14,6 @@
   "main":{
     "discussions-header-title":"Dyskusje",
     "pagination-post-show-more":"Zobacz wcześniejsze odpowiedzi",
-    "pagination-post-show-newer":"Zobacz nowsze",
     "share-default-title":"Dyskusja na __siteName__",
     "contributors-title":"Wszyscy użytkownicy",
     "sort-by-header":"Sortuj według",
@@ -73,12 +72,11 @@
     "unlock-post":"Odblokuj post",
     "locked-and-reported-to-moderators-text":"Ten post jest zablokowany i został zgłoszony.",
     "upvote-link-label":"__count__ Głos",
-    "upvote-link-label_plural":"Głosów: __count__",
+    "upvote-link-label_plural":"__count__ Głosów",
     "replies-link-label":"__count__ Odpowiedź",
-    "replies-link-label_plural":"Odpowiedzi: __count__",
+    "replies-link-label_plural":"__count__ Odpowiedzi",
     "share-header":"Udostępnij post",
-    "share-label":"Udostępnij",
-    "reported-not-found-error":"Brak zgłoszonych postów lub odpowiedzi."
+    "share-label":"Udostępnij"
   },
   "editor":{
     "post-failed-error":"Publikacja nie powiodła się.",

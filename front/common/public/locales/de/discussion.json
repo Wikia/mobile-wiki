@@ -14,7 +14,6 @@
   "main":{
     "discussions-header-title":"Diskussionen",
     "pagination-post-show-more":"Ältere Antworten anzeigen",
-    "pagination-post-show-newer":"Neuere anzeigen",
     "share-default-title":"Diskussion in __siteName__",
     "contributors-title":"Alle Beitragenden",
     "sort-by-header":"Sortieren nach",
@@ -77,8 +76,7 @@
     "replies-link-label":"__count__ Antwort",
     "replies-link-label_plural":"__count__ Antworten",
     "share-header":"Beitrag teilen",
-    "share-label":"Teilen",
-    "reported-not-found-error":"Es gibt keine gemeldeten Beiträge oder Antworten."
+    "share-label":"Teilen"
   },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",
