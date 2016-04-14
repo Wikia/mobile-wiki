@@ -86,7 +86,11 @@ export default DiscussionBaseRoute.extend(
 			edit(postData) {
 				const model = this.modelFor('discussion.forum');
 
-				model.editPost(postData);
+				model.editPost(postData).then((xhr) => {
+					if (xhr.apiResponseData && !model.get('errorMessage')) {
+						this.get('discussionEditor').trigger('newPost');
+					}
+				});
 			},
 		}
 	}

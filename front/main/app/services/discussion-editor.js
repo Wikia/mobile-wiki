@@ -60,6 +60,7 @@ export default Ember.Service.extend(Ember.Evented, {
 		if (active === true) {
 			this.activateEditor();
 		} else {
+			this.set('discussionEntity', null);
 			this.set('isEditorOpen', false);
 		}
 	},

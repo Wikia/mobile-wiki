@@ -76,13 +76,13 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				method: 'POST',
 				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`),
 				success: (thread) => {
-					console.log('success');
+					const editedPost = DiscussionPost.createFromThreadData(thread),
+						posts = this.get('data.entities'),
+						postIndex = posts.indexOf(posts.findBy('threadId', postData.get('id')));
 
-					//const newPost = DiscussionPost.createFromThreadData(thread);
-					//
-					//newPost.set('isNew', true);
-					//this.get('data.entities').insertAt(0, newPost);
-					//this.incrementProperty('postCount');
+					editedPost.set('isNew', true);
+
+					posts.replace(postIndex, 1, editedPost);
 
 					track(trackActions.PostEdit);
 				},
