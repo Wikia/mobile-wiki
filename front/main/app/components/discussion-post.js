@@ -29,20 +29,22 @@ export default Ember.Component.extend(
 		 * It appears when:
 		 * 1. there is no wide 'newer replies' bottom button visible
 		 * 2. after 1 sec visibility, when user starts to scroll the document it disappears
-		 * @return {void}
+		 * @returns {void}
 		 */
 		initializeNewerButtons() {
 			const $floatingButton = Ember.$('.load-newer.floating'),
-				$wideButton = Ember.$('.load-newer.wide');
+				$wideButton = Ember.$('.load-newer.wide'),
+				floatingBtnSpace = 80,
+				floatingBtnScrollHideDelay = 1000;
 
 			if (window.innerHeight <= $wideButton.offset().top) {
-				$floatingButton.css('bottom', 80).show();
+				$floatingButton.css('bottom', buttonBottomSpace).show();
 
 				Ember.run.later(() => {
 					Ember.$(window).one('scroll', () => {
 						$floatingButton.hide();
 					});
-				}, 1000);
+				}, floatingBtnScrollHideDelay);
 			}
 		},
 	}
