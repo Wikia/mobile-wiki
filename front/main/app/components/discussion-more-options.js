@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import nearestParent from 'ember-pop-over/computed/nearest-parent';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	classNames: ['more-options'],
@@ -27,6 +28,13 @@ export default Ember.Component.extend({
 	}),
 
 	canUnlock: Ember.computed.and('isLockable', 'post.isLocked', 'post.userData.permissions.canDelete'),
+
+	/**
+	 * @returns {void}
+	 */
+	didInsertElement() {
+		track(trackActions.MorePostActions);
+	},
 
 	actions: {
 		/**
