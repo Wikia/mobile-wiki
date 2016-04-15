@@ -1,14 +1,11 @@
 import DiscussionModerationControllerMixin from '../../mixins/discussion-moderation-controller';
 import DiscussionUpvoteControllerMixin from '../../mixins/discussion-upvote-controller';
+import DiscussionBaseController from './base';
 
-export default Ember.Controller.extend(
+export default DiscussionBaseController.extend(
 	DiscussionModerationControllerMixin,
 	DiscussionUpvoteControllerMixin,
 	{
-		application: Ember.inject.controller(),
-
-		smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
-
 		actions: {
 			/**
 			 * Bubbles up to DiscussionForumRoute
