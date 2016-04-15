@@ -1,13 +1,13 @@
 import DiscussionBaseRoute from './base';
 import DiscussionPostModel from '../../models/discussion/post';
-import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
+import DiscussionContributionRouteMixin from '../../mixins/discussion-contribution-route';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 
 export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
-	DiscussionRouteUpvoteMixin,
+	DiscussionContributionRouteMixin,
 	DiscussionModerationRouteMixin,
 	DiscussionModalDialogMixin,
 	{
@@ -60,15 +60,6 @@ export default DiscussionBaseRoute.extend(
 		},
 
 		actions: {
-			/**
-			 * Triggers new reply creation on a model
-			 * @param {object} replyData
-			 * @returns {void}
-			 */
-			create(replyData) {
-				this.modelFor('discussion.post').createReply(replyData);
-			},
-
 			/**
 			 * Load more replies
 			 * @returns {void}

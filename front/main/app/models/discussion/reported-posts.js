@@ -1,6 +1,7 @@
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
+import DiscussionContributionModelMixin from '../../mixins/discussion-contribution-model';
 import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributor from './domain/contributor';
 import DiscussionContributors from './domain/contributors';
@@ -9,6 +10,7 @@ import DiscussionEntities from './domain/entities';
 const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
+	DiscussionContributionModelMixin,
 	{
 		/**
 		 * @param {number} [pageNum=0]
@@ -72,7 +74,6 @@ DiscussionReportedPostsModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} forumId
-	 * @param {string} [sortBy='trending']
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */

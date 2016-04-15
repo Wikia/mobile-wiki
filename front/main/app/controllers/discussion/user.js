@@ -1,9 +1,9 @@
 import DiscussionModerationControllerMixin from '../../mixins/discussion-moderation-controller';
-import DiscussionUpvoteControllerMixin from '../../mixins/discussion-upvote-controller';
+import DiscussionContributionControllerMixin from '../../mixins/discussion-contribution-controller';
 
 export default Ember.Controller.extend(
 	DiscussionModerationControllerMixin,
-	DiscussionUpvoteControllerMixin,
+	DiscussionContributionControllerMixin,
 	{
 		application: Ember.inject.controller(),
 

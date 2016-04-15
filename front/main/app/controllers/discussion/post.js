@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import DiscussionModerationControllerMixin from '../../mixins/discussion-moderation-controller';
-import DiscussionUpvoteControllerMixin from '../../mixins/discussion-upvote-controller';
+import DiscussionContributionControllerMixin from '../../mixins/discussion-contribution-controller';
 
 export default Ember.Controller.extend(
 	DiscussionModerationControllerMixin,
-	DiscussionUpvoteControllerMixin,
+	DiscussionContributionControllerMixin,
 	{
 		postListSort: '',
 
@@ -16,16 +16,6 @@ export default Ember.Controller.extend(
 			 */
 			retry() {
 				this.get('target').send('retry');
-			},
-
-			/**
-			 * Bubbles up to DiscussionPostRoute
-			 *
-			 * @param {object} replyData
-			 * @returns {void}
-			 */
-			create(replyData) {
-				this.get('target').send('create', replyData);
 			},
 
 			/**

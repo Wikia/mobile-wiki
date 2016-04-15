@@ -1,5 +1,5 @@
 import DiscussionBaseRoute from './base';
-import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
+import DiscussionContributionRouteMixin from '../../mixins/discussion-contribution-route';
 import DiscussionReportedPostsModel from '../../models/discussion/reported-posts';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
@@ -8,7 +8,7 @@ import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 
 export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
-	DiscussionRouteUpvoteMixin,
+	DiscussionContributionRouteMixin,
 	DiscussionModerationRouteMixin,
 	DiscussionForumActionsRouteMixin,
 	DiscussionModalDialogMixin,

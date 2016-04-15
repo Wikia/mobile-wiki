@@ -95,6 +95,7 @@
 						{{#if canReply}}
 							{{discussion-reply-editor
 								create=(action this.attrs.create)
+								edit=(action this.attrs.edit)
 								replies=model.replies
 							}}
 						{{/if}}

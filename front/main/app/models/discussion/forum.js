@@ -2,6 +2,7 @@ import Ember from 'ember';
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
+import DiscussionContributionModelMixin from '../../mixins/discussion-contribution-model';
 import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributors from './domain/contributors';
 import DiscussionEntities from './domain/entities';
@@ -11,6 +12,7 @@ import {track, trackActions} from '../../utils/discussion-tracker';
 const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
+	DiscussionContributionModelMixin,
 	{
 		pivotId: null,
 
@@ -39,55 +41,6 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				},
 				error: (err) => {
 					this.handleLoadMoreError(err);
-				}
-			});
-		},
-
-		/**
-		 * Create new post in Discussion Service
-		 * @param {object} postData
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		createPost(postData) {
-			this.setFailedState(null);
-			return ajaxCall({
-				data: JSON.stringify(postData),
-				method: 'POST',
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
-				success: (thread) => {
-					const newPost = DiscussionPost.createFromThreadData(thread);
-
-					newPost.set('isNew', true);
-					this.get('data.entities').insertAt(0, newPost);
-					this.incrementProperty('postCount');
-
-					track(trackActions.PostCreate);
-				},
-				error: (err) => {
-					this.onCreatePostError(err);
-				}
-			});
-		},
-
-		editPost(postData) {
-			this.setFailedState(null);
-			return ajaxCall({
-				data: JSON.stringify(postData),
-				method: 'POST',
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`),
-				success: (thread) => {
-					const editedPost = DiscussionPost.createFromThreadData(thread),
-						posts = this.get('data.entities'),
-						postIndex = posts.indexOf(posts.findBy('threadId', postData.get('id')));
-
-					editedPost.set('isNew', true);
-
-					posts.replace(postIndex, 1, editedPost);
-
-					track(trackActions.PostEdit);
-				},
-				error: (err) => {
-					this.onCreatePostError(err);
 				}
 			});
 		},

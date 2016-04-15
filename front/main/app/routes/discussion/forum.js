@@ -1,5 +1,5 @@
 import DiscussionBaseRoute from './base';
-import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
+import DiscussionContributionRouteMixin from '../../mixins/discussion-contribution-route';
 import DiscussionForumModel from '../../models/discussion/forum';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
@@ -8,7 +8,7 @@ import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 
 export default DiscussionBaseRoute.extend(
 	DiscussionLayoutMixin,
-	DiscussionRouteUpvoteMixin,
+	DiscussionContributionRouteMixin,
 	DiscussionModerationRouteMixin,
 	DiscussionForumActionsRouteMixin,
 	DiscussionModalDialogMixin,
@@ -53,44 +53,6 @@ export default DiscussionBaseRoute.extend(
 			 */
 			loadPage(pageNum) {
 				this.modelFor('discussion.forum').loadPage(pageNum, this.get('discussionSort.sortBy'));
-			},
-
-			/**
-			 * Applies sorting by date and attempts to create a new post
-			 *
-			 * @param {object} postData
-			 *
-			 * @returns {void}
-			 */
-			create(postData) {
-				this.setSortBy('latest').promise.then(() => {
-					const model = this.modelFor('discussion.forum');
-
-					model.createPost(postData).then((xhr) => {
-						if (xhr.apiResponseData && !model.get('errorMessage')) {
-							this.get('discussionEditor').trigger('newPost');
-						}
-					});
-				});
-			},
-
-
-
-			/**
-			 * Attempt to edit a new post
-			 *
-			 * @param {object} postData
-			 *
-			 * @returns {void}
-			 */
-			edit(postData) {
-				const model = this.modelFor('discussion.forum');
-
-				model.editPost(postData).then((xhr) => {
-					if (xhr.apiResponseData && !model.get('errorMessage')) {
-						this.get('discussionEditor').trigger('newPost');
-					}
-				});
 			},
 		}
 	}

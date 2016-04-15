@@ -71,43 +71,4 @@ export default Ember.Object.extend({
 	setFailedState(errorMessage) {
 		this.set('data.dialogMessage', errorMessage);
 	},
-
-	/**
-	 * @param {*} entity
-	 * @returns {void}
-	 */
-	upvote(entity) {
-		const entityId = entity.get('id'),
-			hasUpvoted = entity.get('userData.hasUpvoted'),
-			method = hasUpvoted ? 'delete' : 'post';
-
-		if (this.upvotingInProgress[entityId] || typeof entity.get('userData') === 'undefined') {
-			return null;
-		}
-
-		this.upvotingInProgress[entityId] = true;
-
-		// the change in the front-end is done here
-		entity.set('userData.hasUpvoted', !hasUpvoted);
-
-		ajaxCall({
-			method,
-			url: M.getDiscussionServiceUrl(`/${Ember.get(Mercury, 'wiki.id')}/votes/post/${entity.get('id')}`),
-			success: (data) => {
-				entity.set('upvoteCount', data.upvoteCount);
-
-				if (hasUpvoted) {
-					track(trackActions.UndoUpvotePost);
-				} else {
-					track(trackActions.UpvotePost);
-				}
-			},
-			error: () => {
-				entity.set('userData.hasUpvoted', hasUpvoted);
-			},
-			complete: () => {
-				this.upvotingInProgress[entityId] = false;
-			}
-		});
-	}
 });

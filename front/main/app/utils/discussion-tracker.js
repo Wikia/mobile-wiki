@@ -4,6 +4,7 @@ const trackActions = {
 	PostCreate: 'PostCreate',
 	PostEdit: 'PostEdit',
 	ReplyCreate: 'ReplyCreate',
+	ReplyEdit: 'ReplyEdit',
 	UndoUpvotePost: 'UndoUpvotePost',
 	UpvotePost: 'UpvotePost',
 };

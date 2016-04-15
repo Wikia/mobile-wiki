@@ -11,19 +11,6 @@ export default Ember.Mixin.create(
 			},
 
 			/**
-			 * @param {object} postData
-			 *
-			 * @returns {void}
-			 */
-			create(postData) {
-				this.get('target').send('create', postData);
-			},
-
-			edit(postData) {
-				this.get('target').send('edit', postData);
-			},
-
-			/**
 			 * @param {number} pageNum
 			 *
 			 * @returns {void}
