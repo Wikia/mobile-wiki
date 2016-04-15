@@ -12,9 +12,9 @@ export default DiscussionEditorComponent.extend({
 	submitText: 'editor.reply-action-button-label',
 	labelText: 'editor.reply-editor-label',
 
-	closeAction: trackActions.ReplyClose,
-	contentAction: trackActions.ReplyContent,
-	startAction: trackActions.ReplyStart,
+	closeTrackingAction: trackActions.ReplyClose,
+	contentTrackingAction: trackActions.ReplyContent,
+	startTrackingAction: trackActions.ReplyStart,
 
 	/**
 	 * Initialize onScroll binding for sticky logic

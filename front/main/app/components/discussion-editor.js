@@ -23,9 +23,9 @@ export default Ember.Component.extend(ViewportMixin, {
 	bodyText: '',
 	layoutName: 'components/discussion-editor',
 
-	closeAction: trackActions.PostClose,
-	contentAction: trackActions.PostContent,
-	startAction: trackActions.PostStart,
+	closeTrackingAction: trackActions.PostClose,
+	contentTrackingAction: trackActions.PostContent,
+	startTrackingAction: trackActions.PostStart,
 	wasContentTracked: false,
 	wasStartTracked: false,
 
@@ -38,7 +38,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	onTextContent: Ember.observer('bodyText', function () {
 		if (this.get('bodyText').length > 0 && !this.get('wasContentTracked')) {
-			track(this.get('contentAction'));
+			track(this.get('contentTrackingAction'));
 			this.set('wasContentTracked', true);
 		}
 	}),
@@ -282,7 +282,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		 */
 		toggleEditorActive(active) {
 			if (active && !this.get('wasStartTracked')) {
-				track(this.get('startAction'));
+				track(this.get('startTrackingAction'));
 				this.set('wasStartTracked', true);
 			}
 
@@ -317,7 +317,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		close() {
 			this.send('toggleEditorActive', false);
 
-			track(this.get('closeAction'));
+			track(this.get('closeTrackingAction'));
 		}
 	}
 });
