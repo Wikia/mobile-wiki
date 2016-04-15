@@ -28,16 +28,21 @@
 		themeBar=themeBar
 		navABTestChangeUI=navABTestChangeUI
 		navABTestIsFabSearchIcon=navABTestIsFabSearchIcon
-		siteHeadIconClick=(action 'siteHeadIconClick')
+		navABTestIsFabMenuIcon=navABTestIsFabMenuIcon
 		navABTestIsControlGroup=navABTestIsControlGroup
 		navABTestExperimentName=navABTestExperimentName
+		navABTestIsBarMenuIcon=navABTestIsBarMenuIcon
+		navABTestIsBarDropdownIcon=navABTestIsBarDropdownIcon
+		navABTestIsButtonBarMenu=navABTestIsButtonBarMenu
+		leftSiteHeadIconClick=(action 'leftSiteHeadIconClick')
+		rightSiteHeadIconClick=(action 'rightSiteHeadIconClick')
 	}}
 
 	{{!--
 		temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
 		cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 	--}}
-	{{#if navABTestChangeUI}}
+	{{#if displayFabIcon}}
 		{{wikia-ui-components/icon-button
 			class='fab-button-navigation'
 			click=(action 'fabIconClick')
@@ -46,12 +51,18 @@
 		}}
 	{{/if}}
 
-	{{#if enableShareHeader}}
-		{{share-header
-			smartBannerVisible=smartBannerVisible
-			title=currentTitle
-			language=language
-		}}
+	{{!--
+		temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+		cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+	--}}
+	{{#if navABTestEnableShare}}
+		{{#if enableShareHeader}}
+			{{share-header
+				smartBannerVisible=smartBannerVisible
+				title=currentTitle
+				language=language
+			}}
+		{{/if}}
 	{{/if}}
 
 	{{!--
@@ -93,3 +104,16 @@
 {{wikia-in-your-lang}}
 {{alert-notifications alerts=alertNotifications}}
 {{loading-spinner active=isLoading}}
+
+{{!--
+	temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+	cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+--}}
+{{#if displayButtonBar}}
+	{{bottom-bar
+		homePageTitle=homePageTitle
+		onButtonClick=(action 'bottomBarIconClick')
+		onLinkClick=(action 'bottomBarLinkClick')
+		navABTestIsButtonBar=navABTestIsButtonBar
+	}}
+{{/if}}

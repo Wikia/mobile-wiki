@@ -41,16 +41,16 @@ fi
 # Push MERCURY
 if [ ! -z "$MERCURY" ]
 then
-	ssh $USERNAME"deploy-s3" dt -y lock -t mercury:$ENVIRONMENT --release
-	ssh $USERNAME"deploy-s3" dt -y prep -e $ENVIRONMENT -a mercury $MERCURY $FORCE
-	ssh $USERNAME"deploy-s3" dt -y push -e $ENVIRONMENT -a mercury
+	ssh $USERNAME"deploy-s1" dt -y lock -t mercury:$ENVIRONMENT --release
+	ssh $USERNAME"deploy-s1" dt -y prep -e $ENVIRONMENT -a mercury $MERCURY $FORCE
+	ssh $USERNAME"deploy-s1" dt -y push -e $ENVIRONMENT -a mercury
 fi
 
 # Push APP and/or CONFIG
 if [ ! -z "$APP" -o ! -z "$CONFIG" ]
 then
-	ssh $USERNAME"deploy-s3" dt -y lock -t wikia:$ENVIRONMENT --release
-	ssh $USERNAME"deploy-s3" dt -y prep -e $ENVIRONMENT -a wikia $APP $CONFIG $FORCE
-	ssh $USERNAME"deploy-s3" dt -y push -e $ENVIRONMENT -a wikia
+	ssh $USERNAME"deploy-s1" dt -y lock -t wikia:$ENVIRONMENT --release
+	ssh $USERNAME"deploy-s1" dt -y prep -e $ENVIRONMENT -a wikia $APP $CONFIG $FORCE
+	ssh $USERNAME"deploy-s1" dt -y push -e $ENVIRONMENT -a wikia
 fi
 

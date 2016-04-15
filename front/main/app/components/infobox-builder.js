@@ -12,6 +12,7 @@ export default Ember.Component.extend(
 		tooltipPosX: null,
 		tooltipPosY: null,
 		tooltipDistanceFromCursor: 20,
+		isGoToSourceEnabled: Ember.computed.not('isVEContext'),
 		isPreviewItemHovered: false,
 		isPreviewItemDragged: false,
 		isGroupTooltipVisible: false,
@@ -374,7 +375,8 @@ export default Ember.Component.extend(
 		/**
 		 * Process save attempt response.
 		 * If save was successful - show success and redirect to
-		 * template page if needed.
+		 * template page if needed or back to VE if infobox builder
+		 * was launched in VE context.
 		 * If there was moving / saving conflict - display modal with
 		 * information that title exists.
 		 *
@@ -392,7 +394,10 @@ export default Ember.Component.extend(
 					label: 'save-successful'
 				});
 
-				if (shouldRedirectToPage) {
+				if (this.get('isVEContext')) {
+					this.get('returnToVE')(this.get('title'));
+					this.set('showSuccess', false);
+				} else if (shouldRedirectToPage) {
 					this.get('redirectToPageAction')(data.urls.templatePageUrl);
 				}
 			} else if (data.conflict) {

@@ -1,0 +1,28 @@
+{{#article-media-thumbnail
+	url=currentImage.url
+	ref=currentImage.ref
+	galleryRef=currentImageIndex
+	itemContext='portable-infobox-image-collection'
+	type=currentImage.type
+	cropMode=cropMode
+	forcedHeight=computedHeight
+	forcedWidth=computedWidth
+}}
+	{{#if currentImage.caption}}
+		<hgroup class="pi-hero-title-wrapper pi-item-spacing">
+			<h3 class="pi-hero-caption">{{currentImage.caption}}</h3>
+		</hgroup>
+	{{/if}}
+{{/article-media-thumbnail}}
+<div class="image-collection-actions">
+	{{#if hasPreviousImage}}
+		<button class="action-previous" {{action 'switchImage' -1}}>
+			{{svg 'chevron-linked' viewBox='0 0 12 7'}}
+		</button>
+	{{/if}}
+	{{#if hasNextImage}}
+		<button class="action-next" {{action 'switchImage' 1}}>
+			{{svg 'chevron-linked' viewBox='0 0 12 7'}}
+		</button>
+	{{/if}}
+</div>

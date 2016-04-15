@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import InfoboxImageCollectionComponent from './infobox-image-collection';
 import AdsMixin from '../mixins/ads';
-import PollDaddyMixin from '../mixins/poll-daddy';
 import TrackClickMixin from '../mixins/track-click';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {getExperimentVariationNumber} from 'common/utils/variant-testing';
@@ -15,7 +14,6 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	AdsMixin,
-	PollDaddyMixin,
 	TrackClickMixin,
 	{
 		tagName: 'article',
@@ -73,7 +71,6 @@ export default Ember.Component.extend(
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
-					this.handlePollDaddy();
 					this.handleJumpLink();
 
 					if (this.get('highlightedEditorDemoEnabled')) {
@@ -218,13 +215,25 @@ export default Ember.Component.extend(
 			const media = this.get('media.media');
 
 			if (attrs.ref >= 0 && media && media[attrs.ref]) {
-				if (name === 'article-media-thumbnail') {
+				if (name === 'article-media-thumbnail' || name === 'portable-infobox-hero-image') {
 					attrs = Ember.$.extend(attrs, media[attrs.ref]);
 
 					/**
 					 * Ember has its own context attribute, that is why we have to use different attribute name
 					 */
 					if (attrs.context) {
+						/**
+						 * We don't want to show titles below videos in infoboxes.
+						 * This check is just a hack.
+						 * Perfectly this should be handled somewhere inside infobox-related logic.
+						 * For now this solution is enough
+						 * - it works the same way as on wikis without SEO friendly images.
+						 * It works on wikis without SEO friendly images because there was a bug
+						 * - video was treated as an image and we don't show titles below images.
+						 */
+						if (attrs.context === 'infobox' && attrs.type === 'video') {
+							attrs.showTitle = false;
+						}
 						attrs.mediaContext = attrs.context;
 						delete attrs.context;
 					}
@@ -236,6 +245,20 @@ export default Ember.Component.extend(
 			} else if (name === 'article-media-map-thumbnail') {
 				attrs = Ember.$.extend(attrs, {
 					openLightbox: this.get('openLightbox')
+				});
+			} else if (name === 'portable-infobox-image-collection' && attrs.refs && media) {
+				const getMediaItemsForCollection = (ref) => Ember.$.extend({
+						// We will push new item to media so use its length as index of new gallery element
+						ref: media.length
+					}, media[ref]),
+					collectionItems = attrs.refs.map(getMediaItemsForCollection);
+
+				// Add new gallery to media object
+				// @todo - XW-1362 - it's an ugly hack, we should return proper data from API
+				media.push(collectionItems);
+
+				attrs = Ember.$.extend(attrs, {
+					items: collectionItems
 				});
 			}
 
@@ -380,7 +403,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		replaceImageCollectionPlaceholdersWithComponents(model) {
-			const $placeholders = this.$('.pi-image-collection'),
+			const $placeholders = this.$('.pi-image-collection:not([data-component])'),
 				articleMedia = model.get('media'),
 				numberToProcess = $placeholders.length,
 				getCollectionMediaFromRefs = (ref) => {
