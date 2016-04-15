@@ -24,14 +24,14 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				.map((reply) => {
 					reply.threadCreatedBy = this.get('data.createdBy');
 					return DiscussionReply.create(reply);
-				});
+				}).reverse();
 		let url;
 
 		if (Ember.get(data, 'isNextPageCall')) {
 			newReplies.get('firstObject').set('scrollToMark', true);
 			this.get('data.replies').pushObjects(newReplies);
 
-			url = Ember.getWithDefault(data, '_links.next.0.href', null);
+			url = Ember.getWithDefault(data, '_links.previous.0.href', null);
 			this.setProperties({
 				'links.next': url,
 				'data.isNextPage': !Ember.isEmpty(url),
@@ -39,7 +39,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		} else {
 			this.get('data.replies').unshiftObjects(newReplies);
 
-			url = Ember.getWithDefault(data, '_links.previous.0.href', null);
+			url = Ember.getWithDefault(data, '_links.next.0.href', null);
 			this.setProperties({
 				'links.previous': url,
 				'data.isPreviousPage': !Ember.isEmpty(url),
@@ -124,9 +124,15 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				return DiscussionReply.create(replyData);
 			});
 
+		if (normalizedRepliesData.length) {
+			// We need oldest replies displayed first
+			normalizedRepliesData.reverse();
+		}
+
 		this.setProperties({
-			'links.previous': Ember.getWithDefault(apiData, '_links.previous.0.href', null),
-			'links.next': Ember.getWithDefault(apiData, '_links.next.0.href', null)
+			// this is not a mistake - we have descending order
+			'links.previous': Ember.getWithDefault(apiData, '_links.next.0.href', null),
+			'links.next': Ember.getWithDefault(apiData, '_links.previous.0.href', null)
 		});
 
 		normalizedData.setProperties({
@@ -164,7 +170,7 @@ DiscussionPostModel.reopenClass({
 			data: {
 				limit: postInstance.get('repliesLimit'),
 				responseGroup: 'full',
-				sortDirection: 'ascending',
+				sortDirection: 'descending',
 				sortKey: 'creation_date',
 				viewableOnly: false
 			},
