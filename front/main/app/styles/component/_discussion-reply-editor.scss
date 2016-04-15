@@ -19,6 +19,7 @@ $reply-editor-margin-left: -20px;
 					//To hide bottom border and compensate margin when editor is sticky
 					bottom: -4px;
 					margin-bottom: 0;
+					position: fixed;
 					top: auto;
 				}
 			}
@@ -46,7 +47,6 @@ $reply-editor-margin-left: -20px;
 					border-width: 4px 0 0;
 					bottom: 0;
 					margin: 0;
-					position: fixed;
 					width: 100%;
 				}
 			}

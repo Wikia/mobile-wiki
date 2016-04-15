@@ -2,8 +2,6 @@ import Ember from 'ember';
 import DiscussionEditorComponent from './discussion-editor';
 
 export default DiscussionEditorComponent.extend({
-	editorBottomSpacing: null,
-
 	classNames: ['reply-editor'],
 	pinnedClassName: 'pinned-bottom',
 
@@ -16,9 +14,7 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	initializeStickyState() {
-		const isSticky = window.innerHeight < this.$().offset().top + this.$().height();
-
-		this.set('isSticky', isSticky);
+		this.set('isSticky', window.innerHeight + window.scrollY < this.$().offset().top + this.$().height());
 
 		Ember.$(window).on('scroll.editor', () => {
 			this.onScroll();
@@ -30,16 +26,10 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {boolean}
 	 */
 	isStickyBreakpointHeight() {
-		let editorContainer;
+		const $editorLabel = this.$('.editor-label');
 
-		if (!this.get('editorBottomSpacing')) {
-			editorContainer = Ember.$('.editor-container');
-			this.set('editorBottomSpacing', parseInt(editorContainer.css('borderBottomWidth'), 10) +
-				parseInt(editorContainer.css('margin-bottom'), 10));
-		}
-
-		return Ember.$('.reply-editor')
-				.get(0).getBoundingClientRect().bottom - window.innerHeight >= this.get('editorBottomSpacing');
+		return window.innerHeight + window.scrollY - this.$('.editor-container').outerHeight() <
+			$editorLabel.offset().top + $editorLabel.outerHeight();
 	},
 
 	/**
