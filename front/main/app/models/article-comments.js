@@ -39,6 +39,14 @@ export default Ember.Object.extend({
 	 * @returns {string}
 	 */
 	url(articleId, page = 0) {
-		return `${M.prop('apiBase')}/article/comments/${articleId}/${page}`;
+		return M.buildUrl({
+			path: '/wikia.php',
+			query: {
+				controller: 'MercuryApi',
+				method: 'getArticleComments',
+				id: articleId,
+				page
+			}
+		});
 	}
 });
