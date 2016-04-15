@@ -3,7 +3,11 @@
 	hasContentError=true
 	model=model.data
 }}
-	{{discussion-error
-		error=model.error
-	}}
+	{{#if model.error.isNotFound}}
+		{{discussion-reported-not-found-error}}
+	{{else}}
+		{{discussion-connection-error
+			error=model.error
+		}}
+	{{/if}}
 {{/discussion-entities-list-layout}}
