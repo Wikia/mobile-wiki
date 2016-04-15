@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
+import {track as discussionTrack, getTrackActionForShareNetwork} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(
 	TrackClickMixin,
@@ -205,6 +206,10 @@ export default Ember.Component.extend(
 				let link;
 
 				this.trackClick('share', network);
+
+				if (this.get('enableDiscussionsTracker')) {
+					discussionTrack(getTrackActionForShareNetwork(network));
+				}
 
 				if (typeof urlGetter !== 'function') {
 					Ember.Logger.warn(`Shared Url getter for ${network} does not exist`);

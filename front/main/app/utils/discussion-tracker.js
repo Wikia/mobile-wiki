@@ -56,4 +56,13 @@ export function track(action) {
 	);
 }
 
+/**
+ * @param {string} network
+ *
+ * @returns {string}
+ */
+export function getTrackActionForShareNetwork(network) {
+	return `${network}-ShareButtonTapped`;
+}
+
 export {trackActions};
