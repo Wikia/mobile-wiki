@@ -1,10 +1,13 @@
 import Ember from 'ember';
-import {track, trackActions} from 'common/utils/track';
 import InfoboxBuilderModel from '../models/infobox-builder';
 import ConfirmationMixin from 'ember-onbeforeunload/mixins/confirmation';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Route.extend(ConfirmationMixin, {
-	pontoLoadingInitialized: false,
+	isIframeContext: Ember.computed(() => {
+		return window.self !== window.top;
+	}),
+	isEnvironmentSet: false,
 	pontoPath: '/front/main/assets/vendor/ponto/ponto.js',
 
 	/**
@@ -17,20 +20,19 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		const templateName = transition.params['infobox-builder'].templateName;
 
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			if (window.self !== window.top && (!window.Ponto || !this.get('pontoLoadingInitialized'))) {
-				const promises = {
-					dataAndAssets: this.loadInfoboxDataAndAssets(templateName),
-					ponto: this.loadPonto()
-				};
-
-				Ember.RSVP.hash(promises)
-					.then((responses) => {
-						this.setupStyles(responses.dataAndAssets);
-						this.setupInfoboxData(responses.dataAndAssets);
-					})
-					.then(this.isWikiaContext)
-					.then(resolve)
-					.catch(reject);
+			if (this.get('isIframeContext')) {
+				if (!this.get('isEnvironmentSet')) {
+					this.setupEnvironmentAndInfoboxData(templateName)
+						.then(() => {
+							this.set('isEnvironmentSet', true);
+							resolve();
+						})
+						.catch(reject);
+				} else {
+					this.loadAndSetupInfoboxData(templateName)
+						.then(resolve)
+						.catch(reject);
+				}
 			} else {
 				reject('Infobox builder has to be loaded in an iframe');
 			}
@@ -124,6 +126,27 @@ export default Ember.Route.extend(ConfirmationMixin, {
 			});
 		},
 
+		returnToVE(title = null) {
+			return new Ember.RSVP.Promise((resolve, reject) => {
+				const ponto = window.Ponto;
+
+				ponto.invoke(
+					'wikia.infoboxBuilder.ponto',
+					'returnToVE',
+					title,
+					(data) => {
+						resolve(data);
+						this.refresh();
+					},
+					(data) => {
+						reject(data);
+						this.showPontoError(data);
+					},
+					false
+				);
+			});
+		},
+
 		/**
 		 * redirects to source editor
 		 * @param {String} title
@@ -138,6 +161,44 @@ export default Ember.Route.extend(ConfirmationMixin, {
 					Ember.Logger.error('Error while getting redirect Urls: ', error);
 				});
 		}
+	},
+
+	/**
+	 * Setup infobox builder by loading infobox data and styles.
+	 * Also initialize ponto and checks in what context
+	 * infobox builder was opened
+	 *
+	 * @param {string} templateName
+	 * @returns {Promise}
+	 */
+	setupEnvironmentAndInfoboxData(templateName) {
+		// TODO CE-3600 extract data and assets into services
+		const promises = {
+			dataAndAssets: this.loadInfoboxDataAndAssets(templateName),
+			ponto: this.loadPonto()
+		};
+
+		return Ember.RSVP.hash(promises)
+			.then((response) => {
+				this.setupStyles(response.dataAndAssets);
+				this.setupInfoboxData(response.dataAndAssets);
+			})
+			.then(this.isWikiaContext.bind(this));
+	},
+
+	/**
+	 * Setup infobox data.
+	 * It's invoke on model refresh
+	 * to avoid loading all existing resources again
+	 *
+	 * @param {string} templateName
+	 * @returns {Promise}
+	 */
+	loadAndSetupInfoboxData(templateName) {
+		return this.loadInfoboxDataAndAssets(templateName)
+			.then((response) => {
+				this.setupInfoboxData(response);
+			});
 	},
 
 	/**
@@ -157,6 +218,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 				null,
 				(data) => {
 					if (data && data.isWikiaContext && data.isLoggedIn) {
+						this.setVEContext(data.isVEContext);
 						resolve();
 					} else {
 						reject('Builder launched not in Wikia context');
@@ -207,8 +269,6 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {JQueryXHR}
 	 */
 	loadPonto() {
-		this.set('pontoLoadingInitialized', true);
-
 		return Ember.$.getScript(this.pontoPath);
 	},
 
@@ -312,5 +372,14 @@ export default Ember.Route.extend(ConfirmationMixin, {
 				error: (err) => reject(err)
 			});
 		});
+	},
+
+	/**
+	 * set VE context - true if IB opened inside visual editor
+	 * @param {Boolean} isVEContext
+	 * @returns {void}
+	 */
+	setVEContext(isVEContext = false) {
+		this.controllerFor('infobox-builder').set('isVEContext', isVEContext);
 	}
 });

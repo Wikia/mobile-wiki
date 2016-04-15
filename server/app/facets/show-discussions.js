@@ -12,13 +12,16 @@ import showApplication from './show-application';
  */
 export default function showDiscussions(request, reply) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
-		wikiVariables = new WikiRequest({wikiDomain}).wikiVariables();
+		wikiVariables = new WikiRequest({wikiDomain}).wikiVariables(),
+		context = {};
 
 	wikiVariables.then((variables) => {
 		if (!variables.enableDiscussions) {
 			return reply('Not Found').code(404);
 		}
 
-		showApplication(request, reply, wikiVariables);
+		context.documentTitle = `Discussions - ${variables.siteName} - Wikia`;
+
+		showApplication(request, reply, wikiVariables, context);
 	});
 }
