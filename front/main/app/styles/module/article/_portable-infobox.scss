@@ -338,6 +338,7 @@ $group-header-font-size: 16px;
 			padding: $infobox-item-margin * 5 0 $infobox-item-margin * 2;
 			text-align: center;
 			width: 100%;
+			z-index: $z-1;
 		}
 
 		.pi-expand-icon {

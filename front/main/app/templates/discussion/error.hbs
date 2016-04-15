@@ -1,0 +1,9 @@
+{{#discussion-entities-list-layout
+	applyFilters=(action 'applyFilters')
+	hasContentError=true
+	model=model.data
+}}
+	{{discussion-error
+		error=model.error
+	}}
+{{/discussion-entities-list-layout}}

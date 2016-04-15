@@ -26,9 +26,6 @@
 		M.prop('mediawikiDomain', '{{server.mediawikiDomain}}');
 		M.prop('adsUrl', '//{{server.mediawikiDomain}}/__am/{{wikiVariables.cacheBuster}}/groups/-/mercury_ads_js');
 	{{/if}}
-	{{#if asyncArticle}}
-		M.prop('asyncArticle', {{asyncArticle}});
-	{{/if}}
 	M.prop('mediaWikiNamespace', '{{mediaWikiNamespace}}');
 	{{#if articlePage}}
 		M.prop('articleContentPreloadedInDOM', true, true);

@@ -1,19 +1,28 @@
-{{discussion-reported-posts
+{{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
-	approve=(action 'approve')
-	create=(action 'create')
-	deletePost=(action 'deletePost')
-	deleteReply=(action 'deleteReply')
-	loadPage=(action 'loadPage')
-	lockPost=(action 'lockPost')
 	model=model.data
-	report=(action 'report')
-	retry=(action 'retry')
-	setSortBy=(action 'setSortBy')
-	siteHeadPinned=siteHeadPinned
-	smartBannerVisible=smartBannerVisible
-	undeletePost=(action 'undeletePost')
-	undeleteReply=(action 'undeleteReply')
-	unlockPost=(action 'unlockPost')
-	upvote=(action 'upvote')
 }}
+	{{discussion-sort
+		setSortBy=(action 'setSortBy')
+	}}
+	{{discussion-reported-posts-wrapper
+		approve=(action 'approve')
+		create=(action 'create')
+		deletePost=(action 'deletePost')
+		deleteReply=(action 'deleteReply')
+		forumId=model.data.forumId
+		loadPage=(action 'loadPage')
+		lockPost=(action 'lockPost')
+		minorError=model.data.minorError
+		pageNum=model.data.pageNum
+		posts=model.data.entities
+		postsDisplayed=model.data.entities.length
+		report=(action 'report')
+		siteHeadPinned=siteHeadPinned
+		totalPosts=model.data.postCount
+		undeletePost=(action 'undeletePost')
+		undeleteReply=(action 'undeleteReply')
+		unlockPost=(action 'unlockPost')
+		upvote=(action 'upvote')
+	}}
+{{/discussion-entities-list-layout}}

@@ -1,0 +1,38 @@
+{{discussion-dialog
+	confirmButtonText=confirmButtonText
+	confirmCallback=confirmCallback
+	dialogMessage=dialogMessage
+	headerText=dialogHeaderText
+	isConfirm=isConfirm
+	isVisible=shouldShowDialogMessage
+}}
+<div class="site-body-discussion post-details-view">
+	<div class="minimized discussion-hero-unit background-theme-color"></div>
+	<div class="discussion-page row">
+		<div class="rail large-2 columns">
+			{{community-badge}}
+			{{#link-to 'discussion' class="side-button back-button active-element-theme-color"}}
+				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
+				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
+			{{/link-to}}
+			{{#unless hasContentError}}
+				<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
+				{{#if model.repliesCount}}
+					{{discussion-contributors
+						contributorsUsers=model.contributors.users
+						maxContributorDisplayCount=7
+						totalContributorCount=model.contributors.count
+					}}
+				{{else}}
+					<span class="no-replies-message">{{i18n 'main.no-replies' ns='discussion'}}</span>
+				{{/if}}
+			{{/unless}}
+		</div>
+			<div class="discussion post small-12 large-8 columns">
+				{{yield}}
+			</div>
+		<div class="rail large-2 columns">
+			{{discussion-app-promotion}}
+		</div>
+	</div>
+</div>

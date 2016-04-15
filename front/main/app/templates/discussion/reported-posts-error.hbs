@@ -1,0 +1,13 @@
+{{#discussion-entities-list-layout
+	applyFilters=(action 'applyFilters')
+	hasContentError=true
+	model=model.data
+}}
+	{{#if model.error.isNotFound}}
+		{{discussion-reported-not-found-error}}
+	{{else}}
+		{{discussion-connection-error
+			error=model.error
+		}}
+	{{/if}}
+{{/discussion-entities-list-layout}}

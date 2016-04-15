@@ -221,23 +221,5 @@ export default Ember.Component.extend(
 				}
 			}
 		},
-
-		/**
-		 * @returns {void}
-		 */
-		mouseEnter() {
-			if (this.attrs && typeof this.attrs.onMouseEnter === 'function') {
-				this.attrs.onMouseEnter();
-			}
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		mouseLeave() {
-			if (this.attrs && typeof this.attrs.onMouseLeave === 'function') {
-				this.attrs.onMouseLeave();
-			}
-		},
 	}
 );

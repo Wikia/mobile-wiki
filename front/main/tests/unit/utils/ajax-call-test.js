@@ -8,12 +8,12 @@ module('Unit | Utils | ajax call', (hooks) => {
 	let spy;
 
 	hooks.beforeEach(() => {
-		spy = sinon.spy($, 'ajax');
+		spy = sinon.stub(Ember.$, 'ajax');
 	});
 
 	hooks.afterEach(() => {
 		// Restore default ajax behavior
-		$.ajax.restore();
+		Ember.$.ajax.restore();
 	});
 
 	test('Checking ajaxCall utils request params.', (assert) => {
@@ -25,7 +25,7 @@ module('Unit | Utils | ajax call', (hooks) => {
 						Ember.RSVP.resolve(this);
 					},
 					error() {
-						Ember.RSVP.resolve(this);
+						Ember.RSVP.reject(this);
 					}
 				},
 				expected: {
@@ -39,7 +39,7 @@ module('Unit | Utils | ajax call', (hooks) => {
 						Ember.RSVP.resolve(this);
 					},
 					error() {
-						Ember.RSVP.resolve(this);
+						Ember.RSVP.reject(this);
 					}
 				}
 			}, {
@@ -52,7 +52,7 @@ module('Unit | Utils | ajax call', (hooks) => {
 						Ember.RSVP.resolve(this);
 					},
 					error() {
-						Ember.RSVP.resolve(this);
+						Ember.RSVP.reject(this);
 					}
 				},
 				expected: {
@@ -66,7 +66,7 @@ module('Unit | Utils | ajax call', (hooks) => {
 						Ember.RSVP.resolve(this);
 					},
 					error() {
-						Ember.RSVP.resolve(this);
+						Ember.RSVP.reject(this);
 					}
 				}
 			}, {
@@ -80,7 +80,7 @@ module('Unit | Utils | ajax call', (hooks) => {
 						Ember.RSVP.resolve(this);
 					},
 					error() {
-						Ember.RSVP.resolve(this);
+						Ember.RSVP.reject(this);
 					}
 				},
 				expected: {
@@ -94,7 +94,7 @@ module('Unit | Utils | ajax call', (hooks) => {
 						Ember.RSVP.resolve(this);
 					},
 					error() {
-						Ember.RSVP.resolve(this);
+						Ember.RSVP.reject(this);
 					}
 				}
 			}
