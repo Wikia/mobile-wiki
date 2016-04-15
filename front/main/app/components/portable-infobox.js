@@ -1,12 +1,11 @@
 import Ember from 'ember';
 import ArticleContentMixin from '../mixins/article-content';
 import ViewportMixin from '../mixins/viewport';
-import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	ArticleContentMixin,
 	ViewportMixin,
-	TrackClickMixin,
 	{
 		classNames: ['portable-infobox'],
 		classNameBindings: ['collapsed'],
@@ -72,11 +71,19 @@ export default Ember.Component.extend(
 						scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
 
 					this.collapse();
-					this.trackClick('portable-infobox', `collapsed-by-button`);
+					track({
+						action: trackActions.click,
+						category: 'portable-infobox',
+						label: 'collapsed-by-button'
+					});
 					scrollTo.apply(this.get('button'));
 				} else {
 					this.expand();
-					this.trackClick('portable-infobox', `expanded-by-button`);
+					track({
+						action: trackActions.click,
+						category: 'portable-infobox',
+						label: 'expanded-by-button'
+					});
 				}
 			}
 		}

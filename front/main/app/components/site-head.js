@@ -1,10 +1,8 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 import HeadroomMixin from '../mixins/headroom';
 import {track, trackActions, trackExperiment} from 'common/utils/track';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	HeadroomMixin,
 	{
 		classNames: ['site-head', 'border-theme-color'],
@@ -47,7 +45,11 @@ export default Ember.Component.extend(
 			 */
 			expandSideNav() {
 				if (this.get('shouldDisplayNewBadge')) {
-					this.trackClick('recent-wiki-activity-blue-dot', 'open-navigation');
+					track({
+						action: trackActions.click,
+						category: 'recent-wiki-activity-blue-dot',
+						label: 'open-navigation'
+					});
 				}
 
 				if (this.get('navABTestIsControlGroup')) {
@@ -58,7 +60,11 @@ export default Ember.Component.extend(
 					});
 				}
 
-				this.trackClick('side-nav', 'expanded');
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: 'expanded'
+				});
 				this.sendAction('toggleSideNav', true);
 			},
 
@@ -67,6 +73,14 @@ export default Ember.Component.extend(
 			 */
 			showUserMenu() {
 				this.sendAction('toggleUserMenu', true);
+			},
+
+			trackClick(category, label) {
+				track({
+					action: trackActions.click,
+					category,
+					label
+				});
 			}
 		},
 

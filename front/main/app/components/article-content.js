@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import InfoboxImageCollectionComponent from './infobox-image-collection';
 import AdsMixin from '../mixins/ads';
-import TrackClickMixin from '../mixins/track-click';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {getExperimentVariationNumber} from 'common/utils/variant-testing';
 import {track, trackActions} from 'common/utils/track';
@@ -14,7 +13,6 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	AdsMixin,
-	TrackClickMixin,
 	{
 		tagName: 'article',
 		classNames: ['article-content', 'mw-content'],
@@ -121,7 +119,11 @@ export default Ember.Component.extend(
 				label = this.getTrackingEventLabel($anchor);
 
 			if (label) {
-				this.trackClick('article', label);
+				track({
+					action: trackActions.click,
+					category: 'article',
+					label
+				});
 			}
 		},
 

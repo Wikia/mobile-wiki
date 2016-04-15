@@ -1,11 +1,10 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
 import {system, isChromeMinVer} from 'common/utils/browser';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	LanguagesMixin,
-	TrackClickMixin,
 	{
 		classNameBindings: ['entrypointClass'],
 		highlightedTextCurrent: '',
@@ -96,7 +95,11 @@ export default Ember.Component.extend(
 					label = 'entry-point-not-allowed';
 				}
 
-				this.trackClick('highlighted-editor', label);
+				track({
+					action: trackActions.click,
+					category: 'highlighted-editor',
+					label
+				});
 			}
 		},
 

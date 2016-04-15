@@ -1,9 +1,19 @@
+import Ember from 'ember';
 import sinon from 'sinon';
 import hbs from 'htmlbars-inline-precompile';
 import {test, moduleForComponent} from 'ember-qunit';
+import {track} from 'common/utils/track';
 
 moduleForComponent('infobox-builder', 'Integration | Component | infobox builder', {
-	integration: true
+	integration: true,
+
+	beforeEach() {
+		require('common/utils/track').track = Ember.K;
+	},
+
+	afterEach() {
+		require('common/utils/track').track = track;
+	}
 });
 
 test('reset item in edit mode on clicking preview background', function (assert) {

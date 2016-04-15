@@ -4,7 +4,6 @@ import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 import {track} from 'common/utils/track';
 
-
 moduleForComponent('infobox-builder-edit-item-row', 'Integration | Component | infobox builder edit item row', {
 	integration: true,
 

@@ -64,6 +64,14 @@ export default Ember.Controller.extend({
 		 */
 		articleRendered() {
 			this.send('handleLightbox');
+		},
+
+		trackClick(category, label) {
+			track({
+				action: trackActions.click,
+				category,
+				label
+			});
 		}
 	}
 });
