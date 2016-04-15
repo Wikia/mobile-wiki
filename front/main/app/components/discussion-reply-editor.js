@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import DiscussionEditorComponent from './discussion-editor';
-import {track, trackActions} from '../utils/discussion-tracker';
+import {trackActions} from '../utils/discussion-tracker';
 
 export default DiscussionEditorComponent.extend({
 	editorBottomSpacing: null,

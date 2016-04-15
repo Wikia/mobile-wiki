@@ -31,6 +31,7 @@ export default Ember.Component.extend(
 				const sortBy = this.get('sortBy'),
 					onlyReported = this.get('onlyReported'),
 					discussionSort = this.get('discussionSort');
+
 				// No need for applying already applied filters again
 				if (sortBy !== discussionSort.get('sortBy')) {
 					if (sortBy === 'latest') {
