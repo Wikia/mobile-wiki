@@ -51,7 +51,7 @@ export default Ember.Component.extend(
 				() => this.trackSuccess('remove-upvote-success'),
 				() => this.handleError('remove-upvote-error')
 			);
-			
+
 			track({
 				action: trackActions.click,
 				category: trackCategory,
