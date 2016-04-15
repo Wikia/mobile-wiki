@@ -7,7 +7,6 @@ import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributors from './domain/contributors';
 import DiscussionEntities from './domain/entities';
 import DiscussionPost from './domain/post';
-import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,

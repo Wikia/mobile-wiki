@@ -6,14 +6,14 @@ export default DiscussionEditorComponent.extend({
 	pinnedClassName: 'pinned-top',
 
 	placeholderText: 'editor.post-editor-placeholder-text',
-	submitText: Ember.computed('isEdit', function() {
+	submitText: Ember.computed('isEdit', function () {
 		if (this.get('isEdit')) {
 			return 'editor.post-edit-action-button-label';
 		} else {
 			return 'editor.post-action-button-label';
 		}
 	}),
-	labelText: Ember.computed('isEdit', function() {
+	labelText: Ember.computed('isEdit', function () {
 		if (this.get('isEdit')) {
 			return 'editor.post-edit-editor-label';
 		} else {

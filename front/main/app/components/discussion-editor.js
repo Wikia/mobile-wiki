@@ -19,7 +19,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	offsetTop: 0,
 	siteHeadHeight: 0,
 
-	bodyText: Ember.computed('discussionEditor.discussionEntity.rawContent', function() {
+	bodyText: Ember.computed('discussionEditor.discussionEntity.rawContent', function () {
 		return this.get('discussionEditor.discussionEntity.rawContent') || '';
 	}),
 	isEdit: Ember.computed.notEmpty('discussionEditor.discussionEntity'),

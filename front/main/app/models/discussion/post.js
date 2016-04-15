@@ -6,7 +6,6 @@ import DiscussionContributor from './domain/contributor';
 import DiscussionContributors from './domain/contributors';
 import DiscussionPost from './domain/post';
 import DiscussionReply from './domain/reply';
-import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,

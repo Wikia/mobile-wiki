@@ -1,6 +1,4 @@
 import Ember from 'ember';
-import ajaxCall from '../../utils/ajax-call';
-import {track, trackActions} from '../../utils/discussion-tracker';
 
 export default Ember.Object.extend({
 	wikiId: null,

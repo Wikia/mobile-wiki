@@ -8,7 +8,6 @@ export default Ember.Component.extend({
 	popover: nearestParent('pop-over'),
 
 	canDelete: Ember.computed('post.isDeleted', function () {
-		console.log(this.get('post.userData.permissions.canEdit'));
 		return !this.get('post.isDeleted') && this.get('post.userData.permissions.canDelete');
 	}),
 
