@@ -83,15 +83,4 @@ export default DiscussionEditorComponent.extend({
 			this.handleNewItemCreated(newPost);
 		}
 	},
-
-	actions: {
-		/**
-		 * @returns {void}
-		 */
-		close() {
-			this.send('toggleEditorActive', false);
-
-			track(trackActions.PostClose);
-		}
-	}
 });

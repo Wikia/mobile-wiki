@@ -23,6 +23,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	bodyText: '',
 	layoutName: 'components/discussion-editor',
 
+	closeAction: trackActions.PostClose,
 	contentAction: trackActions.PostContent,
 	startAction: trackActions.PostStart,
 	wasContentTracked: false,
@@ -308,6 +309,15 @@ export default Ember.Component.extend(ViewportMixin, {
 		onFocus(event) {
 			event.preventDefault();
 			this.send('toggleEditorActive', true);
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		close() {
+			this.send('toggleEditorActive', false);
+
+			track(this.get('closeAction'));
 		}
 	}
 });

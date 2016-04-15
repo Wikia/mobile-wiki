@@ -12,6 +12,7 @@ export default DiscussionEditorComponent.extend({
 	submitText: 'editor.reply-action-button-label',
 	labelText: 'editor.reply-editor-label',
 
+	closeAction: trackActions.ReplyClose,
 	contentAction: trackActions.ReplyContent,
 	startAction: trackActions.ReplyStart,
 
@@ -108,15 +109,4 @@ export default DiscussionEditorComponent.extend({
 			this.initializeStickyState();
 		}, 200);
 	},
-
-	actions: {
-		/**
-		 * @returns {void}
-		 */
-		close() {
-			this.send('toggleEditorActive', false);
-
-			track(trackActions.ReplyClose);
-		}
-	}
 });
