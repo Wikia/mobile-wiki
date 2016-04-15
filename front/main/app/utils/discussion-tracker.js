@@ -10,7 +10,6 @@ const trackActions = {
 	PostShare: 'PostShare',
 	PostClose: 'PostClose',
 	ReplyClose: 'ReplyClose',
-	UserTapped: 'UserTapped',
 	PostStart: 'PostStart',
 	ReplyStart: 'ReplyStart',
 	PostContent: 'PostContent',
