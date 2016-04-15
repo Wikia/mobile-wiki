@@ -51,4 +51,14 @@ module('Unit | Helper | i18n', (hooks) => {
 
 		assert.ok(tStub.calledWith('main:string', i18nParams));
 	});
+
+	test('extra i18n int params work', (assert) => {
+		const i18nParams = {
+			count: 5
+		};
+
+		i18nHelper.compute(['string'], i18nParams);
+
+		assert.ok(tStub.calledWith('main:string', i18nParams));
+	});
 });
