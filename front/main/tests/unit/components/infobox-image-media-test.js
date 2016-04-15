@@ -1,3 +1,4 @@
+import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
 const thumbnailerModule = require('common/modules/thumbnailer').default;
@@ -7,9 +8,11 @@ moduleForComponent('infobox-image-media', 'Unit | Component | infobox image medi
 	unit: true,
 
 	beforeEach() {
-		getThumbURLStub = sinon.stub(thumbnailerModule, 'getThumbURL', function (url, options) {
-			return `${url}/${options.mode}/${options.width}/${options.height}`;
-		});
+		getThumbURLStub = sinon.stub(
+			thumbnailerModule,
+			'getThumbURL',
+			(url, options) => `${url}/${options.mode}/${options.width}/${options.height}`
+		);
 	},
 
 	afterEach() {

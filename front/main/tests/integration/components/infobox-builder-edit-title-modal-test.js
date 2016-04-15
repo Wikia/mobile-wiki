@@ -7,7 +7,7 @@ let trackStub;
 
 moduleForComponent('infobox-builder-edit-title-modal', 'Integration | Component | infobox builder edit title modal', {
 	integration: true,
-	
+
 	beforeEach() {
 		trackStub = sinon.stub(trackModule, 'track');
 	},
