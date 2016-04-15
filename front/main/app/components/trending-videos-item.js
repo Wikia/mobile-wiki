@@ -1,11 +1,10 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
-import TrackClickMixin from '../mixins/track-click';
 import Thumbnailer from 'common/modules/thumbnailer';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	ViewportMixin,
-	TrackClickMixin,
 	{
 		tagName: 'a',
 		classNames: ['trending-videos-item'],
@@ -45,7 +44,11 @@ export default Ember.Component.extend(
 		 * @returns {boolean}
 		 */
 		click() {
-			this.trackClick('main-page-trending-videos', `open-item-${this.get('index')}`);
+			track({
+				action: trackActions.click,
+				category: 'main-page-trending-videos',
+				label: `open-item-${this.get('index')}`
+			});
 			this.sendAction('action', this.get('video'));
 
 			return false;

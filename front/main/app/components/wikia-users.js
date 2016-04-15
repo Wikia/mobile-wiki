@@ -1,10 +1,8 @@
 import Ember from 'ember';
 import Thumbnailer from 'common/modules/thumbnailer';
-// TrackClickMixin mixin's action is used inside template
-import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		avatarHeight: 100,
 		avatarWidth: 100,
@@ -14,6 +12,16 @@ export default Ember.Component.extend(
 		limit: 5,
 		thumbMode: Thumbnailer.mode.fixedAspectRatio,
 		trackingEvent: null,
-		users: []
+		users: [],
+
+		actions: {
+			trackClick(category, label) {
+				track({
+					action: trackActions.click,
+					category,
+					label
+				});
+			}
+		}
 	}
 );

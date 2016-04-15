@@ -1,11 +1,9 @@
 import Ember from 'ember';
 import {getDomain} from '../utils/domain';
 import {track, trackActions} from 'common/utils/track';
-import TrackClickMixin from '../mixins/track-click';
 import RecentWikiActivityModel from '../models/recent-wiki-activity';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		classNames: ['recent-edit'],
 		classNameBindings: ['loaded', 'dismissed'],
@@ -44,7 +42,11 @@ export default Ember.Component.extend(
 		},
 
 		sendTracking(label) {
-			this.trackClick('recent-edit-banner', label);
+			track({
+				action: trackActions.click,
+				category: 'recent-edit-banner',
+				label
+			});
 		},
 
 		dismissRecentEdit(expires, label) {
