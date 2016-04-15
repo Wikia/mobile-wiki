@@ -17,8 +17,7 @@ export default Ember.Mixin.create({
 		 * @param {object} entityData
 		 * @returns {void}
 		 */
-		create(entityData) {
-			// TODO create reply
+		createPost(entityData) {
 			this.get('target').send('createPost', entityData);
 		},
 
@@ -27,12 +26,26 @@ export default Ember.Mixin.create({
 		 * @param {object} entityData
 		 * @returns {void}
 		 */
-		edit(entityData) {
-
-			// TODO edit reply
-			//const routeMethod = entityData.get('isReply') ? 'editReply' : 'editPost';
-
+		editPost(entityData) {
 			this.get('target').send('editPost', entityData);
+		},
+
+		/**
+		 * Bubbles up to Route
+		 * @param {object} entityData
+		 * @returns {void}
+		 */
+		createReply(entityData) {
+			this.get('target').send('createReply', entityData);
+		},
+
+		/**
+		 * Bubbles up to Route
+		 * @param {object} entityData
+		 * @returns {void}
+		 */
+		editReply(entityData) {
+			this.get('target').send('editReply', entityData);
 		},
 	}
 });

@@ -97,7 +97,7 @@ export default Ember.Mixin.create({
 		return ajaxCall({
 			data: JSON.stringify(replyData),
 			method: 'POST',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${replyData.get('id')}`),
+			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${replyData.id}`),
 			success: (reply) => {
 				const replies = this.get('data.replies'),
 					editedReplyIndex = replies.indexOf(replies.findBy('id', replyData.id));
