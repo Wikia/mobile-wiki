@@ -25,7 +25,8 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	contentAction: trackActions.PostContent,
 	startAction: trackActions.PostStart,
-	wasPostContentTracked: false,
+	wasContentTracked: false,
+	wasStartTracked: false,
 
 	/**
 	 * @returns {boolean}
@@ -35,9 +36,9 @@ export default Ember.Component.extend(ViewportMixin, {
 	}),
 
 	onTextContent: Ember.observer('bodyText', function () {
-		if (this.get('bodyText').length > 0 && !this.get('wasPostContentTracked')) {
+		if (this.get('bodyText').length > 0 && !this.get('wasContentTracked')) {
 			track(this.get('contentAction'));
-			this.set('wasPostContentTracked', true);
+			this.set('wasContentTracked', true);
 		}
 	}),
 
@@ -228,7 +229,8 @@ export default Ember.Component.extend(ViewportMixin, {
 	afterCloseActions() {
 		this.setProperties({
 			isActive: false,
-			wasPostContentTracked: false
+			wasContentTracked: false,
+			wasStartTracked: false
 		});
 		this.setiOSSpecificStyles({
 			height: '',
@@ -278,8 +280,9 @@ export default Ember.Component.extend(ViewportMixin, {
 		 * @returns {void}
 		 */
 		toggleEditorActive(active) {
-			if (active) {
+			if (active && !this.get('wasStartTracked')) {
 				track(this.get('startAction'));
+				this.set('wasStartTracked', true);
 			}
 
 			this.get('discussionEditor').toggleEditor(active);

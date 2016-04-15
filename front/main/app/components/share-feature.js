@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
-import {track as discussionTrack, getTrackActionForShareNetwork} from '../utils/discussion-tracker';
+import {track as discussionTrack, getTrackActionForShareNetwork, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(
 	TrackClickMixin,
@@ -65,6 +65,15 @@ export default Ember.Component.extend(
 				'wykop'
 			]
 		},
+
+		/**
+		 * @returns {void}
+		 */
+		trackOpening: Ember.on('didInsertElement', function () {
+			if (this.get('enableDiscussionTracker')) {
+				discussionTrack(trackActions.PostShare);
+			}
+		}),
 
 		computedSharedUrl: Ember.computed('title', 'sharedUrl', function () {
 			const sharedUrl = this.get('sharedUrl');
@@ -207,7 +216,7 @@ export default Ember.Component.extend(
 
 				this.trackClick('share', network);
 
-				if (this.get('enableDiscussionsTracker')) {
+				if (this.get('enableDiscussionTracker')) {
 					discussionTrack(getTrackActionForShareNetwork(network));
 				}
 

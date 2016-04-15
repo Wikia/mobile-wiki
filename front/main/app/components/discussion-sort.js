@@ -16,10 +16,12 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		setSortBy(sortBy) {
-			if (sortBy === 'latest') {
-				track(trackActions.LatestPostTapped);
-			} else if (sortBy === 'trending') {
-				track(trackActions.TrendingPostTapped);
+			if (sortBy !== this.get('discussionSort.sortBy')) {
+				if (sortBy === 'latest') {
+					track(trackActions.LatestPostTapped);
+				} else if (sortBy === 'trending') {
+					track(trackActions.TrendingPostTapped);
+				}
 			}
 
 			this.attrs.setSortBy(sortBy);
