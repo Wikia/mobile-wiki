@@ -1,17 +1,18 @@
+import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const track = require('common/utils/track').track;
+const trackModule = require('common/utils/track');
+let trackStub;
 
 moduleForComponent('side-nav-local-wikia-search', 'Unit | Component | local wikia search', {
 	unit: true,
 
 	beforeEach() {
-		require('common/utils/track').track = Ember.K;
-		require('common/utils/track').track.actions = {submit: ''};
+		trackStub = sinon.stub(trackModule, 'track');
 	},
 
 	afterEach() {
-		require('common/utils/track').track = track;
+		trackStub.restore();
 	}
 });
 

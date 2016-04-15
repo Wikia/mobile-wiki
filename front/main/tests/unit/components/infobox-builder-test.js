@@ -1,17 +1,18 @@
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const track = require('common/utils/track').track;
+const trackModule = require('common/utils/track');
+let trackStub;
 
 moduleForComponent('infobox-builder', 'Unit | Component | infobox builder', {
 	unit: true,
 
 	beforeEach() {
-		require('common/utils/track').track = Ember.K;
+		trackStub = sinon.stub(trackModule, 'track');
 	},
 
 	afterEach() {
-		require('common/utils/track').track = track;
+		trackStub.restore();
 	}
 });
 

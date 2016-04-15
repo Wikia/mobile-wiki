@@ -2,20 +2,21 @@ import Ember from 'ember';
 import {test, moduleForComponent} from 'ember-qunit';
 import sinon from 'sinon';
 
-const setTrackContext = require('common/utils/track').setTrackContext,
-	trackPageView = require('common/utils/track').trackPageView;
+const trackModule = require('common/utils/track');
+let setTrackContextStub,
+	trackPageViewStub;
 
 moduleForComponent('main-page', 'Unit | Component | main page', {
 	unit: true,
 
 	beforeEach() {
-		require('common/utils/track').setTrackContext = Ember.K;
-		require('common/utils/track').trackPageView = Ember.K;
+		setTrackContextStub = sinon.stub(trackModule, 'setTrackContext');
+		trackPageViewStub = sinon.stub(trackModule, 'trackPageView');
 	},
 
 	afterEach() {
-		require('common/utils/track').trackPageView = trackPageView;
-		require('common/utils/track').setTrackContext = setTrackContext;
+		setTrackContextStub.restore();
+		trackPageViewStub.restore();
 	}
 });
 
