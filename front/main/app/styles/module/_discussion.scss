@@ -470,12 +470,11 @@ body.discussions {
 		&.wide {
 			border: none;
 			border-top: 1px solid $discussion-reply-border-color;
-			display: flex;
-			justify-content: center;
 			background-color: transparent;
 			font-weight: bold;
 			height: 40px;
 			line-height: 40px;
+			text-align: center;
 			width: 100%;
 		}
 	}
