@@ -69,14 +69,6 @@ export default Ember.Component.extend(
 				this.sendAction('toggleUserMenu', true);
 			},
 
-			trackClick(category, label) {
-				track({
-					action: trackActions.click,
-					category,
-					label
-				});
-			},
-
 			// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
 			// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 			/**
@@ -89,13 +81,17 @@ export default Ember.Component.extend(
 					label: 'wordmark-clicked'
 				});
 
-				this.send('trackClick', 'wordmark');
+				track({
+					action: trackActions.click,
+					'wordmark'
+				});
 			}
 		},
 
 		pinnedObserver: Ember.observer('pinned', function () {
 			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
 		}),
+
 		didRender() {
 			if (this.get('shouldDisplayNewBadge')) {
 				track({
