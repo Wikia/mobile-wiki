@@ -83,7 +83,7 @@ export default Ember.Component.extend(
 
 				track({
 					action: trackActions.click,
-					'wordmark'
+					category: 'wordmark'
 				});
 			}
 		},
