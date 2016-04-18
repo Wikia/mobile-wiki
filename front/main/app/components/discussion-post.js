@@ -11,6 +11,9 @@ export default Ember.Component.extend(
 			this.initializeNewerButtons();
 		},
 
+		isFloatingButton: false,
+		isFloatingButtonBottomSpace: false,
+
 		newRepliesLoadedObserver: Ember.observer('model.replies.length', function () {
 			Ember.run.scheduleOnce('afterRender', this, this.scrollToMarkedReply);
 		}),
@@ -40,16 +43,24 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		initializeNewerButtons() {
-			const $floatingButton = Ember.$('.load-newer.floating'),
-				$wideButton = Ember.$('.load-newer.wide'),
+			const $lastReply = this.$('.post-reply:last'),
 				floatingButtonScrollHideDelay = 1000;
 
-			if ($wideButton.length && window.innerHeight + window.scrollY <= $wideButton.offset().top) {
-				$floatingButton.addClass('bottom-space').show();
+			if ($lastReply.length &&
+				window.innerHeight + window.scrollY <= $lastReply.offset().top + $lastReply.outerHeight()
+			) {
+
+				this.setProperties({
+					isFloatingButton: true,
+					isFloatingButtonBottomSpace: true
+				});
 
 				Ember.run.later(() => {
 					Ember.$(window).one('scroll', () => {
-						$floatingButton.hide();
+						this.setProperties({
+							isFloatingButton: false,
+							isFloatingButtonBottomSpace: false
+						});
 					});
 				}, floatingButtonScrollHideDelay);
 			}

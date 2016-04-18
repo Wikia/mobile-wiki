@@ -94,12 +94,17 @@
 							{{/if}}
 						{{/each}}
 						{{#if canShowNewer}}
-							<button {{action this.attrs.loadNewerReplies}} class="load-newer floating active-element-background-color">
-								{{svg 'down-small' viewBox='0 0 10 12' class='icon down-small'}}
-								{{i18n 'main.pagination-post-show-new-replies' ns='discussion'}}
-							</button>
-							<button {{action this.attrs.loadNewerReplies}} class="load-newer wide active-element-theme-color">
-								{{i18n 'main.pagination-post-show-newer-replies' ns='discussion'}}
+							<button {{action this.attrs.loadNewerReplies}}
+								class="load-newer active-element-theme-color
+								{{if isFloatingButton 'floating' 'wide'}}
+								{{if isFloatingButtonBottomSpace 'bottom-space'}}"
+							>
+								{{#if isFloatingButton}}
+									{{svg 'down-small' viewBox='0 0 10 12' class='icon down-small'}}
+									{{i18n 'main.pagination-post-show-new-replies' ns='discussion'}}
+								{{else}}
+									{{i18n 'main.pagination-post-show-newer-replies' ns='discussion'}}
+								{{/if}}
 							</button>
 						{{/if}}
 						{{#if canReply}}
