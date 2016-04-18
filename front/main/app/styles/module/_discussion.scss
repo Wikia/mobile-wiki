@@ -436,7 +436,7 @@ body.discussions {
 		border-width: 0;
 		display: block;
 		font-size: 10px;
-		font-weight: bold;
+		font-weight: $font-weight-bold;
 		margin: 0;
 		padding: 0 $horizontal-padding;
 		width: 100%;
@@ -444,9 +444,6 @@ body.discussions {
 		.icon {
 			margin-right: 3px;
 		}
-	}
-
-	.load-newer-container {
 	}
 
 	.load-newer {
@@ -458,7 +455,7 @@ body.discussions {
 			border-width: 0;
 			color: $discussion-load-newer-color;
 			display: none;
-			font-weight: bold;
+			font-weight: $font-weight-bold;
 			height: 30px;
 			left: 50%;
 			line-height: 30px;
