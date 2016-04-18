@@ -1,10 +1,15 @@
 export default Ember.Service.extend(Ember.Evented, {
 	isAnon: true,
 	isEditorOpen: false,
+	isEditEditorOpen: false,
 	isUserBlocked: false,
 	discussionEntity: null,
 
 	modalDialogService: Ember.inject.service('modal-dialog'),
+
+	editMode: Ember.computed('discussionEntity', function () {
+		return this.get('discussionEntity') !== null;
+	}),
 
 	shouldStopLoading: false,
 
@@ -48,7 +53,11 @@ export default Ember.Service.extend(Ember.Evented, {
 		} else if (this.get('isUserBlocked')) {
 			this.rejectBlockedUser();
 		} else {
-			this.set('isEditorOpen', true);
+			if (this.get('editMode')) {
+				this.set('isEditEditorOpen', true);
+			} else {
+				this.set('isEditorOpen', true);
+			}
 		}
 	},
 
@@ -62,6 +71,7 @@ export default Ember.Service.extend(Ember.Evented, {
 		} else {
 			this.set('discussionEntity', null);
 			this.set('isEditorOpen', false);
+			this.set('isEditEditorOpen', false);
 		}
 	},
 
