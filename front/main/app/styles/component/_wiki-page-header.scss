@@ -1,21 +1,9 @@
-/* _title.scss */
-
-$bk-color: rgb(26, 94, 184);
-
-.page-wrapper .article-body, .page-wrapper .wiki-page-body {
-	padding: 0;
-}
-
-.page-wrapper .article-content {
-	padding: 0 1.125em;
-}
-
 .wiki-page-header {
-	background: $bk-color;
+	background: $color-blue-light;
 	color: #fff;
 	padding: {
-		left: 18px;
-		right: 18px;
+		left: 1.125em;
+		right: 1.125em;
 		top: 15px;
 		bottom: 12px;
 	}
@@ -30,19 +18,20 @@ $bk-color: rgb(26, 94, 184);
 
 .wiki-page-header__site-name {
 	@extend %wiki-page-header-element;
-	font-size: $type-smallest;
+	font-size: 12px;
 	margin-bottom: 1.125em;
+}
 
-	a {
-		color: inherit;
-		font-style: italic;
-		font-weight: bold;
-	}
+.wiki-page-header__site-link {
+	color: inherit;
+	font-style: italic;
+	font-weight: bold;
 }
 
 .wiki-page-header__title {
 	@extend %wiki-page-header-element;
 	font-size: 26px;
+	line-height: 32px;
 	margin-top: 3px;
 	word-break: break-word;
 	font-weight: bold;
