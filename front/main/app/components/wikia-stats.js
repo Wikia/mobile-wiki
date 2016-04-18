@@ -27,9 +27,5 @@ export default Ember.Component.extend({
 				value: this.get('model.discussions'),
 			}
 		];
-	}),
-	init() {
-		this._super();
-		console.log(this.get('model'));
-	}
+	})
 });
