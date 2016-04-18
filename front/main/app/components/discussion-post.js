@@ -38,7 +38,9 @@ export default Ember.Component.extend(
 				$markedElements = this.$(`.${markedClassName}`);
 
 			if ($markedElements.length) {
-				window.scrollTo(0, $markedElements.offset().top - Ember.$('.site-body-discussion').offset().top);
+				$('html, body').animate({
+					scrollTop: $markedElements.offset().top - Ember.$('.site-body-discussion').offset().top
+				});
 				$markedElements.removeClass(markedClassName);
 			}
 		},
