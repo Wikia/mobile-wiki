@@ -475,7 +475,7 @@ body.discussions {
 			border: none;
 			border-top: 1px solid $discussion-reply-border-color;
 			background-color: transparent;
-			font-weight: bold;
+			font-weight: $font-weight-bold;
 			height: $wide-load-newer-button-height;
 			line-height: $wide-load-newer-button-height;
 			text-align: center;
