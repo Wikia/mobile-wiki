@@ -1,0 +1,56 @@
+<!--Tags set once-->
+
+<link rel="dns-prefetch" href="http://edge.quantserve.com">
+<link rel="dns-prefetch" href="http://secure-dcr-cert.imrworldwide.com/">
+<link rel="dns-prefetch" href="http://b.scorecardresearch.com">
+<link rel="dns-prefetch" href="https://script.ioam.de/iam.js">
+
+{{#if model.gaUrl}}
+	<link rel="dns-prefetch" href="{{model.gaUrl}}">
+{{/if}}
+
+{{#if model.optimizelyScript}}
+	<link rel="dns-prefetch" href="{{model.optimizelyScript}}">
+{{/if}}
+
+{{#if model.qualarooScript}}
+	<link rel="dns-prefetch" href="{{model.qualarooScript}}">
+{{/if}}
+
+{{#if model.favicon}}
+	<link rel="shortcut icon" href="{{model.favicon}}">
+{{/if}}
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+
+{{#if model.robots}}
+	<meta name="robots" content="{{model.robots}}">
+{{/if}}
+
+{{#if model.themeColor}}
+	<meta name="theme-color" content="{{model.themeColor}}">
+{{/if}}
+
+<!--Tags updated on each transition-->
+
+{{#if model.documentTitle}}
+	<title>{{model.documentTitle}}</title>
+{{/if}}
+
+{{#if model.canonical}}
+	<link rel="canonical" href="{{model.canonical}}">
+{{/if}}
+
+{{#if model.description}}
+	<meta name="description" content="{{model.description}}">
+{{/if}}
+
+{{#if model.keywords}}
+	<meta name="keywords" content="{{model.keywords}}">
+{{/if}}
+
+{{#if model.appleItunesApp}}
+	<meta name="apple-itunes-app" content="{{model.appleItunesApp}}">
+{{/if}}

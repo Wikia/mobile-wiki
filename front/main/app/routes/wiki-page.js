@@ -12,6 +12,7 @@ export default Ember.Route.extend(RouteWithAdsMixin, {
 	redirectEmptyTarget: false,
 	wikiHandler: null,
 	currentUser: Ember.inject.service(),
+	headData: Ember.inject.service(),
 	curatedMainPageData: Ember.inject.service(),
 	ns: Ember.computed.alias('curatedMainPageData.ns'),
 	adsContext: Ember.computed.alias('curatedMainPageData.adsContext'),
@@ -107,55 +108,24 @@ export default Ember.Route.extend(RouteWithAdsMixin, {
 	},
 
 	/**
-	 * This function handles updating head tags like title, meta and link after transition.
-	 * It uses ember-cli-meta-tags add-on.
-	 * @param {ArticleModel} model
+	 * This function updates head tags defined in templates/head.hbs (ember-cli-head plugin)
+	 * @param {Object} model
 	 * @returns {void}
 	 */
 	setHeadTags(model) {
-		const headTags = [],
+		const wikiVariables = Ember.get(Mercury, 'wiki'),
 			pageUrl = model.get('url'),
-			description = model.get('description'),
-			canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}`,
-			appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios'),
-			appleAppContent = pageUrl ?
-				`app-id=${appId}, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}` :
-				`app-id=${appId}`;
+			canonical = wikiVariables.basePath + pageUrl,
+			appId = wikiVariables.smartBanner.appId.ios;
 
-		document.title = model.get('documentTitle');
-
-		headTags.push({
-			type: 'link',
-			tagId: 'canonical-url',
-			attrs: {
-				rel: 'canonical',
-				href: canonicalUrl
-			}
+		this.get('headData').setProperties({
+			canonical,
+			documentTitle: model.get('documentTitle'),
+			description: model.get('description'),
+			appleItunesApp: pageUrl ? `app-id=${appId}, app-argument=${canonical}` : `app-id=${appId}`,
+			keywords: `${wikiVariables.siteMessage},${wikiVariables.siteName},${wikiVariables.dbName},` +
+				`${model.get('displayTitle')}`
 		});
-
-		if (description) {
-			headTags.push({
-				type: 'meta',
-				tagId: 'meta-description',
-				attrs: {
-					name: 'description',
-					content: description
-				}
-			});
-		}
-
-		if (appId) {
-			headTags.push({
-				type: 'meta',
-				tagId: 'meta-apple-app',
-				attrs: {
-					name: 'apple-itunes-app',
-					content: appleAppContent
-				}
-			});
-		}
-
-		this.set('headTags', headTags);
 	},
 
 	/**
