@@ -174,10 +174,10 @@ DiscussionPostModel.reopenClass({
 					data.permalinkedReplyId = replyId;
 				}
 
-				this.setProperties({
+				postInstance.setProperties({
 					// this is not a mistake - we have descending order
-					'links.previous': Ember.getWithDefault(apiData, '_links.next.0.href', null),
-					'links.next': Ember.getWithDefault(apiData, '_links.previous.0.href', null)
+					'links.previous': Ember.getWithDefault(data, '_links.next.0.href', null),
+					'links.next': Ember.getWithDefault(data, '_links.previous.0.href', null)
 				});
 
 				postInstance.setNormalizedData(data);
