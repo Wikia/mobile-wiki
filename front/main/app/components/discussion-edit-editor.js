@@ -2,21 +2,21 @@ import Ember from 'ember';
 import DiscussionEditorComponent from './discussion-editor';
 
 export default DiscussionEditorComponent.extend({
-	classNames: ['mobile-hidden'],
+	discussionEditor: Ember.inject.service(),
 
 	placeholderText: 'editor.post-editor-placeholder-text',
-	submitText: Ember.computed('isEdit', function () {
-		if (this.get('isEdit')) {
-			return 'editor.post-edit-action-button-label';
+	submitText: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
+		if (this.get('discussionEditor.discussionEntity.isReply')) {
+			return 'editor.reply-edit-action-button-label';
 		} else {
-			return 'editor.post-action-button-label';
+			return 'editor.post-edit-action-button-label';
 		}
 	}),
-	labelText: Ember.computed('isEdit', function () {
-		if (this.get('isEdit')) {
-			return 'editor.post-edit-editor-label';
+	labelText: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
+		if (this.get('discussionEditor.discussionEntity.isReply')) {
+			return 'editor.reply-edit-editor-label';
 		} else {
-			return 'editor.post-editor-label';
+			return 'editor.post-edit-editor-label';
 		}
 	}),
 

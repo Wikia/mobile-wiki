@@ -14,6 +14,12 @@
 	isConfirm=isConfirm
 	isVisible=shouldShowDialogMessage
 }}
+{{#modal-dialog isVisible=editEditorActive}}
+	{{discussion-edit-editor
+		editPost=(action this.attrs.editPost)
+		editReply=(action this.attrs.editReply)
+	}}
+{{/modal-dialog}}
 
 <div class="site-body-discussion post-list-view">
 	{{discussion-hero-unit
@@ -46,8 +52,6 @@
 					createPost=(action this.attrs.createPost)
 					deletePost=(action this.attrs.deletePost)
 					deleteReply=(action this.attrs.deleteReply)
-					editPost=(action this.attrs.editPost)
-					editReply=(action this.attrs.editReply)
 					forumId=model.forumId
 					loadPage=(action this.attrs.loadPage)
 					lockPost=(action this.attrs.lockPost)

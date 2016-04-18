@@ -13,6 +13,12 @@
 	isConfirm=isConfirm
 	isVisible=shouldShowDialogMessage
 }}
+{{#modal-dialog isVisible=editEditorActive}}
+	{{discussion-edit-editor
+		editPost=(action this.attrs.editPost)
+		editReply=(action this.attrs.editReply)
+	}}
+{{/modal-dialog}}
 
 <div class="site-body-discussion post-list-view discussion-user-list">
 	{{discussion-hero-unit

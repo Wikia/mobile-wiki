@@ -20,7 +20,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	siteHeadHeight: 0,
 
 	bodyText: '',
-	isEdit: Ember.computed.alias('discussionEditor.editMode'),
+	isEdit: Ember.computed.alias('discussionEditor.isEditMode'),
 	layoutName: 'components/discussion-editor',
 
 	/**

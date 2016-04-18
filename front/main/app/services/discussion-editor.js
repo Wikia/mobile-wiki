@@ -7,7 +7,7 @@ export default Ember.Service.extend(Ember.Evented, {
 
 	modalDialogService: Ember.inject.service('modal-dialog'),
 
-	editMode: Ember.computed('discussionEntity', function () {
+	isEditMode: Ember.computed('discussionEntity', function () {
 		return this.get('discussionEntity') !== null;
 	}),
 
@@ -53,7 +53,7 @@ export default Ember.Service.extend(Ember.Evented, {
 		} else if (this.get('isUserBlocked')) {
 			this.rejectBlockedUser();
 		} else {
-			if (this.get('editMode')) {
+			if (this.get('isEditMode')) {
 				this.set('isEditEditorOpen', true);
 			} else {
 				this.set('isEditorOpen', true);

@@ -14,14 +14,12 @@
 	isConfirm=isConfirm
 	isVisible=shouldShowDialogMessage
 }}
-{{#if editEditorActive}}
-	{{#modal-dialog isVisible=editEditorActive}}
-		{{discussion-edit-editor
-			editPost=(action this.attrs.editPost)
-			posts=posts
-		}}
-	{{/modal-dialog}}
-{{/if}}
+{{#modal-dialog isVisible=editEditorActive}}
+	{{discussion-edit-editor
+		editPost=(action this.attrs.editPost)
+		posts=posts
+	}}
+{{/modal-dialog}}
 
 <div class="site-body-discussion post-list-view">
 	{{discussion-hero-unit
@@ -53,7 +51,6 @@
 					approve=(action this.attrs.approve)
 					createPost=(action this.attrs.createPost)
 					deletePost=(action this.attrs.deletePost)
-					editPost=(action this.attrs.editPost)
 					forumId=model.forumId
 					loadPage=(action this.attrs.loadPage)
 					lockPost=(action this.attrs.lockPost)

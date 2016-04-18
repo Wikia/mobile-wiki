@@ -6,6 +6,13 @@
 	isConfirm=isConfirm
 	isVisible=shouldShowDialogMessage
 }}
+{{#modal-dialog isVisible=editEditorActive}}
+	{{discussion-edit-editor
+		editPost=(action this.attrs.editPost)
+		editReply=(action this.attrs.editReply)
+		replies=model.replies
+	}}
+{{/modal-dialog}}
 <div class="site-body-discussion post-details-view">
 	<div class="minimized discussion-hero-unit background-theme-color"></div>
 	<div class="discussion-page row">
@@ -95,8 +102,6 @@
 						{{#if canReply}}
 							{{discussion-reply-editor
 								create=(action this.attrs.createReply)
-								editPost=(action this.attrs.editPost)
-								editReply=(action this.attrs.editReply)
 								replies=model.replies
 							}}
 						{{/if}}
