@@ -190,6 +190,12 @@ body.dark-theme {
 			background-color: $dark-discussion-load-older-color;
 		}
 
+		.load-newer {
+			&.wide {
+				border-top-color: $dark-discussion-reply-border-color;
+			}
+		}
+
 		.timestamp {
 			color: $dark-discussion-timestamp-color;
 		}
