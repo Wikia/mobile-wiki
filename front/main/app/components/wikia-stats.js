@@ -23,8 +23,12 @@ export default Ember.Component.extend({
 			{
 				label: 'main.discussions-header-title',
 				namespace: 'discussion',
-				value: 123123,
+				value: this.get('model.discussions'),
 			}
 		];
 	}),
+	init() {
+		this._super();
+		console.log(this.get('model'));
+	}
 });
