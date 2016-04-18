@@ -26,11 +26,12 @@ export default Ember.Component.extend(
 		}),
 
 		scrollToMarkedReply() {
-			const $markedElements = Ember.$('.scroll-to-mark');
+			const markedClassName = 'scroll-to-mark',
+			$markedElements = this.$(`.${markedClassName}`);
 
 			if ($markedElements.length) {
 				window.scrollTo(0, $markedElements.offset().top - Ember.$('.site-body-discussion').offset().top);
-				$markedElements.removeClass('scroll-to-mark');
+				$markedElements.removeClass(markedClassName);
 			}
 		},
 
