@@ -36,28 +36,18 @@ CuratedContentModel.reopenClass({
 	/**
 	 * @param {string} title
 	 * @param {string} [type='section']
-	 * @param {string|null} [offset=null]
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(title, type = 'section', offset = null) {
+	find(title, type = 'section') {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const modelInstance = CuratedContentModel.create({
 					title,
 					type
 				}),
-				params = {};
-
-			let url = `${M.prop('apiBase')}/main/`;
-
-			url += `${type}/${title}`;
-
-			if (offset) {
-				params.offset = offset;
-			}
+				url = getURL(...arguments);
 
 			Ember.$.ajax({
 				url,
-				data: params,
 				success: (data) => {
 					modelInstance.setProperties({
 						items: CuratedContentModel.sanitizeItems(data.items),
@@ -165,4 +155,43 @@ CuratedContentModel.reopenClass({
 	}
 });
 
+/**
+ *
+ * @param {string} title
+ * @param {string} type
+ * @param {string} [offset='']
+ * @returns {string}
+ */
+function getURL(title, type, offset = '') {
+	if (type === 'section') {
+		return M.buildUrl({
+			path: '/wikia.php',
+			query: {
+				controller: 'MercuryApi',
+				method: 'getCuratedContentSection',
+				section: `${decodeURIComponent(title)}`
+			}
+		});
+	} else if (type === 'category') {
+		const query = {
+			controller: 'ArticlesApi',
+			method: 'getList',
+			expand: 'true',
+			abstract: 0,
+			width: 300,
+			height: 300,
+			category: `${decodeURIComponent(title)}`,
+			limit: 24
+		};
+
+		if (offset) {
+			query.offset = offset;
+		}
+
+		return M.buildUrl({
+			path: '/wikia.php',
+			query
+		});
+	}
+}
 export default CuratedContentModel;
