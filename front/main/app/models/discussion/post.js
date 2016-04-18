@@ -7,12 +7,12 @@ import DiscussionReply from './domain/reply';
 import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
+	links: {
+		next: null,
+		previous: null,
+	},
 	repliesLimit: 10,
 	threadId: null,
-	links: {
-		previous: null,
-		next: null,
-	},
 
 	/**
 	 * @param {Object} data - result from xhr request
