@@ -42,7 +42,7 @@ export default Ember.Component.extend(
 		initializeNewerButtons() {
 			const $floatingButton = Ember.$('.load-newer.floating'),
 				$wideButton = Ember.$('.load-newer.wide'),
-				floatingBtnScrollHideDelay = 1000;
+				floatingButtonScrollHideDelay = 1000;
 
 			if ($wideButton.length && window.innerHeight + window.scrollY <= $wideButton.offset().top) {
 				$floatingButton.addClass('bottom-space').show();
@@ -51,7 +51,7 @@ export default Ember.Component.extend(
 					Ember.$(window).one('scroll', () => {
 						$floatingButton.hide();
 					});
-				}, floatingBtnScrollHideDelay);
+				}, floatingButtonScrollHideDelay);
 			}
 		},
 	}
