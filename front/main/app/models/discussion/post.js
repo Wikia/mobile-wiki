@@ -16,10 +16,11 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 
 	/**
 	 * @param {Object} data - result from xhr request
+	 * @param {Boolean} isNextPageCall - is this a request for the next page
 	 *
 	 * @returns {void}
 	 */
-	onLoadAnotherPageSuccess(data) {
+	onLoadAnotherPageSuccess(data, isNextPageCall) {
 		const newReplies = Ember.get(data, '._embedded.doc:posts')
 				.map((reply) => {
 					reply.threadCreatedBy = this.get('data.createdBy');
@@ -27,7 +28,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				}).reverse();
 		let url;
 
-		if (Ember.get(data, 'isNextPageCall')) {
+		if (isNextPageCall) {
 			newReplies.get('firstObject').set('scrollToMark', true);
 			this.get('data.replies').pushObjects(newReplies);
 
@@ -57,8 +58,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		return ajaxCall({
 			url: M.getDiscussionServiceUrl(serviceUrl),
 			success: (data) => {
-				data.isNextPageCall = isNextPageCall;
-				this.onLoadAnotherPageSuccess(data);
+				this.onLoadAnotherPageSuccess(data, isNextPageCall);
 			},
 			error: (err) => {
 				this.handleLoadMoreError(err);
