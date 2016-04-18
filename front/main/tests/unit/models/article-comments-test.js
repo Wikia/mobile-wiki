@@ -5,11 +5,11 @@ moduleFor('model:article-comments', 'Unit | Model | article comments');
 test('url creates valid url to a resource', function (assert) {
 	const model = this.subject();
 
-	assert.equal(model.url(1, 0), '/api/mercury/article/comments/1/0');
-	assert.equal(model.url(1, 1), '/api/mercury/article/comments/1/1');
-	assert.equal(model.url(1, 2), '/api/mercury/article/comments/1/2');
-	assert.equal(model.url(5, 0), '/api/mercury/article/comments/5/0');
-	assert.equal(model.url(90, 90), '/api/mercury/article/comments/90/90');
+	assert.ok(model.url(1, 0).endsWith('/wikia.php?controller=MercuryApi&method=getArticleComments&id=1&page=0'));
+	assert.ok(model.url(1, 1).endsWith('/wikia.php?controller=MercuryApi&method=getArticleComments&id=1&page=1'));
+	assert.ok(model.url(1, 2).endsWith('/wikia.php?controller=MercuryApi&method=getArticleComments&id=1&page=2'));
+	assert.ok(model.url(5, 0).endsWith('/wikia.php?controller=MercuryApi&method=getArticleComments&id=5&page=0'));
+	assert.ok(model.url(90, 90).endsWith('/wikia.php?controller=MercuryApi&method=getArticleComments&id=90&page=90'));
 });
 
 test('reset, resets model properties', function (assert) {

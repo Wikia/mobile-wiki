@@ -24,7 +24,10 @@ test('search URI generation', function (assert) {
 		component = this.subject();
 
 	queries.forEach((query) => {
-		assert.equal(`/api/mercury/search/${encodeURIComponent(query)}`, component.getSearchURI(query));
+		assert.ok(
+			component.getSearchURI(query)
+				.endsWith(`/wikia.php?controller=MercuryApi&method=getSearchSuggestions&query=${encodeURIComponent(query)}`)
+		);
 	});
 });
 
