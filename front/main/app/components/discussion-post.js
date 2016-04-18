@@ -19,9 +19,7 @@ export default Ember.Component.extend(
 		}),
 
 		newRepliesLoadedObserver: Ember.observer('model.replies.length', function () {
-			Ember.run.scheduleOnce('afterRender', this, () => {
-				this.scrollToMarkedReply();
-			});
+			Ember.run.scheduleOnce('afterRender', this, this.scrollToMarkedReply);
 		}),
 
 		scrollToMarkedReply() {
