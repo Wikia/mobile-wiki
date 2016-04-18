@@ -39,37 +39,38 @@ const ArticleModel = Ember.Object.extend({
 
 ArticleModel.reopenClass({
 	/**
-	 * @param {ArticleModelUrlParams} params
-	 * @returns {string}
-	 */
-	url(params) {
-		let redirect = '';
-
-		if (params.redirect) {
-			redirect += `?redirect=${encodeURIComponent(params.redirect)}`;
-		}
-
-		return `${M.prop('apiBase')}/article/${params.title}${redirect}`;
-	},
-
-	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getArticleRandomTitle() {
+		debugger;
 		return new Ember.RSVP.Promise((resolve, reject) => {
+			const url = M.buildUrl({
+				path: '/api.php',
+				query: {
+					action: 'query',
+					generator: 'random',
+					grnnamespace: 0,
+					format: 'json'
+				}
+			});
+
 			Ember.$.ajax({
-				url: `${M.prop('apiBase')}/article?random&titleOnly`,
+				url,
 				cache: false,
 				dataType: 'json',
 				success: (data) => {
-					if (data.title) {
-						resolve(data.title);
-					} else {
-						reject({
-							message: 'Data from server doesn\'t include article title',
-							data
-						});
+					if (data.query && data.query.pages) {
+						const articleId = Object.keys(data.query.pages)[0],
+							pageData = data.query.pages[articleId];
+
+						if (pageData.title) {
+							return resolve(pageData.title);
+						}
 					}
+					return reject({
+						message: 'Data from server misshaped',
+						data
+					});
 				},
 				error: (err) => reject(err)
 			});
