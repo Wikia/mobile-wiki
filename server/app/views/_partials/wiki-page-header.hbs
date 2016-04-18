@@ -1,18 +1,10 @@
-{{#if mainPageData}}
-	<h2 class="wiki-title"><a href="#">{{wikiVariables.siteName}}</a></h2>
-	<h1 class="wiki-page-title">{{displayTitle}}</h1>
+<div class="wiki-page-header">
+	<h2 class="wiki-page-header__site-name"><a href="#">{{wikiVariables.siteName}}</a></h2>
+	<h1 class="wiki-page-header__title">{{displayTitle}}</h1>
 	{{#if subtitle}}
-		<div class="wiki-page-subtitle">{{subtitle}}</div>
+		<div class="wiki-page-header__subtitle">{{subtitle}}</div>
 	{{/if}}
-	{{#if hasToC}}
-		<div class="collapsible-menu table-of-contents"><div class="title">{{i18n 'app.article-toc-label'}}</div></div>
-	{{/if}}
-{{else}}
-	<div class="wiki-page-header">
-		<h2 class="wiki-page-header__site-name"><a href="#">{{wikiVariables.siteName}}</a></h2>
-		<h1 class="wiki-page-header__title">{{displayTitle}}</h1>
-		{{#if subtitle}}
-			<div class="wiki-page-header__subtitle">{{subtitle}}</div>
-		{{/if}}
-	</div>
+</div>
+{{#if hasToC}}
+	<div class="collapsible-menu table-of-contents"><div class="title">{{i18n 'app.article-toc-label'}}</div></div>
 {{/if}}

@@ -1,0 +1,31 @@
+/* _title.scss */
+
+.wiki-page-header {
+}
+
+.wiki-page-header__site-name {
+	@extend %header-section-title;
+	font-size: $type-smallest;
+	margin-bottom: rem-calc(20);
+
+	a {
+		display: block;
+	}
+}
+
+.wiki-page-header__title {
+	@extend %header-section-title;
+	line-height: 2rem;
+	margin: {
+		bottom: 1em;
+		left: 1rem;
+		right: 1rem;
+		top: 3px;
+	}
+	word-break: break-word;
+}
+
+.wiki-page-header__subtitle {
+	margin-top: -1.75rem;
+	text-align: center;
+}
