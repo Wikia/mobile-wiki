@@ -25,6 +25,14 @@ export default Ember.Component.extend(
 		canShowNewer: Ember.computed.oneWay('model.isNextPage'),
 		canShowOlder: Ember.computed.oneWay('model.isPreviousPage'),
 
+		/**
+		 * This method finds a reply with 'scroll-to-mark' class set, and then scrolls the document to have the reply
+		 * on the top of visible part of the Discussions. So the document needs to be scrolled to a position where the
+		 * reply is placed, remembering that the discussions itself might be not at the top of the document - there
+		 * can be GlobalNav or some Ad at the top.
+		 * At the end the 'scroll-to-mark' class is removed from the reply.
+		 * @returns {void}
+		 */
 		scrollToMarkedReply() {
 			const markedClassName = 'scroll-to-mark',
 				$markedElements = this.$(`.${markedClassName}`);
