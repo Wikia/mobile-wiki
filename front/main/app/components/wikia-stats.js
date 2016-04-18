@@ -23,6 +23,7 @@ export default Ember.Component.extend({
 			{
 				label: 'main.discussions-header-title',
 				namespace: 'discussion',
+				routeName: 'discussion.index',
 				value: this.get('model.discussions'),
 			}
 		];
