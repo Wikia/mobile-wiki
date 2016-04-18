@@ -129,12 +129,6 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			normalizedRepliesData.reverse();
 		}
 
-		this.setProperties({
-			// this is not a mistake - we have descending order
-			'links.previous': Ember.getWithDefault(apiData, '_links.next.0.href', null),
-			'links.next': Ember.getWithDefault(apiData, '_links.previous.0.href', null)
-		});
-
 		normalizedData.setProperties({
 			canModerate: normalizedRepliesData.getWithDefault('firstObject.userData.permissions.canModerate', false),
 			contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
@@ -179,6 +173,12 @@ DiscussionPostModel.reopenClass({
 				if (replyId) {
 					data.permalinkedReplyId = replyId;
 				}
+
+				this.setProperties({
+					// this is not a mistake - we have descending order
+					'links.previous': Ember.getWithDefault(apiData, '_links.next.0.href', null),
+					'links.next': Ember.getWithDefault(apiData, '_links.previous.0.href', null)
+				});
 
 				postInstance.setNormalizedData(data);
 			},
