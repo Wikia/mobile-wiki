@@ -464,6 +464,10 @@ body.discussions {
 			transform: translateX(-50%);
 		}
 
+		&.bottom-space {
+			bottom: 80px;
+		}
+
 		&.wide {
 			border: none;
 			border-top: 1px solid $discussion-reply-border-color;
