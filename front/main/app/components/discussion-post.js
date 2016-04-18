@@ -11,16 +11,16 @@ export default Ember.Component.extend(
 			this.initializeNewerButtons();
 		},
 
-		canShowOlder: Ember.computed.oneWay('model.isPreviousPage'),
-		canShowNewer: Ember.computed.oneWay('model.isNextPage'),
+		newRepliesLoadedObserver: Ember.observer('model.replies.length', function () {
+			Ember.run.scheduleOnce('afterRender', this, this.scrollToMarkedReply);
+		}),
 
 		canReply: Ember.computed('model.isDeleted', 'model.isLocked', function () {
 			return !this.get('model.isDeleted') && !this.get('model.isLocked');
 		}),
 
-		newRepliesLoadedObserver: Ember.observer('model.replies.length', function () {
-			Ember.run.scheduleOnce('afterRender', this, this.scrollToMarkedReply);
-		}),
+		canShowNewer: Ember.computed.oneWay('model.isNextPage'),
+		canShowOlder: Ember.computed.oneWay('model.isPreviousPage'),
 
 		scrollToMarkedReply() {
 			const markedClassName = 'scroll-to-mark',
