@@ -164,7 +164,14 @@ export default Ember.Component.extend(
 		 * @returns {string}
 		 */
 		getSearchURI(query) {
-			return `${M.prop('apiBase')}/search/${encodeURIComponent(query)}`;
+			return M.buildUrl({
+				path: '/wikia.php',
+				query: {
+					controller: 'MercuryApi',
+					method: 'getSearchSuggestions',
+					query
+				}
+			});
 		},
 
 		/**
