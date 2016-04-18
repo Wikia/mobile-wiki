@@ -1,18 +1,33 @@
-{{#if link}}
-	<a href="{{link}}">
-		<img src="{{thumbnailUrl}}" height="{{height}}" width="{{width}}">
-		{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
-	</a>
+{{! This wrapper is required so the spinner and chevron are positioned correctly }}
+<div class="article-media-thumbnail-image-wrapper">
+	{{#if link}}
+		<a href="{{link}}">
+			<img src="{{thumbnailUrl}}"
+				height="{{if forcedHeight forcedHeight height}}"
+				width="{{if forcedWidth forcedWidth width}}">
+			{{svg 'chevron-linked' viewBox='0 0 20 20' class='chevron'}}
+		</a>
+	{{else}}
+		<img src="{{thumbnailUrl}}"
+			height="{{if forcedHeight forcedHeight height}}"
+			width="{{if forcedWidth forcedWidth width}}">
+	{{/if}}
+	{{loading-spinner
+		active=isLoading
+		overlay=false
+	}}
+</div>
+
+{{! Allow custom captions }}
+{{#if hasBlock}}
+	{{yield}}
 {{else}}
-	<img src="{{thumbnailUrl}}" height="{{height}}" width="{{width}}" data-ref={{ref}} data-gallery-ref={{galleryRef}}>
-{{/if}}
-{{#if hasFigcaption}}
-	<figcaption>
-		{{#if showTitle}}
-			<div>{{title}}</div>
-		{{/if}}
-		{{#if caption}}
+	{{#if hasFigcaption}}
+		<figcaption>
+			{{#if showTitle}}
+				<div>{{title}}</div>
+			{{/if}}
 			{{{caption}}}
-		{{/if}}
-	</figcaption>
+		</figcaption>
+	{{/if}}
 {{/if}}

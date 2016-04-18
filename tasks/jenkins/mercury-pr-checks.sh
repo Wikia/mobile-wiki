@@ -120,7 +120,7 @@ fi
 
 ### Front tests - running
 updateGit "Front tests" pending running
-npm run test-front 2>&1 | tee jenkins/front-tests.log || { error1=true && failJob=true; }
+TEST_PORT=$EXECUTOR_NUMBER npm run test-front 2>&1 | tee jenkins/front-tests.log || { error1=true && failJob=true; }
 vim -e -s -c ':set bomb' -c ':wq' jenkins/front-tests.log
 
 if [ -z $error1 ]

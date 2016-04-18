@@ -25,10 +25,6 @@
 		<link rel="shortcut icon" href="{{wikiVariables.favicon}}">
 	{{/if}}
 
-	{{#if asyncArticle}}
-		<meta name="fragment" content="!">
-	{{/if}}
-
 	{{#if isRtl}}
 		<link rel="stylesheet" href="/front/main/assets/app.rtl.css">
 	{{else}}
@@ -49,7 +45,6 @@
 	{{> server-data}}
 	{{> tracking-quantserve}}
 	{{> tracking-comscore}}
-	{{> tracking-nielsen}}
 	{{> optimizely}}
 	{{> tracking-ua-init}}
 
@@ -58,6 +53,7 @@
 <body>
 {{content-for 'body'}}
 
+{{> first-render-time}}
 {{> qualaroo}}
 
 {{!--
@@ -97,5 +93,6 @@
 {{content-for 'body-footer'}}
 
 {{> tracking-pixels}}
+{{> tracking-nielsen}}
 </body>
 </html>

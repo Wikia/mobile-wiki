@@ -175,7 +175,13 @@ export default Ember.Component.extend({
 	shouldFocusSearchInput: false,
 	navABTestExperimentName: 'FAN_KNOWLEDGE_MERCURY_GLOBAL_NAV',
 	navABTestDefaultGroup: 'DEFAULT',
+	navABTestControlGroup: 'CONTROL',
 	navABTestFabIconSearchGroup: 'FAB_ICON_SEARCH',
+	navABTestFabIconMenuGroup: 'FAB_ICON_MENU',
+	navABTestBarMenuIconGroup: 'BAR_MENU_ICON',
+	navABTestBarDropdownIconGroup: 'BAR_DROPDOWN_ICON',
+	navABTestButtonBarGroup: 'BUTTON_BAR',
+	navABTestButtonBarMenuGroup: 'BUTTON_BAR_MENU_ICON',
 
 	navABTestCurrentGroup: Ember.computed('navABTestExperimentName', function () {
 		return getGroup(this.get('navABTestExperimentName'));
@@ -185,10 +191,47 @@ export default Ember.Component.extend({
 		return this.get('navABTestCurrentGroup') === this.get('navABTestFabIconSearchGroup');
 	}),
 
-	navABTestChangeUI: Ember.computed('navABTestCurrentGroup', 'navABTestDefaultGroup', function () {
-		const currentGroup = this.get('navABTestCurrentGroup');
+	navABTestIsFabMenuIcon: Ember.computed('navABTestCurrentGroup', 'navABTestFabIconMenuGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestFabIconMenuGroup');
+	}),
 
-		return currentGroup && currentGroup !== this.get('navABTestDefaultGroup');
+	navABTestIsBarMenuIcon: Ember.computed('navABTestCurrentGroup', 'navABTestBarMenuIconGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestBarMenuIconGroup');
+	}),
+
+	navABTestIsBarDropdownIcon: Ember.computed('navABTestCurrentGroup', 'navABTestBarDropdownIconGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestBarDropdownIconGroup');
+	}),
+
+	navABTestIsButtonBar: Ember.computed('navABTestCurrentGroup', 'navABTestButtonBarGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestButtonBarGroup');
+	}),
+
+	navABTestIsButtonBarMenu: Ember.computed('navABTestCurrentGroup', 'navABTestButtonBarMenuGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestButtonBarMenuGroup');
+	}),
+
+	navABTestEnableShare: Ember.computed('navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', function () {
+		return !this.get('navABTestIsBarMenuIcon') && !this.get('navABTestIsBarDropdownIcon');
+	}),
+
+	displayFabIcon: Ember.computed.or('navABTestIsFabSearchIcon', 'navABTestIsFabMenuIcon'),
+
+	displayButtonBar: Ember.computed.or('navABTestIsButtonBar', 'navABTestIsButtonBarMenu'),
+
+	navABTestChangeUI: Ember.computed(
+		'navABTestCurrentGroup', 'navABTestDefaultGroup', 'navABTestControlGroup',
+		function () {
+			const currentGroup = this.get('navABTestCurrentGroup');
+
+			return currentGroup &&
+				currentGroup !== this.get('navABTestDefaultGroup') &&
+				currentGroup !== this.get('navABTestControlGroup');
+		}
+	),
+
+	navABTestIsControlGroup: Ember.computed('navABTestCurrentGroup', 'navABTestControlGroup', function () {
+		return this.get('navABTestCurrentGroup') === this.get('navABTestControlGroup');
 	}),
 
 	fabIcon: Ember.computed('navABTestIsFabSearchIcon', function () {
@@ -198,6 +241,10 @@ export default Ember.Component.extend({
 	// used to set initial  content to search when opening side-nav
 	shouldOpenNavSearch: false,
 
+	homePageTitle: Ember.computed(() => {
+		return Ember.get(Mercury, 'wiki.mainPageTitle');
+	}),
+
 	actions: {
 		/**
 		 * @returns {void}
@@ -205,32 +252,54 @@ export default Ember.Component.extend({
 		fabIconClick() {
 			const actionHandler = this.get('navABTestIsFabSearchIcon') ? 'showSearch' : 'showNav';
 
-			this.trackAndTrigger('fab-icon', actionHandler);
+			this.trackExperimentClicks('fab-icon');
+			this[actionHandler]();
 		},
 
 		/**
 		 * @returns {void}
 		 */
-		siteHeadIconClick() {
-			const actionHandler = this.get('navABTestIsFabSearchIcon') ? 'showNav' : 'showSearch';
+		leftSiteHeadIconClick() {
+			this.trackExperimentClicks('site-head-icon-menu');
+			this.showNav();
+		},
 
-			this.trackAndTrigger('site-head-icon', actionHandler);
+		/**
+		 * @returns {void}
+		 */
+		rightSiteHeadIconClick() {
+			this.trackExperimentClicks('site-head-icon-search');
+			this.showSearch();
+		},
+
+		/**
+		 * @param {String} actionHandler
+		 * @returns {void}
+		 */
+		bottomBarIconClick(actionHandler) {
+			this.trackExperimentClicks(`bottom-bar-${actionHandler}`);
+			this[actionHandler]();
+		},
+
+		/**
+		 * @param {String} type
+		 * @returns {void}
+		 */
+		bottomBarLinkClick(type) {
+			this.trackExperimentClicks(`bottom-bar-${type}`);
 		}
 	},
 
 	/**
 	 * @param {String} trackingLabel
-	 * @param  {String} actionHandler
 	 * @returns {void}
 	 */
-	trackAndTrigger(trackingLabel, actionHandler) {
+	trackExperimentClicks(trackingLabel) {
 		trackExperiment(this.get('navABTestExperimentName'), {
 			action: trackActions.click,
 			category: 'entrypoint',
 			label: trackingLabel
 		});
-
-		this[actionHandler]();
 	},
 
 	/**

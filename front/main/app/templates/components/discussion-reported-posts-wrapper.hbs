@@ -7,6 +7,7 @@
 {{#each posts as |entity|}}
 	{{#if entity.isReply }}
 		{{discussion-post-card-reply
+			approve=(action this.attrs.approve)
 			author=entity.createdBy
 			content=entity.rawContent
 			delete=(action this.attrs.deleteReply)
@@ -22,6 +23,7 @@
 		}}
 	{{else}}
 		{{discussion-post-card-detail
+			approve=(action this.attrs.approve)
 			author=entity.createdBy
 			delete=(action this.attrs.deletePost)
 			isReported=entity.isReported
