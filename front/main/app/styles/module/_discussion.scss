@@ -447,6 +447,9 @@ body.discussions {
 	}
 
 	.load-newer {
+		$floating-load-newer-button-height: 30px;
+		$wide-load-newer-button-height: 40px;
+
 		font-size: 10px;
 		margin: 0 auto;
 
@@ -456,9 +459,9 @@ body.discussions {
 			color: $discussion-load-newer-color;
 			display: none;
 			font-weight: $font-weight-bold;
-			height: 30px;
+			height: $floating-load-newer-button-height;
 			left: 50%;
-			line-height: 30px;
+			line-height: $floating-load-newer-button-height;
 			padding: 0 12px;
 			position: fixed;
 			transform: translateX(-50%);
@@ -473,8 +476,8 @@ body.discussions {
 			border-top: 1px solid $discussion-reply-border-color;
 			background-color: transparent;
 			font-weight: bold;
-			height: 40px;
-			line-height: 40px;
+			height: $wide-load-newer-button-height;
+			line-height: $wide-load-newer-button-height;
 			text-align: center;
 			width: 100%;
 		}
