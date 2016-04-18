@@ -18,7 +18,6 @@ export default Ember.Component.extend(
 			return !this.get('model.isDeleted') && !this.get('model.isLocked');
 		}),
 
-		// this observer is in use because didInsertElement is not fired when new portion of replies is loaded
 		newRepliesLoadedObserver: Ember.observer('model.replies.length', function () {
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				this.scrollToMarkedReply();
