@@ -1,4 +1,4 @@
 <a {{action 'upvote' post}} class="upvote-area">
 	{{svg 'upvote' viewBox='0 0 30 30' class='icon upvote'}}
-	{{post.upvoteCount}}
+	{{i18n 'main.upvote-link-label' ns='discussion' count=post.upvoteCount}}
 </a>

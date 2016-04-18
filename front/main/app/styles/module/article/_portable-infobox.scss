@@ -59,7 +59,8 @@ $group-header-font-size: 16px;
 		.pi-data-label,
 		.pi-hero-title,
 		.pi-hero-caption,
-		.media-component {
+		.media-component,
+		.article-media-thumbnail {
 			margin: 0;
 			padding: 0;
 		}
@@ -91,6 +92,7 @@ $group-header-font-size: 16px;
 		.pi-image-collection {
 			position: relative;
 
+			// @todo it's for old markup only, remove in XW-1225
 			.pi-item {
 				display: none;
 
@@ -126,7 +128,8 @@ $group-header-font-size: 16px;
 
 				svg {
 					fill: $infobox-hero-font-color;
-					stroke: $infobox-hero-font-color;
+					stroke: $infobox-hero-overlay-color;
+					stroke-width: .5;
 				}
 
 				.action-previous svg {
@@ -203,13 +206,16 @@ $group-header-font-size: 16px;
 		}
 
 		// infobox images
-		.media-component {
+		.media-component,
+		.pi-image {
 			figcaption {
 				color: $black;
 				height: auto;
 				padding: $infobox-item-margin * 2 $article-horizontal-padding;
 			}
+		}
 
+		.media-component {
 			.gallery-image img {
 				background-color: transparent;
 				background-image: none;
@@ -241,7 +247,8 @@ $group-header-font-size: 16px;
 			}
 
 			// remove margins on all elements inside data value
-			* {
+			// leave the chevrons in peace
+			*:not('.chevron') {
 				margin: 0;
 			}
 
@@ -331,6 +338,7 @@ $group-header-font-size: 16px;
 			padding: $infobox-item-margin * 5 0 $infobox-item-margin * 2;
 			text-align: center;
 			width: 100%;
+			z-index: $z-1;
 		}
 
 		.pi-expand-icon {
@@ -351,6 +359,14 @@ $group-header-font-size: 16px;
 				bottom: 0;
 				padding-top: 45px;
 				position: absolute;
+			}
+		}
+
+		.pi-hero, .pi-image-collection {
+			.article-media-placeholder {
+				// in case of long image (longer than wider)
+				// we want to crop its height to equal its width (which takes 100% of screen width)
+				max-height: 100vw;
 			}
 		}
 	}

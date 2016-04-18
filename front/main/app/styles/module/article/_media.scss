@@ -123,6 +123,8 @@ figcaption {
 	position: absolute;
 	right: 0;
 	top: 0;
+	// @todo XW-1364 - use variable
+	z-index: 1;
 }
 
 .article-video {

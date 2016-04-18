@@ -14,6 +14,7 @@
   "main":{
     "discussions-header-title":"Discussions",
     "pagination-post-show-more":"Réponses plus anciennes",
+    "pagination-post-show-newer":"Voir plus récentes",
     "share-default-title":"Discussion sur __siteName__",
     "contributors-title":"Tous les contributeurs",
     "sort-by-header":"Trier par",
@@ -71,12 +72,13 @@
     "lock-post":"Verrouiller la publication",
     "unlock-post":"Déverrouiller la publication",
     "locked-and-reported-to-moderators-text":"Cette publication est verrouillée et a été signalée.",
-    "upvote-link-label":"__count__ vote",
-    "upvote-link-label_plural":"__count__ votes",
-    "replies-link-label":"__count__ réponse",
-    "replies-link-label_plural":"__count__ réponses",
+    "upvote-link-label":"__count__ Vote",
+    "upvote-link-label_plural":"__count__ Votes",
+    "replies-link-label":"__count__ Réponse",
+    "replies-link-label_plural":"__count__ Réponses",
     "share-header":"Partagez la publication",
-    "share-label":"Partager"
+    "share-label":"Partager",
+    "reported-not-found-error":"Aucune publication ou réponse n'a été signalée."
   },
   "editor":{
     "post-failed-error":"Échec de la publication.",

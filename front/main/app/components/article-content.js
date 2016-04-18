@@ -1,18 +1,7 @@
 import Ember from 'ember';
-import InfoboxImageMediaComponent from './infobox-image-media';
-import LinkedGalleryMediaComponent from './linked-gallery-media';
-import GalleryMediaComponent from './gallery-media';
-import VideoMediaComponent from './video-media';
-import ImageMediaComponent from './image-media';
 import InfoboxImageCollectionComponent from './infobox-image-collection';
-import PortableInfoboxComponent from './portable-infobox';
 import AdsMixin from '../mixins/ads';
-import PollDaddyMixin from '../mixins/poll-daddy';
 import TrackClickMixin from '../mixins/track-click';
-import WidgetTwitterComponent from '../components/widget-twitter';
-import WidgetVKComponent from '../components/widget-vk';
-import WidgetPolldaddyComponent from '../components/widget-polldaddy';
-import WidgetFliteComponent from '../components/widget-flite';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 
 /**
@@ -23,7 +12,6 @@ import {getRenderComponentFor, queryPlaceholders} from '../utils/render-componen
 
 export default Ember.Component.extend(
 	AdsMixin,
-	PollDaddyMixin,
 	TrackClickMixin,
 	{
 		tagName: 'article',
@@ -39,17 +27,17 @@ export default Ember.Component.extend(
 
 		newFromMedia(media) {
 			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
-				return InfoboxImageMediaComponent.create();
+				return this.createComponentInstance('infobox-image-media');
 			} else if (Ember.isArray(media)) {
 				if (media.some((media) => Boolean(media.link))) {
-					return LinkedGalleryMediaComponent.create();
+					return this.createComponentInstance('linked-gallery-media');
 				} else {
-					return GalleryMediaComponent.create();
+					return this.createComponentInstance('gallery-media');
 				}
 			} else if (media.type === 'video') {
-				return VideoMediaComponent.create();
+				return this.createComponentInstance('video-media');
 			} else {
-				return ImageMediaComponent.create();
+				return this.createComponentInstance('image-media');
 			}
 		},
 
@@ -76,7 +64,6 @@ export default Ember.Component.extend(
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
-					this.handlePollDaddy();
 					this.handleJumpLink();
 
 					Ember.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
@@ -216,13 +203,25 @@ export default Ember.Component.extend(
 			const media = this.get('media.media');
 
 			if (attrs.ref >= 0 && media && media[attrs.ref]) {
-				if (name === 'article-media-thumbnail') {
+				if (name === 'article-media-thumbnail' || name === 'portable-infobox-hero-image') {
 					attrs = Ember.$.extend(attrs, media[attrs.ref]);
 
 					/**
 					 * Ember has its own context attribute, that is why we have to use different attribute name
 					 */
 					if (attrs.context) {
+						/**
+						 * We don't want to show titles below videos in infoboxes.
+						 * This check is just a hack.
+						 * Perfectly this should be handled somewhere inside infobox-related logic.
+						 * For now this solution is enough
+						 * - it works the same way as on wikis without SEO friendly images.
+						 * It works on wikis without SEO friendly images because there was a bug
+						 * - video was treated as an image and we don't show titles below images.
+						 */
+						if (attrs.context === 'infobox' && attrs.type === 'video') {
+							attrs.showTitle = false;
+						}
 						attrs.mediaContext = attrs.context;
 						delete attrs.context;
 					}
@@ -234,6 +233,20 @@ export default Ember.Component.extend(
 			} else if (name === 'article-media-map-thumbnail') {
 				attrs = Ember.$.extend(attrs, {
 					openLightbox: this.get('openLightbox')
+				});
+			} else if (name === 'portable-infobox-image-collection' && attrs.refs && media) {
+				const getMediaItemsForCollection = (ref) => Ember.$.extend({
+						// We will push new item to media so use its length as index of new gallery element
+						ref: media.length
+					}, media[ref]),
+					collectionItems = attrs.refs.map(getMediaItemsForCollection);
+
+				// Add new gallery to media object
+				// @todo - XW-1362 - it's an ugly hack, we should return proper data from API
+				media.push(collectionItems);
+
+				attrs = Ember.$.extend(attrs, {
+					items: collectionItems
 				});
 			}
 
@@ -284,10 +297,7 @@ export default Ember.Component.extend(
 				editIconVisible = this.get('editIconVisible'),
 				editAllowed = this.get('editAllowed'),
 				addPhotoAllowed = this.get('addPhotoAllowed'),
-				contributionComponent =
-					this.get('container').lookup('component:article-contribution', {
-						singleton: false
-					});
+				contributionComponent = this.createComponentInstance('article-contribution');
 
 			contributionComponent.setProperties({
 				section,
@@ -342,15 +352,21 @@ export default Ember.Component.extend(
 		createMediaComponent(element, model) {
 			const ref = parseInt(element.dataset.ref, 10),
 				media = model.find(ref),
-				component = this.createChildView(this.newFromMedia(media), {
-					ref,
-					width: parseInt(element.getAttribute('width'), 10),
-					height: parseInt(element.getAttribute('height'), 10),
-					imgWidth: element.offsetWidth,
-					media
-				}).createElement();
+				component = this.newFromMedia(media);
 
-			return component.$().attr('data-ref', ref);
+			let componentElement;
+
+			component.setProperties({
+				ref,
+				width: parseInt(element.getAttribute('width'), 10),
+				height: parseInt(element.getAttribute('height'), 10),
+				imgWidth: element.offsetWidth,
+				media
+			});
+
+			componentElement = this.createChildView(component).createElement();
+
+			return componentElement.$().attr('data-ref', ref);
 		},
 
 		/**
@@ -375,7 +391,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		replaceImageCollectionPlaceholdersWithComponents(model) {
-			const $placeholders = this.$('.pi-image-collection'),
+			const $placeholders = this.$('.pi-image-collection:not([data-component])'),
 				articleMedia = model.get('media'),
 				numberToProcess = $placeholders.length,
 				getCollectionMediaFromRefs = (ref) => {
@@ -423,16 +439,21 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		replaceInfoboxWithInfoboxComponent(elem) {
-			const $infoboxPlaceholder = $(elem),
-				infoboxComponent = this.createChildView(PortableInfoboxComponent.create({
-					infoboxHTML: elem.innerHTML,
-					height: $infoboxPlaceholder.outerHeight(),
-					pageTitle: this.get('displayTitle'),
-				}));
+			const infoboxComponent = this.createComponentInstance('portable-infobox'),
+				$infoboxPlaceholder = $(elem);
 
-			infoboxComponent.createElement();
-			$infoboxPlaceholder.replaceWith(infoboxComponent.$());
-			infoboxComponent.trigger('didInsertElement');
+			let infoboxComponentElement;
+
+			infoboxComponent.setProperties({
+				infoboxHTML: elem.innerHTML,
+				height: $infoboxPlaceholder.outerHeight(),
+				pageTitle: this.get('displayTitle'),
+			});
+
+			infoboxComponentElement = this.createChildView(infoboxComponent).createElement();
+
+			$infoboxPlaceholder.replaceWith(infoboxComponentElement.$());
+			infoboxComponentElement.trigger('didInsertElement');
 		},
 
 		/**
@@ -459,13 +480,12 @@ export default Ember.Component.extend(
 				widgetType = widgetData.wikiaWidget,
 				widgetComponent = this.createWidgetComponent(widgetType, $widgetPlaceholder.data());
 
-			let component;
+			let widgetComponentElement;
 
 			if (widgetComponent) {
-				component = this.createChildView(widgetComponent);
-				component.createElement();
-				$widgetPlaceholder.replaceWith(component.$());
-				component.trigger('didInsertElement');
+				widgetComponentElement = this.createChildView(widgetComponent).createElement();
+				$widgetPlaceholder.replaceWith(widgetComponentElement.$());
+				widgetComponentElement.trigger('didInsertElement');
 			}
 		},
 
@@ -475,19 +495,29 @@ export default Ember.Component.extend(
 		 * @returns {string|null}
 		 */
 		createWidgetComponent(widgetType, data) {
+			let component, componentName;
+
 			switch (widgetType) {
 				case 'twitter':
-					return WidgetTwitterComponent.create({data});
+					componentName = 'widget-twitter';
+					break;
 				case 'vk':
-					return WidgetVKComponent.create({data});
+					componentName = 'widget-vk';
+					break;
 				case 'polldaddy':
-					return WidgetPolldaddyComponent.create({data});
+					componentName = 'widget-polldaddy';
+					break;
 				case 'flite':
-					return WidgetFliteComponent.create({data});
+					componentName = 'widget-flite';
+					break;
 				default:
 					Ember.Logger.warn(`Can't create widget with type '${widgetType}'`);
 					return null;
 			}
+
+			component = this.createComponentInstance(componentName);
+			component.set('data', data);
+			return component;
 		},
 
 		/**
@@ -546,6 +576,17 @@ export default Ember.Component.extend(
 
 					$element.wrap(wrapper);
 				});
+		},
+
+		/**
+		 * Create component instance using container lookup.
+		 * @param {String} componentName
+		 * @returns {Ember.Component}
+		 */
+		createComponentInstance(componentName) {
+			return this.get('container').lookup(`component:${componentName}`, {
+				singleton: false
+			});
 		}
 	}
 );

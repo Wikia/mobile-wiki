@@ -6,10 +6,10 @@
 			<div class="slick-list">
 				<img class="hero-image-desktop" data-lazy="{{image}}">
 				<div class="hero-text">
-					<h1>{{title}}</h1>
-					<h2>{{subtitle}}</h2>
+					<h1 class="{{textColorClass}}">{{title}}</h1>
+					<h2 class="{{textColorClass}}">{{subtitle}}</h2>
 					{{#if button}}
-						<a class="hero-link" href="{{buttonLink}}" id="{{buttonId}}">
+						<a class="hero-link {{textColorClass}}" href="{{buttonLink}}" id="{{buttonId}}">
 							{{buttonText}}
 						</a>
 					{{/if}}
@@ -25,10 +25,10 @@
 			<div class="slick-list">
 				<img class="hero-image-mobile" data-lazy="{{imageMobile}}">
 				<div class="hero-text-overlay-large">
-					<h1>{{title}}</h1>
-					<h2>{{subtitle}}</h2>
+					<h1 class="hero-text-white">{{title}}</h1>
+					<h2 class="hero-text-white">{{subtitle}}</h2>
 					{{#if button}}
-						<a class="hero-link" href="{{buttonLink}}" id="{{buttonId}}">
+						<a class="hero-link hero-text-white" href="{{buttonLink}}" id="{{buttonId}}">
 							{{buttonText}}
 						</a>
 					{{/if}}

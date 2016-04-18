@@ -1,5 +1,4 @@
-import localSettings from '../../../config/localSettings';
-import {shouldAsyncArticle, parseQueryParams} from '../../lib/utils';
+import {parseQueryParams} from '../../lib/utils';
 import {getDocumentTitle, getDefaultTitle, getBaseResult, getOpenGraphData} from './page-data-helper';
 
 /**
@@ -10,7 +9,7 @@ import {getDocumentTitle, getDefaultTitle, getBaseResult, getOpenGraphData} from
  * @returns {object}
  */
 export default function prepareArticleData(request, data) {
-	const allowedQueryParams = ['_escaped_fragment_', 'noexternals', 'buckysampling'],
+	const allowedQueryParams = ['noexternals', 'buckysampling'],
 		pageData = data.page.data,
 		result = getBaseResult(request, data);
 
@@ -18,9 +17,6 @@ export default function prepareArticleData(request, data) {
 	result.documentTitle = getDocumentTitle(pageData) || result.displayTitle;
 	result.articlePage = data.page;
 	result.queryParams = parseQueryParams(request.query, allowedQueryParams);
-	result.asyncArticle = request.query._escaped_fragment_ !== '0' ?
-		shouldAsyncArticle(localSettings, request.headers.host) :
-		false;
 
 	if (pageData) {
 		result.isMainPage = pageData.isMainPage;

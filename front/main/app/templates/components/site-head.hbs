@@ -1,11 +1,42 @@
-<div {{action 'expandSideNav'}} class="side-nav-toggle side-nav-toggle-2016">
-	{{#if shouldDisplayNewBadge}}
-		{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
+{{!--
+	temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+	cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+--}}
+{{#if navABTestChangeUI}}
+	{{#if shouldDisplayHamburgerIcon}}
+		<div {{action this.attrs.leftSiteHeadIconClick}} class="side-nav-toggle side-nav-toggle-2016">
+			{{#if shouldDisplayNewBadge}}
+				{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
+			{{/if}}
+			{{svg 'menu' viewBox='0 0 24 14' class='icon nav'}}
+		</div>
 	{{/if}}
-	{{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
-</div>
-<div class="site-logo site-logo-2016">
-	<a {{action 'trackClick' 'wordmark' preventDefault=false}} href={{wikiaHomepage}}>
-		{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
-	</a>
-</div>
+	{{#if shouldDisplaySearchIcon}}
+		<div {{action this.attrs.rightSiteHeadIconClick}} class="side-nav-toggle side-nav-toggle-2016 search-button">
+			{{svg 'search-for-ab-test' viewBox='0 0 24 14' class='icon nav'}}
+		</div>
+	{{/if}}
+	<div class="site-logo site-logo-2016">
+		{{#if shouldDisplayDropdownIcon}}
+			<a {{action this.attrs.leftSiteHeadIconClick}} class="dropdown">
+				{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+			</a>
+		{{else}}
+			<a {{action 'clickWordMark' preventDefault=false}} href={{wikiaHomepage}}>
+				{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+			</a>
+		{{/if}}
+	</div>
+{{else}}
+	<div {{action 'expandSideNav'}} class="side-nav-toggle side-nav-toggle-2016">
+		{{#if shouldDisplayNewBadge}}
+			{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
+		{{/if}}
+		{{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
+	</div>
+	<div class="site-logo site-logo-2016">
+		<a {{action 'clickWordMark' preventDefault=false}} href={{wikiaHomepage}}>
+			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+		</a>
+	</div>
+{{/if}}

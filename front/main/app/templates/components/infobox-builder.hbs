@@ -72,17 +72,19 @@
 				}}
 			</div>
 		{{/liquid-bind}}
-		{{wikia-ui-components/icon-button
-			class='infobox-builder-go-to-source-button'
-			click=(action 'tryGoToSource')
-			icon='source'
-			iconSize=24
-			id='go-to-source'
-		}}
-		{{#pop-over for="go-to-source" on="hover" flow='leftCenter'}}
-			<p class="infobox-builder-go-to-source-tooltip-text">{{i18n 'main.source-editor-tooltip'
-			ns='infobox-builder'}}</p>
-		{{/pop-over}}
+		{{#if isGoToSourceEnabled}}
+			{{wikia-ui-components/icon-button
+				class='infobox-builder-go-to-source-button'
+				click=(action 'tryGoToSource')
+				icon='source'
+				iconSize=24
+				id='go-to-source'
+			}}
+			{{#pop-over for="go-to-source" on="hover" flow='leftCenter'}}
+				<p class="infobox-builder-go-to-source-tooltip-text">{{i18n 'main.source-editor-tooltip'
+				ns='infobox-builder'}}</p>
+			{{/pop-over}}
+		{{/if}}
 	</div>
 	{{#modal-dialog isVisible=showGoToSourceModal class='infobox-builder-modal infobox-builder-go-to-source-modal'}}
 		{{infobox-builder-go-to-source-modal
