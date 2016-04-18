@@ -1,31 +1,55 @@
 /* _title.scss */
 
+$bk-color: rgb(26, 94, 184);
+
+.page-wrapper .article-body, .page-wrapper .wiki-page-body {
+	padding: 0;
+}
+
+.page-wrapper .article-content {
+	padding: 0 1.125em;
+}
+
 .wiki-page-header {
+	background: $bk-color;
+	color: #fff;
+	padding: {
+		left: 18px;
+		right: 18px;
+		top: 15px;
+		bottom: 12px;
+	}
+}
+
+%wiki-page-header-element {
+	color: inherit;
+	line-height: 1;
+	font-weight: normal;
+	margin: 0;
 }
 
 .wiki-page-header__site-name {
-	@extend %header-section-title;
+	@extend %wiki-page-header-element;
 	font-size: $type-smallest;
-	margin-bottom: rem-calc(20);
+	margin-bottom: 1.125em;
 
 	a {
-		display: block;
+		color: inherit;
+		font-style: italic;
+		font-weight: bold;
 	}
 }
 
 .wiki-page-header__title {
-	@extend %header-section-title;
-	line-height: 2rem;
-	margin: {
-		bottom: 1em;
-		left: 1rem;
-		right: 1rem;
-		top: 3px;
-	}
+	@extend %wiki-page-header-element;
+	font-size: 26px;
+	margin-top: 3px;
 	word-break: break-word;
+	font-weight: bold;
 }
 
 .wiki-page-header__subtitle {
-	margin-top: -1.75rem;
-	text-align: center;
+	@extend %wiki-page-header-element;
+	font-size: 14px;
+	margin-top: 1.125em;
 }
