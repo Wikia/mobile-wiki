@@ -44,6 +44,7 @@ export default Ember.Component.extend({
 		 */
 		lock(post) {
 			this.attrs.lock(post);
+			track(trackActions.PostLock);
 			this.get('popover').deactivate();
 		},
 
@@ -54,6 +55,7 @@ export default Ember.Component.extend({
 		 */
 		unlock(post) {
 			this.attrs.unlock(post);
+			track(trackActions.PostUnlock);
 			this.get('popover').deactivate();
 		},
 
@@ -84,6 +86,7 @@ export default Ember.Component.extend({
 		 */
 		report(post) {
 			this.attrs.report(post);
+			track(trackActions.Report);
 			this.get('popover').deactivate();
 		},
 	}
