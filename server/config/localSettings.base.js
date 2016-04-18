@@ -158,7 +158,6 @@ import deepExtend from 'deep-extend';
  */
 
 const localSettings = {
-	apiBase: '/api/mercury',
 	servicesDomain: 'services.wikia.com',
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
