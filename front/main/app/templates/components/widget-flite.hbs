@@ -1,13 +1,2 @@
- <script>
-	(function() {
-		var o = window;
-		var guid="{{data.guid}}";
-
-		o.FLITE=o.FLITE || {};
-		o.FLITE.config = o.FLITE.config || {};
-		o.FLITE.config[guid] = o.FLITE.config[guid] || {};
-		o.FLITE.config[guid].ts = (+ new Date());
-	})();
-</script>
-<script src="//s.flite.com/syndication/combo.js" async="async" data-instance="{{data.guid}}" data-width="{{data.width}}" data-height="{{data.height}}"></script>
+{{{scriptTag}}}
 <noscript><a style="text-decoration:none;display:block;border:0;" href="//r.flite.com/syndication/backuplink/i/{{data.guid}}?ct=" target="_blank"><img border="0" src="//r.flite.com/syndication/backupimage/i/{{data.guid}}?at=" /></a></noscript>

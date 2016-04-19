@@ -25,7 +25,7 @@
     "start": "nodemon --delay 2",
     "start-on-change": "nodemon --delay 2 --on-change-only",
     "test": "npm run build-dev && npm run test-front && npm run test-server",
-    "test-front": "gulp test-common && gulp test-auth && cd front/main && ember test --path ../../www/front/main",
+    "test-front": "gulp test-common && gulp test-auth && cd front/main && ember test --path ../../www/front/main -tp $(($TEST_PORT + 7357))",
     "test-server": "npm run test-server-unit && npm run test-server-acceptance",
     "test-server-unit": "gulp test-server",
     "test-server-acceptance": "gulp build-server-scripts-for-acceptance-tests && cd server && lab -v tests/acceptance/*.js",

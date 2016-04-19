@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * Type for topmost-level nav item, which doesn't have any of the properties defined in NavItem
@@ -21,7 +21,6 @@ import TrackClickMixin from '../mixins/track-click';
  */
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		tagName: 'ul',
 		classNames: ['local-nav-menu'],
@@ -47,7 +46,11 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			loadRandomArticle() {
-				this.trackClick('side-nav', 'local-nav-open-random-article');
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: 'local-nav-open-random-article'
+				});
 				this.sendAction('loadRandomArticle');
 			},
 
@@ -55,13 +58,21 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			recentWikiActivityClick() {
-				this.trackClick('recent-wiki-activity-blue-dot', 'open-recent-wiki-activity');
+				track({
+					action: trackActions.click,
+					category: 'recent-wiki-activity-blue-dot',
+					label: 'open-recent-wiki-activity'
+				});
 				this.get('newFeaturesBadges').addFeature('recent-wiki-activity');
 				this.get('collapse')();
 			},
 
 			clickLink(index) {
-				this.trackClick('side-nav', `local-nav-open-link-index-${index + 1}`);
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: `local-nav-open-link-index-${index + 1}`
+				});
 				this.get('collapse')();
 			}
 		}

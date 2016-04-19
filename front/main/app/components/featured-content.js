@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 import ThirdsClickMixin from '../mixins/thirds-click';
 import {track, trackActions} from 'common/utils/track';
 
@@ -33,7 +32,6 @@ import {track, trackActions} from 'common/utils/track';
  */
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	ThirdsClickMixin,
 	{
 		classNames: ['featured-content', 'mw-content'],
@@ -134,7 +132,11 @@ export default Ember.Component.extend(
 		 * @returns {boolean}
 		 */
 		rightClickHandler() {
-			this.trackClick('main-page-featured-content', 'next');
+			track({
+				action: trackActions.click,
+				category: 'main-page-featured-content',
+				label: 'next'
+			});
 			this.nextItem();
 			this.resetCycleTimeout();
 
@@ -145,7 +147,11 @@ export default Ember.Component.extend(
 		 * @returns {boolean}
 		 */
 		leftClickHandler() {
-			this.trackClick('main-page-featured-content', 'previous');
+			track({
+				action: trackActions.click,
+				category: 'main-page-featured-content',
+				label: 'previous'
+			});
 			this.prevItem();
 			this.resetCycleTimeout();
 
@@ -156,7 +162,11 @@ export default Ember.Component.extend(
 		 * @returns {boolean}
 		 */
 		centerClickHandler() {
-			this.trackClick('main-page-featured-content', 'open');
+			track({
+				action: trackActions.click,
+				category: 'main-page-featured-content',
+				label: 'open'
+			});
 			this.stopCyclingThroughItems();
 
 			return false;

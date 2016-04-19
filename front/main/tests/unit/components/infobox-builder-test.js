@@ -1,6 +1,8 @@
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
-const track = require('common/utils/track').track;
+
+const trackModule = require('common/utils/track');
+let trackStub;
 
 require.entries['main/mixins/track-click'].callback = () => {
 	return Ember.Mixin.create({
@@ -16,11 +18,11 @@ moduleForComponent('infobox-builder', 'Unit | Component | infobox builder', {
 	unit: true,
 
 	beforeEach() {
-		require('common/utils/track').track = Ember.K;
+		trackStub = sinon.stub(trackModule, 'track');
 	},
 
 	afterEach() {
-		require('common/utils/track').track = track;
+		trackStub.restore();
 	}
 });
 
@@ -521,11 +523,13 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: false,
+				isVEContext: false,
 				expected: {
 					showSuccess: true,
 					titleExists: false,
 					redirectToPageCalled: false,
-					showEditTitleModalCalled: false
+					showEditTitleModalCalled: false,
+					returnToVECalled: false
 				},
 				message: 'correctly saved template with no redirect needed'
 			},
@@ -538,13 +542,53 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: true,
+				isVEContext: false,
 				expected: {
 					showSuccess: true,
 					titleExists: false,
 					redirectToPageCalled: true,
-					showEditTitleModalCalled: false
+					showEditTitleModalCalled: false,
+					returnToVECalled: false
 				},
 				message: 'correctly saved template with redirect'
+			},
+			{
+				data: {
+					success: true,
+					conflict: false,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: false,
+				isVEContext: true,
+				expected: {
+					showSuccess: false,
+					titleExists: false,
+					redirectToPageCalled: false,
+					showEditTitleModalCalled: false,
+					returnToVECalled: true
+				},
+				message: 'correctly saved template with going back to VE'
+			},
+			{
+				data: {
+					success: true,
+					conflict: false,
+					urls: {
+						templatePageUrl: 'www.test.com'
+					}
+				},
+				shouldRedirectToPage: true,
+				isVEContext: true,
+				expected: {
+					showSuccess: false,
+					titleExists: false,
+					redirectToPageCalled: false,
+					showEditTitleModalCalled: false,
+					returnToVECalled: true
+				},
+				message: 'correctly saved template with with going back to VE'
 			},
 			{
 				data: {
@@ -555,11 +599,13 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: false,
+				isVEContext: false,
 				expected: {
 					showSuccess: false,
 					titleExists: true,
 					redirectToPageCalled: false,
-					showEditTitleModalCalled: true
+					showEditTitleModalCalled: true,
+					returnToVECalled: false
 				},
 				message: 'naming conflict with no redirect'
 			},
@@ -572,11 +618,13 @@ test('handleSaveResults', function (assert) {
 					}
 				},
 				shouldRedirectToPage: true,
+				isVEContext: false,
 				expected: {
 					showSuccess: false,
 					titleExists: true,
 					redirectToPageCalled: false,
-					showEditTitleModalCalled: true
+					showEditTitleModalCalled: true,
+					returnToVECalled: false
 				},
 				message: 'naming conflict with redirect'
 			}
@@ -584,12 +632,15 @@ test('handleSaveResults', function (assert) {
 
 	cases.forEach((testCase) => {
 		const redirectToPageSpy = sinon.spy(),
+			returnToVESpy = sinon.spy(),
 			showEditTitleModalSpy = sinon.spy();
 
 		component.set('showEditTitleModal', showEditTitleModalSpy);
 		component.set('redirectToPageAction', redirectToPageSpy);
+		component.set('returnToVE', returnToVESpy);
 		component.set('showSuccess', false);
 		component.set('titleExists', false);
+		component.set('isVEContext', testCase.isVEContext);
 		component.handleSaveResults(testCase.data, testCase.shouldRedirectToPage);
 
 		assert.equal(
@@ -611,6 +662,11 @@ test('handleSaveResults', function (assert) {
 			showEditTitleModalSpy.called,
 			testCase.expected.showEditTitleModalCalled,
 			`${testCase.message}- showEditTitleModalCalled`
+		);
+		assert.equal(
+			returnToVESpy.called,
+			testCase.expected.returnToVECalled,
+			`${testCase.message}- returnToVECalled`
 		);
 	});
 });
