@@ -1,8 +1,6 @@
 import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
-import TextHighlightMixin from '../mixins/text-highlight';
 import ViewportMixin from '../mixins/viewport';
-import {track, trackActions} from 'common/utils/track';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -15,15 +13,10 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	LanguagesMixin,
-	TextHighlightMixin,
 	ViewportMixin,
 	{
 		classNames: ['article-wrapper'],
 		currentUser: Ember.inject.service(),
-
-		highlightedSectionIndex: 0,
-		highlightedText: '',
-
 		hammerOptions: {
 			touchAction: 'auto',
 			cssProps: {
@@ -35,35 +28,6 @@ export default Ember.Component.extend(
 				 */
 				touchCallout: 'default',
 			}
-		},
-
-		setHighlightedText() {
-			this.setSelection(window.getSelection());
-
-			if (this.isTextHighlighted()) {
-				const sectionIndex = this.getHighlightedTextSection();
-
-				let highlightedText = this.getHighlightedHtml();
-
-				highlightedText = this.trimTags(highlightedText);
-				highlightedText = this.replaceTags(highlightedText);
-
-				this.setHighlightedTextVars(sectionIndex, highlightedText);
-				track({
-					action: trackActions.impression,
-					category: 'highlighted-editor',
-					label: 'entry-point'
-				});
-			} else {
-				this.setHighlightedTextVars(0, '');
-			}
-		},
-
-		setHighlightedTextVars(highlightedSectionIndex, highlightedText) {
-			this.setProperties({
-				highlightedSectionIndex,
-				highlightedText
-			});
 		},
 
 		/**
@@ -144,17 +108,14 @@ export default Ember.Component.extend(
 			return this.get('currentUser.isAuthenticated') && !Ember.$.cookie('recent-edit-dismissed');
 		}),
 
-		highlightedEditorEnabled: Ember.computed(() => Mercury.wiki.language.content === 'en'),
-
 		actions: {
 			/**
 			 * @param {string} title
 			 * @param {number} sectionIndex
-			 * @param {string} highlightedText
 			 * @returns {void}
 			 */
-			edit(title, sectionIndex, highlightedText = null) {
-				this.sendAction('edit', title, sectionIndex, highlightedText);
+			edit(title, sectionIndex) {
+				this.sendAction('edit', title, sectionIndex);
 			},
 
 			/**
@@ -210,16 +171,6 @@ export default Ember.Component.extend(
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				this.sendAction('articleRendered');
 			});
-
-			if (this.get('highlightedEditorEnabled')) {
-				Ember.$(document).on('selectionchange.highlight', this.setHighlightedText.bind(this));
-			}
-		},
-
-		willDestroyElement() {
-			this._super(...arguments);
-
-			Ember.$(document).off('selectionchange.highlight');
 		},
 
 		/**
