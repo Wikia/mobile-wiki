@@ -1,8 +1,7 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		classNames: ['article-media-map-thumbnail'],
 		tagName: 'figure',
@@ -18,7 +17,12 @@ export default Ember.Component.extend(
 			if (url) {
 				Ember.Logger.debug('Handling map with id:', id, 'and title:', title);
 
-				this.trackClick('map', 'open');
+				track({
+					action: trackActions.click,
+					category: 'map',
+					label: 'open'
+				});
+
 				this.get('openLightbox')('map', {
 					id,
 					title,
