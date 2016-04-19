@@ -17,11 +17,11 @@
 	<span class="timestamp" title="{{timestamp-to-date post.creationTimestamp}}">
 		&bull; {{time-ago post.creationTimestamp}}
 	</span>
-	<div class="discussion-more-options" id="post-options-{{post.id}}">
+	<div class="discussion-more-options" id="post-options-{{post.threadId}}">
 		{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
 	</div>
 
-	{{#pop-over for=(concat 'post-options-' post.id) on='click' flow='flip' class='more-options-pop-over'}}
+	{{#pop-over for=(concat 'post-options-' post.threadId) on='click' flow='flip' class='more-options-pop-over'}}
 		{{discussion-more-options
 			delete=(action this.attrs.delete)
 			deleteMessage=(i18n 'main.delete-post' ns='discussion')
@@ -77,11 +77,11 @@
 
 	<div class="small-2 large-4 columns share">
 		{{#unless isDeleted }}
-			{{share-feature
+			{{discussion-share
 				entryPointLabel=(i18n 'main.share-label' ns='discussion')
 				header=(i18n 'main.share-header' ns='discussion')
 				sharedUrl=sharedUrl
-				uniqueIdentifier=post.id
+				uniqueIdentifier=post.threadId
 			}}
 		{{/unless}}
 	</div>

@@ -1,43 +1,14 @@
 .share-feature {
-	.toggle-share-area {
-		display: block;
-		height: 30px;
-		line-height: 30px;
+	display: block;
+	text-align: right;
 
-		span {
-			margin-left: 3px;
-		}
-	}
-
-	.icon.toggle-share {
-		height: 20px;
-		width: 18px;
-	}
-
-	.pop-over-container {
-		padding: 24px 24px 38px;
-		text-align: center;
-	}
-
-	.social-networks-list {
-		list-style: none;
-		margin: 0 auto;
-
-		li {
-			display: inline-block;
-
-			&:not(:last-child) {
-				margin-right: 15px;
-			}
-		}
-
-		.icon {
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: contain;
-			display: inline-block;
-			height: 26px;
-			width: 26px;
-		}
+	.icon {
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		display: inline-block;
+		height: 24px;
+		margin-left: 5px;
+		width: 24px;
 	}
 }
