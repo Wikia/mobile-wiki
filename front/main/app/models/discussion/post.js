@@ -2,6 +2,7 @@ import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionContributionModelMixin from '../../mixins/discussion-contribution-model';
 import ajaxCall from '../../utils/ajax-call';
+import {track, trackActions} from '../../utils/discussion-tracker';
 import DiscussionContributor from './domain/contributor';
 import DiscussionContributors from './domain/contributors';
 import DiscussionPost from './domain/post';
@@ -45,6 +46,86 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 				error: (err) => {
 					this.handleLoadMoreError(err);
 				},
+			});
+		},
+
+		/**
+		 * Create a reply in discussion service
+		 * @param {object} replyData
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		createReply(replyData) {
+			this.setFailedState(null);
+			replyData.threadId = this.get('postId');
+
+			return ajaxCall({
+				data: JSON.stringify(replyData),
+				method: 'POST',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
+				success: (reply) => {
+					reply.isNew = true;
+					reply.threadCreatedBy = this.get('data.createdBy');
+					this.incrementProperty('data.repliesCount');
+					this.get('data.replies').pushObject(DiscussionReply.create(reply));
+
+					track(trackActions.ReplyCreate);
+				},
+				error: (err) => {
+					this.onCreatePostError(err);
+				}
+			});
+		},
+
+		/**
+		 * Edit a post in discussion service
+		 * @param {object} postData
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		editPost(postData) {
+			this.setFailedState(null);
+			return ajaxCall({
+				data: JSON.stringify(postData),
+				method: 'POST',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`),
+				success: (thread) => {
+					this.setNormalizedData(thread);
+
+					track(trackActions.PostEdit);
+				},
+				error: (err) => {
+					this.onCreatePostError(err);
+				}
+			});
+		},
+
+		/**
+		 * Edit a reply in discussion service
+		 * @param {object} replyData
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		editReply(replyData) {
+			this.setFailedState(null);
+
+			return ajaxCall({
+				data: JSON.stringify(replyData),
+				method: 'POST',
+				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${replyData.id}`),
+				success: (reply) => {
+					const replies = this.get('data.replies'),
+						editedReplyIndex = replies.indexOf(replies.findBy('id', replyData.id));
+					let editedReply;
+
+					reply.threadCreatedBy = reply.createdBy;
+
+					editedReply = DiscussionReply.create(reply);
+
+					replies.replace(editedReplyIndex, 1, editedReply);
+
+					track(trackActions.ReplyEdit);
+				},
+				error: (err) => {
+					this.onCreatePostError(err);
+				}
 			});
 		},
 

@@ -58,33 +58,6 @@ export default Ember.Mixin.create({
 	},
 
 	/**
-	 * Create a reply in discussion service
-	 * @param {object} replyData
-	 * @returns {Ember.RSVP.Promise}
-	 */
-	createReply(replyData) {
-		this.setFailedState(null);
-		replyData.threadId = this.get('postId');
-
-		return ajaxCall({
-			data: JSON.stringify(replyData),
-			method: 'POST',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
-			success: (reply) => {
-				reply.isNew = true;
-				reply.threadCreatedBy = this.get('data.createdBy');
-				this.incrementProperty('data.repliesCount');
-				this.get('data.replies').pushObject(DiscussionReply.create(reply));
-
-				track(trackActions.ReplyCreate);
-			},
-			error: (err) => {
-				this.onCreatePostError(err);
-			}
-		});
-	},
-
-	/**
 	 * Edit a reply in discussion service
 	 * @param {object} replyData
 	 * @returns {Ember.RSVP.Promise}
@@ -105,7 +78,7 @@ export default Ember.Mixin.create({
 
 				editedReply = DiscussionReply.create(reply);
 
-				replies.replace(editedReplyIndex, 0, editedReply);
+				replies.replace(editedReplyIndex, 1, editedReply);
 
 				track(trackActions.ReplyEdit);
 			},
