@@ -35,6 +35,7 @@ export default DiscussionEditorComponent.extend({
 		if (this.get('discussionEditor.isEditEditorOpen')) {
 			this.afterOpenActions();
 		} else {
+			this.get('discussionEditor').setDiscussionEntity(null);
 			this.afterCloseActions();
 		}
 	}),

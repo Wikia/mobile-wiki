@@ -44,7 +44,10 @@ export default Ember.Service.extend(Ember.Evented, {
 	 * @returns {void}
 	 */
 	activateEditor() {
-		if (this.get('isEditorOpen') === true) {
+		if (
+			(!this.get('isEditMode') && this.get('isEditorOpen') === true) &&
+			(this.get('isEditMode') && this.get('isEditEditorOpen') === true)
+		) {
 			return;
 		}
 
