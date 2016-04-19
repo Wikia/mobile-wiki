@@ -1,4 +1,7 @@
-{{#modal-dialog isVisible=editEditorActive}}
+{{#modal-dialog
+	isVisible=editEditorActive
+	isBare=true
+}}
 	{{discussion-edit-editor
 		editPost=(action this.attrs.editPost)
 	}}

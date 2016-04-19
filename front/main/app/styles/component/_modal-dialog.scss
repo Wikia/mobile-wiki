@@ -28,6 +28,12 @@
 		top: 0;
 	}
 
+	&.is-bare {
+		.modal-dialog {
+			padding: 0;
+		}
+	}
+
 	&.menu {
 		color: $color-blue-light;
 

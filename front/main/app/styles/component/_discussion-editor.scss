@@ -183,6 +183,12 @@ $editor-textarea-overflow-ios-hack: 30px;
 			}
 		}
 
+		&.is-edit {
+			.editor-container {
+				left: 0;
+			}
+		}
+
 		&.is-active {
 			display: block;
 
@@ -204,6 +210,113 @@ $editor-textarea-overflow-ios-hack: 30px;
 				height: 100%;
 				padding-bottom: 0;
 				position: fixed;
+				top: 0;
+				width: 100%;
+				z-index: $z-discussion-editor;
+			}
+
+			button {
+				right: 0;
+				top: 0;
+			}
+
+			.editor-close {
+				display: inline-block;
+				height: 38px;
+				padding: 10px;
+				position: absolute;
+				width: 38px;
+			}
+
+			.editor-wrapper {
+				height: calc(100% - #{$editor-toolbar-height});
+			}
+
+			.editor-textarea {
+				border-bottom-width: 0;
+				border-top: $editor-active-mobile-border-top-width solid $discussion-editor-textarea-border-color;
+				height: 100%;
+				max-height: none;
+				padding: $editor-toolbar-height 10px 10px;
+				position: relative;
+				resize: none;
+				top: $editor-toolbar-height;
+				width: 100%;
+			}
+
+			.user-avatar {
+				display: none;
+			}
+		}
+
+		&.has-error {
+			.error-container {
+				padding-top: $editor-toolbar-height;
+			}
+
+			.editor-wrapper {
+				height: calc(100% - #{2 * $editor-toolbar-height});
+				padding-top: $editor-toolbar-height;
+			}
+
+			.editor-label {
+				top: 2 * $editor-toolbar-height;
+			}
+
+			.editor-close {
+				top: $editor-toolbar-height + 10px;
+			}
+
+			button {
+				top: $editor-toolbar-height;
+			}
+		}
+	}
+}
+
+
+@media #{$desktop-range} {
+	.discussion-editor.is-edit {
+		.editor-container {
+			border: 0;
+			margin-left: 0;
+		}
+
+		span {
+			&.error {
+				align-items: center;
+				background-color: $discussion-editor-mobile-error-background-color;
+				color: $discussion-editor-mobile-error-text-color;
+				display: flex;
+				font-size: $type-smallest;
+				height: $editor-toolbar-height;
+				justify-content: center;
+				position: absolute;
+				top: 0;
+				width: 100%;
+			}
+		}
+
+		&.is-active {
+			display: block;
+
+			.editor-label {
+				background-color: $discussion-editor-background-color;;
+				color: $discussion-editor-label-color;
+				font-size: $type-min;
+				font-weight: bold;
+				padding: 10px;
+				position: absolute;
+				text-transform: uppercase;
+				top: $editor-toolbar-height + $editor-active-mobile-border-top-width;
+				width: 100%;
+				z-index: $z-discussion-editor + 1;
+			}
+
+			.editor-container {
+				background: $discussion-editor-background-color;
+				height: 100%;
+				padding-bottom: 0;
 				top: 0;
 				width: 100%;
 				z-index: $z-discussion-editor;
