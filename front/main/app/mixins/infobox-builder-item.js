@@ -1,8 +1,6 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 
 export default Ember.Mixin.create(
-	TrackClickMixin,
 	{
 		classNameBindings: ['active', 'inGroup', 'last'],
 		active: Ember.computed('model', 'activeItem', function () {

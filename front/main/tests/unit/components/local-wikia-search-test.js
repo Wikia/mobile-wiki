@@ -1,23 +1,21 @@
-import {test, moduleForComponent} from 'ember-qunit';
 import sinon from 'sinon';
+import {test, moduleForComponent} from 'ember-qunit';
 
 
-const track = require('common/utils/track').track;
-
-let stub;
+const trackModule = require('common/utils/track');
+let trackStub, buildUrlStub;
 
 moduleForComponent('side-nav-local-wikia-search', 'Unit | Component | local wikia search', {
 	unit: true,
 
 	beforeEach() {
-		stub = sinon.stub(M, 'buildUrl');
-		require('common/utils/track').track = Ember.K;
-		require('common/utils/track').track.actions = {submit: ''};
+		buildUrlStub = sinon.stub(M, 'buildUrl');
+		trackStub = sinon.stub(trackModule, 'track');
 	},
 
 	afterEach() {
-		M.buildUrl.restore();
-		require('common/utils/track').track = track;
+		buildUrlStub.restore();
+		trackStub.restore();
 	}
 });
 
@@ -32,7 +30,7 @@ test('search URI generation', function (assert) {
 	queries.forEach((query) => {
 		component.getSearchURI(query);
 		assert.ok(
-			stub.calledWith({
+			buildUrlStub.calledWith({
 				path: '/wikia.php',
 				query: {
 					controller: 'MercuryApi',

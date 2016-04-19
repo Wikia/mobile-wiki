@@ -1,12 +1,11 @@
 import Ember from 'ember';
 import AdsMixin from '../mixins/ads';
-import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
 const {Component} = Ember;
 
 export default Component.extend(
 	AdsMixin,
-	TrackClickMixin,
 	{
 		classNames: ['category-section'],
 		classNameBindings: ['loadingBatch'],
@@ -14,7 +13,12 @@ export default Component.extend(
 
 		actions: {
 			loadBatch(index, batch, label) {
-				this.trackClick('category-page', `load-${label}`);
+				track({
+					action: trackActions.click,
+					category: 'category-page',
+					label: `load-${label}`
+				});
+
 				this.set('loadingBatch', true);
 
 				this.get('loadBatch')(...arguments).then(() => {
@@ -22,6 +26,14 @@ export default Component.extend(
 
 					window.document.getElementById(index).scrollIntoView();
 					window.scrollBy(0, -50);
+				});
+			},
+
+			trackClick(category, label) {
+				track({
+					action: trackActions.click,
+					category,
+					label
 				});
 			}
 		}
