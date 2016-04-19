@@ -3,12 +3,13 @@ import ArticleHandler from '../utils/wiki-handlers/article';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
+import HeadTagsMixin from '../mixins/head-tags';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import {normalizeToUnderscore} from 'common/utils/string';
 import {setTrackContext, trackPageView} from 'common/utils/track';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
-export default Ember.Route.extend(RouteWithAdsMixin, {
+export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsMixin, {
 	redirectEmptyTarget: false,
 	wikiHandler: null,
 	currentUser: Ember.inject.service(),
@@ -80,10 +81,10 @@ export default Ember.Route.extend(RouteWithAdsMixin, {
 	 * @returns {void}
 	 */
 	afterModel(model, transition) {
+		this._super(...arguments);
+
 		if (model) {
 			const handler = this.getHandler(model);
-
-			this.setHeadTags(model);
 
 			if (handler) {
 				transition.then(() => {
@@ -108,23 +109,16 @@ export default Ember.Route.extend(RouteWithAdsMixin, {
 	},
 
 	/**
-	 * This function updates head tags defined in templates/head.hbs (ember-cli-head plugin)
-	 * @param {Object} model
+	 * Custom implementation of HeadTagsMixin::setDynamicHeadTags
+	 * @param {Object} model, this is model object from route::afterModel() hook
 	 * @returns {void}
 	 */
-	setHeadTags(model) {
-		const wikiVariables = Ember.get(Mercury, 'wiki'),
-			pageUrl = model.get('url'),
-			canonical = wikiVariables.basePath + pageUrl,
-			appId = wikiVariables.smartBanner.appId.ios;
-
-		this.get('headData').setProperties({
-			canonical,
+	setDynamicHeadTags(model) {
+		this._super(model, {
+			url: model.get('url'),
 			documentTitle: model.get('documentTitle'),
 			description: model.get('description'),
-			appleItunesApp: pageUrl ? `app-id=${appId}, app-argument=${canonical}` : `app-id=${appId}`,
-			keywords: `${wikiVariables.siteMessage},${wikiVariables.siteName},${wikiVariables.dbName},` +
-				`${model.get('displayTitle')}`
+			robots: 'index,follow'
 		});
 	},
 

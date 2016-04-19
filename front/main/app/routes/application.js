@@ -18,42 +18,10 @@ export default Route.extend(
 	TargetActionSupport,
 	TrackClickMixin,
 	{
-		headData: Ember.inject.service(),
 		queryParams: {
 			commentsPage: {
 				replace: true
 			}
-		},
-
-		init() {
-			this.setHeadTags();
-			this.removeServerHeadTags();
-		},
-
-		removeServerHeadTags() {
-			Ember.$('head *[data-hapi-leftovers]').remove();
-		},
-
-		setHeadTags() {
-			const wikiVariables = Ember.get(Mercury, 'wiki'),
-				verticalColors = {
-					comics: '#ff5400',
-					games: '#94d11f',
-					books: '#ff7f26',
-					movies: '#09d3bf',
-					lifestyle: '#ffd000',
-					music: '#c819ad',
-					tv: '#00b7e0'
-				};
-
-			this.get('headData').setProperties({
-				robots: wikiVariables.specialRobotPolicy ? wikiVariables.specialRobotPolicy : 'index,follow',
-				favicon: wikiVariables.favicon,
-				themeColor: verticalColors[wikiVariables.vertical],
-				gaUrl: M.prop('gaUrl'),
-				qualarooScript: M.prop('qualarooScript'),
-				optimizelyScript: M.prop('optimizelyScript')
-			});
 		},
 
 		actions: {
