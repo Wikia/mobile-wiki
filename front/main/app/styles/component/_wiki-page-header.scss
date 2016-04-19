@@ -2,8 +2,8 @@
 	background: $color-blue-light;
 	color: #fff;
 	padding: {
-		left: 1.125em;
-		right: 1.125em;
+		left: $article-horizontal-padding;
+		right: $article-horizontal-padding;
 		top: 15px;
 		bottom: 12px;
 	}
