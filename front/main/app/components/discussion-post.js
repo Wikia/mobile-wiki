@@ -1,6 +1,6 @@
 import DiscussionEditEditorMixin from '../mixins/discussion-edit-editor';
 
-export default Ember.Component.extend(DiscussionModalDialogMixin, DiscussionEditEditorMixin,
+export default Ember.Component.extend(DiscussionEditEditorMixin,
 	{
 		discussionSort: Ember.inject.service(),
 
