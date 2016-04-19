@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
-import TrackClickMixin from '../mixins/track-click';
 import ViewportMixin from '../mixins/viewport';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * @typedef {Object} ArticleSectionHeader
@@ -14,7 +14,6 @@ import ViewportMixin from '../mixins/viewport';
 
 export default Ember.Component.extend(
 	LanguagesMixin,
-	TrackClickMixin,
 	ViewportMixin,
 	{
 		classNames: ['article-wrapper'],
@@ -153,6 +152,14 @@ export default Ember.Component.extend(
 			updateHeaders(headers) {
 				this.set('headers', headers);
 			},
+
+			trackClick(category, label) {
+				track({
+					action: trackActions.click,
+					category,
+					label
+				});
+			}
 		},
 
 		/**
@@ -224,7 +231,13 @@ export default Ember.Component.extend(
 				Ember.Logger.debug('Handling media:', mediaRef, 'gallery:', galleryRef);
 
 				media = this.get('model.media');
-				this.trackClick('media', 'open');
+
+				track({
+					action: trackActions.click,
+					category: 'media',
+					label: 'open'
+				});
+
 				this.sendAction('openLightbox', 'media', {
 					media,
 					mediaRef,

@@ -1,11 +1,9 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 import {track, trackActions} from 'common/utils/track';
 
 const trackCategory = 'recent-wiki-activity';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		classNames: ['diff-page'],
 		currentUser: Ember.inject.service(),
@@ -29,7 +27,12 @@ export default Ember.Component.extend(
 				() => this.trackSuccess('upvote-success'),
 				() => this.handleError('main.error', 'upvote-error')
 			);
-			this.trackClick(trackCategory, 'upvote');
+
+			track({
+				action: trackActions.click,
+				category: trackCategory,
+				label: 'upvote'
+			});
 		},
 
 		/**
@@ -47,7 +50,12 @@ export default Ember.Component.extend(
 				() => this.trackSuccess('remove-upvote-success'),
 				() => this.handleError('main.error', 'remove-upvote-error')
 			);
-			this.trackClick(trackCategory, 'remove-upvote');
+
+			track({
+				action: trackActions.click,
+				category: trackCategory,
+				label: 'remove-upvote'
+			});
 		},
 
 		/**
@@ -146,7 +154,11 @@ export default Ember.Component.extend(
 					}
 				);
 
-				this.trackClick(trackCategory, 'undo');
+				track({
+					action: trackActions.click,
+					category: trackCategory,
+					label: 'undo'
+				});
 			}
 		}
 	}

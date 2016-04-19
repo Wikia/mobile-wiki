@@ -1,9 +1,7 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
-
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		classNames: ['infobox-builder-edit-options-pop-over', 'pop-over', 'orient-left', 'pointer-center'],
 		targetPosX: null,
@@ -105,7 +103,11 @@ export default Ember.Component.extend(
 			removeItem() {
 				const item = this.get('targetItem');
 
-				this.trackClick('infobox-builder', `edit-options-pop-over-delete-item-${item.type}`);
+				track({
+					action: trackActions.click,
+					category: 'infobox-builder',
+					label: `edit-options-pop-over-delete-item-${item.type}`
+				});
 				this.get('onDeleteItem')(item);
 			}
 		}

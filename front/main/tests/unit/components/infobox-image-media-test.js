@@ -1,18 +1,22 @@
+import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const originalThumbnailerGetThumbURL = require('common/modules/thumbnailer').default.getThumbURL;
+const thumbnailerModule = require('common/modules/thumbnailer').default;
+let getThumbURLStub;
 
 moduleForComponent('infobox-image-media', 'Unit | Component | infobox image media', {
 	unit: true,
 
 	beforeEach() {
-		require('common/modules/thumbnailer').default.getThumbURL = function (url, options) {
-			return `${url}/${options.mode}/${options.width}/${options.height}`;
-		};
+		getThumbURLStub = sinon.stub(
+			thumbnailerModule,
+			'getThumbURL',
+			(url, options) => `${url}/${options.mode}/${options.width}/${options.height}`
+		);
 	},
 
 	afterEach() {
-		require('common/modules/thumbnailer').default.getThumbURL = originalThumbnailerGetThumbURL;
+		getThumbURLStub.restore();
 	}
 });
 

@@ -1,10 +1,10 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 import ArticleModel from '../models/wiki/article';
-import {activate as variantTestingActivate} from 'common/utils/variant-testing';
-import {normalizeToUnderscore} from 'common/utils/string';
-import Ads from 'common/modules/ads';
 import getLinkInfo from '../utils/article-link';
+import Ads from 'common/modules/ads';
+import {normalizeToUnderscore} from 'common/utils/string';
+import {track, trackActions} from 'common/utils/track';
+import {activate as variantTestingActivate} from 'common/utils/variant-testing';
 
 const {
 	$,
@@ -16,7 +16,6 @@ const {
 
 export default Route.extend(
 	TargetActionSupport,
-	TrackClickMixin,
 	{
 		queryParams: {
 			commentsPage: {
@@ -108,10 +107,9 @@ export default Route.extend(
 				 * Handle tracking
 				 */
 				if (trackingCategory) {
-					this.triggerAction({
-						action: 'trackClick',
-						target: this,
-						actionContext: trackingCategory
+					track({
+						action: trackActions.click,
+						category: trackingCategory
 					});
 				}
 
@@ -213,7 +211,7 @@ export default Route.extend(
 			 */
 			toggleSideNav(visible) {
 				this.get('controller').set('sideNavVisible', visible);
-			},
+			}
 		},
 
 		/**
