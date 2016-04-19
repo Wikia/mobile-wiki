@@ -1,15 +1,33 @@
 import {test, moduleFor} from 'ember-qunit';
+import sinon from 'sinon';
 
-moduleFor('model:article-comments', 'Unit | Model | article comments');
+let stub;
+
+moduleFor('model:article-comments', 'Unit | Model | article comments', {
+	unit: true,
+
+	beforeEach() {
+		stub = sinon.stub(M, 'buildUrl');
+	},
+
+	afterEach() {
+		M.buildUrl.restore();
+	}
+});
 
 test('url creates valid url to a resource', function (assert) {
 	const model = this.subject();
 
-	assert.ok(model.url(1, 0).endsWith('/wikia.php?controller=MercuryApi&method=getArticleComments&id=1&page=0'));
-	assert.ok(model.url(1, 1).endsWith('/wikia.php?controller=MercuryApi&method=getArticleComments&id=1&page=1'));
-	assert.ok(model.url(1, 2).endsWith('/wikia.php?controller=MercuryApi&method=getArticleComments&id=1&page=2'));
-	assert.ok(model.url(5, 0).endsWith('/wikia.php?controller=MercuryApi&method=getArticleComments&id=5&page=0'));
-	assert.ok(model.url(90, 90).endsWith('/wikia.php?controller=MercuryApi&method=getArticleComments&id=90&page=90'));
+	model.url(1, 1);
+	assert.ok(stub.calledWith({
+		path: '/wikia.php',
+		query: {
+			controller: 'MercuryApi',
+			method: 'getArticleComments',
+			id: 1,
+			page: 1
+		}
+	}));
 });
 
 test('reset, resets model properties', function (assert) {

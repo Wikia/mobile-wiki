@@ -22,12 +22,11 @@ export default Ember.Controller.extend({
 		/**
 		 * @param {string} title
 		 * @param {number} sectionIndex
-		 * @param {string} highlightedText
 		 * @returns {void}
 		 */
-		edit(title, sectionIndex, highlightedText = null) {
+		edit(title, sectionIndex) {
 			VisibilityStateManager.reset();
-			this.transitionToRoute('articleEdit', title, sectionIndex, {queryParams: {highlighted: highlightedText}});
+			this.transitionToRoute('articleEdit', title, sectionIndex);
 
 			track({
 				action: trackActions.click,
@@ -64,6 +63,14 @@ export default Ember.Controller.extend({
 		 */
 		articleRendered() {
 			this.send('handleLightbox');
+		},
+
+		trackClick(category, label) {
+			track({
+				action: trackActions.click,
+				category,
+				label
+			});
 		}
 	}
 });

@@ -16,7 +16,12 @@ export default Ember.Object.extend({
 				Ember.$.ajax({
 					url: this.url(articleId, page),
 					success: (data) => {
-						this.setProperties(data.payload);
+						this.setProperties({
+							comments: Ember.get(data, 'payload.comments'),
+							users: Ember.get(data, 'payload.users'),
+							pagesCount: Ember.get(data, 'pagesCount'),
+							basePath: Ember.get(data, 'basePath')
+						});
 						resolve(this);
 					},
 					error: (data) => reject(data)

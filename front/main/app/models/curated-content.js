@@ -25,6 +25,45 @@ import Ember from 'ember';
  * @property {number} height
  */
 
+/**
+ * @param {string} title
+ * @param {string} type
+ * @param {string} offset
+ * @returns {string}
+ */
+function getURL(title, type, offset) {
+	if (type === 'section') {
+		return M.buildUrl({
+			path: '/wikia.php',
+			query: {
+				controller: 'MercuryApi',
+				method: 'getCuratedContentSection',
+				section: decodeURIComponent(title)
+			}
+		});
+	} else if (type === 'category') {
+		const query = {
+			controller: 'ArticlesApi',
+			method: 'getList',
+			expand: 'true',
+			abstract: 0,
+			width: 300,
+			height: 300,
+			category: decodeURIComponent(title),
+			limit: 24
+		};
+
+		if (offset) {
+			query.offset = offset;
+		}
+
+		return M.buildUrl({
+			path: '/wikia.php',
+			query
+		});
+	}
+}
+
 const CuratedContentModel = Ember.Object.extend({
 	title: null,
 	type: null,
@@ -36,15 +75,16 @@ CuratedContentModel.reopenClass({
 	/**
 	 * @param {string} title
 	 * @param {string} [type='section']
+	 * @param {string} [offset='']
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(title, type = 'section') {
+	find(title, type = 'section', offset = '') {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const modelInstance = CuratedContentModel.create({
 					title,
 					type
 				}),
-				url = getURL(...arguments);
+				url = getURL(title, type, offset);
 
 			Ember.$.ajax({
 				url,
@@ -155,43 +195,4 @@ CuratedContentModel.reopenClass({
 	}
 });
 
-/**
- *
- * @param {string} title
- * @param {string} type
- * @param {string} [offset='']
- * @returns {string}
- */
-function getURL(title, type, offset = '') {
-	if (type === 'section') {
-		return M.buildUrl({
-			path: '/wikia.php',
-			query: {
-				controller: 'MercuryApi',
-				method: 'getCuratedContentSection',
-				section: `${decodeURIComponent(title)}`
-			}
-		});
-	} else if (type === 'category') {
-		const query = {
-			controller: 'ArticlesApi',
-			method: 'getList',
-			expand: 'true',
-			abstract: 0,
-			width: 300,
-			height: 300,
-			category: `${decodeURIComponent(title)}`,
-			limit: 24
-		};
-
-		if (offset) {
-			query.offset = offset;
-		}
-
-		return M.buildUrl({
-			path: '/wikia.php',
-			query
-		});
-	}
-}
 export default CuratedContentModel;
