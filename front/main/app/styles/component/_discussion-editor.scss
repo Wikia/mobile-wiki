@@ -155,6 +155,7 @@ $editor-textarea-overflow-ios-hack: 30px;
 	margin: 0;
 
 	&:focus {
+		background-color: inherit;
 		border: 0;
 		box-shadow: none;
 	}
