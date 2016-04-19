@@ -1,7 +1,9 @@
 <div class="wiki-page-header">
-	<h2 class="wiki-page-header__site-name" {{action 'trackClick' 'wikiname'}}>
-		in: {{link-to siteName 'wiki-page' mainPageTitle alt=siteName class='wiki-page-header__site-link'}} &#8594;
-	</h2>
+	{{#if siteName}}
+		<h2 class="wiki-page-header__site-name" {{action 'trackClick' 'wikiname'}}>
+			in: {{link-to siteName 'wiki-page' mainPageTitle alt=siteName class='wiki-page-header__site-link'}} &#8594;
+		</h2>
+	{{/if}}
 	<h1 class="wiki-page-header__title">{{title}}</h1>
 	{{#if subtitle}}
 		<div class="wiki-page-header__subtitle">{{subtitle}}</div>

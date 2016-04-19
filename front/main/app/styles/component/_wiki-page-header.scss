@@ -32,9 +32,11 @@
 	@extend %wiki-page-header-element;
 	font-size: 26px;
 	line-height: 32px;
-	margin-top: 3px;
 	word-break: break-word;
 	font-weight: bold;
+}
+.wiki-page-header__site-name ~ wiki-page-header__title {
+	margin-top: 3px;
 }
 
 .wiki-page-header__subtitle {

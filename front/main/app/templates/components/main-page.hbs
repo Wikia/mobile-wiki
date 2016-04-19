@@ -1,18 +1,13 @@
 <div class="wiki-container">
-	{{#unless isRoot}}
-		<h2 class="wiki-title">{{#link-to 'wiki-page' mainPageTitle action='trackClick' actionParam='wikiname'}}{{siteName}}{{/link-to}}</h2>
-	{{/unless}}
-	<h1 class="wiki-page-title">
-		{{title}}
-		{{#if curatedContentToolButtonVisible}}
-			<div>
-				{{#link-to 'curatedContentEditor' tracking-category='main-page' tracking-label='open-editor' bubbles=false class='main-page-edit'}}
-					{{svg 'pen' role='img' class='icon pencil'}}
-					{{i18n 'app.curated-content-editor-edit-main-page'}}
-				{{/link-to}}
-			</div>
-		{{/if}}
-	</h1>
+	{{wiki-page-header title=siteName}}
+	{{#if curatedContentToolButtonVisible}}
+		<div>
+			{{#link-to 'curatedContentEditor' tracking-category='main-page' tracking-label='open-editor' bubbles=false class='main-page-edit'}}
+				{{svg 'pen' role='img' class='icon pencil'}}
+				{{i18n 'app.curated-content-editor-edit-main-page'}}
+			{{/link-to}}
+		</div>
+	{{/if}}
 	{{#if wikiaStats}}
 		{{wikia-stats model=wikiaStats}}
 	{{/if}}
