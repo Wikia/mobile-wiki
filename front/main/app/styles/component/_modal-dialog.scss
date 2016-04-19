@@ -29,6 +29,8 @@
 	}
 
 	&.is-bare {
+		padding: 0;
+
 		.modal-dialog {
 			padding: 0;
 		}
@@ -51,6 +53,15 @@
 			align-items: center;
 			display: flex;
 			min-height: 50px;
+		}
+	}
+}
+
+@media #{$desktop-range} {
+	.modal-dialog-wrapper {
+		&.is-desktop-centered {
+			display: flex;
+			justify-content: center;
 		}
 	}
 }

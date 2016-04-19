@@ -1,12 +1,3 @@
-{{#modal-dialog
-	isVisible=editEditorActive
-	isBare=true
-}}
-	{{discussion-edit-editor
-		editPost=(action this.attrs.editPost)
-	}}
-{{/modal-dialog}}
-
 {{discussion-post-editor
 	create=(action this.attrs.createPost)
 	posts=posts
