@@ -1,10 +1,11 @@
 {{discussion-header
+	applyFilters=(action this.attrs.applyFilters)
 	canModerate=model.canModerate
 	hasFilters=true
+	hasContentError=hasContentError
 	hasNewPostButton=true
 	hasSiteName=true
 	smartBannerVisible=smartBannerVisible
-	applyFilters=(action this.attrs.applyFilters)
 }}
 {{discussion-dialog
 	confirmButtonText=confirmButtonText
@@ -34,40 +35,9 @@
 				{{i18n 'main.back-to-wikia-link' ns='discussion'}}
 			</a>
 		</div>
-		{{#if model.connectionError}}
-			{{discussion-connection-error
-				retry=(action this.attrs.retry)
-			}}
-		{{else if model.notFoundError}}
-			{{discussion-not-found-error
-				forumId=model.forumId
-			}}
-		{{else}}
-			<div class="small-12 large-6 columns">
-				{{discussion-sort
-					setSortBy=(action this.attrs.setSortBy)
-				}}
-				{{discussion-forum-wrapper
-					approve=(action this.attrs.approve)
-					createPost=(action this.attrs.createPost)
-					deletePost=(action this.attrs.deletePost)
-					forumId=model.forumId
-					loadPage=(action this.attrs.loadPage)
-					lockPost=(action this.attrs.lockPost)
-					minorError=model.minorError
-					name=model.name
-					pageNum=model.pageNum
-					posts=model.entities
-					postsDisplayed=model.entities.length
-					report=(action this.attrs.report)
-					siteHeadPinned=siteHeadPinned
-					totalPosts=model.postCount
-					undeletePost=(action this.attrs.undeletePost)
-					upvote=(action this.attrs.upvote)
-					unlockPost=(action this.attrs.unlockPost)
-				}}
-			</div>
-		{{/if}}
+		<div class="small-12 large-6 columns">
+			{{yield}}
+		</div>
 		<div class="rail right large-3 columns">
 			{{discussion-filters
 				applyFilters=(action this.attrs.applyFilters)

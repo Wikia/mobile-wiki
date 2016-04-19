@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Object.extend({
 	wikiId: null,
 
+	error: null,
 	errorCodes: {
 		notFound: 404
 	},
@@ -30,6 +31,7 @@ export default Ember.Object.extend({
 			data: Ember.Object.create({
 				forumId: wikiId,
 			}),
+			error: Ember.Object.create({}),
 			wikiId
 		});
 	},
@@ -41,10 +43,9 @@ export default Ember.Object.extend({
 	 */
 	setErrorProperty(err) {
 		if (err.status === this.errorCodes.notFound) {
-			this.set('data.notFoundError', true);
-		} else {
-			this.set('data.connectionError', true);
+			this.set('error.isNotFound', true);
 		}
+
 		Ember.$('body').addClass(this.errorClass);
 	},
 

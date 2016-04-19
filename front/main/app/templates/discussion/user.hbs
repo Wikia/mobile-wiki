@@ -1,18 +1,25 @@
-{{discussion-user
-	approve=(action 'approve')
+{{#discussion-user-entities-list-layout
 	deleteAllPosts=(action 'deleteAllPosts')
-	deletePost=(action 'deletePost')
-	deleteReply=(action 'deleteReply')
-	editPost=(action 'editPost')
-	editReply=(action 'editReply')
-	loadPage=(action 'loadPage')
-	lockPost=(action 'lockPost')
 	model=model.data
-	report=(action 'report')
-	retry=(action 'retry')
 	smartBannerVisible=smartBannerVisible
-	undeletePost=(action 'undeletePost')
-	undeleteReply=(action 'undeleteReply')
-	unlockPost=(action 'unlockPost')
-	upvote=(action 'upvote')
 }}
+	{{discussion-user-list-wrapper
+		approve=(action 'approve')
+		deletePost=(action 'deletePost')
+		deleteReply=(action 'deleteReply')
+		editPost=(action 'editPost')
+		editReply=(action 'editReply')
+		loadPage=(action 'loadPage')
+		lockPost=(action 'lockPost')
+		report=(action 'report')
+		undeletePost=(action 'undeletePost')
+		undeleteReply=(action 'undeleteReply')
+		upvote=(action 'upvote')
+		minorError=model.data.minorError
+		pageNum=model.data.pageNum
+		posts=model.data.entities
+		postsDisplayed=model.data.entities.length
+		totalPosts=model.data.postCount
+		unlockPost=(action 'unlockPost')
+	}}
+{{/discussion-user-entities-list-layout}}

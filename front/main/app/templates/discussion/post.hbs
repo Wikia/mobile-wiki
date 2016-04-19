@@ -1,18 +1,23 @@
-{{discussion-post
-	approve=(action 'approve')
-	createPost=(action 'createPost')
-	createReply=(action 'createReply')
-	deleteAllPosts=(action 'deleteAllPosts')
-	deletePost=(action 'deletePost')
-	deleteReply=(action 'deleteReply')
-	editPost=(action 'editPost')
-	editReply=(action 'editReply')
-	loadMoreComments=(action 'loadMoreComments')
-	lockPost=(action 'lockPost')
+
+{{#discussion-post-details-layout
 	model=model.data
-	report=(action 'report')
-	undeletePost=(action 'undeletePost')
-	undeleteReply=(action 'undeleteReply')
-	unlockPost=(action 'unlockPost')
-	upvote=(action 'upvote')
 }}
+	{{discussion-post
+		approve=(action 'approve')
+		createPost=(action 'createPost')
+		createReply=(action 'createReply')
+		deleteAllPosts=(action 'deleteAllPosts')
+		deletePost=(action 'deletePost')
+		deleteReply=(action 'deleteReply')
+		editPost=(action 'editPost')
+		editReply=(action 'editReply')
+		loadMoreComments=(action 'loadMoreComments')
+		lockPost=(action 'lockPost')
+		model=model.data
+		report=(action 'report')
+		undeletePost=(action 'undeletePost')
+		undeleteReply=(action 'undeleteReply')
+		unlockPost=(action 'unlockPost')
+		upvote=(action 'upvote')
+	}}
+{{/discussion-post-details-layout}}

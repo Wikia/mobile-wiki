@@ -8,26 +8,28 @@
 	{{#if hasSiteName}}
 		<h1>{{siteName}}</h1>
 	{{/if}}
-	{{#if hasNewPostButton}}
-		<div {{action 'toggleEditor' true}} class="new-post">
-			{{svg 'new-post-icon' viewBox='0 0 56 50'}}
-		</div>
-	{{/if}}
-	{{#if hasFilters}}
-		<div class="sort {{if isFilterApplied 'applied'}}" id="discussion-mobile-filter">
-			{{svg 'filter-default' class='icon filter-default'}}
-			{{svg 'filter-applied' class='icon filter-applied'}}
-		</div>
+	{{#unless hasContentError}}
+		{{#if hasNewPostButton}}
+			<div {{action 'toggleEditor' true}} class="new-post">
+				{{svg 'new-post-icon' viewBox='0 0 56 50'}}
+			</div>
+		{{/if}}
+		{{#if hasFilters}}
+			<div class="sort {{if isFilterApplied 'applied'}}" id="discussion-mobile-filter">
+				{{svg 'filter-default' class='icon filter-default'}}
+				{{svg 'filter-applied' class='icon filter-applied'}}
+			</div>
 
-		{{#pop-over for='discussion-mobile-filter' on='click' flow='downCentered'}}
-			{{discussion-filters
-				applyFilters=(action this.attrs.applyFilters)
-				showApplyButton=true
-				showSortSection=true
-				canModerate=canModerate
-			}}
-		{{/pop-over}}
-	{{/if}}
+			{{#pop-over for='discussion-mobile-filter' on='click' flow='downCentered'}}
+				{{discussion-filters
+					applyFilters=(action this.attrs.applyFilters)
+					showApplyButton=true
+					showSortSection=true
+					canModerate=canModerate
+				}}
+			{{/pop-over}}
+		{{/if}}
+	{{/unless}}
 	{{#if canDeleteAll}}
 		<div {{action this.attrs.deleteAllPosts}} class="side-button delete-all">
 			{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}

@@ -1,0 +1,7 @@
+{{#if error.isNotFound}}
+	{{discussion-not-found-error}}
+{{else}}
+	{{discussion-connection-error
+		error=error
+	}}
+{{/if}}
