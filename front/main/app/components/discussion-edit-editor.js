@@ -52,12 +52,15 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	handleNewPostCreated() {
-		const newPosts = this.get('posts').filter((post) => post.get('isNew')),
-			newPost = newPosts.get('firstObject');
+		this.setProperties({
+			isLoading: false,
+			showSuccess: true
+		});
 
-		if (newPost) {
-			Ember.$('html, body').animate({scrollTop: 0});
-			this.handleNewItemCreated(newPost);
-		}
-	}
+		Ember.run.later(this, () => {
+			this.set('showSuccess', false);
+
+			this.get('discussionEditor').toggleEditor(false);
+		}, 2000);
+	},
 });

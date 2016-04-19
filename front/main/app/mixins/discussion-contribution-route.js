@@ -61,7 +61,13 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		editReply(replyData) {
-			this.modelFor(this.get('routeName')).editReply(replyData);
+			const model = this.modelFor(this.get('routeName'));
+
+			model.editReply(replyData).then((xhr) => {
+				if (xhr.apiResponseData && !model.get('errorMessage')) {
+					this.get('discussionEditor').trigger('newPost');
+				}
+			});
 		},
 	}
 });

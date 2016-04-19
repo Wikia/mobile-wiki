@@ -45,9 +45,7 @@ export default Ember.Mixin.create({
 			success: (thread) => {
 				const editedPost = DiscussionPost.createFromThreadData(thread),
 					posts = this.get('data.entities'),
-					editedPostIndex = posts.indexOf(posts.findBy('threadId', postData.get('id')));
-
-				editedPost.set('isNew', true);
+					editedPostIndex = posts.indexOf(posts.findBy('id', postData.id));
 
 				posts.replace(editedPostIndex, 1, editedPost);
 
@@ -99,12 +97,11 @@ export default Ember.Mixin.create({
 			method: 'POST',
 			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${replyData.id}`),
 			success: (reply) => {
-				const replies = this.get('data.replies'),
+				const replies = this.get('data.entities'),
 					editedReplyIndex = replies.indexOf(replies.findBy('id', replyData.id));
 				let editedReply;
 
-				reply.isNew = true;
-				reply.threadCreatedBy = this.get('data.createdBy');
+				reply.threadCreatedBy = reply.createdBy;
 
 				editedReply = DiscussionReply.create(reply);
 
