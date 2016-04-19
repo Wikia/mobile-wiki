@@ -25,21 +25,20 @@ import Ember from 'ember';
  * @property {number} height
  */
 
-
 /**
  * @param {string} title
  * @param {string} type
- * @param {string} [offset='']
+ * @param {string} offset
  * @returns {string}
  */
-function getURL(title, type, offset = '') {
+function getURL(title, type, offset) {
 	if (type === 'section') {
 		return M.buildUrl({
 			path: '/wikia.php',
 			query: {
 				controller: 'MercuryApi',
 				method: 'getCuratedContentSection',
-				section: `${decodeURIComponent(title)}`
+				section: decodeURIComponent(title)
 			}
 		});
 	} else if (type === 'category') {
@@ -50,7 +49,7 @@ function getURL(title, type, offset = '') {
 			abstract: 0,
 			width: 300,
 			height: 300,
-			category: `${decodeURIComponent(title)}`,
+			category: decodeURIComponent(title),
 			limit: 24
 		};
 
@@ -76,15 +75,16 @@ CuratedContentModel.reopenClass({
 	/**
 	 * @param {string} title
 	 * @param {string} [type='section']
+	 * @param {string} [offset='']
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(title, type = 'section') {
+	find(title, type = 'section', offset = '') {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const modelInstance = CuratedContentModel.create({
 					title,
 					type
 				}),
-				url = getURL(...arguments);
+				url = getURL(title, type, offset);
 
 			Ember.$.ajax({
 				url,

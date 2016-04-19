@@ -18,17 +18,6 @@ moduleFor('model:article-comments', 'Unit | Model | article comments', {
 test('url creates valid url to a resource', function (assert) {
 	const model = this.subject();
 
-	model.url(1, 0);
-	assert.ok(stub.calledWith({
-		path: '/wikia.php',
-		query: {
-			controller: 'MercuryApi',
-			method: 'getArticleComments',
-			id: 1,
-			page: 0
-		}
-	}));
-
 	model.url(1, 1);
 	assert.ok(stub.calledWith({
 		path: '/wikia.php',
@@ -37,39 +26,6 @@ test('url creates valid url to a resource', function (assert) {
 			method: 'getArticleComments',
 			id: 1,
 			page: 1
-		}
-	}));
-
-	model.url(1, 2);
-	assert.ok(stub.calledWith({
-		path: '/wikia.php',
-		query: {
-			controller: 'MercuryApi',
-			method: 'getArticleComments',
-			id: 1,
-			page: 2
-		}
-	}));
-
-	model.url(5, 0);
-	assert.ok(stub.calledWith({
-		path: '/wikia.php',
-		query: {
-			controller: 'MercuryApi',
-			method: 'getArticleComments',
-			id: 5,
-			page: 0
-		}
-	}));
-
-	model.url(90, 90);
-	assert.ok(stub.calledWith({
-		path: '/wikia.php',
-		query: {
-			controller: 'MercuryApi',
-			method: 'getArticleComments',
-			id: 90,
-			page: 90
 		}
 	}));
 });
