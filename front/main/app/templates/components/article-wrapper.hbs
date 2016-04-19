@@ -1,16 +1,13 @@
 <section class="article-body">
 	{{#if showPageTitle}}
-		<h1 class="wiki-page-title">
-			{{model.displayTitle}}
-			{{#if curatedContentToolButtonVisible}}
-				<div>
-					{{#link-to 'curatedContentEditor' bubbles=false class="main-page-edit"}}
-						{{svg 'pen' role='img' class='icon pencil'}}
-						{{i18n 'app.curated-content-editor-edit-main-page'}}
-					{{/link-to}}
-				</div>
-			{{/if}}
-		</h1>
+		{{#if curatedContentToolButtonVisible}}
+			<div>
+				{{#link-to 'curatedContentEditor' bubbles=false class="main-page-edit"}}
+					{{svg 'pen' role='img' class='icon pencil'}}
+					{{i18n 'app.curated-content-editor-edit-main-page'}}
+				{{/link-to}}
+			</div>
+		{{/if}}
 	{{/if}}
 	{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
 	{{#if headers.length}}
