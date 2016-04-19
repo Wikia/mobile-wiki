@@ -9,6 +9,22 @@
 	}
 }
 
+.wiki-page-header.has-action {
+	display: flex;
+}
+
+.wiki-page-header.has-action > .wiki-page-header__wrapper {
+	flex-grow: 1;
+	flex-shrink: 0;
+}
+
+.wiki-page-header.has-action > .wiki-page-header__action {
+	flex-grow: 0;
+	flex-shrink: 0;
+	flex-basis: 60px;
+	text-align: center;
+}
+
 %wiki-page-header-element {
 	color: inherit;
 	line-height: 1;

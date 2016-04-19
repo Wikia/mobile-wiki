@@ -1,13 +1,20 @@
-<div class="wiki-page-header">
-	{{#if isMainPage}}
-		<h1 class="wiki-page-header__title">{{mainPageName}}</h1>
-	{{else}}
-		<h2 class="wiki-page-header__site-name" {{action 'trackClick'}}>
-			in: {{link-to mainPageName 'wiki-page' mainPageTitle alt=mainPageName class='wiki-page-header__site-link'}} &#8594;
-		</h2>
-		<h1 class="wiki-page-header__title">{{title}}</h1>
-		{{#if subtitle}}
-			<div class="wiki-page-header__subtitle">{{subtitle}}</div>
+<div class="wiki-page-header {{if hasBlock 'has-action'}}">
+	<div class="wiki-page-header__wrapper">
+		{{#if isMainPage}}
+			<h1 class="wiki-page-header__title">{{mainPageName}}</h1>
+		{{else}}
+			<h2 class="wiki-page-header__site-name" {{action 'trackClick'}}>
+				in: {{link-to mainPageName 'wiki-page' mainPageTitle alt=mainPageName class='wiki-page-header__site-link'}} &#8594;
+			</h2>
+			<h1 class="wiki-page-header__title">{{title}}</h1>
+			{{#if subtitle}}
+				<div class="wiki-page-header__subtitle">{{subtitle}}</div>
+			{{/if}}
 		{{/if}}
+    </div>
+	{{#if hasBlock}}
+		<div class="wiki-page-header__action">
+			{{yield}}
+		</div>
 	{{/if}}
 </div>

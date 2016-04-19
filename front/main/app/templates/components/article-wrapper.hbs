@@ -1,12 +1,4 @@
 <section class="article-body">
-	{{#if curatedContentToolButtonVisible}}
-		<div>
-			{{#link-to 'curatedContentEditor' bubbles=false class="main-page-edit"}}
-				{{svg 'pen' role='img' class='icon pencil'}}
-				{{i18n 'app.curated-content-editor-edit-main-page'}}
-			{{/link-to}}
-		</div>
-	{{/if}}
 	{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
 	{{#if headers.length}}
 		{{#collapsible-menu
