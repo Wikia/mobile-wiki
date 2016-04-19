@@ -110,6 +110,8 @@ export default Ember.Component.extend(
 			return this.get('currentUser.isAuthenticated') && !Ember.$.cookie('recent-edit-dismissed');
 		}),
 
+		heroImage: false,
+
 		actions: {
 			/**
 			 * @param {string} title

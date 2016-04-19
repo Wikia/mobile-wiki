@@ -1,3 +1,19 @@
+{{#if contributionEnabled}}
+	{{#wiki-page-header title=model.displayTitle heroImage=heroImage}}
+		{{article-contribution
+			addPhotoAllowed=addPhotoAllowed
+			addPhotoIconVisible=addPhotoIconVisible
+			editAllowed=editAllowed
+			editIconVisible=editIconVisible
+			section=0
+			title=model.displayTitle
+			addPhoto='addPhoto'
+			edit='edit'
+		}}
+	{{/wiki-page-header}}
+{{else}}
+	{{wiki-page-header title=model.displayTitle heroImage=heroImage}}
+{{/if}}
 <section class="article-body">
 	{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
 	{{#if headers.length}}
@@ -18,20 +34,6 @@
 				</li>
 			{{/each}}
 		{{/collapsible-menu}}
-	{{/if}}
-	{{#if contributionEnabled}}
-		<div class="top-contribution-container">
-			{{article-contribution
-				addPhotoAllowed=addPhotoAllowed
-				addPhotoIconVisible=addPhotoIconVisible
-				editAllowed=editAllowed
-				editIconVisible=editIconVisible
-				section=0
-				title=model.displayTitle
-				addPhoto='addPhoto'
-				edit='edit'
-			}}
-		</div>
 	{{/if}}
 	{{article-content
 		adsContext=model.adsContext
