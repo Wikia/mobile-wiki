@@ -86,7 +86,7 @@ export default Ember.Object.extend({
 			return null;
 		}
 
-		if (typeof entity.get('userData') === 'undefined') {
+		if (!entity.get('userData')) {
 			track(trackActions.AnonUpvotePost);
 
 			return null;
