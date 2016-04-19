@@ -1,17 +1,20 @@
 import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
+
 const trackModule = require('common/utils/track');
-let trackStub;
+let trackStub, buildUrlStub;
 
 moduleForComponent('side-nav-local-wikia-search', 'Unit | Component | local wikia search', {
 	unit: true,
 
 	beforeEach() {
+		buildUrlStub = sinon.stub(M, 'buildUrl');
 		trackStub = sinon.stub(trackModule, 'track');
 	},
 
 	afterEach() {
+		buildUrlStub.restore();
 		trackStub.restore();
 	}
 });
@@ -25,7 +28,17 @@ test('search URI generation', function (assert) {
 		component = this.subject();
 
 	queries.forEach((query) => {
-		assert.equal(`/api/mercury/search/${encodeURIComponent(query)}`, component.getSearchURI(query));
+		component.getSearchURI(query);
+		assert.ok(
+			buildUrlStub.calledWith({
+				path: '/wikia.php',
+				query: {
+					controller: 'MercuryApi',
+					method: 'getSearchSuggestions',
+					query
+				}
+			})
+		);
 	});
 });
 
