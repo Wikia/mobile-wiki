@@ -22,9 +22,12 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	bodyText: '',
 	layoutName: 'components/discussion-editor',
-
+	
+	// Tracking action name of closing the editor
 	closeTrackingAction: trackActions.PostClose,
+	// Tracking action name of inserting content into editor
 	contentTrackingAction: trackActions.PostContent,
+	// Tracking action name of opening the editor
 	startTrackingAction: trackActions.PostStart,
 	wasContentTracked: false,
 	wasStartTracked: false,
