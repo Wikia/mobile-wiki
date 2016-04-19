@@ -3,8 +3,13 @@ import Ember from 'ember';
 export default Ember.Mixin.create({
 	headData: Ember.inject.service(),
 
+	/**
+	 * @param {Object} model
+	 * @returns {void}
+	 */
 	afterModel(model) {
 		this._super(...arguments);
+
 		this.setStaticHeadTags();
 		this.setDynamicHeadTags(model);
 		this.removeServerTags();
@@ -66,7 +71,7 @@ export default Ember.Mixin.create({
 			documentTitle = data.documentTitle || '',
 			description = data.description || '',
 			canonical = wikiVariables.basePath + pageUrl,
-			appId = wikiVariables.smartBanner.appId.ios,
+			appId = wikiVariables.smartBanner && wikiVariables.smartBanner.appId ? wikiVariables.smartBanner.appId.ios : '',
 			robots = wikiVariables.specialRobotPolicy || data.robots || 'index,follow';
 
 		let keywords = `${wikiVariables.siteMessage},${wikiVariables.siteName},${wikiVariables.dbName}`,
@@ -76,7 +81,7 @@ export default Ember.Mixin.create({
 			keywords += `,${displayTitle}`;
 		}
 
-		if (pageUrl) {
+		if (pageUrl && appId) {
 			appleItunesApp += `, app-argument=${canonical}`;
 		}
 

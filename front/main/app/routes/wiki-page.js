@@ -168,22 +168,10 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsMixin, {
 	},
 
 	/**
-	 * Remove head tags set in server, so ember-cli-meta-tags add-on can handle by his own.
-	 * This is temporary solution. Remove this when fastboot is introduced.
-	 * @returns {void}
-	 */
-	removeHeadTagsSetInServer() {
-		Ember.$('link[rel=canonical]:not([id])').remove();
-		Ember.$('meta[name=description]:not([id])').remove();
-		Ember.$('meta[name=apple-itunes-app]:not([id])').remove();
-	},
-
-	/**
 	 * @returns {void}
 	 */
 	activate() {
 		this.controllerFor('application').set('enableShareHeader', true);
-		this.removeHeadTagsSetInServer();
 	},
 
 	/**

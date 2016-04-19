@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import MainPageRouteMixin from '../mixins/main-page-route';
-import MetaTagsMixin from '../mixins/meta-tags';
+import HeadTagsMixin from '../mixins/head-tags';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import CuratedContentModel from '../models/curated-content';
 
-export default Ember.Route.extend(MainPageRouteMixin, MetaTagsMixin, RouteWithAdsMixin, {
+export default Ember.Route.extend(MainPageRouteMixin, HeadTagsMixin, RouteWithAdsMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Ember.RSVP.Promise}
@@ -14,14 +14,12 @@ export default Ember.Route.extend(MainPageRouteMixin, MetaTagsMixin, RouteWithAd
 	},
 
 	/**
-	 * @returns {*}
+	 * Custom implementation of HeadTagsMixin::setDynamicHeadTags
+	 * @param {Object} model, this is model object from route::afterModel() hook
+	 * @returns {void}
 	 */
-	meta() {
-		return {
-			name: {
-				robots: 'noindex, follow'
-			}
-		};
+	setDynamicHeadTags(model) {
+		this._super(model, {robots: 'noindex,follow'});
 	},
 
 	actions: {

@@ -27,6 +27,8 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	afterModel(model, transition) {
+		this._super(...arguments);
+
 		const title = model.get('title'),
 			mainPageController = this.controllerFor('mainPage');
 
