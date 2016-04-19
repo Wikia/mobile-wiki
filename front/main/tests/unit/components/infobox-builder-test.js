@@ -4,16 +4,6 @@ import {test, moduleForComponent} from 'ember-qunit';
 const trackModule = require('common/utils/track');
 let trackStub;
 
-require.entries['main/mixins/track-click'].callback = () => {
-	return Ember.Mixin.create({
-		actions: {
-			trackClick: Ember.K
-		},
-
-		trackClick: Ember.K
-	});
-};
-
 moduleForComponent('infobox-builder', 'Unit | Component | infobox builder', {
 	unit: true,
 
