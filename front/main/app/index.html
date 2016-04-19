@@ -25,10 +25,6 @@
 		<link rel="shortcut icon" href="{{wikiVariables.favicon}}">
 	{{/if}}
 
-	{{#if asyncArticle}}
-		<meta name="fragment" content="!">
-	{{/if}}
-
 	{{#if isRtl}}
 		<link rel="stylesheet" href="/front/main/assets/app.rtl.css">
 	{{else}}
@@ -57,6 +53,7 @@
 <body>
 {{content-for 'body'}}
 
+{{> first-render-time}}
 {{> qualaroo}}
 
 {{!--

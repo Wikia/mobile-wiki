@@ -1,0 +1,49 @@
+{{discussion-header
+	canDeleteAll=model.canDeleteAll
+	deleteAllPosts=(action this.attrs.deleteAllPosts)
+	forumId=model.forumId
+	hasBackButton=true
+	smartBannerVisible=smartBannerVisible
+}}
+{{discussion-dialog
+	confirmButtonText=confirmButtonText
+	confirmCallback=confirmCallback
+	dialogMessage=dialogMessage
+	headerText=dialogHeaderText
+	isConfirm=isConfirm
+	isVisible=shouldShowDialogMessage
+}}
+
+<div class="site-body-discussion post-list-view discussion-user-list">
+	{{discussion-hero-unit
+		userName=model.userName
+		contributors=model.contributors
+		numberOfPosts=model.postCount
+	}}
+	<div class="desktop-hidden post-list-header-content">
+		{{discussion-post-list-header
+			userName=model.userName
+			contributors=model.contributors
+			numberOfPosts=model.postCount
+		}}
+	</div>
+	<div class="discussion-page row">
+		<div class="rail large-3 columns">
+			{{#link-to 'discussion' class="side-button back-button active-element-theme-color"}}
+				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
+				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
+			{{/link-to}}
+		</div>
+		<div class="small-12 large-6 columns">
+			{{yield}}
+		</div>
+		<div class="rail large-3 columns">
+			{{#if model.canDeleteAll}}
+				<div {{action this.attrs.deleteAllPosts}} class="side-button delete-all">
+					{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
+					{{i18n 'main.delete-all' ns='discussion'}}
+				</div>
+			{{/if}}
+		</div>
+	</div>
+</div>

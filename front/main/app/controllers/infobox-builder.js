@@ -5,6 +5,7 @@ export default Ember.Controller.extend({
 	isDirty: false,
 	groupItems: [],
 	lastGroupItem: null,
+	isVEContext: false,
 
 	actions: {
 		/**
@@ -13,12 +14,15 @@ export default Ember.Controller.extend({
 		 * @returns {void}
 		 */
 		cancel() {
-			this.get('target').send('redirectToPage');
+			if (this.get('isVEContext')) {
+				this.get('target').send('returnToVE');
+			} else {
+				this.get('target').send('redirectToPage');
+			}
 		},
 
 		/**
 		 * Saves infobox state to template,
-		 * sends redirectToPage action to route if desired,
 		 * return a promise so it can be chained
 		 *
 		 * @param {String} initialTitle
@@ -45,6 +49,16 @@ export default Ember.Controller.extend({
 
 		getTemplateExists(title) {
 			return this.get('model').getTemplateExists(title);
+		},
+
+		/**
+		 * Triggers action to communicate VE that creating infobox is completed
+		 *
+		 * @param {string} title Title of newly created infobox template
+		 * @returns {void}
+		 */
+		returnToVE(title = null) {
+			this.get('target').send('returnToVE', title);
 		},
 
 		redirectToPage(url) {

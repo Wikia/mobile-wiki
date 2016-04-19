@@ -1,9 +1,4 @@
-import DiscussionModalDialogMixin from '../mixins/discussion-modal-dialog';
-import DiscussionPermalinkMixin from '../mixins/discussion-permalink';
-
 export default Ember.Component.extend(
-	DiscussionModalDialogMixin,
-	DiscussionPermalinkMixin,
 	{
 		discussionSort: Ember.inject.service(),
 
