@@ -1,7 +1,6 @@
-import DiscussionEditEditorMixin from '../mixins/discussion-edit-editor';
 import Ember from 'ember';
 
-export default Ember.Component.extend(DiscussionEditEditorMixin, {
+export default Ember.Component.extend({
 	discussionSort: Ember.inject.service(),
 
 	canShowMore: Ember.computed('model.replies.length', 'model.repliesCount', function () {

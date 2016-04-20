@@ -1,3 +1,13 @@
+{{#modal-dialog
+	isVisible=editEditorActive
+	class='is-bare is-desktop-centered'
+}}
+	{{discussion-edit-editor
+		editPost=(action 'editPost')
+		editReply=(action 'editReply')
+	}}
+{{/modal-dialog}}
+
 {{#discussion-user-entities-list-layout
 	deleteAllPosts=(action 'deleteAllPosts')
 	model=model.data
