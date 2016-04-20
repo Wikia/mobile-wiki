@@ -1,9 +1,8 @@
 import Ember from 'ember';
-import TrackClickMixin from './track-click';
 import CuratedContentEditorModel from '../models/curated-content-editor';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Mixin.create(
-	TrackClickMixin,
 	{
 		persistentSort: false,
 		sortableItems: Ember.computed.reads('model.items'),
@@ -18,7 +17,11 @@ export default Ember.Mixin.create(
 				const items = this.get('sortableItems'),
 					currentItemIndex = items.indexOf(item);
 
-				this.trackClick('curated-content-editor', 'item-move');
+				track({
+					action: trackActions.click,
+					category: 'curated-content-editor',
+					label: 'item-move'
+				});
 
 				// Don't move item with index 0 by negative offset and don't move last item by positive offset
 				if ((currentItemIndex > 0 && offset < 0) || (currentItemIndex < items.length - 1 && offset > 0)) {

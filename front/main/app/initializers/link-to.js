@@ -6,8 +6,6 @@ import {track, trackActions} from 'common/utils/track';
  */
 export function initialize() {
 	Ember.LinkComponent.reopen({
-		attributeBindings: ['data-tracking-category'],
-
 		// it allows to use action='x' actionParam='y' in link-to helper
 		action: null,
 
@@ -17,8 +15,8 @@ export function initialize() {
 		 */
 		_invoke(event) {
 			const action = this.get('action'),
-				trackingCategory = this.get('tracking-category'),
-				trackingLabel = this.get('tracking-label');
+				trackingCategory = this.get('trackingCategory'),
+				trackingLabel = this.get('trackingLabel');
 
 			if (action) {
 				// There was an action specified (in handlebars) so take custom action
@@ -30,7 +28,7 @@ export function initialize() {
 				this.get('parentView').get('context').send(action, this.get('actionParam'));
 			}
 
-			if (trackingCategory && trackingLabel) {
+			if (trackingCategory) {
 				track({
 					action: trackActions.click,
 					category: trackingCategory,

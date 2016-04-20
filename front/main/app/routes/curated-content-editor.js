@@ -1,9 +1,8 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 import CuratedContentEditorModel from '../models/curated-content-editor';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Route.extend(
-	TrackClickMixin,
 	{
 		/**
 		 * @returns {void}
@@ -102,7 +101,11 @@ export default Ember.Route.extend(
 			 * @returns {void}
 			 */
 			addBlockItem(block) {
-				this.trackClick('curated-content-editor', 'item-add');
+				track({
+					action: trackActions.click,
+					category: 'curated-content-editor',
+					label: 'item-add'
+				});
 				this.transitionTo('curatedContentEditor.blockAddItem', block);
 			},
 			/**
@@ -111,12 +114,20 @@ export default Ember.Route.extend(
 			 * @returns {void}
 			 */
 			editBlockItem(item, block) {
-				this.trackClick('curated-content-editor', 'item-edit');
+				track({
+					action: trackActions.click,
+					category: 'curated-content-editor',
+					label: 'item-edit'
+				});
 				this.transitionTo('curatedContentEditor.blockEditItem', block, encodeURIComponent(item.label));
 			},
 
 			editCommunityData() {
-				this.trackClick('curated-content-editor', 'community-data-edit');
+				track({
+					action: trackActions.click,
+					category: 'curated-content-editor',
+					label: 'community-data-edit'
+				});
 				this.transitionTo('curatedContentEditor.communityData');
 			},
 
@@ -124,7 +135,11 @@ export default Ember.Route.extend(
 			 * @returns {void}
 			 */
 			addSection() {
-				this.trackClick('curated-content-editor', 'section-add');
+				track({
+					action: trackActions.click,
+					category: 'curated-content-editor',
+					label: 'section-add'
+				});
 				this.transitionTo('curatedContentEditor.sectionAdd');
 			},
 
@@ -133,7 +148,11 @@ export default Ember.Route.extend(
 			 * @returns {void}
 			 */
 			openSection(section) {
-				this.trackClick('curated-content-editor', 'section-open');
+				track({
+					action: trackActions.click,
+					category: 'curated-content-editor',
+					label: 'section-open'
+				});
 				this.transitionTo('curatedContentEditor.section', encodeURIComponent(section.label));
 			},
 
