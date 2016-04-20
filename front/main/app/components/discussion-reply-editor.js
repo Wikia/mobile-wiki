@@ -29,7 +29,7 @@ export default DiscussionEditorComponent.extend({
 	 */
 	isStickyBreakpointHeight() {
 		const $editorLabel = this.$('.editor-label'),
-			scrollY = window.scrollY || window.pageYOffset;;
+			scrollY = window.scrollY || window.pageYOffset;
 
 		return window.innerHeight + scrollY - this.$('.editor-container').outerHeight() <
 			$editorLabel.offset().top + $editorLabel.outerHeight();
