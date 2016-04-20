@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import MainPageRouteMixin from '../mixins/main-page-route';
-import HeadTagsMixin from '../mixins/head-tags';
+import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import CuratedContentModel from '../models/curated-content';
 
-export default Ember.Route.extend(MainPageRouteMixin, HeadTagsMixin, RouteWithAdsMixin, {
+export default Ember.Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, RouteWithAdsMixin, {
 	/**
 	 * @param {*} params
 	 * @returns {Ember.RSVP.Promise}

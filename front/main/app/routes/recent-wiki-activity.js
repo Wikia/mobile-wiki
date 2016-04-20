@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 import RecentWikiActivityModel from '../models/recent-wiki-activity';
-import HeadTagsMixin from '../mixins/head-tags';
+import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 
-export default Ember.Route.extend(HeadTagsMixin, {
+export default Ember.Route.extend(HeadTagsDynamicMixin, {
 	revisionUpvotes: Ember.inject.service(),
 
 	/**
