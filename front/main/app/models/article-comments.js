@@ -16,7 +16,12 @@ export default Ember.Object.extend({
 				Ember.$.ajax({
 					url: this.url(articleId, page),
 					success: (data) => {
-						this.setProperties(data.payload);
+						this.setProperties({
+							comments: Ember.get(data, 'payload.comments'),
+							users: Ember.get(data, 'payload.users'),
+							pagesCount: Ember.get(data, 'pagesCount'),
+							basePath: Ember.get(data, 'basePath')
+						});
 						resolve(this);
 					},
 					error: (data) => reject(data)
@@ -39,6 +44,14 @@ export default Ember.Object.extend({
 	 * @returns {string}
 	 */
 	url(articleId, page = 0) {
-		return `${M.prop('apiBase')}/article/comments/${articleId}/${page}`;
+		return M.buildUrl({
+			path: '/wikia.php',
+			query: {
+				controller: 'MercuryApi',
+				method: 'getArticleComments',
+				id: articleId,
+				page
+			}
+		});
 	}
 });

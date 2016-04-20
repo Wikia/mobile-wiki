@@ -1,20 +1,19 @@
+import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
-const originalMediaModel = require('main/models/media').default;
+const mediaModel = require('main/models/media').default;
+let createStub;
 
 moduleForComponent('trending-videos', 'Unit | Component | trending videos', {
 	unit: true,
 
 	beforeEach() {
-		require('main/models/media').default = {
-			create(data) {
-				return data;
-			}
-		};
+		createStub = sinon.stub(mediaModel, 'create');
+		createStub.returnsArg(0);
 	},
 
 	afterEach() {
-		require('main/models/media').default = originalMediaModel;
+		createStub.restore();
 	}
 });
 

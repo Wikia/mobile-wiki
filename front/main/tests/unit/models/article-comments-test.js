@@ -1,15 +1,33 @@
 import {test, moduleFor} from 'ember-qunit';
+import sinon from 'sinon';
 
-moduleFor('model:article-comments', 'Unit | Model | article comments');
+let stub;
+
+moduleFor('model:article-comments', 'Unit | Model | article comments', {
+	unit: true,
+
+	beforeEach() {
+		stub = sinon.stub(M, 'buildUrl');
+	},
+
+	afterEach() {
+		M.buildUrl.restore();
+	}
+});
 
 test('url creates valid url to a resource', function (assert) {
 	const model = this.subject();
 
-	assert.equal(model.url(1, 0), '/api/mercury/article/comments/1/0');
-	assert.equal(model.url(1, 1), '/api/mercury/article/comments/1/1');
-	assert.equal(model.url(1, 2), '/api/mercury/article/comments/1/2');
-	assert.equal(model.url(5, 0), '/api/mercury/article/comments/5/0');
-	assert.equal(model.url(90, 90), '/api/mercury/article/comments/90/90');
+	model.url(1, 1);
+	assert.ok(stub.calledWith({
+		path: '/wikia.php',
+		query: {
+			controller: 'MercuryApi',
+			method: 'getArticleComments',
+			id: 1,
+			page: 1
+		}
+	}));
 });
 
 test('reset, resets model properties', function (assert) {
