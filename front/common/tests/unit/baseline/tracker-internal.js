@@ -2,7 +2,6 @@ QUnit.module('M.tracker.Internal (loaded with baseline)', function (hooks) {
 	var result;
 
 	hooks.beforeEach(function () {
-		M.prop('apiBase', '/api/mercury', true);
 		M.provide('wiki', {
 			language: {
 				content: 'en'

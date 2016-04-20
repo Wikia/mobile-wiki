@@ -4,7 +4,7 @@
 		<ul class="mw-content">
 			{{#each pages as |page index|}}
 				<li {{action 'trackExperimentClick' preventDefault=false}}>
-					{{#link-to 'wiki-page' page.title tracking-category='read-more' tracking-label=(concat 'open-item-' index)}}
+					{{#link-to 'wiki-page' page.title trackingCategory='read-more' trackingLabel=(concat 'open-item-' index)}}
 						{{content-recommendation-thumbnail url=page.imgUrl caption=page.title}}
 					{{/link-to}}
 				</li>

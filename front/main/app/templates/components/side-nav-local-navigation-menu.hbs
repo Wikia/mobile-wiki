@@ -11,8 +11,8 @@
 {{#unless localNavContent.parent}}
 	<li class="side-nav-menu__item" {{action 'recentWikiActivityClick'}}>
 		{{#link-to 'recent-wiki-activity'
-			tracking-category='recent-wiki-activity'
-			tracking-label='local-nav'
+			trackingCategory='recent-wiki-activity'
+			trackingLabel='local-nav'
 		}}
 			{{i18n 'main.title' ns='recent-wiki-activity'}}
 			{{#if shouldDisplayNewBadge}}
