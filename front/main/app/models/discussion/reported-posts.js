@@ -11,7 +11,6 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 	{
 		/**
 		 * @param {number} [pageNum=0]
-		 * @param {string} [sortBy='trending']
 		 *
 		 * @returns {Ember.RSVP.Promise}
 		 */
@@ -68,9 +67,9 @@ DiscussionReportedPostsModel.reopenClass({
 	 */
 	find(wikiId, forumId) {
 		const reportedPostsInstance = DiscussionReportedPostsModel.create({
-				wikiId,
-				forumId
-			});
+			wikiId,
+			forumId
+		});
 
 		return request(M.getDiscussionServiceUrl(`/${wikiId}/posts`), {
 			data: {

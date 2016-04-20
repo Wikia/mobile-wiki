@@ -21,27 +21,27 @@ ArticleEditModel.reopenClass(
 		 */
 		publish(model) {
 			return getEditToken(model.title)
-					.then((token) => {
-						return request(M.buildUrl({path: '/api.php'}), {
-							method: 'POST',
-							data: {
-								action: 'edit',
-								title: model.title,
-								section: model.sectionIndex,
-								text: model.content,
-								token,
-								format: 'json'
-							},
-						}).then((resp) => {
-							if (resp && resp.edit && resp.edit.result === 'Success') {
-								return resp.edit.result;
-							} else if (resp && resp.error) {
-								throw new Error(resp.error.code);
-							} else {
-								throw new Error();
-							}
-						});
+				.then((token) => {
+					return request(M.buildUrl({path: '/api.php'}), {
+						method: 'POST',
+						data: {
+							action: 'edit',
+							title: model.title,
+							section: model.sectionIndex,
+							text: model.content,
+							token,
+							format: 'json'
+						},
+					}).then((resp) => {
+						if (resp && resp.edit && resp.edit.result === 'Success') {
+							return resp.edit.result;
+						} else if (resp && resp.error) {
+							throw new Error(resp.error.code);
+						} else {
+							throw new Error();
+						}
 					});
+				});
 		},
 
 		/**
@@ -51,40 +51,40 @@ ArticleEditModel.reopenClass(
 		 */
 		load(title, sectionIndex) {
 			return request(M.buildUrl({path: '/api.php'}), {
-					cache: false,
-					data: {
-						action: 'query',
-						prop: 'revisions',
-						// FIXME: It should be possible to pass props as an array
-						rvprop: 'content|timestamp',
-						titles: title,
-						rvsection: sectionIndex,
-						format: 'json'
-					}
-				}).then((resp) => {
-					let pages,
-						revision;
+				cache: false,
+				data: {
+					action: 'query',
+					prop: 'revisions',
+					// FIXME: It should be possible to pass props as an array
+					rvprop: 'content|timestamp',
+					titles: title,
+					rvsection: sectionIndex,
+					format: 'json'
+				}
+			}).then((resp) => {
+				let pages,
+					revision;
 
-					if (resp.error) {
-						throw new Error(resp.error.code);
-					}
+				if (resp.error) {
+					throw new Error(resp.error.code);
+				}
 
-					pages = Ember.get(resp, 'query.pages');
+				pages = Ember.get(resp, 'query.pages');
 
-					if (pages) {
-						// FIXME: MediaWiki API, seriously?
-						revision = pages[Object.keys(pages)[0]].revisions[0];
-						return ArticleEditModel.create({
-							title,
-							sectionIndex,
-							content: revision['*'],
-							originalContent: revision['*'],
-							timestamp: revision.timestamp
-						});
-					} else {
-						throw new Error();
-					}
-				});
+				if (pages) {
+					// FIXME: MediaWiki API, seriously?
+					revision = pages[Object.keys(pages)[0]].revisions[0];
+					return ArticleEditModel.create({
+						title,
+						sectionIndex,
+						content: revision['*'],
+						originalContent: revision['*'],
+						timestamp: revision.timestamp
+					});
+				} else {
+					throw new Error();
+				}
+			});
 		}
 	}
 );

@@ -92,7 +92,8 @@ CuratedContentModel.reopenClass({
 					items: CuratedContentModel.sanitizeItems(data.items),
 					offset: data.offset || null
 				});
-				resolve(modelInstance);
+
+				return modelInstance;
 			});
 	},
 

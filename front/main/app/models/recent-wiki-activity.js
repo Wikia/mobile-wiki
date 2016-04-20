@@ -20,22 +20,22 @@ RecentWikiActivityModel.reopenClass({
 	 */
 	getRecentActivityList(limit = 50, props = defaultProps) {
 		return request(M.buildUrl({path: '/api.php'}), {
-				data: {
-					action: 'query',
-					format: 'json',
-					list: 'recentchanges',
-					rcnamespace: '0',
-					rctype: 'edit',
-					rcprop: props,
-					rclimit: limit
-				}
-			}).then((data) => {
-				const model = RecentWikiActivityModel.create(),
-					recentChanges = RecentWikiActivityModel.prepareData(data.query.recentchanges);
+			data: {
+				action: 'query',
+				format: 'json',
+				list: 'recentchanges',
+				rcnamespace: '0',
+				rctype: 'edit',
+				rcprop: props,
+				rclimit: limit
+			}
+		}).then((data) => {
+			const model = RecentWikiActivityModel.create(),
+				recentChanges = RecentWikiActivityModel.prepareData(data.query.recentchanges);
 
-				model.set('recentChanges', recentChanges);
-				return model;
-			})
+			model.set('recentChanges', recentChanges);
+			return model;
+		});
 	},
 
 	prepareData(recentChanges) {

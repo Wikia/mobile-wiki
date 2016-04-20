@@ -73,10 +73,7 @@ WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 					})
 				);
 
-				resolve(modelInstance);
-			})
-			.catch((err) => {
-				reject(err);
+				return modelInstance;
 			});
 	},
 });

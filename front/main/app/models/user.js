@@ -56,7 +56,7 @@ UserModel.reopenClass({
 			},
 		}).then((result) => {
 			if (Ember.isArray(result.items)) {
-				resolve(result.items[0]);
+				return result.items[0];
 			} else {
 				throw new Error(result);
 			}

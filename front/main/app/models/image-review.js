@@ -19,9 +19,9 @@ ImageReviewModel.reopenClass({
 		}).then((data, textStatus, xhr) => {
 			// In case there are no more images, create empty model and show `No more images to review` message
 			if (xhr.status === 204) {
-				resolve(ImageReviewModel.create({}));
+				return ImageReviewModel.create({});
 			} else {
-				resolve(ImageReviewModel.getImagesAndCount(data.id));
+				return ImageReviewModel.getImagesAndCount(data.id);
 			}
 		});
 
@@ -96,7 +96,7 @@ ImageReviewModel.reopenClass({
 		return request(M.getImageReviewServiceUrl('/monitoring', {
 			status: 'UNREVIEWED'
 		})).catch(() => {
-			throw new Error(i18n.t('app.image-review-error-invalid-data'))
+			throw new Error(i18n.t('app.image-review-error-invalid-data'));
 		});
 	},
 
