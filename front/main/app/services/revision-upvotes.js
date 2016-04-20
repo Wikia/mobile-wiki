@@ -2,6 +2,7 @@ import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 
 export default Ember.Service.extend({
+	ajax: Ember.inject.service(),
 	upvotes: [],
 	currentUser: Ember.inject.service(),
 
@@ -11,7 +12,7 @@ export default Ember.Service.extend({
 	 * @param {number} revisionId
 	 * @param {array} upvotes
 	 * @returns {void}
-     */
+	 */
 	initUpvotes(revisionId, upvotes) {
 		const revisionUpvotes = this.get('upvotes').findBy('revisionId', revisionId),
 			userUpvote = upvotes.findBy('from_user', this.get('currentUser.userId')) || {};
@@ -25,7 +26,7 @@ export default Ember.Service.extend({
 	 * @param {number} revisionId
 	 * @param {object} upvote
 	 * @returns {void}
-     */
+	 */
 	addRevisionUpvote(revisionId, upvote) {
 		const revisionUpvotes = this.get('upvotes').findBy('revisionId', revisionId),
 			userUpvote = upvote && (upvote.from_user === this.get('currentUser.userId')) ? upvote : {};
@@ -39,7 +40,7 @@ export default Ember.Service.extend({
 	 * @param {number} revisionId
 	 * @param {number} upvoteId
 	 * @returns {void}
-     */
+	 */
 	removeRevisionUpvote(revisionId, upvoteId) {
 		const revision = this.get('upvotes').findBy('revisionId', revisionId);
 
@@ -74,32 +75,28 @@ export default Ember.Service.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	upvote(revisionId, title) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			getEditToken(title)
-				.then((token) => {
-					Ember.$.ajax({
-						url: M.buildUrl({
-							path: '/wikia.php',
-							query: {controller: 'RevisionUpvotesApiController', method: 'addUpvote'}
-						}),
-						data: {
-							revisionId,
-							token
-						},
-						dataType: 'json',
-						method: 'POST',
-						success: (resp) => {
-							if (resp && resp.success) {
-								this.addRevisionUpvote(revisionId, {id: resp.id, from_user: this.get('currentUser.userId')});
-								resolve();
-							} else {
-								reject();
-							}
-						},
-						error: (err) => reject(err)
-					});
+		return getEditToken(title)
+			.then((token) => {
+				return this.get('ajax').post(M.buildUrl({
+					path: '/wikia.php',
+					query: {
+						controller: 'RevisionUpvotesApiController',
+						method: 'addUpvote'
+					}
+				}), {
+					contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+					data: {
+						revisionId,
+						token
+					}
+				}).then((resp) => {
+					if (resp && resp.success) {
+						this.addRevisionUpvote(revisionId, {id: resp.id, from_user: this.get('currentUser.userId')});
+					} else {
+						throw new Error();
+					}
 				});
-		});
+			});
 	},
 
 	/**
