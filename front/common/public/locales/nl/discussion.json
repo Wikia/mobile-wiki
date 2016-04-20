@@ -14,7 +14,8 @@
   "main":{
     "discussions-header-title":"Discussions",
     "pagination-post-show-more":"Oudere antwoorden weergeven",
-    "pagination-post-show-newer":"View Newer",
+    "pagination-post-show-newer-replies":"View Newer Replies",
+    "pagination-post-show-new-replies":"New Replies",
     "share-default-title":"Discussion on __siteName__",
     "contributors-title":"All Contributors",
     "sort-by-header":"Sort By",

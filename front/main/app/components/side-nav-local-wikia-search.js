@@ -147,7 +147,7 @@ export default Ember.Component.extend(
 				 * @returns {void}
 				 */
 				(suggestion, index, suggestionsArr) => {
-					suggestionsArr[index].uri = encodeURIComponent(suggestion.title);
+					suggestionsArr[index].uri = suggestion.title;
 				}
 			);
 
@@ -171,7 +171,14 @@ export default Ember.Component.extend(
 		 * @returns {string}
 		 */
 		getSearchURI(query) {
-			return `${M.prop('apiBase')}/search/${encodeURIComponent(query)}`;
+			return M.buildUrl({
+				path: '/wikia.php',
+				query: {
+					controller: 'MercuryApi',
+					method: 'getSearchSuggestions',
+					query
+				}
+			});
 		},
 
 		/**
