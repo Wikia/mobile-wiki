@@ -54,6 +54,8 @@ const trackActions = {
 	confirm: 'confirm',
 	// Generic disable
 	disable: 'disable',
+	// Clicked link to discussions from mercury stats
+	discussionStatsClicked: 'discussions-stats-clicked',
 	// Generic enable
 	enable: 'enable',
 	// Generic error (generally AJAX)

@@ -3,7 +3,7 @@
 		{{#if item.value}}
         <div class="wikia-stats-item">
 			{{#if item.routeName}}
-				{{#link-to item.routeName}}
+				{{#link-to item.routeName class="wikia-stats-link" invokeAction=(action 'discussionClicked')}}
 					<div class="wikia-stats-label">{{i18n item.label ns=item.namespace}}</div>
 					<div class="wikia-stats-value">{{numeral item.value '0 a'}}</div>
 				{{/link-to}}
