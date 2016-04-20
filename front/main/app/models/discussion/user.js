@@ -81,8 +81,12 @@ DiscussionUserModel.reopenClass({
 			},
 		}).then((data) => {
 			userInstance.setNormalizedData(data);
+
+			return userInstance;
 		}).catch((err) => {
 			userInstance.setErrorProperty(err);
+
+			return userInstance;
 		});
 	}
 });

@@ -173,8 +173,12 @@ DiscussionPostModel.reopenClass({
 			});
 
 			postInstance.setNormalizedData(data);
+
+			return postInstance;
 		}).catch((err) => {
 			postInstance.setErrorProperty(err);
+
+			return postInstance;
 		});
 	},
 });

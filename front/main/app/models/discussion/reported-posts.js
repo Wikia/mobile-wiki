@@ -78,8 +78,12 @@ DiscussionReportedPostsModel.reopenClass({
 			},
 		}).then((data) => {
 			reportedPostsInstance.setNormalizedData(data);
+
+			return reportedPostsInstance;
 		}).catch((err) => {
 			reportedPostsInstance.setErrorProperty(err);
+
+			return reportedPostsInstance;
 		});
 	}
 });

@@ -113,9 +113,11 @@ DiscussionForumModel.reopenClass({
 		}).then((data) => {
 			forumInstance.setNormalizedData(data);
 
-			return this;
+			return forumInstance;
 		}).catch((err) => {
 			forumInstance.setErrorProperty(err);
+
+			return forumInstance;
 		});
 	}
 });
