@@ -22,7 +22,6 @@ export default Ember.Component.extend({
 	}),
 
 	canLock: Ember.computed('isLockable', 'post.isLocked', 'post.userData.permissions.canLock', function () {
-		// @ToDo use canLock for this -> SOC-2144
 		return this.get('isLockable') && !this.get('post.isLocked') && this.get('post.userData.permissions.canLock');
 	}),
 
