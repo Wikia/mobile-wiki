@@ -20,9 +20,34 @@
 	display: flex;
 }
 
+.wiki-page-header.has-hero-image {
+	animation: wiki-page-header-preload-preloading 2s infinite;
+}
+
 .wiki-page-header.has-hero-image .wiki-page-header__wrapper {
 	height: 100%;
 	background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 1) 100%)
+}
+
+.wiki-page-header.has-hero-image-preload {
+	width: 100%;
+	height: 0;
+	padding-bottom: 100%;
+	position: relative;
+	animation: wiki-page-header-preload-preloading 2s infinite;
+}
+
+@keyframes wiki-page-header-preload-preloading {
+	0%   {background-color: #888;}
+	50%  {background-color: #999;}
+	100% {background-color: #888;}
+}
+
+.wiki-page-header.has-hero-image-preload .wiki-page-header__wrapper {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
 
 .wiki-page-header.has-action .wiki-page-header__main {

@@ -79,6 +79,20 @@ function redirectToMainPage(reply, mediaWikiPageHelper) {
 		});
 }
 
+function extractHeroImage(data) {
+	let hasHeroImage = false;
+
+	if (data && data.page && data.page.data && data.page.data.article && data.page.data.article.media) {
+		data.page.data.article.media.forEach((current) => {
+			if (current.hasOwnProperty('context') && current.context === 'infobox-hero-image') {
+				hasHeroImage = true;
+			}
+		});
+	}
+
+	return {hasHeroImage};
+}
+
 /**
  * Handles getPage response from API
  *
@@ -115,12 +129,14 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	if (isContentNamespace || isMainPage) {
 		viewName = 'article';
 		result = deepExtend(result, prepareArticleData(request, data));
+
+		// extract hero image for articles
+		result = deepExtend(result, extractHeroImage(data));
 	} else if (ns === MediaWikiNamespace.CATEGORY) {
 		if (pageData.article && pageData.details) {
 			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
 		}
-
 		result = deepExtend(result, prepareCategoryData(request, data));
 	} else if (code !== 200) {
 		// In case of status code different than 200 we want Ember to display an error page
