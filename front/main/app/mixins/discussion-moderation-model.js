@@ -110,8 +110,10 @@ export default Ember.Mixin.create({
 			data: JSON.stringify({value: 1}),
 			dataType: 'text'
 		}).then(() => {
-			entity.get('userData').set('hasReported', true);
-			entity.set('isReported', true);
+			entity.setProperties({
+				'userData.hasReported': true,
+				'isReported': true
+			});
 		}).catch(() => {
 			this.setFailedState('editor.post-error-general-error');
 		});
