@@ -1,0 +1,22 @@
+<div class="wiki-page-header {{if hasBlock 'has-action'}} {{if heroImage 'has-hero-image'}}" style={{computedStyle}}>
+    <div class="wiki-page-header__wrapper">
+		<div class="wiki-page-header__main">
+			{{#if isMainPage}}
+				<h1 class="wiki-page-header__title">{{mainPageName}}</h1>
+			{{else}}
+				<h2 class="wiki-page-header__site-name" {{action 'trackClick'}}>
+					{{i18n 'app.header-in-wiki-name-label-prefix'}} {{link-to mainPageName 'wiki-page' mainPageTitle alt=mainPageName class='wiki-page-header__site-link'}} {{i18n 'app.header-in-wiki-name-label-suffix'}} &#8594;
+				</h2>
+				<h1 class="wiki-page-header__title">{{title}}</h1>
+				{{#if subtitle}}
+					<div class="wiki-page-header__subtitle">{{subtitle}}</div>
+				{{/if}}
+			{{/if}}
+		</div>
+		{{#if hasBlock}}
+			<div class="wiki-page-header__action">
+				{{yield}}
+			</div>
+		{{/if}}
+	</div>
+</div>

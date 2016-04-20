@@ -1,0 +1,14 @@
+<div class="wiki-page-header">
+	<div class="wiki-page-header__wrapper">
+		<h2 class="wiki-page-header__site-name">
+			{{i18n 'app.header-in-wiki-name-label-prefix'}} <a class="wiki-page-header__site-link" href="#">{{wikiVariables.siteName}}</a> {{i18n 'app.header-in-wiki-name-label-suffix'}} &#8594;
+		</h2>
+		<h1 class="wiki-page-header__title">{{displayTitle}}</h1>
+		{{#if subtitle}}
+			<div class="wiki-page-header__subtitle">{{subtitle}}</div>
+		{{/if}}
+	</div>
+</div>
+{{#if hasToC}}
+	<div class="collapsible-menu table-of-contents"><div class="title">{{i18n 'app.article-toc-label'}}</div></div>
+{{/if}}

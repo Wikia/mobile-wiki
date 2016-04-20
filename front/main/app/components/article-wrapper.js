@@ -109,6 +109,18 @@ export default Ember.Component.extend(
 			return this.get('currentUser.isAuthenticated') && !Ember.$.cookie('recent-edit-dismissed');
 		}),
 
+		heroImage: Ember.computed('model.media', function () {
+			let heroImage = false;
+
+			this.get('model.media.media').forEach((current) => {
+				if (current.hasOwnProperty('context') && current.context === 'infobox-hero-image') {
+					heroImage = current;
+				}
+			});
+
+			return heroImage;
+		}),
+
 		actions: {
 			/**
 			 * @param {string} title
