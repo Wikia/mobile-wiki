@@ -75,14 +75,18 @@ export default Ember.Mixin.create({
 			robots = wikiVariables.specialRobotPolicy || data.robots || 'index,follow';
 
 		let keywords = `${wikiVariables.siteMessage},${wikiVariables.siteName},${wikiVariables.dbName}`,
-			appleItunesApp = `app-id=${appId}`;
+			appleItunesApp = '';
 
 		if (displayTitle) {
 			keywords += `,${displayTitle}`;
 		}
 
-		if (pageUrl && appId) {
-			appleItunesApp += `, app-argument=${canonical}`;
+		if (appId) {
+			appleItunesApp = `app-id=${appId}`;
+
+			if (pageUrl) {
+				appleItunesApp += `, app-argument=${canonical}`;
+			}
 		}
 
 		this.get('headData').setProperties({
