@@ -11,21 +11,21 @@ export default Ember.Mixin.create({
 		this._super(...arguments);
 
 		this.setDynamicHeadTags(model);
-		this.removeServerTags();
+		this.removeDynamicServerTags();
 	},
 
 	/**
-	 * This function removes all head tags with data-server-head-tags attribute to avoid having duplicates.
+	 * This function removes all head tags with data-server-head-tags-dynamic attribute to avoid having duplicates.
 	 * This function should be removed when fastboot will be introduced.
 	 *
 	 * @returns {void}
 	 */
-	removeServerTags() {
+	removeDynamicServerTags() {
 		const headData = this.get('headData');
 
-		if (!headData.get('serverTagsRemoved')) {
-			Ember.$('[data-server-head-tags]').remove();
-			headData.set('serverTagsRemoved', true);
+		if (!headData.get('dynamicServerTagsRemoved')) {
+			Ember.$('[data-server-head-tags-dynamic]').remove();
+			headData.set('dynamicServerTagsRemoved', true);
 		}
 	},
 

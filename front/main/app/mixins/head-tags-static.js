@@ -10,6 +10,22 @@ export default Ember.Mixin.create({
 		this._super(...arguments);
 
 		this.setStaticHeadTags();
+		this.removeStaticServerTags();
+	},
+
+	/**
+	 * This function removes all head tags with data-server-head-tags-static attribute to avoid having duplicates.
+	 * This function should be removed when fastboot will be introduced.
+	 *
+	 * @returns {void}
+	 */
+	removeStaticServerTags() {
+		const headData = this.get('headData');
+
+		if (!headData.get('staticServerTagsRemoved')) {
+			Ember.$('[data-server-head-tags-static]').remove();
+			headData.set('staticServerTagsRemoved', true);
+		}
 	},
 
 	/**
