@@ -9,8 +9,8 @@ export default Ember.Route.extend(MainPageRouteMixin, MetaTagsMixin, RouteWithAd
 	 * @param {*} params
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	model(params) {
-		return CuratedContentModel.find(params.sectionName, 'section');
+	model({sectionName}) {
+		return CuratedContentModel.find(sectionName, 'section');
 	},
 
 	/**
