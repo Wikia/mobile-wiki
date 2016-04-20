@@ -20,7 +20,7 @@ DiscussionReply.reopenClass({
 				creationTimestamp: postData.creationDate.epochSecond,
 				id: postData.id,
 				isDeleted: postData.isDeleted,
-				isLocked: postData.isLocked,
+				isLocked: !postData.isEditable,
 				isNew: postData.isNew,
 				isReply: true,
 				isReported: postData.isReported,
