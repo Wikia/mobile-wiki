@@ -113,12 +113,20 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 	 * @returns {void}
 	 */
 	setDynamicHeadTags(model) {
-		this._super(model, {
-			url: model.get('url'),
-			documentTitle: model.get('documentTitle'),
-			description: model.get('description'),
-			robots: 'index,follow'
-		});
+		const pageUrl = model.get('url'),
+			pageFullUrl = `${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}`,
+			data = {
+				documentTitle: model.get('documentTitle'),
+				description: model.get('description'),
+				robots: 'index,follow',
+				canonical: pageFullUrl
+			};
+
+		if (pageUrl) {
+			data.appArgument = pageFullUrl;
+		}
+
+		this._super(model, data);
 	},
 
 	/**

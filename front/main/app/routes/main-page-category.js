@@ -19,7 +19,9 @@ export default Ember.Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, Rout
 	 * @returns {void}
 	 */
 	setDynamicHeadTags(model) {
-		this._super(model, {robots: 'noindex,follow'});
+		this._super(model, {
+			robots: 'noindex,follow'
+		});
 	},
 
 	actions: {

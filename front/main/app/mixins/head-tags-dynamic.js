@@ -40,12 +40,11 @@ export default Ember.Mixin.create({
 	 */
 	setDynamicHeadTags(model, data = {}) {
 		const wikiVariables = Ember.get(Mercury, 'wiki'),
-			pageUrl = data.url || '',
-			displayTitle = data.displayTitle || '',
-			documentTitle = data.documentTitle || '',
-			description = data.description || '',
-			canonical = wikiVariables.basePath + pageUrl,
-			appId = wikiVariables.smartBanner && wikiVariables.smartBanner.appId ? wikiVariables.smartBanner.appId.ios : '',
+			displayTitle = data.displayTitle,
+			documentTitle = data.documentTitle,
+			description = data.description,
+			canonical = data.canonical,
+			appId = Ember.get(wikiVariables, 'smartBanner.appId.ios'),
 			robots = wikiVariables.specialRobotPolicy || data.robots || 'index,follow';
 
 		let keywords = `${wikiVariables.siteMessage},${wikiVariables.siteName},${wikiVariables.dbName}`,
@@ -58,8 +57,8 @@ export default Ember.Mixin.create({
 		if (appId) {
 			appleItunesApp = `app-id=${appId}`;
 
-			if (pageUrl) {
-				appleItunesApp += `, app-argument=${canonical}`;
+			if (data.appArgument) {
+				appleItunesApp += `, app-argument=${data.appArgument}`;
 			}
 		}
 
