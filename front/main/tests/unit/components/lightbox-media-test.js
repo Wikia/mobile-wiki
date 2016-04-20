@@ -1,14 +1,16 @@
+import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 import mediaModel from 'main/models/media';
 
-const track = require('common/utils/track').track;
-let model;
+const trackModule = require('common/utils/track');
+let model,
+	trackStub;
 
 moduleForComponent('lightbox-media', 'Unit | Component | lightbox media', {
 	unit: true,
 
 	beforeEach() {
-		require('common/utils/track').track = Ember.K;
+		trackStub = sinon.stub(trackModule, 'track');
 
 		model = {
 			media: mediaModel.create({
@@ -45,7 +47,7 @@ moduleForComponent('lightbox-media', 'Unit | Component | lightbox media', {
 	},
 
 	afterEach() {
-		require('common/utils/track').track = track;
+		trackStub.restore();
 	}
 });
 

@@ -1,7 +1,6 @@
+import Ember from 'ember';
 export default Ember.Component.extend(
 	{
-		discussionSort: Ember.inject.service(),
-
 		didInsertElement(...params) {
 			this._super(...params);
 			this.scrollToMarkedReply();

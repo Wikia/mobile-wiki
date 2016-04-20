@@ -1,10 +1,9 @@
 import Ember from 'ember';
 import LoginLinkMixin from '../mixins/login-link';
-import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	LoginLinkMixin,
-	TrackClickMixin,
 	{
 		currentUser: Ember.inject.service(),
 		newFeaturesBadges: Ember.inject.service(),
@@ -31,14 +30,30 @@ export default Ember.Component.extend(
 		actions: {
 			openLocalNavigation() {
 				if (this.get('shouldDisplayNewBadge')) {
-					this.trackClick('recent-wiki-activity-blue-dot', 'open-local-menu');
+					track({
+						action: trackActions.click,
+						category: 'recent-wiki-activity-blue-dot',
+						label: 'open-local-menu'
+					});
 				}
 
 				this.sendAction('replaceNavigationContent', 'local');
 			},
 
 			hubLinkClick(hubName) {
-				this.trackClick('side-nav', `open-hub-${hubName}`);
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: `open-hub-${hubName}`
+				});
+			},
+
+			trackClick(category, label) {
+				track({
+					action: trackActions.click,
+					category,
+					label
+				});
 			}
 		}
 	}

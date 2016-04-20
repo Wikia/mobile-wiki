@@ -1,14 +1,17 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		links: Ember.get(Mercury, 'wiki.navigation2016.exploreWikiaMenu'),
 
 		actions: {
 			linkClick(label) {
-				this.trackClick('side-nav', `open-${label}`);
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: `open-${label}`
+				});
 			}
 		}
 	}
