@@ -50,12 +50,12 @@ export default Ember.Component.extend(
 		 */
 		initializeNewerButtons() {
 			const $lastReply = this.$('.post-reply:last'),
-				floatingButtonScrollHideDelay = 1000;
+				floatingButtonScrollHideDelay = 1000,
+				scrollY = window.scrollY || window.pageYOffset;
 
 			if ($lastReply.length &&
-				window.innerHeight + window.scrollY <= $lastReply.offset().top + $lastReply.outerHeight()
+				window.innerHeight + scrollY <= $lastReply.offset().top + $lastReply.outerHeight()
 			) {
-
 				this.setProperties({
 					isFloatingButton: true,
 					isFloatingButtonBottomSpace: true

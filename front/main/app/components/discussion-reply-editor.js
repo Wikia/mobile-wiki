@@ -14,7 +14,9 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	initializeStickyState() {
-		this.set('isSticky', window.innerHeight + window.scrollY < this.$().offset().top + this.$().height());
+		const scrollY = window.scrollY || window.pageYOffset;
+
+		this.set('isSticky', window.innerHeight + scrollY < this.$().offset().top + this.$().height());
 
 		Ember.$(window).on('scroll.editor', () => {
 			this.onScroll();
@@ -26,9 +28,10 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {boolean}
 	 */
 	isStickyBreakpointHeight() {
-		const $editorLabel = this.$('.editor-label');
+		const $editorLabel = this.$('.editor-label'),
+			scrollY = window.scrollY || window.pageYOffset;;
 
-		return window.innerHeight + window.scrollY - this.$('.editor-container').outerHeight() <
+		return window.innerHeight + scrollY - this.$('.editor-container').outerHeight() <
 			$editorLabel.offset().top + $editorLabel.outerHeight();
 	},
 
