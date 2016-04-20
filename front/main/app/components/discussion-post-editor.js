@@ -23,8 +23,9 @@ export default DiscussionEditorComponent.extend({
 	 */
 	initializeStickyState() {
 		this.setProperties({
+			isSticky: false,
 			offsetTop: this.$().offset().top,
-			siteHeadHeight: Ember.$('.site-head').outerHeight(true)
+			siteHeadHeight: Ember.$('.site-head').outerHeight(true),
 		});
 
 		Ember.$(window).on('scroll.editor', this.onScroll.bind(this));
