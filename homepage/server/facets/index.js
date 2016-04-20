@@ -2,6 +2,7 @@
  * Wikia (Japan) Homepage
  *
  * @author Per Johan Groland <pgroland@wikia-inc.com>
+ * @author Gautam Bajaj <gbajaj@wikia-inc.com>
  */
 
 'use strict';
