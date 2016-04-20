@@ -3,13 +3,11 @@ import AlertNotificationsMixin from '../mixins/alert-notifications';
 import LanguagesMixin from '../mixins/languages';
 import WikiaInYourLangModel from '../models/wikia-in-your-lang';
 import localStorageConnector from '../utils/local-storage-connector';
-import TrackClickMixin from '../mixins/track-click';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	AlertNotificationsMixin,
 	LanguagesMixin,
-	TrackClickMixin,
 	{
 		alertKey: 'wikiaInYourLang.alertDismissed',
 
@@ -57,12 +55,20 @@ export default Ember.Component.extend(
 				callbacks: {
 					onInsertElement: (alert) => {
 						alert.on('click', 'a:not(.close)', () => {
-							this.trackClick('wikiaInYourLangAlert', 'link');
+							track({
+								action: trackActions.click,
+								category: 'wikiaInYourLangAlert',
+								label: 'link'
+							});
 						});
 					},
 					onCloseAlert: () => {
 						localStorageConnector.setItem(this.get('alertKey'), new Date().getTime().toString());
-						this.trackClick('wikiaInYourLangAlert', 'close');
+						track({
+							action: trackActions.click,
+							category: 'wikiaInYourLangAlert',
+							label: 'close'
+						});
 					}
 				}
 			};

@@ -1,6 +1,5 @@
 QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hooks) {
 	hooks.beforeEach(function () {
-		M.prop('apiBase', '/api/mercury', true);
 		M.provide('wiki', {
 			language: {
 				content: 'en'

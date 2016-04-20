@@ -1,8 +1,7 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		tagName: 'nav',
 		classNames: ['side-nav'],
@@ -17,7 +16,11 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			wordmarkClick() {
-				this.trackClick('side-nav', 'open-wikia-link');
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: 'open-wikia-link'
+				});
 				this.send('collapse');
 			},
 
@@ -25,7 +28,11 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			homeOfFandomClick() {
-				this.trackClick('side-nav', 'open-home-of-fandom');
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: 'open-home-of-fandom'
+				});
 			},
 
 			/**
@@ -45,7 +52,11 @@ export default Ember.Component.extend(
 			},
 
 			closeButtonClick() {
-				this.trackClick('side-nav', 'collapsed');
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: 'collapsed'
+				});
 				this.send('collapse');
 			},
 

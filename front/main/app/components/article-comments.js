@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ArticleCommentsModel from '../models/article-comments';
-import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * Component that displays article comments
@@ -10,7 +10,6 @@ import TrackClickMixin from '../mixins/track-click';
  * TODO: Great refactor XW-1237
  */
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		page: null,
 		articleId: null,
@@ -127,7 +126,12 @@ export default Ember.Component.extend(
 			toggleComments() {
 				this.set('page', this.get('page') ? null : 1);
 				this.toggleProperty('isCollapsed');
-				this.trackClick('comments', this.get('page') ? 'expanded' : 'collapsed');
+
+				track({
+					action: trackActions.click,
+					category: 'comments',
+					label: this.get('page') ? 'expanded' : 'collapsed'
+				});
 			}
 		},
 

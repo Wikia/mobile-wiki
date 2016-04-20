@@ -1,7 +1,8 @@
 import {test, moduleForComponent} from 'ember-qunit';
 import sinon from 'sinon';
 
-const track = require('common/utils/track').track;
+const trackModule = require('common/utils/track');
+let trackStub;
 
 /**
  * @param {object} testThis
@@ -15,13 +16,11 @@ function createComponent(testThis, editAllowed = true) {
 		uploadFeatureEnabled = true;
 
 	return testThis.subject({
-		attrs: {
-			section,
-			sectionId,
-			title,
-			uploadFeatureEnabled,
-			editAllowed
-		}
+		section,
+		sectionId,
+		title,
+		uploadFeatureEnabled,
+		editAllowed
 	});
 }
 
@@ -29,11 +28,11 @@ moduleForComponent('article-contribution', 'Unit | Component | article contribut
 	unit: true,
 
 	beforeEach() {
-		require('common/utils/track').track = Ember.K;
+		trackStub = sinon.stub(trackModule, 'track');
 	},
 
 	afterEach() {
-		require('common/utils/track').track = track;
+		trackStub.restore();
 	}
 });
 
