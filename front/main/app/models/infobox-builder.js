@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
+import request from 'ember-ajax/request';
 
 const InfoboxBuilderModel = Ember.Object.extend({
 	/**
@@ -212,7 +213,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 
 		if (!item.sourceFrozen) {
 			const sanitizedSource = InfoboxBuilderModel.sanitizeCustomRowSource(value),
-				// set itemType + index source, when empty value provided
+			// set itemType + index source, when empty value provided
 				sourceValue = sanitizedSource.length ? sanitizedSource : `${item.type}${item.infoboxBuilderData.index}`;
 
 			this.set(`infoboxState.${index}.source`, sourceValue);
@@ -293,23 +294,18 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	},
 
 	getTemplateExists(title) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.getJSON(
-				M.buildUrl({
-					path: '/wikia.php'
-				}),
-				{
-					controller: 'PortableInfoboxBuilderController',
-					method: 'getTemplateExists',
-					title
-				}
-			).done((data) => {
-				if (data && data.success) {
-					resolve(data.exists);
-				} else {
-					reject(data);
-				}
-			});
+		return request(M.buildUrl({path: '/wikia.php'}), {
+			data: {
+				controller: 'PortableInfoboxBuilderController',
+				method: 'getTemplateExists',
+				title
+			}
+		}).then((data) => {
+			if (data && data.success) {
+				return data.exists;
+			} else {
+				throw new Error(data);
+			}
 		});
 	},
 
@@ -322,28 +318,20 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	saveStateToTemplate(initialTitle) {
 		const title = this.get('title');
 
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			getEditToken(this.get('title'))
-				.then((token) => {
-					Ember.$.ajax({
-						url: M.buildUrl({
-							path: '/wikia.php'
-						}),
-						data: {
-							controller: 'PortableInfoboxBuilderController',
-							method: 'publish',
-							title,
-							oldTitle: initialTitle || title,
-							data: InfoboxBuilderModel.prepareDataForSaving(this),
-							token
-						},
-						dataType: 'json',
-						method: 'POST',
-						success: (data) => resolve(data),
-						error: (err) => reject(err)
-					});
+		return getEditToken(this.get('title'))
+			.then((token) => {
+				return request(M.buildUrl({path: '/wikia.php'}), {
+					method: 'POST',
+					data: {
+						controller: 'PortableInfoboxBuilderController',
+						method: 'publish',
+						title,
+						oldTitle: initialTitle || title,
+						data: InfoboxBuilderModel.prepareDataForSaving(this),
+						token
+					},
 				});
-		});
+			});
 	}
 });
 

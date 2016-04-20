@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import request from 'ember-ajax/request';
 
 /**
  * @typedef {Object} UserModelFindParams
@@ -46,27 +47,19 @@ UserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadDetails(userId, avatarSize) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php',
-				}),
-				data: {
-					controller: 'UserApi',
-					method: 'getDetails',
-					ids: userId,
-					size: avatarSize
-				},
-				dataType: 'json',
-				success: (result) => {
-					if (Ember.isArray(result.items)) {
-						resolve(result.items[0]);
-					} else {
-						reject(result);
-					}
-				},
-				error: reject
-			});
+		return request(M.buildUrl({path: '/wikia.php'}), {
+			data: {
+				controller: 'UserApi',
+				method: 'getDetails',
+				ids: userId,
+				size: avatarSize
+			},
+		}).then((result) => {
+			if (Ember.isArray(result.items)) {
+				resolve(result.items[0]);
+			} else {
+				throw new Error(result);
+			}
 		});
 	},
 

@@ -1,9 +1,9 @@
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
-import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributors from './domain/contributors';
 import DiscussionEntities from './domain/entities';
+import request from 'ember-ajax/request';
 
 const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
@@ -18,22 +18,19 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 		loadPage(pageNum = 0) {
 			this.set('pageNum', pageNum);
 
-			return ajaxCall({
+			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts`), {
 				data: {
 					page: this.get('pageNum'),
 					pivot: this.get('pivotId'),
 					viewableOnly: false,
 					reported: true
 				},
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
-				success: (data) => {
-					this.get('data.entities').pushObjects(
-						DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'))
-					);
-				},
-				error: (err) => {
-					this.handleLoadMoreError(err);
-				}
+			}).then((data) => {
+				this.get('data.entities').pushObjects(
+					DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'))
+				);
+			}).catch((err) => {
+				this.handleLoadMoreError(err);
 			});
 		},
 
@@ -66,7 +63,6 @@ DiscussionReportedPostsModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} forumId
-	 * @param {string} [sortBy='trending']
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
@@ -74,22 +70,17 @@ DiscussionReportedPostsModel.reopenClass({
 		const reportedPostsInstance = DiscussionReportedPostsModel.create({
 				wikiId,
 				forumId
-			}),
-			requestData = {
+			});
+
+		return request(M.getDiscussionServiceUrl(`/${wikiId}/posts`), {
+			data: {
 				viewableOnly: false,
 				reported: true
-			};
-
-		return ajaxCall({
-			context: reportedPostsInstance,
-			data: requestData,
-			url: M.getDiscussionServiceUrl(`/${wikiId}/posts`),
-			success: (data) => {
-				reportedPostsInstance.setNormalizedData(data);
 			},
-			error: (err) => {
-				reportedPostsInstance.setErrorProperty(err);
-			}
+		}).then((data) => {
+			reportedPostsInstance.setNormalizedData(data);
+		}).catch((err) => {
+			reportedPostsInstance.setErrorProperty(err);
 		});
 	}
 });

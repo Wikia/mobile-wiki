@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import request from 'ember-ajax/request';
 
 const ImageReviewModel = Ember.Object.extend({
 	showSubHeader: true
@@ -13,91 +14,49 @@ ImageReviewModel.reopenClass({
 			options.status = 'FLAGGED';
 		}
 
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.getImageReviewServiceUrl(`/contract`, options),
-				dataType: 'json',
-				method: 'POST',
-				xhrFields: {
-					withCredentials: true
-				},
-				success: (data, textStatus, xhr) => {
-					// In case there are no more images, create empty model and show `No more images to review` message
-					if (xhr.status === 204) {
-						resolve(ImageReviewModel.create({}));
-					} else {
-						resolve(ImageReviewModel.getImagesAndCount(data.id));
-					}
-				},
-				error: (data) => reject(data)
-			});
+		return request(M.getImageReviewServiceUrl(`/contract`, options), {
+			method: 'POST',
+		}).then((data, textStatus, xhr) => {
+			// In case there are no more images, create empty model and show `No more images to review` message
+			if (xhr.status === 204) {
+				resolve(ImageReviewModel.create({}));
+			} else {
+				resolve(ImageReviewModel.getImagesAndCount(data.id));
+			}
 		});
+
 	},
 
 	endSession() {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.getImageReviewServiceUrl(`/contract`, {}),
-				xhrFields: {
-					withCredentials: true
-				},
-				dataType: 'json',
-				method: 'DELETE',
-				success: (data) => resolve(data),
-				error: (data) => reject(data)
-			});
+		return request(M.getImageReviewServiceUrl(`/contract`, {}), {
+			method: 'DELETE',
 		});
 	},
 
 	getImages(contractId) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.getImageReviewServiceUrl(`/contract/${contractId}/image`, {}),
-				xhrFields: {
-					withCredentials: true
-				},
-				dataType: 'json',
-				method: 'GET',
-				success: (data) => {
-					if (Ember.isArray(data)) {
-						resolve({data, contractId});
-					} else {
-						reject(i18n.t('app.image-review-error-invalid-data'));
-					}
-				},
-				error: (data) => reject(data)
+		return request(M.getImageReviewServiceUrl(`/contract/${contractId}/image`, {}))
+			.then((data) => {
+				if (Ember.isArray(data)) {
+					return {data, contractId};
+				} else {
+					throw new Error(i18n.t('app.image-review-error-invalid-data'));
+				}
 			});
-		});
 	},
 
 	reviewImage(contractId, imageId, flag) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.getImageReviewServiceUrl(`/contract/${contractId}/image/${imageId}?status=${flag.toUpperCase()}`),
-				xhrFields: {
-					withCredentials: true
-				},
-				dataType: 'json',
+		return request(
+			M.getImageReviewServiceUrl(`/contract/${contractId}/image/${imageId}?status=${flag.toUpperCase()}`),
+			{
 				method: 'PUT',
-				success: (data) => resolve(data),
-				error: (data) => reject(data)
-			});
-		});
+			}
+		);
 	},
 
 	// Temporary endpoint for adding images
 	addImage(contractId, imageId) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.getImageReviewServiceUrl(`/contract/${contractId}/image/${imageId}?status=UNREVIEWED`),
-				xhrFields: {
-					withCredentials: true
-				},
-				dataType: 'json',
-				method: 'POST',
-				success: (data) => resolve(data),
-				error: (data) => reject(data)
-			});
+		return request(M.getImageReviewServiceUrl(`/contract/${contractId}/image/${imageId}?status=UNREVIEWED`), {
+			method: 'POST',
 		});
 	},
 
@@ -134,19 +93,10 @@ ImageReviewModel.reopenClass({
 	},
 
 	getImagesToReviewCount() {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.getImageReviewServiceUrl('/monitoring', {
-					status: 'UNREVIEWED'
-				}),
-				xhrFields: {
-					withCredentials: true
-				},
-				dataType: 'json',
-				method: 'GET',
-				success: (data) => resolve(data),
-				error: () => reject(i18n.t('app.image-review-error-invalid-data'))
-			});
+		return request(M.getImageReviewServiceUrl('/monitoring', {
+			status: 'UNREVIEWED'
+		})).catch(() => {
+			throw new Error(i18n.t('app.image-review-error-invalid-data'))
 		});
 	},
 

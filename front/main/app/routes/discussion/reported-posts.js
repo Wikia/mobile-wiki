@@ -82,8 +82,8 @@ export default DiscussionBaseRoute.extend(
 				this.transitionTo('discussion.forum', this.get('forumId'), 'latest').promise.then(() => {
 					const model = this.modelFor(this.get('routeName'));
 
-					model.createPost(postData).then((xhr) => {
-						if (xhr.apiResponseData && !model.get('errorMessage')) {
+					model.createPost(postData).then((data) => {
+						if (data && !model.get('errorMessage')) {
 							this.get('discussionEditor').trigger('newPost');
 						}
 					});

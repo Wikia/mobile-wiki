@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import request from 'ember-ajax/request';
 
 const ImageReviewItemModel = Ember.Object.extend({
 	status: 'accepted'
@@ -6,18 +7,7 @@ const ImageReviewItemModel = Ember.Object.extend({
 
 ImageReviewItemModel.reopenClass({
 	getImageContext(imageId) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.getStaticAssetsServiceUrl(`/image/context/${imageId}`),
-				xhrFields: {
-					withCredentials: true
-				},
-				dataType: 'json',
-				method: 'GET',
-				success: (data) => resolve(data),
-				error: () => reject()
-			});
-		});
+		return request(M.getStaticAssetsServiceUrl(`/image/context/${imageId}`))
 	}
 });
 

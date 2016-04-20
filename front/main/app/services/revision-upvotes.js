@@ -109,32 +109,27 @@ export default Ember.Service.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	removeUpvote(revisionId, upvoteId, title, userId) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			getEditToken(title)
-				.then((token) => {
-					Ember.$.ajax({
-						url: M.buildUrl({
-							path: '/wikia.php',
-							query: {controller: 'RevisionUpvotesApiController', method: 'removeUpvote'}
-						}),
-						data: {
-							id: upvoteId,
-							userId,
-							token
-						},
-						dataType: 'json',
-						method: 'POST',
-						success: (resp) => {
-							if (resp && resp.success) {
-								this.removeRevisionUpvote(revisionId, upvoteId);
-								resolve();
-							} else {
-								reject();
-							}
-						},
-						error: (err) => reject(err)
-					});
+		return getEditToken(title)
+			.then((token) => {
+				return this.get('ajax').post(M.buildUrl({
+					path: '/wikia.php',
+					query: {
+						controller: 'RevisionUpvotesApiController',
+						method: 'removeUpvote'
+					}
+				}), {
+					data: {
+						id: upvoteId,
+						userId,
+						token
+					},
+				}).then((resp) => {
+					if (resp && resp.success) {
+						this.removeRevisionUpvote(revisionId, upvoteId);
+					} else {
+						throw new Error();
+					}
 				});
-		});
+			});
 	}
 });

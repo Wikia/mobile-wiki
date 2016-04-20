@@ -1,10 +1,11 @@
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
-import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributors from './domain/contributors';
 import DiscussionPost from './domain/post';
 import DiscussionReply from './domain/reply';
 import {track, trackActions} from '../../utils/discussion-tracker';
+import request from 'ember-ajax/request';
+import {isUnauthorizedError} from 'ember-ajax/errors';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	links: {
@@ -55,14 +56,10 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadAnotherPage(serviceUrl, isNextPageCall) {
-		return ajaxCall({
-			url: M.getDiscussionServiceUrl(serviceUrl),
-			success: (data) => {
-				this.onLoadAnotherPageSuccess(data, isNextPageCall);
-			},
-			error: (err) => {
-				this.handleLoadMoreError(err);
-			},
+		return request(M.getDiscussionServiceUrl(serviceUrl)).then((data) => {
+			this.onLoadAnotherPageSuccess(data, isNextPageCall);
+		}).catch((err) => {
+			this.handleLoadMoreError(err);
 		});
 	},
 
@@ -89,24 +86,21 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 		this.setFailedState(null);
 		replyData.threadId = this.get('threadId');
 
-		return ajaxCall({
-			data: JSON.stringify(replyData),
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts`), {
 			method: 'POST',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
-			success: (reply) => {
-				reply.isNew = true;
-				reply.threadCreatedBy = this.get('data.createdBy');
-				this.incrementProperty('data.repliesCount');
-				this.get('data.replies').pushObject(DiscussionReply.create(reply));
+			data: JSON.stringify(replyData),
+		}).then((reply) => {
+			reply.isNew = true;
+			reply.threadCreatedBy = this.get('data.createdBy');
+			this.incrementProperty('data.repliesCount');
+			this.get('data.replies').pushObject(DiscussionReply.create(reply));
 
-				track(trackActions.ReplyCreate);
-			},
-			error: (err) => {
-				if (err.status === 401) {
-					this.setFailedState('editor.post-error-not-authorized');
-				} else {
-					this.setFailedState('editor.post-error-general-error');
-				}
+			track(trackActions.ReplyCreate);
+		}).catch((err) => {
+			if (isUnauthorizedError(err.status)) {
+				this.setFailedState('editor.post-error-not-authorized');
+			} else {
+				this.setFailedState('editor.post-error-general-error');
 			}
 		});
 	},
@@ -159,8 +153,7 @@ DiscussionPostModel.reopenClass({
 			}),
 			urlPath = replyId ? `/${wikiId}/permalinks/posts/${replyId}` : `/${wikiId}/threads/${threadId}`;
 
-		return ajaxCall({
-			context: postInstance,
+		return request(M.getDiscussionServiceUrl(urlPath), {
 			data: {
 				limit: postInstance.get('repliesLimit'),
 				responseGroup: 'full',
@@ -168,23 +161,20 @@ DiscussionPostModel.reopenClass({
 				sortKey: 'creation_date',
 				viewableOnly: false
 			},
-			url: M.getDiscussionServiceUrl(urlPath),
-			success: (data) => {
-				if (replyId) {
-					data.permalinkedReplyId = replyId;
-				}
-
-				postInstance.setProperties({
-					// this is not a mistake - we have descending order
-					'links.previous': Ember.getWithDefault(data, '_links.next.0.href', null),
-					'links.next': Ember.getWithDefault(data, '_links.previous.0.href', null)
-				});
-
-				postInstance.setNormalizedData(data);
-			},
-			error: (err) => {
-				postInstance.setErrorProperty(err);
+		}).then((data) => {
+			if (replyId) {
+				data.permalinkedReplyId = replyId;
 			}
+
+			postInstance.setProperties({
+				// this is not a mistake - we have descending order
+				'links.previous': Ember.getWithDefault(data, '_links.next.0.href', null),
+				'links.next': Ember.getWithDefault(data, '_links.previous.0.href', null)
+			});
+
+			postInstance.setNormalizedData(data);
+		}).catch((err) => {
+			postInstance.setErrorProperty(err);
 		});
 	},
 });

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
+import request from 'ember-ajax/request';
 
 const ArticleDiffModel = Ember.Object.extend({
 	anonymous: Ember.computed.equal('userId', 0),
@@ -31,37 +32,32 @@ const ArticleDiffModel = Ember.Object.extend({
 			// See description of summary param
 			summary = [];
 		}
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			getEditToken(this.title)
-				.then((token) => {
-					Ember.$.ajax({
-						url: M.buildUrl({path: '/api.php'}),
-						data: {
-							action: 'edit',
-							summary,
-							title: this.title,
-							undo: this.newId,
-							undoafter: this.oldId,
-							token,
-							format: 'json'
-						},
-						dataType: 'json',
-						method: 'POST',
-						success: (resp) => {
-							if (resp && resp.edit && resp.edit.result === 'Success') {
-								resolve();
-							} else if (resp && resp.error) {
-								const errorMsg = resp.error.code === 'undofailure' ? 'main.undo-failure' : 'main.error';
+		return getEditToken(this.title)
+			.then((token) => {
+				request(M.buildUrl({path: '/api.php'}), {
+					method: 'POST',
+					data: {
+						action: 'edit',
+						summary,
+						title: this.title,
+						undo: this.newId,
+						undoafter: this.oldId,
+						token,
+						format: 'json'
+					},
+				}).then((resp) => {
+					if (resp && resp.edit && resp.edit.result === 'Success') {
+						return resp.edit.result;
+					} else if (resp && resp.error) {
+						const errorMsg = resp.error.code === 'undofailure' ? 'main.undo-failure' : 'main.error';
 
-								reject(errorMsg);
-							} else {
-								reject();
-							}
-						},
-						error: reject
-					});
-				}, (err) => reject(err));
-		});
+						throw new Error(errorMsg);
+					} else {
+						throw new Error();
+					}
+				});
+			});
+
 	}
 });
 
@@ -73,51 +69,46 @@ ArticleDiffModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	fetch(oldId, newId) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.getJSON(
-				M.buildUrl({
-					path: '/wikia.php'
-				}),
-				{
-					controller: 'RevisionApi',
-					method: 'getRevisionsDiff',
-					avatar: true,
-					upvotes: true,
-					oldRev: true,
+		return request(M.buildUrl({path: '/wikia.php'}), {
+			data: {
+				controller: 'RevisionApi',
+				method: 'getRevisionsDiff',
+				avatar: true,
+				upvotes: true,
+				oldRev: true,
+				newId,
+				oldId
+			}
+		}).then(({article, revision, oldRevision, diffs = []}) => {
+			const diffsData = ArticleDiffModel.prepareDiffs(diffs);
+
+			let modelInstance = null,
+				lengthChange = revision.size;
+
+			if (!Ember.isNone(oldRevision)) {
+				lengthChange = lengthChange - oldRevision.size;
+			}
+
+			if (diffs) {
+				modelInstance = ArticleDiffModel.create({
+					diffs: diffsData,
+					namespace: article.ns,
 					newId,
-					oldId
-				}
-			).done(({article, revision, oldRevision, diffs = []}) => {
-				const diffsData = ArticleDiffModel.prepareDiffs(diffs);
+					oldId,
+					pageid: article.pageId,
+					parsedcomment: revision.parsedComment,
+					timestamp: revision.timestamp,
+					title: article.title,
+					upvotes: revision.upvotes || [],
+					upvotescount: revision.upvotesCount,
+					user: revision.userName,
+					userId: revision.userId,
+					useravatar: revision.userAvatar,
+					lengthChange
+				});
+			}
 
-				let modelInstance = null,
-					lengthChange = revision.size;
-
-				if (!Ember.isNone(oldRevision)) {
-					lengthChange = lengthChange - oldRevision.size;
-				}
-
-				if (diffs) {
-					modelInstance = ArticleDiffModel.create({
-						diffs: diffsData,
-						namespace: article.ns,
-						newId,
-						oldId,
-						pageid: article.pageId,
-						parsedcomment: revision.parsedComment,
-						timestamp: revision.timestamp,
-						title: article.title,
-						upvotes: revision.upvotes || [],
-						upvotescount: revision.upvotesCount,
-						user: revision.userName,
-						userId: revision.userId,
-						useravatar: revision.userAvatar,
-						lengthChange
-					});
-				}
-
-				resolve(modelInstance);
-			}).fail(reject);
+			return modelInstance;
 		});
 	},
 

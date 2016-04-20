@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
+import request from 'ember-ajax/request';
 
 const ArticleEditModel = Ember.Object.extend({
 	content: null,
@@ -19,11 +20,10 @@ ArticleEditModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		publish(model) {
-			return new Ember.RSVP.Promise((resolve, reject) => {
-				getEditToken(model.title)
+			return getEditToken(model.title)
 					.then((token) => {
-						Ember.$.ajax({
-							url: M.buildUrl({path: '/api.php'}),
+						return request(M.buildUrl({path: '/api.php'}), {
+							method: 'POST',
 							data: {
 								action: 'edit',
 								title: model.title,
@@ -32,21 +32,16 @@ ArticleEditModel.reopenClass(
 								token,
 								format: 'json'
 							},
-							dataType: 'json',
-							method: 'POST',
-							success: (resp) => {
-								if (resp && resp.edit && resp.edit.result === 'Success') {
-									resolve();
-								} else if (resp && resp.error) {
-									reject(resp.error.code);
-								} else {
-									reject();
-								}
-							},
-							error: (err) => reject(err)
+						}).then((resp) => {
+							if (resp && resp.edit && resp.edit.result === 'Success') {
+								return resp.edit.result;
+							} else if (resp && resp.error) {
+								throw new Error(resp.error.code);
+							} else {
+								throw new Error();
+							}
 						});
-					}, (err) => reject(err));
-			});
+					});
 		},
 
 		/**
@@ -55,10 +50,7 @@ ArticleEditModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		load(title, sectionIndex) {
-			return new Ember.RSVP.Promise((resolve, reject) => {
-				Ember.$.ajax({
-					url: M.buildUrl({path: '/api.php'}),
-					dataType: 'json',
+			return request(M.buildUrl({path: '/api.php'}), {
 					cache: false,
 					data: {
 						action: 'query',
@@ -69,13 +61,12 @@ ArticleEditModel.reopenClass(
 						rvsection: sectionIndex,
 						format: 'json'
 					}
-				}).done((resp) => {
+				}).then((resp) => {
 					let pages,
 						revision;
 
 					if (resp.error) {
-						reject(resp.error.code);
-						return;
+						throw new Error(resp.error.code);
 					}
 
 					pages = Ember.get(resp, 'query.pages');
@@ -83,18 +74,17 @@ ArticleEditModel.reopenClass(
 					if (pages) {
 						// FIXME: MediaWiki API, seriously?
 						revision = pages[Object.keys(pages)[0]].revisions[0];
-						resolve(ArticleEditModel.create({
+						return ArticleEditModel.create({
 							title,
 							sectionIndex,
 							content: revision['*'],
 							originalContent: revision['*'],
 							timestamp: revision.timestamp
-						}));
+						});
 					} else {
-						reject();
+						throw new Error();
 					}
-				}).fail((err) => reject(err));
-			});
+				});
 		}
 	}
 );

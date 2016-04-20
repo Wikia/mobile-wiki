@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import request from 'ember-ajax/request';
 
 const defaultProps = 'user|userid|useravatar|parsedcomment|timestamp|title|ids|sizes|upvotes',
 	RecentWikiActivityModel = Ember.Object.extend({
@@ -18,10 +19,8 @@ RecentWikiActivityModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getRecentActivityList(limit = 50, props = defaultProps) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.getJSON(
-				M.buildUrl({path: '/api.php'}),
-				{
+		return request(M.buildUrl({path: '/api.php'}), {
+				data: {
 					action: 'query',
 					format: 'json',
 					list: 'recentchanges',
@@ -30,14 +29,13 @@ RecentWikiActivityModel.reopenClass({
 					rcprop: props,
 					rclimit: limit
 				}
-			).done((data) => {
+			}).then((data) => {
 				const model = RecentWikiActivityModel.create(),
 					recentChanges = RecentWikiActivityModel.prepareData(data.query.recentchanges);
 
 				model.set('recentChanges', recentChanges);
-				resolve(model);
-			}).fail((err) => reject(err));
-		});
+				return model;
+			})
 	},
 
 	prepareData(recentChanges) {
