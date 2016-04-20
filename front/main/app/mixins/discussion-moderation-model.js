@@ -1,26 +1,22 @@
 import Ember from 'ember';
-import ajaxCall from '../utils/ajax-call';
 
 export default Ember.Mixin.create({
+	ajax: Ember.inject.service(),
 	/**
 	 * Delete post in service
 	 * @param {object} post
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	deletePost(post) {
-		return ajaxCall({
-			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/delete`),
-			success: () => {
+		return this.get('ajax').put(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/delete`))
+			.then(() => {
 				post.setProperties({
 					isDeleted: true,
 					isReported: false
 				});
-			},
-			error: () => {
+			}).catch(() => {
 				this.setFailedState('editor.post-error-general-error');
-			}
-		});
+			});
 	},
 
 	/**
@@ -29,20 +25,17 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	deleteAllPosts(posts) {
-		return ajaxCall({
-			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/users/${posts.get('0.createdBy.id')}/posts/delete`),
-			success: () => {
-				posts.forEach((post) => {
-					post.setProperties({
-						isDeleted: true,
-						isReported: false
-					});
+		return this.get('ajax').put(
+			M.getDiscussionServiceUrl(`/${this.wikiId}/users/${posts.get('0.createdBy.id')}/posts/delete`)
+		).then(() => {
+			posts.forEach((post) => {
+				post.setProperties({
+					isDeleted: true,
+					isReported: false
 				});
-			},
-			error: () => {
-				this.setFailedState('editor.post-error-general-error');
-			}
+			});
+		}).catch(() => {
+			this.setFailedState('editor.post-error-general-error');
 		});
 	},
 
@@ -52,16 +45,12 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	undeletePost(post) {
-		return ajaxCall({
-			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/undelete`),
-			success: () => {
+		return this.get('ajax').put(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/undelete`))
+			.then(() => {
 				post.set('isDeleted', false);
-			},
-			error: () => {
+			}).catch(() => {
 				this.setFailedState('editor.post-error-general-error');
-			}
-		});
+			});
 	},
 
 	/**
@@ -70,19 +59,15 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	deleteReply(reply) {
-		return ajaxCall({
-			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/delete`),
-			success: () => {
+		return this.get('ajax').put(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/delete`))
+			.then(() => {
 				reply.setProperties({
 					isDeleted: true,
 					isReported: false
 				});
-			},
-			error: () => {
+			}).catch(() => {
 				this.setFailedState('editor.post-error-general-error');
-			}
-		});
+			});
 	},
 
 	/**
@@ -91,16 +76,12 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	undeleteReply(reply) {
-		return ajaxCall({
-			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/undelete`),
-			success: () => {
+		return this.get('ajax').put(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${reply.id}/undelete`))
+			.then(() => {
 				reply.set('isDeleted', false);
-			},
-			error: () => {
+			}).catch(() => {
 				this.setFailedState('editor.post-error-general-error');
-			}
-		});
+			});
 	},
 
 	/**
@@ -109,17 +90,13 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	approve(entity) {
-		return ajaxCall({
+		return this.get('ajax').put(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${entity.id}/report/valid`), {
 			data: JSON.stringify({value: 1}),
 			dataType: 'text',
-			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${entity.id}/report/valid`),
-			success: () => {
-				entity.set('isReported', false);
-			},
-			error: () => {
-				this.setFailedState('editor.post-error-general-error');
-			}
+		}).then(() => {
+			entity.set('isReported', false);
+		}).catch(() => {
+			this.setFailedState('editor.post-error-general-error');
 		});
 	},
 
@@ -129,18 +106,14 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	report(entity) {
-		return ajaxCall({
+		return this.get('ajax').put(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${entity.id}/report`), {
 			data: JSON.stringify({value: 1}),
-			dataType: 'text',
-			method: 'PUT',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${entity.id}/report`),
-			success: () => {
-				entity.get('userData').set('hasReported', true);
-				entity.set('isReported', true);
-			},
-			error: () => {
-				this.setFailedState('editor.post-error-general-error');
-			}
+			dataType: 'text'
+		}).then(() => {
+			entity.get('userData').set('hasReported', true);
+			entity.set('isReported', true);
+		}).catch(() => {
+			this.setFailedState('editor.post-error-general-error');
 		});
 	},
 
@@ -151,16 +124,12 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	lockPost(post) {
-		return ajaxCall({
-			method: 'PUT',
+		return this.get('ajax').put(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`), {
 			dataType: 'text',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
-			success: () => {
-				post.set('isLocked', true);
-			},
-			error: () => {
-				this.setFailedState('editor.post-error-general-error');
-			}
+		}).then(() => {
+			post.set('isLocked', true);
+		}).catch(() => {
+			this.setFailedState('editor.post-error-general-error');
 		});
 	},
 
@@ -170,16 +139,12 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	unlockPost(post) {
-		return ajaxCall({
-			method: 'DELETE',
+		return this.get('ajax').del(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`), {
 			dataType: 'text',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${post.threadId}/lock`),
-			success: () => {
-				post.set('isLocked', false);
-			},
-			error: () => {
-				this.setFailedState('editor.post-error-general-error');
-			}
+		}).then(() => {
+			post.set('isLocked', false);
+		}).catch(() => {
+			this.setFailedState('editor.post-error-general-error');
 		});
 	},
 });
