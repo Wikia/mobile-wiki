@@ -2,10 +2,6 @@
 	display: block;
 	text-align: right;
 
-	.is-deleted & {
-		display: none;
-	}
-
 	.icon {
 		background-position: center;
 		background-repeat: no-repeat;
@@ -14,30 +10,5 @@
 		height: 24px;
 		margin-left: 5px;
 		width: 24px;
-	}
-}
-
-@media #{$mobile-range} {
-	.discussion .post-detail .share-feature {
-		display: none;
-		padding-right: 10px;
-	}
-}
-
-@media #{$desktop-range} {
-	.discussion {
-		&.forum .share-feature {
-			height: 30px;
-			line-height: 30px;
-			min-width: 100px;
-			padding-right: 15px;
-		}
-
-		.share-feature {
-			.icon {
-				height: 22px;
-				width: 22px;
-			}
-		}
 	}
 }

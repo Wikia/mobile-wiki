@@ -4,7 +4,7 @@
     "Autolinker.js": "0.22.0",
     "cropper": "0.11.0",
     "dom-ruler": "0.1.13",
-    "ember": "2.1.1",
+    "ember": "2.3.2",
     "ember-cli-shims": "0.1.1",
     "ember-cli-test-loader": "0.2.2",
     "ember-hammer": "1.0.2",
@@ -24,10 +24,10 @@
     "vignette": "wikia/vignette-js#2.2.1",
     "visit-source": "Wikia/visit-source#0.1.1",
     "weppy": "Wikia/weppy#0.9.3",
-    "wikia-style-guide": "Wikia/style-guide#v1.8.3"
+    "wikia-style-guide": "Wikia/style-guide#v1.9.0"
   },
   "resolutions": {
-    "ember": "2.1.1",
+    "ember": "2.3.2",
     "jquery": "2.1.4",
     "ember-qunit-notifications": "0.1.0"
   }

@@ -1,10 +1,8 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 import infoboxBuilderDiff from '../utils/infobox-builder-diff';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		classNameBindings: ['isPreviewItemDragged', 'isGroupHighlighted'],
 		isLoading: false,
@@ -12,6 +10,7 @@ export default Ember.Component.extend(
 		tooltipPosX: null,
 		tooltipPosY: null,
 		tooltipDistanceFromCursor: 20,
+		isGoToSourceEnabled: Ember.computed.not('isVEContext'),
 		isPreviewItemHovered: false,
 		isPreviewItemDragged: false,
 		isGroupTooltipVisible: false,
@@ -120,7 +119,11 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			addItem(type) {
-				this.trackClick('infobox-builder', `add-item-${type}`);
+				track({
+					action: trackActions.click,
+					category: 'infobox-builder',
+					label: `add-item-${type}`
+				});
 
 				this.get('addItem')(type);
 
@@ -165,7 +168,12 @@ export default Ember.Component.extend(
 			 */
 			onPreviewItemDrag(actionTrigger) {
 				this.set('isPreviewItemDragged', true);
-				this.trackClick('infobox-builder', `drag-element-${actionTrigger.type}`);
+
+				track({
+					action: trackActions.click,
+					category: 'infobox-builder',
+					label: `drag-element-${actionTrigger.type}`
+				});
 
 				if (actionTrigger !== this.get('activeItem')) {
 					this.get('setEditItem')(null);
@@ -206,7 +214,11 @@ export default Ember.Component.extend(
 					event.stopPropagation();
 				}
 
-				this.trackClick('infobox-builder', `item-${targetItem.type}`);
+				track({
+					action: trackActions.click,
+					category: 'infobox-builder',
+					label: `item-${targetItem.type}`
+				});
 
 				this.get('setEditItem')(targetItem);
 			},
@@ -226,7 +238,12 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			cancel() {
-				this.trackClick('infobox-builder', 'navigate-back-from-builder');
+				track({
+					action: trackActions.click,
+					category: 'infobox-builder',
+					label: 'navigate-back-from-builder'
+				});
+
 				this.get('cancelAction')();
 			},
 
@@ -237,7 +254,11 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			tryGoToSource() {
-				this.trackClick('infobox-builder', 'go-to-source-icon');
+				track({
+					action: trackActions.click,
+					category: 'infobox-builder',
+					label: 'go-to-source-icon'
+				});
 
 				if (this.get('title')) {
 					if (this.get('isDirty') || this.get('titleWasChanged')) {
@@ -257,7 +278,11 @@ export default Ember.Component.extend(
 			goToSource(saveChanges) {
 				const trackingLabel = `go-to-source-modal-${saveChanges ? 'save-changes-and-' : ''}go-to-source`;
 
-				this.trackClick('infobox-builder', trackingLabel);
+				track({
+					action: trackActions.click,
+					category: 'infobox-builder',
+					label: trackingLabel
+				});
 				this.set('showGoToSourceModal', false);
 				this.handleGoToSource(saveChanges);
 			},
@@ -289,7 +314,11 @@ export default Ember.Component.extend(
 			 */
 			onPreviewBackgroundClick() {
 				if (this.get('activeItem') !== null) {
-					this.trackClick('infobox-builder', 'exit-edit-mode-by-clicking-on-preview-background');
+					track({
+						action: trackActions.click,
+						category: 'infobox-builder',
+						label: 'exit-edit-mode-by-clicking-on-preview-background'
+					});
 				}
 				this.get('setEditItem')(null);
 			},
@@ -311,7 +340,11 @@ export default Ember.Component.extend(
 				})
 			});
 
-			this.trackClick('infobox-builder', 'save-attempt');
+			track({
+				action: trackActions.click,
+				category: 'infobox-builder',
+				label: 'save-attempt'
+			});
 			this.trackChangedItems();
 
 			return this.get('saveAction')(this.get('initialTitle')).then((data) => {
@@ -374,7 +407,8 @@ export default Ember.Component.extend(
 		/**
 		 * Process save attempt response.
 		 * If save was successful - show success and redirect to
-		 * template page if needed.
+		 * template page if needed or back to VE if infobox builder
+		 * was launched in VE context.
 		 * If there was moving / saving conflict - display modal with
 		 * information that title exists.
 		 *
@@ -392,7 +426,10 @@ export default Ember.Component.extend(
 					label: 'save-successful'
 				});
 
-				if (shouldRedirectToPage) {
+				if (this.get('isVEContext')) {
+					this.get('returnToVE')(this.get('title'));
+					this.set('showSuccess', false);
+				} else if (shouldRedirectToPage) {
 					this.get('redirectToPageAction')(data.urls.templatePageUrl);
 				}
 			} else if (data.conflict) {

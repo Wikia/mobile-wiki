@@ -1,13 +1,11 @@
 import DiscussionBaseRoute from './base';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
 import DiscussionForumModel from '../../models/discussion/forum';
-import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 
 export default DiscussionBaseRoute.extend(
-	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionModerationRouteMixin,
 	DiscussionForumActionsRouteMixin,
@@ -52,7 +50,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor('discussion.forum').loadPage(pageNum, this.get('discussionSort.sortBy'));
+				this.modelFor(this.get('routeName')).loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
 			/**
@@ -64,7 +62,7 @@ export default DiscussionBaseRoute.extend(
 			 */
 			create(postData) {
 				this.setSortBy('latest').promise.then(() => {
-					const model = this.modelFor('discussion.forum');
+					const model = this.modelFor(this.get('routeName'));
 
 					model.createPost(postData).then((xhr) => {
 						if (xhr.apiResponseData && !model.get('errorMessage')) {

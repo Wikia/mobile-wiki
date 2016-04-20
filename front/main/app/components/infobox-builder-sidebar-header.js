@@ -1,8 +1,7 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		classNames: ['infobox-builder-sidebar-header'],
 
@@ -21,14 +20,22 @@ export default Ember.Component.extend(
 			removeItem() {
 				const item = this.get('item');
 
-				this.trackClick('infobox-builder', `delete-item-${item.type}`);
+				track({
+					action: trackActions.click,
+					category: 'infobox-builder',
+					label: `delete-item-${item.type}`
+				});
 				this.get('onDeleteItem')(item);
 			},
 
 			back() {
 				const item = this.get('item');
 
-				this.trackClick('infobox-builder', `navigate-back-from-edit-panel-${item.type}`);
+				track({
+					action: trackActions.click,
+					category: 'infobox-builder',
+					label: `navigate-back-from-edit-panel-${item.type}`
+				});
 				this.get('onBackArrowClick')(null);
 			}
 		}

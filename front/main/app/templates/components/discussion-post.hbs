@@ -1,108 +1,77 @@
-{{discussion-dialog
-	confirmButtonText=confirmButtonText
-	confirmCallback=confirmCallback
-	dialogMessage=dialogMessage
-	headerText=dialogHeaderText
-	isConfirm=isConfirm
-	isVisible=shouldShowDialogMessage
+{{discussion-post-card-detail
+	approve=(action this.attrs.approve)
+	author=model.createdBy
+	delete=(action this.attrs.deletePost)
+	isDetailsView=true
+	lock=(action this.attrs.lockPost)
+	post=model
+	postId=model.id
+	replyCount=model.repliesCount
+	report=(action this.attrs.report)
+	timestamp=model.creationTimestamp
+	undelete=(action this.attrs.undeletePost)
+	unlock=(action this.attrs.unlockPost)
+	upvoteCount=model.upvoteCount
+	upvote=(action this.attrs.upvote)
 }}
-<div class="site-body-discussion post-details-view">
-	<div class="minimized discussion-hero-unit background-theme-color"></div>
-	<div class="discussion-page row">
-		<div class="rail large-2 columns">
-			{{community-badge}}
-			{{#link-to 'discussion.forum' model.forumId discussionSort.sortBy class="side-button back-button active-element-theme-color"}}
-				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
-				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
-			{{/link-to}}
-			<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
-			{{#if model.repliesCount}}
-				{{discussion-contributors
-					users=model.contributors.users
-					maxContributorDisplayCount=7
-					totalContributorCount=model.contributors.count
-				}}
-			{{else}}
-				<span class="no-replies-message">{{i18n 'main.no-replies' ns='discussion'}}</span>
-			{{/if}}
-		</div>
-		{{#if model.connectionError}}
-			{{discussion-connection-error
-				retry=(action this.attrs.retry)
-			}}
-		{{else if model.notFoundError}}
-			{{discussion-not-found-error
-				forumId=model.forumId
-			}}
-		{{else}}
-				<div class="discussion post small-12 large-8 columns">
-					{{discussion-post-card-detail
-						approve=(action this.attrs.approve)
-						author=model.createdBy
-						delete=(action this.attrs.deletePost)
-						isDetailsView=true
-						lock=(action this.attrs.lockPost)
-						post=model
-						postId=model.id
-						replyCount=model.repliesCount
-						report=(action this.attrs.report)
-						timestamp=model.creationTimestamp
-						undelete=(action this.attrs.undeletePost)
-						unlock=(action this.attrs.unlockPost)
-						upvoteCount=model.upvoteCount
-						upvote=(action this.attrs.upvote)
-					}}
-					{{#if model.replies}}
-						<div class="desktop-hidden discussion-contributors-mobile">
-							{{discussion-contributors
-								users=model.contributors.users
-								maxContributorDisplayCount=7
-								totalContributorCount=model.contributors.count
-							}}
-						</div>
-						{{#if canShowMore}}
-							<button {{action this.attrs.loadMoreComments}} class="see-more active-element-theme-color">
-								{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
-								{{i18n 'main.pagination-post-show-more' ns='discussion'}}
-							</button>
-						{{/if}}
-					{{/if}}
-					<div class="replies-list">
-						{{#each model.replies as |entity index|}}
-							{{discussion-post-card-reply
-								approve=(action this.attrs.approve)
-								author=entity.createdBy
-								content=entity.rawContent
-								delete=(action this.attrs.deleteReply)
-								isDetailsView= true
-								isNew=entity.isNew
-								isParentDeleted=model.isDeleted
-								report=(action this.attrs.report)
-								post=entity
-								timestamp=entity.creationTimestamp
-								undelete=(action this.attrs.undeleteReply)
-								upvote=(action this.attrs.upvote)
-								upvoteCount=entity.upvoteCount
-							}}
-						{{else}}
-							{{#if canReply}}
-								<div class="discussion-no-replies">
-									{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
-									{{i18n 'main.no-replies-be-the-first' ns='discussion'}}
-								</div>
-							{{/if}}
-						{{/each}}
-						{{#if canReply}}
-							{{discussion-reply-editor
-								create=(action this.attrs.create)
-								replies=model.replies
-							}}
-						{{/if}}
-					</div>
-				</div>
-		{{/if}}
-		<div class="rail large-2 columns">
-			{{discussion-app-promotion}}
-		</div>
+{{#if model.replies}}
+	<div class="desktop-hidden discussion-contributors-mobile">
+		{{discussion-contributors
+			users=model.contributors.users
+			maxContributorDisplayCount=7
+			totalContributorCount=model.contributors.count
+		}}
 	</div>
+	{{#if canShowOlder}}
+		<button {{action this.attrs.loadOlderReplies}} class="load-older active-element-theme-color">
+			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
+			{{i18n 'main.pagination-post-show-more' ns='discussion'}}
+		</button>
+	{{/if}}
+{{/if}}
+<div class="replies-list">
+	{{#each model.replies as |entity index|}}
+		{{discussion-post-card-reply
+			approve=(action this.attrs.approve)
+			author=entity.createdBy
+			content=entity.rawContent
+			delete=(action this.attrs.deleteReply)
+			isDetailsView=true
+			isNew=entity.isNew
+			isParentDeleted=model.isDeleted
+			report=(action this.attrs.report)
+			post=entity
+			permalinkedReplyId=model.permalinkedReplyId
+			timestamp=entity.creationTimestamp
+			undelete=(action this.attrs.undeleteReply)
+			upvote=(action this.attrs.upvote)
+			upvoteCount=entity.upvoteCount
+		}}
+	{{else}}
+		{{#if canReply}}
+			<div class="discussion-no-replies">
+				{{svg 'comments' viewBox='0 0 30 30' class='icon no-replies'}}
+				{{i18n 'main.no-replies-be-the-first' ns='discussion'}}
+			</div>
+		{{/if}}
+	{{/each}}
+	{{#if canShowNewer}}
+		<button {{action this.attrs.loadNewerReplies}}
+			class="load-newer active-element-theme-color
+			{{if isFloatingButton 'floating' 'wide'}}
+			{{if isFloatingButtonBottomSpace 'bottom-space'}}">
+			{{#if isFloatingButton}}
+				{{svg 'down-small' viewBox='0 0 10 12' class='icon down-small'}}
+				{{i18n 'main.pagination-post-show-new-replies' ns='discussion'}}
+			{{else}}
+				{{i18n 'main.pagination-post-show-newer-replies' ns='discussion'}}
+			{{/if}}
+		</button>
+	{{/if}}
+	{{#if canReply}}
+		{{discussion-reply-editor
+			create=(action this.attrs.create)
+			replies=model.replies
+		}}
+	{{/if}}
 </div>

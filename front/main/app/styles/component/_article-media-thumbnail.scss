@@ -1,6 +1,5 @@
 .article-media-thumbnail {
 	margin: 40px 0;
-	position: relative;
 	text-align: center;
 
 	figcaption {
@@ -14,11 +13,12 @@
 
 	img {
 		@extend %image-placeholder;
+
 		display: inline-block;
 		width: 100%;
 	}
 
-	&.loaded {
+	&.is-loaded {
 		img {
 			animation: lazyImage .3s;
 			background: none;
@@ -40,13 +40,17 @@
 		width: 20px;
 		z-index: $z-1;
 	}
+}
 
-	// First line is for single images
-	// Second is for galleries
-	&.has-caption .chevron,
-	.has-caption .chevron {
-		margin-bottom: 50px;
-	}
+.article-media-placeholder {
+	@extend %image-placeholder;
+
+	display: inline-block;
+	width: 100%;
+}
+
+.article-media-thumbnail-image-wrapper {
+	position: relative;
 }
 
 @keyframes lazyImage {

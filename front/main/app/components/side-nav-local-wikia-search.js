@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * Type for search suggestion
@@ -12,7 +12,6 @@ import TrackClickMixin from '../mixins/track-click';
  */
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		query: '',
 
@@ -69,7 +68,11 @@ export default Ember.Component.extend(
 
 		actions: {
 			enter(value) {
-				this.trackClick('side-nav', 'search-open-special-search');
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: 'search-open-special-search'
+				});
 				window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${value}&fulltext=Search`);
 			},
 
@@ -88,7 +91,11 @@ export default Ember.Component.extend(
 			},
 
 			searchSuggestionClick() {
-				this.trackClick('side-nav', 'search-open-suggestion-link');
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: 'search-open-suggestion-link'
+				});
 				this.get('collapse')();
 			}
 		},
@@ -164,7 +171,14 @@ export default Ember.Component.extend(
 		 * @returns {string}
 		 */
 		getSearchURI(query) {
-			return `${M.prop('apiBase')}/search/${encodeURIComponent(query)}`;
+			return M.buildUrl({
+				path: '/wikia.php',
+				query: {
+					controller: 'MercuryApi',
+					method: 'getSearchSuggestions',
+					query
+				}
+			});
 		},
 
 		/**

@@ -1,4 +1,4 @@
-<div class="discussion-reply">
+<div class="discussion-reply" id="reply-{{post.id}}">
 	{{#if showTopNote}}
 		{{discussion-post-card-top-note
 			approve=(action this.attrs.approve)
@@ -30,7 +30,7 @@
 			{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
 		</div>
 
-		{{#pop-over for=(concat 'reply-options-' post.id) on='click' flow='flip'}}
+		{{#pop-over for=(concat 'reply-options-' post.id) on='click' flow='flip' class='more-options-pop-over'}}
 			{{discussion-more-options
 				delete=(action this.attrs.delete)
 				deleteMessage=(i18n 'main.delete-reply' ns='discussion')
@@ -45,7 +45,7 @@
 	</div>
 	{{#if userListView}}
 		<div class="discussion-content">
-			{{#link-to 'discussion.post.reply' post.threadId post.id class="post-details-link clamp"}}
+			{{#link-to 'discussion.reply' post.threadId post.id class="post-details-link clamp"}}
 				{{{parsedContent}}}
 			{{/link-to}}
 		</div>

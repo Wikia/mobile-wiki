@@ -55,11 +55,6 @@ body.discussions {
 		width: 40px;
 	}
 
-	&.toggle-share {
-		height: 20px;
-		width: 18px;
-	}
-
 	&.delete, &.undelete {
 		height: 19px;
 		width: 16px;
@@ -96,6 +91,12 @@ body.discussions {
 		height: 16px;
 		margin-right: 6px;
 		width: 16px;
+	}
+
+	&.down-small {
+		height: 12px;
+		margin-right: 4px;
+		width: 10px;
 	}
 }
 
@@ -140,16 +141,18 @@ body.discussions {
 		}
 	}
 
-	.count {
+	.action {
 		color: $discussion-count-color;
 		font-size: $type-min;
 		font-weight: bold;
 
 		.upvote-area,
-		.replies-area {
+		.replies-area,
+		.toggle-share-area {
 			color: $discussion-count-color;
 			display: block;
 			float: left;
+			font-weight: $font-weight-medium;
 			height: 30px;
 			line-height: 30px;
 			padding: 0 2px;
@@ -176,12 +179,6 @@ body.discussions {
 		.discussion-more-options {
 			margin-top: 3px;
 		}
-	}
-
-	.toggle-share-area {
-		display: block;
-		height: 30px;
-		line-height: 30px;
 	}
 
 	.discussion-content {
@@ -237,8 +234,6 @@ body.discussions {
 		}
 
 		&.is-reported {
-			background-color: $discussion-post-card-reported-background;
-
 			&::before {
 				border-top-color: $discussion-reported-mark-color;
 			}
@@ -263,23 +258,43 @@ body.discussions {
 				}
 			}
 
-			.count {
+			.action {
 				a, span {
 					color: $discussion-deleted-actions-color;
 				}
 			}
 
-			.upvote a, .count a, .toggle-share-area {
+			.action a {
 				cursor: default;
 			}
+		}
+
+		&.is-highlighted {
+			background-color: $discussion-post-card-linked-background;
 		}
 
 		.pop-over-compass {
 			width: 320px;
 		}
 
-		.pop-over-container {
+		.more-options-pop-over .pop-over-container {
 			padding: 0 18px;
+		}
+
+		.share-pop-over {
+			.pop-over-container {
+				padding: 24px 24px 38px;
+				text-align: center;
+			}
+
+			.share-feature {
+				text-align: center;
+			}
+
+			.icon {
+				height: 26px;
+				width: 26px;
+			}
 		}
 	}
 
@@ -315,7 +330,7 @@ body.discussions {
 			margin: -5px $post-details-reply-upvote-margin-left 0 0;
 			text-align: center;
 
-			.count {
+			.action {
 				min-width: $post-details-reply-upvote-width;
 				text-align: center;
 			}
@@ -403,6 +418,10 @@ body.discussions {
 			> * {
 				float: right;
 			}
+
+			span {
+				margin-left: 3px;
+			}
 		}
 
 		.timestamp {
@@ -432,18 +451,54 @@ body.discussions {
 		}
 	}
 
-	.see-more {
-		background-color: $discussion-see-more-color;
+	.load-older {
+		background-color: $discussion-load-older-color;
 		border-width: 0;
 		display: block;
 		font-size: 10px;
-		font-weight: bold;
+		font-weight: $font-weight-bold;
 		margin: 0;
 		padding: 0 $horizontal-padding;
 		width: 100%;
 
 		.icon {
 			margin-right: 3px;
+		}
+	}
+
+	.load-newer {
+		$floating-load-newer-button-height: 30px;
+		$wide-load-newer-button-height: 40px;
+
+		font-size: 10px;
+		margin: 0 auto;
+
+		&.floating {
+			border-radius: 2px;
+			border-width: 0;
+			color: $discussion-load-newer-color;
+			font-weight: $font-weight-bold;
+			height: $floating-load-newer-button-height;
+			left: 50%;
+			line-height: $floating-load-newer-button-height;
+			padding: 0 12px;
+			position: fixed;
+			transform: translateX(-50%);
+		}
+
+		&.bottom-space {
+			bottom: 80px;
+		}
+
+		&.wide {
+			border: none;
+			border-top: 1px solid $discussion-reply-border-color;
+			background-color: transparent;
+			font-weight: $font-weight-bold;
+			height: $wide-load-newer-button-height;
+			line-height: $wide-load-newer-button-height;
+			text-align: center;
+			width: 100%;
 		}
 	}
 
@@ -550,7 +605,7 @@ body.discussions {
 				width: $post-details-reply-width;
 			}
 
-			.see-more {
+			.load-older {
 				text-align: center;
 				width: $post-details-post-width;
 			}
@@ -558,13 +613,21 @@ body.discussions {
 
 		.post-detail,
 		.post-reply,
-		.see-more {
+		.load-older {
 			margin-left: auto;
 			margin-right: auto;
 		}
 
 		.discussion-no-replies {
 			border-bottom: 1px solid $discussion-reply-border-color;
+		}
+
+		.replies {
+			text-align: center;
+
+			.replies-area {
+				float: none;
+			}
 		}
 	}
 }
@@ -578,10 +641,6 @@ body.discussions {
 	.post-details-view {
 		.post-detail {
 			padding-bottom: 14px;
-
-			.share {
-				display: none;
-			}
 		}
 
 		.discussion-reply {

@@ -1,12 +1,10 @@
 import DiscussionBaseRoute from './base';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
 import DiscussionUserModel from '../../models/discussion/user';
-import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 
 export default DiscussionBaseRoute.extend(
-	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionModerationRouteMixin,
 	DiscussionModalDialogMixin,
@@ -28,7 +26,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor('discussion.user').loadPage(pageNum);
+				this.modelFor(this.get('routeName')).loadPage(pageNum);
 			}
 		}
 	}
