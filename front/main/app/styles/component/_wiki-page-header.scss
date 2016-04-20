@@ -14,14 +14,13 @@
 }
 
 .wiki-page-header.has-action > .wiki-page-header__wrapper {
-	flex-grow: 1;
-	flex-shrink: 0;
+	align-self: flex-end;
+	flex: 1 0 auto;
 }
 
 .wiki-page-header.has-action > .wiki-page-header__action {
-	flex-grow: 0;
-	flex-shrink: 0;
-	flex-basis: 60px;
+	align-self: flex-end;
+	flex: 0;
 	text-align: center;
 }
 
