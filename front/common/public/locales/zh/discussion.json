@@ -14,6 +14,8 @@
   "main":{
     "discussions-header-title":"討論版",
     "pagination-post-show-more":"查看過往回覆",
+    "pagination-post-show-newer-replies":"查看最新答覆",
+    "pagination-post-show-new-replies":"新的答覆",
     "share-default-title":"__siteName__上的討論",
     "contributors-title":"所有貢獻者",
     "sort-by-header":"排序",
@@ -75,18 +77,20 @@
     "upvote-link-label_plural":"__count__個讚",
     "replies-link-label":"__count__個回覆",
     "replies-link-label_plural":"__count__個回覆",
-    "share-header":"分享話題"
+    "share-header":"分享話題",
+    "share-label":"分享",
+    "reported-not-found-error":"暫時沒有被舉報的帖子或者回復。"
   },
   "editor":{
     "post-failed-error":"發佈失敗",
     "post-error-anon-cant-post":"登入進行討論！",
     "post-error-not-authorized":"您不能發帖因為您的帳戶已被封禁。",
     "post-error-general-error":"哎呀，出現未知錯誤！ 請稍後再試。",
-    "post-editor-label":"創建一個帖子",
+    "post-editor-label":"創建帖子",
     "post-action-button-label":"發佈",
     "post-editor-placeholder-text":"分享想法、問題或連結...",
     "reply-editor-placeholder-text":"答覆...",
     "reply-editor-label":"添加到討論",
-    "reply-action-button-label":"答覆"
+    "reply-action-button-label":"回覆"
   }
 }

@@ -1,21 +1,7 @@
 import Ember from 'ember';
-import InfoboxImageMediaComponent from './infobox-image-media';
-import LinkedGalleryMediaComponent from './linked-gallery-media';
-import GalleryMediaComponent from './gallery-media';
-import VideoMediaComponent from './video-media';
-import ImageMediaComponent from './image-media';
 import InfoboxImageCollectionComponent from './infobox-image-collection';
-import WikiaMapComponent from './wikia-map';
-import PortableInfoboxComponent from './portable-infobox';
 import AdsMixin from '../mixins/ads';
-import PollDaddyMixin from '../mixins/poll-daddy';
-import TrackClickMixin from '../mixins/track-click';
-import WidgetTwitterComponent from '../components/widget-twitter';
-import WidgetVKComponent from '../components/widget-vk';
-import WidgetPolldaddyComponent from '../components/widget-polldaddy';
-import WidgetFliteComponent from '../components/widget-flite';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
-import {getExperimentVariationNumber} from 'common/utils/variant-testing';
 import {track, trackActions} from 'common/utils/track';
 
 /**
@@ -26,8 +12,6 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	AdsMixin,
-	PollDaddyMixin,
-	TrackClickMixin,
 	{
 		tagName: 'article',
 		classNames: ['article-content', 'mw-content'],
@@ -38,26 +22,21 @@ export default Ember.Component.extend(
 		contributionEnabled: null,
 		uploadFeatureEnabled: null,
 		displayTitle: null,
-		targetParagraphOffset: null,
 		headers: null,
-		highlightedEditorDemoEnabled: Ember.computed(() => {
-			return getExperimentVariationNumber({dev: '5170910064', prod: '5164060600'}) === 1 &&
-				!Ember.$.cookie('highlightedEditorDemoShown');
-		}),
 
 		newFromMedia(media) {
 			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
-				return InfoboxImageMediaComponent.create();
+				return this.createComponentInstance('infobox-image-media');
 			} else if (Ember.isArray(media)) {
 				if (media.some((media) => Boolean(media.link))) {
-					return LinkedGalleryMediaComponent.create();
+					return this.createComponentInstance('linked-gallery-media');
 				} else {
-					return GalleryMediaComponent.create();
+					return this.createComponentInstance('gallery-media');
 				}
 			} else if (media.type === 'video') {
-				return VideoMediaComponent.create();
+				return this.createComponentInstance('video-media');
 			} else {
-				return ImageMediaComponent.create();
+				return this.createComponentInstance('image-media');
 			}
 		},
 
@@ -80,17 +59,11 @@ export default Ember.Component.extend(
 					this.loadIcons();
 					this.loadTableOfContentsData();
 					this.handleTables();
-					this.replaceMapsWithMapComponents();
 					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
-					this.handlePollDaddy();
 					this.handleJumpLink();
-
-					if (this.get('highlightedEditorDemoEnabled')) {
-						this.setupHighlightedTextEditorDemo();
-					}
 
 					Ember.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
 				} else {
@@ -128,7 +101,6 @@ export default Ember.Component.extend(
 			this._super(...arguments);
 
 			this.destroyChildComponents();
-			this.destroyHighlightedEditorEvents();
 		},
 
 		click(event) {
@@ -136,7 +108,11 @@ export default Ember.Component.extend(
 				label = this.getTrackingEventLabel($anchor);
 
 			if (label) {
-				this.trackClick('article', label);
+				track({
+					action: trackActions.click,
+					category: 'article',
+					label
+				});
 			}
 		},
 
@@ -147,7 +123,7 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			openLightbox(lightboxType, lightboxData) {
-				this.sendAction('openLightbox', lightboxType, lightboxData);
+				this.get('openLightbox')(lightboxType, lightboxData);
 			},
 
 			/**
@@ -230,13 +206,25 @@ export default Ember.Component.extend(
 			const media = this.get('media.media');
 
 			if (attrs.ref >= 0 && media && media[attrs.ref]) {
-				if (name === 'article-media-thumbnail') {
+				if (name === 'article-media-thumbnail' || name === 'portable-infobox-hero-image') {
 					attrs = Ember.$.extend(attrs, media[attrs.ref]);
 
 					/**
 					 * Ember has its own context attribute, that is why we have to use different attribute name
 					 */
 					if (attrs.context) {
+						/**
+						 * We don't want to show titles below videos in infoboxes.
+						 * This check is just a hack.
+						 * Perfectly this should be handled somewhere inside infobox-related logic.
+						 * For now this solution is enough
+						 * - it works the same way as on wikis without SEO friendly images.
+						 * It works on wikis without SEO friendly images because there was a bug
+						 * - video was treated as an image and we don't show titles below images.
+						 */
+						if (attrs.context === 'infobox' && attrs.type === 'video') {
+							attrs.showTitle = false;
+						}
 						attrs.mediaContext = attrs.context;
 						delete attrs.context;
 					}
@@ -245,6 +233,24 @@ export default Ember.Component.extend(
 						items: media[attrs.ref]
 					});
 				}
+			} else if (name === 'article-media-map-thumbnail') {
+				attrs = Ember.$.extend(attrs, {
+					openLightbox: this.get('openLightbox')
+				});
+			} else if (name === 'portable-infobox-image-collection' && attrs.refs && media) {
+				const getMediaItemsForCollection = (ref) => Ember.$.extend({
+						// We will push new item to media so use its length as index of new gallery element
+						ref: media.length
+					}, media[ref]),
+					collectionItems = attrs.refs.map(getMediaItemsForCollection);
+
+				// Add new gallery to media object
+				// @todo - XW-1362 - it's an ugly hack, we should return proper data from API
+				media.push(collectionItems);
+
+				attrs = Ember.$.extend(attrs, {
+					items: collectionItems
+				});
 			}
 
 			return {name, attrs, element};
@@ -294,10 +300,7 @@ export default Ember.Component.extend(
 				editIconVisible = this.get('editIconVisible'),
 				editAllowed = this.get('editAllowed'),
 				addPhotoAllowed = this.get('addPhotoAllowed'),
-				contributionComponent =
-					this.get('container').lookup('component:article-contribution', {
-						singleton: false
-					});
+				contributionComponent = this.createComponentInstance('article-contribution');
 
 			contributionComponent.setProperties({
 				section,
@@ -352,15 +355,21 @@ export default Ember.Component.extend(
 		createMediaComponent(element, model) {
 			const ref = parseInt(element.dataset.ref, 10),
 				media = model.find(ref),
-				component = this.createChildView(this.newFromMedia(media), {
-					ref,
-					width: parseInt(element.getAttribute('width'), 10),
-					height: parseInt(element.getAttribute('height'), 10),
-					imgWidth: element.offsetWidth,
-					media
-				}).createElement();
+				component = this.newFromMedia(media);
 
-			return component.$().attr('data-ref', ref);
+			let componentElement;
+
+			component.setProperties({
+				ref,
+				width: parseInt(element.getAttribute('width'), 10),
+				height: parseInt(element.getAttribute('height'), 10),
+				imgWidth: element.offsetWidth,
+				media
+			});
+
+			componentElement = this.createChildView(component).createElement();
+
+			return componentElement.$().attr('data-ref', ref);
 		},
 
 		/**
@@ -385,7 +394,7 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		replaceImageCollectionPlaceholdersWithComponents(model) {
-			const $placeholders = this.$('.pi-image-collection'),
+			const $placeholders = this.$('.pi-image-collection:not([data-component])'),
 				articleMedia = model.get('media'),
 				numberToProcess = $placeholders.length,
 				getCollectionMediaFromRefs = (ref) => {
@@ -417,41 +426,6 @@ export default Ember.Component.extend(
 		/**
 		 * @returns {void}
 		 */
-		replaceMapsWithMapComponents() {
-			/**
-			 * @param {number} i
-			 * @param {Element} elem
-			 * @returns {void}
-			 */
-			this.$('.wikia-interactive-map-thumbnail').map((i, elem) => {
-				this.replaceMapWithMapComponent(elem);
-			});
-		},
-
-		/**
-		 * @param {Element} elem
-		 * @returns {void}
-		 */
-		replaceMapWithMapComponent(elem) {
-			const $mapPlaceholder = $(elem),
-				$a = $mapPlaceholder.children('a'),
-				$img = $a.children('img'),
-				mapComponent = this.createChildView(WikiaMapComponent.create({
-					url: $a.data('map-url'),
-					imageSrc: $img.data('src'),
-					id: $a.data('map-id'),
-					title: $a.data('map-title'),
-					click: 'openLightbox',
-				}));
-
-			mapComponent.createElement();
-			$mapPlaceholder.replaceWith(mapComponent.$());
-			mapComponent.trigger('didInsertElement');
-		},
-
-		/**
-		 * @returns {void}
-		 */
 		replaceInfoboxesWithInfoboxComponents() {
 			/**
 			 * @param {number} i
@@ -468,16 +442,21 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		replaceInfoboxWithInfoboxComponent(elem) {
-			const $infoboxPlaceholder = $(elem),
-				infoboxComponent = this.createChildView(PortableInfoboxComponent.create({
-					infoboxHTML: elem.innerHTML,
-					height: $infoboxPlaceholder.outerHeight(),
-					pageTitle: this.get('displayTitle'),
-				}));
+			const infoboxComponent = this.createComponentInstance('portable-infobox'),
+				$infoboxPlaceholder = $(elem);
 
-			infoboxComponent.createElement();
-			$infoboxPlaceholder.replaceWith(infoboxComponent.$());
-			infoboxComponent.trigger('didInsertElement');
+			let infoboxComponentElement;
+
+			infoboxComponent.setProperties({
+				infoboxHTML: elem.innerHTML,
+				height: $infoboxPlaceholder.outerHeight(),
+				pageTitle: this.get('displayTitle'),
+			});
+
+			infoboxComponentElement = this.createChildView(infoboxComponent).createElement();
+
+			$infoboxPlaceholder.replaceWith(infoboxComponentElement.$());
+			infoboxComponentElement.trigger('didInsertElement');
 		},
 
 		/**
@@ -504,13 +483,12 @@ export default Ember.Component.extend(
 				widgetType = widgetData.wikiaWidget,
 				widgetComponent = this.createWidgetComponent(widgetType, $widgetPlaceholder.data());
 
-			let component;
+			let widgetComponentElement;
 
 			if (widgetComponent) {
-				component = this.createChildView(widgetComponent);
-				component.createElement();
-				$widgetPlaceholder.replaceWith(component.$());
-				component.trigger('didInsertElement');
+				widgetComponentElement = this.createChildView(widgetComponent).createElement();
+				$widgetPlaceholder.replaceWith(widgetComponentElement.$());
+				widgetComponentElement.trigger('didInsertElement');
 			}
 		},
 
@@ -520,19 +498,29 @@ export default Ember.Component.extend(
 		 * @returns {string|null}
 		 */
 		createWidgetComponent(widgetType, data) {
+			let component, componentName;
+
 			switch (widgetType) {
 				case 'twitter':
-					return WidgetTwitterComponent.create({data});
+					componentName = 'widget-twitter';
+					break;
 				case 'vk':
-					return WidgetVKComponent.create({data});
+					componentName = 'widget-vk';
+					break;
 				case 'polldaddy':
-					return WidgetPolldaddyComponent.create({data});
+					componentName = 'widget-polldaddy';
+					break;
 				case 'flite':
-					return WidgetFliteComponent.create({data});
+					componentName = 'widget-flite';
+					break;
 				default:
 					Ember.Logger.warn(`Can't create widget with type '${widgetType}'`);
 					return null;
 			}
+
+			component = this.createComponentInstance(componentName);
+			component.set('data', data);
+			return component;
 		},
 
 		/**
@@ -594,108 +582,14 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * TO BE THROWN AWAY ON APRIL 8, 2016
-		 *
-		 * Sets up everything for the Highlighted Text Editor demo:
-		 * - a word selected for highlighting in the DOM
-		 * - target paragraph offset
-		 * - events binding
-		 * @returns {void}
+		 * Create component instance using container lookup.
+		 * @param {String} componentName
+		 * @returns {Ember.Component}
 		 */
-		setupHighlightedTextEditorDemo() {
-			const highlightedId = 'highlighted-text',
-				paragraphsLimit = 3,
-				$paragraphs = this.$('>p').slice(0, paragraphsLimit);
-
-			$paragraphs.toArray().some((paragraph) => {
-				const $paragraph = Ember.$(paragraph),
-					paragraphHtml = $paragraph.html(),
-					words = Ember.$('<div>').html(paragraphHtml).children().remove().end().html().split(' '),
-					minLettersLimit = 5;
-
-				return words.some((word) => {
-					if (word.length < minLettersLimit) {
-						return false;
-					} else {
-						this.set('targetParagraphOffset', $paragraph.offset().top);
-						$paragraph.html(paragraphHtml.replace(word, `<span id="${highlightedId}">${word}</span>`));
-						Ember.$(document).on('touchmove.launchDemo', this, this.debouncedScroll);
-						Ember.$(window).on('scroll.launchDemo', this, this.debouncedScroll);
-						return true;
-					}
-				});
+		createComponentInstance(componentName) {
+			return this.get('container').lookup(`component:${componentName}`, {
+				singleton: false
 			});
-		},
-
-		/**
-		 * TO BE THROWN AWAY ON MARCH 29, 2016
-		 *
-		 * Initializes a demo of a new Highlighted Text Editor.
-		 * @returns {void}
-		 */
-		launchHighlightedTextEditorDemo() {
-			const highlightedId = 'highlighted-text',
-				$highlightedElement = Ember.$(`#${highlightedId}`),
-				selection = window.getSelection(),
-				range = document.createRange();
-
-			this.destroyHighlightedEditorEvents();
-
-			if ($highlightedElement) {
-				const $paragraph = $highlightedElement.parent(),
-					word = $highlightedElement.text();
-
-				range.selectNodeContents($highlightedElement[0]);
-				selection.removeAllRanges();
-
-				Ember.$('body').animate({scrollTop: $highlightedElement.offset().top - 150}, () => {
-					selection.addRange(range);
-					$highlightedElement.addClass('highlighted');
-
-					Ember.run.later(() => {
-						$highlightedElement.trigger('mousedown');
-						Ember.$.cookie('highlightedEditorDemoShown', true);
-						Ember.$(document).one('selectionchange', () => {
-							$paragraph.html($paragraph.html().replace($highlightedElement[0].outerHTML, word));
-						});
-					}, 500);
-				});
-
-				track({
-					action: trackActions.impression,
-					category: 'highlighted-editor',
-					label: 'popover'
-				});
-
-
-			}
-		},
-
-		destroyHighlightedEditorEvents() {
-			Ember.$(document).off('touchmove.launchDemo', this.debouncedScroll);
-			Ember.$(window).off('scroll.launchDemo', this.debouncedScroll);
-		},
-
-		/**
-		 * Debounces the scroll event
-		 * @param {Object} event
-		 * @returns {void}
-		*/
-		debouncedScroll(event) {
-			if (event.data) {
-				Ember.run.debounce(event.data, event.data.onScroll, 500);
-			}
-		},
-
-		/**
-		 * If a user has scrolled through the word selected for highlighting
-		 * it launches the demo of the Hightlighted Text Editor
-		 * @returns {void}
-		 */
-		onScroll() {
-			if (window.scrollY > this.get('targetParagraphOffset')) {
-				this.launchHighlightedTextEditorDemo();
-			}
 		}
 	}
 );

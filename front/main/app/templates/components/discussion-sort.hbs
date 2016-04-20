@@ -1,3 +1,3 @@
-{{#each discussionSort.sortTypes as |item|}}
-	<li {{action this.attrs.setSortBy item.name}} class="sort-{{item.name}} {{if item.active 'active active-element-theme-color active-element-border-theme-color' 'not-active'}}">{{i18n item.messageKey ns='discussion'}}</li>
+{{#each discussionSort.sortTypes as |sortType|}}
+	<li {{action this.attrs.setSortBy sortType.name}} class="sort-{{sortType.name}} {{if sortType.active 'active active-element-theme-color active-element-border-theme-color' 'not-active'}}">{{i18n sortType.messageKey ns='discussion'}}</li>
 {{/each}}

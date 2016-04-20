@@ -1,12 +1,10 @@
 import DiscussionBaseRoute from './base';
-import DiscussionPostModel from '../../models/discussion-post';
+import DiscussionPostModel from '../../models/discussion/post';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
-import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 
 export default DiscussionBaseRoute.extend(
-	DiscussionLayoutMixin,
 	DiscussionRouteUpvoteMixin,
 	DiscussionModerationRouteMixin,
 	DiscussionModalDialogMixin,
@@ -18,7 +16,7 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
-			return DiscussionPostModel.find(Mercury.wiki.id, params.postId);
+			return DiscussionPostModel.find(Mercury.wiki.id, params.postId, params.replyId);
 		},
 
 		/**
@@ -66,23 +64,24 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			create(replyData) {
-				this.modelFor('discussion.post').createReply(replyData);
+				this.modelFor(this.get('routeName')).createReply(replyData);
 			},
 
 			/**
 			 * Load more replies
 			 * @returns {void}
 			 */
-			loadMoreComments() {
-				const model = this.modelFor('discussion.post');
+			loadOlderReplies() {
+				this.modelFor(this.get('routeName')).loadPreviousPage();
+			},
 
-				model.loadNextPage().then(() => {
-					if (model.get('minorError')) {
-						// Hide more posts button when error occurred
-						model.set('postCount', model.get('replies.length'));
-					}
-				});
-			}
+			/**
+			 * Load more replies
+			 * @returns {void}
+			 */
+			loadNewerReplies() {
+				this.modelFor(this.get('routeName')).loadNextPage();
+			},
 		}
 	}
 );

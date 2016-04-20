@@ -1,7 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	localNavigationVisible: true,
+	// localNavigationVisible: true,
+
+	// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+	// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+	localNavigationVisible: Ember.computed.not('hideLocalNav'),
+
 	localNavContent: Ember.computed(function () {
 		return this.injectParentPointersAndIndices({
 			children: Ember.get(Mercury, 'wiki.navigation2016.localNav')

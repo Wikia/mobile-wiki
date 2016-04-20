@@ -4,8 +4,6 @@ export default Ember.Mixin.create(
 	{
 		actions: {
 			/**
-			 * Bubbles up to DiscussionForumRoute
-			 *
 			 * @returns {void}
 			 */
 			retry() {
@@ -13,8 +11,6 @@ export default Ember.Mixin.create(
 			},
 
 			/**
-			 * Bubbles up to DiscussionForumRoute
-			 *
 			 * @param {object} postData
 			 *
 			 * @returns {void}
@@ -24,8 +20,6 @@ export default Ember.Mixin.create(
 			},
 
 			/**
-			 * Bubbles up to DiscussionForumRoute
-			 *
 			 * @param {number} pageNum
 			 *
 			 * @returns {void}
@@ -35,8 +29,6 @@ export default Ember.Mixin.create(
 			},
 
 			/**
-			 * Bubbles up to DiscussionForumRoute
-			 *
 			 * @param {string} sortBy
 			 *
 			 * @returns {void}

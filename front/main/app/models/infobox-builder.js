@@ -7,14 +7,16 @@ const InfoboxBuilderModel = Ember.Object.extend({
 	 */
 	init() {
 		this._super(...arguments);
-		this._itemIndex = {
-			row: 0,
-			image: 0,
-			title: 0,
-			'section-header': 0
-		};
-		this.infoboxState = [];
-		this.itemInEditMode = null;
+		this.setProperties({
+			_itemIndex: {
+				row: 0,
+				image: 0,
+				title: 0,
+				'section-header': 0
+			},
+			infoboxState: [],
+			itemInEditMode: null
+		});
 	},
 
 	/**
@@ -353,13 +355,13 @@ InfoboxBuilderModel.reopenClass({
 	 * @returns {String}
 	 */
 	sanitizeCustomRowSource(input) {
-		const notValidChars = /[^a-z0-9_-]+/g,
+		const invalidChars = /[!|*}{*?%^&.+'\[\]]+/g,
 			isEmpty = /^[-_]+$/,
 			output = input
 				.trim()
 				.toLowerCase()
 				.replace(/\s+/g, '_')
-				.replace(notValidChars, '');
+				.replace(invalidChars, '');
 
 		return isEmpty.test(output) ? '' : output;
 	},

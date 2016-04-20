@@ -4,16 +4,15 @@
 	siteHeadPinned=siteHeadPinned
 }}
 
-{{#each posts as |item|}}
+{{#each posts as |entity|}}
 	{{discussion-post-card-detail
 		approve=(action this.attrs.approve)
-		author=item.createdBy
+		author=entity.createdBy
 		delete=(action this.attrs.deletePost)
-		isReported=item.isReported
 		lock=(action this.attrs.lockPost)
-		post=item.firstPost
-		postId=item.id
-		replyCount=item.postCount
+		post=entity
+		postId=entity.id
+		replyCount=entity.repliesCount
 		report=(action this.attrs.report)
 		undelete=(action this.attrs.undeletePost)
 		upvote=(action this.attrs.upvote)

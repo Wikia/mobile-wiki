@@ -1,0 +1,30 @@
+.article-media-map-thumbnail {
+	margin: 40px 0;
+	position: relative;
+	text-align: center;
+
+	a {
+		display: block;
+	}
+
+	figcaption {
+	  	@include ellipsis;
+
+		bottom: 0;
+		color: #fff;
+		font-size: 1.6rem;
+		font-weight: 700;
+		height: 50px;
+		left: 5%;
+		padding: 5px 0;
+		position: absolute;
+		width: 90%;
+	}
+
+	.icon {
+		fill: #fff;
+		position: absolute;
+		right: 5%;
+  		top: 5%;
+	}
+}

@@ -1,12 +1,11 @@
 import Ember from 'ember';
 import ArticleContentMixin from '../mixins/article-content';
 import ViewportMixin from '../mixins/viewport';
-import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	ArticleContentMixin,
 	ViewportMixin,
-	TrackClickMixin,
 	{
 		classNames: ['portable-infobox'],
 		classNameBindings: ['collapsed'],
@@ -17,9 +16,6 @@ export default Ember.Component.extend(
 		height: null,
 		infoboxHTML: '',
 		collapsed: false,
-		clickableElements: ['a', 'button', 'img', 'figure', 'figcaption', 'input', 'portable-infobox-question',
-			'portable-infobox-question *'],
-		clickableParent: 'figcaption',
 
 		button: Ember.computed('expandButtonClass', function () {
 			return this.$(`.${this.get('expandButtonClass')}`)[0];
@@ -34,7 +30,7 @@ export default Ember.Component.extend(
 					height = this.get('height');
 
 				return height > collapsedHeight;
-			},
+			}
 		}),
 
 		/**
@@ -52,72 +48,44 @@ export default Ember.Component.extend(
 			return Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
 		}),
 
-		/**
-		 * @returns {void}
-		 */
-		handleCollapsing() {
-			const collapsedHeight = this.get('collapsedHeight');
-
-			this.set('collapsed', true);
-			this.$().height(collapsedHeight);
-		},
-
-		/**
-		 * handles click on infobox.
-		 * Function is active only for the long infoboxes.
-		 * Changes 'collapsed' property.
-		 * Should not make any effect if the clicked element
-		 * is a link, button or image.
-		 *
-		 * @param {JQueryEventObject} event
-		 * @returns {void}
-		 */
-		onInfoboxClick(event) {
-			const collapsed = this.get('collapsed'),
-				trackLabel = event.toElement.className === this.get('expandButtonClass') ?
-					'button' : 'area';
-
-			if (!this.shouldHandleCollapsing($(event.target))) {
-				return;
-			}
-
-			if (!collapsed) {
-				const body = window.document.body,
-					scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
-
-				this.handleCollapsing();
-				this.trackClick('portable-infobox', `collapsed-by-${trackLabel}`);
-				scrollTo.apply(this.get('button'));
-			} else {
-				this.set('collapsed', false);
-				this.$().height('auto');
-				this.trackClick('portable-infobox', `expanded-by-${trackLabel}`);
-			}
-		},
-
-		/**
-		 * If element is one of clickableElements, collapsing of infobox should not be handled.
-		 * As this element has it's own action, not connected to collapsing/uncollapsing infobox.
-		 *
-		 * @param {JQuery} $target
-		 * @returns {boolean}
-		 */
-		shouldHandleCollapsing($target) {
-			return !$target.is(this.get('clickableElements').join(',')) &&
-				!$target.parent().is(this.get('clickableParent'));
-		},
-
-		/**
-		 * In case of long infobox, setups click
-		 * handling function to this infobox component.
-		 *
-		 * @returns {void}
-		 */
 		didInsertElement() {
 			if (this.get('isLongInfobox')) {
-				this.handleCollapsing();
-				this.$().click(this.onInfoboxClick.bind(this));
+				this.collapse();
 			}
 		},
+
+		collapse() {
+			this.set('collapsed', true);
+			this.$().height(this.get('collapsedHeight'));
+		},
+
+		expand() {
+			this.set('collapsed', false);
+			this.$().height('auto');
+		},
+
+		actions: {
+			toogleInfobox() {
+				if (!this.get('collapsed')) {
+					const body = window.document.body,
+						scrollTo = body.scrollIntoViewIfNeeded || body.scrollIntoView;
+
+					this.collapse();
+					track({
+						action: trackActions.click,
+						category: 'portable-infobox',
+						label: 'collapsed-by-button'
+					});
+					scrollTo.apply(this.get('button'));
+				} else {
+					this.expand();
+					track({
+						action: trackActions.click,
+						category: 'portable-infobox',
+						label: 'expanded-by-button'
+					});
+				}
+			}
+		}
 	}
 );

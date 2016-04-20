@@ -14,6 +14,8 @@
   "main":{
     "discussions-header-title":"Diskussionen",
     "pagination-post-show-more":"Ältere Antworten anzeigen",
+    "pagination-post-show-newer-replies":"Neuere Antworten anzeigen",
+    "pagination-post-show-new-replies":"Neue Antworten",
     "share-default-title":"Diskussion in __siteName__",
     "contributors-title":"Alle Beitragenden",
     "sort-by-header":"Sortieren nach",
@@ -57,7 +59,7 @@
     "user-post-list-header":"Beiträge von __userName__",
     "empty-forum-text":"Bisher gibt es noch keine Beiträge. Bringe du doch einfach die Diskussion ans Laufen und verfasse jetzt den ersten Beitrag!",
     "report-post":"Beitrag melden",
-    "report-reply":"Antwort auf den Beitrag",
+    "report-reply":"Antwort melden",
     "reported-content-filter-text":"Nur gemeldete Inhalte anzeigen",
     "moderation-filters-header":"Moderation",
     "reported-to-moderators":"Den Moderatoren gemeldet",
@@ -75,7 +77,9 @@
     "upvote-link-label_plural":"__count__ Stimmen",
     "replies-link-label":"__count__ Antwort",
     "replies-link-label_plural":"__count__ Antworten",
-    "share-header":"Beitrag teilen"
+    "share-header":"Beitrag teilen",
+    "share-label":"Teilen",
+    "reported-not-found-error":"Es gibt keine gemeldeten Beiträge oder Antworten."
   },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",

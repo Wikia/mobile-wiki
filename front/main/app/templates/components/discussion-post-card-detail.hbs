@@ -1,4 +1,4 @@
-<div>
+<div id="post-{{post.id}}">
 	{{#if showTopNote}}
 		{{discussion-post-card-top-note
 			approve=(action this.attrs.approve)
@@ -14,14 +14,14 @@
 		displayProfileName=true
 		username=author.name
 	}}
-	<span class="timestamp" title="{{timestamp-to-date post.creationDate.epochSecond}}">
-		&bull; {{time-ago post.creationDate.epochSecond}}
+	<span class="timestamp" title="{{timestamp-to-date post.creationTimestamp}}">
+		&bull; {{time-ago post.creationTimestamp}}
 	</span>
-	<div class="discussion-more-options" id="post-options-{{post.id}}">
+	<div class="discussion-more-options" id="post-options-{{post.threadId}}">
 		{{svg 'more' viewBox='0 0 4 18' class='icon more-icon'}}
 	</div>
 
-	{{#pop-over for=(concat 'post-options-' post.id) on='click' flow='flip'}}
+	{{#pop-over for=(concat 'post-options-' post.threadId) on='click' flow='flip' class='more-options-pop-over'}}
 		{{discussion-more-options
 			delete=(action this.attrs.delete)
 			deleteMessage=(i18n 'main.delete-post' ns='discussion')
@@ -48,7 +48,7 @@
 {{else}}
 	<div class="discussion-content">
 		{{#if post.title}}
-			<h2 class="post-title">{{#link-to 'discussion.post' postId class="post-details-link"}}{{post.title}}{{/link-to}}</h2>
+			<h2 class="post-title">{{#link-to 'discussion.post' post.threadId class="post-details-link"}}{{post.title}}{{/link-to}}</h2>
 		{{/if}}
 		{{#link-to 'discussion.post' post.threadId class="post-details-link clamp"}}{{{parsedContent}}}{{/link-to}}
 	</div>
@@ -60,34 +60,30 @@
 	}}
 
 	{{#if isDetailsView}}
-		<div class="small-5 large-2 columns count">
+		<div class="small-5 large-4 columns action replies">
 			<span class="replies-area">
 				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
-				{{replyCount}}
+				{{i18n 'main.replies-link-label' ns='discussion' count=replyCount}}
 			</span>
 		</div>
 	{{else}}
-		<div class="small-2 large-2 columns count">
-			{{#link-to 'discussion.post' postId class='replies-area'}}
+		<div class="small-5 large-4 columns action replies">
+			{{#link-to 'discussion.post' post.threadId class='replies-area'}}
 				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
-				{{replyCount}}
+				{{i18n 'main.replies-link-label' ns='discussion' count=replyCount}}
 			{{/link-to}}
 		</div>
 	{{/if}}
-	<div class="share small-5 large-7 columns">
-		{{#if isDetailsView}}
-			{{share-feature sharedUrl=sharedUrl}}
-		{{else}}
-			{{share-feature
+
+	<div class="small-2 large-4 columns share">
+		{{#unless isDeleted }}
+			{{discussion-share
+				entryPointLabel=(i18n 'main.share-label' ns='discussion')
+				header=(i18n 'main.share-header' ns='discussion')
 				sharedUrl=sharedUrl
-				isVisible=isShareFeatureVisible
-				onMouseEnter=(action 'cancelHideShareComponent')
-				onMouseLeave=(action 'hideShareComponent')
+				uniqueIdentifier=post.threadId
 			}}
-			<span class="toggle-share-area" {{action 'toggleShareComponent'}}>
-				{{svg 'share' class='icon toggle-share'}}
-			</span>
-		{{/if}}
+		{{/unless}}
 	</div>
 </div>
 {{#if post.isLoading}}

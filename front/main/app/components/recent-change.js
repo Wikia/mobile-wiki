@@ -1,11 +1,9 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 import {track, trackActions} from 'common/utils/track';
 
 const trackCategory = 'recent-wiki-activity';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		classNames: ['recent-change'],
 		classNameBindings: ['active'],
@@ -36,7 +34,11 @@ export default Ember.Component.extend(
 				() => this.trackSuccess('upvote-icon-success'),
 				() => this.handleError('upvote-icon-error')
 			);
-			this.trackClick(trackCategory, 'upvote-icon');
+			track({
+				action: trackActions.click,
+				category: trackCategory,
+				label: 'upvote-icon'
+			});
 		},
 
 		removeUpvote() {
@@ -49,7 +51,12 @@ export default Ember.Component.extend(
 				() => this.trackSuccess('remove-upvote-success'),
 				() => this.handleError('remove-upvote-error')
 			);
-			this.trackClick(trackCategory, 'remove-upvote-icon');
+
+			track({
+				action: trackActions.click,
+				category: trackCategory,
+				label: 'remove-upvote-icon'
+			});
 		},
 
 		handleError(label) {

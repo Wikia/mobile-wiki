@@ -1,0 +1,58 @@
+// temporary change for vav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
+// remove this file a part of https://wikia-inc.atlassian.net/browse/DAT-4064
+$button-size: 56px;
+
+.fab-button-navigation {
+	background-color: $color-blue-light;
+	border-radius: 50%;
+	bottom: $article-horizontal-padding;
+	box-shadow: 0 1px 1.5px 0 rgba(0,0,0,.12),0 1px 1px 0 rgba(0,0,0,.24);
+	position: fixed;
+	right: $article-horizontal-padding;
+	height: $button-size;
+	width: $button-size;
+	z-index: 100;
+
+	&.icon-button:hover {
+		background-color: $color-blue-dark;
+	}
+
+	.icon-button-icon,
+	&:hover .icon-button-icon {
+		fill: $white;
+	}
+}
+
+.site-head .search-button {
+	float: right;
+}
+
+.site-head .icon.nav {
+	fill: $color-blue-dark;
+}
+
+.nav-ab-test-bottom-bar {
+	align-items: center;
+	background-color: $white;
+	border-top: 1px solid $color-blue-gray-light;
+	bottom: 0;
+	box-shadow: 0px -1px 6px 1px rgba(0, 0, 0, 0.07);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	height: 69px;
+	position: fixed;
+	transition: bottom 0.1s ease-in;
+	width: 100%;
+	z-index: 101;
+
+	&.bottom-unpinned {
+		bottom: -69px;
+		transition: bottom 0.3s ease-in;
+	}
+
+	.icon-button-icon,
+	.icon-button:hover .icon-button-icon {
+		fill: $color-blue-dark;
+	}
+}

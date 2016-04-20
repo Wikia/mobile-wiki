@@ -4,30 +4,32 @@
 	siteHeadPinned=siteHeadPinned
 }}
 
-{{#each posts as |item|}}
-	{{#if item.isReply }}
+{{#each posts as |entity|}}
+	{{#if entity.isReply }}
 		{{discussion-post-card-reply
-			author=item.createdBy
-			content=item.rawContent
+			approve=(action this.attrs.approve)
+			author=entity.createdBy
+			content=entity.rawContent
 			delete=(action this.attrs.deleteReply)
-			isParentDeleted=model.firstPost.isDeleted
-			post=item
+			isParentDeleted=model.isDeleted
+			post=entity
+			report=(action this.attrs.report)
 			showRepliedTo=true
-			timestamp=item.creationDate.epochSecond
+			timestamp=entity.creationTimestamp
 			undelete=(action this.attrs.undeleteReply)
 			upvote=(action this.attrs.upvote)
-			upvoteCount=item.upvoteCount
+			upvoteCount=entity.upvoteCount
 			userListView=true
 		}}
 	{{else}}
 		{{discussion-post-card-detail
-			author=item.createdBy
+			approve=(action this.attrs.approve)
+			author=entity.createdBy
 			delete=(action this.attrs.deletePost)
-			isReported=item.isReported
 			lock=(action this.attrs.lockPost)
-			post=item
-			postId=item.id
-			replyCount=item.postCount
+			post=entity
+			postId=entity.id
+			replyCount=entity.repliesCount
 			report=(action this.attrs.report)
 			undelete=(action this.attrs.undeletePost)
 			unlock=(action this.attrs.unlockPost)

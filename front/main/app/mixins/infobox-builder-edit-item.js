@@ -1,9 +1,7 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Mixin.create(
-	TrackClickMixin,
 	{
 		/**
 		 * allows to set item property after liquid-fire animation happened

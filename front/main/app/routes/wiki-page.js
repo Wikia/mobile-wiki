@@ -120,11 +120,9 @@ export default Ember.Route.extend(RouteWithAdsMixin, {
 			appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios'),
 			appleAppContent = pageUrl ?
 				`app-id=${appId}, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}` :
-				`app-id=${appId}`,
-			htmlTitleTemplate = Ember.get(Mercury, 'wiki.htmlTitleTemplate') || '$1 - Wikia';
+				`app-id=${appId}`;
 
-		// @todo XW-1321 - cleanup f8d310943ee5564fe8117f95c436b48e86d03f8b
-		document.title = model.get('documentTitle') || htmlTitleTemplate.replace('$1', model.get('displayTitle'));
+		document.title = model.get('documentTitle');
 
 		headTags.push({
 			type: 'link',

@@ -14,6 +14,8 @@
   "main":{
     "discussions-header-title":"Forum",
     "pagination-post-show-more":"Risposte precedenti",
+    "pagination-post-show-newer-replies":"Visualizza risposte più recenti",
+    "pagination-post-show-new-replies":"Nuove risposte",
     "share-default-title":"Forum su __siteName__",
     "contributors-title":"Tutti i collaboratori",
     "sort-by-header":"Ordina per",
@@ -71,11 +73,13 @@
     "lock-post":"Blocca post",
     "unlock-post":"Sblocca post",
     "locked-and-reported-to-moderators-text":"Questo post è bloccato ed è stato segnalato.",
-    "upvote-link-label":"__count__ voto",
-    "upvote-link-label_plural":"__count__ voti",
-    "replies-link-label":"__count__ risposta",
-    "replies-link-label_plural":"__count__ risposte",
-    "share-header":"Condividi post"
+    "upvote-link-label":"__count__ Voto",
+    "upvote-link-label_plural":"__count__ Voti",
+    "replies-link-label":"__count__ Risposta",
+    "replies-link-label_plural":"__count__ Risposte",
+    "share-header":"Condividi post",
+    "share-label":"Condividi",
+    "reported-not-found-error":"Nessun post o risposta segnalata"
   },
   "editor":{
     "post-failed-error":"Post non pubblicato",

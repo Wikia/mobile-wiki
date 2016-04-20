@@ -12,9 +12,9 @@
 		{{/if}}
 		{{#if contributors}}
 			{{discussion-contributors
-				contributors=contributors
+				users=contributors.users
 				maxContributorDisplayCount=6
-				totalContributorCount=numberOfPosts
+				totalContributorCount=contributors.count
 			}}
 		{{/if}}
 	{{/if}}

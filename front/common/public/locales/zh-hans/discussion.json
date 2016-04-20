@@ -14,6 +14,8 @@
   "main":{
     "discussions-header-title":"讨论版",
     "pagination-post-show-more":"查看以往回复",
+    "pagination-post-show-newer-replies":"查看最新回复",
+    "pagination-post-show-new-replies":"新的回复",
     "share-default-title":"__siteName__上的讨论",
     "contributors-title":"所有贡献者",
     "sort-by-header":"排序",
@@ -75,14 +77,16 @@
     "upvote-link-label_plural":"__count__个赞",
     "replies-link-label":"__count__个回复",
     "replies-link-label_plural":"__count__个回复",
-    "share-header":"分享话题"
+    "share-header":"分享话题",
+    "share-label":"分享",
+    "reported-not-found-error":"暂时没有被举报的帖子或者回复。"
   },
   "editor":{
     "post-failed-error":"发布失败",
     "post-error-anon-cant-post":"登录加入讨论!",
     "post-error-not-authorized":"您不能发帖因为您的帐户已被封禁。",
     "post-error-general-error":"哎呀，出现未知错误！请稍后再试。",
-    "post-editor-label":"创建一个帖子",
+    "post-editor-label":"创建帖子",
     "post-action-button-label":"发布",
     "post-editor-placeholder-text":"分享想法、问题或链接...",
     "reply-editor-placeholder-text":"回复...",

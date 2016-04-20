@@ -1,8 +1,0 @@
-<h1>Discussions</h1>
-
-<h2>Forums:</h2>
-<ul>
-{{#each _embedded.doc:forum as |item|}}
-	<li>{{#link-to 'discussion.forum.index' item.id}}{{item.name}}{{/link-to}} - {{item.postCount}} posts</li>
-{{/each}}
-</ul>
