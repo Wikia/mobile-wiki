@@ -7,31 +7,28 @@ export default Ember.Component.extend(
 	ViewportMixin,
 	{
 		imageAspectRatio: 16 / 9,
-		thumbnailer: Thumbnailer,
-
 		classNames: ['wikia-page-header'],
-
 		isMainPage: false,
 		mainPageName: Ember.get(Mercury, 'wiki.siteName'),
 		mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
 
 
 		computedStyle: Ember.computed('heroImage', 'viewportDimensions.width', function () {
-			const heroImage = this.get('heroImage');
+			const heroImage = this.get('heroImage'),
+				windowWidth = this.get('viewportDimensions.width'),
+				imageAspectRatio = this.get('imageAspectRatio');
+
+			let imageWidth, imageHeight, maxWidth, computedHeight, cropMode, thumbUrl;
 
 			if (Ember.isEmpty(heroImage)) {
 				return null;
 			}
 
-			const windowWidth = this.get('viewportDimensions.width'),
-				imageAspectRatio = this.get('imageAspectRatio'),
-				imageWidth = heroImage.width || windowWidth,
-				imageHeight = heroImage.height,
-				maxWidth = Math.floor(imageHeight * imageAspectRatio);
-
-			let computedHeight = imageHeight,
-				cropMode = Thumbnailer.mode.thumbnailDown,
-				thumbUrl;
+			imageWidth = heroImage.width || windowWidth;
+			imageHeight = heroImage.height;
+			maxWidth = Math.floor(imageHeight * imageAspectRatio);
+			computedHeight = imageHeight;
+			cropMode = Thumbnailer.mode.thumbnailDown;
 
 			// wide image - crop images wider than 16:9 aspect ratio to 16:9
 			if (imageWidth > maxWidth) {
@@ -51,7 +48,7 @@ export default Ember.Component.extend(
 			}
 
 			// generate thumbnail
-			thumbUrl = this.thumbnailer.getThumbURL(heroImage.url, {
+			thumbUrl = Thumbnailer.getThumbURL(heroImage.url, {
 				mode: cropMode,
 				height: computedHeight,
 				width: windowWidth
