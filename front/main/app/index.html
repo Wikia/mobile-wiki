@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}" {{#if preview}}class='article-preview'{{/if}}>
 <head>
-	<meta data-hapi-leftovers charset="utf-8">
-	<meta data-hapi-leftovers http-equiv="X-UA-Compatible" content="IE=edge">
-	<title data-hapi-leftovers>{{documentTitle}}</title>
-	<meta data-hapi-leftovers name="keywords"
+	<meta data-server-head-tags charset="utf-8">
+	<meta data-server-head-tags http-equiv="X-UA-Compatible" content="IE=edge">
+	<title data-server-head-tags>{{documentTitle}}</title>
+	<meta data-server-head-tags name="keywords"
 		  content="{{#if wikiVariables.siteMessage}}{{wikiVariables.siteMessage}},{{/if}}{{wikiVariables.siteName}},{{wikiVariables.dbName}},{{displayTitle}}">
 	{{#if description}}
-		<meta data-hapi-leftovers name="description" content="{{description}}">
+		<meta data-server-head-tags name="description" content="{{description}}">
 	{{/if}}
-	<meta data-hapi-leftovers name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+	<meta data-server-head-tags name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
 
 	{{content-for 'head'}}
 
 	{{#if themeColor}}
-		<meta data-hapi-leftovers name="theme-color" content="{{themeColor}}">
+		<meta data-server-head-tags name="theme-color" content="{{themeColor}}">
 	{{/if}}
 
 	{{#if wikiVariables.specialRobotPolicy}}
-		<meta data-hapi-leftovers name="robots" content="{{wikiVariables.specialRobotPolicy}}">
+		<meta data-server-head-tags name="robots" content="{{wikiVariables.specialRobotPolicy}}">
 	{{/if}}
 
 	{{#if wikiVariables.favicon}}
-		<link data-hapi-leftovers rel="shortcut icon" href="{{wikiVariables.favicon}}">
+		<link data-server-head-tags rel="shortcut icon" href="{{wikiVariables.favicon}}">
 	{{/if}}
 
 	{{#if isRtl}}
@@ -36,7 +36,7 @@
 	{{> other-languages-head}}
 	{{> smart-banner-ios}}
 
-	<link data-hapi-leftovers rel="canonical" href="{{canonicalUrl}}">
+	<link data-server-head-tags rel="canonical" href="{{canonicalUrl}}">
 
 	{{> nirvana }}
 	<script src="/front/main/assets/vendor/jquery/jquery.min.js"></script>

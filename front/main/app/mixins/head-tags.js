@@ -16,14 +16,14 @@ export default Ember.Mixin.create({
 	},
 
 	/**
-	 * This function removes all head tags with data-hapi-leftovers attribute to avoid having duplicates.
+	 * This function removes all head tags with data-server-head-tags attribute to avoid having duplicates.
 	 * This function should be removed when fastboot will be introduced.
 	 *
 	 * @returns {void}
 	 */
 	removeServerTags() {
 		if (!this.controllerFor('application').get('serverTagsRemoved')) {
-			Ember.$('head *[data-hapi-leftovers]').remove();
+			Ember.$('[data-server-head-tags]').remove();
 			this.controllerFor('application').set('serverTagsRemoved', true);
 		}
 	},
