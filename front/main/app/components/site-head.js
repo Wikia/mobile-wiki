@@ -19,26 +19,6 @@ export default Ember.Component.extend(
 			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
 		}),
 
-		// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-		// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-		headroomEnabled: Ember.computed('navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', function () {
-			return !this.get('navABTestIsBarMenuIcon') && !this.get('navABTestIsBarDropdownIcon');
-		}),
-
-		shouldDisplaySearchIcon: Ember.computed(
-			'navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', 'navABTestIsFabMenuIcon',
-			function () {
-				return this.get('navABTestIsFabMenuIcon') ||
-					this.get('navABTestIsBarMenuIcon') ||
-					this.get('navABTestIsBarDropdownIcon');
-			}),
-
-		shouldDisplayHamburgerIcon: Ember.computed('navABTestIsFabSearchIcon', 'navABTestIsBarMenuIcon', function () {
-			return this.get('navABTestIsFabSearchIcon') || this.get('navABTestIsBarMenuIcon');
-		}),
-
-		shouldDisplayDropdownIcon: Ember.computed.alias('navABTestIsBarDropdownIcon'),
-
 		actions: {
 			/**
 			 * @returns {void}
