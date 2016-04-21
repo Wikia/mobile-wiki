@@ -1,21 +1,66 @@
-.pi-hero {
+// disable portable infobox hero image and title
+
+.pi-hero, .pi-title {
 	display: none;
 }
 
+// component
 .wiki-page-header {
 	background: $color-blue-light;
 	color: #fff;
 }
 
+// component elements
 .wiki-page-header__wrapper {
 	padding: {
+		bottom: 12px;
 		left: $article-horizontal-padding;
 		right: $article-horizontal-padding;
 		top: 15px;
-		bottom: 12px;
 	}
 }
 
+%wiki-page-header-element {
+	color: inherit;
+	font-weight: normal;
+	line-height: 1;
+	margin: 0;
+}
+
+.wiki-page-header__site-name {
+	@extend %wiki-page-header-element;
+
+	font-size: 12px;
+	margin-bottom: 1.125em;
+}
+
+.wiki-page-header__site-link {
+	color: inherit;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.wiki-page-header__title {
+	@extend %wiki-page-header-element;
+
+	font-size: 26px;
+	font-weight: bold;
+	line-height: 32px;
+	word-break: break-word;
+}
+
+.wiki-page-header__site-name ~ .wiki-page-header__title {
+	margin-top: 3px;
+}
+
+.wiki-page-header__subtitle {
+	@extend %wiki-page-header-element;
+
+	font-size: 14px;
+	margin-top: 1.125em;
+}
+
+// component modifier-related changes to elements
 .wiki-page-header.has-action .wiki-page-header__wrapper {
 	display: flex;
 }
@@ -25,29 +70,23 @@
 }
 
 .wiki-page-header.has-hero-image .wiki-page-header__wrapper {
+	background: linear-gradient(to bottom, transparent 70%, rgba(0, 0, 0,.6) 100%);
 	height: 100%;
-	background: linear-gradient(to bottom, transparent 70%, rgba(0, 0, 0,.6) 100%)
 }
 
 .wiki-page-header.has-hero-image-preload {
-	width: 100%;
+	animation: wiki-page-header-preload-preloading 2s infinite;
 	height: 0;
 	padding-bottom: 100%;
 	position: relative;
-	animation: wiki-page-header-preload-preloading 2s infinite;
-}
-
-@keyframes wiki-page-header-preload-preloading {
-	0%   {background-color: #888;}
-	50%  {background-color: #999;}
-	100% {background-color: #888;}
+	width: 100%;
 }
 
 .wiki-page-header.has-hero-image-preload .wiki-page-header__wrapper {
-	position: absolute;
-	left: 0;
-	right: 0;
 	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
 }
 
 .wiki-page-header.has-action .wiki-page-header__main {
@@ -62,38 +101,9 @@
 	text-align: center;
 }
 
-%wiki-page-header-element {
-	color: inherit;
-	line-height: 1;
-	font-weight: normal;
-	margin: 0;
-}
-
-.wiki-page-header__site-name {
-	@extend %wiki-page-header-element;
-	font-size: 12px;
-	margin-bottom: 1.125em;
-}
-
-.wiki-page-header__site-link {
-	color: inherit;
-	font-style: italic;
-	font-weight: bold;
-}
-
-.wiki-page-header__title {
-	@extend %wiki-page-header-element;
-	font-size: 26px;
-	line-height: 32px;
-	word-break: break-word;
-	font-weight: bold;
-}
-.wiki-page-header__site-name ~ .wiki-page-header__title {
-	margin-top: 3px;
-}
-
-.wiki-page-header__subtitle {
-	@extend %wiki-page-header-element;
-	font-size: 14px;
-	margin-top: 1.125em;
+// animations
+@keyframes wiki-page-header-preload-preloading {
+	0%   {background-color: #888;}
+	50%  {background-color: #999;}
+	100% {background-color: #888;}
 }
