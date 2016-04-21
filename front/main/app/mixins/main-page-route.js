@@ -96,15 +96,10 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		openCuratedContentItem(item) {
-			/**
-			 * We have to double encode because Ember's RouteRecognizer does decodeURI while processing path.
-			 * If we didn't do encodeURI then it would do decodeURI on a result of our encodeURIComponent
-			 * and the title would be malformed.
-			 */
 			if (item.type === 'section') {
-				this.transitionTo('mainPageSection', encodeURI(encodeURIComponent(item.label)));
+				this.transitionTo('mainPageSection', item.label);
 			} else if (item.type === 'category') {
-				this.transitionTo('mainPageCategory', encodeURI(encodeURIComponent(item.categoryName)));
+				this.transitionTo('mainPageCategory', item.categoryName);
 			} else {
 				Ember.Logger.error('Can\'t open curated content item with type other than section or category', item);
 			}
