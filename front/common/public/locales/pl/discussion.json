@@ -14,7 +14,8 @@
   "main":{
     "discussions-header-title":"Dyskusje",
     "pagination-post-show-more":"Zobacz wcześniejsze odpowiedzi",
-    "pagination-post-show-newer":"Zobacz nowsze",
+    "pagination-post-show-newer-replies":"Zobacz nowsze odpowiedzi",
+    "pagination-post-show-new-replies":"Nowe odpowiedzi",
     "share-default-title":"Dyskusja na __siteName__",
     "contributors-title":"Wszyscy użytkownicy",
     "sort-by-header":"Sortuj według",

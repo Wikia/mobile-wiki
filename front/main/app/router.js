@@ -104,10 +104,10 @@ Router.map(function () {
 
 		this.route('post', {
 			path: '/p/:postId'
-		}, function () {
-			this.route('reply', {
-				path: '/r/:replyId'
-			});
+		});
+
+		this.route('reply', {
+			path: '/p/:postId/r/:replyId'
 		});
 
 		this.route('user', {

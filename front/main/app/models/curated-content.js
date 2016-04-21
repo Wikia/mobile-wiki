@@ -38,7 +38,7 @@ function getURL(title, type, offset) {
 			query: {
 				controller: 'MercuryApi',
 				method: 'getCuratedContentSection',
-				section: decodeURIComponent(title)
+				section: title
 			}
 		});
 	} else if (type === 'category') {
@@ -49,7 +49,7 @@ function getURL(title, type, offset) {
 			abstract: 0,
 			width: 300,
 			height: 300,
-			category: decodeURIComponent(title),
+			category: title,
 			limit: 24
 		};
 

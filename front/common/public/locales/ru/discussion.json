@@ -14,7 +14,8 @@
   "main":{
     "discussions-header-title":"Обсуждения",
     "pagination-post-show-more":"Просмотр старых ответов",
-    "pagination-post-show-newer":"Просмотреть новые",
+    "pagination-post-show-newer-replies":"Просмотр новых ответов",
+    "pagination-post-show-new-replies":"Новые ответы",
     "share-default-title":"Обсуждение на __siteName__",
     "contributors-title":"Все участники",
     "sort-by-header":"Отсортировать:",

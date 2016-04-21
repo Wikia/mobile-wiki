@@ -14,7 +14,8 @@
   "main":{
     "discussions-header-title":"Discussões",
     "pagination-post-show-more":"Visualizar respostas mais antigas",
-    "pagination-post-show-newer":"Ver os mais recentes",
+    "pagination-post-show-newer-replies":"Visualizar respostas mais recentes",
+    "pagination-post-show-new-replies":"Respostas mais recentes",
     "share-default-title":"Discussão em __siteName__",
     "contributors-title":"Todos os colaboradores",
     "sort-by-header":"Ordenar por",

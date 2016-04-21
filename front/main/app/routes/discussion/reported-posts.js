@@ -67,7 +67,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor('discussion.reported-posts').loadPage(pageNum, this.get('discussionSort.sortBy'));
+				this.modelFor(this.get('routeName')).loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
 			/**
@@ -80,7 +80,7 @@ export default DiscussionBaseRoute.extend(
 			create(postData) {
 				this.get('discussionSort').setSortBy('latest');
 				this.transitionTo('discussion.forum', this.get('forumId'), 'latest').promise.then(() => {
-					const model = this.modelFor('discussion.forum');
+					const model = this.modelFor(this.get('routeName'));
 
 					model.createPost(postData).then((xhr) => {
 						if (xhr.apiResponseData && !model.get('errorMessage')) {
