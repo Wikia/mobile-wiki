@@ -155,7 +155,7 @@ export default Route.extend(
 				ArticleModel
 					.getArticleRandomTitle()
 					.then((articleTitle) => {
-						this.transitionTo('wiki-page', normalizeToUnderscore(articleTitle));
+						this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(articleTitle)));
 					})
 					.catch((err) => {
 						this.send('error', err);
