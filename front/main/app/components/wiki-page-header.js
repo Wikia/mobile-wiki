@@ -61,7 +61,8 @@ export default Ember.Component.extend(
 			trackClick() {
 				mercuryTrack({
 					action: trackActions.click,
-					category: 'wikiname'
+					category: 'wikiname',
+					label: ''
 				});
 			}
 		}
