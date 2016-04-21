@@ -30,8 +30,6 @@ export default function prepareArticleData(request, data) {
 			result.articleContent = pageData.article.content;
 			delete pageData.article.content;
 
-			result.hasToC = Boolean(result.articleContent.trim().length);
-
 			// find article's hero image
 			pageData.article.media.forEach((current) => {
 				if (current.hasOwnProperty('context') && current.context === 'infobox-hero-image') {

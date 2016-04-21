@@ -11,7 +11,6 @@ export default function prepareMainPageData(data) {
 		wikiVariables = data.wikiVariables,
 
 		result = {
-			hasToC: false,
 			openGraph: getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables)),
 			mainPageData: {
 				adsContext: pageData.adsContext
