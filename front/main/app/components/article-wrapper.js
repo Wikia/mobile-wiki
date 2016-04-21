@@ -110,7 +110,7 @@ export default Ember.Component.extend(
 		}),
 
 		heroImage: Ember.computed('model.media', function () {
-			let heroImage = false;
+			let heroImage;
 
 			this.get('model.media.media').forEach((current) => {
 				if (current.hasOwnProperty('context') && current.context === 'infobox-hero-image') {
