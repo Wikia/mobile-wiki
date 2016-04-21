@@ -12,7 +12,7 @@ export default Ember.Route.extend(
 		/**
 		 * Custom implementation of HeadTagsMixin::setDynamicHeadTags
 		 * @param {Object} model, this is model object from route::afterModel() hook
-		 * @param {Object} data
+		 * @param {Object} [data={}]
 		 * @returns {void}
 		 */
 		setDynamicHeadTags(model, data = {}) {
