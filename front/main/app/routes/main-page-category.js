@@ -20,7 +20,8 @@ export default Ember.Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, Rout
 	 */
 	setDynamicHeadTags(model) {
 		this._super(model, {
-			robots: 'noindex,follow'
+			robots: 'noindex,follow',
+			documentTitle: `${model.get('title')} - ${Ember.get(Mercury, 'wiki.siteName')} - Wikia`
 		});
 	},
 
