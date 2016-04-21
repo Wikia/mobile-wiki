@@ -15,5 +15,14 @@ export default Ember.Service.extend({
 		set(_, value) {
 			return value;
 		}
+	}),
+
+	description: Ember.computed({
+		get() {
+			return M.prop('mainPageData.details.description');
+		},
+		set(_, value) {
+			return value;
+		}
 	})
 });

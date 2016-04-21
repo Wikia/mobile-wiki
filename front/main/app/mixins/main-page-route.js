@@ -6,6 +6,7 @@ export default Ember.Mixin.create({
 	curatedMainPageData: Ember.inject.service(),
 	ns: Ember.computed.oneWay('curatedMainPageData.ns'),
 	adsContext: Ember.computed.oneWay('curatedMainPageData.adsContext'),
+	mainPageDescription: Ember.computed.oneWay('curatedMainPageData.description'),
 
 	/**
 	 * @returns {void}
@@ -27,6 +28,8 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	afterModel(model, transition) {
+		this._super(...arguments);
+
 		const title = model.get('title'),
 			mainPageController = this.controllerFor('mainPage');
 
