@@ -49,21 +49,18 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 		setNormalizedData(apiData) {
 			const posts = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
 				pivotId = Ember.getWithDefault(posts, '0.id', 0),
-				contributors = DiscussionContributors.create({
-					count: 1,
-					userInfo: [posts[0].createdBy],
-				}),
+				contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities = DiscussionEntities.createFromPostsData(posts);
 
 			this.get('data').setProperties({
-				canDeleteAll: Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
-				canModerate: Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
+				canDeleteAll: entities.getWithDefault('firstObject.userData.permissions.canModerate', false),
+				canModerate: entities.getWithDefault('firstObject.userData.permissions.canModerate', false),
 				contributors,
 				entities,
 				forumId: Ember.get(Mercury, 'wiki.id'),
 				pageNum: 0,
 				postCount: parseInt(apiData.postCount, 10),
-				userName: contributors.get('users.0.name'),
+				userName: contributors.get('users.firstObject.name'),
 			});
 
 			this.setProperties('pivotId', pivotId);

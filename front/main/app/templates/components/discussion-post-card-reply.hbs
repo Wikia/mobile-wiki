@@ -1,4 +1,4 @@
-<div class="discussion-reply">
+<div class="discussion-reply" id="reply-{{post.id}}">
 	{{#if showTopNote}}
 		{{discussion-post-card-top-note
 			approve=(action this.attrs.approve)
@@ -46,7 +46,7 @@
 	</div>
 	{{#if userListView}}
 		<div class="discussion-content">
-			{{#link-to 'discussion.post.reply' post.threadId post.id class="post-details-link clamp"}}
+			{{#link-to 'discussion.reply' post.threadId post.id class="post-details-link clamp"}}
 				{{{parsedContent}}}
 			{{/link-to}}
 		</div>

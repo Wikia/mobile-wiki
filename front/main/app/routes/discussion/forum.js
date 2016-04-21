@@ -50,7 +50,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor('discussion.forum').loadPage(pageNum, this.get('discussionSort.sortBy'));
+				this.modelFor(this.get('routeName')).loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 		}
 	}

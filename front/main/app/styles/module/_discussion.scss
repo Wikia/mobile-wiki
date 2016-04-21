@@ -97,6 +97,12 @@ body.discussions {
 		margin-right: 6px;
 		width: 16px;
 	}
+
+	&.down-small {
+		height: 12px;
+		margin-right: 4px;
+		width: 10px;
+	}
 }
 
 .discussion {
@@ -233,8 +239,6 @@ body.discussions {
 		}
 
 		&.is-reported {
-			background-color: $discussion-post-card-reported-background;
-
 			&::before {
 				border-top-color: $discussion-reported-mark-color;
 			}
@@ -268,6 +272,10 @@ body.discussions {
 			.action a {
 				cursor: default;
 			}
+		}
+
+		&.is-highlighted {
+			background-color: $discussion-post-card-linked-background;
 		}
 
 		.pop-over-compass {
@@ -448,18 +456,54 @@ body.discussions {
 		}
 	}
 
-	.see-more {
-		background-color: $discussion-see-more-color;
+	.load-older {
+		background-color: $discussion-load-older-color;
 		border-width: 0;
 		display: block;
 		font-size: 10px;
-		font-weight: bold;
+		font-weight: $font-weight-bold;
 		margin: 0;
 		padding: 0 $horizontal-padding;
 		width: 100%;
 
 		.icon {
 			margin-right: 3px;
+		}
+	}
+
+	.load-newer {
+		$floating-load-newer-button-height: 30px;
+		$wide-load-newer-button-height: 40px;
+
+		font-size: 10px;
+		margin: 0 auto;
+
+		&.floating {
+			border-radius: 2px;
+			border-width: 0;
+			color: $discussion-load-newer-color;
+			font-weight: $font-weight-bold;
+			height: $floating-load-newer-button-height;
+			left: 50%;
+			line-height: $floating-load-newer-button-height;
+			padding: 0 12px;
+			position: fixed;
+			transform: translateX(-50%);
+		}
+
+		&.bottom-space {
+			bottom: 80px;
+		}
+
+		&.wide {
+			border: none;
+			border-top: 1px solid $discussion-reply-border-color;
+			background-color: transparent;
+			font-weight: $font-weight-bold;
+			height: $wide-load-newer-button-height;
+			line-height: $wide-load-newer-button-height;
+			text-align: center;
+			width: 100%;
 		}
 	}
 
@@ -566,7 +610,7 @@ body.discussions {
 				width: $post-details-reply-width;
 			}
 
-			.see-more {
+			.load-older {
 				text-align: center;
 				width: $post-details-post-width;
 			}
@@ -574,7 +618,7 @@ body.discussions {
 
 		.post-detail,
 		.post-reply,
-		.see-more {
+		.load-older {
 			margin-left: auto;
 			margin-right: auto;
 		}

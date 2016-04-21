@@ -16,7 +16,7 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
-			return DiscussionPostModel.find(Mercury.wiki.id, params.postId);
+			return DiscussionPostModel.find(Mercury.wiki.id, params.postId, params.replyId);
 		},
 
 		/**
@@ -62,16 +62,17 @@ export default DiscussionBaseRoute.extend(
 			 * Load more replies
 			 * @returns {void}
 			 */
-			loadMoreComments() {
-				const model = this.modelFor('discussion.post');
+			loadOlderReplies() {
+				this.modelFor(this.get('routeName')).loadPreviousPage();
+			},
 
-				model.loadNextPage().then(() => {
-					if (model.get('minorError')) {
-						// Hide more posts button when error occurred
-						model.set('postCount', model.get('replies.length'));
-					}
-				});
-			}
+			/**
+			 * Load more replies
+			 * @returns {void}
+			 */
+			loadNewerReplies() {
+				this.modelFor(this.get('routeName')).loadNextPage();
+			},
 		}
 	}
 );

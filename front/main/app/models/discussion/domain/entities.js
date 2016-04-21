@@ -3,8 +3,8 @@ import DiscussionPost from './post';
 import DiscussionReply from './reply';
 
 const DiscussionEntities = Ember.Object.extend({
-	postCount: null,
 	entities: null,
+	postCount: null,
 });
 
 DiscussionEntities.reopenClass({

@@ -25,9 +25,18 @@ export default Ember.Controller.extend(
 			 *
 			 * @returns {void}
 			 */
-			loadMoreComments() {
-				this.get('target').send('loadMoreComments');
-			}
+			loadOlderReplies() {
+				this.get('target').send('loadOlderReplies');
+			},
+
+			/**
+			 * Bubbles up to DiscussionPostRoute
+			 *
+			 * @returns {void}
+			 */
+			loadNewerReplies() {
+				this.get('target').send('loadNewerReplies');
+			},
 		}
 	}
 );

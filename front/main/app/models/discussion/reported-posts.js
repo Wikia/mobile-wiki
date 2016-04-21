@@ -3,7 +3,6 @@ import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-m
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import DiscussionContributionModelMixin from '../../mixins/discussion-contribution-model';
 import ajaxCall from '../../utils/ajax-call';
-import DiscussionContributor from './domain/contributor';
 import DiscussionContributors from './domain/contributors';
 import DiscussionEntities from './domain/entities';
 
@@ -48,12 +47,7 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 		setNormalizedData(apiData) {
 			const posts = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
 				pivotId = Ember.getWithDefault(posts, '0.id', 0),
-				// contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]'));
-				// Work in Progress: szpachla until SOC-1586 is done
-				contributors = DiscussionContributors.create({
-					count: parseInt(apiData.postCount, 10),
-					userInfo: posts.map((post) => DiscussionContributor.create(post.createdBy)),
-				}),
+				contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities = DiscussionEntities.createFromPostsData(posts);
 
 			this.get('data').setProperties({

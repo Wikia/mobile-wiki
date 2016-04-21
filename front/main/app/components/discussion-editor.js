@@ -69,8 +69,8 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	style: Ember.computed('isSticky', function () {
-		return this.get('isSticky') === true ?
-			`height: ${this.$('.editor-container').outerHeight(true)}px` :
+		return this.get('isSticky') ?
+			`height: ${this.$('.editor-container').outerHeight(true) + this.$('.editor-label').outerHeight()}px` :
 			null;
 	}),
 
@@ -81,6 +81,10 @@ export default Ember.Component.extend(ViewportMixin, {
 		Ember.run.throttle(
 			this,
 			function () {
+				// we can't change it to
+				// this.set('isSticky', !this.get('isSticky') && this.isStickyBreakpointHeight())
+				// because it is important to fire the set method only when it's necessary, because there is observer
+				// that watches isSticky changes (and it is fired on every set)
 				if (!this.get('isSticky') && this.isStickyBreakpointHeight()) {
 					this.set('isSticky', true);
 				} else if (this.get('isSticky') && !this.isStickyBreakpointHeight()) {
