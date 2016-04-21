@@ -3,25 +3,21 @@ import ajaxCall from '../../utils/ajax-call';
 import {track, trackActions} from '../../utils/discussion-tracker';
 
 export default Ember.Object.extend({
-	wikiId: null,
-
 	error: null,
 	errorCodes: {
 		notFound: 404
 	},
 	errorClass: 'discussion-error-page',
-	pivotId: null,
-
 	data: null,
-
-	upvotingInProgress: {},
-
 	/*
 	 * Set minorError to true, when you don't want to display error message e.g.:
 	 * 404 on infinite scroll, when unable to load non-existing pages
 	 * 404 on "view older replies" button, when unable to load non-existing or deleted replies
 	 */
 	minorError: false,
+	pivotId: null,
+	upvotingInProgress: {},
+	wikiId: null,
 
 	/**
 	 * @returns {void}
