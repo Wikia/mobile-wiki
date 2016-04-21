@@ -19,9 +19,12 @@ export default Ember.Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, Rout
 	 * @returns {void}
 	 */
 	setDynamicHeadTags(model) {
+		const title = model.get('title');
+
 		this._super(model, {
 			robots: 'noindex,follow',
-			documentTitle: model.get('title'),
+			documentTitle: title,
+			displayTitle: title,
 			description: this.get('description')
 		});
 	},
