@@ -17,10 +17,6 @@
 		text-decoration: none;
 	}
 
-  	li {
-	  padding-bottom: 30px;
-	}
-
 	aside {
 		@include media($large-screen) {
 			@include span-columns(4);
@@ -58,6 +54,11 @@
 			margin-bottom: 2em;
 		}
 	}
+
+  	li {
+		padding-bottom: 30px;
+  	}
+
 }
 
 .companyinfo-table {
