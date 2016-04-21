@@ -175,7 +175,6 @@ export default Ember.Component.extend({
 	shouldFocusSearchInput: false,
 	navABTestExperimentName: 'FAN_KNOWLEDGE_MERCURY_GLOBAL_NAV',
 	navABTestDefaultGroup: 'DEFAULT',
-	navABTestControlGroup: 'CONTROL',
 	navABTestFabIconSearchGroup: 'FAB_ICON_SEARCH',
 
 	navABTestCurrentGroup: Ember.computed('navABTestExperimentName', function () {
@@ -186,19 +185,10 @@ export default Ember.Component.extend({
 		return this.get('navABTestCurrentGroup') === this.get('navABTestFabIconSearchGroup');
 	}),
 
-	navABTestChangeUI: Ember.computed(
-		'navABTestCurrentGroup', 'navABTestDefaultGroup', 'navABTestControlGroup',
-		function () {
-			const currentGroup = this.get('navABTestCurrentGroup');
+	navABTestChangeUI: Ember.computed('navABTestCurrentGroup', 'navABTestDefaultGroup', function () {
+		const currentGroup = this.get('navABTestCurrentGroup');
 
-			return currentGroup &&
-				currentGroup !== this.get('navABTestDefaultGroup') &&
-				currentGroup !== this.get('navABTestControlGroup');
-		}
-	),
-
-	navABTestIsControlGroup: Ember.computed('navABTestCurrentGroup', 'navABTestControlGroup', function () {
-		return this.get('navABTestCurrentGroup') === this.get('navABTestControlGroup');
+		return currentGroup && currentGroup !== this.get('navABTestDefaultGroup');
 	}),
 
 	fabIcon: Ember.computed('navABTestIsFabSearchIcon', function () {
