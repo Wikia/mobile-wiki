@@ -91,21 +91,5 @@ export default Ember.Mixin.create({
 				curatedContent: model
 			}
 		});
-	},
-
-	actions: {
-		/**
-		 * @param {CuratedContentItem} item
-		 * @returns {void}
-		 */
-		openCuratedContentItem(item) {
-			if (item.type === 'section') {
-				this.transitionTo('mainPageSection', item.label);
-			} else if (item.type === 'category') {
-				this.transitionTo('mainPageCategory', item.categoryName);
-			} else {
-				Ember.Logger.error('Can\'t open curated content item with type other than section or category', item);
-			}
-		}
 	}
 });
