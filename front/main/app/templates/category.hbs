@@ -1,7 +1,6 @@
 {{ad-slot name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
 {{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
 <div class="wiki-container">
-	{{wiki-page-header title=model.displayTitle subtitle=(i18n 'app.category-page-subtitle')}}
 	{{#if model.hasArticle}}
 		{{#article-wrapper
 			commentsPage=commentsPage
@@ -9,6 +8,7 @@
 			model=model
 			noAds=noAds
 			showComments=false
+			wikiPageHeaderSubtitle=(i18n 'app.category-page-subtitle')
 			siteName=siteName
 			addPhoto='addPhoto'
 			articleRendered='articleRendered'
@@ -24,6 +24,7 @@
 			}}
 		{{/article-wrapper}}
 	{{else}}
+		{{wiki-page-header title=model.displayTitle subtitle=(i18n 'app.category-page-subtitle')}}
 		{{category-sections
 			adsContext=model.adsContext
 			sections=model.sections

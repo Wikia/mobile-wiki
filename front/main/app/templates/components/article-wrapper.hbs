@@ -1,5 +1,5 @@
 {{#if contributionEnabled}}
-	{{#wiki-page-header title=model.displayTitle heroImage=heroImage}}
+	{{#wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
 		{{article-contribution
 			addPhotoAllowed=addPhotoAllowed
 			addPhotoIconVisible=addPhotoIconVisible
@@ -12,7 +12,7 @@
 		}}
 	{{/wiki-page-header}}
 {{else}}
-	{{wiki-page-header title=model.displayTitle heroImage=heroImage}}
+	{{wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
 {{/if}}
 <section class="article-body">
 	{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
