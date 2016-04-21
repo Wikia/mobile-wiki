@@ -27,8 +27,12 @@ export default Ember.Mixin.create({
 		const headData = this.get('headData');
 
 		if (!headData.get('dynamicServerTagsRemoved')) {
-			Ember.$('[data-server-head-tags-dynamic]').remove();
-			headData.set('dynamicServerTagsRemoved', true);
+			// We want to run this afterRender in order to be sure that
+			// meta tags in head are updated by setDynamicHeadTags method
+			Ember.run.schedule('afterRender', () => {
+				Ember.$('[data-server-head-tags-dynamic]').remove();
+				headData.set('dynamicServerTagsRemoved', true);
+			});
 		}
 	},
 

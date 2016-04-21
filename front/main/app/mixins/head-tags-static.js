@@ -23,8 +23,12 @@ export default Ember.Mixin.create({
 		const headData = this.get('headData');
 
 		if (!headData.get('staticServerTagsRemoved')) {
-			Ember.$('[data-server-head-tags-static]').remove();
-			headData.set('staticServerTagsRemoved', true);
+			// We want to run this afterRender in order to be sure that
+			// meta tags in head are updated by setStaticHeadTags method
+			Ember.run.schedule('afterRender', () => {
+				Ember.$('[data-server-head-tags-static]').remove();
+				headData.set('staticServerTagsRemoved', true);
+			});
 		}
 	},
 
