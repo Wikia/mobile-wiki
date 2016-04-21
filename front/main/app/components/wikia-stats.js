@@ -7,23 +7,19 @@ export default Ember.Component.extend({
 	items: Ember.computed('model', function () {
 		return [
 			{
-				label: 'app.pages-label',
-				namespace: 'main',
+				label: i18n.t('app.pages-label'),
 				value: this.get('model.articles'),
 			},
 			{
-				label: 'app.photos-label',
-				namespace: 'main',
+				label: i18n.t('app.photos-label'),
 				value: this.get('model.images'),
 			},
 			{
-				label: 'app.videos-label',
-				namespace: 'main',
+				label: i18n.t('app.videos-label'),
 				value: this.get('model.videos'),
 			},
 			{
-				label: 'main.discussions-header-title',
-				namespace: 'discussion',
+				label: i18n.t('main.discussions-header-title', {ns:'discussion'}),
 				routeName: 'discussion.index',
 				value: this.get('model.discussions'),
 			}
