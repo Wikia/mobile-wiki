@@ -1,35 +1,11 @@
-{{!--
-	temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-	cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
---}}
-{{#if navABTestChangeUI}}
-	{{#if navABTestIsFabSearchIcon}}
-		<div {{action this.attrs.siteHeadIconClick}} class="side-nav-toggle side-nav-toggle-2016">
-			{{#if shouldDisplayNewBadge}}
-				{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
-			{{/if}}
-			{{svg 'menu' viewBox='0 0 24 14' class='icon nav'}}
-		</div>
-	{{else}}
-		<div {{action this.attrs.siteHeadIconClick}} class="side-nav-toggle side-nav-toggle-2016 search-button">
-			{{svg 'search-for-ab-test' viewBox='0 0 24 14' class='icon nav'}}
-		</div>
+<div {{action 'expandSideNav'}} class="side-nav-toggle side-nav-toggle-2016">
+	{{#if shouldDisplayNewBadge}}
+		{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
 	{{/if}}
-	<div class="site-logo site-logo-2016">
-		<a {{action 'trackClick' 'wordmark' preventDefault=false}} href={{wikiaHomepage}}>
-			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
-		</a>
-	</div>
-{{else}}
-	<div {{action 'expandSideNav'}} class="side-nav-toggle side-nav-toggle-2016">
-		{{#if shouldDisplayNewBadge}}
-			{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
-		{{/if}}
-		{{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
-	</div>
-	<div class="site-logo site-logo-2016">
-		<a {{action 'trackClick' 'wordmark' preventDefault=false}} href={{wikiaHomepage}}>
-			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
-		</a>
-	</div>
-{{/if}}
+	{{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
+</div>
+<div class="site-logo site-logo-2016">
+	<a {{action 'trackClick' 'wordmark' preventDefault=false}} href={{wikiaHomepage}}>
+		{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+	</a>
+</div>
