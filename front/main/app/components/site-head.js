@@ -25,11 +25,17 @@ export default Ember.Component.extend(
 			return !this.get('navABTestIsBarMenuIcon') && !this.get('navABTestIsBarDropdownIcon');
 		}),
 
-		shouldDisplaySearchIcon: Ember.computed.or(
-			'navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', 'navABTestIsFabMenuIcon'),
+		shouldDisplaySearchIcon: Ember.computed(
+			'navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', 'navABTestIsFabMenuIcon',
+			function () {
+				return this.get('navABTestIsFabMenuIcon') ||
+					this.get('navABTestIsBarMenuIcon') ||
+					this.get('navABTestIsBarDropdownIcon');
+			}),
 
-		shouldDisplayHamburgerIcon: Ember.computed.or(
-			'navABTestIsFabSearchIcon', 'navABTestIsBarMenuIcon', 'navABTestIsButtonBarMenu'),
+		shouldDisplayHamburgerIcon: Ember.computed('navABTestIsFabSearchIcon', 'navABTestIsBarMenuIcon', function () {
+			return this.get('navABTestIsFabSearchIcon') || this.get('navABTestIsBarMenuIcon');
+		}),
 
 		shouldDisplayDropdownIcon: Ember.computed.alias('navABTestIsBarDropdownIcon'),
 
@@ -67,24 +73,6 @@ export default Ember.Component.extend(
 			 */
 			showUserMenu() {
 				this.sendAction('toggleUserMenu', true);
-			},
-
-			// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-			// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-			/**
-			 * @returns {void}
-			 */
-			clickWordMark() {
-				trackExperiment(this.get('navABTestExperimentName'), {
-					action: trackActions.click,
-					category: 'entrypoint',
-					label: 'wordmark-clicked'
-				});
-
-				track({
-					action: trackActions.click,
-					category: 'wordmark'
-				});
 			}
 		},
 
