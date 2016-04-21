@@ -2,6 +2,7 @@
  * Wikia (Japan) Homepage
  *
  * @author Per Johan Groland <pgroland@wikia-inc.com>
+ * @author Gautam Bajaj <gbajaj@wikia-inc.com>
  */
 
 var Promise = require('bluebird'),
@@ -78,6 +79,7 @@ exports.renderWithGlobalData = function (request, reply, data, view) {
 			prod: (process.env.WIKIA_ENVIRONMENT === 'prod') ||
 				  (process.env.WIKIA_ENVIRONMENT === 'preview') ||
 				  (process.env.WIKIA_ENVIRONMENT === 'sandbox'),
+			year: new Date().getFullYear(),
 		});
 
 		reply.view(view, combinedData);
