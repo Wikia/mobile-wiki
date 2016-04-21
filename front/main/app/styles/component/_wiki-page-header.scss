@@ -21,7 +21,7 @@
 }
 
 .wiki-page-header__main {
-	text-shadow: 0 0 3px rgba(0,0,0,.8);
+	text-shadow: 0 0 3px rgba(0, 0, 0, .8);
 }
 
 %wiki-page-header-element {
@@ -95,7 +95,7 @@
 
 .wiki-page-header.has-action .wiki-page-header__main {
 	align-self: flex-end;
-	flex: 1 0 auto;
+	flex: 1;
 }
 
 .wiki-page-header.has-action .wiki-page-header__action {
