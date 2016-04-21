@@ -10,9 +10,9 @@
 			nielsen = M.prop('tracking.nielsen');
 			assetidRnd = Math.round(1000000 * Math.random());
 			globalParams = {
-				sfcode: 'dcr-cert',
+				sfcode: 'dcr',
 				apid: nielsen.apid,
-				apn: 'test-static'
+				apn: 'wikiaCOM'
 			};
 
 			window.gg1 = window.NOLCMB.getInstance(globalParams);
@@ -44,7 +44,7 @@
 					delete window.NOLCMB;
 
 					scriptTag.async = 1;
-					scriptTag.src = 'http://secure-dcr-cert.imrworldwide.com/novms/js/2/ggcmb500.js?' + Date.now();
+					scriptTag.src = 'http://secure-dcr.imrworldwide.com/novms/js/2/ggcmb500.js?' + Date.now();
 					scriptTag.onload = sendNielsenPageView;
 
 					firstScriptInDocument.parentNode.insertBefore(scriptTag, firstScriptInDocument);

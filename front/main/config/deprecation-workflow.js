@@ -5,6 +5,11 @@ window.deprecationWorkflow.config = {
 		{
 			handler: 'silence',
 			matchId: 'ember-application.injected-container'
+		},
+		// @todo this is in the code of ember-in-viewport
+		{
+			handler: 'silence',
+			matchId: 'ember-metal.merge'
 		}
 	]
 };
