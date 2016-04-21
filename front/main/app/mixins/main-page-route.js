@@ -6,6 +6,7 @@ export default Ember.Mixin.create({
 	curatedMainPageData: Ember.inject.service(),
 	ns: Ember.computed.oneWay('curatedMainPageData.ns'),
 	adsContext: Ember.computed.oneWay('curatedMainPageData.adsContext'),
+	description: Ember.computed.oneWay('curatedMainPageData.description'),
 
 	/**
 	 * @returns {void}
