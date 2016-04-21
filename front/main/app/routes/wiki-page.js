@@ -16,6 +16,7 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 	curatedMainPageData: Ember.inject.service(),
 	ns: Ember.computed.alias('curatedMainPageData.ns'),
 	adsContext: Ember.computed.alias('curatedMainPageData.adsContext'),
+	description: Ember.computed.alias('curatedMainPageData.description'),
 
 	/**
 	 * @param {Ember.model} model

@@ -25,7 +25,7 @@ export default Ember.Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, Rout
 			robots: 'noindex,follow',
 			documentTitle: title,
 			displayTitle: title,
-			description: this.get('description')
+			description: this.get('mainPageDescription')
 		});
 	},
 
