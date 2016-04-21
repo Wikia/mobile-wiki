@@ -43,7 +43,7 @@ $group-header-font-size: 16px;
 		font-size: $infobox-default-font-size;
 		height: auto;
 		line-height: $infobox-default-line-height;
-		margin: $infobox-item-margin * 4 #{-$article-horizontal-padding};
+		margin: 0 #{-$article-horizontal-padding};
 
 		.article-gallery {
 			// position:relative needed here for proper setting the
