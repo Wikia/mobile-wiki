@@ -6,43 +6,13 @@
 		toggleVisibility=attrs.toggleSmartBanner
 	}}
 
-	{{!--
-		temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-		cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-
-		previous code:
-
-		{{site-head
-			smartBannerVisible=smartBannerVisible
-			toggleSideNav=attrs.toggleSideNav
-			toggleUserMenu=attrs.toggleUserMenu
-			toggleSiteHeadPinned=attrs.toggleSiteHeadPinned
-			themeBar=themeBar
-		}}
-	--}}
 	{{site-head
 		smartBannerVisible=smartBannerVisible
 		toggleSideNav=attrs.toggleSideNav
 		toggleUserMenu=attrs.toggleUserMenu
 		toggleSiteHeadPinned=attrs.toggleSiteHeadPinned
 		themeBar=themeBar
-		navABTestChangeUI=navABTestChangeUI
-		navABTestIsFabSearchIcon=navABTestIsFabSearchIcon
-		siteHeadIconClick=(action 'siteHeadIconClick')
 	}}
-
-	{{!--
-		temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-		cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-	--}}
-	{{#if navABTestChangeUI}}
-		{{wikia-ui-components/icon-button
-			class='fab-button-navigation'
-			click=(action 'fabIconClick')
-			icon=fabIcon
-			iconSize=24
-		}}
-	{{/if}}
 
 	{{#if enableShareHeader}}
 		{{share-header
@@ -51,27 +21,11 @@
 			language=language
 		}}
 	{{/if}}
-
-	{{!--
-		temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-		cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-
-		previous code:
-
-		{{side-nav
-			shouldBeVisible=sideNavVisible
-			loadRandomArticle=attrs.loadRandomArticle
-			toggleVisibility=attrs.toggleSideNav
-		}}
-	--}}
 	{{side-nav
 		shouldBeVisible=sideNavVisible
 		loadRandomArticle=attrs.loadRandomArticle
 		toggleVisibility=attrs.toggleSideNav
-		shouldOpenNavSearch=shouldOpenNavSearch
-		shouldFocusSearchInput=shouldFocusSearchInput
 	}}
-
 	{{#if noMargins}}
 		{{outlet}}
 	{{else}}

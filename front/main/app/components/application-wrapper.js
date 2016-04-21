@@ -1,9 +1,5 @@
 import Ember from 'ember';
 import {trackPerf} from 'common/utils/track-perf';
-// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-import {trackExperiment, trackActions} from 'common/utils/track';
-import {getGroup} from 'common/modules/abtest';
 
 /**
  * HTMLMouseEvent
@@ -169,89 +165,4 @@ export default Ember.Component.extend({
 			}
 		}
 	},
-
-	// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-	// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-	shouldFocusSearchInput: false,
-	navABTestExperimentName: 'FAN_KNOWLEDGE_MERCURY_GLOBAL_NAV',
-	navABTestDefaultGroup: 'DEFAULT',
-	navABTestFabIconSearchGroup: 'FAB_ICON_SEARCH',
-
-	navABTestCurrentGroup: Ember.computed('navABTestExperimentName', function () {
-		return getGroup(this.get('navABTestExperimentName'));
-	}),
-
-	navABTestIsFabSearchIcon: Ember.computed('navABTestCurrentGroup', 'navABTestFabIconSearchGroup', function () {
-		return this.get('navABTestCurrentGroup') === this.get('navABTestFabIconSearchGroup');
-	}),
-
-	navABTestChangeUI: Ember.computed('navABTestCurrentGroup', 'navABTestDefaultGroup', function () {
-		const currentGroup = this.get('navABTestCurrentGroup');
-
-		return currentGroup && currentGroup !== this.get('navABTestDefaultGroup');
-	}),
-
-	fabIcon: Ember.computed('navABTestIsFabSearchIcon', function () {
-		return this.get('navABTestIsFabSearchIcon') ? 'search-for-ab-test' : 'menu';
-	}),
-
-	// used to set initial  content to search when opening side-nav
-	shouldOpenNavSearch: false,
-
-	actions: {
-		/**
-		 * @returns {void}
-		 */
-		fabIconClick() {
-			const actionHandler = this.get('navABTestIsFabSearchIcon') ? 'showSearch' : 'showNav';
-
-			this.trackAndTrigger('fab-icon', actionHandler);
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		siteHeadIconClick() {
-			const actionHandler = this.get('navABTestIsFabSearchIcon') ? 'showNav' : 'showSearch';
-
-			this.trackAndTrigger('site-head-icon', actionHandler);
-		}
-	},
-
-	/**
-	 * @param {String} trackingLabel
-	 * @param  {String} actionHandler
-	 * @returns {void}
-	 */
-	trackAndTrigger(trackingLabel, actionHandler) {
-		trackExperiment(this.get('navABTestExperimentName'), {
-			action: trackActions.click,
-			category: 'entrypoint',
-			label: trackingLabel
-		});
-
-		this[actionHandler]();
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	showNav() {
-		this.setProperties({
-			shouldFocusSearchInput: false,
-			shouldOpenNavSearch: false
-		});
-		this.get('toggleSideNav')(true);
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	showSearch() {
-		this.setProperties({
-			shouldFocusSearchInput: true,
-			shouldOpenNavSearch: true
-		});
-		this.get('toggleSideNav')(true);
-	}
 });
