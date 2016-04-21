@@ -129,7 +129,7 @@ export default Ember.Component.extend({
 
 		if (Ember.isEmpty(imageUrl)) {
 			// get wiki image
-			imageUrl = Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/symbols/brackets.svg');
+			imageUrl = Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/images/discussion-badge-default.png');
 		}
 
 		return Thumbnailer.getThumbURL(
