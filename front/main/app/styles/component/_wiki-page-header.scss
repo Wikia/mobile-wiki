@@ -26,7 +26,7 @@
 
 .wiki-page-header.has-hero-image .wiki-page-header__wrapper {
 	height: 100%;
-	background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 1) 100%)
+	background: linear-gradient(to bottom, transparent 70%, rgba(0, 0, 0,.6) 100%)
 }
 
 .wiki-page-header.has-hero-image-preload {
@@ -53,6 +53,7 @@
 .wiki-page-header.has-action .wiki-page-header__main {
 	align-self: flex-end;
 	flex: 1 0 auto;
+	text-shadow: 0 0 3px rgba(0,0,0,.8);
 }
 
 .wiki-page-header.has-action .wiki-page-header__action {
