@@ -3,6 +3,7 @@ import DiscussionContributor from './contributor';
 import DiscussionUserData from './user-data';
 
 const DiscussionReply = DiscussionEntity.extend({
+	position: null,
 	threadCreatedBy: null,
 });
 
@@ -25,9 +26,10 @@ DiscussionReply.reopenClass({
 				isReply: true,
 				isReported: postData.isReported,
 				isRequesterBlocked: postData.isRequesterBlocked,
+				position: postData.position,
 				rawContent: postData.rawContent,
-				threadId: postData.threadId,
 				threadCreatedBy: DiscussionContributor.create(postData.threadCreatedBy),
+				threadId: postData.threadId,
 				title: postData.title,
 				upvoteCount: parseInt(postData.upvoteCount, 10),
 			}),
