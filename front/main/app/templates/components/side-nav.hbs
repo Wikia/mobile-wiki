@@ -7,28 +7,12 @@
 			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
 		</a>
 	</div>
-	{{!--
-		temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-		cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-
-		previous code:
-
-		{{component
-			globalNavContent
-			class='side-nav-menu__contents'
-			replaceNavigationContent=(action 'replaceNavigationContent')
-			collapse=(action 'collapse')
-			loadRandomArticle=(action 'loadRandomArticle')
-		}}
-	--}}
 	{{component
 		globalNavContent
 		class='side-nav-menu__contents'
 		replaceNavigationContent=(action 'replaceNavigationContent')
 		collapse=(action 'collapse')
 		loadRandomArticle=(action 'loadRandomArticle')
-		hideLocalNav=hideLocalNav
-		shouldFocusSearchInput=shouldFocusSearchInput
 	}}
 	{{#if isFandomVisible}}
 		<div class="side-nav-menu__footer">
