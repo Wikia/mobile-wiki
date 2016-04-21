@@ -31,7 +31,11 @@ export default Ember.Component.extend(
 						label: 'open-navigation'
 					});
 				}
-				this.trackClick('side-nav', 'expanded');
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: 'expanded'
+				});
 				this.sendAction('toggleSideNav', true);
 			},
 
@@ -40,6 +44,16 @@ export default Ember.Component.extend(
 			 */
 			showUserMenu() {
 				this.sendAction('toggleUserMenu', true);
+			},
+
+			/**
+			 * @returns {void}
+			 */
+			trackWordmarkClick() {
+				track({
+					action: trackActions.click,
+					category: 'wordmark'
+				});
 			}
 		},
 
