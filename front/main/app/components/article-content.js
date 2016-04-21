@@ -57,7 +57,7 @@ export default Ember.Component.extend(
 						.map(this.renderComponent);
 
 					this.loadIcons();
-					this.loadTableOfContentsData();
+					this.createTableOfContents();
 					this.handleTables();
 					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
@@ -317,34 +317,17 @@ export default Ember.Component.extend(
 			return this.createChildView(contributionComponent).createElement().$();
 		},
 
-		/**
-		 * Generates table of contents data based on h2 elements in the article
-		 * TODO: Temporary solution for generating Table of Contents
-		 * Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
-		 * ToC data from server and render view based on that.
-		 *
-		 * @returns {void}
-		 */
-		loadTableOfContentsData() {
-			/**
-			 * @param {number} i
-			 * @param {HTMLElement} elem
-			 * @returns {ArticleSectionHeader}
-			 */
-			const headers = this.$('h2[section]').map((i, elem) => {
-				if (elem.textContent) {
-					return {
-						element: elem,
-						level: elem.tagName,
-						name: elem.textContent,
-						id: elem.id,
-						section: elem.getAttribute('section'),
-					};
-				}
-			}).toArray();
+		createTableOfContents() {
+			const component = this.createComponentInstance('article-table-of-contents'),
+				$firstInfobox = this.$('.portable-infobox').first(),
+				componentElement = this.createChildView(component).createElement();
 
-			this.set('headers', headers);
-			this.sendAction('updateHeaders', headers);
+			if ($firstInfobox.length) {
+				componentElement.$().insertAfter($firstInfobox);
+			} else {
+				componentElement.$().prependTo(this.$());
+			}
+			componentElement.trigger('didInsertElement');
 		},
 
 		/**

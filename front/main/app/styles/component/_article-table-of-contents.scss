@@ -1,6 +1,11 @@
 // Instance of collapsible-menu component
 .table-of-contents {
 	font-size: $type-smallest;
+	margin-bottom: 1.125rem;
+
+	.collapsible-menu {
+		border-top: 0;
+	}
 
 	.title {
 		padding: rem-calc(5px) rem-calc(40px);

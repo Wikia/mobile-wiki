@@ -157,14 +157,6 @@ export default Ember.Component.extend(
 				this.sendAction('openLightbox', lightboxType, lightboxData);
 			},
 
-			/**
-			 * @param {ArticleSectionHeader[]} headers
-			 * @returns {void}
-			 */
-			updateHeaders(headers) {
-				this.set('headers', headers);
-			},
-
 			trackClick(category, label) {
 				track({
 					action: trackActions.click,

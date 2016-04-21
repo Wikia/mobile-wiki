@@ -16,32 +16,12 @@
 {{/if}}
 <section class="article-body">
 	{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
-	{{#if headers.length}}
-		{{#collapsible-menu
-			showMenuIcon=true
-			additionalClasses='table-of-contents'
-			tLabel='app.article-toc-label'
-			ordered=true
-			observe=model.displayTitle
-			trackingEvent='toc'
-		}}
-			{{#each headers as |section|}}
-				<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
-					<a href="#{{unbound section.id}}" title="{{unbound section.name}}">
-						{{unbound section.name}}
-						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-					</a>
-				</li>
-			{{/each}}
-		{{/collapsible-menu}}
-	{{/if}}
 	{{article-content
 		adsContext=model.adsContext
 		content=model.content
 		media=model.media
 		noAds=noAds
 		openLightbox=(action 'openLightbox')
-		updateHeaders='updateHeaders'
 		contributionEnabled=contributionEnabled
 		uploadFeatureEnabled=uploadFeatureEnabled
 		displayTitle=model.displayTitle

@@ -1,0 +1,18 @@
+{{#if headers.length}}
+	{{#collapsible-menu
+		showMenuIcon=true
+		additionalClasses='table-of-contents'
+		tLabel='app.article-toc-label'
+		ordered=true
+		trackingEvent='toc'
+	}}
+		{{#each headers as |section|}}
+			<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
+				<a href="#{{unbound section.id}}" title="{{unbound section.name}}">
+					{{unbound section.name}}
+					{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+				</a>
+			</li>
+		{{/each}}
+	{{/collapsible-menu}}
+{{/if}}
