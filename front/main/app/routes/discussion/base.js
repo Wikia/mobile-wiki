@@ -1,11 +1,26 @@
 import Ember from 'ember';
 import DiscussionLayoutMixin from '../../mixins/discussion-layout';
 import {trackPageView} from 'common/utils/track';
+import HeadTagsDynamicMixin from '../../mixins/head-tags-dynamic';
 
 export default Ember.Route.extend(
 	DiscussionLayoutMixin,
+	HeadTagsDynamicMixin,
 	{
 		postDeleteFullScreenOverlay: false,
+
+		/**
+		 * Custom implementation of HeadTagsMixin::setDynamicHeadTags
+		 * @param {Object} model, this is model object from route::afterModel() hook
+		 * @param {Object} data
+		 * @returns {void}
+		 */
+		setDynamicHeadTags(model, data = {}) {
+			data.documentTitle = `Discussions - ${Ember.get(Mercury, 'wiki.siteName')} - Wikia`;
+			data.canonical = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}`;
+
+			this._super(model, data);
+		},
 
 		actions: {
 			/**

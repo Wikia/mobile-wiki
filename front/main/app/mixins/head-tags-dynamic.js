@@ -5,13 +5,16 @@ export default Ember.Mixin.create({
 
 	/**
 	 * @param {Object} model
+	 * @param {Ember.Transition} transition
 	 * @returns {void}
 	 */
-	afterModel(model) {
+	afterModel(model, transition) {
 		this._super(...arguments);
 
-		this.setDynamicHeadTags(model);
-		this.removeDynamicServerTags();
+		transition.then(() => {
+			this.setDynamicHeadTags(model);
+			this.removeDynamicServerTags();
+		});
 	},
 
 	/**
