@@ -20,8 +20,8 @@ export default Ember.Component.extend(
 
 			let imageWidth, imageHeight, maxWidth, computedHeight, cropMode, thumbUrl;
 
-			if (Ember.isEmpty(heroImage)) {
-				return null;
+			if (Ember.isEmpty(heroImage) || !heroImage) {
+				return '';
 			}
 
 			imageWidth = heroImage.width || windowWidth;
