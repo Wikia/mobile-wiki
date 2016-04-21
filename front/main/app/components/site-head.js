@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import HeadroomMixin from '../mixins/headroom';
-import {track, trackActions, trackExperiment} from 'common/utils/track';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	HeadroomMixin,
@@ -31,20 +31,7 @@ export default Ember.Component.extend(
 						label: 'open-navigation'
 					});
 				}
-
-				if (this.get('navABTestIsControlGroup')) {
-					trackExperiment(this.get('navABTestExperimentName'), {
-						action: trackActions.click,
-						category: 'entrypoint',
-						label: 'site-head-icon'
-					});
-				}
-
-				track({
-					action: trackActions.click,
-					category: 'side-nav',
-					label: 'expanded'
-				});
+				this.trackClick('side-nav', 'expanded');
 				this.sendAction('toggleSideNav', true);
 			},
 
