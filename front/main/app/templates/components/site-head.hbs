@@ -22,7 +22,7 @@
 				{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
 			</a>
 		{{else}}
-			<a {{action 'clickWordMark' preventDefault=false}} href={{wikiaHomepage}}>
+			<a {{action 'trackClick' 'wordmark' preventDefault=false}} href={{wikiaHomepage}}>
 				{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
 			</a>
 		{{/if}}
@@ -35,7 +35,7 @@
 		{{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
 	</div>
 	<div class="site-logo site-logo-2016">
-		<a {{action 'clickWordMark' preventDefault=false}} href={{wikiaHomepage}}>
+		<a {{action 'trackClick' 'wordmark' preventDefault=false}} href={{wikiaHomepage}}>
 			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
 		</a>
 	</div>
