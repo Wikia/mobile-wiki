@@ -3,18 +3,20 @@ import ArticleHandler from '../utils/wiki-handlers/article';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
+import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import {normalizeToUnderscore} from 'common/utils/string';
 import {setTrackContext, trackPageView} from 'common/utils/track';
 import {namespace as MediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
-export default Ember.Route.extend(RouteWithAdsMixin, {
+export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 	redirectEmptyTarget: false,
 	wikiHandler: null,
 	currentUser: Ember.inject.service(),
 	curatedMainPageData: Ember.inject.service(),
 	ns: Ember.computed.alias('curatedMainPageData.ns'),
 	adsContext: Ember.computed.alias('curatedMainPageData.adsContext'),
+	description: Ember.computed.alias('curatedMainPageData.description'),
 
 	/**
 	 * @param {Ember.model} model
@@ -79,10 +81,10 @@ export default Ember.Route.extend(RouteWithAdsMixin, {
 	 * @returns {void}
 	 */
 	afterModel(model, transition) {
+		this._super(...arguments);
+
 		if (model) {
 			const handler = this.getHandler(model);
-
-			this.setHeadTags(model);
 
 			if (handler) {
 				transition.then(() => {
@@ -107,55 +109,26 @@ export default Ember.Route.extend(RouteWithAdsMixin, {
 	},
 
 	/**
-	 * This function handles updating head tags like title, meta and link after transition.
-	 * It uses ember-cli-meta-tags add-on.
-	 * @param {ArticleModel} model
+	 * Custom implementation of HeadTagsMixin::setDynamicHeadTags
+	 * @param {Object} model, this is model object from route::afterModel() hook
 	 * @returns {void}
 	 */
-	setHeadTags(model) {
-		const headTags = [],
-			pageUrl = model.get('url'),
-			description = model.get('description'),
-			canonicalUrl = `${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}`,
-			appId = Ember.get(Mercury, 'wiki.smartBanner.appId.ios'),
-			appleAppContent = pageUrl ?
-				`app-id=${appId}, app-argument=${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}` :
-				`app-id=${appId}`;
+	setDynamicHeadTags(model) {
+		const pageUrl = model.get('url'),
+			pageFullUrl = `${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}`,
+			data = {
+				documentTitle: model.get('documentTitle'),
+				displayTitle: model.get('displayTitle') || model.get('title'),
+				description: model.get('description'),
+				robots: 'index,follow',
+				canonical: pageFullUrl
+			};
 
-		document.title = model.get('documentTitle');
-
-		headTags.push({
-			type: 'link',
-			tagId: 'canonical-url',
-			attrs: {
-				rel: 'canonical',
-				href: canonicalUrl
-			}
-		});
-
-		if (description) {
-			headTags.push({
-				type: 'meta',
-				tagId: 'meta-description',
-				attrs: {
-					name: 'description',
-					content: description
-				}
-			});
+		if (pageUrl) {
+			data.appArgument = pageFullUrl;
 		}
 
-		if (appId) {
-			headTags.push({
-				type: 'meta',
-				tagId: 'meta-apple-app',
-				attrs: {
-					name: 'apple-itunes-app',
-					content: appleAppContent
-				}
-			});
-		}
-
-		this.set('headTags', headTags);
+		this._super(model, data);
 	},
 
 	/**
@@ -204,22 +177,10 @@ export default Ember.Route.extend(RouteWithAdsMixin, {
 	},
 
 	/**
-	 * Remove head tags set in server, so ember-cli-meta-tags add-on can handle by his own.
-	 * This is temporary solution. Remove this when fastboot is introduced.
-	 * @returns {void}
-	 */
-	removeHeadTagsSetInServer() {
-		Ember.$('link[rel=canonical]:not([id])').remove();
-		Ember.$('meta[name=description]:not([id])').remove();
-		Ember.$('meta[name=apple-itunes-app]:not([id])').remove();
-	},
-
-	/**
 	 * @returns {void}
 	 */
 	activate() {
 		this.controllerFor('application').set('enableShareHeader', true);
-		this.removeHeadTagsSetInServer();
 	},
 
 	/**
