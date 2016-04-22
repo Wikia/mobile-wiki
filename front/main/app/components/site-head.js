@@ -2,9 +2,7 @@ import Ember from 'ember';
 import HeadroomMixin from '../mixins/headroom';
 import {track, trackActions} from 'common/utils/track';
 
-export default Ember.Component.extend(
-	HeadroomMixin,
-	{
+export default Ember.Component.extend({
 		classNames: ['site-head', 'border-theme-color'],
 		classNameBindings: ['themeBar'],
 		tagName: 'nav',
