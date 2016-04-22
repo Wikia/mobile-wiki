@@ -36,6 +36,7 @@ const ArticleDiffModel = Ember.Object.extend({
 			.then((token) => {
 				request(M.buildUrl({path: '/api.php'}), {
 					method: 'POST',
+					contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 					data: {
 						action: 'edit',
 						summary,

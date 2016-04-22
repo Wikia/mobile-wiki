@@ -109,6 +109,7 @@ CuratedContentEditorItemModel.reopenClass({
 
 		return request(M.buildUrl({path: '/wikia.php'}), {
 			method: 'POST',
+			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			data: completeData,
 		});
 	},

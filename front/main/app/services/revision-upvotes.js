@@ -118,6 +118,7 @@ export default Ember.Service.extend({
 						method: 'removeUpvote'
 					}
 				}), {
+					contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 					data: {
 						id: upvoteId,
 						userId,

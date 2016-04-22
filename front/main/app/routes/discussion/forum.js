@@ -1,9 +1,12 @@
+import Ember from 'ember';
 import DiscussionBaseRoute from './base';
 import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
 import DiscussionForumModel from '../../models/discussion/forum';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
+
+const {inject} = Ember;
 
 export default DiscussionBaseRoute.extend(
 	DiscussionRouteUpvoteMixin,
@@ -12,8 +15,8 @@ export default DiscussionBaseRoute.extend(
 	DiscussionModalDialogMixin,
 	{
 		canModerate: null,
-		discussionSort: Ember.inject.service(),
-		discussionEditor: Ember.inject.service(),
+		discussionSort: inject.service(),
+		discussionEditor: inject.service(),
 
 		forumId: null,
 
