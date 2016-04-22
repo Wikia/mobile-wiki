@@ -1,17 +1,17 @@
 {{#if fullPage}}
 	{{outlet}}
 {{else}}
-	{{smart-banner-android
-		isVisible=smartBannerVisible
-		toggleVisibility=attrs.toggleSmartBanner
-	}}
-
 	{{site-head
 		smartBannerVisible=smartBannerVisible
 		toggleSideNav=attrs.toggleSideNav
 		toggleUserMenu=attrs.toggleUserMenu
 		toggleSiteHeadPinned=attrs.toggleSiteHeadPinned
 		themeBar=themeBar
+	}}
+
+	{{smart-banner-android
+		isVisible=smartBannerVisible
+		toggleVisibility=attrs.toggleSmartBanner
 	}}
 
 	{{side-nav
