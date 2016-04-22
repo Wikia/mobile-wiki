@@ -499,6 +499,11 @@ body.discussions {
 			line-height: $wide-load-newer-button-height;
 			text-align: center;
 			width: 100%;
+
+			&.no-editor {
+				border-bottom: 1px solid $discussion-reply-border-color;
+				margin-bottom: 20px;
+			}
 		}
 	}
 

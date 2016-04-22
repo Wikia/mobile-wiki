@@ -193,6 +193,10 @@ body.dark-theme {
 		.load-newer {
 			&.wide {
 				border-top-color: $dark-discussion-reply-border-color;
+
+				&.no-editor {
+					border-bottom-color: $dark-discussion-reply-border-color;
+				}
 			}
 		}
 
