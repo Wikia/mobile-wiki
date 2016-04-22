@@ -6,6 +6,7 @@ export default Ember.Mixin.create({
 	curatedMainPageData: Ember.inject.service(),
 	ns: Ember.computed.oneWay('curatedMainPageData.ns'),
 	adsContext: Ember.computed.oneWay('curatedMainPageData.adsContext'),
+	mainPageDescription: Ember.computed.oneWay('curatedMainPageData.description'),
 
 	/**
 	 * @returns {void}
@@ -27,6 +28,8 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	afterModel(model, transition) {
+		this._super(...arguments);
+
 		const title = model.get('title'),
 			mainPageController = this.controllerFor('mainPage');
 
@@ -88,26 +91,5 @@ export default Ember.Mixin.create({
 				curatedContent: model
 			}
 		});
-	},
-
-	actions: {
-		/**
-		 * @param {CuratedContentItem} item
-		 * @returns {void}
-		 */
-		openCuratedContentItem(item) {
-			/**
-			 * We have to double encode because Ember's RouteRecognizer does decodeURI while processing path.
-			 * If we didn't do encodeURI then it would do decodeURI on a result of our encodeURIComponent
-			 * and the title would be malformed.
-			 */
-			if (item.type === 'section') {
-				this.transitionTo('mainPageSection', encodeURI(encodeURIComponent(item.label)));
-			} else if (item.type === 'category') {
-				this.transitionTo('mainPageCategory', encodeURI(encodeURIComponent(item.categoryName)));
-			} else {
-				Ember.Logger.error('Can\'t open curated content item with type other than section or category', item);
-			}
-		}
 	}
 });

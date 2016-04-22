@@ -13,11 +13,13 @@ function getURL(params) {
 	const query = {
 		controller: 'MercuryApi',
 		method: 'getPage',
-		title: params.title,
+		// We need to decode title because MW sends encoded content
+		// It's only necessary in case of in-content links
+		title: decodeURIComponent(params.title),
 	};
 
 	if (params.redirect) {
-		query.redirect = `?redirect=${encodeURIComponent(params.redirect)}`;
+		query.redirect = params.redirect;
 	}
 
 	return M.buildUrl({
