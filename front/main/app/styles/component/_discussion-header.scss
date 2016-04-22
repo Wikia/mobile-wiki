@@ -10,11 +10,10 @@ $site-header-height: 50px;
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: $z-8; // drop-downs from top-bar component (which is $z-7) display over the discussion header
+	z-index: $z-6; // drop-downs from top-bar component (which is $z-7) display over the discussion header
 
-	&.un-pinned {
+	&.discussion-headroom-un-pinned {
 		margin-top: 0;
-		z-index: $z-6;
 	}
 
 	.header {
@@ -117,16 +116,6 @@ $site-header-height: 50px;
 	}
 }
 
-.site-body-discussion {
-	margin-top: 50px;
-}
-
-@media #{$desktop-range} {
-	.site-body-discussion {
-		margin-top: 0;
-	}
-}
-
 .discussions {
 	.side-nav .side-nav-menu {
 		@media #{$desktop-range} {
@@ -143,21 +132,12 @@ $site-header-height: 50px;
 	.site-head {
 		max-width: 100%;
 	}
-	.headroom-not-top,
-	.headroom-top {
+	.discussion-headroom-not-top,
+	.discussion-headroom-top {
 		transition: transform .5s, margin .5s;
 	}
 }
 
-@media #{$mobile-range} {
-	.discussions {
-		.site-head {
-			border-bottom: 10px solid transparent;
-			height: $site-header-height + 10px;
-
-			&.headroom-not-top.un-pinned {
-				transform: translateY(-$site-header-height);
-			}
-		}
-	}
+.smart-banner-visible .discussion-headroom-top {
+	margin-top: rem-calc($site-header-height) + $smart-banner-android-height;
 }

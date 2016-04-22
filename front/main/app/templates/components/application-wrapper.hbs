@@ -9,15 +9,15 @@
 		themeBar=themeBar
 	}}
 
-	{{smart-banner-android
-		isVisible=smartBannerVisible
-		toggleVisibility=attrs.toggleSmartBanner
-	}}
-
 	{{side-nav
 		shouldBeVisible=sideNavVisible
 		loadRandomArticle=attrs.loadRandomArticle
 		toggleVisibility=attrs.toggleSideNav
+	}}
+
+	{{smart-banner-android
+		isVisible=smartBannerVisible
+		toggleVisibility=attrs.toggleSmartBanner
 	}}
 	{{#if noMargins}}
 		{{outlet}}
