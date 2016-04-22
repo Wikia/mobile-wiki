@@ -3,7 +3,7 @@ import Ember from 'ember';
 const {Mixin, inject, set} = Ember;
 
 export default Mixin.create({
-	modalDialogService: inject.service('modal-dialog'),
+	modalDialog: inject.service(),
 	/**
 	 * Get loading spinner container.
 	 * On post list it's post, on post-details it's applicationController to overlay entire page
@@ -47,7 +47,7 @@ export default Mixin.create({
 					}
 				);
 
-			this.get('modalDialogService').display(
+			this.get('modalDialog').display(
 				message,
 				i18n.t('main.modal-dialog-delete-all-header', {ns: 'discussion'}),
 				i18n.t('main.delete-all', {ns: 'discussion'}),
