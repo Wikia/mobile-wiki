@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
 
-const {Mixin, inject} = Ember;
+const {Mixin} = Ember;
 
 export default Mixin.create({
 	/**
@@ -120,7 +120,7 @@ export default Mixin.create({
 		}).then(() => {
 			entity.setProperties({
 				'userData.hasReported': true,
-				'isReported': true
+				isReported: true
 			});
 		}).catch(() => {
 			this.setFailedState('editor.post-error-general-error');
