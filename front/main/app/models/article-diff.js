@@ -32,7 +32,7 @@ const ArticleDiffModel = Ember.Object.extend({
 			// See description of summary param
 			summary = [];
 		}
-		return getEditToken(this.title)
+		return getEditToken(this.get('title'))
 			.then((token) => {
 				request(M.buildUrl({path: '/api.php'}), {
 					method: 'POST',
@@ -40,9 +40,9 @@ const ArticleDiffModel = Ember.Object.extend({
 					data: {
 						action: 'edit',
 						summary,
-						title: this.title,
-						undo: this.newId,
-						undoafter: this.oldId,
+						title: this.get('title'),
+						undo: this.get('newId'),
+						undoafter: this.get('oldId'),
 						token,
 						format: 'json'
 					},
