@@ -153,7 +153,7 @@ export default class FacebookRegistration {
 
 			if (status === HttpCodes.OK) {
 				this.tracker.track('facebook-signup-join-wikia-success', trackActions.success);
-				AuthUtils.authSuccessCallback(this.redirect);
+				AuthUtils.authSuccessCallback(this.redirect, JSON.parse(facebookRegistrationXhr.responseText).user_id);
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				this.formErrors.displayValidationErrors(JSON.parse(facebookRegistrationXhr.responseText).errors);
 			} else {

@@ -102,7 +102,7 @@ export default class FacebookConnect extends Login {
 
 			if (status === HttpCodes.OK) {
 				this.tracker.track('facebook-link-existing', trackActions.success);
-				AuthUtils.authSuccessCallback(this.redirect);
+				AuthUtils.authSuccessCallback(this.redirect, JSON.parse(facebookConnectXhr.responseText).user_id);
 			} else {
 				const errors = JSON.parse(facebookConnectXhr.responseText).errors,
 					logoutXhr = new XMLHttpRequest(),

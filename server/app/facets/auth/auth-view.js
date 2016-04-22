@@ -1,4 +1,5 @@
 import {disableCache} from '../../lib/caching';
+import * as authUtils from '../../lib/auth-utils';
 import {parse} from 'url';
 import localSettings from '../../../config/localSettings';
 
@@ -187,6 +188,7 @@ export function getDefaultContext(request) {
 			cookieDomain: localSettings.authCookieDomain,
 			isModal,
 			enableSocialLogger: localSettings.clickstream.social.enable,
+			preferenceServiceUrl: authUtils.getUserPreferencesUrl('/'),
 			socialLoggerUrl: localSettings.clickstream.social.url,
 			viewType,
 			parentOrigin: (isModal ? getOrigin(request) : undefined)

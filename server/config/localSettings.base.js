@@ -174,6 +174,9 @@ const localSettings = {
 		usernameMaxLength: 50,
 		passwordMaxLength: 50
 	},
+	userPreferencesService: {
+		baseAPIPath: 'user-preference'
+	},
 	discuss: {
 		baseAPIPath: 'discussion'
 	},
