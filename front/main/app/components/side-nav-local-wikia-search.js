@@ -128,7 +128,7 @@ export default Ember.Component.extend(
 				 * @returns {void}
 				 */
 				(suggestion, index, suggestionsArr) => {
-					suggestionsArr[index].uri = suggestion.title;
+					suggestionsArr[index].uri = encodeURIComponent(suggestion.title);
 				}
 			);
 
