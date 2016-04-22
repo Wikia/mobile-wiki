@@ -68,7 +68,8 @@ ArticleAddPhotoModel.reopenClass(
 			return getEditToken(model.title)
 				.then((token) => {
 					editData.token = token;
-					this.editContent(editData);
+
+					return this.editContent(editData);
 				});
 		},
 
