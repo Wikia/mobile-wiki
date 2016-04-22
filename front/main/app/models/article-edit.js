@@ -33,11 +33,11 @@ ArticleEditModel.reopenClass(
 							token,
 							format: 'json'
 						},
-					}).then((resp) => {
-						if (resp && resp.edit && resp.edit.result === 'Success') {
-							return resp.edit.result;
-						} else if (resp && resp.error) {
-							throw new Error(resp.error.code);
+					}).then((response) => {
+						if (response && response.edit && response.edit.result === 'Success') {
+							return response.edit.result;
+						} else if (response && response.error) {
+							throw new Error(response.error.code);
 						} else {
 							throw new Error();
 						}
@@ -62,15 +62,15 @@ ArticleEditModel.reopenClass(
 					rvsection: sectionIndex,
 					format: 'json'
 				}
-			}).then((resp) => {
+			}).then((response) => {
 				let pages,
 					revision;
 
-				if (resp.error) {
-					throw new Error(resp.error.code);
+				if (response.error) {
+					throw new Error(response.error.code);
 				}
 
-				pages = Ember.get(resp, 'query.pages');
+				pages = Ember.get(response, 'query.pages');
 
 				if (pages) {
 					// FIXME: MediaWiki API, seriously?
