@@ -20,10 +20,22 @@ $site-head-height: 50; //unitless
 	left: 0;
 	margin: 0 auto;
 	position: fixed;
+	padding-left: 16px;
+	padding-right: 16px;
 	right: 0;
 	text-align: center;
 	top: 0;
 	z-index: $z-site-head;
+
+	&.ember-view {
+		&:before {
+			display: none;
+		}
+
+		&:after {
+			display: none;
+		}
+	}
 
 	.site-logo {
 		// These prevent the Wikia logo element from taking up more vertical
@@ -41,9 +53,11 @@ $site-head-height: 50; //unitless
 	}
 
   	.nav-button {
-		svg {
-		  height: 32px;
-		  width: 32px;
+		position: relative;
+	  	svg {
+		  height: 24px;
+		  width: 25px;
+		  fill: #39414d;
 		}
 	}
 
@@ -83,5 +97,3 @@ $site-head-height: 50; //unitless
 		margin: auto;
 	}
 }
-
-
