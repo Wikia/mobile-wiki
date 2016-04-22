@@ -1,11 +1,19 @@
-<div {{action 'expandSideNav'}} class="side-nav-toggle side-nav-toggle-2016">
+{{#wikia-ui-components/icon-button
+	click=(action 'expandSideNav')
+	class='side-nav-toggle side-nav-toggle-2016'
+	icon= 'nav'}}
 	{{#if shouldDisplayNewBadge}}
 		{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
 	{{/if}}
-	{{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
-</div>
+{{/wikia-ui-components/icon-button}}
+
 <div class="site-logo site-logo-2016">
 	<a {{action 'trackWordmarkClick' preventDefault=false}} href={{wikiaHomepage}}>
 		{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
 	</a>
 </div>
+
+{{wikia-ui-components/icon-button
+	class='site-logo site-logo-2016 icon'
+	icon='delete'
+}}
