@@ -81,11 +81,11 @@ ArticleAddPhotoModel.reopenClass(
 			return request(M.buildUrl({path: '/api.php'}), {
 				method: 'POST',
 				data,
-			}).then((resp) => {
-				if (resp && resp.edit && resp.edit.result === 'Success') {
-					return resp.edit.result;
-				} else if (resp && resp.error) {
-					throw new Error(resp.error.code);
+			}).then((response) => {
+				if (response && response.edit && response.edit.result === 'Success') {
+					return response.edit.result;
+				} else if (response && response.error) {
+					throw new Error(response.error.code);
 				} else {
 					throw new Error();
 				}
@@ -134,11 +134,11 @@ ArticleAddPhotoModel.reopenClass(
 							tempName,
 							token
 						},
-					}).then((resp) => {
-						if (resp && resp.addmediapermanent) {
-							return resp.addmediapermanent;
-						} else if (resp && resp.error) {
-							throw new Error(resp.error.code);
+					}).then((response) => {
+						if (response && response.addmediapermanent) {
+							return response.addmediapermanent;
+						} else if (response && response.error) {
+							throw new Error(response.error.code);
 						} else {
 							throw new Error();
 						}
@@ -167,11 +167,11 @@ ArticleAddPhotoModel.reopenClass(
 						cache: false,
 						contentType: false,
 						processData: false,
-					}).then((resp) => {
-						if (resp && resp.addmediatemporary) {
-							return resp.addmediatemporary;
-						} else if (resp && resp.error) {
-							throw new Error(resp.error.code);
+					}).then((response) => {
+						if (response && response.addmediatemporary) {
+							return response.addmediatemporary;
+						} else if (response && response.error) {
+							throw new Error(response.error.code);
 						} else {
 							throw new Error();
 						}
