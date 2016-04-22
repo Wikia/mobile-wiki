@@ -1,7 +1,8 @@
 // disable portable infobox hero image and title
 
-.pi-hero, .pi-title {
-	display: none;
+.pi-hero,
+.pi-title {
+	display: none !important;
 }
 
 // component
@@ -16,12 +17,8 @@
 		bottom: 12px;
 		left: $article-horizontal-padding;
 		right: $article-horizontal-padding;
-		top: 15px;
+		top: 16px;
 	}
-}
-
-.wiki-page-header__main {
-	text-shadow: 0 0 3px rgba(0, 0, 0, .8);
 }
 
 %wiki-page-header-element {
@@ -35,7 +32,13 @@
 	@extend %wiki-page-header-element;
 
 	font-size: 12px;
-	margin-bottom: 1.125em;
+
+	svg {
+		fill: #fff;
+		height: 16px;
+		vertical-align: middle;
+		width: 11px;
+	}
 }
 
 .wiki-page-header__site-link {
@@ -101,7 +104,6 @@
 .wiki-page-header.has-action .wiki-page-header__action {
 	align-self: flex-end;
 	flex: 0;
-	margin-bottom: .4rem;
 	text-align: center;
 
 	.icon {

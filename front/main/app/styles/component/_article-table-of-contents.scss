@@ -1,14 +1,16 @@
 // Instance of collapsible-menu component
 .table-of-contents {
 	font-size: $type-smallest;
-	margin-bottom: 1.125rem;
+	margin-bottom: 28px;
+	margin-top: 10px;
 
 	.collapsible-menu {
 		border-top: 0;
 	}
 
 	.title {
-		padding: rem-calc(5px) rem-calc(40px);
+		color: $color-blue-brand;
+		padding: 10px 0 4px;
 	}
 
 	ol {
