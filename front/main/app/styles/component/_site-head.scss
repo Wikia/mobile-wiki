@@ -40,6 +40,13 @@ $site-head-height: 50; //unitless
 		}
 	}
 
+  	.nav-button {
+		svg {
+		  height: 32px;
+		  width: 32px;
+		}
+	}
+
 	.avatar {
 		float: right;
 		position: relative;
@@ -76,3 +83,5 @@ $site-head-height: 50; //unitless
 		margin: auto;
 	}
 }
+
+
