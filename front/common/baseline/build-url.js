@@ -129,7 +129,6 @@ if (typeof window.M === 'undefined') {
 
 	/**
 	 * @param {string} [path='']
-	 * @param {Object} [query={}]
 	 * @returns {string}
 	 */
 	M.getDiscussionServiceUrl = function (path = '') {

@@ -202,6 +202,10 @@ export default Ember.Component.extend(
 			return '';
 		},
 
+		/**
+		 * @param {{context: string, type: string}} attrs
+		 * @returns {Object}
+		 */
 		handleAttrsContext(attrs) {
 			/**
 			 * Ember has its own context attribute, that is why we have to use different attribute name
@@ -219,6 +223,7 @@ export default Ember.Component.extend(
 				if (attrs.context === 'infobox' && attrs.type === 'video') {
 					attrs.showTitle = false;
 				}
+
 				attrs.mediaContext = attrs.context;
 				delete attrs.context;
 			}
@@ -226,14 +231,20 @@ export default Ember.Component.extend(
 			return attrs;
 		},
 
+		/**
+		 * @param {string} name
+		 * @param {Object} attrs
+		 * @param {Object} element
+		 * @returns {{name: string, attrs: Object, element: Object}}
+		 */
 		getAttributesForMedia({name, attrs, element}) {
 			const media = this.get('media.media');
 
 			if (attrs.ref >= 0 && media && media[attrs.ref]) {
 				if (name === 'article-media-thumbnail' || name === 'portable-infobox-hero-image') {
-					attrs = Ember.$.extend(attrs, media[attrs.ref]);
-
-					attrs = this.handleAttrsContext(attrs);
+					attrs = this.handleAttrsContext(
+						Ember.$.extend(attrs, media[attrs.ref])
+					);
 				} else if (name === 'article-media-gallery' || name === 'article-media-linked-gallery') {
 					attrs = Ember.$.extend(attrs, {
 						items: media[attrs.ref]
