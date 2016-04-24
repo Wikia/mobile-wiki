@@ -19,15 +19,16 @@ export default Ember.Component.extend({
 				value: this.get('model.videos'),
 			},
 			{
-				label: i18n.t('main.discussions-header-title', {ns:'discussion'}),
+				label: i18n.t('main.discussions-header-title', {ns: 'discussion'}),
 				routeName: 'discussion.index',
+				trackingCategory: 'main-page',
+				trackingLabel:  'discussions-clicked',
 				value: this.get('model.discussions'),
 			}
 		];
 	}),
-	actions: {
-		discussionsClicked() {
-			track(trackActions.articleToDiscussions);
-		}
+	init() {
+		this._super();
+		console.log(this.get('model'));
 	}
 });
