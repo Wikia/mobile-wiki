@@ -1,13 +1,13 @@
 {{#unless queryParams.noexternals}}
 	{{#if optimizelyScript}}
-		<link rel="dns-prefetch" href="{{optimizelyScript}}">
+		<link data-server-head-tags-static rel="dns-prefetch" href="{{optimizelyScript}}">
 	{{/if}}
-	<link rel="dns-prefetch" href="{{server.gaUrl}}">
-	<link rel="dns-prefetch" href="http://edge.quantserve.com">
-	<link rel="dns-prefetch" href="http://secure-dcr-cert.imrworldwide.com/">
-	<link rel="dns-prefetch" href="http://b.scorecardresearch.com">
-	<link rel="dns-prefetch" href="https://script.ioam.de/iam.js">
+	<link data-server-head-tags-static rel="dns-prefetch" href="{{server.gaUrl}}">
+	<link data-server-head-tags-static rel="dns-prefetch" href="http://edge.quantserve.com">
+	<link data-server-head-tags-static rel="dns-prefetch" href="http://secure-dcr.imrworldwide.com/">
+	<link data-server-head-tags-static rel="dns-prefetch" href="http://b.scorecardresearch.com">
+	<link data-server-head-tags-static rel="dns-prefetch" href="https://script.ioam.de/iam.js">
 	{{#if qualarooScript}}
-		<link rel="dns-prefetch" href="{{qualarooScript}}">
+		<link data-server-head-tags-static rel="dns-prefetch" href="{{qualarooScript}}">
 	{{/if}}
 {{/unless}}
