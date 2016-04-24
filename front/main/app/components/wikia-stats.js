@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	classNames: ['wikia-stats'],
@@ -22,13 +21,9 @@ export default Ember.Component.extend({
 				label: i18n.t('main.discussions-header-title', {ns: 'discussion'}),
 				routeName: 'discussion.index',
 				trackingCategory: 'main-page',
-				trackingLabel:  'discussions-clicked',
+				trackingLabel: 'discussions-clicked',
 				value: this.get('model.discussions'),
 			}
 		];
-	}),
-	init() {
-		this._super();
-		console.log(this.get('model'));
-	}
+	})
 });
