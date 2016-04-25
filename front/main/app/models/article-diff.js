@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 import request from 'ember-ajax/request';
+import {form} from '../utils/content-type';
 
 const ArticleDiffModel = Ember.Object.extend({
 	anonymous: Ember.computed.equal('userId', 0),
@@ -36,7 +37,7 @@ const ArticleDiffModel = Ember.Object.extend({
 			.then((token) => {
 				request(M.buildUrl({path: '/api.php'}), {
 					method: 'POST',
-					contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+					contentType: form,
 					data: {
 						action: 'edit',
 						summary,

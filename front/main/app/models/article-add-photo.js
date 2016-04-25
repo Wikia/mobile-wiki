@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 import request from 'ember-ajax/request';
+import {form} from '../utils/content-type';
 
 /**
  * @typedef {Object} FileNameSeparated
@@ -80,6 +81,7 @@ ArticleAddPhotoModel.reopenClass(
 		editContent(data) {
 			return request(M.buildUrl({path: '/api.php'}), {
 				method: 'POST',
+				contentType: form,
 				data,
 			}).then((response) => {
 				if (response && response.edit && response.edit.result === 'Success') {
@@ -127,7 +129,7 @@ ArticleAddPhotoModel.reopenClass(
 				.then((token) => {
 					return request(M.buildUrl({path: '/api.php'}), {
 						method: 'POST',
-						contentType: false,
+						contentType: form,
 						data: {
 							action: 'addmediapermanent',
 							format: 'json',
@@ -166,7 +168,7 @@ ArticleAddPhotoModel.reopenClass(
 						method: 'POST',
 						data: formData,
 						cache: false,
-						contentType: false,
+						contentType: form,
 						processData: false,
 					}).then((response) => {
 						if (response && response.addmediatemporary) {
