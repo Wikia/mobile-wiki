@@ -1,9 +1,8 @@
-$preview-size : 20rem;
-$preview-photo-size: 19.80rem;
-$upload-icon-size: 2.2rem;
+$preview-size: 20rem;
+$preview-photo-size: 19.8rem;
+$upload-icon-size: 1.3rem;
 
 .preview-body {
-
 	.preview-container {
 		background-color: $color-blue-gray-light;
 		border: 1px solid $color-blue-gray-dark;
@@ -18,12 +17,12 @@ $upload-icon-size: 2.2rem;
 		.preview-photo {
 			height: auto;
 			left: 50%;
-			max-height:$preview-photo-size;
-			max-width:$preview-photo-size;
+			max-height: $preview-photo-size;
+			max-width: $preview-photo-size;
 			position: absolute;
-			top: 50%;	
+			top: 50%;
 			transform: translate(-50%, -50%);
-			width: auto;	
+			width: auto;
 		}
 	}
 
@@ -34,8 +33,8 @@ $upload-icon-size: 2.2rem;
 
 		.photo-name {
 			font-weight: bold;
-			margin-bottom: 0.6rem;
-			margin-top:1rem;
+			margin-bottom: .6rem;
+			margin-top: 1rem;
 		}
 
 	}
@@ -44,30 +43,30 @@ $upload-icon-size: 2.2rem;
 .upload-photo {
 	display: inline-block;
 	height: $upload-icon-size;
-	margin-left: 0.8rem;
-	overflow:hidden;
+	margin-left: .8rem;
+	overflow: hidden;
 	position: relative;
 	vertical-align: top;
 	width: $upload-icon-size;
 
 	&.zero {
 		height: $upload-icon-size;
-		margin-left: 0.55rem;
+		margin-left: .55rem;
 	}
 
 	.icon {
 		bottom: 0;
 		height: $upload-icon-size;
-		position:absolute;
+		position: absolute;
 		right: 0;
 		width: $upload-icon-size;
 	}
 
-	input {	
+	input {
 		height: 100%;
 		margin: 0;
 		opacity: 0;
-		position:absolute;
+		position: absolute;
 		right: 0;
 		top: 0;
 		width: $upload-icon-size;
