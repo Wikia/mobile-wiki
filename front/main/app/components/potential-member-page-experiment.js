@@ -1,29 +1,37 @@
 import Ember from 'ember';
-import {track, trackActions} from 'common/utils/track';
+import {getDomain} from '../utils/domain';
 
 export default Ember.Component.extend({
-	classNames: ['potential-member-page-experiment'],
 	currentUser: Ember.inject.service(),
-
-	experimentEnabled: Ember.computed('currentUser', function () {
+	dismissed: Ember.computed('dismissCookieName', function () {
+		return Ember.$.cookie(this.get('dismissCookieName'));
+	}),
+	dismissCookieName: 'potential-member-experiment-dismiss',
+	experimentEnabled: Ember.computed('currentUser', 'dismissed', function () {
 		const contentLanguage = Ember.get(Mercury, 'wiki.language.content'),
 			userId = this.get('currentUser').get('userId');
 
-		return contentLanguage === 'en' && userId;
+		return contentLanguage === 'en' && userId && !this.get('dismissed');
 	}),
-	trackClick(label) {
-		track({
-			action: trackActions.click,
-			category: this.trackingCategory,
-			label
-		});
+
+	/**
+	 * Sets dismissed cookie for provided number for days and hides banner
+	 * @param {number} days
+	 * @returns {void}
+	 */
+	dismiss(days) {
+		Ember.$.cookie(this.dismissCookieName, 1, {expires: days, path: '/', domain: getDomain()});
+		this.set('dismissed', 1);
 	},
-	trackingCategory: 'potential-member-experiment',
 
 	actions: {
 		learnMore() {
-			this.trackClick('entry-point');
+			this.dismiss(30);
 			window.location.assign('http://community.wikia.com/wiki/Tips_on_Getting_Started');
-		}
+		},
+
+		postpone() {
+			this.dismiss(1);
+		},
 	}
 });
