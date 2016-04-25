@@ -71,7 +71,7 @@ export default Ember.Component.extend(
 		 */
 		trackOpening: Ember.on('didInsertElement', function () {
 			if (this.get('enableDiscussionTracker')) {
-				discussionTrack(trackActions.PostShare);
+				discussionTrack(discussionTrackActions.PostShare);
 			}
 		}),
 
