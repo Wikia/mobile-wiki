@@ -9,5 +9,11 @@ export default Ember.Component.extend({
 			userId = this.get('currentUser').get('userId');
 
 		return contentLanguage === 'en' && userId;
-	})
+	}),
+
+	actions: {
+		learnMore() {
+			window.location.assign('http://community.wikia.com/wiki/Tips_on_Getting_Started');
+		}
+	}
 });
