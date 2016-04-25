@@ -15,7 +15,7 @@
     "headroom.js": "0.7.0",
     "i18next": "1.7.4",
     "jquery": "2.1.4",
-    "jquery.cookie": "1.4.1",
+    "jquery.cookie": "rogatty/jquery-cookie#1.4.1",
     "numeral": "1.5.3",
     "ponto": "Wikia/ponto#develop",
     "qunit": "1.20.0",
@@ -28,7 +28,8 @@
   },
   "resolutions": {
     "ember": "2.5.0",
+    "ember-qunit-notifications": "0.1.0",
     "jquery": "2.1.4",
-    "ember-qunit-notifications": "0.1.0"
+    "jquery.cookie": "rogatty/jquery-cookie#1.4.1"
   }
 }
