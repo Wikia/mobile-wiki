@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
 import request from 'ember-ajax/request';
+import {form} from '../utils/content-type';
 
 const InfoboxBuilderModel = Ember.Object.extend({
 	/**
@@ -322,6 +323,7 @@ const InfoboxBuilderModel = Ember.Object.extend({
 			.then((token) => {
 				return request(M.buildUrl({path: '/wikia.php'}), {
 					method: 'POST',
+					contentType: form,
 					data: {
 						controller: 'PortableInfoboxBuilderController',
 						method: 'publish',
