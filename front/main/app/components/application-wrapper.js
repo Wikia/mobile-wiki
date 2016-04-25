@@ -26,22 +26,23 @@ export default Ember.Component.extend({
 	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
 
+	noScroll: false,
+	scrollLocation: null,
+	smartBannerVisible: false,
+	firstRender: true,
+	showNavigationDrawer: false,
+
 	verticalClass: Ember.computed(() => {
 		const vertical = Ember.get(Mercury, 'wiki.vertical');
 
 		return `${vertical}-vertical`;
 	}),
 
-	noScroll: false,
-	scrollLocation: null,
-	smartBannerVisible: false,
-	firstRender: true,
-
-	noScrollObserver: Ember.observer('noScroll', function () {
+	noScrollObserver: Ember.observer('noScroll', 'showNavigationDrawer', function () {
 		const $body = Ember.$('body');
 		let scrollLocation;
 
-		if (this.get('noScroll')) {
+		if (this.get('noScroll') || this.get('showNavigationDrawer')) {
 			scrollLocation = $body.scrollTop();
 
 			this.set('scrollLocation', scrollLocation);
@@ -75,6 +76,16 @@ export default Ember.Component.extend({
 				name: 'appRendered',
 				type: 'mark'
 			});
+		}
+	},
+
+	actions: {
+		/**
+		 * {void}
+		 */
+		toggleNavigationDrawer() {
+			this.toggleProperty('showNavigationDrawer');
+			this.get('toggleSideNav')(this.get('showNavigationDrawer'));
 		}
 	},
 
@@ -164,5 +175,5 @@ export default Ember.Component.extend({
 				this.sendAction('handleLink', target);
 			}
 		}
-	},
+	}
 });

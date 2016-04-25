@@ -1,12 +1,4 @@
 <div class='side-nav-menu'>
-	<div class="side-nav-menu__header">
-		<a class="close" {{action 'closeButtonClick'}} href="#">
-			{{svg 'close' viewBox='0 0 18 18' class='icon icon--close'}}
-		</a>
-		<a class="wordmark" {{action 'wordmarkClick' preventDefault=false}} href={{wikiaHomepage}}>
-			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
-		</a>
-	</div>
 	{{component
 		globalNavContent
 		class='side-nav-menu__contents'

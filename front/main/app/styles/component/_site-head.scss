@@ -4,8 +4,6 @@ $z-header: $z-6;
 	margin-top: $icon-site-head-width;
 }
 
-$site-head-height: 50; //unitless
-
 .site-head {
 	@extend .row;
 	@extend .small-12;
@@ -15,7 +13,7 @@ $site-head-height: 50; //unitless
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
-	height: rem-calc($site-head-height);
+	height: $site-head-height;
 	justify-content: space-between;
 	left: 0;
 	margin: 0 auto;
@@ -37,12 +35,21 @@ $site-head-height: 50; //unitless
 		}
 	}
 
+	.site-head-icon-nav {
+		order: 1;
+	}
+
+	.site-head-icon-search {
+		order: 2;
+	}
+
 	.site-logo {
 		// These prevent the Wikia logo element from taking up more vertical
 		// space than it should, potentially affecting placement of elements
 		// beneath it.
 		height: rem-calc(50);
 		margin: 0 3.75rem;
+		order: 2;
 		overflow: hidden;
 
 		svg {
@@ -52,12 +59,12 @@ $site-head-height: 50; //unitless
 		}
 	}
 
-  	.nav-button {
+	.nav-button {
 		position: relative;
-	  	svg {
-		  height: 24px;
-		  width: 25px;
-		  fill: #39414d;
+		svg {
+			height: 24px;
+			width: 25px;
+			fill: #39414d;
 		}
 	}
 

@@ -1,19 +1,21 @@
-{{#wikia-ui-components/icon-button
-	click=(action 'expandSideNav')
-	class='nav-button'
-	icon= 'hamburger'}}
-	{{#if shouldDisplayNewBadge}}
-		{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
-	{{/if}}
-{{/wikia-ui-components/icon-button}}
-
 <div class="site-logo site-logo-2016">
 	<a {{action 'trackWordmarkClick' preventDefault=false}} href={{wikiaHomepage}}>
 		{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
 	</a>
 </div>
 
+{{#wikia-ui-components/icon-button
+	click=(action 'siteHeadIconCLick' menuIcon)
+	class='nav-button site-head-icon-nav'
+	icon='hamburger'
+}}
+	{{#if shouldDisplayNewBadge}}
+		{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
+	{{/if}}
+{{/wikia-ui-components/icon-button}}
+
 {{wikia-ui-components/icon-button
-	class='nav-button'
-	icon='magnifying-glass'
+	click=(action 'siteHeadIconCLick' searchIcon)
+	class='nav-button site-head-icon-search'
+	icon='magnifying-glass '
 }}

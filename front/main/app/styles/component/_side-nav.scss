@@ -16,15 +16,16 @@
 }
 
 .side-nav .side-nav-menu {
-	background: #39414d;
-	color: #fff;
+	background: $color-gray-dark;
+	color: $white;
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+	padding-top: $site-head-height;
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: $z-side-nav;
+	z-index: $z-site-head - 1;
 
 	a:hover, a:focus {
 		color: inherit;
