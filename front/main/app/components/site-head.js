@@ -1,10 +1,8 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 import HeadroomMixin from '../mixins/headroom';
-import {track, trackActions, trackExperiment} from 'common/utils/track';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	HeadroomMixin,
 	{
 		classNames: ['site-head', 'border-theme-color'],
@@ -21,38 +19,23 @@ export default Ember.Component.extend(
 			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
 		}),
 
-		// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-		// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-		headroomEnabled: Ember.computed('navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', function () {
-			return !this.get('navABTestIsBarMenuIcon') && !this.get('navABTestIsBarDropdownIcon');
-		}),
-
-		shouldDisplaySearchIcon: Ember.computed.or(
-			'navABTestIsBarMenuIcon', 'navABTestIsBarDropdownIcon', 'navABTestIsFabMenuIcon'),
-
-		shouldDisplayHamburgerIcon: Ember.computed.or(
-			'navABTestIsFabSearchIcon', 'navABTestIsBarMenuIcon', 'navABTestIsButtonBarMenu'),
-
-		shouldDisplayDropdownIcon: Ember.computed.alias('navABTestIsBarDropdownIcon'),
-
 		actions: {
 			/**
 			 * @returns {void}
 			 */
 			expandSideNav() {
 				if (this.get('shouldDisplayNewBadge')) {
-					this.trackClick('recent-wiki-activity-blue-dot', 'open-navigation');
-				}
-
-				if (this.get('navABTestIsControlGroup')) {
-					trackExperiment(this.get('navABTestExperimentName'), {
+					track({
 						action: trackActions.click,
-						category: 'entrypoint',
-						label: 'site-head-icon'
+						category: 'recent-wiki-activity-blue-dot',
+						label: 'open-navigation'
 					});
 				}
-
-				this.trackClick('side-nav', 'expanded');
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: 'expanded'
+				});
 				this.sendAction('toggleSideNav', true);
 			},
 
@@ -63,25 +46,21 @@ export default Ember.Component.extend(
 				this.sendAction('toggleUserMenu', true);
 			},
 
-			// temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-			// TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
 			/**
 			 * @returns {void}
 			 */
-			clickWordMark() {
-				trackExperiment(this.get('navABTestExperimentName'), {
+			trackWordmarkClick() {
+				track({
 					action: trackActions.click,
-					category: 'entrypoint',
-					label: 'wordmark-clicked'
+					category: 'wordmark'
 				});
-
-				this.send('trackClick', 'wordmark');
 			}
 		},
 
 		pinnedObserver: Ember.observer('pinned', function () {
 			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
 		}),
+
 		didRender() {
 			if (this.get('shouldDisplayNewBadge')) {
 				track({

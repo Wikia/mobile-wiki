@@ -1,43 +1,64 @@
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import ajaxCall from '../../utils/ajax-call';
-import DiscussionContributor from './domain/contributor';
 import DiscussionContributors from './domain/contributors';
 import DiscussionPost from './domain/post';
 import DiscussionReply from './domain/reply';
 import {track, trackActions} from '../../utils/discussion-tracker';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
-	pivotId: null,
-	replyLimit: 10,
+	links: {
+		next: null,
+		previous: null,
+	},
+	repliesLimit: 10,
+	threadId: null,
 
 	/**
+	 * @param {Object} data - result from xhr request
+	 * @param {Boolean} isNextPageCall - is this a request for the next page
+	 *
+	 * @returns {void}
+	 */
+	onLoadAnotherPageSuccess(data, isNextPageCall) {
+		const newReplies = Ember.get(data, '._embedded.doc:posts')
+				.map((reply) => {
+					reply.threadCreatedBy = this.get('data.createdBy');
+					return DiscussionReply.create(reply);
+				}).reverse();
+		let url;
+
+		if (isNextPageCall) {
+			newReplies.get('firstObject').set('scrollToMark', true);
+			this.get('data.replies').pushObjects(newReplies);
+
+			url = Ember.getWithDefault(data, '_links.previous.0.href', null);
+			this.setProperties({
+				'links.next': url,
+				'data.isNextPage': !Ember.isEmpty(url),
+			});
+		} else {
+			this.get('data.replies').unshiftObjects(newReplies);
+
+			url = Ember.getWithDefault(data, '_links.next.0.href', null);
+			this.setProperties({
+				'links.previous': url,
+				'data.isPreviousPage': !Ember.isEmpty(url),
+			});
+		}
+	},
+
+	/**
+	 * @param {String} serviceUrl - service url path to call
+	 * @param {Boolean} isNextPageCall - is this a request for the next page
+	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadNextPage() {
+	loadAnotherPage(serviceUrl, isNextPageCall) {
 		return ajaxCall({
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${this.postId}`, {
-				limit: this.get('replyLimit'),
-				page: this.get('data.page') + 1,
-				pivot: this.get('pivotId'),
-				responseGroup: 'full',
-				sortDirection: 'descending',
-				sortKey: 'creation_date',
-				viewableOnly: false,
-			}),
+			url: M.getDiscussionServiceUrl(serviceUrl),
 			success: (data) => {
-				this.get('data.replies').unshiftObjects(
-					// Note that we have to reverse the list we get back because how we're displaying
-					// replies on the page; we want to see the newest replies first but show them
-					// starting with oldest of the current list at the top.
-					Ember.get(data, '._embedded.doc:posts').reverse()
-						.map((reply) => {
-							reply.threadCreatedBy = this.get('data.createdBy');
-							return DiscussionReply.create(reply);
-						})
-				);
-
-				this.incrementProperty('data.page');
+				this.onLoadAnotherPageSuccess(data, isNextPageCall);
 			},
 			error: (err) => {
 				this.handleLoadMoreError(err);
@@ -46,13 +67,27 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	},
 
 	/**
-	 * @param {object} replyData
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	loadPreviousPage() {
+		return this.loadAnotherPage(this.get('links.previous'), false);
+	},
+
+	/**
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	loadNextPage() {
+		return this.loadAnotherPage(this.get('links.next'), true);
+	},
+
+	/**
+	 * @param {Object} replyData
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	createReply(replyData) {
 		this.setFailedState(null);
-		replyData.threadId = this.get('postId');
+		replyData.threadId = this.get('threadId');
 
 		return ajaxCall({
 			data: JSON.stringify(replyData),
@@ -83,77 +118,75 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	 */
 	setNormalizedData(apiData) {
 		const normalizedData = DiscussionPost.createFromThreadData(apiData),
-			apiRepliesData = Ember.getWithDefault(apiData, '_embedded.doc:posts', []);
-
-		let contributors,
-			normalizedRepliesData,
-			pivotId;
-
-		normalizedRepliesData = apiRepliesData.map((replyData) => {
-			replyData.threadCreatedBy = normalizedData.get('createdBy');
-			return DiscussionReply.create(replyData);
-		});
+			apiRepliesData = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
+			normalizedRepliesData = apiRepliesData.map((replyData) => {
+				replyData.threadCreatedBy = normalizedData.get('createdBy');
+				return DiscussionReply.create(replyData);
+			});
 
 		if (normalizedRepliesData.length) {
-			pivotId = normalizedRepliesData[0].id;
-
 			// We need oldest replies displayed first
 			normalizedRepliesData.reverse();
 		}
 
-		// contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors[0]'));
-		// Work in Progress: szpachla until SOC-1586 is done
-		contributors = DiscussionContributors.create({
-			count: parseInt(apiData.postCount, 10),
-			userInfo: normalizedRepliesData.map((reply) => DiscussionContributor.create(reply.createdBy)),
-		});
-
 		normalizedData.setProperties({
-			canModerate: Ember.getWithDefault(normalizedRepliesData, '0.userData.permissions.canModerate', false),
-			contributors,
+			canModerate: normalizedRepliesData.getWithDefault('firstObject.userData.permissions.canModerate', false),
+			contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 			forumId: apiData.forumId,
-			page: 0,
+			isNextPage: !Ember.isEmpty(this.get('links.next')),
+			isPreviousPage: !Ember.isEmpty(this.get('links.previous')),
 			replies: normalizedRepliesData,
 			repliesCount: parseInt(apiData.postCount, 10),
 		});
 
-		this.setProperties({
-			data: normalizedData,
-			pivotId
-		});
+		this.set('data', normalizedData);
 	}
 });
 
 DiscussionPostModel.reopenClass({
 	/**
 	 * @param {number} wikiId
-	 * @param {number} postId
+	 * @param {number} threadId
+	 * @param {number} [replyId=null]
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, postId) {
+	find(wikiId, threadId, replyId = null) {
 		const postInstance = DiscussionPostModel.create({
-			wikiId,
-			postId
-		});
+				wikiId,
+				threadId,
+				replyId
+			}),
+			urlPath = replyId ? `/${wikiId}/permalinks/posts/${replyId}` : `/${wikiId}/threads/${threadId}`;
 
 		return ajaxCall({
 			context: postInstance,
-			url: M.getDiscussionServiceUrl(`/${wikiId}/threads/${postId}`, {
-				limit: postInstance.replyLimit,
+			data: {
+				limit: postInstance.get('repliesLimit'),
 				responseGroup: 'full',
 				sortDirection: 'descending',
 				sortKey: 'creation_date',
 				viewableOnly: false
-			}),
+			},
+			url: M.getDiscussionServiceUrl(urlPath),
 			success: (data) => {
+				if (replyId) {
+					data.permalinkedReplyId = replyId;
+				}
+
+				postInstance.setProperties({
+					// this is not a mistake - we have descending order
+					'links.previous': Ember.getWithDefault(data, '_links.next.0.href', null),
+					'links.next': Ember.getWithDefault(data, '_links.previous.0.href', null)
+				});
+
 				postInstance.setNormalizedData(data);
 			},
 			error: (err) => {
 				postInstance.setErrorProperty(err);
 			}
 		});
-	}
+	},
 });
 
 export default DiscussionPostModel;

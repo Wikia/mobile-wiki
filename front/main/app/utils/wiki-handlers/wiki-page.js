@@ -9,13 +9,22 @@ import Ember from 'ember';
  * @returns {string}
  */
 function getURL(params) {
-	let redirect = '';
+	const query = {
+		controller: 'MercuryApi',
+		method: 'getPage',
+		// We need to decode title because MW sends encoded content
+		// It's only necessary in case of in-content links
+		title: decodeURIComponent(params.title),
+	};
 
 	if (params.redirect) {
-		redirect += `?redirect=${encodeURIComponent(params.redirect)}`;
+		query.redirect = params.redirect;
 	}
 
-	return `${M.prop('apiBase')}/article/${params.title}${redirect}`;
+	return M.buildUrl({
+		path: '/wikia.php',
+		query
+	});
 }
 
 /**

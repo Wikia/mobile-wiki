@@ -1,21 +1,10 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
-import MetaTagsMixin from '../mixins/meta-tags';
 import RecentWikiActivityModel from '../models/recent-wiki-activity';
+import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 
-export default Ember.Route.extend(MetaTagsMixin, {
+export default Ember.Route.extend(HeadTagsDynamicMixin, {
 	revisionUpvotes: Ember.inject.service(),
-
-	/**
-	 * @returns {{name: {robots: string}}}
-	 */
-	meta() {
-		return {
-			name: {
-				robots: 'noindex, follow'
-			}
-		};
-	},
 
 	/**
 	 * Returns a Promise object with a list
@@ -27,9 +16,20 @@ export default Ember.Route.extend(MetaTagsMixin, {
 	},
 
 	afterModel(recentActivity) {
+		this._super(...arguments);
+
 		recentActivity.recentChanges.forEach((item) => {
 			this.get('revisionUpvotes').initUpvotes(item.revid, item.upvotes);
 		});
+	},
+
+	/**
+	 * Custom implementation of HeadTagsMixin::setDynamicHeadTags
+	 * @param {Object} model, this is model object from route::afterModel() hook
+	 * @returns {void}
+	 */
+	setDynamicHeadTags(model) {
+		this._super(model, {robots: 'noindex,follow'});
 	},
 
 	actions: {

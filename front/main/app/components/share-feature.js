@@ -1,10 +1,10 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
 import LanguagesMixin from '../mixins/languages';
-import {track as discussionTrack, getTrackActionForShareNetwork, trackActions} from '../utils/discussion-tracker';
+import {track as discussionTrack, getTrackActionForShareNetwork, trackActions as discussionTrackActions}
+	from '../utils/discussion-tracker';
+import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	LanguagesMixin,
 	{
 		classNames: ['share-feature'],
@@ -214,7 +214,11 @@ export default Ember.Component.extend(
 
 				let link;
 
-				this.trackClick('share', network);
+				track({
+					action: trackActions.click,
+					category: 'share',
+					label: network
+				});
 
 				if (this.get('enableDiscussionTracker')) {
 					discussionTrack(getTrackActionForShareNetwork(network));

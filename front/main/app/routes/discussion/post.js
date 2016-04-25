@@ -16,7 +16,7 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
-			return DiscussionPostModel.find(Mercury.wiki.id, params.postId);
+			return DiscussionPostModel.find(Mercury.wiki.id, params.postId, params.replyId);
 		},
 
 		/**
@@ -25,6 +25,8 @@ export default DiscussionBaseRoute.extend(
 		 */
 		afterModel(model) {
 			let title = model.get('title');
+
+			this._super(...arguments);
 
 			if (!title) {
 				title = i18n.t('main.share-default-title', {siteName: Mercury.wiki.siteName, ns: 'discussion'});
@@ -57,6 +59,17 @@ export default DiscussionBaseRoute.extend(
 			this._super();
 		},
 
+		/**
+		 * Custom implementation of HeadTagsMixin::setDynamicHeadTags
+		 * @param {Object} model, this is model object from route::afterModel() hook
+		 * @returns {void}
+		 */
+		setDynamicHeadTags(model) {
+			this._super(model, {
+				appArgument: `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}`}
+			);
+		},
+
 		actions: {
 			/**
 			 * Triggers new reply creation on a model
@@ -64,23 +77,24 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			create(replyData) {
-				this.modelFor('discussion.post').createReply(replyData);
+				this.modelFor(this.get('routeName')).createReply(replyData);
 			},
 
 			/**
 			 * Load more replies
 			 * @returns {void}
 			 */
-			loadMoreComments() {
-				const model = this.modelFor('discussion.post');
+			loadOlderReplies() {
+				this.modelFor(this.get('routeName')).loadPreviousPage();
+			},
 
-				model.loadNextPage().then(() => {
-					if (model.get('minorError')) {
-						// Hide more posts button when error occurred
-						model.set('postCount', model.get('replies.length'));
-					}
-				});
-			}
+			/**
+			 * Load more replies
+			 * @returns {void}
+			 */
+			loadNewerReplies() {
+				this.modelFor(this.get('routeName')).loadNextPage();
+			},
 		}
 	}
 );

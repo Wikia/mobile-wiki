@@ -22,12 +22,11 @@ export default Ember.Component.extend({
 			!this.get('post.isDeleted');
 	}),
 
-	canLock: Ember.computed('isLockable', 'post.isLocked', 'post.userData.permissions.canDelete', function () {
-		// @ToDo use canLock for this -> SOC-2144
-		return this.get('isLockable') && !this.get('post.isLocked') && this.get('post.userData.permissions.canDelete');
+	canLock: Ember.computed('isLockable', 'post.isLocked', 'post.userData.permissions.canLock', function () {
+		return this.get('isLockable') && !this.get('post.isLocked') && this.get('post.userData.permissions.canLock');
 	}),
 
-	canUnlock: Ember.computed.and('isLockable', 'post.isLocked', 'post.userData.permissions.canDelete'),
+	canUnlock: Ember.computed.and('isLockable', 'post.isLocked', 'post.userData.permissions.canUnlock'),
 
 	/**
 	 * @returns {void}

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import TrackClickMixin from '../mixins/track-click';
+import {track, trackActions} from 'common/utils/track';
 
 /**
  * Type for search suggestion
@@ -12,7 +12,6 @@ import TrackClickMixin from '../mixins/track-click';
  */
 
 export default Ember.Component.extend(
-	TrackClickMixin,
 	{
 		query: '',
 
@@ -48,28 +47,13 @@ export default Ember.Component.extend(
 		// key: query string, value: Array<SearchSuggestionItem>
 		cachedResults: {},
 
-		/**
-		 * We should never change properties on components during
-		 * didRender because it causes significant performance degradation.
-		 *
-		 * This is temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-		 * TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-		 * @returns {void}
-		 */
-		didRender() {
-			this._super(...arguments);
-			if (this.get('shouldFocusInput')) {
-				Ember.run.scheduleOnce('afterRender', this, 'focusSearchInput');
-			}
-		},
-
-		focusSearchInput() {
-			this.$('.side-search__input').get(0).focus();
-		},
-
 		actions: {
 			enter(value) {
-				this.trackClick('side-nav', 'search-open-special-search');
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: 'search-open-special-search'
+				});
 				window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${value}&fulltext=Search`);
 			},
 
@@ -84,11 +68,15 @@ export default Ember.Component.extend(
 
 			clearSearch() {
 				this.set('query', null);
-				this.focusSearchInput();
+				this.$('.side-search__input').focus();
 			},
 
 			searchSuggestionClick() {
-				this.trackClick('side-nav', 'search-open-suggestion-link');
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: 'search-open-suggestion-link'
+				});
 				this.get('collapse')();
 			}
 		},
@@ -164,7 +152,14 @@ export default Ember.Component.extend(
 		 * @returns {string}
 		 */
 		getSearchURI(query) {
-			return `${M.prop('apiBase')}/search/${encodeURIComponent(query)}`;
+			return M.buildUrl({
+				path: '/wikia.php',
+				query: {
+					controller: 'MercuryApi',
+					method: 'getSearchSuggestions',
+					query
+				}
+			});
 		},
 
 		/**
