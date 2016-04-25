@@ -33,7 +33,7 @@ export default Ember.Component.extend({
 
 	wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 
-	drawerContentComponent: computed('activeDrawerContent', function() {
+	drawerContentComponent: computed('activeDrawerContent', function () {
 		return `wikia-${this.get('activeDrawerContent')}`;
 	}),
 

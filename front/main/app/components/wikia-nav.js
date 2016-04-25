@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend({
 	defaultNavContent: 'side-nav-global-navigation-root',

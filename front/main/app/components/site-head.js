@@ -18,17 +18,17 @@ export default Ember.Component.extend(
 
 		isNewBadgeVisible: computed.alias('shouldDisplayNewBadge'),
 
-		//TODO: Remove this code after spitfires remove BlueDot functionality
+		// TODO: Remove this code after spitfires remove BlueDot functionality
 		shouldDisplayNewBadge: computed('newFeaturesBadges.features.[]', 'visibleNavIcon', function () {
-			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity')
-					&& this.get('visibleNavIcon') !== this.get('closeIcon');
+			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity') &&
+				this.get('visibleNavIcon') !== this.get('closeIcon');
 		}),
 
-		visibleNavIcon: computed('activeIcon', function() {
+		visibleNavIcon: computed('activeIcon', function () {
 			return this.get('activeIcon') !== this.get('navIcon') ? this.get('navIcon') : this.get('closeIcon');
 		}),
 
-		visibleSearchIcon: computed('activeIcon', function() {
+		visibleSearchIcon: computed('activeIcon', function () {
 			return this.get('activeIcon') !== this.get('searchIcon') ? this.get('searchIcon') : this.get('closeIcon');
 		}),
 
@@ -54,7 +54,7 @@ export default Ember.Component.extend(
 			siteHeadIconClick(icon) {
 				if (icon !== this.get('activeIcon')) {
 					if (icon === this.get('menuIcon') && this.get('shouldDisplayNewBadge')) {
-						//TODO: Remove this code after spitfires remove BlueDot functionality
+						// TODO: Remove this code after spitfires remove BlueDot functionality
 						track({
 							action: trackActions.click,
 							category: 'recent-wiki-activity-blue-dot',
