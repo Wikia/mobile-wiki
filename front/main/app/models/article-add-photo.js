@@ -127,6 +127,7 @@ ArticleAddPhotoModel.reopenClass(
 				.then((token) => {
 					return request(M.buildUrl({path: '/api.php'}), {
 						method: 'POST',
+						contentType: false,
 						data: {
 							action: 'addmediapermanent',
 							format: 'json',
