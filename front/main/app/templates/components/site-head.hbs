@@ -7,7 +7,7 @@
 {{#wikia-ui-components/icon-button
 	click=(action 'siteHeadIconClick' navIcon)
 	class='site-head-icon site-head-icon-nav'
-	icon=visibleNavIcon
+	icon=visibleNavIconName
 }}
 	{{! TODO: remove this svg when spitfires remove blueDot functionality
 		https://wikia-inc.atlassian.net/browse/CE-3623
@@ -20,5 +20,5 @@
 {{wikia-ui-components/icon-button
 	click=(action 'siteHeadIconClick' searchIcon)
 	class='site-head-icon site-head-icon-search'
-	icon=visibleSearchIcon
+	icon=visibleSearchIconName
 }}

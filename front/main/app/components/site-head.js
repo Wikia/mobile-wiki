@@ -25,12 +25,14 @@ export default Ember.Component.extend(
 				this.get('visibleNavIcon') !== this.get('closeIcon');
 		}),
 
-		visibleNavIcon: computed('activeIcon', function () {
-			return this.get('activeIcon') !== this.get('navIcon') ? this.get('navIcon') : this.get('closeIcon');
+		visibleNavIconName: computed('activeIcon', function () {
+			const navIcon = this.get('navIcon');
+			return this.get('activeIcon') === navIcon ? this.get('closeIcon') : navIcon;
 		}),
 
-		visibleSearchIcon: computed('activeIcon', function () {
-			return this.get('activeIcon') !== this.get('searchIcon') ? this.get('searchIcon') : this.get('closeIcon');
+		visibleSearchIconName: computed('activeIcon', function () {
+			const searchIcon = this.get('searchIcon');
+			return this.get('activeIcon') === searchIcon ? this.get('closeIcon') : searchIcon;
 		}),
 
 		pinnedObserver: Ember.observer('pinned', function () {
