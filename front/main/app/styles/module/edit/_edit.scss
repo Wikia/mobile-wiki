@@ -1,4 +1,5 @@
-$upload-icon-size: 1.3rem;
+$edit-icon-size: 22px;
+$edit-icon-container-size: 48px;
 
 .edit-textarea {
 	border: none;
@@ -13,17 +14,16 @@ $upload-icon-size: 1.3rem;
 
 .edit-section {
 	display: inline-block;
-	height: $upload-icon-size;
+	height: $edit-icon-container-size;
 	overflow: hidden;
 	position: relative;
-	vertical-align: top;
-	width: $upload-icon-size;
+	width: $edit-icon-container-size;
 
 	.pencil {
-		bottom: 0;
-		height: $upload-icon-size;
+		bottom: 13px;
+		height: $edit-icon-size;
 		position: absolute;
-		right: 0;
-		width: $upload-icon-size;
+		right: 13px;
+		width: $edit-icon-size;
 	}
 }
