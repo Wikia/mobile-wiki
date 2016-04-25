@@ -237,15 +237,24 @@ export function parseQueryParams(obj, allowedKeys) {
  */
 export function createServerData(localSettings, wikiDomain = '') {
 	// if no environment, pass dev
-	const env = localSettings.environment || Environment.Dev;
+	const env = localSettings.environment || Environment.Dev,
+		data = {
+			mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
+			apiBase: localSettings.apiBase,
+			environment: getEnvironmentString(env),
+			cdnBaseUrl: getCDNBaseUrl(localSettings),
+			gaUrl: localSettings.tracking.ua.scriptUrl
+		};
 
-	return {
-		mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
-		apiBase: localSettings.apiBase,
-		environment: getEnvironmentString(env),
-		cdnBaseUrl: getCDNBaseUrl(localSettings),
-		gaUrl: localSettings.tracking.ua.scriptUrl
-	};
+	if (localSettings.qualaroo.enabled) {
+		data.qualarooScript = localSettings.qualaroo.scriptUrl;
+	}
+
+	if (localSettings.optimizely.enabled) {
+		data.optimizelyScript = `${localSettings.optimizely.scriptPath}${localSettings.optimizely.account}.js`;
+	}
+
+	return data;
 }
 
 /**

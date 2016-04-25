@@ -78,6 +78,9 @@ module.exports = function (defaults) {
 		vendorFiles: {
 			// we'll load jQuery on our own
 			'jquery.js': false
+		},
+		'ember-cli-qunit': {
+			useLintTree: false
 		}
 	});
 
