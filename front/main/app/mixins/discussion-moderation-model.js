@@ -144,7 +144,6 @@ export default Ember.Mixin.create({
 		});
 	},
 
-
 	/**
 	 * Locks a post in the service
 	 * @param {object} post

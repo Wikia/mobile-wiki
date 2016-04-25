@@ -1,6 +1,9 @@
 <script>
 	M.prop('initialPageView', true, true);
 	M.prop('apiBase', '{{server.apiBase}}' || '/api/mercury');
+	M.prop('gaUrl', '{{server.gaUrl}}');
+	M.prop('optimizelyScript', '{{server.optimizelyScript}}');
+	M.prop('qualarooScript', '{{server.qualarooScript}}');
 	M.prop('environment', '{{server.environment}}');
 	M.prop('queryParams', {{{json queryParams}}});
 	M.prop('tracking', {{{json tracking}}});

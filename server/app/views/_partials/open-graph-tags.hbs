@@ -1,12 +1,17 @@
 <meta property="og:type" content="{{openGraph.type}}" />
+
 {{#unless isMainPage}}
 	<meta property="og:site_name" content="{{wikiVariables.siteName}}" />
 {{/unless}}
+
 <meta property="og:title" content="{{openGraph.title}}" />
+
 {{#if openGraph.description}}
 	<meta property="og:description" content="{{openGraph.description}}" />
 {{/if}}
+
 <meta property="og:url" content="{{openGraph.url}}" />
+
 {{#if openGraph.image}}
 	<meta property="og:image" content="{{openGraph.image}}" />
 	{{#if openGraph.imageWidth}}
@@ -16,6 +21,7 @@
 		<meta property="og:image:height" content="{{openGraph.imageHeight}}" />
 	{{/if}}
 {{/if}}
+
 {{#if localSettings.facebook.appId}}
 	<meta property="fb:app_id" content="{{localSettings.facebook.appId}}" prefix="fb: http://www.facebook.com/2008/fbml" />
 {{/if}}
