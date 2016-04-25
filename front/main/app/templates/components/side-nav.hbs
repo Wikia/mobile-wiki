@@ -1,11 +1,5 @@
 <div class='side-nav-menu'>
-	{{component
-		globalNavContent
-		class='side-nav-menu__contents'
-		replaceNavigationContent=(action 'replaceNavigationContent')
-		collapse=(action 'collapse')
-		loadRandomArticle=(action 'loadRandomArticle')
-	}}
+	{{yield}}
 	{{#if isFandomVisible}}
 		<div class="side-nav-menu__footer">
 			<a {{action 'homeOfFandomClick' preventDefault=false}} href={{wikiaHomepage}}>

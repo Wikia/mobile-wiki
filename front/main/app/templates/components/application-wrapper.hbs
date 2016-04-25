@@ -9,17 +9,23 @@
 	{{site-head
 		smartBannerVisible=smartBannerVisible
 		toggleSideNav=attrs.toggleSideNav
-		toggleUserMenu=attrs.toggleUserMenu
 		toggleSiteHeadPinned=attrs.toggleSiteHeadPinned
-		toggleNavigationDrawer=(action 'toggleNavigationDrawer')
 		themeBar=themeBar
+		wikiaHomepage=wikiaHomepage
+		setNavigationDrawerContent=(action 'setNavigationDrawerContent')
 	}}
 
-	{{side-nav
+	{{#side-nav
 		shouldBeVisible=sideNavVisible
-		loadRandomArticle=attrs.loadRandomArticle
-		toggleVisibility=attrs.toggleSideNav
+		wikiaHomepage=wikiaHomepage
 	}}
+		{{#if showSearchInNavigationDrawer}}
+			{{wikia-search}}
+		{{else}}
+			{{side-nav-menu loadRandomArticle=attrs.loadRandomArticle}}
+		{{/if}}
+	{{/side-nav}}
+
 	{{#if noMargins}}
 		{{outlet}}
 	{{else}}

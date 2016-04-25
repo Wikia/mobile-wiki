@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import {trackPerf} from 'common/utils/track-perf';
 
+const {computed} = Ember;
+
 /**
  * HTMLMouseEvent
  * @typedef {Object} HTMLMouseEvent
@@ -25,24 +27,23 @@ import {trackPerf} from 'common/utils/track-perf';
 export default Ember.Component.extend({
 	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
+	navigationDrawerContent: null,
 
-	noScroll: false,
-	scrollLocation: null,
-	smartBannerVisible: false,
-	firstRender: true,
-	showNavigationDrawer: false,
+	wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 
-	verticalClass: Ember.computed(() => {
+	showSearchInNavigationDrawer: computed.match('navigationDrawerContent', /search/),
+
+	verticalClass: computed(() => {
 		const vertical = Ember.get(Mercury, 'wiki.vertical');
 
 		return `${vertical}-vertical`;
 	}),
 
-	noScrollObserver: Ember.observer('noScroll', 'showNavigationDrawer', function () {
+	noScrollObserver: Ember.observer('noScroll', function () {
 		const $body = Ember.$('body');
 		let scrollLocation;
 
-		if (this.get('noScroll') || this.get('showNavigationDrawer')) {
+		if (this.get('noScroll')) {
 			scrollLocation = $body.scrollTop();
 
 			this.set('scrollLocation', scrollLocation);
@@ -81,11 +82,11 @@ export default Ember.Component.extend({
 
 	actions: {
 		/**
-		 * {void}
+		 * @param {string} content
+		 * @returns {void}
 		 */
-		toggleNavigationDrawer() {
-			this.toggleProperty('showNavigationDrawer');
-			this.get('toggleSideNav')(this.get('showNavigationDrawer'));
+		setNavigationDrawerContent(content) {
+			this.set('navigationDrawerContent', content);
 		}
 	},
 

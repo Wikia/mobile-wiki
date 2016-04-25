@@ -5,7 +5,7 @@ import {test, moduleForComponent} from 'ember-qunit';
 const trackModule = require('common/utils/track');
 let trackStub, buildUrlStub;
 
-moduleForComponent('side-nav-local-wikia-search', 'Unit | Component | local wikia search', {
+moduleForComponent('wikia-search', 'Unit | Component | local wikia search', {
 	unit: true,
 
 	beforeEach() {

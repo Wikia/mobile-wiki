@@ -17,12 +17,8 @@ export default Ember.Component.extend(
 		closeIcon: 'close',
 		activeIcon: null,
 
-		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
-
-		currentUser: inject.service(),
 		newFeaturesBadges: inject.service(),
 
-		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
 		isNewBadgeVisible: computed.alias('shouldDisplayNewBadge'),
 		shouldDisplayNewBadge: computed('newFeaturesBadges.features.[]', 'visibleNavIcon', function () {
 			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity')
@@ -30,22 +26,25 @@ export default Ember.Component.extend(
 		}),
 
 		visibleNavIcon: Ember.computed('activeIcon', 'navIcon', function() {
-			if (this.get('activeIcon') === this.get('navIcon'))
+			if (this.get('activeIcon') === this.get('navIcon')) {
 				return this.get('closeIcon');
-			else
+			} else {
 				return this.get('navIcon');
+			}
 		}),
 
 		visibleSearchIcon: computed('activeIcon', 'searchIcon', function() {
-			if (this.get('activeIcon') === this.get('searchIcon'))
+			if (this.get('activeIcon') === this.get('searchIcon')) {
 				return this.get('closeIcon');
-			else
+			} else {
 				return this.get('searchIcon');
+			}
 		}),
 
 		pinnedObserver: Ember.observer('pinned', function () {
 			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
 		}),
+
 
 		didRender() {
 			if (this.get('isNewBadgeVisible')) {
@@ -61,10 +60,8 @@ export default Ember.Component.extend(
 			 * @param {String} icon
 			 * @returns {void}
 			 */
-			siteHeadIconCLick(icon) {
+			siteHeadIconClick(icon) {
 				if (icon !== this.get('activeIcon')) {
-					this.set('activeIcon', icon);
-
 					if (icon === this.get('navIcon') && this.get('shouldDisplayNewBadge')) {
 						track({
 							action: trackActions.click,
@@ -79,6 +76,8 @@ export default Ember.Component.extend(
 						label: `${icon}-expanded`
 					});
 
+					this.set('activeIcon', icon);
+					this.get('setNavigationDrawerContent')(icon);
 					this.sendAction('toggleSideNav', true);
 				} else {
 					track({
@@ -89,14 +88,8 @@ export default Ember.Component.extend(
 
 					this.set('activeIcon', null);
 					this.sendAction('toggleSideNav', false);
+					this.get('setNavigationDrawerContent')(null);
 				}
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			showUserMenu() {
-				this.sendAction('toggleUserMenu', true);
 			},
 
 			/**
