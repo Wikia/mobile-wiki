@@ -7,7 +7,7 @@
 {{#wikia-ui-components/icon-button
 	click=(action 'siteHeadIconCLick' navIcon)
 	class='nav-button site-head-icon-nav'
-	icon=navIcon
+	icon=visibleNavIcon
 }}
 	{{#if shouldDisplayNewBadge}}
 		{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
@@ -17,5 +17,5 @@
 {{wikia-ui-components/icon-button
 	click=(action 'siteHeadIconCLick' searchIcon)
 	class='nav-button site-head-icon-search'
-	icon=searchIcon
+	icon=visibleSearchIcon
 }}

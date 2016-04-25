@@ -14,8 +14,8 @@ export default Ember.Component.extend(
 		pinned: true,
 		navIcon: 'nav',
 		searchIcon: 'search',
+		closeIcon: 'close',
 		activeIcon: null,
-
 
 		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 
@@ -24,11 +24,24 @@ export default Ember.Component.extend(
 
 		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
 		isNewBadgeVisible: computed.alias('shouldDisplayNewBadge'),
-		// shouldDisplayNewBadge: computed('newFeaturesBadges.features.[]', function () {
-		// 	return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
-		// }),
-		shouldDisplayNewBadge: true, //TODO: delete this line and uncoment above when nav finished
+		shouldDisplayNewBadge: computed('newFeaturesBadges.features.[]', 'visibleNavIcon', function () {
+			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity')
+					&& this.get('visibleNavIcon') !== this.get('closeIcon');
+		}),
 
+		visibleNavIcon: Ember.computed('activeIcon', 'navIcon', function() {
+			if (this.get('activeIcon') === this.get('navIcon'))
+				return this.get('closeIcon');
+			else
+				return this.get('navIcon');
+		}),
+
+		visibleSearchIcon: computed('activeIcon', 'searchIcon', function() {
+			if (this.get('activeIcon') === this.get('searchIcon'))
+				return this.get('closeIcon');
+			else
+				return this.get('searchIcon');
+		}),
 
 		pinnedObserver: Ember.observer('pinned', function () {
 			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
