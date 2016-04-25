@@ -1,6 +1,6 @@
 import {disableCache} from '../../lib/caching';
 import * as authUtils from '../../lib/auth-utils';
-import {parse} from 'url';
+import {parse, resolve} from 'url';
 import localSettings from '../../../config/localSettings';
 
 /**
@@ -170,7 +170,8 @@ export function view(template, context, request, reply) {
  */
 export function getDefaultContext(request) {
 	const viewType = getViewType(request),
-		isModal = request.query.modal === '1';
+		isModal = request.query.modal === '1',
+		reactivateAccountUrl = resolve(getRedirectUrl(request), '/Special:CloseMyAccount/reactivate');
 
 	/* eslint no-undefined: 0 */
 	return {
@@ -189,6 +190,7 @@ export function getDefaultContext(request) {
 			isModal,
 			enableSocialLogger: localSettings.clickstream.social.enable,
 			preferenceServiceUrl: authUtils.getUserPreferencesUrl('/'),
+			reactivateAccountUrl: reactivateAccountUrl,
 			socialLoggerUrl: localSettings.clickstream.social.url,
 			viewType,
 			parentOrigin: (isModal ? getOrigin(request) : undefined)

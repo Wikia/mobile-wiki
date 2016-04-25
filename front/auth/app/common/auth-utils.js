@@ -6,6 +6,9 @@ import AuthLogger from './auth-logger';
  */
 export default class AuthUtils {
 	/**
+	 * Check whether user has requested Account Close or not.
+	 * After that check redirect user to Special:CloseMyAccount/reactivate or source page.
+	 *
 	 * @param {string} url
 	 * @param {string} userId
 	 *
@@ -37,7 +40,7 @@ export default class AuthUtils {
 					});
 
 				if (isAccountCloseRequested) {
-					return 'TODO';
+					return redirectUserBack(pageParams.reactivateAccountUrl);
 				}
 			} else {
 				authLogger.xhrError(xhr);
