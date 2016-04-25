@@ -58,15 +58,15 @@ export default DiscussionEditorComponent.extend({
 			const $editorTextarea = $('.editor-textarea');
 
 			$editorTextarea
-					.css('height', '100px')
-					.on('focus', () => {
-						setTimeout(() => {
-							$editorTextarea.css('height', '100%');
-						}, 500);
-					})
-					.on('blur', () => {
-						$editorTextarea.css('height', '100px');
-					});
+				.css('height', '100px')
+				.on('focus', () => {
+					setTimeout(() => {
+						$editorTextarea.css('height', '100%');
+					}, 500);
+				})
+				.on('blur', () => {
+					$editorTextarea.css('height', '100px');
+				});
 		}
 	},
 
@@ -82,5 +82,5 @@ export default DiscussionEditorComponent.extend({
 			Ember.$('html, body').animate({scrollTop: 0});
 			this.handleNewItemCreated(newPost);
 		}
-	}
+	},
 });
