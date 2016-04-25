@@ -14,6 +14,7 @@ export default Ember.Component.extend(
 		pinned: true,
 		navIcon: 'nav',
 		searchIcon: 'search',
+		activeIcon: null,
 
 
 		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
@@ -48,21 +49,34 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			siteHeadIconCLick(icon) {
-				if (this.get('shouldDisplayNewBadge')) {
+				if (icon !== this.get('activeIcon')) {
+					this.set('activeIcon', icon);
+
+					if (icon === this.get('navIcon') && this.get('shouldDisplayNewBadge')) {
+						track({
+							action: trackActions.click,
+							category: 'recent-wiki-activity-blue-dot',
+							label: 'open-navigation'
+						});
+					}
+
 					track({
 						action: trackActions.click,
-						category: 'recent-wiki-activity-blue-dot',
-						label: 'open-navigation'
+						category: 'side-nav',
+						label: `${icon}-expanded`
 					});
+
+					this.sendAction('toggleSideNav', true);
+				} else {
+					track({
+						action: trackActions.click,
+						category: 'side-nav',
+						label: `${icon}-collapsed`
+					});
+
+					this.set('activeIcon', null);
+					this.sendAction('toggleSideNav', false);
 				}
-
-				track({
-					action: trackActions.click,
-					category: 'side-nav',
-					label: `${icon}-expanded`
-				});
-
-				this.sendAction('toggleSideNav', true);
 			},
 
 			/**
