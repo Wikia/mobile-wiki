@@ -16,13 +16,8 @@ export default Ember.Component.extend(
 		searchIcon: 'search',
 		activeIcon: null,
 
-
-		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
-
-		currentUser: inject.service(),
 		newFeaturesBadges: inject.service(),
 
-		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
 		isNewBadgeVisible: computed.alias('shouldDisplayNewBadge'),
 		// shouldDisplayNewBadge: computed('newFeaturesBadges.features.[]', function () {
 		// 	return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
@@ -77,13 +72,6 @@ export default Ember.Component.extend(
 					this.set('activeIcon', null);
 					this.sendAction('toggleSideNav', false);
 				}
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			showUserMenu() {
-				this.sendAction('toggleUserMenu', true);
 			},
 
 			/**
