@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Mixin.create({
 	modalDialogService: Ember.inject.service('modal-dialog'),
@@ -55,6 +56,8 @@ export default Ember.Mixin.create({
 						this.modelFor(this.get('routeName')).deleteAllPosts(posts).then(() => {
 							Ember.set(loadingSpinnerContainer, 'isLoading', false);
 						});
+
+						track(trackActions.DeleteAllConfirmed);
 					}
 				});
 		},
