@@ -12,13 +12,18 @@
 		toggleSiteHeadPinned=attrs.toggleSiteHeadPinned
 		themeBar=themeBar
 		wikiaHomepage=wikiaHomepage
+		setNavigationDrawerContent=(action 'setNavigationDrawerContent')
 	}}
 
 	{{#side-nav
 		shouldBeVisible=sideNavVisible
 		wikiaHomepage=wikiaHomepage
 	}}
-		{{side-nav-menu loadRandomArticle=attrs.loadRandomArticle}}
+		{{#if showSearchInNavigationDrawer}}
+			{{wikia-search}}
+		{{else}}
+			{{side-nav-menu loadRandomArticle=attrs.loadRandomArticle}}
+		{{/if}}
 	{{/side-nav}}
 
 	{{#if noMargins}}

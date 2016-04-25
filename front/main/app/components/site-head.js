@@ -45,8 +45,6 @@ export default Ember.Component.extend(
 			 */
 			siteHeadIconClick(icon) {
 				if (icon !== this.get('activeIcon')) {
-					this.set('activeIcon', icon);
-
 					if (icon === this.get('navIcon') && this.get('shouldDisplayNewBadge')) {
 						track({
 							action: trackActions.click,
@@ -61,6 +59,8 @@ export default Ember.Component.extend(
 						label: `${icon}-expanded`
 					});
 
+					this.set('activeIcon', icon);
+					this.get('setNavigationDrawerContent')(icon);
 					this.sendAction('toggleSideNav', true);
 				} else {
 					track({
@@ -71,6 +71,7 @@ export default Ember.Component.extend(
 
 					this.set('activeIcon', null);
 					this.sendAction('toggleSideNav', false);
+					this.get('setNavigationDrawerContent')(null);
 				}
 			},
 

@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import {trackPerf} from 'common/utils/track-perf';
 
+const {computed} = Ember;
+
 /**
  * HTMLMouseEvent
  * @typedef {Object} HTMLMouseEvent
@@ -25,10 +27,13 @@ import {trackPerf} from 'common/utils/track-perf';
 export default Ember.Component.extend({
 	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
+	navigationDrawerContent: null,
 
 	wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 
-	verticalClass: Ember.computed(() => {
+	showSearchInNavigationDrawer: computed.match('navigationDrawerContent', /search/),
+
+	verticalClass: computed(() => {
 		const vertical = Ember.get(Mercury, 'wiki.vertical');
 
 		return `${vertical}-vertical`;
@@ -72,6 +77,16 @@ export default Ember.Component.extend({
 				name: 'appRendered',
 				type: 'mark'
 			});
+		}
+	},
+
+	actions: {
+		/**
+		 * @param {string} content
+		 * @returns {void}
+		 */
+		setNavigationDrawerContent(content) {
+			this.set('navigationDrawerContent', content);
 		}
 	},
 
