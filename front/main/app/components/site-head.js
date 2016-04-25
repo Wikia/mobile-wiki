@@ -19,6 +19,7 @@ export default Ember.Component.extend(
 		isNewBadgeVisible: computed.alias('shouldDisplayNewBadge'),
 
 		// TODO: Remove this code after spitfires remove BlueDot functionality
+		// https://wikia-inc.atlassian.net/browse/CE-3623
 		shouldDisplayNewBadge: computed('newFeaturesBadges.features.[]', 'visibleNavIcon', function () {
 			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity') &&
 				this.get('visibleNavIcon') !== this.get('closeIcon');
@@ -55,6 +56,7 @@ export default Ember.Component.extend(
 				if (icon !== this.get('activeIcon')) {
 					if (icon === this.get('menuIcon') && this.get('shouldDisplayNewBadge')) {
 						// TODO: Remove this code after spitfires remove BlueDot functionality
+						// https://wikia-inc.atlassian.net/browse/CE-3623
 						track({
 							action: trackActions.click,
 							category: 'recent-wiki-activity-blue-dot',
