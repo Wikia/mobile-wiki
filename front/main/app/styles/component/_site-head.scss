@@ -40,7 +40,7 @@ $z-header: $z-6;
 	}
 
 	.site-head-icon-search {
-		order: 2;
+		order: 3;
 	}
 
 	.site-logo {
@@ -48,7 +48,7 @@ $z-header: $z-6;
 		// space than it should, potentially affecting placement of elements
 		// beneath it.
 		height: rem-calc(50);
-		margin: 0 3.75rem;
+		margin: auto;
 		order: 2;
 		overflow: hidden;
 
