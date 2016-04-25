@@ -57,7 +57,7 @@ export default Ember.Component.extend(
 		 * TODO: Remove this code after spitfires remove BlueDot functionality
 		 * https://wikia-inc.atlassian.net/browse/CE-3623
 		 *
-		 * @param icon {String} clicked icon
+		 * @param {String} icon clicked icon
 		 * @returns {void}
 		 */
 		trackBlueDot(icon) {
