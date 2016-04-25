@@ -48,7 +48,7 @@ export default Ember.Component.extend(
 			 * @param {String} icon
 			 * @returns {void}
 			 */
-			siteHeadIconCLick(icon) {
+			siteHeadIconClick(icon) {
 				if (icon !== this.get('activeIcon')) {
 					this.set('activeIcon', icon);
 
