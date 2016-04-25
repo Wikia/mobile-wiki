@@ -1,4 +1,5 @@
 $z-header: $z-6;
+$nav-container-padding: 4px;
 
 .site-body {
 	margin-top: $icon-site-head-width;
@@ -18,8 +19,8 @@ $z-header: $z-6;
 	left: 0;
 	margin: 0 auto;
 	position: fixed;
-	padding-left: 4px;
-	padding-right: 4px;
+	padding-left: $nav-container-padding;
+	padding-right: $nav-container-padding;
 	right: 0;
 	text-align: center;
 	top: 0;
@@ -59,12 +60,12 @@ $z-header: $z-6;
 		}
 	}
 
-	.nav-button {
+	.site-head-icon {
 		position: relative;
 		svg {
 			height: 24px;
 			width: 25px;
-			fill: #39414d;
+			fill: $color-blue-dark;
 		}
 	}
 
