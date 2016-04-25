@@ -76,7 +76,7 @@ export default Ember.Object.extend({
 	upvote(entity) {
 		const entityId = entity.get('id'),
 			hasUpvoted = entity.get('userData.hasUpvoted'),
-			method = hasUpvoted ? 'del' : 'post';
+			method = hasUpvoted ? 'delete' : 'post';
 
 		if (this.upvotingInProgress[entityId] || typeof entity.get('userData') === 'undefined') {
 			return null;
