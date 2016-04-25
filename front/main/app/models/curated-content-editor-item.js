@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import ObjectUtilitiesMixin from '../mixins/object-utilities';
 import request from 'ember-ajax/request';
+import {form} from '../utils/content-type';
 
 /**
  * CuratedContentImageCropSingleData
@@ -109,7 +110,7 @@ CuratedContentEditorItemModel.reopenClass({
 
 		return request(M.buildUrl({path: '/wikia.php'}), {
 			method: 'POST',
-			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+			contentType: form,
 			data: completeData,
 		});
 	},

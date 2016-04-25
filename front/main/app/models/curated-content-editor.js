@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
 import request from 'ember-ajax/request';
+import {form} from '../utils/content-type';
 
 /**
  * CuratedContentEditorRawSection
@@ -61,6 +62,7 @@ CuratedContentEditorModel.reopenClass({
 			}
 		}), {
 			method: 'POST',
+			contentType: form,
 			data: this.prepareDataForSave(model),
 		});
 	},
