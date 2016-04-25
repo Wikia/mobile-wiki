@@ -12,8 +12,9 @@ export default Ember.Component.extend(
 		tagName: 'nav',
 		themeBar: false,
 		pinned: true,
-		menuIcon: 'nav',
-		searchIcon: 'delete',
+		navIcon: 'nav',
+		searchIcon: 'search',
+
 
 		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 
@@ -63,27 +64,6 @@ export default Ember.Component.extend(
 
 				this.sendAction('toggleSideNav', true);
 			},
-
-			// /**
-			//  * @returns {void}
-			//  */
-			// expandSideNav() {
-			// 	if (this.get('isNewBadgeVisible')) {
-			// 		track({
-			// 			action: trackActions.click,
-			// 			category: 'recent-wiki-activity-blue-dot',
-			// 			label: 'open-navigation'
-			// 		});
-			// 	}
-			//
-			// 	track({
-			// 		action: trackActions.click,
-			// 		category: 'side-nav',
-			// 		label: 'expanded'
-			// 	});
-			//
-			// 	this.sendAction('toggleSideNav', true);
-			// },
 
 			/**
 			 * @returns {void}

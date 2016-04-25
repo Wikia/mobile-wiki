@@ -5,9 +5,9 @@
 </div>
 
 {{#wikia-ui-components/icon-button
-	click=(action 'siteHeadIconCLick' menuIcon)
+	click=(action 'siteHeadIconCLick' navIcon)
 	class='nav-button site-head-icon-nav'
-	icon='hamburger'
+	icon=navIcon
 }}
 	{{#if shouldDisplayNewBadge}}
 		{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
@@ -17,5 +17,5 @@
 {{wikia-ui-components/icon-button
 	click=(action 'siteHeadIconCLick' searchIcon)
 	class='nav-button site-head-icon-search'
-	icon='magnifying-glass '
+	icon=searchIcon
 }}
