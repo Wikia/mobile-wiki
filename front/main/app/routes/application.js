@@ -210,7 +210,7 @@ export default Route.extend(
 			 * @returns {void}
 			 */
 			toggleSideNav(visible) {
-				this.get('controller').set('sideNavVisible', visible);
+				this.get('controller').set('drawerVisible', visible);
 			}
 		},
 

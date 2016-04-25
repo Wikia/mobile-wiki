@@ -27,11 +27,15 @@ const {computed} = Ember;
 export default Ember.Component.extend({
 	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
-	navigationDrawerContent: null,
+	navigationDrawerMenu: 'nav',
+	navigationDrawerSearch: 'search',
+	activeNavigationDrawerContent: null,
 
 	wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 
-	showSearchInNavigationDrawer: computed.match('navigationDrawerContent', /search/),
+	showSearchInNavigationDrawer: computed('activeNavigationDrawerContent', function() {
+		return this.get('activeNavigationDrawerContent') === this.get('navigationDrawerSearch');
+	}),
 
 	verticalClass: computed(() => {
 		const vertical = Ember.get(Mercury, 'wiki.vertical');
@@ -86,7 +90,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		setNavigationDrawerContent(content) {
-			this.set('navigationDrawerContent', content);
+			this.set('activeNavigationDrawerContent', content);
 		}
 	},
 
