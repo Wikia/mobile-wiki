@@ -33,14 +33,16 @@ export default class AuthUtils {
 			};
 
 		xhr.onload = () => {
+			let preferences,
+				isAccountCloseRequested;
 			if (xhr.status === HttpCodes.OK) {
-				let preferences = JSON.parse(xhr.responseText),
-					isAccountCloseRequested = preferences.globalPreferences.some((preference) => {
-						return preference.name === 'requested-closure-date' && preference.value;
-					});
+				preferences = JSON.parse(xhr.responseText);
+				isAccountCloseRequested = preferences.globalPreferences.some((preference) => {
+					return preference.name === 'requested-closure-date' && preference.value;
+				});
 
 				if (isAccountCloseRequested) {
-					return redirectUserBack(pageParams.reactivateAccountUrl);
+					return this.loadUrl(pageParams.reactivateAccountUrl);
 				}
 			} else {
 				authLogger.xhrError(xhr);

@@ -190,7 +190,7 @@ export function getDefaultContext(request) {
 			isModal,
 			enableSocialLogger: localSettings.clickstream.social.enable,
 			preferenceServiceUrl: authUtils.getUserPreferencesUrl('/'),
-			reactivateAccountUrl: reactivateAccountUrl,
+			reactivateAccountUrl,
 			socialLoggerUrl: localSettings.clickstream.social.url,
 			viewType,
 			parentOrigin: (isModal ? getOrigin(request) : undefined)
