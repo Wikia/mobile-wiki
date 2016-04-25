@@ -2,7 +2,20 @@ import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend({
-	globalNavContent: 'side-nav-global-navigation-root',
+	defaultNavContent: 'side-nav-global-navigation-root',
+
+	init() {
+		this._super(...arguments);
+
+		this.currentNavContent = this.get('defaultNavContent');
+	},
+
+	willDestroyElement() {
+		this._super(...arguments);
+
+		// reset current nav content to its default state
+		this.set('globalNavContent', this.get('defaultNavContent'));
+	},
 
 	actions: {
 		/**
@@ -23,11 +36,11 @@ export default Ember.Component.extend({
 
 		replaceNavigationContent(navName) {
 			if (navName === 'explore') {
-				this.set('globalNavContent', 'side-nav-explore-wikia-navigation');
+				this.set('currentNavContent', 'side-nav-explore-wikia-navigation');
 			} else if (navName === 'local') {
-				this.set('globalNavContent', 'side-nav-local-navigation-root');
+				this.set('currentNavContent', 'side-nav-local-navigation-root');
 			} else if (navName === 'root') {
-				this.set('globalNavContent', 'side-nav-global-navigation-root');
+				this.set('currentNavContent', 'side-nav-global-navigation-root');
 			}
 		}
 	}

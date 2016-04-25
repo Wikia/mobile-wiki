@@ -12,20 +12,21 @@
 		toggleSiteHeadPinned=this.attrs.toggleSiteHeadPinned
 		themeBar=themeBar
 		wikiaHomepage=wikiaHomepage
-		activeIcon = activeNavigationDrawerContent
-		menuIcon = navigationDrawerMenu
-		searchIcon = navigationDrawerSearch
-		setNavigationDrawerContent=(action 'setNavigationDrawerContent')
+		activeIcon = activeDrawerContent
+		navIcon = drawerContentNavigation
+		searchIcon = drawerContentSearch
+		setDrawerContent=(action 'setDrawerContent')
 	}}
 
 	{{#wikia-drawer
 		shouldBeVisible=drawerVisible
 		wikiaHomepage=wikiaHomepage
 	}}
-		{{#if showSearchInNavigationDrawer}}
-			{{wikia-search}}
-		{{else}}
-			{{wikia-navigation loadRandomArticle=attrs.loadRandomArticle}}
+		{{#if activeDrawerContent}}
+			{{component
+				drawerContentComponent
+				loadRandomArticle=attrs.loadRandomArticle
+			}}
 		{{/if}}
 	{{/wikia-drawer}}
 

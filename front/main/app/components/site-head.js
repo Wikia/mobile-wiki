@@ -25,7 +25,7 @@ export default Ember.Component.extend(
 		}),
 
 		visibleNavIcon: computed('activeIcon', function() {
-			return this.get('activeIcon') !== this.get('menuIcon') ? this.get('menuIcon') : this.get('closeIcon');
+			return this.get('activeIcon') !== this.get('navIcon') ? this.get('navIcon') : this.get('closeIcon');
 		}),
 
 		visibleSearchIcon: computed('activeIcon', function() {
@@ -68,7 +68,7 @@ export default Ember.Component.extend(
 						label: `${icon}-expanded`
 					});
 
-					this.get('setNavigationDrawerContent')(icon);
+					this.get('setDrawerContent')(icon);
 					this.sendAction('toggleDrawer', true);
 				} else {
 					track({
@@ -78,7 +78,7 @@ export default Ember.Component.extend(
 					});
 
 					this.sendAction('toggleDrawer', false);
-					this.get('setNavigationDrawerContent')(null);
+					this.get('setDrawerContent')(null);
 				}
 			},
 
