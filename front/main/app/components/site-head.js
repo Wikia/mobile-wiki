@@ -10,7 +10,6 @@ export default Ember.Component.extend({
 
 	currentUser: Ember.inject.service(),
 	newFeaturesBadges: Ember.inject.service(),
-	isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
 	shouldDisplayNewBadge: Ember.computed('newFeaturesBadges.features.[]', function () {
 		return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
 	}),
