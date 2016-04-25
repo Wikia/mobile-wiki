@@ -8,7 +8,6 @@ export default Ember.Component.extend({
 		tagName: 'nav',
 		themeBar: false,
 		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
-		pinned: true,
 
 		currentUser: Ember.inject.service(),
 		newFeaturesBadges: Ember.inject.service(),
@@ -54,10 +53,6 @@ export default Ember.Component.extend({
 				});
 			}
 		},
-
-		pinnedObserver: Ember.observer('pinned', function () {
-			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
-		}),
 
 		didRender() {
 			if (this.get('shouldDisplayNewBadge')) {
