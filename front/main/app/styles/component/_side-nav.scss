@@ -82,6 +82,10 @@
 	overflow-y: auto;
 }
 
+.wikia-drawer__content {
+	overflow: scroll;
+}
+
 // because site-head has 1px border at the bottom
 $side-nav-height: $site-head-height - 1;
 
