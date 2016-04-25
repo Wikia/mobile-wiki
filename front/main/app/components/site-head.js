@@ -12,10 +12,7 @@ export default Ember.Component.extend(
 		tagName: 'nav',
 		themeBar: false,
 		pinned: true,
-		navIcon: 'nav',
-		searchIcon: 'search',
 		closeIcon: 'close',
-		activeIcon: null,
 
 		newFeaturesBadges: inject.service(),
 
@@ -25,20 +22,12 @@ export default Ember.Component.extend(
 					&& this.get('visibleNavIcon') !== this.get('closeIcon');
 		}),
 
-		visibleNavIcon: Ember.computed('activeIcon', 'navIcon', function() {
-			if (this.get('activeIcon') === this.get('navIcon')) {
-				return this.get('closeIcon');
-			} else {
-				return this.get('navIcon');
-			}
+		visibleNavIcon: computed('activeIcon', function() {
+			return this.get('activeIcon') !== this.get('menuIcon') ? this.get('menuIcon') : this.get('closeIcon');
 		}),
 
-		visibleSearchIcon: computed('activeIcon', 'searchIcon', function() {
-			if (this.get('activeIcon') === this.get('searchIcon')) {
-				return this.get('closeIcon');
-			} else {
-				return this.get('searchIcon');
-			}
+		visibleSearchIcon: computed('activeIcon', function() {
+			return this.get('activeIcon') !== this.get('searchIcon') ? this.get('searchIcon') : this.get('closeIcon');
 		}),
 
 		pinnedObserver: Ember.observer('pinned', function () {
@@ -62,7 +51,7 @@ export default Ember.Component.extend(
 			 */
 			siteHeadIconClick(icon) {
 				if (icon !== this.get('activeIcon')) {
-					if (icon === this.get('navIcon') && this.get('shouldDisplayNewBadge')) {
+					if (icon === this.get('menuIcon') && this.get('shouldDisplayNewBadge')) {
 						track({
 							action: trackActions.click,
 							category: 'recent-wiki-activity-blue-dot',
@@ -76,9 +65,8 @@ export default Ember.Component.extend(
 						label: `${icon}-expanded`
 					});
 
-					this.set('activeIcon', icon);
 					this.get('setNavigationDrawerContent')(icon);
-					this.sendAction('toggleSideNav', true);
+					this.sendAction('toggleDrawer', true);
 				} else {
 					track({
 						action: trackActions.click,
@@ -86,8 +74,7 @@ export default Ember.Component.extend(
 						label: `${icon}-collapsed`
 					});
 
-					this.set('activeIcon', null);
-					this.sendAction('toggleSideNav', false);
+					this.sendAction('toggleDrawer', false);
 					this.get('setNavigationDrawerContent')(null);
 				}
 			},

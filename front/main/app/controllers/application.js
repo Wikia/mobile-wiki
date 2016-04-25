@@ -24,7 +24,7 @@ export default Ember.Controller.extend(
 		commentsPage: null,
 
 		smartBannerVisible: false,
-		sideNavVisible: false,
+		drawerVisible: false,
 		userMenuVisible: false,
 		siteHeadPinned: true,
 		noScroll: false,
@@ -38,8 +38,8 @@ export default Ember.Controller.extend(
 		// Controls the appearance of the share-header component
 		enableShareHeader: false,
 
-		sideNavCollapsedObserver: Ember.observer('sideNavVisible', function () {
-			if (this.get('sideNavVisible')) {
+		drawerCollapsedObserver: Ember.observer('drawerVisible', function () {
+			if (this.get('drawerVisible')) {
 				this.set('noScroll', true);
 			} else {
 				this.set('noScroll', false);
@@ -197,8 +197,8 @@ export default Ember.Controller.extend(
 			 * @param {boolean} visible
 			 * @returns {void}
 			 */
-			toggleSideNav(visible) {
-				this.set('sideNavVisible', visible);
+			toggleDrawer(visible) {
+				this.set('drawerVisible', visible);
 			},
 
 			/**
