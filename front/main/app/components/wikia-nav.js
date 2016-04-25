@@ -26,20 +26,22 @@ export default Ember.Component.extend({
 		},
 
 		/**
+		 * @param {string} navName
 		 * @returns {void}
 		 */
-		loadRandomArticle() {
-			this.set('globalNavContent', 'side-nav-global-navigation-root');
-			this.sendAction('loadRandomArticle');
-		},
-
 		replaceNavigationContent(navName) {
-			if (navName === 'explore') {
-				this.set('currentNavContent', 'side-nav-explore-wikia-navigation');
-			} else if (navName === 'local') {
-				this.set('currentNavContent', 'side-nav-local-navigation-root');
-			} else if (navName === 'root') {
-				this.set('currentNavContent', 'side-nav-global-navigation-root');
+			switch (navName) {
+				case 'explore':
+					this.set('currentNavContent', 'side-nav-explore-wikia-navigation');
+					break;
+				case 'local':
+					this.set('currentNavContent', 'side-nav-local-navigation-root');
+					break;
+				case 'root':
+					this.set('currentNavContent', 'side-nav-global-navigation-root');
+					break;
+				default:
+					Ember.Logger.error(`Navigation content component: ${navName} doesn't exist`);
 			}
 		}
 	}
