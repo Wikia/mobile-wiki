@@ -168,7 +168,7 @@ ArticleAddPhotoModel.reopenClass(
 						method: 'POST',
 						data: formData,
 						cache: false,
-						contentType: form,
+						contentType: false,
 						processData: false,
 					}).then((response) => {
 						if (response && response.addmediatemporary) {
