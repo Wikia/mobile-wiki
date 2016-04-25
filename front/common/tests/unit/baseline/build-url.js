@@ -218,14 +218,6 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 			{
 				path: '/147/forums',
 				expectedOutput: 'https://services.wikia.com/discussion/147/forums'
-			},
-			{
-				path: '/147/threads/2',
-				expectedOutput: 'https://services.wikia.com/discussion/147/threads/2'
-			},
-			{
-				path: '',
-				expectedOutput: 'https://services.wikia.com/discussion'
 			}
 		];
 
