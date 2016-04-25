@@ -33,7 +33,8 @@ function afterModel(route, model) {
 
 	route.setProperties({
 		ns: model.get('ns'),
-		adsContext: model.get('adsContext')
+		adsContext: model.get('adsContext'),
+		description: model.get('description')
 	});
 
 	return model;

@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
 import getLinkInfo from '../utils/article-link';
 import Ads from 'common/modules/ads';
+import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import {normalizeToUnderscore} from 'common/utils/string';
 import {track, trackActions} from 'common/utils/track';
 import {activate as variantTestingActivate} from 'common/utils/variant-testing';
@@ -16,6 +17,7 @@ const {
 
 export default Route.extend(
 	TargetActionSupport,
+	HeadTagsStaticMixin,
 	{
 		queryParams: {
 			commentsPage: {
@@ -155,7 +157,7 @@ export default Route.extend(
 				ArticleModel
 					.getArticleRandomTitle()
 					.then((articleTitle) => {
-						this.transitionTo('wiki-page', normalizeToUnderscore(articleTitle));
+						this.transitionTo('wiki-page', encodeURIComponent(normalizeToUnderscore(articleTitle)));
 					})
 					.catch((err) => {
 						this.send('error', err);

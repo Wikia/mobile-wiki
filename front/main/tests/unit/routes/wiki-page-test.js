@@ -19,73 +19,50 @@ moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
 
 test('set head tags for correct model', function (assert) {
 	const mock = this.subject(),
-		expectedHeadTags = [
-			{
-				type: 'link',
-				tagId: 'canonical-url',
-				attrs: {
-					rel: 'canonical',
-					href: 'http://muppet.wikia.com/wiki/Kermit'
-				}
-			},
-			{
-				type: 'meta',
-				tagId: 'meta-description',
-				attrs: {
-					name: 'description',
-					content: 'Article about Kermit'
-				}
-			},
-			{
-				type: 'meta',
-				tagId: 'meta-apple-app',
-				attrs: {
-					name: 'apple-itunes-app',
-					content: 'app-id=1234, app-argument=http://muppet.wikia.com/wiki/Kermit'
-				}
-			}
-		];
+		expectedHeadTags = {
+			canonical: 'http://muppet.wikia.com/wiki/Kermit',
+			description: 'Article about Kermit',
+			documentTitle: 'Kermit The Frog - Muppet Wiki - Wikia',
+			appleItunesApp: 'app-id=1234, app-argument=http://muppet.wikia.com/wiki/Kermit',
+			robots: 'index,follow'
+		};
 
-	mock.setHeadTags(model);
+	let headData;
 
-	assert.deepEqual(mock.get('headTags'), expectedHeadTags, 'headTags property is different than expected');
+	mock.setProperties({
+		removeServerTags: Ember.K,
+		setStaticHeadTags: Ember.K,
+		headData: Ember.Object.create()
+	});
+
+	mock.setDynamicHeadTags(model);
+	headData = mock.get('headData');
+
+	assert.equal(headData.canonical, expectedHeadTags.canonical);
+	assert.equal(headData.description, expectedHeadTags.description);
+	assert.equal(headData.appleItunesApp, expectedHeadTags.appleItunesApp);
+	assert.equal(headData.robots, expectedHeadTags.robots);
+	assert.equal(headData.documentTitle, expectedHeadTags.documentTitle);
 });
 
 test('set head tags without apple-itunes-app when appId is not set', function (assert) {
 	const mock = this.subject(),
-		expectedHeadTags = [
-			{
-				type: 'link',
-				tagId: 'canonical-url',
-				attrs: {
-					rel: 'canonical',
-					href: 'http://muppet.wikia.com/wiki/Kermit'
-				}
-			},
-			{
-				type: 'meta',
-				tagId: 'meta-description',
-				attrs: {
-					name: 'description',
-					content: 'Article about Kermit'
-				}
-			}
-		];
+		expectedAppleItunesApp = '';
 
-	delete window.Mercury.wiki.smartBanner.appId.ios;
+	let headData;
 
-	mock.setHeadTags(model);
+	delete window.Mercury.wiki.smartBanner;
 
-	assert.deepEqual(mock.get('headTags'), expectedHeadTags, 'headTags property is different than expected');
-});
+	mock.setProperties({
+		removeServerTags: Ember.K,
+		setStaticHeadTags: Ember.K,
+		headData: Ember.Object.create()
+	});
 
-test('set correct document title', function (assert) {
-	const mock = this.subject(),
-		expectedDocumentTitle = 'Kermit The Frog - Muppet Wiki - Wikia';
+	mock.setDynamicHeadTags(model);
+	headData = mock.get('headData');
 
-	mock.setHeadTags(model);
-
-	assert.equal(document.title, expectedDocumentTitle, 'document title is different than expected');
+	assert.equal(headData.appleItunesApp, expectedAppleItunesApp);
 });
 
 test('get correct handler based on model namespace', function (assert) {
