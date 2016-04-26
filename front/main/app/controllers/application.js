@@ -26,7 +26,6 @@ export default Ember.Controller.extend(
 		smartBannerVisible: false,
 		drawerVisible: false,
 		userMenuVisible: false,
-		siteHeadPinned: true,
 		noScroll: false,
 		fullPage: false,
 		noMargins: false,
@@ -215,15 +214,6 @@ export default Ember.Controller.extend(
 			 */
 			toggleUserMenu(visible) {
 				this.set('userMenuVisible', visible);
-			},
-
-
-			/**
-			 * @param {boolean} pinned
-			 * @returns {void}
-			 */
-			toggleSiteHeadPinned(pinned) {
-				this.set('siteHeadPinned', pinned);
 			}
 		},
 
