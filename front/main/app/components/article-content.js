@@ -362,9 +362,12 @@ export default Ember.Component.extend(
 		 */
 		injectPotentialMemberPageExperimentComponent() {
 			const experimentComponent = this.createComponentInstance('potential-member-page-experiment'),
-				headers = this.$('h2[section]'),
-				$componentElement = this.createChildView(experimentComponent).createElement().$();
-			let $firstHeader;
+				headers = this.$('h2[section]');
+			let $componentElement,
+				$firstHeader;
+
+			experimentComponent.setProperties({experimentGroup: 'IN_ARTICLE'});
+			$componentElement = this.createChildView(experimentComponent).createElement().$();
 
 			// Check if there are headers in content
 			if (headers.length >= 2) {

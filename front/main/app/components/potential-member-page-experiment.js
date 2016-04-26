@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {getDomain} from '../utils/domain';
+import {getGroup} from 'common/modules/abtest';
 
 export default Ember.Component.extend({
 	currentUser: Ember.inject.service(),
@@ -7,11 +8,14 @@ export default Ember.Component.extend({
 		return Ember.$.cookie(this.get('dismissCookieName'));
 	}),
 	dismissCookieName: 'potential-member-experiment-dismiss',
-	experimentEnabled: Ember.computed('currentUser.userId', 'dismissed', function () {
+	experimentEnabled: Ember.computed('currentUser.userId', 'experimentGroup', 'dismissed', function () {
 		const contentLanguage = Ember.get(Mercury, 'wiki.language.content'),
 			userId = this.get('currentUser.userId');
 
-		return contentLanguage === 'en' && userId && !this.get('dismissed');
+		return this.get('experimentGroup') === getGroup('POTENTIAL_MEMBER_PAGE_ENTRY_POINTS') &&
+			!this.get('dismissed') &&
+			contentLanguage === 'en' &&
+			userId;
 	}),
 	layoutName: 'components/potential-member-page-experiment',
 
