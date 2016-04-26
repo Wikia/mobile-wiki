@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
+import request from 'ember-ajax/request';
+import {form} from '../utils/content-type';
 
 /**
  * @typedef {Object} FileNameSeparated
@@ -64,38 +66,31 @@ ArticleAddPhotoModel.reopenClass(
 					token: ''
 				};
 
-			return new Ember.RSVP.Promise((resolve, reject) => {
-				getEditToken(model.title)
-					.then((token) => {
-						editData.token = token;
-						this.editContent(editData)
-							.then(resolve, reject);
-					}, (err) => reject(err));
-			});
+			return getEditToken(model.title)
+				.then((token) => {
+					editData.token = token;
+
+					return this.editContent(editData);
+				});
 		},
 
 		/**
-		 * @param {*} editData
+		 * @param {*} data
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		editContent(editData) {
-			return new Ember.RSVP.Promise((resolve, reject) => {
-				Ember.$.ajax({
-					url: M.buildUrl({path: '/api.php'}),
-					dataType: 'json',
-					method: 'POST',
-					data: editData,
-					success: (resp) => {
-						if (resp && resp.edit && resp.edit.result === 'Success') {
-							resolve();
-						} else if (resp && resp.error) {
-							reject(resp.error.code);
-						} else {
-							reject();
-						}
-					},
-					error: (err) => reject(err)
-				});
+		editContent(data) {
+			return request(M.buildUrl({path: '/api.php'}), {
+				method: 'POST',
+				contentType: form,
+				data,
+			}).then((response) => {
+				if (response && response.edit && response.edit.result === 'Success') {
+					return response.edit.result;
+				} else if (response && response.error) {
+					throw new Error(response.error.code);
+				} else {
+					throw new Error();
+				}
 			});
 		},
 
@@ -104,28 +99,24 @@ ArticleAddPhotoModel.reopenClass(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		upload(model) {
-			return new Ember.RSVP.Promise((resolve, reject) => {
-				this.temporaryUpload(model.photoData)
-					.then((addMediaTemporary) => {
-						let newPhotoTitle;
+			return this.temporaryUpload(model.photoData)
+				.then((addMediaTemporary) => {
+					let newPhotoTitle;
 
-						// We already have the file. No need to upload.
-						if (typeof addMediaTemporary.tempName === 'undefined') {
-							resolve(addMediaTemporary);
-							return;
-						}
+					// We already have the file. No need to upload.
+					if (typeof addMediaTemporary.tempName === 'undefined') {
+						return addMediaTemporary;
+					}
 
-						// If a user inputs an empty image name, then we silently replace it with original file name.
-						if (model.photoName.trim().length === 0) {
-							newPhotoTitle = model.photoData.name;
-						} else {
-							newPhotoTitle = `${model.photoName.trim()}.${model.photoExtension}`;
-						}
+					// If a user inputs an empty image name, then we silently replace it with original file name.
+					if (model.photoName.trim().length === 0) {
+						newPhotoTitle = model.photoData.name;
+					} else {
+						newPhotoTitle = `${model.photoName.trim()}.${model.photoExtension}`;
+					}
 
-						this.permanentUpload(newPhotoTitle, addMediaTemporary.tempName)
-							.then(resolve, reject);
-					}, (err) => reject(err));
-			});
+					return this.permanentUpload(newPhotoTitle, addMediaTemporary.tempName);
+				});
 		},
 
 		/**
@@ -136,30 +127,24 @@ ArticleAddPhotoModel.reopenClass(
 		permanentUpload(title, tempName) {
 			return getEditToken(title)
 				.then((token) => {
-					return new Ember.RSVP.Promise((resolve, reject) => {
-						const params = {
+					return request(M.buildUrl({path: '/api.php'}), {
+						method: 'POST',
+						contentType: form,
+						data: {
 							action: 'addmediapermanent',
 							format: 'json',
 							title,
 							tempName,
 							token
-						};
-
-						Ember.$.ajax({
-							url: M.buildUrl({path: '/api.php'}),
-							method: 'POST',
-							data: params,
-							success: (resp) => {
-								if (resp && resp.addmediapermanent) {
-									resolve(resp.addmediapermanent);
-								} else if (resp && resp.error) {
-									reject(resp.error.code);
-								} else {
-									reject();
-								}
-							},
-							error: (err) => reject(err)
-						});
+						},
+					}).then((response) => {
+						if (response && response.addmediapermanent) {
+							return response.addmediapermanent;
+						} else if (response && response.error) {
+							throw new Error(response.error.code);
+						} else {
+							throw new Error();
+						}
 					});
 				});
 		},
@@ -178,28 +163,21 @@ ArticleAddPhotoModel.reopenClass(
 					formData.append('format', 'json');
 					formData.append('type', 'image');
 					formData.append('token', token);
-					return new Ember.RSVP.Promise((resolve, reject) => {
-						Ember.$.ajax({
-							url: M.buildUrl({path: '/api.php'}),
-							method: 'POST',
-							data: formData,
-							cache: false,
-							xhrFields: {
-								withCredentials: true
-							},
-							contentType: false,
-							processData: false,
-							success: (resp) => {
-								if (resp && resp.addmediatemporary) {
-									resolve(resp.addmediatemporary);
-								} else if (resp && resp.error) {
-									reject(resp.error.code);
-								} else {
-									reject();
-								}
-							},
-							error: (err) => reject(err)
-						});
+
+					return request(M.buildUrl({path: '/api.php'}), {
+						method: 'POST',
+						data: formData,
+						cache: false,
+						contentType: false,
+						processData: false,
+					}).then((response) => {
+						if (response && response.addmediatemporary) {
+							return response.addmediatemporary;
+						} else if (response && response.error) {
+							throw new Error(response.error.code);
+						} else {
+							throw new Error();
+						}
 					});
 				});
 		},

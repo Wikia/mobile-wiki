@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import MediaModel from '../media';
 import {normalizeToWhitespace} from 'common/utils/string';
+import request from 'ember-ajax/request';
 
 /**
  * @typedef {Object} ArticleModelUrlParams
@@ -56,36 +57,31 @@ ArticleModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getArticleRandomTitle() {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			const url = M.buildUrl({
-				path: '/api.php',
-				query: {
-					action: 'query',
-					generator: 'random',
-					grnnamespace: 0,
-					format: 'json'
+		const url = M.buildUrl({
+			path: '/api.php',
+			query: {
+				action: 'query',
+				generator: 'random',
+				grnnamespace: 0,
+				format: 'json'
+			}
+		});
+
+		return request(url, {
+			cache: false,
+		}).then((data) => {
+			if (data.query && data.query.pages) {
+				const articleId = Object.keys(data.query.pages)[0],
+					pageData = data.query.pages[articleId];
+
+				if (pageData.title) {
+					return pageData.title;
 				}
-			});
+			}
 
-			Ember.$.ajax({
-				url,
-				cache: false,
-				dataType: 'json',
-				success: (data) => {
-					if (data.query && data.query.pages) {
-						const articleId = Object.keys(data.query.pages)[0],
-							pageData = data.query.pages[articleId];
-
-						if (pageData.title) {
-							return resolve(pageData.title);
-						}
-					}
-					return reject({
-						message: 'Data from server misshaped',
-						data
-					});
-				},
-				error: (err) => reject(err)
+			throw new Error({
+				message: 'Data from server misshaped',
+				data
 			});
 		});
 	},
