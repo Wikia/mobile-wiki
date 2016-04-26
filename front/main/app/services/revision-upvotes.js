@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import getEditToken from '../utils/edit-token';
+import {form} from '../utils/content-type';
 
 export default Ember.Service.extend({
 	ajax: Ember.inject.service(),
@@ -84,7 +85,7 @@ export default Ember.Service.extend({
 						method: 'addUpvote'
 					}
 				}), {
-					contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+					contentType: form,
 					data: {
 						revisionId,
 						token
@@ -118,7 +119,7 @@ export default Ember.Service.extend({
 						method: 'removeUpvote'
 					}
 				}), {
-					contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+					contentType: form,
 					data: {
 						id: upvoteId,
 						userId,
