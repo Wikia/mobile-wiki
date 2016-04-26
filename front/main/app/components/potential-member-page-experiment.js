@@ -7,9 +7,9 @@ export default Ember.Component.extend({
 		return Ember.$.cookie(this.get('dismissCookieName'));
 	}),
 	dismissCookieName: 'potential-member-experiment-dismiss',
-	experimentEnabled: Ember.computed('currentUser', 'dismissed', function () {
+	experimentEnabled: Ember.computed('currentUser.userId', 'dismissed', function () {
 		const contentLanguage = Ember.get(Mercury, 'wiki.language.content'),
-			userId = this.get('currentUser').get('userId');
+			userId = this.get('currentUser.userId');
 
 		return contentLanguage === 'en' && userId && !this.get('dismissed');
 	}),
