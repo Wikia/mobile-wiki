@@ -2,7 +2,7 @@ import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend({
-	classNames: ['site-head', 'border-theme-color'],
+	classNames: ['site-head'],
 	classNameBindings: ['themeBar'],
 	tagName: 'nav',
 	themeBar: false,
