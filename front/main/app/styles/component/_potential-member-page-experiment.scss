@@ -1,5 +1,7 @@
-.potential-member-page-experiment {
-	background: url(/front/common/images/potential-member-page-experiment-banner-background.png) no-repeat 0% 100%;
+$type-larger-decreased: 32px;
+
+.potential-member-page-experiment .content {
+	background: url(/front/common/images/potential-member-page-experiment-banner-background.png) $color-white no-repeat 0% 100%;
 	border-bottom: 4px solid $color-blue-light;
 	padding: 60px 42px 12px;
 	position: relative;
@@ -8,6 +10,7 @@
 
 .pmp-entry-point-message {
 	font-size: $type-small;
+	font-weight: 200;
 	line-height: $line-height-small;
 	margin-bottom: 24px;
 }
@@ -34,4 +37,25 @@
 	fill: $color-black;
 	height: 16px;
 	width: 16px;
+}
+
+.potential-member-page-experiment.cover {
+	align-items: center;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	height: 100vh;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 1000;
+
+	.content {
+		padding: 54px 42px 40px;
+	}
+
+	.pmp-entry-point-message {
+		font-size: $type-larger-decreased;
+		line-height: $line-height-larger;
+	}
 }

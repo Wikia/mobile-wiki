@@ -1,3 +1,7 @@
 {{#if experimentEnabled}}
-	{{potential-member-page-experiment-banner learnMore=(action 'learnMore') close=(action 'postpone')}}
+	{{potential-member-page-experiment-banner
+		close=(action 'postpone')
+		experimentGroup=experimentGroup
+		learnMore=(action 'learnMore')
+	}}
 {{/if}}

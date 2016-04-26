@@ -3,6 +3,10 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend({
 	classNames: ['potential-member-page-experiment'],
+	classNameBindings: ['cover'],
+	cover: Ember.computed('experimentGroup', function () {
+		return this.get('experimentGroup') === 'GLUE_BOTTOM';
+	}),
 	layoutName: 'components/potential-member-page-experiment-banner',
 	trackingCategory: 'potential-member-experiment',
 
