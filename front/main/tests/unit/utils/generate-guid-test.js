@@ -3,7 +3,7 @@ import {test} from 'ember-qunit';
 import sinon from 'sinon';
 import generateGuid from 'main/utils/generate-guid';
 
-module('Unit | Utils | generate-guid', (hooks) => {
+module('Unit | Utility | generate-guid', (hooks) => {
 	hooks.beforeEach(() => {
 		sinon.stub(Date, 'now').returns('1234');
 	});
