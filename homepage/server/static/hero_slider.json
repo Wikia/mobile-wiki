@@ -21,14 +21,14 @@
       "textColorClass": "hero-text-shadow"
     },
     {
-      "title": "#MayTheFansBeWithYou",
-      "subtitle": "スター・ウォーズファンよ、ここに集え！",
+      "title": "ゲーム・オブ・スローンズ",
+      "subtitle": "シーズン6日米同時放送開始記念",
       "button": true,
-      "buttonText": "スペシャルサイトはこちら",
-      "buttonId": "starwars",
-      "buttonLink": "http://www.wikia.com/starwars/?uselang=ja",
-      "image": "/images/heroslider/slider-starwars.jpg",
-      "imageMobile": "/images/heroslider/slider-starwars-small.jpg",
+      "buttonText": "スペシャルサイトがオープン !",
+      "buttonId": "gameofthrones",
+      "buttonLink": "http://ja.wikia.com/cp/gameofthrones/",
+      "image": "/images/heroslider/slider-gameofthrones.jpg",
+      "imageMobile": "/images/heroslider/slider-gameofthrones-small.jpg",
       "textColorClass": "hero-text-white"
     }
   ]
