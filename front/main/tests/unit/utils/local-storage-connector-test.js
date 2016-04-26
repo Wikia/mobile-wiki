@@ -1,7 +1,7 @@
 import {module} from 'qunit';
 import {test} from 'ember-qunit';
 
-module('Unit | Utils | local storage adapter', () => {
+module('Unit | Utility | local storage adapter', () => {
 	test('getItem/setItem works', (assert) => {
 		const localStorageAdapter = require('main/utils/local-storage-connector').localStorageAdapter;
 

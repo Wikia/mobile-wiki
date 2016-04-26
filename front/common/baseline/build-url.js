@@ -129,11 +129,10 @@ if (typeof window.M === 'undefined') {
 
 	/**
 	 * @param {string} [path='']
-	 * @param {Object} [query={}]
 	 * @returns {string}
 	 */
-	M.getDiscussionServiceUrl = function (path = '', query = {}) {
-		return `https://${M.prop('servicesDomain')}/${M.prop('discussionBaseRoute')}${path}${getQueryString(query)}`;
+	M.getDiscussionServiceUrl = function (path = '') {
+		return `https://${M.prop('servicesDomain')}/${M.prop('discussionBaseRoute')}${path}`;
 	};
 
 	/**

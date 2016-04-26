@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import nearestParent from 'ember-pop-over/computed/nearest-parent';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(
 	{
@@ -32,7 +33,15 @@ export default Ember.Component.extend(
 					discussionSort = this.get('discussionSort');
 
 				// No need for applying already applied filters again
-				if (sortBy !== discussionSort.get('sortBy') || onlyReported !== discussionSort.get('onlyReported')) {
+				if (sortBy !== discussionSort.get('sortBy')) {
+					if (sortBy === 'latest') {
+						track(trackActions.LatestPostTapped);
+					} else if (sortBy === 'trending') {
+						track(trackActions.TrendingPostTapped);
+					}
+
+					this.attrs.applyFilters(this.get('sortBy'), this.get('onlyReported'));
+				} else if (onlyReported !== discussionSort.get('onlyReported')) {
 					this.attrs.applyFilters(this.get('sortBy'), this.get('onlyReported'));
 				}
 

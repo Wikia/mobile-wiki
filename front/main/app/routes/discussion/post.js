@@ -26,6 +26,8 @@ export default DiscussionBaseRoute.extend(
 		afterModel(model) {
 			let title = model.get('title');
 
+			this._super(...arguments);
+
 			if (!title) {
 				title = i18n.t('main.share-default-title', {siteName: Mercury.wiki.siteName, ns: 'discussion'});
 			}
@@ -55,6 +57,17 @@ export default DiscussionBaseRoute.extend(
 				enableShareHeader: false
 			});
 			this._super();
+		},
+
+		/**
+		 * Custom implementation of HeadTagsMixin::setDynamicHeadTags
+		 * @param {Object} model, this is model object from route::afterModel() hook
+		 * @returns {void}
+		 */
+		setDynamicHeadTags(model) {
+			this._super(model, {
+				appArgument: `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}`}
+			);
 		},
 
 		actions: {

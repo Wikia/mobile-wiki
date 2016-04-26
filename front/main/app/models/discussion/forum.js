@@ -3,10 +3,10 @@ import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
 import DiscussionContributionModelMixin from '../../mixins/discussion-contribution-model';
-import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributors from './domain/contributors';
 import DiscussionEntities from './domain/entities';
 import DiscussionPost from './domain/post';
+import request from 'ember-ajax/request';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
@@ -23,24 +23,21 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		loadPage(pageNum = 0, sortBy = 'trending') {
 			this.set('data.pageNum', pageNum);
 
-			return ajaxCall({
+			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`), {
 				data: {
 					page: this.get('data.pageNum'),
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false
 				},
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
-				success: (data) => {
-					this.get('data.entities').pushObjects(
-						Ember.get(data, '_embedded.doc:threads').map(
-							(newThread) => DiscussionPost.createFromThreadData(newThread)
-						)
-					);
-				},
-				error: (err) => {
-					this.handleLoadMoreError(err);
-				}
+			}).then((data) => {
+				this.get('data.entities').pushObjects(
+					Ember.get(data, '_embedded.doc:threads').map(
+						(newThread) => DiscussionPost.createFromThreadData(newThread)
+					)
+				);
+			}).catch((err) => {
+				this.handleLoadMoreError(err);
 			});
 		},
 
@@ -88,16 +85,16 @@ DiscussionForumModel.reopenClass({
 		if (sortBy) {
 			requestData.sortKey = forumInstance.getSortKey(sortBy);
 		}
-		return ajaxCall({
-			context: forumInstance,
+		return request(M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`), {
 			data: requestData,
-			url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
-			success: (data) => {
-				forumInstance.setNormalizedData(data);
-			},
-			error: (err) => {
-				forumInstance.setErrorProperty(err);
-			}
+		}).then((data) => {
+			forumInstance.setNormalizedData(data);
+
+			return forumInstance;
+		}).catch((err) => {
+			forumInstance.setErrorProperty(err);
+
+			return forumInstance;
 		});
 	}
 });

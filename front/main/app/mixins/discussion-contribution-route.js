@@ -1,5 +1,6 @@
 import Ember from 'ember';
 
+
 /**
  * Handles posts upvoting.
  * If the post was upvoted already, the upvote is removed.
@@ -21,8 +22,8 @@ export default Ember.Mixin.create({
 			this.setSortBy('latest').promise.then(() => {
 				const model = this.modelFor(this.get('routeName'));
 
-				model.createPost(postData).then((xhr) => {
-					if (xhr.apiResponseData && !model.get('errorMessage')) {
+				model.createPost(postData).then((data) => {
+					if (data && !model.get('errorMessage')) {
 						this.get('discussionEditor').trigger('newPost');
 					}
 				});
@@ -39,8 +40,8 @@ export default Ember.Mixin.create({
 		editPost(postData) {
 			const model = this.modelFor(this.get('routeName'));
 
-			model.editPost(postData).then((xhr) => {
-				if (xhr.apiResponseData && !model.get('errorMessage')) {
+			model.editPost(postData).then((data) => {
+				if (data && !model.get('errorMessage')) {
 					this.get('discussionEditor').trigger('newPost');
 				}
 			});
@@ -63,8 +64,8 @@ export default Ember.Mixin.create({
 		editReply(replyData) {
 			const model = this.modelFor(this.get('routeName'));
 
-			model.editReply(replyData).then((xhr) => {
-				if (xhr.apiResponseData && !model.get('errorMessage')) {
+			model.editReply(replyData).then((data) => {
+				if (data && !model.get('errorMessage')) {
 					this.get('discussionEditor').trigger('newPost');
 				}
 			});

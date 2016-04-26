@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import request from 'ember-ajax/request';
 
 /**
  * @typedef {Object} CuratedContentItem
@@ -38,7 +39,7 @@ function getURL(title, type, offset) {
 			query: {
 				controller: 'MercuryApi',
 				method: 'getCuratedContentSection',
-				section: title
+				section: decodeURIComponent(title)
 			}
 		});
 	} else if (type === 'category') {
@@ -49,7 +50,7 @@ function getURL(title, type, offset) {
 			abstract: 0,
 			width: 300,
 			height: 300,
-			category: title,
+			category: decodeURIComponent(title),
 			limit: 24
 		};
 
@@ -79,25 +80,21 @@ CuratedContentModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(title, type = 'section', offset = '') {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			const modelInstance = CuratedContentModel.create({
-					title,
-					type
-				}),
-				url = getURL(title, type, offset);
+		const modelInstance = CuratedContentModel.create({
+				title,
+				type
+			}),
+			url = getURL(title, type, offset);
 
-			Ember.$.ajax({
-				url,
-				success: (data) => {
-					modelInstance.setProperties({
-						items: CuratedContentModel.sanitizeItems(data.items),
-						offset: data.offset || null
-					});
-					resolve(modelInstance);
-				},
-				error: (data) => reject(data)
+		return request(url)
+			.then((data) => {
+				modelInstance.setProperties({
+					items: CuratedContentModel.sanitizeItems(data.items),
+					offset: data.offset || null
+				});
+
+				return modelInstance;
 			});
-		});
 	},
 
 	/**

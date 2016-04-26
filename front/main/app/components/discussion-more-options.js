@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import nearestParent from 'ember-pop-over/computed/nearest-parent';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	classNames: ['more-options'],
@@ -23,12 +24,18 @@ export default Ember.Component.extend({
 			!this.get('post.isDeleted');
 	}),
 
-	canLock: Ember.computed('isLockable', 'post.isLocked', 'post.userData.permissions.canDelete', function () {
-		// @ToDo use canLock for this -> SOC-2144
-		return this.get('isLockable') && !this.get('post.isLocked') && this.get('post.userData.permissions.canDelete');
+	canLock: Ember.computed('isLockable', 'post.isLocked', 'post.userData.permissions.canLock', function () {
+		return this.get('isLockable') && !this.get('post.isLocked') && this.get('post.userData.permissions.canLock');
 	}),
 
-	canUnlock: Ember.computed.and('isLockable', 'post.isLocked', 'post.userData.permissions.canDelete'),
+	canUnlock: Ember.computed.and('isLockable', 'post.isLocked', 'post.userData.permissions.canUnlock'),
+
+	/**
+	 * @returns {void}
+	 */
+	didInsertElement() {
+		track(trackActions.MorePostActions);
+	},
 
 	discussionEditor: Ember.inject.service(),
 
@@ -46,6 +53,7 @@ export default Ember.Component.extend({
 		 */
 		lock(post) {
 			this.attrs.lock(post);
+			track(trackActions.PostLock);
 			this.get('popover').deactivate();
 		},
 
@@ -56,6 +64,7 @@ export default Ember.Component.extend({
 		 */
 		unlock(post) {
 			this.attrs.unlock(post);
+			track(trackActions.PostUnlock);
 			this.get('popover').deactivate();
 		},
 
@@ -86,6 +95,7 @@ export default Ember.Component.extend({
 		 */
 		report(post) {
 			this.attrs.report(post);
+			track(trackActions.Report);
 			this.get('popover').deactivate();
 		},
 	}

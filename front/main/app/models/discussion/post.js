@@ -1,12 +1,12 @@
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionContributionModelMixin from '../../mixins/discussion-contribution-model';
-import ajaxCall from '../../utils/ajax-call';
-import {track, trackActions} from '../../utils/discussion-tracker';
-import DiscussionContributor from './domain/contributor';
 import DiscussionContributors from './domain/contributors';
 import DiscussionPost from './domain/post';
 import DiscussionReply from './domain/reply';
+import {track, trackActions} from '../../utils/discussion-tracker';
+import request from 'ember-ajax/request';
+import {isUnauthorizedError} from 'ember-ajax/errors';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
@@ -60,14 +60,10 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadAnotherPage(serviceUrl, isNextPageCall) {
-			return ajaxCall({
-				url: M.getDiscussionServiceUrl(serviceUrl),
-				success: (data) => {
-					this.onLoadAnotherPageSuccess(data, isNextPageCall);
-				},
-				error: (err) => {
-					this.handleLoadMoreError(err);
-				},
+			return request(M.getDiscussionServiceUrl(serviceUrl)).then((data) => {
+				this.onLoadAnotherPageSuccess(data, isNextPageCall);
+			}).catch((err) => {
+				this.handleLoadMoreError(err);
 			});
 		},
 
@@ -86,55 +82,26 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 		},
 
 		/**
-		 * Create a reply in discussion service
-		 * @param {object} replyData
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		createReply(replyData) {
-			this.setFailedState(null);
-			replyData.threadId = this.get('threadId');
-
-			return ajaxCall({
-				data: JSON.stringify(replyData),
-				method: 'POST',
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
-				success: (reply) => {
-					reply.isNew = true;
-					reply.threadCreatedBy = this.get('data.createdBy');
-					this.incrementProperty('data.repliesCount');
-					this.get('data.replies').pushObject(DiscussionReply.create(reply));
-
-					track(trackActions.ReplyCreate);
-				},
-				error: (err) => {
-					this.onCreatePostError(err);
-				}
-			});
-		},
-
-		/**
 		 * Edit a post in discussion service
 		 * @param {object} postData
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		editPost(postData) {
 			this.setFailedState(null);
-			return ajaxCall({
-				data: JSON.stringify(postData),
+
+			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`), {
 				method: 'POST',
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`),
-				success: (thread) => {
-					// make sure replies are still in place after replacing thread object.
-					const replies = this.get('data.replies');
+				data: JSON.stringify(replyData),
+			}).then((thread) => {
+				// make sure replies are still in place after replacing thread object.
+				const replies = this.get('data.replies');
 
-					this.setNormalizedData(thread);
-					this.set('data.replies', replies);
+				this.setNormalizedData(thread);
+				this.set('data.replies', replies);
 
-					track(trackActions.PostEdit);
-				},
-				error: (err) => {
-					this.onCreatePostError(err);
-				}
+				track(trackActions.PostEdit);
+			}).catch((err) => {
+				this.onCreatePostError(err);
 			});
 		},
 
@@ -146,25 +113,51 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 		editReply(replyData) {
 			this.setFailedState(null);
 
-			return ajaxCall({
-				data: JSON.stringify(replyData),
+			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${replyData.id}`), {
 				method: 'POST',
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${replyData.id}`),
-				success: (reply) => {
-					const replies = this.get('data.replies'),
-						editedReplyIndex = replies.indexOf(replies.findBy('id', replyData.id));
-					let editedReply;
+				data: JSON.stringify(replyData),
+			}).then((reply) => {
+				const replies = this.get('data.replies'),
+					editedReplyIndex = replies.indexOf(replies.findBy('id', replyData.id));
+				let editedReply;
 
-					reply.threadCreatedBy = reply.createdBy;
+				reply.threadCreatedBy = reply.createdBy;
 
-					editedReply = DiscussionReply.create(reply);
+				editedReply = DiscussionReply.create(reply);
 
-					replies.replace(editedReplyIndex, 1, editedReply);
+				replies.replace(editedReplyIndex, 1, editedReply);
 
-					track(trackActions.ReplyEdit);
-				},
-				error: (err) => {
-					this.onCreatePostError(err);
+				track(trackActions.ReplyEdit);
+			}).catch((err) => {
+				this.onCreatePostError(err);
+			});
+		},
+
+
+		/**
+		 * @param {Object} replyData
+		 *
+		 * @returns {Ember.RSVP.Promise}
+		 */
+		createReply(replyData) {
+			this.setFailedState(null);
+			replyData.threadId = this.get('threadId');
+
+			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts`), {
+				method: 'POST',
+				data: JSON.stringify(replyData),
+			}).then((reply) => {
+				reply.isNew = true;
+				reply.threadCreatedBy = this.get('data.createdBy');
+				this.incrementProperty('data.repliesCount');
+				this.get('data.replies').pushObject(DiscussionReply.create(reply));
+
+				track(trackActions.ReplyCreate);
+			}).catch((err) => {
+				if (isUnauthorizedError(err.status)) {
+					this.setFailedState('editor.post-error-not-authorized');
+				} else {
+					this.setFailedState('editor.post-error-general-error');
 				}
 			});
 		},
@@ -198,7 +191,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 			});
 
 			this.set('data', normalizedData);
-		},
+		}
 	}
 );
 
@@ -218,8 +211,7 @@ DiscussionPostModel.reopenClass({
 			}),
 			urlPath = replyId ? `/${wikiId}/permalinks/posts/${replyId}` : `/${wikiId}/threads/${threadId}`;
 
-		return ajaxCall({
-			context: postInstance,
+		return request(M.getDiscussionServiceUrl(urlPath), {
 			data: {
 				limit: postInstance.get('repliesLimit'),
 				responseGroup: 'full',
@@ -227,23 +219,24 @@ DiscussionPostModel.reopenClass({
 				sortKey: 'creation_date',
 				viewableOnly: false
 			},
-			url: M.getDiscussionServiceUrl(urlPath),
-			success: (data) => {
-				if (replyId) {
-					data.permalinkedReplyId = replyId;
-				}
-
-				postInstance.setProperties({
-					// this is not a mistake - we have descending order
-					'links.previous': Ember.getWithDefault(data, '_links.next.0.href', null),
-					'links.next': Ember.getWithDefault(data, '_links.previous.0.href', null)
-				});
-
-				postInstance.setNormalizedData(data);
-			},
-			error: (err) => {
-				postInstance.setErrorProperty(err);
+		}).then((data) => {
+			if (replyId) {
+				data.permalinkedReplyId = replyId;
 			}
+
+			postInstance.setProperties({
+				// this is not a mistake - we have descending order
+				'links.previous': Ember.getWithDefault(data, '_links.next.0.href', null),
+				'links.next': Ember.getWithDefault(data, '_links.previous.0.href', null)
+			});
+
+			postInstance.setNormalizedData(data);
+
+			return postInstance;
+		}).catch((err) => {
+			postInstance.setErrorProperty(err);
+
+			return postInstance;
 		});
 	},
 });

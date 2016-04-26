@@ -7,6 +7,22 @@ const trackActions = {
 	ReplyEdit: 'ReplyEdit',
 	UndoUpvotePost: 'UndoUpvotePost',
 	UpvotePost: 'UpvotePost',
+	LatestPostTapped: 'LatestPostTapped',
+	TrendingPostTapped: 'TrendingPostTapped',
+	PostShare: 'PostShare',
+	PostClose: 'PostClose',
+	ReplyClose: 'ReplyClose',
+	PostStart: 'PostStart',
+	ReplyStart: 'ReplyStart',
+	PostContent: 'PostContent',
+	AnonUpvotePost: 'AnonUpvotePost',
+	ReplyContent: 'ReplyContent',
+	MorePostActions: 'MorePostActions',
+	Report: 'Report',
+	PostLock: 'PostLock',
+	PostUnlock: 'PostUnlock',
+	DeleteAllConfirmed: 'DeleteAllConfirmed',
+	DeleteAllTapped: 'DeleteAllTapped',
 };
 
 /**
@@ -40,6 +56,15 @@ export function track(action) {
 	mercuryTrack(
 		getGAContext(action)
 	);
+}
+
+/**
+ * @param {string} network
+ *
+ * @returns {string}
+ */
+export function getTrackActionForShareNetwork(network) {
+	return `${network}-ShareButtonTapped`;
 }
 
 export {trackActions};

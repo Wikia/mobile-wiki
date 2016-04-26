@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ajaxCall from '../utils/ajax-call';
+import request from 'ember-ajax/request';
 import {track, trackActions} from '../utils/discussion-tracker';
 import DiscussionPost from '../models/discussion/domain/post';
 import DiscussionReply from '../models/discussion/domain/reply';
@@ -12,22 +12,21 @@ export default Ember.Mixin.create({
 	 */
 	createPost(postData) {
 		this.setFailedState(null);
-		return ajaxCall({
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`), {
 			data: JSON.stringify(postData),
 			method: 'POST',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
-			success: (thread) => {
-				const newPost = DiscussionPost.createFromThreadData(thread);
+		}).then((thread) => {
+			const newPost = DiscussionPost.createFromThreadData(thread);
 
-				newPost.set('isNew', true);
-				this.get('data.entities').insertAt(0, newPost);
-				this.incrementProperty('postCount');
+			newPost.set('isNew', true);
+			this.get('data.entities').insertAt(0, newPost);
+			this.incrementProperty('postCount');
 
-				track(trackActions.PostCreate);
-			},
-			error: (err) => {
-				this.onCreatePostError(err);
-			}
+			track(trackActions.PostCreate);
+
+			return newPost;
+		}).catch((err) => {
+			this.onCreatePostError(err);
 		});
 	},
 
@@ -38,22 +37,21 @@ export default Ember.Mixin.create({
 	 */
 	editPost(postData) {
 		this.setFailedState(null);
-		return ajaxCall({
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`), {
 			data: JSON.stringify(postData),
 			method: 'POST',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`),
-			success: (thread) => {
-				const editedPost = DiscussionPost.createFromThreadData(thread),
-					posts = this.get('data.entities'),
-					editedPostIndex = posts.indexOf(posts.findBy('id', postData.id));
+		}).then((thread) => {
+			const editedPost = DiscussionPost.createFromThreadData(thread),
+				posts = this.get('data.entities'),
+				editedPostIndex = posts.indexOf(posts.findBy('id', postData.id));
 
-				posts.replace(editedPostIndex, 1, editedPost);
+			posts.replace(editedPostIndex, 1, editedPost);
 
-				track(trackActions.PostEdit);
-			},
-			error: (err) => {
-				this.onCreatePostError(err);
-			}
+			track(trackActions.PostEdit);
+
+			return editedPost;
+		}).catch((err) => {
+			this.onCreatePostError(err);
 		});
 	},
 
@@ -65,32 +63,30 @@ export default Ember.Mixin.create({
 	editReply(replyData) {
 		this.setFailedState(null);
 
-		return ajaxCall({
-			data: JSON.stringify(replyData),
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`), {
+			data: JSON.stringify(postData),
 			method: 'POST',
-			url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${replyData.id}`),
-			success: (reply) => {
-				const replies = this.get('data.entities'),
-					editedReplyIndex = replies.indexOf(replies.findBy('id', replyData.id));
-				let editedReply;
+		}).then((reply) => {
+			const replies = this.get('data.entities'),
+				editedReplyIndex = replies.indexOf(replies.findBy('id', replyData.id));
+			let editedReply;
 
-				reply.threadCreatedBy = reply.createdBy;
+			reply.threadCreatedBy = reply.createdBy;
 
-				editedReply = DiscussionReply.create(reply);
+			editedReply = DiscussionReply.create(reply);
 
-				replies.replace(editedReplyIndex, 1, editedReply);
+			replies.replace(editedReplyIndex, 1, editedReply);
 
-				track(trackActions.ReplyEdit);
-			},
-			error: (err) => {
-				this.onCreatePostError(err);
-			}
+			track(trackActions.ReplyEdit);
+
+			return editedReply;
+		}).catch((err) => {
+			this.onCreatePostError(err);
 		});
 	},
 
 	/**
-	 * Upvote a pot or reply in discussion service
-	 * @param {object} entity
+	 * @param {*} entity
 	 * @returns {void}
 	 */
 	upvote(entity) {
@@ -98,7 +94,13 @@ export default Ember.Mixin.create({
 			hasUpvoted = entity.get('userData.hasUpvoted'),
 			method = hasUpvoted ? 'delete' : 'post';
 
-		if (this.upvotingInProgress[entityId] || typeof entity.get('userData') === 'undefined') {
+		if (this.upvotingInProgress[entityId]) {
+			return null;
+		}
+
+		if (!entity.get('userData')) {
+			track(trackActions.AnonUpvotePost);
+
 			return null;
 		}
 
@@ -107,24 +109,20 @@ export default Ember.Mixin.create({
 		// the change in the front-end is done here
 		entity.set('userData.hasUpvoted', !hasUpvoted);
 
-		ajaxCall({
+		request(M.getDiscussionServiceUrl(`/${Ember.get(Mercury, 'wiki.id')}/votes/post/${entity.get('id')}`), {
 			method,
-			url: M.getDiscussionServiceUrl(`/${Ember.get(Mercury, 'wiki.id')}/votes/post/${entity.get('id')}`),
-			success: (data) => {
-				entity.set('upvoteCount', data.upvoteCount);
+		}).then((data) => {
+			entity.set('upvoteCount', data.upvoteCount);
 
-				if (hasUpvoted) {
-					track(trackActions.UndoUpvotePost);
-				} else {
-					track(trackActions.UpvotePost);
-				}
-			},
-			error: () => {
-				entity.set('userData.hasUpvoted', hasUpvoted);
-			},
-			complete: () => {
-				this.upvotingInProgress[entityId] = false;
+			if (hasUpvoted) {
+				track(trackActions.UndoUpvotePost);
+			} else {
+				track(trackActions.UpvotePost);
 			}
+		}).catch(() => {
+			entity.set('userData.hasUpvoted', hasUpvoted);
+		}).finally(() => {
+			this.upvotingInProgress[entityId] = false;
 		});
 	},
 
