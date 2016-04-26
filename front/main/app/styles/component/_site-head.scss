@@ -78,7 +78,7 @@ $nav-container-padding: 4px;
 }
 
 .application-wrapper {
-	margin-top: rem-calc($site-head-height);
+	margin-top: $site-head-height;
 }
 
 .side-nav-toggle {
