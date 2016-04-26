@@ -59,6 +59,8 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 				this.incrementProperty('postCount');
 
 				track(trackActions.PostCreate);
+
+				return newPost;
 			}).catch((err) => {
 				this.onCreatePostError(err);
 			});
