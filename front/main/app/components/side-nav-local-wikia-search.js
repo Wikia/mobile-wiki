@@ -13,6 +13,7 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	{
+		ajax: Ember.inject.service(),
 		query: '',
 
 		/**
@@ -184,7 +185,7 @@ export default Ember.Component.extend(
 
 			this.startedRequest(query);
 
-			Ember.$.getJSON(uri).then((data) => {
+			this.get('ajax').request(uri).then((data) => {
 				/**
 				 * If the user makes one request, request A, and then keeps typing to make
 				 * reqeust B, but request A takes a long time while request B returns quickly,
@@ -196,14 +197,14 @@ export default Ember.Component.extend(
 				}
 
 				this.cacheResult(query, data.items);
-			}).fail(() => {
+			}).catch(() => {
 				// When we get a 404, it means there were no results
 				if (query === this.get('query')) {
 					this.setEmptySearchSuggestionItems();
 				}
 
 				this.cacheResult(query);
-			}).always(() => {
+			}).finally(() => {
 				// We have a response, so we're no longer loading the results
 				if (query === this.get('query')) {
 					this.set('isLoadingSearchResults', false);

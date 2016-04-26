@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import CuratedContentEditorModel from '../models/curated-content-editor';
 import {track, trackActions} from 'common/utils/track';
+import {isForbiddenError} from 'ember-ajax/errors';
 
 export default Ember.Route.extend(
 	{
@@ -169,7 +170,7 @@ export default Ember.Route.extend(
 			 * @returns {Boolean} returns true
 			 */
 			error(error) {
-				if (error.status === 403) {
+				if (isForbiddenError(error.status)) {
 					this.controllerFor('application').addAlert({
 						message: i18n.t('app.curated-content-editor-error-no-access-permissions'),
 						type: 'warning'

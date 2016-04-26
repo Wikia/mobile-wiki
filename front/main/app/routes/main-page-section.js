@@ -9,8 +9,8 @@ export default Ember.Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, Rout
 	 * @param {*} params
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	model(params) {
-		return CuratedContentModel.find(params.sectionName, 'section');
+	model({sectionName}) {
+		return CuratedContentModel.find(sectionName, 'section');
 	},
 
 	/**

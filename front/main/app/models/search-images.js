@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Thumbnailer from 'common/modules/thumbnailer';
+import request from 'ember-ajax/request';
 
 /**
  * @typedef {Object} SearchImageResponse
@@ -80,45 +81,39 @@ export default Ember.Object.extend({
 	next() {
 		this.incrementProperty('nextBatch');
 
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			this.fetch()
-				/**
-				 * @param {SearchImageResponse} data
-				 */
-				.done((data) => {
-					let items;
+		return this.fetch()
+			/**
+			 * @param {SearchImageResponse} data
+			 */
+			.then((data) => {
+				let items;
 
-					if (data.error) {
-						return reject(data.error);
-					}
+				if (data.error) {
+					throw new Error(data.error);
+				}
 
-					items = Ember.get(data, 'response.results.photo.items');
+				items = Ember.get(data, 'response.results.photo.items');
 
-					if (Ember.isEmpty(items)) {
-						return reject({
-							status: 404,
-							statusText: 'empty'
-						});
-					}
+				if (Ember.isEmpty(items)) {
+					throw new Error({
+						status: 404,
+						statusText: 'empty'
+					});
+				}
 
-					this.setItems(items);
-					this.set('batches', data.response.results.photo.batches);
+				this.setItems(items);
+				this.set('batches', data.response.results.photo.batches);
 
-					resolve(items);
-				})
-				.fail(reject);
-		});
+				return items;
+			});
 	},
 
 	/**
-	 * @returns {JQueryXHR}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	fetch() {
-		return Ember.$.getJSON(
-			M.buildUrl({
-				path: '/api.php',
-			}),
-			{
+		return request(M.buildUrl({path: '/api.php'}), {
+			data: {
 				format: 'json',
 				action: 'apimediasearch',
 				query: this.get('searchQuery'),
@@ -126,6 +121,6 @@ export default Ember.Object.extend({
 				batch: this.get('nextBatch'),
 				limit: this.searchLimit
 			}
-		);
+		});
 	}
 });
