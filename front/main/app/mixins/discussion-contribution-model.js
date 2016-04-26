@@ -63,8 +63,8 @@ export default Ember.Mixin.create({
 	editReply(replyData) {
 		this.setFailedState(null);
 
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`), {
-			data: JSON.stringify(postData),
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${replyData.id}`), {
+			data: JSON.stringify(replyData),
 			method: 'POST',
 		}).then((reply) => {
 			const replies = this.get('data.entities'),

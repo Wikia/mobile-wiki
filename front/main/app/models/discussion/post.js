@@ -91,7 +91,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`), {
 				method: 'POST',
-				data: JSON.stringify(replyData),
+				data: JSON.stringify(postData),
 			}).then((thread) => {
 				// make sure replies are still in place after replacing thread object.
 				const replies = this.get('data.replies');
