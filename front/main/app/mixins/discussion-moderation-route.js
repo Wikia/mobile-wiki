@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 const {Mixin, inject, set} = Ember;
 
@@ -58,6 +59,8 @@ export default Mixin.create({
 						this.modelFor(this.get('routeName')).deleteAllPosts(posts).then(() => {
 							set(loadingSpinnerContainer, 'isLoading', false);
 						});
+
+						track(trackActions.DeleteAllConfirmed);
 					}
 				});
 		},

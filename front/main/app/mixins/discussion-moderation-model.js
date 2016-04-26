@@ -127,7 +127,6 @@ export default Mixin.create({
 		});
 	},
 
-
 	/**
 	 * Locks a post in the service
 	 * @param {object} post
