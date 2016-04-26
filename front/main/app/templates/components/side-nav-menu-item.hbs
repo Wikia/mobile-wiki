@@ -1,0 +1,9 @@
+{{#if children}}
+	<li class="side-nav-menu__item menu" {{action onChangeItem}}>
+		{{name}}
+	</li>
+{{else}}
+	<li class="side-nav-menu__item mw-content">
+		<a {{action onClick preventDefault=false}} href="{{href}}">{{name}}</a>
+	</li>
+{{/if}}

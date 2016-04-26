@@ -1,0 +1,18 @@
+{{#if user}}
+	User bar
+{{else}}
+	<a class="side-nav-menu__item back" {{action attrs.onBackHandler}} href="#">
+		{{header}}
+	</a>
+{{/if}}
+
+<ul>
+	{{#each items as |item|}}
+		{{component item.type
+			name=item.name
+			href=item.href
+			children=false
+			onClick=(action attrs.onClickHandler item)
+		}}
+	{{/each}}
+</ul>

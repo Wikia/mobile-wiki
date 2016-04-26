@@ -5,6 +5,21 @@ import {track, trackActions} from 'common/utils/track';
 export default Ember.Component.extend(
 	LoginLinkMixin,
 	{
+		items: Ember.computed('hubsLinks', function () {
+			console.info(this.get('hubsLinks'));
+			console.info(Ember.get(Mercury, 'wiki.navigation2016.localNav'));
+
+			const hubs = this.get('hubsLinks').map(function (item) {
+				return {
+					type: 'side-nav-menu-item',
+					href: item.href,
+					name: item.textEscaped,
+					trackLabel: `open-hub-${item.specialAttr}`
+				};
+			});
+		}),
+
+
 		currentUser: Ember.inject.service(),
 		newFeaturesBadges: Ember.inject.service(),
 		hubsLinks: Ember.get(Mercury, 'wiki.navigation2016.hubsLinks'),
@@ -45,6 +60,14 @@ export default Ember.Component.extend(
 					action: trackActions.click,
 					category: 'side-nav',
 					label: `open-hub-${hubName}`
+				});
+			},
+
+			linkClick(item) {
+				track({
+					action: trackActions.click,
+					category: 'side-nav',
+					label: item.trackLabel
 				});
 			},
 
