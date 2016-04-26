@@ -13,6 +13,7 @@ export default Ember.Component.extend({
 
 		return contentLanguage === 'en' && userId && !this.get('dismissed');
 	}),
+	layoutName: 'components/potential-member-page-experiment',
 
 	/**
 	 * Sets dismissed cookie for provided number for days and hides banner

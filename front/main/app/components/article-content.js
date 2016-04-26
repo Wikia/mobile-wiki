@@ -64,6 +64,7 @@ export default Ember.Component.extend(
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
+					this.injectPotentialMemberPageExperimentComponent();
 
 					Ember.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
 				} else {
@@ -353,6 +354,33 @@ export default Ember.Component.extend(
 			componentElement = this.createChildView(component).createElement();
 
 			return componentElement.$().attr('data-ref', ref);
+		},
+
+		/**
+		 * Inject Potential Member Page experiment into article content
+		 * @returns {void}
+		 */
+		injectPotentialMemberPageExperimentComponent() {
+			const experimentComponent = this.createComponentInstance('potential-member-page-experiment'),
+				headers = this.$('h2[section]'),
+				$componentElement = this.createChildView(experimentComponent).createElement().$();
+			let $firstHeader;
+
+			// Check if there are headers in content
+			if (headers.length >= 2) {
+				$firstHeader = headers.eq(0);
+
+				if ($firstHeader.prevAll('p').length) {
+					// Insert before first header if it's not first node in the content
+					$componentElement.insertBefore($firstHeader);
+				} else {
+					// Otherwise insert before second header
+					$componentElement.insertBefore(headers.eq(1));
+				}
+			} else {
+				// Eventually insert at the end of article
+				this.$().append($componentElement);
+			}
 		},
 
 		/**

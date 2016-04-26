@@ -3,6 +3,7 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend({
 	classNames: ['potential-member-page-experiment'],
+	layoutName: 'components/potential-member-page-experiment-banner',
 	trackingCategory: 'potential-member-experiment',
 
 	didRender() {
