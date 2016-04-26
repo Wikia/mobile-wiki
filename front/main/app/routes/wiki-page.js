@@ -117,8 +117,7 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 		const pageUrl = model.get('url'),
 			pageFullUrl = `${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}`,
 			data = {
-				documentTitle: model.get('documentTitle'),
-				displayTitle: model.get('displayTitle') || model.get('title'),
+				documentTitle: model.get('displayTitle') || model.get('title'),
 				description: model.get('description'),
 				robots: 'index,follow',
 				canonical: pageFullUrl
@@ -126,6 +125,14 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 
 		if (pageUrl) {
 			data.appArgument = pageFullUrl;
+		}
+
+		/**
+		 * This is necessary to avoid having duplicated title on CMP
+		 * This should be removed in XW-1442
+		 */
+		if (model.curatedContent) {
+			data.documentTitle = '';
 		}
 
 		this._super(model, data);
