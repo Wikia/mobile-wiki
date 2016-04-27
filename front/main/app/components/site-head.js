@@ -4,9 +4,9 @@ import {track, trackActions} from 'common/utils/track';
 const {computed, inject, Component} = Ember;
 
 export default Component.extend({
-	classNames: ['site-head'],
+	classNames: ['site-head-wrapper'],
 	classNameBindings: ['themeBar'],
-	tagName: 'nav',
+	tagName: 'div',
 	themeBar: false,
 	closeIcon: 'close',
 
