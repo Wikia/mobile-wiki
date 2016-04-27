@@ -1,6 +1,6 @@
 import {module, test} from 'qunit';
 
-module('Unit | Utils | domain', (hooks) => {
+module('Unit | Utility | domain', (hooks) => {
 	let infoboxBuilderDiff;
 
 	hooks.beforeEach(() => {

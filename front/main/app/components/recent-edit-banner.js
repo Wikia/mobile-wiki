@@ -30,7 +30,6 @@ export default Ember.Component.extend(
 					label: 'displayed'
 				});
 			});
-
 		},
 
 		setCookie(expires) {
