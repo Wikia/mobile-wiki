@@ -52,21 +52,21 @@ export default Ember.Mixin.create(ColorUtilsMixin, {
 
 	/**
 	 * Changes discussion header color if HSL Lightness is below 0.5
-	 * @params {array}
+	 * @params {object} rgb
 	 * @returns {string}
 	 */
 	getHeaderColor(rgb) {
 		const defaultColor = '#FFFFFF',
 			fallbackAboveLightness = 0.5,
 			fallbackColor = '#1A1A1A',
-			r = rgb.r/255,
-			g = rgb.g/255,
-			b = rgb.b/255,
+			r = rgb.r / 255,
+			g = rgb.g / 255,
+			b = rgb.b / 255,
 			max = Math.max(r, g, b),
 			min = Math.min(r, g, b);
 
 		// (max + min)/2 is used to obtain HSL Lightness from RGB values
-		return ((max + min)/2 < fallbackAboveLightness) ? defaultColor : fallbackColor;
+		return ((max + min) / 2 < fallbackAboveLightness) ? defaultColor : fallbackColor;
 	},
 	/**
 	 * Sets inline styles with the theme colors
