@@ -98,8 +98,17 @@ body.dark-theme {
 
 		.discussion-content {
 			color: $dark-discussion-content-color;
+
 			.post-details-link {
 				color: $dark-discussion-content-color;
+			}
+		}
+
+		.post-title {
+			color: $dark-discussion-post-title-color;
+
+			.post-details-link {
+				color: $dark-discussion-post-title-color;
 			}
 		}
 
@@ -193,6 +202,10 @@ body.dark-theme {
 		.load-newer {
 			&.wide {
 				border-top-color: $dark-discussion-reply-border-color;
+
+				&.no-editor {
+					border-bottom-color: $dark-discussion-reply-border-color;
+				}
 			}
 		}
 

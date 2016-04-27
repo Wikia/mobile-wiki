@@ -1,10 +1,17 @@
 <div class="wikia-stats-container">
 	{{#each items as |item|}}
 		{{#if item.value}}
-			<div class="wikia-stats-item">
-				<div class="wikia-stats-label">{{i18n item.label}}</div>
-				<div class="wikia-stats-value">{{numeral item.value '0 a'}}</div>
-			</div>
+	        <div class="wikia-stats-item">
+				{{#if item.routeName}}
+					{{#link-to item.routeName class="wikia-stats-link" trackingCategory=item.trackingCategory trackingLabel=item.trackingLabel}}
+						<div class="wikia-stats-label">{{item.label}}</div>
+						<div class="wikia-stats-value">{{numeral item.value '0a'}}</div>
+					{{/link-to}}
+				{{else}}
+					<div class="wikia-stats-label">{{item.label}}</div>
+					<div class="wikia-stats-value">{{numeral item.value '0a'}}</div>
+				{{/if}}
+	        </div>
 		{{/if}}
 	{{/each}}
 </div>

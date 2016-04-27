@@ -1,9 +1,15 @@
+import {json} from '../utils/content-type';
+
 /**
  * @returns {void}
  */
 export function initialize() {
 	$.ajaxSetup({
-		cache: true
+		cache: true,
+		contentType: json,
+		xhrFields: {
+			withCredentials: true
+		}
 	});
 }
 
