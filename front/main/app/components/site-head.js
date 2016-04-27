@@ -2,9 +2,9 @@ import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend({
-	classNames: ['site-head'],
+	classNames: ['site-head-wrapper'],
 	classNameBindings: ['themeBar'],
-	tagName: 'nav',
+	tagName: 'div',
 	themeBar: false,
 	wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 

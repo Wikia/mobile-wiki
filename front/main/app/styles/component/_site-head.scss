@@ -44,8 +44,8 @@ $site-head-height: 50; //unitless
 	}
 }
 
-.application-wrapper {
-	margin-top: rem-calc($site-head-height);
+.site-head-wrapper {
+	height: rem-calc($site-head-height);
 }
 
 .side-nav-toggle {
