@@ -57,7 +57,7 @@ export default Ember.Mixin.create(ColorUtilsMixin, {
 	 */
 	getHeaderColor(rgb) {
 		const defaultColor = '#FFFFFF',
-			fallbackAboveLightness = 0.5,
+			fallbackAboveLightness = 0.6,
 			fallbackColor = '#1A1A1A',
 			r = rgb.r / 255,
 			g = rgb.g / 255,
