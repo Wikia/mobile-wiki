@@ -21,16 +21,16 @@ export default Ember.Component.extend({
 			this.get('visibleNavIcon') !== this.get('closeIcon');
 	}),
 
-	visibleNavIconName: computed('activeIcon', function () {
+	visibleNavIconName: computed('activeIcon', 'drawerVisible', function () {
 		const navIcon = this.get('navIcon');
 
-		return this.get('activeIcon') === navIcon ? this.get('closeIcon') : navIcon;
+		return this.get('drawerVisible') && this.get('activeIcon') === navIcon ? this.get('closeIcon') : navIcon;
 	}),
 
-	visibleSearchIconName: computed('activeIcon', function () {
+	visibleSearchIconName: computed('activeIcon', 'drawerVisible', function () {
 		const searchIcon = this.get('searchIcon');
 
-		return this.get('activeIcon') === searchIcon ? this.get('closeIcon') : searchIcon;
+		return  this.get('drawerVisible') &&  this.get('activeIcon') === searchIcon ? this.get('closeIcon') : searchIcon;
 	}),
 
 	didRender() {
