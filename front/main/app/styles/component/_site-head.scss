@@ -26,16 +26,6 @@ $nav-container-padding: 4px;
 	top: 0;
 	z-index: $z-site-head;
 
-	&.ember-view {
-		&:before {
-			display: none;
-		}
-
-		&:after {
-			display: none;
-		}
-	}
-
 	.site-head-icon-nav {
 		order: 1;
 	}
