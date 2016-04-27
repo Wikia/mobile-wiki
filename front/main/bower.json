@@ -28,7 +28,7 @@
   },
   "resolutions": {
     "ember": "2.5.0",
-    "jquery": "2.1.4",
-    "ember-qunit-notifications": "0.1.0"
+    "ember-qunit-notifications": "0.1.0",
+    "jquery": "2.1.4"
   }
 }

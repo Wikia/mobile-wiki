@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import ObjectUtilitiesMixin from '../mixins/object-utilities';
+import request from 'ember-ajax/request';
+import {form} from '../utils/content-type';
 
 /**
  * CuratedContentImageCropSingleData
@@ -83,21 +85,13 @@ CuratedContentEditorItemModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise} image data
 	 */
 	getImage(title, size) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php',
-				}),
-				data: {
-					controller: 'CuratedContent',
-					method: 'getImage',
-					title,
-					size
-				},
-				dataType: 'json',
-				success: (response) => resolve(response),
-				error: (error) => reject(error)
-			});
+		return request(M.buildUrl({path: '/wikia.php'}), {
+			data: {
+				controller: 'CuratedContent',
+				method: 'getImage',
+				title,
+				size
+			},
 		});
 	},
 
@@ -114,17 +108,10 @@ CuratedContentEditorItemModel.reopenClass({
 			format: 'json'
 		};
 
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php'
-				}),
-				data: completeData,
-				method: 'POST',
-				dataType: 'json',
-				success: (response) => resolve(response),
-				error: (error) => reject(error)
-			});
+		return request(M.buildUrl({path: '/wikia.php'}), {
+			method: 'POST',
+			contentType: form,
+			data: completeData,
 		});
 	},
 
@@ -140,24 +127,16 @@ CuratedContentEditorItemModel.reopenClass({
 			query: title
 		};
 
+		if (!title) {
+			return Ember.RSVP.reject();
+		}
+
 		if (isCategory === true) {
 			data.ns = 14;
 		}
 
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			if (!title) {
-				return reject();
-			}
-
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php'
-				}),
-				data,
-				dataType: 'json',
-				success: (response) => resolve(response),
-				error: (error) => reject(error)
-			});
+		return request(M.buildUrl({path: '/wikia.php'}), {
+			data,
 		});
 	}
 });

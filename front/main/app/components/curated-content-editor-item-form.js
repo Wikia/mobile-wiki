@@ -249,8 +249,10 @@ export default Ember.Component.extend(
 
 							// we don't want to crop community image
 							if (this.get('isCommunityData')) {
-								this.set('model.image_id', data.article_id);
-								this.set('model.image_url', data.url);
+								this.setProperties({
+									'model.image_id': data.article_id,
+									'model.image_url': data.url
+								});
 							} else {
 								this.sendAction('changeLayout', this.get('imageCropLayout.name'));
 							}

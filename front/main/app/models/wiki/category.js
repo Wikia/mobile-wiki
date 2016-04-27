@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import MediaModel from '../media';
 import {normalizeToWhitespace} from 'common/utils/string';
+import request from 'ember-ajax/request';
 
-const {Object, get, $} = Ember,
+const {Object, get} = Ember,
 	CategoryModel = Object.extend({
 		adsContext: null,
 		// set when creating model instance
@@ -45,8 +46,8 @@ const {Object, get, $} = Ember,
 		loadMore(index, batchToLoad) {
 			const url = CategoryModel.getUrlBatchContent(this.get('name'), index, batchToLoad);
 
-			return $.getJSON(url)
-				.done((pageData) => {
+			return request(url)
+				.then((pageData) => {
 					const sectionIndex = `sections.${index}`;
 
 					this.setProperties({

@@ -9,7 +9,7 @@ export default Ember.Component.extend({
 
 	showButtons: Ember.computed.and('canShowModButtons', 'isReported', 'canModerate'),
 
-	modalDialogService: Ember.inject.service('modal-dialog'),
+	modalDialog: Ember.inject.service(),
 
 	/**
 	 * Computes text for the post-card note:
@@ -66,7 +66,7 @@ export default Ember.Component.extend({
 				header = i18n.t(`main.modal-dialog-delete-header`, {ns: 'discussion'});
 			}
 
-			this.get('modalDialogService').display(
+			this.get('modalDialog').display(
 				message,
 				header,
 				i18n.t('main.modal-dialog-delete', {ns: 'discussion'}),
@@ -92,7 +92,7 @@ export default Ember.Component.extend({
 				header = i18n.t(`main.modal-dialog-approve-header`, {ns: 'discussion'});
 			}
 
-			this.get('modalDialogService').display(
+			this.get('modalDialog').display(
 				message,
 				header,
 				i18n.t('main.modal-dialog-approve', {ns: 'discussion'}),
