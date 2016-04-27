@@ -87,7 +87,7 @@ export default Component.extend({
 				});
 
 				this.get('setDrawerContent')(icon);
-				this.sendAction('toggleDrawer', true);
+				this.get('toggleDrawer')(true);
 			}
 		},
 
