@@ -1,7 +1,7 @@
 import {module} from 'qunit';
 import {test} from 'ember-qunit';
 
-module('Unit | Utils | truncate', (hooks) => {
+module('Unit | Utility | truncate', (hooks) => {
 	let truncate;
 
 	hooks.beforeEach(() => {

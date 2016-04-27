@@ -190,9 +190,16 @@ body.discussions {
 			color: $discussion-content-color;
 			display: block;
 		}
-		.post-title {
-			line-height: $line-height-smallest;
-			margin: 0;
+
+	}
+
+	.post-title {
+		color: $discussion-post-title-color;
+		line-height: $line-height-smallest;
+		margin: 0;
+
+		.post-details-link {
+			color: $discussion-post-title-color;
 		}
 	}
 

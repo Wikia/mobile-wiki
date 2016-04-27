@@ -4,6 +4,7 @@ import ConfirmationMixin from 'ember-onbeforeunload/mixins/confirmation';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Route.extend(ConfirmationMixin, {
+	ajax: Ember.inject.service(),
 	isIframeContext: Ember.computed(() => {
 		return window.self !== window.top;
 	}),
@@ -43,9 +44,9 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @param {Object} params
 	 * @returns {Object}
 	 */
-	model(params) {
+	model({templateName}) {
 		return InfoboxBuilderModel.create({
-			title: params.templateName
+			title: templateName
 		});
 	},
 
@@ -240,26 +241,19 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadInfoboxDataAndAssets(templateName) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php'
-				}),
-				data: {
-					controller: 'PortableInfoboxBuilderController',
-					method: 'getAssets',
-					format: 'json',
-					title: templateName
-				},
-				success: (data) => {
-					if (data && data.css && data.data) {
-						resolve(data);
-					} else {
-						reject('Invalid data was returned from Infobox Builder API');
-					}
-				},
-				error: (data) => reject(data)
-			});
+		return this.get('ajax').request(M.buildUrl({path: '/wikia.php'}), {
+			data: {
+				controller: 'PortableInfoboxBuilderController',
+				method: 'getAssets',
+				format: 'json',
+				title: templateName
+			}
+		}).then((data) => {
+			if (data && data.css && data.data) {
+				return data;
+			} else {
+				throw new Error('Invalid data was returned from Infobox Builder API');
+			}
 		});
 	},
 
@@ -276,7 +270,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * Adds oasis portable infobox styles to the DOM and a class to the body element
 	 *
 	 * @param {Object} serverResponse
-	 * @returns {Ember.RSVP.Promise}
+	 * @returns {void}
 	 */
 	setupStyles(serverResponse) {
 		Ember.$('body').addClass('infobox-builder-body-wrapper');
@@ -350,27 +344,18 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getRedirectUrls(title) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php'
-				}),
-				data: {
-					controller: 'PortableInfoboxBuilderController',
-					method: 'getRedirectUrls',
-					title
-				},
-				dataType: 'json',
-				method: 'GET',
-				success: (data) => {
-					if (data && data.success) {
-						resolve(data.urls);
-					} else {
-						reject(data.errors);
-					}
-				},
-				error: (err) => reject(err)
-			});
+		return this.get('ajax').request(M.buildUrl({path: '/wikia.php'}), {
+			data: {
+				controller: 'PortableInfoboxBuilderController',
+				method: 'getRedirectUrls',
+				title
+			},
+		}).then((data) => {
+			if (data && data.success) {
+				return data.urls;
+			} else {
+				throw new Error(data.errors);
+			}
 		});
 	},
 

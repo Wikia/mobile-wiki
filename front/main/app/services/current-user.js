@@ -21,6 +21,7 @@ import UserModel from '../models/user';
  */
 
 export default Ember.Service.extend({
+	ajax: Ember.inject.service(),
 	rights: {},
 	isAuthenticated: Ember.computed.bool('userId'),
 	isBlocked: false,
@@ -115,19 +116,13 @@ export default Ember.Service.extend({
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo() {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: '/api.php',
-				data: {
-					action: 'query',
-					meta: 'userinfo',
-					uiprop: 'rights|options|blockinfo',
-					format: 'json'
-				},
-				dataType: 'json',
-				success: resolve,
-				error: reject
-			});
+		return this.get('ajax').request('/api.php', {
+			data: {
+				action: 'query',
+				meta: 'userinfo',
+				uiprop: 'rights|options|blockinfo',
+				format: 'json'
+			},
 		});
 	}
 });

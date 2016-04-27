@@ -4,7 +4,7 @@ import {isContentNamespace} from 'main/utils/mediawiki-namespace';
 import Ember from 'ember';
 import sinon from 'sinon';
 
-module('Unit | Utils | mediawiki namespace', () => {
+module('Unit | Utility | mediawiki namespace', () => {
 	test('isContentNamespace', (assert) => {
 		const testCases = [
 			{

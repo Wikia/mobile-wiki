@@ -4,7 +4,7 @@ import {getModelForNamespace} from 'main/utils/wiki-handlers/wiki-page';
 import Ember from 'ember';
 import sinon from 'sinon';
 
-module('Unit | Utils | wiki-handlers/wiki-page', (hooks) => {
+module('Unit | Utility | wiki-handlers/wiki-page', (hooks) => {
 	const articleModel = require('main/models/wiki/article').default,
 		categoryModel = require('main/models/wiki/category').default,
 		mediawikiNamespace = require('main/utils/mediawiki-namespace').default;

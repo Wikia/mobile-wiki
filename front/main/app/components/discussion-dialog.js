@@ -1,20 +1,22 @@
+import Ember from 'ember';
 import LoginLinkMixin from '../mixins/login-link';
 
 export default Ember.Component.extend(LoginLinkMixin, {
 	classNames: ['discussion-dialog'],
+	currentUser: Ember.inject.service(),
 	isVisible: false,
-	modalDialogService: Ember.inject.service('modal-dialog'),
+	modalDialog: Ember.inject.service(),
 
 	actions: {
 		/**
 		 * @returns {void}
 		 */
 		close() {
-			const modalDialogService = this.get('modalDialogService');
+			const modalDialogService = this.get('modalDialog');
 
 			this.set('isVisible', false);
 			modalDialogService.close();
-			if (this.get('modalDialogService.isConfirm')) {
+			if (this.get('modalDialog.isConfirm')) {
 				modalDialogService.confirmCallback(false);
 			}
 		},
@@ -22,7 +24,7 @@ export default Ember.Component.extend(LoginLinkMixin, {
 		 * @returns {void}
 		 */
 		confirm() {
-			const modalDialogService = this.get('modalDialogService');
+			const modalDialogService = this.get('modalDialog');
 
 			this.set('isVisible', false);
 			modalDialogService.confirmCallback(true);
