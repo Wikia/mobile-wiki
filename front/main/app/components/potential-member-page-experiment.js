@@ -2,14 +2,12 @@ import Ember from 'ember';
 import {getDomain} from '../utils/domain';
 import {getGroup} from 'common/modules/abtest';
 
-const dismissDays = 30;
+const dismissCookieName = 'potential-member-experiment-dismiss',
+	dismissDays = 30;
 
 export default Ember.Component.extend({
 	currentUser: Ember.inject.service(),
-	dismissed: Ember.computed('dismissCookieName', function () {
-		return Ember.$.cookie(this.get('dismissCookieName'));
-	}),
-	dismissCookieName: 'potential-member-experiment-dismiss',
+	dismissed: Ember.$.cookie(dismissCookieName),
 	experimentEnabled: Ember.computed('currentUser.userId', 'experimentGroup', 'dismissed', function () {
 		const contentLanguage = Ember.get(Mercury, 'wiki.language.content'),
 			userId = this.get('currentUser.userId');
@@ -26,7 +24,7 @@ export default Ember.Component.extend({
 	 * @returns {void}
 	 */
 	dismiss() {
-		Ember.$.cookie(this.dismissCookieName, 1, {expires: dismissDays, path: '/', domain: getDomain()});
+		Ember.$.cookie(dismissCookieName, 1, {expires: dismissDays, path: '/', domain: getDomain()});
 		this.set('dismissed', 1);
 	},
 

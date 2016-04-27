@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 
+const trackingCategory = 'potential-member-experiment';
+
 export default Ember.Component.extend({
 	classNames: ['potential-member-page-experiment'],
 	classNameBindings: ['cover'],
@@ -8,16 +10,15 @@ export default Ember.Component.extend({
 		return this.get('experimentGroup') === 'GLUE_BOTTOM';
 	}),
 	layoutName: 'components/potential-member-page-experiment-banner',
-	trackingCategory: 'potential-member-experiment',
 
-	didRender() {
+	didInsertElement() {
 		this.trackImpression('banner');
 	},
 
 	trackClick(label) {
 		track({
 			action: trackActions.click,
-			category: this.trackingCategory,
+			category: trackingCategory,
 			label
 		});
 	},
@@ -25,7 +26,7 @@ export default Ember.Component.extend({
 	trackImpression(label) {
 		track({
 			action: trackActions.impression,
-			category: this.trackingCategory,
+			category: trackingCategory,
 			label
 		});
 	},
