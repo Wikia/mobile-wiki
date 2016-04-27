@@ -30,6 +30,10 @@ export default Component.extend({
 	drawerContentNavigation: 'nav',
 	drawerContentSearch: 'search',
 	activeDrawerContent: null,
+	noScroll: false,
+	scrollLocation: null,
+	smartBannerVisible: false,
+	firstRender: true,
 
 	wikiaHomepage: getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
 
