@@ -13,6 +13,7 @@ export default Ember.Component.extend(
 		state: [],
 		items: Ember.computed('state.[]', function () {
 			const s = this.get('state');
+
 			if (s.length > 0 && !s[0]) {
 				// special case for exploration nav
 				return this.prepareExplorationItems();
@@ -28,11 +29,11 @@ export default Ember.Component.extend(
 			let nav = this.get('localLinks'),
 				header = this.get('exploreWikiaLabel');
 
-			for(let i of this.get('state')) {
-				if (nav[i-1]) {
-					header = nav[i-1].text;
+			for (const i of this.get('state')) {
+				if (nav[i - 1]) {
+					header = nav[i - 1].text;
 				}
-				nav = nav[i-1] ? nav[i-1].children : nav;
+				nav = nav[i - 1] ? nav[i - 1].children : nav;
 			}
 			return header;
 		}),
@@ -61,22 +62,21 @@ export default Ember.Component.extend(
 		}),
 
 		prepareExplorationItems() {
-			return this.get('exploreWikiaLinks')
-				.map(function (item) {
-					return {
-						type: 'side-nav-menu-external',
-						href: item.href,
-						name: item.textEscaped,
-						trackLabel: `open-${item.trackingLabel}`
-					};
-				});
+			return this.get('exploreWikiaLinks').map((item) => {
+				return {
+					type: 'side-nav-menu-external',
+					href: item.href,
+					name: item.textEscaped,
+					trackLabel: `open-${item.trackingLabel}`
+				};
+			});
 		},
 
 		prepareGlobalItems() {
 			return [{
 				type: 'side-nav-menu-header',
 				name: this.get('exploreWikiaLabel')
-			}].concat(this.get('hubsLinks').map(function (item) {
+			}].concat(this.get('hubsLinks').map((item) => {
 				return {
 					type: 'side-nav-menu-external',
 					className: item.specialAttr,
@@ -100,23 +100,23 @@ export default Ember.Component.extend(
 
 			if (state.length > 0) {
 				// look for correct subnav
-				for(let i of state) {
-					nav = nav[i-1] ? nav[i-1].children : nav;
+				for (const i of state) {
+					nav = nav[i - 1] ? nav[i - 1].children : nav;
 				}
 			}
-			local = nav.map(function(item) {
+			local = nav.map((item) => {
 				index++;
 				return {
 					type: Boolean(item.children) ? 'side-nav-menu-root' : 'side-nav-menu-item',
 					href: item.href.replace('/wiki/', ''),
 					link: 'wiki-page',
 					name: item.text,
-					index: index,
+					index,
 					trackLabel: `local-nav-open-link-index-${index}`
 				};
 			});
 
-			if (state.length == 0) {
+			if (state.length === 0) {
 				// TODO: add discussions
 				local = [
 					{
@@ -150,7 +150,7 @@ export default Ember.Component.extend(
 					category: item.trackCategory ? item.trackCategory : 'side-nav',
 					label: item.trackLabel
 				});
-				if(item.clickHandler){
+				if (item.clickHandler) {
 					this.get(item.clickHandler)();
 				}
 			},
