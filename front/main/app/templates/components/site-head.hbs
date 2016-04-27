@@ -1,13 +1,27 @@
 <nav class="site-head">
-	<div {{action 'expandSideNav'}} class="side-nav-toggle side-nav-toggle-2016">
+    <div class="site-logo site-logo-2016">
+        <a {{action 'trackWordmarkClick' preventDefault=false}} href={{wikiaHomepage}}>
+			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+        </a>
+    </div>
+
+	{{#wikia-ui-components/icon-button
+	click=(action 'siteHeadIconClick' navIcon)
+	class='site-head-icon site-head-icon-nav'
+	icon=visibleNavIconName
+	}}
+	{{! TODO: remove this svg when spitfires remove blueDot functionality
+		https://wikia-inc.atlassian.net/browse/CE-3623
+	}}
 		{{#if shouldDisplayNewBadge}}
 			{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
 		{{/if}}
-		{{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
-	</div>
-	<div class="site-logo site-logo-2016">
-		<a {{action 'trackWordmarkClick' preventDefault=false}} href={{wikiaHomepage}}>
-			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
-		</a>
-	</div>
+	{{/wikia-ui-components/icon-button}}
+
+	{{wikia-ui-components/icon-button
+	click=(action 'siteHeadIconClick' searchIcon)
+	class='site-head-icon site-head-icon-search'
+	icon=visibleSearchIconName
+	}}
+
 </nav>

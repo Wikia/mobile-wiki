@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import {trackPerf} from 'common/utils/track-perf';
 
+const {Component, computed, getWithDefault, Logger, observer, $} = Ember;
+
 /**
  * HTMLMouseEvent
  * @typedef {Object} HTMLMouseEvent
@@ -22,23 +24,31 @@ import {trackPerf} from 'common/utils/track-perf';
  * @property {string} tagName
  */
 
-export default Ember.Component.extend({
+export default Component.extend({
 	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
-
-	verticalClass: Ember.computed(() => {
-		const vertical = Ember.get(Mercury, 'wiki.vertical');
-
-		return `${vertical}-vertical`;
-	}),
-
+	drawerContentNavigation: 'nav',
+	drawerContentSearch: 'search',
+	activeDrawerContent: null,
 	noScroll: false,
 	scrollLocation: null,
 	smartBannerVisible: false,
 	firstRender: true,
 
-	noScrollObserver: Ember.observer('noScroll', function () {
-		const $body = Ember.$('body');
+	wikiaHomepage: getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
+
+	drawerContentComponent: computed('activeDrawerContent', function () {
+		return `wikia-${this.get('activeDrawerContent')}`;
+	}),
+
+	verticalClass: computed(() => {
+		const vertical = Ember.get(Mercury, 'wiki.vertical');
+
+		return `${vertical}-vertical`;
+	}),
+
+	noScrollObserver: observer('noScroll', function () {
+		const $body = $('body');
 		let scrollLocation;
 
 		if (this.get('noScroll')) {
@@ -78,6 +88,16 @@ export default Ember.Component.extend({
 		}
 	},
 
+	actions: {
+		/**
+		 * @param {string} content
+		 * @returns {void}
+		 */
+		setDrawerContent(content) {
+			this.set('activeDrawerContent', content);
+		}
+	},
+
 	/**
 	 * Necessary because presently, we open external links in new pages, so if we didn't
 	 * cancel the click event on the current page, then the mouseUp handler would open
@@ -93,7 +113,7 @@ export default Ember.Component.extend({
 		 * because if the user clicks the part of the link in the <i></i> then
 		 * target.tagName will register as 'I' and not 'A'.
 		 */
-		const $anchor = Ember.$(event.target).closest('a'),
+		const $anchor = $(event.target).closest('a'),
 			target = $anchor.length ? $anchor[0] : event.target;
 		let tagName;
 
@@ -146,7 +166,7 @@ export default Ember.Component.extend({
 	 * @returns {void}
 	 */
 	handleLink(target) {
-		Ember.Logger.debug('Handling link with href:', target.href);
+		Logger.debug('Handling link with href:', target.href);
 
 		/**
 		 * If either the target or the target's parent is an anchor (and thus target == true),
@@ -164,5 +184,5 @@ export default Ember.Component.extend({
 				this.sendAction('handleLink', target);
 			}
 		}
-	},
+	}
 });

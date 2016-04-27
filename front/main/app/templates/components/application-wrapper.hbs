@@ -3,20 +3,30 @@
 {{else}}
 	{{site-head
 		smartBannerVisible=smartBannerVisible
-		toggleSideNav=attrs.toggleSideNav
-		toggleUserMenu=attrs.toggleUserMenu
+		toggleDrawer=this.attrs.toggleDrawer
 		themeBar=themeBar
+		wikiaHomepage=wikiaHomepage
+		activeIcon = activeDrawerContent
+		navIcon = drawerContentNavigation
+		searchIcon = drawerContentSearch
+		setDrawerContent=(action 'setDrawerContent')
 	}}
 
-	{{side-nav
-		shouldBeVisible=sideNavVisible
-		loadRandomArticle=attrs.loadRandomArticle
-		toggleVisibility=attrs.toggleSideNav
+	{{#wikia-drawer
+		shouldBeVisible=drawerVisible
+		wikiaHomepage=wikiaHomepage
 	}}
+		{{#if activeDrawerContent}}
+			{{component
+				drawerContentComponent
+				loadRandomArticle=this.attrs.loadRandomArticle
+			}}
+		{{/if}}
+	{{/wikia-drawer}}
 
 	{{smart-banner-android
-		isVisible=smartBannerVisible
-		toggleVisibility=attrs.toggleSmartBanner
+        isVisible=smartBannerVisible
+        toggleVisibility=attrs.toggleSmartBanner
 	}}
 	{{#if noMargins}}
 		{{outlet}}

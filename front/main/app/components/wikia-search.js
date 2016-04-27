@@ -57,15 +57,6 @@ export default Ember.Component.extend(
 				window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${value}&fulltext=Search`);
 			},
 
-			searchFocus() {
-				this.sendAction('toggleSearchMode', true);
-			},
-
-			cancelSearch() {
-				this.set('query', null);
-				this.sendAction('toggleSearchMode', false);
-			},
-
 			clearSearch() {
 				this.set('query', null);
 				this.$('.side-search__input').focus();
@@ -106,12 +97,9 @@ export default Ember.Component.extend(
 				} else {
 					this.setSearchSuggestionItems(cached);
 				}
-
-				this.sendAction('toggleSearchMode', true);
 			} else {
 				this.set('isLoadingSearchResults', true);
 				Ember.run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
-				this.sendAction('toggleSearchMode', true);
 			}
 		}),
 
@@ -308,6 +296,6 @@ export default Ember.Component.extend(
 		 */
 		getCachedResult(query) {
 			return this.get('cachedResults')[query];
-		},
+		}
 	}
 );

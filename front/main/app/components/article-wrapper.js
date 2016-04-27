@@ -133,7 +133,7 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			expandSideNav() {
-				this.sendAction('toggleSideNav', true);
+				this.sendAction('toggleDrawer', true);
 			},
 
 			/**
