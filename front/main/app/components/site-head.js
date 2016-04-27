@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 
-const {computed, inject} = Ember;
+const {computed, inject, Component} = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
 	classNames: ['site-head'],
 	classNameBindings: ['themeBar'],
 	tagName: 'nav',
@@ -76,7 +76,7 @@ export default Ember.Component.extend({
 				});
 
 				this.get('setDrawerContent')(null);
-				this.sendAction('toggleDrawer', false);
+				this.get('toggleDrawer')(false);
 			} else {
 				this.trackBlueDot(icon);
 
