@@ -1,9 +1,17 @@
-{{#if children}}
-	<li class="side-nav-menu__item menu" {{action onChangeItem}}>
+{{#if hasChildren}}
+	<li class="side-nav-menu__item menu" {{action attrs.changeItem}}>
 		{{name}}
+		{{#if shouldDisplayNewBadge}}
+			{{svg 'info-filled' class='icon new-badge'}}
+		{{/if}}
 	</li>
 {{else}}
-	<li class="side-nav-menu__item mw-content">
-		<a {{action onClick preventDefault=false}} href="{{href}}">{{name}}</a>
+	<li class="side-nav-menu__item {{className}}" {{action attrs.click preventDefault=false}}>
+		{{#link-to link href}}
+			{{name}}
+			{{#if shouldDisplayNewBadge}}
+				{{svg 'info-filled' class='icon new-badge'}}
+			{{/if}}
+		{{/link-to}}
 	</li>
 {{/if}}

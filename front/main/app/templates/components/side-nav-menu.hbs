@@ -1,18 +1,14 @@
-{{#if user}}
-	User bar
-{{else}}
-	<a class="side-nav-menu__item back" {{action attrs.onBackHandler}} href="#">
-		{{header}}
-	</a>
-{{/if}}
-
-<ul>
+<ul class="local-nav-menu">
 	{{#each items as |item|}}
 		{{component item.type
+			className=item.className
 			name=item.name
 			href=item.href
-			children=false
-			onClick=(action attrs.onClickHandler item)
+			link=item.link
+			hasChildren=item.children
+			shouldDisplayNewBadge=item.newBadge
+			click=(action attrs.onClickHandler item)
+			changeItem=(action attrs.onChangeItemHandler item.index)
 		}}
 	{{/each}}
 </ul>
