@@ -150,9 +150,16 @@ export default Ember.Component.extend(
 					category: item.trackCategory ? item.trackCategory : 'side-nav',
 					label: item.trackLabel
 				});
+				this.get('toggleDrawer')(false);
+				// reset state
+				this.send('goRoot');
 				if (item.clickHandler) {
 					this.get(item.clickHandler)();
 				}
+			},
+
+			goRoot() {
+				this.set('state.[]', []);
 			},
 
 			goBack() {
