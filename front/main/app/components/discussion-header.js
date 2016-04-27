@@ -4,6 +4,16 @@ import HeadroomMixin from '../mixins/headroom';
 export default Ember.Component.extend(
 	HeadroomMixin,
 	{
+		headroomOptions: {
+			classes: {
+				initial: 'discussion-headroom',
+				pinned: 'discussion-headroom-pinned',
+				unpinned: 'discussion-headroom-un-pinned',
+				top: 'discussion-headroom-top',
+				notTop: 'discussion-headroom-not-top'
+			}
+		},
+
 		canDeleteAll: false,
 
 		classNames: ['discussion-header', 'background-theme-color'],
@@ -22,6 +32,6 @@ export default Ember.Component.extend(
 			toggleEditor(active) {
 				this.get('discussionEditor').toggleEditor(active);
 			}
-		},
+		}
 	}
 );

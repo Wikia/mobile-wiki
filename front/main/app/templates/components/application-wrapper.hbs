@@ -1,15 +1,9 @@
 {{#if fullPage}}
 	{{outlet}}
 {{else}}
-	{{smart-banner-android
-		isVisible=smartBannerVisible
-		toggleVisibility=attrs.toggleSmartBanner
-	}}
-
 	{{site-head
 		smartBannerVisible=smartBannerVisible
 		toggleDrawer=this.attrs.toggleDrawer
-		toggleSiteHeadPinned=this.attrs.toggleSiteHeadPinned
 		themeBar=themeBar
 		wikiaHomepage=wikiaHomepage
 		activeIcon = activeDrawerContent
@@ -29,6 +23,11 @@
 			}}
 		{{/if}}
 	{{/wikia-drawer}}
+
+	{{smart-banner-android
+        isVisible=smartBannerVisible
+        toggleVisibility=attrs.toggleSmartBanner
+	}}
 	{{#if noMargins}}
 		{{outlet}}
 	{{else}}

@@ -77,19 +77,8 @@ $nav-container-padding: 4px;
 	}
 }
 
-.smart-banner-visible .headroom-top {
-	position: absolute;
-	top: $smart-banner-android-height;
-}
-
-.headroom-not-top {
-	&.pinned {
-		transform: none;
-	}
-
-	&.un-pinned {
-		transform: translateY(-100%);
-	}
+.application-wrapper {
+	margin-top: $site-head-height;
 }
 
 .side-nav-toggle {
