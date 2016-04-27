@@ -51,7 +51,7 @@ export default Ember.Mixin.create(ColorUtilsMixin, {
 	},
 
 	/**
-	 * Changes discussion header color if HSL Lightness is below 0.5
+	 * Changes discussion header color if HSL Lightness is above 0.7
 	 * @param {object} rgb
 	 * @returns {string}
 	 */
