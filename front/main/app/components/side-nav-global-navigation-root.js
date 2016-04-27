@@ -64,8 +64,7 @@ export default Ember.Component.extend(
 			return this.get('exploreWikiaLinks')
 				.map(function (item) {
 					return {
-						type: 'side-nav-menu-item',
-						//TODO: add route with link
+						type: 'side-nav-menu-external',
 						href: item.href,
 						name: item.textEscaped,
 						trackLabel: `open-${item.trackingLabel}`
@@ -79,17 +78,15 @@ export default Ember.Component.extend(
 				name: this.get('exploreWikiaLabel')
 			}].concat(this.get('hubsLinks').map(function (item) {
 				return {
-					type: 'side-nav-menu-item',
+					type: 'side-nav-menu-external',
 					className: item.specialAttr,
-					// TODO: add route with link
 					href: item.href,
 					name: item.textEscaped,
 					trackLabel: `open-hub-${item.specialAttr}`
 				};
 			})).concat([{
-				// add exploration item
-				type: 'side-nav-menu-item',
-				children: true,
+				// add exploration sub menu item
+				type: 'side-nav-menu-root',
 				index: 0,
 				name: this.get('exploreWikiaLabel'),
 				trackLabel: 'open-explore-wikia'
@@ -99,51 +96,63 @@ export default Ember.Component.extend(
 		prepareLocalItems(state) {
 			let nav = this.get('localLinks'),
 				index = 0,
-				local = [];
+				local;
 
 			if (state.length > 0) {
 				// look for correct subnav
 				for(let i of state) {
 					nav = nav[i-1] ? nav[i-1].children : nav;
 				}
-			} else {
-				local = [{
-					//header
-					type: 'side-nav-menu-header',
-					name: i18n.t('app.explore-wiki', { wikiName: this.wikiName })
-				},
-				{
-					type: 'side-nav-menu-item',
-					link: 'recent-wiki-activity',
-					name: i18n.t('main.title', {ns: 'recent-wiki-activity'}),
-					trackCategory: 'recent-wiki-activity',
-					trackLabel: 'local-nav'
-				}];
 			}
-			// TODO: add discussions
-			return local.concat(nav.map(function(item) {
+			local = nav.map(function(item) {
 				index++;
 				return {
-					type: 'side-nav-menu-item',
-					//TODO: fix href
-					href: item.href,
+					type: Boolean(item.children) ? 'side-nav-menu-root' : 'side-nav-menu-item',
+					href: item.href.replace('/wiki/', ''),
 					link: 'wiki-page',
 					name: item.text,
-					children: Boolean(item.children),
 					index: index,
 					trackLabel: `local-nav-open-link-index-${index}`
 				};
-			}));
-			//TODO: add random page
+			});
+
+			if (state.length == 0) {
+				// TODO: add discussions
+				local = [
+					{
+						type: 'side-nav-menu-header',
+						name: i18n.t('app.explore-wiki', {wikiName: this.wikiName})
+					},
+					{
+						type: 'side-nav-menu-item',
+						link: 'recent-wiki-activity',
+						newBadge: true,
+						name: i18n.t('main.title', {ns: 'recent-wiki-activity'}),
+						trackCategory: 'recent-wiki-activity',
+						trackLabel: 'local-nav'
+					}]
+					.concat(local)
+					.concat([{
+						type: 'side-nav-menu-item',
+						href: '#',
+						name: i18n.t('app.random-page-label'),
+						trackLabel: 'random-page',
+						clickHandler: 'loadRandomArticle'
+					}]);
+			}
+			return local;
 		},
 
 		actions: {
-			linkClick(item) {
+			onClick(item) {
 				track({
 					action: trackActions.click,
 					category: item.trackCategory ? item.trackCategory : 'side-nav',
 					label: item.trackLabel
 				});
+				if(item.clickHandler){
+					this.get(item.clickHandler)();
+				}
 			},
 
 			goBack() {
