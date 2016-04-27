@@ -11,7 +11,8 @@ export default Ember.Component.extend({
 	}),
 	layoutName: 'components/potential-member-page-experiment-banner',
 
-	didInsertElement() {
+	init() {
+		this._super(...arguments);
 		this.trackImpression('banner');
 	},
 
