@@ -15,7 +15,7 @@ export default Ember.Component.extend({
 		return this.get('experimentGroup') === getGroup('POTENTIAL_MEMBER_PAGE_ENTRY_POINTS') &&
 			!this.get('dismissed') &&
 			contentLanguage === 'en' &&
-			userId;
+			!userId;
 	}),
 	layoutName: 'components/potential-member-page-experiment',
 
