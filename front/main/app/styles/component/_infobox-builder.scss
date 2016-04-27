@@ -68,6 +68,7 @@ $success-icon-size: 80px;
 	height: 100%;
 	padding-top: $wikia-ui-components-sub-head-height;
 	position: relative;
+  	margin-top: -50px;
 
 	@media (min-width: lower-bound($large-range)) {
 		padding-top: $wikia-ui-components-sub-head-height-large;
