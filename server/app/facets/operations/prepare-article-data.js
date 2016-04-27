@@ -15,7 +15,6 @@ export default function prepareArticleData(request, data) {
 		result = getBaseResult(request, data);
 
 	result.displayTitle = getDefaultTitle(request, pageData);
-	result.documentTitle = result.displayTitle + separator + result.documentTitle;
 	result.articlePage = data.page;
 	result.queryParams = parseQueryParams(request.query, allowedQueryParams);
 
@@ -33,6 +32,14 @@ export default function prepareArticleData(request, data) {
 
 			result.hasToC = Boolean(result.articleContent.trim().length);
 		}
+	}
+
+	/**
+	 * This is necessary to avoid having duplicated title on CMP
+	 * This should be removed in XW-1442
+	 */
+	if (!result.isMainPage) {
+		result.documentTitle = result.displayTitle + separator + result.documentTitle;
 	}
 
 	if (typeof request.query.buckySampling !== 'undefined') {
