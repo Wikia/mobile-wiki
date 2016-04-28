@@ -59,7 +59,8 @@ export default Ember.Mixin.create({
 			luminanceThreshold = 0.7,
 			fallbackColor = '#1a1a1a';
 
-		return (color.getLuminance() < luminanceThreshold) ? defaultColor : fallbackColor;
+//		return (color.getLuminance() < luminanceThreshold) ? defaultColor : fallbackColor;
+		return defaultColor;
 	},
 	/**
 	 * Sets inline styles with the theme colors
@@ -81,16 +82,14 @@ export default Ember.Mixin.create({
 		if (!this.get('themeColors')) {
 			return;
 		}
-
+		console.log('themeColors.color-buttons');
 		heroImageRgbColor = tinycolor(this.get('themeColors.color-buttons')).setAlpha(0.8);
 		discussionHeaderColor = this.getHeaderColor(heroImageRgbColor);
 
 		styles += `.discussions .border-theme-color {border-color: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .background-theme-color {background-color: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .background-alpha-theme-color {background-color: ${heroImageRgbColor.toRgbString()};}`;
-		styles += `.discussions .discussion-hero-unit .discussion-hero-unit-content h1 {color: ${discussionHeaderColor};}`;
-		styles += `.discussions .discussion-hero-unit .discussion-hero-unit-content p {color: ${discussionHeaderColor};}`;
-		styles += `.discussion-header h1 {color: ${discussionHeaderColor};}`;
+		styles += `.discussions .discussion-hero-unit .discussion-hero-unit-content h1, .discussions .discussion-hero-unit .discussion-hero-unit-content p, .discussion-header h1 {color: ${discussionHeaderColor};}`;
 		styles += `.discussion a, .discussion .url, .discussions .header-text-theme-color {color: ${
 			this.get('themeColors.color-links')};}`;
 		styles += `.discussions .active-element-background-color {background-color: ${
