@@ -50,16 +50,16 @@ export default Ember.Mixin.create({
 	},
 
 	/**
-	 * Changes discussion header color if HSL Lightness is above 0.7
+	 * Changes discussion header color if HSL Luminance is above 0.7
 	 * @param {Object} color
 	 * @returns {string}
 	 */
 	getHeaderColor(color) {
 		const defaultColor = '#ffffff',
-			fallbackAboveLightness = 0.7,
+			luminanceThreshold = 0.7,
 			fallbackColor = '#1a1a1a';
 
-		return (color.getLighness() < fallbackAboveLightness) ? defaultColor : fallbackColor;
+		return (color.getLuminance() < luminanceThreshold) ? defaultColor : fallbackColor;
 	},
 	/**
 	 * Sets inline styles with the theme colors
