@@ -1,7 +1,25 @@
-{{component
-	currentNavContent
-	class='side-nav-menu__contents'
-	replaceNavigationContent=(action 'replaceNavigationContent')
-	collapse=(action 'collapse')
-	loadRandomArticle=(action this.attrs.loadRandomArticle)
+{{#if shouldDisplayHeader}}
+	<a class="side-nav-menu__item back" {{action 'goBack'}} href="#">
+		{{header}}
+	</a>
+{{else}}
+	{{#if isUserAuthenticated}}
+		<div class="side-nav-menu__item main">
+			<a {{action 'trackClick' 'side-nav' 'open-user-profile' preventDefault=false}} href="{{userProfileLink}}" class="external profile-link">
+				<figure class="avatar">
+					<img src={{currentUser.avatarPath}} alt="{{currentUser.name}}">
+				</figure>
+				{{i18n 'app.user-menu-profile'}}
+			</a>
+			<a {{action 'trackClick' 'side-nav' 'open-logout' preventDefault=false}} href="{{unbound logoutLink}}" class="external logout">{{i18n 'app.user-menu-log-out'}}</a>
+		</div>
+	{{else}}
+		<a class="side-nav-menu__item main" {{action 'goToLogin'}}>{{i18n 'userStatus.login-text'}} / {{i18n 'userStatus.register-text'}}</a>
+	{{/if}}
+{{/if}}
+
+{{side-nav-menu
+	items=items
+	onClickHandler=(action 'onClick')
+	onChangeItemHandler=(action 'goToSubNav')
 }}

@@ -1,8 +1,0 @@
-<a class="side-nav-menu__item back" {{action attrs.replaceNavigationContent 'root'}} href="#">
-	{{i18n 'app.navigation-back-label'}}
-</a>
-{{#each links as |link|}}
-	<a {{action 'linkClick' link.trackingLabel preventDefault=false}} class="side-nav-menu__item" href="{{link.href}}">
-		{{link.textEscaped}}
-	</a>
-{{/each}}

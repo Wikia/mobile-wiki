@@ -1,0 +1,17 @@
+<li class="side-nav-menu__item {{className}}" {{action attrs.click preventDefault=false}}>
+	{{#if href}}
+		{{#link-to link href}}
+			{{name}}
+			{{#if shouldDisplayNewBadge}}
+				{{svg 'info-filled' class='icon new-badge'}}
+			{{/if}}
+		{{/link-to}}
+	{{else}}
+		{{#link-to link}}
+			{{name}}
+			{{#if shouldDisplayNewBadge}}
+				{{svg 'info-filled' class='icon new-badge'}}
+			{{/if}}
+		{{/link-to}}
+	{{/if}}
+</li>

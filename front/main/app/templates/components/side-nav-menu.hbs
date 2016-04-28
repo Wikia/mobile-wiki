@@ -1,0 +1,13 @@
+<ul class="local-nav-menu">
+	{{#each items as |item|}}
+		{{component item.type
+			className=item.className
+			name=item.name
+			href=item.href
+			link=item.link
+			shouldDisplayNewBadge=item.newBadge
+			click=(action attrs.onClickHandler item)
+			changeItem=(action attrs.onChangeItemHandler item.index)
+		}}
+	{{/each}}
+</ul>

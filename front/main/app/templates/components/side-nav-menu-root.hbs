@@ -1,0 +1,6 @@
+<li class="side-nav-menu__item menu" {{action attrs.changeItem}}>
+	{{name}}
+	{{#if shouldDisplayNewBadge}}
+		{{svg 'info-filled' class='icon new-badge'}}
+	{{/if}}
+</li>
