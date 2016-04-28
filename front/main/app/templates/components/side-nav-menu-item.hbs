@@ -2,16 +2,10 @@
 	{{#if href}}
 		{{#link-to link href}}
 			{{name}}
-			{{#if shouldDisplayNewBadge}}
-				{{svg 'info-filled' class='icon new-badge'}}
-			{{/if}}
 		{{/link-to}}
 	{{else}}
 		{{#link-to link}}
 			{{name}}
-			{{#if shouldDisplayNewBadge}}
-				{{svg 'info-filled' class='icon new-badge'}}
-			{{/if}}
 		{{/link-to}}
 	{{/if}}
 </li>

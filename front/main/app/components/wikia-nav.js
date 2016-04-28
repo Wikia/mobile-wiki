@@ -11,11 +11,6 @@ export default Ember.Component.extend(
 			this.model = WikiaNavModel.create();
 		},
 
-		newFeaturesBadges: Ember.inject.service(),
-		shouldDisplayNewBadge: Ember.computed('newFeaturesBadges.features.[]', function () {
-			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
-		}),
-
 		currentUser: Ember.inject.service(),
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
 
