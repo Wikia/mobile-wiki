@@ -63,7 +63,7 @@ export default Component.extend({
 		 * @returns {void}
 		 */
 		siteHeadIconClick(icon) {
-			if (this.get('drawerVisible')) {
+			if (this.get('drawerVisible') && this.get('drawerContent') === icon) {
 				track({
 					action: trackActions.click,
 					category: 'side-nav',
