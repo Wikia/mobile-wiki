@@ -1,6 +1,32 @@
 import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
 import localStorageConnector from '../utils/local-storage-connector';
+import request from 'ember-ajax/request';
+
+/**
+ * @param {string} lang
+ * @returns {string}
+ */
+function getCacheKey(lang) {
+	return `${lang}-WikiaInYourLang`;
+}
+
+/**
+ * @param {string} browserLang
+ * @returns {WikiaInYourLangModel}
+ */
+function getFromCache(browserLang) {
+	const key = getCacheKey(browserLang),
+		value = JSON.parse(localStorageConnector.getItem(key)),
+		now = new Date().getTime();
+
+	// we cache for 30 days (2592000000)
+	if (!value || now - value.timestamp > 2592000000) {
+		return null;
+	}
+
+	return value.model;
+}
 
 const WikiaInYourLangModel = Ember.Object.extend(LanguagesMixin, {
 	message: null,
@@ -13,23 +39,22 @@ WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 	 */
 	load() {
 		const browserLang = WikiaInYourLangModel.getBrowserLanguage(),
-			model = WikiaInYourLangModel.getFromCache(browserLang);
+			model = getFromCache(browserLang);
 
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			if (model) {
-				resolve(model);
-				return;
-			}
+		if (model) {
+			return Ember.RSVP.resolve(model);
+		}
 
-			Ember.$.getJSON(
-				M.buildUrl({path: '/wikia.php'}),
-				{
+		return request(
+			M.buildUrl({path: '/wikia.php'}), {
+				data: {
 					controller: 'WikiaInYourLangController',
 					method: 'getNativeWikiaInfo',
 					format: 'json',
 					targetLanguage: browserLang
 				}
-			).done((resp) => {
+			})
+			.then((resp) => {
 				let modelInstance = null;
 
 				if (resp.success) {
@@ -41,44 +66,16 @@ WikiaInYourLangModel.reopenClass(LanguagesMixin, {
 
 				// write to cache
 				localStorageConnector.setItem(
-					WikiaInYourLangModel.getCacheKey(browserLang),
+					getCacheKey(browserLang),
 					JSON.stringify({
 						model: modelInstance,
 						timestamp: new Date().getTime()
 					})
 				);
 
-				resolve(modelInstance);
-			}).fail((err) => {
-				reject(err);
+				return modelInstance;
 			});
-		});
 	},
-
-	/**
-	 * @param {string} browserLang
-	 * @returns {WikiaInYourLangModel}
-	 */
-	getFromCache(browserLang) {
-		const key = WikiaInYourLangModel.getCacheKey(browserLang),
-			value = JSON.parse(localStorageConnector.getItem(key)),
-			now = new Date().getTime();
-
-		// we cache for 30 days (2592000000)
-		if (!value || now - value.timestamp > 2592000000) {
-			return null;
-		}
-
-		return value.model;
-	},
-
-	/**
-	 * @param {string} lang
-	 * @returns {string}
-	 */
-	getCacheKey(lang) {
-		return `${lang}-WikiaInYourLang`;
-	}
 });
 
 export default WikiaInYourLangModel;
