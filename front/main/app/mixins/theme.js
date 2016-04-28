@@ -59,8 +59,7 @@ export default Ember.Mixin.create({
 			luminanceThreshold = 0.7,
 			fallbackColor = '#1a1a1a';
 
-//		return (color.getLuminance() < luminanceThreshold) ? defaultColor : fallbackColor;
-		return defaultColor;
+		return (color.getLuminance() < luminanceThreshold) ? defaultColor : fallbackColor;
 	},
 	/**
 	 * Sets inline styles with the theme colors
