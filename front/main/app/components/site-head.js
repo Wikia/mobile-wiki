@@ -21,16 +21,12 @@ export default Component.extend({
 			this.get('visibleNavIcon') !== this.get('closeIcon');
 	}),
 
-	visibleNavIconName: computed('activeIcon', function () {
-		const navIcon = this.get('navIcon');
-
-		return this.get('activeIcon') === navIcon ? this.get('closeIcon') : navIcon;
+	navIcon: computed('drawerContent', 'drawerVisible', function () {
+		return this.get('drawerVisible') && this.get('drawerContent') === 'nav' ? 'close' : 'nav';
 	}),
 
-	visibleSearchIconName: computed('activeIcon', function () {
-		const searchIcon = this.get('searchIcon');
-
-		return this.get('activeIcon') === searchIcon ? this.get('closeIcon') : searchIcon;
+	searchIcon: computed('drawerContent', 'drawerVisible', function () {
+		return this.get('drawerVisible') && this.get('drawerContent') === 'search' ? 'close' : 'search';
 	}),
 
 	didRender() {
@@ -67,8 +63,7 @@ export default Component.extend({
 		 * @returns {void}
 		 */
 		siteHeadIconClick(icon) {
-			if (icon === this.get('activeIcon')) {
-
+			if (this.get('drawerVisible')) {
 				track({
 					action: trackActions.click,
 					category: 'side-nav',
