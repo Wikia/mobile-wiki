@@ -1,45 +1,15 @@
 import Ember from 'ember';
 import LoginLinkMixin from '../mixins/login-link';
+import WikiaNavModel from '../models/wikia-nav';
 import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	LoginLinkMixin,
 	{
-		hubsLinks: Ember.get(Mercury, 'wiki.navigation2016.hubsLinks'),
-		localLinks: Ember.get(Mercury, 'wiki.navigation2016.localNav'),
-		exploreWikiaLinks: Ember.get(Mercury, 'wiki.navigation2016.exploreWikiaMenu'),
-		exploreWikiaLabel: Ember.get(Mercury, 'wiki.navigation2016.exploreWikia.textEscaped'),
-		wikiName: Ember.get(Mercury, 'wiki.siteName'),
-		state: [],
-		items: Ember.computed('state.[]', function () {
-			const s = this.get('state');
-
-			if (s.length > 0 && !s[0]) {
-				// special case for exploration nav
-				return this.prepareExplorationItems();
-			}
-			// subNav, show only local
-			if (s.length > 0) {
-				return this.prepareLocalItems(s);
-			}
-			// if state == []
-			return this.prepareGlobalItems().concat(this.prepareLocalItems([]));
-		}),
-		header: Ember.computed('state.[]', function () {
-			let nav = this.get('localLinks'),
-				header = this.get('exploreWikiaLabel');
-
-			for (const i of this.get('state')) {
-				if (nav[i - 1]) {
-					header = nav[i - 1].text;
-				}
-				nav = nav[i - 1] ? nav[i - 1].children : nav;
-			}
-			return header;
-		}),
-		shouldDisplayHeader: Ember.computed('state.[]', function () {
-			return Boolean(this.get('state').length);
-		}),
+		init() {
+			this._super(...arguments);
+			this.model = WikiaNavModel.create();
+		},
 
 		newFeaturesBadges: Ember.inject.service(),
 		shouldDisplayNewBadge: Ember.computed('newFeaturesBadges.features.[]', function () {
@@ -51,7 +21,7 @@ export default Ember.Component.extend(
 
 		logoutLink: M.buildUrl({
 			namespace: 'Special',
-			title: 'UserLogout',
+			title: 'UserLogout'
 		}),
 
 		userProfileLink: Ember.computed('currentUser.name', function () {
@@ -60,88 +30,6 @@ export default Ember.Component.extend(
 				title: this.get('currentUser.name')
 			});
 		}),
-
-		prepareExplorationItems() {
-			return this.get('exploreWikiaLinks').map((item) => {
-				return {
-					type: 'side-nav-menu-external',
-					href: item.href,
-					name: item.textEscaped,
-					trackLabel: `open-${item.trackingLabel}`
-				};
-			});
-		},
-
-		prepareGlobalItems() {
-			return [{
-				type: 'side-nav-menu-header',
-				name: this.get('exploreWikiaLabel')
-			}].concat(this.get('hubsLinks').map((item) => {
-				return {
-					type: 'side-nav-menu-external',
-					className: item.specialAttr,
-					href: item.href,
-					name: item.textEscaped,
-					trackLabel: `open-hub-${item.specialAttr}`
-				};
-			})).concat([{
-				// add exploration sub menu item
-				type: 'side-nav-menu-root',
-				index: 0,
-				name: this.get('exploreWikiaLabel'),
-				trackLabel: 'open-explore-wikia'
-			}]);
-		},
-
-		prepareLocalItems(state) {
-			let nav = this.get('localLinks'),
-				index = 0,
-				local;
-
-			if (state.length > 0) {
-				// look for correct subnav
-				for (const i of state) {
-					nav = nav[i - 1] ? nav[i - 1].children : nav;
-				}
-			}
-			local = nav.map((item) => {
-				index++;
-				return {
-					type: Boolean(item.children) ? 'side-nav-menu-root' : 'side-nav-menu-item',
-					href: item.href.replace('/wiki/', ''),
-					link: 'wiki-page',
-					name: item.text,
-					index,
-					trackLabel: `local-nav-open-link-index-${index}`
-				};
-			});
-
-			if (state.length === 0) {
-				// TODO: add discussions
-				local = [
-					{
-						type: 'side-nav-menu-header',
-						name: i18n.t('app.explore-wiki', {wikiName: this.wikiName})
-					},
-					{
-						type: 'side-nav-menu-item',
-						link: 'recent-wiki-activity',
-						newBadge: true,
-						name: i18n.t('main.title', {ns: 'recent-wiki-activity'}),
-						trackCategory: 'recent-wiki-activity',
-						trackLabel: 'local-nav'
-					}]
-					.concat(local)
-					.concat([{
-						type: 'side-nav-menu-item',
-						href: '#',
-						name: i18n.t('app.random-page-label'),
-						trackLabel: 'random-page',
-						clickHandler: 'loadRandomArticle'
-					}]);
-			}
-			return local;
-		},
 
 		actions: {
 			onClick(item) {
@@ -159,15 +47,15 @@ export default Ember.Component.extend(
 			},
 
 			goRoot() {
-				this.set('state.[]', []);
+				this.get('model').goRoot();
 			},
 
 			goBack() {
-				this.get('state').popObject();
+				this.get('model').goBack();
 			},
 
 			goToSubNav(index) {
-				this.get('state').pushObject(index);
+				this.get('model').goToSubNav(index);
 			},
 
 			trackClick(category, label) {

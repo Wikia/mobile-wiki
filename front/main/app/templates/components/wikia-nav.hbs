@@ -1,6 +1,6 @@
-{{#if shouldDisplayHeader}}
+{{#if model.inSubNav}}
 	<a class="side-nav-menu__item back" {{action 'goBack'}} href="#">
-		{{header}}
+		{{model.header}}
 	</a>
 {{else}}
 	{{#if isUserAuthenticated}}
@@ -19,7 +19,7 @@
 {{/if}}
 
 {{side-nav-menu
-	items=items
+	items=model.items
 	onClickHandler=(action 'onClick')
 	onChangeItemHandler=(action 'goToSubNav')
 }}
