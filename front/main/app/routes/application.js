@@ -152,7 +152,7 @@ export default Route.extend(
 			 * @returns {void}
 			 */
 			loadRandomArticle() {
-				this.get('controller').send('toggleSideNav', false);
+				this.get('controller').send('toggleDrawer', false);
 
 				ArticleModel
 					.getArticleRandomTitle()
@@ -211,7 +211,7 @@ export default Route.extend(
 			 * @param {boolean} visible
 			 * @returns {void}
 			 */
-			toggleSideNav(visible) {
+			toggleDrawer(visible) {
 				this.get('controller').set('drawerVisible', visible);
 			}
 		},

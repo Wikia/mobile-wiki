@@ -1,12 +1,12 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 
-const {computed, inject} = Ember;
+const {computed, inject, Component} = Ember;
 
-export default Ember.Component.extend({
-	classNames: ['site-head'],
+export default Component.extend({
+	classNames: ['site-head-wrapper'],
 	classNameBindings: ['themeBar'],
-	tagName: 'nav',
+	tagName: 'div',
 	themeBar: false,
 	closeIcon: 'close',
 
@@ -21,16 +21,12 @@ export default Ember.Component.extend({
 			this.get('visibleNavIcon') !== this.get('closeIcon');
 	}),
 
-	visibleNavIconName: computed('activeIcon', 'drawerVisible', function () {
-		const navIcon = this.get('navIcon');
-
-		return this.get('drawerVisible') && this.get('activeIcon') === navIcon ? this.get('closeIcon') : navIcon;
+	navIcon: computed('drawerContent', 'drawerVisible', function () {
+		return this.get('drawerVisible') && this.get('drawerContent') === 'nav' ? 'close' : 'nav';
 	}),
 
-	visibleSearchIconName: computed('activeIcon', 'drawerVisible', function () {
-		const searchIcon = this.get('searchIcon');
-
-		return  this.get('drawerVisible') &&  this.get('activeIcon') === searchIcon ? this.get('closeIcon') : searchIcon;
+	searchIcon: computed('drawerContent', 'drawerVisible', function () {
+		return this.get('drawerVisible') && this.get('drawerContent') === 'search' ? 'close' : 'search';
 	}),
 
 	didRender() {
@@ -67,8 +63,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		siteHeadIconClick(icon) {
-			if (icon === this.get('activeIcon')) {
-
+			if (this.get('drawerVisible')) {
 				track({
 					action: trackActions.click,
 					category: 'side-nav',
@@ -76,7 +71,7 @@ export default Ember.Component.extend({
 				});
 
 				this.get('setDrawerContent')(null);
-				this.sendAction('toggleDrawer', false);
+				this.get('toggleDrawer')(false);
 			} else {
 				this.trackBlueDot(icon);
 
@@ -87,7 +82,7 @@ export default Ember.Component.extend({
 				});
 
 				this.get('setDrawerContent')(icon);
-				this.sendAction('toggleDrawer', true);
+				this.get('toggleDrawer')(true);
 			}
 		},
 
