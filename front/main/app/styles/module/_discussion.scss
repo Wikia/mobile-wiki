@@ -1,14 +1,15 @@
 $horizontal-padding: 18px;
-$post-card-top-note-height: 40px;
 $post-card-right-icon-margin: -9px;
-$post-details-post-width: 560px;
+$post-card-top-note-height: 40px;
+$post-details-content-line-height: 1.4rem;
+$post-details-mobile-page-margin-top: 91px;
 $post-details-outer-width: 580px;
-$post-details-reply-width: 524px;
 $post-details-post-margin-bottom: 5px;
 $post-details-post-vertical-padding: 12px;
-$post-details-reply-upvote-width: 12px;
+$post-details-post-width: 560px;
 $post-details-reply-upvote-margin-left: 10px;
-$post-details-content-line-height: 1.4rem;
+$post-details-reply-upvote-width: 12px;
+$post-details-reply-width: 524px;
 $post-mark-icon-size: 12px;
 
 body.discussions {
@@ -506,6 +507,11 @@ body.discussions {
 			line-height: $wide-load-newer-button-height;
 			text-align: center;
 			width: 100%;
+
+			&.no-editor {
+				border-bottom: 1px solid $discussion-reply-border-color;
+				margin-bottom: 20px;
+			}
 		}
 	}
 
@@ -646,6 +652,10 @@ body.discussions {
 	}
 
 	.post-details-view {
+		.discussion-page {
+			margin-top: $post-details-mobile-page-margin-top;
+		}
+
 		.post-detail {
 			padding-bottom: 14px;
 		}
