@@ -46,14 +46,11 @@ export default class AuthUtils {
 
 			if (xhr.status === HttpCodes.OK) {
 				preferences = JSON.parse(xhr.responseText);
-				isAccountCloseRequested = preferences.globalPreferences.some((preference) => {
-					return preference.name === 'requested-closure-date' && preference.value;
-				});
 
-				if (isAccountCloseRequested) {
+				if (preferences.value) {
 					return this.loadUrl(pageParams.reactivateAccountUrl);
 				}
-			} else {
+			} else if (xhr.status !== HttpCodes.NOT_FOUND) {
 				authLogger.xhrError(xhr);
 			}
 
@@ -64,7 +61,7 @@ export default class AuthUtils {
 			redirectUserBack(url);
 		};
 
-		xhr.open('get', `${pageParams.preferenceServiceUrl}${userId}`, true);
+		xhr.open('get', `${pageParams.preferenceServiceUrl}${userId}/global/requested-closure-date`, true);
 		xhr.withCredentials = true;
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send();
