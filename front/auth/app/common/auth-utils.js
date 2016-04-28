@@ -36,8 +36,7 @@ export default class AuthUtils {
 		xhr.onload = () => {
 			const preferencesRequstEndTime = performance.now();
 
-			let preferences,
-				isAccountCloseRequested;
+			let preferences;
 
 			authLogger.info({
 				message: 'Check if account is scheduled to be closed XHR time',
