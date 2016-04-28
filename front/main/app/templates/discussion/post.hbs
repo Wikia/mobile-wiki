@@ -9,7 +9,9 @@
 {{/modal-dialog}}
 
 {{#discussion-post-details-layout
+	deleteAllPosts=(action 'deleteAllPosts')
 	model=model.data
+	smartBannerVisible=smartBannerVisible
 }}
 	{{discussion-post
 		approve=(action 'approve')

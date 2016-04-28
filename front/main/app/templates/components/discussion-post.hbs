@@ -60,7 +60,8 @@
 		<button {{action this.attrs.loadNewerReplies}}
 			class="load-newer active-element-theme-color
 			{{if isFloatingButton 'floating' 'wide'}}
-			{{if isFloatingButtonBottomSpace 'bottom-space'}}">
+			{{if isFloatingButtonBottomSpace 'bottom-space'}}
+			{{unless canReply 'no-editor'}}">
 			{{#if isFloatingButton}}
 				{{svg 'down-small' viewBox='0 0 10 12' class='icon down-small'}}
 				{{i18n 'main.pagination-post-show-new-replies' ns='discussion'}}
