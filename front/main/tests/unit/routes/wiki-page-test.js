@@ -5,7 +5,7 @@ const originalMercury = Ember.$.extend(true, {}, window.Mercury),
 		url: '/wiki/Kermit',
 		description: 'Article about Kermit',
 		displayTitle: 'Kermit The Frog',
-		documentTitle: 'Kermit The Frog - Muppet Wiki - Wikia'
+		documentTitle: 'Kermit The Frog'
 	});
 
 moduleFor('route:wikiPage', 'Unit | Route | wiki page', {
