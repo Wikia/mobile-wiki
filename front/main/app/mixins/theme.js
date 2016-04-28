@@ -52,21 +52,15 @@ export default Ember.Mixin.create(ColorUtilsMixin, {
 
 	/**
 	 * Changes discussion header color if HSL Lightness is above 0.7
-	 * @param {Object} rgb
+	 * @param {Object} color
 	 * @returns {string}
 	 */
-	getHeaderColor(rgb) {
+	getHeaderColor(color) {
 		const defaultColor = '#ffffff',
 			fallbackAboveLightness = 0.7,
-			fallbackColor = '#1a1a1a',
-			r = rgb.r / 255,
-			g = rgb.g / 255,
-			b = rgb.b / 255,
-			max = Math.max(r, g, b),
-			min = Math.min(r, g, b);
+			fallbackColor = '#1a1a1a';
 
-		// (max + min)/2 is used to obtain HSL Lightness from RGB values
-		return ((max + min) / 2 < fallbackAboveLightness) ? defaultColor : fallbackColor;
+		return (color.getLighness() < fallbackAboveLightness) ? defaultColor : fallbackColor;
 	},
 	/**
 	 * Sets inline styles with the theme colors
@@ -89,12 +83,12 @@ export default Ember.Mixin.create(ColorUtilsMixin, {
 			return;
 		}
 
-		heroImageRgbColor = this.hexToRgb(this.get('themeColors.color-buttons'), 0.8);
+		heroImageRgbColor = tinycolor(this.get('themeColors.color-buttons')).setAlpha(0.8);
 		discussionHeaderColor = this.getHeaderColor(heroImageRgbColor);
 
 		styles += `.discussions .border-theme-color {border-color: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .background-theme-color {background-color: ${this.get('themeColors.color-buttons')};}`;
-		styles += `.discussions .background-alpha-theme-color {background-color: ${this.getRgbaColor(heroImageRgbColor)};}`;
+		styles += `.discussions .background-alpha-theme-color {background-color: ${heroImageRgbColor.toRgbString()};}`;
 		styles += `.discussions .discussion-hero-unit .discussion-hero-unit-content h1 {color: ${discussionHeaderColor};}`;
 		styles += `.discussions .discussion-hero-unit .discussion-hero-unit-content p {color: ${discussionHeaderColor};}`;
 		styles += `.discussion-header h1 {color: ${discussionHeaderColor};}`;
