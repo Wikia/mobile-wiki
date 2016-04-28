@@ -81,7 +81,7 @@ export default Ember.Mixin.create({
 		if (!this.get('themeColors')) {
 			return;
 		}
-		console.log('themeColors.color-buttons');
+
 		heroImageRgbColor = tinycolor(this.get('themeColors.color-buttons')).setAlpha(0.8);
 		discussionHeaderColor = this.getHeaderColor(heroImageRgbColor);
 
