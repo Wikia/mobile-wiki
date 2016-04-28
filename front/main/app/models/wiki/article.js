@@ -128,8 +128,7 @@ ArticleModel.reopenClass({
 
 				articleProperties = {
 					ns: details.ns,
-					displayTitle: details.title,
-					documentTitle: details.documentTitle,
+					title: details.title,
 					comments: details.comments,
 					id: details.id,
 					user: details.revision.user_id,
@@ -189,6 +188,10 @@ ArticleModel.reopenClass({
 
 			// @todo this will be cleaned up in XW-1053
 			articleProperties.articleType = articleProperties.type || data.articleType;
+
+			articleProperties.documentTitle = articleProperties.isMainPage ?
+					'' :
+					articleProperties.documentTitle = articleProperties.displayTitle || articleProperties.title;
 		}
 
 		model.setProperties(articleProperties);
