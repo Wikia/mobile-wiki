@@ -1,4 +1,3 @@
-/* global tinycolor */
 import Ember from 'ember';
 
 /**
