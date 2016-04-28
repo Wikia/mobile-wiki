@@ -2,9 +2,13 @@
 	<div class="wiki-page-header__wrapper">
         <div class="wiki-page-header__main">
 			<h2 class="wiki-page-header__site-name">
-				{{i18n 'app.header-in-wiki-name-label-prefix'}}&nbsp;
+				{{i18n 'app.header-in-wiki-name-label-prefix'}}
 				<a class="wiki-page-header__site-link" href="#">{{wikiVariables.siteName}}</a>
-				&nbsp;{{i18n 'app.header-in-wiki-name-label-suffix'}} &#10132;
+				{{i18n 'app.header-in-wiki-name-label-suffix'}}
+				{{!-- The svg markup below is a copy of 'arrow-right-long.svg' file. --}}
+				<svg width="20" height="15" viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg">
+					<path d="M.91 8.183h15.987l-4.812 4.812a.908.908 0 0 0 1.286 1.285l6.365-6.363a.91.91 0 0 0 0-1.287L13.37.267a.908.908 0 1 0-1.285 1.285l4.812 4.812H.91a.91.91 0 0 0 0 1.82z" fill-rule="evenodd"/>
+				</svg>
 			</h2>
 			<h1 class="wiki-page-header__title">{{displayTitle}}</h1>
 			{{#if subtitle}}
