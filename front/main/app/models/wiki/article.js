@@ -189,6 +189,9 @@ ArticleModel.reopenClass({
 			// @todo this will be cleaned up in XW-1053
 			articleProperties.articleType = articleProperties.type || data.articleType;
 
+			/**
+			 * For main pages, title is wiki name, so we don't want to have duplicated text in documentTitle
+			 */
 			articleProperties.documentTitle = articleProperties.isMainPage ?
 					'' :
 					articleProperties.documentTitle = articleProperties.displayTitle || articleProperties.title;
