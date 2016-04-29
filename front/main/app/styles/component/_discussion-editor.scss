@@ -270,6 +270,10 @@ $modal-editor-top: 66px;
 @media #{$mobile-range} {
 	.discussion-editor {
 		@include modal-editor;
+
+		&.is-active .editor-label {
+			position: fixed;
+		}
 	}
 }
 
