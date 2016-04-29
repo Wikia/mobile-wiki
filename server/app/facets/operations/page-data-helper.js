@@ -142,10 +142,10 @@ export function getCuratedMainPageTitle(request, wikiVariables) {
 	 */
 	if (request.url.path.indexOf('section') > -1) {
 		return decodeURIComponent(decodeURI(request.url.path.replace('\/main\/section\/', '')))
-			.replace(/%20/g, ' ');
+			.replace(/%20/g, ' ').replace(/_/g, ' ');
 	} else if (request.url.path.indexOf('category') > -1) {
 		return decodeURIComponent(decodeURI(request.url.path.replace('\/main\/category\/', '')))
-			.replace(/%20/g, ' ');
+			.replace(/%20/g, ' ').replace(/_/g, ' ');
 	} else {
 		return wikiVariables.mainPageTitle.replace(/_/g, ' ');
 	}
