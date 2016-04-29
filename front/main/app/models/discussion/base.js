@@ -5,7 +5,7 @@ import request from 'ember-ajax/request';
 export default Ember.Object.extend({
 	error: null,
 	errorCodes: {
-		notFound: 404
+		notFound: '404'
 	},
 	errorClass: 'discussion-error-page',
 	data: null,
@@ -27,7 +27,7 @@ export default Ember.Object.extend({
 
 		this.setProperties({
 			data: Ember.Object.create({
-				forumId: wikiId,
+				forumId: wikiId
 			}),
 			error: Ember.Object.create({}),
 			wikiId
@@ -40,7 +40,7 @@ export default Ember.Object.extend({
 	 * @returns {void}
 	 */
 	setErrorProperty(err) {
-		if (err.status === this.errorCodes.notFound) {
+		if (err.errors[0].status === this.errorCodes.notFound) {
 			this.set('error.isNotFound', true);
 		}
 
