@@ -69,10 +69,7 @@ export default Ember.Object.extend({
 	},
 
 	prepareGlobalItems() {
-		return [{
-			type: 'side-nav-menu-header',
-			name: this.get('exploreWikiaLabel')
-		}].concat(this.get('hubsLinks').map((item) => {
+		return this.get('hubsLinks').map((item) => {
 			return {
 				type: 'side-nav-menu-external',
 				className: item.specialAttr,
@@ -80,7 +77,7 @@ export default Ember.Object.extend({
 				name: item.textEscaped,
 				trackLabel: `open-hub-${item.specialAttr}`
 			};
-		})).concat([{
+		}).concat([{
 			// add exploration sub menu item
 			type: 'side-nav-menu-root',
 			index: 0,
