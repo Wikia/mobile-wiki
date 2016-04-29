@@ -129,7 +129,11 @@ $side-nav-height: $site-head-height - 1;
 
 	&:hover,
 	&:visited,
-	> a,
+	> a {
+	  display: block;
+	  width: 100%;
+	  color: inherit;
+	}
 	> a:hover,
 	> a:visited,
 	> a:focus {
