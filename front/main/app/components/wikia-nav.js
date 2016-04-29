@@ -52,6 +52,7 @@ export default Ember.Component.extend(
 
 			goToSubNav(index) {
 				this.get('model').goToSubNav(index);
+				this.scrollTop();
 			},
 
 			trackClick(category, label) {
