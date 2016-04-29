@@ -1,11 +1,11 @@
 import AuthTracker from './common/auth-tracker';
-import {trackActions} from 'common/utils/track';
 
 /**
  * @returns {void}
  */
 function setTrackingForSignInPage() {
-	const tracker = new AuthTracker('user-login-mobile', '/signin');
+	const gaCategory = (pageParams.forceLogin ? 'force-login-modal' : 'user-login-mobile'),
+		tracker = new AuthTracker(gaCategory, '/signin');
 
 	// Impression of the Signin page
 	tracker.trackPageView();
@@ -16,11 +16,10 @@ function setTrackingForSignInPage() {
 		'login-submit'
 	);
 
-	// Click X to "close" log-in form
+	// Click "Register Now" link
 	tracker.trackClick(
-		document.querySelector('.close'),
-		'login-modal',
-		trackActions.close
+		document.querySelector('.footer-callout-link'),
+		'register-link'
 	);
 
 	// Click "Forgot Password" link
@@ -29,10 +28,10 @@ function setTrackingForSignInPage() {
 		'forgot-password-link'
 	);
 
-	// Click "Register Now" link
+	// Click on 'connect with facebook'
 	tracker.trackClick(
-		document.querySelector('.footer-callout-link'),
-		'register-link'
+		document.querySelector('.signup-provider-facebook'),
+		'facebook-connect'
 	);
 }
 
@@ -40,7 +39,8 @@ function setTrackingForSignInPage() {
  * @returns {void}
  */
 function setTrackingForRegisterPage() {
-	const tracker = new AuthTracker('user-signup-mobile', '/register');
+	const gaCategory = (pageParams.forceLogin ? 'force-login-modal' : 'user-signup-mobile'),
+		tracker = new AuthTracker(gaCategory, '/register');
 
 	// Impression of the Register page
 	tracker.trackPageView();
@@ -51,17 +51,16 @@ function setTrackingForRegisterPage() {
 		'register-submit'
 	);
 
-	// Click X to "close" log-in form
-	tracker.trackClick(
-		document.querySelector('.close'),
-		'register-modal',
-		trackActions.close
-	);
-
 	// Click "Register Now" link
 	tracker.trackClick(
 		document.querySelector('.footer-callout-link'),
 		'signin-link-on-register-page'
+	);
+
+	// Click on 'connect with facebook'
+	tracker.trackClick(
+		document.querySelector('.signup-provider-facebook'),
+		'facebook-connect'
 	);
 }
 
@@ -69,7 +68,8 @@ function setTrackingForRegisterPage() {
  * @returns {void}
  */
 function setTrackingForJoinPage() {
-	const tracker = new AuthTracker('user-login-mobile', '/join');
+	const gaCategory = (pageParams.forceLogin ? 'force-login-modal' : 'user-login-mobile'),
+		tracker = new AuthTracker(gaCategory, '/join');
 
 	// Impression of the Join page
 	tracker.trackPageView();
@@ -91,27 +91,14 @@ function setTrackingForJoinPage() {
 		document.querySelector('.footer-callout-link'),
 		'sign-in-link'
 	);
-
-	// Click X to "close" /join page
-	tracker.trackClick(
-		document.querySelector('.close'),
-		'join-close-button',
-		trackActions.close
-	);
-
-	// Click on 'connect with facebook'
-	tracker.trackClick(
-		document.querySelector('.signup-provider-facebook'),
-		'facebook-login-button',
-		trackActions.click
-	);
 }
 
 /**
  * @returns {void}
  */
 function setTrackingForFBConnectPage() {
-	const tracker = new AuthTracker('user-signup-mobile', '/signin');
+	const gaCategory = (pageParams.forceLogin ? 'force-login-modal' : 'user-login-mobile'),
+		tracker = new AuthTracker(gaCategory, '/signin');
 
 	// Impression of the Facebook Connect page
 	tracker.trackPageView();
@@ -120,13 +107,6 @@ function setTrackingForFBConnectPage() {
 	tracker.trackSubmit(
 		document.getElementById('facebookConnectForm'),
 		'facebook-connect-submit'
-	);
-
-	// Click X to "close" log-in form
-	tracker.trackClick(
-		document.querySelector('.close'),
-		'facebook-connect-close-button',
-		trackActions.close
 	);
 
 	// Click "Forgot Password" link
@@ -146,7 +126,8 @@ function setTrackingForFBConnectPage() {
  * @returns {void}
  */
 function setTrackingForFBRegisterPage() {
-	const tracker = new AuthTracker('user-signup-mobile', '/register');
+	const gaCategory = (pageParams.forceLogin ? 'force-login-modal' : 'user-signup-mobile'),
+		tracker = new AuthTracker(gaCategory, '/register');
 
 	// Impression of the Facebook Register page
 	tracker.trackPageView();
@@ -155,13 +136,6 @@ function setTrackingForFBRegisterPage() {
 	tracker.trackSubmit(
 		document.getElementById('facebookRegistrationForm'),
 		'facebook-register-submit'
-	);
-
-	// Click X to "close" log-in form
-	tracker.trackClick(
-		document.querySelector('.close'),
-		'facebook-register-close-button',
-		trackActions.close
 	);
 
 	// Click "Connect it" link

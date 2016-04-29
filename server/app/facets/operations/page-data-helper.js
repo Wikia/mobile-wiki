@@ -131,14 +131,6 @@ export function getDefaultTitle(request, pageData) {
 }
 
 /**
- * @param {MediaWikiPageData} pageData
- * @returns {string}
- */
-export function getDocumentTitle(pageData) {
-	return (pageData && pageData.details && pageData.details.documentTitle) ? pageData.details.documentTitle : '';
-}
-
-/**
  * @param {Hapi.Request} request
  * @param {Object} wikiVariables
  * @returns {String} title
@@ -150,10 +142,10 @@ export function getCuratedMainPageTitle(request, wikiVariables) {
 	 */
 	if (request.url.path.indexOf('section') > -1) {
 		return decodeURIComponent(decodeURI(request.url.path.replace('\/main\/section\/', '')))
-			.replace(/%20/g, ' ');
+			.replace(/%20/g, ' ').replace(/_/g, ' ');
 	} else if (request.url.path.indexOf('category') > -1) {
 		return decodeURIComponent(decodeURI(request.url.path.replace('\/main\/category\/', '')))
-			.replace(/%20/g, ' ');
+			.replace(/%20/g, ' ').replace(/_/g, ' ');
 	} else {
 		return wikiVariables.mainPageTitle.replace(/_/g, ' ');
 	}
@@ -166,10 +158,12 @@ export function getCuratedMainPageTitle(request, wikiVariables) {
  */
 export function getBaseResult(request, data) {
 	const wikiVariables = data.wikiVariables,
+		htmlTitle = wikiVariables.htmlTitle,
 		userId = getUserId(request);
 
 	return {
 		canonicalUrl: wikiVariables.basePath,
+		documentTitle: htmlTitle.parts[0] + htmlTitle.separator + htmlTitle.parts[1],
 		gaUserIdHash: gaUserIdHash(userId),
 		isRtl: isRtl(wikiVariables),
 		// clone object to avoid overriding real localSettings for future requests
