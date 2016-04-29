@@ -2,8 +2,10 @@ import Ember from 'ember';
 import CuratedContentEditorModel from '../models/curated-content-editor';
 import {track, trackActions} from 'common/utils/track';
 import {isForbiddenError} from 'ember-ajax/errors';
+import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 
 export default Ember.Route.extend(
+	HeadTagsDynamicMixin,
 	{
 		/**
 		 * @returns {void}
@@ -30,6 +32,15 @@ export default Ember.Route.extend(
 		 */
 		model() {
 			return CuratedContentEditorModel.load();
+		},
+
+		/**
+		 * Custom implementation of HeadTagsMixin::setDynamicHeadTags
+		 * @param {Object} model, this is model object from route::afterModel() hook
+		 * @returns {void}
+		 */
+		setDynamicHeadTags(model) {
+			this._super(model, {robots: 'noindex,follow'});
 		},
 
 		/**
