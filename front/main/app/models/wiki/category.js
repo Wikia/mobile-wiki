@@ -131,22 +131,6 @@ CategoryModel.reopenClass({
 				}
 			}
 
-			/**
-			 * This is necessary to avoid having duplicated title on Category pages
-			 * This should be removed in XW-1442
-			 */
-			if (pageProperties.displayTitle.indexOf(prefix) === 0) {
-				pageProperties.displayTitle = pageProperties.displayTitle.substring(prefix.length);
-			}
-
-			/**
-			 * This is necessary to avoid having duplicated title on Category pages
-			 * This should be removed in XW-1442
-			 */
-			if (pageProperties.title.indexOf(prefix) === 0) {
-				pageProperties.title = pageProperties.title.substring(prefix.length);
-			}
-
 			pageProperties.documentTitle = prefix + (pageProperties.displayTitle || pageProperties.title);
 		}
 
