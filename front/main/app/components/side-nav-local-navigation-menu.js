@@ -56,7 +56,7 @@ export default Ember.Component.extend(
 			recentWikiActivityClick() {
 				track({
 					action: trackActions.click,
-					category: 'recent-wiki-activity-blue-dot',
+					category: 'recent-wiki-activity',
 					label: 'open-recent-wiki-activity'
 				});
 				this.get('collapse')();
