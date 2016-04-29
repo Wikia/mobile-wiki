@@ -11,6 +11,12 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+
+	a {
+		display: block;
+		width: 100%;
+		color: inherit;
+  	}
 }
 
 .side-nav.collapsed .side-nav-menu {
@@ -129,11 +135,7 @@ $side-nav-height: $site-head-height - 1;
 
 	&:hover,
 	&:visited,
-	> a {
-	  display: block;
-	  width: 100%;
-	  color: inherit;
-	}
+	> a,
 	> a:hover,
 	> a:visited,
 	> a:focus {
