@@ -10,7 +10,7 @@ import {isUnauthorizedError} from 'ember-ajax/errors';
 const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	links: {
 		next: null,
-		previous: null,
+		previous: null
 	},
 	repliesLimit: 10,
 	threadId: null,
@@ -36,7 +36,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			url = Ember.getWithDefault(data, '_links.previous.0.href', null);
 			this.setProperties({
 				'links.next': url,
-				'data.isNextPage': !Ember.isEmpty(url),
+				'data.isNextPage': !Ember.isEmpty(url)
 			});
 		} else {
 			this.get('data.replies').unshiftObjects(newReplies);
@@ -44,7 +44,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			url = Ember.getWithDefault(data, '_links.next.0.href', null);
 			this.setProperties({
 				'links.previous': url,
-				'data.isPreviousPage': !Ember.isEmpty(url),
+				'data.isPreviousPage': !Ember.isEmpty(url)
 			});
 		}
 	},
@@ -130,7 +130,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(DiscussionModerationModel
 			isNextPage: !Ember.isEmpty(this.get('links.next')),
 			isPreviousPage: !Ember.isEmpty(this.get('links.previous')),
 			replies: normalizedRepliesData,
-			repliesCount: parseInt(apiData.postCount, 10),
+			repliesCount: parseInt(apiData.postCount, 10)
 		});
 
 		this.set('data', normalizedData);
@@ -146,41 +146,43 @@ DiscussionPostModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, threadId, replyId = null) {
-		const postInstance = DiscussionPostModel.create({
-				wikiId,
-				threadId,
-				replyId
-			}),
-			urlPath = replyId ? `/${wikiId}/permalinks/posts/${replyId}` : `/${wikiId}/threads/${threadId}`;
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			const postInstance = DiscussionPostModel.create({
+					wikiId,
+					threadId,
+					replyId
+				}),
+				urlPath = replyId ? `/${wikiId}/permalinks/posts/${replyId}` : `/${wikiId}/threads/${threadId}`;
 
-		return request(M.getDiscussionServiceUrl(urlPath), {
-			data: {
-				limit: postInstance.get('repliesLimit'),
-				responseGroup: 'full',
-				sortDirection: 'descending',
-				sortKey: 'creation_date',
-				viewableOnly: false
-			},
-		}).then((data) => {
-			if (replyId) {
-				data.permalinkedReplyId = replyId;
-			}
+			request(M.getDiscussionServiceUrl(urlPath), {
+				data: {
+					limit: postInstance.get('repliesLimit'),
+					responseGroup: 'full',
+					sortDirection: 'descending',
+					sortKey: 'creation_date',
+					viewableOnly: false
+				}
+			}).then((data) => {
+				if (replyId) {
+					data.permalinkedReplyId = replyId;
+				}
 
-			postInstance.setProperties({
-				// this is not a mistake - we have descending order
-				'links.previous': Ember.getWithDefault(data, '_links.next.0.href', null),
-				'links.next': Ember.getWithDefault(data, '_links.previous.0.href', null)
+				postInstance.setProperties({
+					// this is not a mistake - we have descending order
+					'links.previous': Ember.getWithDefault(data, '_links.next.0.href', null),
+					'links.next': Ember.getWithDefault(data, '_links.previous.0.href', null)
+				});
+
+				postInstance.setNormalizedData(data);
+
+				resolve(postInstance);
+			}).catch((err) => {
+				postInstance.setErrorProperty(err);
+
+				reject(postInstance);
 			});
-
-			postInstance.setNormalizedData(data);
-
-			return postInstance;
-		}).catch((err) => {
-			postInstance.setErrorProperty(err);
-
-			return postInstance;
 		});
-	},
+	}
 });
 
 export default DiscussionPostModel;
