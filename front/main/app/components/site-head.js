@@ -13,24 +13,13 @@ export default Ember.Component.extend(
 		pinned: true,
 
 		currentUser: Ember.inject.service(),
-		newFeaturesBadges: Ember.inject.service(),
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
-		shouldDisplayNewBadge: Ember.computed('newFeaturesBadges.features.[]', function () {
-			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
-		}),
 
 		actions: {
 			/**
 			 * @returns {void}
 			 */
 			expandSideNav() {
-				if (this.get('shouldDisplayNewBadge')) {
-					track({
-						action: trackActions.click,
-						category: 'recent-wiki-activity-blue-dot',
-						label: 'open-navigation'
-					});
-				}
 				track({
 					action: trackActions.click,
 					category: 'side-nav',
@@ -59,15 +48,6 @@ export default Ember.Component.extend(
 
 		pinnedObserver: Ember.observer('pinned', function () {
 			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
-		}),
-
-		didRender() {
-			if (this.get('shouldDisplayNewBadge')) {
-				track({
-					action: trackActions.impression,
-					category: 'recent-wiki-activity-blue-dot'
-				});
-			}
-		}
+		})
 	}
 );
