@@ -2,6 +2,8 @@ import Ember from 'ember';
 import DiscussionEditorComponent from './discussion-editor';
 
 export default DiscussionEditorComponent.extend({
+	classNames: ['is-edit'],
+
 	discussionEditor: Ember.inject.service(),
 
 	placeholderText: 'editor.post-editor-placeholder-text',

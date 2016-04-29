@@ -6,7 +6,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
 
 	classNames: ['discussion-editor'],
-	classNameBindings: ['isActive', 'errorMessage:has-error', 'isEdit'],
+	classNameBindings: ['isActive', 'errorMessage:has-error'],
 
 	currentUser: Ember.inject.service(),
 	discussionEditor: Ember.inject.service(),
