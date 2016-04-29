@@ -6,6 +6,7 @@ export default Ember.Service.extend(Ember.Evented, {
 	isEditEditorOpen: false,
 	isUserBlocked: false,
 	discussionEntity: null,
+	errorMessage: null,
 
 	modalDialog: Ember.inject.service(),
 
@@ -38,6 +39,11 @@ export default Ember.Service.extend(Ember.Evented, {
 	 */
 	openDialog(message) {
 		this.get('modalDialog').display(i18n.t(message, {ns: 'discussion'}));
+	},
+
+	setErrorMessage(message) {
+		this.set('errorMessage', message);
+		this.set('shouldStopLoading', true);
 	},
 
 	/**

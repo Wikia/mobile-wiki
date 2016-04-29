@@ -11,7 +11,6 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	createPost(postData) {
-		this.setFailedState(null);
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`), {
 			data: JSON.stringify(postData),
 			method: 'POST',
@@ -25,8 +24,6 @@ export default Ember.Mixin.create({
 			track(trackActions.PostCreate);
 
 			return newPost;
-		}).catch((err) => {
-			this.onCreatePostError(err);
 		});
 	},
 
@@ -36,7 +33,6 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	editPost(postData) {
-		this.setFailedState(null);
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`), {
 			data: JSON.stringify(postData),
 			method: 'POST',
@@ -50,8 +46,6 @@ export default Ember.Mixin.create({
 			track(trackActions.PostEdit);
 
 			return editedPost;
-		}).catch((err) => {
-			this.onCreatePostError(err);
 		});
 	},
 
@@ -61,8 +55,6 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	editReply(replyData) {
-		this.setFailedState(null);
-
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${replyData.id}`), {
 			data: JSON.stringify(replyData),
 			method: 'POST',
@@ -80,8 +72,6 @@ export default Ember.Mixin.create({
 			track(trackActions.ReplyEdit);
 
 			return editedReply;
-		}).catch((err) => {
-			this.onCreatePostError(err);
 		});
 	},
 
@@ -124,19 +114,5 @@ export default Ember.Mixin.create({
 		}).finally(() => {
 			this.upvotingInProgress[entityId] = false;
 		});
-	},
-
-
-	/**
-	 * @param {error} err
-	 *
-	 * @returns {void}
-	 */
-	onCreatePostError(err) {
-		if (err.status === 401) {
-			this.setFailedState('editor.post-error-not-authorized');
-		} else {
-			this.setFailedState('editor.post-error-general-error');
-		}
 	},
 });

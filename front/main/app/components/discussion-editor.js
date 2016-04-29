@@ -6,7 +6,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
 
 	classNames: ['discussion-editor'],
-	classNameBindings: ['isActive', 'hasError', 'isEdit'],
+	classNameBindings: ['isActive', 'errorMessage:has-error', 'isEdit'],
 
 	currentUser: Ember.inject.service(),
 	discussionEditor: Ember.inject.service(),
@@ -15,13 +15,14 @@ export default Ember.Component.extend(ViewportMixin, {
 	isSticky: false,
 
 	showSuccess: false,
-	hasError: false,
 
 	offsetTop: 0,
 	siteHeadHeight: 0,
 
 	bodyText: '',
 	isEdit: Ember.computed.alias('discussionEditor.isEditMode'),
+	errorMessage: Ember.computed.alias('discussionEditor.errorMessage'),
+
 	layoutName: 'components/discussion-editor',
 	// Tracking action name of closing the editor
 	closeTrackingAction: trackActions.PostClose,

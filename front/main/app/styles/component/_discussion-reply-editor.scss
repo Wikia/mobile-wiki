@@ -36,6 +36,12 @@ $reply-editor-margin-left: -20px;
 
 			&.sticky {
 				width: $reply-editor-width;
+
+				&.pinned-bottom {
+					//To hide bottom border and compensate margin when editor is sticky
+					bottom: -4px;
+					top: auto;
+				}
 			}
 		}
 

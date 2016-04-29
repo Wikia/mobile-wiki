@@ -6,7 +6,6 @@ import DiscussionPost from './domain/post';
 import DiscussionReply from './domain/reply';
 import {track, trackActions} from '../../utils/discussion-tracker';
 import request from 'ember-ajax/request';
-import {isUnauthorizedError} from 'ember-ajax/errors';
 
 const DiscussionPostModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
@@ -87,8 +86,6 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		editPost(postData) {
-			this.setFailedState(null);
-
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`), {
 				method: 'POST',
 				data: JSON.stringify(postData),
@@ -100,8 +97,6 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 				this.set('data.replies', replies);
 
 				track(trackActions.PostEdit);
-			}).catch((err) => {
-				this.onCreatePostError(err);
 			});
 		},
 
@@ -111,8 +106,6 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		editReply(replyData) {
-			this.setFailedState(null);
-
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts/${replyData.id}`), {
 				method: 'POST',
 				data: JSON.stringify(replyData),
@@ -128,8 +121,6 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 				replies.replace(editedReplyIndex, 1, editedReply);
 
 				track(trackActions.ReplyEdit);
-			}).catch((err) => {
-				this.onCreatePostError(err);
 			});
 		},
 
@@ -140,7 +131,6 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		createReply(replyData) {
-			this.setFailedState(null);
 			replyData.threadId = this.get('threadId');
 
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts`), {
@@ -153,12 +143,6 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 				this.get('data.replies').pushObject(DiscussionReply.create(reply));
 
 				track(trackActions.ReplyCreate);
-			}).catch((err) => {
-				if (isUnauthorizedError(err.status)) {
-					this.setFailedState('editor.post-error-not-authorized');
-				} else {
-					this.setFailedState('editor.post-error-general-error');
-				}
 			});
 		},
 
