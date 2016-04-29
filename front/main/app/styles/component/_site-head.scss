@@ -57,6 +57,13 @@ $nav-container-padding: 4px;
 			height: 24px;
 			width: 25px;
 		}
+
+		&:hover {
+			.icon-button-icon {
+				fill: $color-blue-dark;
+			}
+		}
+
 	}
 
 	.avatar {
