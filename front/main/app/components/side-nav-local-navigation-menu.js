@@ -57,7 +57,7 @@ export default Ember.Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'recent-wiki-activity',
-					label: 'open-recent-wiki-activity'
+					label: 'local-nav-item'
 				});
 				this.get('collapse')();
 			},
