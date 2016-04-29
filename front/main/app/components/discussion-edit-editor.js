@@ -6,6 +6,8 @@ export default DiscussionEditorComponent.extend({
 
 	discussionEditor: Ember.inject.service(),
 
+	errorMessage: Ember.computed.alias('discussionEditor.editErrorMessage'),
+
 	placeholderText: 'editor.post-editor-placeholder-text',
 	submitText: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
 		if (this.get('discussionEditor.discussionEntity.isReply')) {

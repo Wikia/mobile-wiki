@@ -7,6 +7,7 @@ export default Ember.Service.extend(Ember.Evented, {
 	isUserBlocked: false,
 	discussionEntity: null,
 	errorMessage: null,
+	editErrorMessage: null,
 
 	modalDialog: Ember.inject.service(),
 
@@ -42,8 +43,13 @@ export default Ember.Service.extend(Ember.Evented, {
 	},
 
 	setErrorMessage(message) {
-		this.set('errorMessage', message);
 		this.set('shouldStopLoading', true);
+
+		if (this.get('isEditMode')) {
+			this.set('editErrorMessage', message);
+		} else {
+			this.set('errorMessage', message);
+		}
 	},
 
 	/**
@@ -69,6 +75,7 @@ export default Ember.Service.extend(Ember.Evented, {
 			this.set('isEditorOpen', true);
 		}
 		this.set('errorMessage', null);
+		this.set('editErrorMessage', null);
 	},
 
 	/**
@@ -80,6 +87,7 @@ export default Ember.Service.extend(Ember.Evented, {
 			this.activateEditor();
 		} else {
 			this.set('errorMessage', null);
+			this.set('editErrorMessage', null);
 			this.set('discussionEntity', null);
 			this.set('isEditorOpen', false);
 			this.set('isEditEditorOpen', false);
