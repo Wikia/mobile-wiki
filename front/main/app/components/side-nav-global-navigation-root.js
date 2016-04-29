@@ -6,14 +6,10 @@ export default Ember.Component.extend(
 	LoginLinkMixin,
 	{
 		currentUser: Ember.inject.service(),
-		newFeaturesBadges: Ember.inject.service(),
 		hubsLinks: Ember.get(Mercury, 'wiki.navigation2016.hubsLinks'),
 		exploreWikiaLabel: Ember.get(Mercury, 'wiki.navigation2016.exploreWikia.textEscaped'),
 		wikiName: Ember.get(Mercury, 'wiki.siteName'),
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
-		shouldDisplayNewBadge: Ember.computed('newFeaturesBadges.features.[]', function () {
-			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
-		}),
 
 		logoutLink: M.buildUrl({
 			namespace: 'Special',
@@ -29,14 +25,6 @@ export default Ember.Component.extend(
 
 		actions: {
 			openLocalNavigation() {
-				if (this.get('shouldDisplayNewBadge')) {
-					track({
-						action: trackActions.click,
-						category: 'recent-wiki-activity-blue-dot',
-						label: 'open-local-menu'
-					});
-				}
-
 				this.sendAction('replaceNavigationContent', 'local');
 			},
 
