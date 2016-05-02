@@ -1,9 +1,9 @@
 <nav class="site-head">
-    <div class="site-logo site-logo-2016">
-        <a {{action 'trackWordmarkClick' preventDefault=false}} href={{wikiaHomepage}}>
+	<div class="site-logo site-logo-2016">
+		<a {{action 'trackWordmarkClick' preventDefault=false}} href={{wikiaHomepage}}>
 			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
-        </a>
-    </div>
+		</a>
+	</div>
 
 	{{wikia-ui-components/icon-button
 		click=(action 'siteHeadIconClick' 'nav')
@@ -16,5 +16,4 @@
 		class='site-head-icon site-head-icon-search'
 		icon=searchIcon
 	}}
-
 </nav>

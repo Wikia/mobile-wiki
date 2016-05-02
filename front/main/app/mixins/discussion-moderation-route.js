@@ -1,7 +1,10 @@
 import Ember from 'ember';
+import {track, trackActions} from '../utils/discussion-tracker';
 
-export default Ember.Mixin.create({
-	modalDialogService: Ember.inject.service('modal-dialog'),
+const {Mixin, inject, set} = Ember;
+
+export default Mixin.create({
+	modalDialog: inject.service(),
 	/**
 	 * Get loading spinner container.
 	 * On post list it's post, on post-details it's applicationController to overlay entire page
@@ -23,9 +26,9 @@ export default Ember.Mixin.create({
 		deletePost(post) {
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
-			Ember.set(loadingSpinnerContainer, 'isLoading', true);
+			set(loadingSpinnerContainer, 'isLoading', true);
 			this.modelFor(this.get('routeName')).deletePost(post).then(() => {
-				Ember.set(loadingSpinnerContainer, 'isLoading', false);
+				set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
 
@@ -45,16 +48,19 @@ export default Ember.Mixin.create({
 					}
 				);
 
-			this.get('modalDialogService').display(
+			this.get('modalDialog').display(
 				message,
 				i18n.t('main.modal-dialog-delete-all-header', {ns: 'discussion'}),
 				i18n.t('main.delete-all', {ns: 'discussion'}),
 				(result) => {
 					if (result) {
-						Ember.set(loadingSpinnerContainer, 'isLoading', true);
+						set(loadingSpinnerContainer, 'isLoading', true);
+
 						this.modelFor(this.get('routeName')).deleteAllPosts(posts).then(() => {
-							Ember.set(loadingSpinnerContainer, 'isLoading', false);
+							set(loadingSpinnerContainer, 'isLoading', false);
 						});
+
+						track(trackActions.DeleteAllConfirmed);
 					}
 				});
 		},
@@ -67,9 +73,9 @@ export default Ember.Mixin.create({
 		undeletePost(post) {
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
-			Ember.set(loadingSpinnerContainer, 'isLoading', true);
+			set(loadingSpinnerContainer, 'isLoading', true);
 			this.modelFor(this.get('routeName')).undeletePost(post).then(() => {
-				Ember.set(loadingSpinnerContainer, 'isLoading', false);
+				set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
 
@@ -79,9 +85,9 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		deleteReply(reply) {
-			Ember.set(reply, 'isLoading', true);
+			set(reply, 'isLoading', true);
 			this.modelFor(this.get('routeName')).deleteReply(reply).then(() => {
-				Ember.set(reply, 'isLoading', false);
+				set(reply, 'isLoading', false);
 			});
 		},
 
@@ -91,9 +97,9 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		undeleteReply(reply) {
-			Ember.set(reply, 'isLoading', true);
+			set(reply, 'isLoading', true);
 			this.modelFor(this.get('routeName')).undeleteReply(reply).then(() => {
-				Ember.set(reply, 'isLoading', false);
+				set(reply, 'isLoading', false);
 			});
 		},
 
@@ -103,9 +109,9 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		report(item) {
-			Ember.set(item, 'isLoading', true);
+			set(item, 'isLoading', true);
 			this.modelFor(this.get('routeName')).report(item).then(() => {
-				Ember.set(item, 'isLoading', false);
+				set(item, 'isLoading', false);
 			});
 		},
 
@@ -115,9 +121,9 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		approve(item) {
-			Ember.set(item, 'isLoading', true);
+			set(item, 'isLoading', true);
 			this.modelFor(this.get('routeName')).approve(item).then(() => {
-				Ember.set(item, 'isLoading', false);
+				set(item, 'isLoading', false);
 			});
 		},
 
@@ -129,9 +135,9 @@ export default Ember.Mixin.create({
 		lock(post) {
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
-			Ember.set(loadingSpinnerContainer, 'isLoading', true);
+			set(loadingSpinnerContainer, 'isLoading', true);
 			this.modelFor(this.get('routeName')).lockPost(post).then(() => {
-				Ember.set(loadingSpinnerContainer, 'isLoading', false);
+				set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
 
@@ -143,9 +149,9 @@ export default Ember.Mixin.create({
 		unlock(post) {
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
-			Ember.set(loadingSpinnerContainer, 'isLoading', true);
+			set(loadingSpinnerContainer, 'isLoading', true);
 			this.modelFor(this.get('routeName')).unlockPost(post).then(() => {
-				Ember.set(loadingSpinnerContainer, 'isLoading', false);
+				set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
 	}

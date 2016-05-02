@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
-import ajaxCall from '../../utils/ajax-call';
 import DiscussionContributors from './domain/contributors';
 import DiscussionEntities from './domain/entities';
+import request from 'ember-ajax/request';
 
 const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModelMixin, {
 	postsLimit: 10,
@@ -17,23 +17,20 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 	loadPage(pageNum = 0) {
 		this.set('pageNum', pageNum);
 
-		return ajaxCall({
+		return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`), {
 			data: {
 				limit: this.get('postsLimit'),
 				page: this.get('data.pageNum'),
 				pivot: this.get('pivotId'),
 				responseGroup: 'full',
 				viewableOnly: false
-			},
-			url: M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`),
-			success: (data) => {
-				this.get('data.entities').pushObjects(
-					DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'))
-				);
-			},
-			error: (err) => {
-				this.handleLoadMoreError(err);
 			}
+		}).then((data) => {
+			this.get('data.entities').pushObjects(
+				DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'))
+			);
+		}).catch((err) => {
+			this.handleLoadMoreError(err);
 		});
 	},
 
@@ -71,25 +68,27 @@ DiscussionUserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, userId) {
-		const userInstance = DiscussionUserModel.create({
-			wikiId,
-			userId
-		});
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			const userInstance = DiscussionUserModel.create({
+				wikiId,
+				userId
+			});
 
-		return ajaxCall({
-			context: userInstance,
-			url: M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`),
-			data: {
-				limit: userInstance.postsLimit,
-				responseGroup: 'full',
-				viewableOnly: false
-			},
-			success: (data) => {
+			request(M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`), {
+				data: {
+					limit: userInstance.postsLimit,
+					responseGroup: 'full',
+					viewableOnly: false
+				}
+			}).then((data) => {
 				userInstance.setNormalizedData(data);
-			},
-			error: (err) => {
+
+				resolve(userInstance);
+			}).catch((err) => {
 				userInstance.setErrorProperty(err);
-			}
+
+				reject(userInstance);
+			});
 		});
 	}
 });

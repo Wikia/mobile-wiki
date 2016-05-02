@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import nearestParent from 'ember-pop-over/computed/nearest-parent';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	classNames: ['more-options'],
@@ -27,6 +28,13 @@ export default Ember.Component.extend({
 
 	canUnlock: Ember.computed.and('isLockable', 'post.isLocked', 'post.userData.permissions.canUnlock'),
 
+	/**
+	 * @returns {void}
+	 */
+	didInsertElement() {
+		track(trackActions.MorePostActions);
+	},
+
 	actions: {
 		/**
 		 * @param {object} post
@@ -35,6 +43,7 @@ export default Ember.Component.extend({
 		 */
 		lock(post) {
 			this.attrs.lock(post);
+			track(trackActions.PostLock);
 			this.get('popover').deactivate();
 		},
 
@@ -45,6 +54,7 @@ export default Ember.Component.extend({
 		 */
 		unlock(post) {
 			this.attrs.unlock(post);
+			track(trackActions.PostUnlock);
 			this.get('popover').deactivate();
 		},
 
@@ -75,6 +85,7 @@ export default Ember.Component.extend({
 		 */
 		report(post) {
 			this.attrs.report(post);
+			track(trackActions.Report);
 			this.get('popover').deactivate();
 		},
 	}

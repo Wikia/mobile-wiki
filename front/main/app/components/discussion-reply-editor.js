@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DiscussionEditorComponent from './discussion-editor';
+import {trackActions} from '../utils/discussion-tracker';
 
 export default DiscussionEditorComponent.extend({
 	classNames: ['reply-editor'],
@@ -8,6 +9,10 @@ export default DiscussionEditorComponent.extend({
 	placeholderText: 'editor.reply-editor-placeholder-text',
 	submitText: 'editor.reply-action-button-label',
 	labelText: 'editor.reply-editor-label',
+
+	closeTrackingAction: trackActions.ReplyClose,
+	contentTrackingAction: trackActions.ReplyContent,
+	startTrackingAction: trackActions.ReplyStart,
 
 	/**
 	 * Initialize onScroll binding for sticky logic
@@ -96,5 +101,5 @@ export default DiscussionEditorComponent.extend({
 		Ember.run.later(this, () => {
 			this.initializeStickyState();
 		}, 200);
-	}
+	},
 });

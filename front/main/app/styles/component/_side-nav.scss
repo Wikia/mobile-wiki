@@ -265,26 +265,3 @@ $side-nav-clear-size: 30px;
 	margin: 0;
 	padding: 0;
 }
-
-.new-badge {
-	display: inline-block;
-	margin-bottom: 5px;
-	margin-left: 5px;
-	vertical-align: middle;
-}
-
-.new-badge__animated {
-	animation: new_badge_animation 2.5s ease infinite;
-}
-
-.new-badge__pinned {
-	position: absolute;
-	right: 0;
-	top: 10px;
-}
-
-@keyframes new_badge_animation {
-	0% { right: 0; }
-	20% { right: -5px; }
-	40% { right: 0; }
-}

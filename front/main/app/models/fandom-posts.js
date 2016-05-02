@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import request from 'ember-ajax/request';
 
 const FandomPostsModel = Ember.Object.extend({
 	title: null,
@@ -13,23 +14,16 @@ const FandomPostsModel = Ember.Object.extend({
 	 * @returns {Ember.RSVP.Promise} model
 	 */
 	load() {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php'
-				}),
-				data: {
-					controller: 'RecirculationApi',
-					method: 'getFandomPosts',
-					format: 'json',
-					type: this.get('type')
-				},
-				success: (data) => {
-					this.setProperties(data);
-					resolve(this);
-				},
-				error: (data) => reject(data)
-			});
+		return request(M.buildUrl({path: '/wikia.php'}), {
+			data: {
+				controller: 'RecirculationApi',
+				method: 'getFandomPosts',
+				format: 'json',
+				type: this.get('type')
+			}
+		}).then((data) => {
+			this.setProperties(data);
+			return this;
 		});
 	}
 });

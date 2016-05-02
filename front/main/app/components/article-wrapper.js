@@ -105,10 +105,6 @@ export default Ember.Component.extend(
 
 		curatedContentToolButtonVisible: Ember.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
 
-		displayRecentEdit: Ember.computed('currentUser.isAuthenticated', function () {
-			return this.get('currentUser.isAuthenticated') && !Ember.$.cookie('recent-edit-dismissed');
-		}),
-
 		actions: {
 			/**
 			 * @param {string} title
