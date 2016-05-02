@@ -15,7 +15,7 @@ export default Ember.Service.extend(Ember.Evented, {
 		return this.get('discussionEntity') !== null;
 	}),
 
-	shouldStopLoading: false,
+	isLoading: false,
 
 	/**
 	 * Renders a message to display to an anon

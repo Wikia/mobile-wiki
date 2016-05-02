@@ -59,12 +59,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * Reacts on new item creation failure in the model by stopping the throbber
 	 * @returns {void}
 	 */
-	editorLoadingObserver: Ember.observer('discussionEditor.shouldStopLoading', function () {
-		if (this.get('discussionEditor.shouldStopLoading') === true) {
-			this.set('isLoading', false);
-			this.set('discussionEditor.shouldStopLoading', false);
-		}
-	}),
+	isLoading: Ember.computed.alias('discussionEditor.isLoading'),
 
 	/**
 	 * @returns {void}
@@ -162,10 +157,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	handleNewItemCreated(newItem) {
-		this.setProperties({
-			isLoading: false,
-			showSuccess: true
-		});
+		this.set('showSuccess',  true);
 
 		Ember.set(newItem, 'isVisible', false);
 
@@ -273,7 +265,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		 */
 		submit() {
 			if (!this.get('submitDisabled')) {
-				this.set('isLoading', true);
+				this.get('discussionEditor').set('isLoading', true);
 
 				if (this.get('isEdit')) {
 					const action = this.get('discussionEditor.discussionEntity.isReply') ? 'editReply' : 'editPost';

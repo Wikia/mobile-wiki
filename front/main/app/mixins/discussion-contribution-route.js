@@ -53,7 +53,7 @@ export default Ember.Mixin.create({
 				}).catch((err) => {
 					this.onContributionError(err);
 				}).finally(() => {
-					this.get('discussionEditor').set('shouldStopLoading', true);
+					this.get('discussionEditor').set('isLoading', false);
 				});
 			});
 		},
@@ -77,7 +77,7 @@ export default Ember.Mixin.create({
 			}).catch((err) => {
 				this.onContributionError(err);
 			}).finally(() => {
-				this.get('discussionEditor').set('shouldStopLoading', true);
+				this.get('discussionEditor').set('isLoading', false);
 			});
 		},
 
@@ -92,7 +92,7 @@ export default Ember.Mixin.create({
 			this.modelFor(this.get('routeName')).createReply(replyData).catch((err) => {
 				this.onContributionError(err);
 			}).finally(() => {
-				this.get('discussionEditor').set('shouldStopLoading', true);
+				this.get('discussionEditor').set('isLoading', false);
 			});
 		},
 
@@ -113,7 +113,7 @@ export default Ember.Mixin.create({
 			}).catch((err) => {
 				this.onContributionError(err);
 			}).finally(() => {
-				this.get('discussionEditor').set('shouldStopLoading', true);
+				this.get('discussionEditor').set('isLoading', false);
 			});
 		},
 	}
