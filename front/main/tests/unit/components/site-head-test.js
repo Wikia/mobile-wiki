@@ -1,12 +1,12 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import {moduleForComponent, test} from 'ember-qunit';
 
 moduleForComponent('site-head', 'Unit | Component | site head', {
-  // Specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar'],
-  unit: true
+	// Specify the other units that are required for this test
+	// needs: ['component:foo', 'helper:bar'],
+	unit: true
 });
 
-test('correct icons returned', function(assert) {
+test('correct icons returned', function (assert) {
 	const component = this.subject(),
 		cases = [
 			{
