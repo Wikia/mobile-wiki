@@ -20,7 +20,7 @@ export default Ember.Object.extend({
 		let nav = this.get('localLinks'),
 			parent, item;
 
-		if (s.length && s[0] !== 0) {
+		if (!this.get('inExploreNav')) {
 			for (const i of s) {
 				item = nav[i - 1];
 				if (item && item.children) {
