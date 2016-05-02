@@ -35,12 +35,18 @@ $modal-editor-top: 66px;
 
 	span {
 		&.error {
-			background-color: $discussion-editor-error-background-color;
+			background-color: rgba($discussion-editor-error-background-color, .95);
+			bottom: $editor-toolbar-height;
 			color: $discussion-editor-error-text-color;
-			font-size: $type-min;
+			font-size: $type-smallest;
+			line-height: $line-height-larger;
 			margin: 0;
 			padding: 0;
+			position: absolute;
 			text-align: center;
+			width: 100%;
+			z-index: $z-discussion-editor + 1;
+			animation: error-slide-in .3s ease-in-out 1;
 		}
 	}
 
@@ -171,16 +177,8 @@ $modal-editor-top: 66px;
 
 	span {
 		&.error {
-			align-items: center;
-			background-color: $discussion-editor-mobile-error-background-color;
-			color: $discussion-editor-mobile-error-text-color;
-			display: flex;
-			font-size: $type-smallest;
-			height: $editor-toolbar-height;
-			justify-content: center;
-			position: absolute;
-			top: 0;
-			width: 100%;
+			bottom: auto;
+			top: $editor-toolbar-height;
 		}
 	}
 
@@ -243,29 +241,6 @@ $modal-editor-top: 66px;
 			display: none;
 		}
 	}
-
-	&.is-active.has-error {
-		.error-container {
-			padding-top: $editor-toolbar-height;
-		}
-
-		.editor-wrapper {
-			height: calc(100% - #{2 * $editor-toolbar-height});
-			padding-top: $editor-toolbar-height;
-		}
-
-		.editor-label {
-			top: $modal-editor-top + 2 * $editor-toolbar-height + 1px;
-		}
-
-		.editor-close {
-			top: $editor-toolbar-height;
-		}
-
-		button {
-			top: $editor-toolbar-height;
-		}
-	}
 }
 
 @media #{$mobile-range} {
@@ -311,5 +286,15 @@ $modal-editor-top: 66px;
 .discussion-editor-dialog {
 	.modal-dialog {
 		max-width: $modal-editor-width;
+	}
+}
+
+@keyframes error-slide-in {
+	from {
+		height: 0;
+	}
+
+	to {
+		height: 36px;
 	}
 }
