@@ -118,7 +118,6 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 			pageFullUrl = `${Ember.get(Mercury, 'wiki.basePath')}${pageUrl}`,
 			data = {
 				documentTitle: model.get('documentTitle'),
-				displayTitle: model.get('displayTitle') || model.get('title'),
 				description: model.get('description'),
 				robots: 'index,follow',
 				canonical: pageFullUrl

@@ -1,5 +1,6 @@
 import {parseQueryParams} from '../../lib/utils';
-import {getDocumentTitle, getDefaultTitle, getBaseResult, getOpenGraphData} from './page-data-helper';
+import {getDefaultTitle, getBaseResult, getOpenGraphData} from './page-data-helper';
+import {namespace} from '../../lib/mediawiki-namespace';
 
 /**
  * @param {Hapi.Request} request
@@ -9,10 +10,21 @@ import {getDocumentTitle, getDefaultTitle, getBaseResult, getOpenGraphData} from
 export default function prepareCategoryData(request, data) {
 	const allowedQueryParams = ['noexternals', 'buckysampling'],
 		pageData = data.page.data,
+		prefix = `${data.wikiVariables.namespaces[namespace.CATEGORY]}:`,
+		separator = data.wikiVariables.htmlTitle.separator,
 		result = getBaseResult(request, data);
 
 	result.displayTitle = getDefaultTitle(request, pageData);
-	result.documentTitle = getDocumentTitle(pageData) || result.displayTitle;
+
+	/**
+	 * This is necessary to avoid having duplicated title on Category pages without displayTitle
+	 * This should be removed in XW-1442
+	 */
+	if (result.displayTitle.indexOf(prefix) === 0) {
+		result.displayTitle = result.displayTitle.substring(prefix.length);
+	}
+
+	result.documentTitle = prefix + result.displayTitle + separator + result.documentTitle;
 	result.hasToC = false;
 	result.queryParams = parseQueryParams(request.query, allowedQueryParams);
 	result.subtitle = request.server.methods.i18n.getInstance().t('app.category-page-subtitle');

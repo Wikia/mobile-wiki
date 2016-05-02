@@ -171,7 +171,22 @@ export function view(template, context, request, reply) {
 export function getDefaultContext(request) {
 	const viewType = getViewType(request),
 		isModal = request.query.modal === '1',
-		reactivateAccountUrl = resolve(getRedirectUrl(request), '/Special:CloseMyAccount/reactivate');
+		reactivateAccountUrl = resolve(getRedirectUrl(request), '/Special:CloseMyAccount/reactivate'),
+		pageParams = {
+			cookieDomain: localSettings.authCookieDomain,
+			enableSocialLogger: localSettings.clickstream.social.enable,
+			isModal,
+			socialLoggerUrl: localSettings.clickstream.social.url,
+			viewType,
+		};
+
+	if (request.query.forceLogin) {
+		pageParams.forceLogin = request.query.forceLogin;
+	}
+
+	if (isModal) {
+		pageParams.parentOrigin = getOrigin(request);
+	}
 
 	/* eslint no-undefined: 0 */
 	return {
@@ -185,16 +200,7 @@ export function getDefaultContext(request) {
 			gaUrl: localSettings.tracking.ua.scriptUrl
 		},
 		standalonePage: (viewType === VIEW_TYPE_DESKTOP && !isModal),
-		pageParams: {
-			cookieDomain: localSettings.authCookieDomain,
-			isModal,
-			enableSocialLogger: localSettings.clickstream.social.enable,
-			preferenceServiceUrl: getUserPreferencesUrl('/'),
-			reactivateAccountUrl,
-			socialLoggerUrl: localSettings.clickstream.social.url,
-			viewType,
-			parentOrigin: (isModal ? getOrigin(request) : undefined)
-		}
+		pageParams
 	};
 }
 

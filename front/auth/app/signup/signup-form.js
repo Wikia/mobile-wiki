@@ -221,6 +221,7 @@ export default class SignupForm {
 	 * @returns {void}
 	 */
 	watch() {
+		this.tracker.trackCloseWindow();
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 	}
 }

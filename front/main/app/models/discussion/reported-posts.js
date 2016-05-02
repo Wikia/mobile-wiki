@@ -66,24 +66,26 @@ DiscussionReportedPostsModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, forumId) {
-		const reportedPostsInstance = DiscussionReportedPostsModel.create({
-			wikiId,
-			forumId
-		});
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			const reportedPostsInstance = DiscussionReportedPostsModel.create({
+				wikiId,
+				forumId
+			});
 
-		return request(M.getDiscussionServiceUrl(`/${wikiId}/posts`), {
-			data: {
-				viewableOnly: false,
-				reported: true
-			},
-		}).then((data) => {
-			reportedPostsInstance.setNormalizedData(data);
+			request(M.getDiscussionServiceUrl(`/${wikiId}/posts`), {
+				data: {
+					viewableOnly: false,
+					reported: true
+				}
+			}).then((data) => {
+				reportedPostsInstance.setNormalizedData(data);
 
-			return reportedPostsInstance;
-		}).catch((err) => {
-			reportedPostsInstance.setErrorProperty(err);
+				resolve(reportedPostsInstance);
+			}).catch((err) => {
+				reportedPostsInstance.setErrorProperty(err);
 
-			return reportedPostsInstance;
+				reject(reportedPostsInstance);
+			});
 		});
 	}
 });
