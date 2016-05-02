@@ -176,6 +176,8 @@ export function getDefaultContext(request) {
 			cookieDomain: localSettings.authCookieDomain,
 			enableSocialLogger: localSettings.clickstream.social.enable,
 			isModal,
+			reactivateAccountUrl,
+			preferenceServiceUrl: getUserPreferencesUrl('/'),
 			socialLoggerUrl: localSettings.clickstream.social.url,
 			viewType,
 		};
