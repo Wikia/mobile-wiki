@@ -3,7 +3,7 @@ import LoginLinkMixin from '../mixins/login-link';
 import WikiaNavModel from '../models/wikia-nav';
 import {track, trackActions} from 'common/utils/track';
 
-//noinspection JSUnresolvedFunction
+// noinspection JSUnresolvedFunction
 export default Ember.Component.extend(
 	LoginLinkMixin,
 	{
@@ -32,6 +32,7 @@ export default Ember.Component.extend(
 			 * Handles link items click, runs handler provided in item object
 			 * additionally to tracking and menu reset
 			 * @param {Object} item side menu item data
+			 * @returns {undefined}
 			 */
 			onClick(item) {
 				track({

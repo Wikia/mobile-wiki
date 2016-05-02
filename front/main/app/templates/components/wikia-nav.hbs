@@ -1,8 +1,4 @@
-{{#if model.inSubNav}}
-	<a class="side-nav-menu__item back" {{action 'goBack'}} href="#">
-		{{model.header}}
-	</a>
-{{else}}
+{{#if model.inRoot}}
 	{{#if isUserAuthenticated}}
 		<div class="side-nav-menu__item main">
 			<a {{action 'trackClick' 'side-nav' 'open-user-profile' preventDefault=false}} href="{{userProfileLink}}" class="external profile-link">
@@ -16,6 +12,10 @@
 	{{else}}
 		<a class="side-nav-menu__item main" {{action 'goToLogin'}}>{{i18n 'userStatus.login-text'}} / {{i18n 'userStatus.register-text'}}</a>
 	{{/if}}
+{{else}}
+	<a class="side-nav-menu__item back" {{action 'goBack'}} href="#">
+		{{model.header}}
+	</a>
 {{/if}}
 
 {{side-nav-menu
