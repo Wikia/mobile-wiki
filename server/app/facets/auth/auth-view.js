@@ -1,5 +1,5 @@
 import {disableCache} from '../../lib/caching';
-import * as authUtils from '../../lib/auth-utils';
+import {getUserPreferencesUrl} from '../../lib/auth-utils';
 import {parse, resolve} from 'url';
 import localSettings from '../../../config/localSettings';
 
@@ -189,7 +189,7 @@ export function getDefaultContext(request) {
 			cookieDomain: localSettings.authCookieDomain,
 			isModal,
 			enableSocialLogger: localSettings.clickstream.social.enable,
-			preferenceServiceUrl: authUtils.getUserPreferencesUrl('/'),
+			preferenceServiceUrl: getUserPreferencesUrl('/'),
 			reactivateAccountUrl,
 			socialLoggerUrl: localSettings.clickstream.social.url,
 			viewType,

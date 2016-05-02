@@ -31,20 +31,18 @@ export default class AuthUtils {
 
 				window.location.reload();
 			},
-			preferencesRequstStartTime = performance.now();
+			preferencesRequestStartTime = performance.now();
 
 		xhr.onload = () => {
-			const preferencesRequstEndTime = performance.now();
-
-			let preferences;
+			const preferencesRequestEndTime = performance.now();
 
 			authLogger.info({
 				message: 'Check if account is scheduled to be closed XHR time',
-				value: preferencesRequstEndTime - preferencesRequstStartTime,
+				value: preferencesRequestEndTime - preferencesRequestStartTime,
 			});
 
 			if (xhr.status === HttpCodes.OK) {
-				preferences = JSON.parse(xhr.responseText);
+				const preferences = JSON.parse(xhr.responseText);
 
 				if (preferences.value) {
 					return this.loadUrl(pageParams.reactivateAccountUrl);
