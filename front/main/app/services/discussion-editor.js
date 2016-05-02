@@ -43,8 +43,6 @@ export default Ember.Service.extend(Ember.Evented, {
 	},
 
 	setErrorMessage(message) {
-		this.set('shouldStopLoading', true);
-
 		if (this.get('isEditMode')) {
 			this.set('editErrorMessage', message);
 		} else {
