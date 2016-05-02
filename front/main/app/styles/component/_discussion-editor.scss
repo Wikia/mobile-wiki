@@ -3,6 +3,7 @@ $editor-border-width: 4px;
 $editor-toolbar-height: 40px;
 $editor-textarea-paddings: 17px 17px 17px 64px;
 $sticky-editor-width: 529px;
+$modal-editor-width: 520px;
 $success-icon-size: 80px;
 $editor-textarea-overflow-ios-hack: 30px;
 $modal-editor-top: 66px;
@@ -286,7 +287,7 @@ $modal-editor-top: 66px;
 			.editor-container {
 				height: 350px;
 				margin-top: $modal-editor-top;
-				width: 520px;
+				width: $modal-editor-width;
 			}
 
 			.editor-label {
@@ -307,3 +308,8 @@ $modal-editor-top: 66px;
 	}
 }
 
+.discussion-editor-dialog {
+	.modal-dialog {
+		max-width: $modal-editor-width;
+	}
+}

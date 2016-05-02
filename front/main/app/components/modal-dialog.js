@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	classNameBindings: ['type', 'isBare', 'isDesktopCentered'],
+	classNameBindings: ['type'],
 	classNames: ['modal-dialog-wrapper'],
 	isVisible: false,
 	modalDialog: Ember.inject.service(),
