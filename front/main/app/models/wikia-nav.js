@@ -1,20 +1,21 @@
 import Ember from 'ember';
 
-export default Ember.Object.extend({
+const {computed, get} = Ember;
 
+export default Ember.Object.extend({
 	init() {
 		this._super(...arguments);
 		this.state = [];
 	},
 
-	hubsLinks: Ember.get(Mercury, 'wiki.navigation2016.hubsLinks'),
-	localLinks: Ember.get(Mercury, 'wiki.navigation2016.localNav'),
-	exploreWikiaLinks: Ember.get(Mercury, 'wiki.navigation2016.exploreWikiaMenu'),
-	exploreWikiaLabel: Ember.get(Mercury, 'wiki.navigation2016.exploreWikia.textEscaped'),
-	wikiName: Ember.get(Mercury, 'wiki.siteName'),
-	wikiLang: Ember.get(Mercury, 'wiki.language.content'),
+	hubsLinks: get(Mercury, 'wiki.navigation2016.hubsLinks'),
+	localLinks: get(Mercury, 'wiki.navigation2016.localNav'),
+	exploreWikiaLinks: get(Mercury, 'wiki.navigation2016.exploreWikiaMenu'),
+	exploreWikiaLabel: get(Mercury, 'wiki.navigation2016.exploreWikia.textEscaped'),
+	wikiName: get(Mercury, 'wiki.siteName'),
+	wikiLang: get(Mercury, 'wiki.language.content'),
 
-	parent: Ember.computed('state.[]', 'localLinks', function () {
+	parent: computed('state.[]', 'localLinks', function () {
 		const s = this.get('state');
 		let nav = this.get('localLinks'),
 			parent, item;
@@ -33,25 +34,25 @@ export default Ember.Object.extend({
 		return parent || {};
 	}),
 
-	current: Ember.computed.or('parent.children', 'localLinks'),
+	current: computed.or('parent.children', 'localLinks'),
 
-	header: Ember.computed.or('parent.text', 'exploreWikiaLabel'),
+	header: computed.or('parent.text', 'exploreWikiaLabel'),
 
-	inExploreNav: Ember.computed('state.[]', function () {
+	inExploreNav: computed('state.[]', function () {
 		const s = this.get('state');
 
 		return s.length && s[0] === 0;
 	}),
 
-	inSubNav: Ember.computed('parent.children', function () {
+	inSubNav: computed('parent.children', function () {
 		return Boolean(this.get('parent.children') && this.get('parent.children').length);
 	}),
 
-	inRoot: Ember.computed('inSubNav', 'inExploreNav', function () {
+	inRoot: computed('inSubNav', 'inExploreNav', function () {
 		return !this.get('inSubNav') && !this.get('inExploreNav');
 	}),
 
-	items: Ember.computed('exploreItems', 'globalItems', 'exploreSubMenuItem', 'localNavHeaderItem',
+	items: computed('exploreItems', 'globalItems', 'exploreSubMenuItem', 'localNavHeaderItem',
 		'recentActivityItem', 'localItems', 'randomPageItem', function () {
 			return this.get('exploreItems')
 				.concat(this.get('globalItems'))
@@ -62,7 +63,7 @@ export default Ember.Object.extend({
 				.concat(this.get('randomPageItem'));
 		}),
 
-	exploreItems: Ember.computed('inExploreNav', 'exploreWikiaLinks', function () {
+	exploreItems: computed('inExploreNav', 'exploreWikiaLinks', function () {
 		return this.get('inExploreNav') &&
 			this.get('exploreWikiaLinks').map((item) => {
 				return {
@@ -74,7 +75,7 @@ export default Ember.Object.extend({
 			}) || [];
 	}),
 
-	globalItems: Ember.computed('inRoot', 'wikiLang', 'hubsLinks', function () {
+	globalItems: computed('inRoot', 'wikiLang', 'hubsLinks', function () {
 		return this.get('inRoot') &&
 			this.get('wikiLang') === 'en' &&
 			this.get('hubsLinks').map((item) => {
@@ -88,7 +89,7 @@ export default Ember.Object.extend({
 			}) || [];
 	}),
 
-	exploreSubMenuItem: Ember.computed('inRoot', 'exploreWikiaLinks', function () {
+	exploreSubMenuItem: computed('inRoot', 'exploreWikiaLinks', function () {
 		return this.get('inRoot') &&
 			this.get('exploreWikiaLinks').length &&
 			[{
@@ -99,7 +100,7 @@ export default Ember.Object.extend({
 			}] || [];
 	}),
 
-	localNavHeaderItem: Ember.computed('inRoot', 'wikiName', function () {
+	localNavHeaderItem: computed('inRoot', 'wikiName', function () {
 		return this.get('inRoot') &&
 			this.get('wikiName') &&
 			[{
@@ -108,7 +109,7 @@ export default Ember.Object.extend({
 			}] || [];
 	}),
 
-	recentActivityItem: Ember.computed('inRoot', function () {
+	recentActivityItem: computed('inRoot', function () {
 		return this.get('inRoot') &&
 			[{
 				type: 'side-nav-menu-item',
@@ -119,7 +120,7 @@ export default Ember.Object.extend({
 			}] || [];
 	}),
 
-	localItems: Ember.computed('inExploreNav', 'current', function () {
+	localItems: computed('inExploreNav', 'current', function () {
 		let index = 0;
 
 		return !this.get('inExploreNav') &&
@@ -136,7 +137,7 @@ export default Ember.Object.extend({
 			}) || [];
 	}),
 
-	randomPageItem: Ember.computed('inRoot', function () {
+	randomPageItem: computed('inRoot', function () {
 		return this.get('inRoot') &&
 			[{
 				type: 'side-nav-menu-item',
