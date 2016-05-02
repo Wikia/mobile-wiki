@@ -24,7 +24,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(DiscussionModerationModel
 				pivot: this.get('pivotId'),
 				responseGroup: 'full',
 				viewableOnly: false
-			},
+			}
 		}).then((data) => {
 			this.get('data.entities').pushObjects(
 				DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'))
@@ -68,25 +68,27 @@ DiscussionUserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, userId) {
-		const userInstance = DiscussionUserModel.create({
-			wikiId,
-			userId
-		});
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			const userInstance = DiscussionUserModel.create({
+				wikiId,
+				userId
+			});
 
-		return request(M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`), {
-			data: {
-				limit: userInstance.postsLimit,
-				responseGroup: 'full',
-				viewableOnly: false
-			},
-		}).then((data) => {
-			userInstance.setNormalizedData(data);
+			request(M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`), {
+				data: {
+					limit: userInstance.postsLimit,
+					responseGroup: 'full',
+					viewableOnly: false
+				}
+			}).then((data) => {
+				userInstance.setNormalizedData(data);
 
-			return userInstance;
-		}).catch((err) => {
-			userInstance.setErrorProperty(err);
+				resolve(userInstance);
+			}).catch((err) => {
+				userInstance.setErrorProperty(err);
 
-			return userInstance;
+				reject(userInstance);
+			});
 		});
 	}
 });
