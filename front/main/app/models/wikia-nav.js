@@ -12,6 +12,7 @@ export default Ember.Object.extend({
 	exploreWikiaLinks: Ember.get(Mercury, 'wiki.navigation2016.exploreWikiaMenu'),
 	exploreWikiaLabel: Ember.get(Mercury, 'wiki.navigation2016.exploreWikia.textEscaped'),
 	wikiName: Ember.get(Mercury, 'wiki.siteName'),
+	wikiLang: Ember.get(Mercury, 'wiki.language.content'),
 
 	items: Ember.computed('state.[]', function () {
 		const s = this.get('state');
@@ -69,15 +70,20 @@ export default Ember.Object.extend({
 	},
 
 	prepareGlobalItems() {
-		return this.get('hubsLinks').map((item) => {
-			return {
-				type: 'side-nav-menu-external',
-				className: item.specialAttr,
-				href: item.href,
-				name: item.textEscaped,
-				trackLabel: `open-hub-${item.specialAttr}`
-			};
-		}).concat([{
+		let global = [];
+
+		if (this.get('wikiLang') === 'en') {
+			global = this.get('hubsLinks').map((item) => {
+				return {
+					type: 'side-nav-menu-external',
+					className: item.specialAttr,
+					href: item.href,
+					name: item.textEscaped,
+					trackLabel: `open-hub-${item.specialAttr}`
+				};
+			});
+		}
+		return global.concat([{
 			// add exploration sub menu item
 			type: 'side-nav-menu-root',
 			index: 0,
