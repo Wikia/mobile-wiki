@@ -49,7 +49,6 @@ export default Ember.Component.extend(
 			},
 
 			goRoot() {
-				this.scrollTop();
 				this.get('model').goRoot();
 			},
 
@@ -59,7 +58,6 @@ export default Ember.Component.extend(
 
 			goToSubNav(index) {
 				this.get('model').goToSubNav(index);
-				this.scrollTop();
 			},
 
 			trackClick(category, label) {
@@ -69,10 +67,6 @@ export default Ember.Component.extend(
 					label
 				});
 			}
-		},
-
-		scrollTop() {
-			Ember.$('.wikia-drawer__content').scrollTop(0);
 		}
 	}
 );
