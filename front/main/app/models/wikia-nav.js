@@ -119,7 +119,7 @@ export default Object.extend({
 		return this.get('inRoot') &&
 			[{
 				type: 'side-nav-menu-item',
-				link: 'recent-wiki-activity',
+				route: 'recent-wiki-activity',
 				name: i18n.t('main.title', {ns: 'recent-wiki-activity'}),
 				trackCategory: 'recent-wiki-activity',
 				trackLabel: 'local-nav'
@@ -135,7 +135,7 @@ export default Object.extend({
 				return {
 					type: Boolean(item.children) ? 'side-nav-menu-root' : 'side-nav-menu-item',
 					href: item.href.replace(/^(\/wiki)?\//i, ''),
-					link: 'wiki-page',
+					route: 'wiki-page',
 					name: item.text,
 					index,
 					trackLabel: `local-nav-open-link-index-${index}`
@@ -147,7 +147,6 @@ export default Object.extend({
 		return this.get('inRoot') &&
 			[{
 				type: 'side-nav-menu-item',
-				href: '#',
 				name: i18n.t('app.random-page-label'),
 				trackLabel: 'random-page',
 				actionId: 'onRandomPageClick'
