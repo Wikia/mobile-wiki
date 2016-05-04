@@ -2,6 +2,7 @@ import Ember from 'ember';
 import DiscussionEntity from './entity';
 import DiscussionContributor from './contributor';
 import DiscussionUserData from './user-data';
+import OpenGraph from './open-graph';
 
 const DiscussionPost = DiscussionEntity.extend({
 	canModerate: null,
@@ -67,6 +68,23 @@ DiscussionPost.reopenClass({
 				isNew: threadData.isNew,
 				isReported: threadData.isReported,
 				isRequesterBlocked: threadData.isRequesterBlocked,
+				openGraph: OpenGraph.create({
+					description: 'Some description',
+					id: 2702253634848394020,
+					imageHeight: 348,
+					imageUrl: 'https://i.ytimg.com/vi/ybQ__WdAqvE/hqdefault.jpg',
+					imageWidth: 464,
+					siteId: 26337,
+					siteName: '@Wikia',
+					title: 'Glee TV Show Wiki',
+					type: 'website',
+					url: 'http://glee.wikia.com/wiki/Glee_TV_Show_Wiki',
+					videoHeight: null,
+					videoSecureUrl: null,
+					videoType: null,
+					videoUrl: null,
+					videoWidth: null,
+				}),
 				permalinkedReplyId: threadData.permalinkedReplyId,
 				rawContent: Ember.get(threadData, '_embedded.firstPost.0.rawContent'),
 				repliesCount: parseInt(threadData.postCount, 10),
