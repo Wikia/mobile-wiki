@@ -1,0 +1,18 @@
+{
+  "main":{
+    "head":"Image Review",
+    "description":"Click on images to mark them for deletion or as questionable (for staff review). When you're done with the batch, click 'Review' below to get the next batch.",
+    "error-no-access-permissions":"Unauthorized, you don't have permissions to see this page",
+    "error-other":"Unable to load image review",
+    "error-invalid-data":"Invalid data was returned from Image Review API",
+    "error-no-more-images":"No more images",
+    "review-and-get-more":"Review & get next batch",
+    "get-flagged":"Get flagged",
+    "images-to-review-count":"Remaining images to review:",
+    "image-context":"Context:",
+    "image-context-not-provided":"Context not provided",
+    "status-accepted":"OK",
+    "status-flagged":"Q",
+    "status-rejected":"Del"
+  }
+}

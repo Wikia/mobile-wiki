@@ -1,0 +1,18 @@
+{
+  "main":{
+    "head":"图片审核",
+    "description":"单击图片标记为删除或存在疑问(供工作人员进行审查)。当你完成之后，请单击“审核”查看下一组。",
+    "error-no-access-permissions":"未经授权，您没有权限查看此页面",
+    "error-other":"无法加载图片审核",
+    "error-invalid-data":"图片审核API拒绝无效数据",
+    "error-no-more-images":"没有更多图片",
+    "review-and-get-more":"审核并查看下一组",
+    "get-flagged":"已标记",
+    "images-to-review-count":"未审核的图片:",
+    "image-context":"正文内容:",
+    "image-context-not-provided":"未提供内容",
+    "status-accepted":"好的",
+    "status-flagged":"Q",
+    "status-rejected":"删除"
+  }
+}

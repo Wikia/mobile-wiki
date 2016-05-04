@@ -1,0 +1,18 @@
+{
+  "main":{
+    "head":"Vérification des images",
+    "description":"Cliquez sur les images que vous souhaitez marquer à supprimer ou posant question (à soumettre au personnel pour qu'il les vérifie). Une fois fait, cliquez sur le bouton Confirmer ci-dessous pour passer au lot suivant. ",
+    "error-no-access-permissions":"Accès non autorisé. Vous n'avez pas les droits requis pour voir cette page.",
+    "error-other":"Impossible de charger la vérification des images",
+    "error-invalid-data":"Données non valides renvoyées par l'API de vérification des images",
+    "error-no-more-images":"Plus aucune autre image",
+    "review-and-get-more":"Confirmer et passer au lot suivant",
+    "get-flagged":"Signaler",
+    "images-to-review-count":"Images restant à vérifier :",
+    "image-context":"Contexte :",
+    "image-context-not-provided":"Contexte non fourni",
+    "status-accepted":"OK",
+    "status-flagged":"Q",
+    "status-rejected":"Sup"
+  }
+}

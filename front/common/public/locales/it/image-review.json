@@ -1,0 +1,18 @@
+{
+  "main":{
+    "head":"Revisione immagine",
+    "description":"Fare clic su immagini per contrassegnarle per l'eliminazione o come dubbie (per la presa in esame da parte del personale). Una volta terminato con il batch, fare clic su \"Revisione\" qui di seguito per ottenere il batch successivo.",
+    "error-no-access-permissions":"Non autorizzato, non si hanno i permessi per visualizzare questa pagina",
+    "error-other":"Impossibile caricare la revisione delle immagini",
+    "error-invalid-data":"Dati non validi sono stati restituiti dall'API di revisione immagine",
+    "error-no-more-images":"Nessun'altra immagine",
+    "review-and-get-more":"Rivedi e ottieni prossimo batch",
+    "get-flagged":"Ottieni contrassegnati",
+    "images-to-review-count":"Immagini restanti da rivedere:",
+    "image-context":"Contesto:",
+    "image-context-not-provided":"Contesto non fornito",
+    "status-accepted":"OK",
+    "status-flagged":"Q",
+    "status-rejected":"Elim"
+  }
+}
