@@ -1,4 +1,11 @@
 .open-graph {
 	border: 1px solid $discussion-open-graph-border-color;
-	margin-top: 14px;
+	margin: 4px auto 9px;
+}
+
+
+@media #{$desktop-range} {
+	.open-graph {
+		margin: 2px auto 16px;
+	}
 }

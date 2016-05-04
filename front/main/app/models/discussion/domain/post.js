@@ -68,6 +68,7 @@ DiscussionPost.reopenClass({
 				isNew: threadData.isNew,
 				isReported: threadData.isReported,
 				isRequesterBlocked: threadData.isRequesterBlocked,
+				isOpenGraph: true,
 				openGraph: OpenGraph.create({
 					description: 'Some description',
 					id: 2702253634848394020,
