@@ -9,8 +9,8 @@ export default Ember.Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, Rout
 	 * @param {*} params
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	model(params) {
-		return CuratedContentModel.find(params.sectionName, 'section');
+	model({sectionName}) {
+		return CuratedContentModel.find(sectionName, 'section');
 	},
 
 	/**
@@ -19,12 +19,9 @@ export default Ember.Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, Rout
 	 * @returns {void}
 	 */
 	setDynamicHeadTags(model) {
-		const title = model.get('title');
-
 		this._super(model, {
 			robots: 'noindex,follow',
-			documentTitle: title,
-			displayTitle: title,
+			documentTitle: model.get('title'),
 			description: this.get('mainPageDescription')
 		});
 	},

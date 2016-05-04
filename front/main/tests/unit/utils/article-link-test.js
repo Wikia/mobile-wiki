@@ -1,7 +1,7 @@
 import {module} from 'qunit';
 import {test} from 'ember-qunit';
 
-module('Unit | Utils | article link', () => {
+module('Unit | Utility | article link', () => {
 	const getLinkInfo = require('main/utils/article-link').default;
 
 	test('getLinkInfo test external paths', (assert) => {

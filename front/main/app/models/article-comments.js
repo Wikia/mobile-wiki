@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import request from 'ember-ajax/request';
 
 export default Ember.Object.extend({
 	articleId: null,
@@ -12,21 +13,17 @@ export default Ember.Object.extend({
 			articleId = this.get('articleId');
 
 		if (page && page >= 0 && articleId) {
-			return new Ember.RSVP.Promise((resolve, reject) => {
-				Ember.$.ajax({
-					url: this.url(articleId, page),
-					success: (data) => {
-						this.setProperties({
-							comments: Ember.get(data, 'payload.comments'),
-							users: Ember.get(data, 'payload.users'),
-							pagesCount: Ember.get(data, 'pagesCount'),
-							basePath: Ember.get(data, 'basePath')
-						});
-						resolve(this);
-					},
-					error: (data) => reject(data)
+			return request(this.url(articleId, page))
+				.then((data) => {
+					this.setProperties({
+						comments: Ember.get(data, 'payload.comments'),
+						users: Ember.get(data, 'payload.users'),
+						pagesCount: Ember.get(data, 'pagesCount'),
+						basePath: Ember.get(data, 'basePath')
+					});
+
+					return this;
 				});
-			});
 		}
 	}),
 

@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import CuratedContentEditorItemModel from '../models/curated-content-editor-item';
+import request from 'ember-ajax/request';
+import {form} from '../utils/content-type';
 
 /**
  * CuratedContentEditorRawSection
@@ -52,25 +54,16 @@ CuratedContentEditorModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise} server response after save
 	 */
 	save(model) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php',
-					query: {
-						controller: 'CuratedContentController',
-						method: 'setCuratedContentData'
-					}
-				}),
-				dataType: 'json',
-				method: 'POST',
-				data: this.prepareDataForSave(model),
-				success: (data) => {
-					resolve(data);
-				},
-				error: (data) => {
-					reject(data);
-				}
-			});
+		return request(M.buildUrl({
+			path: '/wikia.php',
+			query: {
+				controller: 'CuratedContentController',
+				method: 'setCuratedContentData'
+			}
+		}), {
+			method: 'POST',
+			contentType: form,
+			data: this.prepareDataForSave(model),
 		});
 	},
 
@@ -78,27 +71,18 @@ CuratedContentEditorModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise} model
 	 */
 	load() {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php'
-				}),
-				data: {
-					controller: 'CuratedContent',
-					method: 'getData',
-					format: 'json'
-				},
-				success: (data) => {
-					if (Ember.isArray(data.data)) {
-						resolve(CuratedContentEditorModel.sanitize(data.data));
-					} else {
-						reject('Invalid data was returned from Curated Content API');
-					}
-				},
-				error: (data) => {
-					reject(data);
-				}
-			});
+		return request(M.buildUrl({path: '/wikia.php'}), {
+			data: {
+				controller: 'CuratedContent',
+				method: 'getData',
+				format: 'json'
+			},
+		}).then((data) => {
+			if (Ember.isArray(data.data)) {
+				return CuratedContentEditorModel.sanitize(data.data);
+			} else {
+				throw new Error('Invalid data was returned from Curated Content API');
+			}
 		});
 	},
 

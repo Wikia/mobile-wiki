@@ -53,6 +53,8 @@ export default Ember.Mixin.create({
 			ns: this.get('ns')
 		});
 
+		model.set('title', sectionOrCategoryName);
+
 		transition.then(() => {
 			this.updateTrackingData(model);
 		});
