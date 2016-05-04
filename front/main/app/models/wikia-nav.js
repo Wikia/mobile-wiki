@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const {Object, A, computed, get} = Ember;
+const {Object, A, Logger, computed, get} = Ember;
 
 export default Object.extend({
 	hubsLinks: get(Mercury, 'wiki.navigation2016.hubsLinks'),
@@ -16,24 +16,26 @@ export default Object.extend({
 	 * @returns {Object} parent
 	 */
 	parent: computed('state.[]', 'localLinks', function () {
-		const s = this.get('state');
+		const state = this.get('state');
 		let localNav = this.get('localLinks'),
 			parent, node;
 
 		if (!this.get('inExploreNav')) {
-			for (let i = 0; i < s.length; i++) {
+			for (let i = 0; i < state.length; i++) {
 				// local nav indexes are shifted by 1,
 				// 0 is reserved for exploration nav
-				node = localNav[s[i] - 1];
+				node = localNav[state[i] - 1];
 				// check if nav branch
 				if (node && node.children) {
 					parent = node;
 					localNav = node.children;
 				} else {
-					throw new Error('Incorrect navigation state');
+					Logger.error('Incorrect navigation state');
+					return {};
 				}
 			}
 		}
+
 		return parent || {};
 	}),
 
@@ -42,14 +44,12 @@ export default Object.extend({
 	header: computed.or('parent.text', 'exploreWikiaLabel'),
 
 	inExploreNav: computed('state.[]', function () {
-		const s = this.get('state');
+		const state = this.get('state');
 
-		return s.length && s[0] === 0;
+		return state.length && state[0] === 0;
 	}),
 
-	inSubNav: computed('parent.children', function () {
-		return Boolean(this.get('parent.children') && this.get('parent.children').length);
-	}),
+	inSubNav: computed.bool('parent.children.length'),
 
 	inRoot: computed('inSubNav', 'inExploreNav', function () {
 		return !this.get('inSubNav') && !this.get('inExploreNav');
@@ -97,7 +97,7 @@ export default Object.extend({
 
 	exploreSubMenuItem: computed('inRoot', 'exploreWikiaLinks', function () {
 		return this.get('inRoot') &&
-			this.get('exploreWikiaLinks').length &&
+			this.get('exploreWikiaLinks.length') &&
 			[{
 				type: 'side-nav-menu-root',
 				index: 0,
@@ -132,6 +132,7 @@ export default Object.extend({
 		return !this.get('inExploreNav') &&
 			this.get('currentLocalLinks').map((item) => {
 				index++;
+
 				return {
 					type: Boolean(item.children) ? 'side-nav-menu-root' : 'side-nav-menu-item',
 					href: item.href.replace(/^(\/wiki)?\//i, ''),
@@ -166,6 +167,12 @@ export default Object.extend({
 		this.get('state').popObject();
 	},
 
+	/**
+	 * adds clicked index to current state, which causes rerender of menu
+	 *
+	 * @param {number} index
+	 * @returns {void}
+	 */
 	goToSubNav(index) {
 		this.get('state').pushObject(index);
 	}

@@ -249,22 +249,6 @@ test('test local sub nav transitions', (assert) => {
 	});
 });
 
-test('Incorrect state', (assert) => {
-	const nav = WikiaNavModel.create({
-		hubsLinks: [],
-		localLinks: [],
-		exploreWikiaLinks: [],
-		exploreWikiaLabel: '',
-		wikiName: '',
-		wikiLang: ''
-	});
-
-	assert.throws(() => {
-		nav.goToSubNav(10);
-		nav.get('items');
-	}, new Error('Incorrect navigation state'));
-});
-
 test('Header value', (assert) => {
 	const cases = [
 		{
