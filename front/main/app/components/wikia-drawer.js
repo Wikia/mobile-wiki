@@ -9,7 +9,7 @@ export default Ember.Component.extend(
 
 		homeOfFandomLabel: Ember.get(Mercury, 'wiki.navigation2016.fandomLabel'),
 		isFandomVisible: Ember.computed(() => Mercury.wiki.language.content === 'en'),
-		scrollMenuToTop: Ember.observer('shouldBeVisible', function() {
+		scrollMenuToTop: Ember.observer('shouldBeVisible', function () {
 			if (!this.get('shouldBeVisible')) {
 				this.$('.wikia-drawer__content').scrollTop(0);
 			}

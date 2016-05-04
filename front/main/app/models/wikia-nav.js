@@ -5,7 +5,7 @@ const {computed, get} = Ember;
 export default Ember.Object.extend({
 	init() {
 		this._super(...arguments);
-		this.state = [];
+		this.state = Ember.A([]);
 	},
 
 	hubsLinks: get(Mercury, 'wiki.navigation2016.hubsLinks'),
@@ -26,7 +26,7 @@ export default Ember.Object.extend({
 			parent, node;
 
 		if (!this.get('inExploreNav')) {
-			for (let i=0; i < s.length; i++) {
+			for (let i = 0; i < s.length; i++) {
 				// local nav indexes are shifted by 1,
 				// 0 is reserved for exploration nav
 				node = localNav[s[i] - 1];
@@ -160,7 +160,7 @@ export default Ember.Object.extend({
 	}),
 
 	goRoot() {
-		this.set('state.[]', []);
+		this.set('state', Ember.A([]));
 	},
 
 	goBack() {
