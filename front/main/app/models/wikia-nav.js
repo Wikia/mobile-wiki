@@ -26,10 +26,10 @@ export default Ember.Object.extend({
 			parent, node;
 
 		if (!this.get('inExploreNav')) {
-			for (const i of s) {
+			for (let i=0; i < s.length; i++) {
 				// local nav indexes are shifted by 1,
 				// 0 is reserved for exploration nav
-				node = localNav[i - 1];
+				node = localNav[s[i] - 1];
 				// check if nav branch
 				if (node && node.children) {
 					parent = node;

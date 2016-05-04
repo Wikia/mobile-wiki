@@ -245,9 +245,9 @@ test('test local sub nav transitions', (assert) => {
 	cases.forEach((testCase) => {
 		const nav = WikiaNavModel.create(testCase.mock);
 
-		for (const i of testCase.path) {
+		testCase.path.forEach((i) => {
 			nav.goToSubNav(i);
-		}
+		});
 		assert.deepEqual(nav.get('items'), testCase.expected, testCase.message);
 	});
 });
@@ -309,9 +309,9 @@ test('Header value', (assert) => {
 	cases.forEach((testCase) => {
 		const nav = WikiaNavModel.create(testCase.mock);
 
-		for (const i of testCase.path) {
+		testCase.path.forEach((i) => {
 			nav.goToSubNav(i);
-		}
+		});
 
 		assert.deepEqual(nav.get('header'), testCase.expected, testCase.message);
 	});
