@@ -19,17 +19,16 @@ test('test zero state with values from api', (assert) => {
 			expected: [
 				{
 					type: 'side-nav-menu-item',
-					link: 'recent-wiki-activity',
+					route: 'recent-wiki-activity',
 					name: '',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav'
 				},
 				{
 					type: 'side-nav-menu-item',
-					href: '#',
 					name: '',
 					trackLabel: 'random-page',
-					clickHandler: 'loadRandomArticle'
+					actionId: 'onRandomPageClick'
 				}
 			],
 			message: 'Empty api results'
@@ -64,7 +63,7 @@ test('test zero state with values from api', (assert) => {
 					type: 'side-nav-menu-header'
 				},
 				{
-					link: 'recent-wiki-activity',
+					route: 'recent-wiki-activity',
 					name: '',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav',
@@ -73,14 +72,13 @@ test('test zero state with values from api', (assert) => {
 				{
 					href: 'Test_1',
 					index: 1,
-					link: 'wiki-page',
+					route: 'wiki-page',
 					name: 'Test 1',
 					trackLabel: 'local-nav-open-link-index-1',
 					type: 'side-nav-menu-item'
 				},
 				{
-					clickHandler: 'loadRandomArticle',
-					href: '#',
+					actionId: 'onRandomPageClick',
 					name: '',
 					trackLabel: 'random-page',
 					type: 'side-nav-menu-item'
@@ -109,7 +107,7 @@ test('test zero state with values from api', (assert) => {
 					type: 'side-nav-menu-header'
 				},
 				{
-					link: 'recent-wiki-activity',
+					route: 'recent-wiki-activity',
 					name: '',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav',
@@ -118,14 +116,13 @@ test('test zero state with values from api', (assert) => {
 				{
 					href: 'Test_1',
 					index: 1,
-					link: 'wiki-page',
+					route: 'wiki-page',
 					name: 'Test 1',
 					trackLabel: 'local-nav-open-link-index-1',
 					type: 'side-nav-menu-item'
 				},
 				{
-					clickHandler: 'loadRandomArticle',
-					href: '#',
+					actionId: 'onRandomPageClick',
 					name: '',
 					trackLabel: 'random-page',
 					type: 'side-nav-menu-item'
@@ -184,7 +181,7 @@ test('test local sub nav transitions', (assert) => {
 				{
 					href: 'Test_2',
 					index: 1,
-					link: 'wiki-page',
+					route: 'wiki-page',
 					name: 'Test 2',
 					trackLabel: 'local-nav-open-link-index-1',
 					type: 'side-nav-menu-item'
@@ -192,7 +189,7 @@ test('test local sub nav transitions', (assert) => {
 				{
 					href: 'Test_3',
 					index: 2,
-					link: 'wiki-page',
+					route: 'wiki-page',
 					name: 'Test 3',
 					trackLabel: 'local-nav-open-link-index-2',
 					type: 'side-nav-menu-item'
@@ -224,7 +221,7 @@ test('test local sub nav transitions', (assert) => {
 				{
 					href: 'Test_2.1',
 					index: 1,
-					link: 'wiki-page',
+					route: 'wiki-page',
 					name: 'Test 2.1',
 					trackLabel: 'local-nav-open-link-index-1',
 					type: 'side-nav-menu-item'
@@ -232,7 +229,7 @@ test('test local sub nav transitions', (assert) => {
 				{
 					href: 'Test_2.2',
 					index: 2,
-					link: 'wiki-page',
+					route: 'wiki-page',
 					name: 'Test 2.2',
 					trackLabel: 'local-nav-open-link-index-2',
 					type: 'side-nav-menu-item'
