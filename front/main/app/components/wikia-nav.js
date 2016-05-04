@@ -42,7 +42,7 @@ export default Ember.Component.extend(
 					category: item.trackCategory ? item.trackCategory : 'side-nav',
 					label: item.trackLabel
 				});
-				this.get('toggleDrawer')(false);
+				this.get('closeDrawer')();
 				// reset state
 				this.send('goRoot');
 				if (item.actionId) {

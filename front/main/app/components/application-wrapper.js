@@ -93,6 +93,11 @@ export default Component.extend({
 		 */
 		setDrawerContent(content) {
 			this.set('activeDrawerContent', content);
+		},
+
+		closeDrawer() {
+			this.set('activeDrawerContent', null);
+			this.get('toggleDrawer')(false);
 		}
 	},
 

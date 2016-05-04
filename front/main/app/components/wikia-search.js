@@ -69,7 +69,7 @@ export default Ember.Component.extend(
 					category: 'side-nav',
 					label: 'search-open-suggestion-link'
 				});
-				this.get('toggleDrawer')(false);
+				this.get('closeDrawer')();
 			}
 		},
 

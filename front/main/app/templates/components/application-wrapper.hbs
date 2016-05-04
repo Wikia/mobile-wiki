@@ -18,7 +18,7 @@
 		{{#if activeDrawerContent}}
 			{{component
 				drawerContentComponent
-				toggleDrawer=this.attrs.toggleDrawer
+				closeDrawer=(action 'closeDrawer')
 				loadRandomArticle=this.attrs.loadRandomArticle
 			}}
 		{{/if}}
