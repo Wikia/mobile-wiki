@@ -30,6 +30,11 @@ export default Ember.Component.extend(
 			};
 		},
 
+		didRender() {
+			this._super(...arguments);
+			this.element.scrollTop = 0;
+		},
+
 		actions: {
 			/**
 			 * Handles link items click, runs handler provided in item object
