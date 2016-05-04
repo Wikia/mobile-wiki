@@ -297,3 +297,144 @@ test('Header value', (assert) => {
 		assert.deepEqual(nav.get('header'), testCase.expected, testCase.message);
 	});
 });
+
+test('Parent value', (assert) => {
+	const cases = [
+		{
+			mock: {
+				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
+					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
+				]}],
+				exploreWikiaLinks: [
+					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
+				],
+				exploreWikiaLabel: 'Explore menu',
+				wikiName: 'Test',
+				wikiLang: 'en'
+			},
+			path: [10],
+			expected: {},
+			message: 'Incorrect state'
+		},
+		{
+			mock: {
+				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				localLinks: [{text: 'Test 1', href: '/wiki/Test_1', children: [
+					{text: 'Test 2', href: '/wiki/Test_2'}, {text: 'Test 3', href: '/wiki/Test_3'}
+				]}],
+				exploreWikiaLinks: [
+					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
+				],
+				exploreWikiaLabel: 'Explore menu',
+				wikiName: 'Test',
+				wikiLang: 'en'
+			},
+			path: [],
+			expected: {},
+			message: 'Do not move amywhere'
+		},
+		{
+			mock: {
+				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				localLinks: [{
+					text: 'Test 1', href: '/wiki/Test_1', children: [
+						{text: 'Test 2', href: '/wiki/Test_2', children: [
+							{text: 'Test 2.1', href: '/wiki/Test_2.1'},
+							{text: 'Test 2.2', href: '/Test_2.2'}
+						]},
+						{text: 'Test 3', href: '/wiki/Test_3'}
+					]
+				}],
+				exploreWikiaLinks: [
+					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
+				],
+				exploreWikiaLabel: 'Explore menu',
+				wikiName: 'Test',
+				wikiLang: 'en'
+			},
+			path: [1],
+			expected: {
+				text: 'Test 1', href: '/wiki/Test_1', children: [
+					{text: 'Test 2', href: '/wiki/Test_2', children: [
+						{text: 'Test 2.1', href: '/wiki/Test_2.1'},
+						{text: 'Test 2.2', href: '/Test_2.2'}
+					]},
+					{text: 'Test 3', href: '/wiki/Test_3'}
+				]
+			},
+			message: 'One level deep'
+		},
+		{
+			mock: {
+				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				localLinks: [{
+					text: 'Test 1', href: '/wiki/Test_1', children: [
+						{text: 'Test 2', href: '/wiki/Test_2', children: [
+							{text: 'Test 2.1', href: '/wiki/Test_2.1'},
+							{text: 'Test 2.2', href: '/Test_2.2'}
+						]},
+						{text: 'Test 3', href: '/wiki/Test_3'}
+					]
+				}],
+				exploreWikiaLinks: [
+					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
+				],
+				exploreWikiaLabel: 'Explore menu',
+				wikiName: 'Test',
+				wikiLang: 'en'
+			},
+			path: [1, 1],
+			expected: {
+				text: 'Test 2',
+				href: '/wiki/Test_2',
+				children: [
+					{text: 'Test 2.1', href: '/wiki/Test_2.1'},
+					{text: 'Test 2.2', href: '/Test_2.2'}
+				]
+			},
+			message: 'Two levels deep'
+		},
+		{
+			mock: {
+				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				localLinks: [{
+					text: 'Test 1', href: '/wiki/Test_1', children: [
+						{text: 'Test 2', href: '/wiki/Test_2', children: [
+							{text: 'Test 3', href: '/wiki/Test_3', children: [
+								{text: 'Test 3.1', href: '/wiki/Test_3.1'},
+								{text: 'Test 3.2', href: '/Test_3.2'}
+							]},
+							{text: 'Test 4', href: '/Test_4'}
+						]},
+						{text: 'Test 5', href: '/wiki/Test_5'}
+					]
+				}],
+				exploreWikiaLinks: [
+					{textEscaped: 'Explore test', href: 'http://test.com/explore', trackingLabel: 'exp-test-1'}
+				],
+				exploreWikiaLabel: 'Explore menu',
+				wikiName: 'Test',
+				wikiLang: 'en'
+			},
+			path: [1, 1, 1],
+			expected: {
+				text: 'Test 3', href: '/wiki/Test_3', children: [
+					{text: 'Test 3.1', href: '/wiki/Test_3.1'},
+					{text: 'Test 3.2', href: '/Test_3.2'}
+				]
+			},
+			message: 'Three levels deep'
+		}
+	];
+
+	cases.forEach((testCase) => {
+		const nav = WikiaNavModel.create(testCase.mock);
+
+		testCase.path.forEach((i) => {
+			nav.goToSubNav(i);
+		});
+
+		assert.deepEqual(nav.get('parent'), testCase.expected, testCase.message);
+	});
+});
