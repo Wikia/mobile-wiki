@@ -1,13 +1,8 @@
 import Ember from 'ember';
 
-const {computed, get} = Ember;
+const {Object, A, computed, get} = Ember;
 
-export default Ember.Object.extend({
-	init() {
-		this._super(...arguments);
-		this.state = Ember.A([]);
-	},
-
+export default Object.extend({
 	hubsLinks: get(Mercury, 'wiki.navigation2016.hubsLinks'),
 	localLinks: get(Mercury, 'wiki.navigation2016.localNav'),
 	exploreWikiaLinks: get(Mercury, 'wiki.navigation2016.exploreWikiaMenu'),
@@ -155,12 +150,17 @@ export default Ember.Object.extend({
 				href: '#',
 				name: i18n.t('app.random-page-label'),
 				trackLabel: 'random-page',
-				clickHandler: 'loadRandomArticle'
+				actionId: 'onRandomPageClick'
 			}] || [];
 	}),
 
+	init() {
+		this._super(...arguments);
+		this.state = A([]);
+	},
+
 	goRoot() {
-		this.set('state', Ember.A([]));
+		this.set('state', A([]));
 	},
 
 	goBack() {

@@ -3,15 +3,9 @@ import LoginLinkMixin from '../mixins/login-link';
 import WikiaNavModel from '../models/wikia-nav';
 import {track, trackActions} from 'common/utils/track';
 
-// noinspection JSUnresolvedFunction
 export default Ember.Component.extend(
 	LoginLinkMixin,
 	{
-		init() {
-			this._super(...arguments);
-			this.model = WikiaNavModel.create();
-		},
-
 		currentUser: Ember.inject.service(),
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
 
@@ -27,12 +21,20 @@ export default Ember.Component.extend(
 			});
 		}),
 
+		init() {
+			this._super(...arguments);
+			this.model = WikiaNavModel.create();
+			this.clickHandlers = {
+				onRandomPageClick: 'loadRandomArticle'
+			};
+		},
+
 		actions: {
 			/**
 			 * Handles link items click, runs handler provided in item object
 			 * additionally to tracking and menu reset
 			 * @param {Object} item side menu item data
-			 * @returns {undefined}
+			 * @returns {void}
 			 */
 			onClick(item) {
 				track({
@@ -43,8 +45,10 @@ export default Ember.Component.extend(
 				this.get('toggleDrawer')(false);
 				// reset state
 				this.send('goRoot');
-				if (item.clickHandler) {
-					this.get(item.clickHandler)();
+				if (item.actionId) {
+					const actionName = this.get(`clickHandlers.${item.actionId}`);
+
+					this.get(actionName)();
 				}
 			},
 
@@ -60,6 +64,13 @@ export default Ember.Component.extend(
 				this.get('model').goToSubNav(index);
 			},
 
+			/**
+			 * wrapper for click tracking
+			 *
+			 * @param {string} category
+			 * @param {string} label
+			 * @returns {void}
+			 */
 			trackClick(category, label) {
 				track({
 					action: trackActions.click,
