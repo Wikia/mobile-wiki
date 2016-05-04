@@ -49,6 +49,11 @@ export default Ember.Component.extend(
 		// key: query string, value: Array<SearchSuggestionItem>
 		cachedResults: {},
 
+		didInsertElement: function () {
+			this._super(...arguments);
+			this.$('.side-search__input').focus();
+		},
+
 		actions: {
 			enter(value) {
 				track({
