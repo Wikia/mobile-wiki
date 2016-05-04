@@ -1,7 +1,5 @@
 <div class="side-nav-menu">
-	<div class="wikia-drawer__content">
-		{{yield}}
-	</div>
+	{{yield}}
 	{{#if isFandomVisible}}
 		<div class="side-nav-menu__footer">
 			<a {{action 'homeOfFandomClick' preventDefault=false}} href={{wikiaHomepage}}>
