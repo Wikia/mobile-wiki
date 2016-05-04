@@ -1,6 +1,5 @@
 QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hooks) {
 	hooks.beforeEach(function () {
-		M.prop('apiBase', '/api/mercury', true);
 		M.provide('wiki', {
 			language: {
 				content: 'en'
@@ -214,29 +213,11 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 		var testCases = [
 			{
 				path: '',
-				query: {},
 				expectedOutput: 'https://services.wikia.com/discussion'
 			},
 			{
 				path: '/147/forums',
-				query: {},
 				expectedOutput: 'https://services.wikia.com/discussion/147/forums'
-			},
-			{
-				path: '/147/threads/2',
-				query: {
-					responseGroup: 'full',
-					sortDirection: 'descending',
-					sortKey: 'creation_date',
-					limit: 3
-				},
-				expectedOutput: 'https://services.wikia.com/discussion/147/threads/2?' +
-				'responseGroup=full&sortDirection=descending&sortKey=creation_date&limit=3'
-			},
-			{
-				path: '',
-				query: {action: '&=/'},
-				expectedOutput: 'https://services.wikia.com/discussion?action=%26%3D%2F'
 			}
 		];
 

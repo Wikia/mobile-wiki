@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import MediaModel from '../media';
 import {normalizeToWhitespace} from 'common/utils/string';
+import request from 'ember-ajax/request';
 
-const {Object, get, $} = Ember,
+const {Object, get} = Ember,
 	CategoryModel = Object.extend({
 		adsContext: null,
 		// set when creating model instance
@@ -45,8 +46,8 @@ const {Object, get, $} = Ember,
 		loadMore(index, batchToLoad) {
 			const url = CategoryModel.getUrlBatchContent(this.get('name'), index, batchToLoad);
 
-			return $.getJSON(url)
-				.done((pageData) => {
+			return request(url)
+				.then((pageData) => {
 					const sectionIndex = `sections.${index}`;
 
 					this.setProperties({
@@ -71,7 +72,8 @@ CategoryModel.reopenClass({
 	 */
 	setCategory(model, pageData) {
 		const exception = pageData.exception,
-			data = pageData.data;
+			data = pageData.data,
+			prefix = `${Mercury.wiki.namespaces[get(data, 'ns')]}:`;
 
 		let pageProperties, article;
 
@@ -84,13 +86,12 @@ CategoryModel.reopenClass({
 			// Category Basic Data
 			// This data should always be set - no matter if category has an article or not
 			pageProperties = {
-				articleType: data.articleType,
+				articleType: get(data, 'articleType'),
 				description: get(data, 'details.description'),
-				displayTitle: get(data, 'details.title'),
-				documentTitle: get(data, 'details.documentTitle'),
+				title: get(data, 'details.title'),
 				id: get(data, 'details.id'),
 				name: get(data, 'details.title'),
-				ns: data.ns,
+				ns: get(data, 'ns'),
 				sections: get(data, 'nsSpecificContent.members.sections'),
 				url: get(data, 'details.url')
 			};
@@ -100,7 +101,8 @@ CategoryModel.reopenClass({
 				article = data.article;
 
 				pageProperties = $.extend(pageProperties, {
-					user: get(data, 'details.revision.user_id'),
+					displayTitle: get(data, 'article.displayTitle'),
+					user: get(data, 'details.revision.user_id')
 				});
 
 				if (article.content.length > 0) {
@@ -128,6 +130,24 @@ CategoryModel.reopenClass({
 					pageProperties.adsContext.targeting.mercuryPageCategories = pageProperties.categories;
 				}
 			}
+
+			/**
+			 * This is necessary to avoid having duplicated title on Category pages
+			 * This should be removed in XW-1442
+			 */
+			if (pageProperties.displayTitle.indexOf(prefix) === 0) {
+				pageProperties.displayTitle = pageProperties.displayTitle.substring(prefix.length);
+			}
+
+			/**
+			 * This is necessary to avoid having duplicated title on Category pages
+			 * This should be removed in XW-1442
+			 */
+			if (pageProperties.title.indexOf(prefix) === 0) {
+				pageProperties.title = pageProperties.title.substring(prefix.length);
+			}
+
+			pageProperties.documentTitle = prefix + (pageProperties.displayTitle || pageProperties.title);
 		}
 
 		model.setProperties(pageProperties);

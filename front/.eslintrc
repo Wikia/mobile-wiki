@@ -19,6 +19,7 @@
     "optimizely": true,
     "CryptoJS": true,
     "state": false,
+    "tinycolor": true,
     "VisitSource": true,
     "Weppy": true,
     "Wikia": true

@@ -288,7 +288,7 @@ QUnit.test('getCuratedMainPageTitle', function (assert) {
 			wikiVariables: {
 				mainPageTitle: 'Muppet Wiki'
 			},
-			expected: 'category:C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।',
+			expected: 'category:C17আমিকাঁচ খেতে পারি, তাতে আমার কোনো ক্ষতি হয় না।',
 			description: 'For sections title is taken from request\'s url path when possible'
 		}, {
 			request: {
@@ -299,7 +299,7 @@ QUnit.test('getCuratedMainPageTitle', function (assert) {
 			wikiVariables: {
 				mainPageTitle: 'Muppet Wiki'
 			},
-			expected: 'category: C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।',
+			expected: 'category: C17আমিকাঁচ খেতে পারি, তাতে আমার কোনো ক্ষতি হয় না।',
 			description: 'For sections %20 is replaced to space in request\'s url path'
 		}, {
 			request: {
@@ -310,7 +310,7 @@ QUnit.test('getCuratedMainPageTitle', function (assert) {
 			wikiVariables: {
 				mainPageTitle: 'Muppet Wiki'
 			},
-			expected: 'C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।',
+			expected: 'C17আমিকাঁচ খেতে পারি, তাতে আমার কোনো ক্ষতি হয় না।',
 			description: 'For categories title is taken from request\'s url path when possible'
 		}, {
 			request: {
@@ -321,7 +321,7 @@ QUnit.test('getCuratedMainPageTitle', function (assert) {
 			wikiVariables: {
 				mainPageTitle: 'Muppet Wiki'
 			},
-			expected: ' C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।',
+			expected: ' C17আমিকাঁচ খেতে পারি, তাতে আমার কোনো ক্ষতি হয় না।',
 			description: 'For categories %20 is replaced to space in request\'s url path'
 		}, {
 			request: {

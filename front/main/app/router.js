@@ -2,15 +2,7 @@ import Ember from 'ember';
 import config from './config/environment';
 
 const Router = Ember.Router.extend({
-	/**
-	 * Sets location API depending on user agent with special case for Catchpoint tests
-	 * @see http://emberjs.com/guides/routing/specifying-the-location-api/
-	 */
-	location: Ember.computed(() => {
-		const ua = Ember.get(window, 'navigator.userAgent');
-
-		return (ua && ua.match(/Catchpoint/)) ? 'none' : config.locationType;
-	})
+	location: config.locationType
 });
 
 Router.map(function () {
@@ -104,10 +96,10 @@ Router.map(function () {
 
 		this.route('post', {
 			path: '/p/:postId'
-		}, function () {
-			this.route('reply', {
-				path: '/r/:replyId'
-			});
+		});
+
+		this.route('reply', {
+			path: '/p/:postId/r/:replyId'
 		});
 
 		this.route('user', {

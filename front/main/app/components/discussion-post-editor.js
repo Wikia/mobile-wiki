@@ -23,8 +23,9 @@ export default DiscussionEditorComponent.extend({
 	 */
 	initializeStickyState() {
 		this.setProperties({
+			isSticky: false,
 			offsetTop: this.$().offset().top,
-			siteHeadHeight: Ember.$('.site-head').outerHeight(true)
+			siteHeadHeight: Ember.$('.site-head').outerHeight(true),
 		});
 
 		Ember.$(window).on('scroll.editor', this.onScroll.bind(this));
@@ -57,15 +58,15 @@ export default DiscussionEditorComponent.extend({
 			const $editorTextarea = $('.editor-textarea');
 
 			$editorTextarea
-					.css('height', '100px')
-					.on('focus', () => {
-						setTimeout(() => {
-							$editorTextarea.css('height', '100%');
-						}, 500);
-					})
-					.on('blur', () => {
-						$editorTextarea.css('height', '100px');
-					});
+				.css('height', '100px')
+				.on('focus', () => {
+					setTimeout(() => {
+						$editorTextarea.css('height', '100%');
+					}, 500);
+				})
+				.on('blur', () => {
+					$editorTextarea.css('height', '100px');
+				});
 		}
 	},
 
@@ -81,5 +82,5 @@ export default DiscussionEditorComponent.extend({
 			Ember.$('html, body').animate({scrollTop: 0});
 			this.handleNewItemCreated(newPost);
 		}
-	}
+	},
 });

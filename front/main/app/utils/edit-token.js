@@ -1,38 +1,32 @@
 import Ember from 'ember';
-
+import request from 'ember-ajax/request';
 /**
  * @param {string} title
  * @returns {Ember.RSVP.Promise}
  */
 export default function (title) {
-	return new Ember.RSVP.Promise((resolve, reject) => {
-		Ember.$.ajax({
-			url: M.buildUrl({path: '/api.php'}),
-			data: {
-				action: 'query',
-				prop: 'info',
-				titles: title,
-				intoken: 'edit',
-				format: 'json'
-			},
-			dataType: 'json',
-			success: (resp) => {
-				const pages = Ember.get(resp, 'query.pages');
+	return request(M.buildUrl({path: '/api.php'}), {
+		data: {
+			action: 'query',
+			prop: 'info',
+			titles: title,
+			intoken: 'edit',
+			format: 'json'
+		}
+	}).then((resp) => {
+		const pages = Ember.get(resp, 'query.pages');
 
-				if (pages) {
-					// FIXME: MediaWiki API, seriously?
-					const edittoken = pages[Object.keys(pages)[0]].edittoken;
+		if (pages) {
+			// FIXME: MediaWiki API, seriously?
+			const edittoken = pages[Object.keys(pages)[0]].edittoken;
 
-					if (typeof edittoken === 'undefined') {
-						reject('noedit');
-					}
+			if (typeof edittoken === 'undefined') {
+				throw new Error('noedit');
+			}
 
-					resolve(edittoken);
-				} else {
-					reject();
-				}
-			},
-			error: (err) => reject(err)
-		});
+			return edittoken;
+		} else {
+			throw new Error();
+		}
 	});
 }

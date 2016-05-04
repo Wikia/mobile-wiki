@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import request from 'ember-ajax/request';
 
 /**
  * @typedef {Object} CuratedContentItem
@@ -25,6 +26,45 @@ import Ember from 'ember';
  * @property {number} height
  */
 
+/**
+ * @param {string} title
+ * @param {string} type
+ * @param {string} offset
+ * @returns {string}
+ */
+function getURL(title, type, offset) {
+	if (type === 'section') {
+		return M.buildUrl({
+			path: '/wikia.php',
+			query: {
+				controller: 'MercuryApi',
+				method: 'getCuratedContentSection',
+				section: decodeURIComponent(title)
+			}
+		});
+	} else if (type === 'category') {
+		const query = {
+			controller: 'ArticlesApi',
+			method: 'getList',
+			expand: 'true',
+			abstract: 0,
+			width: 300,
+			height: 300,
+			category: decodeURIComponent(title),
+			limit: 24
+		};
+
+		if (offset) {
+			query.offset = offset;
+		}
+
+		return M.buildUrl({
+			path: '/wikia.php',
+			query
+		});
+	}
+}
+
 const CuratedContentModel = Ember.Object.extend({
 	title: null,
 	type: null,
@@ -36,38 +76,25 @@ CuratedContentModel.reopenClass({
 	/**
 	 * @param {string} title
 	 * @param {string} [type='section']
-	 * @param {string|null} [offset=null]
+	 * @param {string} [offset='']
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(title, type = 'section', offset = null) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			const modelInstance = CuratedContentModel.create({
-					title,
-					type
-				}),
-				params = {};
+	find(title, type = 'section', offset = '') {
+		const modelInstance = CuratedContentModel.create({
+				title,
+				type
+			}),
+			url = getURL(title, type, offset);
 
-			let url = `${M.prop('apiBase')}/main/`;
+		return request(url)
+			.then((data) => {
+				modelInstance.setProperties({
+					items: CuratedContentModel.sanitizeItems(data.items),
+					offset: data.offset || null
+				});
 
-			url += `${type}/${title}`;
-
-			if (offset) {
-				params.offset = offset;
-			}
-
-			Ember.$.ajax({
-				url,
-				data: params,
-				success: (data) => {
-					modelInstance.setProperties({
-						items: CuratedContentModel.sanitizeItems(data.items),
-						offset: data.offset || null
-					});
-					resolve(modelInstance);
-				},
-				error: (data) => reject(data)
+				return modelInstance;
 			});
-		});
 	},
 
 	/**
