@@ -127,19 +127,15 @@ export default Object.extend({
 	}),
 
 	localItems: computed('inExploreNav', 'currentLocalLinks', function () {
-		let index = 0;
-
 		return !this.get('inExploreNav') &&
-			this.get('currentLocalLinks').map((item) => {
-				index++;
-
+			this.get('currentLocalLinks').map((item, index) => {
 				return {
 					type: Boolean(item.children) ? 'side-nav-menu-root' : 'side-nav-menu-item',
 					href: item.href.replace(/^(\/wiki)?\//i, ''),
 					route: 'wiki-page',
 					name: item.text,
-					index,
-					trackLabel: `local-nav-open-link-index-${index}`
+					index: index + 1,
+					trackLabel: `local-nav-open-link-index-${index + 1}`
 				};
 			}) || [];
 	}),
