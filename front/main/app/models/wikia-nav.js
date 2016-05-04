@@ -15,17 +15,25 @@ export default Ember.Object.extend({
 	wikiName: get(Mercury, 'wiki.siteName'),
 	wikiLang: get(Mercury, 'wiki.language.content'),
 
+	/**
+	 * Iteratively traverse local navigation tree to find out root node
+	 * of current nav state
+	 * @returns {Object} parent
+	 */
 	parent: computed('state.[]', 'localLinks', function () {
 		const s = this.get('state');
-		let nav = this.get('localLinks'),
-			parent, item;
+		let localNav = this.get('localLinks'),
+			parent, node;
 
 		if (!this.get('inExploreNav')) {
 			for (const i of s) {
-				item = nav[i - 1];
-				if (item && item.children) {
-					parent = item;
-					nav = item.children;
+				// local nav indexes are shifted by 1,
+				// 0 is reserved for exploration nav
+				node = localNav[i - 1];
+				// check if nav branch
+				if (node && node.children) {
+					parent = node;
+					localNav = node.children;
 				} else {
 					throw new Error('Incorrect navigation state');
 				}
@@ -34,7 +42,7 @@ export default Ember.Object.extend({
 		return parent || {};
 	}),
 
-	current: computed.or('parent.children', 'localLinks'),
+	currentLocalLinks: computed.or('parent.children', 'localLinks'),
 
 	header: computed.or('parent.text', 'exploreWikiaLabel'),
 
@@ -52,15 +60,18 @@ export default Ember.Object.extend({
 		return !this.get('inSubNav') && !this.get('inExploreNav');
 	}),
 
+	// keep it sync with navigation order
 	items: computed('exploreItems', 'globalItems', 'exploreSubMenuItem', 'localNavHeaderItem',
 		'recentActivityItem', 'localItems', 'randomPageItem', function () {
-			return this.get('exploreItems')
-				.concat(this.get('globalItems'))
-				.concat(this.get('exploreSubMenuItem'))
-				.concat(this.get('localNavHeaderItem'))
-				.concat(this.get('recentActivityItem'))
-				.concat(this.get('localItems'))
-				.concat(this.get('randomPageItem'));
+			return [
+				...this.get('exploreItems'),
+				...this.get('globalItems'),
+				...this.get('exploreSubMenuItem'),
+				...this.get('localNavHeaderItem'),
+				...this.get('recentActivityItem'),
+				...this.get('localItems'),
+				...this.get('randomPageItem')
+			];
 		}),
 
 	exploreItems: computed('inExploreNav', 'exploreWikiaLinks', function () {
@@ -120,11 +131,11 @@ export default Ember.Object.extend({
 			}] || [];
 	}),
 
-	localItems: computed('inExploreNav', 'current', function () {
+	localItems: computed('inExploreNav', 'currentLocalLinks', function () {
 		let index = 0;
 
 		return !this.get('inExploreNav') &&
-			this.get('current').map((item) => {
+			this.get('currentLocalLinks').map((item) => {
 				index++;
 				return {
 					type: Boolean(item.children) ? 'side-nav-menu-root' : 'side-nav-menu-item',
