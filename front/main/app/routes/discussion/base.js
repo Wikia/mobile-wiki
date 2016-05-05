@@ -16,7 +16,7 @@ export default Ember.Route.extend(
 		 * @returns {void}
 		 */
 		setDynamicHeadTags(model, data = {}) {
-			data.documentTitle = `Discussions - ${Ember.get(Mercury, 'wiki.siteName')} - Wikia`;
+			data.documentTitle = 'Discussions';
 			data.canonical = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}`;
 
 			this._super(model, data);

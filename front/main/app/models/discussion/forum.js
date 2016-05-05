@@ -29,7 +29,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false
-				},
+				}
 			}).then((data) => {
 				this.get('data.entities').pushObjects(
 					Ember.get(data, '_embedded.doc:threads').map(
@@ -70,31 +70,34 @@ DiscussionForumModel.reopenClass({
 	 * @param {number} wikiId
 	 * @param {number} forumId
 	 * @param {string} [sortBy='trending']
-	 * @returns { Ember.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, forumId, sortBy = 'trending') {
-		const forumInstance = DiscussionForumModel.create({
-				wikiId,
-				forumId
-			}),
-			requestData = {
-				limit: 10,
-				viewableOnly: false,
-			};
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			const forumInstance = DiscussionForumModel.create({
+					wikiId,
+					forumId
+				}),
+				requestData = {
+					limit: 10,
+					viewableOnly: false
+				};
 
-		if (sortBy) {
-			requestData.sortKey = forumInstance.getSortKey(sortBy);
-		}
-		return request(M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`), {
-			data: requestData,
-		}).then((data) => {
-			forumInstance.setNormalizedData(data);
+			if (sortBy) {
+				requestData.sortKey = forumInstance.getSortKey(sortBy);
+			}
 
-			return forumInstance;
-		}).catch((err) => {
-			forumInstance.setErrorProperty(err);
+			request(M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`), {
+				data: requestData
+			}).then((data) => {
+				forumInstance.setNormalizedData(data);
 
-			return forumInstance;
+				resolve(forumInstance);
+			}).catch((err) => {
+				forumInstance.setErrorProperty(err);
+
+				reject(forumInstance);
+			});
 		});
 	}
 });

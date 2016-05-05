@@ -73,25 +73,27 @@ DiscussionUserModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, userId) {
-		const userInstance = DiscussionUserModel.create({
-			wikiId,
-			userId
-		});
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			const userInstance = DiscussionUserModel.create({
+				wikiId,
+				userId
+			});
 
-		return request(M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`), {
-			data: {
-				limit: userInstance.postsLimit,
-				responseGroup: 'full',
-				viewableOnly: false
-			},
-		}).then((data) => {
-			userInstance.setNormalizedData(data);
+			request(M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`), {
+				data: {
+					limit: userInstance.postsLimit,
+					responseGroup: 'full',
+					viewableOnly: false
+				}
+			}).then((data) => {
+				userInstance.setNormalizedData(data);
 
-			return userInstance;
-		}).catch((err) => {
-			userInstance.setErrorProperty(err);
+				resolve(userInstance);
+			}).catch((err) => {
+				userInstance.setErrorProperty(err);
 
-			return userInstance;
+				reject(userInstance);
+			});
 		});
 	}
 });
