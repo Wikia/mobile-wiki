@@ -28,6 +28,12 @@
 		top: 0;
 	}
 
+	&.layover-cursor-auto {
+		.modal-dialog-layover {
+			cursor: auto;
+		}
+	}
+
 	&.is-bare {
 		padding: 0;
 
