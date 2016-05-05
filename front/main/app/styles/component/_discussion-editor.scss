@@ -36,7 +36,6 @@ $modal-editor-top: 66px;
 
 	span {
 		&.error {
-			//animation: error-slide-in .3s ease-in-out 1;
 			background-color: rgba($discussion-editor-error-background-color, .95);
 			bottom: $editor-toolbar-height;
 			color: $discussion-editor-error-text-color;
@@ -288,15 +287,5 @@ $modal-editor-top: 66px;
 .discussion-editor-dialog {
 	.modal-dialog {
 		max-width: $modal-editor-width;
-	}
-}
-
-@keyframes error-slide-in {
-	from {
-		height: 0;
-	}
-
-	to {
-		height: $editor-error-height;
 	}
 }
