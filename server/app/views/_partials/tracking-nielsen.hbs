@@ -7,6 +7,10 @@
 				return;
 			}
 
+			if ( typeof(nielsen.apid) !== 'string' || nielsen.apid === 'FIXME') {
+				throw 'Invalid Nielsen apid';
+			}
+
 			nielsen = M.prop('tracking.nielsen');
 			assetidRnd = Math.round(1000000 * Math.random());
 			globalParams = {
