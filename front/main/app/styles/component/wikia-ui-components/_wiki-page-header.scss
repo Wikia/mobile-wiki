@@ -73,7 +73,9 @@
 }
 
 .wiki-page-header.has-hero-image {
-	animation: wiki-page-header-preload-preloading 2s infinite;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 .wiki-page-header.has-hero-image .wiki-page-header__wrapper {
@@ -84,7 +86,7 @@
 .wiki-page-header.has-hero-image-preload {
 	animation: wiki-page-header-preload-preloading 2s infinite;
 	height: 0;
-	padding-bottom: 100%;
+	padding-bottom: 100% * 9 / 16;
 	position: relative;
 	width: 100%;
 }

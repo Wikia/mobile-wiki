@@ -35,7 +35,6 @@ export default Ember.Component.extend(
 		mainPageName: Ember.get(Mercury, 'wiki.siteName'),
 		mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
 
-
 		computedStyle: Ember.computed('heroImage', 'viewportDimensions.width', function () {
 			const heroImage = this.get('heroImage'),
 				windowWidth = this.get('viewportDimensions.width'),
