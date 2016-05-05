@@ -11,11 +11,6 @@ const OpenGraph = Ember.Object.extend({
 	title: null,
 	type: null,
 	url: null,
-	videoHeight: null,
-	videoSecureUrl: null,
-	videoType: null,
-	videoUrl: null,
-	videoWidth: null,
 });
 
 export default OpenGraph;
