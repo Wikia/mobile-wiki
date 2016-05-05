@@ -31,11 +31,13 @@ export default function prepareArticleData(request, data) {
 			delete pageData.article.content;
 
 			// find article's hero image
-			pageData.article.media.forEach((current) => {
-				if (current.hasOwnProperty('context') && current.context === 'infobox-hero-image') {
-					result.hasHeroImage = true;
-				}
-			});
+			if (pageData.article.media) {
+				pageData.article.media.forEach((current) => {
+					if (current.hasOwnProperty('context') && current.context === 'infobox-hero-image') {
+						result.hasHeroImage = true;
+					}
+				});
+			}
 		}
 	}
 
