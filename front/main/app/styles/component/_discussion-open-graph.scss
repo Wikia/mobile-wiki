@@ -1,11 +1,70 @@
-.open-graph {
+
+// -- theme --
+
+.og-container {
+	background-color: $discussion-open-graph-background-color;
 	border: 1px solid $discussion-open-graph-border-color;
-	margin: 4px auto 9px;
+}
+
+.og-title {
+	color: $discussion-open-graph-title-color;
+}
+
+.og-domain {
+	color: $discussion-open-graph-domain-color;
 }
 
 
+// -- layout --
+
+//default layout
+.og-container {
+	margin: 4px auto 9px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.og-title {
+	font-size: $type-smallest;
+	line-height: $line-height-smallest;
+	margin: 22px 18px 0px;
+}
+
+.og-domain {
+	font-size: $type-min;
+	line-height: $line-height-min;
+	margin: 0px 18px 22px;
+}
+
+.og-image {
+	flex-grow: 2;
+}
+
+//post-details page layout
+.post-details-view {
+	// main post layout
+	.post-detail {
+		.og-container {
+			margin: 9px auto 13px;
+		}
+
+		.og-title {
+			font-size: $type-smaller;
+			line-height: $line-height-smaller;
+		}
+
+		.og-domain {
+			font-size: $type-smallest;
+			line-height: $line-height-smallest;
+		}
+	}
+
+	// .post-reply { this has the default layout }
+}
+
 @media #{$desktop-range} {
-	.open-graph {
+	.og-container {
 		margin: 2px auto 16px;
 	}
 }

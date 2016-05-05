@@ -1,4 +1,10 @@
-<div class="title">
-	{{openGraphData.title}}
-</div>
+<a class="og-container" href="{{openGraphData.url}}" title="{{openGraphData.title}}">
+	<img class="og-image" src="{{openGraphData.imageUrl}}" alt="{{openGraphData.title}}">
+	<div class="og-title">
+		{{openGraphData.title}}
+	</div>
+	<div class="og-domain">
+		{{openGraphData.domain}}
+	</div>
+</a>
 
