@@ -327,7 +327,6 @@ export default Ember.Component.extend(
 			} else {
 				componentElement.$().prependTo(this.$());
 			}
-			componentElement.trigger('didInsertElement');
 		},
 
 		/**
