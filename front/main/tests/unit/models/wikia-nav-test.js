@@ -332,7 +332,7 @@ test('Parent value', (assert) => {
 			},
 			path: [],
 			expected: {},
-			message: 'Do not move amywhere'
+			message: 'Do not move anywhere'
 		},
 		{
 			mock: {
@@ -435,6 +435,6 @@ test('Parent value', (assert) => {
 			nav.goToSubNav(i);
 		});
 
-		assert.deepEqual(nav.get('parent'), testCase.expected, testCase.message);
+		assert.deepEqual(nav.get('currentLocalNav'), testCase.expected, testCase.message);
 	});
 });

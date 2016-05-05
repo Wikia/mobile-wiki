@@ -13,9 +13,9 @@ export default Object.extend({
 	/**
 	 * Iteratively traverse local navigation tree to find out root node
 	 * of current nav state
-	 * @returns {Object} parent
+	 * @returns {Object} currentLocalNav
 	 */
-	parent: computed('state.[]', 'localLinks', function () {
+	currentLocalNav: computed('state.[]', 'localLinks', function () {
 		const state = this.get('state');
 		let localNav = this.get('localLinks'),
 			parent, node;
@@ -39,9 +39,9 @@ export default Object.extend({
 		return parent || {};
 	}),
 
-	currentLocalLinks: computed.or('parent.children', 'localLinks'),
+	currentLocalLinks: computed.or('currentLocalNav.children', 'localLinks'),
 
-	header: computed.or('parent.text', 'exploreWikiaLabel'),
+	header: computed.or('currentLocalNav.text', 'exploreWikiaLabel'),
 
 	inExploreNav: computed('state.[]', function () {
 		const state = this.get('state');
@@ -49,7 +49,7 @@ export default Object.extend({
 		return state.length && state[0] === 0;
 	}),
 
-	inSubNav: computed.bool('parent.children.length'),
+	inSubNav: computed.bool('currentLocalNav.children.length'),
 
 	inRoot: computed('inSubNav', 'inExploreNav', function () {
 		return !this.get('inSubNav') && !this.get('inExploreNav');
