@@ -1,14 +1,11 @@
 $editor-active-mobile-border-top-width: 1px;
 $editor-border-width: 4px;
-$editor-error-height: 36px;
 $editor-toolbar-height: 40px;
 $editor-textarea-paddings: 17px 17px 17px 64px;
 $sticky-editor-width: 529px;
 $modal-editor-width: 520px;
 $success-icon-size: 80px;
 $editor-textarea-overflow-ios-hack: 30px;
-$modal-editor-top: 66px;
-
 
 .editor-container {
 	background-color: $discussion-editor-toolbar-background-color;
@@ -40,19 +37,19 @@ $modal-editor-top: 66px;
 			bottom: $editor-toolbar-height;
 			color: $discussion-editor-error-text-color;
 			font-size: $type-smallest;
-			height: $editor-error-height;
+			max-height: 72px;
 			line-height: $line-height-larger;
 			margin: 0;
 			overflow: hidden;
 			padding: 0;
 			position: absolute;
 			text-align: center;
-			transition: height .3s ease-in-out;
+			transition: max-height .3s ease-in-out;
 			width: 100%;
 			z-index: $z-discussion-editor + 1;
 
 			&.slided-out {
-				height: 0;
+				max-height: 0;
 			}
 		}
 	}
@@ -272,7 +269,7 @@ $modal-editor-top: 66px;
 		&.is-active {
 			.editor-container {
 				height: 350px;
-				margin-top: $modal-editor-top;
+				margin-top: 66px;
 				width: $modal-editor-width;
 			}
 
