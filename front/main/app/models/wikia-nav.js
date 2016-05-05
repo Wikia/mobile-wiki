@@ -152,6 +152,7 @@ export default Object.extend({
 
 	init() {
 		this._super(...arguments);
+		// holds a list of indexes defining a path to current branch in a navigation tree
 		this.state = A([]);
 	},
 
