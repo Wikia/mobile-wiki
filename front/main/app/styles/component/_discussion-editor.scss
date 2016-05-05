@@ -109,6 +109,10 @@ $modal-editor-top: 66px;
 }
 
 .discussion-editor {
+	.editor-label {
+		display: none;
+	}
+
 	&.is-active {
 		button {
 			display: inline-block;
@@ -206,6 +210,10 @@ $modal-editor-top: 66px;
 			z-index: $z-discussion-editor + 1;
 		}
 
+		.editor-label-mobile {
+			display: block;
+		}
+
 		.editor-container {
 			background: $discussion-editor-background-color;
 			height: 100%;
@@ -254,10 +262,6 @@ $modal-editor-top: 66px;
 @media #{$mobile-range} {
 	.discussion-editor {
 		@include modal-editor;
-
-		&.is-active .editor-label {
-			position: fixed;
-		}
 	}
 }
 
@@ -274,19 +278,9 @@ $modal-editor-top: 66px;
 			}
 
 			.editor-label {
-				display: block;
-				top: $modal-editor-top + $editor-toolbar-height + 1px;
+				top: $editor-toolbar-height + 1px;
 				width: auto;
 			}
-		}
-	}
-}
-
-@media #{$desktop-range} {
-	.discussion-editor {
-		.editor-label {
-			display: none;
-			height: 0;
 		}
 	}
 }

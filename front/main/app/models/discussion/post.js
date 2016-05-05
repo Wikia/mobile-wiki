@@ -133,7 +133,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 		createReply(replyData) {
 			replyData.threadId = this.get('threadId');
 
-			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts`), {
+			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/po1sts`), {
 				method: 'POST',
 				data: JSON.stringify(replyData),
 			}).then((reply) => {

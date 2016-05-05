@@ -17,7 +17,7 @@ $reply-editor-margin-left: -20px;
 		}
 	}
 
-	.editor-label {
+	.reply-editor-label {
 		display: block;
 		font-size: $type-min;
 		font-weight: bold;
@@ -28,6 +28,9 @@ $reply-editor-margin-left: -20px;
 	&.is-active {
 		.editor-container {
 			border: 0;
+		}
+		.reply-editor-label {
+			display: none;
 		}
 	}
 }
