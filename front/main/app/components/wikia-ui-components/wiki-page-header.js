@@ -1,6 +1,29 @@
+/**
+ * Wiki Page Header reusable component usage:
+ *
+ * @example
+ * {{wikia-ui-components/wiki-page-header isMainPage=true}}
+ *
+ * @example
+ * {{wikia-ui-components/wiki-page-header title=<title>}}
+ *
+ * @example
+ * {{wikia-ui-components/wiki-page-header
+ *   title=<title>
+ *   subtitle=<subtitle>
+ *   heroImage=<hero image url>}}
+ *
+ * @example
+ * {{#wikia-ui-components/wiki-page-header isMainPage=true}}
+ *   {{#link-to '<route>' trackingCategory='<category>' trackingLabel='<label>' bubbles=false}}
+ *     {{svg 'pencil' role='img' class='icon pencil'}}
+ *   {{/link-to}}
+ * {{/wikia-ui-components/wiki-page-header}}
+ */
+
 import Ember from 'ember';
 import Thumbnailer from 'common/modules/thumbnailer';
-import ViewportMixin from '../mixins/viewport';
+import ViewportMixin from '../../mixins/viewport';
 import {track as mercuryTrack, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(

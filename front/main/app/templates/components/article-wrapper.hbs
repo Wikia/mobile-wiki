@@ -1,5 +1,5 @@
 {{#if contributionEnabled}}
-	{{#wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
+	{{#wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
 		{{article-contribution
 			addPhotoAllowed=addPhotoAllowed
 			addPhotoIconVisible=addPhotoIconVisible
@@ -10,9 +10,9 @@
 			addPhoto='addPhoto'
 			edit='edit'
 		}}
-	{{/wiki-page-header}}
+	{{/wikia-ui-components/wiki-page-header}}
 {{else}}
-	{{wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
+	{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
 {{/if}}
 <section class="article-body">
 	{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}

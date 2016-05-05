@@ -1,12 +1,12 @@
 <div class="wiki-container">
 	{{#if curatedContentToolButtonVisible}}
-		{{#wiki-page-header isMainPage=true}}
+		{{#wikia-ui-components/wiki-page-header isMainPage=true}}
 			{{#link-to 'curatedContentEditor' trackingCategory='main-page' trackingLabel='open-editor' bubbles=false class='main-page-edit'}}
 				{{svg 'pencil' role='img' class='icon pencil'}}
 			{{/link-to}}
-		{{/wiki-page-header}}
+		{{/wikia-ui-components/wiki-page-header}}
 	{{else}}
-		{{wiki-page-header isMainPage=true}}
+		{{wikia-ui-components/wiki-page-header isMainPage=true}}
 	{{/if}}
 	{{#if wikiaStats}}
 		{{wikia-stats model=wikiaStats}}
