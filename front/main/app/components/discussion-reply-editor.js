@@ -1,9 +1,8 @@
 import Ember from 'ember';
 import DiscussionEditorComponent from './discussion-editor';
+import {trackActions} from '../utils/discussion-tracker';
 
 export default DiscussionEditorComponent.extend({
-	editorBottomSpacing: null,
-
 	classNames: ['reply-editor'],
 	pinnedClassName: 'pinned-bottom',
 
@@ -11,14 +10,18 @@ export default DiscussionEditorComponent.extend({
 	submitText: 'editor.reply-action-button-label',
 	labelText: 'editor.reply-editor-label',
 
+	closeTrackingAction: trackActions.ReplyClose,
+	contentTrackingAction: trackActions.ReplyContent,
+	startTrackingAction: trackActions.ReplyStart,
+
 	/**
 	 * Initialize onScroll binding for sticky logic
 	 * @returns {void}
 	 */
 	initializeStickyState() {
-		const isSticky = window.innerHeight < this.$().offset().top + this.$().height();
+		const scrollY = window.scrollY || window.pageYOffset;
 
-		this.set('isSticky', isSticky);
+		this.set('isSticky', window.innerHeight + scrollY < this.$().offset().top + this.$().height());
 
 		Ember.$(window).on('scroll.editor', () => {
 			this.onScroll();
@@ -30,16 +33,11 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {boolean}
 	 */
 	isStickyBreakpointHeight() {
-		let editorContainer;
+		const $editorLabel = this.$('.editor-label'),
+			scrollY = window.scrollY || window.pageYOffset;
 
-		if (!this.get('editorBottomSpacing')) {
-			editorContainer = Ember.$('.editor-container');
-			this.set('editorBottomSpacing', parseInt(editorContainer.css('borderBottomWidth'), 10) +
-				parseInt(editorContainer.css('margin-bottom'), 10));
-		}
-
-		return Ember.$('.reply-editor')
-				.get(0).getBoundingClientRect().bottom - window.innerHeight >= this.get('editorBottomSpacing');
+		return window.innerHeight + scrollY - this.$('.editor-container').outerHeight() <
+			$editorLabel.offset().top + $editorLabel.outerHeight();
 	},
 
 	/**
@@ -58,7 +56,7 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	handleNewReplyCreated: Ember.observer('replies.@each.isNew', function () {
-		const newReplies = this.get('replies').filter((reply) => reply.isNew),
+		const newReplies = this.get('replies').filter((reply) => reply.get('isNew')),
 			newReply = newReplies.get('firstObject');
 
 		if (newReply) {
@@ -103,5 +101,5 @@ export default DiscussionEditorComponent.extend({
 		Ember.run.later(this, () => {
 			this.initializeStickyState();
 		}, 200);
-	}
+	},
 });

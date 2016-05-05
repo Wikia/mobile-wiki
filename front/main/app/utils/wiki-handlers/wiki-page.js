@@ -1,7 +1,8 @@
-import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
+import Ember from 'ember';
 import ArticleModel from '../../models/wiki/article';
 import CategoryModel from '../../models/wiki/category';
-import Ember from 'ember';
+import {namespace as MediawikiNamespace, isContentNamespace} from '../../utils/mediawiki-namespace';
+import request from 'ember-ajax/request';
 
 /**
  *
@@ -12,11 +13,13 @@ function getURL(params) {
 	const query = {
 		controller: 'MercuryApi',
 		method: 'getPage',
-		title: params.title,
+		// We need to decode title because MW sends encoded content
+		// It's only necessary in case of in-content links
+		title: decodeURIComponent(params.title),
 	};
 
 	if (params.redirect) {
-		query.redirect = `?redirect=${encodeURIComponent(params.redirect)}`;
+		query.redirect = params.redirect;
 	}
 
 	return M.buildUrl({
@@ -59,36 +62,36 @@ export function getModelForNamespace(data, params) {
 export default function getPageModel(params) {
 	let model;
 
-	return new Ember.RSVP.Promise((resolve, reject) => {
-		if (M.prop('articleContentPreloadedInDOM')) {
-			// This happens also for categories with article
-			const preloadedData = ArticleModel.getPreloadedData();
 
-			model = getModelForNamespace(preloadedData, params);
+	if (M.prop('articleContentPreloadedInDOM')) {
+		// This happens also for categories with article
+		const preloadedData = ArticleModel.getPreloadedData();
 
-			return resolve(model);
-		}
+		model = getModelForNamespace(preloadedData, params);
 
-		if (M.prop('exception')) {
-			const exception = M.prop('exception');
+		return Ember.RSVP.resolve(model);
+	}
 
-			M.prop('exception', null);
+	if (M.prop('exception')) {
+		const exception = M.prop('exception');
 
-			return reject(exception);
-		}
+		M.prop('exception', null);
 
-		Ember.$.getJSON(getURL(params))
-			.done((data) => {
-				model = getModelForNamespace(data, params);
-				resolve(model);
-			})
-			.fail((err) => {
-				if (!err.code && err.status) {
-					err.code = err.status;
-				}
+		return Ember.RSVP.reject(exception);
+	}
 
-				reject(err);
-			});
-	});
+	return request(getURL(params))
+		.then((data) => {
+			model = getModelForNamespace(data, params);
+
+			return model;
+		})
+		.catch((err) => {
+			if (!err.code && err.status) {
+				err.code = err.status;
+			}
+
+			throw new Error(err);
+		});
 }
 

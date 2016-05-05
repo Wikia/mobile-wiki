@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
@@ -21,12 +22,27 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	bodyText: '',
 	layoutName: 'components/discussion-editor',
+	// Tracking action name of closing the editor
+	closeTrackingAction: trackActions.PostClose,
+	// Tracking action name of inserting content into editor
+	contentTrackingAction: trackActions.PostContent,
+	// Tracking action name of opening the editor
+	startTrackingAction: trackActions.PostStart,
+	wasContentTracked: false,
+	wasStartTracked: false,
 
 	/**
 	 * @returns {boolean}
 	 */
 	submitDisabled: Ember.computed('bodyText', 'currentUser.userId', function () {
 		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null;
+	}),
+
+	onTextContent: Ember.observer('bodyText', function () {
+		if (this.get('bodyText').length > 0 && !this.get('wasContentTracked')) {
+			track(this.get('contentTrackingAction'));
+			this.set('wasContentTracked', true);
+		}
 	}),
 
 	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
@@ -68,8 +84,8 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	style: Ember.computed('isSticky', function () {
-		return this.get('isSticky') === true ?
-			`height: ${this.$('.editor-container').outerHeight(true)}px` :
+		return this.get('isSticky') ?
+			`height: ${this.$('.editor-container').outerHeight(true) + this.$('.editor-label').outerHeight()}px` :
 			null;
 	}),
 
@@ -80,6 +96,10 @@ export default Ember.Component.extend(ViewportMixin, {
 		Ember.run.throttle(
 			this,
 			function () {
+				// we can't change it to
+				// this.set('isSticky', !this.get('isSticky') && this.isStickyBreakpointHeight())
+				// because it is important to fire the set method only when it's necessary, because there is observer
+				// that watches isSticky changes (and it is fired on every set)
 				if (!this.get('isSticky') && this.isStickyBreakpointHeight()) {
 					this.set('isSticky', true);
 				} else if (this.get('isSticky') && !this.isStickyBreakpointHeight()) {
@@ -214,7 +234,11 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	afterCloseActions() {
-		this.set('isActive', false);
+		this.setProperties({
+			isActive: false,
+			wasContentTracked: false,
+			wasStartTracked: false
+		});
 		this.setiOSSpecificStyles({
 			height: '',
 			overflow: ''
@@ -263,6 +287,11 @@ export default Ember.Component.extend(ViewportMixin, {
 		 * @returns {void}
 		 */
 		toggleEditorActive(active) {
+			if (active && !this.get('wasStartTracked')) {
+				track(this.get('startTrackingAction'));
+				this.set('wasStartTracked', true);
+			}
+
 			this.get('discussionEditor').toggleEditor(active);
 		},
 
@@ -286,6 +315,15 @@ export default Ember.Component.extend(ViewportMixin, {
 		onFocus(event) {
 			event.preventDefault();
 			this.send('toggleEditorActive', true);
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		close() {
+			this.send('toggleEditorActive', false);
+
+			track(this.get('closeTrackingAction'));
 		}
 	}
 });

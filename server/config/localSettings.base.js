@@ -244,7 +244,7 @@ const localSettings = {
 			countries: []
 		},
 		nielsen: {
-			apid: 'T26086A07-C7FB-4124-A679-8AC404198BA7',
+			apid: 'P26086A07-C7FB-4124-A679-8AC404198BA7',
 			dbName: '',
 			section: '',
 			enabled: false

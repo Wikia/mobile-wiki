@@ -1,7 +1,7 @@
 import {module} from 'qunit';
 import {test} from 'ember-qunit';
 
-module('Unit | Utils | domain', () => {
+module('Unit | Utility | domain', () => {
 	test('gets domain from provided hosts', (assert) => {
 		const testCases = [
 			{

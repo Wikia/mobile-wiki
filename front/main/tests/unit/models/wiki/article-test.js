@@ -9,8 +9,7 @@ const articleExample = {
 				},
 				comments: 123,
 				id: 123,
-				ns: 'namespace',
-				title: 'sampleTitle'
+				ns: 'namespace'
 			},
 			article: {
 				content: 'TestContent',

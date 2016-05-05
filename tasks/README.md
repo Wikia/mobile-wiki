@@ -4,24 +4,10 @@ Generate changelog between two commits/branches/tags and displays result in cons
 * `./tasks/changelog-view.sh`
 
 Parameters (optional):
-* `-f FROM` - (default: last release tag) set begin range
-* `-t TO` - (default: current branch HEAD) set end range
+* `-f FROM` - (default: second to last release tag) set begin range
+* `-t TO` - (default: last release tag) set end range
 
 NOTE:
-* As FROM and TO put remote/branch, commit_sha or tag, i.e. origin/dev, ed84ba5 or release-40.001
-
-## changelog-update.sh
-Update existing CHANGELOG.md with changes between two commits/branches/tags:
-
-* `./tasks/changelog-update.sh`
-
-Parameters:
-* `-r RELEASE` - (required) set release name, i.e. release-123
-* `-f FROM` - (default: last release tag) set begin range
-* `-t TO` - (default: current branch HEAD) set end range
-
-NOTE:
-* Using release name which already exists will be treated as a hotfix
 * As FROM and TO put remote/branch, commit_sha or tag, i.e. origin/dev, ed84ba5 or release-40.001
 
 ## deploy.sh
