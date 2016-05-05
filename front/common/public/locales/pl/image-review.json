@@ -12,7 +12,7 @@
     "image-context":"Kontekst:",
     "image-context-not-provided":"Brak kontekstu",
     "status-accepted":"OK",
-    "status-flagged":"Watpliwy",
+    "status-flagged":"Wątpliwy",
     "status-rejected":"Usuń"
   }
 }
