@@ -1,5 +1,6 @@
 $editor-active-mobile-border-top-width: 1px;
 $editor-border-width: 4px;
+$editor-error-height: 36px;
 $editor-toolbar-height: 40px;
 $editor-textarea-paddings: 17px 17px 17px 64px;
 $sticky-editor-width: 529px;
@@ -35,19 +36,25 @@ $modal-editor-top: 66px;
 
 	span {
 		&.error {
+			//animation: error-slide-in .3s ease-in-out 1;
 			background-color: rgba($discussion-editor-error-background-color, .95);
 			bottom: $editor-toolbar-height;
 			color: $discussion-editor-error-text-color;
 			font-size: $type-smallest;
+			height: $editor-error-height;
 			line-height: $line-height-larger;
 			margin: 0;
 			overflow: hidden;
 			padding: 0;
 			position: absolute;
 			text-align: center;
+			transition: height .3s ease-in-out;
 			width: 100%;
 			z-index: $z-discussion-editor + 1;
-			animation: error-slide-in .3s ease-in-out 1;
+
+			&.slided-out {
+				height: 0;
+			}
 		}
 	}
 
@@ -296,6 +303,6 @@ $modal-editor-top: 66px;
 	}
 
 	to {
-		height: 36px;
+		height: $editor-error-height;
 	}
 }

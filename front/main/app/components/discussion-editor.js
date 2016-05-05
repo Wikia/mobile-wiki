@@ -47,6 +47,14 @@ export default Ember.Component.extend(ViewportMixin, {
 		}
 	}),
 
+	onErrorMessage: Ember.observer('errorMessage', function() {
+		if (this.get('errorMessage')) {
+			Ember.run.later(this, () => {
+				this.get('discussionEditor').setErrorMessage(null);
+			}, 2000);
+		}
+	}),
+
 	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
 		if (this.get('discussionEditor.isEditorOpen')) {
 			this.afterOpenActions();

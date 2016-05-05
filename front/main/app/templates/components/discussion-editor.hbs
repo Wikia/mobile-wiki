@@ -24,7 +24,9 @@
 			{{svg 'success' class='success' viewBox='0 0 80 80'}}
 		</div>
 	{{/if}}
-	{{#if errorMessage}}
-		<span class="error">{{i18n errorMessage ns='discussion'}}</span>
-	{{/if}}
+	<span class="error {{unless errorMessage 'slided-out'}}">
+		{{#if errorMessage}}
+			{{i18n errorMessage ns='discussion'}}
+		{{/if}}
+	</span>
 </div>
