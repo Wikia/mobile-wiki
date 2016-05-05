@@ -40,20 +40,6 @@ const ArticleModel = Ember.Object.extend({
 
 ArticleModel.reopenClass({
 	/**
-	 * @param {ArticleModelUrlParams} params
-	 * @returns {string}
-	 */
-	url(params) {
-		let redirect = '';
-
-		if (params.redirect) {
-			redirect += `?redirect=${encodeURIComponent(params.redirect)}`;
-		}
-
-		return `${M.prop('apiBase')}/article/${params.title}${redirect}`;
-	},
-
-	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getArticleRandomTitle() {
@@ -193,8 +179,8 @@ ArticleModel.reopenClass({
 			 * For main pages, title is wiki name, so we don't want to have duplicated text in documentTitle
 			 */
 			articleProperties.documentTitle = articleProperties.isMainPage ?
-					'' :
-					articleProperties.documentTitle = articleProperties.displayTitle || articleProperties.title;
+				'' :
+				articleProperties.displayTitle || articleProperties.title;
 		}
 
 		model.setProperties(articleProperties);
