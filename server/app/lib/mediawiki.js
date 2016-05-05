@@ -251,30 +251,6 @@ class BaseRequest {
 }
 
 /**
- * Wrapper class for making API search requests
- *
- * @class SearchRequest
- */
-export class SearchRequest extends BaseRequest {
-	/**
-	 * Default parameters to make the request url clean -- we may
-	 * want to customize later
-	 *
-	 * @param {string} query
-	 * @returns {Promise<any>}
-	 */
-	searchForQuery(query) {
-		const url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'MercuryApi',
-			method: 'getSearchSuggestions',
-			query
-		});
-
-		return this.fetch(url);
-	}
-}
-
-/**
  * a wrapper for making API requests for info about the wiki
  *
  * @class WikiRequest
@@ -340,75 +316,6 @@ export class PageRequest extends BaseRequest {
 		}
 
 		return this.fetch(createUrl(this.wikiDomain, 'wikia.php', urlParams));
-	}
-
-	/**
-	 * @param {number} articleId
-	 * @param {number} [page=0]
-	 * @returns {Promise}
-	 */
-	comments(articleId, page = 0) {
-		const url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'MercuryApi',
-			method: 'getArticleComments',
-			id: articleId,
-			page
-		});
-
-		return this.fetch(url);
-	}
-
-	/**
-	 * @param {string} sectionName
-	 * @returns {Promise}
-	 */
-	curatedContentSection(sectionName) {
-		const url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'MercuryApi',
-			method: 'getCuratedContentSection',
-			section: sectionName
-		});
-
-		return this.fetch(url);
-	}
-
-	/**
-	 * @param {string} categoryName
-	 * @param {*} thumbSize
-	 * @param {string} [offset='']
-	 * @returns {Promise}
-	 */
-	category(categoryName, thumbSize, offset = '') {
-		const url = createUrl(this.wikiDomain, 'wikia.php', {
-			controller: 'ArticlesApi',
-			method: 'getList',
-			expand: 'true',
-			abstract: 0,
-			width: thumbSize.width,
-			height: thumbSize.height,
-			category: categoryName,
-			offset,
-			limit: 24
-		});
-
-		return this.fetch(url);
-	}
-
-	/**
-	 * Get random article title
-	 *
-	 * @returns {Promise}
-	 */
-	randomTitle() {
-		const url = createUrl(this.wikiDomain, 'api.php', {
-			action: 'query',
-			generator: 'random',
-			grnnamespace: 0,
-			cb: Date.now(),
-			format: 'json'
-		});
-
-		return this.fetch(url);
 	}
 
 	/*
