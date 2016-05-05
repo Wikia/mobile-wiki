@@ -1,5 +1,6 @@
 $z-header: $z-6;
 $nav-container-padding: 4px;
+$icon-size: 25px;
 
 .site-body {
 	margin-top: $icon-site-head-width;
@@ -54,8 +55,8 @@ $nav-container-padding: 4px;
 		position: relative;
 		.icon-button-icon {
 			fill: $color-blue-dark;
-			height: 24px;
-			width: 25px;
+			height: $icon-size;
+			width: $icon-size;
 		}
 
 		&:hover {
@@ -63,7 +64,6 @@ $nav-container-padding: 4px;
 				fill: $color-blue-dark;
 			}
 		}
-
 	}
 
 	.avatar {
