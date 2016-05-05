@@ -48,7 +48,6 @@ import deepExtend from 'deep-extend';
 
 /**
  * @typedef {Object} LocalSettings
- * @property {string} apiBase
  * @property {string} [authCookieDomain]
  * @property {number} backendRequestTimeout
  * @property {string} cdnBaseUrl
