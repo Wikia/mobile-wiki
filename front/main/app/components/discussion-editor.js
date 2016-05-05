@@ -51,7 +51,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		if (this.get('errorMessage')) {
 			Ember.run.later(this, () => {
 				this.get('discussionEditor').setErrorMessage(null);
-			}, 2000);
+			}, 3000);
 		}
 	}),
 
