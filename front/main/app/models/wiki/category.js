@@ -131,8 +131,8 @@ CategoryModel.reopenClass({
 				}
 			}
 
-			//Display title is used in header in templates/category.hbs
-			pageProperties.displayTitle = pageProperties.displayTitle  || pageProperties.title;
+			// Display title is used in header in templates/category.hbs
+			pageProperties.displayTitle = pageProperties.displayTitle || pageProperties.title;
 			pageProperties.documentTitle = prefix + pageProperties.displayTitle;
 		}
 
