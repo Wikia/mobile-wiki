@@ -54,7 +54,7 @@
 		{{#link-to 'discussion.post' post.threadId class="post-details-link clamp"}}{{{parsedContent}}}{{/link-to}}
 	</div>
 {{/if}}
-{{#if post.hasOpenGraph}}
+{{#if post.openGraph.exists}}
 	{{discussion-open-graph
 		openGraphData=post.openGraph
 	}}
