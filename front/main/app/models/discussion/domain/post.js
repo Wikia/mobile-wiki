@@ -52,6 +52,18 @@ DiscussionPost.reopenClass({
 	},
 
 	/**
+	 * @param {string} url
+	 *
+	 * @returns {string}
+	 */
+
+	extractDomainFromUrl(url) {
+		const linkElement = document.createElement('a');
+		linkElement.href = url;
+		return linkElement.hostname;
+	},
+
+	/**
 	 * Normalizes API thread data into a post object
 	 *
 	 * @param {object} threadData
@@ -59,7 +71,22 @@ DiscussionPost.reopenClass({
 	 * @returns {Ember.Object}
 	 */
 	createFromThreadData(threadData) {
-		const post = DiscussionPost.create({
+		const openGraphDomain = this.extractDomainFromUrl('http://glee.wikia.com/wiki/Glee_TV_Show_Wiki'),
+			openGraphData = OpenGraph.create({
+				description: 'Some description',
+				domain: openGraphDomain,
+				exists: true,
+				id: 2702253634848394020,
+				imageHeight: 348,
+				imageUrl: 'https://i.ytimg.com/vi/ybQ__WdAqvE/hqdefault.jpg',
+				imageWidth: 464,
+				siteId: 26337,
+				siteName: '@Wikia',
+				title: 'Glee TV Show Wiki',
+				type: 'website',
+				url: 'http://glee.wikia.com/wiki/Glee_TV_Show_Wiki',
+			}),
+			post = DiscussionPost.create({
 				createdBy: DiscussionContributor.create(threadData.createdBy),
 				creationTimestamp: threadData.creationDate.epochSecond,
 				id: threadData.firstPostId,
@@ -68,20 +95,7 @@ DiscussionPost.reopenClass({
 				isNew: threadData.isNew,
 				isReported: threadData.isReported,
 				isRequesterBlocked: threadData.isRequesterBlocked,
-				hasOpenGraph: true,
-				openGraph: OpenGraph.create({
-					description: 'Some description',
-					domain: 'glee.wikia.com',
-					id: 2702253634848394020,
-					imageHeight: 348,
-					imageUrl: 'https://i.ytimg.com/vi/ybQ__WdAqvE/hqdefault.jpg',
-					imageWidth: 464,
-					siteId: 26337,
-					siteName: '@Wikia',
-					title: 'Glee TV Show Wiki',
-					type: 'website',
-					url: 'http://glee.wikia.com/wiki/Glee_TV_Show_Wiki',
-				}),
+				openGraph: openGraphData,
 				permalinkedReplyId: threadData.permalinkedReplyId,
 				rawContent: Ember.get(threadData, '_embedded.firstPost.0.rawContent'),
 				repliesCount: parseInt(threadData.postCount, 10),
