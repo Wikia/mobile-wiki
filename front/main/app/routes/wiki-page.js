@@ -152,7 +152,7 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 		}
 
 		setTrackContext({
-			a: model.get('title'),
+			a: model.get('id'),
 			n: model.get('ns')
 		});
 

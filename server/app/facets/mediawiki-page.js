@@ -105,6 +105,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	}
 
 	result.mediaWikiNamespace = ns;
+	result.articleId = pageData.details ? pageData.details.id : 0;
 
 	isContentNamespace = MediaWikiIsContentNamespace(ns, data.wikiVariables.contentNamespaces);
 
