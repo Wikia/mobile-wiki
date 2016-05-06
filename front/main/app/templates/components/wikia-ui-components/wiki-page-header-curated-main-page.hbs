@@ -1,0 +1,11 @@
+<h1 class="wiki-page-title">
+	{{mainPageName}}
+	{{#if showButtons}}
+		<div>
+			{{#link-to 'curatedContentEditor' bubbles=false class="main-page-edit"}}
+				{{svg 'pencil' role='img' class='icon pencil'}}
+				{{i18n 'app.curated-content-editor-edit-main-page'}}
+			{{/link-to}}
+		</div>
+	{{/if}}
+</h1>

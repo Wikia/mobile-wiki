@@ -30,7 +30,7 @@ export default Ember.Component.extend(
 	ViewportMixin,
 	{
 		imageAspectRatio: 16 / 9,
-		classNames: ['wikia-page-header'],
+		classNames: ['wiki-page-header'],
 		isMainPage: false,
 		mainPageName: Ember.get(Mercury, 'wiki.siteName'),
 		mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
