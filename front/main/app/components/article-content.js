@@ -58,6 +58,7 @@ export default Ember.Component.extend(
 
 					this.loadIcons();
 					this.createTableOfContents();
+					this.createContributionButtons();
 					this.handleTables();
 					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
@@ -75,9 +76,20 @@ export default Ember.Component.extend(
 			});
 		})),
 
-		headerObserver: Ember.observer('headers', function () {
+		createContributionButtons() {
 			if (this.get('contributionEnabled')) {
-				const headers = this.get('headers');
+				const headers = Ember.$('.article-content h2[section]').map((i, elem) => {
+						if (elem.textContent) {
+							return {
+								element: elem,
+								level: elem.tagName,
+								name: elem.textContent,
+								id: elem.id,
+								section: elem.getAttribute('section'),
+							};
+						}
+					}).toArray();
+
 				let $sectionHeader = null,
 					$contributionComponent = null;
 
@@ -88,7 +100,7 @@ export default Ember.Component.extend(
 					$contributionComponent.wrap('<div class="icon-wrapper"></div>');
 				});
 			}
-		}),
+		},
 
 		init() {
 			this._super(...arguments);

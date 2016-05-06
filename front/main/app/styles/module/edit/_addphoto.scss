@@ -43,8 +43,10 @@ $upload-icon-container-size: 48px;
 }
 
 .upload-photo {
-	display: inline-block;
+	align-items: center;
+	display: inline-flex;
 	height: $upload-icon-container-size;
+	justify-content: center;
 	overflow: hidden;
 	position: relative;
 	width: $upload-icon-container-size;
@@ -55,10 +57,7 @@ $upload-icon-container-size: 48px;
 	}
 
 	.icon {
-		bottom: 13px;
 		height: $upload-icon-height;
-		position: absolute;
-		right: 13px;
 		width: $upload-icon-width;
 	}
 
@@ -71,4 +70,9 @@ $upload-icon-container-size: 48px;
 		top: 0;
 		width: 100%;
 	}
+}
+
+h2[section] .upload-photo {
+  // align icon in the sections to the bottom of it's space
+  margin-bottom: -($upload-icon-container-size - $upload-icon-height) / 4;
 }

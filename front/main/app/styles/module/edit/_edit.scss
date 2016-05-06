@@ -13,17 +13,21 @@ $edit-icon-container-size: 48px;
 }
 
 .edit-section {
-	display: inline-block;
+	align-items: center;
+	display: inline-flex;
 	height: $edit-icon-container-size;
+	justify-content: center;
 	overflow: hidden;
 	position: relative;
 	width: $edit-icon-container-size;
 
 	.pencil {
-		bottom: 13px;
 		height: $edit-icon-size;
-		position: absolute;
-		right: 13px;
 		width: $edit-icon-size;
 	}
+}
+
+h2[section] .edit-section {
+	// align icon in the sections to the bottom of it's space
+	margin-bottom: -($edit-icon-container-size - $edit-icon-size) / 4;
 }
