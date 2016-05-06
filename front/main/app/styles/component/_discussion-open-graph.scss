@@ -10,7 +10,7 @@
 	color: $discussion-open-graph-title-color;
 }
 
-.og-domain {
+.og-site-name {
 	color: $discussion-open-graph-domain-color;
 }
 
@@ -31,7 +31,7 @@
 	margin: 22px 18px 0px;
 }
 
-.og-domain {
+.og-site-name {
 	font-size: $type-min;
 	line-height: $line-height-min;
 	margin: 0px 18px 22px;
@@ -54,7 +54,7 @@
 			line-height: $line-height-smaller;
 		}
 
-		.og-domain {
+		.og-site-name {
 			font-size: $type-smallest;
 			line-height: $line-height-smallest;
 		}
