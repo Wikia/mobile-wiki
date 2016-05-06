@@ -6,7 +6,9 @@ let cachedData = {};
  * @returns {void}
  */
 export function loadGlobalData() {
-	return $.get('/globals', (data) => cachedData = data);
+	return $.get('/globals', (data) => {
+		cachedData = data;
+	});
 }
 
 /**

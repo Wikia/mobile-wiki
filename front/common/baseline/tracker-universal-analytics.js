@@ -433,7 +433,7 @@ if (typeof window.M.tracker === 'undefined') {
 		initAccount(accountPrimary, domain);
 		initAccount(accountAds, domain);
 
-		if (Boolean(M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki)) {
+		if (M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki) {
 			initAccount(accountSpecial, domain);
 		}
 

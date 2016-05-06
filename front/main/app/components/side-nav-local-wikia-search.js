@@ -185,33 +185,36 @@ export default Ember.Component.extend(
 
 			this.startedRequest(query);
 
-			this.get('ajax').request(uri).then((data) => {
-				/**
-				 * If the user makes one request, request A, and then keeps typing to make
-				 * reqeust B, but request A takes a long time while request B returns quickly,
-				 * then we don't want request A to dump its info into the window after B has
-				 * already inserted the relevant information.
-				 */
-				if (query === this.get('query')) {
-					this.setSearchSuggestionItems(data.items);
-				}
+			this.get('ajax').request(uri)
+				.then((data) => {
+					/**
+					 * If the user makes one request, request A, and then keeps typing to make
+					 * reqeust B, but request A takes a long time while request B returns quickly,
+					 * then we don't want request A to dump its info into the window after B has
+					 * already inserted the relevant information.
+					 */
+					if (query === this.get('query')) {
+						this.setSearchSuggestionItems(data.items);
+					}
 
-				this.cacheResult(query, data.items);
-			}).catch(() => {
-				// When we get a 404, it means there were no results
-				if (query === this.get('query')) {
-					this.setEmptySearchSuggestionItems();
-				}
+					this.cacheResult(query, data.items);
+				})
+				.catch(() => {
+					// When we get a 404, it means there were no results
+					if (query === this.get('query')) {
+						this.setEmptySearchSuggestionItems();
+					}
 
-				this.cacheResult(query);
-			}).finally(() => {
-				// We have a response, so we're no longer loading the results
-				if (query === this.get('query')) {
-					this.set('isLoadingSearchResults', false);
-				}
+					this.cacheResult(query);
+				})
+				.finally(() => {
+					// We have a response, so we're no longer loading the results
+					if (query === this.get('query')) {
+						this.set('isLoadingSearchResults', false);
+					}
 
-				this.endedRequest(query);
-			});
+					this.endedRequest(query);
+				});
 		},
 
 		/**

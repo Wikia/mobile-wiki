@@ -33,6 +33,7 @@ export default Ember.Service.extend({
 	/**
 	 * Changes numeral locale. By default it's English which is always preloaded.
 	 *
+	 * @param {string} [locale='en']
 	 * @return {void}
 	 */
 	setLocale(locale = 'en') {

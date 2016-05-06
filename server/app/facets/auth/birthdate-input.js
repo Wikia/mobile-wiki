@@ -101,6 +101,7 @@ export default class BirthdateInput {
 				return [data.month, data.day, data.year];
 			case 'little':
 				// covered by default block
+				// eslint-disable no-fallthrough
 			default:
 				return [data.day, data.month, data.year];
 		}
