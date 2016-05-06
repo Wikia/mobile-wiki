@@ -4,10 +4,10 @@
 			{{#if isMainPage}}
 				<h1 class="wiki-page-header__title">{{mainPageName}}</h1>
 			{{else}}
-				<h2 class="wiki-page-header__site-name" {{action 'trackClick'}}>
+				<h2 class="wiki-page-header__site-name-block" {{action 'trackClick'}}>
 					{{i18n 'app.header-in-wiki-name-label-prefix'}}
 					{{#link-to 'wiki-page' mainPageTitle title=mainPageName class='wiki-page-header__site-link'}}
-						{{mainPageName}}
+						<span class="wiki-page-header__site-name">{{mainPageName}}</span>
 						{{i18n 'app.header-in-wiki-name-label-suffix'}}
 						{{svg 'arrow-right-long'}}
 					{{/link-to}}

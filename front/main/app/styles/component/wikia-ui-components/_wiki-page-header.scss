@@ -28,7 +28,7 @@
 	margin: 0;
 }
 
-.wiki-page-header__site-name {
+.wiki-page-header__site-name-block {
 	@extend %wiki-page-header-element;
 
 	font-size: 12px;
@@ -47,6 +47,9 @@
 
 .wiki-page-header__site-link {
 	color: inherit;
+}
+
+.wiki-page-header__site-name {
 	font-style: italic;
 	font-weight: bold;
 }
@@ -60,7 +63,7 @@
 	word-break: break-word;
 }
 
-.wiki-page-header__site-name ~ .wiki-page-header__title {
+.wiki-page-header__site-name-block ~ .wiki-page-header__title {
 	margin-top: 3px;
 }
 
