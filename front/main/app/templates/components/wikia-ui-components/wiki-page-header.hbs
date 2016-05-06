@@ -6,9 +6,11 @@
 			{{else}}
 				<h2 class="wiki-page-header__site-name" {{action 'trackClick'}}>
 					{{i18n 'app.header-in-wiki-name-label-prefix'}}
-					{{link-to mainPageName 'wiki-page' mainPageTitle alt=mainPageName class='wiki-page-header__site-link'}}
-					{{i18n 'app.header-in-wiki-name-label-suffix'}}
-					{{svg 'arrow-right-long'}}
+					{{#link-to 'wiki-page' mainPageTitle title=mainPageName class='wiki-page-header__site-link'}}
+						{{mainPageName}}
+						{{i18n 'app.header-in-wiki-name-label-suffix'}}
+						{{svg 'arrow-right-long'}}
+					{{/link-to}}
 				</h2>
 				<h1 class="wiki-page-header__title">{{title}}</h1>
 				{{#if subtitle}}

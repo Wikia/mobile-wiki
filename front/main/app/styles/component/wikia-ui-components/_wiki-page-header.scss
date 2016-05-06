@@ -39,6 +39,10 @@
 		vertical-align: middle;
 		width: 11px;
 	}
+
+	a:hover svg {
+		fill: #081e3a;
+	}
 }
 
 .wiki-page-header__site-link {
