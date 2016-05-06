@@ -6,7 +6,7 @@
     "clean": "rm -rf www/* node_modules/ front/auth/bower_components/ front/common/bower_components/ front/main/bower_components/ front/main/node_modules/ server/node_modules/",
     "clean-deep": "npm run clean && npm cache clean && bower cache clean",
     "setup": "npm run setup-root && npm run setup-common && npm run setup-auth && npm run setup-main && npm run setup-server",
-    "setup-for-local": "npm install -g bower gulp@3.x.x ember-cli@2.4.3 eslint@2.9.0 babel-eslint@6.0.4",
+    "setup-for-local": "npm install -g bower gulp@3.x.x ember-cli@2.4.3",
     "setup-root": "npm install",
     "setup-common": "cd front/common && bower update",
     "setup-auth": "cd front/auth && bower update",
