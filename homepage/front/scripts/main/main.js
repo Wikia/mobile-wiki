@@ -3,7 +3,6 @@ import {loadSearch} from './search';
 
 /**
  * Perform search
- *
  * @returns {void}
  */
 function search(isTopNav = true) {
