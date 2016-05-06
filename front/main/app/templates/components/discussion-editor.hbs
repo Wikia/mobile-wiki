@@ -25,10 +25,10 @@
 		</div>
 	{{/if}}
 	<label class="editor-label editor-label-mobile">{{i18n labelText ns='discussion'}}</label>
-	<span class="error {{unless errorMessage 'slided-out'}}">
-		{{#if errorMessage}}
+
+	{{#if errorMessage}}
+		<span class="error">
 			{{i18n errorMessage ns='discussion'}}
-		{{/if}}
-		&nbsp;
-	</span>
+		</span>
+	{{/if}}
 </div>

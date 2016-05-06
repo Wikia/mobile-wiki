@@ -33,24 +33,20 @@ $editor-textarea-overflow-ios-hack: 30px;
 
 	span {
 		&.error {
+			animation: error-slide-in .6s ease-in-out 1, error-slide-out .6s ease-in-out 2.4s;
 			background-color: rgba($discussion-editor-error-background-color, .95);
 			bottom: $editor-toolbar-height;
 			color: $discussion-editor-error-text-color;
 			font-size: $type-smallest;
-			max-height: 72px;
+			max-height: 2 * $line-height-larger;
 			line-height: $line-height-larger;
 			margin: 0;
 			overflow: hidden;
 			padding: 0;
 			position: absolute;
 			text-align: center;
-			transition: max-height .6s ease-in-out;
 			width: 100%;
 			z-index: $z-discussion-editor + 1;
-
-			&.slided-out {
-				max-height: 0;
-			}
 		}
 	}
 
@@ -284,5 +280,25 @@ $editor-textarea-overflow-ios-hack: 30px;
 .discussion-editor-dialog {
 	.modal-dialog {
 		max-width: $modal-editor-width;
+	}
+}
+
+@keyframes error-slide-in {
+	from {
+		max-height: 0;
+	}
+
+	to {
+		max-height: 2 * $line-height-larger;
+	}
+}
+
+@keyframes error-slide-out {
+	from {
+		max-height: 2 * $line-height-larger;
+	}
+
+	to {
+		max-height: 0;
 	}
 }
