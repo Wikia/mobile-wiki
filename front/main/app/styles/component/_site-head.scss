@@ -7,9 +7,8 @@ $icon-size: 25px;
 }
 
 .site-head {
-	@extend .row;
-	@extend .small-12;
-	background-color: rgb(255, 255, 255);
+	background-color: $white;
+	border-top: $site-head-top-border-height solid $color-blue-dark;
 	border-bottom: 1px solid $color-blue-gray-light;
 	direction: ltr;
 	display: flex;
@@ -39,7 +38,7 @@ $icon-size: 25px;
 		// These prevent the Wikia logo element from taking up more vertical
 		// space than it should, potentially affecting placement of elements
 		// beneath it.
-		height: rem-calc(50);
+		height: $site-head-content-height;
 		margin: auto;
 		order: 2;
 		overflow: hidden;
@@ -70,10 +69,6 @@ $icon-size: 25px;
 		right: 6px;
 		top: 6px;
 	}
-}
-
-.site-head-wrapper {
-	height: $site-head-height;
 }
 
 .side-nav-toggle {
