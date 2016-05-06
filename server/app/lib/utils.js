@@ -10,7 +10,6 @@ import {RedirectedToCanonicalHost} from './custom-errors';
 /**
  * @typedef {Object} ServerData
  * @property {string} mediawikiDomain
- * @property {string} apiBase
  * @property {string} environment
  * @property {string} cdnBaseURL
  * @property {string} gaUrl
@@ -240,7 +239,6 @@ export function createServerData(localSettings, wikiDomain = '') {
 	const env = localSettings.environment || Environment.Dev,
 		data = {
 			mediawikiDomain: getWikiDomainName(localSettings, wikiDomain),
-			apiBase: localSettings.apiBase,
 			environment: getEnvironmentString(env),
 			cdnBaseUrl: getCDNBaseUrl(localSettings),
 			gaUrl: localSettings.tracking.ua.scriptUrl
