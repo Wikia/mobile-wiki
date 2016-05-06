@@ -119,11 +119,12 @@ export default class Login {
 	}
 
 	/**
+	 * @param {Object} response
 	 * @returns {void}
 	 */
-	onLoginSuccess() {
+	onLoginSuccess(response) {
 		this.tracker.track('login-success', trackActions.submit);
-		AuthUtils.authSuccessCallback(this.redirect);
+		AuthUtils.authSuccessCallback(this.redirect, response.user_id);
 	}
 
 	/**
