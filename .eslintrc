@@ -53,7 +53,7 @@
     "dot-location": [2, "property"],
     "eqeqeq": 2,
     "guard-for-in": 2,
-    "newline-per-chained-call": [2, {"ignoreChainWithDepth": 3}],
+    "newline-per-chained-call": 0,
     "no-alert": 0,
     "no-caller": 2,
     "no-div-regex": 2,

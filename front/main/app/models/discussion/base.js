@@ -94,22 +94,19 @@ export default Ember.Object.extend({
 		entity.set('userData.hasUpvoted', !hasUpvoted);
 
 		request(M.getDiscussionServiceUrl(`/${Ember.get(Mercury, 'wiki.id')}/votes/post/${entity.get('id')}`), {
-			method
-		})
-			.then((data) => {
-				entity.set('upvoteCount', data.upvoteCount);
+			method,
+		}).then((data) => {
+			entity.set('upvoteCount', data.upvoteCount);
 
-				if (hasUpvoted) {
-					track(trackActions.UndoUpvotePost);
-				} else {
-					track(trackActions.UpvotePost);
-				}
-			})
-			.catch(() => {
-				entity.set('userData.hasUpvoted', hasUpvoted);
-			})
-			.finally(() => {
-				this.upvotingInProgress[entityId] = false;
-			});
+			if (hasUpvoted) {
+				track(trackActions.UndoUpvotePost);
+			} else {
+				track(trackActions.UpvotePost);
+			}
+		}).catch(() => {
+			entity.set('userData.hasUpvoted', hasUpvoted);
+		}).finally(() => {
+			this.upvotingInProgress[entityId] = false;
+		});
 	}
 });
