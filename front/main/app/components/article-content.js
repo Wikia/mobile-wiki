@@ -3,6 +3,7 @@ import InfoboxImageCollectionComponent from './infobox-image-collection';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {track, trackActions} from 'common/utils/track';
+import {getGroup} from '../../../common/modules/abtest';
 
 /**
  * HTMLElement
@@ -59,6 +60,8 @@ export default Ember.Component.extend(
 					this.loadIcons();
 					this.loadTableOfContentsData();
 					this.handleTables();
+					// TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
+					this.handleNavigation();
 					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 					this.replaceWikiaWidgetsWithComponents();
@@ -596,6 +599,38 @@ export default Ember.Component.extend(
 
 					$element.wrap(wrapper);
 				});
+		},
+
+		/**
+		 * TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
+		 * by default all nav elements are now hidden in css by display:none;
+		 * according to current test group we want to un-hide some of the elements:
+		 *  - only navigation elements
+		 *  - only navboxes
+		 *  - both of them
+		 *
+		 * @returns {void}
+		 */
+		handleNavigation() {
+			let navABTestGroup = getGroup('MERCURY_NAVIGATION_ELEMENTS');
+
+			switch(navABTestGroup) {
+				case 'NAVIGATION_HIDDEN': // display only navboxes
+					this.$('[data-type=navbox]').each((index, element) => {
+							this.$(element).style.display='block';
+						});
+					break;
+				case 'NAVBOXES_HIDDEN': // display only navigation
+					this.$('[data-type=navigation]').each((index, element) => {
+							this.$(element).style.display='block';
+						});
+					break;
+				case 'BOTH_SHOWN': // display all of them
+					this.$('[data-type^=nav]').each((index, element) => {
+							this.$(element).style.display='block';
+						});
+					break;
+			}
 		},
 
 		/**
