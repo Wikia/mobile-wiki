@@ -1,9 +1,11 @@
+import Ember from 'ember';
+
 export default Ember.Service.extend(Ember.Evented, {
 	isAnon: true,
 	isEditorOpen: false,
 	isUserBlocked: false,
 
-	modalDialogService: Ember.inject.service('modal-dialog'),
+	modalDialog: Ember.inject.service(),
 
 	shouldStopLoading: false,
 
@@ -29,7 +31,7 @@ export default Ember.Service.extend(Ember.Evented, {
 	 * @returns {void}
 	 */
 	openDialog(message) {
-		this.get('modalDialogService').display(i18n.t(message, {ns: 'discussion'}));
+		this.get('modalDialog').display(i18n.t(message, {ns: 'discussion'}));
 	},
 
 	/**

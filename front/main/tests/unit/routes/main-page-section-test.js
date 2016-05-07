@@ -30,8 +30,17 @@ test('sets controller properties', function (assert) {
 		ns = 0,
 		transitionMock = {
 			then: () => {}
-		};
+		},
+		removeServerTagsMock = Ember.K,
+		setStaticHeadTagsMock = Ember.K,
+		setDynamicHeadTagsMock = Ember.K;
 
+	// Mock methods from head-tags::afterModel() mixin
+	routeMock.setProperties({
+		removeServerTags: removeServerTagsMock,
+		setStaticHeadTags: setStaticHeadTagsMock,
+		setDynamicHeadTags: setDynamicHeadTagsMock
+	});
 
 	M = {
 		prop(propName) {

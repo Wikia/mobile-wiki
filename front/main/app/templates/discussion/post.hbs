@@ -1,5 +1,7 @@
 {{#discussion-post-details-layout
+	deleteAllPosts=(action 'deleteAllPosts')
 	model=model.data
+	smartBannerVisible=smartBannerVisible
 }}
 	{{discussion-post
 		approve=(action 'approve')
@@ -7,7 +9,8 @@
 		deleteAllPosts=(action 'deleteAllPosts')
 		deletePost=(action 'deletePost')
 		deleteReply=(action 'deleteReply')
-		loadMoreComments=(action 'loadMoreComments')
+		loadNewerReplies=(action 'loadNewerReplies')
+		loadOlderReplies=(action 'loadOlderReplies')
 		lockPost=(action 'lockPost')
 		model=model.data
 		report=(action 'report')

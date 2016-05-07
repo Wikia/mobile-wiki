@@ -1,10 +1,9 @@
 import Ember from 'ember';
-import ColorUtilsMixin from './color-utils';
 
 /**
  * Sets the theme class for the body. For now only for dark theme, because the light is default.
  */
-export default Ember.Mixin.create(ColorUtilsMixin, {
+export default Ember.Mixin.create({
 	themeActivated: null,
 	themeColors: null,
 	themeLoadingInitialized: null,
@@ -51,12 +50,26 @@ export default Ember.Mixin.create(ColorUtilsMixin, {
 	},
 
 	/**
+	 * Changes discussion header color if HSL Luminance is above 0.7
+	 * @param {Object} color
+	 * @returns {string}
+	 */
+	getHeaderColor(color) {
+		const defaultColor = '#ffffff',
+			luminanceThreshold = 0.7,
+			fallbackColor = '#1a1a1a';
+
+		return (color.getLuminance() < luminanceThreshold) ? defaultColor : fallbackColor;
+	},
+	/**
 	 * Sets inline styles with the theme colors
 	 * @returns {void}
 	 */
 	applyThemeColorStyles() {
 		const styleId = 'discussionInlineStyles';
-		let inlineStyles,
+		let discussionHeaderColor,
+			heroImageRgbColor,
+			inlineStyles,
 			styles = '';
 
 		if (Ember.$(`#${styleId}`).length) {
@@ -69,11 +82,15 @@ export default Ember.Mixin.create(ColorUtilsMixin, {
 			return;
 		}
 
+		heroImageRgbColor = tinycolor(this.get('themeColors.color-buttons')).setAlpha(0.8);
+		discussionHeaderColor = this.getHeaderColor(heroImageRgbColor);
+
 		styles += `.discussions .border-theme-color {border-color: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .background-theme-color {background-color: ${this.get('themeColors.color-buttons')};}`;
-		styles += '.discussions .background-alpha-theme-color {background-color: ' +
-			`${this.getRgbaColor(this.hexToRgb(this.get('themeColors.color-buttons'), 0.8))};}`;
-
+		styles += `.discussions .background-alpha-theme-color {background-color: ${heroImageRgbColor.toRgbString()};}`;
+		styles += '.discussions .discussion-hero-unit .discussion-hero-unit-content h1,' +
+			'.discussions .discussion-hero-unit .discussion-hero-unit-content p,' +
+			`.discussion-header h1 {color: ${discussionHeaderColor};}`;
 		styles += `.discussion a, .discussion .url, .discussions .header-text-theme-color {color: ${
 			this.get('themeColors.color-links')};}`;
 		styles += `.discussions .active-element-background-color {background-color: ${

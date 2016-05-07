@@ -128,7 +128,7 @@ export default class SignupForm {
 			label: VisitSourceWrapper.lifetimeVisitSource.get()
 		});
 
-		AuthUtils.authSuccessCallback(this.redirect);
+		AuthUtils.authSuccessCallback(this.redirect, userId);
 	}
 
 	/**
@@ -221,6 +221,7 @@ export default class SignupForm {
 	 * @returns {void}
 	 */
 	watch() {
+		this.tracker.trackCloseWindow();
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 	}
 }

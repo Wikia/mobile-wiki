@@ -9,8 +9,7 @@ const articleExample = {
 				},
 				comments: 123,
 				id: 123,
-				ns: 'namespace',
-				title: 'sampleTitle'
+				ns: 'namespace'
 			},
 			article: {
 				content: 'TestContent',
@@ -101,23 +100,6 @@ moduleFor('model:wiki/article', 'Integration | Model | wiki/article', {
 	afterEach() {
 		Ember.$('#ember-testing').html('');
 	}
-});
-
-test('ArticleModel RESTful URL tests', (assert) => {
-	const tests = [{
-		title: ''
-	}, {
-		title: 'bar'
-	}, {
-		title: 'hippopotamus'
-	}];
-
-	tests.forEach((test) => {
-		const url = articleModelClass.url(test),
-			expected = `/api/mercury/article/${test.title}`;
-
-		assert.equal(url, expected, `url returned: "${url}", expected: "${expected}"`);
-	});
 });
 
 test('getPreloadedData', (assert, undef) => {

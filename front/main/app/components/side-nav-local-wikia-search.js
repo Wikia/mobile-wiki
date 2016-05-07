@@ -13,6 +13,7 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	{
+		ajax: Ember.inject.service(),
 		query: '',
 
 		/**
@@ -47,25 +48,6 @@ export default Ember.Component.extend(
 		// key: query string, value: Array<SearchSuggestionItem>
 		cachedResults: {},
 
-		/**
-		 * We should never change properties on components during
-		 * didRender because it causes significant performance degradation.
-		 *
-		 * This is temporary change for nav entry points AB test - https://wikia-inc.atlassian.net/browse/DAT-4052
-		 * TODO: cleanup as a part of https://wikia-inc.atlassian.net/browse/DAT-4064
-		 * @returns {void}
-		 */
-		didRender() {
-			this._super(...arguments);
-			if (this.get('shouldFocusInput')) {
-				Ember.run.scheduleOnce('afterRender', this, 'focusSearchInput');
-			}
-		},
-
-		focusSearchInput() {
-			this.$('.side-search__input').get(0).focus();
-		},
-
 		actions: {
 			enter(value) {
 				track({
@@ -87,7 +69,7 @@ export default Ember.Component.extend(
 
 			clearSearch() {
 				this.set('query', null);
-				this.focusSearchInput();
+				this.$('.side-search__input').focus();
 			},
 
 			searchSuggestionClick() {
@@ -171,7 +153,14 @@ export default Ember.Component.extend(
 		 * @returns {string}
 		 */
 		getSearchURI(query) {
-			return `${M.prop('apiBase')}/search/${encodeURIComponent(query)}`;
+			return M.buildUrl({
+				path: '/wikia.php',
+				query: {
+					controller: 'MercuryApi',
+					method: 'getSearchSuggestions',
+					query
+				}
+			});
 		},
 
 		/**
@@ -196,7 +185,7 @@ export default Ember.Component.extend(
 
 			this.startedRequest(query);
 
-			Ember.$.getJSON(uri).then((data) => {
+			this.get('ajax').request(uri).then((data) => {
 				/**
 				 * If the user makes one request, request A, and then keeps typing to make
 				 * reqeust B, but request A takes a long time while request B returns quickly,
@@ -208,14 +197,14 @@ export default Ember.Component.extend(
 				}
 
 				this.cacheResult(query, data.items);
-			}).fail(() => {
+			}).catch(() => {
 				// When we get a 404, it means there were no results
 				if (query === this.get('query')) {
 					this.setEmptySearchSuggestionItems();
 				}
 
 				this.cacheResult(query);
-			}).always(() => {
+			}).finally(() => {
 				// We have a response, so we're no longer loading the results
 				if (query === this.get('query')) {
 					this.set('isLoadingSearchResults', false);

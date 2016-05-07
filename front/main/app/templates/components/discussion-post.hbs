@@ -22,8 +22,8 @@
 			totalContributorCount=model.contributors.count
 		}}
 	</div>
-	{{#if canShowMore}}
-		<button {{action this.attrs.loadMoreComments}} class="see-more active-element-theme-color">
+	{{#if canShowOlder}}
+		<button {{action this.attrs.loadOlderReplies}} class="load-older active-element-theme-color">
 			{{svg 'comments' viewBox='0 0 30 30' class='icon replies'}}
 			{{i18n 'main.pagination-post-show-more' ns='discussion'}}
 		</button>
@@ -41,6 +41,7 @@
 			isParentDeleted=model.isDeleted
 			report=(action this.attrs.report)
 			post=entity
+			permalinkedReplyId=model.permalinkedReplyId
 			timestamp=entity.creationTimestamp
 			undelete=(action this.attrs.undeleteReply)
 			upvote=(action this.attrs.upvote)
@@ -54,6 +55,20 @@
 			</div>
 		{{/if}}
 	{{/each}}
+	{{#if canShowNewer}}
+		<button {{action this.attrs.loadNewerReplies}}
+			class="load-newer active-element-theme-color
+			{{if isFloatingButton 'floating' 'wide'}}
+			{{if isFloatingButtonBottomSpace 'bottom-space'}}
+			{{unless canReply 'no-editor'}}">
+			{{#if isFloatingButton}}
+				{{svg 'down-small' viewBox='0 0 10 12' class='icon down-small'}}
+				{{i18n 'main.pagination-post-show-new-replies' ns='discussion'}}
+			{{else}}
+				{{i18n 'main.pagination-post-show-newer-replies' ns='discussion'}}
+			{{/if}}
+		</button>
+	{{/if}}
 	{{#if canReply}}
 		{{discussion-reply-editor
 			create=(action this.attrs.create)
