@@ -96,6 +96,18 @@ export function getUserRegistrationUrl(path) {
 }
 
 /**
+ * @param {string} path
+ * @returns {string}
+ */
+export function getUserPreferencesUrl(path) {
+	return url.format({
+		protocol: 'https',
+		host: localSettings.servicesDomain,
+		pathname: localSettings.userPreferencesService.baseAPIPath + path
+	});
+}
+
+/**
  * @returns {string}
  */
 export function getWhoAmIUrl() {
