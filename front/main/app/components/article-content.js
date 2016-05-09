@@ -466,8 +466,7 @@ export default Ember.Component.extend(
 
 			infoboxComponentElement = this.createChildView(infoboxComponent).createElement();
 
-			this.$().prepend(infoboxComponentElement.$());
-			$infoboxPlaceholder.remove();
+			$infoboxPlaceholder.replaceWith(infoboxComponentElement.$());
 
 			infoboxComponentElement.trigger('didInsertElement');
 		},
