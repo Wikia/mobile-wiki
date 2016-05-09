@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
-	siteHeadPinned: Ember.computed.oneWay('application.siteHeadPinned'),
 	queryParams: ['rc'],
 	rc: null,
 
@@ -19,6 +18,6 @@ export default Ember.Controller.extend({
 				message: i18n.t(messageKey, {ns: 'recent-wiki-activity'}),
 				type: 'alert'
 			});
-		},
+		}
 	}
 });
