@@ -276,11 +276,14 @@ export default Ember.Component.extend(ViewportMixin, {
 				this.get('discussionEditor').set('isLoading', true);
 
 				if (this.get('isEdit')) {
-					const action = this.get('discussionEditor.discussionEntity.isReply') ? 'editReply' : 'editPost';
+					const action = this.get('discussionEditor.discussionEntity.isReply') ? 'editReply' : 'editPost',
+						discussionEntity = this.get('discussionEditor.discussionEntity');
 
 					this.attrs[action]({
 						body: this.get('bodyText'),
-						id: this.get('discussionEditor.discussionEntity.id')
+						id: discussionEntity.get('isReply') ?
+							discussionEntity.get('id') :
+							discussionEntity.get('threadId')
 					});
 				} else {
 					this.attrs.create({
