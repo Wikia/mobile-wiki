@@ -44,8 +44,14 @@ export default Ember.Route.extend(
 			/*
 			 * @returns {boolean}
 			 */
-			willTransition() {
-				this.controllerFor('application').set('noMargins', false);
+			willTransition(params) {
+				const isDiscussionRoute = params.handlerInfos.some((item) => {
+					return item.name === 'discussion';
+				});
+
+				if (!isDiscussionRoute) {
+					this.controllerFor('application').set('noMargins', false);
+				}
 
 				return true;
 			},
