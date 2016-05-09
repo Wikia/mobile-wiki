@@ -79,16 +79,16 @@ export default Ember.Component.extend(
 		createContributionButtons() {
 			if (this.get('contributionEnabled')) {
 				const headers = Ember.$('.article-content h2[section]').map((i, elem) => {
-						if (elem.textContent) {
-							return {
-								element: elem,
-								level: elem.tagName,
-								name: elem.textContent,
-								id: elem.id,
-								section: elem.getAttribute('section'),
-							};
-						}
-					}).toArray();
+					if (elem.textContent) {
+						return {
+							element: elem,
+							level: elem.tagName,
+							name: elem.textContent,
+							id: elem.id,
+							section: elem.getAttribute('section'),
+						};
+					}
+				}).toArray();
 
 				let $sectionHeader = null,
 					$contributionComponent = null;
