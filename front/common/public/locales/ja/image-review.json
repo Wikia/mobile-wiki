@@ -1,0 +1,18 @@
+{
+  "main":{
+    "head":"画像の確認",
+    "description":"削除する必要があるか問題あり（要スタッフ審査）と思われる画像は、クリックしてマークを付けます。このバッチが完了したら、下の「確認」をクリックすると次のバッチを取得できます。",
+    "error-no-access-permissions":"このページを表示する権限をお持ちでないようです",
+    "error-other":"画像の確認画面を読み込めません",
+    "error-invalid-data":"Image Review APIから無効なデータが返されました",
+    "error-no-more-images":"これ以上画像はありません",
+    "review-and-get-more":"確認して次のバッチを取得",
+    "get-flagged":"フラグ付きを取得",
+    "images-to-review-count":"残りの確認が必要な画像：",
+    "image-context":"コンテキスト：",
+    "image-context-not-provided":"コンテキストはありません",
+    "status-accepted":"わかりました。",
+    "status-flagged":"問題あり",
+    "status-rejected":"削除"
+  }
+}
