@@ -42,6 +42,8 @@ export default Ember.Route.extend(
 			},
 
 			/*
+			 * When leaving discussion app, remove noMargins flag, so the other (mobile-only)
+			 * apps have default margins set and a container added
 			 * @returns {boolean}
 			 */
 			willTransition(params) {
