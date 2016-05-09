@@ -1,5 +1,9 @@
-export default Ember.Service.extend({
-	adsContext: Ember.computed({
+import Ember from 'ember';
+
+const {Service, computed} = Ember;
+
+export default Service.extend({
+	adsContext: computed({
 		get() {
 			return M.prop('mainPageData.adsContext');
 		},
@@ -8,7 +12,7 @@ export default Ember.Service.extend({
 		}
 	}),
 
-	ns: Ember.computed({
+	ns: computed({
 		get() {
 			return M.prop('mainPageData.details.ns');
 		},
@@ -17,9 +21,18 @@ export default Ember.Service.extend({
 		}
 	}),
 
-	description: Ember.computed({
+	description: computed({
 		get() {
 			return M.prop('mainPageData.details.description');
+		},
+		set(_, value) {
+			return value;
+		}
+	}),
+
+	id: computed({
+		get() {
+			return M.prop('mainPageData.details.id');
 		},
 		set(_, value) {
 			return value;
