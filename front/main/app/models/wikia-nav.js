@@ -73,7 +73,7 @@ export default Object.extend({
 		return this.get('inExploreNav') &&
 			this.get('exploreWikiaLinks').map((item) => {
 				return {
-					type: 'side-nav-menu-external',
+					type: 'nav-menu-external',
 					href: item.href,
 					name: item.textEscaped,
 					trackLabel: `open-${item.trackingLabel}`
@@ -86,7 +86,7 @@ export default Object.extend({
 			this.get('wikiLang') === 'en' &&
 			this.get('hubsLinks').map((item) => {
 				return {
-					type: 'side-nav-menu-external',
+					type: 'nav-menu-external',
 					className: item.specialAttr,
 					href: item.href,
 					name: item.textEscaped,
@@ -99,7 +99,7 @@ export default Object.extend({
 		return this.get('inRoot') &&
 			this.get('exploreWikiaLinks.length') &&
 			[{
-				type: 'side-nav-menu-root',
+				type: 'nav-menu-root',
 				index: 0,
 				name: this.get('exploreWikiaLabel'),
 				trackLabel: 'open-explore-wikia'
@@ -110,7 +110,7 @@ export default Object.extend({
 		return this.get('inRoot') &&
 			this.get('wikiName') &&
 			[{
-				type: 'side-nav-menu-header',
+				type: 'nav-menu-header',
 				name: i18n.t('app.explore-wiki', {wikiName: this.get('wikiName')})
 			}] || [];
 	}),
@@ -118,7 +118,7 @@ export default Object.extend({
 	recentActivityItem: computed('inRoot', function () {
 		return this.get('inRoot') &&
 			[{
-				type: 'side-nav-menu-item',
+				type: 'nav-menu-item',
 				route: 'recent-wiki-activity',
 				name: i18n.t('main.title', {ns: 'recent-wiki-activity'}),
 				trackCategory: 'recent-wiki-activity',
@@ -130,7 +130,7 @@ export default Object.extend({
 		return !this.get('inExploreNav') &&
 			this.get('currentLocalLinks').map((item, index) => {
 				return {
-					type: Boolean(item.children) ? 'side-nav-menu-root' : 'side-nav-menu-item',
+					type: Boolean(item.children) ? 'nav-menu-root' : 'nav-menu-item',
 					href: item.href.replace(/^(\/wiki)?\//i, ''),
 					route: 'wiki-page',
 					name: item.text,
@@ -143,7 +143,7 @@ export default Object.extend({
 	randomPageItem: computed('inRoot', function () {
 		return this.get('inRoot') &&
 			[{
-				type: 'side-nav-menu-item',
+				type: 'nav-menu-item',
 				name: i18n.t('app.random-page-label'),
 				trackLabel: 'random-page',
 				actionId: 'onRandomPageClick'

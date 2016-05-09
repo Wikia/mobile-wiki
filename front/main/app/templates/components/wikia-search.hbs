@@ -1,4 +1,4 @@
-<div class="side-nav-menu__item search">
+<div class="side-search__item search">
 	<div class="side-search__container">
 		{{input
 			class='side-search__input'
@@ -14,14 +14,14 @@
 </div>
 <ul class="side-search__results">
 	{{#each suggestions as |suggestion|}}
-		<li class="side-nav-menu__item search-result mw-content">
+		<li class="side-search__item search-result mw-content">
 			{{#link-to 'wiki-page' suggestion.uri action='searchSuggestionClick'}}
 				{{suggestion.title}}
 			{{/link-to}}
 		</li>
 	{{else}}
 		{{#if isLoadingSearchResults}}
-			<li class="side-nav-menu__item search-result loading">
+			<li class="side-search__item search-result loading">
 				{{i18n 'app.search-loading-msg'}}
 			</li>
 		{{/if}}

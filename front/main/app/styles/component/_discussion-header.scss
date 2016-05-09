@@ -117,7 +117,7 @@ $site-header-height: 50px;
 }
 
 .discussions {
-	.side-nav .side-nav-menu {
+	.side-nav .side-nav-drawer {
 		@media #{$desktop-range} {
 			width: 25%;
 			max-width: 350px;

@@ -1,0 +1,77 @@
+.side-search__item {
+	color: inherit;
+	display: block;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 3.125rem;
+	padding: 0 1rem;
+	position: relative;
+	background-color: #636b76;
+	margin-top: 0;
+
+	&:hover,
+	&:visited,
+	> a,
+	> a:hover,
+	> a:visited,
+	> a:focus {
+		color: inherit;
+	}
+
+	.side-search__input,
+	.side-search__input:focus {
+		background-color: $color-white;
+		border: 1px solid $search-box-border-color;
+		border-radius: $border-radius-global;
+		height: rem-calc(28);
+		margin: rem-calc(8) rem-calc(13);
+		outline: none;
+		padding: {
+			bottom: .5rem;
+			left: rem-calc(95);
+			right: rem-calc(40);
+			top: .5rem;
+		}
+		width: calc(100% - #{2 * $side-nav-item-gutter});
+
+		&::placeholder {
+			color: $search-box-text-color;
+		}
+	}
+
+	.side-search__container {
+		flex-grow: 1;
+		margin-left: 10px;
+		position: relative;
+
+		input[type='text'],
+		input[type='text']:focus {
+			all: unset;
+			background: transparent;
+			border: 0;
+			box-shadow:none;
+			color: #8f8e94;
+			font: inherit;
+			margin: 0;
+			padding: 0;
+			width: calc(100% - 35px);
+		}
+	}
+
+	$side-nav-clear-size: 30px;
+	.side-search__clear {
+		//divide by 2 to accommodate for width
+		//and again by 2 as padding is on left and right
+		padding: 0 $side-nav-clear-size / 4;
+		position: absolute;
+		right: 10px;
+		top: 0;
+		width: $side-nav-clear-size;
+	}
+}
+
+.side-search__results {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}

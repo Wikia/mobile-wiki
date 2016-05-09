@@ -1,0 +1,90 @@
+.nav-menu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	a {
+		display: block;
+		width: 100%;
+		color: inherit;
+	}
+
+	.nav-menu__item {
+		color: inherit;
+		display: block;
+		font-size: 20px;
+		font-weight: bold;
+		line-height: 3.125rem;
+		margin: .125rem 0;
+		padding: 0 1rem;
+		position: relative;
+
+		&:hover,
+		&:visited,
+		> a,
+		> a:hover,
+		> a:visited,
+		> a:focus {
+			color: inherit;
+		}
+
+		&::before {
+			background: $link-color;
+			content: ' ';
+			display: block;
+			height: 100%;
+			left: 0;
+			position: absolute;
+			width: .5rem;
+		}
+
+		&.nav-menu__header {
+			background-color: #636b76;
+			margin-top: 0;
+
+			&::before {
+				display: none;
+			}
+		}
+
+		&.nav-menu__root {
+			background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23656D77%22%20fill-rule%3D%22evenodd%22%20d%3D%22M12%200L9.9%202.1l8.4%208.4H0v3h18.3l-8.4%208.4L12%2024l12-12L12%200z%22%2F%3E%3C%2Fsvg%3E); // /front/svg/embedded/side-nav/menu.svg
+			background-position: right 12px center;
+			background-repeat: no-repeat;
+			background-size: 20px;
+			padding-right: 40px;
+		}
+
+		&.comics::before {
+			background: $color-hub-comics;
+		}
+
+		&.books::before {
+			background: $color-hub-books;
+		}
+
+		&.games::before {
+			background: $color-hub-games;
+		}
+
+		&.movies::before {
+			background: $color-hub-movies;
+		}
+
+		&.lifestyle::before {
+			background: $color-hub-lifestyle;
+		}
+
+		&.music::before {
+			background: $color-hub-music;
+		}
+
+		&.tv::before {
+			background: $color-hub-tv;
+		}
+
+		&.entertainment::before {
+			background: $color-hub-tv;
+		}
+	}
+}
