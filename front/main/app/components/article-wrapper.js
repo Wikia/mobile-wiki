@@ -126,13 +126,6 @@ export default Ember.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
-			 */
-			expandSideNav() {
-				this.sendAction('toggleSideNav', true);
-			},
-
-			/**
 			 * @param {string} lightboxType
 			 * @param {*} lightboxData
 			 * @returns {void}

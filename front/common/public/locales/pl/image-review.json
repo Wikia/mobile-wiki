@@ -1,0 +1,18 @@
+{
+  "main":{
+    "head":"Sprawdzanie obrazów",
+    "description":"Klikaj na obrazach, aby oznaczyć przeznaczyć je do usunięcia lub oznaczyć jako wątpliwe (do sprawdzenia przez pracowników). Kiedy skończysz przeglądać daną partię zdjęć, kliknij 'Sprawdź' poniżej, aby przejść do następnej partii.",
+    "error-no-access-permissions":"Brak autoryzacji, nie posiadasz uprawnień do oglądania tej strony",
+    "error-other":"Nie można załadować przeglądu obrazów",
+    "error-invalid-data":"Image Review API zwróciło błędne dane",
+    "error-no-more-images":"Nie ma więcej obrazów",
+    "review-and-get-more":"Sprawdź i przejdź do następnej partii",
+    "get-flagged":"Pobierz oflagowane",
+    "images-to-review-count":"Obrazy pozostałe do sprawdzenia:",
+    "image-context":"Kontekst:",
+    "image-context-not-provided":"Brak kontekstu",
+    "status-accepted":"OK",
+    "status-flagged":"Wątpliwy",
+    "status-rejected":"Usuń"
+  }
+}

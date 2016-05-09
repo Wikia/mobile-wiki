@@ -41,6 +41,15 @@ export default Ember.Route.extend(
 				return true;
 			},
 
+			/*
+			 * @returns {boolean}
+			 */
+			willTransition() {
+				this.controllerFor('application').set('noMargins', false);
+
+				return true;
+			},
+
 			/**
 			 * Handler for a rejected model (or a throw from within model)
 			 *

@@ -1,5 +1,5 @@
 <label class="editor-label reply-editor-label">{{i18n labelText ns='discussion'}}</label>
-<div class="editor-container {{if isSticky 'sticky'}} {{unless siteHeadPinned pinnedClassName}}">
+<div class="editor-container {{if isSticky 'sticky'}} {{pinnedClassName}}">
 	<a href="#" class="editor-close" {{action 'close' bubbles=false}}>
 		{{svg 'close' class="fill-theme-color" viewBox='0 0 18 18'}}
 	</a>
