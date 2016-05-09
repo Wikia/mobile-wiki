@@ -1,0 +1,18 @@
+{
+  "main":{
+    "head":"圖片審核",
+    "description":"點擊圖片標記為刪除或存在疑問(供工作人員進行審查)。 當你完成之後，請點擊「審核」查看下一組。",
+    "error-no-access-permissions":"未經授權，您無法查看此頁面",
+    "error-other":"無法載入圖片審核",
+    "error-invalid-data":"圖片審核API拒絕無效數據",
+    "error-no-more-images":"沒有更多圖片",
+    "review-and-get-more":"審核並查看下一組",
+    "get-flagged":"已標記",
+    "images-to-review-count":"未審核的圖片:",
+    "image-context":"內容:",
+    "image-context-not-provided":"未提供內容",
+    "status-accepted":"好的",
+    "status-flagged":"Q",
+    "status-rejected":"刪除"
+  }
+}

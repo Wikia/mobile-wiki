@@ -40,20 +40,6 @@ const ArticleModel = Ember.Object.extend({
 
 ArticleModel.reopenClass({
 	/**
-	 * @param {ArticleModelUrlParams} params
-	 * @returns {string}
-	 */
-	url(params) {
-		let redirect = '';
-
-		if (params.redirect) {
-			redirect += `?redirect=${encodeURIComponent(params.redirect)}`;
-		}
-
-		return `${M.prop('apiBase')}/article/${params.title}${redirect}`;
-	},
-
-	/**
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getArticleRandomTitle() {

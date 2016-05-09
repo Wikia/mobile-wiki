@@ -1,0 +1,18 @@
+{
+  "main":{
+    "head":"Bildüberprüfung",
+    "description":"Klicke auf die Bilder, die gelöscht werden sollten oder die bedenklich erscheinen (für eine weitere Kontrolle durch unsere Mitarbeiter). Wenn du mit dem Stapel fertig bist, klicke unten auf „Überprüfen“ und der nächste Stapel wird aufgerufen.",
+    "error-no-access-permissions":"Nicht autorisiert, du hast keine Berechtigung, auf diese Seite zuzugreifen",
+    "error-other":"Bildüberprüfung kann nicht geladen werden",
+    "error-invalid-data":"Bildüberprüfungs-API hat ungültige Daten zurückgegeben",
+    "error-no-more-images":"Keine weiteren Bilder",
+    "review-and-get-more":"Überprüfen und nächsten Stapel anzeigen",
+    "get-flagged":"Bild markieren",
+    "images-to-review-count":"Verbleibende zu überprüfende Bilder:",
+    "image-context":"Kontext:",
+    "image-context-not-provided":"Es liegt kein Kontext vor",
+    "status-accepted":"OK",
+    "status-flagged":"?",
+    "status-rejected":"Löschen"
+  }
+}

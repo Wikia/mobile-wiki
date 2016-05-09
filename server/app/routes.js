@@ -1,5 +1,4 @@
 import Hoek from 'hoek';
-import localSettings from '../config/localSettings';
 import {Policy} from './lib/caching';
 import {getRedirectUrlWithQueryString} from './lib/auth-utils';
 import proxyMW from './facets/operations/proxy-mw';
@@ -7,11 +6,6 @@ import {handler as assetsHandler} from './facets/operations/assets';
 import heartbeatHandler from './facets/operations/heartbeat';
 import discussionsHandler from './facets/show-discussions';
 import mediaWikiPageHandler from './facets/mediawiki-page';
-import getArticleHandler from './facets/api/article';
-import getArticleCommentsHandler from './facets/api/article-comments';
-import searchHandler from './facets/api/search';
-import mainPageSectionHandler from './facets/api/main-page-section';
-import mainPageCategoryHandler from './facets/api/main-page-category';
 import logoutHandler from './facets/auth/logout';
 import articlePreview from './facets/article-preview';
 import joinHandler from './facets/auth/join';
@@ -89,33 +83,6 @@ let routes,
 			method: 'GET',
 			path: '/logout',
 			handler: logoutHandler
-		},
-		// API Routes - The following routes should just be API routes
-		{
-			method: 'GET',
-			path: `${localSettings.apiBase}/article/{articleTitle*}`,
-			handler: getArticleHandler
-		},
-		{
-			method: 'GET',
-			// @todo if you call to api/mercury/comments/ without supplying an id, this actually calls /api/mercury/article
-			path: `${localSettings.apiBase}/article/comments/{articleId}/{page?}`,
-			handler: getArticleCommentsHandler
-		},
-		{
-			method: 'GET',
-			path: `${localSettings.apiBase}/search/{query}`,
-			handler: searchHandler
-		},
-		{
-			method: 'GET',
-			path: `${localSettings.apiBase}/main/section/{sectionName}`,
-			handler: mainPageSectionHandler
-		},
-		{
-			method: 'GET',
-			path: `${localSettings.apiBase}/main/category/{categoryName}`,
-			handler: mainPageCategoryHandler
 		}
 	],
 	// routes where we want to know the user's auth status
