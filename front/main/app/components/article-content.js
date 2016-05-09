@@ -628,7 +628,7 @@ export default Ember.Component.extend(
 
 			if (dataTypeSelector) {
 				this.$(dataTypeSelector).each((index, element) => {
-					this.$(element).style.display = 'block';
+					element.style.display = 'block';
 				});
 			}
 		},
