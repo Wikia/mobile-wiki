@@ -13,6 +13,8 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	{
+		classNames: ['wikia-drawer__content'],
+		ajax: Ember.inject.service(),
 		query: '',
 
 		/**
@@ -47,6 +49,11 @@ export default Ember.Component.extend(
 		// key: query string, value: Array<SearchSuggestionItem>
 		cachedResults: {},
 
+		didInsertElement() {
+			this._super(...arguments);
+			this.$('.side-search__input').focus();
+		},
+
 		actions: {
 			enter(value) {
 				track({
@@ -55,15 +62,6 @@ export default Ember.Component.extend(
 					label: 'search-open-special-search'
 				});
 				window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${value}&fulltext=Search`);
-			},
-
-			searchFocus() {
-				this.sendAction('toggleSearchMode', true);
-			},
-
-			cancelSearch() {
-				this.set('query', null);
-				this.sendAction('toggleSearchMode', false);
 			},
 
 			clearSearch() {
@@ -77,7 +75,7 @@ export default Ember.Component.extend(
 					category: 'side-nav',
 					label: 'search-open-suggestion-link'
 				});
-				this.get('collapse')();
+				this.get('closeDrawer')();
 			}
 		},
 
@@ -106,12 +104,9 @@ export default Ember.Component.extend(
 				} else {
 					this.setSearchSuggestionItems(cached);
 				}
-
-				this.sendAction('toggleSearchMode', true);
 			} else {
 				this.set('isLoadingSearchResults', true);
 				Ember.run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
-				this.sendAction('toggleSearchMode', true);
 			}
 		}),
 
@@ -184,7 +179,7 @@ export default Ember.Component.extend(
 
 			this.startedRequest(query);
 
-			Ember.$.getJSON(uri).then((data) => {
+			this.get('ajax').request(uri).then((data) => {
 				/**
 				 * If the user makes one request, request A, and then keeps typing to make
 				 * reqeust B, but request A takes a long time while request B returns quickly,
@@ -196,14 +191,14 @@ export default Ember.Component.extend(
 				}
 
 				this.cacheResult(query, data.items);
-			}).fail(() => {
+			}).catch(() => {
 				// When we get a 404, it means there were no results
 				if (query === this.get('query')) {
 					this.setEmptySearchSuggestionItems();
 				}
 
 				this.cacheResult(query);
-			}).always(() => {
+			}).finally(() => {
 				// We have a response, so we're no longer loading the results
 				if (query === this.get('query')) {
 					this.set('isLoadingSearchResults', false);
@@ -308,6 +303,6 @@ export default Ember.Component.extend(
 		 */
 		getCachedResult(query) {
 			return this.get('cachedResults')[query];
-		},
+		}
 	}
 );

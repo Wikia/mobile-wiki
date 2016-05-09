@@ -1,5 +1,5 @@
 import {parseQueryParams} from '../../lib/utils';
-import {getDocumentTitle, getDefaultTitle, getBaseResult, getOpenGraphData} from './page-data-helper';
+import {getDefaultTitle, getBaseResult, getOpenGraphData} from './page-data-helper';
 
 /**
  * Prepares article data to be rendered
@@ -11,10 +11,10 @@ import {getDocumentTitle, getDefaultTitle, getBaseResult, getOpenGraphData} from
 export default function prepareArticleData(request, data) {
 	const allowedQueryParams = ['noexternals', 'buckysampling'],
 		pageData = data.page.data,
+		separator = data.wikiVariables.htmlTitle.separator,
 		result = getBaseResult(request, data);
 
 	result.displayTitle = getDefaultTitle(request, pageData);
-	result.documentTitle = getDocumentTitle(pageData) || result.displayTitle;
 	result.articlePage = data.page;
 	result.queryParams = parseQueryParams(request.query, allowedQueryParams);
 
@@ -39,6 +39,13 @@ export default function prepareArticleData(request, data) {
 				});
 			}
 		}
+	}
+
+	/**
+	 * This is necessary to avoid having duplicated title on CMP
+	 */
+	if (!result.isMainPage) {
+		result.documentTitle = result.displayTitle + separator + result.documentTitle;
 	}
 
 	if (typeof request.query.buckySampling !== 'undefined') {

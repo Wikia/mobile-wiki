@@ -103,10 +103,6 @@ export default Ember.Component.extend(
 			return this.get('currentUser.isAuthenticated');
 		}),
 
-		displayRecentEdit: Ember.computed('currentUser.isAuthenticated', function () {
-			return this.get('currentUser.isAuthenticated') && !Ember.$.cookie('recent-edit-dismissed');
-		}),
-
 		heroImage: Ember.computed('model.media', function () {
 			let heroImage;
 
@@ -137,13 +133,6 @@ export default Ember.Component.extend(
 			 */
 			addPhoto(title, sectionIndex, photoData) {
 				this.sendAction('addPhoto', title, sectionIndex, photoData);
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			expandSideNav() {
-				this.sendAction('toggleSideNav', true);
 			},
 
 			/**

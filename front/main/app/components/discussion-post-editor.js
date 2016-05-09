@@ -36,7 +36,7 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {boolean}
 	 */
 	isStickyBreakpointHeight() {
-		return window.pageYOffset >= this.get('offsetTop') - (this.get('siteHeadPinned') ? this.get('siteHeadHeight') : 0);
+		return window.pageYOffset >= this.get('offsetTop') - this.get('siteHeadHeight');
 	},
 
 	/**
@@ -58,15 +58,15 @@ export default DiscussionEditorComponent.extend({
 			const $editorTextarea = $('.editor-textarea');
 
 			$editorTextarea
-					.css('height', '100px')
-					.on('focus', () => {
-						setTimeout(() => {
-							$editorTextarea.css('height', '100%');
-						}, 500);
-					})
-					.on('blur', () => {
-						$editorTextarea.css('height', '100px');
-					});
+				.css('height', '100px')
+				.on('focus', () => {
+					setTimeout(() => {
+						$editorTextarea.css('height', '100%');
+					}, 500);
+				})
+				.on('blur', () => {
+					$editorTextarea.css('height', '100px');
+				});
 		}
 	},
 
@@ -82,5 +82,5 @@ export default DiscussionEditorComponent.extend({
 			Ember.$('html, body').animate({scrollTop: 0});
 			this.handleNewItemCreated(newPost);
 		}
-	}
+	},
 });

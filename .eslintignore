@@ -13,11 +13,4 @@ front/main/tmp/
 
 server/node_modules
 
-homepage/config/
-homepage/gulp/
-homepage/front/js/
-homepage/front/vendor/
-homepage/node_modules/
-homepage/server/
-homepage/test/
-homepage/vendor/
+homepage/

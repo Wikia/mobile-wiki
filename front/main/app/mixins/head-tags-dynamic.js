@@ -47,35 +47,30 @@ export default Ember.Mixin.create({
 	 */
 	setDynamicHeadTags(model, data = {}) {
 		const wikiVariables = Ember.get(Mercury, 'wiki'),
-			displayTitle = data.displayTitle,
-			documentTitle = data.documentTitle,
-			description = data.description,
-			canonical = data.canonical,
-			appId = Ember.get(wikiVariables, 'smartBanner.appId.ios'),
-			robots = wikiVariables.specialRobotPolicy || data.robots || 'index,follow';
+			htmlTitle = wikiVariables.htmlTitle,
+			headData = {
+				documentTitle: htmlTitle.parts[0] + htmlTitle.separator + htmlTitle.parts[1],
+				description: data.description,
+				canonical: data.canonical,
+				appId: Ember.get(wikiVariables, 'smartBanner.appId.ios'),
+				robots: wikiVariables.specialRobotPolicy || data.robots || 'index,follow',
+				keywords: `${wikiVariables.siteMessage},${wikiVariables.siteName},${wikiVariables.dbName}`,
+				appleItunesApp: ''
+			};
 
-		let keywords = `${wikiVariables.siteMessage},${wikiVariables.siteName},${wikiVariables.dbName}`,
-			appleItunesApp = '';
-
-		if (displayTitle) {
-			keywords += `,${displayTitle}`;
+		if (data.documentTitle) {
+			headData.documentTitle = data.documentTitle + htmlTitle.separator + headData.documentTitle;
+			headData.keywords += `,${data.documentTitle}`;
 		}
 
-		if (appId) {
-			appleItunesApp = `app-id=${appId}`;
+		if (headData.appId) {
+			headData.appleItunesApp = `app-id=${headData.appId}`;
 
 			if (data.appArgument) {
-				appleItunesApp += `, app-argument=${data.appArgument}`;
+				headData.appleItunesApp += `, app-argument=${data.appArgument}`;
 			}
 		}
 
-		this.get('headData').setProperties({
-			canonical,
-			robots,
-			keywords,
-			appleItunesApp,
-			documentTitle,
-			description
-		});
+		this.get('headData').setProperties(headData);
 	}
 });
