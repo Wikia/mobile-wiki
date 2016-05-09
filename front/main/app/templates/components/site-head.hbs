@@ -1,19 +1,25 @@
-<div class="site-logo site-logo-2016">
-	<a {{action 'trackWordmarkClick' preventDefault=false}} href={{wikiaHomepage}}>
-		{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
-	</a>
-</div>
+<nav class="site-head">
+	<div class="site-logo site-logo-2016">
+		<a {{action 'trackWordmarkClick' preventDefault=false}} href={{wikiaHomepage}}>
+			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+		</a>
+	</div>
 
-{{wikia-ui-components/icon-button
-	click=(action 'siteHeadIconClick' 'nav')
-	class='site-head-icon site-head-icon-nav'
-	icon=navIcon
-	iconSize=25
-}}
+	{{wikia-ui-components/icon-button
+		click=(action 'siteHeadIconClick' 'nav')
+		class='site-head-icon site-head-icon-nav'
+		icon=navIcon
+		iconSize=25
+	}}
 
-{{wikia-ui-components/icon-button
-	click=(action 'siteHeadIconClick' 'search')
-	class='site-head-icon site-head-icon-search'
-	icon=searchIcon
-	iconSize=25
-}}
+	{{wikia-ui-components/icon-button
+		click=(action 'siteHeadIconClick' 'search')
+		class='site-head-icon site-head-icon-search'
+		icon=searchIcon
+		iconSize=25
+	}}
+
+	{{site-head-fandom-bar}}
+
+	{{andy-warhol}}
+</nav>

@@ -71,6 +71,10 @@ $icon-size: 25px;
 	}
 }
 
+.site-head-wrapper {
+	height: $site-head-height;
+}
+
 .side-nav-toggle {
 	display: inline-block;
 	float: left;
