@@ -47,7 +47,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		}
 	}),
 
-	onErrorMessage: Ember.observer('errorMessage', function() {
+	onErrorMessage: Ember.observer('errorMessage', function () {
 		if (this.get('errorMessage')) {
 			Ember.run.later(this, () => {
 				this.get('discussionEditor').setErrorMessage(null);
@@ -165,7 +165,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	handleNewItemCreated(newItem) {
-		this.set('showSuccess',  true);
+		this.set('showSuccess', true);
 
 		Ember.set(newItem, 'isVisible', false);
 

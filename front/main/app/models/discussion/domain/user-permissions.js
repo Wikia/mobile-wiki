@@ -2,8 +2,7 @@ import Ember from 'ember';
 
 const DiscussionUserPermissions = Ember.Object.extend({
 	canDelete: false,
-	/* TODO - use real value from service */
-	canEdit: true,
+	canEdit: false,
 	canLock: false,
 	canModerate: false,
 	canUndelete: false,

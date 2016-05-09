@@ -121,6 +121,8 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 				replies.replace(editedReplyIndex, 1, editedReply);
 
 				track(trackActions.ReplyEdit);
+
+				return editedReply;
 			});
 		},
 

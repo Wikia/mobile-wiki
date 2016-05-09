@@ -64,9 +64,11 @@ export default Ember.Service.extend(Ember.Evented, {
 		}
 
 		if (this.get('isAnon')) {
-			return this.rejectAnon();
+			this.rejectAnon();
+			return;
 		} else if (this.get('isUserBlocked')) {
-			return this.rejectBlockedUser();
+			this.rejectBlockedUser();
+			return;
 		} else if (this.get('isEditMode')) {
 			this.set('isEditEditorOpen', true);
 		} else {
