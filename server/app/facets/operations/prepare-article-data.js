@@ -36,7 +36,6 @@ export default function prepareArticleData(request, data) {
 
 	/**
 	 * This is necessary to avoid having duplicated title on CMP
-	 * This should be removed in XW-1442
 	 */
 	if (!result.isMainPage) {
 		result.documentTitle = result.displayTitle + separator + result.documentTitle;
