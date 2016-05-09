@@ -7,6 +7,11 @@
 		<div class="editor-wrapper">
 			{{textarea class='editor-textarea' keyPress=(action 'handleKeyPress') focusIn=(action 'onFocus') value=bodyText placeholder=(i18n placeholderText ns='discussion')}}
 			<div class="editor-textarea-overflow" {{action 'toggleEditorActive' true}}></div>
+			{{#if shouldShowOpenGraphCard}}
+				{{discussion-open-graph
+					openGraphData=openGraph
+				}}
+			{{/if}}
 		</div>
 	{{user-avatar
 		avatarUrl=currentUser.avatarPath

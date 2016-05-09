@@ -18,6 +18,10 @@ export default Ember.Component.extend(ViewportMixin, {
 	hasError: false,
 
 	offsetTop: 0,
+
+	openGraphUrl: null,
+	shouldShowOpenGraphCard: false,
+
 	siteHeadHeight: 0,
 
 	bodyText: '',
@@ -43,7 +47,30 @@ export default Ember.Component.extend(ViewportMixin, {
 			track(this.get('contentTrackingAction'));
 			this.set('wasContentTracked', true);
 		}
+
+		this.setOpenGraphProperties(this.get('bodyText'));
 	}),
+
+	setOpenGraphProperties(text) {
+		const urlRegex = /(https?:\/\/[^\s]+)/g,
+			urls = text.match(urlRegex);
+
+		if (!urls) {
+			return;
+		}
+
+		this.setProperties({
+			openGraphUrl: urls[0],
+			shouldShowOpenGraphCard: true
+		});
+	},
+
+	removeOpenGraphData() {
+		this.setProperties({
+			openGraphUrl: null,
+			shouldShowOpenGraphCard: false
+		});
+	}
 
 	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
 		if (this.get('discussionEditor.isEditorOpen')) {
