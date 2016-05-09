@@ -19,7 +19,9 @@ DiscussionUserPermissions.reopenClass({
 	create(permissionsData = []) {
 		const permissions = {};
 
-		permissionsData.forEach((permission) => permissions[permission] = true);
+		permissionsData.forEach((permission) => {
+			permissions[permission] = true;
+		});
 
 		return this._super(permissions);
 	}
