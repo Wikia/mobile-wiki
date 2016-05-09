@@ -1,7 +1,6 @@
 $preview-size: 20rem;
 $preview-photo-size: 19.8rem;
-$upload-icon-height: 22px;
-$upload-icon-width: 24px;
+$upload-icon-size: 24px;
 $upload-icon-container-size: 48px;
 
 .preview-body {
@@ -52,14 +51,14 @@ $upload-icon-container-size: 48px;
 	width: $upload-icon-container-size;
 
 	&.zero {
-		height: $upload-icon-height;
+		height: $upload-icon-size;
 		margin-left: .55rem;
 	}
 
 	.icon {
 		fill: $color-blue-light;
-		height: $upload-icon-height;
-		width: $upload-icon-width;
+		height: $upload-icon-size;
+		width: $upload-icon-size;
 	}
 
 	.file-upload-input {
@@ -71,9 +70,4 @@ $upload-icon-container-size: 48px;
 		top: 0;
 		width: 100%;
 	}
-}
-
-h2[section] .upload-photo {
-  // align icon in the sections to the bottom of it's space
-  margin-bottom: -($upload-icon-container-size - $upload-icon-height) / 4;
 }

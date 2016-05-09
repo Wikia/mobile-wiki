@@ -1,8 +1,8 @@
-$edit-icon-size: 22px;
+$edit-icon-size: 24px;
 $edit-icon-container-size: 48px;
 
 .edit-textarea {
-	border: none;
+	border: 0;
 	height: 50%;
 	left: 0;
 	margin: 0 auto;
@@ -26,9 +26,4 @@ $edit-icon-container-size: 48px;
 		height: $edit-icon-size;
 		width: $edit-icon-size;
 	}
-}
-
-h2[section] .edit-section {
-	// align icon in the sections to the bottom of it's space
-	margin-bottom: -($edit-icon-container-size - $edit-icon-size) / 4;
 }

@@ -110,12 +110,8 @@
 	flex: 1;
 }
 
-.wiki-page-header.has-action .wiki-page-header__action {
-	align-self: flex-end;
-	flex: 0;
+.wiki-page-header.has-action .contribution-container {
 	margin-bottom: -8px;
-	margin-right: -13px;
-	text-align: center;
 
 	.icon {
 		fill: #fff;
