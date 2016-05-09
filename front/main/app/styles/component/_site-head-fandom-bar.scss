@@ -1,0 +1,22 @@
+$head-fandom-bar-font-size: 12px;
+$home-of-fandom-letter-spacing: 0.5px;
+
+.site-head-fandom-bar {
+	background-color: $white;
+	border-bottom: 1px solid $color-blue-gray-light;
+	color: $color-blue-gray-dark;
+	font-size: $head-fandom-bar-font-size;
+	font-weight: bold;
+	letter-spacing: $home-of-fandom-letter-spacing;
+	position: fixed;
+	text-align: center;
+	text-transform: uppercase;
+	top: $site-head-height;
+	transition: transform .5s;
+	width: 100%;
+	z-index: $z-6;
+
+	&.un-pinned {
+		transform: translateY(-100%);
+	}
+}
