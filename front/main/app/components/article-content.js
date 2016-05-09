@@ -24,22 +24,6 @@ export default Ember.Component.extend(
 		displayTitle: null,
 		headers: null,
 
-		newFromMedia(media) {
-			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
-				return this.createComponentInstance('infobox-image-media');
-			} else if (Ember.isArray(media)) {
-				if (media.some((media) => Boolean(media.link))) {
-					return this.createComponentInstance('linked-gallery-media');
-				} else {
-					return this.createComponentInstance('gallery-media');
-				}
-			} else if (media.type === 'video') {
-				return this.createComponentInstance('video-media');
-			} else {
-				return this.createComponentInstance('image-media');
-			}
-		},
-
 		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
 			const content = this.get('content');
 
@@ -75,28 +59,6 @@ export default Ember.Component.extend(
 				this.setupAdsContext(this.get('adsContext'));
 			});
 		})),
-
-		createContributionButtons() {
-			if (this.get('contributionEnabled')) {
-				const headers = Ember.$('.article-content h2[section]').map((i, elem) => {
-					if (elem.textContent) {
-						return {
-							element: elem,
-							level: elem.tagName,
-							name: elem.textContent,
-							id: elem.id,
-							section: elem.getAttribute('section'),
-						};
-					}
-				}).toArray();
-
-				headers.forEach((header) => {
-					this.$(header.element)
-						.wrapInner('<div class="section-header-label"></div>')
-						.append(this.createArticleContributionComponent(header.section, header.id));
-				});
-			}
-		},
 
 		init() {
 			this._super(...arguments);
@@ -342,6 +304,34 @@ export default Ember.Component.extend(
 			return this.createChildView(contributionComponent).createElement().$();
 		},
 
+		/**
+		 * @returns {void}
+		 */
+		createContributionButtons() {
+			if (this.get('contributionEnabled')) {
+				const headers = this.$('h2[section]').map((i, elem) => {
+					if (elem.textContent) {
+						return {
+							element: elem,
+							level: elem.tagName,
+							name: elem.textContent,
+							id: elem.id,
+							section: elem.getAttribute('section'),
+						};
+					}
+				}).toArray();
+
+				headers.forEach((header) => {
+					this.$(header.element)
+						.wrapInner('<div class="section-header-label"></div>')
+						.append(this.createArticleContributionComponent(header.section, header.id));
+				});
+			}
+		},
+
+		/**
+		 * @returns {void}
+		 */
 		createTableOfContents() {
 			const component = this.createComponentInstance('article-table-of-contents'),
 				$firstInfobox = this.$('.portable-infobox').first(),
@@ -351,6 +341,22 @@ export default Ember.Component.extend(
 				componentElement.$().insertAfter($firstInfobox);
 			} else {
 				componentElement.$().prependTo(this.$());
+			}
+		},
+
+		newFromMedia(media) {
+			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
+				return this.createComponentInstance('infobox-image-media');
+			} else if (Ember.isArray(media)) {
+				if (media.some((media) => Boolean(media.link))) {
+					return this.createComponentInstance('linked-gallery-media');
+				} else {
+					return this.createComponentInstance('gallery-media');
+				}
+			} else if (media.type === 'video') {
+				return this.createComponentInstance('video-media');
+			} else {
+				return this.createComponentInstance('image-media');
 			}
 		},
 
