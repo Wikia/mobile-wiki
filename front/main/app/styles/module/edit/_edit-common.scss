@@ -1,5 +1,16 @@
-.contribution-container {
+h2[section] {
 	display: flex;
+}
+
+.section-header-label {
+	align-self: flex-end;
+	flex: 1;
+}
+
+.contribution-container {
+	align-self: flex-end;
+	display: flex;
+	flex: 0;
 	text-align: right;
 	width: 100%;
 
@@ -7,28 +18,3 @@
 		display: none;
 	}
 }
-
-.icon-wrapper {
-	bottom: 0;
-	position: absolute;
-	right: 0;
-}
-
-.short-header {
-	padding-right: 5.2rem; /* edit/photo icons width (2.2 * 2) + margin (0.8) in between */
-	position: relative;
-}
-
-.top-contribution-container {
-	height: 2.4rem;
-
-	.contribution-container {
-		float: right;
-		width: 5.2rem;
-	}
-
-	.no-photo {
-		width: 2.2rem;
-	}
-}
-

@@ -90,14 +90,10 @@ export default Ember.Component.extend(
 					}
 				}).toArray();
 
-				let $sectionHeader = null,
-					$contributionComponent = null;
-
 				headers.forEach((header) => {
-					$contributionComponent = this.createArticleContributionComponent(header.section, header.id);
-					$sectionHeader = this.$(header.element);
-					$sectionHeader.prepend($contributionComponent).addClass('short-header');
-					$contributionComponent.wrap('<div class="icon-wrapper"></div>');
+					this.$(header.element)
+						.wrapInner('<div class="section-header-label"></div>')
+						.append(this.createArticleContributionComponent(header.section, header.id));
 				});
 			}
 		},
