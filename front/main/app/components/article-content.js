@@ -612,24 +612,24 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		handleNavigation() {
-			let navABTestGroup = getGroup('MERCURY_NAVIGATION_ELEMENTS');
+			let navABTestGroup = getGroup('MERCURY_NAVIGATION_ELEMENTS'),
+				dataTypeSelector = '';
 
-			switch(navABTestGroup) {
-				case 'NAVIGATION_HIDDEN': // display only navboxes
-					this.$('[data-type=navbox]').each((index, element) => {
-							this.$(element).style.display='block';
-						});
-					break;
-				case 'NAVBOXES_HIDDEN': // display only navigation
-					this.$('[data-type=navigation]').each((index, element) => {
-							this.$(element).style.display='block';
-						});
-					break;
-				case 'BOTH_SHOWN': // display all of them
-					this.$('[data-type^=nav]').each((index, element) => {
-							this.$(element).style.display='block';
-						});
-					break;
+			// display only navboxes
+			if (navABTestGroup === 'NAVIGATION_HIDDEN') {
+				dataTypeSelector = '[data-type=navbox]';
+			// display only navigation
+			} else if (navABTestGroup === 'NAVBOXES_HIDDEN') {
+				dataTypeSelector = '[data-type=navigation]';
+			// display all of them
+			} else if (navABTestGroup === 'BOTH_SHOWN') {
+				dataTypeSelector = '[data-type^=nav]';
+			}
+
+			if (dataTypeSelector) {
+				this.$(dataTypeSelector).each((index, element) => {
+					this.$(element).style.display = 'block';
+				});
 			}
 		},
 
