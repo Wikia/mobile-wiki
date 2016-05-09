@@ -603,7 +603,7 @@ export default Ember.Component.extend(
 
 		/**
 		 * TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
-		 * by default all nav elements are now hidden in css by display:none;
+		 * by default all block navigation elements are now hidden in css by display:none;
 		 * according to current test group we want to un-hide some of the elements:
 		 *  - only navigation elements
 		 *  - only navboxes
