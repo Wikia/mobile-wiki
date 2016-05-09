@@ -3,7 +3,7 @@ import InfoboxImageCollectionComponent from './infobox-image-collection';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {track, trackActions} from 'common/utils/track';
-import {getGroup} from '../../../common/modules/abtest';
+import {getGroup} from 'common/modules/abtest';
 
 /**
  * HTMLElement
@@ -613,7 +613,7 @@ export default Ember.Component.extend(
 		 */
 		handleNavigation() {
 			let navABTestGroup = getGroup('MERCURY_NAVIGATION_ELEMENTS'),
-				dataTypeSelector = '';
+				dataTypeSelector;
 
 			// display only navboxes
 			if (navABTestGroup === 'NAVIGATION_HIDDEN') {
