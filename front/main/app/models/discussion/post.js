@@ -91,12 +91,16 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 				data: JSON.stringify(postData),
 			}).then((thread) => {
 				// make sure replies are still in place after replacing thread object.
-				const replies = this.get('data.replies');
+				const replies = this.get('data.replies'),
+					editedThread = DiscussionPost.createFromThreadData(thread);
 
-				this.setNormalizedData(thread);
-				this.set('data.replies', replies);
+				editedThread.set('replies', replies);
+
+				this.get('data').setProperties(editedThread);
 
 				track(trackActions.PostEdit);
+
+				return editedThread;
 			});
 		},
 
