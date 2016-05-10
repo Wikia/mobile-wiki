@@ -12,11 +12,10 @@
 	.nav-menu__item {
 		color: inherit;
 		display: block;
-		font-size: 20px;
-		font-weight: bold;
-		line-height: 3.125rem;
+		font-size: 16px;
+		line-height: 48px;
 		margin: .125rem 0;
-		padding: 0 1rem;
+		padding: 0 20px;
 		position: relative;
 
 		&:hover,
@@ -29,7 +28,6 @@
 		}
 
 		&::before {
-			background: $link-color;
 			content: ' ';
 			display: block;
 			height: 100%;
@@ -41,10 +39,16 @@
 		&.nav-menu__header {
 			background-color: #636b76;
 			margin-top: 0;
+			padding-left: 17px;
+			font-weight: bold;
 
 			&::before {
 				display: none;
 			}
+		}
+
+		&.nav-menu__external {
+			font-weight: bold;
 		}
 
 		&.nav-menu__root {
@@ -52,7 +56,6 @@
 			background-position: right 12px center;
 			background-repeat: no-repeat;
 			background-size: 20px;
-			padding-right: 40px;
 		}
 
 		&.comics::before {
@@ -85,6 +88,14 @@
 
 		&.entertainment::before {
 			background: $color-hub-tv;
+		}
+
+		&.explore {
+			font-weight: bold;
+
+			&::before {
+				background: #636b76;
+			}
 		}
 	}
 }

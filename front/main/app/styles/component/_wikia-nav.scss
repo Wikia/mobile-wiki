@@ -3,10 +3,10 @@ $side-nav-height: $site-head-height - rem-calc(1);
 .wikia-nav__header {
 	color: inherit;
 	display: block;
-	font-size: 20px;
-	font-weight: bold;
-	line-height: 3.125rem;
-	padding: 0 1rem;
+	font-size: 16px;
+	//font-weight: bold;
+	line-height: 30px;
+	padding: 9px 20px;
 	position: relative;
 	background-color: #636b76;
 	margin-top: 0;
@@ -23,7 +23,7 @@ $side-nav-height: $site-head-height - rem-calc(1);
 	//background: #fff;
 	flex-grow: 0;
 	flex-shrink: 0;
-	height: $side-nav-height;
+	//height: $side-nav-height;
 
 	&.back {
 		background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23FFF%22%20fill-rule%3D%22evenodd%22%20d%3D%22M12%2024l2.1-2.1-8.4-8.4H24v-3H5.7l8.4-8.4L12%200%200%2012l12%2012z%22%2F%3E%3C%2Fsvg%3E); // /front/svg/embedded/side-nav/back.svg
@@ -53,18 +53,27 @@ $side-nav-height: $site-head-height - rem-calc(1);
 		width: 24px;
 	}
 
-	.profile-link {
-		.avatar {
-			float: left;
+	.wikia-nav__avatar {
+		float: left;
+		margin-right: 10px;
 
-			img {
-				margin: 0 10px 4px 0;
-			}
+		img {
+			height: 30px;
+			width: 30px;
+			vertical-align: top;
+			border: 2px solid #fff;
+			border-radius: 50%;
 		}
+	}
+
+	.profile-link {
+		vertical-align: text-top;
+		line-height: 27px;
 	}
 
 	.logout {
 		color: #d7d9dc;
 		float: right;
+		line-height: 34px;
 	}
 }

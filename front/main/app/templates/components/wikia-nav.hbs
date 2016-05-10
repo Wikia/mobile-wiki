@@ -2,7 +2,7 @@
 	{{#if isUserAuthenticated}}
 		<div class="wikia-nav__header">
 			<a {{action 'trackClick' 'side-nav' 'open-user-profile' preventDefault=false}} href="{{userProfileLink}}" class="external profile-link">
-				<figure class="avatar">
+				<figure class="wikia-nav__avatar">
 					<img src={{currentUser.avatarPath}} alt="{{currentUser.name}}">
 				</figure>
 				{{i18n 'app.user-menu-profile'}}

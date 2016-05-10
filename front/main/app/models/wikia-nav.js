@@ -100,6 +100,7 @@ export default Object.extend({
 			this.get('exploreWikiaLinks.length') &&
 			[{
 				type: 'nav-menu-root',
+				className: 'explore',
 				index: 0,
 				name: this.get('exploreWikiaLabel'),
 				trackLabel: 'open-explore-wikia'
