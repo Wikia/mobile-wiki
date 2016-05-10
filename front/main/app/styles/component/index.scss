@@ -1,6 +1,5 @@
 // file order is intended here - put new entries at the bottom
 @import 'site-head';
-@import 'site-head-fandom-bar';
 @import 'share-header';
 @import 'share-feature';
 @import 'smart-banner-android';
@@ -46,6 +45,7 @@
 @import 'date-placeholder';
 @import 'category-sections';
 @import 'fandom-posts';
+@import 'site-head-fandom-bar';
 // wikia ui reusable components
 @import 'wikia-ui-components/check-box';
 @import 'wikia-ui-components/icon-button';

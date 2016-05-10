@@ -1,3 +1,4 @@
+{{#ember-wormhole to="site-head-sub-header"}}
 {{discussion-header
 	canDeleteAll=false
 	deleteAllPosts=(action this.attrs.deleteAllPosts)
@@ -7,6 +8,7 @@
 	hasNewPostButton=false
 	smartBannerVisible=smartBannerVisible
 }}
+{{/ember-wormhole}}
 {{discussion-dialog
 	confirmButtonText=confirmButtonText
 	confirmCallback=confirmCallback

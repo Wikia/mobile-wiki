@@ -1,3 +1,4 @@
+{{#ember-wormhole to="site-head-sub-header"}}
 {{discussion-header
 	applyFilters=(action this.attrs.applyFilters)
 	canModerate=model.canModerate
@@ -7,6 +8,7 @@
 	hasSiteName=true
 	smartBannerVisible=smartBannerVisible
 }}
+{{/ember-wormhole}}
 {{discussion-dialog
 	confirmButtonText=confirmButtonText
 	confirmCallback=confirmCallback

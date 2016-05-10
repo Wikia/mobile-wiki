@@ -9,6 +9,19 @@ export default Component.extend(
 		classNames: ['site-head-fandom-bar'],
 		tagName: 'nav',
 		homeOfFandomLabel: Ember.get(Mercury, 'wiki.navigation2016.fandomLabel'),
-		isVisible: computed(() => Mercury.wiki.language.content === 'en')
+		isVisible: computed(() => Mercury.wiki.language.content === 'en'),
+
+		actions: {
+			/**
+			 * @returns {void}
+			 */
+			homeOfFandomClick() {
+				track({
+					action: trackActions.click,
+					category: 'site-head',
+					label: 'open-home-of-fandom'
+				});
+			}
+		}
 	}
 );

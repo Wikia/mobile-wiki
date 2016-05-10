@@ -16,6 +16,10 @@ $home-of-fandom-letter-spacing: 0.5px;
 	width: 100%;
 	z-index: $z-6;
 
+	a {
+		color: $color-blue-gray-dark;
+	}
+
 	&.un-pinned {
 		transform: translateY(-100%);
 	}
