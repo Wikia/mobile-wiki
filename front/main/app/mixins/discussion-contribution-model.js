@@ -43,7 +43,7 @@ export default Ember.Mixin.create({
 
 			posts.replace(editedPostIndex, 1, editedPost);
 
-			track(trackActions.PostEdit);
+			track(trackActions.PostEditSave);
 
 			return editedPost;
 		});

@@ -3,8 +3,10 @@ import {track as mercuryTrack} from 'common/utils/track';
 const trackActions = {
 	PostCreate: 'PostCreate',
 	PostEdit: 'PostEdit',
+	PostEditSave: 'PostEditSave',
 	ReplyCreate: 'ReplyCreate',
 	ReplyEdit: 'ReplyEdit',
+	ReplyEditSave: 'ReplyEditSave',
 	UndoUpvotePost: 'UndoUpvotePost',
 	UpvotePost: 'UpvotePost',
 	LatestPostTapped: 'LatestPostTapped',

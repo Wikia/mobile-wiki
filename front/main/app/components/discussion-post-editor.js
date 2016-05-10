@@ -15,7 +15,6 @@ export default DiscussionEditorComponent.extend({
 		this.initializeStickyState();
 	},
 
-
 	willDestroyElement() {
 		this.get('discussionEditor').off('newPost', this, this.handlePostCreated);
 	},

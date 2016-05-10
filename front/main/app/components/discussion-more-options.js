@@ -41,6 +41,8 @@ export default Ember.Component.extend({
 
 	actions: {
 		edit(post) {
+			track(post.get('isReply') ? trackActions.ReplyEdit : trackActions.PostEdit);
+
 			this.get('discussionEditor').setDiscussionEntity(post);
 			this.get('discussionEditor').toggleEditor(true);
 			this.get('popover').deactivate();

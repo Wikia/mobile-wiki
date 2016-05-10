@@ -98,7 +98,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 
 				this.get('data').setProperties(editedThread);
 
-				track(trackActions.PostEdit);
+				track(trackActions.PostEditSave);
 
 				return editedThread;
 			});
@@ -124,7 +124,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 
 				replies.replace(editedReplyIndex, 1, editedReply);
 
-				track(trackActions.ReplyEdit);
+				track(trackActions.ReplyEditSave);
 
 				return editedReply;
 			});
