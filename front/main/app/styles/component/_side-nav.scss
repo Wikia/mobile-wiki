@@ -1,3 +1,5 @@
+// TODO: split this into separate stylesheets for wikia-drawer, wikia-search and wikia-navigation while working on:
+// https://wikia-inc.atlassian.net/browse/DAT-4116
 .side-nav {
 	svg {
 		pointer-events: none;
@@ -9,6 +11,12 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+
+	a {
+		display: block;
+		width: 100%;
+		color: inherit;
+  	}
 }
 
 .side-nav.collapsed .side-nav-menu {
@@ -16,15 +24,17 @@
 }
 
 .side-nav .side-nav-menu {
-	background: #39414d;
-	color: #fff;
+	background: $color-gray-dark;
+	color: $white;
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	height: 100%;
+	padding-top: $site-head-height;
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: $z-side-nav;
+	z-index: $z-site-head - 1;
 
 	a:hover, a:focus {
 		color: inherit;
@@ -76,6 +86,10 @@
 .side-nav-menu__contents {
 	flex-grow: 1;
 	overflow-y: auto;
+}
+
+.wikia-drawer__content {
+	overflow: auto;
 }
 
 // because site-head has 1px border at the bottom
