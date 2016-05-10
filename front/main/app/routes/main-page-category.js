@@ -7,7 +7,7 @@ import {isNotFoundError} from 'ember-ajax/errors';
 
 export default Ember.Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, RouteWithAdsMixin, {
 	/**
-	 * @param {*} params
+	 * @param {string} categoryName
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	model({categoryName}) {
