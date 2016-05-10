@@ -107,7 +107,7 @@ function pruneParams(params) {
 }
 
 /**
- * @param {TrackingParams|Object} params
+ * @param {TrackingParams} params
  * @returns {void}
  */
 export function track(params) {
