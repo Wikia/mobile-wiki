@@ -19,10 +19,11 @@
 
 //default layout
 .og-container {
-	margin: 4px auto 9px;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
+	margin: 4px auto 9px 0;
+	max-width: 500px;
 }
 
 .og-title {
