@@ -107,7 +107,7 @@ function pruneParams(params) {
 }
 
 /**
- * @param {TrackingParams} params
+ * @param {TrackingParams|Object} params
  * @returns {void}
  */
 export function track(params) {
@@ -173,7 +173,7 @@ export function trackPageView(uaDimensions, overrideUrl) {
 }
 
 /**
- * Function to track an experiement specific event. This is currently
+ * Function to track an experiment specific event. This is currently
  * done due to limitations in the DW when it comes to segmentation
  * of events based on experiment groups
  *
