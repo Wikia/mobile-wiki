@@ -24,10 +24,6 @@ export default DiscussionEditorComponent.extend({
 		}
 	}),
 
-	bodyText: Ember.computed('discussionEditor.discussionEntity.rawContent', function () {
-		return this.get('discussionEditor.discussionEntity.rawContent') || '';
-	}),
-
 	didInsertElement() {
 		this._super(...arguments);
 		this.get('discussionEditor').on('newPost', () => {
@@ -66,5 +62,11 @@ export default DiscussionEditorComponent.extend({
 
 			this.get('discussionEditor').toggleEditor(false);
 		}, 2000);
+	},
+
+
+	afterOpenActions() {
+		this._super();
+		this.set('bodyText', this.get('discussionEditor.discussionEntity.rawContent') || '');
 	},
 });
