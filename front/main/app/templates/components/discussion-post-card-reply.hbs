@@ -54,6 +54,11 @@
 			{{{parsedContent}}}
 		</div>
 	{{/if}}
+	{{#if post.openGraph.exists}}
+		{{discussion-open-graph
+			openGraphData=post.openGraph
+		}}
+	{{/if}}
 </div>
 {{#if post.isLoading}}
 	{{loading-spinner
