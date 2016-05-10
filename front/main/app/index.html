@@ -85,7 +85,7 @@
 	M.loadDOMResource('/front/main/assets/common.svg');
 </script>
 
-<script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>
+<script>$script(['//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest'], 'mediaWikiScripts');</script>
 {{> tracking-ua}}
 {{> tracking-internal}}
 {{> tracking-ivw3}}
