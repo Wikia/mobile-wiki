@@ -6,7 +6,7 @@ import CuratedContentModel from '../models/curated-content';
 
 export default Ember.Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, RouteWithAdsMixin, {
 	/**
-	 * @param {*} params
+	 * @param {string} sectionName
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	model({sectionName}) {

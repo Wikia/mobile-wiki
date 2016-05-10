@@ -10,20 +10,21 @@ import {getBaseResult, getCuratedMainPageTitle, getOpenGraphData} from './page-d
 export default function prepareCuratedContentData(request, data) {
 	const wikiVariables = data.wikiVariables,
 		separator = wikiVariables.htmlTitle.separator,
-		result = getBaseResult(request, data);
+		result = getBaseResult(request, data),
+		mainPageData = data.mainPageData;
 
 	if (typeof request.query.buckySampling !== 'undefined') {
 		result.localSettings.weppy.samplingRate = parseInt(request.query.buckySampling, 10) / 100;
 	}
 
-	if (data.mainPageData && data.mainPageData.details) {
-		result.description = data.mainPageData.details.description;
+	if (mainPageData && mainPageData.details) {
+		result.description = mainPageData.details.description;
+		result.articleId = mainPageData.details ? mainPageData.details.id : 0;
 	}
-
 	result.displayTitle = getCuratedMainPageTitle(request, wikiVariables);
 	result.documentTitle = result.displayTitle + separator + result.documentTitle;
 	result.isMainPage = true;
-	result.mainPageData = data.mainPageData;
+	result.mainPageData = mainPageData;
 	result.openGraph = getOpenGraphData('website', result.displayTitle, result.canonicalUrl, result.mainPageData);
 
 	return result;

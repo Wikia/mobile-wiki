@@ -4,21 +4,13 @@
 			class='side-search__input'
 			tabindex='-1'
 			placeholder=searchPlaceholderLabel
-			focus-in='searchFocus'
 			value=query
 			enter='enter'
 		}}
-		{{#unless localNavigationVisible}}
-			<div class='side-search__clear' {{action 'clearSearch'}}>
-				{{svg 'side-nav-search-clear' viewBox='0 0 18 18' class='icon'}}
-			</div>
-		{{/unless}}
-	</div>
-	{{#unless localNavigationVisible}}
-		<div {{action 'cancelSearch'}} class="side-search__cancel">
-			{{i18n 'app.cancel-label'}}
+		<div class='side-search__clear' {{action 'clearSearch'}}>
+			{{svg 'side-nav-search-clear' viewBox='0 0 18 18' class='icon'}}
 		</div>
-	{{/unless}}
+	</div>
 </div>
 <ul class="side-search__results">
 	{{#each suggestions as |suggestion|}}
