@@ -1,6 +1,7 @@
 import DiscussionEntity from './entity';
 import DiscussionContributor from './contributor';
 import DiscussionUserData from './user-data';
+import OpenGraph from './open-graph';
 
 const DiscussionReply = DiscussionEntity.extend({
 	position: null,
@@ -26,6 +27,7 @@ DiscussionReply.reopenClass({
 				isReply: true,
 				isReported: postData.isReported,
 				isRequesterBlocked: postData.isRequesterBlocked,
+				openGraph: OpenGraph.create(Ember.get(postData, '_embedded.openGraph.0')),
 				position: postData.position,
 				rawContent: postData.rawContent,
 				threadCreatedBy: DiscussionContributor.create(postData.threadCreatedBy),
