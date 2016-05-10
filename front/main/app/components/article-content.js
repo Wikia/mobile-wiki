@@ -22,7 +22,6 @@ export default Ember.Component.extend(
 		contributionEnabled: null,
 		uploadFeatureEnabled: null,
 		displayTitle: null,
-		headers: null,
 
 		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
 			const content = this.get('content');
