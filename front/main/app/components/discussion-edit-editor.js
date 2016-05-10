@@ -26,9 +26,11 @@ export default DiscussionEditorComponent.extend({
 
 	didInsertElement() {
 		this._super(...arguments);
-		this.get('discussionEditor').on('newPost', () => {
-			this.handleNewPostCreated();
-		});
+		this.get('discussionEditor').on('newPost', this, this.handlePostEdited);
+	},
+
+	willDestroyElement() {
+		this.get('discussionEditor').off('newPost', this, this.handlePostEdited);
 	},
 
 	editorServiceStateObserver: Ember.observer('discussionEditor.isEditEditorOpen', function () {
@@ -51,7 +53,7 @@ export default DiscussionEditorComponent.extend({
 	 * Perform animations and logic after post creation
 	 * @returns {void}
 	 */
-	handleNewPostCreated() {
+	handlePostEdited() {
 		this.setProperties({
 			isLoading: false,
 			showSuccess: true

@@ -11,10 +11,13 @@ export default DiscussionEditorComponent.extend({
 
 	didInsertElement() {
 		this._super(...arguments);
-		this.get('discussionEditor').on('newPost', () => {
-			this.handleNewPostCreated();
-		});
+		this.get('discussionEditor').on('newPost', this, this.handlePostCreated);
 		this.initializeStickyState();
+	},
+
+
+	willDestroyElement() {
+		this.get('discussionEditor').off('newPost', this, this.handlePostCreated);
 	},
 
 	/**
@@ -74,7 +77,7 @@ export default DiscussionEditorComponent.extend({
 	 * Perform animations and logic after post creation
 	 * @returns {void}
 	 */
-	handleNewPostCreated() {
+	handlePostCreated() {
 		const newPosts = this.get('posts').filter((post) => post.get('isNew')),
 			newPost = newPosts.get('firstObject');
 
