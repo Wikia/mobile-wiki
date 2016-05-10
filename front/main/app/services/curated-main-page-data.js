@@ -30,9 +30,15 @@ export default Service.extend({
 		}
 	}),
 
+	/**
+	 * mainPageData.details.id is set on sections and categories
+	 * articleId is set on MainPage
+	 * currently we need to support both cases
+	 * ideally there would be only one way to get this data
+	 */
 	id: computed({
 		get() {
-			return M.prop('mainPageData.details.id');
+			return M.prop('mainPageData.details.id') || M.prop('articleId');
 		},
 		set(_, value) {
 			return value;
