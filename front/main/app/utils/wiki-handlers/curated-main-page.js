@@ -1,5 +1,5 @@
-import CuratedContentModel from '../../models/curated-content';
 import Ember from 'ember';
+import CuratedContentModel from '../../models/curated-content';
 
 /**
  * Set curatedContent data if main page has curated content set
