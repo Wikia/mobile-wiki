@@ -3,17 +3,10 @@ import Ember from 'ember';
 export default Ember.Service.extend(Ember.Evented, {
 	isAnon: true,
 	isEditorOpen: false,
-	isEditEditorOpen: false,
 	isUserBlocked: false,
-	discussionEntity: null,
 	errorMessage: null,
-	editErrorMessage: null,
 
 	modalDialog: Ember.inject.service(),
-
-	isEditMode: Ember.computed('discussionEntity', function () {
-		return this.get('discussionEntity') !== null;
-	}),
 
 	isLoading: false,
 
@@ -43,11 +36,7 @@ export default Ember.Service.extend(Ember.Evented, {
 	},
 
 	setErrorMessage(message) {
-		if (this.get('isEditMode')) {
-			this.set('editErrorMessage', message);
-		} else {
-			this.set('errorMessage', message);
-		}
+		this.set('errorMessage', message);
 	},
 
 	/**
@@ -56,10 +45,7 @@ export default Ember.Service.extend(Ember.Evented, {
 	 * @returns {void}
 	 */
 	activateEditor() {
-		if (
-			(!this.get('isEditMode') && this.get('isEditorOpen') === true) &&
-			(this.get('isEditMode') && this.get('isEditEditorOpen') === true)
-		) {
+		if (this.get('isEditorOpen')) {
 			return;
 		}
 
@@ -69,13 +55,12 @@ export default Ember.Service.extend(Ember.Evented, {
 		} else if (this.get('isUserBlocked')) {
 			this.rejectBlockedUser();
 			return;
-		} else if (this.get('isEditMode')) {
-			this.set('isEditEditorOpen', true);
-		} else {
-			this.set('isEditorOpen', true);
 		}
-		this.set('errorMessage', null);
-		this.set('editErrorMessage', null);
+
+		this.setProperties({
+			isEditorOpen: true,
+			errorMessage: null
+		});
 	},
 
 	/**
@@ -86,15 +71,10 @@ export default Ember.Service.extend(Ember.Evented, {
 		if (active === true) {
 			this.activateEditor();
 		} else {
-			this.set('errorMessage', null);
-			this.set('editErrorMessage', null);
-			this.set('discussionEntity', null);
-			this.set('isEditorOpen', false);
-			this.set('isEditEditorOpen', false);
+			this.setProperties({
+				errorMessage: null,
+				isEditorOpen: false
+			});
 		}
 	},
-
-	setDiscussionEntity(discussionEntity) {
-		this.set('discussionEntity', discussionEntity);
-	}
 });

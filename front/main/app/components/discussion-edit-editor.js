@@ -5,9 +5,7 @@ import {trackActions} from '../utils/discussion-tracker';
 export default DiscussionEditorComponent.extend({
 	classNames: ['is-edit'],
 
-	discussionEditor: Ember.inject.service(),
-
-	errorMessage: Ember.computed.alias('discussionEditor.editErrorMessage'),
+	discussionEditor: Ember.inject.service('discussion-edit-editor'),
 
 	placeholderText: 'editor.post-editor-placeholder-text',
 	submitText: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
@@ -59,8 +57,8 @@ export default DiscussionEditorComponent.extend({
 		this.get('discussionEditor').off('newPost', this, this.handlePostEdited);
 	},
 
-	editorServiceStateObserver: Ember.observer('discussionEditor.isEditEditorOpen', function () {
-		if (this.get('discussionEditor.isEditEditorOpen')) {
+	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
+		if (this.get('discussionEditor.isEditorOpen')) {
 			this.afterOpenActions();
 		} else {
 			this.get('discussionEditor').setDiscussionEntity(null);
@@ -92,9 +90,35 @@ export default DiscussionEditorComponent.extend({
 		}, 2000);
 	},
 
-
+	/**
+	 * Calls what's needs to be done after editor is opened
+	 * @returns {void}
+	 */
 	afterOpenActions() {
 		this._super();
 		this.set('bodyText', this.get('discussionEditor.discussionEntity.rawContent') || '');
 	},
+
+	actions: {
+
+		/**
+		 * Send request to model to create new post and start animations
+		 * @returns {void}
+		 */
+		submit() {
+			if (!this.get('submitDisabled')) {
+				const action = this.get('discussionEditor.discussionEntity.isReply') ? 'editReply' : 'editPost',
+					discussionEntity = this.get('discussionEditor.discussionEntity');
+
+				this.get('discussionEditor').set('isLoading', true);
+
+				this.attrs[action]({
+					body: this.get('bodyText'),
+					id: discussionEntity.get('isReply') ?
+						discussionEntity.get('id') :
+						discussionEntity.get('threadId')
+				});
+			}
+		},
+	}
 });

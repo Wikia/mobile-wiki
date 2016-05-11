@@ -20,7 +20,6 @@ export default Ember.Component.extend(ViewportMixin, {
 	siteHeadHeight: 0,
 
 	bodyText: '',
-	isEdit: Ember.computed.alias('discussionEditor.isEditMode'),
 	errorMessage: Ember.computed.alias('discussionEditor.errorMessage'),
 
 	layoutName: 'components/discussion-editor',
@@ -40,6 +39,10 @@ export default Ember.Component.extend(ViewportMixin, {
 		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null;
 	}),
 
+	/**
+	 * Track content changed
+	 * @returns {void}
+	 */
 	onTextContent: Ember.observer('bodyText', function () {
 		if (this.get('bodyText').length > 0 && !this.get('wasContentTracked')) {
 			track(this.get('contentTrackingAction'));
@@ -47,6 +50,10 @@ export default Ember.Component.extend(ViewportMixin, {
 		}
 	}),
 
+	/**
+	 * Handle hiding error message
+	 * @returns {void}
+	 */
 	onErrorMessage: Ember.observer('errorMessage', function () {
 		if (this.get('errorMessage')) {
 			Ember.run.later(this, () => {
@@ -55,6 +62,10 @@ export default Ember.Component.extend(ViewportMixin, {
 		}
 	}),
 
+	/**
+	 * Handle opening/closing editor
+	 * @returns {void}
+	 */
 	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
 		if (this.get('discussionEditor.isEditorOpen')) {
 			this.afterOpenActions();
@@ -275,23 +286,11 @@ export default Ember.Component.extend(ViewportMixin, {
 			if (!this.get('submitDisabled')) {
 				this.get('discussionEditor').set('isLoading', true);
 
-				if (this.get('isEdit')) {
-					const action = this.get('discussionEditor.discussionEntity.isReply') ? 'editReply' : 'editPost',
-						discussionEntity = this.get('discussionEditor.discussionEntity');
-
-					this.attrs[action]({
-						body: this.get('bodyText'),
-						id: discussionEntity.get('isReply') ?
-							discussionEntity.get('id') :
-							discussionEntity.get('threadId')
-					});
-				} else {
-					this.attrs.create({
-						body: this.get('bodyText'),
-						creatorId: this.get('currentUser.userId'),
-						siteId: Mercury.wiki.id
-					});
-				}
+				this.attrs.create({
+					body: this.get('bodyText'),
+					creatorId: this.get('currentUser.userId'),
+					siteId: Mercury.wiki.id
+				});
 			}
 		},
 

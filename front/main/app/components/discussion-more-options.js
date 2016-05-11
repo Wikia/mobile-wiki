@@ -37,12 +37,12 @@ export default Ember.Component.extend({
 		track(trackActions.MorePostActions);
 	},
 
-	discussionEditor: Ember.inject.service(),
+	discussionEditEditor: Ember.inject.service(),
 
 	actions: {
 		edit(post) {
-			this.get('discussionEditor').setDiscussionEntity(post);
-			this.get('discussionEditor').toggleEditor(true);
+			this.get('discussionEditEditor').setDiscussionEntity(post);
+			this.get('discussionEditEditor').toggleEditor(true);
 			this.get('popover').deactivate();
 		},
 

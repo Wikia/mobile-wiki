@@ -1,5 +1,5 @@
 export default Ember.Mixin.create({
-	discussionEditor: Ember.inject.service(),
+	discussionEditEditor: Ember.inject.service(),
 
-	editEditorActive: Ember.computed.alias('discussionEditor.isEditEditorOpen'),
+	editEditorActive: Ember.computed.alias('discussionEditEditor.isEditorOpen'),
 });
