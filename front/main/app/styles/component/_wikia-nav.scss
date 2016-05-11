@@ -5,10 +5,13 @@ $side-nav-height: $site-head-height - rem-calc(1);
 	display: block;
 	font-size: 16px;
 	line-height: 30px;
-	padding: 9px 20px;
+	padding: 9px 18px;
 	position: relative;
 	background-color: #636b76;
 	margin-top: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 
 	&:hover,
 	&:visited,
@@ -38,6 +41,7 @@ $side-nav-height: $site-head-height - rem-calc(1);
 		background: white;
 		border: 2px solid #fff;
 		border-radius: 50%;
+		vertical-align: top;
 	}
 
 	.wikia-nav__avatar {

@@ -14,9 +14,11 @@
 		display: block;
 		font-size: 16px;
 		line-height: 48px;
-		margin: 6px 0;
-		padding: 0 20px;
+		padding: 6px 18px 0 18px;
 		position: relative;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 
 		&:hover,
 		&:visited,
@@ -30,7 +32,7 @@
 		&::before {
 			content: ' ';
 			display: block;
-			height: 100%;
+			height: 48px;
 			left: 0;
 			position: absolute;
 			width: 4px;
@@ -38,8 +40,8 @@
 
 		&.nav-menu__header {
 			background-color: #636b76;
-			margin-top: 0;
-			padding-left: 17px;
+			padding: 0 18px;
+			margin-top: 6px;
 			font-weight: bold;
 
 			&::before {
@@ -51,15 +53,8 @@
 			font-weight: bold;
 		}
 
-		&.nav-menu__local:before {
+		&.nav-menu__local {
 			background-color: #46505A;
-			content: ' ';
-			position: absolute;
-			height: 60px;
-			width: 100%;
-			top: -6px;
-			left: 0;
-			z-index: -1;
 		}
 
 		&.nav-menu__root {
@@ -67,6 +62,7 @@
 			background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0D%0A%20%20%20%20%3Cg%20id%3D%22Symbols%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%0D%0A%20%20%20%20%20%20%20%20%3Cg%20id%3D%22menu-element_arrow%22%20transform%3D%22translate%28-260.000000%2C%20-12.000000%29%22%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Crect%20id%3D%22Rectangle-38%22%20x%3D%22260%22%20y%3D%2212%22%20width%3D%2224%22%20height%3D%2224%22%3E%3C%2Frect%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M268.2266%2C32.7735935%20C268.37728%2C32.9242736%20268.575096%2C33%20268.772912%2C33%20C268.970728%2C33%20269.168544%2C32.9242736%20269.319224%2C32.7735935%20L277.046409%2C25.0464086%20C277.348541%2C24.7442756%20277.348541%2C24.2559175%20277.046409%2C23.9537846%20L269.319224%2C16.2265997%20C269.017091%2C15.9244668%20268.528733%2C15.9244668%20268.2266%2C16.2265997%20C267.924467%2C16.5287326%20267.924467%2C17.0170907%20268.2266%2C17.3192236%20L275.407473%2C24.5000966%20L268.2266%2C31.6809695%20C267.924467%2C31.9831025%20267.924467%2C32.4714606%20268.2266%2C32.7735935%22%20id%3D%22Arrow-Right-Copy-2%22%20fill%3D%22%23656E78%22%3E%3C%2Fpath%3E%0D%0A%20%20%20%20%20%20%20%20%3C%2Fg%3E%0D%0A%20%20%20%20%3C%2Fg%3E%0D%0A%3C%2Fsvg%3E); // /front/svg/embedded/side-nav/menu.svg
 			background-position: right 18px center;
 			background-repeat: no-repeat;
+			padding-right: 54px;
 		}
 
 		&.comics::before {
