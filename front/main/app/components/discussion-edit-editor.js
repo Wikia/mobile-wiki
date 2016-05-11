@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DiscussionEditorComponent from './discussion-editor';
+import {trackActions} from '../utils/discussion-tracker';
 
 export default DiscussionEditorComponent.extend({
 	classNames: ['is-edit'],
@@ -21,6 +22,31 @@ export default DiscussionEditorComponent.extend({
 			return 'editor.reply-edit-editor-label';
 		} else {
 			return 'editor.post-edit-editor-label';
+		}
+	}),
+
+	// Tracking action name of closing the editor
+	closeTrackingAction: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
+		if (this.get('discussionEditor.discussionEntity.isReply')) {
+			return trackActions.ReplyEditClose;
+		} else {
+			return trackActions.PostEditClose;
+		}
+	}),
+	// Tracking action name of inserting content into editor
+	contentTrackingAction: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
+		if (this.get('discussionEditor.discussionEntity.isReply')) {
+			return trackActions.ReplyEditContent;
+		} else {
+			return trackActions.PostEditContent;
+		}
+	}),
+	// Tracking action name of opening the editor
+	startTrackingAction: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
+		if (this.get('discussionEditor.discussionEntity.isReply')) {
+			return trackActions.ReplyEdit;
+		} else {
+			return trackActions.PostEdit;
 		}
 	}),
 
