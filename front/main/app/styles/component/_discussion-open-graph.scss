@@ -63,6 +63,12 @@
 	// .post-reply { this has the default layout }
 }
 
+.discussion-editor {
+	.og-container {
+		margin: $editor-textarea-paddings;
+	}
+}
+
 @media #{$desktop-range} {
 	.og-container {
 		margin: 2px auto 16px;

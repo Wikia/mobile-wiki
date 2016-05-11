@@ -44,6 +44,7 @@ $editor-textarea-overflow-ios-hack: 30px;
 
 		.editor-textarea {
 			border-bottom: 1px solid $secondary-color;
+			flex: 1;
 			height: $line-height-smaller;
 			min-height: $line-height-smaller;
 			padding: 0;
@@ -62,6 +63,8 @@ $editor-textarea-overflow-ios-hack: 30px;
 		}
 
 		.editor-wrapper {
+			display: flex;
+			flex-direction: column;
 			padding: $editor-textarea-paddings;
 		}
 
@@ -228,7 +231,6 @@ $editor-textarea-overflow-ios-hack: 30px;
 				.editor-textarea {
 					border-bottom-width: 0;
 					border-top: $editor-active-mobile-border-top-width solid $discussion-editor-textarea-border-color;
-					height: 100%;
 					max-height: none;
 					padding: $editor-toolbar-height 10px 10px;
 					position: relative;

@@ -1,12 +1,13 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from '../utils/discussion-tracker';
+import OpenGraph from '../models/discussion/domain/open-graph';
 
 export default Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
 
 	classNames: ['discussion-editor'],
-	classNameBindings: ['isActive', 'hasError'],
+	classNameBindings: ['isActive', 'hasError', 'shouldShowOpenGraphCard:hasOpenGraph'],
 
 	currentUser: Ember.inject.service(),
 	discussionEditor: Ember.inject.service(),
@@ -34,6 +35,21 @@ export default Ember.Component.extend(ViewportMixin, {
 	startTrackingAction: trackActions.PostStart,
 	wasContentTracked: false,
 	wasStartTracked: false,
+
+	openGraph: OpenGraph.create({
+		description: 'Some description',
+		domain: 'glee.wikia.com',
+		exists: true,
+		id: 2702253634848394020,
+		imageHeight: 348,
+		imageUrl: 'https://i.ytimg.com/vi/ybQ__WdAqvE/hqdefault.jpg',
+		imageWidth: 464,
+		siteId: 26337,
+		siteName: '@Wikia',
+		title: 'Glee TV Show Wiki',
+		type: 'website',
+		url: 'http://glee.wikia.com/wiki/Glee_TV_Show_Wiki',
+	}),
 
 	/**
 	 * @returns {boolean}
@@ -70,7 +86,7 @@ export default Ember.Component.extend(ViewportMixin, {
 			openGraphUrl: null,
 			shouldShowOpenGraphCard: false
 		});
-	}
+	},
 
 	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
 		if (this.get('discussionEditor.isEditorOpen')) {
