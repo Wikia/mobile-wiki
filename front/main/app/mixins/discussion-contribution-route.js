@@ -57,7 +57,7 @@ export default Ember.Mixin.create({
 			this.setSortBy('latest').promise.then(() => {
 				const model = this.modelFor(this.get('routeName'));
 
-				model.createPost(postData).then((data) => {
+				model.createPost(postData).then(() => {
 					this.get('discussionEditor').trigger('newPost');
 				}).catch((err) => {
 					this.onContributionError(err, false);
@@ -79,7 +79,7 @@ export default Ember.Mixin.create({
 
 			this.setEditorError(null, true);
 
-			model.editPost(postData).then((data) => {
+			model.editPost(postData).then(() => {
 				this.get('discussionEditEditor').trigger('newPost');
 			}).catch((err) => {
 				this.onContributionError(err, true);
@@ -113,7 +113,7 @@ export default Ember.Mixin.create({
 
 			this.setEditorError(null, true);
 
-			model.editReply(replyData).then((data) => {
+			model.editReply(replyData).then(() => {
 				this.get('discussionEditEditor').trigger('newPost');
 			}).catch((err) => {
 				this.onContributionError(err, true);

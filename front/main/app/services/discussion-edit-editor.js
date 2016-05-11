@@ -18,4 +18,4 @@ export default DiscussionEditorService.extend({
 			this.set('discussionEntity', null);
 		}
 	}
-})
+});
