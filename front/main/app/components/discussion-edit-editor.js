@@ -15,6 +15,7 @@ export default DiscussionEditorComponent.extend({
 			return 'editor.post-edit-action-button-label';
 		}
 	}),
+
 	labelText: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
 		if (this.get('discussionEditor.discussionEntity.isReply')) {
 			return 'editor.reply-edit-editor-label';
@@ -23,7 +24,11 @@ export default DiscussionEditorComponent.extend({
 		}
 	}),
 
-	// Tracking action name of closing the editor
+	/**
+	 * Tracking action name of closing the editor
+	 *
+	 * @returns {string}
+	 */
 	closeTrackingAction: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
 		if (this.get('discussionEditor.discussionEntity.isReply')) {
 			return trackActions.ReplyEditClose;
@@ -31,7 +36,12 @@ export default DiscussionEditorComponent.extend({
 			return trackActions.PostEditClose;
 		}
 	}),
-	// Tracking action name of inserting content into editor
+
+	/**
+	 * Tracking action name of inserting content into editor
+	 *
+	 * @returns {string}
+	 */
 	contentTrackingAction: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
 		if (this.get('discussionEditor.discussionEntity.isReply')) {
 			return trackActions.ReplyEditContent;
@@ -39,7 +49,12 @@ export default DiscussionEditorComponent.extend({
 			return trackActions.PostEditContent;
 		}
 	}),
-	// Tracking action name of opening the editor
+
+	/**
+	 * Tracking action name of opening the editor
+	 *
+	 * @returns {string}
+	 */
 	startTrackingAction: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
 		if (this.get('discussionEditor.discussionEntity.isReply')) {
 			return trackActions.ReplyEdit;
@@ -70,8 +85,7 @@ export default DiscussionEditorComponent.extend({
 	 * Initialize onScroll binding for sticky logic
 	 * @returns {void}
 	 */
-	initializeStickyState() {
-	},
+	initializeStickyState() {},
 
 	/**
 	 * Perform animations and logic after post creation
@@ -91,7 +105,7 @@ export default DiscussionEditorComponent.extend({
 	},
 
 	/**
-	 * Calls what's needs to be done after editor is opened
+	 * Open editor and set bodyText to the right value
 	 * @returns {void}
 	 */
 	afterOpenActions() {
@@ -107,17 +121,21 @@ export default DiscussionEditorComponent.extend({
 		 */
 		submit() {
 			if (!this.get('submitDisabled')) {
-				const action = this.get('discussionEditor.discussionEntity.isReply') ? 'editReply' : 'editPost',
-					discussionEntity = this.get('discussionEditor.discussionEntity');
+				const discussionEntity = this.get('discussionEditor.discussionEntity');
 
 				this.get('discussionEditor').set('isLoading', true);
 
-				this.attrs[action]({
-					body: this.get('bodyText'),
-					id: discussionEntity.get('isReply') ?
-						discussionEntity.get('id') :
-						discussionEntity.get('threadId')
-				});
+				if (discussionEntity.get('isReply')) {
+					this.attrs.editReply({
+						body: this.get('bodyText'),
+						id: discussionEntity.get('id'),
+					});
+				} else {
+					this.attrs.editPost({
+						body: this.get('bodyText'),
+						id: discussionEntity.get('threadId'),
+					});
+				}
 			}
 		},
 	}
