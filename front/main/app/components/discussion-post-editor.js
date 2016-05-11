@@ -36,7 +36,7 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {boolean}
 	 */
 	isStickyBreakpointHeight() {
-		return window.pageYOffset >= this.get('offsetTop') - (this.get('siteHeadPinned') ? this.get('siteHeadHeight') : 0);
+		return window.pageYOffset >= this.get('offsetTop') - this.get('siteHeadHeight');
 	},
 
 	/**

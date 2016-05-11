@@ -88,10 +88,6 @@ $editor-textarea-overflow-ios-hack: 30px;
 			transition: top 0.5s;
 			width: $sticky-editor-width;
 			z-index: 1;
-
-			&.pinned-top {
-				top: - $editor-border-width;
-			}
 		}
 	}
 

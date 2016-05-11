@@ -19,22 +19,23 @@
 
 //default layout
 .og-container {
-	margin: 4px auto 9px;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
+	margin: 4px auto 9px 0;
+	max-width: 500px;
 }
 
 .og-title {
 	font-size: $type-smallest;
 	line-height: $line-height-smallest;
-	margin: 22px 18px 0px;
+	margin: 22px 18px 0;
 }
 
 .og-site-name {
 	font-size: $type-min;
 	line-height: $line-height-min;
-	margin: 0px 18px 22px;
+	margin: 0 18px 22px;
 }
 
 .og-image {
@@ -46,7 +47,7 @@
 	// main post layout
 	.post-detail {
 		.og-container {
-			margin: 9px auto 13px;
+			margin: 9px auto 13px 0;
 		}
 
 		.og-title {

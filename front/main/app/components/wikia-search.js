@@ -13,6 +13,7 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	{
+		classNames: ['wikia-drawer__content'],
 		ajax: Ember.inject.service(),
 		query: '',
 
@@ -48,6 +49,11 @@ export default Ember.Component.extend(
 		// key: query string, value: Array<SearchSuggestionItem>
 		cachedResults: {},
 
+		didInsertElement() {
+			this._super(...arguments);
+			this.$('.side-search__input').focus();
+		},
+
 		actions: {
 			enter(value) {
 				track({
@@ -56,15 +62,6 @@ export default Ember.Component.extend(
 					label: 'search-open-special-search'
 				});
 				window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${value}&fulltext=Search`);
-			},
-
-			searchFocus() {
-				this.sendAction('toggleSearchMode', true);
-			},
-
-			cancelSearch() {
-				this.set('query', null);
-				this.sendAction('toggleSearchMode', false);
 			},
 
 			clearSearch() {
@@ -78,7 +75,7 @@ export default Ember.Component.extend(
 					category: 'side-nav',
 					label: 'search-open-suggestion-link'
 				});
-				this.get('collapse')();
+				this.get('closeDrawer')();
 			}
 		},
 
@@ -107,12 +104,9 @@ export default Ember.Component.extend(
 				} else {
 					this.setSearchSuggestionItems(cached);
 				}
-
-				this.sendAction('toggleSearchMode', true);
 			} else {
 				this.set('isLoadingSearchResults', true);
 				Ember.run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
-				this.sendAction('toggleSearchMode', true);
 			}
 		}),
 
@@ -309,6 +303,6 @@ export default Ember.Component.extend(
 		 */
 		getCachedResult(query) {
 			return this.get('cachedResults')[query];
-		},
+		}
 	}
 );
