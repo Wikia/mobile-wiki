@@ -37,11 +37,9 @@ export default Ember.Mixin.create({
 			data: JSON.stringify(postData),
 			method: 'POST',
 		}).then((thread) => {
-			const editedPost = DiscussionPost.createFromThreadData(thread),
-				posts = this.get('data.entities'),
-				editedPostIndex = posts.indexOf(posts.findBy('threadId', postData.id));
+			const editedPost = DiscussionPost.createFromThreadData(thread);
 
-			posts.replace(editedPostIndex, 1, editedPost);
+			this.get('data.entities').findBy('threadId', postData.id).setProperties(editedPost);
 
 			track(trackActions.PostEditSave);
 
@@ -59,15 +57,12 @@ export default Ember.Mixin.create({
 			data: JSON.stringify(replyData),
 			method: 'POST',
 		}).then((reply) => {
-			const replies = this.get('data.entities'),
-				editedReplyIndex = replies.indexOf(replies.findBy('id', replyData.id));
 			let editedReply;
 
 			reply.threadCreatedBy = reply.createdBy;
-
 			editedReply = DiscussionReply.create(reply);
 
-			replies.replace(editedReplyIndex, 1, editedReply);
+			this.get('data.entities').findBy('id', replyData.id).setProperties(editedReply);
 
 			track(trackActions.ReplyEdit);
 

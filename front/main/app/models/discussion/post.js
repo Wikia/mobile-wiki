@@ -114,15 +114,14 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 				method: 'POST',
 				data: JSON.stringify(replyData),
 			}).then((reply) => {
-				const replies = this.get('data.replies'),
-					editedReplyIndex = replies.indexOf(replies.findBy('id', replyData.id));
 				let editedReply;
 
 				reply.threadCreatedBy = reply.createdBy;
 
 				editedReply = DiscussionReply.create(reply);
 
-				replies.replace(editedReplyIndex, 1, editedReply);
+				this.get('data.replies').findBy('id', replyData.id).setProperties(editedReply);
+
 
 				track(trackActions.ReplyEditSave);
 
