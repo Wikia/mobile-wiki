@@ -7,6 +7,9 @@
 		@extend .small-12;
 
 		overflow-x: hidden;
+	}
+
+	.article-content {
 		padding: 0 $article-horizontal-padding;
 	}
 }

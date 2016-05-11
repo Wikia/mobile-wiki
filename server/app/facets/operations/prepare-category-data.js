@@ -16,7 +16,6 @@ export default function prepareCategoryData(request, data) {
 
 	result.displayTitle = getDefaultTitle(request, pageData);
 	result.documentTitle = prefix + result.displayTitle + separator + result.documentTitle;
-	result.hasToC = false;
 	result.queryParams = parseQueryParams(request.query, allowedQueryParams);
 	result.subtitle = request.server.methods.i18n.getInstance().t('app.category-page-subtitle');
 
