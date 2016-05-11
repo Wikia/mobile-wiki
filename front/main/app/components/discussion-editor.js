@@ -80,6 +80,9 @@ export default Ember.Component.extend(ViewportMixin, {
 			return;
 		}
 
+		// TODO handle it better
+		this.get('generateOpenGraph')(urls[0]);
+
 		this.setProperties({
 			openGraphUrl: urls[0],
 			shouldShowOpenGraphCard: true

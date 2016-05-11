@@ -73,6 +73,7 @@
 	{{#if canReply}}
 		{{discussion-reply-editor
 			create=(action this.attrs.createReply)
+			generateOpenGraph=(action this.attrs.generateOpenGraph)
 			replies=model.replies
 		}}
 	{{/if}}

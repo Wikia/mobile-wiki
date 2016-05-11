@@ -121,5 +121,14 @@ export default Ember.Mixin.create({
 				this.get('discussionEditEditor').set('isLoading', false);
 			});
 		},
+
+		generateOpenGraph(uri) {
+			const model = this.modelFor(this.get('routeName'));
+
+			model.generateOpenGraph(uri).then((openGraph) => {
+				// TODO do something with the data
+				console.log(openGraph);
+			})
+		}
 	}
 });
