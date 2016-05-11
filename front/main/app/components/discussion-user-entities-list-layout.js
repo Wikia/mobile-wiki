@@ -6,7 +6,7 @@ export default Ember.Component.extend(DiscussionModalDialogMixin, {
 
 	actions: {
 		deleteAllPosts() {
-			this.attrs.deleteAllPosts();
+			this.get('deleteAllPosts')();
 
 			track(trackActions.DeleteAllTapped);
 		}

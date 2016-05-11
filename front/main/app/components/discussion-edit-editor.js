@@ -126,12 +126,12 @@ export default DiscussionEditorComponent.extend({
 				this.get('discussionEditor').set('isLoading', true);
 
 				if (discussionEntity.get('isReply')) {
-					this.attrs.editReply({
+					this.get('editReply')({
 						body: this.get('bodyText'),
 						id: discussionEntity.get('id'),
 					});
 				} else {
-					this.attrs.editPost({
+					this.get('editPost')({
 						body: this.get('bodyText'),
 						id: discussionEntity.get('threadId'),
 					});

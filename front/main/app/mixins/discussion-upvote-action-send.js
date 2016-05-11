@@ -21,7 +21,7 @@ export default Ember.Mixin.create({
 		 */
 		upvote(post) {
 			if (this.canUpvote()) {
-				this.attrs.upvote(post);
+				this.get('upvote')(post);
 			}
 		}
 	}

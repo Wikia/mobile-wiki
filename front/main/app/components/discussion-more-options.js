@@ -54,7 +54,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		lock(post) {
-			this.attrs.lock(post);
+			this.get('lock')(post);
 			track(trackActions.PostLock);
 			this.get('popover').deactivate();
 		},
@@ -65,7 +65,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		unlock(post) {
-			this.attrs.unlock(post);
+			this.get('unlock')(post);
 			track(trackActions.PostUnlock);
 			this.get('popover').deactivate();
 		},
@@ -76,7 +76,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		delete(post) {
-			this.attrs.delete(post);
+			this.get('delete')(post);
 			this.get('popover').deactivate();
 		},
 
@@ -86,7 +86,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		undelete(post) {
-			this.attrs.undelete(post);
+			this.get('undelete')(post);
 			this.get('popover').deactivate();
 		},
 
@@ -96,7 +96,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		report(post) {
-			this.attrs.report(post);
+			this.get('report')(post);
 			track(trackActions.Report);
 			this.get('popover').deactivate();
 		},

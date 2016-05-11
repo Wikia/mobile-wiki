@@ -286,7 +286,7 @@ export default Ember.Component.extend(ViewportMixin, {
 			if (!this.get('submitDisabled')) {
 				this.get('discussionEditor').set('isLoading', true);
 
-				this.attrs.create({
+				this.get('create')({
 					body: this.get('bodyText'),
 					creatorId: this.get('currentUser.userId'),
 					siteId: Mercury.wiki.id
