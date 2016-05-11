@@ -9,7 +9,6 @@ import {getOpenGraphData, getOpenGraphUrl} from './page-data-helper';
 export default function prepareMainPageData(data) {
 	const pageData = data.page.data,
 		wikiVariables = data.wikiVariables,
-
 		result = {
 			hasToC: false,
 			openGraph: getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables)),
