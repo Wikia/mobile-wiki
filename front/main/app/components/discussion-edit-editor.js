@@ -76,7 +76,7 @@ export default DiscussionEditorComponent.extend({
 	 */
 	afterOpenActions() {
 		this._super();
-		this.set('bodyText', this.get('discussionEditor.discussionEntity.rawContent') || '');
+		this.set('bodyText', this.getWithDefault('discussionEditor.discussionEntity.rawContent', ''));
 	},
 
 	actions: {
