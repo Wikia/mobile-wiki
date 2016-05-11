@@ -8,7 +8,7 @@ export default Ember.Component.extend({
 			const $recentChange = $(`#${recentChangeId}`);
 
 			if ($recentChange.length) {
-				const navHeight = this.get('siteHeadPinned') ? $('.site-head').outerHeight() : 0,
+				const navHeight = $('.site-head').outerHeight(),
 					offsetTop = $recentChange.offset().top - navHeight;
 
 				$('body').scrollTop(offsetTop);

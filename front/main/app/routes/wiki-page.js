@@ -7,7 +7,7 @@ import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import getPageModel from '../utils/wiki-handlers/wiki-page';
 import {normalizeToUnderscore} from 'common/utils/string';
 import {setTrackContext, trackPageView} from 'common/utils/track';
-import {namespace as MediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
+import {namespace as mediawikiNamespace, isContentNamespace} from '../utils/mediawiki-namespace';
 
 export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 	redirectEmptyTarget: false,
@@ -29,7 +29,7 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 			return CuratedMainPageHandler;
 		} else if (isContentNamespace(currentNamespace)) {
 			return ArticleHandler;
-		} else if (currentNamespace === MediawikiNamespace.CATEGORY) {
+		} else if (currentNamespace === mediawikiNamespace.CATEGORY) {
 			return CategoryHandler;
 		} else {
 			Ember.Logger.debug(`Unsupported NS passed to getHandler - ${currentNamespace}`);
@@ -152,7 +152,7 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 		}
 
 		setTrackContext({
-			a: model.get('title'),
+			a: model.get('id'),
 			n: model.get('ns')
 		});
 
