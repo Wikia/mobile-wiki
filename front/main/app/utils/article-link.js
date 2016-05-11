@@ -86,7 +86,7 @@ export default function getLinkInfo(basePath, title, hash, uri) {
 
 /**
  * @param {EventTarget} target
- * @returns Boolean
+ * @returns {Boolean}
  */
 export function isHashLink(target) {
 	// We need to use getAttribute because target.href returns whole resolved URL instead of the original value
