@@ -8,60 +8,6 @@ export default DiscussionEditorComponent.extend({
 	discussionEditor: Ember.inject.service('discussion-edit-editor'),
 
 	placeholderText: 'editor.post-editor-placeholder-text',
-	submitText: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
-		if (this.get('discussionEditor.discussionEntity.isReply')) {
-			return 'editor.reply-edit-action-button-label';
-		} else {
-			return 'editor.post-edit-action-button-label';
-		}
-	}),
-
-	labelText: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
-		if (this.get('discussionEditor.discussionEntity.isReply')) {
-			return 'editor.reply-edit-editor-label';
-		} else {
-			return 'editor.post-edit-editor-label';
-		}
-	}),
-
-	/**
-	 * Tracking action name of closing the editor
-	 *
-	 * @returns {string}
-	 */
-	closeTrackingAction: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
-		if (this.get('discussionEditor.discussionEntity.isReply')) {
-			return trackActions.ReplyEditClose;
-		} else {
-			return trackActions.PostEditClose;
-		}
-	}),
-
-	/**
-	 * Tracking action name of inserting content into editor
-	 *
-	 * @returns {string}
-	 */
-	contentTrackingAction: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
-		if (this.get('discussionEditor.discussionEntity.isReply')) {
-			return trackActions.ReplyEditContent;
-		} else {
-			return trackActions.PostEditContent;
-		}
-	}),
-
-	/**
-	 * Tracking action name of opening the editor
-	 *
-	 * @returns {string}
-	 */
-	startTrackingAction: Ember.computed('discussionEditor.discussionEntity.isReply', function () {
-		if (this.get('discussionEditor.discussionEntity.isReply')) {
-			return trackActions.ReplyEdit;
-		} else {
-			return trackActions.PostEdit;
-		}
-	}),
 
 	didInsertElement() {
 		this._super(...arguments);
@@ -71,6 +17,26 @@ export default DiscussionEditorComponent.extend({
 	willDestroyElement() {
 		this.get('discussionEditor').off('newPost', this, this.handlePostEdited);
 	},
+
+	isReplyObserver: Ember.observer('discussionEditor.discussionEntity.isReply', function () {
+		if (this.get('discussionEditor.discussionEntity.isReply')) {
+			this.setProperties({
+				closeTrackingAction: trackActions.ReplyEditClose,
+				contentTrackingAction: trackActions.ReplyEditContent,
+				labelText: 'editor.reply-edit-editor-label',
+				startTrackingAction: trackActions.ReplyEdit,
+				submitText: 'editor.reply-edit-action-button-label',
+			});
+		} else {
+			this.setProperties({
+				closeTrackingAction: trackActions.PostEditClose,
+				contentTrackingAction: trackActions.PostEditContent,
+				labelText: 'editor.post-edit-editor-label',
+				startTrackingAction: trackActions.PostEdit,
+				submitText: 'editor.post-edit-action-button-label',
+			});
+		}
+	}),
 
 	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
 		if (this.get('discussionEditor.isEditorOpen')) {
