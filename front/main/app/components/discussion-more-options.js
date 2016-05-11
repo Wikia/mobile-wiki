@@ -43,7 +43,7 @@ export default Ember.Component.extend({
 		edit(post) {
 			const discussionEditEditor = this.get('discussionEditEditor');
 
-			discussionEditEditor.setDiscussionEntity(post);
+			discussionEditEditor.set('discussionEntity', post);
 			discussionEditEditor.toggleEditor(true);
 			this.get('popover').deactivate();
 		},
