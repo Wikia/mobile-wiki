@@ -23,23 +23,6 @@ export default Ember.Component.extend(
 		contributionEnabled: null,
 		uploadFeatureEnabled: null,
 		displayTitle: null,
-		headers: null,
-
-		newFromMedia(media) {
-			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
-				return this.createComponentInstance('infobox-image-media');
-			} else if (Ember.isArray(media)) {
-				if (media.some((media) => Boolean(media.link))) {
-					return this.createComponentInstance('linked-gallery-media');
-				} else {
-					return this.createComponentInstance('gallery-media');
-				}
-			} else if (media.type === 'video') {
-				return this.createComponentInstance('video-media');
-			} else {
-				return this.createComponentInstance('image-media');
-			}
-		},
 
 		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
 			const content = this.get('content');
@@ -58,7 +41,8 @@ export default Ember.Component.extend(
 						.map(this.renderComponent);
 
 					this.loadIcons();
-					this.loadTableOfContentsData();
+					this.createTableOfContents();
+					this.createContributionButtons();
 					this.handleTables();
 					// TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
 					this.handleNavigation();
@@ -77,21 +61,6 @@ export default Ember.Component.extend(
 				this.setupAdsContext(this.get('adsContext'));
 			});
 		})),
-
-		headerObserver: Ember.observer('headers', function () {
-			if (this.get('contributionEnabled')) {
-				const headers = this.get('headers');
-				let $sectionHeader = null,
-					$contributionComponent = null;
-
-				headers.forEach((header) => {
-					$contributionComponent = this.createArticleContributionComponent(header.section, header.id);
-					$sectionHeader = this.$(header.element);
-					$sectionHeader.prepend($contributionComponent).addClass('short-header');
-					$contributionComponent.wrap('<div class="icon-wrapper"></div>');
-				});
-			}
-		}),
 
 		init() {
 			this._super(...arguments);
@@ -338,33 +307,61 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * Generates table of contents data based on h2 elements in the article
-		 * TODO: Temporary solution for generating Table of Contents
-		 * Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
-		 * ToC data from server and render view based on that.
-		 *
 		 * @returns {void}
 		 */
-		loadTableOfContentsData() {
-			/**
-			 * @param {number} i
-			 * @param {HTMLElement} elem
-			 * @returns {ArticleSectionHeader}
-			 */
-			const headers = this.$('h2[section]').map((i, elem) => {
-				if (elem.textContent) {
-					return {
-						element: elem,
-						level: elem.tagName,
-						name: elem.textContent,
-						id: elem.id,
-						section: elem.getAttribute('section'),
-					};
-				}
-			}).toArray();
+		createContributionButtons() {
+			if (this.get('contributionEnabled')) {
+				const headers = this.$('h2[section]').map((i, elem) => {
+					if (elem.textContent) {
+						return {
+							element: elem,
+							level: elem.tagName,
+							name: elem.textContent,
+							id: elem.id,
+							section: elem.getAttribute('section'),
+						};
+					}
+				}).toArray();
 
-			this.set('headers', headers);
-			this.sendAction('updateHeaders', headers);
+				headers.forEach((header) => {
+					this.$(header.element)
+						.wrapInner('<div class="section-header-label"></div>')
+						.append(this.createArticleContributionComponent(header.section, header.id));
+				});
+			}
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		createTableOfContents() {
+			const component = this.createComponentInstance('article-table-of-contents'),
+				$firstInfobox = this.$('.portable-infobox').first(),
+				componentElement = this.createChildView(component).createElement();
+
+			if ($firstInfobox.length) {
+				componentElement.$().insertAfter($firstInfobox);
+			} else {
+				componentElement.$().prependTo(this.$());
+			}
+
+			componentElement.trigger('didInsertElement');
+		},
+
+		newFromMedia(media) {
+			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
+				return this.createComponentInstance('infobox-image-media');
+			} else if (Ember.isArray(media)) {
+				if (media.some((media) => Boolean(media.link))) {
+					return this.createComponentInstance('linked-gallery-media');
+				} else {
+					return this.createComponentInstance('gallery-media');
+				}
+			} else if (media.type === 'video') {
+				return this.createComponentInstance('video-media');
+			} else {
+				return this.createComponentInstance('image-media');
+			}
 		},
 
 		/**
@@ -476,6 +473,7 @@ export default Ember.Component.extend(
 			infoboxComponentElement = this.createChildView(infoboxComponent).createElement();
 
 			$infoboxPlaceholder.replaceWith(infoboxComponentElement.$());
+
 			infoboxComponentElement.trigger('didInsertElement');
 		},
 
