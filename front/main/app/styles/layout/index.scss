@@ -1,9 +1,9 @@
 @import 'article/footer';
-@import 'article/table-of-contents';
 @import 'article-error';
 @import 'page-wrapper';
-@import 'wiki-container';
 @import 'discussion-rail';
 @import 'discussion-items-list';
 @import 'article-preview';
 @import 'wiki-page-error';
+// TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
+@import 'article/nav-AB-test';
