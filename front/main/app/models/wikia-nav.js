@@ -129,11 +129,13 @@ export default Object.extend({
 	}),
 
 	localItems: computed('inExploreNav', 'currentLocalLinks', function () {
+		const inRoot = this.get('inRoot');
+
 		return !this.get('inExploreNav') &&
 			this.get('currentLocalLinks').map((item, index) => {
 				return {
 					type: Boolean(item.children) ? 'nav-menu-root' : 'nav-menu-item',
-					className: 'nav-menu__local',
+					className: inRoot ? 'nav-menu__local' : '',
 					href: item.href.replace(/^(\/wiki)?\//i, ''),
 					route: 'wiki-page',
 					name: item.text,

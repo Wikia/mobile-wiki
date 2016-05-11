@@ -10,10 +10,15 @@
 			<a {{action 'trackClick' 'side-nav' 'open-logout' preventDefault=false}} href="{{unbound logoutLink}}" class="external logout">{{i18n 'app.user-menu-log-out'}}</a>
 		</div>
 	{{else}}
-		<a class="wikia-nav__header main" {{action 'goToLogin'}}>{{i18n 'userStatus.login-text'}} / {{i18n 'userStatus.register-text'}}</a>
+		<a class="wikia-nav__header" {{action 'goToLogin'}}>
+			<figure class="wikia-nav__avatar">
+				{{svg 'avatar' viewBox='0 0 40 40' class='wikia-nav__login'}}
+			</figure>
+			{{i18n 'userStatus.login-text'}} | {{i18n 'userStatus.register-text'}}
+		</a>
 	{{/if}}
 {{else}}
-	<a class="wikia-nav__header back" {{action 'goBack'}} href="#">
+	<a class="wikia-nav__header wikia-nav--back" {{action 'goBack'}} href="#">
 		{{model.header}}
 	</a>
 {{/if}}
