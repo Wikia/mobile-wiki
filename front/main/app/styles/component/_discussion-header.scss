@@ -5,7 +5,7 @@ $site-header-height: 50px;
 
 .discussion-header {
 	color: $discussion-header-color-text;
-	margin-top: $site-head-discussions-height;
+	margin-top: $site-head-with-fandom-bar-height;
 	max-width: inherit;
 	position: fixed;
 	top: 0;
@@ -139,5 +139,5 @@ $site-header-height: 50px;
 }
 
 .smart-banner-visible .discussion-headroom-top {
-	margin-top: rem-calc($site-header-height) + $smart-banner-android-height;
+	margin-top: $site-head-with-fandom-bar-height + $smart-banner-android-height;
 }
