@@ -12,6 +12,8 @@ export default Ember.Component.extend({
 		return !this.get('post.isDeleted') && this.get('post.userData.permissions.canDelete');
 	}),
 
+	canEdit: Ember.computed.readOnly('post.userData.permissions.canEdit'),
+
 	canUndelete: Ember.computed.and('post.isDeleted', 'post.userData.permissions.canUndelete'),
 
 	canDeleteOrUndelete: Ember.computed.or('canDelete', 'canUndelete'),
@@ -35,14 +37,24 @@ export default Ember.Component.extend({
 		track(trackActions.MorePostActions);
 	},
 
+	discussionEditEditor: Ember.inject.service(),
+
 	actions: {
+		edit(post) {
+			const discussionEditEditor = this.get('discussionEditEditor');
+
+			discussionEditEditor.setDiscussionEntity(post);
+			discussionEditEditor.toggleEditor(true);
+			this.get('popover').deactivate();
+		},
+
 		/**
 		 * @param {object} post
 		 *
 		 * @returns {void}
 		 */
 		lock(post) {
-			this.attrs.lock(post);
+			this.get('lock')(post);
 			track(trackActions.PostLock);
 			this.get('popover').deactivate();
 		},
@@ -53,7 +65,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		unlock(post) {
-			this.attrs.unlock(post);
+			this.get('unlock')(post);
 			track(trackActions.PostUnlock);
 			this.get('popover').deactivate();
 		},
@@ -64,7 +76,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		delete(post) {
-			this.attrs.delete(post);
+			this.get('delete')(post);
 			this.get('popover').deactivate();
 		},
 
@@ -74,7 +86,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		undelete(post) {
-			this.attrs.undelete(post);
+			this.get('undelete')(post);
 			this.get('popover').deactivate();
 		},
 
@@ -84,7 +96,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		report(post) {
-			this.attrs.report(post);
+			this.get('report')(post);
 			track(trackActions.Report);
 			this.get('popover').deactivate();
 		},

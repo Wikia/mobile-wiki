@@ -4,10 +4,11 @@ export default Ember.Service.extend(Ember.Evented, {
 	isAnon: true,
 	isEditorOpen: false,
 	isUserBlocked: false,
+	errorMessage: null,
 
 	modalDialog: Ember.inject.service(),
 
-	shouldStopLoading: false,
+	isLoading: false,
 
 	/**
 	 * Renders a message to display to an anon
@@ -34,23 +35,32 @@ export default Ember.Service.extend(Ember.Evented, {
 		this.get('modalDialog').display(i18n.t(message, {ns: 'discussion'}));
 	},
 
+	setErrorMessage(message) {
+		this.set('errorMessage', message);
+	},
+
 	/**
 	 * Checks if it is possible (if it is allowed for the user) and opens post/reply editor
 	 * or displays message with deny message
 	 * @returns {void}
 	 */
 	activateEditor() {
-		if (this.get('isEditorOpen') === true) {
+		if (this.get('isEditorOpen')) {
 			return;
 		}
 
 		if (this.get('isAnon')) {
 			this.rejectAnon();
+			return;
 		} else if (this.get('isUserBlocked')) {
 			this.rejectBlockedUser();
-		} else {
-			this.set('isEditorOpen', true);
+			return;
 		}
+
+		this.setProperties({
+			isEditorOpen: true,
+			errorMessage: null
+		});
 	},
 
 	/**
@@ -61,7 +71,10 @@ export default Ember.Service.extend(Ember.Evented, {
 		if (active === true) {
 			this.activateEditor();
 		} else {
-			this.set('isEditorOpen', false);
+			this.setProperties({
+				errorMessage: null,
+				isEditorOpen: false
+			});
 		}
 	},
 });

@@ -16,7 +16,6 @@ export default Ember.Component.extend(ViewportMixin, {
 	isSticky: false,
 
 	showSuccess: false,
-	hasError: false,
 
 	offsetTop: 0,
 
@@ -26,6 +25,8 @@ export default Ember.Component.extend(ViewportMixin, {
 	siteHeadHeight: 0,
 
 	bodyText: '',
+	errorMessage: Ember.computed.alias('discussionEditor.errorMessage'),
+
 	layoutName: 'components/discussion-editor',
 	// Tracking action name of closing the editor
 	closeTrackingAction: trackActions.PostClose,
@@ -58,6 +59,10 @@ export default Ember.Component.extend(ViewportMixin, {
 		return this.get('bodyText').length === 0 || this.get('currentUser.userId') === null;
 	}),
 
+	/**
+	 * Track content changed
+	 * @returns {void}
+	 */
 	onTextContent: Ember.observer('bodyText', function () {
 		if (this.get('bodyText').length > 0 && !this.get('wasContentTracked')) {
 			track(this.get('contentTrackingAction'));
@@ -88,6 +93,22 @@ export default Ember.Component.extend(ViewportMixin, {
 		});
 	},
 
+	/**
+	 * Handle hiding error message
+	 * @returns {void}
+	 */
+	onErrorMessage: Ember.observer('errorMessage', function () {
+		if (this.get('errorMessage')) {
+			Ember.run.later(this, () => {
+				this.get('discussionEditor').setErrorMessage(null);
+			}, 3000);
+		}
+	}),
+
+	/**
+	 * Handle opening/closing editor
+	 * @returns {void}
+	 */
 	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
 		if (this.get('discussionEditor.isEditorOpen')) {
 			this.afterOpenActions();
@@ -100,12 +121,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * Reacts on new item creation failure in the model by stopping the throbber
 	 * @returns {void}
 	 */
-	editorLoadingObserver: Ember.observer('discussionEditor.shouldStopLoading', function () {
-		if (this.get('discussionEditor.shouldStopLoading') === true) {
-			this.set('isLoading', false);
-			this.set('discussionEditor.shouldStopLoading', false);
-		}
-	}),
+	isLoading: Ember.computed.alias('discussionEditor.isLoading'),
 
 	/**
 	 * @returns {void}
@@ -203,10 +219,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	handleNewItemCreated(newItem) {
-		this.setProperties({
-			isLoading: false,
-			showSuccess: true
-		});
+		this.set('showSuccess', true);
 
 		Ember.set(newItem, 'isVisible', false);
 
@@ -312,11 +325,11 @@ export default Ember.Component.extend(ViewportMixin, {
 		 * Send request to model to create new post and start animations
 		 * @returns {void}
 		 */
-		create() {
+		submit() {
 			if (!this.get('submitDisabled')) {
-				this.set('isLoading', true);
+				this.get('discussionEditor').set('isLoading', true);
 
-				this.attrs.create({
+				this.get('create')({
 					body: this.get('bodyText'),
 					creatorId: this.get('currentUser.userId'),
 					siteId: Mercury.wiki.id
@@ -346,7 +359,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		handleKeyPress(event) {
 			if ((event.keyCode === 10 || event.keyCode === 13) && event.ctrlKey) {
 				// Create post on CTRL + ENTER
-				this.send('create');
+				this.send('submit');
 			}
 		},
 

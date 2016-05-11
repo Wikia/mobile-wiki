@@ -24,7 +24,7 @@ export default Ember.Component.extend({
 				}
 			}
 
-			this.attrs.setSortBy(sortBy);
+			this.get('setSortBy')(sortBy);
 		}
 	}
 });
