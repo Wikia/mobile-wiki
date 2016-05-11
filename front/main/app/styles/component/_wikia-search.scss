@@ -1,4 +1,4 @@
-.side-search__item {
+.wikia-search__item {
 	color: inherit;
 	display: block;
 	font-size: 20px;
@@ -16,7 +16,7 @@
 		color: inherit;
 	}
 
-	.side-search__container {
+	.wikia-search__container {
 		flex-grow: 1;
 		padding-left: 10px;
 		position: relative;
@@ -41,7 +41,7 @@
 	}
 
 	$side-nav-clear-size: 30px;
-	.side-search__clear {
+	.wikia-search__clear {
 		//divide by 2 to accommodate for width
 		//and again by 2 as padding is on left and right
 		padding: 0 $side-nav-clear-size / 4;
@@ -52,21 +52,20 @@
 	}
 }
 
-.side-search__results {
+.wikia-search__results {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-}
 
-.search-result {
+	.search-result {
 	padding: 0 1rem;
-	a {
-		display: inline-block;
-		width: 100%;
-		height: 100%;
+		a {
+			display: inline-block;
+			width: 100%;
+			height: 100%;
+		}
 	}
-}
-
-.loading {
-	text-align: center;
+	.loading {
+		text-align: center;
+	}
 }

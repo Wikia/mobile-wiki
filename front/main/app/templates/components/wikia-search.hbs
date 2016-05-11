@@ -1,5 +1,5 @@
-<div class="side-search__item search">
-	<div class="side-search__container">
+<div class="wikia-search__item search">
+	<div class="wikia-search__container">
 		{{input
 			class='side-search__input'
 			tabindex='-1'
@@ -8,21 +8,21 @@
 			enter='enter'
 			type='search'
 		}}
-		<div class='side-search__clear' {{action 'clearSearch'}}>
+		<div class='wikia-search__clear' {{action 'clearSearch'}}>
 			{{svg 'side-nav-search-clear' viewBox='0 0 18 18' class='icon'}}
 		</div>
 	</div>
 </div>
-<ul class="side-search__results">
+<ul class="wikia-search__results">
 	{{#each suggestions as |suggestion|}}
-		<li class="side-search__item search-result mw-content">
+		<li class="wikia-search__item search-result mw-content">
 			{{#link-to 'wiki-page' suggestion.uri action='searchSuggestionClick'}}
 				{{suggestion.title}}
 			{{/link-to}}
 		</li>
 	{{else}}
 		{{#if isLoadingSearchResults}}
-			<li class="side-search__item search-result loading">
+			<li class="wikia-search__item search-result loading">
 				{{i18n 'app.search-loading-msg'}}
 			</li>
 		{{/if}}
