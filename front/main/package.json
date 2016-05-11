@@ -47,7 +47,7 @@
     "ember-disable-proxy-controllers": "1.0.1",
     "ember-export-application-global": "1.0.5",
     "ember-getowner-polyfill": "1.0.0",
-    "ember-in-viewport": "2.0.4",
+    "ember-in-viewport": "pauloslund/ember-in-viewport.git#visibility",
     "ember-load-initializers": "0.5.1",
     "ember-onbeforeunload": "0.2.0",
     "ember-pop-over": "kvas-damian/ember-pop-over#a2a7cbd895698915dacf224596d05c590d219362",
