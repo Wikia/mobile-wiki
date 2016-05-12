@@ -26,14 +26,19 @@
 		margin-bottom: .7rem;
 		padding-bottom: .7rem;
 		padding-left: 1.4rem;
+		position: relative;
 
 		.contribution-container {
 			display: none;
 		}
 
+		.section-header-label {
+			padding-top: 10px;
+		}
+
 		.chevron {
 			position: absolute;
-			height: 1.6875rem; // This is the font size of an h2
+			height: 41px; // The height that the contribution icon takes up
 			top: 50%;
 			left: 0;
 		}

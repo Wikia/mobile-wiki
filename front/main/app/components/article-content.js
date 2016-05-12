@@ -53,6 +53,7 @@ export default Ember.Component.extend(
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
+					this.bindHeaderClicks();
 
 					Ember.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
 				} else {
@@ -63,22 +64,6 @@ export default Ember.Component.extend(
 				this.setupAdsContext(this.get('adsContext'));
 			});
 		})),
-
-		headerObserver: Ember.observer('headers', function () {
-			this.bindHeaderClicks();
-			if (this.get('contributionEnabled')) {
-				const headers = this.get('headers');
-				let $sectionHeader = null,
-					$contributionComponent = null;
-
-				headers.forEach((header) => {
-					$contributionComponent = this.createArticleContributionComponent(header.section, header.id);
-					$sectionHeader = this.$(header.element);
-					$sectionHeader.prepend($contributionComponent).addClass('short-header');
-					$contributionComponent.wrap('<div class="icon-wrapper"></div>');
-				});
-			}
-		}),
 
 		init() {
 			this._super(...arguments);
