@@ -396,6 +396,13 @@ export default Ember.Component.extend(ViewportMixin, {
 			this.send('toggleEditorActive', false);
 
 			track(this.get('closeTrackingAction'));
+		},
+
+		removeOpenGraph() {
+			this.setProperties({
+				shouldShowOpenGraphCard: false,
+				openGraph: null,
+			});
 		}
 	}
 });

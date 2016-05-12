@@ -30,4 +30,10 @@ export default Ember.Component.extend({
 
 		return this.get('openGraphData.title');
 	}),
+
+	actions: {
+		close() {
+			this.get('close')();
+		}
+	}
 });

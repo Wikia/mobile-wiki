@@ -9,6 +9,7 @@
 		<div class="editor-textarea-overflow" {{action 'toggleEditorActive' true}}></div>
 		{{#if shouldShowOpenGraphCard}}
 			{{discussion-open-graph
+				close=(action 'removeOpenGraph')
 				openGraphData=openGraph
 			}}
 		{{/if}}

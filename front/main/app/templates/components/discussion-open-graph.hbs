@@ -1,3 +1,9 @@
+{{#if this.attrs.close}}
+	<a class="og-close" {{action 'close'}}>
+		{{svg 'close' viewBox='0 0 18 18'}}
+	</a>
+{{/if}}
+
 {{#if openGraphData.imageUrl}}
 	<img class="og-image" src="{{openGraphData.imageUrl}}" alt="{{openGraphData.title}}">
 {{/if}}
