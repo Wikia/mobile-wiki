@@ -99,19 +99,11 @@ export default Ember.Component.extend(ViewportMixin, {
 				});
 			}).catch(() => {
 				this.setProperties({
-					openGraphUrl: null,
 					openGraph: null,
 					isOpenGraphLoading: false,
 					showsOpenGraphCard: false
 				});
 			});
-	},
-
-	removeOpenGraphData() {
-		this.setProperties({
-			openGraphUrl: null,
-			showsOpenGraphCard: false
-		});
 	},
 
 	/**
@@ -419,7 +411,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 		removeOpenGraph() {
 			this.setProperties({
-				shouldShowOpenGraphCard: false,
+				showsOpenGraphCard: false,
 				openGraph: null,
 			});
 		}
