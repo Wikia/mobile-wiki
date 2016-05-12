@@ -69,12 +69,11 @@ export default Ember.Component.extend(ViewportMixin, {
 			this.set('wasContentTracked', true);
 		}
 
-		this.setOpenGraphProperties(this.get('bodyText'));
+		this.setOpenGraphProperties(this.get('bodyText'), /(https?:\/\/[^\s]+)\s/g);
 	}),
 
-	setOpenGraphProperties(text) {
-		const urlRegex = /(https?:\/\/[^\s]+)/g,
-			urls = text.match(urlRegex);
+	setOpenGraphProperties(text, urlRegex) {
+		const urls = text.match(urlRegex);
 
 		if (!urls) {
 			return;
@@ -257,9 +256,13 @@ export default Ember.Component.extend(ViewportMixin, {
 	 */
 	didInsertElement() {
 		this._super(...arguments);
-
+		this.$().find('textarea').on('paste', this.onPaste);
 		this.handleIOSFocus();
 		this.initializeStickyState();
+	},
+
+	onPaste(event) {
+		this.setOpenGraphProperties(event.target.value, /(https?:\/\/[^\s]+)/g);
 	},
 
 	/**

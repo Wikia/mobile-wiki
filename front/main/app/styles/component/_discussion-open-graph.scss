@@ -64,6 +64,18 @@
 		.og-container {
 			margin: 2px auto 16px;
 		}
+	// .post-reply { this has the default layout }
+}
+
+.discussion-editor {
+	.og-container {
+		margin: 15px;
+	}
+
+	.discussion-editor {
+		.og-container {
+			margin: $editor-textarea-paddings;
+		}
 	}
 
 	.discussion-editor {
