@@ -4,6 +4,20 @@ import truncate from '../utils/truncate';
 export default Ember.Component.extend({
 	classNames: ['og-container'],
 
+	tagName: Ember.computed('active', function () {
+		return this.get('active') ? 'a' : 'div';
+	}),
+
+	attributeBindings: ['openGraphHref:href', 'openGraphTitle:title'],
+
+	openGraphHref: Ember.computed('active', 'openGraphData.url', function () {
+		return this.get('active') ? this.get('openGraphData.url') : null;
+	}),
+
+	openGraphTitle: Ember.computed('active', 'openGraphData.domain', function () {
+		return this.get('active') ? this.get('openGraphData.domain') : null;
+	}),
+
 	oneLineCharacters: 48,
 	/**
 	 * Property used to truncate the post body to 148 chars.
