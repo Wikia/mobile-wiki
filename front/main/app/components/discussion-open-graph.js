@@ -2,55 +2,45 @@ import Ember from 'ember';
 import truncate from '../utils/truncate';
 
 export default Ember.Component.extend({
-	classNames: ['og-container'],
-	classNameBindings: ['imageCardNoneMobile', 'imageCardNoneDesktop', 'imageCardSmallMobile', 'imageCardSmallDesktop',
-		'imageCardLargeMobile', 'imageCardLargeDesktop'],
-
-	tagName: Ember.computed('active', function () {
-		return this.get('active') ? 'a' : 'div';
-	}),
-
 	attributeBindings: ['openGraphHref:href', 'openGraphTitle:title'],
-
-	openGraphHref: Ember.computed('active', 'openGraphData.url', function () {
-		return this.get('active') ? this.get('openGraphData.url') : null;
-	}),
-
-	openGraphTitle: Ember.computed('active', 'openGraphData.domain', function () {
-		return this.get('active') ? this.get('openGraphData.domain') : null;
-	}),
+	classNames: ['og-container'],
+	classNameBindings: ['imageCardMobileNone', 'imageCardMobileSmall', 'imageCardMobileLarge', 'imageCardDesktopNone',
+		'imageCardDesktopSmall', 'imageCardDesktopLarge'],
 
 	oneLineCharacters: 48,
+	twoLinesCharacters: 98,
+
 	/**
 	 * Property used to truncate the post body to 148 chars.
 	 * This property is set only in Firefox and in IE, because in other browsers works 'line-clamp' css property.
 	 * This is hack for the browsers that do not support 'line-clamp'.
 	 */
 	shouldUseTruncationHack: (/Firefox|Trident|Edge/).test(navigator.userAgent),
-	twoLinesCharacters: 98,
 
-	imageCardNoneMobile: Ember.computed('openGraphData.imageWidth', function () {
-		return this.get('openGraphData.imageWidth') < 51;
+	tagName: Ember.computed('active', function () {
+		return this.get('active') ? 'a' : 'div';
 	}),
 
-	imageCardNoneDesktop: Ember.computed('openGraphData.imageWidth', function () {
-		return this.get('openGraphData.imageWidth') < 101;
+	activePropertyObserver: Ember.observer('active', function () {
+		this.setProperties({
+			openGraphHref: this.get('active') ? this.get('openGraphData.url') : null,
+			openGraphTitle: this.get('active') ? this.get('openGraphData.domain') : null;
+		});
 	}),
 
-	imageCardSmallMobile: Ember.computed('openGraphData.imageWidth', function () {
-		return this.get('openGraphData.imageWidth') > 50 && this.get('openGraphData.imageWidth') < 300;
-	}),
+	imageWidthObserver: Ember.observer('openGraphData.imageWidth', function () {
+		// we're usually strongly against that kind of caching, because a getter should be used always,
+		// but come on, it is 8 calls, and even we have some limits in the matter of principles :)
+		const imageWidth = this.get('openGraphData.imageWidth');
 
-	imageCardSmallDesktop: Ember.computed('openGraphData.imageWidth', function () {
-		return this.get('openGraphData.imageWidth') > 100 && this.get('openGraphData.imageWidth') < 500;
-	}),
-
-	imageCardLargeMobile: Ember.computed('openGraphData.imageWidth', function () {
-		return this.get('openGraphData.imageWidth') >= 300;
-	}),
-
-	imageCardLargeDesktop: Ember.computed('openGraphData.imageWidth', function () {
-		return this.get('openGraphData.imageWidth') > 500;
+		this.setProperties({
+			imageCardMobileNone: imageWidth < 51;
+			imageCardMobileSmall: imageWidth > 50 && imageWidth < 300;
+			imageCardMobileLarge: imageWidth >= 300;
+			imageCardDesktopNone: imageWidth < 101;
+			imageCardDesktopSmall: imageWidth > 100 && imageWidth < 500;
+			imageCardDesktopLarge: imageWidth > 500;
+		});
 	}),
 
 	siteName: Ember.computed('openGraphData.domain', 'openGraphData.siteName', function () {
