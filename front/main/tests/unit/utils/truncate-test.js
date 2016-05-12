@@ -5,7 +5,7 @@ module('Unit | Utility | truncate', (hooks) => {
 	let truncate;
 
 	hooks.beforeEach(() => {
-		truncate = require('main/utils/truncate').default;
+		truncate = require('main/utils/truncate').truncate;
 	});
 
 	test('Truncate helper is exported', (assert) => {
