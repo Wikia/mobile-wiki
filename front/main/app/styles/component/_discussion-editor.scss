@@ -91,13 +91,8 @@ $editor-textarea-overflow-ios-hack: 30px;
 		margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
 		position: fixed;
 		top: rem-calc(50 - 4); // Sass doesn't accept px variables here, 50 - TopNav height, 4 - editor border size
-		transition: top 0.5s;
 		width: $sticky-editor-width;
 		z-index: 1;
-
-		&.pinned-top {
-			top: - $editor-border-width;
-		}
 	}
 }
 
