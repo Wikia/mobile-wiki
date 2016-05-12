@@ -1,6 +1,11 @@
 .discussions {
-
 	// -- theme --
+	.discussion-editor {
+		.og-container {
+			margin: $editor-textarea-paddings;
+		}
+	}
+
 	.og-container {
 		background-color: $discussion-open-graph-background-color;
 		border: 1px solid $discussion-open-graph-border-color;
@@ -64,23 +69,11 @@
 		.og-container {
 			margin: 2px auto 16px;
 		}
-	}
-}
 
-.discussion-editor {
-	.og-container {
-		margin: 15px;
-	}
-
-	.discussion-editor {
-		.og-container {
-			margin: $editor-textarea-paddings;
-		}
-	}
-
-	.discussion-editor {
-		.og-container {
-			margin: $editor-textarea-paddings;
+		.discussion-editor {
+			.og-container {
+				margin: $editor-textarea-paddings;
+			}
 		}
 	}
 }
