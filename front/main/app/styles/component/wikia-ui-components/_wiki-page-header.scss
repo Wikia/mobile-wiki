@@ -75,7 +75,7 @@
 }
 
 // component modifier-related changes to elements
-.wiki-page-header.has-action .wiki-page-header__wrapper {
+.wiki-page-header .wiki-page-header__wrapper {
 	display: flex;
 }
 
@@ -105,12 +105,12 @@
 	right: 0;
 }
 
-.wiki-page-header.has-action .wiki-page-header__main {
+.wiki-page-header .wiki-page-header__main {
 	align-self: flex-end;
 	flex: 1;
 }
 
-.wiki-page-header.has-action .contribution-container {
+.wiki-page-header .contribution-container {
 	margin-bottom: -8px;
 
 	.icon {
