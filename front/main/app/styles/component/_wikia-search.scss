@@ -1,10 +1,18 @@
 .wikia-search__item {
+	$input-background: #8f8e94;
+	$input-container-background: #2a3039;
+	$input-font-size: 20px;
+	$input-width: calc(100% - 35px);
+	$nav-line-height: 48px;
+	$nav-input-padding: 10px;
+	$side-nav-clear-size: 30px;
+
 	color: inherit;
 	display: block;
-	font-size: 16px;
-	line-height: 3.125rem;
-	position: relative;
+	font-size: $nav-font-size;
+	line-height: $nav-line-height;
 	margin-top: 0;
+	position: relative;
 
 	&:hover,
 	&:visited,
@@ -16,24 +24,24 @@
 	}
 
 	.wikia-search__container {
+		background-color: $input-container-background;
 		flex-grow: 1;
-		padding-left: 10px;
+		padding-left: $nav-input-padding;
 		position: relative;
-		background-color: #2a3039;
 
 		input,
 		input:focus {
 			all: unset;
 			background: transparent;
 			border: 0;
-			box-shadow:none;
-			color: #8f8e94;
+			box-shadow: none;
+			color: $input-background;
 			font: inherit;
-			font-size: 20px;
+			font-size: $input-font-size;
 			font-weight: bold;
 			margin: 0;
 			padding: 0;
-			width: calc(100% - 35px);
+			width: $input-width;
 
 			&::placeholder {
 				color: $search-box-text-color;
@@ -41,13 +49,12 @@
 		}
 	}
 
-	$side-nav-clear-size: 30px;
 	.wikia-search__clear {
 		//divide by 2 to accommodate for width
 		//and again by 2 as padding is on left and right
 		padding: 0 $side-nav-clear-size / 4;
 		position: absolute;
-		right: 10px;
+		right: $nav-input-padding;
 		top: 0;
 		width: $side-nav-clear-size;
 	}
@@ -59,7 +66,8 @@
 	padding: 0;
 
 	.search-result {
-	padding: 0 1rem;
+		padding: $nav-padding-horizontal $nav-padding-vertical 0 $nav-padding-vertical;
+
 		a {
 			display: inline-block;
 			width: 100%;
