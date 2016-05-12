@@ -1,71 +1,69 @@
+.discussions {
 
-// -- theme --
-
-.og-container {
-	background-color: $discussion-open-graph-background-color;
-	border: 1px solid $discussion-open-graph-border-color;
-}
-
-.og-title {
-	color: $discussion-open-graph-title-color;
-}
-
-.og-site-name {
-	color: $discussion-open-graph-domain-color;
-}
-
-
-// -- layout --
-
-//default layout
-.og-container {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	margin: 4px auto 9px 0;
-	max-width: 500px;
-}
-
-.og-title {
-	font-size: $type-smallest;
-	line-height: $line-height-smallest;
-	margin: 22px 18px 0;
-}
-
-.og-site-name {
-	font-size: $type-min;
-	line-height: $line-height-min;
-	margin: 0 18px 22px;
-}
-
-.og-image {
-	flex-grow: 2;
-}
-
-//post-details page layout
-.post-details-view {
-	// main post layout
-	.post-detail {
-		.og-container {
-			margin: 9px auto 13px 0;
-		}
-
-		.og-title {
-			font-size: $type-smaller;
-			line-height: $line-height-smaller;
-		}
-
-		.og-site-name {
-			font-size: $type-smallest;
-			line-height: $line-height-smallest;
-		}
-	}
-
-	// .post-reply { this has the default layout }
-}
-
-@media #{$desktop-range} {
+	// -- theme --
 	.og-container {
-		margin: 2px auto 16px;
+		background-color: $discussion-open-graph-background-color;
+		border: 1px solid $discussion-open-graph-border-color;
 	}
+
+	.og-title {
+		color: $discussion-open-graph-title-color;
+	}
+
+	.og-site-name {
+		color: $discussion-open-graph-domain-color;
+	}
+
+
+	// -- layout --
+
+	//default layout
+	.og-container {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		margin: 4px auto 9px 0;
+		max-width: 500px;
+	}
+
+	.og-title {
+		font-size: $type-smallest;
+		line-height: $line-height-smallest;
+		margin: 22px 18px 0;
+	}
+
+	.og-site-name {
+		font-size: $type-min;
+		line-height: $line-height-min;
+		margin: 0 18px 22px;
+	}
+
+	//post-details page layout
+	.post-details-view {
+		// main post layout
+		.post-detail {
+			.og-container {
+				margin: 9px auto 13px 0;
+			}
+
+			.og-title {
+				font-size: $type-smaller;
+				line-height: $line-height-smaller;
+			}
+
+			.og-site-name {
+				font-size: $type-smallest;
+				line-height: $line-height-smallest;
+			}
+		}
+
+		// .post-reply { this has the default layout }
+	}
+
+	@media #{$desktop-range} {
+		.og-container {
+			margin: 2px auto 16px;
+		}
+	}
+
 }

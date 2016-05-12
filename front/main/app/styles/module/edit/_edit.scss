@@ -1,7 +1,8 @@
-$upload-icon-size: 2.2rem;
+$edit-icon-size: 24px;
+$edit-icon-container-size: 48px;
 
 .edit-textarea {
-	border: none;
+	border: 0;
 	height: 50%;
 	left: 0;
 	margin: 0 auto;
@@ -12,18 +13,17 @@ $upload-icon-size: 2.2rem;
 }
 
 .edit-section {
-	display: inline-block;
-	height: $upload-icon-size;
+	align-items: center;
+	display: inline-flex;
+	height: $edit-icon-container-size;
+	justify-content: center;
 	overflow: hidden;
 	position: relative;
-	vertical-align: top;
-	width: $upload-icon-size;
+	width: $edit-icon-container-size;
 
-	.pencil {
-		bottom: 0;
-		height: $upload-icon-size;
-		position:absolute;
-		right: 0;
-		width: $upload-icon-size;
+	.icon {
+		fill: $color-blue-light;
+		height: $edit-icon-size;
+		width: $edit-icon-size;
 	}
 }

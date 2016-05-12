@@ -6,7 +6,6 @@ export default Ember.Component.extend(
 	LanguagesMixin,
 	{
 		classNames: ['contribution-container'],
-		classNameBindings: ['addPhotoIconVisible::no-photo'],
 		layoutName: 'components/article-contribution',
 		section: null,
 		sectionId: null,

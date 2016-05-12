@@ -1,5 +1,7 @@
 @import 'ads-floor';
 
+$ad-background: rgb(44, 52, 61);
+
 .ad-slot {
 	text-align: center;
 
@@ -17,8 +19,9 @@
 }
 
 .mobile-top-leaderboard {
+	background: $ad-background;
 	min-height: 50px;
-	margin-top: 10px;
+	padding: 10px;
 	position: relative;
 	z-index: $z-ads-top-leaderboard;
 }

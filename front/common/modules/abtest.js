@@ -1,5 +1,3 @@
-const AbTest = window.Wikia && window.Wikia.AbTest;
-
 /**
  * Get the users group for an experiment
  *
@@ -7,6 +5,8 @@ const AbTest = window.Wikia && window.Wikia.AbTest;
  * @returns {String}
  */
 export function getGroup(experimentName) {
+	const AbTest = window.Wikia && window.Wikia.AbTest;
+
 	if (AbTest && typeof AbTest.getGroup === 'function') {
 		return AbTest.getGroup(experimentName);
 	}
