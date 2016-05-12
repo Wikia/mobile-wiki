@@ -87,7 +87,7 @@ export default Object.extend({
 			this.get('hubsLinks').map((item) => {
 				return {
 					type: 'nav-menu-external',
-					className: ` nav-menu--external nav-menu--${item.specialAttr}`,
+					className: `nav-menu--external nav-menu--${item.specialAttr}`,
 					href: item.href,
 					name: item.textEscaped,
 					trackLabel: `open-hub-${item.specialAttr}`

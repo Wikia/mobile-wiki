@@ -18,6 +18,7 @@ test('test zero state with values from api', (assert) => {
 			},
 			expected: [
 				{
+					className: 'nav-menu--local',
 					type: 'nav-menu-item',
 					route: 'recent-wiki-activity',
 					name: '',
@@ -25,10 +26,11 @@ test('test zero state with values from api', (assert) => {
 					trackLabel: 'local-nav'
 				},
 				{
-					type: 'nav-menu-item',
+					actionId: 'onRandomPageClick',
+					className: 'nav-menu--local',
 					name: '',
 					trackLabel: 'random-page',
-					actionId: 'onRandomPageClick'
+					type: 'nav-menu-item'
 				}
 			],
 			message: 'Empty api results'
@@ -46,13 +48,14 @@ test('test zero state with values from api', (assert) => {
 			},
 			expected: [
 				{
-					className: 'tests',
+					className: 'nav-menu--external nav-menu--tests',
 					href: 'http://test.com/hub',
 					name: 'Hub test',
 					trackLabel: 'open-hub-tests',
 					type: 'nav-menu-external'
 				},
 				{
+					className: 'nav-menu--explore',
 					index: 0,
 					name: 'Explore menu',
 					trackLabel: 'open-explore-wikia',
@@ -64,6 +67,7 @@ test('test zero state with values from api', (assert) => {
 				},
 				{
 					route: 'recent-wiki-activity',
+					className: 'nav-menu--local',
 					name: '',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav',
@@ -75,13 +79,15 @@ test('test zero state with values from api', (assert) => {
 					route: 'wiki-page',
 					name: 'Test 1',
 					trackLabel: 'local-nav-open-link-index-1',
-					type: 'nav-menu-item'
+					type: 'nav-menu-item',
+					className: 'nav-menu--local'
 				},
 				{
 					actionId: 'onRandomPageClick',
 					name: '',
 					trackLabel: 'random-page',
-					type: 'nav-menu-item'
+					type: 'nav-menu-item',
+					className: 'nav-menu--local'
 				}
 			],
 			message: 'Full nav visible'
@@ -100,13 +106,15 @@ test('test zero state with values from api', (assert) => {
 					index: 0,
 					name: 'Explore menu',
 					trackLabel: 'open-explore-wikia',
-					type: 'nav-menu-root'
+					type: 'nav-menu-root',
+					className: 'nav-menu--explore'
 				},
 				{
 					name: '',
 					type: 'nav-menu-header'
 				},
 				{
+					className: 'nav-menu--local',
 					route: 'recent-wiki-activity',
 					name: '',
 					trackCategory: 'recent-wiki-activity',
@@ -114,6 +122,7 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-item'
 				},
 				{
+					className: 'nav-menu--local',
 					href: 'Test_1',
 					index: 1,
 					route: 'wiki-page',
@@ -122,6 +131,7 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-item'
 				},
 				{
+					className: 'nav-menu--local',
 					actionId: 'onRandomPageClick',
 					name: '',
 					trackLabel: 'random-page',
@@ -179,6 +189,7 @@ test('test local sub nav transitions', (assert) => {
 			path: [1],
 			expected: [
 				{
+					className: '',
 					href: 'Test_2',
 					index: 1,
 					route: 'wiki-page',
@@ -187,6 +198,7 @@ test('test local sub nav transitions', (assert) => {
 					type: 'nav-menu-item'
 				},
 				{
+					className: '',
 					href: 'Test_3',
 					index: 2,
 					route: 'wiki-page',
@@ -219,6 +231,7 @@ test('test local sub nav transitions', (assert) => {
 			path: [1, 1],
 			expected: [
 				{
+					className: '',
 					href: 'Test_2.1',
 					index: 1,
 					route: 'wiki-page',
@@ -227,6 +240,7 @@ test('test local sub nav transitions', (assert) => {
 					type: 'nav-menu-item'
 				},
 				{
+					className: '',
 					href: 'Test_2.2',
 					index: 2,
 					route: 'wiki-page',
