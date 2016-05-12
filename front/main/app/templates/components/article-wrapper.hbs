@@ -1,58 +1,27 @@
-<section class="article-body">
-	{{#if showPageTitle}}
-		<h1 class="wiki-page-title">
-			{{model.displayTitle}}
-			{{#if curatedContentToolButtonVisible}}
-				<div>
-					{{#link-to 'curatedContentEditor' bubbles=false class="main-page-edit"}}
-						{{svg 'pen' role='img' class='icon pencil'}}
-						{{i18n 'app.curated-content-editor-edit-main-page'}}
-					{{/link-to}}
-				</div>
-			{{/if}}
-		</h1>
-	{{/if}}
-	{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
-	{{#if headers.length}}
-		{{#collapsible-menu
-			showMenuIcon=true
-			additionalClasses='table-of-contents'
-			tLabel='app.article-toc-label'
-			ordered=true
-			observe=model.displayTitle
-			trackingEvent='toc'
+{{#if contributionEnabled}}
+	{{#wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
+		{{article-contribution
+			addPhotoAllowed=addPhotoAllowed
+			addPhotoIconVisible=addPhotoIconVisible
+			editAllowed=editAllowed
+			editIconVisible=editIconVisible
+			section=0
+			title=model.displayTitle
+			addPhoto='addPhoto'
+			edit='edit'
 		}}
-			{{#each headers as |section|}}
-				<li {{action 'trackClick' 'toc' 'header' on='mouseDown'}}>
-					<a href="#{{unbound section.id}}" title="{{unbound section.name}}">
-						{{unbound section.name}}
-						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-					</a>
-				</li>
-			{{/each}}
-		{{/collapsible-menu}}
-	{{/if}}
-	{{#if contributionEnabled}}
-		<div class="top-contribution-container">
-			{{article-contribution
-				addPhotoAllowed=addPhotoAllowed
-				addPhotoIconVisible=addPhotoIconVisible
-				editAllowed=editAllowed
-				editIconVisible=editIconVisible
-				section=0
-				title=model.displayTitle
-				addPhoto='addPhoto'
-				edit='edit'
-			}}
-		</div>
-	{{/if}}
+	{{/wikia-ui-components/wiki-page-header}}
+{{else}}
+	{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
+{{/if}}
+<section class="article-body">
+	{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
 	{{article-content
 		adsContext=model.adsContext
 		content=model.content
 		media=model.media
 		noAds=noAds
 		openLightbox=(action 'openLightbox')
-		updateHeaders='updateHeaders'
 		contributionEnabled=contributionEnabled
 		uploadFeatureEnabled=uploadFeatureEnabled
 		displayTitle=model.displayTitle

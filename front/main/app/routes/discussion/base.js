@@ -41,6 +41,24 @@ export default Ember.Route.extend(
 				return true;
 			},
 
+			/*
+			 * When leaving discussion app, remove noMargins flag, so the other (mobile-only)
+			 * apps have default margins set and a container added
+			 * @param {Ember.Transition} transition
+			 * @returns {boolean}
+			 */
+			willTransition(transition) {
+				const isDiscussionRoute = transition.handlerInfos.some((item) => {
+					return item.name === 'discussion';
+				});
+
+				if (!isDiscussionRoute) {
+					this.controllerFor('application').set('noMargins', false);
+				}
+
+				return true;
+			},
+
 			/**
 			 * Handler for a rejected model (or a throw from within model)
 			 *
