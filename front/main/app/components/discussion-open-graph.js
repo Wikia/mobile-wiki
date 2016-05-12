@@ -17,7 +17,7 @@ export default Ember.Component.extend({
 	activePropertyObserver: Ember.observer('active', function () {
 		this.setProperties({
 			openGraphHref: this.get('active') ? this.get('openGraphData.url') : null,
-			openGraphTitle: this.get('active') ? this.get('openGraphData.domain') : null;
+			openGraphTitle: this.get('active') ? this.get('openGraphData.domain') : null,
 		});
 	}),
 
@@ -27,12 +27,12 @@ export default Ember.Component.extend({
 		const imageWidth = this.get('openGraphData.imageWidth');
 
 		this.setProperties({
-			imageCardMobileNone: imageWidth < 51;
-			imageCardMobileSmall: imageWidth > 50 && imageWidth < 300;
-			imageCardMobileLarge: imageWidth >= 300;
-			imageCardDesktopNone: imageWidth < 101;
-			imageCardDesktopSmall: imageWidth > 100 && imageWidth < 500;
-			imageCardDesktopLarge: imageWidth > 500;
+			imageCardMobileNone: imageWidth < 51,
+			imageCardMobileSmall: imageWidth > 50 && imageWidth < 300,
+			imageCardMobileLarge: imageWidth >= 300,
+			imageCardDesktopNone: imageWidth < 101,
+			imageCardDesktopSmall: imageWidth > 100 && imageWidth < 500,
+			imageCardDesktopLarge: imageWidth > 500,
 		});
 	}),
 
