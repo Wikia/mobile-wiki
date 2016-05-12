@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import truncate from '../utils/truncate';
+import {truncate, shouldUseTruncationHack} from '../utils/truncate';
 
 export default Ember.Component.extend({
 	attributeBindings: ['openGraphHref:href', 'openGraphTitle:title'],
@@ -9,13 +9,6 @@ export default Ember.Component.extend({
 
 	oneLineCharacters: 48,
 	twoLinesCharacters: 98,
-
-	/**
-	 * Property used to truncate the post body to 148 chars.
-	 * This property is set only in Firefox and in IE, because in other browsers works 'line-clamp' css property.
-	 * This is hack for the browsers that do not support 'line-clamp'.
-	 */
-	shouldUseTruncationHack: (/Firefox|Trident|Edge/).test(navigator.userAgent),
 
 	tagName: Ember.computed('active', function () {
 		return this.get('active') ? 'a' : 'div';
@@ -46,7 +39,7 @@ export default Ember.Component.extend({
 	siteName: Ember.computed('openGraphData.domain', 'openGraphData.siteName', function () {
 		let siteNameToDisplay = this.get('openGraphData.siteName') || this.get('openGraphData.domain');
 
-		if (this.get('shouldUseTruncationHack')) {
+		if (shouldUseTruncationHack()) {
 			siteNameToDisplay = truncate(siteNameToDisplay, this.get('oneLineCharacters'));
 		}
 
