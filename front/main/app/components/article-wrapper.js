@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import HeroImageMixin from '../mixins/hero-image';
 import LanguagesMixin from '../mixins/languages';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from 'common/utils/track';
@@ -13,6 +14,7 @@ import {track, trackActions} from 'common/utils/track';
  */
 
 export default Ember.Component.extend(
+	HeroImageMixin,
 	LanguagesMixin,
 	ViewportMixin,
 	{
@@ -101,18 +103,6 @@ export default Ember.Component.extend(
 		 */
 		addPhotoAllowed: Ember.computed(function () {
 			return this.get('currentUser.isAuthenticated');
-		}),
-
-		heroImage: Ember.computed('model.media', function () {
-			let heroImage;
-
-			this.get('model.media.media').forEach((current) => {
-				if (current.hasOwnProperty('context') && current.context === 'infobox-hero-image') {
-					heroImage = current;
-				}
-			});
-
-			return heroImage;
 		}),
 
 		actions: {
