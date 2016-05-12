@@ -7,20 +7,20 @@ export default Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
 
 	classNames: ['discussion-editor'],
-	classNameBindings: ['isActive', 'hasError', 'shouldShowOpenGraphCard:hasOpenGraph'],
+	classNameBindings: ['isActive', 'hasError', 'showsOpenGraphCard:has-open-graph'],
 
 	currentUser: Ember.inject.service(),
 	discussionEditor: Ember.inject.service(),
 
 	isActive: false,
 	isSticky: false,
+	isOpenGraphLoading: false,
 
 	showSuccess: false,
 
 	offsetTop: 0,
 
-	openGraphUrl: null,
-	shouldShowOpenGraphCard: false,
+	showsOpenGraphCard: false,
 
 	siteHeadHeight: 0,
 
@@ -73,25 +73,44 @@ export default Ember.Component.extend(ViewportMixin, {
 	}),
 
 	setOpenGraphProperties(text, urlRegex) {
+		if (this.get('showsOpenGraphCard')) {
+			return;
+		}
+
 		const urls = text.match(urlRegex);
 
 		if (!urls) {
 			return;
 		}
 
-		// TODO handle it better
-		this.get('generateOpenGraph')(urls[0]);
-
 		this.setProperties({
-			openGraphUrl: urls[0],
-			shouldShowOpenGraphCard: true
+			isOpenGraphLoading: true,
+			showsOpenGraphCard: true
 		});
+
+		const url = urls[0].trim();
+
+		this.get('generateOpenGraph')(url.trim())
+			.then((openGraph) => {
+				this.setProperties({
+					openGraphUrl: url.trim(),
+					openGraph,
+					isOpenGraphLoading: false,
+				});
+			}).catch(() => {
+				this.setProperties({
+					openGraphUrl: null,
+					openGraph: null,
+					isOpenGraphLoading: false,
+					showsOpenGraphCard: false
+				});
+			});
 	},
 
 	removeOpenGraphData() {
 		this.setProperties({
 			openGraphUrl: null,
-			shouldShowOpenGraphCard: false
+			showsOpenGraphCard: false
 		});
 	},
 
@@ -237,7 +256,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	showNewPostAnimations(newItem) {
 		this.setProperties({
 			bodyText: '',
-			shouldShowOpenGraphCard: false,
+			showsOpenGraphCard: false,
 			showSuccess: false,
 		});
 
@@ -342,7 +361,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 				this.get('discussionEditor').set('isLoading', true);
 
-				if (this.get('shouldShowOpenGraphCard')) {
+				if (this.get('showsOpenGraphCard')) {
 					newDiscussionEntityData.openGraph = {
 						// TODO real URI
 						uri: '/3035/opengraph/2742692796107326848'
