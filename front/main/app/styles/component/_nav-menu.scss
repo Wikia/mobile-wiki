@@ -12,11 +12,11 @@
 	a {
 		color: inherit;
 		display: block;
-		height: 100%;
+		height: $nav-line-height;
 		left: 0;
 		padding-left: $nav-padding-vertical;
 		position: absolute;
-		top: 0;
+		top: $nav-padding-horizontal;
 		width: 100%;
 	}
 
