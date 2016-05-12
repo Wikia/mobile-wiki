@@ -75,8 +75,14 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	afterOpenActions() {
+		const discussionEntity = this.get('discussionEditor.discussionEntity');
+
 		this._super();
-		this.set('bodyText', this.getWithDefault('discussionEditor.discussionEntity.rawContent', ''));
+		this.setProperties({
+			bodyText: discussionEntity.get('rawContent'),
+			openGraph: discussionEntity.get('openGraph'),
+			shouldShowOpenGraphCard: discussionEntity.get('openGraph.exists')
+		});
 		this.$('.editor-textarea').get(0).setSelectionRange(0, 0);
 	},
 
