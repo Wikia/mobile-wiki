@@ -94,28 +94,28 @@ export default DiscussionEditorComponent.extend({
 		 */
 		submit() {
 			if (!this.get('submitDisabled')) {
-				const discussionEntity = this.get('discussionEditor.discussionEntity');
+				const discussionEntity = this.get('discussionEditor.discussionEntity'),
+					editedDisucssionEntity = {
+						body: this.get('bodyText')
+					};
 
 				this.get('discussionEditor').set('isLoading', true);
 
+				if (this.get('shouldShowOpenGraphCard')) {
+					editedDisucssionEntity.openGraph = {
+						// TODO real URI
+						uri: '/3035/opengraph/2742692796107326848'
+					}
+				}
+
 				if (discussionEntity.get('isReply')) {
-					this.get('editReply')({
-						body: this.get('bodyText'),
-						id: discussionEntity.get('id'),
-						openGraph: {
-							// TODO real URI
-							uri: '/3035/opengraph/2742692796107326848'
-						}
-					});
+					editedDisucssionEntity.id = discussionEntity.get('id');
+
+					this.get('editReply')(editedDisucssionEntity);
 				} else {
-					this.get('editPost')({
-						body: this.get('bodyText'),
-						id: discussionEntity.get('threadId'),
-						openGraph: {
-							// TODO real URI
-							uri: '/3035/opengraph/2742692796107326848'
-						}
-					});
+					editedDisucssionEntity.id = discussionEntity.get('threadId');
+
+					this.get('editPost')(editedDisucssionEntity);
 				}
 			}
 		},

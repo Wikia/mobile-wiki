@@ -238,7 +238,8 @@ export default Ember.Component.extend(ViewportMixin, {
 	showNewPostAnimations(newItem) {
 		this.setProperties({
 			bodyText: '',
-			showSuccess: false
+			shouldShowOpenGraphCard: false,
+			showSuccess: false,
 		});
 
 		this.get('discussionEditor').toggleEditor(false);
@@ -330,17 +331,22 @@ export default Ember.Component.extend(ViewportMixin, {
 		 */
 		submit() {
 			if (!this.get('submitDisabled')) {
-				this.get('discussionEditor').set('isLoading', true);
-
-				this.get('create')({
+				const newDiscussionEntityData = {
 					body: this.get('bodyText'),
 					creatorId: this.get('currentUser.userId'),
 					siteId: Mercury.wiki.id,
-					openGraph: {
+				};
+
+				this.get('discussionEditor').set('isLoading', true);
+
+				if (this.get('shouldShowOpenGraphCard')) {
+					newDiscussionEntityData.openGraph = {
 						// TODO real URI
 						uri: '/3035/opengraph/2742692796107326848'
 					}
-				});
+				}
+
+				this.get('create')(newDiscussionEntityData);
 			}
 		},
 
