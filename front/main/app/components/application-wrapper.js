@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {isHashLink} from '../utils/article-link';
 import {trackPerf} from 'common/utils/track-perf';
 
 const {Component, computed, getWithDefault, Logger, observer, $} = Ember;
@@ -123,7 +124,7 @@ export default Component.extend({
 		if (target && this.shouldHandleClick(target)) {
 			tagName = target.tagName.toLowerCase();
 
-			if (tagName === 'a') {
+			if (tagName === 'a' && !isHashLink(target)) {
 				this.handleLink(target);
 				event.preventDefault();
 			}

@@ -1,13 +1,6 @@
 {{ad-slot name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
 {{ad-slot name='MOBILE_TOP_LEADERBOARD' noAds=noAds}}
 <div class="wiki-container">
-	<h2 class="wiki-title">{{link-to siteName 'wiki-page' mainPageTitle alt=siteName trackingCategory='wikiname'}}</h2>
-
-	<h1 class="wiki-page-title">
-		{{model.displayTitle}}
-	</h1>
-	<div class="wiki-page-subtitle">{{i18n 'app.category-page-subtitle'}}</div>
-
 	{{#if model.hasArticle}}
 		{{#article-wrapper
 			commentsPage=commentsPage
@@ -15,7 +8,7 @@
 			model=model
 			noAds=noAds
 			showComments=false
-			showPageTitle=false
+			wikiPageHeaderSubtitle=(i18n 'app.category-page-subtitle')
 			siteName=siteName
 			addPhoto='addPhoto'
 			articleRendered='articleRendered'
@@ -31,6 +24,7 @@
 			}}
 		{{/article-wrapper}}
 	{{else}}
+		{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=(i18n 'app.category-page-subtitle')}}
 		{{category-sections
 			adsContext=model.adsContext
 			sections=model.sections
