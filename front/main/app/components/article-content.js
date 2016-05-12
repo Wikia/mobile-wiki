@@ -30,9 +30,8 @@ export default Ember.Component.extend(
 			this.destroyChildComponents();
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
-				if (content) {
+				if (!Ember.isBlank(content)) {
 					content = this.injectSections(content);
-
 					this.hackIntoEmberRendering(content);
 
 					this.handleInfoboxes();
@@ -57,7 +56,7 @@ export default Ember.Component.extend(
 
 					Ember.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
 				} else {
-					this.hackIntoEmberRendering(i18n.t('app.article-empty-label'));
+					this.hackIntoEmberRendering(`<p>${i18n.t('app.article-empty-label')}</p>`);
 				}
 
 				this.injectAds();
