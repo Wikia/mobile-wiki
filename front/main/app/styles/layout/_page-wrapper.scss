@@ -1,6 +1,4 @@
 .page-wrapper {
-	margin-top: 50px;
-
 	.mobile-top-leaderboard ~ & {
 		margin-top: 0;
 	}
@@ -9,6 +7,9 @@
 		@extend .small-12;
 
 		overflow-x: hidden;
+	}
+
+	.article-content {
 		padding: 0 $article-horizontal-padding;
 	}
 }

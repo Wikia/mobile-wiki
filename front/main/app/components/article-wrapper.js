@@ -103,7 +103,17 @@ export default Ember.Component.extend(
 			return this.get('currentUser.isAuthenticated');
 		}),
 
-		curatedContentToolButtonVisible: Ember.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
+		heroImage: Ember.computed('model.media', function () {
+			let heroImage;
+
+			this.get('model.media.media').forEach((current) => {
+				if (current.hasOwnProperty('context') && current.context === 'infobox-hero-image') {
+					heroImage = current;
+				}
+			});
+
+			return heroImage;
+		}),
 
 		actions: {
 			/**
@@ -126,27 +136,12 @@ export default Ember.Component.extend(
 			},
 
 			/**
-			 * @returns {void}
-			 */
-			expandSideNav() {
-				this.sendAction('toggleSideNav', true);
-			},
-
-			/**
 			 * @param {string} lightboxType
 			 * @param {*} lightboxData
 			 * @returns {void}
 			 */
 			openLightbox(lightboxType, lightboxData) {
 				this.sendAction('openLightbox', lightboxType, lightboxData);
-			},
-
-			/**
-			 * @param {ArticleSectionHeader[]} headers
-			 * @returns {void}
-			 */
-			updateHeaders(headers) {
-				this.set('headers', headers);
 			},
 
 			trackClick(category, label) {

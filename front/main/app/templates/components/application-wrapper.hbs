@@ -1,30 +1,32 @@
 {{#if fullPage}}
 	{{outlet}}
 {{else}}
-	{{smart-banner-android
-		isVisible=smartBannerVisible
-		toggleVisibility=attrs.toggleSmartBanner
-	}}
-
 	{{site-head
 		smartBannerVisible=smartBannerVisible
-		toggleSideNav=attrs.toggleSideNav
-		toggleUserMenu=attrs.toggleUserMenu
-		toggleSiteHeadPinned=attrs.toggleSiteHeadPinned
+		toggleDrawer=this.attrs.toggleDrawer
 		themeBar=themeBar
+		wikiaHomepage=wikiaHomepage
+		drawerContent=activeDrawerContent
+		drawerVisible=drawerVisible
+		setDrawerContent=(action 'setDrawerContent')
 	}}
 
-	{{#if enableShareHeader}}
-		{{share-header
-			smartBannerVisible=smartBannerVisible
-			title=currentTitle
-			language=language
-		}}
-	{{/if}}
-	{{side-nav
-		shouldBeVisible=sideNavVisible
-		loadRandomArticle=attrs.loadRandomArticle
-		toggleVisibility=attrs.toggleSideNav
+	{{#wikia-drawer
+		shouldBeVisible=drawerVisible
+		wikiaHomepage=wikiaHomepage
+	}}
+		{{#if activeDrawerContent}}
+			{{component
+				drawerContentComponent
+				closeDrawer=(action 'closeDrawer')
+				loadRandomArticle=this.attrs.loadRandomArticle
+			}}
+		{{/if}}
+	{{/wikia-drawer}}
+
+	{{smart-banner-android
+        isVisible=smartBannerVisible
+        toggleVisibility=attrs.toggleSmartBanner
 	}}
 	{{#if noMargins}}
 		{{outlet}}

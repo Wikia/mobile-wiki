@@ -1,9 +1,7 @@
 <div class="wiki-container">
-	<h2 class="wiki-title">{{link-to siteName 'wiki-page' mainPageTitle alt=siteName trackingCategory='wikiname'}}</h2>
+	{{wikia-ui-components/wiki-page-header title='Error 404' subtitle=(i18n 'app.page-not-found-error')}}
 	<section class="wiki-page-error">
-		<h1 class="wiki-page-title">Error 404</h1>
-		<div>{{i18n 'app.page-not-found-error'}}</div>
-		<a {{action 'toggleSideNav' true}}>{{i18n 'app.page-not-found-message'}}</a>
+		<a {{action 'toggleDrawer' true}}>{{i18n 'app.page-not-found-message'}}</a>
 	</section>
 	{{wikia-footer}}
 </div>

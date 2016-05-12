@@ -1,53 +1,58 @@
 import Ember from 'ember';
-import HeadroomMixin from '../mixins/headroom';
 import {track, trackActions} from 'common/utils/track';
 
-export default Ember.Component.extend(
-	HeadroomMixin,
-	{
-		classNames: ['site-head', 'border-theme-color'],
-		classNameBindings: ['themeBar'],
-		tagName: 'nav',
-		themeBar: false,
-		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
-		pinned: true,
+const {computed, Component} = Ember;
 
-		currentUser: Ember.inject.service(),
-		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
+export default Component.extend({
+	classNames: ['site-head-wrapper'],
+	classNameBindings: ['themeBar'],
+	tagName: 'div',
+	themeBar: false,
+	closeIcon: 'close',
 
-		actions: {
-			/**
-			 * @returns {void}
-			 */
-			expandSideNav() {
+	navIcon: computed('drawerContent', 'drawerVisible', function () {
+		return this.get('drawerVisible') && this.get('drawerContent') === 'nav' ? 'close' : 'nav';
+	}),
+
+	searchIcon: computed('drawerContent', 'drawerVisible', function () {
+		return this.get('drawerVisible') && this.get('drawerContent') === 'search' ? 'close' : 'search';
+	}),
+
+	actions: {
+		/**
+		 * @param {String} icon
+		 * @returns {void}
+		 */
+		siteHeadIconClick(icon) {
+			if (this.get('drawerVisible') && this.get('drawerContent') === icon) {
 				track({
 					action: trackActions.click,
 					category: 'side-nav',
-					label: 'expanded'
+					label: `${icon}-collapsed`
 				});
-				this.sendAction('toggleSideNav', true);
-			},
 
-			/**
-			 * @returns {void}
-			 */
-			showUserMenu() {
-				this.sendAction('toggleUserMenu', true);
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			trackWordmarkClick() {
+				this.get('setDrawerContent')(null);
+				this.get('toggleDrawer')(false);
+			} else {
 				track({
 					action: trackActions.click,
-					category: 'wordmark'
+					category: 'side-nav',
+					label: `${icon}-expanded`
 				});
+
+				this.get('setDrawerContent')(icon);
+				this.get('toggleDrawer')(true);
 			}
 		},
 
-		pinnedObserver: Ember.observer('pinned', function () {
-			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
-		})
+		/**
+		 * @returns {void}
+		 */
+		trackWordmarkClick() {
+			track({
+				action: trackActions.click,
+				category: 'wordmark'
+			});
+		}
 	}
-);
+});

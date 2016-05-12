@@ -1,8 +1,5 @@
 <div {{action 'toggleMenu'}} class="{{if isCollapsed 'collapsed'}} title">
-	{{#if showMenuIcon}}
-		{{svg 'toc' viewBox='0 0 18 13' class='icon toc'}}
-	{{/if}}
-		{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+	{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
 	{{i18n tLabel count=tCount}}
 </div>
 {{#if ordered}}

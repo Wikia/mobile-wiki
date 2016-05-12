@@ -145,7 +145,7 @@ export default class FacebookLogin {
 			if (status === HttpCodes.OK) {
 				this.tracker.track('facebook-link-existing', trackActions.success);
 				this.tracker.track('facebook-login-helios-success', trackActions.success);
-				AuthUtils.authSuccessCallback(this.redirect);
+				AuthUtils.authSuccessCallback(this.redirect, JSON.parse(facebookTokenXhr.responseText).user_id);
 			} else if (status === HttpCodes.BAD_REQUEST) {
 				this.authLogger.xhrError(facebookTokenXhr);
 				window.location.href = this.getFacebookRegistrationUrl();

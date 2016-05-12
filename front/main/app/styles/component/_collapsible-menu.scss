@@ -1,9 +1,9 @@
 .collapsible-menu {
-	border-top: 1px solid $collapsible-menu-border-color;
 	border-bottom: 1px solid $collapsible-menu-border-color;
+	border-top: 1px solid $collapsible-menu-border-color;
 
 	+ .collapsible-menu {
-		border-top: none;
+		border-top: 0;
 	}
 
 	.title {
@@ -14,10 +14,7 @@
 		line-height: 2.4rem;
 		padding: rem-calc(5) rem-calc(20);
 		position: relative;
-		text: {
-			align: left;
-			transform: uppercase;
-		}
+		text-align: left;
 		width: 100%;
 
 		.icon {
@@ -30,8 +27,8 @@
 			}
 
 			&.chevron {
-				right: rem-calc(10);
 				margin-top: rem-calc(-4);
+				right: rem-calc(10);
 			}
 		}
 	}
@@ -50,15 +47,12 @@
 			padding-left: rem-calc(40);
 
 			a {
-				position: relative;
+				color: $collapsible-menu-list-link-color;
 				display: block;
 				overflow: hidden;
-
 				padding: 10px 0;
 				padding-right: rem-calc(40);
-
-				color: $collapsible-menu-list-link-color;
-
+				position: relative;
 				text-overflow: ellipsis;
 				white-space: nowrap;
 			}
