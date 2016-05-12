@@ -13,6 +13,7 @@
 
 // component elements
 .wiki-page-header__wrapper {
+	display: flex;
 	padding: {
 		bottom: 12px;
 		left: $article-horizontal-padding;
@@ -75,14 +76,12 @@
 }
 
 // component modifier-related changes to elements
-.wiki-page-header .wiki-page-header__wrapper {
-	display: flex;
-}
-
 .wiki-page-header.has-hero-image {
-	background-color: #fff;
-	background-repeat: no-repeat;
-	background-position: center center;
+	background: {
+		color: #fff;
+		position: center center;
+		repeat: no-repeat;
+	}
 }
 
 .wiki-page-header.has-hero-image .wiki-page-header__wrapper {
@@ -105,7 +104,7 @@
 	right: 0;
 }
 
-.wiki-page-header .wiki-page-header__main {
+.wiki-page-header__main {
 	align-self: flex-end;
 	flex: 1;
 }
