@@ -3,7 +3,7 @@
  * @param {Number} maxLength
  * @returns {string}
  */
-export default function (text, maxLength = 48) {
+export function truncate (text, maxLength = 48) {
 	const ellipsisCharacter = '\u2026';
 
 	let truncatedString,
