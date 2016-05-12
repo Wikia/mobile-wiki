@@ -1,18 +1,12 @@
 import Ember from 'ember';
 import nl2br from 'common/utils/nl2br';
-import truncate from '../utils/truncate';
+import {truncate, shouldUseTruncationHack} from '../utils/truncate';
 
 /**
  * Handles sending upvote action outside from the component.
  */
 export default Ember.Mixin.create({
 	autolinkerConfig: {},
-	/**
-	 * Property used to truncate the post body to 148 chars.
-	 * This property is set only in Firefox and in IE, because in other browsers works 'line-clamp' css property.
-	 * This is hack for the browsers that do not support 'line-clamp'.
-	 */
-	shouldUseTruncationHack: (/Firefox|Trident|Edge/).test(navigator.userAgent),
 
 	/**
 	 * Returns content with links created from urls and converts \n, \rn and \r to <br>
@@ -23,7 +17,7 @@ export default Ember.Mixin.create({
 			this.get('post.rawContent')
 		).trim();
 
-		if (!this.get('isDetailsView') && this.get('shouldUseTruncationHack')) {
+		if (!this.get('isDetailsView') && shouldUseTruncationHack()) {
 			escapedContent = truncate(escapedContent, 148);
 		}
 
