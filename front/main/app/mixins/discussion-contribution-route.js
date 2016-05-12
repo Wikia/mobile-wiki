@@ -128,7 +128,6 @@ export default Ember.Mixin.create({
 
 			model.generateOpenGraph(uri).then((openGraph) => {
 				// TODO do something with the data
-				//console.log(openGraph);
 				return openGraph;
 			});
 		}
