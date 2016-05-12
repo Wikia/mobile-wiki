@@ -62,11 +62,12 @@
 
 		// .post-reply { this has the default layout }
 	}
+}
 
-	@media #{$desktop-range} {
+@media #{$desktop-range} {
+	.discussions {
 		.og-container {
 			margin: 2px auto 16px;
 		}
 	}
-
 }
