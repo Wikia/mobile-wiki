@@ -343,7 +343,7 @@ export default Ember.Component.extend(ViewportMixin, {
 					newDiscussionEntityData.openGraph = {
 						// TODO real URI
 						uri: '/3035/opengraph/2742692796107326848'
-					}
+					};
 				}
 
 				this.get('create')(newDiscussionEntityData);

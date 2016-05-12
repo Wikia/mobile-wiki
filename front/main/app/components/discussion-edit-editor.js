@@ -105,7 +105,7 @@ export default DiscussionEditorComponent.extend({
 					editedDisucssionEntity.openGraph = {
 						// TODO real URI
 						uri: '/3035/opengraph/2742692796107326848'
-					}
+					};
 				}
 
 				if (discussionEntity.get('isReply')) {

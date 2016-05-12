@@ -115,14 +115,14 @@ export default Ember.Mixin.create({
 	/**
 	 * Generate Open Graph data in the service
 	 *
-	 * @param uri
+	 * @param {string} uri
 	 *
-	 * @returns {*}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	generateOpenGraph(uri) {
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/opengraph/`), {
 			data: {
-				uri: uri
+				uri
 			},
 			method: 'GET',
 		}).then((OpenGraphApiData) => {
