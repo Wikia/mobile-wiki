@@ -2,6 +2,8 @@ import Ember from 'ember';
 import truncate from '../utils/truncate';
 
 export default Ember.Component.extend({
+	classNames: ['og-container'],
+
 	oneLineCharacters: 48,
 	/**
 	 * Property used to truncate the post body to 148 chars.
@@ -14,7 +16,7 @@ export default Ember.Component.extend({
 	siteName: Ember.computed('openGraphData.domain', 'openGraphData.siteName', function () {
 		let siteNameToDisplay = this.get('openGraphData.siteName') || this.get('openGraphData.domain');
 
-		if (this.get('shouldUseTruncationHack') {
+		if (this.get('shouldUseTruncationHack')) {
 			siteNameToDisplay = truncate(siteNameToDisplay, this.get('oneLineCharacters'));
 		}
 
@@ -22,7 +24,7 @@ export default Ember.Component.extend({
 	}),
 
 	title: Ember.computed('openGraphData.title', function () {
-		if (this.get('shouldUseTruncationHack') {
+		if (this.get('shouldUseTruncationHack')) {
 			return truncate(this.get('openGraphData.title'), this.get('twoLinesCharacters'));
 		}
 
