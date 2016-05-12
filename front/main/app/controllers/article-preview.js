@@ -1,6 +1,4 @@
 import Ember from 'ember';
-import HeroImageMixin from '../mixins/hero-image';
+import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
 
-export default Ember.Controller.extend(HeroImageMixin, {
-	application: Ember.inject.controller(),
-});
+export default Ember.Controller.extend(PortableInfoboxHeroImageMixin, {});

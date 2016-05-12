@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import HeroImageMixin from '../mixins/hero-image';
 import LanguagesMixin from '../mixins/languages';
+import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from 'common/utils/track';
 
@@ -14,7 +14,7 @@ import {track, trackActions} from 'common/utils/track';
  */
 
 export default Ember.Component.extend(
-	HeroImageMixin,
+	PortableInfoboxHeroImageMixin,
 	LanguagesMixin,
 	ViewportMixin,
 	{

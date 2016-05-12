@@ -6,7 +6,7 @@ export default Ember.Mixin.create({
 
 		if (Ember.isArray(media)) {
 			for (let i = 0; i < media.length; i++) {
-				if (media[i].hasOwnProperty('context') && media[i].context === 'infobox-hero-image') {
+				if (media[i].context === 'infobox-hero-image') {
 					return media[i];
 				}
 			}
