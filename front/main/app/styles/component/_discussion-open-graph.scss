@@ -27,12 +27,14 @@
 	}
 
 	.og-title {
+		@include clamp(2);
 		font-size: $type-smallest;
 		line-height: $line-height-smallest;
 		margin: 22px 18px 0;
 	}
 
 	.og-site-name {
+		@include clamp(1);
 		font-size: $type-min;
 		line-height: $line-height-min;
 		margin: 0 18px 22px;
