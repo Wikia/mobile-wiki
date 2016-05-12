@@ -1,4 +1,5 @@
 {{#ember-wormhole to="site-head-sub-header"}}
+	<div class="diana-wrapper-header">
 {{discussion-header
 	applyFilters=(action this.attrs.applyFilters)
 	canModerate=model.canModerate
@@ -8,6 +9,7 @@
 	hasSiteName=true
 	smartBannerVisible=smartBannerVisible
 }}
+	</div>
 {{/ember-wormhole}}
 {{discussion-dialog
 	confirmButtonText=confirmButtonText

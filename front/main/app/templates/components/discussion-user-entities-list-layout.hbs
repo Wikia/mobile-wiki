@@ -1,4 +1,5 @@
 {{#ember-wormhole to="site-head-sub-header"}}
+	<div class="diana-wrapper-header">
 {{discussion-header
 	canDeleteAll=model.canDeleteAll
 	deleteAllPosts=deleteAllPosts
@@ -6,6 +7,7 @@
 	hasBackButton=true
 	smartBannerVisible=smartBannerVisible
 }}
+	</div>
 {{/ember-wormhole}}
 {{discussion-dialog
 	confirmButtonText=confirmButtonText
