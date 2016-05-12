@@ -1,12 +1,10 @@
-<a class="og-container" href="{{openGraphData.url}}" title="{{openGraphData.title}}">
-	{{#if openGraphData.imageUrl}}
-		<img class="og-image" src="{{openGraphData.imageUrl}}" alt="{{openGraphData.title}}">
-	{{/if}}
-	<div class="og-title">
-		{{openGraphData.title}}
-	</div>
-	<div class="og-site-name">
-		{{siteName}}
-	</div>
-</a>
+{{#if openGraphData.imageUrl}}
+	<img class="og-image" src="{{openGraphData.imageUrl}}" alt="{{openGraphData.title}}">
+{{/if}}
+<div class="og-title">
+	{{openGraphData.title}}
+</div>
+<div class="og-site-name">
+	{{siteName}}
+</div>
 
