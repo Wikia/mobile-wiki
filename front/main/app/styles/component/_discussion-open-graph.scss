@@ -1,6 +1,12 @@
 .discussions {
 	// -- theme --
 	.discussion-editor {
+		&.has-open-graph {
+			.editor-textarea {
+				border-bottom: none;
+			}
+		}
+
 		.og-container {
 			margin: $editor-textarea-paddings;
 		}
