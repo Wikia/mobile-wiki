@@ -77,6 +77,7 @@ export default DiscussionEditorComponent.extend({
 	afterOpenActions() {
 		this._super();
 		this.set('bodyText', this.getWithDefault('discussionEditor.discussionEntity.rawContent', ''));
+		this.$('.editor-textarea').get(0).setSelectionRange(0, 0);
 	},
 
 	actions: {
