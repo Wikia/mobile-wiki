@@ -10,18 +10,8 @@ export default Ember.Component.extend({
 	oneLineCharacters: 48,
 	twoLinesCharacters: 98,
 
-	tagName: Ember.computed('active', function () {
-		return this.get('active') ? 'a' : 'div';
-	}),
 
-	activePropertyObserver: Ember.observer('active', function () {
-		this.setProperties({
-			openGraphHref: this.get('active') ? this.get('openGraphData.url') : null,
-			openGraphTitle: this.get('active') ? this.get('openGraphData.domain') : null,
-		});
-	}),
-
-	imageWidthObserver: Ember.observer('openGraphData.imageWidth', function () {
+	init() {
 		// we're usually strongly against that kind of caching, because a getter should be used always,
 		// but come on, it is 8 calls, and even we have some limits in the matter of principles :)
 		const imageWidth = this.get('openGraphData.imageWidth');
@@ -34,7 +24,17 @@ export default Ember.Component.extend({
 			imageCardDesktopSmall: imageWidth > 100 && imageWidth < 500,
 			imageCardDesktopLarge: imageWidth > 500,
 		});
-	}),
+
+		if (this.get('active')) {
+			this.setProperties({
+				tagName: 'a',
+				openGraphHref: this.get('openGraphData.url'),
+				openGraphTitle: this.get('openGraphData.domain'),
+			});
+		}
+
+		this._super(...arguments);
+	},
 
 	siteName: Ember.computed('openGraphData.domain', 'openGraphData.siteName', function () {
 		let siteNameToDisplay = this.get('openGraphData.siteName') || this.get('openGraphData.domain');
