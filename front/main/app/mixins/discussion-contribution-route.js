@@ -126,7 +126,7 @@ export default Ember.Mixin.create({
 		generateOpenGraph(uri) {
 			const model = this.modelFor(this.get('routeName'));
 
-			model.generateOpenGraph(uri).then((openGraph) => {
+			return model.generateOpenGraph(uri).then((openGraph) => {
 				// TODO do something with the data
 				return openGraph;
 			});

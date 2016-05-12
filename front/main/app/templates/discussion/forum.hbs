@@ -5,7 +5,7 @@
 }}
 	{{discussion-edit-editor
 		editPost=(action 'editPost')
-		generateOpenGraph=(action 'generateOpenGraph')
+		generateOpenGraph=(route-action 'generateOpenGraph')
 	}}
 {{/modal-dialog}}
 {{#discussion-entities-list-layout
@@ -21,7 +21,7 @@
 		deletePost=(action 'deletePost')
 		editPost=(action 'editPost')
 		forumId=model.data.forumId
-		generateOpenGraph=(action 'generateOpenGraph')
+		generateOpenGraph=(route-action 'generateOpenGraph')
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
 		minorError=model.data.minorError

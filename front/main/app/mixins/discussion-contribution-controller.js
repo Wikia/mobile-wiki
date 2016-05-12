@@ -49,6 +49,7 @@ export default Ember.Mixin.create({
 		},
 
 		generateOpenGraph(uri) {
+			debugger;
 			this.get('target').send('generateOpenGraph', uri);
 		}
 	}

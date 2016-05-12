@@ -6,7 +6,7 @@
 	{{discussion-edit-editor
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
-		generateOpenGraph=(action 'generateOpenGraph')
+		generateOpenGraph=(route-action 'generateOpenGraph')
 	}}
 {{/modal-dialog}}
 
@@ -24,7 +24,7 @@
 		deleteReply=(action 'deleteReply')
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
-		generateOpenGraph=(action 'generateOpenGraph')
+		generateOpenGraph=(route-action 'generateOpenGraph')
 		loadNewerReplies=(action 'loadNewerReplies')
 		loadOlderReplies=(action 'loadOlderReplies')
 		lockPost=(action 'lockPost')
