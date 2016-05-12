@@ -204,6 +204,7 @@ $editor-textarea-overflow-ios-hack: 30px;
 		}
 
 		.editor-label-mobile {
+			cursor: default;
 			display: block;
 		}
 
@@ -272,7 +273,6 @@ $editor-textarea-overflow-ios-hack: 30px;
 
 			.editor-label {
 				top: $editor-toolbar-height + 1px;
-				width: auto;
 			}
 		}
 	}
