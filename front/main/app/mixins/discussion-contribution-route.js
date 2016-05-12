@@ -10,15 +10,16 @@ export default Ember.Mixin.create({
 	discussionEditEditor: Ember.inject.service(),
 	/**
 	 * @param {error} err
+	 * @param {string} generalErrorKey
 	 * @param {boolean} isEdit
 	 *
 	 * @returns {void}
 	 */
-	onContributionError(err, isEdit) {
+	onContributionError(err, generalErrorKey, isEdit) {
 		if (isUnauthorizedError(err.status)) {
 			this.setEditorError('editor.post-error-not-authorized', isEdit);
 		} else {
-			this.setEditorError('editor.post-error-general-error', isEdit);
+			this.setEditorError(generalErrorKey, isEdit);
 		}
 	},
 
@@ -60,7 +61,7 @@ export default Ember.Mixin.create({
 				model.createPost(postData).then(() => {
 					this.get('discussionEditor').trigger('newPost');
 				}).catch((err) => {
-					this.onContributionError(err, false);
+					this.onContributionError(err, 'editor.post-error-general-error', false);
 				}).finally(() => {
 					this.get('discussionEditor').set('isLoading', false);
 				});
@@ -82,7 +83,7 @@ export default Ember.Mixin.create({
 			model.editPost(postData).then(() => {
 				this.get('discussionEditEditor').trigger('newPost');
 			}).catch((err) => {
-				this.onContributionError(err, true);
+				this.onContributionError(err, 'editor.save-error-general-error', true);
 			}).finally(() => {
 				this.get('discussionEditEditor').set('isLoading', false);
 			});
@@ -97,7 +98,7 @@ export default Ember.Mixin.create({
 			this.setEditorError(null, false);
 
 			this.modelFor(this.get('routeName')).createReply(replyData).catch((err) => {
-				this.onContributionError(err, false);
+				this.onContributionError(err, 'editor.reply-error-general-error', false);
 			}).finally(() => {
 				this.get('discussionEditor').set('isLoading', false);
 			});
@@ -116,7 +117,7 @@ export default Ember.Mixin.create({
 			model.editReply(replyData).then(() => {
 				this.get('discussionEditEditor').trigger('newPost');
 			}).catch((err) => {
-				this.onContributionError(err, true);
+				this.onContributionError(err, 'editor.save-error-general-error', true);
 			}).finally(() => {
 				this.get('discussionEditEditor').set('isLoading', false);
 			});

@@ -21,6 +21,7 @@ $editor-textarea-overflow-ios-hack: 30px;
 		font-size: $type-smallest;
 		font-weight: bold;
 		height: $editor-toolbar-height;
+		letter-spacing: .25px;
 		margin: 0;
 		padding: 0 1.25rem;
 		position: absolute;
@@ -206,6 +207,7 @@ $editor-textarea-overflow-ios-hack: 30px;
 		}
 
 		.editor-label-mobile {
+			cursor: default;
 			display: block;
 		}
 
@@ -274,7 +276,6 @@ $editor-textarea-overflow-ios-hack: 30px;
 
 			.editor-label {
 				top: $editor-toolbar-height + 1px;
-				width: auto;
 			}
 		}
 	}
