@@ -1,15 +1,13 @@
 {{#ember-wormhole to="site-head-sub-header"}}
-	<div class="diana-wrapper-header">
-{{discussion-header
-	canDeleteAll=false
-	deleteAllPosts=(action this.attrs.deleteAllPosts)
-	forumId=model.forumId
-	hasBackButton=true
-	hasFilters=false
-	hasNewPostButton=false
-	smartBannerVisible=smartBannerVisible
-}}
-	</div>
+	{{discussion-header
+		canDeleteAll=false
+		deleteAllPosts=(action this.attrs.deleteAllPosts)
+		forumId=model.forumId
+		hasBackButton=true
+		hasFilters=false
+		hasNewPostButton=false
+		smartBannerVisible=smartBannerVisible
+	}}
 {{/ember-wormhole}}
 {{discussion-dialog
 	confirmButtonText=confirmButtonText

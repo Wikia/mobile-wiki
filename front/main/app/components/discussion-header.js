@@ -16,7 +16,7 @@ export default Ember.Component.extend(
 
 		canDeleteAll: false,
 
-		classNames: ['discussion-header', 'background-theme-color'],
+		classNames: ['discussion-header-wrapper'],
 
 		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
