@@ -96,11 +96,19 @@ export default DiscussionEditorComponent.extend({
 					this.get('editReply')({
 						body: this.get('bodyText'),
 						id: discussionEntity.get('id'),
+						openGraph: {
+							// TODO real URI
+							uri: '/3035/opengraph/2742692796107326848'
+						}
 					});
 				} else {
 					this.get('editPost')({
 						body: this.get('bodyText'),
 						id: discussionEntity.get('threadId'),
+						openGraph: {
+							// TODO real URI
+							uri: '/3035/opengraph/2742692796107326848'
+						}
 					});
 				}
 			}

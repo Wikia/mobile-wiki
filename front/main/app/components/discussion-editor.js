@@ -335,7 +335,11 @@ export default Ember.Component.extend(ViewportMixin, {
 				this.get('create')({
 					body: this.get('bodyText'),
 					creatorId: this.get('currentUser.userId'),
-					siteId: Mercury.wiki.id
+					siteId: Mercury.wiki.id,
+					openGraph: {
+						// TODO real URI
+						uri: '/3035/opengraph/2742692796107326848'
+					}
 				});
 			}
 		},
