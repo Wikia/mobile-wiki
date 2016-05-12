@@ -54,7 +54,7 @@ export default Ember.Component.extend(ViewportMixin, {
 			this.set('wasContentTracked', true);
 		}
 
-		this.setOpenGraphProperties(this.get('bodyText'), /(https?:\/\/[^\s]+)\s/g);
+		this.setOpenGraphProperties(this.get('bodyText'), /(https?:\/\/[^\s]+)\s$/g);
 	}),
 
 	setOpenGraphProperties(text, urlRegex) {
@@ -75,10 +75,10 @@ export default Ember.Component.extend(ViewportMixin, {
 
 		const url = urls[0].trim();
 
-		this.get('generateOpenGraph')(url.trim())
+		this.get('generateOpenGraph')(url)
 			.then((openGraph) => {
 				this.setProperties({
-					openGraphUrl: url.trim(),
+					openGraphUrl: url,
 					openGraph,
 					isOpenGraphLoading: false,
 				});
@@ -86,7 +86,7 @@ export default Ember.Component.extend(ViewportMixin, {
 				this.setProperties({
 					openGraph: null,
 					isOpenGraphLoading: false,
-					showsOpenGraphCard: false
+					showsOpenGraphCard: false,
 				});
 			});
 	},
