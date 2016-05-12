@@ -3,6 +3,8 @@ import truncate from '../utils/truncate';
 
 export default Ember.Component.extend({
 	classNames: ['og-container'],
+	classNameBindings: ['imageCardNoneMobile', 'imageCardNoneDesktop', 'imageCardSmallMobile', 'imageCardSmallDesktop',
+		'imageCardLargeMobile', 'imageCardLargeDesktop'],
 
 	tagName: Ember.computed('active', function () {
 		return this.get('active') ? 'a' : 'div';
@@ -26,6 +28,30 @@ export default Ember.Component.extend({
 	 */
 	shouldUseTruncationHack: (/Firefox|Trident|Edge/).test(navigator.userAgent),
 	twoLinesCharacters: 98,
+
+	imageCardNoneMobile: Ember.computed('openGraphData.imageWidth', function () {
+		return this.get('openGraphData.imageWidth') < 51;
+	}),
+
+	imageCardNoneDesktop: Ember.computed('openGraphData.imageWidth', function () {
+		return this.get('openGraphData.imageWidth') < 101;
+	}),
+
+	imageCardSmallMobile: Ember.computed('openGraphData.imageWidth', function () {
+		return this.get('openGraphData.imageWidth') > 50 && this.get('openGraphData.imageWidth') < 300;
+	}),
+
+	imageCardSmallDesktop: Ember.computed('openGraphData.imageWidth', function () {
+		return this.get('openGraphData.imageWidth') > 100 && this.get('openGraphData.imageWidth') < 500;
+	}),
+
+	imageCardLargeMobile: Ember.computed('openGraphData.imageWidth', function () {
+		return this.get('openGraphData.imageWidth') >= 300;
+	}),
+
+	imageCardLargeDesktop: Ember.computed('openGraphData.imageWidth', function () {
+		return this.get('openGraphData.imageWidth') > 500;
+	}),
 
 	siteName: Ember.computed('openGraphData.domain', 'openGraphData.siteName', function () {
 		let siteNameToDisplay = this.get('openGraphData.siteName') || this.get('openGraphData.domain');
