@@ -47,7 +47,7 @@ export default Ember.Component.extend({
 	}),
 
 	title: Ember.computed('openGraphData.title', function () {
-		if (this.get('shouldUseTruncationHack')) {
+		if (shouldUseTruncationHack()) {
 			return truncate(this.get('openGraphData.title'), this.get('twoLinesCharacters'));
 		}
 
