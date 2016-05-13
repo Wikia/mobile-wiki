@@ -13,6 +13,7 @@ test('test zero state with values from api', (assert) => {
 				localLinks: [],
 				exploreWikiaLinks: [],
 				exploreWikiaLabel: '',
+				discussionsEnabled: false,
 				wikiName: '',
 				wikiLang: ''
 			},
@@ -40,6 +41,7 @@ test('test zero state with values from api', (assert) => {
 				exploreWikiaLinks: [
 					{textEscaped: 'Explore test', href: 'http://test.com/expolore', trackingLabel: 'exp-test'}
 				],
+				discussionsEnabled: false,
 				exploreWikiaLabel: 'Explore menu',
 				wikiName: 'Test',
 				wikiLang: 'en'
@@ -84,7 +86,68 @@ test('test zero state with values from api', (assert) => {
 					type: 'side-nav-menu-item'
 				}
 			],
-			message: 'Full nav visible'
+			message: 'Full nav visible, discussions disabled'
+		},
+		{
+			mock: {
+				hubsLinks: [{textEscaped: 'Hub test', href: 'http://test.com/hub', specialAttr: 'tests'}],
+				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
+				exploreWikiaLinks: [
+					{textEscaped: 'Explore test', href: 'http://test.com/expolore', trackingLabel: 'exp-test'}
+				],
+				discussionsEnabled: true,
+				exploreWikiaLabel: 'Explore menu',
+				wikiName: 'Test',
+				wikiLang: 'en'
+			},
+			expected: [
+				{
+					className: 'tests',
+					href: 'http://test.com/hub',
+					name: 'Hub test',
+					trackLabel: 'open-hub-tests',
+					type: 'side-nav-menu-external'
+				},
+				{
+					index: 0,
+					name: 'Explore menu',
+					trackLabel: 'open-explore-wikia',
+					type: 'side-nav-menu-root'
+				},
+				{
+					name: '',
+					type: 'side-nav-menu-header'
+				},
+				{
+					type: 'side-nav-menu-item',
+					route: 'discussion',
+					name: '',
+					trackCategory: 'discussion',
+					trackLabel: 'local-nav'
+				},
+				{
+					route: 'recent-wiki-activity',
+					name: '',
+					trackCategory: 'recent-wiki-activity',
+					trackLabel: 'local-nav',
+					type: 'side-nav-menu-item'
+				},
+				{
+					href: 'Test_1',
+					index: 1,
+					route: 'wiki-page',
+					name: 'Test 1',
+					trackLabel: 'local-nav-open-link-index-1',
+					type: 'side-nav-menu-item'
+				},
+				{
+					actionId: 'onRandomPageClick',
+					name: '',
+					trackLabel: 'random-page',
+					type: 'side-nav-menu-item'
+				}
+			],
+			message: 'Full nav visible, discussions enabled'
 		},
 		{
 			mock: {
@@ -92,6 +155,7 @@ test('test zero state with values from api', (assert) => {
 				localLinks: [{text: 'Test 1', href: '/wiki/Test_1'}],
 				exploreWikiaLinks: [{textEscaped: 'Explore test', href: 'http://test.com/expolore', trackingLabel: 'exp-test'}],
 				exploreWikiaLabel: 'Explore menu',
+				discussionsEnabled: false,
 				wikiName: 'Test',
 				wikiLang: 'pl'
 			},

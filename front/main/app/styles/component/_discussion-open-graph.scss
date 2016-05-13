@@ -31,25 +31,39 @@
 	//default layout
 	.og-container {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		flex-wrap: wrap;
 		margin: 4px auto 9px 0;
+		max-height: 450px;
 		max-width: 500px;
 		position: relative;
 	}
 
+	.og-image {
+		max-height: 255px;
+	}
+
+	.og-texts {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		margin: 22px 18px;
+	}
+
 	.og-title {
 		@include clamp(2);
+		align-self: flex-start;
 		font-size: $type-smallest;
 		line-height: $line-height-smallest;
-		margin: 22px 18px 0;
+		margin: 0;
 	}
 
 	.og-site-name {
 		@include clamp(1);
+		align-self: flex-start;
 		font-size: $type-min;
 		line-height: $line-height-min;
-		margin: 0 18px 22px;
+		margin: 0;
 	}
 
 	//post-details page layout
@@ -58,6 +72,10 @@
 		.post-detail {
 			.og-container {
 				margin: 9px auto 13px 0;
+			}
+
+			.og-image {
+				max-height: 330px;
 			}
 
 			.og-title {
@@ -90,6 +108,32 @@
 	}
 }
 
+@media #{$mobile-range} {
+	.discussions {
+		.image-card-mobile-none {
+			.og-image {
+				display: none;
+			}
+		}
+
+		.image-card-mobile-small {
+			&.og-container {
+				flex-wrap: nowrap;
+			}
+
+			.og-image {
+				width: 35%;
+				height: 100%;
+			}
+
+			.og-texts {
+				width: 65%;
+				height: 100%;
+			}
+		}
+	}
+}
+
 @media #{$desktop-range} {
 	.discussions {
 		.og-container {
@@ -99,6 +143,29 @@
 		.discussion-editor {
 			.og-container {
 				margin: $editor-textarea-paddings;
+			}
+		}
+
+		.image-card-desktop-none {
+			.og-image {
+				display: none;
+			}
+		}
+
+		.image-card-desktop-small {
+			&.og-container {
+				flex-wrap: nowrap;
+				height: 92px;
+			}
+
+			.og-image {
+				width: 35%;
+				height: 100%;
+			}
+
+			.og-texts {
+				width: 65%;
+				height: 100%;
 			}
 		}
 	}

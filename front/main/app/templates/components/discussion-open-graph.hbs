@@ -7,11 +7,13 @@
 {{#if openGraphData.imageUrl}}
 	<img class="og-image" src="{{openGraphData.imageUrl}}" alt="{{openGraphData.title}}">
 {{/if}}
-<div class="og-title">
-	{{openGraphData.title}}
-</div>
-<div class="og-site-name">
-	{{siteName}}
+<div class="og-texts">
+	<span class="og-title">
+		{{openGraphData.title}}
+	</span>
+	<span class="og-site-name">
+		{{siteName}}
+	</span>
 </div>
 {{loading-spinner
 	active=isLoading
