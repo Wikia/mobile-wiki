@@ -3,7 +3,7 @@
  * @param {Number} maxLength
  * @returns {string}
  */
-export function truncate (text, maxLength = 48) {
+export function truncate(text, maxLength = 48) {
 	const ellipsisCharacter = '\u2026';
 
 	let truncatedString,
@@ -34,6 +34,6 @@ export function truncate (text, maxLength = 48) {
  *
  * @returns {Boolean}
  */
-export function shouldUseTruncationHack () {
+export function shouldUseTruncationHack() {
 	return (/Firefox|Trident|Edge/).test(navigator.userAgent);
 }
