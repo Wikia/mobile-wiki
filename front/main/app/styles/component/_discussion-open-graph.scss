@@ -23,8 +23,13 @@
 		flex-direction: row;
 		flex-wrap: wrap;
 		margin: 4px auto 9px 0;
+		max-height: 450px;
 		max-width: 500px;
 		position: relative;
+	}
+
+	.og-image {
+		max-height: 255px;
 	}
 
 	.og-texts {
@@ -58,6 +63,10 @@
 				margin: 9px auto 13px 0;
 			}
 
+			.og-image {
+				max-height: 330px;
+			}
+
 			.og-title {
 				font-size: $type-smaller;
 				line-height: $line-height-smaller;
@@ -69,26 +78,30 @@
 			}
 		}
 	}
+}
 
-	.image-card-mobile-none {
-		.og-image {
-			display: none;
-		}
-	}
-
-	.image-card-mobile-small {
-		&.og-container {
-			flex-wrap: nowrap;
+@media #{$mobile-range} {
+	.discussions {
+		.image-card-mobile-none {
+			.og-image {
+				display: none;
+			}
 		}
 
-		.og-image {
-			width: 35%;
-			height: 100%;
-		}
+		.image-card-mobile-small {
+			&.og-container {
+				flex-wrap: nowrap;
+			}
 
-		.og-texts {
-			width: 65%;
-			height: 100%;
+			.og-image {
+				width: 35%;
+				height: 100%;
+			}
+
+			.og-texts {
+				width: 65%;
+				height: 100%;
+			}
 		}
 	}
 }
