@@ -60,12 +60,36 @@
 			}
 		}
 	}
+
+	.image-card-mobile-none {
+		.og-image {
+			display: none;
+		}
+	}
+
+	.image-card-mobile-small {
+		.og-image {
+			width: 35%;
+		}
+	}
 }
 
 @media #{$desktop-range} {
 	.discussions {
 		.og-container {
 			margin: 2px auto 16px;
+		}
+
+		.image-card-desktop-none {
+			.og-image {
+				display: none;
+			}
+		}
+
+		.image-card-desktop-small {
+			.og-image {
+				width: 35%;
+			}
 		}
 	}
 }
