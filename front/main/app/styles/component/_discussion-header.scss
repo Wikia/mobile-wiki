@@ -3,6 +3,10 @@ $discussion-header-color-text: #fff;
 $discussion-header-mobile-max-width: 205px;
 $site-header-height: 50px;
 
+.discussion-header-wrapper {
+	height: $discussion-header-height;
+}
+
 .discussion-headroom-un-pinned .discussion-header {
 	 margin-top: 0;
  }

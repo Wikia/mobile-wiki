@@ -23,7 +23,7 @@ export default Ember.Controller.extend(
 		noAds: '',
 		commentsPage: null,
 
-		smartBannerVisible: true,
+		smartBannerVisible: false,
 		drawerVisible: false,
 		userMenuVisible: false,
 		noScroll: false,

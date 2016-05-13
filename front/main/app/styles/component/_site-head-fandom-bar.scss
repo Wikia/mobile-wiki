@@ -1,12 +1,8 @@
 $head-fandom-bar-font-size: 12px;
 $home-of-fandom-letter-spacing: 0.5px;
 
-.discussion-header-wrapper {
-	height: 50px;
-}
-
 .site-head-fandom-bar-wrapper {
-	height: 77px;
+	height: $site-head-with-fandom-bar-height;
 
 	.site-head-fandom-bar {
 		background-color: $white;
