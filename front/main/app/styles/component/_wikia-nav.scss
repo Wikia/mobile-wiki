@@ -6,6 +6,7 @@ $nav-back-arrow-padding: 68px;
 $nav-background-color: #636b76;
 $nav-font-size: 16px;
 $nav-line-height: 30px;
+$nav-local-background-color: #4F5863;
 $nav-logout-color: #d7d9dc;
 $nav-padding-horizontal: 9px;
 $nav-padding-vertical: 18px;
@@ -67,4 +68,9 @@ $nav-padding-vertical: 18px;
 		color: $nav-logout-color;
 		float: right;
 	}
+}
+
+.wikia-nav--in-root {
+	background-color: $nav-local-background-color;
+	height: 100%;
 }

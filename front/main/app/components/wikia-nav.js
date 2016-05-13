@@ -6,7 +6,7 @@ import {track, trackActions} from 'common/utils/track';
 export default Ember.Component.extend(
 	LoginLinkMixin,
 	{
-		//classNames: ['wikia-drawer__content'],
+		classNameBindings: ['model.inRoot:wikia-nav--in-root'],
 		currentUser: Ember.inject.service(),
 		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
 

@@ -2,7 +2,6 @@
 	$nav-chevron-padding: 54px;
 	$nav-global-border: 4px;
 	$nav-line-height: 48px;
-	$nav-local-background-color: #4F5863;
 	$nav-padding-horizontal: 6px;
 
 	list-style-type: none;
@@ -54,7 +53,7 @@
 		&.nav-menu__header {
 			background-color: $nav-background-color;
 			font-weight: bold;
-			margin-top: $nav-padding-horizontal;
+			margin-top: 0;
 			padding: 0 $nav-padding-vertical;
 
 			&::before {
@@ -63,11 +62,8 @@
 		}
 
 		&.nav-menu--external {
-			font-weight: bold;
-		}
-
-		&.nav-menu--local {
-			background-color: $nav-local-background-color;
+		  background: $color-gray-dark;
+		  font-weight: bold;
 		}
 
 		&.nav-menu--root {
@@ -110,7 +106,9 @@
 		}
 
 		&.nav-menu--explore {
+			background-color: $color-gray-dark;
 			font-weight: bold;
+			padding-bottom: 6px;
 
 			&::before {
 				background: $nav-background-color;
