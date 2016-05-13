@@ -13,7 +13,6 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	{
-		//classNames: ['wikia-drawer__content'],
 		ajax: Ember.inject.service(),
 		query: '',
 

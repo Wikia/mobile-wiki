@@ -47,7 +47,7 @@ $nav-padding-vertical: 18px;
 		margin-right: $nav-avatar-margin;
 
 		img {
-			border: $nav-avatar-border solid #fff;
+			border: $nav-avatar-border solid $white;
 			border-radius: $nav-avatar-border-radius;
 			height: $nav-avatar-size;
 			width: $nav-avatar-size;
