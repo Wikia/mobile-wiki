@@ -57,11 +57,13 @@ export default Ember.Component.extend(ViewportMixin, {
 	}),
 
 	setOpenGraphProperties(text, urlRegex) {
+		let url, urls;
+
 		if (this.get('showsOpenGraphCard')) {
 			return;
 		}
 
-		const urls = text.match(urlRegex);
+		urls = text.match(urlRegex);
 
 		if (!urls) {
 			return;
@@ -72,7 +74,7 @@ export default Ember.Component.extend(ViewportMixin, {
 			showsOpenGraphCard: true
 		});
 
-		const url = urls[0].trim();
+		url = urls[0].trim();
 
 		this.get('generateOpenGraph')(url)
 			.then((openGraph) => {
