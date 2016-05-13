@@ -72,5 +72,6 @@ $nav-padding-vertical: 18px;
 
 .wikia-nav--in-root {
 	background-color: $nav-local-background-color;
-	height: 100%;
+	flex-grow: 1;
+	height: inherit;
 }
