@@ -7,6 +7,7 @@ export default Object.extend({
 	localLinks: get(Mercury, 'wiki.navigation2016.localNav'),
 	exploreWikiaLinks: get(Mercury, 'wiki.navigation2016.exploreWikiaMenu'),
 	exploreWikiaLabel: get(Mercury, 'wiki.navigation2016.exploreWikia.textEscaped'),
+	discussionsEnabled: get(Mercury, 'wiki.enableDiscussions'),
 	wikiName: get(Mercury, 'wiki.siteName'),
 	wikiLang: get(Mercury, 'wiki.language.content'),
 
@@ -57,12 +58,13 @@ export default Object.extend({
 
 	// keep it sync with navigation order
 	items: computed('exploreItems', 'globalItems', 'exploreSubMenuItem', 'localNavHeaderItem',
-		'recentActivityItem', 'localItems', 'randomPageItem', function () {
+		'discussionItem', 'recentActivityItem', 'localItems', 'randomPageItem', function () {
 			return [
 				...this.get('exploreItems'),
 				...this.get('globalItems'),
 				...this.get('exploreSubMenuItem'),
 				...this.get('localNavHeaderItem'),
+				...this.get('discussionItem'),
 				...this.get('recentActivityItem'),
 				...this.get('localItems'),
 				...this.get('randomPageItem')
@@ -112,6 +114,18 @@ export default Object.extend({
 			[{
 				type: 'side-nav-menu-header',
 				name: i18n.t('app.explore-wiki', {wikiName: this.get('wikiName')})
+			}] || [];
+	}),
+
+	discussionItem: computed('inRoot', 'discussionsEnabled', function () {
+		return this.get('inRoot') &&
+			this.get('discussionsEnabled') &&
+			[{
+				type: 'side-nav-menu-item',
+				route: 'discussion',
+				name: i18n.t('main.discussions-header-title', {ns: 'discussion'}),
+				trackCategory: 'discussion',
+				trackLabel: 'local-nav'
 			}] || [];
 	}),
 
