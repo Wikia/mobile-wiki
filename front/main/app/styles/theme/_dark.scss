@@ -321,6 +321,21 @@ body.dark-theme {
 			}
 		}
 	}
+
+	&.discussions {
+		.og-container {
+			background-color: $dark-discussion-open-graph-background-color;
+			border-color: $dark-discussion-open-graph-border-color;
+		}
+
+		.og-title {
+			color: $dark-discussion-open-graph-title-color;
+		}
+
+		.og-site-name {
+			color: $dark-discussion-open-graph-domain-color;
+		}
+	}
 }
 
 @media #{$desktop-range} {
