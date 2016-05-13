@@ -1,9 +1,14 @@
 $z-header: $z-6;
 $nav-container-padding: 6px;
 $icon-size: 25px;
+$site-head-box-shadow-color: rgba(0, 0, 0, 0.15);
 
 .site-body {
 	margin-top: $icon-site-head-width;
+}
+
+.site-head-wrapper.un-pinned .site-head {
+	box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 }
 
 .site-head {

@@ -24,8 +24,8 @@ $home-of-fandom-letter-spacing: 0.5px;
 			color: $color-blue-gray-dark;
 		}
 	}
+}
 
-	&.un-pinned .site-head-fandom-bar {
-		transform: translateY(-100%);
-	}
+.un-pinned .site-head-fandom-bar {
+	transform: translateY(-100%);
 }
