@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from '../utils/discussion-tracker';
-import OpenGraph from '../models/discussion/domain/open-graph';
 
 export default Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
