@@ -22,7 +22,7 @@ export default Ember.Component.extend({
 			imageCardMobileLarge: imageWidth >= 300,
 			imageCardDesktopNone: imageWidth < 101,
 			imageCardDesktopSmall: imageWidth > 100 && imageWidth < 500,
-			imageCardDesktopLarge: imageWidth > 500,
+			imageCardDesktopLarge: imageWidth >= 500,
 		});
 
 		if (this.get('active')) {
