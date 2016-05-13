@@ -45,6 +45,12 @@
 		{{/if}}
 		{{{parsedContent}}}
 	</div>
+	{{#if post.openGraph.exists}}
+		{{discussion-open-graph
+			openGraphData=post.openGraph
+			active=isDetailsView
+		}}
+	{{/if}}
 {{else}}
 	<div class="discussion-content">
 		{{#if post.title}}
@@ -52,12 +58,13 @@
 		{{/if}}
 		{{#link-to 'discussion.post' post.threadId class="post-details-link clamp"}}{{{parsedContent}}}{{/link-to}}
 	</div>
-{{/if}}
-{{#if post.openGraph.exists}}
-	{{discussion-open-graph
-		openGraphData=post.openGraph
-		active=isDetailsView
-	}}
+	{{#if post.openGraph.exists}}
+		{{#link-to 'discussion.post' post.threadId}}
+			{{discussion-open-graph
+				openGraphData=post.openGraph
+			}}
+		{{/link-to}}
+	{{/if}}
 {{/if}}
 <div class="row">
 	{{discussion-upvote-post
