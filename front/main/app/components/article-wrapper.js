@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
+import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from 'common/utils/track';
 
@@ -13,6 +14,7 @@ import {track, trackActions} from 'common/utils/track';
  */
 
 export default Ember.Component.extend(
+	PortableInfoboxHeroImageMixin,
 	LanguagesMixin,
 	ViewportMixin,
 	{
@@ -103,8 +105,6 @@ export default Ember.Component.extend(
 			return this.get('currentUser.isAuthenticated');
 		}),
 
-		curatedContentToolButtonVisible: Ember.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
-
 		actions: {
 			/**
 			 * @param {string} title
@@ -132,14 +132,6 @@ export default Ember.Component.extend(
 			 */
 			openLightbox(lightboxType, lightboxData) {
 				this.sendAction('openLightbox', lightboxType, lightboxData);
-			},
-
-			/**
-			 * @param {ArticleSectionHeader[]} headers
-			 * @returns {void}
-			 */
-			updateHeaders(headers) {
-				this.set('headers', headers);
 			},
 
 			trackClick(category, label) {
