@@ -29,8 +29,10 @@
 	}
 
 	.og-image {
-		max-height: 255px;
+		height: 100%;
 		margin: 0 auto;
+		max-height: 255px;
+		width: 100%;
 	}
 
 	.og-texts {
@@ -126,13 +128,13 @@
 			}
 
 			.og-image {
-				width: 35%;
 				height: 100%;
+				width: 35%;
 			}
 
 			.og-texts {
-				width: 65%;
 				height: 100%;
+				width: 65%;
 			}
 		}
 	}
