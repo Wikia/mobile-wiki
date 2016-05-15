@@ -251,9 +251,27 @@ export default Ember.Component.extend(ViewportMixin, {
 	 */
 	didInsertElement() {
 		this._super(...arguments);
-		this.$().find('textarea').on('paste', $.proxy(this.onPaste, this));
+		this.$().find('textarea')
+			.on('paste', $.proxy(this.onPaste, this));
 		this.handleIOSFocus();
 		this.initializeStickyState();
+		this.initializeSizing();
+	},
+
+	initializeSizing() {
+		const textarea = this.$().find('textarea');
+		textarea
+			.on('focus', this.setSize)
+			.on('input', this.setSize);
+	},
+
+	setSize() {
+		this.style.height = '1px';
+		this.style.height = this.scrollHeight + 'px';
+	},
+
+	resetSize() {
+		this.$().find('textarea').css('height', '');
 	},
 
 	onPaste(event) {
@@ -392,6 +410,8 @@ export default Ember.Component.extend(ViewportMixin, {
 			this.send('toggleEditorActive', false);
 
 			track(this.get('closeTrackingAction'));
+
+			this.resetSize();
 		},
 
 		removeOpenGraph() {

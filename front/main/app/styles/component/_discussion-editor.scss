@@ -72,8 +72,6 @@ $editor-textarea-overflow-ios-hack: 30px;
 	}
 
 	.editor-wrapper {
-		display: flex;
-		flex-direction: column;
 		padding: $editor-textarea-paddings;
 	}
 
@@ -118,10 +116,9 @@ $editor-textarea-overflow-ios-hack: 30px;
 		}
 
 		.editor-textarea {
+			border-bottom: 0;
 			max-height: 400px;
-			min-height: 106px;
 			padding: $editor-textarea-paddings;
-			resize: vertical;
 		}
 
 		.editor-textarea-overflow {
@@ -131,6 +128,9 @@ $editor-textarea-overflow-ios-hack: 30px;
 		}
 
 		.editor-wrapper {
+			max-height: 160px;
+			min-height: 106px;
+			overflow: scroll;
 			padding: 0;
 		}
 	}
@@ -164,6 +164,7 @@ $editor-textarea-overflow-ios-hack: 30px;
 	border-radius: 0;
 	-webkit-font-smoothing: subpixel-antialiased;
 	margin: 0;
+	resize: none;
 
 	&:focus {
 		background-color: inherit;
@@ -231,6 +232,8 @@ $editor-textarea-overflow-ios-hack: 30px;
 
 		.editor-wrapper {
 			height: calc(100% - #{$editor-toolbar-height});
+			position: relative;
+			top: $editor-toolbar-height;
 		}
 
 		.editor-textarea {
@@ -240,8 +243,6 @@ $editor-textarea-overflow-ios-hack: 30px;
 			max-height: none;
 			padding: $editor-toolbar-height 10px 10px;
 			position: relative;
-			resize: none;
-			top: $editor-toolbar-height;
 			width: 100%;
 		}
 
@@ -267,6 +268,10 @@ $editor-textarea-overflow-ios-hack: 30px;
 				height: 350px;
 				margin-top: 66px;
 				width: $modal-editor-width;
+			}
+
+			.editor-wrapper {
+				max-height: none;
 			}
 
 			.editor-label {
