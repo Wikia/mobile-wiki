@@ -2,7 +2,8 @@ import Ember from 'ember';
 import {truncate, shouldUseTruncationHack} from '../utils/truncate';
 
 export default Ember.Component.extend({
-	attributeBindings: ['openGraphHref:href', 'openGraphTitle:title'],
+	tagName: 'a',
+	attributeBindings: ['openGraphHref:href', 'openGraphTitle:title', 'openGraphTarget:target'],
 	classNames: ['og-container'],
 	classNameBindings: ['imageCardMobileNone', 'imageCardMobileSmall', 'imageCardMobileLarge', 'imageCardDesktopNone',
 		'imageCardDesktopSmall', 'imageCardDesktopLarge'],
@@ -29,14 +30,12 @@ export default Ember.Component.extend({
 			imageCardDesktopNone: imageWidth < 101,
 			imageCardDesktopSmall: imageWidth > 100 && imageWidth < 500,
 			imageCardDesktopLarge: imageWidth >= 500,
+			openGraphHref: this.get('openGraphData.url'),
+			openGraphTitle: this.get('openGraphData.domain'),
 		});
 
-		if (this.get('active')) {
-			this.setProperties({
-				tagName: 'a',
-				openGraphHref: this.get('openGraphData.url'),
-				openGraphTitle: this.get('openGraphData.domain'),
-			});
+		if (this.get('isListView')) {
+			this.set('openGraphTarget', '_blank');
 		}
 
 		this._super(...arguments);
