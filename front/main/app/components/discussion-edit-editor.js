@@ -99,7 +99,7 @@ export default DiscussionEditorComponent.extend({
 		this.setProperties({
 			bodyText: discussionEntity.get('rawContent'),
 			openGraph: discussionEntity.get('openGraph'),
-			showsOpenGraphCard: discussionEntity.get('openGraph.exists')
+			showsOpenGraphCard: Boolean(discussionEntity.get('openGraph'))
 		});
 
 		Ember.run.scheduleOnce('afterRender', this, () => {

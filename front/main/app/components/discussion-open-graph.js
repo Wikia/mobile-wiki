@@ -2,16 +2,17 @@ import Ember from 'ember';
 import {truncate, shouldUseTruncationHack} from '../utils/truncate';
 
 export default Ember.Component.extend({
-	attributeBindings: ['openGraphHref:href', 'openGraphTitle:title'],
+	tagName: 'a',
+	attributeBindings: ['openGraphHref:href', 'openGraphTitle:title', 'openGraphTarget:target'],
 	classNames: ['og-container'],
-	classNameBindings: ['imageCardMobileNone', 'imageCardMobileSmall', 'imageCardMobileLarge', 'imageCardDesktopNone',
-		'imageCardDesktopSmall', 'imageCardDesktopLarge'],
+	classNameBindings: ['noImageCardMobile', 'smallImageCardMobile', 'largeImageCardMobile', 'noImageCardDesktop',
+		'smallImageCardDesktop', 'largeImageCardDesktop'],
 
 	oneLineCharacters: 48,
 	twoLinesCharacters: 98,
 
 	// this is the current maximum width of a post - it is main post width on desktop post detail page
-	maxPostWidth: 525,
+	maxPostWidth: Ember.computed.oneWay('openGraphData.imageWidth'),
 	// this is 16x9 ratio for the maxPostWidth
 	maxPostHeight: Ember.computed('maxPostWidth', function () {
 		return parseInt(this.get('maxPostWidth') * 9 / 16, 10);
@@ -23,31 +24,29 @@ export default Ember.Component.extend({
 		const imageWidth = this.get('openGraphData.imageWidth');
 
 		this.setProperties({
-			imageCardMobileNone: imageWidth < 51,
-			imageCardMobileSmall: imageWidth > 50 && imageWidth < 300,
-			imageCardMobileLarge: imageWidth >= 300,
-			imageCardDesktopNone: imageWidth < 101,
-			imageCardDesktopSmall: imageWidth > 100 && imageWidth < 500,
-			imageCardDesktopLarge: imageWidth >= 500,
+			noImageCardMobile: imageWidth < 51,
+			smallImageCardMobile: imageWidth > 50 && imageWidth < 300,
+			largeImageCardMobile: imageWidth >= 300,
+			noImageCardDesktop: imageWidth < 101,
+			smallImageCardDesktop: imageWidth > 100 && imageWidth < 500,
+			largeImageCardDesktop: imageWidth >= 500,
+			openGraphHref: this.get('openGraphData.url'),
+			openGraphTitle: this.get('openGraphData.domain'),
 		});
 
-		if (this.get('active')) {
-			this.setProperties({
-				tagName: 'a',
-				openGraphHref: this.get('openGraphData.url'),
-				openGraphTitle: this.get('openGraphData.domain'),
-			});
+		if (this.get('isListView')) {
+			this.set('openGraphTarget', '_blank');
 		}
 
 		this._super(...arguments);
 	},
 
 	imageUrl: Ember.computed('openGraphData.imageUrl', function () {
-		if (!this.get('openGraphData.imageUrl')){
+		if (!this.get('openGraphData.imageUrl')) {
 			return '';
 		}
 
-		return `${this.get('openGraphData.imageUrl')}/fixed-aspect-ratio-down/width/${this.get('maxPostWidth')}` +
+		return `${this.get('openGraphData.imageUrl')}/fixed-aspect-ratio/width/${this.get('maxPostWidth')}` +
 			`/height/${this.get('maxPostHeight')}`;
 	}),
 

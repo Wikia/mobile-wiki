@@ -50,21 +50,19 @@
 				{{{parsedContent}}}
 			{{/link-to}}
 		</div>
-		{{#if post.openGraph.exists}}
-			{{#link-to 'discussion.reply' post.threadId post.id}}
-				{{discussion-open-graph
-					openGraphData=post.openGraph
-				}}
-			{{/link-to}}
+		{{#if post.openGraph}}
+			{{discussion-open-graph
+				openGraphData=post.openGraph
+				isListView=true
+			}}
 		{{/if}}
 	{{else}}
 		<div class="discussion-content">
 			{{{parsedContent}}}
 		</div>
-		{{#if post.openGraph.exists}}
+		{{#if post.openGraph}}
 			{{discussion-open-graph
 				openGraphData=post.openGraph
-				active=isDetailsView
 			}}
 		{{/if}}
 	{{/if}}
