@@ -49,7 +49,6 @@
 	{{#if post.openGraph.exists}}
 		{{discussion-open-graph
 			openGraphData=post.openGraph
-			active=isDetailsView
 		}}
 	{{/if}}
 {{else}}
@@ -60,11 +59,10 @@
 		{{#link-to 'discussion.post' post.threadId class="post-details-link clamp"}}{{{parsedContent}}}{{/link-to}}
 	</div>
 	{{#if post.openGraph.exists}}
-		{{#link-to 'discussion.post' post.threadId}}
-			{{discussion-open-graph
-				openGraphData=post.openGraph
-			}}
-		{{/link-to}}
+		{{discussion-open-graph
+			openGraphData=post.openGraph
+			isListView=true
+		}}
 	{{/if}}
 {{/if}}
 <div class="row">
