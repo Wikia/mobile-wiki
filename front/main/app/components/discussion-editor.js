@@ -255,6 +255,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		this.setProperties({
 			bodyText: '',
 			showsOpenGraphCard: false,
+			openGraph: null,
 			showSuccess: false,
 		});
 
