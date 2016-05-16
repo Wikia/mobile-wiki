@@ -91,7 +91,7 @@ export default DiscussionEditorComponent.extend({
 		this.setProperties({
 			bodyText: discussionEntity.get('rawContent'),
 			openGraph: discussionEntity.get('openGraph'),
-			shouldShowOpenGraphCard: discussionEntity.get('openGraph.exists')
+			showsOpenGraphCard: discussionEntity.get('openGraph.exists')
 		});
 
 		Ember.run.scheduleOnce('afterRender', this, () => {
@@ -115,10 +115,9 @@ export default DiscussionEditorComponent.extend({
 
 				this.get('discussionEditor').set('isLoading', true);
 
-				if (this.get('shouldShowOpenGraphCard')) {
+				if (this.get('showsOpenGraphCard')) {
 					editedDisucssionEntity.openGraph = {
-						// TODO real URI
-						uri: '/3035/opengraph/2742692796107326848'
+						uri: this.get('openGraph.href')
 					};
 				}
 
