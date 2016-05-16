@@ -85,13 +85,13 @@
 
 @media #{$mobile-range} {
 	.discussions {
-		.image-card-mobile-none {
+		.no-image-card-mobile {
 			.og-image {
 				display: none;
 			}
 		}
 
-		.image-card-mobile-small {
+		.small-image-card-mobile {
 			&.og-container {
 				flex-wrap: nowrap;
 			}
@@ -115,13 +115,13 @@
 			margin: 2px auto 16px;
 		}
 
-		.image-card-desktop-none {
+		.no-image-card-desktop {
 			.og-image {
 				display: none;
 			}
 		}
 
-		.image-card-desktop-small {
+		.small-image-card-desktop {
 			&.og-container {
 				flex-wrap: nowrap;
 				height: 92px;
@@ -138,7 +138,7 @@
 			}
 		}
 
-		.image-card-desktop-large {
+		.large-image-card-desktop {
 			.og-image {
 				border-bottom: 1px solid $discussion-open-graph-border-color;
 			}
@@ -157,7 +157,7 @@
 
 
 			.post-detail {
-				.image-card-desktop-large {
+				.large-image-card-desktop {
 					&.og-container {
 						width: 525px;
 					}
@@ -165,7 +165,7 @@
 			}
 
 			.post-reply {
-				.image-card-desktop-large {
+				.large-image-card-desktop {
 					&.og-container {
 						width: 468px;
 					}
