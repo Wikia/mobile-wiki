@@ -15,14 +15,14 @@
 </div>
 <ul class="wikia-search__results">
 	{{#each suggestions as |suggestion|}}
-		<li class="wikia-search__item search-result mw-content">
+		<li class="wikia-search__item wikia-search__search-result mw-content">
 			{{#link-to 'wiki-page' suggestion.uri action='searchSuggestionClick'}}
 				{{suggestion.title}}
 			{{/link-to}}
 		</li>
 	{{else}}
 		{{#if isLoadingSearchResults}}
-			<li class="wikia-search__item search-result loading">
+			<li class="wikia-search__item wikia-search__search-result wikia-search__loading">
 				{{i18n 'app.search-loading-msg'}}
 			</li>
 		{{/if}}

@@ -65,7 +65,7 @@
 	margin: 0;
 	padding: 0;
 
-	.search-result {
+	.wikia-search__search-result {
 		padding: $nav-padding-horizontal $nav-padding-vertical 0 $nav-padding-vertical;
 
 		a {
@@ -74,7 +74,7 @@
 			height: 100%;
 		}
 	}
-	.loading {
+	.wikia-search__loading {
 		text-align: center;
 	}
 }
