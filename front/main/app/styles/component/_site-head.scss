@@ -13,7 +13,7 @@ $site-head-box-shadow-color: rgba(0, 0, 0, 0.15);
 
 .site-head {
 	background-color: $white;
-	border-top: $site-head-top-border-height solid $color-blue-dark;
+	border-top: $site-head-top-border-height solid $vapor;
 	border-bottom: 1px solid $color-blue-gray-light;
 	direction: ltr;
 	display: flex;
@@ -50,7 +50,7 @@ $site-head-box-shadow-color: rgba(0, 0, 0, 0.15);
 
 		svg {
 			// keep it same as .icon.wikia-logo
-			height: 3.125rem;
+			height: rem-calc(48);
 			width: 5rem;
 		}
 	}
