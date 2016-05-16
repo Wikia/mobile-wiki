@@ -1,30 +1,28 @@
-.side-nav {
-	&.collapsed .side-nav-drawer {
-		display: none;
-	}
+&.collapsed .side-nav-drawer {
+	display: none;
+}
 
-	.side-nav-drawer {
-		background: $color-gray-dark;
-		color: $white;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		height: 100%;
-		padding-top: $site-head-height;
-		position: fixed;
-		top: 0;
-		width: 100%;
-		z-index: $z-site-head - 1;
+.side-nav-drawer {
+	background: $color-gray-dark;
+	color: $white;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	padding-top: $site-head-height;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: $z-site-head - 1;
 
-		a:hover, a:focus {
-			color: inherit;
-		}
+	a:hover, a:focus {
+		color: inherit;
 	}
+}
 
-	.side-nav-drawer__content {
-		display: flex;
-		flex-direction: column;
-		min-height: 100%;
-		overflow: auto;
-	}
+.side-nav-drawer__content {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	overflow: auto;
 }
