@@ -1,14 +1,23 @@
 $icon-size: 16px;
 
+.wiki-page-header-curated-main-page {
+	margin-top: 2rem;
+}
+
+.wiki-title {
+	@extend %header-section-title;
+	font-size: $type-smallest;
+	margin: 2rem 1rem 1.25em;
+
+	a {
+		display: block;
+	}
+}
+
 .wiki-page-title {
 	@extend %header-section-title;
 	line-height: 2rem;
-	margin: {
-		bottom: 1em;
-		left: 1rem;
-		right: 1rem;
-		top: 2rem;
-	}
+	margin: 1rem 1rem 1em;
 	word-break: break-word;
 
 	.main-page-edit {
