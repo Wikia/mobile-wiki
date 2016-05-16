@@ -34,7 +34,7 @@ export default Component.extend(
 						label: `${icon}-collapsed`
 					});
 
-					this.get('setDrawerContent')(null);
+					this.get('setDrawerContent')(false);
 					this.get('toggleDrawer')(false);
 				} else {
 					track({
