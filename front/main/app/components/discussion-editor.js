@@ -317,7 +317,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 */
 	setSize() {
 		this.style.height = '1px';
-		this.style.height = this.scrollHeight + 'px';
+		this.style.height = `${this.scrollHeight}px`;
 	},
 
 	/**
