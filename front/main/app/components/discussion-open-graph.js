@@ -10,6 +10,12 @@ export default Ember.Component.extend({
 	oneLineCharacters: 48,
 	twoLinesCharacters: 98,
 
+	// this is the current maximum width of a post - it is main post width on desktop post detail page
+	maxPostWidth: 525,
+	// this is 16x9 ratio for the maxPostWidth
+	maxPostHeight: Ember.computed('maxPostWidth', function () {
+		return parseInt(this.get('maxPostWidth') * 9 / 16, 10);
+	}),
 
 	init() {
 		// we're usually strongly against that kind of caching, because a getter should be used always,
@@ -35,6 +41,15 @@ export default Ember.Component.extend({
 
 		this._super(...arguments);
 	},
+
+	imageUrl: Ember.computed('openGraphData.imageUrl', function () {
+		if (!this.get('openGraphData.imageUrl')){
+			return '';
+		}
+
+		return `${this.get('openGraphData.imageUrl')}/fixed-aspect-ratio-down/width/${this.get('maxPostWidth')}` +
+			`/height/${this.get('maxPostHeight')}`;
+	}),
 
 	siteName: Ember.computed('openGraphData.domain', 'openGraphData.siteName', function () {
 		let siteNameToDisplay = this.get('openGraphData.siteName') || this.get('openGraphData.domain');
