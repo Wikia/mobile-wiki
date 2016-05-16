@@ -59,7 +59,7 @@ export default Ember.Component.extend({
 			desktopImageWidth = this.get('largeImageCardDesktop') ?
 				this.get('desktopMaxImageWidth') :
 				this.get('smallMaxImageWidth'),
-			desktopImageHeight = parseInt(desktopImageWidth * 9 / 16, 10),
+			desktopImageHeight = parseInt(desktopImageWidth * 9 / 16, 10);
 
 		if (!this.get('openGraphData.imageUrl')) {
 			return '';
