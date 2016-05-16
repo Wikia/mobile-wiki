@@ -45,10 +45,17 @@ export default Ember.Component.extend(ViewportMixin, {
 	 */
 	onTextContent: Ember.observer('bodyText', function () {
 		if (this.get('bodyText').length > 0 && !this.get('wasContentTracked')) {
-			track(this.get('contentTrackingAction'));
-			this.set('wasContentTracked', true);
+			this.trackContentAction();
 		}
 	}),
+
+	/**
+	 * @returns {void}
+	 */
+	trackContentAction() {
+		track(this.get('contentTrackingAction'));
+		this.set('wasContentTracked', true);
+	},
 
 	/**
 	 * Handle hiding error message

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import DiscussionEditorComponent from './discussion-editor';
-import {trackActions} from '../utils/discussion-tracker';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default DiscussionEditorComponent.extend({
 	classNames: ['is-edit'],
@@ -68,6 +68,16 @@ export default DiscussionEditorComponent.extend({
 
 			this.get('discussionEditor').toggleEditor(false);
 		}, 2000);
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	trackContentAction() {
+		if (this.get('discussionEditor.discussionEntity.rawContent') !== this.get('bodyText')) {
+			track(this.get('contentTrackingAction'));
+			this.set('wasContentTracked', true);
+		}
 	},
 
 	/**
