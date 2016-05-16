@@ -4,7 +4,6 @@ import {extractDomainFromUrl} from '../../../utils/domain';
 const OpenGraph = Ember.Object.extend({
 	description: null,
 	domain: null,
-	exists: false,
 	id: null,
 	imageHeight: null,
 	imageUrl: null,
@@ -23,14 +22,9 @@ OpenGraph.reopenClass({
 	 * @returns {array}
 	 */
 	create(openGraphData) {
-		if (!openGraphData) {
-			return this._super();
-		}
-
 		return this._super({
 			description: openGraphData.description,
 			domain: extractDomainFromUrl(openGraphData.url),
-			exists: true,
 			id: openGraphData.id,
 			imageHeight: openGraphData.imageHeight,
 			imageUrl: openGraphData.imageUrl,
