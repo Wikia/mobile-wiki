@@ -137,5 +137,11 @@
 				width: 65%;
 			}
 		}
+
+		.imageCardDesktopLarge {
+			.og-image {
+				border-bottom: 1px solid $discussion-open-graph-border-color;
+			}
+		}
 	}
 }
