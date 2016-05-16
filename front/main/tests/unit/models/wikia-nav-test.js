@@ -108,21 +108,22 @@ test('test zero state with values from api', (assert) => {
 			},
 			expected: [
 				{
-					className: 'tests',
+					className: 'nav-menu--external nav-menu--tests',
 					href: 'http://test.com/hub',
 					name: 'Hub test',
 					trackLabel: 'open-hub-tests',
-					type: 'side-nav-menu-external'
+					type: 'nav-menu-external'
 				},
 				{
+					className: 'nav-menu--explore',
 					index: 0,
 					name: 'Explore menu',
 					trackLabel: 'open-explore-wikia',
-					type: 'side-nav-menu-root'
+					type: 'nav-menu-root'
 				},
 				{
 					name: '',
-					type: 'side-nav-menu-header'
+					type: 'nav-menu-header'
 				},
 				{
 					type: 'side-nav-menu-item',
@@ -132,25 +133,28 @@ test('test zero state with values from api', (assert) => {
 					trackLabel: 'local-nav'
 				},
 				{
+					className: 'nav-menu--local',
 					route: 'recent-wiki-activity',
 					name: '',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				},
 				{
+					className: 'nav-menu--local',
 					href: 'Test_1',
 					index: 1,
 					route: 'wiki-page',
 					name: 'Test 1',
 					trackLabel: 'local-nav-open-link-index-1',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				},
 				{
+					className: 'nav-menu--local',
 					actionId: 'onRandomPageClick',
 					name: '',
 					trackLabel: 'random-page',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				}
 			],
 			message: 'Full nav visible, discussions enabled'
