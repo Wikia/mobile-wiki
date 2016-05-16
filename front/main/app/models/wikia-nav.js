@@ -142,8 +142,6 @@ export default Object.extend({
 	}),
 
 	localItems: computed('inExploreNav', 'currentLocalLinks', function () {
-		const inRoot = this.get('inRoot');
-
 		return !this.get('inExploreNav') &&
 			this.get('currentLocalLinks').map((item, index) => {
 				return {
