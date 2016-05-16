@@ -15,7 +15,6 @@ export default Ember.Component.extend({
 	mobileMaxImageWidth: 325,
 	smallMaxImageWidth: 150,
 
-
 	init() {
 		// we're usually strongly against that kind of caching, because a getter should be used always,
 		// but come on, it is 8 calls, and even we have some limits in the matter of principles :)
