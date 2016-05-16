@@ -1,13 +1,20 @@
 .discussions {
 	// -- theme --
 	.discussion-editor {
-		&.has-open-graph {
-			.editor-textarea {
-				border-bottom: none;
+		&.is-active {
+			.og-container {
+				display: block;
+			}
+
+			&.has-open-graph {
+				.editor-textarea {
+					border-bottom: none;
+				}
 			}
 		}
 
 		.og-container {
+			display: none;
 			margin: 15px;
 		}
 	}
