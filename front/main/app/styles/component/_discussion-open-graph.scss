@@ -8,7 +8,7 @@
 		}
 
 		.og-container {
-			margin: $editor-textarea-paddings;
+			margin: 15px;
 		}
 	}
 
@@ -144,6 +144,12 @@
 		}
 
 		.discussion-editor {
+			&.is-edit {
+				.og-container {
+					margin: 15px;
+				}
+			}
+
 			.og-container {
 				margin: $editor-textarea-paddings;
 			}
