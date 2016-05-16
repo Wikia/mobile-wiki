@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import DiscussionEditorComponent from './discussion-editor';
-import {trackActions} from '../utils/discussion-tracker';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default DiscussionEditorComponent.extend({
 	classNames: ['is-edit'],
@@ -71,6 +71,16 @@ export default DiscussionEditorComponent.extend({
 	},
 
 	/**
+	 * @returns {void}
+	 */
+	trackContentAction() {
+		if (this.get('discussionEditor.discussionEntity.rawContent') !== this.get('bodyText')) {
+			track(this.get('contentTrackingAction'));
+			this.set('wasContentTracked', true);
+		}
+	},
+
+	/**
 	 * Open editor and set bodyText to the right value
 	 * @returns {void}
 	 */
@@ -83,7 +93,11 @@ export default DiscussionEditorComponent.extend({
 			openGraph: discussionEntity.get('openGraph'),
 			shouldShowOpenGraphCard: discussionEntity.get('openGraph.exists')
 		});
-		this.$('.editor-textarea').get(0).setSelectionRange(0, 0);
+
+		Ember.run.scheduleOnce('afterRender', this, () => {
+			// This needs to be triggered after Ember updates textarea content
+			this.$('.editor-textarea').get(0).setSelectionRange(0, 0);
+		});
 	},
 
 	actions: {

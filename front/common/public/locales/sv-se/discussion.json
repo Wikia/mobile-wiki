@@ -73,6 +73,8 @@
     "lock-post":"Lock Post",
     "unlock-post":"Unlock Post",
     "locked-and-reported-to-moderators-text":"This post is locked, and has been reported.",
+    "edit-reply":"Edit Reply",
+    "edit-post":"Edit Post",
     "upvote-link-label":"__count__ Upvote",
     "upvote-link-label_plural":"__count__ Upvotes",
     "replies-link-label":"__count__ Reply",
@@ -85,12 +87,18 @@
     "post-failed-error":"Post failed.",
     "post-error-anon-cant-post":"Sign in to join the discussion!",
     "post-error-not-authorized":"You cannot post because your account has been blocked.",
-    "post-error-general-error":"Oops, looks like something went wrong! Please try again later.",
+    "post-error-general-error":"Post failed, please try again.",
+    "reply-error-general-error":"Reply failed, please try again.",
+    "save-error-general-error":"Save failed, please try again.",
     "post-editor-label":"Create a post",
+    "post-edit-editor-label":"Edit your post",
     "post-action-button-label":"Post",
+    "post-edit-action-button-label":"Save",
     "post-editor-placeholder-text":"Share a thought, question or link...",
     "reply-editor-placeholder-text":"Write a reply...",
     "reply-editor-label":"Add to the Discussion",
-    "reply-action-button-label":"Reply"
+    "reply-edit-editor-label":"Edit your reply",
+    "reply-action-button-label":"Reply",
+    "reply-edit-action-button-label":"Save"
   }
 }

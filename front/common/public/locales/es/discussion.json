@@ -73,6 +73,8 @@
     "lock-post":"Cerrar discusión",
     "unlock-post":"Reabrir discusión",
     "locked-and-reported-to-moderators-text":"Esta discusión ha sido cerrada y ha sido reportada.",
+    "edit-reply":"Editar respuesta",
+    "edit-post":"Editar discusión",
     "upvote-link-label":"__count__ Voto",
     "upvote-link-label_plural":"__count__ Votos",
     "replies-link-label":"__count__ Respuesta",
@@ -85,12 +87,18 @@
     "post-failed-error":"Fallo en discusión.",
     "post-error-anon-cant-post":"¡Regístrate para unirte a la discusión!",
     "post-error-not-authorized":"No puedes publicar porque tu cuenta ha sido bloqueada.",
-    "post-error-general-error":"Oops, ¡parece que algo salió mal! Por favor inténtalo más tarde.",
+    "post-error-general-error":"Fallo en la discusión, por favor inténtalo de nuevo.",
+    "reply-error-general-error":"Fallo en la respuesta, por favor inténtalo de nuevo.",
+    "save-error-general-error":"Error al guardar, por favor inténtalo de nuevo.",
     "post-editor-label":"Crear una discusión",
+    "post-edit-editor-label":"Editar tu discusión",
     "post-action-button-label":"Publicar",
+    "post-edit-action-button-label":"Guardar",
     "post-editor-placeholder-text":"Comparte un pensamiento, pregunta o enlace...",
     "reply-editor-placeholder-text":"Escribe una respuesta...",
     "reply-editor-label":"Añadir a la discusión",
-    "reply-action-button-label":"Responder"
+    "reply-edit-editor-label":"Editar tu respuesta",
+    "reply-action-button-label":"Responder",
+    "reply-edit-action-button-label":"Guardar"
   }
 }
