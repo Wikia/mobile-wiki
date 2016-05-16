@@ -77,7 +77,11 @@ export default DiscussionEditorComponent.extend({
 	afterOpenActions() {
 		this._super();
 		this.set('bodyText', this.getWithDefault('discussionEditor.discussionEntity.rawContent', ''));
-		this.$('.editor-textarea').get(0).setSelectionRange(0, 0);
+
+		Ember.run.scheduleOnce('afterRender', this, () => {
+			// This needs to be triggered after Ember updates textarea content
+			this.$('.editor-textarea').get(0).setSelectionRange(0, 0);
+		});
 	},
 
 	actions: {
