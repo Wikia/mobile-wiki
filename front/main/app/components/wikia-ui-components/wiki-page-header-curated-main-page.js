@@ -5,6 +5,7 @@ export default Ember.Component.extend(
 	{
 		classNames: ['wiki-page-header-curated-main-page'],
 		mainPageName: Ember.get(Mercury, 'wiki.siteName'),
+		mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
 
 		actions: {
 			trackClick() {
