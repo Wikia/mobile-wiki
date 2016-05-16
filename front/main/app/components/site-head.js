@@ -5,7 +5,8 @@ import {track, trackActions} from 'common/utils/track';
 const {computed, Component} = Ember;
 
 export default Component.extend(
-	HeadroomMixin, {
+	HeadroomMixin,
+	{
 		classNames: ['site-head-wrapper'],
 		classNameBindings: ['themeBar'],
 		tagName: 'div',

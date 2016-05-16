@@ -134,7 +134,6 @@ export default Object.extend({
 		return this.get('inRoot') &&
 			[{
 				type: 'nav-menu-item',
-				className: 'nav-menu--local',
 				route: 'recent-wiki-activity',
 				name: i18n.t('main.title', {ns: 'recent-wiki-activity'}),
 				trackCategory: 'recent-wiki-activity',
@@ -149,7 +148,6 @@ export default Object.extend({
 			this.get('currentLocalLinks').map((item, index) => {
 				return {
 					type: item.children ? 'nav-menu-root' : 'nav-menu-item',
-					className: inRoot ? 'nav-menu--local' : '',
 					href: item.href.replace(/^(\/wiki)?\//i, ''),
 					route: 'wiki-page',
 					name: item.text,
@@ -163,7 +161,6 @@ export default Object.extend({
 		return this.get('inRoot') &&
 			[{
 				type: 'nav-menu-item',
-				className: 'nav-menu--local',
 				name: i18n.t('app.random-page-label'),
 				trackLabel: 'random-page',
 				actionId: 'onRandomPageClick'

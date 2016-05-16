@@ -19,7 +19,6 @@ test('test zero state with values from api', (assert) => {
 			},
 			expected: [
 				{
-					className: 'nav-menu--local',
 					type: 'nav-menu-item',
 					route: 'recent-wiki-activity',
 					name: '',
@@ -28,7 +27,6 @@ test('test zero state with values from api', (assert) => {
 				},
 				{
 					actionId: 'onRandomPageClick',
-					className: 'nav-menu--local',
 					name: '',
 					trackLabel: 'random-page',
 					type: 'nav-menu-item'
@@ -69,7 +67,6 @@ test('test zero state with values from api', (assert) => {
 				},
 				{
 					route: 'recent-wiki-activity',
-					className: 'nav-menu--local',
 					name: '',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav',
@@ -82,14 +79,12 @@ test('test zero state with values from api', (assert) => {
 					name: 'Test 1',
 					trackLabel: 'local-nav-open-link-index-1',
 					type: 'nav-menu-item',
-					className: 'nav-menu--local'
 				},
 				{
 					actionId: 'onRandomPageClick',
 					name: '',
 					trackLabel: 'random-page',
 					type: 'nav-menu-item',
-					className: 'nav-menu--local'
 				}
 			],
 			message: 'Full nav visible, discussions disabled'
@@ -178,7 +173,6 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-header'
 				},
 				{
-					className: 'nav-menu--local',
 					route: 'recent-wiki-activity',
 					name: '',
 					trackCategory: 'recent-wiki-activity',
@@ -186,7 +180,6 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-item'
 				},
 				{
-					className: 'nav-menu--local',
 					href: 'Test_1',
 					index: 1,
 					route: 'wiki-page',
@@ -195,7 +188,6 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-item'
 				},
 				{
-					className: 'nav-menu--local',
 					actionId: 'onRandomPageClick',
 					name: '',
 					trackLabel: 'random-page',
