@@ -45,6 +45,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * Track content changed
+	 *
 	 * @returns {void}
 	 */
 	onTextContent: Ember.observer('bodyText', function () {
@@ -92,6 +93,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * Handle hiding error message
+	 *
 	 * @returns {void}
 	 */
 	onErrorMessage: Ember.observer('errorMessage', function () {
@@ -104,6 +106,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * Handle opening/closing editor
+	 *
 	 * @returns {void}
 	 */
 	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
@@ -116,6 +119,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * Reacts on new item creation failure in the model by stopping the throbber
+	 *
 	 * @returns {void}
 	 */
 	isLoading: Ember.computed.alias('discussionEditor.isLoading'),
@@ -137,6 +141,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * Set right height for editor placeholder when editor gets sticky
+	 *
 	 * @returns {void}
 	 */
 	style: Ember.computed('isSticky', function () {
@@ -168,7 +173,9 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * Method should be overwritten in the child classes
+	 *
 	 * @returns {void}
+	 *
 	 * @throws {Error} if method is not overridden in the descendant class
 	 */
 	isStickyBreakpointHeight() {
@@ -177,7 +184,9 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * Method should be overwritten in the child classes
+	 *
 	 * @returns {void}
+	 *
 	 * @throws {Error} if method is not overridden in the descendant class
 	 */
 	initializeStickyState() {
@@ -187,12 +196,14 @@ export default Ember.Component.extend(ViewportMixin, {
 	/**
 	 * Ultra hack for editor on iOS
 	 * iOS is scrolling on textarea focus, changing it's size on focus prevent that
+	 *
 	 * @returns {void}
 	 */
 	handleIOSFocus() {},
 
 	/**
 	 * Check if user is using iOS browser
+	 *
 	 * @returns {boolean}
 	 */
 	isIOSBrowser() {
@@ -201,6 +212,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * Handle clicks - focus in textarea and activate editor
+	 *
 	 * @returns {void}
 	 */
 	click() {
@@ -212,7 +224,9 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * Perform animations and logic after post creation
+	 *
 	 * @param {object} newItem
+	 *
 	 * @returns {void}
 	 */
 	handleNewItemCreated(newItem) {
@@ -227,6 +241,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * @param {object} newItem
+	 *
 	 * @returns {void}
 	 */
 	showNewPostAnimations(newItem) {
@@ -262,30 +277,53 @@ export default Ember.Component.extend(ViewportMixin, {
 		this.$().find('textarea').on('paste', $.proxy(this.onPaste, this));
 	},
 
+	/**
+	 * When 'paste' event is triggered, text is not able to be fetched from event or textarea
+	 * that's why there's a need to wait a bit to perform regex lookup for the url
+	 *
+	 * @param {Event} event
+	 *
+	 * @returns {void}
+	 */
 	onPaste(event) {
 		Ember.run.later(() => {
 			this.setOpenGraphProperties(event.target.value, /(https?:\/\/[^\s]+)/g);
 		}, 100);
 	},
 
+	/**
+	 * Sets the size of textarea whenever there's a change to it's state
+	 *
+	 * @returns {void}
+	 */
 	initializeSizing() {
-		const textarea = this.$().find('textarea');
-		textarea
+		this.$().find('textarea')
 			.on('focus', this.setSize)
 			.on('input', this.setSize);
 	},
 
+	/**
+	 * Sets textarea height based on it's scrollHeight
+	 *
+	 * @returns {void}
+	 */
 	setSize() {
 		this.style.height = '1px';
 		this.style.height = this.scrollHeight + 'px';
 	},
 
+	/**
+	 * Removes calculated size of textarea
+	 *
+	 * @returns {void}
+	 */
 	resetSize() {
 		this.$().find('textarea').css('height', '');
 	},
 
 	/**
 	 * Turn off scroll handler on view leave
+	 *
 	 * @returns {void}
 	 */
 	willDestroyElement() {
@@ -293,7 +331,8 @@ export default Ember.Component.extend(ViewportMixin, {
 	},
 
 	/**
-	 * Removes focus from editor textarea.
+	 * Removes focus from editor textarea
+	 *
 	 * @returns {void}
 	 */
 	textareaBlur() {
@@ -302,7 +341,9 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * Allows setting iOS-specific styles to compensate for Safari's restrictions
+	 *
 	 * @param {object} styles - style object to pass to jQuery
+	 *
 	 * @returns {void}
 	 */
 	setiOSSpecificStyles(styles) {
@@ -313,6 +354,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * Calls what's needs to be done after editor is closed
+	 *
 	 * @returns {void}
 	 */
 	afterCloseActions() {
@@ -330,6 +372,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * Calls what's needs to be done after editor is opened
+	 *
 	 * @returns {void}
 	 */
 	afterOpenActions() {
@@ -349,6 +392,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	actions: {
 		/**
 		 * Send request to model to create new post and start animations
+		 *
 		 * @returns {void}
 		 */
 		submit() {
@@ -373,7 +417,9 @@ export default Ember.Component.extend(ViewportMixin, {
 
 		/**
 		 * Enable/disable editor
+		 *
 		 * @param {boolean} active
+		 *
 		 * @returns {void}
 		 */
 		toggleEditorActive(active) {
@@ -387,7 +433,9 @@ export default Ember.Component.extend(ViewportMixin, {
 
 		/**
 		 * Handle keypress - post creation shortcut
+		 *
 		 * @param {Event} event
+		 *
 		 * @returns {void}
 		 */
 		handleKeyPress(event) {
@@ -399,7 +447,9 @@ export default Ember.Component.extend(ViewportMixin, {
 
 		/**
 		 * Triggers on textarea's focus
+		 *
 		 * @param {Event} event
+		 *
 		 * @returns {void}
 		 */
 		onFocus(event) {
@@ -416,6 +466,11 @@ export default Ember.Component.extend(ViewportMixin, {
 			track(this.get('closeTrackingAction'));
 		},
 
+		/**
+		 * Hides open graph card and removes it's data from the editor
+		 *
+		 * @returns {void}
+		 */
 		removeOpenGraph() {
 			this.setProperties({
 				showsOpenGraphCard: false,
