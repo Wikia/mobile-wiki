@@ -42,7 +42,7 @@ export default Ember.Component.extend({
 	},
 
 	imageUrl: Ember.computed('openGraphData.imageUrl', function () {
-		if (!this.get('openGraphData.imageUrl')){
+		if (!this.get('openGraphData.imageUrl')) {
 			return '';
 		}
 
