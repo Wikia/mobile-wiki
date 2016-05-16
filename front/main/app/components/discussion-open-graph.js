@@ -11,12 +11,10 @@ export default Ember.Component.extend({
 	oneLineCharacters: 48,
 	twoLinesCharacters: 98,
 
-	// this is the current maximum width of a post - it is main post width on desktop post detail page
-	maxPostWidth: Ember.computed.oneWay('openGraphData.imageWidth'),
-	// this is 16x9 ratio for the maxPostWidth
-	maxPostHeight: Ember.computed('maxPostWidth', function () {
-		return parseInt(this.get('maxPostWidth') * 9 / 16, 10);
-	}),
+	desktopMaxImageWidth: 525,
+	mobileMaxImageWidth: 325,
+	smallMaxImageWidth: 150,
+
 
 	init() {
 		// we're usually strongly against that kind of caching, because a getter should be used always,
@@ -42,12 +40,35 @@ export default Ember.Component.extend({
 	},
 
 	imageUrl: Ember.computed('openGraphData.imageUrl', function () {
+		const imageWidth = this.get('desktopMaxImageWidth'),
+			imageHeight = parseInt(imageWidth * 9 / 16, 10);
+
 		if (!this.get('openGraphData.imageUrl')) {
 			return '';
 		}
 
-		return `${this.get('openGraphData.imageUrl')}/fixed-aspect-ratio/width/${this.get('maxPostWidth')}` +
-			`/height/${this.get('maxPostHeight')}`;
+		return `${this.get('openGraphData.imageUrl')}/fixed-aspect-ratio/width/${imageWidth}` +
+			`/height/${imageHeight}`;
+	}),
+
+	imageUrlSet: Ember.computed('openGraphData.imageUrl', function () {
+		const mobileImageWidth = this.get('largeImageCardMobile') ?
+				this.get('mobileMaxImageWidth') :
+				this.get('smallMaxImageWidth'),
+			mobileImageHeight = parseInt(mobileImageWidth * 9 / 16, 10),
+			desktopImageWidth = this.get('largeImageCardDesktop') ?
+				this.get('desktopMaxImageWidth') :
+				this.get('smallMaxImageWidth'),
+			desktopImageHeight = parseInt(desktopImageWidth * 9 / 16, 10),
+
+		if (!this.get('openGraphData.imageUrl')) {
+			return '';
+		}
+
+		return `${this.get('openGraphData.imageUrl')}/fixed-aspect-ratio/width/${mobileImageWidth}` +
+			`/height/${mobileImageHeight} 380w, ` +
+			`${this.get('openGraphData.imageUrl')}/fixed-aspect-ratio/width/${desktopImageWidth}` +
+			`/height/${desktopImageHeight} 5000w`;
 	}),
 
 	siteName: Ember.computed('openGraphData.domain', 'openGraphData.siteName', function () {
