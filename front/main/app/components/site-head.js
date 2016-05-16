@@ -13,6 +13,16 @@ export default Component.extend(
 		themeBar: false,
 		closeIcon: 'close',
 
+		headroomOptions: {
+			classes: {
+				initial: 'site-head-headroom',
+				pinned: 'site-head-headroom-pinned',
+				unpinned: 'site-head-headroom-un-pinned',
+				top: 'site-head-headroom-top',
+				notTop: 'site-head-headroom-not-top'
+			}
+		},
+
 		navIcon: computed('drawerContent', 'drawerVisible', function () {
 			return this.get('drawerVisible') && this.get('drawerContent') === 'nav' ? 'close' : 'nav';
 		}),
