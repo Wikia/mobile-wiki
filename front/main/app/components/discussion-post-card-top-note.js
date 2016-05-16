@@ -70,7 +70,7 @@ export default Ember.Component.extend({
 				message,
 				header,
 				i18n.t('main.modal-dialog-delete', {ns: 'discussion'}),
-				(() => this.attrs.delete(item))
+				(() => this.get('delete')(item))
 			);
 		},
 
@@ -96,7 +96,7 @@ export default Ember.Component.extend({
 				message,
 				header,
 				i18n.t('main.modal-dialog-approve', {ns: 'discussion'}),
-				(() => this.attrs.approve(item))
+				(() => this.get('approve')(item))
 			);
 		},
 	}

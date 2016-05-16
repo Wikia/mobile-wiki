@@ -40,9 +40,9 @@ export default Ember.Component.extend(
 						track(trackActions.TrendingPostTapped);
 					}
 
-					this.attrs.applyFilters(this.get('sortBy'), this.get('onlyReported'));
+					this.get('applyFilters')(this.get('sortBy'), this.get('onlyReported'));
 				} else if (onlyReported !== discussionSort.get('onlyReported')) {
-					this.attrs.applyFilters(this.get('sortBy'), this.get('onlyReported'));
+					this.get('applyFilters')(this.get('sortBy'), this.get('onlyReported'));
 				}
 
 				this.get('popover').deactivate();
@@ -76,7 +76,7 @@ export default Ember.Component.extend(
 				}
 
 				if (!this.get('showApplyButton')) {
-					this.attrs.applyFilters(this.get('sortBy'), this.get('onlyReported'));
+					this.get('applyFilters')(this.get('sortBy'), this.get('onlyReported'));
 				}
 			}
 		}
