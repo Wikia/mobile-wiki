@@ -232,7 +232,8 @@ $editor-textarea-overflow-ios-hack: 30px;
 		}
 
 		.editor-wrapper {
-			height: calc(100% - #{2 * $editor-toolbar-height});
+			//editor label + editor toolbar
+			height: calc(100% - #{36px + $editor-toolbar-height});
 			margin-top: $editor-toolbar-height;
 			max-height: none;
 			position: relative;
