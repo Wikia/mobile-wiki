@@ -8,6 +8,7 @@ const {Component, computed, inject} = Ember;
 export default Component.extend(
 	LoginLinkMixin,
 	{
+		classNames: ['wikia-nav'],
 		classNameBindings: ['model.inRoot:wikia-nav--in-root'],
 		currentUser: inject.service(),
 		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),

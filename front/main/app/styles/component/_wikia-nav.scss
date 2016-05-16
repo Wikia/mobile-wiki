@@ -11,6 +11,10 @@ $nav-logout-color: #d7d9dc;
 $nav-padding-horizontal: 9px;
 $nav-padding-vertical: 18px;
 
+.wikia-nav {
+	overflow: auto;
+}
+
 .wikia-nav__header {
 	background-color: $nav-background-color;
 	color: inherit;
