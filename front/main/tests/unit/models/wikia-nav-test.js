@@ -121,7 +121,7 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-header'
 				},
 				{
-					type: 'side-nav-menu-item',
+					type: 'nav-menu-item',
 					route: 'discussion',
 					name: '',
 					trackCategory: 'discussion',
