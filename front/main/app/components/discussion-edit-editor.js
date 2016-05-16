@@ -75,8 +75,7 @@ export default DiscussionEditorComponent.extend({
 	 */
 	trackContentAction() {
 		if (this.get('discussionEditor.discussionEntity.rawContent') !== this.get('bodyText')) {
-			track(this.get('contentTrackingAction'));
-			this.set('wasContentTracked', true);
+			this._super();
 		}
 	},
 
