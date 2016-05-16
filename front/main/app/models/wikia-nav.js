@@ -148,7 +148,7 @@ export default Object.extend({
 		return !this.get('inExploreNav') &&
 			this.get('currentLocalLinks').map((item, index) => {
 				return {
-					type: Boolean(item.children) ? 'nav-menu-root' : 'nav-menu-item',
+					type: item.children ? 'nav-menu-root' : 'nav-menu-item',
 					className: inRoot ? 'nav-menu--local' : '',
 					href: item.href.replace(/^(\/wiki)?\//i, ''),
 					route: 'wiki-page',
