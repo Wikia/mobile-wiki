@@ -3,14 +3,14 @@
 	$input-container-background: #2a3039;
 	$input-font-size: 20px;
 	$input-width: calc(100% - 35px);
-	$nav-line-height: 48px;
+	$search-line-height: 48px;
 	$nav-input-padding: 10px;
 	$side-nav-clear-size: 30px;
 
 	color: inherit;
 	display: block;
 	font-size: $nav-font-size;
-	line-height: $nav-line-height;
+	line-height: $search-line-height;
 	margin-top: 0;
 	position: relative;
 
@@ -31,7 +31,6 @@
 
 		input,
 		input:focus {
-			all: unset;
 			background: transparent;
 			border: 0;
 			box-shadow: none;
@@ -39,6 +38,7 @@
 			font: inherit;
 			font-size: $input-font-size;
 			font-weight: bold;
+			height: $search-line-height;
 			margin: 0;
 			padding: 0;
 			width: $input-width;
