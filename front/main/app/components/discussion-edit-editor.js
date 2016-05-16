@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import DiscussionEditorComponent from './discussion-editor';
-import {track, trackActions} from '../utils/discussion-tracker';
+import {trackActions} from '../utils/discussion-tracker';
 
 export default DiscussionEditorComponent.extend({
 	classNames: ['is-edit'],
@@ -75,8 +75,7 @@ export default DiscussionEditorComponent.extend({
 	 */
 	trackContentAction() {
 		if (this.get('discussionEditor.discussionEntity.rawContent') !== this.get('bodyText')) {
-			track(this.get('contentTrackingAction'));
-			this.set('wasContentTracked', true);
+			this._super();
 		}
 	},
 
