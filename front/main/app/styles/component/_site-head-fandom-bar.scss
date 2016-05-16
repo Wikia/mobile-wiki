@@ -3,26 +3,30 @@ $home-of-fandom-letter-spacing: 0.5px;
 
 .site-head-fandom-bar-wrapper {
 	height: $site-head-with-fandom-bar-height;
+}
 
-	.site-head-fandom-bar {
-		background-color: $white;
-		border-bottom: 1px solid $color-blue-gray-light;
+.site-head-fandom-bar {
+	background-color: $white;
+	border-bottom: 1px solid $color-blue-gray-light;
+	color: $color-blue-gray-dark;
+	font: {
+		size: $head-fandom-bar-font-size;
+		weight: bold;
+	}
+	height: $site-head-fandom-bar-height;
+	letter-spacing: $home-of-fandom-letter-spacing;
+	margin-top: $site-head-height;
+	position: fixed;
+	text: {
+		align: center;
+		transform: uppercase;
+	}
+	transition: transform .5s;
+	width: 100%;
+	z-index: $z-6;
+
+	a {
 		color: $color-blue-gray-dark;
-		font-size: $head-fandom-bar-font-size;
-		font-weight: bold;
-		height: $site-head-fandom-bar-height;
-		letter-spacing: $home-of-fandom-letter-spacing;
-		margin-top: $site-head-height;
-		position: fixed;
-		text-align: center;
-		text-transform: uppercase;
-		transition: transform .5s;
-		width: 100%;
-		z-index: $z-6;
-
-		a {
-			color: $color-blue-gray-dark;
-		}
 	}
 }
 
