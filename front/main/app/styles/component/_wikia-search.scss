@@ -1,4 +1,6 @@
 .wikia-search__item {
+	@include wikia-nav-link-button(inherit);
+
 	$input-background: #8f8e94;
 	$input-container-background: #2a3039;
 	$input-font-size: 20px;
@@ -13,15 +15,6 @@
 	line-height: $search-line-height;
 	margin-top: 0;
 	position: relative;
-
-	&:hover,
-	&:visited,
-	> a,
-	> a:hover,
-	> a:visited,
-	> a:focus {
-		color: inherit;
-	}
 
 	.wikia-search__container {
 		background-color: $input-container-background;

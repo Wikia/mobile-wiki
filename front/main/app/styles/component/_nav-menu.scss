@@ -21,6 +21,8 @@ $nav-padding-horizontal: 6px;
 }
 
 .nav-menu__item {
+	@include wikia-nav-link-button(inherit);
+
 	box-sizing: content-box;
 	color: inherit;
 	display: block;
@@ -32,15 +34,6 @@ $nav-padding-horizontal: 6px;
 	position: relative;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-
-	&:hover,
-	&:visited,
-	> a,
-	> a:hover,
-	> a:visited,
-	> a:focus {
-		color: inherit;
-	}
 
 	&::before {
 		content: ' ';
