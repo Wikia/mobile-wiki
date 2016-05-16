@@ -400,6 +400,14 @@ body.dark-theme {
 				}
 			}
 		}
+
+		.discussions {
+			.imageCardDesktopLarge {
+				.og-image {
+					border-bottom-color: $dark-discussion-open-graph-border-color;
+				}
+			}
+		}
 	}
 
 	.post-list-view {
