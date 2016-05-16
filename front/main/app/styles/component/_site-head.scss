@@ -13,8 +13,8 @@ $site-head-box-shadow-color: rgba(0, 0, 0, 0.15);
 
 .site-head {
 	background-color: $white;
-	border-top: $site-head-top-border-height solid $vapor;
-	border-bottom: 1px solid $color-blue-gray-light;
+	border-top: $site-head-top-border-height solid $color-blue-dark;
+	border-bottom: 1px solid $vapor;
 	direction: ltr;
 	display: flex;
 	flex-direction: row;
