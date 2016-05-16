@@ -130,7 +130,7 @@ $editor-textarea-overflow-ios-hack: 30px;
 		.editor-wrapper {
 			max-height: 160px;
 			min-height: 106px;
-			overflow: scroll;
+			overflow: auto;
 			padding: 0;
 		}
 	}
