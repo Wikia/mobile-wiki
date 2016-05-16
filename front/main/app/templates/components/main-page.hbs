@@ -1,5 +1,9 @@
 <div class="wiki-container">
-	{{wikia-ui-components/wiki-page-header-curated-main-page showButtons=curatedContentToolButtonVisible}}
+	{{wikia-ui-components/wiki-page-header-curated-main-page
+		showButtons=curatedContentToolButtonVisible
+		isRoot=isRoot
+		title=title
+	}}
 	{{#if wikiaStats}}
 		{{wikia-stats model=wikiaStats}}
 	{{/if}}
