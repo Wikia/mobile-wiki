@@ -46,6 +46,12 @@ export default Ember.Component.extend({
 	}),
 	isInvalid: Ember.computed.bool('errorMessage'),
 
+	init() {
+		// input shouldn't be reloaded on change, it's needed for jap/zh os tools
+		this.set('valueProxy', this.get('value'));
+		this._super(...arguments);
+	},
+
 	actions: {
 		/**
 		 * @param {jQuery.Event} event
@@ -82,6 +88,7 @@ export default Ember.Component.extend({
 		 */
 		onKeyUp(value, event) {
 			const onKeyUpHandler = this.get('onKeyUpHandler');
+			this.set('value', value);
 
 			if (onKeyUpHandler) {
 				onKeyUpHandler(event);
