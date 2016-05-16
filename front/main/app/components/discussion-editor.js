@@ -6,7 +6,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	attributeBindings: ['style'],
 
 	classNames: ['discussion-editor'],
-	classNameBindings: ['isActive', 'hasError', 'showsOpenGraphCard:has-open-graph'],
+	classNameBindings: ['isActive', 'showsOpenGraphCard:has-open-graph'],
 
 	currentUser: Ember.inject.service(),
 	discussionEditor: Ember.inject.service(),
