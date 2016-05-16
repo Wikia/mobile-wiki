@@ -80,6 +80,14 @@ export default DiscussionEditorComponent.extend({
 		}
 	},
 
+	setOpenGraphProperties(text, urlRegex) {
+		if (this.get('discussionEditor.discussionEntity.rawContent') === this.get('bodyText')) {
+			return;
+		}
+
+		this._super(text, urlRegex);
+	},
+
 	/**
 	 * Open editor and set bodyText to the right value
 	 * @returns {void}
