@@ -49,7 +49,7 @@
 				{{{parsedContent}}}
 			{{/link-to}}
 		</div>
-		{{#if post.openGraph.exists}}
+		{{#if post.openGraph}}
 			{{discussion-open-graph
 				openGraphData=post.openGraph
 				isListView=true
@@ -59,7 +59,7 @@
 		<div class="discussion-content">
 			{{{parsedContent}}}
 		</div>
-		{{#if post.openGraph.exists}}
+		{{#if post.openGraph}}
 			{{discussion-open-graph
 				openGraphData=post.openGraph
 			}}

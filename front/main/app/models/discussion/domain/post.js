@@ -36,14 +36,18 @@ DiscussionPost.reopenClass({
 				isNew: postData.isNew,
 				isReported: postData.isReported,
 				isRequesterBlocked: postData.isRequesterBlocked,
-				openGraph: OpenGraph.create(Ember.get(postData, '_embedded.openGraph.0')),
 				rawContent: postData.rawContent,
 				repliesCount: parseInt(Ember.get(postData, '_embedded.thread.0.postCount'), 10),
 				threadId: postData.threadId,
 				title: postData.title,
 				upvoteCount: parseInt(postData.upvoteCount, 10),
 			}),
-			userData = Ember.get(postData, '_embedded.userData.0');
+			userData = Ember.get(postData, '_embedded.userData.0'),
+			openGraphData = Ember.get(postData, '_embedded.openGraph.0');
+
+		if (openGraphData) {
+			post.set('openGraph', OpenGraph.create(openGraphData));
+		}
 
 		if (userData) {
 			post.set('userData', DiscussionUserData.create(userData));
@@ -69,7 +73,6 @@ DiscussionPost.reopenClass({
 				isNew: threadData.isNew,
 				isReported: threadData.isReported,
 				isRequesterBlocked: threadData.isRequesterBlocked,
-				openGraph: OpenGraph.create(Ember.get(threadData, '_embedded.openGraph.0')),
 				permalinkedReplyId: threadData.permalinkedReplyId,
 				rawContent: Ember.get(threadData, '_embedded.firstPost.0.rawContent'),
 				repliesCount: parseInt(threadData.postCount, 10),
@@ -77,7 +80,12 @@ DiscussionPost.reopenClass({
 				title: threadData.title,
 				upvoteCount: parseInt(threadData.upvoteCount, 10),
 			}),
-			userData = Ember.get(threadData, '_embedded.firstPost.0._embedded.userData.0');
+			userData = Ember.get(threadData, '_embedded.firstPost.0._embedded.userData.0'),
+			openGraphData = Ember.get(threadData, '_embedded.openGraph.0');
+
+		if (openGraphData) {
+			post.set('openGraph', OpenGraph.create(openGraphData));
+		}
 
 		if (userData) {
 			post.set('userData', DiscussionUserData.create(userData));
