@@ -122,7 +122,7 @@ export default Object.extend({
 		return this.get('inRoot') &&
 			this.get('discussionsEnabled') &&
 			[{
-				type: 'side-nav-menu-item',
+				type: 'nav-menu-item',
 				route: 'discussion',
 				name: i18n.t('main.discussions-header-title', {ns: 'discussion'}),
 				trackCategory: 'discussion',
