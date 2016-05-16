@@ -237,6 +237,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		});
 
 		this.get('discussionEditor').toggleEditor(false);
+		this.resetSize();
 
 		Ember.set(newItem, 'isVisible', true);
 
@@ -251,11 +252,20 @@ export default Ember.Component.extend(ViewportMixin, {
 	 */
 	didInsertElement() {
 		this._super(...arguments);
-		this.$().find('textarea')
-			.on('paste', $.proxy(this.onPaste, this));
+		this.initializePasting();
 		this.handleIOSFocus();
 		this.initializeStickyState();
 		this.initializeSizing();
+	},
+
+	initializePasting() {
+		this.$().find('textarea').on('paste', $.proxy(this.onPaste, this));
+	},
+
+	onPaste(event) {
+		Ember.run.later(() => {
+			this.setOpenGraphProperties(event.target.value, /(https?:\/\/[^\s]+)/g);
+		}, 100);
 	},
 
 	initializeSizing() {
@@ -272,12 +282,6 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	resetSize() {
 		this.$().find('textarea').css('height', '');
-	},
-
-	onPaste(event) {
-		Ember.run.later(() => {
-			this.setOpenGraphProperties(event.target.value, /(https?:\/\/[^\s]+)/g);
-		}, 100);
 	},
 
 	/**
@@ -410,8 +414,6 @@ export default Ember.Component.extend(ViewportMixin, {
 			this.send('toggleEditorActive', false);
 
 			track(this.get('closeTrackingAction'));
-
-			this.resetSize();
 		},
 
 		removeOpenGraph() {

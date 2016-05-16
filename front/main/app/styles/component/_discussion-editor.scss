@@ -190,7 +190,8 @@ $editor-textarea-overflow-ios-hack: 30px;
 		display: block;
 
 		.editor-label {
-			background-color: $discussion-editor-background-color;;
+			background-color: $discussion-editor-background-color;
+			border-top: $editor-active-mobile-border-top-width solid $discussion-editor-textarea-border-color;
 			color: $discussion-editor-label-color;
 			font-size: $type-min;
 			font-weight: bold;
@@ -231,17 +232,18 @@ $editor-textarea-overflow-ios-hack: 30px;
 		}
 
 		.editor-wrapper {
-			height: calc(100% - #{$editor-toolbar-height});
+			height: calc(100% - #{2 * $editor-toolbar-height});
+			margin-top: $editor-toolbar-height;
+			max-height: none;
 			position: relative;
 			top: $editor-toolbar-height;
 		}
 
 		.editor-textarea {
 			border-bottom-width: 0;
-			border-top: $editor-active-mobile-border-top-width solid $discussion-editor-textarea-border-color;
 			height: 100%;
 			max-height: none;
-			padding: $editor-toolbar-height 10px 10px;
+			padding: 0 10px 10px;
 			position: relative;
 			width: 100%;
 		}
