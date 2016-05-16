@@ -12,8 +12,9 @@
 		{{#if showsOpenGraphCard}}
 			{{discussion-open-graph
 				close=(action 'removeOpenGraph')
-				openGraphData=openGraph
+				hasLoadingState=true
 				isLoading=isOpenGraphLoading
+				openGraphData=openGraph
 			}}
 		{{/if}}
 	</div>

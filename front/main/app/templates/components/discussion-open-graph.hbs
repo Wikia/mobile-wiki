@@ -15,6 +15,8 @@
 		{{siteName}}
 	</span>
 </div>
-{{loading-spinner
-	active=isLoading
-}}
+{{#if hasLoadingState}}
+	{{loading-spinner
+		active=isLoading
+	}}
+{{/if}}

@@ -261,7 +261,6 @@ $editor-textarea-overflow-ios-hack: 30px;
 	}
 }
 
-
 @media #{$desktop-range} {
 	.discussion-editor.is-edit {
 		@include modal-editor;
