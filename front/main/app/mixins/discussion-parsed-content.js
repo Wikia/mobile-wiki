@@ -18,7 +18,7 @@ export default Ember.Mixin.create({
 	 * Returns content with links created from urls and converts \n, \rn and \r to <br>
 	 * @returns {string}
 	 */
-	parsedContent: Ember.computed(function () {
+	parsedContent: Ember.computed('post.rawContent', function () {
 		let escapedContent = Ember.Handlebars.Utils.escapeExpression(
 			this.get('post.rawContent')
 		).trim();

@@ -4,6 +4,14 @@
 		{{i18n 'main.all-posts-by-username' userName=post.createdBy.name ns='discussion'}}
 	{{/link-to}}
 </li>
+{{#if canEdit}}
+	<li>
+		<a class="edit-link" {{action 'edit' post}}>
+			{{svg 'pencil' viewBox='0 0 18 18' class='icon edit'}}
+			{{editMessage}}
+		</a>
+	</li>
+{{/if}}
 {{#if canReport}}
 	<li>
 		<a class="report-link" {{action 'report' post}}>
