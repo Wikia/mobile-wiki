@@ -46,11 +46,6 @@
 		{{/if}}
 		{{{parsedContent}}}
 	</div>
-	{{#if post.openGraph}}
-		{{discussion-open-graph
-			openGraphData=post.openGraph
-		}}
-	{{/if}}
 {{else}}
 	<div class="discussion-content">
 		{{#if post.title}}
@@ -58,12 +53,12 @@
 		{{/if}}
 		{{#link-to 'discussion.post' post.threadId class="post-details-link clamp"}}{{{parsedContent}}}{{/link-to}}
 	</div>
-	{{#if post.openGraph}}
-		{{discussion-open-graph
-			openGraphData=post.openGraph
-			isListView=true
-		}}
-	{{/if}}
+{{/if}}
+{{#if post.openGraph}}
+	{{discussion-open-graph
+		openGraphData=post.openGraph
+		isListView=true
+	}}
 {{/if}}
 <div class="row">
 	{{discussion-upvote-post

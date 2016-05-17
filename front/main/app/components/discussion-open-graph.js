@@ -30,11 +30,8 @@ export default Ember.Component.extend({
 			largeImageCardDesktop: imageWidth >= 500,
 			openGraphHref: this.get('openGraphData.url'),
 			openGraphTitle: this.get('openGraphData.domain'),
+			openGraphTarget: '_blank',
 		});
-
-		if (this.get('isListView')) {
-			this.set('openGraphTarget', '_blank');
-		}
 
 		this._super(...arguments);
 	},
