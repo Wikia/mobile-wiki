@@ -13,6 +13,7 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Component.extend(
 	{
+		classNames: ['wikia-search'],
 		ajax: Ember.inject.service(),
 		query: '',
 

@@ -1,3 +1,7 @@
+.wikia-search {
+	overflow: auto;
+}
+
 .wikia-search__item {
 	@include wikia-nav-link-button(inherit);
 
