@@ -6,7 +6,7 @@ $sticky-editor-width: 529px;
 $modal-editor-width: 520px;
 $success-icon-size: 80px;
 $editor-textarea-overflow-ios-hack: 30px;
-$editor-label-height: 36px;
+$editor-label-height: 44px;
 
 .editor-container {
 	background-color: $discussion-editor-toolbar-background-color;
@@ -238,7 +238,7 @@ $editor-label-height: 36px;
 			margin-top: $editor-toolbar-height;
 			max-height: none;
 			position: relative;
-			top: $editor-toolbar-height;
+			top: $editor-label-height;
 		}
 
 		.editor-textarea {
