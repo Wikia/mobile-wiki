@@ -69,7 +69,7 @@ export default Ember.Component.extend({
 			mobileImageHeight = parseInt(mobileImageWidth * 9 / 16, 10),
 			desktopImageWidth = this.get('largeImageCardDesktop') ?
 				this.get('desktopMaxImageWidth') :
-				this.get('smallMaxImageWidth'),
+				Math.max(mobileImageWidth, this.get('smallMaxImageWidth')),
 			desktopImageHeight = parseInt(desktopImageWidth * 9 / 16, 10);
 
 		if (!this.get('openGraphData.imageUrl')) {
