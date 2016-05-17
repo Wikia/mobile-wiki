@@ -50,21 +50,15 @@
 				{{{parsedContent}}}
 			{{/link-to}}
 		</div>
-		{{#if post.openGraph}}
-			{{discussion-open-graph
-				openGraphData=post.openGraph
-				isListView=true
-			}}
-		{{/if}}
 	{{else}}
 		<div class="discussion-content">
 			{{{parsedContent}}}
 		</div>
-		{{#if post.openGraph}}
-			{{discussion-open-graph
-				openGraphData=post.openGraph
-			}}
-		{{/if}}
+	{{/if}}
+	{{#if post.openGraph}}
+		{{discussion-open-graph
+			openGraphData=post.openGraph
+		}}
 	{{/if}}
 </div>
 {{#if post.isLoading}}
