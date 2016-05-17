@@ -1,24 +1,27 @@
-<nav class="site-head">
-	<div class="site-logo site-logo-2016">
-		<a {{action 'trackWordmarkClick' preventDefault=false}} href="{{wikiaHomepage}}">
-			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
-		</a>
-	</div>
+<div class="site-head-wrapper">
+	<nav class="site-head">
+		<div class="site-logo site-logo-2016">
+			<a {{action 'trackWordmarkClick' preventDefault=false}} href="{{wikiaHomepage}}">
+				{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+			</a>
+		</div>
 
-	{{wikia-ui-components/icon-button
-		click=(action 'siteHeadIconClick' 'nav')
-		class='site-head-icon site-head-icon-nav'
-		icon=navIcon
-		iconSize=24
-	}}
+		{{wikia-ui-components/icon-button
+			click=(action 'siteHeadIconClick' 'nav')
+			class='site-head-icon site-head-icon-nav'
+			icon=navIcon
+			iconSize=24
+		}}
 
-	{{wikia-ui-components/icon-button
-		click=(action 'siteHeadIconClick' 'search')
-		class='site-head-icon site-head-icon-search'
-		icon=searchIcon
-		iconSize=24
-	}}
-</nav>
+		{{wikia-ui-components/icon-button
+			click=(action 'siteHeadIconClick' 'search')
+			class='site-head-icon site-head-icon-search'
+			icon=searchIcon
+			iconSize=24
+		}}
+	</nav>
+</div>
+
 {{site-head-fandom-bar
 	wikiaHomepage=wikiaHomepage
 }}

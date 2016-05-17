@@ -11,8 +11,12 @@ $site-head-box-shadow-color: rgba(0, 0, 0, 0.15);
 	box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 }
 
-.site-head-wrapper {
+.site-head-container {
 	min-height: $site-head-height;
+}
+
+.site-head-wrapper {
+	height: $site-head-height;
 }
 
 .site-head {
@@ -23,7 +27,6 @@ $site-head-box-shadow-color: rgba(0, 0, 0, 0.15);
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
-	height: $site-head-height;
 	justify-content: space-between;
 	left: 0;
 	margin: 0 auto;

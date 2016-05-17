@@ -2,7 +2,7 @@ $head-fandom-bar-font-size: 12px;
 $home-of-fandom-letter-spacing: 0.5px;
 
 .site-head-fandom-bar-wrapper {
-	height: $site-head-with-fandom-bar-height;
+	height: $site-head-fandom-bar-height;
 }
 
 .site-head-fandom-bar {
@@ -15,7 +15,6 @@ $home-of-fandom-letter-spacing: 0.5px;
 	}
 	height: $site-head-fandom-bar-height;
 	letter-spacing: $home-of-fandom-letter-spacing;
-	margin-top: $site-head-height;
 	position: fixed;
 	text: {
 		align: center;

@@ -7,7 +7,7 @@ const {computed, Component} = Ember;
 export default Component.extend(
 	HeadroomMixin,
 	{
-		classNames: ['site-head-wrapper'],
+		classNames: ['site-head-container'],
 		classNameBindings: ['themeBar'],
 		tagName: 'div',
 		themeBar: false,
