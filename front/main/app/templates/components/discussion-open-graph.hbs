@@ -1,22 +1,29 @@
-{{#if this.attrs.close}}
-	<a class="og-close" {{action 'close'}}>
-		{{svg 'close' viewBox='0 0 18 18'}}
-	</a>
-{{/if}}
-
-{{#if imageUrl}}
-	<img class="og-image" src="{{imageUrl}}" srcset="{{imageUrlSet}}" alt="{{openGraphData.title}}">
-{{/if}}
-<div class="og-texts">
-	<span class="og-title">
-		{{openGraphData.title}}
-	</span>
-	<span class="og-site-name">
-		{{siteName}}
-	</span>
-</div>
 {{#if isLoading}}
 	{{loading-spinner
 		active=isLoading
 	}}
+	<span class="og-image"></span>
+	<div class="og-texts">
+		<span class="og-title-placeholder"></span>
+		<span class="og-sitename-placeholder"></span>
+		<span class="og-sitename-placeholder"></span>
+	</div>
+{{else}}
+	{{#if this.attrs.close}}
+		<a class="og-close" {{action 'close'}}>
+			{{svg 'close' viewBox='0 0 18 18'}}
+		</a>
+	{{/if}}
+
+	{{#if imageUrl}}
+		<img class="og-image" src="{{imageUrl}}" srcset="{{imageUrlSet}}" alt="{{openGraphData.title}}">
+	{{/if}}
+	<div class="og-texts">
+		<span class="og-title">
+			{{openGraphData.title}}
+		</span>
+		<span class="og-site-name">
+			{{siteName}}
+		</span>
+	</div>
 {{/if}}

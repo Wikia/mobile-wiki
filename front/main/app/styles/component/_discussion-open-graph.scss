@@ -32,6 +32,38 @@
 		color: $discussion-open-graph-domain-color;
 	}
 
+	.is-loading {
+		height: 70px;
+
+		.og-image {
+			background-color: #e6e6e6;
+			display: block;
+			width: 35%;
+		}
+
+		.og-texts {
+			margin: 0;
+			padding: 5px;
+			width: 65%;
+
+			.og-title-placeholder,
+			.og-sitename-placeholder {
+				background-color: $discussion-open-graph-title-color;
+				height: $line-height-smallest;
+				margin-bottom: 5px;
+				width: 50%;
+			}
+
+			.og-sitename-placeholder {
+				background-color: $discussion-open-graph-domain-color;
+				width: 100%;
+
+				&:last-child {
+					width: 50%;
+				}
+			}
+		}
+	}
 
 	// -- layout --
 

@@ -6,7 +6,7 @@ export default Ember.Component.extend({
 	attributeBindings: ['openGraphHref:href', 'openGraphTitle:title', 'openGraphTarget:target'],
 	classNames: ['og-container'],
 	classNameBindings: ['noImageCardMobile', 'smallImageCardMobile', 'largeImageCardMobile', 'noImageCardDesktop',
-		'smallImageCardDesktop', 'largeImageCardDesktop'],
+		'smallImageCardDesktop', 'largeImageCardDesktop', 'isLoading'],
 
 	oneLineCharacters: 48,
 	twoLinesCharacters: 98,
