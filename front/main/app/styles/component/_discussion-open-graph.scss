@@ -3,7 +3,7 @@
 	.discussion-editor {
 		&.is-active {
 			.og-container {
-				display: block;
+				display: flex;
 			}
 
 			&.has-open-graph {
