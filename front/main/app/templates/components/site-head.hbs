@@ -1,6 +1,6 @@
 <nav class="site-head">
 	<div class="site-logo site-logo-2016">
-		<a {{action 'trackWordmarkClick' preventDefault=false}} href={{wikiaHomepage}}>
+		<a {{action 'trackWordmarkClick' preventDefault=false}} href="{{wikiaHomepage}}">
 			{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
 		</a>
 	</div>
@@ -19,5 +19,7 @@
 		iconSize=24
 	}}
 </nav>
-{{site-head-fandom-bar}}
+{{site-head-fandom-bar
+	wikiaHomepage=wikiaHomepage
+}}
 <div id="site-head-sub-header"></div>
