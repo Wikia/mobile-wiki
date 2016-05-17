@@ -34,11 +34,11 @@ export default Ember.Component.extend({
 		this._super(...arguments);
 	},
 
-	widthObserver: Ember.observer('openGraphData.imageWidth', function() {
+	widthObserver: Ember.observer('openGraphData.imageWidth', function () {
 		this.setImageClasses();
 	}),
 
-	setImageClasses: function() {
+	setImageClasses() {
 		const imageWidth = this.get('openGraphData.imageWidth');
 
 		this.setProperties({
