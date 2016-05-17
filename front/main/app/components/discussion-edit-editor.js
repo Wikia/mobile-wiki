@@ -9,6 +9,8 @@ export default DiscussionEditorComponent.extend({
 
 	placeholderText: 'editor.post-editor-placeholder-text',
 
+	wasInitialized: false,
+
 	didInsertElement() {
 		this._super(...arguments);
 		this.get('discussionEditor').on('newPost', this, this.handlePostEdited);
@@ -74,13 +76,13 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	trackContentAction() {
-		if (this.get('discussionEditor.discussionEntity.rawContent') !== this.get('bodyText')) {
+		if (this.get('wasInitialized')) {
 			this._super();
 		}
 	},
 
 	setOpenGraphProperties(text, urlRegex) {
-		if (this.get('discussionEditor.discussionEntity.rawContent') === this.get('bodyText')) {
+		if (!this.get('wasInitialized')) {
 			return;
 		}
 
@@ -104,11 +106,11 @@ export default DiscussionEditorComponent.extend({
 		Ember.run.scheduleOnce('afterRender', this, () => {
 			// This needs to be triggered after Ember updates textarea content
 			this.$('.editor-textarea').get(0).setSelectionRange(0, 0);
+			this.set('wasInitialized', true);
 		});
 	},
 
 	actions: {
-
 		/**
 		 * Send request to model to create new post and start animations
 		 * @returns {void}

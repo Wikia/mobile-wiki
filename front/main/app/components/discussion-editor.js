@@ -284,7 +284,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	},
 
 	initializePasting() {
-		this.$().find('textarea').on('paste', this.$.proxy(this.onPaste, this));
+		this.$().find('textarea').on('paste', this.onPaste.bind(this));
 	},
 
 	/**
