@@ -15,9 +15,30 @@ export default Ember.Component.extend({
 	mobileMaxImageWidth: 325,
 	smallMaxImageWidth: 150,
 
+	noImageCardMobile: false,
+	smallImageCardMobile: false,
+	largeImageCardMobile: false,
+	noImageCardDesktop: false,
+	smallImageCardDesktop: false,
+	largeImageCardDesktop: false,
+
 	init() {
-		// we're usually strongly against that kind of caching, because a getter should be used always,
-		// but come on, it is 8 calls, and even we have some limits in the matter of principles :)
+		this.setImageClasses();
+
+		this.setProperties({
+			openGraphHref: this.get('openGraphData.url'),
+			openGraphTitle: this.get('openGraphData.domain'),
+			openGraphTarget: '_blank',
+		});
+
+		this._super(...arguments);
+	},
+
+	widthObserver: Ember.observer('openGraphData.imageWidth', function() {
+		this.setImageClasses();
+	}),
+
+	setImageClasses: function() {
 		const imageWidth = this.get('openGraphData.imageWidth');
 
 		this.setProperties({
@@ -27,12 +48,7 @@ export default Ember.Component.extend({
 			noImageCardDesktop: imageWidth < 101,
 			smallImageCardDesktop: imageWidth > 100 && imageWidth < 500,
 			largeImageCardDesktop: imageWidth >= 500,
-			openGraphHref: this.get('openGraphData.url'),
-			openGraphTitle: this.get('openGraphData.domain'),
-			openGraphTarget: '_blank',
 		});
-
-		this._super(...arguments);
 	},
 
 	imageUrl: Ember.computed('openGraphData.imageUrl', function () {
