@@ -76,6 +76,12 @@
 		max-height: 450px;
 		max-width: 525px;
 		position: relative;
+
+		&.small-image-card-mobile {
+			.og-image {
+				align-self: center;
+			}
+		}
 	}
 
 	.og-image {
