@@ -288,17 +288,30 @@ export default Ember.Component.extend(ViewportMixin, {
 	},
 
 	/**
-	 * When 'paste' event is triggered, text is not able to be fetched from event or textarea
-	 * that's why there's a need to wait a bit to perform regex lookup for the url
+	 * In some browsers (IE11) there's no support for event clipboard data, so there's a need to
+	 * wait and then check the content of the textarea
 	 *
 	 * @param {Event} event
 	 *
 	 * @returns {void}
 	 */
 	onPaste(event) {
-		Ember.run.later(() => {
-			this.setOpenGraphProperties(event.target.value, /(https?:\/\/[^\s]+)/g);
-		}, 100);
+		const clipboardData = Ember.get(event, 'originalEvent.clipboardData'),
+			textType = 'text/plain';
+
+		let pastedText;
+
+		if (clipboardData && clipboardData.getData && Array.from(clipboardData.types).indexOf(textType) !== -1) {
+			pastedText = clipboardData.getData(textType);
+		}
+
+		if (typeof pastedText === 'string' && pastedText.length) {
+			this.setOpenGraphProperties(pastedText, /(https?:\/\/[^\s]+)/g);
+		} else {
+			Ember.run.later(() => {
+				this.setOpenGraphProperties(event.target.value, /(https?:\/\/[^\s]+)/g);
+			}, 100);
+		}
 	},
 
 	/**
