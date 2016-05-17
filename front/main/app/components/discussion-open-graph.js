@@ -30,11 +30,8 @@ export default Ember.Component.extend({
 			largeImageCardDesktop: imageWidth >= 500,
 			openGraphHref: this.get('openGraphData.url'),
 			openGraphTitle: this.get('openGraphData.domain'),
+			openGraphTarget: '_blank',
 		});
-
-		if (this.get('isListView')) {
-			this.set('openGraphTarget', '_blank');
-		}
 
 		this._super(...arguments);
 	},
@@ -47,8 +44,7 @@ export default Ember.Component.extend({
 			return '';
 		}
 
-		return `${this.get('openGraphData.imageUrl')}/fixed-aspect-ratio/width/${imageWidth}` +
-			`/height/${imageHeight}`;
+		return `${this.get('openGraphData.imageUrl')}/zoom-crop/width/${imageWidth}/height/${imageHeight}`;
 	}),
 
 	imageUrlSet: Ember.computed('openGraphData.imageUrl', function () {
@@ -65,9 +61,9 @@ export default Ember.Component.extend({
 			return '';
 		}
 
-		return `${this.get('openGraphData.imageUrl')}/fixed-aspect-ratio/width/${mobileImageWidth}` +
+		return `${this.get('openGraphData.imageUrl')}/zoom-crop/width/${mobileImageWidth}` +
 			`/height/${mobileImageHeight} 380w, ` +
-			`${this.get('openGraphData.imageUrl')}/fixed-aspect-ratio/width/${desktopImageWidth}` +
+			`${this.get('openGraphData.imageUrl')}/zoom-crop/width/${desktopImageWidth}` +
 			`/height/${desktopImageHeight} 5000w`;
 	}),
 
