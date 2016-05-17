@@ -73,6 +73,8 @@
     "lock-post":"锁定帖子",
     "unlock-post":"解锁帖子",
     "locked-and-reported-to-moderators-text":"这篇帖子被锁定并且被举报。",
+    "edit-reply":"编辑回复",
+    "edit-post":"编辑帖子",
     "upvote-link-label":"__count__个赞",
     "upvote-link-label_plural":"__count__个赞",
     "replies-link-label":"__count__个回复",
@@ -85,12 +87,18 @@
     "post-failed-error":"发布失败",
     "post-error-anon-cant-post":"登录加入讨论!",
     "post-error-not-authorized":"您不能发帖因为您的帐户已被封禁。",
-    "post-error-general-error":"哎呀，出现未知错误！请稍后再试。",
+    "post-error-general-error":"帖子发布失败，请再试一次。",
+    "reply-error-general-error":"回复失败，请再试一次。",
+    "save-error-general-error":"保存失败，请再试一次。",
     "post-editor-label":"创建帖子",
+    "post-edit-editor-label":"编辑您的帖子",
     "post-action-button-label":"发布",
+    "post-edit-action-button-label":"保存",
     "post-editor-placeholder-text":"分享想法、问题或链接...",
     "reply-editor-placeholder-text":"回复...",
     "reply-editor-label":"添加到讨论",
-    "reply-action-button-label":"回复"
+    "reply-edit-editor-label":"编辑您的回复",
+    "reply-action-button-label":"回复",
+    "reply-edit-action-button-label":"保存"
   }
 }

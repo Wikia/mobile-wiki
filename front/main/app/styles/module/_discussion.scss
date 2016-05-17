@@ -78,6 +78,11 @@ body.discussions {
 		width: 16px;
 	}
 
+	&.edit {
+		height: 16px;
+		width: 18px;
+	}
+
 	&.validate,
 	&.reported-delete {
 		height: 40px;
