@@ -39,6 +39,8 @@
 		flex-direction: column;
 		flex-wrap: nowrap;
 		margin: 12px 18px;
+		width: 100%;
+		word-wrap: break-word;
 	}
 
 	.og-title {
@@ -47,6 +49,7 @@
 		font-size: $type-smallest;
 		line-height: $line-height-smallest;
 		margin: 0;
+		width: 100%;
 	}
 
 	.og-site-name {
@@ -55,6 +58,7 @@
 		font-size: $type-min;
 		line-height: $line-height-min;
 		margin: 0;
+		width: 100%;
 	}
 
 	//post-details page layout
