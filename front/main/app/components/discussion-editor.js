@@ -284,7 +284,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	},
 
 	initializePasting() {
-		this.$().find('textarea').on('paste', $.proxy(this.onPaste, this));
+		this.$().find('textarea').on('paste', this.$.proxy(this.onPaste, this));
 	},
 
 	/**
@@ -316,6 +316,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 	/**
 	 * Sets the size of textarea whenever there's a change to it's state
+	 * It is invoked in the context of a textarea object (this)
 	 *
 	 * @returns {void}
 	 */
