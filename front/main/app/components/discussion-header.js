@@ -17,6 +17,9 @@ export default Ember.Component.extend(
 		canDeleteAll: false,
 
 		classNames: ['discussion-header-wrapper'],
+		classNameBindings: ['isFandomBarMissing:discussion-header-margin'],
+
+		isFandomBarMissing: Ember.computed(() => Ember.get(Mercury, 'wiki.language.content') !== 'en'),
 
 		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),

@@ -5,11 +5,15 @@ $site-header-height: 50px;
 
 .discussion-header-wrapper {
 	height: $discussion-header-height;
+
+	&.discussion-headroom-un-pinned .discussion-header {
+		margin-top: 0;
+	}
 }
 
-.discussion-headroom-un-pinned .discussion-header {
-	 margin-top: 0;
- }
+.discussion-header-margin .discussion-header {
+	margin-top: $site-head-height;
+}
 
 .discussion-header {
 	color: $discussion-header-color-text;
