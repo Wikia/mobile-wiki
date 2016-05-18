@@ -5,9 +5,8 @@
 .wikia-search__item {
 	@include wikia-nav-link-button(inherit);
 
-	$input-background: #8f8e94;
-	$input-container-background: #2a3039;
-	$input-font-size: 20px;
+	$input-container-background: $white;
+	$input-font-size: 16px;
 	$input-width: calc(100% - 35px);
 	$search-line-height: 48px;
 	$nav-input-padding: 10px;
@@ -31,17 +30,16 @@
 			background: transparent;
 			border: 0;
 			box-shadow: none;
-			color: $input-background;
+			color: $oil;
 			font: inherit;
 			font-size: $input-font-size;
-			font-weight: bold;
 			height: $search-line-height;
 			margin: 0;
 			padding: 0;
 			width: $input-width;
 
 			&::placeholder {
-				color: $search-box-text-color;
+				color: $iron;
 			}
 		}
 	}
