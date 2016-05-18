@@ -18,8 +18,6 @@ export default DiscussionBaseRoute.extend(
 		discussionSort: inject.service(),
 		discussionEditor: inject.service(),
 
-		forumId: null,
-
 		/**
 		 * @param {object} params
 		 * @returns {Ember.RSVP.Promise}
@@ -42,7 +40,7 @@ export default DiscussionBaseRoute.extend(
 		 */
 		setSortBy(sortBy) {
 			this.get('discussionSort').setSortBy(sortBy);
-			return this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+			return this.transitionTo('discussion.forum', sortBy);
 		},
 
 		actions: {
