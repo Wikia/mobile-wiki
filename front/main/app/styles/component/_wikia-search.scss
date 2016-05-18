@@ -58,17 +58,22 @@
 }
 
 .wikia-search__results {
+	$result-font-size: 14px;
+
+	background-color: $vapor;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 
 	.wikia-search__search-result {
-		padding: $nav-padding-horizontal $nav-padding-vertical 0 $nav-padding-vertical;
+	  color: $oil;
+	  font-size: $result-font-size;
+	  padding: $nav-padding-horizontal $nav-padding-vertical 0 $nav-padding-vertical;
 
-		a {
+	  a {
 			display: inline-block;
-			width: 100%;
 			height: 100%;
+			width: 100%;
 		}
 	}
 	.wikia-search__loading {
