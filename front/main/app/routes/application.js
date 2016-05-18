@@ -216,7 +216,7 @@ export default Route.extend(
 			},
 
 			goToSeachResults(query) {
-				this.transitionTo('searchResults', query);
+				this.transitionTo('searchResults', {queryParams: {query}});
 			}
 		},
 

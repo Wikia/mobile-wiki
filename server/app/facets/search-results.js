@@ -4,14 +4,11 @@ import localSettings from '../../config/localSettings';
 import showApplication from './show-application';
 
 /**
- * Renders discussions page
+ * Renders search results page
  *
  * @param {Hapi.Request} request
  * @param {*} reply
  * @returns {void}
  */
 export default function searchResultsPage(request, reply) {
-	const wikiDomain = getCachedWikiDomainName(localSettings, request);
-
-	debugger
 }

@@ -68,7 +68,7 @@ Router.map(function () {
 	});
 
 	this.route('searchResults', {
-		path: '/search/*query'
+		path: '/search'
 	});
 
 	this.route('wiki-page', {
