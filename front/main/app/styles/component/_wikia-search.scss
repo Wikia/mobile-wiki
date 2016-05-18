@@ -44,6 +44,11 @@
 		}
 	}
 
+	.wikia-search__search-icon {
+		svg {
+			fill: $iron;
+		}
+	}
 	.wikia-search__clear {
 		//divide by 2 to accommodate for width
 		//and again by 2 as padding is on left and right
