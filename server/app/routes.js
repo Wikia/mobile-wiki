@@ -8,6 +8,7 @@ import discussionsHandler from './facets/show-discussions';
 import mediaWikiPageHandler from './facets/mediawiki-page';
 import logoutHandler from './facets/auth/logout';
 import articlePreview from './facets/article-preview';
+import searchResults from './facets/search-results';
 import joinHandler from './facets/auth/join';
 import {validateRedirect} from './facets/auth/auth-view';
 import registerHandler from './facets/auth/register';
@@ -83,6 +84,11 @@ let routes,
 			method: 'GET',
 			path: '/logout',
 			handler: logoutHandler
+		},
+		{
+			method: 'GET',
+			path: '/search',
+			handler: searchResults
 		}
 	],
 	// routes where we want to know the user's auth status

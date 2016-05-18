@@ -213,6 +213,10 @@ export default Route.extend(
 			 */
 			toggleDrawer(visible) {
 				this.get('controller').set('drawerVisible', visible);
+			},
+
+			goToSeachResults(query) {
+				this.transitionTo('searchResults', query);
 			}
 		},
 

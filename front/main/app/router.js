@@ -67,6 +67,10 @@ Router.map(function () {
 		path: '/diff/:oldId/:newId'
 	});
 
+	this.route('searchResults', {
+		path: '/search/*query'
+	});
+
 	this.route('wiki-page', {
 		path: '/wiki/*title'
 	});

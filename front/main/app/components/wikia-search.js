@@ -61,7 +61,8 @@ export default Ember.Component.extend(
 					category: 'side-nav',
 					label: 'search-open-special-search'
 				});
-				window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${value}&fulltext=Search`);
+				this.get('closeDrawer')();
+				this.sendAction('goToSeachResults', value);
 			},
 
 			clearSearch() {
