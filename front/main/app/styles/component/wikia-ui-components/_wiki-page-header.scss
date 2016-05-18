@@ -1,8 +1,10 @@
 // disable portable infobox hero image and title
-
-.pi-hero,
-.pi-title {
-	display: none !important;
+// @todo XW-1478 Remove the rule below when the first title/hero image of the first infobox is removed from markup.
+.article-content .portable-infobox:first-child {
+	.pi-hero,
+	.pi-title:first-child {
+		display: none;
+	}
 }
 
 // component
