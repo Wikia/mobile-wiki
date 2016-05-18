@@ -165,7 +165,9 @@ const localSettings = {
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
-		path: '/auth'
+		localUrl: 'http://prod.helios.service.consul:9500/',
+		path: '/auth',
+		timeout: 3000
 	},
 	userRegistationService: {
 		path: '/user-registration',
