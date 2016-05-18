@@ -255,6 +255,13 @@ authenticatedRoutes.push({
 	handler: discussionsHandler
 });
 
+authenticatedRoutes.push({
+	// Discussion main page
+	method: 'GET',
+	path: '/d/f',
+	handler: discussionsHandler
+});
+
 /**
  * @param {*} route
  * @returns {*}
