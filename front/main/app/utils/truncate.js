@@ -3,7 +3,7 @@
  * @param {Number} maxLength
  * @returns {string}
  */
-export default function (text, maxLength = 48) {
+export function truncate(text, maxLength = 48) {
 	const ellipsisCharacter = '\u2026';
 
 	let truncatedString,
@@ -28,3 +28,12 @@ export default function (text, maxLength = 48) {
 	return truncatedString.substr(0, lastWhiteSpacePos) + ellipsisCharacter;
 }
 
+/**
+ * @desc Provides information about whether it is need to use truncation hack as a cover fort the line-clamp css
+ * property. Method returns true only in Firefox and in IE, because in other browsers 'line-clamp' css property works.
+ *
+ * @returns {Boolean}
+ */
+export function shouldUseTruncationHack() {
+	return (/Firefox|Trident|Edge/).test(navigator.userAgent);
+}
