@@ -36,6 +36,7 @@ $site-head-box-shadow-color: rgba(0, 0, 0, 0.15);
 	text-align: center;
 	transition: box-shadow 0.5s;
 	top: 0;
+	width: 100%;
 	z-index: $z-site-head;
 
 	.site-head-icon-nav {
