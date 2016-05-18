@@ -47,14 +47,10 @@ export default Ember.Component.extend(
 					this.handleTables();
 					// TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
 					this.handleNavigation();
-					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
-					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 					this.bindHeaderClicks();
-
-					Ember.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
 				} else {
 					this.hackIntoEmberRendering(`<p>${i18n.t('app.article-empty-label')}</p>`);
 				}
@@ -364,98 +360,6 @@ export default Ember.Component.extend(
 			}
 
 			componentElement.trigger('didInsertElement');
-		},
-
-		newFromMedia(media) {
-			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
-				return this.createComponentInstance('infobox-image-media');
-			} else if (Ember.isArray(media)) {
-				if (media.some((media) => Boolean(media.link))) {
-					return this.createComponentInstance('linked-gallery-media');
-				} else {
-					return this.createComponentInstance('gallery-media');
-				}
-			} else if (media.type === 'video') {
-				return this.createComponentInstance('video-media');
-			} else {
-				return this.createComponentInstance('image-media');
-			}
-		},
-
-		/**
-		 * @param {HTMLElement} element
-		 * @param {ArticleModel} model
-		 * @returns {JQuery}
-		 */
-		createMediaComponent(element, model) {
-			const ref = parseInt(element.dataset.ref, 10),
-				media = model.find(ref),
-				component = this.newFromMedia(media);
-
-			let componentElement;
-
-			component.setProperties({
-				ref,
-				width: parseInt(element.getAttribute('width'), 10),
-				height: parseInt(element.getAttribute('height'), 10),
-				imgWidth: element.offsetWidth,
-				media
-			});
-
-			componentElement = this.createChildView(component).createElement();
-
-			return componentElement.$().attr('data-ref', ref);
-		},
-
-		/**
-		 * @param {ArticleModel} model
-		 * @param {number} [numberToProcess=-1]
-		 * @returns {void}
-		 */
-		replaceMediaPlaceholdersWithMediaComponents(model, numberToProcess = -1) {
-			const $mediaPlaceholders = this.$('.article-media:not([data-component])');
-
-			if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {
-				numberToProcess = $mediaPlaceholders.length;
-			}
-
-			for (let index = 0; index < numberToProcess; index++) {
-				$mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
-			}
-		},
-
-		/**
-		 * @param {ArticleMedia} model
-		 * @returns {void}
-		 */
-		replaceImageCollectionPlaceholdersWithComponents(model) {
-			const $placeholders = this.$('.pi-image-collection:not([data-component])'),
-				articleMedia = model.get('media'),
-				numberToProcess = $placeholders.length,
-				getCollectionMediaFromRefs = (ref) => {
-					const image = model.find(ref);
-
-					image.ref = articleMedia.length;
-					return image;
-				};
-
-			for (let index = 0; index < numberToProcess; index++) {
-				const $element = $placeholders.eq(index),
-					refs = $element.data('refs')
-						.split(',')
-						.compact()
-						.filter((ref) => ref.length > 0),
-					collectionMedia = refs.map(getCollectionMediaFromRefs),
-					component = this.createChildView(InfoboxImageCollectionComponent, {
-						media: collectionMedia
-					}).createElement();
-
-				$element.replaceWith(component.$());
-
-				articleMedia.push(collectionMedia);
-			}
-
-			model.set('media', articleMedia);
 		},
 
 		/**
