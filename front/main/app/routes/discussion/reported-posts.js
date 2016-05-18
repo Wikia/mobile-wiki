@@ -15,11 +15,9 @@ export default DiscussionBaseRoute.extend(
 		discussionSort: Ember.inject.service(),
 
 		/**
-		 * @param {object} params
-		 *
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		model(params) {
+		model() {
 			const discussionSort = this.get('discussionSort');
 
 			discussionSort.setOnlyReported(true);
@@ -29,10 +27,9 @@ export default DiscussionBaseRoute.extend(
 		},
 
 		/**
-		 * @param {string} sortBy
 		 * @returns {EmberStates.Transition}
 		 */
-		setSortBy(sortBy) {
+		setSortBy() {
 			return this.transitionTo('discussion.reported-posts');
 		},
 
