@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import InfoboxImageCollectionComponent from './infobox-image-collection';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {track, trackActions} from 'common/utils/track';
