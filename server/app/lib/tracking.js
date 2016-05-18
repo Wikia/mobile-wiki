@@ -60,6 +60,7 @@ export const Comscore = {
 			tracking.nielsen.section = vertical;
 			tracking.nielsen.dbName = dbName;
 			tracking.nielsen.enabled = config.enabled;
+			tracking.nielsen.apid = config.apid;
 		}
 	};
 
