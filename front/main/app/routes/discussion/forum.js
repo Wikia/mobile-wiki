@@ -33,9 +33,7 @@ export default DiscussionBaseRoute.extend(
 
 			discussionSort.setOnlyReported(false);
 
-			this.set('forumId', params.forumId);
-
-			return DiscussionForumModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
+			return DiscussionForumModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy'));
 		},
 
 		/**
