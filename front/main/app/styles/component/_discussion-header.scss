@@ -3,23 +3,28 @@ $discussion-header-color-text: #fff;
 $discussion-header-mobile-max-width: 205px;
 $site-header-height: 50px;
 
+.discussion-header-wrapper {
+	height: $discussion-header-height;
+
+	&.discussion-headroom-un-pinned .discussion-header {
+		margin-top: 0;
+	}
+}
+
+.discussion-header-margin .discussion-header {
+	margin-top: $site-head-height;
+}
+
 .discussion-header {
 	color: $discussion-header-color-text;
-	margin-top: $site-header-height;
+	height: $discussion-header-height;
+	margin-top: $site-head-with-fandom-bar-height;
 	max-width: inherit;
+	padding-left: 15px;
 	position: fixed;
 	top: 0;
 	width: 100%;
 	z-index: $z-6; // drop-downs from under the top-bar component (which is $z-7)
-
-	&.discussion-headroom-un-pinned {
-		margin-top: 0;
-	}
-
-	.header {
-		height: $discussion-header-height;
-		padding-left: 15px;
-	}
 
 	h1 {
 		color: $discussion-header-color-text;
@@ -117,7 +122,7 @@ $site-header-height: 50px;
 }
 
 .discussions {
-	.side-nav .side-nav-menu {
+	.side-nav-drawer {
 		@media #{$desktop-range} {
 			width: 25%;
 			max-width: 350px;
@@ -132,12 +137,11 @@ $site-header-height: 50px;
 	.site-head {
 		max-width: 100%;
 	}
+
 	.discussion-headroom-not-top,
 	.discussion-headroom-top {
-		transition: transform .5s, margin .5s;
+		.discussion-header {
+			transition: transform .5s, margin .5s;
+		}
 	}
-}
-
-.smart-banner-visible .discussion-headroom-top {
-	margin-top: rem-calc($site-header-height) + $smart-banner-android-height;
 }

@@ -10,19 +10,6 @@ export default Ember.Mixin.create({
 	totalPosts: 0,
 
 	/**
-	 * @param {error} err
-	 *
-	 * @returns {void}
-	 */
-	onCreatePostError(err) {
-		if (err.status === 401) {
-			this.setFailedState('editor.post-error-not-authorized');
-		} else {
-			this.setFailedState('editor.post-error-general-error');
-		}
-	},
-
-	/**
 	 * @param {string} sortBy
 	 *
 	 * @returns {string}

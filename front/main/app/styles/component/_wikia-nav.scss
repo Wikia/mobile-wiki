@@ -1,0 +1,74 @@
+$nav-avatar-border: 2px;
+$nav-avatar-border-radius: 50%;
+$nav-avatar-margin: 10px;
+$nav-avatar-size: 30px;
+$nav-back-arrow-padding: 68px;
+$nav-background-color: #636b76;
+$nav-font-size: 16px;
+$nav-line-height: 30px;
+$nav-local-background-color: #4F5863;
+$nav-logout-color: #d7d9dc;
+$nav-padding-horizontal: 9px;
+$nav-padding-vertical: 18px;
+
+.wikia-nav {
+	overflow: auto;
+}
+
+.wikia-nav__header {
+	@include wikia-nav-link-button(inherit);
+
+	background-color: $nav-background-color;
+	color: inherit;
+	display: block;
+	flex-grow: 0;
+	flex-shrink: 0;
+	font-size: $nav-font-size;
+	line-height: $nav-line-height;
+	margin-top: 0;
+	overflow: hidden;
+	padding: $nav-padding-horizontal $nav-padding-vertical;
+	position: relative;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
+	&.wikia-nav__back {
+		background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20transform%3D%22translate%28-18.000000%2C%20-12.000000%29%22%3E%3Cg%20transform%3D%22translate%2818.000000%2C%2012.000000%29%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%2224%22%20height%3D%2224%22%3E%3C%2Frect%3E%3Cpath%20d%3D%22M22%2C12.000125%20C22%2C11.4481336%2021.5936133%2C11.0001406%2021.0908574%2C11.0001406%20L5.10267629%2C11.0001406%20L9.91476788%2C5.70722332%20C10.2702426%2C5.31622943%2010.2702426%2C4.68423931%209.91476788%2C4.29324542%20C9.55929314%2C3.90225153%208.98471504%2C3.90225153%208.6292403%2C4.29324542%20L2.26615149%2C11.2921361%20C2.18160123%2C11.3851346%202.11523382%2C11.4951329%202.06886755%2C11.618131%20C1.97704415%2C11.8621272%201.97704415%2C12.1381228%202.06886755%2C12.382119%20C2.11523382%2C12.5051171%202.18160123%2C12.6151154%202.26615149%2C12.7081139%20L8.6292403%2C19.7070046%20C8.8065231%2C19.9020015%209.03926359%2C20%209.27200409%2C20%20C9.50474459%2C20%209.73748508%2C19.9020015%209.91476788%2C19.7070046%20C10.2702426%2C19.3160107%2010.2702426%2C18.6840206%209.91476788%2C18.2930267%20L5.10267629%2C13.0001094%20L21.0908574%2C13.0001094%20C21.5936133%2C13.0001094%2022%2C12.5521164%2022%2C12.000125%22%20fill%3D%22%23FFFFFF%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E); // /front/svg/embedded/side-nav/back.svg
+		background-position: left $nav-padding-vertical center;
+		background-repeat: no-repeat;
+		padding-left: $nav-back-arrow-padding;
+	}
+
+	.wikia-nav__avatar {
+		float: left;
+		margin-right: $nav-avatar-margin;
+
+		img {
+			border: $nav-avatar-border solid $white;
+			border-radius: $nav-avatar-border-radius;
+			height: $nav-avatar-size;
+			width: $nav-avatar-size;
+			vertical-align: top;
+		}
+	}
+
+	.wikia-nav--login {
+		background: #fff;
+		border: $nav-avatar-border solid #fff;
+		border-radius: $nav-avatar-border-radius;
+		height: $nav-avatar-size;
+		width: $nav-avatar-size;
+		vertical-align: top;
+	}
+
+	.wikia-nav--logout {
+		color: $nav-logout-color;
+		float: right;
+	}
+}
+
+.wikia-nav--in-root {
+	background-color: $nav-local-background-color;
+	flex-grow: 1;
+	height: inherit;
+}

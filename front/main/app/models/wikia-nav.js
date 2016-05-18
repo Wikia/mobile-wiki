@@ -7,6 +7,7 @@ export default Object.extend({
 	localLinks: get(Mercury, 'wiki.navigation2016.localNav'),
 	exploreWikiaLinks: get(Mercury, 'wiki.navigation2016.exploreWikiaMenu'),
 	exploreWikiaLabel: get(Mercury, 'wiki.navigation2016.exploreWikia.textEscaped'),
+	discussionsEnabled: get(Mercury, 'wiki.enableDiscussions'),
 	wikiName: get(Mercury, 'wiki.siteName'),
 	wikiLang: get(Mercury, 'wiki.language.content'),
 
@@ -57,12 +58,13 @@ export default Object.extend({
 
 	// keep it sync with navigation order
 	items: computed('exploreItems', 'globalItems', 'exploreSubMenuItem', 'localNavHeaderItem',
-		'recentActivityItem', 'localItems', 'randomPageItem', function () {
+		'discussionItem', 'recentActivityItem', 'localItems', 'randomPageItem', function () {
 			return [
 				...this.get('exploreItems'),
 				...this.get('globalItems'),
 				...this.get('exploreSubMenuItem'),
 				...this.get('localNavHeaderItem'),
+				...this.get('discussionItem'),
 				...this.get('recentActivityItem'),
 				...this.get('localItems'),
 				...this.get('randomPageItem')
@@ -73,7 +75,7 @@ export default Object.extend({
 		return this.get('inExploreNav') &&
 			this.get('exploreWikiaLinks').map((item) => {
 				return {
-					type: 'side-nav-menu-external',
+					type: 'nav-menu-external',
 					href: item.href,
 					name: item.textEscaped,
 					trackLabel: `open-${item.trackingLabel}`
@@ -86,8 +88,8 @@ export default Object.extend({
 			this.get('wikiLang') === 'en' &&
 			this.get('hubsLinks').map((item) => {
 				return {
-					type: 'side-nav-menu-external',
-					className: item.specialAttr,
+					type: 'nav-menu-external',
+					className: `nav-menu--external nav-menu--${item.specialAttr}`,
 					href: item.href,
 					name: item.textEscaped,
 					trackLabel: `open-hub-${item.specialAttr}`
@@ -99,7 +101,8 @@ export default Object.extend({
 		return this.get('inRoot') &&
 			this.get('exploreWikiaLinks.length') &&
 			[{
-				type: 'side-nav-menu-root',
+				type: 'nav-menu-root',
+				className: 'nav-menu--explore',
 				index: 0,
 				name: this.get('exploreWikiaLabel'),
 				trackLabel: 'open-explore-wikia'
@@ -110,15 +113,27 @@ export default Object.extend({
 		return this.get('inRoot') &&
 			this.get('wikiName') &&
 			[{
-				type: 'side-nav-menu-header',
+				type: 'nav-menu-header',
 				name: i18n.t('app.explore-wiki', {wikiName: this.get('wikiName')})
+			}] || [];
+	}),
+
+	discussionItem: computed('inRoot', 'discussionsEnabled', function () {
+		return this.get('inRoot') &&
+			this.get('discussionsEnabled') &&
+			[{
+				type: 'nav-menu-item',
+				route: 'discussion',
+				name: i18n.t('main.discussions-header-title', {ns: 'discussion'}),
+				trackCategory: 'discussion',
+				trackLabel: 'local-nav'
 			}] || [];
 	}),
 
 	recentActivityItem: computed('inRoot', function () {
 		return this.get('inRoot') &&
 			[{
-				type: 'side-nav-menu-item',
+				type: 'nav-menu-item',
 				route: 'recent-wiki-activity',
 				name: i18n.t('main.title', {ns: 'recent-wiki-activity'}),
 				trackCategory: 'recent-wiki-activity',
@@ -130,7 +145,7 @@ export default Object.extend({
 		return !this.get('inExploreNav') &&
 			this.get('currentLocalLinks').map((item, index) => {
 				return {
-					type: item.children ? 'side-nav-menu-root' : 'side-nav-menu-item',
+					type: item.children ? 'nav-menu-root' : 'nav-menu-item',
 					href: item.href.replace(/^(\/wiki)?\//i, ''),
 					route: 'wiki-page',
 					name: item.text,
@@ -143,7 +158,7 @@ export default Object.extend({
 	randomPageItem: computed('inRoot', function () {
 		return this.get('inRoot') &&
 			[{
-				type: 'side-nav-menu-item',
+				type: 'nav-menu-item',
 				name: i18n.t('app.random-page-label'),
 				trackLabel: 'random-page',
 				actionId: 'onRandomPageClick'

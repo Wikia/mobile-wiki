@@ -1,6 +1,7 @@
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
+import DiscussionContributionModelMixin from '../../mixins/discussion-contribution-model';
 import DiscussionContributors from './domain/contributors';
 import DiscussionEntities from './domain/entities';
 import request from 'ember-ajax/request';
@@ -8,6 +9,7 @@ import request from 'ember-ajax/request';
 const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
+	DiscussionContributionModelMixin,
 	{
 		/**
 		 * @param {number} [pageNum=0]
