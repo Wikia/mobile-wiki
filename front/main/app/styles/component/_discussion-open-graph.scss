@@ -33,34 +33,31 @@
 	}
 
 	.is-loading {
-		height: 70px;
+		height: 60px;
 
-		.og-image {
-			background-color: $dark-discussion-open-graph-placeholder-background-color;
+		.og-image-placeholder {
+			background-color: $discussion-open-graph-placeholder-background-color;
 			display: block;
+			height: 100%;
 			width: 35%;
 		}
 
-		.og-texts {
+		.og-texts-placeholder {
+			height: 100%;
 			margin: 0;
-			padding: 5px;
+			padding: 12px;
 			width: 65%;
+		}
 
-			.og-title-placeholder,
-			.og-sitename-placeholder {
-				background-color: $discussion-open-graph-title-color;
-				height: $line-height-smallest;
-				margin-bottom: 5px;
+		.og-text-placeholder {
+			background-color: $discussion-open-graph-placeholder-background-color;
+			display: block;
+			height: 9px;
+			margin-bottom: 4px;
+			width: 100%;
+
+			&:last-child {
 				width: 50%;
-			}
-
-			.og-sitename-placeholder {
-				background-color: $discussion-open-graph-domain-color;
-				width: 100%;
-
-				&:last-child {
-					width: 50%;
-				}
 			}
 		}
 	}
@@ -211,6 +208,19 @@
 		.no-image-card-desktop {
 			.og-image {
 				display: none;
+			}
+		}
+
+		.is-loading {
+			height: 86px;
+
+			.og-texts-placeholder {
+				padding: 17px;
+			}
+
+			.og-text-placeholder {
+				height: 12px;
+				margin-bottom: 7px;
 			}
 		}
 

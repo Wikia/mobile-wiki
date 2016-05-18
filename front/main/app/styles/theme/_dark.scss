@@ -341,19 +341,12 @@ body.dark-theme {
 				background-color: transparent;
 			}
 
-			.og-image {
+			.og-image-placeholder {
 				background-color: $dark-discussion-open-graph-placeholder-background-color;
 			}
 
-			.og-texts {
-				.og-title-placeholder,
-				.og-sitename-placeholder {
-					background-color: $dark-discussion-open-graph-title-color;
-				}
-
-				.og-sitename-placeholder {
-					background-color: $dark-discussion-open-graph-domain-color;
-				}
+			.og-text-placeholder {
+				background-color: $dark-discussion-open-graph-placeholder-background-color;
 			}
 		}
 	}
