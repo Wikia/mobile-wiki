@@ -248,7 +248,7 @@ const localSettings = {
 			countries: []
 		},
 		nielsen: {
-			apid: 'P26086A07-C7FB-4124-A679-8AC404198BA7',
+			apid: 'FIXME',
 			dbName: '',
 			section: '',
 			enabled: false
