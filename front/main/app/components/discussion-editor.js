@@ -203,14 +203,6 @@ export default Ember.Component.extend(ViewportMixin, {
 	},
 
 	/**
-	 * Ultra hack for editor on iOS
-	 * iOS is scrolling on textarea focus, changing it's size on focus prevent that
-	 *
-	 * @returns {void}
-	 */
-	handleIOSFocus() {},
-
-	/**
 	 * Check if user is using iOS browser
 	 *
 	 * @returns {boolean}
@@ -278,7 +270,6 @@ export default Ember.Component.extend(ViewportMixin, {
 	didInsertElement() {
 		this._super(...arguments);
 		this.initializePasting();
-		this.handleIOSFocus();
 		this.initializeStickyState();
 		this.initializeSizing();
 	},
@@ -301,7 +292,8 @@ export default Ember.Component.extend(ViewportMixin, {
 
 		let pastedText;
 
-		if (clipboardData && clipboardData.getData && Array.from(clipboardData.types).indexOf(textType) !== -1) {
+		if (clipboardData && clipboardData.getData &&
+			Array.prototype.slice.call(clipboardData.types).indexOf(textType) !== -1) {
 			pastedText = clipboardData.getData(textType);
 		}
 
