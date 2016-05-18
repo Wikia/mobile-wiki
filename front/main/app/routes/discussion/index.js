@@ -7,6 +7,6 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	beforeModel() {
-		this.transitionTo('discussion.forum', this.get('discussionSort.sortBy'));
+		this.transitionTo('discussion.forum', {queryParams: {sort: this.get('discussionSort.sortBy')}});
 	},
 });

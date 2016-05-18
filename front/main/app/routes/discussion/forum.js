@@ -14,6 +14,12 @@ export default DiscussionBaseRoute.extend(
 	DiscussionForumActionsRouteMixin,
 	DiscussionModalDialogMixin,
 	{
+		queryParams: {
+			sort: {
+				refreshModel: true
+			}
+		},
+
 		canModerate: null,
 		discussionSort: inject.service(),
 		discussionEditor: inject.service(),
@@ -25,8 +31,8 @@ export default DiscussionBaseRoute.extend(
 		model(params) {
 			const discussionSort = this.get('discussionSort');
 
-			if (params.sortBy) {
-				discussionSort.setSortBy(params.sortBy);
+			if (params.sort) {
+				discussionSort.setSortBy(params.sort);
 			}
 
 			discussionSort.setOnlyReported(false);
@@ -40,7 +46,7 @@ export default DiscussionBaseRoute.extend(
 		 */
 		setSortBy(sortBy) {
 			this.get('discussionSort').setSortBy(sortBy);
-			return this.transitionTo('discussion.forum', sortBy);
+			return this.transitionTo('discussion.forum', {queryParams: {sort: sortBy}});
 		},
 
 		actions: {

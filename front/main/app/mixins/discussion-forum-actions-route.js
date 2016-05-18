@@ -25,7 +25,7 @@ export default Ember.Mixin.create(
 					targetRoute = 'discussion.reported-posts';
 				}
 
-				return this.transitionTo(targetRoute, sortBy);
+				return this.transitionTo(targetRoute, {queryParams: {sort: sortBy}});
 			},
 
 			/**

@@ -15,22 +15,6 @@ export default DiscussionBaseRoute.extend(
 		discussionSort: Ember.inject.service(),
 
 		/**
-		 * Redirect to 'latest' if any other (yet) unsupported sort called
-		 *
-		 * @param {EmberStates.Transition} transition
-		 *
-		 * @returns {void}
-		 */
-		beforeModel(transition) {
-			const routeParams = transition.params['discussion.reported-posts'],
-				sortBy = routeParams.sortBy;
-
-			if (sortBy !== 'latest') {
-				this.setSortBy('latest');
-			}
-		},
-
-		/**
 		 * @param {object} params
 		 *
 		 * @returns {Ember.RSVP.Promise}
@@ -38,11 +22,8 @@ export default DiscussionBaseRoute.extend(
 		model(params) {
 			const discussionSort = this.get('discussionSort');
 
-			if (params.sortBy !== discussionSort.get('sortBy')) {
-				discussionSort.setSortBy(params.sortBy);
-			}
-
 			discussionSort.setOnlyReported(true);
+			discussionSort.setSortBy('latest');
 
 			return DiscussionReportedPostsModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy'));
 		},
@@ -52,8 +33,7 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {EmberStates.Transition}
 		 */
 		setSortBy(sortBy) {
-			this.get('discussionSort').setSortBy(sortBy);
-			return this.transitionTo('discussion.reported-posts', sortBy);
+			return this.transitionTo('discussion.reported-posts');
 		},
 
 		actions: {
@@ -74,7 +54,7 @@ export default DiscussionBaseRoute.extend(
 			 */
 			create(postData) {
 				this.get('discussionSort').setSortBy('latest');
-				this.transitionTo('discussion.forum', 'latest').promise.then(() => {
+				this.transitionTo('discussion.forum', {queryParams: {sort: 'latest'}}).promise.then(() => {
 					const model = this.modelFor(this.get('routeName'));
 
 					model.createPost(postData).then((data) => {
