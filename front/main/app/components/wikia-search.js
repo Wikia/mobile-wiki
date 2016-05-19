@@ -61,6 +61,8 @@ export default Ember.Component.extend(
 					category: 'side-nav',
 					label: 'search-open-special-search'
 				});
+
+				this.setEmptySearchSuggestionItems();
 				this.get('searchEnterAction')(value);
 				this.sendAction('goToSeachResults', value);
 			},

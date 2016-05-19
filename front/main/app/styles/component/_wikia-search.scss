@@ -31,6 +31,7 @@
 			border: 0;
 			box-shadow: none;
 			color: $oil;
+			display: inline-block;
 			font: inherit;
 			font-size: $input-font-size;
 			height: $search-line-height;
@@ -45,6 +46,9 @@
 	}
 
 	.wikia-search__search-icon {
+		display: inline-block;
+		width: 18px;
+
 		svg {
 			fill: $iron;
 		}
