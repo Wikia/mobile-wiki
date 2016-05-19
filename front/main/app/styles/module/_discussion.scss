@@ -147,6 +147,29 @@ body.discussions {
 		}
 	}
 
+	.post-counters {
+		color: $discussion-actions-color;
+		font-size: rem-calc(12);
+		line-height: rem-calc(14);
+		padding-bottom: 15px;
+		text-align: right;
+
+		.icon {
+			&.upvote,
+			&.replies {
+				height: 14px;
+				width: 14px;
+			}
+
+			&.replies {
+				margin-left: 6px;
+				width: 18px;
+			}
+
+			margin-right: 2px;
+		}
+	}
+
 	.action {
 		color: $discussion-count-color;
 		font-size: $type-min;

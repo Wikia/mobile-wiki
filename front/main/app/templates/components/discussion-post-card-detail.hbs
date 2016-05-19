@@ -60,6 +60,12 @@
 		isListView=true
 	}}
 {{/if}}
+<div class="row post-counters">
+	{{svg 'upvote' viewBox='0 0 30 30' class='icon upvote'}}
+	{{post.upvoteCount}}
+	{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
+	{{replyCount}}
+</div>
 <div class="row">
 	{{discussion-upvote-post
 		post=post
