@@ -15,11 +15,6 @@ export default function showDiscussions(request, reply) {
 		wikiVariables = new WikiRequest({wikiDomain}).wikiVariables(),
 		context = {};
 
-	if (request.params.type === 'f' && request.params.id) {
-		// Make sure old discussion URLs are redirected to discussion main page
-		return reply.redirect('/d/f').permanent(true);
-	}
-
 	wikiVariables.then((variables) => {
 		if (!variables.enableDiscussions) {
 			return reply('Not Found').code(404);

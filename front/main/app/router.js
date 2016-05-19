@@ -87,7 +87,7 @@ Router.map(function () {
 		});
 
 		this.route('reported-posts', {
-			path: '/f/reported'
+			path: '/reported'
 		});
 
 		this.route('post', {

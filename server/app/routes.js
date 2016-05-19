@@ -242,9 +242,25 @@ mediaWikiPagePaths.forEach((path) => {
 // For application routes that are not articles and require the Ember app, push a route object
 // that uses the `showApplication` route handler to get a basic Ember application instance
 authenticatedRoutes.push({
-	// Discussion forums
+	// Discussion user page and post details page
 	method: 'GET',
 	path: '/d/{type}/{id}/{action*}',
+	handler: discussionsHandler
+});
+
+authenticatedRoutes.push({
+	// Make sure old discussion URLs are redirected to discussion main page
+	method: 'GET',
+	path: '/d/f/{id}',
+	handler(request, reply) {
+		return reply.redirect('/d/f').permanent(true);
+	},
+});
+
+authenticatedRoutes.push({
+	// Discussion main page and list of reported posts
+	method: 'GET',
+	path: '/d/{type}',
 	handler: discussionsHandler
 });
 
@@ -252,13 +268,6 @@ authenticatedRoutes.push({
 	// Discussion index
 	method: 'GET',
 	path: '/d',
-	handler: discussionsHandler
-});
-
-authenticatedRoutes.push({
-	// Discussion main page
-	method: 'GET',
-	path: '/d/f',
 	handler: discussionsHandler
 });
 
