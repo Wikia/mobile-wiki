@@ -1,3 +1,18 @@
+@keyframes og-loading {
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.2;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+
 .discussions {
 	// -- theme --
 	.discussion-editor {
@@ -33,6 +48,8 @@
 	}
 
 	.is-loading {
+		animation-duration: 1s;
+		animation-name: og-loading;
 		height: 60px;
 
 		.og-image-placeholder {
