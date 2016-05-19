@@ -97,6 +97,7 @@ export default DiscussionEditorComponent.extend({
 		const discussionEntity = this.get('discussionEditor.discussionEntity');
 
 		this._super();
+
 		this.setProperties({
 			bodyText: discussionEntity.get('rawContent'),
 			openGraph: discussionEntity.get('openGraph'),
@@ -108,6 +109,12 @@ export default DiscussionEditorComponent.extend({
 			this.$('.editor-textarea').get(0).setSelectionRange(0, 0);
 			this.set('wasInitialized', true);
 		});
+	},
+
+	afterCloseActions() {
+		this._super();
+
+		this.set('wasInitialized', false);
 	},
 
 	actions: {
