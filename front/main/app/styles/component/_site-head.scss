@@ -3,13 +3,14 @@ $nav-container-padding: 6px;
 $icon-size: 25px;
 $site-head-box-shadow-color: rgba(0, 0, 0, 0.15);
 $icon-button-size: 48px;
+$site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 
 .site-body {
 	margin-top: $icon-site-head-width;
 }
 
 .site-head-headroom-un-pinned .site-head {
-	box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
+	box-shadow: $site-head-default-box-shadow;
 }
 
 .site-head-container {

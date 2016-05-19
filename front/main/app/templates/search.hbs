@@ -1,11 +1,13 @@
-{{wikia-search
-	searchEnterAction=(action 'onSearchEnter')
-	suggestionClickAction=(action 'onSuggestionClick')
-}}
+{{#ember-wormhole to="site-head-sub-header"}}
+	{{wikia-search
+		searchEnterAction=(action 'onSearchEnter')
+		suggestionClickAction=(action 'onSuggestionClick')
+	}}
+{{/ember-wormhole}}
 <div class="search-results">
-	<div class="search-results__total">About {{model.totalItems}} results for
-		<strong>{{model.query}}</strong></div>
-
+	<div class="search-results__total">
+		About {{model.totalItems}} results for <strong>{{model.query}}</strong>
+	</div>
 	<ul class="search-results__list">
 		{{#each model.items as |item|}}
 			{{#wikia-ui-components/wikia-card}}

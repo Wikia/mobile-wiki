@@ -1,5 +1,15 @@
+$search-results-box-shadow-color: rgba(0, 0, 0, 0.3);
+
 .wikia-search {
-	overflow: auto;
+	border-top: 1px solid $vapor;
+	position: fixed;
+	transition: box-shadow 0.5s;
+	width: 100%;
+	z-index: $z-8;
+}
+
+.site-head-headroom-un-pinned .wikia-search {
+	box-shadow: $site-head-default-box-shadow;
 }
 
 .wikia-search__item {
@@ -65,16 +75,15 @@
 }
 
 .wikia-search__results {
-	$result-font-size: 14px;
-
 	background-color: $vapor;
+	box-shadow: 0 8px 12px 0 $search-results-box-shadow-color;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 
 	.wikia-search__search-result {
 	  color: $oil;
-	  font-size: $result-font-size;
+	  font-size: $type-smallest;
 	  padding: $nav-padding-horizontal $nav-padding-vertical 0 $nav-padding-vertical;
 
 	  a {
@@ -83,6 +92,7 @@
 			width: 100%;
 		}
 	}
+
 	.wikia-search__loading {
 		text-align: center;
 	}
