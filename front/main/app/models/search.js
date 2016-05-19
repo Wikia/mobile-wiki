@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
 
-const {Object, computed} = Ember;
+const {Object, computed, A} = Ember;
 
 export default Object.extend({
 	query: '',
@@ -9,7 +9,7 @@ export default Object.extend({
 
 	totalItems: 0,
 	totalBatches: 0,
-	items: Ember.A([]),
+	items: A([]),
 
 	canLoadMore: computed('batch', 'totalBatches', function() {
 		return this.get('batch') <= this.get('totalBatches');
@@ -18,7 +18,7 @@ export default Object.extend({
 	search(query) {
 		this.set('batch', 1);
 		this.set('query', query);
-		this.set('items', Ember.A([]));
+		this.set('items', A([]));
 
 		this.call(query);
 	},

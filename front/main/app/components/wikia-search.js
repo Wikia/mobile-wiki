@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 
+const {Component, computed, observer, inject, get, run} = Ember;
+
 /**
  * Type for search suggestion
  * Title is returned by node-side search API
@@ -10,11 +12,10 @@ import {track, trackActions} from 'common/utils/track';
  * @property {string} title
  * @property {string} [uri]
  */
-
-export default Ember.Component.extend(
+export default Component.extend(
 	{
 		classNames: ['wikia-search'],
-		ajax: Ember.inject.service(),
+		ajax: inject.service(),
 		query: '',
 
 		/**
@@ -36,7 +37,7 @@ export default Ember.Component.extend(
 		cachedResultsLimit: 100,
 		queryMinimalLength: 3,
 
-		searchPlaceholderLabel: Ember.computed(() => {
+		searchPlaceholderLabel: computed(() => {
 			return i18n.t('app.search-label');
 		}),
 
@@ -85,7 +86,7 @@ export default Ember.Component.extend(
 		/**
 		 * Wrapper for query observer that also checks the cache
 		 */
-		search: Ember.observer('query', function () {
+		search: observer('query', function () {
 			const query = this.get('query');
 
 			let cached;
@@ -109,7 +110,7 @@ export default Ember.Component.extend(
 				}
 			} else {
 				this.set('isLoadingSearchResults', true);
-				Ember.run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
+				run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
 			}
 		}),
 

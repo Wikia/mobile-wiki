@@ -1,7 +1,9 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
-	application: Ember.inject.controller(),
+const {Controller, inject} = Ember;
+
+export default Controller.extend({
+	application: inject.controller(),
 	queryParams: ['query'],
 	resultsCount: 50,
 

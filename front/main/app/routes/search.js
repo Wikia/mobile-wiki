@@ -2,7 +2,9 @@ import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 import SearchModel from '../models/search';
 
-export default Ember.Route.extend({
+const {Route} = Ember;
+
+export default Route.extend({
 
 	model(params) {
 		const model = new SearchModel();
