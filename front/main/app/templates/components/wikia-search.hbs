@@ -1,8 +1,11 @@
 <div class="wikia-search__item search">
-	<div class="wikia-search__container">
-		<div class="wikia-search__search-icon">
-			{{svg 'search' viewBox='0 0 18 18' class='icon'}}
-		</div>
+	<div class="wikia-search__container {{if emptyQueryInput 'empty'}}">
+		{{wikia-ui-components/icon-button
+			class='wikia-search__search-icon'
+			click=(action 'clearSearch')
+			icon='search'
+			iconSize=18
+		}}
 		{{input
 			class='side-search__input'
 			tabindex='-1'
@@ -11,9 +14,12 @@
 			enter='enter'
 			type='search'
 		}}
-		<div class='wikia-search__clear' {{action 'clearSearch'}}>
-			{{svg 'side-nav-search-clear' viewBox='0 0 18 18' class='icon'}}
-		</div>
+		{{wikia-ui-components/icon-button
+			class='wikia-search__clear'
+			click=(action 'clearSearch')
+			icon='side-nav-search-clear'
+			iconSize=18
+		}}
 	</div>
 </div>
 <ul class="wikia-search__results">

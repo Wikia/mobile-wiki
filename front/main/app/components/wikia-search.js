@@ -17,6 +17,7 @@ export default Component.extend(
 		classNames: ['wikia-search'],
 		ajax: inject.service(),
 		query: '',
+		emptyQueryInput: computed.not('query'),
 
 		/**
 		 * This is what's currently displayed in the search results

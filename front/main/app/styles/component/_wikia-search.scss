@@ -1,4 +1,6 @@
 $search-results-box-shadow-color: rgba(0, 0, 0, 0.3);
+$search-line-height: 48px;
+$search-input-font-size: 16px;
 
 .wikia-search {
 	border-top: 1px solid $vapor;
@@ -15,13 +17,6 @@ $search-results-box-shadow-color: rgba(0, 0, 0, 0.3);
 .wikia-search__item {
 	@include wikia-nav-link-button(inherit);
 
-	$input-container-background: $white;
-	$input-font-size: 16px;
-	$input-width: calc(100% - 35px);
-	$search-line-height: 48px;
-	$nav-input-padding: 10px;
-	$side-nav-clear-size: 30px;
-
 	color: inherit;
 	display: block;
 	font-size: $nav-font-size;
@@ -29,48 +24,43 @@ $search-results-box-shadow-color: rgba(0, 0, 0, 0.3);
 	margin-top: 0;
 	position: relative;
 
-	.wikia-search__container {
-		background-color: $input-container-background;
-		flex-grow: 1;
-		padding-left: $nav-input-padding;
-		position: relative;
-
-		input,
-		input:focus {
-			background: transparent;
-			border: 0;
-			box-shadow: none;
-			color: $oil;
-			display: inline-block;
-			font: inherit;
-			font-size: $input-font-size;
-			height: $search-line-height;
-			margin: 0;
-			padding: 0;
-			width: $input-width;
-
-			&::placeholder {
-				color: $iron;
-			}
-		}
+	.wikia-search__search-icon svg {
+		fill: $iron;
 	}
+}
 
-	.wikia-search__search-icon {
+.wikia-search__container {
+	background-color: $white;
+	display: flex;
+	flex-grow: 1;
+	position: relative;
+
+	input,
+	input:focus {
+		background: transparent;
+		border: 0;
+		box-shadow: none;
+		color: $oil;
 		display: inline-block;
-		width: 18px;
+		font: inherit;
+		font-size: $search-input-font-size;
+		height: $search-line-height;
+		margin: 0;
+		padding: 0;
 
-		svg {
-			fill: $iron;
+		&::placeholder {
+			color: $iron;
 		}
 	}
-	.wikia-search__clear {
-		//divide by 2 to accommodate for width
-		//and again by 2 as padding is on left and right
-		padding: 0 $side-nav-clear-size / 4;
-		position: absolute;
-		right: $nav-input-padding;
-		top: 0;
-		width: $side-nav-clear-size;
+
+	&.empty {
+		.wikia-search__search-icon svg {
+			fill: $oil;
+		}
+
+		.wikia-search__clear .icon-button-icon {
+			display: none;
+		}
 	}
 }
 
