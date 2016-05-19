@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
 
-const {Component, computed, observer, inject, get, run} = Ember;
+const {Component, computed, observer, inject, run} = Ember;
 
 /**
  * Type for search suggestion

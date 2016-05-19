@@ -57,6 +57,7 @@ test('test update state', (assert) => {
 
 	cases.forEach((testCase) => {
 		const search = SearchModel.create();
+
 		search.update(testCase.mock);
 
 		assert.deepEqual(search.get('items'), testCase.expected);
@@ -83,6 +84,7 @@ test('can load more', (assert) => {
 		}
 	];
 	const search = SearchModel.create();
+
 	cases.forEach((testCase) => {
 		search.update(testCase.mock);
 

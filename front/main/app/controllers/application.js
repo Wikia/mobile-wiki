@@ -46,8 +46,7 @@ export default Ember.Controller.extend(
 			}
 		}),
 
-		isSearchPage: Ember.computed('currentRouteName', function() {
-			//debugger
+		isSearchPage: Ember.computed('currentRouteName', function () {
 			return this.get('currentRouteName') === 'search';
 		}),
 

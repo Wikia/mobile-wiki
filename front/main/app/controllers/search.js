@@ -8,10 +8,9 @@ export default Controller.extend({
 	resultsCount: 50,
 
 	actions: {
-		onSearchEnter: function(query) {
+		onSearchEnter(query) {
 			this.set('query', query);
 			this.get('model').search(query);
-		},
-		onSuggestionClick: function() {}
+		}
 	}
 });

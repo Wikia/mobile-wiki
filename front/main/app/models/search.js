@@ -11,7 +11,7 @@ export default Object.extend({
 	totalBatches: 0,
 	items: A([]),
 
-	canLoadMore: computed('batch', 'totalBatches', function() {
+	canLoadMore: computed('batch', 'totalBatches', function () {
 		return this.get('batch') < this.get('totalBatches');
 	}),
 
@@ -31,10 +31,10 @@ export default Object.extend({
 		}
 	},
 
-	call(query, batch) {
+	call(query) {
 		return request(M.buildUrl({path: '/api/v1/Search/List'}), {
 			data: {
-				query: query,
+				query,
 				batch: this.get('batch')
 			}
 		}).then((data) => {
@@ -52,7 +52,7 @@ export default Object.extend({
 				return {
 					title: item.title,
 					snippet: item.snippet,
-					//TODO: write unit tests
+					// TODO: write unit tests
 					href: item.url.replace(/^http:\/\/[^\/]+(\/wiki)?\//i, '')
 				};
 			})
