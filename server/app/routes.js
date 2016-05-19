@@ -249,12 +249,12 @@ authenticatedRoutes.push({
 });
 
 authenticatedRoutes.push({
-	// Make sure old discussion URLs are redirected to discussion main page
+	// Make sure old discussion post list URLs are redirected to discussion main page
 	method: 'GET',
-	path: '/d/f/{id}',
+	path: '/d/f/{id}/{action*}',
 	handler(request, reply) {
 		return reply.redirect('/d/f').permanent(true);
-	},
+	}
 });
 
 authenticatedRoutes.push({
