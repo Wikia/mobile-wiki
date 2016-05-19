@@ -100,6 +100,10 @@ body.dark-theme {
 			color: $dark-discussion-actions-color;
 		}
 
+		.post-actions {
+			border-top: 1px solid $dark-discussion-post-detail-border-color;
+		}
+
 		.discussion-content {
 			color: $dark-discussion-content-color;
 

@@ -147,6 +147,11 @@ body.discussions {
 		}
 	}
 
+	.side-spaced {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+
 	.post-counters {
 		color: $discussion-actions-color;
 		font-size: rem-calc(12);
@@ -168,6 +173,11 @@ body.discussions {
 
 			margin-right: 2px;
 		}
+	}
+
+	.post-actions {
+		border-top: 1px solid $discussion-post-detail-border-color;
+		padding-top: 15px;
 	}
 
 	.action {
@@ -440,7 +450,7 @@ body.discussions {
 
 	.post-detail {
 		background-color: $discussion-desktop-post-detail-bg-color;
-		padding: 12px $horizontal-padding;
+		padding: 12px 0;
 		transition: opacity 1s;
 
 		.share {
@@ -597,7 +607,7 @@ body.discussions {
 				background-color: $discussion-desktop-post-detail-bg-color;
 				border-top-color: $discussion-post-detail-border-color;
 				border-width: 0;
-				padding: 20px 30px;
+				padding: 20px 0;
 
 				&.show-top-note {
 					padding-top: 0;
@@ -612,14 +622,19 @@ body.discussions {
 				margin: auto;
 				padding: {
 					top: $post-details-post-vertical-padding;
-					right: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
+					right: 0;
 					bottom: $post-details-post-vertical-padding + $post-details-post-margin-bottom;
-					left: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
+					left: 0;
 				}
 				width: $post-details-outer-width;
 
 				&.show-top-note {
 					padding-top: 0;
+				}
+
+				.side-spaced {
+					right: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
+					left: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
 				}
 
 				.discussion-content {
