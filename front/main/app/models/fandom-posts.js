@@ -3,11 +3,11 @@ import request from 'ember-ajax/request';
 
 const FandomPostsModel = Ember.Object.extend({
 	title: null,
-	type: null,
+	type: 'recent_popular',
 
 	init() {
 		this._super(...arguments);
-		this.posts = [];
+		this.items = [];
 	},
 
 	/**
@@ -22,10 +22,23 @@ const FandomPostsModel = Ember.Object.extend({
 				type: this.get('type')
 			}
 		}).then((data) => {
-			this.setProperties(data);
+			this.setProperties(this.formatData(data));
 			return this;
 		});
-	}
+	},
+
+	formatData(data) {
+		const items = data.posts.map((item, index) => {
+			item.index = index;
+			item.thumbnail = item.image_url;
+			return item;
+		});
+
+		return {
+			title: data.title,
+			items
+		};
+	},
 });
 
 export default FandomPostsModel;

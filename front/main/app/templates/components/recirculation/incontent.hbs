@@ -1,0 +1,23 @@
+{{#if items.length}}
+<section class="fandom-posts recirculation-unit">
+	<h2>{{model.title}}</h2>
+	<ul class="thumbnails">
+		{{#each items as |item|}}
+			<li class="title-thumbnail" {{action 'trackExperimentClick' item.url}}>
+				<a href="{{if externalLink '' item.url}}">
+					<div class="image image-thumbnail">
+						{{#if item.thumbnail }}
+							<img src="{{item.thumbnail}}" alt="{{item.title}}">
+						{{/if}}
+					</div>
+					<p class="title">{{item.title}}</p>
+				</a>
+			</li>
+		{{/each}}
+	</ul>
+</section>
+{{/if}}
+
+{{#if isLoading}}
+	{{loading-spinner active=isLoading }}
+{{/if}}

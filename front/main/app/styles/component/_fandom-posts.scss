@@ -8,3 +8,85 @@
 		color: $color-gray-dark;
 	}
 }
+
+$recirculation-fandom-incontent-border: 2px solid #ececec;
+
+.in-content .recirculation-unit {
+	border-top: $recirculation-fandom-incontent-border;
+	border-bottom: $recirculation-fandom-incontent-border;
+	margin: 20px auto;
+	padding: 0 0 15px;
+	width: 95%;
+
+	ul {
+		margin: 0;
+	}
+
+	h2 {
+		text-align: center;
+		font-size: 14px;
+		padding: 0;
+		margin: 15px 0 10px;
+	}
+
+	li {
+		list-style-type: none;
+	}
+
+	.image-thumbnail {
+		@extend %image-placeholder;
+	}
+
+	img {
+		width: 100%;
+		height: auto;
+	}
+
+	p {
+		margin: 0 10px 0 0;
+		font-size: 12px;
+		line-height: 16px;
+		font-weight: 500;
+	}
+}
+
+.in-content.vertical .recirculation-unit {
+
+	li {
+		list-style-type: none;
+		border: 1px solid #ececec;
+		margin: 10px;
+
+		&:nth-of-type(n+4) {
+			display: none;
+		}
+	}
+
+	a {
+		display: flex;
+		align-items: center;
+		padding-right: 10px;
+		color: $link-color;
+	}
+
+	.image-thumbnail {
+		@extend %image-placeholder;
+
+		flex: 0 0 60px;
+		margin: -1px;
+		margin-right: 10px;
+		min-height: 60px;
+	}
+
+	img {
+		width: 100%;
+		height: auto;
+	}
+
+	p {
+		margin: 0 10px 0 0;
+		font-size: 12px;
+		line-height: 16px;
+		font-weight: 500;
+	}
+}

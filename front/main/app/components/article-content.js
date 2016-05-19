@@ -4,6 +4,11 @@ import {getRenderComponentFor, queryPlaceholders} from '../utils/render-componen
 import {track, trackActions} from 'common/utils/track';
 import {getGroup, inGroup} from 'common/modules/abtest';
 
+import RecirculationFooterComponent from './recirculation/footer';
+import RecirculationIncontentComponent from './recirculation/incontent';
+import FandomPostsModel from '../models/fandom-posts';
+import TopLinksModel from '../models/top-links';
+
 /**
  * HTMLElement
  * @typedef {Object} HTMLElement
@@ -50,6 +55,7 @@ export default Ember.Component.extend(
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 					this.bindHeaderClicks();
+					this.injectPlacementTest();
 				} else {
 					this.hackIntoEmberRendering(`<p>${i18n.t('app.article-empty-label')}</p>`);
 				}
@@ -518,6 +524,65 @@ export default Ember.Component.extend(
 
 					$element.wrap(wrapper);
 				});
+		},
+
+		/**
+		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_PLACEMENT AB TEST
+		 *
+		 * @returns {void}
+		 */
+		injectPlacementTest() {
+			const experimentName = 'RECIRCULATION_MERCURY_PLACEMENT',
+				group = getGroup(experimentName);
+
+			let view, component, model, location,
+				externalLink = false;
+
+			switch (group) {
+				case 'LINKS_INCONTENT':
+					component = RecirculationIncontentComponent;
+					model = TopLinksModel.create({
+						article: this
+					});
+					location = this.$('h2:nth-of-type(2)').prev();
+					break;
+				case 'LINKS_FOOTER':
+					component = RecirculationIncontentComponent;
+					model = TopLinksModel.create({
+						article: this,
+						style: 'landscape'
+					});
+					location = this.parentView.$('.article-footer');
+					break;
+				case 'FANDOM_INCONTENT':
+					component = RecirculationIncontentComponent;
+					model = FandomPostsModel.create();
+					location = this.$('h2:nth-of-type(2)').prev();
+					externalLink = true;
+					break;
+				case 'FANDOM_FOOTER':
+					component = RecirculationFooterComponent;
+					model = FandomPostsModel.create();
+					location = this.parentView.$('.article-footer');
+					externalLink = true;
+					break;
+				default:
+					component = false;
+					break;
+			}
+
+			if (component && model && location.length !== 0) {
+				view = this.createChildView(component, {
+					model,
+					experimentName,
+					externalLink
+				});
+				view.createElement();
+				model.load();
+
+				location.after(view.$());
+				view.trackImpression();
+			}
 		},
 
 		/**
