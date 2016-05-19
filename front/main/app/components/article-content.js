@@ -418,7 +418,7 @@ export default Ember.Component.extend(
 			let $componentElement,
 				$firstHeader;
 
-			experimentComponent.setProperties({experimentGroup: 'IN_ARTICLE'});
+			experimentComponent.set('experimentGroup', 'IN_ARTICLE');
 			$componentElement = this.createChildView(experimentComponent).createElement().$();
 
 			// Check if there are headers in content
