@@ -2,7 +2,7 @@ import {unauthorized} from 'boom';
 import Wreck from 'wreck';
 import localSettings from '../../config/localSettings';
 import Logger from './logger';
-import {getHeliosLocalUrl} from './auth-utils';
+import {getHeliosInternalUrl} from './auth-utils';
 
 /**
  * @returns {Object}
@@ -55,7 +55,7 @@ export default function scheme() {
 			}
 
 			Wreck.get(
-				getHeliosLocalUrl('/info', {
+				getHeliosInternalUrl('/info', {
 					code: accessToken
 				}),
 				{

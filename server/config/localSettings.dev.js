@@ -27,7 +27,7 @@ const localSettings = {
 		}
 	},
 	helios: {
-		localUrl: 'http://dev.helios.service.consul:9500/',
+		internalUrl: 'http://dev.helios.service.consul:9500/',
 	},
 };
 

@@ -89,8 +89,8 @@ export function getHeliosUrl(path) {
  *
  * @returns {string}
  */
-export function getHeliosLocalUrl(path, query) {
-	const heliosUrlObj = url.parse(localSettings.helios.localUrl);
+export function getHeliosInternalUrl(path, query) {
+	const heliosUrlObj = url.parse(localSettings.helios.internalUrl);
 
 	heliosUrlObj.pathname = path;
 	heliosUrlObj.search = querystring.stringify(query);
