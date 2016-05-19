@@ -59,6 +59,33 @@ test('test update state', (assert) => {
 		const search = SearchModel.create();
 		search.update(testCase.mock);
 
-		assert.deepEqual(testCase.expected, search.get('items'));
+		assert.deepEqual(search.get('items'), testCase.expected);
+	});
+});
+
+test('can load more', (assert) => {
+	const cases = [
+		{
+			mock: {
+				total: 0,
+				batches: 1,
+				items: []
+			},
+			expected: false
+		},
+		{
+			mock: {
+				total: 0,
+				batches: 2,
+				items: []
+			},
+			expected: true
+		}
+	];
+	const search = SearchModel.create();
+	cases.forEach((testCase) => {
+		search.update(testCase.mock);
+
+		assert.equal(search.get('canLoadMore'), testCase.expected);
 	});
 });

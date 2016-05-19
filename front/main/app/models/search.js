@@ -12,7 +12,7 @@ export default Object.extend({
 	items: A([]),
 
 	canLoadMore: computed('batch', 'totalBatches', function() {
-		return this.get('batch') <= this.get('totalBatches');
+		return this.get('batch') < this.get('totalBatches');
 	}),
 
 	search(query) {
