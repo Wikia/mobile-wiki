@@ -1,0 +1,28 @@
+.search-results {
+	background-color: #f6f6f6;
+}
+
+.search-results__list {
+	margin: 0;
+}
+
+.search-results__total {
+	font-size: 12px;
+	line-height: 15px;
+	padding: 12px 18px;
+}
+
+.search-results__item {
+	padding: 12px 18px;
+	font-size: 14px;
+	line-height: 18px;
+
+	.search-results__title {
+		font-weight: bold;
+		margin-bottom: 4px;
+	}
+}
+
+.search-results__snippet .searchmatch {
+	font-weight: bold;
+}

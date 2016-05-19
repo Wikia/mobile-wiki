@@ -48,8 +48,14 @@ export default Object.extend({
 		this.set('totalBatches', state.batches);
 		this.set('items', [
 			...this.get('items'),
-			...state.items
+			...state.items.map((item) => {
+				return {
+					title: item.title,
+					snippet: item.snippet,
+					//TODO: write unit tests
+					href: item.url.replace(/^http:\/\/[^\/]+(\/wiki)?\//i, '')
+				};
+			})
 		]);
-		console.info(this.get('items'));
 	}
 });

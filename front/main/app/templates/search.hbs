@@ -2,4 +2,20 @@
 	searchEnterAction=(action 'onSearchEnter')
 	suggestionClickAction=(action 'onSuggestionClick')
 }}
-<div>About {{resultsCount}} results for: <strong>{{query}}</strong></div>
+<div class="search-results">
+	<div class="search-results__total">About {{model.totalItems}} results for
+		<strong>{{model.query}}</strong></div>
+
+	<ul class="search-results__list">
+		{{#each model.items as |item|}}
+			{{#wikia-ui-components/wikia-card}}
+				<div class="search-results__item">
+					<div class="search-results__title">
+						{{#link-to 'wiki-page' item.href}}{{item.title}}{{/link-to}}
+					</div>
+					<div class="search-results__snippet">{{{item.snippet}}}</div>
+				</div>
+			{{/wikia-ui-components/wikia-card}}
+		{{/each}}
+	</ul>
+</div>
