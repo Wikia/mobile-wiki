@@ -1,0 +1,78 @@
+.recirculation-experiment {
+	.image-thumbnail {
+		@extend %image-placeholder;
+	}
+}
+
+.recirculation-experiment.footer {
+	p {
+		margin: 0.5rem 0 1.5rem;
+	}
+
+	a {
+		color: $color-gray-dark;
+	}
+
+	.image-thumbnail {
+		min-height: 150px;
+	}
+}
+
+$recirculation-fandom-incontent-border-color: #ececec;
+$recirculation-fandom-incontent-border: 2px solid $recirculation-fandom-incontent-border-color;
+$recirculation-fandom-incontent-thumbnail-size: 60px;
+
+.recirculation-experiment.in-content {
+	border-top: $recirculation-fandom-incontent-border;
+	border-bottom: $recirculation-fandom-incontent-border;
+	margin: 20px auto;
+	padding: 0 0 15px;
+	width: 95%;
+
+	h2 {
+		font-size: 14px;
+		margin: 15px 0 10px;
+		padding: 0;
+		text-align: center;
+	}
+
+	ul {
+		margin: 0;
+	}
+
+	li {
+		border: 1px solid $recirculation-fandom-incontent-border-color;
+		list-style-type: none;
+		margin: 10px;
+
+		&:nth-of-type(n+4) {
+			display: none;
+		}
+	}
+
+	p {
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 16px;
+		margin: 0 10px 0 0;
+	}
+
+	a {
+		align-items: center;
+		color: $link-color;
+		display: flex;
+		padding-right: 10px;
+	}
+
+	img {
+		height: auto;
+		width: 100%;
+	}
+
+	.image-thumbnail {
+		flex: 0 0 $recirculation-fandom-incontent-thumbnail-size;
+		margin: -1px;
+		margin-right: 10px;
+		min-height: $recirculation-fandom-incontent-thumbnail-size;
+	}
+}

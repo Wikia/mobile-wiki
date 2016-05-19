@@ -2,9 +2,11 @@ import Ember from 'ember';
 import {trackExperiment, trackActions} from 'common/utils/track';
 
 export default Ember.Mixin.create({
-	isLoading: false,
-	externalLink: false,
+	classNameBindings: ['label'],
+	classNames: 'recirculation-experiment',
 	experimentName: '',
+	externalLink: false,
+	isLoading: false,
 	label: '',
 
 	trackImpression() {

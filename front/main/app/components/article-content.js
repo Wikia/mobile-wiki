@@ -547,7 +547,7 @@ export default Ember.Component.extend(
 					location = this.$('h2:nth-of-type(2)').prev();
 					break;
 				case 'LINKS_FOOTER':
-					component = RecirculationIncontentComponent;
+					component = RecirculationFooterComponent;
 					model = TopLinksModel.create({
 						article: this,
 						style: 'landscape'
@@ -556,7 +556,9 @@ export default Ember.Component.extend(
 					break;
 				case 'FANDOM_INCONTENT':
 					component = RecirculationIncontentComponent;
-					model = FandomPostsModel.create();
+					model = FandomPostsModel.create({
+						thumbSize: 'medium'
+					});
 					location = this.$('h2:nth-of-type(2)').prev();
 					externalLink = true;
 					break;

@@ -4,6 +4,7 @@ import request from 'ember-ajax/request';
 const FandomPostsModel = Ember.Object.extend({
 	title: null,
 	type: 'recent_popular',
+	thumbSize: 'full',
 
 	init() {
 		this._super(...arguments);
@@ -30,7 +31,7 @@ const FandomPostsModel = Ember.Object.extend({
 	formatData(data) {
 		const items = data.posts.map((item, index) => {
 			item.index = index;
-			item.thumbnail = item.image_url;
+			item.thumbnail = this.get('thumbSize') === 'medium' ? item.thumb_url_medium : item.image_url;
 			return item;
 		});
 
