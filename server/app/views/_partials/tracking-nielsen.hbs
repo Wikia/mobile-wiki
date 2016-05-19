@@ -1,13 +1,18 @@
 <script>
 	(function () {
 		function sendNielsenPageView() {
-			var assetidRnd, nielsen, globalParams;
+			var assetidRnd,
+				globalParams,
+				nielsen = M.prop('tracking.nielsen');
 
 			if (!window.NOLCMB || !window.NOLCMB.getInstance) {
 				return;
 			}
 
-			nielsen = M.prop('tracking.nielsen');
+			if ( typeof(nielsen.apid) !== 'string' || nielsen.apid === 'FIXME') {
+				throw 'Invalid Nielsen apid';
+			}
+
 			assetidRnd = Math.round(1000000 * Math.random());
 			globalParams = {
 				sfcode: 'dcr',
