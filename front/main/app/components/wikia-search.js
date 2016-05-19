@@ -61,7 +61,7 @@ export default Ember.Component.extend(
 					category: 'side-nav',
 					label: 'search-open-special-search'
 				});
-				this.get('closeDrawer')();
+				this.get('searchEnterAction')(value);
 				this.sendAction('goToSeachResults', value);
 			},
 
@@ -76,7 +76,7 @@ export default Ember.Component.extend(
 					category: 'side-nav',
 					label: 'search-open-suggestion-link'
 				});
-				this.get('closeDrawer')();
+				this.get('suggestionClickAction')();
 			}
 		},
 

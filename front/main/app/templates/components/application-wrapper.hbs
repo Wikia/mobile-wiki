@@ -19,6 +19,8 @@
 		{{#if activeDrawerContent}}
 			{{component
 				drawerContentComponent
+				searchEnterAction=(action 'closeDrawer')
+				suggestionClickAction=(action 'closeDrawer')
 				closeDrawer=(action 'closeDrawer')
 				loadRandomArticle=this.attrs.loadRandomArticle
 				goToSeachResults=this.attrs.goToSeachResults

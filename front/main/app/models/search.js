@@ -4,7 +4,6 @@ import request from 'ember-ajax/request';
 const {Object, computed} = Ember;
 
 export default Object.extend({
-
 	query: '',
 	batch: 1,
 

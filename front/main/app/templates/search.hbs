@@ -1,2 +1,5 @@
 <div>About {{resultsCount}} results for: <strong>{{query}}</strong></div>
-{{wikia-search}}
+{{wikia-search
+	searchEnterAction=(action 'onSearchEnter')
+	suggestionClickAction=(action 'onSuggestionClick')
+}}
