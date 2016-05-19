@@ -13,16 +13,19 @@
 			iconSize=24
 		}}
 
-		{{wikia-ui-components/icon-button
-			click=(action 'siteHeadIconClick' 'search')
-			class='site-head-icon site-head-icon-search'
-			icon=searchIcon
-			iconSize=24
-		}}
+		{{#unless isSearchPage}}
+			{{wikia-ui-components/icon-button
+				click=(action 'siteHeadIconClick' 'search')
+				class='site-head-icon site-head-icon-search'
+				icon=searchIcon
+				iconSize=24
+			}}
+		{{/unless}}
 	</nav>
 </div>
-
-{{site-head-fandom-bar
-	wikiaHomepage=wikiaHomepage
-}}
+{{#unless isSearchPage}}
+	{{site-head-fandom-bar
+		wikiaHomepage=wikiaHomepage
+	}}
+{{/unless}}
 <div id="site-head-sub-header"></div>

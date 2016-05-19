@@ -9,6 +9,7 @@ export default Ember.Controller.extend(
 		// This has to be here because we need to access media from ArticleController model to open
 		// lightbox TODO: Should be refactored when decoupling article from application
 		wikiPage: Ember.inject.controller(),
+		search: Ember.inject.controller(),
 		queryParams: ['file', 'map',
 			{
 				noAds: 'noads'
@@ -45,6 +46,11 @@ export default Ember.Controller.extend(
 			}
 		}),
 
+		isSearchPage: Ember.computed('currentRouteName', function() {
+			//debugger
+			return this.get('currentRouteName') === 'search';
+		}),
+
 		/**
 		 * @returns {void}
 		 */
@@ -61,6 +67,7 @@ export default Ember.Controller.extend(
 				category: 'app',
 				label: 'load'
 			});
+
 
 			this._super();
 		},
