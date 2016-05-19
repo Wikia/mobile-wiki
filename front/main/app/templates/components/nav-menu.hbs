@@ -1,0 +1,12 @@
+<ul class="nav-menu">
+	{{#each items as |item|}}
+		{{component item.type
+			className=item.className
+			name=item.name
+			href=item.href
+			route=item.route
+			itemClick=(action attrs.onClickHandler item)
+			changeItem=(action attrs.onChangeItemHandler item.index)
+		}}
+	{{/each}}
+</ul>

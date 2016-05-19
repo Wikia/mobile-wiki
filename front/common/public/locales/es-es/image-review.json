@@ -1,0 +1,18 @@
+{
+  "main":{
+    "head":"Revisión de imagen",
+    "description":"Haz clic en imágenes para marcarlas para eliminarlas o como dudosas (para revisión). Cuando termines con el lote, haz clic en 'Revisar' en la parte de abajo para obtener el siguiente lote.",
+    "error-no-access-permissions":"Desautorizado, no tienes permisos para ver esta página",
+    "error-other":"No se puede cargarla revisión de imagen",
+    "error-invalid-data":"Datos no válidos han sido devueltos desde revisión de imagen API",
+    "error-no-more-images":"No hay más imágenes",
+    "review-and-get-more":"Revisar y recibir el siguiente lote",
+    "get-flagged":"Ser marcado",
+    "images-to-review-count":"Imágenes restantes para revisar:",
+    "image-context":"Contexto:",
+    "image-context-not-provided":"No se ha entregado contexto",
+    "status-accepted":"OK",
+    "status-flagged":"Q",
+    "status-rejected":"Supr"
+  }
+}

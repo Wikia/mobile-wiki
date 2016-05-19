@@ -1,11 +1,28 @@
-<div {{action 'expandSideNav'}} class="side-nav-toggle side-nav-toggle-2016">
-	{{#if shouldDisplayNewBadge}}
-		{{svg 'info-filled' class='icon new-badge__pinned new-badge__animated'}}
-	{{/if}}
-	{{svg 'nav' viewBox='0 0 24 14' class='icon nav'}}
+<div class="site-head-wrapper">
+	<nav class="site-head">
+		<div class="site-logo site-logo-2016">
+			<a {{action 'trackWordmarkClick' preventDefault=false}} href="{{wikiaHomepage}}">
+				{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
+			</a>
+		</div>
+
+		{{wikia-ui-components/icon-button
+			click=(action 'siteHeadIconClick' 'nav')
+			class='site-head-icon site-head-icon-nav'
+			icon=navIcon
+			iconSize=24
+		}}
+
+		{{wikia-ui-components/icon-button
+			click=(action 'siteHeadIconClick' 'search')
+			class='site-head-icon site-head-icon-search'
+			icon=searchIcon
+			iconSize=24
+		}}
+	</nav>
 </div>
-<div class="site-logo site-logo-2016">
-	<a {{action 'trackWordmarkClick' preventDefault=false}} href={{wikiaHomepage}}>
-		{{svg 'wikia-logo' role='img' class='icon wikia-logo'}}
-	</a>
-</div>
+
+{{site-head-fandom-bar
+	wikiaHomepage=wikiaHomepage
+}}
+<div id="site-head-sub-header"></div>

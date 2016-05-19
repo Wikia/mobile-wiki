@@ -98,8 +98,17 @@ body.dark-theme {
 
 		.discussion-content {
 			color: $dark-discussion-content-color;
+
 			.post-details-link {
 				color: $dark-discussion-content-color;
+			}
+		}
+
+		.post-title {
+			color: $dark-discussion-post-title-color;
+
+			.post-details-link {
+				color: $dark-discussion-post-title-color;
 			}
 		}
 
@@ -193,6 +202,10 @@ body.dark-theme {
 		.load-newer {
 			&.wide {
 				border-top-color: $dark-discussion-reply-border-color;
+
+				&.no-editor {
+					border-bottom-color: $dark-discussion-reply-border-color;
+				}
 			}
 		}
 
@@ -308,6 +321,21 @@ body.dark-theme {
 			}
 		}
 	}
+
+	&.discussions {
+		.og-container {
+			background-color: $dark-discussion-open-graph-background-color;
+			border-color: $dark-discussion-open-graph-border-color;
+		}
+
+		.og-title {
+			color: $dark-discussion-open-graph-title-color;
+		}
+
+		.og-site-name {
+			color: $dark-discussion-open-graph-domain-color;
+		}
+	}
 }
 
 @media #{$desktop-range} {
@@ -369,6 +397,14 @@ body.dark-theme {
 			.editor-label {
 				&.desktop-hidden {
 					border-top-color: $discussion-post-detail-border-color;
+				}
+			}
+		}
+
+		.discussions {
+			.large-image-card-desktop {
+				.og-image {
+					border-bottom-color: $dark-discussion-open-graph-border-color;
 				}
 			}
 		}

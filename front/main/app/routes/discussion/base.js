@@ -16,7 +16,7 @@ export default Ember.Route.extend(
 		 * @returns {void}
 		 */
 		setDynamicHeadTags(model, data = {}) {
-			data.documentTitle = `Discussions - ${Ember.get(Mercury, 'wiki.siteName')} - Wikia`;
+			data.documentTitle = 'Discussions';
 			data.canonical = `${Ember.get(Mercury, 'wiki.basePath')}${window.location.pathname}`;
 
 			this._super(model, data);
@@ -37,6 +37,24 @@ export default Ember.Route.extend(
 				this.controllerFor('application').set('noMargins', true);
 
 				trackPageView();
+
+				return true;
+			},
+
+			/*
+			 * When leaving discussion app, remove noMargins flag, so the other (mobile-only)
+			 * apps have default margins set and a container added
+			 * @param {Ember.Transition} transition
+			 * @returns {boolean}
+			 */
+			willTransition(transition) {
+				const isDiscussionRoute = transition.handlerInfos.some((item) => {
+					return item.name === 'discussion';
+				});
+
+				if (!isDiscussionRoute) {
+					this.controllerFor('application').set('noMargins', false);
+				}
 
 				return true;
 			},

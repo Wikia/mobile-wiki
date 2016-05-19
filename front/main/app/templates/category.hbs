@@ -14,7 +14,7 @@
 			articleRendered='articleRendered'
 			edit='edit'
 			openLightbox='openLightbox'
-			toggleSideNav='toggleSideNav'
+			toggleDrawer='toggleDrawer'
 		}}
 			{{category-sections
 				adsContext=model.adsContext
@@ -24,7 +24,7 @@
 			}}
 		{{/article-wrapper}}
 	{{else}}
-		{{wiki-page-header title=model.displayTitle subtitle=(i18n 'app.category-page-subtitle')}}
+		{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=(i18n 'app.category-page-subtitle')}}
 		{{category-sections
 			adsContext=model.adsContext
 			sections=model.sections

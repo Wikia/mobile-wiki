@@ -1,12 +1,28 @@
+{{#modal-dialog
+	class='is-bare is-desktop-centered discussion-editor-dialog'
+	closeOnOverlayClick=false
+	isVisible=editEditorActive
+}}
+	{{discussion-edit-editor
+		editPost=(action 'editPost')
+		editReply=(action 'editReply')
+	}}
+{{/modal-dialog}}
+
 {{#discussion-post-details-layout
+	deleteAllPosts=(action 'deleteAllPosts')
 	model=model.data
+	smartBannerVisible=smartBannerVisible
 }}
 	{{discussion-post
 		approve=(action 'approve')
-		create=(action 'create')
+		createPost=(action 'createPost')
+		createReply=(action 'createReply')
 		deleteAllPosts=(action 'deleteAllPosts')
 		deletePost=(action 'deletePost')
 		deleteReply=(action 'deleteReply')
+		editPost=(action 'editPost')
+		editReply=(action 'editReply')
 		loadNewerReplies=(action 'loadNewerReplies')
 		loadOlderReplies=(action 'loadOlderReplies')
 		lockPost=(action 'lockPost')

@@ -1,5 +1,5 @@
 {{#if contributionEnabled}}
-	{{#wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
+	{{#wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
 		{{article-contribution
 			addPhotoAllowed=addPhotoAllowed
 			addPhotoIconVisible=addPhotoIconVisible
@@ -10,9 +10,9 @@
 			addPhoto='addPhoto'
 			edit='edit'
 		}}
-	{{/wiki-page-header}}
+	{{/wikia-ui-components/wiki-page-header}}
 {{else}}
-	{{wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
+	{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
 {{/if}}
 {{#ab-test experiment='POTENTIAL_MEMBER_PAGE_ENTRY_POINTS' as |group| }}
 	{{#if (equal group 'TOP') }}
@@ -94,6 +94,3 @@
 		{{content-recommendations pages=model.relatedPages}}
 	{{/if}}
 {{/ab-test}}
-{{#if displayRecentEdit}}
-	{{recent-edit-banner}}
-{{/if}}

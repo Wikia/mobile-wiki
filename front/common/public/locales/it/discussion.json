@@ -73,6 +73,8 @@
     "lock-post":"Blocca post",
     "unlock-post":"Sblocca post",
     "locked-and-reported-to-moderators-text":"Questo post è bloccato ed è stato segnalato.",
+    "edit-reply":"Modifica risposta",
+    "edit-post":"Modifica post",
     "upvote-link-label":"__count__ Voto",
     "upvote-link-label_plural":"__count__ Voti",
     "replies-link-label":"__count__ Risposta",
@@ -85,12 +87,18 @@
     "post-failed-error":"Post non pubblicato",
     "post-error-anon-cant-post":"Iscriviti per prendere parte alla discussione!",
     "post-error-not-authorized":"Non è possibile postare perché l'account è bloccato.",
-    "post-error-general-error":"Ops, sembra che qualcosa sia andato storto! Riprovare.",
+    "post-error-general-error":"Post non riuscito, riprovare.",
+    "reply-error-general-error":"Risposta non riuscita, riprovare.",
+    "save-error-general-error":"Salvataggio non riuscito, riprovare.",
     "post-editor-label":"Crea un post",
+    "post-edit-editor-label":"Modifica il tuo post",
     "post-action-button-label":"Pubblica",
+    "post-edit-action-button-label":"Salva",
     "post-editor-placeholder-text":"Condividi un pensiero, domande o un link...",
     "reply-editor-placeholder-text":"Scrivi un risposta...",
     "reply-editor-label":"Aggiungi alla discussione",
-    "reply-action-button-label":"Rispondi"
+    "reply-edit-editor-label":"Modifica la tua risposta",
+    "reply-action-button-label":"Rispondi",
+    "reply-edit-action-button-label":"Salva"
   }
 }

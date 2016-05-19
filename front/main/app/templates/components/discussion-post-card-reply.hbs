@@ -34,6 +34,7 @@
 			{{discussion-more-options
 				delete=(action this.attrs.delete)
 				deleteMessage=(i18n 'main.delete-reply' ns='discussion')
+				editMessage=(i18n 'main.edit-reply' ns='discussion')
 				isLockable=false
 				post=post
 				report=(action this.attrs.report)
@@ -53,6 +54,11 @@
 		<div class="discussion-content">
 			{{{parsedContent}}}
 		</div>
+	{{/if}}
+	{{#if post.openGraph}}
+		{{discussion-open-graph
+			openGraphData=post.openGraph
+		}}
 	{{/if}}
 </div>
 {{#if post.isLoading}}

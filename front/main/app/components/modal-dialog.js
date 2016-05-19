@@ -1,10 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	classNameBindings: ['type'],
+	classNameBindings: ['type', 'closeOnOverlayClick::layover-cursor-auto'],
 	classNames: ['modal-dialog-wrapper'],
+	closeOnOverlayClick: true,
 	isVisible: false,
-	modalDialogService: Ember.inject.service('modal-dialog'),
+	modalDialog: Ember.inject.service(),
 	type: 'info',
 
 	actions: {
@@ -12,8 +13,10 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		close() {
-			this.set('isVisible', false);
-			this.get('modalDialogService').close();
+			if (this.get('closeOnOverlayClick')) {
+				this.set('isVisible', false);
+				this.get('modalDialog').close();
+			}
 		},
 	},
 });

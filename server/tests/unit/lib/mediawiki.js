@@ -36,12 +36,6 @@ QUnit.test('Constructors', function (assert) {
 			data: {
 				name: 'name'
 			}
-		},
-		{
-			name: 'SearchRequest',
-			data: {
-				name: 'name'
-			}
 		}
 	];
 

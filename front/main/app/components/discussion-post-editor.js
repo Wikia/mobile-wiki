@@ -11,10 +11,12 @@ export default DiscussionEditorComponent.extend({
 
 	didInsertElement() {
 		this._super(...arguments);
-		this.get('discussionEditor').on('newPost', () => {
-			this.handleNewPostCreated();
-		});
+		this.get('discussionEditor').on('newPost', this, this.handlePostCreated);
 		this.initializeStickyState();
+	},
+
+	willDestroyElement() {
+		this.get('discussionEditor').off('newPost', this, this.handlePostCreated);
 	},
 
 	/**
@@ -36,7 +38,7 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {boolean}
 	 */
 	isStickyBreakpointHeight() {
-		return window.pageYOffset >= this.get('offsetTop') - (this.get('siteHeadPinned') ? this.get('siteHeadHeight') : 0);
+		return window.pageYOffset >= this.get('offsetTop') - this.get('siteHeadHeight');
 	},
 
 	/**
@@ -58,15 +60,15 @@ export default DiscussionEditorComponent.extend({
 			const $editorTextarea = $('.editor-textarea');
 
 			$editorTextarea
-					.css('height', '100px')
-					.on('focus', () => {
-						setTimeout(() => {
-							$editorTextarea.css('height', '100%');
-						}, 500);
-					})
-					.on('blur', () => {
-						$editorTextarea.css('height', '100px');
-					});
+				.css('height', '100px')
+				.on('focus', () => {
+					setTimeout(() => {
+						$editorTextarea.css('height', '100%');
+					}, 500);
+				})
+				.on('blur', () => {
+					$editorTextarea.css('height', '100px');
+				});
 		}
 	},
 
@@ -74,7 +76,7 @@ export default DiscussionEditorComponent.extend({
 	 * Perform animations and logic after post creation
 	 * @returns {void}
 	 */
-	handleNewPostCreated() {
+	handlePostCreated() {
 		const newPosts = this.get('posts').filter((post) => post.get('isNew')),
 			newPost = newPosts.get('firstObject');
 
@@ -82,5 +84,5 @@ export default DiscussionEditorComponent.extend({
 			Ember.$('html, body').animate({scrollTop: 0});
 			this.handleNewItemCreated(newPost);
 		}
-	}
+	},
 });

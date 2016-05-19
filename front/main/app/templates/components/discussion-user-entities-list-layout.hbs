@@ -1,10 +1,12 @@
-{{discussion-header
-	canDeleteAll=model.canDeleteAll
-	deleteAllPosts=(action this.attrs.deleteAllPosts)
-	forumId=model.forumId
-	hasBackButton=true
-	smartBannerVisible=smartBannerVisible
-}}
+{{#ember-wormhole to="site-head-sub-header"}}
+	{{discussion-header
+		canDeleteAll=model.canDeleteAll
+		deleteAllPosts=deleteAllPosts
+		forumId=model.forumId
+		hasBackButton=true
+		smartBannerVisible=smartBannerVisible
+	}}
+{{/ember-wormhole}}
 {{discussion-dialog
 	confirmButtonText=confirmButtonText
 	confirmCallback=confirmCallback
@@ -39,7 +41,7 @@
 		</div>
 		<div class="rail large-3 columns">
 			{{#if model.canDeleteAll}}
-				<div {{action this.attrs.deleteAllPosts}} class="side-button delete-all">
+				<div {{action 'deleteAllPosts'}} class="side-button delete-all">
 					{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
 					{{i18n 'main.delete-all' ns='discussion'}}
 				</div>

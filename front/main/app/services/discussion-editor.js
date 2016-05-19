@@ -1,11 +1,14 @@
+import Ember from 'ember';
+
 export default Ember.Service.extend(Ember.Evented, {
 	isAnon: true,
 	isEditorOpen: false,
 	isUserBlocked: false,
+	errorMessage: null,
 
-	modalDialogService: Ember.inject.service('modal-dialog'),
+	modalDialog: Ember.inject.service(),
 
-	shouldStopLoading: false,
+	isLoading: false,
 
 	/**
 	 * Renders a message to display to an anon
@@ -29,7 +32,11 @@ export default Ember.Service.extend(Ember.Evented, {
 	 * @returns {void}
 	 */
 	openDialog(message) {
-		this.get('modalDialogService').display(i18n.t(message, {ns: 'discussion'}));
+		this.get('modalDialog').display(i18n.t(message, {ns: 'discussion'}));
+	},
+
+	setErrorMessage(message) {
+		this.set('errorMessage', message);
 	},
 
 	/**
@@ -38,17 +45,22 @@ export default Ember.Service.extend(Ember.Evented, {
 	 * @returns {void}
 	 */
 	activateEditor() {
-		if (this.get('isEditorOpen') === true) {
+		if (this.get('isEditorOpen')) {
 			return;
 		}
 
 		if (this.get('isAnon')) {
 			this.rejectAnon();
+			return;
 		} else if (this.get('isUserBlocked')) {
 			this.rejectBlockedUser();
-		} else {
-			this.set('isEditorOpen', true);
+			return;
 		}
+
+		this.setProperties({
+			isEditorOpen: true,
+			errorMessage: null
+		});
 	},
 
 	/**
@@ -59,7 +71,10 @@ export default Ember.Service.extend(Ember.Evented, {
 		if (active === true) {
 			this.activateEditor();
 		} else {
-			this.set('isEditorOpen', false);
+			this.setProperties({
+				errorMessage: null,
+				isEditorOpen: false
+			});
 		}
 	},
 });

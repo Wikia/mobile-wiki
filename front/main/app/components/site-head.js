@@ -2,48 +2,60 @@ import Ember from 'ember';
 import HeadroomMixin from '../mixins/headroom';
 import {track, trackActions} from 'common/utils/track';
 
-export default Ember.Component.extend(
+const {computed, Component} = Ember;
+
+export default Component.extend(
 	HeadroomMixin,
 	{
-		classNames: ['site-head', 'border-theme-color'],
+		classNames: ['site-head-container'],
 		classNameBindings: ['themeBar'],
-		tagName: 'nav',
+		tagName: 'div',
 		themeBar: false,
-		wikiaHomepage: Ember.getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
-		pinned: true,
+		closeIcon: 'close',
 
-		currentUser: Ember.inject.service(),
-		newFeaturesBadges: Ember.inject.service(),
-		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
-		shouldDisplayNewBadge: Ember.computed('newFeaturesBadges.features.[]', function () {
-			return this.get('newFeaturesBadges').shouldDisplay('recent-wiki-activity');
+		headroomOptions: {
+			classes: {
+				initial: 'site-head-headroom',
+				pinned: 'site-head-headroom-pinned',
+				unpinned: 'site-head-headroom-un-pinned',
+				top: 'site-head-headroom-top',
+				notTop: 'site-head-headroom-not-top'
+			}
+		},
+
+		navIcon: computed('drawerContent', 'drawerVisible', function () {
+			return this.get('drawerVisible') && this.get('drawerContent') === 'nav' ? 'close' : 'nav';
+		}),
+
+		searchIcon: computed('drawerContent', 'drawerVisible', function () {
+			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ? 'close' : 'search';
 		}),
 
 		actions: {
 			/**
+			 * @param {String} icon
 			 * @returns {void}
 			 */
-			expandSideNav() {
-				if (this.get('shouldDisplayNewBadge')) {
+			siteHeadIconClick(icon) {
+				if (this.get('drawerVisible') && this.get('drawerContent') === icon) {
 					track({
 						action: trackActions.click,
-						category: 'recent-wiki-activity-blue-dot',
-						label: 'open-navigation'
+						category: 'side-nav',
+						label: `${icon}-collapsed`
 					});
-				}
-				track({
-					action: trackActions.click,
-					category: 'side-nav',
-					label: 'expanded'
-				});
-				this.sendAction('toggleSideNav', true);
-			},
 
-			/**
-			 * @returns {void}
-			 */
-			showUserMenu() {
-				this.sendAction('toggleUserMenu', true);
+					this.get('setDrawerContent')(false);
+					this.get('toggleDrawer')(false);
+				} else {
+					track({
+						action: trackActions.click,
+						category: 'side-nav',
+						label: `${icon}-expanded`
+					});
+
+					this.get('setDrawerContent')(icon);
+					this.get('toggleDrawer')(true);
+				}
 			},
 
 			/**
@@ -53,19 +65,6 @@ export default Ember.Component.extend(
 				track({
 					action: trackActions.click,
 					category: 'wordmark'
-				});
-			}
-		},
-
-		pinnedObserver: Ember.observer('pinned', function () {
-			this.sendAction('toggleSiteHeadPinned', this.get('pinned'));
-		}),
-
-		didRender() {
-			if (this.get('shouldDisplayNewBadge')) {
-				track({
-					action: trackActions.impression,
-					category: 'recent-wiki-activity-blue-dot'
 				});
 			}
 		}

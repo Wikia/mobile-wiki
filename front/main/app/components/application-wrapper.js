@@ -1,5 +1,8 @@
 import Ember from 'ember';
+import {isHashLink} from '../utils/article-link';
 import {trackPerf} from 'common/utils/track-perf';
+
+const {Component, computed, getWithDefault, Logger, observer, $} = Ember;
 
 /**
  * HTMLMouseEvent
@@ -22,38 +25,35 @@ import {trackPerf} from 'common/utils/track-perf';
  * @property {string} tagName
  */
 
-export default Ember.Component.extend({
+export default Component.extend({
 	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
-
-	verticalClass: Ember.computed(() => {
-		const vertical = Ember.get(Mercury, 'wiki.vertical');
-
-		return `${vertical}-vertical`;
-	}),
-
+	activeDrawerContent: null,
 	noScroll: false,
 	scrollLocation: null,
 	smartBannerVisible: false,
 	firstRender: true,
 
-	noScrollObserver: Ember.observer('noScroll', function () {
-		const $body = Ember.$('body');
-		let scrollLocation;
+	wikiaHomepage: getWithDefault(Mercury, 'wiki.homepage', 'http://www.wikia.com'),
+
+	drawerContentComponent: computed('activeDrawerContent', function () {
+		return `wikia-${this.get('activeDrawerContent')}`;
+	}),
+
+	verticalClass: computed(() => {
+		const vertical = Ember.get(Mercury, 'wiki.vertical');
+
+		return `${vertical}-vertical`;
+	}),
+
+	noScrollObserver: observer('noScroll', function () {
+		// removes body scrolling ability when nav menu is open
+		const $body = $('body');
 
 		if (this.get('noScroll')) {
-			scrollLocation = $body.scrollTop();
-
-			this.set('scrollLocation', scrollLocation);
-
-			$body.css('top', -scrollLocation)
-				.addClass('no-scroll');
+			$body.addClass('no-scroll');
 		} else {
-			$body.removeClass('no-scroll')
-				.css('top', '');
-
-			window.scrollTo(0, this.get('scrollLocation'));
-			this.set('scrollLocation', null);
+			$body.removeClass('no-scroll');
 		}
 	}),
 
@@ -78,6 +78,21 @@ export default Ember.Component.extend({
 		}
 	},
 
+	actions: {
+		/**
+		 * @param {string} content
+		 * @returns {void}
+		 */
+		setDrawerContent(content) {
+			this.set('activeDrawerContent', content);
+		},
+
+		closeDrawer() {
+			this.set('activeDrawerContent', null);
+			this.get('toggleDrawer')(false);
+		}
+	},
+
 	/**
 	 * Necessary because presently, we open external links in new pages, so if we didn't
 	 * cancel the click event on the current page, then the mouseUp handler would open
@@ -93,14 +108,14 @@ export default Ember.Component.extend({
 		 * because if the user clicks the part of the link in the <i></i> then
 		 * target.tagName will register as 'I' and not 'A'.
 		 */
-		const $anchor = Ember.$(event.target).closest('a'),
+		const $anchor = $(event.target).closest('a'),
 			target = $anchor.length ? $anchor[0] : event.target;
 		let tagName;
 
 		if (target && this.shouldHandleClick(target)) {
 			tagName = target.tagName.toLowerCase();
 
-			if (tagName === 'a') {
+			if (tagName === 'a' && !isHashLink(target)) {
 				this.handleLink(target);
 				event.preventDefault();
 			}
@@ -146,7 +161,7 @@ export default Ember.Component.extend({
 	 * @returns {void}
 	 */
 	handleLink(target) {
-		Ember.Logger.debug('Handling link with href:', target.href);
+		Logger.debug('Handling link with href:', target.href);
 
 		/**
 		 * If either the target or the target's parent is an anchor (and thus target == true),
@@ -164,5 +179,5 @@ export default Ember.Component.extend({
 				this.sendAction('handleLink', target);
 			}
 		}
-	},
+	}
 });

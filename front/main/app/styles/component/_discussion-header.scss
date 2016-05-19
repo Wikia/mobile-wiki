@@ -3,24 +3,28 @@ $discussion-header-color-text: #fff;
 $discussion-header-mobile-max-width: 205px;
 $site-header-height: 50px;
 
+.discussion-header-wrapper {
+	height: $discussion-header-height;
+
+	&.discussion-headroom-un-pinned .discussion-header {
+		margin-top: 0;
+	}
+}
+
+.discussion-header-margin .discussion-header {
+	margin-top: $site-head-height;
+}
+
 .discussion-header {
 	color: $discussion-header-color-text;
-	margin-top: $site-header-height;
+	height: $discussion-header-height;
+	margin-top: $site-head-with-fandom-bar-height;
 	max-width: inherit;
+	padding-left: 15px;
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: $z-8; // drop-downs from top-bar component (which is $z-7) display over the discussion header
-
-	&.un-pinned {
-		margin-top: 0;
-		z-index: $z-6;
-	}
-
-	.header {
-		height: $discussion-header-height;
-		padding-left: 15px;
-	}
+	z-index: $z-6; // drop-downs from under the top-bar component (which is $z-7)
 
 	h1 {
 		color: $discussion-header-color-text;
@@ -117,18 +121,8 @@ $site-header-height: 50px;
 	}
 }
 
-.site-body-discussion {
-	margin-top: 50px;
-}
-
-@media #{$desktop-range} {
-	.site-body-discussion {
-		margin-top: 0;
-	}
-}
-
 .discussions {
-	.side-nav .side-nav-menu {
+	.side-nav-drawer {
 		@media #{$desktop-range} {
 			width: 25%;
 			max-width: 350px;
@@ -143,21 +137,11 @@ $site-header-height: 50px;
 	.site-head {
 		max-width: 100%;
 	}
-	.headroom-not-top,
-	.headroom-top {
-		transition: transform .5s, margin .5s;
-	}
-}
 
-@media #{$mobile-range} {
-	.discussions {
-		.site-head {
-			border-bottom: 10px solid transparent;
-			height: $site-header-height + 10px;
-
-			&.headroom-not-top.un-pinned {
-				transform: translateY(-$site-header-height);
-			}
+	.discussion-headroom-not-top,
+	.discussion-headroom-top {
+		.discussion-header {
+			transition: transform .5s, margin .5s;
 		}
 	}
 }

@@ -1,3 +1,12 @@
+{{#modal-dialog
+	class='is-bare is-desktop-centered discussion-editor-dialog'
+	closeOnOverlayClick=false
+	isVisible=editEditorActive
+}}
+	{{discussion-edit-editor
+		editPost=(action 'editPost')
+	}}
+{{/modal-dialog}}
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	model=model.data
@@ -7,8 +16,9 @@
 	}}
 	{{discussion-forum-wrapper
 		approve=(action 'approve')
-		create=(action 'create')
+		createPost=(action 'createPost')
 		deletePost=(action 'deletePost')
+		editPost=(action 'editPost')
 		forumId=model.data.forumId
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
@@ -17,7 +27,6 @@
 		posts=model.data.entities
 		postsDisplayed=model.data.entities.length
 		report=(action 'report')
-		siteHeadPinned=siteHeadPinned
 		totalPosts=model.data.postCount
 		undeletePost=(action 'undeletePost')
 		upvote=(action 'upvote')

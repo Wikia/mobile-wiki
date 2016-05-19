@@ -1,13 +1,13 @@
-<label class="editor-label">{{i18n labelText ns='discussion'}}</label>
-<div class="editor-container {{if isSticky 'sticky'}} {{unless siteHeadPinned pinnedClassName}}">
-	<a href="#" class="editor-close" {{action 'toggleEditorActive' false bubbles=false}}>
+<label class="editor-label reply-editor-label">{{i18n labelText ns='discussion'}}</label>
+<div class="editor-container {{if isSticky 'sticky'}} {{pinnedClassName}}">
+	<a href="#" class="editor-close" {{action 'close' bubbles=false}}>
 		{{svg 'close' class="fill-theme-color" viewBox='0 0 18 18'}}
 	</a>
-	<button class="active-element-theme-color" type="submit" {{action 'create' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitText ns='discussion'}}</button>
-		<div class="editor-wrapper">
-			{{textarea class='editor-textarea' keyPress=(action 'handleKeyPress') focusIn=(action 'onFocus') value=bodyText placeholder=(i18n placeholderText ns='discussion')}}
-			<div class="editor-textarea-overflow" {{action 'toggleEditorActive' true}}></div>
-		</div>
+	<button class="active-element-theme-color" type="submit" {{action 'submit' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitText ns='discussion'}}</button>
+	<div class="editor-wrapper">
+		{{textarea class='editor-textarea' keyPress=(action 'handleKeyPress') focusIn=(action 'onFocus') value=bodyText placeholder=(i18n placeholderText ns='discussion')}}
+		<div class="editor-textarea-overflow" {{action 'toggleEditorActive' true}}></div>
+	</div>
 	{{user-avatar
 		avatarUrl=currentUser.avatarPath
 		shouldWrapInHref=false
@@ -23,5 +23,12 @@
 		<div class="loading-overlay">
 			{{svg 'success' class='success' viewBox='0 0 80 80'}}
 		</div>
+	{{/if}}
+	<label class="editor-label editor-label-mobile">{{i18n labelText ns='discussion'}}</label>
+
+	{{#if errorMessage}}
+		<span class="error">
+			{{i18n errorMessage ns='discussion'}}
+		</span>
 	{{/if}}
 </div>

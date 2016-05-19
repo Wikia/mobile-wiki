@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import nearestParent from 'ember-pop-over/computed/nearest-parent';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	classNames: ['more-options'],
@@ -11,6 +12,8 @@ export default Ember.Component.extend({
 		return !this.get('post.isDeleted') && this.get('post.userData.permissions.canDelete');
 	}),
 
+	canEdit: Ember.computed.readOnly('post.userData.permissions.canEdit'),
+
 	canUndelete: Ember.computed.and('post.isDeleted', 'post.userData.permissions.canUndelete'),
 
 	canDeleteOrUndelete: Ember.computed.or('canDelete', 'canUndelete'),
@@ -21,21 +24,38 @@ export default Ember.Component.extend({
 			!this.get('post.isDeleted');
 	}),
 
-	canLock: Ember.computed('isLockable', 'post.isLocked', 'post.userData.permissions.canDelete', function () {
-		// @ToDo use canLock for this -> SOC-2144
-		return this.get('isLockable') && !this.get('post.isLocked') && this.get('post.userData.permissions.canDelete');
+	canLock: Ember.computed('isLockable', 'post.isLocked', 'post.userData.permissions.canLock', function () {
+		return this.get('isLockable') && !this.get('post.isLocked') && this.get('post.userData.permissions.canLock');
 	}),
 
-	canUnlock: Ember.computed.and('isLockable', 'post.isLocked', 'post.userData.permissions.canDelete'),
+	canUnlock: Ember.computed.and('isLockable', 'post.isLocked', 'post.userData.permissions.canUnlock'),
+
+	/**
+	 * @returns {void}
+	 */
+	didInsertElement() {
+		track(trackActions.MorePostActions);
+	},
+
+	discussionEditEditor: Ember.inject.service(),
 
 	actions: {
+		edit(post) {
+			const discussionEditEditor = this.get('discussionEditEditor');
+
+			discussionEditEditor.set('discussionEntity', post);
+			discussionEditEditor.toggleEditor(true);
+			this.get('popover').deactivate();
+		},
+
 		/**
 		 * @param {object} post
 		 *
 		 * @returns {void}
 		 */
 		lock(post) {
-			this.attrs.lock(post);
+			this.get('lock')(post);
+			track(trackActions.PostLock);
 			this.get('popover').deactivate();
 		},
 
@@ -45,7 +65,8 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		unlock(post) {
-			this.attrs.unlock(post);
+			this.get('unlock')(post);
+			track(trackActions.PostUnlock);
 			this.get('popover').deactivate();
 		},
 
@@ -55,7 +76,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		delete(post) {
-			this.attrs.delete(post);
+			this.get('delete')(post);
 			this.get('popover').deactivate();
 		},
 
@@ -65,7 +86,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		undelete(post) {
-			this.attrs.undelete(post);
+			this.get('undelete')(post);
 			this.get('popover').deactivate();
 		},
 
@@ -75,7 +96,8 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		report(post) {
-			this.attrs.report(post);
+			this.get('report')(post);
+			track(trackActions.Report);
 			this.get('popover').deactivate();
 		},
 	}

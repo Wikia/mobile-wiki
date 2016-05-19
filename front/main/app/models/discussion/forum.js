@@ -2,15 +2,16 @@ import Ember from 'ember';
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
-import ajaxCall from '../../utils/ajax-call';
+import DiscussionContributionModelMixin from '../../mixins/discussion-contribution-model';
 import DiscussionContributors from './domain/contributors';
 import DiscussionEntities from './domain/entities';
 import DiscussionPost from './domain/post';
-import {track, trackActions} from '../../utils/discussion-tracker';
+import request from 'ember-ajax/request';
 
 const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
+	DiscussionContributionModelMixin,
 	{
 		pivotId: null,
 
@@ -22,50 +23,21 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		loadPage(pageNum = 0, sortBy = 'trending') {
 			this.set('data.pageNum', pageNum);
 
-			return ajaxCall({
+			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`), {
 				data: {
 					page: this.get('data.pageNum'),
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false
-				},
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`),
-				success: (data) => {
-					this.get('data.entities').pushObjects(
-						Ember.get(data, '_embedded.doc:threads').map(
-							(newThread) => DiscussionPost.createFromThreadData(newThread)
-						)
-					);
-				},
-				error: (err) => {
-					this.handleLoadMoreError(err);
 				}
-			});
-		},
-
-		/**
-		 * Create new post in Discussion Service
-		 * @param {object} postData
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		createPost(postData) {
-			this.setFailedState(null);
-			return ajaxCall({
-				data: JSON.stringify(postData),
-				method: 'POST',
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}/threads`),
-				success: (thread) => {
-					const newPost = DiscussionPost.createFromThreadData(thread);
-
-					newPost.set('isNew', true);
-					this.get('data.entities').insertAt(0, newPost);
-					this.incrementProperty('postCount');
-
-					track(trackActions.PostCreate);
-				},
-				error: (err) => {
-					this.onCreatePostError(err);
-				}
+			}).then((data) => {
+				this.get('data.entities').pushObjects(
+					Ember.get(data, '_embedded.doc:threads').map(
+						(newThread) => DiscussionPost.createFromThreadData(newThread)
+					)
+				);
+			}).catch((err) => {
+				this.handleLoadMoreError(err);
 			});
 		},
 
@@ -98,31 +70,34 @@ DiscussionForumModel.reopenClass({
 	 * @param {number} wikiId
 	 * @param {number} forumId
 	 * @param {string} [sortBy='trending']
-	 * @returns { Ember.RSVP.Promise}
+	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, forumId, sortBy = 'trending') {
-		const forumInstance = DiscussionForumModel.create({
-				wikiId,
-				forumId
-			}),
-			requestData = {
-				limit: 10,
-				viewableOnly: false,
-			};
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			const forumInstance = DiscussionForumModel.create({
+					wikiId,
+					forumId
+				}),
+				requestData = {
+					limit: 10,
+					viewableOnly: false
+				};
 
-		if (sortBy) {
-			requestData.sortKey = forumInstance.getSortKey(sortBy);
-		}
-		return ajaxCall({
-			context: forumInstance,
-			data: requestData,
-			url: M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`),
-			success: (data) => {
-				forumInstance.setNormalizedData(data);
-			},
-			error: (err) => {
-				forumInstance.setErrorProperty(err);
+			if (sortBy) {
+				requestData.sortKey = forumInstance.getSortKey(sortBy);
 			}
+
+			request(M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`), {
+				data: requestData
+			}).then((data) => {
+				forumInstance.setNormalizedData(data);
+
+				resolve(forumInstance);
+			}).catch((err) => {
+				forumInstance.setErrorProperty(err);
+
+				reject(forumInstance);
+			});
 		});
 	}
 });

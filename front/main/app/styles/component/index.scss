@@ -1,10 +1,8 @@
 // file order is intended here - put new entries at the bottom
 @import 'site-head';
-@import 'wiki-page-header';
 @import 'share-header';
 @import 'share-feature';
 @import 'smart-banner-android';
-@import 'side-nav';
 @import 'collapsible-menu';
 @import 'lightbox';
 @import 'lightbox-media';
@@ -26,6 +24,7 @@
 @import 'discussion-hero-unit';
 @import 'discussion-error';
 @import 'discussion-dialog';
+@import 'discussion-open-graph';
 @import 'user-avatar';
 @import 'discussion-contributors';
 @import 'discussion-community-badge';
@@ -43,10 +42,14 @@
 @import 'infobox-builder';
 @import 'recent-change';
 @import 'article-diff';
-@import 'recent-edit-banner';
 @import 'date-placeholder';
 @import 'category-sections';
 @import 'fandom-posts';
+@import 'wikia-nav';
+@import 'nav-menu';
+@import 'wikia-search';
+@import 'wikia-drawer';
+@import 'site-head-fandom-bar';
 @import 'article-table-of-contents';
 @import 'potential-member-page-experiment';
 // wikia ui reusable components
@@ -55,3 +58,5 @@
 @import 'wikia-ui-components/on-hover-tooltip';
 @import 'wikia-ui-components/sub-header';
 @import 'wikia-ui-components/text-field';
+@import 'wikia-ui-components/wiki-page-header';
+@import 'wikia-ui-components/wiki-page-header-curated-main-page';

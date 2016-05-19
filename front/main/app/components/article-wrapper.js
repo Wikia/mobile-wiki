@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import LanguagesMixin from '../mixins/languages';
+import PortableInfoboxHeroImageMixin from '../mixins/portable-infobox-hero-image';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from 'common/utils/track';
 
@@ -13,6 +14,7 @@ import {track, trackActions} from 'common/utils/track';
  */
 
 export default Ember.Component.extend(
+	PortableInfoboxHeroImageMixin,
 	LanguagesMixin,
 	ViewportMixin,
 	{
@@ -103,24 +105,6 @@ export default Ember.Component.extend(
 			return this.get('currentUser.isAuthenticated');
 		}),
 
-		curatedContentToolButtonVisible: Ember.computed.and('model.isMainPage', 'currentUser.rights.curatedcontent'),
-
-		displayRecentEdit: Ember.computed('currentUser.isAuthenticated', function () {
-			return this.get('currentUser.isAuthenticated') && !Ember.$.cookie('recent-edit-dismissed');
-		}),
-
-		heroImage: Ember.computed('model.media', function () {
-			let heroImage;
-
-			this.get('model.media.media').forEach((current) => {
-				if (current.hasOwnProperty('context') && current.context === 'infobox-hero-image') {
-					heroImage = current;
-				}
-			});
-
-			return heroImage;
-		}),
-
 		actions: {
 			/**
 			 * @param {string} title
@@ -139,13 +123,6 @@ export default Ember.Component.extend(
 			 */
 			addPhoto(title, sectionIndex, photoData) {
 				this.sendAction('addPhoto', title, sectionIndex, photoData);
-			},
-
-			/**
-			 * @returns {void}
-			 */
-			expandSideNav() {
-				this.sendAction('toggleSideNav', true);
 			},
 
 			/**

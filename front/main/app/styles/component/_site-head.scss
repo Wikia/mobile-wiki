@@ -1,38 +1,78 @@
 $z-header: $z-6;
+$nav-container-padding: 6px;
+$icon-size: 25px;
+$site-head-box-shadow-color: rgba(0, 0, 0, 0.15);
 
 .site-body {
 	margin-top: $icon-site-head-width;
 }
 
-$site-head-height: 50; //unitless
+.site-head-headroom-un-pinned .site-head {
+	box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
+}
+
+.site-head-container {
+	min-height: $site-head-height;
+}
+
+.site-head-wrapper {
+	height: $site-head-height;
+}
 
 .site-head {
-	@extend .row;
-	@extend .small-12;
-	background-color: rgb(255, 255, 255);
-	border-bottom: 1px solid $color-blue-gray-light;
+	background-color: $white;
+	border-top: $site-head-top-border-height solid $color-blue-dark;
+	border-bottom: 1px solid $vapor;
 	direction: ltr;
-	height: rem-calc($site-head-height);
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
 	left: 0;
 	margin: 0 auto;
+	padding: 0 $nav-container-padding;
 	position: fixed;
 	right: 0;
 	text-align: center;
+	transition: box-shadow 0.5s;
 	top: 0;
+	width: 100%;
 	z-index: $z-site-head;
+
+	.site-head-icon-nav {
+		order: 1;
+	}
+
+	.site-head-icon-search {
+		order: 3;
+	}
 
 	.site-logo {
 		// These prevent the Wikia logo element from taking up more vertical
 		// space than it should, potentially affecting placement of elements
 		// beneath it.
-		height: rem-calc(50);
-		margin: 0 3.75rem;
+		height: $site-head-content-height;
+		margin: auto;
+		order: 2;
 		overflow: hidden;
 
 		svg {
 			// keep it same as .icon.wikia-logo
-			height: 3.125rem;
+			height: rem-calc(48);
 			width: 5rem;
+		}
+	}
+
+	.site-head-icon {
+		position: relative;
+		.icon-button-icon {
+			fill: $color-blue-dark;
+		}
+
+		&:hover {
+			.icon-button-icon {
+				fill: $color-blue-dark;
+			}
 		}
 	}
 
@@ -41,21 +81,6 @@ $site-head-height: 50; //unitless
 		position: relative;
 		right: 6px;
 		top: 6px;
-	}
-}
-
-.smart-banner-visible .headroom-top {
-	position: absolute;
-	top: $smart-banner-android-height;
-}
-
-.headroom-not-top {
-	&.pinned {
-		transform: none;
-	}
-
-	&.un-pinned {
-		transform: translateY(-100%);
 	}
 }
 

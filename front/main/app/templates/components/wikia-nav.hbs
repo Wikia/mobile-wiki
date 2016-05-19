@@ -1,0 +1,33 @@
+{{#if model.inRoot}}
+	{{#if isUserAuthenticated}}
+		<div class="wikia-nav__header">
+			<a {{action 'trackClick' 'side-nav' 'open-user-profile' preventDefault=false}}
+					href="{{userProfileLink}}" class="wikia-nav--external wikia-nav--profile-link">
+				<figure class="wikia-nav__avatar">
+					<img src={{currentUser.avatarPath}} alt="{{currentUser.name}}">
+				</figure>
+				{{i18n 'app.user-menu-profile'}}
+			</a>
+			<a {{action 'trackClick' 'side-nav' 'open-logout' preventDefault=false}}
+					href="{{unbound logoutLink}}"
+					class="wikia-nav--external wikia-nav--logout">{{i18n 'app.user-menu-log-out'}}</a>
+		</div>
+	{{else}}
+		<a class="wikia-nav__header" {{action 'goToLogin'}}>
+			<figure class="wikia-nav__avatar">
+				{{svg 'avatar' class='wikia-nav--login'}}
+			</figure>
+			{{i18n 'userStatus.login-text'}} | {{i18n 'userStatus.register-text'}}
+		</a>
+	{{/if}}
+{{else}}
+	<a class="wikia-nav__header wikia-nav__back" {{action 'goBack'}} href="#">
+		{{model.header}}
+	</a>
+{{/if}}
+
+{{nav-menu
+	items=model.items
+	onClickHandler=(action 'onClick')
+	onChangeItemHandler=(action 'goToSubNav')
+}}

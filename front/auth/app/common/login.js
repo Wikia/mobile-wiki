@@ -119,17 +119,19 @@ export default class Login {
 	}
 
 	/**
+	 * @param {Object} response
 	 * @returns {void}
 	 */
-	onLoginSuccess() {
+	onLoginSuccess(response) {
 		this.tracker.track('login-success', trackActions.submit);
-		AuthUtils.authSuccessCallback(this.redirect);
+		AuthUtils.authSuccessCallback(this.redirect, response.user_id);
 	}
 
 	/**
 	 * @returns {void}
 	 */
 	watch() {
+		this.tracker.trackCloseWindow();
 		this.form.addEventListener('submit', this.onSubmit.bind(this));
 
 		// TODO remove when SOC-719 is ready

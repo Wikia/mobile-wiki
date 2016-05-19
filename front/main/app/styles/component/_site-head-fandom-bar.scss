@@ -1,0 +1,34 @@
+$head-fandom-bar-font-size: 12px;
+$home-of-fandom-letter-spacing: 0.5px;
+
+.site-head-fandom-bar-wrapper {
+	height: $site-head-fandom-bar-height;
+}
+
+.site-head-fandom-bar {
+	background-color: $white;
+	border-bottom: 1px solid $color-blue-gray-light;
+	color: $color-blue-gray-dark;
+	font: {
+		size: $head-fandom-bar-font-size;
+		weight: bold;
+	}
+	height: $site-head-fandom-bar-height;
+	letter-spacing: $home-of-fandom-letter-spacing;
+	position: fixed;
+	text: {
+		align: center;
+		transform: uppercase;
+	}
+	transition: transform .5s;
+	width: 100%;
+	z-index: $z-6;
+
+	a {
+		color: $color-blue-gray-dark;
+	}
+}
+
+.site-head-headroom-un-pinned .site-head-fandom-bar {
+	transform: translateY(-100%);
+}

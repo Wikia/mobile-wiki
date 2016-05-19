@@ -1,11 +1,11 @@
 import {module} from 'qunit';
 import {test} from 'ember-qunit';
 
-module('Unit | Utils | truncate', (hooks) => {
+module('Unit | Utility | truncate', (hooks) => {
 	let truncate;
 
 	hooks.beforeEach(() => {
-		truncate = require('main/utils/truncate').default;
+		truncate = require('main/utils/truncate').truncate;
 	});
 
 	test('Truncate helper is exported', (assert) => {

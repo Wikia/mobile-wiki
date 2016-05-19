@@ -1,8 +1,9 @@
 import {module} from 'qunit';
 import {test} from 'ember-qunit';
 
-module('Unit | Utils | article link', () => {
-	const getLinkInfo = require('main/utils/article-link').default;
+module('Unit | Utility | article link', () => {
+	const getLinkInfo = require('main/utils/article-link').default,
+		isHashLink = require('main/utils/article-link').isHashLink;
 
 	test('getLinkInfo test external paths', (assert) => {
 		// These tests need to not contain the current base path (in the test, that's http://localhost:9876)
@@ -55,5 +56,34 @@ module('Unit | Utils | article link', () => {
 		assert.expect(2);
 		assert.equal(res.article, null, 'for jump links article should be null');
 		assert.equal(res.url, '#hash', 'for jump links the url should just be the jump link');
+	});
+
+	test('isHashLink', (assert) => {
+		const testCases = [
+			{
+				href: 'http://google.com',
+				expected: false
+			},
+			{
+				href: '#Section',
+				expected: true
+			},
+			{
+				href: '/wiki/Kermit#Section',
+				expected: false
+			},
+			{
+				expected: false
+			}
+		];
+
+		testCases.forEach((testCase) => {
+			const result = isHashLink({
+				hasAttribute: () => testCase.hasOwnProperty('href'),
+				getAttribute: () => testCase.href
+			});
+
+			assert.equal(result, testCase.expected);
+		});
 	});
 });

@@ -3,6 +3,7 @@ import InfoboxImageCollectionComponent from './infobox-image-collection';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {track, trackActions} from 'common/utils/track';
+import {getGroup, inGroup} from 'common/modules/abtest';
 
 /**
  * HTMLElement
@@ -22,31 +23,15 @@ export default Ember.Component.extend(
 		contributionEnabled: null,
 		uploadFeatureEnabled: null,
 		displayTitle: null,
-		headers: null,
-
-		newFromMedia(media) {
-			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
-				return this.createComponentInstance('infobox-image-media');
-			} else if (Ember.isArray(media)) {
-				if (media.some((media) => Boolean(media.link))) {
-					return this.createComponentInstance('linked-gallery-media');
-				} else {
-					return this.createComponentInstance('gallery-media');
-				}
-			} else if (media.type === 'video') {
-				return this.createComponentInstance('video-media');
-			} else {
-				return this.createComponentInstance('image-media');
-			}
-		},
 
 		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
-			const content = this.get('content');
+			let content = this.get('content');
 
 			this.destroyChildComponents();
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
-				if (content) {
+				if (!Ember.isBlank(content)) {
+					content = this.injectSections(content);
 					this.hackIntoEmberRendering(content);
 
 					this.handleInfoboxes();
@@ -58,38 +43,27 @@ export default Ember.Component.extend(
 
 					this.loadIcons();
 					this.createTableOfContents();
+					this.createContributionButtons();
 					this.handleTables();
+					// TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
+					this.handleNavigation();
 					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
 					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 					this.injectPotentialMemberPageExperimentComponent();
+					this.bindHeaderClicks();
 
 					Ember.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
 				} else {
-					this.hackIntoEmberRendering(i18n.t('app.article-empty-label'));
+					this.hackIntoEmberRendering(`<p>${i18n.t('app.article-empty-label')}</p>`);
 				}
 
 				this.injectAds();
 				this.setupAdsContext(this.get('adsContext'));
 			});
 		})),
-
-		headerObserver: Ember.observer('headers', function () {
-			if (this.get('contributionEnabled')) {
-				const headers = this.get('headers');
-				let $sectionHeader = null,
-					$contributionComponent = null;
-
-				headers.forEach((header) => {
-					$contributionComponent = this.createArticleContributionComponent(header.section, header.id);
-					$sectionHeader = this.$(header.element);
-					$sectionHeader.prepend($contributionComponent).addClass('short-header');
-					$contributionComponent.wrap('<div class="icon-wrapper"></div>');
-				});
-			}
-		}),
 
 		init() {
 			this._super(...arguments);
@@ -203,32 +177,49 @@ export default Ember.Component.extend(
 			return '';
 		},
 
+		/**
+		 * @param {{context: string, type: string}} attrs
+		 * @returns {Object}
+		 */
+		handleAttrsContext(attrs) {
+			/**
+			 * Ember has its own context attribute, that is why we have to use different attribute name
+			 */
+			if (attrs.context) {
+				/**
+				 * We don't want to show titles below videos in infoboxes.
+				 * This check is just a hack.
+				 * Perfectly this should be handled somewhere inside infobox-related logic.
+				 * For now this solution is enough
+				 * - it works the same way as on wikis without SEO friendly images.
+				 * It works on wikis without SEO friendly images because there was a bug
+				 * - video was treated as an image and we don't show titles below images.
+				 */
+				if (attrs.context === 'infobox' && attrs.type === 'video') {
+					attrs.showTitle = false;
+				}
+
+				attrs.mediaContext = attrs.context;
+				delete attrs.context;
+			}
+
+			return attrs;
+		},
+
+		/**
+		 * @param {string} name
+		 * @param {Object} attrs
+		 * @param {Object} element
+		 * @returns {{name: string, attrs: Object, element: Object}}
+		 */
 		getAttributesForMedia({name, attrs, element}) {
 			const media = this.get('media.media');
 
 			if (attrs.ref >= 0 && media && media[attrs.ref]) {
 				if (name === 'article-media-thumbnail' || name === 'portable-infobox-hero-image') {
-					attrs = Ember.$.extend(attrs, media[attrs.ref]);
-
-					/**
-					 * Ember has its own context attribute, that is why we have to use different attribute name
-					 */
-					if (attrs.context) {
-						/**
-						 * We don't want to show titles below videos in infoboxes.
-						 * This check is just a hack.
-						 * Perfectly this should be handled somewhere inside infobox-related logic.
-						 * For now this solution is enough
-						 * - it works the same way as on wikis without SEO friendly images.
-						 * It works on wikis without SEO friendly images because there was a bug
-						 * - video was treated as an image and we don't show titles below images.
-						 */
-						if (attrs.context === 'infobox' && attrs.type === 'video') {
-							attrs.showTitle = false;
-						}
-						attrs.mediaContext = attrs.context;
-						delete attrs.context;
-					}
+					attrs = this.handleAttrsContext(
+						Ember.$.extend(attrs, media[attrs.ref])
+					);
 				} else if (name === 'article-media-gallery' || name === 'article-media-linked-gallery') {
 					attrs = Ember.$.extend(attrs, {
 						items: media[attrs.ref]
@@ -255,6 +246,22 @@ export default Ember.Component.extend(
 			}
 
 			return {name, attrs, element};
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		bindHeaderClicks() {
+			if (!this.$('.collapsible-section-header').length) {
+				return;
+			}
+
+			this.$('.collapsible-section-header').click(function () {
+				const $header = $(this);
+
+				$header.toggleClass('open');
+				$header.next('.collapsible-section-body').toggleClass('hidden');
+			});
 		},
 
 		/**
@@ -318,6 +325,34 @@ export default Ember.Component.extend(
 			return this.createChildView(contributionComponent).createElement().$();
 		},
 
+		/**
+		 * @returns {void}
+		 */
+		createContributionButtons() {
+			if (this.get('contributionEnabled')) {
+				const headers = this.$('h2[section]').map((i, elem) => {
+					if (elem.textContent) {
+						return {
+							element: elem,
+							level: elem.tagName,
+							name: elem.textContent,
+							id: elem.id,
+							section: elem.getAttribute('section'),
+						};
+					}
+				}).toArray();
+
+				headers.forEach((header) => {
+					this.$(header.element)
+						.wrapInner('<div class="section-header-label"></div>')
+						.append(this.createArticleContributionComponent(header.section, header.id));
+				});
+			}
+		},
+
+		/**
+		 * @returns {void}
+		 */
 		createTableOfContents() {
 			const component = this.createComponentInstance('article-table-of-contents'),
 				$firstInfobox = this.$('.portable-infobox').first(),
@@ -328,7 +363,24 @@ export default Ember.Component.extend(
 			} else {
 				componentElement.$().prependTo(this.$());
 			}
+
 			componentElement.trigger('didInsertElement');
+		},
+
+		newFromMedia(media) {
+			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
+				return this.createComponentInstance('infobox-image-media');
+			} else if (Ember.isArray(media)) {
+				if (media.some((media) => Boolean(media.link))) {
+					return this.createComponentInstance('linked-gallery-media');
+				} else {
+					return this.createComponentInstance('gallery-media');
+				}
+			} else if (media.type === 'video') {
+				return this.createComponentInstance('video-media');
+			} else {
+				return this.createComponentInstance('image-media');
+			}
 		},
 
 		/**
@@ -470,6 +522,7 @@ export default Ember.Component.extend(
 			infoboxComponentElement = this.createChildView(infoboxComponent).createElement();
 
 			$infoboxPlaceholder.replaceWith(infoboxComponentElement.$());
+
 			infoboxComponentElement.trigger('didInsertElement');
 		},
 
@@ -593,6 +646,89 @@ export default Ember.Component.extend(
 
 					$element.wrap(wrapper);
 				});
+		},
+
+		/**
+		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_COLLAPSE AB TEST
+		 *
+		 * @param {string} content
+		 * @returns {documentFragment}
+		 */
+		injectSections(content) {
+			if (!inGroup('RECIRCULATION_MERCURY_COLLAPSE', 'YES')) {
+				return content;
+			}
+
+			const $fragment = $(document.createDocumentFragment()),
+				nodes = this.getContentNodes(content);
+
+			let $root = $fragment;
+
+			for (let i = 0; i < nodes.length; i++) {
+				const $node = $(nodes[i]);
+
+				if ($node.is('h2')) {
+					const $currentSection = $('<section class="collapsible-section-body hidden">'),
+						$sectionHeader = $node.clone(true).addClass('collapsible-section-header'),
+						svg = '<svg viewBox="0 0 12 7" class="icon chevron"><use xlink:href="#chevron"></use></svg>';
+
+					$sectionHeader.prepend(svg);
+
+					$fragment.append($sectionHeader);
+					$fragment.append($currentSection);
+
+					$root = $currentSection;
+				} else {
+					$root.append($node.clone(true));
+				}
+			}
+
+			return $fragment;
+		},
+
+		/**
+		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_COLLAPSE AB TEST
+		 *
+		 * @param {string} content
+		 * @returns {array}
+		 */
+		getContentNodes(content) {
+			const article = document.createElement('div');
+
+			article.innerHTML = content;
+			return article.childNodes;
+		},
+
+		/**
+		 * TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
+		 * by default all block navigation elements are now hidden in css by display:none;
+		 * according to current test group we want to un-hide some of the elements:
+		 *  - only navigation elements
+		 *  - only navboxes
+		 *  - both of them
+		 *
+		 * @returns {void}
+		 */
+		handleNavigation() {
+			let navABTestGroup = getGroup('MERCURY_NAVIGATION_ELEMENTS'),
+				dataTypeSelector;
+
+			// display only navboxes
+			if (navABTestGroup === 'NAVIGATION_HIDDEN') {
+				dataTypeSelector = '[data-type=navbox]';
+			// display only navigation
+			} else if (navABTestGroup === 'NAVBOXES_HIDDEN') {
+				dataTypeSelector = '[data-type=navigation]';
+			// display all of them
+			} else if (navABTestGroup === 'BOTH_SHOWN') {
+				dataTypeSelector = '[data-type^=nav]';
+			}
+
+			if (dataTypeSelector) {
+				this.$(dataTypeSelector).each((index, element) => {
+					element.style.display = 'block';
+				});
+			}
 		},
 
 		/**

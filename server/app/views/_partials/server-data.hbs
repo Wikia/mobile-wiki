@@ -1,6 +1,5 @@
 <script>
 	M.prop('initialPageView', true, true);
-	M.prop('apiBase', '{{server.apiBase}}' || '/api/mercury');
 	M.prop('gaUrl', '{{server.gaUrl}}');
 	M.prop('optimizelyScript', '{{server.optimizelyScript}}');
 	M.prop('qualarooScript', '{{server.qualarooScript}}');
@@ -13,6 +12,7 @@
 	M.prop('userId', {{userId}});
 	M.prop('displayTitle', '{{displayTitle}}');
 	M.prop('urlTitleParam', '{{urlTitleParam}}');
+	M.prop('articleId', '{{articleId}}');
 	M.prop('gaUserIdHash', '{{{gaUserIdHash}}}');
 	M.prop('cookieDomain', {{{json localSettings.authCookieDomain}}});
 	M.prop('servicesDomain', {{{json localSettings.servicesDomain}}});

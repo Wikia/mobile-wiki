@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import truncate from '../utils/truncate';
+import {truncate} from '../utils/truncate';
 
 /**
  * @param {Array} params

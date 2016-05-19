@@ -120,43 +120,4 @@ export class PageRequestHelper {
 
 		return mediaWikiPageRequest.articleFromMarkup(this.params.title, this.params.wikitext, this.params.CKmarkup);
 	}
-
-	/**
-	 * Gets article, returns a promise which is resolved with the data.
-	 *
-	 * @returns {Promise<ArticleResponse>}
-	 */
-	getArticle() {
-		const mediaWikiPageRequest = new MediaWiki.PageRequest(this.params);
-
-		logger.debug(this.params, 'Fetching page');
-
-		return mediaWikiPageRequest.page(this.params.title, this.params.redirect, this.params.sections);
-	}
-
-	/**
-	 * @returns {Promise}
-	 */
-	getArticleRandomTitle() {
-		const mediaWikiPageRequest = new MediaWiki.PageRequest(this.params);
-
-		return mediaWikiPageRequest
-			.randomTitle()
-			/**
-			 * @param {*} result
-			 * @returns {Promise}
-			 */
-			.then((result) => {
-				if (result.query && result.query.pages) {
-					const articleId = Object.keys(result.query.pages)[0],
-						pageData = result.query.pages[articleId];
-
-					return resolve({
-						title: pageData.title
-					});
-				} else {
-					return reject(result.exception);
-				}
-			});
-	}
 }

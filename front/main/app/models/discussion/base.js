@@ -1,11 +1,9 @@
 import Ember from 'ember';
-import ajaxCall from '../../utils/ajax-call';
-import {track, trackActions} from '../../utils/discussion-tracker';
 
 export default Ember.Object.extend({
 	error: null,
 	errorCodes: {
-		notFound: 404
+		notFound: '404'
 	},
 	errorClass: 'discussion-error-page',
 	data: null,
@@ -27,7 +25,7 @@ export default Ember.Object.extend({
 
 		this.setProperties({
 			data: Ember.Object.create({
-				forumId: wikiId,
+				forumId: wikiId
 			}),
 			error: Ember.Object.create({}),
 			wikiId
@@ -40,7 +38,7 @@ export default Ember.Object.extend({
 	 * @returns {void}
 	 */
 	setErrorProperty(err) {
-		if (err.status === this.errorCodes.notFound) {
+		if (err.errors[0].status === this.errorCodes.notFound) {
 			this.set('error.isNotFound', true);
 		}
 
@@ -68,43 +66,4 @@ export default Ember.Object.extend({
 	setFailedState(errorMessage) {
 		this.set('data.dialogMessage', errorMessage);
 	},
-
-	/**
-	 * @param {*} entity
-	 * @returns {void}
-	 */
-	upvote(entity) {
-		const entityId = entity.get('id'),
-			hasUpvoted = entity.get('userData.hasUpvoted'),
-			method = hasUpvoted ? 'delete' : 'post';
-
-		if (this.upvotingInProgress[entityId] || typeof entity.get('userData') === 'undefined') {
-			return null;
-		}
-
-		this.upvotingInProgress[entityId] = true;
-
-		// the change in the front-end is done here
-		entity.set('userData.hasUpvoted', !hasUpvoted);
-
-		ajaxCall({
-			method,
-			url: M.getDiscussionServiceUrl(`/${Ember.get(Mercury, 'wiki.id')}/votes/post/${entity.get('id')}`),
-			success: (data) => {
-				entity.set('upvoteCount', data.upvoteCount);
-
-				if (hasUpvoted) {
-					track(trackActions.UndoUpvotePost);
-				} else {
-					track(trackActions.UpvotePost);
-				}
-			},
-			error: () => {
-				entity.set('userData.hasUpvoted', hasUpvoted);
-			},
-			complete: () => {
-				this.upvotingInProgress[entityId] = false;
-			}
-		});
-	}
 });

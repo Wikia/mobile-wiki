@@ -97,6 +97,11 @@ $smart-banner-android-height: rem-calc(66);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Site head
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+$site-head-top-border-height: rem-calc(6);
+$site-head-content-height: rem-calc(49);
+$site-head-fandom-bar-height: rem-calc(23);
+$site-head-height: $site-head-top-border-height + $site-head-content-height;
+$site-head-with-fandom-bar-height: $site-head-height + $site-head-fandom-bar-height;
 $icon-site-head-width: rem-calc(60);
 $icon-site-head-height: 50px;
 

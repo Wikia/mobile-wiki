@@ -14,11 +14,15 @@
 }
 
 .wikia-stats-label {
-	font-size: 12px;
+	font-size: 10px;
 	text-transform: uppercase;
 }
 
+.wikia-stats-link {
+	color: $body-font-color;
+}
+
 .wikia-stats-value {
-	font-size: 32px;
+	font-size: $type-small;
 	letter-spacing: -2px;
 }

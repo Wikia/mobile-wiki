@@ -1,19 +1,22 @@
+import Ember from 'ember';
 import DiscussionBaseRoute from './base';
-import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
+import DiscussionContributionRouteMixin from '../../mixins/discussion-contribution-route';
 import DiscussionForumModel from '../../models/discussion/forum';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 
+const {inject} = Ember;
+
 export default DiscussionBaseRoute.extend(
-	DiscussionRouteUpvoteMixin,
+	DiscussionContributionRouteMixin,
 	DiscussionModerationRouteMixin,
 	DiscussionForumActionsRouteMixin,
 	DiscussionModalDialogMixin,
 	{
 		canModerate: null,
-		discussionSort: Ember.inject.service(),
-		discussionEditor: Ember.inject.service(),
+		discussionSort: inject.service(),
+		discussionEditor: inject.service(),
 
 		forumId: null,
 
@@ -51,25 +54,6 @@ export default DiscussionBaseRoute.extend(
 			 */
 			loadPage(pageNum) {
 				this.modelFor(this.get('routeName')).loadPage(pageNum, this.get('discussionSort.sortBy'));
-			},
-
-			/**
-			 * Applies sorting by date and attempts to create a new post
-			 *
-			 * @param {object} postData
-			 *
-			 * @returns {void}
-			 */
-			create(postData) {
-				this.setSortBy('latest').promise.then(() => {
-					const model = this.modelFor(this.get('routeName'));
-
-					model.createPost(postData).then((xhr) => {
-						if (xhr.apiResponseData && !model.get('errorMessage')) {
-							this.get('discussionEditor').trigger('newPost');
-						}
-					});
-				});
 			},
 		}
 	}

@@ -48,7 +48,6 @@ import deepExtend from 'deep-extend';
 
 /**
  * @typedef {Object} LocalSettings
- * @property {string} apiBase
  * @property {string} [authCookieDomain]
  * @property {number} backendRequestTimeout
  * @property {string} cdnBaseUrl
@@ -158,7 +157,6 @@ import deepExtend from 'deep-extend';
  */
 
 const localSettings = {
-	apiBase: '/api/mercury',
 	servicesDomain: 'services.wikia.com',
 	// Default timeout for backend requests
 	// This timeout is the same as the MW app timeout
@@ -173,6 +171,9 @@ const localSettings = {
 		path: '/user-registration',
 		usernameMaxLength: 50,
 		passwordMaxLength: 50
+	},
+	userPreferencesService: {
+		baseAPIPath: 'user-preference'
 	},
 	discuss: {
 		baseAPIPath: 'discussion'
@@ -245,7 +246,7 @@ const localSettings = {
 			countries: []
 		},
 		nielsen: {
-			apid: 'P26086A07-C7FB-4124-A679-8AC404198BA7',
+			apid: 'FIXME',
 			dbName: '',
 			section: '',
 			enabled: false

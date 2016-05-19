@@ -7,6 +7,7 @@ export default Ember.Mixin.create({
 	ns: Ember.computed.oneWay('curatedMainPageData.ns'),
 	adsContext: Ember.computed.oneWay('curatedMainPageData.adsContext'),
 	mainPageDescription: Ember.computed.oneWay('curatedMainPageData.description'),
+	articleId: Ember.computed.oneWay('curatedMainPageData.id'),
 
 	/**
 	 * @returns {void}
@@ -53,12 +54,14 @@ export default Ember.Mixin.create({
 			ns: this.get('ns')
 		});
 
+		model.set('title', sectionOrCategoryName);
+
 		transition.then(() => {
-			this.updateTrackingData(model);
+			this.updateTrackingData();
 		});
 	},
 
-	updateTrackingData(model) {
+	updateTrackingData() {
 		const uaDimensions = {},
 			adsContext = this.get('adsContext'),
 			ns = this.get('ns');
@@ -72,7 +75,7 @@ export default Ember.Mixin.create({
 		uaDimensions[25] = ns;
 
 		setTrackContext({
-			a: model.get('title'),
+			a: this.get('articleId'),
 			n: ns
 		});
 

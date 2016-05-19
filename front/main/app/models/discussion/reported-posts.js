@@ -1,39 +1,37 @@
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
-import ajaxCall from '../../utils/ajax-call';
+import DiscussionContributionModelMixin from '../../mixins/discussion-contribution-model';
 import DiscussionContributors from './domain/contributors';
 import DiscussionEntities from './domain/entities';
+import request from 'ember-ajax/request';
 
 const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
+	DiscussionContributionModelMixin,
 	{
 		/**
 		 * @param {number} [pageNum=0]
-		 * @param {string} [sortBy='trending']
 		 *
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(pageNum = 0) {
 			this.set('pageNum', pageNum);
 
-			return ajaxCall({
+			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts`), {
 				data: {
 					page: this.get('pageNum'),
 					pivot: this.get('pivotId'),
 					viewableOnly: false,
 					reported: true
 				},
-				url: M.getDiscussionServiceUrl(`/${this.wikiId}/posts`),
-				success: (data) => {
-					this.get('data.entities').pushObjects(
-						DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'))
-					);
-				},
-				error: (err) => {
-					this.handleLoadMoreError(err);
-				}
+			}).then((data) => {
+				this.get('data.entities').pushObjects(
+					DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'))
+				);
+			}).catch((err) => {
+				this.handleLoadMoreError(err);
 			});
 		},
 
@@ -66,30 +64,30 @@ DiscussionReportedPostsModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @param {number} forumId
-	 * @param {string} [sortBy='trending']
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId, forumId) {
-		const reportedPostsInstance = DiscussionReportedPostsModel.create({
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			const reportedPostsInstance = DiscussionReportedPostsModel.create({
 				wikiId,
 				forumId
-			}),
-			requestData = {
-				viewableOnly: false,
-				reported: true
-			};
+			});
 
-		return ajaxCall({
-			context: reportedPostsInstance,
-			data: requestData,
-			url: M.getDiscussionServiceUrl(`/${wikiId}/posts`),
-			success: (data) => {
+			request(M.getDiscussionServiceUrl(`/${wikiId}/posts`), {
+				data: {
+					viewableOnly: false,
+					reported: true
+				}
+			}).then((data) => {
 				reportedPostsInstance.setNormalizedData(data);
-			},
-			error: (err) => {
+
+				resolve(reportedPostsInstance);
+			}).catch((err) => {
 				reportedPostsInstance.setErrorProperty(err);
-			}
+
+				reject(reportedPostsInstance);
+			});
 		});
 	}
 });

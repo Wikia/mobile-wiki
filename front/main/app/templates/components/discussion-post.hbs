@@ -14,6 +14,7 @@
 	upvoteCount=model.upvoteCount
 	upvote=(action this.attrs.upvote)
 }}
+
 {{#if model.replies}}
 	<div class="desktop-hidden discussion-contributors-mobile">
 		{{discussion-contributors
@@ -59,7 +60,8 @@
 		<button {{action this.attrs.loadNewerReplies}}
 			class="load-newer active-element-theme-color
 			{{if isFloatingButton 'floating' 'wide'}}
-			{{if isFloatingButtonBottomSpace 'bottom-space'}}">
+			{{if isFloatingButtonBottomSpace 'bottom-space'}}
+			{{unless canReply 'no-editor'}}">
 			{{#if isFloatingButton}}
 				{{svg 'down-small' viewBox='0 0 10 12' class='icon down-small'}}
 				{{i18n 'main.pagination-post-show-new-replies' ns='discussion'}}
@@ -70,7 +72,7 @@
 	{{/if}}
 	{{#if canReply}}
 		{{discussion-reply-editor
-			create=(action this.attrs.create)
+			create=(action this.attrs.createReply)
 			replies=model.replies
 		}}
 	{{/if}}

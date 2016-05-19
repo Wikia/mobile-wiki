@@ -1,12 +1,12 @@
 import DiscussionBaseRoute from './base';
-import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
+import DiscussionContributionRouteMixin from '../../mixins/discussion-contribution-route';
 import DiscussionReportedPostsModel from '../../models/discussion/reported-posts';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 
 export default DiscussionBaseRoute.extend(
-	DiscussionRouteUpvoteMixin,
+	DiscussionContributionRouteMixin,
 	DiscussionModerationRouteMixin,
 	DiscussionForumActionsRouteMixin,
 	DiscussionModalDialogMixin,
@@ -82,8 +82,8 @@ export default DiscussionBaseRoute.extend(
 				this.transitionTo('discussion.forum', this.get('forumId'), 'latest').promise.then(() => {
 					const model = this.modelFor(this.get('routeName'));
 
-					model.createPost(postData).then((xhr) => {
-						if (xhr.apiResponseData && !model.get('errorMessage')) {
+					model.createPost(postData).then((data) => {
+						if (data && !model.get('errorMessage')) {
 							this.get('discussionEditor').trigger('newPost');
 						}
 					});

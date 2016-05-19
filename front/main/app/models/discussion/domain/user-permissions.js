@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 const DiscussionUserPermissions = Ember.Object.extend({
 	canDelete: false,
+	canEdit: false,
 	canLock: false,
 	canModerate: false,
 	canUndelete: false,
@@ -19,7 +20,9 @@ DiscussionUserPermissions.reopenClass({
 	create(permissionsData = []) {
 		const permissions = {};
 
-		permissionsData.forEach((permission) => permissions[permission] = true);
+		permissionsData.forEach((permission) => {
+			permissions[permission] = true;
+		});
 
 		return this._super(permissions);
 	}
