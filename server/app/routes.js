@@ -71,6 +71,14 @@ let routes,
 		},
 		{
 			method: 'GET',
+			path: '/search',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
 			path: '/heartbeat',
 			handler: heartbeatHandler
 		},
@@ -83,14 +91,6 @@ let routes,
 			method: 'GET',
 			path: '/logout',
 			handler: logoutHandler
-		},
-		{
-			method: 'GET',
-			path: '/search',
-			handler: showApplication,
-			config: {
-				cache: routeCacheConfig
-			}
 		}
 	],
 	// routes where we want to know the user's auth status

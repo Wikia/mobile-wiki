@@ -27,7 +27,7 @@ export default Component.extend(
 			return this.get('drawerVisible') && this.get('drawerContent') === 'nav' ? 'close' : 'nav';
 		}),
 
-		searchIcon: computed('drawerContent', 'drawerVisible', function () {
+		searchIcon: computed('drawerContent', 'drawerVisible', 'isSearchPage', function () {
 			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ? 'close' : 'search';
 		}),
 

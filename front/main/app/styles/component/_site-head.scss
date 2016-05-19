@@ -2,6 +2,7 @@ $z-header: $z-6;
 $nav-container-padding: 6px;
 $icon-size: 25px;
 $site-head-box-shadow-color: rgba(0, 0, 0, 0.15);
+$icon-button-size: 48px;
 
 .site-body {
 	margin-top: $icon-site-head-width;
@@ -45,6 +46,7 @@ $site-head-box-shadow-color: rgba(0, 0, 0, 0.15);
 
 	.site-head-icon-search {
 		order: 3;
+		width: $icon-button-size;
 	}
 
 	.site-logo {

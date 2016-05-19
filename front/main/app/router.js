@@ -8,6 +8,8 @@ const Router = Ember.Router.extend({
 Router.map(function () {
 	this.route('article-preview');
 
+	this.route('search');
+
 	// we use here wilcard instead of a dynamic segment to be able to
 	// handle in builder also sub-templates (with /)
 	this.route('infobox-builder', {
@@ -66,8 +68,6 @@ Router.map(function () {
 	this.route('articleDiff', {
 		path: '/diff/:oldId/:newId'
 	});
-
-	this.route('search');
 
 	this.route('wiki-page', {
 		path: '/wiki/*title'

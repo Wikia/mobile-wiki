@@ -13,19 +13,19 @@
 			iconSize=24
 		}}
 
-		{{#unless isSearchPage}}
+		<div class="site-head-icon-search">
 			{{wikia-ui-components/icon-button
 				click=(action 'siteHeadIconClick' 'search')
-				class='site-head-icon site-head-icon-search'
+				class='site-head-icon'
 				icon=searchIcon
 				iconSize=24
+				isVisible=(if isSearchPage 'false' 'true')
 			}}
-		{{/unless}}
+		</div>
 	</nav>
 </div>
-{{#unless isSearchPage}}
-	{{site-head-fandom-bar
-		wikiaHomepage=wikiaHomepage
-	}}
-{{/unless}}
+{{site-head-fandom-bar
+	wikiaHomepage=wikiaHomepage
+	isSearchPage=isSearchPage
+}}
 <div id="site-head-sub-header"></div>
