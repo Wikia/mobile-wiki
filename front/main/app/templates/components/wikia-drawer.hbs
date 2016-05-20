@@ -1,10 +1,5 @@
-<div class="side-nav-menu">
-	{{yield}}
-	{{#if isFandomVisible}}
-		<div class="side-nav-menu__footer">
-			<a {{action 'homeOfFandomClick' preventDefault=false}} href={{wikiaHomepage}}>
-				{{homeOfFandomLabel}}
-			</a>
-		</div>
-	{{/if}}
+<div class="side-nav-drawer">
+	<div class="side-nav-drawer__content">
+		{{yield}}
+	</div>
 </div>

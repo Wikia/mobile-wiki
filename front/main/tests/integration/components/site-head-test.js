@@ -26,7 +26,7 @@ test('click search icon when already in search and drawer visible - hide menu', 
 		},
 
 		setDrawerContent(value) {
-			assert.equal(value, null);
+			assert.equal(value, false);
 		}
 	});
 
