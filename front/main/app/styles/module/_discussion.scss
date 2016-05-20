@@ -553,7 +553,6 @@ body.discussions {
 	}
 
 	&.forum {
-
 		.clamp {
 			@include clamp(3);
 
@@ -563,12 +562,16 @@ body.discussions {
 		}
 
 		.post-detail {
-			box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 			margin-bottom: $post-details-post-margin-bottom;
 
 			.post-title {
 				font-size: $type-smallest;
 			}
+		}
+
+		.post-detail,
+		.post-reply {
+			box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 		}
 	}
 
