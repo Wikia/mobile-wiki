@@ -1,6 +1,10 @@
 $search-results-box-shadow-color: rgba(0, 0, 0, 0.3);
-$search-line-height: 48px;
+$search-height: 48px;
 $search-input-font-size: 16px;
+
+.wikia-search-wrapper {
+	height: $search-height;
+}
 
 .wikia-search {
 	border-top: 1px solid $vapor;
@@ -20,7 +24,6 @@ $search-input-font-size: 16px;
 	color: inherit;
 	display: block;
 	font-size: $nav-font-size;
-	line-height: $search-line-height;
 	margin-top: 0;
 	position: relative;
 
@@ -48,7 +51,6 @@ $search-input-font-size: 16px;
 		display: inline-block;
 		font: inherit;
 		font-size: $search-input-font-size;
-		height: $search-line-height;
 		margin: 0;
 		padding: 0;
 

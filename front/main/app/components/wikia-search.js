@@ -14,7 +14,7 @@ const {Component, computed, observer, inject, run} = Ember;
  */
 export default Component.extend(
 	{
-		classNames: ['wikia-search'],
+		classNames: ['wikia-search-wrapper'],
 		ajax: inject.service(),
 		query: '',
 		emptyQueryInput: computed.not('query'),
