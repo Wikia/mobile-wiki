@@ -1,5 +1,8 @@
-<legend {{action 'toggle'}}>{{i18n 'main.categories-header' ns='discussion'}}</legend>
-<ul class="discussion-categories-list {{if collapsed 'collapsed'}}">
+<legend {{action 'toggle'}}>
+	{{i18n 'main.categories-header' ns='discussion'}}
+	{{svg 'chevron-linked' role='img' class='icon chevron'}}
+</legend>
+<ul class="discussion-categories-list">
 	<li>
 		{{wikia-ui-components/fancy-check-box
 		label=(i18n 'main.category-all-name' ns='discussion')

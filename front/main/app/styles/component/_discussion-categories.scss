@@ -5,12 +5,26 @@
 	overflow: hidden;
 	transition: max-height .6s;
 
-	&.collapsed {
-		max-height: 0;
-	}
-
 	li {
 		margin-bottom: 8px;
 	}
 }
 
+.discussion-categories {
+	.chevron {
+		height: 20px;
+		transform: rotate(-90deg);
+		width: 20px;
+	}
+
+	&.collapsed {
+		.chevron {
+			transform: rotate(90deg);
+		}
+
+		.discussion-categories-list {
+			max-height: 0;
+		}
+	}
+
+}
