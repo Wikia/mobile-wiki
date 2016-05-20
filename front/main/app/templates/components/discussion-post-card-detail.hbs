@@ -68,40 +68,19 @@
 		{{replyCount}}
 	</div>
 </div>
-<div class="row post-actions">
-	{{discussion-upvote-post
-		post=post
-		upvote=(action this.attrs.upvote)
-	}}
-
-	{{#if isDetailsView}}
-		<div class="small-5 large-4 columns action replies">
-			<span class="replies-area">
-				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
-				{{i18n 'main.replies-link-label' ns='discussion' count=replyCount}}
-			</span>
-		</div>
-	{{else}}
-		<div class="small-5 large-4 columns action replies">
-			{{#link-to 'discussion.post' post.threadId class='replies-area'}}
-				{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
-				{{i18n 'main.replies-link-label' ns='discussion' count=replyCount}}
-			{{/link-to}}
-		</div>
-	{{/if}}
-
-	<div class="small-2 large-4 columns share">
-		{{#unless isDeleted }}
-			{{discussion-share
-				entryPointLabel=(i18n 'main.share-label' ns='discussion')
-				header=(i18n 'main.share-header' ns='discussion')
-				sharedUrl=sharedUrl
-				showLabelOnMobile=true
-				uniqueIdentifier=post.threadId
-			}}
-		{{/unless}}
-	</div>
-</div>
+{{discussion-post-card-actions
+	entryPointLabel=(i18n 'main.share-label' ns='discussion')
+	header=(i18n 'main.share-header' ns='discussion')
+	isDeleted=isDeleted
+	isDetailsView=isDetailsView
+	post=post
+	replyCount=replyCount
+	sharedUrl=sharedUrl
+	showLabelOnMobile=true
+	threadId=post.threadId
+	uniqueIdentifier=post.threadId
+	upvote=(action this.attrs.upvote)
+}}
 {{#if post.isLoading}}
 	{{loading-spinner
 		active=post.isLoading
