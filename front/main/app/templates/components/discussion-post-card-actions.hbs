@@ -4,8 +4,8 @@
 		upvote=(action this.attrs.upvote)
 	}}
 
-	<li class='small-4 large-4 replies replies-area' click='replyAction'>
-		{{#link-to 'discussion.post' threadId tagName=(if isDetailsView 'div' 'a')}}
+	<li class='small-4 large-4 replies replies-area' {{action 'openEditor'}}>
+		{{#link-to 'discussion.post' threadId tagName=(if isDetailsView 'div' 'a') disabled=isDetailsView}}
 			{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
 			{{i18n 'main.reply-label' ns='discussion'}}
 		{{/link-to}}
