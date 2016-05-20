@@ -6,7 +6,7 @@ export default Ember.Component.extend({
 	discussionEditor: Ember.inject.service(),
 
 	actions: {
-		openEditor () {
+		openEditor() {
 			if (this.get('isDetailsView')) {
 				this.get('discussionEditor').toggleEditor(true);
 			}

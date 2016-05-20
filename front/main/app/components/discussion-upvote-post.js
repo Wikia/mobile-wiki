@@ -8,7 +8,7 @@ export default Ember.Component.extend(
 		tagName: 'li',
 		classNames: ['small-4', 'upvote-area'],
 
-		click () {
+		click() {
 			this.get('upvote')(this.get('post'));
 		},
 	}
