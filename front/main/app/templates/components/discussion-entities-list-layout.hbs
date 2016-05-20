@@ -34,7 +34,12 @@
 				<fieldset class="discussion-fieldset">
 					<legend>{{i18n 'main.categories-header' ns='discussion'}}</legend>
 					<ul class="discussion-categories-list">
-
+						<li>
+							{{wikia-ui-components/fancy-check-box
+							label=(i18n 'main.category-all-name' ns='discussion')
+							inputId='discussion-category-all'
+							}}
+						</li>
 						{{#each categories as |category|}}
 							<li>
 								{{wikia-ui-components/fancy-check-box

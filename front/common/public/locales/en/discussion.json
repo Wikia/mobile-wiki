@@ -82,7 +82,8 @@
     "share-header": "Share Post",
     "share-label": "Share",
     "reported-not-found-error": "There are no reported posts or replies.",
-    "categories-header": "Categories"
+    "categories-header": "Categories",
+    "category-all-name": "All"
   },
   "editor": {
     "post-failed-error": "Post failed.",
