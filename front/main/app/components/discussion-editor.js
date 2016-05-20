@@ -83,6 +83,8 @@ export default Ember.Component.extend(ViewportMixin, {
 					openGraph,
 					isOpenGraphLoading: false,
 				});
+
+				track(trackActions.OGPreviewGenerated);
 			}).catch(() => {
 				this.setProperties({
 					openGraph: null,
@@ -492,6 +494,8 @@ export default Ember.Component.extend(ViewportMixin, {
 				showsOpenGraphCard: false,
 				openGraph: null,
 			});
+
+			track(trackActions.OGPreviewClosed);
 		}
 	}
 });
