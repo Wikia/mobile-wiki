@@ -1,5 +1,12 @@
 import Ember from 'ember';
+import request from 'ember-ajax/request';
 
+/**
+ * This is duplicating logic used on the desktop version of the site. It finds the most
+ * linked to articles from the current article. This will eventually be deprecated by
+ * other, more intelligent means of determining related articles; however this is being
+ * used as a baseline to correlate with the results we've seen on desktop.
+ */
 const TopLinksModel = Ember.Object.extend({
 	article: null,
 	init() {
@@ -11,36 +18,29 @@ const TopLinksModel = Ember.Object.extend({
 	 * @returns {Ember.RSVP.Promise} model
 	 */
 	load() {
-		return new Ember.RSVP.Promise((resolve, reject) => {
-			const titles = this.getMostLinkedArticles();
+		const titles = this.getMostLinkedArticles();
 
-			let width = 100,
-				height = 100;
+		let width = 120,
+			height = 120;
 
-			if (this.get('style') === 'landscape') {
-				width = 320;
-				height = 180;
+		if (this.get('style') === 'landscape') {
+			width = 480;
+			height = 270;
+		}
+
+		return request(M.buildUrl({path: '/wikia.php'}), {
+			data: {
+				controller: 'ArticlesApi',
+				method: 'getDetails',
+				format: 'json',
+				titles: titles.join(','),
+				abstract: 0,
+				width,
+				height
 			}
-
-			Ember.$.ajax({
-				url: M.buildUrl({
-					path: '/wikia.php'
-				}),
-				data: {
-					controller: 'ArticlesApi',
-					method: 'getDetails',
-					format: 'json',
-					titles: titles.join(','),
-					abstract: 0,
-					width,
-					height
-				},
-				success: (data) => {
-					this.setProperties(this.formatData(data));
-					resolve(this);
-				},
-				error: (data) => reject(data)
-			});
+		}).then((data) => {
+			this.setProperties(this.formatData(data));
+			return this;
 		});
 	},
 
