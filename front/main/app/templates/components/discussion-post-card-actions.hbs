@@ -1,9 +1,8 @@
 <ul class="row post-actions">
-	{{discussion-upvote-post
-		post=post
-		upvote=(action this.attrs.upvote)
-	}}
-
+	<li class='small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}' {{action 'upvote' post}}>
+		{{svg 'upvote' viewBox='0 0 30 30' class='icon upvote'}}
+		{{i18n 'main.upvote-label' ns='discussion'}}
+	</li>
 	<li class='small-4 large-4 replies replies-area' {{action 'openEditor'}}>
 		{{#link-to 'discussion.post' threadId tagName=(if isDetailsView 'div' 'a') disabled=isDetailsView}}
 			{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
