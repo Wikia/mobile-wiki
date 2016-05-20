@@ -176,34 +176,28 @@ body.discussions {
 	}
 
 	.post-actions {
-		border-top: 1px solid $discussion-post-detail-border-color;
-		padding-top: 15px;
+		align-items: center;
+		border-top: 1px solid $discussion-post-actions-border-color;
+		display: flex;
+		justify-content: center;
+		list-style: none;
+		padding: 6px 0;
 
-		> div {
-			display: flex;
-			justify-content: center;
+		> li:not(:last-child) {
+			border-right: 1px solid $discussion-post-actions-border-color;
 		}
 
-		> div:not(:last-child) {
-			border-right: 1px solid $discussion-post-detail-border-color;
-		}
-	}
-
-	.action {
-		color: $discussion-count-color;
-		font-size: $type-min;
-		font-weight: bold;
-
-		.upvote-area,
-		.replies-area,
-		.toggle-share-area {
+		li,
+		a {
+			align-self: center;
 			color: $discussion-count-color;
+			cursor: pointer;
 			display: block;
-			float: left;
+			font-size: $type-min;
 			font-weight: $font-weight-medium;
-			height: 30px;
-			line-height: 30px;
-			padding: 0 2px;
+			height: 33px;
+			line-height: 33px;
+			text-align: center;
 		}
 	}
 
@@ -459,24 +453,8 @@ body.discussions {
 
 	.post-detail {
 		background-color: $discussion-desktop-post-detail-bg-color;
-		padding: 12px 0;
+		padding: 12px 0 0;
 		transition: opacity 1s;
-
-		.share {
-			align-items: center;
-			display: flex;
-			height: 30px;
-			line-height: 30px;
-			text-align: right;
-
-			> * {
-				float: right;
-			}
-
-			span {
-				margin-left: 3px;
-			}
-		}
 
 		.timestamp {
 			font-size: $type-min;
@@ -615,7 +593,7 @@ body.discussions {
 				background-color: $discussion-desktop-post-detail-bg-color;
 				border-top-color: $discussion-post-detail-border-color;
 				border-width: 0;
-				padding: 20px 0;
+				padding: 20px 0 0;
 
 				&.show-top-note {
 					padding-top: 0;
@@ -631,7 +609,7 @@ body.discussions {
 				padding: {
 					top: $post-details-post-vertical-padding;
 					right: 0;
-					bottom: $post-details-post-vertical-padding + $post-details-post-margin-bottom;
+					bottom: 0;
 					left: 0;
 				}
 				width: $post-details-outer-width;
@@ -680,14 +658,6 @@ body.discussions {
 		.discussion-no-replies {
 			border-bottom: 1px solid $discussion-reply-border-color;
 		}
-
-		.replies {
-			text-align: center;
-
-			.replies-area {
-				float: none;
-			}
-		}
 	}
 }
 
@@ -702,10 +672,6 @@ body.discussions {
 			margin-top: $post-details-mobile-page-margin-top;
 		}
 
-		.post-detail {
-			padding-bottom: 14px;
-		}
-
 		.discussion-reply {
 			.discussion-content {
 				margin-left: 0;
@@ -715,7 +681,7 @@ body.discussions {
 
 	.discussion {
 		.post-actions {
-			> div:not(:last-child) {
+			> li :not(:last-child) {
 				border-right: none;
 			}
 		}
