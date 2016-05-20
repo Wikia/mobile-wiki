@@ -80,6 +80,7 @@ $search-input-font-size: 16px;
 	.wikia-search__search-result {
 	  color: $oil;
 	  font-size: $type-smallest;
+	  line-height: $search-height;
 	  padding: $nav-padding-horizontal $nav-padding-vertical 0 $nav-padding-vertical;
 
 	  a {
