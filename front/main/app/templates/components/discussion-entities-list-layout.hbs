@@ -31,14 +31,17 @@
 				{{i18n 'main.back-to-wikia-link' ns='discussion'}}
 			</a>
 			{{#if categories}}
-				<fieldset>
+				<fieldset class="discussion-fieldset">
 					<legend>{{i18n 'main.categories-header' ns='discussion'}}</legend>
-					<ul>
+					<ul class="discussion-categories-list">
+
 						{{#each categories as |category|}}
-							{{wikia-ui-components/fancy-check-box
-								label=category.name
-								inputId=(concat 'discussion-category-' category.id)
-							}}
+							<li>
+								{{wikia-ui-components/fancy-check-box
+									label=category.name
+									inputId=(concat 'discussion-category-' category.id)
+								}}
+							</li>
 						{{/each}}
 					</ul>
 				</fieldset>

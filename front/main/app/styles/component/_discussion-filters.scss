@@ -40,12 +40,7 @@ $legend-font-size: 16px;
 		line-height: $line-height-smallest;
 	}
 
-	fieldset {
-		border: none;
-		margin: 0;
-		padding: 0;
-		width: 100%;
-
+	.discussion-fieldset {
 		&:disabled {
 			.sort-trending {
 				pointer-events: none;
@@ -138,10 +133,6 @@ $legend-font-size: 16px;
 		padding-bottom: 0;
 		padding-top: 85px;
 		width: auto;
-
-		legend {
-			background: transparent;
-		}
 
 		label {
 			line-height: $line-height-smallest;
