@@ -1,14 +1,17 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import {isNotFoundError, isBadRequestError, isTimeoutError} from 'ember-ajax/errors';
 
-const {Object, computed, A} = Ember;
+const {Object, computed, A, Logger} = Ember;
 
 export default Object.extend({
 	query: '',
 	batch: 1,
+
 	totalItems: 0,
 	totalBatches: 0,
 	items: A([]),
+	error: '',
 
 	canLoadMore: computed('batch', 'totalBatches', function () {
 		return this.get('batch') < this.get('totalBatches');
@@ -16,32 +19,46 @@ export default Object.extend({
 
 	search(query) {
 		this.setProperties({
-			query,
 			batch: 1,
+			totalItems: 0,
+			totalBatches: 0,
+			query: query,
 			items: A([])
 		});
 
-		this.call(query);
+		return this.call(query);
 	},
 
 	loadMore() {
 		if (this.get('canLoadMore')) {
 			this.set('batch', this.get('batch') + 1);
 
-			this.call(this.get('query'));
+			return this.call(this.get('query'));
 		}
 	},
 
 	call(query) {
-		return request(M.buildUrl({path: '/api/v1/Search/List'}), {
-			data: {
-				query,
-				batch: this.get('batch')
-			}
-		}).then((data) => {
-			// update state on success
-			return this.update(data);
-		});
+		this.set('error', '');
+		return query &&
+			request(M.buildUrl({path: '/api/v1/Search/List'}), {
+				data: {
+					query,
+					batch: this.get('batch')
+				}
+			}).then((data) => {
+				// update state on success
+				return this.update(data);
+			}, (error) => {
+				this.set('error', 'search-error-general');
+				if (isNotFoundError(error)) {
+					this.set('error', 'search-error-not-found');
+				} else if (isBadRequestError(error)) {
+					//this shouldn't happen
+					Logger.error('Search bad request', query);
+				} else {
+					Logger.error('Search error', error);
+				}
+			});
 	},
 
 	update(state) {
@@ -60,5 +77,7 @@ export default Object.extend({
 				})
 			]
 		});
+
+		return this.get('items');
 	}
 });

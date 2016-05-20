@@ -65,7 +65,7 @@ export default Component.extend(
 				});
 
 				this.setEmptySearchSuggestionItems();
-				this.get('searchEnterAction')(value);
+				this.get('onEnterHandler')(value);
 				this.sendAction('goToSeachResults', value);
 			},
 

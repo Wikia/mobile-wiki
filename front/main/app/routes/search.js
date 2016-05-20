@@ -16,6 +16,14 @@ export default Route.extend({
 		return model;
 	},
 
+	activate() {
+		Ember.$('body').addClass('search-result-page');
+	},
+
+	deactivate() {
+		Ember.$('body').removeClass('search-result-page');
+	},
+
 	actions: {
 		/**
 		 * @returns {boolean}
