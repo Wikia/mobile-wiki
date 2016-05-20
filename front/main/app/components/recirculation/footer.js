@@ -5,10 +5,7 @@ export default Ember.Component.extend(
 	RecirculationExperimentMixin,
 	{
 		layoutName: 'components/recirculation/footer',
-		label: 'footer',
-
-		items: Ember.computed.map('model.items', (post) => {
-			return post;
-		})
+		classNames: 'footer',
+		label: 'footer'
 	}
 );
