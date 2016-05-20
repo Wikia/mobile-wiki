@@ -681,7 +681,7 @@ body.discussions {
 
 	.discussion {
 		.post-actions {
-			> li :not(:last-child) {
+			> li:not(:last-child) {
 				border-right: none;
 			}
 		}
