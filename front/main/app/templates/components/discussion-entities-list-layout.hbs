@@ -31,25 +31,9 @@
 				{{i18n 'main.back-to-wikia-link' ns='discussion'}}
 			</a>
 			{{#if categories}}
-				<fieldset class="discussion-fieldset">
-					<legend>{{i18n 'main.categories-header' ns='discussion'}}</legend>
-					<ul class="discussion-categories-list">
-						<li>
-							{{wikia-ui-components/fancy-check-box
-							label=(i18n 'main.category-all-name' ns='discussion')
-							inputId='discussion-category-all'
-							}}
-						</li>
-						{{#each categories as |category|}}
-							<li>
-								{{wikia-ui-components/fancy-check-box
-									label=category.name
-									inputId=(concat 'discussion-category-' category.id)
-								}}
-							</li>
-						{{/each}}
-					</ul>
-				</fieldset>
+				{{discussion-categories
+					categories=categories
+				}}
 			{{/if}}
 		</div>
 		<div class="small-12 large-6 columns">
