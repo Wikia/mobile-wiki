@@ -30,11 +30,11 @@
 				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
 				{{i18n 'main.back-to-wikia-link' ns='discussion'}}
 			</a>
-			<h3 class="discussion-filter-header">
-				{{i18n 'main.filter-posts-header' ns='discussion'}}
-				<a>{{i18n 'main.filter-reset-label' ns='discussion'}}</a>
-			</h3>
 			{{#if categories}}
+				<h3 class="discussion-filter-header">
+					{{i18n 'main.filter-posts-header' ns='discussion'}}
+					<a>{{i18n 'main.filter-reset-label' ns='discussion'}}</a>
+				</h3>
 				{{discussion-categories
 					categories=categories
 				}}
