@@ -52,20 +52,10 @@ export default Ember.Component.extend(ViewportMixin, {
 		if (this.get('bodyText').length > 0 && !this.get('wasContentTracked')) {
 			this.trackContentAction();
 		}
-
-		this.setOpenGraphProperties(this.get('bodyText'), /(https?:\/\/[^\s]+)\s$/g);
 	}),
 
-	setOpenGraphProperties(text, urlRegex) {
-		let url, urls;
-
+	setOpenGraphProperties(url) {
 		if (this.get('showsOpenGraphCard')) {
-			return;
-		}
-
-		urls = text.match(urlRegex);
-
-		if (!urls) {
 			return;
 		}
 
@@ -73,8 +63,6 @@ export default Ember.Component.extend(ViewportMixin, {
 			isOpenGraphLoading: true,
 			showsOpenGraphCard: true
 		});
-
-		url = urls[0].trim();
 
 		this.get('generateOpenGraph')(url)
 			.then((openGraph) => {
@@ -240,6 +228,18 @@ export default Ember.Component.extend(ViewportMixin, {
 		}, 2000);
 	},
 
+	getLastUrlFromText(text) {
+		let urls;
+
+		urls = text.match(/(https?:\/\/[^\s]+)/g);
+
+		if (!urls) {
+			return null;
+		}
+
+		return urls.pop();
+	},
+
 	/**
 	 * @param {object} newItem
 	 *
@@ -298,10 +298,14 @@ export default Ember.Component.extend(ViewportMixin, {
 		}
 
 		if (typeof pastedText === 'string' && pastedText.length) {
-			this.setOpenGraphProperties(pastedText, /(https?:\/\/[^\s]+)/g);
+			this.setOpenGraphProperties(this.getLastUrlFromText(pastedText));
 		} else {
 			Ember.run.later(() => {
-				this.setOpenGraphProperties(event.target.value, /(https?:\/\/[^\s]+)/g);
+				const textarea = event.target;
+
+				this.setOpenGraphProperties(this.getLastUrlFromText(
+					textarea.value.substring(0, textarea.selectionEnd)
+				));
 			}, 100);
 		}
 	},
@@ -458,6 +462,18 @@ export default Ember.Component.extend(ViewportMixin, {
 			if ((event.keyCode === 10 || event.keyCode === 13) && event.ctrlKey) {
 				// Create post on CTRL + ENTER
 				this.send('submit');
+			}
+
+			if (event.keyCode !== 10 && event.keyCode !== 13 && event.keyCode !== 32) {
+				return;
+			}
+
+			const textarea = event.target,
+				value = textarea.value,
+				url = this.getLastUrlFromText(value.substring(0, textarea.selectionEnd));
+
+			if (url && value.indexOf(url) === textarea.selectionEnd - url.length) {
+				this.setOpenGraphProperties(url);
 			}
 		},
 
