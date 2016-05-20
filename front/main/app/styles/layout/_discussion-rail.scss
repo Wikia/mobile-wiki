@@ -6,6 +6,18 @@
 	.side-button {
 		border: solid $discussion-rail-separator-color;
 	}
+
+	.discussion-filter-header {
+		border-bottom: 1px solid $discussion-rail-separator-color;
+		font-size: $type-smaller;
+
+		a {
+			float: right;
+			font-size: $type-min;
+			font-weight: normal;
+			text-transform: uppercase;
+		}
+	}
 }
 .post-details-view {
 	.rail {
@@ -20,7 +32,8 @@
 			border-width: 1px 0;
 		}
 
-		.back-button {
+		.back-button,
+		.discussion-filter-header {
 			margin-right: 45px;
 		}
 
