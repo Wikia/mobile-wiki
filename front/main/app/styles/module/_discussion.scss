@@ -1,7 +1,12 @@
 $horizontal-padding: 18px;
 $post-card-right-icon-margin: -9px;
 $post-card-top-note-height: 40px;
-$post-details-content-line-height: 1.4rem;
+$mobile-content-font-size: $type-smallest;
+$mobile-content-line-height: $line-height-min;
+$desktop-content-font-size: rem-calc(16);
+$desktop-content-line-height: rem-calc(24);
+$desktop-post-details-content-line-height: $line-height-smaller;
+$desktop-post-details-content-font-size: $type-smaller;
 $post-details-mobile-page-margin-top: 91px;
 $post-details-outer-width: 580px;
 $post-details-post-margin-bottom: 10px;
@@ -232,6 +237,8 @@ body.discussions {
 	}
 
 	.discussion-content {
+		font-size: $mobile-content-font-size;
+		line-height: $mobile-content-line-height;
 		margin: 5px 0;
 		padding: .3rem 0;
 
@@ -627,6 +634,11 @@ body.discussions {
 			}
 		}
 
+		.discussion-content {
+			font-size: $desktop-content-font-size;
+			line-height: $desktop-content-line-height;
+		}
+
 		&.post {
 			.post-detail {
 				background-color: transparent;
@@ -650,7 +662,8 @@ body.discussions {
 				}
 
 				.discussion-content {
-					line-height: $post-details-content-line-height;
+					font-size: $desktop-post-details-content-font-size;
+					line-height: $desktop-post-details-content-line-height;
 				}
 			}
 
