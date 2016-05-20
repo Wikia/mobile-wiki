@@ -23,15 +23,11 @@
 	{{#if canModerate}}
 		<fieldset class="moderation-fieldset">
 			<legend>{{i18n 'main.moderation-filters-header' ns='discussion'}}</legend>
-			<label class="moderation-checkbox-label">
-				<span class="fancy-checkbox {{onlyReportedClassName}}">
-					{{input type='checkbox' checked=onlyReported change=(action 'toggleOnlyReported')}}
-					{{#if onlyReported}}
-						{{svg 'checkbox-checkmark' class='icon' viewBox="0 0 20 14"}}
-					{{/if}}
-				</span>
-				{{i18n 'main.reported-content-filter-text' ns='discussion'}}
-			</label>
+			{{wikia-ui-components/fancy-check-box
+				class='moderation-checkbox-label'
+				isChecked=onlyReported
+				label=(i18n 'main.reported-content-filter-text' ns='discussion')
+			}}
 		</fieldset>
 	{{/if}}
 </form>

@@ -13,12 +13,20 @@ export default Ember.Component.extend(
 		showSortSection: false,
 		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
 
-		onlyReportedClassName: Ember.computed('onlyReported', function () {
-			return this.get('onlyReported') === true ? 'active-element-background-color' : null;
-		}),
-
 		trendingDisabled: Ember.computed('onlyReported', function () {
 			return this.get('onlyReported') === true ? 'disabled' : false;
+		}),
+
+		onlyReportedObserver: Ember.observer('onlyReported', function () {
+			const onlyReported = this.get('onlyReported');
+
+			if (onlyReported === true) {
+				this.send('setSortBy', 'latest');
+			}
+
+			if (!this.get('showApplyButton')) {
+				this.get('applyFilters')(this.get('sortBy'), onlyReported);
+			}
 		}),
 
 		actions: {
@@ -56,29 +64,6 @@ export default Ember.Component.extend(
 			setSortBy(sortBy) {
 				this.set('sortBy', sortBy);
 			},
-
-			/**
-			 * Sets onlyReported flag in sync with onlyReported checkbox
-			 *
-			 * @param {event} event
-			 *
-			 * @returns {void}
-			 */
-			toggleOnlyReported(event) {
-				const isCheckboxChecked = event.target.checked;
-
-				if (isCheckboxChecked !== this.get('onlyReported')) {
-					this.set('onlyReported', isCheckboxChecked);
-				}
-
-				if (isCheckboxChecked === true) {
-					this.send('setSortBy', 'latest');
-				}
-
-				if (!this.get('showApplyButton')) {
-					this.get('applyFilters')(this.get('sortBy'), this.get('onlyReported'));
-				}
-			}
 		}
 	}
 );

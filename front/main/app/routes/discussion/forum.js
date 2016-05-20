@@ -37,7 +37,10 @@ export default DiscussionBaseRoute.extend(
 
 			discussionSort.setOnlyReported(false);
 
-			return DiscussionForumModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy'));
+			return Ember.RSVP.hash({
+				forum: DiscussionForumModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy')),
+				index: this.modelFor('discussion')
+			});
 		},
 
 		/**

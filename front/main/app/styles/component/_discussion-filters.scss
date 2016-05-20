@@ -91,7 +91,7 @@ $legend-font-size: 16px;
 			}
 
 			.radio-fancy {
-				border: 1px solid $discussion-filters-bullet-border;
+				border: 1px solid $fancy-check-box-border;
 				border-radius: 50%;
 				float: left;
 				height: 18px;
@@ -130,33 +130,6 @@ $legend-font-size: 16px;
 		display: flex;
 		line-height: $line-height-min;
 		padding-top: 18px;
-	}
-
-	.fancy-checkbox {
-		align-items: center;
-		background-color: $discussion-filters-bullet-background;
-		border: 1px solid $discussion-filters-bullet-border;
-		display: flex;
-		flex-direction: column;
-		height: 18px;
-		justify-content: center;
-		margin-right: 6px;
-		pointer-events: none;
-		width: 18px;
-
-		input {
-			display: none;
-		}
-
-		svg {
-			display: block;
-			height: auto;
-			width: 12px;
-		}
-
-		&.active-element-background-color {
-			border: none;
-		}
 	}
 }
 

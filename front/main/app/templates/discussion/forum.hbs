@@ -9,7 +9,8 @@
 {{/modal-dialog}}
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
-	model=model.data
+	model=model.forum.data
+	categories=model.index.categories
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')
@@ -21,12 +22,12 @@
 		editPost=(action 'editPost')
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
-		minorError=model.data.minorError
-		pageNum=model.data.pageNum
-		posts=model.data.entities
-		postsDisplayed=model.data.entities.length
+		minorError=model.forum.data.minorError
+		pageNum=model.forum.data.pageNum
+		posts=model.forum.data.entities
+		postsDisplayed=model.forum.data.entities.length
 		report=(action 'report')
-		totalPosts=model.data.postCount
+		totalPosts=model.forum.data.postCount
 		undeletePost=(action 'undeletePost')
 		upvote=(action 'upvote')
 		unlockPost=(action 'unlockPost')
