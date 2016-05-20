@@ -5,11 +5,9 @@
 	}}
 
 	<li class='small-4 large-4 replies replies-area' click='replyAction'>
-		{{#link-to 'discussion.post' threadId
-			tagName=(if isDetailsView 'div' 'a')
-		}}
+		{{#link-to 'discussion.post' threadId tagName=(if isDetailsView 'div' 'a')}}
 			{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
-			{{i18n 'main.replies-link-label' ns='discussion' count=replyCount}}
+			{{i18n 'main.reply-label' ns='discussion'}}
 		{{/link-to}}
 	</li>
 	<li class="small-4 large-4 share">
