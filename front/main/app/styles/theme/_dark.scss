@@ -103,9 +103,8 @@ body.dark-theme {
 		.post-actions {
 			border-top-color: $dark-discussion-post-detail-border-color;
 
-
-			> div:not(:last-child) {
-				border-right-color: $discussion-post-detail-border-color;
+			> li:not(:last-child) {
+				border-right: 1px solid $dark-discussion-post-actions-border-color;
 			}
 		}
 
