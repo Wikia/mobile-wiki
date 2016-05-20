@@ -539,6 +539,12 @@ export default Ember.Component.extend(
 				externalLink = false;
 
 			switch (group) {
+				case 'CONTROL':
+					component = RecirculationFooterComponent;
+					model = FandomPostsModel.create();
+					location = this.parentView.$('.article-footer');
+					externalLink = true;
+					break;
 				case 'LINKS_INCONTENT':
 					component = RecirculationIncontentComponent;
 					model = TopLinksModel.create({
