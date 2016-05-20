@@ -45,6 +45,10 @@ export default Ember.Component.extend({
 		return classNames.join(' ');
 	}),
 	isInvalid: Ember.computed.bool('errorMessage'),
+	type: 'text',
+	// inputClasses: Ember.computed('textInputClasses', function() {
+	// 	return this.get('textInputClasses') + ' text-field-input';
+	// }),
 
 	actions: {
 		/**
@@ -58,6 +62,18 @@ export default Ember.Component.extend({
 
 			if (onBlurHandler) {
 				onBlurHandler(event);
+			}
+		},
+
+		/**
+		 * @param {jQuery.Event} event
+		 * @returns {void}
+		 */
+		onEnter(event) {
+			const onEnterHandler = this.get('onEnterHandler');
+
+			if (onEnterHandler) {
+				onEnterHandler(event);
 			}
 		},
 

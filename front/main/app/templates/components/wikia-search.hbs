@@ -6,13 +6,14 @@
 			icon='search'
 			iconSize=18
 		}}
-		{{input
-			class='side-search__input'
-			tabindex='-1'
-			placeholder=searchPlaceholderLabel
+		{{wikia-ui-components/text-field
 			value=query
-			enter='enter'
+			name='infoboxSectionHeader'
+			label=searchPlaceholderLabel
+			inputClasses='side-search__input'
+			tabindex='-1'
 			type='search'
+			onEnterHandler='enter'
 		}}
 		{{wikia-ui-components/icon-button
 			class='wikia-search__clear'

@@ -35,6 +35,10 @@ $search-input-font-size: 16px;
 	flex-grow: 1;
 	position: relative;
 
+	.text-field {
+		width: 100%;
+	}
+
 	input,
 	input:focus {
 		background: transparent;
