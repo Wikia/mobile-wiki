@@ -18,7 +18,7 @@ $nav-padding-vertical: 18px;
 }
 
 .wikia-nav__header {
-	@include wikia-nav-link-button(inherit);
+	@include link-interactions-color(inherit);
 
 	background-color: $nav-background-color;
 	color: inherit;

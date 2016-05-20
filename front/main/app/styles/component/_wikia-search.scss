@@ -15,7 +15,7 @@ $search-input-font-size: 16px;
 }
 
 .wikia-search__item {
-	@include wikia-nav-link-button(inherit);
+	@include link-interactions-color(inherit);
 
 	color: inherit;
 	display: block;

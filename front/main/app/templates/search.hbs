@@ -10,12 +10,14 @@
 	<ul class="search-results__list">
 		{{#each model.items as |item|}}
 			{{#wikia-ui-components/wikia-card}}
-				<div class="search-results__item">
-					<div class="search-results__title">
-						{{#link-to 'wiki-page' item.href}}{{item.title}}{{/link-to}}
+				{{#link-to 'wiki-page' item.href}}
+					<div class="search-results__item">
+						<div class="search-results__title">
+							{{item.title}}
+						</div>
+						<div class="search-results__snippet">{{{item.snippet}}}</div>
 					</div>
-					<div class="search-results__snippet">{{{item.snippet}}}</div>
-				</div>
+				{{/link-to}}
 			{{/wikia-ui-components/wikia-card}}
 		{{/each}}
 	</ul>
