@@ -4,5 +4,13 @@ import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-
 
 export default Ember.Component.extend(
 	DiscussionUpvoteComponentMixin,
-	DiscussionUpvoteActionSendMixin
+	DiscussionUpvoteActionSendMixin,
+	{
+		tagName: 'a',
+		classNames: ['upvote-area'],
+
+		click() {
+			this.get('upvote')(this.get('post'));
+		},
+	}
 );
