@@ -665,6 +665,10 @@ body.discussions {
 					font-size: $desktop-post-details-content-font-size;
 					line-height: $desktop-post-details-content-line-height;
 				}
+
+				.post-counters {
+					font-size: $type-smallest;
+				}
 			}
 
 			.replies-list {
