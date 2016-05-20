@@ -32,4 +32,3 @@ test('getLastUrlFromText properly extracts last url from a block of text', funct
 	});
 
 });
-
