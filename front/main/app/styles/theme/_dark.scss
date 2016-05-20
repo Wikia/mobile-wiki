@@ -335,6 +335,20 @@ body.dark-theme {
 		.og-site-name {
 			color: $dark-discussion-open-graph-domain-color;
 		}
+
+		.is-loading {
+			.loading-overlay {
+				background-color: transparent;
+			}
+
+			.og-image-placeholder {
+				background-color: $dark-discussion-open-graph-placeholder-background-color;
+			}
+
+			.og-text-placeholder {
+				background-color: $dark-discussion-open-graph-placeholder-background-color;
+			}
+		}
 	}
 }
 
