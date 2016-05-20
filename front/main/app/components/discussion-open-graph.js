@@ -6,7 +6,7 @@ export default Ember.Component.extend({
 	attributeBindings: ['openGraphHref:href', 'openGraphTitle:title', 'openGraphTarget:target'],
 	classNames: ['og-container'],
 	classNameBindings: ['noImageCardMobile', 'smallImageCardMobile', 'largeImageCardMobile', 'noImageCardDesktop',
-		'smallImageCardDesktop', 'largeImageCardDesktop'],
+		'smallImageCardDesktop', 'largeImageCardDesktop', 'isLoading'],
 
 	oneLineCharacters: 48,
 	twoLinesCharacters: 98,
@@ -15,10 +15,30 @@ export default Ember.Component.extend({
 	mobileMaxImageWidth: 325,
 	smallMaxImageWidth: 150,
 
+	noImageCardMobile: false,
+	smallImageCardMobile: false,
+	largeImageCardMobile: false,
+	noImageCardDesktop: false,
+	smallImageCardDesktop: false,
+	largeImageCardDesktop: false,
 
 	init() {
-		// we're usually strongly against that kind of caching, because a getter should be used always,
-		// but come on, it is 8 calls, and even we have some limits in the matter of principles :)
+		this.setImageClasses();
+
+		this.setProperties({
+			openGraphHref: this.get('openGraphData.url'),
+			openGraphTitle: this.get('openGraphData.domain'),
+			openGraphTarget: '_blank',
+		});
+
+		this._super(...arguments);
+	},
+
+	widthObserver: Ember.observer('openGraphData.imageWidth', function () {
+		this.setImageClasses();
+	}),
+
+	setImageClasses() {
 		const imageWidth = this.get('openGraphData.imageWidth');
 
 		this.setProperties({
@@ -28,12 +48,7 @@ export default Ember.Component.extend({
 			noImageCardDesktop: imageWidth < 101,
 			smallImageCardDesktop: imageWidth > 100 && imageWidth < 500,
 			largeImageCardDesktop: imageWidth >= 500,
-			openGraphHref: this.get('openGraphData.url'),
-			openGraphTitle: this.get('openGraphData.domain'),
-			openGraphTarget: '_blank',
 		});
-
-		this._super(...arguments);
 	},
 
 	imageUrl: Ember.computed('openGraphData.imageUrl', function () {
@@ -84,4 +99,10 @@ export default Ember.Component.extend({
 
 		return this.get('openGraphData.title');
 	}),
+
+	actions: {
+		close() {
+			this.get('close')();
+		}
+	}
 });
