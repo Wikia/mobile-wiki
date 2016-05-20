@@ -4,7 +4,7 @@ import Ember from 'ember';
  * Handles sending upvote action outside from the component.
  */
 export default Ember.Mixin.create({
-	classNames: ['small-5', 'large-4', 'upvote'],
+	classNames: ['large-4', 'upvote'],
 	classNameBindings: ['hasUpvoted'],
 
 	post: null,

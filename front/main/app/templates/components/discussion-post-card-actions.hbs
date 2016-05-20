@@ -4,7 +4,7 @@
 		upvote=(action this.attrs.upvote)
 	}}
 
-	<li class='small-5 large-4 replies replies-area' click='replyAction'>
+	<li class='small-4 large-4 replies replies-area' click='replyAction'>
 		{{#link-to 'discussion.post' threadId
 			tagName=(if isDetailsView 'div' 'a')
 		}}
@@ -12,7 +12,7 @@
 			{{i18n 'main.replies-link-label' ns='discussion' count=replyCount}}
 		{{/link-to}}
 	</li>
-	<li class="small-5 large-4 share">
+	<li class="small-4 large-4 share">
 		{{#unless isDeleted }}
 			{{discussion-share
 				entryPointLabel=(i18n 'main.share-label' ns='discussion')

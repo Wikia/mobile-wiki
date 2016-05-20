@@ -4,5 +4,7 @@ import DiscussionUpvoteActionSendMixin from '../mixins/discussion-upvote-action-
 
 export default Ember.Component.extend(
 	DiscussionUpvoteComponentMixin,
-	DiscussionUpvoteActionSendMixin
+	DiscussionUpvoteActionSendMixin, {
+		classNames: ['small-5'],
+	}
 );

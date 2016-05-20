@@ -6,7 +6,7 @@ export default Ember.Component.extend(
 	DiscussionUpvoteComponentMixin,
 	DiscussionUpvoteActionSendMixin, {
 		tagName: 'li',
-		classBindings: ['upvote-area'],
+		classNames: ['small-4', 'upvote-area'],
 
 		click () {
 			this.get('upvote')(this.get('post'));
