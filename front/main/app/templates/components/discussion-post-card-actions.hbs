@@ -3,7 +3,7 @@
 		{{svg 'upvote' viewBox='0 0 30 30' class='icon upvote'}}
 		{{i18n 'main.upvote-label' ns='discussion'}}
 	</li>
-	<li class='small-4 large-4 replies replies-area' {{action 'openEditor'}}>
+	<li class='small-4 large-4 replies replies-area' {{action 'reply'}}>
 		{{#link-to 'discussion.post' threadId tagName=(if isDetailsView 'div' 'a') disabled=isDetailsView}}
 			{{svg 'comments' viewBox='0 0 24 19' class='icon replies'}}
 			{{i18n 'main.reply-label' ns='discussion'}}

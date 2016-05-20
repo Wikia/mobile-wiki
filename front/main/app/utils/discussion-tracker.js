@@ -29,6 +29,7 @@ const trackActions = {
 	PostUnlock: 'PostUnlock',
 	DeleteAllConfirmed: 'DeleteAllConfirmed',
 	DeleteAllTapped: 'DeleteAllTapped',
+	ReplyButtonTapped: 'ReplyButtonTapped',
 };
 
 /**
