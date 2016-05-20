@@ -448,11 +448,4 @@ export default {
 		language: 'ja',
 		dbName: 'jaessandboxsidonia'
 	},
-
-        'ja.overwatch': {
-                wikiId: 1363059,
-                domain: 'ja.overwatch',
-                language: 'ja',
-                dbName: 'jaoverwatch'
-        },
 };
