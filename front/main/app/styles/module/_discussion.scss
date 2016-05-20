@@ -144,6 +144,8 @@ body.discussions {
 
 		img, svg {
 			border-color: $discussion-avatar-border-color;
+			height: 30px;
+			width: 30px;
 		}
 	}
 
@@ -587,6 +589,13 @@ body.discussions {
 @media #{$desktop-range} {
 	.discussion {
 		background-color: transparent;
+
+		.avatar {
+			img, svg {
+				height: 42px;
+				width: 42px;
+			}
+		}
 
 		&.forum {
 			margin-left: auto;
