@@ -81,7 +81,8 @@
     "replies-link-label_plural": "__count__ Replies",
     "share-header": "Share Post",
     "share-label": "Share",
-    "reported-not-found-error": "There are no reported posts or replies."
+    "reported-not-found-error": "There are no reported posts or replies.",
+    "categories-header": "Categories"
   },
   "editor": {
     "post-failed-error": "Post failed.",
