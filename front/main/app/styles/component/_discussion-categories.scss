@@ -11,6 +11,10 @@
 }
 
 .discussion-categories {
+	legend {
+		font-size: $type-smallest;
+	}
+
 	.chevron {
 		height: 20px;
 		transform: rotate(-90deg);

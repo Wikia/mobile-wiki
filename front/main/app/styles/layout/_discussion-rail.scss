@@ -10,11 +10,12 @@
 	.discussion-filter-header {
 		border-bottom: 1px solid $discussion-rail-separator-color;
 		font-size: $type-smaller;
+		font-weight: normal;
+		margin-bottom: 12px;
 
 		a {
 			float: right;
 			font-size: $type-min;
-			font-weight: normal;
 			text-transform: uppercase;
 		}
 	}
