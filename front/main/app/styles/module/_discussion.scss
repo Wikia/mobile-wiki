@@ -149,6 +149,12 @@ body.discussions {
 		}
 	}
 
+	.user-avatar {
+		.avatar-username {
+			font-size: $type-smallest;
+		}
+	}
+
 	.side-spaced {
 		padding-left: 30px;
 		padding-right: 30px;
@@ -594,6 +600,12 @@ body.discussions {
 			img, svg {
 				height: 42px;
 				width: 42px;
+			}
+		}
+
+		.user-avatar {
+			.avatar-username {
+				font-size: rem-calc(16);
 			}
 		}
 
