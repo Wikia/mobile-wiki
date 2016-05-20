@@ -101,7 +101,12 @@ body.dark-theme {
 		}
 
 		.post-actions {
-			border-top: 1px solid $dark-discussion-post-detail-border-color;
+			border-top-color: $dark-discussion-post-detail-border-color;
+
+
+			> div:not(:last-child) {
+				border-right-color: $discussion-post-detail-border-color;
+			}
 		}
 
 		.discussion-content {

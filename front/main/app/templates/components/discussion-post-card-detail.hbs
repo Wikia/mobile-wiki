@@ -68,7 +68,7 @@
 		{{replyCount}}
 	</div>
 </div>
-<div class="row side-spaced post-actions">
+<div class="row post-actions">
 	{{discussion-upvote-post
 		post=post
 		upvote=(action this.attrs.upvote)
@@ -96,6 +96,7 @@
 				entryPointLabel=(i18n 'main.share-label' ns='discussion')
 				header=(i18n 'main.share-header' ns='discussion')
 				sharedUrl=sharedUrl
+				showLabelOnMobile=true
 				uniqueIdentifier=post.threadId
 			}}
 		{{/unless}}

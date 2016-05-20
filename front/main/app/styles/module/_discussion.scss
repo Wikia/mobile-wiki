@@ -178,6 +178,15 @@ body.discussions {
 	.post-actions {
 		border-top: 1px solid $discussion-post-detail-border-color;
 		padding-top: 15px;
+
+		> div {
+			display: flex;
+			justify-content: center;
+		}
+
+		> div:not(:last-child) {
+			border-right: 1px solid $discussion-post-detail-border-color;
+		}
 	}
 
 	.action {
@@ -457,7 +466,6 @@ body.discussions {
 			align-items: center;
 			display: flex;
 			height: 30px;
-			justify-content: flex-end;
 			line-height: 30px;
 			text-align: right;
 
@@ -701,6 +709,14 @@ body.discussions {
 		.discussion-reply {
 			.discussion-content {
 				margin-left: 0;
+			}
+		}
+	}
+
+	.discussion {
+		.post-actions {
+			> div:not(:last-child) {
+				border-right: none;
 			}
 		}
 	}
