@@ -5,7 +5,6 @@ const {Controller, inject} = Ember;
 export default Controller.extend({
 	application: inject.controller(),
 	queryParams: ['query'],
-	resultsCount: 50,
 
 	actions: {
 		onSearchEnter(query) {

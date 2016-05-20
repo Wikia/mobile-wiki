@@ -6,7 +6,6 @@ const {Object, computed, A} = Ember;
 export default Object.extend({
 	query: '',
 	batch: 1,
-
 	totalItems: 0,
 	totalBatches: 0,
 	items: A([]),
@@ -16,9 +15,11 @@ export default Object.extend({
 	}),
 
 	search(query) {
-		this.set('batch', 1);
-		this.set('query', query);
-		this.set('items', A([]));
+		this.setProperties({
+			query,
+			batch: 1,
+			items: A([])
+		});
 
 		this.call(query);
 	},
@@ -44,18 +45,20 @@ export default Object.extend({
 	},
 
 	update(state) {
-		this.set('totalItems', state.total);
-		this.set('totalBatches', state.batches);
-		this.set('items', [
-			...this.get('items'),
-			...state.items.map((item) => {
-				return {
-					title: item.title,
-					snippet: item.snippet,
-					// TODO: write unit tests
-					href: item.url.replace(/^http:\/\/[^\/]+(\/wiki)?\//i, '')
-				};
-			})
-		]);
+		this.setProperties({
+			totalItems: state.total,
+			totalBatches: state.batches,
+			items: [
+				...this.get('items'),
+				...state.items.map((item) => {
+					return {
+						title: item.title,
+						snippet: item.snippet,
+						// TODO: write unit tests
+						href: item.url.replace(/^http:\/\/[^\/]+(\/wiki)?\//i, '')
+					};
+				})
+			]
+		});
 	}
 });
