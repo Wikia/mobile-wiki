@@ -652,10 +652,6 @@ body.discussions {
 				.discussion-content {
 					line-height: $post-details-content-line-height;
 				}
-
-				.timestamp {
-					font-size: $discussion-post-type-smaller-than-min;
-				}
 			}
 
 			.replies-list {
@@ -671,6 +667,12 @@ body.discussions {
 			.load-older {
 				text-align: center;
 				width: $post-details-post-width;
+			}
+		}
+
+		.post-detail {
+			.timestamp {
+				font-size: $type-smallest;
 			}
 		}
 
