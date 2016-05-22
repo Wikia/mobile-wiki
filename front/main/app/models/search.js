@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
-import {isNotFoundError, isBadRequestError, isTimeoutError} from 'ember-ajax/errors';
+import {isNotFoundError, isBadRequestError} from 'ember-ajax/errors';
 
 const {Object, computed, A, Logger} = Ember;
 
@@ -22,7 +22,7 @@ export default Object.extend({
 			batch: 1,
 			totalItems: 0,
 			totalBatches: 0,
-			query: query,
+			query,
 			items: A([])
 		});
 
@@ -53,7 +53,7 @@ export default Object.extend({
 				if (isNotFoundError(error)) {
 					this.set('error', 'search-error-not-found');
 				} else if (isBadRequestError(error)) {
-					//this shouldn't happen
+					// this shouldn't happen
 					Logger.error('Search bad request', query);
 				} else {
 					Logger.error('Search error', error);
