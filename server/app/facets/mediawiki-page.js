@@ -121,7 +121,6 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 			viewName = 'article';
 			result = deepExtend(result, prepareArticleData(request, data));
 		}
-
 		result = deepExtend(result, prepareCategoryData(request, data));
 	} else if (code !== 200) {
 		// In case of status code different than 200 we want Ember to display an error page

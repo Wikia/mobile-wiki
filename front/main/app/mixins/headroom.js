@@ -4,11 +4,6 @@ export default Ember.Mixin.create({
 	headroom: null,
 	headroomEnabled: true,
 
-	// keep it consistent with values in _wikia-variables.scss
-	offset: Ember.computed('smartBannerVisible', function () {
-		return this.get('smartBannerVisible') ? 66 : 0;
-	}),
-
 	/**
 	 * Observes smartBannerVisible property which is controlled by SmartBannerComponent
 	 * and goes through ApplicationController. Reinitializes Headroom when it changes.
@@ -21,7 +16,7 @@ export default Ember.Mixin.create({
 	cachedProperties: {
 		smartBannerVisible: null,
 		offset: null,
-		headroomOptions: null,
+		headroomOptions: null
 	},
 
 	smartBannerVisibleObserver: Ember.on('willInsertElement',

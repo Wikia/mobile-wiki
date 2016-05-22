@@ -3,19 +3,22 @@ import LoginLinkMixin from '../mixins/login-link';
 import WikiaNavModel from '../models/wikia-nav';
 import {track, trackActions} from 'common/utils/track';
 
-export default Ember.Component.extend(
+const {Component, computed, inject} = Ember;
+
+export default Component.extend(
 	LoginLinkMixin,
 	{
-		classNames: ['wikia-drawer__content'],
-		currentUser: Ember.inject.service(),
-		isUserAuthenticated: Ember.computed.oneWay('currentUser.isAuthenticated'),
+		classNames: ['wikia-nav'],
+		classNameBindings: ['model.inRoot:wikia-nav--in-root'],
+		currentUser: inject.service(),
+		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
 
 		logoutLink: M.buildUrl({
 			namespace: 'Special',
 			title: 'UserLogout'
 		}),
 
-		userProfileLink: Ember.computed('currentUser.name', function () {
+		userProfileLink: computed('currentUser.name', function () {
 			return M.buildUrl({
 				namespace: 'User',
 				title: this.get('currentUser.name')

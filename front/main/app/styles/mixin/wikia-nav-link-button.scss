@@ -1,0 +1,10 @@
+@mixin wikia-nav-link-button($color) {
+	&:hover,
+	&:visited,
+	> a,
+	> a:hover,
+	> a:visited,
+	> a:focus {
+		color: $color;
+	}
+}

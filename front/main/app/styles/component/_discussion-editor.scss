@@ -3,272 +3,309 @@ $editor-border-width: 4px;
 $editor-toolbar-height: 40px;
 $editor-textarea-paddings: 17px 17px 17px 64px;
 $sticky-editor-width: 529px;
+$modal-editor-width: 520px;
 $success-icon-size: 80px;
 $editor-textarea-overflow-ios-hack: 30px;
+$editor-label-height: 44px;
 
-.discussion {
-	.editor-container {
-		background-color: $discussion-editor-toolbar-background-color;
-		border: $editor-border-width solid $discussion-editor-border-color;
-		margin: 0 auto 5px;
-		position: relative;
+.editor-container {
+	background-color: $discussion-editor-toolbar-background-color;
+	border: $editor-border-width solid $discussion-editor-border-color;
+	margin: 0 auto 5px;
+	position: relative;
 
-		button {
-			background: none;
-			border: 0;
-			bottom: 0;
-			display: none;
+	button {
+		background: none;
+		border: 0;
+		bottom: 0;
+		display: none;
+		font-size: $type-smallest;
+		font-weight: bold;
+		height: $editor-toolbar-height;
+		letter-spacing: .25px;
+		margin: 0;
+		padding: 0 1.25rem;
+		position: absolute;
+		right: 0;
+		text-transform: uppercase;
+	}
+	.editor-close {
+		display: none;
+	}
+
+	span {
+		&.error {
+			animation: error-slide-in .6s ease-in-out 1, error-slide-out .6s ease-in-out 2.4s;
+			background-color: rgba($discussion-editor-error-background-color, .95);
+			bottom: $editor-toolbar-height;
+			color: $discussion-editor-error-text-color;
 			font-size: $type-smallest;
-			font-weight: bold;
-			height: $editor-toolbar-height;
+			line-height: $line-height-larger;
 			margin: 0;
-			padding: 0 1.25rem;
+			max-height: 2 * $line-height-larger;
+			overflow: hidden;
+			padding: 0;
 			position: absolute;
-			right: 0;
-			text-transform: none;
+			text-align: center;
+			width: 100%;
+			z-index: $z-discussion-editor + 1;
 		}
-		.editor-close {
-			display: none;
+	}
+
+	.editor-textarea {
+		border-bottom: 1px solid $secondary-color;
+		flex: 1;
+		height: $line-height-smaller;
+		min-height: $line-height-smaller;
+		padding: 0;
+		resize: none;
+		transition: min-height .2s ease;
+	}
+
+	.editor-textarea-overflow {
+		background-color: transparent;
+		cursor: pointer;
+		height: $editor-textarea-overflow-ios-hack;
+		left: 0;
+		margin-top: -$editor-textarea-overflow-ios-hack;
+		position: absolute;
+		right: 0;
+	}
+
+	.editor-wrapper {
+		padding: $editor-textarea-paddings;
+	}
+
+	.user-avatar {
+		left: 10px;
+		position: absolute;
+		top: 10px;
+	}
+
+	.avatar {
+		svg, img {
+			width: 40px;
+			height: 40px;
+		}
+	}
+
+	&.sticky {
+		margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
+		position: fixed;
+		top: rem-calc(50 - 4); // Sass doesn't accept px variables here, 50 - TopNav height, 4 - editor border size
+		width: $sticky-editor-width;
+		z-index: 1;
+	}
+}
+
+.discussion-editor {
+	.editor-label {
+		display: none;
+	}
+
+	&.is-active {
+		button {
+			display: inline-block;
 		}
 
-		span {
-			&.error {
-				background-color: $discussion-editor-error-background-color;
-				color: $discussion-editor-error-text-color;
-				font-size: $type-min;
-				margin: 0;
-				padding: 0;
-				text-align: center;
+		.editor-container {
+			padding-bottom: $editor-toolbar-height;
+
+			.editor-textarea-overflow {
+				display: none;
 			}
 		}
 
 		.editor-textarea {
-			border-bottom: 1px solid $secondary-color;
-			height: $line-height-smaller;
-			min-height: $line-height-smaller;
-			padding: 0;
-			resize: none;
-			transition: min-height .2s ease;
-		}
-
-		.editor-textarea-overflow {
-			background-color: transparent;
-			cursor: pointer;
-			height: $editor-textarea-overflow-ios-hack;
-			left: 0;
-			margin-top: -$editor-textarea-overflow-ios-hack;
-			position: absolute;
-			right: 0;
-		}
-
-		.editor-wrapper {
+			border-bottom: 0;
+			max-height: 400px;
 			padding: $editor-textarea-paddings;
 		}
 
-		.user-avatar {
-			left: 10px;
-			position: absolute;
-			top: 10px;
-		}
-
-		.avatar {
-			svg, img {
-				width: 40px;
-				height: 40px;
+		.editor-textarea-overflow {
+			&.ios-special-class {
+				display: none;
 			}
 		}
 
-		&.sticky {
-			margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
-			position: fixed;
-			top: rem-calc(50 - 4); // Sass doesn't accept px variables here, 50 - TopNav height, 4 - editor border size
-			transition: top 0.5s;
-			width: $sticky-editor-width;
-			z-index: 1;
+		.editor-wrapper {
+			max-height: 160px;
+			min-height: 106px;
+			overflow: auto;
+			padding: 0;
 		}
 	}
 
+	.loading-overlay {
+		height: 100%;
+		position: absolute;
+
+		.spinner {
+			margin-top: -32px;
+		}
+
+		.success {
+			display: block;
+			height: $success-icon-size;
+			margin: - $success-icon-size / 2 auto 0;
+			position: relative;
+			top: 50%;
+			width: $success-icon-size;
+		}
+	}
+}
+
+.editor-wrapper {
+	background-color: $discussion-editor-background-color;
+}
+
+.editor-textarea {
+	background-color: transparent;
+	border: 0;
+	border-radius: 0;
+	-webkit-font-smoothing: subpixel-antialiased;
+	margin: 0;
+	resize: none;
+
+	&:focus {
+		background-color: transparent;
+		border: 0;
+		box-shadow: none;
+	}
+}
+
+@mixin modal-editor {
+	.editor-container {
+		border: 0;
+		margin-left: 0;
+	}
+
+	span {
+		&.error {
+			bottom: auto;
+			top: $editor-toolbar-height;
+		}
+	}
+
+	&.is-active {
+		display: block;
+
+		.editor-label {
+			background-color: $discussion-editor-background-color;
+			border-top: $editor-active-mobile-border-top-width solid $discussion-editor-textarea-border-color;
+			color: $discussion-editor-label-color;
+			font-size: $type-min;
+			font-weight: bold;
+			padding: 15px 10px 10px;
+			position: absolute;
+			text-transform: uppercase;
+			top: $editor-toolbar-height + $editor-active-mobile-border-top-width;
+			width: 100%;
+			z-index: $z-discussion-editor + 1;
+		}
+
+		.editor-label-mobile {
+			cursor: default;
+			display: block;
+		}
+
+		.editor-container {
+			background: $discussion-editor-background-color;
+			height: 100%;
+			padding-bottom: 0;
+			position: fixed;
+			top: 0;
+			width: 100%;
+			z-index: $z-discussion-editor;
+		}
+
+		button {
+			right: 0;
+			top: 0;
+		}
+
+		.editor-close {
+			display: inline-block;
+			height: 38px;
+			padding: 10px;
+			position: absolute;
+			width: 38px;
+		}
+
+		.editor-wrapper {
+			//editor label + editor toolbar
+			height: calc(100% - #{$editor-label-height + $editor-toolbar-height});
+			margin-top: $editor-toolbar-height;
+			max-height: none;
+			position: relative;
+			top: $editor-label-height;
+		}
+
+		.editor-textarea {
+			border-bottom-width: 0;
+			height: 100%;
+			max-height: none;
+			padding: 0 10px 10px;
+			position: relative;
+			width: 100%;
+		}
+
+		.user-avatar {
+			display: none;
+		}
+	}
+}
+
+@media #{$mobile-range} {
 	.discussion-editor {
+		@include modal-editor;
+	}
+}
+
+@media #{$desktop-range} {
+	.discussion-editor.is-edit {
+		@include modal-editor;
+
 		&.is-active {
-			button {
-				display: inline-block;
-			}
-
 			.editor-container {
-				padding-bottom: $editor-toolbar-height;
-
-				.editor-textarea-overflow {
-					display: none;
-				}
-			}
-
-			.editor-textarea {
-				max-height: 400px;
-				min-height: 106px;
-				padding: $editor-textarea-paddings;
-				resize: vertical;
-			}
-
-			.editor-textarea-overflow {
-				&.ios-special-class {
-					display: none;
-				}
+				height: 350px;
+				margin-top: 66px;
+				width: $modal-editor-width;
 			}
 
 			.editor-wrapper {
-				padding: 0;
-			}
-		}
-
-		.loading-overlay {
-			height: 100%;
-			position: absolute;
-
-			.spinner {
-				margin-top: -32px;
+				max-height: none;
 			}
 
-			.success {
-				display: block;
-				height: $success-icon-size;
-				margin: - $success-icon-size / 2 auto 0;
-				position: relative;
-				top: 50%;
-				width: $success-icon-size;
-			}
-		}
-	}
-
-	.editor-wrapper {
-		background-color: $discussion-editor-background-color;
-	}
-
-	.editor-textarea {
-		background-color: inherit;
-		border: 0;
-		border-radius: 0;
-		-webkit-font-smoothing: subpixel-antialiased;
-		margin: 0;
-
-		&:focus {
-			border: 0;
-			box-shadow: none;
-		}
-	}
-
-	@media #{$mobile-range} {
-		.discussion-editor {
-			.editor-container {
-				border: 0;
-				margin-left: 0;
-			}
-
-			span {
-				&.error {
-					align-items: center;
-					background-color: $discussion-editor-mobile-error-background-color;
-					color: $discussion-editor-mobile-error-text-color;
-					display: flex;
-					font-size: $type-smallest;
-					height: $editor-toolbar-height;
-					justify-content: center;
-					position: absolute;
-					top: 0;
-					width: 100%;
-				}
-			}
-
-			&.is-active {
-				display: block;
-
-				.editor-label {
-					background-color: $discussion-editor-background-color;;
-					color: $discussion-editor-label-color;
-					font-size: $type-min;
-					font-weight: bold;
-					padding: 10px;
-					position: fixed;
-					text-transform: uppercase;
-					top: $editor-toolbar-height + $editor-active-mobile-border-top-width;
-					width: 100%;
-					z-index: $z-discussion-editor + 1;
-				}
-
-				.editor-container {
-					background: $discussion-editor-background-color;
-					height: 100%;
-					padding-bottom: 0;
-					position: fixed;
-					top: 0;
-					width: 100%;
-					z-index: $z-discussion-editor;
-				}
-
-				button {
-					right: 0;
-					top: 0;
-				}
-
-				.editor-close {
-					display: inline-block;
-					height: 38px;
-					padding: 10px;
-					position: absolute;
-					width: 38px;
-				}
-
-				.editor-wrapper {
-					height: calc(100% - #{$editor-toolbar-height});
-				}
-
-				.editor-textarea {
-					border-bottom-width: 0;
-					border-top: $editor-active-mobile-border-top-width solid $discussion-editor-textarea-border-color;
-					height: 100%;
-					max-height: none;
-					padding: $editor-toolbar-height 10px 10px;
-					position: relative;
-					resize: none;
-					top: $editor-toolbar-height;
-					width: 100%;
-				}
-
-				.user-avatar {
-					display: none;
-				}
-			}
-
-			&.has-error {
-				.error-container {
-					padding-top: $editor-toolbar-height;
-				}
-
-				.editor-wrapper {
-					height: calc(100% - #{2 * $editor-toolbar-height});
-					padding-top: $editor-toolbar-height;
-				}
-
-				.editor-label {
-					top: 2 * $editor-toolbar-height;
-				}
-
-				.editor-close {
-					top: $editor-toolbar-height + 10px;
-				}
-
-				button {
-					top: $editor-toolbar-height;
-				}
-			}
-		}
-	}
-
-	@media #{$desktop-range} {
-		.discussion-editor {
 			.editor-label {
-				display: none;
-				height: 0;
+				top: $editor-toolbar-height + 1px;
 			}
 		}
+	}
+}
+
+.discussion-editor-dialog {
+	.modal-dialog {
+		max-width: $modal-editor-width;
+	}
+}
+
+@keyframes error-slide-in {
+	from {
+		max-height: 0;
+	}
+
+	to {
+		max-height: 2 * $line-height-larger;
+	}
+}
+
+@keyframes error-slide-out {
+	from {
+		max-height: 2 * $line-height-larger;
+	}
+
+	to {
+		max-height: 0;
 	}
 }

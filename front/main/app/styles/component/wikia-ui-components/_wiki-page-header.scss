@@ -1,0 +1,127 @@
+// disable portable infobox hero image and title
+// @todo XW-1478 Remove the rule below when the first title/hero image of the first infobox is removed from markup.
+.article-content .portable-infobox:first-of-type {
+	.pi-hero,
+	.pi-title:first-of-type {
+		display: none;
+	}
+}
+
+// component
+.wiki-page-header {
+	background: $color-blue-light;
+	color: #fff;
+}
+
+// component elements
+.wiki-page-header__wrapper {
+	display: flex;
+	padding: {
+		bottom: 12px;
+		left: $article-horizontal-padding;
+		right: $article-horizontal-padding;
+		top: 16px;
+	}
+}
+
+%wiki-page-header-element {
+	color: inherit;
+	font-weight: normal;
+	line-height: 1;
+	margin: 0;
+}
+
+.wiki-page-header__site-name-block {
+	@extend %wiki-page-header-element;
+
+	font-size: 12px;
+
+	svg {
+		fill: #fff;
+		height: 16px;
+		vertical-align: middle;
+		width: 11px;
+	}
+
+	a:hover svg {
+		fill: #081e3a;
+	}
+}
+
+.wiki-page-header__site-link {
+	color: inherit;
+}
+
+.wiki-page-header__site-name {
+	font-style: italic;
+	font-weight: bold;
+}
+
+.wiki-page-header__title {
+	@extend %wiki-page-header-element;
+
+	font-size: 26px;
+	font-weight: bold;
+	line-height: 32px;
+	word-break: break-word;
+}
+
+.wiki-page-header__site-name-block ~ .wiki-page-header__title {
+	margin-top: 3px;
+}
+
+.wiki-page-header__subtitle {
+	@extend %wiki-page-header-element;
+
+	font-size: 14px;
+	margin-top: 15px;
+}
+
+// component modifier-related changes to elements
+.wiki-page-header.has-hero-image {
+	background: {
+		color: #fff;
+		position: center center;
+		repeat: no-repeat;
+	}
+}
+
+.wiki-page-header.has-hero-image .wiki-page-header__wrapper {
+	background: linear-gradient(to bottom, transparent 70%, rgba(0, 0, 0,.6) 100%);
+	height: 100%;
+}
+
+.wiki-page-header.has-hero-image-preload {
+	animation: wiki-page-header-preload-preloading 2s infinite;
+	height: 0;
+	padding-bottom: 100%;
+	position: relative;
+	width: 100%;
+}
+
+.wiki-page-header.has-hero-image-preload .wiki-page-header__wrapper {
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+}
+
+.wiki-page-header__main {
+	align-self: flex-end;
+	flex: 1;
+}
+
+.wiki-page-header .contribution-container {
+	margin-bottom: -8px;
+
+	.icon {
+		fill: #fff;
+	}
+}
+
+// animations
+@keyframes wiki-page-header-preload-preloading {
+	0%   {background-color: #888;}
+	50%  {background-color: #999;}
+	100% {background-color: #888;}
+}

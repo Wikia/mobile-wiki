@@ -1,8 +1,8 @@
 import Ember from 'ember';
-import InfoboxImageCollectionComponent from './infobox-image-collection';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {track, trackActions} from 'common/utils/track';
+import {getGroup, inGroup} from 'common/modules/abtest';
 
 /**
  * HTMLElement
@@ -22,31 +22,15 @@ export default Ember.Component.extend(
 		contributionEnabled: null,
 		uploadFeatureEnabled: null,
 		displayTitle: null,
-		headers: null,
-
-		newFromMedia(media) {
-			if (media.context === 'infobox' || media.context === 'infobox-hero-image') {
-				return this.createComponentInstance('infobox-image-media');
-			} else if (Ember.isArray(media)) {
-				if (media.some((media) => Boolean(media.link))) {
-					return this.createComponentInstance('linked-gallery-media');
-				} else {
-					return this.createComponentInstance('gallery-media');
-				}
-			} else if (media.type === 'video') {
-				return this.createComponentInstance('video-media');
-			} else {
-				return this.createComponentInstance('image-media');
-			}
-		},
 
 		articleContentObserver: Ember.on('init', Ember.observer('content', function () {
-			const content = this.get('content');
+			let content = this.get('content');
 
 			this.destroyChildComponents();
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
-				if (content) {
+				if (!Ember.isBlank(content)) {
+					content = this.injectSections(content);
 					this.hackIntoEmberRendering(content);
 
 					this.handleInfoboxes();
@@ -57,38 +41,24 @@ export default Ember.Component.extend(
 						.map(this.renderComponent);
 
 					this.loadIcons();
-					this.loadTableOfContentsData();
+					this.createTableOfContents();
+					this.createContributionButtons();
 					this.handleTables();
-					this.replaceMediaPlaceholdersWithMediaComponents(this.get('media'), 4);
-					this.replaceImageCollectionPlaceholdersWithComponents(this.get('media'));
+					// TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
+					this.handleNavigation();
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
-
-					Ember.run.later(this, () => this.replaceMediaPlaceholdersWithMediaComponents(this.get('media')), 0);
+					this.injectPotentialMemberPageExperimentComponent();
+					this.bindHeaderClicks();
 				} else {
-					this.hackIntoEmberRendering(i18n.t('app.article-empty-label'));
+					this.hackIntoEmberRendering(`<p>${i18n.t('app.article-empty-label')}</p>`);
 				}
 
 				this.injectAds();
 				this.setupAdsContext(this.get('adsContext'));
 			});
 		})),
-
-		headerObserver: Ember.observer('headers', function () {
-			if (this.get('contributionEnabled')) {
-				const headers = this.get('headers');
-				let $sectionHeader = null,
-					$contributionComponent = null;
-
-				headers.forEach((header) => {
-					$contributionComponent = this.createArticleContributionComponent(header.section, header.id);
-					$sectionHeader = this.$(header.element);
-					$sectionHeader.prepend($contributionComponent).addClass('short-header');
-					$contributionComponent.wrap('<div class="icon-wrapper"></div>');
-				});
-			}
-		}),
 
 		init() {
 			this._super(...arguments);
@@ -276,6 +246,22 @@ export default Ember.Component.extend(
 		/**
 		 * @returns {void}
 		 */
+		bindHeaderClicks() {
+			if (!this.$('.collapsible-section-header').length) {
+				return;
+			}
+
+			this.$('.collapsible-section-header').click(function () {
+				const $header = $(this);
+
+				$header.toggleClass('open');
+				$header.next('.collapsible-section-body').toggleClass('hidden');
+			});
+		},
+
+		/**
+		 * @returns {void}
+		 */
 		destroyChildComponents() {
 			this.renderedComponents.forEach((renderedComponent) => {
 				renderedComponent.destroy();
@@ -335,109 +321,75 @@ export default Ember.Component.extend(
 		},
 
 		/**
-		 * Generates table of contents data based on h2 elements in the article
-		 * TODO: Temporary solution for generating Table of Contents
-		 * Ideally, we wouldn't be doing this as a post-processing step, but rather we would just get a JSON with
-		 * ToC data from server and render view based on that.
-		 *
 		 * @returns {void}
 		 */
-		loadTableOfContentsData() {
-			/**
-			 * @param {number} i
-			 * @param {HTMLElement} elem
-			 * @returns {ArticleSectionHeader}
-			 */
-			const headers = this.$('h2[section]').map((i, elem) => {
-				if (elem.textContent) {
-					return {
-						element: elem,
-						level: elem.tagName,
-						name: elem.textContent,
-						id: elem.id,
-						section: elem.getAttribute('section'),
-					};
+		createContributionButtons() {
+			if (this.get('contributionEnabled')) {
+				const headers = this.$('h2[section]').map((i, elem) => {
+					if (elem.textContent) {
+						return {
+							element: elem,
+							level: elem.tagName,
+							name: elem.textContent,
+							id: elem.id,
+							section: elem.getAttribute('section'),
+						};
+					}
+				}).toArray();
+
+				headers.forEach((header) => {
+					this.$(header.element)
+						.wrapInner('<div class="section-header-label"></div>')
+						.append(this.createArticleContributionComponent(header.section, header.id));
+				});
+			}
+		},
+
+		/**
+		 * @returns {void}
+		 */
+		createTableOfContents() {
+			const component = this.createComponentInstance('article-table-of-contents'),
+				$firstInfobox = this.$('.portable-infobox').first(),
+				componentElement = this.createChildView(component).createElement();
+
+			if ($firstInfobox.length) {
+				componentElement.$().insertAfter($firstInfobox);
+			} else {
+				componentElement.$().prependTo(this.$());
+			}
+
+			componentElement.trigger('didInsertElement');
+		},
+
+		/**
+		 * Inject Potential Member Page experiment into article content
+		 * @returns {void}
+		 */
+		injectPotentialMemberPageExperimentComponent() {
+			const experimentComponent = this.createComponentInstance('potential-member-page-experiment'),
+				headers = this.$('h2[section]');
+			let $componentElement,
+				$firstHeader;
+
+			experimentComponent.set('experimentGroup', 'IN_ARTICLE');
+			$componentElement = this.createChildView(experimentComponent).createElement().$();
+
+			// Check if there are headers in content
+			if (headers.length >= 2) {
+				$firstHeader = headers.eq(0);
+
+				if ($firstHeader.prevAll('p').length) {
+					// Insert before first header if it's not first node in the content
+					$componentElement.insertBefore($firstHeader);
+				} else {
+					// Otherwise insert before second header
+					$componentElement.insertBefore(headers.eq(1));
 				}
-			}).toArray();
-
-			this.set('headers', headers);
-			this.sendAction('updateHeaders', headers);
-		},
-
-		/**
-		 * @param {HTMLElement} element
-		 * @param {ArticleModel} model
-		 * @returns {JQuery}
-		 */
-		createMediaComponent(element, model) {
-			const ref = parseInt(element.dataset.ref, 10),
-				media = model.find(ref),
-				component = this.newFromMedia(media);
-
-			let componentElement;
-
-			component.setProperties({
-				ref,
-				width: parseInt(element.getAttribute('width'), 10),
-				height: parseInt(element.getAttribute('height'), 10),
-				imgWidth: element.offsetWidth,
-				media
-			});
-
-			componentElement = this.createChildView(component).createElement();
-
-			return componentElement.$().attr('data-ref', ref);
-		},
-
-		/**
-		 * @param {ArticleModel} model
-		 * @param {number} [numberToProcess=-1]
-		 * @returns {void}
-		 */
-		replaceMediaPlaceholdersWithMediaComponents(model, numberToProcess = -1) {
-			const $mediaPlaceholders = this.$('.article-media:not([data-component])');
-
-			if (numberToProcess < 0 || numberToProcess > $mediaPlaceholders.length) {
-				numberToProcess = $mediaPlaceholders.length;
+			} else {
+				// Eventually insert at the end of article
+				this.$().append($componentElement);
 			}
-
-			for (let index = 0; index < numberToProcess; index++) {
-				$mediaPlaceholders.eq(index).replaceWith(this.createMediaComponent($mediaPlaceholders[index], model));
-			}
-		},
-
-		/**
-		 * @param {ArticleMedia} model
-		 * @returns {void}
-		 */
-		replaceImageCollectionPlaceholdersWithComponents(model) {
-			const $placeholders = this.$('.pi-image-collection:not([data-component])'),
-				articleMedia = model.get('media'),
-				numberToProcess = $placeholders.length,
-				getCollectionMediaFromRefs = (ref) => {
-					const image = model.find(ref);
-
-					image.ref = articleMedia.length;
-					return image;
-				};
-
-			for (let index = 0; index < numberToProcess; index++) {
-				const $element = $placeholders.eq(index),
-					refs = $element.data('refs')
-						.split(',')
-						.compact()
-						.filter((ref) => ref.length > 0),
-					collectionMedia = refs.map(getCollectionMediaFromRefs),
-					component = this.createChildView(InfoboxImageCollectionComponent, {
-						media: collectionMedia
-					}).createElement();
-
-				$element.replaceWith(component.$());
-
-				articleMedia.push(collectionMedia);
-			}
-
-			model.set('media', articleMedia);
 		},
 
 		/**
@@ -473,6 +425,7 @@ export default Ember.Component.extend(
 			infoboxComponentElement = this.createChildView(infoboxComponent).createElement();
 
 			$infoboxPlaceholder.replaceWith(infoboxComponentElement.$());
+
 			infoboxComponentElement.trigger('didInsertElement');
 		},
 
@@ -596,6 +549,89 @@ export default Ember.Component.extend(
 
 					$element.wrap(wrapper);
 				});
+		},
+
+		/**
+		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_COLLAPSE AB TEST
+		 *
+		 * @param {string} content
+		 * @returns {documentFragment}
+		 */
+		injectSections(content) {
+			if (!inGroup('RECIRCULATION_MERCURY_COLLAPSE', 'YES')) {
+				return content;
+			}
+
+			const $fragment = $(document.createDocumentFragment()),
+				nodes = this.getContentNodes(content);
+
+			let $root = $fragment;
+
+			for (let i = 0; i < nodes.length; i++) {
+				const $node = $(nodes[i]);
+
+				if ($node.is('h2')) {
+					const $currentSection = $('<section class="collapsible-section-body hidden">'),
+						$sectionHeader = $node.clone(true).addClass('collapsible-section-header'),
+						svg = '<svg viewBox="0 0 12 7" class="icon chevron"><use xlink:href="#chevron"></use></svg>';
+
+					$sectionHeader.prepend(svg);
+
+					$fragment.append($sectionHeader);
+					$fragment.append($currentSection);
+
+					$root = $currentSection;
+				} else {
+					$root.append($node.clone(true));
+				}
+			}
+
+			return $fragment;
+		},
+
+		/**
+		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_COLLAPSE AB TEST
+		 *
+		 * @param {string} content
+		 * @returns {array}
+		 */
+		getContentNodes(content) {
+			const article = document.createElement('div');
+
+			article.innerHTML = content;
+			return article.childNodes;
+		},
+
+		/**
+		 * TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
+		 * by default all block navigation elements are now hidden in css by display:none;
+		 * according to current test group we want to un-hide some of the elements:
+		 *  - only navigation elements
+		 *  - only navboxes
+		 *  - both of them
+		 *
+		 * @returns {void}
+		 */
+		handleNavigation() {
+			let navABTestGroup = getGroup('MERCURY_NAVIGATION_ELEMENTS'),
+				dataTypeSelector;
+
+			// display only navboxes
+			if (navABTestGroup === 'NAVIGATION_HIDDEN') {
+				dataTypeSelector = '[data-type=navbox]';
+			// display only navigation
+			} else if (navABTestGroup === 'NAVBOXES_HIDDEN') {
+				dataTypeSelector = '[data-type=navigation]';
+			// display all of them
+			} else if (navABTestGroup === 'BOTH_SHOWN') {
+				dataTypeSelector = '[data-type^=nav]';
+			}
+
+			if (dataTypeSelector) {
+				this.$(dataTypeSelector).each((index, element) => {
+					element.style.display = 'block';
+				});
+			}
 		},
 
 		/**

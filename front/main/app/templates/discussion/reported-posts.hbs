@@ -1,3 +1,15 @@
+{{#modal-dialog
+	class='is-bare is-desktop-centered discussion-editor-dialog'
+	closeOnOverlayClick=false
+	isVisible=editEditorActive
+}}
+	{{discussion-edit-editor
+		editPost=(action 'editPost')
+		editReply=(action 'editReply')
+		generateOpenGraph=(route-action 'generateOpenGraph')
+	}}
+{{/modal-dialog}}
+
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	model=model.data
@@ -7,10 +19,11 @@
 	}}
 	{{discussion-reported-posts-wrapper
 		approve=(action 'approve')
-		create=(action 'create')
+		createPost=(action 'createPost')
 		deletePost=(action 'deletePost')
 		deleteReply=(action 'deleteReply')
 		forumId=model.data.forumId
+		generateOpenGraph=(route-action 'generateOpenGraph')
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
 		minorError=model.data.minorError
