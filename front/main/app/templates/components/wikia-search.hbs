@@ -1,6 +1,6 @@
-<div class="wikia-search">
+<div class="wikia-search {{if emptyQueryInput 'empty'}}">
 	<div class="wikia-search__item search">
-		<div class="wikia-search__container {{if emptyQueryInput 'empty'}}">
+		<div class="wikia-search__container">
 			{{wikia-ui-components/icon-button
 				class='wikia-search__search-icon'
 				click=(action 'clearSearch')
