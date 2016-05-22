@@ -32,7 +32,7 @@ $border-bottom-height: 1px;
 			display: none;
 		}
 
-		.wikia-search__item::after {
+		.search::after {
 			content: ' ';
 			border-bottom: $border-bottom-height solid $iron;
 		}
@@ -52,7 +52,7 @@ $border-bottom-height: 1px;
 	margin-top: 0;
 	position: relative;
 
-	&::after {
+	&.search::after {
 		border-bottom: $border-bottom-height solid $color-blue-light;
 		bottom: 10px;
 		content: ' ';
