@@ -1,0 +1,3 @@
+{
+  "root": true // prevent looking in parent folders for rules
+}

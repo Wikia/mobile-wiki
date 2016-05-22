@@ -80,6 +80,14 @@ $discussion-dialog-background-color: $color-white;
 $discussion-dialog-button-hover-background-color: #f6f6f6;
 $discussion-dialog-separator-color: #e6e6e6;
 
+$discussion-open-graph-border-color: #ccc;
+$discussion-open-graph-background-color: #fff;
+$discussion-open-graph-placeholder-background-color: #e6e6e6;
+$discussion-open-graph-close-background-color: #5c5c5c;
+$discussion-open-graph-close-fill-color: #fff;
+$discussion-open-graph-title-color: #333;
+$discussion-open-graph-domain-color: #999;
+
 $discussion-empty-forum-message-border-color: #e6e6e6;
 
 $discussion-page-width: 507px;
@@ -150,6 +158,11 @@ $dark-discussion-editor-background-color: #262626;
 $dark-discussion-editor-border-color: #666;
 $dark-discussion-editor-toolbar-background-color: #333;
 
+$dark-discussion-open-graph-border-color: #666;
+$dark-discussion-open-graph-background-color: #262626;
+$dark-discussion-open-graph-title-color: #fff;
+$dark-discussion-open-graph-domain-color: #999;
+
 $dark-discussion-empty-forum-message-border-color: #666;
 
 $dark-collapsible-menu-border-color: $collapsible-menu-border-color;
@@ -167,6 +180,7 @@ $dark-discussion-post-card-linked-background: #262626;
 $dark-discussion-top-note-border-bottom-color: #666;
 $dark-discussion-post-card-top-note-color: #666;
 $dark-discussion-locked-post-replies-color: #666;
+$dark-discussion-open-graph-placeholder-background-color: #666;
 
 $dark-app-promotion-text-color: $color-white;
 
