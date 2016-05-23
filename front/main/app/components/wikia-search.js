@@ -120,6 +120,9 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		setSearchSuggestionItems(suggestions) {
+			const highlightRegexp = new RegExp(this.get('query'), "i");
+			const highlighted = `<span class=\"wikia-search__suggestion-hghlighted\">${this.get('query')}</span>`;
+
 			suggestions.forEach(
 				/**
 				 * @param {SearchSuggestionItem} suggestion
@@ -129,6 +132,7 @@ export default Component.extend(
 				 */
 				(suggestion, index, suggestionsArr) => {
 					suggestionsArr[index].uri = encodeURIComponent(suggestion.title);
+					suggestion.title = suggestion.title.replace(highlightRegexp, highlighted);
 				}
 			);
 
