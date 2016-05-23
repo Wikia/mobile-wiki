@@ -571,6 +571,7 @@ body.discussions {
 		.clamp {
 			@include clamp(3);
 
+
 			a {
 				color: $discussion-content-color;
 			}
@@ -729,6 +730,11 @@ body.discussions {
 			> li:not(:last-child) {
 				border-right: none;
 			}
+		}
+
+		.side-spaced {
+			padding-left: 20px;
+			padding-right: 20px;
 		}
 	}
 }
