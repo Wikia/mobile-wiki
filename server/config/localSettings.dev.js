@@ -25,7 +25,10 @@ const localSettings = {
 			enable: true,
 			url: 'https://services.wikia-dev.com/clickstream/events/social'
 		}
-	}
+	},
+	helios: {
+		internalUrl: 'http://dev.helios.service.consul:9500/',
+	},
 };
 
 /**
