@@ -47,5 +47,9 @@ export default Ember.Mixin.create({
 		editReply(entityData) {
 			this.get('target').send('editReply', entityData);
 		},
+
+		generateOpenGraph(uri) {
+			this.get('target').send('generateOpenGraph', uri);
+		}
 	}
 });

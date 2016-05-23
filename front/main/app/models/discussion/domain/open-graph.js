@@ -25,6 +25,7 @@ OpenGraph.reopenClass({
 		return this._super({
 			description: openGraphData.description,
 			domain: extractDomainFromUrl(openGraphData.url),
+			href: Ember.get(openGraphData, '_links.self.href'),
 			id: openGraphData.id,
 			imageHeight: openGraphData.imageHeight,
 			imageUrl: openGraphData.imageUrl,
