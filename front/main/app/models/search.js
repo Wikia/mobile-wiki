@@ -71,7 +71,6 @@ export default Object.extend({
 					return {
 						title: item.title,
 						snippet: item.snippet,
-						// TODO: write unit tests
 						href: item.url.replace(/^http:\/\/[^\/]+(\/wiki)?\//i, '')
 					};
 				})

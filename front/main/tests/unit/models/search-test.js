@@ -1,5 +1,6 @@
 import {moduleFor, test} from 'ember-qunit';
 import SearchModel from 'main/models/search';
+import sinon from 'sinon';
 
 moduleFor('model:search', 'Unit | Model | search result page', {
 	unit: true
@@ -8,10 +9,10 @@ moduleFor('model:search', 'Unit | Model | search result page', {
 test('empty array set on zero state', (assert) => {
 	const search = SearchModel.create();
 
-	assert.deepEqual([], search.get('items'));
+	assert.deepEqual(search.get('items'), []);
 });
 
-test('test update state', (assert) => {
+test('test state update', (assert) => {
 	const cases = [
 		{
 			mock: {
@@ -64,7 +65,7 @@ test('test update state', (assert) => {
 	});
 });
 
-test('can load more', (assert) => {
+test('test can load more', (assert) => {
 	const cases = [
 		{
 			mock: {
@@ -90,4 +91,34 @@ test('can load more', (assert) => {
 
 		assert.equal(search.get('canLoadMore'), testCase.expected);
 	});
+});
+
+test('test a new query state reset', (assert) => {
+	const search = SearchModel.create();
+	search.call = sinon.stub();
+
+	search.update({
+		total: 1,
+		batches: 1,
+		items: [
+			{
+				title: 'test',
+				snippet: '<div>html</div>test',
+				url: 'http://test.wikia.com/wiki/Test'
+			},
+			{
+				title: 'test sub dir',
+				snippet: '<div>html</div>test',
+				url: 'http://test.wikia.com/wiki/Test/1'
+			},
+			{
+				title: 'test not canonical',
+				snippet: '<div>html</div>test',
+				url: 'http://test.wikia.com/test_2'
+			}
+		]
+	});
+	search.search('test');
+
+	assert.deepEqual(search.items, []);
 });
