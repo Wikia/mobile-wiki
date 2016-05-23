@@ -208,11 +208,11 @@ export default Route.extend(
 
 			// This is used only in not-found.hbs template
 			/**
-			 * @param {boolean} visible
 			 * @returns {void}
 			 */
-			toggleDrawer(visible) {
-				this.get('controller').set('drawerVisible', visible);
+			openNav() {
+				this.get('controller').set('drawerContent', 'nav');
+				this.get('controller').set('drawerVisible', true);
 			}
 		},
 
