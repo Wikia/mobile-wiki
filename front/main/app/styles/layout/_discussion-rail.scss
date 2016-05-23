@@ -1,4 +1,8 @@
 .rail {
+	&.left {
+		padding-right: 48px;
+	}
+
 	&.right {
 		padding-left: 48px;
 	}
@@ -31,11 +35,6 @@
 	.rail {
 		.side-button {
 			border-width: 1px 0;
-		}
-
-		.back-button,
-		.discussion-filter-header {
-			margin-right: 45px;
 		}
 
 		.delete-all {
