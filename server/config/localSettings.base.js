@@ -165,7 +165,7 @@ const localSettings = {
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
-		internalUrl: 'http://prod.helios.service.consul:9500/',
+		internalUrl: 'http://prod.auth.service.consul:9500/',
 		path: '/auth',
 		timeout: 3000
 	},
