@@ -19,7 +19,7 @@
 		{{#if activeDrawerContent}}
 			{{component
 				drawerContentComponent
-				searchEnterAction=(action 'closeDrawer')
+				onEnterHandler=(action 'closeDrawer')
 				suggestionClickAction=(action 'closeDrawer')
 				closeDrawer=(action 'closeDrawer')
 				loadRandomArticle=this.attrs.loadRandomArticle
