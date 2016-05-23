@@ -59,6 +59,10 @@ export default function scheme() {
 					code: accessToken
 				}),
 				{
+					headers: {
+						'X-Client-Ip': request.headers['fastly-client-ip'] || request.info.remoteAddress,
+						'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress
+					},
 					timeout: localSettings.helios.timeout
 				},
 				callback
