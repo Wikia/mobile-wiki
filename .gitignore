@@ -14,3 +14,6 @@
 *.sw[a-z]
 *.orig
 *.log
+
+# coverage files
+**/coverage.*
