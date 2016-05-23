@@ -8,6 +8,17 @@
 	li {
 		margin-bottom: 8px;
 	}
+
+	label {
+		display: block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		span {
+			float: left;
+		}
+	}
 }
 
 .discussion-categories {
