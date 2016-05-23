@@ -211,8 +211,10 @@ export default Route.extend(
 			 * @returns {void}
 			 */
 			openNav() {
-				this.get('controller').set('drawerContent', 'nav');
-				this.get('controller').set('drawerVisible', true);
+				this.get('controller').setProperties({
+					drawerContent: 'nav',
+					drawerVisible: true
+				});
 			}
 		},
 
