@@ -60,6 +60,14 @@ export default DiscussionBaseRoute.extend(
 			return this.transitionTo('discussion.forum', {queryParams: {sort: sortBy}});
 		},
 
+		serializeQueryParam: function(value, urlKey, defaultValueType) {
+			return defaultValueType === 'array' ? value : this._super(value, urlKey, defaultValueType);
+		},
+
+		deserializeQueryParam: function(value, urlKey, defaultValueType) {
+			return defaultValueType === 'array' ? value : this._super(value, urlKey, defaultValueType);
+		},
+
 		actions: {
 			/**
 			 * @param {number} pageNum
@@ -68,6 +76,10 @@ export default DiscussionBaseRoute.extend(
 			loadPage(pageNum) {
 				this.modelFor(this.get('routeName')).loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
+
+			changeCategory(categoryIds) {
+				this.transitionTo({queryParams: {catId: categoryIds}});
+			}
 		}
 	}
 );

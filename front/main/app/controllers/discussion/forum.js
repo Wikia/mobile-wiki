@@ -11,9 +11,12 @@ export default DiscussionBaseController.extend(
 	DiscussionForumActionsControllerMixin,
 	DiscussionEditEditorMixin,
 	{
+		catId: [],
 
 		categoriesObserver: Ember.observer('model.index.selectedCategoryIds', function () {
-			// TODO handle changes
+			if (this.get('catId.length') !== this.get('model.index.selectedCategoryIds.length')) {
+				this.get('target').send('changeCategory', this.get('model.index.selectedCategoryIds'));
+			}
 		}),
 	}
 );
