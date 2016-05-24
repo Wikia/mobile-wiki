@@ -388,7 +388,7 @@ body.discussions {
 		}
 
 		.discussion-content {
-			font-size: $type-min;
+			font-size: $type-base;
 			line-height: $line-height-min;
 			margin-bottom: 0;
 			margin-left: $post-details-reply-upvote-width + $post-details-reply-upvote-margin-left;
@@ -396,7 +396,7 @@ body.discussions {
 		}
 
 		.timestamp {
-			font-size: $discussion-post-type-smaller-than-min;
+			font-size: .75rem;
 		}
 
 		.upvotes {
@@ -416,6 +416,12 @@ body.discussions {
 				line-height: 10px;
 				word-wrap: normal;
 			}
+		}
+
+		.upvote {
+			align-items: center;
+			display: flex;
+			flex-direction: column;
 		}
 	}
 
