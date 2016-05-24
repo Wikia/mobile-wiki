@@ -4,6 +4,12 @@
 			<input type="submit" class="filters-apply" value="{{i18n 'main.sort-by-apply' ns='discussion'}}" {{action 'applyFilters'}}>
 		</div>
 	{{/if}}
+	{{#if categories}}
+		{{discussion-categories
+			categories=categories
+			inputIdPrefix=filters
+		}}
+	{{/if}}
 	{{#if showSortSection}}
 		<fieldset disabled={{trendingDisabled}}>
 			<legend>{{i18n 'main.sort-by-header' ns='discussion'}}</legend>

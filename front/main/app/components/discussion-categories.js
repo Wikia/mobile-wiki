@@ -5,6 +5,10 @@ export default Ember.Component.extend({
 	classNames: ['discussion-fieldset', 'discussion-categories'],
 	classNameBindings: ['collapsed'],
 
+	categoriesInputIdPrefix: Ember.computed.oneWay('inputIdPrefix', function () {
+		return this.get('inputIdPrefix') + '-discussion-category-';
+	}),
+
 	categoryAllSelected: Ember.computed('categories.@each.selected', function () {
 		return this.get('categories').isEvery('selected', false);
 	}),

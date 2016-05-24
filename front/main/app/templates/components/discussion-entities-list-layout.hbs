@@ -2,6 +2,7 @@
 	{{discussion-header
 		applyFilters=(action this.attrs.applyFilters)
 		canModerate=model.canModerate
+		categories=categories
 		hasFilters=true
 		hasContentError=hasContentError
 		hasNewPostButton=true
@@ -37,6 +38,7 @@
 				</h3>
 				{{discussion-categories
 					categories=categories
+					inputIdPrefix=rail
 				}}
 			{{/if}}
 		</div>

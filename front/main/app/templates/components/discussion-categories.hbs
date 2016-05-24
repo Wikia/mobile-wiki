@@ -6,7 +6,7 @@
 	<li>
 		{{wikia-ui-components/fancy-check-box
 			label=(i18n 'main.category-all-name' ns='discussion')
-			inputId='discussion-category-all'
+			inputId=(concat categoriesInputIdPrefix 'all')
 			isChecked=categoryAllSelected
 		}}
 	</li>
@@ -14,7 +14,7 @@
 		<li>
 			{{wikia-ui-components/fancy-check-box
 				label=category.name
-				inputId=(concat 'discussion-category-' category.id)
+				inputId=(concat categoriesInputIdPrefix category.id)
 				isChecked=category.selected
 			}}
 		</li>
