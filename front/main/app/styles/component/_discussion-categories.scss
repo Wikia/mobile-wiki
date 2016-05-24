@@ -5,18 +5,19 @@
 	overflow: hidden;
 	transition: max-height .6s;
 
-	li {
-		margin-bottom: 8px;
-	}
-
 	label {
 		display: block;
 		overflow: hidden;
+		padding: 4px 0;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 
 		span {
 			float: left;
+		}
+
+		&:hover {
+			background-color: $discussion-category-hover-background;
 		}
 	}
 }
