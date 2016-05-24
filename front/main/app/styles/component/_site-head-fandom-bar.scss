@@ -3,6 +3,10 @@ $home-of-fandom-letter-spacing: 0.5px;
 
 .site-head-fandom-bar-wrapper {
 	height: $site-head-fandom-bar-height;
+
+	@media #{$desktop-range} {
+		display: none;
+	}
 }
 
 .site-head-fandom-bar {
