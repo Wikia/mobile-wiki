@@ -30,8 +30,8 @@ const trackActions = {
 	DeleteAllConfirmed: 'DeleteAllConfirmed',
 	DeleteAllTapped: 'DeleteAllTapped',
 	OGTapped: 'OGTapped',
-	OGPreviewGenerated: 'OGPreviewGenerated',
-	OGPreviewClosed: 'OGPreviewClosed',
+	OGCreated: 'OGCreated',
+	OGRemoved: 'OGRemoved',
 };
 
 /**
