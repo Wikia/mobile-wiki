@@ -8,6 +8,10 @@ const DiscussionModel = Ember.Object.extend({
 	data: null,
 	wikiId: null,
 
+	selectedCategoryIds: Ember.computed('categories.@each.selected', function () {
+		return this.get('categories').filterBy('selected', true).mapBy('id');
+	}),
+
 	/**
 	 * @param {object} apiData
 	 *
@@ -23,13 +27,13 @@ const DiscussionModel = Ember.Object.extend({
 		this.set('categories', categories.sortBy('displayOrder'));
 	},
 
-	setSelectedCategories(selectedCategories) {
+	setSelectedCategories(selectedCategoryIds) {
 		this.get('categories').forEach((category) => {
-			if (selectedCategories.indexOf(category.get('id')) !== -1) {
+			if (selectedCategoryIds.indexOf(category.get('id')) !== -1) {
 				category.set('selected', true);
 			}
 		});
-	}
+	},
 });
 
 DiscussionModel.reopenClass({

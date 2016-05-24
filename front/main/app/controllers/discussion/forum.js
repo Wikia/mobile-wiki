@@ -9,5 +9,11 @@ export default DiscussionBaseController.extend(
 	DiscussionModerationControllerMixin,
 	DiscussionContributionControllerMixin,
 	DiscussionForumActionsControllerMixin,
-	DiscussionEditEditorMixin
+	DiscussionEditEditorMixin,
+	{
+
+		categoriesObserver: Ember.observer('model.index.selectedCategoryIds', function () {
+			// TODO handle changes
+		}),
+	}
 );
