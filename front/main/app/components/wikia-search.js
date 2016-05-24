@@ -120,7 +120,7 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		setSearchSuggestionItems(suggestions) {
-			const highlightRegexp = new RegExp(this.get('query'), "i");
+			const highlightRegexp = new RegExp(this.get('query'), 'i');
 			const highlighted = `<span class=\"wikia-search__suggestion-hghlighted\">${this.get('query')}</span>`;
 
 			suggestions.forEach(
