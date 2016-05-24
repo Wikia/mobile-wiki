@@ -166,8 +166,11 @@ body.discussions {
 	}
 
 	.post-counters {
+		align-items: center;
 		color: $discussion-actions-color;
+		display: flex;
 		font-size: rem-calc(12);
+		justify-content: flex-end;
 		line-height: rem-calc(14);
 		padding-bottom: 15px;
 		text-align: right;
@@ -180,11 +183,11 @@ body.discussions {
 			}
 
 			&.replies {
-				margin-left: 6px;
+				margin-left: 7px;
 				width: 18px;
 			}
 
-			margin-right: 2px;
+			margin-right: 5px;
 		}
 	}
 
