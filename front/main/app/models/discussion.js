@@ -21,6 +21,14 @@ const DiscussionModel = Ember.Object.extend({
 		});
 
 		this.set('categories', categories.sortBy('displayOrder'));
+	},
+
+	setSelectedCategories(selectedCategories) {
+		this.get('categories').forEach((category) => {
+			if (selectedCategories.indexOf(category.get('id')) !== -1) {
+				category.set('selected', true);
+			}
+		});
 	}
 });
 

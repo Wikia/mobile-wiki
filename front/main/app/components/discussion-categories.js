@@ -5,6 +5,10 @@ export default Ember.Component.extend({
 	classNames: ['discussion-fieldset', 'discussion-categories'],
 	classNameBindings: ['collapsed'],
 
+	categoryAllSelected: Ember.computed('categories.@each.selected', function () {
+		return this.get('categories').isEvery('selected', false);
+	}),
+
 	actions: {
 		toggle() {
 			this.set('collapsed', !this.get('collapsed'));

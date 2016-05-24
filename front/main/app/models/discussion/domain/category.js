@@ -16,7 +16,8 @@ DiscussionCategory.reopenClass({
 			description: categoryData.description,
 			displayOrder: categoryData.displayOrder,
 			id: categoryData.id,
-			name: categoryData.name
+			name: categoryData.name,
+			selected: false,
 		};
 
 		return this._super(category);

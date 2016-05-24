@@ -15,6 +15,9 @@ export default DiscussionBaseRoute.extend(
 	DiscussionModalDialogMixin,
 	{
 		queryParams: {
+			catId: {
+				refreshModel: true
+			},
 			sort: {
 				refreshModel: true
 			}
@@ -29,7 +32,8 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		model(params) {
-			const discussionSort = this.get('discussionSort');
+			const discussionSort = this.get('discussionSort'),
+				indexModel = this.modelFor('discussion');
 
 			if (params.sort) {
 				discussionSort.setSortBy(params.sort);
@@ -37,9 +41,13 @@ export default DiscussionBaseRoute.extend(
 
 			discussionSort.setOnlyReported(false);
 
+			if (params.catId) {
+				indexModel.setSelectedCategories(params.catId instanceof Array ? params.catId : [params.catId]);
+			}
+
 			return Ember.RSVP.hash({
-				forum: DiscussionForumModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy')),
-				index: this.modelFor('discussion')
+				forum: DiscussionForumModel.find(Mercury.wiki.id, params.catId, this.get('discussionSort.sortBy')),
+				index: indexModel
 			});
 		},
 

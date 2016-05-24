@@ -5,15 +5,17 @@
 <ul class="discussion-categories-list">
 	<li>
 		{{wikia-ui-components/fancy-check-box
-		label=(i18n 'main.category-all-name' ns='discussion')
-		inputId='discussion-category-all'
+			label=(i18n 'main.category-all-name' ns='discussion')
+			inputId='discussion-category-all'
+			isChecked=categoryAllSelected
 		}}
 	</li>
 	{{#each categories as |category|}}
 		<li>
 			{{wikia-ui-components/fancy-check-box
-			label=category.name
-			inputId=(concat 'discussion-category-' category.id)
+				label=category.name
+				inputId=(concat 'discussion-category-' category.id)
+				isChecked=category.selected
 			}}
 		</li>
 	{{/each}}
