@@ -472,7 +472,7 @@ export default Ember.Component.extend(ViewportMixin, {
 				value = textarea.value,
 				url = this.getLastUrlFromText(value.substring(0, textarea.selectionEnd));
 
-			if (url && value.indexOf(url) === textarea.selectionEnd - url.length) {
+			if (url && value.indexOf(url, textarea.selectionEnd - url.length) !== -1) {
 				this.setOpenGraphProperties(url);
 			}
 		},
