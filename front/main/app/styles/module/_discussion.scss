@@ -205,15 +205,21 @@ body.discussions {
 
 		li,
 		a {
+			align-items: center;
 			align-self: center;
 			color: $discussion-count-color;
 			cursor: pointer;
-			display: block;
+			display: flex;
 			font-size: $type-min;
 			font-weight: $font-weight-medium;
 			height: 33px;
+			justify-content: center;
 			line-height: 33px;
 			text-align: center;
+
+			svg {
+				margin-right: 6px;
+			}
 		}
 	}
 
