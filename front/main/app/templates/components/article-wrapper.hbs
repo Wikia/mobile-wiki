@@ -14,6 +14,13 @@
 {{else}}
 	{{wikia-ui-components/wiki-page-header title=model.displayTitle subtitle=wikiPageHeaderSubtitle heroImage=heroImage}}
 {{/if}}
+{{#ab-test experiment='POTENTIAL_MEMBER_PAGE_ENTRY_POINTS' as |group| }}
+	{{#if (equal group 'TOP') }}
+		{{potential-member-page-experiment experimentGroup='TOP'}}
+	{{else if (equal group 'GLUE_BOTTOM')}}
+		{{potential-member-page-experiment experimentGroup='GLUE_BOTTOM'}}
+	{{/if}}
+{{/ab-test}}
 <section class="article-body">
 	{{ad-slot name='NATIVE_PAID_ASSET_DROP' noAds=noAds}}
 	{{article-content
