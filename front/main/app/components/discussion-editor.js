@@ -275,7 +275,8 @@ export default Ember.Component.extend(ViewportMixin, {
 	},
 
 	initializePasting() {
-		this.$().find('textarea').on('paste', this.onPaste.bind(this));
+		this.$().find('textarea')
+			.on('paste', this.onPaste.bind(this));
 	},
 
 	/**
@@ -463,16 +464,25 @@ export default Ember.Component.extend(ViewportMixin, {
 				// Create post on CTRL + ENTER
 				this.send('submit');
 			}
+		},
 
-			if (event.keyCode !== 10 && event.keyCode !== 13 && event.keyCode !== 32) {
+		/**
+		 *
+		 * @param event
+		 */
+		handleKeyUp(event) {
+			const textarea = event.target,
+				value = textarea.value,
+				lastChar = value.slice(-1).charCodeAt(0);
+
+			if (lastChar !== 10 && lastChar !== 13 && lastChar !== 32) {
 				return;
 			}
 
-			const textarea = event.target,
-				value = textarea.value,
-				url = this.getLastUrlFromText(value.substring(0, textarea.selectionEnd));
+			const url = this.getLastUrlFromText(value.substring(0, textarea.selectionEnd));
 
-			if (url && value.indexOf(url, textarea.selectionEnd - url.length) !== -1) {
+			//start with position of caret - url length - 1 for newly typed charatcter
+			if (url && value.indexOf(url) === textarea.selectionEnd - url.length - 1) {
 				this.setOpenGraphProperties(url);
 			}
 		},

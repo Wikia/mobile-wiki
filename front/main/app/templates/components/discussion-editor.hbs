@@ -6,7 +6,7 @@
 	<button class="active-element-theme-color" type="submit" {{action 'submit' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitText ns='discussion'}}</button>
 	<div class="editor-wrapper">
 		<div class="editor-textarea-wrapper">
-			{{textarea class='editor-textarea' keyPress=(action 'handleKeyPress') focusIn=(action 'onFocus') value=bodyText placeholder=(i18n placeholderText ns='discussion')}}
+			{{textarea class='editor-textarea' keyPress=(action 'handleKeyPress') keyUp=(action 'handleKeyUp') focusIn=(action 'onFocus') value=bodyText placeholder=(i18n placeholderText ns='discussion')}}
 		</div>
 		<div class="editor-textarea-overflow" {{action 'toggleEditorActive' true}}></div>
 		{{#if showsOpenGraphCard}}
