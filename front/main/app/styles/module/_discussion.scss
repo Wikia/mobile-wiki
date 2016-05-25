@@ -149,14 +149,22 @@ body.discussions {
 
 		img, svg {
 			border-color: $discussion-avatar-border-color;
-			height: 30px;
-			width: 30px;
+			height: 42px;
+			width: 42px;
 		}
 	}
 
 	.user-avatar {
 		.avatar-username {
-			font-size: $type-smallest;
+			font-size: $type-base;
+		}
+	}
+
+	.discussion-reply {
+		.user-avatar {
+			.avatar-username {
+				font-size: $type-smallest;
+			}
 		}
 	}
 
@@ -183,7 +191,7 @@ body.discussions {
 			}
 
 			&.replies {
-				margin-left: 7px;
+				margin-left: 10px;
 				width: 18px;
 			}
 
@@ -249,13 +257,18 @@ body.discussions {
 		font-size: $mobile-content-font-size;
 		line-height: $mobile-content-line-height;
 		margin: 5px 0;
-		padding: .3rem 0;
+		padding: 4px 0;
 
 		.post-details-link {
 			color: $discussion-content-color;
 			display: block;
 		}
+	}
 
+	.post-detail {
+		.discussion-content {
+			margin-top: 0;
+		}
 	}
 
 	.post-title {
@@ -388,7 +401,7 @@ body.discussions {
 		}
 
 		.discussion-content {
-			font-size: $type-base;
+			font-size: $type-smallest;
 			line-height: $line-height-min;
 			margin-bottom: 0;
 			margin-left: $post-details-reply-upvote-width + $post-details-reply-upvote-margin-left;
@@ -410,6 +423,7 @@ body.discussions {
 			}
 
 			small {
+				color: $discussion-count-color;
 				display: block;
 				font-size: 10px;
 				font-weight: bold;
@@ -488,7 +502,7 @@ body.discussions {
 		transition: opacity 1s;
 
 		.timestamp {
-			font-size: $type-min;
+			font-size: $type-smallest;
 		}
 
 		&.is-new {
@@ -607,6 +621,7 @@ body.discussions {
 	}
 
 	&.post {
+
 		.post-detail .post-title {
 			font-size: $type-smaller;
 			line-height: $line-height-smaller;
@@ -618,19 +633,6 @@ body.discussions {
 @media #{$desktop-range} {
 	.discussion {
 		background-color: transparent;
-
-		.avatar {
-			img, svg {
-				height: 42px;
-				width: 42px;
-			}
-		}
-
-		.user-avatar {
-			.avatar-username {
-				font-size: rem-calc(16);
-			}
-		}
 
 		&.forum {
 			margin-left: auto;
@@ -737,6 +739,10 @@ body.discussions {
 			.discussion-content {
 				margin-left: 0;
 			}
+		}
+
+		.post-detail {
+			box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 		}
 	}
 

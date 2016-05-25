@@ -87,6 +87,14 @@ body.dark-theme {
 			}
 		}
 
+		.discussion-reply {
+			.upvotes {
+				small {
+					color: $dark-discussion-count-color;
+				}
+			}
+		}
+
 		.count {
 			color: $dark-discussion-count-color;
 
