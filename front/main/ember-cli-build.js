@@ -99,6 +99,11 @@ module.exports = function (defaults) {
 	app.import(app.bowerDirectory + '/tinycolor/dist/tinycolor-min.js');
 	app.import('vendor/common.js');
 
+	if (app.env === 'test') {
+		// Fix for PhantomJS errors
+		app.import(app.bowerDirectory + '/es5-shim/es5-shim.min.js');
+	}
+
 	// Assets which are lazy loaded
 	var cropperAssets = new Funnel(app.bowerDirectory + '/cropper/dist', {
 			include: ['*.min.*'],
