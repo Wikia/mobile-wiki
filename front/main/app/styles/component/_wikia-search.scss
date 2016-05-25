@@ -12,6 +12,7 @@ $border-bottom-height: 1px;
 
 .wikia-search {
 	border-top: 1px solid $vapor;
+	height: calc(100% - #{$site-head-height});
 	position: fixed;
 	transition: box-shadow 0.5s;
 	width: 100%;
@@ -110,6 +111,8 @@ $border-bottom-height: 1px;
 	box-shadow: 0 8px 12px 0 $search-results-box-shadow-color;
 	list-style-type: none;
 	margin: 0;
+	max-height: calc(100% - #{$search-height});
+	overflow: auto;
 	padding: 0;
 
 	.wikia-search__search-result {
