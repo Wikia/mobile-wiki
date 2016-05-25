@@ -28,7 +28,6 @@ const {Component, computed, getWithDefault, Logger, observer, $} = Ember;
 export default Component.extend({
 	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
-	activeDrawerContent: null,
 	noScroll: false,
 	scrollLocation: null,
 	smartBannerVisible: false,
