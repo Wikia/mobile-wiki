@@ -29,6 +29,9 @@ const trackActions = {
 	PostUnlock: 'PostUnlock',
 	DeleteAllConfirmed: 'DeleteAllConfirmed',
 	DeleteAllTapped: 'DeleteAllTapped',
+	OGTapped: 'OGTapped',
+	OGCreated: 'OGCreated',
+	OGRemoved: 'OGRemoved',
 };
 
 /**
