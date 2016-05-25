@@ -62,4 +62,7 @@ export default Ember.Component.extend({
 			}
 		}
 	}
+
+	// TODO tracking
+	// TODO reset link
 });
