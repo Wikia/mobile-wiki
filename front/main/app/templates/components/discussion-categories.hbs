@@ -11,7 +11,7 @@
 		}}
 	</li>
 	{{#each categories as |category|}}
-		<li>
+		<li class="{{if category.collapsed 'hidden'}}">
 			{{wikia-ui-components/fancy-check-box
 				label=category.name
 				inputId=(concat categoriesInputIdPrefix category.id)
@@ -20,3 +20,6 @@
 		</li>
 	{{/each}}
 </ul>
+{{#if toggleButtonVisible}}
+	<button {{action 'toggleMore'}}>{{toggleButtonLabel}}</button>
+{{/if}}
