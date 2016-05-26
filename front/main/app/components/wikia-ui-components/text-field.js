@@ -46,9 +46,6 @@ export default Ember.Component.extend({
 	}),
 	isInvalid: Ember.computed.bool('errorMessage'),
 	type: 'text',
-	// inputClasses: Ember.computed('textInputClasses', function() {
-	// 	return this.get('textInputClasses') + ' text-field-input';
-	// }),
 
 	actions: {
 		/**

@@ -10,6 +10,7 @@ const {Component, computed, observer, inject, run} = Ember;
  *
  * @typedef {Object} SearchSuggestionItem
  * @property {string} title
+ * @property {string} [text]
  * @property {string} [uri]
  */
 export default Component.extend(
@@ -123,8 +124,8 @@ export default Component.extend(
 		 * @returns {void}
 		 */
 		setSearchSuggestionItems(suggestions) {
-			const highlightRegexp = new RegExp(this.get('query'), 'i');
-			const highlighted = `<span class=\"wikia-search__suggestion-hghlighted\">${this.get('query')}</span>`;
+			const highlightRegexp = new RegExp(this.get('query'), 'i'),
+				highlighted = `<span class=\"wikia-search__suggestion-highlighted\">${this.get('query')}</span>`;
 
 			suggestions.forEach(
 				/**
@@ -135,7 +136,7 @@ export default Component.extend(
 				 */
 				(suggestion, index, suggestionsArr) => {
 					suggestionsArr[index].uri = encodeURIComponent(suggestion.title);
-					suggestion.title = suggestion.title.replace(highlightRegexp, highlighted);
+					suggestion.text = suggestion.title.replace(highlightRegexp, highlighted);
 				}
 			);
 

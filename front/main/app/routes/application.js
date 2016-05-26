@@ -209,6 +209,7 @@ export default Route.extend(
 			// This is used only in not-found.hbs template
 			/**
 			 * @returns {void}
+			 * @param {string} query
 			 */
 			goToSeachResults(query) {
 				this.transitionTo('search', {queryParams: {query}});
