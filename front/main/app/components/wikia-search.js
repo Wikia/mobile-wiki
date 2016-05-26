@@ -26,7 +26,7 @@ export default Component.extend(
 		suggestions: [],
 
 		// Whether or not to display the loading search results message (en: 'Loading...')
-		isLoadingSearchResults: false,
+		isLoadingResultsSuggestions: false,
 
 		// in ms
 		debounceDuration: 250,
@@ -47,6 +47,7 @@ export default Component.extend(
 		 * we know not to perform another request.
 		 */
 		requestsInProgress: {},
+		searchRequestInProgress: false,
 
 		// key: query string, value: Array<SearchSuggestionItem>
 		cachedResults: {},
@@ -65,6 +66,7 @@ export default Component.extend(
 				});
 
 				this.setEmptySearchSuggestionItems();
+				this.set('searchRequestInProgress', true);
 				this.get('onEnterHandler')(value);
 				this.sendAction('goToSeachResults', value);
 			},
@@ -80,27 +82,28 @@ export default Component.extend(
 					category: 'side-nav',
 					label: 'search-open-suggestion-link'
 				});
-				this.get('suggestionClickAction')();
-			}
+			},
 		},
 
 		/**
-		 * Wrapper for query observer that also checks the cache
+		 * Wrapper for search suggestions performing, that also checks the cache
 		 */
-		search: observer('query', function () {
+		updateSuggestions: observer('query', function () {
 			const query = this.get('query');
-
 			let cached;
 
-			this.set('suggestions', []);
+			this.setProperties({
+				suggestions: [],
+				searchRequestInProgress: false
+			});
 
 			// If the query string is empty or shorter than the minimal length, return to leave the view blank
-			if (!query || query.length < this.queryMinimalLength) {
+			if (!query || query.length < this.get('queryMinimalLength')) {
 				/**
 				 * Even if there are pending search API ajax requests, we don't care about
 				 * them anymore because the query string has been cleared.
 				 */
-				this.set('isLoadingSearchResults', false);
+				this.set('isLoadingResultsSuggestions', false);
 			} else if (this.hasCachedResult(query)) {
 				cached = this.getCachedResult(query);
 
@@ -110,7 +113,7 @@ export default Component.extend(
 					this.setSearchSuggestionItems(cached);
 				}
 			} else {
-				this.set('isLoadingSearchResults', true);
+				this.set('isLoadingResultsSuggestions', true);
 				run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
 			}
 		}),
@@ -145,7 +148,7 @@ export default Component.extend(
 		setEmptySearchSuggestionItems() {
 			this.setProperties({
 				suggestions: [],
-				isLoadingSearchResults: false
+				isLoadingResultsSuggestions: false
 			});
 		},
 
@@ -191,11 +194,13 @@ export default Component.extend(
 			this.get('ajax').request(uri).then((data) => {
 				/**
 				 * If the user makes one request, request A, and then keeps typing to make
-				 * reqeust B, but request A takes a long time while request B returns quickly,
+				 * request B, but request A takes a long time while request B returns quickly,
 				 * then we don't want request A to dump its info into the window after B has
 				 * already inserted the relevant information.
+				 * Also, we don't want to show the suggestion results after a real search
+				 * will be finished, what will happen if search request is still in progress.
 				 */
-				if (query === this.get('query')) {
+				if (!this.get('searchRequestInProgress') && query === this.get('query')) {
 					this.setSearchSuggestionItems(data.items);
 				}
 
@@ -210,7 +215,7 @@ export default Component.extend(
 			}).finally(() => {
 				// We have a response, so we're no longer loading the results
 				if (query === this.get('query')) {
-					this.set('isLoadingSearchResults', false);
+					this.set('isLoadingResultsSuggestions', false);
 				}
 
 				this.endedRequest(query);
