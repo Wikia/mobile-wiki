@@ -69,11 +69,11 @@ export default Component.extend(
 				this.set('searchRequestInProgress', true);
 				this.setEmptySearchSuggestionItems();
 				this.get('onEnterHandler')(value);
-				this.sendAction('goToSeachResults', value);
+				this.sendAction('goToSearchResults', value);
 			},
 
 			clearSearch() {
-				this.set('query', null);
+				this.set('query', '');
 				this.$('.side-search__input').focus();
 			},
 

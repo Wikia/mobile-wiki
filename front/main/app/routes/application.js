@@ -211,7 +211,7 @@ export default Route.extend(
 			 * @returns {void}
 			 * @param {string} query
 			 */
-			goToSeachResults(query) {
+			goToSearchResults(query) {
 				this.transitionTo('search', {queryParams: {query}});
 			},
 
