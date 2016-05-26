@@ -66,8 +66,8 @@ export default Component.extend(
 					label: 'search-open-special-search'
 				});
 
-				this.setEmptySearchSuggestionItems();
 				this.set('searchRequestInProgress', true);
+				this.setEmptySearchSuggestionItems();
 				this.get('onEnterHandler')(value);
 				this.sendAction('goToSeachResults', value);
 			},
@@ -83,7 +83,9 @@ export default Component.extend(
 					category: 'side-nav',
 					label: 'search-open-suggestion-link'
 				});
-			},
+
+				this.setEmptySearchSuggestionItems();
+			}
 		},
 
 		/**
