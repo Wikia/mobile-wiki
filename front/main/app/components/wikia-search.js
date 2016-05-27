@@ -73,7 +73,7 @@ export default Component.extend(
 				});
 
 				this.set('searchRequestInProgress', true);
-				this.setSearchSuggestionItems([]);
+				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
 				this.sendAction('goToSearchResults', value);
 			},
@@ -90,7 +90,7 @@ export default Component.extend(
 					label: 'search-open-suggestion-link'
 				});
 
-				this.setSearchSuggestionItems([]);
+				this.setSearchSuggestionItems();
 			},
 
 			onInputFocus() {
@@ -150,7 +150,7 @@ export default Component.extend(
 			);
 
 			this.setProperties({
-				suggestions: [],
+				suggestions: suggestions,
 				isLoadingResultsSuggestions: false
 			});
 		},
@@ -211,7 +211,7 @@ export default Component.extend(
 			}).catch(() => {
 				// When we get a 404, it means there were no results
 				if (query === this.get('query')) {
-					this.setSearchSuggestionItems([]);
+					this.setSearchSuggestionItems();
 				}
 
 				this.cacheResult(query);
