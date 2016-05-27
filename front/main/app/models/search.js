@@ -11,7 +11,7 @@ export default Object.extend({
 	totalItems: 0,
 	totalBatches: 0,
 	items: A([]),
-	error: '',
+	error: 'search-error-not-found',
 
 	canLoadMore: computed('batch', 'totalBatches', function () {
 		return this.get('batch') < this.get('totalBatches');

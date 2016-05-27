@@ -28,8 +28,8 @@
 		{{#wikia-ui-components/error-info
 			class='search--no-results'
 		}}
-			We couldn't find anything for <strong>{{query}}</strong>
-			<div {{action 'onLinkClick'}}>Try Another Search</div>
+			{{{i18n (concat 'main.' errorName) ns='search' query=errorPageQueryMarkup}}}
+			<div class="search--no-results__link"{{action 'onErrorPageClick'}}>{{i18n 'main.search-again' ns='search'}}</div>
 		{{/wikia-ui-components/error-info}}
 	{{/if}}
 </div>

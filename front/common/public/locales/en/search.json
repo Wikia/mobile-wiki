@@ -1,6 +1,8 @@
 {
   "main": {
-    "total-results": "About __totalItems__ results for ",
-    "searchInputLabel": "Search"
+    "search-error-not-found": "We couldn't find anything for __query__",
+    "search-again": "Try Another Search",
+    "search-input-label": "Search",
+    "total-results": "About __totalItems__ results for "
   }
 }

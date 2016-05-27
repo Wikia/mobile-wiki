@@ -1,5 +1,5 @@
 .search-result-page {
-	background-color: #f6f6f6;
+	background-color: $vapor;
 }
 
 .search-results__list {
@@ -30,4 +30,17 @@
 
 .search-results__snippet .searchmatch {
 	font-weight: bold;
+}
+
+.search--no-results {
+	color: $aluminum;
+}
+
+.search__query-not-found {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.search--no-results__link {
+	color: $link-color;
 }
