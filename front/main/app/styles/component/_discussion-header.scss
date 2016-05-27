@@ -6,6 +6,10 @@ $site-header-height: 50px;
 .discussion-header-wrapper {
 	height: $discussion-header-height;
 
+	@media #{$desktop-range} {
+		display: none;
+	}
+
 	&.discussion-headroom-un-pinned .discussion-header {
 		margin-top: 0;
 	}
@@ -126,11 +130,6 @@ $site-header-height: 50px;
 		@media #{$desktop-range} {
 			width: 25%;
 			max-width: 350px;
-		}
-	}
-	.side-nav-menu__header .wordmark {
-		@media #{$desktop-range} {
-			display: none;
 		}
 	}
 

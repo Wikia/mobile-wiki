@@ -8,6 +8,7 @@ $desktop-content-line-height: $type-small;
 $desktop-post-details-content-line-height: $line-height-smaller;
 $desktop-post-details-content-font-size: $type-smaller;
 $post-details-mobile-page-margin-top: 91px;
+$post-details-content-line-height: 1.4rem;
 $post-details-outer-width: 580px;
 $post-details-post-margin-bottom: 10px;
 $post-details-post-vertical-padding: 12px;
@@ -739,6 +740,9 @@ body.discussions {
 	.post-details-view {
 		.discussion-page {
 			margin-top: $post-details-mobile-page-margin-top;
+		}
+		.post-detail {
+			padding-bottom: 14px;
 		}
 
 		.discussion-reply {
