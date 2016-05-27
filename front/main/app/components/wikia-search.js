@@ -20,6 +20,9 @@ export default Component.extend(
 		query: '',
 		emptyQueryInput: computed.not('query'),
 
+		isInputFocused: false,
+		inputFocused: computed.oneWay('isInputFocused'),
+
 		/**
 		 * This is what's currently displayed in the search results
 		 * @member {SearchSuggestionItem[]}
@@ -88,6 +91,14 @@ export default Component.extend(
 				});
 
 				this.setSearchSuggestionItems([]);
+			},
+
+			onInputFocus() {
+				this.set('isInputFocused', true);
+			},
+
+			onInputBlur() {
+				this.set('isInputFocused', false);
 			}
 		},
 

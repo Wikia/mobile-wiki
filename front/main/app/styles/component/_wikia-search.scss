@@ -25,17 +25,19 @@ $border-bottom-height: 1px;
 
 	// when no text in input
 	&.empty {
-		.wikia-search__search-icon svg {
-			fill: $oil;
-		}
-
 		.wikia-search__clear .icon-button-icon {
 			display: none;
+		}
+	}
+
+	&.focused {
+		.wikia-search__search-icon svg {
+			fill: $iron;
 		}
 
 		.search::after {
 			content: ' ';
-			border-bottom: $border-bottom-height solid $iron;
+			border-bottom: $border-bottom-height solid $color-blue-light;
 		}
 	}
 }
@@ -54,7 +56,7 @@ $border-bottom-height: 1px;
 	position: relative;
 
 	&.search::after {
-		border-bottom: $border-bottom-height solid $color-blue-light;
+		border-bottom: $border-bottom-height solid $iron;
 		bottom: 10px;
 		content: ' ';
 		left: $search-spacing;
@@ -64,7 +66,7 @@ $border-bottom-height: 1px;
 	}
 
 	.wikia-search__search-icon svg {
-		fill: $iron;
+		fill: $oil;
 	}
 }
 
