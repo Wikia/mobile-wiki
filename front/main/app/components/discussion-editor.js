@@ -75,7 +75,7 @@ export default Ember.Component.extend(ViewportMixin, {
 
 		const url = this.getLastUrlFromText(value.substring(0, textarea.selectionEnd));
 
-		//start with position of caret - url length - 1 for newly typed charatcter
+		// start with position of caret - url length - 1 for newly typed charatcter
 		if (url && value.indexOf(url) === textarea.selectionEnd - url.length - 1) {
 			this.setOpenGraphProperties(url);
 		}
