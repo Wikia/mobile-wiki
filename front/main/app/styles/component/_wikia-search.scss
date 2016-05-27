@@ -12,7 +12,6 @@ $border-bottom-height: 1px;
 
 .wikia-search {
 	border-top: 1px solid $vapor;
-	height: calc(100% - #{$site-head-height});
 	position: fixed;
 	transition: box-shadow 0.5s;
 	width: 100%;
@@ -39,6 +38,10 @@ $border-bottom-height: 1px;
 			content: ' ';
 			border-bottom: $border-bottom-height solid $color-blue-light;
 		}
+	}
+
+	&.has-results {
+		height: calc(100% - #{$site-head-height});
 	}
 }
 

@@ -28,6 +28,7 @@ export default Component.extend(
 		 * @member {SearchSuggestionItem[]}
 		 */
 		suggestions: [],
+		hasSuggestions: computed.notEmpty('suggestions'),
 
 		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
 		isLoadingResultsSuggestions: false,
