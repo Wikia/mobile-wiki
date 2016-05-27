@@ -9,7 +9,7 @@
 		<div class="search-results__total">
 			{{i18n 'main.total-results' ns='search' totalItems=model.totalItems}} <strong>{[model.query}}</strong>
 		</div>
-	{{/if}}
+
 	<ul class="search-results__list">
 		{{#each model.items as |item|}}
 			{{#wikia-ui-components/wikia-card}}
@@ -24,4 +24,12 @@
 			{{/wikia-ui-components/wikia-card}}
 		{{/each}}
 	</ul>
+	{{else}}
+		{{#wikia-ui-components/error-info
+			class='search--no-results'
+		}}
+			We couldn't find anything for <strong>{{query}}</strong>
+			<div {{action 'onLinkClick'}}>Try Another Search</div>
+		{{/wikia-ui-components/error-info}}
+	{{/if}}
 </div>
