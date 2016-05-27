@@ -152,10 +152,6 @@ body.dark-theme {
 
 				.icon:not(.delete) {
 					fill: $dark-discussion-deleted-actions-color;
-
-					&.upvote-reply {
-						stroke: $dark-discussion-deleted-actions-color;
-					}
 				}
 			}
 
@@ -190,19 +186,11 @@ body.dark-theme {
 
 		.icon {
 			fill: $dark-discussion-actions-color;
-
-			&.upvote-reply {
-				stroke: $dark-discussion-actions-color;
-			}
 		}
 
 		.has-upvoted {
 			.icon {
 				fill: $dark-upvote-icon-activated-color;
-
-				&.upvote-reply {
-					stroke: $dark-upvote-icon-activated-color;
-				}
 			}
 		}
 
