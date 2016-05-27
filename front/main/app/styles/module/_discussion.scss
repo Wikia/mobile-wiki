@@ -46,7 +46,6 @@ body.discussions {
 	&.upvote-reply {
 		height: 12px;
 		line-height: 12px;
-		stroke: $discussion-actions-color;
 		width: 12px;
 	}
 
@@ -335,10 +334,6 @@ body.discussions {
 		&.is-parent-deleted .icon:not(.delete),
 		&.is-deleted .icon:not(.delete) {
 			fill: $discussion-deleted-actions-color;
-
-			&.upvote-reply {
-				stroke: $discussion-deleted-actions-color;
-			}
 		}
 
 		&.is-deleted,
@@ -490,10 +485,6 @@ body.discussions {
 	.has-upvoted {
 		.icon {
 			fill: $upvote-icon-activated-color;
-
-			&.upvote-reply {
-				stroke: $upvote-icon-activated-color;
-			}
 		}
 	}
 
