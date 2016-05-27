@@ -23,13 +23,13 @@ $border-bottom-height: 1px;
 	}
 
 	// when no text in input
-	&.empty {
+	&.wikia-search--empty {
 		.wikia-search__clear .icon-button-icon {
 			display: none;
 		}
 	}
 
-	&.focused {
+	&.wikia-search--focused {
 		.wikia-search__search-icon svg {
 			fill: $iron;
 		}
@@ -40,7 +40,7 @@ $border-bottom-height: 1px;
 		}
 	}
 
-	&.has-results {
+	&.wikia-search--has-results {
 		height: calc(100% - #{$site-head-height});
 	}
 }
