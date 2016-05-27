@@ -50,7 +50,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	onTextContent: Ember.observer('bodyText', function () {
-		if (this.get('bodyText').length > 0 && !this.get('wasContentTracked')) {
+		if (this.get('contentLength') > 0 && !this.get('wasContentTracked')) {
 			this.trackContentAction();
 		}
 
@@ -98,6 +98,8 @@ export default Ember.Component.extend(ViewportMixin, {
 					openGraph,
 					isOpenGraphLoading: false,
 				});
+
+				track(trackActions.OGCreated);
 			}).catch(() => {
 				this.setProperties({
 					openGraph: null,
@@ -524,6 +526,8 @@ export default Ember.Component.extend(ViewportMixin, {
 				showsOpenGraphCard: false,
 				openGraph: null,
 			});
+
+			track(trackActions.OGRemoved);
 		}
 	}
 });
