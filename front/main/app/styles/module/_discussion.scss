@@ -180,19 +180,18 @@ body.discussions {
 		font-size: rem-calc(12);
 		justify-content: flex-end;
 		line-height: rem-calc(14);
-		padding-bottom: 15px;
+		padding-bottom: 14px;
 		text-align: right;
 
 		.icon {
 			&.upvote,
 			&.replies {
-				height: 14px;
-				width: 14px;
+				height: 16px;
+				width: 16px;
 			}
 
 			&.replies {
 				margin-left: 10px;
-				width: 18px;
 			}
 
 			margin-right: 5px;
@@ -225,8 +224,15 @@ body.discussions {
 			line-height: 33px;
 			text-align: center;
 
-			svg {
+			.icon {
 				margin-right: 6px;
+
+				&.upvote,
+				&.replies,
+				&.toggle-share {
+					height: 24px;
+					width: 24px;
+				}
 			}
 		}
 	}
