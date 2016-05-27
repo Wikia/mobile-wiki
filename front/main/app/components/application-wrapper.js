@@ -1,8 +1,9 @@
 import Ember from 'ember';
+import NoScrollMixin from '../mixins/no-scroll';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from 'common/utils/track-perf';
 
-const {Component, computed, getWithDefault, Logger, observer, $} = Ember;
+const {Component, computed, getWithDefault, Logger, $} = Ember;
 
 /**
  * HTMLMouseEvent
@@ -25,10 +26,9 @@ const {Component, computed, getWithDefault, Logger, observer, $} = Ember;
  * @property {string} tagName
  */
 
-export default Component.extend({
+export default Component.extend(NoScrollMixin, {
 	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
-	noScroll: false,
 	scrollLocation: null,
 	smartBannerVisible: false,
 	firstRender: true,
@@ -43,17 +43,6 @@ export default Component.extend({
 		const vertical = Ember.get(Mercury, 'wiki.vertical');
 
 		return `${vertical}-vertical`;
-	}),
-
-	noScrollObserver: observer('noScroll', function () {
-		// removes body scrolling ability when nav menu is open
-		const $body = $('body');
-
-		if (this.get('noScroll')) {
-			$body.addClass('no-scroll');
-		} else {
-			$body.removeClass('no-scroll');
-		}
 	}),
 
 	/**
@@ -141,7 +130,8 @@ export default Component.extend({
 	},
 
 	/**
-	 * Determine if the clicked target is an reference/in references list (in text or at the bottom of article)
+	 * Determine if the clicked target is an reference/in references list (in text or at the bottom
+	 * of article)
 	 *
 	 * @param {EventTarget} target
 	 * @returns {boolean}
