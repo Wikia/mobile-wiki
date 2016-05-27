@@ -16,13 +16,9 @@ test('should close drawer when clicked outside search area', function (assert) {
 
 	this.render(hbs`
 		{{#wikia-drawer
-			shouldBeVisible=true
-			wikiaHomepage='http://www.wikia.com'
 			closeDrawer=(action 'closeDrawer')
 		}}
-			{{wikia-search
-				query='test'
-			}}
+			{{wikia-search}}
 		{{/wikia-drawer}}`
 	);
 
@@ -41,13 +37,9 @@ test('should not close drawer when clicked inside the search area', function (as
 
 	this.render(hbs`
 		{{#wikia-drawer
-			shouldBeVisible=true
-			wikiaHomepage='http://www.wikia.com'
 			closeDrawer=(action 'closeDrawer')
 		}}
-			{{wikia-search
-				query='test'
-			}}
+			{{wikia-search}}
 		{{/wikia-drawer}}`
 	);
 

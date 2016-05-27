@@ -55,7 +55,10 @@ export default Component.extend(
 
 		didInsertElement() {
 			this._super(...arguments);
-			this.$('.side-search__input').focus();
+
+			Ember.run.scheduleOnce('afterRender', this, () => {
+				this.$('.side-search__input').focus();
+			});
 		},
 
 		actions: {
