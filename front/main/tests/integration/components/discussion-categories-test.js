@@ -1,10 +1,15 @@
 import hbs from 'htmlbars-inline-precompile';
-import {asyncTest, test, moduleForComponent} from 'ember-qunit';
+import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('discussion-categories', 'Integration | Component | discussion categories component', {
 	integration: true,
 });
 
+/**
+ * Helper method for generating category list
+ * @param {number} count
+ * @returns {Array}
+ */
 function getCategories(count) {
 	const categories = [];
 

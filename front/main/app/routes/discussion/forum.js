@@ -60,11 +60,11 @@ export default DiscussionBaseRoute.extend(
 			return this.transitionTo('discussion.forum', {queryParams: {sort: sortBy}});
 		},
 
-		serializeQueryParam: function(value, urlKey, defaultValueType) {
+		serializeQueryParam(value, urlKey, defaultValueType) {
 			return defaultValueType === 'array' ? value : this._super(value, urlKey, defaultValueType);
 		},
 
-		deserializeQueryParam: function(value, urlKey, defaultValueType) {
+		deserializeQueryParam(value, urlKey, defaultValueType) {
 			return defaultValueType === 'array' ? value : this._super(value, urlKey, defaultValueType);
 		},
 

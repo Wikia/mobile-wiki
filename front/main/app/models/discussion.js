@@ -39,20 +39,19 @@ const DiscussionModel = Ember.Object.extend({
 DiscussionModel.reopenClass({
 	/**
 	 * @param {number} wikiId
-	 * @param {string} [sortBy='trending']
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	getCategories(wikiId, sortBy) {
+	getCategories(wikiId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const discussionInstance = DiscussionModel.create({
-					wikiId
-				});
+				wikiId
+			});
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/forums`)).then((data) => {
 				discussionInstance.setNormalizedData(data);
 
 				resolve(discussionInstance);
-			}).catch((err) => {
+			}).catch(() => {
 				// TODO handle errors
 				reject(discussionInstance);
 			});
