@@ -186,15 +186,15 @@ body.discussions {
 		.icon {
 			&.upvote,
 			&.replies {
-				height: 16px;
-				width: 16px;
+				height: 14px;
+				width: 14px;
 			}
 
 			&.replies {
 				margin-left: 10px;
 			}
 
-			margin-right: 5px;
+			margin-right: 4px;
 		}
 	}
 
@@ -225,7 +225,7 @@ body.discussions {
 			text-align: center;
 
 			.icon {
-				margin-right: 6px;
+				margin-right: 2px;
 
 				&.upvote,
 				&.replies,
@@ -752,7 +752,7 @@ body.discussions {
 		}
 
 		.user-avatar {
-			svg {
+			img, svg {
 				height: 30px;
 				width: 30px;
 			}

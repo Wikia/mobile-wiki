@@ -7,11 +7,6 @@ body.dark-theme {
 }
 
 .dark-theme {
-	.upvote-icon-background {
-		fill: $dark-upvote-icon-back-color;
-		stroke: $dark-upvote-icon-back-color;
-	}
-
 	button[type=submit][disabled] {
 		background-color: $dark-button-color;
 		border-color: $dark-button-color;
@@ -448,6 +443,18 @@ body.dark-theme {
 		.rail {
 			.delete-all {
 				color: $dark-discussion-actions-color;
+			}
+		}
+	}
+}
+
+@media #{$mobile-range} {
+	.dark-theme {
+		.discussion {
+			.post-actions {
+				> li:not(:last-child) {
+					border-right: none;
+				}
 			}
 		}
 	}
