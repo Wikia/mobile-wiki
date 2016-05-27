@@ -26,7 +26,7 @@ export default Component.extend(
 		 */
 		suggestions: [],
 
-		// Whether or not to display the loading search results message (en: 'Loading...')
+		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
 		isLoadingResultsSuggestions: false,
 
 		// in ms
@@ -70,7 +70,7 @@ export default Component.extend(
 				});
 
 				this.set('searchRequestInProgress', true);
-				this.setEmptySearchSuggestionItems();
+				this.setSearchSuggestionItems([]);
 				this.get('onEnterHandler')(value);
 				this.sendAction('goToSearchResults', value);
 			},
@@ -87,7 +87,7 @@ export default Component.extend(
 					label: 'search-open-suggestion-link'
 				});
 
-				this.setEmptySearchSuggestionItems();
+				this.setSearchSuggestionItems([]);
 			}
 		},
 
@@ -96,7 +96,6 @@ export default Component.extend(
 		 */
 		updateSuggestions: observer('query', function () {
 			const query = this.get('query');
-			let cached;
 
 			this.setProperties({
 				suggestions: [],
@@ -111,13 +110,7 @@ export default Component.extend(
 				 */
 				this.set('isLoadingResultsSuggestions', false);
 			} else if (this.hasCachedResult(query)) {
-				cached = this.getCachedResult(query);
-
-				if (cached === null) {
-					this.setEmptySearchSuggestionItems();
-				} else {
-					this.setSearchSuggestionItems(cached);
-				}
+				this.setSearchSuggestionItems(this.getCachedResult(query));
 			} else {
 				this.set('isLoadingResultsSuggestions', true);
 				run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
@@ -125,10 +118,10 @@ export default Component.extend(
 		}),
 
 		/**
-		 * @param {SearchSuggestionItem[]} suggestions
+		 * @param {SearchSuggestionItem[]} [suggestions = []]
 		 * @returns {void}
 		 */
-		setSearchSuggestionItems(suggestions) {
+		setSearchSuggestionItems(suggestions = []) {
 			const highlightRegexp = new RegExp(this.get('query'), 'i'),
 				highlighted = `<span class=\"wikia-search__suggestion-highlighted\">${this.get('query')}</span>`;
 
@@ -145,13 +138,6 @@ export default Component.extend(
 				}
 			);
 
-			this.set('suggestions', suggestions);
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		setEmptySearchSuggestionItems() {
 			this.setProperties({
 				suggestions: [],
 				isLoadingResultsSuggestions: false
@@ -214,7 +200,7 @@ export default Component.extend(
 			}).catch(() => {
 				// When we get a 404, it means there were no results
 				if (query === this.get('query')) {
-					this.setEmptySearchSuggestionItems();
+					this.setSearchSuggestionItems([]);
 				}
 
 				this.cacheResult(query);
