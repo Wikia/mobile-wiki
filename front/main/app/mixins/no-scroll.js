@@ -12,21 +12,29 @@ export default Mixin.create({
 	noScroll: false,
 
 	noScrollObserver: observer('noScroll', function () {
-		const state = this.get('noScrollState.state');
-
-		if (this.get('noScroll')) {
-			this.set('noScrollState.state', state + 1);
-		} else if (state > 0) {
-			this.set('noScrollState.state', state - 1);
-		}
-
-		this.setNoScroll(Boolean(this.get('noScrollState.state')));
+		this.setNoScroll(this.get('noScroll'));
 	}),
 
-	setNoScroll(visible) {
-		const $body = $('body');
+	init() {
+		this._super(...arguments);
+		// initialise with value
+		this.setNoScroll(this.get('noScroll'));
+	},
 
-		if (visible) {
+	willDestroyElement() {
+		this._super(...arguments);
+		// turn off scroll on destroy
+		this.setNoScroll(false);
+	},
+
+	setNoScroll(current) {
+		const $body = $('body');
+		let state = this.get('noScrollState.state');
+		// decrease only if more then 0
+		state = current ? state + 1 : (state > 0 ? state - 1 : 0);
+		this.set('noScrollState.state', state);
+
+		if (state > 0) {
 			$body.addClass('no-scroll');
 		} else {
 			$body.removeClass('no-scroll');

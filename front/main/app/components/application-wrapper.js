@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import NoScrollMixin from '../mixins/no-scroll';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from 'common/utils/track-perf';
 
@@ -26,7 +25,7 @@ const {Component, computed, getWithDefault, Logger, $} = Ember;
  * @property {string} tagName
  */
 
-export default Component.extend(NoScrollMixin, {
+export default Component.extend({
 	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
 	scrollLocation: null,
