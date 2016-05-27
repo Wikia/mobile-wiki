@@ -2,24 +2,28 @@
 	{{i18n 'main.categories-header' ns='discussion'}}
 	{{svg 'chevron-linked' role='img' class='icon chevron'}}
 </legend>
-<ul class="discussion-categories-list">
-	<li>
-		{{wikia-ui-components/fancy-check-box
-			label=(i18n 'main.category-all-name' ns='discussion')
-			inputId=(concat categoriesInputIdPrefix 'all')
-			isChecked=categoryAllSelected
-		}}
-	</li>
-	{{#each categories as |category|}}
-		<li class="{{if category.collapsed 'hidden'}}">
+<div class="discussion-categories-list-container">
+	<ul class="discussion-categories-list">
+		<li>
 			{{wikia-ui-components/fancy-check-box
-				label=category.name
-				inputId=(concat categoriesInputIdPrefix category.id)
-				isChecked=category.selected
+				label=(i18n 'main.category-all-name' ns='discussion')
+				inputId=(concat categoriesInputIdPrefix 'all')
+				isChecked=categoryAllSelected
 			}}
 		</li>
-	{{/each}}
-</ul>
-{{#if toggleButtonVisible}}
-	<button {{action 'toggleMore'}} class="secondary border-theme-color active-element-theme-color">{{toggleButtonLabel}}</button>
-{{/if}}
+		{{#each categories as |category|}}
+			{{#unless category.collapsed}}
+				<li>
+					{{wikia-ui-components/fancy-check-box
+						label=category.name
+						inputId=(concat categoriesInputIdPrefix category.id)
+						isChecked=category.selected
+					}}
+				</li>
+			{{/unless}}
+		{{/each}}
+	</ul>
+	{{#if toggleButtonVisible}}
+		<button {{action 'toggleMore'}} class="secondary border-theme-color active-element-theme-color">{{toggleButtonLabel}}</button>
+	{{/if}}
+</div>
