@@ -27,8 +27,8 @@ body.discussions {
 }
 
 .upvote-icon-background {
-	fill: $upvote-icon-back-color;
-	stroke: $upvote-icon-back-color;
+	fill: transparent;
+	stroke: transparent;
 }
 
 .icon {
@@ -731,9 +731,6 @@ body.discussions {
 	.post-details-view {
 		.discussion-page {
 			margin-top: $post-details-mobile-page-margin-top;
-		}
-		.post-detail {
-			padding-bottom: 14px;
 		}
 
 		.discussion-reply {
