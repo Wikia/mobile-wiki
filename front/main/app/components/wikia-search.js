@@ -43,7 +43,7 @@ export default Component.extend(
 		queryMinimalLength: 3,
 
 		searchPlaceholderLabel: computed(() => {
-			return i18n.t('app.search-label');
+			return i18n.t('search:main.searchInputLabel');
 		}),
 
 		/**

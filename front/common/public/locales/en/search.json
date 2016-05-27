@@ -1,0 +1,6 @@
+{
+  "main": {
+    "total-results": "About __totalItems__ results for ",
+    "searchInputLabel": "Search"
+  }
+}
