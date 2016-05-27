@@ -290,7 +290,7 @@ const localSettings = {
 			url: 'https://services.wikia.com/clickstream/events/social'
 		},
 	},
-	translationFiles: ['main', 'discussion', 'image-review', 'infobox-builder', 'recent-wiki-activity']
+	translationFiles: ['main', 'discussion', 'image-review', 'infobox-builder', 'recent-wiki-activity', 'search']
 };
 
 /**

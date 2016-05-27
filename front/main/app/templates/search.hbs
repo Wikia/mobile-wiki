@@ -7,7 +7,7 @@
 <div class="search-results">
 	{{#if model.totalItems}}
 		<div class="search-results__total">
-			About {{model.totalItems}} results for <strong>{{model.query}}</strong>
+			{{i18n 'main.total-results' ns='search' totalItems=model.totalItems}} <strong>{{model.query}}</strong>
 		</div>
 	{{/if}}
 	<ul class="search-results__list">

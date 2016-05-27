@@ -3,7 +3,6 @@
 		<div class="wikia-search__container">
 			{{wikia-ui-components/icon-button
 				class='wikia-search__search-icon'
-				click=(action 'clearSearch')
 				icon='search'
 				iconSize=18
 			}}
@@ -26,19 +25,21 @@
 			}}
 		</div>
 	</div>
-	<ul class="wikia-search__suggestions">
-		{{#each suggestions as |suggestion|}}
-			<li class="wikia-search__item wikia-search__search-suggestion mw-content">
-				{{#link-to 'wiki-page' suggestion.uri action='searchSuggestionClick'}}
-					{{{suggestion.text}}}
-				{{/link-to}}
-			</li>
-		{{else}}
-			{{#if isLoadingResultsSuggestions}}
-				<li class="wikia-search__item wikia-search__search-suggestion wikia-search__loading">
-					{{i18n 'app.search-loading-msg'}}
+	<div class="wikia-search__suggestions-wrapper" {{action 'onSuggestionsWrapperClick'}}>
+		<ul class="wikia-search__suggestions">
+			{{#each suggestions as |suggestion|}}
+				<li class="wikia-search__item wikia-search__search-suggestion mw-content">
+					{{#link-to 'wiki-page' suggestion.uri action='searchSuggestionClick'}}
+						{{{suggestion.text}}}
+					{{/link-to}}
 				</li>
-			{{/if}}
-		{{/each}}
-	</ul>
+			{{else}}
+				{{#if isLoadingResultsSuggestions}}
+					<li class="wikia-search__item wikia-search__search-suggestion wikia-search__loading">
+						{{i18n 'app.search-loading-msg'}}
+					</li>
+				{{/if}}
+			{{/each}}
+		</ul>
+    </div>
 </div>

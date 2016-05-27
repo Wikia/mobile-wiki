@@ -46,7 +46,7 @@ export default Component.extend(NoScrollMixin,
 		queryMinimalLength: 3,
 
 		searchPlaceholderLabel: computed(() => {
-			return i18n.t('app.search-label');
+			return i18n.t('search:main.searchInputLabel');
 		}),
 
 		/**
@@ -102,6 +102,15 @@ export default Component.extend(NoScrollMixin,
 
 			onInputBlur() {
 				this.set('isInputFocused', false);
+			},
+
+			onSuggestionsWrapperClick(event) {
+				const outsideSuggestionsClickAction = this.get('outsideSuggestionsClickAction');
+
+				this.setSearchSuggestionItems();
+				if (outsideSuggestionsClickAction) {
+					outsideSuggestionsClickAction(event);
+				}
 			}
 		},
 
