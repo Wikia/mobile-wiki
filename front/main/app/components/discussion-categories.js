@@ -53,6 +53,8 @@ export default Ember.Component.extend({
 	actions: {
 		/**
 		 * Toggle categories section
+		 *
+		 * @returns {void}
 		 */
 		toggle() {
 			const collapsed = this.get('collapsed');
@@ -63,6 +65,8 @@ export default Ember.Component.extend({
 
 		/**
 		 * Show/hide more categories when more than defaultVisibleCategoriesCount
+		 *
+		 * @returns {void}
 		 */
 		toggleMore() {
 			const categories = this.get('categories');
@@ -76,9 +80,11 @@ export default Ember.Component.extend({
 
 		/**
 		 * Track click on category
+		 * @param {boolean} isAllCategories
+		 *
+		 * @returns {void}
 		 */
 		trackCategory(isAllCategories) {
-			console.log(isAllCategories);
 			track(isAllCategories ? trackActions.AllCategoriesTapped : trackActions.CategoryTapped);
 		}
 	}

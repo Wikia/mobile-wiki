@@ -1,8 +1,20 @@
 import hbs from 'htmlbars-inline-precompile';
 import {test, moduleForComponent} from 'ember-qunit';
+import sinon from 'sinon';
+
+const trackModule = require('common/utils/track');
+let trackStub;
 
 moduleForComponent('discussion-categories', 'Integration | Component | discussion categories component', {
 	integration: true,
+
+	beforeEach() {
+		trackStub = sinon.stub(trackModule, 'track');
+	},
+
+	afterEach() {
+		trackStub.restore();
+	}
 });
 
 /**
