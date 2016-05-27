@@ -150,7 +150,7 @@ export default Component.extend(
 			);
 
 			this.setProperties({
-				suggestions: suggestions,
+				suggestions,
 				isLoadingResultsSuggestions: false
 			});
 		},
