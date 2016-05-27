@@ -27,7 +27,7 @@ export default Ember.Component.extend({
 	}),
 
 	categoriesInputIdPrefix: Ember.computed.oneWay('inputIdPrefix', function () {
-		return this.get('inputIdPrefix') + '-discussion-category-';
+		return `${this.get('inputIdPrefix')}-discussion-category-`;
 	}),
 
 	categoryAllSelected: true,
