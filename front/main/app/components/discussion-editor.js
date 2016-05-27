@@ -24,6 +24,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	siteHeadHeight: 0,
 
 	bodyText: '',
+	contentLength: 0,
 	errorMessage: Ember.computed.alias('discussionEditor.errorMessage'),
 
 	layoutName: 'components/discussion-editor',
@@ -52,7 +53,33 @@ export default Ember.Component.extend(ViewportMixin, {
 		if (this.get('bodyText').length > 0 && !this.get('wasContentTracked')) {
 			this.trackContentAction();
 		}
+
+		this.handleOG();
+
+		this.set('contentLength', this.get('bodyText').length);
 	}),
+
+	/**
+	 * Generates OG card if there's a url to generate it for
+	 *
+	 * @returns {void}
+	 */
+	handleOG() {
+		const textarea = this.$('textarea')[0],
+			value = textarea.value,
+			lastChar = value.charCodeAt(textarea.selectionEnd - 1);
+
+		if ((lastChar !== 10 && lastChar !== 13 && lastChar !== 32) || (value.length <= this.get('contentLength'))) {
+			return;
+		}
+
+		const url = this.getLastUrlFromText(value.substring(0, textarea.selectionEnd));
+
+		//start with position of caret - url length - 1 for newly typed charatcter
+		if (url && value.indexOf(url) === textarea.selectionEnd - url.length - 1) {
+			this.setOpenGraphProperties(url);
+		}
+	},
 
 	setOpenGraphProperties(url) {
 		if (this.get('showsOpenGraphCard')) {
@@ -463,27 +490,6 @@ export default Ember.Component.extend(ViewportMixin, {
 			if ((event.keyCode === 10 || event.keyCode === 13) && event.ctrlKey) {
 				// Create post on CTRL + ENTER
 				this.send('submit');
-			}
-		},
-
-		/**
-		 *
-		 * @param event
-		 */
-		handleKeyUp(event) {
-			const textarea = event.target,
-				value = textarea.value,
-				lastChar = value.slice(-1).charCodeAt(0);
-
-			if (lastChar !== 10 && lastChar !== 13 && lastChar !== 32) {
-				return;
-			}
-
-			const url = this.getLastUrlFromText(value.substring(0, textarea.selectionEnd));
-
-			//start with position of caret - url length - 1 for newly typed charatcter
-			if (url && value.indexOf(url) === textarea.selectionEnd - url.length - 1) {
-				this.setOpenGraphProperties(url);
 			}
 		},
 
