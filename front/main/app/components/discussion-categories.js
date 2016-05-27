@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import {track, trackActions} from '../utils/discussion-tracker';
+
 export default Ember.Component.extend({
 	collapsed: false,
 	tagName: 'fieldset',
@@ -49,9 +51,19 @@ export default Ember.Component.extend({
 	},
 
 	actions: {
+		/**
+		 * Toggle categories section
+		 */
 		toggle() {
-			this.set('collapsed', !this.get('collapsed'));
+			const collapsed = this.get('collapsed');
+
+			this.set('collapsed', !collapsed);
+			track(collapsed ? trackActions.CategoriesUncollaped : trackActions.CategoriesCollaped);
 		},
+
+		/**
+		 * Show/hide more categories when more than defaultVisibleCategoriesCount
+		 */
 		toggleMore() {
 			const categories = this.get('categories');
 
@@ -60,9 +72,15 @@ export default Ember.Component.extend({
 			} else {
 				categories.setEach('collapsed', false);
 			}
+		},
+
+		/**
+		 * Track click on category
+		 */
+		trackCategory(isAllCategories) {
+			console.log(isAllCategories);
+			track(isAllCategories ? trackActions.AllCategoriesTapped : trackActions.CategoryTapped);
 		}
 	}
-
-	// TODO tracking
 	// TODO reset link
 });
