@@ -100,6 +100,15 @@ export default Component.extend(
 
 			onInputBlur() {
 				this.set('isInputFocused', false);
+			},
+
+			onSuggestionsWrapperClick(event) {
+				const outsideSuggestionsClickAction = this.get('outsideSuggestionsClickAction');
+
+				this.setSearchSuggestionItems();
+				if (outsideSuggestionsClickAction) {
+					outsideSuggestionsClickAction(event);
+				}
 			}
 		},
 

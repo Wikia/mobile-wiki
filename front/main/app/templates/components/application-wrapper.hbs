@@ -15,7 +15,6 @@
 	{{#wikia-drawer
 		shouldBeVisible=drawerVisible
 		wikiaHomepage=wikiaHomepage
-		closeDrawer=(action 'closeDrawer')
 	}}
 		{{#if activeDrawerContent}}
 			{{component
@@ -23,6 +22,7 @@
 				onEnterHandler=(action 'closeDrawer')
 				suggestionClickAction=(action 'closeDrawer')
 				closeDrawer=(action 'closeDrawer')
+				outsideSuggestionsClickAction=(action 'closeDrawer')
 				loadRandomArticle=this.attrs.loadRandomArticle
 				goToSearchResults=this.attrs.goToSearchResults
 			}}

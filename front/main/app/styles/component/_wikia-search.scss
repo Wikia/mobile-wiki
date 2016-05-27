@@ -111,6 +111,11 @@ $border-bottom-height: 1px;
 	}
 }
 
+.wikia-search__suggestions-wrapper {
+	height: 100%;
+	background-color: $search-results-box-shadow-color;
+}
+
 .wikia-search__suggestions {
 	background-color: $vapor;
 	box-shadow: 0 8px 12px 0 $search-results-box-shadow-color;
