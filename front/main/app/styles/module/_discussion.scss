@@ -753,6 +753,22 @@ body.discussions {
 			}
 		}
 
+		.user-avatar {
+			svg {
+				height: 30px;
+				width: 30px;
+			}
+
+			.avatar-username {
+				font-size: $type-smallest;
+			}
+		}
+
+		.post-detail .timestamp,
+		.discussion-reply .timestamp {
+			font-size: rem-calc(12);
+		}
+
 		.side-spaced {
 			padding-left: 18px;
 			padding-right: 18px;
