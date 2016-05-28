@@ -20,8 +20,7 @@ export default Component.extend(
 		query: '',
 		emptyQueryInput: computed.not('query'),
 
-		isInputFocused: false,
-		inputFocused: computed.oneWay('isInputFocused'),
+		inputFocused: false,
 
 		/**
 		 * This is what's currently displayed in the search results
@@ -60,8 +59,8 @@ export default Component.extend(
 		didInsertElement() {
 			this._super(...arguments);
 
-			Ember.run.scheduleOnce('afterRender', this, () => {
-				this.$('.side-search__input').focus();
+			run.scheduleOnce('afterRender', this, () => {
+				this.focusSearchInput();
 			});
 		},
 
@@ -81,7 +80,7 @@ export default Component.extend(
 
 			clearSearch() {
 				this.set('query', '');
-				this.$('.side-search__input').focus();
+				this.focusSearchInput();
 			},
 
 			searchSuggestionClick() {
@@ -95,11 +94,11 @@ export default Component.extend(
 			},
 
 			onInputFocus() {
-				this.set('isInputFocused', true);
+				this.set('inputFocused', true);
 			},
 
 			onInputBlur() {
-				this.set('isInputFocused', false);
+				this.set('inputFocused', false);
 			}
 		},
 
@@ -300,7 +299,7 @@ export default Component.extend(
 			}
 
 			this.get('cachedResultsQueue').push(query);
-			this.get('cachedResults')[query] = suggestions ? suggestions : null;
+			this.get('cachedResults')[query] = suggestions ? suggestions : [];
 		},
 
 		/**
@@ -314,13 +313,17 @@ export default Component.extend(
 		},
 
 		/**
-		 * returns the cached result or null if there were no results
+		 * returns the cached result or [] if there were no results
 		 *
 		 * @param {string} query - the query string to search the cache with
 		 * @returns {*}
 		 */
 		getCachedResult(query) {
 			return this.get('cachedResults')[query];
+		},
+
+		focusSearchInput() {
+			this.$('.side-search__input').focus();
 		}
 	}
 );

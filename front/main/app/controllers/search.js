@@ -1,14 +1,13 @@
 import Ember from 'ember';
 
-const {Controller, inject} = Ember;
+const {Controller, inject, $} = Ember;
 
 export default Controller.extend({
 	application: inject.controller(),
 	queryParams: ['query'],
-	errorPageQueryMarkup: Ember.computed('query', function() {
-		return '<span class="search__query-not-found">' + this.get('query') + '</span>';
+	errorPageQueryMarkup: Ember.computed('model.erroneousQuery', function () {
+		return `<span class="search__query-not-found">${this.get('model.erroneousQuery')}</span>`;
 	}),
-	errorName: Ember.computed.alias('model.error'),
 
 	actions: {
 		onSearchEnter(query) {
@@ -18,6 +17,11 @@ export default Controller.extend({
 
 		onErrorPageClick() {
 			this.set('query', '');
+			this.focusSearchInput();
 		}
+	},
+
+	focusSearchInput() {
+		$('.side-search__input').focus();
 	}
 });

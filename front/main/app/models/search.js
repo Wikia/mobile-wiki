@@ -11,7 +11,8 @@ export default Object.extend({
 	totalItems: 0,
 	totalBatches: 0,
 	items: A([]),
-	error: 'search-error-not-found',
+	error: '',
+	erroneousQuery: '',
 
 	canLoadMore: computed('batch', 'totalBatches', function () {
 		return this.get('batch') < this.get('totalBatches');
@@ -49,7 +50,11 @@ export default Object.extend({
 				// update state on success
 				return this.update(data);
 			}, (error) => {
-				this.set('error', 'search-error-general');
+				this.setProperties({
+					error: 'search-error-general',
+					erroneousQuery: query
+				});
+
 				if (isNotFoundError(error)) {
 					this.set('error', 'search-error-not-found');
 				} else if (isBadRequestError(error)) {

@@ -7,9 +7,9 @@
 <div class="search-results">
 	{{#if model.totalItems}}
 		<div class="search-results__total">
-			{{i18n 'main.total-results' ns='search' totalItems=model.totalItems}} <strong>{[model.query}}</strong>
+			{{i18n 'main.total-results' ns='search' totalItems=model.totalItems}} <strong>{{model.query}}</strong>
 		</div>
-
+	{{/if}}
 	<ul class="search-results__list">
 		{{#each model.items as |item|}}
 			{{#wikia-ui-components/wikia-card}}
@@ -24,11 +24,11 @@
 			{{/wikia-ui-components/wikia-card}}
 		{{/each}}
 	</ul>
-	{{else}}
+	{{#if model.error}}
 		{{#wikia-ui-components/error-info
 			class='search--no-results'
 		}}
-			{{{i18n (concat 'main.' errorName) ns='search' query=errorPageQueryMarkup}}}
+			{{{i18n (concat 'main.' model.error) ns='search' query=errorPageQueryMarkup}}}
 			<div class="search--no-results__link"{{action 'onErrorPageClick'}}>{{i18n 'main.search-again' ns='search'}}</div>
 		{{/wikia-ui-components/error-info}}
 	{{/if}}
