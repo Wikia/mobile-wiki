@@ -26,10 +26,10 @@
 	</ul>
 	{{#if model.error}}
 		{{#wikia-ui-components/error-info
-			class='search--no-results'
+			class=model.error
 		}}
 			{{{i18n (concat 'main.' model.error) ns='search' query=errorPageQueryMarkup}}}
-			<div class="search--no-results__link"{{action 'onErrorPageClick'}}>{{i18n 'main.search-again' ns='search'}}</div>
+			<div class={{concat model.error '__action'}} {{action 'onErrorPageClick'}}>{{i18n (concat 'main.' model.error '-action') ns='search'}}</div>
 		{{/wikia-ui-components/error-info}}
 	{{/if}}
 </div>
