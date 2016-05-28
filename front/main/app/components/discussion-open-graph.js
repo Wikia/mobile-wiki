@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {truncate, shouldUseTruncationHack} from '../utils/truncate';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	tagName: 'a',
@@ -21,6 +22,17 @@ export default Ember.Component.extend({
 	noImageCardDesktop: false,
 	smallImageCardDesktop: false,
 	largeImageCardDesktop: false,
+
+	/**
+	 * Tracks clicks on the OG card (only if there's an href to follow)
+	 *
+	 * @returns {void}
+	 */
+	click() {
+		if (this.get('openGraphHref')) {
+			track(trackActions.OGTapped);
+		}
+	},
 
 	init() {
 		this.setImageClasses();
