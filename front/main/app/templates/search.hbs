@@ -6,10 +6,9 @@
 {{/ember-wormhole}}
 <div class="search-results">
 	{{#if model.totalItems}}
-		<div class="search-results__total">
-			{{i18n 'main.total-results' ns='search' totalItems=model.totalItems}} <strong>{{model.query}}</strong>
-		</div>
-	{{/if}}
+	<div class="search-results__total">
+		{{i18n 'main.total-results' ns='search' totalItems=model.totalItems}} <strong>{{model.query}}</strong>
+	</div>
 	<ul class="search-results__list">
 		{{#each model.items as |item|}}
 			{{#wikia-ui-components/wikia-card}}
@@ -24,12 +23,14 @@
 			{{/wikia-ui-components/wikia-card}}
 		{{/each}}
 	</ul>
-	{{#if model.error}}
+	{{else if model.error}}
 		{{#wikia-ui-components/error-info
 			class=model.error
 		}}
 			{{{i18n (concat 'main.' model.error) ns='search' query=errorPageQueryMarkup}}}
-			<div class={{concat model.error '__action'}} {{action 'onErrorPageClick'}}>{{i18n (concat 'main.' model.error '-action') ns='search'}}</div>
+			<div class={{concat model.error '__action'}} {{action 'onErrorPageClick'}}>
+				{{i18n (concat 'main.' model.error '-action') ns='search'}}
+			</div>
 		{{/wikia-ui-components/error-info}}
 	{{/if}}
 </div>

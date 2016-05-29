@@ -308,7 +308,7 @@ export default Component.extend(
 			}
 
 			this.get('cachedResultsQueue').push(query);
-			this.get('cachedResults')[query] = suggestions ? suggestions : [];
+			this.get('cachedResults')[query] = suggestions || [];
 		},
 
 		/**

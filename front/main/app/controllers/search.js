@@ -1,11 +1,11 @@
 import Ember from 'ember';
 
-const {Controller, inject, $} = Ember;
+const {Controller, computed, inject, $} = Ember;
 
 export default Controller.extend({
 	application: inject.controller(),
 	queryParams: ['query'],
-	errorPageQueryMarkup: Ember.computed('model.{erroneousQuery,error}', function () {
+	errorPageQueryMarkup: computed('model.{erroneousQuery,error}', function () {
 		return `<span class="${this.get('model.error')}__query">${this.get('model.erroneousQuery')}</span>`;
 	}),
 
