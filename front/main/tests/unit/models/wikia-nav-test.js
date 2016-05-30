@@ -1,7 +1,8 @@
 import {moduleFor, test} from 'ember-qunit';
+import sinon from 'sinon';
 import WikiaNavModel from 'main/models/wikia-nav';
 
-moduleFor('model:wikia-nav', 'Unit | Model | global nav', {
+moduleFor('model:wikia-nav', 'Unit | Model | wikia nav', {
 	unit: true
 });
 
@@ -21,13 +22,13 @@ test('test zero state with values from api', (assert) => {
 				{
 					type: 'nav-menu-item',
 					route: 'recent-wiki-activity',
-					name: '',
+					name: 'main.title',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav'
 				},
 				{
 					actionId: 'onRandomPageClick',
-					name: '',
+					name: 'app.random-page-label',
 					trackLabel: 'random-page',
 					type: 'nav-menu-item'
 				}
@@ -62,12 +63,12 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-root'
 				},
 				{
-					name: '',
+					name: 'app.explore-wiki',
 					type: 'nav-menu-header'
 				},
 				{
 					route: 'recent-wiki-activity',
-					name: '',
+					name: 'main.title',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav',
 					type: 'nav-menu-item'
@@ -82,7 +83,7 @@ test('test zero state with values from api', (assert) => {
 				},
 				{
 					actionId: 'onRandomPageClick',
-					name: '',
+					name: 'app.random-page-label',
 					trackLabel: 'random-page',
 					type: 'nav-menu-item'
 				}
@@ -117,19 +118,19 @@ test('test zero state with values from api', (assert) => {
 					type: 'nav-menu-root'
 				},
 				{
-					name: '',
+					name: 'app.explore-wiki',
 					type: 'nav-menu-header'
 				},
 				{
 					type: 'nav-menu-item',
 					route: 'discussion',
-					name: '',
+					name: 'main.discussions-header-title',
 					trackCategory: 'discussion',
 					trackLabel: 'local-nav'
 				},
 				{
 					route: 'recent-wiki-activity',
-					name: '',
+					name: 'main.title',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav',
 					type: 'nav-menu-item'
@@ -144,7 +145,7 @@ test('test zero state with values from api', (assert) => {
 				},
 				{
 					actionId: 'onRandomPageClick',
-					name: '',
+					name: 'app.random-page-label',
 					trackLabel: 'random-page',
 					type: 'nav-menu-item'
 				}
@@ -170,12 +171,12 @@ test('test zero state with values from api', (assert) => {
 					className: 'nav-menu--explore'
 				},
 				{
-					name: '',
+					name: 'app.explore-wiki',
 					type: 'nav-menu-header'
 				},
 				{
 					route: 'recent-wiki-activity',
-					name: '',
+					name: 'main.title',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav',
 					type: 'nav-menu-item'
@@ -190,7 +191,7 @@ test('test zero state with values from api', (assert) => {
 				},
 				{
 					actionId: 'onRandomPageClick',
-					name: '',
+					name: 'app.random-page-label',
 					trackLabel: 'random-page',
 					type: 'nav-menu-item'
 				}
@@ -199,11 +200,17 @@ test('test zero state with values from api', (assert) => {
 		}
 	];
 
+	const i18nStub = sinon.stub(window.i18n, 't');
+
+	i18nStub.returnsArg(0);
+
 	cases.forEach((testCase) => {
 		const nav = WikiaNavModel.create(testCase.mock);
 
 		assert.deepEqual(nav.get('items'), testCase.expected, testCase.message);
 	});
+
+	i18nStub.restore();
 });
 
 test('test local sub nav transitions', (assert) => {

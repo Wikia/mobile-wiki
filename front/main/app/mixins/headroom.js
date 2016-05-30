@@ -66,10 +66,14 @@ export default Ember.Mixin.create({
 			},
 			offset,
 			onPin: () => {
-				this.set('pinned', true);
+				if (!this.get('isDestroyed')) {
+					this.set('pinned', true);
+				}
 			},
 			onUnpin: () => {
-				this.set('pinned', false);
+				if (!this.get('isDestroyed')) {
+					this.set('pinned', false);
+				}
 			}
 		};
 
