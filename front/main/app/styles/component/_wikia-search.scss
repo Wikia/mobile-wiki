@@ -128,6 +128,7 @@ $border-bottom-height: 1px;
 	max-height: calc(100% - #{$search-height});
 	overflow: auto;
 	padding: 0;
+	white-space: nowrap;
 
 	.wikia-search__search-suggestion {
 		box-sizing: content-box;
@@ -139,8 +140,10 @@ $border-bottom-height: 1px;
 		a {
 			display: inline-block;
 			left: 0;
-			padding-left: $nav-padding-vertical;
+			overflow: hidden;
+			padding: 0 $nav-padding-vertical;
 			position: absolute;
+			text-overflow: ellipsis;
 			width: 100%;
 		}
 	}
