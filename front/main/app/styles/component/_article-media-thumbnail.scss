@@ -18,6 +18,12 @@
 		width: 100%;
 	}
 
+	&.is-loading {
+		img {
+			@include is-loading;
+		}
+	}
+
 	&.is-loaded {
 		img {
 			animation: lazyImage .3s;
