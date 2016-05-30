@@ -13,7 +13,6 @@ export default Component.extend(
 		classNameBindings: ['model.inRoot:wikia-nav--in-root'],
 		currentUser: inject.service(),
 		isUserAuthenticated: computed.oneWay('currentUser.isAuthenticated'),
-		noScroll: true,
 
 		logoutLink: M.buildUrl({
 			namespace: 'Special',
