@@ -1,4 +1,7 @@
-{{{i18n 'main.search-error-not-found' ns='search' query=errorPageStringMarkup}}}
+{{{i18n 'main.search-error-not-found'
+	ns='search'
+	query=(wrap-me erroneousQuery className='search-error-not-found__query' tagName='span')
+}}}
 <div class='search-error-not-found__action' {{action attrs.onErrorPageClick}}>
 	{{i18n 'main.search-error-not-found-action' ns='search'}}
 </div>

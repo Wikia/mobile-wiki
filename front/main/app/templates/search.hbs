@@ -10,7 +10,7 @@
 		{{{i18n 'main.total-results'
 			ns='search'
 			totalItems=model.totalItems
-			query=(concat '<strong>' model.query '</strong>')
+			query=(wrap-me model.query tagName='strong')
 		}}}
 	</div>
 	<ul class="search-results__list">
