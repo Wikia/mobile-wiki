@@ -1,12 +1,12 @@
 <div class="wiki-page-header__wrapper">
 	<div class="wiki-page-header__main">
 		{{#if isMainPage}}
-			<h1 class="wiki-page-header__title">{{mainPageName}}</h1>
+			<h1 class="wiki-page-header__title">{{siteName}}</h1>
 		{{else}}
 			<h2 class="wiki-page-header__site-name-block" {{action 'trackClick'}}>
 				{{i18n 'app.header-in-wiki-name-label-prefix'}}
-				{{#link-to 'wiki-page' mainPageTitle title=mainPageName class='wiki-page-header__site-link'}}
-					<span class="wiki-page-header__site-name">{{mainPageName}}</span>
+				{{#link-to 'wiki-page' mainPageTitle title=siteName class='wiki-page-header__site-link'}}
+					<span class="wiki-page-header__site-name">{{siteName}}</span>
 					{{i18n 'app.header-in-wiki-name-label-suffix'}}
 					{{svg 'arrow-right-long'}}
 				{{/link-to}}
