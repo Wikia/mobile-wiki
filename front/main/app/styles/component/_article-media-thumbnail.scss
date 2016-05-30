@@ -50,6 +50,7 @@
 
 .article-media-placeholder {
 	@extend %image-placeholder;
+	@include is-loading;
 
 	display: inline-block;
 	width: 100%;
