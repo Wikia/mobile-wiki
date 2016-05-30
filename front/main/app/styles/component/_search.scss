@@ -31,3 +31,8 @@
 .search-results__snippet .searchmatch {
 	font-weight: bold;
 }
+
+.search-result-page .site-head-headroom-un-pinned .site-head {
+  // removing site-head bottom shadow
+  box-shadow: unset;
+}
