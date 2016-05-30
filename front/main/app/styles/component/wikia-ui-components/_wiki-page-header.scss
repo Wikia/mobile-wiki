@@ -1,12 +1,3 @@
-// disable portable infobox hero image and title
-// @todo XW-1478 Remove the rule below when the first title/hero image of the first infobox is removed from markup.
-.article-content .portable-infobox:first-of-type {
-	.pi-hero,
-	.pi-title:first-of-type {
-		display: none;
-	}
-}
-
 // component
 .wiki-page-header {
 	background: $color-blue-light;
