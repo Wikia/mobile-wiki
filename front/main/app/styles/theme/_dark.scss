@@ -295,7 +295,7 @@ body.dark-theme {
 			color: $dark-discussion-contributors-rail-title;
 		}
 
-		.side-button {
+		.side-button, .discussion-filter-header {
 			border-color: $dark-discussion-rail-border-color;
 		}
 
@@ -318,6 +318,20 @@ body.dark-theme {
 		&.avatar {
 			img, svg {
 				border-color: $dark-discussion-avatar-border-color;
+			}
+		}
+	}
+
+	.discussion-categories {
+		legend {
+			color: $dark-discussion-category-header-color;
+		}
+	}
+
+	.discussion-categories-list {
+		label {
+			&:hover {
+				background-color: $dark-discussion-category-hover-background;
 			}
 		}
 	}
