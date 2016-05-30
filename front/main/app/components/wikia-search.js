@@ -62,9 +62,11 @@ export default Component.extend(NoScrollMixin,
 		didInsertElement() {
 			this._super(...arguments);
 
-			Ember.run.scheduleOnce('afterRender', this, () => {
-				this.$('.side-search__input').focus();
-			});
+			if(this.get('inputFocused')) {
+				Ember.run.scheduleOnce('afterRender', this, () => {
+					this.$('.side-search__input').focus();
+				});
+			}
 		},
 
 		actions: {
