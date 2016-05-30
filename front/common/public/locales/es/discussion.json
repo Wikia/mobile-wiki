@@ -75,10 +75,8 @@
     "locked-and-reported-to-moderators-text":"Esta discusión ha sido cerrada y ha sido reportada.",
     "edit-reply":"Editar respuesta",
     "edit-post":"Editar discusión",
-    "upvote-link-label":"__count__ Voto",
-    "upvote-link-label_plural":"__count__ Votos",
-    "replies-link-label":"__count__ Respuesta",
-    "replies-link-label_plural":"__count__ Respuestas",
+    "upvote-label":"Votar",
+    "reply-label":"Responder",
     "share-header":"Comparte",
     "share-label":"Compartir",
     "reported-not-found-error":"No hay discusiones ni respuestas reportadas."

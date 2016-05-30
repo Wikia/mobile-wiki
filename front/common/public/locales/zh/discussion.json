@@ -75,10 +75,8 @@
     "locked-and-reported-to-moderators-text":"這篇帖子被鎖定並且被報告。",
     "edit-reply":"編輯回覆",
     "edit-post":"編輯帖子",
-    "upvote-link-label":"__count__個讚",
-    "upvote-link-label_plural":"__count__個讚",
-    "replies-link-label":"__count__個回覆",
-    "replies-link-label_plural":"__count__個回覆",
+    "upvote-label":"讚",
+    "reply-label":"答覆",
     "share-header":"分享話題",
     "share-label":"分享",
     "reported-not-found-error":"暫時沒有被舉報的帖子或者回復。"
