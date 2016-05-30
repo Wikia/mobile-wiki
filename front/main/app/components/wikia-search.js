@@ -77,6 +77,7 @@ export default Component.extend(NoScrollMixin,
 					label: 'search-open-special-search'
 				});
 
+				this.$('.side-search__input').blur();
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
