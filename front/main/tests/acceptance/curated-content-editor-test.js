@@ -36,3 +36,21 @@ test('visiting /main/edit', (assert) => {
 		);
 	});
 });
+
+test('navigating to section on /main/edit', (assert) => {
+	visit('/');
+	visit('/main/edit');
+
+	andThen(() => {
+		assert.equal(currentURL(), '/main/edit');
+
+		click('.curated-content-editor-block:nth(1) .curated-content-editor-row:first img');
+
+		andThen(() => {
+			assert.equal(currentURL(), '/main/edit/section/Section%201', 'Navigate to first section');
+			assert.equal(find('.curated-content-section-details--label').text(), 'Section 1', 'Check section description');
+			assert.equal(find('.curated-content-section-details--count').text(), 'app.curated-content-editor-items-count', 'Check section items count');
+			assert.equal(find('.curated-content-editor-row').length, 1, 'Check section items are displayed');
+		});
+	});
+});
