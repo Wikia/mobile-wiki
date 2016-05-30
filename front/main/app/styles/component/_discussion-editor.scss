@@ -82,19 +82,23 @@ $editor-label-height: 44px;
 		top: 10px;
 	}
 
-	.avatar {
-		svg, img {
-			width: 40px;
-			height: 40px;
-		}
-	}
-
 	&.sticky {
 		margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
 		position: fixed;
 		top: rem-calc(50 - 4); // Sass doesn't accept px variables here, 50 - TopNav height, 4 - editor border size
 		width: $sticky-editor-width;
 		z-index: 1;
+	}
+}
+
+.discussion {
+	.editor-container {
+		.avatar {
+			svg, img {
+				width: 40px;
+				height: 40px;
+			}
+		}
 	}
 }
 
