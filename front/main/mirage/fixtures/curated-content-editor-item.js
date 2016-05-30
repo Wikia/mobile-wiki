@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 export default [
 	{
 		label: 'Section 1',
@@ -10,7 +12,6 @@ export default [
 				label: 'Category Test',
 				title: 'Category:Test',
 				type: 'category',
-				// eslint-disable-next-line max-len
 				image_url: 'http://vignette2.wikia.nocookie.net/concf/images/1/13/DSC_0211.JPG/revision/latest/window-crop/width/50/x-offset/841/y-offset/0/window-width/2161/window-height/2160?cb=20150730090340',
 				node_type: 'item'
 			}
@@ -23,7 +24,6 @@ export default [
 				height: 412
 			}
 		},
-		// eslint-disable-next-line max-len
 		image_url: 'http://vignette2.wikia.nocookie.net/concf/images/7/76/Satisfied-Seal.jpg/revision/latest?cb=20150626171201',
 		node_type: 'section'
 	},
@@ -38,7 +38,6 @@ export default [
 				label: 'Category Test 2',
 				title: 'Category:Test2',
 				type: 'category',
-				// eslint-disable-next-line max-len
 				image_url: 'http://vignette2.wikia.nocookie.net/concf/images/e/e4/070521_hamster_02.jpg/revision/latest/window-crop/width/50/x-offset/56/y-offset/0/window-width/466/window-height/465?cb=20150408114003',
 				node_type: 'item'
 			}
@@ -51,7 +50,6 @@ export default [
 				height: 381
 			}
 		},
-		// eslint-disable-next-line max-len
 		image_url: 'http://vignette2.wikia.nocookie.net/concf/images/1/1e/Leadership-council-icon-oxfam-america-1_610x381.png/revision/latest?cb=20160422112542',
 		node_type: 'section'
 	},
@@ -74,7 +72,6 @@ export default [
 				label: 'Featured item',
 				title: 'Test',
 				type: 'article',
-				// eslint-disable-next-line max-len
 				image_url: 'http://vignette4.wikia.nocookie.net/concf/images/b/b1/Freddie_mercury.jpg/revision/latest?cb=20160505132527',
 				node_type: 'item'
 			}
@@ -101,7 +98,6 @@ export default [
 				label: 'Optional category',
 				title: 'Category:Test3',
 				type: 'category',
-				// eslint-disable-next-line max-len
 				image_url: 'http://vignette1.wikia.nocookie.net/concf/images/9/97/Doge.jpg/revision/latest?cb=20150622134753',
 				node_type: 'item'
 			}
