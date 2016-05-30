@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import ImageReviewModel from '../models/image-review';
 
-export default Ember.Route.extend({
+const {Route, Logger} = Ember;
+
+export default Route.extend({
 	onlyFlagged: false,
 
 	renderTemplate(controller, model) {
@@ -18,6 +20,8 @@ export default Ember.Route.extend({
 
 	actions: {
 		error(error) {
+			Logger.error('image-review route error', error);
+
 			let errorMessage = i18n.t('main.error-other', {ns: 'image-review'});
 
 			if (error.status === 401) {
