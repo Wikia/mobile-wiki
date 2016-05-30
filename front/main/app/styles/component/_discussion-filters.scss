@@ -25,7 +25,7 @@ $legend-font-size: 16px;
 }
 
 .discussion-filters-fields-wrapper {
-	padding: 20px 20px 0;
+	padding: 11px 20px 0;
 }
 
 .discussion-filters {
@@ -55,7 +55,7 @@ $legend-font-size: 16px;
 		&:hover,
 		&:active,
 		&:focus {
-			background: none;
+			background: $discussion-filters-apply-button-background-color;
 			color: inherit;
 		}
 	}

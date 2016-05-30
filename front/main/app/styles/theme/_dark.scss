@@ -21,12 +21,6 @@ body.dark-theme {
 		color: $dark-header-text-color;
 	}
 
-	.discussion-filters {
-		.filters-apply {
-			background: $dark-discussion-filters-apply-button-background-color;
-		}
-	}
-
 	input[type=text]:focus,
 	input[type=password]:focus,
 	input[type=email]:focus,

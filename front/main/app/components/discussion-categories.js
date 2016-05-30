@@ -35,7 +35,7 @@ export default Ember.Component.extend({
 			this.get('categories.length') > this.get('visibleCategoriesCount');
 	}),
 
-	categoriesInputIdPrefix: Ember.computed.oneWay('inputIdPrefix', function () {
+	categoriesInputIdPrefix: Ember.computed('inputIdPrefix', function () {
 		return `${this.get('inputIdPrefix')}-discussion-category-`;
 	}),
 
@@ -55,6 +55,16 @@ export default Ember.Component.extend({
 
 	updateCategoryAllSelected() {
 		this.set('categoryAllSelected', this.get('categories').isEvery('selected', false));
+	},
+
+	/**
+	 * Track click on category
+	 * @param {boolean} isAllCategories
+	 *
+	 * @returns {void}
+	 */
+	trackCategory(isAllCategories) {
+		track(isAllCategories ? trackActions.AllCategoriesTapped : trackActions.CategoryTapped);
 	},
 
 	actions: {
@@ -86,16 +96,6 @@ export default Ember.Component.extend({
 		},
 
 		/**
-		 * Track click on category
-		 * @param {boolean} isAllCategories
-		 *
-		 * @returns {void}
-		 */
-		trackCategory(isAllCategories) {
-			track(isAllCategories ? trackActions.AllCategoriesTapped : trackActions.CategoryTapped);
-		},
-
-		/**
 		 * Resets categories module to default state
 		 *
 		 * @returns {void}
@@ -107,6 +107,16 @@ export default Ember.Component.extend({
 			this.set('collapsed', false);
 			categories.setEach('selected', false);
 			this.collapseCategoriesAboveLimit();
+		},
+
+		/**
+		 * @param {boolean} isAllCategories
+		 * @param {Event} event
+		 *
+		 * @returns {void}
+		 */
+		onCategoryClicked(isAllCategories, event) {
+			this.trackCategory(isAllcategories);
 		}
 	}
 });
