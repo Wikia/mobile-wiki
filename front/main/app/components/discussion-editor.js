@@ -65,11 +65,17 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	handleOG() {
-		const textarea = this.$('textarea')[0],
-			value = textarea.value,
-			lastChar = value.charCodeAt(textarea.selectionEnd - 1);
+		const textarea = this.$('textarea').get(0);
 
-		if ((lastChar !== 10 && lastChar !== 13 && lastChar !== 32) || (value.length <= this.get('contentLength'))) {
+		if (!textarea) {
+			return;
+		}
+
+		const value = this.get('bodyText'),
+			lastChar = value.charCodeAt(textarea.selectionEnd - 1),
+			allowedChars = [10, 13, 32];
+
+		if (allowedChars.indexOf(lastChar) !== -1 || value.length <= this.get('contentLength')) {
 			return;
 		}
 
