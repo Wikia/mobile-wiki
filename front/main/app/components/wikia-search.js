@@ -28,8 +28,8 @@ export default Component.extend(NoScrollMixin,
 		 * @member {SearchSuggestionItem[]}
 		 */
 		suggestions: [],
-		hasResults: computed.notEmpty('suggestions'),
-		noScroll: computed.oneWay('hasResults'),
+		hasSuggestions: computed.notEmpty('suggestions'),
+		noScroll: computed.oneWay('hasSuggestions'),
 
 		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
 		isLoadingResultsSuggestions: false,
@@ -61,9 +61,11 @@ export default Component.extend(NoScrollMixin,
 		didInsertElement() {
 			this._super(...arguments);
 
-			run.scheduleOnce('afterRender', this, () => {
-				this.focusSearchInput();
-			});
+			if (this.get('inputFocused')) {
+				Ember.run.scheduleOnce('afterRender', this, () => {
+					this.$('.side-search__input').focus();
+				});
+			}
 		},
 
 		actions: {
@@ -74,6 +76,7 @@ export default Component.extend(NoScrollMixin,
 					label: 'search-open-special-search'
 				});
 
+				this.$('.side-search__input').blur();
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
@@ -100,7 +103,8 @@ export default Component.extend(NoScrollMixin,
 			},
 
 			onInputBlur() {
-				this.set('inputFocused', false);
+				this.set('isInputFocused', false);
+				this.setSearchSuggestionItems();
 			},
 
 			onSuggestionsWrapperClick(event) {
