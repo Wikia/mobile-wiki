@@ -4,13 +4,22 @@ import {track, trackActions} from '../utils/discussion-tracker';
 export default Ember.Component.extend({
 	collapsed: false,
 
-	defaultVisibleCategoriesCount: 10,
+	visibleCategoriesCount: null,
 
 	init() {
 		this._super();
 
 		this.updateCategoryAllSelected();
-		this.get('categories').slice(this.get('defaultVisibleCategoriesCount')).setEach('collapsed', true);
+
+		this.collapseCategoriesAboveLimit();
+	},
+
+	collapseCategoriesAboveLimit() {
+		const visibleCategoriesCount = this.get('visibleCategoriesCount');
+
+		if (typeof visibleCategoriesCount === 'number') {
+			this.get('categories').slice(visibleCategoriesCount).setEach('collapsed', true);
+		}
 	},
 
 	toggleButtonLabel: Ember.computed('categories.@each.collapsed', function () {
@@ -21,8 +30,9 @@ export default Ember.Component.extend({
 		}
 	}),
 
-	toggleButtonVisible: Ember.computed('categories.length', function () {
-		return this.get('categories.length') > this.get('defaultVisibleCategoriesCount');
+	toggleButtonVisible: Ember.computed('categories.length', 'visibleCategoriesCount', function () {
+		return this.get('visibleCategoriesCount') !== null &&
+			this.get('categories.length') > this.get('visibleCategoriesCount');
 	}),
 
 	categoriesInputIdPrefix: Ember.computed.oneWay('inputIdPrefix', function () {
@@ -61,7 +71,7 @@ export default Ember.Component.extend({
 		},
 
 		/**
-		 * Show/hide more categories when more than defaultVisibleCategoriesCount
+		 * Show/hide more categories when more than visibleCategoriesCount
 		 *
 		 * @returns {void}
 		 */
@@ -69,7 +79,7 @@ export default Ember.Component.extend({
 			const categories = this.get('categories');
 
 			if (categories.isEvery('collapsed', false)) {
-				categories.slice(this.get('defaultVisibleCategoriesCount')).setEach('collapsed', true);
+				this.collapseCategoriesAboveLimit();
 			} else {
 				categories.setEach('collapsed', false);
 			}
@@ -96,7 +106,7 @@ export default Ember.Component.extend({
 			track(trackActions.CategoriesResetTapped);
 			this.set('collapsed', false);
 			categories.setEach('selected', false);
-			categories.slice(this.get('defaultVisibleCategoriesCount')).setEach('collapsed', true);
+			this.collapseCategoriesAboveLimit();
 		}
 	}
 });
