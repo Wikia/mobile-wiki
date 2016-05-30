@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import NoScrollMixin from '../mixins/no-scroll';
 import {track, trackActions} from 'common/utils/track';
 
 const {Component, computed, observer, inject, run} = Ember;
@@ -13,7 +14,7 @@ const {Component, computed, observer, inject, run} = Ember;
  * @property {string} [text]
  * @property {string} [uri]
  */
-export default Component.extend(
+export default Component.extend(NoScrollMixin,
 	{
 		classNames: ['wikia-search-wrapper'],
 		ajax: inject.service(),
@@ -28,6 +29,7 @@ export default Component.extend(
 		 */
 		suggestions: [],
 		hasResults: computed.notEmpty('suggestions'),
+		noScroll: computed.oneWay('hasResults'),
 
 		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
 		isLoadingResultsSuggestions: false,

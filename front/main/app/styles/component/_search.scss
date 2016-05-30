@@ -32,15 +32,7 @@
 	font-weight: bold;
 }
 
-.search-error-not-found {
-	color: $aluminum;
-}
-
-.search-error-not-found__query {
-	font-weight: bold;
-	text-transform: uppercase;
-}
-
-.search-error-not-found__action {
-	color: $link-color;
+.search-result-page .site-head-headroom-un-pinned .site-head {
+  // removing site-head bottom shadow
+  box-shadow: unset;
 }
