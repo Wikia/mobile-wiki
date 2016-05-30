@@ -23,7 +23,7 @@ const {Handlebars, Helper} = Ember;
 
 export default Helper.helper((params, options) => {
 	const content = params[0] || '';
-	let tagName = 'div',
+	let tagName = 'span',
 		className = '';
 
 	if (options.tagName) {

@@ -11,7 +11,7 @@ module('Unit | Helper | wrap-me', () => {
 		const options = {},
 			html = wrapMeHelper.compute(['some text'], options);
 
-		assert.equal(html, '<div>some text</div>');
+		assert.equal(html, '<span>some text</span>');
 	});
 
 	test('generate html with passed content and one parameter', (assert) => {
@@ -25,12 +25,12 @@ module('Unit | Helper | wrap-me', () => {
 
 	test('generate html with passed content and two parameters', (assert) => {
 		const options = {
-				tagName: 'span',
+				tagName: 'div',
 				className: 'my-class and another'
 			},
 			html = wrapMeHelper.compute(['some text'], options);
 
-		assert.equal(html, '<span class="my-class and another">some text</span>');
+		assert.equal(html, '<div class="my-class and another">some text</div>');
 	});
 
 	test('generate html with passed content and extraneous parameter (ignores the param)', (assert) => {
@@ -39,13 +39,13 @@ module('Unit | Helper | wrap-me', () => {
 			},
 			html = wrapMeHelper.compute(['some text'], options);
 
-		assert.equal(html, '<div>some text</div>');
+		assert.equal(html, '<span>some text</span>');
 	});
 
 	test('generate html without any content passed', (assert) => {
 		const options = {},
 			html = wrapMeHelper.compute([], options);
 
-		assert.equal(html, '<div></div>');
+		assert.equal(html, '<span></span>');
 	});
 });
