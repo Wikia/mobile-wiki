@@ -3,9 +3,6 @@ import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	collapsed: false,
-	tagName: 'fieldset',
-	classNames: ['discussion-fieldset', 'discussion-categories'],
-	classNameBindings: ['collapsed'],
 
 	defaultVisibleCategoriesCount: 10,
 
@@ -86,7 +83,19 @@ export default Ember.Component.extend({
 		 */
 		trackCategory(isAllCategories) {
 			track(isAllCategories ? trackActions.AllCategoriesTapped : trackActions.CategoryTapped);
+		},
+
+		/**
+		 * Resets categories module to default state
+		 *
+		 * @returns {void}
+		 */
+		reset() {
+			const categories = this.get('categories');
+
+			this.set('collapsed', false);
+			categories.setEach('selected', false);
+			categories.slice(this.get('defaultVisibleCategoriesCount')).setEach('collapsed', true);
 		}
 	}
-	// TODO reset link
 });
