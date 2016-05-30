@@ -10,7 +10,7 @@
 {{/modal-dialog}}
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
-	model=model.forum.data
+	model=model.current.data
 	categories=model.index.categories
 }}
 	{{discussion-sort
@@ -21,16 +21,16 @@
 		createPost=(action 'createPost')
 		deletePost=(action 'deletePost')
 		editPost=(action 'editPost')
-		forumId=model.data.forumId
+		forumId=model.current.data.forumId
 		generateOpenGraph=(route-action 'generateOpenGraph')
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
-		minorError=model.forum.data.minorError
-		pageNum=model.forum.data.pageNum
-		posts=model.forum.data.entities
-		postsDisplayed=model.forum.data.entities.length
+		minorError=model.current.data.minorError
+		pageNum=model.current.data.pageNum
+		posts=model.current.data.entities
+		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')
-		totalPosts=model.forum.data.postCount
+		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
 		upvote=(action 'upvote')
 		unlockPost=(action 'unlockPost')

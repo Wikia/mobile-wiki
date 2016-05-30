@@ -13,10 +13,15 @@ export default DiscussionBaseRoute.extend(
 
 		/**
 		 * @param {object} params
-		 * @returns {Ember.RSVP.Promise}
+		 * @returns {Ember.RSVP.hash}
 		 */
 		model(params) {
-			return DiscussionPostModel.find(Mercury.wiki.id, params.postId, params.replyId);
+			const indexModel = this.modelFor('discussion');
+
+			return Ember.RSVP.hash({
+				current: DiscussionPostModel.find(Mercury.wiki.id, params.postId, params.replyId),
+				index: indexModel
+			});
 		},
 
 		/**
@@ -76,7 +81,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadOlderReplies() {
-				this.modelFor(this.get('routeName')).loadPreviousPage();
+				this.modelFor(this.get('routeName')).current.loadPreviousPage();
 			},
 
 			/**
@@ -84,7 +89,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadNewerReplies() {
-				this.modelFor(this.get('routeName')).loadNextPage();
+				this.modelFor(this.get('routeName')).current.loadNextPage();
 			},
 		}
 	}
