@@ -3,7 +3,7 @@ import Ember from 'ember';
 const {Mixin, observer, $} = Ember;
 
 // singleton for no scroll state shared across all mixin usages
-const NoScrollState = Ember.Object.extend().reopenClass({state: 0});
+const NoScrollState = Ember.Object.extend().reopenClass({state: false});
 
 export default Mixin.create({
 	// global state
@@ -29,12 +29,13 @@ export default Mixin.create({
 
 	setNoScroll(current) {
 		const $body = $('body');
-		let state = this.get('noScrollState.state');
-		// decrease only if more then 0
-		state = current ? state + 1 : (state > 0 ? state - 1 : 0);
-		this.set('noScrollState.state', state);
 
-		if (state > 0) {
+		if (this.get('noScrollState.state') && current) {
+			throw Error('No-scroll already applied, turn it off first');
+		}
+		this.set('noScrollState.state', current);
+
+		if (current) {
 			$body.addClass('no-scroll');
 		} else {
 			$body.removeClass('no-scroll');
