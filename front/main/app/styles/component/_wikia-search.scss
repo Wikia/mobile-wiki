@@ -3,11 +3,16 @@ $search-height: 48px;
 $search-input-font-size: 16px;
 $search-icon-width: 70px;
 $search-spacing: 18px;
+$search-wrapper-height: calc(100% - #{$site-head-height});
 $text-field-label-top: 13px;
 $border-bottom-height: 1px;
 
 .wikia-search-wrapper {
 	height: $search-height;
+}
+
+.side-nav-drawer__content .wikia-search {
+	height: $search-wrapper-height;
 }
 
 .wikia-search {
@@ -41,7 +46,7 @@ $border-bottom-height: 1px;
 	}
 
 	&.wikia-search--has-results {
-		height: calc(100% - #{$site-head-height});
+		height: $search-wrapper-height;
 	}
 }
 
