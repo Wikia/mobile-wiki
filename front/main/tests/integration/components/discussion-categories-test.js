@@ -110,3 +110,20 @@ test('should deselect category after selecting "All"', function (assert) {
 	assert.ok(this.$('label[for="all"] span').hasClass('active-element-background-color'));
 });
 
+test('should "Reset" return initial categories state', function (assert) {
+	this.set('categories', getCategories(20));
+
+	this.render(hbs`{{discussion-categories categories=categories}}`);
+
+	this.$('label:last').click();
+	this.$('button').click();
+	this.$('legend').click();
+
+	// click reset
+	this.$('.discussion-filter-header a').click();
+
+	assert.ok(this.$('label[for="all"] span').hasClass('active-element-background-color'));
+	// 11 = 10 categories + All
+	assert.equal(this.$('li').length, 11);
+	assert.notOk(this.$('.discussion-categories').hasClass('collapsed'));
+});
