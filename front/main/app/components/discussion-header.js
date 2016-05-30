@@ -16,7 +16,10 @@ export default Ember.Component.extend(
 
 		canDeleteAll: false,
 
-		classNames: ['discussion-header', 'background-theme-color'],
+		classNames: ['discussion-header-wrapper'],
+		classNameBindings: ['isFandomBarHidden:discussion-header-margin'],
+
+		isFandomBarHidden: Ember.computed(() => Ember.get(Mercury, 'wiki.language.content') !== 'en'),
 
 		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),

@@ -54,6 +54,12 @@
 		{{#link-to 'discussion.post' post.threadId class="post-details-link clamp"}}{{{parsedContent}}}{{/link-to}}
 	</div>
 {{/if}}
+{{#if post.openGraph}}
+	{{discussion-open-graph
+		openGraphData=post.openGraph
+		isListView=true
+	}}
+{{/if}}
 <div class="row">
 	{{discussion-upvote-post
 		post=post

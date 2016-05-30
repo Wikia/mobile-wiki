@@ -1,0 +1,297 @@
+@keyframes og-loading {
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.2;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+
+.discussions {
+	// -- theme --
+	.discussion-editor {
+		&.is-active {
+			.og-container {
+				display: flex;
+			}
+
+			&.has-open-graph {
+				.editor-textarea {
+					border-bottom: none;
+				}
+			}
+		}
+
+		.og-container {
+			display: none;
+			margin: 15px;
+		}
+	}
+
+	.og-container {
+		background-color: $discussion-open-graph-background-color;
+		border: 1px solid $discussion-open-graph-border-color;
+	}
+
+	.og-title {
+		color: $discussion-open-graph-title-color;
+	}
+
+	.og-site-name {
+		color: $discussion-open-graph-domain-color;
+	}
+
+	.is-loading {
+		animation-duration: 1s;
+		animation-name: og-loading;
+		height: 60px;
+
+		.og-image-placeholder {
+			background-color: $discussion-open-graph-placeholder-background-color;
+			display: block;
+			height: 100%;
+			width: 35%;
+		}
+
+		.og-texts-placeholder {
+			height: 100%;
+			margin: 0;
+			padding: 12px;
+			width: 65%;
+		}
+
+		.og-text-placeholder {
+			background-color: $discussion-open-graph-placeholder-background-color;
+			display: block;
+			height: 9px;
+			margin-bottom: 4px;
+			width: 100%;
+
+			&:last-child {
+				width: 50%;
+			}
+		}
+	}
+
+	// -- layout --
+
+	//default layout
+	.og-container {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		margin: 9px auto 9px 0;
+		max-height: 450px;
+		max-width: 525px;
+		position: relative;
+
+		&.small-image-card-mobile {
+			.og-image {
+				align-self: center;
+			}
+		}
+	}
+
+	.og-image {
+		flex-shrink: 0;
+		height: 100%;
+		margin: 0 auto;
+		width: 100%;
+	}
+
+	.og-texts {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		margin: 12px 18px;
+		overflow: hidden;
+		width: 100%;
+		word-wrap: break-word;
+	}
+
+	.og-title {
+		@include clamp(2);
+		align-self: flex-start;
+		font-size: $type-smallest;
+		line-height: $line-height-smallest;
+		margin: 0;
+		width: 100%;
+	}
+
+	.og-site-name {
+		@include clamp(1);
+		align-self: flex-start;
+		font-size: $type-min;
+		line-height: $line-height-min;
+		margin: 0;
+		width: 100%;
+	}
+
+	//post-details page layout
+	.post-details-view {
+		.og-title {
+			font-size: $type-smallest;
+			line-height: $line-height-smallest;
+		}
+
+		.og-site-name {
+			font-size: $type-min;
+			line-height: $line-height-min;
+		}
+
+		// main post layout
+		.post-detail {
+			.og-container {
+				margin: 9px auto 13px 0;
+			}
+
+			.og-image {
+				max-height: 330px;
+			}
+		}
+	}
+
+	.og-close {
+		background-color: $discussion-open-graph-close-background-color;
+		height: 24px;
+		line-height: 0;
+		padding: 5px;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 24px;
+
+		svg {
+			fill: $discussion-open-graph-close-fill-color;
+			width: 14px;
+			height: 14px;
+		}
+	}
+}
+
+@media #{$mobile-range} {
+	.discussions {
+		.og-container {
+			max-width: 445px;
+		}
+
+		.no-image-card-mobile {
+			.og-image {
+				display: none;
+			}
+		}
+
+		.small-image-card-mobile {
+			&.og-container {
+				flex-wrap: nowrap;
+			}
+
+			.og-image {
+				height: 100%;
+				width: 35%;
+			}
+
+			.og-texts {
+				height: 100%;
+				width: 65%;
+			}
+		}
+	}
+}
+
+@media #{$desktop-range} {
+	.discussions {
+		.og-container {
+			margin: 2px auto 16px;
+		}
+
+		.discussion-editor {
+			&.is-edit {
+				.og-container {
+					margin: 0 15px 15px;
+				}
+			}
+
+			.og-container {
+				margin: 0 17px 17px 64px;
+			}
+		}
+
+		.no-image-card-desktop {
+			.og-image {
+				display: none;
+			}
+		}
+
+		.is-loading {
+			height: 86px;
+
+			.og-texts-placeholder {
+				padding: 17px;
+			}
+
+			.og-text-placeholder {
+				height: 12px;
+				margin-bottom: 7px;
+			}
+		}
+
+		.small-image-card-desktop {
+			&.og-container {
+				flex-wrap: nowrap;
+				height: 92px;
+			}
+
+			.og-image {
+				height: 100%;
+				width: 35%;
+			}
+
+			.og-texts {
+				height: 100%;
+				width: 65%;
+			}
+		}
+
+		.large-image-card-desktop {
+			.og-image {
+				border-bottom: 1px solid $discussion-open-graph-border-color;
+			}
+		}
+
+		.post-details-view {
+			.og-title {
+				font-size: rem-calc(16);
+				line-height: $line-height-smallest;
+			}
+
+			.og-site-name {
+				font-size: $type-smallest;
+				line-height: $line-height-smallest;
+			}
+
+
+			.post-detail {
+				.large-image-card-desktop {
+					&.og-container {
+						width: 525px;
+					}
+				}
+			}
+
+			.post-reply {
+				.large-image-card-desktop {
+					&.og-container {
+						width: 468px;
+					}
+				}
+			}
+		}
+	}
+}

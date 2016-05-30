@@ -25,6 +25,7 @@ export default Ember.Controller.extend(
 
 		smartBannerVisible: false,
 		drawerVisible: false,
+		drawerContent: null,
 		userMenuVisible: false,
 		noScroll: false,
 		fullPage: false,

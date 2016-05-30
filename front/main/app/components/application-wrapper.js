@@ -28,7 +28,6 @@ const {Component, computed, getWithDefault, Logger, observer, $} = Ember;
 export default Component.extend({
 	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
-	activeDrawerContent: null,
 	noScroll: false,
 	scrollLocation: null,
 	smartBannerVisible: false,
@@ -47,22 +46,13 @@ export default Component.extend({
 	}),
 
 	noScrollObserver: observer('noScroll', function () {
+		// removes body scrolling ability when nav menu is open
 		const $body = $('body');
-		let scrollLocation;
 
 		if (this.get('noScroll')) {
-			scrollLocation = $body.scrollTop();
-
-			this.set('scrollLocation', scrollLocation);
-
-			$body.css('top', -scrollLocation)
-				.addClass('no-scroll');
+			$body.addClass('no-scroll');
 		} else {
-			$body.removeClass('no-scroll')
-				.css('top', '');
-
-			window.scrollTo(0, this.get('scrollLocation'));
-			this.set('scrollLocation', null);
+			$body.removeClass('no-scroll');
 		}
 	}),
 

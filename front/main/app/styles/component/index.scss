@@ -3,7 +3,6 @@
 @import 'share-header';
 @import 'share-feature';
 @import 'smart-banner-android';
-@import 'side-nav';
 @import 'collapsible-menu';
 @import 'lightbox';
 @import 'lightbox-media';
@@ -25,6 +24,7 @@
 @import 'discussion-hero-unit';
 @import 'discussion-error';
 @import 'discussion-dialog';
+@import 'discussion-open-graph';
 @import 'user-avatar';
 @import 'discussion-contributors';
 @import 'discussion-community-badge';
@@ -45,7 +45,13 @@
 @import 'date-placeholder';
 @import 'category-sections';
 @import 'fandom-posts';
+@import 'wikia-nav';
+@import 'nav-menu';
+@import 'wikia-search';
+@import 'wikia-drawer';
+@import 'site-head-fandom-bar';
 @import 'article-table-of-contents';
+@import 'potential-member-page-experiment';
 // wikia ui reusable components
 @import 'wikia-ui-components/check-box';
 @import 'wikia-ui-components/icon-button';
