@@ -5,6 +5,6 @@
     "search-error-not-found": "We couldn't find anything for __query__",
     "search-error-not-found-action": "Try Another Search",
     "search-input-label": "Search",
-    "total-results": "About __totalItems__ results for "
+    "total-results": "About __totalItems__ results for __query__"
   }
 }
