@@ -3,8 +3,11 @@ import MainPageRouteMixin from '../mixins/main-page-route';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import RouteWithAdsMixin from '../mixins/route-with-ads';
 import CuratedContentModel from '../models/curated-content';
+import {isNotFoundError} from 'ember-ajax/errors';
 
-export default Ember.Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, RouteWithAdsMixin, {
+const {Route} = Ember;
+
+export default Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, RouteWithAdsMixin, {
 	/**
 	 * @param {string} sectionName
 	 * @returns {Ember.RSVP.Promise}
@@ -32,7 +35,7 @@ export default Ember.Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, Rout
 		 * @returns {boolean}
 		 */
 		error(error) {
-			if (error && error.status === 404) {
+			if (isNotFoundError(error)) {
 				this.controllerFor('application').addAlert({
 					message: i18n.t('app.curated-content-error-section-not-found'),
 					type: 'warning',
