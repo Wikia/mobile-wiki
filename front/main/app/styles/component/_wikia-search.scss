@@ -22,7 +22,7 @@ $border-bottom-height: 1px;
 	z-index: $z-6;
 
 	.wikia-search__search-icon,
-	.wikia-search__clear{
+	.wikia-search__clear {
 		width: $search-icon-width;
 	}
 
@@ -130,14 +130,17 @@ $border-bottom-height: 1px;
 	padding: 0;
 
 	.wikia-search__search-suggestion {
-	  color: $oil;
-	  font-size: $type-smallest;
-	  line-height: $search-height;
-	  padding: $nav-padding-horizontal $nav-padding-vertical 0 $nav-padding-vertical;
+		box-sizing: content-box;
+		color: $oil;
+		height: $search-height;
+		line-height: $search-height;
+		padding: 0 $nav-padding-vertical;
 
-	  a {
+		a {
 			display: inline-block;
-			height: 100%;
+			left: 0;
+			padding-left: $nav-padding-vertical;
+			position: absolute;
 			width: 100%;
 		}
 	}
