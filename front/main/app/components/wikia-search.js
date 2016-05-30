@@ -21,8 +21,7 @@ export default Component.extend(NoScrollMixin,
 		query: '',
 		emptyQueryInput: computed.not('query'),
 
-		isInputFocused: false,
-		inputFocused: computed.oneWay('isInputFocused'),
+		inputFocused: false,
 
 		/**
 		 * This is what's currently displayed in the search results
@@ -46,7 +45,7 @@ export default Component.extend(NoScrollMixin,
 		queryMinimalLength: 3,
 
 		searchPlaceholderLabel: computed(() => {
-			return i18n.t('search:main.searchInputLabel');
+			return i18n.t('search:main.search-input-label');
 		}),
 
 		/**
@@ -62,7 +61,7 @@ export default Component.extend(NoScrollMixin,
 		didInsertElement() {
 			this._super(...arguments);
 
-			if(this.get('inputFocused')) {
+			if (this.get('inputFocused')) {
 				Ember.run.scheduleOnce('afterRender', this, () => {
 					this.$('.side-search__input').focus();
 				});
@@ -86,7 +85,7 @@ export default Component.extend(NoScrollMixin,
 
 			clearSearch() {
 				this.set('query', '');
-				this.$('.side-search__input').focus();
+				this.focusSearchInput();
 			},
 
 			searchSuggestionClick() {
@@ -100,7 +99,7 @@ export default Component.extend(NoScrollMixin,
 			},
 
 			onInputFocus() {
-				this.set('isInputFocused', true);
+				this.set('inputFocused', true);
 			},
 
 			onInputBlur() {
@@ -315,7 +314,7 @@ export default Component.extend(NoScrollMixin,
 			}
 
 			this.get('cachedResultsQueue').push(query);
-			this.get('cachedResults')[query] = suggestions ? suggestions : null;
+			this.get('cachedResults')[query] = suggestions || [];
 		},
 
 		/**
@@ -329,13 +328,17 @@ export default Component.extend(NoScrollMixin,
 		},
 
 		/**
-		 * returns the cached result or null if there were no results
+		 * returns the cached result or [] if there were no results
 		 *
 		 * @param {string} query - the query string to search the cache with
 		 * @returns {*}
 		 */
 		getCachedResult(query) {
 			return this.get('cachedResults')[query];
+		},
+
+		focusSearchInput() {
+			this.$('.side-search__input').focus();
 		}
 	}
 );

@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import rawRequest from 'ember-ajax/raw';
 import request from 'ember-ajax/request';
 
 const ImageReviewModel = Ember.Object.extend({
@@ -15,14 +14,14 @@ ImageReviewModel.reopenClass({
 			options.status = 'FLAGGED';
 		}
 
-		return rawRequest(M.getImageReviewServiceUrl(`/contract`, options), {
+		return request(M.getImageReviewServiceUrl(`/contract`, options), {
 			method: 'POST',
-		}).then(({payload, jqXHR}) => {
+		}).then((data, textStatus, xhr) => {
 			// In case there are no more images, create empty model and show `No more images to review` message
-			if (jqXHR.status === 204) {
+			if (xhr.status === 204) {
 				return ImageReviewModel.create({});
 			} else {
-				return ImageReviewModel.getImagesAndCount(payload.id);
+				return ImageReviewModel.getImagesAndCount(data.id);
 			}
 		});
 
