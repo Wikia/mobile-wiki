@@ -661,10 +661,10 @@ body.discussions {
 				border-bottom: 1px solid $discussion-reply-border-color;
 				margin: auto;
 				padding: {
-					top: $post-details-post-vertical-padding;
-					right: 0;
 					bottom: 0;
 					left: 0;
+					right: 0;
+					top: $post-details-post-vertical-padding;
 				}
 				width: $post-details-outer-width;
 
@@ -673,8 +673,8 @@ body.discussions {
 				}
 
 				.side-spaced {
-					right: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
 					left: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
+					right: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
 				}
 
 				.discussion-content {
