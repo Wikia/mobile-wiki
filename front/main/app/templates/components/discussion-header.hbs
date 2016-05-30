@@ -20,7 +20,7 @@
 				{{svg 'filter-applied' class='icon filter-applied'}}
 			</div>
 
-			{{#pop-over for='discussion-mobile-filter' on='click' flow='downCentered'}}
+			{{#pop-over for='discussion-mobile-filter' on='click' flow='downCentered' class='filters-popover'}}
 				{{discussion-filters
 					applyFilters=(action this.attrs.applyFilters)
 					showApplyButton=true

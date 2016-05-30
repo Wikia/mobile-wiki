@@ -1,29 +1,56 @@
 $sort-label-height: 48px;
 $legend-font-size: 16px;
 
+.discussions {
+	.discussion-header {
+		.filters-popover {
+			.pop-over-container {
+				padding: 0;
+			}
+		}
+	}
+}
+
+.discussion-filter-header {
+	border-bottom: 1px solid $discussion-rail-separator-color;
+	font-size: $type-smaller;
+	font-weight: normal;
+	margin-bottom: 12px;
+
+	a {
+		float: right;
+		font-size: $type-min;
+		text-transform: uppercase;
+	}
+}
+
+.discussion-filters-fields-wrapper {
+	padding: 20px 20px 0;
+}
+
 .discussion-filters {
 	display: block;
 	width: 280px;
 
 	.filters-apply-container {
-		float: right;
-		position: absolute;
 		right: 18px;
+		width: 100%;
 	}
 
 	.filters-apply {
-		background: none;
+		background: $discussion-filters-apply-button-background-color;
 		border: none;
+		box-shadow: 0 -1px 10px 0 rgba(0, 0, 0, 0.2);
 		color: inherit;
-		float: right;
 		font-size: $legend-font-size;
 		font-weight: bold;
 		height: auto;
 		line-height: $line-height-smallest;
 		margin: 0;
 		outline: none;
-		padding: 0;
-		text-transform: none;
+		padding: 18px 14px 14px;
+		text-align: center;
+		width: 100%;
 
 		&:hover,
 		&:active,
@@ -50,6 +77,10 @@ $legend-font-size: 16px;
 				}
 			}
 		}
+	}
+
+	.sortby-fieldset {
+		margin-top: 18px;
 	}
 
 	.moderation-fieldset {
