@@ -56,8 +56,8 @@ $color-gray-semi: $color-blue-gray;
 // All variables should live here to prevent shadowing of variables and provide a central location for developers to
 // quickly modify the application
 
-$overlay-opacity: .5;
-$overlay-color: $color-black;
+$overlay-bg-color: rgba(0, 0, 0, 0.5);
+$box-shadow-color: rgba(0, 0, 0, 0.3);
 
 $border-color-light: $color-gray-light;
 
