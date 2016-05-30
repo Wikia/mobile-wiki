@@ -291,7 +291,8 @@ body.dark-theme {
 	}
 
 	.rail {
-		.discussion-contributors-title {
+		.discussion-contributors-title,
+		.discussion-filter-header {
 			color: $dark-discussion-contributors-rail-title;
 		}
 
@@ -303,7 +304,8 @@ body.dark-theme {
 			color: $dark-discussion-no-replies-text-color;
 		}
 
-		.discussion-filters {
+		.discussion-filters,
+		.discussion-categories {
 			legend {
 				color: $dark-discussion-rail-header-color;
 			}
@@ -312,26 +314,20 @@ body.dark-theme {
 				color: $dark-discussion-rail-label-color;
 			}
 		}
+
+		.discussion-categories-list {
+			label {
+				&:hover {
+					background-color: $dark-discussion-category-hover-background;
+				}
+			}
+		}
 	}
 
 	figure {
 		&.avatar {
 			img, svg {
 				border-color: $dark-discussion-avatar-border-color;
-			}
-		}
-	}
-
-	.discussion-categories {
-		legend {
-			color: $dark-discussion-category-header-color;
-		}
-	}
-
-	.discussion-categories-list {
-		label {
-			&:hover {
-				background-color: $dark-discussion-category-hover-background;
 			}
 		}
 	}
