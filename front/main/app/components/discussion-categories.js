@@ -93,6 +93,7 @@ export default Ember.Component.extend({
 		reset() {
 			const categories = this.get('categories');
 
+			track(trackActions.CategoriesResetTapped);
 			this.set('collapsed', false);
 			categories.setEach('selected', false);
 			categories.slice(this.get('defaultVisibleCategoriesCount')).setEach('collapsed', true);

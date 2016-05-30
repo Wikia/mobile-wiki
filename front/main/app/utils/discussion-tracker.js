@@ -36,6 +36,7 @@ const trackActions = {
 	AllCategoriesTapped: 'AllCategoriesTapped',
 	CategoriesCollaped: 'CategoriesCollaped',
 	CategoriesUncollaped: 'CategoriesUncollaped',
+	CategoriesResetTapped: 'CategoriesResetTapped',
 };
 
 /**
