@@ -22,7 +22,7 @@ import Ember from 'ember';
 const {Handlebars, Helper} = Ember;
 
 export default Helper.helper((params, options) => {
-	const name = params[0];
+	const content = params[0] || '';
 	let tagName = 'div',
 		className = '';
 
@@ -34,5 +34,5 @@ export default Helper.helper((params, options) => {
 		className = ` class="${options.className}"`;
 	}
 
-	return new Handlebars.SafeString(`<${tagName}${className}>${name}</${tagName}>`).toHTML();
+	return new Handlebars.SafeString(`<${tagName}${className}>${content}</${tagName}>`).toHTML();
 });
