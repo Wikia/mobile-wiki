@@ -92,7 +92,8 @@
 }
 
 .wiki-page-header.has-hero-image-preload {
-	animation: wiki-page-header-preload-preloading 2s infinite;
+	@include is-loading;
+
 	height: 0;
 	padding-bottom: 100%;
 	position: relative;
@@ -117,11 +118,4 @@
 	.icon {
 		fill: #fff;
 	}
-}
-
-// animations
-@keyframes wiki-page-header-preload-preloading {
-	0%   {background-color: #888;}
-	50%  {background-color: #999;}
-	100% {background-color: #888;}
 }
