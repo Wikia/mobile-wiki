@@ -99,8 +99,10 @@ export default Ember.Mixin.create({
 			this.get('themeColors.color-links')};}`;
 		styles += `.discussions .active-element-theme-color {color: ${this.get('themeColors.color-links')};}`;
 		styles += `.discussions .active-element-border-theme-color {border-color: ${this.get('themeColors.color-links')};}`;
-		styles += `.discussions .active-element-hover-theme-color:hover, .discussions .active-element-hover-theme-color:focus {color: ${activeElementHoverColor};}`;
-		styles += `.discussions .active-element-hover-border-theme-color:hover, .discussions .active-element-hover-border-theme-color:focus {border-color: ${activeElementHoverColor};}`;
+		styles += `.discussions .active-element-hover-theme-color:hover,
+			.discussions .active-element-hover-theme-color:focus {color: ${activeElementHoverColor};}`;
+		styles += `.discussions .active-element-hover-border-theme-color:hover,
+			.discussions .active-element-hover-border-theme-color:focus {border-color: ${activeElementHoverColor};}`;
 		styles += `.discussions .fill-theme-color {fill: ${this.get('themeColors.color-links')};}`;
 		styles += `.discussions .stroke-theme-color {stroke: ${this.get('themeColors.color-links')};}`;
 

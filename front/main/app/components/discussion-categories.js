@@ -111,12 +111,11 @@ export default Ember.Component.extend({
 
 		/**
 		 * @param {boolean} isAllCategories
-		 * @param {Event} event
 		 *
 		 * @returns {void}
 		 */
-		onCategoryClicked(isAllCategories, event) {
-			this.trackCategory(isAllcategories);
+		onCategoryClicked(isAllCategories) {
+			this.trackCategory(isAllCategories);
 		}
 	}
 });
