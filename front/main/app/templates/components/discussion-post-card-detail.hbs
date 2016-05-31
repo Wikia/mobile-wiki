@@ -61,11 +61,18 @@
 			isListView=true
 		}}
 	{{/if}}
-	<div class="row post-counters">
-		{{svg 'upvote-tiny' viewBox='0 0 14 14' class='icon upvote'}}
-		{{post.upvoteCount}}
-		{{svg 'reply-tiny' viewBox='0 0 14 14' class='icon replies'}}
-		{{replyCount}}
+	<div class="row post-bottom-row">
+		{{# if post.categoryName}}
+			<span class="post-category-name">
+				{{i18n 'main.in-category-label' ns='discussion' categoryName=post.categoryName}}
+			</span>
+		{{/if}}
+		<span class="post-counters">
+			{{svg 'upvote-tiny' viewBox='0 0 14 14' class='icon upvote'}}
+			{{post.upvoteCount}}
+			{{svg 'reply-tiny' viewBox='0 0 14 14' class='icon replies'}}
+			{{replyCount}}
+		</span>
 	</div>
 </div>
 {{discussion-post-card-actions

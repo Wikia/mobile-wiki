@@ -85,7 +85,8 @@
     "categories-show-more-button-label": "Show more",
     "categories-show-less-button-label": "Show less",
     "filter-posts-header": "Filter Posts",
-    "filter-reset-label": "Reset"
+    "filter-reset-label": "Reset",
+    "in-category-label": "In __categoryName__"
   },
   "editor": {
     "post-failed-error": "Post failed.",
