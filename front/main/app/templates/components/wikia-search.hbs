@@ -33,14 +33,12 @@
 						{{{suggestion.text}}}
 					{{/link-to}}
 				</li>
-			{{else}}
-				{{#if isLoadingResultsSuggestions}}
-					<li class="wikia-search__item wikia-search__search-suggestion wikia-search__loading">
-						{{i18n 'main.search-loading-msg'
-							ns='search'
-						}}
-					</li>
-				{{/if}}
+			{{else if isLoadingResultsSuggestions}}
+				<li class="wikia-search__item wikia-search__search-suggestion wikia-search__loading">
+					{{i18n 'main.search-loading-msg'
+						ns='search'
+					}}
+				</li>
 			{{/each}}
 		</ul>
     </div>
