@@ -9,8 +9,12 @@ const DiscussionModel = Ember.Object.extend({
 	wikiId: null,
 
 	selectedCategoryIds: Ember.computed('categories.@each.selected', function () {
-		return this.get('categories').filterBy('selected', true).mapBy('id');
+		return this.getCategoryIds(this.get('categories'));
 	}),
+
+	getCategoryIds(categories) {
+		return categories.filterBy('selected', true).mapBy('id');
+	},
 
 	/**
 	 * @param {object} apiData

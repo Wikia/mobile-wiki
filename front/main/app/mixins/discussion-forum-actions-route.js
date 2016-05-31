@@ -11,7 +11,7 @@ export default Ember.Mixin.create(
 			 *
 			 * @returns {EmberStates.Transition}
 			 */
-			applyFilters(sortBy, onlyReported) {
+			applyFilters(sortBy, onlyReported, categories) {
 				const discussionSort = this.get('discussionSort'),
 					currentSortBy = discussionSort.get('sortBy');
 
@@ -25,7 +25,12 @@ export default Ember.Mixin.create(
 					targetRoute = 'discussion.reported-posts';
 				}
 
-				return this.transitionTo(targetRoute, {queryParams: {sort: sortBy}});
+				return this.transitionTo(targetRoute, {
+					queryParams: {
+						sort: sortBy,
+						catId: this.get('model.index').getCategoryIds(categories)
+					}
+				});
 			},
 
 			/**

@@ -13,6 +13,8 @@ export default Ember.Component.extend(
 		showSortSection: false,
 		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
 
+		appliedCategories: null,
+
 		trendingDisabled: Ember.computed('onlyReported', function () {
 			return this.get('onlyReported') === true ? 'disabled' : false;
 		}),
@@ -29,6 +31,36 @@ export default Ember.Component.extend(
 			}
 		}),
 
+		didInsertElement() {
+			debugger;
+			this.set('appliedCategories', this.get('categories').slice(-1));
+			this._super(...arguments);
+		},
+
+		didCategoriesChange() {
+			return JSON.stringify(this.get('categories')) !== JSON.stringify(this.get('appliedCategories'));
+		},
+
+		trackSortByTapped(sortBy) {
+			const discussionSort = this.get('discussionSort');
+
+			if (sortBy !== discussionSort.get('sortBy')) {
+				if (sortBy === 'latest') {
+					track(trackActions.LatestPostTapped);
+				} else if (sortBy === 'trending') {
+					track(trackActions.TrendingPostTapped);
+				}
+			}
+		},
+
+		didFiltersChange(sortBy, onlyReported) {
+			const discussionSort = this.get('discussionSort');
+
+			return onlyReported !== discussionSort.get('onlyReported') ||
+					sortBy !== discussionSort.get('sortBy') ||
+					this.didCategoriesChange();
+		},
+
 		actions: {
 			/**
 			 * Form handler
@@ -37,20 +69,12 @@ export default Ember.Component.extend(
 			 */
 			applyFilters() {
 				const sortBy = this.get('sortBy'),
-					onlyReported = this.get('onlyReported'),
-					discussionSort = this.get('discussionSort');
+					onlyReported = this.get('onlyReported');
 
 				// No need for applying already applied filters again
-				if (sortBy !== discussionSort.get('sortBy')) {
-					if (sortBy === 'latest') {
-						track(trackActions.LatestPostTapped);
-					} else if (sortBy === 'trending') {
-						track(trackActions.TrendingPostTapped);
-					}
-
-					this.get('applyFilters')(this.get('sortBy'), this.get('onlyReported'));
-				} else if (onlyReported !== discussionSort.get('onlyReported')) {
-					this.get('applyFilters')(this.get('sortBy'), this.get('onlyReported'));
+				if (this.didFiltersChange(sortBy, onlyReported)) {
+					this.trackSortByTapped(sortBy);
+					this.get('applyFilters')(this.get('sortBy'), this.get('onlyReported'), this.get('appliedCategories'));
 				}
 
 				this.get('popover').deactivate();
@@ -64,6 +88,10 @@ export default Ember.Component.extend(
 			setSortBy(sortBy) {
 				this.set('sortBy', sortBy);
 			},
+
+			updateCategories() {
+
+			}
 		}
 	}
 );
