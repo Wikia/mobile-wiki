@@ -7,6 +7,7 @@ export default Ember.Component.extend(
 	{
 		// we want to re-use styles from article-media-thumbnail component
 		classNames: ['article-media-thumbnail'],
+		classNameBindings: ['isLoading'],
 		tagName: 'figure',
 
 		/**
