@@ -18,46 +18,38 @@ const {Component, computed, observer, inject, run} = Ember;
 export default Component.extend(NoScrollMixin,
 	{
 		classNames: ['wikia-search-wrapper'],
-		ajax: inject.service(),
-		query: '',
-		emptyQueryInput: computed.not('query'),
-
-		inputFocused: false,
-
-		/**
-		 * This is what's currently displayed in the search results
-		 * @member {SearchSuggestionItem[]}
-		 */
-		suggestions: [],
-		hasSuggestions: computed.notEmpty('suggestions'),
-		noScroll: computed.oneWay('hasSuggestions'),
-
-		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
-		isLoadingResultsSuggestions: false,
-
-		// in ms
-		debounceDuration: 250,
-
-		// string[] which holds in order of insertion, the keys for the cached items
-		cachedResultsQueue: [],
-
+		// key: query string, value: Array<SearchSuggestionItem>
+		cachedResults: {},
 		// How many items to store in the cachedResultsQueue
 		cachedResultsLimit: 100,
-		queryMinimalLength: 3,
-
-		searchPlaceholderLabel: computed(() => {
-			return i18n.t('search:main.search-input-label');
-		}),
-
+		// string[] which holds in order of insertion, the keys for the cached items
+		cachedResultsQueue: [],
+		// in ms
+		debounceDuration: 250,
+		inputFocused: false,
+		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
+		isLoadingResultsSuggestions: false,
 		/**
 		 * A set (only keys used) of query strings that are currently being ajax'd so
 		 * we know not to perform another request.
 		 */
 		requestsInProgress: {},
+		query: '',
+		queryMinimalLength: 3,
 		searchRequestInProgress: false,
+		/**
+		 * This is what's currently displayed in the search results
+		 * @member {SearchSuggestionItem[]}
+		 */
+		suggestions: [],
 
-		// key: query string, value: Array<SearchSuggestionItem>
-		cachedResults: {},
+		ajax: inject.service(),
+		emptyQueryInput: computed.not('query'),
+		hasSuggestions: computed.notEmpty('suggestions'),
+		noScroll: computed.oneWay('hasSuggestions'),
+		searchPlaceholderLabel: computed(() => {
+			return i18n.t('search:main.search-input-label');
+		}),
 
 		didInsertElement() {
 			this._super(...arguments);
