@@ -187,9 +187,7 @@ export default Ember.Mixin.create({
 		}
 
 		if (showPreFooter) {
-			const $showPreFooterAfter = $trendingVideos.length ? $trendingVideos : $trendingArticles;
-
-			this.appendAd(this.adsData.mobilePreFooter, 'after', $showPreFooterAfter);
+			this.appendAd(this.adsData.mobilePreFooter, 'after', $trendingArticles);
 		}
 	},
 
