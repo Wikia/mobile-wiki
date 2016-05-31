@@ -129,32 +129,32 @@ $border-bottom-height: 1px;
 	overflow: auto;
 	padding: 0;
 	white-space: nowrap;
+}
 
-	.wikia-search__search-suggestion {
-		box-sizing: content-box;
-		color: $oil;
-		height: $search-height;
-		line-height: $search-height;
+.wikia-search__search-suggestion {
+	box-sizing: content-box;
+	color: $oil;
+	height: $search-height;
+	line-height: $search-height;
+	padding: 0 $nav-padding-vertical;
+
+	a {
+		display: inline-block;
+		left: 0;
+		overflow: hidden;
 		padding: 0 $nav-padding-vertical;
-
-		a {
-			display: inline-block;
-			left: 0;
-			overflow: hidden;
-			padding: 0 $nav-padding-vertical;
-			position: absolute;
-			text-overflow: ellipsis;
-			width: 100%;
-		}
+		position: absolute;
+		text-overflow: ellipsis;
+		width: 100%;
 	}
+}
 
-	.wikia-search__loading {
-		text-align: center;
-	}
+.wikia-search__loading {
+	text-align: center;
+}
 
-	.wikia-search__suggestion-highlighted {
-		font-weight: bold;
-	}
+.wikia-search__suggestion-highlighted {
+	font-weight: bold;
 }
 
 .no-scroll .site-head-headroom-un-pinned .site-head {
