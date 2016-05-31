@@ -75,10 +75,8 @@
     "locked-and-reported-to-moderators-text":"Questo post è bloccato ed è stato segnalato.",
     "edit-reply":"Modifica risposta",
     "edit-post":"Modifica post",
-    "upvote-link-label":"__count__ Voto",
-    "upvote-link-label_plural":"__count__ Voti",
-    "replies-link-label":"__count__ Risposta",
-    "replies-link-label_plural":"__count__ Risposte",
+    "upvote-label":"Voto",
+    "reply-label":"Rispondi",
     "share-header":"Condividi post",
     "share-label":"Condividi",
     "reported-not-found-error":"Nessun post o risposta segnalata"

@@ -229,6 +229,33 @@ let routes,
 			config: {
 				cache: routeCacheConfig
 			}
+		},
+		// Discussion routes
+		{
+			// Discussion user page and post details page
+			method: 'GET',
+			path: '/d/{type}/{id}/{action*}',
+			handler: discussionsHandler
+		},
+		{
+			// Make sure old discussion post list URLs are redirected to discussion main page
+			method: 'GET',
+			path: '/d/f/{id}/{action*}',
+			handler(request, reply) {
+				return reply.redirect('/d/f').permanent(true);
+			}
+		},
+		{
+			// Discussion main page and list of reported posts
+			method: 'GET',
+			path: '/d/{type}',
+			handler: discussionsHandler
+		},
+		{
+			// Discussion index
+			method: 'GET',
+			path: '/d',
+			handler: discussionsHandler
 		}
 	];
 
@@ -245,22 +272,6 @@ mediaWikiPagePaths.forEach((path) => {
 			cache: routeCacheConfig
 		}
 	});
-});
-
-// For application routes that are not articles and require the Ember app, push a route object
-// that uses the `showApplication` route handler to get a basic Ember application instance
-authenticatedRoutes.push({
-	// Discussion forums
-	method: 'GET',
-	path: '/d/{type}/{id}/{action*}',
-	handler: discussionsHandler
-});
-
-authenticatedRoutes.push({
-	// Discussion index
-	method: 'GET',
-	path: '/d',
-	handler: discussionsHandler
 });
 
 /**

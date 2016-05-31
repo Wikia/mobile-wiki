@@ -85,15 +85,11 @@ Router.map(function () {
 		path: '/d'
 	}, function () {
 		this.route('forum', {
-			path: '/f/:forumId'
-		});
-
-		this.route('forum', {
-			path: '/f/:forumId/:sortBy'
+			path: '/f'
 		});
 
 		this.route('reported-posts', {
-			path: '/f/:forumId/:sortBy/reported'
+			path: '/reported'
 		});
 
 		this.route('post', {

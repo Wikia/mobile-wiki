@@ -3,6 +3,7 @@ $discussion-user-list-hero-unit-avatar-size: 60px;
 $discussion-user-list-mobile-header-avatar-size: 30px;
 $discussion-user-list-item-desktop-side-padding: 30px;
 $discussion-user-list-item-mobile-side-padding: 18px;
+$discussion-lists-post-margin-bottom: 10px;
 
 .discussion-user-list,
 .discussion-reported-posts {
@@ -21,7 +22,7 @@ $discussion-user-list-item-mobile-side-padding: 18px;
 	}
 
 	.post-reply {
-		margin-bottom: 5px;
+		margin-bottom: $discussion-lists-post-margin-bottom;
 
 		.discussion-reply {
 			padding-left: $discussion-user-list-item-desktop-side-padding;
