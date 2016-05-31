@@ -11,18 +11,18 @@ class Mover:
     def __init__(self):
         pass
 
-    locales = '/Users/adamr/Wikia/mercury/front/common/public/locales'
+    locales = '../front/common/public/locales'
 
     def move(self, source, target):
         for lang in os.listdir(self.locales):
-            print lang
+            print(lang)
             translation = self.get_translation(source, lang)
             if translation:
                 self.save_translation(target, lang, translation)
 
     def get_translation(self, source, lang):
         s = source.split(':')
-        source_path = '%s/%s/%s.json' % (self.locales, lang, s[0])
+        source_path = '{!s}/{!s}/{!s}.json'.format(self.locales, lang, s[0])
         with open(source_path, 'rb+') as source_file:
             json_source = r_json_source = json.load(source_file)
 
@@ -42,7 +42,7 @@ class Mover:
 
     def save_translation(self, target, lang, translation):
         t = target.split(':')
-        target_path = '%s/%s/%s.json' % (self.locales, lang, t[0])
+        target_path = '{!s}/{!s}/{!s}.json'.format(self.locales, lang, t[0])
         with open(target_path, 'rb+') as target_file:
             json_target = json.load(target_file)
             if not json_target:
