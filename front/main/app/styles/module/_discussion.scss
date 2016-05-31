@@ -704,7 +704,8 @@ body.discussions {
 					line-height: $desktop-post-details-content-line-height;
 				}
 
-				.post-counters {
+				.post-counters,
+				.post-category-name {
 					font-size: $type-smallest;
 				}
 			}
