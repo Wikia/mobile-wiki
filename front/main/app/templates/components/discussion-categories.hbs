@@ -2,7 +2,7 @@
 	{{i18n 'main.filter-posts-header' ns='discussion'}}
 	<a class="active-element-theme-color" {{action 'reset'}}>{{i18n 'main.filter-reset-label' ns='discussion'}}</a>
 </h3>
-<fieldset class="discussion-fieldset discussion-categories {{if collapsed 'collapsed'}}">
+<fieldset class="discussion-fieldset discussion-categories {{if collapsed 'collapsed'}}" disabled="{{if disabled 'disabled'}}">
 	<legend {{action 'toggle'}}>
 		{{i18n 'main.categories-header' ns='discussion'}}
 		{{svg 'chevron-linked' role='img' class='icon chevron'}}
@@ -11,7 +11,7 @@
 		<ul class="discussion-categories-list">
 			<li>
 				{{wikia-ui-components/fancy-check-box
-					click=(action 'onCategoryClicked' true)
+					click=(action 'onCategoryClick' true)
 					label=(i18n 'main.category-all-name' ns='discussion')
 					inputId=(concat categoriesInputIdPrefix 'all')
 					isChecked=categoryAllSelected
@@ -21,7 +21,7 @@
 				{{#unless category.collapsed}}
 					<li>
 						{{wikia-ui-components/fancy-check-box
-							click=(action 'onCategoryClicked' false)
+							click=(action 'onCategoryClick' false)
 							label=category.name
 							inputId=(concat categoriesInputIdPrefix category.id)
 							isChecked=category.selected

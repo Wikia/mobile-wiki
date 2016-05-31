@@ -2,7 +2,9 @@
 	<div class="discussion-filters-fields-wrapper">
 		{{#if categories}}
 			{{discussion-categories
-				categories=categories
+				categories=appliedCategories
+				disabled=onlyReported
+				updateCategories=(action 'updateCategories')
 				inputIdPrefix='filters'
 			}}
 		{{/if}}

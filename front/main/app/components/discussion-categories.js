@@ -3,6 +3,7 @@ import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	collapsed: false,
+	disabled: false,
 
 	visibleCategoriesCount: null,
 
@@ -107,6 +108,8 @@ export default Ember.Component.extend({
 			this.set('collapsed', false);
 			categories.setEach('selected', false);
 			this.collapseCategoriesAboveLimit();
+
+			this.sendAction('updateCategories');
 		},
 
 		/**
@@ -114,8 +117,10 @@ export default Ember.Component.extend({
 		 *
 		 * @returns {void}
 		 */
-		onCategoryClicked(isAllCategories) {
+		onCategoryClick(isAllCategories, event) {
 			this.trackCategory(isAllCategories);
+
+			this.sendAction('updateCategories');
 		}
 	}
 });

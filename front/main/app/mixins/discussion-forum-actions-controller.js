@@ -34,8 +34,8 @@ export default Ember.Mixin.create(
 			 *
 			 * @returns {void}
 			 */
-			applyFilters(sortBy, shouldShowReported) {
-				this.get('target').send('applyFilters', sortBy, shouldShowReported);
+			applyFilters(sortBy, shouldShowReported, categoryIds) {
+				this.get('target').send('applyFilters', sortBy, shouldShowReported, categoryIds);
 			}
 		}
 	}
