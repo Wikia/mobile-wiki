@@ -126,17 +126,17 @@ test('setSearchSuggestionItems - correctly set suggestions array', function (ass
 		],
 		suggestionsAfterProcessing = [
 			{
-				text: '<span class=\"wikia-search__suggestion-highlighted\">sug</span>gestion1',
+				text: '<span class="wikia-search__suggestion-highlighted">sug</span>gestion1',
 				title: 'suggestion1',
 				uri: 'suggestion1'
 			},
 			{
-				text: '<span class=\"wikia-search__suggestion-highlighted\">sug</span>gestion 2!',
+				text: '<span class="wikia-search__suggestion-highlighted">sug</span>gestion 2!',
 				title: 'suggestion 2!',
 				uri: 'suggestion%202!'
 			},
 			{
-				text: '<span class=\"wikia-search__suggestion-highlighted\">sug</span> GES %^&*^%&>?<tion>',
+				text: '<span class="wikia-search__suggestion-highlighted">sug</span> GES %^&*^%&>?<tion>',
 				title: 'sug GES %^&*^%&>?<tion>',
 				uri: 'sug%20GES%20%25%5E%26*%5E%25%26%3E%3F%3Ction%3E'
 			},
@@ -146,11 +146,11 @@ test('setSearchSuggestionItems - correctly set suggestions array', function (ass
 				uri: 'no%20query%20inside'
 			},
 			{
-				text: '<span class=\"wikia-search__suggestion-highlighted\">sug</span> ' +
-				'<span class=\"wikia-search__suggestion-highlighted\">sug</span> ' +
-				'<span class=\"wikia-search__suggestion-highlighted\">sug</span>gestions ' +
-				'<span class=\"wikia-search__suggestion-highlighted\">sug</span> ' +
-				'<span class=\"wikia-search__suggestion-highlighted\">sug</span>',
+				text: '<span class="wikia-search__suggestion-highlighted">sug</span> ' +
+				'<span class="wikia-search__suggestion-highlighted">sug</span> ' +
+				'<span class="wikia-search__suggestion-highlighted">sug</span>gestions ' +
+				'<span class="wikia-search__suggestion-highlighted">sug</span> ' +
+				'<span class="wikia-search__suggestion-highlighted">sug</span>',
 				title: 'sug sug suggestions sug sug',
 				uri: 'sug%20sug%20suggestions%20sug%20sug'
 			}

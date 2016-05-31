@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import NoScrollMixin from '../mixins/no-scroll';
 import {track, trackActions} from 'common/utils/track';
+import wrapMeHelper from '../helpers/wrap-me';
 
 const {Component, computed, observer, inject, run} = Ember;
 
@@ -150,7 +151,9 @@ export default Component.extend(NoScrollMixin,
 		setSearchSuggestionItems(suggestions = []) {
 			const query = this.get('query'),
 				highlightRegexp = new RegExp(query, 'ig'),
-				highlighted = `<span class=\"wikia-search__suggestion-highlighted\">${query}</span>`;
+				highlighted = wrapMeHelper.compute([query], {
+					className: 'wikia-search__suggestion-highlighted'
+				});
 
 			suggestions.forEach(
 				/**
