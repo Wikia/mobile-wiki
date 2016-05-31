@@ -24,6 +24,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	siteHeadHeight: 0,
 
 	bodyText: '',
+	contentLength: 0,
 	errorMessage: Ember.computed.alias('discussionEditor.errorMessage'),
 
 	layoutName: 'components/discussion-editor',
@@ -49,23 +50,45 @@ export default Ember.Component.extend(ViewportMixin, {
 	 * @returns {void}
 	 */
 	onTextContent: Ember.observer('bodyText', function () {
-		if (this.get('bodyText').length > 0 && !this.get('wasContentTracked')) {
+		if (this.get('contentLength') > 0 && !this.get('wasContentTracked')) {
 			this.trackContentAction();
 		}
 
-		this.setOpenGraphProperties(this.get('bodyText'), /(https?:\/\/[^\s]+)\s$/g);
+		this.handleOG();
+
+		this.set('contentLength', this.get('bodyText').length);
 	}),
 
-	setOpenGraphProperties(text, urlRegex) {
-		let url, urls;
+	/**
+	 * Generates OG card if there's a url to generate it for
+	 *
+	 * @returns {void}
+	 */
+	handleOG() {
+		const textarea = this.$('textarea').get(0);
 
-		if (this.get('showsOpenGraphCard')) {
+		if (!textarea) {
 			return;
 		}
 
-		urls = text.match(urlRegex);
+		const value = this.get('bodyText'),
+			lastChar = value.charCodeAt(textarea.selectionEnd - 1),
+			allowedChars = [10, 13, 32];
 
-		if (!urls) {
+		if (allowedChars.indexOf(lastChar) === -1 || value.length <= this.get('contentLength')) {
+			return;
+		}
+
+		const url = this.getLastUrlFromText(value.substring(0, textarea.selectionEnd));
+
+		// start with position of caret - url length - 1 for newly typed charatcter
+		if (url && value.indexOf(url) === textarea.selectionEnd - url.length - 1) {
+			this.setOpenGraphProperties(url);
+		}
+	},
+
+	setOpenGraphProperties(url) {
+		if (this.get('showsOpenGraphCard')) {
 			return;
 		}
 
@@ -73,8 +96,6 @@ export default Ember.Component.extend(ViewportMixin, {
 			isOpenGraphLoading: true,
 			showsOpenGraphCard: true
 		});
-
-		url = urls[0].trim();
 
 		this.get('generateOpenGraph')(url)
 			.then((openGraph) => {
@@ -242,6 +263,18 @@ export default Ember.Component.extend(ViewportMixin, {
 		}, 2000);
 	},
 
+	getLastUrlFromText(text) {
+		let urls;
+
+		urls = text.match(/(https?:\/\/[^\s]+)/g);
+
+		if (!urls) {
+			return null;
+		}
+
+		return urls.pop();
+	},
+
 	/**
 	 * @param {object} newItem
 	 *
@@ -277,7 +310,8 @@ export default Ember.Component.extend(ViewportMixin, {
 	},
 
 	initializePasting() {
-		this.$().find('textarea').on('paste', this.onPaste.bind(this));
+		this.$().find('textarea')
+			.on('paste', this.onPaste.bind(this));
 	},
 
 	/**
@@ -300,10 +334,14 @@ export default Ember.Component.extend(ViewportMixin, {
 		}
 
 		if (typeof pastedText === 'string' && pastedText.length) {
-			this.setOpenGraphProperties(pastedText, /(https?:\/\/[^\s]+)/g);
+			this.setOpenGraphProperties(this.getLastUrlFromText(pastedText));
 		} else {
 			Ember.run.later(() => {
-				this.setOpenGraphProperties(event.target.value, /(https?:\/\/[^\s]+)/g);
+				const textarea = event.target;
+
+				this.setOpenGraphProperties(this.getLastUrlFromText(
+					textarea.value.substring(0, textarea.selectionEnd)
+				));
 			}, 100);
 		}
 	},
