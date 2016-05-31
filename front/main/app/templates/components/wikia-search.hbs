@@ -36,7 +36,9 @@
 			{{else}}
 				{{#if isLoadingResultsSuggestions}}
 					<li class="wikia-search__item wikia-search__search-suggestion wikia-search__loading">
-						{{i18n 'app.search-loading-msg'}}
+						{{i18n 'main.search-loading-msg'
+							ns='search'
+						}}
 					</li>
 				{{/if}}
 			{{/each}}
