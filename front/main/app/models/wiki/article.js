@@ -78,7 +78,7 @@ ArticleModel.reopenClass({
 	getPreloadedData() {
 		const article = Mercury.article;
 
-		M.prop('articleContentPreloadedInDOM', false);
+		M.prop('articleContentPreloadedInDOM', false, true);
 
 		if (article.data && article.data.article) {
 			// On the first page load the article content is available only in HTML

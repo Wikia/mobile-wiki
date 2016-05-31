@@ -9,6 +9,8 @@ export default DiscussionEditorComponent.extend({
 
 	placeholderText: 'editor.post-editor-placeholder-text',
 
+	wasInitialized: false,
+
 	didInsertElement() {
 		this._super(...arguments);
 		this.get('discussionEditor').on('newPost', this, this.handlePostEdited);
@@ -74,9 +76,17 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	trackContentAction() {
-		if (this.get('discussionEditor.discussionEntity.rawContent') !== this.get('bodyText')) {
+		if (this.get('wasInitialized')) {
 			this._super();
 		}
+	},
+
+	setOpenGraphProperties(text, urlRegex) {
+		if (!this.get('wasInitialized')) {
+			return;
+		}
+
+		this._super(text, urlRegex);
 	},
 
 	/**
@@ -84,37 +94,57 @@ export default DiscussionEditorComponent.extend({
 	 * @returns {void}
 	 */
 	afterOpenActions() {
+		const discussionEntity = this.get('discussionEditor.discussionEntity');
+
 		this._super();
-		this.set('bodyText', this.getWithDefault('discussionEditor.discussionEntity.rawContent', ''));
+
+		this.setProperties({
+			bodyText: discussionEntity.get('rawContent'),
+			openGraph: discussionEntity.get('openGraph'),
+			showsOpenGraphCard: Boolean(discussionEntity.get('openGraph'))
+		});
 
 		Ember.run.scheduleOnce('afterRender', this, () => {
 			// This needs to be triggered after Ember updates textarea content
 			this.$('.editor-textarea').get(0).setSelectionRange(0, 0);
+			this.set('wasInitialized', true);
 		});
 	},
 
-	actions: {
+	afterCloseActions() {
+		this._super();
 
+		this.set('wasInitialized', false);
+	},
+
+	actions: {
 		/**
 		 * Send request to model to create new post and start animations
 		 * @returns {void}
 		 */
 		submit() {
 			if (!this.get('submitDisabled')) {
-				const discussionEntity = this.get('discussionEditor.discussionEntity');
+				const discussionEntity = this.get('discussionEditor.discussionEntity'),
+					editedDisucssionEntity = {
+						body: this.get('bodyText')
+					};
 
 				this.get('discussionEditor').set('isLoading', true);
 
+				if (this.get('showsOpenGraphCard')) {
+					editedDisucssionEntity.openGraph = {
+						uri: this.get('openGraph.href')
+					};
+				}
+
 				if (discussionEntity.get('isReply')) {
-					this.get('editReply')({
-						body: this.get('bodyText'),
-						id: discussionEntity.get('id'),
-					});
+					editedDisucssionEntity.id = discussionEntity.get('id');
+
+					this.get('editReply')(editedDisucssionEntity);
 				} else {
-					this.get('editPost')({
-						body: this.get('bodyText'),
-						id: discussionEntity.get('threadId'),
-					});
+					editedDisucssionEntity.id = discussionEntity.get('threadId');
+
+					this.get('editPost')(editedDisucssionEntity);
 				}
 			}
 		},

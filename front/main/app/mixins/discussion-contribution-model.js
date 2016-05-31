@@ -3,6 +3,7 @@ import request from 'ember-ajax/request';
 import {track, trackActions} from '../utils/discussion-tracker';
 import DiscussionPost from '../models/discussion/domain/post';
 import DiscussionReply from '../models/discussion/domain/reply';
+import OpenGraph from '../models/discussion/domain/open-graph';
 
 export default Ember.Mixin.create({
 	/**
@@ -108,6 +109,24 @@ export default Ember.Mixin.create({
 			entity.set('userData.hasUpvoted', hasUpvoted);
 		}).finally(() => {
 			this.upvotingInProgress[entityId] = false;
+		});
+	},
+
+	/**
+	 * Generate Open Graph data in the service
+	 *
+	 * @param {string} uri
+	 *
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	generateOpenGraph(uri) {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/opengraph/`), {
+			data: {
+				uri
+			},
+			method: 'GET',
+		}).then((OpenGraphApiData) => {
+			return OpenGraph.create(OpenGraphApiData);
 		});
 	},
 });

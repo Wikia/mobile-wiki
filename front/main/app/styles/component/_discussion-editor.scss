@@ -6,6 +6,7 @@ $sticky-editor-width: 529px;
 $modal-editor-width: 520px;
 $success-icon-size: 80px;
 $editor-textarea-overflow-ios-hack: 30px;
+$editor-label-height: 44px;
 
 .editor-container {
 	background-color: $discussion-editor-toolbar-background-color;
@@ -53,6 +54,7 @@ $editor-textarea-overflow-ios-hack: 30px;
 
 	.editor-textarea {
 		border-bottom: 1px solid $secondary-color;
+		flex: 1;
 		height: $line-height-smaller;
 		min-height: $line-height-smaller;
 		padding: 0;
@@ -115,10 +117,9 @@ $editor-textarea-overflow-ios-hack: 30px;
 		}
 
 		.editor-textarea {
+			border-bottom: 0;
 			max-height: 400px;
-			min-height: 106px;
 			padding: $editor-textarea-paddings;
-			resize: vertical;
 		}
 
 		.editor-textarea-overflow {
@@ -128,6 +129,9 @@ $editor-textarea-overflow-ios-hack: 30px;
 		}
 
 		.editor-wrapper {
+			max-height: 160px;
+			min-height: 106px;
+			overflow: auto;
 			padding: 0;
 		}
 	}
@@ -161,6 +165,7 @@ $editor-textarea-overflow-ios-hack: 30px;
 	border-radius: 0;
 	-webkit-font-smoothing: subpixel-antialiased;
 	margin: 0;
+	resize: none;
 
 	&:focus {
 		background-color: transparent;
@@ -186,7 +191,8 @@ $editor-textarea-overflow-ios-hack: 30px;
 		display: block;
 
 		.editor-label {
-			background-color: $discussion-editor-background-color;;
+			background-color: $discussion-editor-background-color;
+			border-top: $editor-active-mobile-border-top-width solid $discussion-editor-textarea-border-color;
 			color: $discussion-editor-label-color;
 			font-size: $type-min;
 			font-weight: bold;
@@ -227,18 +233,20 @@ $editor-textarea-overflow-ios-hack: 30px;
 		}
 
 		.editor-wrapper {
-			height: calc(100% - #{$editor-toolbar-height});
+			//editor label + editor toolbar
+			height: calc(100% - #{$editor-label-height + $editor-toolbar-height});
+			margin-top: $editor-toolbar-height;
+			max-height: none;
+			position: relative;
+			top: $editor-label-height;
 		}
 
 		.editor-textarea {
 			border-bottom-width: 0;
-			border-top: $editor-active-mobile-border-top-width solid $discussion-editor-textarea-border-color;
 			height: 100%;
 			max-height: none;
-			padding: $editor-toolbar-height 10px 10px;
+			padding: 0 10px 10px;
 			position: relative;
-			resize: none;
-			top: $editor-toolbar-height;
 			width: 100%;
 		}
 
@@ -254,7 +262,6 @@ $editor-textarea-overflow-ios-hack: 30px;
 	}
 }
 
-
 @media #{$desktop-range} {
 	.discussion-editor.is-edit {
 		@include modal-editor;
@@ -264,6 +271,10 @@ $editor-textarea-overflow-ios-hack: 30px;
 				height: 350px;
 				margin-top: 66px;
 				width: $modal-editor-width;
+			}
+
+			.editor-wrapper {
+				max-height: none;
 			}
 
 			.editor-label {

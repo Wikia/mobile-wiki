@@ -1,0 +1,15 @@
+@mixin is-loading {
+	animation: is-loading 2s infinite;
+}
+
+@keyframes is-loading {
+	0% {
+		background-color: #e6e6e6;
+	}
+	50% {
+		background-color: #f6f6f6;
+	}
+	100% {
+		background-color: #e6e6e6;
+	}
+}

@@ -53,7 +53,7 @@ export default Route.extend(
 				 * This is called after the first route of any application session has loaded
 				 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM
 				 */
-				M.prop('articleContentPreloadedInDOM', false);
+				M.prop('articleContentPreloadedInDOM', false, true);
 
 				// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
 				// Optimally, it would remain in the same place.
@@ -208,11 +208,13 @@ export default Route.extend(
 
 			// This is used only in not-found.hbs template
 			/**
-			 * @param {boolean} visible
 			 * @returns {void}
 			 */
-			toggleDrawer(visible) {
-				this.get('controller').set('drawerVisible', visible);
+			openNav() {
+				this.get('controller').setProperties({
+					drawerContent: 'nav',
+					drawerVisible: true
+				});
 			}
 		},
 

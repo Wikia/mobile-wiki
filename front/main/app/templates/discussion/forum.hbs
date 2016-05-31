@@ -5,6 +5,7 @@
 }}
 	{{discussion-edit-editor
 		editPost=(action 'editPost')
+		generateOpenGraph=(route-action 'generateOpenGraph')
 	}}
 {{/modal-dialog}}
 {{#discussion-entities-list-layout
@@ -19,6 +20,7 @@
 		createPost=(action 'createPost')
 		deletePost=(action 'deletePost')
 		editPost=(action 'editPost')
+		generateOpenGraph=(route-action 'generateOpenGraph')
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
 		minorError=model.data.minorError

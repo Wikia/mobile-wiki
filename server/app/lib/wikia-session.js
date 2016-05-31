@@ -2,7 +2,7 @@ import {unauthorized} from 'boom';
 import Wreck from 'wreck';
 import localSettings from '../../config/localSettings';
 import Logger from './logger';
-import {getWhoAmIUrl} from './auth-utils';
+import {getHeliosInternalUrl} from './auth-utils';
 
 /**
  * @returns {Object}
@@ -34,20 +34,20 @@ export default function scheme() {
 
 					// Detects an error with the connection
 					if (err || parseError) {
-						Logger.error('WhoAmI connection error: ', {
+						Logger.error('Helios connection error: ', {
 							err,
 							parseError
 						});
-						return reply(unauthorized('WhoAmI connection error'));
+						return reply(unauthorized('Helios connection error'));
 					}
 
 					if (response.statusCode && response.statusCode !== 200) {
 						if (response.statusCode === 401) {
 							reply.unstate('access_token');
 						}
-						return reply(unauthorized('Token not authorized by WhoAmI'));
+						return reply(unauthorized('Token not authorized by Helios'));
 					}
-					return reply.continue({credentials: {userId: parsed.userId}});
+					return reply.continue({credentials: {userId: parsed.user_id}});
 				};
 
 			if (!accessToken) {
@@ -55,12 +55,15 @@ export default function scheme() {
 			}
 
 			Wreck.get(
-				getWhoAmIUrl(),
+				getHeliosInternalUrl('/info', {
+					code: accessToken
+				}),
 				{
-					timeout: localSettings.whoAmIService.timeout,
 					headers: {
-						Cookie: `access_token=${encodeURIComponent(accessToken)}`
-					}
+						'X-Client-Ip': request.headers['fastly-client-ip'] || request.info.remoteAddress,
+						'X-Forwarded-For': request.headers['x-forwarded-for'] || request.info.remoteAddress
+					},
+					timeout: localSettings.helios.timeout
 				},
 				callback
 			);

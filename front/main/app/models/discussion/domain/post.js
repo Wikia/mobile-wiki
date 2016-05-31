@@ -73,6 +73,7 @@ DiscussionPost.reopenClass({
 				isNew: threadData.isNew,
 				isReported: threadData.isReported,
 				isRequesterBlocked: threadData.isRequesterBlocked,
+				openGraph: null,
 				permalinkedReplyId: threadData.permalinkedReplyId,
 				rawContent: threadData.rawContent,
 				repliesCount: parseInt(threadData.postCount, 10),
