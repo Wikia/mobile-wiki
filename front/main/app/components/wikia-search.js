@@ -148,8 +148,9 @@ export default Component.extend(NoScrollMixin,
 		 * @returns {void}
 		 */
 		setSearchSuggestionItems(suggestions = []) {
-			const highlightRegexp = new RegExp(this.get('query'), 'i'),
-				highlighted = `<span class=\"wikia-search__suggestion-highlighted\">${this.get('query')}</span>`;
+			const query = this.get('query'),
+				highlightRegexp = new RegExp(query, 'ig'),
+				highlighted = `<span class=\"wikia-search__suggestion-highlighted\">${query}</span>`;
 
 			suggestions.forEach(
 				/**
