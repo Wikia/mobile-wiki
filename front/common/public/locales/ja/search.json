@@ -1,0 +1,6 @@
+{
+  "main": {
+    "search-input-label": "検索", 
+    "search-loading-msg": "検索結果を読込中..."
+  }
+}

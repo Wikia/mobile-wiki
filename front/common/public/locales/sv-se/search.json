@@ -1,0 +1,6 @@
+{
+  "main": {
+    "search-input-label": "Search", 
+    "search-loading-msg": "Laddar sökresultat..."
+  }
+}
