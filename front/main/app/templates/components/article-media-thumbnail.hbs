@@ -1,4 +1,4 @@
-{{! This wrapper is required so the spinner and chevron are positioned correctly }}
+{{! This wrapper is required so the chevron is positioned correctly }}
 <div class="article-media-thumbnail-image-wrapper">
 	{{#if link}}
 		<a href="{{link}}">
@@ -12,10 +12,6 @@
 			height="{{if forcedHeight forcedHeight height}}"
 			width="{{if forcedWidth forcedWidth width}}">
 	{{/if}}
-	{{loading-spinner
-		active=isLoading
-		overlay=false
-	}}
 </div>
 
 {{! Allow custom captions }}
