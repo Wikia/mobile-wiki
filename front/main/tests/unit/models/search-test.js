@@ -96,7 +96,7 @@ test('test can load more', (assert) => {
 test('test a new query state reset', (assert) => {
 	const search = SearchModel.create();
 
-	search.call = sinon.stub();
+	search.fetch = sinon.stub();
 
 	search.update({
 		total: 1,
