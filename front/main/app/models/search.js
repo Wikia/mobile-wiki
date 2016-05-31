@@ -27,18 +27,18 @@ export default Object.extend({
 			items: A([])
 		});
 
-		return this.call(query);
+		return this.fetch(query);
 	},
 
 	loadMore() {
 		if (this.get('canLoadMore')) {
 			this.set('batch', this.get('batch') + 1);
 
-			return this.call(this.get('query'));
+			return this.fetch(this.get('query'));
 		}
 	},
 
-	call(query) {
+	fetch(query) {
 		this.set('error', '');
 		return query &&
 			request(M.buildUrl({path: '/api/v1/Search/List'}), {
