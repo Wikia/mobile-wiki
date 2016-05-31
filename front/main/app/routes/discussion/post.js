@@ -29,7 +29,7 @@ export default DiscussionBaseRoute.extend(
 		 * @returns {void}
 		 */
 		afterModel(model) {
-			let title = model.get('title');
+			let title = model.current.get('title');
 
 			this._super(...arguments);
 
