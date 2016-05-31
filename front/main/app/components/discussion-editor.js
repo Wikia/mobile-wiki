@@ -75,7 +75,7 @@ export default Ember.Component.extend(ViewportMixin, {
 			lastChar = value.charCodeAt(textarea.selectionEnd - 1),
 			allowedChars = [10, 13, 32];
 
-		if (allowedChars.indexOf(lastChar) !== -1 || value.length <= this.get('contentLength')) {
+		if (allowedChars.indexOf(lastChar) === -1 || value.length <= this.get('contentLength')) {
 			return;
 		}
 
