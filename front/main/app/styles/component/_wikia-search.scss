@@ -54,9 +54,9 @@ $border-bottom-height: 1px;
 }
 
 .wikia-search__item {
-	@include link-interactions-color(inherit);
+	@include link-interactions-color($oil);
 
-	color: inherit;
+	color: $oil;
 	display: block;
 	font-size: $nav-font-size;
 	margin-top: 0;
@@ -93,7 +93,6 @@ $border-bottom-height: 1px;
 		border: 0;
 		bottom: 5px;
 		box-shadow: none;
-		color: $oil;
 		display: inline-block;
 		font: inherit;
 		font-size: $search-input-font-size;
@@ -133,7 +132,6 @@ $border-bottom-height: 1px;
 
 .wikia-search__search-suggestion {
 	box-sizing: content-box;
-	color: $oil;
 	height: $search-height;
 	line-height: $search-height;
 	padding: 0 $nav-padding-vertical;
