@@ -19,7 +19,7 @@ export default Ember.Component.extend({
 		const categories = this.get('categories'),
 			localCategories = new Ember.A();
 
-		categories.forEach(function (category) {
+		categories.forEach((category) => {
 			localCategories.pushObject($.extend({}, category));
 		});
 
@@ -130,7 +130,7 @@ export default Ember.Component.extend({
 		 *
 		 * @returns {void}
 		 */
-		onCategoryClick(isAllCategories, event) {
+		onCategoryClick(isAllCategories) {
 			this.trackCategory(isAllCategories);
 		},
 	}
