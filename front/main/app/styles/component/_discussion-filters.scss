@@ -11,6 +11,7 @@ $legend-font-size: 16px;
 	}
 }
 
+
 .discussion-filter-header {
 	border-bottom: 1px solid $discussion-rail-separator-color;
 	font-size: $type-smaller;
@@ -21,6 +22,10 @@ $legend-font-size: 16px;
 		float: right;
 		font-size: $type-min;
 		text-transform: uppercase;
+	}
+
+	.rail & {
+		margin-top: 24px;
 	}
 }
 
