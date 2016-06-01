@@ -27,8 +27,7 @@ export default Component.extend(NoScrollMixin,
 		// in ms
 		debounceDuration: 250,
 		inputFocused: false,
-		// Whether or not to display the loading search suggestion results message (en:
-		// 'Loading...')
+		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
 		isLoadingResultsSuggestions: false,
 		/**
 		 * A set (only keys used) of query strings that are currently being ajax'd so
@@ -127,8 +126,7 @@ export default Component.extend(NoScrollMixin,
 				searchRequestInProgress: false
 			});
 
-			// If the query string is empty or shorter than the minimal length, return to leave the
-			// view blank
+			// If the query string is empty or shorter than the minimal length, return to leave the view blank
 			if (!query || query.length < this.get('queryMinimalLength')) {
 				/**
 				 * Even if there are pending search API ajax requests, we don't care about
@@ -283,8 +281,7 @@ export default Component.extend(NoScrollMixin,
 		 */
 
 		/**
-		 * returns whether or not the number of cached results is equal to our limit on cached
-		 * results
+		 * returns whether or not the number of cached results is equal to our limit on cached results
 		 *
 		 * @returns {boolean}
 		 */
@@ -309,8 +306,7 @@ export default Component.extend(NoScrollMixin,
 		 * caches the provided query/suggestion array pair
 		 *
 		 * @param {string} query - the query string that was used in the search API request
-		 * @param {SearchSuggestionItem[]} [suggestions] - if not provided, then there were zero
-		 *     results
+		 * @param {SearchSuggestionItem[]} [suggestions] - if not provided, then there were zero results
 		 * @returns {void}
 		 */
 		cacheResult(query, suggestions) {
