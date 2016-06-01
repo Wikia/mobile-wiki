@@ -11,5 +11,5 @@ import checkBox from './check-box';
  * }}
  */
 export default checkBox.extend({
-	classNames: ['fancy-checkbox-label']
+	classNames: ['fancy-checkbox-label'],
 });

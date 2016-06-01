@@ -4,7 +4,7 @@ import DiscussionCategory from './discussion/domain/category';
 import request from 'ember-ajax/request';
 
 const DiscussionModel = Ember.Object.extend({
-	categories: [],
+	categories: new Ember.A(),
 	data: null,
 	wikiId: null,
 

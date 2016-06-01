@@ -31,11 +31,12 @@ export default Ember.Mixin.create(
 			/**
 			 * @param {string} sortBy
 			 * @param {boolean} shouldShowReported
+			 * @param {Object} categories
 			 *
 			 * @returns {void}
 			 */
-			applyFilters(sortBy, shouldShowReported, categoryIds) {
-				this.get('target').send('applyFilters', sortBy, shouldShowReported, categoryIds);
+			applyFilters(sortBy, shouldShowReported, categories) {
+				this.get('target').send('applyFilters', sortBy, shouldShowReported, categories);
 			}
 		}
 	}
