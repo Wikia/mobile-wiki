@@ -43,6 +43,7 @@ export default Component.extend(NoScrollMixin,
 		 * @member {SearchSuggestionItem[]}
 		 */
 		suggestions: [],
+		suggestionsEnabled: true,
 
 		ajax: inject.service(),
 		emptyQueryInput: computed.not('query'),
@@ -113,6 +114,10 @@ export default Component.extend(NoScrollMixin,
 		 * Wrapper for search suggestions performing, that also checks the cache
 		 */
 		updateSuggestions: observer('query', function () {
+			// disable suggestions
+			if (!this.get('suggestionsEnabled')) {
+				return;
+			}
 			const query = this.get('query');
 
 			this.setProperties({
