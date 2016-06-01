@@ -16,6 +16,17 @@ export default Ember.Component.extend({
 		this.collapseCategoriesAboveLimit();
 	},
 
+	localCategories: Ember.computed('categories', function () {
+		const categories = this.get('categories'),
+			localCategories = new Ember.A();
+
+		categories.forEach(function (category) {
+			localCategories.pushObject($.extend({}, category));
+		});
+
+		return localCategories;
+	}),
+
 	collapseCategoriesAboveLimit() {
 		const visibleCategoriesCount = this.get('visibleCategoriesCount');
 
@@ -24,17 +35,17 @@ export default Ember.Component.extend({
 		}
 	},
 
-	toggleButtonLabel: Ember.computed('categories.@each.collapsed', function () {
-		if (this.get('categories').isEvery('collapsed', false)) {
+	toggleButtonLabel: Ember.computed('localCategories.@each.collapsed', function () {
+		if (this.get('localCategories').isEvery('collapsed', false)) {
 			return i18n.t('main.categories-show-less-button-label', {ns: 'discussion'});
 		} else {
 			return i18n.t('main.categories-show-more-button-label', {ns: 'discussion'});
 		}
 	}),
 
-	toggleButtonVisible: Ember.computed('categories.length', 'visibleCategoriesCount', function () {
+	toggleButtonVisible: Ember.computed('localCategories.length', 'visibleCategoriesCount', function () {
 		return this.get('visibleCategoriesCount') !== null &&
-			this.get('categories.length') > this.get('visibleCategoriesCount');
+			this.get('localCategories.length') > this.get('visibleCategoriesCount');
 	}),
 
 	categoriesInputIdPrefix: Ember.computed('inputIdPrefix', function () {
@@ -43,20 +54,22 @@ export default Ember.Component.extend({
 
 	categoryAllSelected: true,
 
-	selectedCategoriesObserver: Ember.observer('categories.@each.selected', function () {
+	selectedCategoriesObserver: Ember.observer('localCategories.@each.selected', function () {
 		this.updateCategoryAllSelected();
+
+		this.sendAction('updateCategories', this.get('localCategories'));
 	}),
 
 	categoryAllSelectedObserver: Ember.observer('categoryAllSelected', function () {
 		if (this.get('categoryAllSelected')) {
-			this.get('categories').setEach('selected', false);
-		} else if (this.get('categories').isEvery('selected', false)) {
+			this.get('localCategories').setEach('selected', false);
+		} else if (this.get('localCategories').isEvery('selected', false)) {
 			this.set('categoryAllSelected', true);
 		}
 	}),
 
 	updateCategoryAllSelected() {
-		this.set('categoryAllSelected', this.get('categories').isEvery('selected', false));
+		this.set('categoryAllSelected', this.get('localCategories').isEvery('selected', false));
 	},
 
 	/**
@@ -88,7 +101,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		toggleMore() {
-			const categories = this.get('categories');
+			const categories = this.get('localCategories');
 
 			if (categories.isEvery('collapsed', false)) {
 				this.collapseCategoriesAboveLimit();
@@ -103,7 +116,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		reset() {
-			const categories = this.get('categories');
+			const categories = this.get('localCategories');
 
 			track(trackActions.CategoriesResetTapped);
 			this.set('collapsed', false);
@@ -120,8 +133,6 @@ export default Ember.Component.extend({
 		 */
 		onCategoryClick(isAllCategories, event) {
 			this.trackCategory(isAllCategories);
-
-			this.sendAction('updateCategories');
 		},
 
 		/**

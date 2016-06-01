@@ -8,6 +8,7 @@ export default Ember.Mixin.create(
 			 *
 			 * @param {string} sortBy
 			 * @param {boolean} onlyReported
+			 * @param {Object} categories
 			 *
 			 * @returns {EmberStates.Transition}
 			 */
@@ -25,10 +26,12 @@ export default Ember.Mixin.create(
 					targetRoute = 'discussion.reported-posts';
 				}
 
+				this.modelFor('discussion').set('categories', categories);
+
 				return this.transitionTo(targetRoute, {
 					queryParams: {
 						sort: sortBy,
-						catId: this.get('model.index').getCategoryIds(categories)
+						catId: categories.filterBy('selected', true).mapBy('id')
 					}
 				});
 			},

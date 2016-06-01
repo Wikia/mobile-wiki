@@ -12,20 +12,20 @@
 			<ul class="discussion-categories-list">
 				<li>
 					{{wikia-ui-components/fancy-check-box
-						click=(action 'onCategoryClick' true)
-						label=(i18n 'main.category-all-name' ns='discussion')
-						inputId=(concat categoriesInputIdPrefix 'all')
-						isChecked=categoryAllSelected
+					click=(action 'onCategoryClick' true)
+					label=(i18n 'main.category-all-name' ns='discussion')
+					inputId=(concat categoriesInputIdPrefix 'all')
+					isChecked=categoryAllSelected
 					}}
 				</li>
-				{{#each categories as |category|}}
+				{{#each localCategories as |category|}}
 					{{#unless category.collapsed}}
 						<li>
 							{{wikia-ui-components/fancy-check-box
-								click=(action 'onCategoryClick' false)
-								label=category.name
-								inputId=(concat categoriesInputIdPrefix category.id)
-								isChecked=category.selected
+							click=(action 'onCategoryClick' false)
+							label=category.name
+							inputId=(concat categoriesInputIdPrefix category.id)
+							isChecked=category.selected
 							}}
 						</li>
 					{{/unless}}

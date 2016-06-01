@@ -11,8 +11,9 @@
 {{#discussion-entities-list-layout
 	addCategory=(route-action 'addCategory')
 	applyFilters=(action 'applyFilters')
-	model=model.current.data
 	categories=model.index.categories
+	model=model.current.data
+	updateCategories=(action 'updateCategories')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')

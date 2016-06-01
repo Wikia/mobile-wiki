@@ -13,11 +13,13 @@ export default Ember.Component.extend(
 		showSortSection: false,
 		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
 
-		appliedCategories: null,
-
 		trendingDisabled: Ember.computed('onlyReported', function () {
 			return this.get('onlyReported') === true ? 'disabled' : false;
 		}),
+
+		init() {
+			this._super(...arguments);
+		},
 
 		onlyReportedObserver: Ember.observer('onlyReported', function () {
 			const onlyReported = this.get('onlyReported');
@@ -32,7 +34,9 @@ export default Ember.Component.extend(
 		}),
 
 		didCategoriesChange() {
-			return JSON.stringify(this.get('categories')) !== JSON.stringify(this.get('appliedCategories'));
+			const appliedCategories = this.get('appliedCategories');
+
+			return appliedCategories && JSON.stringify(this.get('categories')) !== JSON.stringify(appliedCategories);
 		},
 
 		trackSortByTapped(sortBy) {
@@ -68,7 +72,11 @@ export default Ember.Component.extend(
 				// No need for applying already applied filters again
 				if (this.didFiltersChange(sortBy, onlyReported)) {
 					this.trackSortByTapped(sortBy);
-					this.get('applyFilters')(this.get('sortBy'), this.get('onlyReported'), this.get('appliedCategories'));
+					this.get('applyFilters')(
+						this.get('sortBy'),
+						this.get('onlyReported'),
+						this.get('appliedCategories')
+					);
 				}
 
 				this.get('popover').deactivate();
@@ -83,8 +91,8 @@ export default Ember.Component.extend(
 				this.set('sortBy', sortBy);
 			},
 
-			updateCategories() {
-
+			updateCategories(appliedCategories) {
+				this.set('appliedCategories', appliedCategories);
 			}
 		}
 	}
