@@ -50,3 +50,13 @@
 		width: calc(100% - 40px);
 	}
 }
+
+@media #{$mobile-range} {
+	.discussion-filters-wrapper.highlight-overlay-content {
+		bottom: 0;
+		left: 0;
+		position: fixed;
+		right: 0;
+		top: 0;
+	}
+}
