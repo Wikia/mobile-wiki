@@ -1,4 +1,5 @@
 .discussion-categories-list-container {
+	margin-left: -8px;
 	max-height: 800px;
 	transition: max-height .6s;
 	overflow: hidden;
@@ -9,15 +10,10 @@
 	margin: 6px 0;
 
 	label {
-		display: block;
 		overflow: hidden;
-		padding: 4px 0;
+		padding: 4px 0 4px 8px;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-
-		span {
-			float: left;
-		}
 
 		&:hover {
 			background-color: $discussion-category-hover-background;

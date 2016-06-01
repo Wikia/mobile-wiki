@@ -6,7 +6,7 @@
 	align-items: center;
 	background-color: $fancy-check-box-background;
 	border: 1px solid $fancy-check-box-border;
-	display: flex;
+	display: inline-flex;
 	flex-direction: column;
 	height: 16px;
 	justify-content: center;
