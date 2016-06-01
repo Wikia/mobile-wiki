@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
-import DiscussionCategory from './discussion/domain/category';
+import DiscussionCategory from './domain/category';
 import request from 'ember-ajax/request';
 
-const DiscussionModel = Ember.Object.extend({
+const DiscussionCategoriesModel = Ember.Object.extend({
 	categories: [],
 	data: null,
 	wikiId: null,
@@ -60,14 +60,14 @@ const DiscussionModel = Ember.Object.extend({
 	}
 });
 
-DiscussionModel.reopenClass({
+DiscussionCategoriesModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getCategories(wikiId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
-			const discussionInstance = DiscussionModel.create({
+			const discussionInstance = DiscussionCategoriesModel.create({
 				wikiId
 			});
 
@@ -83,4 +83,4 @@ DiscussionModel.reopenClass({
 	}
 });
 
-export default DiscussionModel;
+export default DiscussionCategoriesModel;

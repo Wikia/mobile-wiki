@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
-import DiscussionModel from '../models/discussion';
+import DiscussionCategoriesModel from '../models/discussion/categories';
 
 export default Ember.Route.extend({
 	model() {
-		return DiscussionModel.getCategories(Mercury.wiki.id);
+		return DiscussionCategoriesModel.getCategories(Mercury.wiki.id);
 	}
 });
