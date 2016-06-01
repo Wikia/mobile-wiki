@@ -18,9 +18,9 @@
 			{{i18n 'app.article-replies-label' count=comment.comments.length}}
 		</button>
 		<ul class='{{if isExpanded 'expanded'}}'>
-		{{#each comment.comments as |comment|}}
-			{{article-comment comment=comment users=users}}
-		{{/each}}
+			{{#each comment.comments as |comment|}}
+				{{article-comment comment=comment users=users}}
+			{{/each}}
 		</ul>
 	{{/if}}
 </div>

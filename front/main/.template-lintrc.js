@@ -3,6 +3,6 @@
 
 module.exports = {
 	rules: {
-		'self-closing-void-elements': true,
+		'block-indentation': 'tab'
 	}
 };
