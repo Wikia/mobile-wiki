@@ -6,6 +6,7 @@ export default Ember.Component.extend({
 	disabled: false,
 
 	visibleCategoriesCount: null,
+	isEditMode: false,
 
 	init() {
 		this._super();
@@ -121,6 +122,15 @@ export default Ember.Component.extend({
 			this.trackCategory(isAllCategories);
 
 			this.sendAction('updateCategories');
+		},
+
+		/**
+		 * Enables/disables categories edit mode
+		 *
+		 * @returns {void}
+		 */
+		setEditMode(isEnabled) {
+			this.set('isEditMode', isEnabled);
 		}
 	}
 });

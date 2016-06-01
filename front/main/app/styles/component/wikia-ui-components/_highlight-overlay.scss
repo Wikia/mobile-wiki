@@ -1,0 +1,19 @@
+.highlight-overlay {
+	background-color: $highlight-overlay-background-color;
+	bottom: 0;
+	left: 0;
+	opacity: 0.9;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: $z-highlight-overlay;
+}
+
+.highlight-overlay-content {
+	position: relative;
+	z-index: $z-highlight-overlay-content;
+}
+
+.dark-theme .highlight-overlay {
+	background-color: $dark-highlight-overlay-background-color;
+}
