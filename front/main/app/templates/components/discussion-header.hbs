@@ -22,6 +22,7 @@
 
 			{{#pop-over for='discussion-mobile-filter' on='click' flow='downCentered' class='filters-popover'}}
 				{{discussion-filters
+					addCategory=(action this.attrs.addCategory)
 					applyFilters=(action this.attrs.applyFilters)
 					showApplyButton=true
 					showSortSection=true

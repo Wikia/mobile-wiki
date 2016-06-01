@@ -188,7 +188,7 @@ $legend-font-size: 16px;
 	.orient-below {
 		.pop-over-compass {
 			animation: none;
-			transform: translate(0, -14px);
+			margin-top: -14px;
 		}
 
 		.pop-over-container {

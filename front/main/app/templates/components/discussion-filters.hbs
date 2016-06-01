@@ -2,6 +2,7 @@
 	<div class="discussion-filters-fields-wrapper">
 		{{#if categories}}
 			{{discussion-categories
+				addCategory=(action this.attrs.addCategory)
 				categories=categories
 				disabled=onlyReported
 				updateCategories=(action 'updateCategories')
