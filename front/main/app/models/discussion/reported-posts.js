@@ -48,7 +48,6 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 
 			this.get('data').setProperties({
 				canModerate: Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
-				forumId: Ember.get(Mercury, 'wiki.id'),
 				contributors,
 				entities,
 				pageNum: 0,
@@ -63,15 +62,13 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 DiscussionReportedPostsModel.reopenClass({
 	/**
 	 * @param {number} wikiId
-	 * @param {number} forumId
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, forumId) {
+	find(wikiId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const reportedPostsInstance = DiscussionReportedPostsModel.create({
-				wikiId,
-				forumId
+				wikiId
 			});
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/posts`), {
