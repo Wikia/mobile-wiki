@@ -97,7 +97,6 @@ export default Component.extend(NoScrollMixin,
 
 			onInputBlur() {
 				this.set('inputFocused', false);
-				this.setSearchSuggestionItems();
 			},
 
 			onSuggestionsWrapperClick(event) {
