@@ -7,6 +7,8 @@ moduleForComponent('wikia-in-your-lang', 'Unit | Component | wikia-in-your-lang'
 test('createAlert', function (assert) {
 	const componentMock = this.subject();
 
+	componentMock.clearNotifications();
+
 	assert.equal(componentMock.alertNotifications.length, 0, 'should have no alert');
 
 	componentMock.createAlert({

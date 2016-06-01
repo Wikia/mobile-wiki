@@ -75,10 +75,8 @@
     "locked-and-reported-to-moderators-text":"この投稿はロックされており、報告されています。",
     "edit-reply":"返信を編集",
     "edit-post":"投稿を編集",
-    "upvote-link-label":"賛成 __count__ 票",
-    "upvote-link-label_plural":"賛成 __count__ 票",
-    "replies-link-label":"返信 __count__ 件",
-    "replies-link-label_plural":"返信 __count__ 件",
+    "upvote-label":"賛成",
+    "reply-label":"返信",
     "share-header":"投稿を共有",
     "share-label":"共有",
     "reported-not-found-error":"報告された投稿や返信はありません 。"

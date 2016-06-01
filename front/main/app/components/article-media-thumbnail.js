@@ -11,7 +11,7 @@ export default Ember.Component.extend(
 	{
 		attributeBindings: ['data-ref', 'data-gallery-ref'],
 		classNames: ['article-media-thumbnail'],
-		classNameBindings: ['itemType', 'isSmall'],
+		classNameBindings: ['itemType', 'isLoading', 'isSmall'],
 		tagName: 'figure',
 
 		smallImageSize: {

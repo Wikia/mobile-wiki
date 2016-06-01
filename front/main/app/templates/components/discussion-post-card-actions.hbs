@@ -1,0 +1,23 @@
+<ul class="row post-actions">
+	<li class='small-4 large-4 upvote-area upvote {{if post.userData.hasUpvoted 'has-upvoted'}}' {{action 'upvote' post}}>
+		{{svg 'upvote' viewBox='0 0 24 24' class='icon upvote'}}
+		{{i18n 'main.upvote-label' ns='discussion'}}
+	</li>
+	<li class='small-4 large-4 replies replies-area' {{action 'reply'}}>
+		{{#link-to 'discussion.post' threadId tagName=(if isDetailsView 'div' 'a') disabled=isDetailsView}}
+			{{svg 'reply' viewBox='0 0 24 24' class='icon replies'}}
+			{{i18n 'main.reply-label' ns='discussion'}}
+		{{/link-to}}
+	</li>
+	<li class="small-4 large-4 share">
+		{{#unless isDeleted }}
+			{{discussion-share
+				entryPointLabel=(i18n 'main.share-label' ns='discussion')
+				header=(i18n 'main.share-header' ns='discussion')
+				sharedUrl=sharedUrl
+				showLabelOnMobile=true
+				uniqueIdentifier=post.threadId
+			}}
+		{{/unless}}
+	</li>
+</ul>

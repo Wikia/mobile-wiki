@@ -75,10 +75,8 @@
     "locked-and-reported-to-moderators-text":"Cette publication est verrouillée et a été signalée.",
     "edit-reply":"Modifier la réponse",
     "edit-post":"Modifier la publication",
-    "upvote-link-label":"__count__ Vote",
-    "upvote-link-label_plural":"__count__ Votes",
-    "replies-link-label":"__count__ Réponse",
-    "replies-link-label_plural":"__count__ Réponses",
+    "upvote-label":"Voter",
+    "reply-label":"Répondre",
     "share-header":"Partagez la publication",
     "share-label":"Partager",
     "reported-not-found-error":"Aucune publication ou réponse n'a été signalée."

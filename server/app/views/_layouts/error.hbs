@@ -19,19 +19,55 @@
 				flex-direction: column;
 			}
 
+			.site-head-container {
+				min-height: 3.4375rem;
+			}
+
+			.site-head-wrapper {
+				height: 3.4375rem;
+			}
+
 			.site-head {
-				border-bottom: 1px solid #E6EBF2;
-				display: block;
-				flex-shrink: 0;
-				padding: 14px 0 7px;
-			}
-
-			.site-head div {
+				background-color: #FFF;
+				border-top: .375rem solid #092344;
+				border-bottom: 1px solid #F6F6F6;
+				direction: ltr;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-orient: horizontal;
+				-webkit-box-direction: normal;
+				-webkit-flex-direction: row;
+				-ms-flex-direction: row;
+				flex-direction: row;
+				-webkit-flex-wrap: nowrap;
+				-ms-flex-wrap: nowrap;
+				flex-wrap: nowrap;
+				-webkit-box-pack: justify;
+				-webkit-justify-content: space-between;
+				-ms-flex-pack: justify;
+				justify-content: space-between;
+				left: 0;
+				margin: 0 auto;
+				position: fixed;
+				right: 0;
 				text-align: center;
+				-webkit-transition: box-shadow .5s;
+				transition: box-shadow .5s;
+				top: 0;
+				width: 100%;
+				z-index: 700;
 			}
 
-			.site-head img {
-				height: 22px;
+			.site-logo {
+				height: 3.0625rem;
+				margin: auto;
+				-webkit-box-ordinal-group: 3;
+				-webkit-order: 2;
+				-ms-flex-order: 2;
+				order: 2;
+				overflow: hidden;
 			}
 
 			.container {

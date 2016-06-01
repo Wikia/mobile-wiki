@@ -11,8 +11,6 @@ $discussion-contributors-border-width: 2px;
 	.avatar {
 		img, svg {
 			border-color: $discussion-contributors-border-color;
-			height: $discussion-contributors-avatar-dimension;
-			width: $discussion-contributors-avatar-dimension;
 		}
 	}
 
@@ -56,5 +54,16 @@ $discussion-contributors-border-width: 2px;
 		line-height: 18px;
 		margin-bottom: 5px;
 		padding-top: 40px;
+	}
+}
+
+.discussion {
+	.discussion-contributors {
+		.avatar {
+			img, svg {
+				height: $discussion-contributors-avatar-dimension;
+				width: $discussion-contributors-avatar-dimension;
+			}
+		}
 	}
 }
