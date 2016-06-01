@@ -38,6 +38,26 @@ const DiscussionModel = Ember.Object.extend({
 			}
 		});
 	},
+
+	addCategory(categoryName) {
+		return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/forums`), {
+			data: JSON.stringify({
+				name: categoryName,
+				// TODO get rid of parentId and siteId when SOC-2576 is done
+				parentId: 1,
+				siteId: this.get('wikiId')
+			}),
+			method: 'POST',
+		}).then((categoryData) => {
+			const categories = this.get('categories');
+
+			categories.pushObject(DiscussionCategory.create(categoryData));
+
+			this.set('categories', categories.sortBy('displayOrder'));
+		}).catch(() => {
+			reject(this);
+		});
+	}
 });
 
 DiscussionModel.reopenClass({

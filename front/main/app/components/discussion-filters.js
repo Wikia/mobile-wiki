@@ -31,12 +31,6 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		didInsertElement() {
-			debugger;
-			this.set('appliedCategories', this.get('categories').slice(-1));
-			this._super(...arguments);
-		},
-
 		didCategoriesChange() {
 			return JSON.stringify(this.get('categories')) !== JSON.stringify(this.get('appliedCategories'));
 		},

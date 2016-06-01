@@ -79,6 +79,10 @@ export default DiscussionBaseRoute.extend(
 
 			changeCategory(categoryIds) {
 				this.transitionTo({queryParams: {catId: categoryIds}});
+			},
+
+			addCategory() {
+				this.modelFor(this.get('routeName')).index.addCategory('asd');
 			}
 		}
 	}
