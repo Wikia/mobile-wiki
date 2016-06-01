@@ -26,6 +26,7 @@ export default Component.extend(NoScrollMixin,
 		cachedResultsQueue: [],
 		// in ms
 		debounceDuration: 250,
+		// Wether or not to apply styles on input when focused
 		inputFocused: false,
 		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
 		isLoadingResultsSuggestions: false,
@@ -54,7 +55,7 @@ export default Component.extend(NoScrollMixin,
 		didInsertElement() {
 			this._super(...arguments);
 
-			if (this.get('inputFocused')) {
+			if (this.get('focusInput')) {
 				Ember.run.scheduleOnce('afterRender', this, () => {
 					this.$('.side-search__input').focus();
 				});
@@ -69,7 +70,6 @@ export default Component.extend(NoScrollMixin,
 					label: 'search-open-special-search'
 				});
 
-				this.$('.side-search__input').blur();
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
@@ -96,7 +96,7 @@ export default Component.extend(NoScrollMixin,
 			},
 
 			onInputBlur() {
-				this.set('isInputFocused', false);
+				this.set('inputFocused', false);
 				this.setSearchSuggestionItems();
 			},
 

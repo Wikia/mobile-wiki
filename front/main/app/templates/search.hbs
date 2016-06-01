@@ -1,8 +1,8 @@
 {{#ember-wormhole to="site-head-sub-header"}}
 	{{wikia-search
 		onEnterHandler=(action 'onSearchEnter')
-		query=query
-		inputFocused=false
+		query=queryParamValue
+		focusInput=false
 	}}
 {{/ember-wormhole}}
 <div class="search-results">
