@@ -1,4 +1,4 @@
-<div class="wikia-search {{if emptyQueryInput 'wikia-search--empty'}} {{if inputFocused 'wikia-search--focused'}} {{if hasSuggestions 'wikia-search--has-suggestions'}}">
+<div class="wikia-search {{if emptyPhraseInput 'wikia-search--empty'}} {{if inputFocused 'wikia-search--focused'}} {{if hasSuggestions 'wikia-search--has-suggestions'}}">
 	<div class="wikia-search__item search">
 		<div class="wikia-search__container">
 			{{wikia-ui-components/icon-button
@@ -7,7 +7,7 @@
 				iconSize=18
 			}}
 			{{wikia-ui-components/text-field
-				value=query
+				value=phrase
 				name='infoboxSectionHeader'
 				label=searchPlaceholderLabel
 				inputClasses='side-search__input'

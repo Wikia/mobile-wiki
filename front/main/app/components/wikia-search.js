@@ -18,7 +18,7 @@ const {Component, computed, observer, inject, run} = Ember;
 export default Component.extend(NoScrollMixin,
 	{
 		classNames: ['wikia-search-wrapper'],
-		// key: query string, value: Array<SearchSuggestionItem>
+		// key: phrase string, value: Array<SearchSuggestionItem>
 		cachedResults: {},
 		// How many items to store in the cachedResultsQueue
 		cachedResultsLimit: 100,
@@ -31,12 +31,12 @@ export default Component.extend(NoScrollMixin,
 		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
 		isLoadingResultsSuggestions: false,
 		/**
-		 * A set (only keys used) of query strings that are currently being ajax'd so
+		 * A set (only keys used) of phrase strings that are currently being ajax'd so
 		 * we know not to perform another request.
 		 */
 		requestsInProgress: {},
-		query: '',
-		queryMinimalLength: 3,
+		phrase: '',
+		phraseMinimalLength: 3,
 		searchRequestInProgress: false,
 		/**
 		 * This is what's currently displayed in the search results
@@ -46,7 +46,7 @@ export default Component.extend(NoScrollMixin,
 		suggestionsEnabled: true,
 
 		ajax: inject.service(),
-		emptyQueryInput: computed.not('query'),
+		emptyPhraseInput: computed.not('phrase'),
 		hasSuggestions: computed.notEmpty('suggestions'),
 		noScroll: computed.oneWay('hasSuggestions'),
 		searchPlaceholderLabel: computed(() => {
@@ -56,6 +56,7 @@ export default Component.extend(NoScrollMixin,
 		didInsertElement() {
 			this._super(...arguments);
 
+			this.set('phrase', this.get('query'));
 			if (this.get('focusInput')) {
 				Ember.run.scheduleOnce('afterRender', this, () => {
 					this.$('.side-search__input').focus();
@@ -71,6 +72,7 @@ export default Component.extend(NoScrollMixin,
 					label: 'search-open-special-search'
 				});
 
+				this.set('query', this.get('phrase'));
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
@@ -78,7 +80,7 @@ export default Component.extend(NoScrollMixin,
 			},
 
 			clearSearch() {
-				this.set('query', '');
+				this.set('phrase', '');
 				this.focusSearchInput();
 			},
 
@@ -113,27 +115,27 @@ export default Component.extend(NoScrollMixin,
 		/**
 		 * Wrapper for search suggestions performing, that also checks the cache
 		 */
-		updateSuggestions: observer('query', function () {
+		updateSuggestions: observer('phrase', function () {
 			// disable suggestions
 			if (!this.get('suggestionsEnabled')) {
 				return;
 			}
-			const query = this.get('query');
+			const phrase = this.get('phrase');
 
 			this.setProperties({
 				suggestions: [],
 				searchRequestInProgress: false
 			});
 
-			// If the query string is empty or shorter than the minimal length, return to leave the view blank
-			if (!query || query.length < this.get('queryMinimalLength')) {
+			// If the phrase string is empty or shorter than the minimal length, return to leave the view blank
+			if (!phrase || phrase.length < this.get('phraseMinimalLength')) {
 				/**
 				 * Even if there are pending search API ajax requests, we don't care about
-				 * them anymore because the query string has been cleared.
+				 * them anymore because the phrase string has been cleared.
 				 */
 				this.set('isLoadingResultsSuggestions', false);
-			} else if (this.hasCachedResult(query)) {
-				this.setSearchSuggestionItems(this.getCachedResult(query));
+			} else if (this.hasCachedResult(phrase)) {
+				this.setSearchSuggestionItems(this.getCachedResult(phrase));
 			} else {
 				this.set('isLoadingResultsSuggestions', true);
 				run.debounce(this, this.searchWithoutDebounce, this.get('debounceDuration'));
@@ -145,9 +147,9 @@ export default Component.extend(NoScrollMixin,
 		 * @returns {void}
 		 */
 		setSearchSuggestionItems(suggestions = []) {
-			const query = this.get('query'),
-				highlightRegexp = new RegExp(query, 'ig'),
-				highlighted = wrapMeHelper.compute([query], {
+			const phrase = this.get('phrase'),
+				highlightRegexp = new RegExp(phrase, 'ig'),
+				highlighted = wrapMeHelper.compute([phrase], {
 					className: 'wikia-search__suggestion-highlighted'
 				});
 
@@ -173,28 +175,28 @@ export default Component.extend(NoScrollMixin,
 		/**
 		 * returns uri to send an ajax request to
 		 *
-		 * @param {string} query - search string
+		 * @param {string} phrase - search string
 		 * @returns {string}
 		 */
-		getSearchURI(query) {
+		getSearchURI(phrase) {
 			return M.buildUrl({
 				path: '/wikia.php',
 				query: {
 					controller: 'MercuryApi',
 					method: 'getSearchSuggestions',
-					query
+					query: phrase
 				}
 			});
 		},
 
 		/**
-		 * query observer which makes ajax request for search suggestions based on query
+		 * phrase observer which makes ajax request for search suggestions based on phrase
 		 *
 		 * @returns {void}
 		 */
 		searchWithoutDebounce() {
-			const query = this.get('query'),
-				uri = this.getSearchURI(query);
+			const phrase = this.get('phrase'),
+				uri = this.getSearchURI(phrase);
 
 			/**
 			 * This was queued to run before the user has finished typing, and when they
@@ -203,11 +205,11 @@ export default Component.extend(NoScrollMixin,
 			 * we just ignore this request because the search fn already put the cached
 			 * value into the window.
 			 */
-			if (!query || this.hasCachedResult(query) || this.requestInProgress(query)) {
+			if (!phrase || this.hasCachedResult(phrase) || this.requestInProgress(phrase)) {
 				return;
 			}
 
-			this.startedRequest(query);
+			this.startedRequest(phrase);
 
 			this.get('ajax').request(uri).then((data) => {
 				/**
@@ -218,25 +220,25 @@ export default Component.extend(NoScrollMixin,
 				 * Also, we don't want to show the suggestion results after a real search
 				 * will be finished, what will happen if search request is still in progress.
 				 */
-				if (!this.get('searchRequestInProgress') && query === this.get('query')) {
+				if (!this.get('searchRequestInProgress') && phrase === this.get('phrase')) {
 					this.setSearchSuggestionItems(data.items);
 				}
 
-				this.cacheResult(query, data.items);
+				this.cacheResult(phrase, data.items);
 			}).catch(() => {
 				// When we get a 404, it means there were no results
-				if (query === this.get('query')) {
+				if (phrase === this.get('phrase')) {
 					this.setSearchSuggestionItems();
 				}
 
-				this.cacheResult(query);
+				this.cacheResult(phrase);
 			}).finally(() => {
 				// We have a response, so we're no longer loading the results
-				if (query === this.get('query')) {
+				if (phrase === this.get('phrase')) {
 					this.set('isLoadingResultsSuggestions', false);
 				}
 
-				this.endedRequest(query);
+				this.endedRequest(phrase);
 			});
 		},
 
@@ -246,33 +248,33 @@ export default Component.extend(NoScrollMixin,
 		 */
 
 		/**
-		 * records that we have submitted an ajax request for a query term
+		 * records that we have submitted an ajax request for a phrase term
 		 *
-		 * @param {string} query - the query string that we submitted an ajax request for
+		 * @param {string} phrase - the phrase string that we submitted an ajax request for
 		 * @returns {void}
 		 */
-		startedRequest(query) {
-			this.get('requestsInProgress')[query] = true;
+		startedRequest(phrase) {
+			this.get('requestsInProgress')[phrase] = true;
 		},
 
 		/**
 		 * returns whether or not there is a request in progress
 		 *
-		 * @param {string} query - query the query to check
+		 * @param {string} phrase - phrase the phrase to check
 		 * @returns {boolean}
 		 */
-		requestInProgress(query) {
-			return this.get('requestsInProgress').hasOwnProperty(query);
+		requestInProgress(phrase) {
+			return this.get('requestsInProgress').hasOwnProperty(phrase);
 		},
 
 		/**
 		 * records that we have finished a request
 		 *
-		 * @param {string} query - query the string we searched for that we're now done with
+		 * @param {string} phrase - phrase the string we searched for that we're now done with
 		 * @returns {void}
 		 */
-		endedRequest(query) {
-			delete this.get('requestsInProgress')[query];
+		endedRequest(phrase) {
+			delete this.get('requestsInProgress')[phrase];
 		},
 
 		/**
@@ -290,51 +292,51 @@ export default Component.extend(NoScrollMixin,
 
 		/**
 		 * Evicts via FIFO from cachedResultsQueue cachedResults, based on what the first
-		 * (and therefore least recently cached) query string is.
+		 * (and therefore least recently cached) phrase string is.
 		 *
 		 * @returns {void}
 		 */
 		evictCachedResult() {
-			// Query string to evict
+			// phrase string to evict
 			const toEvict = this.cachedResultsQueue.shift();
 
 			delete this.get('cachedResults')[toEvict];
 		},
 
 		/**
-		 * caches the provided query/suggestion array pair
+		 * caches the provided phrase/suggestion array pair
 		 *
-		 * @param {string} query - the query string that was used in the search API request
+		 * @param {string} phrase - the phrase string that was used in the search API request
 		 * @param {SearchSuggestionItem[]} [suggestions] - if not provided, then there were zero results
 		 * @returns {void}
 		 */
-		cacheResult(query, suggestions) {
+		cacheResult(phrase, suggestions) {
 			if (this.needToEvict()) {
 				this.evictCachedResult();
 			}
 
-			this.get('cachedResultsQueue').push(query);
-			this.get('cachedResults')[query] = suggestions || [];
+			this.get('cachedResultsQueue').push(phrase);
+			this.get('cachedResults')[phrase] = suggestions || [];
 		},
 
 		/**
-		 * Checks whether the result of the query has been cached
+		 * Checks whether the result of the phrase has been cached
 		 *
-		 * @param {string} query
+		 * @param {string} phrase
 		 * @returns {boolean}
 		 */
-		hasCachedResult(query) {
-			return this.get('cachedResults').hasOwnProperty(query);
+		hasCachedResult(phrase) {
+			return this.get('cachedResults').hasOwnProperty(phrase);
 		},
 
 		/**
 		 * returns the cached result or [] if there were no results
 		 *
-		 * @param {string} query - the query string to search the cache with
+		 * @param {string} phrase - the phrase string to search the cache with
 		 * @returns {*}
 		 */
-		getCachedResult(query) {
-			return this.get('cachedResults')[query];
+		getCachedResult(phrase) {
+			return this.get('cachedResults')[phrase];
 		},
 
 		focusSearchInput() {
