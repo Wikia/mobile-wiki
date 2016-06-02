@@ -61,23 +61,6 @@ test('render customized text field correctly', function (assert) {
 	assert.equal(label.text(), labelText);
 });
 
-test('when input focused, proper action is called', function (assert) {
-	this.render(hbs`
-		{{wikia-ui-components/text-field
-			onEnterHandler=actionEnter
-			onFocusHandler=actionFocus
-			onBlurHandler=actionBlur
-		}}
-	`);
-
-	Ember.run(() => {
-		this.$(inputSelector).focus();
-	});
-
-	assert.equal(this.get('actionFocus').called, true);
-	assert.equal(this.get('actionBlur').called, false);
-});
-
 test('when enter is hit, proper action is called', function (assert) {
 	const enterKeyCode = 13;
 

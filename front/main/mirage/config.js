@@ -15,4 +15,8 @@ export default function () {
 
 		throw new Error(`Controller or method response isn't yet mocked`);
 	});
+
+	this.get('/api/v1/Search/List', (schema) => {
+		return schema.searches.first();
+	});
 }
