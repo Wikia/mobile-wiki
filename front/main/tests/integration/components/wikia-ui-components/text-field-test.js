@@ -11,39 +11,51 @@ moduleForComponent('wikia-ui-components/text-field', 'Integration | Component | 
 	integration: true,
 
 	beforeEach() {
-		this.set('actionEnter', sinon.spy());
-		this.set('actionFocus', sinon.spy());
-		this.set('actionBlur', sinon.spy());
+		this.setProperties({
+			actionEnter: sinon.spy(),
+			actionFocus: sinon.spy(),
+			actionBlur: sinon.spy()
+		});
+	},
+
+	afterEach() {
+		this.setProperties({
+			actionEnter: sinon.restore(),
+			actionFocus: sinon.restore(),
+			actionBlur: sinon.restore()
+		});
 	}
 });
 
 test('render customized text field correctly', function (assert) {
 	const type = 'search',
-		defaultInputClassName = 'test-input-class test',
-		defaultLabelClassName = 'test-label-class test',
+		customInputClassName = 'test-input-class test',
+		customLabelClassName = 'test-label-class test',
 		inputValue = 'some input value',
 		labelText = 'test label';
 
-	this.set('type', type);
-	this.set('defaultInputClassName', defaultInputClassName);
-	this.set('defaultLabelClassName', defaultLabelClassName);
-	this.set('inputValue', inputValue);
-	this.set('labelText', labelText);
+	this.setProperties({
+		type,
+		customInputClassName,
+		customLabelClassName,
+		inputValue,
+		labelText
+	});
 
 	this.render(hbs`{{wikia-ui-components/text-field
 			value=inputValue
 			name='infoboxSectionHeader'
 			label=labelText
-			inputClasses=defaultInputClassName
-			labelClassNames=defaultLabelClassName
+			inputClasses=customInputClassName
+			labelClassNames=customLabelClassName
 			type=type
 		}}`);
 
 	const input = this.$(inputSelector),
 		label = this.$(labelSelector);
 
-	assert.notEqual(input.attr('class').indexOf(defaultInputClassName), negativeIndex);
-	assert.notEqual(label.attr('class').indexOf(defaultLabelClassName), negativeIndex);
+	assert.notEqual(input.attr('class').indexOf(customInputClassName), negativeIndex);
+	assert.notEqual(label.attr('class').indexOf(customLabelClassName), negativeIndex);
 	assert.equal(input.attr('type'), type);
 	assert.equal(input.val(), this.get('inputValue'));
 	assert.equal(label.text(), labelText);
@@ -52,16 +64,15 @@ test('render customized text field correctly', function (assert) {
 test('when input focused, proper action is called', function (assert) {
 	this.render(hbs`
 		{{wikia-ui-components/text-field
-			value=inputValue
-			name='infoboxSectionHeader'
-			label='test label'
 			onEnterHandler=actionEnter
 			onFocusHandler=actionFocus
 			onBlurHandler=actionBlur
 		}}
 	`);
 
-	this.$(inputSelector).focus();
+	Ember.run(() => {
+		this.$(inputSelector).focus();
+	});
 
 	assert.equal(this.get('actionFocus').called, true);
 	assert.equal(this.get('actionBlur').called, false);
