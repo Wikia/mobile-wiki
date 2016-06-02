@@ -49,14 +49,23 @@ export default Component.extend(NoScrollMixin,
 		emptyPhraseInput: computed.not('phrase'),
 		hasSuggestions: computed.notEmpty('suggestions'),
 		noScroll: computed.oneWay('hasSuggestions'),
+		queryObserver: observer('query', function () {
+			// ensures that phrase is changed according to external change
+			this.set('phrase', this.get('query'))
+		}),
 		searchPlaceholderLabel: computed(() => {
 			return i18n.t('search:main.search-input-label');
 		}),
 
+		init() {
+			this._super(...arguments);
+			// initialize with query
+			this.set('phrase', this.get('query'));
+		},
+
 		didInsertElement() {
 			this._super(...arguments);
 
-			this.set('phrase', this.get('query'));
 			if (this.get('focusInput')) {
 				Ember.run.scheduleOnce('afterRender', this, () => {
 					this.$('.side-search__input').focus();
@@ -72,7 +81,6 @@ export default Component.extend(NoScrollMixin,
 					label: 'search-open-special-search'
 				});
 
-				this.set('query', this.get('phrase'));
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
