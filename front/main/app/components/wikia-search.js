@@ -51,7 +51,7 @@ export default Component.extend(NoScrollMixin,
 		noScroll: computed.oneWay('hasSuggestions'),
 		queryObserver: observer('query', function () {
 			// ensures that phrase is changed according to external change
-			this.set('phrase', this.get('query'))
+			this.set('phrase', this.get('query'));
 		}),
 		searchPlaceholderLabel: computed(() => {
 			return i18n.t('search:main.search-input-label');
