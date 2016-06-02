@@ -6,6 +6,10 @@
 		suggestionsEnabled=false
 	}}
 {{/ember-wormhole}}
+
+{{loading-spinner
+	active=model.loading
+}}
 <div class="search-results">
 	{{#if model.totalItems}}
 	<div class="search-results__total">
