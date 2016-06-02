@@ -30,7 +30,7 @@ export default Ember.Component.extend({
 		const visibleCategoriesCount = this.get('visibleCategoriesCount');
 
 		if (typeof visibleCategoriesCount === 'number') {
-			this.get('categories').slice(visibleCategoriesCount).setEach('collapsed', true);
+			this.get('localCategories').slice(visibleCategoriesCount).setEach('collapsed', true);
 		}
 	},
 

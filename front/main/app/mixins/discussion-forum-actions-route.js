@@ -28,10 +28,17 @@ export default Ember.Mixin.create(
 
 				this.modelFor('discussion').set('categories', categories);
 
+				const queryParams = {
+					sort: sortBy,
+				};
+
+				if (categories && categories.length) {
+					queryParams.sortBy = categories.filterBy('selected', true).mapBy('id');
+				}
+
 				return this.transitionTo(targetRoute, {
 					queryParams: {
 						sort: sortBy,
-						catId: categories.filterBy('selected', true).mapBy('id')
 					}
 				});
 			},
