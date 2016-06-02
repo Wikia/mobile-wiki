@@ -8,6 +8,7 @@
  *      name='userName'
  *      label='User name'
  *      class='additional-custom-class'
+ *      onEnterHandler=onEnterAction
  *      onFocusHandler=onFocusHandlerAction
  *      onBlurHandler=onBlurHandlerAction
  *      onKeyUpHandler=onKeyUpHandler

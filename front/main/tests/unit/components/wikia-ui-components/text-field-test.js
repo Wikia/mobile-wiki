@@ -83,11 +83,12 @@ test('correctly sets isFocused flag on input focus and blur', function (assert) 
 	});
 });
 
-test('calls appropriate handler on focus, blur and keyUp', function (assert) {
+test('calls appropriate handler on focus, blur, keyUp and enter', function (assert) {
 	const component = this.subject(),
 		onFocusHandler = sinon.spy(),
 		onBlurHandler = sinon.spy(),
 		onKeyUpHandler = sinon.spy(),
+		onEnterHandler = sinon.spy(),
 		eventMock = {},
 		cases = [
 			{
@@ -108,6 +109,12 @@ test('calls appropriate handler on focus, blur and keyUp', function (assert) {
 				handlerName: 'onKeyUpHandler',
 				handler: onKeyUpHandler,
 				calledWidthArguments: ['test value', eventMock]
+			},
+			{
+				action: 'onEnter',
+				handlerName: 'onEnterHandler',
+				handler: onEnterHandler,
+				calledWidthArguments: [eventMock]
 			}
 		];
 
