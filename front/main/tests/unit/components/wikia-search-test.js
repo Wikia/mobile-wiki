@@ -156,7 +156,7 @@ test('setSearchSuggestionItems - correctly set suggestions array', function (ass
 			}
 		];
 
-	component.set('query', 'sug');
+	component.set('phrase', 'sug');
 	assert.deepEqual(component.get('suggestions'), [], 'suggestions should be empty at init');
 
 	component.setSearchSuggestionItems(suggestionsFromApi);
