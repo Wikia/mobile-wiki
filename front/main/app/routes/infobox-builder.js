@@ -175,14 +175,15 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	setupEnvironmentAndInfoboxData(templateName) {
 		// TODO CE-3600 extract data and assets into services
 		const promises = {
-			dataAndAssets: this.loadInfoboxDataAndAssets(templateName),
+			data: this.loadInfoboxData(templateName),
+			assets: this.loadInfoboxAssets(templateName),
 			ponto: this.loadPonto()
 		};
 
 		return Ember.RSVP.hash(promises)
 			.then((response) => {
-				this.setupStyles(response.dataAndAssets);
-				this.setupInfoboxData(response.dataAndAssets);
+				this.setupStyles(response.assets);
+				this.setupInfoboxData(response.data);
 			})
 			.then(this.isWikiaContext.bind(this));
 	},
@@ -196,7 +197,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Promise}
 	 */
 	loadAndSetupInfoboxData(templateName) {
-		return this.loadInfoboxDataAndAssets(templateName)
+		return this.loadInfoboxData(templateName)
 			.then((response) => {
 				this.setupInfoboxData(response);
 			});
@@ -240,7 +241,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @param {string} templateName
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadInfoboxDataAndAssets(templateName) {
+	loadInfoboxAssets(templateName) {
 		return this.get('ajax').request(M.buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'PortableInfoboxBuilderController',
@@ -249,7 +250,30 @@ export default Ember.Route.extend(ConfirmationMixin, {
 				title: templateName
 			}
 		}).then((data) => {
-			if (data && data.css && data.data) {
+			if (data && data.css) {
+				return data;
+			} else {
+				throw new Error('Invalid assets data was returned from Infobox Builder API');
+			}
+		});
+	},
+
+	/**
+	 * Loads infobox data and builder assets from MW
+	 *
+	 * @param {string} templateName
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	loadInfoboxData(templateName) {
+		return this.get('ajax').request(M.buildUrl({path: '/wikia.php'}), {
+			data: {
+				controller: 'PortableInfoboxBuilderController',
+				method: 'getData',
+				format: 'json',
+				title: templateName
+			}
+		}).then((data) => {
+			if (data && data.data) {
 				return data;
 			} else {
 				throw new Error('Invalid data was returned from Infobox Builder API');
