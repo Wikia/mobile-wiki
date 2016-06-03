@@ -67,7 +67,7 @@ export default Component.extend(NoScrollMixin,
 			this._super(...arguments);
 
 			if (this.get('focusInput')) {
-				Ember.run.scheduleOnce('afterRender', this, () => {
+				run.scheduleOnce('afterRender', this, () => {
 					this.focusSearchInput();
 				});
 			}
