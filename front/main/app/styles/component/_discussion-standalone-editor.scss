@@ -12,6 +12,7 @@
 	.discussion-standalone-editor-toolbar {
 		border-bottom: 1px solid $discussion-editor-textarea-border-color;
 		display: flex;
+		flex-shrink: 0;
 		height: 41px;
 		justify-content: space-between;
 	}
@@ -63,7 +64,7 @@
 		}
 
 		&:empty:before {
-			color: #a9a9a9;
+			color: $discussion-editor-label-color;
 			content: attr(placeholder);
 		}
 	}
