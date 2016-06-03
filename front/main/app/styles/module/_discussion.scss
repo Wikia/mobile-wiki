@@ -183,6 +183,12 @@ body.discussions {
 		padding-bottom: 14px;
 		text-align: right;
 
+		.upvote-count,
+		.reply-count {
+			align-items: center;
+			display: flex;
+		}
+
 		.icon {
 			&.upvote,
 			&.replies {
