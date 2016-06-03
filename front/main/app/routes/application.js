@@ -212,10 +212,10 @@ export default Route.extend(
 			 * @param {string} query
 			 */
 			goToSearchResults(query) {
-				if (Ember.$(window).width() >= 1064) {
-					window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${query}&fulltext=Search`);
-				} else {
+				if (this.get('media.isMobile')) {
 					this.transitionTo('search', {queryParams: {query}});
+				} else {
+					window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${query}&fulltext=Search`);
 				}
 			},
 
