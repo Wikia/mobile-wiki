@@ -5,6 +5,7 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Route.extend(ConfirmationMixin, {
 	ajax: Ember.inject.service(),
+	resourceLoader: Ember.inject.service(),
 	isIframeContext: Ember.computed(() => {
 		return window.self !== window.top;
 	}),
@@ -176,13 +177,12 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		// TODO CE-3600 extract data and assets into services
 		const promises = {
 			data: this.loadInfoboxData(templateName),
-			assets: this.loadInfoboxAssets(templateName),
+			assets: this.get('resourceLoader').load('portableInfoboxBuilderCss'),
 			ponto: this.loadPonto()
 		};
 
 		return Ember.RSVP.hash(promises)
 			.then((response) => {
-				this.setupStyles(response.assets);
 				this.setupInfoboxData(response.data);
 			})
 			.then(this.isWikiaContext.bind(this));
@@ -241,29 +241,6 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @param {string} templateName
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadInfoboxAssets(templateName) {
-		return this.get('ajax').request(M.buildUrl({path: '/wikia.php'}), {
-			data: {
-				controller: 'PortableInfoboxBuilderController',
-				method: 'getAssets',
-				format: 'json',
-				title: templateName
-			}
-		}).then((data) => {
-			if (data && data.css) {
-				return data;
-			} else {
-				throw new Error('Invalid assets data was returned from Infobox Builder API');
-			}
-		});
-	},
-
-	/**
-	 * Loads infobox data and builder assets from MW
-	 *
-	 * @param {string} templateName
-	 * @returns {Ember.RSVP.Promise}
-	 */
 	loadInfoboxData(templateName) {
 		return this.get('ajax').request(M.buildUrl({path: '/wikia.php'}), {
 			data: {
@@ -288,24 +265,6 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 */
 	loadPonto() {
 		return Ember.$.getScript(this.pontoPath);
-	},
-
-	/**
-	 * Adds oasis portable infobox styles to the DOM and a class to the body element
-	 *
-	 * @param {Object} serverResponse
-	 * @returns {void}
-	 */
-	setupStyles(serverResponse) {
-		Ember.$('body').addClass('infobox-builder-body-wrapper');
-
-		if (serverResponse.css) {
-			const html = serverResponse.css.map((url) => {
-				return `<link type="text/css" rel="stylesheet" href="${url}">`;
-			}).join('');
-
-			$(html).appendTo('head');
-		}
 	},
 
 	/**
