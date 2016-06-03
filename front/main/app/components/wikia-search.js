@@ -3,7 +3,7 @@ import NoScrollMixin from '../mixins/no-scroll';
 import {track, trackActions} from 'common/utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
 
-const {Component, computed, observer, inject, run} = Ember;
+const {Component, computed, observer, inject, run, $} = Ember;
 
 /**
  * Type for search suggestion
@@ -26,6 +26,7 @@ export default Component.extend(NoScrollMixin,
 		cachedResultsQueue: [],
 		// in ms
 		debounceDuration: 250,
+
 		// Wether or not to apply styles on input when focused
 		inputFocused: false,
 		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
@@ -65,10 +66,10 @@ export default Component.extend(NoScrollMixin,
 
 		didInsertElement() {
 			this._super(...arguments);
-
+			this.set('inputField', $('.side-search__input'));
 			if (this.get('focusInput')) {
 				Ember.run.scheduleOnce('afterRender', this, () => {
-					this.focusSearchInput();
+					this.get('inputField').focus();
 				});
 			}
 		},
@@ -81,7 +82,7 @@ export default Component.extend(NoScrollMixin,
 					label: 'search-open-special-search'
 				});
 
-				this.blurSearchInput();
+				this.get('inputField').blur();
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
@@ -90,7 +91,7 @@ export default Component.extend(NoScrollMixin,
 
 			clearSearch() {
 				this.set('phrase', '');
-				this.focusSearchInput();
+				this.get('inputField').focus();
 			},
 
 			searchSuggestionClick() {
@@ -346,14 +347,6 @@ export default Component.extend(NoScrollMixin,
 		 */
 		getCachedResult(phrase) {
 			return this.get('cachedResults')[phrase];
-		},
-
-		focusSearchInput() {
-			this.$('.side-search__input').focus();
-		},
-
-		blurSearchInput() {
-			this.$('.side-search__input').blur();
 		}
 	}
 );
