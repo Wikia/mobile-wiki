@@ -2,6 +2,7 @@ import Ember from 'ember';
 import NoScrollMixin from '../mixins/no-scroll';
 import {track, trackActions} from 'common/utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
+import {getDomain} from '../utils/domain';
 
 const {Component, computed, observer, inject, run} = Ember;
 
@@ -117,6 +118,11 @@ export default Component.extend(NoScrollMixin,
 				if (outsideSuggestionsClickAction) {
 					outsideSuggestionsClickAction(event);
 				}
+			},
+
+			redirectToOasis(uri) {
+				Ember.$.cookie('useskin', 'oasis', {path: '/', domain: getDomain});
+				window.location.assign(uri);
 			}
 		},
 
