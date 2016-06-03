@@ -84,6 +84,14 @@ $site-head-box-shadow-color: rgba(0, 0, 0, 0.15);
 	}
 }
 
+.site-head-headroom-top .site-head {
+	position: static;
+}
+
+.no-scroll .site-head {
+	position: fixed;
+}
+
 .side-nav-toggle {
 	display: inline-block;
 	float: left;
