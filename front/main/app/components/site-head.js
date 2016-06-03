@@ -13,6 +13,8 @@ export default Component.extend(
 		themeBar: false,
 		closeIcon: 'close',
 
+		adsState: Ember.inject.service(),
+
 		headroomOptions: {
 			classes: {
 				initial: 'site-head-headroom',
@@ -30,6 +32,8 @@ export default Component.extend(
 		searchIcon: computed('drawerContent', 'drawerVisible', function () {
 			return this.get('drawerVisible') && this.get('drawerContent') === 'search' ? 'close' : 'search';
 		}),
+
+		offset: computed.readOnly('adsState.siteHeadOffset'),
 
 		actions: {
 			/**
