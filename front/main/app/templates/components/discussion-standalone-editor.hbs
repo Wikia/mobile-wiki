@@ -1,0 +1,34 @@
+<div class="discussion-standalone-editor-toolbar">
+	<a href="#" class="editor-close" {{action 'close' bubbles=false}}>
+		{{svg 'close' class="fill-theme-color" viewBox='0 0 18 18'}}
+	</a>
+	<button class="active-element-theme-color" type="submit" {{action 'submit' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
+</div>
+
+<label class="discussion-standalone-editor-label">{{i18n labelMessageKey ns='discussion'}}</label>
+<div class="discussion-standalone-content-wrapper">
+	<div contenteditable="true" class="discussion-standalone-editor-editable" placeholder="{{i18n placeholderMessageKey ns='discussion'}}">{{content}}</div>
+	{{#if showsOpenGraphCard}}
+		{{discussion-open-graph
+			close=(action 'removeOpenGraph')
+			isLoading=isOpenGraphLoading
+			openGraphData=openGraph
+		}}
+	{{/if}}
+</div>
+
+{{#if isLoading}}
+	{{loading-spinner
+		active=isLoading
+		radius=32
+		strokeWidth=2
+	}}
+{{/if}}
+
+{{#if showSuccess}}
+	<div class="loading-overlay">
+		{{svg 'success' class='success' viewBox='0 0 80 80'}}
+	</div>
+{{/if}}
+
+{{! TODO error state}}
