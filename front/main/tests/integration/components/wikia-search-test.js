@@ -6,7 +6,6 @@ const trackModule = require('common/utils/track');
 let trackStub;
 
 const wikiaSearchDivSelector = '.wikia-search',
-	negativeIndex = -1,
 	emptySearchClass = 'wikia-search--empty',
 	focusedInputClass = 'wikia-search--focused',
 	hasSuggestionsClass = 'wikia-search--has-suggestions';
@@ -30,17 +29,17 @@ test('search displayed correctly with default settings', function (assert) {
 
 	assert.notEqual(
 		wikiaSearchClass.indexOf(emptySearchClass),
-		negativeIndex,
+		-1,
 		`wikia-search has ${emptySearchClass} class`
 	);
 	assert.equal(
 		wikiaSearchClass.indexOf(focusedInputClass),
-		negativeIndex,
+		-1,
 		`wikia-search doesn't have ${focusedInputClass} class`
 	);
 	assert.equal(
 		wikiaSearchClass.indexOf(hasSuggestionsClass),
-		negativeIndex,
+		-1,
 		`wikia-search doesn't have ${hasSuggestionsClass} class`
 	);
 });
@@ -55,17 +54,17 @@ test('search input has correct classes when inputFocused=true', function (assert
 
 	assert.notEqual(
 		wikiaSearchClass.indexOf(emptySearchClass),
-		negativeIndex,
+		-1,
 		`wikia-search has ${emptySearchClass} class`
 	);
 	assert.notEqual(
 		wikiaSearchClass.indexOf(focusedInputClass),
-		negativeIndex,
+		-1,
 		`wikia-search has ${focusedInputClass} class`
 	);
 	assert.equal(
 		wikiaSearchClass.indexOf(hasSuggestionsClass),
-		negativeIndex,
+		-1,
 		`wikia-search doesn't have ${hasSuggestionsClass} class`
 	);
 });

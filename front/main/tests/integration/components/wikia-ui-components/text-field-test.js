@@ -4,8 +4,7 @@ import {test, moduleForComponent} from 'ember-qunit';
 import Ember from 'ember';
 
 const inputSelector = 'input',
-	labelSelector = 'label',
-	negativeIndex = -1;
+	labelSelector = 'label';
 
 moduleForComponent('wikia-ui-components/text-field', 'Integration | Component | text field', {
 	integration: true,
@@ -54,8 +53,8 @@ test('render customized text field correctly', function (assert) {
 	const input = this.$(inputSelector),
 		label = this.$(labelSelector);
 
-	assert.notEqual(input.attr('class').indexOf(customInputClassName), negativeIndex);
-	assert.notEqual(label.attr('class').indexOf(customLabelClassName), negativeIndex);
+	assert.notEqual(input.attr('class').indexOf(customInputClassName), -1);
+	assert.notEqual(label.attr('class').indexOf(customLabelClassName), -1);
 	assert.equal(input.attr('type'), type);
 	assert.equal(input.val(), this.get('inputValue'));
 	assert.equal(label.text(), labelText);
