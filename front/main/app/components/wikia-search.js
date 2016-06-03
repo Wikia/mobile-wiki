@@ -122,7 +122,7 @@ export default Component.extend(NoScrollMixin,
 
 			redirectToOasis(uri) {
 				$.cookie('useskin', 'oasis', {path: '/', domain: getDomain});
-				window.location.assign(uri);
+				window.location.assign(`/${uri}`);
 			}
 		},
 
