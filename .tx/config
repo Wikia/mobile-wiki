@@ -30,3 +30,9 @@ source_file = front/locales/en/infobox-builder.json
 source_lang = en
 type = KEYVALUEJSON
 file_filter = front/locales/<lang>/infobox-builder.json
+
+[mercury.searchjson]
+source_file = front/locales/en/search.json
+source_lang = en
+type = KEYVALUEJSON
+file_filter = front/locales/<lang>/search.json

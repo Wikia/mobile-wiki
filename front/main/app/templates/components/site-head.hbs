@@ -18,16 +18,19 @@
 			iconSize=24
 		}}
 
-		{{wikia-ui-components/icon-button
-			click=(action 'siteHeadIconClick' 'search')
-			class='site-head-icon site-head-icon-search'
-			icon=searchIcon
-			iconSize=24
-		}}
+		<div class="site-head-icon-search">
+			{{wikia-ui-components/icon-button
+				click=(action 'siteHeadIconClick' 'search')
+				class='site-head-icon'
+				icon=searchIcon
+				iconSize=24
+				isVisible=(if isSearchPage false true)
+			}}
+		</div>
 	</nav>
 </div>
-
 {{site-head-fandom-bar
 	wikiaHomepage=wikiaHomepage
+	isSearchPage=isSearchPage
 }}
 <div id="site-head-sub-header"></div>

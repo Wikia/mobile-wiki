@@ -26,15 +26,23 @@ $ad-background: rgb(44, 52, 61);
 	z-index: $z-ads-top-leaderboard;
 }
 
-.bfaa-template {
-	.mobile-top-leaderboard {
-		position: absolute;
-		top: 0;
-		width: 100%;
-	}
+.mobile-top-leaderboard.bfaa-template {
+	position: absolute;
+	top: 0;
+	width: 100%;
 
 	.ad-slot {
 		background: none;
+		padding: 0;
+	}
+}
+
+.mobile-bottom-leaderboard {
+	.ad-slot {
+		padding: 10px 0;
+	}
+
+	&.bfab-template .ad-slot {
 		padding: 0;
 	}
 }
