@@ -66,7 +66,11 @@ export default Component.extend(NoScrollMixin,
 
 		didInsertElement() {
 			this._super(...arguments);
-			this.set('inputField', $('.side-search__input'));
+
+			run.scheduleOnce('afterRender', this, () => {
+				this.set('inputField', $('.side-search__input'));
+			});
+
 			if (this.get('focusInput')) {
 				run.scheduleOnce('afterRender', this, () => {
 					this.get('inputField').focus();
