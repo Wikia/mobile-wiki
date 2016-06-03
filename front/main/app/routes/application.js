@@ -209,7 +209,12 @@ export default Route.extend(
 			// This is used only in not-found.hbs template
 			/**
 			 * @returns {void}
+			 * @param {string} query
 			 */
+			goToSearchResults(query) {
+				this.transitionTo('search', {queryParams: {query}});
+			},
+
 			openNav() {
 				this.get('controller').setProperties({
 					drawerContent: 'nav',

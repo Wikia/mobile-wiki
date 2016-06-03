@@ -1,13 +1,15 @@
 {{input
-	class='text-field-input'
+	class=(concat 'text-field-input ' inputClasses)
 	value=value
 	id=inputId
 	name=name
 	focus-out='onBlur'
 	focus-in='onFocus'
+	enter='onEnter'
 	change=this.attrs.onChange
 	placeholder=placeholder
 	key-up='onKeyUp'
+	type=type
 }}
 <label class={{labelClassNames}} for={{inputId}}>{{label}}</label>
 {{#if errorMessage}}
