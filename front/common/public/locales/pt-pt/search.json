@@ -1,6 +1,11 @@
 {
-  "main": {
-    "search-input-label": "Search", 
-    "search-loading-msg": "Carregando resultados da pesquisa..."
+  "main":{
+    "search-error-general":"Can't connect, please try again",
+    "search-error-general-action":"Click to retry",
+    "search-error-not-found":"We couldn't find anything for __query__",
+    "search-error-not-found-action":"Try Another Search",
+    "search-input-label":"Search",
+    "search-loading-msg":"Loading search results...",
+    "total-results":"About __totalItems__ results for __query__"
   }
 }
