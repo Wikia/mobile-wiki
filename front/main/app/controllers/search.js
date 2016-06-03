@@ -12,6 +12,7 @@ export default Controller.extend({
 
 	actions: {
 		onSearchEnter(query) {
+			this.blurSearchInput();
 			this.set('query', query);
 			this.get('model').search(query);
 		},
@@ -33,5 +34,9 @@ export default Controller.extend({
 	 */
 	focusSearchInput() {
 		$('.side-search__input').focus();
+	},
+
+	blurSearchInput() {
+		$('.side-search__input').blur();
 	}
 });

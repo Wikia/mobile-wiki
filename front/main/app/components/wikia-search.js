@@ -81,6 +81,7 @@ export default Component.extend(NoScrollMixin,
 					label: 'search-open-special-search'
 				});
 
+				this.blurSearchInput();
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
@@ -349,6 +350,10 @@ export default Component.extend(NoScrollMixin,
 
 		focusSearchInput() {
 			this.$('.side-search__input').focus();
+		},
+
+		blurSearchInput() {
+			this.$('.side-search__input').blur();
 		}
 	}
 );
