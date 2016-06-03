@@ -4,7 +4,7 @@ import {track, trackActions} from 'common/utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
 import {getDomain} from '../utils/domain';
 
-const {Component, computed, observer, inject, run} = Ember;
+const {Component, computed, observer, inject, run, $} = Ember;
 
 /**
  * Type for search suggestion
@@ -68,7 +68,7 @@ export default Component.extend(NoScrollMixin,
 			this._super(...arguments);
 
 			if (this.get('focusInput')) {
-				Ember.run.scheduleOnce('afterRender', this, () => {
+				run.scheduleOnce('afterRender', this, () => {
 					this.$('.side-search__input').focus();
 				});
 			}
@@ -121,7 +121,7 @@ export default Component.extend(NoScrollMixin,
 			},
 
 			redirectToOasis(uri) {
-				Ember.$.cookie('useskin', 'oasis', {path: '/', domain: getDomain});
+				$.cookie('useskin', 'oasis', {path: '/', domain: getDomain});
 				window.location.assign(uri);
 			}
 		},
