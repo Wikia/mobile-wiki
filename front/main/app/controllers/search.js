@@ -10,6 +10,13 @@ export default Controller.extend({
 	notFoundError: computed.equal('model.error', 'search-error-not-found'),
 
 	init() {
+		/*
+			yes, we have the same function in two places (here and in wikia-search component).
+			This was the best solution, as wikia-search component had to have implemented this function
+			as well (because is used also in other contexts). We cannot pass actions from controllers
+			to components (DDAU). Observing for certain property passed from controller to component
+			wouldn't be clean solution as well.
+		*/
 		run.scheduleOnce('afterRender', this, () => {
 			this.set('inputField', $('.side-search__input'));
 		});
