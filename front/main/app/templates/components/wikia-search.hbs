@@ -1,30 +1,45 @@
-<div class="wikia-search__item search">
-	<div class="wikia-search__container">
-		{{input
-			class='side-search__input'
-			tabindex='-1'
-			placeholder=searchPlaceholderLabel
-			value=query
-			enter='enter'
-			type='search'
-		}}
-		<div class='wikia-search__clear' {{action 'clearSearch'}}>
-			{{svg 'side-nav-search-clear' viewBox='0 0 18 18' class='icon'}}
+<div class="wikia-search {{if emptyPhraseInput 'wikia-search--empty'}} {{if inputFocused 'wikia-search--focused'}} {{if hasSuggestions 'wikia-search--has-suggestions'}}">
+	<div class="wikia-search__item search">
+		<div class="wikia-search__container">
+			{{wikia-ui-components/icon-button
+				class='wikia-search__search-icon'
+				icon='search'
+				iconSize=18
+			}}
+			{{wikia-ui-components/text-field
+				value=phrase
+				name='infoboxSectionHeader'
+				label=searchPlaceholderLabel
+				inputClasses='side-search__input'
+				tabindex='-1'
+				type='search'
+				onEnterHandler=(action 'enter')
+				onFocusHandler=(action 'onInputFocus')
+				onBlurHandler=(action 'onInputBlur')
+			}}
+			{{wikia-ui-components/icon-button
+				class='wikia-search__clear'
+				click=(action 'clearSearch')
+				icon='side-nav-search-clear'
+				iconSize=18
+			}}
 		</div>
 	</div>
+	<div class="wikia-search__suggestions-wrapper" {{action 'onSuggestionsWrapperClick'}}>
+		<ul class="wikia-search__suggestions">
+			{{#each suggestions as |suggestion|}}
+				<li class="wikia-search__item wikia-search__search-suggestion mw-content">
+					{{#link-to 'wiki-page' suggestion.uri action='searchSuggestionClick'}}
+						{{{suggestion.text}}}
+					{{/link-to}}
+				</li>
+			{{else if isLoadingResultsSuggestions}}
+				<li class="wikia-search__item wikia-search__search-suggestion wikia-search__loading">
+					{{i18n 'main.search-loading-msg'
+						ns='search'
+					}}
+				</li>
+			{{/each}}
+		</ul>
+    </div>
 </div>
-<ul class="wikia-search__results">
-	{{#each suggestions as |suggestion|}}
-		<li class="wikia-search__item wikia-search__search-result mw-content">
-			{{#link-to 'wiki-page' suggestion.uri action='searchSuggestionClick'}}
-				{{suggestion.title}}
-			{{/link-to}}
-		</li>
-	{{else}}
-		{{#if isLoadingSearchResults}}
-			<li class="wikia-search__item wikia-search__search-result wikia-search__loading">
-				{{i18n 'app.search-loading-msg'}}
-			</li>
-		{{/if}}
-	{{/each}}
-</ul>
