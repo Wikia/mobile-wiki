@@ -280,7 +280,7 @@ class Ads {
 
 	/**
 	 * This method is being overwritten in ApplicationRoute for ads needs.
-	 * To learn more check ApplicationRoute.ts file.
+	 * To learn more check routes/application.js file.
 	 *
 	 * @returns {void}
 	 */
@@ -289,11 +289,20 @@ class Ads {
 
 	/**
 	 * This method is being overwritten in ApplicationRoute for ads needs.
-	 * To learn more check ApplicationRoute.ts file.
+	 * To learn more check routes/application.js file.
 	 *
 	 * @returns {void}
 	 */
 	showLightbox() {
+	}
+
+	/**
+	 * This method is being overwritten in ApplicationRoute for ads needs.
+	 * To learn more check routes/application.js file.
+	 *
+	 * @returns {void}
+	 */
+	setSiteHeadOffset() {
 	}
 
 	/**

@@ -25,6 +25,8 @@ export default Route.extend(
 			}
 		},
 
+		adsState: Ember.inject.service(),
+
 		actions: {
 			/**
 			 * @returns {void}
@@ -250,6 +252,10 @@ export default Route.extend(
 
 				adsInstance.showLightbox = () => {
 					this.send('showLightbox');
+				};
+
+				adsInstance.setSiteHeadOffset = (offset) => {
+					this.get('adsState').set('siteHeadOffset', offset);
 				};
 			}
 		},
