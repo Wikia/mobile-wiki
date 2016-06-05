@@ -173,7 +173,6 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Promise}
 	 */
 	setupEnvironmentAndInfoboxData(templateName) {
-		// TODO CE-3600 extract data and assets into services
 		const promises = {
 			data: this.loadInfoboxData(templateName),
 			assets: this.get('resourceLoader').load('portableInfoboxBuilderCss'),
@@ -241,6 +240,11 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	loadInfoboxData(templateName) {
+		if (!templateName) {
+			return Promise.resolve().then(() => {
+				return {data: '{}', isNew: true};
+			});
+		}
 		return this.get('ajax').request(M.buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'PortableInfoboxBuilderController',
