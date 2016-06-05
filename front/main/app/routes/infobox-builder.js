@@ -10,7 +10,6 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		return window.self !== window.top;
 	}),
 	isEnvironmentSet: false,
-	pontoPath: '/front/main/assets/vendor/ponto/ponto.js',
 
 	/**
 	 * Load infobox data and additional assets with AJAX request and run methods that will handle them
@@ -178,7 +177,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		const promises = {
 			data: this.loadInfoboxData(templateName),
 			assets: this.get('resourceLoader').load('portableInfoboxBuilderCss'),
-			ponto: this.loadPonto()
+			ponto: this.get('resourceLoader').load('pontoJs')
 		};
 
 		return Ember.RSVP.hash(promises)
@@ -256,15 +255,6 @@ export default Ember.Route.extend(ConfirmationMixin, {
 				throw new Error('Invalid data was returned from Infobox Builder API');
 			}
 		});
-	},
-
-	/**
-	 * Loads ponto and sets ponto target
-	 *
-	 * @returns {JQueryXHR}
-	 */
-	loadPonto() {
-		return Ember.$.getScript(this.pontoPath);
 	},
 
 	/**

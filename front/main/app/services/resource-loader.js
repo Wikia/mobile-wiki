@@ -2,7 +2,8 @@ import Ember from 'ember';
 
 const {$, inject, Service} = Ember,
 	{buildUrl} = M,
-	typeCss = 'css';
+	typeCss = 'css',
+	typeJs = 'js';
 
 /**
  * Helper class for loading CSS
@@ -11,9 +12,21 @@ const {$, inject, Service} = Ember,
 function Css() {
 }
 
+/**
+ * Helper class for loading JS
+ * @returns {void}
+ */
+function Js() {
+}
+
 export default Service.extend({
 	ajax: inject.service(),
 	assets: {
+		pontoJs: {
+			path: '/front/main/assets/vendor/ponto/ponto.js',
+			loaded: false,
+			type: typeJs
+		},
 		portableInfoboxBuilderCss: {
 			data: {
 				controller: 'PortableInfoboxBuilderController',
@@ -57,7 +70,8 @@ export default Service.extend({
 	},
 
 	loaders: {
-		css: new Css()
+		css: new Css(),
+		js: new Js()
 	}
 });
 
@@ -108,4 +122,16 @@ Css.prototype.setupStyles = function (assetsBundle, serverResponse) {
 
 Css.prototype.appendToHead = function (html) {
 	$(html).appendTo('head');
+};
+
+
+/**
+ * Load JS assets from path
+ * @param {Object} assetsBundle
+ * @returns {Promise}
+ */
+Js.prototype.load = function (assetsBundle) {
+	return Ember.$.getScript(assetsBundle.path).then(() => {
+		assetsBundle.loaded = true;
+	});
 };
