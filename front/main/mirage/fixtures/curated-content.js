@@ -54,41 +54,6 @@ export default {
 			original_dimensions: null,
 			description: 'Mercury CC Wikia is a community site that anyone can contribute to. Discover, share and add your knowledge!'
 		},
-		articleType: 'other',
-		adsContext: {
-			opts: {
-				adsInContent: 1,
-				enableAdsInMaps: true,
-				pageType: 'homepage_logged',
-				showAds: true,
-				sourcePointDetectionUrl: 'http:\/\/mercurycc.wikia.com\/__load\/-\/cb%3D1464990246%26debug%3Dfalse%26lang%3Den%26only%3Dscripts%26skin%3Doasis\/cca0bb96ad8d77ac589740e44ca2abdc',
-				yavliUrl: 'http:\/\/mercurycc.wikia.com\/__load\/-\/cb%3D1464990246%26debug%3Dfalse%26lang%3Den%26only%3Dscripts%26skin%3Doasis\/264d2c74c60fd81981d9cba7fceefe03'
-			},
-			targeting: {
-				enableKruxTargeting: true,
-				enablePageCategories: true,
-				esrbRating: 'teen',
-				mappedVerticalName: 'ent',
-				pageArticleId: 1461,
-				pageIsArticle: true,
-				pageName: 'Mercury_CC_Wikia',
-				pageType: 'home',
-				skin: 'mercury',
-				wikiCategory: 'ent',
-				wikiDbName: 'mercurycc',
-				wikiLanguage: 'en',
-				wikiVertical: 'tv',
-				newWikiCategories: ['ent']
-			},
-			providers: {
-				evolve2: true,
-				rubiconFastlane: true
-			},
-			slots: {
-				exitstitial: true,
-				invisibleHighImpact: true
-			},
-			forcedProvider: null
-		}
+		articleType: 'other'
 	}
 };
