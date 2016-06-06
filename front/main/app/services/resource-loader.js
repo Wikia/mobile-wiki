@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const {$, inject, Service} = Ember,
+const {$, inject, Service, RSVP} = Ember,
 	{buildUrl} = M,
 	typeCss = 'css',
 	typeJs = 'js';
@@ -49,21 +49,21 @@ export default Service.extend({
 		const assetsBundle = this.get('assets')[assetsBundleName];
 
 		if (!assetsBundle) {
-			throw new Error('Requested asset not found on avialable assets list');
+			return RSVP.reject(new Error('Requested asset not found on avialable assets list'));
 		}
 
 		if (assetsBundle.loaded === true) {
-			return true;
+			return RSVP.resolve('Asset already loaded');
 		}
 
 		if (!assetsBundle.type) {
-			throw new Error('Missing type property in requested asset');
+			return RSVP.reject(new Error('Missing type property in requested asset'));
 		}
 
 		const loader = this.get('loaders')[assetsBundle.type];
 
 		if (!loader) {
-			throw new Error('Loader for provided type doesn\'t exist');
+			return RSVP.reject(new Error('Loader for provided type doesn\'t exist'));
 		}
 
 		return loader.load(assetsBundle, this.get('ajax'));
@@ -84,7 +84,7 @@ export default Service.extend({
  */
 Css.prototype.load = function (assetsBundle, ajax) {
 	if (!assetsBundle.data) {
-		throw new Error('Missing data property in requested asset');
+		return RSVP.reject(new Error('Missing data property in requested asset'));
 	}
 
 	return ajax.request(buildUrl({path: '/wikia.php'}), {

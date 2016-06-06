@@ -38,10 +38,12 @@ test('Throw an error on non existent bundle name', function (assert) {
 
 	service.set('assets', {});
 
-	assert.expect(1);
-	assert.throws(() => {
-		service.load(exampleBundleName);
-	}, new Error('Requested asset not found on avialable assets list'));
+	service.load(exampleBundleName).then(() => {
+		assert.fail('Loading asset should fail here due to non existent bundle name');
+	}, (error) => {
+		assert.equal(error.message, 'Requested asset not found on avialable assets list');
+	});
+	assert.ok(true);
 });
 
 test('Don\'t load if resource already loaded', function (assert) {
@@ -53,7 +55,12 @@ test('Don\'t load if resource already loaded', function (assert) {
 	};
 	service.set('assets', assets);
 
-	assert.equal(service.load(exampleBundleName), true);
+	service.load(exampleBundleName).then((data) => {
+		assert.equal(data, 'Asset already loaded');
+	}, () => {
+		assert.fail('Loading asset shouldn\'t fail here');
+	});
+	assert.ok(true);
 });
 
 
@@ -64,10 +71,12 @@ test('Throw an error on type field missing in bundle config', function (assert) 
 	assets[exampleBundleName] = {};
 	service.set('assets', assets);
 
-	assert.expect(1);
-	assert.throws(() => {
-		service.load(exampleBundleName);
-	}, new Error('Missing type property in requested asset'));
+	service.load(exampleBundleName).then(() => {
+		assert.fail('Loading asset should fail here due to missing type');
+	}, (error) => {
+		assert.equal(error.message, 'Missing type property in requested asset');
+	});
+	assert.ok(true);
 });
 
 
@@ -80,10 +89,12 @@ test('Throw an error on non existent loader for type', function (assert) {
 	};
 	service.set('assets', assets);
 
-	assert.expect(1);
-	assert.throws(() => {
-		service.load(exampleBundleName);
-	}, new Error('Loader for provided type doesn\'t exist'));
+	service.load(exampleBundleName).then(() => {
+		assert.fail('Loading asset should fail here due to non existent loader for type');
+	}, (error) => {
+		assert.equal(error.message, 'Loader for provided type doesn\'t exist');
+	});
+	assert.ok(true);
 });
 
 
@@ -96,10 +107,12 @@ test('Throw an error on data field missing in bundle config', function (assert) 
 	};
 	service.set('assets', assets);
 
-	assert.expect(1);
-	assert.throws(() => {
-		service.load(exampleBundleName);
-	}, new Error('Missing data property in requested asset'));
+	service.load(exampleBundleName).then(() => {
+		assert.fail('Loading asset should fail here due to non existent data field');
+	}, (error) => {
+		assert.equal(error.message, 'Missing data property in requested asset');
+	});
+	assert.ok(true);
 });
 
 
@@ -119,14 +132,20 @@ test('Throw an error for corrupted data from API', function (assert) {
 		request: () => {
 			return {
 				then: (callback) => {
-					callback();
+					try {
+						return callback();
+					} catch (e) {
+						return Promise.reject(e);
+					}
 				}
 			};
 		}
 	});
 
-	assert.expect(1);
-	assert.throws(() => {
-		service.load(exampleBundleName);
-	}, new Error('Invalid assets data was returned from MediaWiki API'));
+	service.load(exampleBundleName).then(() => {
+		assert.fail('Loading asset should fail here due to corrupted data from mocked API');
+	}, (error) => {
+		assert.equal(error.message, 'Invalid assets data was returned from MediaWiki API');
+	});
+	assert.ok(true);
 });
