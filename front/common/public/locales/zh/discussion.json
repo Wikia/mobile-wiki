@@ -79,7 +79,14 @@
     "reply-label":"答覆",
     "share-header":"分享話題",
     "share-label":"分享",
-    "reported-not-found-error":"暫時沒有被舉報的帖子或者回復。"
+    "reported-not-found-error":"暫時沒有被舉報的帖子或者回復。",
+    "categories-header":"分類",
+    "category-all-name":"所有",
+    "categories-show-more-button-label":"顯示更多",
+    "categories-show-less-button-label":"折疊",
+    "filter-posts-header":"篩選帖子",
+    "filter-reset-label":"重置",
+    "in-category-label":"在__categoryName__中"
   },
   "editor":{
     "post-failed-error":"發佈失敗",

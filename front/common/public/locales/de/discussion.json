@@ -79,7 +79,14 @@
     "reply-label":"Antworten",
     "share-header":"Beitrag teilen",
     "share-label":"Teilen",
-    "reported-not-found-error":"Es gibt keine gemeldeten Beiträge oder Antworten."
+    "reported-not-found-error":"Es gibt keine gemeldeten Beiträge oder Antworten.",
+    "categories-header":"Kategorien",
+    "category-all-name":"Alle",
+    "categories-show-more-button-label":"Mehr anzeigen",
+    "categories-show-less-button-label":"Weniger anzeigen",
+    "filter-posts-header":"Beiträge filtern",
+    "filter-reset-label":"Zurücksetzen",
+    "in-category-label":"In __categoryName__"
   },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",

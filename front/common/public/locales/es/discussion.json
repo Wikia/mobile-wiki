@@ -79,7 +79,14 @@
     "reply-label":"Responder",
     "share-header":"Comparte",
     "share-label":"Compartir",
-    "reported-not-found-error":"No hay discusiones ni respuestas reportadas."
+    "reported-not-found-error":"No hay discusiones ni respuestas reportadas.",
+    "categories-header":"Categorías",
+    "category-all-name":"Todas",
+    "categories-show-more-button-label":"Mostrar más",
+    "categories-show-less-button-label":"Mostrar Menos",
+    "filter-posts-header":"Filtrar discusiones",
+    "filter-reset-label":"Reiniciar",
+    "in-category-label":"En __categoryName__"
   },
   "editor":{
     "post-failed-error":"Fallo en discusión.",

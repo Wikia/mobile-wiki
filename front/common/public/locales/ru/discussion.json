@@ -79,7 +79,14 @@
     "reply-label":"Отправить",
     "share-header":"Поделиться записью",
     "share-label":"Поделиться",
-    "reported-not-found-error":"Требующих проверки сообщений или ответов нет."
+    "reported-not-found-error":"Требующих проверки сообщений или ответов нет.",
+    "categories-header":"Категории",
+    "category-all-name":"Все",
+    "categories-show-more-button-label":"Показать больше",
+    "categories-show-less-button-label":"Показать меньше",
+    "filter-posts-header":"Фильтр сообщений",
+    "filter-reset-label":"Сбросить",
+    "in-category-label":"В __categoryName__"
   },
   "editor":{
     "post-failed-error":"Не удалось записать сообщение.",

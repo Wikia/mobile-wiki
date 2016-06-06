@@ -79,7 +79,14 @@
     "reply-label":"返信",
     "share-header":"投稿を共有",
     "share-label":"共有",
-    "reported-not-found-error":"報告された投稿や返信はありません 。"
+    "reported-not-found-error":"報告された投稿や返信はありません 。",
+    "categories-header":"カテゴリ",
+    "category-all-name":"すべて",
+    "categories-show-more-button-label":"さらに表示",
+    "categories-show-less-button-label":"表示を減らす",
+    "filter-posts-header":"投稿をフィルタする",
+    "filter-reset-label":"リセット",
+    "in-category-label":"カテゴリ名:__categoryName__"
   },
   "editor":{
     "post-failed-error":"投稿できませんでした。",

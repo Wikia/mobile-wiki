@@ -79,7 +79,14 @@
     "reply-label":"Répondre",
     "share-header":"Partagez la publication",
     "share-label":"Partager",
-    "reported-not-found-error":"Aucune publication ou réponse n'a été signalée."
+    "reported-not-found-error":"Aucune publication ou réponse n'a été signalée.",
+    "categories-header":"Catégories",
+    "category-all-name":"Toutes",
+    "categories-show-more-button-label":"Plus",
+    "categories-show-less-button-label":"Moins",
+    "filter-posts-header":"Filtre des publications",
+    "filter-reset-label":"Réinitialiser",
+    "in-category-label":"Dans __categoryName__"
   },
   "editor":{
     "post-failed-error":"Échec de la publication.",

@@ -79,7 +79,14 @@
     "reply-label":"Reply",
     "share-header":"Share Post",
     "share-label":"Share",
-    "reported-not-found-error":"There are no reported posts or replies."
+    "reported-not-found-error":"There are no reported posts or replies.",
+    "categories-header":"Categories",
+    "category-all-name":"All",
+    "categories-show-more-button-label":"Show more",
+    "categories-show-less-button-label":"Show less",
+    "filter-posts-header":"Filter Posts",
+    "filter-reset-label":"Reset",
+    "in-category-label":"In __categoryName__"
   },
   "editor":{
     "post-failed-error":"Post failed.",

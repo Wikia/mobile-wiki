@@ -79,7 +79,14 @@
     "reply-label":"回复",
     "share-header":"分享话题",
     "share-label":"分享",
-    "reported-not-found-error":"暂时没有被举报的帖子或者回复。"
+    "reported-not-found-error":"暂时没有被举报的帖子或者回复。",
+    "categories-header":"分类",
+    "category-all-name":"全部",
+    "categories-show-more-button-label":"显示更多",
+    "categories-show-less-button-label":"折叠",
+    "filter-posts-header":"筛选帖子",
+    "filter-reset-label":"重置",
+    "in-category-label":"在__categoryName__中"
   },
   "editor":{
     "post-failed-error":"发布失败",

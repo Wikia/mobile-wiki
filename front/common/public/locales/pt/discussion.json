@@ -79,7 +79,14 @@
     "reply-label":"Responder",
     "share-header":"Compartilhar post",
     "share-label":"Compartilhar",
-    "reported-not-found-error":"Não há posts ou respostas relatados."
+    "reported-not-found-error":"Não há posts ou respostas relatados.",
+    "categories-header":"Categorias",
+    "category-all-name":"Todas",
+    "categories-show-more-button-label":"Mostrar mais",
+    "categories-show-less-button-label":"Mostrar menos",
+    "filter-posts-header":"Filtrar posts",
+    "filter-reset-label":"Redefinir",
+    "in-category-label":"Em __categoryName__"
   },
   "editor":{
     "post-failed-error":"O post falhou.",

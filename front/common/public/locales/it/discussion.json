@@ -79,7 +79,14 @@
     "reply-label":"Rispondi",
     "share-header":"Condividi post",
     "share-label":"Condividi",
-    "reported-not-found-error":"Nessun post o risposta segnalata"
+    "reported-not-found-error":"Nessun post o risposta segnalata",
+    "categories-header":"Categorie",
+    "category-all-name":"Tutto",
+    "categories-show-more-button-label":"Mostra di più",
+    "categories-show-less-button-label":"Mostra di meno",
+    "filter-posts-header":"Filtra post",
+    "filter-reset-label":"Reset",
+    "in-category-label":"In __categoryName__"
   },
   "editor":{
     "post-failed-error":"Post non pubblicato",
