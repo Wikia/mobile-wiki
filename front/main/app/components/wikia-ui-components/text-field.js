@@ -102,6 +102,7 @@ export default Ember.Component.extend({
 		 */
 		onKeyUp(value, event) {
 			const onKeyUpHandler = this.get('onKeyUpHandler');
+
 			this.set('value', value);
 
 			if (onKeyUpHandler) {
