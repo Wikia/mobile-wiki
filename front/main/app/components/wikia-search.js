@@ -2,6 +2,7 @@ import Ember from 'ember';
 import NoScrollMixin from '../mixins/no-scroll';
 import {track, trackActions} from 'common/utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
+import {getDomain} from '../utils/domain';
 
 const {Component, computed, observer, inject, run, $} = Ember;
 
@@ -26,7 +27,6 @@ export default Component.extend(NoScrollMixin,
 		cachedResultsQueue: [],
 		// in ms
 		debounceDuration: 250,
-
 		// Wether or not to apply styles on input when focused
 		inputFocused: false,
 		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
@@ -73,7 +73,7 @@ export default Component.extend(NoScrollMixin,
 
 			if (this.get('focusInput')) {
 				run.scheduleOnce('afterRender', this, () => {
-					this.get('inputField').focus();
+					this.$('.side-search__input').focus();
 				});
 			}
 		},
@@ -123,6 +123,11 @@ export default Component.extend(NoScrollMixin,
 				if (outsideSuggestionsClickAction) {
 					outsideSuggestionsClickAction(event);
 				}
+			},
+
+			redirectToOasis(uri) {
+				$.cookie('useskin', 'oasis', {path: '/', domain: getDomain});
+				window.location.assign(`/${uri}`);
 			}
 		},
 

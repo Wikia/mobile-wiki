@@ -29,9 +29,12 @@
 		<ul class="wikia-search__suggestions">
 			{{#each suggestions as |suggestion|}}
 				<li class="wikia-search__item wikia-search__search-suggestion mw-content">
-					{{#link-to 'wiki-page' suggestion.uri action='searchSuggestionClick'}}
+					{{#link-to 'wiki-page' suggestion.uri action='searchSuggestionClick' class='wikia-search--mobile'}}
 						{{{suggestion.text}}}
 					{{/link-to}}
+					<a class="wikia-search--desktop" href="#" {{action 'redirectToOasis' suggestion.uri}}>
+						{{{suggestion.text}}}
+					</a>
 				</li>
 			{{else if isLoadingResultsSuggestions}}
 				<li class="wikia-search__item wikia-search__search-suggestion wikia-search__loading">
