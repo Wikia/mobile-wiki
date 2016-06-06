@@ -15,6 +15,12 @@ export default Ember.Component.extend({
 		this.setLocalCategories();
 	},
 
+	disabledObserver: Ember.observer('disabled', function () {
+		if (this.get('disabled', true)) {
+			this.send('onAllCategoryClick');
+		}
+	}),
+
 	setLocalCategories() {
 		const categories = this.get('categories'),
 			localCategories = new Ember.A();
@@ -31,10 +37,6 @@ export default Ember.Component.extend({
 			allCategorySelected: this.get('allCategoriesDisplayed'),
 		});
 	},
-
-	allCategoriesChecked: Ember.computed('allCategoriesDisplayed', function () {
-
-	}),
 
 	categoriesInputIdPrefix: Ember.computed('inputIdPrefix', function () {
 		return `${this.get('inputIdPrefix')}-discussion-category-`;

@@ -4,6 +4,7 @@
 			{{discussion-categories-filter
 				allCategoriesDisplayed=allCategoriesDisplayed
 				categories=categories
+				disabled=onlyReported
 				inputIdPrefix='filters'
 				visibleCategoriesCount=10
 				updateCategories=(action 'updateCategories')
@@ -32,7 +33,7 @@
 					class='moderation-checkbox-label'
 					isChecked=onlyReported
 					label=(i18n 'main.reported-content-filter-text' ns='discussion')
-					update=(action 'toggleReported')
+					click=(action 'toggleReported')
 				}}
 			</fieldset>
 		{{/if}}

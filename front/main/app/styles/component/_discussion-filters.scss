@@ -74,13 +74,20 @@ $legend-font-size: 16px;
 
 	.discussion-fieldset {
 		&:disabled {
-			.sort-trending {
-				pointer-events: none;
+			pointer-events: none;
 
+			.sort-trending {
 				label {
 					color: $discussion-filter-inactive-color;
 				}
 			}
+
+			&.discussion-categories {
+				label {
+					color: $discussion-filter-inactive-color;
+				}
+			}
+
 		}
 	}
 
