@@ -2,8 +2,9 @@ import Ember from 'ember';
 import NoScrollMixin from '../mixins/no-scroll';
 import {track, trackActions} from 'common/utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
+import {getDomain} from '../utils/domain';
 
-const {Component, computed, observer, inject, run} = Ember;
+const {Component, computed, observer, inject, run, $} = Ember;
 
 /**
  * Type for search suggestion
@@ -66,8 +67,12 @@ export default Component.extend(NoScrollMixin,
 		didInsertElement() {
 			this._super(...arguments);
 
+			run.scheduleOnce('afterRender', this, () => {
+				this.set('inputField', $('.side-search__input'));
+			});
+
 			if (this.get('focusInput')) {
-				Ember.run.scheduleOnce('afterRender', this, () => {
+				run.scheduleOnce('afterRender', this, () => {
 					this.$('.side-search__input').focus();
 				});
 			}
@@ -81,6 +86,7 @@ export default Component.extend(NoScrollMixin,
 					label: 'search-open-special-search'
 				});
 
+				this.get('inputField').blur();
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
@@ -89,7 +95,7 @@ export default Component.extend(NoScrollMixin,
 
 			clearSearch() {
 				this.set('phrase', '');
-				this.focusSearchInput();
+				this.get('inputField').focus();
 			},
 
 			searchSuggestionClick() {
@@ -117,6 +123,11 @@ export default Component.extend(NoScrollMixin,
 				if (outsideSuggestionsClickAction) {
 					outsideSuggestionsClickAction(event);
 				}
+			},
+
+			redirectToOasis(uri) {
+				$.cookie('useskin', 'oasis', {path: '/', domain: getDomain});
+				window.location.assign(`/${uri}`);
 			}
 		},
 
@@ -345,10 +356,6 @@ export default Component.extend(NoScrollMixin,
 		 */
 		getCachedResult(phrase) {
 			return this.get('cachedResults')[phrase];
-		},
-
-		focusSearchInput() {
-			this.$('.side-search__input').focus();
 		}
 	}
 );

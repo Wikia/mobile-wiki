@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
-import {isNotFoundError, isBadRequestError} from 'ember-ajax/errors';
+import {isNotFoundError, isBadRequestError, isForbiddenError} from 'ember-ajax/errors';
 
 const {Object, computed, A, Logger} = Ember;
 
@@ -43,8 +43,11 @@ export default Object.extend({
 			error: '',
 			loading: true
 		});
-		return request(M.buildUrl({path: '/api/v1/Search/List'}), {
+
+		return request(M.buildUrl({path: '/wikia.php'}), {
 			data: {
+				controller: 'SearchApi',
+				method: 'getList',
 				query,
 				batch: this.get('batch')
 			}
@@ -60,6 +63,8 @@ export default Object.extend({
 
 			if (isNotFoundError(error)) {
 				this.set('error', 'search-error-not-found');
+			} else if (isForbiddenError(error)) {
+				Logger.error('Search forbidden request', query);
 			} else if (isBadRequestError(error)) {
 				// this shouldn't happen
 				Logger.error('Search bad request', query);
