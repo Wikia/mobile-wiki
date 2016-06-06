@@ -20,7 +20,6 @@ export default Ember.Mixin.create({
 
 		if (modelError) {
 			this.get('modalDialog').display(i18n.t(modelError, {ns: 'discussion'}));
-			this.get('discussionEditor').set('shouldStopLoading', true);
 		}
 	})
 });

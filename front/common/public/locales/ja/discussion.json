@@ -73,10 +73,10 @@
     "lock-post":"投稿をロック",
     "unlock-post":"投稿のロックを解除",
     "locked-and-reported-to-moderators-text":"この投稿はロックされており、報告されています。",
-    "upvote-link-label":"賛成 __count__ 票",
-    "upvote-link-label_plural":"賛成 __count__ 票",
-    "replies-link-label":"返信 __count__ 件",
-    "replies-link-label_plural":"返信 __count__ 件",
+    "edit-reply":"返信を編集",
+    "edit-post":"投稿を編集",
+    "upvote-label":"賛成",
+    "reply-label":"返信",
     "share-header":"投稿を共有",
     "share-label":"共有",
     "reported-not-found-error":"報告された投稿や返信はありません 。"
@@ -85,12 +85,18 @@
     "post-failed-error":"投稿できませんでした。",
     "post-error-anon-cant-post":"トークに参加するにはログインしてください。",
     "post-error-not-authorized":"アカウントがブロックされているため、投稿できません。",
-    "post-error-general-error":"エラーが発生したようです。しばらくしてから、もう一度お試しください。",
+    "post-error-general-error":"投稿に失敗しました。もう一度やり直してください。",
+    "reply-error-general-error":"返信に失敗しました。もう一度やり直してください。",
+    "save-error-general-error":"保存に失敗しました。 もう一度やり直してください。",
     "post-editor-label":"投稿を作成",
+    "post-edit-editor-label":"投稿の編集",
     "post-action-button-label":"投稿",
+    "post-edit-action-button-label":"保存",
     "post-editor-placeholder-text":"意見、質問、リンクなどをシェアしてみよう",
     "reply-editor-placeholder-text":"返信を入力...",
     "reply-editor-label":"トークに追加",
-    "reply-action-button-label":"返信"
+    "reply-edit-editor-label":"返信の編集",
+    "reply-action-button-label":"返信",
+    "reply-edit-action-button-label":"保存"
   }
 }

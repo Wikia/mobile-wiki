@@ -85,6 +85,21 @@ export function getHeliosUrl(path) {
 
 /**
  * @param {string} path
+ * @param {object} query
+ *
+ * @returns {string}
+ */
+export function getHeliosInternalUrl(path, query) {
+	const heliosUrlObj = url.parse(localSettings.helios.internalUrl);
+
+	heliosUrlObj.pathname = path;
+	heliosUrlObj.search = querystring.stringify(query);
+
+	return url.format(heliosUrlObj);
+}
+
+/**
+ * @param {string} path
  * @returns {string}
  */
 export function getUserRegistrationUrl(path) {

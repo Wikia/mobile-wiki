@@ -1,7 +1,8 @@
 import {moduleFor, test} from 'ember-qunit';
+import sinon from 'sinon';
 import WikiaNavModel from 'main/models/wikia-nav';
 
-moduleFor('model:wikia-nav', 'Unit | Model | global nav', {
+moduleFor('model:wikia-nav', 'Unit | Model | wikia nav', {
 	unit: true
 });
 
@@ -19,17 +20,17 @@ test('test zero state with values from api', (assert) => {
 			},
 			expected: [
 				{
-					type: 'side-nav-menu-item',
+					type: 'nav-menu-item',
 					route: 'recent-wiki-activity',
-					name: '',
+					name: 'main.title',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav'
 				},
 				{
-					type: 'side-nav-menu-item',
-					name: '',
+					actionId: 'onRandomPageClick',
+					name: 'app.random-page-label',
 					trackLabel: 'random-page',
-					actionId: 'onRandomPageClick'
+					type: 'nav-menu-item'
 				}
 			],
 			message: 'Empty api results'
@@ -48,28 +49,29 @@ test('test zero state with values from api', (assert) => {
 			},
 			expected: [
 				{
-					className: 'tests',
+					className: 'nav-menu--external nav-menu--tests',
 					href: 'http://test.com/hub',
 					name: 'Hub test',
 					trackLabel: 'open-hub-tests',
-					type: 'side-nav-menu-external'
+					type: 'nav-menu-external'
 				},
 				{
+					className: 'nav-menu--explore',
 					index: 0,
 					name: 'Explore menu',
 					trackLabel: 'open-explore-wikia',
-					type: 'side-nav-menu-root'
+					type: 'nav-menu-root'
 				},
 				{
-					name: '',
-					type: 'side-nav-menu-header'
+					name: 'app.explore-wiki',
+					type: 'nav-menu-header'
 				},
 				{
 					route: 'recent-wiki-activity',
-					name: '',
+					name: 'main.title',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				},
 				{
 					href: 'Test_1',
@@ -77,13 +79,13 @@ test('test zero state with values from api', (assert) => {
 					route: 'wiki-page',
 					name: 'Test 1',
 					trackLabel: 'local-nav-open-link-index-1',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				},
 				{
 					actionId: 'onRandomPageClick',
-					name: '',
+					name: 'app.random-page-label',
 					trackLabel: 'random-page',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				}
 			],
 			message: 'Full nav visible, discussions disabled'
@@ -102,35 +104,36 @@ test('test zero state with values from api', (assert) => {
 			},
 			expected: [
 				{
-					className: 'tests',
+					className: 'nav-menu--external nav-menu--tests',
 					href: 'http://test.com/hub',
 					name: 'Hub test',
 					trackLabel: 'open-hub-tests',
-					type: 'side-nav-menu-external'
+					type: 'nav-menu-external'
 				},
 				{
+					className: 'nav-menu--explore',
 					index: 0,
 					name: 'Explore menu',
 					trackLabel: 'open-explore-wikia',
-					type: 'side-nav-menu-root'
+					type: 'nav-menu-root'
 				},
 				{
-					name: '',
-					type: 'side-nav-menu-header'
+					name: 'app.explore-wiki',
+					type: 'nav-menu-header'
 				},
 				{
-					type: 'side-nav-menu-item',
+					type: 'nav-menu-item',
 					route: 'discussion',
-					name: '',
+					name: 'main.discussions-header-title',
 					trackCategory: 'discussion',
 					trackLabel: 'local-nav'
 				},
 				{
 					route: 'recent-wiki-activity',
-					name: '',
+					name: 'main.title',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				},
 				{
 					href: 'Test_1',
@@ -138,13 +141,13 @@ test('test zero state with values from api', (assert) => {
 					route: 'wiki-page',
 					name: 'Test 1',
 					trackLabel: 'local-nav-open-link-index-1',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				},
 				{
 					actionId: 'onRandomPageClick',
-					name: '',
+					name: 'app.random-page-label',
 					trackLabel: 'random-page',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				}
 			],
 			message: 'Full nav visible, discussions enabled'
@@ -164,18 +167,19 @@ test('test zero state with values from api', (assert) => {
 					index: 0,
 					name: 'Explore menu',
 					trackLabel: 'open-explore-wikia',
-					type: 'side-nav-menu-root'
+					type: 'nav-menu-root',
+					className: 'nav-menu--explore'
 				},
 				{
-					name: '',
-					type: 'side-nav-menu-header'
+					name: 'app.explore-wiki',
+					type: 'nav-menu-header'
 				},
 				{
 					route: 'recent-wiki-activity',
-					name: '',
+					name: 'main.title',
 					trackCategory: 'recent-wiki-activity',
 					trackLabel: 'local-nav',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				},
 				{
 					href: 'Test_1',
@@ -183,24 +187,30 @@ test('test zero state with values from api', (assert) => {
 					route: 'wiki-page',
 					name: 'Test 1',
 					trackLabel: 'local-nav-open-link-index-1',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				},
 				{
 					actionId: 'onRandomPageClick',
-					name: '',
+					name: 'app.random-page-label',
 					trackLabel: 'random-page',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				}
 			],
 			message: 'Hubs hidden for non english'
 		}
 	];
 
+	const i18nStub = sinon.stub(window.i18n, 't');
+
+	i18nStub.returnsArg(0);
+
 	cases.forEach((testCase) => {
 		const nav = WikiaNavModel.create(testCase.mock);
 
 		assert.deepEqual(nav.get('items'), testCase.expected, testCase.message);
 	});
+
+	i18nStub.restore();
 });
 
 test('test local sub nav transitions', (assert) => {
@@ -222,7 +232,7 @@ test('test local sub nav transitions', (assert) => {
 					href: 'http://test.com/explore',
 					name: 'Explore test',
 					trackLabel: 'open-exp-test-1',
-					type: 'side-nav-menu-external'
+					type: 'nav-menu-external'
 				}
 			],
 			message: 'Explore nav displayed'
@@ -248,7 +258,7 @@ test('test local sub nav transitions', (assert) => {
 					route: 'wiki-page',
 					name: 'Test 2',
 					trackLabel: 'local-nav-open-link-index-1',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				},
 				{
 					href: 'Test_3',
@@ -256,7 +266,7 @@ test('test local sub nav transitions', (assert) => {
 					route: 'wiki-page',
 					name: 'Test 3',
 					trackLabel: 'local-nav-open-link-index-2',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				}
 			],
 			message: 'Get local sub nav'
@@ -288,7 +298,7 @@ test('test local sub nav transitions', (assert) => {
 					route: 'wiki-page',
 					name: 'Test 2.1',
 					trackLabel: 'local-nav-open-link-index-1',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				},
 				{
 					href: 'Test_2.2',
@@ -296,7 +306,7 @@ test('test local sub nav transitions', (assert) => {
 					route: 'wiki-page',
 					name: 'Test 2.2',
 					trackLabel: 'local-nav-open-link-index-2',
-					type: 'side-nav-menu-item'
+					type: 'nav-menu-item'
 				}
 			],
 			message: 'Get local sub nav with href cleaned up'

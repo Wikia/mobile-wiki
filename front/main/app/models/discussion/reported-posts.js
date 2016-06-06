@@ -1,6 +1,7 @@
 import DiscussionBaseModel from './base';
 import DiscussionModerationModelMixin from '../../mixins/discussion-moderation-model';
 import DiscussionForumActionsModelMixin from '../../mixins/discussion-forum-actions-model';
+import DiscussionContributionModelMixin from '../../mixins/discussion-contribution-model';
 import DiscussionContributors from './domain/contributors';
 import DiscussionEntities from './domain/entities';
 import request from 'ember-ajax/request';
@@ -8,6 +9,7 @@ import request from 'ember-ajax/request';
 const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionForumActionsModelMixin,
+	DiscussionContributionModelMixin,
 	{
 		/**
 		 * @param {number} [pageNum=0]
@@ -46,7 +48,6 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 
 			this.get('data').setProperties({
 				canModerate: Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
-				forumId: Ember.get(Mercury, 'wiki.id'),
 				contributors,
 				entities,
 				pageNum: 0,
@@ -61,15 +62,13 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 DiscussionReportedPostsModel.reopenClass({
 	/**
 	 * @param {number} wikiId
-	 * @param {number} forumId
 	 *
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, forumId) {
+	find(wikiId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const reportedPostsInstance = DiscussionReportedPostsModel.create({
-				wikiId,
-				forumId
+				wikiId
 			});
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/posts`), {

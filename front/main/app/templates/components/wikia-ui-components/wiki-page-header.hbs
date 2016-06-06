@@ -1,25 +1,23 @@
-<div class="wiki-page-header{{if heroImage ' has-hero-image'}}" style={{computedStyle}}>
-	<div class="wiki-page-header__wrapper">
-		<div class="wiki-page-header__main">
-			{{#if isMainPage}}
-				<h1 class="wiki-page-header__title">{{mainPageName}}</h1>
-			{{else}}
-				<h2 class="wiki-page-header__site-name-block" {{action 'trackClick'}}>
-					{{i18n 'app.header-in-wiki-name-label-prefix'}}
-					{{#link-to 'wiki-page' mainPageTitle title=mainPageName class='wiki-page-header__site-link'}}
-						<span class="wiki-page-header__site-name">{{mainPageName}}</span>
-						{{i18n 'app.header-in-wiki-name-label-suffix'}}
-						{{svg 'arrow-right-long'}}
-					{{/link-to}}
-				</h2>
-				<h1 class="wiki-page-header__title">{{title}}</h1>
-				{{#if subtitle}}
-					<div class="wiki-page-header__subtitle">{{subtitle}}</div>
-				{{/if}}
+<div class="wiki-page-header__wrapper">
+	<div class="wiki-page-header__main">
+		{{#if isMainPage}}
+			<h1 class="wiki-page-header__title">{{siteName}}</h1>
+		{{else}}
+			<h2 class="wiki-page-header__site-name-block" {{action 'trackClick'}}>
+				{{i18n 'app.header-in-wiki-name-label-prefix'}}
+				{{#link-to 'wiki-page' mainPageTitle title=siteName class='wiki-page-header__site-link'}}
+					<span class="wiki-page-header__site-name">{{siteName}}</span>
+					{{i18n 'app.header-in-wiki-name-label-suffix'}}
+					{{svg 'arrow-right-long'}}
+				{{/link-to}}
+			</h2>
+			<h1 class="wiki-page-header__title">{{title}}</h1>
+			{{#if subtitle}}
+				<div class="wiki-page-header__subtitle">{{subtitle}}</div>
 			{{/if}}
-		</div>
-		{{#if hasBlock}}
-			{{yield}}
 		{{/if}}
 	</div>
+	{{#if hasBlock}}
+		{{yield}}
+	{{/if}}
 </div>

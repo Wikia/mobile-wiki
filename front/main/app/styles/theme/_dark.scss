@@ -7,11 +7,6 @@ body.dark-theme {
 }
 
 .dark-theme {
-	.upvote-icon-background {
-		fill: $dark-upvote-icon-back-color;
-		stroke: $dark-upvote-icon-back-color;
-	}
-
 	button[type=submit][disabled] {
 		background-color: $dark-button-color;
 		border-color: $dark-button-color;
@@ -87,12 +82,32 @@ body.dark-theme {
 			}
 		}
 
+		.discussion-reply {
+			.upvotes {
+				small {
+					color: $dark-discussion-count-color;
+				}
+			}
+		}
+
 		.count {
 			color: $dark-discussion-count-color;
 
 			.upvote-area,
 			.replies-area {
 				color: $dark-discussion-count-color;
+			}
+		}
+
+		.post-counters {
+			color: $dark-discussion-actions-color;
+		}
+
+		.post-actions {
+			border-top-color: $dark-discussion-post-detail-border-color;
+
+			> li:not(:last-child) {
+				border-right: 1px solid $dark-discussion-post-actions-border-color;
 			}
 		}
 
@@ -137,10 +152,6 @@ body.dark-theme {
 
 				.icon:not(.delete) {
 					fill: $dark-discussion-deleted-actions-color;
-
-					&.upvote-reply {
-						stroke: $dark-discussion-deleted-actions-color;
-					}
 				}
 			}
 
@@ -175,19 +186,11 @@ body.dark-theme {
 
 		.icon {
 			fill: $dark-discussion-actions-color;
-
-			&.upvote-reply {
-				stroke: $dark-discussion-actions-color;
-			}
 		}
 
 		.has-upvoted {
 			.icon {
 				fill: $dark-upvote-icon-activated-color;
-
-				&.upvote-reply {
-					stroke: $dark-upvote-icon-activated-color;
-				}
 			}
 		}
 
@@ -321,6 +324,35 @@ body.dark-theme {
 			}
 		}
 	}
+
+	&.discussions {
+		.og-container {
+			background-color: $dark-discussion-open-graph-background-color;
+			border-color: $dark-discussion-open-graph-border-color;
+		}
+
+		.og-title {
+			color: $dark-discussion-open-graph-title-color;
+		}
+
+		.og-site-name {
+			color: $dark-discussion-open-graph-domain-color;
+		}
+
+		.is-loading {
+			.loading-overlay {
+				background-color: transparent;
+			}
+
+			.og-image-placeholder {
+				background-color: $dark-discussion-open-graph-placeholder-background-color;
+			}
+
+			.og-text-placeholder {
+				background-color: $dark-discussion-open-graph-placeholder-background-color;
+			}
+		}
+	}
 }
 
 @media #{$desktop-range} {
@@ -385,12 +417,32 @@ body.dark-theme {
 				}
 			}
 		}
+
+		.discussions {
+			.large-image-card-desktop {
+				.og-image {
+					border-bottom-color: $dark-discussion-open-graph-border-color;
+				}
+			}
+		}
 	}
 
 	.post-list-view {
 		.rail {
 			.delete-all {
 				color: $dark-discussion-actions-color;
+			}
+		}
+	}
+}
+
+@media #{$mobile-range} {
+	.dark-theme {
+		.discussion {
+			.post-actions {
+				> li:not(:last-child) {
+					border-right: none;
+				}
 			}
 		}
 	}

@@ -56,8 +56,8 @@ $color-gray-semi: $color-blue-gray;
 // All variables should live here to prevent shadowing of variables and provide a central location for developers to
 // quickly modify the application
 
-$overlay-opacity: .5;
-$overlay-color: $color-black;
+$overlay-background-color: rgba(0, 0, 0, 0.5);
+$box-shadow-color: rgba(0, 0, 0, 0.3);
 
 $border-color-light: $color-gray-light;
 
@@ -97,7 +97,11 @@ $smart-banner-android-height: rem-calc(66);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Site head
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$site-head-height: rem-calc(50);
+$site-head-top-border-height: rem-calc(6);
+$site-head-content-height: rem-calc(49);
+$site-head-fandom-bar-height: rem-calc(23);
+$site-head-height: $site-head-top-border-height + $site-head-content-height;
+$site-head-with-fandom-bar-height: $site-head-height + $site-head-fandom-bar-height;
 $icon-site-head-width: rem-calc(60);
 $icon-site-head-height: 50px;
 

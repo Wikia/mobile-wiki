@@ -73,10 +73,10 @@
     "lock-post":"Encerrar post",
     "unlock-post":"Reabrir post",
     "locked-and-reported-to-moderators-text":"Este post está encerrado e foi relatado.",
-    "upvote-link-label":"__count__ Voto",
-    "upvote-link-label_plural":"__count__ Votos",
-    "replies-link-label":"__count__ Resposta",
-    "replies-link-label_plural":"__count__ Respostas",
+    "edit-reply":"Editar a resposta",
+    "edit-post":"Editar post",
+    "upvote-label":"Votar",
+    "reply-label":"Responder",
     "share-header":"Compartilhar post",
     "share-label":"Compartilhar",
     "reported-not-found-error":"Não há posts ou respostas relatados."
@@ -85,12 +85,18 @@
     "post-failed-error":"O post falhou.",
     "post-error-anon-cant-post":"Iniciar sessão para participar da discussão!",
     "post-error-not-authorized":"Você não pode postar porque sua conta foi bloqueada.",
-    "post-error-general-error":"Opa, parece que algo deu errado! Por favor, tente novamente mais tarde.",
+    "post-error-general-error":"O post falhou, por favor, tente novamente.",
+    "reply-error-general-error":"A resposta falhou, por favor, tente novamente.",
+    "save-error-general-error":"Falha ao salvar, por favor, tente novamente.",
     "post-editor-label":"Criar um post",
+    "post-edit-editor-label":"Editar seu post",
     "post-action-button-label":"Postar",
+    "post-edit-action-button-label":"Salvar",
     "post-editor-placeholder-text":"Compartilhe um pensamento, perguntas ou link...",
     "reply-editor-placeholder-text":"Escreva uma resposta...",
     "reply-editor-label":"Adicionar à discussão",
-    "reply-action-button-label":"Responder"
+    "reply-edit-editor-label":"Editar a sua resposta",
+    "reply-action-button-label":"Responder",
+    "reply-edit-action-button-label":"Salvar"
   }
 }

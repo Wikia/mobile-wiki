@@ -14,6 +14,7 @@
 	upvoteCount=model.upvoteCount
 	upvote=(action this.attrs.upvote)
 }}
+
 {{#if model.replies}}
 	<div class="desktop-hidden discussion-contributors-mobile">
 		{{discussion-contributors
@@ -71,7 +72,8 @@
 	{{/if}}
 	{{#if canReply}}
 		{{discussion-reply-editor
-			create=(action this.attrs.create)
+			create=(action this.attrs.createReply)
+			generateOpenGraph=(action this.attrs.generateOpenGraph)
 			replies=model.replies
 		}}
 	{{/if}}

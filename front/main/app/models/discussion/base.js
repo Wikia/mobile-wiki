@@ -1,6 +1,4 @@
 import Ember from 'ember';
-import {track, trackActions} from '../../utils/discussion-tracker';
-import request from 'ember-ajax/request';
 
 export default Ember.Object.extend({
 	error: null,
@@ -26,10 +24,8 @@ export default Ember.Object.extend({
 		const wikiId = Ember.get(Mercury, 'wiki.id');
 
 		this.setProperties({
-			data: Ember.Object.create({
-				forumId: wikiId
-			}),
-			error: Ember.Object.create({}),
+			data: Ember.Object.create(),
+			error: Ember.Object.create(),
 			wikiId
 		});
 	},
@@ -68,45 +64,4 @@ export default Ember.Object.extend({
 	setFailedState(errorMessage) {
 		this.set('data.dialogMessage', errorMessage);
 	},
-
-	/**
-	 * @param {*} entity
-	 * @returns {void}
-	 */
-	upvote(entity) {
-		const entityId = entity.get('id'),
-			hasUpvoted = entity.get('userData.hasUpvoted'),
-			method = hasUpvoted ? 'delete' : 'post';
-
-		if (this.upvotingInProgress[entityId]) {
-			return null;
-		}
-
-		if (!entity.get('userData')) {
-			track(trackActions.AnonUpvotePost);
-
-			return null;
-		}
-
-		this.upvotingInProgress[entityId] = true;
-
-		// the change in the front-end is done here
-		entity.set('userData.hasUpvoted', !hasUpvoted);
-
-		request(M.getDiscussionServiceUrl(`/${Ember.get(Mercury, 'wiki.id')}/votes/post/${entity.get('id')}`), {
-			method,
-		}).then((data) => {
-			entity.set('upvoteCount', data.upvoteCount);
-
-			if (hasUpvoted) {
-				track(trackActions.UndoUpvotePost);
-			} else {
-				track(trackActions.UpvotePost);
-			}
-		}).catch(() => {
-			entity.set('userData.hasUpvoted', hasUpvoted);
-		}).finally(() => {
-			this.upvotingInProgress[entityId] = false;
-		});
-	}
 });

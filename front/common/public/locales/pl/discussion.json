@@ -73,10 +73,10 @@
     "lock-post":"Zablokuj post",
     "unlock-post":"Odblokuj post",
     "locked-and-reported-to-moderators-text":"Ten post jest zablokowany i został zgłoszony.",
-    "upvote-link-label":"__count__ Głos",
-    "upvote-link-label_plural":"Głosów: __count__",
-    "replies-link-label":"__count__ Odpowiedź",
-    "replies-link-label_plural":"Odpowiedzi: __count__",
+    "edit-reply":"Edytuj odpowiedź",
+    "edit-post":"Edytuj post",
+    "upvote-label":"Zagłosuj",
+    "reply-label":"Odpowiedz",
     "share-header":"Udostępnij post",
     "share-label":"Udostępnij",
     "reported-not-found-error":"Brak zgłoszonych postów lub odpowiedzi."
@@ -85,12 +85,18 @@
     "post-failed-error":"Publikacja nie powiodła się.",
     "post-error-anon-cant-post":"Zaloguj się, aby dołączyć do dyskusji!",
     "post-error-not-authorized":"Nie możesz publikować, ponieważ twoje konto zostało zablokowane.",
-    "post-error-general-error":"Ups, wygląda na to, że coś poszlo nie tak! Spróbuj ponownie później.",
+    "post-error-general-error":"Publikacja posta nie powiodła się, spróbuj ponownie.",
+    "reply-error-general-error":"Publikacja odpowiedzi nie powiodła się, spróbuj ponownie.",
+    "save-error-general-error":"Nie udało się zapisać, spróbuj ponownie.",
     "post-editor-label":"Utwórz post",
+    "post-edit-editor-label":"Edytuj swój post",
     "post-action-button-label":"Opublikuj",
+    "post-edit-action-button-label":"Zapisz",
     "post-editor-placeholder-text":"Podziel się przemyśleniami, zadaj pytanie albo wrzuć link...",
     "reply-editor-placeholder-text":"Napisz odpowiedź...",
     "reply-editor-label":"Dodaj do dyskusji",
-    "reply-action-button-label":"Odpowiedz"
+    "reply-edit-editor-label":"Edytuj swoją odpowiedź",
+    "reply-action-button-label":"Odpowiedz",
+    "reply-edit-action-button-label":"Zapisz"
   }
 }

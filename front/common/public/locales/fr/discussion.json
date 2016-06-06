@@ -73,10 +73,10 @@
     "lock-post":"Verrouiller la publication",
     "unlock-post":"Déverrouiller la publication",
     "locked-and-reported-to-moderators-text":"Cette publication est verrouillée et a été signalée.",
-    "upvote-link-label":"__count__ Vote",
-    "upvote-link-label_plural":"__count__ Votes",
-    "replies-link-label":"__count__ Réponse",
-    "replies-link-label_plural":"__count__ Réponses",
+    "edit-reply":"Modifier la réponse",
+    "edit-post":"Modifier la publication",
+    "upvote-label":"Voter",
+    "reply-label":"Répondre",
     "share-header":"Partagez la publication",
     "share-label":"Partager",
     "reported-not-found-error":"Aucune publication ou réponse n'a été signalée."
@@ -85,12 +85,18 @@
     "post-failed-error":"Échec de la publication.",
     "post-error-anon-cant-post":"Connectez-vous pour rejoindre la discussion !",
     "post-error-not-authorized":"Publication impossible car votre compte a été bloqué.",
-    "post-error-general-error":"Oups, il semble qu'un problème soit survenu. Veuillez réessayer ultérieurement.",
+    "post-error-general-error":"Échec de la publication. Veuillez réessayer.",
+    "reply-error-general-error":"Échec de la réponse. Veuillez réessayer.",
+    "save-error-general-error":"Échec de l'enregistrement. Veuillez réessayer.",
     "post-editor-label":"Créer une publication",
+    "post-edit-editor-label":"Modification de votre publication",
     "post-action-button-label":"Publier",
+    "post-edit-action-button-label":"Enregistrer",
     "post-editor-placeholder-text":"Partagez une idée, une question ou un lien…",
     "reply-editor-placeholder-text":"Écrire une réponse…",
     "reply-editor-label":"Contribuer à la discussion",
-    "reply-action-button-label":"Répondre"
+    "reply-edit-editor-label":"Modification de votre réponse",
+    "reply-action-button-label":"Répondre",
+    "reply-edit-action-button-label":"Enregistrer"
   }
 }

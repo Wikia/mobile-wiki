@@ -8,7 +8,7 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app'),
 module.exports = function (defaults) {
 	var app = new EmberApp(defaults, {
 		autoprefixer: {
-			browsers: ['last 2 version', '> 1%'],
+			browsers: ['last 2 version', 'last 3 iOS versions', '> 1%'],
 			cascade: false,
 			map: false
 		},
@@ -98,6 +98,11 @@ module.exports = function (defaults) {
 	app.import(app.bowerDirectory + '/Autolinker.js/dist/Autolinker.min.js');
 	app.import(app.bowerDirectory + '/tinycolor/dist/tinycolor-min.js');
 	app.import('vendor/common.js');
+
+	if (app.env === 'test') {
+		// Fix for PhantomJS errors
+		app.import(app.bowerDirectory + '/es5-shim/es5-shim.min.js');
+	}
 
 	// Assets which are lazy loaded
 	var cropperAssets = new Funnel(app.bowerDirectory + '/cropper/dist', {

@@ -31,5 +31,12 @@
     "ember": "2.5.0",
     "ember-qunit-notifications": "0.1.0",
     "jquery": "2.1.4"
+  },
+  "devDependencies": {
+    "blanket": "5e94fc30f2e694bb5c3718ddcbf60d467f4b4d26",
+    "Faker": "3.1.0",
+    "es5-shim": "4.5.8",
+    "lodash": "3.7.0",
+    "pretender": "1.1.0"
   }
 }

@@ -8,6 +8,7 @@
  *      name='userName'
  *      label='User name'
  *      class='additional-custom-class'
+ *      onEnterHandler=onEnterAction
  *      onFocusHandler=onFocusHandlerAction
  *      onBlurHandler=onBlurHandlerAction
  *      onKeyUpHandler=onKeyUpHandler
@@ -45,6 +46,7 @@ export default Ember.Component.extend({
 		return classNames.join(' ');
 	}),
 	isInvalid: Ember.computed.bool('errorMessage'),
+	type: 'text',
 
 	init() {
 		// input shouldn't be reloaded on change, it's needed for jap/zh os tools
@@ -64,6 +66,18 @@ export default Ember.Component.extend({
 
 			if (onBlurHandler) {
 				onBlurHandler(event);
+			}
+		},
+
+		/**
+		 * @param {jQuery.Event} event
+		 * @returns {void}
+		 */
+		onEnter(event) {
+			const onEnterHandler = this.get('onEnterHandler');
+
+			if (onEnterHandler) {
+				onEnterHandler(event);
 			}
 		},
 

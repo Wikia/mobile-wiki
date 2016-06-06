@@ -1,30 +1,44 @@
 $z-header: $z-6;
-$nav-container-padding: 4px;
+$nav-container-padding: 6px;
 $icon-size: 25px;
+$site-head-box-shadow-color: rgba(0, 0, 0, 0.15);
+$icon-button-size: 48px;
+$site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 
 .site-body {
 	margin-top: $icon-site-head-width;
 }
 
+.site-head-headroom-un-pinned .site-head {
+	box-shadow: $site-head-default-box-shadow;
+}
+
+.site-head-container {
+	min-height: $site-head-height;
+}
+
+.site-head-wrapper {
+	height: $site-head-height;
+}
+
 .site-head {
-	@extend .row;
-	@extend .small-12;
-	background-color: rgb(255, 255, 255);
-	border-bottom: 1px solid $color-blue-gray-light;
+	background-color: $white;
+	border-top: $site-head-top-border-height solid $color-blue-dark;
+	border-bottom: 1px solid $vapor;
 	direction: ltr;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
-	height: $site-head-height;
 	justify-content: space-between;
 	left: 0;
 	margin: 0 auto;
+	padding: 0 $nav-container-padding;
 	position: fixed;
-	padding-left: $nav-container-padding;
-	padding-right: $nav-container-padding;
 	right: 0;
 	text-align: center;
+	transition: box-shadow 0.5s;
 	top: 0;
+	width: 100%;
 	z-index: $z-site-head;
 
 	.site-head-icon-nav {
@@ -33,20 +47,21 @@ $icon-size: 25px;
 
 	.site-head-icon-search {
 		order: 3;
+		width: $icon-button-size;
 	}
 
 	.site-logo {
 		// These prevent the Wikia logo element from taking up more vertical
 		// space than it should, potentially affecting placement of elements
 		// beneath it.
-		height: rem-calc(50);
+		height: $site-head-content-height;
 		margin: auto;
 		order: 2;
 		overflow: hidden;
 
 		svg {
 			// keep it same as .icon.wikia-logo
-			height: 3.125rem;
+			height: rem-calc(48);
 			width: 5rem;
 		}
 	}
@@ -70,10 +85,6 @@ $icon-size: 25px;
 		right: 6px;
 		top: 6px;
 	}
-}
-
-.site-head-wrapper {
-	height: $site-head-height;
 }
 
 .side-nav-toggle {

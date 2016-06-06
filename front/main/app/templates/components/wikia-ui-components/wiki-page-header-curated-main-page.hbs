@@ -1,8 +1,11 @@
+{{#unless isRoot}}
+	<h2 class="wiki-title">{{#link-to 'wiki-page' mainPageTitle trackingCategory='wikiname'}}{{siteName}}{{/link-to}}</h2>
+{{/unless}}
 <h1 class="wiki-page-title">
-	{{mainPageName}}
+	{{title}}
 	{{#if showButtons}}
 		<div>
-			{{#link-to 'curatedContentEditor' bubbles=false class="main-page-edit"}}
+			{{#link-to 'curatedContentEditor' trackingCategory='main-page' trackingLabel='open-editor' bubbles=false class='main-page-edit'}}
 				{{svg 'pencil' role='img' class='icon pencil'}}
 				{{i18n 'app.curated-content-editor-edit-main-page'}}
 			{{/link-to}}

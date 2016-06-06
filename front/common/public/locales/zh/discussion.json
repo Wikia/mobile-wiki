@@ -73,10 +73,10 @@
     "lock-post":"鎖定帖子",
     "unlock-post":"解鎖帖子",
     "locked-and-reported-to-moderators-text":"這篇帖子被鎖定並且被報告。",
-    "upvote-link-label":"__count__個讚",
-    "upvote-link-label_plural":"__count__個讚",
-    "replies-link-label":"__count__個回覆",
-    "replies-link-label_plural":"__count__個回覆",
+    "edit-reply":"編輯回覆",
+    "edit-post":"編輯帖子",
+    "upvote-label":"讚",
+    "reply-label":"答覆",
     "share-header":"分享話題",
     "share-label":"分享",
     "reported-not-found-error":"暫時沒有被舉報的帖子或者回復。"
@@ -85,12 +85,18 @@
     "post-failed-error":"發佈失敗",
     "post-error-anon-cant-post":"登入進行討論！",
     "post-error-not-authorized":"您不能發帖因為您的帳戶已被封禁。",
-    "post-error-general-error":"哎呀，出現未知錯誤！ 請稍後再試。",
+    "post-error-general-error":"帖子發佈失敗，請再試一次。",
+    "reply-error-general-error":"回覆失敗，請再試一次。",
+    "save-error-general-error":"保存失敗，請再試一次。",
     "post-editor-label":"創建帖子",
+    "post-edit-editor-label":"編輯您的帖子",
     "post-action-button-label":"發佈",
+    "post-edit-action-button-label":"保存",
     "post-editor-placeholder-text":"分享想法、問題或連結...",
     "reply-editor-placeholder-text":"答覆...",
     "reply-editor-label":"添加到討論",
-    "reply-action-button-label":"回覆"
+    "reply-edit-editor-label":"編輯您的回覆",
+    "reply-action-button-label":"回覆",
+    "reply-edit-action-button-label":"保存"
   }
 }

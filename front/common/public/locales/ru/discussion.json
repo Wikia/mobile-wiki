@@ -73,10 +73,10 @@
     "lock-post":"Закрыть обсуждение",
     "unlock-post":"Открыть обсуждение",
     "locked-and-reported-to-moderators-text":"Это обсуждение было закрыто и отправлено на проверку.",
-    "upvote-link-label":"__count__ Голос",
-    "upvote-link-label_plural":" Голосов: __count__",
-    "replies-link-label":"__count__ Ответ",
-    "replies-link-label_plural":"Ответов: __count__ ",
+    "edit-reply":"Редактировать ответ",
+    "edit-post":"Редактировать сообщение",
+    "upvote-label":"Оценить",
+    "reply-label":"Отправить",
     "share-header":"Поделиться записью",
     "share-label":"Поделиться",
     "reported-not-found-error":"Требующих проверки сообщений или ответов нет."
@@ -85,12 +85,18 @@
     "post-failed-error":"Не удалось записать сообщение.",
     "post-error-anon-cant-post":"Войдите в систему, чтобы присоединиться к обсуждению.",
     "post-error-not-authorized":"Вы не можете создавать записи, так как ваш аккаунт был заблокирован.",
-    "post-error-general-error":"К сожалению, произошла ошибка. Пожалуйста, попробуйте снова.",
+    "post-error-general-error":"Произошла ошибка. Пожалуйста, попробуйте снова.",
+    "reply-error-general-error":"Произошла ошибка. Пожалуйста, попробуйте снова.",
+    "save-error-general-error":"Произошла ошибка. Пожалуйста, попробуйте снова.",
     "post-editor-label":"Новое сообщение",
+    "post-edit-editor-label":"Редактировать это сообщение",
     "post-action-button-label":"Опубликовать",
+    "post-edit-action-button-label":"Сохранить",
     "post-editor-placeholder-text":"Поделитесь мыслями, вопросами или ссылкой...",
     "reply-editor-placeholder-text":"Ответить...",
     "reply-editor-label":"Присоединиться к обсуждению",
-    "reply-action-button-label":"Отправить"
+    "reply-edit-editor-label":"Редактировать этот ответ",
+    "reply-action-button-label":"Отправить",
+    "reply-edit-action-button-label":"Сохранить"
   }
 }

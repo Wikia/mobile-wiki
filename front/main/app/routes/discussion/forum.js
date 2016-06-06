@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import DiscussionBaseRoute from './base';
-import DiscussionRouteUpvoteMixin from '../../mixins/discussion-route-upvote';
+import DiscussionContributionRouteMixin from '../../mixins/discussion-contribution-route';
 import DiscussionForumModel from '../../models/discussion/forum';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
@@ -9,16 +9,20 @@ import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
 const {inject} = Ember;
 
 export default DiscussionBaseRoute.extend(
-	DiscussionRouteUpvoteMixin,
+	DiscussionContributionRouteMixin,
 	DiscussionModerationRouteMixin,
 	DiscussionForumActionsRouteMixin,
 	DiscussionModalDialogMixin,
 	{
+		queryParams: {
+			sort: {
+				refreshModel: true
+			}
+		},
+
 		canModerate: null,
 		discussionSort: inject.service(),
 		discussionEditor: inject.service(),
-
-		forumId: null,
 
 		/**
 		 * @param {object} params
@@ -27,15 +31,13 @@ export default DiscussionBaseRoute.extend(
 		model(params) {
 			const discussionSort = this.get('discussionSort');
 
-			if (params.sortBy) {
-				discussionSort.setSortBy(params.sortBy);
+			if (params.sort) {
+				discussionSort.setSortBy(params.sort);
 			}
 
 			discussionSort.setOnlyReported(false);
 
-			this.set('forumId', params.forumId);
-
-			return DiscussionForumModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
+			return DiscussionForumModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy'));
 		},
 
 		/**
@@ -44,7 +46,7 @@ export default DiscussionBaseRoute.extend(
 		 */
 		setSortBy(sortBy) {
 			this.get('discussionSort').setSortBy(sortBy);
-			return this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+			return this.transitionTo('discussion.forum', {queryParams: {sort: sortBy}});
 		},
 
 		actions: {
@@ -54,25 +56,6 @@ export default DiscussionBaseRoute.extend(
 			 */
 			loadPage(pageNum) {
 				this.modelFor(this.get('routeName')).loadPage(pageNum, this.get('discussionSort.sortBy'));
-			},
-
-			/**
-			 * Applies sorting by date and attempts to create a new post
-			 *
-			 * @param {object} postData
-			 *
-			 * @returns {void}
-			 */
-			create(postData) {
-				this.setSortBy('latest').promise.then(() => {
-					const model = this.modelFor(this.get('routeName'));
-
-					model.createPost(postData).then((data) => {
-						if (data && !model.get('errorMessage')) {
-							this.get('discussionEditor').trigger('newPost');
-						}
-					});
-				});
 			},
 		}
 	}

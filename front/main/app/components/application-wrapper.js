@@ -2,7 +2,7 @@ import Ember from 'ember';
 import {isHashLink} from '../utils/article-link';
 import {trackPerf} from 'common/utils/track-perf';
 
-const {Component, computed, getWithDefault, Logger, observer, $} = Ember;
+const {Component, computed, getWithDefault, Logger, $} = Ember;
 
 /**
  * HTMLMouseEvent
@@ -28,8 +28,6 @@ const {Component, computed, getWithDefault, Logger, observer, $} = Ember;
 export default Component.extend({
 	classNames: ['application-wrapper'],
 	classNameBindings: ['smartBannerVisible', 'verticalClass'],
-	activeDrawerContent: null,
-	noScroll: false,
 	scrollLocation: null,
 	smartBannerVisible: false,
 	firstRender: true,
@@ -44,26 +42,6 @@ export default Component.extend({
 		const vertical = Ember.get(Mercury, 'wiki.vertical');
 
 		return `${vertical}-vertical`;
-	}),
-
-	noScrollObserver: observer('noScroll', function () {
-		const $body = $('body');
-		let scrollLocation;
-
-		if (this.get('noScroll')) {
-			scrollLocation = $body.scrollTop();
-
-			this.set('scrollLocation', scrollLocation);
-
-			$body.css('top', -scrollLocation)
-				.addClass('no-scroll');
-		} else {
-			$body.removeClass('no-scroll')
-				.css('top', '');
-
-			window.scrollTo(0, this.get('scrollLocation'));
-			this.set('scrollLocation', null);
-		}
 	}),
 
 	/**
@@ -151,7 +129,8 @@ export default Component.extend({
 	},
 
 	/**
-	 * Determine if the clicked target is an reference/in references list (in text or at the bottom of article)
+	 * Determine if the clicked target is an reference/in references list (in text or at the bottom
+	 * of article)
 	 *
 	 * @param {EventTarget} target
 	 * @returns {boolean}

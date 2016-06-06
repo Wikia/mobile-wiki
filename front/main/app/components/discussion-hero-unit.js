@@ -119,6 +119,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		51: 'discussion-header-doom.jpg',
 		2304: 'discussion-header-doom.jpg',
 		1071836: 'discussion-header-overwatch.jpg',
+		1363059: 'discussion-header-overwatch.jpg',
 		5481: 'discussion-header-uncharted.jpg',
 		8226: 'discussion-header-mirrors-edge.jpg',
 		55705: 'discussion-header-outlander.jpg',
