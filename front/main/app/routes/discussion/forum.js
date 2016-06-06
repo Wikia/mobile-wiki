@@ -14,11 +14,15 @@ export default DiscussionBaseRoute.extend(
 	DiscussionForumActionsRouteMixin,
 	DiscussionModalDialogMixin,
 	{
+		queryParams: {
+			sort: {
+				refreshModel: true
+			}
+		},
+
 		canModerate: null,
 		discussionSort: inject.service(),
 		discussionEditor: inject.service(),
-
-		forumId: null,
 
 		/**
 		 * @param {object} params
@@ -27,15 +31,13 @@ export default DiscussionBaseRoute.extend(
 		model(params) {
 			const discussionSort = this.get('discussionSort');
 
-			if (params.sortBy) {
-				discussionSort.setSortBy(params.sortBy);
+			if (params.sort) {
+				discussionSort.setSortBy(params.sort);
 			}
 
 			discussionSort.setOnlyReported(false);
 
-			this.set('forumId', params.forumId);
-
-			return DiscussionForumModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
+			return DiscussionForumModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy'));
 		},
 
 		/**
@@ -44,7 +46,7 @@ export default DiscussionBaseRoute.extend(
 		 */
 		setSortBy(sortBy) {
 			this.get('discussionSort').setSortBy(sortBy);
-			return this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+			return this.transitionTo('discussion.forum', {queryParams: {sort: sortBy}});
 		},
 
 		actions: {
