@@ -5,10 +5,12 @@ import {track, trackActions} from '../utils/discussion-tracker';
 export default Ember.Component.extend(
 	{
 		canModerate: false,
+		changedCategories: [],
 		classNames: ['discussion-filters'],
 		discussionSort: Ember.inject.service(),
 		onlyReported: Ember.computed.oneWay('discussionSort.onlyReported'),
 		popover: nearestParent('pop-over'),
+		shouldResetCategories: false,
 		showApplyButton: false,
 		showSortSection: false,
 		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
@@ -91,13 +93,30 @@ export default Ember.Component.extend(
 				this.set('sortBy', sortBy);
 			},
 
-			updateCategories(appliedCategories) {
-				this.set('appliedCategories', appliedCategories);
+			updateCategories(changedCategory) {
+				this.set('shouldResetCategories', false);
+
+				const changedCategories = this.get('changedCategories'),
+					changedCategoryIndex = changedCategories.indexOf(changedCategory);
+
+				if (changedCategoryIndex > -1) {
+					//Remove element from changedCategories if it was clicked twice
+					changedCategories.splice(changedCategoryIndex,1);
+				} else {
+					changedCategories.push(changedCategory);
+				}
 			},
 
 			toggleReported() {
 
 			},
+
+			resetCategories() {
+				this.setProperties({
+					shouldResetCategories: true,
+					changedCategories: []
+				});
+			}
 		}
 	}
 );

@@ -115,12 +115,5 @@ export default Ember.Component.extend({
 				}
 			}
 		},
-
-		onCategoryToggled(category, selected) {
-
-		},
-
-		onAllCategoryToggled(category, selected) {
-		}
 	}
 });

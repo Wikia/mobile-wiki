@@ -15,7 +15,6 @@
 					label=(i18n 'main.category-all-name' ns='discussion')
 					inputId=(concat categoriesInputIdPrefix 'all')
 					isChecked=allCategoriesDisplayed
-					update=(action 'onAllCategoryToggled')
 				}}
 			</li>
 			{{#each categories as |category|}}
@@ -26,7 +25,6 @@
 							label=category.name
 							inputId=(concat categoriesInputIdPrefix category.id)
 							isChecked=category.selected
-							update=(action 'onCategoryToggled' category)
 						}}
 					</li>
 				{{/unless}}

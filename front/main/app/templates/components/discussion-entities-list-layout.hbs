@@ -1,5 +1,6 @@
 {{#ember-wormhole to="site-head-sub-header"}}
 	{{discussion-header
+		allCategoriesDisplayed=allCategoriesDisplayed
 		applyFilters=(action this.attrs.applyFilters)
 		canModerate=model.canModerate
 		categories=categories
