@@ -1,5 +1,8 @@
 import {moduleFor, test} from 'ember-qunit';
 import sinon from 'sinon';
+import Ember from 'ember';
+
+const {RSVP} = Ember;
 
 const exampleBundleName = 'myTestAssetBundleName',
 	typeCss = 'css';
@@ -135,7 +138,7 @@ test('Throw an error for corrupted data from API', function (assert) {
 					try {
 						return callback();
 					} catch (e) {
-						return Promise.reject(e);
+						return RSVP.reject(e);
 					}
 				}
 			};
