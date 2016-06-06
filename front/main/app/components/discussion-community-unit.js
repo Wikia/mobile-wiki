@@ -16,4 +16,5 @@ export default Ember.Component.extend({
 	}),
 
 	displayAppPromotion: Ember.computed.or('androidAppLink', 'iosAppLink'),
+	wikiName: Ember.get(Mercury, 'wiki.siteName'),
 });
