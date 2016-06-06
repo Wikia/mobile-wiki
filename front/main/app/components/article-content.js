@@ -4,8 +4,6 @@ import {getRenderComponentFor, queryPlaceholders} from '../utils/render-componen
 import {track, trackActions} from 'common/utils/track';
 import {getGroup, inGroup} from 'common/modules/abtest';
 
-import RecirculationFooterComponent from './recirculation/footer';
-import RecirculationIncontentComponent from './recirculation/incontent';
 import FandomPostsModel from '../models/fandom-posts';
 import TopLinksModel from '../models/top-links';
 
@@ -540,28 +538,28 @@ export default Ember.Component.extend(
 
 			switch (group) {
 				case 'CONTROL':
-					component = RecirculationFooterComponent;
+					component = this.createComponentInstance('recirculation/footer');
 					model = FandomPostsModel.create();
-					location = this.parentView.$('.article-footer');
+					location = Ember.$('.article-footer');
 					externalLink = true;
 					break;
 				case 'LINKS_INCONTENT':
-					component = RecirculationIncontentComponent;
+					component = this.createComponentInstance('recirculation/incontent');
 					model = TopLinksModel.create({
 						article: this
 					});
 					location = this.$('h2:nth-of-type(2)').prev();
 					break;
 				case 'LINKS_FOOTER':
-					component = RecirculationFooterComponent;
+					component = this.createComponentInstance('recirculation/footer');
 					model = TopLinksModel.create({
 						article: this,
 						style: 'landscape'
 					});
-					location = this.parentView.$('.article-footer');
+					location = Ember.$('.article-footer');
 					break;
 				case 'FANDOM_INCONTENT':
-					component = RecirculationIncontentComponent;
+					component = this.createComponentInstance('recirculation/incontent');
 					model = FandomPostsModel.create({
 						thumbSize: 'medium'
 					});
@@ -569,9 +567,9 @@ export default Ember.Component.extend(
 					externalLink = true;
 					break;
 				case 'FANDOM_FOOTER':
-					component = RecirculationFooterComponent;
+					component = this.createComponentInstance('recirculation/footer');
 					model = FandomPostsModel.create();
-					location = this.parentView.$('.article-footer');
+					location = Ember.$('.article-footer');
 					externalLink = true;
 					break;
 				default:
