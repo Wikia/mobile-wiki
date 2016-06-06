@@ -14,26 +14,21 @@
 					click=(action 'onCategoryClick' true)
 					label=(i18n 'main.category-all-name' ns='discussion')
 					inputId=(concat categoriesInputIdPrefix 'all')
-					isChecked=allCategoriesDisplayed
-					update=(action 'onAllCategoryToggled')
+					isChecked=categoryAllSelected
 				}}
 			</li>
-			{{#each categories as |category|}}
+			{{#each localCategories as |category|}}
 				{{#unless category.collapsed}}
 					<li>
 						{{wikia-ui-components/fancy-check-box
-							click=(action 'onCategoryClick' false category)
+							click=(action 'onCategoryClick' false)
 							label=category.name
 							inputId=(concat categoriesInputIdPrefix category.id)
 							isChecked=category.selected
-							update=(action 'onCategoryToggled' category)
 						}}
 					</li>
 				{{/unless}}
 			{{/each}}
 		</ul>
-		{{#if toggleButtonVisible}}
-			<button {{action 'toggleMore'}} class="secondary active-element-border-theme-color active-element-theme-color active-element-hover-theme-color active-element-hover-border-theme-color">{{toggleButtonLabel}}</button>
-		{{/if}}
 	</div>
 </fieldset>

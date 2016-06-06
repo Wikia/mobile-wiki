@@ -9,11 +9,31 @@ const DiscussionModel = Ember.Object.extend({
 	wikiId: null,
 
 	selectedCategoryIds: Ember.computed('categories.@each.selected', function () {
-		return this.getCategoryIds(this.get('categories'));
+		return this.getSelectedCategoryIds();
 	}),
 
-	getCategoryIds(categories) {
-		return categories.filterBy('selected', true).mapBy('id');
+	getSelectedCategoryIds() {
+		return this.get('categories').filterBy('selected', true).mapBy('id');
+	},
+
+	allCategoriesDisplayed: Ember.computed('categories.@each.selected', function () {
+		return this.get('categories').isEvery('selected', false);
+	}),
+
+	updateCategories(changedCategories) {
+		if (!changedCategories || !changedCategories.length) {
+			return;
+		}
+
+		const categories = this.get('categories');
+
+		changedCategories.forEach((changedCategory) => {
+			changedCategory.category.set('selected', !changedCategory.selected);
+		});
+	},
+
+	resetCategories() {
+		this.get('categories').setEach('selected', false);
 	},
 
 	/**

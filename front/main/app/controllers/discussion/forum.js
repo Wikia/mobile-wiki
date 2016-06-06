@@ -16,6 +16,10 @@ export default DiscussionBaseController.extend(
 		actions: {
 			updateCategories(categories) {
 				this.get('target').send('updateCategories', categories);
+			},
+
+			resetCategories() {
+				this.get('target').send('resetCategories');
 			}
 		}
 	}

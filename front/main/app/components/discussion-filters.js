@@ -21,17 +21,17 @@ export default Ember.Component.extend(
 			this._super(...arguments);
 		},
 
-		onlyReportedObserver: Ember.observer('onlyReported', function () {
-			const onlyReported = this.get('onlyReported');
-
-			if (onlyReported === true) {
-				this.send('setSortBy', 'latest');
-			}
-
-			if (!this.get('showApplyButton')) {
-				this.get('applyFilters')(this.get('sortBy'), onlyReported);
-			}
-		}),
+		//onlyReportedObserver: Ember.observer('onlyReported', function () {
+		//	const onlyReported = this.get('onlyReported');
+		//
+		//	if (onlyReported === true) {
+		//		this.send('setSortBy', 'latest');
+		//	}
+		//
+		//	if (!this.get('showApplyButton')) {
+		//		this.get('applyFilters')(this.get('sortBy'), onlyReported);
+		//	}
+		//}),
 
 		didCategoriesChange() {
 			const appliedCategories = this.get('appliedCategories');
@@ -75,7 +75,7 @@ export default Ember.Component.extend(
 					this.get('applyFilters')(
 						this.get('sortBy'),
 						this.get('onlyReported'),
-						this.get('appliedCategories')
+						this.getWithDefault('appliedCategories', [])
 					);
 				}
 
@@ -93,7 +93,11 @@ export default Ember.Component.extend(
 
 			updateCategories(appliedCategories) {
 				this.set('appliedCategories', appliedCategories);
-			}
+			},
+
+			toggleReported() {
+
+			},
 		}
 	}
 );

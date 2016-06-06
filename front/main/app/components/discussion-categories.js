@@ -5,71 +5,39 @@ export default Ember.Component.extend({
 	collapsed: false,
 	disabled: false,
 
+	cl: false,
+
 	visibleCategoriesCount: null,
 
 	init() {
 		this._super();
-
-		this.updateCategoryAllSelected();
-
 		this.collapseCategoriesAboveLimit();
 	},
-
-	localCategories: Ember.computed('categories', function () {
-		const categories = this.get('categories'),
-			localCategories = new Ember.A();
-
-		categories.forEach((category) => {
-			localCategories.pushObject($.extend({}, category));
-		});
-
-		return localCategories;
-	}),
 
 	collapseCategoriesAboveLimit() {
 		const visibleCategoriesCount = this.get('visibleCategoriesCount');
 
 		if (typeof visibleCategoriesCount === 'number') {
-			this.get('localCategories').slice(visibleCategoriesCount).setEach('collapsed', true);
+			this.get('categories').slice(visibleCategoriesCount).setEach('collapsed', true);
 		}
 	},
 
-	toggleButtonLabel: Ember.computed('localCategories.@each.collapsed', function () {
-		if (this.get('localCategories').isEvery('collapsed', false)) {
+	toggleButtonLabel: Ember.computed('categories.@each.collapsed', function () {
+		if (this.get('categories').isEvery('collapsed', false)) {
 			return i18n.t('main.categories-show-less-button-label', {ns: 'discussion'});
 		} else {
 			return i18n.t('main.categories-show-more-button-label', {ns: 'discussion'});
 		}
 	}),
 
-	toggleButtonVisible: Ember.computed('localCategories.length', 'visibleCategoriesCount', function () {
+	toggleButtonVisible: Ember.computed('categories.length', 'visibleCategoriesCount', function () {
 		return this.get('visibleCategoriesCount') !== null &&
-			this.get('localCategories.length') > this.get('visibleCategoriesCount');
+			this.get('categories.length') > this.get('visibleCategoriesCount');
 	}),
 
 	categoriesInputIdPrefix: Ember.computed('inputIdPrefix', function () {
 		return `${this.get('inputIdPrefix')}-discussion-category-`;
 	}),
-
-	categoryAllSelected: true,
-
-	selectedCategoriesObserver: Ember.observer('localCategories.@each.selected', function () {
-		this.updateCategoryAllSelected();
-
-		this.sendAction('updateCategories', this.get('localCategories'));
-	}),
-
-	categoryAllSelectedObserver: Ember.observer('categoryAllSelected', function () {
-		if (this.get('categoryAllSelected')) {
-			this.get('localCategories').setEach('selected', false);
-		} else if (this.get('localCategories').isEvery('selected', false)) {
-			this.set('categoryAllSelected', true);
-		}
-	}),
-
-	updateCategoryAllSelected() {
-		this.set('categoryAllSelected', this.get('localCategories').isEvery('selected', false));
-	},
 
 	/**
 	 * Track click on category
@@ -100,7 +68,7 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		toggleMore() {
-			const categories = this.get('localCategories');
+			const categories = this.get('categories');
 
 			if (categories.isEvery('collapsed', false)) {
 				this.collapseCategoriesAboveLimit();
@@ -115,14 +83,14 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		reset() {
-			const categories = this.get('localCategories');
+			const categories = this.get('categories');
 
 			track(trackActions.CategoriesResetTapped);
 			this.set('collapsed', false);
 			categories.setEach('selected', false);
 			this.collapseCategoriesAboveLimit();
 
-			this.sendAction('updateCategories');
+			this.sendAction('resetCategories');
 		},
 
 		/**
@@ -130,8 +98,29 @@ export default Ember.Component.extend({
 		 *
 		 * @returns {void}
 		 */
-		onCategoryClick(isAllCategories) {
+		onCategoryClick(isAllCategories, category) {
 			this.trackCategory(isAllCategories);
+
+			if (isAllCategories) {
+				this.sendAction('resetCategories');
+			} else {
+				if (!this.get('cl')) {
+					this.sendAction('updateCategories', [{
+						category,
+					}]);
+
+					this.set('cl', true);
+				} else {
+					this.set('cl', false);
+				}
+			}
 		},
+
+		onCategoryToggled(category, selected) {
+
+		},
+
+		onAllCategoryToggled(category, selected) {
+		}
 	}
 });

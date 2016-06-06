@@ -42,7 +42,11 @@ export default DiscussionBaseRoute.extend(
 			discussionSort.setOnlyReported(false);
 
 			if (params.catId) {
-				indexModel.setSelectedCategories(params.catId instanceof Array ? params.catId : [params.catId]);
+				const categoryIds = params.catId instanceof Array ? params.catId : [params.catId];
+
+				if (categoryIds.length !== indexModel.getSelectedCategoryIds().length) {
+					indexModel.setSelectedCategories(categoryIds);
+				}
 			}
 
 			return Ember.RSVP.hash({
@@ -77,13 +81,19 @@ export default DiscussionBaseRoute.extend(
 				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
-			updateCategories(categories) {
-				const catIds = categories.filterBy('selected', true).mapBy('id');
+			updateCategories(updatedCategories) {
+				const model = this.modelFor(this.get('routeName'));
 
-				if (catIds.length !== this.modelFor('discussion').get('selectedCategoryIds').length) {
-					this.modelFor('discussion').set('categories', categories);
-					this.transitionTo({queryParams: {catId: catIds}});
-				}
+				model.index.updateCategories(updatedCategories);
+
+				const catId = model.index.getSelectedCategoryIds();
+
+				this.transitionTo({queryParams: {catId}});
+			},
+
+			resetCategories() {
+				this.modelFor(this.get('routeName')).index.resetCategories();
+				this.transitionTo({queryParams: {catId: []}});
 			}
 		}
 	}

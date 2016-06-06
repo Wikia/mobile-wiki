@@ -12,8 +12,9 @@
 
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
-	categories=categories
+	categories=model.index.categories
 	model=model.current.data
+	updateCategories=(action 'updateCategories')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')
