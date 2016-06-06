@@ -39,6 +39,8 @@
 	.discussion-standalone-editor-label {
 		background-color: $discussion-editor-background-color;
 		color: $discussion-editor-label-color;
+		cursor: default;
+		flex-shrink: 0;
 		font-size: $type-min;
 		font-weight: bold;
 		padding: 15px 10px 10px;
@@ -47,9 +49,8 @@
 	}
 
 	.discussion-standalone-content-wrapper {
-		display: flex;
-		flex-direction: column;
 		flex-grow: 1;
+		overflow: auto;
 	}
 
 	.discussion-standalone-editor-textarea {
@@ -69,9 +70,5 @@
 			color: $discussion-editor-label-color;
 			content: attr(placeholder);
 		}
-	}
-
-	.og-container {
-		flex-shrink: 0;
 	}
 }
