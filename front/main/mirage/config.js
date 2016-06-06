@@ -13,10 +13,10 @@ export default function () {
 			return schema.curatedContentEditorItems.all();
 		}
 
-		throw new Error(`Controller or method response isn't yet mocked`);
-	});
+		if (controller === 'SearchApi' && method === 'getList') {
+			return schema.searches.first();
+		}
 
-	this.get('/api/v1/Search/List', (schema) => {
-		return schema.searches.first();
+		throw new Error(`Controller or method response isn't yet mocked`);
 	});
 }
