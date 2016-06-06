@@ -27,6 +27,7 @@ export default Route.extend(
 			}
 		},
 
+		adsInstance: null,
 		adsState: Ember.inject.service(),
 
 		actions: {
@@ -48,6 +49,9 @@ export default Route.extend(
 
 				if (this.controller) {
 					this.controller.set('isLoading', false);
+				}
+				if (this.adsInstance) {
+					this.adsInstance.onTransition();
 				}
 
 				// Clear notification alerts for the new route
@@ -236,12 +240,11 @@ export default Route.extend(
 		 */
 		activate() {
 			const instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
-			let adsInstance;
 
 			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') &&
 				!instantGlobals.wgSitewideDisableAdsOnMercury) {
-				adsInstance = Ads.getInstance();
-				adsInstance.init(M.prop('adsUrl'));
+				this.adsInstance = Ads.getInstance();
+				this.adsInstance.init(M.prop('adsUrl'));
 
 				/*
 				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
@@ -251,7 +254,7 @@ export default Route.extend(
 				 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
 				 * lightboxVisible=false and then decide if we want to show it.
 				 */
-				adsInstance.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
+				this.adsInstance.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
 					const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
 
 					if (!closeButtonDelay) {
@@ -261,11 +264,11 @@ export default Route.extend(
 					this.send(actionName, 'ads', {contents}, closeButtonDelay);
 				};
 
-				adsInstance.showLightbox = () => {
+				this.adsInstance.showLightbox = () => {
 					this.send('showLightbox');
 				};
 
-				adsInstance.setSiteHeadOffset = (offset) => {
+				this.adsInstance.setSiteHeadOffset = (offset) => {
 					this.get('adsState').set('siteHeadOffset', offset);
 				};
 			}

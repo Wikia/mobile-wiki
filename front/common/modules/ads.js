@@ -279,6 +279,17 @@ class Ads {
 	}
 
 	/**
+	 * This method is called on each transition
+	 *
+	 * @returns {void}
+	 */
+	onTransition() {
+		if (this.adMercuryListenerModule && this.adMercuryListenerModule.runOnPageChangeCallbacks) {
+			this.adMercuryListenerModule.runOnPageChangeCallbacks();
+		}
+	}
+
+	/**
 	 * This method is being overwritten in ApplicationRoute for ads needs.
 	 * To learn more check routes/application.js file.
 	 *
