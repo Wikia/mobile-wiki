@@ -26,6 +26,16 @@ $ad-background: rgb(44, 52, 61);
 	z-index: $z-ads-top-leaderboard;
 }
 
+.mobile-bottom-leaderboard {
+	.ad-slot {
+		padding: 10px 0;
+	}
+
+	&.bfab-template .ad-slot {
+		padding: 0;
+	}
+}
+
 .mobile-in-content, .mobile-prefooter {
 	margin: 10px 0;
 	padding: 10px 0;
