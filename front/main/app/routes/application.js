@@ -3,6 +3,7 @@ import ArticleModel from '../models/wiki/article';
 import getLinkInfo from '../utils/article-link';
 import Ads from 'common/modules/ads';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
+import ResponsiveMixin from '../mixins/responsive';
 import {normalizeToUnderscore} from 'common/utils/string';
 import {track, trackActions} from 'common/utils/track';
 import {activate as variantTestingActivate} from 'common/utils/variant-testing';
@@ -18,6 +19,7 @@ const {
 export default Route.extend(
 	TargetActionSupport,
 	HeadTagsStaticMixin,
+	ResponsiveMixin,
 	{
 		queryParams: {
 			commentsPage: {
@@ -212,7 +214,11 @@ export default Route.extend(
 			 * @param {string} query
 			 */
 			goToSearchResults(query) {
-				this.transitionTo('search', {queryParams: {query}});
+				if (this.get('responsive.isMobile')) {
+					this.transitionTo('search', {queryParams: {query}});
+				} else {
+					window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${query}&fulltext=Search`);
+				}
 			},
 
 			openNav() {
