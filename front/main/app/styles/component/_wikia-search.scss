@@ -1,6 +1,8 @@
 $clear-icon-width: 68px;
 $search-height: 48px;
+$search-icon-width: 24px;
 $search-input-font-size: 16px;
+$search-input-left-margin: 6px;
 $search-spacing: 18px;
 $search-wrapper-height: calc(100% - #{$site-head-height});
 $text-field-label-top: 13px;
@@ -22,7 +24,7 @@ $border-bottom-height: 1px;
 	z-index: $z-6;
 
 	.wikia-search__search-icon {
-		width: 24px;
+		width: $search-icon-width;
 	}
 
 	.wikia-search__clear {
@@ -100,7 +102,7 @@ $border-bottom-height: 1px;
 		display: inline-block;
 		font: inherit;
 		font-size: $search-input-font-size;
-		margin: 0 0 0 6px;
+		margin: 0 0 0 $search-input-left-margin;
 		padding: 0;
 		position: absolute;
 
