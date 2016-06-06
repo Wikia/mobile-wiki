@@ -1,11 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend(Ember.Evented, {
-	isAnon: true,
 	isEditorOpen: false,
 	isUserBlocked: false,
 	errorMessage: null,
 
+	currentUser: Ember.inject.service(),
 	modalDialog: Ember.inject.service(),
 
 	isLoading: false,
@@ -49,7 +49,7 @@ export default Ember.Service.extend(Ember.Evented, {
 			return;
 		}
 
-		if (this.get('isAnon')) {
+		if (!this.get('currentUser.isAuthenticated')) {
 			this.rejectAnon();
 			return;
 		} else if (this.get('isUserBlocked')) {

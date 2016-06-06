@@ -6,6 +6,7 @@ export default Ember.Component.extend(DiscussionEditorOpengraph, {
 	classNames: ['discussion-standalone-editor'],
 
 	currentUser: Ember.inject.service(),
+	discussionEditor: Ember.inject.service(),
 
 	// TODO update labels
 	labelMessageKey: 'TODO',
@@ -50,7 +51,8 @@ export default Ember.Component.extend(DiscussionEditorOpengraph, {
 
 	actions: {
 		close() {
-			// TODO close
+			this.get('discussionEditor').toggleEditor(false);
+
 			track(this.get('closeTrackingAction'));
 		},
 
