@@ -75,7 +75,7 @@ function Js() {
  * @returns {Promise}
  */
 Js.prototype.load = function (assetsBundle) {
-	return Ember.$.getScript(assetsBundle.path).then(() => {
+	return $.getScript(assetsBundle.path).then(() => {
 		assetsBundle.loaded = true;
 	});
 };
