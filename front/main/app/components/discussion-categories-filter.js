@@ -17,7 +17,7 @@ export default Ember.Component.extend({
 
 	disabledObserver: Ember.observer('disabled', function () {
 		if (this.get('disabled', true)) {
-			this.send('onAllCategoryClick');
+			this.send('onAllCategoryClick', false);
 		}
 	}),
 
@@ -90,9 +90,12 @@ export default Ember.Component.extend({
 			this.sendAction('updateCategories', localCategories);
 		},
 
-		onAllCategoryClick() {
+		onAllCategoryClick(shouldTrack) {
 			const localCategories = this.get('localCategories');
-			this.trackCategory(true);
+
+			if (shouldTrack) {
+				this.trackCategory(true);
+			}
 
 			localCategories.setEach('selected', false);
 			this.setAllCategorySelected(localCategories);

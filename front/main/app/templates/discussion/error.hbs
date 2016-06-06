@@ -1,7 +1,10 @@
 {{#discussion-entities-list-layout
+	allCategoriesDisplayed=model.index.allCategoriesDisplayed
 	applyFilters=(action 'applyFilters')
 	hasContentError=true
 	model=model.current.data
+	resetCategories=(action 'resetCategories')
+	updateCategories=(action 'updateCategories')
 }}
 	{{discussion-error
 		error=model.current.error
