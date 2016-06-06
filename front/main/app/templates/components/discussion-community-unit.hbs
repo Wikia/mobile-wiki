@@ -1,0 +1,26 @@
+<p>{{Mercury.wiki.siteName}}</p>
+{{#if guidelines}}
+	{{#link-to guidelines class="guidelines active-element-theme-color"}}
+		{{svg 'guide-small' role='img' class='icon wikia-guidelines'}}
+		{{i18n 'main.discussion-guidelines' ns='discussion'}}
+	{{/link-to}}
+{{/if}}
+<a href="/" class="wikia-home active-element-theme-color">
+	{{svg 'home-small' role='img' class='icon wikia-home'}}
+	{{i18n 'main.wiki-home' ns='discussion'}}
+</a>
+{{#if displayAppPromotion}}
+	<p class="discussion-app-join-text">
+		{{i18n 'main.app-promotion-text' ns='discussion'}}
+		{{#if iosAppLink}}
+			<a href="{{iosAppLink}}" target="_blank">
+				{{svg 'apple-store-badge' role='img' class='icon apple-store-logo' viewBox='0 0 150 44'}}
+			</a>
+		{{/if}}
+		{{#if androidAppLink}}
+			<a href="{{androidAppLink}}" target="_blank">
+				{{svg 'google-play-badge' role='img' class='icon google-play-logo' viewBox='0 0 129 45'}}
+			</a>
+		{{/if}}
+	</p>
+{{/if}}
