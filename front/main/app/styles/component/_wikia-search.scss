@@ -1,6 +1,8 @@
+$clear-icon-width: 68px;
 $search-height: 48px;
+$search-icon-width: 24px;
 $search-input-font-size: 16px;
-$search-icon-width: 70px;
+$search-input-left-margin: 6px;
 $search-spacing: 18px;
 $search-wrapper-height: calc(100% - #{$site-head-height});
 $text-field-label-top: 13px;
@@ -21,9 +23,12 @@ $border-bottom-height: 1px;
 	width: 100%;
 	z-index: $z-6;
 
-	.wikia-search__search-icon,
-	.wikia-search__clear {
+	.wikia-search__search-icon {
 		width: $search-icon-width;
+	}
+
+	.wikia-search__clear {
+		width: $clear-icon-width;
 	}
 
 	// when no text in input
@@ -81,6 +86,7 @@ $border-bottom-height: 1px;
 	background-color: $white;
 	display: flex;
 	flex-grow: 1;
+	padding-left: $search-spacing - 1px;
 	position: relative;
 
 	.text-field {
@@ -96,21 +102,13 @@ $border-bottom-height: 1px;
 		display: inline-block;
 		font: inherit;
 		font-size: $search-input-font-size;
-		margin: 0;
+		margin: 0 0 0 $search-input-left-margin;
 		padding: 0;
 		position: absolute;
 
 		&::placeholder {
 			color: $iron;
 		}
-	}
-
-	.text-field-label {
-		top: $text-field-label-top;
-	}
-
-	.text-field-label--floating {
-		display: none;
 	}
 }
 
