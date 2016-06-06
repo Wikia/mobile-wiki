@@ -1,18 +1,22 @@
 // this is spacing over the application-join text
 // the text should line up with Community Name, and this is the simplest solution - just to set particular margin-top
 
-$discussion-app-join-text-line-height: 125%;
-
 $discussion-app-join-text-spacing-top: (
 	details-view: 85px,
 	list-view: 42px
 );
 
 .discussion-community-unit {
+	font-size: $type-smallest;
+	line-height: $line-height-smallest;
+	margin: map-get($discussion-app-join-text-spacing-top, list-view) 0 10px;
+
+	.wiki-name {
+
+	}
+
 	.discussion-app-join-text {
 		color: $app-promotion-text-color;
-		font-size: $type-smaller;
-		margin: map-get($discussion-app-join-text-spacing-top, list-view) 0 10px;
 	}
 
 	.apple-store-badge {
@@ -30,10 +34,6 @@ $discussion-app-join-text-spacing-top: (
 
 .post-details-view {
 	.discussion-community-unit {
-		.discussion-app-join-text {
-			font-size: $type-base;
-			line-height: $discussion-app-join-text-line-height;
-			margin-top: map-get($discussion-app-join-text-spacing-top, details-view);
-		}
+		margin-top: map-get($discussion-app-join-text-spacing-top, details-view);
 	}
 }
