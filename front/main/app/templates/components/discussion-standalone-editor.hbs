@@ -7,7 +7,13 @@
 
 <label class="discussion-standalone-editor-label">{{i18n labelMessageKey ns='discussion'}}</label>
 <div class="discussion-standalone-content-wrapper">
-	<div contenteditable="true" class="discussion-standalone-editor-editable" placeholder="{{i18n placeholderMessageKey ns='discussion'}}">{{content}}</div>
+	{{textarea
+		autoresize=true
+		class="discussion-standalone-editor-textarea"
+		maxHeight=5000
+		placeholder=(i18n placeholderMessageKey ns='discussion')
+		value=content
+	}}
 	{{#if showsOpenGraphCard}}
 		{{discussion-open-graph
 			close=(action 'removeOpenGraph')

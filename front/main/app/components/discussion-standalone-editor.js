@@ -18,7 +18,7 @@ export default Ember.Component.extend({
 		exists: true,
 		id: 2702253634848394020,
 		imageHeight: 348,
-		imageUrl: 'https://i.ytimg.com/vi/ybQ__WdAqvE/hqdefault.jpg',
+		imageUrl: 'http://static.wikia.nocookie.net/41741229-ae55-4879-8b78-7de8ad69061d',
 		imageWidth: 464,
 		siteId: 26337,
 		siteName: '@Wikia',
