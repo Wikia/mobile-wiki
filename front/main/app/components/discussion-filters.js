@@ -36,9 +36,15 @@ export default Ember.Component.extend(
 		//}),
 
 		didCategoriesChange() {
-			const appliedCategories = this.get('appliedCategories');
+			const changedCategories = this.get('changedCategories');
 
-			return appliedCategories && JSON.stringify(this.get('categories')) !== JSON.stringify(appliedCategories);
+			if (!changedCategories) {
+				return false;
+			}
+
+			return changedCategories.any(function (changedCategory) {
+				return changedCategory.selected !== changedCategory.category.selected;
+			});
 		},
 
 		trackSortByTapped(sortBy) {
@@ -77,7 +83,7 @@ export default Ember.Component.extend(
 					this.get('applyFilters')(
 						this.get('sortBy'),
 						this.get('onlyReported'),
-						this.getWithDefault('appliedCategories', [])
+						this.get('changedCategories')
 					);
 				}
 
@@ -93,30 +99,14 @@ export default Ember.Component.extend(
 				this.set('sortBy', sortBy);
 			},
 
-			updateCategories(changedCategory) {
-				this.set('shouldResetCategories', false);
-
-				const changedCategories = this.get('changedCategories'),
-					changedCategoryIndex = changedCategories.indexOf(changedCategory);
-
-				if (changedCategoryIndex > -1) {
-					//Remove element from changedCategories if it was clicked twice
-					changedCategories.splice(changedCategoryIndex,1);
-				} else {
-					changedCategories.push(changedCategory);
-				}
+			updateCategories(changedCategories) {
+				this.set('changedCategories', changedCategories);
 			},
 
 			toggleReported() {
 
 			},
 
-			resetCategories() {
-				this.setProperties({
-					shouldResetCategories: true,
-					changedCategories: []
-				});
-			}
 		}
 	}
 );
