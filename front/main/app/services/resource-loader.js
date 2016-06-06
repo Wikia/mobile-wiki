@@ -13,11 +13,73 @@ function Css() {
 }
 
 /**
+ * Load CSS assets from MedaWiki
+ * @param {Object} assetsBundle
+ * @param {Object} ajax
+ * @throws {Error}
+ * @returns {Promise}
+ */
+Css.prototype.load = function (assetsBundle, ajax) {
+	if (!assetsBundle.data) {
+		return RSVP.reject(new Error('Missing data property in requested asset'));
+	}
+
+	return ajax.request(buildUrl({path: '/wikia.php'}), {
+		data: assetsBundle.data
+	}).then((data) => {
+		if (data && data.css) {
+			this.setupStyles(assetsBundle, data);
+		} else {
+			throw new Error('Invalid assets data was returned from MediaWiki API');
+		}
+	});
+};
+
+/**
+ * Adds styles to the DOM
+ * and optionally a class to the body element
+ *
+ * @param {Object} assetsBundle
+ * @param {Object} serverResponse
+ * @returns {void}
+ */
+Css.prototype.setupStyles = function (assetsBundle, serverResponse) {
+	if (assetsBundle.bodyClass) {
+		$('body').addClass(assetsBundle.bodyClass);
+	}
+
+	const html = serverResponse.css.map((url) => {
+		return `<link type="text/css" rel="stylesheet" href="${url}">`;
+	}).join('');
+
+	this.appendToHead(html);
+
+	assetsBundle.loaded = true;
+};
+
+Css.prototype.appendToHead = function (html) {
+	$(html).appendTo('head');
+};
+
+
+/**
  * Helper class for loading JS
  * @returns {void}
  */
 function Js() {
 }
+
+/**
+ * Load JS assets from path
+ * @param {Object} assetsBundle
+ * @returns {Promise}
+ */
+Js.prototype.load = function (assetsBundle) {
+	return Ember.$.getScript(assetsBundle.path).then(() => {
+		assetsBundle.loaded = true;
+	});
+};
+
 
 export default Service.extend({
 	ajax: inject.service(),
@@ -74,64 +136,3 @@ export default Service.extend({
 		js: new Js()
 	}
 });
-
-/**
- * Load CSS assets from MedaWiki
- * @param {Object} assetsBundle
- * @param {Object} ajax
- * @throws {Error}
- * @returns {Promise}
- */
-Css.prototype.load = function (assetsBundle, ajax) {
-	if (!assetsBundle.data) {
-		return RSVP.reject(new Error('Missing data property in requested asset'));
-	}
-
-	return ajax.request(buildUrl({path: '/wikia.php'}), {
-		data: assetsBundle.data
-	}).then((data) => {
-		if (data && data.css) {
-			this.setupStyles(assetsBundle, data);
-		} else {
-			throw new Error('Invalid assets data was returned from MediaWiki API');
-		}
-	});
-};
-
-/**
- * Adds styles to the DOM
- * and optionally a class to the body element
- *
- * @param {Object} assetsBundle
- * @param {Object} serverResponse
- * @returns {void}
- */
-Css.prototype.setupStyles = function (assetsBundle, serverResponse) {
-	if (assetsBundle.bodyClass) {
-		$('body').addClass(assetsBundle.bodyClass);
-	}
-
-	const html = serverResponse.css.map((url) => {
-		return `<link type="text/css" rel="stylesheet" href="${url}">`;
-	}).join('');
-
-	this.appendToHead(html);
-
-	assetsBundle.loaded = true;
-};
-
-Css.prototype.appendToHead = function (html) {
-	$(html).appendTo('head');
-};
-
-
-/**
- * Load JS assets from path
- * @param {Object} assetsBundle
- * @returns {Promise}
- */
-Js.prototype.load = function (assetsBundle) {
-	return Ember.$.getScript(assetsBundle.path).then(() => {
-		assetsBundle.loaded = true;
-	});
-};
