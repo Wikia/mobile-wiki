@@ -1,14 +1,14 @@
 <div class="wiki-name">{{wikiName}}</div>
-{{#if isGuidelinesLink}}
-	{{#link-to guidelines class="guidelines active-element-theme-color"}}
+{{#if displayGuidelinesLink}}
+	<a href="#" class="guidelines-link active-element-theme-color">
 		{{svg 'guide-small' role='img' class='icon wikia-guidelines'}}
-		{{i18n 'main.discussion-guidelines' ns='discussion'}}
-	{{/link-to}}
+		<span>{{i18n 'main.discussion-guidelines' ns='discussion'}}</span>
+	</a>
 {{/if}}
-{{#if isWikiaHomeLink}}
-	<a href="/" class="wikia-home active-element-theme-color">
+{{#if displayWikiaHomeLink}}
+	<a href="/" class="wikia-home-link active-element-theme-color">
 		{{svg 'home-small' role='img' class='icon wikia-home'}}
-		{{i18n 'main.wiki-home' ns='discussion'}}
+		<span>{{i18n 'main.wiki-home' ns='discussion'}}</span>
 	</a>
 {{/if}}
 {{#if displayAppPromotion}}
