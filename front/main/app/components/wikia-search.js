@@ -67,6 +67,10 @@ export default Component.extend(NoScrollMixin,
 		didInsertElement() {
 			this._super(...arguments);
 
+			run.scheduleOnce('afterRender', this, () => {
+				this.set('inputField', $('.side-search__input'));
+			});
+
 			if (this.get('focusInput')) {
 				run.scheduleOnce('afterRender', this, () => {
 					this.$('.side-search__input').focus();
@@ -82,6 +86,7 @@ export default Component.extend(NoScrollMixin,
 					label: 'search-open-special-search'
 				});
 
+				this.get('inputField').blur();
 				this.set('searchRequestInProgress', true);
 				this.setSearchSuggestionItems();
 				this.get('onEnterHandler')(value);
@@ -90,7 +95,7 @@ export default Component.extend(NoScrollMixin,
 
 			clearSearch() {
 				this.set('phrase', '');
-				this.focusSearchInput();
+				this.get('inputField').focus();
 			},
 
 			searchSuggestionClick() {
@@ -351,10 +356,6 @@ export default Component.extend(NoScrollMixin,
 		 */
 		getCachedResult(phrase) {
 			return this.get('cachedResults')[phrase];
-		},
-
-		focusSearchInput() {
-			this.$('.side-search__input').focus();
 		}
 	}
 );
