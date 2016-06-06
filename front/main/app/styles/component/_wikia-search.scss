@@ -86,7 +86,7 @@ $border-bottom-height: 1px;
 	background-color: $white;
 	display: flex;
 	flex-grow: 1;
-	padding: 0 0 0 $search-spacing - 1px;
+	padding-left: $search-spacing - 1px;
 	position: relative;
 
 	.text-field {
