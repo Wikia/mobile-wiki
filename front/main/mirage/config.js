@@ -7,7 +7,26 @@ export default function () {
 	this.get('/front/main/assets/vendor/cropper/cropper.min.js', {});
 
 	this.get('/wikia.php', (schema, request) => {
-		const {controller, method} = request.queryParams;
+		const {controller, method, title, section, category} = request.queryParams;
+
+		if (controller === 'MercuryApi') {
+			if (method === 'getPage') {
+				// Curated Main Page Data
+				if (title === 'Mercury_CC_Wikia') {
+					return schema.curatedContents.first();
+				}
+			}
+
+			if (method === 'getCuratedContentSection') {
+				if (section === 'Categories') {
+					return schema.curatedContentSections.first();
+				}
+			}
+		}
+
+		if (controller === 'ArticlesApi' && method === 'getList' && category === 'Articles') {
+			return schema.curatedContentCategories.first();
+		}
 
 		if (controller === 'CuratedContent' && method === 'getData') {
 			return schema.curatedContentEditorItems.all();

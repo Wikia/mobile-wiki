@@ -36,9 +36,14 @@
 					appId: {
 						ios: 1234
 					}
-				},
+				}
 			}
 		};
+
+		window.trackQuantservePageView = function() {};
+		window.trackNielsenPageView = function() {};
+		window.trackComscorePageView = function() {};
+		window.trackIVW3PageView = function() {};
 
 		M.prop('environment', 'test', true);
 	</script>
@@ -49,6 +54,8 @@
 {{content-for 'test-body'}}
 
 <script src="testem.js" integrity=""></script>
+<!--<script src="assets/vendor/cropper/cropper.min.js"></script>-->
+<!--<script src="assets/vendor/cropper/cropper.min.css"></script>-->
 <script src="assets/vendor.js"></script>
 <script>
 	/**
