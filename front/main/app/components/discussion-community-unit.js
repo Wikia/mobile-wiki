@@ -3,6 +3,9 @@ export default Ember.Component.extend({
 	classNames: ['discussion-community-unit'],
 	discussionsSplashPageConfig: M.prop('discussionsSplashPageConfig'),
 
+	displayWikiaHomeLink: false,
+	displayGuidelinesLink: false,
+
 	androidAppLink: Ember.computed('discussionsSplashPageConfig', function () {
 		const discussionsSplashPageConfig = this.get('discussionsSplashPageConfig');
 
