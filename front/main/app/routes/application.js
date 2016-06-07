@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
 import getLinkInfo from '../utils/article-link';
-import Ads from 'common/modules/ads';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import ResponsiveMixin from '../mixins/responsive';
 import {normalizeToUnderscore} from 'common/utils/string';
@@ -27,7 +26,6 @@ export default Route.extend(
 			}
 		},
 
-		adsInstance: null,
 		adsState: Ember.inject.service(),
 
 		actions: {
@@ -50,9 +48,7 @@ export default Route.extend(
 				if (this.controller) {
 					this.controller.set('isLoading', false);
 				}
-				if (this.adsInstance) {
-					this.adsInstance.onTransition();
-				}
+				this.get('adsState').get('module').onTransition();
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
@@ -239,12 +235,12 @@ export default Route.extend(
 		 * @returns {void}
 		 */
 		activate() {
-			const instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
+			const adsInstance = this.get('adsState').get('module'),
+				instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
 
 			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') &&
 				!instantGlobals.wgSitewideDisableAdsOnMercury) {
-				this.adsInstance = Ads.getInstance();
-				this.adsInstance.init(M.prop('adsUrl'));
+				adsInstance.init(M.prop('adsUrl'));
 
 				/*
 				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
@@ -254,7 +250,7 @@ export default Route.extend(
 				 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
 				 * lightboxVisible=false and then decide if we want to show it.
 				 */
-				this.adsInstance.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
+				adsInstance.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
 					const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
 
 					if (!closeButtonDelay) {
@@ -264,11 +260,11 @@ export default Route.extend(
 					this.send(actionName, 'ads', {contents}, closeButtonDelay);
 				};
 
-				this.adsInstance.showLightbox = () => {
+				adsInstance.showLightbox = () => {
 					this.send('showLightbox');
 				};
 
-				this.adsInstance.setSiteHeadOffset = (offset) => {
+				adsInstance.setSiteHeadOffset = (offset) => {
 					this.get('adsState').set('siteHeadOffset', offset);
 				};
 			}
