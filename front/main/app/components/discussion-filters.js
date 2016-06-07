@@ -74,8 +74,11 @@ export default Ember.Component.extend(
 						this.get('changedCategories')
 					);
 				}
+				const popover = this.get('popover');
 
-				this.get('popover').deactivate();
+				if (popover) {
+					popover.deactivate();
+				}
 			},
 
 			/**
