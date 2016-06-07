@@ -21,7 +21,7 @@ export default Ember.Component.extend({
 	displayAppPromotion: Ember.computed.or('androidAppLink', 'iosAppLink'),
 	wikiName: Ember.computed(function () {
 		if (this.get('displayWikiaHomeLink') || this.get('displayGuidelinesLink')) {
-			 return Ember.get(Mercury, 'wiki.siteName');
+			return Ember.get(Mercury, 'wiki.siteName');
 		}
 	}),
 });
