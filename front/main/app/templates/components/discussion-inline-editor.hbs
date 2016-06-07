@@ -1,23 +1,25 @@
-<div class="discussion-inline-editor-wrapper">
+<div class="discussion-inline-editor-floating-container">
 	<div class="discussion-inline-editor-content-wrapper">
-		{{user-avatar
-			avatarUrl=currentUser.avatarPath
-			shouldWrapInHref=false
-		}}
-		{{textarea
-			autoresize=true
-			class="discussion-inline-editor-textarea"
-			placeholder=(i18n placeholderMessageKey ns='discussion')
-			value=content
-		}}
-	</div>
-	{{#if showsOpenGraphCard}}
-		{{discussion-open-graph
+		<div class="discussion-inline-editor-textarea-wrapper">
+			{{user-avatar
+				avatarUrl=currentUser.avatarPath
+				shouldWrapInHref=false
+			}}
+			{{textarea
+				autoresize=true
+				class="discussion-inline-editor-textarea"
+				placeholder=(i18n placeholderMessageKey ns='discussion')
+				value=content
+			}}
+		</div>
+		{{#if showsOpenGraphCard}}
+			{{discussion-open-graph
 			close=(action 'removeOpenGraph')
 			isLoading=isOpenGraphLoading
 			openGraphData=openGraph
-		}}
-	{{/if}}
+			}}
+		{{/if}}
+	</div>
 	<div class="discussion-inline-editor-toolbar">
 		<button class="active-element-theme-color" type="submit" {{action 'submit' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
 	</div>
