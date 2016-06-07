@@ -10,7 +10,7 @@
 	z-index: $z-discussion-editor;
 
 	.discussion-standalone-editor-toolbar {
-		border-bottom: 1px solid $discussion-editor-textarea-border-color;
+		border-bottom: 1px solid $discussion-editor-toolbar-border-color;
 		display: flex;
 		flex-shrink: 0;
 		height: 41px;
@@ -36,7 +36,6 @@
 	}
 
 	.discussion-standalone-editor-label {
-		background-color: $discussion-editor-background-color;
 		color: $discussion-editor-label-color;
 		cursor: default;
 		flex-shrink: 0;
