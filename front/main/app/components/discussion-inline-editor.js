@@ -27,9 +27,13 @@ export default Ember.Component.extend(DiscussionEditorOpengraph, {
 	 * @returns {void}
 	 */
 	style: Ember.computed('isSticky', function () {
-		return this.get('isSticky') ?
-			Ember.String.htmlSafe(`height: ${this.$('.discussion-inline-editor-wrapper').outerHeight(true)}px`) :
-			null;
+		if (this.get('isSticky')) {
+			const editorHeight = this.$('.discussion-inline-editor-floating-container').outerHeight(true);
+
+			return Ember.String.htmlSafe(`height: ${editorHeight}px`);
+		}
+
+		return null;
 	}),
 
 	/**

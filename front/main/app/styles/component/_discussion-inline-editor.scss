@@ -3,10 +3,10 @@ $sticky-editor-width: 529px;
 .discussion-inline-editor {
 	margin: 0 auto 5px;
 
-	.discussion-inline-editor-wrapper {
+	.discussion-inline-editor-floating-container {
 		background-color: $discussion-editor-background-color;
 		border: 4px solid $discussion-editor-border-color;
-		}
+	}
 
 	.discussion-inline-editor-toolbar {
 		background-color: $discussion-editor-toolbar-background-color;
@@ -27,7 +27,7 @@ $sticky-editor-width: 529px;
 	}
 
 	&.is-sticky {
-		.discussion-inline-editor-wrapper {
+		.discussion-inline-editor-floating-container {
 			border-top: 0;
 			margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
 			position: fixed;
@@ -50,6 +50,11 @@ $sticky-editor-width: 529px;
 	}
 
 	.discussion-inline-editor-content-wrapper {
+		max-height: 300px;
+		overflow: auto;
+	}
+
+	.discussion-inline-editor-textarea-wrapper {
 		display: flex;
 	}
 
@@ -62,7 +67,6 @@ $sticky-editor-width: 529px;
 		height: 45px;
 		margin: 0 17px 10px 0;
 		min-height: 45px;
-		max-height: 300px;
 		padding: 17px 0 0;
 		resize: none;
 		transition: min-height .2s ease;
