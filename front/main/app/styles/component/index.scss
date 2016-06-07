@@ -16,8 +16,6 @@
 @import 'trending-videos';
 @import 'wikia-stats';
 @import 'modal-dialog';
-@import 'discussion-editor';
-@import 'discussion-reply-editor';
 @import 'discussion-header';
 @import 'discussion-filters';
 @import 'discussion-sort';
@@ -28,6 +26,7 @@
 @import 'discussion-standalone-editor';
 @import 'user-avatar';
 @import 'discussion-contributors';
+@import 'discussion-inline-editor';
 @import 'discussion-community-badge';
 @import 'discussion-side-button';
 @import 'discussion-app-promotion';
@@ -49,15 +48,19 @@
 @import 'wikia-nav';
 @import 'nav-menu';
 @import 'wikia-search';
+@import 'wikia-search-error-not-found';
 @import 'wikia-drawer';
 @import 'site-head-fandom-bar';
 @import 'article-table-of-contents';
+@import 'search';
 @import 'potential-member-page-experiment';
 // wikia ui reusable components
 @import 'wikia-ui-components/check-box';
+@import 'wikia-ui-components/error-info';
 @import 'wikia-ui-components/icon-button';
 @import 'wikia-ui-components/on-hover-tooltip';
 @import 'wikia-ui-components/sub-header';
 @import 'wikia-ui-components/text-field';
 @import 'wikia-ui-components/wiki-page-header';
 @import 'wikia-ui-components/wiki-page-header-curated-main-page';
+@import 'wikia-ui-components/wikia-card';

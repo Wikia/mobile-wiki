@@ -71,6 +71,14 @@ let routes,
 		},
 		{
 			method: 'GET',
+			path: '/search',
+			handler: showApplication,
+			config: {
+				cache: routeCacheConfig
+			}
+		},
+		{
+			method: 'GET',
 			path: '/heartbeat',
 			handler: heartbeatHandler
 		},

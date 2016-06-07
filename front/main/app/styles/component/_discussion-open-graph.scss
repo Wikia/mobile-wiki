@@ -15,7 +15,8 @@
 
 .discussions {
 	// -- theme --
-	.discussion-editor {
+	.discussion-editor,
+	.discussion-inline-editor {
 		&.is-active {
 			.og-container {
 				display: flex;
@@ -211,7 +212,8 @@
 			margin: 2px auto 16px;
 		}
 
-		.discussion-editor {
+		.discussion-editor,
+		.discussion-inline-editor {
 			&.is-edit {
 				.og-container {
 					margin: 0 15px 15px;
