@@ -12,14 +12,22 @@ const DiscussionModel = Ember.Object.extend({
 		return this.getSelectedCategoryIds();
 	}),
 
-	getSelectedCategoryIds() {
-		return this.get('categories').filterBy('selected', true).mapBy('id');
-	},
-
 	isAllCategories: Ember.computed('categories.@each.selected', function () {
 		return this.get('categories').isEvery('selected', false);
 	}),
 
+	/**
+	 * @returns {Ember.Array}
+	 */
+	getSelectedCategoryIds() {
+		return this.get('categories').filterBy('selected', true).mapBy('id');
+	},
+
+	/**
+	 * @param {Ember.Object} changedCategory
+	 *
+	 * @returns {void}
+	 */
 	updateCategorySelected(changedCategory) {
 		if (!changedCategory) {
 			return;
@@ -28,6 +36,11 @@ const DiscussionModel = Ember.Object.extend({
 		changedCategory.set('selected', !changedCategory.get('selected'));
 	},
 
+	/**
+	 * @param {Ember.Array} changedCategories
+	 *
+	 * @returns {void}
+	 */
 	updateCategoriesFromFilters(changedCategories) {
 		if (!changedCategories || !changedCategories.length) {
 			return;
@@ -40,6 +53,9 @@ const DiscussionModel = Ember.Object.extend({
 		});
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	resetCategories() {
 		this.get('categories').setEach('selected', false);
 	},
