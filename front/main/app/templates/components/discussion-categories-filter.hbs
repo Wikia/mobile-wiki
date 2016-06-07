@@ -11,7 +11,7 @@
 		<ul class="discussion-categories-list">
 			<li>
 				{{wikia-ui-components/fancy-check-box
-					click=(action 'onAllCategoryClick')
+					click=(action 'selectAllCategory')
 					label=(i18n 'main.category-all-name' ns='discussion')
 					inputId=(concat categoriesInputIdPrefix 'all')
 					isChecked=allCategorySelected

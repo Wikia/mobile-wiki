@@ -17,7 +17,7 @@ export default Ember.Component.extend(
 
 		disabledObserver: Ember.observer('disabled', function () {
 			if (this.get('disabled') === true) {
-				this.send('onAllCategoryClick', false);
+				this.send('selectAllCategory', false);
 			}
 		}),
 
@@ -78,7 +78,7 @@ export default Ember.Component.extend(
 			 *
 			 * @returns {void}
 			 */
-			onAllCategoryClick(shouldTrack) {
+			selectAllCategory(shouldTrack) {
 				const localCategories = this.get('localCategories');
 
 				if (shouldTrack) {
