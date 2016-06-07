@@ -72,13 +72,11 @@ export default Component.extend(
 
 			run.scheduleOnce('afterRender', this, () => {
 				this.set('inputField', $('.side-search__input'));
-			});
 
-			if (this.get('focusInput')) {
-				run.scheduleOnce('afterRender', this, () => {
-					this.$('.side-search__input').focus();
-				});
-			}
+				if (this.get('focusInput')) {
+					this.get('inputField').focus();
+				}
+			});
 		},
 
 		actions: {
