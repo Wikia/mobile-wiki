@@ -29,10 +29,10 @@ export default Ember.Component.extend(
 				localCategories = new Ember.A();
 
 			categories.forEach((category) => {
-				localCategories.pushObject({
+				localCategories.pushObject(Ember.Object.create({
 					category,
 					selected: category.selected
-				});
+				}));
 			});
 
 			this.setProperties({
@@ -103,7 +103,7 @@ export default Ember.Component.extend(
 				this.trackCategory(false);
 				event.preventDefault();
 
-				Ember.set(localCategory, 'selected', !localCategory.selected);
+				localCategory.set('selected', !localCategory.get('selected'));
 
 				this.setAllCategorySelected(localCategories);
 
