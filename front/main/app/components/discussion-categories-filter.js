@@ -68,6 +68,7 @@ export default Ember.Component.extend(
 
 				track(trackActions.CategoriesResetTapped);
 				localCategories.setEach('selected', false);
+				this.setAllCategorySelected(localCategories);
 
 				this.sendAction('updateCategories', localCategories);
 			},
