@@ -1,9 +1,9 @@
-
 import Ember from 'ember';
 
-import OpenGraph from '../models/discussion/domain/open-graph';
+import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
 
-export default Ember.Component.extend({
+
+export default Ember.Component.extend(DiscussionEditorOpengraph, {
 	attributeBindings: ['style'],
 	classNames: ['discussion-inline-editor'],
 	classNameBindings: ['isSticky'],
@@ -15,27 +15,11 @@ export default Ember.Component.extend({
 	submitMessageKey: 'TODO',
 
 	content: '',
-	openGraph: OpenGraph.create({
-		description: 'Some description',
-		domain: 'glee.wikia.com',
-		exists: true,
-		id: 2702253634848394020,
-		imageHeight: 348,
-		imageUrl: 'http://static.wikia.nocookie.net/41741229-ae55-4879-8b78-7de8ad69061d',
-		imageWidth: 464,
-		siteId: 26337,
-		siteName: '@Wikia',
-		title: 'Glee TV Show Wiki',
-		type: 'website',
-		url: 'http://glee.wikia.com/wiki/Glee_TV_Show_Wiki',
-	}),
 
 	isSticky: false,
 	submitDisabled: false,
 	showSuccess: false,
 	isLoading: false,
-	showsOpenGraphCard: true,
-	isOpenGraphLoading: false,
 
 	/**
 	 * Set right height for editor placeholder when editor gets sticky
@@ -101,16 +85,7 @@ export default Ember.Component.extend({
 	},
 
 	actions: {
-		close() {
-
-		},
 		submit() {
-
-		},
-		removeOpenGraph() {
-
-		},
-		handleKeyPress() {
 
 		}
 	}
