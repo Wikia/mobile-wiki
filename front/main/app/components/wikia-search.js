@@ -3,7 +3,6 @@ import NoScrollMixin from '../mixins/no-scroll';
 import ResponsiveMixin from '../mixins/responsive';
 import {track, trackActions} from 'common/utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
-import {getDomain} from '../utils/domain';
 
 const {Component, computed, observer, inject, run, $} = Ember;
 
@@ -124,11 +123,6 @@ export default Component.extend(
 				if (outsideSuggestionsClickAction) {
 					outsideSuggestionsClickAction(event);
 				}
-			},
-
-			redirectToOasis(uri) {
-				$.cookie('useskin', 'oasis', {path: '/', domain: getDomain});
-				window.location.assign(`/${uri}`);
 			}
 		},
 
