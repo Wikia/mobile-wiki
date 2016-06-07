@@ -65,10 +65,5 @@
 			border: 0;
 			box-shadow: none;
 		}
-
-		&:empty:before {
-			color: $discussion-editor-label-color;
-			content: attr(placeholder);
-		}
 	}
 }
