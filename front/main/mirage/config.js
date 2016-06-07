@@ -10,17 +10,13 @@ export default function () {
 		const {controller, method, title, section, category} = request.queryParams;
 
 		if (controller === 'MercuryApi') {
-			if (method === 'getPage') {
+			if (method === 'getPage' && title === 'Mercury_CC_Wikia') {
 				// Curated Main Page Data
-				if (title === 'Mercury_CC_Wikia') {
-					return schema.curatedContents.first();
-				}
+				return schema.curatedContents.first();
 			}
 
-			if (method === 'getCuratedContentSection') {
-				if (section === 'Categories') {
-					return schema.curatedContentSections.first();
-				}
+			if (method === 'getCuratedContentSection' && section === 'Categories') {
+				return schema.curatedContentSections.first();
 			}
 		}
 
@@ -29,7 +25,7 @@ export default function () {
 		}
 
 		if (controller === 'CuratedContent' && method === 'getData') {
-			return schema.curatedContentEditorItems.all();
+			return schema.curatedContentEditorItems.first();
 		}
 
 		if (controller === 'SearchApi' && method === 'getList') {
