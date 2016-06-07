@@ -267,6 +267,12 @@ body.dark-theme {
 		}
 	}
 
+	.post-details-view {
+		.discussion-app-join-text {
+			color: $dark-discussion-post-details-app-promotion-text-color;
+		}
+	}
+
 	.community-badge {
 		img {
 			border-color: $dark-discussion-community-badge-border;
