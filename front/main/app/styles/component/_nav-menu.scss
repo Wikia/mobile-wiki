@@ -21,7 +21,7 @@ $nav-padding-horizontal: 6px;
 }
 
 .nav-menu__item {
-	@include wikia-nav-link-button(inherit);
+	@include link-interactions-color(inherit);
 
 	box-sizing: content-box;
 	color: inherit;

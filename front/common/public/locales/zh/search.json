@@ -1,0 +1,11 @@
+{
+  "main":{
+    "search-error-general":"不能連接，請再試一次。",
+    "search-error-general-action":"單擊重試",
+    "search-error-not-found":"我們找不到任何和__query__相關的訊息 ",
+    "search-error-not-found-action":"嘗試其他搜索",
+    "search-input-label":"搜索",
+    "search-loading-msg":"正在載入搜尋結果…",
+    "total-results":"關於__query__的__totalItems__個結果"
+  }
+}
