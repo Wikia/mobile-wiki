@@ -1,3 +1,5 @@
+$sticky-editor-width: 529px;
+
 .discussion-inline-editor {
 	margin: 0 auto 5px;
 
@@ -21,6 +23,17 @@
 			border: 0;
 			min-height: 106px;
 			resize: vertical;
+		}
+	}
+
+	&.is-sticky {
+		.discussion-inline-editor-wrapper {
+			border-top: 0;
+			margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
+			position: fixed;
+			top: $site-head-height;
+			width: $sticky-editor-width;
+			z-index: 1;
 		}
 	}
 
