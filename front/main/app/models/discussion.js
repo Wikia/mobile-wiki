@@ -16,7 +16,7 @@ const DiscussionModel = Ember.Object.extend({
 		return this.get('categories').filterBy('selected', true).mapBy('id');
 	},
 
-	allCategoriesDisplayed: Ember.computed('categories.@each.selected', function () {
+	isAllCategories: Ember.computed('categories.@each.selected', function () {
 		return this.get('categories').isEvery('selected', false);
 	}),
 
@@ -28,7 +28,7 @@ const DiscussionModel = Ember.Object.extend({
 		changedCategory.set('selected', !changedCategory.get('selected'));
 	},
 
-	updateCategoriesFromList(changedCategories) {
+	updateCategoriesFromFilters(changedCategories) {
 		if (!changedCategories || !changedCategories.length) {
 			return;
 		}

@@ -32,7 +32,7 @@ export default Ember.Component.extend({
 
 		this.setProperties({
 			localCategories,
-			allCategorySelected: this.get('allCategoriesDisplayed'),
+			allCategorySelected: this.get('isAllCategories'),
 		});
 	},
 

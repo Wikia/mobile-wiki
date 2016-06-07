@@ -27,7 +27,7 @@ export default Ember.Mixin.create(
 					discussionSort.setSortBy(sortBy);
 				}
 
-				model.index.updateCategoriesFromList(categories);
+				model.index.updateCategoriesFromFilters(categories);
 
 				const queryParams = {
 					sort: sortBy,
