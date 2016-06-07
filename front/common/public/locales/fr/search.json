@@ -1,0 +1,11 @@
+{
+  "main":{
+    "search-error-general":"Connexion impossible. Veuillez réessayer.",
+    "search-error-general-action":"Cliquez pour réessayer.",
+    "search-error-not-found":"Aucun résultat ne correspond à __query__.",
+    "search-error-not-found-action":"Effectuez une autre recherche.",
+    "search-input-label":"Rechercher",
+    "search-loading-msg":"Chargement des résultats de recherche...",
+    "total-results":"Environ __totalItems__ résultats correspondent à __query__."
+  }
+}
