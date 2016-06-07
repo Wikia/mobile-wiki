@@ -6,6 +6,7 @@ export default Ember.Component.extend(
 	DiscussionCategoriesComponent,
 	{
 		allCategorySelected: false,
+		disabled: true,
 
 		visibleCategoriesCount: null,
 
@@ -15,7 +16,7 @@ export default Ember.Component.extend(
 		},
 
 		disabledObserver: Ember.observer('disabled', function () {
-			if (this.get('disabled', true)) {
+			if (this.get('disabled') === true) {
 				this.send('onAllCategoryClick', false);
 			}
 		}),
