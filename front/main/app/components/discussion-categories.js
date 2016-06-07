@@ -5,7 +5,7 @@ import DiscussionCategoriesComponent from '../mixins/discussion-categories-compo
 export default Ember.Component.extend(
 	DiscussionCategoriesComponent,
 	{
-		visibleCategoriesCount: null,
+		visibleCategoriesCount: 10,
 
 		init() {
 			this._super();
@@ -28,9 +28,8 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		toggleButtonVisible: Ember.computed('categories.length', 'visibleCategoriesCount', function () {
-			return this.get('visibleCategoriesCount') !== null &&
-				this.get('categories.length') > this.get('visibleCategoriesCount');
+		toggleButtonVisible: Ember.computed('categories.length', function () {
+			return this.get('categories.length') > this.get('visibleCategoriesCount');
 		}),
 
 		actions: {
@@ -79,10 +78,11 @@ export default Ember.Component.extend(
 
 			/**
 			 * @param {Ember.Object} category
+			 * @param {Event} event
 			 *
 			 * @returns {void}
 			 */
-			onCategoryClick(category) {
+			onCategoryClick(category, event) {
 				event.preventDefault();
 				this.trackCategory(false);
 

@@ -79,32 +79,32 @@ test('should display all categories after click "more categories"', function (as
 	assert.equal(this.$('li:not(.hidden)').length, 21);
 });
 
-test('should select "All" by default', function (assert) {
+test('should select "All" when isAllCategories=true', function (assert) {
 	this.set('categories', getCategories(20));
 
-	this.render(hbs`{{discussion-categories categories=categories}}`);
+	this.render(hbs`{{discussion-categories categories=categories isAllCategories=true}}`);
 
-	assert.ok(this.$('label[for="all"] span').hasClass('active-element-background-color'));
+	assert.ok(this.$('label[for="test-discussion-category-all"] span').hasClass('active-element-background-color'));
 });
 
 test('should deselect "All" after selecting other', function (assert) {
 	this.set('categories', getCategories(20));
 
-	this.render(hbs`{{discussion-categories categories=categories}}`);
+	this.render(hbs`{{discussion-categories isAllCategories=true inputIdPrefix='test' categories=categories}}`);
 
 	this.$('label:last').click();
 
 	assert.ok(this.$('label:last span').hasClass('active-element-background-color'));
-	assert.notOk(this.$('label[for="all"] span').hasClass('active-element-background-color'));
+	assert.notOk(this.$('label[for="test-discussion-category-all"] span').hasClass('active-element-background-color'));
 });
 
 test('should deselect category after selecting "All"', function (assert) {
 	this.set('categories', getCategories(20));
 
-	this.render(hbs`{{discussion-categories categories=categories}}`);
+	this.render(hbs`{{discussion-categories isAllCategories=true inputIdPrefix='test' categories=categories}}`);
 
 	this.$('label:last').click();
-	this.$('label[for="all"]').click();
+	this.$('label[for="test-discussion-category-all"]').click();
 
 	assert.notOk(this.$('label:last span').hasClass('active-element-background-color'));
 	assert.ok(this.$('label[for="all"] span').hasClass('active-element-background-color'));
@@ -113,7 +113,7 @@ test('should deselect category after selecting "All"', function (assert) {
 test('should "Reset" return initial categories state', function (assert) {
 	this.set('categories', getCategories(20));
 
-	this.render(hbs`{{discussion-categories categories=categories}}`);
+	this.render(hbs`{{discussion-categories isAllCategories=true inputIdPrefix='test' categories=categories}}`);
 
 	this.$('label:last').click();
 	this.$('button').click();
@@ -122,7 +122,7 @@ test('should "Reset" return initial categories state', function (assert) {
 	// click reset
 	this.$('.discussion-filter-header a').click();
 
-	assert.ok(this.$('label[for="all"] span').hasClass('active-element-background-color'));
+	assert.ok(this.$('label[for="test-discussion-category-all"] span').hasClass('active-element-background-color'));
 	// 11 = 10 categories + All
 	assert.equal(this.$('li').length, 11);
 	assert.notOk(this.$('.discussion-categories').hasClass('collapsed'));
