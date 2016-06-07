@@ -35,23 +35,14 @@ $discussion-app-join-text-spacing-top: (
 		align-self: center;
 		margin-right: 7px;
 
-		&.wikia-home {
-			width: 16px;
-			height: 16px;
-		}
-
+		&.wikia-home,
 		&.wikia-guidelines {
-			width: 16px;
 			height: 16px;
+			width: 16px;
 		}
 	}
 
-	.apple-store-badge {
-		height: 40px;
-		margin: 5px 0;
-		width: 135px;
-	}
-
+	.apple-store-badge,
 	.google-play-badge {
 		height: 40px;
 		margin: 5px 0;
