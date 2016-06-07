@@ -5,8 +5,6 @@ export default Ember.Component.extend({
 	collapsed: false,
 	disabled: false,
 
-	cl: false,
-
 	visibleCategoriesCount: null,
 
 	init() {
@@ -93,27 +91,23 @@ export default Ember.Component.extend({
 			this.sendAction('resetCategories');
 		},
 
+		onAllCategoryClick(event) {
+			event.preventDefault();
+			this.trackCategory(false);
+
+			this.sendAction('resetCategories');
+		},
+
 		/**
 		 * @param {boolean} isAllCategories
 		 *
 		 * @returns {void}
 		 */
-		onCategoryClick(isAllCategories, category) {
-			this.trackCategory(isAllCategories);
+		onCategoryClick(category) {
+			event.preventDefault();
+			this.trackCategory(false);
 
-			if (isAllCategories) {
-				this.sendAction('resetCategories');
-			} else {
-				if (!this.get('cl')) {
-					this.sendAction('updateCategories', [{
-						category,
-					}]);
-
-					this.set('cl', true);
-				} else {
-					this.set('cl', false);
-				}
-			}
+			this.sendAction('updateCategories', category);
 		},
 	}
 });

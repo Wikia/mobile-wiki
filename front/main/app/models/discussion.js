@@ -20,16 +20,12 @@ const DiscussionModel = Ember.Object.extend({
 		return this.get('categories').isEvery('selected', false);
 	}),
 
-	updateCategories(changedCategories) {
-		if (!changedCategories || !changedCategories.length) {
+	updateCategorySelected(changedCategory) {
+		if (!changedCategory) {
 			return;
 		}
 
-		const categories = this.get('categories');
-
-		changedCategories.forEach((changedCategory) => {
-			changedCategory.category.set('selected', !changedCategory.selected);
-		});
+		changedCategory.set('selected', !changedCategory.get('selected'));
 	},
 
 	updateCategoriesFromList(changedCategories) {

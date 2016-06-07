@@ -81,19 +81,25 @@ export default DiscussionBaseRoute.extend(
 				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
-			updateCategories(updatedCategories) {
+			updateCategories(updatedCategory) {
 				const model = this.modelFor(this.get('routeName'));
 
-				model.index.updateCategories(updatedCategories);
+				model.index.updateCategorySelected(updatedCategory);
 
 				const catId = model.index.getSelectedCategoryIds();
 
-				this.transitionTo({queryParams: {catId}});
+				this.transitionTo({queryParams: {
+					catId,
+					sort: this.get('discussionSort.sortBy')
+				}});
 			},
 
 			resetCategories() {
 				this.modelFor(this.get('routeName')).index.resetCategories();
-				this.transitionTo({queryParams: {catId: []}});
+				this.transitionTo({queryParams: {
+					catId: [],
+					sort: this.get('discussionSort.sortBy')
+				}});
 			}
 		}
 	}

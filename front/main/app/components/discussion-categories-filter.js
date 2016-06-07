@@ -6,8 +6,6 @@ export default Ember.Component.extend({
 	collapsed: false,
 	disabled: false,
 
-	cl: false,
-
 	visibleCategoriesCount: null,
 
 	init() {
