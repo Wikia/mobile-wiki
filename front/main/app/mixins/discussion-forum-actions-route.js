@@ -34,7 +34,7 @@ export default Ember.Mixin.create(
 					catId: model.index.getSelectedCategoryIds(),
 				};
 
-				return this.transitionTo(targetRoute, {queryParams,});
+				return this.transitionTo(targetRoute, {queryParams});
 			},
 
 			/**

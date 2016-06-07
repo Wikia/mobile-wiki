@@ -65,6 +65,11 @@ export default Ember.Component.extend(
 				this.sendAction('resetCategories');
 			},
 
+			/**
+			 * @param {Event} event
+			 *
+			 * @returns {void}
+			 */
 			onAllCategoryClick(event) {
 				event.preventDefault();
 				this.trackCategory(false);
@@ -73,7 +78,7 @@ export default Ember.Component.extend(
 			},
 
 			/**
-			 * @param {boolean} isAllCategories
+			 * @param {Ember.Object} category
 			 *
 			 * @returns {void}
 			 */

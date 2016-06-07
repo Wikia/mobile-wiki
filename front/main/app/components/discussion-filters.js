@@ -19,10 +19,16 @@ export default Ember.Component.extend(
 			return this.get('onlyReported') === true ? 'disabled' : false;
 		}),
 
+		/**
+		 * @returns {void}
+		 */
 		init() {
 			this._super(...arguments);
 		},
 
+		/**
+		 * @returns {boolean}
+		 */
 		didCategoriesChange() {
 			const changedCategories = this.get('changedCategories');
 
@@ -30,11 +36,16 @@ export default Ember.Component.extend(
 				return false;
 			}
 
-			return changedCategories.any(function (changedCategory) {
+			return changedCategories.any((changedCategory) => {
 				return changedCategory.selected !== changedCategory.category.selected;
 			});
 		},
 
+		/**
+		 * @param {string} sortBy
+		 *
+		 * @returns {void}
+		 */
 		trackSortByTapped(sortBy) {
 			const discussionSort = this.get('discussionSort');
 
@@ -47,6 +58,11 @@ export default Ember.Component.extend(
 			}
 		},
 
+		/**
+		 * @param {string} sortBy
+		 * @param {boolean} onlyReported
+		 * @returns {boolean}
+		 */
 		didFiltersChange(sortBy, onlyReported) {
 			const discussionSort = this.get('discussionSort');
 
@@ -90,10 +106,20 @@ export default Ember.Component.extend(
 				this.set('sortBy', sortBy);
 			},
 
+			/**
+			 * @param {Ember.Array} changedCategories
+			 *
+			 * @returns {void}
+			 */
 			updateCategories(changedCategories) {
 				this.set('changedCategories', changedCategories);
 			},
 
+			/**
+			 * @param {Event} event
+			 *
+			 * @returns {void}
+			 */
 			toggleReported(event) {
 				event.preventDefault();
 
@@ -109,7 +135,6 @@ export default Ember.Component.extend(
 					this.send('applyFilters');
 				}
 			},
-
 		}
 	}
 );

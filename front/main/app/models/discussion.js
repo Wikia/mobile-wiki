@@ -46,8 +46,6 @@ const DiscussionModel = Ember.Object.extend({
 			return;
 		}
 
-		const categories = this.get('categories');
-
 		changedCategories.forEach((changedCategory) => {
 			changedCategory.category.set('selected', changedCategory.selected);
 		});

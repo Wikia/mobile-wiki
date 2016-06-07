@@ -20,6 +20,9 @@ export default Ember.Component.extend(
 			}
 		}),
 
+		/**
+		 * @returns {void}
+		 */
 		setLocalCategories() {
 			const categories = this.get('categories'),
 				localCategories = new Ember.A();
@@ -37,6 +40,11 @@ export default Ember.Component.extend(
 			});
 		},
 
+		/**
+		 * @param {Ember.Array} localCategories
+		 *
+		 * @returns {void}
+		 */
 		setAllCategorySelected(localCategories) {
 			const isNothingSelected = localCategories.isEvery('selected', false),
 				allCategorySelected = this.get('allCategorySelected');
@@ -63,6 +71,11 @@ export default Ember.Component.extend(
 				this.sendAction('updateCategories', localCategories);
 			},
 
+			/**
+			 * @param {boolean} shouldTrack
+			 *
+			 * @returns {void}
+			 */
 			onAllCategoryClick(shouldTrack) {
 				const localCategories = this.get('localCategories');
 
@@ -77,17 +90,18 @@ export default Ember.Component.extend(
 			},
 
 			/**
-			 * @param {boolean} isAllCategories
+			 * @param {Object} localCategory
+			 * @param {Event} event
 			 *
 			 * @returns {void}
 			 */
-			onCategoryClick(category, event) {
+			onCategoryClick(localCategory, event) {
 				const localCategories = this.get('localCategories');
 
 				this.trackCategory(false);
 				event.preventDefault();
 
-				Ember.set(category, 'selected', !category.selected);
+				Ember.set(localCategory, 'selected', !localCategory.selected);
 
 				this.setAllCategorySelected(localCategories);
 
