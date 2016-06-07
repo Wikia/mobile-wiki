@@ -2,7 +2,8 @@
 {{#if collapsible}}
 	<div id="infobox-builder-chevron-{{uniq}}" class="infobox-builder-chevron-area"
 		{{action onGroupPreviewStart on="mouseEnter"}}
-		{{action onGroupPreviewStop on="mouseLeave"}}></div>
+		{{action onGroupPreviewStop on="mouseLeave"}}>
+	</div>
 	{{#if isGroupHighlighted}}
 		{{#pop-over for=(concat 'infobox-builder-chevron-' uniq) on="hover" flow=flow}}
 			<p class="infobox-builder-popup-text">{{i18n 'main.help-section-collapsible' ns='infobox-builder'}}</p>

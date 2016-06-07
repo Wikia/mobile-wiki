@@ -62,10 +62,12 @@
 			trackingEvent='category-menu'
 		}}
 			{{#each model.categories as |category|}}
-				<li class="mw-content" {{action 'trackClick' 'category-menu' 'open-category'}}><a href="{{unbound category.url}}" title="{{unbound category.title}}">
-					{{unbound category.title}}
-					{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-				</a></li>
+				<li class="mw-content" {{action 'trackClick' 'category-menu' 'open-category'}}>
+					<a href="{{unbound category.url}}" title="{{unbound category.title}}">
+						{{unbound category.title}}
+						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+					</a>
+				</li>
 			{{/each}}
 		{{/collapsible-menu}}
 	{{/if}}
@@ -77,10 +79,12 @@
 			observe=model.displayTitle
 		}}
 			{{#each model.otherLanguages as |link|}}
-				<li class="mw-content"><a href="{{unbound link.url}}" title="{{unbound link.title}}">
-					{{unbound link.languageName}} | {{unbound link.articleTitle}}
-					{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
-				</a></li>
+				<li class="mw-content">
+					<a href="{{unbound link.url}}" title="{{unbound link.title}}">
+						{{unbound link.languageName}} | {{unbound link.articleTitle}}
+						{{svg 'chevron' viewBox='0 0 12 7' class='icon chevron'}}
+					</a>
+				</li>
 			{{/each}}
 		{{/collapsible-menu}}
 	{{/if}}
