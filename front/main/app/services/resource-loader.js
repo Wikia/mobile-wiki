@@ -2,7 +2,9 @@ import Ember from 'ember';
 import assets from './config/resources';
 
 const {$, inject, Service, RSVP} = Ember,
-	{buildUrl} = M;
+	{buildUrl} = M,
+	assetJustAddedStatusName = 'Styles freshly added to DOM',
+	assetAlreadyLoadedStatusName = 'Asset already loaded';
 
 /**
  * Load CSS assets from MedaWiki
@@ -37,10 +39,6 @@ function loadCss(assetsBundle, assetsBundleName, loaded, ajax) {
 	 * @returns {void}
 	 */
 	function setupStyles(assetsBundle, assetsBundleName, loaded, serverResponse) {
-		if (assetsBundle.bodyClass) {
-			$('body').addClass(assetsBundle.bodyClass);
-		}
-
 		const html = serverResponse.css.map((url) => {
 			return `<link type="text/css" rel="stylesheet" href="${url}">`;
 		}).join('');
@@ -55,6 +53,7 @@ function loadCss(assetsBundle, assetsBundleName, loaded, ajax) {
 	}).then((data) => {
 		if (data && data.css) {
 			setupStyles(assetsBundle, assetsBundleName, loaded, data);
+			return assetJustAddedStatusName;
 		} else {
 			throw new Error('Invalid assets data was returned from MediaWiki API');
 		}
@@ -63,6 +62,8 @@ function loadCss(assetsBundle, assetsBundleName, loaded, ajax) {
 
 export default Service.extend({
 	ajax: inject.service(),
+	assetJustAddedStatusName,
+	assetAlreadyLoadedStatusName,
 	loaded: {},
 
 	/**
@@ -79,7 +80,7 @@ export default Service.extend({
 		}
 
 		if (this.get('loaded')[assetsBundleName] === true) {
-			return RSVP.resolve('Asset already loaded');
+			return RSVP.resolve(assetAlreadyLoadedStatusName);
 		}
 
 		if (!assetsBundle.type) {

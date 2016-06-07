@@ -173,15 +173,19 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Promise}
 	 */
 	setupEnvironmentAndInfoboxData(templateName) {
+		const resourceLoader = this.get('resourceLoader');
 		const promises = {
 			data: this.loadInfoboxData(templateName),
-			assets: this.get('resourceLoader').load('portableInfoboxBuilderCss'),
-			ponto: this.get('resourceLoader').load('pontoJs')
+			assets: resourceLoader.load('portableInfoboxBuilderCss'),
+			ponto: resourceLoader.load('pontoJs')
 		};
 
 		return Ember.RSVP.hash(promises)
 			.then((response) => {
 				this.setupInfoboxData(response.data);
+				if (response.assets === resourceLoader.assetJustAddedStatusName) {
+					Ember.$('body').addClass('infobox-builder-body-wrapper');
+				}
 			})
 			.then(this.isWikiaContext.bind(this));
 	},

@@ -35,17 +35,16 @@ test('CSS Resource has loaded status after load', function (assert) {
 
 	service.set('ajax', {
 		request: () => {
-			return {
-				then: (callback) => {
-					callback({css: []});
-				}
-			};
+			return RSVP.resolve({css: []});
 		}
 	});
 
-	service.load('properCssBundle');
-
-	assert.equal(service.loaded['properCssBundle'], true);
+	service.load('properCssBundle').then((response) => {
+		assert.equal(response, service.assetJustAddedStatusName);
+		assert.equal(service.loaded.properCssBundle, true);
+	}, () => {
+		assert.ok(false, 'Plan was to resolve this promise, you shouldn\'t get here');
+	});
 });
 
 
@@ -53,7 +52,7 @@ test('Throw an error on non existent bundle name', function (assert) {
 	const service = this.subject();
 
 	service.load('nonExistentBundle').then(() => {
-		assert.ok(false, 'Loading asset should fail here due to non existent bundle name');
+		assert.ok(false, 'Loading asset should get reject status here due to non existent bundle name');
 	}, (error) => {
 		assert.equal(error.message, 'Requested asset not found on avialable assets list');
 	});
@@ -67,7 +66,7 @@ test('Don\'t load if resource already loaded', function (assert) {
 	service.set('loaded.emptyLoadedBundle', true);
 
 	service.load('emptyLoadedBundle').then((data) => {
-		assert.equal(data, 'Asset already loaded');
+		assert.equal(data, service.assetAlreadyLoadedStatusName);
 	}, () => {
 		assert.ok(false, 'Loading asset shouldn\'t reject here');
 	});
@@ -79,7 +78,7 @@ test('Throw an error on type field missing in bundle config', function (assert) 
 	const service = this.subject();
 
 	service.load('emptyBundle').then(() => {
-		assert.ok(false, 'Loading asset should fail here due to missing type');
+		assert.ok(false, 'Loading asset should reject here due to missing type');
 	}, (error) => {
 		assert.equal(error.message, 'Missing type property in requested asset');
 	});
@@ -91,7 +90,7 @@ test('Throw an error on non existent loader for type', function (assert) {
 	const service = this.subject();
 
 	service.load('randomTypeBundle').then(() => {
-		assert.fail('Loading asset should fail here due to non existent loader for type');
+		assert.fail('Loading asset should reject here due to non existent loader for type');
 	}, (error) => {
 		assert.equal(error.message, 'Loader for provided type doesn\'t exist');
 	});
@@ -103,7 +102,7 @@ test('Throw an error on data field missing in bundle config', function (assert) 
 	const service = this.subject();
 
 	service.load('cssBundleMissingData').then(() => {
-		assert.ok(false, 'Loading asset should fail here due to non existent data field');
+		assert.ok(false, 'Loading asset should reject here due to non existent data field');
 	}, (error) => {
 		assert.equal(error.message, 'Missing data property in requested asset');
 	});
@@ -129,7 +128,7 @@ test('Throw an error for corrupted data from API', function (assert) {
 	});
 
 	service.load('properCssBundle2').then(() => {
-		assert.ok(false, 'Loading asset should fail here due to corrupted data from mocked API');
+		assert.ok(false, 'Loading asset should reject here due to corrupted data from mocked API');
 	}, (error) => {
 		assert.equal(error.message, 'Invalid assets data was returned from MediaWiki API');
 	});

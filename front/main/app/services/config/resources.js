@@ -9,7 +9,6 @@ export default {
 			method: 'getAssets',
 			format: 'json'
 		},
-		bodyClass: 'infobox-builder-body-wrapper',
 		type: 'css'
 	}
 };
