@@ -4,6 +4,7 @@ import OpenGraph from '../models/discussion/domain/open-graph';
 
 export default Ember.Component.extend({
 	classNames: ['discussion-standalone-editor'],
+	tagName: 'form',
 
 	currentUser: Ember.inject.service(),
 
