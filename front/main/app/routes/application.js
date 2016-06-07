@@ -48,7 +48,7 @@ export default Route.extend(
 				if (this.controller) {
 					this.controller.set('isLoading', false);
 				}
-				this.get('adsState').get('module').onTransition();
+				this.get('adsState.module').onTransition();
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
@@ -235,12 +235,12 @@ export default Route.extend(
 		 * @returns {void}
 		 */
 		activate() {
-			const adsInstance = this.get('adsState').get('module'),
+			const adsModule = this.get('adsState.module'),
 				instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
 
 			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') &&
 				!instantGlobals.wgSitewideDisableAdsOnMercury) {
-				adsInstance.init(M.prop('adsUrl'));
+				adsModule.init(M.prop('adsUrl'));
 
 				/*
 				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
@@ -250,7 +250,7 @@ export default Route.extend(
 				 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
 				 * lightboxVisible=false and then decide if we want to show it.
 				 */
-				adsInstance.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
+				adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
 					const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
 
 					if (!closeButtonDelay) {
@@ -260,12 +260,12 @@ export default Route.extend(
 					this.send(actionName, 'ads', {contents}, closeButtonDelay);
 				};
 
-				adsInstance.showLightbox = () => {
+				adsModule.showLightbox = () => {
 					this.send('showLightbox');
 				};
 
-				adsInstance.setSiteHeadOffset = (offset) => {
-					this.get('adsState').set('siteHeadOffset', offset);
+				adsModule.setSiteHeadOffset = (offset) => {
+					this.set('adsState.siteHeadOffset', offset);
 				};
 			}
 		},
