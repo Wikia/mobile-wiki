@@ -153,20 +153,6 @@ $border-bottom-height: 1px;
 	font-weight: bold;
 }
 
-
-@media #{$mobile-range} {
-	.wikia-search-wrapper .wikia-search .wikia-search--desktop {
-		display: none;
-	}
-}
-
-
-@media #{$desktop-range} {
-	.wikia-search-wrapper .wikia-search .wikia-search--mobile {
-		display: none;
-	}
-}
-
 .no-scroll .site-head-headroom-un-pinned .site-head {
 	// removing site-head bottom shadow when search bar is opened
 	box-shadow: none;

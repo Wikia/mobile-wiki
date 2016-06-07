@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import NoScrollMixin from '../mixins/no-scroll';
+import ResponsiveMixin from '../mixins/responsive';
 import {track, trackActions} from 'common/utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
 import {getDomain} from '../utils/domain';
@@ -16,7 +17,9 @@ const {Component, computed, observer, inject, run, $} = Ember;
  * @property {string} [text]
  * @property {string} [uri]
  */
-export default Component.extend(NoScrollMixin,
+export default Component.extend(
+	NoScrollMixin,
+	ResponsiveMixin,
 	{
 		classNames: ['wikia-search-wrapper'],
 		// key: phrase string, value: Array<SearchSuggestionItem>
