@@ -12,27 +12,27 @@
 }}
 <div class="search-results">
 	{{#if model.totalItems}}
-	<div class="search-results__total">
-		{{{i18n 'main.total-results'
-			ns='search'
-			totalItems=model.totalItems
-			query=(wrap-me model.query tagName='strong')
-		}}}
-	</div>
-	<ul class="search-results__list">
-		{{#each model.items as |item|}}
-			{{#wikia-ui-components/wikia-card}}
-				{{#link-to 'wiki-page' item.href}}
-					<div class="search-results__item">
-						<div class="search-results__title">
-							{{item.title}}
+		<div class="search-results__total">
+			{{{i18n 'main.total-results'
+				ns='search'
+				totalItems=model.totalItems
+				query=(wrap-me model.query tagName='strong')
+			}}}
+		</div>
+		<ul class="search-results__list">
+			{{#each model.items as |item|}}
+				{{#wikia-ui-components/wikia-card}}
+					{{#link-to 'wiki-page' item.href}}
+						<div class="search-results__item">
+							<div class="search-results__title">
+								{{item.title}}
+							</div>
+							<div class="search-results__snippet">{{{item.snippet}}}</div>
 						</div>
-						<div class="search-results__snippet">{{{item.snippet}}}</div>
-					</div>
-				{{/link-to}}
-			{{/wikia-ui-components/wikia-card}}
-		{{/each}}
-	</ul>
+					{{/link-to}}
+				{{/wikia-ui-components/wikia-card}}
+			{{/each}}
+		</ul>
 	{{else if notFoundError}}
 		{{#wikia-ui-components/error-info}}
 			{{wikia-search-error-not-found
