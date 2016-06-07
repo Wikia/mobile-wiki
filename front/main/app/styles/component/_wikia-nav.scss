@@ -15,6 +15,10 @@ $nav-padding-vertical: 18px;
 	background-color: $color-gray-dark;
 	flex-grow: 1;
 	overflow: auto;
+	// smooth scrolling on ios. This is not a stable CSS property, thus it may
+	// not be supported on all browsers or behaviour may change.
+	// see: https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-overflow-scrolling
+	-webkit-overflow-scrolling: touch;
 }
 
 .wikia-nav__header {
