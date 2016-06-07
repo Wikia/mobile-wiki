@@ -1,105 +1,69 @@
 import Ember from 'ember';
+import assets from './config/resources';
 
 const {$, inject, Service, RSVP} = Ember,
-	{buildUrl} = M,
-	typeCss = 'css',
-	typeJs = 'js';
-
-/**
- * Helper class for loading CSS
- * @returns {void}
- */
-function Css() {
-}
+	{buildUrl} = M;
 
 /**
  * Load CSS assets from MedaWiki
  * @param {Object} assetsBundle
+ * @param {string} assetsBundleName
+ * @param {Object} loaded
  * @param {Object} ajax
  * @throws {Error}
  * @returns {Promise}
  */
-Css.prototype.load = function (assetsBundle, ajax) {
+function loadCss(assetsBundle, assetsBundleName, loaded, ajax) {
 	if (!assetsBundle.data) {
 		return RSVP.reject(new Error('Missing data property in requested asset'));
+	}
+
+	/**
+	 * @param {string} html
+	 * @returns {void}
+	 */
+	function appendToHead(html) {
+		$(html).appendTo('head');
+	}
+
+	/**
+	 * Adds styles to the DOM
+	 * and optionally a class to the body element
+	 *
+	 * @param {Object} assetsBundle
+	 * @param {string} assetsBundleName
+	 * @param {Object} loaded
+	 * @param {Object} serverResponse
+	 * @returns {void}
+	 */
+	function setupStyles(assetsBundle, assetsBundleName, loaded, serverResponse) {
+		if (assetsBundle.bodyClass) {
+			$('body').addClass(assetsBundle.bodyClass);
+		}
+
+		const html = serverResponse.css.map((url) => {
+			return `<link type="text/css" rel="stylesheet" href="${url}">`;
+		}).join('');
+
+		appendToHead(html);
+
+		loaded[assetsBundleName] = true;
 	}
 
 	return ajax.request(buildUrl({path: '/wikia.php'}), {
 		data: assetsBundle.data
 	}).then((data) => {
 		if (data && data.css) {
-			this.setupStyles(assetsBundle, data);
+			setupStyles(assetsBundle, assetsBundleName, loaded, data);
 		} else {
 			throw new Error('Invalid assets data was returned from MediaWiki API');
 		}
 	});
-};
-
-/**
- * Adds styles to the DOM
- * and optionally a class to the body element
- *
- * @param {Object} assetsBundle
- * @param {Object} serverResponse
- * @returns {void}
- */
-Css.prototype.setupStyles = function (assetsBundle, serverResponse) {
-	if (assetsBundle.bodyClass) {
-		$('body').addClass(assetsBundle.bodyClass);
-	}
-
-	const html = serverResponse.css.map((url) => {
-		return `<link type="text/css" rel="stylesheet" href="${url}">`;
-	}).join('');
-
-	this.appendToHead(html);
-
-	assetsBundle.loaded = true;
-};
-
-Css.prototype.appendToHead = function (html) {
-	$(html).appendTo('head');
-};
-
-
-/**
- * Helper class for loading JS
- * @returns {void}
- */
-function Js() {
 }
-
-/**
- * Load JS assets from path
- * @param {Object} assetsBundle
- * @returns {Promise}
- */
-Js.prototype.load = function (assetsBundle) {
-	return $.getScript(assetsBundle.path).then(() => {
-		assetsBundle.loaded = true;
-	});
-};
-
 
 export default Service.extend({
 	ajax: inject.service(),
-	assets: {
-		pontoJs: {
-			path: '/front/main/assets/vendor/ponto/ponto.js',
-			loaded: false,
-			type: typeJs
-		},
-		portableInfoboxBuilderCss: {
-			data: {
-				controller: 'PortableInfoboxBuilderController',
-				method: 'getAssets',
-				format: 'json'
-			},
-			loaded: false,
-			bodyClass: 'infobox-builder-body-wrapper',
-			type: typeCss
-		}
-	},
+	loaded: {},
 
 	/**
 	 * Loads resource for requested bundle, don't load if already loaded
@@ -108,13 +72,13 @@ export default Service.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	load(assetsBundleName) {
-		const assetsBundle = this.get('assets')[assetsBundleName];
+		const assetsBundle = assets[assetsBundleName];
 
 		if (!assetsBundle) {
 			return RSVP.reject(new Error('Requested asset not found on avialable assets list'));
 		}
 
-		if (assetsBundle.loaded === true) {
+		if (this.get('loaded')[assetsBundleName] === true) {
 			return RSVP.resolve('Asset already loaded');
 		}
 
@@ -128,11 +92,15 @@ export default Service.extend({
 			return RSVP.reject(new Error('Loader for provided type doesn\'t exist'));
 		}
 
-		return loader.load(assetsBundle, this.get('ajax'));
+		return loader(assetsBundle, assetsBundleName, this.get('loaded'), this.get('ajax'));
 	},
 
 	loaders: {
-		css: new Css(),
-		js: new Js()
+		css: loadCss,
+		js(assetsBundle, assetsBundleName, loaded) {
+			return $.getScript(assetsBundle.path).then(() => {
+				loaded[assetsBundleName] = true;
+			});
+		}
 	}
 });
