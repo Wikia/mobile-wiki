@@ -1,6 +1,5 @@
 // this is spacing over the application-join text
 // the text should line up with Community Name, and this is the simplest solution - just to set particular margin-top
-
 $discussion-app-join-text-spacing-top: (
 	details-view: 85px,
 	list-view: 42px
@@ -13,7 +12,8 @@ $discussion-app-join-text-spacing-top: (
 
 	.wiki-name {
 		border-bottom: 1px solid $discussion-right-rail-line-color;
-		font-weight: bold;
+		font-size: $type-smallest;
+		line-height: $line-height-smallest;
 		margin-bottom: 13px;
 		padding-bottom: 6px;
 	}
