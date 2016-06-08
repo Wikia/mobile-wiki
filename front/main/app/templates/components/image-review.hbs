@@ -1,9 +1,9 @@
 {{#if model.showSubHeader}}
 	<header class="sub-head">
-		<a {{action this.attrs.openMainPage}}
-				class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
-		<button {{action this.attrs.reviewAndGetMoreImages}}
-				class="sub-head--done">{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
+		<a {{action this.attrs.openMainPage}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
+		<button {{action this.attrs.reviewAndGetMoreImages}} class="sub-head--done">
+			{{i18n 'main.review-and-get-more' ns='image-review'}}
+		</button>
 		<div class="sub-head--title">{{i18n 'main.head' ns='image-review'}}</div>
 	</header>
 {{/if}}
