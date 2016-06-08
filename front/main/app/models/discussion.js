@@ -12,7 +12,7 @@ const DiscussionModel = Ember.Object.extend({
 		return this.getSelectedCategoryIds();
 	}),
 
-	isAllCategories: Ember.computed('categories.@each.selected', function () {
+	isAllCategoriesSelected: Ember.computed('categories.@each.selected', function () {
 		return this.get('categories').isEvery('selected', false);
 	}),
 

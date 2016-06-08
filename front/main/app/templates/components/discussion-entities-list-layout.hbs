@@ -1,6 +1,6 @@
 {{#ember-wormhole to="site-head-sub-header"}}
 	{{discussion-header
-		isAllCategories=isAllCategories
+		isAllCategoriesSelected=isAllCategoriesSelected
 		applyFilters=(action this.attrs.applyFilters)
 		canModerate=model.canModerate
 		categories=categories
@@ -34,7 +34,7 @@
 			</a>
 			{{#if categories}}
 				{{discussion-categories
-					isAllCategories=isAllCategories
+					isAllCategoriesSelected=isAllCategoriesSelected
 					categories=categories
 					inputIdPrefix='rail'
 					resetCategories=(action this.attrs.resetCategories)

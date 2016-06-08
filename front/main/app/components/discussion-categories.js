@@ -33,7 +33,7 @@ export default Ember.Component.extend(
 			return localCategories;
 		}),
 
-		allCategorySelected: Ember.computed.oneWay('isAllCategories'),
+		allCategorySelected: Ember.computed.oneWay('isAllCategoriesSelected'),
 
 		categoriesInputIdPrefix: Ember.computed('inputIdPrefix', function () {
 			return `${this.get('inputIdPrefix')}-discussion-category-`;
