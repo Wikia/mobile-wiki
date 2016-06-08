@@ -10,6 +10,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		return window.self !== window.top;
 	}),
 	isEnvironmentSet: false,
+	cssLoaded: false,
 
 	/**
 	 * Load infobox data and additional assets with AJAX request and run methods that will handle them
@@ -169,6 +170,11 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Promise}
 	 */
 	loadCss() {
+		const resourceLoader = this.get('resourceLoader');
+
+		if (this.get('cssLoaded')) {
+			return Ember.RSVP.resolve(resourceLoader.assetAlreadyLoadedStatusName);
+		}
 		return this.get('ajax').request(M.buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'PortableInfoboxBuilderController',
@@ -177,10 +183,13 @@ export default Ember.Route.extend(ConfirmationMixin, {
 			}
 		}).then((data) => {
 			if (data && data.css) {
-				return this.get('resourceLoader').load('portableInfoboxBuilderCss', {type: 'css', paths: data.css});
+				return resourceLoader.load('portableInfoboxBuilderCss', {type: 'css', paths: data.css});
 			} else {
 				return Ember.RSVP.reject(Error('Invalid assets data was returned from MediaWiki API'));
 			}
+		}).then((result) => {
+			this.set('cssLoaded', true);
+			return Ember.RSVP.resolve(result);
 		});
 	},
 

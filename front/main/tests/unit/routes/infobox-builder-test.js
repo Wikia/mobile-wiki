@@ -131,3 +131,29 @@ test('Reject with an error for corrupted data from API', function (assert) {
 	});
 	assert.ok(true);
 });
+
+test('Dont\'t ask for asset path when already loaded', function (assert) {
+	const route = this.subject(),
+		thenRes = Ember.RSVP.resolve,
+		requestSpy = sinon.spy(thenRes),
+		resourceLoader = {
+			assetAlreadyLoadedStatusName: 'Test already loaded status'
+		};
+
+	route.set('resourceLoader', resourceLoader);
+	route.set('cssLoaded', true);
+	route.set('ajax', {
+		request: () => {
+			return {then: requestSpy};
+		}
+	});
+
+	route.loadCss().then((result) => {
+		assert.ok(!requestSpy.called, 'Request on ajax shouldn\'t be called');
+
+		assert.equal(result, route.get('resourceLoader').assetAlreadyLoadedStatusName);
+	}, (error) => {
+		assert.equal(error.message, 'Invalid assets data was returned from MediaWiki API');
+	});
+	assert.ok(true);
+});
