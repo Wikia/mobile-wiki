@@ -115,6 +115,7 @@ export default Object.extend({
 			[{
 				type: 'nav-menu-header',
 				route: 'wiki-page',
+				//will generate href="/wiki/"
 				href: '',
 				name: i18n.t('app.explore-wiki', {wikiName: this.get('wikiName')})
 			}] || [];
