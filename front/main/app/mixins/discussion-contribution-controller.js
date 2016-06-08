@@ -18,6 +18,7 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		createPost(entityData) {
+			this.set('isEditorLoading', true);
 			this.get('target').send('createPost', entityData);
 		},
 
@@ -27,6 +28,7 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		editPost(entityData) {
+			this.set('isEditorLoading', true);
 			this.get('target').send('editPost', entityData);
 		},
 
@@ -36,6 +38,7 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		createReply(entityData) {
+			this.set('isEditorLoading', true);
 			this.get('target').send('createReply', entityData);
 		},
 
@@ -45,6 +48,7 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		editReply(entityData) {
+			this.set('isEditorLoading', true);
 			this.get('target').send('editReply', entityData);
 		},
 

@@ -7,6 +7,7 @@
 		{{discussion-standalone-editor
 			create=(action 'createPost')
 			generateOpenGraph=(route-action 'generateOpenGraph')
+			isLoading=isEditorLoading
 			setEditorActive=(action 'setEditorActive')
 		}}
 	{{/modal-dialog}}
@@ -25,6 +26,7 @@
 		deletePost=(action 'deletePost')
 		editPost=(action 'editPost')
 		generateOpenGraph=(route-action 'generateOpenGraph')
+		isEditorLoading=isEditorLoading
 		isEditorOpen=isEditorOpen
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')

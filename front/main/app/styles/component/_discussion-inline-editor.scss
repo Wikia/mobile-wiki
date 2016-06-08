@@ -1,7 +1,9 @@
 $sticky-editor-width: 529px;
+$success-icon-size: 80px;
 
 .discussion-inline-editor {
 	margin: 0 auto 5px;
+	position: relative;
 
 	.discussion-inline-editor-floating-container {
 		background-color: $discussion-editor-background-color;
@@ -87,6 +89,24 @@ $sticky-editor-width: 529px;
 		svg, img {
 			width: 40px;
 			height: 40px;
+		}
+	}
+
+	.loading-overlay {
+		height: 100%;
+		position: absolute;
+
+		.spinner {
+			margin-top: -32px;
+		}
+
+		.success {
+			display: block;
+			height: $success-icon-size;
+			margin: - $success-icon-size / 2 auto 0;
+			position: relative;
+			top: 50%;
+			width: $success-icon-size;
 		}
 	}
 }

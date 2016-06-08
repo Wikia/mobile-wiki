@@ -503,14 +503,13 @@ body.discussions {
 	.post-detail {
 		background-color: $discussion-desktop-post-detail-bg-color;
 		padding: 12px 0 0;
-		transition: opacity 1s;
 
 		.timestamp {
 			font-size: $type-smallest;
 		}
 
 		&.is-new {
-			opacity: 0;
+			animation: post-fade-in 1s ease-in-out 1;
 		}
 
 		&.is-locked {
@@ -521,14 +520,6 @@ body.discussions {
 					fill: $discussion-locked-post-replies-color;
 				}
 			}
-		}
-	}
-
-	.post-reply {
-		transition: opacity 1s;
-
-		&.is-new{
-			opacity: 0;
 		}
 	}
 
@@ -777,5 +768,15 @@ body.discussions {
 			padding-left: 18px;
 			padding-right: 18px;
 		}
+	}
+}
+
+@keyframes post-fade-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
 	}
 }

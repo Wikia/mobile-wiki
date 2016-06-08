@@ -13,7 +13,7 @@ export default DiscussionBaseController.extend(
 	DiscussionEditEditorMixin,
 	ResponsiveMixin,
 	{
-		isLoading: false,
+		isEditorLoading: false,
 		isAnon: Ember.computed.not('currentUser.isAuthenticated'),
 		isEditorOpen: false,
 		isUserBlocked: false,
