@@ -4,6 +4,7 @@ import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(DiscussionEditorOpengraph, {
 	classNames: ['discussion-standalone-editor'],
+	tagName: 'form',
 
 	currentUser: Ember.inject.service(),
 	discussionEditor: Ember.inject.service(),
