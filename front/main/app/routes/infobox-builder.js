@@ -165,6 +165,26 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	},
 
 	/**
+	 * Load CSS assets from MedaWiki
+	 * @returns {Promise}
+	 */
+	loadCss() {
+		return this.get('ajax').request(M.buildUrl({path: '/wikia.php'}), {
+			data: {
+				controller: 'PortableInfoboxBuilderController',
+				method: 'getAssets',
+				format: 'json'
+			}
+		}).then((data) => {
+			if (data && data.css) {
+				return this.get('resourceLoader').load('portableInfoboxBuilderCss', {type: 'css', paths: data.css});
+			} else {
+				return Ember.RSVP.reject(Error('Invalid assets data was returned from MediaWiki API'));
+			}
+		});
+	},
+
+	/**
 	 * Setup infobox builder by loading infobox data and styles.
 	 * Also initialize ponto and checks in what context
 	 * infobox builder was opened
@@ -176,7 +196,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 		const resourceLoader = this.get('resourceLoader');
 		const promises = {
 			data: this.loadInfoboxData(templateName),
-			assets: resourceLoader.load('portableInfoboxBuilderCss'),
+			assets: this.loadCss(),
 			ponto: resourceLoader.load('pontoJs')
 		};
 

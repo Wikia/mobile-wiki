@@ -2,63 +2,8 @@ import Ember from 'ember';
 import assets from './config/resources';
 
 const {$, inject, Service, RSVP} = Ember,
-	{buildUrl} = M,
 	assetJustAddedStatusName = 'Styles freshly added to DOM',
 	assetAlreadyLoadedStatusName = 'Asset already loaded';
-
-/**
- * Load CSS assets from MedaWiki
- * @param {Object} assetsBundle
- * @param {string} assetsBundleName
- * @param {Object} loaded
- * @param {Object} ajax
- * @throws {Error}
- * @returns {Promise}
- */
-function loadCss(assetsBundle, assetsBundleName, loaded, ajax) {
-	if (!assetsBundle.data) {
-		return RSVP.reject(new Error('Missing data property in requested asset'));
-	}
-
-	/**
-	 * @param {string} html
-	 * @returns {void}
-	 */
-	function appendToHead(html) {
-		$(html).appendTo('head');
-	}
-
-	/**
-	 * Adds styles to the DOM
-	 * and optionally a class to the body element
-	 *
-	 * @param {Object} assetsBundle
-	 * @param {string} assetsBundleName
-	 * @param {Object} loaded
-	 * @param {Object} serverResponse
-	 * @returns {void}
-	 */
-	function setupStyles(assetsBundle, assetsBundleName, loaded, serverResponse) {
-		const html = serverResponse.css.map((url) => {
-			return `<link type="text/css" rel="stylesheet" href="${url}">`;
-		}).join('');
-
-		appendToHead(html);
-
-		loaded[assetsBundleName] = true;
-	}
-
-	return ajax.request(buildUrl({path: '/wikia.php'}), {
-		data: assetsBundle.data
-	}).then((data) => {
-		if (data && data.css) {
-			setupStyles(assetsBundle, assetsBundleName, loaded, data);
-			return assetJustAddedStatusName;
-		} else {
-			throw new Error('Invalid assets data was returned from MediaWiki API');
-		}
-	});
-}
 
 export default Service.extend({
 	ajax: inject.service(),
@@ -70,17 +15,29 @@ export default Service.extend({
 	 * Loads resource for requested bundle, don't load if already loaded
 	 *
 	 * @param {string} assetsBundleName
+	 * @param {string} assetsBundle Optional bundle config - if not present, config for provided name
+	 *        is fetched from assets (config/resources)
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	load(assetsBundleName) {
-		const assetsBundle = assets[assetsBundleName];
+	load(assetsBundleName, assetsBundle) {
+		if (!assetsBundle) {
+			assetsBundle = assets[assetsBundleName];
+		}
+
+		if (this.get('loaded')[assetsBundleName] === true) {
+			return RSVP.resolve(assetAlreadyLoadedStatusName);
+		}
 
 		if (!assetsBundle) {
 			return RSVP.reject(new Error('Requested asset not found on avialable assets list'));
 		}
 
-		if (this.get('loaded')[assetsBundleName] === true) {
-			return RSVP.resolve(assetAlreadyLoadedStatusName);
+		if (!assetsBundle.paths) {
+			return RSVP.reject(new Error('Missing paths property in requested asset'));
+		}
+
+		if (typeof assetsBundle.paths.map !== 'function') {
+			return RSVP.reject(new Error('Provided paths property should be an array'));
 		}
 
 		if (!assetsBundle.type) {
@@ -97,11 +54,31 @@ export default Service.extend({
 	},
 
 	loaders: {
-		css: loadCss,
+		/**
+		 * Adds styles to the DOM
+		 * and optionally a class to the body element
+		 *
+		 * @param {Object} assetsBundle
+		 * @param {string} assetsBundleName
+		 * @param {Object} loaded
+		 * @returns {void}
+		 */
+		css(assetsBundle, assetsBundleName, loaded) {
+			const html = assetsBundle.paths.map((url) => {
+				return `<link type="text/css" rel="stylesheet" href="${url}">`;
+			}).join('');
+
+			$(html).appendTo('head');
+
+			loaded[assetsBundleName] = true;
+			return RSVP.resolve(assetJustAddedStatusName);
+		},
 		js(assetsBundle, assetsBundleName, loaded) {
-			return $.getScript(assetsBundle.path).then(() => {
+			// return RSVP.hash(promises)
+			// TODO support all array items
+			return $.getScript(assetsBundle.paths[0]).then(() => {
 				loaded[assetsBundleName] = true;
 			});
 		}
-	}
+	},
 });
