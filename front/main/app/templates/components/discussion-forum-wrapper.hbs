@@ -1,7 +1,8 @@
 {{discussion-inline-editor
 	create=(action this.attrs.createPost)
 	generateOpenGraph=(action this.attrs.generateOpenGraph)
-	posts=posts
+	isActive=isEditorOpen
+	setEditorActive=(action this.attrs.setEditorActive)
 }}
 
 {{#each posts as |entity|}}

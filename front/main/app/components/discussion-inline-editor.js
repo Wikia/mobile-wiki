@@ -6,7 +6,7 @@ import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
 export default Ember.Component.extend(DiscussionEditorOpengraph, {
 	attributeBindings: ['style'],
 	classNames: ['discussion-inline-editor'],
-	classNameBindings: ['isSticky'],
+	classNameBindings: ['isSticky', 'isActive'],
 
 	currentUser: Ember.inject.service(),
 
@@ -16,6 +16,7 @@ export default Ember.Component.extend(DiscussionEditorOpengraph, {
 
 	content: '',
 
+	isActive: false,
 	isSticky: false,
 	submitDisabled: false,
 	showSuccess: false,
@@ -88,9 +89,13 @@ export default Ember.Component.extend(DiscussionEditorOpengraph, {
 		Ember.$(window).on('scroll.editor', this.onScroll.bind(this));
 	},
 
+	click() {
+		this.sendAction('setEditorActive', true);
+	},
+
 	actions: {
 		submit() {
 
-		}
+		},
 	}
 });
