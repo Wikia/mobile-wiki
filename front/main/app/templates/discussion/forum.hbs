@@ -1,17 +1,19 @@
 {{#modal-dialog
 	class='is-bare is-desktop-centered discussion-editor-dialog'
 	closeOnOverlayClick=false
-	isVisible=editEditorActive
+	isVisible=isEditorOpen
 }}
 	{{!TODO closing editor}}
 	{{discussion-standalone-editor
 		editPost=(action 'editPost')
 		generateOpenGraph=(route-action 'generateOpenGraph')
+		setEditorActive=(action 'setEditorActive')
 	}}
 {{/modal-dialog}}
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	model=model.data
+	setEditorActive=(action 'setEditorActive')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')

@@ -25,6 +25,7 @@ export default Ember.Component.extend(DiscussionEditorOpengraph, {
 	// Tracking action name of inserting content into editor
 	contentTrackingAction: trackActions.PostContent,
 	// Tracking action name of opening the editor
+	// TODO add tracking for start
 	startTrackingAction: trackActions.PostStart,
 	wasContentTracked: false,
 	wasStartTracked: false,
@@ -52,7 +53,7 @@ export default Ember.Component.extend(DiscussionEditorOpengraph, {
 
 	actions: {
 		close() {
-			this.get('discussionEditor').toggleEditor(false);
+			this.sendAction('setEditorActive', false);
 
 			track(this.get('closeTrackingAction'));
 		},

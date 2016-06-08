@@ -30,11 +30,5 @@ export default Ember.Component.extend(
 		siteName: Ember.computed(() => {
 			return Ember.get(Mercury, 'wiki.siteName');
 		}),
-
-		actions: {
-			toggleEditor(active) {
-				this.get('discussionEditor').toggleEditor(active);
-			}
-		}
 	}
 );
