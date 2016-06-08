@@ -6,17 +6,17 @@
 				icon='search'
 				iconSize=18
 			}}
-			{{wikia-ui-components/text-field
-				value=phrase
-				name='infoboxSectionHeader'
-				placeholder=searchPlaceholderLabel
-				inputClasses='side-search__input'
-				tabindex='-1'
-				type='search'
-				onEnterHandler=(action 'enter')
-				onFocusHandler=(action 'onInputFocus')
-				onBlurHandler=(action 'onInputBlur')
-			}}
+			<div class="text-field">
+				{{input
+					class='side-search__input'
+					value=phrase
+					focus-out=(action 'onInputBlur')
+					focus-in=(action 'onInputFocus')
+					enter=(action 'enter')
+					placeholder=searchPlaceholderLabel
+					type='search'
+				}}
+			</div>
 			{{wikia-ui-components/icon-button
 				class='wikia-search__clear'
 				click=(action 'clearSearch')
