@@ -12,7 +12,6 @@ DiscussionCategory.reopenClass({
 	 */
 	create(categoryData) {
 		const category = {
-			collapsed: false,
 			description: categoryData.description,
 			displayOrder: categoryData.displayOrder,
 			id: categoryData.id,

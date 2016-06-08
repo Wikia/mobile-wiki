@@ -65,8 +65,8 @@ DiscussionModel.reopenClass({
 
 				resolve(discussionInstance);
 			}).catch(() => {
-				// TODO handle errors
-				reject(discussionInstance);
+				// Categories fail silently - you can still view the default category
+				resolve(discussionInstance);
 			});
 		});
 	}
