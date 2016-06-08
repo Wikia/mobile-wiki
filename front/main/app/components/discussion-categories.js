@@ -4,7 +4,7 @@ import {track, trackActions} from '../utils/discussion-tracker';
 export default Ember.Component.extend(
 	{
 		canShowMore: false,
-		collapsed: true,
+		collapsed: false,
 		disabled: false,
 		visibleCategoriesCount: null,
 
@@ -79,7 +79,13 @@ export default Ember.Component.extend(
 
 			if (typeof visibleCategoriesCount === 'number') {
 				localCategories.slice(visibleCategoriesCount).setEach('collapsed', true);
+				this.set('canShowMore', true);
 			}
+		},
+
+		uncollapseCategoriesAboveLimit(localCategories) {
+			localCategories.setEach('collapsed', false);
+			this.set('canShowMore', false);
 		},
 
 		toggleButtonLabel: Ember.computed('localCategories.@each.collapsed', function () {
@@ -118,10 +124,8 @@ export default Ember.Component.extend(
 
 				if (localCategories.isEvery('collapsed', false)) {
 					this.collapseCategoriesAboveLimit(localCategories);
-					this.set('canShowMore', true);
 				} else {
-					localCategories.setEach('collapsed', false);
-					this.set('canShowMore', false);
+					this.uncollapseCategoriesAboveLimit(localCategories);
 				}
 			},
 
