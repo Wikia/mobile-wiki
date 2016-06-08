@@ -10,7 +10,6 @@ export default Ember.Component.extend(
 		discussionSort: Ember.inject.service(),
 		onlyReported: Ember.computed.oneWay('discussionSort.onlyReported'),
 		popover: nearestParent('pop-over'),
-		shouldResetCategories: false,
 		showApplyButton: false,
 		showSortSection: false,
 		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
@@ -18,13 +17,6 @@ export default Ember.Component.extend(
 		trendingDisabled: Ember.computed('onlyReported', function () {
 			return this.get('onlyReported') === true ? 'disabled' : false;
 		}),
-
-		/**
-		 * @returns {void}
-		 */
-		init() {
-			this._super(...arguments);
-		},
 
 		/**
 		 * @returns {boolean}

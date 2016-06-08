@@ -87,13 +87,6 @@ export default DiscussionBaseRoute.extend(
 					sort: this.get('discussionSort.sortBy')
 				}});
 			},
-
-			resetCategories() {
-				this.transitionTo({queryParams: {
-					catId: [],
-					sort: this.get('discussionSort.sortBy')
-				}});
-			}
 		}
 	}
 );

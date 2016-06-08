@@ -17,10 +17,6 @@ export default DiscussionBaseController.extend(
 			updateCategories(categories) {
 				this.get('target').send('updateCategories', categories);
 			},
-
-			resetCategories() {
-				this.get('target').send('resetCategories');
-			}
 		}
 	}
 );

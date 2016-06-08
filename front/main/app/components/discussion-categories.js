@@ -3,7 +3,7 @@ import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(
 	{
-		collapsed: false,
+		collapsed: true,
 		disabled: false,
 		visibleCategoriesCount: null,
 
@@ -18,17 +18,24 @@ export default Ember.Component.extend(
 			}
 		}),
 
+		isAllCategoriesSelected: Ember.computed('categories.@each.selected', function () {
+			return this.get('categories').isEvery('selected', false);
+		}),
+
 		localCategories: Ember.computed('categories.@each.selected', function () {
 			const categories = this.get('categories'),
 				localCategories = new Ember.A();
 
-			categories.forEach((category) => {
+			categories.forEach((category, index) => {
 				localCategories.pushObject(Ember.Object.create({
 					category,
-					collapsed: false,
 					selected: category.selected
 				}));
 			});
+
+			if (this.get('collapsed')) {
+				this.collapseCategoriesAboveLimit(localCategories);
+			}
 
 			return localCategories;
 		}),
@@ -128,7 +135,7 @@ export default Ember.Component.extend(
 				this.setAllCategorySelected(localCategories);
 				this.collapseCategoriesAboveLimit(localCategories);
 
-				this.sendAction('resetCategories');
+				this.sendAction('updateCategories', localCategories);
 			},
 
 			/**
@@ -165,7 +172,7 @@ export default Ember.Component.extend(
 
 				this.setAllCategorySelected(localCategories);
 
-				this.sendAction('updateCategories', this.get('localCategories'));
+				this.sendAction('updateCategories', localCategories);
 			}
 		}
 	}

@@ -1,9 +1,7 @@
 {{#discussion-entities-list-layout
-	isAllCategoriesSelected=model.index.isAllCategoriesSelected
 	applyFilters=(action 'applyFilters')
 	hasContentError=true
 	model=model.current.data
-	resetCategories=(action 'resetCategories')
 	updateCategories=(action 'updateCategories')
 }}
 	{{#if model.error.isNotFound}}
