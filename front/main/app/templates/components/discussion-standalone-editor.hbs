@@ -5,7 +5,9 @@
 	<button class="active-element-theme-color" type="submit" {{action 'submit' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
 </div>
 
-<label class="discussion-standalone-editor-label" for="discussion-standalone-editor-textarea">{{i18n labelMessageKey ns='discussion'}}</label>
+<label class="discussion-standalone-editor-label" for="discussion-standalone-editor-textarea">
+	{{i18n labelMessageKey ns='discussion'}}
+</label>
 <div class="discussion-standalone-content-wrapper">
 	{{textarea
 		autoresize=true
