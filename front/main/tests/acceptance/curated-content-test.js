@@ -1,7 +1,11 @@
 import {test} from 'qunit';
 import moduleForAcceptance from 'main/tests/helpers/module-for-acceptance';
 
-moduleForAcceptance('Acceptance | Curated Main Page');
+moduleForAcceptance('Acceptance | Curated Main Page', {
+	afterEach() {
+		resetAds();
+	}
+});
 
 test('Open Curated Main Page then open Section and finally open Category', (assert) => {
 	// https://github.com/ember-cli/ember-cli/issues/3719#issuecomment-111279593
