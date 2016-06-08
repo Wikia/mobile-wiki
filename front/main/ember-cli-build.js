@@ -74,7 +74,6 @@ module.exports = function (defaults) {
 			// By default vendor is not watched by Ember CLI and we want to rebuild when common scripts are modified
 			vendor: 'vendor'
 		},
-		hinting: false,
 		vendorFiles: {
 			// we'll load jQuery on our own
 			'jquery.js': false

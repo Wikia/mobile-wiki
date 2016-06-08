@@ -1,11 +1,11 @@
 {
   "main":{
-    "search-error-general":"Can't connect, please try again",
-    "search-error-general-action":"Click to retry",
-    "search-error-not-found":"We couldn't find anything for __query__",
-    "search-error-not-found-action":"Try Another Search",
-    "search-input-label":"Search",
-    "search-loading-msg":"Loading search results...",
-    "total-results":"About __totalItems__ results for __query__"
+    "search-error-general":"Не получается установить соединение; повторите попытку",
+    "search-error-general-action":"Повторить попытку",
+    "search-error-not-found":"Не найдено результатов для __query__",
+    "search-error-not-found-action":"Задать новый поиск",
+    "search-input-label":"Поиск",
+    "search-loading-msg":"Загрузка результатов поиска...",
+    "total-results":"Примерно __totalItems__ результатов для __query__"
   }
 }

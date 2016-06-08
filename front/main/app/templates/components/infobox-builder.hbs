@@ -81,8 +81,9 @@
 				id='go-to-source'
 			}}
 			{{#pop-over for="go-to-source" on="hover" flow='leftCenter'}}
-				<p class="infobox-builder-go-to-source-tooltip-text">{{i18n 'main.source-editor-tooltip'
-				ns='infobox-builder'}}</p>
+				<p class="infobox-builder-go-to-source-tooltip-text">
+					{{i18n 'main.source-editor-tooltip' ns='infobox-builder'}}
+				</p>
 			{{/pop-over}}
 		{{/if}}
 	</div>
@@ -109,22 +110,22 @@
 </div>
 {{#if showOverlay}}
 	<div class="infobox-builder-spinner loading-overlay">
-	{{#if isLoading}}
-		{{loading-spinner
-			active=true
-			radius=38
-			overlay=false
-			strokeWidth=3
-		}}
-		<div class="spinner-text">
-			{{loadingMessage}}
-		</div>
-	{{/if}}
-	{{#if showSuccess}}
-		{{svg 'success' class='success-icon' viewBox='0 0 80 80'}}
-		<div class="spinner-text">
-			{{i18n 'main.success' ns='infobox-builder'}}
-		</div>
-	{{/if}}
+		{{#if isLoading}}
+			{{loading-spinner
+				active=true
+				radius=38
+				overlay=false
+				strokeWidth=3
+			}}
+			<div class="spinner-text">
+				{{loadingMessage}}
+			</div>
+		{{/if}}
+		{{#if showSuccess}}
+			{{svg 'success' class='success-icon' viewBox='0 0 80 80'}}
+			<div class="spinner-text">
+				{{i18n 'main.success' ns='infobox-builder'}}
+			</div>
+		{{/if}}
 	</div>
 {{/if}}
