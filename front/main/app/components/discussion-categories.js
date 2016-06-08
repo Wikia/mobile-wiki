@@ -1,15 +1,15 @@
 import Ember from 'ember';
 import {track, trackActions} from '../utils/discussion-tracker';
-import DiscussionCategoriesComponent from '../mixins/discussion-categories-component';
 
 export default Ember.Component.extend(
-	DiscussionCategoriesComponent,
 	{
+		collapsed: false,
+		disabled: false,
 		visibleCategoriesCount: null,
 
 		init() {
 			this._super();
-			this.collapseCategoriesAboveLimit();
+			this.collapseCategoriesAboveLimit(this.get('localCategories'));
 		},
 
 		disabledObserver: Ember.observer('disabled', function () {
@@ -25,6 +25,7 @@ export default Ember.Component.extend(
 			categories.forEach((category) => {
 				localCategories.pushObject(Ember.Object.create({
 					category,
+					collapsed: false,
 					selected: category.selected
 				}));
 			});
@@ -33,6 +34,20 @@ export default Ember.Component.extend(
 		}),
 
 		allCategorySelected: Ember.computed.oneWay('isAllCategories'),
+
+		categoriesInputIdPrefix: Ember.computed('inputIdPrefix', function () {
+			return `${this.get('inputIdPrefix')}-discussion-category-`;
+		}),
+
+		/**
+		 * Track click on category
+		 * @param {boolean} isAllCategories
+		 *
+		 * @returns {void}
+		 */
+		trackCategory(isAllCategories) {
+			track(isAllCategories ? trackActions.AllCategoriesTapped : trackActions.CategoryTapped);
+		},
 
 		/**
 		 * @param {Ember.Array} localCategories
@@ -50,40 +65,52 @@ export default Ember.Component.extend(
 			}
 		},
 
-		collapseCategoriesAboveLimit() {
+		collapseCategoriesAboveLimit(localCategories) {
 			const visibleCategoriesCount = this.get('visibleCategoriesCount');
 
 			if (typeof visibleCategoriesCount === 'number') {
-				this.get('categories').slice(visibleCategoriesCount).setEach('collapsed', true);
+				localCategories.slice(visibleCategoriesCount).setEach('collapsed', true);
 			}
 		},
 
-		toggleButtonLabel: Ember.computed('categories.@each.collapsed', function () {
-			if (this.get('categories').isEvery('collapsed', false)) {
+		toggleButtonLabel: Ember.computed('localCategories.@each.collapsed', function () {
+			if (this.get('localCategories').isEvery('collapsed', false)) {
 				return i18n.t('main.categories-show-less-button-label', {ns: 'discussion'});
 			} else {
 				return i18n.t('main.categories-show-more-button-label', {ns: 'discussion'});
 			}
 		}),
 
-		toggleButtonVisible: Ember.computed('visibleCategoriesCount', 'categories.length', function () {
+		toggleButtonVisible: Ember.computed('visibleCategoriesCount', 'localCategories.length', function () {
 			return typeof this.get('visibleCategoriesCount') === 'number' &&
-				this.get('categories.length') > this.get('visibleCategoriesCount');
+				this.get('localCategories.length') > this.get('visibleCategoriesCount');
 		}),
 
 		actions: {
+			/**
+			 * Toggle categories section
+			 *
+			 * @returns {void}
+			 */
+			toggle() {
+				const collapsed = this.get('collapsed');
+
+				this.set('collapsed', !collapsed);
+				track(collapsed ? trackActions.CategoriesUncollaped : trackActions.CategoriesCollaped);
+			},
+
 			/**
 			 * Show/hide more categories when more than visibleCategoriesCount
 			 *
 			 * @returns {void}
 			 */
 			toggleMore() {
-				const categories = this.get('categories');
+				const localCategories = this.get('localCategories');
 
-				if (categories.isEvery('collapsed', false)) {
-					this.collapseCategoriesAboveLimit();
+				if (localCategories.isEvery('collapsed', false)) {
+					this.collapseCategoriesAboveLimit(localCategories);
 				} else {
-					categories.setEach('collapsed', false);
+					localCategories.setEach('collapsed', false);
 				}
 			},
 
@@ -93,12 +120,13 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			reset() {
-				const categories = this.get('categories');
+				const localCategories = this.get('localCategories');
 
 				track(trackActions.CategoriesResetTapped);
 				this.set('collapsed', false);
-				categories.setEach('selected', false);
-				this.collapseCategoriesAboveLimit();
+				localCategories.setEach('selected', false);
+				this.setAllCategorySelected(localCategories);
+				this.collapseCategoriesAboveLimit(localCategories);
 
 				this.sendAction('resetCategories');
 			},
