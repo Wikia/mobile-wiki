@@ -108,7 +108,7 @@ test('should deselect category after selecting "All"', function (assert) {
 	this.$('label[for="test-discussion-category-all"]').click();
 
 	assert.notOk(this.$('label:last span').hasClass('active-element-background-color'));
-assert.ok(this.$('label[for="test-discussion-category-all"] span').hasClass('active-element-background-color'));
+	assert.ok(this.$('label[for="test-discussion-category-all"] span').hasClass('active-element-background-color'));
 });
 
 test('should "Reset" return initial categories state', function (assert) {

@@ -14,8 +14,7 @@ export default Ember.Mixin.create(
 			 */
 			applyFilters(sortBy, onlyReported, categories) {
 				const discussionSort = this.get('discussionSort'),
-					currentSortBy = discussionSort.get('sortBy'),
-					model = this.modelFor(this.get('routeName'));
+					currentSortBy = discussionSort.get('sortBy');
 
 				let targetRoute = 'discussion.forum';
 

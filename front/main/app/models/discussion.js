@@ -51,7 +51,7 @@ DiscussionModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getCategories(wikiId) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve) => {
 			const discussionInstance = DiscussionModel.create({
 				wikiId
 			});

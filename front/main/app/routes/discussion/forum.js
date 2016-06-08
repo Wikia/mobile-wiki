@@ -78,8 +78,6 @@ export default DiscussionBaseRoute.extend(
 			},
 
 			updateCategories(updatedCategories) {
-				const model = this.modelFor(this.get('routeName'));
-
 				const catId = updatedCategories.filterBy('selected', true).mapBy('category.id');
 
 				this.transitionTo({queryParams: {
