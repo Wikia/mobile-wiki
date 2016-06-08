@@ -42,11 +42,7 @@ export default DiscussionBaseRoute.extend(
 			discussionSort.setOnlyReported(false);
 
 			if (params.catId) {
-				const categoryIds = params.catId instanceof Array ? params.catId : [params.catId];
-
-				if (categoryIds.length !== indexModel.getSelectedCategoryIds().length) {
-					indexModel.setSelectedCategories(categoryIds);
-				}
+				indexModel.setSelectedCategories(params.catId instanceof Array ? params.catId : [params.catId]);
 			}
 
 			return Ember.RSVP.hash({
@@ -81,12 +77,10 @@ export default DiscussionBaseRoute.extend(
 				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
-			updateCategories(updatedCategory) {
+			updateCategories(updatedCategories) {
 				const model = this.modelFor(this.get('routeName'));
 
-				model.index.updateCategorySelected(updatedCategory);
-
-				const catId = model.index.getSelectedCategoryIds();
+				const catId = updatedCategories.filterBy('selected', true).mapBy('category.id');
 
 				this.transitionTo({queryParams: {
 					catId,
@@ -95,7 +89,6 @@ export default DiscussionBaseRoute.extend(
 			},
 
 			resetCategories() {
-				this.modelFor(this.get('routeName')).index.resetCategories();
 				this.transitionTo({queryParams: {
 					catId: [],
 					sort: this.get('discussionSort.sortBy')

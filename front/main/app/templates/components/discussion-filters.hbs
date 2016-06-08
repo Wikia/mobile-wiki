@@ -1,12 +1,11 @@
 <form name="discussion-filters">
 	<div class="discussion-filters-fields-wrapper">
 		{{#if categories}}
-			{{discussion-categories-filter
+			{{discussion-categories
 				isAllCategories=isAllCategories
 				categories=categories
 				disabled=onlyReported
 				inputIdPrefix='filters'
-				visibleCategoriesCount=10
 				updateCategories=(action 'updateCategories')
 			}}
 		{{/if}}

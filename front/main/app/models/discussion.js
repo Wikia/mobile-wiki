@@ -24,41 +24,6 @@ const DiscussionModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @param {Ember.Object} changedCategory
-	 *
-	 * @returns {void}
-	 */
-	updateCategorySelected(changedCategory) {
-		if (!changedCategory) {
-			return;
-		}
-
-		changedCategory.set('selected', !changedCategory.get('selected'));
-	},
-
-	/**
-	 * @param {Ember.Array} changedCategories
-	 *
-	 * @returns {void}
-	 */
-	updateCategoriesFromFilters(changedCategories) {
-		if (!changedCategories || !changedCategories.length) {
-			return;
-		}
-
-		changedCategories.forEach((changedCategory) => {
-			changedCategory.category.set('selected', changedCategory.selected);
-		});
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	resetCategories() {
-		this.get('categories').setEach('selected', false);
-	},
-
-	/**
 	 * @param {object} apiData
 	 *
 	 * @returns {void}
@@ -77,6 +42,8 @@ const DiscussionModel = Ember.Object.extend({
 		this.get('categories').forEach((category) => {
 			if (selectedCategoryIds.indexOf(category.get('id')) !== -1) {
 				category.set('selected', true);
+			} else {
+				category.set('selected', false);
 			}
 		});
 	},

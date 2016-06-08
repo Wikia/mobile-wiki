@@ -5,11 +5,49 @@ import DiscussionCategoriesComponent from '../mixins/discussion-categories-compo
 export default Ember.Component.extend(
 	DiscussionCategoriesComponent,
 	{
-		visibleCategoriesCount: 10,
+		visibleCategoriesCount: null,
 
 		init() {
 			this._super();
 			this.collapseCategoriesAboveLimit();
+		},
+
+		disabledObserver: Ember.observer('disabled', function () {
+			if (this.get('disabled') === true) {
+				this.send('selectAllCategory', false);
+			}
+		}),
+
+		localCategories: Ember.computed('categories.@each.selected', function () {
+			const categories = this.get('categories'),
+				localCategories = new Ember.A();
+
+			categories.forEach((category) => {
+				localCategories.pushObject(Ember.Object.create({
+					category,
+					selected: category.selected
+				}));
+			});
+
+			return localCategories;
+		}),
+
+		allCategorySelected: Ember.computed.oneWay('isAllCategories'),
+
+		/**
+		 * @param {Ember.Array} localCategories
+		 *
+		 * @returns {void}
+		 */
+		setAllCategorySelected(localCategories) {
+			const isNothingSelected = localCategories.isEvery('selected', false),
+				allCategorySelected = this.get('allCategorySelected');
+
+			if (!allCategorySelected && isNothingSelected) {
+				this.set('allCategorySelected', true);
+			} else if (allCategorySelected && !isNothingSelected) {
+				this.set('allCategorySelected', false);
+			}
 		},
 
 		collapseCategoriesAboveLimit() {
@@ -28,8 +66,9 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		toggleButtonVisible: Ember.computed('categories.length', function () {
-			return this.get('categories.length') > this.get('visibleCategoriesCount');
+		toggleButtonVisible: Ember.computed('visibleCategoriesCount', 'categories.length', function () {
+			return typeof this.get('visibleCategoriesCount') === 'number' &&
+				this.get('categories.length') > this.get('visibleCategoriesCount');
 		}),
 
 		actions: {
@@ -65,29 +104,41 @@ export default Ember.Component.extend(
 			},
 
 			/**
-			 * @param {Event} event
+			 * @param {boolean} shouldTrack
 			 *
 			 * @returns {void}
 			 */
-			onAllCategoryClick(event) {
-				event.preventDefault();
-				this.trackCategory(false);
+			selectAllCategory(shouldTrack) {
+				const localCategories = this.get('localCategories');
 
-				this.sendAction('resetCategories');
+				if (shouldTrack) {
+					this.trackCategory(true);
+				}
+
+				localCategories.setEach('selected', false);
+				this.setAllCategorySelected(localCategories);
+
+				this.sendAction('updateCategories', localCategories);
 			},
 
 			/**
-			 * @param {Ember.Object} category
+			 * @param {Object} localCategory
 			 * @param {Event} event
 			 *
 			 * @returns {void}
 			 */
-			onCategoryClick(category, event) {
-				event.preventDefault();
-				this.trackCategory(false);
+			onCategoryClick(localCategory, event) {
+				const localCategories = this.get('localCategories');
 
-				this.sendAction('updateCategories', category);
-			},
+				this.trackCategory(false);
+				event.preventDefault();
+
+				localCategory.set('selected', !localCategory.get('selected'));
+
+				this.setAllCategorySelected(localCategories);
+
+				this.sendAction('updateCategories', this.get('localCategories'));
+			}
 		}
 	}
 );

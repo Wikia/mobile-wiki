@@ -27,11 +27,9 @@ export default Ember.Mixin.create(
 					discussionSort.setSortBy(sortBy);
 				}
 
-				model.index.updateCategoriesFromFilters(categories);
-
 				const queryParams = {
 					sort: sortBy,
-					catId: model.index.getSelectedCategoryIds(),
+					catId: categories.filterBy('selected', true).mapBy('category.id'),
 				};
 
 				return this.transitionTo(targetRoute, {queryParams});
