@@ -18,13 +18,9 @@
 		{{i18n 'main.app-promotion-text' ns='discussion'}}
 	</p>
 	{{#if iosAppLink}}
-		<a href="{{iosAppLink}}" target="_blank">
-			{{svg 'apple-store-badge' role='img' class='icon apple-store-badge' viewBox='0 0 135 40'}}
-		</a>
+		<a href="{{iosAppLink}}" target="_blank" class="apple-store-badge"></a>
 	{{/if}}
 	{{#if androidAppLink}}
-		<a href="{{androidAppLink}}" target="_blank">
-			{{svg 'google-play-badge' role='img' class='icon google-play-badge' viewBox='0 0 135 40'}}
-		</a>
+		<a href="{{androidAppLink}}" target="_blank" class="google-play-badge"></a>
 	{{/if}}
 {{/if}}
