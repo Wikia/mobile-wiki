@@ -42,7 +42,8 @@ test('Name lower case', function (assert) {
 });
 
 test('behaves correctly depending on noAds value', function (assert) {
-	const testCases = [{
+	const testCases = [
+		{
 			properties: {
 				name: 'Test ad 1'
 			},
@@ -90,7 +91,8 @@ test('behaves correctly depending on noAds value', function (assert) {
 			},
 			expectedLength: 3,
 			message: 'Element not added to slot because of noAds property value set to \'true\''
-		}];
+		}
+	];
 
 	testCases.forEach((testCase) => {
 		const component = this.subject();

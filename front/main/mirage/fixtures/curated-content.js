@@ -6,7 +6,8 @@ export default {
 			curatedContent: [{
 				title: 'Categories',
 				image_id: 2164,
-				image_url: 'http:\/\/vignette2.wikia.nocookie.net\/mercurycc\/images\/3\/3e\/Burton-jane-ginger-domestic-kitten-felis-catus-rolling-on-back-playing.jpg\/revision\/latest?cb=20150706160548',
+				image_url: 'http:\/\/vignette2.wikia.nocookie.net\/mercurycc\/images\/3\/3e\/Burton-jane-ginger' +
+					'-domestic-kitten-felis-catus-rolling-on-back-playing.jpg\/revision\/latest?cb=20150706160548',
 				type: 'section'
 			}, {
 				title: 'Category:Templates',
@@ -14,7 +15,8 @@ export default {
 				image_id: 2166,
 				article_id: 1766,
 				type: 'category',
-				image_url: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/5\/5a\/Red.jpg\/revision\/latest?cb=20150708092401',
+				image_url: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/5\/' +
+					'5a\/Red.jpg\/revision\/latest?cb=20150708092401',
 				article_local_url: '\/wiki\/Category:Templates'
 			}, {
 				title: 'Category:Broken',
@@ -22,7 +24,8 @@ export default {
 				image_id: 2205,
 				article_id: 0,
 				type: 'category',
-				image_url: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/5\/57\/UC39.jpg\/revision\/latest?cb=20150715133441',
+				image_url: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/5\/57\/' +
+					'UC39.jpg\/revision\/latest?cb=20150715133441',
 				article_local_url: '\/wiki\/Category:Broken'
 			}],
 			wikiaStats: {
@@ -49,10 +52,12 @@ export default {
 			},
 			comments: 0,
 			type: 'article',
-			abstract: 'About Mercury CC Write a description about your topic. Let your readers know what your topic is...',
+			abstract: 'About Mercury CC Write a description about your topic.' +
+				' Let your readers know what your topic is...',
 			thumbnail: null,
 			original_dimensions: null,
-			description: 'Mercury CC Wikia is a community site that anyone can contribute to. Discover, share and add your knowledge!'
+			description: 'Mercury CC Wikia is a community site that anyone can contribute to.' +
+				' Discover, share and add your knowledge!'
 		},
 		articleType: 'other'
 	}

@@ -20,9 +20,9 @@ test('Open Curated Main Page then open Section and finally open Category', (asse
 			'Categories',
 			'Curated Content section \'Categories\' is visible'
 		);
-
-		click('.item-caption.clamp:first');
 	});
+
+	click('.item-caption.clamp:first');
 
 	andThen(() => {
 		assert.equal(currentURL(), '/main/section/Categories', 'Url is correct: /main/section/Categories');
@@ -32,9 +32,9 @@ test('Open Curated Main Page then open Section and finally open Category', (asse
 			'Articles label',
 			'Curated Content category \'Articles label\' is visible'
 		);
-
-		click('.item-caption.clamp:first');
 	});
+
+	click('.item-caption.clamp:first');
 
 	andThen(() => {
 		assert.equal(currentURL(), '/main/category/Articles', 'Url is correct: /main/category/Articles');

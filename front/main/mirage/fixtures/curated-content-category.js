@@ -30,7 +30,9 @@ export default {
 			comments: 0,
 			type: 'article',
 			abstract: null,
-			thumbnail: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/8\/8a\/400x400.png\/revision\/latest\/window-crop\/width\/300\/x-offset\/0\/y-offset\/0\/window-width\/401\/window-height\/400?cb=20150706154016',
+			thumbnail: 'http:\/\/vignette1.wikia.nocookie.net\/mercurycc\/images\/8\/8a\/400x400.png\/' +
+				'revision\/latest\/window-crop\/width\/300\/x-offset\/0\/y-offset\/0\/' +
+				'window-width\/401\/window-height\/400?cb=20150706154016',
 			original_dimensions: {
 				width: 400,
 				height: 400
