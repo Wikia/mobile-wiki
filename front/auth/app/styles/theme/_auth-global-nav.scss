@@ -1,20 +1,22 @@
+$wikia-logo-icon-width: 71px;
+
 .global-nav {
-	padding: 0 31px;
-	height: 46px;
 	background-color: $color-white;
-	border-bottom: solid #A9A9A9 2px;
+	border-bottom: solid $global-nav-border-color 2px;
 	flex-shrink: 0;
+	height: $global-nav-height;
+	padding: 0 $global-nav-side-padding;
 }
+
 a {
 	&.main-page {
 		background-image: url("/front/common/symbols/wikia-logo.svg");
 		display: block;
-		height: 21px;
+		height: $global-nav-height;
 		margin-left: 13px;
-		margin-top: 12px;
-		width: 75px;
+		width: $wikia-logo-icon-width;
 
-		span{
+		span {
 			display: none;
 		}
 	}
