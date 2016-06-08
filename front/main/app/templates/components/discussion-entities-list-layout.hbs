@@ -32,16 +32,18 @@
 				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
 				{{i18n 'main.back-to-wikia-link' ns='discussion'}}
 			</a>
-			{{#if categories}}
-				{{discussion-categories
-					isAllCategoriesSelected=isAllCategoriesSelected
-					categories=categories
-					inputIdPrefix='rail'
-					resetCategories=(action this.attrs.resetCategories)
-					updateCategories=(action this.attrs.updateCategories)
-					visibleCategoriesCount=10
-				}}
-			{{/if}}
+			{{#unless hideCategoriesInRail}}
+				{{#if categories}}
+					{{discussion-categories
+						isAllCategoriesSelected=isAllCategoriesSelected
+						categories=categories
+						inputIdPrefix='rail'
+						resetCategories=(action this.attrs.resetCategories)
+						updateCategories=(action this.attrs.updateCategories)
+						visibleCategoriesCount=10
+					}}
+				{{/if}}
+			{{/unless}}
 		</div>
 		<div class="small-12 large-6 columns">
 			{{yield}}
