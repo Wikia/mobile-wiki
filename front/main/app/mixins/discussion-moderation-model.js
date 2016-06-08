@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import ReportDetails from '../models/discussion/domain/report-details';
 
 const {Mixin} = Ember;
 
@@ -125,6 +126,29 @@ export default Mixin.create({
 		}).catch(() => {
 			this.setFailedState('editor.post-error-general-error');
 		});
+	},
+
+	/**
+	 * Sets up reported details on reported posts
+	 * @returns void
+	 */
+
+	reportedDetailsSetUp() {
+		const reportedEntities = this.get('data.entities').filterBy('isReported', true);
+
+		if (!reportedEntities.length) {
+			return;
+		}
+
+		request(M.getDiscussionServiceUrl(`/${this.wikiId}/reports`), {
+			data: {postId: reportedEntities.mapBy('id')},
+			method: 'GET',
+			traditional: true,
+		}).then((data) => {
+			Ember.get(data, 'posts').map((enumerable) => {
+				this.set('reportDetails', ReportDetails.create(enumerable));
+			}, this);
+		}).catch();
 	},
 
 	/**

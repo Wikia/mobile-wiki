@@ -36,6 +36,8 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 						(newThread) => DiscussionPost.createFromThreadData(newThread)
 					)
 				);
+
+				this.reportedDetailsSetUp();
 			}).catch((err) => {
 				this.handleLoadMoreError(err);
 			});
@@ -90,6 +92,8 @@ DiscussionForumModel.reopenClass({
 				forumInstance.setNormalizedData(data);
 
 				resolve(forumInstance);
+				forumInstance.reportedDetailsSetUp();
+
 			}).catch((err) => {
 				forumInstance.setErrorProperty(err);
 
