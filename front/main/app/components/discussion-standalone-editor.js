@@ -59,7 +59,21 @@ export default Ember.Component.extend(DiscussionEditorOpengraph, {
 		},
 
 		submit() {
+			if (!this.get('submitDisabled')) {
+				const newDiscussionEntityData = {
+					body: this.get('content'),
+					creatorId: this.get('currentUser.userId'),
+					siteId: Mercury.wiki.id,
+				};
 
+				if (this.get('showsOpenGraphCard')) {
+					newDiscussionEntityData.openGraph = {
+						uri: this.get('openGraph.href')
+					};
+				}
+
+				this.get('create')(newDiscussionEntityData);
+			}
 		},
 
 		handleKeyPress() {
