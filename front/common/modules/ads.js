@@ -278,6 +278,10 @@ class Ads {
 		}, true);
 	}
 
+	removeAllSlots() {
+		this.adSlots = [];
+	}
+
 	/**
 	 * This method is being overwritten in ApplicationRoute for ads needs.
 	 * To learn more check ApplicationRoute.ts file.

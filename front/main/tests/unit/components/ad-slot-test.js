@@ -90,8 +90,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 			},
 			expectedLength: 3,
 			message: 'Element not added to slot because of noAds property value set to \'true\''
-		}],
-		offset = require('common/modules/ads').default.getInstance().adSlots.length;
+		}];
 
 	testCases.forEach((testCase) => {
 		const component = this.subject();
@@ -100,7 +99,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 		component.didInsertElement();
 		assert.equal(
 			require('common/modules/ads').default.getInstance().adSlots.length,
-			testCase.expectedLength + offset,
+			testCase.expectedLength,
 			testCase.message
 		);
 	});
