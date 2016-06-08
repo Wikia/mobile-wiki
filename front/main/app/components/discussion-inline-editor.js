@@ -72,7 +72,7 @@ export default Ember.Component.extend(DiscussionEditorOpengraph, {
 	},
 
 	willDestroyElement() {
-		Ember.$(window).off('scroll.editor', this.onScroll.bind(this));
+		Ember.$(window).off('scroll.editor');
 	},
 
 	/**

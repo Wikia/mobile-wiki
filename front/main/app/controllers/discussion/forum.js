@@ -2,6 +2,7 @@ import DiscussionModerationControllerMixin from '../../mixins/discussion-moderat
 import DiscussionContributionControllerMixin from '../../mixins/discussion-contribution-controller';
 import DiscussionForumActionsControllerMixin from '../../mixins/discussion-forum-actions-controller';
 import DiscussionEditEditorMixin from '../../mixins/discussion-edit-editor';
+import ResponsiveMixin from '../../mixins/responsive';
 import DiscussionBaseController from './base';
 
 
@@ -10,6 +11,7 @@ export default DiscussionBaseController.extend(
 	DiscussionContributionControllerMixin,
 	DiscussionForumActionsControllerMixin,
 	DiscussionEditEditorMixin,
+	ResponsiveMixin,
 	{
 		isLoading: false,
 		isAnon: Ember.computed.not('currentUser.isAuthenticated'),

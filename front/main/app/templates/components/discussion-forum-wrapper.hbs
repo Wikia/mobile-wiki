@@ -1,9 +1,11 @@
-{{discussion-inline-editor
-	create=(action this.attrs.createPost)
-	generateOpenGraph=(action this.attrs.generateOpenGraph)
-	isActive=isEditorOpen
-	setEditorActive=(action this.attrs.setEditorActive)
-}}
+{{#if responsive.isDesktop}}
+	{{discussion-inline-editor
+		create=(action this.attrs.createPost)
+		generateOpenGraph=(action this.attrs.generateOpenGraph)
+		isActive=isEditorOpen
+		setEditorActive=(action this.attrs.setEditorActive)
+	}}
+{{/if}}
 
 {{#each posts as |entity|}}
 	{{discussion-post-card-detail

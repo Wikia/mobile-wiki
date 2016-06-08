@@ -1,15 +1,17 @@
-{{#modal-dialog
-	class='is-bare is-desktop-centered discussion-editor-dialog'
-	closeOnOverlayClick=false
-	isVisible=isEditorOpen
-}}
-	{{!TODO closing editor}}
-	{{discussion-standalone-editor
-		editPost=(action 'editPost')
-		generateOpenGraph=(route-action 'generateOpenGraph')
-		setEditorActive=(action 'setEditorActive')
+{{#if responsive.isMobile}}
+	{{#modal-dialog
+		class='is-bare is-desktop-centered discussion-editor-dialog'
+		closeOnOverlayClick=false
+		isVisible=isEditorOpen
 	}}
-{{/modal-dialog}}
+		{{!TODO closing editor}}
+		{{discussion-standalone-editor
+			editPost=(action 'editPost')
+			generateOpenGraph=(route-action 'generateOpenGraph')
+			setEditorActive=(action 'setEditorActive')
+		}}
+	{{/modal-dialog}}
+{{/if}}
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	model=model.data
