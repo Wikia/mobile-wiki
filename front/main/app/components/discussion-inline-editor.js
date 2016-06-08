@@ -7,6 +7,7 @@ export default Ember.Component.extend({
 	attributeBindings: ['style'],
 	classNames: ['discussion-inline-editor'],
 	classNameBindings: ['isSticky'],
+	tagName: 'form',
 
 	currentUser: Ember.inject.service(),
 
