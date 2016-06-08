@@ -3,6 +3,7 @@ import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(
 	{
+		canShowMore: false,
 		collapsed: true,
 		disabled: false,
 		visibleCategoriesCount: null,
@@ -26,14 +27,15 @@ export default Ember.Component.extend(
 			const categories = this.get('categories'),
 				localCategories = new Ember.A();
 
-			categories.forEach((category, index) => {
+			categories.forEach((category) => {
 				localCategories.pushObject(Ember.Object.create({
 					category,
+					collapsed: false,
 					selected: category.selected
 				}));
 			});
 
-			if (this.get('collapsed')) {
+			if (this.get('canShowMore')) {
 				this.collapseCategoriesAboveLimit(localCategories);
 			}
 
@@ -116,8 +118,10 @@ export default Ember.Component.extend(
 
 				if (localCategories.isEvery('collapsed', false)) {
 					this.collapseCategoriesAboveLimit(localCategories);
+					this.set('canShowMore', true);
 				} else {
 					localCategories.setEach('collapsed', false);
+					this.set('canShowMore', false);
 				}
 			},
 
