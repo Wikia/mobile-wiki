@@ -65,17 +65,33 @@ ImageReviewModel.reopenClass({
 		const images = [];
 
 		rawData.forEach((image) => {
-			if (image.reviewStatus === 'UNREVIEWED' || image.reviewStatus === 'FLAGGED') {
+			if (image.reviewStatus === 'UNREVIEWED' || image.reviewStatus === 'FLAGGED'
+				|| image.reviewStatus === 'REJECTED') {
 				images.push(Ember.Object.create({
 					imageId: image.imageId,
 					fullSizeImageUrl: image.imageUrl,
 					contractId,
 					context: image.context || '#',
-					status: 'accepted'
+					status: 'accepted',
+					history: ImageReviewModel.prepareHistoryDom(image.imageHistory)
 				}));
 			}
 		});
 		return ImageReviewModel.create({images, contractId, imagesToReviewCount});
+	},
+
+	prepareHistoryDom(historyJson) {
+		if (historyJson == null) return "No history";
+		let tableContent = '<td>Date</td><td>Action</td><td>User</td><td>Status</td>';
+		historyJson.forEach((entry) => {
+			tableContent += '<tr>';
+			tableContent += `<td>${entry.date}</td>`;
+			tableContent += `<td>${entry.action}</td>`;
+			tableContent += `<td>${entry.user}</td>`;
+			tableContent += `<td>${entry.status}</td>`;
+			tableContent += '</tr>';
+		});
+		return tableContent;
 	},
 
 	reviewImages(images) {

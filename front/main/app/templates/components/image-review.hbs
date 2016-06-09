@@ -23,7 +23,7 @@
 
 	{{#modal-dialog isVisible=isModalVisible}}
 		<img src="{{thumbnailModel.fullSizeImageUrl}}"/>
-		{{#if isContextProvided}}
+		{{#if thumbnailModel.isContextProvided}}
 			{{#if thumbnailModel.isLink}}
 				<a href="{{thumbnailModel.context}}" target="_blank">{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}}</a>
 			{{else}}
@@ -32,6 +32,13 @@
 		{{else}}
 			<p>{{i18n 'main.image-context-not-provided' ns='image-review'}}</p>
 		{{/if}}
+        <span>{{i18n 'main.image-name' ns='image-review'}} {{thumbnailModel.originalFilename}}</span>
+		<br />
+        <span>{{i18n 'main.image-size' ns='image-review'}} {{thumbnailModel.size}} {{i18n 'main.image-bytes' ns='image-review'}}</span>
+        <br />
+        <span>{{i18n 'main.image-dimensions' ns='image-review'}} {{thumbnailModel.dimensions}}</span>
+        <br />
+        <table id="image-history">{{i18n 'main.image-history' ns='image-review'}}</table>
 	{{/modal-dialog}}
 
 	<div class="action-buttons">
