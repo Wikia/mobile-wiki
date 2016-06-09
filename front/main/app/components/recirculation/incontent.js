@@ -5,7 +5,6 @@ export default Ember.Component.extend(
 	RecirculationExperimentMixin,
 	{
 		layoutName: 'components/recirculation/incontent',
-		classNames: 'in-content',
 		label: 'in-content'
 	}
 );

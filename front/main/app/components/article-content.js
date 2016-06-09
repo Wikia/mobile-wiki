@@ -567,6 +567,10 @@ export default Ember.Component.extend(
 			let view, component, model, location,
 				externalLink = false;
 
+			if (Ember.get(Mercury, 'wiki.language.content') !== 'en') {
+				return;
+			}
+
 			switch (group) {
 				case 'CONTROL':
 					component = this.createComponentInstance('recirculation/footer');
