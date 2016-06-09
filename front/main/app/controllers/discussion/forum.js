@@ -13,11 +13,11 @@ export default DiscussionBaseController.extend(
 	DiscussionEditEditorMixin,
 	ResponsiveMixin,
 	{
-		isEditorLoading: false,
+		// move everything to mixin
 		isAnon: Ember.computed.not('currentUser.isAuthenticated'),
 		isEditorOpen: false,
 		isUserBlocked: false,
-		errorMessage: null,
+		editorErrorMessage: null,
 
 		currentUser: Ember.inject.service(),
 		modalDialog: Ember.inject.service(),
@@ -37,7 +37,7 @@ export default DiscussionBaseController.extend(
 
 			this.setProperties({
 				isEditorOpen: true,
-				errorMessage: null
+				editorErrorMessage: null
 			});
 		},
 
@@ -72,7 +72,7 @@ export default DiscussionBaseController.extend(
 					this.activateEditor();
 				} else {
 					this.setProperties({
-						errorMessage: null,
+						editorErrorMessage: null,
 						isEditorOpen: false
 					});
 				}

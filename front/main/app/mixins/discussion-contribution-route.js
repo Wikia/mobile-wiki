@@ -34,16 +34,6 @@ export default Ember.Mixin.create({
 	},
 
 	actions: {
-		/**
-		 * Upvote discussion entity
-		 *
-		 * @param {object} entity
-		 *
-		 * @returns {void}
-		 */
-		upvote(entity) {
-			this.modelFor(this.get('routeName')).upvote(entity);
-		},
 
 		/**
 		 * Applies sorting by date and attempts to create a new post

@@ -1,15 +1,42 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
+	isEditorLoading: false,
+
+	/**
+	 * @param {error} err
+	 * @param {string} generalErrorKey
+	 * @param {boolean} isEdit
+	 *
+	 * @returns {void}
+	 */
+	onContributionError(err, generalErrorKey) {
+		if (isUnauthorizedError(err.status)) {
+			this.setEditorError('editor.post-error-not-authorized');
+		} else {
+			this.setEditorError(generalErrorKey);
+		}
+	},
+
+	/**
+	 * @param {string} errorMessage
+	 * @param {boolean} isEdit
+	 *
+	 * @returns {void}
+	 */
+	setEditorError(errorMessage) {
+		this.set('editorErrorMessage', errorMessage);
+	},
+
 	actions: {
 		/**
-		 * Bubbles up to Route
+		 * Upvote discussion entity
 		 *
 		 * @param {object} post
 		 * @returns {void}
 		 */
 		upvote(post) {
-			this.get('target').send('upvote', post);
+			this.get('model').upvote(post);
 		},
 
 		/**
@@ -19,7 +46,12 @@ export default Ember.Mixin.create({
 		 */
 		createPost(entityData) {
 			this.set('isEditorLoading', true);
-			this.get('target').send('createPost', entityData);
+			// TODO change sorting
+
+			this.get('model').createPost(entityData).finally(() => {
+				this.set('isEditorLoading', false);
+			});
+			// TODO error handling
 		},
 
 		/**
@@ -29,7 +61,10 @@ export default Ember.Mixin.create({
 		 */
 		editPost(entityData) {
 			this.set('isEditorLoading', true);
-			this.get('target').send('editPost', entityData);
+
+			this.get('model').editPost(entityData).finally(() => {
+				this.set('isEditorLoading', false);
+			});
 		},
 
 		/**
@@ -39,7 +74,10 @@ export default Ember.Mixin.create({
 		 */
 		createReply(entityData) {
 			this.set('isEditorLoading', true);
-			this.get('target').send('createReply', entityData);
+
+			this.get('model').createReply(entityData).finally(() => {
+				this.set('isEditorLoading', false);
+			});
 		},
 
 		/**
@@ -49,7 +87,10 @@ export default Ember.Mixin.create({
 		 */
 		editReply(entityData) {
 			this.set('isEditorLoading', true);
-			this.get('target').send('editReply', entityData);
+
+			this.get('model').editReply(entityData).finally(() => {
+				this.set('isEditorLoading', false);
+			});
 		},
 
 		generateOpenGraph(uri) {
