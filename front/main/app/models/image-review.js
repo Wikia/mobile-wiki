@@ -81,7 +81,7 @@ ImageReviewModel.reopenClass({
 	},
 
 	prepareHistoryDom(historyJson) {
-		if (historyJson === null || historyJson === undefined) {
+		if (historyJson === null || typeof historyJson === 'undefined') {
 			return 'No history';
 		}
 
