@@ -75,10 +75,8 @@
     "locked-and-reported-to-moderators-text":"Ten post jest zablokowany i został zgłoszony.",
     "edit-reply":"Edytuj odpowiedź",
     "edit-post":"Edytuj post",
-    "upvote-link-label":"__count__ Głos",
-    "upvote-link-label_plural":"Głosów: __count__",
-    "replies-link-label":"__count__ Odpowiedź",
-    "replies-link-label_plural":"Odpowiedzi: __count__",
+    "upvote-label":"Zagłosuj",
+    "reply-label":"Odpowiedz",
     "share-header":"Udostępnij post",
     "share-label":"Udostępnij",
     "reported-not-found-error":"Brak zgłoszonych postów lub odpowiedzi."

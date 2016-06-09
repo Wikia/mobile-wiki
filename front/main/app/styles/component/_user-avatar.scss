@@ -2,15 +2,17 @@
 	display: inline-block;
 
 	.avatar-username {
-		font-size: $type-min;
+		font-size: $type-base;
 	}
 }
 
 @media #{$mobile-range} {
-	.user-avatar .avatar-username {
-		@include ellipsis;
-		display: inline-block;
-		max-width: 140px;
-		vertical-align: middle;
+	.user-avatar {
+		.avatar-username {
+			@include ellipsis;
+			display: inline-block;
+			max-width: 140px;
+			vertical-align: middle;
+		}
 	}
 }

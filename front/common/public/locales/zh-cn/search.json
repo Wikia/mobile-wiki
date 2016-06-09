@@ -1,0 +1,6 @@
+{
+  "main": {
+    "search-input-label": "搜索", 
+    "search-loading-msg": "正在加载搜索结果..."
+  }
+}

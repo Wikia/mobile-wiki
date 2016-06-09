@@ -1,0 +1,11 @@
+{
+  "main":{
+    "search-error-general":"Не получается установить соединение; повторите попытку",
+    "search-error-general-action":"Повторить попытку",
+    "search-error-not-found":"Не найдено результатов для __query__",
+    "search-error-not-found-action":"Задать новый поиск",
+    "search-input-label":"Поиск",
+    "search-loading-msg":"Загрузка результатов поиска...",
+    "total-results":"Примерно __totalItems__ результатов для __query__"
+  }
+}

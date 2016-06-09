@@ -3,7 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import {test, moduleForComponent} from 'ember-qunit';
 
 const trackModule = require('common/utils/track'),
-	searchIconSelector = '.site-head-icon-search',
+	searchIconSelector = '.site-head-icon-search .site-head-icon',
 	navIconSelector = '.site-head-icon-nav';
 let trackStub;
 

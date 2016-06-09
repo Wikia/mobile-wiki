@@ -1,5 +1,5 @@
 <a id="share-{{attrs.uniqueIdentifier}}" class="toggle-share-area">
-	{{svg 'share' class='icon toggle-share'}} <span class="mobile-hidden">{{attrs.entryPointLabel}}</span>
+	{{svg 'share' class='icon toggle-share'}} <span class="{{labelClassName}}">{{attrs.entryPointLabel}}</span>
 </a>
 
 {{#pop-over for=(concat 'share-' attrs.uniqueIdentifier) on='click' flow='flip' class="share-pop-over"}}

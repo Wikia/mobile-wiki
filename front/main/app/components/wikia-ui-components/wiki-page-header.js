@@ -31,11 +31,13 @@ export default Ember.Component.extend(
 	{
 		imageAspectRatio: 16 / 9,
 		classNames: ['wiki-page-header'],
+		classNameBindings: ['heroImage:has-hero-image'],
+		attributeBindings: ['style'],
 		isMainPage: false,
-		mainPageName: Ember.get(Mercury, 'wiki.siteName'),
+		siteName: Ember.get(Mercury, 'wiki.siteName'),
 		mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
 
-		computedStyle: Ember.computed('heroImage', 'viewportDimensions.width', function () {
+		style: Ember.computed('heroImage', 'viewportDimensions.width', function () {
 			const heroImage = this.get('heroImage'),
 				windowWidth = this.get('viewportDimensions.width'),
 				imageAspectRatio = this.get('imageAspectRatio');

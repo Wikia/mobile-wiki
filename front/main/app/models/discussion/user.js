@@ -54,7 +54,6 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 				canModerate: entities.getWithDefault('firstObject.userData.permissions.canModerate', false),
 				contributors,
 				entities,
-				forumId: Ember.get(Mercury, 'wiki.id'),
 				pageNum: 0,
 				postCount: parseInt(apiData.postCount, 10),
 				userName: contributors.get('users.firstObject.name'),

@@ -47,15 +47,21 @@
 @import 'wikia-nav';
 @import 'nav-menu';
 @import 'wikia-search';
+@import 'wikia-search-error-not-found';
 @import 'wikia-drawer';
 @import 'site-head-fandom-bar';
 @import 'article-table-of-contents';
+@import 'search';
+@import 'potential-member-page-experiment';
 @import 'recirculation-experiment';
+
 // wikia ui reusable components
 @import 'wikia-ui-components/check-box';
+@import 'wikia-ui-components/error-info';
 @import 'wikia-ui-components/icon-button';
 @import 'wikia-ui-components/on-hover-tooltip';
 @import 'wikia-ui-components/sub-header';
 @import 'wikia-ui-components/text-field';
 @import 'wikia-ui-components/wiki-page-header';
 @import 'wikia-ui-components/wiki-page-header-curated-main-page';
+@import 'wikia-ui-components/wikia-card';

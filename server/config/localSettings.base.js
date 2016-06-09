@@ -165,7 +165,9 @@ const localSettings = {
 	// Targeted environment [prod|preview|verify|dev|testing]
 	environment: getEnvironment(process.env.WIKIA_ENVIRONMENT),
 	helios: {
-		path: '/auth'
+		internalUrl: 'http://prod.helios.service.consul:9500/',
+		path: '/auth',
+		timeout: 3000
 	},
 	userRegistationService: {
 		path: '/user-registration',
@@ -288,7 +290,7 @@ const localSettings = {
 			url: 'https://services.wikia.com/clickstream/events/social'
 		},
 	},
-	translationFiles: ['main', 'discussion', 'image-review', 'infobox-builder', 'recent-wiki-activity']
+	translationFiles: ['main', 'discussion', 'image-review', 'infobox-builder', 'recent-wiki-activity', 'search']
 };
 
 /**

@@ -9,6 +9,7 @@
 		drawerContent=activeDrawerContent
 		drawerVisible=drawerVisible
 		setDrawerContent=(action 'setDrawerContent')
+		isSearchPage=isSearchPage
 	}}
 
 	{{#wikia-drawer
@@ -18,8 +19,14 @@
 		{{#if activeDrawerContent}}
 			{{component
 				drawerContentComponent
+				onEnterHandler=(action 'closeDrawer')
+				suggestionClickAction=(action 'closeDrawer')
 				closeDrawer=(action 'closeDrawer')
+				outsideSuggestionsClickAction=(action 'closeDrawer')
 				loadRandomArticle=this.attrs.loadRandomArticle
+				goToSearchResults=this.attrs.goToSearchResults
+				noScroll=true
+				focusInput=true
 			}}
 		{{/if}}
 	{{/wikia-drawer}}
