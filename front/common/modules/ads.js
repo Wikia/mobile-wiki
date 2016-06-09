@@ -278,6 +278,10 @@ class Ads {
 		}, true);
 	}
 
+	removeAllSlots() {
+		this.adSlots = [];
+	}
+
 	/**
 	 * This method is called on each transition
 	 *
