@@ -1,9 +1,16 @@
 $horizontal-padding: 18px;
 $post-card-right-icon-margin: -9px;
 $post-card-top-note-height: 40px;
+$mobile-content-font-size: $type-smallest;
+$mobile-content-line-height: $line-height-min;
+$desktop-content-font-size: $type-base;
+$desktop-content-line-height: $line-height-base;
+$desktop-post-details-content-line-height: $line-height-base;
+$desktop-post-details-content-font-size: $type-base;
+$post-details-mobile-page-margin-top: 91px;
 $post-details-content-line-height: 1.4rem;
 $post-details-outer-width: 580px;
-$post-details-post-margin-bottom: 5px;
+$post-details-post-margin-bottom: 10px;
 $post-details-post-vertical-padding: 12px;
 $post-details-post-width: 560px;
 $post-details-reply-upvote-margin-left: 10px;
@@ -20,8 +27,8 @@ body.discussions {
 }
 
 .upvote-icon-background {
-	fill: $upvote-icon-back-color;
-	stroke: $upvote-icon-back-color;
+	fill: transparent;
+	stroke: transparent;
 }
 
 .icon {
@@ -39,7 +46,6 @@ body.discussions {
 	&.upvote-reply {
 		height: 12px;
 		line-height: 12px;
-		stroke: $discussion-actions-color;
 		width: 12px;
 	}
 
@@ -143,24 +149,97 @@ body.discussions {
 
 		img, svg {
 			border-color: $discussion-avatar-border-color;
+			height: 42px;
+			width: 42px;
 		}
 	}
 
-	.action {
-		color: $discussion-count-color;
-		font-size: $type-min;
-		font-weight: bold;
+	.user-avatar {
+		.avatar-username {
+			font-size: $type-base;
+		}
+	}
 
-		.upvote-area,
-		.replies-area,
-		.toggle-share-area {
+	.discussion-reply {
+		.user-avatar {
+			.avatar-username {
+				font-size: $type-smallest;
+			}
+		}
+	}
+
+	.side-spaced {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+
+	.post-counters {
+		align-items: center;
+		color: $discussion-actions-color;
+		display: flex;
+		font-size: rem-calc(12);
+		justify-content: flex-end;
+		line-height: rem-calc(14);
+		padding-bottom: 14px;
+		text-align: right;
+
+		.upvote-count,
+		.reply-count {
+			align-items: center;
+			display: flex;
+		}
+
+		.icon {
+			&.upvote,
+			&.replies {
+				height: 14px;
+				width: 14px;
+			}
+
+			&.replies {
+				margin-left: 10px;
+			}
+
+			margin-right: 4px;
+		}
+	}
+
+	.post-actions {
+		align-items: center;
+		border-top: 1px solid $discussion-post-actions-border-color;
+		display: flex;
+		justify-content: center;
+		list-style: none;
+		padding: 6px 0;
+
+		> li:not(:last-child) {
+			border-right: 1px solid $discussion-post-actions-border-color;
+		}
+
+		li,
+		a {
+			align-items: center;
+			align-self: center;
 			color: $discussion-count-color;
-			display: block;
-			float: left;
+			cursor: pointer;
+			display: flex;
+			font-size: $type-min;
 			font-weight: $font-weight-medium;
-			height: 30px;
-			line-height: 30px;
-			padding: 0 2px;
+			height: 33px;
+			justify-content: center;
+			line-height: 33px;
+			text-align: center;
+
+			.icon {
+				margin-right: 2px;
+
+				&.upvote,
+				&.replies,
+				&.toggle-share {
+					height: 24px;
+					width: 24px;
+				}
+			}
 		}
 	}
 
@@ -187,14 +266,21 @@ body.discussions {
 	}
 
 	.discussion-content {
+		font-size: $mobile-content-font-size;
+		line-height: $mobile-content-line-height;
 		margin: 5px 0;
-		padding: .3rem 0;
+		padding: 4px 0;
 
 		.post-details-link {
 			color: $discussion-content-color;
 			display: block;
 		}
+	}
 
+	.post-detail {
+		.discussion-content {
+			margin-top: 0;
+		}
 	}
 
 	.post-title {
@@ -254,10 +340,6 @@ body.discussions {
 		&.is-parent-deleted .icon:not(.delete),
 		&.is-deleted .icon:not(.delete) {
 			fill: $discussion-deleted-actions-color;
-
-			&.upvote-reply {
-				stroke: $discussion-deleted-actions-color;
-			}
 		}
 
 		&.is-deleted,
@@ -304,6 +386,7 @@ body.discussions {
 			}
 
 			.icon {
+				display: inline-block;
 				height: 26px;
 				width: 26px;
 			}
@@ -326,7 +409,7 @@ body.discussions {
 		}
 
 		.discussion-content {
-			font-size: $type-min;
+			font-size: $type-smallest;
 			line-height: $line-height-min;
 			margin-bottom: 0;
 			margin-left: $post-details-reply-upvote-width + $post-details-reply-upvote-margin-left;
@@ -334,7 +417,7 @@ body.discussions {
 		}
 
 		.timestamp {
-			font-size: $discussion-post-type-smaller-than-min;
+			font-size: .75rem;
 		}
 
 		.upvotes {
@@ -348,12 +431,19 @@ body.discussions {
 			}
 
 			small {
+				color: $discussion-count-color;
 				display: block;
 				font-size: 10px;
 				font-weight: bold;
 				line-height: 10px;
 				word-wrap: normal;
 			}
+		}
+
+		.upvote {
+			align-items: center;
+			display: flex;
+			flex-direction: column;
 		}
 	}
 
@@ -401,10 +491,6 @@ body.discussions {
 	.has-upvoted {
 		.icon {
 			fill: $upvote-icon-activated-color;
-
-			&.upvote-reply {
-				stroke: $upvote-icon-activated-color;
-			}
 		}
 	}
 
@@ -416,28 +502,11 @@ body.discussions {
 
 	.post-detail {
 		background-color: $discussion-desktop-post-detail-bg-color;
-		padding: 12px $horizontal-padding;
+		padding: 12px 0 0;
 		transition: opacity 1s;
 
-		.share {
-			align-items: center;
-			display: flex;
-			height: 30px;
-			justify-content: flex-end;
-			line-height: 30px;
-			text-align: right;
-
-			> * {
-				float: right;
-			}
-
-			span {
-				margin-left: 3px;
-			}
-		}
-
 		.timestamp {
-			font-size: $type-min;
+			font-size: $type-smallest;
 		}
 
 		&.is-new {
@@ -532,9 +601,9 @@ body.discussions {
 	}
 
 	&.forum {
-
 		.clamp {
 			@include clamp(3);
+
 
 			a {
 				color: $discussion-content-color;
@@ -548,9 +617,15 @@ body.discussions {
 				font-size: $type-smallest;
 			}
 		}
+
+		.post-detail,
+		.post-reply {
+			box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+		}
 	}
 
 	&.post {
+
 		.post-detail .post-title {
 			font-size: $type-smaller;
 			line-height: $line-height-smaller;
@@ -573,12 +648,17 @@ body.discussions {
 				background-color: $discussion-desktop-post-detail-bg-color;
 				border-top-color: $discussion-post-detail-border-color;
 				border-width: 0;
-				padding: 20px 30px;
+				padding: 20px 0 0;
 
 				&.show-top-note {
 					padding-top: 0;
 				}
 			}
+		}
+
+		.discussion-content {
+			font-size: $desktop-content-font-size;
+			line-height: $desktop-content-line-height;
 		}
 
 		&.post {
@@ -587,10 +667,10 @@ body.discussions {
 				border-bottom: 1px solid $discussion-reply-border-color;
 				margin: auto;
 				padding: {
+					bottom: 0;
+					left: 0;
+					right: 0;
 					top: $post-details-post-vertical-padding;
-					right: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
-					bottom: $post-details-post-vertical-padding + $post-details-post-margin-bottom;
-					left: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
 				}
 				width: $post-details-outer-width;
 
@@ -598,12 +678,18 @@ body.discussions {
 					padding-top: 0;
 				}
 
-				.discussion-content {
-					line-height: $post-details-content-line-height;
+				.side-spaced {
+					left: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
+					right: $horizontal-padding + ($post-details-outer-width - $post-details-post-width) / 2;
 				}
 
-				.timestamp {
-					font-size: $discussion-post-type-smaller-than-min;
+				.discussion-content {
+					font-size: $desktop-post-details-content-font-size;
+					line-height: $desktop-post-details-content-line-height;
+				}
+
+				.post-counters {
+					font-size: $type-smallest;
 				}
 			}
 
@@ -623,6 +709,12 @@ body.discussions {
 			}
 		}
 
+		.post-detail {
+			.timestamp {
+				font-size: $type-smallest;
+			}
+		}
+
 		.post-detail,
 		.post-reply,
 		.load-older {
@@ -632,14 +724,6 @@ body.discussions {
 
 		.discussion-no-replies {
 			border-bottom: 1px solid $discussion-reply-border-color;
-		}
-
-		.replies {
-			text-align: center;
-
-			.replies-area {
-				float: none;
-			}
 		}
 	}
 }
@@ -651,14 +735,47 @@ body.discussions {
 	}
 
 	.post-details-view {
-		.post-detail {
-			padding-bottom: 14px;
+		.discussion-page {
+			margin-top: $post-details-mobile-page-margin-top;
 		}
 
 		.discussion-reply {
 			.discussion-content {
 				margin-left: 0;
 			}
+		}
+
+		.post-detail {
+			box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	.discussion {
+		.post-actions {
+			> li:not(:last-child) {
+				border-right: none;
+			}
+		}
+
+		.user-avatar {
+			img, svg {
+				height: 30px;
+				width: 30px;
+			}
+
+			.avatar-username {
+				font-size: $type-smallest;
+			}
+		}
+
+		.post-detail .timestamp,
+		.discussion-reply .timestamp {
+			font-size: rem-calc(12);
+		}
+
+		.side-spaced {
+			padding-left: 18px;
+			padding-right: 18px;
 		}
 	}
 }

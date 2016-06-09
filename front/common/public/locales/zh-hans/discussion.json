@@ -75,10 +75,8 @@
     "locked-and-reported-to-moderators-text":"这篇帖子被锁定并且被举报。",
     "edit-reply":"编辑回复",
     "edit-post":"编辑帖子",
-    "upvote-link-label":"__count__个赞",
-    "upvote-link-label_plural":"__count__个赞",
-    "replies-link-label":"__count__个回复",
-    "replies-link-label_plural":"__count__个回复",
+    "upvote-label":"赞",
+    "reply-label":"回复",
     "share-header":"分享话题",
     "share-label":"分享",
     "reported-not-found-error":"暂时没有被举报的帖子或者回复。"

@@ -1,0 +1,11 @@
+{
+  "main":{
+    "search-error-general":"连接失效，请再试一次。",
+    "search-error-general-action":"单击重试",
+    "search-error-not-found":"我们找不到任何和__query__相关的信息",
+    "search-error-not-found-action":"尝试其他搜索",
+    "search-input-label":"搜索",
+    "search-loading-msg":"正在加载搜索结果...",
+    "total-results":"关于__query__的__totalItems__条结果"
+  }
+}

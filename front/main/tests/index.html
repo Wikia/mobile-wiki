@@ -16,25 +16,34 @@
 	{{content-for 'test-head-footer'}}
 	<script src="assets/vendor/jquery/jquery.min.js"></script>
 	{{content-for 'baseline'}}
+	{{content-for '$script'}}
 
 	<script>
 		window.Mercury = {
 			wiki: {
 				basePath: 'http://muppet.wikia.com',
-				smartBanner: {
-					appId: {
-						ios: 1234
-					}
-				},
 				htmlTitle: {
 					separator: ' - ',
 					parts: [
 						"Muppet Wiki",
 						"Wikia"
 					]
+				},
+				language: {
+					content: 'en'
+				},
+				smartBanner: {
+					appId: {
+						ios: 1234
+					}
 				}
 			}
 		};
+
+		window.trackQuantservePageView = function() {};
+		window.trackNielsenPageView = function() {};
+		window.trackComscorePageView = function() {};
+		window.trackIVW3PageView = function() {};
 
 		M.prop('environment', 'test', true);
 	</script>

@@ -74,7 +74,6 @@ module.exports = function (defaults) {
 			// By default vendor is not watched by Ember CLI and we want to rebuild when common scripts are modified
 			vendor: 'vendor'
 		},
-		hinting: false,
 		vendorFiles: {
 			// we'll load jQuery on our own
 			'jquery.js': false
@@ -98,6 +97,11 @@ module.exports = function (defaults) {
 	app.import(app.bowerDirectory + '/Autolinker.js/dist/Autolinker.min.js');
 	app.import(app.bowerDirectory + '/tinycolor/dist/tinycolor-min.js');
 	app.import('vendor/common.js');
+
+	if (app.env === 'test') {
+		// Fix for PhantomJS errors
+		app.import(app.bowerDirectory + '/es5-shim/es5-shim.min.js');
+	}
 
 	// Assets which are lazy loaded
 	var cropperAssets = new Funnel(app.bowerDirectory + '/cropper/dist', {

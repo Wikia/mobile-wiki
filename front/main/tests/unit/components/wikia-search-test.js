@@ -87,3 +87,79 @@ test('eviction tests', function (assert) {
 	assert.ok(!component.hasCachedResult('query1') && component.hasCachedResult('query2'),
 		'evicts first in cached value, keeps others');
 });
+
+
+test('setSearchSuggestionItems - set suggestions to be empty', function (assert) {
+	const component = this.subject();
+
+	component.set('isLoadingResultsSuggestions', true);
+	component.set('suggestions', [
+		{
+			title: 'test'
+		}
+	]);
+
+	component.setSearchSuggestionItems();
+
+	assert.deepEqual(component.get('suggestions'), [], 'suggestions should be empty after');
+	assert.equal(component.get('isLoadingResultsSuggestions'), false, 'isLoadingResultsSuggestions is falsy');
+});
+
+test('setSearchSuggestionItems - correctly set suggestions array', function (assert) {
+	const component = this.subject(),
+		suggestionsFromApi = [
+			{
+				title: 'suggestion1'
+			},
+			{
+				title: 'suggestion 2!'
+			},
+			{
+				title: 'sug GES %^&*^%&>?<tion>'
+			},
+			{
+				title: 'no query inside'
+			},
+			{
+				title: 'sug sug suggestions sug sug'
+			}
+		],
+		suggestionsAfterProcessing = [
+			{
+				text: '<span class="wikia-search__suggestion-highlighted">sug</span>gestion1',
+				title: 'suggestion1',
+				uri: 'suggestion1'
+			},
+			{
+				text: '<span class="wikia-search__suggestion-highlighted">sug</span>gestion 2!',
+				title: 'suggestion 2!',
+				uri: 'suggestion%202!'
+			},
+			{
+				text: '<span class="wikia-search__suggestion-highlighted">sug</span> GES %^&*^%&>?<tion>',
+				title: 'sug GES %^&*^%&>?<tion>',
+				uri: 'sug%20GES%20%25%5E%26*%5E%25%26%3E%3F%3Ction%3E'
+			},
+			{
+				text: 'no query inside',
+				title: 'no query inside',
+				uri: 'no%20query%20inside'
+			},
+			{
+				text: '<span class="wikia-search__suggestion-highlighted">sug</span> ' +
+				'<span class="wikia-search__suggestion-highlighted">sug</span> ' +
+				'<span class="wikia-search__suggestion-highlighted">sug</span>gestions ' +
+				'<span class="wikia-search__suggestion-highlighted">sug</span> ' +
+				'<span class="wikia-search__suggestion-highlighted">sug</span>',
+				title: 'sug sug suggestions sug sug',
+				uri: 'sug%20sug%20suggestions%20sug%20sug'
+			}
+		];
+
+	component.set('phrase', 'sug');
+	assert.deepEqual(component.get('suggestions'), [], 'suggestions should be empty at init');
+
+	component.setSearchSuggestionItems(suggestionsFromApi);
+
+	assert.deepEqual(component.get('suggestions'), suggestionsAfterProcessing);
+});

@@ -75,10 +75,8 @@
     "locked-and-reported-to-moderators-text":"Это обсуждение было закрыто и отправлено на проверку.",
     "edit-reply":"Редактировать ответ",
     "edit-post":"Редактировать сообщение",
-    "upvote-link-label":"__count__ Голос",
-    "upvote-link-label_plural":" Голосов: __count__",
-    "replies-link-label":"__count__ Ответ",
-    "replies-link-label_plural":"Ответов: __count__ ",
+    "upvote-label":"Оценить",
+    "reply-label":"Отправить",
     "share-header":"Поделиться записью",
     "share-label":"Поделиться",
     "reported-not-found-error":"Требующих проверки сообщений или ответов нет."

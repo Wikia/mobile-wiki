@@ -24,10 +24,8 @@ export default Ember.Object.extend({
 		const wikiId = Ember.get(Mercury, 'wiki.id');
 
 		this.setProperties({
-			data: Ember.Object.create({
-				forumId: wikiId
-			}),
-			error: Ember.Object.create({}),
+			data: Ember.Object.create(),
+			error: Ember.Object.create(),
 			wikiId
 		});
 	},
