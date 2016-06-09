@@ -5,7 +5,9 @@ import CuratedContentModel from '../models/curated-content';
 import HeadTagsDynamicMixin from '../mixins/head-tags-dynamic';
 import {isNotFoundError} from 'ember-ajax/errors';
 
-export default Ember.Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, RouteWithAdsMixin, {
+const {Route} = Ember;
+
+export default Route.extend(MainPageRouteMixin, HeadTagsDynamicMixin, RouteWithAdsMixin, {
 	/**
 	 * @param {string} categoryName
 	 * @returns {Ember.RSVP.Promise}

@@ -2,7 +2,6 @@
 	{{discussion-header
 		canDeleteAll=false
 		deleteAllPosts=(action this.attrs.deleteAllPosts)
-		forumId=model.forumId
 		hasBackButton=true
 		hasFilters=false
 		hasNewPostButton=false
@@ -39,9 +38,9 @@
 				{{/if}}
 			{{/unless}}
 		</div>
-			<div class="discussion post small-12 large-8 columns">
-				{{yield}}
-			</div>
+		<div class="discussion post small-12 large-8 columns">
+			{{yield}}
+		</div>
 		<div class="rail large-2 columns">
 			{{discussion-app-promotion}}
 		</div>

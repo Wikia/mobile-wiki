@@ -75,10 +75,8 @@
     "locked-and-reported-to-moderators-text":"Este post está encerrado e foi relatado.",
     "edit-reply":"Editar a resposta",
     "edit-post":"Editar post",
-    "upvote-link-label":"__count__ Voto",
-    "upvote-link-label_plural":"__count__ Votos",
-    "replies-link-label":"__count__ Resposta",
-    "replies-link-label_plural":"__count__ Respostas",
+    "upvote-label":"Votar",
+    "reply-label":"Responder",
     "share-header":"Compartilhar post",
     "share-label":"Compartilhar",
     "reported-not-found-error":"Não há posts ou respostas relatados."

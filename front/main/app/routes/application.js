@@ -3,6 +3,7 @@ import ArticleModel from '../models/wiki/article';
 import getLinkInfo from '../utils/article-link';
 import Ads from 'common/modules/ads';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
+import ResponsiveMixin from '../mixins/responsive';
 import {normalizeToUnderscore} from 'common/utils/string';
 import {track, trackActions} from 'common/utils/track';
 import {activate as variantTestingActivate} from 'common/utils/variant-testing';
@@ -18,6 +19,7 @@ const {
 export default Route.extend(
 	TargetActionSupport,
 	HeadTagsStaticMixin,
+	ResponsiveMixin,
 	{
 		queryParams: {
 			commentsPage: {
@@ -53,7 +55,7 @@ export default Route.extend(
 				 * This is called after the first route of any application session has loaded
 				 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM
 				 */
-				M.prop('articleContentPreloadedInDOM', false);
+				M.prop('articleContentPreloadedInDOM', false, true);
 
 				// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
 				// Optimally, it would remain in the same place.
@@ -209,7 +211,16 @@ export default Route.extend(
 			// This is used only in not-found.hbs template
 			/**
 			 * @returns {void}
+			 * @param {string} query
 			 */
+			goToSearchResults(query) {
+				if (this.get('responsive.isMobile')) {
+					this.transitionTo('search', {queryParams: {query}});
+				} else {
+					window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${query}&fulltext=Search`);
+				}
+			},
+
 			openNav() {
 				this.get('controller').setProperties({
 					drawerContent: 'nav',

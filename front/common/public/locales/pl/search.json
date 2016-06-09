@@ -1,0 +1,11 @@
+{
+  "main":{
+    "search-error-general":"Nie można uzyskać połączenia, spróbuj ponownie",
+    "search-error-general-action":"Kliknij, aby ponowić próbę",
+    "search-error-not-found":"Nie znaleźliśmy nic dla __query__",
+    "search-error-not-found-action":"Spróbuj wyszukać ponownie",
+    "search-input-label":"Szukaj",
+    "search-loading-msg":"Ładowanie wyników wyszukiwania...",
+    "total-results":"Około __totalItems__ wyników dla __query__"
+  }
+}
