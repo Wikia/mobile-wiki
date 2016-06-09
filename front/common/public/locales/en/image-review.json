@@ -19,6 +19,6 @@
     "image-context-not-provided": "Context not provided",
     "status-accepted": "OK",
     "status-flagged": "Q",
-    "status-rejected": "Del"
+    "status-rejected": "REJ"
   }
 }
