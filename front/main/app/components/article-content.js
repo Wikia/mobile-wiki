@@ -587,6 +587,7 @@ export default Ember.Component.extend(
 				model.load();
 
 				location.after(view.$());
+				view.trigger('didInsertElement');
 				view.trackImpression();
 			}
 		},

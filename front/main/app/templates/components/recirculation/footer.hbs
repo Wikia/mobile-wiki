@@ -6,8 +6,10 @@
 			<li class="title-thumbnail" {{action 'trackExperimentClick' item.url}}>
 				<a href="{{if externalLink '' item.url}}">
 					<div class="image image-thumbnail">
-						{{#if item.thumbnail }}
-							<img src="{{item.thumbnail}}" alt="{{item.title}}">
+						{{#if shouldBeLoaded }}
+							{{#if item.thumbnail }}
+								<img src="{{item.thumbnail}}" alt="{{item.title}}">
+							{{/if}}
 						{{/if}}
 					</div>
 					<p class="title">{{item.title}}</p>

@@ -1,26 +1,40 @@
 import Ember from 'ember';
+import InViewportMixin from 'ember-in-viewport';
 import {trackExperiment, trackActions} from 'common/utils/track';
 
-export default Ember.Mixin.create({
+export default Ember.Mixin.create(
+InViewportMixin,
+{
 	classNameBindings: ['label'],
 	classNames: 'recirculation-experiment',
 	experimentName: '',
 	externalLink: false,
 	isLoading: false,
+	shouldBeLoaded: false,
 	label: '',
 
-	items: Ember.computed.map('model.items', function (item) {
-		if (this.get('externalLink')) {
-			const params = {
-				utm_source: 'wikia',
-				utm_campaign: 'recirc',
-				utm_medium: this.get('label'),
-				utm_content: item.index + 1
-			};
+	/**
+	 * @returns {void}
+	 */
+	didEnterViewport() {
+		this.set('shouldBeLoaded', true);
+	},
 
-			item.url = `${item.url}?${Ember.$.param(params)}`;
-		}
-		return item;
+	items: Ember.computed('model.items', 'shouldBeLoaded', function () {
+		return this.get('model.items').map((item) => {
+			if (this.get('externalLink')) {
+				const params = {
+					utm_source: 'wikia',
+					utm_campaign: 'recirc',
+					utm_medium: this.get('label'),
+					utm_content: item.index + 1
+				};
+
+				Ember.set(item, 'url', `${item.url}?${Ember.$.param(params)}`);
+			}
+
+			return item;
+		});
 	}),
 
 	trackImpression() {
