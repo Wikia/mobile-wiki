@@ -81,8 +81,12 @@ ImageReviewModel.reopenClass({
 	},
 
 	prepareHistoryDom(historyJson) {
-		if (historyJson == null) return "No history";
+		if (historyJson === null || historyJson === undefined) {
+			return 'No history';
+		}
+
 		let tableContent = '<td>Date</td><td>Action</td><td>User</td><td>Status</td>';
+
 		historyJson.forEach((entry) => {
 			tableContent += '<tr>';
 			tableContent += `<td>${entry.date}</td>`;
