@@ -4,14 +4,14 @@ import ImageReviewModel from '../models/image-review';
 const {Route, Logger} = Ember;
 
 export default Route.extend({
-	onlyFlagged: false,
+	status: 'UNREVIEWED',
 
 	renderTemplate(controller, model) {
 		this.render('image-review', {controller, model});
 	},
 
 	model() {
-		return ImageReviewModel.startSession(this.get('onlyFlagged'));
+		return ImageReviewModel.startSession(this.get('status'));
 	},
 
 	afterModel() {
@@ -41,7 +41,7 @@ export default Route.extend({
 			const model = this.modelFor('imageReview');
 
 			this.controllerFor('application').set('isLoading', true);
-			this.set('onlyFlagged', false);
+			this.set('status', 'UNREVIEWED');
 
 			window.scrollTo(0, 0);
 
@@ -59,7 +59,14 @@ export default Route.extend({
 		getFlaggedOnly() {
 			window.scrollTo(0, 0);
 
-			this.set('onlyFlagged', true);
+			this.set('status', 'FLAGGED');
+			this.refresh();
+		},
+
+		getFlaggedOnly() {
+			window.scrollTo(0, 0);
+
+			this.set('status', 'REJECTED');
 			this.refresh();
 		},
 

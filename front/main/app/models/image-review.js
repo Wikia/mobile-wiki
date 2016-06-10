@@ -8,12 +8,10 @@ const ImageReviewModel = Ember.Object.extend({
 
 ImageReviewModel.reopenClass({
 
-	startSession(onlyFlagged) {
-		const options = {};
-
-		if (onlyFlagged) {
-			options.status = 'FLAGGED';
-		}
+	startSession(status) {
+		const options = {
+			status
+		};
 
 		return rawRequest(M.getImageReviewServiceUrl(`/contract`, options), {
 			method: 'POST',
