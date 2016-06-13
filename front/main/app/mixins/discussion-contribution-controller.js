@@ -92,9 +92,5 @@ export default Ember.Mixin.create({
 				this.set('isEditorLoading', false);
 			});
 		},
-
-		generateOpenGraph(uri) {
-			this.get('target').send('generateOpenGraph', uri);
-		}
 	}
 });
