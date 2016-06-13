@@ -4,6 +4,9 @@ import {getRenderComponentFor, queryPlaceholders} from '../utils/render-componen
 import {track, trackActions} from 'common/utils/track';
 import {getGroup, inGroup} from 'common/modules/abtest';
 
+import FandomPostsModel from '../models/fandom-posts';
+import TopLinksModel from '../models/top-links';
+
 /**
  * HTMLElement
  * @typedef {Object} HTMLElement
@@ -44,13 +47,12 @@ export default Ember.Component.extend(
 					this.createTableOfContents();
 					this.createContributionButtons();
 					this.handleTables();
-					// TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
-					this.handleNavigation();
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
 					this.injectPotentialMemberPageExperimentComponent();
 					this.bindHeaderClicks();
+					this.injectPlacementTest();
 				} else {
 					this.hackIntoEmberRendering(`<p>${i18n.t('app.article-empty-label')}</p>`);
 				}
@@ -552,6 +554,89 @@ export default Ember.Component.extend(
 		},
 
 		/**
+		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_PLACEMENT AB TEST
+		 *
+		 * @returns {void}
+		 */
+		injectPlacementTest() {
+			const experimentName = 'RECIRCULATION_MERCURY_PLACEMENT',
+				group = getGroup(experimentName);
+
+			let view, component, model, location,
+				externalLink = false;
+
+			if (Ember.get(Mercury, 'wiki.language.content') !== 'en') {
+				return;
+			}
+
+			switch (group) {
+				case 'CONTROL':
+					component = this.createComponentInstance('recirculation/footer');
+					model = FandomPostsModel.create();
+					location = Ember.$('.article-footer');
+					externalLink = true;
+					break;
+				/**
+				 * To be thrown away after E3
+				 */
+				case 'E3_INCONTENT':
+					component = this.createComponentInstance('recirculation/incontent');
+					model = FandomPostsModel.create({
+						type: 'e3',
+						moreHref: 'http://fandom.wikia.com/articles/category/events/e3-2016'
+					});
+					location = this.$('h2:nth-of-type(2)').prev();
+					externalLink = true;
+					break;
+				case 'LINKS_INCONTENT':
+					component = this.createComponentInstance('recirculation/incontent');
+					model = TopLinksModel.create({
+						article: this
+					});
+					location = this.$('h2:nth-of-type(2)').prev();
+					break;
+				case 'LINKS_FOOTER':
+					component = this.createComponentInstance('recirculation/footer');
+					model = TopLinksModel.create({
+						article: this,
+						style: 'landscape'
+					});
+					location = Ember.$('.article-footer');
+					break;
+				case 'FANDOM_INCONTENT':
+					component = this.createComponentInstance('recirculation/incontent');
+					model = FandomPostsModel.create({
+						thumbSize: 'medium'
+					});
+					location = this.$('h2:nth-of-type(2)').prev();
+					externalLink = true;
+					break;
+				case 'FANDOM_FOOTER':
+					component = this.createComponentInstance('recirculation/footer');
+					model = FandomPostsModel.create();
+					location = Ember.$('.article-footer');
+					externalLink = true;
+					break;
+				default:
+					break;
+			}
+
+			if (component && model && location.length !== 0) {
+				view = this.createChildView(component, {
+					model,
+					experimentName,
+					externalLink
+				});
+				view.createElement();
+				model.load();
+
+				location.after(view.$());
+				view.trigger('didInsertElement');
+				view.trackImpression();
+			}
+		},
+
+		/**
 		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_COLLAPSE AB TEST
 		 *
 		 * @param {string} content
@@ -600,38 +685,6 @@ export default Ember.Component.extend(
 
 			article.innerHTML = content;
 			return article.childNodes;
-		},
-
-		/**
-		 * TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
-		 * by default all block navigation elements are now hidden in css by display:none;
-		 * according to current test group we want to un-hide some of the elements:
-		 *  - only navigation elements
-		 *  - only navboxes
-		 *  - both of them
-		 *
-		 * @returns {void}
-		 */
-		handleNavigation() {
-			let navABTestGroup = getGroup('MERCURY_NAVIGATION_ELEMENTS'),
-				dataTypeSelector;
-
-			// display only navboxes
-			if (navABTestGroup === 'NAVIGATION_HIDDEN') {
-				dataTypeSelector = '[data-type=navbox]';
-			// display only navigation
-			} else if (navABTestGroup === 'NAVBOXES_HIDDEN') {
-				dataTypeSelector = '[data-type=navigation]';
-			// display all of them
-			} else if (navABTestGroup === 'BOTH_SHOWN') {
-				dataTypeSelector = '[data-type^=nav]';
-			}
-
-			if (dataTypeSelector) {
-				this.$(dataTypeSelector).each((index, element) => {
-					element.style.display = 'block';
-				});
-			}
 		},
 
 		/**
