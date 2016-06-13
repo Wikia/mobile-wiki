@@ -7,7 +7,23 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 
 	currentUser: Ember.inject.service(),
 
+	isEdit: false,
+	textAreaId: Ember.computed('isEdit', function () {
+		if (this.get('isEdit')) {
+			return "discussion-standalone-edit-editor-textarea";
+		} else {
+			return "discussion-standalone-editor-textarea";
+		}
+	}),
+
 	actions: {
+		close() {
+			this.sendAction('setEditorActive', this.get('isEdit') ? 'editEditor' : 'contributeEditor', false);
+
+			// TODO fix tracking
+			track(this.get('closeTrackingAction'));
+		},
+
 		submit() {
 			if (!this.get('submitDisabled')) {
 				const newDiscussionEntityData = {

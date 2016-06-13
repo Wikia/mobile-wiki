@@ -47,12 +47,6 @@ export default Ember.Component.extend({
 	}),
 
 	actions: {
-		close() {
-			this.sendAction('setEditorActive', false);
-
-			track(this.get('closeTrackingAction'));
-		},
-
 		handleKeyPress() {
 			if ((event.keyCode === 10 || event.keyCode === 13) && event.ctrlKey) {
 				// Create post on CTRL + ENTER

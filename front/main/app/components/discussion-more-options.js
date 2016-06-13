@@ -41,10 +41,9 @@ export default Ember.Component.extend({
 
 	actions: {
 		edit(post) {
-			const discussionEditEditor = this.get('discussionEditEditor');
+			this.sendAction('setEditorActive', 'editEditor', true);
+			// TODO put post into editor
 
-			discussionEditEditor.set('discussionEntity', post);
-			discussionEditEditor.toggleEditor(true);
 			this.get('popover').deactivate();
 		},
 

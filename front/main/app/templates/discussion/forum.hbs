@@ -9,6 +9,21 @@
 	}}
 {{/if}}
 
+{{#modal-dialog
+	class='is-bare is-desktop-centered discussion-editor-dialog'
+	closeOnOverlayClick=false
+	isVisible=editEditorState.isOpen
+}}
+	{{discussion-standalone-editor
+		errorMessage=editEditorState.errorMessage
+		generateOpenGraph=(route-action 'generateOpenGraph')
+		isEdit=true
+		isLoading=editEditorState.isLoading
+		isVisible=editEditorState.isOpen
+		setEditorActive=(action 'setEditorActive')
+	}}
+{{/modal-dialog}}
+
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	model=model.data

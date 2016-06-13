@@ -81,7 +81,7 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 	},
 
 	click() {
-		this.sendAction('setEditorActive', true);
+		this.sendAction('setEditorActive', 'contributeEditor', true);
 	},
 
 	actions: {

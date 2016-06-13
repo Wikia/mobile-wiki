@@ -20,8 +20,21 @@ export default Ember.Mixin.create({
 		isOpen: false,
 	}),
 
-	activateEditor() {
-		if (this.get('editorState.isOpen')) {
+	getEditorState(editorType) {
+		if (editorType === 'contributeEditor') {
+			return this.get('editorState');
+		} else if (editorType === 'editEditor') {
+			return this.get('editEditorState');
+		}
+		else {
+			throw `Editor type not supported: ${editorType}`;
+		}
+	},
+
+	activateEditor(editorType) {
+		const editorState = this.getEditorState(editorType);
+
+		if (editorState.get('isOpen')) {
 			return;
 		}
 
@@ -33,7 +46,7 @@ export default Ember.Mixin.create({
 			return;
 		}
 
-		this.get('editorState').setProperties({
+		editorState.setProperties({
 			errorMessage: null,
 			isOpen: true,
 		});
@@ -71,11 +84,11 @@ export default Ember.Mixin.create({
 	 *
 	 * @returns {void}
 	 */
-	onContributionError(err, generalErrorKey) {
-		if (isUnauthorizedError(err.status)) {
+	onContributionError(editorType, err, generalErrorKey) {
+		if (isUnauthorizedError(editorType, err.status)) {
 			this.setEditorError('editor.post-error-not-authorized');
 		} else {
-			this.setEditorError(generalErrorKey);
+			this.setEditorError(editorType, generalErrorKey);
 		}
 	},
 
@@ -85,22 +98,29 @@ export default Ember.Mixin.create({
 	 *
 	 * @returns {void}
 	 */
-	setEditorError(errorMessage) {
-		this.set('editorState.errorMessage', errorMessage);
+	setEditorError(editorType, errorMessage) {
+		const editorState = this.getEditorState(editorType);
+
+		editorState.set('errorMessage', errorMessage);
 
 		if (errorMessage) {
 			Ember.run.later(this, () => {
-				this.set('editorState.errorMessage', null);
+				editorState.set('errorMessage', null);
 			}, 3000);
 		}
 	},
 
 	actions: {
-		setEditorActive(active) {
+		/**
+		 *
+		 * @param editorType editor type
+		 * @param active desired state of editor
+		 */
+		setEditorActive(editorType, active) {
 			if (active === true) {
-				this.activateEditor();
+				this.activateEditor(editorType);
 			} else {
-				this.get('editorState').setProperties({
+				this.getEditorState(editorType).setProperties({
 					errorMessage: null,
 					isOpen: false,
 				});
@@ -123,14 +143,17 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		createPost(entityData) {
-			this.set('editorState.isLoading', true);
-			this.setEditorError(null);
+			const editorType = 'contributeEditor',
+				editorState = this.getEditorState(editorType);
+
+			editorState.set('isLoading', true);
+			this.setEditorError(editorType, null);
 			// TODO change sorting
 
 			this.get('model').createPost(entityData).catch((err) => {
-				this.onContributionError(err, 'editor.post-error-general-error');
+				this.onContributionError(editorType, err, 'editor.post-error-general-error');
 			}).finally(() => {
-				this.set('editorState.isLoading', false);
+				editorState.set('isLoading', false);
 			});
 		},
 
@@ -140,13 +163,16 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		editPost(entityData) {
-			this.set('editorState.isLoading', true);
-			this.setEditorError(null);
+			const editorType = 'editEditor',
+				editorState = this.getEditorState(editorType);
+
+			editorState.set('isLoading', true);
+			this.setEditorError(editorType, null);
 
 			this.get('model').editPost(entityData).catch((err) => {
-				this.onContributionError(err, 'editor.save-error-general-error');
+				this.onContributionError(editorType, err, 'editor.save-error-general-error');
 			}).finally(() => {
-				this.set('editorState.isLoading', false);
+				editorState.set('isLoading', false);
 			});
 		},
 
@@ -156,13 +182,16 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		createReply(entityData) {
-			this.set('editorState.isLoading', true);
-			this.setEditorError(null);
+			const editorType = 'contributeEditor',
+				editorState = this.getEditorState(editorType);
+
+			editorState.set('isLoading', true);
+			this.setEditorError(editorType, null);
 
 			this.get('model').createReply(entityData).catch((err) => {
-				this.onContributionError(err, 'editor.reply-error-general-error');
+				this.onContributionError(editorType, err, 'editor.reply-error-general-error');
 			}).finally(() => {
-				this.set('editorState.isLoading', false);
+				editorState.set('isLoading', false);
 			});
 		},
 
@@ -172,13 +201,16 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		editReply(entityData) {
-			this.set('editorState.isLoading', true);
-			this.setEditorError(null);
+			const editorType = 'editEditor',
+				editorState = this.getEditorState(editorType);
+
+			editorState.set('isLoading', true);
+			this.setEditorError(editorType, null);
 
 			this.get('model').editReply(entityData).catch((err) => {
-				this.onContributionError(err, 'editor.save-error-general-error');
+				this.onContributionError(editorType, err, 'editor.save-error-general-error');
 			}).finally(() => {
-				this.set('editorState.isLoading', false);
+				editorState.set('isLoading', false);
 			});
 		},
 	}

@@ -8,7 +8,7 @@
 			{{textarea
 				autoresize=true
 				class="discussion-inline-editor-textarea"
-				focusIn=(action this.attrs.setEditorActive true)
+				focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
 				keyPress=(action 'handleKeyPress')
 				placeholder=(i18n placeholderMessageKey ns='discussion')
 				value=content
