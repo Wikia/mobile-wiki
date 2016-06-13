@@ -35,6 +35,8 @@ $legend-font-size: 16px;
 
 .discussion-filters {
 	display: block;
+	max-height: 330px;
+	overflow: auto;
 	width: 280px;
 
 	.filters-apply-container {
@@ -129,9 +131,6 @@ $legend-font-size: 16px;
 				font-weight: normal;
 				line-height: $sort-label-height - 2px;
 				margin: 1px 0;
-				padding-left: 24px;
-				// this is the only option to have clickable fancy-buttons on mobile
-				position: absolute;
 			}
 
 			.radio-fancy {
@@ -140,8 +139,6 @@ $legend-font-size: 16px;
 				float: left;
 				height: 18px;
 				margin: 15px 6px 0 0;
-				// this is the only option to have clickable fancy-buttons on mobile
-				position: absolute;
 				width: 18px;
 
 				.inside {
