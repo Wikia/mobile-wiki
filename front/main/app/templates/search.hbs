@@ -6,9 +6,10 @@
 		suggestionsEnabled=false
 	}}
 {{/ember-wormhole}}
-
 {{loading-spinner
 	active=model.loading
+	radius=38
+	strokeWidth=3
 }}
 <div class="search-results">
 	{{#if model.totalItems}}
@@ -47,5 +48,6 @@
 		text=(i18n 'main.load-more-results' ns='search')
 		onButtonClick=(action 'onLoadMore')
 		trackLabel='search-load-more'
+		class='search-results__load-more-wrapper'
 	}}
 {{/if}}

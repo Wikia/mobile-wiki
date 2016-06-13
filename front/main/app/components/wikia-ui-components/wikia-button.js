@@ -3,7 +3,7 @@
  *
  * @example
  * {{wikia-ui-components/wikia-button
- *      onButtonClick='clickHandler'
+ *      onButtonClick=(action='clickHandler')
  *      trackLabel='load-more'
  * }}
  */
@@ -16,7 +16,6 @@ const {Component} = Ember;
 export default Component.extend(
 	{
 		classNames: ['wikia-button-wrapper'],
-		trackLabel: '',
 		actions: {
 			/**
 			 * Handles click event on button - calls proper action if passed
@@ -24,7 +23,7 @@ export default Component.extend(
 			 *
 			 * @returns {void}
 			 */
-			onButtonClick() {
+			onButtonClick(event) {
 				const onButtonClick = this.get('onButtonClick');
 
 				this.trackClick();
@@ -36,11 +35,15 @@ export default Component.extend(
 		},
 
 		trackClick() {
-			mercuryTrack({
-				action: trackActions.click,
-				category: 'wikia-button',
-				label: this.get('trackLabel')
-			});
+			const trackLabel = this.get('trackLabel');
+
+			if (trackLabel) {
+				mercuryTrack({
+					action: trackActions.click,
+					category: 'wikia-button',
+					label: trackLabel
+				});
+			}
 		}
 	}
 );
