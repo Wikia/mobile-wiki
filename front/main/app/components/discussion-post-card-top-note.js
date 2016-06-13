@@ -106,6 +106,10 @@ export default Ember.Component.extend({
 		 */
 		showReportDetails(postId) {
 			this.set('isReportDetailsVisible', true);
-		}
+		},
+
+		reportDetailsClose() {
+			this.set('isReportDetailsVisible', false);
+		},
 	}
 });
