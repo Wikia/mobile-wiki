@@ -42,3 +42,10 @@
 		{{/wikia-ui-components/error-info}}
 	{{/if}}
 </div>
+{{#if model.canLoadMore}}
+	{{wikia-ui-components/wikia-button
+		text=(i18n 'main.load-more-results' ns='search')
+		onButtonClick=(action 'onLoadMore')
+		trackLabel='search-load-more'
+	}}
+{{/if}}
