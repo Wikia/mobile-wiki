@@ -22,7 +22,7 @@ export default Component.extend(
 			mercuryTrack({
 				action: trackActions.click,
 				category: 'wikia-button',
-				label: this.get('trackLabel')
+				label: this.get('trackLabel') || ''
 			});
 		}
 	}
