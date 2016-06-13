@@ -18,13 +18,6 @@ export default Ember.Mixin.create(
 			return getGroup(this.get('experimentName'));
 		}),
 
-		/**
-		 * @returns {void}
-		 */
-		didEnterViewport() {
-			this.set('shouldBeLoaded', true);
-		},
-
 		items: Ember.computed('model.items', 'shouldBeLoaded', function () {
 			return this.get('model.items').map((item) => {
 				if (this.get('externalLink')) {
@@ -42,6 +35,16 @@ export default Ember.Mixin.create(
 			});
 		}),
 
+		/**
+		 * @returns {void}
+		 */
+		didEnterViewport() {
+			this.set('shouldBeLoaded', true);
+		},
+
+		/**
+		 * @returns {void}
+		 */
 		trackImpression() {
 			trackExperiment(this.get('experimentName'), {
 				action: trackActions.impression,
@@ -51,6 +54,11 @@ export default Ember.Mixin.create(
 		},
 
 		actions: {
+			/**
+			 * @param {string} url
+			 *
+			 * @returns {void}
+			 */
 			trackExperimentClick(url) {
 				trackExperiment(this.get('experimentName'), {
 					action: trackActions.click,
