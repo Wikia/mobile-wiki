@@ -15,9 +15,11 @@
 	isVisible=editEditorState.isOpen
 }}
 	{{discussion-standalone-editor
+		editEntity=editEditorState.discussionEntity
+		editPost=(action 'editPost')
+		editReply=(action 'editReply')
 		errorMessage=editEditorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
-		isEdit=true
 		isLoading=editEditorState.isLoading
 		isVisible=editEditorState.isOpen
 		setEditorActive=(action 'setEditorActive')
@@ -46,6 +48,7 @@
 		posts=model.data.entities
 		postsDisplayed=model.data.entities.length
 		report=(action 'report')
+		setEditDiscussionEntity=(action 'setEditDiscussionEntity')
 		setEditorActive=(action 'setEditorActive')
 		totalPosts=model.data.postCount
 		undeletePost=(action 'undeletePost')

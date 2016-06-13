@@ -7,7 +7,9 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 
 	currentUser: Ember.inject.service(),
 
-	isEdit: false,
+	isEdit: Ember.computed.notEmpty('editEntity'),
+	editEntity: null,
+
 	textAreaId: Ember.computed('isEdit', function () {
 		if (this.get('isEdit')) {
 			return "discussion-standalone-edit-editor-textarea";
@@ -25,20 +27,36 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 		},
 
 		submit() {
+			// TODO add UI success state and closing
 			if (!this.get('submitDisabled')) {
-				const newDiscussionEntityData = {
+				const discussionEntityData = {
 					body: this.get('content'),
-					creatorId: this.get('currentUser.userId'),
-					siteId: Mercury.wiki.id,
 				};
+				let actionName;
 
 				if (this.get('showsOpenGraphCard')) {
-					newDiscussionEntityData.openGraph = {
+					discussionEntityData.openGraph = {
 						uri: this.get('openGraph.href')
 					};
 				}
 
-				this.get('create')(newDiscussionEntityData);
+				if (!this.get('isEdit')) {
+					actionName = 'create';
+					discussionEntityData.creatorId = this.get('currentUser.userId');
+					discussionEntityData.siteId = Mercury.wiki.id;
+				} else {
+					const editEntity = this.get('editEntity');
+
+					if (editEntity.get('isReply')) {
+						actionName = 'editReply';
+						discussionEntityData.id = editEntity.get('id');
+					} else {
+						actionName = 'editPost';
+						discussionEntityData.id = editEntity.get('threadId');
+					}
+				}
+
+				this.sendAction(actionName, discussionEntityData);
 			}
 		},
 	}

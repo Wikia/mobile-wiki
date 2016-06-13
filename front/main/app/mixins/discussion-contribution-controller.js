@@ -18,8 +18,16 @@ export default Ember.Mixin.create({
 		errorMessage: null,
 		isLoading: false,
 		isOpen: false,
+		discussionEntity: null,
 	}),
 
+	/**
+	 * Get object that contains editor state
+	 *
+	 * @param {string} editorType type of editor - available 'contributeEditor' and 'editEditor'
+	 *
+	 * @returns object
+	 */
 	getEditorState(editorType) {
 		if (editorType === 'contributeEditor') {
 			return this.get('editorState');
@@ -31,6 +39,11 @@ export default Ember.Mixin.create({
 		}
 	},
 
+	/**
+	 * Set editor active state
+	 *
+	 * @param {string} editorType editor type, available types see: getEditorState
+	 */
 	activateEditor(editorType) {
 		const editorState = this.getEditorState(editorType);
 
@@ -78,9 +91,9 @@ export default Ember.Mixin.create({
 	},
 
 	/**
+	 * @param {string} editorType editor type, available types see: getEditorState
 	 * @param {error} err
 	 * @param {string} generalErrorKey
-	 * @param {boolean} isEdit
 	 *
 	 * @returns {void}
 	 */
@@ -93,8 +106,8 @@ export default Ember.Mixin.create({
 	},
 
 	/**
+	 * @param {string} editorType editor type, available types see: getEditorState
 	 * @param {string} errorMessage
-	 * @param {boolean} isEdit
 	 *
 	 * @returns {void}
 	 */
@@ -112,9 +125,12 @@ export default Ember.Mixin.create({
 
 	actions: {
 		/**
+		 * Set editor active state
 		 *
-		 * @param editorType editor type
-		 * @param active desired state of editor
+		 * @param {string} editorType editor type, available types see: getEditorState
+		 * @param {boolean} active desired state of editor
+		 *
+		 * @returns {void}
 		 */
 		setEditorActive(editorType, active) {
 			if (active === true) {
@@ -125,6 +141,15 @@ export default Ember.Mixin.create({
 					isOpen: false,
 				});
 			}
+		},
+
+		/**
+		 * Sets discussion entity for editor
+		 *
+		 * @param {DiscussionEntity} discussionEntity
+		 */
+		setEditDiscussionEntity(discussionEntity) {
+			this.set('editEditorState.discussionEntity', discussionEntity)
 		},
 
 		/**
