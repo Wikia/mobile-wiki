@@ -4,12 +4,11 @@ export default Ember.Component.extend({
 	classNames: ['top-note'],
 
 	canDelete: Ember.computed.readOnly('post.userData.permissions.canDelete'),
-
 	canModerate: Ember.computed.readOnly('post.userData.permissions.canModerate'),
-
 	showButtons: Ember.computed.and('canShowModButtons', 'isReported', 'canModerate'),
-
 	modalDialog: Ember.inject.service(),
+
+	isReportDetailsVisible: false,
 
 	/**
 	 * Computes text for the post-card note:
@@ -99,5 +98,14 @@ export default Ember.Component.extend({
 				(() => this.get('approve')(item))
 			);
 		},
+
+		/**
+		 * @param {String} item - post or reply
+		 * @param {boolean} isReply - if this is a reply
+		 * @returns {void}
+		 */
+		showReportDetails(postId) {
+			this.set('isReportDetailsVisible', true);
+		}
 	}
 });

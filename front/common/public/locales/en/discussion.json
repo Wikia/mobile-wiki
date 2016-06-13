@@ -69,6 +69,8 @@
     "reported-by-one-reply": "Reply reported by __userName__",
     "reported-by-many": "Reported by __number__ users",
     "reported-by-many-reply": "Reply reported by __number__ users",
+    "reports_number": "__count__ Report",
+    "reports_number_plural": "__count__ Reports",
     "locked-post-text": "This post is locked.",
     "lock-post": "Lock Post",
     "unlock-post": "Unlock Post",

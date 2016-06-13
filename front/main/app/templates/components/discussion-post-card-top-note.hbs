@@ -1,9 +1,20 @@
-<span class="text-content columns {{if showButtons 'large-8 small-8' 'large-12 small-12'}}">
+<span class="text-content columns {{if showButtons 'large-8 small-8' 'large-12 small-12'}}" {{action 'showReportDetails' post.id}}>
 	{{#if post.isLocked}}
 		{{svg 'locked' viewBox='0 0 14 16' class='icon locked'}}
 	{{/if}}
 	{{text}}
 </span>
+{{#if post.reportDetails}}
+	{{#modal-dialog
+		class='is-bare is-desktop-centered discussion-editor-dialog'
+		closeOnOverlayClick=true
+		isVisible=isReportDetailsVisible
+	}}
+		{{discussion-report-details-user-list
+			reportDetails=post.reportDetails
+		}}
+	{{/modal-dialog}}
+{{/if}}
 {{#if showButtons}}
 	<div class="actions columns large-4 small-4">
 		{{#if canModerate}}

@@ -1,0 +1,12 @@
+{{i18n 'main.reports_number' count=reportDetails.count ns='discussion'}}
+<ul>
+{{#each reportDetails.users as |user|}}
+	<li>
+		{{user-avatar
+			avatarUrl=user.avatarUrl
+			displayProfileName=true
+			username=user.name
+		}}
+	</li>
+{{/each}}
+</ul>
