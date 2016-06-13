@@ -1,6 +1,12 @@
 import Ember from 'ember';
 
-const DiscussionCategory = Ember.Object.extend();
+const DiscussionCategory = Ember.Object.extend({
+	description: null,
+	displayOrder: null,
+	id: null,
+	name: null,
+	selected: false,
+});
 
 DiscussionCategory.reopenClass({
 	/**

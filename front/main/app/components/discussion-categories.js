@@ -23,6 +23,13 @@ export default Ember.Component.extend(
 			return this.get('categories').isEvery('selected', false);
 		}),
 
+		/**
+		 * We're decorating categories coming from model to break the two-way data binding and ensure
+		 * that changes to the 'selected' and 'collapsed' properties are not leaking outside
+		 * of this component
+		 *
+		 * @returns {Ember.Array}
+		 */
 		localCategories: Ember.computed('categories.@each.selected', function () {
 			const categories = this.get('categories'),
 				localCategories = new Ember.A();
@@ -174,6 +181,8 @@ export default Ember.Component.extend(
 				const localCategories = this.get('localCategories');
 
 				this.trackCategory(false);
+
+				// SOC-2629
 				event.preventDefault();
 
 				localCategory.set('selected', !localCategory.get('selected'));
