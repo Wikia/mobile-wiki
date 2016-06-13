@@ -258,9 +258,19 @@ body.dark-theme {
 		}
 	}
 
-	.discussion-app-promotion {
+	.discussion-community-unit {
 		.discussion-app-join-text {
-			color: $dark-app-promotion-text-color;
+			color: $dark-discussion-app-promotion-text-color;
+		}
+		.wiki-name {
+			border-bottom-color: $dark-discussion-right-rail-line-color;
+			color: $dark-discussion-rail-title-color;
+		}
+	}
+
+	.post-details-view {
+		.discussion-app-join-text {
+			color: $dark-discussion-post-details-app-promotion-text-color;
 		}
 	}
 
