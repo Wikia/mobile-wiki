@@ -6,7 +6,8 @@ $wikia-button-wrapper-spacing: 18px;
 	width: 100%;
 }
 
-.wikia-button {
+.wikia-button,
+.wikia-button:hover {
 	background: transparent;
 	border: 1px solid $color-blue-light;
 	color: $color-blue-light;
