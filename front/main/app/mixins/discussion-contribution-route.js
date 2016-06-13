@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import {isUnauthorizedError} from 'ember-ajax/errors';
 
 /**
  * Handles posts upvoting.

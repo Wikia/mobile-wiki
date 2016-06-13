@@ -6,6 +6,7 @@
 	}}
 		{{discussion-standalone-editor
 			create=(action 'createPost')
+			errorMessage=editorErrorMessage
 			generateOpenGraph=(route-action 'generateOpenGraph')
 			isLoading=isEditorLoading
 			setEditorActive=(action 'setEditorActive')
@@ -24,6 +25,7 @@
 		approve=(action 'approve')
 		createPost=(action 'createPost')
 		deletePost=(action 'deletePost')
+		editorErrorMessage=editorErrorMessage
 		editPost=(action 'editPost')
 		generateOpenGraph=(route-action 'generateOpenGraph')
 		isEditorLoading=isEditorLoading

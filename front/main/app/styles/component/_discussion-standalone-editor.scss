@@ -1,4 +1,5 @@
 $modal-editor-width: 520px;
+$editor-toolbar-height: 41px;
 
 .discussion-standalone-editor {
 	background-color: $discussion-editor-background-color;
@@ -10,7 +11,7 @@ $modal-editor-width: 520px;
 		border-bottom: 1px solid $discussion-editor-toolbar-border-color;
 		display: flex;
 		flex-shrink: 0;
-		height: 41px;
+		height: $editor-toolbar-height;
 		justify-content: space-between;
 	}
 
@@ -52,12 +53,32 @@ $modal-editor-width: 520px;
 		border: 0;
 		border-radius: 0;
 		margin: 0;
+		min-height: 100px;
 		padding: 0 10px 10px;
 
 		&:focus {
 			background-color: transparent;
 			border: 0;
 			box-shadow: none;
+		}
+	}
+
+	span {
+		&.error {
+			animation: error-slide-in .6s ease-in-out 1, error-slide-out .6s ease-in-out 2.4s;
+			background-color: rgba($discussion-editor-error-background-color, .95);
+			color: $discussion-editor-error-text-color;
+			font-size: $type-smallest;
+			line-height: $line-height-larger;
+			margin: 0;
+			max-height: 2 * $line-height-larger;
+			overflow: hidden;
+			padding: 0;
+			position: absolute;
+			text-align: center;
+			top: $editor-toolbar-height;
+			width: 100%;
+			z-index: $z-discussion-editor + 1;
 		}
 	}
 }
@@ -80,5 +101,26 @@ $modal-editor-width: 520px;
 		position: fixed;
 		top: 0;
 		right: 0;
+	}
+}
+
+
+@keyframes error-slide-in {
+	from {
+		max-height: 0;
+	}
+
+	to {
+		max-height: 2 * $line-height-larger;
+	}
+}
+
+@keyframes error-slide-out {
+	from {
+		max-height: 2 * $line-height-larger;
+	}
+
+	to {
+		max-height: 0;
 	}
 }

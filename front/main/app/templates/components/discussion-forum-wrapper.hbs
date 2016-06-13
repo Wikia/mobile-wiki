@@ -1,6 +1,7 @@
 {{#if responsive.isDesktop}}
 	{{discussion-inline-editor
 		create=(action this.attrs.createPost)
+		errorMessage=editorErrorMessage
 		generateOpenGraph=(action this.attrs.generateOpenGraph)
 		isActive=isEditorOpen
 		isLoading=isEditorLoading

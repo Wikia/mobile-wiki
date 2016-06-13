@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {isUnauthorizedError} from 'ember-ajax/errors';
 
 export default Ember.Mixin.create({
 	isEditorLoading: false,
@@ -26,6 +27,12 @@ export default Ember.Mixin.create({
 	 */
 	setEditorError(errorMessage) {
 		this.set('editorErrorMessage', errorMessage);
+
+		if (errorMessage) {
+			Ember.run.later(this, () => {
+				this.set('editorErrorMessage', null);
+			}, 3000);
+		}
 	},
 
 	actions: {
@@ -46,12 +53,14 @@ export default Ember.Mixin.create({
 		 */
 		createPost(entityData) {
 			this.set('isEditorLoading', true);
+			this.setEditorError(null);
 			// TODO change sorting
 
-			this.get('model').createPost(entityData).finally(() => {
+			this.get('model').createPost(entityData).catch((err) => {
+				this.onContributionError(err, 'editor.post-error-general-error');
+			}).finally(() => {
 				this.set('isEditorLoading', false);
 			});
-			// TODO error handling
 		},
 
 		/**
@@ -61,8 +70,11 @@ export default Ember.Mixin.create({
 		 */
 		editPost(entityData) {
 			this.set('isEditorLoading', true);
+			this.setEditorError(null);
 
-			this.get('model').editPost(entityData).finally(() => {
+			this.get('model').editPost(entityData).catch((err) => {
+				this.onContributionError(err, 'editor.save-error-general-error');
+			}).finally(() => {
 				this.set('isEditorLoading', false);
 			});
 		},
@@ -74,8 +86,11 @@ export default Ember.Mixin.create({
 		 */
 		createReply(entityData) {
 			this.set('isEditorLoading', true);
+			this.setEditorError(null);
 
-			this.get('model').createReply(entityData).finally(() => {
+			this.get('model').createReply(entityData).catch((err) => {
+				this.onContributionError(err, 'editor.reply-error-general-error');
+			}).finally(() => {
 				this.set('isEditorLoading', false);
 			});
 		},
@@ -87,8 +102,11 @@ export default Ember.Mixin.create({
 		 */
 		editReply(entityData) {
 			this.set('isEditorLoading', true);
+			this.setEditorError(null);
 
-			this.get('model').editReply(entityData).finally(() => {
+			this.get('model').editReply(entityData).catch((err) => {
+				this.onContributionError(err, 'editor.save-error-general-error');
+			}).finally(() => {
 				this.set('isEditorLoading', false);
 			});
 		},
