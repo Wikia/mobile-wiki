@@ -185,11 +185,11 @@ export default Ember.Route.extend(ConfirmationMixin, {
 			if (data && data.css) {
 				return resourceLoader.load('portableInfoboxBuilderCss', {type: 'css', paths: data.css});
 			} else {
-				return Ember.RSVP.reject(Error('Invalid assets data was returned from MediaWiki API'));
+				throw Error('Invalid assets data was returned from MediaWiki API');
 			}
 		}).then((result) => {
 			this.set('cssLoaded', true);
-			return Ember.RSVP.resolve(result);
+			return result;
 		});
 	},
 
@@ -202,12 +202,12 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Promise}
 	 */
 	setupEnvironmentAndInfoboxData(templateName) {
-		const resourceLoader = this.get('resourceLoader');
-		const promises = {
-			data: this.loadInfoboxData(templateName),
-			assets: this.loadCss(),
-			ponto: resourceLoader.load('pontoJs')
-		};
+		const resourceLoader = this.get('resourceLoader'),
+			promises = {
+				data: this.loadInfoboxData(templateName),
+				assets: this.loadCss(),
+				ponto: resourceLoader.load('pontoJs')
+			};
 
 		return Ember.RSVP.hash(promises)
 			.then((response) => {
@@ -274,8 +274,10 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 */
 	loadInfoboxData(templateName) {
 		if (!templateName) {
-			return Promise.resolve().then(() => {
-				return {data: '{}', isNew: true};
+			// Return data field as PortableInfoboxBuilderController does for new infobox
+			return Ember.RSVP.resolve({
+				data: '{}',
+				isNew: true
 			});
 		}
 		return this.get('ajax').request(M.buildUrl({path: '/wikia.php'}), {

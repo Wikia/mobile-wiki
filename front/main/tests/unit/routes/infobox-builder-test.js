@@ -149,7 +149,7 @@ test('Dont\'t ask for asset path when already loaded', function (assert) {
 	});
 
 	route.loadCss().then((result) => {
-		assert.ok(!requestSpy.called, 'Request on ajax shouldn\'t be called');
+		assert.notOk(requestSpy.called, 'Request on ajax shouldn\'t be called');
 
 		assert.equal(result, route.get('resourceLoader').assetAlreadyLoadedStatusName);
 	}, (error) => {
