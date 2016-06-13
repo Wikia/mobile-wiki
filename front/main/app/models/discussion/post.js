@@ -30,6 +30,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 					reply.threadCreatedBy = this.get('data.createdBy');
 					return DiscussionReply.create(reply);
 				}).reverse();
+
 			let url;
 
 			if (isNextPageCall) {
@@ -50,6 +51,8 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 					'data.isPreviousPage': !Ember.isEmpty(url)
 				});
 			}
+
+			this.reportedDetailsSetUp(newReplies);
 		},
 
 		/**
@@ -223,6 +226,9 @@ DiscussionPostModel.reopenClass({
 				postInstance.setNormalizedData(data);
 
 				resolve(postInstance);
+
+				// main post and the replies set up at once
+				postInstance.reportedDetailsSetUp([postInstance.get('data')].concat(postInstance.get('data.replies')));
 			}).catch((err) => {
 				postInstance.setErrorProperty(err);
 
