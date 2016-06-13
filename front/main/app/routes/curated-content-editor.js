@@ -181,7 +181,7 @@ export default Ember.Route.extend(
 			 * @returns {Boolean} returns true
 			 */
 			error(error) {
-				if (isForbiddenError(error.status)) {
+				if (isForbiddenError(error)) {
 					this.controllerFor('application').addAlert({
 						message: i18n.t('app.curated-content-editor-error-no-access-permissions'),
 						type: 'warning'
