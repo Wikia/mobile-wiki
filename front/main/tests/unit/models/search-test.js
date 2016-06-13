@@ -189,9 +189,9 @@ test('run load more if search was not performed', (assert) => {
 
 test('test load more batch increase', (assert) => {
 	const search = SearchModel.create({
-		totalBatches: 2,
-		query: 'testQuery'
-	}), fetchSpy = sinon.spy(search, 'fetch');
+			totalBatches: 2,
+			query: 'testQuery'
+		}), fetchSpy = sinon.spy(search, 'fetch');
 
 	search.loadMore();
 
