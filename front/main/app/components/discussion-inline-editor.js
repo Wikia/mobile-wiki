@@ -1,27 +1,18 @@
 import Ember from 'ember';
 
+import DiscussionEditor from './discussion-editor';
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
 
 
-export default Ember.Component.extend(DiscussionEditorOpengraph, {
+export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 	attributeBindings: ['style'],
 	classNames: ['discussion-inline-editor'],
 	classNameBindings: ['isSticky', 'isActive'],
 
 	currentUser: Ember.inject.service(),
 
-	labelMessageKey: 'TODO',
-	placeholderMessageKey: 'TODO',
-	submitMessageKey: 'TODO',
-
-	content: '',
-
 	isActive: false,
 	isSticky: false,
-	submitDisabled: false,
-	showSuccess: false,
-	isLoading: false,
-
 	/**
 	 * Set right height for editor placeholder when editor gets sticky
 	 *
@@ -111,12 +102,5 @@ export default Ember.Component.extend(DiscussionEditorOpengraph, {
 				this.get('create')(newDiscussionEntityData);
 			}
 		},
-
-		handleKeyPress() {
-			if ((event.keyCode === 10 || event.keyCode === 13) && event.ctrlKey) {
-				// Create post on CTRL + ENTER
-				this.send('submit');
-			}
-		}
 	}
 });
