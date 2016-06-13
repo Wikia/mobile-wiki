@@ -620,7 +620,6 @@ export default Ember.Component.extend(
 					externalLink = true;
 					break;
 				default:
-					component = false;
 					break;
 			}
 

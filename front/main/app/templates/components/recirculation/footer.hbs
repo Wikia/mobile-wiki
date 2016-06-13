@@ -4,7 +4,7 @@
 		<ul class="thumbnails">
 			{{#each items as |item|}}
 				<li class="title-thumbnail" {{action 'trackExperimentClick' item.url}}>
-					<a href="{{if externalLink '' item.url}}">
+					<a href="{{if externalLink '#' item.url}}">
 						<div class="image image-thumbnail">
 							{{#if shouldBeLoaded }}
 								{{#if item.thumbnail }}
