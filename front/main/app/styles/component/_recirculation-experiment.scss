@@ -1,180 +1,179 @@
-.recirculation-experiment {
-	.image-thumbnail {
-		@extend %image-placeholder;
-	}
-}
-
-.recirculation-experiment.footer {
-	p {
-		margin: 0.5rem 0 1.5rem;
-	}
-
-	a {
-		color: $color-gray-dark;
-	}
-
-	.image-thumbnail {
-		min-height: 150px;
-	}
-}
-
 $recirculation-fandom-incontent-border-color: #ececec;
 $recirculation-fandom-incontent-border: 2px solid $recirculation-fandom-incontent-border-color;
 $recirculation-fandom-incontent-thumbnail-size: 60px;
-
-.recirculation-experiment.in-content {
-	border-top: $recirculation-fandom-incontent-border;
-	border-bottom: $recirculation-fandom-incontent-border;
-	margin: 20px auto;
-	padding: 0 0 15px;
-
-	h2 {
-		font-size: 14px;
-		margin: 15px 0 10px;
-		padding: 0;
-		text-align: center;
-	}
-
-	ul {
-		margin: 0;
-	}
-
-	li {
-		list-style-type: none;
-		margin: 10px;
-
-		a {
-			align-items: center;
-			color: $link-color;
-			display: flex;
-			padding-right: 10px;
-		}
-	}
-
-	p {
-		font-size: 12px;
-		font-weight: 500;
-		line-height: 16px;
-		margin: 0 10px 0 0;
-	}
-
-	img {
-		height: auto;
-		width: 100%;
-	}
-
-	.image-thumbnail {
-		flex: 0 0 $recirculation-fandom-incontent-thumbnail-size;
-		margin: -1px;
-		margin-right: 10px;
-		min-height: $recirculation-fandom-incontent-thumbnail-size;
-	}
-}
-
-.recirculation-experiment.in-content.LINKS_INCONTENT,
-.recirculation-experiment.in-content.FANDOM_INCONTENT {
-	width: 95%;
-
-	li {
-		border: 1px solid $recirculation-fandom-incontent-border-color;
-
-		&:nth-of-type(n+4) {
-			display: none;
-		}
-	}
-}
-
 $recirculation-e3-fandom-icon-size: 40px;
 $recirculation-e3-fandom-thumbnail-width: 97px;
 $recirculation-e3-fandom-thumbnail-height: 55px;
 
-.recirculation-experiment.in-content.E3_INCONTENT {
-	position: relative;
-	margin-top: 30px;
-
-	&::before {
-		background: {
-			image: url('/front/common/images/recirc-e3.png');
-			position: top center;
-			repeat: no-repeat;
-			size: contain;
-		};
-		bottom: 0;
-		content: '';
-		display: block;
-		left: -$article-horizontal-padding;
-		position: absolute;
-		right: -$article-horizontal-padding;
-		top: 0;
-		z-index: -1;
+.recirculation-experiment {
+	.image-thumbnail {
+		@extend %image-placeholder;
 	}
 
-	&::after {
-		background: {
-			color: $color-gray-dark;
-			image: url("/front/common/symbols/fandom-logo.svg");
-			position: center;
-			repeat: no-repeat;
-		};
-		border-radius: $recirculation-e3-fandom-icon-size / 2;
-		content: '';
-		display: block;
-		height: $recirculation-e3-fandom-icon-size;
-		left: 50%;
-		margin-left: -$recirculation-e3-fandom-icon-size / 2;
-		position: absolute;
-		top: -$recirculation-e3-fandom-icon-size / 2;
-		width: $recirculation-e3-fandom-icon-size;
-	}
-
-	h2 {
-		font-size: 24px;
-		line-height: 26px;
-		margin: 20px 0;
-		padding: 0;
-		text-align: center;
-
-		span {
-			color: $color-blue-gray-dark;
-			font-size: 10px;
-			letter-spacing: .3px;
-			line-height: 10px;
-			text-transform: uppercase;
+	.footer {
+		p {
+			margin: 0.5rem 0 1.5rem;
 		}
-
-		svg {
-			transform: scale(1.2);
-
-			fill: $color-gray-dark ;
-			margin-left: 7px;
-		}
-	}
-
-	li {
-		border-bottom: 2px solid $color-blue-gray-light;
-		padding-bottom: 15px;
-		margin-bottom: 15px;
 
 		a {
 			color: $color-gray-dark;
 		}
 
-		&:nth-of-type(5) {
-			border-bottom: none;
+		.image-thumbnail {
+			min-height: 150px;
 		}
 	}
 
-	p {
-		margin: 0;
-	}
+	&.in-content {
+		border-top: $recirculation-fandom-incontent-border;
+		border-bottom: $recirculation-fandom-incontent-border;
+		margin: 20px auto;
+		padding: 0 0 15px;
 
-	.image-thumbnail {
-		flex: 0 0 $recirculation-e3-fandom-thumbnail-width;
-		min-height: $recirculation-e3-fandom-thumbnail-height;
-	}
+		h2 {
+			font-size: 14px;
+			margin: 15px 0 10px;
+			padding: 0;
+			text-align: center;
+		}
 
-	.button {
-		display: block;
-		margin: 0 15px;
+		ul {
+			margin: 0;
+		}
+
+		li {
+			list-style-type: none;
+			margin: 10px;
+
+			a {
+				align-items: center;
+				color: $link-color;
+				display: flex;
+				padding-right: 10px;
+			}
+		}
+
+		p {
+			font-size: 12px;
+			font-weight: 500;
+			line-height: 16px;
+			margin: 0 10px 0 0;
+		}
+
+		img {
+			height: auto;
+			width: 100%;
+		}
+
+		.image-thumbnail {
+			flex: 0 0 $recirculation-fandom-incontent-thumbnail-size;
+			margin: -1px;
+			margin-right: 10px;
+			min-height: $recirculation-fandom-incontent-thumbnail-size;
+		}
+
+		&.LINKS_INCONTENT,
+		&.FANDOM_INCONTENT {
+			width: 95%;
+
+			li {
+				border: 1px solid $recirculation-fandom-incontent-border-color;
+
+				&:nth-of-type(n+4) {
+					display: none;
+				}
+			}
+		}
+
+		&.E3_INCONTENT {
+			position: relative;
+			margin-top: 30px;
+
+			&::before {
+				background: {
+					image: url('/front/common/images/recirc-e3.png');
+					position: top center;
+					repeat: no-repeat;
+					size: contain;
+				};
+				bottom: 0;
+				content: '';
+				display: block;
+				left: -$article-horizontal-padding;
+				position: absolute;
+				right: -$article-horizontal-padding;
+				top: 0;
+				z-index: -1;
+			}
+
+			&::after {
+				background: {
+					color: $color-gray-dark;
+					image: url("/front/common/symbols/fandom-logo.svg");
+					position: center;
+					repeat: no-repeat;
+				};
+				border-radius: $recirculation-e3-fandom-icon-size / 2;
+				content: '';
+				display: block;
+				height: $recirculation-e3-fandom-icon-size;
+				left: 50%;
+				margin-left: -$recirculation-e3-fandom-icon-size / 2;
+				position: absolute;
+				top: -$recirculation-e3-fandom-icon-size / 2;
+				width: $recirculation-e3-fandom-icon-size;
+			}
+
+			h2 {
+				font-size: 24px;
+				line-height: 26px;
+				margin: 20px 0;
+				padding: 0;
+				text-align: center;
+
+				span {
+					color: $color-blue-gray-dark;
+					font-size: 10px;
+					letter-spacing: .3px;
+					line-height: 10px;
+					text-transform: uppercase;
+				}
+
+				svg {
+					transform: scale(1.2);
+
+					fill: $color-gray-dark ;
+					margin-left: 7px;
+				}
+			}
+
+			li {
+				border-bottom: 2px solid $color-blue-gray-light;
+				padding-bottom: 15px;
+				margin-bottom: 15px;
+
+				a {
+					color: $color-gray-dark;
+				}
+
+				&:nth-of-type(5) {
+					border-bottom: none;
+				}
+			}
+
+			p {
+				margin: 0;
+			}
+
+			.image-thumbnail {
+				flex: 0 0 $recirculation-e3-fandom-thumbnail-width;
+				min-height: $recirculation-e3-fandom-thumbnail-height;
+			}
+
+			.button {
+				display: block;
+				margin: 0 15px;
+			}
+		}
 	}
 }

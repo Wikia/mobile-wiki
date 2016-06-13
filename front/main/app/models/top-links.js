@@ -110,8 +110,6 @@ const TopLinksModel = Ember.Object.extend({
 
 		return true;
 	}
-
-
 });
 
 export default TopLinksModel;
