@@ -31,7 +31,10 @@ const FandomPostsModel = Ember.Object.extend({
 	formatData(data) {
 		const items = data.posts.map((item, index) => {
 			item.index = index;
-			item.thumbnail = this.get('thumbSize') === 'medium' ? item.thumb_url_medium : item.image_url;
+			if (!item.thumbnail) {
+				item.thumbnail = this.get('thumbSize') === 'medium' ? item.thumb_url_medium : item.image_url;
+			}
+
 			return item;
 		});
 

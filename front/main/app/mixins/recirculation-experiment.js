@@ -1,17 +1,22 @@
 import Ember from 'ember';
 import InViewportMixin from 'ember-in-viewport';
 import {trackExperiment, trackActions} from 'common/utils/track';
+import {getGroup} from 'common/modules/abtest';
 
 export default Ember.Mixin.create(
 	InViewportMixin,
 	{
-		classNameBindings: ['label'],
+		classNameBindings: ['label', 'group'],
 		classNames: 'recirculation-experiment',
 		experimentName: '',
 		externalLink: false,
 		isLoading: false,
 		shouldBeLoaded: false,
 		label: '',
+
+		group: Ember.computed('experimentName', function () {
+			return getGroup(this.get('experimentName'));
+		}),
 
 		/**
 		 * @returns {void}

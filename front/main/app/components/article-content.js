@@ -578,6 +578,18 @@ export default Ember.Component.extend(
 					location = Ember.$('.article-footer');
 					externalLink = true;
 					break;
+				/**
+				 * To be thrown away after E3
+				 */
+				case 'E3_INCONTENT':
+					component = this.createComponentInstance('recirculation/incontent');
+					model = FandomPostsModel.create({
+						type: 'e3',
+						moreHref: 'http://fandom.wikia.com/articles/category/events/e3-2016'
+					});
+					location = this.$('h2:nth-of-type(2)').prev();
+					externalLink = true;
+					break;
 				case 'LINKS_INCONTENT':
 					component = this.createComponentInstance('recirculation/incontent');
 					model = TopLinksModel.create({

@@ -1,6 +1,6 @@
 {{#if items.length}}
 	<section class="vertical">
-		<h2>{{model.title}}</h2>
+		<h2>{{{model.title}}}</h2>
 		<ul class="thumbnails">
 			{{#each items as |item|}}
 				<li class="title-thumbnail" {{action 'trackExperimentClick' item.url}}>
@@ -17,6 +17,10 @@
 				</li>
 			{{/each}}
 		</ul>
+
+		{{#if model.moreHref}}
+			<a class="button secondary" href="{{model.moreHref}}">View All</a>
+		{{/if}}
 	</section>
 {{/if}}
 
