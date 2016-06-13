@@ -15,7 +15,7 @@
 {{/if}}
 {{#if displayAppPromotion}}
 	<p class="discussion-app-join-text">
-		{{i18n 'main.app-promotion-text' ns='discussion'}}
+		{{i18n (if listPage 'main.app-promotion-text' 'main.app-promotion-text-details-page') ns='discussion'}}
 	</p>
 	{{#if iosAppLink}}
 		<a href="{{iosAppLink}}" target="_blank" class="apple-store-badge"></a>
