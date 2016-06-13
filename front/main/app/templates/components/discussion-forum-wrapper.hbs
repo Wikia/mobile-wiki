@@ -1,10 +1,10 @@
 {{#if responsive.isDesktop}}
 	{{discussion-inline-editor
 		create=(action this.attrs.createPost)
-		errorMessage=editorErrorMessage
+		errorMessage=editorState.errorMessage
 		generateOpenGraph=(action this.attrs.generateOpenGraph)
-		isActive=isEditorOpen
-		isLoading=isEditorLoading
+		isActive=editorState.isOpen
+		isLoading=editorState.isLoading
 		setEditorActive=(action this.attrs.setEditorActive)
 	}}
 {{/if}}

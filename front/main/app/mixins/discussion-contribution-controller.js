@@ -2,7 +2,67 @@ import Ember from 'ember';
 import {isUnauthorizedError} from 'ember-ajax/errors';
 
 export default Ember.Mixin.create({
-	isEditorLoading: false,
+	currentUser: Ember.inject.service(),
+	modalDialog: Ember.inject.service(),
+
+	isAnon: Ember.computed.not('currentUser.isAuthenticated'),
+	isUserBlocked: false,
+
+	editorState: Ember.Object.create({
+		errorMessage: null,
+		isLoading: false,
+		isOpen: false,
+	}),
+
+	editEditorState: Ember.Object.create({
+		errorMessage: null,
+		isLoading: false,
+		isOpen: false,
+	}),
+
+	activateEditor() {
+		if (this.get('editorState.isOpen')) {
+			return;
+		}
+
+		if (this.get('isAnon')) {
+			this.rejectAnon();
+			return;
+		} else if (this.get('isUserBlocked')) {
+			this.rejectBlockedUser();
+			return;
+		}
+
+		this.get('editorState').setProperties({
+			errorMessage: null,
+			isOpen: true,
+		});
+	},
+
+	/**
+	 * Renders a message to display to an anon
+	 * @returns {void}
+	 */
+	rejectAnon() {
+		this.openDialog('editor.post-error-anon-cant-post');
+	},
+
+	/**
+	 * Renders a message to display to a blocked user
+	 * @returns {void}
+	 */
+	rejectBlockedUser() {
+		this.openDialog('editor.post-error-not-authorized');
+	},
+
+	/**
+	 * Opens a modal dialog with translated message
+	 * @param {string} message
+	 * @returns {void}
+	 */
+	openDialog(message) {
+		this.get('modalDialog').display(i18n.t(message, {ns: 'discussion'}));
+	},
 
 	/**
 	 * @param {error} err
@@ -26,16 +86,27 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	setEditorError(errorMessage) {
-		this.set('editorErrorMessage', errorMessage);
+		this.set('editorState.errorMessage', errorMessage);
 
 		if (errorMessage) {
 			Ember.run.later(this, () => {
-				this.set('editorErrorMessage', null);
+				this.set('editorState.errorMessage', null);
 			}, 3000);
 		}
 	},
 
 	actions: {
+		setEditorActive(active) {
+			if (active === true) {
+				this.activateEditor();
+			} else {
+				this.get('editorState').setProperties({
+					errorMessage: null,
+					isOpen: false,
+				});
+			}
+		},
+
 		/**
 		 * Upvote discussion entity
 		 *
@@ -52,14 +123,14 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		createPost(entityData) {
-			this.set('isEditorLoading', true);
+			this.set('editorState.isLoading', true);
 			this.setEditorError(null);
 			// TODO change sorting
 
 			this.get('model').createPost(entityData).catch((err) => {
 				this.onContributionError(err, 'editor.post-error-general-error');
 			}).finally(() => {
-				this.set('isEditorLoading', false);
+				this.set('editorState.isLoading', false);
 			});
 		},
 
@@ -69,13 +140,13 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		editPost(entityData) {
-			this.set('isEditorLoading', true);
+			this.set('editorState.isLoading', true);
 			this.setEditorError(null);
 
 			this.get('model').editPost(entityData).catch((err) => {
 				this.onContributionError(err, 'editor.save-error-general-error');
 			}).finally(() => {
-				this.set('isEditorLoading', false);
+				this.set('editorState.isLoading', false);
 			});
 		},
 
@@ -85,13 +156,13 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		createReply(entityData) {
-			this.set('isEditorLoading', true);
+			this.set('editorState.isLoading', true);
 			this.setEditorError(null);
 
 			this.get('model').createReply(entityData).catch((err) => {
 				this.onContributionError(err, 'editor.reply-error-general-error');
 			}).finally(() => {
-				this.set('isEditorLoading', false);
+				this.set('editorState.isLoading', false);
 			});
 		},
 
@@ -101,13 +172,13 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		editReply(entityData) {
-			this.set('isEditorLoading', true);
+			this.set('editorState.isLoading', true);
 			this.setEditorError(null);
 
 			this.get('model').editReply(entityData).catch((err) => {
 				this.onContributionError(err, 'editor.save-error-general-error');
 			}).finally(() => {
-				this.set('isEditorLoading', false);
+				this.set('editorState.isLoading', false);
 			});
 		},
 	}

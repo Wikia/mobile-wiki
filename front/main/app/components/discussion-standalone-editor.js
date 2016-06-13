@@ -7,8 +7,6 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 
 	currentUser: Ember.inject.service(),
 
-	// TODO error message
-
 	actions: {
 		submit() {
 			if (!this.get('submitDisabled')) {

@@ -1,18 +1,14 @@
 {{#if responsive.isMobile}}
-	{{#modal-dialog
-		class='is-bare is-desktop-centered discussion-editor-dialog'
-		closeOnOverlayClick=false
-		isVisible=isEditorOpen
+	{{discussion-standalone-editor
+		create=(action 'createPost')
+		errorMessage=editorState.errorMessage
+		generateOpenGraph=(route-action 'generateOpenGraph')
+		isLoading=editorState.isLoading
+		isVisible=editorState.isOpen
+		setEditorActive=(action 'setEditorActive')
 	}}
-		{{discussion-standalone-editor
-			create=(action 'createPost')
-			errorMessage=editorErrorMessage
-			generateOpenGraph=(route-action 'generateOpenGraph')
-			isLoading=isEditorLoading
-			setEditorActive=(action 'setEditorActive')
-		}}
-	{{/modal-dialog}}
 {{/if}}
+
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	model=model.data
@@ -25,11 +21,9 @@
 		approve=(action 'approve')
 		createPost=(action 'createPost')
 		deletePost=(action 'deletePost')
-		editorErrorMessage=editorErrorMessage
+		editorState=editorState
 		editPost=(action 'editPost')
 		generateOpenGraph=(route-action 'generateOpenGraph')
-		isEditorLoading=isEditorLoading
-		isEditorOpen=isEditorOpen
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
 		minorError=model.data.minorError
