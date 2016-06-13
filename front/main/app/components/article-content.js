@@ -4,6 +4,9 @@ import {getRenderComponentFor, queryPlaceholders} from '../utils/render-componen
 import {track, trackActions} from 'common/utils/track';
 import {getGroup, inGroup} from 'common/modules/abtest';
 
+import FandomPostsModel from '../models/fandom-posts';
+import TopLinksModel from '../models/top-links';
+
 /**
  * HTMLElement
  * @typedef {Object} HTMLElement
@@ -51,6 +54,7 @@ export default Ember.Component.extend(
 					this.handleJumpLink();
 					this.injectPotentialMemberPageExperimentComponent();
 					this.bindHeaderClicks();
+					this.injectPlacementTest();
 				} else {
 					this.hackIntoEmberRendering(`<p>${i18n.t('app.article-empty-label')}</p>`);
 				}
@@ -549,6 +553,89 @@ export default Ember.Component.extend(
 
 					$element.wrap(wrapper);
 				});
+		},
+
+		/**
+		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_PLACEMENT AB TEST
+		 *
+		 * @returns {void}
+		 */
+		injectPlacementTest() {
+			const experimentName = 'RECIRCULATION_MERCURY_PLACEMENT',
+				group = getGroup(experimentName);
+
+			let view, component, model, location,
+				externalLink = false;
+
+			if (Ember.get(Mercury, 'wiki.language.content') !== 'en') {
+				return;
+			}
+
+			switch (group) {
+				case 'CONTROL':
+					component = this.createComponentInstance('recirculation/footer');
+					model = FandomPostsModel.create();
+					location = Ember.$('.article-footer');
+					externalLink = true;
+					break;
+				/**
+				 * To be thrown away after E3
+				 */
+				case 'E3_INCONTENT':
+					component = this.createComponentInstance('recirculation/incontent');
+					model = FandomPostsModel.create({
+						type: 'e3',
+						moreHref: 'http://fandom.wikia.com/articles/category/events/e3-2016'
+					});
+					location = this.$('h2:nth-of-type(2)').prev();
+					externalLink = true;
+					break;
+				case 'LINKS_INCONTENT':
+					component = this.createComponentInstance('recirculation/incontent');
+					model = TopLinksModel.create({
+						article: this
+					});
+					location = this.$('h2:nth-of-type(2)').prev();
+					break;
+				case 'LINKS_FOOTER':
+					component = this.createComponentInstance('recirculation/footer');
+					model = TopLinksModel.create({
+						article: this,
+						style: 'landscape'
+					});
+					location = Ember.$('.article-footer');
+					break;
+				case 'FANDOM_INCONTENT':
+					component = this.createComponentInstance('recirculation/incontent');
+					model = FandomPostsModel.create({
+						thumbSize: 'medium'
+					});
+					location = this.$('h2:nth-of-type(2)').prev();
+					externalLink = true;
+					break;
+				case 'FANDOM_FOOTER':
+					component = this.createComponentInstance('recirculation/footer');
+					model = FandomPostsModel.create();
+					location = Ember.$('.article-footer');
+					externalLink = true;
+					break;
+				default:
+					break;
+			}
+
+			if (component && model && location.length !== 0) {
+				view = this.createChildView(component, {
+					model,
+					experimentName,
+					externalLink
+				});
+				view.createElement();
+				model.load();
+
+				location.after(view.$());
+				view.trigger('didInsertElement');
+				view.trackImpression();
+			}
 		},
 
 		/**
