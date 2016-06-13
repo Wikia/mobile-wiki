@@ -4,10 +4,11 @@
 	color: $color-gray-dark;
 	display: flex;
 	font-size: 16px;
+	left: 0;
 	padding: 20px;
 	position: fixed;
+	right: 0;
 	top: 0;
-	width: 100%;
 	z-index: $z-modal-dialog;
 
 	.modal-dialog {
