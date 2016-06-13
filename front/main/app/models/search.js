@@ -36,6 +36,7 @@ export default Object.extend({
 
 			return this.fetch(this.get('query'));
 		}
+
 		return false;
 	},
 

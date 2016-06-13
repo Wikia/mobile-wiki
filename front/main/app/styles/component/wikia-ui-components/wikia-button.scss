@@ -1,8 +1,9 @@
 $wikia-button-height: 48px;
+$wikia-button-wrapper-spacing: 18px;
 
 .wikia-button-wrapper {
+	padding: $wikia-button-wrapper-spacing $wikia-button-wrapper-spacing 25px;
 	width: 100%;
-	padding: 18px 18px 25px 18px;
 }
 
 .wikia-button {
