@@ -2,7 +2,7 @@ import Ember from 'ember';
 import AdsMixin from '../mixins/ads';
 import {getRenderComponentFor, queryPlaceholders} from '../utils/render-component';
 import {track, trackActions} from 'common/utils/track';
-import {getGroup, inGroup} from 'common/modules/abtest';
+import {inGroup} from 'common/modules/abtest';
 
 /**
  * HTMLElement
@@ -44,8 +44,6 @@ export default Ember.Component.extend(
 					this.createTableOfContents();
 					this.createContributionButtons();
 					this.handleTables();
-					// TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
-					this.handleNavigation();
 					this.replaceWikiaWidgetsWithComponents();
 					this.handleWikiaWidgetWrappers();
 					this.handleJumpLink();
@@ -600,38 +598,6 @@ export default Ember.Component.extend(
 
 			article.innerHTML = content;
 			return article.childNodes;
-		},
-
-		/**
-		 * TODO: to be removed as a part of https://wikia-inc.atlassian.net/browse/DAT-4186
-		 * by default all block navigation elements are now hidden in css by display:none;
-		 * according to current test group we want to un-hide some of the elements:
-		 *  - only navigation elements
-		 *  - only navboxes
-		 *  - both of them
-		 *
-		 * @returns {void}
-		 */
-		handleNavigation() {
-			let navABTestGroup = getGroup('MERCURY_NAVIGATION_ELEMENTS'),
-				dataTypeSelector;
-
-			// display only navboxes
-			if (navABTestGroup === 'NAVIGATION_HIDDEN') {
-				dataTypeSelector = '[data-type=navbox]';
-			// display only navigation
-			} else if (navABTestGroup === 'NAVBOXES_HIDDEN') {
-				dataTypeSelector = '[data-type=navigation]';
-			// display all of them
-			} else if (navABTestGroup === 'BOTH_SHOWN') {
-				dataTypeSelector = '[data-type^=nav]';
-			}
-
-			if (dataTypeSelector) {
-				this.$(dataTypeSelector).each((index, element) => {
-					element.style.display = 'block';
-				});
-			}
 		},
 
 		/**
