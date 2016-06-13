@@ -10,6 +10,21 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 	isEdit: Ember.computed.notEmpty('editEntity'),
 	editEntity: null,
 
+	editEntityObserver: Ember.observer('editEntity', function () {
+		const editEntity = this.get('editEntity');
+
+		this.setProperties({
+			content: editEntity.get('rawContent'),
+			openGraph: editEntity.get('openGraph'),
+			showsOpenGraphCard: Boolean(editEntity.get('openGraph'))
+		});
+
+		Ember.run.scheduleOnce('afterRender', this, () => {
+			// This needs to be triggered after Ember updates textarea content
+			this.$('.discussion-standalone-editor-textarea').get(0).setSelectionRange(0, 0);
+		});
+	}),
+
 	textAreaId: Ember.computed('isEdit', function () {
 		if (this.get('isEdit')) {
 			return "discussion-standalone-edit-editor-textarea";
