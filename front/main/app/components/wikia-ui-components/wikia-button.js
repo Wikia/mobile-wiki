@@ -21,6 +21,7 @@ export default Component.extend(
 			 * Handles click event on button - calls proper action if passed
 			 * and tracks this click.
 			 *
+			 * @param {Event} event
 			 * @returns {void}
 			 */
 			onButtonClick(event) {
