@@ -16,14 +16,14 @@
 		</div>
 		{{#if showsOpenGraphCard}}
 			{{discussion-open-graph
-			close=(action 'removeOpenGraph')
-			isLoading=isOpenGraphLoading
-			openGraphData=openGraph
+				close=(action 'removeOpenGraph')
+				isLoading=isOpenGraphLoading
+				openGraphData=openGraph
 			}}
 		{{/if}}
 	</div>
 	<div class="discussion-inline-editor-toolbar">
-		<button class="active-element-theme-color" type="submit" {{action 'submit' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
+		<button class="active-element-theme-color discussion-inline-editor-submit" type="submit" {{action 'submit' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
 	</div>
 
 	{{#if isLoading}}

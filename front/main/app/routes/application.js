@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
 import getLinkInfo from '../utils/article-link';
-import Ads from 'common/modules/ads';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
 import ResponsiveMixin from '../mixins/responsive';
 import {normalizeToUnderscore} from 'common/utils/string';
@@ -27,6 +26,8 @@ export default Route.extend(
 			}
 		},
 
+		adsState: Ember.inject.service(),
+
 		actions: {
 			/**
 			 * @returns {void}
@@ -47,6 +48,7 @@ export default Route.extend(
 				if (this.controller) {
 					this.controller.set('isLoading', false);
 				}
+				this.get('adsState.module').onTransition();
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
@@ -233,13 +235,12 @@ export default Route.extend(
 		 * @returns {void}
 		 */
 		activate() {
-			const instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
-			let adsInstance;
+			const adsModule = this.get('adsState.module'),
+				instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
 
 			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') &&
 				!instantGlobals.wgSitewideDisableAdsOnMercury) {
-				adsInstance = Ads.getInstance();
-				adsInstance.init(M.prop('adsUrl'));
+				adsModule.init(M.prop('adsUrl'));
 
 				/*
 				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
@@ -249,7 +250,7 @@ export default Route.extend(
 				 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
 				 * lightboxVisible=false and then decide if we want to show it.
 				 */
-				adsInstance.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
+				adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
 					const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
 
 					if (!closeButtonDelay) {
@@ -259,8 +260,12 @@ export default Route.extend(
 					this.send(actionName, 'ads', {contents}, closeButtonDelay);
 				};
 
-				adsInstance.showLightbox = () => {
+				adsModule.showLightbox = () => {
 					this.send('showLightbox');
+				};
+
+				adsModule.setSiteHeadOffset = (offset) => {
+					this.set('adsState.siteHeadOffset', offset);
 				};
 			}
 		},

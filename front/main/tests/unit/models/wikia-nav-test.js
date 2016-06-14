@@ -64,7 +64,9 @@ test('test zero state with values from api', (assert) => {
 				},
 				{
 					name: 'app.explore-wiki',
-					type: 'nav-menu-header'
+					type: 'nav-menu-header',
+					route: 'wiki-page',
+					href: ''
 				},
 				{
 					route: 'recent-wiki-activity',
@@ -119,7 +121,9 @@ test('test zero state with values from api', (assert) => {
 				},
 				{
 					name: 'app.explore-wiki',
-					type: 'nav-menu-header'
+					type: 'nav-menu-header',
+					route: 'wiki-page',
+					href: ''
 				},
 				{
 					type: 'nav-menu-item',
@@ -172,7 +176,9 @@ test('test zero state with values from api', (assert) => {
 				},
 				{
 					name: 'app.explore-wiki',
-					type: 'nav-menu-header'
+					type: 'nav-menu-header',
+					route: 'wiki-page',
+					href: ''
 				},
 				{
 					route: 'recent-wiki-activity',

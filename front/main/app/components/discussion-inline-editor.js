@@ -8,6 +8,7 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 	attributeBindings: ['style'],
 	classNames: ['discussion-inline-editor'],
 	classNameBindings: ['isSticky', 'isActive'],
+	tagName: 'form',
 
 	currentUser: Ember.inject.service(),
 
@@ -16,7 +17,7 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 	/**
 	 * Set right height for editor placeholder when editor gets sticky
 	 *
-	 * @returns {void}
+	 * @returns {Ember.String.htmlSafe}
 	 */
 	style: Ember.computed('isSticky', function () {
 		if (this.get('isSticky')) {
@@ -35,10 +36,8 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 		Ember.run.throttle(
 			this,
 			function () {
-				// we can't change it to
-				// this.set('isSticky', !this.get('isSticky') && this.isStickyBreakpointHeight())
-				// because it is important to fire the set method only when it's necessary, because there is observer
-				// that watches isSticky changes (and it is fired on every set)
+				// It is important to fire the set method only when it's necessary,
+				// because it has performance implications
 				if (!this.get('isSticky') && this.isStickyBreakpointHeight()) {
 					this.set('isSticky', true);
 				} else if (this.get('isSticky') && !this.isStickyBreakpointHeight()) {

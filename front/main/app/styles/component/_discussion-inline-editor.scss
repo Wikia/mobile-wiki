@@ -37,19 +37,19 @@ $editor-toolbar-height: 40px;
 			position: fixed;
 			top: $site-head-height;
 			width: $sticky-editor-width;
-			z-index: 1;
+			z-index: $z-discussion-sticky-editor;
 		}
 	}
 
-	button {
+	.discussion-inline-editor-submit {
 		background: none;
 		border: 0;
 		font-size: $type-smallest;
-		font-weight: bold;
-		height: $editor-toolbar-height;
+		font-weight: $font-weight-bold;
 		letter-spacing: .25px;
+		line-height: $editor-toolbar-height;
 		margin: 0;
-		padding: 0 1.25rem;
+		padding: 0 20px;
 		text-transform: uppercase;
 	}
 
@@ -67,7 +67,6 @@ $editor-toolbar-height: 40px;
 		border: 0;
 		border-bottom: 1px solid $secondary-color;
 		border-radius: 0;
-		-webkit-font-smoothing: subpixel-antialiased;
 		height: 45px;
 		margin: 0 17px 10px 0;
 		min-height: 45px;
