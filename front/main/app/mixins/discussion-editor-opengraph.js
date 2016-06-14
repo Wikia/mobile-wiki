@@ -113,12 +113,12 @@ export default Ember.Mixin.create({
 
 				track(trackActions.OGCreated);
 			}).catch(() => {
-			this.setProperties({
-				openGraph: null,
-				isOpenGraphLoading: false,
-				showsOpenGraphCard: false,
+				this.setProperties({
+					openGraph: null,
+					isOpenGraphLoading: false,
+					showsOpenGraphCard: false,
+				});
 			});
-		});
 	},
 
 	actions: {

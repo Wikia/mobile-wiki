@@ -26,16 +26,15 @@ export default Ember.Mixin.create({
 	 *
 	 * @param {string} editorType type of editor - available 'contributeEditor' and 'editEditor'
 	 *
-	 * @returns object
+	 * @returns {object}
 	 */
 	getEditorState(editorType) {
 		if (editorType === 'contributeEditor') {
 			return this.get('editorState');
 		} else if (editorType === 'editEditor') {
 			return this.get('editEditorState');
-		}
-		else {
-			throw `Editor type not supported: ${editorType}`;
+		} else {
+			throw new Error(`Editor type not supported: ${editorType}`);
 		}
 	},
 
@@ -43,6 +42,8 @@ export default Ember.Mixin.create({
 	 * Set editor active state
 	 *
 	 * @param {string} editorType editor type, available types see: getEditorState
+	 *
+	 * @returns {void}
 	 */
 	activateEditor(editorType) {
 		const editorState = this.getEditorState(editorType);
@@ -147,9 +148,11 @@ export default Ember.Mixin.create({
 		 * Sets discussion entity for editor
 		 *
 		 * @param {DiscussionEntity} discussionEntity
+		 *
+		 * @returns {void}
 		 */
 		setEditDiscussionEntity(discussionEntity) {
-			this.set('editEditorState.discussionEntity', discussionEntity)
+			this.set('editEditorState.discussionEntity', discussionEntity);
 		},
 
 		/**
