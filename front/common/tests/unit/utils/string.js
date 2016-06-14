@@ -70,7 +70,7 @@ QUnit.module('mercury/utils/string', function () {
 				},
 			];
 
-		testCases.forEach((testCase) => {
+		testCases.forEach(function (testCase) {
 			assert.equal(string.getLastUrlFromText(testCase.blockOfText), testCase.expected);
 		});
 	});
