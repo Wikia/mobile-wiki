@@ -17,17 +17,19 @@ export default Controller.extend({
 			wouldn't be clean solution as well.
 		*/
 		run.scheduleOnce('afterRender', this, () => {
+			this.set('inputPhrase', this.get('query'));
 			this.set('inputField', $('.side-search__input'));
 		});
 	},
 
 	actions: {
 		onSearchEnter(query) {
+			this.set('inputPhrase', query);
 			this.set('query', query);
 		},
 
 		onErrorPageClick() {
-			this.set('query', '');
+			this.set('inputPhrase', '');
 			this.get('inputField').focus();
 		}
 	}
