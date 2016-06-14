@@ -174,7 +174,7 @@ body.discussions {
 		.report-details-list {
 			list-style-type: none;
 			margin: 0;
-			padding: 0 20px 10px 16px;
+			padding: 0 20px 5px 16px;
 
 			li {
 				display: block;
@@ -199,6 +199,7 @@ body.discussions {
 			.avatar-username {
 				border-bottom: solid 1px $discussion-reported-details-list-border-color;
 				line-height: 58px;
+				max-width: none;
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
