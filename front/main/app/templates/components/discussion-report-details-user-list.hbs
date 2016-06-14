@@ -1,15 +1,17 @@
-<a href="#" class="close" {{action this.attrs.close bubbles=false}}>
-	{{svg 'close' class="fill-theme-color" viewBox='0 0 18 18'}}
-</a>
-{{i18n 'main.reports_number' count=reportDetails.count ns='discussion'}}
-<ul>
-{{#each reportDetails.users as |user|}}
-	<li>
-		{{user-avatar
-			avatarUrl=user.avatarUrl
-			displayProfileName=true
-			username=user.name
-		}}
-	</li>
-{{/each}}
+<div class="report-details-header">
+	<a href="#" class="report-details-close" {{action this.attrs.close bubbles=false}}>
+		{{svg 'close' class="fill-theme-color" viewBox='0 0 16 16'}}
+	</a>
+	<h5>{{i18n 'main.reports_number' count=reportDetails.count ns='discussion'}}</h5>
+</div>
+<ul class="report-details-list">
+	{{#each reportDetails.users as |user|}}
+		<li>
+			{{user-avatar
+				avatarUrl=user.avatarUrl
+				displayProfileName=true
+				username=user.name
+			}}
+		</li>
+	{{/each}}
 </ul>

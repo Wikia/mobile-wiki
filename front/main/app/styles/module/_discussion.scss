@@ -141,6 +141,45 @@ body.discussions {
 			min-width: 85px;
 			text-align: right;
 		}
+
+		.report-details-header {
+			border-bottom: $discussion-reported-details-header-border-color 1px solid;
+			min-height: 48px;
+
+			h5 {
+				font-size: 16px;
+				margin: auto 48px;
+				padding: 10px 0px;
+				text-align: center;
+			}
+		}
+
+		.report-details-close {
+			display: inline-block;
+			height: 42px;
+			margin: 0px;
+			padding: 10px;
+			position: absolute;
+			width: 42px;
+		}
+
+		.report-details-list {
+			list-style-type: none;
+			padding: 8px 20px 8px 16px;
+
+			img {
+				height: 40px;
+				width: 40px;
+			}
+
+			.avatar-username {
+				border-bottom: solid 1px #cccccc;
+
+				:last-child {
+					border-bottom: none;
+				}
+			}
+		}
 	}
 
 	.avatar {
