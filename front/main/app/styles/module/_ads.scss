@@ -42,8 +42,17 @@ $ad-background: rgb(44, 52, 61);
 		padding: 10px 0;
 	}
 
-	&.bfab-template .ad-slot {
+	.bfab-template {
 		padding: 0;
+		position: relative;
+
+		iframe {
+			height: 100%;
+			left: 0;
+			position: absolute;
+			width: 100%;
+			top: 0;
+		}
 	}
 }
 
