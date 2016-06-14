@@ -178,7 +178,7 @@ body.discussions {
 
 			li {
 				display: block;
-				height: 58px;
+				height: 48px;
 			}
 
 			.avatar {
@@ -187,8 +187,8 @@ body.discussions {
 				margin-top: 9px;
 
 				img, svg {
-					height: 42px;
-					width: 42px;
+					height: 30px;
+					width: 30px;
 				}
 			}
 
@@ -198,7 +198,7 @@ body.discussions {
 
 			.avatar-username {
 				border-bottom: solid 1px $discussion-reported-details-list-border-color;
-				line-height: 58px;
+				line-height: 48px;
 				max-width: none;
 				overflow: hidden;
 				text-overflow: ellipsis;
@@ -206,7 +206,7 @@ body.discussions {
 				width: 100%;
 
 				a {
-					line-height: 58px;
+					line-height: 48px;
 					width: 100%;
 				}
 			}
@@ -735,6 +735,33 @@ body.discussions {
 		.discussion-content {
 			font-size: $desktop-content-font-size;
 			line-height: $desktop-content-line-height;
+		}
+
+		.report-details-modal {
+			.report-details-header {
+				h5 {
+					font-size: 16px;
+				}
+			}
+
+			.report-details-list {
+				padding-bottom: 10px;
+
+				.avatar {
+					img, svg {
+						height: 42px;
+						width: 42px;
+					}
+				}
+
+				.avatar-username {
+					line-height: 58px;
+
+					a {
+						line-height: 58px;
+					}
+				}
+			}
 		}
 
 		&.post {
