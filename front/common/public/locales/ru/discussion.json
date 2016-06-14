@@ -23,14 +23,12 @@
     "sort-by-latest":"Последние",
     "sort-by-trending":"Популярные",
     "loading-more-posts":"Загрузка сообщений",
-    "back-to-wikia-link":"Назад на вики",
     "number-of-posts":"__numberOfPosts__ записей",
     "connection-error":"Ошибка подключения. Пожалуйста, попробуйте позже.",
     "not-found-error":"Страницы не существует.",
     "action-retry-title":"Попробовать снова",
     "all-discussions-link-desktop":"Показать все обсуждения",
     "all-discussions-link-mobile":"Все обсуждения",
-    "discussions-app-join":"Оставайтесь на связи где угодно. Установите приложение сейчас!",
     "back-to-discussions-link":"Все обсуждения",
     "no-replies":"Ответов пока нет.",
     "no-replies-be-the-first":"Ответов пока нет. Оставьте свой ответ первыми!",
@@ -86,7 +84,11 @@
     "categories-show-less-button-label":"Показать меньше",
     "filter-posts-header":"Фильтр сообщений",
     "filter-reset-label":"Сбросить",
-    "in-category-label":"В __categoryName__"
+    "in-category-label":"В __categoryName__",
+    "app-promotion-text":"Возьмите ваш фэндом с собой — скачайте приложение сегодня!",
+    "app-promotion-text-details-page":"Оставайтесь на связи где угодно. Установите приложение сейчас!",
+    "wiki-home":"Заглавная страница",
+    "discussion-guidelines":"Правила"
   },
   "editor":{
     "post-failed-error":"Не удалось записать сообщение.",

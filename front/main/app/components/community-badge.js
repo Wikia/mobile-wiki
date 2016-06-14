@@ -143,5 +143,5 @@ export default Ember.Component.extend({
 		);
 	}),
 
-	wikiName: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
+	wikiName: Ember.get(Mercury, 'wiki.siteName')
 });

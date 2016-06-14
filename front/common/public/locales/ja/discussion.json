@@ -23,14 +23,12 @@
     "sort-by-latest":"最新",
     "sort-by-trending":"人気",
     "loading-more-posts":"他の投稿を読み込んでいます",
-    "back-to-wikia-link":"コミュニティへ",
     "number-of-posts":"投稿__numberOfPosts__件",
     "connection-error":"接続できません。もう一度お試しください。",
     "not-found-error":"このページは存在しないようです。",
     "action-retry-title":"再試行",
     "all-discussions-link-desktop":"すべてのトークを表示",
     "all-discussions-link-mobile":"すべてのトーク",
-    "discussions-app-join":"いつでもどこでも最新情報をチェック！今すぐアプリをゲットしよう！",
     "back-to-discussions-link":"すべてのトーク",
     "no-replies":"まだ返信はありません。",
     "no-replies-be-the-first":"まだ返信はありません。最初の返信を投稿してみましょう！",
@@ -86,7 +84,11 @@
     "categories-show-less-button-label":"表示を減らす",
     "filter-posts-header":"投稿をフィルタする",
     "filter-reset-label":"リセット",
-    "in-category-label":"カテゴリ名:__categoryName__"
+    "in-category-label":"カテゴリ名:__categoryName__",
+    "app-promotion-text":"ファンダムといつでもどこでも。アプリをダウンロードしよう！",
+    "app-promotion-text-details-page":"いつでもどこでも最新情報をチェック！今すぐアプリをゲットしよう！",
+    "wiki-home":"ウィキ・ホーム",
+    "discussion-guidelines":"トーク・ガイドライン"
   },
   "editor":{
     "post-failed-error":"投稿できませんでした。",

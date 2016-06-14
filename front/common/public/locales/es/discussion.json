@@ -23,14 +23,12 @@
     "sort-by-latest":"Más recientes",
     "sort-by-trending":"Tendencias",
     "loading-more-posts":"Cargando más discusiones",
-    "back-to-wikia-link":"A la wikia",
     "number-of-posts":"__numberOfPosts__ discusiones",
     "connection-error":"No se puede conectar, por favor inténtalo de nuevo.",
     "not-found-error":"¡Uh oh, parece que esta página no existe!",
     "action-retry-title":"Volver a intentar",
     "all-discussions-link-desktop":"Muéstrame todas las discusiones",
     "all-discussions-link-mobile":"Todas las discusiones",
-    "discussions-app-join":"Mantente al día de lo que ocurre. ¡Obtén la aplicación ahora!",
     "back-to-discussions-link":"Todas las discusiones",
     "no-replies":"No hay respuestas aún.",
     "no-replies-be-the-first":"No hay respuestas aún. ¡Se el primero!",
@@ -86,7 +84,11 @@
     "categories-show-less-button-label":"Mostrar Menos",
     "filter-posts-header":"Filtrar discusiones",
     "filter-reset-label":"Reiniciar",
-    "in-category-label":"En __categoryName__"
+    "in-category-label":"En __categoryName__",
+    "app-promotion-text":"¡Lleva tu fandom contigo, descarga la aplicación hoy!",
+    "app-promotion-text-details-page":"Mantente al día de lo que ocurre. ¡Obtén la aplicación ahora!",
+    "wiki-home":"Portada",
+    "discussion-guidelines":"Guía comunitaria"
   },
   "editor":{
     "post-failed-error":"Fallo en discusión.",

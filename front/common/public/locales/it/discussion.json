@@ -23,14 +23,12 @@
     "sort-by-latest":"Più recenti",
     "sort-by-trending":"In Trend",
     "loading-more-posts":"Altri post in corso di caricamento",
-    "back-to-wikia-link":"Alla Wiki",
     "number-of-posts":"__numberOfPosts__ Post",
     "connection-error":"Impossibile connettersi. Riprova.",
     "not-found-error":"Ops! Sembra che questa pagina non esista!",
     "action-retry-title":"Riprova",
     "all-discussions-link-desktop":"Mostra tutti i forum",
     "all-discussions-link-mobile":"Tutti i forum",
-    "discussions-app-join":"Resta aggiornato mentre sei in giro. Scarica subito l'app!",
     "back-to-discussions-link":"Tutti i forum",
     "no-replies":"Ancora nessuna risposta.",
     "no-replies-be-the-first":"Ancora nessuna risposta. Sii il primo!",
@@ -86,7 +84,11 @@
     "categories-show-less-button-label":"Mostra di meno",
     "filter-posts-header":"Filtra post",
     "filter-reset-label":"Reset",
-    "in-category-label":"In __categoryName__"
+    "in-category-label":"In __categoryName__",
+    "app-promotion-text":"Porta con te il tuo fandom, scarica l'app oggi stesso!",
+    "app-promotion-text-details-page":"Resta aggiornato mentre sei in giro. Scarica subito l'app!",
+    "wiki-home":"Home wiki",
+    "discussion-guidelines":"Linee guida di discussione"
   },
   "editor":{
     "post-failed-error":"Post non pubblicato",
