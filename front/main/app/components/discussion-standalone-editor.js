@@ -8,6 +8,9 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 	currentUser: Ember.inject.service(),
 
 	isEdit: Ember.computed.notEmpty('editEntity'),
+	editorType: Ember.computed('idEdit', function () {
+		return this.get('isEdit') ? 'editEditor' : 'contributeEditor';
+	}),
 	editEntity: null,
 
 	editEntityObserver: Ember.observer('editEntity', function () {
@@ -42,7 +45,6 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 		},
 
 		submit() {
-			// TODO add UI success state and closing
 			if (!this.get('submitDisabled')) {
 				const discussionEntityData = {
 					body: this.get('content'),

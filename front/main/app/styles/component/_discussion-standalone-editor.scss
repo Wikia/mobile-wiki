@@ -1,10 +1,13 @@
-$modal-editor-width: 520px;
 $editor-toolbar-height: 41px;
+$modal-editor-width: 520px;
+$success-icon-size: 80px;
 
 .discussion-standalone-editor {
 	background-color: $discussion-editor-background-color;
 	display: flex;
 	flex-direction: column;
+	flex-grow: 1;
+	position: relative;
 	z-index: $z-discussion-editor;
 
 	.discussion-standalone-editor-toolbar {
@@ -63,6 +66,24 @@ $editor-toolbar-height: 41px;
 		}
 	}
 
+	.loading-overlay {
+		height: 100%;
+		position: absolute;
+
+		.spinner {
+			margin-top: -32px;
+		}
+
+		.success {
+			display: block;
+			height: $success-icon-size;
+			margin: - $success-icon-size / 2 auto 0;
+			position: relative;
+			top: 50%;
+			width: $success-icon-size;
+		}
+	}
+
 	span {
 		&.error {
 			animation: error-slide-in .6s ease-in-out 1, error-slide-out .6s ease-in-out 2.4s;
@@ -87,6 +108,7 @@ $editor-toolbar-height: 41px;
 	.discussion-editor-dialog {
 		.modal-dialog {
 			align-self: flex-start;
+			display: flex;
 			height: 350px;
 			margin-top: 66px;
 			max-width: $modal-editor-width;

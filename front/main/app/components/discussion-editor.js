@@ -15,6 +15,7 @@ export default Ember.Component.extend({
 
 	showSuccess: false,
 	isLoading: false,
+	editorType: 'contributeEditor',
 
 	// TODO update actions
 	// Tracking action name of closing the editor
@@ -39,12 +40,28 @@ export default Ember.Component.extend({
 		}
 	}),
 
+	onIsLoading: Ember.observer('isLoading', function () {
+		if (!this.get('isLoading')) {
+			this.set('showSuccess', true);
+
+			Ember.run.later(this, 'afterSuccess', 2000);
+		}
+	}),
+
 	/**
 	 * @returns {boolean}
 	 */
 	submitDisabled: Ember.computed('content', 'currentUser.userId', function () {
 		return this.get('content').length === 0 || this.get('currentUser.userId') === null;
 	}),
+
+	afterSuccess() {
+		this.setProperties({
+			content: '',
+			showSuccess: false,
+		});
+		this.sendAction('setEditorActive', this.get('editorType'), false);
+	},
 
 	actions: {
 		handleKeyPress() {

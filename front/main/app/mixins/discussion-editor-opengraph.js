@@ -121,6 +121,15 @@ export default Ember.Mixin.create({
 			});
 	},
 
+	afterSuccess() {
+		this._super();
+
+		this.setProperties({
+			openGraph: null,
+			showsOpenGraphCard: false,
+		});
+	},
+
 	actions: {
 		/**
 		 * Hides open graph card and removes it's data from the editor
