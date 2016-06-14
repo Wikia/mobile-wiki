@@ -1,0 +1,41 @@
+<div class="discussion-inline-editor-floating-container">
+	<div class="discussion-inline-editor-content-wrapper">
+		<div class="discussion-inline-editor-textarea-wrapper">
+			{{user-avatar
+				avatarUrl=currentUser.avatarPath
+				shouldWrapInHref=false
+			}}
+			{{textarea
+				autoresize=true
+				class="discussion-inline-editor-textarea"
+				placeholder=(i18n placeholderMessageKey ns='discussion')
+				value=content
+			}}
+		</div>
+		{{#if showsOpenGraphCard}}
+			{{discussion-open-graph
+				close=(action 'removeOpenGraph')
+				isLoading=isOpenGraphLoading
+				openGraphData=openGraph
+			}}
+		{{/if}}
+	</div>
+	<div class="discussion-inline-editor-toolbar">
+		<button class="active-element-theme-color discussion-inline-editor-submit" type="submit" {{action 'submit' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
+	</div>
+
+	{{#if isLoading}}
+		{{loading-spinner
+			active=isLoading
+			radius=32
+			strokeWidth=2
+		}}
+	{{/if}}
+
+	{{#if showSuccess}}
+		<div class="loading-overlay">
+			{{svg 'success' class='success' viewBox='0 0 80 80'}}
+		</div>
+	{{/if}}
+	{{! TODO error state}}
+</div>
