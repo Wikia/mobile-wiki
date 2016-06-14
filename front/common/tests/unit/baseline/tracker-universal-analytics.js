@@ -161,6 +161,30 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 		M.tracker.UniversalAnalytics.destroy();
 	});
 
+	QUnit.test('Update url without query param- do not track param', function (assert) {
+		M.tracker.UniversalAnalytics.initialize({});
+		M.tracker.UniversalAnalytics._updateTrackedUrl('bla');
+		assert.ok(queueContains(['set', 'page', '/bla']));
+
+		M.tracker.UniversalAnalytics.destroy();
+	});
+
+	QUnit.test('Update search url with query param- track param', function (assert) {
+		M.tracker.UniversalAnalytics.initialize({});
+		M.tracker.UniversalAnalytics._updateTrackedUrl('search?query=bla');
+		assert.ok(queueContains(['set', 'page', '/search?query=bla']));
+
+		M.tracker.UniversalAnalytics.destroy();
+	});
+
+	QUnit.test('Update url with query param- do not track param', function (assert) {
+		M.tracker.UniversalAnalytics.initialize({});
+		M.tracker.UniversalAnalytics._updateTrackedUrl('test?query=bla');
+		assert.ok(queueContains(['set', 'page', '/test']));
+
+		M.tracker.UniversalAnalytics.destroy();
+	});
+
 	QUnit.test('Track ads-related event', function (assert) {
 		M.tracker.UniversalAnalytics.initialize({});
 		M.tracker.UniversalAnalytics.trackAds('testCategory', 'testAction', 'testLabel', 0, true);

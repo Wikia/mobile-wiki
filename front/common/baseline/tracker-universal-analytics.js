@@ -281,8 +281,9 @@ if (typeof window.M.tracker === 'undefined') {
 			const prefix = getPrefix(account);
 
 			// add query param to url when on search page
-			ga(`${prefix}set`, 'page', location.pathname.indexOf('/search') === 0
-				? location.pathname + getQueryParam(location.search) : location.pathname);
+			ga(`${prefix}set`, 'page', location.pathname.indexOf('/search') === 0 ?
+				location.pathname + location.search :
+				location.pathname);
 		});
 	}
 
@@ -485,6 +486,7 @@ if (typeof window.M.tracker === 'undefined') {
 		// expose internals for unit test
 		_setDimensions: setDimensions,
 		_getDimensionsSynced: getDimensionsSynced,
+		_updateTrackedUrl: updateTrackedUrl,
 		_dimensions: dimensions,
 	};
 })(M);
