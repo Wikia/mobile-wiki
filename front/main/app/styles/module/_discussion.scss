@@ -509,7 +509,7 @@ body.discussions {
 		}
 
 		&.is-new {
-			animation: post-fade-in 1s ease-in-out 1;
+			animation: post-hide 2s linear 1, post-fade-in 1s ease-in-out 2s 1;
 		}
 
 		&.is-locked {
@@ -768,6 +768,22 @@ body.discussions {
 			padding-left: 18px;
 			padding-right: 18px;
 		}
+	}
+}
+
+@keyframes post-hide {
+	from {
+		height: 0;
+		margin: 0;
+		overflow: hidden;
+		padding: 0;
+	}
+
+	to {
+		height: 0;
+		margin: 0;
+		overflow: hidden;
+		padding: 0;
 	}
 }
 

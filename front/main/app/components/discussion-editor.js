@@ -61,6 +61,7 @@ export default Ember.Component.extend({
 			showSuccess: false,
 		});
 		this.sendAction('setEditorActive', this.get('editorType'), false);
+		Ember.$('html, body').animate({scrollTop: 0});
 	},
 
 	actions: {
