@@ -30,13 +30,13 @@ $legend-font-size: 16px;
 }
 
 .discussion-filters-fields-wrapper {
+	max-height: 280px;
+	overflow: auto;
 	padding: 11px 20px 0;
 }
 
 .discussion-filters {
 	display: block;
-	max-height: 330px;
-	overflow: auto;
 	width: 280px;
 
 	.filters-apply-container {
