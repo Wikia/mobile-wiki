@@ -41,7 +41,7 @@ export default Ember.Component.extend({
 	/**
 	 * Set right height for editor placeholder when editor gets sticky
 	 *
-	 * @returns {void}
+	 * @returns {Ember.String.htmlSafe}
 	 */
 	style: Ember.computed('isSticky', function () {
 		if (this.get('isSticky')) {

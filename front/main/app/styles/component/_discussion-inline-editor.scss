@@ -33,11 +33,11 @@ $sticky-editor-width: 529px;
 			position: fixed;
 			top: $site-head-height;
 			width: $sticky-editor-width;
-			z-index: 1;
+			z-index: $z-discussion-sticky-editor;
 		}
 	}
 
-	button {
+	.discussion-inline-editor-submit {
 		background: none;
 		border: 0;
 		font-size: $type-smallest;
@@ -45,7 +45,7 @@ $sticky-editor-width: 529px;
 		height: 40px;
 		letter-spacing: .25px;
 		margin: 0;
-		padding: 0 1.25rem;
+		padding: 0 20px;
 		text-transform: uppercase;
 	}
 
