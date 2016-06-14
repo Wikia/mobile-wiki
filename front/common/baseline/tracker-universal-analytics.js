@@ -41,8 +41,8 @@ if (typeof window.M.tracker === 'undefined') {
 		accountAds = 'ads';
 
 	/**
-	 * We create new tracker instance every time mercury/utils/track #track or #trackPageView is
-	 * called Google wants us to call methods below just once per account
+	 * We create new tracker instance every time mercury/utils/track #track or #trackPageView is called
+	 * Google wants us to call methods below just once per account
 	 *
 	 * @param {string} id
 	 * @param {string} prefix
@@ -141,8 +141,7 @@ if (typeof window.M.tracker === 'undefined') {
 
 	/**
 	 * @param {UniversalAnalyticsDimensions} dimensionsToSet
-	 * @param {boolean} [overwrite=true] - overwrite all preexisting dimensions and unset ones not
-	 *     declared
+	 * @param {boolean} [overwrite=true] - overwrite all preexisting dimensions and unset ones not declared
 	 * @returns {void}
 	 */
 	function setDimensions(dimensionsToSet, overwrite) {
@@ -201,8 +200,7 @@ if (typeof window.M.tracker === 'undefined') {
 	/**
 	 * Tracks an event, using the parameters native to the UA send() method
 	 *
-	 * @see {@link
-	 *     https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference}
+	 * @see {@link https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference}
 	 *
 	 * @param {string} category - Event category.
 	 * @param {string} action - Event action.
@@ -236,8 +234,7 @@ if (typeof window.M.tracker === 'undefined') {
 
 	/**
 	 * Tracks an ads-related event
-	 * @see {@link
-	 *     https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference}
+	 * @see {@link https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference}
 	 *
 	 * @param {string} category - Event category.
 	 * @param {string} action - Event action.
@@ -263,6 +260,29 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
+	 * Extracts query param and its value from full query params string, returns empty string if query param was
+	 * not found
+	 *
+	 * Examples:
+	 * ?query=test&useskin=mercury -> ?query=test
+	 * ?one=two&three=four&query=test&five=six -> ?query=test
+	 *
+	 * @param {string} search query params string
+	 * @returns {string}
+	 */
+	function getQueryParam(search) {
+		const query = search
+			.replace(/^\?/, '')
+			.split('&')
+			.filter((param) => {
+				return param.indexOf('query=') === 0;
+			})
+			.reduce((p, c) => c, '');
+
+		return query ? `?${query}` : '';
+	}
+
+	/**
 	 * Updates current page
 	 *
 	 * from https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications :
@@ -282,21 +302,9 @@ if (typeof window.M.tracker === 'undefined') {
 
 			// add query param to url when on search page
 			ga(`${prefix}set`, 'page', location.pathname.indexOf('/search') === 0 ?
-				location.pathname + location.search :
+				location.pathname + getQueryParam(location.search) :
 				location.pathname);
 		});
-	}
-
-	function getQueryParam(search) {
-		const query = search
-			.replace(/^\?/, '')
-			.split('&')
-			.filter((param) => {
-				return param.indexOf('query=') === 0;
-			})
-			.reduce((p, c) => c, '');
-
-		return query ? `?${query}` : '';
 	}
 
 	/**
@@ -370,8 +378,7 @@ if (typeof window.M.tracker === 'undefined') {
 
 		const activeExperiments = isOptimizelyLoadedAndActive() ? window.optimizely.activeExperiments : null;
 
-		// UA integration code is also used in MediaWiki app - if you change it here, change it
-		// there too:
+		// UA integration code is also used in MediaWiki app - if you change it here, change it there too:
 		// https://github.com/Wikia/app/blob/dev/extensions/wikia/AnalyticsEngine/js/universal_analytics.js
 		if (activeExperiments) {
 			/**
