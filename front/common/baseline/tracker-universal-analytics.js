@@ -277,7 +277,9 @@ if (typeof window.M.tracker === 'undefined') {
 		tracked.forEach((account) => {
 			const prefix = getPrefix(account);
 
-			ga(`${prefix}set`, 'page', location.pathname);
+			// add query param to url when on search page
+			ga(`${prefix}set`, 'page', location.pathname.indexOf('/search') === 0
+				? location.pathname + location.search : location.pathname);
 		});
 	}
 
