@@ -146,9 +146,10 @@ body.discussions {
 	.report-details-modal {
 		.modal-dialog {
 			border-radius: 2px;
-			width: 400px;
+			width: 100%;
+			min-width: 320px;
+			max-width: 400px;
 		}
-
 
 		.report-details-header {
 			border-bottom: solid 1px $discussion-reported-details-header-border-color;
@@ -745,7 +746,9 @@ body.discussions {
 			}
 
 			.report-details-list {
-				padding-bottom: 10px;
+				li {
+					height: 58px;
+				}
 
 				.avatar {
 					img, svg {
