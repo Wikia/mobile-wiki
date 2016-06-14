@@ -21,7 +21,7 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 
 		Ember.run.scheduleOnce('afterRender', this, () => {
 			// This needs to be triggered after Ember updates textarea content
-			this.$('.discussion-standalone-editor-textarea').get(0).setSelectionRange(0, 0);
+			this.$('.discussion-standalone-editor-textarea').focus().get(0).setSelectionRange(0, 0);
 		});
 	}),
 
