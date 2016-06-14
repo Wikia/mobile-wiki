@@ -50,6 +50,10 @@ $nav-padding-horizontal: 6px;
 		margin-top: 0;
 		padding: 0 $nav-padding-vertical;
 
+		a {
+			top: 0;
+		}
+
 		&::before {
 			display: none;
 		}

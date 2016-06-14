@@ -25,6 +25,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads`), {
 				data: {
+					limit: 10,
 					page: this.get('data.pageNum'),
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
