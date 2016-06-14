@@ -6,8 +6,10 @@ $wikia-button-wrapper-spacing: 18px;
 	width: 100%;
 }
 
+// override default button styling
 .wikia-button,
-.wikia-button:hover {
+.wikia-button:hover,
+.wikia-button:focus {
 	background: transparent;
 	border: 1px solid $color-blue-light;
 	color: $color-blue-light;
