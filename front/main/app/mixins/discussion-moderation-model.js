@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import DiscussionContributor from '../models/discussion/domain/contributor';
 import ReportDetails from '../models/discussion/domain/report-details';
 
 const {Mixin} = Ember;
@@ -142,7 +143,7 @@ export default Mixin.create({
 
 		const entitiesReportDetails = {};
 
-		request(M.getDiscussionServiceUrl(`/${this.wikiId}/reports`), {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/reports`), {
 			data: {postId: reportedEntities.mapBy('id')},
 			method: 'GET',
 			traditional: true,
@@ -155,6 +156,43 @@ export default Mixin.create({
 				reportedEntity.set('reportDetails', entitiesReportDetails[reportedEntity.get('id')]);
 			});
 		}).catch();
+	},
+
+	/**
+	 * @typedef {Object} currentUserDataObject - data with user information
+	 * @property {string} avatarUrl - avatar url
+	 * @property {number} id - user id
+	 * @property {string} name - user name
+	 */
+
+	/**
+	 * Adds current user to entity reported details
+	 * @param {DiscussionEntity} entity
+	 * @param {currentUserDataObject} currentUserData
+	 *
+	 * @returns {ReportedDetails.Object}
+	 */
+	addReportDetailsUser(entity, currentUserData) {
+		const reportDetails = entity.get('reportDetails'),
+			currentContributor = DiscussionContributor.create({
+				avatarUrl: currentUserData.avatarPath,
+				id: currentUserData.userId,
+				name: currentUserData.name,
+			});
+
+		if (reportDetails !== null) {
+			reportDetails.get('users').pushObject(currentContributor);
+			reportDetails.incrementProperty('count');
+
+		} else {
+			entity.set('reportDetails',
+				ReportDetails.create({
+					count: 1,
+					postId: entity.get('id'),
+					userInfo: [currentContributor],
+				})
+			);
+		}
 	},
 
 	/**

@@ -5,6 +5,8 @@ const {Mixin, inject, set} = Ember;
 
 export default Mixin.create({
 	modalDialog: inject.service(),
+	currentUser: Ember.inject.service(),
+
 	/**
 	 * Get loading spinner container.
 	 * On post list it's post, on post-details it's applicationController to overlay entire page
@@ -109,9 +111,17 @@ export default Mixin.create({
 		 * @returns {void}
 		 */
 		report(item) {
+			const currentModel = this.modelFor(this.get('routeName'));
+
 			set(item, 'isLoading', true);
-			this.modelFor(this.get('routeName')).report(item).then(() => {
+			currentModel.report(item).then(() => {
 				set(item, 'isLoading', false);
+
+				currentModel.addReportDetailsUser(item, {
+					avatarUrl: this.get('currentUser.avatarPath'),
+					id: this.get('currentUser.userId'),
+					name: this.get('currentUser.name'),
+				});
 			});
 		},
 
