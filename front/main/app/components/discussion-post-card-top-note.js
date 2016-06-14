@@ -18,25 +18,40 @@ export default Ember.Component.extend({
 	 ** "a reply to userName, reported to moderator"
 	 ** "a reply to userName"
 	 */
-	text: Ember.computed('isReported', 'post.isLocked', function () {
-		if (this.get('isReported')) {
+	text: Ember.computed('isReported', 'post.isLocked', 'post.reportDetails', function () {
+		if (this.get('isReported') && this.get('post.reportDetails')) {
+			// we don't have report details
 			if (this.get('showRepliedTo')) {
 
 				// post is reported, is a reply and supposed to show reply-to info
-				return i18n.t('main.reported-to-moderators-replied-to', {
+				return i18n.t('main.reported-by-replied-to', {
 					ns: 'discussion',
-					userName: this.get('threadCreatorName')
+					userName: this.get('threadCreatorName'),
+					count: this.get('post.reportDetails.count'),
+					reporterUserName: this.get('post.reportDetails.users.firstObject.name'),
 				});
 			} else if (!this.get('showRepliedTo') && this.get('isReply')) {
 
 				// post is reported, is a reply, but NOT supposed to show reply-to info
-				return i18n.t('main.reported-to-moderators-reply', {ns: 'discussion'});
+				return i18n.t('main.reported-by-reply', {
+					ns: 'discussion',
+					count: this.get('post.reportDetails.count'),
+					reporterUserName: this.get('post.reportDetails.users.firstObject.name'),
+				});
 			} else if (!this.get('isReply')) {
 				if (this.get('post.isLocked')) {
-					return i18n.t('main.locked-and-reported-to-moderators-text', {ns: 'discussion'});
+					return i18n.t('main.reported-by-and-locked', {
+						ns: 'discussion',
+						count: this.get('post.reportDetails.count'),
+						reporterUserName: this.get('post.reportDetails.users.firstObject.name'),
+					});
 				}
 				// post is reported and is NOT a reply
-				return i18n.t('main.reported-to-moderators', {ns: 'discussion'});
+				return i18n.t('main.reported-by', {
+					ns: 'discussion',
+					count: this.get('post.reportDetails.count'),
+					reporterUserName: this.get('post.reportDetails.users.firstObject.name'),
+				});
 			}
 		} else if (this.get('showRepliedTo')) {
 			// post is NOT reported, is a reply and supposed to show reply-to info
