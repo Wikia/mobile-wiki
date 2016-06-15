@@ -9,6 +9,7 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, DiscussionEdit
 	currentUser: Ember.inject.service(),
 
 	isEdit: false,
+	isReply: Ember.computed.bool('editEntity.isReply'),
 	editorType: Ember.computed('idEdit', function () {
 		return this.get('isEdit') ? 'editEditor' : 'contributeEditor';
 	}),

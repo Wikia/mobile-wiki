@@ -1,12 +1,30 @@
+{{#if responsive.isMobile}}
+	{{discussion-standalone-editor
+		create=(action 'createPost')
+		errorMessage=editorState.errorMessage
+		generateOpenGraph=(route-action 'generateOpenGraph')
+		isLoading=editorState.isLoading
+		isReply=true
+		isVisible=editorState.isOpen
+		setEditorActive=(action 'setEditorActive')
+	}}
+{{/if}}
+
 {{#modal-dialog
 	class='is-bare is-desktop-centered discussion-editor-dialog'
 	closeOnOverlayClick=false
-	isVisible=editEditorActive
+	isVisible=editEditorState.isOpen
 }}
-	{{discussion-edit-editor
+	{{discussion-standalone-editor
+		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
+		errorMessage=editEditorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
+		isEdit=true
+		isLoading=editEditorState.isLoading
+		isVisible=editEditorState.isOpen
+		setEditorActive=(action 'setEditorActive')
 	}}
 {{/modal-dialog}}
 
@@ -17,11 +35,11 @@
 }}
 	{{discussion-post
 		approve=(action 'approve')
-		createPost=(action 'createPost')
 		createReply=(action 'createReply')
 		deleteAllPosts=(action 'deleteAllPosts')
 		deletePost=(action 'deletePost')
 		deleteReply=(action 'deleteReply')
+		editorState=editorState
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
 		generateOpenGraph=(route-action 'generateOpenGraph')
@@ -30,6 +48,8 @@
 		lockPost=(action 'lockPost')
 		model=model.data
 		report=(action 'report')
+		setEditDiscussionEntity=(action 'setEditDiscussionEntity')
+		setEditorActive=(action 'setEditorActive')
 		undeletePost=(action 'undeletePost')
 		undeleteReply=(action 'undeleteReply')
 		unlockPost=(action 'unlockPost')

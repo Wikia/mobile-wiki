@@ -8,6 +8,8 @@
 	postId=model.id
 	replyCount=model.repliesCount
 	report=(action this.attrs.report)
+	setEditDiscussionEntity=(action this.attrs.setEditDiscussionEntity)
+	setEditorActive=(action this.attrs.setEditorActive)
 	timestamp=model.creationTimestamp
 	undelete=(action this.attrs.undeletePost)
 	unlock=(action this.attrs.unlockPost)
@@ -43,6 +45,8 @@
 			report=(action this.attrs.report)
 			post=entity
 			permalinkedReplyId=model.permalinkedReplyId
+			setEditDiscussionEntity=(action this.attrs.setEditDiscussionEntity)
+			setEditorActive=(action this.attrs.setEditorActive)
 			timestamp=entity.creationTimestamp
 			undelete=(action this.attrs.undeleteReply)
 			upvote=(action this.attrs.upvote)
@@ -70,11 +74,19 @@
 			{{/if}}
 		</button>
 	{{/if}}
+
+
 	{{#if canReply}}
-		{{discussion-reply-editor
-			create=(action this.attrs.createReply)
-			generateOpenGraph=(action this.attrs.generateOpenGraph)
-			replies=model.replies
-		}}
+		{{#if responsive.isDesktop}}
+			{{discussion-inline-editor
+				create=(action this.attrs.createReply)
+				errorMessage=editorState.errorMessage
+				generateOpenGraph=(action this.attrs.generateOpenGraph)
+				isActive=editorState.isOpen
+				isLoading=editorState.isLoading
+				isReply=true
+				setEditorActive=(action this.attrs.setEditorActive)
+			}}
+		{{/if}}
 	{{/if}}
 </div>
