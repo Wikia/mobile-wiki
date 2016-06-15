@@ -1,5 +1,6 @@
 {
   "main":{
+    "load-more-results":"Load more",
     "search-error-general":"Kan geen verbinding maken, gelieve opnieuw te proberen",
     "search-error-general-action":"Click to retry",
     "search-error-not-found":"We couldn't find anything for __query__",
