@@ -31,6 +31,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 				},
 			}).then((data) => {
 				const newEntities = DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'));
+
 				this.get('data.entities').pushObjects(newEntities);
 				this.reportedDetailsSetUp(newEntities);
 			}).catch((err) => {

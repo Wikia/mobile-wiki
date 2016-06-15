@@ -132,18 +132,18 @@ export default Mixin.create({
 	/**
 	 * Sets up reported details on reported posts
 	 * @param {DiscussionEntities} entities
-	 * @returns void
+	 * @returns {void}
 	 */
 	reportedDetailsSetUp(entities) {
 		const reportedEntities = entities.filterBy('isReported', true);
 
-		if (!reportedEntities.length || !entities.get('firstObject.userData.permissions.canModerate')) {
+		if (!reportedEntities.length) {
 			return;
 		}
 
 		const entitiesReportDetails = {};
 
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/reports`), {
+		request(M.getDiscussionServiceUrl(`/${this.wikiId}/reports`), {
 			data: {postId: reportedEntities.mapBy('id')},
 			method: 'GET',
 			traditional: true,
@@ -170,7 +170,7 @@ export default Mixin.create({
 	 * @param {DiscussionEntity} entity
 	 * @param {currentUserDataObject} currentUserData
 	 *
-	 * @returns {ReportedDetails.Object}
+	 * @returns {void}
 	 */
 	addReportDetailsUser(entity, currentUserData) {
 		const reportDetails = entity.get('reportDetails'),

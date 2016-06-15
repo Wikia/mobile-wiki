@@ -58,10 +58,10 @@ export default Ember.Component.extend({
 				// post is reported and is NOT a reply
 				return i18n.t('main.reported-by', this.get('templateTextContext'));
 			}
-		}
+		} else if (this.get('isReported') && !this.get('canModerate')) {
 		// this block prepares 'reported posts' texts for regular users
 		// it have the same logic as above, but prepares text for regular users
-		else if (this.get('isReported') && !this.get('canModerate')) {
+
 			if (this.get('isReply')) {
 
 				// post is reported, is a reply, but NOT supposed to show reply-to info
@@ -136,12 +136,7 @@ export default Ember.Component.extend({
 			);
 		},
 
-		/**
-		 * @param {String} item - post or reply
-		 * @param {boolean} isReply - if this is a reply
-		 * @returns {void}
-		 */
-		showReportDetails(postId) {
+		showReportDetails() {
 			this.set('isReportDetailsVisible',
 				event.target.classList.contains(this.get('repotDetailsEntryPointClassName'))
 			);

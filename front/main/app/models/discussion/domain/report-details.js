@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import DiscussionContributors from './contributors';
 
 const ReportDetails = DiscussionContributors.extend({
@@ -20,6 +19,7 @@ ReportDetails.reopenClass({
 	 */
 	create(data) {
 		const newReportDetails = this._super(data);
+
 		newReportDetails.set('postId', data.postId);
 
 		return newReportDetails;
