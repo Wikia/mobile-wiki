@@ -33,7 +33,7 @@ export default Ember.Component.extend({
 				tagName: 'a',
 				className: this.get('repotDetailsEntryPointClassName'),
 			}),
-			threadCreatorName: Ember.Handlebars.SafeString(this.get('threadCreatorName')),
+			threadCreatorName: new Ember.Handlebars.SafeString(this.get('threadCreatorName')).toHTML(),
 		};
 	}),
 

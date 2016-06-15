@@ -52,7 +52,7 @@
     "modal-dialog-approve-reply-header": "Approve Reply?",
     "modal-dialog-approve-text": "By approving this post it will no longer be flagged.",
     "modal-dialog-approve-reply-text": "By approving this reply it will no longer be flagged.",
-    "user-replied-to": "A reply to __userName__",
+    "user-replied-to": "A reply to __threadCreatorName__",
     "delete-all": "Delete All",
     "user-post-list-header": "Posts by __userName__",
     "empty-forum-text": "No posts yet. Get the discussion started, create the first post now!",
