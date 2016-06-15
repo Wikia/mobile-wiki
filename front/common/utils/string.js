@@ -27,6 +27,12 @@ export function normalizeToWhitespace(str = '') {
 		.replace(/\s+/g, ' ');
 }
 
+/**
+ * Get last url from input text
+ * 
+ * @param {string} text
+ * @returns {string}
+ */
 export function getLastUrlFromText(text) {
 	let urls;
 
