@@ -14,15 +14,10 @@ export default Ember.Component.extend({
 	repotDetailsEntryPointClassName: 'repotDetailsOpener',
 
 	/**
-	 * Computes text for the post-card note:
-	 *
-	 ** "reply reported to moderator"
-	 ** "post reported to moderator"
-	 ** "a reply to userName, reported to moderator"
-	 ** "a reply to userName"
+	 * Context for the i18n.t method for localization texts used in top note area
 	 */
-	text: Ember.computed('isReported', 'post.isLocked', 'post.reportDetails.count', function () {
-		const templateTextsContext = {
+	templateTextContext: Ember.computed('post.reportDetails.count', function () {
+		return {
 			ns: 'discussion',
 			countUsers: wrapMeHelper.compute([
 				i18n.t('main.reported-by-number-users', {
@@ -40,28 +35,51 @@ export default Ember.Component.extend({
 			}),
 			threadCreatorName: Ember.Handlebars.SafeString(this.get('threadCreatorName')),
 		};
+	}),
 
-		if (this.get('isReported') && this.get('post.reportDetails')) {
+	/**
+	 * Computes text for the post-card note
+	 */
+	text: Ember.computed('isReported', 'post.isLocked', 'post.reportDetails.count', function () {
+		// this block prepares 'reported posts' texts for moderators (regular user should never have post.reportDetails)
+		if (this.get('isReported') && this.get('canModerate') && this.get('post.reportDetails')) {
 			if (this.get('showRepliedTo')) {
 
 				// post is reported, is a reply and supposed to show reply-to info
-				return i18n.t('main.reported-by-replied-to', templateTextsContext);
+				return i18n.t('main.reported-by-replied-to', this.get('templateTextContext'));
 			} else if (!this.get('showRepliedTo') && this.get('isReply')) {
 
 				// post is reported, is a reply, but NOT supposed to show reply-to info
-				return i18n.t('main.reported-by-reply', templateTextsContext);
+				return i18n.t('main.reported-by-reply', this.get('templateTextContext'));
 			} else if (!this.get('isReply')) {
 				if (this.get('post.isLocked')) {
-					return i18n.t('main.reported-by-and-locked', templateTextsContext);
+					return i18n.t('main.reported-by-and-locked', this.get('templateTextContext'));
 				}
 				// post is reported and is NOT a reply
-				return i18n.t('main.reported-by', templateTextsContext);
+				return i18n.t('main.reported-by', this.get('templateTextContext'));
+			}
+		}
+		// this block prepares 'reported posts' texts for regular users
+		// it have the same logic as above, but prepares text for regular users
+		else if (this.get('isReported') && !this.get('canModerate')) {
+			if (this.get('isReply')) {
+
+				// post is reported, is a reply, but NOT supposed to show reply-to info
+				return i18n.t('main.reported-to-moderators-reply', this.get('templateTextContext'));
+			} else if (this.get('post.isLocked')) {
+
+				// post is reported and locked
+				return i18n.t('main.reported-to-moderators-and-locked', this.get('templateTextContext'));
+			} else {
+
+				// post is reported and is NOT a reply
+				return i18n.t('main.reported-to-moderators', this.get('templateTextContext'));
 			}
 		} else if (this.get('showRepliedTo')) {
 			// post is NOT reported, is a reply and supposed to show reply-to info
-			return i18n.t('main.user-replied-to', templateTextsContext);
+			return i18n.t('main.user-replied-to', this.get('templateTextContext'));
 		} else if (this.get('post.isLocked')) {
-			return i18n.t('main.locked-post-text', {ns: 'discussion'});
+			return i18n.t('main.locked-post-text', this.get('templateTextContext'));
 		}
 	}),
 

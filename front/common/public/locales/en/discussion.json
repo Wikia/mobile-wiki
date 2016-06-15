@@ -70,7 +70,6 @@
     "reported-by-and-locked": "This post is locked, and has been reported by __reporterUserName__.",
     "reported-by-and-locked_plural": "This post is locked, and has been reported by __countUsers__.",
     "reported-to-moderators": "Reported to moderators",
-    "reported-to-moderators-replied-to": "A reply to __threadCreatorName__, reported to moderators",
     "reported-to-moderators-reply": "Reply reported to moderators",
     "reported-to-moderators-and-locked": "This post is locked, and has been reported.",
     "reports_number": "__count__ Report",
