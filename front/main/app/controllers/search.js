@@ -32,6 +32,10 @@ export default Controller.extend({
 		onErrorPageClick() {
 			this.set('query', '');
 			this.get('inputField').focus();
+		},
+
+		onLoadMore() {
+			this.get('model').loadMore();
 		}
 	}
 });

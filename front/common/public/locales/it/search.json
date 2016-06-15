@@ -1,5 +1,6 @@
 {
   "main":{
+    "load-more-results":"Carica altro",
     "search-error-general":"Impossibile connettersi. Riprovare",
     "search-error-general-action":"Fare clic per riprovare",
     "search-error-not-found":"Non siamo riusciti a trovare nulla per __query__",
