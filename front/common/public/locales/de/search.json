@@ -7,6 +7,6 @@
     "search-error-not-found-action":"Probiere eine andere Suche",
     "search-input-label":"Suche",
     "search-loading-msg":"Lade Suchergebnisse...",
-    "total-results":"Ungefähr__totalItems__ Ergebnisse für __query__"
+    "total-results":"Ungefähr __totalItems__ Ergebnisse für __query__"
   }
 }
