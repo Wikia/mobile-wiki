@@ -24,10 +24,7 @@ export default Mixin.create({
 	],
 
 	init() {
-		const responsive = this.get('responsive');
-
 		this._super();
-		responsive.setBreakpoints(this.get('breakpoints'));
-		responsive.resize();
-	},
+		this.get('responsive').setBreakpoints(this.get('breakpoints'));
+	}
 });
