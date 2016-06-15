@@ -169,18 +169,18 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 		M.tracker.UniversalAnalytics.destroy();
 	});
 
-	QUnit.test('Update search url with query param- track param', function (assert) {
+	QUnit.test('Update url with query param- track param', function (assert) {
 		M.tracker.UniversalAnalytics.initialize({});
-		M.tracker.UniversalAnalytics._updateTrackedUrl('search?query=bla');
-		assert.ok(queueContains(['set', 'page', '/search?query=bla']));
+		M.tracker.UniversalAnalytics._updateTrackedUrl('test?query=bla');
+		assert.ok(queueContains(['set', 'page', '/test?query=bla']));
 
 		M.tracker.UniversalAnalytics.destroy();
 	});
 
-	QUnit.test('Update url with query param- do not track param', function (assert) {
+	QUnit.test('Update search url with query and other param- track only query param', function (assert) {
 		M.tracker.UniversalAnalytics.initialize({});
-		M.tracker.UniversalAnalytics._updateTrackedUrl('test?query=bla');
-		assert.ok(queueContains(['set', 'page', '/test']));
+		M.tracker.UniversalAnalytics._updateTrackedUrl('test?invalid=bla&query=bla2');
+		assert.ok(queueContains(['set', 'page', '/test?query=bla2']));
 
 		M.tracker.UniversalAnalytics.destroy();
 	});

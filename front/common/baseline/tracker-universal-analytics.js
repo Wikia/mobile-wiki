@@ -266,12 +266,13 @@ if (typeof window.M.tracker === 'undefined') {
 	 * Examples:
 	 * ?query=test&useskin=mercury -> ?query=test
 	 * ?one=two&three=four&query=test&five=six -> ?query=test
+	 * ?one=two&three=four -> ''
 	 *
-	 * @param {string} search query params string
+	 * @param {string} queryParams query params string
 	 * @returns {string}
 	 */
-	function getQueryParam(search) {
-		const query = search
+	function getQueryParam(queryParams) {
+		const query = queryParams
 			.replace(/^\?/, '')
 			.split('&')
 			.filter((param) => {
@@ -283,7 +284,7 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
-	 * Updates current page
+	 * Updates current page. For urls containing the query param 'query', updates them with this param.
 	 *
 	 * from https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications :
 	 * Note: if you send a hit that includes both the location and page fields and the path values are different,
@@ -300,10 +301,8 @@ if (typeof window.M.tracker === 'undefined') {
 		tracked.forEach((account) => {
 			const prefix = getPrefix(account);
 
-			// add query param to url when on search page
-			ga(`${prefix}set`, 'page', location.pathname.indexOf('/search') === 0 ?
-				location.pathname + getQueryParam(location.search) :
-				location.pathname);
+			// add query param to url if present
+			ga(`${prefix}set`, 'page', location.pathname + getQueryParam(location.search));
 		});
 	}
 
