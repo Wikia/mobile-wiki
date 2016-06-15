@@ -132,13 +132,16 @@ export default Ember.Route.extend(ConfirmationMixin, {
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				const ponto = window.Ponto;
 
+				if ( this.refresh().isAborted ) {
+					return false;
+				}
+
 				ponto.invoke(
 					'wikia.infoboxBuilder.ponto',
 					'returnToVE',
 					title,
 					(data) => {
 						resolve(data);
-						this.refresh();
 					},
 					(data) => {
 						reject(data);
