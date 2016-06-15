@@ -30,9 +30,9 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 					viewableOnly: false
 				},
 			}).then((data) => {
-				this.get('data.entities').pushObjects(
-					DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'))
-				);
+				const newEntities = DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'));
+				this.get('data.entities').pushObjects(newEntities);
+				this.reportedDetailsSetUp(newEntities);
 			}).catch((err) => {
 				this.handleLoadMoreError(err);
 			});
@@ -88,6 +88,8 @@ DiscussionUserModel.reopenClass({
 				userInstance.setNormalizedData(data);
 
 				resolve(userInstance);
+
+				userInstance.reportedDetailsSetUp(userInstance.get('data.entities'));
 			}).catch((err) => {
 				userInstance.setErrorProperty(err);
 
