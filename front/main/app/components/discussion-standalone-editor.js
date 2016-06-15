@@ -38,10 +38,9 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
 
 	actions: {
 		close() {
-			this.sendAction('setEditorActive', this.get('isEdit') ? 'editEditor' : 'contributeEditor', false);
+			this._super();
 
-			// TODO fix tracking
-			track(this.get('closeTrackingAction'));
+			this.sendAction('setEditorActive', this.get('isEdit') ? 'editEditor' : 'contributeEditor', false);
 		},
 
 		submit() {
