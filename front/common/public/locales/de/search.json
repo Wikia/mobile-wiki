@@ -1,5 +1,6 @@
 {
   "main":{
+    "load-more-results":"Mehr anzeigen",
     "search-error-general":"Es kann keine Verbindung hergestellt werden, bitte versuche es noch einmal",
     "search-error-general-action":"Klicke hier, um es noch einmal zu versuchen",
     "search-error-not-found":"Für die Anfrage __query__ gibt es keine Ergebnisse",
