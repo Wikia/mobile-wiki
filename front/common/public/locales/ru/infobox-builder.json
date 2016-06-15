@@ -40,6 +40,7 @@
     "source-editor-save-confirmation-button-no":"Нет",
     "source-editor-loading":"Загрузка исходного кода...",
     "untitled-infobox-template":"Безымянный инфобокс",
-    "title-naming-conflict-error":"Шаблон с таким названием уже существует"
+    "title-naming-conflict-error":"Шаблон с таким названием уже существует",
+    "title-naming-invalid-title-error":"К сожалению, название статьи недопустимо. Пожалуйста, используйте другое название."
   }
 }

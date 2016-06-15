@@ -40,6 +40,7 @@
     "source-editor-save-confirmation-button-no":"不是",
     "source-editor-loading":"正在加载源代码编辑器",
     "untitled-infobox-template":"未添加标题的讯息框模版",
-    "title-naming-conflict-error":"此名称已被使用"
+    "title-naming-conflict-error":"此名称已被使用",
+    "title-naming-invalid-title-error":"抱歉，条目名无效。请另行取名。"
   }
 }

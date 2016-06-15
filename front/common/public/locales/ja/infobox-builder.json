@@ -40,6 +40,7 @@
     "source-editor-save-confirmation-button-no":"いいえ",
     "source-editor-loading":"ソースエディタを読み込んでいます",
     "untitled-infobox-template":"無題のインフォボックス・テンプレート",
-    "title-naming-conflict-error":"この名前はすでに使用されています"
+    "title-naming-conflict-error":"この名前はすでに使用されています",
+    "title-naming-invalid-title-error":"記事のタイトルが不適切です。他のタイトルを指定してください。"
   }
 }

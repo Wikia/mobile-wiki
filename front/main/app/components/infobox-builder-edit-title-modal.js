@@ -15,18 +15,25 @@ export default Ember.Component.extend(
 		 */
 		valueObserver: Ember.observer('value', function () {
 			this.set('titleExists', false);
+			this.set('titleInvalid', false);
 		}),
 
 		isConfirmButtonDisabled: Ember.computed('value', 'errorMessage', function () {
 			return !this.get('value').trim() || this.get('errorMessage');
 		}),
 
-		errorMessage: Ember.computed('titleExists', function () {
-			return this.get('titleExists') ?
-				i18n.t('main.title-naming-conflict-error', {
-					ns: 'infobox-builder'
-				}) :
-				'';
+		errorMessage: Ember.computed('titleExists', 'titleInvalid', function () {
+			switch (true) {
+				case this.get('titleExists'):
+					return i18n.t('main.title-naming-conflict-error', {
+						ns: 'infobox-builder'
+					});
+				case this.get('titleInvalid'):
+					return i18n.t('main.title-naming-invalid-title-error', {
+						ns: 'infobox-builder'
+					});
+				default: return '';
+			}
 		}),
 
 		actions: {

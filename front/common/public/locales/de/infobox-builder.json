@@ -40,6 +40,7 @@
     "source-editor-save-confirmation-button-no":"Nein",
     "source-editor-loading":"Quelltext-Editor wird geladen",
     "untitled-infobox-template":"Unbenannte Infobox-Vorlage",
-    "title-naming-conflict-error":"Dieser Name ist bereits vergeben"
+    "title-naming-conflict-error":"Dieser Name ist bereits vergeben",
+    "title-naming-invalid-title-error":"Ungültiger Titel. Bitte wähle einen gültigen Titel."
   }
 }

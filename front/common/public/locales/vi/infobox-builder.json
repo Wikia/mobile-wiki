@@ -40,6 +40,7 @@
     "source-editor-save-confirmation-button-no":"No",
     "source-editor-loading":"Loading source editor",
     "untitled-infobox-template":"Untitled Infobox Template",
-    "title-naming-conflict-error":"This name is already taken"
+    "title-naming-conflict-error":"This name is already taken",
+    "title-naming-invalid-title-error":"Xin lỗi, tiêu đề trang không hợp lệ. Xin thử một tên khác"
   }
 }
