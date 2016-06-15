@@ -6,25 +6,25 @@ export default Ember.Component.extend({
 
 	currentUser: Ember.inject.service(),
 
-	// TODO update labels
-	labelMessageKey: 'TODO',
-	placeholderMessageKey: 'TODO',
-	submitMessageKey: 'TODO',
-
 	content: '',
 
 	showSuccess: false,
 	isLoading: false,
 	editorType: 'contributeEditor',
 
-	// TODO update actions
+	// Labels below needs to be override in subclasses
+	labelMessageKey: null,
+	placeholderMessageKey: null,
+	submitMessageKey: null,
+
 	// Tracking action name of closing the editor
-	closeTrackingAction: trackActions.PostClose,
+	closeTrackingAction: null,
 	// Tracking action name of inserting content into editor
-	contentTrackingAction: trackActions.PostContent,
+	contentTrackingAction: null,
 	// Tracking action name of opening the editor
 	// TODO add tracking for start
-	startTrackingAction: trackActions.PostStart,
+	startTrackingAction: null,
+
 	wasContentTracked: false,
 	wasStartTracked: false,
 

@@ -2,9 +2,9 @@ import Ember from 'ember';
 
 import DiscussionEditor from './discussion-editor';
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
+import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 
-
-export default DiscussionEditor.extend(DiscussionEditorOpengraph, {
+export default DiscussionEditor.extend(DiscussionEditorOpengraph, DiscussionEditorConfiguration, {
 	attributeBindings: ['style'],
 	classNames: ['discussion-inline-editor'],
 	classNameBindings: ['isSticky', 'isActive'],

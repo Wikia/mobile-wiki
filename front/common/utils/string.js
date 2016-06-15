@@ -29,7 +29,6 @@ export function normalizeToWhitespace(str = '') {
 
 /**
  * Get last url from input text
- * 
  * @param {string} text
  * @returns {string}
  */
