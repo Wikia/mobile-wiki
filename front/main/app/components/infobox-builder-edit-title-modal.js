@@ -23,17 +23,17 @@ export default Ember.Component.extend(
 		}),
 
 		errorMessage: Ember.computed('titleExists', 'titleInvalid', function () {
-			switch (true) {
-				case this.get('titleExists'):
-					return i18n.t('main.title-naming-conflict-error', {
-						ns: 'infobox-builder'
-					});
-				case this.get('titleInvalid'):
-					return i18n.t('main.title-naming-invalid-title-error', {
-						ns: 'infobox-builder'
-					});
-				default: return '';
+			if (this.get('titleExists')) {
+				return i18n.t('main.title-naming-conflict-error', {
+					ns: 'infobox-builder'
+				});
 			}
+			if (this.get('titleInvalid')) {
+				return i18n.t('main.title-naming-invalid-title-error', {
+					ns: 'infobox-builder'
+				});
+			}
+			return '';
 		}),
 
 		actions: {
