@@ -23,7 +23,7 @@
 		<ul class="search-results__list">
 			{{#each model.items as |item|}}
 				{{#wikia-ui-components/wikia-card}}
-					{{#link-to 'wiki-page' item.href trackingCategory="search-page" trackingLabel="mercury-search-result" }}
+					{{#link-to 'wiki-page' item.href trackingCategory="search-page" trackingLabel="search-result" }}
 						<div class="search-results__item">
 							<div class="search-results__title">
 								{{item.title}}
