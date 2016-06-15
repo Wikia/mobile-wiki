@@ -138,7 +138,6 @@ export default Ember.Route.extend(ConfirmationMixin, {
 						'returnToVE',
 						title,
 						(data) => {
-							//this.refresh();
 							resolve(data);
 						},
 						(data) => {
@@ -147,7 +146,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 						},
 						false
 					);
-				})
+				});
 			});
 		},
 
