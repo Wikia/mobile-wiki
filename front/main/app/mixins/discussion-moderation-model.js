@@ -137,7 +137,7 @@ export default Mixin.create({
 	reportedDetailsSetUp(entities) {
 		const reportedEntities = entities.filterBy('isReported', true);
 
-		if (!reportedEntities.length) {
+		if (!reportedEntities.length || !entities.get('firstObject.userData.permissions.canModerate')) {
 			return;
 		}
 
