@@ -131,7 +131,8 @@ body.discussions {
 		.text-content {
 			align-items: center;
 			color: $discussion-post-card-top-note-color;
-			display: flex;
+			cursor: auto;
+			display: inline;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;

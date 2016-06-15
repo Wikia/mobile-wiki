@@ -118,8 +118,8 @@ export default Mixin.create({
 				set(item, 'isLoading', false);
 
 				currentModel.addReportDetailsUser(item, {
-					avatarUrl: this.get('currentUser.avatarPath'),
-					id: this.get('currentUser.userId'),
+					avatarPath: this.get('currentUser.avatarPath'),
+					userId: this.get('currentUser.userId'),
 					name: this.get('currentUser.name'),
 				});
 			});
