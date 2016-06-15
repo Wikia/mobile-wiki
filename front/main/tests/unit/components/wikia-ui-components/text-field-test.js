@@ -132,21 +132,21 @@ test('correctly calculates isInvalid', function (assert) {
 	const component = this.subject(),
 		cases = [
 			{
-				editorErrorMessage: 'error message',
+				errorMessage: 'error message',
 				isInvalid: true
 			},
 			{
-				editorErrorMessage: null,
+				errorMessage: null,
 				isInvalid: false
 			},
 			{
-				editorErrorMessage: '',
+				errorMessage: '',
 				isInvalid: false
 			}
 		];
 
 	cases.forEach((testCase) => {
-		component.set('errorMessage', testCase.editorErrorMessage);
+		component.set('errorMessage', testCase.errorMessage);
 		assert.equal(component.get('isInvalid'), testCase.isInvalid);
 	});
 });
