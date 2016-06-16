@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
 	noAds: Ember.computed.alias('application.noAds'),
 	commentsPage: Ember.computed.alias('application.commentsPage'),
-	// used for ad viability on infobox page experiment, should be removed as part of DAT-4487
+	// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
 	showTopLeaderBoardAd: false,
 
 	/**
@@ -16,7 +16,7 @@ export default Ember.Controller.extend({
 	 */
 	init() {
 		this.setProperties({
-			// used for ad viability on infobox page experiment, should be removed as part of DAT-4487
+			// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
 			showTopLeaderBoardAd: !inGroup('MERCURY_VIEWABILITY_EXPERIMENT', 'AD_BELOW_INFOBOX'),
 			mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
 			siteName: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
