@@ -81,4 +81,13 @@ export default Component.extend({
 			25
 		);
 	},
+
+	/**
+	 * Turn off scroll handler on view leave
+	 *
+	 * @returns {void}
+	 */
+	willDestroyElement() {
+		Ember.$(window).off('scroll.editor-stub');
+	},
 });
