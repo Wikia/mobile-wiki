@@ -260,23 +260,25 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
-	 * Extracts query param and its value from full query params string, returns empty string if query param was
-	 * not found
+	 * Extracts useful query params and its values from full query params string,
+	 * returns empty string if any of accepted query params not found in given string.
 	 *
 	 * Examples:
 	 * ?query=test&useskin=mercury -> ?query=test
 	 * ?one=two&three=four&query=test&five=six -> ?query=test
 	 * ?one=two&three=four -> ''
 	 *
-	 * @param {string} queryParams query params string
+	 * @param {string} queryParamsString query params string
 	 * @returns {string}
 	 */
-	function getQueryParam(queryParams) {
-		const query = queryParams
+	function filterQueryParams(queryParamsString) {
+		const acceptedParams = ['query'];
+
+		const query = queryParamsString
 			.replace(/^\?/, '')
 			.split('&')
 			.filter((param) => {
-				return param.indexOf('query=') === 0;
+				return acceptedParams.indexOf(param.split('=')[0]) === 0;
 			})
 			.reduce((p, c) => c, '');
 
@@ -285,6 +287,7 @@ if (typeof window.M.tracker === 'undefined') {
 
 	/**
 	 * Updates current page. For urls containing the query param 'query', updates them with this param.
+	 * Query param 'query' is needed in GA specifically for search traffic tracking.
 	 *
 	 * from https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications :
 	 * Note: if you send a hit that includes both the location and page fields and the path values are different,
@@ -302,7 +305,7 @@ if (typeof window.M.tracker === 'undefined') {
 			const prefix = getPrefix(account);
 
 			// add query param to url if present
-			ga(`${prefix}set`, 'page', location.pathname + getQueryParam(location.search));
+			ga(`${prefix}set`, 'page', location.pathname + filterQueryParams(location.search));
 		});
 	}
 
@@ -493,6 +496,7 @@ if (typeof window.M.tracker === 'undefined') {
 		_setDimensions: setDimensions,
 		_getDimensionsSynced: getDimensionsSynced,
 		_updateTrackedUrl: updateTrackedUrl,
+		_filterQueryParams: filterQueryParams,
 		_dimensions: dimensions,
 	};
 })(M);
