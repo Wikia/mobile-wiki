@@ -295,10 +295,15 @@ body.discussions {
 
 	.post-reply,
 	.post-detail {
+
 		position: relative;
 
 		&.show-top-note {
 			padding-top: 0;
+		}
+
+		&.is-new {
+			animation: post-hide 2s linear 1, post-fade-in 1s ease-in-out 2s 1;
 		}
 
 		.loading-overlay {
@@ -506,10 +511,6 @@ body.discussions {
 
 		.timestamp {
 			font-size: $type-smallest;
-		}
-
-		&.is-new {
-			animation: post-hide 2s linear 1, post-fade-in 1s ease-in-out 2s 1;
 		}
 
 		&.is-locked {
