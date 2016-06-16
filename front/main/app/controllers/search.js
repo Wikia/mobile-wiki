@@ -4,7 +4,6 @@ const {Controller, computed, inject, $, run} = Ember;
 
 export default Controller.extend({
 	application: inject.controller(),
-	queryParams: ['query'],
 	// TODO: to be removed as we'll be supporting more errors on search page,
 	// see: https://wikia-inc.atlassian.net/browse/DAT-4324
 	notFoundError: computed.equal('model.error', 'search-error-not-found'),
@@ -18,19 +17,19 @@ export default Controller.extend({
 			wouldn't be clean solution as well.
 		*/
 		run.scheduleOnce('afterRender', this, () => {
+			this.set('inputPhrase', this.get('query'));
 			this.set('inputField', $('.side-search__input'));
 		});
 	},
 
 	actions: {
 		onSearchEnter(query) {
-			this.get('inputField').blur();
+			this.set('inputPhrase', query);
 			this.set('query', query);
-			this.get('model').search(query);
 		},
 
 		onErrorPageClick() {
-			this.set('query', '');
+			this.set('inputPhrase', '');
 			this.get('inputField').focus();
 		},
 

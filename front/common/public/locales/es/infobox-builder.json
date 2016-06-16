@@ -42,6 +42,7 @@
     "source-editor-save-confirmation-button-no":"No",
     "source-editor-loading":"Cargando el editor clásico",
     "untitled-infobox-template":"Plantilla de Infobox sin título",
-    "title-naming-conflict-error":"Este nombre ya está en uso"
+    "title-naming-conflict-error":"Este nombre ya está en uso",
+    "title-naming-invalid-title-error":"Lo sentimos, el título del artículo no era válido. Por favor, usa un título diferente."
   }
 }
