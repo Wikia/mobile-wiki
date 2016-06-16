@@ -24,10 +24,12 @@
     "help-section-collapsible":"Ao marcar a opção \"dobrável\", você será capaz de fechar e abrir seções quando a infobox for usada em uma página do artigo.",
     "edit-image-item-description":"Este é um espaço reservado para uma imagem que você pode carregar mais tarde, quando a infobox for usada em uma página de artigos.",
     "edit-title-modal-cancel":"Cancelar",
-    "edit-title-modal-header":"Nomear sua predefinição",
+    "edit-title-modal-header-on-leave":"Nomear sua predefinição",
+    "edit-title-modal-header-on-rename":"Nome da predefinição",
     "edit-title-modal-publish":"Publicar",
     "edit-title-modal-ok":"Ok",
-    "edit-title-modal-text":"Você precisa nomear sua predefinição antes da publicação.",
+    "edit-title-modal-text-on-leave":"Para publicar a sua predefinição, você precisa nomeá-la.",
+    "edit-title-modal-text-on-rename":"Forneça um nome para a predefinição de sua infobox.",
     "edit-title-placeholder":"Predefinição sem título",
     "save":"Publicar",
     "load-error":"Erro de carregamento",
@@ -40,6 +42,7 @@
     "source-editor-save-confirmation-button-no":"Não",
     "source-editor-loading":"Carregando editor clássico",
     "untitled-infobox-template":"Predefinição de infobox sem título",
-    "title-naming-conflict-error":"Este nome já está sendo usado"
+    "title-naming-conflict-error":"Este nome já está sendo usado",
+    "title-naming-invalid-title-error":"O título da página era inválido. Use outro título, por favor."
   }
 }

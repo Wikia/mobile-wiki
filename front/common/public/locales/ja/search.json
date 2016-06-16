@@ -1,5 +1,6 @@
 {
   "main":{
+    "load-more-results":"もっと見る",
     "search-error-general":"接続できません。もう一度お試しください。",
     "search-error-general-action":"クリックして再試行",
     "search-error-not-found":"__query__の検索結果を見つけることができませんでした",

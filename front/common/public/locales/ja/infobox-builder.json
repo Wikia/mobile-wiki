@@ -24,10 +24,12 @@
     "help-section-collapsible":"「折りたたみ可能にする」オプションをオンにすると、インフォボックスが記事ページで使用された場合にセクションを閉じたり開いたりできます。",
     "edit-image-item-description":"画像のプレースホルダです。インフォボックスが記事ページで使用された場合に後から画像をアップロードできます。",
     "edit-title-modal-cancel":"キャンセル",
-    "edit-title-modal-header":"テンプレート名を入力",
+    "edit-title-modal-header-on-leave":"テンプレート名を入力",
+    "edit-title-modal-header-on-rename":"テンプレート名",
     "edit-title-modal-publish":"公開",
     "edit-title-modal-ok":"OK",
-    "edit-title-modal-text":"テンプレートを公開するには名前を指定する必要があります。",
+    "edit-title-modal-text-on-leave":"テンプレートを公開するには名前を指定する必要があります。",
+    "edit-title-modal-text-on-rename":"インフォボックス・テンプレートの名前を指定してください。",
     "edit-title-placeholder":"無題のテンプレート",
     "save":"公開",
     "load-error":"読み込みエラー",
@@ -40,6 +42,7 @@
     "source-editor-save-confirmation-button-no":"いいえ",
     "source-editor-loading":"ソースエディタを読み込んでいます",
     "untitled-infobox-template":"無題のインフォボックス・テンプレート",
-    "title-naming-conflict-error":"この名前はすでに使用されています"
+    "title-naming-conflict-error":"この名前はすでに使用されています",
+    "title-naming-invalid-title-error":"記事のタイトルが不適切です。他のタイトルを指定してください。"
   }
 }

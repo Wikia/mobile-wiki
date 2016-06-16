@@ -17,6 +17,7 @@ $border-bottom-height: 1px;
 }
 
 .wikia-search {
+	border-bottom: 1px solid $vapor;
 	border-top: 1px solid $vapor;
 	position: fixed;
 	transition: box-shadow 0.5s;
