@@ -17,7 +17,7 @@ export default Component.extend({
 	 */
 	style: Ember.computed('isSticky', function () {
 		return this.get('isSticky') ?
-			`height: ${this.$('.stub-container').outerHeight(true)}px`:
+			`height: ${this.$('.stub-container').outerHeight(true)}px` :
 			null;
 	}),
 
