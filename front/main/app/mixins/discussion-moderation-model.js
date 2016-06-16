@@ -159,29 +159,17 @@ export default Mixin.create({
 	},
 
 	/**
-	 * @typedef {Object} currentUserDataObject - data with user information
-	 * @property {string} avatarUrl - avatar url
-	 * @property {number} id - user id
-	 * @property {string} name - user name
-	 */
-
-	/**
 	 * Adds current user to entity reported details
 	 * @param {DiscussionEntity} entity
-	 * @param {currentUserDataObject} currentUserData
+	 * @param {DiscussionContributor} currentUser
 	 *
 	 * @returns {void}
 	 */
-	addReportDetailsUser(entity, currentUserData) {
-		const reportDetails = entity.get('reportDetails'),
-			currentContributor = DiscussionContributor.create({
-				avatarUrl: currentUserData.avatarPath,
-				id: currentUserData.userId,
-				name: currentUserData.name,
-			});
+	addReportDetailsUser(entity, currentUser) {
+		const reportDetails = entity.get('reportDetails');
 
 		if (reportDetails !== null) {
-			reportDetails.get('users').pushObject(currentContributor);
+			reportDetails.get('users').pushObject(currentUser);
 			reportDetails.incrementProperty('count');
 
 		} else {
@@ -189,7 +177,7 @@ export default Mixin.create({
 				ReportDetails.create({
 					count: 1,
 					postId: entity.get('id'),
-					userInfo: [currentContributor],
+					userInfo: [currentUser],
 				})
 			);
 		}
