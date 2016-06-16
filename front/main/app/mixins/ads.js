@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import AdSlotComponent from '../components/ad-slot';
 import Ads from 'common/modules/ads';
-import {inGroup} from 'common/modules/abtest';
+import {getGroup} from 'common/modules/abtest';
 
 export default Ember.Mixin.create({
 	adsData: {
@@ -147,6 +147,8 @@ export default Ember.Mixin.create({
 			$articleBody = $('.article-body'),
 
 			// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
+			viewabilityExperimentGroup = getGroup('MERCURY_VIEWABILITY_EXPERIMENT'),
+
 			$pi = $('.portable-infobox'),
 			$topPlacement = $('.wiki-container'),
 
@@ -169,7 +171,8 @@ export default Ember.Mixin.create({
 		}
 
 		// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
-		if (inGroup('MERCURY_VIEWABILITY_EXPERIMENT', 'AD_BELOW_INFOBOX')) {
+		if (viewabilityExperimentGroup === 'AD_BELOW_INFOBOX' ||
+			viewabilityExperimentGroup === 'AD_ON_PAGE_FOLD') {
 			if ($pi.length) {
 				// inject after infobox
 				this.appendAd(this.adsData.mobileTopLeaderBoard, 'after', $pi.first());
