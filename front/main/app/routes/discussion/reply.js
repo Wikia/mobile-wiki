@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import DiscussionPostRoute from './post';
 
 export default DiscussionPostRoute.extend(

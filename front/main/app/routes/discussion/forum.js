@@ -22,7 +22,7 @@ export default DiscussionBaseRoute.extend(
 
 		canModerate: null,
 		discussionSort: inject.service(),
-		
+
 		/**
 		 * @param {object} params
 		 * @returns {Ember.RSVP.Promise}
