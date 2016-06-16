@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ArticleContentMixin from '../mixins/article-content';
 import ViewportMixin from '../mixins/viewport';
 import {track, trackActions} from 'common/utils/track';
+import {inGroup} from 'common/modules/abtest';
 
 export default Ember.Component.extend(
 	ArticleContentMixin,
@@ -45,7 +46,11 @@ export default Ember.Component.extend(
 				deviceHeight = this.get('viewportDimensions.height'),
 				isLandscape = deviceWidth > deviceHeight;
 
-			return Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
+			if (inGroup('MERCURY_VIEWABILITY_EXPERIMENT', 'AD_ON_PAGE_FOLD')) {
+				return Math.floor(isLandscape ? deviceHeight : deviceWidth) - 200;
+			} else {
+				return Math.floor((isLandscape ? deviceHeight : deviceWidth) * 16 / 9) + 100;
+			}
 		}),
 
 		didInsertElement() {
