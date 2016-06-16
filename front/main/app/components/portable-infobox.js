@@ -46,6 +46,7 @@ export default Ember.Component.extend(
 				deviceHeight = this.get('viewportDimensions.height'),
 				isLandscape = deviceWidth > deviceHeight;
 
+			// used for ad viability on infobox page experiment, should be removed as part of DAT-4487
 			if (inGroup('MERCURY_VIEWABILITY_EXPERIMENT', 'AD_ON_PAGE_FOLD')) {
 				return Math.floor(isLandscape ? deviceHeight : deviceWidth) - 200;
 			} else {
