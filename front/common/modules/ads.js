@@ -278,9 +278,24 @@ class Ads {
 		}, true);
 	}
 
+	removeAllSlots() {
+		this.adSlots = [];
+	}
+
+	/**
+	 * This method is called on each transition
+	 *
+	 * @returns {void}
+	 */
+	onTransition() {
+		if (this.adMercuryListenerModule && this.adMercuryListenerModule.runOnPageChangeCallbacks) {
+			this.adMercuryListenerModule.runOnPageChangeCallbacks();
+		}
+	}
+
 	/**
 	 * This method is being overwritten in ApplicationRoute for ads needs.
-	 * To learn more check ApplicationRoute.ts file.
+	 * To learn more check routes/application.js file.
 	 *
 	 * @returns {void}
 	 */
@@ -289,11 +304,20 @@ class Ads {
 
 	/**
 	 * This method is being overwritten in ApplicationRoute for ads needs.
-	 * To learn more check ApplicationRoute.ts file.
+	 * To learn more check routes/application.js file.
 	 *
 	 * @returns {void}
 	 */
 	showLightbox() {
+	}
+
+	/**
+	 * This method is being overwritten in ApplicationRoute for ads needs.
+	 * To learn more check routes/application.js file.
+	 *
+	 * @returns {void}
+	 */
+	setSiteHeadOffset() {
 	}
 
 	/**

@@ -1,0 +1,12 @@
+{
+  "main":{
+    "load-more-results":"Cargar más",
+    "search-error-general":"No se puede conectar, por favor inténtalo de nuevo",
+    "search-error-general-action":"Haz clic para volver a intentar",
+    "search-error-not-found":"No pudimos encontrar nada para __query__",
+    "search-error-not-found-action":"Intenta otra búsqueda",
+    "search-input-label":"Buscar",
+    "search-loading-msg":"Cargando resultados de la búsqueda...",
+    "total-results":"Cerca de __totalItems__ resultados para __query__"
+  }
+}

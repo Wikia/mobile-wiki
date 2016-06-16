@@ -46,6 +46,10 @@
 
 	button {
 		background-color: transparent;
+		font-size: 10px;
+		font-weight: $font-weight-bold;
+		height: $line-height-larger;
+		line-height: $line-height-larger;
 		margin: 0 20px;
 		width: calc(100% - 40px);
 	}

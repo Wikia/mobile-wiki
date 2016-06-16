@@ -30,12 +30,14 @@ $legend-font-size: 16px;
 }
 
 .discussion-filters-fields-wrapper {
+	max-height: 280px;
+	overflow: auto;
 	padding: 11px 20px 0;
 }
 
 .discussion-filters {
 	display: block;
-	width: 280px;
+	width: 320px;
 
 	.filters-apply-container {
 		right: 18px;
@@ -72,15 +74,31 @@ $legend-font-size: 16px;
 		line-height: $line-height-smallest;
 	}
 
+	.discussion-categories {
+		svg {
+			fill: $discussion-categories-chevron-color;
+		}
+	}
+
 	.discussion-fieldset {
 		&:disabled {
-			.sort-trending {
-				pointer-events: none;
+			pointer-events: none;
 
+			.sort-trending {
 				label {
 					color: $discussion-filter-inactive-color;
 				}
 			}
+
+			&.discussion-categories {
+				label {
+					color: $discussion-filter-inactive-color;
+				}
+			}
+		}
+
+		label {
+			color: $discussion-filters-text-color;
 		}
 	}
 
@@ -116,9 +134,6 @@ $legend-font-size: 16px;
 				font-weight: normal;
 				line-height: $sort-label-height - 2px;
 				margin: 1px 0;
-				padding-left: 24px;
-				// this is the only option to have clickable fancy-buttons on mobile
-				position: absolute;
 			}
 
 			.radio-fancy {
@@ -127,8 +142,6 @@ $legend-font-size: 16px;
 				float: left;
 				height: 18px;
 				margin: 15px 6px 0 0;
-				// this is the only option to have clickable fancy-buttons on mobile
-				position: absolute;
 				width: 18px;
 
 				.inside {
@@ -167,11 +180,14 @@ $legend-font-size: 16px;
 .rail {
 	.discussion-filters {
 		padding-bottom: 0;
-		padding-top: 85px;
 		width: auto;
 
 		label {
 			line-height: $line-height-smallest;
+		}
+
+		.discussion-filters-fields-wrapper {
+			padding: 0;
 		}
 
 		.moderation-checkbox-label {

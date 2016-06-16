@@ -176,9 +176,8 @@ export default Ember.Mixin.create({
 	injectMainPageAds() {
 		const $curatedContent = this.$('.curated-content'),
 			$trendingArticles = this.$('.trending-articles'),
-			$trendingVideos = this.$('.trending-videos'),
 			showInContent = $curatedContent.length > 0,
-			showPreFooter = $trendingArticles.length || $trendingVideos.length;
+			showPreFooter = $trendingArticles.length;
 
 		this.clearAdViews();
 
@@ -187,9 +186,7 @@ export default Ember.Mixin.create({
 		}
 
 		if (showPreFooter) {
-			const $showPreFooterAfter = $trendingVideos.length ? $trendingVideos : $trendingArticles;
-
-			this.appendAd(this.adsData.mobilePreFooter, 'after', $showPreFooterAfter);
+			this.appendAd(this.adsData.mobilePreFooter, 'after', $trendingArticles);
 		}
 	},
 

@@ -8,6 +8,7 @@ export default Ember.Mixin.create(
 			 *
 			 * @param {string} sortBy
 			 * @param {boolean} onlyReported
+			 * @param {Object} categories
 			 *
 			 * @returns {EmberStates.Transition}
 			 */
@@ -17,20 +18,20 @@ export default Ember.Mixin.create(
 
 				let targetRoute = 'discussion.forum';
 
+				if (onlyReported === true) {
+					return this.transitionTo('discussion.reported-posts');
+				}
+
 				if (sortBy !== currentSortBy) {
 					discussionSort.setSortBy(sortBy);
 				}
 
-				if (onlyReported === true) {
-					targetRoute = 'discussion.reported-posts';
-				}
+				const queryParams = {
+					sort: sortBy,
+					catId: categories.filterBy('selected', true).mapBy('category.id'),
+				};
 
-				return this.transitionTo(targetRoute, {
-					queryParams: {
-						sort: sortBy,
-						catId: this.get('model.index').getCategoryIds(categories)
-					}
-				});
+				return this.transitionTo(targetRoute, {queryParams});
 			},
 
 			/**

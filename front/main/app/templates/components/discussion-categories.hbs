@@ -1,37 +1,15 @@
-<h3 class="discussion-filter-header">
-	{{i18n 'main.filter-posts-header' ns='discussion'}}
-	<a class="active-element-theme-color" {{action 'reset'}}>{{i18n 'main.filter-reset-label' ns='discussion'}}</a>
-</h3>
-<fieldset class="discussion-fieldset discussion-categories {{if collapsed 'collapsed'}}" disabled="{{if disabled 'disabled'}}">
-	<legend {{action 'toggle'}}>
-		{{i18n 'main.categories-header' ns='discussion'}}
-		{{svg 'chevron-linked' role='img' class='icon chevron'}}
-	</legend>
-	<div class="discussion-categories-list-container">
-		<ul class="discussion-categories-list">
-			<li>
-				{{wikia-ui-components/fancy-check-box
-					click=(action 'onCategoryClick' true)
-					label=(i18n 'main.category-all-name' ns='discussion')
-					inputId=(concat categoriesInputIdPrefix 'all')
-					isChecked=categoryAllSelected
-				}}
-			</li>
-			{{#each categories as |category|}}
-				{{#unless category.collapsed}}
-					<li>
-						{{wikia-ui-components/fancy-check-box
-							click=(action 'onCategoryClick' false)
-							label=category.name
-							inputId=(concat categoriesInputIdPrefix category.id)
-							isChecked=category.selected
-						}}
-					</li>
-				{{/unless}}
-			{{/each}}
-		</ul>
-		{{#if toggleButtonVisible}}
-			<button {{action 'toggleMore'}} class="secondary active-element-border-theme-color active-element-theme-color active-element-hover-theme-color active-element-hover-border-theme-color">{{toggleButtonLabel}}</button>
-		{{/if}}
-	</div>
-</fieldset>
+{{discussion-categories-list
+	allCategorySelected=allCategorySelected
+	categoriesInputIdPrefix=categoriesInputIdPrefix
+	collapsed=collapsed
+	disabled=disabled
+	localCategories=localCategories
+	selectAllCategory=(action 'selectAllCategory')
+	onCategoryClick=(action 'onCategoryClick')
+	reset=(action 'reset')
+	toggle=(action 'toggle')
+	toggleButtonLabel=toggleButtonLabel
+	toggleButtonVisible=toggleButtonVisible
+	toggleMore=(action 'toggleMore')
+	visibleCategoriesCount=visibleCategoriesCount
+}}

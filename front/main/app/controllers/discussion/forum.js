@@ -13,10 +13,10 @@ export default DiscussionBaseController.extend(
 	{
 		catId: [],
 
-		categoriesObserver: Ember.observer('model.index.selectedCategoryIds', function () {
-			if (this.get('catId.length') !== this.get('model.index.selectedCategoryIds.length')) {
-				this.get('target').send('changeCategory', this.get('model.index.selectedCategoryIds'));
-			}
-		}),
+		actions: {
+			updateCategories(categories) {
+				this.get('target').send('updateCategories', categories);
+			},
+		}
 	}
 );

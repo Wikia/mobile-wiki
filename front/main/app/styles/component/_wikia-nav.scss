@@ -12,11 +12,17 @@ $nav-padding-horizontal: 9px;
 $nav-padding-vertical: 18px;
 
 .wikia-nav {
+	background-color: $color-gray-dark;
+	flex-grow: 1;
 	overflow: auto;
+	// smooth scrolling on ios. This is not a stable CSS property, thus it may
+	// not be supported on all browsers or behaviour may change.
+	// see: https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-overflow-scrolling
+	-webkit-overflow-scrolling: touch;
 }
 
 .wikia-nav__header {
-	@include wikia-nav-link-button(inherit);
+	@include link-interactions-color(inherit);
 
 	background-color: $nav-background-color;
 	color: inherit;

@@ -77,9 +77,14 @@ export default DiscussionBaseRoute.extend(
 				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
-			changeCategory(categoryIds) {
-				this.transitionTo({queryParams: {catId: categoryIds}});
-			}
+			updateCategories(updatedCategories) {
+				const catId = updatedCategories.filterBy('selected', true).mapBy('category.id');
+
+				this.transitionTo({queryParams: {
+					catId,
+					sort: this.get('discussionSort.sortBy')
+				}});
+			},
 		}
 	}
 );

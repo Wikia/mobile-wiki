@@ -27,17 +27,16 @@
 	<div class="discussion-page row">
 		<div class="rail left large-3 columns">
 			{{community-badge}}
-			<a href="/" class="side-button back-button active-element-theme-color">
-				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
-				{{i18n 'main.back-to-wikia-link' ns='discussion'}}
-			</a>
-			{{#if categories}}
-				{{discussion-categories
-					categories=categories
-					inputIdPrefix='rail'
-					visibleCategoriesCount=10
-				}}
-			{{/if}}
+			{{#unless hideCategoriesInRail}}
+				{{#if categories}}
+					{{discussion-categories
+						categories=categories
+						inputIdPrefix='rail'
+						updateCategories=(action this.attrs.updateCategories)
+						visibleCategoriesCount=10
+					}}
+				{{/if}}
+			{{/unless}}
 		</div>
 		<div class="small-12 large-6 columns">
 			{{yield}}
@@ -47,7 +46,10 @@
 				applyFilters=(action this.attrs.applyFilters)
 				canModerate=model.canModerate
 			}}
-			{{discussion-app-promotion}}
+			{{discussion-community-unit
+				displayWikiaHomeLink=true
+				listPage=true
+			}}
 		</div>
 	</div>
 </div>

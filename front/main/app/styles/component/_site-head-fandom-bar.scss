@@ -25,12 +25,17 @@ $home-of-fandom-letter-spacing: 0.5px;
 		transform: uppercase;
 	}
 	transition: transform .5s;
+	top: $site-head-height;
 	width: 100%;
 	z-index: $z-6;
 
 	a {
 		color: $color-blue-gray-dark;
 	}
+}
+
+.site-head-headroom-top .site-head-fandom-bar {
+	position: static;
 }
 
 .site-head-headroom-un-pinned .site-head-fandom-bar {
