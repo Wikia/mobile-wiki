@@ -7,6 +7,8 @@ export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
 	noAds: Ember.computed.alias('application.noAds'),
 	commentsPage: Ember.computed.alias('application.commentsPage'),
+	// used for ad viability on infobox page experiment, should be removed as part of DAT-4487
+	showTopLeaderBoardAd: false,
 
 	/**
 	 * @returns {void}
