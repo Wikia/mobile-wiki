@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import NoScrollMixin from '../mixins/no-scroll';
+import ResponsiveMixin from '../mixins/responsive';
 import {track, trackActions} from 'common/utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
-import {getDomain} from '../utils/domain';
 
 const {Component, computed, observer, inject, run, $} = Ember;
 
@@ -16,7 +16,9 @@ const {Component, computed, observer, inject, run, $} = Ember;
  * @property {string} [text]
  * @property {string} [uri]
  */
-export default Component.extend(NoScrollMixin,
+export default Component.extend(
+	NoScrollMixin,
+	ResponsiveMixin,
 	{
 		classNames: ['wikia-search-wrapper'],
 		// key: phrase string, value: Array<SearchSuggestionItem>
@@ -69,13 +71,11 @@ export default Component.extend(NoScrollMixin,
 
 			run.scheduleOnce('afterRender', this, () => {
 				this.set('inputField', $('.side-search__input'));
-			});
 
-			if (this.get('focusInput')) {
-				run.scheduleOnce('afterRender', this, () => {
-					this.$('.side-search__input').focus();
-				});
-			}
+				if (this.get('focusInput')) {
+					this.get('inputField').focus();
+				}
+			});
 		},
 
 		actions: {
@@ -123,11 +123,6 @@ export default Component.extend(NoScrollMixin,
 				if (outsideSuggestionsClickAction) {
 					outsideSuggestionsClickAction(event);
 				}
-			},
-
-			redirectToOasis(uri) {
-				$.cookie('useskin', 'oasis', {path: '/', domain: getDomain});
-				window.location.assign(`/${uri}`);
 			}
 		},
 
