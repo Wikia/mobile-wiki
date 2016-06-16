@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
+import {inGroup} from 'common/modules/abtest';
 import ArticleAddPhotoModel from '../models/article-add-photo';
 import VisibilityStateManager from '../utils/visibility-state-manager';
 
@@ -15,6 +16,8 @@ export default Ember.Controller.extend({
 	 */
 	init() {
 		this.setProperties({
+			// used for ad viability on infobox page experiment, should be removed as part of DAT-4487
+			showTopLeaderBoardAd: !inGroup('MERCURY_VIEWABILITY_EXPERIMENT', 'AD_BELOW_INFOBOX'),
 			mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
 			siteName: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 		});

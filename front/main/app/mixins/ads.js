@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import AdSlotComponent from '../components/ad-slot';
 import Ads from 'common/modules/ads';
+import {inGroup} from 'common/modules/abtest';
 
 export default Ember.Mixin.create({
 	adsData: {
@@ -168,12 +169,14 @@ export default Ember.Mixin.create({
 		}
 
 		// used for ad viability on infobox page experiment, should be removed as part of DAT-4487
-		if ($pi.length) {
-			// inject after infobox
-			this.appendAd(this.adsData.mobileTopLeaderBoard, 'after', $pi.first());
-		} else {
-			// inject at top
-			this.appendAd(this.adsData.mobileTopLeaderBoard, 'before', $topPlacement);
+		if (inGroup('MERCURY_VIEWABILITY_EXPERIMENT', 'AD_BELOW_INFOBOX')) {
+			if ($pi.length) {
+				// inject after infobox
+				this.appendAd(this.adsData.mobileTopLeaderBoard, 'after', $pi.first());
+			} else {
+				// inject at top
+				this.appendAd(this.adsData.mobileTopLeaderBoard, 'before', $topPlacement);
+			}
 		}
 
 		if (showMoreInContentAds) {
