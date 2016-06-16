@@ -74,8 +74,6 @@
 			{{/if}}
 		</button>
 	{{/if}}
-
-
 	{{#if canReply}}
 		{{#if responsive.isDesktop}}
 			{{discussion-inline-editor
@@ -87,6 +85,8 @@
 				isReply=true
 				setEditorActive=(action this.attrs.setEditorActive)
 			}}
+			{{#if responsive.isMobile}}
+				{{discussion-reply-editor-stub}}
+			{{/if}}
 		{{/if}}
-	{{/if}}
 </div>
