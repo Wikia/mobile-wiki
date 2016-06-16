@@ -132,7 +132,6 @@ body.discussions {
 			align-items: center;
 			color: $discussion-post-card-top-note-color;
 			cursor: auto;
-			display: inline;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
@@ -166,7 +165,7 @@ body.discussions {
 		.report-details-close {
 			display: inline-block;
 			height: 42px;
-			margin: 0px;
+			margin: 0;
 			padding: 10px;
 			position: absolute;
 			width: 42px;
@@ -179,7 +178,6 @@ body.discussions {
 
 			li {
 				display: block;
-				height: 48px;
 			}
 
 			.avatar {
@@ -739,17 +737,7 @@ body.discussions {
 		}
 
 		.report-details-modal {
-			.report-details-header {
-				h5 {
-					font-size: 16px;
-				}
-			}
-
 			.report-details-list {
-				li {
-					height: 58px;
-				}
-
 				.avatar {
 					img, svg {
 						height: 42px;
