@@ -10,7 +10,7 @@ export default Ember.Mixin.create({
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
 
-		// used for ad viability on infobox page experiment, should be removed as part of DAT-4487
+		// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
 		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
 
 		moreInContentAds: {
@@ -148,6 +148,7 @@ export default Ember.Mixin.create({
 
 			// used for ad viability on infobox page experiment, should be removed as part of DAT-4487
 			viewabilityExperimentGroup = getGroup('MERCURY_VIEWABILITY_EXPERIMENT'),
+
 			$pi = $('.portable-infobox'),
 			$topPlacement = $('.wiki-container'),
 
