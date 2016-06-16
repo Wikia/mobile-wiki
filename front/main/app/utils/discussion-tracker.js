@@ -33,6 +33,7 @@ const trackActions = {
 	OGTapped: 'OGTapped',
 	OGCreated: 'OGCreated',
 	OGRemoved: 'OGRemoved',
+	ReportDetailsModalOpen: 'ReportDetailsModalOpen',
 };
 
 /**

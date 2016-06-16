@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import wrapMeHelper from '../helpers/wrap-me';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	classNames: ['top-note'],
@@ -88,6 +89,7 @@ export default Ember.Component.extend({
 	click(event) {
 		if (event.target.classList.contains(this.get('reportDetailsEntryPointClassName'))) {
 			this.set('isReportDetailsVisible', true);
+			track(trackActions.ReportDetailsModalOpen);
 		}
 	},
 
