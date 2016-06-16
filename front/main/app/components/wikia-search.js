@@ -33,13 +33,14 @@ export default Component.extend(
 		inputFocused: false,
 		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
 		isLoadingResultsSuggestions: false,
+		phrase: '',
+		phraseMinimalLength: 3,
+		query: '',
 		/**
 		 * A set (only keys used) of phrase strings that are currently being ajax'd so
 		 * we know not to perform another request.
 		 */
 		requestsInProgress: {},
-		phrase: '',
-		phraseMinimalLength: 3,
 		searchRequestInProgress: false,
 		/**
 		 * This is what's currently displayed in the search results
@@ -60,16 +61,12 @@ export default Component.extend(
 			return i18n.t('search:main.search-input-label');
 		}),
 
-		init() {
-			this._super(...arguments);
-			// initialize with query
-			this.set('phrase', this.get('query'));
-		},
-
 		didInsertElement() {
 			this._super(...arguments);
 
 			run.scheduleOnce('afterRender', this, () => {
+				// initialize with query
+				this.set('phrase', this.get('query'));
 				this.set('inputField', $('.side-search__input'));
 
 				if (this.get('focusInput')) {
