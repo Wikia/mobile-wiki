@@ -85,6 +85,12 @@ export default Ember.Component.extend({
 		}
 	}),
 
+	click (event) {
+		if (event.target.classList.contains(this.get('repotDetailsEntryPointClassName'))) {
+			this.set('isReportDetailsVisible', true);
+		}
+	},
+
 	actions: {
 		/**
 		 * Delete item - shows modal dialog first
@@ -135,12 +141,6 @@ export default Ember.Component.extend({
 				header,
 				i18n.t('main.modal-dialog-approve', {ns: 'discussion'}),
 				(() => this.get('approve')(item))
-			);
-		},
-
-		showReportDetails() {
-			this.set('isReportDetailsVisible',
-				event.target.classList.contains(this.get('repotDetailsEntryPointClassName'))
 			);
 		},
 
