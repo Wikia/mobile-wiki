@@ -28,12 +28,14 @@ export default Ember.Component.extend({
 				tagName: 'a',
 				className: this.get('repotDetailsEntryPointClassName'),
 			}),
-			count: parseInt(this.get('post.reportDetails.count'), 10),
-			reporterUserName: wrapMeHelper.compute([this.get('post.reportDetails.users.firstObject.name')], {
-				tagName: 'a',
-				className: this.get('repotDetailsEntryPointClassName'),
+			count: this.get('post.reportDetails.count'),
+			reporterUserName: wrapMeHelper.compute([
+					Ember.Handlebars.Utils.escapeExpression(this.get('post.reportDetails.users.firstObject.name'))
+				], {
+					tagName: 'a',
+					className: this.get('repotDetailsEntryPointClassName'),
 			}),
-			threadCreatorName: new Ember.Handlebars.SafeString(this.get('threadCreatorName')).toHTML(),
+			threadCreatorName: Ember.Handlebars.Utils.escapeExpression(this.get('threadCreatorName')),
 		};
 	}),
 
