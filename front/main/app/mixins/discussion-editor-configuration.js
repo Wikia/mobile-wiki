@@ -28,8 +28,8 @@ export default Ember.Mixin.create({
 
 	configure() {
 		if (this.get('isEdit')) {
-			// edit
 			if (this.get('isReply')) {
+				// edit reply
 				this.setProperties({
 					labelMessageKey: 'editor.reply-edit-editor-label',
 					placeholderMessageKey: 'editor.post-editor-placeholder-text',
@@ -39,6 +39,7 @@ export default Ember.Mixin.create({
 					startTrackingAction: trackActions.ReplyEdit,
 				});
 			} else {
+				// edit post
 				this.setProperties({
 					labelMessageKey: 'editor.post-edit-editor-label',
 					placeholderMessageKey: 'editor.post-editor-placeholder-text',
@@ -48,27 +49,26 @@ export default Ember.Mixin.create({
 					startTrackingAction: trackActions.PostEdit,
 				});
 			}
+		} else if (this.get('isReply')) {
+			// create reply
+			this.setProperties({
+				labelMessageKey: 'editor.reply-editor-label',
+				placeholderMessageKey: 'editor.reply-editor-placeholder-text',
+				submitMessageKey: 'editor.reply-action-button-label',
+				closeTrackingAction: trackActions.ReplyClose,
+				contentTrackingAction: trackActions.ReplyContent,
+				startTrackingAction: trackActions.ReplyStart,
+			});
 		} else {
-			// contribute
-			if (this.get('isReply')) {
-				this.setProperties({
-					labelMessageKey: 'editor.reply-editor-label',
-					placeholderMessageKey: 'editor.reply-editor-placeholder-text',
-					submitMessageKey: 'editor.reply-action-button-label',
-					closeTrackingAction: trackActions.ReplyClose,
-					contentTrackingAction: trackActions.ReplyContent,
-					startTrackingAction: trackActions.ReplyStart,
-				});
-			} else {
-				this.setProperties({
-					labelMessageKey: 'editor.post-editor-label',
-					placeholderMessageKey: 'editor.post-editor-placeholder-text',
-					submitMessageKey: 'editor.post-action-button-label',
-					closeTrackingAction: trackActions.PostClose,
-					contentTrackingAction: trackActions.PostContent,
-					startTrackingAction: trackActions.PostStart,
-				});
-			}
+			// create post
+			this.setProperties({
+				labelMessageKey: 'editor.post-editor-label',
+				placeholderMessageKey: 'editor.post-editor-placeholder-text',
+				submitMessageKey: 'editor.post-action-button-label',
+				closeTrackingAction: trackActions.PostClose,
+				contentTrackingAction: trackActions.PostContent,
+				startTrackingAction: trackActions.PostStart,
+			});
 		}
 	},
 });

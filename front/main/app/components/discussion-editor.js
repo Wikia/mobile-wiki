@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {track, trackActions} from '../utils/discussion-tracker';
+import {track} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	tagName: 'form',
