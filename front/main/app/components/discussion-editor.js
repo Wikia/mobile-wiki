@@ -30,6 +30,7 @@ export default Ember.Component.extend({
 	onIsActive: Ember.observer('isActive', function () {
 		if (this.get('isActive')) {
 			track(this.get('startTrackingAction'));
+			this.$('textarea').focus();
 		}
 	}),
 
