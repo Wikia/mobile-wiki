@@ -11,5 +11,24 @@ export default DiscussionBaseController.extend(
 	DiscussionContributionControllerMixin,
 	DiscussionForumActionsControllerMixin,
 	DiscussionEditEditorMixin,
-	ResponsiveMixin
+	ResponsiveMixin, {
+		actions: {
+			createPost(entityData) {
+				this.transitionToRoute({queryParams: {sort: 'latest'}}).promise.then(() => {
+					// this._super(entityData);
+					const editorType = 'contributeEditor',
+						editorState = this.getEditorState(editorType);
+
+					editorState.set('isLoading', true);
+					this.setEditorError(editorType, null);
+
+					this.get('model').createPost(entityData).catch((err) => {
+						this.onContributionError(editorType, err, 'editor.post-error-general-error');
+					}).finally(() => {
+						editorState.set('isLoading', false);
+					});
+				});
+			}
+		}
+	}
 );

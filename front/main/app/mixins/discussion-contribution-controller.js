@@ -176,7 +176,6 @@ export default Ember.Mixin.create({
 
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
-			// TODO change sorting
 
 			this.get('model').createPost(entityData).catch((err) => {
 				this.onContributionError(editorType, err, 'editor.post-error-general-error');
