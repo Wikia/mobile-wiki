@@ -42,6 +42,7 @@
     "source-editor-save-confirmation-button-no":"Non",
     "source-editor-loading":"Chargement de l'éditeur classique",
     "untitled-infobox-template":"Modèle d'infobox sans titre",
-    "title-naming-conflict-error":"Ce nom est déjà pris."
+    "title-naming-conflict-error":"Ce nom est déjà pris.",
+    "title-naming-invalid-title-error":"Désolé, le titre de l'article était invalide. Veuillez choisir un titre différent."
   }
 }
