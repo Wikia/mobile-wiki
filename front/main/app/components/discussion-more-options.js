@@ -37,8 +37,6 @@ export default Ember.Component.extend({
 		track(trackActions.MorePostActions);
 	},
 
-	discussionEditEditor: Ember.inject.service(),
-
 	actions: {
 		edit(post) {
 			this.sendAction('setEditDiscussionEntity', post);

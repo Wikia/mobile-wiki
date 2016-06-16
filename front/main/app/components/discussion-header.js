@@ -21,7 +21,6 @@ export default Ember.Component.extend(
 
 		isFandomBarHidden: Ember.computed(() => Ember.get(Mercury, 'wiki.language.content') !== 'en'),
 
-		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
 		isFilterApplied: Ember.computed('discussionSort.sortTypes.@each.active', function () {
 			return this.get('discussionSort.sortTypes.0.active') === false;

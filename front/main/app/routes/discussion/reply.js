@@ -3,7 +3,6 @@ import DiscussionPostRoute from './post';
 
 export default DiscussionPostRoute.extend(
 	{
-		discussionEditor: Ember.inject.service(),
 		controllerName: 'discussion.post',
 		templateName: 'discussion.post',
 
