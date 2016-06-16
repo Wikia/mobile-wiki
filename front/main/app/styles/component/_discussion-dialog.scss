@@ -47,6 +47,10 @@ $discussion-dialog-content-line-height: 24px;
 }
 
 .report-details-modal {
+	justify-content: center;
+	left: 0;
+	right: 0;
+
 	.modal-dialog {
 		width: 90%;
 		max-width: 400px;
