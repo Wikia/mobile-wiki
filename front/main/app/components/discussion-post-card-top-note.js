@@ -11,7 +11,7 @@ export default Ember.Component.extend({
 
 	isReportDetailsVisible: false,
 
-	repotDetailsEntryPointClassName: 'repotDetailsOpener',
+	reportDetailsEntryPointClassName: 'reportDetailsOpener',
 
 	/**
 	 * Context for the i18n.t method for localization texts used in top note area
@@ -26,14 +26,14 @@ export default Ember.Component.extend({
 				})
 			], {
 				tagName: 'a',
-				className: this.get('repotDetailsEntryPointClassName'),
+				className: this.get('reportDetailsEntryPointClassName'),
 			}),
 			count: this.get('post.reportDetails.count'),
 			reporterUserName: wrapMeHelper.compute([
 					Ember.Handlebars.Utils.escapeExpression(this.get('post.reportDetails.users.firstObject.name'))
 				], {
 					tagName: 'a',
-					className: this.get('repotDetailsEntryPointClassName'),
+					className: this.get('reportDetailsEntryPointClassName'),
 			}),
 			threadCreatorName: Ember.Handlebars.Utils.escapeExpression(this.get('threadCreatorName')),
 		};
@@ -86,7 +86,7 @@ export default Ember.Component.extend({
 	}),
 
 	click (event) {
-		if (event.target.classList.contains(this.get('repotDetailsEntryPointClassName'))) {
+		if (event.target.classList.contains(this.get('reportDetailsEntryPointClassName'))) {
 			this.set('isReportDetailsVisible', true);
 		}
 	},
