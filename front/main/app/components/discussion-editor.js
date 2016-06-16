@@ -22,7 +22,6 @@ export default Ember.Component.extend({
 	// Tracking action name of inserting content into editor
 	contentTrackingAction: null,
 	// Tracking action name of opening the editor
-	// TODO add tracking for start
 	startTrackingAction: null,
 
 	wasContentTracked: false,
@@ -37,6 +36,12 @@ export default Ember.Component.extend({
 		if (this.get('content.length') > 0 && !this.get('wasContentTracked')) {
 			track(this.get('contentTrackingAction'));
 			this.set('wasContentTracked', true);
+		}
+	}),
+
+	onIsActive: Ember.observer('isActive', function () {
+		if (this.get('isActive')) {
+			track(this.get('startTrackingAction'));
 		}
 	}),
 

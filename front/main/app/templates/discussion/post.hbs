@@ -3,6 +3,7 @@
 		create=(action 'createPost')
 		errorMessage=editorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
+		isActive=editorState.isOpen
 		isLoading=editorState.isLoading
 		isReply=true
 		isVisible=editorState.isOpen
@@ -21,9 +22,9 @@
 		editReply=(action 'editReply')
 		errorMessage=editEditorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
+		isActive=editEditorState.isOpen
 		isEdit=true
 		isLoading=editEditorState.isLoading
-		isVisible=editEditorState.isOpen
 		setEditorActive=(action 'setEditorActive')
 	}}
 {{/modal-dialog}}
