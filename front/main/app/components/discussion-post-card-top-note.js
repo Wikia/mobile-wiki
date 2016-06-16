@@ -16,7 +16,7 @@ export default Ember.Component.extend({
 	/**
 	 * Context for the i18n.t method for localization texts used in top note area
 	 */
-	templateTextContext: Ember.computed('post.reportDetails.count', function () {
+	topNoteTextContext: Ember.computed('post.reportDetails.count', function () {
 		return {
 			ns: 'discussion',
 			countUsers: wrapMeHelper.compute([
@@ -42,23 +42,23 @@ export default Ember.Component.extend({
 	/**
 	 * Computes text for the post-card note
 	 */
-	text: Ember.computed('isReported', 'post.isLocked', 'post.reportDetails.count', function () {
+	topNoteText: Ember.computed('isReported', 'post.isLocked', 'post.reportDetails.count', function () {
 		// this block prepares 'reported posts' texts for moderators (regular user should never have post.reportDetails)
 		if (this.get('isReported') && this.get('canModerate') && this.get('post.reportDetails')) {
 			if (this.get('showRepliedTo')) {
 
 				// post is reported, is a reply and supposed to show reply-to info
-				return i18n.t('main.reported-by-replied-to', this.get('templateTextContext'));
+				return i18n.t('main.reported-by-replied-to', this.get('topNoteTextContext'));
 			} else if (!this.get('showRepliedTo') && this.get('isReply')) {
 
 				// post is reported, is a reply, but NOT supposed to show reply-to info
-				return i18n.t('main.reported-by-reply', this.get('templateTextContext'));
+				return i18n.t('main.reported-by-reply', this.get('topNoteTextContext'));
 			} else if (!this.get('isReply')) {
 				if (this.get('post.isLocked')) {
-					return i18n.t('main.reported-by-and-locked', this.get('templateTextContext'));
+					return i18n.t('main.reported-by-and-locked', this.get('topNoteTextContext'));
 				}
 				// post is reported and is NOT a reply
-				return i18n.t('main.reported-by', this.get('templateTextContext'));
+				return i18n.t('main.reported-by', this.get('topNoteTextContext'));
 			}
 		} else if (this.get('isReported') && !this.get('canModerate')) {
 		// this block prepares 'reported posts' texts for regular users
@@ -67,21 +67,21 @@ export default Ember.Component.extend({
 			if (this.get('isReply')) {
 
 				// post is reported, is a reply, but NOT supposed to show reply-to info
-				return i18n.t('main.reported-to-moderators-reply', this.get('templateTextContext'));
+				return i18n.t('main.reported-to-moderators-reply', this.get('topNoteTextContext'));
 			} else if (this.get('post.isLocked')) {
 
 				// post is reported and locked
-				return i18n.t('main.reported-to-moderators-and-locked', this.get('templateTextContext'));
+				return i18n.t('main.reported-to-moderators-and-locked', this.get('topNoteTextContext'));
 			} else {
 
 				// post is reported and is NOT a reply
-				return i18n.t('main.reported-to-moderators', this.get('templateTextContext'));
+				return i18n.t('main.reported-to-moderators', this.get('topNoteTextContext'));
 			}
 		} else if (this.get('showRepliedTo')) {
 			// post is NOT reported, is a reply and supposed to show reply-to info
-			return i18n.t('main.user-replied-to', this.get('templateTextContext'));
+			return i18n.t('main.user-replied-to', this.get('topNoteTextContext'));
 		} else if (this.get('post.isLocked')) {
-			return i18n.t('main.locked-post-text', this.get('templateTextContext'));
+			return i18n.t('main.locked-post-text', this.get('topNoteTextContext'));
 		}
 	}),
 
