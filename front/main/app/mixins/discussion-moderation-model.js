@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
-import DiscussionContributor from '../models/discussion/domain/contributor';
 import ReportDetails from '../models/discussion/domain/report-details';
 
 const {Mixin} = Ember;

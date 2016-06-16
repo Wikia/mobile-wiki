@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import DiscussionContributor from '../models/discussion/domain/contributor'
+import DiscussionContributor from '../models/discussion/domain/contributor';
 import {track, trackActions} from '../utils/discussion-tracker';
 
 const {Mixin, inject, set} = Ember;
