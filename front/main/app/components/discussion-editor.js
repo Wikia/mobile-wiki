@@ -27,18 +27,6 @@ export default Ember.Component.extend({
 	wasContentTracked: false,
 	wasStartTracked: false,
 
-	/**
-	 * Track content changed
-	 *
-	 * @returns {void}
-	 */
-	onTextContent: Ember.observer('content', function () {
-		if (this.get('content.length') > 0 && !this.get('wasContentTracked')) {
-			track(this.get('contentTrackingAction'));
-			this.set('wasContentTracked', true);
-		}
-	}),
-
 	onIsActive: Ember.observer('isActive', function () {
 		if (this.get('isActive')) {
 			track(this.get('startTrackingAction'));
@@ -75,10 +63,15 @@ export default Ember.Component.extend({
 		},
 
 		handleKeyPress() {
+			if (!this.get('wasContentTracked')) {
+				track(this.get('contentTrackingAction'));
+				this.set('wasContentTracked', true);
+			}
+
 			if ((event.keyCode === 10 || event.keyCode === 13) && event.ctrlKey) {
 				// Create post on CTRL + ENTER
 				this.send('submit');
 			}
-		}
+		},
 	}
 });
