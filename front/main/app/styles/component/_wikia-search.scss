@@ -1,77 +1,158 @@
-.wikia-search {
-	overflow: auto;
+$clear-icon-width: 68px;
+$search-height: 48px;
+$search-icon-width: 24px;
+$search-input-font-size: 16px;
+$search-input-left-margin: 6px;
+$search-spacing: 18px;
+$search-wrapper-height: calc(100% - #{$site-head-height});
+$text-field-label-top: 13px;
+$border-bottom-height: 1px;
+
+.wikia-search-wrapper {
+	height: $search-height;
 }
 
-.wikia-search__item {
-	@include wikia-nav-link-button(inherit);
+.side-nav-drawer__content .wikia-search {
+	height: $search-wrapper-height;
+}
 
-	$input-background: #8f8e94;
-	$input-container-background: #2a3039;
-	$input-font-size: 20px;
-	$input-width: calc(100% - 35px);
-	$search-line-height: 48px;
-	$nav-input-padding: 10px;
-	$side-nav-clear-size: 30px;
+.wikia-search {
+	border-bottom: 1px solid $vapor;
+	border-top: 1px solid $vapor;
+	position: fixed;
+	transition: box-shadow 0.5s;
+	width: 100%;
+	z-index: $z-6;
 
-	color: inherit;
-	display: block;
-	font-size: $nav-font-size;
-	line-height: $search-line-height;
-	margin-top: 0;
-	position: relative;
-
-	.wikia-search__container {
-		background-color: $input-container-background;
-		flex-grow: 1;
-		padding-left: $nav-input-padding;
-		position: relative;
-
-		input,
-		input:focus {
-			background: transparent;
-			border: 0;
-			box-shadow: none;
-			color: $input-background;
-			font: inherit;
-			font-size: $input-font-size;
-			font-weight: bold;
-			height: $search-line-height;
-			margin: 0;
-			padding: 0;
-			width: $input-width;
-
-			&::placeholder {
-				color: $search-box-text-color;
-			}
-		}
+	.wikia-search__search-icon {
+		width: $search-icon-width;
 	}
 
 	.wikia-search__clear {
-		//divide by 2 to accommodate for width
-		//and again by 2 as padding is on left and right
-		padding: 0 $side-nav-clear-size / 4;
-		position: absolute;
-		right: $nav-input-padding;
-		top: 0;
-		width: $side-nav-clear-size;
+		width: $clear-icon-width;
+	}
+
+	// when no text in input
+	&.wikia-search--empty {
+		.wikia-search__clear .icon-button-icon {
+			display: none;
+		}
+	}
+
+	&.wikia-search--focused {
+		.wikia-search__search-icon svg {
+			fill: $oil;
+		}
+
+		.search::after {
+			content: ' ';
+			border-bottom: $border-bottom-height solid $color-blue-light;
+		}
+	}
+
+	&.wikia-search--has-suggestions {
+		height: $search-wrapper-height;
 	}
 }
 
-.wikia-search__results {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
+.site-head-headroom-un-pinned .wikia-search {
+	box-shadow: $site-head-default-box-shadow;
+}
 
-	.wikia-search__search-result {
-		padding: $nav-padding-horizontal $nav-padding-vertical 0 $nav-padding-vertical;
+.wikia-search__item {
+	@include link-interactions-color($oil);
 
-		a {
-			display: inline-block;
-			width: 100%;
-			height: 100%;
+	color: $oil;
+	display: block;
+	font-size: $nav-font-size;
+	margin-top: 0;
+	position: relative;
+
+	&.search::after {
+		border-bottom: $border-bottom-height solid $iron;
+		bottom: 10px;
+		content: ' ';
+		left: $search-spacing;
+		margin: auto;
+		position: absolute;
+		right: $search-spacing;
+	}
+
+	.wikia-search__search-icon svg {
+		fill: $iron;
+	}
+}
+
+.wikia-search__container {
+	background-color: $white;
+	display: flex;
+	flex-grow: 1;
+	padding-left: $search-spacing - 1px;
+	position: relative;
+
+	input.side-search__input,
+	input.side-search__input:focus {
+		background: transparent;
+		border: 0;
+		box-shadow: none;
+		color: $color-gray-dark;
+		display: inline-block;
+		font: inherit;
+		font-size: $search-input-font-size;
+		margin: 0 0 0 $search-input-left-margin;
+		padding: 0;
+		position: relative;
+		top: 6px;
+		width: 100%;
+
+		&::placeholder {
+			color: $iron;
 		}
 	}
-	.wikia-search__loading {
-		text-align: center;
+}
+
+.wikia-search__suggestions-wrapper {
+	height: 100%;
+	background-color: $overlay-background-color;
+}
+
+.wikia-search__suggestions {
+	background-color: $vapor;
+	box-shadow: 0 8px 12px 0 $box-shadow-color;
+	list-style-type: none;
+	margin: 0;
+	max-height: calc(100% - #{$search-height});
+	overflow: auto;
+	padding: 0;
+	white-space: nowrap;
+}
+
+.wikia-search__search-suggestion {
+	box-sizing: content-box;
+	height: $search-height;
+	line-height: $search-height;
+	padding: 0 $nav-padding-vertical;
+
+	a {
+		display: inline-block;
+		left: 0;
+		overflow: hidden;
+		padding: 0 $nav-padding-vertical;
+		position: absolute;
+		text-overflow: ellipsis;
+		width: 100%;
 	}
+}
+
+.wikia-search__loading {
+	text-align: center;
+}
+
+.wikia-search__suggestion-highlighted {
+	font-weight: bold;
+}
+
+.no-scroll .site-head-headroom-un-pinned .site-head {
+	// removing site-head bottom shadow when search bar is opened
+	box-shadow: none;
 }

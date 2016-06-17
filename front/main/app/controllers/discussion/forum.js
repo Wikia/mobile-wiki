@@ -16,7 +16,7 @@ export default DiscussionBaseController.extend(
 		actions: {
 			updateCategories(categories) {
 				this.get('target').send('updateCategories', categories);
-			}
+			},
 		}
 	}
 );

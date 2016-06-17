@@ -77,18 +77,14 @@ export default DiscussionBaseRoute.extend(
 				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
-			updateCategories(categories) {
-				const catIds = categories.filterBy('selected', true).mapBy('id');
+			updateCategories(updatedCategories) {
+				const catId = updatedCategories.filterBy('selected', true).mapBy('category.id');
 
-				if (catIds.length !== this.modelFor('discussion').get('selectedCategoryIds').length) {
-					this.modelFor('discussion').set('categories', categories);
-					this.transitionTo({queryParams: {catId: catIds}});
-				}
+				this.transitionTo({queryParams: {
+					catId,
+					sort: this.get('discussionSort.sortBy')
+				}});
 			},
-
-			addCategory() {
-				this.modelFor(this.get('routeName')).index.addCategory('asd');
-			}
 		}
 	}
 );

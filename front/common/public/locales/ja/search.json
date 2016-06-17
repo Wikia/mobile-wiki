@@ -1,0 +1,12 @@
+{
+  "main":{
+    "load-more-results":"もっと見る",
+    "search-error-general":"接続できません。もう一度お試しください。",
+    "search-error-general-action":"クリックして再試行",
+    "search-error-not-found":"__query__の検索結果を見つけることができませんでした",
+    "search-error-not-found-action":"別の検索を試してください",
+    "search-input-label":"検索",
+    "search-loading-msg":"検索結果を読込中...",
+    "total-results":"__query__の検索結果は約__totalItems__件です"
+  }
+}

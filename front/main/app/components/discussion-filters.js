@@ -5,6 +5,7 @@ import {track, trackActions} from '../utils/discussion-tracker';
 export default Ember.Component.extend(
 	{
 		canModerate: false,
+		changedCategories: [],
 		classNames: ['discussion-filters'],
 		discussionSort: Ember.inject.service(),
 		onlyReported: Ember.computed.oneWay('discussionSort.onlyReported'),
@@ -17,28 +18,26 @@ export default Ember.Component.extend(
 			return this.get('onlyReported') === true ? 'disabled' : false;
 		}),
 
-		init() {
-			this._super(...arguments);
-		},
-
-		onlyReportedObserver: Ember.observer('onlyReported', function () {
-			const onlyReported = this.get('onlyReported');
-
-			if (onlyReported === true) {
-				this.send('setSortBy', 'latest');
-			}
-
-			if (!this.get('showApplyButton')) {
-				this.get('applyFilters')(this.get('sortBy'), onlyReported);
-			}
-		}),
-
+		/**
+		 * @returns {boolean}
+		 */
 		didCategoriesChange() {
-			const appliedCategories = this.get('appliedCategories');
+			const changedCategories = this.get('changedCategories');
 
-			return appliedCategories && JSON.stringify(this.get('categories')) !== JSON.stringify(appliedCategories);
+			if (!changedCategories) {
+				return false;
+			}
+
+			return changedCategories.any((changedCategory) => {
+				return changedCategory.selected !== changedCategory.category.selected;
+			});
 		},
 
+		/**
+		 * @param {string} sortBy
+		 *
+		 * @returns {void}
+		 */
 		trackSortByTapped(sortBy) {
 			const discussionSort = this.get('discussionSort');
 
@@ -51,6 +50,11 @@ export default Ember.Component.extend(
 			}
 		},
 
+		/**
+		 * @param {string} sortBy
+		 * @param {boolean} onlyReported
+		 * @returns {boolean}
+		 */
 		didFiltersChange(sortBy, onlyReported) {
 			const discussionSort = this.get('discussionSort');
 
@@ -75,11 +79,14 @@ export default Ember.Component.extend(
 					this.get('applyFilters')(
 						this.get('sortBy'),
 						this.get('onlyReported'),
-						this.get('appliedCategories')
+						this.get('changedCategories')
 					);
 				}
+				const popover = this.get('popover');
 
-				this.get('popover').deactivate();
+				if (popover) {
+					popover.deactivate();
+				}
 			},
 
 			/**
@@ -91,9 +98,35 @@ export default Ember.Component.extend(
 				this.set('sortBy', sortBy);
 			},
 
-			updateCategories(appliedCategories) {
-				this.set('appliedCategories', appliedCategories);
-			}
+			/**
+			 * @param {Ember.Array} changedCategories
+			 *
+			 * @returns {void}
+			 */
+			updateCategories(changedCategories) {
+				this.set('changedCategories', changedCategories);
+			},
+
+			/**
+			 * @param {Event} event
+			 *
+			 * @returns {void}
+			 */
+			toggleReported(event) {
+				event.preventDefault();
+
+				const onlyReported = this.get('onlyReported');
+
+				if (onlyReported === false) {
+					this.send('setSortBy', 'latest');
+				}
+
+				this.set('onlyReported', !onlyReported);
+
+				if (!this.get('showApplyButton')) {
+					this.send('applyFilters');
+				}
+			},
 		}
 	}
 );

@@ -5,8 +5,8 @@
 				addCategory=(action this.attrs.addCategory)
 				categories=categories
 				disabled=onlyReported
-				updateCategories=(action 'updateCategories')
 				inputIdPrefix='filters'
+				updateCategories=(action 'updateCategories')
 			}}
 		{{/if}}
 		{{#if showSortSection}}
@@ -16,8 +16,8 @@
 					{{#each discussionSort.sortTypes as |sortType|}}
 						<li class="sort-{{sortType.name}}">
 							<input type="radio" value="{{sortType.name}}" {{action 'setSortBy' sortType.name}} name="sort-button" class="bullet" id="sort-button-{{sortType.messageKey}}">
-							<div class="radio-fancy {{if (equal sortType.name sortBy) 'active active-element-background-color'}}"><div class="inside"></div></div>
 							<label for="sort-button-{{sortType.messageKey}}">
+								<div class="radio-fancy {{if (equal sortType.name sortBy) 'active active-element-background-color'}}"><div class="inside"></div></div>
 								{{i18n sortType.messageKey ns='discussion'}}
 							</label>
 						</li>
@@ -32,6 +32,7 @@
 					class='moderation-checkbox-label'
 					isChecked=onlyReported
 					label=(i18n 'main.reported-content-filter-text' ns='discussion')
+					click=(action 'toggleReported')
 				}}
 			</fieldset>
 		{{/if}}

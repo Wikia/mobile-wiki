@@ -4,9 +4,9 @@ $post-card-top-note-height: 40px;
 $mobile-content-font-size: $type-smallest;
 $mobile-content-line-height: $line-height-min;
 $desktop-content-font-size: $type-base;
-$desktop-content-line-height: $type-small;
-$desktop-post-details-content-line-height: $line-height-smaller;
-$desktop-post-details-content-font-size: $type-smaller;
+$desktop-content-line-height: $line-height-base;
+$desktop-post-details-content-line-height: $line-height-base;
+$desktop-post-details-content-font-size: $type-base;
 $post-details-mobile-page-margin-top: 91px;
 $post-details-content-line-height: 1.4rem;
 $post-details-outer-width: 580px;
@@ -194,6 +194,12 @@ body.discussions {
 		line-height: rem-calc(14);
 		padding-bottom: 14px;
 		text-align: right;
+
+		.upvote-count,
+		.reply-count {
+			align-items: center;
+			display: flex;
+		}
 
 		.icon {
 			&.upvote,

@@ -1,0 +1,53 @@
+{{#ember-wormhole to="site-head-sub-header"}}
+	{{wikia-search
+		onEnterHandler=(action 'onSearchEnter')
+		query=inputPhrase
+		focusInput=false
+		suggestionsEnabled=false
+	}}
+{{/ember-wormhole}}
+{{loading-spinner
+	active=model.loading
+	radius=38
+	strokeWidth=3
+}}
+<div class="search-results">
+	{{#if model.totalItems}}
+		<div class="search-results__total">
+			{{{i18n 'main.total-results'
+				ns='search'
+				totalItems=model.totalItems
+				query=(wrap-me model.query tagName='strong')
+			}}}
+		</div>
+		<ul class="search-results__list">
+			{{#each model.items as |item|}}
+				{{#wikia-ui-components/wikia-card}}
+					{{#link-to 'wiki-page' item.href trackingCategory="search-page" trackingLabel="search-result" }}
+						<div class="search-results__item">
+							<div class="search-results__title">
+								{{item.title}}
+							</div>
+							<div class="search-results__snippet">{{{item.snippet}}}</div>
+						</div>
+					{{/link-to}}
+				{{/wikia-ui-components/wikia-card}}
+			{{/each}}
+		</ul>
+	{{else if notFoundError}}
+		{{#wikia-ui-components/error-info}}
+			{{wikia-search-error-not-found
+				erroneousQuery=model.erroneousQuery
+				onErrorPageClick=(action 'onErrorPageClick')
+			}}
+		{{/wikia-ui-components/error-info}}
+	{{/if}}
+</div>
+{{#if model.canLoadMore}}
+	{{wikia-ui-components/wikia-button
+		text=(i18n 'main.load-more-results' ns='search')
+		onButtonClick=(action 'onLoadMore')
+		trackLabel='search-load-more'
+		class='search-results__load-more-wrapper'
+	}}
+{{/if}}

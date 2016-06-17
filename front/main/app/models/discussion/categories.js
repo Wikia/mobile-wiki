@@ -9,11 +9,14 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 	wikiId: null,
 
 	selectedCategoryIds: Ember.computed('categories.@each.selected', function () {
-		return this.getCategoryIds(this.get('categories'));
+		return this.getSelectedCategoryIds();
 	}),
 
-	getCategoryIds(categories) {
-		return categories.filterBy('selected', true).mapBy('id');
+	/**
+	 * @returns {Ember.Array}
+	 */
+	getSelectedCategoryIds() {
+		return this.get('categories').filterBy('selected', true).mapBy('id');
 	},
 
 	/**
@@ -35,6 +38,8 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 		this.get('categories').forEach((category) => {
 			if (selectedCategoryIds.indexOf(category.get('id')) !== -1) {
 				category.set('selected', true);
+			} else {
+				category.set('selected', false);
 			}
 		});
 	},
@@ -66,7 +71,7 @@ DiscussionCategoriesModel.reopenClass({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	getCategories(wikiId) {
-		return new Ember.RSVP.Promise((resolve, reject) => {
+		return new Ember.RSVP.Promise((resolve) => {
 			const discussionInstance = DiscussionCategoriesModel.create({
 				wikiId
 			});
@@ -76,8 +81,8 @@ DiscussionCategoriesModel.reopenClass({
 
 				resolve(discussionInstance);
 			}).catch(() => {
-				// TODO handle errors
-				reject(discussionInstance);
+				// Categories fail silently - you can still view the default category
+				resolve(discussionInstance);
 			});
 		});
 	}
