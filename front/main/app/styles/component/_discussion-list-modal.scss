@@ -66,11 +66,6 @@
 				text-overflow: ellipsis;
 				white-space: nowrap;
 				width: 100%;
-
-				a {
-					line-height: 48px;
-					width: 100%;
-				}
 			}
 
 			li:last-child {
@@ -95,10 +90,6 @@
 
 				.avatar-username {
 					line-height: 58px;
-
-					a {
-						line-height: 58px;
-					}
 				}
 			}
 		}
