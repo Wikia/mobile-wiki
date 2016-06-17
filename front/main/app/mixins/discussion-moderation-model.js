@@ -130,7 +130,7 @@ export default Mixin.create({
 
 	/**
 	 * Sets up reported details on reported posts
-	 * @param {DiscussionEntities} entities
+	 * @param {DiscussionEntity[]} entities
 	 * @returns {void}
 	 */
 	reportedDetailsSetUp(entities) {

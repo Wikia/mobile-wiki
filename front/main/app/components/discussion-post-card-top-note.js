@@ -86,6 +86,14 @@ export default Ember.Component.extend({
 		}
 	}),
 
+	/**
+	 * We want to trigger the action (report-details-modal open) only when the specific part of text is clicked/tapped.
+	 * That part of text is wrapped in <span> element and contains class defined in 'reportDetailsEntryPointClassName'
+	 * property.
+	 * @param {Object} event - event object
+	 * @returns {void}
+	 */
+
 	click(event) {
 		if (event.target.classList.contains(this.get('reportDetailsEntryPointClassName'))) {
 			this.set('isReportDetailsVisible', true);
