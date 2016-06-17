@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import {track, trackActions} from 'common/utils/track';
-import {inGroup} from 'common/modules/abtest';
+
+import {getGroup} from 'common/modules/abtest';
 import ArticleAddPhotoModel from '../models/article-add-photo';
 import VisibilityStateManager from '../utils/visibility-state-manager';
 
@@ -15,9 +16,12 @@ export default Ember.Controller.extend({
 	 * @returns {void}
 	 */
 	init() {
+		const viewabilityExperimentGroup = getGroup('MERCURY_VIEWABILITY_EXPERIMENT');
+
 		this.setProperties({
 			// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
-			showTopLeaderBoardAd: !inGroup('MERCURY_VIEWABILITY_EXPERIMENT', 'AD_BELOW_INFOBOX'),
+			showTopLeaderBoardAd: !(viewabilityExperimentGroup === 'AD_BELOW_INFOBOX' ||
+				viewabilityExperimentGroup === 'AD_ON_PAGE_FOLD'),
 			mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
 			siteName: Ember.getWithDefault(Mercury, 'wiki.siteName', 'Wikia')
 		});

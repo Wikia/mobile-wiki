@@ -148,7 +148,6 @@ export default Ember.Mixin.create({
 
 			// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
 			viewabilityExperimentGroup = getGroup('MERCURY_VIEWABILITY_EXPERIMENT'),
-
 			$pi = $('.portable-infobox'),
 			$topPlacement = $('.wiki-container'),
 
