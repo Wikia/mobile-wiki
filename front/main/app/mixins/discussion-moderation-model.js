@@ -154,7 +154,7 @@ export default Mixin.create({
 			reportedEntities.forEach((reportedEntity) => {
 				reportedEntity.set('reportDetails', entitiesReportDetails[reportedEntity.get('id')]);
 			});
-		}).catch(function() {
+		}).catch(() => {
 			// this is concious decision to ignore potential error here
 			// we don't want to rise any visual indicator if something goes wrong here
 		});
