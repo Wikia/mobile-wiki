@@ -24,10 +24,12 @@
     "help-section-collapsible":"Wenn du die Option „reduzierbar“ aktivierst, kannst du Abschnitte öffnen und schließen, wenn die Infobox auf einer Artikelseite verwendet wird.",
     "edit-image-item-description":"Dies ist ein Platzhalter für ein Bild, das du später hochladen kannst, sobald die Infobox auf einer Artikelseite verwendet wird.",
     "edit-title-modal-cancel":"Abbrechen",
-    "edit-title-modal-header":"Gib deiner Vorlage einen Namen",
+    "edit-title-modal-header-on-leave":"Gib deiner Vorlage einen Namen",
+    "edit-title-modal-header-on-rename":"Name der Vorlage",
     "edit-title-modal-publish":"Veröffentlichen",
     "edit-title-modal-ok":"OK",
-    "edit-title-modal-text":"Um deine Vorlage veröffentlichen zu können, musst du einen Namen dafür angeben.",
+    "edit-title-modal-text-on-leave":"Um deine Vorlage veröffentlichen zu können, musst du einen Namen dafür angeben.",
+    "edit-title-modal-text-on-rename":"Gib einen Namen für deine Infobox-Vorlage an.",
     "edit-title-placeholder":"Unbenannte Vorlage",
     "save":"Veröffentlichen",
     "load-error":"Ladefehler",
@@ -40,6 +42,7 @@
     "source-editor-save-confirmation-button-no":"Nein",
     "source-editor-loading":"Quelltext-Editor wird geladen",
     "untitled-infobox-template":"Unbenannte Infobox-Vorlage",
-    "title-naming-conflict-error":"Dieser Name ist bereits vergeben"
+    "title-naming-conflict-error":"Dieser Name ist bereits vergeben",
+    "title-naming-invalid-title-error":"Ungültiger Titel. Bitte wähle einen gültigen Titel."
   }
 }
