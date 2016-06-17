@@ -42,6 +42,7 @@
     "source-editor-save-confirmation-button-no":"不是",
     "source-editor-loading":"正在載入原始碼編輯器",
     "untitled-infobox-template":"未添加標題的訊息框模版",
-    "title-naming-conflict-error":"此名稱已被使用"
+    "title-naming-conflict-error":"此名稱已被使用",
+    "title-naming-invalid-title-error":"無效的標題"
   }
 }

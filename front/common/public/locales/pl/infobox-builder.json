@@ -42,6 +42,7 @@
     "source-editor-save-confirmation-button-no":"Nie",
     "source-editor-loading":"Ładowanie edytora źródłowego",
     "untitled-infobox-template":"Szablon Infoboksu bez nazwy",
-    "title-naming-conflict-error":"Ta nazwa jest już wykorzystywana"
+    "title-naming-conflict-error":"Ta nazwa jest już wykorzystywana",
+    "title-naming-invalid-title-error":"Tytuł strony jest nieprawidłowy. Podaj inny tytuł."
   }
 }
