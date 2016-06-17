@@ -124,6 +124,20 @@ export default Ember.Mixin.create({
 		}
 	},
 
+	createPost(entityData) {
+		const editorType = 'contributeEditor',
+			editorState = this.getEditorState(editorType);
+
+		editorState.set('isLoading', true);
+		this.setEditorError(editorType, null);
+
+		this.get('model').createPost(entityData).catch((err) => {
+			this.onContributionError(editorType, err, 'editor.post-error-general-error');
+		}).finally(() => {
+			editorState.set('isLoading', false);
+		});
+	},
+
 	actions: {
 		/**
 		 * Set editor active state
@@ -171,17 +185,7 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		createPost(entityData) {
-			const editorType = 'contributeEditor',
-				editorState = this.getEditorState(editorType);
-
-			editorState.set('isLoading', true);
-			this.setEditorError(editorType, null);
-
-			this.get('model').createPost(entityData).catch((err) => {
-				this.onContributionError(editorType, err, 'editor.post-error-general-error');
-			}).finally(() => {
-				editorState.set('isLoading', false);
-			});
+			this.createPost(entityData);
 		},
 
 		/**
