@@ -43,7 +43,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor(this.get('routeName')).loadPage(pageNum, this.get('discussionSort.sortBy'));
+				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
 			/**
