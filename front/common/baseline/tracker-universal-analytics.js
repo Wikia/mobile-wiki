@@ -97,7 +97,7 @@ if (typeof window.M.tracker === 'undefined') {
 		setupAccountOnce(accounts[trackerName].id, prefix, options);
 
 		if (domain) {
-			ga(`${prefix}linker:autoLink`, domain);
+			ga(`${prefix}linker:autoLink`, domain instanceof Array ? domain : [domain]);
 		}
 
 		tracked.push(accounts[trackerName]);
