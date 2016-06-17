@@ -96,9 +96,7 @@ if (typeof window.M.tracker === 'undefined') {
 
 		setupAccountOnce(accounts[trackerName].id, prefix, options);
 
-		if (domain) {
-			ga(`${prefix}linker:autoLink`, domain instanceof Array ? domain : [domain]);
-		}
+		ga(`${prefix}linker:autoLink`, ['wikia.com']);
 
 		tracked.push(accounts[trackerName]);
 	}
@@ -450,19 +448,17 @@ if (typeof window.M.tracker === 'undefined') {
 			return false;
 		}
 
-		const domain = 'wikia.com';
-
 		setDimensions(dimensions);
 		setDimensionsForOptimizelyExperiments();
 		setDimensionsForWikiaAbTest();
 
 		accounts = M.prop('tracking.ua');
 
-		initAccount(accountPrimary, domain);
-		initAccount(accountAds, domain);
+		initAccount(accountPrimary);
+		initAccount(accountAds);
 
 		if (M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki) {
-			initAccount(accountSpecial, domain);
+			initAccount(accountSpecial);
 		}
 
 		return true;
