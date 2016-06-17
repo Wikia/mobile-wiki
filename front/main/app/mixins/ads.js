@@ -150,6 +150,7 @@ export default Ember.Mixin.create({
 			viewabilityExperimentGroup = getGroup('MERCURY_VIEWABILITY_EXPERIMENT'),
 			$pi = $('.portable-infobox'),
 			$topPlacement = $('.wiki-container'),
+			$topAd = $('#MOBILE_TOP_LEADERBOARD'),
 
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			articleBodyHeight = $articleBody.height(),
@@ -175,8 +176,8 @@ export default Ember.Mixin.create({
 			if ($pi.length) {
 				// inject after infobox
 				this.appendAd(this.adsData.mobileTopLeaderBoard, 'after', $pi.first());
-			} else {
-				// inject at top
+			} else if (!$topAd.length) {
+				// inject at top if not present
 				this.appendAd(this.adsData.mobileTopLeaderBoard, 'before', $topPlacement);
 			}
 		}
