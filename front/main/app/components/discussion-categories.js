@@ -8,6 +8,7 @@ export default Ember.Component.extend(
 		disabled: false,
 		visibleCategoriesCount: null,
 		isEditMode: false,
+		canEditCategories: true,
 
 		init() {
 			this._super();

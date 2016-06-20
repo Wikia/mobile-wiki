@@ -5,6 +5,12 @@
 <fieldset class="discussion-fieldset discussion-categories {{if collapsed 'collapsed'}}" disabled="{{if disabled 'disabled'}}">
 	<legend {{action this.attrs.toggle}}>
 		{{i18n 'main.categories-header' ns='discussion'}}
+		{{#if canEditCategories}}
+			<a class="discussion-categories-edit active-element-theme-color" {{action this.attrs.setEditMode true bubbles=false}}>
+				{{i18n 'main.categories-edit-label' ns='discussion'}}
+				{{svg 'pencil' viewBox='0 0 18 18' class='icon edit fill-theme-color'}}
+			</a>
+		{{/if}}
 		{{svg 'chevron-linked' role='img' class='icon chevron'}}
 	</legend>
 	<div class="discussion-categories-list-container">

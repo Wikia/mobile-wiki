@@ -1,13 +1,15 @@
 {{discussion-categories-list
 	allCategorySelected=allCategorySelected
 	categoriesInputIdPrefix=categoriesInputIdPrefix
-	class=(if isEditMode 'highlight-overlay-content')
+	canEditCategories=canEditCategories
 	collapsed=collapsed
 	disabled=disabled
+	isEditMode=isEditMode
 	localCategories=localCategories
 	selectAllCategory=(action 'selectAllCategory')
 	onCategoryClick=(action 'onCategoryClick')
 	reset=(action 'reset')
+	setEditMode=(action 'setEditMode')
 	toggle=(action 'toggle')
 	toggleButtonLabel=toggleButtonLabel
 	toggleButtonVisible=toggleButtonVisible
