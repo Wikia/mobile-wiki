@@ -3,6 +3,8 @@ import Ember from 'ember';
 const {Mixin} = Ember;
 
 export default Mixin.create({
+	areGuidelinesVisible: false,
+
 	actions: {
 		/**
 		 * @param {object} post
@@ -75,5 +77,13 @@ export default Mixin.create({
 		unlockPost(post) {
 			this.get('target').send('unlock', post);
 		},
+
+		/**
+		 * This sets 'areGuidelinesVisible' property which results with Guidelines' modal open.
+		 * @returns {void}
+		 */
+		openGuidelines() {
+			this.set('areGuidelinesVisible', true);
+		}
 	}
 });

@@ -8,9 +8,19 @@
 		generateOpenGraph=(route-action 'generateOpenGraph')
 	}}
 {{/modal-dialog}}
+{{#modal-dialog
+	class='is-bare is-desktop-centered'
+	closeOnOverlayClick=true
+	isVisible=areGuidelinesVisible
+}}
+	{{discussion-guidelines
+		guidelinesText='SRUTUTU'
+	}}
+{{/modal-dialog}}
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	model=model.data
+	openGuidelines=(action 'openGuidelines')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')
@@ -30,7 +40,7 @@
 		report=(action 'report')
 		totalPosts=model.data.postCount
 		undeletePost=(action 'undeletePost')
-		upvote=(action 'upvote')
 		unlockPost=(action 'unlockPost')
+		upvote=(action 'upvote')
 	}}
 {{/discussion-entities-list-layout}}
