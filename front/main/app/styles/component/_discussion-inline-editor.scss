@@ -27,6 +27,10 @@ $editor-toolbar-height: 40px;
 			border: 0;
 			resize: vertical;
 		}
+
+		.discussion-inline-editor-content-wrapper {
+			min-height: 106px;
+		}
 	}
 
 	&.is-sticky {
@@ -54,7 +58,6 @@ $editor-toolbar-height: 40px;
 
 	.discussion-inline-editor-content-wrapper {
 		max-height: 160px;
-		min-height: 106px;
 		overflow: auto;
 	}
 

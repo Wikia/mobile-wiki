@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
-export default Ember.Mixin.create({
+const {Mixin, computed, $, observer, run} = Ember;
+
+export default Mixin.create({
 	attributeBindings: ['style'],
 
 	classNameBindings: ['isSticky'],
@@ -14,7 +16,7 @@ export default Ember.Mixin.create({
 	 *
 	 * @returns {void}
 	 */
-	style: Ember.computed('isSticky', function () {
+	style: computed('isSticky', function () {
 		return this.get('isSticky') ?
 			`height: ${this.$(this.get('containerClassname')).outerHeight(true)}px` :
 			null;
@@ -35,7 +37,7 @@ export default Ember.Mixin.create({
 
 		this.set('isSticky', window.innerHeight + scrollY < this.$().offset().top + this.$().height());
 
-		Ember.$(window).on('scroll.editor', () => {
+		$(window).on('scroll.editor', () => {
 			this.onScroll();
 		});
 	},
@@ -57,9 +59,9 @@ export default Ember.Mixin.create({
 	 *
 	 * @returns {void}
 	 */
-	viewportChangeObserver: Ember.observer('viewportDimensions.width', 'viewportDimensions.height',
+	viewportChangeObserver: observer('viewportDimensions.width', 'viewportDimensions.height',
 		function () {
-			Ember.$(window).off('scroll.editor');
+			$(window).off('scroll.editor');
 			this.initializeStickyState();
 		}
 	),
@@ -68,7 +70,7 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	onScroll() {
-		Ember.run.throttle(
+		run.throttle(
 			this,
 			function () {
 				if (!this.get('isSticky') && this.isStickyBreakpointHeight()) {
@@ -87,6 +89,6 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	willDestroyElement() {
-		Ember.$(window).off('scroll.editor');
+		$(window).off('scroll.editor');
 	},
 });
