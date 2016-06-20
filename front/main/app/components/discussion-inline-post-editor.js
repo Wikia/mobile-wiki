@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import DiscussionReplyStickyComponentMixin from '../mixins/discussion-reply-sticky-component';
 import DiscussionInlineEditor from './discussion-inline-editor';
 
