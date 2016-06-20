@@ -59,10 +59,22 @@
 		font-weight: $font-weight-normal;
 		text-transform: uppercase;
 	}
+
+	.discussion-categories-input,
+	.discussion-categories-input:focus {
+		background-color: transparent;
+		box-shadow: none;
+		padding: 8px 0 4px;
+	}
+
+	.discussion-categories-input:focus {
+		border-color: #333;
+	}
 }
 
 .discussion-categories-edit-add-link {
 	font-size: $type-smallest;
+	float: right;
 }
 
 .discussion-categories-edit-footer-wrapper {

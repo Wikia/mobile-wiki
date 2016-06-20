@@ -1,0 +1,32 @@
+<h3 class="discussion-filter-header">
+	{{i18n 'main.filter-posts-header' ns='discussion'}}
+</h3>
+<fieldset class="discussion-fieldset discussion-categories">
+	<legend>
+		{{i18n 'main.categories-header' ns='discussion'}}
+	</legend>
+	<div class="discussion-categories-list-container">
+		<ul class="discussion-categories-list">
+			{{#each localCategories as |localCategory|}}
+				<li>
+					{{input
+						class='discussion-categories-input'
+						value=localCategory.category.name
+					}}
+				</li>
+			{{/each}}
+		</ul>
+	</div>
+	<a class="discussion-categories-edit-add-link active-element-theme-color" {{action this.attrs.addCategory}}>+ Add Category</a>
+</fieldset>
+
+<div class="discussion-categories-edit-footer-wrapper">
+	<div class="discussion-categories-edit-footer">
+		<button {{action this.attrs.setEditMode false}}>
+			{{svg 'close' viewBox='0 0 40 40' class='icon'}}
+		</button>
+		<button type="submit" class="submit" {{action this.attrs.submit}}>
+			{{svg 'checkmark' viewBox='0 0 40 40' class='icon icon-submit'}}
+		</button>
+	</div>
+</div>

@@ -31,6 +31,7 @@
 			{{#unless hideCategoriesInRail}}
 				{{#if categories}}
 					{{discussion-categories
+						addCategory=(action this.attrs.addCategory)
 						categories=categories
 						inputIdPrefix='rail'
 						updateCategories=(action this.attrs.updateCategories)

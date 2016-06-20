@@ -1,21 +1,33 @@
-{{discussion-categories-list
-	allCategorySelected=allCategorySelected
-	categoriesInputIdPrefix=categoriesInputIdPrefix
-	canEditCategories=canEditCategories
-	collapsed=collapsed
-	disabled=disabled
-	isEditMode=isEditMode
-	localCategories=localCategories
-	selectAllCategory=(action 'selectAllCategory')
-	onCategoryClick=(action 'onCategoryClick')
-	reset=(action 'reset')
-	setEditMode=(action 'setEditMode')
-	toggle=(action 'toggle')
-	toggleButtonLabel=toggleButtonLabel
-	toggleButtonVisible=toggleButtonVisible
-	toggleMore=(action 'toggleMore')
-	visibleCategoriesCount=visibleCategoriesCount
-}}
+{{#unless isEditMode}}
+	{{discussion-categories-list
+		allCategorySelected=allCategorySelected
+		categoriesInputIdPrefix=categoriesInputIdPrefix
+		canEditCategories=canEditCategories
+		collapsed=collapsed
+		disabled=disabled
+		localCategories=localCategories
+		selectAllCategory=(action 'selectAllCategory')
+		onCategoryClick=(action 'onCategoryClick')
+		reset=(action 'reset')
+		setEditMode=(action 'setEditMode')
+		toggle=(action 'toggle')
+		toggleButtonLabel=toggleButtonLabel
+		toggleButtonVisible=toggleButtonVisible
+		toggleMore=(action 'toggleMore')
+		visibleCategoriesCount=visibleCategoriesCount
+	}}
+{{/unless}}
+
+{{#if isEditMode}}
+	{{discussion-categories-edit
+		addCategory=(action 'addCategory')
+		categoriesInputIdPrefix=categoriesInputIdPrefix
+		class='highlight-overlay-content'
+		localCategories=localCategories
+		setEditMode=(action 'setEditMode')
+		submit=(action 'submit')
+	}}
+{{/if}}
 
 {{wikia-ui-components/highlight-overlay
 	isVisible=isEditMode

@@ -41,17 +41,3 @@
 		{{/if}}
 	</div>
 </fieldset>
-
-{{#if isEditMode}}
-	<a class="discussion-categories-edit-add-link active-element-theme-color">+ Add Category</a>
-	<div class="discussion-categories-edit-footer-wrapper">
-		<div class="discussion-categories-edit-footer">
-			<button {{action this.attrs.setEditMode false}}>
-				{{svg 'close' viewBox='0 0 40 40' class='icon'}}
-			</button>
-			<button type="submit" class="submit">
-				{{svg 'checkmark' viewBox='0 0 40 40' class='icon icon-submit'}}
-			</button>
-		</div>
-	</div>
-{{/if}}

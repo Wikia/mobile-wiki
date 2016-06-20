@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {track, trackActions} from '../utils/discussion-tracker';
+import DiscussionCategory from '../models/discussion/domain/category';
 
 export default Ember.Component.extend(
 	{
@@ -201,6 +202,20 @@ export default Ember.Component.extend(
 			 */
 			setEditMode(isEnabled) {
 				this.set('isEditMode', isEnabled);
+			},
+
+			// TODO separate edit mode
+			addCategory() {
+				this.get('localCategories').pushObject(Ember.Object.create({
+					category: DiscussionCategory.create({})
+				}));
+			},
+
+			submit() {
+				this.get('localCategories').filterBy('category.id', undefined).forEach((newCategory) => {
+					this.sendAction('addCategory', newCategory.get('category.name'));
+				});
+
 			}
 		}
 	}

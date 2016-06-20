@@ -85,6 +85,11 @@ export default DiscussionBaseRoute.extend(
 					sort: this.get('discussionSort.sortBy')
 				}});
 			},
+
+			addCategory(categoryName) {
+				this.modelFor(this.get('routeName')).index.addCategory(categoryName);
+				// TODO catch and loading state
+			},
 		}
 	}
 );
