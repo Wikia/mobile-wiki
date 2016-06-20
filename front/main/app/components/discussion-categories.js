@@ -153,7 +153,7 @@ export default Ember.Component.extend(
 				this.setAllCategorySelected(localCategories);
 				this.collapseCategoriesAboveLimit(localCategories);
 
-				this.sendAction('updateCategories', localCategories);
+				this.sendAction('updateCategoriesSelection', localCategories);
 			},
 
 			/**
@@ -171,7 +171,7 @@ export default Ember.Component.extend(
 				localCategories.setEach('selected', false);
 				this.setAllCategorySelected(localCategories);
 
-				this.sendAction('updateCategories', localCategories);
+				this.sendAction('updateCategoriesSelection', localCategories);
 			},
 
 			/**
@@ -192,7 +192,7 @@ export default Ember.Component.extend(
 
 				this.setAllCategorySelected(localCategories);
 
-				this.sendAction('updateCategories', localCategories);
+				this.sendAction('updateCategoriesSelection', localCategories);
 			},
 
 			/**

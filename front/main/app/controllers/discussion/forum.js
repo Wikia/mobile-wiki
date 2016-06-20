@@ -14,8 +14,8 @@ export default DiscussionBaseController.extend(
 		catId: [],
 
 		actions: {
-			updateCategories(categories) {
-				this.get('target').send('updateCategories', categories);
+			updateCategoriesSelection(categories) {
+				this.get('target').send('updateCategoriesSelection', categories);
 			},
 		}
 	}
