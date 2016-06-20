@@ -33,6 +33,11 @@ const trackActions = {
 	OGTapped: 'OGTapped',
 	OGCreated: 'OGCreated',
 	OGRemoved: 'OGRemoved',
+	CategoryTapped: 'CategoryTapped',
+	AllCategoriesTapped: 'AllCategoriesTapped',
+	CategoriesCollaped: 'CategoriesCollaped',
+	CategoriesUncollaped: 'CategoriesUncollaped',
+	CategoriesResetTapped: 'CategoriesResetTapped',
 };
 
 /**

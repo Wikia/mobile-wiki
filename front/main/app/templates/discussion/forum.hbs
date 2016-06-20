@@ -19,8 +19,10 @@
 {{/modal-dialog}}
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
-	model=model.data
+	categories=model.index.categories
+	model=model.current.data
 	openGuidelines=(action 'openGuidelines')
+	updateCategories=(action 'updateCategories')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')
@@ -33,12 +35,12 @@
 		generateOpenGraph=(route-action 'generateOpenGraph')
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
-		minorError=model.data.minorError
-		pageNum=model.data.pageNum
-		posts=model.data.entities
-		postsDisplayed=model.data.entities.length
+		minorError=model.current.data.minorError
+		pageNum=model.current.data.pageNum
+		posts=model.current.data.entities
+		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')
-		totalPosts=model.data.postCount
+		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
 		unlockPost=(action 'unlockPost')
 		upvote=(action 'upvote')

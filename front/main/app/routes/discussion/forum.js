@@ -15,6 +15,9 @@ export default DiscussionBaseRoute.extend(
 	DiscussionModalDialogMixin,
 	{
 		queryParams: {
+			catId: {
+				refreshModel: true
+			},
 			sort: {
 				refreshModel: true
 			}
@@ -26,10 +29,11 @@ export default DiscussionBaseRoute.extend(
 
 		/**
 		 * @param {object} params
-		 * @returns {Ember.RSVP.Promise}
+		 * @returns {Ember.RSVP.hash}
 		 */
 		model(params) {
-			const discussionSort = this.get('discussionSort');
+			const discussionSort = this.get('discussionSort'),
+				indexModel = this.modelFor('discussion');
 
 			if (params.sort) {
 				discussionSort.setSortBy(params.sort);
@@ -37,7 +41,14 @@ export default DiscussionBaseRoute.extend(
 
 			discussionSort.setOnlyReported(false);
 
-			return DiscussionForumModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy'));
+			if (params.catId) {
+				indexModel.setSelectedCategories(params.catId instanceof Array ? params.catId : [params.catId]);
+			}
+
+			return Ember.RSVP.hash({
+				current: DiscussionForumModel.find(Mercury.wiki.id, params.catId, this.get('discussionSort.sortBy')),
+				index: indexModel
+			});
 		},
 
 		/**
@@ -49,13 +60,30 @@ export default DiscussionBaseRoute.extend(
 			return this.transitionTo('discussion.forum', {queryParams: {sort: sortBy}});
 		},
 
+		serializeQueryParam(value, urlKey, defaultValueType) {
+			return defaultValueType === 'array' ? value : this._super(value, urlKey, defaultValueType);
+		},
+
+		deserializeQueryParam(value, urlKey, defaultValueType) {
+			return defaultValueType === 'array' ? value : this._super(value, urlKey, defaultValueType);
+		},
+
 		actions: {
 			/**
 			 * @param {number} pageNum
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor(this.get('routeName')).loadPage(pageNum, this.get('discussionSort.sortBy'));
+				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
+			},
+
+			updateCategories(updatedCategories) {
+				const catId = updatedCategories.filterBy('selected', true).mapBy('category.id');
+
+				this.transitionTo({queryParams: {
+					catId,
+					sort: this.get('discussionSort.sortBy')
+				}});
 			},
 		}
 	}

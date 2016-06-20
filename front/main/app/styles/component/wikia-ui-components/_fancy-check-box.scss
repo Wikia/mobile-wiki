@@ -1,0 +1,32 @@
+.fancy-checkbox-label {
+	font-size: $type-smallest;
+}
+
+.fancy-checkbox-span {
+	align-items: center;
+	background-color: $fancy-check-box-background;
+	border: 1px solid $fancy-check-box-border;
+	display: inline-flex;
+	flex-direction: column;
+	height: 16px;
+	justify-content: center;
+	margin-right: 10px;
+	min-width: 16px;
+	pointer-events: none;
+	transition: background-color .5s;
+	width: 16px;
+
+	input {
+		display: none;
+	}
+
+	svg {
+		display: block;
+		height: auto;
+		width: 10px;
+	}
+
+	&.active-element-background-color {
+		border: none;
+	}
+}

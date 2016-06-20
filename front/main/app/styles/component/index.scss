@@ -16,6 +16,7 @@
 @import 'trending-videos';
 @import 'wikia-stats';
 @import 'modal-dialog';
+@import 'discussion-categories';
 @import 'discussion-editor';
 @import 'discussion-reply-editor';
 @import 'discussion-header';
@@ -57,6 +58,7 @@
 
 // wikia ui reusable components
 @import 'wikia-ui-components/check-box';
+@import 'wikia-ui-components/fancy-check-box';
 @import 'wikia-ui-components/error-info';
 @import 'wikia-ui-components/icon-button';
 @import 'wikia-ui-components/on-hover-tooltip';

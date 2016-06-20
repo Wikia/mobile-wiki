@@ -12,7 +12,7 @@
 
 {{#discussion-user-entities-list-layout
 	deleteAllPosts=(action 'deleteAllPosts')
-	model=model.data
+	model=model.current.data
 	smartBannerVisible=smartBannerVisible
 }}
 	{{discussion-user-list-wrapper
@@ -25,11 +25,11 @@
 		undeletePost=(action 'undeletePost')
 		undeleteReply=(action 'undeleteReply')
 		upvote=(action 'upvote')
-		minorError=model.data.minorError
-		pageNum=model.data.pageNum
-		posts=model.data.entities
-		postsDisplayed=model.data.entities.length
-		totalPosts=model.data.postCount
+		minorError=model.current.data.minorError
+		pageNum=model.current.data.pageNum
+		posts=model.current.data.entities
+		postsDisplayed=model.current.data.entities.length
+		totalPosts=model.current.data.postCount
 		unlockPost=(action 'unlockPost')
 	}}
 {{/discussion-user-entities-list-layout}}

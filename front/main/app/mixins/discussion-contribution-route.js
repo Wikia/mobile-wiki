@@ -42,7 +42,7 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		upvote(entity) {
-			this.modelFor(this.get('routeName')).upvote(entity);
+			this.modelFor(this.get('routeName')).current.upvote(entity);
 		},
 
 		/**
@@ -56,7 +56,7 @@ export default Ember.Mixin.create({
 			this.setEditorError(null, false);
 
 			this.setSortBy('latest').promise.then(() => {
-				const model = this.modelFor(this.get('routeName'));
+				const model = this.modelFor(this.get('routeName')).current;
 
 				model.createPost(postData).then(() => {
 					this.get('discussionEditor').trigger('newPost');
@@ -76,7 +76,7 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		editPost(postData) {
-			const model = this.modelFor(this.get('routeName'));
+			const model = this.modelFor(this.get('routeName')).current;
 
 			this.setEditorError(null, true);
 
@@ -97,7 +97,7 @@ export default Ember.Mixin.create({
 		createReply(replyData) {
 			this.setEditorError(null, false);
 
-			this.modelFor(this.get('routeName')).createReply(replyData).catch((err) => {
+			this.modelFor(this.get('routeName')).current.createReply(replyData).catch((err) => {
 				this.onContributionError(err, 'editor.reply-error-general-error', false);
 			}).finally(() => {
 				this.get('discussionEditor').set('isLoading', false);
@@ -110,7 +110,7 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		editReply(replyData) {
-			const model = this.modelFor(this.get('routeName'));
+			const model = this.modelFor(this.get('routeName')).current;
 
 			this.setEditorError(null, true);
 
@@ -124,7 +124,7 @@ export default Ember.Mixin.create({
 		},
 
 		generateOpenGraph(uri) {
-			const model = this.modelFor(this.get('routeName'));
+			const model = this.modelFor(this.get('routeName')).current;
 
 			return model.generateOpenGraph(uri).then((openGraph) => {
 				return openGraph;

@@ -1,37 +1,44 @@
 <form name="discussion-filters">
+	<div class="discussion-filters-fields-wrapper">
+		{{#if categories}}
+			{{discussion-categories
+				categories=categories
+				disabled=onlyReported
+				inputIdPrefix='filters'
+				updateCategories=(action 'updateCategories')
+			}}
+		{{/if}}
+		{{#if showSortSection}}
+			<fieldset class="discussion-fieldset sortby-fieldset" disabled={{trendingDisabled}}>
+				<legend>{{i18n 'main.sort-by-header' ns='discussion'}}</legend>
+				<ul class="sort-options">
+					{{#each discussionSort.sortTypes as |sortType|}}
+						<li class="sort-{{sortType.name}}">
+							<input type="radio" value="{{sortType.name}}" {{action 'setSortBy' sortType.name}} name="sort-button" class="bullet" id="sort-button-{{sortType.messageKey}}">
+							<label for="sort-button-{{sortType.messageKey}}">
+								<div class="radio-fancy {{if (equal sortType.name sortBy) 'active active-element-background-color'}}"><div class="inside"></div></div>
+								{{i18n sortType.messageKey ns='discussion'}}
+							</label>
+						</li>
+					{{/each}}
+				</ul>
+			</fieldset>
+		{{/if}}
+		{{#if canModerate}}
+			<fieldset class="discussion-fieldset moderation-fieldset">
+				<legend>{{i18n 'main.moderation-filters-header' ns='discussion'}}</legend>
+				{{wikia-ui-components/fancy-check-box
+					class='moderation-checkbox-label'
+					isChecked=onlyReported
+					label=(i18n 'main.reported-content-filter-text' ns='discussion')
+					click=(action 'toggleReported')
+				}}
+			</fieldset>
+		{{/if}}
+	</div>
 	{{#if showApplyButton}}
 		<div class="filters-apply-container header-text-theme-color">
 			<input type="submit" class="filters-apply" value="{{i18n 'main.sort-by-apply' ns='discussion'}}" {{action 'applyFilters'}}>
 		</div>
-	{{/if}}
-	{{#if showSortSection}}
-		<fieldset disabled={{trendingDisabled}}>
-			<legend>{{i18n 'main.sort-by-header' ns='discussion'}}</legend>
-			<ul class="sort-options">
-				{{#each discussionSort.sortTypes as |sortType|}}
-					<li class="sort-{{sortType.name}}">
-						<input type="radio" value="{{sortType.name}}" {{action 'setSortBy' sortType.name}} name="sort-button" class="bullet" id="sort-button-{{sortType.messageKey}}">
-						<div class="radio-fancy {{if (equal sortType.name sortBy) 'active active-element-background-color'}}"><div class="inside"></div></div>
-						<label for="sort-button-{{sortType.messageKey}}">
-							{{i18n sortType.messageKey ns='discussion'}}
-						</label>
-					</li>
-				{{/each}}
-			</ul>
-		</fieldset>
-	{{/if}}
-	{{#if canModerate}}
-		<fieldset class="moderation-fieldset">
-			<legend>{{i18n 'main.moderation-filters-header' ns='discussion'}}</legend>
-			<label class="moderation-checkbox-label">
-				<span class="fancy-checkbox {{onlyReportedClassName}}">
-					{{input type='checkbox' checked=onlyReported change=(action 'toggleOnlyReported')}}
-					{{#if onlyReported}}
-						{{svg 'checkbox-checkmark' class='icon' viewBox="0 0 20 14"}}
-					{{/if}}
-				</span>
-				{{i18n 'main.reported-content-filter-text' ns='discussion'}}
-			</label>
-		</fieldset>
 	{{/if}}
 </form>

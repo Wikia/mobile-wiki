@@ -15,15 +15,19 @@ export default DiscussionBaseRoute.extend(
 		discussionSort: Ember.inject.service(),
 
 		/**
-		 * @returns {Ember.RSVP.Promise}
+		 * @returns {Ember.RSVP.hash}
 		 */
 		model() {
-			const discussionSort = this.get('discussionSort');
+			const discussionSort = this.get('discussionSort'),
+				indexModel = this.modelFor('discussion');
 
 			discussionSort.setOnlyReported(true);
 			discussionSort.setSortBy('latest');
 
-			return DiscussionReportedPostsModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy'));
+			return Ember.RSVP.hash({
+				current: DiscussionReportedPostsModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy')),
+				index: indexModel
+			});
 		},
 
 		/**
@@ -39,7 +43,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor(this.get('routeName')).loadPage(pageNum, this.get('discussionSort.sortBy'));
+				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
 			/**
@@ -52,7 +56,7 @@ export default DiscussionBaseRoute.extend(
 			create(postData) {
 				this.get('discussionSort').setSortBy('latest');
 				this.transitionTo('discussion.forum', {queryParams: {sort: 'latest'}}).promise.then(() => {
-					const model = this.modelFor(this.get('routeName'));
+					const model = this.modelFor(this.get('routeName')).current;
 
 					model.createPost(postData).then((data) => {
 						if (data && !model.get('errorMessage')) {

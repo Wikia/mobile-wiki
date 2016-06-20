@@ -27,7 +27,7 @@ export default Mixin.create({
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
 			set(loadingSpinnerContainer, 'isLoading', true);
-			this.modelFor(this.get('routeName')).deletePost(post).then(() => {
+			this.modelFor(this.get('routeName')).current.deletePost(post).then(() => {
 				set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
@@ -56,7 +56,7 @@ export default Mixin.create({
 					if (result) {
 						set(loadingSpinnerContainer, 'isLoading', true);
 
-						this.modelFor(this.get('routeName')).deleteAllPosts(posts).then(() => {
+						this.modelFor(this.get('routeName')).current.deleteAllPosts(posts).then(() => {
 							set(loadingSpinnerContainer, 'isLoading', false);
 						});
 
@@ -74,7 +74,7 @@ export default Mixin.create({
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
 			set(loadingSpinnerContainer, 'isLoading', true);
-			this.modelFor(this.get('routeName')).undeletePost(post).then(() => {
+			this.modelFor(this.get('routeName')).current.undeletePost(post).then(() => {
 				set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
@@ -86,7 +86,7 @@ export default Mixin.create({
 		 */
 		deleteReply(reply) {
 			set(reply, 'isLoading', true);
-			this.modelFor(this.get('routeName')).deleteReply(reply).then(() => {
+			this.modelFor(this.get('routeName')).current.deleteReply(reply).then(() => {
 				set(reply, 'isLoading', false);
 			});
 		},
@@ -98,7 +98,7 @@ export default Mixin.create({
 		 */
 		undeleteReply(reply) {
 			set(reply, 'isLoading', true);
-			this.modelFor(this.get('routeName')).undeleteReply(reply).then(() => {
+			this.modelFor(this.get('routeName')).current.undeleteReply(reply).then(() => {
 				set(reply, 'isLoading', false);
 			});
 		},
@@ -110,7 +110,7 @@ export default Mixin.create({
 		 */
 		report(item) {
 			set(item, 'isLoading', true);
-			this.modelFor(this.get('routeName')).report(item).then(() => {
+			this.modelFor(this.get('routeName')).current.report(item).then(() => {
 				set(item, 'isLoading', false);
 			});
 		},
@@ -122,7 +122,7 @@ export default Mixin.create({
 		 */
 		approve(item) {
 			set(item, 'isLoading', true);
-			this.modelFor(this.get('routeName')).approve(item).then(() => {
+			this.modelFor(this.get('routeName')).current.approve(item).then(() => {
 				set(item, 'isLoading', false);
 			});
 		},
@@ -136,7 +136,7 @@ export default Mixin.create({
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
 			set(loadingSpinnerContainer, 'isLoading', true);
-			this.modelFor(this.get('routeName')).lockPost(post).then(() => {
+			this.modelFor(this.get('routeName')).current.lockPost(post).then(() => {
 				set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
@@ -150,7 +150,7 @@ export default Mixin.create({
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
 			set(loadingSpinnerContainer, 'isLoading', true);
-			this.modelFor(this.get('routeName')).unlockPost(post).then(() => {
+			this.modelFor(this.get('routeName')).current.unlockPost(post).then(() => {
 				set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},

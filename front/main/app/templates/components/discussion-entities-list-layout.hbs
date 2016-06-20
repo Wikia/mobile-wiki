@@ -2,6 +2,7 @@
 	{{discussion-header
 		applyFilters=(action this.attrs.applyFilters)
 		canModerate=model.canModerate
+		categories=categories
 		hasFilters=true
 		hasContentError=hasContentError
 		hasNewPostButton=true
@@ -24,8 +25,18 @@
 		numberOfPosts=model.postCount
 	}}
 	<div class="discussion-page row">
-		<div class="rail large-3 columns">
+		<div class="rail left large-3 columns">
 			{{community-badge}}
+			{{#unless hideCategoriesInRail}}
+				{{#if categories}}
+					{{discussion-categories
+						categories=categories
+						inputIdPrefix='rail'
+						updateCategories=(action this.attrs.updateCategories)
+						visibleCategoriesCount=10
+					}}
+				{{/if}}
+			{{/unless}}
 		</div>
 		<div class="small-12 large-6 columns">
 			{{yield}}

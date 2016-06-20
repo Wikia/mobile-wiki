@@ -110,6 +110,18 @@ body.discussions {
 	}
 }
 
+.discussion-fieldset {
+	border: none;
+	margin: 0;
+	min-width: 0;
+	padding: 0;
+	width: 100%;
+
+	legend {
+		background: transparent;
+	}
+}
+
 .discussion {
 	font-size: $type-smallest;
 	line-height: $line-height-smallest;
