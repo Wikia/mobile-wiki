@@ -20,7 +20,7 @@ export default Ember.Component.extend({
 	topNoteTextContext: Ember.computed('post.reportDetails.count', function () {
 		return {
 			ns: 'discussion',
-			countUsers: wrapMeHelper.compute([
+			reportedByNumberUsers: wrapMeHelper.compute([
 				i18n.t('main.reported-by-number-users', {
 					ns: 'discussion',
 					count: this.get('post.reportDetails.count'),
