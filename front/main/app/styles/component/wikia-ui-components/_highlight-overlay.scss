@@ -1,4 +1,5 @@
 .highlight-overlay {
+	animation: highligh-overlay-fade-in .5s;
 	background-color: $highlight-overlay-background-color;
 	bottom: 0;
 	left: 0;
@@ -16,4 +17,14 @@
 
 .dark-theme .highlight-overlay {
 	background-color: $dark-highlight-overlay-background-color;
+}
+
+@keyframes highligh-overlay-fade-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 0.9;
+	}
 }
