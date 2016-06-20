@@ -76,7 +76,7 @@
 	{{/if}}
 	{{#if canReply}}
 		{{#if responsive.isDesktop}}
-			{{discussion-inline-editor
+			{{discussion-inline-reply-editor
 				create=(action this.attrs.createReply)
 				errorMessage=editorState.errorMessage
 				generateOpenGraph=(action this.attrs.generateOpenGraph)
