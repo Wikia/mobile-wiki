@@ -1,10 +1,10 @@
 import Ember from 'ember';
-import DiscussionReplyStickyComponentMixin from '../mixins/discussion-reply-sticky-component';
+import DiscussionStickyComponentMixin from '../mixins/discussion-sticky-component';
 
 const {Component} = Ember;
 
 export default Component.extend(
-	DiscussionReplyStickyComponentMixin,
+	DiscussionStickyComponentMixin,
 	{
 		classNames: ['discussion-reply-editor-stub'],
 		containerClassname: '.stub-container',

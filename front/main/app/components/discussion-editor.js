@@ -55,6 +55,13 @@ export default Ember.Component.extend({
 			showSuccess: false,
 		});
 		this.sendAction('setEditorActive', this.get('editorType'), false);
+		this.scrollAfterEntityAdded();
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	scrollAfterEntityAdded() {
 		Ember.$('html, body').animate({scrollTop: 0});
 	},
 

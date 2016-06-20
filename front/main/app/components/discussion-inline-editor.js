@@ -3,12 +3,10 @@ import Ember from 'ember';
 import DiscussionEditor from './discussion-editor';
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
 import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
-import DiscussionReplyStickyComponentMixin from '../mixins/discussion-reply-sticky-component';
 
 export default DiscussionEditor.extend(
 	DiscussionEditorOpengraph,
 	DiscussionEditorConfiguration,
-	DiscussionReplyStickyComponentMixin,
 	{
 		attributeBindings: ['style'],
 		classNames: ['discussion-inline-editor'],

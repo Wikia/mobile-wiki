@@ -1,8 +1,8 @@
-import DiscussionReplyStickyComponentMixin from '../mixins/discussion-reply-sticky-component';
+import DiscussionStickyComponentMixin from '../mixins/discussion-sticky-component';
 import DiscussionInlineEditor from './discussion-inline-editor';
 
 export default DiscussionInlineEditor.extend(
-	DiscussionReplyStickyComponentMixin,
+	DiscussionStickyComponentMixin,
 	{
 		containerClassname: '.discussion-inline-editor-floating-container',
 
