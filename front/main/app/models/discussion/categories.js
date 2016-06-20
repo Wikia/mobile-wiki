@@ -62,6 +62,16 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 		}).catch(() => {
 			reject(this);
 		});
+	},
+
+	updateCategories(categories) {
+		const promisesList = [];
+
+		categories.filterBy('category.id', undefined).forEach((category) => {
+			promisesList.push(this.addCategory(category.get('category.name')));
+		});
+
+		return Ember.RSVP.Promise.all(promisesList);
 	}
 });
 

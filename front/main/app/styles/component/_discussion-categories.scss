@@ -104,6 +104,10 @@
 	}
 }
 
+.loading-overlay.categories-loading-overlay {
+	position: absolute;
+}
+
 @media #{$mobile-range} {
 	.discussion-filters-wrapper.highlight-overlay-content {
 		bottom: 0;

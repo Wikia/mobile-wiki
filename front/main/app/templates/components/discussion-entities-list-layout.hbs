@@ -1,6 +1,5 @@
 {{#ember-wormhole to="site-head-sub-header"}}
 	{{discussion-header
-		addCategory=(action this.attrs.addCategory)
 		applyFilters=(action this.attrs.applyFilters)
 		canModerate=model.canModerate
 		categories=categories
@@ -31,9 +30,9 @@
 			{{#unless hideCategoriesInRail}}
 				{{#if categories}}
 					{{discussion-categories
-						addCategory=(action this.attrs.addCategory)
 						categories=categories
 						inputIdPrefix='rail'
+						updateCategories=(action this.attrs.updateCategories)
 						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
 						visibleCategoriesCount=10
 					}}

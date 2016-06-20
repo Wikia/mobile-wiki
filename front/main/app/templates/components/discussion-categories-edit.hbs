@@ -20,6 +20,15 @@
 	<a class="discussion-categories-edit-add-link active-element-theme-color" {{action this.attrs.addCategory}}>+ Add Category</a>
 </fieldset>
 
+{{#if isLoading}}
+	{{loading-spinner
+		active=isLoading
+		class='categories-loading-overlay'
+		radius=32
+		strokeWidth=2
+	}}
+{{/if}}
+
 <div class="discussion-categories-edit-footer-wrapper">
 	<div class="discussion-categories-edit-footer">
 		<button {{action this.attrs.setEditMode false}}>

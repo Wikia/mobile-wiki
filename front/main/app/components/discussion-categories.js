@@ -8,8 +8,10 @@ export default Ember.Component.extend(
 		collapsed: false,
 		disabled: false,
 		visibleCategoriesCount: null,
+
 		isEditMode: false,
 		canEditCategories: true,
+		isLoading: false,
 
 		init() {
 			this._super();
@@ -212,10 +214,14 @@ export default Ember.Component.extend(
 			},
 
 			submit() {
-				this.get('localCategories').filterBy('category.id', undefined).forEach((newCategory) => {
-					this.sendAction('addCategory', newCategory.get('category.name'));
+				this.set('isLoading', true);
+				this.get('updateCategories')(this.get('localCategories'))
+					.then(() => {
+						this.set('isEditMode', false);
+					})
+					.finally(() => {
+						this.set('isLoading', false);
 				});
-
 			}
 		}
 	}

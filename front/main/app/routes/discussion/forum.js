@@ -86,10 +86,10 @@ export default DiscussionBaseRoute.extend(
 				}});
 			},
 
-			addCategory(categoryName) {
-				this.modelFor(this.get('routeName')).index.addCategory(categoryName);
-				// TODO catch and loading state
+			updateCategories(categories) {
+				return this.modelFor(this.get('routeName')).index.updateCategories(categories);
 			},
+
 		}
 	}
 );
