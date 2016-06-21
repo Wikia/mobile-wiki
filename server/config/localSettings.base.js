@@ -177,7 +177,7 @@ const localSettings = {
 	userPreferencesService: {
 		baseAPIPath: 'user-preference'
 	},
-	discuss: {
+	discussions: {
 		baseAPIPath: 'discussion'
 	},
 	imageReview: {
