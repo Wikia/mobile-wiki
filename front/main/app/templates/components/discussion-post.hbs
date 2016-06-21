@@ -8,7 +8,7 @@
 	postId=model.id
 	replyCount=model.repliesCount
 	report=(action this.attrs.report)
-	setEditDiscussionEntity=(action this.attrs.setEditDiscussionEntity)
+	openEditEditor=(action this.attrs.openEditEditor)
 	setEditorActive=(action this.attrs.setEditorActive)
 	timestamp=model.creationTimestamp
 	undelete=(action this.attrs.undeletePost)
@@ -45,7 +45,7 @@
 			report=(action this.attrs.report)
 			post=entity
 			permalinkedReplyId=model.permalinkedReplyId
-			setEditDiscussionEntity=(action this.attrs.setEditDiscussionEntity)
+			openEditEditor=(action this.attrs.openEditEditor)
 			setEditorActive=(action this.attrs.setEditorActive)
 			timestamp=entity.creationTimestamp
 			undelete=(action this.attrs.undeleteReply)

@@ -165,8 +165,9 @@ export default Ember.Mixin.create({
 		 *
 		 * @returns {void}
 		 */
-		setEditDiscussionEntity(discussionEntity) {
+		openEditEditor(discussionEntity) {
 			this.set('editEditorState.discussionEntity', discussionEntity);
+			this.send('setEditorActive', 'editEditor', true);
 		},
 
 		/**
