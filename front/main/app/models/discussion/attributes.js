@@ -29,7 +29,7 @@ DiscussionAttributesModel.reopenClass({
 
 			resolve(attributesInstance);
 
-			request(M.getDiscussionServiceUrl(`/${wikiId}/attr/guidelines`)).then((data) => {
+			request(M.getAttributeServiceUrl(`/${wikiId}/attr/guidelines`)).then((data) => {
 				attributesInstance.setNormalizedData(data);
 
 
