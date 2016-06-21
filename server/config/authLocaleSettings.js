@@ -25,6 +25,8 @@ authLocaleSettings['de'] = deepExtend(
 	authLocaleSettings['en'],
 	{
 		urls: {
+			termsOfUseLinkUrl: 'http://de.wikia.com/Nutzungsbedingungen',
+			privacyPolicyLinkUrl: 'http://de.wikia.com/Datenschutz'
 		},
 		date: {
 			endian: 'little',
@@ -184,7 +186,10 @@ authLocaleSettings['it'] = deepExtend(
 	{},
 	authLocaleSettings['en'],
 	{
-		urls: {},
+		urls: {
+			termsOfUseLinkUrl: 'http://it.community.wikia.com/wiki/Wiki_della_Community:Termini_di_utilizzo',
+			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy'
+		},
 		date: {
 			endian: 'little',
 			monthFormat: 'MM',
@@ -256,7 +261,10 @@ authLocaleSettings['pl'] = deepExtend(
 	{},
 	authLocaleSettings['en'],
 	{
-		urls: {},
+		urls: {
+			termsOfUseLinkUrl: 'http://pl.wikia.com/Zasady_U%C5%BCytkowania',
+			privacyPolicyLinkUrl: 'http://pl.wikia.com/Polityka_Prywatno%C5%9Bci'
+		},
 		date: {
 			endian: 'little',
 			monthFormat: 'MM',
@@ -273,7 +281,10 @@ authLocaleSettings['pt-br'] = deepExtend(
 	{},
 	authLocaleSettings['en'],
 	{
-		urls: {},
+		urls: {
+			termsOfUseLinkUrl: 'http://www.wikia.com/Terms_of_Use',
+			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy'
+		},
 		date: {
 			endian: 'little',
 			monthFormat: 'MM',
@@ -290,7 +301,10 @@ authLocaleSettings['pt-pt'] = deepExtend(
 	{},
 	authLocaleSettings['en'],
 	{
-		urls: {},
+		urls: {
+			termsOfUseLinkUrl: 'http://www.wikia.com/Terms_of_Use',
+			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy'
+		},
 		date: {
 			endian: 'middle',
 			monthFormat: 'MM',
@@ -309,7 +323,10 @@ authLocaleSettings['ru'] = deepExtend(
 	{},
 	authLocaleSettings['en'],
 	{
-		urls: {},
+		urls: {
+			termsOfUseLinkUrl: 'http://ru.community.wikia.com/wiki/%D0%92%D0%B8%D0%BA%D0%B8%D1%8F:%D0%A3%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F_%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F',
+			privacyPolicyLinkUrl: 'http://ru.community.wikia.com/wiki/%D0%92%D0%B8%D0%BA%D0%B8%D1%8F:%D0%9A%D0%BE%D0%BD%D1%84%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C'
+		},
 		date: {
 			endian: 'little',
 			monthFormat: 'MM',
