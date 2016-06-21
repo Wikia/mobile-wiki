@@ -6,7 +6,7 @@ const {Component} = Ember;
 export default Component.extend(
 	DiscussionStickyComponentMixin,
 	{
-		classNames: ['discussion-reply-editor-stub'],
-		containerSelector: '.stub-container',
+		classNames: ['discussion-reply-editor-entry-point'],
+		containerSelector: '.discussion-editor-entry-point-container',
 	}
 );
