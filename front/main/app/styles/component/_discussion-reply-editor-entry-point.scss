@@ -1,8 +1,8 @@
 .discussion-reply-editor-entry-point {
 	.discussion-editor-entry-point-container {
+		align-items: center;
 		background: $discussion-editor-background-color;
 		border: 4px solid $discussion-editor-border-color;
-		align-items: center;
 		display: flex;
 		padding: 10px;
 	}
