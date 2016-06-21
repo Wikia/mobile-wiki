@@ -135,11 +135,18 @@ $success-icon-size: 80px;
 }
 
 .discussion-inline-reply-editor {
+	.discussion-inline-editor-floating-container {
+		margin-left: -20px;
+		width: 564px;
+	}
+
 	&.is-sticky {
 		.discussion-inline-editor-floating-container {
 			border: 4px solid $discussion-editor-border-color;
 			bottom: 0;
+			margin-left: -20px;
 			top: auto;
+			width: 564px;
 		}
 	}
 }
