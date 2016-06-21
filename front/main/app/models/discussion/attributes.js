@@ -1,6 +1,6 @@
 import Ember from 'ember';
-
 import request from 'ember-ajax/request';
+import DiscussionAttributes from './domain/attributes'
 
 const DiscussionAttributesModel = Ember.Object.extend({
 	data: null,
@@ -11,7 +11,9 @@ const DiscussionAttributesModel = Ember.Object.extend({
 	 * @returns {void}
 	 */
 	setNormalizedData(apiData) {
-
+		this.set('data', DiscussionAttributes.create(
+			Ember.getWithDefault(apiData, '_embedded.attributes', [])
+		));
 	},
 });
 
@@ -26,9 +28,8 @@ DiscussionAttributesModel.reopenClass({
 
 			resolve(attributesInstance);
 
-			request(M.getAttributeServiceUrl(`/site/${wikiId}/attr/guidelines`)).then((data) => {
+			request(M.getAttributeServiceUrl(`/site/${wikiId}/attr`)).then((data) => {
 				attributesInstance.setNormalizedData(data);
-
 
 			}).catch(() => {
 				// Categories fail silently
