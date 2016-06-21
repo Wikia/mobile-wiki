@@ -1,6 +1,5 @@
 import Ember from 'ember';
 
-import DiscussionCategory from './discussion/domain/category';
 import request from 'ember-ajax/request';
 
 const DiscussionAttributesModel = Ember.Object.extend({
@@ -24,7 +23,7 @@ DiscussionAttributesModel.reopenClass({
 	 */
 	getAttributes(wikiId) {
 		return new Ember.RSVP.Promise((resolve) => {
-			const attributesInstance = DiscussionModel.create({
+			const attributesInstance = DiscussionAttributesModel.create({
 				wikiId
 			});
 
@@ -41,4 +40,4 @@ DiscussionAttributesModel.reopenClass({
 	}
 });
 
-export default DiscussionModel;
+export default DiscussionAttributesModel;

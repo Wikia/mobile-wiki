@@ -42,7 +42,9 @@ export default DiscussionBaseRoute.extend(
 			discussionSort.setOnlyReported(false);
 
 			if (params.catId) {
-				indexModel.setSelectedCategories(params.catId instanceof Array ? params.catId : [params.catId]);
+				indexModel.get('categories.setSelectedCategories')(
+					params.catId instanceof Array ? params.catId : [params.catId]
+				);
 			}
 
 			return Ember.RSVP.hash({
