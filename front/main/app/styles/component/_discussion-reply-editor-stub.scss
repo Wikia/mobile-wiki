@@ -1,15 +1,15 @@
 .discussion-reply-editor-stub {
 	.stub-container {
-		background: #fff;
-		border: 4px solid #ccc;
+		background: $discussion-editor-background-color;
+		border: 4px solid $discussion-editor-border-color;
 		align-items: center;
 		display: flex;
 		padding: 10px;
 	}
 
 	.content-stub {
-		border-bottom: 1px solid #e7e7e7;
-		color: #999;
+		border-bottom: 1px solid $secondary-color;
+		color: $discussion-editor-label-color;
 		flex: 1;
 		height: 28px;
 		margin-left: 6px;
@@ -27,7 +27,7 @@
 	&.is-sticky {
 		.stub-container {
 			border: 0;
-			border-top: 4px solid #ccc;;
+			border-top: 4px solid $discussion-editor-border-color;
 			bottom: 0;
 			left: 0;
 			position: fixed;
