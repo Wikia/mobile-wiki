@@ -26,6 +26,17 @@ $ad-background: rgb(44, 52, 61);
 	z-index: $z-ads-top-leaderboard;
 }
 
+.mobile-top-leaderboard.bfaa-template {
+	position: absolute;
+	top: 0;
+	width: 100%;
+
+	.ad-slot {
+		background: none;
+		padding: 0;
+	}
+}
+
 .mobile-bottom-leaderboard {
 	.ad-slot {
 		padding: 10px 0;
@@ -47,4 +58,10 @@ $ad-background: rgb(44, 52, 61);
 
 .wikia-ad-iframe {
 	border: 0;
+}
+
+// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
+.article-content .mobile-top-leaderboard .ad-slot {
+	background: $white;
+	padding: 10px 0;
 }

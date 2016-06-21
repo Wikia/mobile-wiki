@@ -123,3 +123,79 @@ test('test a new query state reset', (assert) => {
 
 	assert.deepEqual(search.items, []);
 });
+
+test('update state with load more results', (assert) => {
+	const search = SearchModel.create();
+
+	search.update({
+		total: 3,
+		batches: 1,
+		items: [
+			{
+				title: '1',
+				snippet: '<div>html</div>test',
+				url: 'http://test.wikia.com/wiki/Test'
+			}
+		]
+	});
+	assert.deepEqual(search.items, [
+		{
+			href: 'Test',
+			snippet: '<div>html</div>test',
+			title: '1'
+		}
+	]);
+
+	search.update({
+		total: 3,
+		batches: 2,
+		items: [
+			{
+				title: '2',
+				snippet: '<div>html</div>test',
+				url: 'http://test.wikia.com/wiki/Test/1'
+			},
+			{
+				title: '3',
+				snippet: '<div>html</div>test',
+				url: 'http://test.wikia.com/wiki/Test_2'
+			}
+		]
+	});
+	assert.deepEqual(search.items, [
+		{
+			href: 'Test',
+			snippet: '<div>html</div>test',
+			title: '1'
+		},
+		{
+			href: 'Test/1',
+			snippet: '<div>html</div>test',
+			title: '2'
+		},
+		{
+			href: 'Test_2',
+			snippet: '<div>html</div>test',
+			title: '3'
+		}
+	]);
+});
+
+test('run load more if search was not performed', (assert) => {
+	const search = SearchModel.create();
+
+	assert.equal(search.loadMore(), false);
+});
+
+test('test load more batch increase', (assert) => {
+	const search = SearchModel.create({
+			totalBatches: 2,
+			query: 'testQuery'
+		}), fetchSpy = sinon.spy(search, 'fetch');
+
+	search.loadMore();
+
+	assert.equal(search.batch, 2);
+	assert.equal(fetchSpy.called, true);
+	assert.equal(fetchSpy.calledWith('testQuery'), true);
+});

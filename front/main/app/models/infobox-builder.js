@@ -307,6 +307,8 @@ const InfoboxBuilderModel = Ember.Object.extend({
 			} else {
 				throw new Error(data);
 			}
+		}, () => {
+			throw new Error('titleInvalid');
 		});
 	},
 
