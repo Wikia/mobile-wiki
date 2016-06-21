@@ -22,14 +22,14 @@
 	{{discussion-categories-edit
 		addCategory=(action 'addCategory')
 		categoriesInputIdPrefix=categoriesInputIdPrefix
-		class='highlight-overlay-content'
+		class='highlight-overlay-content discussion-categories-edit'
 		isLoading=isLoading
 		localCategories=localCategories
 		setEditMode=(action 'setEditMode')
 		submit=(action 'submit')
 	}}
-{{/if}}
 
-{{wikia-ui-components/highlight-overlay
-	isVisible=isEditMode
-}}
+	{{wikia-ui-components/highlight-overlay
+		isVisible=isEditMode
+	}}
+{{/if}}

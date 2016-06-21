@@ -3,6 +3,10 @@
 	max-height: 800px;
 	transition: max-height .6s;
 	overflow: hidden;
+
+	.discussion-categories-edit & {
+		margin: 0;
+	}
 }
 
 .discussion-categories-list {
