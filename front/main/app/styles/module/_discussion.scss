@@ -7,7 +7,6 @@ $desktop-content-font-size: $type-base;
 $desktop-content-line-height: $line-height-base;
 $desktop-post-details-content-line-height: $line-height-base;
 $desktop-post-details-content-font-size: $type-base;
-$post-details-mobile-page-margin-top: 91px;
 $post-details-content-line-height: 1.4rem;
 $post-details-outer-width: 580px;
 $post-details-post-margin-bottom: 10px;
@@ -80,11 +79,11 @@ body.discussions {
 
 	&.arrow-left {
 		height: 16px;
-		width: 16px;
+		width: 18px;
 	}
 
 	&.edit {
-		height: 16px;
+		height: 12px;
 		width: 18px;
 	}
 
@@ -758,10 +757,6 @@ body.discussions {
 	}
 
 	.post-details-view {
-		.discussion-page {
-			margin-top: $post-details-mobile-page-margin-top;
-		}
-
 		.discussion-reply {
 			.discussion-content {
 				margin-left: 0;
