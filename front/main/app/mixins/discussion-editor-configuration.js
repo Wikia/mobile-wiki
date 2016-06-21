@@ -20,6 +20,41 @@ export default Ember.Mixin.create({
 		this.configure();
 	}),
 
+	configurations: Ember.Object.create({
+		createPost: {
+			labelMessageKey: 'editor.post-editor-label',
+			placeholderMessageKey: 'editor.post-editor-placeholder-text',
+			submitMessageKey: 'editor.post-action-button-label',
+			closeTrackingAction: trackActions.PostClose,
+			contentTrackingAction: trackActions.PostContent,
+			startTrackingAction: trackActions.PostStart,
+		},
+		createReply: {
+			labelMessageKey: 'editor.reply-editor-label',
+			placeholderMessageKey: 'editor.reply-editor-placeholder-text',
+			submitMessageKey: 'editor.reply-action-button-label',
+			closeTrackingAction: trackActions.ReplyClose,
+			contentTrackingAction: trackActions.ReplyContent,
+			startTrackingAction: trackActions.ReplyStart,
+		},
+		editPost: {
+			labelMessageKey: 'editor.post-edit-editor-label',
+			placeholderMessageKey: 'editor.post-editor-placeholder-text',
+			submitMessageKey: 'editor.post-edit-action-button-label',
+			closeTrackingAction: trackActions.PostEditClose,
+			contentTrackingAction: trackActions.PostEditContent,
+			startTrackingAction: trackActions.PostEdit,
+		},
+		editReply: {
+			labelMessageKey: 'editor.reply-edit-editor-label',
+			placeholderMessageKey: 'editor.post-editor-placeholder-text',
+			submitMessageKey: 'editor.reply-edit-action-button-label',
+			closeTrackingAction: trackActions.ReplyEditClose,
+			contentTrackingAction: trackActions.ReplyEditContent,
+			startTrackingAction: trackActions.ReplyEdit,
+		}
+	}),
+
 	init() {
 		this._super();
 
@@ -27,48 +62,22 @@ export default Ember.Mixin.create({
 	},
 
 	configure() {
+		const configurations = this.get('configurations');
+
 		if (this.get('isEdit')) {
 			if (this.get('isReply')) {
 				// edit reply
-				this.setProperties({
-					labelMessageKey: 'editor.reply-edit-editor-label',
-					placeholderMessageKey: 'editor.post-editor-placeholder-text',
-					submitMessageKey: 'editor.reply-edit-action-button-label',
-					closeTrackingAction: trackActions.ReplyEditClose,
-					contentTrackingAction: trackActions.ReplyEditContent,
-					startTrackingAction: trackActions.ReplyEdit,
-				});
+				this.setProperties(configurations.get('editReply'));
 			} else {
 				// edit post
-				this.setProperties({
-					labelMessageKey: 'editor.post-edit-editor-label',
-					placeholderMessageKey: 'editor.post-editor-placeholder-text',
-					submitMessageKey: 'editor.post-edit-action-button-label',
-					closeTrackingAction: trackActions.PostEditClose,
-					contentTrackingAction: trackActions.PostEditContent,
-					startTrackingAction: trackActions.PostEdit,
-				});
+				this.setProperties(configurations.get('editPost'));
 			}
 		} else if (this.get('isReply')) {
 			// create reply
-			this.setProperties({
-				labelMessageKey: 'editor.reply-editor-label',
-				placeholderMessageKey: 'editor.reply-editor-placeholder-text',
-				submitMessageKey: 'editor.reply-action-button-label',
-				closeTrackingAction: trackActions.ReplyClose,
-				contentTrackingAction: trackActions.ReplyContent,
-				startTrackingAction: trackActions.ReplyStart,
-			});
+			this.setProperties(configurations.get('createReply'));
 		} else {
 			// create post
-			this.setProperties({
-				labelMessageKey: 'editor.post-editor-label',
-				placeholderMessageKey: 'editor.post-editor-placeholder-text',
-				submitMessageKey: 'editor.post-action-button-label',
-				closeTrackingAction: trackActions.PostClose,
-				contentTrackingAction: trackActions.PostContent,
-				startTrackingAction: trackActions.PostStart,
-			});
+			this.setProperties(configurations.get('createPost'));
 		}
 	},
 });
