@@ -35,7 +35,7 @@ export default Ember.Component.extend({
 	}),
 
 	onIsLoading: Ember.observer('isLoading', function () {
-		if (!this.get('isLoading')) {
+		if (!this.get('isLoading') && !this.get('errorMessage')) {
 			this.set('showSuccess', true);
 
 			Ember.run.later(this, 'afterSuccess', 2000);
