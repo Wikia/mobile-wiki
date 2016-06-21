@@ -45,8 +45,8 @@ export default Ember.Component.extend({
 	/**
 	 * @returns {boolean}
 	 */
-	submitDisabled: Ember.computed('content', 'currentUser.userId', function () {
-		return this.get('content').length === 0 || this.get('currentUser.isAuthenticated') !== false;
+	submitDisabled: Ember.computed('content', 'currentUser.isAuthenticated', function () {
+		return this.get('content').length === 0 || this.get('currentUser.isAuthenticated') === false;
 	}),
 
 	afterSuccess() {
