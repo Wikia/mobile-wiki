@@ -8,5 +8,9 @@ export default Component.extend(
 	{
 		classNames: ['discussion-reply-editor-entry-point'],
 		containerSelector: '.discussion-editor-entry-point-container',
+
+		click() {
+			this.sendAction('setEditorActive', 'contributeEditor', true);
+		}
 	}
 );

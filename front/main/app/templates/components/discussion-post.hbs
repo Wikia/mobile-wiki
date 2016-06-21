@@ -87,7 +87,9 @@
 			}}
 		{{/if}}
 		{{#if responsive.isMobile}}
-			{{discussion-reply-editor-entry-point}}
+			{{discussion-reply-editor-entry-point
+				setEditorActive=(action this.attrs.setEditorActive)
+			}}
 		{{/if}}
 	{{/if}}
 </div>
