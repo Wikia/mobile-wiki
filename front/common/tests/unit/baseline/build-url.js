@@ -229,6 +229,26 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 		});
 	});
 
+	QUnit.test('Site Attributes url is computed properly', function (assert) {
+		var testCases = [
+			{
+				path: '',
+				expectedOutput: 'https://services.wikia.com/site-attribute'
+			},
+			{
+				path: '/3035/attr/guidelines',
+				expectedOutput: 'https://services.wikia.com/site-attribute/3035/attr/guidelines'
+			}
+		];
+
+		M.prop('servicesDomain', 'services.wikia.com');
+		M.prop('discussionBaseRoute', 'site-attribute');
+
+		testCases.forEach(function (testCase) {
+			assert.equal(M.getDiscussionServiceUrl(testCase.path, testCase.query), testCase.expectedOutput);
+		});
+	});
+
 	QUnit.test('Image-review url is computed properly', function (assert) {
 		var testCases = [
 			{

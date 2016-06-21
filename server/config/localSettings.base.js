@@ -180,6 +180,9 @@ const localSettings = {
 	discussions: {
 		baseAPIPath: 'discussion'
 	},
+	siteAttribute: {
+		baseAPIPath: 'site-attribute'
+	},
 	imageReview: {
 		baseAPIPath: 'image-review'
 	},
