@@ -29,4 +29,8 @@
 	&.active-element-background-color {
 		border: none;
 	}
+
+	&.disabled {
+		border-color: $fancy-check-box-disabled-border;
+	}
 }

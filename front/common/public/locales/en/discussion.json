@@ -83,6 +83,7 @@
     "category-all-name": "All",
     "categories-show-more-button-label": "Show more",
     "categories-show-less-button-label": "Show less",
+    "categories-edit-add-category-label": "+ Add Category",
     "filter-posts-header": "Filter Posts",
     "filter-reset-label": "Reset",
     "in-category-label": "In __categoryName__",

@@ -6,7 +6,7 @@
 	<legend {{action this.attrs.toggle}}>
 		{{i18n 'main.categories-header' ns='discussion'}}
 		{{#if canEditCategories}}
-			<a class="discussion-categories-edit active-element-theme-color" {{action this.attrs.setEditMode true bubbles=false}}>
+			<a class="discussion-categories-edit-link active-element-theme-color" {{action this.attrs.setEditMode true bubbles=false}}>
 				{{i18n 'main.categories-edit-label' ns='discussion'}}
 				{{svg 'pencil' viewBox='0 0 18 18' class='icon edit fill-theme-color'}}
 			</a>

@@ -58,7 +58,7 @@
 		width: calc(100% - 40px);
 	}
 
-	.discussion-categories-edit {
+	.discussion-categories-edit-link {
 		font-size: $type-min;
 		font-weight: $font-weight-normal;
 		text-transform: uppercase;
@@ -76,9 +76,21 @@
 	}
 }
 
+.discussion-categories-edit {
+	.discussion-categories-list li {
+		display: flex;
+	}
+
+	label:hover {
+		background: none;
+	}
+}
+
 .discussion-categories-edit-add-link {
 	font-size: $type-smallest;
 	float: right;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
 }
 
 .discussion-categories-edit-footer-wrapper {

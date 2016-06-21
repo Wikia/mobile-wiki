@@ -9,6 +9,9 @@
 		<ul class="discussion-categories-list">
 			{{#each localCategories as |localCategory|}}
 				<li>
+					{{wikia-ui-components/fancy-check-box
+						disabled=true
+					}}
 					{{input
 						class='discussion-categories-input'
 						value=localCategory.category.name
@@ -17,7 +20,9 @@
 			{{/each}}
 		</ul>
 	</div>
-	<a class="discussion-categories-edit-add-link active-element-theme-color" {{action this.attrs.addCategory}}>+ Add Category</a>
+	<a class="discussion-categories-edit-add-link active-element-theme-color" {{action this.attrs.addCategory}}>
+		{{i18n 'main.categories-edit-add-category-label' ns='discussion'}}
+	</a>
 </fieldset>
 
 {{#if isLoading}}
