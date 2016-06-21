@@ -7,7 +7,8 @@ export default Mixin.create({
 
 	classNameBindings: ['isSticky'],
 
-	containerClassname: null,
+	// needs to be overrode in classes that extend this mixin
+	containerSelector: null,
 
 	isSticky: false,
 
@@ -18,7 +19,7 @@ export default Mixin.create({
 	 */
 	style: computed('isSticky', function () {
 		return this.get('isSticky') ?
-			`height: ${this.$(this.get('containerClassname')).outerHeight(true)}px` :
+			`height: ${this.$(this.get('containerSelector')).outerHeight(true)}px` :
 			null;
 	}),
 

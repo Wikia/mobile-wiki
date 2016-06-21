@@ -5,7 +5,7 @@ export default DiscussionInlineEditor.extend(
 	DiscussionStickyComponentMixin,
 	{
 		classNames: ['discussion-inline-reply-editor'],
-		containerClassname: '.discussion-inline-editor-floating-container',
+		containerSelector: '.discussion-inline-editor-floating-container',
 
 		/**
 		 * @returns {void}

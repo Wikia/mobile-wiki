@@ -7,6 +7,6 @@ export default Component.extend(
 	DiscussionStickyComponentMixin,
 	{
 		classNames: ['discussion-reply-editor-stub'],
-		containerClassname: '.stub-container',
+		containerSelector: '.stub-container',
 	}
 );

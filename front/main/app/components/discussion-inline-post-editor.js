@@ -4,7 +4,7 @@ import DiscussionInlineEditor from './discussion-inline-editor';
 export default DiscussionInlineEditor.extend(
 	DiscussionStickyComponentMixin,
 	{
-		containerClassname: '.discussion-inline-editor-floating-container',
+		containerSelector: '.discussion-inline-editor-floating-container',
 
 		/**
 		 * Indicates if the scroll position reached a point where editor should start sticking

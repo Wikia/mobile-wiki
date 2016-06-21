@@ -12,7 +12,7 @@ export default Ember.Component.extend({
 	isLoading: false,
 	editorType: 'contributeEditor',
 
-	// Labels below needs to be override in subclasses
+	// Labels below needs to be overrode in subclasses
 	labelMessageKey: null,
 	placeholderMessageKey: null,
 	submitMessageKey: null,
@@ -46,7 +46,7 @@ export default Ember.Component.extend({
 	 * @returns {boolean}
 	 */
 	submitDisabled: Ember.computed('content', 'currentUser.userId', function () {
-		return this.get('content').length === 0 || this.get('currentUser.userId') === null;
+		return this.get('content').length === 0 || this.get('currentUser.isAuthenticated') !== false;
 	}),
 
 	afterSuccess() {

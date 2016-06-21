@@ -8,7 +8,6 @@ export default Ember.Mixin.create({
 	showsOpenGraphCard: false,
 	contentLength: 0,
 
-
 	didInsertElement() {
 		this._super(...arguments);
 
