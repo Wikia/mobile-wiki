@@ -42,6 +42,9 @@
 .discussion {
 	.discussion-report-details {
 		.discussion-list-modal-list {
+			overflow: auto;
+			max-height: 230px;
+
 			.avatar {
 				flex-shrink: 0;
 				margin-right: 6px;
@@ -80,6 +83,8 @@
 	.discussion {
 		.discussion-report-details {
 			.discussion-list-modal-list {
+				max-height: 480px;
+
 				.avatar {
 					img, svg {
 						height: 42px;
