@@ -33,7 +33,7 @@ export default DiscussionBaseRoute.extend(
 		 */
 		model(params) {
 			const discussionSort = this.get('discussionSort'),
-				indexModel = this.modelFor('discussion');
+				discussionModel = this.modelFor('discussion');
 
 			if (params.sort) {
 				discussionSort.setSortBy(params.sort);
@@ -42,14 +42,14 @@ export default DiscussionBaseRoute.extend(
 			discussionSort.setOnlyReported(false);
 
 			if (params.catId) {
-				indexModel.get('categories.setSelectedCategories')(
+				discussionModel.categories.setSelectedCategories(
 					params.catId instanceof Array ? params.catId : [params.catId]
 				);
 			}
 
 			return Ember.RSVP.hash({
 				current: DiscussionForumModel.find(Mercury.wiki.id, params.catId, this.get('discussionSort.sortBy')),
-				index: indexModel
+				index: discussionModel
 			});
 		},
 

@@ -4,7 +4,6 @@ import request from 'ember-ajax/request';
 
 const DiscussionAttributesModel = Ember.Object.extend({
 	data: null,
-	wikiId: null,
 
 	/**
 	 * @param {object} apiData
@@ -23,13 +22,11 @@ DiscussionAttributesModel.reopenClass({
 	 */
 	getAttributes(wikiId) {
 		return new Ember.RSVP.Promise((resolve) => {
-			const attributesInstance = DiscussionAttributesModel.create({
-				wikiId
-			});
+			const attributesInstance = DiscussionAttributesModel.create();
 
 			resolve(attributesInstance);
 
-			request(M.getAttributeServiceUrl(`/${wikiId}/attr/guidelines`)).then((data) => {
+			request(M.getAttributeServiceUrl(`/site/${wikiId}/attr/guidelines`)).then((data) => {
 				attributesInstance.setNormalizedData(data);
 
 
