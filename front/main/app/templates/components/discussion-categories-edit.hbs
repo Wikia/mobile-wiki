@@ -1,3 +1,4 @@
+{{! TODO separate categories array}}
 <h3 class="discussion-filter-header">
 	{{i18n 'main.filter-posts-header' ns='discussion'}}
 </h3>
@@ -7,6 +8,16 @@
 	</legend>
 	<div class="discussion-categories-list-container">
 		<ul class="discussion-categories-list">
+			<li>
+				{{wikia-ui-components/fancy-check-box
+					disabled=true
+				}}
+				{{input
+					class='discussion-categories-input'
+					disabled=true
+					value=(i18n 'main.category-all-name' ns='discussion')
+				}}
+			</li>
 			{{#each localCategories as |localCategory|}}
 				<li>
 					{{wikia-ui-components/fancy-check-box

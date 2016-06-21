@@ -74,6 +74,26 @@
 	.discussion-categories-input:focus {
 		border-color: #333;
 	}
+
+	.discussion-categories-input[disabled] {
+		background: none;
+		color: #ccc;
+	}
+}
+
+.discussion-categories-edit {
+	.discussion-categories-list li {
+		display: flex;
+	}
+
+	.fancy-checkbox-label {
+		padding-left: 0;
+		padding-right: 3px;
+
+		&:hover {
+			background: none;
+		}
+	}
 }
 
 .discussion-categories-edit {
@@ -94,6 +114,7 @@
 }
 
 .discussion-categories-edit-footer-wrapper {
+	border-top: 1px solid $discussion-rail-separator-color;
 	display: flex;
 	justify-content: center;
 	position: absolute;
