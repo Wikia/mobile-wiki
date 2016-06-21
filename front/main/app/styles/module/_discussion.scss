@@ -591,6 +591,16 @@ body.discussions {
 		font-weight: bold;
 	}
 
+	.discussion-editor-label {
+		font-size: $type-min;
+		font-weight: $font-weight-bold;
+		padding: 15px 15px 5px;
+	}
+
+	.post-reply ~ .discussion-editor-label {
+		border-top: 1px solid $discussion-post-detail-border-color;
+	}
+
 	&.forum {
 		.clamp {
 			@include clamp(3);

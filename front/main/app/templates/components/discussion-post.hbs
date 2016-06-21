@@ -75,6 +75,9 @@
 		</button>
 	{{/if}}
 	{{#if canReply}}
+		<label class="discussion-editor-label">
+			{{i18n 'editor.reply-editor-label' ns='discussion'}}
+		</label>
 		{{#if responsive.isDesktop}}
 			{{discussion-inline-reply-editor
 				create=(action this.attrs.createReply)

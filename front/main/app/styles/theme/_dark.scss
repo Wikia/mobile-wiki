@@ -388,6 +388,10 @@ body.dark-theme {
 			border-color: $dark-discussion-editor-border-color;
 		}
 	}
+
+	.post-reply ~ .discussion-editor-label {
+		border-color: $dark-discussion-post-detail-border-color;
+	}
 }
 
 @media #{$desktop-range} {
