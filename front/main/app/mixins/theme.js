@@ -32,6 +32,9 @@ export default Ember.Mixin.create({
 		}
 	},
 
+	/**
+	 * @returns {void}
+	 */
 	deactivateTheming() {
 		if (Ember.get(Mercury, 'wiki.isDarkTheme')) {
 			this.set('themeActivated', null);
