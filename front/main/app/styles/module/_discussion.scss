@@ -79,11 +79,11 @@ body.discussions {
 
 	&.arrow-left {
 		height: 16px;
-		width: 16px;
+		width: 18px;
 	}
 
 	&.edit {
-		height: 16px;
+		height: 12px;
 		width: 18px;
 	}
 
@@ -184,14 +184,24 @@ body.discussions {
 		padding-right: 30px;
 	}
 
-	.post-counters {
-		align-items: center;
+	.post-bottom-row {
 		color: $discussion-actions-color;
 		display: flex;
 		font-size: rem-calc(12);
-		justify-content: flex-end;
+		justify-content: space-between;
 		line-height: rem-calc(14);
 		padding-bottom: 14px;
+	}
+
+	.post-counters,
+	.post-category-name {
+		align-items: center;
+		display: flex;
+		flex-grow: 1;
+	}
+
+	.post-counters {
+		justify-content: flex-end;
 		text-align: right;
 
 		.upvote-count,
@@ -699,7 +709,8 @@ body.discussions {
 					line-height: $desktop-post-details-content-line-height;
 				}
 
-				.post-counters {
+				.post-counters,
+				.post-category-name {
 					font-size: $type-smallest;
 				}
 			}

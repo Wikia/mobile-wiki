@@ -1,7 +1,7 @@
 <div class="discussion-header header clearfix background-theme-color">
 	{{#if hasBackButton }}
 		{{#link-to 'discussion.forum' (query-params sort=discussionSort.sortBy) class="side-button back-button"}}
-			{{svg 'back-arrow' role='img' class='icon arrow-left'}}
+			{{svg 'discussion-back-arrow' role='img' class='icon arrow-left'}}
 			{{i18n 'main.back-to-discussions-link' ns='discussion'}}
 		{{/link-to}}
 	{{/if}}
