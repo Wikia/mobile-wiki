@@ -10,7 +10,11 @@ const DiscussionAttributes = Ember.Object.extend({
 DiscussionAttributes.reopenClass({
 
 	/**
-	 * @param {object} attributesData
+	 * @param {Object[]} attributesData
+	 * @param {Object} attributesData.authorization
+	 * @param {Boolean} attributesData.authorization.canEdit
+	 * @param {String} attributesData.name
+	 * @param {String} attributesData.value
 	 *
 	 * @returns {Ember.Object}
 	 */
@@ -18,17 +22,8 @@ DiscussionAttributes.reopenClass({
 		const attributes = [];
 
 		attributesData.forEach((attribute) => {
-			const permissions = [];
-
-			// TODO: need to be fixed
-			for (let key in attribute.authorization) {
-				if (attribute.authorization.hasOwnProperty(key) && attribute.authorization[key] === true) {
-					permissions.push(key);
-				}
-			}
-
 			attributes[attribute.name] = DiscussionAttribute.create({
-				permissions,
+				permissions: attribute.authorization,
 				value: attribute.value,
 			});
 		});

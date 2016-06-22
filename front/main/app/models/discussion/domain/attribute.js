@@ -16,7 +16,7 @@ DiscussionAttribute.reopenClass({
 	create(data) {
 		return this._super({
 			value: data.value,
-			permissions: DiscussionUserPermissions.create(data.permissions),
+			permissions: DiscussionAttributePermissions.create(data.permissions),
 		});
 	},
 });
