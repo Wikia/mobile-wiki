@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
-import DiscussionAttributes from './domain/attributes'
+import DiscussionAttributes from './domain/attributes';
 
 const DiscussionAttributesModel = Ember.Object.extend({
 	data: null,

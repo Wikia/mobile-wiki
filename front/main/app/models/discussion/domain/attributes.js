@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import DiscussionAttribute from './attribute'
+import DiscussionAttribute from './attribute';
 
 const DiscussionAttributes = Ember.Object.extend({
 	badgeImage: null,
@@ -16,11 +16,12 @@ DiscussionAttributes.reopenClass({
 	 */
 	create(attributesData) {
 		const attributes = [];
+
 		attributesData.forEach((attribute) => {
 			const permissions = [];
 
 			// TODO: need to be fixed
-			for(var key in attribute.authorization) {
+			for (let key in attribute.authorization) {
 				if (attribute.authorization.hasOwnProperty(key) && attribute.authorization[key] === true) {
 					permissions.push(key);
 				}
