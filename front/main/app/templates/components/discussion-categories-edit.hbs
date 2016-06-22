@@ -20,7 +20,7 @@
 			</li>
 			{{#each localCategories as |localCategory|}}
 				<li>
-					{{#if (equal localCategory.category.id '3035')}}
+					{{#if (equal localCategory.id wikiId)}}
 						{{svg 'lock' viewBox='0 0 18 18' class='icon lock'}}
 					{{else}}
 						{{wikia-ui-components/fancy-check-box
@@ -30,8 +30,8 @@
 					{{!TODO use flag instead of if when backend starts providing it}}
 					{{input
 						class='discussion-categories-input'
-						disabled=(equal localCategory.category.id '3035')
-						value=localCategory.category.name
+						disabled=(equal localCategory.id wikiId)
+						value=localCategory.name
 					}}
 				</li>
 			{{/each}}

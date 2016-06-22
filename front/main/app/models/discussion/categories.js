@@ -67,8 +67,8 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 	updateCategories(categories) {
 		const promisesList = [];
 
-		categories.filterBy('category.id', undefined).forEach((category) => {
-			promisesList.push(this.addCategory(category.get('category.name')));
+		categories.filterBy('id', undefined).forEach((category) => {
+			promisesList.push(this.addCategory(category.get('name')));
 		});
 
 		return Ember.RSVP.Promise.all(promisesList);
