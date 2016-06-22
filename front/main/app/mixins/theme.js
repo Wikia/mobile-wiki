@@ -32,6 +32,13 @@ export default Ember.Mixin.create({
 		}
 	},
 
+	deactivateTheming() {
+		if (Ember.get(Mercury, 'wiki.isDarkTheme')) {
+			this.set('themeActivated', null);
+			Ember.$('body').removeClass(this.themeSettings.dark.class);
+		}
+	},
+
 	/**
 	 * Loads other theme css
 	 * @returns {void}

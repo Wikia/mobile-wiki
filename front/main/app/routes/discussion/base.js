@@ -54,6 +54,9 @@ export default Ember.Route.extend(
 
 				if (!isDiscussionRoute) {
 					this.controllerFor('application').set('noMargins', false);
+					transition.promise.then(() => {
+						this.deactivateTheming();
+					});
 				}
 
 				return true;
