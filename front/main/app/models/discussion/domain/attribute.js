@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import DiscussionUserPermissions from './user-permissions';
+import DiscussionAttributePermissions from './attribute-permissions';
 
 const DiscussionAttribute = Ember.Object.extend({
 	value: null,
