@@ -105,8 +105,19 @@
 		background: none;
 	}
 
-	.icon.lock {
-		margin: 5px 7px 4px 0;
+	.icon {
+		&.lock {
+			margin: 5px 7px 4px 0;
+		}
+
+		&.report {
+			fill: #f08a24;
+		}
+	}
+
+	.categories-limit-info {
+		font-size: $type-smallest;
+		line-height: $line-height-smallest;
 	}
 }
 

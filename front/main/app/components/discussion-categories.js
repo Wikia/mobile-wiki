@@ -9,9 +9,8 @@ export default Ember.Component.extend(
 		disabled: false,
 		visibleCategoriesCount: null,
 
-		isEditMode: false,
+		isEditMode: true,
 		canEditCategories: true,
-		isLoading: false,
 
 		init() {
 			this._super();
@@ -205,24 +204,6 @@ export default Ember.Component.extend(
 			setEditMode(isEnabled) {
 				this.set('isEditMode', isEnabled);
 			},
-
-			// TODO separate edit mode
-			addCategory() {
-				this.get('localCategories').pushObject(Ember.Object.create({
-					category: DiscussionCategory.create({})
-				}));
-			},
-
-			submit() {
-				this.set('isLoading', true);
-				this.get('updateCategories')(this.get('localCategories'))
-					.then(() => {
-						this.set('isEditMode', false);
-					})
-					.finally(() => {
-						this.set('isLoading', false);
-				});
-			}
 		}
 	}
 );

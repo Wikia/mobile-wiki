@@ -20,13 +20,9 @@
 
 {{#if isEditMode}}
 	{{discussion-categories-edit
-		addCategory=(action 'addCategory')
-		categoriesInputIdPrefix=categoriesInputIdPrefix
-		class='highlight-overlay-content discussion-categories-edit'
-		isLoading=isLoading
 		localCategories=localCategories
 		setEditMode=(action 'setEditMode')
-		submit=(action 'submit')
+		updateCategories=(action this.attrs.updateCategories)
 	}}
 
 	{{wikia-ui-components/highlight-overlay

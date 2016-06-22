@@ -78,6 +78,10 @@ body.discussions {
 		width: 18px;
 	}
 
+	&.report {
+		fill: $discussion-actions-color;
+	}
+
 	&.arrow-left {
 		height: 16px;
 		width: 16px;

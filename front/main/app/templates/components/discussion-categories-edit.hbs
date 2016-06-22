@@ -37,9 +37,16 @@
 			{{/each}}
 		</ul>
 	</div>
-	<a class="discussion-categories-edit-add-link active-element-theme-color" {{action this.attrs.addCategory}}>
+	<a class="discussion-categories-edit-add-link active-element-theme-color {{if addDisabled 'active-element-disabled-theme-color'}}" {{action 'addCategory'}}>
 		{{i18n 'main.categories-edit-add-category-label' ns='discussion'}}
 	</a>
+
+	{{#if addDisabled}}
+		<span class="categories-limit-info">
+			{{svg 'report' viewBox='0 0 18 18' class='icon report'}}
+			{{i18n 'main.categories-edit-max-categories-info' ns='discussion' maxCategoriesCount=maxCategoriesCount}}
+		</span>
+	{{/if}}
 </fieldset>
 
 {{#if isLoading}}
@@ -56,7 +63,7 @@
 		<button {{action this.attrs.setEditMode false}}>
 			{{svg 'close' viewBox='0 0 40 40' class='icon'}}
 		</button>
-		<button type="submit" class="submit" {{action this.attrs.submit}}>
+		<button type="submit" class="submit" {{action 'submit'}}>
 			{{svg 'checkmark' viewBox='0 0 40 40' class='icon icon-submit'}}
 		</button>
 	</div>
