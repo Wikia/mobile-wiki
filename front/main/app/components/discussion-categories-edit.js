@@ -32,9 +32,7 @@ export default Ember.Component.extend(
 			 */
 			addCategory() {
 				if (!this.get('addDisabled')) {
-					this.get('localCategories').pushObject(Ember.Object.create({
-						category: DiscussionCategory.create({})
-					}));
+					this.get('localCategories').pushObject(DiscussionCategory.create({}));
 				}
 			},
 
@@ -53,8 +51,18 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			submit() {
+				const localCategories = this.get('localCategories'),
+					emptyCategories = localCategories.rejectBy('name');
+
+				// TODO error message
+
+				if (emptyCategories.get('length')) {
+					return;
+				}
+
 				this.set('isLoading', true);
-				this.get('updateCategories')(this.get('localCategories'))
+				// TODO error handling
+				this.get('updateCategories')(localCategories)
 					.then(() => {
 						this.sendAction('setEditMode', false);
 					})
