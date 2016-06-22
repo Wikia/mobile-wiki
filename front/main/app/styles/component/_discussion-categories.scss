@@ -94,16 +94,6 @@
 			background: none;
 		}
 	}
-}
-
-.discussion-categories-edit {
-	.discussion-categories-list li {
-		display: flex;
-	}
-
-	label:hover {
-		background: none;
-	}
 
 	.icon {
 		&.lock {
@@ -116,8 +106,11 @@
 	}
 
 	.categories-limit-info {
+		float: left;
 		font-size: $type-smallest;
 		line-height: $line-height-smallest;
+		margin: 0 0 15px 22px;
+		text-indent: -22px;
 	}
 }
 
