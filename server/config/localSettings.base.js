@@ -53,7 +53,8 @@ import deepExtend from 'deep-extend';
  * @property {string} cdnBaseUrl
  * @property {string} [devboxDomain]
  * @property {string} domain
- * @property {*} [discuss]
+ * @property {*} [discussions]
+ * @property {*} [siteAttribute]
  * @property {*} environment
  * @property {HeliosLocalSettings} helios
  * @property {WhoAmIServiceLocalSettings} whoAmIService
