@@ -48,7 +48,7 @@ DiscussionAttributesModel.reopenClass({
 	 * @param {number} wikiId
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	getAttributes(wikiId) {
+	find(wikiId) {
 		return new Ember.RSVP.Promise((resolve) => {
 			const attributesInstance = DiscussionAttributesModel.create();
 

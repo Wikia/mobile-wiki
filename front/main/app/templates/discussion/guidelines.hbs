@@ -1,0 +1,9 @@
+{{#discussion-standalone-layout
+	deleteAllPosts=(action 'deleteAllPosts')
+	model=model.current.data
+	smartBannerVisible=smartBannerVisible
+}}
+	{{discussion-guidelines
+		guidelinesText=model.attributes.data.guidelines.value
+	}}
+{{/discussion-standalone-layout}}
