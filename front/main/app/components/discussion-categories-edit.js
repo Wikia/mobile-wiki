@@ -39,6 +39,15 @@ export default Ember.Component.extend(
 			},
 
 			/**
+			 * Delete a category
+			 *
+			 * @returns {void}
+			 */
+			deleteCategory(category) {
+				this.get('localCategories').removeObject(category);
+			},
+
+			/**
 			 * Submit category changes and send them to model
 			 *
 			 * @returns {void}

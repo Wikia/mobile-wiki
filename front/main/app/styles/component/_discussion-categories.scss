@@ -68,7 +68,7 @@
 	.discussion-categories-input:focus {
 		background-color: transparent;
 		box-shadow: none;
-		padding: 8px 0 4px;
+		padding: 8px 23px 4px 0;
 	}
 
 	.discussion-categories-input:focus {
@@ -103,6 +103,19 @@
 		&.report {
 			fill: #f08a24;
 		}
+
+		&.close {
+			fill: #1a5eb8;
+			height: 20px;
+			width: 20px;
+		}
+
+		&.delete {
+			fill: #ed1c24;
+			height: 20px;
+			padding: 0 2px;
+			width: 20px;
+		}
 	}
 
 	.categories-limit-info {
@@ -111,6 +124,11 @@
 		line-height: $line-height-smallest;
 		margin: 0 0 15px 22px;
 		text-indent: -22px;
+	}
+
+	.discussion-categories-edit-action-button {
+		position: absolute;
+		right: 0;
 	}
 }
 

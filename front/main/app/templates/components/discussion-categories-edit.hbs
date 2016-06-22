@@ -27,12 +27,23 @@
 							disabled=true
 						}}
 					{{/if}}
-					{{!TODO use flag instead of if when backend starts providing it}}
+					{{!TODO use flag instead of equal when backend starts providing it}}
 					{{input
 						class='discussion-categories-input'
 						disabled=(equal localCategory.id wikiId)
+						maxlength=20
 						value=localCategory.name
 					}}
+					{{#unless (equal localCategory.id wikiId)}}
+						<a class="discussion-categories-edit-action-button" {{action 'deleteCategory' localCategory}}>
+							{{#if localCategory.id}}
+								{{svg 'delete' class='icon delete'}}
+
+							{{else}}
+								{{svg 'close' class='icon close'}}
+							{{/if}}
+						</a>
+					{{/unless}}
 				</li>
 			{{/each}}
 		</ul>
