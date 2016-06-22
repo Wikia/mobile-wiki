@@ -5,11 +5,12 @@ import {track, trackActions} from 'common/utils/track';
 
 export default Ember.Route.extend(ConfirmationMixin, {
 	ajax: Ember.inject.service(),
+	resourceLoader: Ember.inject.service(),
 	isIframeContext: Ember.computed(() => {
 		return window.self !== window.top;
 	}),
 	isEnvironmentSet: false,
-	pontoPath: '/front/main/assets/vendor/ponto/ponto.js',
+	cssLoaded: false,
 
 	/**
 	 * Load infobox data and additional assets with AJAX request and run methods that will handle them
@@ -131,20 +132,23 @@ export default Ember.Route.extend(ConfirmationMixin, {
 			return new Ember.RSVP.Promise((resolve, reject) => {
 				const ponto = window.Ponto;
 
-				ponto.invoke(
-					'wikia.infoboxBuilder.ponto',
-					'returnToVE',
-					title,
-					(data) => {
-						resolve(data);
-						this.refresh();
-					},
-					(data) => {
-						reject(data);
-						this.showPontoError(data);
-					},
-					false
-				);
+				this.refresh()
+					.then(() => {
+						ponto.invoke(
+							'wikia.infoboxBuilder.ponto',
+							'returnToVE',
+							title,
+							(data) => {
+								resolve(data);
+							},
+							(data) => {
+								reject(data);
+								this.showPontoError(data);
+							},
+							false
+						);
+					})
+					.catch(reject);
 			});
 		},
 
@@ -165,6 +169,34 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	},
 
 	/**
+	 * Load CSS assets from MedaWiki
+	 * @returns {Promise}
+	 */
+	loadCss() {
+		const resourceLoader = this.get('resourceLoader');
+
+		if (this.get('cssLoaded')) {
+			return Ember.RSVP.resolve(resourceLoader.assetAlreadyLoadedStatusName);
+		}
+		return this.get('ajax').request(M.buildUrl({path: '/wikia.php'}), {
+			data: {
+				controller: 'PortableInfoboxBuilderController',
+				method: 'getAssets',
+				format: 'json'
+			}
+		}).then((data) => {
+			if (data && data.css) {
+				return resourceLoader.load('portableInfoboxBuilderCss', {type: 'css', paths: data.css});
+			} else {
+				throw Error('Invalid assets data was returned from MediaWiki API');
+			}
+		}).then((result) => {
+			this.set('cssLoaded', true);
+			return result;
+		});
+	},
+
+	/**
 	 * Setup infobox builder by loading infobox data and styles.
 	 * Also initialize ponto and checks in what context
 	 * infobox builder was opened
@@ -173,16 +205,19 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Promise}
 	 */
 	setupEnvironmentAndInfoboxData(templateName) {
-		// TODO CE-3600 extract data and assets into services
-		const promises = {
-			dataAndAssets: this.loadInfoboxDataAndAssets(templateName),
-			ponto: this.loadPonto()
-		};
+		const resourceLoader = this.get('resourceLoader'),
+			promises = {
+				data: this.loadInfoboxData(templateName),
+				assets: this.loadCss(),
+				ponto: resourceLoader.load('pontoJs')
+			};
 
 		return Ember.RSVP.hash(promises)
 			.then((response) => {
-				this.setupStyles(response.dataAndAssets);
-				this.setupInfoboxData(response.dataAndAssets);
+				this.setupInfoboxData(response.data);
+				if (response.assets === resourceLoader.assetJustAddedStatusName) {
+					Ember.$('body').addClass('infobox-builder-body-wrapper');
+				}
 			})
 			.then(this.isWikiaContext.bind(this));
 	},
@@ -196,7 +231,7 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @returns {Promise}
 	 */
 	loadAndSetupInfoboxData(templateName) {
-		return this.loadInfoboxDataAndAssets(templateName)
+		return this.loadInfoboxData(templateName)
 			.then((response) => {
 				this.setupInfoboxData(response);
 			});
@@ -240,48 +275,28 @@ export default Ember.Route.extend(ConfirmationMixin, {
 	 * @param {string} templateName
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	loadInfoboxDataAndAssets(templateName) {
+	loadInfoboxData(templateName) {
+		if (!templateName) {
+			// Return data field as PortableInfoboxBuilderController does for new infobox
+			return Ember.RSVP.resolve({
+				data: '{}',
+				isNew: true
+			});
+		}
 		return this.get('ajax').request(M.buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'PortableInfoboxBuilderController',
-				method: 'getAssets',
+				method: 'getData',
 				format: 'json',
 				title: templateName
 			}
 		}).then((data) => {
-			if (data && data.css && data.data) {
+			if (data && data.data) {
 				return data;
 			} else {
 				throw new Error('Invalid data was returned from Infobox Builder API');
 			}
 		});
-	},
-
-	/**
-	 * Loads ponto and sets ponto target
-	 *
-	 * @returns {JQueryXHR}
-	 */
-	loadPonto() {
-		return Ember.$.getScript(this.pontoPath);
-	},
-
-	/**
-	 * Adds oasis portable infobox styles to the DOM and a class to the body element
-	 *
-	 * @param {Object} serverResponse
-	 * @returns {void}
-	 */
-	setupStyles(serverResponse) {
-		Ember.$('body').addClass('infobox-builder-body-wrapper');
-
-		if (serverResponse.css) {
-			const html = serverResponse.css.map((url) => {
-				return `<link type="text/css" rel="stylesheet" href="${url}">`;
-			}).join('');
-
-			$(html).appendTo('head');
-		}
 	},
 
 	/**

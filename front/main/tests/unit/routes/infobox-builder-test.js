@@ -107,3 +107,53 @@ test('test are evnironment resources not load again', function (assert) {
 	assert.equal(loadAndSetupInfoboxDataStub.called, true);
 });
 
+test('Reject with an error for corrupted data from API', function (assert) {
+	const route = this.subject();
+
+	route.set('ajax', {
+		request: () => {
+			return {
+				then: (callback) => {
+					try {
+						return callback();
+					} catch (e) {
+						return Ember.RSVP.reject(e);
+					}
+				}
+			};
+		}
+	});
+
+	route.loadCss().then(() => {
+		assert.ok(false, 'Loading asset should reject here due to corrupted data from mocked API');
+	}, (error) => {
+		assert.equal(error.message, 'Invalid assets data was returned from MediaWiki API');
+	});
+	assert.ok(true);
+});
+
+test('Dont\'t ask for asset path when already loaded', function (assert) {
+	const route = this.subject(),
+		thenRes = Ember.RSVP.resolve,
+		requestSpy = sinon.spy(thenRes),
+		resourceLoader = {
+			assetAlreadyLoadedStatusName: 'Test already loaded status'
+		};
+
+	route.set('resourceLoader', resourceLoader);
+	route.set('cssLoaded', true);
+	route.set('ajax', {
+		request: () => {
+			return {then: requestSpy};
+		}
+	});
+
+	route.loadCss().then((result) => {
+		assert.notOk(requestSpy.called, 'Request on ajax shouldn\'t be called');
+
+		assert.equal(result, route.get('resourceLoader').assetAlreadyLoadedStatusName);
+	}, (error) => {
+		assert.equal(error.message, 'Invalid assets data was returned from MediaWiki API');
+	});
+	assert.ok(true);
+});
