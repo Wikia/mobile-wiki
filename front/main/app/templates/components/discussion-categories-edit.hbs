@@ -34,14 +34,9 @@
 						maxlength=20
 						value=localCategory.name
 					}}
-					{{#unless (equal localCategory.id wikiId)}}
+					{{#unless localCategory.id}}
 						<a class="discussion-categories-edit-action-button" {{action 'deleteCategory' localCategory}}>
-							{{#if localCategory.id}}
-								{{svg 'delete' class='icon delete'}}
-
-							{{else}}
-								{{svg 'close' class='icon close'}}
-							{{/if}}
+							{{svg 'close' class='icon close'}}
 						</a>
 					{{/unless}}
 				</li>
