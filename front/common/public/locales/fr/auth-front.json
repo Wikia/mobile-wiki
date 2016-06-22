@@ -11,7 +11,7 @@
     "password_exceeds_max_length":"Le mot de passe ne peut pas comprendre plus de 50 caractères.",
     "password_equal_name":"Le nom d'utilisateur et le mot de passe doivent être différents l'un de l'autre.",
     "user_already_linked":"Ce compte Wikia est déjà connecté à Facebook.",
-    "fb_account_already_linked":"Ce compte Facebook est déjà connecté à un autre compte d'utilisateur Wikia.",
+    "fb_account_already_linked":"Ce compte Facebook est déjà connecté à un autre compte utilisateur Wikia.",
     "birthdate_invalid":"La date de naissance n'est pas valide.",
     "wrong-credentials":"Nous ne reconnaissons pas ces informations. Veuillez réessayer ou créer un nouveau compte.",
     "server-error":"Une erreur est survenue lors du traitement de votre requête. Veuillez réessayer ultérieurement."
