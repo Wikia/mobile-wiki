@@ -53,12 +53,11 @@ export default Ember.Route.extend(
 				});
 
 				if (!isDiscussionRoute) {
-					this.controllerFor('application').set('noMargins', false);
-
 					// deactivate dark theme after transition outside discussions to avoid
 					// a flash of unstyled content
 					transition.promise.then(() => {
 						this.deactivateTheming();
+						this.controllerFor('application').set('noMargins', false);
 					});
 				}
 
