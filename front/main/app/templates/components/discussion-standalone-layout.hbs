@@ -6,6 +6,7 @@
 		hasFilters=false
 		hasNewPostButton=false
 		smartBannerVisible=smartBannerVisible
+		backToDiscussionsLinkTitle=(i18n 'main.back-to-discussions-standalone-link' ns='discussion')
 	}}
 {{/ember-wormhole}}
 {{discussion-dialog
@@ -21,7 +22,7 @@
 		<div class="rail large-2 columns">
 			{{#link-to 'discussion' class="side-button back-button active-element-theme-color"}}
 				{{svg 'discussion-back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
-				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
+				{{i18n 'main.back-to-discussions-standalone-link' ns='discussion'}}
 			{{/link-to}}
 		</div>
 		<div class="standalone-content small-12 large-8 columns">

@@ -14,6 +14,10 @@ export default Ember.Component.extend(
 			}
 		},
 
+		backToDiscussionsLinkTitle: Ember.computed(function () {
+			return i18n.t('main.back-to-discussions-link', {ns: 'discussion'});
+		}),
+
 		canDeleteAll: false,
 
 		classNames: ['discussion-header-wrapper'],
