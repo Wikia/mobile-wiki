@@ -5,7 +5,7 @@ export default Ember.Controller.extend(
 		application: Ember.inject.controller(),
 
 		smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
-		showCategories: true,
+		showCategories: false,
 
 		actions: {
 			/**
