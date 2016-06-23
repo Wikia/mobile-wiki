@@ -16,23 +16,18 @@
 	isConfirm=isConfirm
 	isVisible=shouldShowDialogMessage
 }}
-<div class="site-body-discussion post-details-view">
-	<div class="minimized discussion-hero-unit background-theme-color"></div>
+<div class="site-body-discussion standalone-page-view">
 	<div class="discussion-page row">
 		<div class="rail large-2 columns">
 			{{#link-to 'discussion' class="side-button back-button active-element-theme-color"}}
 				{{svg 'discussion-back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
 				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
 			{{/link-to}}
-			{{#unless hasContentError}}
-				<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
-			{{/unless}}
 		</div>
-		<div class="discussion post small-12 large-8 columns">
+		<div class="standalone-content small-12 large-8 columns">
 			{{yield}}
 		</div>
 		<div class="rail large-2 columns">
-			{{discussion-community-unit}}
 		</div>
 	</div>
 </div>

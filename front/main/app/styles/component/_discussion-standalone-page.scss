@@ -1,0 +1,12 @@
+.standalone-page-view {
+	.side-button {
+		border: none;
+		margin-top: 20px;
+	}
+
+	.standalone-content {
+		background-color: $discussion-standalone-content-background-color;
+		border: solid 1px $discussion-standalone-content-border-color;
+		margin: 25px auto;
+	}
+}

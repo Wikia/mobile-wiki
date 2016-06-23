@@ -1,8 +1,7 @@
 import Ember from 'ember';
-import DiscussionAttributesModel from '../../models/discussion/attributes';
-import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
+import DiscussionBaseRoute from './base';
 
-export default Ember.Route.extend({
+export default DiscussionBaseRoute.extend({
 	model(params) {
 		const indexModel = this.modelFor('discussion');
 
