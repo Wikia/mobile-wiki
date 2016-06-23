@@ -15,8 +15,10 @@
 	z-index: $z-highlight-overlay-content;
 }
 
-.dark-theme .highlight-overlay {
-	background-color: $dark-highlight-overlay-background-color;
+@media #{$desktop-range} {
+	.dark-theme .highlight-overlay {
+		background-color: $dark-highlight-overlay-background-color;
+	}
 }
 
 @media #{$mobile-range} {
