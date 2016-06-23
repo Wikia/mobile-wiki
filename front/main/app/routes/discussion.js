@@ -24,7 +24,7 @@ export default Ember.Route.extend({
 			// reset previous editor errors
 
 			attributesModel.editAttribute(value).then(() => {
-				//action after successful edit
+				// action after successful edit
 			}).catch((err) => {
 				this.onContributionError(err, 'editor.save-error-general-error', true);
 			}).finally(() => {

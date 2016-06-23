@@ -6,9 +6,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	contentClassNames: 'background-theme-color',
 	attributeBindings: ['style'],
 
-	headerTitle: Ember.computed(function () {
-		return i18n.t('main.discussions-header-title', {ns: 'discussion'});
-	}),
+	headerTitle: Ember.computed(() => i18n.t('main.discussions-header-title', {ns: 'discussion'})),
 
 	overlay: false,
 	style: null,
