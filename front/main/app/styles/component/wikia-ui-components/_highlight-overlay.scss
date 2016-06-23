@@ -21,6 +21,7 @@
 
 @media #{$mobile-range} {
 	.highlight-overlay {
+		animation: none;
 		background-color: #fff;
 		opacity: 1;
 	}
