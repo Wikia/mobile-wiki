@@ -3,6 +3,7 @@
 
 	.side-button {
 		border: none;
+		margin-top: 20px;
 	}
 
 	.standalone-content {
@@ -21,6 +22,12 @@
 @media #{$desktop-range} {
 	.standalone-page-view {
 		height: auto;
+
+		.discussion-hero-unit-content {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 
 		.standalone-content {
 			margin: 25px auto;
