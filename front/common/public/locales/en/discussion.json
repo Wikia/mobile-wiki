@@ -84,6 +84,7 @@
     "categories-show-more-button-label": "Show more",
     "categories-show-less-button-label": "Show less",
     "categories-edit-add-category-label": "+ Add Category",
+    "categories-edit-mobile-header": "Edit Categories",
     "categories-edit-max-categories-info": "You have reached the limit of allowed categories (__maxCategoriesCount__).",
     "filter-posts-header": "Filter Posts",
     "filter-reset-label": "Reset",

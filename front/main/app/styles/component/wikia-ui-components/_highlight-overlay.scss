@@ -19,6 +19,22 @@
 	background-color: $dark-highlight-overlay-background-color;
 }
 
+@media #{$mobile-range} {
+	.highlight-overlay {
+		background-color: #fff;
+		opacity: 1;
+	}
+
+	.highlight-overlay-content {
+		bottom: 0;
+		left: 0;
+		position: fixed;
+		right: 0;
+		top: 0;
+	}
+}
+
+
 @keyframes highligh-overlay-fade-in {
 	from {
 		opacity: 0;

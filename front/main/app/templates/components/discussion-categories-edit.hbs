@@ -1,14 +1,28 @@
-{{! TODO separate categories array}}
-<h3 class="discussion-filter-header">
+<h3 class="discussion-filter-header mobile-hidden">
 	{{i18n 'main.filter-posts-header' ns='discussion'}}
 </h3>
+
+{{#if responsive.isMobile }}
+	<div class="discussion-categories-edit-mobile-toolbar active-element-background-color">
+		<button {{action this.attrs.setEditMode false}}>
+			{{svg 'close' viewBox='0 0 40 40' class='icon'}}
+		</button>
+		<h3>
+			{{i18n 'main.categories-edit-mobile-header' ns='discussion'}}
+		</h3>
+		<button type="submit" class="submit" {{action 'submit'}}>
+			{{svg 'checkmark' viewBox='0 0 40 40' class='icon icon-submit'}}
+		</button>
+	</div>
+{{/if}}
+
 <fieldset class="discussion-fieldset discussion-categories">
-	<legend>
+	<legend class="mobile-hidden">
 		{{i18n 'main.categories-header' ns='discussion'}}
 	</legend>
 	<div class="discussion-categories-list-container">
 		<ul class="discussion-categories-list">
-			<li>
+			<li class="discussion-category-all">
 				{{wikia-ui-components/fancy-check-box
 					disabled=true
 				}}
@@ -64,13 +78,15 @@
 	}}
 {{/if}}
 
-<div class="discussion-categories-edit-footer-wrapper">
-	<div class="discussion-categories-edit-footer">
-		<button {{action this.attrs.setEditMode false}}>
-			{{svg 'close' viewBox='0 0 40 40' class='icon'}}
-		</button>
-		<button type="submit" class="submit" {{action 'submit'}}>
-			{{svg 'checkmark' viewBox='0 0 40 40' class='icon icon-submit'}}
-		</button>
+{{#if responsive.isDesktop }}
+	<div class="discussion-categories-edit-footer-wrapper">
+		<div class="discussion-categories-edit-footer">
+			<button {{action this.attrs.setEditMode false}}>
+				{{svg 'close' viewBox='0 0 40 40' class='icon'}}
+			</button>
+			<button type="submit" class="submit" {{action 'submit'}}>
+				{{svg 'checkmark' viewBox='0 0 40 40' class='icon icon-submit'}}
+			</button>
+		</div>
 	</div>
-</div>
+{{/if}}

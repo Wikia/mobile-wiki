@@ -130,7 +130,13 @@
 		position: absolute;
 		right: 0;
 	}
+
+	.icon-submit {
+		width: 35px;
+		height: 35px;
+	}
 }
+
 
 .discussion-categories-edit-add-link {
 	font-size: $type-smallest;
@@ -147,6 +153,24 @@
 	width: 100%;
 }
 
+.discussion-categories-edit-mobile-toolbar {
+	display: flex;
+	justify-content: space-between;
+
+	button {
+		background: transparent;
+		border: none;
+		margin: 0;
+	}
+
+	h3 {
+		color: $color-white;
+		font-size: $type-smallest;
+		line-height: 44px;
+		margin: 0;
+	}
+}
+
 .discussion-categories-edit-footer {
 	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
 	display: inline-flex;
@@ -160,11 +184,6 @@
 		padding: 0;
 		width: 80px;
 	}
-
-	.icon-submit {
-		width: 35px;
-		height: 35px;
-	}
 }
 
 .loading-overlay.categories-loading-overlay {
@@ -172,11 +191,47 @@
 }
 
 @media #{$mobile-range} {
-	.discussion-filters-wrapper.highlight-overlay-content {
-		bottom: 0;
-		left: 0;
-		position: fixed;
-		right: 0;
-		top: 0;
+	.discussion-categories-edit{
+		overflow-y: auto;
+
+		.discussion-categories-input,
+		.discussion-categories-input:focus {
+			font-size: $type-base;
+			margin-left: 14px;
+			padding: 17px 42px 10px 0;
+
+			&[disabled] {
+				text-indent: 24px;
+			}
+		}
+
+		.discussion-categories-list {
+			.fancy-checkbox-label {
+				display: none;
+			}
+
+			.discussion-category-all {
+				display: none;
+			}
+		}
+
+		.discussion-categories-edit-action-button {
+			padding: 10px;
+		}
+
+		.discussion-categories-edit-add-link {
+			padding: 12px;
+		}
+
+		.icon.lock {
+			position: absolute;
+			left: 14px;
+			margin-top: 16px;
+		}
+
+		.categories-limit-info {
+			color: #000;
+			margin-left: 36px;
+		}
 	}
 }

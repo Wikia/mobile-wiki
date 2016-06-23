@@ -202,6 +202,8 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			setEditMode(isEnabled) {
+				Ember.$('body').toggleClass('mobile-no-scroll', isEnabled);
+
 				this.set('isEditMode', isEnabled);
 			},
 		}
