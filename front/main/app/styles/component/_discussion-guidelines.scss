@@ -1,0 +1,26 @@
+.guidelines-page {
+	margin: 22px 18px;
+
+	.wiki-name {
+		color: $discussion-guidelines-wiki-name-color;
+		font-size: $type-small;
+		line-height: $line-height-small;
+	}
+
+	.guidelines-text {
+		color: $discussion-guidelines-text-color;
+		font-size: $type-base;
+		line-height: $line-height-base;
+		min-height: 200px;
+	}
+}
+
+@media #{$desktop-range} {
+	.guidelines-page {
+		margin: 35px 130px;
+
+		.guidelines-text {
+			min-height: 80%;
+		}
+	}
+}
