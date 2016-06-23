@@ -9,4 +9,20 @@ export default DiscussionBaseRoute.extend({
 			attributes: indexModel.attributes,
 		});
 	},
+
+	/**
+	 * @returns {void}
+	 */
+	activate() {
+		Ember.$('body').addClass('standalone');
+		this._super();
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	deactivate() {
+		Ember.$('body').removeClass('standalone');
+		this._super();
+	},
 });

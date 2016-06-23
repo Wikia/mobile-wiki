@@ -1,12 +1,30 @@
 .standalone-page-view {
+	height: 100%;
+
 	.side-button {
 		border: none;
-		margin-top: 20px;
 	}
 
 	.standalone-content {
 		background-color: $discussion-standalone-content-background-color;
-		border: solid 1px $discussion-standalone-content-border-color;
-		margin: 25px auto;
+	}
+}
+
+@media #{$mobile-range} {
+	body.discussions {
+		&.standalone {
+			background-color: $discussion-standalone-content-background-color;
+		}
+	}
+}
+
+@media #{$desktop-range} {
+	.standalone-page-view {
+		height: auto;
+
+		.standalone-content {
+			margin: 25px auto;
+			border: solid 1px $discussion-standalone-content-border-color;
+		}
 	}
 }
