@@ -1,9 +1,10 @@
 import Ember from 'ember';
-import DiscussionModerationControllerMixin from '../../mixins/discussion-moderation-controller';
+import DiscussionBaseController from './base';
 import DiscussionContributionControllerMixin from '../../mixins/discussion-contribution-controller';
 import DiscussionEditEditorMixin from '../../mixins/discussion-edit-editor';
+import DiscussionModerationControllerMixin from '../../mixins/discussion-moderation-controller';
 
-export default Ember.Controller.extend(
+export default DiscussionBaseController.extend(
 	DiscussionModerationControllerMixin,
 	DiscussionContributionControllerMixin,
 	DiscussionEditEditorMixin,
