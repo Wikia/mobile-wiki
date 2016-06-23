@@ -1,10 +1,26 @@
+{{#modal-dialog
+	class='is-bare is-desktop-centered discussion-editor-dialog'
+	closeOnOverlayClick=false
+	isVisible=editEditorActive
+}}
+	{{discussion-edit-editor
+		editPost=(action this.attrs.editGuidelines)
+		generateOpenGraph=(action 'generateOpenGraph')
+	}}
+{{/modal-dialog}}
 {{discussion-hero-unit
 	contributors=model.contributors
 	numberOfPosts=model.postCount
 	headerTitle=(i18n 'main.discussions-guidelines-header-title' numberOfPosts=numberOfPosts ns='discussion')
 }}
 <div class="guidelines-page">
-	<h2 class="wiki-name">{{wikiName}}</h2>
+	<div class="head">
+		<h2 class="wiki-name">{{wikiName}}</h2>
+		<a class="edit-link active-element-theme-color" {{action 'openGuidelinesEditor'}}>
+			{{svg 'pencil' viewBox='0 0 18 18' class='icon edit fill-theme-color'}}
+			{{i18n 'main.edit-guidelines' ns='discussion'}}
+		</a>
+	</div>
 	<div class="guidelines-text">
 		{{{parsedContent}}}
 	</div>

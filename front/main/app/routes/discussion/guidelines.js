@@ -25,4 +25,10 @@ export default DiscussionBaseRoute.extend({
 		Ember.$('body').removeClass('standalone');
 		this._super();
 	},
+
+	actions: {
+		editGuidelines(text) {
+
+		},
+	}
 });
