@@ -12,12 +12,12 @@ export default Ember.Mixin.create({
 	 * Returns content with links created from urls and converts \n, \rn and \r to <br>
 	 * @returns {string}
 	 */
-	parsedContent: Ember.computed('post.rawContent', function () {
+	parsedContent: Ember.computed('content', function () {
 		let escapedContent = Ember.Handlebars.Utils.escapeExpression(
-			this.get('post.rawContent')
+			this.get('content')
 		).trim();
 
-		if (!this.get('isDetailsView') && shouldUseTruncationHack()) {
+		if (!this.get('areLinksActive') && shouldUseTruncationHack()) {
 			escapedContent = truncate(escapedContent, 148);
 		}
 
@@ -34,7 +34,7 @@ export default Ember.Mixin.create({
 			twitter: false
 		};
 
-		if (!this.get('isDetailsView')) {
+		if (!this.get('areLinksActive')) {
 			this.autolinkerConfig.replaceFn = this.wrapInSpan;
 		}
 		this._super();

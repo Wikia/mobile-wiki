@@ -11,6 +11,8 @@ export default Component.extend(
 	{
 		classNameBindings: ['isNew', 'isDeleted', 'isReported', 'isLocked', 'showTopNote'],
 
+		content: Ember.computed.alias('post.rawContent'),
+		areLinksActive: Ember.computed.alias('isDetailsView'),
 		isDeleted: computed.alias('post.isDeleted'),
 		isLocked: computed.oneWay('post.isLocked'),
 		isNew: computed.oneWay('post.isNew'),
