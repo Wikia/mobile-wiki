@@ -1,12 +1,13 @@
 {{#ember-wormhole to="site-head-sub-header"}}
 	{{discussion-header
+		backToDiscussionsLinkTitle=(i18n 'main.back-to-discussions-standalone-link' ns='discussion')
 		canDeleteAll=false
 		deleteAllPosts=(action this.attrs.deleteAllPosts)
 		hasBackButton=true
 		hasFilters=false
 		hasNewPostButton=false
+		showCategories=showCategories
 		smartBannerVisible=smartBannerVisible
-		backToDiscussionsLinkTitle=(i18n 'main.back-to-discussions-standalone-link' ns='discussion')
 	}}
 {{/ember-wormhole}}
 {{discussion-dialog

@@ -21,15 +21,16 @@
 		deleteReply=(action 'deleteReply')
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
-		report=(action 'report')
-		undeletePost=(action 'undeletePost')
-		undeleteReply=(action 'undeleteReply')
-		upvote=(action 'upvote')
 		minorError=model.current.data.minorError
 		pageNum=model.current.data.pageNum
 		posts=model.current.data.entities
 		postsDisplayed=model.current.data.entities.length
+		report=(action 'report')
+		showCategories=showCategories
 		totalPosts=model.current.data.postCount
+		undeletePost=(action 'undeletePost')
+		undeleteReply=(action 'undeleteReply')
 		unlockPost=(action 'unlockPost')
+		upvote=(action 'upvote')
 	}}
 {{/discussion-user-entities-list-layout}}

@@ -14,9 +14,10 @@
 		postId=entity.id
 		replyCount=entity.repliesCount
 		report=(action this.attrs.report)
+		showCategories=showCategories
 		undelete=(action this.attrs.undeletePost)
-		upvote=(action this.attrs.upvote)
 		unlock=(action this.attrs.unlockPost)
+		upvote=(action this.attrs.upvote)
 	}}
 {{else}}
 	{{discussion-empty-forum-message}}
