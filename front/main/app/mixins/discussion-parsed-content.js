@@ -42,8 +42,8 @@ export default Ember.Mixin.create({
 
 	/**
 	 * Wraps links in span instead of anchor tag in discussion forum view to open post details instead of anchor href
-	 * @param {object} autolinker instance of class
-	 * @param {object} match which should be wrapped
+	 * @param {Object} autolinker instance of class
+	 * @param {Object} match which should be wrapped
 	 * @returns {string}
 	 */
 	wrapInSpan(autolinker, match) {

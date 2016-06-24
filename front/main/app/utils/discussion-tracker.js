@@ -53,7 +53,7 @@ function getGACategory() {
 /**
  * @param {string} action
  *
- * @returns {object}
+ * @returns {Object}
  */
 function getGAContext(action) {
 	return {

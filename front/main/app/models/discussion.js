@@ -19,7 +19,7 @@ const DiscussionModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @param {object} apiData
+	 * @param {Object} apiData
 	 *
 	 * @returns {void}
 	 */

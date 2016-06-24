@@ -37,7 +37,7 @@ export default Ember.Mixin.create({
 		/**
 		 * Upvote discussion entity
 		 *
-		 * @param {object} entity
+		 * @param {Object} entity
 		 *
 		 * @returns {void}
 		 */
@@ -48,7 +48,7 @@ export default Ember.Mixin.create({
 		/**
 		 * Applies sorting by date and attempts to create a new post
 		 *
-		 * @param {object} postData
+		 * @param {Object} postData
 		 *
 		 * @returns {void}
 		 */
@@ -71,7 +71,7 @@ export default Ember.Mixin.create({
 		/**
 		 * Attempt to edit a new post
 		 *
-		 * @param {object} postData
+		 * @param {Object} postData
 		 *
 		 * @returns {void}
 		 */
@@ -91,7 +91,7 @@ export default Ember.Mixin.create({
 
 		/**
 		 * Triggers new reply creation on a model
-		 * @param {object} replyData
+		 * @param {Object} replyData
 		 * @returns {void}
 		 */
 		createReply(replyData) {
@@ -106,7 +106,7 @@ export default Ember.Mixin.create({
 
 		/**
 		 * Triggers reply edit on a model
-		 * @param {object} replyData
+		 * @param {Object} replyData
 		 * @returns {void}
 		 */
 		editReply(replyData) {
