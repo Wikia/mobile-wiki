@@ -1,4 +1,8 @@
 .discussion-categories-edit {
+	.discussion-categories-list-container {
+		clear:left;
+	}
+
 	.discussion-categories-input,
 	.discussion-categories-input:focus {
 		background-color: transparent;
@@ -192,6 +196,10 @@
 		.categories-edit-info-message {
 			color: $color-gray-dark;
 			margin-left: 36px;
+
+			&.categories-edit-error-message {
+				margin-top: 20px;
+			}
 		}
 	}
 }

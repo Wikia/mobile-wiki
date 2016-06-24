@@ -17,6 +17,13 @@
 {{/if}}
 
 <fieldset class="discussion-fieldset discussion-categories">
+	{{#if errorMessage}}
+		<span class="categories-edit-info-message categories-edit-error-message desktop-hidden">
+			{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
+			{{errorMessage}}
+		</span>
+	{{/if}}
+
 	<legend class="mobile-hidden">
 		{{i18n 'main.categories-header' ns='discussion'}}
 	</legend>
@@ -76,7 +83,7 @@
 	{{/if}}
 
 	{{#if errorMessage}}
-		<span class="categories-edit-info-message categories-edit-error-message">
+		<span class="categories-edit-info-message categories-edit-error-message mobile-hidden">
 			{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
 			{{errorMessage}}
 		</span>
