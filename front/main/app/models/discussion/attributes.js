@@ -35,7 +35,6 @@ const DiscussionAttributesModel = Ember.Object.extend({
 			contentType: false,
 			mimeType: 'multipart/form-data',
 		}).then((data) => {
-
 			this.set(`data.${data.name}.value`, data.value);
 
 			return this.get(`data.${data.name}`);
