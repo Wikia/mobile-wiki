@@ -13,7 +13,7 @@
 
 @media #{$mobile-range} {
 	body.discussions {
-		&.standalone {
+		&.standalone-page {
 			background-color: $discussion-standalone-content-background-color;
 		}
 	}
@@ -24,14 +24,14 @@
 		height: auto;
 
 		.discussion-hero-unit-content {
+			align-items: center;
 			display: flex;
 			justify-content: center;
-			align-items: center;
 		}
 
 		.standalone-content {
-			margin: 25px auto;
 			border: solid 1px $discussion-standalone-content-border-color;
+			margin: 25px auto;
 		}
 	}
 }
