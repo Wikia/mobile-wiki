@@ -167,7 +167,7 @@ UserModel.reopenClass({
 	/**
 	 * @param {Ember.Object} model
 	 * @param {QueryUserInfoResponse} query
-	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
+	 * @returns {void}
 	 */
 	setUserRights(model, {query}) {
 		const rightsArray = query.userinfo.rights,
