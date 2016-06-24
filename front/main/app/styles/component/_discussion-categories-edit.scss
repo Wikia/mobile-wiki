@@ -1,3 +1,5 @@
+$success-icon-size: 80px;
+
 .discussion-categories-edit {
 	.discussion-categories-list-container {
 		clear:left;
@@ -143,7 +145,16 @@
 }
 
 .loading-overlay.categories-loading-overlay {
+	align-items: center;
+	display: flex;
+	justify-content: center;
 	position: absolute;
+
+	.success {
+		display: block;
+		height: $success-icon-size;
+		width: $success-icon-size;
+	}
 }
 
 @media #{$desktop-range} {

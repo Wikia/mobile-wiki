@@ -9,6 +9,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 		classNames: ['highlight-overlay-content', 'discussion-categories-edit'],
 		maxCategoriesCount: 10,
 		isLoading: false,
+		showSuccess: false,
 		wikiId: Ember.get(Mercury, 'wiki.id').toString(),
 
 		addDisabled: Ember.computed('localCategories.length', function () {
@@ -74,7 +75,12 @@ export default Ember.Component.extend(ResponsiveMixin,
 				this.set('isLoading', true);
 				this.get('updateCategories')(localCategories)
 					.then(() => {
-						this.sendAction('setEditMode', false);
+						this.set('showSuccess', true);
+
+						Ember.run.later(this, () => {
+							this.set('showSuccess', false);
+							this.sendAction('setEditMode', false);
+						}, 2000);
 					})
 					.catch(() => {
 						this.set('errorMessage', i18n.t('main.categories-edit-general-error', {ns: 'discussion'}));

@@ -99,6 +99,12 @@
 	}}
 {{/if}}
 
+{{#if showSuccess}}
+	<div class="categories-loading-overlay loading-overlay">
+		{{svg 'success' class='success' viewBox='0 0 80 80'}}
+	</div>
+{{/if}}
+
 {{#if responsive.isDesktop }}
 	<div class="discussion-categories-edit-footer-wrapper">
 		<div class="discussion-categories-edit-footer">
