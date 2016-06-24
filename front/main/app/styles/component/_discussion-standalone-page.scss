@@ -12,9 +12,11 @@
 }
 
 @media #{$mobile-range} {
-	body.discussions {
-		&.standalone-page {
-			background-color: $discussion-standalone-content-background-color;
+	body {
+		&.discussions {
+			&.standalone-page {
+				background-color: $discussion-standalone-content-background-color;
+			}
 		}
 	}
 }
