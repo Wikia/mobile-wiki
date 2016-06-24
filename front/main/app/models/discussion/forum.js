@@ -32,11 +32,13 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 					viewableOnly: false
 				}
 			}).then((data) => {
-				this.get('data.entities').pushObjects(
-					Ember.get(data, '_embedded.threads').map(
-						(newThread) => DiscussionPost.createFromThreadData(newThread)
-					)
+				const newEntities = Ember.get(data, '_embedded.threads').map(
+					(newThread) => DiscussionPost.createFromThreadData(newThread)
 				);
+
+				this.get('data.entities').pushObjects(newEntities);
+				this.reportedDetailsSetUp(newEntities);
+
 			}).catch((err) => {
 				this.handleLoadMoreError(err);
 			});
@@ -91,6 +93,8 @@ DiscussionForumModel.reopenClass({
 				forumInstance.setNormalizedData(data);
 
 				resolve(forumInstance);
+
+				forumInstance.reportedDetailsSetUp(forumInstance.get('data.entities'));
 			}).catch((err) => {
 				forumInstance.setErrorProperty(err);
 
