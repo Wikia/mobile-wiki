@@ -14,7 +14,7 @@ export default Ember.Component.extend(
 			}
 		},
 
-		backToDiscussionsLinkTitle: Ember.computed(() => i18n.t('main.back-to-discussions-link', {ns: 'discussion'})),
+		backToDiscussionsLinkTitle: i18n.t('main.back-to-discussions-link', {ns: 'discussion'}),
 
 		canDeleteAll: false,
 
