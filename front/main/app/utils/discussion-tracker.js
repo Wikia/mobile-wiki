@@ -40,6 +40,7 @@ const trackActions = {
 	CategoriesResetTapped: 'CategoriesResetTapped',
 	EditCategoriesButtonTapped: 'EditCategoriesButtonTapped',
 	AddCategoryButtonTapped: 'AddCategoryButtonTapped',
+	ReportDetailsModalOpen: 'ReportDetailsModalOpen',
 };
 
 /**
