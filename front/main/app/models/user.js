@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import DiscussionUserPermissions from './user-permissions/domain/discussions'
 
 /**
  * @typedef {Object} UserModelFindParams
@@ -18,8 +19,9 @@ import request from 'ember-ajax/request';
 const UserModel = Ember.Object.extend({
 	avatarPath: null,
 	name: null,
+	permissions: null,
+	powerUserTypes: null,
 	rights: null,
-	powerUserTypes: null
 });
 
 UserModel.reopenClass({
@@ -31,14 +33,30 @@ UserModel.reopenClass({
 	 */
 	find(params) {
 		const avatarSize = params.avatarSize || UserModel.defaultAvatarSize,
-			modelInstance = UserModel.create();
+			modelInstance = UserModel.create(),
+			userId = params.userId;
 
-		return UserModel.loadDetails(params.userId, avatarSize)
-			.then((userDetails) => {
-				const detailsSanitized = UserModel.sanitizeDetails(userDetails);
+		return Ember.RSVP.all([
+			this.loadDetails(userId, avatarSize),
+			this.loadUserInfo(userId),
+			this.loadUserPermissions(userId)
+		]).then(([userDetails, userInfo, userPermissions]) => {
+			if (userDetails) {
+				modelInstance.setProperties(UserModel.sanitizeDetails(userDetails));
+			}
 
-				return modelInstance.setProperties(detailsSanitized);
-			});
+			if (userInfo) {
+				UserModel.setUserLanguage(modelInstance, userInfo);
+				UserModel.setBlockedStatus(modelInstance, userInfo);
+				UserModel.setUserRights(modelInstance, userInfo);
+			}
+
+			if (userPermissions[0]) {
+				UserModel.setNormalizedPermissions(modelInstance, userPermissions[0].permissions);
+			}
+
+			return modelInstance;
+		});
 	},
 
 	/**
@@ -64,6 +82,35 @@ UserModel.reopenClass({
 	},
 
 	/**
+	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
+	 */
+	loadUserInfo(userId) {
+		return request(M.buildUrl({path: '/api.php'}), {
+			data: {
+				action: 'query',
+				meta: 'userinfo',
+				uiprop: 'rights|options|blockinfo',
+				format: 'json',
+				ids: userId
+			},
+		});
+	},
+
+	/**
+	 * @param {number} userId
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	loadUserPermissions(userId) {
+		const url = M.getUserPermissionsServiceUrl(`/permissions/wiki/${Mercury.wiki.id}/scope/discussions/bulkUsers`);
+
+		return request(url, {
+			data: {
+				uid: userId
+			},
+		});
+	},
+
+	/**
 	 * @param {*} userData
 	 * @returns {UserProperties}
 	 */
@@ -82,7 +129,68 @@ UserModel.reopenClass({
 		}
 
 		return data;
-	}
+	},
+
+	/**
+	 * @param {Ember.Object} model
+	 * @param {Object} permissionsData
+	 * @returns {void}
+	 */
+	setNormalizedPermissions(model, permissionsData) {
+		if (!permissionsData) {
+			return;
+		}
+
+		const permissions = Ember.Object.create();
+
+		if (permissionsData.discussions) {
+			permissions.set('discussions', DiscussionUserPermissions.create(permissionsData.discussions));
+		}
+
+		model.set('permissions', permissions);
+	},
+
+	/**
+	 * @param {string} query
+	 * @returns {void}
+	 */
+	setUserLanguage(model, {query}) {
+		const userLanguage = query.userinfo.options.language;
+
+		if (userLanguage) {
+			model.set('language', userLanguage);
+		}
+	},
+
+	/**
+	 * @param {QueryUserInfoResponse} query
+	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
+	 */
+	setUserRights(model, {query}) {
+		const rightsArray = query.userinfo.rights,
+			rights = {};
+
+		if (Ember.isArray(rightsArray)) {
+			// TODO - we could use contains instead of making an object out of an array
+			rightsArray.forEach((right) => {
+				rights[right] = true;
+			});
+
+			model.set('rights', rights);
+		}
+	},
+
+	/**
+	 * @param {QueryUserInfoResponse} query
+	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
+	 */
+	setBlockedStatus(model, {query}) {
+		const blockId = query.userinfo.blockid;
+
+		if (blockId) {
+			model.set('isBlocked', true);
+		}
+	},
 });
 
 export default UserModel;
