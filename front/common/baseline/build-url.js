@@ -140,7 +140,7 @@ if (typeof window.M === 'undefined') {
 	 * @returns {string}
 	 */
 	M.getAttributeServiceUrl = function (path = '') {
-		return `https://${M.prop('servicesDomain')}/${M.prop('attributeBaseRoute')}${path}`;
+		return `https://${M.prop('servicesDomain')}/${M.prop('siteAttributeBaseRoute')}${path}`;
 	};
 
 	/**
