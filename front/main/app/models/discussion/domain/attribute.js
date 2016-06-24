@@ -7,7 +7,6 @@ const DiscussionAttribute = Ember.Object.extend({
 });
 
 DiscussionAttribute.reopenClass({
-
 	/**
 	 * @param {object} data
 	 *
