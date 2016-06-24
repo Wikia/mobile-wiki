@@ -9,7 +9,10 @@ export default Ember.Component.extend(
 		visibleCategoriesCount: null,
 
 		isEditMode: false,
-		canEditCategories: true,
+
+		currentUser: Ember.inject.service(),
+
+		canEditCategories: Ember.computed.oneWay('currentUser.permissions.discussions.canEditCategories'),
 
 		init() {
 			this._super();
@@ -206,6 +209,8 @@ export default Ember.Component.extend(
 				Ember.$('body').toggleClass('mobile-no-scroll', isEnabled);
 
 				this.set('isEditMode', isEnabled);
+
+				track(trackActions.EditCategoriesButtonTapped);
 			},
 		}
 	}

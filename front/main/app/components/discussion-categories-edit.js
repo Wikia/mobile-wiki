@@ -38,6 +38,8 @@ export default Ember.Component.extend(ResponsiveMixin,
 			addCategory() {
 				if (!this.get('addDisabled')) {
 					this.get('localCategories').pushObject(DiscussionCategory.create({}));
+
+					track(trackActions.AddCategoryButtonTapped);
 				}
 			},
 

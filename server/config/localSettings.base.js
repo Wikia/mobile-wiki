@@ -54,6 +54,7 @@ import deepExtend from 'deep-extend';
  * @property {string} [devboxDomain]
  * @property {string} domain
  * @property {*} [discuss]
+ * @property {*} [userPermissions]
  * @property {*} environment
  * @property {HeliosLocalSettings} helios
  * @property {WhoAmIServiceLocalSettings} whoAmIService
