@@ -84,6 +84,6 @@ export default Mixin.create({
 		 */
 		openGuidelines() {
 			this.set('areGuidelinesVisible', true);
-		}
+		},
 	}
 });

@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
-import DiscussionAttributes from './domain/attributes';
+import DiscussionSiteAttributes from './domain/site-attributes';
 
-const DiscussionAttributesModel = Ember.Object.extend({
+const DiscussionSiteAttributesModel = Ember.Object.extend({
 	data: null,
 	wikiId: null,
 
@@ -12,7 +12,7 @@ const DiscussionAttributesModel = Ember.Object.extend({
 	 * @returns {void}
 	 */
 	setNormalizedData(apiData) {
-		this.set('data', DiscussionAttributes.create(
+		this.set('data', DiscussionSiteAttributes.create(
 			Ember.getWithDefault(apiData, '_embedded.attributes', [])
 		));
 	},
@@ -42,14 +42,14 @@ const DiscussionAttributesModel = Ember.Object.extend({
 	},
 });
 
-DiscussionAttributesModel.reopenClass({
+DiscussionSiteAttributesModel.reopenClass({
 	/**
 	 * @param {number} wikiId
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	find(wikiId) {
 		return new Ember.RSVP.Promise((resolve) => {
-			const attributesInstance = DiscussionAttributesModel.create();
+			const attributesInstance = DiscussionSiteAttributesModel.create();
 
 			attributesInstance.set('wikiId', wikiId);
 
@@ -65,4 +65,4 @@ DiscussionAttributesModel.reopenClass({
 	}
 });
 
-export default DiscussionAttributesModel;
+export default DiscussionSiteAttributesModel;
