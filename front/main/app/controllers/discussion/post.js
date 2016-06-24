@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import DiscussionBaseController from './base';
 import DiscussionContributionControllerMixin from '../../mixins/discussion-contribution-controller';
 import DiscussionEditEditorMixin from '../../mixins/discussion-edit-editor';
