@@ -1,0 +1,17 @@
+<div class="discussion-list-modal-header">
+	<a href="#" class="discussion-list-modal-close" {{action this.attrs.close bubbles=false}}>
+		{{svg 'close' class="fill-theme-color" viewBox='0 0 16 16'}}
+	</a>
+	<h5>{{i18n 'main.reports_number' count=reportDetails.count ns='discussion'}}</h5>
+</div>
+<ul class="discussion-list-modal-list">
+	{{#each reportDetails.users as |user|}}
+		<li>
+			{{user-avatar
+				avatarUrl=user.avatarUrl
+				displayProfileName=true
+				username=user.name
+			}}
+		</li>
+	{{/each}}
+</ul>

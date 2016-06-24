@@ -2,8 +2,20 @@
 	{{#if post.isLocked}}
 		{{svg 'locked' viewBox='0 0 14 16' class='icon locked'}}
 	{{/if}}
-	{{text}}
+	{{{topNoteText}}}
 </span>
+{{#if post.reportDetails}}
+	{{#modal-dialog
+		class='is-bare is-desktop-centered discussion-list-modal discussion-report-details'
+		closeOnOverlayClick=true
+		isVisible=isReportDetailsVisible
+	}}
+		{{discussion-report-details-user-list
+			close=(action 'reportDetailsClose')
+			reportDetails=post.reportDetails
+		}}
+	{{/modal-dialog}}
+{{/if}}
 {{#if showButtons}}
 	<div class="actions columns large-4 small-4">
 		{{#if canModerate}}
