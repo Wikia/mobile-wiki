@@ -86,6 +86,7 @@
     "categories-edit-add-category-label": "+ Add Category",
     "categories-edit-mobile-header": "Edit Categories",
     "categories-edit-max-categories-info": "You have reached the limit of allowed categories (__maxCategoriesCount__).",
+    "categories-edit-error-empty-category": "Category name requires at least one character.",
     "filter-posts-header": "Filter Posts",
     "filter-reset-label": "Reset",
     "in-category-label": "In __categoryName__",

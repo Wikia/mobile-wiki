@@ -59,6 +59,10 @@ export default Ember.Component.extend(ResponsiveMixin,
 				// TODO error message
 
 				if (emptyCategories.get('length')) {
+					emptyCategories.setEach(
+						'error',
+						i18n.t('main.categories-edit-error-empty-category', {ns: 'discussion'})
+					);
 					return;
 				}
 

@@ -23,36 +23,43 @@
 	<div class="discussion-categories-list-container">
 		<ul class="discussion-categories-list">
 			<li class="discussion-category-all">
-				{{wikia-ui-components/fancy-check-box
-					disabled=true
-				}}
-				{{input
-					class='discussion-categories-input'
-					disabled=true
-					value=(i18n 'main.category-all-name' ns='discussion')
-				}}
+				<span class="discussion-categories-input-wrapper">
+					{{wikia-ui-components/fancy-check-box
+						disabled=true
+					}}
+					{{input
+						class='discussion-categories-input'
+						disabled=true
+						value=(i18n 'main.category-all-name' ns='discussion')
+					}}
+				</span>
 			</li>
 			{{#each localCategories as |localCategory|}}
 				<li>
-					{{#if (equal localCategory.id wikiId)}}
-						{{svg 'lock' viewBox='0 0 18 18' class='icon lock'}}
-					{{else}}
-						{{wikia-ui-components/fancy-check-box
-							disabled=true
+					<span class="discussion-categories-input-wrapper">
+						{{#if (equal localCategory.id wikiId)}}
+							{{svg 'lock' viewBox='0 0 18 18' class='icon lock'}}
+						{{else}}
+							{{wikia-ui-components/fancy-check-box
+								disabled=true
+							}}
+						{{/if}}
+						{{!TODO use flag instead of equal when backend starts providing it}}
+						{{input
+							class=(concat 'discussion-categories-input' (if localCategory.error ' error' ''))
+							disabled=(equal localCategory.id wikiId)
+							maxlength=20
+							value=localCategory.name
 						}}
+						{{#unless localCategory.id}}
+							<a class="discussion-categories-edit-action-button" {{action 'deleteCategory' localCategory}}>
+								{{svg 'close' class='icon close'}}
+							</a>
+						{{/unless}}
+					</span>
+					{{#if localCategory.error}}
+						<span class="error">{{localCategory.error}}</span>
 					{{/if}}
-					{{!TODO use flag instead of equal when backend starts providing it}}
-					{{input
-						class='discussion-categories-input'
-						disabled=(equal localCategory.id wikiId)
-						maxlength=20
-						value=localCategory.name
-					}}
-					{{#unless localCategory.id}}
-						<a class="discussion-categories-edit-action-button" {{action 'deleteCategory' localCategory}}>
-							{{svg 'close' class='icon close'}}
-						</a>
-					{{/unless}}
 				</li>
 			{{/each}}
 		</ul>

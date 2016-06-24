@@ -4,6 +4,10 @@
 		background-color: transparent;
 		box-shadow: none;
 		padding: 8px 23px 4px 0;
+
+		&.error {
+			border-color: #ed1c24;
+		}
 	}
 
 	.discussion-categories-input:focus {
@@ -15,8 +19,13 @@
 		color: #ccc;
 	}
 
-	.discussion-categories-list li {
+	.discussion-categories-input-wrapper {
 		display: flex;
+	}
+
+	.discussion-categories-list span.error {
+		color: #ed1c24;
+		margin: 0;
 	}
 
 	.fancy-checkbox-label {
