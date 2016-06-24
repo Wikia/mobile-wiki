@@ -209,6 +209,8 @@ export default Ember.Component.extend(
 				Ember.$('body').toggleClass('mobile-no-scroll', isEnabled);
 
 				this.set('isEditMode', isEnabled);
+
+				track(trackActions.EditCategoriesButtonTapped);
 			},
 		}
 	}

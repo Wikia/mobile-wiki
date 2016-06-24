@@ -38,6 +38,8 @@ const trackActions = {
 	CategoriesCollaped: 'CategoriesCollaped',
 	CategoriesUncollaped: 'CategoriesUncollaped',
 	CategoriesResetTapped: 'CategoriesResetTapped',
+	EditCategoriesButtonTapped: 'EditCategoriesButtonTapped',
+	AddCategoryButtonTapped: 'AddCategoryButtonTapped',
 };
 
 /**
