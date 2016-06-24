@@ -26,6 +26,7 @@
 	.discussion-categories-list span.error {
 		color: #ed1c24;
 		margin: 0;
+		padding-left: 27px;
 	}
 
 	.fancy-checkbox-label {
@@ -46,6 +47,10 @@
 			fill: #f08a24;
 		}
 
+		&.error {
+			fill: #ed1c24;
+		}
+
 		&.close {
 			fill: #1a5eb8;
 			height: 20px;
@@ -60,12 +65,16 @@
 		}
 	}
 
-	.categories-limit-info {
+	.categories-edit-info-message {
 		float: left;
 		font-size: $type-smallest;
 		line-height: $line-height-smallest;
 		margin: 0 0 15px 22px;
 		text-indent: -22px;
+
+		&.categories-edit-error-message {
+			color: #ed1c24;
+		}
 	}
 
 	.discussion-categories-edit-action-button {
@@ -180,8 +189,8 @@
 			margin-top: 16px;
 		}
 
-		.categories-limit-info {
-			color: #000;
+		.categories-edit-info-message {
+			color: $color-gray-dark;
 			margin-left: 36px;
 		}
 	}

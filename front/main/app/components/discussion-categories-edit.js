@@ -26,6 +26,8 @@ export default Ember.Component.extend(ResponsiveMixin,
 			return localCategories;
 		}),
 
+		errorMessage: null,
+
 		actions: {
 			/**
 			 * Add new category
@@ -56,7 +58,8 @@ export default Ember.Component.extend(ResponsiveMixin,
 				const localCategories = this.get('localCategories'),
 					emptyCategories = localCategories.rejectBy('name');
 
-				// TODO error message
+				this.set('errorMessage', null);
+				localCategories.setEach('error', null);
 
 				if (emptyCategories.get('length')) {
 					emptyCategories.setEach(
@@ -67,10 +70,12 @@ export default Ember.Component.extend(ResponsiveMixin,
 				}
 
 				this.set('isLoading', true);
-				// TODO error handling
 				this.get('updateCategories')(localCategories)
 					.then(() => {
 						this.sendAction('setEditMode', false);
+					})
+					.catch(() => {
+						this.set('errorMessage', i18n.t('main.categories-edit-general-error', {ns: 'discussion'}));
 					})
 					.finally(() => {
 						this.set('isLoading', false);

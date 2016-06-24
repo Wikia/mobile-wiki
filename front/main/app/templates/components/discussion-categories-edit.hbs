@@ -69,9 +69,16 @@
 	</a>
 
 	{{#if addDisabled}}
-		<span class="categories-limit-info">
+		<span class="categories-edit-info-message">
 			{{svg 'report' viewBox='0 0 18 18' class='icon report'}}
 			{{i18n 'main.categories-edit-max-categories-info' ns='discussion' maxCategoriesCount=maxCategoriesCount}}
+		</span>
+	{{/if}}
+
+	{{#if errorMessage}}
+		<span class="categories-edit-info-message categories-edit-error-message">
+			{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
+			{{errorMessage}}
 		</span>
 	{{/if}}
 </fieldset>
