@@ -35,7 +35,7 @@ export default Ember.Mixin.create({
 		};
 
 		if (!this.get('activateLinks')) {
-			this.autolinkerConfig.replaceFn = this.wrapInSpan;
+			this.set('autolinkerConfig.replaceFn', this.wrapInSpan);
 		}
 		this._super();
 	},
