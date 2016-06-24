@@ -2,8 +2,8 @@ import Ember from 'ember';
 import DiscussionAttributePermissions from './attribute-permissions';
 
 const DiscussionAttribute = Ember.Object.extend({
-	value: null,
 	permissions: null,
+	value: null,
 });
 
 DiscussionAttribute.reopenClass({
@@ -14,8 +14,8 @@ DiscussionAttribute.reopenClass({
 	 */
 	create(data) {
 		return this._super({
-			value: data.value,
 			permissions: DiscussionAttributePermissions.create(data.permissions),
+			value: data.value,
 		});
 	},
 });
