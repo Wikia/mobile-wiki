@@ -59,15 +59,13 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 			categories.pushObject(DiscussionCategory.create(categoryData));
 
 			this.set('categories', categories.sortBy('displayOrder'));
-		}).catch(() => {
-			reject(this);
 		});
 	},
 
 	updateCategories(categories) {
 		const promisesList = [];
 
-		categories.filterBy('id', undefined).forEach((category) => {
+		categories.rejectBy('id').forEach((category) => {
 			promisesList.push(this.addCategory(category.get('name')));
 		});
 

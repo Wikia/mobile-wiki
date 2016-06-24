@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import {track, trackActions} from '../utils/discussion-tracker';
-import DiscussionCategory from '../models/discussion/domain/category';
 
 export default Ember.Component.extend(
 	{
@@ -198,6 +197,8 @@ export default Ember.Component.extend(
 
 			/**
 			 * Enables/disables categories edit mode
+			 *
+			 * @param {boolean} isEnabled edit mode state
 			 *
 			 * @returns {void}
 			 */

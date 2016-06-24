@@ -43,6 +43,8 @@ export default Ember.Component.extend(ResponsiveMixin,
 			/**
 			 * Delete a category
 			 *
+			 * @param {DiscussionCategory} category category to delete
+			 *
 			 * @returns {void}
 			 */
 			deleteCategory(category) {

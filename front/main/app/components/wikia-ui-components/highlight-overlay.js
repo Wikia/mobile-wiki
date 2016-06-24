@@ -8,6 +8,6 @@ import Ember from 'ember';
  *      isVisible=true
  * }}
  */
-export default  Ember.Component.extend({
+export default Ember.Component.extend({
 	classNames: ['highlight-overlay']
 });
