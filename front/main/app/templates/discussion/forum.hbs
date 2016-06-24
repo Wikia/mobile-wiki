@@ -13,9 +13,11 @@
 	closeOnOverlayClick=true
 	isVisible=areGuidelinesVisible
 }}
-	{{discussion-guidelines
-		guidelinesText=model.index.attributes.data.guidelines.value
-	}}
+	{{#if areGuidelinesVisible}}
+		{{discussion-guidelines
+			guidelinesText=model.index.attributes.data.guidelines.value
+		}}
+	{{/if}}
 {{/modal-dialog}}
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
