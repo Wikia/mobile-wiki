@@ -1,13 +1,13 @@
 import Ember from 'ember';
 
 import DiscussionModel from '../models/discussion';
-import DiscussionAttributesModel from '../models/discussion/attributes';
+import DiscussionSiteAttributesModel from '../models/discussion/site-attributes';
 
 export default Ember.Route.extend({
 	model() {
 		return Ember.RSVP.hash({
 			categories: DiscussionModel.getCategories(Mercury.wiki.id),
-			attributes: DiscussionAttributesModel.find(Mercury.wiki.id),
+			attributes: DiscussionSiteAttributesModel.find(Mercury.wiki.id),
 		});
 	},
 

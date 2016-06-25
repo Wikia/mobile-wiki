@@ -26,7 +26,8 @@ $ad-background: rgb(44, 52, 61);
 	z-index: $z-ads-top-leaderboard;
 }
 
-.mobile-top-leaderboard.bfaa-template {
+.bfaa-template .mobile-top-leaderboard {
+	left: 0;
 	position: absolute;
 	top: 0;
 	width: 100%;
@@ -34,6 +35,15 @@ $ad-background: rgb(44, 52, 61);
 	.ad-slot {
 		background: none;
 		padding: 0;
+		position: relative;
+
+		iframe {
+			height: 100%;
+			left: 0;
+			position: absolute;
+			width: 100%;
+			top: 0;
+		}
 	}
 }
 
@@ -42,8 +52,17 @@ $ad-background: rgb(44, 52, 61);
 		padding: 10px 0;
 	}
 
-	&.bfab-template .ad-slot {
+	.bfab-template {
 		padding: 0;
+		position: relative;
+
+		iframe {
+			height: 100%;
+			left: 0;
+			position: absolute;
+			width: 100%;
+			top: 0;
+		}
 	}
 }
 

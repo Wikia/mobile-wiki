@@ -1,13 +1,13 @@
 import Ember from 'ember';
-import DiscussionAttribute from './attribute';
+import DiscussionSiteAttribute from './site-attribute';
 
-const DiscussionAttributes = Ember.Object.extend({
+const DiscussionSiteAttributes = Ember.Object.extend({
 	badgeImage: null,
 	guidelines: null,
 	heroImage: null,
 });
 
-DiscussionAttributes.reopenClass({
+DiscussionSiteAttributes.reopenClass({
 
 	/**
 	 * @param {Object[]} attributesData
@@ -19,10 +19,10 @@ DiscussionAttributes.reopenClass({
 	 * @returns {Ember.Object}
 	 */
 	create(attributesData) {
-		const attributes = [];
+		const attributes = {};
 
 		attributesData.forEach((attribute) => {
-			attributes[attribute.name] = DiscussionAttribute.create({
+			attributes[attribute.name] = DiscussionSiteAttribute.create({
 				permissions: attribute.authorization,
 				value: attribute.value,
 			});
@@ -32,4 +32,4 @@ DiscussionAttributes.reopenClass({
 	},
 });
 
-export default DiscussionAttributes;
+export default DiscussionSiteAttributes;

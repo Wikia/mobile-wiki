@@ -38,6 +38,7 @@ const trackActions = {
 	CategoriesCollaped: 'CategoriesCollaped',
 	CategoriesUncollaped: 'CategoriesUncollaped',
 	CategoriesResetTapped: 'CategoriesResetTapped',
+	ReportDetailsModalOpen: 'ReportDetailsModalOpen',
 };
 
 /**
@@ -52,7 +53,7 @@ function getGACategory() {
 /**
  * @param {string} action
  *
- * @returns {object}
+ * @returns {Object}
  */
 function getGAContext(action) {
 	return {

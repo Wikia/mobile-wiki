@@ -5,7 +5,7 @@ export default Ember.Mixin.create({
 		/**
 		 * Bubbles up to Route
 		 *
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		upvote(post) {
@@ -14,7 +14,7 @@ export default Ember.Mixin.create({
 
 		/**
 		 * Bubbles up to Route
-		 * @param {object} entityData
+		 * @param {Object} entityData
 		 * @returns {void}
 		 */
 		createPost(entityData) {
@@ -23,7 +23,7 @@ export default Ember.Mixin.create({
 
 		/**
 		 * Bubbles up to Route
-		 * @param {object} entityData
+		 * @param {Object} entityData
 		 * @returns {void}
 		 */
 		editPost(entityData) {
@@ -32,7 +32,7 @@ export default Ember.Mixin.create({
 
 		/**
 		 * Bubbles up to Route
-		 * @param {object} entityData
+		 * @param {Object} entityData
 		 * @returns {void}
 		 */
 		createReply(entityData) {
@@ -41,7 +41,7 @@ export default Ember.Mixin.create({
 
 		/**
 		 * Bubbles up to Route
-		 * @param {object} entityData
+		 * @param {Object} entityData
 		 * @returns {void}
 		 */
 		editReply(entityData) {

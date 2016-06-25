@@ -62,10 +62,12 @@
 		}}
 	{{/if}}
 	<div class="row post-bottom-row">
-		{{#if post.categoryName}}
-			<span class="post-category-name">
-				{{i18n 'main.in-category-label' ns='discussion' categoryName=post.categoryName}}
-			</span>
+		{{#if showCategories}}
+			{{#if post.categoryName}}
+				<span class="post-category-name">
+					{{i18n 'main.in-category-label' ns='discussion' categoryName=post.categoryName}}
+				</span>
+			{{/if}}
 		{{/if}}
 		<span class="post-counters">
 			<span class="upvote-count">

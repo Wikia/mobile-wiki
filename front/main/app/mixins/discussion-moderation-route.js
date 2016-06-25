@@ -1,15 +1,18 @@
 import Ember from 'ember';
+import DiscussionContributor from '../models/discussion/domain/contributor';
 import {track, trackActions} from '../utils/discussion-tracker';
 
 const {Mixin, inject, set} = Ember;
 
 export default Mixin.create({
 	modalDialog: inject.service(),
+	currentUser: Ember.inject.service(),
+
 	/**
 	 * Get loading spinner container.
 	 * On post list it's post, on post-details it's applicationController to overlay entire page
-	 * @param {object} post
-	 * @returns {object}
+	 * @param {Object} post
+	 * @returns {Object}
 	 */
 	getLoadingSpinnerContainer(post) {
 		return this.get('postDeleteFullScreenOverlay') ?
@@ -20,7 +23,7 @@ export default Mixin.create({
 	actions: {
 		/**
 		 * Pass post deletion to model
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		deletePost(post) {
@@ -34,7 +37,7 @@ export default Mixin.create({
 
 		/**
 		 * Pass post deletion to model
-		 * @param {object} posts
+		 * @param {Object} posts
 		 * @returns {void}
 		 */
 		deleteAllPosts(posts) {
@@ -67,7 +70,7 @@ export default Mixin.create({
 
 		/**
 		 * Pass post undeletion to model
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		undeletePost(post) {
@@ -81,7 +84,7 @@ export default Mixin.create({
 
 		/**
 		 * Pass reply deletion to model
-		 * @param {object} reply
+		 * @param {Object} reply
 		 * @returns {void}
 		 */
 		deleteReply(reply) {
@@ -93,7 +96,7 @@ export default Mixin.create({
 
 		/**
 		 * Pass reply undeletion to model
-		 * @param {object} reply
+		 * @param {Object} reply
 		 * @returns {void}
 		 */
 		undeleteReply(reply) {
@@ -105,19 +108,28 @@ export default Mixin.create({
 
 		/**
 		 * Pass post/reply reporting to model
-		 * @param {object} item
+		 * @param {Object} item
 		 * @returns {void}
 		 */
 		report(item) {
+			const currentModel = this.modelFor(this.get('routeName')).current;
+
 			set(item, 'isLoading', true);
-			this.modelFor(this.get('routeName')).current.report(item).then(() => {
+
+			currentModel.report(item).then(() => {
 				set(item, 'isLoading', false);
+
+				currentModel.addReportDetailsUser(item, DiscussionContributor.create({
+					avatarUrl: this.get('currentUser.avatarPath'),
+					id: this.get('currentUser.userId'),
+					name: this.get('currentUser.name'),
+				}));
 			});
 		},
 
 		/**
 		 * Pass post/reply approval to model
-		 * @param {object} item
+		 * @param {Object} item
 		 * @returns {void}
 		 */
 		approve(item) {
@@ -129,7 +141,7 @@ export default Mixin.create({
 
 		/**
 		 * Pass post locking to the model
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		lock(post) {
@@ -143,7 +155,7 @@ export default Mixin.create({
 
 		/**
 		 * Pass post unlocking to the model
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		unlock(post) {

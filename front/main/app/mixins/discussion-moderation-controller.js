@@ -7,7 +7,7 @@ export default Mixin.create({
 
 	actions: {
 		/**
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		deletePost(post) {
@@ -22,7 +22,7 @@ export default Mixin.create({
 		},
 
 		/**
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		undeletePost(post) {
@@ -31,7 +31,7 @@ export default Mixin.create({
 
 		/**
 		 * Bubbles up to Route
-		 * @param {object} reply
+		 * @param {Object} reply
 		 * @returns {void}
 		 */
 		deleteReply(reply) {
@@ -39,7 +39,7 @@ export default Mixin.create({
 		},
 
 		/**
-		 * @param {object} reply
+		 * @param {Object} reply
 		 * @returns {void}
 		 */
 		undeleteReply(reply) {
@@ -47,7 +47,7 @@ export default Mixin.create({
 		},
 
 		/**
-		 * @param {object} item
+		 * @param {Object} item
 		 * @returns {void}
 		 */
 		approve(item) {
@@ -55,7 +55,7 @@ export default Mixin.create({
 		},
 
 		/**
-		 * @param {object} item
+		 * @param {Object} item
 		 * @returns {void}
 		 */
 		report(item) {
@@ -63,7 +63,7 @@ export default Mixin.create({
 		},
 
 		/**
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		lockPost(post) {
@@ -71,7 +71,7 @@ export default Mixin.create({
 		},
 
 		/**
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		unlockPost(post) {
@@ -84,6 +84,6 @@ export default Mixin.create({
 		 */
 		openGuidelines() {
 			this.set('areGuidelinesVisible', true);
-		}
+		},
 	}
 });

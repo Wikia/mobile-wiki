@@ -14,7 +14,7 @@ export default DiscussionBaseRoute.extend({
 	 * @returns {void}
 	 */
 	activate() {
-		Ember.$('body').addClass('standalone');
+		Ember.$('body').addClass('standalone-page');
 		this._super();
 	},
 
@@ -22,7 +22,7 @@ export default DiscussionBaseRoute.extend({
 	 * @returns {void}
 	 */
 	deactivate() {
-		Ember.$('body').removeClass('standalone');
+		Ember.$('body').removeClass('standalone-page');
 		this._super();
 	},
 

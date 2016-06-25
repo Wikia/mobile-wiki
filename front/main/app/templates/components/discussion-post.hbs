@@ -8,11 +8,12 @@
 	postId=model.id
 	replyCount=model.repliesCount
 	report=(action this.attrs.report)
+	showCategories=showCategories
 	timestamp=model.creationTimestamp
 	undelete=(action this.attrs.undeletePost)
 	unlock=(action this.attrs.unlockPost)
-	upvoteCount=model.upvoteCount
 	upvote=(action this.attrs.upvote)
+	upvoteCount=model.upvoteCount
 }}
 
 {{#if model.replies}}

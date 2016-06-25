@@ -2,6 +2,7 @@
 	deleteAllPosts=(action 'deleteAllPosts')
 	model=model.current.data
 	smartBannerVisible=smartBannerVisible
+	pageTitle=(i18n 'main.discussions-guidelines-header-title' numberOfPosts=numberOfPosts ns='discussion')
 }}
 	{{discussion-guidelines
 		content=model.attributes.data.guidelines.value

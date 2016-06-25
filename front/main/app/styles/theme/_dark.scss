@@ -481,7 +481,7 @@ body.dark-theme {
 @media #{$mobile-range} {
 	body.discussions {
 		&.dark-theme {
-			&.standalone {
+			&.standalone-page {
 				background-color: $dark-discussion-standalone-content-background-color;
 			}
 		}

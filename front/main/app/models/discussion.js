@@ -4,12 +4,17 @@ import DiscussionCategory from './discussion/domain/category';
 import request from 'ember-ajax/request';
 
 const DiscussionModel = Ember.Object.extend({
-	data: new Ember.A(),
+	data: null,
 	wikiId: null,
 
 	selectedCategoryIds: Ember.computed('data.@each.selected', function () {
 		return this.getSelectedCategoryIds();
 	}),
+
+	init() {
+		this.set('data', new Ember.A());
+		this._super();
+	},
 
 	/**
 	 * @returns {Ember.Array}
@@ -19,7 +24,7 @@ const DiscussionModel = Ember.Object.extend({
 	},
 
 	/**
-	 * @param {object} apiData
+	 * @param {Object} apiData
 	 *
 	 * @returns {void}
 	 */

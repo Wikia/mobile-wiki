@@ -242,7 +242,7 @@ QUnit.module('M.buildUrl helper function (loaded with baseline)', function (hook
 		];
 
 		M.prop('servicesDomain', 'services.wikia.com');
-		M.prop('attributeBaseRoute', 'site-attribute');
+		M.prop('siteAttributeBaseRoute', 'site-attribute');
 
 		testCases.forEach(function (testCase) {
 			assert.equal(M.getAttributeServiceUrl(testCase.path, testCase.query), testCase.expectedOutput);

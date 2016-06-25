@@ -17,7 +17,7 @@ export default Ember.Mixin.create({
 			this.get('content')
 		).trim();
 
-		if (!this.get('areLinksActive') && shouldUseTruncationHack()) {
+		if (!this.get('shouldTruncateContent') && shouldUseTruncationHack()) {
 			escapedContent = truncate(escapedContent, 148);
 		}
 
@@ -34,16 +34,16 @@ export default Ember.Mixin.create({
 			twitter: false
 		};
 
-		if (!this.get('areLinksActive')) {
-			this.autolinkerConfig.replaceFn = this.wrapInSpan;
+		if (!this.get('shouldActivateLinks')) {
+			this.set('autolinkerConfig.replaceFn', this.wrapInSpan);
 		}
 		this._super();
 	},
 
 	/**
 	 * Wraps links in span instead of anchor tag in discussion forum view to open post details instead of anchor href
-	 * @param {object} autolinker instance of class
-	 * @param {object} match which should be wrapped
+	 * @param {Object} autolinker instance of class
+	 * @param {Object} match which should be wrapped
 	 * @returns {string}
 	 */
 	wrapInSpan(autolinker, match) {
