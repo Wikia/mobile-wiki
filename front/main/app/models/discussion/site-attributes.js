@@ -53,14 +53,14 @@ DiscussionSiteAttributesModel.reopenClass({
 
 			attributesInstance.set('wikiId', wikiId);
 
-			resolve(attributesInstance);
-
 			request(M.getAttributeServiceUrl(`/site/${wikiId}/attr`)).then((data) => {
 				attributesInstance.setNormalizedData(data);
 
 			}).catch(() => {
 				// Attributes fail silently
 			});
+
+			resolve(attributesInstance);
 		});
 	}
 });
