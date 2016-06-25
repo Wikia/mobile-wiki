@@ -11,7 +11,7 @@ export default Component.extend(
 	{
 		classNameBindings: ['isNew', 'isDeleted', 'isReported', 'isLocked', 'showTopNote'],
 
-		activateLinks: Ember.computed.alias('isDetailsView'),
+		shouldActivateLinks: Ember.computed.alias('isDetailsView'),
 		content: Ember.computed.oneWay('post.rawContent'),
 		isDeleted: computed.alias('post.isDeleted'),
 		isLocked: computed.oneWay('post.isLocked'),
@@ -21,6 +21,6 @@ export default Component.extend(
 			return !this.get('isDeleted') && this.get('isReported') || this.get('showRepliedTo') ||
 				this.get('post.isLocked');
 		}),
-		truncateContent: Ember.computed.not('isDetailsView'),
+		shouldTruncateContent: Ember.computed.not('isDetailsView'),
 	}
 );

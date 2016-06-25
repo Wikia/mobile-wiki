@@ -17,7 +17,7 @@ export default Ember.Mixin.create({
 			this.get('content')
 		).trim();
 
-		if (!this.get('truncateContent') && shouldUseTruncationHack()) {
+		if (!this.get('shouldTruncateContent') && shouldUseTruncationHack()) {
 			escapedContent = truncate(escapedContent, 148);
 		}
 
@@ -34,7 +34,7 @@ export default Ember.Mixin.create({
 			twitter: false
 		};
 
-		if (!this.get('activateLinks')) {
+		if (!this.get('shouldActivateLinks')) {
 			this.set('autolinkerConfig.replaceFn', this.wrapInSpan);
 		}
 		this._super();
