@@ -11,7 +11,7 @@ const DiscussionModel = Ember.Object.extend({
 		return this.getSelectedCategoryIds();
 	}),
 
-	init () {
+	init() {
 		this.set('data', new Ember.A());
 		this._super();
 	},
