@@ -19,7 +19,7 @@ DiscussionSiteAttributes.reopenClass({
 	 * @returns {Ember.Object}
 	 */
 	create(attributesData) {
-		const attributes = [];
+		const attributes = {};
 
 		attributesData.forEach((attribute) => {
 			attributes[attribute.name] = DiscussionSiteAttribute.create({
