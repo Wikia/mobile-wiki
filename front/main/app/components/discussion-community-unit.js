@@ -27,7 +27,12 @@ export default Ember.Component.extend({
 		}
 	}),
 
-	actions {
+	actions: {
+
+		/**
+		 * Tracks guidelines link
+		 * @returns {void}
+		 */
 		openGuidelines() {
 			track(trackActions.GuidelinesLinkTapped);
 		},

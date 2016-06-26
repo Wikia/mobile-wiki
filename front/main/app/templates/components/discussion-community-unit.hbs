@@ -2,7 +2,7 @@
 	<h4 class="wiki-name">{{wikiName}}</h4>
 {{/if}}
 {{#if displayGuidelinesLink}}
-	{{#link-to 'discussion.guidelines' class='guidelines-link active-element-theme-color' (action 'openGuidelines')}}
+	{{#link-to 'discussion.guidelines' class='guidelines-link active-element-theme-color' click=(action 'openGuidelines')}}
 		{{svg 'guide-small' role='img' class='icon wikia-guidelines'}}
 		<span>{{i18n 'main.discussion-guidelines' ns='discussion'}}</span>
 	{{/link-to}}
