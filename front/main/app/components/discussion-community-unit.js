@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import {track, trackActions} from '../utils/discussion-tracker';
+
 export default Ember.Component.extend({
 	classNames: ['discussion-community-unit'],
 	discussionsSplashPageConfig: M.prop('discussionsSplashPageConfig'),
@@ -24,4 +26,11 @@ export default Ember.Component.extend({
 			return Ember.get(Mercury, 'wiki.siteName');
 		}
 	}),
+
+	actions {
+		openGuidelines() {
+			this.get('openGuidelines')();
+			track(trackActions.GuidelinesLinkTapped);
+		},
+	}
 });
