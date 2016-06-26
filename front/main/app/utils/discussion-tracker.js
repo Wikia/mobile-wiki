@@ -38,6 +38,7 @@ const trackActions = {
 	CategoriesCollaped: 'CategoriesCollaped',
 	CategoriesUncollaped: 'CategoriesUncollaped',
 	CategoriesResetTapped: 'CategoriesResetTapped',
+	ReportDetailsModalOpen: 'ReportDetailsModalOpen',
 	EditCategoriesButtonTapped: 'EditCategoriesButtonTapped',
 	AddCategoryButtonTapped: 'AddCategoryButtonTapped',
 };
