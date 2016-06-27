@@ -467,6 +467,10 @@ body.dark-theme {
 		.categories-loading-overlay {
 			background-color: rgba($dark-highlight-overlay-background-color, 0.9);
 		}
+
+		.categories-edit-info-message {
+			color: $dark-discussion-content-color;
+		}
 	}
 }
 
