@@ -454,6 +454,16 @@ body.dark-theme {
 			}
 		}
 	}
+
+	.discussion-categories-edit {
+		.discussion-categories-input {
+			color: $dark-discussion-content-color;
+
+			&[disabled] {
+				color:  $dark-discussion-disabled-text-color;
+			}
+		}
+	}
 }
 
 @media #{$mobile-range} {
