@@ -56,7 +56,6 @@ DiscussionSiteAttributesModel.reopenClass({
 
 			request(M.getAttributeServiceUrl(`/site/${wikiId}/attr`)).then((data) => {
 				attributesInstance.setNormalizedData(data);
-
 			}).catch((err) => {
 				attributesInstance.setErrorProperty(err);
 			});

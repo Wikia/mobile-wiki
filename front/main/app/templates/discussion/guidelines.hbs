@@ -3,13 +3,13 @@
 	smartBannerVisible=smartBannerVisible
 	pageTitle=(i18n 'main.discussions-guidelines-header-title' numberOfPosts=numberOfPosts ns='discussion')
 }}
-	{{#if model.attributes.error}}
-		{{discussion-error
-			error=model.attributes.error
-		}}
-	{{else}}
+	{{#if model.attributes.data.guidelines}}
 		{{discussion-guidelines
 			content=model.attributes.data.guidelines.value
+		}}
+	{{else}}
+		{{discussion-error
+			error=model.attributes.error
 		}}
 	{{/if}}
 {{/discussion-standalone-layout}}
