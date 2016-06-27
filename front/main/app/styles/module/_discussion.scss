@@ -98,7 +98,7 @@ body.discussions {
 	}
 
 	&.validate {
-		fill: #5ba200;
+		fill: $discussion-submit-icon-color;
 	}
 
 	&.reported-delete {

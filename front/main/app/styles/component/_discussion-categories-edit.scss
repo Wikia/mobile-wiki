@@ -13,18 +13,18 @@ $success-icon-size: 80px;
 		padding: 8px 23px 4px 0;
 
 		&.error {
-			border-color: #ed1c24;
+			border-color: $discussion-error-color;
 		}
 	}
 
 	.discussion-categories-input:focus {
-		border-color: #333;
+		border-color: $discussion-categories-edit-input-focused-border-color;
 	}
 
 	.discussion-categories-input[disabled] {
 		background: none;
-		color: #ccc;
-		-webkit-text-fill-color: #ccc;
+		color: $discussion-categories-disabled-input-color;
+		-webkit-text-fill-color: $discussion-categories-disabled-input-color;
 	}
 
 	.discussion-categories-input-wrapper {
@@ -32,7 +32,7 @@ $success-icon-size: 80px;
 	}
 
 	.discussion-categories-list span.error {
-		color: #ed1c24;
+		color: $discussion-error-color;
 		margin: 0;
 		padding-left: 27px;
 	}
@@ -52,21 +52,21 @@ $success-icon-size: 80px;
 		}
 
 		&.report {
-			fill: #f08a24;
+			fill: $discussion-categories-edit-info-icon-color;
 		}
 
 		&.error {
-			fill: #ed1c24;
+			fill: $discussion-error-color;
 		}
 
 		&.close {
-			fill: #1a5eb8;
+			fill: $discussion-categories-edit-close-icon-color;
 			height: 20px;
 			width: 20px;
 		}
 
 		&.delete {
-			fill: #ed1c24;
+			fill: $discussion-error-color;
 			height: 20px;
 			padding: 0 2px;
 			width: 20px;
@@ -81,7 +81,7 @@ $success-icon-size: 80px;
 		text-indent: -22px;
 
 		&.categories-edit-error-message {
-			color: #ed1c24;
+			color: $discussion-error-color;
 		}
 	}
 
@@ -132,13 +132,13 @@ $success-icon-size: 80px;
 }
 
 .discussion-categories-edit-footer {
-	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+	box-shadow: 0 2px 6px 0 rgba($discussion-categories-edit-footer-color, 0.3);
 	display: inline-flex;
 	justify-content: center;
 
 	button {
-		background-color: #fff;
-		border-color: #f6f6f6;
+		background-color: $discussion-categories-edit-footer-color;
+		border-color: $discussion-categories-edit-footer-border-color;
 		height: 50px;
 		margin: 0;
 		padding: 0;
@@ -162,7 +162,7 @@ $success-icon-size: 80px;
 @media #{$desktop-range} {
 	.discussion-categories-edit {
 		.icon-submit {
-			fill: #5ba200;
+			fill: $discussion-submit-icon-color;
 		}
 	}
 }
@@ -207,7 +207,7 @@ $success-icon-size: 80px;
 		}
 
 		.categories-edit-info-message {
-			color: $color-gray-dark;
+			color: $discussion-content-color;
 			margin-left: 36px;
 
 			&.categories-edit-error-message {

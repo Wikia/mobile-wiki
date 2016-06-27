@@ -62,6 +62,8 @@ $discussion-post-card-linked-background: #fff;
 $discussion-locked-post-replies-color: #ccc;
 $discussion-filters-bullet-active-border: #fff;
 $discussion-post-actions-border-color: #e6e6e6;
+$discussion-error-color: #ed1c24;
+$discussion-submit-icon-color: #5ba200;
 
 $discussion-rail-title-color: #333;
 
@@ -113,8 +115,14 @@ $discussion-filter-inactive-color: #ccc;
 $discussion-filters-border: #ccc;
 $discussion-filters-color: #333;
 $discussion-filters-label-background: #fff;
-$discussion-category-hover-background: #e6e6e6;
 $discussion-filters-apply-button-background-color: #f6f6f6;
+$discussion-category-hover-background: #e6e6e6;
+$discussion-categories-disabled-input-color: #ccc;
+$discussion-categories-edit-input-focused-border-color: #333;
+$discussion-categories-edit-info-icon-color: #f08a24;
+$discussion-categories-edit-close-icon-color: #1a5eb8;
+$discussion-categories-edit-footer-color: $color-white;
+$discussion-categories-edit-footer-border-color: #f6f6f6;
 
 $discussion-reported-details-header-border-color: #e6e6e6;
 $discussion-reported-details-list-border-color: #cccccc;

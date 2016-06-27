@@ -1,5 +1,5 @@
 .highlight-overlay {
-	animation: highligh-overlay-fade-in .5s;
+	animation: highlight-overlay-fade-in .5s;
 	background-color: $highlight-overlay-background-color;
 	bottom: 0;
 	left: 0;
@@ -24,7 +24,7 @@
 @media #{$mobile-range} {
 	.highlight-overlay {
 		animation: none;
-		background-color: #fff;
+		background-color: $color-white;
 		opacity: 1;
 	}
 
@@ -38,7 +38,7 @@
 }
 
 
-@keyframes highligh-overlay-fade-in {
+@keyframes highlight-overlay-fade-in {
 	from {
 		opacity: 0;
 	}
