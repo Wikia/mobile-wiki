@@ -39,6 +39,10 @@ export default Ember.Component.extend(ResponsiveMixin,
 				if (!this.get('addDisabled')) {
 					this.get('localCategories').pushObject(DiscussionCategory.create({}));
 
+					Ember.run.scheduleOnce('afterRender', this, () => {
+						this.$('.discussion-categories-input').filter(':last').focus();
+					});
+
 					track(trackActions.AddCategoryButtonTapped);
 				}
 			},
