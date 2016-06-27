@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import DiscussionBaseModel from './base';
 import DiscussionSiteAttributes from './domain/site-attributes';
 
-const DiscussionSiteAttributesModel = Ember.Object.extend({
+const DiscussionSiteAttributesModel = DiscussionBaseModel.extend({
 	data: null,
 	wikiId: null,
 
@@ -56,8 +57,8 @@ DiscussionSiteAttributesModel.reopenClass({
 			request(M.getAttributeServiceUrl(`/site/${wikiId}/attr`)).then((data) => {
 				attributesInstance.setNormalizedData(data);
 
-			}).catch(() => {
-				// Attributes fail silently
+			}).catch((err) => {
+				attributesInstance.setErrorProperty(err);
 			});
 
 			resolve(attributesInstance);
