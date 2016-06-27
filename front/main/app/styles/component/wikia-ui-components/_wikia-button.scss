@@ -1,0 +1,21 @@
+$wikia-button-height: 48px;
+$wikia-button-wrapper-spacing: 18px;
+
+.wikia-button-wrapper {
+	padding: $wikia-button-wrapper-spacing;
+	width: 100%;
+}
+
+// override default button styling
+.wikia-button,
+.wikia-button:hover,
+.wikia-button:focus {
+	background: transparent;
+	border: 1px solid $color-blue-light;
+	color: $color-blue-light;
+	font-weight: bold;
+	height: $wikia-button-height;
+	margin-bottom: 0;
+	text-transform: uppercase;
+	width: 100%;
+}

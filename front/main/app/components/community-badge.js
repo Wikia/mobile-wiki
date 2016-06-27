@@ -44,6 +44,7 @@ export default Ember.Component.extend({
 		3253: '/front/common/images/community-badge-de-gta.jpg',
 		1706: '/front/common/images/community-badge-elder-scrolls.jpg',
 		2520: '/front/common/images/community-badge-elder-scrolls.jpg',
+		1416111: '/front/common/images/community-badge-elder-scrolls.jpg',
 		74: '/front/common/images/community-badge-pokemon.jpg',
 		544934: '/front/common/images/community-badge-warframe.jpg',
 		685207: '/front/common/images/community-badge-ru-warframe.jpg',
