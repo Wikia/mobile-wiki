@@ -1,6 +1,6 @@
 {{#if responsive.isMobile}}
 	{{discussion-standalone-editor
-		create=(action 'createPost')
+		create=(action 'createReply')
 		errorMessage=editorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
 		isActive=editorState.isOpen
