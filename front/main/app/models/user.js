@@ -69,7 +69,7 @@ UserModel.reopenClass({
 			data: {
 				controller: 'UserApi',
 				method: 'getDetails',
-				ids: 1234,
+				ids: userId,
 				size: avatarSize
 			},
 		}).then((result) => {
