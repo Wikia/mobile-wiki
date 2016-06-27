@@ -201,14 +201,14 @@ export default Ember.Component.extend(
 			/**
 			 * Enables/disables categories edit mode
 			 *
-			 * @param {boolean} isEnabled edit mode state
+			 * @param {boolean} shouldEnable edit mode state
 			 *
 			 * @returns {void}
 			 */
-			setEditMode(isEnabled) {
-				Ember.$('body').toggleClass('mobile-no-scroll', isEnabled);
+			setEditMode(shouldEnable) {
+				Ember.$('body').toggleClass('mobile-no-scroll', shouldEnable);
 
-				this.set('isEditMode', isEnabled);
+				this.set('isEditMode', shouldEnable);
 
 				track(trackActions.EditCategoriesButtonTapped);
 			},

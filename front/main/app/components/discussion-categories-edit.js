@@ -17,14 +17,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 		}),
 
 		localCategories: Ember.computed('categories.@each', function () {
-			const categories = this.get('categories'),
-				localCategories = new Ember.A();
-
-			categories.forEach((category) => {
-				localCategories.pushObject(Ember.Object.create(category));
-			});
-
-			return localCategories;
+			return Ember.A(this.get('categories').map((category) => Ember.Object.create(category)));
 		}),
 
 		errorMessage: null,
@@ -37,6 +30,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 			 */
 			addCategory() {
 				if (!this.get('addDisabled')) {
+					// Create empty category that user can edit
 					this.get('localCategories').pushObject(DiscussionCategory.create({}));
 
 					Ember.run.scheduleOnce('afterRender', this, () => {

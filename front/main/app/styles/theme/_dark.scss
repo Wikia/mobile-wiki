@@ -461,6 +461,7 @@ body.dark-theme {
 
 			&[disabled] {
 				color:  $dark-discussion-disabled-text-color;
+				-webkit-text-fill-color: $dark-discussion-disabled-text-color;
 			}
 		}
 
