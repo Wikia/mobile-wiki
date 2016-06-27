@@ -102,6 +102,10 @@ $success-icon-size: 80px;
 			z-index: $z-discussion-editor + 1;
 		}
 	}
+
+	.og-container {
+		margin: 15px;
+	}
 }
 
 @media #{$desktop-range} {

@@ -33,6 +33,10 @@ $success-icon-size: 80px;
 		}
 	}
 
+	&:not(.is-active) {
+		cursor: pointer;
+	}
+
 	&.is-sticky {
 		.discussion-inline-editor-floating-container {
 			border-top: 0;
@@ -132,6 +136,10 @@ $success-icon-size: 80px;
 			z-index: $z-discussion-editor + 1;
 		}
 	}
+
+	.og-container {
+		margin: 15px;
+	}
 }
 
 .discussion-inline-reply-editor {
@@ -143,6 +151,7 @@ $success-icon-size: 80px;
 	&.is-sticky {
 		.discussion-inline-editor-floating-container {
 			border: 4px solid $discussion-editor-border-color;
+			border-bottom: 0;
 			bottom: 0;
 			margin-left: -20px;
 			top: auto;
