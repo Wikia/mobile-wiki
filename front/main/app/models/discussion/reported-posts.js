@@ -27,9 +27,10 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 					reported: true
 				},
 			}).then((data) => {
-				this.get('data.entities').pushObjects(
-					DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'))
-				);
+				const newEntities = DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'));
+
+				this.get('data.entities').pushObjects(newEntities);
+				this.reportedDetailsSetUp(newEntities);
 			}).catch((err) => {
 				this.handleLoadMoreError(err);
 			});
@@ -80,6 +81,8 @@ DiscussionReportedPostsModel.reopenClass({
 				reportedPostsInstance.setNormalizedData(data);
 
 				resolve(reportedPostsInstance);
+
+				reportedPostsInstance.reportedDetailsSetUp(reportedPostsInstance.get('data.entities'));
 			}).catch((err) => {
 				reportedPostsInstance.setErrorProperty(err);
 
