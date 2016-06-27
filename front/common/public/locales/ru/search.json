@@ -1,5 +1,6 @@
 {
   "main":{
+    "load-more-results":"Загрузить ещё",
     "search-error-general":"Не получается установить соединение; повторите попытку",
     "search-error-general-action":"Повторить попытку",
     "search-error-not-found":"Не найдено результатов для __query__",

@@ -37,6 +37,8 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	right: 0;
 	text-align: center;
 	transition: box-shadow 0.5s;
+	// A way to make .site-head 'position: fixed' immediately on iPhone (when changing from 'position: static')
+	transform: translate3d(0, 0, 0);
 	top: 0;
 	width: 100%;
 	z-index: $z-site-head;
@@ -87,11 +89,11 @@ $site-head-default-box-shadow: 0 1px 4px 0 $site-head-box-shadow-color;
 	}
 }
 
-.site-head-headroom-top .site-head {
+.bfaa-template .site-head-headroom-top .site-head {
 	position: static;
 }
 
-.no-scroll .site-head {
+.no-scroll .bfaa-template .site-head {
 	position: fixed;
 }
 

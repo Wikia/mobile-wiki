@@ -20,6 +20,7 @@ export default Ember.Component.extend(
 		isEditTitleModalVisible: false,
 		editTitleModalTrigger: null,
 		titleExists: false,
+		titleInvalid: false,
 		initialTitle: null,
 
 		showOverlay: Ember.computed.or('isLoading', 'showSuccess'),
@@ -305,7 +306,10 @@ export default Ember.Component.extend(
 						if (!exists) {
 							this.setTemplateTitle(title);
 						}
-					});
+					},
+						() => {
+							this.set('titleInvalid', true);
+						});
 				}
 			},
 

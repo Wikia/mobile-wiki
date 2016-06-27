@@ -161,6 +161,75 @@ QUnit.module('M.tracker.UniversalAnalytics (loaded with baseline)', function (ho
 		M.tracker.UniversalAnalytics.destroy();
 	});
 
+	QUnit.test('Filter query params', function (assert) {
+		var testCases = [
+			{
+				paramsString: 'test',
+				expected: '',
+				desc: 'simple string - empty result'
+			},
+			{
+				paramsString: '?test',
+				expected: '',
+				desc: 'simple string - empty result'
+			},
+			{
+				paramsString: '?test=query',
+				expected: '',
+				desc: 'normal query param - empty result'
+			},
+			{
+				paramsString: '?query=test',
+				expected: '?query=test',
+				desc: 'special query param - add it to result'
+			},
+			{
+				paramsString: '?queryXYZ=xyz&query=test',
+				expected: '?query=test',
+				desc: 'mixed special and normal query params- display only special one'
+			},
+			{
+				paramsString: '?one=two&three=four&query=test&five=six',
+				expected: '?query=test',
+				desc: 'multiple mixed special and normal query params- display only special one'
+			}
+		];
+
+		M.tracker.UniversalAnalytics.initialize({});
+
+		testCases.forEach(function (testCase) {
+			assert.equal(M.tracker.UniversalAnalytics._filterQueryParams(testCase.paramsString),
+				testCase.expected,
+				testCase.desc);
+		});
+
+		M.tracker.UniversalAnalytics.destroy();
+	});
+
+	QUnit.test('Update url without query param- do not track param', function (assert) {
+		M.tracker.UniversalAnalytics.initialize({});
+		M.tracker.UniversalAnalytics._updateTrackedUrl('bla');
+		assert.ok(queueContains(['set', 'page', '/bla']));
+
+		M.tracker.UniversalAnalytics.destroy();
+	});
+
+	QUnit.test('Update url with query param- track param', function (assert) {
+		M.tracker.UniversalAnalytics.initialize({});
+		M.tracker.UniversalAnalytics._updateTrackedUrl('test?query=bla');
+		assert.ok(queueContains(['set', 'page', '/test?query=bla']));
+
+		M.tracker.UniversalAnalytics.destroy();
+	});
+
+	QUnit.test('Update search url with query and other param- track only query param', function (assert) {
+		M.tracker.UniversalAnalytics.initialize({});
+		M.tracker.UniversalAnalytics._updateTrackedUrl('test?invalid=bla&query=bla2');
+		assert.ok(queueContains(['set', 'page', '/test?query=bla2']));
+
+		M.tracker.UniversalAnalytics.destroy();
+	});
+
 	QUnit.test('Track ads-related event', function (assert) {
 		M.tracker.UniversalAnalytics.initialize({});
 		M.tracker.UniversalAnalytics.trackAds('testCategory', 'testAction', 'testLabel', 0, true);
