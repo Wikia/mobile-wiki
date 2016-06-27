@@ -8,12 +8,13 @@ export default Ember.Component.extend(
 		shouldActivateLinks: true,
 		shouldTruncateContent: false,
 		wikiName: Ember.get(Mercury, 'wiki.siteName'),
+		content: Ember.computed.alias('guidelines.value'),
 
 		actions: {
 			openGuidelinesEditor() {
 				const discussionEditEditor = this.get('discussionEditEditor');
 
-				// discussionEditEditor.set('discussionEntity', post);
+				discussionEditEditor.set('guidelines', this.get('guidelines'));
 				discussionEditEditor.toggleEditor(true);
 			},
 

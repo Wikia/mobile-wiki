@@ -28,7 +28,7 @@ export default DiscussionBaseRoute.extend({
 
 	actions: {
 		editGuidelines(text) {
-
+			this.modelFor(this.get('routeName')).editAttribute('guidelines', text);
 		},
 	}
 });

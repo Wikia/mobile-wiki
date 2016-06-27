@@ -1,9 +1,7 @@
 import DiscussionBaseController from './base';
+import DiscussionModerationControllerMixin from '../../mixins/discussion-moderation-controller';
 
-export default DiscussionBaseController.extend({
-	actions: {
-		editGuidelines(text) {
-			this.get('target').send('editGuidelines', text);
-		},
-	}
-});
+export default DiscussionBaseController.extend(
+	DiscussionModerationControllerMixin,
+	{}
+);

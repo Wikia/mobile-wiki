@@ -3,15 +3,12 @@
 	closeOnOverlayClick=false
 	isVisible=editEditorActive
 }}
-	{{discussion-edit-editor
-		editPost=(action this.attrs.editGuidelines)
-		generateOpenGraph=(action 'generateOpenGraph')
+	{{discussion-edit-editor-guidelines
+		editGuidelines=(action this.attrs.editGuidelines)
 	}}
 {{/modal-dialog}}
 {{discussion-hero-unit
-	contributors=model.contributors
 	headerTitle=(i18n 'main.discussions-guidelines-header-title' numberOfPosts=numberOfPosts ns='discussion')
-	numberOfPosts=model.postCount
 }}
 <div class="guidelines-page">
 	<div class="head">
