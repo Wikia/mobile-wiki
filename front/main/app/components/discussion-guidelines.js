@@ -10,11 +10,11 @@ export default Ember.Component.extend(
 		wikiName: Ember.get(Mercury, 'wiki.siteName'),
 
 		actions: {
-			openGuidelinesEditor(post) {
+			openGuidelinesEditor() {
 				const discussionEditEditor = this.get('discussionEditEditor');
 
+				// discussionEditEditor.set('discussionEntity', post);
 				discussionEditEditor.toggleEditor(true);
-				this.get('popover').deactivate();
 			},
 
 			generateOpenGraph() {},
