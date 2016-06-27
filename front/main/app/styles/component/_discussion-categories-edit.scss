@@ -23,6 +23,7 @@ $success-icon-size: 80px;
 	.discussion-categories-input[disabled] {
 		background: none;
 		color: #ccc;
+		-webkit-text-fill-color: #ccc;
 	}
 
 	.discussion-categories-input-wrapper {
