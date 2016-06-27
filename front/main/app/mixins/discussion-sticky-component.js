@@ -12,6 +12,12 @@ export default Mixin.create({
 
 	isSticky: false,
 
+	onIsActive: Ember.observer('isActive', function () {
+		if (this.get('isActive')) {
+			this.toggleStickyState();
+		}
+	}),
+
 	/**
 	 * Set right height for editor placeholder when editor gets sticky
 	 *
@@ -74,14 +80,21 @@ export default Mixin.create({
 		run.throttle(
 			this,
 			function () {
-				if (!this.get('isSticky') && this.isStickyBreakpointHeight()) {
-					this.set('isSticky', true);
-				} else if (this.get('isSticky') && !this.isStickyBreakpointHeight()) {
-					this.set('isSticky', false);
-				}
+				this.toggleStickyState();
 			},
 			25
 		);
+	},
+
+	/**
+	 * @returns {void}
+	 */
+	toggleStickyState() {
+		if (!this.get('isSticky') && this.isStickyBreakpointHeight()) {
+			this.set('isSticky', true);
+		} else if (this.get('isSticky') && !this.isStickyBreakpointHeight()) {
+			this.set('isSticky', false);
+		}
 	},
 
 	/**
