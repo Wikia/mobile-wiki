@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
-import DiscussionUserPermissions from './user-permissions/domain/discussions'
+import DiscussionUserPermissions from './user-permissions/domain/discussions';
 
 /**
  * @typedef {Object} UserModelFindParams
@@ -69,7 +69,7 @@ UserModel.reopenClass({
 			data: {
 				controller: 'UserApi',
 				method: 'getDetails',
-				ids: userId,
+				ids: 1234,
 				size: avatarSize
 			},
 		}).then((result) => {
@@ -82,6 +82,7 @@ UserModel.reopenClass({
 	},
 
 	/**
+	 * @param {number} userId
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
 	loadUserInfo(userId) {
@@ -151,6 +152,7 @@ UserModel.reopenClass({
 	},
 
 	/**
+	 * @param {Ember.Object} model
 	 * @param {string} query
 	 * @returns {void}
 	 */
@@ -163,8 +165,9 @@ UserModel.reopenClass({
 	},
 
 	/**
+	 * @param {Ember.Object} model
 	 * @param {QueryUserInfoResponse} query
-	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
+	 * @returns {void}
 	 */
 	setUserRights(model, {query}) {
 		const rightsArray = query.userinfo.rights,
@@ -181,6 +184,7 @@ UserModel.reopenClass({
 	},
 
 	/**
+	 * @param {Ember.Object} model
 	 * @param {QueryUserInfoResponse} query
 	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
 	 */
