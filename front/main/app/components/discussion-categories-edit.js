@@ -34,7 +34,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 					this.get('localCategories').pushObject(DiscussionCategory.create({}));
 
 					Ember.run.scheduleOnce('afterRender', this, () => {
-						this.$('.discussion-categories-input').filter(':last').focus();
+						this.$('.discussion-categories-input').last().focus();
 					});
 
 					track(trackActions.AddCategoryButtonTapped);
