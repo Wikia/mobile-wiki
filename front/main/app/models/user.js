@@ -170,8 +170,8 @@ UserModel.reopenClass({
 	 * @returns {void}
 	 */
 	setUserRights(model, {query}) {
-		const rightsArray = query.userinfo.rights,
-			rights = {};
+		const rights = {},
+			rightsArray = query.userinfo.rights;
 
 		if (Ember.isArray(rightsArray)) {
 			// TODO - we could use contains instead of making an object out of an array
