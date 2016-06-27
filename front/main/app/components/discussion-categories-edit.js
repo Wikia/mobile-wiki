@@ -3,7 +3,6 @@ import {track, trackActions} from '../utils/discussion-tracker';
 import DiscussionCategory from '../models/discussion/domain/category';
 import ResponsiveMixin from '../mixins/responsive';
 
-
 export default Ember.Component.extend(ResponsiveMixin,
 	{
 		classNames: ['highlight-overlay-content', 'discussion-categories-edit'],

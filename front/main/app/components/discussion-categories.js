@@ -206,7 +206,7 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			setEditMode(shouldEnable) {
-				Ember.$('body').toggleClass('mobile-no-scroll', shouldEnable);
+				Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
 
 				this.set('isEditMode', shouldEnable);
 
