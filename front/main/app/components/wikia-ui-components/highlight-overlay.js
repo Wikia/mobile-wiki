@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 /**
- * Fancy-check-box component usage:
+ * Highlight-overlay component usage:
  *
  * @example
  * {{wikia-ui-components/highlight-overlay
