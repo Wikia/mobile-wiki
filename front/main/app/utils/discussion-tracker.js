@@ -39,6 +39,7 @@ const trackActions = {
 	CategoriesUncollaped: 'CategoriesUncollaped',
 	CategoriesResetTapped: 'CategoriesResetTapped',
 	ReportDetailsModalOpen: 'ReportDetailsModalOpen',
+	GuidelinesLinkTapped: 'GuidelinesLinkTapped',
 };
 
 /**
