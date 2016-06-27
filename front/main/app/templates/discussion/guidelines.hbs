@@ -1,11 +1,16 @@
 {{#discussion-standalone-layout
 	deleteAllPosts=(action 'deleteAllPosts')
-	model=model.current.data
 	smartBannerVisible=smartBannerVisible
 	pageTitle=(i18n 'main.discussions-guidelines-header-title' numberOfPosts=numberOfPosts ns='discussion')
 }}
-	{{discussion-guidelines
-		content=model.attributes.data.guidelines.value
-		editGuidelines=(action 'editGuidelines')
-	}}
+	{{#if model.attributes.data.guidelines}}
+		{{discussion-guidelines
+			content=model.attributes.data.guidelines.value
+			editGuidelines=(action 'editGuidelines')
+		}}
+	{{else}}
+		{{discussion-error
+			error=model.attributes.error
+		}}
+	{{/if}}
 {{/discussion-standalone-layout}}

@@ -60,4 +60,11 @@ $desktop-content-width: 768px;
 			}
 		}
 	}
+
+	.discussion-error-page {
+		.standalone-content {
+			background-color: initial;
+			border: none;
+		}
+	}
 }
