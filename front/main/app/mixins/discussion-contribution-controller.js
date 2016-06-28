@@ -166,8 +166,11 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		openEditEditor(discussionEntity) {
-			this.set('editEditorState.discussionEntity', discussionEntity);
 			this.send('setEditorActive', 'editEditor', true);
+			Ember.run.scheduleOnce('afterRender', this, function(){
+				// set editor content after render so textarea autoresize can correctly calculate height
+				this.set('editEditorState.discussionEntity', discussionEntity);
+			});
 		},
 
 		/**

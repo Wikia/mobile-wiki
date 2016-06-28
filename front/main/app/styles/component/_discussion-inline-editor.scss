@@ -25,11 +25,11 @@ $success-icon-size: 80px;
 
 		.discussion-inline-editor-textarea {
 			border: 0;
-			resize: vertical;
 		}
 
 		.discussion-inline-editor-content-wrapper {
 			min-height: 106px;
+			resize: vertical;
 		}
 	}
 
@@ -76,7 +76,7 @@ $success-icon-size: 80px;
 		border-radius: 0;
 		height: 45px;
 		margin: 0 17px 10px 0;
-		min-height: 45px;
+		min-height: 0;
 		padding: 17px 0 0;
 		resize: none;
 		transition: min-height .2s ease;

@@ -70,6 +70,10 @@ export default Ember.Component.extend({
 			track(this.get('closeTrackingAction'));
 		},
 
+		focusTextarea() {
+			this.$('textarea').focus();
+		},
+
 		handleKeyPress() {
 			if (!this.get('wasContentTracked')) {
 				track(this.get('contentTrackingAction'));

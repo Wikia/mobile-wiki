@@ -8,7 +8,7 @@
 <label class="discussion-standalone-editor-label" for="{{textAreaId}}">
 	{{i18n labelMessageKey ns='discussion'}}
 </label>
-<div class="discussion-standalone-content-wrapper">
+<div class="discussion-standalone-content-wrapper" {{action 'focusTextarea'}}>
 	{{textarea
 		autoresize=true
 		class="discussion-standalone-editor-textarea"
