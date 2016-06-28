@@ -1,6 +1,9 @@
 {{#unless wasSeen}}
 	<div class="discussion-welcome">
-		<div class="welcome-sun">SUN</div>
+		<div class="welcome-sun">
+			{{svg 'welcome-sun-background' class="sun-background fill-theme-color" viewBox='0 0 50 50'}}
+			{{svg 'sun' class="sun" viewBox='0 0 32 32'}}
+		</div>
 		<a href="#" class="welcome-close" {{action 'close' bubbles=false}}>
 			{{svg 'close' viewBox='0 0 18 18'}}
 		</a>
