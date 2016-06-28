@@ -35,6 +35,10 @@ $success-icon-size: 80px;
 
 	&:not(.is-active) {
 		cursor: pointer;
+
+		.discussion-inline-editor-textarea {
+			cursor: pointer;
+		}
 	}
 
 	&.is-sticky {
