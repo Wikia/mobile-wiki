@@ -34,7 +34,7 @@ export default Ember.Component.extend({
 		close() {
 			this.set('wasSeen', true);
 			localStorage.setItem('discussionWelcomeMessageSeen', true);
-			track(trackActions.welcomeMessageClose);
+			track(trackActions.WelcomeMessageClose);
 		},
 	},
 });

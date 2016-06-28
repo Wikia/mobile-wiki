@@ -41,7 +41,7 @@ const trackActions = {
 	ReportDetailsModalOpen: 'ReportDetailsModalOpen',
 	GuidelinesLinkTapped: 'GuidelinesLinkTapped',
 	GuidelinesLinkWelcomeTapped: 'GuidelinesLinkWelcomeTapped',
-	welcomeMessageClose: 'welcomeMessageClose',
+	welcomeMessageClose: 'WelcomeMessageClose',
 };
 
 /**
