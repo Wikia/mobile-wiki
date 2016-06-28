@@ -104,6 +104,7 @@ export default Ember.Mixin.create({
 		styles += `.discussions .active-element-hover-border-theme-color:hover,
 			.discussions .active-element-hover-border-theme-color:focus {border-color: ${activeElementHoverColor};}`;
 		styles += `.discussions .fill-theme-color {fill: ${this.get('themeColors.color-links')};}`;
+		styles += `.discussions .fill-button-color {fill: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .stroke-theme-color {stroke: ${this.get('themeColors.color-links')};}`;
 
 		inlineStyles = Ember.$('<style>').attr('id', styleId);
