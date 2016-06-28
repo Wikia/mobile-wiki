@@ -15,6 +15,12 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, DiscussionEdit
 	}),
 	editEntity: null,
 
+	onIsActive: Ember.observer('isActive', function () {
+		this._super();
+
+		Ember.$('html, body').toggleClass('mobile-full-screen', this.get('isActive'));
+	}),
+
 	editEntityObserver: Ember.observer('editEntity', function () {
 		const editEntity = this.get('editEntity');
 
