@@ -40,6 +40,8 @@ const trackActions = {
 	CategoriesResetTapped: 'CategoriesResetTapped',
 	ReportDetailsModalOpen: 'ReportDetailsModalOpen',
 	GuidelinesLinkTapped: 'GuidelinesLinkTapped',
+	GuidelinesLinkWelcomeTapped: 'GuidelinesLinkWelcomeTapped',
+	welcomeMessageClose: 'welcomeMessageClose',
 };
 
 /**

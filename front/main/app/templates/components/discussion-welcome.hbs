@@ -1,0 +1,10 @@
+{{#unless wasSeen}}
+	<div class="discussion-welcome">
+		<div class="welcome-sun">SUN</div>
+		<a href="#" class="welcome-close" {{action 'close' bubbles=false}}>
+			{{svg 'close' viewBox='0 0 18 18'}}
+		</a>
+		<h5>{{i18n 'main.welcome-message-header' ns='discussion'}}</h5>
+		<p>{{{i18n 'main.welcome-message-text' ns='discussion' giudelinesLinkTitle=giudelinesLink}}}</p>
+	</div>
+{{/unless}}

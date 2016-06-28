@@ -3,7 +3,9 @@
 	generateOpenGraph=(action this.attrs.generateOpenGraph)
 	posts=posts
 }}
-
+{{discussion-welcome
+	gotoGuidelines=(action this.attrs.gotoGuidelines)
+}}
 {{#each posts as |entity|}}
 	{{discussion-post-card-detail
 		approve=(action this.attrs.approve)
