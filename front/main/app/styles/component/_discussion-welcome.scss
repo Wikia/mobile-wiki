@@ -25,18 +25,18 @@
 		width: 50px;
 
 		.sun {
+			height: 32px;
+			left: 9px;
 			position: absolute;
 			top: 9px;
-			left: 9px;
-			height: 32px;
 			width: 32px;
 		}
 
 		.sun-background {
+			height: 50px;
+			left: 0;
 			position: absolute;
 			top: 0;
-			left: 0;
-			height: 50px;
 			width: 50px;
 		}
 	}
