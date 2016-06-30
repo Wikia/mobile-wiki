@@ -13,9 +13,8 @@ export default Ember.Component.extend(
 		 */
 		viewportOptionsOverride: Ember.observer('model.title', function () {
 			Ember.run.scheduleOnce('afterRender', this, function () {
-				const windowHeight = Ember.$(window).innerHeight(),
-					elementHeight = this.$().innerHeight(),
-					tolerance = elementHeight - windowHeight;
+				const elementHeight = this.$().innerHeight(),
+					tolerance = elementHeight + 50;
 
 				if (tolerance > 0) {
 					Ember.setProperties(this, {

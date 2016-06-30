@@ -6,6 +6,7 @@ import {getGroup, inGroup} from 'common/modules/abtest';
 
 import FandomPostsModel from '../models/fandom-posts';
 import TopLinksModel from '../models/top-links';
+import LiftigniterModel from '../models/liftigniter';
 
 /**
  * HTMLElement
@@ -587,6 +588,22 @@ export default Ember.Component.extend(
 					});
 					location = this.$('h2:nth-of-type(2)').prev();
 					externalLink = true;
+					break;
+				case 'LI_INCONTENT':
+					component = this.createComponentInstance('recirculation/incontent');
+					model = LiftigniterlModel.create({
+						widget: 'in-wikia'
+					});
+					location = this.$('h2:nth-of-type(2)').prev();
+					break;
+				case 'LI_FOOTER':
+					component = this.createComponentInstance('recirculation/footer');
+					model = LiftigniterModel.create({
+						widget: 'fandom-rec',
+						thumbHeight: 160,
+						thumbWidth: 280
+					});
+					location = Ember.$('.article-footer');
 					break;
 				case 'LINKS_INCONTENT':
 					component = this.createComponentInstance('recirculation/incontent');

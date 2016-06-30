@@ -7,11 +7,18 @@ $recirculation-e3-fandom-thumbnail-height: 55px;
 $recirculation-mafia-logo-color: #010201;
 
 .recirculation-experiment {
+	ul {
+		@extend %list-reset;
+	}
+
 	.image-thumbnail {
 		@extend %image-placeholder;
 	}
 
 	&.footer {
+		background-color: $color-gray-light;
+		padding: rem-calc(20);
+
 		p {
 			margin: 0.5rem 0 1.5rem;
 		}
@@ -38,12 +45,7 @@ $recirculation-mafia-logo-color: #010201;
 			text-align: center;
 		}
 
-		ul {
-			margin: 0;
-		}
-
 		li {
-			list-style-type: none;
 			margin: 10px;
 
 			a {
