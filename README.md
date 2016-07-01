@@ -38,6 +38,7 @@ Open http://muppet.127.0.0.1.xip.io:7000/wiki/Kermit
 * `npm run clean` - remove all dependencies and build directory
 * `npm run clean-deep` - remove all dependencies, remove build directory and clean the cache
 * `npm run svgo` - optimize all SVG files in the repository (check out `tasks/optimize-svg.sh` for details and configuration)
+* `npm run shrinkwrap` - updates shrinkwrap files which locks the version of dependencies we are using (should be run after updating a dependency with `npm install`)
 
 ## localSettings
 `server/config/localSettings` is main configuration structure. All application settings should be stored there.
@@ -45,7 +46,7 @@ Config files are loaded in the following order (next extending a previous one):
  * `localSettings.base.js` - configuration for production environment - used on production, testing and staging
  * `localSettings.dev.js` - configuration for development environment - used on devboxes
  * `localSettings.js` - your local overrides
- 
+
 Some tips if you develop outside of devbox:
  * The devboxDomain must have your devbox name (without the dev- prefix) in it
  * If you want to test with consul, use `mediawikiDomain: 'consul.service.sjc-dev.consul'` or `mediawikiDomain: 'consul.service.poz-dev.consul'`
