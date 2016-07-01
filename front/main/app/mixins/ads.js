@@ -156,12 +156,10 @@ export default Ember.Mixin.create({
 		this.clearAdViews();
 
 		if ($pi.length) {
-			//inject top mobileTopLeaderBoard below infobox
-			console.log("inject top mobileTopLeaderBoard below infobox");
+			// inject top mobileTopLeaderBoard below infobox
 			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pi.first());
 		} else if ($pageHeader.length) {
-			//inject top mobileTopLeaderBoard below article header
-			console.log("inject top mobileTopLeaderBoard below article header");
+			// inject top mobileTopLeaderBoard below article header
 			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pageHeader.first());
 		}
 
