@@ -28,7 +28,13 @@ export default DiscussionBaseRoute.extend({
 
 	actions: {
 		saveGuidelines(text) {
-			this.modelFor(this.get('routeName')).saveAttribute('guidelines', text);
+			this.modelFor('discussion').attributes.saveAttribute('guidelines', text).then(() => {
+				this.get('discussionEditEditor').trigger('newGuidelines');
+			}).catch((err) => {
+				this.onContributionError(err, 'editor.save-error-general-error', true);
+			}).finally(() => {
+				this.get('discussionEditEditor').set('isLoading', false);
+			});
 		},
 	}
 });

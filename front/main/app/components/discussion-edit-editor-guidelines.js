@@ -13,11 +13,11 @@ export default DiscussionEditorComponent.extend({
 
 	didInsertElement() {
 		this._super(...arguments);
-		this.get('discussionEditor').on('newPost', this, this.handleGuidelinesEdited);
+		this.get('discussionEditor').on('newGuidelines', this, this.handleGuidelinesEdited);
 	},
 
 	willDestroyElement() {
-		this.get('discussionEditor').off('newPost', this, this.handleGuidelinesEdited);
+		this.get('discussionEditor').off('newGuidelines', this, this.handleGuidelinesEdited);
 	},
 
 	init() {
