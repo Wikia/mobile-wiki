@@ -5,7 +5,5 @@ import DiscussionEditEditorMixin from '../../mixins/discussion-edit-editor';
 export default DiscussionBaseController.extend(
 	DiscussionModerationControllerMixin,
 	DiscussionEditEditorMixin,
-	{
-		discussionEditor: Ember.inject.service('discussion-edit-editor'),
-	}
+	{}
 );
