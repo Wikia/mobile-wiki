@@ -22,8 +22,8 @@ test('Name lower case', function (assert) {
 			description: 'Trailing space'
 		},
 		{
-			name: 'Кирилица с интервали',
-			expected: 'кирилица-с-интервали',
+			name: 'Кириллица с пробелами',
+			expected: 'кириллица-с-пробелами',
 			description: 'Cyrillic with spaces'
 		},
 		{
@@ -98,7 +98,8 @@ test('behaves correctly depending on noAds value', function (assert) {
 		const component = this.subject();
 
 		component.setProperties(testCase.properties);
-		component.didInsertElement();
+		component.didInsertElementOverride();
+		component.didEnterViewport();
 		assert.equal(
 			require('common/modules/ads').default.getInstance().adSlots.length,
 			testCase.expectedLength,

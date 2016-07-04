@@ -44,6 +44,13 @@ class Ads {
 		this.isLoaded = false;
 		this.krux = null;
 		this.slotsQueue = [];
+		this.uapResult = false;
+		this.uapCalled = false;
+		this.btfSlots = [
+			'MOBILE_IN_CONTENT',
+			'MOBILE_PREFOOTER',
+			'MOBILE_BOTTOM_LEADERBOARD'
+		];
 	}
 
 	/**
@@ -101,6 +108,32 @@ class Ads {
 				console.error('Looks like ads asset has not been loaded');
 			}
 		});
+	}
+
+	addUapListeners(uapCallback, noUapCallback) {
+		if (!this.uapCalled) {
+			window.addEventListener('wikia.uap', () => {
+				this.uapCalled = true;
+				this.uapResult = true;
+
+				uapCallback();
+			});
+
+			window.addEventListener('wikia.not_uap', () => {
+				this.uapCalled = true;
+				this.uapResult = false;
+
+				noUapCallback();
+			});
+		} else if (this.uapResult) {
+			uapCallback();
+		} else {
+			noUapCallback();
+		}
+	}
+
+	getBtfSlots() {
+		return this.btfSlots;
 	}
 
 	/**
@@ -291,6 +324,9 @@ class Ads {
 		if (this.adMercuryListenerModule && this.adMercuryListenerModule.runOnPageChangeCallbacks) {
 			this.adMercuryListenerModule.runOnPageChangeCallbacks();
 		}
+
+		this.uapCalled = false;
+		this.uapResult = false;
 	}
 
 	/**

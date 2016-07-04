@@ -1,14 +1,14 @@
 import Ember from 'ember';
-import AdSlotComponent from '../components/ad-slot';
 import Ads from 'common/modules/ads';
 
 export default Ember.Mixin.create({
 	adsData: {
 		minZerothSectionLength: 700,
 		minPageLength: 2000,
-		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
+		mobileBottomleaderboard: 'MOBILE_BOTTOM_LEADERBOARD',
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
+		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
 
 		moreInContentAds: {
 			// Disable the extra in content ads:
@@ -39,20 +39,27 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	appendAd(adSlotName, place, element) {
-		// Keep in mind we always want to pass noAds parameter to the AdSlot component
-		// Right now we've got three ad slots and it doesn't make sense to add assertion
-		// in willInsertElement hook of the component to check if the parameters is really defined
-		const view = this.createChildView(AdSlotComponent, {
+		const component = this.get('container').lookup(`component:ad-slot`, {
+			singleton: false
+		});
+
+		component.setProperties({
 			name: adSlotName,
 			noAds: this.get('noAds')
 		});
 
-		view.createElement();
+		const componentElement = this.createChildView(component).createElement();
 
-		element[place](view.$());
-		this.adViews.push(view);
+		if (place === 'after') {
+			componentElement.$().insertAfter(element);
+		} else if (place === 'before') {
+			componentElement.$().insertBefore(element);
+		}
 
-		view.trigger('didInsertElement');
+		this.adViews.push(componentElement);
+
+		componentElement.didInsertElement();
+		componentElement.didInsertElementOverride();
 	},
 
 	/**
@@ -151,7 +158,9 @@ export default Ember.Mixin.create({
 			showInContent = firstSectionTop > adsData.minZerothSectionLength,
 			showPreFooter = !showInContent || articleBodyHeight > adsData.minPageLength,
 			showMoreInContentAds = adsData.moreInContentAds.enabled &&
-				articleBodyHeight > adsData.moreInContentAds.minPageLength;
+				articleBodyHeight > adsData.moreInContentAds.minPageLength,
+
+			$wikiaFooter = $('.wikia-footer');
 
 		this.clearAdViews();
 
@@ -176,6 +185,10 @@ export default Ember.Mixin.create({
 		} else if (adsData.moreInContentAds.enabled) {
 			Ember.Logger.info(`The page is not long enough for extra in content ads: ${articleBodyHeight}`);
 		}
+
+		if ($wikiaFooter.length) {
+			this.appendAd(adsData.mobileBottomleaderboard, 'before', $wikiaFooter);
+		}
 	},
 
 	/**
@@ -190,7 +203,8 @@ export default Ember.Mixin.create({
 		const $curatedContent = this.$('.curated-content'),
 			$trendingArticles = this.$('.trending-articles'),
 			showInContent = $curatedContent.length > 0,
-			showPreFooter = $trendingArticles.length;
+			showPreFooter = $trendingArticles.length,
+			$wikiaFooter = $('.wikia-footer');
 
 		this.clearAdViews();
 
@@ -200,6 +214,10 @@ export default Ember.Mixin.create({
 
 		if (showPreFooter) {
 			this.appendAd(this.adsData.mobilePreFooter, 'after', $trendingArticles);
+		}
+
+		if ($wikiaFooter.length) {
+			this.appendAd(this.adsData.mobileBottomleaderboard, 'before', $wikiaFooter);
 		}
 	},
 
