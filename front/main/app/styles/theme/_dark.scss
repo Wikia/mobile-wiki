@@ -389,6 +389,24 @@ body.dark-theme {
 			color: $dark-discussion-guidelines-text-color;
 		}
 	}
+
+	.discussion-welcome {
+		background-color: $dark-discussion-welcome-background-color;
+
+		.welcome-close {
+			svg {
+				fill: $dark-discussion-welcome-close-color;
+			}
+		}
+
+		h5 {
+			color: $dark-discussion-welcome-head-color;
+		}
+
+		p {
+			color: $dark-discussion-welcome-text-color;
+		}
+	}
 }
 
 @media #{$desktop-range} {

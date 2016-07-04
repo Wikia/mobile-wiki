@@ -18,11 +18,11 @@ $desktop-content-width: 768px;
 		&.discussions {
 			&.standalone-page {
 				background-color: $discussion-standalone-content-background-color;
-			}
 
-			.discussion-header {
-				h1 {
-					margin-left: 35px;
+				.discussion-header {
+					h1 {
+						margin-left: 35px;
+					}
 				}
 			}
 		}

@@ -87,6 +87,14 @@ export default DiscussionBaseRoute.extend(
 					sort: this.get('discussionSort.sortBy')
 				}});
 			},
+
+			/**
+			 * Transition to Guidelines
+			 * @returns {void}
+			 */
+			gotoGuidelines() {
+				this.transitionTo('discussion.guidelines');
+			},
 		}
 	}
 );

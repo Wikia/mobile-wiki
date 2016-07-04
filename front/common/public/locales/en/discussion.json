@@ -13,7 +13,6 @@
   },
   "main": {
     "discussions-header-title": "Discussions",
-    "discussions-guidelines-header-title": "Discussions Guidelines",
     "pagination-post-show-more": "View Older Replies",
     "pagination-post-show-newer-replies": "View Newer Replies",
     "pagination-post-show-new-replies": "New Replies",
@@ -97,7 +96,10 @@
     "app-promotion-text": "Take your fandom with you, download the app today!",
     "app-promotion-text-details-page": "Stay up to date on the go. Get the app now!",
     "wiki-home": "Wiki Home",
-    "discussion-guidelines": "Discussions Guidelines"
+    "guidelines-link-title": "Discussions Guidelines",
+    "guidelines-header-title": "Discussions Guidelines",
+    "welcome-message-header": "Awesome to have you here!",
+    "welcome-message-text": "Have fun browsing, creating, or replying to posts. Read our __guidelinesLinkTitle__ and you'll fit right in."
   },
   "editor": {
     "post-failed-error": "Post failed.",

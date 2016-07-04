@@ -17,6 +17,10 @@ export default DiscussionBaseController.extend(
 			updateCategories(categories) {
 				this.get('target').send('updateCategories', categories);
 			},
-		}
-	}
+
+			gotoGuidelines() {
+				this.get('target').send('gotoGuidelines');
+			}
+		},
+	},
 );

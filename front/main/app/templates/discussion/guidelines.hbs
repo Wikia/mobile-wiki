@@ -1,7 +1,7 @@
 {{#discussion-standalone-layout
 	deleteAllPosts=(action 'deleteAllPosts')
 	smartBannerVisible=smartBannerVisible
-	pageTitle=(i18n 'main.discussions-guidelines-header-title' numberOfPosts=numberOfPosts ns='discussion')
+	pageTitle=(i18n 'main.guidelines-header-title' numberOfPosts=numberOfPosts ns='discussion')
 }}
 	{{#if model.attributes.data.guidelines}}
 		{{discussion-guidelines
