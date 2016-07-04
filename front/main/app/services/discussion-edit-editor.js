@@ -13,8 +13,8 @@ export default DiscussionEditorService.extend({
 
 		if (!active) {
 			this.setProperties({
-				'discussionEntity': null,
-				'guidelines': null
+				discussionEntity: null,
+				guidelines: null
 			});
 		}
 	}

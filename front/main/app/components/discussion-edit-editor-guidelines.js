@@ -107,8 +107,6 @@ export default DiscussionEditorComponent.extend({
 		 */
 		submit() {
 			if (!this.get('submitDisabled')) {
-				const guidelines = this.get('discussionEditor.guidelines');
-
 				this.get('discussionEditor').set('isLoading', true);
 				this.get('saveGuidelines')(this.get('bodyText'));
 			}
