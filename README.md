@@ -38,7 +38,7 @@ Open http://muppet.127.0.0.1.xip.io:7000/wiki/Kermit
 * `npm run clean` - remove all dependencies and build directory
 * `npm run clean-deep` - remove all dependencies, remove build directory and clean the cache
 * `npm run svgo` - optimize all SVG files in the repository (check out `tasks/optimize-svg.sh` for details and configuration)
-* `npm run shrinkwrap` - updates shrinkwrap files which locks the version of dependencies we are using (should be run after updating a dependency with `npm install`)
+* `npm run shrinkwrap` - updates shrinkwrap files which locks the version of dependencies we are using (should be run after [installing or updating a dependency](https://wikia-inc.atlassian.net/wiki/display/MER/Adding+or+updating+NodeJS+packages))
 
 ## localSettings
 `server/config/localSettings` is main configuration structure. All application settings should be stored there.
@@ -60,5 +60,7 @@ Some tips if you develop outside of devbox:
 ### [Mercury space - Confluence](https://wikia-inc.atlassian.net/wiki/display/MER/Mercury)
 
 ### [How to update translations](https://github.com/Wikia/mercury/blob/dev/crowdin/README.md)
+
+### [How to add or update NodeJS dependencies](https://wikia-inc.atlassian.net/wiki/display/MER/Adding+or+updating+NodeJS+packages)
 
 ### [Troubleshooting](https://github.com/Wikia/mercury/blob/dev/TROUBLESHOOTING.md)
