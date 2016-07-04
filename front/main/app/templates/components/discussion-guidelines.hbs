@@ -1,12 +1,3 @@
-{{#modal-dialog
-	class='is-bare is-desktop-centered discussion-editor-dialog'
-	closeOnOverlayClick=false
-	isVisible=editEditorActive
-}}
-	{{discussion-edit-editor-guidelines
-		saveGuidelines=(action this.attrs.saveGuidelines)
-	}}
-{{/modal-dialog}}
 {{discussion-hero-unit
 	headerTitle=(i18n 'main.guidelines-header-title'  ns='discussion')
 }}

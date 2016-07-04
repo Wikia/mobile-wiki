@@ -1,3 +1,12 @@
+{{#modal-dialog
+	class='is-bare is-desktop-centered discussion-editor-dialog'
+	closeOnOverlayClick=false
+	isVisible=editEditorActive
+}}
+	{{discussion-edit-editor-guidelines
+		saveGuidelines=(action 'saveGuidelines')
+	}}
+{{/modal-dialog}}
 {{#discussion-standalone-layout
 	deleteAllPosts=(action 'deleteAllPosts')
 	smartBannerVisible=smartBannerVisible
@@ -6,7 +15,6 @@
 	{{#if model.attributes.data.guidelines}}
 		{{discussion-guidelines
 			guidelines=model.attributes.data.guidelines
-			saveGuidelines=(action 'saveGuidelines')
 		}}
 	{{else}}
 		{{discussion-error
