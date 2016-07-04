@@ -19,12 +19,12 @@ const DiscussionSiteAttributesModel = DiscussionBaseModel.extend({
 	},
 
 	/**
-	 * Edit guidelines in site-attribute service
+	 * Save attribute in site-attribute service
 	 * @param {String} name - attribute name
 	 * @param {String} value - the new value for the attribute
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	editAttribute(name, value) {
+	saveAttribute(name, value) {
 		const attributeData = new FormData();
 
 		attributeData.append('data', value);

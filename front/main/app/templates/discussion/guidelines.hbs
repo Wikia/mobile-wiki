@@ -6,7 +6,7 @@
 	{{#if model.attributes.data.guidelines}}
 		{{discussion-guidelines
 			guidelines=model.attributes.data.guidelines
-			editGuidelines=(action 'editGuidelines')
+			saveGuidelines=(action 'saveGuidelines')
 		}}
 	{{else}}
 		{{discussion-error

@@ -87,12 +87,12 @@ export default Mixin.create({
 		},
 
 		/**
-		 * This turns on Guidelines editor.
+		 * This saves the new Guidelines.
 		 * @param {Object} text
 		 * @returns {void}
 		 */
-		editGuidelines(text) {
-			this.get('target').send('editGuidelines', text);
+		saveGuidelines(text) {
+			this.get('target').send('saveGuidelines', text);
 		},
 	}
 });

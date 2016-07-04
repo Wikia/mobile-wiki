@@ -13,11 +13,11 @@ export default DiscussionEditorComponent.extend({
 
 	didInsertElement() {
 		this._super(...arguments);
-		this.get('discussionEditor').on('newPost', this, this.handlePostEdited);
+		this.get('discussionEditor').on('newPost', this, this.handleGuidelinesEdited);
 	},
 
 	willDestroyElement() {
-		this.get('discussionEditor').off('newPost', this, this.handlePostEdited);
+		this.get('discussionEditor').off('newPost', this, this.handleGuidelinesEdited);
 	},
 
 	init() {
@@ -32,15 +32,6 @@ export default DiscussionEditorComponent.extend({
 		this._super();
 	},
 
-	editorServiceStateObserver: Ember.observer('discussionEditor.isEditorOpen', function () {
-		if (this.get('discussionEditor.isEditorOpen')) {
-			this.afterOpenActions();
-		} else {
-			this.get('discussionEditor').set('guidelines', null);
-			this.afterCloseActions();
-		}
-	}),
-
 	/**
 	 * Initialize onScroll binding for sticky logic
 	 * @returns {void}
@@ -51,7 +42,7 @@ export default DiscussionEditorComponent.extend({
 	 * Perform animations and logic after post creation
 	 * @returns {void}
 	 */
-	handlePostEdited() {
+	handleGuidelinesEdited() {
 		this.setProperties({
 			isLoading: false,
 			showSuccess: true
@@ -92,7 +83,7 @@ export default DiscussionEditorComponent.extend({
 
 		this.setProperties({
 			bodyText: guidelines.get('value'),
-			showsOpenGraphCard: Boolean(guidelines.get('openGraph'))
+			showsOpenGraphCard: false,
 		});
 
 		Ember.run.scheduleOnce('afterRender', this, () => {
@@ -105,6 +96,7 @@ export default DiscussionEditorComponent.extend({
 	afterCloseActions() {
 		this._super();
 
+		this.get('discussionEditor').set('guidelines', null);
 		this.set('wasInitialized', false);
 	},
 
@@ -115,28 +107,10 @@ export default DiscussionEditorComponent.extend({
 		 */
 		submit() {
 			if (!this.get('submitDisabled')) {
-				const guidelines = this.get('discussionEditor.guidelines'),
-					editedDisucssionEntity = {
-						body: this.get('bodyText')
-					};
+				const guidelines = this.get('discussionEditor.guidelines');
 
 				this.get('discussionEditor').set('isLoading', true);
-
-				if (this.get('showsOpenGraphCard')) {
-					editedDisucssionEntity.openGraph = {
-						uri: this.get('openGraph.href')
-					};
-				}
-
-				if (guidelines.get('isReply')) {
-					editedDisucssionEntity.id = guidelines.get('id');
-
-					this.get('editReply')(editedDisucssionEntity);
-				} else {
-					editedDisucssionEntity.id = guidelines.get('threadId');
-
-					this.get('editPost')(editedDisucssionEntity);
-				}
+				this.get('saveGuidelines')(this.get('bodyText'));
 			}
 		},
 	}
