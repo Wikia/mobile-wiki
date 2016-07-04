@@ -22,10 +22,10 @@ export default DiscussionEditorComponent.extend({
 
 	init() {
 		this.setProperties({
-			closeTrackingAction: trackActions.PostEditClose,
-			contentTrackingAction: trackActions.PostEditContent,
+			closeTrackingAction: trackActions.GuidelinesEditClose,
+			contentTrackingAction: trackActions.GuidelinesEditContent,
 			labelText: 'editor.post-edit-editor-label',
-			startTrackingAction: trackActions.PostEdit,
+			startTrackingAction: trackActions.GuidelinesEdit,
 			submitText: 'editor.post-edit-action-button-label',
 		});
 
