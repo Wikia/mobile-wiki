@@ -118,7 +118,7 @@
               "version": "1.2.0"
             },
             "moment": {
-              "version": "2.13.0"
+              "version": "2.14.1"
             }
           }
         }
@@ -150,7 +150,7 @@
           }
         },
         "uglify-js": {
-          "version": "2.6.4",
+          "version": "2.7.0",
           "dependencies": {
             "async": {
               "version": "0.2.10"
@@ -418,7 +418,7 @@
                           "version": "1.2.0"
                         },
                         "loud-rejection": {
-                          "version": "1.5.0",
+                          "version": "1.6.0",
                           "dependencies": {
                             "currently-unhandled": {
                               "version": "0.4.1",
@@ -1112,7 +1112,7 @@
                           "version": "1.2.0"
                         },
                         "loud-rejection": {
-                          "version": "1.5.0",
+                          "version": "1.6.0",
                           "dependencies": {
                             "currently-unhandled": {
                               "version": "0.4.1",
@@ -1925,7 +1925,7 @@
                       "version": "1.2.0"
                     },
                     "moment": {
-                      "version": "2.13.0"
+                      "version": "2.14.1"
                     }
                   }
                 }
@@ -2063,7 +2063,7 @@
               "version": "1.2.0"
             },
             "moment": {
-              "version": "2.13.0"
+              "version": "2.14.1"
             }
           }
         },
@@ -2169,7 +2169,7 @@
               "version": "1.2.0"
             },
             "moment": {
-              "version": "2.13.0"
+              "version": "2.14.1"
             }
           }
         }
