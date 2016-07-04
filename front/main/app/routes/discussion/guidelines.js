@@ -2,6 +2,9 @@ import Ember from 'ember';
 import DiscussionBaseRoute from './base';
 
 export default DiscussionBaseRoute.extend({
+
+	discussionEditEditor: Ember.inject.service(),
+
 	model() {
 		const indexModel = this.modelFor('discussion');
 
