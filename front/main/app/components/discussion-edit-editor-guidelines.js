@@ -7,8 +7,6 @@ export default DiscussionEditorComponent.extend({
 
 	discussionEditor: Ember.inject.service('discussion-edit-editor'),
 
-	placeholderText: 'editor.post-editor-placeholder-text',
-
 	wasInitialized: false,
 
 	didInsertElement() {
@@ -24,9 +22,11 @@ export default DiscussionEditorComponent.extend({
 		this.setProperties({
 			closeTrackingAction: trackActions.GuidelinesEditClose,
 			contentTrackingAction: trackActions.GuidelinesEditContent,
-			labelText: 'editor.post-edit-editor-label',
+			labelText: 'editor.guidelines-editor-editor-label',
+			placeholderText: 'editor.guidelines-editor-placeholder-text',
 			startTrackingAction: trackActions.GuidelinesEdit,
-			submitText: 'editor.post-edit-action-button-label',
+			submitText: 'editor.guidelines-editor-action-button-label',
+			titleText: 'editor.guidelines-editor-title',
 		});
 
 		this._super();
