@@ -1,5 +1,26 @@
+.guidelines-edit-link {
+	font-size: 10px;
+	font-weight: 500;
+	letter-spacing: .5px;
+	text-transform: uppercase;
+
+	.icon {
+		height: 16px;
+		width: 16px;
+	}
+}
+
 .guidelines-page {
 	margin: 22px 18px;
+
+	.head {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.guidelines-edit-link {
+		margin-top: 5px;
+	}
 
 	.wiki-name {
 		color: $discussion-guidelines-wiki-name-color;

@@ -41,6 +41,9 @@ const trackActions = {
 	ReportDetailsModalOpen: 'ReportDetailsModalOpen',
 	GuidelinesLinkTapped: 'GuidelinesLinkTapped',
 	GuidelinesLinkWelcomeTapped: 'GuidelinesLinkWelcomeTapped',
+	GuidelinesEditClose: 'GuidelinesEditClose',
+	GuidelinesEditContent: 'GuidelinesEditContent',
+	GuidelinesEdit: 'GuidelinesEdit',
 	WelcomeMessageClose: 'WelcomeMessageClose'
 };
 

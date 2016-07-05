@@ -85,5 +85,14 @@ export default Mixin.create({
 		openGuidelines() {
 			this.set('areGuidelinesVisible', true);
 		},
+
+		/**
+		 * This saves the new Guidelines.
+		 * @param {Object} text
+		 * @returns {void}
+		 */
+		saveGuidelines(text) {
+			this.get('target').send('saveGuidelines', text);
+		},
 	}
 });

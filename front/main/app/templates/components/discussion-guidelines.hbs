@@ -1,10 +1,16 @@
 {{discussion-hero-unit
-	contributors=model.contributors
-	headerTitle=(i18n 'main.guidelines-header-title' numberOfPosts=numberOfPosts ns='discussion')
-	numberOfPosts=model.postCount
+	headerTitle=(i18n 'main.guidelines-header-title'  ns='discussion')
 }}
 <div class="guidelines-page">
-	<h2 class="wiki-name">{{wikiName}}</h2>
+	<div class="head">
+		<h2 class="wiki-name">{{wikiName}}</h2>
+		{{#if canEdit}}
+			<a class="guidelines-edit-link active-element-theme-color" {{action 'openGuidelinesEditor'}}>
+				{{i18n 'main.edit-guidelines' ns='discussion'}}
+				{{svg 'pencil' viewBox='0 0 18 18' class='icon fill-theme-color'}}
+			</a>
+		{{/if}}
+	</div>
 	<div class="guidelines-text">
 		{{{parsedContent}}}
 	</div>

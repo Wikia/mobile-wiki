@@ -4,6 +4,8 @@ import DiscussionModel from '../models/discussion';
 import DiscussionSiteAttributesModel from '../models/discussion/site-attributes';
 
 export default Ember.Route.extend({
+	discussionEditEditor: Ember.inject.service(),
+
 	model() {
 		return Ember.RSVP.hash({
 			categories: DiscussionModel.getCategories(Mercury.wiki.id),
@@ -21,14 +23,14 @@ export default Ember.Route.extend({
 		editAttribute(name, value) {
 			const attributesModel = this.modelFor(this.get('routeName')).index.attributes;
 
-			// reset previous editor errors
+			this.setEditorError(null, true);
 
 			attributesModel.editAttribute(value).then(() => {
 				// action after successful edit
 			}).catch((err) => {
 				this.onContributionError(err, 'editor.save-error-general-error', true);
 			}).finally(() => {
-				// turn off the editor isLoading state
+				this.get('discussionEditEditor').set('isLoading', false);
 			});
 		},
 	}
