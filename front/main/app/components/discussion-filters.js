@@ -4,7 +4,6 @@ import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(
 	{
-		canModerate: false,
 		changedCategories: [],
 		classNames: ['discussion-filters'],
 		discussionSort: Ember.inject.service(),
@@ -105,27 +104,6 @@ export default Ember.Component.extend(
 			 */
 			updateCategories(changedCategories) {
 				this.set('changedCategories', changedCategories);
-			},
-
-			/**
-			 * @param {Event} event
-			 *
-			 * @returns {void}
-			 */
-			toggleReported(event) {
-				event.preventDefault();
-
-				const onlyReported = this.get('onlyReported');
-
-				if (onlyReported === false) {
-					this.send('setSortBy', 'latest');
-				}
-
-				this.set('onlyReported', !onlyReported);
-
-				if (!this.get('showApplyButton')) {
-					this.send('applyFilters');
-				}
 			},
 		}
 	}
