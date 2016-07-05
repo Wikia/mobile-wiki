@@ -29,7 +29,7 @@ module.exports = function (language = 'en', opts = {}) {
 				return true;
 			} catch (exception) {
 				if (lang === defaultLanguage) {
-					Logger.error({
+					Logger.fatal({
 						lang,
 						namespace: ns,
 						path: translationPath,
