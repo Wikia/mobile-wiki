@@ -23,6 +23,11 @@
 	z-index: $z-ads-top-leaderboard;
 }
 
+// if mobile-top-leaderboard injected into article content - ignore articles default margins
+.article-content .mobile-top-leaderboard {
+	margin: 0 -20px;
+}
+
 .bfaa-template .mobile-top-leaderboard {
 	left: 0;
 	position: absolute;
@@ -63,7 +68,8 @@
 	}
 }
 
-.mobile-in-content, .mobile-prefooter {
+.mobile-in-content,
+.mobile-prefooter {
 	margin: 10px 0;
 	padding: 10px 0;
 }
