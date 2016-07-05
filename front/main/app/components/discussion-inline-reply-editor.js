@@ -11,7 +11,7 @@ export default DiscussionInlineEditor.extend(
 		 * @returns {void}
 		 */
 		scrollAfterEntityAdded() {
-			Ember.$('html, body').animate({scrollTop: Ember.$('body').height()});
+			Ember.$('html, body').animate({scrollTop: window.document.body.scrollHeight});
 		},
 	}
 );

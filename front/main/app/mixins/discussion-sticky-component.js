@@ -13,9 +13,7 @@ export default Mixin.create({
 	isSticky: false,
 
 	onIsActive: Ember.observer('isActive', function () {
-		if (this.get('isActive')) {
-			this.toggleStickyState();
-		}
+		this.toggleStickyState();
 	}),
 
 	/**

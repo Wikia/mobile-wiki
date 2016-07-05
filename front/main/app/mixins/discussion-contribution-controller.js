@@ -8,17 +8,22 @@ export default Ember.Mixin.create({
 	isAnon: Ember.computed.not('currentUser.isAuthenticated'),
 	isUserBlocked: false,
 
-	editorState: Ember.Object.create({
-		errorMessage: null,
-		isLoading: false,
-		isOpen: false,
-	}),
+	editorState: null,
+	editEditorState: null,
 
-	editEditorState: Ember.Object.create({
-		errorMessage: null,
-		isLoading: false,
-		isOpen: false,
-		discussionEntity: null,
+	setEditorState: Ember.on('init', function () {
+		this.set('editorState', Ember.Object.create({
+			errorMessage: null,
+			isLoading: false,
+			isOpen: false,
+		}));
+
+		this.set('editEditorState', Ember.Object.create({
+			errorMessage: null,
+			isLoading: false,
+			isOpen: false,
+			discussionEntity: null,
+		}));
 	}),
 
 	/**
