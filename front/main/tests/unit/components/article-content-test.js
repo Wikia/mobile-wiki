@@ -13,7 +13,11 @@ const mobileTopLeaderboardSelector = '.mobile-top-leaderboard';
 
 test('ads are correctly inserted', function (assert) {
 	Ember.run(() => {
-		const content = '<p>some content</p><aside class="portable-infobox"></aside>',
+		const content =
+			'<p>some content</p>' +
+			'<aside class="portable-infobox"></aside>' +
+			'<section>Article body</section>' +
+			'<div>more content</div>',
 			component = this.subject();
 
 		component.set('content', content);
@@ -31,7 +35,11 @@ test('ads are correctly inserted', function (assert) {
 
 test('ads are correctly inserted', function (assert) {
 	Ember.run(() => {
-		const content = '<p>some content</p><div class="wiki-page-header"></div>',
+		const content =
+			'<p>some content</p>' +
+			'<aside class="wiki-page-header"></aside>' +
+			'<section>Article body</section>' +
+			'<div>more content</div>',
 			component = this.subject();
 
 		component.set('content', content);
@@ -49,7 +57,12 @@ test('ads are correctly inserted', function (assert) {
 
 test('ads are correctly inserted', function (assert) {
 	Ember.run(() => {
-		const content = '<p>some content</p><div class="wiki-page-header"></div><aside class="portable-infobox"></aside>',
+		const content =
+			'<p>some content</p>' +
+			'<div class="wiki-page-header"></div>' +
+			'<aside class="portable-infobox"></aside>' +
+			'<section>Article body</section>' +
+			'<div>more content</div>',
 			component = this.subject();
 
 		component.set('content', content);
