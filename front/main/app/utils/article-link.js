@@ -20,13 +20,16 @@
  * @param {string} hash - jumplink, either '#something' (to indicate
  *   there is a jumplink) or '' or undefined
  * @param {string} uri - the absolute link
+ * @param {string} queryString - the query string
  *
  * @returns {LinkInfo}
  */
-export default function getLinkInfo(basePath, title, hash, uri) {
+export default function getLinkInfo(basePath, title, hash, uri, queryString) {
 	const localPathMatch = uri.match(`^${window.location.origin}(.*)$`);
 
-	if (localPathMatch) {
+	// We treat local URLs with query params that aren't handled elsewhere
+	// as external links rather than as articles
+	if (localPathMatch && !queryString) {
 		const local = localPathMatch[1],
 
 			/**
