@@ -4,10 +4,12 @@
 <div class="guidelines-page">
 	<div class="head">
 		<h2 class="wiki-name">{{wikiName}}</h2>
-		<a class="guidelines-edit-link active-element-theme-color" {{action 'openGuidelinesEditor'}}>
-			{{i18n 'main.edit-guidelines' ns='discussion'}}
-			{{svg 'pencil' viewBox='0 0 18 18' class='icon fill-theme-color'}}
-		</a>
+		{{#if canEdit}}
+			<a class="guidelines-edit-link active-element-theme-color" {{action 'openGuidelinesEditor'}}>
+				{{i18n 'main.edit-guidelines' ns='discussion'}}
+				{{svg 'pencil' viewBox='0 0 18 18' class='icon fill-theme-color'}}
+			</a>
+		{{/if}}
 	</div>
 	<div class="guidelines-text">
 		{{{parsedContent}}}

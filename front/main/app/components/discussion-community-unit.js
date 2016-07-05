@@ -4,6 +4,7 @@ import {track, trackActions} from '../utils/discussion-tracker';
 export default Ember.Component.extend({
 	classNames: ['discussion-community-unit'],
 	discussionsSplashPageConfig: M.prop('discussionsSplashPageConfig'),
+	currentUser: Ember.inject.service(),
 
 	displayWikiaHomeLink: false,
 	displayGuidelinesLink: false,

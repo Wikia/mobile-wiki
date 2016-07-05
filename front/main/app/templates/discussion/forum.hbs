@@ -21,6 +21,7 @@
 {{/modal-dialog}}
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
+	attributes=model.index.attributes.data
 	categories=model.index.categories.data
 	model=model.current.data
 	openGuidelines=(action 'openGuidelines')
