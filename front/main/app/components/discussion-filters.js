@@ -1,17 +1,17 @@
 import Ember from 'ember';
 import nearestParent from 'ember-pop-over/computed/nearest-parent';
+import DiscussionReportedFilterMixin from '../mixins/discussion-reported-filter';
 import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(
+	DiscussionReportedFilterMixin,
 	{
 		changedCategories: [],
 		classNames: ['discussion-filters'],
 		discussionSort: Ember.inject.service(),
-		onlyReported: Ember.computed.oneWay('discussionSort.onlyReported'),
 		popover: nearestParent('pop-over'),
 		showApplyButton: false,
 		showSortSection: false,
-		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
 
 		trendingDisabled: Ember.computed('onlyReported', function () {
 			return this.get('onlyReported') === true ? 'disabled' : false;
@@ -86,15 +86,6 @@ export default Ember.Component.extend(
 				if (popover) {
 					popover.deactivate();
 				}
-			},
-
-			/**
-			 * @param {string} sortBy
-			 *
-			 * @returns {void}
-			 */
-			setSortBy(sortBy) {
-				this.set('sortBy', sortBy);
 			},
 
 			/**

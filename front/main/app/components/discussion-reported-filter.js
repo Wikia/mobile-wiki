@@ -1,31 +1,7 @@
-import DiscussionModalDialogMixin from '../mixins/discussion-modal-dialog';
+import DiscussionReportedFilterMixin from '../mixins/discussion-reported-filter';
 
-export default Ember.Component.extend(DiscussionModalDialogMixin, {
+export default Ember.Component.extend(DiscussionReportedFilterMixin, {
 	tagName: 'fieldset',
-	classNames: ['discussion-fieldset', 'moderation-fieldset', ],
-	discussionSort: Ember.inject.service(),
-	onlyReported: Ember.computed.oneWay('discussionSort.onlyReported'),
+	classNames: ['discussion-fieldset', 'moderation-fieldset'],
 
-	actions: {
-		/**
-		 * @param {Event} event
-		 *
-		 * @returns {void}
-		 */
-		toggleReported(event) {
-			event.preventDefault();
-
-			const onlyReported = this.get('onlyReported');
-
-			if (onlyReported === false) {
-				this.send('setSortBy', 'latest');
-			}
-
-			this.set('onlyReported', !onlyReported);
-
-			if (!this.get('showApplyButton')) {
-				this.send('applyFilters');
-			}
-		},
-	}
 });

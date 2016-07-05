@@ -39,7 +39,9 @@
 				{{/if}}
 			{{/if}}
 			{{#if model.canModerate}}
-				{{discussion-reported-filter}}
+				{{discussion-reported-filter
+					applyFilters=(action this.attrs.applyFilters)
+				}}
 			{{/if}}
 		</div>
 		<div class="small-12 large-6 columns">
