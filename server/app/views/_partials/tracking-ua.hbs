@@ -10,7 +10,7 @@
 			 * (eg. discussion, recent wiki activity) - we're sending
 			 * empty string that is handled by MercuryAPI.
 			 */
-			$.getJSON('/wikia.php', {
+			$.getJSON(M.buildUrl({path: '/wikia.php'}), {
 				controller: 'MercuryApi',
 				method: 'getTrackingDimensions',
 				title: M.prop('urlTitleParam'),
