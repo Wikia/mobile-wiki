@@ -21,8 +21,20 @@
 
 	.guidelines-link,
 	.wikia-home-link {
-		display: flex;
+		color: $discussion-community-unit-link-color;
 		margin: 8px 0;
+	}
+
+	.guidelines-link-section {
+		align-items: center;
+		display: flex;
+	}
+
+	.guidelines-edit-link {
+		display: flex;
+		line-height: 38px;
+		margin-left: 6px;
+		position: absolute;
 	}
 
 	.icon {
