@@ -22,7 +22,7 @@
 		<div class="rail large-2 columns">
 			{{community-badge}}
 			{{#link-to 'discussion' class="side-button back-button active-element-theme-color"}}
-				{{svg 'back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
+				{{svg 'discussion-back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
 				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
 			{{/link-to}}
 			{{#unless hasContentError}}
@@ -42,7 +42,7 @@
 			{{yield}}
 		</div>
 		<div class="rail large-2 columns">
-			{{discussion-app-promotion}}
+			{{discussion-community-unit}}
 		</div>
 	</div>
 </div>

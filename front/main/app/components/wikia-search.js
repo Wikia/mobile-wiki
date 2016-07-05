@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import NoScrollMixin from '../mixins/no-scroll';
+import ResponsiveMixin from '../mixins/responsive';
 import {track, trackActions} from 'common/utils/track';
 import wrapMeHelper from '../helpers/wrap-me';
-import {getDomain} from '../utils/domain';
 
 const {Component, computed, observer, inject, run, $} = Ember;
 
@@ -16,7 +16,9 @@ const {Component, computed, observer, inject, run, $} = Ember;
  * @property {string} [text]
  * @property {string} [uri]
  */
-export default Component.extend(NoScrollMixin,
+export default Component.extend(
+	NoScrollMixin,
+	ResponsiveMixin,
 	{
 		classNames: ['wikia-search-wrapper'],
 		// key: phrase string, value: Array<SearchSuggestionItem>
@@ -31,13 +33,14 @@ export default Component.extend(NoScrollMixin,
 		inputFocused: false,
 		// Whether or not to display the loading search suggestion results message (en: 'Loading...')
 		isLoadingResultsSuggestions: false,
+		phrase: '',
+		phraseMinimalLength: 3,
+		query: '',
 		/**
 		 * A set (only keys used) of phrase strings that are currently being ajax'd so
 		 * we know not to perform another request.
 		 */
 		requestsInProgress: {},
-		phrase: '',
-		phraseMinimalLength: 3,
 		searchRequestInProgress: false,
 		/**
 		 * This is what's currently displayed in the search results
@@ -58,24 +61,18 @@ export default Component.extend(NoScrollMixin,
 			return i18n.t('search:main.search-input-label');
 		}),
 
-		init() {
-			this._super(...arguments);
-			// initialize with query
-			this.set('phrase', this.get('query'));
-		},
-
 		didInsertElement() {
 			this._super(...arguments);
 
 			run.scheduleOnce('afterRender', this, () => {
+				// initialize with query
+				this.set('phrase', this.get('query'));
 				this.set('inputField', $('.side-search__input'));
-			});
 
-			if (this.get('focusInput')) {
-				run.scheduleOnce('afterRender', this, () => {
-					this.$('.side-search__input').focus();
-				});
-			}
+				if (this.get('focusInput')) {
+					this.get('inputField').focus();
+				}
+			});
 		},
 
 		actions: {
@@ -123,11 +120,6 @@ export default Component.extend(NoScrollMixin,
 				if (outsideSuggestionsClickAction) {
 					outsideSuggestionsClickAction(event);
 				}
-			},
-
-			redirectToOasis(uri) {
-				$.cookie('useskin', 'oasis', {path: '/', domain: getDomain});
-				window.location.assign(`/${uri}`);
 			}
 		},
 

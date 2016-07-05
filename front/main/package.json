@@ -18,7 +18,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "broccoli-asset-rev": "2.4.2",
+    "broccoli-asset-rev": "rogatty/broccoli-asset-rev#broccoli-asset-rewrite-1.0.9",
     "broccoli-babel-transpiler": "5.5.0",
     "broccoli-concat": "2.0.4",
     "broccoli-funnel": "1.0.1",
@@ -58,7 +58,7 @@
     "ember-route-action-helper": "0.3.1",
     "ember-sinon": "0.3.0",
     "ember-sortable": "1.8.0",
-    "ember-wormhole": "0.3.4",
+    "ember-wormhole": "0.4.0",
     "liquid-fire": "0.23.0",
     "loader.js": "4.0.1",
     "moment": "2.11.2",

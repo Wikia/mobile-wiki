@@ -1,10 +1,15 @@
 import Ember from 'ember';
-import {track, trackActions} from 'common/utils/track';
+import {track, trackActions, trackPageView} from 'common/utils/track';
 import SearchModel from '../models/search';
 
 const {Route} = Ember;
 
 export default Route.extend({
+	queryParams: {
+		query: {
+			refreshModel: true
+		}
+	},
 
 	model(params) {
 		const model = new SearchModel();
@@ -22,6 +27,12 @@ export default Route.extend({
 
 	deactivate() {
 		Ember.$('body').removeClass('search-result-page');
+	},
+
+	afterModel(model, transition) {
+		transition.then(() => {
+			trackPageView();
+		});
 	},
 
 	actions: {

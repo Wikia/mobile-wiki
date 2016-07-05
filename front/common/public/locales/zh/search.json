@@ -1,5 +1,6 @@
 {
   "main":{
+    "load-more-results":"加載更多",
     "search-error-general":"不能連接，請再試一次。",
     "search-error-general-action":"單擊重試",
     "search-error-not-found":"我們找不到任何和__query__相關的訊息 ",

@@ -24,10 +24,12 @@
     "help-section-collapsible":"Se si seleziona l'opzione \"pieghevole\", si potà chiudere e aprire sezioni quando l'infobox sarà usato in una pagina di articolo.",
     "edit-image-item-description":"Questo è un segnaposto per un'immagine che è possibile caricare più tardi quando l'infobox è utilizzato in una pagina di articolo.",
     "edit-title-modal-cancel":"Annulla",
-    "edit-title-modal-header":"Denomina il tuo template",
+    "edit-title-modal-header-on-leave":"Denomina il tuo template",
+    "edit-title-modal-header-on-rename":"Nome del template",
     "edit-title-modal-publish":"Pubblica",
     "edit-title-modal-ok":"Ok",
-    "edit-title-modal-text":"Per pubblicare il template occorre fornire un nome per esso.",
+    "edit-title-modal-text-on-leave":"Per pubblicare il template occorre fornire un nome per il suddetto.",
+    "edit-title-modal-text-on-rename":"Fornire un nome per il template infobox.",
     "edit-title-placeholder":"Template senza titolo",
     "save":"Pubblica",
     "load-error":"Errore di caricamento",
@@ -40,6 +42,7 @@
     "source-editor-save-confirmation-button-no":"No",
     "source-editor-loading":"Caricamento editor sorgente in corso",
     "untitled-infobox-template":"Template infobox senza titolo",
-    "title-naming-conflict-error":"Questo nome è già utilizzato"
+    "title-naming-conflict-error":"Questo nome è già utilizzato",
+    "title-naming-invalid-title-error":"Spiacente, il titolo dell'articolo non era valido. Utilizza un titolo diverso."
   }
 }

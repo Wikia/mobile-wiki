@@ -1,5 +1,6 @@
 {
   "main":{
+    "load-more-results":"Load more",
     "search-error-general":"Can't connect, please try again",
     "search-error-general-action":"Click to retry",
     "search-error-not-found":"We couldn't find anything for __query__",

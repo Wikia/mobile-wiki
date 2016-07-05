@@ -8,6 +8,7 @@ export default Ember.Mixin.create({
 		minPageLength: 2000,
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
+
 		moreInContentAds: {
 			// Disable the extra in content ads:
 			enabled: false,

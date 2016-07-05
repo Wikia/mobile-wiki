@@ -38,6 +38,11 @@ $search-vertical-padding: 12px;
 	font-weight: bold;
 }
 
+.search-results__load-more-wrapper.wikia-button-wrapper {
+	padding-top: 8px;
+	padding-bottom: 25px;
+}
+
 .search-result-page .site-head-headroom-un-pinned .site-head {
   // removing site-head bottom shadow
   box-shadow: none;
