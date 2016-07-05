@@ -100,6 +100,8 @@ export default DiscussionEditorComponent.extend({
 		this.set('wasInitialized', false);
 	},
 
+	onPaste() {},
+
 	actions: {
 		/**
 		 * Send request to model to create new post and start animations
