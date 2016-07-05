@@ -28,12 +28,14 @@ module.exports = function (language = 'en', opts = {}) {
 				translations = require(translationPath);
 				return true;
 			} catch (exception) {
-				Logger.error({
-					lang,
-					namespace: ns,
-					path: translationPath,
-					error: exception.message
-				}, 'Translation not found');
+				if (lang === defaultLanguage) {
+					Logger.error({
+						lang,
+						namespace: ns,
+						path: translationPath,
+						error: exception.message
+					}, `Translation for default language (${defaultLanguage}) not found`);
+				}
 			}
 		});
 
