@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import AdSlotComponent from '../components/ad-slot';
 import Ads from 'common/modules/ads';
-import {getGroup} from 'common/modules/abtest';
 
 export default Ember.Mixin.create({
 	adsData: {
@@ -9,9 +8,6 @@ export default Ember.Mixin.create({
 		minPageLength: 2000,
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
-
-		// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
-		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
 
 		moreInContentAds: {
 			// Disable the extra in content ads:
@@ -145,13 +141,6 @@ export default Ember.Mixin.create({
 	injectAds() {
 		const $firstSection = this.$().children('h2').first(),
 			$articleBody = $('.article-body'),
-
-			// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
-			viewabilityExperimentGroup = getGroup('MERCURY_VIEWABILITY_EXPERIMENT'),
-			$pi = $('.portable-infobox'),
-			$topPlacement = $('.wiki-container'),
-			$topAd = $('#MOBILE_TOP_LEADERBOARD'),
-
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			articleBodyHeight = $articleBody.height(),
 
@@ -168,18 +157,6 @@ export default Ember.Mixin.create({
 
 		if (showPreFooter) {
 			this.appendAd(this.adsData.mobilePreFooter, 'after', $articleBody);
-		}
-
-		// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
-		if (viewabilityExperimentGroup === 'AD_BELOW_INFOBOX' ||
-			viewabilityExperimentGroup === 'AD_ON_PAGE_FOLD') {
-			if ($pi.length) {
-				// inject after infobox
-				this.appendAd(this.adsData.mobileTopLeaderBoard, 'after', $pi.first());
-			} else if (!$topAd.length) {
-				// inject at top if not present
-				this.appendAd(this.adsData.mobileTopLeaderBoard, 'before', $topPlacement);
-			}
 		}
 
 		if (showMoreInContentAds) {
