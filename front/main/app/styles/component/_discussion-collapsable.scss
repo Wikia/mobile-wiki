@@ -1,0 +1,28 @@
+.discussions-collapsable {
+	legend {
+		font-size: $type-smallest;
+		width: 100%;
+	}
+
+	.chevron {
+		float: right;
+		height: 20px;
+		transform: rotate(-90deg);
+		width: 20px;
+	}
+
+	.collapsable-container {
+		transition: max-height .6s;
+		overflow: hidden;
+	}
+
+	&.collapsed {
+		.chevron {
+			transform: rotate(90deg);
+		}
+
+		.collapsable-container {
+			max-height: 0;
+		}
+	}
+}

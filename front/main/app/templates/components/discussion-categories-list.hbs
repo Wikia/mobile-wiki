@@ -2,12 +2,12 @@
 	{{i18n 'main.filter-posts-header' ns='discussion'}}
 	<a class="active-element-theme-color" {{action this.attrs.reset}}>{{i18n 'main.filter-reset-label' ns='discussion'}}</a>
 </h3>
-<fieldset class="discussion-fieldset discussion-categories {{if collapsed 'collapsed'}}" disabled="{{if disabled 'disabled'}}">
+<fieldset class="discussion-fieldset discussion-categories discussions-collapsable {{if collapsed 'collapsed'}}" disabled="{{if disabled 'disabled'}}">
 	<legend {{action this.attrs.toggle}}>
 		{{i18n 'main.categories-header' ns='discussion'}}
 		{{svg 'chevron-linked' role='img' class='icon chevron'}}
 	</legend>
-	<div class="discussion-categories-list-container">
+	<div class="discussion-categories-list-container collapsable-container">
 		<ul class="discussion-categories-list">
 			<li>
 				{{wikia-ui-components/fancy-check-box

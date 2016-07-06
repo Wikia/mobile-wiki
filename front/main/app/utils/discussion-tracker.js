@@ -37,6 +37,8 @@ const trackActions = {
 	AllCategoriesTapped: 'AllCategoriesTapped',
 	CategoriesCollaped: 'CategoriesCollaped',
 	CategoriesUncollaped: 'CategoriesUncollaped',
+	ReportedFilterCollaped: 'ReportedFilterCollaped',
+	ReportedFilterUncollaped: 'ReportedFilterUncollaped',
 	CategoriesResetTapped: 'CategoriesResetTapped',
 	ReportDetailsModalOpen: 'ReportDetailsModalOpen',
 	GuidelinesLinkTapped: 'GuidelinesLinkTapped',
