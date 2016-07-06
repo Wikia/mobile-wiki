@@ -17,7 +17,7 @@ export default Ember.Mixin.create({
 			this.get('content')
 		).trim();
 
-		if (!this.get('shouldTruncateContent') && shouldUseTruncationHack()) {
+		if (this.get('shouldTruncateContent') && shouldUseTruncationHack()) {
 			escapedContent = truncate(escapedContent, 148);
 		}
 
