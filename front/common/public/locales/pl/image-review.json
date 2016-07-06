@@ -13,6 +13,6 @@
     "image-context-not-provided":"Brak kontekstu",
     "status-accepted":"OK",
     "status-flagged":"Wątpliwy",
-    "status-rejected":"Usuń"
+    "status-rejected":"Usuń",
   }
 }

@@ -1,66 +1,78 @@
 {{#if model.showSubHeader}}
-    <header class="sub-head">
-        <a {{action this.attrs.openMainPage}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
-        <button {{action this.attrs.reviewAndGetMoreImages}}
-                class="sub-head--done">{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
-        <div class="sub-head--title">{{i18n 'main.head' ns='image-review'}}</div>
-    </header>
+	<header class="sub-head">
+		<a {{action this.attrs.openMainPage}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
+		<button {{action this.attrs.reviewAndGetMoreImages}}
+				class="sub-head--done">
+			{{i18n 'main.review-and-get-more' ns='image-review'}}
+		</button>
+		<div class="sub-head--title">
+			{{i18n 'main.head' ns='image-review'}}
+		</div>
+	</header>
 {{/if}}
 
 {{#if model.images}}
-    <p>{{i18n 'main.description' ns='image-review'}}</p>
-    <p>{{i18n 'main.images-to-review-count' ns='image-review'}} <strong>{{model.imagesToReviewCount}}</strong></p>
+	<p>{{i18n 'main.description' ns='image-review'}}</p>
+	<p>{{i18n 'main.images-to-review-count' ns='image-review'}} <strong>{{model.imagesToReviewCount}}</strong></p>
 
-    <ul class="image-review-list">
-        {{#each model.images as |item|}}
-            <li class="image-review-item">
-                {{image-review-item model=item showModal=(action 'showModal')
-                changeItemModel=(action (action this.attrs.changeItemModel))}}
-            </li>
-        {{/each}}
-    </ul>
+	<ul class="image-review-list">
+		{{#each model.images as |item|}}
+			<li class="image-review-item">
+				{{image-review-item model=item showModal=(action 'showModal')
+				changeItemModel=(action (action this.attrs.changeItemModel))}}
+			</li>
+		{{/each}}
+	</ul>
 
-    {{#modal-dialog isVisible=isModalVisible}}
-        <img src="{{thumbnailModel.fullSizeImageUrl}}"/>
-        {{#if thumbnailModel.isContextProvided}}
-            {{#if thumbnailModel.isLink}}
-                <a href="{{thumbnailModel.context}}"
-                   target="_blank">{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}}</a>
-            {{else}}
-                <span>{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}}</span>
-            {{/if}}
-        {{else}}
-            <p>{{i18n 'main.image-context-not-provided' ns='image-review'}}</p>
-        {{/if}}
-        <span>{{i18n 'main.image-name' ns='image-review'}} {{thumbnailModel.originalFilename}}</span>
-        <br/>
-        <span>{{i18n 'main.image-size' ns='image-review'}} {{thumbnailModel.size}} {{i18n 'main.image-bytes' ns='image-review'}}</span>
-        <br/>
-        <span>{{i18n 'main.image-dimensions' ns='image-review'}} {{thumbnailModel.dimensions}}</span>
-        <br/>
-        {{#if thumbnailModel.history}}
-            <table id="image-history">
-                {{#each thumbnailModel.history as |item| }}
-                    <tr>
-                        <td>{{item.date}}</td>
-                        <td>{{item.action}}</td>
-                        <td>{{item.user}}</td>
-                        <td>{{item.status}}</td>
-                    </tr>
-                {{/each}}
-            </table>
-        {{else}}
-            <span>No history</span>
-        {{/if}}
-    {{/modal-dialog}}
+	{{#modal-dialog isVisible=isModalVisible}}
+		<img src="{{thumbnailModel.fullSizeImageUrl}}"/>
+		{{#if thumbnailModel.isContextProvided}}
+			{{#if thumbnailModel.isLink}}
+				<a href="{{thumbnailModel.context}}"
+				   target="_blank">
+					{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}}
+				</a>
+			{{else}}
+				<span>{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}}</span>
+			{{/if}}
+		{{else}}
+			<p>{{i18n 'main.image-context-not-provided' ns='image-review'}}</p>
+		{{/if}}
+		<span>{{i18n 'main.image-name' ns='image-review'}} {{thumbnailModel.originalFilename}}</span>
+		<br/>
+		<span>{{i18n 'main.image-size' ns='image-review'}} {{thumbnailModel.size}}</span>
+		<br/>
+		<span>{{i18n 'main.image-dimensions' ns='image-review'}} {{thumbnailModel.dimensions}}</span>
+		<br/>
+		{{#if thumbnailModel.history}}
+			<table id="image-history">
+				<tr>
+					<td>{{i18n 'main.table-date' ns='image-review'}}</td>
+					<td>{{i18n 'main.table-action' ns='image-review'}}</td>
+					<td>{{i18n 'main.table-user' ns='image-review'}}</td>
+					<td>{{i18n 'main.table-status' ns='image-review'}}</td>
+				</tr>
+				{{#each thumbnailModel.history as |item| }}
+					<tr>
+						<td>{{item.date}}</td>
+						<td>{{item.action}}</td>
+						<td>{{item.user}}</td>
+						<td>{{item.status}}</td>
+					</tr>
+				{{/each}}
+			</table>
+		{{else}}
+			<span>{{i18n 'main.table-no-history' ns='image-review'}}</span>
+		{{/if}}
+	{{/modal-dialog}}
 
-    <div class="action-buttons">
-        <button {{action this.attrs.reviewAndGetMoreImages}}>{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
-        {{#if model.isTrustedSession}}
-            <button {{action this.attrs.getFlaggedOnly}}>{{i18n 'main.get-flagged' ns='image-review'}}</button>
-            <button {{action this.attrs.getRejectedOnly}}>{{i18n 'main.get-rejected' ns='image-review'}}</button>
-        {{/if}}
-    </div>
+	<div class="action-buttons">
+		<button {{action this.attrs.reviewAndGetMoreImages}}>{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
+		{{#if model.isTrustedSession}}
+			<button {{action this.attrs.getFlaggedOnly}}>{{i18n 'main.get-flagged' ns='image-review'}}</button>
+			<button {{action this.attrs.getRejectedOnly}}>{{i18n 'main.get-rejected' ns='image-review'}}</button>
+		{{/if}}
+	</div>
 {{else}}
-    <h2>{{i18n 'main.error-no-more-images' ns='image-review'}}</h2>
+	<h2>{{i18n 'main.error-no-more-images' ns='image-review'}}</h2>
 {{/if}}
