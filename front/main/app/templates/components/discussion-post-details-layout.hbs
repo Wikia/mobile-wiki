@@ -21,10 +21,7 @@
 	<div class="discussion-page row">
 		<div class="rail large-2 columns">
 			{{community-badge}}
-			{{#link-to 'discussion' class="side-button back-button active-element-theme-color"}}
-				{{svg 'discussion-back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
-				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
-			{{/link-to}}
+			{{discussion-side-button}}
 			{{#unless hasContentError}}
 				<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
 				{{#if model.repliesCount}}
