@@ -30,6 +30,11 @@ $site-header-height: 50px;
 	width: 100%;
 	z-index: $z-6; // drop-downs from under the top-bar component (which is $z-7)
 
+	> div.ember-view {
+		float: left;
+		height: 100%;
+	}
+
 	h1 {
 		color: $discussion-header-color-text;
 		float: left;

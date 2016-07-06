@@ -30,10 +30,7 @@
 	</div>
 	<div class="discussion-page row">
 		<div class="rail large-3 columns">
-			{{#link-to 'discussion' class="side-button back-button active-element-theme-color"}}
-				{{svg 'discussion-back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
-				{{i18n 'main.back-to-discussions-link' ns='discussion'}}
-			{{/link-to}}
+			{{discussion-side-button route='discussion'}}
 		</div>
 		<div class="small-12 large-6 columns">
 			{{yield}}

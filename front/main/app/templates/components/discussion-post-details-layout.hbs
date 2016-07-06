@@ -21,7 +21,7 @@
 	<div class="discussion-page row">
 		<div class="rail large-2 columns">
 			{{community-badge}}
-			{{discussion-side-button}}
+			{{discussion-side-button route='discussion'}}
 			{{#unless hasContentError}}
 				<div class="discussion-contributors-title">{{i18n 'main.contributors-title' ns='discussion'}}</div>
 				{{#if model.repliesCount}}
