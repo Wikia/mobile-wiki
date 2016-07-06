@@ -1,23 +1,16 @@
 import DiscussionReportedFilterMixin from '../mixins/discussion-reported-filter';
+import DiscussionCollapsableMixin from '../mixins/discussion-collapsable';
 import {track, trackActions} from '../utils/discussion-tracker';
 
-export default Ember.Component.extend(DiscussionReportedFilterMixin, {
-	tagName: 'fieldset',
-	classNames: ['discussion-fieldset', 'moderation-fieldset', 'discussions-collapsable'],
-	classNameBindings: ['collapsed'],
-	collapsed: false,
+export default Ember.Component.extend(
+	DiscussionReportedFilterMixin,
+	DiscussionCollapsableMixin,
+	{
+		tagName: 'fieldset',
+		classNames: ['discussion-fieldset', 'moderation-fieldset'],
 
-	actions: {
-		/**
-		 * Toggle categories section
-		 *
-		 * @returns {void}
-		 */
-		toggle() {
-			const collapsed = this.get('collapsed');
-
-			this.set('collapsed', !collapsed);
+		collapsableCallback(collapsed) {
 			track(collapsed ? trackActions.ReportedFilterUncollaped : trackActions.ReportedFilterCollaped);
 		},
 	}
-});
+);

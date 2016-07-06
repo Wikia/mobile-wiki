@@ -3,7 +3,7 @@
 	<a class="active-element-theme-color" {{action this.attrs.reset}}>{{i18n 'main.filter-reset-label' ns='discussion'}}</a>
 </h3>
 <fieldset class="discussion-fieldset discussion-categories discussions-collapsable {{if collapsed 'collapsed'}}" disabled="{{if disabled 'disabled'}}">
-	<legend {{action this.attrs.toggle}}>
+	<legend {{action this.attrs.collapsableToggle}}>
 		{{i18n 'main.categories-header' ns='discussion'}}
 		{{svg 'chevron-linked' role='img' class='icon chevron'}}
 	</legend>
