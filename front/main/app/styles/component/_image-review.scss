@@ -32,9 +32,11 @@
 	display: block;
 }
 
-table {
-	td {
-		padding: 5px;
-		border: 1px solid;
+.modal-dialog {
+	table {
+		td {
+			padding: 5px;
+			border: 1px solid;
+		}
 	}
 }
