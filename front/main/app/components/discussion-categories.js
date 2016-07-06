@@ -111,7 +111,7 @@ export default Ember.Component.extend(
 		}),
 
 		collapsableCallback(collapsed) {
-			track(collapsed ? trackActions.CategoriesUncollaped : trackActions.CategoriesCollaped);
+			track(collapsed ? trackActions.CategoriesUncollapsed : trackActions.CategoriesCollapsed);
 		},
 
 		actions: {

@@ -10,7 +10,7 @@ export default Ember.Component.extend(
 		classNames: ['discussion-fieldset', 'moderation-fieldset'],
 
 		collapsableCallback(collapsed) {
-			track(collapsed ? trackActions.ReportedFilterUncollaped : trackActions.ReportedFilterCollaped);
+			track(collapsed ? trackActions.ReportedFilterUncollapsed : trackActions.ReportedFilterCollapsed);
 		},
 	}
 );
