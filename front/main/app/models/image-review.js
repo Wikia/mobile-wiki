@@ -80,9 +80,10 @@ ImageReviewModel.reopenClass({
 
     prepareHistoryDom(historyJson) {
 
-        if (historyJson === null || typeof historyJson === 'undefined') {
+        if (Ember.isEmpty(historyJson)) {
             return null;
         }
+
 
         let tableContent = [];
 
