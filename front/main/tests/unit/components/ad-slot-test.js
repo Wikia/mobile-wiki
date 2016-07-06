@@ -1,3 +1,4 @@
+import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('ad-slot', 'Unit | Component | ad slot', {
@@ -38,6 +39,56 @@ test('Name lower case', function (assert) {
 
 		component.set('name', testCase.name);
 		assert.equal(component.get('nameLowerCase'), testCase.expected, testCase.description);
+	});
+});
+
+test('test UAP listeners', (assert) => {
+	const testCases = [
+		{
+			eventName: 'wikia.uap',
+			uapListenersCount: 1,
+			uapCallbackCount: 1,
+			noUapCallbackCount: 0,
+			message: 'uap callback called once'
+		},
+		{
+			eventName: 'wikia.not_uap',
+			uapListenersCount: 1,
+			uapCallbackCount: 0,
+			noUapCallbackCount: 1,
+			message: 'no uap callback called once'
+		},
+		{
+			eventName: 'wikia.uap',
+			uapListenersCount: 2,
+			uapCallbackCount: 2,
+			noUapCallbackCount: 0,
+			message: 'uap callback called twice'
+		},
+		{
+			eventName: 'wikia.not_uap',
+			uapListenersCount: 2,
+			uapCallbackCount: 0,
+			noUapCallbackCount: 2,
+			message: 'no uap callback called twice'
+		}
+	];
+
+	testCases.forEach((testCase) => {
+		const Ads = require('common/modules/ads').default,
+			ads = new Ads(),
+			spyUap = sinon.spy(),
+			spyNoUap = sinon.spy();
+
+		ads.addUapListeners(spyUap, spyNoUap);
+		window.dispatchEvent(new Event(testCase.eventName));
+
+		for (let i = 0; i < testCase.uapListenersCount - 1; i++) {
+			ads.addUapListeners(spyUap, spyNoUap);
+		}
+
+		assert.equal(testCase.uapCallbackCount, spyUap.callCount, testCase.message);
+		assert.equal(testCase.noUapCallbackCount, spyNoUap.callCount, testCase.message);
 	});
 });
 
