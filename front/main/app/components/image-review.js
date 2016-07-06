@@ -4,7 +4,7 @@ import imageReviewItemModel from '../models/image-review-item';
 export default Ember.Component.extend({
 	classNames: ['image-review'],
 	isModalVisible: false,
-
+	
 	actions: {
 		showModal(popupModel) {
 			imageReviewItemModel.getImageContext(popupModel.imageId).then((data) => {
@@ -19,7 +19,6 @@ export default Ember.Component.extend({
 					thumbnailModel: popupModel,
 					isModalVisible: true
 				});
-				document.getElementById('image-history').innerHTML = popupModel.history;
 			});
 		}
 	}
