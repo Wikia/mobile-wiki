@@ -106,7 +106,8 @@ export default Route.extend(
 					Mercury.wiki.basePath,
 					title,
 					target.hash,
-					target.href
+					target.href,
+					target.search
 				);
 
 				/**

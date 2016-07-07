@@ -1,7 +1,5 @@
 @import 'ads-floor';
 
-$ad-background: rgb(44, 52, 61);
-
 .ad-slot {
 	text-align: center;
 
@@ -19,14 +17,19 @@ $ad-background: rgb(44, 52, 61);
 }
 
 .mobile-top-leaderboard .ad-slot {
-	background: $ad-background;
 	min-height: 50px;
-	padding: 10px;
+	padding: 10px 0;
 	position: relative;
 	z-index: $z-ads-top-leaderboard;
 }
 
-.mobile-top-leaderboard.bfaa-template {
+// if mobile-top-leaderboard injected into article content - ignore articles default margins
+.article-content .mobile-top-leaderboard {
+	margin: 0 -20px;
+}
+
+.bfaa-template .mobile-top-leaderboard {
+	left: 0;
 	position: absolute;
 	top: 0;
 	width: 100%;
@@ -34,6 +37,15 @@ $ad-background: rgb(44, 52, 61);
 	.ad-slot {
 		background: none;
 		padding: 0;
+		position: relative;
+
+		iframe {
+			height: 100%;
+			left: 0;
+			position: absolute;
+			width: 100%;
+			top: 0;
+		}
 	}
 }
 
@@ -42,12 +54,22 @@ $ad-background: rgb(44, 52, 61);
 		padding: 10px 0;
 	}
 
-	&.bfab-template .ad-slot {
+	.bfab-template {
 		padding: 0;
+		position: relative;
+
+		iframe {
+			height: 100%;
+			left: 0;
+			position: absolute;
+			width: 100%;
+			top: 0;
+		}
 	}
 }
 
-.mobile-in-content, .mobile-prefooter {
+.mobile-in-content,
+.mobile-prefooter {
 	margin: 10px 0;
 	padding: 10px 0;
 }
@@ -58,10 +80,4 @@ $ad-background: rgb(44, 52, 61);
 
 .wikia-ad-iframe {
 	border: 0;
-}
-
-// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
-.article-content .mobile-top-leaderboard .ad-slot {
-	background: $white;
-	padding: 10px 0;
 }
