@@ -63,7 +63,7 @@ export default Route.extend({
 			this.refresh();
 		},
 
-		getFlaggedOnly() {
+		getRejectedOnly() {
 			window.scrollTo(0, 0);
 
 			this.set('status', 'REJECTED');
