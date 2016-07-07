@@ -76,7 +76,7 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 			if (oldCategoryIndex !== -1) {
 				categories.replace(oldCategoryIndex, 1, updatedCategory);
 			}
-		}).catch((err) => {
+		}).catch((/*err*/) => {
 			// assign inline error using category.set('error', <errorName>)
 		});
 	},
@@ -88,7 +88,7 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 
 		promisesList.pushObjects(
 			categories.filter((category) => {
-				return category.get('displayedName') !== category.get('name')
+				return category.get('displayedName') !== category.get('name');
 			}).map((category) => {
 				return this.renameCategory(category);
 			})
