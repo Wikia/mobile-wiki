@@ -13,13 +13,6 @@
     "image-context-not-provided":"Brak kontekstu",
     "status-accepted":"OK",
     "status-flagged":"Wątpliwy",
-    "status-rejected":"Usuń",
-    "table-date": "Data",
-    "table-action": "Czynność",
-    "table-user": "Użytkownik",
-    "table-status": "Status",
-    "table-undefined": "niedostępne",
-    "table-no-history": "brak historii",
-    "not-provided": "brak danych"
+    "status-rejected":"Usuń"
   }
 }
