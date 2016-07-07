@@ -12,8 +12,8 @@
 	}
 
 	.collapsable-container {
-		transition: max-height .6s;
 		overflow: hidden;
+		transition: max-height .6s;
 	}
 
 	&.collapsed {
