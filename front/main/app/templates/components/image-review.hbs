@@ -47,10 +47,10 @@
 		{{#if thumbnailModel.history}}
 			<table id="image-history">
 				<tr>
-					<td>{{i18n 'main.table-date' ns='image-review'}}</td>
-					<td>{{i18n 'main.table-action' ns='image-review'}}</td>
-					<td>{{i18n 'main.table-user' ns='image-review'}}</td>
-					<td>{{i18n 'main.table-status' ns='image-review'}}</td>
+					<td>{{i18n 'main.history-date' ns='image-review'}}</td>
+					<td>{{i18n 'main.history-action' ns='image-review'}}</td>
+					<td>{{i18n 'main.history-user' ns='image-review'}}</td>
+					<td>{{i18n 'main.history-status' ns='image-review'}}</td>
 				</tr>
 				{{#each thumbnailModel.history as |item| }}
 					<tr>
@@ -62,7 +62,7 @@
 				{{/each}}
 			</table>
 		{{else}}
-			<span>{{i18n 'main.table-no-history' ns='image-review'}}</span>
+			<span>{{i18n 'main.history-no-history' ns='image-review'}}</span>
 		{{/if}}
 	{{/modal-dialog}}
 

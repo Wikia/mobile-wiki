@@ -91,7 +91,7 @@ ImageReviewModel.reopenClass({
 				date: entry.date,
 				action: entry.action,
 				user: entry.user,
-				status: ( entry.status === undefined ? i18n.t('main.table-undefined', {ns: 'image-review'}) : entry.status)
+				status: ( entry.status === undefined ? i18n.t('main.history-undefined', {ns: 'image-review'}) : entry.status)
 			});
 		});
 		return tableContent;

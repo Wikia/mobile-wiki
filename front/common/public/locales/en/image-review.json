@@ -20,12 +20,12 @@
     "status-accepted": "OK",
     "status-flagged": "Q",
     "status-rejected": "REJ",
-    "table-date": "Date",
-    "table-action": "Action",
-    "table-user": "User",
-    "table-status": "Status",
-    "table-undefined": "not available",
-    "table-no-history": "no history",
+    "history-date": "Date",
+    "history-action": "Action",
+    "history-user": "User",
+    "history-status": "Status",
+    "history-undefined": "Not available",
+    "history-no-history": "No history",
     "not-provided": "not provided"
   }
 }
