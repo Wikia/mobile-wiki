@@ -60,7 +60,7 @@
     "report-post": "Report Post",
     "report-reply": "Report Reply",
     "reported-content-filter-text": "Show Only Reported Content",
-    "moderation-filters-header": "Admin",
+    "moderation-filters-header": "Moderation",
     "reported-by-number-users": "__count__ users",
     "reported-by": "Reported by __reporterUserName__",
     "reported-by_plural": "Reported by __reportedByNumberUsers__",
