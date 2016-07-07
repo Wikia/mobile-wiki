@@ -33,6 +33,15 @@ export default Ember.Component.extend({
 	 */
 	useThemeColor: true,
 
+	/**
+	 * @property
+	 * @default false
+	 * @public
+	 *
+	 * Adds sort by query param to link.
+	 */
+	addSortByQueryParam: false,
+
 	discussionSort: Ember.inject.service(),
 
 	linkClasses: Ember.computed('useThemeColor', function () {
@@ -43,7 +52,7 @@ export default Ember.Component.extend({
 		return this.get('useThemeColor') ? this.get('themeArrowClasses') : this.get('defaultArrowClasses');
 	}),
 
-	discussionSortBy: Ember.computed('useThemeColor', function() {
-		return this.get('useThemeColor') ? null : this.get('discussionSort.sortBy');
+	discussionSortBy: Ember.computed('addSortByQueryParam', function() {
+		return this.get('addSortByQueryParam') ? this.get('discussionSort.sortBy') : null;
 	})
 });
