@@ -39,6 +39,15 @@ export default DiscussionEditorComponent.extend({
 	initializeStickyState() {},
 
 	/**
+	 * We don't need OG cards here
+	 *
+	 * @returns {void}
+	 */
+	handleOG() {},
+
+	setSize() {},
+
+	/**
 	 * Perform animations and logic after post creation
 	 * @returns {void}
 	 */
