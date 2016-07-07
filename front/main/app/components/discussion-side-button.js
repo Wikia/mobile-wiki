@@ -52,7 +52,7 @@ export default Ember.Component.extend({
 		return this.get('useThemeColor') ? this.get('themeArrowClasses') : this.get('defaultArrowClasses');
 	}),
 
-	discussionSortBy: Ember.computed('addSortByQueryParam', function() {
+	discussionSortBy: Ember.computed('addSortByQueryParam', function () {
 		return this.get('addSortByQueryParam') ? this.get('discussionSort.sortBy') : null;
 	})
 });
