@@ -110,7 +110,7 @@ export default Ember.Component.extend(
 				this.get('localCategories.length') > this.get('visibleCategoriesCount');
 		}),
 
-		collapsableCallback(collapsed) {
+		onCollapseChanged(collapsed) {
 			track(collapsed ? trackActions.CategoriesUncollapsed : trackActions.CategoriesCollapsed);
 		},
 

@@ -4,13 +4,13 @@ export default Ember.Mixin.create({
 	collapsed: false,
 
 	/**
-	 * This should be overwritten where the mixin is used and when the additional action is needed (e.g specific
+	 * This could be overwritten where the mixin is used and when the additional action is needed (e.g specific
 	 * tracking).
-	 * Although it is no need of tracking so it doesn't throw an exception.
+	 * Although it is no need of overwriting it so it doesn't throw an exception.
 	 *
 	 * @returns {void}
 	 */
-	collapsableCallback() {},
+	onCollapseChanged() {},
 
 	actions: {
 		/**
@@ -21,7 +21,7 @@ export default Ember.Mixin.create({
 		collapsableToggle() {
 			const collapsed = this.get('collapsed');
 
-			this.collapsableCallback(collapsed);
+			this.onCollapseChanged(collapsed);
 
 			this.set('collapsed', !collapsed);
 
