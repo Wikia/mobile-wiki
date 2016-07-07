@@ -1,7 +1,5 @@
 @import 'ads-floor';
 
-$ad-background: rgb(44, 52, 61);
-
 .ad-slot {
 	text-align: center;
 
@@ -19,11 +17,15 @@ $ad-background: rgb(44, 52, 61);
 }
 
 .mobile-top-leaderboard .ad-slot {
-	background: $ad-background;
 	min-height: 50px;
-	padding: 10px;
+	padding: 10px 0;
 	position: relative;
 	z-index: $z-ads-top-leaderboard;
+}
+
+// if mobile-top-leaderboard injected into article content - ignore articles default margins
+.article-content .mobile-top-leaderboard {
+	margin: 0 -20px;
 }
 
 .bfaa-template .mobile-top-leaderboard {
@@ -66,7 +68,8 @@ $ad-background: rgb(44, 52, 61);
 	}
 }
 
-.mobile-in-content, .mobile-prefooter {
+.mobile-in-content,
+.mobile-prefooter {
 	margin: 10px 0;
 	padding: 10px 0;
 }
