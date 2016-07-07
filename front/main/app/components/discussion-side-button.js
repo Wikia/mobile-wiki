@@ -22,6 +22,8 @@ export default Ember.Component.extend({
 	 */
 	themeArrowClasses: 'icon arrow-left fill-theme-color',
 
+	classNames: ['side-button-wrapper'],
+
 	/**
 	 * @property
 	 * @default true
@@ -41,7 +43,7 @@ export default Ember.Component.extend({
 		return this.get('useThemeColor') ? this.get('themeArrowClasses') : this.get('defaultArrowClasses');
 	}),
 
-	discussionSortBy: Ember.computed(function () {
-		return this.get('discussionSort.sortBy');
+	discussionSortBy: Ember.computed('useThemeColor', function() {
+		return this.get('useThemeColor') ? null : this.get('discussionSort.sortBy');
 	})
 });
