@@ -56,7 +56,7 @@
 							class=(concat 'discussion-categories-input' (if localCategory.error ' error' ''))
 							disabled=(equal localCategory.id wikiId)
 							maxlength=20
-							value=localCategory.name
+							value=localCategory.displayedName
 						}}
 						{{#unless localCategory.id}}
 							<a class="discussion-categories-edit-action-button" {{action 'deleteCategory' localCategory}}>

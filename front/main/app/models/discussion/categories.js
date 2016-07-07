@@ -62,10 +62,35 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 		});
 	},
 
+	renameCategory(category) {
+		return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/forums/${category.id}`), {
+			data: JSON.stringify({
+				name: category.get('displayedName'),
+			}),
+			method: 'POST',
+		}).then((categoryData) => {
+			const categories = this.get('categories'),
+				updatedCategory = DiscussionCategory.create(categoryData),
+				oldCategoryIndex = categories.indexOf(categories.find((cat) => cat.name === category.name));
+
+			if (oldCategoryIndex !== -1) {
+				categories.replace(oldCategoryIndex, 1, updatedCategory);
+			}
+		});
+	},
+
 	updateCategories(categories) {
 		const promisesList = categories.rejectBy('id').map((category) => {
 			return this.addCategory(category.get('name'));
 		});
+
+		promisesList.pushObjects(
+			categories.filter((category) => {
+				return category.get('displayedName') !== category.get('name')
+			}).map((category) => {
+				return this.renameCategory(category);
+			})
+		);
 
 		return Ember.RSVP.Promise.all(promisesList);
 	}
