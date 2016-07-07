@@ -45,6 +45,8 @@ export default DiscussionEditorComponent.extend({
 	 */
 	handleOG() {},
 
+	setSize() {},
+
 	/**
 	 * Perform animations and logic after post creation
 	 * @returns {void}

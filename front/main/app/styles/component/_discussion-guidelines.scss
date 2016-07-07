@@ -37,6 +37,12 @@
 	}
 }
 
+.guidelines-editor {
+	.editor-textarea-wrapper {
+		height: 100%;
+	}
+}
+
 @media #{$desktop-range} {
 	.guidelines-page {
 		margin: 35px 130px;
