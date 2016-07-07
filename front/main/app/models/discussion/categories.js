@@ -76,6 +76,8 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 			if (oldCategoryIndex !== -1) {
 				categories.replace(oldCategoryIndex, 1, updatedCategory);
 			}
+		}).catch((err) => {
+			// assign inline error using category.set('error', <errorName>)
 		});
 	},
 
