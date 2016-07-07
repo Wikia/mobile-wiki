@@ -6,6 +6,7 @@ export default Ember.Mixin.create({
 	adsData: {
 		minZerothSectionLength: 700,
 		minPageLength: 2000,
+		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
 
@@ -141,27 +142,38 @@ export default Ember.Mixin.create({
 	injectAds() {
 		const $firstSection = this.$().children('h2').first(),
 			$articleBody = $('.article-body'),
+			$pi = $('.portable-infobox'),
+			$pageHeader = $('.wiki-page-header'),
+			adsData = this.get('adsData'),
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			articleBodyHeight = $articleBody.height(),
 
-			showInContent = firstSectionTop > this.adsData.minZerothSectionLength,
-			showPreFooter = !showInContent || articleBodyHeight > this.adsData.minPageLength,
-			showMoreInContentAds = this.adsData.moreInContentAds.enabled &&
-				articleBodyHeight > this.adsData.moreInContentAds.minPageLength;
+			showInContent = firstSectionTop > adsData.minZerothSectionLength,
+			showPreFooter = !showInContent || articleBodyHeight > adsData.minPageLength,
+			showMoreInContentAds = adsData.moreInContentAds.enabled &&
+				articleBodyHeight > adsData.moreInContentAds.minPageLength;
 
 		this.clearAdViews();
 
+		if ($pi.length) {
+			// inject top mobileTopLeaderBoard below infobox
+			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pi.first());
+		} else if ($pageHeader.length) {
+			// inject top mobileTopLeaderBoard below article header
+			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pageHeader.first());
+		}
+
 		if (showInContent) {
-			this.appendAd(this.adsData.mobileInContent, 'before', $firstSection);
+			this.appendAd(adsData.mobileInContent, 'before', $firstSection);
 		}
 
 		if (showPreFooter) {
-			this.appendAd(this.adsData.mobilePreFooter, 'after', $articleBody);
+			this.appendAd(adsData.mobilePreFooter, 'after', $articleBody);
 		}
 
 		if (showMoreInContentAds) {
 			this.injectMoreInContentAds();
-		} else if (this.adsData.moreInContentAds.enabled) {
+		} else if (adsData.moreInContentAds.enabled) {
 			Ember.Logger.info(`The page is not long enough for extra in content ads: ${articleBodyHeight}`);
 		}
 	},
