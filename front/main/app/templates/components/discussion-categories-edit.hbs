@@ -41,34 +41,38 @@
 					}}
 				</span>
 			</li>
-			{{#each localCategories as |localCategory|}}
-				<li>
-					<span class="discussion-categories-input-wrapper">
-						{{#if (equal localCategory.id wikiId)}}
-							{{svg 'lock' viewBox='0 0 18 18' class='icon lock'}}
-						{{else}}
-							{{wikia-ui-components/fancy-check-box
-								disabled=true
-							}}
-						{{/if}}
-						{{!TODO use flag instead of equal when backend starts providing it}}
-						{{input
-							class=(concat 'discussion-categories-input' (if localCategory.error ' error' ''))
-							disabled=(equal localCategory.id wikiId)
-							maxlength=20
-							value=localCategory.name
-						}}
-						{{#unless localCategory.id}}
-							<a class="discussion-categories-edit-action-button" {{action 'deleteCategory' localCategory}}>
-								{{svg 'close' class='icon close'}}
-							</a>
-						{{/unless}}
-					</span>
-					{{#if localCategory.error}}
-						<span class="error">{{localCategory.error}}</span>
-					{{/if}}
-				</li>
-			{{/each}}
+			{{#sortable-objects sortableObjectList=localCategories enableSort=true}}
+				{{#each localCategories as |localCategory|}}
+					{{#draggable-object content=localCategory isSortable=true dragStartAction='onReorderStarted' dragEndAction='onReorderFinished'}}
+						<li>
+							<span class="discussion-categories-input-wrapper">
+								{{#if (equal localCategory.id wikiId)}}
+									{{svg 'lock' viewBox='0 0 18 18' class='icon lock'}}
+								{{else}}
+									{{wikia-ui-components/fancy-check-box
+										disabled=true
+									}}
+								{{/if}}
+								{{!TODO use flag instead of equal when backend starts providing it}}
+								{{input
+									class=(concat 'discussion-categories-input' (if localCategory.error ' error' ''))
+									disabled=(equal localCategory.id wikiId)
+									maxlength=20
+									value=localCategory.name
+								}}
+								{{#unless localCategory.id}}
+									<a class="discussion-categories-edit-action-button" {{action 'deleteCategory' localCategory}}>
+										{{svg 'close' class='icon close'}}
+									</a>
+								{{/unless}}
+							</span>
+							{{#if localCategory.error}}
+								<span class="error">{{localCategory.error}}</span>
+							{{/if}}
+						</li>
+					{{/draggable-object}}
+				{{/each}}
+			{{/sortable-objects}}
 		</ul>
 	</div>
 	<a class="discussion-categories-edit-add-link active-element-theme-color {{if addDisabled 'active-element-disabled-theme-color'}}" {{action 'addCategory'}}>

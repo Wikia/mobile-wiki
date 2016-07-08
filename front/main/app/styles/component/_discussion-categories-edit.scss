@@ -1,6 +1,10 @@
 $success-icon-size: 80px;
 
 .discussion-categories-edit {
+	&.reorder-in-progress {
+		cursor: pointer;
+	}
+
 	.discussion-categories-list-container {
 		clear:left;
 		margin: 0;
