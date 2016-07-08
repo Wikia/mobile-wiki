@@ -1,18 +1,26 @@
 {{#modal-dialog
 	class='is-bare is-desktop-centered discussion-editor-dialog'
 	closeOnOverlayClick=false
-	isVisible=editEditorActive
+	isVisible=editEditorState.isOpen
 }}
-	{{discussion-edit-editor
+	{{discussion-standalone-editor
+		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
+		errorMessage=editEditorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
+		isActive=editEditorState.isOpen
+		isEdit=true
+		isLoading=editEditorState.isLoading
+		setEditorActive=(action 'setEditorActive')
 	}}
 {{/modal-dialog}}
 
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
+	hasNewPostButton=false
 	model=model.data
+	setEditorActive=(action 'setEditorActive')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')
@@ -31,6 +39,8 @@
 		postsDisplayed=model.data.entities.length
 		report=(action 'report')
 		totalPosts=model.data.postCount
+		openEditEditor=(action 'openEditEditor')
+		setEditorActive=(action 'setEditorActive')
 		undeletePost=(action 'undeletePost')
 		undeleteReply=(action 'undeleteReply')
 		unlockPost=(action 'unlockPost')

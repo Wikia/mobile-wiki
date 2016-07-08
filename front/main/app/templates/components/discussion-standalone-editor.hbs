@@ -2,17 +2,18 @@
 	<a href="#" class="editor-close" {{action 'close'}}>
 		{{svg 'close' class="fill-theme-color" viewBox='0 0 18 18'}}
 	</a>
-	<button class="active-element-theme-color" type="submit" {{action 'submit' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
+	<button class="active-element-theme-color discussion-standalone-editor-button" type="submit" {{action 'submit'}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
 </div>
 
-<label class="discussion-standalone-editor-label" for="discussion-standalone-editor-textarea">
+<label class="discussion-standalone-editor-label" for="{{textAreaId}}">
 	{{i18n labelMessageKey ns='discussion'}}
 </label>
-<div class="discussion-standalone-content-wrapper">
+<div class="discussion-standalone-content-wrapper" {{action 'focusTextarea'}}>
 	{{textarea
 		autoresize=true
 		class="discussion-standalone-editor-textarea"
-		id="discussion-standalone-editor-textarea"
+		keyPress=(action 'handleKeyPress')
+		id=textAreaId
 		placeholder=(i18n placeholderMessageKey ns='discussion')
 		value=content
 	}}
@@ -39,4 +40,8 @@
 	</div>
 {{/if}}
 
-{{! TODO error state}}
+{{#if errorMessage}}
+	<span class="error">
+		{{i18n errorMessage ns='discussion'}}
+	</span>
+{{/if}}

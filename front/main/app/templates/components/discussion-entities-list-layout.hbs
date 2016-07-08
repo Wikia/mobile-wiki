@@ -4,8 +4,9 @@
 		canModerate=model.canModerate
 		hasFilters=true
 		hasContentError=hasContentError
-		hasNewPostButton=true
+		hasNewPostButton=hasNewPostButton
 		hasSiteName=true
+		setEditorActive=(action this.attrs.setEditorActive)
 		smartBannerVisible=smartBannerVisible
 	}}
 {{/ember-wormhole}}
@@ -17,8 +18,6 @@
 	isConfirm=isConfirm
 	isVisible=shouldShowDialogMessage
 }}
-{{discussion-standalone-editor}}
-
 <div class="site-body-discussion post-list-view">
 	{{discussion-hero-unit
 		contributors=model.contributors

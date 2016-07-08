@@ -1,120 +1,47 @@
-
 import Ember from 'ember';
 
-import OpenGraph from '../models/discussion/domain/open-graph';
+import DiscussionEditor from './discussion-editor';
+import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
+import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 
-export default Ember.Component.extend({
-	attributeBindings: ['style'],
-	classNames: ['discussion-inline-editor'],
-	classNameBindings: ['isSticky'],
-	tagName: 'form',
+export default DiscussionEditor.extend(
+	DiscussionEditorOpengraph,
+	DiscussionEditorConfiguration,
+	{
+		attributeBindings: ['style'],
+		classNames: ['discussion-inline-editor'],
+		classNameBindings: ['isSticky', 'isActive'],
+		tagName: 'form',
 
-	currentUser: Ember.inject.service(),
+		currentUser: Ember.inject.service(),
 
-	labelMessageKey: 'TODO',
-	placeholderMessageKey: 'TODO',
-	submitMessageKey: 'TODO',
+		isActive: false,
+		isSticky: false,
 
-	content: '',
-	openGraph: OpenGraph.create({
-		description: 'Some description',
-		domain: 'glee.wikia.com',
-		exists: true,
-		id: 2702253634848394020,
-		imageHeight: 348,
-		imageUrl: 'http://static.wikia.nocookie.net/41741229-ae55-4879-8b78-7de8ad69061d',
-		imageWidth: 464,
-		siteId: 26337,
-		siteName: '@Wikia',
-		title: 'Glee TV Show Wiki',
-		type: 'website',
-		url: 'http://glee.wikia.com/wiki/Glee_TV_Show_Wiki',
-	}),
+		layoutName: 'components/discussion-inline-editor',
 
-	isSticky: false,
-	submitDisabled: false,
-	showSuccess: false,
-	isLoading: false,
-	showsOpenGraphCard: true,
-	isOpenGraphLoading: false,
+		click() {
+			this.sendAction('setEditorActive', 'contributeEditor', true);
+		},
 
-	/**
-	 * Set right height for editor placeholder when editor gets sticky
-	 *
-	 * @returns {Ember.String.htmlSafe}
-	 */
-	style: Ember.computed('isSticky', function () {
-		if (this.get('isSticky')) {
-			const editorHeight = this.$('.discussion-inline-editor-floating-container').outerHeight(true);
+		actions: {
+			submit() {
+				if (!this.get('submitDisabled')) {
+					const newDiscussionEntityData = {
+						body: this.get('content'),
+						creatorId: this.get('currentUser.userId'),
+						siteId: Mercury.wiki.id,
+					};
 
-			return Ember.String.htmlSafe(`height: ${editorHeight}px`);
-		}
+					if (this.get('showsOpenGraphCard')) {
+						newDiscussionEntityData.openGraph = {
+							uri: this.get('openGraph.href')
+						};
+					}
 
-		return null;
-	}),
-
-	/**
-	 * @returns {void}
-	 */
-	onScroll() {
-		Ember.run.throttle(
-			this,
-			function () {
-				// It is important to fire the set method only when it's necessary,
-				// because it has performance implications
-				if (!this.get('isSticky') && this.isStickyBreakpointHeight()) {
-					this.set('isSticky', true);
-				} else if (this.get('isSticky') && !this.isStickyBreakpointHeight()) {
-					this.set('isSticky', false);
+					this.get('create')(newDiscussionEntityData);
 				}
 			},
-			25
-		);
-	},
-
-	/**
-	 * Indicates if the scroll position reached a point where editor should start sticking
-	 * @returns {boolean}
-	 */
-	isStickyBreakpointHeight() {
-		return window.pageYOffset >= this.get('offsetTop') - this.get('siteHeadHeight');
-	},
-
-	didInsertElement() {
-		this._super(...arguments);
-		this.initializeStickyState();
-	},
-
-	willDestroyElement() {
-		Ember.$(window).off('scroll.editor', this.onScroll.bind(this));
-	},
-
-	/**
-	 * Initialize onScroll binding for sticky logic
-	 * @returns {void}
-	 */
-	initializeStickyState() {
-		this.setProperties({
-			isSticky: false,
-			offsetTop: this.$().offset().top,
-			siteHeadHeight: Ember.$('.site-head').outerHeight(true),
-		});
-
-		Ember.$(window).on('scroll.editor', this.onScroll.bind(this));
-	},
-
-	actions: {
-		close() {
-
-		},
-		submit() {
-
-		},
-		removeOpenGraph() {
-
-		},
-		handleKeyPress() {
-
 		}
 	}
-});
+);

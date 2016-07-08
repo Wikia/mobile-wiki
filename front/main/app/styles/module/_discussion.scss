@@ -300,6 +300,10 @@ body.discussions {
 			padding-top: 0;
 		}
 
+		&.is-new {
+			animation: post-hide 2s linear 1, post-fade-in 1s ease-in-out 2s 1;
+		}
+
 		.loading-overlay {
 			height: 100%;
 			position: absolute;
@@ -502,14 +506,9 @@ body.discussions {
 	.post-detail {
 		background-color: $discussion-desktop-post-detail-bg-color;
 		padding: 12px 0 0;
-		transition: opacity 1s;
 
 		.timestamp {
 			font-size: $type-smallest;
-		}
-
-		&.is-new {
-			opacity: 0;
 		}
 
 		&.is-locked {
@@ -520,14 +519,6 @@ body.discussions {
 					fill: $discussion-locked-post-replies-color;
 				}
 			}
-		}
-	}
-
-	.post-reply {
-		transition: opacity 1s;
-
-		&.is-new{
-			opacity: 0;
 		}
 	}
 
@@ -597,6 +588,16 @@ body.discussions {
 	.timestamp {
 		color: $discussion-timestamp-color;
 		font-weight: bold;
+	}
+
+	.discussion-editor-label {
+		font-size: $type-min;
+		font-weight: $font-weight-bold;
+		padding: 15px 15px 5px;
+	}
+
+	.post-reply ~ .discussion-editor-label {
+		border-top: 1px solid $discussion-post-detail-border-color;
 	}
 
 	&.forum {
@@ -772,5 +773,33 @@ body.discussions {
 			padding-left: 18px;
 			padding-right: 18px;
 		}
+	}
+}
+
+@keyframes post-hide {
+	from {
+		height: 0;
+		margin: 0;
+		opacity: 0;
+		overflow: hidden;
+		padding: 0;
+	}
+
+	to {
+		height: 0;
+		margin: 0;
+		opacity: 0;
+		overflow: hidden;
+		padding: 0;
+	}
+}
+
+@keyframes post-fade-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
 	}
 }

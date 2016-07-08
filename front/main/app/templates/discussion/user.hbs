@@ -1,12 +1,18 @@
 {{#modal-dialog
 	class='is-bare is-desktop-centered discussion-editor-dialog'
 	closeOnOverlayClick=false
-	isVisible=editEditorActive
+	isVisible=editEditorState.isOpen
 }}
-	{{discussion-edit-editor
+	{{discussion-standalone-editor
+		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
+		errorMessage=editEditorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
+		isActive=editEditorState.isOpen
+		isEdit=true
+		isLoading=editEditorState.isLoading
+		setEditorActive=(action 'setEditorActive')
 	}}
 {{/modal-dialog}}
 
@@ -29,6 +35,8 @@
 		pageNum=model.data.pageNum
 		posts=model.data.entities
 		postsDisplayed=model.data.entities.length
+		openEditEditor=(action 'openEditEditor')
+		setEditorActive=(action 'setEditorActive')
 		totalPosts=model.data.postCount
 		unlockPost=(action 'unlockPost')
 	}}

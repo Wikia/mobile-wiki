@@ -1,16 +1,37 @@
+{{#if responsive.isMobile}}
+	{{discussion-standalone-editor
+		create=(action 'createPost')
+		errorMessage=editorState.errorMessage
+		generateOpenGraph=(route-action 'generateOpenGraph')
+		isActive=editorState.isOpen
+		isLoading=editorState.isLoading
+		isVisible=editorState.isOpen
+		setEditorActive=(action 'setEditorActive')
+	}}
+{{/if}}
+
 {{#modal-dialog
 	class='is-bare is-desktop-centered discussion-editor-dialog'
 	closeOnOverlayClick=false
-	isVisible=editEditorActive
+	isVisible=editEditorState.isOpen
 }}
-	{{discussion-edit-editor
+	{{discussion-standalone-editor
+		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
+		editReply=(action 'editReply')
+		errorMessage=editEditorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
+		isActive=editEditorState.isOpen
+		isEdit=true
+		isLoading=editEditorState.isLoading
+		setEditorActive=(action 'setEditorActive')
 	}}
 {{/modal-dialog}}
+
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	model=model.data
+	setEditorActive=(action 'setEditorActive')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')
@@ -19,6 +40,7 @@
 		approve=(action 'approve')
 		createPost=(action 'createPost')
 		deletePost=(action 'deletePost')
+		editorState=editorState
 		editPost=(action 'editPost')
 		generateOpenGraph=(route-action 'generateOpenGraph')
 		loadPage=(action 'loadPage')
@@ -28,6 +50,8 @@
 		posts=model.data.entities
 		postsDisplayed=model.data.entities.length
 		report=(action 'report')
+		openEditEditor=(action 'openEditEditor')
+		setEditorActive=(action 'setEditorActive')
 		totalPosts=model.data.postCount
 		undeletePost=(action 'undeletePost')
 		upvote=(action 'upvote')

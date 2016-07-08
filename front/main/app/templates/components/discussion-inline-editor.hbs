@@ -1,5 +1,5 @@
 <div class="discussion-inline-editor-floating-container">
-	<div class="discussion-inline-editor-content-wrapper">
+	<div class="discussion-inline-editor-content-wrapper" {{action 'focusTextarea'}}>
 		<div class="discussion-inline-editor-textarea-wrapper">
 			{{user-avatar
 				avatarUrl=currentUser.avatarPath
@@ -8,6 +8,8 @@
 			{{textarea
 				autoresize=true
 				class="discussion-inline-editor-textarea"
+				focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
+				keyPress=(action 'handleKeyPress')
 				placeholder=(i18n placeholderMessageKey ns='discussion')
 				value=content
 			}}
@@ -37,5 +39,10 @@
 			{{svg 'success' class='success' viewBox='0 0 80 80'}}
 		</div>
 	{{/if}}
-	{{! TODO error state}}
+
+	{{#if errorMessage}}
+		<span class="error">
+			{{i18n errorMessage ns='discussion'}}
+		</span>
+	{{/if}}
 </div>
