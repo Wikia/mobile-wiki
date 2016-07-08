@@ -103,6 +103,10 @@ Router.map(function () {
 		this.route('user', {
 			path: '/u/:userId'
 		});
+
+		this.route('guidelines', {
+			path: '/g'
+		});
 	});
 
 	this.route('image-review');

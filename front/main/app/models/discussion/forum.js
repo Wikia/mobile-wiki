@@ -70,15 +70,17 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 DiscussionForumModel.reopenClass({
 	/**
 	 * @param {number} wikiId
+	 * @param {array|string} [cateogries=[]]
 	 * @param {string} [sortBy='trending']
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, sortBy = 'trending') {
+	find(wikiId, cateogries = [], sortBy = 'trending') {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const forumInstance = DiscussionForumModel.create({
 					wikiId
 				}),
 				requestData = {
+					forumId: cateogries instanceof Array ? cateogries : [cateogries],
 					limit: 10,
 					viewableOnly: false
 				};
@@ -88,7 +90,8 @@ DiscussionForumModel.reopenClass({
 			}
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/threads`), {
-				data: requestData
+				data: requestData,
+				traditional: true,
 			}).then((data) => {
 				forumInstance.setNormalizedData(data);
 
