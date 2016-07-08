@@ -1,0 +1,37 @@
+{{#ember-wormhole to="site-head-sub-header"}}
+	{{discussion-header
+		backToDiscussionsLinkTitle=''
+		canDeleteAll=false
+		deleteAllPosts=(action this.attrs.deleteAllPosts)
+		hasBackButton=true
+		hasFilters=false
+		hasNewPostButton=false
+		hasSiteName=true
+		showCategories=showCategories
+		siteName=pageTitle
+		smartBannerVisible=smartBannerVisible
+	}}
+{{/ember-wormhole}}
+{{discussion-dialog
+	confirmButtonText=confirmButtonText
+	confirmCallback=confirmCallback
+	dialogMessage=dialogMessage
+	headerText=dialogHeaderText
+	isConfirm=isConfirm
+	isVisible=shouldShowDialogMessage
+}}
+<div class="site-body-discussion standalone-page-view">
+	<div class="discussion-page row">
+		<div class="rail columns">
+			{{#link-to 'discussion' class="side-button back-button active-element-theme-color"}}
+				{{svg 'discussion-back-arrow' role='img' class='icon arrow-left fill-theme-color'}}
+				{{i18n 'main.back-to-discussions-standalone-link' ns='discussion'}}
+			{{/link-to}}
+		</div>
+		<div class="standalone-content small-12 large-9 columns">
+			{{yield}}
+		</div>
+		<div class="rail columns">
+		</div>
+	</div>
+</div>
