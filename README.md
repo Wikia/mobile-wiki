@@ -4,10 +4,10 @@
 ## Setup
 To begin your journey with Mercury all you need to do is:
 
-1. download repo
-1. use `npm run setup`
-1. use `npm run dev`
-1. start developing
+1. Download the repo. For devboxes, put it in `/usr/wikia/mercury`
+1. Use `npm run setup`
+1. Use `npm run dev`
+1. Start developing
 
 For most cases you don't need to modify your `localSettings.js`, but if you do, read [this](#localsettings) section.
 
