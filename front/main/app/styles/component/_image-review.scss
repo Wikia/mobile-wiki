@@ -3,7 +3,7 @@
 		float: left;
 		list-style: none;
 		margin: 0.5em;
-	  	height: 300px;
+		height: 300px;
 	}
 }
 
@@ -33,10 +33,14 @@
 }
 
 .modal-dialog {
-	table {
+	.image-history {
 		td {
 			padding: 5px;
 			border: 1px solid;
 		}
+	}
+
+	p {
+		margin: 8px;
 	}
 }
