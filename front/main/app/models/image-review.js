@@ -71,33 +71,13 @@ ImageReviewModel.reopenClass({
 					contractId,
 					context: image.context || '#',
 					status: 'accepted',
-					history: ImageReviewModel.prepareHistoryDom(image.imageHistory)
+					history: image.imageHistory
 				}));
 			}
 		});
 		return ImageReviewModel.create({images, contractId, imagesToReviewCount});
 	},
-
-	prepareHistoryDom(historyJson) {
-
-		if (Ember.isEmpty(historyJson)) {
-			return null;
-		}
-
-		let tableContent = [];
-
-		historyJson.forEach((entry) => {
-			tableContent.push({
-				date: entry.date,
-				action: entry.action,
-				user: entry.user,
-				status: (typeof entry.status === 'undefined' ? i18n.t('main.history-undefined', {ns: 'image-review'}) :
-					entry.status)
-			});
-		});
-		return tableContent;
-	},
-
+	
 	reviewImages(images) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const promises = images.map((item) => {
