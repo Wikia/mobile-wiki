@@ -77,7 +77,7 @@ ImageReviewModel.reopenClass({
 		});
 		return ImageReviewModel.create({images, contractId, imagesToReviewCount});
 	},
-	
+
 	reviewImages(images) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const promises = images.map((item) => {
