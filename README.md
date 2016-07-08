@@ -4,7 +4,7 @@
 ## Setup
 To begin your journey with Mercury all you need to do is:
 
-1. Download the repo. For devboxes, put it in `/usr/wikia/mercury`
+1. If you're developing locally, download the repo. On devboxes, it is already located at `/usr/wikia/mercury`
 1. Use `npm run setup`
 1. Use `npm run dev`
 1. Start developing
