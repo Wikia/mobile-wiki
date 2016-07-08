@@ -48,6 +48,7 @@
     "ember-cli-uglify": "1.2.0",
     "ember-derequire": "0.1.2",
     "ember-disable-proxy-controllers": "1.0.1",
+    "ember-drag-drop": "0.3.6",
     "ember-export-application-global": "1.0.5",
     "ember-getowner-polyfill": "1.0.0",
     "ember-in-viewport": "pauloslund/ember-in-viewport.git#347251dc727956c95d1f9f6b8c7c64c7da11cd34",
