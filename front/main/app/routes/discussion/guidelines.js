@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DiscussionBaseRoute from './base';
+import {track, trackActions} from '../../utils/discussion-tracker';
 
 export default DiscussionBaseRoute.extend({
 
@@ -33,6 +34,7 @@ export default DiscussionBaseRoute.extend({
 		saveGuidelines(text) {
 			this.modelFor('discussion').attributes.saveAttribute('guidelines', text).then(() => {
 				this.get('discussionEditEditor').trigger('newGuidelines');
+				track(trackActions.GuidelinesEditSave);
 			}).catch((err) => {
 				this.onContributionError(err, 'editor.save-error-general-error', true);
 			}).finally(() => {
