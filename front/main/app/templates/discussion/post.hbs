@@ -31,7 +31,7 @@
 
 {{#discussion-post-details-layout
 	deleteAllPosts=(action 'deleteAllPosts')
-	model=model.data
+	model=model.current.data
 	smartBannerVisible=smartBannerVisible
 }}
 	{{discussion-post
@@ -47,10 +47,11 @@
 		loadNewerReplies=(action 'loadNewerReplies')
 		loadOlderReplies=(action 'loadOlderReplies')
 		lockPost=(action 'lockPost')
-		model=model.data
-		report=(action 'report')
+		model=model.current.data
 		openEditEditor=(action 'openEditEditor')
+		report=(action 'report')
 		setEditorActive=(action 'setEditorActive')
+		showCategories=showCategories
 		undeletePost=(action 'undeletePost')
 		undeleteReply=(action 'undeleteReply')
 		unlockPost=(action 'unlockPost')

@@ -6,9 +6,9 @@
 			content=entity.rawContent
 			delete=(action this.attrs.deleteReply)
 			isParentDeleted=model.isDeleted
+			openEditEditor=(action this.attrs.openEditEditor)
 			post=entity
 			report=(action this.attrs.report)
-			openEditEditor=(action this.attrs.openEditEditor)
 			setEditorActive=(action this.attrs.setEditorActive)
 			showRepliedTo=true
 			timestamp=entity.creationTimestamp
@@ -23,11 +23,12 @@
 			author=entity.createdBy
 			delete=(action this.attrs.deletePost)
 			lock=(action this.attrs.lockPost)
-			post=entity
-			report=(action this.attrs.report)
-			replyCount=entity.repliesCount
 			openEditEditor=(action this.attrs.openEditEditor)
+			post=entity
+			replyCount=entity.repliesCount
+			report=(action this.attrs.report)
 			setEditorActive=(action this.attrs.setEditorActive)
+			showCategories=showCategories
 			undelete=(action this.attrs.undeletePost)
 			unlock=(action this.attrs.unlockPost)
 			upvote=(action this.attrs.upvote)

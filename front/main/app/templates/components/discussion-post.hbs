@@ -4,16 +4,17 @@
 	delete=(action this.attrs.deletePost)
 	isDetailsView=true
 	lock=(action this.attrs.lockPost)
+	openEditEditor=(action this.attrs.openEditEditor)
 	post=model
 	replyCount=model.repliesCount
 	report=(action this.attrs.report)
-	openEditEditor=(action this.attrs.openEditEditor)
 	setEditorActive=(action this.attrs.setEditorActive)
+	showCategories=showCategories
 	timestamp=model.creationTimestamp
 	undelete=(action this.attrs.undeletePost)
 	unlock=(action this.attrs.unlockPost)
-	upvoteCount=model.upvoteCount
 	upvote=(action this.attrs.upvote)
+	upvoteCount=model.upvoteCount
 }}
 
 {{#if model.replies}}

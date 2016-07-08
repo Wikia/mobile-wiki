@@ -27,11 +27,26 @@
 		setEditorActive=(action 'setEditorActive')
 	}}
 {{/modal-dialog}}
-
+{{#modal-dialog
+	class='is-bare is-desktop-centered discussion-guidelines'
+	closeOnOverlayClick=true
+	isVisible=areGuidelinesVisible
+}}
+	{{#if areGuidelinesVisible}}
+		{{discussion-guidelines
+			guidelinesText=model.index.attributes.data.guidelines.value
+		}}
+	{{/if}}
+{{/modal-dialog}}
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
-	model=model.data
+	attributes=model.index.attributes.data
+	categories=model.index.categories.data
+	model=model.current.data
+	openGuidelines=(action 'openGuidelines')
 	setEditorActive=(action 'setEditorActive')
+	showCategories=showCategories
+	updateCategories=(action 'updateCategories')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')
@@ -43,18 +58,20 @@
 		editorState=editorState
 		editPost=(action 'editPost')
 		generateOpenGraph=(route-action 'generateOpenGraph')
+		gotoGuidelines=(action 'gotoGuidelines')
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
-		minorError=model.data.minorError
-		pageNum=model.data.pageNum
-		posts=model.data.entities
-		postsDisplayed=model.data.entities.length
-		report=(action 'report')
+		minorError=model.current.data.minorError
 		openEditEditor=(action 'openEditEditor')
+		pageNum=model.current.data.pageNum
+		posts=model.current.data.entities
+		postsDisplayed=model.current.data.entities.length
+		report=(action 'report')
 		setEditorActive=(action 'setEditorActive')
-		totalPosts=model.data.postCount
+		showCategories=showCategories
+		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
-		upvote=(action 'upvote')
 		unlockPost=(action 'unlockPost')
+		upvote=(action 'upvote')
 	}}
 {{/discussion-entities-list-layout}}
