@@ -117,10 +117,20 @@ $discussion-filters-apply-button-background-color: #f6f6f6;
 $discussion-reported-details-header-border-color: #e6e6e6;
 $discussion-reported-details-list-border-color: #cccccc;
 
-$discussion-app-promotion-text-color: #333;
-$discussion-post-details-app-promotion-text-color: #999;
-$discussion-right-rail-line-color: #ccc;
+$discussion-standalone-content-background-color: #fff;
+$discussion-standalone-content-border-color: #ccc;
+$discussion-guidelines-text-color: #333;
+$discussion-guidelines-wiki-name-color: #333;
+$discussion-welcome-head-color: #333;
+$discussion-welcome-text-color: #666;
+$discussion-welcome-background-color: #fff;
+$discussion-welcome-close-color: #999;
+$discussion-welcome-sun-color: #fff;
 
+$discussion-post-details-app-promotion-text-color: #999;
+$discussion-app-promotion-text-color: #333;
+$discussion-right-rail-line-color: #ccc;
+$discussion-community-unit-link-color: #999;
 $app-promotion-text-color: #999;
 
 
@@ -208,6 +218,18 @@ $dark-discussion-category-header-color: $color-white;
 $dark-discussion-app-promotion-text-color: $color-white;
 $dark-discussion-post-details-app-promotion-text-color: $color-white;
 $dark-discussion-right-rail-line-color: #666;
+
+$dark-discussion-standalone-content-background-color: #262626;
+$dark-discussion-standalone-content-border-color: #333;
+
+$dark-discussion-guidelines-text-color: #ccc;
+$dark-discussion-guidelines-wiki-name-color: #fff;
+$dark-discussion-welcome-head-color: #fff;
+$dark-discussion-welcome-text-color: #ccc;
+$dark-discussion-welcome-background-color: #262626;
+$dark-discussion-welcome-close-color: #666;
+
+$dark-discussion-community-unit-link-color: #999;
 
 $wikia-ui-components-sub-head-height: 48px;
 $wikia-ui-components-sub-head-height-large: 66px;

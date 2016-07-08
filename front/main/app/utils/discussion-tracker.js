@@ -39,6 +39,13 @@ const trackActions = {
 	CategoriesUncollaped: 'CategoriesUncollaped',
 	CategoriesResetTapped: 'CategoriesResetTapped',
 	ReportDetailsModalOpen: 'ReportDetailsModalOpen',
+	GuidelinesLinkTapped: 'GuidelinesLinkTapped',
+	GuidelinesLinkWelcomeTapped: 'GuidelinesLinkWelcomeTapped',
+	GuidelinesEditClose: 'GuidelinesEditClose',
+	GuidelinesEditContent: 'GuidelinesEditContent',
+	GuidelinesEdit: 'GuidelinesEdit',
+	GuidelinesEditSave: 'GuidelinesEditSave',
+	WelcomeMessageClose: 'WelcomeMessageClose'
 };
 
 /**
@@ -53,7 +60,7 @@ function getGACategory() {
 /**
  * @param {string} action
  *
- * @returns {object}
+ * @returns {Object}
  */
 function getGAContext(action) {
 	return {

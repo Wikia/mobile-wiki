@@ -373,6 +373,40 @@ body.dark-theme {
 			}
 		}
 	}
+
+	.standalone-page-view {
+		.standalone-content {
+			background-color: $dark-discussion-standalone-content-background-color;
+		}
+	}
+
+	.guidelines-page {
+		.wiki-name {
+			color: $dark-discussion-guidelines-wiki-name-color;
+		}
+
+		.guidelines-text {
+			color: $dark-discussion-guidelines-text-color;
+		}
+	}
+
+	.discussion-welcome {
+		background-color: $dark-discussion-welcome-background-color;
+
+		.welcome-close {
+			svg {
+				fill: $dark-discussion-welcome-close-color;
+			}
+		}
+
+		h5 {
+			color: $dark-discussion-welcome-head-color;
+		}
+
+		p {
+			color: $dark-discussion-welcome-text-color;
+		}
+	}
 }
 
 @media #{$desktop-range} {
@@ -454,9 +488,22 @@ body.dark-theme {
 			}
 		}
 	}
+
+	.standalone-page-view {
+		.standalone-content {
+			border-color: $dark-discussion-standalone-content-border-color;
+		}
+	}
 }
 
 @media #{$mobile-range} {
+	body.discussions {
+		&.dark-theme {
+			&.standalone-page {
+				background-color: $dark-discussion-standalone-content-background-color;
+			}
+		}
+	}
 	.dark-theme {
 		.discussion {
 			.post-actions {
