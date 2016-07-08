@@ -46,28 +46,28 @@ test('test UAP listeners', (assert) => {
 	const testCases = [
 		{
 			eventName: 'wikia.uap',
-			uapListenersCount: 1,
+			callTwice: false,
 			uapCallbackCount: 1,
 			noUapCallbackCount: 0,
 			message: 'uap callback called once'
 		},
 		{
 			eventName: 'wikia.not_uap',
-			uapListenersCount: 1,
+			callTwice: false,
 			uapCallbackCount: 0,
 			noUapCallbackCount: 1,
 			message: 'no uap callback called once'
 		},
 		{
 			eventName: 'wikia.uap',
-			uapListenersCount: 2,
+			callTwice: true,
 			uapCallbackCount: 2,
 			noUapCallbackCount: 0,
 			message: 'uap callback called twice'
 		},
 		{
 			eventName: 'wikia.not_uap',
-			uapListenersCount: 2,
+			callTwice: true,
 			uapCallbackCount: 0,
 			noUapCallbackCount: 2,
 			message: 'no uap callback called twice'
@@ -80,11 +80,11 @@ test('test UAP listeners', (assert) => {
 			spyUap = sinon.spy(),
 			spyNoUap = sinon.spy();
 
-		ads.addUapListeners(spyUap, spyNoUap);
+		ads.waitForUapResponse(spyUap, spyNoUap);
 		window.dispatchEvent(new Event(testCase.eventName));
 
-		for (let i = 0; i < testCase.uapListenersCount - 1; i++) {
-			ads.addUapListeners(spyUap, spyNoUap);
+		if (testCase.callTwice) {
+			ads.waitForUapResponse(spyUap, spyNoUap);
 		}
 
 		assert.equal(testCase.uapCallbackCount, spyUap.callCount, testCase.message);
@@ -149,7 +149,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 		const component = this.subject();
 
 		component.setProperties(testCase.properties);
-		component.didInsertElementOverride();
+		component.onElementManualInsert();
 		component.didEnterViewport();
 		assert.equal(
 			require('common/modules/ads').default.getInstance().adSlots.length,

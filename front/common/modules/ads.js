@@ -110,7 +110,7 @@ class Ads {
 		});
 	}
 
-	addUapListeners(uapCallback, noUapCallback) {
+	waitForUapResponse(uapCallback, noUapCallback) {
 		if (!this.uapCalled) {
 			window.addEventListener('wikia.uap', () => {
 				this.uapCalled = true;

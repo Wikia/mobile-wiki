@@ -37,7 +37,7 @@ export default Component.extend(
 			}
 		}),
 
-		didInsertElementOverride: Ember.on('didInsertElement', function () {
+		onElementManualInsert: Ember.on('didInsertElement', function () {
 			const ads = Ads.getInstance(),
 				name = this.get('name');
 
@@ -50,7 +50,7 @@ export default Component.extend(
 				Logger.info('Injected ad', name);
 				ads.addSlot(name);
 			} else {
-				ads.addUapListeners(
+				ads.waitForUapResponse(
 					() => {},
 					() => {
 						Logger.info('Injected ad:', name);
@@ -80,7 +80,7 @@ export default Component.extend(
 			}
 
 			if (ads.getBtfSlots().indexOf(name) > -1) {
-				ads.addUapListeners(
+				ads.waitForUapResponse(
 					() => {
 						Logger.info('Injected ad on scroll:', name);
 						ads.pushSlotToQueue(name);

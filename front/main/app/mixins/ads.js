@@ -5,7 +5,7 @@ export default Ember.Mixin.create({
 	adsData: {
 		minZerothSectionLength: 700,
 		minPageLength: 2000,
-		mobileBottomleaderboard: 'MOBILE_BOTTOM_LEADERBOARD',
+		mobileBottomLeaderBoard: 'MOBILE_BOTTOM_LEADERBOARD',
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
 		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
@@ -59,7 +59,7 @@ export default Ember.Mixin.create({
 		this.adViews.push(componentElement);
 
 		componentElement.didInsertElement();
-		componentElement.didInsertElementOverride();
+		componentElement.onElementManualInsert();
 	},
 
 	/**
@@ -187,7 +187,7 @@ export default Ember.Mixin.create({
 		}
 
 		if ($wikiaFooter.length) {
-			this.appendAd(adsData.mobileBottomleaderboard, 'before', $wikiaFooter);
+			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', $wikiaFooter);
 		}
 	},
 
@@ -217,7 +217,7 @@ export default Ember.Mixin.create({
 		}
 
 		if ($wikiaFooter.length) {
-			this.appendAd(this.adsData.mobileBottomleaderboard, 'before', $wikiaFooter);
+			this.appendAd(this.adsData.mobileBottomLeaderBoard, 'before', $wikiaFooter);
 		}
 	},
 
