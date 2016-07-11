@@ -46,6 +46,8 @@ class Ads {
 		this.slotsQueue = [];
 		this.uapResult = false;
 		this.uapCalled = false;
+		this.uapCallbacks = [];
+		this.noUapCallbacks = [];
 		this.btfSlots = [
 			'MOBILE_IN_CONTENT',
 			'MOBILE_PREFOOTER',
@@ -111,20 +113,25 @@ class Ads {
 	}
 
 	waitForUapResponse(uapCallback, noUapCallback) {
-		if (!this.uapCalled) {
-			window.addEventListener('wikia.uap', () => {
+		const wrappedUapCallback = () => {
 				this.uapCalled = true;
 				this.uapResult = true;
 
 				uapCallback();
-			});
-
-			window.addEventListener('wikia.not_uap', () => {
+			},
+			wrappedNoUapCallback = () => {
 				this.uapCalled = true;
 				this.uapResult = false;
 
 				noUapCallback();
-			});
+			};
+
+		this.uapCallbacks.push(wrappedUapCallback);
+		this.noUapCallbacks.push(wrappedNoUapCallback);
+
+		if (!this.uapCalled) {
+			window.addEventListener('wikia.uap', wrappedUapCallback);
+			window.addEventListener('wikia.not_uap', wrappedNoUapCallback);
 		} else if (this.uapResult) {
 			uapCallback();
 		} else {
@@ -327,6 +334,15 @@ class Ads {
 
 		this.uapCalled = false;
 		this.uapResult = false;
+
+		this.uapCallbacks.forEach((callback) => {
+			window.removeEventListener('wikia.uap', callback);
+		});
+		this.uapCallbacks = [];
+		this.noUapCallbacks.forEach((callback) => {
+			window.removeEventListener('wikia.not_uap', callback);
+		});
+		this.noUapCallbacks = [];
 	}
 
 	/**
