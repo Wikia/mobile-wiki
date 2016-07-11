@@ -37,18 +37,18 @@ export default Ember.Mixin.create({
 		/**
 		 * Upvote discussion entity
 		 *
-		 * @param {object} entity
+		 * @param {Object} entity
 		 *
 		 * @returns {void}
 		 */
 		upvote(entity) {
-			this.modelFor(this.get('routeName')).upvote(entity);
+			this.modelFor(this.get('routeName')).current.upvote(entity);
 		},
 
 		/**
 		 * Applies sorting by date and attempts to create a new post
 		 *
-		 * @param {object} postData
+		 * @param {Object} postData
 		 *
 		 * @returns {void}
 		 */
@@ -56,7 +56,7 @@ export default Ember.Mixin.create({
 			this.setEditorError(null, false);
 
 			this.setSortBy('latest').promise.then(() => {
-				const model = this.modelFor(this.get('routeName'));
+				const model = this.modelFor(this.get('routeName')).current;
 
 				model.createPost(postData).then(() => {
 					this.get('discussionEditor').trigger('newPost');
@@ -71,12 +71,12 @@ export default Ember.Mixin.create({
 		/**
 		 * Attempt to edit a new post
 		 *
-		 * @param {object} postData
+		 * @param {Object} postData
 		 *
 		 * @returns {void}
 		 */
 		editPost(postData) {
-			const model = this.modelFor(this.get('routeName'));
+			const model = this.modelFor(this.get('routeName')).current;
 
 			this.setEditorError(null, true);
 
@@ -91,13 +91,13 @@ export default Ember.Mixin.create({
 
 		/**
 		 * Triggers new reply creation on a model
-		 * @param {object} replyData
+		 * @param {Object} replyData
 		 * @returns {void}
 		 */
 		createReply(replyData) {
 			this.setEditorError(null, false);
 
-			this.modelFor(this.get('routeName')).createReply(replyData).catch((err) => {
+			this.modelFor(this.get('routeName')).current.createReply(replyData).catch((err) => {
 				this.onContributionError(err, 'editor.reply-error-general-error', false);
 			}).finally(() => {
 				this.get('discussionEditor').set('isLoading', false);
@@ -106,11 +106,11 @@ export default Ember.Mixin.create({
 
 		/**
 		 * Triggers reply edit on a model
-		 * @param {object} replyData
+		 * @param {Object} replyData
 		 * @returns {void}
 		 */
 		editReply(replyData) {
-			const model = this.modelFor(this.get('routeName'));
+			const model = this.modelFor(this.get('routeName')).current;
 
 			this.setEditorError(null, true);
 
@@ -124,7 +124,7 @@ export default Ember.Mixin.create({
 		},
 
 		generateOpenGraph(uri) {
-			const model = this.modelFor(this.get('routeName'));
+			const model = this.modelFor(this.get('routeName')).current;
 
 			return model.generateOpenGraph(uri).then((openGraph) => {
 				return openGraph;

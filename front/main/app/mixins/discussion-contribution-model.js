@@ -8,7 +8,7 @@ import OpenGraph from '../models/discussion/domain/open-graph';
 export default Ember.Mixin.create({
 	/**
 	 * Create new post in Discussion Service
-	 * @param {object} postData
+	 * @param {Object} postData
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	createPost(postData) {
@@ -30,7 +30,7 @@ export default Ember.Mixin.create({
 
 	/**
 	 * Edit a post in discussion service
-	 * @param {object} postData
+	 * @param {Object} postData
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	editPost(postData) {
@@ -50,7 +50,7 @@ export default Ember.Mixin.create({
 
 	/**
 	 * Edit a reply in discussion service
-	 * @param {object} replyData
+	 * @param {Object} replyData
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	editReply(replyData) {
