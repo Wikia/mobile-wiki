@@ -63,8 +63,7 @@ ImageReviewModel.reopenClass({
 		const images = [];
 
 		rawData.forEach((image) => {
-			if (image.reviewStatus === 'UNREVIEWED' || image.reviewStatus === 'FLAGGED' ||
-				image.reviewStatus === 'REJECTED') {
+			if (['UNREVIEWED', 'FLAGGED', 'REJECTED'].indexOf(image.reviewStatus) !== -1) {
 				images.push(Ember.Object.create({
 					imageId: image.imageId,
 					fullSizeImageUrl: image.imageUrl,
@@ -75,6 +74,7 @@ ImageReviewModel.reopenClass({
 				}));
 			}
 		});
+
 		return ImageReviewModel.create({images, contractId, imagesToReviewCount});
 	},
 
