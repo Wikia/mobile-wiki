@@ -15,8 +15,6 @@ export default Ember.Mixin.create({
 	editEditorState: null,
 	guidelinesEditorState: null,
 
-
-
 	setEditorState: Ember.on('init', function () {
 		this.set('editorState', Ember.Object.create({
 			errorMessage: null,

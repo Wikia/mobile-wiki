@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import DiscussionBaseRoute from './base';
-import {track, trackActions} from '../../utils/discussion-tracker';
 
 export default DiscussionBaseRoute.extend({
 
