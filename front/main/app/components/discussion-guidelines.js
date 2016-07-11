@@ -14,13 +14,8 @@ export default Ember.Component.extend(
 
 		actions: {
 			openGuidelinesEditor() {
-				const discussionEditEditor = this.get('discussionEditEditor');
-
-				discussionEditEditor.set('guidelines', this.get('guidelines'));
-				discussionEditEditor.toggleEditor(true);
+				this.get('openGuidelinesEditor', this.get('guidelines'));
 			},
-
-			generateOpenGraph() {},
 		}
 	}
 );

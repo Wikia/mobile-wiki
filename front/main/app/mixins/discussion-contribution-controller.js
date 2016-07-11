@@ -10,6 +10,7 @@ export default Ember.Mixin.create({
 
 	editorState: null,
 	editEditorState: null,
+	guidelinesEditorState: null,
 
 	setEditorState: Ember.on('init', function () {
 		this.set('editorState', Ember.Object.create({
@@ -24,12 +25,19 @@ export default Ember.Mixin.create({
 			isOpen: false,
 			discussionEntity: null,
 		}));
+
+		this.set('guidelinesEditorState', Ember.Object.create({
+			errorMessage: null,
+			isLoading: false,
+			isOpen: false,
+			guidelines: null,
+		}));
 	}),
 
 	/**
 	 * Get object that contains editor state
 	 *
-	 * @param {string} editorType type of editor - available 'contributeEditor' and 'editEditor'
+	 * @param {string} editorType type of editor - available 'contributeEditor', 'editEditor' and 'guidelinesEditor'
 	 *
 	 * @returns {object}
 	 */
@@ -38,6 +46,8 @@ export default Ember.Mixin.create({
 			return this.get('editorState');
 		} else if (editorType === 'editEditor') {
 			return this.get('editEditorState');
+		} else if (editorType === 'guidelinesEditor') {
+			return this.get('guidelinesEditorState');
 		} else {
 			throw new Error(`Editor type not supported: ${editorType}`);
 		}
@@ -179,6 +189,21 @@ export default Ember.Mixin.create({
 		},
 
 		/**
+		 * Sets discussion entity for editor
+		 *
+		 * @param {DiscussionSiteAttribute} guidelines
+		 *
+		 * @returns {void}
+		 */
+		openGuidelinesEditor(guidelines) {
+			this.send('setEditorActive', 'guidelinesEditor', true);
+			Ember.run.scheduleOnce('afterRender', this, function () {
+				// set editor content after render so textarea autoresize can correctly calculate height
+				this.set('guidelinesEditorState.guidelines', guidelines);
+			});
+		},
+
+		/**
 		 * Upvote discussion entity
 		 *
 		 * @param {Object} post
@@ -252,6 +277,15 @@ export default Ember.Mixin.create({
 			}).finally(() => {
 				editorState.set('isLoading', false);
 			});
+		},
+
+		/**
+		 * This saves the new Guidelines.
+		 * @param {Object} text
+		 * @returns {void}
+		 */
+		saveGuidelines(text) {
+			this.get('target').send('saveGuidelines', text);
 		},
 	}
 });

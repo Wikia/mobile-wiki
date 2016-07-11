@@ -52,7 +52,16 @@ export default Ember.Mixin.create({
 			closeTrackingAction: trackActions.ReplyEditClose,
 			contentTrackingAction: trackActions.ReplyEditContent,
 			startTrackingAction: trackActions.ReplyEdit,
-		}
+		},
+		editGuidelines: {
+			closeTrackingAction: trackActions.GuidelinesEditClose,
+			contentTrackingAction: trackActions.GuidelinesEditContent,
+			labelMessageKey: 'editor.guidelines-editor-editor-label',
+			placeholderMessageKey: 'editor.guidelines-editor-placeholder-text',
+			startTrackingAction: trackActions.GuidelinesEdit,
+			submitMessageKey: 'editor.guidelines-editor-action-button-label',
+			titleMessageKey: 'editor.guidelines-editor-title',
+		},
 	}),
 
 	init() {
@@ -68,6 +77,9 @@ export default Ember.Mixin.create({
 			if (this.get('isReply')) {
 				// edit reply
 				this.setProperties(configurations.get('editReply'));
+			} else if (this.get('isGuidelinesEditor')) {
+				// maybe it a surprise, but: edit Guidelines
+				this.setProperties(configurations.get('editGuidelines'));
 			} else {
 				// edit post
 				this.setProperties(configurations.get('editPost'));
