@@ -17,6 +17,17 @@
 		padding: 26px;
 		width: 100%;
 		z-index: $z-2;
+
+		.image-history {
+			td {
+				padding: 5px;
+				border: 1px solid;
+			}
+		}
+
+		p {
+			margin: 8px;
+		}
 	}
 
 	.modal-dialog-layover {
