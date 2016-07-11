@@ -27,30 +27,30 @@
 		<img src="{{thumbnailModel.fullSizeImageUrl}}"/>
 		<p>
 			{{#if thumbnailModel.isContextProvided}}
-				{{#if thumbnailModel.isLink}}
-					<a href="{{thumbnailModel.context}}" target="_blank">
-						{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}}
+				{{#if thumbnailModel.isContextLink}}
+					<a href="{{thumbnailModel.data.context}}" target="_blank">
+						{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.data.context}}
 					</a>
 				{{else}}
-					{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}}
+					{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.data.context}}
 				{{/if}}
 			{{else}}
 				{{i18n 'main.image-context-not-provided' ns='image-review'}}
 			{{/if}}
 		</p>
-		<p>{{i18n 'main.image-name' ns='image-review'}} {{thumbnailModel.originalFilename}}</p>
+		<p>{{i18n 'main.image-name' ns='image-review'}} {{thumbnailModel.data.originalFilename}}</p>
 		<p>
 			{{i18n 'main.image-size' ns='image-review'}}
-			{{#if thumbnailModel.size}}
-				{{thumbnailModel.size}} {{i18n 'main.image-bytes' ns='image-review'}}
+			{{#if thumbnailModel.data.size}}
+				{{thumbnailModel.data.size}} {{i18n 'main.image-bytes' ns='image-review'}}
 			{{else}}
 				{{i18n 'main.not-provided' ns='image-review'}}
 			{{/if}}
 		</p>
 		<p>
 			{{i18n 'main.image-dimensions' ns='image-review'}}
-			{{#if thumbnailModel.dimensions}}
-				{{thumbnailModel.dimensions}}
+			{{#if thumbnailModel.data.dimensions}}
+				{{thumbnailModel.data.dimensions}}
 			{{else}}
 				{{i18n 'main.not-provided' ns='image-review'}}
 			{{/if}}
