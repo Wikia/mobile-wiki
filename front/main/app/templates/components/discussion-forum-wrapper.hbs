@@ -3,7 +3,9 @@
 	generateOpenGraph=(action this.attrs.generateOpenGraph)
 	posts=posts
 }}
-
+{{discussion-welcome
+	gotoGuidelines=(action this.attrs.gotoGuidelines)
+}}
 {{#each posts as |entity|}}
 	{{discussion-post-card-detail
 		approve=(action this.attrs.approve)
@@ -13,9 +15,10 @@
 		post=entity
 		replyCount=entity.repliesCount
 		report=(action this.attrs.report)
+		showCategories=showCategories
 		undelete=(action this.attrs.undeletePost)
-		upvote=(action this.attrs.upvote)
 		unlock=(action this.attrs.unlockPost)
+		upvote=(action this.attrs.upvote)
 	}}
 {{else}}
 	{{discussion-empty-forum-message}}

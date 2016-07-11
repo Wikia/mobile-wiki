@@ -77,7 +77,8 @@ export default Ember.Mixin.create({
 	 */
 	applyThemeColorStyles() {
 		const styleId = 'discussionInlineStyles';
-		let discussionHeaderColor,
+		let activeElementHoverColor,
+			discussionHeaderColor,
 			heroImageRgbColor,
 			inlineStyles,
 			styles = '';
@@ -93,6 +94,7 @@ export default Ember.Mixin.create({
 		}
 
 		heroImageRgbColor = tinycolor(this.get('themeColors.color-buttons')).setAlpha(0.8);
+		activeElementHoverColor = tinycolor(this.get('themeColors.color-links')).darken(20);
 		discussionHeaderColor = this.getHeaderColor(heroImageRgbColor);
 
 		styles += `.discussions .border-theme-color {border-color: ${this.get('themeColors.color-buttons')};}`;
@@ -107,7 +109,12 @@ export default Ember.Mixin.create({
 			this.get('themeColors.color-links')};}`;
 		styles += `.discussions .active-element-theme-color {color: ${this.get('themeColors.color-links')};}`;
 		styles += `.discussions .active-element-border-theme-color {border-color: ${this.get('themeColors.color-links')};}`;
+		styles += `.discussions .active-element-hover-theme-color:hover,
+			.discussions .active-element-hover-theme-color:focus {color: ${activeElementHoverColor};}`;
+		styles += `.discussions .active-element-hover-border-theme-color:hover,
+			.discussions .active-element-hover-border-theme-color:focus {border-color: ${activeElementHoverColor};}`;
 		styles += `.discussions .fill-theme-color {fill: ${this.get('themeColors.color-links')};}`;
+		styles += `.discussions .fill-button-color {fill: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .stroke-theme-color {stroke: ${this.get('themeColors.color-links')};}`;
 
 		inlineStyles = Ember.$('<style>').attr('id', styleId);
