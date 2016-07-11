@@ -10,6 +10,8 @@ export default DiscussionStandaloneEditor.extend(
 		editorType: 'guidelinesEditor',
 		guidelines: null,
 
+		layoutName: 'components/discussion-standalone-editor',
+
 		editGuidelinesObserver: Ember.observer('guidelines', function () {
 			const guidelines = this.get('guidelines');
 

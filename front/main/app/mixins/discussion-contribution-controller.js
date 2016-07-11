@@ -1,9 +1,12 @@
 import Ember from 'ember';
 import {isUnauthorizedError} from 'ember-ajax/errors';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Mixin.create({
 	currentUser: Ember.inject.service(),
 	modalDialog: Ember.inject.service(),
+	discussion: Ember.inject.controller(),
+
 
 	isAnon: Ember.computed.not('currentUser.isAuthenticated'),
 	isUserBlocked: false,
@@ -11,6 +14,8 @@ export default Ember.Mixin.create({
 	editorState: null,
 	editEditorState: null,
 	guidelinesEditorState: null,
+
+
 
 	setEditorState: Ember.on('init', function () {
 		this.set('editorState', Ember.Object.create({
@@ -291,7 +296,7 @@ export default Ember.Mixin.create({
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
 
-			this.modelFor('discussion').attributes.saveAttribute('guidelines', text).then(() => {
+			this.get('discussion.model').attributes.saveAttribute('guidelines', text).then(() => {
 				track(trackActions.GuidelinesEditSave);
 			}).catch((err) => {
 				this.onContributionError(err, 'editor.save-error-general-error', true);

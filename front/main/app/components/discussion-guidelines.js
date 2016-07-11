@@ -13,7 +13,7 @@ export default Ember.Component.extend(
 
 		actions: {
 			openGuidelinesEditor() {
-				this.get('openGuidelinesEditor', this.get('guidelines'));
+				this.sendAction('openGuidelinesEditor', this.get('guidelines'));
 			},
 		}
 	}
