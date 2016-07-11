@@ -27,17 +27,17 @@
 		setEditorActive=(action 'setEditorActive')
 	}}
 {{/modal-dialog}}
-{{#modal-dialog
-	class='is-bare is-desktop-centered discussion-guidelines'
-	closeOnOverlayClick=true
-	isVisible=areGuidelinesVisible
-}}
-	{{#if areGuidelinesVisible}}
+{{#if areGuidelinesVisible}}
+	{{#modal-dialog
+		class='is-bare is-desktop-centered discussion-guidelines'
+		closeOnOverlayClick=true
+		isVisible=areGuidelinesVisible
+	}}
 		{{discussion-guidelines
 			guidelinesText=model.index.attributes.data.guidelines.value
 		}}
-	{{/if}}
-{{/modal-dialog}}
+	{{/modal-dialog}}
+{{/if}}
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	attributes=model.index.attributes.data

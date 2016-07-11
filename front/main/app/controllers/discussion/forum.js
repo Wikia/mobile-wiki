@@ -12,6 +12,7 @@ export default DiscussionBaseController.extend(
 	ResponsiveMixin,
 	{
 		catId: [],
+		areGuidelinesVisible: false,
 
 		actions: {
 			createPost(entityData) {
@@ -26,6 +27,14 @@ export default DiscussionBaseController.extend(
 
 			gotoGuidelines() {
 				this.get('target').send('gotoGuidelines');
+			},
+
+			/**
+			 * This sets 'areGuidelinesVisible' property which results with Guidelines' modal open.
+			 * @returns {void}
+			 */
+			openGuidelines() {
+				this.set('areGuidelinesVisible', true);
 			},
 		}
 	},

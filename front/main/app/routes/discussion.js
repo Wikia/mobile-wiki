@@ -4,8 +4,6 @@ import DiscussionModel from '../models/discussion';
 import DiscussionSiteAttributesModel from '../models/discussion/site-attributes';
 
 export default Ember.Route.extend({
-	discussionEditEditor: Ember.inject.service(),
-
 	model() {
 		return Ember.RSVP.hash({
 			categories: DiscussionModel.getCategories(Mercury.wiki.id),

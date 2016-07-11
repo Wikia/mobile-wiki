@@ -7,7 +7,6 @@ export default Ember.Component.extend(
 		canEdit: Ember.computed.and('currentUser.isAuthenticated', 'guidelines.permissions.canEdit'),
 		content: Ember.computed.alias('guidelines.value'),
 		currentUser: Ember.inject.service(),
-		discussionEditEditor: Ember.inject.service(),
 		shouldActivateLinks: true,
 		shouldTruncateContent: false,
 		wikiName: Ember.get(Mercury, 'wiki.siteName'),

@@ -285,7 +285,19 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		saveGuidelines(text) {
-			this.get('target').send('saveGuidelines', text);
+			const editorType = 'guidelinesEditor',
+				editorState = this.getEditorState(editorType);
+
+			editorState.set('isLoading', true);
+			this.setEditorError(editorType, null);
+
+			this.modelFor('discussion').attributes.saveAttribute('guidelines', text).then(() => {
+				track(trackActions.GuidelinesEditSave);
+			}).catch((err) => {
+				this.onContributionError(err, 'editor.save-error-general-error', true);
+			}).finally(() => {
+				editorState.set('isLoading', false);
+			});
 		},
 	}
 });
