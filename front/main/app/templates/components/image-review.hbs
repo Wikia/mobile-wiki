@@ -1,8 +1,7 @@
 {{#if model.showSubHeader}}
 	<header class="sub-head">
 		<a {{action this.attrs.openMainPage}} class="sub-head--cancel">{{svg 'back-arrow' role='img' class='icon'}}</a>
-		<button {{action this.attrs.reviewAndGetMoreImages}}
-				class="sub-head--done">
+		<button {{action this.attrs.reviewAndGetMoreImages}} class="sub-head--done">
 			{{i18n 'main.review-and-get-more' ns='image-review'}}
 		</button>
 		<div class="sub-head--title">
@@ -41,17 +40,19 @@
 		</p>
 		<p>{{i18n 'main.image-name' ns='image-review'}} {{thumbnailModel.originalFilename}}</p>
 		<p>
+			{{i18n 'main.image-size' ns='image-review'}}
 			{{#if thumbnailModel.size}}
-				{{i18n 'main.image-size' ns='image-review'}} {{thumbnailModel.size}} {{i18n 'main.image-bytes' ns='image-review'}}
+				{{thumbnailModel.size}} {{i18n 'main.image-bytes' ns='image-review'}}
 			{{else}}
-				{{i18n 'main.image-size' ns='image-review'}} {{i18n 'main.not-provided' ns='image-review'}}
+				{{i18n 'main.not-provided' ns='image-review'}}
 			{{/if}}
 		</p>
 		<p>
+			{{i18n 'main.image-dimensions' ns='image-review'}}
 			{{#if thumbnailModel.dimensions}}
-				{{i18n 'main.image-dimensions' ns='image-review'}} {{thumbnailModel.dimensions}}
+				{{thumbnailModel.dimensions}}
 			{{else}}
-				{{i18n 'main.image-dimensions' ns='image-review'}} {{i18n 'main.not-provided' ns='image-review'}}
+				{{i18n 'main.not-provided' ns='image-review'}}
 			{{/if}}
 		</p>
 		{{#if thumbnailModel.history}}
@@ -62,7 +63,7 @@
 					<td>{{i18n 'main.history-user' ns='image-review'}}</td>
 					<td>{{i18n 'main.history-status' ns='image-review'}}</td>
 				</tr>
-				{{#each thumbnailModel.history as |item| }}
+				{{#each thumbnailModel.history as |item|}}
 					<tr>
 						<td>{{item.date}}</td>
 						<td>{{item.action}}</td>
