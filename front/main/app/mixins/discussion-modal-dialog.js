@@ -15,8 +15,8 @@ export default Ember.Mixin.create({
 	 * this is the place that notifies services about a creation error
 	 * @returns {void}
 	 */
-	dialogMessageObserver: Ember.observer('model.dialogMessage', function () {
-		const modelError = this.get('model.dialogMessage');
+	dialogMessageObserver: Ember.observer('model.current.dialogMessage', function () {
+		const modelError = this.get('model.current.dialogMessage');
 
 		if (modelError) {
 			this.get('modalDialog').display(i18n.t(modelError, {ns: 'discussion'}));

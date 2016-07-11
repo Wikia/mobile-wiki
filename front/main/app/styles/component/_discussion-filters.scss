@@ -1,34 +1,68 @@
 $sort-label-height: 48px;
 $legend-font-size: 16px;
 
+.discussions {
+	.discussion-header {
+		.filters-popover {
+			.pop-over-container {
+				padding: 0;
+			}
+		}
+	}
+}
+
+
+.discussion-filter-header {
+	border-bottom: 1px solid $discussion-rail-separator-color;
+	font-size: $type-smaller;
+	font-weight: normal;
+	margin-bottom: 12px;
+
+	a {
+		float: right;
+		font-size: $type-min;
+		text-transform: uppercase;
+	}
+
+	.rail & {
+		margin-top: 24px;
+	}
+}
+
+.discussion-filters-fields-wrapper {
+	max-height: 280px;
+	overflow: auto;
+	padding: 11px 20px 0;
+}
+
 .discussion-filters {
 	display: block;
-	width: 280px;
+	width: 320px;
 
 	.filters-apply-container {
-		float: right;
-		position: absolute;
 		right: 18px;
+		width: 100%;
 	}
 
 	.filters-apply {
-		background: none;
+		background: $discussion-filters-apply-button-background-color;
 		border: none;
+		box-shadow: 0 -1px 10px 0 rgba(0, 0, 0, 0.2);
 		color: inherit;
-		float: right;
 		font-size: $legend-font-size;
 		font-weight: bold;
 		height: auto;
 		line-height: $line-height-smallest;
 		margin: 0;
 		outline: none;
-		padding: 0;
-		text-transform: none;
+		padding: 18px 14px 14px;
+		text-align: center;
+		width: 100%;
 
 		&:hover,
 		&:active,
 		&:focus {
-			background: none;
+			background: $discussion-filters-apply-button-background-color;
 			color: inherit;
 		}
 	}
@@ -40,21 +74,36 @@ $legend-font-size: 16px;
 		line-height: $line-height-smallest;
 	}
 
-	fieldset {
-		border: none;
-		margin: 0;
-		padding: 0;
-		width: 100%;
+	.discussion-categories {
+		svg {
+			fill: $discussion-categories-chevron-color;
+		}
+	}
 
+	.discussion-fieldset {
 		&:disabled {
-			.sort-trending {
-				pointer-events: none;
+			pointer-events: none;
 
+			.sort-trending {
+				label {
+					color: $discussion-filter-inactive-color;
+				}
+			}
+
+			&.discussion-categories {
 				label {
 					color: $discussion-filter-inactive-color;
 				}
 			}
 		}
+
+		label {
+			color: $discussion-filters-text-color;
+		}
+	}
+
+	.sortby-fieldset {
+		margin-top: 18px;
 	}
 
 	.moderation-fieldset {
@@ -85,19 +134,14 @@ $legend-font-size: 16px;
 				font-weight: normal;
 				line-height: $sort-label-height - 2px;
 				margin: 1px 0;
-				padding-left: 24px;
-				// this is the only option to have clickable fancy-buttons on mobile
-				position: absolute;
 			}
 
 			.radio-fancy {
-				border: 1px solid $discussion-filters-bullet-border;
+				border: 1px solid $fancy-check-box-border;
 				border-radius: 50%;
 				float: left;
 				height: 18px;
 				margin: 15px 6px 0 0;
-				// this is the only option to have clickable fancy-buttons on mobile
-				position: absolute;
 				width: 18px;
 
 				.inside {
@@ -131,33 +175,6 @@ $legend-font-size: 16px;
 		line-height: $line-height-min;
 		padding-top: 18px;
 	}
-
-	.fancy-checkbox {
-		align-items: center;
-		background-color: $discussion-filters-bullet-background;
-		border: 1px solid $discussion-filters-bullet-border;
-		display: flex;
-		flex-direction: column;
-		height: 18px;
-		justify-content: center;
-		margin-right: 6px;
-		pointer-events: none;
-		width: 18px;
-
-		input {
-			display: none;
-		}
-
-		svg {
-			display: block;
-			height: auto;
-			width: 12px;
-		}
-
-		&.active-element-background-color {
-			border: none;
-		}
-	}
 }
 
 .rail {
@@ -165,12 +182,12 @@ $legend-font-size: 16px;
 		padding-bottom: 0;
 		width: auto;
 
-		legend {
-			background: transparent;
-		}
-
 		label {
 			line-height: $line-height-smallest;
+		}
+
+		.discussion-filters-fields-wrapper {
+			padding: 0;
 		}
 
 		.moderation-checkbox-label {

@@ -2,10 +2,12 @@
 	{{discussion-header
 		applyFilters=(action this.attrs.applyFilters)
 		canModerate=model.canModerate
-		hasFilters=true
+		categories=categories
 		hasContentError=hasContentError
+		hasFilters=true
 		hasNewPostButton=true
 		hasSiteName=true
+		showCategories=showCategories
 		smartBannerVisible=smartBannerVisible
 	}}
 {{/ember-wormhole}}
@@ -24,8 +26,18 @@
 		numberOfPosts=model.postCount
 	}}
 	<div class="discussion-page row">
-		<div class="rail large-3 columns">
+		<div class="rail left large-3 columns">
 			{{community-badge}}
+			{{#if showCategories}}
+				{{#if categories}}
+					{{discussion-categories
+						categories=categories
+						inputIdPrefix='rail'
+						updateCategories=(action this.attrs.updateCategories)
+						visibleCategoriesCount=10
+					}}
+				{{/if}}
+			{{/if}}
 		</div>
 		<div class="small-12 large-6 columns">
 			{{yield}}
@@ -36,8 +48,11 @@
 				canModerate=model.canModerate
 			}}
 			{{discussion-community-unit
+				displayGuidelinesLink=true
 				displayWikiaHomeLink=true
+				guidelines=attributes.guidelines
 				listPage=true
+				openGuidelines=(action attrs.openGuidelines)
 			}}
 		</div>
 	</div>

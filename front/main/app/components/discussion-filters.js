@@ -5,6 +5,7 @@ import {track, trackActions} from '../utils/discussion-tracker';
 export default Ember.Component.extend(
 	{
 		canModerate: false,
+		changedCategories: [],
 		classNames: ['discussion-filters'],
 		discussionSort: Ember.inject.service(),
 		onlyReported: Ember.computed.oneWay('discussionSort.onlyReported'),
@@ -13,13 +14,54 @@ export default Ember.Component.extend(
 		showSortSection: false,
 		sortBy: Ember.computed.oneWay('discussionSort.sortBy'),
 
-		onlyReportedClassName: Ember.computed('onlyReported', function () {
-			return this.get('onlyReported') === true ? 'active-element-background-color' : null;
-		}),
-
 		trendingDisabled: Ember.computed('onlyReported', function () {
 			return this.get('onlyReported') === true ? 'disabled' : false;
 		}),
+
+		/**
+		 * @returns {boolean}
+		 */
+		didCategoriesChange() {
+			const changedCategories = this.get('changedCategories');
+
+			if (!changedCategories) {
+				return false;
+			}
+
+			return changedCategories.any((changedCategory) => {
+				return changedCategory.selected !== changedCategory.category.selected;
+			});
+		},
+
+		/**
+		 * @param {string} sortBy
+		 *
+		 * @returns {void}
+		 */
+		trackSortByTapped(sortBy) {
+			const discussionSort = this.get('discussionSort');
+
+			if (sortBy !== discussionSort.get('sortBy')) {
+				if (sortBy === 'latest') {
+					track(trackActions.LatestPostTapped);
+				} else if (sortBy === 'trending') {
+					track(trackActions.TrendingPostTapped);
+				}
+			}
+		},
+
+		/**
+		 * @param {string} sortBy
+		 * @param {boolean} onlyReported
+		 * @returns {boolean}
+		 */
+		didFiltersChange(sortBy, onlyReported) {
+			const discussionSort = this.get('discussionSort');
+
+			return onlyReported !== discussionSort.get('onlyReported') ||
+					sortBy !== discussionSort.get('sortBy') ||
+					this.didCategoriesChange();
+		},
 
 		actions: {
 			/**
@@ -29,23 +71,22 @@ export default Ember.Component.extend(
 			 */
 			applyFilters() {
 				const sortBy = this.get('sortBy'),
-					onlyReported = this.get('onlyReported'),
-					discussionSort = this.get('discussionSort');
+					onlyReported = this.get('onlyReported');
 
 				// No need for applying already applied filters again
-				if (sortBy !== discussionSort.get('sortBy')) {
-					if (sortBy === 'latest') {
-						track(trackActions.LatestPostTapped);
-					} else if (sortBy === 'trending') {
-						track(trackActions.TrendingPostTapped);
-					}
-
-					this.get('applyFilters')(this.get('sortBy'), this.get('onlyReported'));
-				} else if (onlyReported !== discussionSort.get('onlyReported')) {
-					this.get('applyFilters')(this.get('sortBy'), this.get('onlyReported'));
+				if (this.didFiltersChange(sortBy, onlyReported)) {
+					this.trackSortByTapped(sortBy);
+					this.get('applyFilters')(
+						this.get('sortBy'),
+						this.get('onlyReported'),
+						this.get('changedCategories')
+					);
 				}
+				const popover = this.get('popover');
 
-				this.get('popover').deactivate();
+				if (popover) {
+					popover.deactivate();
+				}
 			},
 
 			/**
@@ -58,27 +99,34 @@ export default Ember.Component.extend(
 			},
 
 			/**
-			 * Sets onlyReported flag in sync with onlyReported checkbox
-			 *
-			 * @param {event} event
+			 * @param {Ember.Array} changedCategories
 			 *
 			 * @returns {void}
 			 */
-			toggleOnlyReported(event) {
-				const isCheckboxChecked = event.target.checked;
+			updateCategories(changedCategories) {
+				this.set('changedCategories', changedCategories);
+			},
 
-				if (isCheckboxChecked !== this.get('onlyReported')) {
-					this.set('onlyReported', isCheckboxChecked);
-				}
+			/**
+			 * @param {Event} event
+			 *
+			 * @returns {void}
+			 */
+			toggleReported(event) {
+				event.preventDefault();
 
-				if (isCheckboxChecked === true) {
+				const onlyReported = this.get('onlyReported');
+
+				if (onlyReported === false) {
 					this.send('setSortBy', 'latest');
 				}
 
+				this.set('onlyReported', !onlyReported);
+
 				if (!this.get('showApplyButton')) {
-					this.get('applyFilters')(this.get('sortBy'), this.get('onlyReported'));
+					this.send('applyFilters');
 				}
-			}
+			},
 		}
 	}
 );
