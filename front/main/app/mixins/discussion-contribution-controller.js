@@ -149,7 +149,7 @@ export default Ember.Mixin.create({
 		editorState.set('isLoading', true);
 		this.setEditorError(editorType, null);
 
-		this.get('model').createPost(entityData).catch((err) => {
+		this.get('model').current.createPost(entityData).catch((err) => {
 			this.onContributionError(editorType, err, 'editor.post-error-general-error');
 		}).finally(() => {
 			editorState.set('isLoading', false);
@@ -213,7 +213,7 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		upvote(post) {
-			this.get('model').upvote(post);
+			this.get('model').current.upvote(post);
 		},
 
 		/**
@@ -237,7 +237,7 @@ export default Ember.Mixin.create({
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
 
-			this.get('model').editPost(entityData).catch((err) => {
+			this.get('model').current.editPost(entityData).catch((err) => {
 				this.onContributionError(editorType, err, 'editor.save-error-general-error');
 			}).finally(() => {
 				editorState.set('isLoading', false);
@@ -256,7 +256,7 @@ export default Ember.Mixin.create({
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
 
-			this.get('model').createReply(entityData).catch((err) => {
+			this.get('model').current.createReply(entityData).catch((err) => {
 				this.onContributionError(editorType, err, 'editor.reply-error-general-error');
 			}).finally(() => {
 				editorState.set('isLoading', false);
@@ -275,7 +275,7 @@ export default Ember.Mixin.create({
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
 
-			this.get('model').editReply(entityData).catch((err) => {
+			this.get('model').current.editReply(entityData).catch((err) => {
 				this.onContributionError(editorType, err, 'editor.save-error-general-error');
 			}).finally(() => {
 				editorState.set('isLoading', false);
