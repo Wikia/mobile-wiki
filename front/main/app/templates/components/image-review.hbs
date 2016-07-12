@@ -24,10 +24,10 @@
 	</ul>
 
 	{{#modal-dialog isVisible=isModalVisible}}
-		{{image-review-modal-dialog thumbnailModel=thumbnailModel}}
+		{{image-review-modal-dialog thumbnailModel=thumbnailModel class='image-review-modal-dialog'}}
 	{{/modal-dialog}}
 
-	<div class="action-buttons">
+	<div class="image-review-action-buttons">
 		<button {{action this.attrs.reviewAndGetMoreImages}}>{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
 		{{#if model.isTrustedSession}}
 			<button {{action this.attrs.getFlaggedOnly}}>{{i18n 'main.get-flagged' ns='image-review'}}</button>
