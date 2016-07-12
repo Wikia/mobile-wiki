@@ -1,12 +1,13 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import ReportDetails from '../models/discussion/domain/report-details';
 
 const {Mixin} = Ember;
 
 export default Mixin.create({
 	/**
 	 * Delete post in service
-	 * @param {object} post
+	 * @param {Object} post
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	deletePost(post) {
@@ -44,7 +45,7 @@ export default Mixin.create({
 
 	/**
 	 * Undelete post in service
-	 * @param {object} post
+	 * @param {Object} post
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	undeletePost(post) {
@@ -59,7 +60,7 @@ export default Mixin.create({
 
 	/**
 	 * Delete reply in service
-	 * @param {object} reply
+	 * @param {Object} reply
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	deleteReply(reply) {
@@ -77,7 +78,7 @@ export default Mixin.create({
 
 	/**
 	 * Undelete reply in service
-	 * @param {object} reply
+	 * @param {Object} reply
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	undeleteReply(reply) {
@@ -92,7 +93,7 @@ export default Mixin.create({
 
 	/**
 	 * Approve post/reply in service
-	 * @param {object} entity
+	 * @param {Object} entity
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	approve(entity) {
@@ -109,7 +110,7 @@ export default Mixin.create({
 
 	/**
 	 * Report post/reply in service
-	 * @param {object} entity
+	 * @param {Object} entity
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	report(entity) {
@@ -128,8 +129,65 @@ export default Mixin.create({
 	},
 
 	/**
+	 * Sets up reported details on reported posts
+	 * @param {DiscussionEntity[]} entities
+	 * @returns {void}
+	 */
+	reportedDetailsSetUp(entities) {
+		const reportedEntities = entities.filterBy('isReported', true);
+
+		if (!reportedEntities.length) {
+			return;
+		}
+
+		const entitiesReportDetails = {};
+
+		request(M.getDiscussionServiceUrl(`/${this.wikiId}/reports`), {
+			data: {postId: reportedEntities.mapBy('id')},
+			method: 'GET',
+			traditional: true,
+		}).then((data) => {
+			Ember.get(data, 'posts').forEach((reportDetailsData) => {
+				entitiesReportDetails[reportDetailsData.postId] = ReportDetails.create(reportDetailsData);
+			}, this);
+
+			reportedEntities.forEach((reportedEntity) => {
+				reportedEntity.set('reportDetails', entitiesReportDetails[reportedEntity.get('id')]);
+			});
+		}).catch(() => {
+			// this is concious decision to ignore potential error here
+			// we don't want to rise any visual indicator if something goes wrong here
+		});
+	},
+
+	/**
+	 * Adds current user to entity reported details
+	 * @param {DiscussionEntity} entity
+	 * @param {DiscussionContributor} currentUser
+	 *
+	 * @returns {void}
+	 */
+	addReportDetailsUser(entity, currentUser) {
+		const reportDetails = entity.get('reportDetails');
+
+		if (reportDetails !== null) {
+			reportDetails.get('users').pushObject(currentUser);
+			reportDetails.incrementProperty('count');
+
+		} else {
+			entity.set('reportDetails',
+				ReportDetails.create({
+					count: 1,
+					postId: entity.get('id'),
+					userInfo: [currentUser],
+				})
+			);
+		}
+	},
+
+	/**
 	 * Locks a post in the service
-	 * @param {object} post
+	 * @param {Object} post
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	lockPost(post) {
@@ -145,7 +203,7 @@ export default Mixin.create({
 
 	/**
 	 * Unlocks a post in the service
-	 * @param {object} post
+	 * @param {Object} post
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	unlockPost(post) {

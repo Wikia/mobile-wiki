@@ -29,7 +29,7 @@ export function getPromiseForDiscussionData(request, wikiVars) {
 		const regexMatch = request.params.id.match(/(\d+)$/);
 
 		if (regexMatch !== null) {
-			const apiUrl = `http://${localSettings.servicesDomain}/${localSettings.discuss.baseAPIPath}` +
+			const apiUrl = `http://${localSettings.servicesDomain}/${localSettings.discussions.baseAPIPath}` +
 				`/${wikiVars.id}/threads/${regexMatch[1]}`;
 
 			openGraphData.type = 'article';

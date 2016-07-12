@@ -47,6 +47,38 @@ module('Unit | Utility | article link', () => {
 		});
 	});
 
+	test('getLinkInfo links with query params', (assert) => {
+		const linkTitle = 'article',
+			linkHref = `${window.location.origin}/wiki/${linkTitle}`,
+			testCases = [
+				{
+					queryString: '',
+					expectedArticle: linkTitle,
+					expectedUri: null
+				},
+				{
+					queryString: '?action=history',
+					expectedArticle: null,
+					expectedUri: `${linkHref}?action=history`
+				},
+				{
+					queryString: '?curid=509986&diff=6318659&oldid=6318638',
+					expectedArticle: null,
+					expectedUri: `${linkHref}?curid=509986&diff=6318659&oldid=6318638`
+				}
+			];
+
+		assert.expect(testCases.length * 2);
+		testCases.forEach((testCase) => {
+			// 'pageTitle' is distinct from the tests, we're transitioning from a different page
+			const result = getLinkInfo('http://lastofus.wikia.com', 'pageTitle', '',
+				`${linkHref}${testCase.queryString}`, testCase.queryString);
+
+			assert.equal(result.article, testCase.expectedArticle);
+			assert.equal(result.url, testCase.expectedUri);
+		});
+	});
+
 	test('getLinkInfo jump links', (assert) => {
 		const res = getLinkInfo(
 			'http://lastofus.wikia.com',

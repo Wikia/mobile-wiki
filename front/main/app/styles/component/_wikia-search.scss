@@ -17,6 +17,7 @@ $border-bottom-height: 1px;
 }
 
 .wikia-search {
+	border-bottom: 1px solid $vapor;
 	border-top: 1px solid $vapor;
 	position: fixed;
 	transition: box-shadow 0.5s;
@@ -89,22 +90,20 @@ $border-bottom-height: 1px;
 	padding-left: $search-spacing - 1px;
 	position: relative;
 
-	.text-field {
-		width: 100%;
-	}
-
-	input.text-field-input,
-	input.text-field-input:focus {
+	input.side-search__input,
+	input.side-search__input:focus {
 		background: transparent;
 		border: 0;
-		bottom: 5px;
 		box-shadow: none;
+		color: $color-gray-dark;
 		display: inline-block;
 		font: inherit;
 		font-size: $search-input-font-size;
 		margin: 0 0 0 $search-input-left-margin;
 		padding: 0;
-		position: absolute;
+		position: relative;
+		top: 6px;
+		width: 100%;
 
 		&::placeholder {
 			color: $iron;
@@ -151,20 +150,6 @@ $border-bottom-height: 1px;
 
 .wikia-search__suggestion-highlighted {
 	font-weight: bold;
-}
-
-
-@media #{$mobile-range} {
-	.wikia-search-wrapper .wikia-search .wikia-search--desktop {
-		display: none;
-	}
-}
-
-
-@media #{$desktop-range} {
-	.wikia-search-wrapper .wikia-search .wikia-search--mobile {
-		display: none;
-	}
 }
 
 .no-scroll .site-head-headroom-un-pinned .site-head {

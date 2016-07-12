@@ -1,11 +1,12 @@
 {
   "main":{
+    "load-more-results":"Mehr anzeigen",
     "search-error-general":"Es kann keine Verbindung hergestellt werden, bitte versuche es noch einmal",
     "search-error-general-action":"Klicke hier, um es noch einmal zu versuchen",
     "search-error-not-found":"Für die Anfrage __query__ gibt es keine Ergebnisse",
     "search-error-not-found-action":"Probiere eine andere Suche",
     "search-input-label":"Suche",
     "search-loading-msg":"Lade Suchergebnisse...",
-    "total-results":"Ungefähr__totalItems__ Ergebnisse für __query__"
+    "total-results":"Ungefähr __totalItems__ Ergebnisse für __query__"
   }
 }

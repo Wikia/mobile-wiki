@@ -44,6 +44,15 @@ class Ads {
 		this.isLoaded = false;
 		this.krux = null;
 		this.slotsQueue = [];
+		this.uapResult = false;
+		this.uapCalled = false;
+		this.uapCallbacks = [];
+		this.noUapCallbacks = [];
+		this.btfSlots = [
+			'MOBILE_IN_CONTENT',
+			'MOBILE_PREFOOTER',
+			'MOBILE_BOTTOM_LEADERBOARD'
+		];
 	}
 
 	/**
@@ -101,6 +110,37 @@ class Ads {
 				console.error('Looks like ads asset has not been loaded');
 			}
 		});
+	}
+
+	waitForUapResponse(uapCallback, noUapCallback) {
+		const wrappedUapCallback = () => {
+				this.uapCalled = true;
+				this.uapResult = true;
+
+				uapCallback();
+			},
+			wrappedNoUapCallback = () => {
+				this.uapCalled = true;
+				this.uapResult = false;
+
+				noUapCallback();
+			};
+
+		this.uapCallbacks.push(wrappedUapCallback);
+		this.noUapCallbacks.push(wrappedNoUapCallback);
+
+		if (!this.uapCalled) {
+			window.addEventListener('wikia.uap', wrappedUapCallback);
+			window.addEventListener('wikia.not_uap', wrappedNoUapCallback);
+		} else if (this.uapResult) {
+			uapCallback();
+		} else {
+			noUapCallback();
+		}
+	}
+
+	getBtfSlots() {
+		return this.btfSlots;
 	}
 
 	/**
@@ -283,8 +323,31 @@ class Ads {
 	}
 
 	/**
+	 * This method is called on each transition
+	 *
+	 * @returns {void}
+	 */
+	onTransition() {
+		if (this.adMercuryListenerModule && this.adMercuryListenerModule.runOnPageChangeCallbacks) {
+			this.adMercuryListenerModule.runOnPageChangeCallbacks();
+		}
+
+		this.uapCalled = false;
+		this.uapResult = false;
+
+		this.uapCallbacks.forEach((callback) => {
+			window.removeEventListener('wikia.uap', callback);
+		});
+		this.uapCallbacks = [];
+		this.noUapCallbacks.forEach((callback) => {
+			window.removeEventListener('wikia.not_uap', callback);
+		});
+		this.noUapCallbacks = [];
+	}
+
+	/**
 	 * This method is being overwritten in ApplicationRoute for ads needs.
-	 * To learn more check ApplicationRoute.ts file.
+	 * To learn more check routes/application.js file.
 	 *
 	 * @returns {void}
 	 */
@@ -293,11 +356,20 @@ class Ads {
 
 	/**
 	 * This method is being overwritten in ApplicationRoute for ads needs.
-	 * To learn more check ApplicationRoute.ts file.
+	 * To learn more check routes/application.js file.
 	 *
 	 * @returns {void}
 	 */
 	showLightbox() {
+	}
+
+	/**
+	 * This method is being overwritten in ApplicationRoute for ads needs.
+	 * To learn more check routes/application.js file.
+	 *
+	 * @returns {void}
+	 */
+	setSiteHeadOffset() {
 	}
 
 	/**

@@ -1,0 +1,37 @@
+<h3 class="discussion-filter-header">
+	{{i18n 'main.filter-posts-header' ns='discussion'}}
+	<a class="active-element-theme-color" {{action this.attrs.reset}}>{{i18n 'main.filter-reset-label' ns='discussion'}}</a>
+</h3>
+<fieldset class="discussion-fieldset discussion-categories discussions-collapsable {{if collapsed 'collapsed'}}" disabled="{{if disabled 'disabled'}}">
+	<legend {{action this.attrs.collapsableToggle}}>
+		{{i18n 'main.categories-header' ns='discussion'}}
+		{{svg 'chevron-linked' role='img' class='icon chevron'}}
+	</legend>
+	<div class="discussion-categories-list-container collapsable-container">
+		<ul class="discussion-categories-list">
+			<li>
+				{{wikia-ui-components/fancy-check-box
+					click=(action this.attrs.selectAllCategory true)
+					label=(i18n 'main.category-all-name' ns='discussion')
+					inputId=(concat categoriesInputIdPrefix 'all')
+					isChecked=allCategorySelected
+				}}
+			</li>
+			{{#each localCategories as |localCategory|}}
+				{{#unless localCategory.collapsed}}
+					<li>
+						{{wikia-ui-components/fancy-check-box
+							click=(action this.attrs.onCategoryClick localCategory)
+							label=localCategory.category.name
+							inputId=(concat categoriesInputIdPrefix localCategory.category.id)
+							isChecked=localCategory.selected
+						}}
+					</li>
+				{{/unless}}
+			{{/each}}
+		</ul>
+		{{#if toggleButtonVisible}}
+			<button {{action this.attrs.toggleMore}} class="secondary active-element-border-theme-color active-element-theme-color active-element-hover-theme-color active-element-hover-border-theme-color">{{toggleButtonLabel}}</button>
+		{{/if}}
+	</div>
+</fieldset>

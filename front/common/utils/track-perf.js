@@ -30,13 +30,18 @@ function getTracker() {
 		const weppyConfig = M.prop('weppyConfig');
 
 		if (weppyConfig && typeof Weppy === 'function') {
+			// Temporarily sample the wikis used in the performance experiment at 100% (DAT-4275)
+			const samplingRate = weppyConfig.specialWikis.indexOf(Mercury.wiki.id) > -1 ?
+				1 :
+				weppyConfig.samplingRate;
+
 			tracker = Weppy.namespace('mercury');
 
 			tracker.setOptions({
 				aggregationInterval: weppyConfig.aggregationInterval,
 				context,
 				host: weppyConfig.host,
-				sample: weppyConfig.samplingRate,
+				sample: samplingRate,
 				transport: 'url'
 			});
 		} else {

@@ -53,7 +53,12 @@ export default Ember.Route.extend(
 				});
 
 				if (!isDiscussionRoute) {
-					this.controllerFor('application').set('noMargins', false);
+					// deactivate dark theme after transition outside discussions to avoid
+					// a flash of unstyled content
+					transition.promise.then(() => {
+						this.deactivateTheming();
+						this.controllerFor('application').set('noMargins', false);
+					});
 				}
 
 				return true;
@@ -72,7 +77,9 @@ export default Ember.Route.extend(
 
 				// Model is the only place we can use to send the transition to the
 				// error subroute, and try to retry it from an error component
-				model.get('error').set('transition', transition);
+				if (model.current) {
+					model.current.get('error').set('transition', transition);
+				}
 
 				return true;
 			}

@@ -15,6 +15,7 @@
 *.sw[a-z]
 *.orig
 *.log
+*.iml
 
 # coverage files
 **/coverage.*
