@@ -9,5 +9,18 @@ export default DiscussionBaseController.extend(
 	DiscussionModerationControllerMixin,
 	DiscussionContributionControllerMixin,
 	DiscussionForumActionsControllerMixin,
-	DiscussionEditEditorMixin
+	DiscussionEditEditorMixin,
+	{
+		catId: [],
+
+		actions: {
+			updateCategories(categories) {
+				this.get('target').send('updateCategories', categories);
+			},
+
+			gotoGuidelines() {
+				this.get('target').send('gotoGuidelines');
+			}
+		},
+	},
 );

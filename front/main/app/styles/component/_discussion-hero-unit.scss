@@ -28,13 +28,6 @@ $discussion-hero-unit-minimized-height: 25px;
 	}
 
 	.discussion-contributors {
-		.avatar {
-			img, svg {
-				height: $discussion-hero-unit-avatar-dimension;
-				width: $discussion-hero-unit-avatar-dimension;
-			}
-		}
-
 		.discussion-contributors-more {
 			font-size: $type-min;
 			height: $discussion-hero-unit-avatar-dimension;
@@ -58,7 +51,7 @@ $discussion-hero-unit-minimized-height: 25px;
 }
 
 .post-list-header-content {
-	margin-top: 119px;
+	margin-top: 28px;
 	text-align: center;
 
 	h1 {
@@ -73,6 +66,19 @@ $discussion-hero-unit-minimized-height: 25px;
 	p {
 		color: $discussion-post-list-text-color;
 		font-weight: bold;
+	}
+}
+
+.discussions {
+	.discussion-hero-unit {
+		.discussion-contributors {
+			.avatar {
+				img, svg {
+					height: $discussion-hero-unit-avatar-dimension;
+					width: $discussion-hero-unit-avatar-dimension;
+				}
+			}
+		}
 	}
 }
 

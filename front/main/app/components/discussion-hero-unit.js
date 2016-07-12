@@ -6,6 +6,8 @@ export default Ember.Component.extend(ViewportMixin, {
 	contentClassNames: 'background-theme-color',
 	attributeBindings: ['style'],
 
+	headerTitle: i18n.t('main.discussions-header-title', {ns: 'discussion'}),
+
 	overlay: false,
 	style: null,
 
@@ -48,6 +50,7 @@ export default Ember.Component.extend(ViewportMixin, {
 		3253: 'discussion-header-de-gta.jpg',
 		1706: 'discussion-header-elder-scrolls.jpg',
 		2520: 'discussion-header-elder-scrolls.jpg',
+		1416111: 'discussion-header-elder-scrolls.jpg',
 		74: 'discussion-header-pokemon.jpg',
 		544934: 'discussion-header-warframe.jpg',
 		685207: 'discussion-header-ru-warframe.jpg',

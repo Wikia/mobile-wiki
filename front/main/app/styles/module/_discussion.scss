@@ -7,7 +7,6 @@ $desktop-content-font-size: $type-base;
 $desktop-content-line-height: $line-height-base;
 $desktop-post-details-content-line-height: $line-height-base;
 $desktop-post-details-content-font-size: $type-base;
-$post-details-mobile-page-margin-top: 91px;
 $post-details-content-line-height: 1.4rem;
 $post-details-outer-width: 580px;
 $post-details-post-margin-bottom: 10px;
@@ -80,11 +79,11 @@ body.discussions {
 
 	&.arrow-left {
 		height: 16px;
-		width: 16px;
+		width: 18px;
 	}
 
 	&.edit {
-		height: 16px;
+		height: 12px;
 		width: 18px;
 	}
 
@@ -111,6 +110,18 @@ body.discussions {
 	}
 }
 
+.discussion-fieldset {
+	border: none;
+	margin: 0;
+	min-width: 0;
+	padding: 0;
+	width: 100%;
+
+	legend {
+		background: transparent;
+	}
+}
+
 .discussion {
 	font-size: $type-smallest;
 	line-height: $line-height-smallest;
@@ -131,7 +142,7 @@ body.discussions {
 		.text-content {
 			align-items: center;
 			color: $discussion-post-card-top-note-color;
-			display: flex;
+			cursor: auto;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
@@ -173,14 +184,24 @@ body.discussions {
 		padding-right: 30px;
 	}
 
-	.post-counters {
-		align-items: center;
+	.post-bottom-row {
 		color: $discussion-actions-color;
 		display: flex;
 		font-size: rem-calc(12);
-		justify-content: flex-end;
+		justify-content: space-between;
 		line-height: rem-calc(14);
 		padding-bottom: 14px;
+	}
+
+	.post-counters,
+	.post-category-name {
+		align-items: center;
+		display: flex;
+		flex-grow: 1;
+	}
+
+	.post-counters {
+		justify-content: flex-end;
 		text-align: right;
 
 		.upvote-count,
@@ -688,7 +709,8 @@ body.discussions {
 					line-height: $desktop-post-details-content-line-height;
 				}
 
-				.post-counters {
+				.post-counters,
+				.post-category-name {
 					font-size: $type-smallest;
 				}
 			}
@@ -735,10 +757,6 @@ body.discussions {
 	}
 
 	.post-details-view {
-		.discussion-page {
-			margin-top: $post-details-mobile-page-margin-top;
-		}
-
 		.discussion-reply {
 			.discussion-content {
 				margin-left: 0;

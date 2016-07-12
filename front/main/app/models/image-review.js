@@ -8,12 +8,10 @@ const ImageReviewModel = Ember.Object.extend({
 
 ImageReviewModel.reopenClass({
 
-	startSession(onlyFlagged) {
-		const options = {};
-
-		if (onlyFlagged) {
-			options.status = 'FLAGGED';
-		}
+	startSession(status) {
+		const options = {
+			status
+		};
 
 		return rawRequest(M.getImageReviewServiceUrl(`/contract`, options), {
 			method: 'POST',
@@ -65,16 +63,18 @@ ImageReviewModel.reopenClass({
 		const images = [];
 
 		rawData.forEach((image) => {
-			if (image.reviewStatus === 'UNREVIEWED' || image.reviewStatus === 'FLAGGED') {
+			if (['UNREVIEWED', 'FLAGGED', 'REJECTED'].indexOf(image.reviewStatus) !== -1) {
 				images.push(Ember.Object.create({
 					imageId: image.imageId,
 					fullSizeImageUrl: image.imageUrl,
 					contractId,
 					context: image.context || '#',
-					status: 'accepted'
+					status: 'accepted',
+					history: image.imageHistory
 				}));
 			}
 		});
+
 		return ImageReviewModel.create({images, contractId, imagesToReviewCount});
 	},
 

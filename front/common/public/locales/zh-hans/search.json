@@ -1,5 +1,6 @@
 {
   "main":{
+    "load-more-results":"加载更多",
     "search-error-general":"连接失效，请再试一次。",
     "search-error-general-action":"单击重试",
     "search-error-not-found":"我们找不到任何和__query__相关的信息",

@@ -1,0 +1,12 @@
+<legend {{action 'collapsableToggle'}}>
+	{{i18n 'main.moderation-filters-header' ns='discussion'}}
+	{{svg 'chevron-linked' role='img' class='icon chevron'}}
+</legend>
+<div class="collapsable-container">
+	{{wikia-ui-components/fancy-check-box
+		class='moderation-checkbox-label'
+		isChecked=onlyReported
+		label=(i18n 'main.reported-content-filter-text' ns='discussion')
+		click=(action 'toggleReported')
+	}}
+</div>

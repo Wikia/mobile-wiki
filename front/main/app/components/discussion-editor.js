@@ -249,7 +249,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	/**
 	 * Perform animations and logic after post creation
 	 *
-	 * @param {object} newItem
+	 * @param {Object} newItem
 	 *
 	 * @returns {void}
 	 */
@@ -276,7 +276,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	},
 
 	/**
-	 * @param {object} newItem
+	 * @param {Object} newItem
 	 *
 	 * @returns {void}
 	 */
@@ -398,7 +398,7 @@ export default Ember.Component.extend(ViewportMixin, {
 	/**
 	 * Allows setting iOS-specific styles to compensate for Safari's restrictions
 	 *
-	 * @param {object} styles - style object to pass to jQuery
+	 * @param {Object} styles - style object to pass to jQuery
 	 *
 	 * @returns {void}
 	 */

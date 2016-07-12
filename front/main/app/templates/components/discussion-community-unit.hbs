@@ -1,0 +1,34 @@
+{{#if wikiName}}
+	<h4 class="wiki-name">{{wikiName}}</h4>
+{{/if}}
+{{#if displayGuidelinesLink}}
+	<div class="guidelines-link-section">
+		{{#link-to 'discussion.guidelines' class='guidelines-link active-element-theme-color' click=(action 'openGuidelines')}}
+			{{svg 'guide-small' role='img' class='icon wikia-guidelines'}}
+			<span>{{i18n 'main.guidelines-link-title' ns='discussion'}}</span>
+		{{/link-to}}
+		{{#if canEditGuidelines}}
+			<a class="guidelines-edit-link active-element-theme-color" {{action 'openGuidelinesEditor'}}>
+				{{i18n 'main.edit-guidelines' ns='discussion'}}
+				{{svg 'pencil' viewBox='0 0 18 18' class='icon fill-theme-color'}}
+			</a>
+		{{/if}}
+	</div>
+{{/if}}
+{{#if displayWikiaHomeLink}}
+	<a href="/" class="wikia-home-link active-element-theme-color">
+		{{svg 'home-small' role='img' class='icon wikia-home'}}
+		<span>{{i18n 'main.wiki-home' ns='discussion'}}</span>
+	</a>
+{{/if}}
+{{#if displayAppPromotion}}
+	<p class="discussion-app-join-text">
+		{{i18n (if listPage 'main.app-promotion-text' 'main.app-promotion-text-details-page') ns='discussion'}}
+	</p>
+	{{#if iosAppLink}}
+		<a href="{{iosAppLink}}" target="_blank" class="apple-store-badge"></a>
+	{{/if}}
+	{{#if androidAppLink}}
+		<a href="{{androidAppLink}}" target="_blank" class="google-play-badge"></a>
+	{{/if}}
+{{/if}}
