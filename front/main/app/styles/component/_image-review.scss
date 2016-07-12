@@ -3,10 +3,11 @@
 		float: left;
 		list-style: none;
 		margin: 0.5em;
+		height: 300px;
 	}
 }
 
-.button-group {
+.image-review-button-group {
 	button:hover {
 		/* turn off button hover style */
 		background-color: #0a5fa3;
@@ -26,7 +27,20 @@
 	}
 }
 
-.action-buttons {
+.image-review-action-buttons {
 	clear: both;
 	display: block;
+}
+
+.image-review-modal-dialog {
+	.image-review-modal-history {
+		td {
+			padding: 5px;
+			border: 1px solid;
+		}
+	}
+
+	p {
+		margin: 8px;
+	}
 }

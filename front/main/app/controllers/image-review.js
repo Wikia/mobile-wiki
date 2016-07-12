@@ -11,6 +11,10 @@ export default Ember.Controller.extend({
 			this.get('target').send('getFlaggedOnly');
 		},
 
+		getRejectedOnly() {
+			this.get('target').send('getRejectedOnly');
+		},
+
 		changeItemModel(id, status) {
 			this.get('target').send('changeItemModel', id, status);
 		},
