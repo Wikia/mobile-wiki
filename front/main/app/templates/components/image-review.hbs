@@ -23,7 +23,8 @@
 		{{/each}}
 	</ul>
 
-	{{#modal-dialog isVisible=isModalVisible thumbnailModel=thumbnailModel}}
+	{{#modal-dialog isVisible=isModalVisible}}
+		{{image-review-modal-dialog thumbnailModel=thumbnailModel}}
 	{{/modal-dialog}}
 
 	<div class="action-buttons">
