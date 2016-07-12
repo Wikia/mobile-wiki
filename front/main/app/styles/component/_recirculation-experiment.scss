@@ -10,7 +10,7 @@ $recirculation-e3-fandom-thumbnail-height: 55px;
 		@extend %image-placeholder;
 	}
 
-	.footer {
+	&.footer {
 		p {
 			margin: 0.5rem 0 1.5rem;
 		}

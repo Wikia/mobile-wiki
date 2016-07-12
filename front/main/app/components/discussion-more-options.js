@@ -49,7 +49,7 @@ export default Ember.Component.extend({
 		},
 
 		/**
-		 * @param {object} post
+		 * @param {Object} post
 		 *
 		 * @returns {void}
 		 */
@@ -60,7 +60,7 @@ export default Ember.Component.extend({
 		},
 
 		/**
-		 * @param {object} post
+		 * @param {Object} post
 		 *
 		 * @returns {void}
 		 */
@@ -71,7 +71,7 @@ export default Ember.Component.extend({
 		},
 
 		/**
-		 * @param {object} post
+		 * @param {Object} post
 		 *
 		 * @returns {void}
 		 */
@@ -81,7 +81,7 @@ export default Ember.Component.extend({
 		},
 
 		/**
-		 * @param {object} post
+		 * @param {Object} post
 		 *
 		 * @returns {void}
 		 */
@@ -91,7 +91,7 @@ export default Ember.Component.extend({
 		},
 
 		/**
-		 * @param {object} post
+		 * @param {Object} post
 		 *
 		 * @returns {void}
 		 */

@@ -104,7 +104,7 @@ export default Ember.Component.extend({
 	actions: {
 		/**
 		 * Delete item - shows modal dialog first
-		 * @param {object} item - post or reply
+		 * @param {Object} item - post or reply
 		 * @param {boolean} isReply - if this is a reply
 		 * @returns {void}
 		 */
@@ -130,7 +130,7 @@ export default Ember.Component.extend({
 
 		/**
 		 * Approve item - shows modal dialog first
-		 * @param {object} item - post or reply
+		 * @param {Object} item - post or reply
 		 * @param {boolean} isReply - if this is a reply
 		 * @returns {void}
 		 */

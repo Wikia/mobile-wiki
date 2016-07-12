@@ -304,11 +304,12 @@ body.dark-theme {
 	}
 
 	.rail {
-		.discussion-contributors-title {
+		.discussion-contributors-title,
+		.discussion-filter-header {
 			color: $dark-discussion-contributors-rail-title;
 		}
 
-		.side-button {
+		.side-button, .discussion-filter-header {
 			border-color: $dark-discussion-rail-border-color;
 		}
 
@@ -316,13 +317,23 @@ body.dark-theme {
 			color: $dark-discussion-no-replies-text-color;
 		}
 
-		.discussion-filters {
+		.discussions-collapsable,
+		.discussion-filters,
+		.discussion-categories {
 			legend {
 				color: $dark-discussion-rail-header-color;
 			}
 
 			label {
 				color: $dark-discussion-rail-label-color;
+			}
+		}
+
+		.discussion-categories-list {
+			label {
+				&:hover {
+					background-color: $dark-discussion-category-hover-background;
+				}
 			}
 		}
 	}
@@ -361,6 +372,40 @@ body.dark-theme {
 			.og-text-placeholder {
 				background-color: $dark-discussion-open-graph-placeholder-background-color;
 			}
+		}
+	}
+
+	.standalone-page-view {
+		.standalone-content {
+			background-color: $dark-discussion-standalone-content-background-color;
+		}
+	}
+
+	.guidelines-page {
+		.wiki-name {
+			color: $dark-discussion-guidelines-wiki-name-color;
+		}
+
+		.guidelines-text {
+			color: $dark-discussion-guidelines-text-color;
+		}
+	}
+
+	.discussion-welcome {
+		background-color: $dark-discussion-welcome-background-color;
+
+		.welcome-close {
+			svg {
+				fill: $dark-discussion-welcome-close-color;
+			}
+		}
+
+		h5 {
+			color: $dark-discussion-welcome-head-color;
+		}
+
+		p {
+			color: $dark-discussion-welcome-text-color;
 		}
 	}
 }
@@ -444,9 +489,22 @@ body.dark-theme {
 			}
 		}
 	}
+
+	.standalone-page-view {
+		.standalone-content {
+			border-color: $dark-discussion-standalone-content-border-color;
+		}
+	}
 }
 
 @media #{$mobile-range} {
+	body.discussions {
+		&.dark-theme {
+			&.standalone-page {
+				background-color: $dark-discussion-standalone-content-background-color;
+			}
+		}
+	}
 	.dark-theme {
 		.discussion {
 			.post-actions {
