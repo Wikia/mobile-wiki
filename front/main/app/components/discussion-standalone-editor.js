@@ -21,8 +21,13 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, DiscussionEdit
 		Ember.$('html, body').toggleClass('mobile-full-screen', this.get('isActive'));
 	}),
 
+	afterSuccess() {
+		this._super();
+		this.set('editEntity', null);
+	},
+
 	// first time it is triggered by the 'editEntity' property, and later by the 'isActive' property
-	editEntityObserver: Ember.observer('editEntity', 'isActive', function () {
+	targetObjectObserver: Ember.observer('editEntity', function () {
 		const editEntity = this.get('editEntity');
 
 		if (!editEntity) {
@@ -53,6 +58,7 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, DiscussionEdit
 		close() {
 			this._super();
 
+			this.set('editEntity', null);
 			this.sendAction('setEditorActive', this.get('isEdit') ? 'editEditor' : 'contributeEditor', false);
 		},
 

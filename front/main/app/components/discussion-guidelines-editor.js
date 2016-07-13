@@ -14,8 +14,13 @@ export default DiscussionStandaloneEditor.extend(
 
 		layoutName: 'components/discussion-standalone-editor',
 
+		afterSuccess() {
+			this._super();
+			this.set('guidelines', null);
+		},
+
 		// first time it is triggered by the 'guidelines' property, and later by the 'isActive' property
-		editGuidelinesObserver: Ember.observer('guidelines', 'isActive', function () {
+		targetObjectObserver: Ember.observer('guidelines', function () {
 			const guidelines = this.get('guidelines');
 
 			if (!guidelines) {
@@ -33,6 +38,8 @@ export default DiscussionStandaloneEditor.extend(
 		actions: {
 			close() {
 				this._super();
+
+				this.set('guidelines', null);
 				this.sendAction('setEditorActive', 'guidelinesEditor', false);
 			},
 
