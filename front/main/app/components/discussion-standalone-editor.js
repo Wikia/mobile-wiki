@@ -21,11 +21,6 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, DiscussionEdit
 		Ember.$('html, body').toggleClass('mobile-full-screen', this.get('isActive'));
 	}),
 
-	afterSuccess() {
-		this._super();
-		this.set('editEntity', null);
-	},
-
 	// first time it is triggered by the 'editEntity' property, and later by the 'isActive' property
 	targetObjectObserver: Ember.observer('editEntity', function () {
 		const editEntity = this.get('editEntity');
@@ -82,12 +77,13 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, DiscussionEdit
 				} else {
 					const editEntity = this.get('editEntity');
 
+					discussionEntityData.id = editEntity.get('id');
+
 					if (editEntity.get('isReply')) {
 						actionName = 'editReply';
-						discussionEntityData.id = editEntity.get('id');
 					} else {
 						actionName = 'editPost';
-						discussionEntityData.id = editEntity.get('threadId');
+						discussionEntityData.threadId = editEntity.get('threadId');
 					}
 				}
 

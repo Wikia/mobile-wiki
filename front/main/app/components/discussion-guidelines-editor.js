@@ -14,11 +14,6 @@ export default DiscussionStandaloneEditor.extend(
 
 		layoutName: 'components/discussion-standalone-editor',
 
-		afterSuccess() {
-			this._super();
-			this.set('guidelines', null);
-		},
-
 		// first time it is triggered by the 'guidelines' property, and later by the 'isActive' property
 		targetObjectObserver: Ember.observer('guidelines', function () {
 			const guidelines = this.get('guidelines');

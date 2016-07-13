@@ -172,6 +172,8 @@ export default Ember.Mixin.create({
 				this.getEditorState(editorType).setProperties({
 					errorMessage: null,
 					isOpen: false,
+					discussionEntity: null,
+					guidelines: null,
 				});
 			}
 		},
