@@ -1,0 +1,64 @@
+.discussion-welcome {
+	background-color: $discussion-welcome-background-color;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.15);
+	margin: 10px;
+	position: relative;
+
+	.welcome-close {
+		position: absolute;
+		right: 11px;
+		top: 11px;
+
+		svg {
+			fill: $discussion-welcome-close-color;
+			height: 16px;
+			width: 16px;
+		}
+
+	}
+
+	.welcome-sun {
+		height: 50px;
+		left: 10px;
+		position: absolute;
+		top: 21px;
+		width: 50px;
+
+		.sun {
+			height: 32px;
+			left: 9px;
+			position: absolute;
+			top: 9px;
+			width: 32px;
+		}
+
+		.sun-background {
+			height: 50px;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 50px;
+		}
+	}
+
+	h5, p {
+		font-size: $type-smallest;
+		line-height: $line-height-min;
+		margin: 0;
+		padding: 0 10px 0 70px;
+	}
+
+	h5 {
+		color: $discussion-welcome-head-color;
+		padding-top: 29px;
+	}
+
+	p {
+		color: $discussion-welcome-text-color;
+		padding-bottom: 20px;
+	}
+}
+
+.sun-icon-color {
+	fill: $discussion-welcome-sun-color;
+}

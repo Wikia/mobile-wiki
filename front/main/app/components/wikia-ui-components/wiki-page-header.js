@@ -34,7 +34,7 @@ export default Ember.Component.extend(
 		classNameBindings: ['heroImage:has-hero-image'],
 		attributeBindings: ['style'],
 		isMainPage: false,
-		mainPageName: Ember.get(Mercury, 'wiki.siteName'),
+		siteName: Ember.get(Mercury, 'wiki.siteName'),
 		mainPageTitle: Ember.get(Mercury, 'wiki.mainPageTitle'),
 
 		style: Ember.computed('heroImage', 'viewportDimensions.width', function () {

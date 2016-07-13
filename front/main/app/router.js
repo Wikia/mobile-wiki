@@ -8,6 +8,8 @@ const Router = Ember.Router.extend({
 Router.map(function () {
 	this.route('article-preview');
 
+	this.route('search');
+
 	// we use here wilcard instead of a dynamic segment to be able to
 	// handle in builder also sub-templates (with /)
 	this.route('infobox-builder', {
@@ -83,15 +85,11 @@ Router.map(function () {
 		path: '/d'
 	}, function () {
 		this.route('forum', {
-			path: '/f/:forumId'
-		});
-
-		this.route('forum', {
-			path: '/f/:forumId/:sortBy'
+			path: '/f'
 		});
 
 		this.route('reported-posts', {
-			path: '/f/:forumId/:sortBy/reported'
+			path: '/reported'
 		});
 
 		this.route('post', {
@@ -104,6 +102,10 @@ Router.map(function () {
 
 		this.route('user', {
 			path: '/u/:userId'
+		});
+
+		this.route('guidelines', {
+			path: '/g'
 		});
 	});
 

@@ -1,0 +1,54 @@
+.guidelines-edit-link {
+	font-size: 10px;
+	font-weight: 500;
+	letter-spacing: .5px;
+	text-transform: uppercase;
+
+	.icon {
+		height: 16px;
+		width: 16px;
+	}
+}
+
+.guidelines-page {
+	margin: 22px 18px;
+
+	.head {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.guidelines-edit-link {
+		margin-top: 5px;
+	}
+
+	.wiki-name {
+		color: $discussion-guidelines-wiki-name-color;
+		font-size: $type-small;
+		line-height: $line-height-small;
+		margin-bottom: 16px;
+	}
+
+	.guidelines-text {
+		color: $discussion-guidelines-text-color;
+		font-size: $type-base;
+		line-height: $line-height-base;
+		min-height: 200px;
+	}
+}
+
+.guidelines-editor {
+	.editor-textarea-wrapper {
+		height: 100%;
+	}
+}
+
+@media #{$desktop-range} {
+	.guidelines-page {
+		margin: 35px 130px;
+
+		.guidelines-text {
+			min-height: 80%;
+		}
+	}
+}

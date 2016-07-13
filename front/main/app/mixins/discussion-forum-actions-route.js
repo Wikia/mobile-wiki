@@ -8,24 +8,30 @@ export default Ember.Mixin.create(
 			 *
 			 * @param {string} sortBy
 			 * @param {boolean} onlyReported
+			 * @param {Object} categories
 			 *
 			 * @returns {EmberStates.Transition}
 			 */
-			applyFilters(sortBy, onlyReported) {
+			applyFilters(sortBy, onlyReported, categories) {
 				const discussionSort = this.get('discussionSort'),
 					currentSortBy = discussionSort.get('sortBy');
 
 				let targetRoute = 'discussion.forum';
 
+				if (onlyReported === true) {
+					return this.transitionTo('discussion.reported-posts');
+				}
+
 				if (sortBy !== currentSortBy) {
 					discussionSort.setSortBy(sortBy);
 				}
 
-				if (onlyReported === true) {
-					targetRoute = 'discussion.reported-posts';
-				}
+				const queryParams = {
+					sort: sortBy,
+					catId: categories.filterBy('selected', true).mapBy('category.id'),
+				};
 
-				return this.transitionTo(targetRoute, Mercury.wiki.id, sortBy);
+				return this.transitionTo(targetRoute, {queryParams});
 			},
 
 			/**

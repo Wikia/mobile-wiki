@@ -30,9 +30,10 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 					viewableOnly: false
 				},
 			}).then((data) => {
-				this.get('data.entities').pushObjects(
-					DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'))
-				);
+				const newEntities = DiscussionEntities.createFromPostsData(Ember.get(data, '_embedded.doc:posts'));
+
+				this.get('data.entities').pushObjects(newEntities);
+				this.reportedDetailsSetUp(newEntities);
 			}).catch((err) => {
 				this.handleLoadMoreError(err);
 			});
@@ -54,7 +55,6 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 				canModerate: entities.getWithDefault('firstObject.userData.permissions.canModerate', false),
 				contributors,
 				entities,
-				forumId: Ember.get(Mercury, 'wiki.id'),
 				pageNum: 0,
 				postCount: parseInt(apiData.postCount, 10),
 				userName: contributors.get('users.firstObject.name'),
@@ -89,6 +89,8 @@ DiscussionUserModel.reopenClass({
 				userInstance.setNormalizedData(data);
 
 				resolve(userInstance);
+
+				userInstance.reportedDetailsSetUp(userInstance.get('data.entities'));
 			}).catch((err) => {
 				userInstance.setErrorProperty(err);
 

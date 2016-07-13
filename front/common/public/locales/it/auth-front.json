@@ -14,7 +14,7 @@
     "fb_account_already_linked":"Questo account di Facebook è già connesso a un altro account di Wikia",
     "birthdate_invalid":"La data di nascita non è una data valida",
     "wrong-credentials":"Queste credenziali non sono state riconosciute. Riprova o iscriviti con un nuovo account.",
-    "server-error":"C'è stato un errore nell'elaborazione della tua richiesta. Riprova più tardi."
+    "server-error":"Si è verificato un errore nell'elaborazione della tua richiesta. Riprova più tardi."
   },
   "labels":{
     "terms-of-use-and-privacy-policy-text":"Accetto i __termsOfUseLink__ e l' __privacyPolicyLink__ (obbligatorio)"

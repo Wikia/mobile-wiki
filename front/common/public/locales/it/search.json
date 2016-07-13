@@ -1,0 +1,12 @@
+{
+  "main":{
+    "load-more-results":"Carica altro",
+    "search-error-general":"Impossibile connettersi. Riprovare",
+    "search-error-general-action":"Fare clic per riprovare",
+    "search-error-not-found":"Non siamo riusciti a trovare nulla per __query__",
+    "search-error-not-found-action":"Prova un'altra ricerca",
+    "search-input-label":"Cerca",
+    "search-loading-msg":"Caricamento dei risultati di ricerca in corso...",
+    "total-results":"Informazioni su __totalItems__ risultati per __query__"
+  }
+}

@@ -1,15 +1,18 @@
 import Ember from 'ember';
+import DiscussionContributor from '../models/discussion/domain/contributor';
 import {track, trackActions} from '../utils/discussion-tracker';
 
 const {Mixin, inject, set} = Ember;
 
 export default Mixin.create({
 	modalDialog: inject.service(),
+	currentUser: Ember.inject.service(),
+
 	/**
 	 * Get loading spinner container.
 	 * On post list it's post, on post-details it's applicationController to overlay entire page
-	 * @param {object} post
-	 * @returns {object}
+	 * @param {Object} post
+	 * @returns {Object}
 	 */
 	getLoadingSpinnerContainer(post) {
 		return this.get('postDeleteFullScreenOverlay') ?
@@ -20,21 +23,21 @@ export default Mixin.create({
 	actions: {
 		/**
 		 * Pass post deletion to model
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		deletePost(post) {
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
 			set(loadingSpinnerContainer, 'isLoading', true);
-			this.modelFor(this.get('routeName')).deletePost(post).then(() => {
+			this.modelFor(this.get('routeName')).current.deletePost(post).then(() => {
 				set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
 
 		/**
 		 * Pass post deletion to model
-		 * @param {object} posts
+		 * @param {Object} posts
 		 * @returns {void}
 		 */
 		deleteAllPosts(posts) {
@@ -56,7 +59,7 @@ export default Mixin.create({
 					if (result) {
 						set(loadingSpinnerContainer, 'isLoading', true);
 
-						this.modelFor(this.get('routeName')).deleteAllPosts(posts).then(() => {
+						this.modelFor(this.get('routeName')).current.deleteAllPosts(posts).then(() => {
 							set(loadingSpinnerContainer, 'isLoading', false);
 						});
 
@@ -67,90 +70,99 @@ export default Mixin.create({
 
 		/**
 		 * Pass post undeletion to model
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		undeletePost(post) {
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
 			set(loadingSpinnerContainer, 'isLoading', true);
-			this.modelFor(this.get('routeName')).undeletePost(post).then(() => {
+			this.modelFor(this.get('routeName')).current.undeletePost(post).then(() => {
 				set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
 
 		/**
 		 * Pass reply deletion to model
-		 * @param {object} reply
+		 * @param {Object} reply
 		 * @returns {void}
 		 */
 		deleteReply(reply) {
 			set(reply, 'isLoading', true);
-			this.modelFor(this.get('routeName')).deleteReply(reply).then(() => {
+			this.modelFor(this.get('routeName')).current.deleteReply(reply).then(() => {
 				set(reply, 'isLoading', false);
 			});
 		},
 
 		/**
 		 * Pass reply undeletion to model
-		 * @param {object} reply
+		 * @param {Object} reply
 		 * @returns {void}
 		 */
 		undeleteReply(reply) {
 			set(reply, 'isLoading', true);
-			this.modelFor(this.get('routeName')).undeleteReply(reply).then(() => {
+			this.modelFor(this.get('routeName')).current.undeleteReply(reply).then(() => {
 				set(reply, 'isLoading', false);
 			});
 		},
 
 		/**
 		 * Pass post/reply reporting to model
-		 * @param {object} item
+		 * @param {Object} item
 		 * @returns {void}
 		 */
 		report(item) {
+			const currentModel = this.modelFor(this.get('routeName')).current;
+
 			set(item, 'isLoading', true);
-			this.modelFor(this.get('routeName')).report(item).then(() => {
+
+			currentModel.report(item).then(() => {
 				set(item, 'isLoading', false);
+
+				currentModel.addReportDetailsUser(item, DiscussionContributor.create({
+					avatarUrl: this.get('currentUser.avatarPath'),
+					id: this.get('currentUser.userId'),
+					name: this.get('currentUser.name'),
+				}));
 			});
 		},
 
 		/**
 		 * Pass post/reply approval to model
-		 * @param {object} item
+		 * @param {Object} item
 		 * @returns {void}
 		 */
 		approve(item) {
 			set(item, 'isLoading', true);
-			this.modelFor(this.get('routeName')).approve(item).then(() => {
+			this.modelFor(this.get('routeName')).current.approve(item).then(() => {
 				set(item, 'isLoading', false);
 			});
 		},
 
 		/**
 		 * Pass post locking to the model
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		lock(post) {
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
 			set(loadingSpinnerContainer, 'isLoading', true);
-			this.modelFor(this.get('routeName')).lockPost(post).then(() => {
+			this.modelFor(this.get('routeName')).current.lockPost(post).then(() => {
 				set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},
 
 		/**
 		 * Pass post unlocking to the model
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		unlock(post) {
 			const loadingSpinnerContainer = this.getLoadingSpinnerContainer(post);
 
 			set(loadingSpinnerContainer, 'isLoading', true);
-			this.modelFor(this.get('routeName')).unlockPost(post).then(() => {
+			this.modelFor(this.get('routeName')).current.unlockPost(post).then(() => {
 				set(loadingSpinnerContainer, 'isLoading', false);
 			});
 		},

@@ -1,5 +1,6 @@
 # dependencies
-/node_modules/
+**/node_modules/
+**/bower_components/
 
 # compiled output
 /www/
@@ -14,6 +15,7 @@
 *.sw[a-z]
 *.orig
 *.log
+*.iml
 
 # coverage files
 **/coverage.*

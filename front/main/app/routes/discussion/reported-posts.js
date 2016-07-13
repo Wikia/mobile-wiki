@@ -14,51 +14,27 @@ export default DiscussionBaseRoute.extend(
 		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
 
-		forumId: null,
-
 		/**
-		 * Redirect to 'latest' if any other (yet) unsupported sort called
-		 *
-		 * @param {EmberStates.Transition} transition
-		 *
-		 * @returns {void}
+		 * @returns {Ember.RSVP.hash}
 		 */
-		beforeModel(transition) {
-			const routeParams = transition.params['discussion.reported-posts'],
-				forumId = routeParams.forumId,
-				sortBy = routeParams.sortBy;
-
-			this.set('forumId', forumId);
-
-			if (sortBy !== 'latest') {
-				this.setSortBy('latest');
-			}
-		},
-
-		/**
-		 * @param {object} params
-		 *
-		 * @returns {Ember.RSVP.Promise}
-		 */
-		model(params) {
-			const discussionSort = this.get('discussionSort');
-
-			if (params.sortBy !== discussionSort.get('sortBy')) {
-				discussionSort.setSortBy(params.sortBy);
-			}
+		model() {
+			const discussionSort = this.get('discussionSort'),
+				indexModel = this.modelFor('discussion');
 
 			discussionSort.setOnlyReported(true);
+			discussionSort.setSortBy('latest');
 
-			return DiscussionReportedPostsModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
+			return Ember.RSVP.hash({
+				current: DiscussionReportedPostsModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy')),
+				index: indexModel
+			});
 		},
 
 		/**
-		 * @param {string} sortBy
 		 * @returns {EmberStates.Transition}
 		 */
-		setSortBy(sortBy) {
-			this.get('discussionSort').setSortBy(sortBy);
-			return this.transitionTo('discussion.reported-posts', this.get('forumId'), sortBy);
+		setSortBy() {
+			return this.transitionTo('discussion.reported-posts');
 		},
 
 		actions: {
@@ -67,7 +43,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor(this.get('routeName')).loadPage(pageNum, this.get('discussionSort.sortBy'));
+				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 
 			/**
@@ -79,8 +55,8 @@ export default DiscussionBaseRoute.extend(
 			 */
 			create(postData) {
 				this.get('discussionSort').setSortBy('latest');
-				this.transitionTo('discussion.forum', this.get('forumId'), 'latest').promise.then(() => {
-					const model = this.modelFor(this.get('routeName'));
+				this.transitionTo('discussion.forum', {queryParams: {sort: 'latest'}}).promise.then(() => {
+					const model = this.modelFor(this.get('routeName')).current;
 
 					model.createPost(postData).then((data) => {
 						if (data && !model.get('errorMessage')) {

@@ -6,6 +6,7 @@ import OpenGraph from './open-graph';
 
 const DiscussionPost = DiscussionEntity.extend({
 	canModerate: null,
+	categoryName: null,
 	contributors: null,
 	forumId: null,
 	isNextLink: null,
@@ -28,6 +29,7 @@ DiscussionPost.reopenClass({
 	 */
 	createFromPostListData(postData) {
 		const post = DiscussionPost.create({
+				categoryName: postData.forumName,
 				createdBy: DiscussionContributor.create(postData.createdBy),
 				creationTimestamp: postData.creationDate.epochSecond,
 				id: postData.id,
@@ -65,6 +67,7 @@ DiscussionPost.reopenClass({
 	 */
 	createFromThreadData(threadData) {
 		const post = DiscussionPost.create({
+				categoryName: threadData.forumName,
 				createdBy: DiscussionContributor.create(threadData.createdBy),
 				creationTimestamp: threadData.creationDate.epochSecond,
 				id: threadData.firstPostId,
@@ -75,13 +78,13 @@ DiscussionPost.reopenClass({
 				isRequesterBlocked: threadData.isRequesterBlocked,
 				openGraph: null,
 				permalinkedReplyId: threadData.permalinkedReplyId,
-				rawContent: Ember.get(threadData, '_embedded.firstPost.0.rawContent'),
+				rawContent: threadData.rawContent,
 				repliesCount: parseInt(threadData.postCount, 10),
 				threadId: threadData.id,
 				title: threadData.title,
 				upvoteCount: parseInt(threadData.upvoteCount, 10),
 			}),
-			userData = Ember.get(threadData, '_embedded.firstPost.0._embedded.userData.0'),
+			userData = Ember.get(threadData, '_embedded.userData.0'),
 			openGraphData = Ember.get(threadData, '_embedded.openGraph.0');
 
 		if (openGraphData) {

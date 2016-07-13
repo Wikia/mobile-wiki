@@ -21,7 +21,7 @@ $nav-padding-horizontal: 6px;
 }
 
 .nav-menu__item {
-	@include wikia-nav-link-button(inherit);
+	@include link-interactions-color(inherit);
 
 	box-sizing: content-box;
 	color: inherit;
@@ -49,6 +49,10 @@ $nav-padding-horizontal: 6px;
 		font-weight: bold;
 		margin-top: 0;
 		padding: 0 $nav-padding-vertical;
+
+		a {
+			top: 0;
+		}
 
 		&::before {
 			display: none;

@@ -1,13 +1,14 @@
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	hasContentError=true
-	model=model.data
+	model=model.current.data
+	updateCategories=(action 'updateCategories')
 }}
 	{{#if model.error.isNotFound}}
 		{{discussion-reported-not-found-error}}
 	{{else}}
 		{{discussion-connection-error
-			error=model.error
+			error=model.current.error
 		}}
 	{{/if}}
 {{/discussion-entities-list-layout}}

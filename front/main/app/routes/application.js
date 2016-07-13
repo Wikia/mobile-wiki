@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import ArticleModel from '../models/wiki/article';
 import getLinkInfo from '../utils/article-link';
-import Ads from 'common/modules/ads';
 import HeadTagsStaticMixin from '../mixins/head-tags-static';
+import ResponsiveMixin from '../mixins/responsive';
 import {normalizeToUnderscore} from 'common/utils/string';
 import {track, trackActions} from 'common/utils/track';
 import {activate as variantTestingActivate} from 'common/utils/variant-testing';
@@ -18,12 +18,15 @@ const {
 export default Route.extend(
 	TargetActionSupport,
 	HeadTagsStaticMixin,
+	ResponsiveMixin,
 	{
 		queryParams: {
 			commentsPage: {
 				replace: true
 			}
 		},
+
+		adsState: Ember.inject.service(),
 
 		actions: {
 			/**
@@ -45,6 +48,7 @@ export default Route.extend(
 				if (this.controller) {
 					this.controller.set('isLoading', false);
 				}
+				this.get('adsState.module').onTransition();
 
 				// Clear notification alerts for the new route
 				this.controller.clearNotifications();
@@ -53,7 +57,7 @@ export default Route.extend(
 				 * This is called after the first route of any application session has loaded
 				 * and is necessary to prevent the ArticleModel from trying to bootstrap from the DOM
 				 */
-				M.prop('articleContentPreloadedInDOM', false);
+				M.prop('articleContentPreloadedInDOM', false, true);
 
 				// TODO (HG-781): This currently will scroll to the top even when the app has encountered an error.
 				// Optimally, it would remain in the same place.
@@ -102,7 +106,8 @@ export default Route.extend(
 					Mercury.wiki.basePath,
 					title,
 					target.hash,
-					target.href
+					target.href,
+					target.search
 				);
 
 				/**
@@ -209,7 +214,16 @@ export default Route.extend(
 			// This is used only in not-found.hbs template
 			/**
 			 * @returns {void}
+			 * @param {string} query
 			 */
+			goToSearchResults(query) {
+				if (this.get('responsive.isMobile')) {
+					this.transitionTo('search', {queryParams: {query}});
+				} else {
+					window.location.assign(`${Mercury.wiki.articlePath}Special:Search?search=${query}&fulltext=Search`);
+				}
+			},
+
 			openNav() {
 				this.get('controller').setProperties({
 					drawerContent: 'nav',
@@ -222,13 +236,12 @@ export default Route.extend(
 		 * @returns {void}
 		 */
 		activate() {
-			const instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
-			let adsInstance;
+			const adsModule = this.get('adsState.module'),
+				instantGlobals = (window.Wikia && window.Wikia.InstantGlobals) || {};
 
 			if (M.prop('adsUrl') && !M.prop('queryParams.noexternals') &&
 				!instantGlobals.wgSitewideDisableAdsOnMercury) {
-				adsInstance = Ads.getInstance();
-				adsInstance.init(M.prop('adsUrl'));
+				adsModule.init(M.prop('adsUrl'));
 
 				/*
 				 * This global function is being used by our AdEngine code to provide prestitial/interstitial ads
@@ -238,7 +251,7 @@ export default Route.extend(
 				 * Created lightbox might be empty in case of lack of ads, so we want to create lightbox with argument
 				 * lightboxVisible=false and then decide if we want to show it.
 				 */
-				adsInstance.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
+				adsModule.createLightbox = (contents, closeButtonDelay, lightboxVisible) => {
 					const actionName = lightboxVisible ? 'openLightbox' : 'createHiddenLightbox';
 
 					if (!closeButtonDelay) {
@@ -248,8 +261,12 @@ export default Route.extend(
 					this.send(actionName, 'ads', {contents}, closeButtonDelay);
 				};
 
-				adsInstance.showLightbox = () => {
+				adsModule.showLightbox = () => {
 					this.send('showLightbox');
+				};
+
+				adsModule.setSiteHeadOffset = (offset) => {
+					this.set('adsState.siteHeadOffset', offset);
 				};
 			}
 		},

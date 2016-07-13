@@ -7,11 +7,6 @@ body.dark-theme {
 }
 
 .dark-theme {
-	.upvote-icon-background {
-		fill: $dark-upvote-icon-back-color;
-		stroke: $dark-upvote-icon-back-color;
-	}
-
 	button[type=submit][disabled] {
 		background-color: $dark-button-color;
 		border-color: $dark-button-color;
@@ -87,12 +82,32 @@ body.dark-theme {
 			}
 		}
 
+		.discussion-reply {
+			.upvotes {
+				small {
+					color: $dark-discussion-count-color;
+				}
+			}
+		}
+
 		.count {
 			color: $dark-discussion-count-color;
 
 			.upvote-area,
 			.replies-area {
 				color: $dark-discussion-count-color;
+			}
+		}
+
+		.post-counters {
+			color: $dark-discussion-actions-color;
+		}
+
+		.post-actions {
+			border-top-color: $dark-discussion-post-detail-border-color;
+
+			> li:not(:last-child) {
+				border-right: 1px solid $dark-discussion-post-actions-border-color;
 			}
 		}
 
@@ -137,10 +152,6 @@ body.dark-theme {
 
 				.icon:not(.delete) {
 					fill: $dark-discussion-deleted-actions-color;
-
-					&.upvote-reply {
-						stroke: $dark-discussion-deleted-actions-color;
-					}
 				}
 			}
 
@@ -175,19 +186,11 @@ body.dark-theme {
 
 		.icon {
 			fill: $dark-discussion-actions-color;
-
-			&.upvote-reply {
-				stroke: $dark-discussion-actions-color;
-			}
 		}
 
 		.has-upvoted {
 			.icon {
 				fill: $dark-upvote-icon-activated-color;
-
-				&.upvote-reply {
-					stroke: $dark-upvote-icon-activated-color;
-				}
 			}
 		}
 
@@ -255,9 +258,19 @@ body.dark-theme {
 		}
 	}
 
-	.discussion-app-promotion {
+	.discussion-community-unit {
 		.discussion-app-join-text {
-			color: $dark-app-promotion-text-color;
+			color: $dark-discussion-app-promotion-text-color;
+		}
+		.wiki-name {
+			border-bottom-color: $dark-discussion-right-rail-line-color;
+			color: $dark-discussion-rail-title-color;
+		}
+	}
+
+	.post-details-view {
+		.discussion-app-join-text {
+			color: $dark-discussion-post-details-app-promotion-text-color;
 		}
 	}
 
@@ -291,11 +304,12 @@ body.dark-theme {
 	}
 
 	.rail {
-		.discussion-contributors-title {
+		.discussion-contributors-title,
+		.discussion-filter-header {
 			color: $dark-discussion-contributors-rail-title;
 		}
 
-		.side-button {
+		.side-button, .discussion-filter-header {
 			border-color: $dark-discussion-rail-border-color;
 		}
 
@@ -303,13 +317,23 @@ body.dark-theme {
 			color: $dark-discussion-no-replies-text-color;
 		}
 
-		.discussion-filters {
+		.discussions-collapsable,
+		.discussion-filters,
+		.discussion-categories {
 			legend {
 				color: $dark-discussion-rail-header-color;
 			}
 
 			label {
 				color: $dark-discussion-rail-label-color;
+			}
+		}
+
+		.discussion-categories-list {
+			label {
+				&:hover {
+					background-color: $dark-discussion-category-hover-background;
+				}
 			}
 		}
 	}
@@ -348,6 +372,40 @@ body.dark-theme {
 			.og-text-placeholder {
 				background-color: $dark-discussion-open-graph-placeholder-background-color;
 			}
+		}
+	}
+
+	.standalone-page-view {
+		.standalone-content {
+			background-color: $dark-discussion-standalone-content-background-color;
+		}
+	}
+
+	.guidelines-page {
+		.wiki-name {
+			color: $dark-discussion-guidelines-wiki-name-color;
+		}
+
+		.guidelines-text {
+			color: $dark-discussion-guidelines-text-color;
+		}
+	}
+
+	.discussion-welcome {
+		background-color: $dark-discussion-welcome-background-color;
+
+		.welcome-close {
+			svg {
+				fill: $dark-discussion-welcome-close-color;
+			}
+		}
+
+		h5 {
+			color: $dark-discussion-welcome-head-color;
+		}
+
+		p {
+			color: $dark-discussion-welcome-text-color;
 		}
 	}
 }
@@ -428,6 +486,31 @@ body.dark-theme {
 		.rail {
 			.delete-all {
 				color: $dark-discussion-actions-color;
+			}
+		}
+	}
+
+	.standalone-page-view {
+		.standalone-content {
+			border-color: $dark-discussion-standalone-content-border-color;
+		}
+	}
+}
+
+@media #{$mobile-range} {
+	body.discussions {
+		&.dark-theme {
+			&.standalone-page {
+				background-color: $dark-discussion-standalone-content-background-color;
+			}
+		}
+	}
+	.dark-theme {
+		.discussion {
+			.post-actions {
+				> li:not(:last-child) {
+					border-right: none;
+				}
 			}
 		}
 	}

@@ -23,19 +23,22 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		loadPage(pageNum = 0, sortBy = 'trending') {
 			this.set('data.pageNum', pageNum);
 
-			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.forumId}`), {
+			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads`), {
 				data: {
+					limit: 10,
 					page: this.get('data.pageNum'),
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false
 				}
 			}).then((data) => {
-				this.get('data.entities').pushObjects(
-					Ember.get(data, '_embedded.doc:threads').map(
-						(newThread) => DiscussionPost.createFromThreadData(newThread)
-					)
+				const newEntities = Ember.get(data, '_embedded.threads').map(
+					(newThread) => DiscussionPost.createFromThreadData(newThread)
 				);
+
+				this.get('data.entities').pushObjects(newEntities);
+				this.reportedDetailsSetUp(newEntities);
+
 			}).catch((err) => {
 				this.handleLoadMoreError(err);
 			});
@@ -47,12 +50,11 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		 * @returns {void}
 		 */
 		setNormalizedData(apiData) {
-			const posts = Ember.getWithDefault(apiData, '_embedded.doc:threads', []),
+			const posts = Ember.getWithDefault(apiData, '_embedded.threads', []),
 				pivotId = Ember.getWithDefault(posts, '0.id', 0),
 				entities = DiscussionEntities.createFromThreadsData(posts);
 
 			this.get('data').setProperties({
-				forumId: apiData.id,
 				canModerate: Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
 				contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities,
@@ -68,17 +70,17 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 DiscussionForumModel.reopenClass({
 	/**
 	 * @param {number} wikiId
-	 * @param {number} forumId
+	 * @param {array|string} [cateogries=[]]
 	 * @param {string} [sortBy='trending']
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	find(wikiId, forumId, sortBy = 'trending') {
+	find(wikiId, cateogries = [], sortBy = 'trending') {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const forumInstance = DiscussionForumModel.create({
-					wikiId,
-					forumId
+					wikiId
 				}),
 				requestData = {
+					forumId: cateogries instanceof Array ? cateogries : [cateogries],
 					limit: 10,
 					viewableOnly: false
 				};
@@ -87,12 +89,15 @@ DiscussionForumModel.reopenClass({
 				requestData.sortKey = forumInstance.getSortKey(sortBy);
 			}
 
-			request(M.getDiscussionServiceUrl(`/${wikiId}/forums/${forumId}`), {
-				data: requestData
+			request(M.getDiscussionServiceUrl(`/${wikiId}/threads`), {
+				data: requestData,
+				traditional: true,
 			}).then((data) => {
 				forumInstance.setNormalizedData(data);
 
 				resolve(forumInstance);
+
+				forumInstance.reportedDetailsSetUp(forumInstance.get('data.entities'));
 			}).catch((err) => {
 				forumInstance.setErrorProperty(err);
 

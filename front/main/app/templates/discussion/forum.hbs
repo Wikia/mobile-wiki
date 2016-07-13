@@ -8,9 +8,25 @@
 		generateOpenGraph=(route-action 'generateOpenGraph')
 	}}
 {{/modal-dialog}}
+{{#modal-dialog
+	class='is-bare is-desktop-centered discussion-guidelines'
+	closeOnOverlayClick=true
+	isVisible=areGuidelinesVisible
+}}
+	{{#if areGuidelinesVisible}}
+		{{discussion-guidelines
+			guidelinesText=model.index.attributes.data.guidelines.value
+		}}
+	{{/if}}
+{{/modal-dialog}}
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
-	model=model.data
+	attributes=model.index.attributes.data
+	categories=model.index.categories.data
+	model=model.current.data
+	openGuidelines=(action 'openGuidelines')
+	showCategories=showCategories
+	updateCategories=(action 'updateCategories')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')
@@ -20,18 +36,19 @@
 		createPost=(action 'createPost')
 		deletePost=(action 'deletePost')
 		editPost=(action 'editPost')
-		forumId=model.data.forumId
 		generateOpenGraph=(route-action 'generateOpenGraph')
+		gotoGuidelines=(action 'gotoGuidelines')
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
-		minorError=model.data.minorError
-		pageNum=model.data.pageNum
-		posts=model.data.entities
-		postsDisplayed=model.data.entities.length
+		minorError=model.current.data.minorError
+		pageNum=model.current.data.pageNum
+		posts=model.current.data.entities
+		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')
-		totalPosts=model.data.postCount
+		showCategories=showCategories
+		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
-		upvote=(action 'upvote')
 		unlockPost=(action 'unlockPost')
+		upvote=(action 'upvote')
 	}}
 {{/discussion-entities-list-layout}}

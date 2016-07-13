@@ -14,28 +14,43 @@ export default DiscussionBaseRoute.extend(
 	DiscussionForumActionsRouteMixin,
 	DiscussionModalDialogMixin,
 	{
+		queryParams: {
+			catId: {
+				refreshModel: true
+			},
+			sort: {
+				refreshModel: true
+			}
+		},
+
 		canModerate: null,
 		discussionSort: inject.service(),
 		discussionEditor: inject.service(),
 
-		forumId: null,
-
 		/**
 		 * @param {object} params
-		 * @returns {Ember.RSVP.Promise}
+		 * @returns {Ember.RSVP.hash}
 		 */
 		model(params) {
-			const discussionSort = this.get('discussionSort');
+			const discussionSort = this.get('discussionSort'),
+				discussionModel = this.modelFor('discussion');
 
-			if (params.sortBy) {
-				discussionSort.setSortBy(params.sortBy);
+			if (params.sort) {
+				discussionSort.setSortBy(params.sort);
 			}
 
 			discussionSort.setOnlyReported(false);
 
-			this.set('forumId', params.forumId);
+			if (params.catId) {
+				discussionModel.categories.setSelectedCategories(
+					params.catId instanceof Array ? params.catId : [params.catId]
+				);
+			}
 
-			return DiscussionForumModel.find(Mercury.wiki.id, params.forumId, this.get('discussionSort.sortBy'));
+			return Ember.RSVP.hash({
+				current: DiscussionForumModel.find(Mercury.wiki.id, params.catId, this.get('discussionSort.sortBy')),
+				index: discussionModel
+			});
 		},
 
 		/**
@@ -44,7 +59,15 @@ export default DiscussionBaseRoute.extend(
 		 */
 		setSortBy(sortBy) {
 			this.get('discussionSort').setSortBy(sortBy);
-			return this.transitionTo('discussion.forum', this.get('forumId'), sortBy);
+			return this.transitionTo('discussion.forum', {queryParams: {sort: sortBy}});
+		},
+
+		serializeQueryParam(value, urlKey, defaultValueType) {
+			return defaultValueType === 'array' ? value : this._super(value, urlKey, defaultValueType);
+		},
+
+		deserializeQueryParam(value, urlKey, defaultValueType) {
+			return defaultValueType === 'array' ? value : this._super(value, urlKey, defaultValueType);
 		},
 
 		actions: {
@@ -53,7 +76,24 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor(this.get('routeName')).loadPage(pageNum, this.get('discussionSort.sortBy'));
+				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
+			},
+
+			updateCategories(updatedCategories) {
+				const catId = updatedCategories.filterBy('selected', true).mapBy('category.id');
+
+				this.transitionTo({queryParams: {
+					catId,
+					sort: this.get('discussionSort.sortBy')
+				}});
+			},
+
+			/**
+			 * Transition to Guidelines
+			 * @returns {void}
+			 */
+			gotoGuidelines() {
+				this.transitionTo('discussion.guidelines');
 			},
 		}
 	}

@@ -24,10 +24,12 @@
     "help-section-collapsible":"如果您選中\"折疊\"選項，當文章頁面使用訊息框時，您將能夠展開或者折疊每個大類。",
     "edit-image-item-description":"當文章頁使用訊息框時，這個圖像區域允許您稍後再上傳圖片。",
     "edit-title-modal-cancel":"取消",
-    "edit-title-modal-header":"命名您的模版",
+    "edit-title-modal-header-on-leave":"命名您的模版",
+    "edit-title-modal-header-on-rename":"模版名稱",
     "edit-title-modal-publish":"發佈",
     "edit-title-modal-ok":"好的",
-    "edit-title-modal-text":"發佈您的模板之前，您必須為它命名。",
+    "edit-title-modal-text-on-leave":"發佈您的模板之前，您必須為它提供名稱。",
+    "edit-title-modal-text-on-rename":"提供您的訊息框模版名稱。",
     "edit-title-placeholder":"無標題的模板",
     "save":"發佈",
     "load-error":"載入出錯",
@@ -40,6 +42,7 @@
     "source-editor-save-confirmation-button-no":"不是",
     "source-editor-loading":"正在載入原始碼編輯器",
     "untitled-infobox-template":"未添加標題的訊息框模版",
-    "title-naming-conflict-error":"此名稱已被使用"
+    "title-naming-conflict-error":"此名稱已被使用",
+    "title-naming-invalid-title-error":"無效的標題"
   }
 }
