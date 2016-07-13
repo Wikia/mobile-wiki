@@ -1,12 +1,53 @@
 $success-icon-size: 80px;
 
+.is-edit-mode {
+	.discussion-categories-list-container {
+		overflow: initial;
+	}
+}
+
 .discussion-categories-edit {
-	&.reorder-in-progress {
-		cursor: pointer;
+	li {
+		background-color: #f6f6f6;
+
+		&:hover {
+			.move {
+				display: block;
+				height: 16px;
+				margin: 7px;
+				width: 7px;
+			}
+		}
+	}
+
+	.move {
+		display: none;
+		position: absolute;
+		right: 0;
+	}
+
+	.sortable-item {
+		position: relative;
+	}
+
+	.is-dragging {
+		// hacks for firefox to make transforms work smoothly
+		backface-visibility: hidden;
+		transform: translate3d(0, 0, 0);
+
+		z-index: 901;
+
+		li {
+			box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
+		}
+
+		.discussion-categories-input {
+			border: none;
+		}
 	}
 
 	.discussion-categories-list-container {
-		clear:left;
+		clear: left;
 		margin: 0;
 	}
 

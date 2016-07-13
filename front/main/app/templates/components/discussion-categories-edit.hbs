@@ -41,9 +41,9 @@
 					}}
 				</span>
 			</li>
-			{{#sortable-objects sortableObjectList=localCategories enableSort=true}}
+			{{#sortable-group tagName='div' model=localCategories onChange=(action 'onReorderElements') as |group|}}
 				{{#each localCategories as |localCategory|}}
-					{{#draggable-object content=localCategory isSortable=true dragStartAction='onReorderStarted' dragEndAction='onReorderFinished'}}
+					{{#sortable-item tagName='div' model=localCategory group=group handle=".draggable"}}
 						<li>
 							<span class="discussion-categories-input-wrapper">
 								{{#if (equal localCategory.id wikiId)}}
@@ -60,6 +60,7 @@
 									maxlength=20
 									value=localCategory.name
 								}}
+								{{svg 'move' viewBox='0 0 7 16' class='icon move draggable'}}
 								{{#unless localCategory.id}}
 									<a class="discussion-categories-edit-action-button" {{action 'deleteCategory' localCategory}}>
 										{{svg 'close' class='icon close'}}
@@ -70,9 +71,9 @@
 								<span class="error">{{localCategory.error}}</span>
 							{{/if}}
 						</li>
-					{{/draggable-object}}
+					{{/sortable-item}}
 				{{/each}}
-			{{/sortable-objects}}
+			{{/sortable-group}}
 		</ul>
 	</div>
 	<a class="discussion-categories-edit-add-link active-element-theme-color {{if addDisabled 'active-element-disabled-theme-color'}}" {{action 'addCategory'}}>

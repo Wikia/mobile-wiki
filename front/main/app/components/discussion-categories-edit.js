@@ -98,6 +98,10 @@ export default Ember.Component.extend(ResponsiveMixin,
 			onReorderFinished() {
 				this.set('reorderInProgress', false);
 			},
+
+			onReorderElements(oldCategories, newCategories) {
+				this.set('localCategories', newCategories);
+			}
 		}
 	}
 );
