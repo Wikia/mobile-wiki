@@ -5,21 +5,24 @@ import DiscussionEditorConfiguration from '../mixins/discussion-editor-configura
 export default DiscussionStandaloneEditor.extend(
 	DiscussionEditorConfiguration,
 	{
-		isGuidelinesEditor: true,
-		isReply: false,
 		editorType: 'guidelinesEditor',
 		guidelines: null,
+		isGuidelinesEditor: true,
+		isReply: false,
+		openGraph: null,
+		showsOpenGraphCard: false,
 
 		layoutName: 'components/discussion-standalone-editor',
 
-		editGuidelinesObserver: Ember.observer('guidelines', function () {
+		// first time it is triggered by the 'guidelines' property, and later by the 'isActive' property
+		editGuidelinesObserver: Ember.observer('guidelines', 'isActive', function () {
 			const guidelines = this.get('guidelines');
 
-			this.setProperties({
-				content: guidelines.get('value'),
-				openGraph: null,
-				showsOpenGraphCard: false
-			});
+			if (!guidelines) {
+				return;
+			}
+
+			this.set('content', guidelines.get('value'));
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				// This needs to be triggered after Ember updates textarea content

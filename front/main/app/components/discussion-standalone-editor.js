@@ -21,13 +21,18 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, DiscussionEdit
 		Ember.$('html, body').toggleClass('mobile-full-screen', this.get('isActive'));
 	}),
 
-	editEntityObserver: Ember.observer('editEntity', function () {
+	// first time it is triggered by the 'editEntity' property, and later by the 'isActive' property
+	editEntityObserver: Ember.observer('editEntity', 'isActive', function () {
 		const editEntity = this.get('editEntity');
+
+		if (!editEntity) {
+			return;
+		}
 
 		this.setProperties({
 			content: editEntity.get('rawContent'),
 			openGraph: editEntity.get('openGraph'),
-			showsOpenGraphCard: Boolean(editEntity.get('openGraph'))
+			showsOpenGraphCard: Boolean(editEntity.get('openGraph')),
 		});
 
 		Ember.run.scheduleOnce('afterRender', this, () => {
