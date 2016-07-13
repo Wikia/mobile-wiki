@@ -28,6 +28,7 @@ import load from '../utils/load';
  * @property {*} adEngineRunnerModule
  * @property {*} adContextModule
  * @property {SourcePointDetectionModule} sourcePointDetectionModule
+ * @property {PageFairDetectionModule} pageFairDetectionModule
  * @property {*} adConfigMobile
  * @property {AdLogicPageViewCounterModule} adLogicPageViewCounterModule
  * @property {AdMercuryListenerModule} adMercuryListenerModule
@@ -86,6 +87,7 @@ class Ads {
 					'ext.wikia.adEngine.adLogicPageViewCounter',
 					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.mobile.mercuryListener',
+					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.sourcePointDetection',
 					'wikia.krux'
 				], (adContextModule,
@@ -93,6 +95,7 @@ class Ads {
 					adLogicPageViewCounterModule,
 					adConfigMobile,
 					adMercuryListener,
+					pageFairDetectionModule,
 					sourcePointDetectionModule,
 					krux) => {
 					this.adEngineRunnerModule = adEngineRunnerModule;
@@ -100,6 +103,7 @@ class Ads {
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.adConfigMobile = adConfigMobile;
 					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
+					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adMercuryListenerModule = adMercuryListener;
 					this.krux = krux;
 					this.isLoaded = true;
@@ -257,6 +261,9 @@ class Ads {
 			} else {
 				this.sourcePointDetectionModule.initDetection();
 			}
+
+			this.pageFairDetectionModule.initDetection();
+
 			if (adsContext.opts) {
 				delayEnabled = Boolean(adsContext.opts.delayEngine);
 			}
