@@ -117,3 +117,28 @@ gulp.task('test-common', ['build-common-vendor-for-tests'], function (done) {
 		configFile: __dirname + '/tests/karma.conf.js'
 	}, done).start();
 });
+
+gulp.task('build-design-system-i18n', function () {
+	var fs = require('fs'),
+		i18n = '',
+		i18nBuilt = {},
+		loadTree = require('../../gulp/utils/load-tree'),
+		tree = loadTree('node_modules/design-system-i18n/i18n');
+
+	for(var dir in tree) {
+		for(var file in tree[dir]) {
+			i18n = require('../../node_modules/design-system-i18n/i18n/' + dir + '/' + file);
+			i18nBuilt.main = i18n;
+
+			fs.writeFile(
+				'front/common/public/locales/' + dir + '/' + file,
+				JSON.stringify(i18nBuilt, null, '  '),
+				function(err) {
+					if(err) {
+						return console.log(err);
+					}
+				}
+			);
+		}
+	}
+});
