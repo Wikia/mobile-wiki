@@ -22,7 +22,8 @@ import load from '../utils/load';
  * @class Ads
  *
  * @property {Ads} instance
- * @property {boolean|null} blocking
+ * @property {String} blocking
+ * @property {boolean|null} previousPageFairDetectionResult
  * @property {Array<string[]>} adSlots
  * @property {Object} adsContext
  * @property {*} adEngineRunnerModule
@@ -196,10 +197,27 @@ class Ads {
 	}
 
 	/**
+	 * @param {boolean|null} isABDetected
+	 * @returns {void}
+	 */
+	trackBlockingPageFair(isABDetected) {
+		const pageFairDimension = 7;
+		let value = isABDetected ? 'Yes' : 'No';
+
+		M.tracker.UniversalAnalytics.setDimension(pageFairDimension, value);
+		M.tracker.UniversalAnalytics.track('ads-pagefair-detection', 'impression', value, 0, true);
+
+		Ads.gaTrackAdEvent.call(this, 'ad/pagefair/detection', value, '', 0, true);
+
+		Ads.previousPageFairDetectionResult = isABDetected;
+	}
+
+	/**
 	 * @returns {void}
 	 */
 	addDetectionListeners() {
 		const trackBlocking = this.trackBlocking;
+		const trackBlockingPageFair = this.trackBlockingPageFair;
 
 		window.addEventListener('sp.blocking', () => {
 			trackBlocking('Yes');
@@ -207,6 +225,14 @@ class Ads {
 
 		window.addEventListener('sp.not_blocking', () => {
 			trackBlocking('No');
+		});
+
+		document.addEventListener('pf.blocking', () => {
+			trackBlockingPageFair(true);
+		});
+
+		document.addEventListener('pf.not_blocking', () => {
+			trackBlockingPageFair(false);
 		});
 	}
 
@@ -256,13 +282,18 @@ class Ads {
 			if (typeof onContextLoadCallback === 'function') {
 				onContextLoadCallback();
 			}
+
 			if (Ads.blocking !== null) {
 				this.trackBlocking(Ads.blocking ? 'Yes' : 'No');
 			} else {
 				this.sourcePointDetectionModule.initDetection();
 			}
 
-			this.pageFairDetectionModule.initDetection();
+			if (Ads.previousPageFairDetectionResult !== null) {
+				this.trackBlockingPageFair(Ads.previousPageFairDetectionResult);
+			} else {
+				this.pageFairDetectionModule.initDetection();
+			}
 
 			if (adsContext.opts) {
 				delayEnabled = Boolean(adsContext.opts.delayEngine);
@@ -391,6 +422,7 @@ class Ads {
 
 Ads.instance = null;
 Ads.blocking = null;
+Ads.previousPageFairDetectionResult = null;
 
 // @TODO XW-703 right now ads code which comes from MW is expecting window.Mercury.Modules.
 // When introducing sync require in ads this should be fixed
