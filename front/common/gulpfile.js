@@ -52,7 +52,8 @@ gulp.task('build-common-public', function () {
 });
 
 gulp.task('build-common-design-system-i18n', function () {
-	gulp.src([pathsCommon.designSystemI18n.src]).pipe(gulp.dest(pathsCommon.designSystemI18n.dest));
+	gulp.src(pathsCommon.designSystemI18n.src)
+		.pipe(gulp.dest(pathsCommon.designSystemI18n.dest));
 });
 
 /*
