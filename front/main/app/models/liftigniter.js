@@ -40,7 +40,9 @@ const LiftigniterModel = Ember.Object.extend({
 			}
 
 			if (this.get('widget') === 'fandom-rec') {
-				registerOptions.opts = {resultType: "fandom"}
+				registerOptions.opts = {
+					resultType: 'fandom'
+				};
 			}
 
 			// Callback renders and injects results into the placeholder.
@@ -54,8 +56,9 @@ const LiftigniterModel = Ember.Object.extend({
 	formatData(data) {
 		let items = [];
 
-		Ember.$.each(data.items, function(index, item) {
+		Ember.$.each(data.items, (index, item) => {
 			item.index = index;
+
 			if (this.get('widget') === 'fandom-rec') {
 				item.title = item.title.replace(' - Fandom - Powered by Wikia', '');
 			} else {
@@ -72,6 +75,22 @@ const LiftigniterModel = Ember.Object.extend({
 		return {
 			items: items
 		}
+	},
+
+	afterRender(component) {
+		const elements = component.$('.title-thumbnail').get(),
+			widget = this.get('widget'),
+			trackOptions = {
+				elements: elements,
+				name: widget,
+				source: 'LI'
+			};
+
+		if (widget === 'fandom-rec') {
+			trackOptions.opts = {resultType: "fandom"}
+		}
+
+		window.$p('track', trackOptions);
 	}
 });
 

@@ -19,10 +19,14 @@
 
 			if (!window.$p) {
 				window.loadLiftigniter(window,document,'script','//cdn.petametrics.com/l9ehhrb6mtv75bp2.js','$p');
-				window.$p("init", "l9ehhrb6mtv75bp2");
+				window.$p('init', 'l9ehhrb6mtv75bp2', {
+					sdk: {
+						multiFetch: true
+					}
+				});
 			}
 
-			window.$p("send", "pageview");
+			window.$p('resetPageview');
 		};
 
 		window.trackLiftigniterPageView();
