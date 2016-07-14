@@ -22,7 +22,7 @@ import load from '../utils/load';
  * @class Ads
  *
  * @property {Ads} instance
- * @property {String} blocking
+ * @property {boolean|null} previousSourcePointDetectionResult
  * @property {boolean|null} previousPageFairDetectionResult
  * @property {Array<string[]>} adSlots
  * @property {Object} adsContext
@@ -33,6 +33,7 @@ import load from '../utils/load';
  * @property {*} adConfigMobile
  * @property {AdLogicPageViewCounterModule} adLogicPageViewCounterModule
  * @property {AdMercuryListenerModule} adMercuryListenerModule
+ * @property {Object} GASettings
  * @property {Krux} krux
  * @property {Object} currentAdsContext
  * @property {boolean} isLoaded
@@ -55,6 +56,16 @@ class Ads {
 			'MOBILE_PREFOOTER',
 			'MOBILE_BOTTOM_LEADERBOARD'
 		];
+		this.GASettings = {
+			sourcePoint: {
+				name: 'sourcepoint',
+				dimension: 6
+			},
+			pageFair: {
+				name: 'pagefair',
+				dimension: 7
+			}
+		};
 	}
 
 	/**
@@ -184,32 +195,17 @@ class Ads {
 	}
 
 	/**
-	 * @param {string} value
+	 * @param {Object} GAOption
+	 * @param {Boolean} isABDetected
 	 * @returns {void}
 	 */
-	trackBlocking(value) {
-		M.tracker.UniversalAnalytics.setDimension(6, value);
-		M.tracker.UniversalAnalytics.track('ads-sourcepoint-detection', 'impression', value, 0, true);
-
-		Ads.gaTrackAdEvent.call(this, 'ad/sourcepoint/detection', value, '', 0, true);
-
-		Ads.blocking = value === 'Yes';
-	}
-
-	/**
-	 * @param {boolean|null} isABDetected
-	 * @returns {void}
-	 */
-	trackBlockingPageFair(isABDetected) {
-		const pageFairDimension = 7;
+	trackBlocking(GAOption, isABDetected) {
 		let value = isABDetected ? 'Yes' : 'No';
 
-		M.tracker.UniversalAnalytics.setDimension(pageFairDimension, value);
-		M.tracker.UniversalAnalytics.track('ads-pagefair-detection', 'impression', value, 0, true);
+		M.tracker.UniversalAnalytics.setDimension(GAOption.dimension, value);
+		M.tracker.UniversalAnalytics.track('ads-' + GAOption.name +'-detection', 'impression', value, 0, true);
 
-		Ads.gaTrackAdEvent.call(this, 'ad/pagefair/detection', value, '', 0, true);
-
-		Ads.previousPageFairDetectionResult = isABDetected;
+		Ads.gaTrackAdEvent.call(this, 'ad/' + GAOption.name +'/detection', value, '', 0, true);
 	}
 
 	/**
@@ -217,22 +213,26 @@ class Ads {
 	 */
 	addDetectionListeners() {
 		const trackBlocking = this.trackBlocking;
-		const trackBlockingPageFair = this.trackBlockingPageFair;
+		const GASettings = this.GASettings;
 
 		window.addEventListener('sp.blocking', () => {
-			trackBlocking('Yes');
+			trackBlocking(GASettings.sourcePoint, true);
+			Ads.previousSourcePointDetectionResult = true;
 		});
 
 		window.addEventListener('sp.not_blocking', () => {
-			trackBlocking('No');
+			trackBlocking(GASettings.sourcePoint, false);
+			Ads.previousSourcePointDetectionResult = false;
 		});
 
 		document.addEventListener('pf.blocking', () => {
-			trackBlockingPageFair(true);
+			trackBlocking(GASettings.pageFair, true);
+			Ads.previousPageFairDetectionResult = true;
 		});
 
 		document.addEventListener('pf.not_blocking', () => {
-			trackBlockingPageFair(false);
+			trackBlocking(GASettings.pageFair, false);
+			Ads.previousPageFairDetectionResult = false;
 		});
 	}
 
@@ -283,14 +283,14 @@ class Ads {
 				onContextLoadCallback();
 			}
 
-			if (Ads.blocking !== null) {
-				this.trackBlocking(Ads.blocking ? 'Yes' : 'No');
+			if (Ads.previousSourcePointDetectionResult !== null) {
+				this.trackBlocking(this.GASettings.sourcePoint, Ads.previousSourcePointDetectionResult);
 			} else {
 				this.sourcePointDetectionModule.initDetection();
 			}
 
 			if (Ads.previousPageFairDetectionResult !== null) {
-				this.trackBlockingPageFair(Ads.previousPageFairDetectionResult);
+				this.trackBlocking(this.GASettings.pageFair, Ads.previousPageFairDetectionResult);
 			} else {
 				this.pageFairDetectionModule.initDetection();
 			}
@@ -421,7 +421,7 @@ class Ads {
 }
 
 Ads.instance = null;
-Ads.blocking = null;
+Ads.previousSourcePointDetectionResult = null;
 Ads.previousPageFairDetectionResult = null;
 
 // @TODO XW-703 right now ads code which comes from MW is expecting window.Mercury.Modules.
