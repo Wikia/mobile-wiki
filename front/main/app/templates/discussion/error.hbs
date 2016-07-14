@@ -1,10 +1,10 @@
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	hasContentError=true
-	model=model.current.data
+	model=model.data
 	updateCategories=(action 'updateCategories')
 }}
 	{{discussion-error
-		error=model.current.error
+		error=model.error
 	}}
 {{/discussion-entities-list-layout}}

@@ -77,8 +77,8 @@ export default Ember.Route.extend(
 
 				// Model is the only place we can use to send the transition to the
 				// error subroute, and try to retry it from an error component
-				if (model.current) {
-					model.current.get('error').set('transition', transition);
+				if (model) {
+					model.get('error').set('transition', transition);
 				}
 
 				return true;
