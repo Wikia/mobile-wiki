@@ -19,3 +19,11 @@
 @import '../auth/app/styles/base/input';
 @import '../auth/app/styles/module/forms';
 @import '../auth/app/styles/module/form-icons';
+
+// Load Design System
+@import '../../bower_components/design-system/dist/styles';
+
+// Temporary solution that will prove that DS is included.
+body.is-design-system-enabled {
+  color: $color-light-c8 !important;
+}
