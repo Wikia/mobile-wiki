@@ -8,6 +8,13 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 	data: null,
 	wikiId: null,
 
+	renamingErrorsMap: {
+		'400': 'main.rename-category-length-error',
+		'401': 'main.rename-category-auth-error',
+		'403': 'main.rename-category-permissions-error',
+		'404': 'main.rename-category-general-error',
+	},
+
 	selectedCategoryIds: Ember.computed('categories.@each.selected', function () {
 		return this.getSelectedCategoryIds();
 	}),
@@ -62,7 +69,17 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 		});
 	},
 
+	getRenamingErrorMessage(err) {
+		const statusCode = Ember.getWithDefault(err, 'errors.0.status', '404'),
+			renamingErrorsMap = this.get('renamingErrorsMap'),
+			message = Ember.getWithDefault(renamingErrorsMap, statusCode, renamingErrorsMap['404']);
+
+		return i18n.t(message, {ns: 'discussion'});
+	},
+
 	renameCategory(category) {
+		category.set('error', null);
+
 		return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/forums/${category.id}`), {
 			data: JSON.stringify({
 				name: category.get('displayedName'),
@@ -71,13 +88,17 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 		}).then((categoryData) => {
 			const categories = this.get('categories'),
 				updatedCategory = DiscussionCategory.create(categoryData),
-				oldCategoryIndex = categories.indexOf(categories.find((cat) => cat.name === category.name));
+				oldCategoryIndex = categories
+					.indexOf(categories.find((cat) => cat.get('name') === category.get('name')));
 
 			if (oldCategoryIndex !== -1) {
 				categories.replace(oldCategoryIndex, 1, updatedCategory);
 			}
-		}).catch(() => {
-			// assign inline error using category.set('error', err.something)
+		}).catch((err) => {
+			category.set('error', this.getRenamingErrorMessage(err));
+
+			//We need to rethrow here to trigger catch() on a batch promise
+			throw new Error(err);
 		});
 	},
 
