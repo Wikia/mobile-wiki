@@ -56,17 +56,17 @@ export default Mixin.create({
 				header: i18n.t('main.modal-dialog-delete-all-header', {ns: 'discussion'}),
 				confirmButtonText: i18n.t('main.delete-all', {ns: 'discussion'}),
 				confirmCallback: ((result) => {
-						if (result) {
-							set(loadingSpinnerContainer, 'isLoading', true);
+					if (result) {
+						set(loadingSpinnerContainer, 'isLoading', true);
 
-							this.modelFor(this.get('routeName')).current.deleteAllPosts(posts).then(() => {
-								set(loadingSpinnerContainer, 'isLoading', false);
-							});
+						this.modelFor(this.get('routeName')).current.deleteAllPosts(posts).then(() => {
+							set(loadingSpinnerContainer, 'isLoading', false);
+						});
 
-							track(trackActions.DeleteAllConfirmed);
-						}
-					}),
-				});
+						track(trackActions.DeleteAllConfirmed);
+					}
+				}),
+			});
 		},
 
 		/**
