@@ -14,7 +14,7 @@ export default Ember.Component.extend({
 
 	// editor types that need to scroll the page up after successful save action
 	editorTypesToScrollOnScuccess: {
-		'contributeEditor': true,
+		contributeEditor: true,
 	},
 
 	// Labels below needs to be overrode in subclasses
