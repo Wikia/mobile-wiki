@@ -120,12 +120,12 @@ export default Ember.Component.extend({
 				header = i18n.t(`main.modal-dialog-delete-header`, {ns: 'discussion'});
 			}
 
-			this.get('modalDialog').display(
+			this.get('modalDialog').display({
 				message,
 				header,
-				i18n.t('main.modal-dialog-delete', {ns: 'discussion'}),
-				(() => this.get('delete')(item))
-			);
+				confirmButtonText: i18n.t('main.modal-dialog-delete', {ns: 'discussion'}),
+				confirmCallback: (() => this.get('delete')(item)),
+			});
 		},
 
 		/**
@@ -146,12 +146,12 @@ export default Ember.Component.extend({
 				header = i18n.t(`main.modal-dialog-approve-header`, {ns: 'discussion'});
 			}
 
-			this.get('modalDialog').display(
+			this.get('modalDialog').display({
 				message,
 				header,
-				i18n.t('main.modal-dialog-approve', {ns: 'discussion'}),
-				(() => this.get('approve')(item))
-			);
+				confirmButtonText: i18n.t('main.modal-dialog-approve', {ns: 'discussion'}),
+				confirmCallback: (() => this.get('approve')(item)),
+			});
 		},
 
 		reportDetailsClose() {
