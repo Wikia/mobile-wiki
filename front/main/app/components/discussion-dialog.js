@@ -3,6 +3,7 @@ import LoginLinkMixin from '../mixins/login-link';
 
 export default Ember.Component.extend(LoginLinkMixin, {
 	classNames: ['discussion-dialog'],
+	classNameBindings: ['isConfirm', 'isVisible'],
 	currentUser: Ember.inject.service(),
 	isVisible: false,
 	modalDialog: Ember.inject.service(),
