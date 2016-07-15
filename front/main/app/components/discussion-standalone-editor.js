@@ -14,11 +14,27 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, DiscussionEdit
 		return this.get('isEdit') ? 'editEditor' : 'contributeEditor';
 	}),
 	editEntity: null,
+	pageYOffsetCache: 0,
+	responsive: Ember.inject.service(),
 
 	onIsActive: Ember.observer('isActive', function () {
 		this._super();
 
-		Ember.$('html, body').toggleClass('mobile-full-screen', this.get('isActive'));
+		const isActive = this.get('isActive');
+
+		if (isActive) {
+			this.set('pageYOffsetCache', window.pageYOffset);
+		}
+
+		Ember.$('html, body').toggleClass('mobile-full-screen', isActive);
+
+		if (!isActive && !this.get(`editorTypesToScrollTopOnScuccess.${this.get('editorType')}`)) {
+			if (this.get('responsive.isMobile')) {
+				window.scroll(0, this.get('pageYOffsetCache'));
+			} else {
+				Ember.$('html, body').animate({scrollTop: this.get('pageYOffsetCache')});
+			}
+		}
 	}),
 
 	// first time it is triggered by the 'editEntity' property, and later by the 'isActive' property
