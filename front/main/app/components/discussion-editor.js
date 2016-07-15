@@ -12,6 +12,11 @@ export default Ember.Component.extend({
 	isLoading: false,
 	editorType: 'contributeEditor',
 
+	// editor types that need to scroll the page up after successful save action
+	editorTypesToScrollOnScuccess: {
+		'contributeEditor': true,
+	},
+
 	// Labels below needs to be overrode in subclasses
 	labelMessageKey: null,
 	placeholderMessageKey: null,
@@ -52,7 +57,10 @@ export default Ember.Component.extend({
 			showSuccess: false,
 		});
 		this.sendAction('setEditorActive', this.get('editorType'), false);
-		this.scrollAfterEntityAdded();
+
+		if (this.get(`editorTypesToScrollOnScuccess.${this.get('editorType')}`)) {
+			this.scrollAfterEntityAdded();
+		}
 	},
 
 	/**
