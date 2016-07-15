@@ -10,7 +10,7 @@
 	{{/if}}
 	{{#unless hasContentError}}
 		{{#if hasNewPostButton}}
-			<div {{action 'toggleEditor' true}} class="new-post">
+			<div {{action this.attrs.setEditorActive 'contributeEditor' true}} class="new-post">
 				{{svg 'new-post-icon' viewBox='0 0 56 50'}}
 			</div>
 		{{/if}}
