@@ -92,6 +92,7 @@ class Ads {
 
 		// Load the ads code from MW
 		load(adsUrl, () => {
+			/* eslint-disable max-params */
 			if (window.require) {
 				window.require([
 					'ext.wikia.adEngine.adContext',
@@ -125,6 +126,7 @@ class Ads {
 			} else {
 				console.error('Looks like ads asset has not been loaded');
 			}
+			/* eslint-enable max-params */
 		});
 	}
 
@@ -203,9 +205,9 @@ class Ads {
 		let value = isABDetected ? 'Yes' : 'No';
 
 		M.tracker.UniversalAnalytics.setDimension(GAOption.dimension, value);
-		M.tracker.UniversalAnalytics.track('ads-' + GAOption.name +'-detection', 'impression', value, 0, true);
+		M.tracker.UniversalAnalytics.track(`ads-${GAOption.name}-detection`, 'impression', value, 0, true);
 
-		Ads.gaTrackAdEvent.call(this, 'ad/' + GAOption.name +'/detection', value, '', 0, true);
+		Ads.gaTrackAdEvent.call(this, `ad/${GAOption.name}/detection`, value, '', 0, true);
 	}
 
 	/**
