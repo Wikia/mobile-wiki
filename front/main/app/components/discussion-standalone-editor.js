@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import DiscussionEditor from './discussion-editor';
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
-import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration'
+import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 
 export default DiscussionEditor.extend(DiscussionEditorOpengraph, DiscussionEditorConfiguration, {
 	classNames: ['discussion-standalone-editor'],
@@ -28,12 +28,10 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, DiscussionEdit
 
 		Ember.$('html, body').toggleClass('mobile-full-screen', isActive);
 
-		if (!isActive) {
+		if (!isActive && !this.get(`editorTypesToScrollTopOnScuccess.${this.get('editorType')}`)) {
 			if (this.get('responsive.isMobile')) {
 				window.scroll(0, this.get('pageYOffsetCache'));
-			}
-
-			else {
+			} else {
 				Ember.$('html, body').animate({scrollTop: this.get('pageYOffsetCache')});
 			}
 		}

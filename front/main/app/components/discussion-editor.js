@@ -13,7 +13,7 @@ export default Ember.Component.extend({
 	editorType: 'contributeEditor',
 
 	// editor types that need to scroll the page up after successful save action
-	editorTypesToScrollOnScuccess: {
+	editorTypesToScrollTopOnScuccess: {
 		contributeEditor: true,
 	},
 
@@ -58,7 +58,7 @@ export default Ember.Component.extend({
 		});
 		this.sendAction('setEditorActive', this.get('editorType'), false);
 
-		if (this.get(`editorTypesToScrollOnScuccess.${this.get('editorType')}`)) {
+		if (this.get(`editorTypesToScrollTopOnScuccess.${this.get('editorType')}`)) {
 			this.scrollAfterEntityAdded();
 		}
 	},
