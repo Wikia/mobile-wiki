@@ -239,14 +239,43 @@ class BaseRequest {
 
 	/**
 	 * @param {string} url
+	 * @param {string} wikiDomain
 	 * @returns {Promise.<any>}
 	 */
-	fetch(url) {
-		return fetch(url, this.wikiDomain, this.redirects, this.headers);
+	fetch(url, wikiDomain = this.wikiDomain) {
+		return fetch(url, wikiDomain, this.redirects, this.headers);
 	}
 
 	post(url, formData) {
 		return post(url, formData, this.wikiDomain);
+	}
+}
+
+export class DesignSystemRequest extends BaseRequest {
+
+	constructor(params) {
+		super(params);
+
+		this.corporatePageUrl = params.corporatePageUrl;
+	}
+
+	getFooter() {
+		const url = createUrl(this.corporatePageUrl, 'wikia.php', {
+			controller: 'DesignSystemApi',
+			method: 'getFooter'
+		});
+
+		return this
+			.fetch(url, this.corporatePageUrl)
+			.then((footerData) => {
+				if (footerData) {
+					return Promise.resolve(footerData);
+				} else {
+					return Promise.reject();
+				}
+			}, () => {
+				return Promise.reject();
+			});
 	}
 }
 

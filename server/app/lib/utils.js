@@ -95,11 +95,11 @@ export function getCDNBaseUrl(localSettings) {
 
 /**
  * Get Host from request. First check if x-original-host exists.
- * Header x-original-host is added by Fastly and represents the host name of resource requested by user.
- * If x-original-host header doesn't exist check host header.
- * When request goes through Fastly host header contains original host with stripped staging env.
- * For instance for preview.muppet.wikia.com host is muppet.wikia.com.
- * When request doesn't go through Fastly (local environment) host header contains original host
+ * Header x-original-host is added by Fastly and represents the host name of resource requested by
+ * user. If x-original-host header doesn't exist check host header. When request goes through
+ * Fastly host header contains original host with stripped staging env. For instance for
+ * preview.muppet.wikia.com host is muppet.wikia.com. When request doesn't go through Fastly (local
+ * environment) host header contains original host
  *
  * @param {Hapi.Request} request
  * @returns {string}
@@ -191,6 +191,14 @@ export function getCachedWikiDomainName(localSettings, request) {
 }
 
 /**
+ * @param {string} wikiDomain
+ * @returns {string}
+ */
+export function getCorporatePageUrlFromWikiDomain(wikiDomain) {
+	return `www${wikiDomain.substring(wikiDomain.indexOf('.'))}`;
+}
+
+/**
  * @param {*} obj
  * @param {string[]} allowedKeys - a whitelist of acceptable parameter names
  * @returns {*}
@@ -266,14 +274,15 @@ export function getStaticAssetPath(localSettings, request) {
 	const env = localSettings.environment || Environment.Dev;
 
 	return env !== Environment.Dev ?
-		// The CDN path should match what's used in https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
+		// The CDN path should match what's used in
+        // https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
 		`${localSettings.cdnBaseUrl}/mercury-static/` :
 		`//${getCachedWikiDomainName(localSettings, request)}/front/`;
 }
 
 /**
- * If user tried to load wiki by its alternative URL then redirect to the primary one based on wikiVariables.basePath
- * If it's a local machine then ignore, no point in redirecting to devbox
+ * If user tried to load wiki by its alternative URL then redirect to the primary one based on
+ * wikiVariables.basePath If it's a local machine then ignore, no point in redirecting to devbox
  * Throws RedirectedToCanonicalHost so promises can catch it and handle properly
  *
  * @param {LocalSettings} localSettings

@@ -42,7 +42,8 @@ export class PageRequestHelper {
 				.page(this.params.title, this.params.redirect, this.params.sections),
 			new MediaWiki.WikiRequest({
 				wikiDomain: this.params.wikiDomain
-			}).wikiVariables()
+			}).wikiVariables(),
+			new MediaWiki.DesignSystemRequest(this.params).getFooter()
 		];
 
 		logger.debug(this.params, 'Fetching wiki variables and mediawiki page');
@@ -65,11 +66,14 @@ export class PageRequestHelper {
 			.then((results) => {
 				const mediaWikiPagePromise = results[0],
 					wikiVariablesPromise = results[1],
+					globalFooterPromise = results[2],
 					isMediaWikiPagePromiseFulfilled = mediaWikiPagePromise.isFulfilled(),
-					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled();
+					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled(),
+					isGlobalFooterPromiseFulfilled = globalFooterPromise.isFulfilled();
 
 				let page,
-					data;
+					data,
+					globalFooter;
 
 				// if promise is fulfilled - use resolved value, if it's not - use rejection reason
 				page = isMediaWikiPagePromiseFulfilled ?
@@ -80,10 +84,13 @@ export class PageRequestHelper {
 					return reject(wikiVariablesPromise.reason());
 				}
 
+				globalFooter = isGlobalFooterPromiseFulfilled ? globalFooterPromise.value() : {};
+
 				data = {
 					page,
 					server: createServerData(localSettings, this.params.wikiDomain),
-					wikiVariables: wikiVariablesPromise.value()
+					wikiVariables: wikiVariablesPromise.value(),
+					globalFooter
 				};
 
 				if (isMediaWikiPagePromiseFulfilled && page) {
