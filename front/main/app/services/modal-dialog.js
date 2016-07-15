@@ -5,12 +5,14 @@ export default Ember.Service.extend({
 	isConfirm: Ember.computed.notEmpty('confirmButtonText'),
 	isDisplayed: false,
 	message: '',
+	name: '',
 
 	defaultDisplayParameters: {
 		confirmButtonText: '',
 		confirmCallback: Ember.K,
 		header: '',
 		message: '',
+		name: '',
 	},
 
 	/**

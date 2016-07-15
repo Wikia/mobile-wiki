@@ -123,6 +123,7 @@ export default Ember.Component.extend({
 			this.get('modalDialog').display({
 				message,
 				header,
+				name: 'modal-dialog-delete',
 				confirmButtonText: i18n.t('main.modal-dialog-delete', {ns: 'discussion'}),
 				confirmCallback: (() => this.get('delete')(item)),
 			});
@@ -149,6 +150,7 @@ export default Ember.Component.extend({
 			this.get('modalDialog').display({
 				message,
 				header,
+				name: 'modal-dialog-approve',
 				confirmButtonText: i18n.t('main.modal-dialog-approve', {ns: 'discussion'}),
 				confirmCallback: (() => this.get('approve')(item)),
 			});

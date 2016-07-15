@@ -53,6 +53,7 @@ export default Mixin.create({
 
 			this.get('modalDialog').display({
 				message,
+				name: 'modal-dialog-delete-all',
 				header: i18n.t('main.modal-dialog-delete-all-header', {ns: 'discussion'}),
 				confirmButtonText: i18n.t('main.delete-all', {ns: 'discussion'}),
 				confirmCallback: ((result) => {
