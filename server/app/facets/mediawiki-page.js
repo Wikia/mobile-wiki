@@ -140,6 +140,70 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
 
+  // Mock of globalFooter TODO XW-1720
+	result.globalFooter = {
+		"company_overview": {
+			"header": {
+				"type": "text",
+				"title": {
+					"type": "translatable-text",
+					"key": "global-footer-wikia-company-overview-header"
+				}
+			},
+			"links": [
+				{
+					"type": "link-image",
+					"image": "company/logo-fandom",
+					"href": "http://fandom.wikia.com",
+					"title": {
+						"type": "translatable-text",
+						"key": "fandom-header"
+					}
+				},
+				{
+					"type": "link-text",
+					"title": {
+						"type": "translatable-text",
+						"key": "wikia-company-overview-link-about"
+					},
+					"href": "#"
+				},
+				{
+					"type": "link-text",
+					"title": {
+						"type": "translatable-text",
+						"key": "wikia-company-overview-link-careers"
+					},
+					"href": "#"
+				},
+				{
+					"type": "link-text",
+					"title": {
+						"type": "translatable-text",
+						"key": "wikia-company-overview-link-news"
+					},
+					"href": "#"
+				},
+				{
+					"type": "link-text",
+					"title": {
+						"type": "translatable-text",
+						"key": "wikia-company-overview-link-contact"
+					},
+					"href": "#"
+				},
+				{
+					"type": "link-text",
+					"title": {
+						"type": "translatable-text",
+						"key": "wikia-company-overview-link-wikia-gives-back"
+					},
+					"href": "#"
+				}
+			]
+		}
+	};
+
 	response = reply.view(viewName, result);
 	response.code(code);
 	response.type('text/html; charset=utf-8');

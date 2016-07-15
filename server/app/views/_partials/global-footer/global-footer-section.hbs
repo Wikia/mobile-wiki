@@ -1,0 +1,20 @@
+{{#if model.header.title}}
+	<h3 class="global-footer__section-header">{{i18n model.header.title.key ns='design-system'}}</h3>
+{{/if}}
+
+{{#if model.description}}
+	<div>{{model.description.key}}</div>
+{{/if}}
+
+<ul class="global-footer__links is-{{name}}">
+	{{#each model.links as |link|}}
+		<li>
+			{{!--
+				First parameter of called helper has to be .. to preserve parent context within called helper.
+				Without it context would be loops context i.e. current loop item
+			--}}
+			{{{global-footer-link .. link}}}
+		</li>
+	{{/each}}
+</ul>
+
