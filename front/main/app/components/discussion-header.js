@@ -14,8 +14,6 @@ export default Ember.Component.extend(
 			}
 		},
 
-		backToDiscussionsLinkTitle: i18n.t('main.back-to-discussions-link', {ns: 'discussion'}),
-
 		canDeleteAll: false,
 
 		classNames: ['discussion-header-wrapper'],
@@ -23,7 +21,6 @@ export default Ember.Component.extend(
 
 		isFandomBarHidden: Ember.computed(() => Ember.get(Mercury, 'wiki.language.content') !== 'en'),
 
-		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
 		isFilterApplied: Ember.computed('discussionSort.sortTypes.@each.active', 'categories.@each.selected', function () {
 			return this.get('discussionSort.sortTypes.0.active') === false ||
@@ -34,11 +31,5 @@ export default Ember.Component.extend(
 		siteName: Ember.computed(() => {
 			return Ember.get(Mercury, 'wiki.siteName');
 		}),
-
-		actions: {
-			toggleEditor(active) {
-				this.get('discussionEditor').toggleEditor(active);
-			}
-		}
 	}
 );

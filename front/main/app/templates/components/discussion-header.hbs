@@ -1,16 +1,17 @@
 <div class="discussion-header header clearfix background-theme-color">
 	{{#if hasBackButton }}
-		{{#link-to 'discussion.forum' (query-params sort=discussionSort.sortBy) class="side-button back-button"}}
-			{{svg 'discussion-back-arrow' role='img' class='icon arrow-left'}}
-			{{backToDiscussionsLinkTitle}}
-		{{/link-to}}
+		{{discussion-side-button
+			route='discussion.forum'
+			useThemeColor=false
+			addSortByQueryParam=true
+		}}
 	{{/if}}
 	{{#if hasSiteName}}
 		<h1>{{siteName}}</h1>
 	{{/if}}
 	{{#unless hasContentError}}
 		{{#if hasNewPostButton}}
-			<div {{action 'toggleEditor' true}} class="new-post">
+			<div {{action this.attrs.setEditorActive 'contributeEditor' true}} class="new-post">
 				{{svg 'new-post-icon' viewBox='0 0 56 50'}}
 			</div>
 		{{/if}}
