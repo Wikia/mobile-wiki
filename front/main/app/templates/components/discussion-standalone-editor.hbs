@@ -6,17 +6,23 @@
 </div>
 
 <div class="discussion-standalone-content-wrapper">
-	{{discussion-textarea-with-counter
-		class='discussion-standalone-editor-title'
-		isVisible=isActive
-		label=(i18n titleLabelKey ns='discussion')
-		maxlength=70
-		onInput=(action 'onTitleChange')
-		placeholder=(i18n titlePlaceholderKey ns='discussion')
-	}}
+	{{#if hasTitle}}
+		{{discussion-textarea-with-counter
+			class='discussion-standalone-editor-title'
+			isVisible=isActive
+			label=(i18n titleLabelKey ns='discussion')
+			maxlength=70
+			onInput=(action 'onTitleChange')
+			placeholder=(i18n titlePlaceholderKey ns='discussion')
+		}}
+	{{/if}}
 	<label class="discussion-standalone-editor-message">
 		<span class="discussion-standalone-editor-label">
-			{{i18n messageLabelKey ns='discussion'}}
+			{{#if hasTitle}}
+				{{i18n messageLabelKey ns='discussion'}}
+			{{else}}
+				{{i18n editorLabelKey ns='discussion'}}
+			{{/if}}
 		</span>
 		{{textarea
 			autoresize=true

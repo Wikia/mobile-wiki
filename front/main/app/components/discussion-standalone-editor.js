@@ -11,6 +11,7 @@ export default DiscussionEditorWithMultipleInputs.extend(
 
 		currentUser: Ember.inject.service(),
 
+		hasTitle: false,
 		isEdit: false,
 		isReply: Ember.computed.bool('editEntity.isReply'),
 		editorType: Ember.computed('isEdit', function () {
@@ -58,6 +59,7 @@ export default DiscussionEditorWithMultipleInputs.extend(
 				if (!this.get('submitDisabled')) {
 					const discussionEntityData = {
 						body: this.get('content'),
+						title: this.get('title')
 					};
 					let actionName;
 
