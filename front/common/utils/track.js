@@ -18,6 +18,7 @@ import {getGroup} from '../modules/abtest';
  * @property {string} [trackingMethod]
  * @property {boolean} [isNonInteractive]
  * @property {string} [sourceUrl]
+ * @property {string} [targetRoute]
  */
 
 /**
@@ -188,8 +189,16 @@ export function trackExperiment(experiment, params) {
 	track(params);
 }
 
+/**
+ * Function to save data about registered users that seen the
+ * New Contributor Flow modal
+ *
+ * @param {TrackingParams} params
+ * @returns {void}
+ */
 export function trackRegister(params) {
-	params.targetRoute = 'special/fact_ncf_events'; // change to special/fact_newcontributorflow_events
+	// TODO: when deploying to prod change to special/fact_newcontributorflow_events
+	params.targetRoute = 'special/fact_ncf_events';
 	M.tracker.Internal.track(params);
 }
 

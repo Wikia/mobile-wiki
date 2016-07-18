@@ -23,6 +23,7 @@ if (typeof window.M.tracker === 'undefined') {
  * @property {string} a - wgArticleId
  * @property {number} n - wgNamespaceNumber
  * @property {string} [sourceUrl]
+ * @property {string} [targetRoute]
  */
 
 (function (M) {
@@ -80,7 +81,7 @@ if (typeof window.M.tracker === 'undefined') {
 	 */
 	function track(params) {
 		const config = $.extend(params, getConfig());
-		var targetRoute;
+		let targetRoute;
 
 		if (params.targetRoute) {
 			targetRoute = params.targetRoute;

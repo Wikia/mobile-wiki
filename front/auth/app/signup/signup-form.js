@@ -103,6 +103,8 @@ export default class SignupForm {
 	 * @returns {void}
 	 */
 	onSuccessfulRegistration(userId) {
+		const cpBenefitsModalShownCookie = Cookie.get('cpBenefitsModalShown');
+
 		M.provide('userId', userId);
 		this.tracker.track('successful-registration', trackActions.success);
 
@@ -128,10 +130,14 @@ export default class SignupForm {
 			label: VisitSourceWrapper.lifetimeVisitSource.get()
 		});
 
-		trackRegister({
-			ncf_modal_seen_date: '2016-03-03', //get from cookie
-			ncf_modal_action: 'seen'
-		});
+		// track users that registered and seen New Contributor Flow dialog
+		if (cpBenefitsModalShownCookie) {
+			trackRegister({
+				// timestamp when was the modal shown
+				ncf_modal_seen_date: cpBenefitsModalShownCookie,
+				ncf_modal_action: Cookie.get('cpBenefitsModalClosed') ? 'closed' : 'seen'
+			});
+		}
 
 		AuthUtils.authSuccessCallback(this.redirect, userId);
 	}
