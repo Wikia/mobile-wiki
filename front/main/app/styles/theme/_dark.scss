@@ -353,7 +353,8 @@ body.dark-theme {
 			border-color: $dark-discussion-editor-border-color;
 		}
 
-		.discussion-inline-editor-textarea, .discussion-textarea-with-counter {
+		.discussion-inline-editor-textarea,
+		.discussion-textarea-with-counter {
 			border-color: $dark-discussion-editor-border-color;
 			color: $dark-discussion-content-color;
 		}

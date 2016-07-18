@@ -83,22 +83,24 @@ $success-icon-size: 80px;
 		text-transform: uppercase;
 	}
 
-  .discussion-inline-editor-textarea, .discussion-textarea-with-counter {
-	background-color: transparent;
-	border: 0;
-	border-bottom: 1px solid $secondary-color;
-	border-radius: 0;
-	height: 45px;
-	margin: 0 17px 10px 0;
-	min-height: 0;
-	resize: none;
-	transition: min-height .2s ease;
+	.discussion-inline-editor-textarea,
+	.discussion-textarea-with-counter {
+		background-color: transparent;
+		border: 0;
+		border-bottom: 1px solid $secondary-color;
+		border-radius: 0;
+		height: 45px;
+		margin: 0 17px 10px 0;
+		min-height: 0;
+		resize: none;
+		transition: min-height .2s ease;
 
-	&:focus {
-	  background-color: transparent;
-	  box-shadow: none;
+		&:focus {
+			background-color: transparent;
+			box-shadow: none;
+		}
 	}
-  }
+
 	.discussion-inline-editor-title {
 
 		margin-top: 15px;
@@ -112,13 +114,12 @@ $success-icon-size: 80px;
 	 	}
 
 		.discussion-textarea-counter {
-			bottom: 0px;
+			bottom: 0;
 			color: $discussion-editor-textarea-counter-color;
 			font-size: rem-calc(12);
 			line-height: $form-label-line-height;
-			margin-right: 14px;
 			position: absolute;
-			right: -10px;
+			right: 0px;
 		}
 	}
 

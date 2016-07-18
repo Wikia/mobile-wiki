@@ -5,18 +5,29 @@
 	<button class="active-element-theme-color discussion-standalone-editor-button" type="submit" {{action 'submit'}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
 </div>
 
-<label class="discussion-standalone-editor-label" for="{{textAreaId}}">
+<label class="discussion-standalone-editor-label">
 	{{i18n editorLabelKey ns='discussion'}}
 </label>
 <div class="discussion-standalone-content-wrapper" {{action 'focusTextarea'}}>
-	{{textarea
-		autoresize=true
-		class="discussion-standalone-editor-textarea"
-		keyPress=(action 'handleKeyPress')
-		id=textAreaId
-		placeholder=(i18n messagePlaceholderKey ns='discussion')
-		value=content
+	{{discussion-textarea-with-counter
+		class="discussion-inline-editor-title"
+		label=(i18n titleLabelKey ns='discussion')
+		maxlength=70
+		placeholder=(i18n titlePlaceholderKey ns='discussion')
 	}}
+	<label>
+		{{#if isActive}}
+			<span class="discussion-textarea-label">{{i18n messageLabelKey ns='discussion'}}</span>
+		{{/if}}
+		{{textarea
+			autoresize=true
+			class="discussion-standalone-editor-textarea"
+			keyPress=(action 'handleKeyPress')
+			id=textAreaId
+			placeholder=(i18n messagePlaceholderKey ns='discussion')
+			value=content
+		}}
+	</label>
 	{{#if showsOpenGraphCard}}
 		{{discussion-open-graph
 			close=(action 'removeOpenGraph')

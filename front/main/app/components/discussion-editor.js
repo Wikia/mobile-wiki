@@ -12,7 +12,7 @@ export default Ember.Component.extend({
 	isLoading: false,
 	editorType: 'contributeEditor',
 
-	// Labels below needs to be overrode in subclasses
+	// Labels below needs to be overwritten in subclasses
 	editorLabelKey: null,
 	messagePlaceholderKey: null,
 	submitMessageKey: null,
