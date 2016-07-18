@@ -9,21 +9,52 @@ $success-icon-size: 80px;
 .discussion-categories-edit {
 	li {
 		background-color: #f6f6f6;
+		transition: all 0.2s linear;
 
 		&:hover {
+			.draggable {
+				display: flex;
+
+				.move {
+					display: block;
+				}
+
+				.close,
+				.delete {
+					display: none;
+				}
+			}
+		}
+
+		.draggable {
+			align-items: center;
+			cursor: pointer;
+			display: none;
+			height: 100%;
+			justify-content: center;
+			padding: 5px;
+			position: absolute;
+			right: 0;
+			width: 30px;
+
 			.move {
-				display: block;
 				height: 16px;
-				margin: 7px;
 				width: 7px;
 			}
 		}
-	}
 
-	.move {
-		display: none;
-		position: absolute;
-		right: 0;
+		.discussion-categories-input:focus + .draggable {
+			display: flex;
+
+			.move {
+				display: none;
+			}
+
+			.close,
+			.delete {
+				display: block;
+			}
+		}
 	}
 
 	.sortable-item {
@@ -35,14 +66,34 @@ $success-icon-size: 80px;
 		backface-visibility: hidden;
 		transform: translate3d(0, 0, 0);
 
-		z-index: 901;
+		z-index: 1;
+
+		input {
+			cursor: pointer;
+		}
 
 		li {
 			box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
+			padding: 5px;
 		}
 
 		.discussion-categories-input {
 			border: none;
+		}
+
+		.draggable {
+			display: block;
+
+			.delete,
+			.close {
+				display: none;
+			}
+		}
+	}
+
+	.is-dropping {
+		li {
+			background-color: #ccc;
 		}
 	}
 
