@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	classNameBindings: ['type', 'closeOnOverlayClick::layover-cursor-auto', 'isVisible', 'additionalClass'],
+	classNameBindings: ['type', 'closeOnOverlayClick::layover-cursor-auto', 'additionalClass'],
 	classNames: ['modal-dialog-wrapper'],
 	additionalClass: Ember.computed.alias('modalDialog.name'),
 	closeOnOverlayClick: true,
