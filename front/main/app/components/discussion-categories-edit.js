@@ -18,7 +18,13 @@ export default Ember.Component.extend(ResponsiveMixin,
 		}),
 
 		localCategories: Ember.computed('categories.@each', function () {
-			return Ember.A(this.get('categories').map((category) => Ember.Object.create(category)));
+			return Ember.A(this.get('categories').map((category) => {
+				const localCategory = Ember.Object.create(category);
+
+				localCategory.set('displayedName', localCategory.name);
+
+				return localCategory;
+			}));
 		}),
 
 		errorMessage: null,

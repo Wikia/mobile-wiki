@@ -41,6 +41,7 @@
 					}}
 				</span>
 			</li>
+<<<<<<< HEAD
 			{{#sortable-group tagName='div' model=localCategories onChange=(action 'onReorderElements') as |group|}}
 				{{#each localCategories as |localCategory|}}
 					{{#sortable-item tagName='div' model=localCategory group=group handle=".draggable"}}
@@ -58,7 +59,7 @@
 									class=(concat 'discussion-categories-input' (if localCategory.error ' error' ''))
 									disabled=(equal localCategory.id wikiId)
 									maxlength=20
-									value=localCategory.name
+									value=localCategory.displayedName
 								}}
 								<div class="draggable">
 									{{svg 'move' viewBox='0 0 7 16' class='icon move'}}

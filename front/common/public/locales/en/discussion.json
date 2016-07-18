@@ -100,7 +100,11 @@
     "app-promotion-text": "Take your fandom with you, download the app today!",
     "app-promotion-text-details-page": "Stay up to date on the go. Get the app now!",
     "wiki-home": "Wiki Home",
-    "discussion-guidelines": "Discussion Guidelines"
+    "discussion-guidelines": "Discussion Guidelines",
+    "rename-category-length-error": "Category name must be less than 20 characters.",
+    "rename-category-auth-error": "You are logged out. Please sign in.",
+    "rename-category-oermissions-error": "Category cannot be updated.",
+    "rename-category-general-error": "Something went wrong, please try again."
   },
   "editor": {
     "post-failed-error": "Post failed.",
