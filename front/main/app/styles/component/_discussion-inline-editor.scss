@@ -78,7 +78,7 @@ $success-icon-size: 80px;
 
 	.discussion-textarea-label {
 		color: $discussion-editor-label-color;
-		font-size: $type-min;
+		font-size: $discussion-editor-label-font-size;
 		font-weight: $font-weight-bold;
 		text-transform: uppercase;
 	}
@@ -116,7 +116,7 @@ $success-icon-size: 80px;
 		.discussion-textarea-counter {
 			bottom: 0;
 			color: $discussion-editor-textarea-counter-color;
-			font-size: rem-calc(12);
+			font-size: $discussion-editor-label-font-size;
 			line-height: $form-label-line-height;
 			position: absolute;
 			right: 0px;
