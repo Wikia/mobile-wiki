@@ -9,7 +9,7 @@ import UrlHelper from '../common/url-helper';
 import VisitSourceWrapper from '../common/visit-source-wrapper';
 import MarketingOptIn from '../signup/marketing-opt-in';
 import TermsOfUse from '../signup/terms-of-use';
-import {track as mercuryTrack, trackActions} from 'common/utils/track';
+import {track as mercuryTrack, trackActions, trackRegister} from 'common/utils/track';
 
 /**
  * @typedef {Object} HeliosError
@@ -126,6 +126,11 @@ export default class SignupForm {
 			action: trackActions.success,
 			category: 'user-registration-lifetime-source',
 			label: VisitSourceWrapper.lifetimeVisitSource.get()
+		});
+
+		trackRegister({
+			ncf_modal_seen_date: '2016-03-03', //get from cookie
+			ncf_modal_action: 'seen'
 		});
 
 		AuthUtils.authSuccessCallback(this.redirect, userId);

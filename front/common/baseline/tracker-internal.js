@@ -54,13 +54,12 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
-	 * @param {string} category
+	 * @param {string} targetRoute
 	 * @param {*} params
 	 * @returns {string}
 	 */
-	function createRequestURL(category, params) {
-		const parts = [],
-			targetRoute = isPageView(category) ? 'view' : 'special/trackingevent';
+	function createRequestURL(targetRoute, params) {
+		const parts = [];
 
 		Object.keys(params).forEach((key) => {
 			const value = params[key];
@@ -81,8 +80,17 @@ if (typeof window.M.tracker === 'undefined') {
 	 */
 	function track(params) {
 		const config = $.extend(params, getConfig());
+		var targetRoute;
 
-		$script(createRequestURL(config.ga_category, config));
+		if (params.targetRoute) {
+			targetRoute = params.targetRoute;
+
+			delete params.targetRoute;
+		} else {
+			targetRoute = isPageView(config.ga_category) ? 'view' : 'special/trackingevent';
+		}
+
+		$script(createRequestURL(targetRoute, config));
 	}
 
 	/**

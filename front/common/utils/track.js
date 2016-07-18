@@ -188,6 +188,11 @@ export function trackExperiment(experiment, params) {
 	track(params);
 }
 
+export function trackRegister(params) {
+	params.targetRoute = 'special/fact_ncf_events'; // change to special/fact_newcontributorflow_events
+	M.tracker.Internal.track(params);
+}
+
 /**
  * @param {TrackContext} data
  * @returns {void}
