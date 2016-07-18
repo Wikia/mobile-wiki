@@ -13,13 +13,5 @@ export default DiscussionEditor.extend({
 		onTitleChange(title) {
 			this.set('title', title);
 		},
-		/**
-		 * Overrides default discussion editor behaviour. Because editor can have more than one input, textarea,
-		 * element should be chosen by user.
-		 *
-		 * @override
-		 */
-		focusTextarea() {
-		}
 	}
 });

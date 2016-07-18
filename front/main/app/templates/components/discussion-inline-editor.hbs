@@ -1,12 +1,12 @@
 <div class="discussion-inline-editor-floating-container">
-	<div class="discussion-inline-editor-content-wrapper" {{action 'focusTextarea'}}>
+	<div class="discussion-inline-editor-content-wrapper">
 		{{user-avatar
 			avatarUrl=currentUser.avatarPath
 			shouldWrapInHref=false
 		}}
 		<div class="discussion-inline-editor-textarea-wrapper">
 			{{discussion-textarea-with-counter
-				class="discussion-inline-editor-title"
+				class='discussion-inline-editor-title'
 				isVisible=isActive
 				label=(i18n titleLabelKey ns='discussion')
 				maxlength=70
@@ -15,11 +15,13 @@
 			}}
 			<label>
 				{{#if isActive}}
-					<span class='discussion-textarea-label'>{{i18n messageLabelKey ns='discussion'}}</span>
+					<span class="discussion-textarea-label">
+						{{i18n messageLabelKey ns='discussion'}}
+					</span>
 				{{/if}}
 				{{textarea
 					autoresize=true
-					class="discussion-inline-editor-textarea"
+					class='discussion-inline-editor-textarea'
 					focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
 					keyPress=(action 'handleKeyPress')
 					placeholder=(i18n messagePlaceholderKey ns='discussion')
