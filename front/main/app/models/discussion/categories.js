@@ -62,10 +62,34 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 		});
 	},
 
+	reorderCategories(categories) {
+		return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/forums/displayorder`), {
+			data: JSON.stringify({
+				forumIds: categories.mapBy('id')
+			}),
+			method: 'POST',
+		}).then((categoryData) => {
+			const categories = this.get('categories'),
+				updatedCategories = new Ember.A();
+
+			categoryData.forumIds.forEach(((catId) => {
+				const category = categories.findBy('id', catId);
+
+				if (category) {
+					updatedCategories.pushObject(category);
+				}
+			}));
+
+			this.set('categories', updatedCategories);
+		});
+	},
+
 	updateCategories(categories) {
 		const promisesList = categories.rejectBy('id').map((category) => {
 			return this.addCategory(category.get('name'));
 		});
+
+		promisesList.pushObject(this.reorderCategories(categories));
 
 		return Ember.RSVP.Promise.all(promisesList);
 	}

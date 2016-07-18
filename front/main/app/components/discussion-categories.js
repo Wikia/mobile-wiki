@@ -4,6 +4,7 @@ import {track, trackActions} from '../utils/discussion-tracker';
 export default Ember.Component.extend(
 	{
 		canShowMore: false,
+		classNameBindings: ['isEditMode'],
 		collapsed: false,
 		disabled: false,
 		visibleCategoriesCount: null,

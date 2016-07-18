@@ -5,9 +5,11 @@ import ResponsiveMixin from '../mixins/responsive';
 
 export default Ember.Component.extend(ResponsiveMixin,
 	{
+		classNameBindings: ['reorder-in-progress'],
 		classNames: ['highlight-overlay-content', 'discussion-categories-edit'],
 		maxCategoriesCount: 10,
 		isLoading: false,
+		reorderInProgress: false,
 		showSuccess: false,
 		wikiId: Ember.get(Mercury, 'wiki.id').toString(),
 
@@ -87,6 +89,18 @@ export default Ember.Component.extend(ResponsiveMixin,
 					.finally(() => {
 						this.set('isLoading', false);
 					});
+			},
+
+			onReorderStarted() {
+				this.set('reorderInProgress', true);
+			},
+
+			onReorderFinished() {
+				this.set('reorderInProgress', false);
+			},
+
+			onReorderElements(oldCategories, newCategories) {
+				this.set('localCategories', newCategories);
 			}
 		}
 	}
