@@ -1,15 +1,14 @@
-var Handlebars = require('handlebars');
 /**
  * Currently Hapi doesn't recognize ES6 syntax on exports (ie: "default" keyword)
  *
- * @param {string} key
- * @param {{hash: string}} options
+ * @param {object} context
+ * @param {object} link
  * @returns {string}
  */
 module.exports = function i18nHelper(context, link) {
-	var fs = require('fs'),
-		handlebars = fs.readFileSync(__dirname + '/../_partials/global-footer/global-footer-' + link.type + '.hbs', 'utf8'),
-		template = Handlebars.compile(handlebars);
+	const globalFooterPath = `${__dirname}/../_partials/global-footer/global-footer-${link.type}.hbs`,
+		globalFooter = require('fs').readFileSync(globalFooterPath, 'utf8'),
+		template = require('handlebars').compile(globalFooter);
 
 	context.model = link;
 
