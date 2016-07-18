@@ -23,7 +23,6 @@ if (typeof window.M.tracker === 'undefined') {
  * @property {string} a - wgArticleId
  * @property {number} n - wgNamespaceNumber
  * @property {string} [sourceUrl]
- * @property {string} [targetRoute]
  */
 
 (function (M) {
@@ -46,13 +45,6 @@ if (typeof window.M.tracker === 'undefined') {
 		};
 	}
 
-	/**
-	 * @param {string} category
-	 * @returns {boolean}
-	 */
-	function isPageView(category) {
-		return category.toLowerCase() === 'view';
-	}
 
 	/**
 	 * @param {string} targetRoute
@@ -76,20 +68,12 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
+	 * @param {string} targetRoute
 	 * @param {InternalTrackingParams} params
 	 * @returns {void}
 	 */
-	function track(params) {
+	function track(targetRoute, params) {
 		const config = $.extend(params, getConfig());
-		let targetRoute;
-
-		if (params.targetRoute) {
-			targetRoute = params.targetRoute;
-
-			delete params.targetRoute;
-		} else {
-			targetRoute = isPageView(config.ga_category) ? 'view' : 'special/trackingevent';
-		}
 
 		$script(createRequestURL(targetRoute, config));
 	}
@@ -99,7 +83,7 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @returns {void}
 	 */
 	function trackPageView(context) {
-		track($.extend({
+		track('view', $.extend({
 			ga_category: 'view'
 		}, context));
 

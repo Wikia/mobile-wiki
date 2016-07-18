@@ -18,7 +18,6 @@ import {getGroup} from '../modules/abtest';
  * @property {string} [trackingMethod]
  * @property {boolean} [isNonInteractive]
  * @property {string} [sourceUrl]
- * @property {string} [targetRoute]
  */
 
 /**
@@ -108,6 +107,14 @@ function pruneParams(params) {
 }
 
 /**
+ * @param {string} category
+ * @returns {boolean}
+ */
+function isPageView(category) {
+	return category.toLowerCase() === 'view';
+}
+
+/**
  * @param {TrackingParams} params
  * @returns {void}
  */
@@ -144,7 +151,7 @@ export function track(params) {
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
 		params = $.extend(context, params);
-		M.tracker.Internal.track(params);
+		M.tracker.Internal.track(isPageView(category) ? 'view' : 'special/trackingevent', params);
 	}
 }
 
@@ -197,9 +204,8 @@ export function trackExperiment(experiment, params) {
  * @returns {void}
  */
 export function trackRegister(params) {
-	// TODO: when deploying to prod change to special/fact_newcontributorflow_events
-	params.targetRoute = 'special/fact_ncf_events';
-	M.tracker.Internal.track(params);
+	// TODO: when deploying to prod change to special/newcontributorflow
+	M.tracker.Internal.track('special/fact_ncf_events', params);
 }
 
 /**
