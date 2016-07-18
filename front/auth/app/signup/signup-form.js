@@ -99,12 +99,26 @@ export default class SignupForm {
 	}
 
 	/**
+	 * track users that registered and seen New Contributor Flow dialog
+	 * @returns {void}
+	 */
+	trackBenefitsModalInteraction() {
+		const cpBenefitsModalShownCookie = Cookie.get('cpBenefitsModalShown');
+
+		if (cpBenefitsModalShownCookie) {
+			trackRegister({
+				// timestamp when was the modal shown
+				ncf_modal_seen_date: cpBenefitsModalShownCookie,
+				ncf_modal_action: Cookie.get('cpBenefitsModalClosed') ? 'closed' : 'seen'
+			});
+		}
+	}
+
+	/**
 	 * @param {string} userId
 	 * @returns {void}
 	 */
 	onSuccessfulRegistration(userId) {
-		const cpBenefitsModalShownCookie = Cookie.get('cpBenefitsModalShown');
-
 		M.provide('userId', userId);
 		this.tracker.track('successful-registration', trackActions.success);
 
@@ -130,14 +144,7 @@ export default class SignupForm {
 			label: VisitSourceWrapper.lifetimeVisitSource.get()
 		});
 
-		// track users that registered and seen New Contributor Flow dialog
-		if (cpBenefitsModalShownCookie) {
-			trackRegister({
-				// timestamp when was the modal shown
-				ncf_modal_seen_date: cpBenefitsModalShownCookie,
-				ncf_modal_action: Cookie.get('cpBenefitsModalClosed') ? 'closed' : 'seen'
-			});
-		}
+		this.trackBenefitsModalInteraction();
 
 		AuthUtils.authSuccessCallback(this.redirect, userId);
 	}
