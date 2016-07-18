@@ -1,6 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+	/**
+	 * @private
+	 */
 	tagName: 'label',
 
 	label: '',
@@ -8,6 +11,9 @@ export default Ember.Component.extend({
 	placeholder: '',
 
 	maxlength: 0,
+	/**
+	 * @private
+	 */
 	notAllowedCharactersPattern: /\r?\n|\r/g,
 	onInput: null,
 	required: false,
@@ -16,9 +22,11 @@ export default Ember.Component.extend({
 		return this.get('maxlength') - this.get('text.length');
 	}),
 
-	observeText: Ember.observer('text', function () {
-		this.set('text',
-			this.get('text').replace(this.get('notAllowedCharactersPattern'), ""));
-		this.get('onInput')(this.get('text'));
-	}),
+	actions: {
+		onTexareaInput: function() {
+			this.set('text',
+				this.get('text').replace(this.get('notAllowedCharactersPattern'), ""));
+			this.get('onInput')(this.get('text'));
+		}
+	}
 });
