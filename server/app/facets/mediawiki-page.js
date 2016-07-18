@@ -229,7 +229,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 export default function mediaWikiPageHandler(request, reply) {
 	const path = request.path,
 		wikiDomain = getCachedWikiDomainName(localSettings, request),
-		corporatePageUrl = getCorporatePageUrlFromWikiDomain(wikiDomain),
+		corporatePageUrl = getCorporatePageUrlFromWikiDomain(localSettings, wikiDomain),
 		params = {
 			wikiDomain,
 			corporatePageUrl,

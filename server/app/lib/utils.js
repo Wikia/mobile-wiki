@@ -191,11 +191,21 @@ export function getCachedWikiDomainName(localSettings, request) {
 }
 
 /**
+ * @param {LocalSettings} localSettings
  * @param {string} wikiDomain
  * @returns {string}
  */
-export function getCorporatePageUrlFromWikiDomain(wikiDomain) {
-	return `www${wikiDomain.substring(wikiDomain.indexOf('.'))}`;
+export function getCorporatePageUrlFromWikiDomain(localSettings, wikiDomain) {
+	switch (localSettings.environment) {
+		case Environment.Prod:
+			return 'www.wikia.com';
+		case Environment.Dev:
+			return `www.${localSettings.devboxDomain}.wikia-dev.com`;
+		default:
+			const environmentPrefix = wikiDomain.substring(0, wikiDomain.indexOf('.'));
+			
+			return `${environmentPrefix}.www.wikia.com`;
+	}
 }
 
 /**
