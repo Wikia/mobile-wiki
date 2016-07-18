@@ -12,6 +12,6 @@ export default DiscussionEditor.extend({
 	actions: {
 		onTitleChange(title) {
 			this.set('title', title);
-		},
+		}
 	}
 });
