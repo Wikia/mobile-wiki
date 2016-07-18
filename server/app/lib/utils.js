@@ -196,14 +196,15 @@ export function getCachedWikiDomainName(localSettings, request) {
  * @returns {string}
  */
 export function getCorporatePageUrlFromWikiDomain(localSettings, wikiDomain) {
+	let environmentPrefix;
+
 	switch (localSettings.environment) {
 		case Environment.Prod:
 			return 'www.wikia.com';
 		case Environment.Dev:
 			return `www.${localSettings.devboxDomain}.wikia-dev.com`;
 		default:
-			const environmentPrefix = wikiDomain.substring(0, wikiDomain.indexOf('.'));
-			
+			environmentPrefix = wikiDomain.substring(0, wikiDomain.indexOf('.'));
 			return `${environmentPrefix}.www.wikia.com`;
 	}
 }

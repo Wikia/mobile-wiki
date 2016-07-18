@@ -5,10 +5,11 @@
  * @param {object} link
  * @returns {string}
  */
-module.exports = function i18nHelper(context, link) {
-	const globalFooterPath = `${__dirname}/../_partials/global-footer/global-footer-${link.type}.hbs`,
-		globalFooter = require('fs').readFileSync(globalFooterPath, 'utf8'),
-		template = require('handlebars').compile(globalFooter);
+module.exports = function globalFooterLink(context, link) {
+	const templateCode = require('fs').readFileSync(
+			`${__dirname}/../_partials/global-footer/global-footer-${link.type}.hbs`, 'utf8'
+		),
+		template = require('handlebars').compile(templateCode);
 
 	context.model = link;
 

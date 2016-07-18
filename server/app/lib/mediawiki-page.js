@@ -68,8 +68,7 @@ export class PageRequestHelper {
 					wikiVariablesPromise = results[1],
 					globalFooterPromise = results[2],
 					isMediaWikiPagePromiseFulfilled = mediaWikiPagePromise.isFulfilled(),
-					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled(),
-					isGlobalFooterPromiseFulfilled = globalFooterPromise.isFulfilled();
+					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled();
 
 				let page,
 					data,
@@ -84,7 +83,7 @@ export class PageRequestHelper {
 					return reject(wikiVariablesPromise.reason());
 				}
 
-				globalFooter = isGlobalFooterPromiseFulfilled ? globalFooterPromise.value() : {};
+				globalFooter = globalFooterPromise.isFulfilled() ? globalFooterPromise.value() : {};
 
 				data = {
 					page,
