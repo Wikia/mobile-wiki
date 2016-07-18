@@ -5,25 +5,23 @@
 	<button class="active-element-theme-color discussion-standalone-editor-button" type="submit" {{action 'submit'}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
 </div>
 
-<label class="discussion-standalone-editor-label">
-	{{i18n editorLabelKey ns='discussion'}}
-</label>
-<div class="discussion-standalone-content-wrapper" {{action 'focusTextarea'}}>
+<div class="discussion-standalone-content-wrapper">
 	{{discussion-textarea-with-counter
-		class="discussion-inline-editor-title"
+		class='discussion-standalone-editor-title'
+		isVisible=isActive
 		label=(i18n titleLabelKey ns='discussion')
 		maxlength=70
+		onInput=(action 'onTitleChange')
 		placeholder=(i18n titlePlaceholderKey ns='discussion')
 	}}
-	<label>
-		{{#if isActive}}
-			<span class="discussion-textarea-label">{{i18n messageLabelKey ns='discussion'}}</span>
-		{{/if}}
+	<label class="discussion-standalone-editor-message">
+		<span class="discussion-standalone-editor-label">
+			{{i18n messageLabelKey ns='discussion'}}
+		</span>
 		{{textarea
 			autoresize=true
 			class="discussion-standalone-editor-textarea"
 			keyPress=(action 'handleKeyPress')
-			id=textAreaId
 			placeholder=(i18n messagePlaceholderKey ns='discussion')
 			value=content
 		}}

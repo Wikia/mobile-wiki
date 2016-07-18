@@ -31,7 +31,7 @@ export default DiscussionEditorWithMultipleInputs.extend(
 						body: this.get('content'),
 						creatorId: this.get('currentUser.userId'),
 						siteId: Mercury.wiki.id,
-						title: this.get('title'),
+						title: this.get('title')
 					};
 
 					if (this.get('showsOpenGraphCard')) {
