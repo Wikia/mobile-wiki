@@ -5,8 +5,8 @@ export default Ember.Mixin.create({
 	isEdit: false,
 	isReply: false,
 
-	labelMessageKey: null,
-	placeholderMessageKey: null,
+	editorLabelKey: null,
+	messagePlaceholderKey: null,
 	submitMessageKey: null,
 
 	// Tracking action name of closing the editor
@@ -22,32 +22,35 @@ export default Ember.Mixin.create({
 
 	configurations: Ember.Object.create({
 		createPost: {
-			labelMessageKey: 'editor.post-editor-label',
-			placeholderMessageKey: 'editor.post-editor-placeholder-text',
+			editorLabelKey: 'editor.post-editor-label',
+			titleLabelKey: 'editor.post-editor-title-label',
+			titlePlaceholderKey: 'editor.post-editor-title-placeholder-text',
+			messageLabelKey: 'editor.post-editor-body-label',
+			messagePlaceholderKey: 'editor.post-editor-body-placeholder-text',
 			submitMessageKey: 'editor.post-action-button-label',
 			closeTrackingAction: trackActions.PostClose,
 			contentTrackingAction: trackActions.PostContent,
 			startTrackingAction: trackActions.PostStart,
 		},
 		createReply: {
-			labelMessageKey: 'editor.reply-editor-label',
-			placeholderMessageKey: 'editor.reply-editor-placeholder-text',
+			editorLabelKey: 'editor.reply-editor-label',
+			messagePlaceholderKey: 'editor.reply-editor-placeholder-text',
 			submitMessageKey: 'editor.reply-action-button-label',
 			closeTrackingAction: trackActions.ReplyClose,
 			contentTrackingAction: trackActions.ReplyContent,
 			startTrackingAction: trackActions.ReplyStart,
 		},
 		editPost: {
-			labelMessageKey: 'editor.post-edit-editor-label',
-			placeholderMessageKey: 'editor.post-editor-placeholder-text',
+			editorLabelKey: 'editor.post-edit-editor-label',
+			messagePlaceholderKey: 'editor.post-editor-placeholder-text',
 			submitMessageKey: 'editor.post-edit-action-button-label',
 			closeTrackingAction: trackActions.PostEditClose,
 			contentTrackingAction: trackActions.PostEditContent,
 			startTrackingAction: trackActions.PostEdit,
 		},
 		editReply: {
-			labelMessageKey: 'editor.reply-edit-editor-label',
-			placeholderMessageKey: 'editor.post-editor-placeholder-text',
+			editorLabelKey: 'editor.reply-edit-editor-label',
+			messagePlaceholderKey: 'editor.post-editor-placeholder-text',
 			submitMessageKey: 'editor.reply-edit-action-button-label',
 			closeTrackingAction: trackActions.ReplyEditClose,
 			contentTrackingAction: trackActions.ReplyEditContent,
@@ -56,8 +59,8 @@ export default Ember.Mixin.create({
 		editGuidelines: {
 			closeTrackingAction: trackActions.GuidelinesEditClose,
 			contentTrackingAction: trackActions.GuidelinesEditContent,
-			labelMessageKey: 'editor.guidelines-editor-editor-label',
-			placeholderMessageKey: 'editor.guidelines-editor-placeholder-text',
+			editorLabelKey: 'editor.guidelines-editor-editor-label',
+			messagePlaceholderKey: 'editor.guidelines-editor-placeholder-text',
 			startTrackingAction: trackActions.GuidelinesEdit,
 			submitMessageKey: 'editor.guidelines-editor-action-button-label',
 			titleMessageKey: 'editor.guidelines-editor-title',

@@ -1,10 +1,10 @@
 import Ember from 'ember';
 
-import DiscussionEditor from './discussion-editor';
+import DiscussionEnhancedEditor from './discussion-enhanced-editor';
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
 import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 
-export default DiscussionEditor.extend(
+export default DiscussionEnhancedEditor.extend(
 	DiscussionEditorOpengraph,
 	DiscussionEditorConfiguration,
 	{
@@ -28,6 +28,7 @@ export default DiscussionEditor.extend(
 			submit() {
 				if (!this.get('submitDisabled')) {
 					const newDiscussionEntityData = {
+						title: this.get('title'),
 						body: this.get('content'),
 						creatorId: this.get('currentUser.userId'),
 						siteId: Mercury.wiki.id,

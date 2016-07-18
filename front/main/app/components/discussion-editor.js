@@ -13,8 +13,8 @@ export default Ember.Component.extend({
 	editorType: 'contributeEditor',
 
 	// Labels below needs to be overrode in subclasses
-	labelMessageKey: null,
-	placeholderMessageKey: null,
+	editorLabelKey: null,
+	messagePlaceholderKey: null,
 	submitMessageKey: null,
 
 	// Tracking action name of closing the editor

@@ -6,7 +6,7 @@
 </div>
 
 <label class="discussion-standalone-editor-label" for="{{textAreaId}}">
-	{{i18n labelMessageKey ns='discussion'}}
+	{{i18n editorLabelKey ns='discussion'}}
 </label>
 <div class="discussion-standalone-content-wrapper" {{action 'focusTextarea'}}>
 	{{textarea
@@ -14,7 +14,7 @@
 		class="discussion-standalone-editor-textarea"
 		keyPress=(action 'handleKeyPress')
 		id=textAreaId
-		placeholder=(i18n placeholderMessageKey ns='discussion')
+		placeholder=(i18n messagePlaceholderKey ns='discussion')
 		value=content
 	}}
 	{{#if showsOpenGraphCard}}

@@ -1,0 +1,17 @@
+{{#if label}}
+	<span class="discussion-textarea-label">{{label}}</span>
+{{/if}}
+<div class="discussion-textarea-wrapper">
+	{{textarea
+		autoresize=true
+		class="discussion-textarea-with-counter"
+		maxlength=maxlength
+		placeholder=placeholder
+		required=required
+		value=text
+	}}
+	{{#if maxlength}}
+		<span class="discussion-textarea-counter">{{charactersCount}}</span>
+	{{/if}}
+</div>
+
