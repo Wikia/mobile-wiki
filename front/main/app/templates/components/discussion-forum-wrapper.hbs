@@ -1,24 +1,36 @@
-{{discussion-post-editor
-	create=(action this.attrs.createPost)
-	generateOpenGraph=(action this.attrs.generateOpenGraph)
-	posts=posts
+{{#if responsive.isDesktop}}
+	{{discussion-inline-post-editor
+		create=(action this.attrs.createPost)
+		errorMessage=editorState.errorMessage
+		generateOpenGraph=(action this.attrs.generateOpenGraph)
+		isActive=editorState.isOpen
+		isLoading=editorState.isLoading
+		setEditorActive=(action this.attrs.setEditorActive)
+	}}
+{{/if}}
+{{discussion-welcome
+	gotoGuidelines=(action this.attrs.gotoGuidelines)
 }}
-
 {{#each posts as |entity|}}
 	{{discussion-post-card-detail
 		approve=(action this.attrs.approve)
 		author=entity.createdBy
 		delete=(action this.attrs.deletePost)
 		lock=(action this.attrs.lockPost)
+		openEditEditor=(action this.attrs.openEditEditor)
 		post=entity
 		replyCount=entity.repliesCount
 		report=(action this.attrs.report)
+		setEditorActive=(action this.attrs.setEditorActive)
+		showCategories=showCategories
 		undelete=(action this.attrs.undeletePost)
-		upvote=(action this.attrs.upvote)
 		unlock=(action this.attrs.unlockPost)
+		upvote=(action this.attrs.upvote)
 	}}
 {{else}}
-	{{discussion-empty-forum-message}}
+	{{discussion-empty-forum-message
+		setEditorActive=(action this.attrs.setEditorActive)
+	}}
 {{/each}}
 
 {{#if hasMore}}

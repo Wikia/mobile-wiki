@@ -11,26 +11,22 @@ export default DiscussionBaseRoute.extend(
 	DiscussionForumActionsRouteMixin,
 	DiscussionModalDialogMixin,
 	{
-		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
 
 		/**
-		 * @returns {Ember.RSVP.Promise}
+		 * @returns {Ember.RSVP.hash}
 		 */
 		model() {
-			const discussionSort = this.get('discussionSort');
+			const discussionSort = this.get('discussionSort'),
+				indexModel = this.modelFor('discussion');
 
 			discussionSort.setOnlyReported(true);
 			discussionSort.setSortBy('latest');
 
-			return DiscussionReportedPostsModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy'));
-		},
-
-		/**
-		 * @returns {EmberStates.Transition}
-		 */
-		setSortBy() {
-			return this.transitionTo('discussion.reported-posts');
+			return Ember.RSVP.hash({
+				current: DiscussionReportedPostsModel.find(Mercury.wiki.id, this.get('discussionSort.sortBy')),
+				index: indexModel
+			});
 		},
 
 		actions: {
@@ -39,27 +35,7 @@ export default DiscussionBaseRoute.extend(
 			 * @returns {void}
 			 */
 			loadPage(pageNum) {
-				this.modelFor(this.get('routeName')).loadPage(pageNum, this.get('discussionSort.sortBy'));
-			},
-
-			/**
-			 * Goes to post list page and attempts to create a new post there
-			 *
-			 * @param {object} postData
-			 *
-			 * @returns {void}
-			 */
-			create(postData) {
-				this.get('discussionSort').setSortBy('latest');
-				this.transitionTo('discussion.forum', {queryParams: {sort: 'latest'}}).promise.then(() => {
-					const model = this.modelFor(this.get('routeName'));
-
-					model.createPost(postData).then((data) => {
-						if (data && !model.get('errorMessage')) {
-							this.get('discussionEditor').trigger('newPost');
-						}
-					});
-				});
+				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
 			},
 		}
 	}

@@ -7,7 +7,7 @@ const {Mixin} = Ember;
 export default Mixin.create({
 	/**
 	 * Delete post in service
-	 * @param {object} post
+	 * @param {Object} post
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	deletePost(post) {
@@ -45,7 +45,7 @@ export default Mixin.create({
 
 	/**
 	 * Undelete post in service
-	 * @param {object} post
+	 * @param {Object} post
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	undeletePost(post) {
@@ -60,7 +60,7 @@ export default Mixin.create({
 
 	/**
 	 * Delete reply in service
-	 * @param {object} reply
+	 * @param {Object} reply
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	deleteReply(reply) {
@@ -78,7 +78,7 @@ export default Mixin.create({
 
 	/**
 	 * Undelete reply in service
-	 * @param {object} reply
+	 * @param {Object} reply
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	undeleteReply(reply) {
@@ -93,7 +93,7 @@ export default Mixin.create({
 
 	/**
 	 * Approve post/reply in service
-	 * @param {object} entity
+	 * @param {Object} entity
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	approve(entity) {
@@ -110,7 +110,7 @@ export default Mixin.create({
 
 	/**
 	 * Report post/reply in service
-	 * @param {object} entity
+	 * @param {Object} entity
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	report(entity) {
@@ -187,7 +187,7 @@ export default Mixin.create({
 
 	/**
 	 * Locks a post in the service
-	 * @param {object} post
+	 * @param {Object} post
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	lockPost(post) {
@@ -203,7 +203,7 @@ export default Mixin.create({
 
 	/**
 	 * Unlocks a post in the service
-	 * @param {object} post
+	 * @param {Object} post
 	 * @returns {Ember.RSVP.Promise|void}
 	 */
 	unlockPost(post) {

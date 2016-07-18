@@ -1,0 +1,32 @@
+.discussion-categories-list-container {
+	margin-left: -8px;
+	max-height: 800px;
+}
+
+.discussion-categories-list {
+	list-style: none;
+	margin: 6px 0;
+
+	label {
+		overflow: hidden;
+		padding: 4px 0 4px 8px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		&:hover {
+			background-color: $discussion-category-hover-background;
+		}
+	}
+}
+
+.discussion-categories {
+	button {
+		background-color: transparent;
+		font-size: 10px;
+		font-weight: $font-weight-bold;
+		height: $line-height-larger;
+		line-height: $line-height-larger;
+		margin: 0 20px;
+		width: calc(100% - 40px);
+	}
+}

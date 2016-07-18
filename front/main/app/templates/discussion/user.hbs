@@ -1,18 +1,24 @@
 {{#modal-dialog
 	class='is-bare is-desktop-centered discussion-editor-dialog'
 	closeOnOverlayClick=false
-	isVisible=editEditorActive
+	isVisible=editEditorState.isOpen
 }}
-	{{discussion-edit-editor
+	{{discussion-standalone-editor
+		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
+		errorMessage=editEditorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
+		isActive=editEditorState.isOpen
+		isEdit=true
+		isLoading=editEditorState.isLoading
+		setEditorActive=(action 'setEditorActive')
 	}}
 {{/modal-dialog}}
 
 {{#discussion-user-entities-list-layout
 	deleteAllPosts=(action 'deleteAllPosts')
-	model=model.data
+	model=model.current.data
 	smartBannerVisible=smartBannerVisible
 }}
 	{{discussion-user-list-wrapper
@@ -21,15 +27,18 @@
 		deleteReply=(action 'deleteReply')
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
+		minorError=model.current.data.minorError
+		pageNum=model.current.data.pageNum
+		posts=model.current.data.entities
+		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')
+		showCategories=showCategories
+		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
 		undeleteReply=(action 'undeleteReply')
-		upvote=(action 'upvote')
-		minorError=model.data.minorError
-		pageNum=model.data.pageNum
-		posts=model.data.entities
-		postsDisplayed=model.data.entities.length
-		totalPosts=model.data.postCount
+		openEditEditor=(action 'openEditEditor')
+		setEditorActive=(action 'setEditorActive')
 		unlockPost=(action 'unlockPost')
+		upvote=(action 'upvote')
 	}}
 {{/discussion-user-entities-list-layout}}

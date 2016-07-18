@@ -1,0 +1,34 @@
+{{#modal-dialog
+	class='is-bare is-desktop-centered discussion-editor-dialog guidelines-editor'
+	closeOnOverlayClick=false
+	isVisible=guidelinesEditorState.isOpen
+}}
+	{{discussion-guidelines-editor
+		guidelines=guidelinesEditorState.guidelines
+		editPost=(action 'editPost')
+		editReply=(action 'editReply')
+		saveGuidelines=(action 'saveGuidelines')
+		errorMessage=guidelinesEditorState.errorMessage
+		generateOpenGraph=(route-action 'generateOpenGraph')
+		isActive=guidelinesEditorState.isOpen
+		isEdit=true
+		isLoading=guidelinesEditorState.isLoading
+		setEditorActive=(action 'setEditorActive')
+	}}
+{{/modal-dialog}}
+{{#discussion-standalone-layout
+	deleteAllPosts=(action 'deleteAllPosts')
+	smartBannerVisible=smartBannerVisible
+	pageTitle=(i18n 'main.guidelines-header-title' ns='discussion')
+}}
+	{{#if model.attributes.data.guidelines}}
+		{{discussion-guidelines
+			guidelines=model.attributes.data.guidelines
+			openGuidelinesEditor=(action 'openGuidelinesEditor')
+		}}
+	{{else}}
+		{{discussion-error
+			error=model.attributes.error
+		}}
+	{{/if}}
+{{/discussion-standalone-layout}}

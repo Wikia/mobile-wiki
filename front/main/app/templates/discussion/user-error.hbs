@@ -1,9 +1,9 @@
 {{#discussion-user-entities-list-layout
 	deleteAllPosts=(action 'deleteAllPosts')
-	model=model.data
+	model=model.current.data
 	smartBannerVisible=smartBannerVisible
 }}
 	{{discussion-error
-		error=model.error
+		error=model.current.error
 	}}
 {{/discussion-user-entities-list-layout}}

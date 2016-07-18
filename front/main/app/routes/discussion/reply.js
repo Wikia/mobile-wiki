@@ -1,9 +1,7 @@
-import Ember from 'ember';
 import DiscussionPostRoute from './post';
 
 export default DiscussionPostRoute.extend(
 	{
-		discussionEditor: Ember.inject.service(),
 		controllerName: 'discussion.post',
 		templateName: 'discussion.post',
 
@@ -19,7 +17,7 @@ export default DiscussionPostRoute.extend(
 				this.transitionTo('discussion.post', model.get('threadId')).promise.then(() => {
 					// when not using a default model for a route,
 					// it needs to be explicit about model name to call after a transition
-					this.modelFor('discussion.post').createReply(replyData);
+					this.modelFor('discussion.post').current.createReply(replyData);
 				});
 			},
 		},

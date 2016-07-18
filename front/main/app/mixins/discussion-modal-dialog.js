@@ -5,7 +5,6 @@ export default Ember.Mixin.create({
 	confirmCallback: Ember.computed.alias('modalDialog.confirmCallback'),
 	dialogMessage: Ember.computed.alias('modalDialog.message'),
 	dialogHeaderText: Ember.computed.alias('modalDialog.header'),
-	discussionEditor: Ember.inject.service(),
 	isConfirm: Ember.computed.alias('modalDialog.isConfirm'),
 	modalDialog: Ember.inject.service(),
 	shouldShowDialogMessage: Ember.computed.alias('modalDialog.isDisplayed'),
@@ -15,8 +14,8 @@ export default Ember.Mixin.create({
 	 * this is the place that notifies services about a creation error
 	 * @returns {void}
 	 */
-	dialogMessageObserver: Ember.observer('model.dialogMessage', function () {
-		const modelError = this.get('model.dialogMessage');
+	dialogMessageObserver: Ember.observer('model.current.dialogMessage', function () {
+		const modelError = this.get('model.current.dialogMessage');
 
 		if (modelError) {
 			this.get('modalDialog').display(i18n.t(modelError, {ns: 'discussion'}));

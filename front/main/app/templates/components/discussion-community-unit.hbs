@@ -2,10 +2,18 @@
 	<h4 class="wiki-name">{{wikiName}}</h4>
 {{/if}}
 {{#if displayGuidelinesLink}}
-	<a href="#" class="guidelines-link active-element-theme-color">
-		{{svg 'guide-small' role='img' class='icon wikia-guidelines'}}
-		<span>{{i18n 'main.discussion-guidelines' ns='discussion'}}</span>
-	</a>
+	<div class="guidelines-link-section">
+		{{#link-to 'discussion.guidelines' class='guidelines-link active-element-theme-color' click=(action 'openGuidelines')}}
+			{{svg 'guide-small' role='img' class='icon wikia-guidelines'}}
+			<span>{{i18n 'main.guidelines-link-title' ns='discussion'}}</span>
+		{{/link-to}}
+		{{#if canEditGuidelines}}
+			<a class="guidelines-edit-link active-element-theme-color" {{action 'openGuidelinesEditor'}}>
+				{{i18n 'main.edit-guidelines' ns='discussion'}}
+				{{svg 'pencil' viewBox='0 0 18 18' class='icon fill-theme-color'}}
+			</a>
+		{{/if}}
+	</div>
 {{/if}}
 {{#if displayWikiaHomeLink}}
 	<a href="/" class="wikia-home-link active-element-theme-color">

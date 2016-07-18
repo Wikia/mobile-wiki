@@ -5,6 +5,7 @@ export default Ember.Controller.extend(
 		application: Ember.inject.controller(),
 
 		smartBannerVisible: Ember.computed.oneWay('application.smartBannerVisible'),
+		showCategories: false,
 
 		actions: {
 			/**
@@ -19,7 +20,28 @@ export default Ember.Controller.extend(
 			 *
 			 * @returns {void}
 			 */
-			applyFilters() {}
+			applyFilters() {},
+
+			/**
+			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller
+			 *
+			 * @returns {void}
+			 */
+			setEditorActive() {},
+
+			/**
+			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller
+			 *
+			 * @returns {void}
+			 */
+			openGuidelines() {},
+
+			/**
+			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller
+			 *
+			 * @returns {void}
+			 */
+			updateCategories() {},
 		}
 	}
 );

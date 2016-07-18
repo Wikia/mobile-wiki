@@ -1,0 +1,153 @@
+$editor-toolbar-height: 41px;
+$modal-editor-width: 520px;
+$success-icon-size: 80px;
+
+.discussion-standalone-editor {
+	background-color: $discussion-editor-background-color;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	position: relative;
+	z-index: $z-discussion-editor;
+
+	.discussion-standalone-editor-toolbar {
+		border-bottom: 1px solid $discussion-editor-toolbar-border-color;
+		display: flex;
+		flex-shrink: 0;
+		height: $editor-toolbar-height;
+		justify-content: space-between;
+	}
+
+	.editor-close {
+		height: 38px;
+		padding: 10px;
+		width: 38px;
+	}
+
+	.discussion-standalone-editor-button {
+		background: none;
+		border: 0;
+		font-size: $type-smallest;
+		font-weight: $font-weight-bold;
+		height: 40px;
+		letter-spacing: .25px;
+		margin: 0;
+		padding: 0 20px;
+		text-transform: uppercase;
+	}
+
+	.discussion-standalone-editor-label {
+		color: $discussion-editor-label-color;
+		cursor: default;
+		flex-shrink: 0;
+		font-size: $type-min;
+		font-weight: $font-weight-bold;
+		padding: 15px 10px 10px;
+		text-transform: uppercase;
+		width: 100%;
+	}
+
+	.discussion-standalone-content-wrapper {
+		flex-grow: 1;
+		overflow: auto;
+	}
+
+	.discussion-standalone-editor-textarea {
+		border: 0;
+		border-radius: 0;
+		margin: 0;
+		min-height: 0;
+		padding: 0 10px 10px;
+		resize: none;
+
+		&:focus {
+			background-color: transparent;
+			border: 0;
+			box-shadow: none;
+		}
+	}
+
+	.loading-overlay {
+		height: 100%;
+		position: absolute;
+
+		.spinner {
+			margin-top: -32px;
+		}
+
+		.success {
+			display: block;
+			height: $success-icon-size;
+			margin: - $success-icon-size / 2 auto 0;
+			position: relative;
+			top: 50%;
+			width: $success-icon-size;
+		}
+	}
+
+	span {
+		&.error {
+			animation: error-slide-in .6s ease-in-out 1, error-slide-out .6s ease-in-out 2.4s;
+			background-color: rgba($discussion-editor-error-background-color, .95);
+			color: $discussion-editor-error-text-color;
+			font-size: $type-smallest;
+			line-height: $line-height-larger;
+			margin: 0;
+			max-height: 2 * $line-height-larger;
+			overflow: hidden;
+			padding: 0;
+			position: absolute;
+			text-align: center;
+			top: $editor-toolbar-height;
+			width: 100%;
+			z-index: $z-discussion-editor + 1;
+		}
+	}
+
+	.og-container {
+		margin: 15px;
+	}
+}
+
+@media #{$desktop-range} {
+	.discussion-editor-dialog {
+		.modal-dialog {
+			align-self: flex-start;
+			display: flex;
+			height: 350px;
+			margin-top: 66px;
+			max-width: $modal-editor-width;
+		}
+	}
+}
+
+@media #{$mobile-range} {
+	.discussion-standalone-editor {
+		bottom: 0;
+		left: 0;
+		position: fixed;
+		right: 0;
+		top: 0;
+	}
+}
+
+
+@keyframes error-slide-in {
+	from {
+		max-height: 0;
+	}
+
+	to {
+		max-height: 2 * $line-height-larger;
+	}
+}
+
+@keyframes error-slide-out {
+	from {
+		max-height: 2 * $line-height-larger;
+	}
+
+	to {
+		max-height: 0;
+	}
+}
