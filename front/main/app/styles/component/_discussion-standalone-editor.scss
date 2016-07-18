@@ -38,6 +38,7 @@ $success-icon-size: 80px;
 
 	.discussion-standalone-content-wrapper {
 		flex-grow: 1;
+		margin: 0 15px 0;
 		overflow: auto;
 	}
 
@@ -53,7 +54,7 @@ $success-icon-size: 80px;
 		flex-shrink: 0;
 		font-size: $type-min;
 		font-weight: $font-weight-bold;
-		padding: 15px 15px 10px;
+		padding: 15px 0 10px;
 		text-transform: uppercase;
 		width: 100%;
 	}
@@ -73,7 +74,7 @@ $success-icon-size: 80px;
 			font-size: $discussion-editor-label-font-size;
 			line-height: $form-label-line-height;
 			position: absolute;
-			right: 15px;
+			right: 0;
 		}
 	}
 
@@ -81,9 +82,9 @@ $success-icon-size: 80px;
 	.discussion-textarea-with-counter {
 		border: 0;
 		border-radius: 0;
-		margin: 10px 0 0;
+		margin-top: 10px;
 		min-height: 0;
-		padding: 0 15px 7px;
+		padding: 0 0 7px;
 		resize: none;
 
 		&:focus {
