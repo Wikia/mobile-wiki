@@ -23,7 +23,7 @@ export default Ember.Component.extend({
 	}),
 
 	actions: {
-		onTexareaInput: function() {
+		onTexareaInputChange: function() {
 			this.set('text',
 				this.get('text').replace(this.get('notAllowedCharactersPattern'), ""));
 			this.get('onInput')(this.get('text'));
