@@ -1,20 +1,21 @@
-{{#if model.header.title}}
-	<h3 class="global-footer__section-header">{{i18n model.header.title.key ns='design-system'}}</h3>
-{{/if}}
+<div class="global-footer__{{parentName}}-section is-{{name}}">
+	{{#if model.header.title}}
+		<h3 class="global-footer__section-header">{{i18n model.header.title.key ns='design-system'}}</h3>
+	{{/if}}
 
-{{#if model.description}}
-	<div>{{model.description.key}}</div>
-{{/if}}
+	{{#if model.description}}
+		<span class="global-footer__section-description">{{model.description.key}}</span>
+	{{/if}}
 
-<ul class="global-footer__links is-{{name}}">
-	{{#each model.links as |link|}}
-		<li>
-			{{!--
-				First parameter of called helper has to be .. to preserve parent context within called helper.
-				Without it context would be loops context i.e. current loop item
-			--}}
-			{{{global-footer-link .. link}}}
-		</li>
-	{{/each}}
-</ul>
-
+	<ul class="global-footer__links-list">
+		{{#each model.links as |link|}}
+			<li class="global-footer__links-list-item">
+				{{!--
+					First parameter of called helper has to be .. to preserve parent context within called helper.
+					Without it context would be loops context i.e. current loop item
+				--}}
+				{{{global-footer-link .. link}}}
+			</li>
+		{{/each}}
+	</ul>
+</div>
