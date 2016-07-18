@@ -193,7 +193,7 @@ plugins = [
 			i18nextOptions: {
 				resGetPath: path.join(localesPath, '/__lng__/__ns__.json'),
 				ns: {
-					namespaces: ['main', 'auth', 'discussion'],
+					namespaces: ['main', 'auth', 'design-system', 'discussion'], 
 					defaultNs: 'main'
 				},
 				fallbackLng: 'en',
