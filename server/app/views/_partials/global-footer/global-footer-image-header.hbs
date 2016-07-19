@@ -1,7 +1,7 @@
 {{#if model.href}}
 	<a href="{{model.href}}">
-		{{> global-footer/global-footer-svg-logo image=model.image section=section imageSizeModifier=imageSizeModifier}}
+		{{> svg image=model.image class=(concat 'global-footer__' imageSizeModifier section '-logo')}}
 	</a>
 {{else}}
-	{{> global-footer/global-footer-svg-logo image=model.image section=section imageSizeModifier=imageSizeModifier}}
+	{{> svg image=model.image class=(concat 'global-footer__' imageSizeModifier section '-logo')}}
 {{/if}}

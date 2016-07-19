@@ -2,7 +2,7 @@
 	{{#if isInternational}}
 		<h2 class="global-footer__header">
 			{{#with model.international_header.header as |header|}}
-				{{> global-footer/global-footer-svg-logo image=header.image section='wikia' imageSizeModifier='large'}}
+				{{> svg image=header.image section='wikia' imageSizeModifier='large'}}
 				<span class="global-footer__home-of-fandom">{{i18n header.subtitle.key ns='design-system'}}</span>
 			{{/with}}
 		</h2>
@@ -32,8 +32,6 @@
 		</div>
 	</div>
 	<div class="global-footer__licensing-and-vertical">
-		{{#with model.licensing_and_vertical as |section|}}
-			<span>{{i18n section.description.key ns='design-system'}}</span>
-		{{/with}}
+		<span>{{i18n model.licensing_and_vertical.description.key ns='design-system'}}</span>
 	</div>
 </footer>

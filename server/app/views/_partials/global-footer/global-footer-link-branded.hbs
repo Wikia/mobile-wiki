@@ -1,7 +1,4 @@
 <a href="{{model.href}}" class="global-footer__link is-{{model.brand}}">
 	<div>{{i18n model.title.key ns='design-system'}}</div>
-	<svg class="global-footer__image icon">
-		<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icons-arrow">
-		</use>
-	</svg>
+	{{> svg image='icons-arrow' class='global-footer__image icon'}}
 </a>
