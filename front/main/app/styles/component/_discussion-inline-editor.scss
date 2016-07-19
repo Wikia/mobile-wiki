@@ -37,7 +37,8 @@ $success-icon-size: 80px;
 	&:not(.is-active) {
 		cursor: pointer;
 
-		.discussion-inline-editor-textarea, .discussion-textarea-with-counter {
+		.discussion-inline-editor-textarea,
+		.discussion-textarea-with-counter {
 			cursor: pointer;
 		}
 	}
