@@ -54,7 +54,6 @@ describe('design-system', function () {
 		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParams, function (response) {
-			console.log(response.payload);
 			jsdom.env(response.payload, function (errors, window) {
 				var footerHTML = window.document.getElementsByClassName('global-footer')[0],
 					footerWrapper = window.document.createElement('div'),
