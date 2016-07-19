@@ -1,7 +1,7 @@
 {{#discussion-post-details-layout
 	deleteAllPosts=(action 'deleteAllPosts')
 	hasContentError=true
-	model=model.data
+	model=model.current.data
 }}
 	{{discussion-error
 		error=model.error
