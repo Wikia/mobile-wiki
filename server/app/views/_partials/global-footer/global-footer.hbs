@@ -2,9 +2,7 @@
 	{{#if isInternational}}
 		<h2 class="global-footer__header">
 			{{#with model.international_header.header as |header|}}
-				<img class="global-footer__large-wikia-logo"
-					 src="http://public.diana.wikia-dev.com/design-system-reference-page/bower_components/design-system/assets/{{header.image}}.svg"
-					 alt="{{header.title.key}}">
+				{{> global-footer/global-footer-svg image=header.image section='wikia' imageSizeModifier='large'}}
 				<span class="global-footer__home-of-fandom">{{header.subtitle.key}}</span>
 			{{/with}}
 		</h2>
@@ -21,7 +19,7 @@
 		</div>
 		{{#unless isInternational}}
 			<h2 class="global-footer__wikia-header">
-				{{> global-footer/global-footer-image-header model=model.wikia.header section='wikia' imageSizeModifier='small-'}}
+				{{> global-footer/global-footer-image-header model=model.wikia.header section='wikia'}}
 			</h2>
 		{{/unless}}
 		<div class="global-footer__wikia-sections">
