@@ -125,5 +125,12 @@ module.exports = function (defaults) {
 			destDir: 'assets/design-system-company.svg'
 		});
 
-	return app.toTree([jQueryAssets, cropperAssets, pontoAssets, numeralAssets, designSystemIconsAssets, designSystemCompanyAssets]);
+	return app.toTree([
+		jQueryAssets,
+		cropperAssets,
+		pontoAssets,
+		numeralAssets,
+		designSystemIconsAssets,
+		designSystemCompanyAssets
+	]);
 };
