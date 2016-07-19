@@ -6,6 +6,7 @@ export default Ember.Component.extend({
 	 */
 	tagName: 'label',
 
+	collapsedPlaceholder: '',
 	label: '',
 	text: '',
 	placeholder: '',
@@ -15,11 +16,26 @@ export default Ember.Component.extend({
 	 * @private
 	 */
 	notAllowedCharactersPattern: /\r?\n|\r/g,
-	onInput: null,
 	required: false,
+	onInput: null,
+	isActive: true,
+
+	isCollapsed: Ember.computed.not('isActive'),
+
+	placeholderA: Ember.computed('isCollapsed', 'placeholder', 'collapsedPlaceholder', function () {
+		return this.get('isCollapsed') ? this.get('collapsedPlaceholder') : this.get('placeholder');
+	}),
 
 	charactersCount: Ember.computed('text', 'maxlength', function () {
 		return this.get('maxlength') - this.get('text.length');
+	}),
+
+	showCharactersCounter: Ember.computed('isCollapsed', 'maxlength', function() {
+		return !!this.get('maxlength') && !this.get('isCollapsed');
+	}),
+
+	showLabel: Ember.computed('isCollapsed', 'label', function() {
+		return !!this.get('label') && !this.get('isCollapsed');
 	}),
 
 	actions: {

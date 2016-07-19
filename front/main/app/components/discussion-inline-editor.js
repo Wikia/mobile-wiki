@@ -42,7 +42,7 @@ export default DiscussionEditorWithMultipleInputs.extend(
 
 					this.get('create')(newDiscussionEntityData);
 				}
-			},
+			}
 		}
 	}
 );

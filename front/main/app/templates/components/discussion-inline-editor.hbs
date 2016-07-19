@@ -4,10 +4,12 @@
 			avatarUrl=currentUser.avatarPath
 			shouldWrapInHref=false
 		}}
-		<div class="discussion-inline-editor-textarea-wrapper">
+		<div class="discussion-inline-editor-textarea-wrapper" {{action 'focusWhen'}}>
 			{{discussion-textarea-with-counter
 				class='discussion-inline-editor-title'
-				isVisible=isActive
+				isActive=isActive
+				collapsedPlaceholder=(i18n collapsedEditorLabelKey ns='discussion')
+				focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
 				label=(i18n titleLabelKey ns='discussion')
 				maxlength=70
 				onInput=(action 'onTitleChange')
@@ -23,6 +25,7 @@
 					autoresize=true
 					class='discussion-inline-editor-textarea'
 					focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
+					isVisible=isActive
 					keyPress=(action 'handleKeyPress')
 					placeholder=(i18n messagePlaceholderKey ns='discussion')
 					required=true

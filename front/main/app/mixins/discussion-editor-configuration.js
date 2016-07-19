@@ -23,6 +23,7 @@ export default Ember.Mixin.create({
 	configurations: Ember.Object.create({
 		createPost: {
 			editorLabelKey: 'editor.post-editor-label',
+			collapsedEditorLabelKey: 'editor.post-editor-collapsed-label',
 			titleLabelKey: 'editor.post-editor-title-label',
 			titlePlaceholderKey: 'editor.post-editor-title-placeholder-text',
 			messageLabelKey: 'editor.post-editor-description-label',

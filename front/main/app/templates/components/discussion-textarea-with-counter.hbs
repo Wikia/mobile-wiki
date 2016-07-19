@@ -1,4 +1,4 @@
-{{#if label}}
+{{#if showLabel}}
 	<span class="discussion-textarea-label">{{label}}</span>
 {{/if}}
 <div class="discussion-textarea-wrapper">
@@ -7,11 +7,11 @@
 		class="discussion-textarea-with-counter"
 		input=(action 'onTexareaInputChange')
 		maxlength=maxlength
-		placeholder=placeholder
+		placeholder=placeholderA
 		required=required
 		value=text
 	}}
-	{{#if maxlength}}
+	{{#if showCharactersCounter}}
 		<span class="discussion-textarea-counter">
 			{{charactersCount}}
 		</span>
