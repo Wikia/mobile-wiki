@@ -7,8 +7,11 @@ $success-icon-size: 80px;
 }
 
 .discussion-categories-edit {
+	.move {
+		fill: $discussion-move-icon-color;
+	}
+
 	li {
-		background-color: $discussion-edit-list-item-color;
 		transition: all 0.2s linear;
 
 		&:hover {
@@ -45,12 +48,8 @@ $success-icon-size: 80px;
 		.discussion-categories-input:focus + .draggable {
 			display: flex;
 
-			.action-delete {
-				display: block;
-			}
-
 			.action-move {
-				display: none;
+				display: flex;
 			}
 		}
 	}
@@ -62,6 +61,7 @@ $success-icon-size: 80px;
 	.is-dragging {
 		// hacks for firefox to make transforms work smoothly
 		backface-visibility: hidden;
+		background-color: $discussion-edit-list-item-color;
 		transform: translate3d(0, 0, 0);
 
 		z-index: 1;
@@ -90,12 +90,6 @@ $success-icon-size: 80px;
 			.action-delete {
 				display: none;
 			}
-		}
-	}
-
-	.is-dropping {
-		li {
-			background-color: #ccc;
 		}
 	}
 

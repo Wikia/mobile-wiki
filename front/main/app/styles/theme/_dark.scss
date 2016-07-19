@@ -456,7 +456,11 @@ body.dark-theme {
 	}
 
 	.discussion-categories-edit {
-		li {
+		.move {
+			fill: $dark-discussion-move-icon-color;
+		}
+
+		.is-dragging {
 			background-color: $dark-discussion-edit-list-item-color;
 		}
 
