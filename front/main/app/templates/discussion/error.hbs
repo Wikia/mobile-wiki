@@ -1,11 +1,12 @@
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	hasContentError=true
-	model=model.current.data
+	model=model.data
+	openGuidelines=(action 'openGuidelines')
 	setEditorActive=(action 'setEditorActive')
 	updateCategories=(action 'updateCategories')
 }}
 	{{discussion-error
-		error=model.current.error
+		error=model.error
 	}}
 {{/discussion-entities-list-layout}}
