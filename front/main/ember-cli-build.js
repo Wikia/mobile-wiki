@@ -117,7 +117,10 @@ module.exports = function (defaults) {
 		}),
 		numeralAssets = new Funnel(app.bowerDirectory + '/numeral/languages', {
 			destDir: 'assets/vendor/numeral'
+		}),
+		designSystemIconsAssets = new Funnel(app.bowerDirectory + '/design-system/dist/icons.svg', {
+			destDir: 'assets/design-system-icons.svg'
 		});
 
-	return app.toTree([jQueryAssets, cropperAssets, pontoAssets, numeralAssets]);
+	return app.toTree([jQueryAssets, cropperAssets, pontoAssets, numeralAssets, designSystemIconsAssets]);
 };
