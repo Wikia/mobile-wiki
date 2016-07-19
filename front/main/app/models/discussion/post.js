@@ -89,7 +89,7 @@ const DiscussionPostModel = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		editPost(postData) {
-			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.threadId}`), {
+			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`), {
 				method: 'POST',
 				data: JSON.stringify(postData),
 			}).then((thread) => {

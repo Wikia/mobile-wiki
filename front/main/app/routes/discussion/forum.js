@@ -25,6 +25,7 @@ export default DiscussionBaseRoute.extend(
 
 		canModerate: null,
 		discussionSort: inject.service(),
+		discussionEditor: inject.service(),
 
 		/**
 		 * @param {object} params
