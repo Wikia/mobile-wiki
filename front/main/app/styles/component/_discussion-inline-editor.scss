@@ -73,7 +73,7 @@ $success-icon-size: 80px;
 
 	.discussion-inline-editor-textarea-wrapper {
 		flex: 1;
-		margin: 15px 15px 0 0;
+		padding: 15px 15px 0 0;
 	}
 
 	.discussion-textarea-label {
@@ -90,10 +90,10 @@ $success-icon-size: 80px;
 		border-bottom: 1px solid $secondary-color;
 		border-radius: 0;
 		height: 45px;
-		margin: 0 17px 10px 0;
+		margin: 0 15px 10px 0;
 		min-height: 0;
+		padding: 5px 0 10px 0;
 		resize: none;
-		padding: 6px 0 10px 0;
 		transition: min-height .2s ease;
 
 		&:focus {

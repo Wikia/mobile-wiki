@@ -9,8 +9,9 @@ export default DiscussionEditor.extend({
 	titlePlaceholderKey: null,
 	messageLabelKey: null,
 
-	wasFocused: false,
-
+	/**
+	 * Overridden to clear title also.
+	 */
 	afterSuccess() {
 		this.setProperties({
 			content: '',
@@ -23,7 +24,7 @@ export default DiscussionEditor.extend({
 
 	actions: {
 		focusTextarea() {
-			if (this.get('wasFocused')) {
+			if (this.get('isActive')) {
 				let $target = this.$(event.target);
 				let $label = $target.closest('label');
 				if (0 === $label.length) {
@@ -31,7 +32,6 @@ export default DiscussionEditor.extend({
 				}
 				$label.find('textarea').focus();
 			} else {
-				this.set('wasFocused', true);
 				this.$('textarea:first').focus();
 			}
 		},
