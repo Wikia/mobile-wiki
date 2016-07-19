@@ -20,6 +20,18 @@ export default DiscussionEditorWithMultipleInputs.extend(
 
 		layoutName: 'components/discussion-inline-editor',
 
+		isPostEditor: Ember.computed('isReply', function() {
+			return !this.get('isReply');
+		}),
+
+		showLabel: Ember.computed('isActive', 'isReply', function() {
+			return this.get('isActive') && !this.get('isReply');
+		}),
+
+		showTextareaAsDefault: Ember.computed('isActive', 'isReply', function() {
+			return this.get('isReply') ? true : this.get('isActive');
+		}),
+
 		click() {
 			this.sendAction('setEditorActive', 'contributeEditor', true);
 		},
@@ -30,9 +42,12 @@ export default DiscussionEditorWithMultipleInputs.extend(
 					const newDiscussionEntityData = {
 						body: this.get('content'),
 						creatorId: this.get('currentUser.userId'),
-						siteId: Mercury.wiki.id,
-						title: this.get('title')
+						siteId: Mercury.wiki.id
 					};
+
+					if (this.get('title')) {
+						newDiscussionEntityData.title = this.get('title');
+					}
 
 					if (this.get('showsOpenGraphCard')) {
 						newDiscussionEntityData.openGraph = {

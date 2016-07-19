@@ -5,18 +5,20 @@
 			shouldWrapInHref=false
 		}}
 		<div class="discussion-inline-editor-textarea-wrapper" {{action 'focusTextarea'}}>
-			{{discussion-textarea-with-counter
-				class='discussion-inline-editor-title'
-				isActive=isActive
-				collapsedPlaceholder=(i18n collapsedEditorLabelKey ns='discussion')
-				focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
-				label=(i18n titleLabelKey ns='discussion')
-				maxlength=70
-				onInput=(action 'onTitleChange')
-				placeholder=(i18n titlePlaceholderKey ns='discussion')
-			}}
+			{{#if isPostEditor}}
+				{{discussion-textarea-with-counter
+					class='discussion-inline-editor-title'
+					isActive=isActive
+					collapsedPlaceholder=(i18n collapsedEditorLabelKey ns='discussion')
+					focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
+					label=(i18n titleLabelKey ns='discussion')
+					maxlength=70
+					onInput=(action 'onTitleChange')
+					placeholder=(i18n titlePlaceholderKey ns='discussion')
+				}}
+			{{/if}}
 			<label>
-				{{#if isActive}}
+				{{#if showLabel}}
 					<span class="discussion-textarea-label">
 						{{i18n messageLabelKey ns='discussion'}}
 					</span>
@@ -25,7 +27,7 @@
 					autoresize=true
 					class='discussion-inline-editor-textarea'
 					focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
-					isVisible=isActive
+					isVisible=showTextareaAsDefault
 					keyPress=(action 'handleKeyPress')
 					placeholder=(i18n messagePlaceholderKey ns='discussion')
 					required=true
