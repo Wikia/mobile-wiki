@@ -1,6 +1,8 @@
-import {WikiRequest} from '../lib/mediawiki';
-import {getCachedWikiDomainName} from '../lib/utils';
+import {reject, settle} from 'bluebird';
+import * as MediaWiki from '../lib/mediawiki';
+import {getCachedWikiDomainName, getCorporatePageUrlFromWikiDomain} from '../lib/utils';
 import localSettings from '../../config/localSettings';
+import logger from '../lib/logger';
 import showApplication from './show-application';
 
 /**
@@ -12,16 +14,49 @@ import showApplication from './show-application';
  */
 export default function showDiscussions(request, reply) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
-		wikiVariables = new WikiRequest({wikiDomain}).wikiVariables(),
-		context = {};
+		context = {},
+		requests = [
+			new MediaWiki.WikiRequest({wikiDomain}).wikiVariables(),
+			new MediaWiki.DesignSystemRequest({corporatePageUrl: getCorporatePageUrlFromWikiDomain(wikiDomain)}).getFooter()
+		];
 
-	wikiVariables.then((variables) => {
-		if (!variables.enableDiscussions) {
-			return reply('Not Found').code(404);
-		}
+	logger.debug('Fetching wiki variables and GlobalFooter data');
 
-		context.documentTitle = `Discussions - ${variables.siteName} - Wikia`;
+	/**
+	 * @see https://github.com/petkaantonov/bluebird/blob/master/API.md#settle---promise
+	 *
+	 * From Promise.settle documentation:
+	 * Given an array, or a promise of an array, which contains promises (or a mix of promises and values)
+	 * return a promise that is fulfilled when all the items in the array are either fulfilled or rejected.
+	 * The fulfillment value is an array of PromiseInspection instances at respective positions in relation
+	 * to the input array. This method is useful for when you have an array of promises and you'd like to know
+	 * when all of them resolve - either by fulfilling of rejecting.
+	 */
+	settle(requests)
+	/**
+	 * @param {Promise.Inspection<Promise<MediaWikiPageData>>[]} results
+	 * @returns {void}
+	 */
+		.then((results) => {
+			const wikiVariablesPromise = results[0],
+				globalFooterPromise = results[1],
+				isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled(),
+				isGlobalFooterPromiseFulfilled = globalFooterPromise.isFulfilled(),
+				variables = wikiVariablesPromise.value();
 
-		showApplication(request, reply, wikiVariables, context);
-	});
+			if (!isWikiVariablesPromiseFulfilled) {
+				return reject(wikiVariablesPromise.reason());
+			}
+
+			if (!variables.enableDiscussions) {
+				return reply('Not Found').code(404);
+			}
+
+			context.documentTitle = `Discussions - ${variables.siteName} - Wikia`;
+
+			context.globalFooter = isGlobalFooterPromiseFulfilled ? globalFooterPromise.value() : {};
+			context.globalFooter.isVisible = true;
+
+			showApplication(request, reply, undefined, context);
+		});
 }

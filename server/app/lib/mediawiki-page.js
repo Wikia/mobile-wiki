@@ -84,12 +84,13 @@ export class PageRequestHelper {
 				}
 
 				globalFooter = globalFooterPromise.isFulfilled() ? globalFooterPromise.value() : {};
+				globalFooter.isVisible = true;
 
 				data = {
+					globalFooter,
 					page,
 					server: createServerData(localSettings, this.params.wikiDomain),
 					wikiVariables: wikiVariablesPromise.value(),
-					globalFooter
 				};
 
 				if (isMediaWikiPagePromiseFulfilled && page) {
