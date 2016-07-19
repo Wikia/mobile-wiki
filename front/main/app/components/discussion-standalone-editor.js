@@ -40,14 +40,6 @@ export default DiscussionEditorWithMultipleInputs.extend(
 			});
 		}),
 
-		textAreaId: Ember.computed('isEdit', function () {
-			if (this.get('isEdit')) {
-				return 'discussion-standalone-edit-editor-textarea';
-			} else {
-				return 'discussion-standalone-editor-textarea';
-			}
-		}),
-
 		actions: {
 			close() {
 				this._super();
