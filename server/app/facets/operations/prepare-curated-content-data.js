@@ -27,5 +27,7 @@ export default function prepareCuratedContentData(request, data) {
 	result.mainPageData = mainPageData;
 	result.openGraph = getOpenGraphData('website', result.displayTitle, result.canonicalUrl, result.mainPageData);
 
+	result.globalFooter = data.globalFooter;
+
 	return result;
 }

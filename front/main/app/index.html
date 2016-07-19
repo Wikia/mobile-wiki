@@ -92,8 +92,8 @@
 {{> tracking-internal}}
 {{> tracking-ivw3}}
 
-{{#if globalFooter.isVisible}}
-{{> global-footer/global-footer model=globalFooter}}
+{{#if globalFooter}}
+	{{> global-footer/global-footer model=globalFooter}}
 {{/if}}
 
 {{content-for 'body-footer'}}

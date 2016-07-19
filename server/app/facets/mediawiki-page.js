@@ -13,7 +13,6 @@ import {
 import {PageRequestHelper} from '../lib/mediawiki-page';
 import {
 	getCachedWikiDomainName,
-	getCorporatePageUrlFromWikiDomain,
 	redirectToCanonicalHostIfNeeded,
 	redirectToOasis
 } from '../lib/utils';
@@ -26,6 +25,7 @@ import prepareMainPageData from './operations/prepare-main-page-data';
 import prepareMediaWikiData from './operations/prepare-mediawiki-data';
 import showServerErrorPage from './operations/show-server-error-page';
 import deepExtend from 'deep-extend';
+import getGlobalFooterData from '../lib/global-footer';
 
 const cachingTimes = {
 	enabled: true,
@@ -165,6 +165,15 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 	mediaWikiPageHelper
 		.getFull()
 		/**
+		 * Get data for Global Footer
+		 * @param {MediaWikiPageData} data
+		 * @returns {MediaWikiPageData}
+		 *
+		 */
+		.then((data) => {
+			return getGlobalFooterData(data, request);
+		})
+		/**
 		 * If both requests for Wiki Variables and for Page Details succeed
 		 * @param {MediaWikiPageData} data
 		 * @returns {void}
@@ -229,10 +238,8 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 export default function mediaWikiPageHandler(request, reply) {
 	const path = request.path,
 		wikiDomain = getCachedWikiDomainName(localSettings, request),
-		corporatePageUrl = getCorporatePageUrlFromWikiDomain(localSettings, wikiDomain),
 		params = {
 			wikiDomain,
-			corporatePageUrl,
 			redirect: request.query.redirect
 		};
 

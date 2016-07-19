@@ -11,6 +11,7 @@ import {
 } from '../lib/custom-errors';
 import {isRtl, getUserId, getLocalSettings} from './operations/page-data-helper';
 import showServerErrorPage from './operations/show-server-error-page';
+import getGlobalFooterData from '../lib/global-footer';
 
 /**
  * @typedef {Object} CommunityAppConfig
@@ -79,15 +80,26 @@ export default function showApplication(request, reply, wikiVariables, context =
 			context.wikiVariables = wikiVariables;
 			context.isRtl = isRtl(wikiVariables);
 
-			return OpenGraph.getAttributes(request, context.wikiVariables);
+			return OpenGraph.getAttributes(request, context.wikiVariables).then((openGraphData) => {
+				// Add OpenGraph attributes to context
+				context.openGraph = openGraphData;
+				return context;
+			});
 		})
 		/**
-		 * @param {*} openGraphData
+		 * Get data for Global Footer
+		 * @param {MediaWikiPageData} data
+		 * @returns {MediaWikiPageData}
+		 *
+		 */
+		.then((data) => {
+			return getGlobalFooterData(data, request);
+		})
+		/**
+		 * @param {*} contextData
 		 * @returns {void}
 		 */
-		.then((openGraphData) => {
-			// Add OpenGraph attributes to context
-			context.openGraph = openGraphData;
+		.then((context) => {
 			outputResponse(request, reply, context);
 		})
 		/**
