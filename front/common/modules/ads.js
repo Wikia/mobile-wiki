@@ -8,6 +8,11 @@ import load from '../utils/load';
  */
 
 /**
+ * @typedef {Object} PageFairDetectionModule
+ * @property {Function} initDetection
+ */
+
+/**
  * @typedef {Object} AdLogicPageViewCounterModule
  * @property {Function} get
  * @property {Function} increment
