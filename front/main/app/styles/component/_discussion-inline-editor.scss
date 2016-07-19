@@ -25,7 +25,6 @@ $success-icon-size: 80px;
 
 		.discussion-inline-editor-textarea {
 			border: 0;
-			//padding: 6px 0 0;
 		}
 
 		.discussion-inline-editor-content-wrapper {
@@ -74,7 +73,7 @@ $success-icon-size: 80px;
 
 	.discussion-inline-editor-textarea-wrapper {
 		flex: 1;
-		padding: 15px 15px 0 0;
+		padding: 10px 15px 0 0;
 	}
 
 	.discussion-textarea-label {
@@ -82,6 +81,10 @@ $success-icon-size: 80px;
 		font-size: $discussion-editor-label-font-size;
 		font-weight: $font-weight-bold;
 		text-transform: uppercase;
+
+		&:first-of-type {
+			padding-top: 5px;
+		}
 	}
 
 	.discussion-inline-editor-textarea,
@@ -90,6 +93,7 @@ $success-icon-size: 80px;
 		border: 0;
 		border-bottom: 1px solid $secondary-color;
 		border-radius: 0;
+		font-size: $type-base;
 		height: 45px;
 		margin: 0 15px 10px 0;
 		min-height: 0;
@@ -119,8 +123,6 @@ $success-icon-size: 80px;
 	}
 
 	.discussion-inline-editor-textarea {
-		padding-top: 0;
-
 		&:focus {
 			border: 0;
 		}
