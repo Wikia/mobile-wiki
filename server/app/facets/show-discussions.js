@@ -17,7 +17,7 @@ export default function showDiscussions(request, reply) {
 		context = {},
 		requests = [
 			new MediaWiki.WikiRequest({wikiDomain}).wikiVariables(),
-			new MediaWiki.DesignSystemRequest({corporatePageUrl: getCorporatePageUrlFromWikiDomain(wikiDomain)}).getFooter()
+			new MediaWiki.DesignSystemRequest({corporatePageUrl: getCorporatePageUrlFromWikiDomain(localSettings, wikiDomain)}).getFooter()
 		];
 
 	logger.debug('Fetching wiki variables and GlobalFooter data');
