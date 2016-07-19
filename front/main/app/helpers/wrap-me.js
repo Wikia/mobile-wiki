@@ -2,15 +2,12 @@ import Ember from 'ember';
 
 /**
  * Helper to generate HTML from passed string and additional options.
- * By default the passed string is HTML escaped before being wrapped in
- * the given tags. If the content has already been sanitised, you can pass
- * the option allowRawHTML is true to prevent it being escaped.
+ * The passed string is HTML escaped before being wrapped in the given tags.
  * By default, if no tagName specified, wraps passed string in <span> tags.
  * Useful ie. when we need to style differently elements of the same string.
  * Options:
  * - tagName - override default span tag name
  * - className - class name to be added to wrapping tag
- * - allowRawHTML - don't escape the passed string if it has already been sanitised
  *
  * @example
  * {{{i18n 'main.search-error-not-found'
@@ -26,13 +23,9 @@ import Ember from 'ember';
 const {Handlebars, Helper} = Ember;
 
 export default Helper.helper((params, options) => {
-	let content = params[0] || '',
-		tagName = 'span',
+	const content = Handlebars.Utils.escapeExpression(params[0] || '');
+	let tagName = 'span',
 		className = '';
-
-	if (!options.allowRawHTML) {
-		content = Handlebars.Utils.escapeExpression(content);
-	}
 
 	if (options.tagName) {
 		tagName = options.tagName;

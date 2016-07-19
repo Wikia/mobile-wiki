@@ -55,13 +55,4 @@ module('Unit | Helper | wrap-me', () => {
 
 		assert.equal(html, '<span>some&lt;script&gt;alert(0);&lt;/script&gt;text</span>');
 	});
-
-	test('generate html with raw HTML content', (assert) => {
-		const options = {
-				allowRawHTML: true
-			},
-			html = wrapMeHelper.compute(['some <i>text</i>'], options);
-
-		assert.equal(html, '<span>some <i>text</i></span>');
-	});
 });
