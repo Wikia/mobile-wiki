@@ -1,9 +1,9 @@
 {{#discussion-post-details-layout
 	deleteAllPosts=(action 'deleteAllPosts')
 	hasContentError=true
-	model=model.current.data
+	model=model.data
 }}
 	{{discussion-error
-		error=model.current.error
+		error=model.error
 	}}
 {{/discussion-post-details-layout}}
