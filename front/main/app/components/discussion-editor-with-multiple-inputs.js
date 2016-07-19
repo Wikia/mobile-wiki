@@ -11,6 +11,16 @@ export default DiscussionEditor.extend({
 
 	wasFocused: false,
 
+	afterSuccess() {
+		this.setProperties({
+			content: '',
+			title: '',
+			showSuccess: false,
+		});
+		this.sendAction('setEditorActive', this.get('editorType'), false);
+		this.scrollAfterEntityAdded();
+	},
+
 	actions: {
 		focusTextarea() {
 			if (this.get('wasFocused')) {
