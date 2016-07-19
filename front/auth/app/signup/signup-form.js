@@ -109,7 +109,7 @@ export default class SignupForm {
 			trackRegister({
 				// timestamp when was the modal shown
 				ncf_modal_seen_date: cpBenefitsModalShownCookie,
-				ncf_modal_action: Cookie.get('cpBenefitsModalClosed') ? 'closed' : 'seen'
+				ncf_modal_action: Cookie.get('cpBenefitsModalClicked') ? 'clicked' : 'seen'
 			});
 		}
 	}
