@@ -4,11 +4,9 @@
 	delete=(action this.attrs.deletePost)
 	isDetailsView=true
 	lock=(action this.attrs.lockPost)
-	openEditEditor=(action this.attrs.openEditEditor)
 	post=model
 	replyCount=model.repliesCount
 	report=(action this.attrs.report)
-	setEditorActive=(action this.attrs.setEditorActive)
 	showCategories=showCategories
 	timestamp=model.creationTimestamp
 	undelete=(action this.attrs.undeletePost)
@@ -45,8 +43,6 @@
 			report=(action this.attrs.report)
 			post=entity
 			permalinkedReplyId=model.permalinkedReplyId
-			openEditEditor=(action this.attrs.openEditEditor)
-			setEditorActive=(action this.attrs.setEditorActive)
 			timestamp=entity.creationTimestamp
 			undelete=(action this.attrs.undeleteReply)
 			upvote=(action this.attrs.upvote)
@@ -75,24 +71,10 @@
 		</button>
 	{{/if}}
 	{{#if canReply}}
-		<label class="discussion-editor-label">
-			{{i18n 'editor.reply-editor-label' ns='discussion'}}
-		</label>
-		{{#if responsive.isDesktop}}
-			{{discussion-inline-reply-editor
-				create=(action this.attrs.createReply)
-				errorMessage=editorState.errorMessage
-				generateOpenGraph=(action this.attrs.generateOpenGraph)
-				isActive=editorState.isOpen
-				isLoading=editorState.isLoading
-				isReply=true
-				setEditorActive=(action this.attrs.setEditorActive)
-			}}
-		{{/if}}
-		{{#if responsive.isMobile}}
-			{{discussion-reply-editor-entry-point
-				setEditorActive=(action this.attrs.setEditorActive)
-			}}
-		{{/if}}
+		{{discussion-reply-editor
+			create=(action this.attrs.createReply)
+			generateOpenGraph=(action this.attrs.generateOpenGraph)
+			replies=model.replies
+		}}
 	{{/if}}
 </div>
