@@ -2,7 +2,7 @@
 	{{#if isInternational}}
 		<h2 class="global-footer__header">
 			{{#with model.international_header.header as |header|}}
-				{{> svg image=header.image section='wikia' imageSizeModifier='large'}}
+				{{> svg class='global-footer__large-wikia-logo' image=header.image}}
 				<span class="global-footer__home-of-fandom">{{i18n header.subtitle.key ns='design-system'}}</span>
 			{{/with}}
 		</h2>
