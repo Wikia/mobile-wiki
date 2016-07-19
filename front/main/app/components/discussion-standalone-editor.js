@@ -50,10 +50,13 @@ export default DiscussionEditorWithMultipleInputs.extend(
 			submit() {
 				if (!this.get('submitDisabled')) {
 					const discussionEntityData = {
-						body: this.get('content'),
-						title: this.get('title')
+						body: this.get('content')
 					};
 					let actionName;
+
+					if (this.get('title')) {
+						discussionEntityData.title = this.get('title');
+					}
 
 					if (this.get('showsOpenGraphCard')) {
 						discussionEntityData.openGraph = {
