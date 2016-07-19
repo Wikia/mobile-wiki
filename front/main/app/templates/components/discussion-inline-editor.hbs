@@ -8,9 +8,9 @@
 			{{#if isPostEditor}}
 				{{discussion-textarea-with-counter
 					class='discussion-inline-editor-title'
-					isActive=isActive
 					collapsedPlaceholder=(i18n collapsedEditorLabelKey ns='discussion')
 					focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
+					isActive=isActive
 					label=(i18n titleLabelKey ns='discussion')
 					maxlength=70
 					onInput=(action 'onTitleChange')
