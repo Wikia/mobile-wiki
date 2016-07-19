@@ -15,12 +15,11 @@ $success-icon-size: 80px;
 			.draggable {
 				display: flex;
 
-				.move {
+				.action-move {
 					display: block;
 				}
 
-				.close,
-				.delete {
+				.action-delete {
 					display: none;
 				}
 			}
@@ -46,13 +45,12 @@ $success-icon-size: 80px;
 		.discussion-categories-input:focus + .draggable {
 			display: flex;
 
-			.move {
-				display: none;
+			.action-delete {
+				display: block;
 			}
 
-			.close,
-			.delete {
-				display: block;
+			.action-move {
+				display: none;
 			}
 		}
 	}
@@ -82,10 +80,14 @@ $success-icon-size: 80px;
 		}
 
 		.draggable {
-			display: block;
+			display: flex;
+			height: 28px;
 
-			.delete,
-			.close {
+			.action-move {
+				display: block;
+			}
+
+			.action-delete {
 				display: none;
 			}
 		}
@@ -181,17 +183,11 @@ $success-icon-size: 80px;
 		}
 	}
 
-	.discussion-categories-edit-action-button {
-		position: absolute;
-		right: 0;
-	}
-
 	.icon-submit {
 		height: 35px;
 		width: 35px;
 	}
 }
-
 
 .discussion-categories-edit-add-link {
 	font-size: $type-smallest;

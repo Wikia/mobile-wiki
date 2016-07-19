@@ -5,11 +5,9 @@ import ResponsiveMixin from '../mixins/responsive';
 
 export default Ember.Component.extend(ResponsiveMixin,
 	{
-		classNameBindings: ['reorder-in-progress'],
 		classNames: ['highlight-overlay-content', 'discussion-categories-edit'],
 		maxCategoriesCount: 10,
 		isLoading: false,
-		reorderInProgress: false,
 		showSuccess: false,
 		wikiId: Ember.get(Mercury, 'wiki.id').toString(),
 
@@ -21,7 +19,10 @@ export default Ember.Component.extend(ResponsiveMixin,
 			return Ember.A(this.get('categories').map((category) => {
 				const localCategory = Ember.Object.create(category);
 
-				localCategory.set('displayedName', localCategory.name);
+				localCategory.setProperties({
+					displayedName: localCategory.name,
+					isDeleted: false
+				});
 
 				return localCategory;
 			}));
@@ -66,7 +67,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 			 */
 			submit() {
 				const localCategories = this.get('localCategories'),
-					emptyCategories = localCategories.rejectBy('name');
+					emptyCategories = localCategories.rejectBy('displayedName');
 
 				this.set('errorMessage', null);
 				localCategories.setEach('error', null);
@@ -97,17 +98,9 @@ export default Ember.Component.extend(ResponsiveMixin,
 					});
 			},
 
-			onReorderStarted() {
-				this.set('reorderInProgress', true);
-			},
-
-			onReorderFinished() {
-				this.set('reorderInProgress', false);
-			},
-
 			onReorderElements(oldCategories, newCategories) {
 				this.set('localCategories', newCategories);
-			}
+			},
 		}
 	}
 );

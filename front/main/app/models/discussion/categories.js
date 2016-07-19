@@ -51,19 +51,21 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 		});
 	},
 
-	addCategory(categoryName) {
+	addCategory(category) {
 		return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/forums`), {
 			data: JSON.stringify({
-				name: categoryName,
+				name: category.get('displayedName'),
 				// TODO get rid of parentId and siteId when SOC-2576 is done
 				parentId: 1,
 				siteId: this.get('wikiId')
 			}),
 			method: 'POST',
 		}).then((categoryData) => {
-			const categories = this.get('categories');
+			const categories = this.get('categories'),
+				newCategory = DiscussionCategory.create(categoryData);
 
-			categories.pushObject(DiscussionCategory.create(categoryData));
+			categories.pushObject(newCategory);
+			category.set('id', newCategory.get('id'));
 
 			this.set('categories', categories.sortBy('displayOrder'));
 		});
@@ -102,6 +104,23 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 		});
 	},
 
+	deleteCategory(category) {
+		return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/forums/${category.id}`), {
+			data: JSON.stringify({
+				name: category.get('displayedName'),
+			}),
+			method: 'DELETE',
+		}).then(() => {
+			const categories = this.get('categories'),
+				categoryIndex = categories
+					.indexOf(categories.find((cat) => cat.get('id') === category.get('id')));
+
+			if (categoryIndex !== -1) {
+				categories.removeAt(categoryIndex);
+			}
+		});
+	},
+
 	reorderCategories(categories) {
 		return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/forums/displayorder`), {
 			data: JSON.stringify({
@@ -124,21 +143,48 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 		});
 	},
 
+	getDeletedCategories(categories) {
+		const leftCategoryIds = categories.mapBy('id');
+
+		return this.get('categories').filter((category) => {
+			return leftCategoryIds.indexOf(category.get('id')) === -1;
+		});
+	},
+
+	/**
+	 * There's a need to perform operations in a specific, (sadly) blocking order:
+	 * 1) Deleting existing categories
+	 * 2) Adding new categories
+	 * 3) Reordering and renaming categories
+	 * @param {Ember.Array} categories
+	 * @returns {Ember.RSVP.Promise}
+	 */
 	updateCategories(categories) {
-		const promisesList = categories.rejectBy('id').map((category) => {
-			return this.addCategory(category.get('name'));
+		const deletedCategoriesPromisesList = this.getDeletedCategories(categories).map((category) => {
+			return this.deleteCategory(category);
 		});
 
-		promisesList.pushObject(this.reorderCategories(categories));
-		promisesList.pushObjects(
-			categories.filter((category) => {
-				return category.get('displayedName') !== category.get('name');
-			}).map((category) => {
-				return this.renameCategory(category);
-			})
-		);
+		return Ember.RSVP.all(deletedCategoriesPromisesList)
+			.then(() => {
+				const newCategoriesPromisesList = categories.rejectBy('id').map((category) => {
+					return this.addCategory(category);
+				});
 
-		return Ember.RSVP.Promise.all(promisesList);
+				return Ember.RSVP.all(newCategoriesPromisesList)
+			})
+			.then(() => {
+				const renamedCategoriesPromisesList = categories.filter((category) => {
+					return category.get('displayedName') !== category.get('name') && category.get('id');
+				}).map((category) => {
+					return this.renameCategory(category);
+				});
+				const reorderingPromise = this.reorderCategories(categories);
+				const parallelActionsPromisesList = renamedCategoriesPromisesList;
+
+				parallelActionsPromisesList.pushObject(reorderingPromise);
+
+				return Ember.RSVP.all(parallelActionsPromisesList);
+			});
 	}
 });
 

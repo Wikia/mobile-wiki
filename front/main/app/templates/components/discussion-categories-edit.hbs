@@ -41,7 +41,6 @@
 					}}
 				</span>
 			</li>
-<<<<<<< HEAD
 			{{#sortable-group tagName='div' model=localCategories onChange=(action 'onReorderElements') as |group|}}
 				{{#each localCategories as |localCategory|}}
 					{{#sortable-item tagName='div' model=localCategory group=group handle=".draggable"}}
@@ -62,13 +61,16 @@
 									value=localCategory.displayedName
 								}}
 								<div class="draggable">
-									{{svg 'move' viewBox='0 0 7 16' class='icon move'}}
-									{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
-									{{#unless localCategory.id}}
-										<a class="discussion-categories-edit-action-button" {{action 'deleteCategory' localCategory}}>
+									<a class="discussion-categories-edit-action-button action-move">
+										{{svg 'move' viewBox='0 0 7 16' class='icon move'}}
+									</a>
+									<a class="discussion-categories-edit-action-button action-delete" {{action 'deleteCategory' localCategory}}>
+										{{#if localCategory.id}}
+											{{svg 'delete' viewBox='0 0 16 19' class='icon delete'}}
+										{{else}}
 											{{svg 'close' class='icon close'}}
-										</a>
-									{{/unless}}
+										{{/if}}
+									</a>
 								</div>
 							</span>
 							{{#if localCategory.error}}
