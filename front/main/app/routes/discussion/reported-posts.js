@@ -11,6 +11,7 @@ export default DiscussionBaseRoute.extend(
 	DiscussionForumActionsRouteMixin,
 	DiscussionModalDialogMixin,
 	{
+		discussionEditor: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
 
 		/**
@@ -29,6 +30,13 @@ export default DiscussionBaseRoute.extend(
 			});
 		},
 
+		/**
+		 * @returns {EmberStates.Transition}
+		 */
+		setSortBy() {
+			return this.transitionTo('discussion.reported-posts');
+		},
+
 		actions: {
 			/**
 			 * @param {number} pageNum
@@ -36,6 +44,26 @@ export default DiscussionBaseRoute.extend(
 			 */
 			loadPage(pageNum) {
 				this.modelFor(this.get('routeName')).current.loadPage(pageNum, this.get('discussionSort.sortBy'));
+			},
+
+			/**
+			 * Goes to post list page and attempts to create a new post there
+			 *
+			 * @param {object} postData
+			 *
+			 * @returns {void}
+			 */
+			create(postData) {
+				this.get('discussionSort').setSortBy('latest');
+				this.transitionTo('discussion.forum', {queryParams: {sort: 'latest'}}).promise.then(() => {
+					const model = this.modelFor(this.get('routeName')).current;
+
+					model.createPost(postData).then((data) => {
+						if (data && !model.get('errorMessage')) {
+							this.get('discussionEditor').trigger('newPost');
+						}
+					});
+				});
 			},
 		}
 	}

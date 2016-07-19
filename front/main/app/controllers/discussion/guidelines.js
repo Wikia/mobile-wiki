@@ -1,7 +1,9 @@
 import DiscussionBaseController from './base';
-import DiscussionContributionControllerMixin from '../../mixins/discussion-contribution-controller';
+import DiscussionModerationControllerMixin from '../../mixins/discussion-moderation-controller';
+import DiscussionEditEditorMixin from '../../mixins/discussion-edit-editor';
 
 export default DiscussionBaseController.extend(
-	DiscussionContributionControllerMixin,
+	DiscussionModerationControllerMixin,
+	DiscussionEditEditorMixin,
 	{}
 );
