@@ -155,7 +155,7 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 	 * There's a need to perform operations in a specific, (sadly) blocking order:
 	 * 1) Deleting existing categories
 	 * 2) Adding new categories
-	 * 3) Reordering and renaming categories
+	 * 3) Reordering and renaming categories (can be safely done in parallel)
 	 * @param {Ember.Array} categories
 	 * @returns {Ember.RSVP.Promise}
 	 */
@@ -177,9 +177,9 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 					return category.get('displayedName') !== category.get('name') && category.get('id');
 				}).map((category) => {
 					return this.renameCategory(category);
-				});
-				const reorderingPromise = this.reorderCategories(categories);
-				const parallelActionsPromisesList = renamedCategoriesPromisesList;
+				}),
+					reorderingPromise = this.reorderCategories(categories),
+					parallelActionsPromisesList = renamedCategoriesPromisesList;
 
 				parallelActionsPromisesList.pushObject(reorderingPromise);
 
