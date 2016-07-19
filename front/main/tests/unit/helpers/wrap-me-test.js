@@ -48,4 +48,11 @@ module('Unit | Helper | wrap-me', () => {
 
 		assert.equal(html, '<span></span>');
 	});
+
+	test('generate html with unsafe content', (assert) => {
+		const options = {},
+			html = wrapMeHelper.compute(['some<script>alert(0);</script>text'], options);
+
+		assert.equal(html, '<span>some&lt;script&gt;alert(0);&lt;/script&gt;text</span>');
+	});
 });
