@@ -1,7 +1,9 @@
-{{#if model.href}}
-	<a href="{{model.href}}">
-		<img class="global-footer__{{imageSizeModifier}}{{section}}-logo" src="http://public.diana.wikia-dev.com/design-system-reference-page/bower_components/design-system/assets/{{model.image}}.svg" alt="{{model.title.key}}">
-	</a>
-{{else}}
-	<img class="global-footer__{{imageSizeModifier}}{{section}}-logo" src="http://public.diana.wikia-dev.com/design-system-reference-page/bower_components/design-system/assets/{{model.image}}.svg" alt="{{model.title.key}}">
-{{/if}}
+<h2 class="global-footer__{{section}}-header">
+	{{#if model.href}}
+		<a href="{{model.href}}">
+			{{> svg class=(concat 'global-footer__' imageSizeModifier section '-logo') image=model.image }}
+		</a>
+	{{else}}
+		{{> svg class=(concat 'global-footer__' imageSizeModifier section '-logo') image=model.image}}
+	{{/if}}
+</h2>

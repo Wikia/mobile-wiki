@@ -2,40 +2,32 @@
 	{{#if isInternational}}
 		<h2 class="global-footer__header">
 			{{#with model.international_header.header as |header|}}
-				<img class="global-footer__large-wikia-logo"
-					 src="http://public.diana.wikia-dev.com/design-system-reference-page/bower_components/design-system/assets/{{header.image}}.svg"
-					 alt="{{header.title.key}}">
-				<span class="global-footer__home-of-fandom">{{header.subtitle.key}}</span>
+				{{> svg class='global-footer__large-wikia-logo' image=header.image}}
+				<span class="global-footer__home-of-fandom">{{i18n header.subtitle.key ns='design-system'}}</span>
 			{{/with}}
 		</h2>
 	{{/if}}
 	<div class="global-footer__main">
 		{{#unless isInternational}}
-			<h2 class="global-footer__fandom-header">
-				{{> global-footer/global-footer-image-header model=model.fandom.header section='fandom'}}
-			</h2>
+			{{> global-footer/global-footer-image-header model=model.fandom.header section='fandom'}}
 		{{/unless}}
 		<div class="global-footer__fandom-sections">
-				{{> global-footer/global-footer-section model=model.fandom_overview name='fandom-overview' parentName='fandom'}}
-				{{> global-footer/global-footer-section model=model.follow_us name='follow-us' parentName='fandom'}}
+			{{> global-footer/global-footer-section model=model.fandom_overview name='fandom-overview' parentName='fandom'}}
+			{{> global-footer/global-footer-section model=model.follow_us name='follow-us' parentName='fandom'}}
 		</div>
 		{{#unless isInternational}}
-			<h2 class="global-footer__wikia-header">
-				{{> global-footer/global-footer-image-header model=model.wikia.header section='wikia' imageSizeModifier='small-'}}
-			</h2>
+			{{> global-footer/global-footer-image-header model=model.wikia.header section='wikia'}}
 		{{/unless}}
 		<div class="global-footer__wikia-sections">
-				{{> global-footer/global-footer-section model=model.company_overview name='company-overview' parentName='wikia'}}
-				{{> global-footer/global-footer-section model=model.site_overview name='site-overview' parentName='wikia'}}
-				{{> global-footer/global-footer-section model=model.community name='community' parentName='wikia'}}
-				{{> global-footer/global-footer-section model=model.create_wiki name='create-wiki' parentName='wikia'}}
-				{{> global-footer/global-footer-section model=model.community_apps name='community-apps' parentName='wikia'}}
-				{{> global-footer/global-footer-section model=model.advertise name='advertise' parentName='wikia'}}
+			{{> global-footer/global-footer-section model=model.company_overview name='company-overview' parentName='wikia'}}
+			{{> global-footer/global-footer-section model=model.site_overview name='site-overview' parentName='wikia'}}
+			{{> global-footer/global-footer-section model=model.community name='community' parentName='wikia'}}
+			{{> global-footer/global-footer-section model=model.create_wiki name='create-wiki' parentName='wikia'}}
+			{{> global-footer/global-footer-section model=model.community_apps name='community-apps' parentName='wikia'}}
+			{{> global-footer/global-footer-section model=model.advertise name='advertise' parentName='wikia'}}
 		</div>
 	</div>
 	<div class="global-footer__licensing-and-vertical">
-		{{#with model.licensing_and_vertical as |section|}}
-			<span>{{section.description.key}}</span>
-		{{/with}}
+		<span>{{i18n model.licensing_and_vertical.description.key ns='design-system'}}</span>
 	</div>
 </footer>
