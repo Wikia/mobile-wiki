@@ -204,8 +204,7 @@ export function trackExperiment(experiment, params) {
  * @returns {void}
  */
 export function trackRegister(params) {
-	// TODO: when deploying to prod change to special/newcontributorflow
-	M.tracker.Internal.track('special/fact_ncf_events', params);
+	M.tracker.Internal.track('special/newcontributorflow', params);
 }
 
 /**
