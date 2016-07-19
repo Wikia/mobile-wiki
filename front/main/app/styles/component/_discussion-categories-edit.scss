@@ -8,7 +8,7 @@ $success-icon-size: 80px;
 
 .discussion-categories-edit {
 	li {
-		background-color: #f6f6f6;
+		background-color: $discussion-edit-list-item-color;
 		transition: all 0.2s linear;
 
 		&:hover {
@@ -102,6 +102,10 @@ $success-icon-size: 80px;
 	.discussion-categories-list-container {
 		clear: left;
 		margin: 0;
+	}
+
+	input[type=text] {
+		border-bottom-color: $discussion-categories-edit-border-bottom-color;
 	}
 
 	.discussion-categories-input,

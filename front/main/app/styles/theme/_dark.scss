@@ -456,7 +456,12 @@ body.dark-theme {
 	}
 
 	.discussion-categories-edit {
-		.discussion-categories-input {
+		li {
+			background-color: $dark-discussion-edit-list-item-color;
+		}
+
+		input[type=text] {
+			border-bottom-color: $dark-discussion-categories-edit-border-bottom-color;
 			color: $dark-discussion-content-color;
 
 			&[disabled] {
