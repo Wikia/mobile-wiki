@@ -14,7 +14,7 @@ export default function injectGlobalFooterData(data, request, showFooter) {
 	if (showFooter) {
 		data.bodyClassName = 'show-global-footer';
 	}
-	
+
 	return new MediaWiki.DesignSystemRequest({corporatePageUrl, wikiId}).getFooter()
 		.then((globalFooterData) => {
 			data.globalFooter = globalFooterData;

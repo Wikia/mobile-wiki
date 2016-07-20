@@ -15,7 +15,7 @@ export default Route.extend(
 	RouteWithBodyClassNameMixin,
 	{
 		bodyClassNames: ['show-global-footer'],
-		
+
 		/**
 		 * @param {string} sectionName
 		 * @returns {Ember.RSVP.Promise}

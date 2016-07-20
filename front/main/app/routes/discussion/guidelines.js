@@ -8,15 +8,15 @@ export default DiscussionBaseRoute.extend(
 	{
 		bodyClassNames: ['standalone-page'],
 		discussionEditEditor: Ember.inject.service(),
-	
+
 		model() {
 			const indexModel = this.modelFor('discussion');
-	
+
 			return Ember.RSVP.hash({
 				attributes: indexModel.attributes,
 			});
 		},
-	
+
 		actions: {
 			saveGuidelines(text) {
 				this.modelFor('discussion').attributes.saveAttribute('guidelines', text).then(() => {

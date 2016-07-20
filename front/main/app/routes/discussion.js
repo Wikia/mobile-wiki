@@ -9,7 +9,7 @@ export default Ember.Route.extend(
 	{
 		bodyClassNames: ['show-global-footer'],
 		discussionEditEditor: Ember.inject.service(),
-	
+
 		model() {
 			return Ember.RSVP.hash({
 				categories: DiscussionModel.getCategories(Mercury.wiki.id),
