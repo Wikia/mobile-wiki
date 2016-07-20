@@ -28,6 +28,12 @@ export default DiscussionEditor.extend(DiscussionEditorOpengraph, DiscussionEdit
 
 		Ember.$('html, body').toggleClass('mobile-full-screen', isActive);
 
+		if (isActive && navigator.userAgent.indexOf('iPhone') > -1) {
+			this.$(`#${this.get('textAreaId')}`).addClass('no-overflow');
+		} else {
+			this.$(`#${this.get('textAreaId')}`).removeClass('no-overflow');
+		}
+
 		if (!isActive && !this.get(`editorTypesToScrollTopOnScuccess.${this.get('editorType')}`)) {
 			if (this.get('responsive.isMobile')) {
 				window.scroll(0, this.get('pageYOffsetCache'));

@@ -25,6 +25,10 @@ body.discussions {
 	width: 100%;
 }
 
+.no-overflow {
+	overflow: auto !important;
+}
+
 .upvote-icon-background {
 	fill: transparent;
 	stroke: transparent;
