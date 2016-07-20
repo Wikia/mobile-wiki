@@ -1,10 +1,11 @@
 export default Ember.Component.extend({
 	classNames: ['empty-forum-message'],
+	discussionEditor: Ember.inject.service(),
 
 	/**
 	 * @returns {void}
 	 */
 	click() {
-		this.sendAction('setEditorActive', 'contributeEditor', true);
+		this.get('discussionEditor').activateEditor();
 	}
 });

@@ -271,12 +271,10 @@ export class DesignSystemRequest extends BaseRequest {
 			.fetch(url, this.corporatePageUrl)
 			.then((footerData) => {
 				if (footerData) {
-					return Promise.resolve(footerData);
+					return footerData;
 				} else {
-					return Promise.reject();
+					throw new Error('No footer data returned from API');
 				}
-			}, () => {
-				return Promise.reject();
 			});
 	}
 }

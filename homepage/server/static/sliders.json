@@ -14,20 +14,20 @@
         },
         {
           "image": "/images/categories/popular/slide2.jpg",
-          "url": "http://ja.dont-starve.wikia.com/",
-          "text": "Don't Starve 日本語攻略",
+          "url": "http://ja.elderscrolls-online.wikia.com/",
+          "text": "エルダー・スクロールズ・オンライン",
           "english": false
         },
         {
-          "image": "/images/categories/popular/slide9.jpg",
+          "image": "/images/categories/popular/slide3.jpg",
           "url": "http://ja.marveldatabase.wikia.com/",
           "text": "マーベルデーターベース",
           "english": false
         },
         {
-          "image": "/images/categories/popular/slide10.jpg",
-          "url": "http://www.wikia.com/starwars/?uselang=ja",
-          "text": "#MayTheFansBeWithYou",
+          "image": "/images/categories/popular/slide4.jpg",
+          "url": "http://ja.pokemongo.wikia.com/",
+          "text": "ポケモンGo(PokemonGo)",
           "english": false
         }
       ]
@@ -37,27 +37,27 @@
       "id": "carousel-2",
       "entries": [
         {
+          "image": "/images/categories/games/slide1.jpg",
+          "url": "http://ja.overwatch.wikia.com/",
+          "text": "Overwatch",
+          "english": false
+        },
+        {
           "image": "/images/categories/games/slide2.jpg",
-          "url": "http://ja.halo.wikia.com/",
-          "text": "Halo",
+          "url": "http://ja.kirby.wikia.com/",
+          "text": "カービィ",
           "english": false
         },
         {
           "image": "/images/categories/games/slide3.jpg",
-          "url": "http://ja.splatoon.wikia.com/",
-          "text": "Splatoon",
+          "url": "http://ja.undertale.wikia.com/",
+          "text": "UNDERTALE",
           "english": false
         },
         {
           "image": "/images/categories/games/slide4.jpg",
-          "url": "http://ja.gw2.wikia.com/",
-          "text": "ギルドウォーズ２ 日本語版",
-          "english": false
-        },
-        {
-          "image": "/images/categories/games/slide5.jpg",
-          "url": "http://ja.leagueoflegends.wikia.com/",
-          "text": "リーグ・オブ・レジェンド",
+          "url": "http://ja.halo.wikia.com/",
+          "text": "Halo",
           "english": false
         }
       ]
@@ -73,7 +73,7 @@
           "english": false
         },
         {
-          "image": "/images/categories/popular/slide3.jpg",
+          "image": "/images/categories/movies/slide2.jpg",
           "url": "http://ja.memory-alpha.wikia.com/",
           "text": "Memory Alpha (スタートレック)",
           "english": false
@@ -98,26 +98,26 @@
       "entries": [
         {
           "image": "/images/categories/anime/slide1.jpg",
-          "url": "http://ja.ajin.wikia.com/",
-          "text": "亜人",
+          "url": "http://ja.gundam.wikia.com/",
+          "text": "GUNDAPEDIA（ガンダム）",
+          "english": false
+        },
+        {
+          "image": "/images/categories/anime/slide2.jpg",
+          "url": "http://ja.jaconan.wikia.com/",
+          "text": "名探偵コナン",
+          "english": false
+        },
+        {
+          "image": "/images/categories/anime/slide3.jpg",
+          "url": "http://ja.onepiece.wikia.com/",
+          "text": "ONEPIECE",
           "english": false
         },
         {
           "image": "/images/categories/anime/slide4.jpg",
-          "url": "http://ja.yugioh.wikia.com/",
-          "text": "遊戯王",
-          "english": false
-        },
-        {
-          "image": "/images/categories/anime/slide5.jpg",
-          "url": "http://ja.attackontitan.wikia.com/",
-          "text": "進撃の巨人",
-          "english": false
-        },
-        {
-          "image": "/images/categories/anime/slide6.jpg",
-          "url": "http://ja.prisonschool.wikia.com/",
-          "text": "監獄学園",
+          "url": "http://ja.lovelive-sunshine.wikia.com/",
+          "text": "ラブライブ！サンシャイン!!",
           "english": false
         }
       ]
@@ -146,8 +146,8 @@
         },
         {
           "image": "/images/categories/lifestyle/slide4.jpg",
-          "url": "http://ja.kanda.wikia.com",
-          "text": "神田",
+          "url": "http://ja.asakusa.wikia.com/",
+          "text": "浅草",
           "english": false
         }
       ]
