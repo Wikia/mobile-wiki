@@ -29,15 +29,15 @@ module.exports = function (param, options) {
 		className = '';
 
 	if (hash.tagName) {
-		tagName = hash.tagName;
+		tagName = escapeHtml(hash.tagName);
 	}
 
 	if (hash.tagName === 'a' && hash.href) {
-		href = ` href="${hash.href}"`;
+		href = ` href="${escapeHtml(hash.href)}"`;
 	}
 
 	if (hash.className) {
-		className = ` class="${options.className}"`;
+		className = ` class="${escapeHtml(options.className)}"`;
 	}
 
 	return `<${tagName}${href}${className}>${content}</${tagName}>`;
