@@ -1,3 +1,5 @@
+import {escapeHtml} from 'hoek';
+
 /**
  * Helper to generate HTML from passed string and additional options.
  * By default, if no tagName specified, wraps passed string in <span> tags.
@@ -19,7 +21,7 @@
  */
 
 module.exports = function (param, options) {
-	const content = param || '',
+	const content = escapeHtml(param) || '',
 		hash = options.hash || {};
 
 	let tagName = 'span',
