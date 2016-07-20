@@ -375,7 +375,8 @@ body.dark-theme {
 	.discussion-standalone-editor {
 		background-color: $dark-discussion-editor-background-color;
 
-		.discussion-standalone-editor-textarea {
+		.discussion-standalone-editor-textarea,
+		.discussion-textarea-with-counter {
 			background-color: $dark-discussion-editor-background-color;
 			color: $dark-discussion-content-color;
 		}
