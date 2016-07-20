@@ -30,18 +30,18 @@ export default Ember.Component.extend({
 		return this.get('maxlength') - this.get('text.length');
 	}),
 
-	showCharactersCounter: Ember.computed('isCollapsed', 'maxlength', function() {
-		return !!this.get('maxlength') && !this.get('isCollapsed');
+	showCharactersCounter: Ember.computed('isCollapsed', 'maxlength', function () {
+		return Boolean(this.get('maxlength')) && !this.get('isCollapsed');
 	}),
 
-	showLabel: Ember.computed('isCollapsed', 'label', function() {
-		return !!this.get('label') && !this.get('isCollapsed');
+	showLabel: Ember.computed('isCollapsed', 'label', function () {
+		return Boolean(this.get('label')) && !this.get('isCollapsed');
 	}),
 
 	actions: {
-		onTexareaInputChange: function() {
+		onTexareaInputChange() {
 			this.set('text',
-				this.get('text').replace(this.get('notAllowedCharactersPattern'), ""));
+				this.get('text').replace(this.get('notAllowedCharactersPattern'), ''));
 			this.get('onInput')(this.get('text'));
 		}
 	}

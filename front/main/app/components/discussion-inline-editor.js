@@ -20,15 +20,15 @@ export default DiscussionEditorWithMultipleInputs.extend(
 
 		layoutName: 'components/discussion-inline-editor',
 
-		isPostEditor: Ember.computed('isReply', function() {
+		isPostEditor: Ember.computed('isReply', function () {
 			return !this.get('isReply');
 		}),
 
-		showLabel: Ember.computed('isActive', 'isReply', function() {
+		showLabel: Ember.computed('isActive', 'isReply', function () {
 			return this.get('isActive') && !this.get('isReply');
 		}),
 
-		showTextareaIfAlone: Ember.computed('isActive', 'isReply', function() {
+		showTextareaIfAlone: Ember.computed('isActive', 'isReply', function () {
 			return this.get('isReply') ? true : this.get('isActive');
 		}),
 
