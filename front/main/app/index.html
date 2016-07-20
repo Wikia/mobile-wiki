@@ -77,6 +77,10 @@
 </div>
 <div id="ember-component-constructor" style="display: none"></div>
 
+{{#if globalFooter}}
+	{{> global-footer/global-footer model=globalFooter}}
+{{/if}}
+
 <script>
 	M.loadScripts([
 		'/front/main/assets/vendor.js',
@@ -93,10 +97,6 @@
 {{> tracking-ua}}
 {{> tracking-internal}}
 {{> tracking-ivw3}}
-
-{{#if globalFooter}}
-	{{> global-footer/global-footer model=globalFooter}}
-{{/if}}
 
 {{content-for 'body-footer'}}
 
