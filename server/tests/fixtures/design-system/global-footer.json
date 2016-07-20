@@ -2,7 +2,7 @@
   "fandom": {
     "header": {
       "type": "link-image",
-      "image": "company\/logo-fandom",
+      "image": "company-logo-fandom",
       "href": "http:\/\/fandom.wikia.com",
       "title": {
         "type": "translatable-text",
@@ -61,7 +61,7 @@
     "links": [
       {
         "type": "link-image",
-        "image": "icons\/facebook-default",
+        "image": "icons-facebook",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-facebook"
@@ -70,7 +70,7 @@
       },
       {
         "type": "link-image",
-        "image": "icons\/twitter-default",
+        "image": "icons-twitter",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-twitter"
@@ -79,7 +79,7 @@
       },
       {
         "type": "link-image",
-        "image": "icons\/reddit-default",
+        "image": "icons-reddit",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-reddit"
@@ -88,7 +88,7 @@
       },
       {
         "type": "link-image",
-        "image": "icons\/youtube-default",
+        "image": "icons-youtube",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-youtube"
@@ -97,7 +97,7 @@
       },
       {
         "type": "link-image",
-        "image": "icons\/instagram-default",
+        "image": "icons-instagram",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-instagram"
@@ -109,7 +109,7 @@
   "wikia": {
     "header": {
       "type": "line-image",
-      "image": "company\/logo-wikia",
+      "image": "company-logo-wikia",
       "title": {
         "type": "translatable-text",
         "key": "global-footer-wikia-header"
@@ -121,7 +121,7 @@
       "type": "line-text",
       "title": {
         "type": "translatable-text",
-        "key": "global-footer-wikia-overview-header"
+        "key": "global-footer-wikia-company-overview-header"
       }
     },
     "links": [
@@ -285,7 +285,7 @@
     "links": [
       {
         "type": "link-image",
-        "image": "company\/store-appstore",
+        "image": "company-store-appstore",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-wikia-community-apps-link-app-store"
@@ -294,7 +294,7 @@
       },
       {
         "type": "link-image",
-        "image": "company\/store-googleplay",
+        "image": "company-store-googleplay",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-wikia-community-apps-link-google-play"
@@ -333,23 +333,15 @@
   "licensing_and_vertical": {
     "description": {
       "type": "translatable-text",
-      "key": "global-footer-wikia-licensing-and-vertical-description",
+      "key": "global-footer-licensing-description",
       "params": {
-        "vertical": {
-          "type": "link-text",
-          "title": {
-            "type": "translatable-text",
-            "key": "global-footer-wikia-licensing-and-vertical-link-games"
-          },
-          "href": "http:\/\/fandom.wikia.com\/games"
-        },
         "license": {
           "type": "link-text",
           "title": {
             "type": "text",
             "value": "CC-BY-SA"
           },
-          "href": "http:\/\/www.wikia.com\/Licensing"
+          "href": "http:\/\/wikia.com\/Licensing"
         }
       }
     }
