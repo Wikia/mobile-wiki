@@ -1,3 +1,9 @@
+{{discussion-post-editor
+	create=(action this.attrs.createPost)
+	generateOpenGraph=(action this.attrs.generateOpenGraph)
+	posts=posts
+}}
+
 {{#each posts as |entity|}}
 	{{#if entity.isReply }}
 		{{discussion-post-card-reply
@@ -6,10 +12,8 @@
 			content=entity.rawContent
 			delete=(action this.attrs.deleteReply)
 			isParentDeleted=model.isDeleted
-			openEditEditor=(action this.attrs.openEditEditor)
 			post=entity
 			report=(action this.attrs.report)
-			setEditorActive=(action this.attrs.setEditorActive)
 			showRepliedTo=true
 			timestamp=entity.creationTimestamp
 			undelete=(action this.attrs.undeleteReply)
@@ -23,11 +27,9 @@
 			author=entity.createdBy
 			delete=(action this.attrs.deletePost)
 			lock=(action this.attrs.lockPost)
-			openEditEditor=(action this.attrs.openEditEditor)
 			post=entity
 			replyCount=entity.repliesCount
 			report=(action this.attrs.report)
-			setEditorActive=(action this.attrs.setEditorActive)
 			showCategories=showCategories
 			undelete=(action this.attrs.undeletePost)
 			unlock=(action this.attrs.unlockPost)
