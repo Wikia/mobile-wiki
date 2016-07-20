@@ -27,6 +27,10 @@ export default DiscussionEditorWithMultipleInputs.extend(
 			this._super();
 
 			Ember.$('html, body').toggleClass('mobile-full-screen', this.get('isActive'));
+
+			if (this.get('isActive')) {
+				this.focusFirstTextareaWhenRendered();
+			}
 		}),
 
 		editEntityObserver: Ember.observer('editEntity', function () {
@@ -39,11 +43,15 @@ export default DiscussionEditorWithMultipleInputs.extend(
 				title: editEntity.get('title')
 			});
 
+			this.focusFirstTextareaWhenRendered();
+		}),
+
+		focusFirstTextareaWhenRendered() {
 			Ember.run.scheduleOnce('afterRender', this, () => {
 				// This needs to be triggered after Ember updates textarea content
-				this.$('.discussion-standalone-editor-textarea').focus().get(0).setSelectionRange(0, 0);
+				this.$('textarea:first').focus().get(0).setSelectionRange(0, 0);
 			});
-		}),
+		},
 
 		showMultipleInputs: Ember.computed('hasTitle', 'isReply', function () {
 			return this.get('hasTitle') && !this.get('isReply');
