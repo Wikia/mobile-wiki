@@ -12,7 +12,7 @@ var Lab = require('lab'),
 	server = require('../../../www/server/app/app'),
 	mediawiki = require('../../../www/server/app/lib/mediawiki'),
 	wikiVariables = require('../fixtures/wiki-variables'),
-	footer = require('../fixtures/design-system/footer');
+	footer = require('../fixtures/design-system/global-footer');
 
 describe('application', function () {
 	var requestParams = {

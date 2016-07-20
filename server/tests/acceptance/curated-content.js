@@ -12,7 +12,7 @@ var Lab = require('lab'),
 	server = require('../../../www/server/app/app'),
 	mediawiki = require('../../../www/server/app/lib/mediawiki'),
 	wikiVariables = require('../fixtures/wiki-variables'),
-	footer = require('../fixtures/design-system/footer'),
+	footer = require('../fixtures/design-system/global-footer'),
 	mainPageDetailsAndContext = require('../fixtures/main-page-details-and-context');
 
 describe('curated-content', function () {
