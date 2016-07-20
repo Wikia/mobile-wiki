@@ -14,7 +14,8 @@ if (typeof window.M === 'undefined') {
 			const div = document.createElement('div');
 
 			div.innerHTML = ajax.responseText;
-			document.body.insertBefore(div.childNodes[0], document.body.firstChild);
+			div.style = 'height: 0; width: 0; position: absolute;';
+			document.body.insertBefore(div, document.body.firstChild);
 		};
 
 		ajax.onerror = (error) => {
