@@ -25,7 +25,7 @@ import prepareMainPageData from './operations/prepare-main-page-data';
 import prepareMediaWikiData from './operations/prepare-mediawiki-data';
 import showServerErrorPage from './operations/show-server-error-page';
 import deepExtend from 'deep-extend';
-import injectGlobalFooterData from '../lib/global-footer';
+import injectGlobalFooterData from '../lib/inject-global-footer-data';
 
 const cachingTimes = {
 	enabled: true,
