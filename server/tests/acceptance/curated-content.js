@@ -12,6 +12,7 @@ var Lab = require('lab'),
 	server = require('../../../www/server/app/app'),
 	mediawiki = require('../../../www/server/app/lib/mediawiki'),
 	wikiVariables = require('../fixtures/wiki-variables'),
+	footer = require('../fixtures/design-system/footer'),
 	mainPageDetailsAndContext = require('../fixtures/main-page-details-and-context');
 
 describe('curated-content', function () {
@@ -44,6 +45,7 @@ describe('curated-content', function () {
 	it('renders application when all server requests succeed', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(mainPageDetailsAndContext));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
@@ -97,6 +99,7 @@ describe('curated-content', function () {
 
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(mainPageDetailsAndContext));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParamsWithAliasHost, function (response) {
 			expect(response.statusCode).to.equal(301);
