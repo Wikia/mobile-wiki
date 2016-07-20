@@ -6,6 +6,9 @@ module.exports = function (environment) {
 		modulePrefix: 'main',
 		environment: environment,
 		locationType: 'auto',
+		newRelic: {
+			licenseKey: '60e97494a4'
+		},
 		EmberENV: {
 			EXTEND_PROTOTYPES: {
 				Array: true,
@@ -48,7 +51,7 @@ module.exports = function (environment) {
 	}
 
 	if (environment === 'production') {
-
+		ENV.newRelic.applicationId = '4539016';
 	}
 
 	return ENV;
