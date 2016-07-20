@@ -68,7 +68,7 @@ export default Ember.Component.extend({
 		},
 
 		focusTextarea() {
-			this.$('textarea').focus();
+			this.$('textarea:first').focus();
 		},
 
 		handleKeyPress() {

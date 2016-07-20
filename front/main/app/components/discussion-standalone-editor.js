@@ -19,6 +19,10 @@ export default DiscussionEditorWithMultipleInputs.extend(
 		}),
 		editEntity: null,
 
+		click(event) {
+			this.get('focusOnNearestTextarea').call(this, event);
+		},
+
 		onIsActive: Ember.observer('isActive', function () {
 			this._super();
 
