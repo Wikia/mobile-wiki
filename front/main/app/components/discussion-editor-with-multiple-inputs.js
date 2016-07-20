@@ -22,19 +22,20 @@ export default DiscussionEditor.extend({
 		this.scrollAfterEntityAdded();
 	},
 
-	actions: {
-		focusTextarea() {
-			if (this.get('isActive')) {
-				let $target = this.$(event.target);
-				let $label = $target.closest('label');
-				if (Ember.isEmpty($label)) {
-					$label = $target.children('label:first');
-				}
-				$label.find('textarea').focus();
-			} else {
-				this.$('textarea:first').focus();
+	focusOnNearestTextarea(event) {
+		if (this.get('isActive')) {
+			let $target = this.$(event.target);
+			let $label = $target.closest('label');
+			if (Ember.isEmpty($label)) {
+				$label = $target.children('label:first');
 			}
-		},
+			$label.find('textarea').focus();
+		} else {
+			this.$('textarea:first').focus();
+		}
+	},
+
+	actions: {
 		onTitleChange(title) {
 			this.set('title', title);
 		}

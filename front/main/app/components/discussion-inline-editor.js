@@ -28,12 +28,13 @@ export default DiscussionEditorWithMultipleInputs.extend(
 			return this.get('isActive') && !this.get('isReply');
 		}),
 
-		showTextareaAsDefaultIfAlone: Ember.computed('isActive', 'isReply', function() {
+		showTextareaIfAlone: Ember.computed('isActive', 'isReply', function() {
 			return this.get('isReply') ? true : this.get('isActive');
 		}),
 
-		click() {
+		click(event) {
 			this.sendAction('setEditorActive', 'contributeEditor', true);
+			this.get('focusOnNearestTextarea').call(this, event);
 		},
 
 		actions: {
