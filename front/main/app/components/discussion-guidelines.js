@@ -7,14 +7,20 @@ export default Ember.Component.extend(
 		canEdit: Ember.computed.and('currentUser.isAuthenticated', 'guidelines.permissions.canEdit'),
 		content: Ember.computed.alias('guidelines.value'),
 		currentUser: Ember.inject.service(),
+		discussionEditEditor: Ember.inject.service(),
 		shouldActivateLinks: true,
 		shouldTruncateContent: false,
 		wikiName: Ember.get(Mercury, 'wiki.siteName'),
 
 		actions: {
 			openGuidelinesEditor() {
-				this.sendAction('openGuidelinesEditor', this.get('guidelines'));
+				const discussionEditEditor = this.get('discussionEditEditor');
+
+				discussionEditEditor.set('guidelines', this.get('guidelines'));
+				discussionEditEditor.toggleEditor(true);
 			},
+
+			generateOpenGraph() {},
 		}
 	}
 );

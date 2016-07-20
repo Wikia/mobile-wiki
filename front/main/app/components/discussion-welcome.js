@@ -8,7 +8,7 @@ export default Ember.Component.extend({
 	wasSeen: Boolean(localStorage.getItem('discussionWelcomeMessageSeen')),
 
 	guidelinesLink: wrapMeHelper.compute([
-		Ember.Handlebars.Utils.escapeExpression(i18n.t('main.guidelines-link-title', {ns: 'discussion'}))
+		i18n.t('main.guidelines-link-title', {ns: 'discussion'})
 	], {
 		tagName: 'a',
 		className: 'guidelinesOpener',

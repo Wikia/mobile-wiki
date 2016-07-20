@@ -6,11 +6,12 @@ export default Ember.Component.extend(
 	DiscussionUpvoteActionSendMixin,
 	{
 		classNameBindings: ['isDetailsView:sideSpaced'],
+		discussionEditor: Ember.inject.service(),
 
 		actions: {
 			reply() {
 				if (this.get('isDetailsView')) {
-					this.sendAction('setEditorActive', 'contributeEditor', true);
+					this.get('discussionEditor').toggleEditor(true);
 				}
 
 				track(trackActions.ReplyButtonTapped);

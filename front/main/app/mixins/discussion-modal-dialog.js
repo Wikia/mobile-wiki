@@ -5,6 +5,7 @@ export default Ember.Mixin.create({
 	confirmCallback: Ember.computed.alias('modalDialog.confirmCallback'),
 	dialogMessage: Ember.computed.alias('modalDialog.message'),
 	dialogHeaderText: Ember.computed.alias('modalDialog.header'),
+	discussionEditor: Ember.inject.service(),
 	isConfirm: Ember.computed.alias('modalDialog.isConfirm'),
 	modalDialog: Ember.inject.service(),
 	shouldShowDialogMessage: Ember.computed.alias('modalDialog.isDisplayed'),

@@ -27,7 +27,7 @@ export default Ember.Controller.extend(
 			 *
 			 * @returns {void}
 			 */
-			setEditorActive() {},
+			updateCategories() {},
 
 			/**
 			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller
@@ -35,13 +35,6 @@ export default Ember.Controller.extend(
 			 * @returns {void}
 			 */
 			openGuidelines() {},
-
-			/**
-			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller
-			 *
-			 * @returns {void}
-			 */
-			updateCategories() {},
 		}
 	}
 );
