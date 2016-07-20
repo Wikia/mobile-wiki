@@ -65,7 +65,6 @@ export class PageRequestHelper {
 			.then((results) => {
 				const mediaWikiPagePromise = results[0],
 					wikiVariablesPromise = results[1],
-					globalFooterPromise = results[2],
 					isMediaWikiPagePromiseFulfilled = mediaWikiPagePromise.isFulfilled(),
 					isWikiVariablesPromiseFulfilled = wikiVariablesPromise.isFulfilled();
 
