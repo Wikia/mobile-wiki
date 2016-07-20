@@ -11,7 +11,7 @@ import {
 } from '../lib/custom-errors';
 import {isRtl, getUserId, getLocalSettings} from './operations/page-data-helper';
 import showServerErrorPage from './operations/show-server-error-page';
-import getGlobalFooterData from '../lib/global-footer';
+import injectGlobalFooterData from '../lib/global-footer';
 
 /**
  * @typedef {Object} CommunityAppConfig
@@ -92,15 +92,15 @@ export default function showApplication(request, reply, wikiVariables, context =
 		 * @returns {MediaWikiPageData}
 		 *
 		 */
-		.then((data) => {
-			return getGlobalFooterData(data, request);
+		.then((templateData) => {
+			return injectGlobalFooterData(templateData, request);
 		})
 		/**
 		 * @param {*} contextData
 		 * @returns {void}
 		 */
-		.then((context) => {
-			outputResponse(request, reply, context);
+		.then((templateData) => {
+			outputResponse(request, reply, templateData);
 		})
 		/**
 		 * If request for Wiki Variables fails

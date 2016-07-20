@@ -5,7 +5,7 @@ import {
 import * as MediaWiki from './mediawiki';
 import localSettings from '../../config/localSettings';
 
-export default function getGlobalFooterData(data, request) {
+export default function injectGlobalFooterData(data, request) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		wikiId = data.wikiVariables.id,
 		corporatePageUrl = getCorporatePageUrlFromWikiDomain(localSettings, wikiDomain);

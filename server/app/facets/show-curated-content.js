@@ -9,7 +9,7 @@ import prepareCuratedContentData from './operations/prepare-curated-content-data
 import showServerErrorPage from './operations/show-server-error-page';
 import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
 import * as Tracking from '../lib/tracking';
-import getGlobalFooterData from '../lib/global-footer';
+import injectGlobalFooterData from '../lib/global-footer';
 
 const cachingTimes = {
 	enabled: true,
@@ -79,7 +79,7 @@ export default function showCuratedContent(request, reply) {
 		 *
 		 */
 		.then((data) => {
-			return getGlobalFooterData(data, request);
+			return injectGlobalFooterData(data, request);
 		})
 		/**
 		 * @param {CuratedContentPageData} data

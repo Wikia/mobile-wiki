@@ -25,7 +25,7 @@ import prepareMainPageData from './operations/prepare-main-page-data';
 import prepareMediaWikiData from './operations/prepare-mediawiki-data';
 import showServerErrorPage from './operations/show-server-error-page';
 import deepExtend from 'deep-extend';
-import getGlobalFooterData from '../lib/global-footer';
+import injectGlobalFooterData from '../lib/global-footer';
 
 const cachingTimes = {
 	enabled: true,
@@ -171,7 +171,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 *
 		 */
 		.then((data) => {
-			return getGlobalFooterData(data, request);
+			return injectGlobalFooterData(data, request);
 		})
 		/**
 		 * If both requests for Wiki Variables and for Page Details succeed
