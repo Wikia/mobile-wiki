@@ -5,8 +5,12 @@ export default Ember.Mixin.create({
 	isEdit: false,
 	isReply: false,
 
+	collapsedEditorLabelKey: null,
 	editorLabelKey: null,
+	messageLabelKey: null,
 	messagePlaceholderKey: null,
+	titleLabelKey: null,
+	titlePlaceholderKey: null,
 	submitMessageKey: null,
 
 	// Tracking action name of closing the editor
@@ -22,12 +26,12 @@ export default Ember.Mixin.create({
 
 	configurations: Ember.Object.create({
 		createPost: {
-			editorLabelKey: 'editor.post-editor-label',
 			collapsedEditorLabelKey: 'editor.post-editor-collapsed-label',
-			titleLabelKey: 'editor.post-editor-title-label',
-			titlePlaceholderKey: 'editor.post-editor-title-placeholder-text',
+			editorLabelKey: 'editor.post-editor-label',
 			messageLabelKey: 'editor.post-editor-description-label',
 			messagePlaceholderKey: 'editor.post-editor-description-placeholder-text',
+			titleLabelKey: 'editor.post-editor-title-label',
+			titlePlaceholderKey: 'editor.post-editor-title-placeholder-text',
 			submitMessageKey: 'editor.post-action-button-label',
 			closeTrackingAction: trackActions.PostClose,
 			contentTrackingAction: trackActions.PostContent,
@@ -43,10 +47,10 @@ export default Ember.Mixin.create({
 		},
 		editPost: {
 			editorLabelKey: 'editor.post-edit-editor-label',
-			titleLabelKey: 'editor.post-editor-title-label',
-			titlePlaceholderKey: 'editor.post-editor-title-placeholder-text',
 			messageLabelKey: 'editor.post-editor-description-label',
 			messagePlaceholderKey: 'editor.post-editor-placeholder-text',
+			titleLabelKey: 'editor.post-editor-title-label',
+			titlePlaceholderKey: 'editor.post-editor-title-placeholder-text',
 			submitMessageKey: 'editor.post-edit-action-button-label',
 			closeTrackingAction: trackActions.PostEditClose,
 			contentTrackingAction: trackActions.PostEditContent,
