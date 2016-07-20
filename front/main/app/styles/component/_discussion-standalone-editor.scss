@@ -72,7 +72,7 @@ $success-icon-size: 80px;
 		.discussion-textarea-counter {
 			bottom: 7px;
 			color: $discussion-editor-textarea-counter-color;
-			font-size: $discussion-editor-label-font-size;
+			font-size: $discussion-editor-counter-font-size;
 			line-height: $form-label-line-height;
 			position: absolute;
 			right: 0;
@@ -84,7 +84,7 @@ $success-icon-size: 80px;
 		border: 0;
 		border-radius: 0;
 		font-size: $type-base;
-		margin-top: 10px;
+		margin-top: 2px;
 		min-height: 0;
 		padding: 0 0 7px;
 		resize: none;

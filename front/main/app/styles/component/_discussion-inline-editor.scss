@@ -28,7 +28,8 @@ $success-icon-size: 80px;
 		}
 
 		.discussion-inline-editor-content-wrapper {
-			min-height: 106px;
+			cursor: pointer;
+			min-height: 200px;
 			resize: vertical;
 		}
 	}
@@ -98,7 +99,7 @@ $success-icon-size: 80px;
 		height: 45px;
 		margin: 0 15px 10px 0;
 		min-height: 0;
-		padding: 5px 0 10px 0;
+		padding: 0 0 10px 0;
 		resize: none;
 		transition: min-height .2s ease;
 
@@ -116,7 +117,7 @@ $success-icon-size: 80px;
 		.discussion-textarea-counter {
 			bottom: 10px;
 			color: $discussion-editor-textarea-counter-color;
-			font-size: $discussion-editor-label-font-size;
+			font-size: $discussion-editor-counter-font-size;
 			line-height: $form-label-line-height;
 			position: absolute;
 			right: 0;
