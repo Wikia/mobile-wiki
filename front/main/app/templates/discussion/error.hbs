@@ -1,9 +1,8 @@
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	hasContentError=true
-	model=model.data
+	model=model.current.data
 	openGuidelines=(action 'openGuidelines')
-	setEditorActive=(action 'setEditorActive')
 	updateCategories=(action 'updateCategories')
 }}
 	{{discussion-error
