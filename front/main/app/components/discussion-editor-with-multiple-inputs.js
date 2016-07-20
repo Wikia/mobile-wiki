@@ -27,7 +27,7 @@ export default DiscussionEditor.extend({
 			if (this.get('isActive')) {
 				let $target = this.$(event.target);
 				let $label = $target.closest('label');
-				if (0 === $label.length) {
+				if (Ember.isEmpty($label)) {
 					$label = $target.children('label:first');
 				}
 				$label.find('textarea').focus();

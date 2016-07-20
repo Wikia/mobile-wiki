@@ -28,7 +28,7 @@ export default DiscussionEditorWithMultipleInputs.extend(
 			return this.get('isActive') && !this.get('isReply');
 		}),
 
-		showTextareaAsDefault: Ember.computed('isActive', 'isReply', function() {
+		showTextareaAsDefaultIfAlone: Ember.computed('isActive', 'isReply', function() {
 			return this.get('isReply') ? true : this.get('isActive');
 		}),
 
