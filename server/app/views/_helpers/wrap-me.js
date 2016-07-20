@@ -13,29 +13,30 @@
  * 	query=(wrap-me erroneousQuery className='search-error-not-found__query' tagName='span')
  * }}}
  *
- * @content {*} content
- * @content {Object} options
+ * @param {*} param
+ * @param {Object} options
  * @returns {string}
  */
 
-module.exports = function (content, options) {
-	var content = content || '',
-		tagName = 'span',
-		href = '',
-		className = '',
+module.exports = function (param, options) {
+	const content = param || '',
 		hash = options.hash || {};
+
+	let tagName = 'span',
+		href = '',
+		className = '';
 
 	if (hash.tagName) {
 		tagName = hash.tagName;
 	}
 
 	if (hash.tagName === 'a' && hash.href) {
-		href = ' href="' + hash.href + '"';
+		href = ` href="${hash.href}"`;
 	}
 
 	if (hash.className) {
-		className = ' class="' + hash.className + '"';
+		className = ` class="${options.className}"`;
 	}
 
-	return '<' + tagName + href + className + '>' + content + '</' + tagName + '>';
+	return `<${tagName}${href}${className}>${content}</${tagName}>`;
 };
