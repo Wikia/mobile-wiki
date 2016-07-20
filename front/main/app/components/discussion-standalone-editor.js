@@ -45,6 +45,10 @@ export default DiscussionEditorWithMultipleInputs.extend(
 			});
 		}),
 
+		showMultipleInputs: Ember.computed('hasTitle', 'isReply', function () {
+			return this.get('hasTitle') && !this.get('isReply');
+		}),
+
 		actions: {
 			close() {
 				this._super();
