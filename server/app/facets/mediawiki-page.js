@@ -171,7 +171,7 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 *
 		 */
 		.then((data) => {
-			return injectGlobalFooterData(data, request);
+			return injectGlobalFooterData(data, request, true);
 		})
 		/**
 		 * If both requests for Wiki Variables and for Page Details succeed

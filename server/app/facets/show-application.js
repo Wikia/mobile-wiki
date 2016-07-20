@@ -2,6 +2,7 @@ import * as MW from '../lib/mediawiki';
 import * as Utils from '../lib/utils';
 import * as Tracking from '../lib/tracking';
 import * as OpenGraph from '../lib/open-graph';
+import Promise from 'bluebird';
 import Logger from '../lib/logger';
 import localSettings from '../../config/localSettings';
 import discussionsSplashPageConfig from '../../config/discussionsSplashPageConfig';
@@ -49,15 +50,16 @@ function getDistilledDiscussionsSplashPageConfig(hostName) {
 /**
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
- * @param {Object} wikiVariables
+ * @param {Promise} wikiVariables
  * @param {Object} context
+ * @param {Boolean} showGlobalFooter
  * @returns {void}
  */
-export default function showApplication(request, reply, wikiVariables, context = {}) {
+export default function showApplication(request, reply, wikiVariables, context = {}, showGlobalFooter = false) {
 	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
 		hostName = Utils.getWikiaSubdomain(request.info.host);
 
-	if (typeof wikiVariables === 'undefined') {
+	if (!(wikiVariables instanceof Promise)) {
 		wikiVariables = new MW.WikiRequest({wikiDomain}).wikiVariables();
 	}
 
@@ -93,7 +95,7 @@ export default function showApplication(request, reply, wikiVariables, context =
 		 *
 		 */
 		.then((templateData) => {
-			return injectGlobalFooterData(templateData, request);
+			return injectGlobalFooterData(templateData, request, showGlobalFooter);
 		})
 		/**
 		 * @param {*} contextData
