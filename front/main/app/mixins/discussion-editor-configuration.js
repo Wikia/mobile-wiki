@@ -43,6 +43,9 @@ export default Ember.Mixin.create({
 		},
 		editPost: {
 			editorLabelKey: 'editor.post-edit-editor-label',
+			titleLabelKey: 'editor.post-editor-title-label',
+			titlePlaceholderKey: 'editor.post-editor-title-placeholder-text',
+			messageLabelKey: 'editor.post-editor-description-label',
 			messagePlaceholderKey: 'editor.post-editor-placeholder-text',
 			submitMessageKey: 'editor.post-edit-action-button-label',
 			closeTrackingAction: trackActions.PostEditClose,

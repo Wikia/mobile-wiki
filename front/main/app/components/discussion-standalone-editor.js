@@ -35,7 +35,8 @@ export default DiscussionEditorWithMultipleInputs.extend(
 			this.setProperties({
 				content: editEntity.get('rawContent'),
 				openGraph: editEntity.get('openGraph'),
-				showsOpenGraphCard: Boolean(editEntity.get('openGraph'))
+				showsOpenGraphCard: Boolean(editEntity.get('openGraph')),
+				title: editEntity.get('title')
 			});
 
 			Ember.run.scheduleOnce('afterRender', this, () => {
