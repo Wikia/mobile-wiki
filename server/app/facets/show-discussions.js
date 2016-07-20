@@ -22,6 +22,6 @@ export default function showDiscussions(request, reply) {
 
 		context.documentTitle = `Discussions - ${variables.siteName} - Wikia`;
 
-		showApplication(request, reply, wikiVariables, context);
+		showApplication(request, reply, wikiVariables, context, true);
 	});
 }

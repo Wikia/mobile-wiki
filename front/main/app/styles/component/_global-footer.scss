@@ -1,0 +1,11 @@
+// These are overrides for Mercury only
+// If you look for Global Footer styles go here:
+// https://github.com/Wikia/design-system/blob/master/components/_global-footer.scss
+
+.global-footer {
+	display: none;
+}
+
+.show-global-footer .global-footer {
+	display: block;
+}
