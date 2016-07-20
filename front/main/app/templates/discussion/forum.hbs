@@ -1,50 +1,30 @@
-{{#if responsive.isMobile}}
-	{{discussion-standalone-editor
-		create=(action 'createPost')
-		errorMessage=editorState.errorMessage
-		generateOpenGraph=(route-action 'generateOpenGraph')
-		isActive=editorState.isOpen
-		isLoading=editorState.isLoading
-		isVisible=editorState.isOpen
-		setEditorActive=(action 'setEditorActive')
-	}}
-{{/if}}
-
 {{#modal-dialog
 	class='is-bare is-desktop-centered discussion-editor-dialog'
 	closeOnOverlayClick=false
-	isVisible=editEditorState.isOpen
+	isVisible=editEditorActive
 }}
-	{{discussion-standalone-editor
-		editEntity=editEditorState.discussionEntity
+	{{discussion-edit-editor
 		editPost=(action 'editPost')
-		editReply=(action 'editReply')
-		errorMessage=editEditorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
-		isActive=editEditorState.isOpen
-		isEdit=true
-		isLoading=editEditorState.isLoading
-		setEditorActive=(action 'setEditorActive')
 	}}
 {{/modal-dialog}}
-{{#if areGuidelinesVisible}}
-	{{#modal-dialog
-		class='is-bare is-desktop-centered discussion-guidelines'
-		closeOnOverlayClick=true
-		isVisible=areGuidelinesVisible
-	}}
+{{#modal-dialog
+	class='is-bare is-desktop-centered discussion-guidelines'
+	closeOnOverlayClick=true
+	isVisible=areGuidelinesVisible
+}}
+	{{#if areGuidelinesVisible}}
 		{{discussion-guidelines
 			guidelinesText=model.index.attributes.data.guidelines.value
 		}}
-	{{/modal-dialog}}
-{{/if}}
+	{{/if}}
+{{/modal-dialog}}
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
 	attributes=model.index.attributes.data
 	categories=model.index.categories.data
 	model=model.current.data
 	openGuidelines=(action 'openGuidelines')
-	setEditorActive=(action 'setEditorActive')
 	showCategories=showCategories
 	updateCategories=(action 'updateCategories')
 }}
@@ -55,19 +35,16 @@
 		approve=(action 'approve')
 		createPost=(action 'createPost')
 		deletePost=(action 'deletePost')
-		editorState=editorState
 		editPost=(action 'editPost')
 		generateOpenGraph=(route-action 'generateOpenGraph')
 		gotoGuidelines=(action 'gotoGuidelines')
 		loadPage=(action 'loadPage')
 		lockPost=(action 'lockPost')
 		minorError=model.current.data.minorError
-		openEditEditor=(action 'openEditEditor')
 		pageNum=model.current.data.pageNum
 		posts=model.current.data.entities
 		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')
-		setEditorActive=(action 'setEditorActive')
 		showCategories=showCategories
 		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
