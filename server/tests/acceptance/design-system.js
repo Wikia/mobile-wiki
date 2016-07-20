@@ -14,7 +14,7 @@ var Lab = require('lab'),
 	mediawiki = require('../../../www/server/app/lib/mediawiki'),
 	article = require('../fixtures/article'),
 	wikiVariables = require('../fixtures/wiki-variables'),
-	footer = require('../fixtures/design-system/footer'),
+	footer = require('../fixtures/design-system/global-footer'),
 	jsdom = require('jsdom');
 
 describe('design-system', function () {
@@ -45,7 +45,7 @@ describe('design-system', function () {
 	});
 
 	it('compare global footer with it\'s baseline', function (done) {
-		var footerMarkupBaseline = fs.readFileSync(__dirname + '/../fixtures/design-system/footer.html', 'utf-8')
+		var footerMarkupBaseline = fs.readFileSync(__dirname + '/../fixtures/design-system/global-footer.html', 'utf-8')
 			.replace(/>\s+</g, '><')
 			.replace(/(\r\n|\n|\r)/gm, '');
 
