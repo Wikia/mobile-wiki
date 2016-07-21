@@ -7,6 +7,12 @@ export default DiscussionInlineEditor.extend(
 		classNames: ['discussion-inline-reply-editor'],
 		containerSelector: '.discussion-inline-editor-floating-container',
 
+		onIsActiveReply: Ember.observer('isActive', function () {
+			Ember.run.scheduleOnce('afterRender', this, function () {
+				this.toggleStickyState();
+			});
+		}),
+
 		/**
 		 * @returns {void}
 		 */
