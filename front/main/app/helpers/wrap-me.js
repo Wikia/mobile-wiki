@@ -8,6 +8,8 @@ import Ember from 'ember';
  * Options:
  * - tagName - override default span tag name
  * - className - class name to be added to wrapping tag
+ * - href - href attribute to be added to wrapping tag
+ * - target - target attribute to be added to wrapping tag
  *
  * @example
  * {{{i18n 'main.search-error-not-found'
@@ -25,7 +27,12 @@ const {Handlebars, Helper} = Ember;
 export default Helper.helper((params, options) => {
 	const content = Handlebars.Utils.escapeExpression(params[0] || '');
 	let tagName = 'span',
-		className = '';
+		className = '',
+		otherOptions = {
+			href: '',
+			target: '',
+		},
+		otherOptionsCombined = '';
 
 	if (options.tagName) {
 		tagName = options.tagName;
@@ -35,5 +42,7 @@ export default Helper.helper((params, options) => {
 		className = ` class="${options.className}"`;
 	}
 
-	return new Handlebars.SafeString(`<${tagName}${className}>${content}</${tagName}>`).toHTML();
+	otherOptionsCombined = Object.keys(otherOptions).map(key => options[key] ? ` ${key}="${options[key]}"` : '').join('');
+
+	return new Handlebars.SafeString(`<${tagName}${className}${otherOptionsCombined}>${content}</${tagName}>`).toHTML();
 });
