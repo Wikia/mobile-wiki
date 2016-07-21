@@ -7,7 +7,7 @@ if (typeof window.M === 'undefined') {
 	 * @param {string} src
 	 * @returns {void}
 	 */
-	M.loadDOMResource = function (src) {
+	M.loadDOMResource = function (src, visible = true) {
 		const ajax = new XMLHttpRequest();
 
 		ajax.onload = () => {
@@ -15,6 +15,11 @@ if (typeof window.M === 'undefined') {
 
 			div.innerHTML = ajax.responseText;
 			div.style.cssText = 'height: 0; width: 0; position: absolute;';
+
+			if (!visible) {
+				div.style.cssText += ' visibility: hidden;';
+			}
+
 			document.body.insertBefore(div, document.body.firstChild);
 		};
 
