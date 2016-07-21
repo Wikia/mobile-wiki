@@ -138,9 +138,12 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		result = deepExtend(result, prepareMainPageData(data));
 	}
 
+	result.globalFooter = data.globalFooter;
+	result.bodyClassName = data.bodyClassName;
+
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
-	result.globalFooter = data.globalFooter;
+
 	response = reply.view(viewName, result);
 	response.code(code);
 	response.type('text/html; charset=utf-8');
@@ -211,7 +214,9 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 			// Clean up exception to not put its details in HTML response
 			delete data.page.exception.details;
 
-			handleResponse(request, reply, data, allowCache, errorCode);
+			return injectGlobalFooterData(data, request, true).then((data) => {
+				handleResponse(request, reply, data, allowCache, errorCode);
+			});
 		})
 		/**
 		 * @returns {void}
