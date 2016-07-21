@@ -51,6 +51,10 @@ $duration: 1s;
 		position: relative;
 	}
 
+	&.ember-initializing {
+		height: 75vh;
+	}
+
 	.path {
 		animation: dash $duration ease-in-out infinite;
 		stroke: $spinner-color;
