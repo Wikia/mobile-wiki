@@ -5,14 +5,20 @@
 				avatarUrl=currentUser.avatarPath
 				shouldWrapInHref=false
 			}}
-			{{textarea
-				autoresize=true
-				class="discussion-inline-editor-textarea"
-				focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
-				keyPress=(action 'handleKeyPress')
-				placeholder=(i18n placeholderMessageKey ns='discussion')
-				value=content
-			}}
+			{{#if showOverlayMessage}}
+				{{discussion-editor-overlay-message
+					close=(action 'closeOverlayMessage')
+				}}
+			{{else}}
+				{{textarea
+					autoresize=true
+					class="discussion-inline-editor-textarea"
+					focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
+					keyPress=(action 'handleKeyPress')
+					placeholder=(i18n placeholderMessageKey ns='discussion')
+					value=content
+				}}
+			{{/if}}
 		</div>
 		{{#if showsOpenGraphCard}}
 			{{discussion-open-graph

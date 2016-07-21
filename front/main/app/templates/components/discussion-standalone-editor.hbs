@@ -9,14 +9,20 @@
 	{{i18n labelMessageKey ns='discussion'}}
 </label>
 <div class="discussion-standalone-content-wrapper" {{action 'focusTextarea'}}>
-	{{textarea
-		autoresize=true
-		class="discussion-standalone-editor-textarea"
-		keyPress=(action 'handleKeyPress')
-		id=textAreaId
-		placeholder=(i18n placeholderMessageKey ns='discussion')
-		value=content
-	}}
+	{{#if showOverlayMessage}}
+		{{discussion-editor-overlay-message
+			close=(action 'closeOverlayMessage')
+		}}
+	{{else}}
+		{{textarea
+			autoresize=true
+			class="discussion-standalone-editor-textarea"
+			keyPress=(action 'handleKeyPress')
+			id=textAreaId
+			placeholder=(i18n placeholderMessageKey ns='discussion')
+			value=content
+		}}
+	{{/if}}
 	{{#if showsOpenGraphCard}}
 		{{discussion-open-graph
 			close=(action 'removeOpenGraph')
