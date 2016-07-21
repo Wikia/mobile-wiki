@@ -1,4 +1,5 @@
 import DiscussionEditor from './discussion-editor';
+import {track} from '../utils/discussion-tracker';
 
 export default DiscussionEditor.extend({
 
@@ -8,6 +9,10 @@ export default DiscussionEditor.extend({
 	titleLabelKey: null,
 	titlePlaceholderKey: null,
 	messageLabelKey: null,
+
+	// Tracking action name of inserting title into editor
+	titleTrackingAction: null,
+	wasTitleTracked: false,
 
 	/**
 	 * Overridden to clear title also.
@@ -41,6 +46,13 @@ export default DiscussionEditor.extend({
 	actions: {
 		onTitleChange(title) {
 			this.set('title', title);
+		},
+
+		handleKeyPressOnTile() {
+			if (!this.get('wasTitleTracked') && Ember.isPresent(this.get('titleTrackingAction'))) {
+				track(this.get('titleTrackingAction'));
+				this.set('wasTitleTracked', true);
+			}
 		}
 	}
 });

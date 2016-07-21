@@ -19,6 +19,8 @@ export default Ember.Mixin.create({
 	contentTrackingAction: null,
 	// Tracking action name of opening the editor
 	startTrackingAction: null,
+	// Tracking action name of inserting title into editor
+	titleTrackingAction: null,
 
 	configurationObeserver: Ember.observer('isEdit', 'isReply', function () {
 		this.configure();
@@ -36,6 +38,7 @@ export default Ember.Mixin.create({
 			closeTrackingAction: trackActions.PostClose,
 			contentTrackingAction: trackActions.PostContent,
 			startTrackingAction: trackActions.PostStart,
+			titleTrackingAction: trackActions.PostTitle,
 		},
 		createReply: {
 			editorLabelKey: 'editor.reply-editor-label',
@@ -55,6 +58,7 @@ export default Ember.Mixin.create({
 			closeTrackingAction: trackActions.PostEditClose,
 			contentTrackingAction: trackActions.PostEditContent,
 			startTrackingAction: trackActions.PostEdit,
+			titleTrackingAction: trackActions.PostEditTitle,
 		},
 		editReply: {
 			editorLabelKey: 'editor.reply-edit-editor-label',
