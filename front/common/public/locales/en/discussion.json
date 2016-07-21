@@ -132,6 +132,8 @@
     "reply-editor-label": "Add to the Discussion",
     "reply-edit-editor-label": "Edit your reply",
     "reply-action-button-label": "Reply",
-    "reply-edit-action-button-label": "Save"
+    "reply-edit-action-button-label": "Save",
+    "overlay-message-text": "Before you create your first post be sure to check out the __guidelinesLinkTitle__.",
+    "guidelines-link-title": "Discussion Guidelines"
   }
 }
