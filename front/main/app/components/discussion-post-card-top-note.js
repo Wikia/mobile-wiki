@@ -31,7 +31,7 @@ export default Ember.Component.extend({
 			}),
 			count: this.get('post.reportDetails.count'),
 			reporterUserName: wrapMeHelper.compute([
-				Ember.Handlebars.Utils.escapeExpression(this.get('post.reportDetails.users.firstObject.name'))
+				this.get('post.reportDetails.users.firstObject.name')
 			], {
 				tagName: 'a',
 				className: this.get('reportDetailsEntryPointClassName'),
@@ -104,7 +104,7 @@ export default Ember.Component.extend({
 	actions: {
 		/**
 		 * Delete item - shows modal dialog first
-		 * @param {object} item - post or reply
+		 * @param {Object} item - post or reply
 		 * @param {boolean} isReply - if this is a reply
 		 * @returns {void}
 		 */
@@ -130,7 +130,7 @@ export default Ember.Component.extend({
 
 		/**
 		 * Approve item - shows modal dialog first
-		 * @param {object} item - post or reply
+		 * @param {Object} item - post or reply
 		 * @param {boolean} isReply - if this is a reply
 		 * @returns {void}
 		 */

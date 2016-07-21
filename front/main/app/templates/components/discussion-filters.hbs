@@ -1,13 +1,15 @@
 <form name="discussion-filters">
 	<div class="discussion-filters-fields-wrapper">
-		{{#if categories}}
-			{{discussion-categories
-				categories=categories
-				disabled=onlyReported
-				inputIdPrefix='filters'
-				updateCategories=(action this.attrs.updateCategories)
-				updateCategoriesSelection=(action 'updateCategoriesSelection')
-			}}
+		{{#if showCategories}}
+			{{#if categories}}
+				{{discussion-categories
+					categories=categories
+					disabled=onlyReported
+					inputIdPrefix='filters'
+					updateCategories=(action this.attrs.updateCategories)
+					updateCategoriesSelection=(action 'updateCategoriesSelection')
+				}}
+			{{/if}}
 		{{/if}}
 		{{#if showSortSection}}
 			<fieldset class="discussion-fieldset sortby-fieldset" disabled={{trendingDisabled}}>
@@ -25,16 +27,18 @@
 				</ul>
 			</fieldset>
 		{{/if}}
-		{{#if canModerate}}
-			<fieldset class="discussion-fieldset moderation-fieldset">
-				<legend>{{i18n 'main.moderation-filters-header' ns='discussion'}}</legend>
-				{{wikia-ui-components/fancy-check-box
-					class='moderation-checkbox-label'
-					isChecked=onlyReported
-					label=(i18n 'main.reported-content-filter-text' ns='discussion')
-					click=(action 'toggleReported')
-				}}
-			</fieldset>
+		{{#if showReportedFilter}}
+			{{#if canModerate}}
+				<fieldset class="discussion-fieldset moderation-fieldset">
+					<legend>{{i18n 'main.moderation-filters-header' ns='discussion'}}</legend>
+					{{wikia-ui-components/fancy-check-box
+						class='moderation-checkbox-label'
+						isChecked=onlyReported
+						label=(i18n 'main.reported-content-filter-text' ns='discussion')
+						click=(action 'toggleReported')
+					}}
+				</fieldset>
+			{{/if}}
 		{{/if}}
 	</div>
 	{{#if showApplyButton}}

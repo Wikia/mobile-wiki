@@ -3,12 +3,14 @@
 	hasContentError=true
 	model=model.current.data
 	updateCategoriesSelection=(action 'updateCategoriesSelection')
+	openGuidelines=(action 'openGuidelines')
+	updateCategories=(action 'updateCategories')
 }}
 	{{#if model.error.isNotFound}}
 		{{discussion-reported-not-found-error}}
 	{{else}}
 		{{discussion-connection-error
-			error=model.current.error
+			error=model.error
 		}}
 	{{/if}}
 {{/discussion-entities-list-layout}}

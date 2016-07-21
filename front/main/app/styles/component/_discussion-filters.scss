@@ -190,13 +190,19 @@ $legend-font-size: 16px;
 			padding: 0;
 		}
 
-		.moderation-checkbox-label {
-			padding-top: 13px;
-		}
-
 		.moderation-fieldset {
 			margin-top: 0;
 		}
+	}
+
+	.moderation-checkbox-label {
+		margin-top: 6px;
+	}
+
+	.discussion-fieldset {
+		border-bottom: 1px solid $discussion-filters-border;
+		margin-bottom: 30px;
+		padding-bottom: 20px;
 	}
 }
 

@@ -3,9 +3,11 @@ import Ember from 'ember';
 const {Mixin} = Ember;
 
 export default Mixin.create({
+	areGuidelinesVisible: false,
+
 	actions: {
 		/**
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		deletePost(post) {
@@ -16,11 +18,11 @@ export default Mixin.create({
 		 * @returns {void}
 		 */
 		deleteAllPosts() {
-			this.get('target').send('deleteAllPosts', this.get('model.data.entities'));
+			this.get('target').send('deleteAllPosts', this.get('model.current.data.entities'));
 		},
 
 		/**
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		undeletePost(post) {
@@ -29,7 +31,7 @@ export default Mixin.create({
 
 		/**
 		 * Bubbles up to Route
-		 * @param {object} reply
+		 * @param {Object} reply
 		 * @returns {void}
 		 */
 		deleteReply(reply) {
@@ -37,7 +39,7 @@ export default Mixin.create({
 		},
 
 		/**
-		 * @param {object} reply
+		 * @param {Object} reply
 		 * @returns {void}
 		 */
 		undeleteReply(reply) {
@@ -45,7 +47,7 @@ export default Mixin.create({
 		},
 
 		/**
-		 * @param {object} item
+		 * @param {Object} item
 		 * @returns {void}
 		 */
 		approve(item) {
@@ -53,7 +55,7 @@ export default Mixin.create({
 		},
 
 		/**
-		 * @param {object} item
+		 * @param {Object} item
 		 * @returns {void}
 		 */
 		report(item) {
@@ -61,7 +63,7 @@ export default Mixin.create({
 		},
 
 		/**
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		lockPost(post) {
@@ -69,11 +71,28 @@ export default Mixin.create({
 		},
 
 		/**
-		 * @param {object} post
+		 * @param {Object} post
 		 * @returns {void}
 		 */
 		unlockPost(post) {
 			this.get('target').send('unlock', post);
+		},
+
+		/**
+		 * This sets 'areGuidelinesVisible' property which results with Guidelines' modal open.
+		 * @returns {void}
+		 */
+		openGuidelines() {
+			this.set('areGuidelinesVisible', true);
+		},
+
+		/**
+		 * This saves the new Guidelines.
+		 * @param {Object} text
+		 * @returns {void}
+		 */
+		saveGuidelines(text) {
+			this.get('target').send('saveGuidelines', text);
 		},
 	}
 });

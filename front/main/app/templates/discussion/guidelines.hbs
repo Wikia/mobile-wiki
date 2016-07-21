@@ -1,0 +1,24 @@
+{{#modal-dialog
+	class='is-bare is-desktop-centered discussion-editor-dialog guidelines-editor'
+	closeOnOverlayClick=false
+	isVisible=editEditorActive
+}}
+	{{discussion-edit-editor-guidelines
+		saveGuidelines=(action 'saveGuidelines')
+	}}
+{{/modal-dialog}}
+{{#discussion-standalone-layout
+	deleteAllPosts=(action 'deleteAllPosts')
+	smartBannerVisible=smartBannerVisible
+	pageTitle=(i18n 'main.guidelines-header-title' ns='discussion')
+}}
+	{{#if model.attributes.data.guidelines}}
+		{{discussion-guidelines
+			guidelines=model.attributes.data.guidelines
+		}}
+	{{else}}
+		{{discussion-error
+			error=model.attributes.error
+		}}
+	{{/if}}
+{{/discussion-standalone-layout}}

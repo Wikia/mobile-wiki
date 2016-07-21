@@ -10,9 +10,22 @@
     "get-flagged": "Get flagged",
     "images-to-review-count": "Remaining images to review:",
     "image-context": "Context:",
+    "image-name": "Original filename:",
+    "image-bytes": "bytes",
+    "image-size": "Size:",
+    "image-dimensions": "Image dimensions:",
+    "image-history": "Image history:",
+    "image-upload-date": "Upload date:",
     "image-context-not-provided": "Context not provided",
     "status-accepted": "OK",
     "status-flagged": "Q",
-    "status-rejected": "Del"
+    "status-rejected": "REJ",
+    "history-date": "Date",
+    "history-action": "Action",
+    "history-user": "User",
+    "history-status": "Status",
+    "history-undefined": "Not available",
+    "history-no-history": "No history",
+    "not-provided": "not provided"
   }
 }

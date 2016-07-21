@@ -3,7 +3,7 @@
 		<h2>{{model.title}}</h2>
 		<ul class="thumbnails">
 			{{#each items as |item|}}
-				<li class="title-thumbnail" {{action 'trackExperimentClick' item.url}}>
+				<li class="title-thumbnail" {{action 'trackExperimentClick' item.url preventDefault=(if externalLink true false)}}>
 					<a href="{{if externalLink '#' item.url}}">
 						<div class="image image-thumbnail">
 							{{#if shouldBeLoaded }}

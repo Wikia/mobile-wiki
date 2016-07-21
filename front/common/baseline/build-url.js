@@ -137,6 +137,14 @@ if (typeof window.M === 'undefined') {
 
 	/**
 	 * @param {string} [path='']
+	 * @returns {string}
+	 */
+	M.getAttributeServiceUrl = function (path = '') {
+		return `https://${M.prop('servicesDomain')}/${M.prop('siteAttributeBaseRoute')}${path}`;
+	};
+
+	/**
+	 * @param {string} [path='']
 	 * @param {Object} [query={}]
 	 * @returns {string}
 	 */

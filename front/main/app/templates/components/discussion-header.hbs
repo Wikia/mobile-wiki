@@ -1,9 +1,10 @@
 <div class="discussion-header header clearfix background-theme-color">
 	{{#if hasBackButton }}
-		{{#link-to 'discussion.forum' (query-params sort=discussionSort.sortBy) class="side-button back-button"}}
-			{{svg 'discussion-back-arrow' role='img' class='icon arrow-left'}}
-			{{i18n 'main.back-to-discussions-link' ns='discussion'}}
-		{{/link-to}}
+		{{discussion-side-button
+			route='discussion.forum'
+			useThemeColor=false
+			addSortByQueryParam=true
+		}}
 	{{/if}}
 	{{#if hasSiteName}}
 		<h1>{{siteName}}</h1>
@@ -28,6 +29,9 @@
 					showApplyButton=true
 					showSortSection=true
 					updateCategories=(action this.attrs.updateCategories)
+					showCategories=showCategories
+					showReportedFilter=true
+					showSortSection=true
 				}}
 			{{/pop-over}}
 		{{/if}}

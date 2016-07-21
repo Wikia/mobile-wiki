@@ -33,6 +33,16 @@ export default Ember.Mixin.create({
 	},
 
 	/**
+	 * @returns {void}
+	 */
+	deactivateTheming() {
+		if (Ember.get(Mercury, 'wiki.isDarkTheme')) {
+			this.set('themeActivated', null);
+			Ember.$('body').removeClass(this.themeSettings.dark.class);
+		}
+	},
+
+	/**
 	 * Loads other theme css
 	 * @returns {void}
 	 */
@@ -107,6 +117,7 @@ export default Ember.Mixin.create({
 			.discussions .active-element-hover-border-theme-color:focus {border-color: ${activeElementHoverColor};}`;
 		styles += `.discussions .active-element-disabled-theme-color {color: ${activeElementDisabledColor};}`;
 		styles += `.discussions .fill-theme-color {fill: ${this.get('themeColors.color-links')};}`;
+		styles += `.discussions .fill-button-color {fill: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .stroke-theme-color {stroke: ${this.get('themeColors.color-links')};}`;
 
 		inlineStyles = Ember.$('<style>').attr('id', styleId);

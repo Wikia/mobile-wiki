@@ -18,7 +18,7 @@ export default Ember.Mixin.create(
 			return getGroup(this.get('experimentName'));
 		}),
 
-		items: Ember.computed('model.items', 'shouldBeLoaded', function () {
+		items: Ember.computed('model.items', function () {
 			return this.get('model.items').map((item) => {
 				if (this.get('externalLink')) {
 					const params = {
@@ -66,8 +66,8 @@ export default Ember.Mixin.create(
 					label: this.get('label')
 				});
 
+				this.set('isLoading', true);
 				if (this.get('externalLink')) {
-					this.set('isLoading', true);
 					setTimeout(() => {
 						window.location.assign(url);
 					}, 200);

@@ -2,6 +2,7 @@ import DiscussionEditorService from './discussion-editor';
 
 export default DiscussionEditorService.extend({
 	discussionEntity: null,
+	guidelines: null,
 
 	/**
 	 * @param {boolean} active
@@ -11,7 +12,10 @@ export default DiscussionEditorService.extend({
 		this._super(active);
 
 		if (!active) {
-			this.set('discussionEntity', null);
+			this.setProperties({
+				discussionEntity: null,
+				guidelines: null
+			});
 		}
 	}
 });

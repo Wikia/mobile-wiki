@@ -3,8 +3,10 @@
 	hasContentError=true
 	model=model.current.data
 	updateCategoriesSelection=(action 'updateCategoriesSelection')
+	openGuidelines=(action 'openGuidelines')
+	updateCategories=(action 'updateCategories')
 }}
 	{{discussion-error
-		error=model.current.error
+		error=model.error
 	}}
 {{/discussion-entities-list-layout}}

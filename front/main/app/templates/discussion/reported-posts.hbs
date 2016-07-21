@@ -12,10 +12,11 @@
 
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
-	hideCategoriesInRail=true
-	categories=model.index.categories
+	categories=model.index.categories.data
 	model=model.current.data
 	updateCategoriesSelection=(action 'updateCategoriesSelection')
+	openGuidelines=(action 'openGuidelines')
+	updateCategories=(action 'updateCategories')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')
@@ -33,6 +34,7 @@
 		posts=model.current.data.entities
 		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')
+		showCategories=showCategories
 		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
 		undeleteReply=(action 'undeleteReply')

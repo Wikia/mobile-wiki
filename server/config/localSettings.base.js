@@ -53,8 +53,8 @@ import deepExtend from 'deep-extend';
  * @property {string} cdnBaseUrl
  * @property {string} [devboxDomain]
  * @property {string} domain
- * @property {*} [discuss]
- * @property {*} [userPermissions]
+ * @property {*} [discussions]
+ * @property {*} [siteAttribute]
  * @property {*} environment
  * @property {HeliosLocalSettings} helios
  * @property {WhoAmIServiceLocalSettings} whoAmIService
@@ -178,8 +178,11 @@ const localSettings = {
 	userPreferencesService: {
 		baseAPIPath: 'user-preference'
 	},
-	discuss: {
+	discussions: {
 		baseAPIPath: 'discussion'
+	},
+	siteAttribute: {
+		baseAPIPath: 'site-attribute'
 	},
 	imageReview: {
 		baseAPIPath: 'image-review'
@@ -274,7 +277,38 @@ const localSettings = {
 		enabled: process.env.WIKIA_ENVIRONMENT === 'prod',
 		host: 'http://speed.wikia.net/__rum',
 		samplingRate: 0.1,
-		aggregationInterval: 1000
+		aggregationInterval: 1000,
+		// Temporarily sample the wikis used in the performance experiment at 100% (DAT-4275)
+		specialWikis: [
+			// marvelcinematicuniverse
+			177996,
+			// walkingdead
+			13346,
+			// dragonage
+			10150,
+			// darksouls
+			208733,
+			// memory-alpha
+			113,
+			// 2007.runescape
+			691244,
+			// bleach
+			3747,
+			// supernatural
+			4428,
+			// warhammer40k
+			501,
+			// arrow
+			250551,
+			// runescape
+			304,
+			// vampirediaries
+			38969,
+			// pt-br.naruto
+			178802,
+			// es.dragonball
+			1744
+		]
 	},
 	workerCount: parseInt(process.env.WORKER_COUNT, 10) || 1,
 	workerDisconnectTimeout: 3000,
@@ -294,7 +328,7 @@ const localSettings = {
 			url: 'https://services.wikia.com/clickstream/events/social'
 		},
 	},
-	translationFiles: ['main', 'discussion', 'image-review', 'infobox-builder', 'recent-wiki-activity', 'search']
+	translationFiles: ['main', 'design-system', 'discussion', 'image-review', 'infobox-builder', 'recent-wiki-activity', 'search']
 };
 
 /**

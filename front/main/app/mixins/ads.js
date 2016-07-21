@@ -1,16 +1,13 @@
 import Ember from 'ember';
-import AdSlotComponent from '../components/ad-slot';
 import Ads from 'common/modules/ads';
-import {getGroup} from 'common/modules/abtest';
 
 export default Ember.Mixin.create({
 	adsData: {
 		minZerothSectionLength: 700,
 		minPageLength: 2000,
+		mobileBottomLeaderBoard: 'MOBILE_BOTTOM_LEADERBOARD',
 		mobileInContent: 'MOBILE_IN_CONTENT',
 		mobilePreFooter: 'MOBILE_PREFOOTER',
-
-		// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
 		mobileTopLeaderBoard: 'MOBILE_TOP_LEADERBOARD',
 
 		moreInContentAds: {
@@ -42,20 +39,27 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	appendAd(adSlotName, place, element) {
-		// Keep in mind we always want to pass noAds parameter to the AdSlot component
-		// Right now we've got three ad slots and it doesn't make sense to add assertion
-		// in willInsertElement hook of the component to check if the parameters is really defined
-		const view = this.createChildView(AdSlotComponent, {
+		const component = this.get('container').lookup(`component:ad-slot`, {
+			singleton: false
+		});
+
+		component.setProperties({
 			name: adSlotName,
 			noAds: this.get('noAds')
 		});
 
-		view.createElement();
+		const componentElement = this.createChildView(component).createElement();
 
-		element[place](view.$());
-		this.adViews.push(view);
+		if (place === 'after') {
+			componentElement.$().insertAfter(element);
+		} else if (place === 'before') {
+			componentElement.$().insertBefore(element);
+		}
 
-		view.trigger('didInsertElement');
+		this.adViews.push(componentElement);
+
+		componentElement.didInsertElement();
+		componentElement.onElementManualInsert();
 	},
 
 	/**
@@ -145,47 +149,45 @@ export default Ember.Mixin.create({
 	injectAds() {
 		const $firstSection = this.$().children('h2').first(),
 			$articleBody = $('.article-body'),
-
-			// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
-			viewabilityExperimentGroup = getGroup('MERCURY_VIEWABILITY_EXPERIMENT'),
 			$pi = $('.portable-infobox'),
-			$topPlacement = $('.wiki-container'),
-			$topAd = $('#MOBILE_TOP_LEADERBOARD'),
-
+			$pageHeader = $('.wiki-page-header'),
+			adsData = this.get('adsData'),
 			firstSectionTop = ($firstSection.length && $firstSection.offset().top) || 0,
 			articleBodyHeight = $articleBody.height(),
 
-			showInContent = firstSectionTop > this.adsData.minZerothSectionLength,
-			showPreFooter = !showInContent || articleBodyHeight > this.adsData.minPageLength,
-			showMoreInContentAds = this.adsData.moreInContentAds.enabled &&
-				articleBodyHeight > this.adsData.moreInContentAds.minPageLength;
+			showInContent = firstSectionTop > adsData.minZerothSectionLength,
+			showPreFooter = !showInContent || articleBodyHeight > adsData.minPageLength,
+			showMoreInContentAds = adsData.moreInContentAds.enabled &&
+				articleBodyHeight > adsData.moreInContentAds.minPageLength,
+
+			$wikiaFooter = $('.wikia-footer');
 
 		this.clearAdViews();
 
+		if ($pi.length) {
+			// inject top mobileTopLeaderBoard below infobox
+			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pi.first());
+		} else if ($pageHeader.length) {
+			// inject top mobileTopLeaderBoard below article header
+			this.appendAd(adsData.mobileTopLeaderBoard, 'after', $pageHeader.first());
+		}
+
 		if (showInContent) {
-			this.appendAd(this.adsData.mobileInContent, 'before', $firstSection);
+			this.appendAd(adsData.mobileInContent, 'before', $firstSection);
 		}
 
 		if (showPreFooter) {
-			this.appendAd(this.adsData.mobilePreFooter, 'after', $articleBody);
-		}
-
-		// used for ad viewability on infobox page experiment, should be removed as part of DAT-4487
-		if (viewabilityExperimentGroup === 'AD_BELOW_INFOBOX' ||
-			viewabilityExperimentGroup === 'AD_ON_PAGE_FOLD') {
-			if ($pi.length) {
-				// inject after infobox
-				this.appendAd(this.adsData.mobileTopLeaderBoard, 'after', $pi.first());
-			} else if (!$topAd.length) {
-				// inject at top if not present
-				this.appendAd(this.adsData.mobileTopLeaderBoard, 'before', $topPlacement);
-			}
+			this.appendAd(adsData.mobilePreFooter, 'after', $articleBody);
 		}
 
 		if (showMoreInContentAds) {
 			this.injectMoreInContentAds();
-		} else if (this.adsData.moreInContentAds.enabled) {
+		} else if (adsData.moreInContentAds.enabled) {
 			Ember.Logger.info(`The page is not long enough for extra in content ads: ${articleBodyHeight}`);
+		}
+
+		if ($wikiaFooter.length) {
+			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', $wikiaFooter);
 		}
 	},
 
@@ -201,7 +203,8 @@ export default Ember.Mixin.create({
 		const $curatedContent = this.$('.curated-content'),
 			$trendingArticles = this.$('.trending-articles'),
 			showInContent = $curatedContent.length > 0,
-			showPreFooter = $trendingArticles.length;
+			showPreFooter = $trendingArticles.length,
+			$wikiaFooter = $('.wikia-footer');
 
 		this.clearAdViews();
 
@@ -211,6 +214,10 @@ export default Ember.Mixin.create({
 
 		if (showPreFooter) {
 			this.appendAd(this.adsData.mobilePreFooter, 'after', $trendingArticles);
+		}
+
+		if ($wikiaFooter.length) {
+			this.appendAd(this.adsData.mobileBottomLeaderBoard, 'before', $wikiaFooter);
 		}
 	},
 

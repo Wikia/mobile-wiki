@@ -1,7 +1,9 @@
 import Ember from 'ember';
+import DiscussionCollapsableMixin from '../mixins/discussion-collapsable';
 import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(
+	DiscussionCollapsableMixin,
 	{
 		canShowMore: false,
 		classNameBindings: ['isEditMode'],
@@ -115,19 +117,11 @@ export default Ember.Component.extend(
 				this.get('localCategories.length') > this.get('visibleCategoriesCount');
 		}),
 
+		onCollapseChanged(collapsed) {
+			track(collapsed ? trackActions.CategoriesUncollapsed : trackActions.CategoriesCollapsed);
+		},
+
 		actions: {
-			/**
-			 * Toggle categories section
-			 *
-			 * @returns {void}
-			 */
-			toggle() {
-				const collapsed = this.get('collapsed');
-
-				this.set('collapsed', !collapsed);
-				track(collapsed ? trackActions.CategoriesUncollaped : trackActions.CategoriesCollaped);
-			},
-
 			/**
 			 * Show/hide more categories when more than visibleCategoriesCount
 			 *

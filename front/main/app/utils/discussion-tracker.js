@@ -35,12 +35,21 @@ const trackActions = {
 	OGRemoved: 'OGRemoved',
 	CategoryTapped: 'CategoryTapped',
 	AllCategoriesTapped: 'AllCategoriesTapped',
-	CategoriesCollaped: 'CategoriesCollaped',
-	CategoriesUncollaped: 'CategoriesUncollaped',
+	CategoriesCollapsed: 'CategoriesCollapsed',
+	CategoriesUncollapsed: 'CategoriesUncollapsed',
+	ReportedFilterCollapsed: 'ReportedFilterCollapsed',
+	ReportedFilterUncollapsed: 'ReportedFilterUncollapsed',
 	CategoriesResetTapped: 'CategoriesResetTapped',
 	ReportDetailsModalOpen: 'ReportDetailsModalOpen',
 	EditCategoriesButtonTapped: 'EditCategoriesButtonTapped',
 	AddCategoryButtonTapped: 'AddCategoryButtonTapped',
+	GuidelinesLinkTapped: 'GuidelinesLinkTapped',
+	GuidelinesLinkWelcomeTapped: 'GuidelinesLinkWelcomeTapped',
+	GuidelinesEditClose: 'GuidelinesEditClose',
+	GuidelinesEditContent: 'GuidelinesEditContent',
+	GuidelinesEdit: 'GuidelinesEdit',
+	GuidelinesEditSave: 'GuidelinesEditSave',
+	WelcomeMessageClose: 'WelcomeMessageClose'
 };
 
 /**
@@ -55,7 +64,7 @@ function getGACategory() {
 /**
  * @param {string} action
  *
- * @returns {object}
+ * @returns {Object}
  */
 function getGAContext(action) {
 	return {
