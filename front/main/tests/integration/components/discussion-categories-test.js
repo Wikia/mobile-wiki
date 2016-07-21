@@ -93,7 +93,7 @@ test('should deselect "All" after selecting other', function (assert) {
 
 	this.render(hbs`{{discussion-categories isAllCategories=true inputIdPrefix='test' categories=categories}}`);
 
-	this.$('label:last').click();
+	this.$('input:last').click();
 
 	assert.ok(this.$('label:last span').hasClass('active-element-background-color'));
 	assert.notOk(this.$('label[for="test-discussion-category-all"] span').hasClass('active-element-background-color'));
