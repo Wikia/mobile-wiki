@@ -1,0 +1,40 @@
+.editor-overlay-message {
+	background-color: $discussion-editor-background-color;
+	box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.15);
+	cursor: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 10px 27px 10px 0;
+	min-height: 140px;
+	position: relative;
+	right: 0;
+	top: 0;
+
+	.message-text {
+		color: $discussion-editor-overlay-message-color;
+		margin: 0 50px auto 50px;
+		text-align: center;
+	}
+
+	.message-icon {
+		margin: 20px auto 8px;
+
+		svg {
+			height: 28px;
+			width: 28px;
+		}
+	}
+
+	.welcome-close {
+		position: absolute;
+		right: 11px;
+		top: 11px;
+
+		svg {
+			fill: $discussion-editor-close-message-color;
+			height: 16px;
+			width: 16px;
+		}
+	}
+}
