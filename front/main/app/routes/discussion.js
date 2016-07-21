@@ -8,7 +8,6 @@ export default Ember.Route.extend(
 	RouteWithBodyClassNameMixin,
 	{
 		bodyClassNames: ['show-global-footer'],
-		discussionEditEditor: Ember.inject.service(),
 
 		model() {
 			return Ember.RSVP.hash({

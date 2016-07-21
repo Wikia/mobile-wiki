@@ -6,7 +6,6 @@ export default DiscussionBaseRoute.extend(
 	RouteWithBodyClassNameMixin,
 	{
 		bodyClassNames: ['standalone-page'],
-		discussionEditEditor: Ember.inject.service(),
 
 		model() {
 			const indexModel = this.modelFor('discussion');
