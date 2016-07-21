@@ -5,7 +5,7 @@ export default DiscussionEditor.extend({
 
 	title: '',
 
-	// Labels below needs to be overwritten in subclasses
+	// Labels below need to be overwritten in subclasses
 	titleLabelKey: null,
 	titlePlaceholderKey: null,
 	messageLabelKey: null,
@@ -31,8 +31,8 @@ export default DiscussionEditor.extend({
 
 	focusOnNearestTextarea(event) {
 		if (this.get('isActive')) {
-			let $target = this.$(event.target);
-			let $label = $target.closest('label');
+			let $target = this.$(event.target),
+				$label = $target.closest('label');
 
 			if (Ember.isEmpty($label)) {
 				$label = $target.children('label:first');
@@ -48,7 +48,7 @@ export default DiscussionEditor.extend({
 			this.set('title', title);
 		},
 
-		handleKeyPressOnTile() {
+		handleKeyPressOnTitle() {
 			if (!this.get('wasTitleTracked') && Ember.isPresent(this.get('titleTrackingAction'))) {
 				track(this.get('titleTrackingAction'));
 				this.set('wasTitleTracked', true);

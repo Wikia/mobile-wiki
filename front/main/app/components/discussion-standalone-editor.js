@@ -1,10 +1,10 @@
 import Ember from 'ember';
 
-import DiscussionEditorWithMultipleInputs from './discussion-editor-with-multiple-inputs';
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
 import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
+import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor';
 
-export default DiscussionEditorWithMultipleInputs.extend(
+export default DiscussionMultipleInputsEditor.extend(
 	DiscussionEditorOpengraph,
 	DiscussionEditorConfiguration, {
 		classNames: ['discussion-standalone-editor'],
@@ -24,7 +24,7 @@ export default DiscussionEditorWithMultipleInputs.extend(
 		responsive: Ember.inject.service(),
 
 		click(event) {
-			this.get('focusOnNearestTextarea').call(this, event);
+			this.focusOnNearestTextarea(event);
 		},
 
 		onIsActive: Ember.observer('isActive', function () {
@@ -64,6 +64,7 @@ export default DiscussionEditorWithMultipleInputs.extend(
 				content: editEntity.get('rawContent'),
 				openGraph: editEntity.get('openGraph'),
 				showsOpenGraphCard: Boolean(editEntity.get('openGraph')),
+				title: editEntity.get('title')
 			});
 
 			this.focusFirstTextareaWhenRendered();

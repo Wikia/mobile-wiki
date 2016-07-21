@@ -1,10 +1,10 @@
 import Ember from 'ember';
 
-import DiscussionEditorWithMultipleInputs from './discussion-editor-with-multiple-inputs';
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
 import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
+import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor';
 
-export default DiscussionEditorWithMultipleInputs.extend(
+export default DiscussionMultipleInputsEditor.extend(
 	DiscussionEditorOpengraph,
 	DiscussionEditorConfiguration,
 	{
@@ -28,13 +28,18 @@ export default DiscussionEditorWithMultipleInputs.extend(
 			return this.get('isActive') && !this.get('isReply');
 		}),
 
-		showTextareaIfAlone: Ember.computed('isActive', 'isReply', function () {
-			return this.get('isReply') ? true : this.get('isActive');
+		/**
+		 * Returns true if textarea is the only textarea in editor and should appear as first/only one in
+		 * collapsed inline editor.
+		 * @returns {boolean}
+		 */
+		showTextareaAsFirstIfAlone: Ember.computed('isActive', 'isReply', function () {
+			return this.get('isReply') || this.get('isActive');
 		}),
 
 		click(event) {
 			this.sendAction('setEditorActive', 'contributeEditor', true);
-			this.get('focusOnNearestTextarea').call(this, event);
+			this.focusOnNearestTextarea(event);
 		},
 
 		actions: {
