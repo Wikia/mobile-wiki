@@ -1,4 +1,6 @@
 {{#link-to route (query-params sort=discussionSortBy) class=linkClasses}}
 	{{svg 'discussion-back-arrow' role='img' class=arrowClasses}}
-	{{i18n 'main.back-to-discussions-link' ns='discussion'}}
+	{{#unless hideLabel}}
+		{{i18n 'main.back-to-discussions-link' ns='discussion'}}
+	{{/unless}}
 {{/link-to}}

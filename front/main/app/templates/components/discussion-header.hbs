@@ -1,9 +1,10 @@
 <div class="discussion-header header clearfix background-theme-color">
 	{{#if hasBackButton }}
 		{{discussion-side-button
+			addSortByQueryParam=true
+			hideLabel=hasSiteName
 			route='discussion.forum'
 			useThemeColor=false
-			addSortByQueryParam=true
 		}}
 	{{/if}}
 	{{#if hasSiteName}}
