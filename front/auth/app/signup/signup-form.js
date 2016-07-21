@@ -108,6 +108,7 @@ export default class SignupForm {
 		if (cpBenefitsModalShownCookie) {
 			trackRegister({
 				// timestamp when was the modal shown
+				wiki_id: window.Mercury.entryPointWikiId,
 				ncf_modal_seen_date: cpBenefitsModalShownCookie,
 				ncf_modal_action: Cookie.get('cpBenefitsModalClicked') ? 'clicked' : 'seen'
 			});
