@@ -16,7 +16,7 @@ export default Mixin.create({
 		 * @returns {void}
 		 */
 		deleteAllPosts() {
-			this.get('target').send('deleteAllPosts', this.get('model.data.entities'));
+			this.get('target').send('deleteAllPosts', this.get('model.current.data.entities'));
 		},
 
 		/**

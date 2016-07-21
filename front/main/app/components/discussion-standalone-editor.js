@@ -12,12 +12,16 @@ export default DiscussionEditorWithMultipleInputs.extend(
 		currentUser: Ember.inject.service(),
 
 		hasTitle: false,
+
 		isEdit: false,
 		isReply: Ember.computed.bool('editEntity.isReply'),
 		editorType: Ember.computed('isEdit', function () {
 			return this.get('isEdit') ? 'editEditor' : 'contributeEditor';
 		}),
 		editEntity: null,
+
+		pageYOffsetCache: 0,
+		responsive: Ember.inject.service(),
 
 		click(event) {
 			this.get('focusOnNearestTextarea').call(this, event);
@@ -26,21 +30,40 @@ export default DiscussionEditorWithMultipleInputs.extend(
 		onIsActive: Ember.observer('isActive', function () {
 			this._super();
 
-			Ember.$('html, body').toggleClass('mobile-full-screen', this.get('isActive'));
+			const isActive = this.get('isActive');
 
-			if (this.get('isActive')) {
+			if (isActive) {
+				this.set('pageYOffsetCache', window.pageYOffset);
 				this.focusFirstTextareaWhenRendered();
+			}
+
+			Ember.$('html, body').toggleClass('mobile-full-screen', isActive);
+
+			if (navigator.userAgent.indexOf('iPhone') > -1) {
+				this.$(`#${this.get('textAreaId')}`).toggleClass('no-overflow', isActive);
+			}
+
+			if (!isActive && !this.get(`editorTypesToScrollTopOnScuccess.${this.get('editorType')}`)) {
+				if (this.get('responsive.isMobile')) {
+					window.scroll(0, this.get('pageYOffsetCache'));
+				} else {
+					Ember.$('html, body').animate({scrollTop: this.get('pageYOffsetCache')});
+				}
 			}
 		}),
 
-		editEntityObserver: Ember.observer('editEntity', function () {
+		// first time it is triggered by the 'editEntity' property, and later by the 'isActive' property
+		targetObjectObserver: Ember.observer('editEntity', function () {
 			const editEntity = this.get('editEntity');
+
+			if (!editEntity) {
+				return;
+			}
 
 			this.setProperties({
 				content: editEntity.get('rawContent'),
 				openGraph: editEntity.get('openGraph'),
 				showsOpenGraphCard: Boolean(editEntity.get('openGraph')),
-				title: editEntity.get('title')
 			});
 
 			this.focusFirstTextareaWhenRendered();
@@ -61,13 +84,14 @@ export default DiscussionEditorWithMultipleInputs.extend(
 			close() {
 				this._super();
 
+				this.set('editEntity', null);
 				this.sendAction('setEditorActive', this.get('isEdit') ? 'editEditor' : 'contributeEditor', false);
 			},
 
 			submit() {
 				if (!this.get('submitDisabled')) {
 					const discussionEntityData = {
-						body: this.get('content')
+						body: this.get('content'),
 					};
 					let actionName;
 
@@ -87,13 +111,13 @@ export default DiscussionEditorWithMultipleInputs.extend(
 						discussionEntityData.siteId = Mercury.wiki.id;
 					} else {
 						const editEntity = this.get('editEntity');
+						discussionEntityData.id = editEntity.get('id');
 
 						if (editEntity.get('isReply')) {
 							actionName = 'editReply';
-							discussionEntityData.id = editEntity.get('id');
 						} else {
 							actionName = 'editPost';
-							discussionEntityData.id = editEntity.get('threadId');
+							discussionEntityData.threadId = editEntity.get('threadId');
 						}
 					}
 

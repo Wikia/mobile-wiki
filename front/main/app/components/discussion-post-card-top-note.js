@@ -31,7 +31,7 @@ export default Ember.Component.extend({
 			}),
 			count: this.get('post.reportDetails.count'),
 			reporterUserName: wrapMeHelper.compute([
-				Ember.Handlebars.Utils.escapeExpression(this.get('post.reportDetails.users.firstObject.name'))
+				this.get('post.reportDetails.users.firstObject.name')
 			], {
 				tagName: 'a',
 				className: this.get('reportDetailsEntryPointClassName'),

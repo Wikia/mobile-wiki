@@ -25,6 +25,11 @@ body.discussions {
 	width: 100%;
 }
 
+// ugly ugly ugly hack used for the iPhones
+.no-overflow {
+	overflow: auto !important;
+}
+
 .upvote-icon-background {
 	fill: transparent;
 	stroke: transparent;
