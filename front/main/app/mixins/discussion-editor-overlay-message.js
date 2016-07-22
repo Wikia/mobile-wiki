@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-	showOverlayMessage: Ember.computed('isActive', 'calloutMessageWasSeen', function () {
-		return this.get('isActive') && !this.get('calloutMessageWasSeen');
+	showOverlayMessage: Ember.computed('isActive', 'calloutMessagePossible', 'calloutMessageWasSeen', function () {
+		return this.get('isActive') && this.get('calloutMessagePermitted') && !this.get('calloutMessageWasSeen');
 	}),
 
 	calloutMessageWasSeen: Boolean(localStorage.getItem('discussionEditorCalloutMessageSeen')),

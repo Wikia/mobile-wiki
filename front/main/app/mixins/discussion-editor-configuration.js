@@ -20,38 +20,43 @@ export default Ember.Mixin.create({
 		this.configure();
 	}),
 
+	// is the callout message permitted to be displayed in the editor
+	calloutMessagePermitted: false,
+
 	configurations: Ember.Object.create({
 		createPost: {
-			labelMessageKey: 'editor.post-editor-label',
-			placeholderMessageKey: 'editor.post-editor-placeholder-text',
-			submitMessageKey: 'editor.post-action-button-label',
+			calloutMessagePermitted: true,
 			closeTrackingAction: trackActions.PostClose,
 			contentTrackingAction: trackActions.PostContent,
+			labelMessageKey: 'editor.post-editor-label',
+			placeholderMessageKey: 'editor.post-editor-placeholder-text',
 			startTrackingAction: trackActions.PostStart,
+			submitMessageKey: 'editor.post-action-button-label',
 		},
 		createReply: {
-			labelMessageKey: 'editor.reply-editor-label',
-			placeholderMessageKey: 'editor.reply-editor-placeholder-text',
-			submitMessageKey: 'editor.reply-action-button-label',
+			calloutMessagePermitted: true,
 			closeTrackingAction: trackActions.ReplyClose,
 			contentTrackingAction: trackActions.ReplyContent,
+			labelMessageKey: 'editor.reply-editor-label',
+			placeholderMessageKey: 'editor.reply-editor-placeholder-text',
 			startTrackingAction: trackActions.ReplyStart,
+			submitMessageKey: 'editor.reply-action-button-label',
 		},
 		editPost: {
-			labelMessageKey: 'editor.post-edit-editor-label',
-			placeholderMessageKey: 'editor.post-editor-placeholder-text',
-			submitMessageKey: 'editor.post-edit-action-button-label',
 			closeTrackingAction: trackActions.PostEditClose,
 			contentTrackingAction: trackActions.PostEditContent,
+			labelMessageKey: 'editor.post-edit-editor-label',
+			placeholderMessageKey: 'editor.post-editor-placeholder-text',
 			startTrackingAction: trackActions.PostEdit,
+			submitMessageKey: 'editor.post-edit-action-button-label',
 		},
 		editReply: {
-			labelMessageKey: 'editor.reply-edit-editor-label',
-			placeholderMessageKey: 'editor.post-editor-placeholder-text',
-			submitMessageKey: 'editor.reply-edit-action-button-label',
 			closeTrackingAction: trackActions.ReplyEditClose,
 			contentTrackingAction: trackActions.ReplyEditContent,
+			labelMessageKey: 'editor.reply-edit-editor-label',
+			placeholderMessageKey: 'editor.post-editor-placeholder-text',
 			startTrackingAction: trackActions.ReplyEdit,
+			submitMessageKey: 'editor.reply-edit-action-button-label',
 		},
 		editGuidelines: {
 			closeTrackingAction: trackActions.GuidelinesEditClose,
