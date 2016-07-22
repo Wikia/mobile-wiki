@@ -437,6 +437,21 @@ body.dark-theme {
 			color: $dark-discussion-welcome-text-color;
 		}
 	}
+
+	.editor-overlay-message {
+		background-color: $dark-discussion-editor-background-color;
+		box-shadow: 0 2px 20px 0 rgba(255, 255, 255, 0.15);
+
+		.message-text {
+			color: $dark-discussion-editor-overlay-message-color;
+		}
+
+		.welcome-close {
+			svg {
+				fill: $dark-discussion-editor-close-message-color;
+			}
+		}
+	}
 }
 
 @media #{$desktop-range} {
