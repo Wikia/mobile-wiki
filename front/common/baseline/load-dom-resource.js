@@ -4,8 +4,8 @@ if (typeof window.M === 'undefined') {
 
 (function (M) {
 	/**
-	 * @param {String} html HTML representing a single element
-	 * @return {NodeList}
+	 * @param {string} html HTML representing a single element
+	 * @returns {element}
 	 */
 	M.htmlToElement = function (html) {
 		const template = document.createElement('template');
