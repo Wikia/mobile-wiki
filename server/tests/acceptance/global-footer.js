@@ -48,7 +48,7 @@ describe('design-system', function () {
 		done();
 	});
 
-	it('compare global footer with it\'s baseline', function (done) {
+	it('compare global footer with its baseline', function (done) {
 		var footerMarkupBaseline = sanitizeHTML(
 			fs.readFileSync(__dirname + '/../fixtures/design-system/global-footer.html', 'utf-8')
 		);
