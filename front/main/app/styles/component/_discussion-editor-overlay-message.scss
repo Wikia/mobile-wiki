@@ -1,11 +1,12 @@
 .editor-overlay-message {
+	align-items: center;
 	background-color: $discussion-editor-background-color;
 	box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.15);
 	cursor: auto;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	margin: 10px 27px 10px 0;
+	justify-content: flex-start;
+	margin: 10px;
 	min-height: 140px;
 	position: relative;
 	right: 0;
@@ -13,17 +14,18 @@
 
 	.message-text {
 		color: $discussion-editor-overlay-message-color;
-		margin: 0 50px;
-		text-align: center;
 		font-size: $type-smallest;
 		line-height: $line-height-min;
-		vertical-align: middle;
+		margin: auto 50px;
+		min-height: 45px;
+		text-align: center;
 	}
 
 	.message-icon {
 		display: flex;
 		justify-content: center;
 		margin: 20px 0 8px;
+		width: 100%;
 
 		svg {
 			height: 28px;
@@ -43,5 +45,11 @@
 			height: 10px;
 			width: 10px;
 		}
+	}
+}
+
+@media #{$desktop-range} {
+	.editor-overlay-message {
+		margin: 10px 27px 10px 0;
 	}
 }
