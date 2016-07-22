@@ -4,10 +4,11 @@
 	</a>
 	<button class="active-element-theme-color discussion-standalone-editor-button" type="submit" {{action 'submit'}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
 </div>
-
-<label class="discussion-standalone-editor-label" for="{{textAreaId}}">
-	{{i18n labelMessageKey ns='discussion'}}
-</label>
+{{#unless showOverlayMessage}}
+	<label class="discussion-standalone-editor-label" for="{{textAreaId}}">
+		{{i18n labelMessageKey ns='discussion'}}
+	</label>
+{{/unless}}
 <div class="discussion-standalone-content-wrapper" {{action 'focusTextarea'}}>
 	{{#if showOverlayMessage}}
 		{{discussion-editor-overlay-message
