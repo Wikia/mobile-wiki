@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import {track} from '../utils/discussion-tracker';
+import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 import DiscussionEditorOverlayMessage from '../mixins/discussion-editor-overlay-message';
 
 export default Ember.Component.extend(
+	DiscussionEditorConfiguration,
 	DiscussionEditorOverlayMessage,
 	{
 		tagName: 'form',
