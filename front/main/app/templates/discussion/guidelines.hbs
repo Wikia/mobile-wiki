@@ -4,15 +4,16 @@
 	isVisible=guidelinesEditorState.isOpen
 }}
 	{{discussion-guidelines-editor
-		guidelines=guidelinesEditorState.guidelines
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
-		saveGuidelines=(action 'saveGuidelines')
 		errorMessage=guidelinesEditorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
+		gotoGuidelines=(action 'gotoGuidelines')
+		guidelines=guidelinesEditorState.guidelines
 		isActive=guidelinesEditorState.isOpen
 		isEdit=true
 		isLoading=guidelinesEditorState.isLoading
+		saveGuidelines=(action 'saveGuidelines')
 		setEditorActive=(action 'setEditorActive')
 	}}
 {{/modal-dialog}}

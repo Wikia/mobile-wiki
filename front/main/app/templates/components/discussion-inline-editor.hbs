@@ -8,6 +8,7 @@
 			{{#if showOverlayMessage}}
 				{{discussion-editor-overlay-message
 					close=(action 'closeOverlayMessage')
+					gotoGuidelines=(action this.attrs.gotoGuidelines)
 				}}
 			{{else}}
 				{{textarea
