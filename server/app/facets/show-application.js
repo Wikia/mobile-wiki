@@ -28,6 +28,11 @@ import injectGlobalFooterData from '../lib/inject-global-footer-data';
  */
 function outputResponse(request, reply, context) {
 	Tracking.handleResponse(context, request);
+
+	if (context.wikiVariables && context.wikiVariables.language && context.wikiVariables.language.content) {
+		request.server.methods.i18n.getInstance().setLng(context.wikiVariables.language.content);
+	}
+
 	reply.view('application', context);
 }
 

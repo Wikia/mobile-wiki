@@ -37,6 +37,10 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
 
+	if (result.wikiVariables && result.wikiVariables.language && result.wikiVariables.language.content) {
+		request.server.methods.i18n.getInstance().setLng(result.wikiVariables.language.content);
+	}
+
 	response = reply.view('application', result);
 	response.code(code);
 	response.type('text/html; charset=utf-8');

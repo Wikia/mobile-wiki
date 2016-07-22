@@ -42,7 +42,7 @@ export class PageRequestHelper {
 				.page(this.params.title, this.params.redirect, this.params.sections),
 			new MediaWiki.WikiRequest({
 				wikiDomain: this.params.wikiDomain
-			}).wikiVariables(),
+			}).wikiVariables()
 		];
 
 		logger.debug(this.params, 'Fetching wiki variables and mediawiki page');
@@ -83,7 +83,7 @@ export class PageRequestHelper {
 				data = {
 					page,
 					server: createServerData(localSettings, this.params.wikiDomain),
-					wikiVariables: wikiVariablesPromise.value(),
+					wikiVariables: wikiVariablesPromise.value()
 				};
 
 				if (isMediaWikiPagePromiseFulfilled && page) {
