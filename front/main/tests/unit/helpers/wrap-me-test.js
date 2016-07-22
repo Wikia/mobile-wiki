@@ -60,11 +60,11 @@ module('Unit | Helper | wrap-me', () => {
 		const options = {
 				tagName: 'a',
 				href: '/d/g',
-				className: 'guidelinesOpener',
+				className: 'guidelines-opener',
 			},
 			html = wrapMeHelper.compute(['guidelines'], options);
 
-		assert.equal(html, '<a class="guidelinesOpener" href="/d/g">guidelines</a>');
+		assert.equal(html, '<a class="guidelines-opener" href="/d/g">guidelines</a>');
 	});
 
 	test('generate html with a link with a target', (assert) => {

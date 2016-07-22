@@ -9,12 +9,12 @@ export default DiscussionPostCardBaseComponent.extend({
 		i18n.t('main.guidelines-link-title', {ns: 'discussion'})
 	], {
 		tagName: 'a',
-		className: 'guidelinesOpener',
+		className: 'guidelines-opener',
 	}),
 
 	click(event) {
 		// user hits the link inside the message-text - the whole message comes from i18n
-		if (event.target.classList.contains('guidelinesOpener')) {
+		if (event.target.classList.contains('guidelines-opener')) {
 			track(trackActions.EditorCalloutGuidelinesLinkTapped);
 			this.get('gotoGuidelines')();
 		}
