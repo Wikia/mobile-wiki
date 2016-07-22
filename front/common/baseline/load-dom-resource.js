@@ -10,9 +10,9 @@ if (typeof window.M === 'undefined') {
 	M.htmlToElement = function (html) {
 		const template = document.createElement('template');
 
-		template.innerHTML = html;
+		template.insertAdjacentHTML('beforeend', html);
 
-		return template.content.firstChild;
+		return template.firstChild;
 	};
 
 	/**
