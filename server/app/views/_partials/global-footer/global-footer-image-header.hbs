@@ -1,9 +1,9 @@
 <h2 class="global-footer__{{section}}-header">
 	{{#if (equal 'link-image' model.type)}}
 		<a href="{{model.href}}">
-			{{> svg class=(concat 'global-footer__' imageSizeModifier section '-logo') image=model.image }}
+			{{> svg class=(concat 'global-footer__' section '-logo') image=model.image }}
 		</a>
 	{{else}}
-		{{> svg class=(concat 'global-footer__' imageSizeModifier section '-logo') image=model.image}}
+		{{> svg class=(concat 'global-footer__' section '-logo') image=model.image}}
 	{{/if}}
 </h2>
