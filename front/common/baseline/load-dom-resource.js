@@ -23,11 +23,11 @@ if (typeof window.M === 'undefined') {
 		const ajax = new XMLHttpRequest();
 
 		ajax.onload = () => {
-			const svg = this.htmlToElement(ajax.responseText);
+			const element = this.htmlToElement(ajax.responseText);
 
-			svg.style.cssText = 'height: 0; width: 0; position: absolute;';
+			element.style.cssText = 'height: 0; width: 0; position: absolute;';
 
-			document.body.insertBefore(svg, document.body.firstChild);
+			document.body.insertBefore(element, document.body.firstChild);
 		};
 
 		ajax.onerror = (error) => {
