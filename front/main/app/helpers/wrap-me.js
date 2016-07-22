@@ -42,7 +42,9 @@ export default Helper.helper((params, options) => {
 		className = ` class="${options.className}"`;
 	}
 
-	otherOptionsCombined = Object.keys(otherOptions).map(key => options[key] ? ` ${key}="${options[key]}"` : '').join('');
+	otherOptionsCombined = Object.keys(otherOptions).map(
+		key => (options[key] ? ` ${key}="${options[key]}"` : '')
+	).join('');
 
 	return new Handlebars.SafeString(`<${tagName}${className}${otherOptionsCombined}>${content}</${tagName}>`).toHTML();
 });

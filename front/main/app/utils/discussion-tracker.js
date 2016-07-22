@@ -49,7 +49,7 @@ const trackActions = {
 	GuidelinesEditSave: 'GuidelinesEditSave',
 	WelcomeMessageClose: 'WelcomeMessageClose',
 	EditorCalloutMessageClose: 'EditorCalloutMessageClose',
-	EditorCalloutGuidelinesLinkTapped:'EditorCalloutGuidelinesLinkTapped',
+	EditorCalloutGuidelinesLinkTapped: 'EditorCalloutGuidelinesLinkTapped',
 };
 
 /**
