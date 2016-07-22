@@ -2,13 +2,15 @@
 	applyFilters=(action 'applyFilters')
 	hasContentError=true
 	model=model.current.data
+	openGuidelines=(action 'openGuidelines')
+	setEditorActive=(action 'setEditorActive')
 	updateCategories=(action 'updateCategories')
 }}
 	{{#if model.error.isNotFound}}
 		{{discussion-reported-not-found-error}}
 	{{else}}
 		{{discussion-connection-error
-			error=model.current.error
+			error=model.error
 		}}
 	{{/if}}
 {{/discussion-entities-list-layout}}

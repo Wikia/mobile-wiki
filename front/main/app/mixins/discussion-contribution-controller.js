@@ -16,6 +16,10 @@ export default Ember.Mixin.create({
 	guidelinesEditorState: null,
 
 	setEditorState: Ember.on('init', function () {
+		this.setDefaultStates();
+	}),
+
+	setDefaultStates() {
 		this.set('editorState', Ember.Object.create({
 			errorMessage: null,
 			isLoading: false,
@@ -35,7 +39,7 @@ export default Ember.Mixin.create({
 			isOpen: false,
 			guidelines: null,
 		}));
-	}),
+	},
 
 	/**
 	 * Get object that contains editor state

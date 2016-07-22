@@ -12,6 +12,10 @@ export default Ember.Mixin.create({
 			return model.generateOpenGraph(uri).then((openGraph) => {
 				return openGraph;
 			});
-		}
+		},
+
+		willTransition() {
+			this.controllerFor(this.get('routeName')).setDefaultStates();
+		},
 	}
 });
