@@ -94,9 +94,7 @@ export default function showApplication(request, reply, wikiVariables, context =
 		 * @returns {MediaWikiPageData}
 		 *
 		 */
-		.then((templateData) => {
-			return injectGlobalFooterData(templateData, request, showGlobalFooter);
-		})
+		.then((templateData) => injectGlobalFooterData(templateData, request, showGlobalFooter))
 		/**
 		 * @param {*} contextData
 		 * @returns {void}

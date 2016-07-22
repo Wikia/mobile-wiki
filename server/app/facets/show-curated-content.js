@@ -78,9 +78,7 @@ export default function showCuratedContent(request, reply) {
 		 * @returns {CuratedContentPageData}
 		 *
 		 */
-		.then((data) => {
-			return injectGlobalFooterData(data, request, true);
-		})
+		.then((data) => injectGlobalFooterData(data, request, true))
 		/**
 		 * @param {CuratedContentPageData} data
 		 * @returns {void}
