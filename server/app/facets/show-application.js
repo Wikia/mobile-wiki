@@ -28,10 +28,7 @@ import injectGlobalFooterData from '../lib/inject-global-footer-data';
  */
 function outputResponse(request, reply, context) {
 	Tracking.handleResponse(context, request);
-
-	if (context.wikiVariables && context.wikiVariables.language && context.wikiVariables.language.content) {
-		request.server.methods.i18n.getInstance().setLng(context.wikiVariables.language.content);
-	}
+	Utils.setI18nLang(request, context.wikiVariables);
 
 	reply.view('application', context);
 }
@@ -46,7 +43,7 @@ function getDistilledDiscussionsSplashPageConfig(hostName) {
 	if (mainConfig) {
 		return {
 			androidAppLink: mainConfig.androidAppLink,
-			iosAppLink: mainConfig.iosAppLink,
+			iosAppLink: mainConfig.iosAppLink
 		};
 	}
 	return {};

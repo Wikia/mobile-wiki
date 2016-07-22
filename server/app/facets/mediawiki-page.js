@@ -14,7 +14,8 @@ import {PageRequestHelper} from '../lib/mediawiki-page';
 import {
 	getCachedWikiDomainName,
 	redirectToCanonicalHostIfNeeded,
-	redirectToOasis
+	redirectToOasis,
+	setI18nLang
 } from '../lib/utils';
 import * as Tracking from '../lib/tracking';
 import getStatusCode from './operations/get-status-code';
@@ -144,9 +145,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
 
-	if (result.wikiVariables && result.wikiVariables.language && result.wikiVariables.language.content) {
-		request.server.methods.i18n.getInstance().setLng(result.wikiVariables.language.content);
-	}
+	setI18nLang(request, result.wikiVariables);
 
 	response = reply.view(viewName, result);
 	response.code(code);
