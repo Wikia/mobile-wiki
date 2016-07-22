@@ -17,6 +17,10 @@ var Lab = require('lab'),
 	footer = require('../fixtures/design-system/global-footer'),
 	jsdom = require('jsdom');
 
+function sanitizeHTML(rawHTML) {
+	return rawHTML.replace(/>\s+</g, '><').replace(/(\r\n|\n|\r)/gm, '');
+}
+
 describe('design-system', function () {
 	var requestParams = {
 			url: '/wiki/Yoda',
@@ -45,9 +49,9 @@ describe('design-system', function () {
 	});
 
 	it('compare global footer with it\'s baseline', function (done) {
-		var footerMarkupBaseline = fs.readFileSync(__dirname + '/../fixtures/design-system/global-footer.html', 'utf-8')
-			.replace(/>\s+</g, '><')
-			.replace(/(\r\n|\n|\r)/gm, '');
+		var footerMarkupBaseline = sanitizeHTML(
+			fs.readFileSync(__dirname + '/../fixtures/design-system/global-footer.html', 'utf-8')
+		);
 
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
@@ -60,9 +64,7 @@ describe('design-system', function () {
 					footerMarkup;
 
 				footerWrapper.appendChild(footerHTML.cloneNode(true));
-				footerMarkup = footerWrapper.innerHTML
-					.replace(/>\s+</g, '><')
-					.replace(/(\r\n|\n|\r)/gm, '');
+				footerMarkup = sanitizeHTML(footerWrapper.innerHTML);
 
 				expect(footerMarkup).to.equal(footerMarkupBaseline);
 
