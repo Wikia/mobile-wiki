@@ -258,13 +258,15 @@ export class DesignSystemRequest extends BaseRequest {
 
 		this.corporatePageUrl = params.corporatePageUrl;
 		this.wikiId = params.wikiId;
+		this.language = params.language;
 	}
 
 	getFooter() {
 		const url = createUrl(this.corporatePageUrl, 'wikia.php', {
 			controller: 'DesignSystemApi',
 			method: 'getFooter',
-			wikiId: this.wikiId
+			wikiId: this.wikiId,
+			lang: this.language
 		});
 
 		return this
