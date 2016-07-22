@@ -4,8 +4,8 @@
 
 .global-footer {
 	display: none;
-}
 
-.show-global-footer .global-footer {
-	display: block;
+	.show-global-footer & {
+		display: block;
+	}
 }
