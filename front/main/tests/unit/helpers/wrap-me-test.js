@@ -64,7 +64,7 @@ module('Unit | Helper | wrap-me', () => {
 			},
 			html = wrapMeHelper.compute(['guidelines'], options);
 
-		assert.equal(html, '<a href="/d/g">guidelines</a>');
+		assert.equal(html, '<a class="guidelinesOpener" href="/d/g">guidelines</a>');
 	});
 
 	test('generate html with a link with a target', (assert) => {
@@ -72,7 +72,6 @@ module('Unit | Helper | wrap-me', () => {
 				tagName: 'a',
 				href: '/d/g',
 				target: '_blank',
-				className: 'guidelinesOpener',
 			},
 			html = wrapMeHelper.compute(['guidelines'], options);
 
