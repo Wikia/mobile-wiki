@@ -45,22 +45,14 @@ if (typeof window.M.tracker === 'undefined') {
 		};
 	}
 
-	/**
-	 * @param {string} category
-	 * @returns {boolean}
-	 */
-	function isPageView(category) {
-		return category.toLowerCase() === 'view';
-	}
 
 	/**
-	 * @param {string} category
+	 * @param {string} targetRoute
 	 * @param {*} params
 	 * @returns {string}
 	 */
-	function createRequestURL(category, params) {
-		const parts = [],
-			targetRoute = isPageView(category) ? 'view' : 'special/trackingevent';
+	function createRequestURL(targetRoute, params) {
+		const parts = [];
 
 		Object.keys(params).forEach((key) => {
 			const value = params[key];
@@ -76,13 +68,14 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
+	 * @param {string} targetRoute
 	 * @param {InternalTrackingParams} params
 	 * @returns {void}
 	 */
-	function track(params) {
+	function track(targetRoute, params) {
 		const config = $.extend(params, getConfig());
 
-		$script(createRequestURL(config.ga_category, config));
+		$script(createRequestURL(targetRoute, config));
 	}
 
 	/**
@@ -90,7 +83,7 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @returns {void}
 	 */
 	function trackPageView(context) {
-		track($.extend({
+		track('view', $.extend({
 			ga_category: 'view'
 		}, context));
 
