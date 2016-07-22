@@ -1,5 +1,6 @@
 {{#if responsive.isDesktop}}
 	{{discussion-inline-post-editor
+		categories=categories
 		create=(action this.attrs.createPost)
 		errorMessage=editorState.errorMessage
 		generateOpenGraph=(action this.attrs.generateOpenGraph)

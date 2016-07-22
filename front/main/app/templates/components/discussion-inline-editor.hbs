@@ -6,6 +6,12 @@
 		}}
 		<div class="discussion-inline-editor-textarea-wrapper">
 			{{#if isPostEditor}}
+				<a id="chujchuj">CHUJCHUJCHUJ</a>
+				{{#pop-over for='chujchuj' on='click' flow='downCentered' class='discussion-category-picker'}}
+					{{#each categories as |category|}}
+						<a class="category-pill" {{action 'categoryPicked' category}}>{{category.name}}</a>
+					{{/each}}
+				{{/pop-over}}
 				{{discussion-textarea-with-counter
 					class='discussion-inline-editor-title'
 					collapsedPlaceholder=(i18n collapsedEditorLabelKey ns='discussion')
