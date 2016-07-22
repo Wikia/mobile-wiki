@@ -13,12 +13,17 @@
 
 	.message-text {
 		color: $discussion-editor-overlay-message-color;
-		margin: 0 50px auto 50px;
+		margin: 0 50px;
 		text-align: center;
+		font-size: $type-smallest;
+		line-height: $line-height-min;
+		vertical-align: middle;
 	}
 
 	.message-icon {
-		margin: 20px auto 8px;
+		display: flex;
+		justify-content: center;
+		margin: 20px 0 8px;
 
 		svg {
 			height: 28px;
@@ -27,14 +32,16 @@
 	}
 
 	.welcome-close {
+		line-height: 10px;
+		padding: 6px;
 		position: absolute;
-		right: 11px;
-		top: 11px;
+		right: 5px;
+		top: 5px;
 
 		svg {
 			fill: $discussion-editor-close-message-color;
-			height: 16px;
-			width: 16px;
+			height: 10px;
+			width: 10px;
 		}
 	}
 }
