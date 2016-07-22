@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-	showOverlayMessage: Ember.computed('isActive', 'calloutMessagePossible', 'calloutMessageWasSeen', function () {
+	showOverlayMessage: Ember.computed('isActive', 'calloutMessagePermitted', 'calloutMessageWasSeen', function () {
 		return this.get('isActive') && this.get('calloutMessagePermitted') && !this.get('calloutMessageWasSeen');
 	}),
 
