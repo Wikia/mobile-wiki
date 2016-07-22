@@ -335,3 +335,13 @@ export function redirectToOasis(request, reply) {
 
 	reply.redirect(`${request.url.pathname}?${queryParams}`);
 }
+
+/**
+ * @param {Hapi.Request} request
+ * @param {object} wikiVariables
+ */
+export function setI18nLang(request, wikiVariables) {
+	if (wikiVariables.language && wikiVariables.language.content) {
+		request.server.methods.i18n.getInstance().setLng(wikiVariables.language.content);
+	}
+}
