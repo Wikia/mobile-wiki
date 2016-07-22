@@ -4,23 +4,30 @@ if (typeof window.M === 'undefined') {
 
 (function (M) {
 	/**
+	 * @param {String} html HTML representing a single element
+	 * @return {NodeList}
+	 */
+	M.htmlToElement = function (html) {
+		const template = document.createElement('template');
+
+		template.innerHTML = html;
+
+		return template.content.firstChild;
+	};
+
+	/**
 	 * @param {string} src
 	 * @returns {void}
 	 */
-	M.loadDOMResource = function (src, visible = true) {
+	M.loadDOMResource = function (src) {
 		const ajax = new XMLHttpRequest();
 
 		ajax.onload = () => {
-			const div = document.createElement('div');
+			const svg = this.htmlToElement(ajax.responseText);
 
-			div.innerHTML = ajax.responseText;
-			div.style.cssText = 'height: 0; width: 0; position: absolute;';
+			svg.style.cssText = 'height: 0; width: 0; position: absolute;';
 
-			if (!visible) {
-				div.style.cssText += ' visibility: hidden;';
-			}
-
-			document.body.insertBefore(div, document.body.firstChild);
+			document.body.insertBefore(svg, document.body.firstChild);
 		};
 
 		ajax.onerror = (error) => {
