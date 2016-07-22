@@ -140,11 +140,11 @@ export function getCuratedMainPageTitle(request, wikiVariables) {
 	 * Title is double encoded because Ember's RouteRecognizer does decodeURI while processing path.
 	 * See the MainPageRoute for more details.
 	 */
-	if (request.url.path.indexOf('section') > -1) {
-		return decodeURIComponent(decodeURI(request.url.path.replace('\/main\/section\/', '')))
+	if (request.url.pathname.indexOf('section') > -1) {
+		return decodeURIComponent(decodeURI(request.url.pathname.replace('\/main\/section\/', '')))
 			.replace(/%20/g, ' ').replace(/_/g, ' ');
-	} else if (request.url.path.indexOf('category') > -1) {
-		return decodeURIComponent(decodeURI(request.url.path.replace('\/main\/category\/', '')))
+	} else if (request.url.pathname.indexOf('category') > -1) {
+		return decodeURIComponent(decodeURI(request.url.pathname.replace('\/main\/category\/', '')))
 			.replace(/%20/g, ' ').replace(/_/g, ' ');
 	} else {
 		return wikiVariables.mainPageTitle.replace(/_/g, ' ');
