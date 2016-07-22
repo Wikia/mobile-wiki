@@ -18,7 +18,7 @@ export default Ember.Mixin.create({
 		const modelError = this.get('model.current.dialogMessage');
 
 		if (modelError) {
-			this.get('modalDialog').display(i18n.t(modelError, {ns: 'discussion'}));
+			this.get('modalDialog').display({message: i18n.t(modelError, {ns: 'discussion'})});
 		}
 	})
 });
