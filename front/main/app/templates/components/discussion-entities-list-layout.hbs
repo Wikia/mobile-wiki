@@ -5,8 +5,9 @@
 		categories=categories
 		hasContentError=hasContentError
 		hasFilters=true
-		hasNewPostButton=true
+		hasNewPostButton=hasNewPostButton
 		hasSiteName=true
+		setEditorActive=(action this.attrs.setEditorActive)
 		showCategories=showCategories
 		smartBannerVisible=smartBannerVisible
 		updateCategories=(action this.attrs.updateCategories)
@@ -20,7 +21,6 @@
 	isConfirm=isConfirm
 	isVisible=shouldShowDialogMessage
 }}
-
 <div class="site-body-discussion post-list-view">
 	{{discussion-hero-unit
 		contributors=model.contributors

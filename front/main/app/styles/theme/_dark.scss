@@ -178,12 +178,6 @@ body.dark-theme {
 			}
 		}
 
-		.post-reply ~ .reply-editor {
-			.editor-label {
-				border-top-color: $dark-discussion-reply-border-color;
-			}
-		}
-
 		.icon {
 			fill: $dark-discussion-actions-color;
 		}
@@ -229,28 +223,6 @@ body.dark-theme {
 					}
 				}
 			}
-		}
-
-		.editor-container {
-			background-color: $dark-discussion-editor-toolbar-background-color;
-			border-color: $dark-discussion-editor-border-color;
-
-			button {
-				background: none;
-			}
-
-			.editor-textarea {
-				border-color: $dark-discussion-editor-border-color;
-				color: $dark-discussion-content-color;
-			}
-
-			.editor-label {
-				background-color: $dark-discussion-editor-background-color;
-			}
-		}
-
-		.editor-wrapper {
-			background-color: $dark-discussion-editor-background-color;
 		}
 
 		.empty-forum-message {
@@ -375,6 +347,63 @@ body.dark-theme {
 		}
 	}
 
+	.discussion-inline-editor {
+		.discussion-inline-editor-floating-container {
+			background-color: $dark-discussion-editor-background-color;
+			border-color: $dark-discussion-editor-border-color;
+		}
+
+		.discussion-inline-editor-textarea {
+			border-color: $dark-discussion-editor-border-color;
+			color: $dark-discussion-content-color;
+		}
+
+		&.is-active .discussion-inline-editor-toolbar {
+			background-color: $dark-discussion-editor-toolbar-background-color;
+
+			.discussion-inline-editor-submit {
+				background: none;
+			}
+		}
+	}
+
+	.discussion-inline-reply-editor.is-sticky .discussion-inline-editor-floating-container {
+		border-color: $dark-discussion-editor-border-color;
+	}
+
+	.discussion-standalone-editor {
+		background-color: $dark-discussion-editor-background-color;
+
+		.discussion-standalone-editor-textarea {
+			background-color: $dark-discussion-editor-background-color;
+			color: $dark-discussion-content-color;
+		}
+
+		.discussion-standalone-editor-toolbar {
+			background-color: $dark-discussion-editor-toolbar-background-color;
+			border-color: $dark-discussion-editor-border-color;
+
+			.discussion-standalone-editor-button {
+				background: none;
+			}
+		}
+	}
+
+	.discussion-reply-editor-entry-point {
+		.discussion-editor-entry-point-container {
+			background-color: $dark-discussion-editor-background-color;
+			border-color: $dark-discussion-editor-border-color;
+		}
+
+		.discussion-editor-entry-point-content {
+			border-color: $dark-discussion-editor-border-color;
+		}
+	}
+
+	.post-reply ~ .discussion-editor-label {
+		border-color: $dark-discussion-post-detail-border-color;
+	}
+
 	.standalone-page-view {
 		.standalone-content {
 			background-color: $dark-discussion-standalone-content-background-color;
@@ -463,14 +492,6 @@ body.dark-theme {
 
 		.discussion-no-replies {
 			border-bottom-color: $dark-discussion-reply-border-color;
-		}
-
-		.discussion-editor.reply-editor {
-			.editor-label {
-				&.desktop-hidden {
-					border-top-color: $discussion-post-detail-border-color;
-				}
-			}
 		}
 
 		.discussions {

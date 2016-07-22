@@ -8,8 +8,6 @@ import DiscussionSiteAttributesModel from '../models/discussion/site-attributes'
 >>>>>>> dev
 
 export default Ember.Route.extend({
-	discussionEditEditor: Ember.inject.service(),
-
 	model() {
 <<<<<<< HEAD
 		return DiscussionCategoriesModel.getCategories(Mercury.wiki.id);
