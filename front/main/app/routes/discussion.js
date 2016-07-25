@@ -1,19 +1,12 @@
 import Ember from 'ember';
 
-<<<<<<< HEAD
 import DiscussionCategoriesModel from '../models/discussion/categories';
-=======
-import DiscussionModel from '../models/discussion';
 import DiscussionSiteAttributesModel from '../models/discussion/site-attributes';
->>>>>>> dev
 
 export default Ember.Route.extend({
 	model() {
-<<<<<<< HEAD
-		return DiscussionCategoriesModel.getCategories(Mercury.wiki.id);
-=======
 		return Ember.RSVP.hash({
-			categories: DiscussionModel.getCategories(Mercury.wiki.id),
+			categories: DiscussionCategoriesModel.getCategories(Mercury.wiki.id),
 			attributes: DiscussionSiteAttributesModel.find(Mercury.wiki.id),
 		});
 	},
@@ -38,6 +31,5 @@ export default Ember.Route.extend({
 				this.get('discussionEditEditor').set('isLoading', false);
 			});
 		},
->>>>>>> dev
 	}
 });

@@ -88,7 +88,7 @@ export default DiscussionBaseRoute.extend(
 			},
 
 			updateCategories(categories) {
-				return this.modelFor(this.get('routeName')).index.updateCategories(categories);
+				return this.modelFor(this.get('routeName')).index.categories.updateCategories(categories);
 			},
 
 			/**
