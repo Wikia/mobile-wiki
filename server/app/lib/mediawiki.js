@@ -262,7 +262,7 @@ export class DesignSystemRequest extends BaseRequest {
 	}
 
 	getUrl(element) {
-		return `${this.corporatePageUrl}/api/v1/design-system/wikis/${this.wikiId}/${this.language}/${element}`;
+		return `http://${this.corporatePageUrl}/api/v1/design-system/wikis/${this.wikiId}/${this.language}/${element}`;
 	}
 
 	getFooter() {
