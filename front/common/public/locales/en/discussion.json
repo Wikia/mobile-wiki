@@ -111,7 +111,7 @@
     "rename-category-length-error": "Category name must be less than 20 characters.",
     "rename-category-auth-error": "You are logged out. Please sign in.",
     "rename-category-oermissions-error": "Category cannot be updated.",
-    "rename-category-general-error": "Something went wrong, please try again."
+    "rename-category-general-error": "Something went wrong, please try again.",
     "guidelines-link-title": "Discussions Guidelines",
     "guidelines-header-title": "Discussions Guidelines",
     "welcome-message-header": "Awesome to have you here!",
