@@ -32,7 +32,7 @@ export default Helper.helper((params, options) => {
 			href: '',
 			target: '',
 		},
-		otherOptionsCombined = '';
+		otherOptionsCombined;
 
 	if (options.tagName) {
 		tagName = options.tagName;
