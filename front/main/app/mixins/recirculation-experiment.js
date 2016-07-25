@@ -40,7 +40,9 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		viewportOptionsOverride: Ember.observer('model.items', function () {
-			if (this.get('model.items').length < 1) { return; }
+			if (this.get('model.items').length < 1) {
+				return;
+			}
 
 			Ember.run.schedule('afterRender', this, function () {
 				const elementHeight = this.$().innerHeight(),

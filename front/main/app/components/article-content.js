@@ -555,28 +555,33 @@ export default Ember.Component.extend(
 		},
 
 		/**
+		 * Create component instance using container lookup.
+		 * @param {String} componentName
+		 * @returns {Ember.Component}
+		 */
+		createComponentInstance(componentName) {
+			return this.get('container').lookup(`component:${componentName}`, {
+				singleton: false
+			});
+		},
+
+		/**
 		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_PLACEMENT AB TEST
 		 *
 		 * @returns {void}
 		 */
-		injectPlacementTest() {
-			const experimentName = 'RECIRCULATION_MERCURY_PLACEMENT',
-				group = getGroup(experimentName);
-
+		injectPlacementTest(group) {
+			const experimentName = 'RECIRCULATION_MERCURY_PLACEMENT';
 			let view, component, model, location,
 				externalLink = false;
+
+			group = group || getGroup(experimentName);
 
 			if (Ember.get(Mercury, 'wiki.language.content') !== 'en') {
 				return;
 			}
 
 			switch (group) {
-				case 'CONTROL':
-					component = this.createComponentInstance('recirculation/footer');
-					model = FandomPostsModel.create();
-					location = Ember.$('.article-footer');
-					externalLink = true;
-					break;
 				/**
 				 * To be thrown away after E3
 				 */
@@ -591,7 +596,7 @@ export default Ember.Component.extend(
 					break;
 				case 'LI_INCONTENT':
 					component = this.createComponentInstance('recirculation/incontent');
-					model = LiftigniterlModel.create({
+					model = LiftigniterModel.create({
 						widget: 'in-wikia'
 					});
 					location = this.$('h2:nth-of-type(2)').prev();
@@ -604,6 +609,11 @@ export default Ember.Component.extend(
 						thumbWidth: 280
 					});
 					location = Ember.$('.article-footer');
+					break;
+				case 'LI_BOTH':
+					this.injectPlacementTest('LI_INCONTENT').then(() => {
+						this.injectPlacementTest('LI_FOOTER');
+					});
 					break;
 				case 'LINKS_INCONTENT':
 					component = this.createComponentInstance('recirculation/incontent');
@@ -629,6 +639,7 @@ export default Ember.Component.extend(
 					externalLink = true;
 					break;
 				case 'FANDOM_FOOTER':
+				case 'CONTROL':
 					component = this.createComponentInstance('recirculation/footer');
 					model = FandomPostsModel.create();
 					location = Ember.$('.article-footer');
@@ -645,13 +656,14 @@ export default Ember.Component.extend(
 					externalLink
 				});
 				view.createElement();
-				model.load();
 
 				location.after(view.$());
 				view.trigger('didInsertElement');
 				view.trackImpression();
 
 				this.renderedComponents.push(view);
+
+				return model.load();
 			}
 		},
 
@@ -705,16 +717,5 @@ export default Ember.Component.extend(
 			article.innerHTML = content;
 			return article.childNodes;
 		},
-
-		/**
-		 * Create component instance using container lookup.
-		 * @param {String} componentName
-		 * @returns {Ember.Component}
-		 */
-		createComponentInstance(componentName) {
-			return this.get('container').lookup(`component:${componentName}`, {
-				singleton: false
-			});
-		}
 	}
 );

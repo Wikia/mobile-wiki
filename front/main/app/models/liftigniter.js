@@ -11,7 +11,7 @@ const LiftigniterModel = Ember.Object.extend({
 		this.items = [];
 	},
 
-	title: Ember.computed('widget', function() {
+	title: Ember.computed('widget', function () {
 		if (this.get('widget') === 'fandom-rec') {
 			return 'Trending Fandom Articles';
 		} else {
@@ -35,7 +35,6 @@ const LiftigniterModel = Ember.Object.extend({
 			};
 
 			if (!window.$p) {
-				reject(this);
 				return;
 			}
 
@@ -73,21 +72,27 @@ const LiftigniterModel = Ember.Object.extend({
 		});
 
 		return {
-			items: items
-		}
+			items
+		};
 	},
 
 	afterRender(component) {
+		if (!window.$p) {
+			return;
+		}
+
 		const elements = component.$('.title-thumbnail').get(),
 			widget = this.get('widget'),
 			trackOptions = {
-				elements: elements,
+				elements,
 				name: widget,
 				source: 'LI'
 			};
 
 		if (widget === 'fandom-rec') {
-			trackOptions.opts = {resultType: "fandom"}
+			trackOptions.opts = {
+				resultType: 'fandom'
+			};
 		}
 
 		window.$p('track', trackOptions);
