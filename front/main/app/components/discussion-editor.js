@@ -38,11 +38,15 @@ export default Ember.Component.extend(
 		wasStartTracked: false,
 
 		onIsActive: Ember.observer('isActive', function () {
-			if (this.get('isActive')) {
+			this.toogleActiveState(this.get('isActive'))
+		}),
+
+		toogleActiveState(isActive) {
+			if (isActive) {
 				track(this.get('startTrackingAction'));
 				this.$('textarea').focus();
 			}
-		}),
+		},
 
 		onIsLoading: Ember.observer('isLoading', function () {
 			if (!this.get('isLoading') && !this.get('errorMessage')) {
@@ -80,6 +84,7 @@ export default Ember.Component.extend(
 		actions: {
 			close() {
 				track(this.get('closeTrackingAction'));
+				this.toogleActiveState(false);
 			},
 
 			focusTextarea() {

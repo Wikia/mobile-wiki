@@ -13,6 +13,7 @@
 	{{#if showOverlayMessage}}
 		{{discussion-editor-overlay-message
 			close=(action 'closeOverlayMessage')
+			closeEditor=(action 'close')
 			gotoGuidelines=(action this.attrs.gotoGuidelines)
 		}}
 	{{else}}

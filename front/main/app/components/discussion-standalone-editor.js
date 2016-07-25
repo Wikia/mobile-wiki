@@ -18,10 +18,8 @@ export default DiscussionEditor.extend(
 		pageYOffsetCache: 0,
 		responsive: Ember.inject.service(),
 
-		onIsActive: Ember.observer('isActive', function () {
+		toogleActiveState(isActive) {
 			this._super();
-
-			const isActive = this.get('isActive');
 
 			if (isActive) {
 				this.set('pageYOffsetCache', window.pageYOffset);
@@ -40,7 +38,7 @@ export default DiscussionEditor.extend(
 					Ember.$('html, body').animate({scrollTop: this.get('pageYOffsetCache')});
 				}
 			}
-		}),
+		},
 
 		// first time it is triggered by the 'editEntity' property, and later by the 'isActive' property
 		targetObjectObserver: Ember.observer('editEntity', function () {

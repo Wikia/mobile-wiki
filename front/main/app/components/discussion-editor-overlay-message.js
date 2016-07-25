@@ -16,6 +16,7 @@ export default DiscussionPostCardBaseComponent.extend({
 		// user hits the link inside the message-text - the whole message comes from i18n
 		if (event.target.classList.contains('guidelines-opener')) {
 			track(trackActions.EditorCalloutGuidelinesLinkTapped);
+			this.get('closeEditor')();
 			this.get('gotoGuidelines')();
 		}
 	},
