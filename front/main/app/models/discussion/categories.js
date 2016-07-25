@@ -9,10 +9,10 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 	wikiId: null,
 
 	renamingErrorsMap: {
-		'400': 'main.rename-category-length-error',
-		'401': 'main.rename-category-auth-error',
-		'403': 'main.rename-category-permissions-error',
-		'404': 'main.rename-category-general-error',
+		400: 'main.rename-category-length-error',
+		401: 'main.rename-category-auth-error',
+		403: 'main.rename-category-permissions-error',
+		404: 'main.rename-category-general-error',
 	},
 
 	selectedCategoryIds: Ember.computed('categories.@each.selected', function () {
@@ -99,7 +99,7 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 		}).catch((err) => {
 			category.set('error', this.getRenamingErrorMessage(err));
 
-			//We need to rethrow here to trigger catch() on a batch promise
+			// We need to rethrow here to trigger catch() on a batch promise
 			throw new Error(err);
 		});
 	},
@@ -170,14 +170,14 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 					return this.addCategory(category);
 				});
 
-				return Ember.RSVP.all(newCategoriesPromisesList)
+				return Ember.RSVP.all(newCategoriesPromisesList);
 			})
 			.then(() => {
 				const renamedCategoriesPromisesList = categories.filter((category) => {
-					return category.get('displayedName') !== category.get('name') && category.get('id');
-				}).map((category) => {
-					return this.renameCategory(category);
-				}),
+						return category.get('displayedName') !== category.get('name') && category.get('id');
+					}).map((category) => {
+						return this.renameCategory(category);
+					}),
 					reorderingPromise = this.reorderCategories(categories),
 					parallelActionsPromisesList = renamedCategoriesPromisesList;
 
