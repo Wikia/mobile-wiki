@@ -12,6 +12,8 @@ export default Component.extend(
 		// This component is created dynamically, and this won't work without it
 		layoutName: 'components/ad-slot',
 
+		disableManualInsert: false,
+		isAboveTheFold: false,
 		name: null,
 
 		nameLowerCase: computed('name', function () {
@@ -41,12 +43,16 @@ export default Component.extend(
 			const ads = Ads.getInstance(),
 				name = this.get('name');
 
+			if (this.get('disableManualInsert')) {
+				return;
+			}
+
 			if (this.get('noAds')) {
 				Logger.info('Ad disabled for:', name);
 				return;
 			}
 
-			if (ads.getBtfSlots().indexOf(name) === -1) {
+			if (this.get('isAboveTheFold')) {
 				Logger.info('Injected ad', name);
 				ads.addSlot(name);
 			} else {
@@ -79,7 +85,7 @@ export default Component.extend(
 				return;
 			}
 
-			if (ads.getBtfSlots().indexOf(name) > -1) {
+			if (!this.get('isAboveTheFold')) {
 				ads.waitForUapResponse(
 					() => {
 						Logger.info('Injected ad on scroll:', name);
