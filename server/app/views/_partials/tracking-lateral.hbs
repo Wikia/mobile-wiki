@@ -1,0 +1,17 @@
+<script>
+(function() {
+	window.trackLateralPageView = function() {
+		if (!M.prop('queryParams.noexternals') && M.prop('environment') === 'prod') {
+			(function(i) {
+				var a = document.location.pathname.replace(/\/+$/,"").split("/").pop(),
+					b = RegExp("wikia_beacon_id=([A-Za-z0-9_-]{10})").exec(document.cookie);
+					if (b) {
+						i.src="https://assets.lateral.io/w.gif?beacon="+b[1]+"&aid="+a+"&ts="+Date.now();
+					}
+			})(new Image);
+		}
+	}
+
+	window.trackLateralPageView();
+})();
+</script>

@@ -171,6 +171,7 @@ export function trackPageView(uaDimensions, overrideUrl) {
 		window.trackQuantservePageView();
 		window.trackNielsenPageView();
 		window.trackComscorePageView();
+		window.trackLateralPageView();
 
 		M.tracker.Internal.trackPageView(context);
 		M.tracker.UniversalAnalytics.trackPageView(uaDimensions, overrideUrl);
