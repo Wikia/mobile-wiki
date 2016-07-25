@@ -382,7 +382,17 @@ body.dark-theme {
 		.discussion-standalone-editor-textarea,
 		.discussion-textarea-with-counter {
 			background-color: $dark-discussion-editor-background-color;
+			border-bottom-color: $dark-discussion-standalone-editor-title-border-bottom-color;
 			color: $dark-discussion-content-color;
+		}
+
+		.discussion-textarea-counter {
+			color: $dark-discussion-standalone-editor-title-textarea-color;
+		}
+
+		.discussion-standalone-editor-label,
+		.discussion-textarea-label {
+			color: $dark-discussion-standalone-editor-label-color;
 		}
 
 		.discussion-standalone-editor-toolbar {
