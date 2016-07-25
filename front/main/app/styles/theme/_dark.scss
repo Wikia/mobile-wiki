@@ -359,6 +359,10 @@ body.dark-theme {
 			color: $dark-discussion-content-color;
 		}
 
+		.discussion-textarea-label {
+			color: $dark-discussion-inline-editor-label-color;
+		}
+
 		&.is-active .discussion-inline-editor-toolbar {
 			background-color: $dark-discussion-editor-toolbar-background-color;
 
