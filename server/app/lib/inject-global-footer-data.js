@@ -20,8 +20,6 @@ export default function injectGlobalFooterData(data, request, showFooter) {
 		language = getContentLanguage(data.wikiVariables),
 		corporatePageUrl = getCorporatePageUrlFromWikiDomain(localSettings, wikiDomain);
 
-	console.log(data);
-
 	if (showFooter) {
 		data.bodyClassName = 'show-global-footer';
 	}

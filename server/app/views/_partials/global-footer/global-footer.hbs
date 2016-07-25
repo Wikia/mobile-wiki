@@ -1,11 +1,11 @@
-<footer class="global-footer is-{{wikiVariables.language.content}}">
+<footer class="global-footer {{#if model.international_header}}is-international{{else}}is-en{{/if}}">
 	{{#if model.international_header}}
-		<h2 class="global-footer__header">
-			{{#with model.international_header.header as |header|}}
-				{{> svg class='global-footer__large-wikia-logo' image=header.image}}
-				<span class="global-footer__home-of-fandom">{{i18n header.subtitle.key ns='design-system'}}</span>
-			{{/with}}
-		</h2>
+		<div class="global-footer__header-wrapper">
+			<h2 class="global-footer__header">
+				{{> svg class='global-footer__wikia-logo is-large' image=model.international_header.header.image}}
+				<span class="global-footer__home-of-fandom">{{i18n model.international_header.header.subtitle.key ns='design-system'}}</span>
+			</h2>
+		</div>
 	{{/if}}
 	<div class="global-footer__main">
 		{{#if model.fandom.header}}
