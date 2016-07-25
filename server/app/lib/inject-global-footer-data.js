@@ -17,8 +17,10 @@ function getContentLanguage(wikiVariables) {
 export default function injectGlobalFooterData(data, request, showFooter) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		wikiId = data.wikiVariables.id,
-		language = getContentLanguage(data),
+		language = getContentLanguage(data.wikiVariables),
 		corporatePageUrl = getCorporatePageUrlFromWikiDomain(localSettings, wikiDomain);
+
+	console.log(data);
 
 	if (showFooter) {
 		data.bodyClassName = 'show-global-footer';
