@@ -363,6 +363,10 @@ body.dark-theme {
 			color: $dark-discussion-inline-editor-label-color;
 		}
 
+		.discussion-textarea-counter {
+			color: $dark-discussion-inline-editor-title-textarea-color;
+		}
+
 		&.is-active .discussion-inline-editor-toolbar {
 			background-color: $dark-discussion-editor-toolbar-background-color;
 
