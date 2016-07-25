@@ -579,11 +579,11 @@ export default Ember.Component.extend(
 				/**
 				 * To be thrown away after E3
 				 */
-				case 'E3_INCONTENT':
+				case 'SDCC_INCONTENT':
 					component = this.createComponentInstance('recirculation/incontent');
 					model = FandomPostsModel.create({
-						type: 'e3',
-						moreHref: 'http://fandom.wikia.com/articles/category/events/e3-2016'
+						type: 'category',
+						moreHref: 'http://fandom.wikia.com/articles/category/events/sdcc-2016'
 					});
 					location = this.$('h2:nth-of-type(2)').prev();
 					externalLink = true;
@@ -633,6 +633,8 @@ export default Ember.Component.extend(
 				location.after(view.$());
 				view.trigger('didInsertElement');
 				view.trackImpression();
+
+				this.renderedComponents.push(view);
 			}
 		},
 

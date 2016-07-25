@@ -41,6 +41,10 @@ module.exports = {
 			src: 'front/common/baseline/' + jsPattern,
 			destFile: 'baseline.js'
 		},
+		designSystemI18n: {
+			src: 'node_modules/design-system-i18n/i18n/**/*',
+			dest: outputFront + '/common/locales',
+		},
 		main: {
 			dest: 'front/main/vendor',
 		},

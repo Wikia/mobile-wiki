@@ -1,27 +1,40 @@
 export default Ember.Service.extend({
 	confirmButtonText: '',
-	confirmCallback: Function.prototype,
+	confirmCallback: Ember.K,
 	header: '',
 	isConfirm: Ember.computed.notEmpty('confirmButtonText'),
 	isDisplayed: false,
 	message: '',
+	name: '',
+
+	defaultDisplayParameters: {
+		confirmButtonText: '',
+		confirmCallback: Ember.K,
+		header: '',
+		message: '',
+		name: '',
+	},
 
 	/**
-	 * @param {string} message
-	 * @param {string} header
-	 * @param {string} confirmButtonText
-	 * @param {any} confirmCallback
+	 * @param {Object} displayParameters
+	 * @param {string} displayParameters.message
+	 * @param {string} displayParameters.header
+	 * @param {string} displayParameters.confirmButtonText
+	 * @param {any} displayParameters.confirmCallback
 	 * @returns {void}
 	 */
-	display(message, header = '', confirmButtonText = '', confirmCallback = Function.prototype) {
-		if (!this.get('isDisplayed') && message !== this.get('message')) {
-			this.setProperties({
-				confirmCallback,
-				confirmButtonText,
-				header,
-				isDisplayed: true,
-				message,
-			});
+	display(displayParameters) {
+		if (!this.get('isDisplayed') && displayParameters.message !== this.get('message')) {
+			const params = {};
+
+			Object.assign(
+				params,
+				this.get('defaultDisplayParameters'),
+				displayParameters,
+				{isDisplayed: true},
+			);
+
+			this.setProperties(params);
 		}
 	},
 
@@ -29,12 +42,14 @@ export default Ember.Service.extend({
 	 * @returns {void}
 	 */
 	close() {
-		this.setProperties({
-			confirmButtonText: '',
-			confirmCallback: Function.prototype,
-			header: '',
-			isDisplayed: false,
-			message: '',
-		});
+		const params = {};
+
+		Object.assign(
+			params,
+			this.get('defaultDisplayParameters'),
+			{isDisplayed: false},
+		);
+
+		this.setProperties(params);
 	}
 });

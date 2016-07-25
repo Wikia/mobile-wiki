@@ -8,6 +8,7 @@ import request from 'ember-ajax/request';
  * used as a baseline to correlate with the results we've seen on desktop.
  */
 const TopLinksModel = Ember.Object.extend({
+	title: 'Top Links',
 	article: null,
 	init() {
 		this._super(...arguments);

@@ -4,7 +4,9 @@
 		<button {{action this.attrs.reviewAndGetMoreImages}} class="sub-head--done">
 			{{i18n 'main.review-and-get-more' ns='image-review'}}
 		</button>
-		<div class="sub-head--title">{{i18n 'main.head' ns='image-review'}}</div>
+		<div class="sub-head--title">
+			{{i18n 'main.head' ns='image-review'}}
+		</div>
 	</header>
 {{/if}}
 
@@ -22,21 +24,15 @@
 	</ul>
 
 	{{#modal-dialog isVisible=isModalVisible}}
-		<img src="{{thumbnailModel.fullSizeImageUrl}}"/>
-		{{#if isContextProvided}}
-			{{#if thumbnailModel.isLink}}
-				<a href="{{thumbnailModel.context}}" target="_blank">{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}}</a>
-			{{else}}
-				<span>{{i18n 'main.image-context' ns='image-review'}} {{thumbnailModel.context}}</span>
-			{{/if}}
-		{{else}}
-			<p>{{i18n 'main.image-context-not-provided' ns='image-review'}}</p>
-		{{/if}}
+		{{image-review-modal-dialog thumbnailModel=thumbnailModel class='image-review-modal-dialog'}}
 	{{/modal-dialog}}
 
-	<div class="action-buttons">
+	<div class="image-review-action-buttons">
 		<button {{action this.attrs.reviewAndGetMoreImages}}>{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
-		<button {{action this.attrs.getFlaggedOnly}}>{{i18n 'main.get-flagged' ns='image-review'}}</button>
+		{{#if model.isTrustedSession}}
+			<button {{action this.attrs.getFlaggedOnly}}>{{i18n 'main.get-flagged' ns='image-review'}}</button>
+			<button {{action this.attrs.getRejectedOnly}}>{{i18n 'main.get-rejected' ns='image-review'}}</button>
+		{{/if}}
 	</div>
 {{else}}
 	<h2>{{i18n 'main.error-no-more-images' ns='image-review'}}</h2>

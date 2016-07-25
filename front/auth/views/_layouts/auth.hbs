@@ -85,6 +85,9 @@
 					user: 'en',
 				},
 			});
+			// place where we can check wikiId of the entrypoint
+			M.provide('entryPointWikiId', {{entryPointWikiId}});
+
 			M.tracker.Internal.trackPageView({
 				a: window.location.pathname,
 				n: '-1'

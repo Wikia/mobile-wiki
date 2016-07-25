@@ -3,8 +3,6 @@ import Ember from 'ember';
 const {Mixin} = Ember;
 
 export default Mixin.create({
-	areGuidelinesVisible: false,
-
 	actions: {
 		/**
 		 * @param {Object} post
@@ -18,7 +16,7 @@ export default Mixin.create({
 		 * @returns {void}
 		 */
 		deleteAllPosts() {
-			this.get('target').send('deleteAllPosts', this.get('model.data.entities'));
+			this.get('target').send('deleteAllPosts', this.get('model.current.data.entities'));
 		},
 
 		/**
@@ -76,23 +74,6 @@ export default Mixin.create({
 		 */
 		unlockPost(post) {
 			this.get('target').send('unlock', post);
-		},
-
-		/**
-		 * This sets 'areGuidelinesVisible' property which results with Guidelines' modal open.
-		 * @returns {void}
-		 */
-		openGuidelines() {
-			this.set('areGuidelinesVisible', true);
-		},
-
-		/**
-		 * This saves the new Guidelines.
-		 * @param {Object} text
-		 * @returns {void}
-		 */
-		saveGuidelines(text) {
-			this.get('target').send('saveGuidelines', text);
 		},
 	}
 });
