@@ -38,7 +38,7 @@ export default Ember.Component.extend(
 		wasStartTracked: false,
 
 		onIsActive: Ember.observer('isActive', function () {
-			this.toogleActiveState(this.get('isActive'))
+			this.toogleActiveState(this.get('isActive'));
 		}),
 
 		toogleActiveState(isActive) {
