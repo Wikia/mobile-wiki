@@ -48,12 +48,9 @@ export default DiscussionMultipleInputsEditor.extend(
 					const newDiscussionEntityData = {
 						body: this.get('content'),
 						creatorId: this.get('currentUser.userId'),
-						siteId: Mercury.wiki.id
+						siteId: Mercury.wiki.id,
+						title: this.get('title')
 					};
-
-					if (this.get('title')) {
-						newDiscussionEntityData.title = this.get('title');
-					}
 
 					if (this.get('showsOpenGraphCard')) {
 						newDiscussionEntityData.openGraph = {
