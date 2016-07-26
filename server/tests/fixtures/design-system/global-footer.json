@@ -2,7 +2,7 @@
   "fandom": {
     "header": {
       "type": "link-image",
-      "image": "company-logo-fandom",
+      "image": "wds-company-logo-fandom",
       "href": "#",
       "title": {
         "type": "translatable-text",
@@ -61,7 +61,7 @@
     "links": [
       {
         "type": "link-image",
-        "image": "icons-facebook",
+        "image": "wds-icons-facebook",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-facebook"
@@ -70,7 +70,7 @@
       },
       {
         "type": "link-image",
-        "image": "icons-twitter",
+        "image": "wds-icons-twitter",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-twitter"
@@ -79,7 +79,7 @@
       },
       {
         "type": "link-image",
-        "image": "icons-reddit",
+        "image": "wds-icons-reddit",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-reddit"
@@ -88,7 +88,7 @@
       },
       {
         "type": "link-image",
-        "image": "icons-youtube",
+        "image": "wds-icons-youtube",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-youtube"
@@ -97,7 +97,7 @@
       },
       {
         "type": "link-image",
-        "image": "icons-instagram",
+        "image": "wds-icons-instagram",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-instagram"
@@ -109,7 +109,7 @@
   "wikia": {
     "header": {
       "type": "line-image",
-      "image": "company-logo-wikia",
+      "image": "wds-company-logo-wikia",
       "title": {
         "type": "translatable-text",
         "key": "global-footer-wikia-header"
@@ -285,7 +285,7 @@
     "links": [
       {
         "type": "link-image",
-        "image": "company-store-appstore",
+        "image": "wds-company-store-appstore",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-wikia-community-apps-link-app-store"
@@ -294,7 +294,7 @@
       },
       {
         "type": "link-image",
-        "image": "company-store-googleplay",
+        "image": "wds-company-store-googleplay",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-wikia-community-apps-link-google-play"
