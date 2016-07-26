@@ -110,7 +110,10 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	openDialog(message) {
-		this.get('modalDialog').display(i18n.t(message, {ns: 'discussion'}));
+		this.get('modalDialog').display({
+			message: i18n.t(message, {ns: 'discussion'}),
+			name: 'modal-dialog-posting-not-allowed',
+		});
 	},
 
 	/**

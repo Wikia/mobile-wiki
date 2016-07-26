@@ -107,6 +107,14 @@ function pruneParams(params) {
 }
 
 /**
+ * @param {string} category
+ * @returns {boolean}
+ */
+function isPageView(category) {
+	return category.toLowerCase() === 'view';
+}
+
+/**
  * @param {TrackingParams} params
  * @returns {void}
  */
@@ -143,7 +151,7 @@ export function track(params) {
 
 	if (trackingMethod === 'both' || trackingMethod === 'internal') {
 		params = $.extend(context, params);
-		M.tracker.Internal.track(params);
+		M.tracker.Internal.track(isPageView(category) ? 'view' : 'special/trackingevent', params);
 	}
 }
 
@@ -163,6 +171,7 @@ export function trackPageView(uaDimensions, overrideUrl) {
 		window.trackQuantservePageView();
 		window.trackNielsenPageView();
 		window.trackComscorePageView();
+		window.trackLateralPageView();
 
 		M.tracker.Internal.trackPageView(context);
 		M.tracker.UniversalAnalytics.trackPageView(uaDimensions, overrideUrl);
@@ -186,6 +195,17 @@ export function trackExperiment(experiment, params) {
 
 	params.label = [experiment, group, params.label].join('=');
 	track(params);
+}
+
+/**
+ * Function to save data about registered users that seen the
+ * New Contributor Flow modal
+ *
+ * @param {TrackingParams} params
+ * @returns {void}
+ */
+export function trackRegister(params) {
+	M.tracker.Internal.track('special/newcontributorflow', params);
 }
 
 /**
