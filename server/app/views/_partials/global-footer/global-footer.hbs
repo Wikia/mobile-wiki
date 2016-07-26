@@ -1,24 +1,24 @@
-<footer class="global-footer {{#if model.international_header}}is-international{{else}}is-en{{/if}}">
+<footer class="wds-global-footer {{#if model.international_header}}wds-is-international{{else}}wds-is-en{{/if}}">
 	{{#if model.international_header}}
-		<div class="global-footer__header-wrapper">
-			<h2 class="global-footer__header">
-				{{> svg class='global-footer__wikia-logo is-large' image=model.international_header.header.image}}
-				<span class="global-footer__home-of-fandom">{{i18n model.international_header.header.subtitle.key ns='design-system'}}</span>
+		<div class="wds-global-footer__header-wrapper">
+			<h2 class="wds-global-footer__header">
+				{{> svg class='wds-global-footer__wikia-logo wds-is-large' image=model.international_header.header.image}}
+				<span class="wds-global-footer__home-of-fandom">{{i18n model.international_header.header.subtitle.key ns='design-system'}}</span>
 			</h2>
 		</div>
 	{{/if}}
-	<div class="global-footer__main">
+	<div class="wds-global-footer__main">
 		{{#if model.fandom.header}}
 			{{> global-footer/global-footer-image-header model=model.fandom.header section='fandom'}}
 		{{/if}}
-		<div class="global-footer__fandom-sections">
+		<div class="wds-global-footer__fandom-sections">
 			{{> global-footer/global-footer-section model=model.fandom_overview name='fandom-overview' parentName='fandom'}}
 			{{> global-footer/global-footer-section model=model.follow_us name='follow-us' parentName='fandom'}}
 		</div>
 		{{#if model.wikia.header}}
 			{{> global-footer/global-footer-image-header model=model.wikia.header section='wikia'}}
 		{{/if}}
-		<div class="global-footer__wikia-sections">
+		<div class="wds-global-footer__wikia-sections">
 			{{> global-footer/global-footer-section model=model.company_overview name='company-overview' parentName='wikia'}}
 			{{> global-footer/global-footer-section model=model.site_overview name='site-overview' parentName='wikia'}}
 			{{> global-footer/global-footer-section model=model.community name='community' parentName='wikia'}}
@@ -27,7 +27,7 @@
 			{{> global-footer/global-footer-section model=model.advertise name='advertise' parentName='wikia'}}
 		</div>
 	</div>
-	<div class="global-footer__licensing-and-vertical">
+	<div class="wds-global-footer__licensing-and-vertical">
 		<span>{{{i18n
 			model.licensing_and_vertical.description.key
 			license=(wrap-me
