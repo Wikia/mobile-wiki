@@ -146,14 +146,14 @@ export default Ember.Mixin.create({
 		}
 	},
 
-	createPost(entityData) {
+	createPost(entityData, forumId) {
 		const editorType = 'contributeEditor',
 			editorState = this.getEditorState(editorType);
 
 		editorState.set('isLoading', true);
 		this.setEditorError(editorType, null);
 
-		this.get('model').current.createPost(entityData).catch((err) => {
+		this.get('model').current.createPost(entityData, forumId).catch((err) => {
 			this.onContributionError(editorType, err, 'editor.post-error-general-error');
 		}).finally(() => {
 			editorState.set('isLoading', false);
@@ -227,8 +227,8 @@ export default Ember.Mixin.create({
 		 * @param {Object} entityData
 		 * @returns {void}
 		 */
-		createPost(entityData) {
-			this.createPost(entityData);
+		createPost(entityData, forumId) {
+			this.createPost(entityData, forumId);
 		},
 
 		/**

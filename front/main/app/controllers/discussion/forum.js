@@ -15,9 +15,9 @@ export default DiscussionBaseController.extend(
 		areGuidelinesVisible: false,
 
 		actions: {
-			createPost(entityData) {
+			createPost(entityData, forumId) {
 				this.transitionToRoute({queryParams: {sort: 'latest'}}).promise.then(() => {
-					this.createPost(entityData);
+					this.createPost(entityData, forumId);
 				});
 			},
 

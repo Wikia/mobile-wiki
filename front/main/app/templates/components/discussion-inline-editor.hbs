@@ -1,4 +1,10 @@
 <div class="discussion-inline-editor-floating-container">
+	{{#pop-over for='discussionInlineCategoryPicker' on='click' flow='downCentered' class='discussion-category-picker'}}
+		{{discussion-category-picker
+			categories=categories
+			setCategory=(action 'setCategory')
+		}}
+	{{/pop-over}}
 	<div class="discussion-inline-editor-content-wrapper">
 		{{user-avatar
 			avatarUrl=currentUser.avatarPath
@@ -6,12 +12,13 @@
 		}}
 		<div class="discussion-inline-editor-textarea-wrapper">
 			{{#if isPostEditor}}
-				<a id="chujchuj">CHUJCHUJCHUJ</a>
-				{{#pop-over for='chujchuj' on='click' flow='downCentered' class='discussion-category-picker'}}
-					{{#each categories as |category|}}
-						<a class="category-pill" {{action 'categoryPicked' category}}>{{category.name}}</a>
-					{{/each}}
-				{{/pop-over}}
+				<a id="discussionInlineCategoryPicker">
+					{{#if category}}
+						{{category.name}}
+					{{else}}
+						Pick a category
+					{{/if}}
+				</a>
 				{{discussion-textarea-with-counter
 					class='discussion-inline-editor-title'
 					collapsedPlaceholder=(i18n collapsedEditorLabelKey ns='discussion')

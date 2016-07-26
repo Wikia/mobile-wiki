@@ -11,8 +11,8 @@ export default Ember.Mixin.create({
 	 * @param {Object} postData
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	createPost(postData) {
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.wikiId}/threads`), {
+	createPost(postData, forumId) {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${forumId}/threads`), {
 			data: JSON.stringify(postData),
 			method: 'POST',
 		}).then((thread) => {
