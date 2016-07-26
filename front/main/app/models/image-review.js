@@ -3,7 +3,8 @@ import rawRequest from 'ember-ajax/raw';
 import request from 'ember-ajax/request';
 
 const ImageReviewModel = Ember.Object.extend({
-	showSubHeader: true
+	showSubHeader: true,
+	isTrustedSession: true
 });
 
 ImageReviewModel.reopenClass({
@@ -48,8 +49,7 @@ ImageReviewModel.reopenClass({
 			M.getImageReviewServiceUrl(`/contract/${contractId}/image/${imageId}?status=${flag.toUpperCase()}`),
 			{
 				method: 'PUT',
-			}
-		);
+			});
 	},
 
 	// Temporary endpoint for adding images
@@ -83,8 +83,7 @@ ImageReviewModel.reopenClass({
 			const promises = images.map((item) => {
 				return ImageReviewModel.reviewImage(item.contractId, item.imageId, item.status);
 			});
-
-			// Fast-fail method, if any of promises fails, method Ember.RSVP.all returns fail
+			
 			Ember.RSVP.all(promises).then((data) => {
 				resolve(data);
 			}, (data) => {

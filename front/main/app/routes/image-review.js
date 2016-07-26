@@ -44,16 +44,16 @@ export default Route.extend({
 			this.set('status', 'UNREVIEWED');
 
 			window.scrollTo(0, 0);
-
-			ImageReviewModel.reviewImages(model.images).then(() => {
-				this.refresh();
-			}, (data) => {
-				this.controllerFor('application').addAlert({
-					message: data,
-					type: 'warning',
-					persistent: true
+			if (model.images !== undefined) {
+				ImageReviewModel.reviewImages(model.images).then(() => {}, (data) => {
+					this.controllerFor('application').addAlert({
+						message: data,
+						type: 'warning',
+						persistent: false
+					});
 				});
-			});
+			}
+			this.refresh();
 		},
 
 		getFlaggedOnly() {

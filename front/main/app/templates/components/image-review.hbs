@@ -10,7 +10,7 @@
 	</header>
 {{/if}}
 
-{{#if model.images}}
+{{!#if model.images}}
 	<p>{{i18n 'main.description' ns='image-review'}}</p>
 	<p>{{i18n 'main.images-to-review-count' ns='image-review'}} <strong>{{model.imagesToReviewCount}}</strong></p>
 
@@ -34,6 +34,6 @@
 			<button {{action this.attrs.getRejectedOnly}}>{{i18n 'main.get-rejected' ns='image-review'}}</button>
 		{{/if}}
 	</div>
-{{else}}
+{{!else}}
 	<h2>{{i18n 'main.error-no-more-images' ns='image-review'}}</h2>
-{{/if}}
+{{!/if}}
