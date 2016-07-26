@@ -42,6 +42,7 @@ export default Ember.Mixin.create({
 		},
 		createReply: {
 			editorLabelKey: 'editor.reply-editor-label',
+			messageLabelKey: 'editor.reply-editor-label',
 			messagePlaceholderKey: 'editor.reply-editor-placeholder-text',
 			submitMessageKey: 'editor.reply-action-button-label',
 			closeTrackingAction: trackActions.ReplyClose,

@@ -25,7 +25,7 @@ export default DiscussionMultipleInputsEditor.extend(
 		}),
 
 		showLabel: Ember.computed('isActive', 'isReply', function () {
-			return this.get('isActive') && !this.get('isReply');
+			return this.get('isActive');// && !this.get('isReply');
 		}),
 
 		/**
