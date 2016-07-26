@@ -96,12 +96,22 @@
     "categories-edit-max-categories-info": "You have reached the limit of allowed categories (__maxCategoriesCount__).",
     "categories-edit-error-empty-category": "Category name requires at least one character.",
     "categories-edit-general-error": "Save failed, please try again.",
+    "categories-edit-add-category-label": "+ Add Category",
+    "categories-edit-mobile-header": "Edit Categories",
+    "categories-edit-max-categories-info": "You have reached the limit of allowed categories (__maxCategoriesCount__).",
+    "categories-edit-error-empty-category": "Category name requires at least one character.",
+    "categories-edit-general-error": "Save failed, please try again.",
     "filter-posts-header": "Filter Posts",
     "filter-reset-label": "Reset",
     "in-category-label": "in __categoryName__",
     "app-promotion-text": "Take your fandom with you, download the app today!",
     "app-promotion-text-details-page": "Stay up to date on the go. Get the app now!",
     "wiki-home": "Wiki Home",
+    "discussion-guidelines": "Discussion Guidelines",
+    "rename-category-length-error": "Category name must be less than 20 characters.",
+    "rename-category-auth-error": "You are logged out. Please sign in.",
+    "rename-category-oermissions-error": "Category cannot be updated.",
+    "rename-category-general-error": "Something went wrong, please try again.",
     "guidelines-link-title": "Discussions Guidelines",
     "guidelines-header-title": "Discussions Guidelines",
     "welcome-message-header": "Awesome to have you here!",
@@ -131,6 +141,8 @@
     "reply-editor-label": "Add to the Discussion",
     "reply-edit-editor-label": "Edit your reply",
     "reply-action-button-label": "Reply",
-    "reply-edit-action-button-label": "Save"
+    "reply-edit-action-button-label": "Save",
+    "overlay-message-text": "Before you create your first post be sure to check out the __guidelinesLinkTitle__.",
+    "guidelines-link-title": "Discussion Guidelines"
   }
 }
