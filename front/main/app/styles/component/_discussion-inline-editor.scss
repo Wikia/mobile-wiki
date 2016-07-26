@@ -130,6 +130,11 @@ $success-icon-size: 80px;
 	}
 
 	.discussion-inline-editor-textarea {
+
+		&:invalid {
+			box-shadow: none;
+		}
+
 		&:focus {
 			border: 0;
 		}
