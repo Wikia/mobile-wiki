@@ -1808,6 +1808,9 @@
         }
       }
     },
+    "ember-autoresize": {
+      "version": "0.5.16"
+    },
     "ember-cli": {
       "version": "2.5.1",
       "dependencies": {
@@ -3810,11 +3813,11 @@
                     "lodash.padright": {
                       "version": "3.1.1"
                     },
-                    "lodash._createpadding": {
-                      "version": "3.6.1"
-                    },
                     "lodash._basetostring": {
                       "version": "3.0.1"
+                    },
+                    "lodash._createpadding": {
+                      "version": "3.6.1"
                     },
                     "lodash.repeat": {
                       "version": "3.2.0",
@@ -11336,7 +11339,7 @@
       "version": "0.5.0"
     },
     "ui-responsive": {
-      "version": "0.3.4"
+      "version": "0.3.5"
     }
   }
 }

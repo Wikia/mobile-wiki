@@ -1,0 +1,47 @@
+<div class="discussion-standalone-editor-toolbar">
+	<a href="#" class="editor-close" {{action 'close'}}>
+		{{svg 'close' class="fill-theme-color" viewBox='0 0 18 18'}}
+	</a>
+	<button class="active-element-theme-color discussion-standalone-editor-save-button" type="submit" {{action 'submit'}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
+</div>
+
+<label class="discussion-standalone-editor-label" for="{{textAreaId}}">
+	{{i18n labelMessageKey ns='discussion'}}
+</label>
+<div class="discussion-standalone-content-wrapper" {{action 'focusTextarea'}}>
+	{{textarea
+		autoresize=true
+		class="discussion-standalone-editor-textarea"
+		keyPress=(action 'handleKeyPress')
+		id=textAreaId
+		placeholder=(i18n placeholderMessageKey ns='discussion')
+		value=content
+	}}
+	{{#if showsOpenGraphCard}}
+		{{discussion-open-graph
+			close=(action 'removeOpenGraph')
+			isLoading=isOpenGraphLoading
+			openGraphData=openGraph
+		}}
+	{{/if}}
+</div>
+
+{{#if isLoading}}
+	{{loading-spinner
+		active=isLoading
+		radius=32
+		strokeWidth=2
+	}}
+{{/if}}
+
+{{#if showSuccess}}
+	<div class="loading-overlay">
+		{{svg 'success' class='success' viewBox='0 0 80 80'}}
+	</div>
+{{/if}}
+
+{{#if errorMessage}}
+	<span class="error">
+		{{i18n errorMessage ns='discussion'}}
+	</span>
+{{/if}}
