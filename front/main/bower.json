@@ -3,7 +3,7 @@
   "dependencies": {
     "Autolinker.js": "0.22.0",
     "cropper": "0.11.0",
-    "design-system": "Wikia/design-system#0.0.4",
+    "design-system": "Wikia/design-system#0.0.5",
     "dom-ruler": "0.1.13",
     "ember": "2.5.0",
     "ember-cli-shims": "0.1.1",
