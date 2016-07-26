@@ -5,6 +5,7 @@ export default Ember.Mixin.create({
 	adsData: {
 		additionalConfig: {
 			MOBILE_TOP_LEADERBOARD: {
+				// ATF slot is pushed immediately (without any delay/in single request with other slots)
 				isAboveTheFold: true
 			},
 			MOBILE_BOTTOM_LEADERBOARD: {
