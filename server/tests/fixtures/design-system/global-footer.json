@@ -3,7 +3,7 @@
     "header": {
       "type": "link-image",
       "image": "company-logo-fandom",
-      "href": "http:\/\/fandom.wikia.com",
+      "href": "#",
       "title": {
         "type": "translatable-text",
         "key": "global-footer-fandom-header"
@@ -14,21 +14,12 @@
     "links": [
       {
         "type": "link-branded",
-        "brand": "tv",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-fandom-link-vertical-tv"
-        },
-        "href": "http:\/\/fandom.wikia.com\/tv"
-      },
-      {
-        "type": "link-branded",
         "brand": "games",
         "title": {
           "type": "translatable-text",
           "key": "global-footer-fandom-link-vertical-games"
         },
-        "href": "http:\/\/fandom.wikia.com\/games"
+        "href": "#"
       },
       {
         "type": "link-branded",
@@ -37,7 +28,16 @@
           "type": "translatable-text",
           "key": "global-footer-fandom-link-vertical-movies"
         },
-        "href": "http:\/\/fandom.wikia.com\/movies"
+        "href": "#"
+      },
+      {
+        "type": "link-branded",
+        "brand": "tv",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-fandom-link-vertical-tv"
+        },
+        "href": "#"
       },
       {
         "type": "link-branded",
@@ -46,7 +46,7 @@
           "type": "translatable-text",
           "key": "global-footer-fandom-link-fan-communities"
         },
-        "href": "http:\/\/fandom.wikia.com\/explore"
+        "href": "#"
       }
     ]
   },
@@ -66,7 +66,7 @@
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-facebook"
         },
-        "href": "https:\/\/www.facebook.com\/getfandom"
+        "href": "#"
       },
       {
         "type": "link-image",
@@ -75,7 +75,7 @@
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-twitter"
         },
-        "href": "https:\/\/twitter.com\/getfandom"
+        "href": "#"
       },
       {
         "type": "link-image",
@@ -84,7 +84,7 @@
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-reddit"
         },
-        "href": "https:\/\/www.reddit.com\/r\/wikia"
+        "href": "#"
       },
       {
         "type": "link-image",
@@ -93,7 +93,7 @@
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-youtube"
         },
-        "href": "https:\/\/www.youtube.com\/channel\/UC988qTQImTjO7lUdPfYabgQ"
+        "href": "#"
       },
       {
         "type": "link-image",
@@ -102,7 +102,7 @@
           "type": "translatable-text",
           "key": "global-footer-fandom-follow-us-link-instagram"
         },
-        "href": "https:\/\/www.instagram.com\/getfandom\/"
+        "href": "#"
       }
     ]
   },
@@ -131,7 +131,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-company-overview-link-about"
         },
-        "href": "http:\/\/www.wikia.com\/About"
+        "href": "#"
       },
       {
         "type": "link-text",
@@ -139,7 +139,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-company-overview-link-careers"
         },
-        "href": "https:\/\/careers.wikia.com\/"
+        "href": "#"
       },
       {
         "type": "link-text",
@@ -147,7 +147,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-company-overview-link-press"
         },
-        "href": "http:\/\/fandom.wikia.com\/press"
+        "href": "#"
       },
       {
         "type": "link-text",
@@ -155,7 +155,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-company-overview-link-contact"
         },
-        "href": "http:\/\/fandom.wikia.com\/contact"
+        "href": "#"
       },
       {
         "type": "link-text",
@@ -163,7 +163,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-company-overview-link-wikia-gives-back"
         },
-        "href": "http:\/\/www.wikia.com\/wikiagivesback"
+        "href": "#"
       }
     ]
   },
@@ -175,7 +175,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-site-overview-link-terms-of-use"
         },
-        "href": "http:\/\/www.wikia.com\/Terms_of_Use"
+        "href": "#"
       },
       {
         "type": "link-text",
@@ -183,7 +183,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-site-overview-link-privacy-policy"
         },
-        "href": "http:\/\/www.wikia.com\/Privacy_Policy"
+        "href": "#"
       },
       {
         "type": "link-text",
@@ -191,7 +191,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-site-overview-link-global-sitemap"
         },
-        "href": "http:\/\/www.wikia.com\/Sitemap"
+        "href": "#"
       },
       {
         "type": "link-text",
@@ -199,7 +199,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-site-overview-link-api"
         },
-        "href": "http:\/\/api.wikia.com\/"
+        "href": "#"
       }
     ]
   },
@@ -218,7 +218,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-community-link-community-central"
         },
-        "href": "http:\/\/community.wikia.com\/"
+        "href": "#"
       },
       {
         "type": "link-text",
@@ -226,7 +226,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-community-link-support"
         },
-        "href": "http:\/\/community.wikia.com\/wiki\/Special:Contact"
+        "href": "#"
       },
       {
         "type": "link-text",
@@ -234,7 +234,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-community-link-fan-contributor-program"
         },
-        "href": "http:\/\/fandom.wikia.com\/fan-contributor"
+        "href": "#"
       },
       {
         "type": "link-text",
@@ -242,7 +242,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-community-link-wam-score"
         },
-        "href": "http:\/\/www.wikia.com\/WAM"
+        "href": "#"
       },
       {
         "type": "link-text",
@@ -250,7 +250,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-community-link-help"
         },
-        "href": "http:\/\/community.wikia.com\/wiki\/Help:Contents"
+        "href": "#"
       }
     ]
   },
@@ -266,7 +266,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-create-wiki-link-start-wikia"
         },
-        "href": "http:\/\/www.wikia.com\/Special:CreateNewWiki"
+        "href": "#"
       }
     ]
   },
@@ -290,7 +290,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-community-apps-link-app-store"
         },
-        "href": "https:\/\/itunes.apple.com\/pl\/developer\/wikia-inc.\/id422467077"
+        "href": "#"
       },
       {
         "type": "link-image",
@@ -299,7 +299,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-community-apps-link-google-play"
         },
-        "href": "https:\/\/play.google.com\/store\/apps\/developer?id=Wikia,+Inc."
+        "href": "#"
       }
     ]
   },
@@ -318,7 +318,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-advertise-link-media-kit"
         },
-        "href": "http:\/\/www.wikia.com\/mediakit"
+        "href": "#"
       },
       {
         "type": "link-text",
@@ -326,7 +326,7 @@
           "type": "translatable-text",
           "key": "global-footer-wikia-advertise-link-contact"
         },
-        "href": "http:\/\/www.wikia.com\/mediakit#contacts"
+        "href": "#"
       }
     ]
   },
@@ -341,7 +341,7 @@
             "type": "text",
             "value": "CC-BY-SA"
           },
-          "href": "http:\/\/wikia.com\/Licensing"
+          "href": "#"
         }
       }
     }
