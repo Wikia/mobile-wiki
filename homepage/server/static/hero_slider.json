@@ -21,14 +21,14 @@
       "textColorClass": "hero-text-shadow"
     },
     {
-      "title": "ゲーム・オブ・スローンズ",
-      "subtitle": "シーズン6日米同時放送開始記念",
+      "title": "",
+      "subtitle": "日本語版の魅力を、はじめての人にもわかりやすく紹介",
       "button": true,
-      "buttonText": "スペシャルサイトがオープン !",
-      "buttonId": "gameofthrones",
-      "buttonLink": "http://ja.wikia.com/cp/gameofthrones/",
-      "image": "/images/heroslider/slider-gameofthrones.jpg",
-      "imageMobile": "/images/heroslider/slider-gameofthrones-small.jpg",
+      "buttonText": "スペシャルサイトはこちら",
+      "buttonId": "elderscrolls",
+      "buttonLink": "http://ja.wikia.com/cp/eso",
+      "image": "/images/heroslider/slider-elderscrolls.jpg",
+      "imageMobile": "/images/heroslider/slider-elderscrolls-small.jpg",
       "textColorClass": "hero-text-white"
     }
   ]

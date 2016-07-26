@@ -20,7 +20,8 @@ const FandomPostsModel = Ember.Object.extend({
 				controller: 'RecirculationApi',
 				method: 'getFandomPosts',
 				format: 'json',
-				type: this.get('type')
+				type: this.get('type'),
+				cityId: Ember.get(Mercury, 'wiki.id')
 			}
 		}).then((data) => {
 			this.setProperties(this.formatData(data));

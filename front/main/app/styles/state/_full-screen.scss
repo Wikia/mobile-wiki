@@ -1,0 +1,10 @@
+@media #{$mobile-range} {
+	.mobile-full-screen {
+		height: 100%;
+		overflow: hidden;
+
+		.site-head {
+			display: none;
+		}
+	}
+}

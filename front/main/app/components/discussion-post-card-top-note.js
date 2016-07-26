@@ -31,7 +31,7 @@ export default Ember.Component.extend({
 			}),
 			count: this.get('post.reportDetails.count'),
 			reporterUserName: wrapMeHelper.compute([
-				Ember.Handlebars.Utils.escapeExpression(this.get('post.reportDetails.users.firstObject.name'))
+				this.get('post.reportDetails.users.firstObject.name')
 			], {
 				tagName: 'a',
 				className: this.get('reportDetailsEntryPointClassName'),
@@ -120,12 +120,13 @@ export default Ember.Component.extend({
 				header = i18n.t(`main.modal-dialog-delete-header`, {ns: 'discussion'});
 			}
 
-			this.get('modalDialog').display(
+			this.get('modalDialog').display({
 				message,
 				header,
-				i18n.t('main.modal-dialog-delete', {ns: 'discussion'}),
-				(() => this.get('delete')(item))
-			);
+				name: 'modal-dialog-delete',
+				confirmButtonText: i18n.t('main.modal-dialog-delete', {ns: 'discussion'}),
+				confirmCallback: (() => this.get('delete')(item)),
+			});
 		},
 
 		/**
@@ -146,12 +147,13 @@ export default Ember.Component.extend({
 				header = i18n.t(`main.modal-dialog-approve-header`, {ns: 'discussion'});
 			}
 
-			this.get('modalDialog').display(
+			this.get('modalDialog').display({
 				message,
 				header,
-				i18n.t('main.modal-dialog-approve', {ns: 'discussion'}),
-				(() => this.get('approve')(item))
-			);
+				name: 'modal-dialog-approve',
+				confirmButtonText: i18n.t('main.modal-dialog-approve', {ns: 'discussion'}),
+				confirmCallback: (() => this.get('approve')(item)),
+			});
 		},
 
 		reportDetailsClose() {

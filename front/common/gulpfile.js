@@ -51,6 +51,11 @@ gulp.task('build-common-public', function () {
 		.pipe(gulp.dest(pathsCommon.dest));
 });
 
+gulp.task('build-common-design-system-i18n', function () {
+	gulp.src(pathsCommon.designSystemI18n.src)
+		.pipe(gulp.dest(pathsCommon.designSystemI18n.dest));
+});
+
 /*
  * Build svg symbols
  */
@@ -89,6 +94,7 @@ gulp.task('build-common', function (done) {
 			'build-common-scripts-modules-utils',
 			'build-common-public',
 			'build-common-symbols',
+			'build-common-design-system-i18n'
 		],
 		// It needs build-common-scripts-baseline and build-common-scripts-modules-utils to be finished
 		// We need to use runSequence instead of gulp dependencies so watcher doesn't go into infinite loop
@@ -105,6 +111,7 @@ gulp.task('watch-common', function () {
 	gulp.watch(pathsCommon.baseline.src, options, ['build-common-scripts-baseline']);
 	gulp.watch(pathsCommon.modulesUtils.src, options, ['build-common-scripts-modules-utils']);
 	gulp.watch(pathsCommon.public.src, options, ['build-common-public']);
+	gulp.watch(pathsCommon.designSystemI18n.src, options, ['build-common-design-system-i18n']);
 	gulp.watch(pathsCommon.svg.src, options, ['build-common-symbols']);
 	gulp.watch([
 		path.join(pathsCommon.dest, pathsCommon.baseline.destFile),
