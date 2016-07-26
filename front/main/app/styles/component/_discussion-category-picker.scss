@@ -1,12 +1,54 @@
-.discussion-category-picker {
-	.category-pill {
-		background: $discussion-category-pill-background-color;
+.discussion {
+	.discussion-category-picker {
+		width: 320px;
+
+		.pop-over-container {
+			padding: 15px;
+		}
+
+		.category-pill {
+			background: $discussion-category-pill-background-color;
+			border-radius: 100px;
+			color: #666;
+			display: inline-block;
+			font-size: 12px;
+			margin: 6px 3px;
+			padding: 6px 16px;
+			text-align: center;
+		}
+	}
+
+	.discussion-category-picker-button {
+		background: #ccc;
 		border-radius: 100px;
-		color: #666;
+		color: #fff;
 		display: inline-block;
-		font-size: 12px;
-		margin: 8px;
-		padding: 8px 20px;
-		text-align: center;
+		padding: 6px 16px;
+		margin: 5px 0;
+
+		svg {
+			fill: #fff;
+			height: 14px;
+			width: 14px;
+		}
+
+		.pencil {
+			margin-left: 6px;
+		}
+
+		.plus {
+			margin-right: 6px;
+		}
+	}
+
+	.discussion-category-picker-content-wrapper {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		width: 100%;
+	}
+
+	.discussion-category-picker-required-message {
+		color: #ccc;
 	}
 }

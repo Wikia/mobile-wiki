@@ -12,13 +12,22 @@
 		}}
 		<div class="discussion-inline-editor-textarea-wrapper">
 			{{#if isPostEditor}}
-				<a id="discussionInlineCategoryPicker">
-					{{#if category}}
-						{{category.name}}
-					{{else}}
-						Pick a category
-					{{/if}}
-				</a>
+				{{#if isActive}}
+					<a id="discussionInlineCategoryPicker" class="discussion-category-picker-button {{if category 'active-element-background-color'}}">
+						<span class="discussion-category-picker-content-wrapper">
+							{{#if category}}
+								{{category.name}}
+								{{svg 'pencil' viewBox='0 0 70 70' class='icon pencil'}}
+							{{else}}
+								{{svg 'plus' viewBox='0 0 34 34' class='icon plus'}}
+								Pick a category
+							{{/if}}
+						</span>
+					</a>
+					{{#unless category}}
+						<small class="discussion-category-picker-required-message">[required]</small>
+					{{/unless}}
+				{{/if}}
 				{{discussion-textarea-with-counter
 					class='discussion-inline-editor-title'
 					collapsedPlaceholder=(i18n collapsedEditorLabelKey ns='discussion')
