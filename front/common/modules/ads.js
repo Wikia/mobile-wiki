@@ -203,11 +203,11 @@ class Ads {
 
 	/**
 	 * @param {Object} GAOption
-	 * @param {Boolean} isABDetected
+	 * @param {Boolean} isAdBlockDetected
 	 * @returns {void}
 	 */
-	trackBlocking(GAOption, isABDetected) {
-		let value = isABDetected ? 'Yes' : 'No';
+	trackBlocking(GAOption, isAdBlockDetected) {
+		let value = isAdBlockDetected ? 'Yes' : 'No';
 
 		M.tracker.UniversalAnalytics.setDimension(GAOption.dimension, value);
 		M.tracker.UniversalAnalytics.track(`ads-${GAOption.name}-detection`, 'impression', value, 0, true);
