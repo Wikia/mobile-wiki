@@ -8,13 +8,13 @@
 		</div>
 		<footer>
 			{{#if isConfirm}}
-				<button class="active-element-theme-color" {{action 'close'}}>{{i18n 'main.modal-dialog-cancel' ns='discussion'}}</button>
-				<button class="active-element-theme-color" {{action 'confirm'}}>{{confirmButtonText}}</button>
+				<button class="active-element-theme-color cancel-button" {{action 'close'}}>{{i18n 'main.modal-dialog-cancel' ns='discussion'}}</button>
+				<button class="active-element-theme-color confirm-button" {{action 'confirm'}}>{{confirmButtonText}}</button>
 			{{else}}
-				<button class="active-element-theme-color" {{action 'close'}}>{{i18n 'main.modal-dialog-confirm' ns='discussion'}}</button>
+				<button class="active-element-theme-color confirm-button" {{action 'close'}}>{{i18n 'main.modal-dialog-confirm' ns='discussion'}}</button>
 			{{/if}}
 			{{#unless currentUser.isAuthenticated}}
-				<button class="active-element-theme-color" {{action 'goToLogin'}}>{{i18n 'main.modal-dialog-log-in' ns='discussion'}}</button>
+				<button class="active-element-theme-color signin-button" {{action 'goToLogin'}}>{{i18n 'main.modal-dialog-log-in' ns='discussion'}}</button>
 			{{/unless}}
 		</footer>
 	{{/modal-dialog}}

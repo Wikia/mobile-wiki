@@ -280,66 +280,47 @@ QUnit.test('getDefaultTitle', function (assert) {
 QUnit.test('getCuratedMainPageTitle', function (assert) {
 	var testCases = [
 		{
-			request: {
-				url: {
-					path: '/main/section/category:C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।'
-				}
-			},
-			wikiVariables: {
-				mainPageTitle: 'Muppet Wiki'
-			},
+			url: 'http://muppet.wikia.com/main/section/category:C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।',
 			expected: 'category:C17আমিকাঁচ খেতে পারি, তাতে আমার কোনো ক্ষতি হয় না।',
 			description: 'For sections title is taken from request\'s url path when possible'
-		}, {
-			request: {
-				url: {
-					path: '/main/section/category:%20C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।'
-				}
-			},
-			wikiVariables: {
-				mainPageTitle: 'Muppet Wiki'
-			},
+		},
+		{
+			url: 'http://muppet.wikia.com/main/section/category:%20C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।',
 			expected: 'category: C17আমিকাঁচ খেতে পারি, তাতে আমার কোনো ক্ষতি হয় না।',
 			description: 'For sections %20 is replaced to space in request\'s url path'
-		}, {
-			request: {
-				url: {
-					path: '/main/category/C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।'
-				}
-			},
-			wikiVariables: {
-				mainPageTitle: 'Muppet Wiki'
-			},
+		},
+		{
+			url: 'http://muppet.wikia.com/main/category/C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।',
 			expected: 'C17আমিকাঁচ খেতে পারি, তাতে আমার কোনো ক্ষতি হয় না।',
 			description: 'For categories title is taken from request\'s url path when possible'
-		}, {
-			request: {
-				url: {
-					path: '/main/category/%20C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।'
-				}
-			},
-			wikiVariables: {
-				mainPageTitle: 'Muppet Wiki'
-			},
+		},
+		{
+			url: 'http://muppet.wikia.com/main/category/%20C17আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।',
 			expected: ' C17আমিকাঁচ খেতে পারি, তাতে আমার কোনো ক্ষতি হয় না।',
 			description: 'For categories %20 is replaced to space in request\'s url path'
-		}, {
-			request: {
-				url: {
-					path: 'আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।'
-				}
-			},
-			wikiVariables: {
-				mainPageTitle: 'Muppet_Wiki'
-			},
+		},
+		{
+			url: 'http://muppet.wikia.com/আমিকাঁচ_খেতে_পারি,_তাতে_আমার_কোনো_ক্ষতি_হয়_না।',
 			expected: 'Muppet Wiki',
 			description: 'Title is taken from wiki variables when "category" or "section" not in URL'
+		},
+		{
+			url: 'http://muppet.wikia.com/main/section/Kermit?isMuppet=true',
+			expected: 'Kermit',
+			description: 'Section title is not affected by query params'
+		},
+		{
+			url: 'http://muppet.wikia.com/main/category/Kermit?isMuppet=true',
+			expected: 'Kermit',
+			description: 'Category title is not affected by query params'
 		}
 	];
 
 	testCases.forEach(function (testCase) {
+		var urlObject = require('url').parse(testCase.url);
+
 		assert.equal(
-			global.getCuratedMainPageTitle(testCase.request, testCase.wikiVariables),
+			global.getCuratedMainPageTitle({url: urlObject}, {mainPageTitle: 'Muppet Wiki'}),
 			testCase.expected,
 			testCase.description
 		);

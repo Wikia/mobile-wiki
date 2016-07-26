@@ -34,13 +34,13 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	editPost(postData) {
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.id}`), {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.threadId}`), {
 			data: JSON.stringify(postData),
 			method: 'POST',
 		}).then((thread) => {
 			const editedPost = DiscussionPost.createFromThreadData(thread);
 
-			this.get('data.entities').findBy('threadId', postData.id).setProperties(editedPost);
+			this.get('data.entities').findBy('id', postData.id).setProperties(editedPost);
 
 			track(trackActions.PostEditSave);
 
