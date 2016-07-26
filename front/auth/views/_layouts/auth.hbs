@@ -85,8 +85,11 @@
 					user: 'en',
 				},
 			});
-			// place where we can check wikiId of the entrypoint
-			M.provide('entryPointWikiId', {{entryPointWikiId}});
+
+			// wikiId of the entrypoint if available
+			{{#if entryPointWikiId}}
+				M.provide('entryPointWikiId', {{entryPointWikiId}});
+			{{/if}}
 
 			M.tracker.Internal.trackPageView({
 				a: window.location.pathname,
@@ -95,6 +98,7 @@
 		</script>
 		{{> tracking-quantserve}}
 		{{> tracking-comscore}}
+		{{> tracking-lateral}}
 		{{> tracking-nielsen}}
 		{{> tracking-ua-auth}}
 		{{> tracking-ivw3}}
