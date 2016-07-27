@@ -207,6 +207,8 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @returns {void}
 	 */
 	function track(category, action, label, value, nonInteractive) {
+		console.log(">>>>>>>>>>>>>>>>> AFTER TRACK <<<<<<<<<<<<<<<<<<<<<<<");
+
 		syncDimensions();
 
 		tracked.forEach((account) => {
@@ -319,6 +321,7 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @returns {void}
 	 */
 	function trackPageView(uaDimensions, overrideUrl) {
+		console.log(">>>>>>>>>>>>>>>>> TRACK PV <<<<<<<<<<<<<<<<<<<<<<<");
 		/**
 		 * We have some dimensions that are changing per-page - those include
 		 * articleType, namespace and so on. We can't unset once sent
@@ -438,6 +441,7 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @returns {boolean}
 	 */
 	function initialize(dimensions) {
+		console.log(">>>>>>>>>>>>>>>>> INITIALIZE <<<<<<<<<<<<<<<<<<<<<<<");
 		if (typeof dimensions === 'undefined') {
 			console.log('Cannot initialize UA; please provide dimensions');
 			return false;
