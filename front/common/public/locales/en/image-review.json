@@ -27,6 +27,8 @@
     "history-status": "Status",
     "history-undefined": "Not available",
     "history-no-history": "No history",
-    "not-provided": "not provided"
+    "not-provided": "not provided",
+    "error-no-more-images": "There are no more images to review",
+    "review-and-get-more": "Review and get more"
   }
 }
