@@ -170,16 +170,21 @@ body.discussions {
 		}
 	}
 
+	.user-avatar {
+		.avatar-username {
+			font-size: $type-base;
+		}
+	}
+
 	.avatar-badge {
 		display: inline-block;
 		left: 23px;
 		position: absolute;
 		top: 13px;
-	}
 
-	.user-avatar {
-		.avatar-username {
-			font-size: $type-base;
+		svg {
+			height: 18px;
+			width: 18px;
 		}
 	}
 
@@ -789,14 +794,21 @@ body.discussions {
 		}
 
 		.user-avatar {
-			img, svg {
-				height: 30px;
-				width: 30px;
+			.avatar {
+				img, svg {
+					height: 30px;
+					width: 30px;
+				}
 			}
 
 			.avatar-username {
 				font-size: $type-smallest;
 			}
+		}
+
+		.avatar-badge {
+			left: 13px;
+			top: 5px;
 		}
 
 		.post-detail .timestamp,
