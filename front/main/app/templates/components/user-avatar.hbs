@@ -11,6 +11,13 @@
 		{{svg 'avatar' viewBox='0 0 40 40' class='icon'}}
 	{{/if}}
 </figure>
+{{#if badgePermission}}
+	<figure class="avatar-badge">
+		<span title="{{badge.tooltip}}">
+			{{svg badge.icon viewBox='0 0 18 18' class='icon'}}
+		</span>
+	</figure>
+{{/if}}
 {{#if displayProfileName}}
 	{{#if shouldWrapInHref}}
 		<a href="{{profileUrl}}" class="avatar-username">{{displayName}}</a>

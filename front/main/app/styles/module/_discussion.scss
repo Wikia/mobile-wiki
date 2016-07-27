@@ -170,6 +170,13 @@ body.discussions {
 		}
 	}
 
+	.avatar-badge {
+		display: inline-block;
+		left: 23px;
+		position: absolute;
+		top: 13px;
+	}
+
 	.user-avatar {
 		.avatar-username {
 			font-size: $type-base;
