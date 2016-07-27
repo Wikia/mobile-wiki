@@ -30,10 +30,12 @@ if (typeof window.M.tracker === 'undefined') {
 
 (function (M) {
 	let tracked = [],
+		trackEvents = [],
 		createdAccounts = [],
 		dimensions = {},
 		dimensionsSynced = false,
-		accounts;
+		accounts,
+		isInitialized = false;
 
 	const pageDimensions = [3, 14, 19, 25],
 		accountPrimary = 'primary',
@@ -207,28 +209,32 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @returns {void}
 	 */
 	function track(category, action, label, value, nonInteractive) {
-		console.log(">>>>>>>>>>>>>>>>> AFTER TRACK <<<<<<<<<<<<<<<<<<<<<<<");
+		console.log(">>>>>>>>>>>>>>>>> AFTER TRACK <<<<<<<<<<<<<<<<<<<<<<<", isInitialized);
 
-		syncDimensions();
+		if (isInitialized) {
+			syncDimensions();
 
-		tracked.forEach((account) => {
-			// skip over ads tracker (as it's handled in self.trackAds)
-			if (account.prefix !== accountAds) {
-				const prefix = getPrefix(account);
+			tracked.forEach((account) => {
+				// skip over ads tracker (as it's handled in self.trackAds)
+				if (account.prefix !== accountAds) {
+					const prefix = getPrefix(account);
 
-				ga(
-					`${prefix}send`,
-					{
-						hitType: 'event',
-						eventCategory: category,
-						eventAction: action,
-						eventLabel: label,
-						eventValue: value,
-						nonInteraction: nonInteractive
-					}
-				);
-			}
-		});
+					ga(
+						`${prefix}send`,
+						{
+							hitType: 'event',
+							eventCategory: category,
+							eventAction: action,
+							eventLabel: label,
+							eventValue: value,
+							nonInteraction: nonInteractive
+						}
+					);
+				}
+			});
+		} else {
+			trackEvents.push({category, action, label, value, nonInteractive});
+		}
 	}
 
 	/**
@@ -441,7 +447,7 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @returns {boolean}
 	 */
 	function initialize(dimensions) {
-		console.log(">>>>>>>>>>>>>>>>> INITIALIZE <<<<<<<<<<<<<<<<<<<<<<<");
+		console.log(">>>>>>>>>>>>>>>>> INITIALIZE <<<<<<<<<<<<<<<<<<<<<<<", isInitialized);
 		if (typeof dimensions === 'undefined') {
 			console.log('Cannot initialize UA; please provide dimensions');
 			return false;
@@ -463,6 +469,14 @@ if (typeof window.M.tracker === 'undefined') {
 		if (M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki) {
 			initAccount(accountSpecial);
 		}
+
+		isInitialized = true;
+
+		trackEvents.forEach((event) => {
+			track(event);
+		});
+
+		trackEvents = [];
 
 		return true;
 	}
@@ -496,6 +510,6 @@ if (typeof window.M.tracker === 'undefined') {
 		_getDimensionsSynced: getDimensionsSynced,
 		_updateTrackedUrl: updateTrackedUrl,
 		_filterQueryParams: filterQueryParams,
-		_dimensions: dimensions,
+		_dimensions: dimensions
 	};
 })(M);
