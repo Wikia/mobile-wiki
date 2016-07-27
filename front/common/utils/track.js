@@ -119,6 +119,7 @@ function isPageView(category) {
  * @returns {void}
  */
 export function track(params) {
+	console.log(">>>>>>>>>>>>>>>>> TRACK <<<<<<<<<<<<<<<<<<<<<<<");
 	const trackingMethod = params.trackingMethod || 'both',
 		action = params.action,
 		category = params.category ? `mercury-${params.category}` : null,
