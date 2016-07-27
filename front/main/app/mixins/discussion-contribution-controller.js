@@ -234,16 +234,17 @@ export default Ember.Mixin.create({
 		/**
 		 * Bubbles up to Route
 		 * @param {Object} entityData
+		 * @param {String} categoryId
 		 * @returns {void}
 		 */
-		editPost(entityData) {
+		editPost(entityData, categoryId) {
 			const editorType = 'editEditor',
 				editorState = this.getEditorState(editorType);
 
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
 
-			this.get('model').current.editPost(entityData).catch((err) => {
+			this.get('model').current.editPost(entityData, categoryId).catch((err) => {
 				this.onContributionError(editorType, err, 'editor.save-error-general-error');
 			}).finally(() => {
 				editorState.set('isLoading', false);

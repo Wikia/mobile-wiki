@@ -1,33 +1,32 @@
 <div class="discussion-inline-editor-floating-container">
-	{{#pop-over for='discussionInlineCategoryPicker' on='click' flow='downCentered' class='discussion-category-picker'}}
-		{{discussion-category-picker
-			categories=categories
-			setCategory=(action 'setCategory')
-		}}
-	{{/pop-over}}
+	{{#if shouldShowCategoryPicker}}
+		{{#pop-over for='discussionInlineCategoryPicker' on='click' flow='downCentered' class='discussion-category-picker'}}
+			{{discussion-category-picker
+				categories=categories
+				setCategory=(action 'setCategory')
+			}}
+		{{/pop-over}}
+	{{/if}}
 	<div class="discussion-inline-editor-content-wrapper">
 		{{user-avatar
 			avatarUrl=currentUser.avatarPath
 			shouldWrapInHref=false
 		}}
 		<div class="discussion-inline-editor-textarea-wrapper">
-			{{#if isPostEditor}}
-				{{#if isActive}}
-					<a id="discussionInlineCategoryPicker" class="discussion-category-picker-button {{if category 'active-element-background-color'}}">
+			{{#if shouldShowCategoryPicker}}
+				<a id="discussionInlineCategoryPicker" class="discussion-category-picker-button {{if category 'active-element-background-color'}}">
 						<span class="discussion-category-picker-content-wrapper">
 							{{#if category}}
 								{{category.name}}
 								{{svg 'pencil' viewBox='0 0 70 70' class='icon pencil'}}
 							{{else}}
-								{{svg 'plus' viewBox='0 0 34 34' class='icon plus'}}
-								Pick a category
+								{{svg 'plus-small' viewBox='0 0 34 34' class='icon plus'}}
+								{{i18n 'main.category-picker-button-text' ns='discussion'}}
 							{{/if}}
 						</span>
-					</a>
-					{{#unless category}}
-						<small class="discussion-category-picker-required-message">[required]</small>
-					{{/unless}}
-				{{/if}}
+				</a>
+			{{/if}}
+			{{#if isPostEditor}}
 				{{discussion-textarea-with-counter
 					class='discussion-inline-editor-title'
 					collapsedPlaceholder=(i18n collapsedEditorLabelKey ns='discussion')

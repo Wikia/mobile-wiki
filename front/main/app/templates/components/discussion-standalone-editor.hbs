@@ -6,23 +6,25 @@
 </div>
 
 <div class="discussion-standalone-content-wrapper">
-	{{#pop-over for='discussionInlineCategoryPicker' on='click' flow='downCentered' class='discussion-category-picker'}}
-		{{discussion-category-picker
-			categories=categories
-			setCategory=(action 'setCategory')
-		}}
-	{{/pop-over}}
-	<a id="discussionInlineCategoryPicker" class="discussion-category-picker-button {{if category 'active-element-background-color'}}">
-		<span class="discussion-category-picker-content-wrapper">
-			{{#if category}}
-				{{category.name}}
-				{{svg 'pencil' viewBox='0 0 70 70' class='icon pencil'}}
-			{{else}}
-				{{svg 'plus' viewBox='0 0 34 34' class='icon plus'}}
-				Pick a category
-			{{/if}}
-		</span>
-	</a>
+	{{#if shouldShowCategoryPicker}}
+		{{#pop-over for='discussionInlineCategoryPicker' on='click' flow='downCentered' class='discussion-category-picker'}}
+			{{discussion-category-picker
+				categories=categories
+				setCategory=(action 'setCategory')
+			}}
+		{{/pop-over}}
+		<a id="discussionInlineCategoryPicker" class="discussion-category-picker-button {{if category 'active-element-background-color'}}">
+			<span class="discussion-category-picker-content-wrapper">
+				{{#if category}}
+					{{category.name}}
+					{{svg 'pencil' viewBox='0 0 70 70' class='icon pencil'}}
+				{{else}}
+					{{svg 'plus-small' viewBox='0 0 34 34' class='icon plus'}}
+					{{i18n 'main.category-picker-button-text' ns='discussion'}}
+				{{/if}}
+			</span>
+		</a>
+	{{/if}}
 	{{#if showMultipleInputs}}
 		{{discussion-textarea-with-counter
 			class='discussion-standalone-editor-title'

@@ -31,9 +31,10 @@ export default Ember.Mixin.create({
 	/**
 	 * Edit a post in discussion service
 	 * @param {Object} postData
+	 * @param {String} categoryId
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	editPost(postData) {
+	editPost(postData, categoryId) {
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.threadId}`), {
 			data: JSON.stringify(postData),
 			method: 'POST',

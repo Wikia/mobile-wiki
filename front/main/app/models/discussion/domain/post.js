@@ -30,6 +30,7 @@ DiscussionPost.reopenClass({
 	createFromPostListData(postData) {
 		const post = DiscussionPost.create({
 				categoryName: postData.forumName,
+				categoryId: postData.forumId,
 				createdBy: DiscussionContributor.create(postData.createdBy),
 				creationTimestamp: postData.creationDate.epochSecond,
 				id: postData.id,
@@ -68,6 +69,7 @@ DiscussionPost.reopenClass({
 	createFromThreadData(threadData) {
 		const post = DiscussionPost.create({
 				categoryName: threadData.forumName,
+				categoryId: threadData.forumId,
 				createdBy: DiscussionContributor.create(threadData.createdBy),
 				creationTimestamp: threadData.creationDate.epochSecond,
 				id: threadData.firstPostId,
