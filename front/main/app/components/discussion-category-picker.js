@@ -9,6 +9,15 @@ export default Ember.Component.extend({
 		onCategoryPicked(category) {
 			this.sendAction('setCategory', category);
 			this.get('popover').deactivate();
+		},
+
+		onHover(category) {
+			debugger;
+			category.set('hover', true);
+		},
+
+		onHoverOut(category) {
+			category.set('hover', false);
 		}
 	}
 });
