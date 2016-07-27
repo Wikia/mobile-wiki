@@ -21,7 +21,7 @@ function sanitizeHTML(rawHTML) {
 	return rawHTML.replace(/>\s+</g, '><').replace(/(\r\n|\n|\r)/gm, '');
 }
 
-describe('design-system', function () {
+describe('global-footer', function () {
 	var requestParams = {
 			url: '/wiki/Yoda',
 			method: 'GET',
@@ -59,13 +59,15 @@ describe('design-system', function () {
 
 		server.inject(requestParams, function (response) {
 			jsdom.env(response.payload, function (errors, window) {
-				var footerHTML = window.document.getElementsByClassName('global-footer')[0],
+				var footerHTML = window.document.getElementsByClassName('wds-global-footer')[0],
 					footerWrapper = window.document.createElement('div'),
 					footerMarkup;
 
-				footerWrapper.appendChild(footerHTML.cloneNode(true));
-				footerMarkup = sanitizeHTML(footerWrapper.innerHTML);
+				if (footerHTML) {
+					footerWrapper.appendChild(footerHTML.cloneNode(true));
+				}
 
+				footerMarkup = sanitizeHTML(footerWrapper.innerHTML);
 				expect(footerMarkup).to.equal(footerMarkupBaseline);
 
 				done();

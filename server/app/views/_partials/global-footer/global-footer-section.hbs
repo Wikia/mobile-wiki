@@ -1,15 +1,15 @@
-<div class="global-footer__{{parentName}}-section is-{{name}}">
+<section class="wds-global-footer__{{parentName}}-section wds-is-{{name}}">
 	{{#if model.header.title}}
-		<h3 class="global-footer__section-header">{{i18n model.header.title.key ns='design-system'}}</h3>
+		<h3 class="wds-global-footer__section-header">{{i18n model.header.title.key ns='design-system'}}</h3>
 	{{/if}}
 
 	{{#if model.description}}
-		<span class="global-footer__section-description">{{i18n model.description.key ns='design-system'}}</span>
+		<span class="wds-global-footer__section-description">{{i18n model.description.key ns='design-system'}}</span>
 	{{/if}}
 
-	<ul class="global-footer__links-list">
+	<ul class="wds-global-footer__links-list">
 		{{#each model.links as |link|}}
-			<li class="global-footer__links-list-item">
+			<li class="wds-global-footer__links-list-item">
 				{{!--
 					First parameter of some partials called bellow has to be '..' to preserve parent context within.
 					Without it context would be loops context i.e. current loop item
@@ -24,4 +24,4 @@
 			</li>
 		{{/each}}
 	</ul>
-</div>
+</section>
