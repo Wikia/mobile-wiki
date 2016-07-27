@@ -119,7 +119,6 @@ function isPageView(category) {
  * @returns {void}
  */
 export function track(params) {
-	console.log(">>>>>>>>>>>>>>>>> TRACK <<<<<<<<<<<<<<<<<<<<<<<");
 	const trackingMethod = params.trackingMethod || 'both',
 		action = params.action,
 		category = params.category ? `mercury-${params.category}` : null,
@@ -146,7 +145,6 @@ export function track(params) {
 		if (!category || !action) {
 			throw new Error('Missing required GA params');
 		}
-		console.log(">>>>>>>>>>>>>>>>> BEFORE TRACK <<<<<<<<<<<<<<<<<<<<<<<");
 		M.tracker.UniversalAnalytics.track(category, action, label, value, isNonInteractive);
 	}
 
