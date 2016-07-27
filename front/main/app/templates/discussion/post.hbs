@@ -1,5 +1,6 @@
 {{#if responsive.isMobile}}
 	{{discussion-standalone-editor
+		categories=model.index.categories.data
 		create=(action 'createReply')
 		errorMessage=editorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
@@ -17,6 +18,7 @@
 	isVisible=editEditorState.isOpen
 }}
 	{{discussion-standalone-editor
+		categories=model.index.categories.data
 		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
