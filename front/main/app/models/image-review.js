@@ -3,8 +3,7 @@ import rawRequest from 'ember-ajax/raw';
 import request from 'ember-ajax/request';
 
 const ImageReviewModel = Ember.Object.extend({
-	showSubHeader: true,
-	isTrustedSession: true
+	showSubHeader: true
 });
 
 ImageReviewModel.reopenClass({
@@ -19,12 +18,11 @@ ImageReviewModel.reopenClass({
 		}).then(({payload, jqXHR}) => {
 			// In case there are no more images, create empty model and show `No more images to review` message
 			if (jqXHR.status === 204) {
-				return ImageReviewModel.create({});
+				return ImageReviewModel.create({isTrustedSession: payload.isTrustedReviewer});
 			} else {
-				return ImageReviewModel.getImagesAndCount(payload.id);
+				return ImageReviewModel.getImagesAndCount(payload.id, payload.isTrustedReviewer);
 			}
 		});
-
 	},
 
 	endSession() {
@@ -59,7 +57,7 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	sanitize(rawData, contractId, imagesToReviewCount) {
+	sanitize(rawData, contractId, imagesToReviewCount, isTrustedReviewer) {
 		const images = [];
 
 		rawData.forEach((image) => {
@@ -75,7 +73,7 @@ ImageReviewModel.reopenClass({
 			}
 		});
 
-		return ImageReviewModel.create({images, contractId, imagesToReviewCount});
+		return ImageReviewModel.create({images, contractId, imagesToReviewCount, isTrustedReviewer});
 	},
 
 	reviewImages(images) {
@@ -83,7 +81,7 @@ ImageReviewModel.reopenClass({
 			const promises = images.map((item) => {
 				return ImageReviewModel.reviewImage(item.contractId, item.imageId, item.status);
 			});
-			
+
 			Ember.RSVP.all(promises).then((data) => {
 				resolve(data);
 			}, (data) => {
@@ -100,7 +98,7 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	getImagesAndCount(contractId) {
+	getImagesAndCount(contractId, isTrustedReviewer) {
 		const promises = [
 			ImageReviewModel.getImages(contractId),
 			ImageReviewModel.getImagesToReviewCount()
@@ -108,7 +106,7 @@ ImageReviewModel.reopenClass({
 
 		return Ember.RSVP.allSettled(promises).then(([getImagesPromise, getImagesToReviewCountPromise]) => {
 			return ImageReviewModel.sanitize(getImagesPromise.value.data, getImagesPromise.value.contractId,
-				getImagesToReviewCountPromise.value.countByStatus);
+				getImagesToReviewCountPromise.value.countByStatus, isTrustedReviewer);
 		});
 	}
 });
