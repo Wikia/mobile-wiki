@@ -17,9 +17,9 @@ export default Ember.Component.extend({
 		contributeEditor: true,
 	},
 
-	// Labels below needs to be overrode in subclasses
-	labelMessageKey: null,
-	placeholderMessageKey: null,
+	// Labels below needs to be overwritten in subclasses
+	editorLabelKey: null,
+	messagePlaceholderKey: null,
 	submitMessageKey: null,
 
 	// Tracking action name of closing the editor
@@ -35,7 +35,7 @@ export default Ember.Component.extend({
 	onIsActive: Ember.observer('isActive', function () {
 		if (this.get('isActive')) {
 			track(this.get('startTrackingAction'));
-			this.$('textarea').focus();
+			this.$('textarea:first').focus();
 		}
 	}),
 
@@ -76,7 +76,7 @@ export default Ember.Component.extend({
 		},
 
 		focusTextarea() {
-			this.$('textarea').focus();
+			this.$('textarea:first').focus();
 		},
 
 		handleKeyPress() {
