@@ -9,7 +9,7 @@ import UrlHelper from '../common/url-helper';
 import VisitSourceWrapper from '../common/visit-source-wrapper';
 import MarketingOptIn from '../signup/marketing-opt-in';
 import TermsOfUse from '../signup/terms-of-use';
-import {track as mercuryTrack, trackActions} from 'common/utils/track';
+import {track as mercuryTrack, trackActions, trackRegister} from 'common/utils/track';
 
 /**
  * @typedef {Object} HeliosError
@@ -99,6 +99,23 @@ export default class SignupForm {
 	}
 
 	/**
+	 * track users that registered and seen New Contributor Flow dialog
+	 * @returns {void}
+	 */
+	trackBenefitsModalInteraction() {
+		const cpBenefitsModalShownCookie = Cookie.get('cpBenefitsModalShown');
+
+		if (cpBenefitsModalShownCookie) {
+			trackRegister({
+				// timestamp when was the modal shown
+				wiki_id: window.Mercury.entryPointWikiId,
+				ncf_modal_seen_date: cpBenefitsModalShownCookie,
+				ncf_modal_action: Cookie.get('cpBenefitsModalClicked') ? 'clicked' : 'seen'
+			});
+		}
+	}
+
+	/**
 	 * @param {string} userId
 	 * @returns {void}
 	 */
@@ -127,6 +144,8 @@ export default class SignupForm {
 			category: 'user-registration-lifetime-source',
 			label: VisitSourceWrapper.lifetimeVisitSource.get()
 		});
+
+		this.trackBenefitsModalInteraction();
 
 		AuthUtils.authSuccessCallback(this.redirect, userId);
 	}

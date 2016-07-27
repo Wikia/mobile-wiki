@@ -28,14 +28,12 @@ export default Ember.Route.extend(
 
 				this.setEditorError(null, true);
 
-				attributesModel.editAttribute(value).then(() => {
-					// action after successful edit
-				}).catch((err) => {
+				attributesModel.editAttribute(value).catch((err) => {
 					this.onContributionError(err, 'editor.save-error-general-error', true);
 				}).finally(() => {
 					this.get('discussionEditEditor').set('isLoading', false);
 				});
-			},
-		}
+			}
+		},
 	}
 );
