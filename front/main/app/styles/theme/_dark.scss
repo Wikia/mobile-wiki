@@ -531,6 +531,34 @@ body.dark-theme {
 		}
 	}
 
+	.discussion-categories-edit {
+		.move {
+			fill: $dark-discussion-move-icon-color;
+		}
+
+		.is-dragging {
+			background-color: $dark-discussion-edit-list-item-color;
+		}
+
+		input[type=text] {
+			border-bottom-color: $dark-discussion-categories-edit-border-bottom-color;
+			color: $dark-discussion-content-color;
+
+			&[disabled] {
+				color: $dark-discussion-disabled-text-color;
+				-webkit-text-fill-color: $dark-discussion-disabled-text-color;
+			}
+		}
+
+		.categories-loading-overlay {
+			background-color: rgba($dark-highlight-overlay-background-color, 0.9);
+		}
+
+		.categories-edit-info-message {
+			color: $dark-discussion-content-color;
+		}
+	}
+
 	.standalone-page-view {
 		.standalone-content {
 			border-color: $dark-discussion-standalone-content-border-color;

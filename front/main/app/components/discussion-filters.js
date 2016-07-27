@@ -93,7 +93,7 @@ export default Ember.Component.extend(
 			 *
 			 * @returns {void}
 			 */
-			updateCategories(changedCategories) {
+			updateCategoriesSelection(changedCategories) {
 				this.set('changedCategories', changedCategories);
 			},
 		}

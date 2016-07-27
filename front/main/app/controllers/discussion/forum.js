@@ -15,6 +15,10 @@ export default DiscussionBaseController.extend(
 		areGuidelinesVisible: false,
 
 		actions: {
+			updateCategoriesSelection(categories) {
+				this.get('target').send('updateCategoriesSelection', categories);
+			},
+
 			createPost(entityData, forumId) {
 				this.transitionToRoute({queryParams: {sort: 'latest'}}).promise.then(() => {
 					this.createPost(entityData, forumId);

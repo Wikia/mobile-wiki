@@ -25,7 +25,9 @@ $upvote-icon-activated-color: #e3bd00;
 $pop-over-background-color: $color-white;
 
 $fancy-check-box-border: #999;
+$fancy-check-box-disabled-border: #ccc;
 $fancy-check-box-background: #fff;
+$highlight-overlay-background-color: #f6f6f6;
 
 $discussion-bg-color: $color-white;
 $discussion-count-color: #999;
@@ -60,6 +62,8 @@ $discussion-post-card-linked-background: #fff;
 $discussion-locked-post-replies-color: #ccc;
 $discussion-filters-bullet-active-border: #fff;
 $discussion-post-actions-border-color: #e6e6e6;
+$discussion-error-color: #ed1c24;
+$discussion-submit-icon-color: #5ba200;
 
 $discussion-rail-title-color: #333;
 
@@ -118,8 +122,14 @@ $discussion-filter-inactive-color: #ccc;
 $discussion-filters-border: #ccc;
 $discussion-filters-color: #333;
 $discussion-filters-label-background: #fff;
-$discussion-category-hover-background: #e6e6e6;
 $discussion-filters-apply-button-background-color: #f6f6f6;
+$discussion-category-hover-background: #e6e6e6;
+$discussion-categories-disabled-input-color: #999;
+$discussion-categories-edit-input-focused-border-color: #333;
+$discussion-categories-edit-info-icon-color: #f08a24;
+$discussion-categories-edit-close-icon-color: #1a5eb8;
+$discussion-categories-edit-footer-color: $color-white;
+$discussion-categories-edit-footer-border-color: #f6f6f6;
 
 $discussion-reported-details-header-border-color: #e6e6e6;
 $discussion-reported-details-list-border-color: #cccccc;
@@ -137,10 +147,15 @@ $discussion-welcome-sun-color: #fff;
 $discussion-post-details-app-promotion-text-color: #999;
 $discussion-app-promotion-text-color: #333;
 $discussion-right-rail-line-color: #ccc;
+$discussion-edit-list-item-color: #f6f6f6;
+$discussion-categories-edit-border-bottom-color: #ccc;
+$discussion-move-icon-color: #333;
+
 $discussion-community-unit-link-color: #999;
 $app-promotion-text-color: #999;
 
 
+$dark-highlight-overlay-background-color: #262626;
 $dark-body-background: #1a1a1a;
 $dark-element-active-background: #1a1a1a;
 $dark-button-color: #16abc1;
@@ -226,6 +241,10 @@ $dark-discussion-app-promotion-text-color: $color-white;
 $dark-discussion-post-details-app-promotion-text-color: $color-white;
 $dark-discussion-right-rail-line-color: #666;
 
+$dark-discussion-disabled-text-color: #666;
+$dark-discussion-edit-list-item-color: #1a1a1a;
+$dark-discussion-categories-edit-border-bottom-color: #666;
+$dark-discussion-move-icon-color: #ccc;
 $dark-discussion-standalone-content-background-color: #262626;
 $dark-discussion-standalone-content-border-color: #333;
 

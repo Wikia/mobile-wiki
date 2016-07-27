@@ -43,14 +43,16 @@
 	{{/modal-dialog}}
 {{/if}}
 {{#discussion-entities-list-layout
+	addCategory=(route-action 'addCategory')
 	applyFilters=(action 'applyFilters')
 	attributes=model.index.attributes.data
-	categories=model.index.categories.data
+	categories=model.index.categories.categories
 	model=model.current.data
+	updateCategories=(route-action 'updateCategories')
+	updateCategoriesSelection=(action 'updateCategoriesSelection')
 	openGuidelines=(action 'openGuidelines')
 	setEditorActive=(action 'setEditorActive')
 	showCategories=showCategories
-	updateCategories=(action 'updateCategories')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')

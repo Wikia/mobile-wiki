@@ -1,0 +1,128 @@
+<h3 class="discussion-filter-header mobile-hidden">
+	{{i18n 'main.filter-posts-header' ns='discussion'}}
+</h3>
+
+{{#if responsive.isMobile }}
+	<div class="discussion-categories-edit-mobile-toolbar active-element-background-color">
+		<button {{action this.attrs.setEditMode false}}>
+			{{svg 'close' viewBox='0 0 40 40' class='icon'}}
+		</button>
+		<h3>
+			{{i18n 'main.categories-edit-mobile-header' ns='discussion'}}
+		</h3>
+		<button type="submit" class="submit" {{action 'submit'}}>
+			{{svg 'checkmark' viewBox='0 0 40 40' class='icon icon-submit'}}
+		</button>
+	</div>
+{{/if}}
+
+<fieldset class="discussion-fieldset discussion-categories">
+	{{#if errorMessage}}
+		<span class="categories-edit-info-message categories-edit-error-message desktop-hidden">
+			{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
+			{{errorMessage}}
+		</span>
+	{{/if}}
+
+	<legend class="mobile-hidden">
+		{{i18n 'main.categories-header' ns='discussion'}}
+	</legend>
+	<div class="discussion-categories-list-container">
+		<ul class="discussion-categories-list">
+			<li class="discussion-category-all">
+				<span class="discussion-categories-input-wrapper">
+					{{wikia-ui-components/fancy-check-box
+						disabled=true
+					}}
+					{{input
+						class='discussion-categories-input'
+						disabled=true
+						value=(i18n 'main.category-all-name' ns='discussion')
+					}}
+				</span>
+			</li>
+			{{#sortable-group tagName='div' model=localCategories onChange=(action 'onReorderElements') as |group|}}
+				{{#each localCategories as |localCategory|}}
+					{{#sortable-item tagName='div' model=localCategory group=group handle=".draggable"}}
+						<li>
+							<span class="discussion-categories-input-wrapper">
+								{{#if (equal localCategory.id wikiId)}}
+									{{svg 'lock' viewBox='0 0 18 18' class='icon lock'}}
+								{{else}}
+									{{wikia-ui-components/fancy-check-box
+										disabled=true
+									}}
+								{{/if}}
+								{{!TODO use flag instead of equal when backend starts providing it}}
+								{{input
+									class=(concat 'discussion-categories-input' (if localCategory.error ' error' ''))
+									disabled=(equal localCategory.id wikiId)
+									maxlength=20
+									value=localCategory.displayedName
+								}}
+								<div class="draggable">
+									<a class="discussion-categories-edit-action-button action-move">
+										{{svg 'move' viewBox='0 0 7 16' class='icon move'}}
+									</a>
+									{{#unless localCategory.id}}
+										<a class="discussion-categories-edit-action-button action-delete" {{action 'deleteCategory' localCategory}}>
+											{{svg 'close' class='icon close fill-theme-color'}}
+										</a>
+									{{/unless}}
+								</div>
+							</span>
+							{{#if localCategory.error}}
+								<span class="error">{{localCategory.error}}</span>
+							{{/if}}
+						</li>
+					{{/sortable-item}}
+				{{/each}}
+			{{/sortable-group}}
+		</ul>
+	</div>
+	<a class="discussion-categories-edit-add-link active-element-theme-color {{if addDisabled 'active-element-disabled-theme-color'}}" {{action 'addCategory'}}>
+		{{i18n 'main.categories-edit-add-category-label' ns='discussion'}}
+	</a>
+
+	{{#if addDisabled}}
+		<span class="categories-edit-info-message">
+			{{svg 'report' viewBox='0 0 18 18' class='icon report'}}
+			{{i18n 'main.categories-edit-max-categories-info' ns='discussion' maxCategoriesCount=maxCategoriesCount}}
+		</span>
+	{{/if}}
+
+	{{#if errorMessage}}
+		<span class="categories-edit-info-message categories-edit-error-message mobile-hidden">
+			{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
+			{{errorMessage}}
+		</span>
+	{{/if}}
+</fieldset>
+
+{{#if isLoading}}
+	{{loading-spinner
+		active=isLoading
+		class='categories-loading-overlay'
+		radius=32
+		strokeWidth=2
+	}}
+{{/if}}
+
+{{#if showSuccess}}
+	<div class="categories-loading-overlay loading-overlay">
+		{{svg 'success' class='success' viewBox='0 0 80 80'}}
+	</div>
+{{/if}}
+
+{{#if responsive.isDesktop }}
+	<div class="discussion-categories-edit-footer-wrapper">
+		<div class="discussion-categories-edit-footer">
+			<button {{action this.attrs.setEditMode false}}>
+				{{svg 'close' viewBox='0 0 40 40' class='icon'}}
+			</button>
+			<button type="submit" class="submit" {{action 'submit'}}>
+				{{svg 'checkmark' viewBox='0 0 40 40' class='icon icon-submit'}}
+			</button>
+		</div>
+	</div>
+{{/if}}

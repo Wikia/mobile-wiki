@@ -6,7 +6,8 @@
 					categories=categories
 					disabled=onlyReported
 					inputIdPrefix='filters'
-					updateCategories=(action 'updateCategories')
+					updateCategories=(action this.attrs.updateCategories)
+					updateCategoriesSelection=(action 'updateCategoriesSelection')
 				}}
 			{{/if}}
 		{{/if}}
