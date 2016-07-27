@@ -26,10 +26,6 @@ export default DiscussionMultipleInputsEditor.extend(
 			return !this.get('isReply');
 		}),
 
-		showLabel: Ember.computed('isActive', 'isReply', function () {
-			return this.get('isActive') && !this.get('isReply');
-		}),
-
 		/**
 		 * Returns true if textarea is the only textarea in editor and should appear as first/only one in
 		 * collapsed inline editor.
@@ -50,12 +46,9 @@ export default DiscussionMultipleInputsEditor.extend(
 					const newDiscussionEntityData = {
 						body: this.get('content'),
 						creatorId: this.get('currentUser.userId'),
-						siteId: Mercury.wiki.id
+						siteId: Mercury.wiki.id,
+						title: this.get('title')
 					};
-
-					if (this.get('title')) {
-						newDiscussionEntityData.title = this.get('title');
-					}
 
 					if (this.get('showsOpenGraphCard')) {
 						newDiscussionEntityData.openGraph = {
