@@ -18,7 +18,7 @@ ImageReviewModel.reopenClass({
 		}).then(({payload, jqXHR}) => {
 			// In case there are no more images, create empty model and show `No more images to review` message
 			if (jqXHR.status === 204) {
-				return ImageReviewModel.create({userCanAuditReviews: ImageReviewModel.getUserAuditReviewPermission()});
+				return ImageReviewModel.createEmptyModelWithPermission();
 			} else {
 				return ImageReviewModel.getImagesAndCount(payload.id);
 			}
@@ -57,7 +57,7 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	sanitize(rawData, contractId, imagesToReviewCount) {
+	sanitize(rawData, contractId, imagesToReviewCount, userInfo) {
 		const images = [];
 
 		rawData.forEach((image) => {
@@ -77,7 +77,7 @@ ImageReviewModel.reopenClass({
 			images,
 			contractId,
 			imagesToReviewCount,
-			userCanAuditReviews: ImageReviewModel.getUserAuditReviewPermission()
+			userCanAuditReviews: userInfo
 		});
 	},
 
@@ -106,19 +106,30 @@ ImageReviewModel.reopenClass({
 	getImagesAndCount(contractId) {
 		const promises = [
 			ImageReviewModel.getImages(contractId),
-			ImageReviewModel.getImagesToReviewCount()
+			ImageReviewModel.getImagesToReviewCount(),
+			ImageReviewModel.getUserAuditReviewPermission()
 		];
 
-		return Ember.RSVP.allSettled(promises).then(([getImagesPromise, getImagesToReviewCountPromise]) => {
-			return ImageReviewModel.sanitize(getImagesPromise.value.data, getImagesPromise.value.contractId,
-				getImagesToReviewCountPromise.value.countByStatus);
-		});
+		return Ember.RSVP.allSettled(promises)
+			.then(([getImagesPromise, getImagesToReviewCountPromise, getUserAuditReviewPermissionPromise]) => {
+				return ImageReviewModel.sanitize(getImagesPromise.value.data,
+					getImagesPromise.value.contractId,
+					getImagesToReviewCountPromise.value.countByStatus,
+					getUserAuditReviewPermissionPromise.value.userAllowedToAuditReviews);
+			});
 	},
 
 	getUserAuditReviewPermission() {
 		return request(M.getImageReviewServiceUrl('/info', {}), {
-			method: 'GET'
-		}).then(flag=>flag)
+			method: 'GET',
+		}).then((payload) => {
+			return payload.userAllowedToAuditReviews;
+		});
+	},
+
+	createEmptyModelWithPermission() {
+		return ImageReviewModel.getUserAuditReviewPermission().then((userInfo) =>
+			ImageReviewModel.create({userCanAuditReviews: userInfo.userAllowedToAuditReviews}));
 	}
 });
 
