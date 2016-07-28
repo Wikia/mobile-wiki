@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
-import DiscussionEditor from './discussion-editor';
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
+import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor';
 
-export default DiscussionEditor.extend(
+export default DiscussionMultipleInputsEditor.extend(
 	DiscussionEditorOpengraph,
 	{
 		attributeBindings: ['style'],
@@ -18,8 +18,22 @@ export default DiscussionEditor.extend(
 
 		layoutName: 'components/discussion-inline-editor',
 
-		click() {
+		isPostEditor: Ember.computed('isReply', function () {
+			return !this.get('isReply');
+		}),
+
+		/**
+		 * Returns true if textarea is the only textarea in editor and should appear as first/only one in
+		 * collapsed inline editor.
+		 * @returns {boolean}
+		 */
+		showTextareaAsFirstIfAlone: Ember.computed('isActive', 'isReply', function () {
+			return this.get('isReply') || this.get('isActive');
+		}),
+
+		click(event) {
 			this.sendAction('setEditorActive', 'contributeEditor', true);
+			this.focusOnNearestTextarea(event);
 		},
 
 		actions: {
@@ -29,6 +43,7 @@ export default DiscussionEditor.extend(
 						body: this.get('content'),
 						creatorId: this.get('currentUser.userId'),
 						siteId: Mercury.wiki.id,
+						title: this.get('title')
 					};
 
 					if (this.get('showsOpenGraphCard')) {
@@ -39,7 +54,7 @@ export default DiscussionEditor.extend(
 
 					this.get('create')(newDiscussionEntityData);
 				}
-			},
+			}
 		}
 	}
 );

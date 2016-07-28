@@ -22,7 +22,7 @@ export default Ember.Component.extend(
 			contributeEditor: true,
 		},
 
-		// Labels below needs to be overrode in subclasses
+		// Labels below needs to be overwritten in subclasses
 		labelMessageKey: null,
 		placeholderMessageKey: null,
 		submitMessageKey: null,
@@ -44,7 +44,7 @@ export default Ember.Component.extend(
 		toogleActiveState(isActive) {
 			if (isActive) {
 				track(this.get('startTrackingAction'));
-				this.$('textarea').focus();
+				this.$('textarea:first').focus();
 			}
 		},
 
@@ -88,7 +88,7 @@ export default Ember.Component.extend(
 			},
 
 			focusTextarea() {
-				this.$('textarea').focus();
+				this.$('textarea:first').focus();
 			},
 
 			handleKeyPress() {
