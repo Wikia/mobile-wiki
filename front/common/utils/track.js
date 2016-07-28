@@ -145,6 +145,7 @@ export function track(params) {
 		if (!category || !action) {
 			throw new Error('Missing required GA params');
 		}
+
 		M.tracker.UniversalAnalytics.track(category, action, label, value, isNonInteractive);
 	}
 

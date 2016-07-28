@@ -30,7 +30,7 @@ if (typeof window.M.tracker === 'undefined') {
 
 (function (M) {
 	let tracked = [],
-		trackEvents = [],
+		eventsQueue = [],
 		createdAccounts = [],
 		dimensions = {},
 		dimensionsSynced = false,
@@ -231,7 +231,7 @@ if (typeof window.M.tracker === 'undefined') {
 				}
 			});
 		} else {
-			trackEvents.push({category, action, label, value, nonInteractive});
+			eventsQueue.push({category, action, label, value, nonInteractive});
 		}
 	}
 
@@ -440,6 +440,17 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
+	 * @returns {void}
+	 */
+	function flushEventsQueue() {
+		eventsQueue.forEach((event) => {
+			track(event.category, event.action, event.label, event.value, event.nonInteractive);
+		});
+
+		eventsQueue = [];
+	}
+
+	/**
 	 * @param {UniversalAnalyticsDimensions} dimensions
 	 * @returns {boolean}
 	 */
@@ -468,11 +479,7 @@ if (typeof window.M.tracker === 'undefined') {
 
 		isInitialized = true;
 
-		trackEvents.forEach((event) => {
-			track(event.category, event.action, event.label, event.value, event.nonInteractive);
-		});
-
-		trackEvents = [];
+		flushEventsQueue();
 
 		return true;
 	}
