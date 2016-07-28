@@ -28,22 +28,15 @@ $success-icon-size: 80px;
 		}
 
 		.discussion-inline-editor-content-wrapper {
-			cursor: pointer;
-			min-height: 200px;
+			min-height: 106px;
 			resize: vertical;
-		}
-
-		.discussion-inline-editor-textarea,
-		.discussion-textarea-with-counter {
-			padding: 0 0 10px 0;
 		}
 	}
 
 	&:not(.is-active) {
 		cursor: pointer;
 
-		.discussion-inline-editor-textarea,
-		.discussion-textarea-with-counter {
+		.discussion-inline-editor-textarea {
 			cursor: pointer;
 		}
 	}
@@ -72,71 +65,30 @@ $success-icon-size: 80px;
 	}
 
 	.discussion-inline-editor-content-wrapper {
-		display: flex;
-		max-height: 260px;
+		max-height: 160px;
 		overflow: auto;
 	}
 
 	.discussion-inline-editor-textarea-wrapper {
-		flex: 1;
-		padding: 10px 15px 0 0;
+		display: flex;
 	}
 
-	.discussion-textarea-label {
-		color: $discussion-editor-textarea-label-color;
-		font-size: $discussion-editor-label-font-size;
-		font-weight: $font-weight-bold;
-		letter-spacing: .15px;
-		text-transform: uppercase;
-
-		&:first-of-type {
-			padding-top: 5px;
-		}
-	}
-
-	.discussion-inline-editor-textarea,
-	.discussion-textarea-with-counter {
+	.discussion-inline-editor-textarea {
 		background-color: transparent;
 		border: 0;
 		border-bottom: 1px solid $secondary-color;
 		border-radius: 0;
-		font-size: $type-base;
 		height: 45px;
-		margin: 0 15px 10px 0;
+		margin: 0 17px 10px 0;
 		min-height: 0;
-		padding: 3px 0 10px 0;
+		padding: 17px 0 0;
 		resize: none;
 		transition: min-height .2s ease;
 
 		&:focus {
 			background-color: transparent;
-			box-shadow: none;
-		}
-	}
-
-	.discussion-inline-editor-title {
-		.discussion-textarea-wrapper {
-			position: relative;
-		}
-
-		.discussion-textarea-counter {
-			bottom: 10px;
-			color: $discussion-editor-textarea-counter-color;
-			font-size: $discussion-editor-counter-font-size;
-			line-height: $form-label-line-height;
-			position: absolute;
-			right: 0;
-		}
-	}
-
-	.discussion-inline-editor-textarea {
-
-		&:invalid {
-			box-shadow: none;
-		}
-
-		&:focus {
 			border: 0;
+			box-shadow: none;
 		}
 	}
 
