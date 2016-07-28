@@ -222,30 +222,30 @@ class Ads {
 		const trackBlocking = this.trackBlocking,
 			GASettings = this.GASettings,
 			listenerSettings = [
-			{
-				eventName: 'sp.blocking',
-				value: true,
-				detectorSettings: GASettings.sourcePoint
-			},
-			{
-				eventName: 'sp.not_blocking',
-				value: false,
-				detectorSettings: GASettings.sourcePoint
-			},
-			{
-				eventName: 'pf.blocking',
-				value: true,
-				detectorSettings: GASettings.pageFair
-			},
-			{
-				eventName: 'pf.not_blocking',
-				value: false,
-				detectorSettings: GASettings.pageFair
-			}
-		];
+				{
+					eventName: 'sp.blocking',
+					value: true,
+					detectorSettings: GASettings.sourcePoint
+				},
+				{
+					eventName: 'sp.not_blocking',
+					value: false,
+					detectorSettings: GASettings.sourcePoint
+				},
+				{
+					eventName: 'pf.blocking',
+					value: true,
+					detectorSettings: GASettings.pageFair
+				},
+				{
+					eventName: 'pf.not_blocking',
+					value: false,
+					detectorSettings: GASettings.pageFair
+				}
+			];
 
-		listenerSettings.map(function (listenerSetting) {
-			document.addEventListener(listenerSetting.eventName, function () {
+		listenerSettings.map((listenerSetting) => {
+			document.addEventListener(listenerSetting.eventName, () => {
 				trackBlocking(listenerSetting.detectorSettings, listenerSetting.value);
 			});
 		});
