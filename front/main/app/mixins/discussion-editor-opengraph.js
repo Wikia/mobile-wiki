@@ -11,7 +11,7 @@ export default Ember.Mixin.create({
 	didInsertElement() {
 		this._super(...arguments);
 
-		this.$().find('textarea')
+		this.$().find('textarea:last')
 			.on('paste', this.onPaste.bind(this));
 	},
 
