@@ -79,7 +79,7 @@ $success-icon-size: 80px;
 
 	.discussion-inline-editor-textarea-wrapper {
 		flex: 1;
-		padding: 10px 15px 0 0;
+		padding-right: 15px;
 	}
 
 	.discussion-textarea-label {
@@ -90,7 +90,7 @@ $success-icon-size: 80px;
 		text-transform: uppercase;
 
 		&:first-of-type {
-			padding-top: 5px;
+			padding-top: 15px;
 		}
 	}
 
@@ -115,6 +115,8 @@ $success-icon-size: 80px;
 	}
 
 	.discussion-inline-editor-title {
+		padding-top: 10px;
+
 		.discussion-textarea-wrapper {
 			position: relative;
 		}
