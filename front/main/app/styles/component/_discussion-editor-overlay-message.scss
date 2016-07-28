@@ -16,8 +16,8 @@
 		color: $discussion-editor-overlay-message-color;
 		font-size: $type-smallest;
 		line-height: $line-height-min;
-		margin: auto 50px;
-		min-height: 45px;
+		margin: 0;
+		padding: 13px 20px 0;
 		text-align: center;
 		width: 100%;
 	}
@@ -29,8 +29,8 @@
 		width: 100%;
 
 		svg {
-			height: 28px;
-			width: 28px;
+			height: 35px;
+			width: 35px;
 		}
 	}
 
@@ -51,9 +51,12 @@
 	.message-button {
 		border-style: solid;
 		border-width: 1px;
+		font-size: 10px;
+		font-weight: 700;
+		letter-spacing: 0.3px;
 		line-height: 30px;
 		margin: 20px auto;
-		padding: 0px 25px;
+		padding: 0 25px;
 		text-transform: uppercase;
 	}
 }
