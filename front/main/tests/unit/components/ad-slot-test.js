@@ -96,12 +96,14 @@ test('behaves correctly depending on noAds value', function (assert) {
 	const testCases = [
 		{
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 1'
 			},
 			expectedLength: 1,
 			message: 'Element added to slot because no noAds property was passed'
 		}, {
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 2',
 				noAds: ''
 			},
@@ -109,6 +111,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 			message: 'Element added to slot because of noAds property value set to an empty string'
 		}, {
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 3',
 				noAds: '0'
 			},
@@ -116,6 +119,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 			message: 'Element added to slot because of noAds property value set to \'0\''
 		}, {
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 4',
 				noAds: 'false'
 			},
@@ -123,6 +127,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 			message: 'Element not added to slot because of noAds property value set to \'false\''
 		}, {
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 5',
 				noAds: 'whatever'
 			},
@@ -130,6 +135,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 			message: 'Element not added to slot because of noAds property value set to \'whatever\''
 		}, {
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 6',
 				noAds: '1'
 			},
@@ -137,6 +143,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 			message: 'Element not added to slot because of noAds property value set to \'1\''
 		}, {
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 7',
 				noAds: 'true'
 			},
