@@ -1,0 +1,17 @@
+.post-details-view {
+	.post-detail {
+		.avatar-badge {
+			top: 6px;
+		}
+	}
+}
+
+.avatar-badge {
+	display: inline-block;
+	position: absolute;
+
+	svg {
+		height: 18px;
+		width: 18px;
+	}
+}

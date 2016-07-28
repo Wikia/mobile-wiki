@@ -177,15 +177,8 @@ body.discussions {
 	}
 
 	.avatar-badge {
-		display: inline-block;
 		left: 23px;
-		position: absolute;
 		top: 13px;
-
-		svg {
-			height: 18px;
-			width: 18px;
-		}
 	}
 
 	.discussion-reply {
@@ -448,6 +441,11 @@ body.discussions {
 				height: 30px;
 				width: 30px;
 			}
+		}
+
+		.avatar-badge {
+			left: 32px;
+			top: 7px;
 		}
 
 		.discussion-content {
