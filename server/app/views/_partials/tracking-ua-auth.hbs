@@ -5,44 +5,25 @@
 
 		// when optimizely loads, initialize trackers and track initial pageview
 		$script.ready(['optimizely'], function () {
-			/**
-			 * If urlTitleParam is empty - for non-wiki-page pages
-			 * (eg. discussion, recent wiki activity) - we're sending
-			 * empty string that is handled by MercuryAPI.
-			 */
-			$.getJSON(M.buildUrl({path: '/wikia.php'}), {
-				controller: 'MercuryApi',
-				method: 'getTrackingDimensions',
-				title: M.prop('urlTitleParam'),
-				isanon: parseInt(M.prop('userId'), 10) === 0,
-				format: 'json'
-			}, function (data) {
-				if (data && data.dimensions) {
-					var ua = M.tracker.UniversalAnalytics;
+			var ua = M.tracker.UniversalAnalytics;
 
-					function getQueryParam(name) {
-						var nameSanitized = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]'),
-								regex = new RegExp(`[\\?&]${nameSanitized}=([^&#]*)`),
-								results = regex.exec(location.search);
+			function getQueryParam(name) {
+				var nameSanitized = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]'),
+						regex = new RegExp(`[\\?&]${nameSanitized}=([^&#]*)`),
+						results = regex.exec(location.search);
 
-						return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-					}
+				return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+			}
 
-					if (ua.initialize(data.dimensions)) {
-						ua.trackPageView({
-							3: data.dimensions[3],
-							4: 'mercury',
-							5: 'anon',
-							8: 'authPage',
-							10: getQueryParam('redirect'),
-							14: data.dimensions[14],
-							15: 'No',
-							19: data.dimensions[19],
-							25: data.dimensions[25]
-						});
-					}
-				}
-			});
+			if (ua.initialize({
+						4: 'mercury',
+						5: 'anon',
+						8: 'authPage',
+						10: getQueryParam('redirect'),
+						15: 'No',
+					})) {
+				ua.trackPageView();
+			}
 		});
 	</script>
 {{/unless}}
