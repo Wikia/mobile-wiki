@@ -6,6 +6,17 @@
 	}
 }
 
+.discussion-contributors {
+	.user-avatar {
+		position: relative;
+
+		.user-avatar-badge {
+			top: 0px;
+			left: 0px;
+		}
+	}
+}
+
 .user-avatar-badge {
 	display: inline-block;
 	position: absolute;
