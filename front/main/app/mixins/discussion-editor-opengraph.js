@@ -71,7 +71,7 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	handleTyping() {
-		const textarea = this.$('textarea').get(0);
+		const textarea = this.$('textarea:last').get(0);
 
 		if (!textarea) {
 			return;
