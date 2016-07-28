@@ -14,13 +14,13 @@ ImageReviewModel.reopenClass({
 		};
 
 		return rawRequest(M.getImageReviewServiceUrl(`/contract`, options), {
-			method: 'POST',
+			method: 'POST'
 		}).then(({payload, jqXHR}) => {
 			// In case there are no more images, create empty model and show `No more images to review` message
 			if (jqXHR.status === 204) {
-				return ImageReviewModel.create({isTrustedSession: payload.isTrustedReviewer});
+				return ImageReviewModel.create({userCanAuditReviews: ImageReviewModel.getUserAuditReviewPermission()});
 			} else {
-				return ImageReviewModel.getImagesAndCount(payload.id, payload.isTrustedReviewer);
+				return ImageReviewModel.getImagesAndCount(payload.id);
 			}
 		});
 	},
@@ -57,7 +57,7 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	sanitize(rawData, contractId, imagesToReviewCount, isTrustedReviewer) {
+	sanitize(rawData, contractId, imagesToReviewCount) {
 		const images = [];
 
 		rawData.forEach((image) => {
@@ -73,7 +73,12 @@ ImageReviewModel.reopenClass({
 			}
 		});
 
-		return ImageReviewModel.create({images, contractId, imagesToReviewCount, isTrustedReviewer});
+		return ImageReviewModel.create({
+			images,
+			contractId,
+			imagesToReviewCount,
+			userCanAuditReviews: ImageReviewModel.getUserAuditReviewPermission()
+		});
 	},
 
 	reviewImages(images) {
@@ -98,7 +103,7 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	getImagesAndCount(contractId, isTrustedReviewer) {
+	getImagesAndCount(contractId) {
 		const promises = [
 			ImageReviewModel.getImages(contractId),
 			ImageReviewModel.getImagesToReviewCount()
@@ -106,8 +111,14 @@ ImageReviewModel.reopenClass({
 
 		return Ember.RSVP.allSettled(promises).then(([getImagesPromise, getImagesToReviewCountPromise]) => {
 			return ImageReviewModel.sanitize(getImagesPromise.value.data, getImagesPromise.value.contractId,
-				getImagesToReviewCountPromise.value.countByStatus, isTrustedReviewer);
+				getImagesToReviewCountPromise.value.countByStatus);
 		});
+	},
+
+	getUserAuditReviewPermission() {
+		return request(M.getImageReviewServiceUrl('/info', {}), {
+			method: 'GET'
+		}).then(flag=>flag)
 	}
 });
 

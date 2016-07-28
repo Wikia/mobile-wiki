@@ -29,7 +29,7 @@
 
 	<div class="image-review-action-buttons">
 		<button {{action this.attrs.reviewAndGetMoreImages}}>{{i18n 'main.review-and-get-more' ns='image-review'}}</button>
-		{{#if model.isTrustedReviewer}}
+		{{#if model.userCanAuditReviews}}
 			<button {{action this.attrs.getFlaggedOnly}}>{{i18n 'main.get-flagged' ns='image-review'}}</button>
 			<button {{action this.attrs.getRejectedOnly}}>{{i18n 'main.get-rejected' ns='image-review'}}</button>
 		{{/if}}

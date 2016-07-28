@@ -76,7 +76,6 @@ export default Route.extend({
 
 		didTransition() {
 			this.controllerFor('application').set('fullPage', true);
-
 			if (this.controller.get('fullscreen') === 'true') {
 				this.modelFor('imageReview').set('showSubHeader', false);
 			} else {
