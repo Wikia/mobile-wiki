@@ -219,27 +219,35 @@ class Ads {
 	 * @returns {void}
 	 */
 	addDetectionListeners() {
-		const trackBlocking = this.trackBlocking;
-		const GASettings = this.GASettings;
+		const trackBlocking = this.trackBlocking,
+			GASettings = this.GASettings,
+			listenerSettings = [
+			{
+				eventName: 'sp.blocking',
+				value: true,
+				detectorSettings: GASettings.sourcePoint
+			},
+			{
+				eventName: 'sp.not_blocking',
+				value: false,
+				detectorSettings: GASettings.sourcePoint
+			},
+			{
+				eventName: 'pf.blocking',
+				value: true,
+				detectorSettings: GASettings.pageFair
+			},
+			{
+				eventName: 'pf.not_blocking',
+				value: false,
+				detectorSettings: GASettings.pageFair
+			}
+		];
 
-		window.addEventListener('sp.blocking', () => {
-			trackBlocking(GASettings.sourcePoint, true);
-			Ads.previousSourcePointDetectionResult = true;
-		});
-
-		window.addEventListener('sp.not_blocking', () => {
-			trackBlocking(GASettings.sourcePoint, false);
-			Ads.previousSourcePointDetectionResult = false;
-		});
-
-		document.addEventListener('pf.blocking', () => {
-			trackBlocking(GASettings.pageFair, true);
-			Ads.previousPageFairDetectionResult = true;
-		});
-
-		document.addEventListener('pf.not_blocking', () => {
-			trackBlocking(GASettings.pageFair, false);
-			Ads.previousPageFairDetectionResult = false;
+		listenerSettings.map(function (listenerSetting) {
+			document.addEventListener(listenerSetting.eventName, function () {
+				trackBlocking(listenerSetting.detectorSettings, listenerSetting.value);
+			});
 		});
 	}
 
@@ -299,7 +307,7 @@ class Ads {
 			if (Ads.previousPageFairDetectionResult !== null) {
 				this.trackBlocking(this.GASettings.pageFair, Ads.previousPageFairDetectionResult);
 			} else {
-				this.pageFairDetectionModule.initDetection();
+				this.pageFairDetectionModule.initDetection(adsContext);
 			}
 
 			if (adsContext.opts) {
