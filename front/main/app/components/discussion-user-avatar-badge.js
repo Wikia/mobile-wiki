@@ -29,6 +29,6 @@ export default Ember.Component.extend({
 
 	badge: Ember.computed('badgePermission', function () {
 		const badgePermission = this.get('badgePermission');
-		return badgePermission ? this.get(`badges.${badgePermission}`) : '';
+		return this.getWithDefault(`badges.${badgePermission}`, '');
 	})
 });
