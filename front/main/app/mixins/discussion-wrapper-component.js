@@ -5,9 +5,11 @@ export default Ember.Mixin.create(
 		classNames: ['forum-wrapper', 'discussion', 'forum'],
 		currentlyLoadingPage: false,
 		isLoading: true,
-		pageNum: null,
+		pageNum: 0,
 		postsDisplayed: 0,
 		totalPosts: 0,
+		maxAutoloadPagesNumber: 3,
+		currentAutoloadPagesCounter: 0,
 
 		hasMore: Ember.computed('totalPosts', 'postsDisplayed', function () {
 			return this.get('totalPosts') > this.get('postsDisplayed');
@@ -21,13 +23,21 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		didScroll() {
-			if (this.get('hasMore') && !this.get('currentlyLoadingPage') && this.isScrolledToTrigger()) {
-				this.setProperties({
-					pageNum: this.pageNum + 1,
-					currentlyLoadingPage: true,
-				});
-				this.sendAction('loadPage', this.pageNum);
+			if (this.get('hasMore') && !this.get('currentlyLoadingPage') &&
+				this.get('maxAutoloadPagesNumber') > this.get('currentAutoloadPagesCounter') &&
+				this.isScrolledToTrigger()
+			) {
+				this.incrementProperty('currentAutoloadPagesCounter');
+				this.loadNextPage();
 			}
+		},
+
+		loadNextPage() {
+			this.setProperties({
+				pageNum: this.pageNum + 1,
+				currentlyLoadingPage: true,
+			});
+			this.sendAction('loadPage', this.pageNum);
 		},
 
 		/**
