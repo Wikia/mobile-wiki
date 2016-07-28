@@ -176,11 +176,6 @@ body.discussions {
 		}
 	}
 
-	.user-avatar-badge {
-		left: 23px;
-		top: 13px;
-	}
-
 	.discussion-reply {
 		.user-avatar {
 			.avatar-username {
@@ -441,11 +436,6 @@ body.discussions {
 				height: 30px;
 				width: 30px;
 			}
-		}
-
-		.user-avatar-badge {
-			left: 32px;
-			top: 7px;
 		}
 
 		.discussion-content {
@@ -802,11 +792,6 @@ body.discussions {
 			.avatar-username {
 				font-size: $type-smallest;
 			}
-		}
-
-		.user-avatar-badge {
-			left: 13px;
-			top: 5px;
 		}
 
 		.post-detail .timestamp,
