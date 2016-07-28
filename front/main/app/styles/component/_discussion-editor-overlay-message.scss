@@ -7,7 +7,7 @@
 	flex-direction: column;
 	justify-content: flex-start;
 	margin: 10px;
-	min-height: 140px;
+	min-height: 170px;
 	position: relative;
 	right: 0;
 	top: 0;
@@ -19,6 +19,7 @@
 		margin: auto 50px;
 		min-height: 45px;
 		text-align: center;
+		width: 100%;
 	}
 
 	.message-icon {
@@ -45,6 +46,15 @@
 			height: 10px;
 			width: 10px;
 		}
+	}
+
+	.message-button {
+		border-style: solid;
+		border-width: 1px;
+		line-height: 30px;
+		margin: 20px auto;
+		padding: 0px 25px;
+		text-transform: uppercase;
 	}
 }
 
