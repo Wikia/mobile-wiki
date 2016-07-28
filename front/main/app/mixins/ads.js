@@ -160,7 +160,7 @@ export default Ember.Mixin.create({
 			showMoreInContentAds = adsData.moreInContentAds.enabled &&
 				articleBodyHeight > adsData.moreInContentAds.minPageLength,
 
-			$wikiaFooter = $('.global-footer');
+			$globalFooter = $('.global-footer');
 
 		this.clearAdViews();
 
@@ -186,8 +186,8 @@ export default Ember.Mixin.create({
 			Ember.Logger.info(`The page is not long enough for extra in content ads: ${articleBodyHeight}`);
 		}
 
-		if ($wikiaFooter.length) {
-			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', $wikiaFooter);
+		if ($globalFooter.length) {
+			this.appendAd(adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
 		}
 	},
 
@@ -204,7 +204,7 @@ export default Ember.Mixin.create({
 			$trendingArticles = this.$('.trending-articles'),
 			showInContent = $curatedContent.length > 0,
 			showPreFooter = $trendingArticles.length,
-			$wikiaFooter = $('.global-footer');
+			$globalFooter = $('.global-footer');
 
 		this.clearAdViews();
 
@@ -216,8 +216,8 @@ export default Ember.Mixin.create({
 			this.appendAd(this.adsData.mobilePreFooter, 'after', $trendingArticles);
 		}
 
-		if ($wikiaFooter.length) {
-			this.appendAd(this.adsData.mobileBottomLeaderBoard, 'before', $wikiaFooter);
+		if ($globalFooter.length) {
+			this.appendAd(this.adsData.mobileBottomLeaderBoard, 'before', $globalFooter);
 		}
 	},
 
