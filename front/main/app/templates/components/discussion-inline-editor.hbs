@@ -36,14 +36,14 @@
 					value=content
 				}}
 			</label>
-		</div>
-		{{#if showsOpenGraphCard}}
-			{{discussion-open-graph
+			{{#if showsOpenGraphCard}}
+				{{discussion-open-graph
 				close=(action 'removeOpenGraph')
 				isLoading=isOpenGraphLoading
 				openGraphData=openGraph
-			}}
-		{{/if}}
+				}}
+			{{/if}}
+		</div>
 	</div>
 	<div class="discussion-inline-editor-toolbar">
 		<button class="active-element-theme-color discussion-inline-editor-submit" type="submit" {{action 'submit' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
