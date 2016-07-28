@@ -56,11 +56,6 @@ class Ads {
 		this.uapCalled = false;
 		this.uapCallbacks = [];
 		this.noUapCallbacks = [];
-		this.btfSlots = [
-			'MOBILE_IN_CONTENT',
-			'MOBILE_PREFOOTER',
-			'MOBILE_BOTTOM_LEADERBOARD'
-		];
 		this.GASettings = {
 			sourcePoint: {
 				name: 'sourcepoint',
@@ -160,10 +155,6 @@ class Ads {
 		} else {
 			noUapCallback();
 		}
-	}
-
-	getBtfSlots() {
-		return this.btfSlots;
 	}
 
 	/**
