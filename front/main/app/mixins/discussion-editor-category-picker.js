@@ -8,6 +8,12 @@ export default Ember.Mixin.create({
 		return !this.get('isReply') && !this.get('isEdit') && this.get('isActive');
 	}),
 
+	clearCategory: Ember.observer('isActive', function () {
+		if (!this.get('isActive')) {
+			this.set('category', null);
+		}
+	}),
+
 	actions: {
 		setCategory(category) {
 			this.set('category', category);
