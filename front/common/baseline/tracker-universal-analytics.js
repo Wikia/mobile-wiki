@@ -469,7 +469,7 @@ if (typeof window.M.tracker === 'undefined') {
 		isInitialized = true;
 
 		trackEvents.forEach((event) => {
-			track(event);
+			track(event.category, event.action, event.label, event.value, event.nonInteractive);
 		});
 
 		trackEvents = [];
