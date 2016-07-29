@@ -28,9 +28,9 @@ import injectGlobalFooterData from '../lib/inject-global-footer-data';
  */
 function outputResponse(request, reply, context) {
 	Tracking.handleResponse(context, request);
-	Utils.setI18nLang(request, context.wikiVariables);
-
-	reply.view('application', context);
+	Utils.setI18nLang(request, context.wikiVariables).then(() => {
+		reply.view('application', context);
+	});
 }
 
 /**

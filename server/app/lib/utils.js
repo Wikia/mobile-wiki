@@ -6,6 +6,7 @@ import {applyToDefaults, escapeHtml} from 'hoek';
 import {parse} from 'url';
 import {stringify} from 'querystring';
 import {RedirectedToCanonicalHost} from './custom-errors';
+import Promise from 'bluebird';
 
 /**
  * @typedef {Object} ServerData
@@ -339,9 +340,16 @@ export function redirectToOasis(request, reply) {
 /**
  * @param {Hapi.Request} request
  * @param {object} wikiVariables
+ * @returns {Promise}
  */
 export function setI18nLang(request, wikiVariables) {
+	const i18n = request.server.methods.i18n.getInstance();
+
 	if (wikiVariables.language && wikiVariables.language.content) {
-		request.server.methods.i18n.getInstance().setLng(wikiVariables.language.content);
+		return new Promise((resolve) => {
+			return i18n.setLng(wikiVariables.language.content, resolve);
+		});
+	} else {
+		return Promise.resolve();
 	}
 }

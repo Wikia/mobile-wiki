@@ -37,17 +37,17 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
 
-	setI18nLang(request, result.wikiVariables);
+	setI18nLang(request, result.wikiVariables).then(() => {
+		response = reply.view('application', result);
+		response.code(code);
+		response.type('text/html; charset=utf-8');
 
-	response = reply.view('application', result);
-	response.code(code);
-	response.type('text/html; charset=utf-8');
+		if (allowCache) {
+			setResponseCaching(response, cachingTimes);
+		}
 
-	if (allowCache) {
-		return setResponseCaching(response, cachingTimes);
-	}
-
-	return disableCache(response);
+		disableCache(response);
+	});
 }
 
 /**
