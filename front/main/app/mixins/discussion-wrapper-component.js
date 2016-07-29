@@ -78,7 +78,7 @@ export default Ember.Mixin.create(
 
 		actions: {
 			loadNextPageAction() {
-				this.incrementProperty('manualLoadPagesCounter')
+				this.incrementProperty('manualLoadPagesCounter');
 				this.loadNextPage();
 			},
 		},
