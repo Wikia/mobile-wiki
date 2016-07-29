@@ -7,7 +7,7 @@
 		<div class="discussion-inline-editor-textarea-wrapper">
 			{{#if isPostEditor}}
 				{{discussion-textarea-with-counter
-					class='discussion-inline-editor-title'
+					class='discussion-inline-editor-label discussion-inline-editor-title'
 					collapsedPlaceholder=(i18n collapsedEditorLabelKey ns='discussion')
 					focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
 					isActive=isActive
@@ -19,7 +19,7 @@
 					text=title
 				}}
 			{{/if}}
-			<label>
+			<label class="discussion-inline-editor-label">
 				{{#if isActive}}
 					<div class="discussion-textarea-label">
 						{{i18n messageLabelKey ns='discussion'}}

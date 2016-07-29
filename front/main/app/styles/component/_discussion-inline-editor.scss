@@ -88,10 +88,6 @@ $success-icon-size: 80px;
 		font-weight: $font-weight-bold;
 		letter-spacing: .15px;
 		text-transform: uppercase;
-
-		&:first-of-type {
-			padding-top: 15px;
-		}
 	}
 
 	.discussion-inline-editor-textarea,
@@ -115,8 +111,6 @@ $success-icon-size: 80px;
 	}
 
 	.discussion-inline-editor-title {
-		padding-top: 10px;
-
 		.discussion-textarea-wrapper {
 			position: relative;
 		}
@@ -129,6 +123,10 @@ $success-icon-size: 80px;
 			position: absolute;
 			right: 0;
 		}
+	}
+
+	.discussion-inline-editor-label:first-of-type {
+		padding-top: 10px;
 	}
 
 	.discussion-inline-editor-textarea {
