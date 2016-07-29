@@ -41,8 +41,12 @@
 			radius=32
 			strokeWidth=2
 		}}
+		<div class="load-more">
+			{{i18n 'main.loading-more-posts' ns='discussion'}}
+		</div>
 	{{/if}}
-	<div class="load-more">
+
+	<div class="load-more-button border-theme-color text-theme-button-color" {{action 'loadNextPageAction'}}>
 		{{i18n 'main.loading-more-posts' ns='discussion'}}
 	</div>
 {{/if}}
