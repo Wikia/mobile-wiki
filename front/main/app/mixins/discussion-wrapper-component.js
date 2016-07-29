@@ -3,8 +3,7 @@ import Ember from 'ember';
 export default Ember.Mixin.create(
 	{
 		classNames: ['forum-wrapper', 'discussion', 'forum'],
-		currentlyLoadingPage: false,
-		isLoading: true,
+		isLoading: false,
 		pageNum: 0,
 		postsDisplayed: 0,
 		totalPosts: 0,
@@ -16,27 +15,39 @@ export default Ember.Mixin.create(
 		}),
 
 		loadingPageResolveObserver: Ember.observer('postsDisplayed', 'minorError', function () {
-			this.set('currentlyLoadingPage', false);
+			this.set('isLoading', false);
 		}),
 
 		/**
 		 * @returns {void}
 		 */
 		didScroll() {
-			if (this.get('hasMore') && !this.get('currentlyLoadingPage') &&
-				this.get('maxAutoloadPagesNumber') > this.get('currentAutoloadPagesCounter') &&
+			if (this.get('hasMore') && !this.get('isLoading') &&
+				this.get('currentAutoloadPagesCounter') < this.get('maxAutoloadPagesNumber') &&
 				this.isScrolledToTrigger()
 			) {
-				this.incrementProperty('currentAutoloadPagesCounter');
+				if (this.incrementProperty('currentAutoloadPagesCounter') >= this.get('maxAutoloadPagesNumber')) {
+					this.scrollOff();
+				}
+
 				this.loadNextPage();
 			}
+		},
+
+		scrollOff() {
+			Ember.$(window).off(`scroll.${this.id}`, this.didScroll.bind(this));
+		},
+
+		scrollOn() {
+			Ember.$(window).on(`scroll.${this.id}`, this.didScroll.bind(this));
 		},
 
 		loadNextPage() {
 			this.setProperties({
 				pageNum: this.pageNum + 1,
-				currentlyLoadingPage: true,
+				isLoading: true,
 			});
+
 			this.sendAction('loadPage', this.pageNum);
 		},
 
@@ -58,14 +69,20 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		didInsertElement() {
-			Ember.$(window).on(`scroll.${this.id}`, this.didScroll.bind(this));
+			this.scrollOn();
 		},
 
 		/**
 		 * @returns {void}
 		 */
 		willDestroyElement() {
-			Ember.$(window).off(`scroll.${this.id}`);
+			this.scrollOff();
+		},
+
+		actions: {
+			loadNextPageAction() {
+				this.loadNextPage();
+			},
 		},
 	}
 );
