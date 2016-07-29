@@ -59,3 +59,9 @@
 		color: $discussion-category-picker-button-background-color;
 	}
 }
+
+.discussion-standalone-editor {
+	.discussion-category-picker-button {
+		margin: 10px 15px 0;
+	}
+}

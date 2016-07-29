@@ -38,13 +38,13 @@ $success-icon-size: 80px;
 
 	.discussion-standalone-content-wrapper {
 		flex-grow: 1;
-		margin: 0 15px 0;
+		margin: 0;
 		overflow: auto;
 	}
 
 	.discussion-standalone-editor-title,
 	.discussion-standalone-editor-message {
-		margin-top: 10px;
+		margin: 10px 15px 0;
 	}
 
 	.discussion-standalone-editor-label,
