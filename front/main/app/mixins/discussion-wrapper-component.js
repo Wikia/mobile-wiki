@@ -32,8 +32,7 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		didScroll() {
-			if (this.get('hasMore') && !this.get('isLoading') && this.isScrolledToTrigger()
-			) {
+			if (this.get('hasMore') && !this.get('isLoading') && this.isScrolledToTrigger()) {
 				this.loadNextPage();
 			}
 		},
