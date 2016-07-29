@@ -98,7 +98,6 @@ export default Ember.Mixin.create({
 		discussionHeaderColor = this.getHeaderColor(heroImageRgbColor);
 
 		styles += `.discussions .border-theme-color {border-color: ${this.get('themeColors.color-buttons')};}`;
-		styles += `.discussions .text-theme-button-color {color: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .background-theme-color {background-color: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .background-alpha-theme-color {background-color: ${heroImageRgbColor.toRgbString()};}`;
 		styles += '.discussions .discussion-hero-unit .discussion-hero-unit-content h1,' +
