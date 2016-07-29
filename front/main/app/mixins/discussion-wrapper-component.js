@@ -7,11 +7,21 @@ export default Ember.Mixin.create(
 		pageNum: 0,
 		postsDisplayed: 0,
 		totalPosts: 0,
-		maxAutoloadPagesNumber: 3,
-		currentAutoloadPagesCounter: 0,
+		minManualLoadPagesNumber: 3,
+		manualLoadPagesCounter: 0,
 
 		hasMore: Ember.computed('totalPosts', 'postsDisplayed', function () {
 			return this.get('totalPosts') > this.get('postsDisplayed');
+		}),
+
+		showLoadMoreButton: Ember.computed('hasMore', 'manualLoadPagesCounter', function () {
+			return this.get('hasMore') && this.get('manualLoadPagesCounter') < this.get('minManualLoadPagesNumber');
+		}),
+
+		autoScrollingOnObserver: Ember.observer('showLoadMoreButton', function () {
+			if (!this.get('showLoadMoreButton')) {
+				this.scrollOn();
+			}
 		}),
 
 		loadingPageResolveObserver: Ember.observer('postsDisplayed', 'minorError', function () {
@@ -22,14 +32,8 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		didScroll() {
-			if (this.get('hasMore') && !this.get('isLoading') &&
-				this.get('currentAutoloadPagesCounter') < this.get('maxAutoloadPagesNumber') &&
-				this.isScrolledToTrigger()
+			if (this.get('hasMore') && !this.get('isLoading') && this.isScrolledToTrigger()
 			) {
-				if (this.incrementProperty('currentAutoloadPagesCounter') >= this.get('maxAutoloadPagesNumber')) {
-					this.scrollOff();
-				}
-
 				this.loadNextPage();
 			}
 		},
@@ -68,19 +72,13 @@ export default Ember.Mixin.create(
 		/**
 		 * @returns {void}
 		 */
-		didInsertElement() {
-			this.scrollOn();
-		},
-
-		/**
-		 * @returns {void}
-		 */
 		willDestroyElement() {
 			this.scrollOff();
 		},
 
 		actions: {
 			loadNextPageAction() {
+				this.incrementProperty('manualLoadPagesCounter')
 				this.loadNextPage();
 			},
 		},
