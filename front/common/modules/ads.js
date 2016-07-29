@@ -27,10 +27,9 @@ import load from '../utils/load';
  * @class Ads
  *
  * @property {Ads} instance
- * @property {boolean|null} previousSourcePointDetectionResult
- * @property {boolean|null} previousPageFairDetectionResult
  * @property {Array<string[]>} adSlots
  * @property {Object} adsContext
+ * @property {Object} previousDetectionResults
  * @property {*} adEngineRunnerModule
  * @property {*} adContextModule
  * @property {SourcePointDetectionModule} sourcePointDetectionModule
@@ -193,17 +192,24 @@ class Ads {
 	}
 
 	/**
+	 * @param {String} name
 	 * @param {Object} GAOption
 	 * @param {Boolean} isAdBlockDetected
 	 * @returns {void}
 	 */
-	trackBlocking(GAOption, isAdBlockDetected) {
+	trackBlocking(name, GAOption, isAdBlockDetected) {
 		let value = isAdBlockDetected ? 'Yes' : 'No';
 
+		this.setPreviousDetectionResult(name, isAdBlockDetected);
 		M.tracker.UniversalAnalytics.setDimension(GAOption.dimension, value);
 		M.tracker.UniversalAnalytics.track(`ads-${GAOption.name}-detection`, 'impression', value, 0, true);
 
 		Ads.gaTrackAdEvent.call(this, `ad/${GAOption.name}/detection`, value, '', 0, true);
+	}
+
+	setPreviousDetectionResult(name, isAdBlockDetected) {
+		this.previousDetectionResults[name].value = isAdBlockDetected;
+		this.previousDetectionResults[name].exists = true;
 	}
 
 	/**
@@ -214,30 +220,30 @@ class Ads {
 			GASettings = this.GASettings,
 			listenerSettings = [
 				{
+					name: 'sourcePoint',
 					eventName: 'sp.blocking',
 					value: true,
-					detectorSettings: GASettings.sourcePoint
 				},
 				{
+					name: 'sourcePoint',
 					eventName: 'sp.not_blocking',
 					value: false,
-					detectorSettings: GASettings.sourcePoint
 				},
 				{
+					name: 'pageFair',
 					eventName: 'pf.blocking',
 					value: true,
-					detectorSettings: GASettings.pageFair
 				},
 				{
+					name: 'pageFair',
 					eventName: 'pf.not_blocking',
 					value: false,
-					detectorSettings: GASettings.pageFair
 				}
 			];
 
 		listenerSettings.map((listenerSetting) => {
 			document.addEventListener(listenerSetting.eventName, () => {
-				trackBlocking(listenerSetting.detectorSettings, listenerSetting.value);
+				trackBlocking(listenerSetting.name, GASettings[listenerSetting.name], listenerSetting.value);
 			});
 		});
 	}
@@ -289,14 +295,14 @@ class Ads {
 				onContextLoadCallback();
 			}
 
-			if (Ads.previousSourcePointDetectionResult !== null) {
-				this.trackBlocking(this.GASettings.sourcePoint, Ads.previousSourcePointDetectionResult);
+			if (Ads.previousDetectionResults.sourcePoint.exists) {
+				this.trackBlocking('sourcePoint', this.GASettings.sourcePoint, Ads.previousDetectionResults.sourcePoint.value);
 			} else {
 				this.sourcePointDetectionModule.initDetection();
 			}
 
-			if (Ads.previousPageFairDetectionResult !== null) {
-				this.trackBlocking(this.GASettings.pageFair, Ads.previousPageFairDetectionResult);
+			if (Ads.previousDetectionResults.pageFair.exists) {
+				this.trackBlocking('pageFair', this.GASettings.pageFair, Ads.previousDetectionResults.pageFair.value);
 			} else {
 				this.pageFairDetectionModule.initDetection(adsContext);
 			}
@@ -427,8 +433,16 @@ class Ads {
 }
 
 Ads.instance = null;
-Ads.previousSourcePointDetectionResult = null;
-Ads.previousPageFairDetectionResult = null;
+Ads.previousDetectionResults = {
+	pageFair: {
+		exists: false,
+		value: null
+	},
+	sourcePoint: {
+		exists: false,
+		value: null
+	}
+};
 
 // @TODO XW-703 right now ads code which comes from MW is expecting window.Mercury.Modules.
 // When introducing sync require in ads this should be fixed
