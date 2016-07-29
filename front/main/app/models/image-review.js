@@ -18,15 +18,15 @@ ImageReviewModel.reopenClass({
 		}).then(({payload, jqXHR}) => {
 			// In case there are no more images, create empty model and show `No more images to review` message
 			if (jqXHR.status === 204) {
-				return ImageReviewModel.createEmptyModelWithPermission();
+				return ImageReviewModel.createEmptyModelWithPermission(status);
 			} else {
-				return ImageReviewModel.getImagesAndCount(payload.id);
+				return ImageReviewModel.getImagesAndCount(payload.id, status);
 			}
 		});
 	},
 
-	endSession() {
-		return request(M.getImageReviewServiceUrl(`/contract`, {}), {
+	endSession(contractId) {
+		return request(M.getImageReviewServiceUrl(`/contract/${contractId}`, {}), {
 			method: 'DELETE',
 		});
 	},
@@ -44,8 +44,7 @@ ImageReviewModel.reopenClass({
 
 	reviewImage(contractId, imageId, flag) {
 		return request(
-			M.getImageReviewServiceUrl(`/contract/${contractId}/image/${imageId}?status=${flag.toUpperCase()}`),
-			{
+			M.getImageReviewServiceUrl(`/contract/${contractId}/image/${imageId}?status=${flag.toUpperCase()}`), {
 				method: 'PUT',
 			});
 	},
@@ -57,7 +56,7 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	sanitize(rawData, contractId, imagesToReviewCount, userInfo) {
+	sanitize(rawData, contractId, imagesToReviewCount, userInfo, status) {
 		const images = [];
 
 		rawData.forEach((image) => {
@@ -77,11 +76,12 @@ ImageReviewModel.reopenClass({
 			images,
 			contractId,
 			imagesToReviewCount,
-			userCanAuditReviews: userInfo
+			userCanAuditReviews: userInfo,
+			status
 		});
 	},
 
-	reviewImages(images) {
+	reviewImages(images, contractId) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const promises = images.map((item) => {
 				return ImageReviewModel.reviewImage(item.contractId, item.imageId, item.status);
@@ -92,30 +92,34 @@ ImageReviewModel.reopenClass({
 			}, (data) => {
 				reject(data);
 			});
+		}).then(() => {
+			ImageReviewModel.endSession(contractId);
 		});
 	},
 
-	getImagesToReviewCount() {
+	getImagesToReviewCount(status) {
 		return request(M.getImageReviewServiceUrl('/monitoring', {
-			status: 'UNREVIEWED'
+			status
 		})).catch(() => {
 			throw new Error(i18n.t('app.image-review-error-invalid-data'));
 		});
 	},
 
-	getImagesAndCount(contractId) {
+	getImagesAndCount(contractId, status) {
 		const promises = [
 			ImageReviewModel.getImages(contractId),
-			ImageReviewModel.getImagesToReviewCount(),
+			ImageReviewModel.getImagesToReviewCount(status),
 			ImageReviewModel.getUserAuditReviewPermission()
 		];
 
 		return Ember.RSVP.allSettled(promises)
 			.then(([getImagesPromise, getImagesToReviewCountPromise, getUserAuditReviewPermissionPromise]) => {
-				return ImageReviewModel.sanitize(getImagesPromise.value.data,
-					getImagesPromise.value.contractId,
-					getImagesToReviewCountPromise.value.countByStatus,
-					getUserAuditReviewPermissionPromise.value.userAllowedToAuditReviews);
+				return ImageReviewModel
+					.sanitize(getImagesPromise.value.data,
+						getImagesPromise.value.contractId,
+						getImagesToReviewCountPromise.value.countByStatus,
+						getUserAuditReviewPermissionPromise.value,
+						status);
 			});
 	},
 
@@ -127,9 +131,9 @@ ImageReviewModel.reopenClass({
 		});
 	},
 
-	createEmptyModelWithPermission() {
+	createEmptyModelWithPermission(status) {
 		return ImageReviewModel.getUserAuditReviewPermission().then((userInfo) =>
-			ImageReviewModel.create({userCanAuditReviews: userInfo.userAllowedToAuditReviews}));
+			ImageReviewModel.create({userCanAuditReviews: userInfo, status}));
 	}
 });
 

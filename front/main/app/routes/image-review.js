@@ -41,11 +41,10 @@ export default Route.extend({
 			const model = this.modelFor('imageReview');
 
 			this.controllerFor('application').set('isLoading', true);
-			this.set('status', 'UNREVIEWED');
-
 			window.scrollTo(0, 0);
+
 			if (model.images !== undefined) {
-				ImageReviewModel.reviewImages(model.images).then(() => {}, (data) => {
+				ImageReviewModel.reviewImages(model.images, model.contractId).then(() => {}, (data) => {
 					this.controllerFor('application').addAlert({
 						message: data,
 						type: 'warning',
@@ -57,14 +56,20 @@ export default Route.extend({
 		},
 
 		getFlaggedOnly() {
+			const model = this.modelFor('imageReview');
 			window.scrollTo(0, 0);
+
+			ImageReviewModel.endSession(model.contractId);
 
 			this.set('status', 'FLAGGED');
 			this.refresh();
 		},
 
 		getRejectedOnly() {
+			const model = this.modelFor('imageReview');
 			window.scrollTo(0, 0);
+
+			ImageReviewModel.endSession(model.contractId);
 
 			this.set('status', 'REJECTED');
 			this.refresh();
