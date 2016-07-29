@@ -67,7 +67,7 @@ export default Ember.Mixin.create({
 		promisesList.push(this.editPostContent(postData));
 
 		if (wasMoved) {
-			promisesList.push(this.movePost(postData.threadId, newCategoryId))
+			promisesList.push(this.movePost(postData.threadId, newCategoryId));
 		}
 
 		return Ember.RSVP.all(promisesList).then((data) => {

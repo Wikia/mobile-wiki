@@ -6,7 +6,7 @@ export default Ember.Component.extend({
 	tagName: 'a',
 
 	click() {
-		this.sendAction('onCategoryPicked', this.get('category'))
+		this.sendAction('onCategoryPicked', this.get('category'));
 	},
 
 	mouseEnter() {

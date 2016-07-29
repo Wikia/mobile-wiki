@@ -12,7 +12,6 @@ export default Ember.Component.extend({
 		},
 
 		onHover(category) {
-			debugger;
 			category.set('hover', true);
 		},
 
