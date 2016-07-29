@@ -1,8 +1,5 @@
 {{#unless queryParams.noexternals}}
 	<script>
-		// Load UA async and flag $script when ready
-		$script(['{{server.gaUrl}}'], 'ua');
-
 		// when optimizely loads, initialize trackers and track initial pageview
 		$script.ready(['optimizely'], function () {
 			var ua = M.tracker.UniversalAnalytics;
