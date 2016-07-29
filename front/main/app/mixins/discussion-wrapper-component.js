@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Mixin.create(
 	{
@@ -20,6 +21,7 @@ export default Ember.Mixin.create(
 
 		autoScrollingOnObserver: Ember.observer('showLoadMoreButton', function () {
 			if (!this.get('showLoadMoreButton')) {
+				track(trackActions.PostMore);
 				this.scrollOn();
 			}
 		}),
@@ -78,6 +80,7 @@ export default Ember.Mixin.create(
 		actions: {
 			loadNextPageAction() {
 				this.incrementProperty('manualLoadPagesCounter');
+				track(trackActions.PostLoadMore);
 				this.loadNextPage();
 			},
 		},

@@ -49,7 +49,10 @@ const trackActions = {
 	GuidelinesEditContent: 'GuidelinesEditContent',
 	GuidelinesEdit: 'GuidelinesEdit',
 	GuidelinesEditSave: 'GuidelinesEditSave',
-	WelcomeMessageClose: 'WelcomeMessageClose'
+	WelcomeMessageClose: 'WelcomeMessageClose',
+	PostLoadMore: 'PostLoadMore',
+	PostMore: 'PostMore',
+
 };
 
 /**
