@@ -98,7 +98,8 @@ export default DiscussionMultipleInputsEditor.extend(
 						body: this.get('content'),
 						title: this.get('title')
 					};
-					let actionName;
+					let actionName,
+						editedEntity;
 
 					if (this.get('showsOpenGraphCard')) {
 						discussionEntityData.openGraph = {
@@ -112,6 +113,8 @@ export default DiscussionMultipleInputsEditor.extend(
 						discussionEntityData.siteId = Mercury.wiki.id;
 					} else {
 						const editEntity = this.get('editEntity');
+
+						editedEntity = editEntity;
 						discussionEntityData.id = editEntity.get('id');
 
 						if (editEntity.get('isReply')) {
@@ -122,7 +125,12 @@ export default DiscussionMultipleInputsEditor.extend(
 						}
 					}
 
-					this.sendAction(actionName, discussionEntityData, this.get('category.id'));
+					const params = {
+						editedEntity,
+						newCategoryId: this.get('category.id'),
+					};
+
+					this.sendAction(actionName, discussionEntityData, params);
 				}
 			},
 		}

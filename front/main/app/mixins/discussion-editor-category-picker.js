@@ -5,7 +5,9 @@ export default Ember.Mixin.create({
 	category: null,
 
 	shouldShowCategoryPicker: Ember.computed('isReply', 'isEdit', 'isActive', function () {
-		return !this.get('isReply') && !this.get('isEdit') && this.get('isActive');
+		return (!this.get('isReply') && this.get('isActive')) ||
+			(this.get('isEdit') && true);
+			//(this.get('isEdit') && this.get('currentUser.permissions.discussions.canChangePostCategory'));
 	}),
 
 	clearCategory: Ember.observer('isActive', function () {

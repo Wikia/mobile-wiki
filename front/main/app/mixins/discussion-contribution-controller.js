@@ -227,24 +227,24 @@ export default Ember.Mixin.create({
 		 * @param {Object} entityData
 		 * @returns {void}
 		 */
-		createPost(entityData, forumId) {
-			this.createPost(entityData, forumId);
+		createPost(entityData, params) {
+			this.createPost(entityData, params.newCategoryId);
 		},
 
 		/**
 		 * Bubbles up to Route
 		 * @param {Object} entityData
-		 * @param {String} categoryId
+		 * @param {Object} params
 		 * @returns {void}
 		 */
-		editPost(entityData, categoryId) {
+		editPost(entityData, params) {
 			const editorType = 'editEditor',
 				editorState = this.getEditorState(editorType);
 
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
 
-			this.get('model').current.editPost(entityData, categoryId).catch((err) => {
+			this.get('model').current.editPost(entityData, params).catch((err) => {
 				this.onContributionError(editorType, err, 'editor.save-error-general-error');
 			}).finally(() => {
 				editorState.set('isLoading', false);

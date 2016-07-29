@@ -7,13 +7,13 @@
 
 <div class="discussion-standalone-content-wrapper">
 	{{#if shouldShowCategoryPicker}}
-		{{#pop-over for='discussionInlineCategoryPicker' on='click' flow='downCentered' class='discussion-category-picker'}}
+		{{#pop-over for=categoryPickerButtonId on='click' flow='downCentered' class='discussion-category-picker'}}
 			{{discussion-category-picker
 				categories=categories
 				setCategory=(action 'setCategory')
 			}}
 		{{/pop-over}}
-		<a id="discussionInlineCategoryPicker" class="discussion-category-picker-button {{if category 'active-element-background-color'}}">
+		<a id="{{categoryPickerButtonId}}" class="discussion-category-picker-button {{if category 'active-element-background-color'}}">
 			<span class="discussion-category-picker-content-wrapper">
 				{{#if category}}
 					{{category.name}}

@@ -1,6 +1,7 @@
 {{#if responsive.isMobile}}
 	{{discussion-standalone-editor
 		categories=model.index.categories.categories
+		categoryPickerButtonId='categoryPickerButtonMobile'
 		create=(action 'createPost')
 		errorMessage=editorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
@@ -19,6 +20,7 @@
 }}
 	{{discussion-standalone-editor
 		categories=model.index.categories.categories
+		categoryPickerButtonId='categoryPickerButtonEdit'
 		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')

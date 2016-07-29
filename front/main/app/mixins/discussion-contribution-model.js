@@ -34,12 +34,34 @@ export default Ember.Mixin.create({
 	 * @param {String} categoryId
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	editPost(postData, categoryId) {
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.threadId}`), {
+	editPost(postData, params) {
+		const promisesList = new Ember.A(),
+			newCategoryId = params.newCategoryId,
+			oldCategoryId = params.editedEntity.get('categoryId');
+
+		let threadData;
+
+		request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.threadId}`), {
 			data: JSON.stringify(postData),
 			method: 'POST',
-		}).then((thread) => {
-			const editedPost = DiscussionPost.createFromThreadData(thread);
+		}).then(() => {
+			return new Ember.RSVP.promise((resolve) => {
+				if (newCategoryId !== oldCategoryId) {
+					return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${newCategoryId}/movethreads`), {
+						data: JSON.stringify({
+							threadIds: [postData.threadId]
+						}),
+						method: 'POST'
+					});
+				} else {
+					resolve();
+				}
+			});
+
+		});
+
+		return Ember.RSVP.all(promisesList).then((data) => {
+			const editedPost = DiscussionPost.createFromThreadData(data[0]);
 
 			this.get('data.entities').findBy('id', postData.id).setProperties(editedPost);
 

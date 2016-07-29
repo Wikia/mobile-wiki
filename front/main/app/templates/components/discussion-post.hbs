@@ -81,6 +81,7 @@
 		{{#if responsive.isDesktop}}
 			{{discussion-inline-reply-editor
 				create=(action this.attrs.createReply)
+				categoryPickerButtonId='categoryPickerButtonDesktop'
 				errorMessage=editorState.errorMessage
 				generateOpenGraph=(action this.attrs.generateOpenGraph)
 				isActive=editorState.isOpen
