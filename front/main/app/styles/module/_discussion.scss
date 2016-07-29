@@ -524,12 +524,6 @@ body.discussions {
 		}
 	}
 
-	.load-more {
-		color: $discussion-load-more-color;
-		text-align: center;
-		width: 100%;
-	}
-
 	.post-detail {
 		background-color: $discussion-desktop-post-detail-bg-color;
 		padding: 12px 0 0;
@@ -547,6 +541,21 @@ body.discussions {
 				}
 			}
 		}
+	}
+
+	.load-more {
+		color: $discussion-load-more-color;
+		text-align: center;
+		width: 100%;
+	}
+
+	.load-more-button {
+		border-style: solid;
+		border-width: 1px;
+		line-height: 50px;
+		text-align: center;
+		width: 100%;
+		margin: 30px auto;
 	}
 
 	.load-older {
