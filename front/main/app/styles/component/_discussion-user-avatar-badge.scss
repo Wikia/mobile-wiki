@@ -7,67 +7,57 @@
 	}
 }
 
-/**
- * Hide user avatar badges under "Discussion" label on forum.
- **/
+// Hide user avatar badges under "Discussion" label on forum.
 .discussion-hero-unit {
 	.user-avatar-badge {
 		display: none;
 	}
 }
 
-.discussion {
+.post-detail {
+	.user-avatar-badge {
+		left: 25px;
+		top: 15px;
+	}
+}
+
+.discussion-reply {
+	.user-avatar-badge {
+		left: 32px;
+		top: 5px;
+	}
+}
+
+.post-details-view {
 	.post-detail {
 		.user-avatar-badge {
-			left: 25px;
-			top: 15px;
-		}
-	}
-
-	.discussion-reply {
-		.user-avatar-badge {
-			left: 32px;
 			top: 5px;
 		}
 	}
 }
 
-.post-details-view {
-	.discussion {
-		.post-detail {
-			.user-avatar-badge {
-				top: 5px;
-			}
-		}
-	}
+.discussion-contributors {
+	.user-avatar {
+		position: relative;
 
-	.discussion-contributors {
-		.user-avatar {
-			position: relative;
-
-			.user-avatar-badge {
-				bottom: 18px;
-				right: 18px;
-			}
-		}
-	}
-
-	.discussion-contributors-mobile {
-		.user-avatar {
-			.user-avatar-badge {
-				right: 23px;
-			}
+		.user-avatar-badge {
+			bottom: 18px;
+			right: 18px;
 		}
 	}
 }
 
+.discussion-contributors-mobile {
+	.user-avatar-badge {
+		right: 23px;
+	}
+}
+
 @media #{$mobile-range} {
-	.discussion {
-		.post-detail {
-			.user-avatar-badge {
-				left: 15px;
-				top: 5px;
-			}
+	.post-detail {
+		.user-avatar-badge {
+			left: 15px;
+			top: 5px;
 		}
 	}
 }

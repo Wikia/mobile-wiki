@@ -4,6 +4,13 @@ export default Ember.Component.extend({
 	tagName: 'figure',
 	classNames: ['user-avatar-badge'],
 
+	/**
+	 * User badge permission that will be translated to user avatar badge.
+	 *
+	 * @public
+     */
+	badgePermission: null,
+
 	badges: {
 		'badge:helper': {
 			icon: 'badge-helper',
@@ -29,6 +36,6 @@ export default Ember.Component.extend({
 
 	badge: Ember.computed('badgePermission', function () {
 		const badgePermission = this.get('badgePermission');
-		return this.getWithDefault(`badges.${badgePermission}`, '');
+		return this.getWithDefault(`badges.${badgePermission}`, null);
 	})
 });
