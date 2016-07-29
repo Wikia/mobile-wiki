@@ -15,7 +15,7 @@ export default Ember.Component.extend(
 
 		currentUser: Ember.inject.service(),
 
-		canEditCategories: true,//Ember.computed.oneWay('currentUser.permissions.discussions.canEditCategories'),
+		canEditCategories: Ember.computed.oneWay('currentUser.permissions.discussions.canEditCategories'),
 
 		init() {
 			this._super();

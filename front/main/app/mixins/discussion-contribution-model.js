@@ -28,6 +28,11 @@ export default Ember.Mixin.create({
 		});
 	},
 
+	/**
+	 * @param {String} threadId
+	 * @param {String} newCategoryId
+	 * @returns {Ember.RSVP.Promise}
+	 */
 	movePost(threadId, newCategoryId) {
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${newCategoryId}/movethreads`), {
 			data: JSON.stringify({
@@ -37,6 +42,10 @@ export default Ember.Mixin.create({
 		});
 	},
 
+	/**
+	 * @param {Object} postData
+	 * @returns {Ember.RSVP.Promise}
+	 */
 	editPostContent(postData) {
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.threadId}`), {
 			data: JSON.stringify(postData),
