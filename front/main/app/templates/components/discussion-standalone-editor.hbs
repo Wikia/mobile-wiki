@@ -24,6 +24,9 @@
 				{{/if}}
 			</span>
 		</a>
+		{{#unless category}}
+			<small class="discussion-category-picker-required-message">[{{i18n 'main.category-picker-required-message' ns='discussion'}}]</small>
+		{{/unless}}
 	{{/if}}
 	{{#if showMultipleInputs}}
 		{{discussion-textarea-with-counter

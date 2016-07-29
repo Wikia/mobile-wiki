@@ -31,7 +31,7 @@
 		font-size: 12px;
 		line-height: 12px;
 		padding: 8px 12px;
-		margin: 5px 0;
+		margin: 10px 0 0;
 
 		svg {
 			fill: $discussion-category-picker-button-color;
@@ -62,6 +62,6 @@
 
 .discussion-standalone-editor {
 	.discussion-category-picker-button {
-		margin: 10px 15px 0;
+		margin: 10px 0 0 15px;
 	}
 }

@@ -42,12 +42,13 @@ $success-icon-size: 80px;
 		overflow: auto;
 	}
 
-	.discussion-standalone-editor-title {
-		padding-top: 10px;
-	}
-
+	.discussion-standalone-editor-title,
 	.discussion-standalone-editor-message {
 		margin: 10px 15px 0;
+	}
+
+	.discussion-standalone-editor-title {
+		margin-top: 0;
 	}
 
 	.discussion-standalone-editor-label,

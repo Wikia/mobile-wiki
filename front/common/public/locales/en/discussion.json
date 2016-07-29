@@ -116,7 +116,8 @@
     "guidelines-header-title": "Discussions Guidelines",
     "welcome-message-header": "Awesome to have you here!",
     "welcome-message-text": "Have fun browsing, creating, or replying to posts. Read our __guidelinesLinkTitle__ and you'll fit right in.",
-    "category-picker-button-text": "Pick a category"
+    "category-picker-button-text": "Pick a category",
+    "category-picker-required-message": "required"
   },
   "editor": {
     "post-failed-error": "Post failed.",
