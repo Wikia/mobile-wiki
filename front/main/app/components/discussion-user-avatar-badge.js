@@ -8,7 +8,7 @@ export default Ember.Component.extend({
 	 * User badge permission that will be translated to user avatar badge.
 	 *
 	 * @public
-     */
+	 */
 	badgePermission: null,
 
 	badges: {
