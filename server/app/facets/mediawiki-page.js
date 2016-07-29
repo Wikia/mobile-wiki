@@ -23,7 +23,7 @@ import localSettings from '../../config/localSettings';
 import prepareArticleData from './operations/prepare-article-data';
 import prepareCategoryData from './operations/prepare-category-data';
 import prepareMainPageData from './operations/prepare-main-page-data';
-import prepareMediaWikiDataOnError from './operations/prepare-mediawiki-data';
+import prepareMediaWikiDataOnError from './operations/prepare-mediawiki-data-on-error';
 import showServerErrorPage from './operations/show-server-error-page';
 import deepExtend from 'deep-extend';
 import injectGlobalFooterData from '../lib/inject-global-footer-data';
