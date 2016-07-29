@@ -28,40 +28,48 @@ export default Ember.Mixin.create({
 		});
 	},
 
+	movePost(threadId, newCategoryId) {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${newCategoryId}/movethreads`), {
+			data: JSON.stringify({
+				threadIds: [threadId]
+			}),
+			method: 'POST'
+		});
+	},
+
+	editPostContent(postData) {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.threadId}`), {
+			data: JSON.stringify(postData),
+			method: 'POST',
+		});
+	},
+
 	/**
 	 * Edit a post in discussion service
 	 * @param {Object} postData
-	 * @param {String} categoryId
+	 * @param {Object} params
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	editPost(postData, params) {
 		const promisesList = new Ember.A(),
 			newCategoryId = params.newCategoryId,
-			oldCategoryId = params.editedEntity.get('categoryId');
+			wasMoved = newCategoryId !== params.editedEntity.get('categoryId');
 
-		let threadData;
+		promisesList.push(this.editPostContent(postData));
 
-		request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.threadId}`), {
-			data: JSON.stringify(postData),
-			method: 'POST',
-		}).then(() => {
-			return new Ember.RSVP.promise((resolve) => {
-				if (newCategoryId !== oldCategoryId) {
-					return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${newCategoryId}/movethreads`), {
-						data: JSON.stringify({
-							threadIds: [postData.threadId]
-						}),
-						method: 'POST'
-					});
-				} else {
-					resolve();
-				}
-			});
-
-		});
+		if (wasMoved) {
+			promisesList.push(this.movePost(postData.threadId, newCategoryId))
+		}
 
 		return Ember.RSVP.all(promisesList).then((data) => {
 			const editedPost = DiscussionPost.createFromThreadData(data[0]);
+
+			if (wasMoved) {
+				editedPost.setProperties({
+					categoryId: newCategoryId,
+					categoryName: params.newCategoryName
+				});
+			}
 
 			this.get('data.entities').findBy('id', postData.id).setProperties(editedPost);
 

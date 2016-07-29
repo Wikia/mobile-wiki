@@ -128,6 +128,7 @@ export default DiscussionMultipleInputsEditor.extend(
 					const params = {
 						editedEntity,
 						newCategoryId: this.get('category.id'),
+						newCategoryName: this.get('category.name'),
 					};
 
 					this.sendAction(actionName, discussionEntityData, params);
