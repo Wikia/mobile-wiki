@@ -23,7 +23,7 @@ import localSettings from '../../config/localSettings';
 import prepareArticleData from './operations/prepare-article-data';
 import prepareCategoryData from './operations/prepare-category-data';
 import prepareMainPageData from './operations/prepare-main-page-data';
-import prepareMediaWikiData from './operations/prepare-mediawiki-data';
+import prepareMediaWikiDataOnError from './operations/prepare-mediawiki-data-on-error';
 import showServerErrorPage from './operations/show-server-error-page';
 import deepExtend from 'deep-extend';
 import injectGlobalFooterData from '../lib/inject-global-footer-data';
@@ -127,7 +127,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	} else if (code !== 200) {
 		// In case of status code different than 200 we want Ember to display an error page
 		// This method sets all the data required to start the app
-		result = prepareMediaWikiData(request, data);
+		result = prepareMediaWikiDataOnError(request, data);
 	} else {
 		Logger.info(`Unsupported namespace: ${ns}`);
 		redirectToOasis(request, reply);

@@ -6,5 +6,5 @@ import showApplication from './show-application';
  * @returns {void}
  */
 export default function (request, reply) {
-	showApplication(request, reply, null, {}, true);
+	showApplication(request, reply, null, {showSpinner: true}, true);
 }
