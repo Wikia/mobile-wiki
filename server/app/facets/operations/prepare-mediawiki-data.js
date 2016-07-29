@@ -8,7 +8,7 @@ import {getDefaultTitle, getBaseResult, getOpenGraphData} from './page-data-help
  * @param {MediaWikiPageData} data
  * @returns {object}
  */
-export default function prepareMediaWikiData(request, data) {
+export default function prepareMediaWikiDataOnError(request, data) {
 	const allowedQueryParams = ['noexternals', 'buckysampling'],
 		pageData = data.page.data,
 		separator = data.wikiVariables.htmlTitle.separator,
