@@ -318,7 +318,28 @@ body.dark-theme {
 		}
 	}
 
+	.discussion-category-picker-button {
+		background: $dark-discussion-category-picker-button-background-color;
+		color: $dark-discussion-category-picker-button-color;
+
+		&.active-element-background-color {
+			color: $discussion-category-picker-button-color;
+
+			svg.icon {
+				fill: $discussion-category-picker-button-color;
+			}
+		}
+
+		svg.icon {
+			fill: $dark-discussion-category-picker-button-color;
+		}
+	}
+
 	&.discussions {
+		.discussion-category-picker-required-message {
+			color: $dark-discussion-category-picker-button-background-color;
+		}
+
 		.og-container {
 			background-color: $dark-discussion-open-graph-background-color;
 			border-color: $dark-discussion-open-graph-border-color;

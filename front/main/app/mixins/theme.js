@@ -120,6 +120,9 @@ export default Ember.Mixin.create({
 		styles += `.discussions .fill-button-color {fill: ${this.get('themeColors.color-buttons')};}`;
 		styles += `.discussions .stroke-theme-color {stroke: ${this.get('themeColors.color-links')};}`;
 
+		styles += `.dark-theme.discussions .active-element-background-color {background-color: ${
+			this.get('themeColors.color-links')};}`;
+
 		inlineStyles = Ember.$('<style>').attr('id', styleId);
 		inlineStyles.text(styles);
 

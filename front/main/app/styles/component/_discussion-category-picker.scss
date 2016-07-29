@@ -24,9 +24,9 @@
 	}
 
 	.discussion-category-picker-button {
-		background: #ccc;
+		background: $discussion-category-picker-button-background-color;
 		border-radius: 100px;
-		color: #fff;
+		color: $discussion-category-picker-button-color;
 		display: inline-block;
 		font-size: 12px;
 		line-height: 12px;
@@ -34,7 +34,7 @@
 		margin: 5px 0;
 
 		svg {
-			fill: #fff;
+			fill: $discussion-category-picker-button-color;
 			height: 14px;
 			width: 14px;
 		}
@@ -56,6 +56,6 @@
 	}
 
 	.discussion-category-picker-required-message {
-		color: #ccc;
+		color: $discussion-category-picker-button-background-color;
 	}
 }
