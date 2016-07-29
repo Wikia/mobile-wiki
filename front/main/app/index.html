@@ -74,9 +74,9 @@
 		<div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
 			{{{content}}}
 		</div>
-		{{#unless content}}
+		{{#if showSpinner}}
 			{{> loading-spinner}}
-		{{/unless}}
+		{{/if}}
 	</div>
 </div>
 <div id="ember-component-constructor" style="display: none"></div>

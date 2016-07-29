@@ -24,6 +24,7 @@ export default function prepareCuratedContentData(request, data) {
 	result.displayTitle = getCuratedMainPageTitle(request, wikiVariables);
 	result.documentTitle = result.displayTitle + separator + result.documentTitle;
 	result.isMainPage = true;
+	result.showSpinner = true;
 	result.mainPageData = mainPageData;
 	result.openGraph = getOpenGraphData('website', result.displayTitle, result.canonicalUrl, result.mainPageData);
 

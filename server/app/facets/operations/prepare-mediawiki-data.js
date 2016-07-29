@@ -17,6 +17,7 @@ export default function prepareMediaWikiData(request, data) {
 	result.displayTitle = getDefaultTitle(request, pageData);
 	result.documentTitle = result.displayTitle + separator + result.documentTitle;
 	result.queryParams = parseQueryParams(request.query, allowedQueryParams);
+	result.showSpinner = true;
 
 	if (pageData && pageData.details) {
 		result.canonicalUrl += pageData.details.url;
