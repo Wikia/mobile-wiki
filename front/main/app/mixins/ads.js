@@ -3,6 +3,15 @@ import Ads from 'common/modules/ads';
 
 export default Ember.Mixin.create({
 	adsData: {
+		additionalConfig: {
+			MOBILE_TOP_LEADERBOARD: {
+				// ATF slot is pushed immediately (without any delay/in single request with other slots)
+				isAboveTheFold: true
+			},
+			MOBILE_BOTTOM_LEADERBOARD: {
+				disableManualInsert: true
+			}
+		},
 		minZerothSectionLength: 700,
 		minPageLength: 2000,
 		mobileBottomLeaderBoard: 'MOBILE_BOTTOM_LEADERBOARD',
@@ -39,11 +48,15 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	appendAd(adSlotName, place, element) {
-		const component = this.get('container').lookup(`component:ad-slot`, {
-			singleton: false
-		});
+		const adsData = this.get('adsData'),
+			component = this.get('container').lookup(`component:ad-slot`, {
+				singleton: false
+			}),
+			config = adsData.additionalConfig[adSlotName] || {};
 
 		component.setProperties({
+			disableManualInsert: !!config.disableManualInsert,
+			isAboveTheFold: !!config.isAboveTheFold,
 			name: adSlotName,
 			noAds: this.get('noAds')
 		});
