@@ -18,7 +18,13 @@
 {{#if displayWikiaHomeLink}}
 	<a href="/" class="wikia-home-link active-element-theme-color">
 		{{svg 'home-small' role='img' class='icon wikia-home'}}
-		<span>{{i18n 'main.wiki-home' ns='discussion'}}</span>
+		<span>{{wikiHomeLinkText}}</span>
+	</a>
+{{/if}}
+{{#if displayMemoryAlphaLink}}
+	<a href="http://memory-alpha.wikia.com" class="wikia-home-link active-element-theme-color">
+		{{svg 'home-small' role='img' class='icon wikia-home'}}
+		<span>Memory Alpha</span>
 	</a>
 {{/if}}
 {{#if displayAppPromotion}}

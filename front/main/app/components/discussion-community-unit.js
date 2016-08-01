@@ -28,6 +28,18 @@ export default Ember.Component.extend({
 		}
 	}),
 
+	displayMemoryAlphaLink: Ember.computed(function () {
+		return Boolean(Ember.get(Mercury, 'wiki.id') === 734209);
+	}),
+
+	wikiHomeLinkText: Ember.computed('displayMemoryAlphaLink', function () {
+		if (this.get('displayMemoryAlphaLink') === true) {
+			return 'The Trek Initiative';
+		} else {
+			return i18n.t('main.wiki-home', {ns: 'discussion'});
+		}
+	}),
+
 	actions: {
 
 		/**
