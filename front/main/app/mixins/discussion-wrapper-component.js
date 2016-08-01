@@ -22,7 +22,7 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		willDestroyElement() {
-			if(this.get('loadOnScrollEnabled')) {
+			if (this.get('loadOnScrollEnabled')) {
 				this.scrollOff();
 			}
 		},
