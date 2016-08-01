@@ -85,6 +85,13 @@
 	}
 
 	.post-details-view {
+
+		.post-detail {
+			.user-avatar-badge {
+				top: 4px;
+			}
+		}
+
 		.discussion-contributors {
 			.user-avatar-badge {
 				bottom: 17px;
