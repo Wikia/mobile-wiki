@@ -43,7 +43,7 @@ export default Route.extend({
 			this.controllerFor('application').set('isLoading', true);
 			window.scrollTo(0, 0);
 
-			if (model.images !== undefined) {
+			if (!Ember.isNone(model.images)) {
 				ImageReviewModel.reviewImages(model.images, model.contractId).then(() => {}, (data) => {
 					this.controllerFor('application').addAlert({
 						message: data,
