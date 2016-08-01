@@ -173,7 +173,7 @@ export default Ember.Mixin.create({
 			showMoreInContentAds = adsData.moreInContentAds.enabled &&
 				articleBodyHeight > adsData.moreInContentAds.minPageLength,
 
-			$globalFooter = $('.global-footer');
+			$globalFooter = $('.wds-global-footer');
 
 		this.clearAdViews();
 
@@ -217,7 +217,7 @@ export default Ember.Mixin.create({
 			$trendingArticles = this.$('.trending-articles'),
 			showInContent = $curatedContent.length > 0,
 			showPreFooter = $trendingArticles.length,
-			$globalFooter = $('.global-footer');
+			$globalFooter = $('.wds-global-footer');
 
 		this.clearAdViews();
 
