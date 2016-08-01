@@ -238,7 +238,7 @@ const localSettings = {
 				id: 'UA-32132943-1',
 				sampleRate: 100
 			},
-			scriptUrl: 'https://www.google-analytics.com/analytics.js'
+			scriptUrl: 'http://www.google-analytics.com/analytics.js'
 		},
 		quantserve: 'p-8bG6eLqkH6Avk',
 		comscore: {
