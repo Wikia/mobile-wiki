@@ -11,16 +11,24 @@ export default Ember.Mixin.create(
 		showLoadMoreButton: true,
 		totalPosts: 0,
 
-		hasMore: Ember.computed('totalPosts', 'postsDisplayed', function () {
-			return this.get('totalPosts') > this.get('postsDisplayed');
-		}),
-
-
 		autoScrollingOnObserver: Ember.observer('showLoadMoreButton', function () {
 			if (!this.get('showLoadMoreButton') && this.get('loadOnScrollEnabled')) {
 				track(trackActions.PostMore);
 				this.scrollOn();
 			}
+		}),
+
+		/**
+		 * @returns {void}
+		 */
+		willDestroyElement() {
+			if(this.get('loadOnScrollEnabled')) {
+				this.scrollOff();
+			}
+		},
+
+		hasMore: Ember.computed('totalPosts', 'postsDisplayed', function () {
+			return this.get('totalPosts') > this.get('postsDisplayed');
 		}),
 
 		loadingPageResolveObserver: Ember.observer('postsDisplayed', 'minorError', function () {
@@ -65,15 +73,6 @@ export default Ember.Mixin.create(
 				viewPortTop = $(document).scrollTop();
 
 			return distanceToViewportTop - viewPortTop < triggerDistance;
-		},
-
-		/**
-		 * @returns {void}
-		 */
-		willDestroyElement() {
-			if(this.get('loadOnScrollEnabled')) {
-				this.scrollOff();
-			}
 		},
 
 		actions: {
