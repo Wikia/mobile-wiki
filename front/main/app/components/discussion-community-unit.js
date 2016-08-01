@@ -28,10 +28,20 @@ export default Ember.Component.extend({
 		}
 	}),
 
+	/**
+	 * TREK INITIATIVE EXPERIMENT
+	 *
+	 * @returns {boolean}
+	 */
 	displayMemoryAlphaLink: Ember.computed(function () {
 		return Boolean(Ember.get(Mercury, 'wiki.id') === 734209);
 	}),
 
+	/**
+	 * TREK INITIATIVE EXPERIMENT
+	 *
+	 * @returns {string}
+	 */
 	wikiHomeLinkText: Ember.computed('displayMemoryAlphaLink', function () {
 		if (this.get('displayMemoryAlphaLink') === true) {
 			return 'The Trek Initiative';
