@@ -1,38 +1,11 @@
 .user-avatar-badge {
+	left: 9px;
 	position: absolute;
+	top: 4px;
 
 	svg {
 		height: 18px;
 		width: 18px;
-	}
-}
-
-// Hide user avatar badges under "Discussion" label on forum.
-.discussion-hero-unit {
-	.user-avatar-badge {
-		display: none;
-	}
-}
-
-.post-detail {
-	.user-avatar-badge {
-		left: 25px;
-		top: 15px;
-	}
-}
-
-.discussion-reply {
-	.user-avatar-badge {
-		left: 32px;
-		top: 5px;
-	}
-}
-
-.post-details-view {
-	.post-detail {
-		.user-avatar-badge {
-			top: 5px;
-		}
 	}
 }
 
@@ -41,23 +14,97 @@
 		position: relative;
 
 		.user-avatar-badge {
-			bottom: 18px;
-			right: 18px;
+			bottom: 19px;
+			left: auto;
+			right: 26px;
+			top: auto;
 		}
 	}
 }
 
-.discussion-contributors-mobile {
-	.user-avatar-badge {
-		right: 23px;
+.post-detail {
+	&.is-locked,
+	&.is-reported {
+		.user-avatar-badge {
+			top: 36px;
+		}
 	}
 }
 
-@media #{$mobile-range} {
+.post-reply {
+	.user-avatar-badge {
+		left: 31px;
+	}
+
+	&.is-locked,
+	&.is-reported {
+		.user-avatar-badge {
+			top: 36px;
+		}
+	}
+}
+
+.post-list-view {
+	.discussion-contributors {
+		.user-avatar-badge {
+			bottom: 17px;
+			right: 21px;
+		}
+	}
+
+	.post-reply {
+		.user-avatar-badge {
+			top: 36px;
+		}
+	}
+}
+
+@media #{$desktop-range} {
+	// Hide user avatar badges under "Discussion" label on forum.
+	.post-list-view:not(.discussion-user-list) {
+		.discussion-hero-unit {
+			.user-avatar-badge {
+				display: none;
+			}
+		}
+	}
+
 	.post-detail {
 		.user-avatar-badge {
-			left: 15px;
-			top: 5px;
+			left: 23px;
+			top: 12px;
+		}
+
+		&.is-locked,
+		&.is-reported {
+			.user-avatar-badge {
+				left: 24px;
+				top: 36px;
+			}
+		}
+	}
+
+	.post-details-view {
+		.discussion-contributors {
+			.user-avatar-badge {
+				bottom: 17px;
+				right: 21px;
+			}
+		}
+	}
+
+	.post-list-view {
+		.post-reply {
+			.user-avatar-badge {
+				left: 42px;
+			}
+		}
+
+		.discussion-contributors {
+			.user-avatar-badge {
+				bottom: 27px;
+				right: 30px;
+			}
 		}
 	}
 }
