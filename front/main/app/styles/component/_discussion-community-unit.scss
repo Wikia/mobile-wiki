@@ -22,7 +22,12 @@
 	.guidelines-link,
 	.wikia-home-link {
 		color: $discussion-community-unit-link-color;
+		display: block;
 		margin: 8px 0;
+	}
+
+	.wikia-home-link {
+		padding: 8px 0;
 	}
 
 	.guidelines-link-section {
