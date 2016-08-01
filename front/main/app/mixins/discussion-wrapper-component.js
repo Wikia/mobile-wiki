@@ -5,22 +5,19 @@ export default Ember.Mixin.create(
 	{
 		classNames: ['forum-wrapper', 'discussion', 'forum'],
 		isLoading: false,
+		loadOnScrollEnabled: false,
 		pageNum: 0,
 		postsDisplayed: 0,
+		showLoadMoreButton: true,
 		totalPosts: 0,
-		minManualLoadPagesNumber: 3,
-		manualLoadPagesCounter: 0,
 
 		hasMore: Ember.computed('totalPosts', 'postsDisplayed', function () {
 			return this.get('totalPosts') > this.get('postsDisplayed');
 		}),
 
-		showLoadMoreButton: Ember.computed('hasMore', 'manualLoadPagesCounter', function () {
-			return this.get('hasMore') && this.get('manualLoadPagesCounter') < this.get('minManualLoadPagesNumber');
-		}),
 
 		autoScrollingOnObserver: Ember.observer('showLoadMoreButton', function () {
-			if (!this.get('showLoadMoreButton')) {
+			if (!this.get('showLoadMoreButton') && this.get('loadOnScrollEnabled')) {
 				track(trackActions.PostMore);
 				this.scrollOn();
 			}
@@ -74,14 +71,17 @@ export default Ember.Mixin.create(
 		 * @returns {void}
 		 */
 		willDestroyElement() {
-			this.scrollOff();
+			if(this.get('loadOnScrollEnabled')) {
+				this.scrollOff();
+			}
 		},
 
 		actions: {
 			loadNextPageAction() {
-				this.incrementProperty('manualLoadPagesCounter');
-				track(trackActions.PostLoadMore);
-				this.loadNextPage();
+				if (!this.get('isLoading')) {
+					track(trackActions.PostLoadMore);
+					this.loadNextPage();
+				}
 			},
 		},
 	}
