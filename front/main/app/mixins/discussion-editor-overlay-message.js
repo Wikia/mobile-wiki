@@ -5,7 +5,7 @@ export default Ember.Mixin.create({
 		return this.get('isActive') && this.get('calloutMessagePermitted') && !this.get('calloutMessageWasSeen');
 	}),
 
-	calloutMessageWasSeen: Ember.computed(function () {
+	calloutMessageWasSeen: Ember.computed(() => {
 		// we need Ember.computed here, because it is used on a couple of pages, and needs to be computed when the
 		// component is rendered
 		return Boolean(localStorage.getItem('discussionEditorCalloutMessageSeen'));
