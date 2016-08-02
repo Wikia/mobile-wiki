@@ -144,5 +144,18 @@ export default Ember.Component.extend({
 		);
 	}),
 
-	wikiName: Ember.get(Mercury, 'wiki.siteName')
+	wikiName: Ember.get(Mercury, 'wiki.siteName'),
+
+	/**
+	 * TREK INITIATIVE EXPERIMENT
+	 *
+	 * @returns {string}
+	 */
+	displayedWikiName: Ember.computed(() => {
+		if (Ember.get(Mercury, 'wiki.id') === 734209) {
+			return 'Star Trek';
+		} else {
+			return this.get('wikiName');
+		}
+	}),
 });
