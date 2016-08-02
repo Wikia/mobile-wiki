@@ -118,7 +118,7 @@ $desktop-slider: new-breakpoint(min-width 1141px);
 	margin-right: auto;
 	max-height: 560px;
 	max-width: 615px;
-	padding-top: 54px;
+	padding-top: 60px;
 
 	@include media ($mobile-hero-slider) {
 		display: block;
