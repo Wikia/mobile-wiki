@@ -3,10 +3,13 @@ import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('article-content', 'Unit | Component | article content', {
 	unit: true,
-	needs: ['component:portable-infobox',
+	needs: [
+		'component:ad-slot',
+		'component:portable-infobox',
 		'component:article-table-of-contents',
 		'component:potential-member-page-experiment',
-		'service:currentUser']
+		'service:currentUser'
+	]
 });
 
 const mobileTopLeaderboardSelector = '.mobile-top-leaderboard';

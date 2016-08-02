@@ -1,3 +1,4 @@
+import sinon from 'sinon';
 import {test, moduleForComponent} from 'ember-qunit';
 
 moduleForComponent('ad-slot', 'Unit | Component | ad slot', {
@@ -22,8 +23,8 @@ test('Name lower case', function (assert) {
 			description: 'Trailing space'
 		},
 		{
-			name: 'Кирилица с интервали',
-			expected: 'кирилица-с-интервали',
+			name: 'Кириллица с пробелами',
+			expected: 'кириллица-с-пробелами',
 			description: 'Cyrillic with spaces'
 		},
 		{
@@ -41,16 +42,68 @@ test('Name lower case', function (assert) {
 	});
 });
 
+test('test UAP listeners', (assert) => {
+	const testCases = [
+		{
+			eventName: 'wikia.uap',
+			callTwice: false,
+			uapCallbackCount: 1,
+			noUapCallbackCount: 0,
+			message: 'uap callback called once'
+		},
+		{
+			eventName: 'wikia.not_uap',
+			callTwice: false,
+			uapCallbackCount: 0,
+			noUapCallbackCount: 1,
+			message: 'no uap callback called once'
+		},
+		{
+			eventName: 'wikia.uap',
+			callTwice: true,
+			uapCallbackCount: 2,
+			noUapCallbackCount: 0,
+			message: 'uap callback called twice'
+		},
+		{
+			eventName: 'wikia.not_uap',
+			callTwice: true,
+			uapCallbackCount: 0,
+			noUapCallbackCount: 2,
+			message: 'no uap callback called twice'
+		}
+	];
+
+	testCases.forEach((testCase) => {
+		const Ads = require('common/modules/ads').default,
+			ads = new Ads(),
+			spyUap = sinon.spy(),
+			spyNoUap = sinon.spy();
+
+		ads.waitForUapResponse(spyUap, spyNoUap);
+		window.dispatchEvent(new Event(testCase.eventName));
+
+		if (testCase.callTwice) {
+			ads.waitForUapResponse(spyUap, spyNoUap);
+		}
+
+		assert.equal(testCase.uapCallbackCount, spyUap.callCount, testCase.message);
+		assert.equal(testCase.noUapCallbackCount, spyNoUap.callCount, testCase.message);
+	});
+});
+
 test('behaves correctly depending on noAds value', function (assert) {
 	const testCases = [
 		{
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 1'
 			},
 			expectedLength: 1,
 			message: 'Element added to slot because no noAds property was passed'
 		}, {
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 2',
 				noAds: ''
 			},
@@ -58,6 +111,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 			message: 'Element added to slot because of noAds property value set to an empty string'
 		}, {
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 3',
 				noAds: '0'
 			},
@@ -65,6 +119,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 			message: 'Element added to slot because of noAds property value set to \'0\''
 		}, {
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 4',
 				noAds: 'false'
 			},
@@ -72,6 +127,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 			message: 'Element not added to slot because of noAds property value set to \'false\''
 		}, {
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 5',
 				noAds: 'whatever'
 			},
@@ -79,6 +135,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 			message: 'Element not added to slot because of noAds property value set to \'whatever\''
 		}, {
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 6',
 				noAds: '1'
 			},
@@ -86,6 +143,7 @@ test('behaves correctly depending on noAds value', function (assert) {
 			message: 'Element not added to slot because of noAds property value set to \'1\''
 		}, {
 			properties: {
+				isAboveTheFold: true,
 				name: 'Test ad 7',
 				noAds: 'true'
 			},
@@ -98,7 +156,8 @@ test('behaves correctly depending on noAds value', function (assert) {
 		const component = this.subject();
 
 		component.setProperties(testCase.properties);
-		component.didInsertElement();
+		component.onElementManualInsert();
+		component.didEnterViewport();
 		assert.equal(
 			require('common/modules/ads').default.getInstance().adSlots.length,
 			testCase.expectedLength,

@@ -44,6 +44,10 @@ class Ads {
 		this.isLoaded = false;
 		this.krux = null;
 		this.slotsQueue = [];
+		this.uapResult = false;
+		this.uapCalled = false;
+		this.uapCallbacks = [];
+		this.noUapCallbacks = [];
 	}
 
 	/**
@@ -101,6 +105,33 @@ class Ads {
 				console.error('Looks like ads asset has not been loaded');
 			}
 		});
+	}
+
+	waitForUapResponse(uapCallback, noUapCallback) {
+		const wrappedUapCallback = () => {
+				this.uapCalled = true;
+				this.uapResult = true;
+
+				uapCallback();
+			},
+			wrappedNoUapCallback = () => {
+				this.uapCalled = true;
+				this.uapResult = false;
+
+				noUapCallback();
+			};
+
+		this.uapCallbacks.push(wrappedUapCallback);
+		this.noUapCallbacks.push(wrappedNoUapCallback);
+
+		if (!this.uapCalled) {
+			window.addEventListener('wikia.uap', wrappedUapCallback);
+			window.addEventListener('wikia.not_uap', wrappedNoUapCallback);
+		} else if (this.uapResult) {
+			uapCallback();
+		} else {
+			noUapCallback();
+		}
 	}
 
 	/**
@@ -291,6 +322,18 @@ class Ads {
 		if (this.adMercuryListenerModule && this.adMercuryListenerModule.runOnPageChangeCallbacks) {
 			this.adMercuryListenerModule.runOnPageChangeCallbacks();
 		}
+
+		this.uapCalled = false;
+		this.uapResult = false;
+
+		this.uapCallbacks.forEach((callback) => {
+			window.removeEventListener('wikia.uap', callback);
+		});
+		this.uapCallbacks = [];
+		this.noUapCallbacks.forEach((callback) => {
+			window.removeEventListener('wikia.not_uap', callback);
+		});
+		this.noUapCallbacks = [];
 	}
 
 	/**

@@ -74,6 +74,8 @@ $discussion-contributors-text-color: $color-white;
 $discussion-contributors-rail-title: #333;
 $discussion-post-list-text-color: #999;
 
+$discussion-editor-label-font-size: rem-calc(10);
+$discussion-editor-counter-font-size: rem-calc(12);
 $discussion-editor-error-background-color: #333;
 $discussion-editor-error-text-color: $color-white;
 $discussion-editor-background-color: $color-white;
@@ -81,7 +83,11 @@ $discussion-editor-border-color: $border-color;
 $discussion-mobile-reply-editor-border-color: #ccc;
 $discussion-editor-toolbar-background-color: #f6f6f6;
 $discussion-editor-label-color: #999;
+$discussion-editor-textarea-label-color: #ccc;
+$discussion-editor-textarea-counter-color: #ccc;
 $discussion-editor-textarea-border-color: #e1e1e1;
+$discussion-editor-toolbar-border-color: #e1e1e1;
+
 $discussion-filters-text-color: #333;
 
 $discussion-dialog-text-color: #333;
@@ -230,6 +236,11 @@ $dark-discussion-welcome-background-color: #262626;
 $dark-discussion-welcome-close-color: #666;
 
 $dark-discussion-community-unit-link-color: #999;
+$dark-discussion-inline-editor-label-color: #999;
+$dark-discussion-standalone-editor-label-color: #999;
+$dark-discussion-standalone-editor-title-border-bottom-color: #666;
+$dark-discussion-standalone-editor-title-textarea-color: #666;
+$dark-discussion-inline-editor-title-textarea-color: #666;
 
 $wikia-ui-components-sub-head-height: 48px;
 $wikia-ui-components-sub-head-height-large: 66px;

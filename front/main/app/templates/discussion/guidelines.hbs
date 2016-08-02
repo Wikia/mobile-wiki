@@ -1,10 +1,19 @@
 {{#modal-dialog
 	class='is-bare is-desktop-centered discussion-editor-dialog guidelines-editor'
 	closeOnOverlayClick=false
-	isVisible=editEditorActive
+	isVisible=guidelinesEditorState.isOpen
 }}
-	{{discussion-edit-editor-guidelines
+	{{discussion-guidelines-editor
+		guidelines=guidelinesEditorState.guidelines
+		editPost=(action 'editPost')
+		editReply=(action 'editReply')
 		saveGuidelines=(action 'saveGuidelines')
+		errorMessage=guidelinesEditorState.errorMessage
+		generateOpenGraph=(route-action 'generateOpenGraph')
+		isActive=guidelinesEditorState.isOpen
+		isEdit=true
+		isLoading=guidelinesEditorState.isLoading
+		setEditorActive=(action 'setEditorActive')
 	}}
 {{/modal-dialog}}
 {{#discussion-standalone-layout
@@ -15,6 +24,7 @@
 	{{#if model.attributes.data.guidelines}}
 		{{discussion-guidelines
 			guidelines=model.attributes.data.guidelines
+			openGuidelinesEditor=(action 'openGuidelinesEditor')
 		}}
 	{{else}}
 		{{discussion-error

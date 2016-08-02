@@ -1,0 +1,250 @@
+$editor-toolbar-height: 40px;
+$sticky-editor-width: 529px;
+$success-icon-size: 80px;
+
+.discussion-inline-editor {
+	margin: 0 auto 5px;
+	position: relative;
+
+	.discussion-inline-editor-floating-container {
+		background-color: $discussion-editor-background-color;
+		border: 4px solid $discussion-editor-border-color;
+		position: relative;
+	}
+
+	.discussion-inline-editor-toolbar {
+		background-color: $discussion-editor-toolbar-background-color;
+		display: none;
+		justify-content: flex-end;
+	}
+
+	&.is-active {
+		.discussion-inline-editor-toolbar {
+			display: flex;
+		}
+
+		.discussion-inline-editor-textarea {
+			border: 0;
+		}
+
+		.discussion-inline-editor-content-wrapper {
+			cursor: pointer;
+			resize: vertical;
+		}
+
+		.discussion-inline-editor-textarea,
+		.discussion-textarea-with-counter {
+			padding: 0 0 10px 0;
+		}
+	}
+
+	&:not(.is-active) {
+		cursor: pointer;
+
+		.discussion-inline-editor-textarea,
+		.discussion-textarea-with-counter {
+			cursor: pointer;
+		}
+	}
+
+	&.is-sticky {
+		.discussion-inline-editor-floating-container {
+			border-top: 0;
+			margin-left: ($discussion-page-width - $sticky-editor-width) / 2;
+			position: fixed;
+			top: $site-head-height;
+			width: $sticky-editor-width;
+			z-index: $z-discussion-sticky-editor;
+		}
+	}
+
+	.discussion-inline-editor-submit {
+		background: none;
+		border: 0;
+		font-size: $type-smallest;
+		font-weight: $font-weight-bold;
+		letter-spacing: .25px;
+		line-height: $editor-toolbar-height;
+		margin: 0;
+		padding: 0 20px;
+		text-transform: uppercase;
+	}
+
+	.discussion-inline-editor-content-wrapper {
+		display: flex;
+		max-height: 260px;
+		overflow: auto;
+	}
+
+	.discussion-inline-editor-textarea-wrapper {
+		flex: 1;
+		padding-right: 15px;
+	}
+
+	.discussion-textarea-label {
+		color: $discussion-editor-textarea-label-color;
+		font-size: $discussion-editor-label-font-size;
+		font-weight: $font-weight-bold;
+		letter-spacing: .15px;
+		text-transform: uppercase;
+	}
+
+	.discussion-inline-editor-textarea,
+	.discussion-textarea-with-counter {
+		background-color: transparent;
+		border: 0;
+		border-bottom: 1px solid $secondary-color;
+		border-radius: 0;
+		font-size: $type-base;
+		height: 45px;
+		margin: 0 15px 10px 0;
+		min-height: 0;
+		padding: 3px 0 10px 0;
+		resize: none;
+		transition: min-height .2s ease;
+
+		&:focus {
+			background-color: transparent;
+			box-shadow: none;
+		}
+	}
+
+	.discussion-inline-editor-title {
+		.discussion-textarea-wrapper {
+			position: relative;
+		}
+
+		.discussion-textarea-counter {
+			bottom: 10px;
+			color: $discussion-editor-textarea-counter-color;
+			font-size: $discussion-editor-counter-font-size;
+			line-height: $form-label-line-height;
+			position: absolute;
+			right: 0;
+		}
+	}
+
+	.discussion-inline-editor-label:first-of-type {
+		padding-top: 10px;
+	}
+
+	.discussion-inline-editor-textarea {
+
+		&:invalid {
+			box-shadow: none;
+		}
+
+		&:focus {
+			border: 0;
+		}
+	}
+
+	.user-avatar {
+		flex-shrink: 0;
+		margin: 10px;
+	}
+
+	.discussion & .avatar {
+		svg, img {
+			width: 40px;
+			height: 40px;
+		}
+	}
+
+	.loading-overlay {
+		height: 100%;
+		position: absolute;
+
+		.spinner {
+			margin-top: -32px;
+		}
+
+		.success {
+			display: block;
+			height: $success-icon-size;
+			margin: - $success-icon-size / 2 auto 0;
+			position: relative;
+			top: 50%;
+			width: $success-icon-size;
+		}
+	}
+
+	span {
+		&.error {
+			animation: error-slide-in .6s ease-in-out 1, error-slide-out .6s ease-in-out 2.4s;
+			background-color: rgba($discussion-editor-error-background-color, .95);
+			bottom: $editor-toolbar-height;
+			color: $discussion-editor-error-text-color;
+			font-size: $type-smallest;
+			line-height: $line-height-larger;
+			margin: 0;
+			max-height: 2 * $line-height-larger;
+			overflow: hidden;
+			padding: 0;
+			position: absolute;
+			text-align: center;
+			width: 100%;
+			z-index: $z-discussion-editor + 1;
+		}
+	}
+}
+
+.discussion-inline-reply-editor {
+	.discussion-inline-editor-floating-container {
+		margin-left: -20px;
+		width: 564px;
+	}
+
+	&.is-sticky {
+		.discussion-inline-editor-floating-container {
+			border: 4px solid $discussion-editor-border-color;
+			border-bottom: 0;
+			bottom: 0;
+			margin-left: -20px;
+			top: auto;
+			width: 564px;
+		}
+	}
+}
+
+
+.post-list-view {
+	.discussion-inline-editor {
+		&.is-active {
+			.discussion-inline-editor-content-wrapper {
+				min-height: 200px;
+			}
+		}
+	}
+}
+
+.post-details-view {
+	.discussion-inline-editor {
+		&.is-active {
+			.discussion-inline-editor-content-wrapper {
+				min-height: 106px;
+			}
+		}
+	}
+}
+
+@keyframes error-slide-in {
+	from {
+		max-height: 0;
+	}
+
+	to {
+		max-height: 2 * $line-height-larger;
+	}
+}
+
+@keyframes error-slide-out {
+	from {
+		max-height: 2 * $line-height-larger;
+	}
+
+	to {
+		max-height: 0;
+	}
+}
+

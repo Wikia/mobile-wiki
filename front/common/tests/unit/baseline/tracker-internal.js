@@ -10,7 +10,7 @@ QUnit.module('M.tracker.Internal (loaded with baseline)', function (hooks) {
 	});
 
 	QUnit.test('createRequestURL - empty params', function (assert) {
-		result = M.tracker.Internal._createRequestURL('foo', {});
+		result = M.tracker.Internal._createRequestURL('special/trackingevent', {});
 
 		assert.equal(result,
 			'https://beacon.wikia-services.com/__track/special/trackingevent?',
@@ -19,7 +19,7 @@ QUnit.module('M.tracker.Internal (loaded with baseline)', function (hooks) {
 	});
 
 	QUnit.test('createRequestURL - params are object without empty values', function (assert) {
-		result = M.tracker.Internal._createRequestURL('foo', {
+		result = M.tracker.Internal._createRequestURL('special/trackingevent', {
 			fizz: 'buzz',
 			fizz2: 'buzz2'
 		});
@@ -31,7 +31,7 @@ QUnit.module('M.tracker.Internal (loaded with baseline)', function (hooks) {
 	});
 
 	QUnit.test('createRequestURL - params are encoded', function (assert) {
-		result = M.tracker.Internal._createRequestURL('foo', {
+		result = M.tracker.Internal._createRequestURL('special/trackingevent', {
 			'fizz&&&': 'buzz???'
 		});
 
@@ -42,7 +42,7 @@ QUnit.module('M.tracker.Internal (loaded with baseline)', function (hooks) {
 	});
 
 	QUnit.test('createRequestURL - params are object with empty values', function (assert) {
-		result = M.tracker.Internal._createRequestURL('foo', {
+		result = M.tracker.Internal._createRequestURL('special/trackingevent', {
 			fizz: 'buzz',
 			fizz2: null
 		});

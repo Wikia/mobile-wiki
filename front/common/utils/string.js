@@ -26,3 +26,20 @@ export function normalizeToWhitespace(str = '') {
 		.replace(/_/g, ' ')
 		.replace(/\s+/g, ' ');
 }
+
+/**
+ * Get last url from input text
+ * @param {string} text
+ * @returns {string}
+ */
+export function getLastUrlFromText(text) {
+	let urls;
+
+	urls = text.match(/(https?:\/\/[^\s]+)/ig);
+
+	if (!urls) {
+		return null;
+	}
+
+	return urls.pop();
+}

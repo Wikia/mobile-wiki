@@ -4,14 +4,14 @@ import ImageReviewModel from '../models/image-review';
 const {Route, Logger} = Ember;
 
 export default Route.extend({
-	onlyFlagged: false,
+	status: 'UNREVIEWED',
 
 	renderTemplate(controller, model) {
 		this.render('image-review', {controller, model});
 	},
 
 	model() {
-		return ImageReviewModel.startSession(this.get('onlyFlagged'));
+		return ImageReviewModel.startSession(this.get('status'));
 	},
 
 	afterModel() {
@@ -41,25 +41,37 @@ export default Route.extend({
 			const model = this.modelFor('imageReview');
 
 			this.controllerFor('application').set('isLoading', true);
-			this.set('onlyFlagged', false);
-
 			window.scrollTo(0, 0);
 
-			ImageReviewModel.reviewImages(model.images).then(() => {
-				this.refresh();
-			}, (data) => {
-				this.controllerFor('application').addAlert({
-					message: data,
-					type: 'warning',
-					persistent: true
+			if (!Ember.isNone(model.images)) {
+				ImageReviewModel.reviewImages(model.images, model.contractId).then(() => {}, (data) => {
+					this.controllerFor('application').addAlert({
+						message: data,
+						type: 'warning',
+						persistent: false
+					});
 				});
-			});
+			}
+			this.refresh();
 		},
 
 		getFlaggedOnly() {
+			const model = this.modelFor('imageReview');
 			window.scrollTo(0, 0);
 
-			this.set('onlyFlagged', true);
+			ImageReviewModel.endSession(model.contractId);
+
+			this.set('status', 'FLAGGED');
+			this.refresh();
+		},
+
+		getRejectedOnly() {
+			const model = this.modelFor('imageReview');
+			window.scrollTo(0, 0);
+
+			ImageReviewModel.endSession(model.contractId);
+
+			this.set('status', 'REJECTED');
 			this.refresh();
 		},
 
@@ -69,7 +81,6 @@ export default Route.extend({
 
 		didTransition() {
 			this.controllerFor('application').set('fullPage', true);
-
 			if (this.controller.get('fullscreen') === 'true') {
 				this.modelFor('imageReview').set('showSubHeader', false);
 			} else {
