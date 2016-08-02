@@ -104,7 +104,7 @@ export default Component.extend(
 		handleInvisibleHighImpact(name) {
 			if (name === 'INVISIBLE_HIGH_IMPACT_2') {
 				var iframe = document.getElementById('INVISIBLE_HIGH_IMPACT_2').querySelector('div:not(.hidden) > div[id*="_container_"] iframe');
-				console.log(document.getElementById('INVISIBLE_HIGH_IMPACT_2').querySelector('div:not(.hidden) > div[id*="_container_"] iframe'));
+
 				if (iframe.contentWindow.document.readyState === 'complete') {
 						var height = iframe.contentWindow.document.body.scrollHeight,
 							width = iframe.contentWindow.document.body.scrollWidth;
