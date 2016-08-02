@@ -88,7 +88,7 @@ export default Ember.Mixin.create({
 		const url = getLastUrlFromText(value.substring(0, textarea.selectionEnd));
 
 		// start with position of caret - url length - 1 for newly typed charatcter
-		if (url && value.indexOf(url) === textarea.selectionEnd - url.length - 1) {
+		if (url && value.toLowerCase().indexOf(url) === textarea.selectionEnd - url.length - 1) {
 			this.setOpenGraphProperties(url);
 		}
 	},

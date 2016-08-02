@@ -35,7 +35,7 @@ export function normalizeToWhitespace(str = '') {
 export function getLastUrlFromText(text) {
 	let urls;
 
-	urls = text.match(/(https?:\/\/[^\s]+)/g);
+	urls = text.toLowerCase().match(/(https?:\/\/[^\s]+)/g);
 
 	if (!urls) {
 		return null;
