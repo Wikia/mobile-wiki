@@ -33,7 +33,7 @@ export default Ember.Component.extend({
 	 *
 	 * @returns {boolean}
 	 */
-	displayMemoryAlphaLink: Ember.computed(function () {
+	displayMemoryAlphaLink: Ember.computed(() => {
 		return Boolean(Ember.get(Mercury, 'wiki.id') === 734209);
 	}),
 

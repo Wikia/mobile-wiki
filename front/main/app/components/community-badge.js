@@ -151,7 +151,7 @@ export default Ember.Component.extend({
 	 *
 	 * @returns {string}
 	 */
-	displayedWikiName: Ember.computed(function () {
+	displayedWikiName: Ember.computed(() => {
 		if (Ember.get(Mercury, 'wiki.id') === 734209) {
 			return 'Star Trek';
 		} else {
