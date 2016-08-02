@@ -82,3 +82,85 @@
 .wikia-ad-iframe {
 	border: 0;
 }
+
+#InvisibleHighImpactWrapper.interstitial {
+	align-items: center;
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+
+#InvisibleHighImpactWrapper {
+	z-index: 5000102;
+
+	&.hidden {
+		display: none !important;
+	}
+
+	#INVISIBLE_HIGH_IMPACT_2 {
+		display: block !important;
+	}
+
+	#INVISIBLE_HIGH_IMPACT_2 iframe {
+		display: block;
+		margin: 0 auto;
+		position: relative;
+	}
+
+	.background {
+		background: rgba(0, 0, 0, .9);
+		bottom: 0;
+		height: 100%;
+		left: 0;
+		position: absolute;
+		width: 100%;
+	}
+
+	.close {
+		background-color: #000;
+		cursor: pointer;
+		display: block;
+		padding: 7px 7px;
+		position: absolute;
+		right: 0;
+		top: 0;
+
+		&:hover {
+			background-color: #333;
+		}
+
+		.close-button {
+			overflow: hidden;
+			text-indent: 100%;
+			white-space: nowrap;
+			background-position: center center;
+			background-size: 16px 16px;
+			background-color: red;
+			display: block;
+			float: right;
+			height: 16px;
+			outline: none;
+			width: 16px;
+		}
+	}
+
+	.label {
+		color: #D5D4D4;
+		display: block;
+		font-size: 17px;
+		left: 0;
+		padding: 5px 10px;
+		position: absolute;
+		top: 0;
+	}
+}
+
+.stop-scrolling {
+	overflow: hidden
+}
