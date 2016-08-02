@@ -86,13 +86,6 @@ $post-reply-with-label-user-avatar-badge-top: 37px;
 			left: 24px;
 			top: 13px;
 		}
-
-		&.is-locked,
-		&.is-reported {
-			.user-avatar-badge {
-				left: 24px;
-			}
-		}
 	}
 
 	.post-details-view {
