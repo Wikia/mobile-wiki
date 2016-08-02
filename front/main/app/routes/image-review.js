@@ -43,16 +43,13 @@ export default Route.extend({
 			this.controllerFor('application').set('isLoading', true);
 			window.scrollTo(0, 0);
 
-			if (!Ember.isNone(model.images)) {
-				ImageReviewModel.reviewImages(model.images, model.contractId).then(() => {}, (data) => {
-					this.controllerFor('application').addAlert({
-						message: data,
-						type: 'warning',
-						persistent: false
-					});
+			ImageReviewModel.reviewImages(model.images, model.contractId).then(() => {}, (data) => {
+				this.controllerFor('application').addAlert({
+					message: data,
+					type: 'warning',
+					persistent: false
 				});
-			}
-			this.refresh();
+			}).then(this.refresh.bind(this));
 		},
 
 		getFlaggedOnly() {
