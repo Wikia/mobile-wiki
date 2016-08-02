@@ -20,8 +20,6 @@ const trackActions = {
 	ReplyStart: 'ReplyStart',
 	PostContent: 'PostContent',
 	PostEditContent: 'PostEditContent',
-	PostEditTitle: 'PostEditTitle',
-	PostTitle: 'PostTitle',
 	AnonUpvotePost: 'AnonUpvotePost',
 	ReplyContent: 'ReplyContent',
 	ReplyEditContent: 'ReplyEditContent',
