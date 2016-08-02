@@ -36,35 +36,67 @@ $success-icon-size: 80px;
 		text-transform: uppercase;
 	}
 
-	.discussion-standalone-editor-label {
-		color: $discussion-editor-label-color;
+	.discussion-standalone-content-wrapper {
+		flex-grow: 1;
+		margin: 0 15px 0;
+		overflow: auto;
+	}
+
+	.discussion-standalone-editor-title,
+	.discussion-standalone-editor-message {
+		margin-top: 10px;
+	}
+
+	.discussion-standalone-editor-label,
+	.discussion-standalone-editor-title .discussion-textarea-label {
+		color: $discussion-editor-textarea-label-color;
 		cursor: default;
 		flex-shrink: 0;
-		font-size: $type-min;
+		font-size: $discussion-editor-label-font-size;
 		font-weight: $font-weight-bold;
-		padding: 15px 10px 10px;
+		letter-spacing: .15px;
+		padding: 15px 0 10px;
 		text-transform: uppercase;
 		width: 100%;
 	}
 
-	.discussion-standalone-content-wrapper {
-		flex-grow: 1;
-		overflow: auto;
+	.discussion-standalone-editor-title {
+		.discussion-textarea-wrapper {
+			position: relative;
+		}
+
+		.discussion-textarea-with-counter {
+			border-bottom: 1px solid $secondary-color;
+		}
+
+		.discussion-textarea-counter {
+			bottom: 7px;
+			color: $discussion-editor-textarea-counter-color;
+			font-size: $discussion-editor-counter-font-size;
+			line-height: $form-label-line-height;
+			position: absolute;
+			right: 0;
+		}
 	}
 
-	.discussion-standalone-editor-textarea {
+	.discussion-standalone-editor-textarea,
+	.discussion-textarea-with-counter {
 		border: 0;
 		border-radius: 0;
-		margin: 0;
+		font-size: $type-base;
+		margin-top: 2px;
 		min-height: 0;
-		padding: 0 10px 10px;
+		padding: 0 0 7px;
 		resize: none;
 
 		&:focus {
 			background-color: transparent;
-			border: 0;
 			box-shadow: none;
 		}
+	}
+
+	.discussion-standalone-editor-textarea:focus {
+		border: 0;
 	}
 
 	.loading-overlay {
