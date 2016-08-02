@@ -17,6 +17,11 @@ export default Ember.Object.extend({
 	upvotingInProgress: {},
 	wikiId: null,
 
+	// number of pages to load when load-more action is called
+	loadMoreLimit: 30,
+	// number of pages to load on the new page
+	postsLimit: 10,
+
 	/**
 	 * @returns {void}
 	 */

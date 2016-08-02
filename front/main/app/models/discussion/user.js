@@ -10,7 +10,6 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionContributionModelMixin,
 	{
-		postsLimit: 10,
 		userId: null,
 
 		/**
@@ -23,7 +22,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 
 			return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`), {
 				data: {
-					limit: this.get('postsLimit'),
+					limit: this.get('loadMoreLimit'),
 					page: this.get('data.pageNum'),
 					pivot: this.get('pivotId'),
 					responseGroup: 'full',
@@ -81,7 +80,7 @@ DiscussionUserModel.reopenClass({
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`), {
 				data: {
-					limit: userInstance.postsLimit,
+					limit: userInstance.get('postsLimit'),
 					responseGroup: 'full',
 					viewableOnly: false
 				}

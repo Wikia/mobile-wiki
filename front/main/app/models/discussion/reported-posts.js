@@ -21,6 +21,7 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts`), {
 				data: {
+					limit: this.get('loadMoreLimit'),
 					page: this.get('pageNum'),
 					pivot: this.get('pivotId'),
 					viewableOnly: false,
@@ -74,8 +75,9 @@ DiscussionReportedPostsModel.reopenClass({
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/posts`), {
 				data: {
-					viewableOnly: false,
+					limit: reportedPostsInstance.get('postsLimit'),
 					reported: true
+					viewableOnly: false,
 				}
 			}).then((data) => {
 				reportedPostsInstance.setNormalizedData(data);
