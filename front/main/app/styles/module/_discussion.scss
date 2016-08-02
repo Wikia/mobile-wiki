@@ -765,6 +765,10 @@ body.discussions {
 		.discussion-no-replies {
 			border-bottom: 1px solid $discussion-reply-border-color;
 		}
+
+		.load-more-button {
+			margin: 30px 0;
+		}
 	}
 }
 
