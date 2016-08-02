@@ -1,9 +1,10 @@
-$post-reply-user-avatar-badge-top: 37px;
+$post-reply-user-avatar-badge-top: 5px;
+$post-reply-with-label-user-avatar-badge-top: 37px;
 
 .user-avatar-badge {
 	left: 9px;
 	position: absolute;
-	top: 5px;
+	top: $post-reply-user-avatar-badge-top;
 
 	svg {
 		height: 18px;
@@ -28,7 +29,7 @@ $post-reply-user-avatar-badge-top: 37px;
 	&.is-locked,
 	&.is-reported {
 		.user-avatar-badge {
-			top: $post-reply-user-avatar-badge-top;
+			top: $post-reply-with-label-user-avatar-badge-top;
 		}
 	}
 }
@@ -41,7 +42,7 @@ $post-reply-user-avatar-badge-top: 37px;
 	&.is-locked,
 	&.is-reported {
 		.user-avatar-badge {
-			top: $post-reply-user-avatar-badge-top;
+			top: $post-reply-with-label-user-avatar-badge-top;
 		}
 	}
 }
@@ -56,14 +57,14 @@ $post-reply-user-avatar-badge-top: 37px;
 
 	.post-reply {
 		.user-avatar-badge {
-			top: $post-reply-user-avatar-badge-top;
+			top: $post-reply-with-label-user-avatar-badge-top;
 		}
 	}
 }
 
 @media #{$desktop-range} {
 	// Hide user avatar badges under "Discussion" label on forum.
-	.post-list-view:not(.discussion-user-list) {
+	.post-list-view {
 		.discussion-hero-unit {
 			.user-avatar-badge {
 				display: none;
@@ -71,26 +72,39 @@ $post-reply-user-avatar-badge-top: 37px;
 		}
 	}
 
+	.discussion-user-list {
+		.discussion-hero-unit {
+			.user-avatar-badge {
+				display: inherit;
+			}
+		}
+	}
+
 	.post-detail {
 		.user-avatar-badge {
-			left: 23px;
-			top: 12px;
+			left: 24px;
+			top: 13px;
 		}
 
 		&.is-locked,
 		&.is-reported {
 			.user-avatar-badge {
 				left: 24px;
-				top: 36px;
 			}
 		}
 	}
 
 	.post-details-view {
-
 		.post-detail {
 			.user-avatar-badge {
-				top: 4px;
+				top: $post-reply-user-avatar-badge-top;
+			}
+
+			&.is-locked,
+			&.is-reported {
+				.user-avatar-badge {
+					top: $post-reply-with-label-user-avatar-badge-top;
+				}
 			}
 		}
 
@@ -105,14 +119,14 @@ $post-reply-user-avatar-badge-top: 37px;
 	.post-list-view {
 		.post-reply {
 			.user-avatar-badge {
-				left: 42px;
+				left: 43px;
 			}
 		}
 
 		.discussion-contributors {
 			.user-avatar-badge {
-				bottom: 27px;
-				right: 30px;
+				bottom: 26px;
+				right: 29px;
 			}
 		}
 	}
