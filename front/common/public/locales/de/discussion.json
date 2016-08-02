@@ -102,6 +102,11 @@
     "app-promotion-text":"Deine liebsten Communitys immer dabeihaben! Lade noch heute die App herunter! ",
     "app-promotion-text-details-page":"Hole dir jetzt die App, damit du auch unterwegs immer informiert bleibst!",
     "wiki-home":"Startseite der Community",
+    "discussion-guidelines":"Diskussions-Richtlinien",
+    "rename-category-length-error":"Der Kategoriename darf nicht mehr als 20 Zeichen haben.",
+    "rename-category-auth-error":"Du bist abgemeldet. Melde dich bitte wieder an.",
+    "rename-category-oermissions-error":"Die Kategorie kann nicht aktualisiert werden.",
+    "rename-category-general-error":"Es ist etwas schief gelaufen. Versuche es bitte noch einmal.",
     "guidelines-link-title":"Diskussions-Richtlinien",
     "guidelines-header-title":"Diskussions-Richtlinien",
     "welcome-message-header":"Toll, dass du hier bist!",
@@ -118,7 +123,11 @@
     "post-edit-editor-label":"Deinen Beitrag bearbeiten",
     "post-action-button-label":"Veröffentlichen",
     "post-edit-action-button-label":"Speichern",
-    "post-editor-placeholder-text":"Teile einen Gedanken, eine Frage oder einen Link...",
+    "post-editor-collapsed-label":"Eine neue Diskussionen beginnen...",
+    "post-editor-title-label":"Titel (optional)",
+    "post-editor-title-placeholder-text":"Titel der neuen Diskussion...",
+    "post-editor-description-label":"Beschreibung",
+    "post-editor-description-placeholder-text":"Worum geht es in deiner neuen Diskussion?",
     "guidelines-editor-placeholder-text":"",
     "guidelines-editor-editor-label":"Diskussions-Richtlinien bearbeiten",
     "guidelines-editor-action-button-label":"Speichern",
@@ -127,6 +136,9 @@
     "reply-editor-label":"An der Diskussion teilnehmen",
     "reply-edit-editor-label":"Deine Antwort bearbeiten",
     "reply-action-button-label":"Antworten",
-    "reply-edit-action-button-label":"Speichern"
+    "reply-edit-action-button-label":"Speichern",
+    "overlay-message-text":"Lies dir bitte die Seite __guidelinesLinkTitle__ durch, bevor du deinen ersten Beitrag verfasst.",
+    "overlay-message-button":"Erledigt",
+    "guidelines-link-title":"Diskussions-Richtlinien"
   }
 }
