@@ -50,7 +50,6 @@ const trackActions = {
 	WelcomeMessageClose: 'WelcomeMessageClose',
 	PostLoadMore: 'PostLoadMore',
 	PostMore: 'PostMore',
-
 };
 
 /**
