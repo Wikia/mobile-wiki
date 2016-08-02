@@ -2,7 +2,7 @@
 	.category-pill {
 		background: $discussion-category-pill-background-color;
 		border-radius: 18px;
-		color: #666;
+		color: $discussion-category-pill-color;
 		display: inline-block;
 		font-size: 12px;
 		line-height: 12px;
@@ -12,9 +12,10 @@
 		text-align: center;
 
 		&:hover {
-			color: #fff;
+			color: $discussion-category-pill-hover-color;
 		}
 	}
+
 	.discussion-category-picker {
 		width: 320px;
 
