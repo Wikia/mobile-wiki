@@ -47,7 +47,7 @@ export default Ember.Component.extend({
 		}
 	}),
 
-	submitDisabled: Ember.computed('content', 'currentUser.isAuthenticated', function () {
+	submitDisabled: Ember.computed('content', 'currentUser.isAuthenticated', 'category', function () {
 		return this.get('content').length === 0 || this.get('currentUser.isAuthenticated') === false ||
 			!this.get('category.id');
 	}),
