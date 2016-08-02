@@ -76,7 +76,7 @@ DiscussionReportedPostsModel.reopenClass({
 			request(M.getDiscussionServiceUrl(`/${wikiId}/posts`), {
 				data: {
 					limit: reportedPostsInstance.get('postsLimit'),
-					reported: true
+					reported: true,
 					viewableOnly: false,
 				}
 			}).then((data) => {
