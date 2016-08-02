@@ -41,30 +41,35 @@ export default Route.extend({
 			const model = this.modelFor('imageReview');
 
 			this.controllerFor('application').set('isLoading', true);
-			this.set('status', 'UNREVIEWED');
-
 			window.scrollTo(0, 0);
 
-			ImageReviewModel.reviewImages(model.images).then(() => {
-				this.refresh();
-			}, (data) => {
-				this.controllerFor('application').addAlert({
-					message: data,
-					type: 'warning',
-					persistent: true
+			if (!Ember.isNone(model.images)) {
+				ImageReviewModel.reviewImages(model.images, model.contractId).then(() => {}, (data) => {
+					this.controllerFor('application').addAlert({
+						message: data,
+						type: 'warning',
+						persistent: false
+					});
 				});
-			});
+			}
+			this.refresh();
 		},
 
 		getFlaggedOnly() {
+			const model = this.modelFor('imageReview');
 			window.scrollTo(0, 0);
+
+			ImageReviewModel.endSession(model.contractId);
 
 			this.set('status', 'FLAGGED');
 			this.refresh();
 		},
 
 		getRejectedOnly() {
+			const model = this.modelFor('imageReview');
 			window.scrollTo(0, 0);
+
+			ImageReviewModel.endSession(model.contractId);
 
 			this.set('status', 'REJECTED');
 			this.refresh();
@@ -76,7 +81,6 @@ export default Route.extend({
 
 		didTransition() {
 			this.controllerFor('application').set('fullPage', true);
-
 			if (this.controller.get('fullscreen') === 'true') {
 				this.modelFor('imageReview').set('showSubHeader', false);
 			} else {
