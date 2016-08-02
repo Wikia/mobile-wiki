@@ -7,7 +7,7 @@ $post-reply-with-label-user-avatar-badge-top: 37px;
 	top: $post-reply-user-avatar-badge-top;
 
 	svg {
-		filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.1));
+		filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .2));
 		height: 18px;
 		width: 18px;
 	}
