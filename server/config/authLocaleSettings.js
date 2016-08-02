@@ -282,7 +282,7 @@ authLocaleSettings['pt-br'] = deepExtend(
 	authLocaleSettings['en'],
 	{
 		urls: {
-			termsOfUseLinkUrl: 'http://www.wikia.com/Terms_of_Use',
+			termsOfUseLinkUrl: 'http://pt-br.wikia.com/wiki/Termos_de_Uso',
 			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy'
 		},
 		date: {
@@ -302,7 +302,7 @@ authLocaleSettings['pt-pt'] = deepExtend(
 	authLocaleSettings['en'],
 	{
 		urls: {
-			termsOfUseLinkUrl: 'http://www.wikia.com/Terms_of_Use',
+			termsOfUseLinkUrl: 'http://pt-br.wikia.com/wiki/Termos_de_Uso',
 			privacyPolicyLinkUrl: 'http://www.wikia.com/Privacy_Policy'
 		},
 		date: {
