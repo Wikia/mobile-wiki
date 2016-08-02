@@ -7,7 +7,7 @@
 		<div class="discussion-inline-editor-textarea-wrapper">
 			{{#if isPostEditor}}
 				{{discussion-textarea-with-counter
-					class='discussion-inline-editor-title'
+					class='discussion-inline-editor-label discussion-inline-editor-title'
 					collapsedPlaceholder=(i18n collapsedEditorLabelKey ns='discussion')
 					focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
 					isActive=isActive
@@ -19,11 +19,11 @@
 					text=title
 				}}
 			{{/if}}
-			<label>
+			<label class="discussion-inline-editor-label">
 				{{#if isActive}}
-					<span class="discussion-textarea-label">
+					<div class="discussion-textarea-label">
 						{{i18n messageLabelKey ns='discussion'}}
-					</span>
+					</div>
 				{{/if}}
 				{{textarea
 					autoresize=true
@@ -36,14 +36,14 @@
 					value=content
 				}}
 			</label>
+			{{#if showsOpenGraphCard}}
+				{{discussion-open-graph
+					close=(action 'removeOpenGraph')
+					isLoading=isOpenGraphLoading
+					openGraphData=openGraph
+				}}
+			{{/if}}
 		</div>
-		{{#if showsOpenGraphCard}}
-			{{discussion-open-graph
-				close=(action 'removeOpenGraph')
-				isLoading=isOpenGraphLoading
-				openGraphData=openGraph
-			}}
-		{{/if}}
 	</div>
 	<div class="discussion-inline-editor-toolbar">
 		<button class="active-element-theme-color discussion-inline-editor-submit" type="submit" {{action 'submit' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
