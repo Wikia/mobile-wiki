@@ -1,7 +1,9 @@
+$post-reply-user-avatar-badge-top: 37px;
+
 .user-avatar-badge {
 	left: 9px;
 	position: absolute;
-	top: 4px;
+	top: 5px;
 
 	svg {
 		height: 18px;
@@ -14,7 +16,7 @@
 		position: relative;
 
 		.user-avatar-badge {
-			bottom: 19px;
+			bottom: 18px;
 			left: auto;
 			right: 26px;
 			top: auto;
@@ -26,7 +28,7 @@
 	&.is-locked,
 	&.is-reported {
 		.user-avatar-badge {
-			top: 36px;
+			top: $post-reply-user-avatar-badge-top;
 		}
 	}
 }
@@ -39,7 +41,7 @@
 	&.is-locked,
 	&.is-reported {
 		.user-avatar-badge {
-			top: 36px;
+			top: $post-reply-user-avatar-badge-top;
 		}
 	}
 }
@@ -47,14 +49,14 @@
 .post-list-view {
 	.discussion-contributors {
 		.user-avatar-badge {
-			bottom: 17px;
+			bottom: 16px;
 			right: 21px;
 		}
 	}
 
 	.post-reply {
 		.user-avatar-badge {
-			top: 36px;
+			top: $post-reply-user-avatar-badge-top;
 		}
 	}
 }
