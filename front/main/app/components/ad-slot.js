@@ -94,12 +94,7 @@ export default Component.extend(
 				ads.waitForUapResponse(
 					() => {
 						Logger.info('Injected ad on scroll:', name);
-						ads.pushSlotToQueue({
-							slotName: name,
-							onSuccess: function () {
-								debugger;
-							}
-						});
+						ads.pushSlotToQueue(name);
 					},
 					() => {
 					}
