@@ -124,11 +124,6 @@ export default Ember.Component.extend({
 		55705: '/front/common/images/community-badge-outlander.jpg',
 		701294: '/front/common/images/community-badge-orphan-black.jpg',
 		1086357: '/front/common/images/community-badge-preacher.jpg',
-		3680: '/front/common/images/community-badge-bourne.jpg',
-		1585: '/front/common/images/community-badge-ghostbusters.jpg',
-		3234: '/front/common/images/community-badge-monster-hunter.jpg',
-		881913: '/front/common/images/community-badge-no-mans-sky.jpg',
-		1304636: '/front/common/images/community-badge-paragon.jpg'
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
