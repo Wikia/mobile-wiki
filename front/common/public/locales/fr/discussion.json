@@ -102,6 +102,11 @@
     "app-promotion-text":"Téléchargez l'application dès aujourd'hui pour que votre fandom ne vous quitte plus !",
     "app-promotion-text-details-page":"Restez informé à tout moment. Téléchargez l'application dès maintenant !",
     "wiki-home":"Accueil du wikia",
+    "discussion-guidelines":"Règlement des discussions",
+    "rename-category-length-error":"Le nom de la catégorie doit contenir moins de 20 caractères.",
+    "rename-category-auth-error":"Vous êtes déconnecté. Veuillez vous connecter.",
+    "rename-category-oermissions-error":"Impossible de mettre à jour la catégorie.",
+    "rename-category-general-error":"Un problème est survenu. Veuillez réessayer.",
     "guidelines-link-title":"Règlement des discussions",
     "guidelines-header-title":"Règlement des discussions",
     "welcome-message-header":"Heureux de vous voir ici !",
@@ -118,7 +123,11 @@
     "post-edit-editor-label":"Modification de votre publication",
     "post-action-button-label":"Publier",
     "post-edit-action-button-label":"Enregistrer",
-    "post-editor-placeholder-text":"Partagez une idée, une question ou un lien…",
+    "post-editor-collapsed-label":"Lancer une discussion...",
+    "post-editor-title-label":"Titre (facultatif)",
+    "post-editor-title-placeholder-text":"Titre de la nouvelle discussion...",
+    "post-editor-description-label":"Description",
+    "post-editor-description-placeholder-text":"De quoi parle votre nouvelle discussion ?",
     "guidelines-editor-placeholder-text":"",
     "guidelines-editor-editor-label":"Modification du règlement des discussions",
     "guidelines-editor-action-button-label":"Enregistrer",
@@ -127,6 +136,9 @@
     "reply-editor-label":"Contribuer à la discussion",
     "reply-edit-editor-label":"Modification de votre réponse",
     "reply-action-button-label":"Répondre",
-    "reply-edit-action-button-label":"Enregistrer"
+    "reply-edit-action-button-label":"Enregistrer",
+    "overlay-message-text":"Assurez-vous d'avoir lu le __guidelinesLinkTitle__ avant de créer votre première publication.",
+    "overlay-message-button":"Terminé",
+    "guidelines-link-title":"Règlement des discussions"
   }
 }
