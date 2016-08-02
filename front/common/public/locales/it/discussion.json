@@ -102,6 +102,11 @@
     "app-promotion-text":"Porta con te il tuo fandom, scarica l'app oggi stesso!",
     "app-promotion-text-details-page":"Resta aggiornato mentre sei in giro. Scarica subito l'app!",
     "wiki-home":"Home wiki",
+    "discussion-guidelines":"Linee guida di discussione",
+    "rename-category-length-error":"Il nome della categoria deve avere meno di 20 caratteri.",
+    "rename-category-auth-error":"Non hai effettuato l'accesso. Per favore fallo ora.",
+    "rename-category-oermissions-error":"La categoria non può essere aggiornata.",
+    "rename-category-general-error":"Qualcosa è andato storto. Riprova.",
     "guidelines-link-title":"Linee guida di discussione",
     "guidelines-header-title":"Linee guida di discussione",
     "welcome-message-header":"È fantastico averti qui!",
@@ -118,7 +123,11 @@
     "post-edit-editor-label":"Modifica il tuo post",
     "post-action-button-label":"Pubblica",
     "post-edit-action-button-label":"Salva",
-    "post-editor-placeholder-text":"Condividi un pensiero, domande o un link...",
+    "post-editor-collapsed-label":"Inizia una nuova discussione...",
+    "post-editor-title-label":"Titolo (opzionale)",
+    "post-editor-title-placeholder-text":"Titolo della nuova discussione...",
+    "post-editor-description-label":"Descrizione",
+    "post-editor-description-placeholder-text":"Di cosa tratta la tua nuova discussione?",
     "guidelines-editor-placeholder-text":"",
     "guidelines-editor-editor-label":"Modifica linee guida di discussione",
     "guidelines-editor-action-button-label":"Salva",
@@ -127,6 +136,9 @@
     "reply-editor-label":"Aggiungi alla discussione",
     "reply-edit-editor-label":"Modifica la tua risposta",
     "reply-action-button-label":"Rispondi",
-    "reply-edit-action-button-label":"Salva"
+    "reply-edit-action-button-label":"Salva",
+    "overlay-message-text":"Before posting, be sure to check out the __guidelinesLinkTitle__.",
+    "overlay-message-button":"Done",
+    "guidelines-link-title":"Linee guida di discussione"
   }
 }
