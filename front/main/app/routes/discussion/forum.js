@@ -32,7 +32,7 @@ export default DiscussionBaseRoute.extend(
 		 */
 		beforeModel(transition) {
 			const queryParams = transition.queryParams;
-			if (!queryParams.catId || 0 === queryParams.catId.length) {
+			if (!queryParams.catId || queryParams.catId.length === 0) {
 				const previousQueryParams = localStorage.getItem('discussionForumPreviousQueryParams');
 				if (previousQueryParams) {
 					this.transitionTo({
