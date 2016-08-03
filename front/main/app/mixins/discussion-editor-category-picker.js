@@ -7,7 +7,7 @@ export default Ember.Mixin.create({
 			editEntity = this.get('editEntity');
 
 		if (this.get('isEdit') && editEntity) {
-			return this.get('categories').findBy('id', this.get('editEntity.categoryId'));
+			return categories.findBy('id', this.get('editEntity.categoryId'));
 		}
 
 		if (categories.length === 1) {
@@ -18,7 +18,7 @@ export default Ember.Mixin.create({
 	}),
 
 	categoryPickerDisabled: Ember.computed('categories', function () {
-		return this.get('categories').length === 1;
+		return this.get('categories.length') === 1;
 	}),
 
 	isActivePostEditor: Ember.computed('isReply', 'isActive', function () {
