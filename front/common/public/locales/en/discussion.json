@@ -117,7 +117,12 @@
     "welcome-message-header": "Awesome to have you here!",
     "welcome-message-text": "Have fun browsing, creating, or replying to posts. Read our __guidelinesLinkTitle__ and you'll fit right in.",
     "category-picker-button-text": "Pick a category",
-    "category-picker-required-message": "required"
+    "category-picker-required-message": "required",
+    "edit-badge-button-text": "Edit badge",
+    "edit-badge-hint-text": "125x125 jpg,<br>gif or png.<br>10mb limit",
+    "edit-hero-unit-button-text": "Edit Header",
+    "edit-hero-unit-hint-text": "Image Dimensions: 1240x200<br>jpg, gif or png. 10mb limit",
+    "upload-image-button-text": "Upload image"
   },
   "editor": {
     "post-failed-error": "Post failed.",
