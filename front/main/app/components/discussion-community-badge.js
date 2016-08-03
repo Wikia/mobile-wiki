@@ -176,6 +176,7 @@ export default Ember.Component.extend({
 		setEditMode(shouldEnable) {
 			Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
 			this.set('isEditMode', shouldEnable);
+			track(trackActions.EditCommunityBadgeButtonTapped);
 		},
 	},
 });
