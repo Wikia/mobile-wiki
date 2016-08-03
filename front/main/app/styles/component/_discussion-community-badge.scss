@@ -34,6 +34,7 @@
 		left: 0;
 		letter-spacing: 0.5px;
 		line-height: 30px;
+		min-height: 30px;
 		opacity: 0.9;
 		padding: 0 32px 0 4px;
 		position: absolute;
@@ -57,8 +58,10 @@
 		box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
 		cursor: pointer;
 		position: relative;
+	}
 
-		&:hover {
+	&:not(.is-edit-mode) {
+		.community-badge-image:hover {
 			.edit-badge-button {
 				display: block;
 			}
@@ -69,6 +72,33 @@
 		color: $discussion-community-badge-title-color;
 		font-size: 1.5rem;
 		line-height: 1.25;
+	}
+
+	.edit-mode {
+		background-color: $discussion-edit-image-upload-background;
+		color: $discussion-edit-image-hint-text;
+		cursor: auto;
+		font-size: $type-min;
+		height: 100%;
+		left: 0;
+		letter-spacing: 0.5px;
+		line-height: $line-height-min;
+		position: absolute;
+		text-align: center;
+		top: 0;
+		width: 100%;
+
+		.upload-image-button {
+			color: $discussion-upload-image-button-text;
+			cursor: pointer;
+			font-size: 10px;
+			font-weight: $font-weight-bold;
+			letter-spacing: 0.3px;
+			line-height: 36px;
+			margin: 8px 8px 10px;
+			min-height: 36px;
+			text-align: center;
+		}
 	}
 }
 

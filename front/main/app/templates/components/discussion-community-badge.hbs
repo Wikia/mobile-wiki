@@ -1,8 +1,20 @@
-<div class="community-badge-image">
+<div class="community-badge-image {{if isEditMode 'highlight-overlay-content'}}">
 	<img src="{{wikiImageUrl}}">
-	<div class="edit-badge-button" {{action 'setEditMode' true}}>
-		{{i18n 'main.edit-badge-button-text' ns='discussion'}}
-		{{svg 'camera' role='img' class='icon-camera'}}
-	</div>
+	{{#if isEditMode}}
+		<div class="edit-mode">
+			<div class="upload-image-button background-theme-color" {{action 'uploadImage'}}>
+				{{i18n 'main.upload-image-button-text' ns='discussion'}}
+			</div>
+			{{{i18n 'main.edit-badge-hint-text' ns='discussion'}}}
+		</div>
+	{{else}}
+		<div class="edit-badge-button" {{action 'setEditMode' true}}>
+			{{i18n 'main.edit-badge-button-text' ns='discussion'}}
+			{{svg 'camera' role='img' class='icon-camera'}}
+		</div>
+	{{/if}}
 </div>
 <p>{{displayedWikiName}}</p>
+{{wikia-ui-components/highlight-overlay
+	isVisible=isEditMode
+}}

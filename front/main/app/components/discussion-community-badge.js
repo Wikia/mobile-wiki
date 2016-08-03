@@ -165,6 +165,17 @@ export default Ember.Component.extend({
 		}
 	}),
 
+	click(event) {
+		if (event.target.classList.contains('highlight-overlay')) {
+			this.setEditMode(false);
+		}
+	},
+
+	setEditMode(shouldEnable) {
+		Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
+		this.set('isEditMode', shouldEnable);
+	},
+
 	actions: {
 		/**
 		 * Enables/disables community badge edit mode
@@ -174,9 +185,12 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		setEditMode(shouldEnable) {
-			Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
-			this.set('isEditMode', shouldEnable);
+			this.setEditMode(shouldEnable);
 			track(trackActions.EditCommunityBadgeButtonTapped);
+		},
+
+		uploadImage() {
+
 		},
 	},
 });
