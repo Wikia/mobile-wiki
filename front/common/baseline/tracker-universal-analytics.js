@@ -30,10 +30,12 @@ if (typeof window.M.tracker === 'undefined') {
 
 (function (M) {
 	let tracked = [],
+		eventsQueue = [],
 		createdAccounts = [],
 		dimensions = {},
 		dimensionsSynced = false,
-		accounts;
+		accounts,
+		isInitialized = false;
 
 	const pageDimensions = [3, 14, 19, 25],
 		accountPrimary = 'primary',
@@ -207,26 +209,30 @@ if (typeof window.M.tracker === 'undefined') {
 	 * @returns {void}
 	 */
 	function track(category, action, label, value, nonInteractive) {
-		syncDimensions();
+		if (isInitialized) {
+			syncDimensions();
 
-		tracked.forEach((account) => {
-			// skip over ads tracker (as it's handled in self.trackAds)
-			if (account.prefix !== accountAds) {
-				const prefix = getPrefix(account);
+			tracked.forEach((account) => {
+				// skip over ads tracker (as it's handled in self.trackAds)
+				if (account.prefix !== accountAds) {
+					const prefix = getPrefix(account);
 
-				ga(
-					`${prefix}send`,
-					{
-						hitType: 'event',
-						eventCategory: category,
-						eventAction: action,
-						eventLabel: label,
-						eventValue: value,
-						nonInteraction: nonInteractive
-					}
-				);
-			}
-		});
+					ga(
+						`${prefix}send`,
+						{
+							hitType: 'event',
+							eventCategory: category,
+							eventAction: action,
+							eventLabel: label,
+							eventValue: value,
+							nonInteraction: nonInteractive
+						}
+					);
+				}
+			});
+		} else {
+			eventsQueue.push({category, action, label, value, nonInteractive});
+		}
 	}
 
 	/**
@@ -434,6 +440,17 @@ if (typeof window.M.tracker === 'undefined') {
 	}
 
 	/**
+	 * @returns {void}
+	 */
+	function flushEventsQueue() {
+		eventsQueue.forEach((event) => {
+			track(event.category, event.action, event.label, event.value, event.nonInteractive);
+		});
+
+		eventsQueue = [];
+	}
+
+	/**
 	 * @param {UniversalAnalyticsDimensions} dimensions
 	 * @returns {boolean}
 	 */
@@ -459,6 +476,10 @@ if (typeof window.M.tracker === 'undefined') {
 		if (M.prop('isGASpecialWiki') || Mercury.wiki.isGASpecialWiki) {
 			initAccount(accountSpecial);
 		}
+
+		isInitialized = true;
+
+		flushEventsQueue();
 
 		return true;
 	}
@@ -492,6 +513,6 @@ if (typeof window.M.tracker === 'undefined') {
 		_getDimensionsSynced: getDimensionsSynced,
 		_updateTrackedUrl: updateTrackedUrl,
 		_filterQueryParams: filterQueryParams,
-		_dimensions: dimensions,
+		_dimensions: dimensions
 	};
 })(M);

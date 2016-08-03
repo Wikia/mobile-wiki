@@ -2,7 +2,7 @@
 	.category-pill {
 		background: $discussion-category-pill-background-color;
 		border-radius: 18px;
-		color: #666;
+		color: $discussion-category-pill-color;
 		display: inline-block;
 		font-size: 12px;
 		line-height: 12px;
@@ -12,14 +12,20 @@
 		text-align: center;
 
 		&:hover {
-			color: #fff;
+			color: $discussion-category-pill-hover-color;
 		}
 	}
+
 	.discussion-category-picker {
 		width: 320px;
 
+		.pop-over-compass {
+			//So that popover's compass overlays CTA
+			margin-top: -8px;
+		}
+
 		.pop-over-container {
-			padding: 15px;
+			padding: 12px 15px 15px;
 		}
 	}
 
@@ -31,7 +37,7 @@
 		font-size: 12px;
 		line-height: 12px;
 		padding: 8px 12px;
-		margin: 10px 0 0;
+		margin: 15px 0 4px;
 
 		svg {
 			fill: $discussion-category-picker-button-color;

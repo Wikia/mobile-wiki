@@ -1,14 +1,15 @@
 import Ember from 'ember';
 
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
-import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor';
 import DiscussionEditorCategoryPicker from '../mixins/discussion-editor-category-picker';
+import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 
 export default DiscussionMultipleInputsEditor.extend(
 	DiscussionEditorOpengraph,
 	DiscussionEditorConfiguration,
-	DiscussionEditorCategoryPicker, {
+	DiscussionEditorCategoryPicker,
+	{
 		classNames: ['discussion-standalone-editor'],
 
 		currentUser: Ember.inject.service(),
@@ -29,10 +30,8 @@ export default DiscussionMultipleInputsEditor.extend(
 			this.focusOnNearestTextarea(event);
 		},
 
-		onIsActive: Ember.observer('isActive', function () {
+		toogleActiveState(isActive) {
 			this._super();
-
-			const isActive = this.get('isActive');
 
 			if (isActive) {
 				this.set('pageYOffsetCache', window.pageYOffset);
@@ -52,7 +51,7 @@ export default DiscussionMultipleInputsEditor.extend(
 					Ember.$('html, body').animate({scrollTop: this.get('pageYOffsetCache')});
 				}
 			}
-		}),
+		},
 
 		// first time it is triggered by the 'editEntity' property, and later by the 'isActive' property
 		targetObjectObserver: Ember.observer('editEntity', function () {

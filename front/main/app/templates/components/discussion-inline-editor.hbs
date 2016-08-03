@@ -12,9 +12,16 @@
 			avatarUrl=currentUser.avatarPath
 			shouldWrapInHref=false
 		}}
-		<div class="discussion-inline-editor-textarea-wrapper">
-			{{#if shouldShowCategoryPicker}}
-				<a id="{{categoryPickerButtonId}}" class="discussion-category-picker-button {{if category 'active-element-background-color'}}">
+		{{#if showOverlayMessage}}
+			{{discussion-editor-overlay-message
+				close=(action 'closeOverlayMessage')
+				closeEditor=(action 'close')
+				gotoGuidelines=(action this.attrs.gotoGuidelines)
+			}}
+		{{else}}
+			<div class="discussion-inline-editor-textarea-wrapper">
+				{{#if shouldShowCategoryPicker}}
+					<a id="{{categoryPickerButtonId}}" class="discussion-category-picker-button {{if category 'active-element-background-color'}}">
 					<span class="discussion-category-picker-content-wrapper">
 						{{#if category}}
 							{{category.name}}
@@ -24,50 +31,51 @@
 							{{i18n 'main.category-picker-button-text' ns='discussion'}}
 						{{/if}}
 					</span>
-				</a>
-				{{#unless category}}
-					<small class="discussion-category-picker-required-message">[{{i18n 'main.category-picker-required-message' ns='discussion'}}]</small>
-				{{/unless}}
-			{{/if}}
-			{{#if isPostEditor}}
-				{{discussion-textarea-with-counter
-					class='discussion-inline-editor-label discussion-inline-editor-title'
-					collapsedPlaceholder=(i18n collapsedEditorLabelKey ns='discussion')
-					focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
-					isActive=isActive
-					label=(i18n titleLabelKey ns='discussion')
-					maxlength=70
-					onInput=(action 'onTitleChange')
-					onKeyPress=(action 'handleKeyPressOnTitle')
-					placeholder=(i18n titlePlaceholderKey ns='discussion')
-					text=title
-				}}
-			{{/if}}
-			<label class="discussion-inline-editor-label">
-				{{#if isActive}}
-					<div class="discussion-textarea-label">
-						{{i18n messageLabelKey ns='discussion'}}
-					</div>
+					</a>
+					{{#unless category}}
+						<small class="discussion-category-picker-required-message">[{{i18n 'main.category-picker-required-message' ns='discussion'}}]</small>
+					{{/unless}}
 				{{/if}}
-				{{textarea
-					autoresize=true
-					class='discussion-inline-editor-textarea'
-					focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
-					isVisible=showTextareaAsFirstIfAlone
-					keyPress=(action 'handleKeyPress')
-					placeholder=(i18n messagePlaceholderKey ns='discussion')
-					required=true
-					value=content
-				}}
-			</label>
-			{{#if showsOpenGraphCard}}
-				{{discussion-open-graph
-					close=(action 'removeOpenGraph')
-					isLoading=isOpenGraphLoading
-					openGraphData=openGraph
-				}}
-			{{/if}}
-		</div>
+				{{#if isPostEditor}}
+					{{discussion-textarea-with-counter
+						class='discussion-inline-editor-label discussion-inline-editor-title'
+						collapsedPlaceholder=(i18n collapsedEditorLabelKey ns='discussion')
+						focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
+						isActive=isActive
+						label=(i18n titleLabelKey ns='discussion')
+						maxlength=70
+						onInput=(action 'onTitleChange')
+						onKeyPress=(action 'handleKeyPressOnTitle')
+						placeholder=(i18n titlePlaceholderKey ns='discussion')
+						text=title
+					}}
+				{{/if}}
+				<label class="discussion-inline-editor-label">
+					{{#if isActive}}
+						<div class="discussion-textarea-label">
+							{{i18n messageLabelKey ns='discussion'}}
+						</div>
+					{{/if}}
+					{{textarea
+						autoresize=true
+						class='discussion-inline-editor-textarea'
+						focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
+						isVisible=showTextareaAsFirstIfAlone
+						keyPress=(action 'handleKeyPress')
+						placeholder=(i18n messagePlaceholderKey ns='discussion')
+						required=true
+						value=content
+					}}
+				</label>
+				{{#if showsOpenGraphCard}}
+					{{discussion-open-graph
+						close=(action 'removeOpenGraph')
+						isLoading=isOpenGraphLoading
+						openGraphData=openGraph
+					}}
+				{{/if}}
+			</div>
+		{{/if}}
 	</div>
 	<div class="discussion-inline-editor-toolbar">
 		<button class="active-element-theme-color discussion-inline-editor-submit" type="submit" {{action 'submit' bubbles=false}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>

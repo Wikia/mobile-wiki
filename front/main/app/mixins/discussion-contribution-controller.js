@@ -149,14 +149,14 @@ export default Ember.Mixin.create({
 		}
 	},
 
-	createPost(entityData, forumId) {
+	createPost(entityData, params) {
 		const editorType = 'contributeEditor',
 			editorState = this.getEditorState(editorType);
 
 		editorState.set('isLoading', true);
 		this.setEditorError(editorType, null);
 
-		this.get('model').current.createPost(entityData, forumId).catch((err) => {
+		this.get('model').current.createPost(entityData, params.newCategoryId).catch((err) => {
 			this.onContributionError(editorType, err, 'editor.post-error-general-error');
 		}).finally(() => {
 			editorState.set('isLoading', false);

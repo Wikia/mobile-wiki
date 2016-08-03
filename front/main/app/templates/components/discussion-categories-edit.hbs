@@ -53,7 +53,6 @@
 										disabled=true
 									}}
 								{{/if}}
-								{{!TODO use flag instead of equal when backend starts providing it}}
 								{{input
 									class=(concat 'discussion-categories-input' (if localCategory.error ' error' ''))
 									disabled=(equal localCategory.id wikiId)
