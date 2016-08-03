@@ -21,10 +21,20 @@ export default Ember.Mixin.create({
 		return this.get('categories').length === 1;
 	}),
 
-	shouldShowCategoryPicker: Ember.computed('isReply', 'isEdit', 'isActive', 'categoryPickerDisabled', function () {
-		return ((!this.get('isReply') && this.get('isActive')) ||
-			(this.get('isEdit') && this.get('currentUser.permissions.discussions.canChangePostCategory'))) &&
-			!this.get('categoryPickerDisabled');
+	isActivePostEditor: Ember.computed('isReply', 'isActive', function () {
+		return this.get('isActive') && !this.get('isReply');
+	}),
+
+	isEditActionWithPostMovingPermissions: Ember.computed('isEdit', 'currentUser.permissions', function () {
+		return this.get('isEdit') && this.get('currentUser.permissions.discussions.canChangePostCategory');
+	}),
+
+	canEditPostCategory: Ember.computed('isActivePostEditor', 'isEditActionWithPostMovingPermissions', function () {
+		return this.get('isActivePostEditor') || this.get('isEditActionWithPostMovingPermissions')
+	}),
+
+	shouldShowCategoryPicker: Ember.computed('canEditPostCategory', 'categoryPickerDisabled', function () {
+		return !this.get('categoryPickerDisabled') && this.get('canEditPostCategory');
 	}),
 
 	clearCategory: Ember.observer('isActive', function () {
