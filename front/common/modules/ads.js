@@ -200,24 +200,23 @@ class Ads {
 	trackBlocking(name, GAOption, isAdBlockDetected) {
 		let value = isAdBlockDetected ? 'Yes' : 'No';
 
-		this.setPreviousDetectionResult(name, isAdBlockDetected);
+		Ads.setPreviousDetectionResult(name, isAdBlockDetected);
 		M.tracker.UniversalAnalytics.setDimension(GAOption.dimension, value);
 		M.tracker.UniversalAnalytics.track(`ads-${GAOption.name}-detection`, 'impression', value, 0, true);
 
 		Ads.gaTrackAdEvent.call(this, `ad/${GAOption.name}/detection`, value, '', 0, true);
 	}
 
-	setPreviousDetectionResult(name, isAdBlockDetected) {
-		this.previousDetectionResults[name].value = isAdBlockDetected;
-		this.previousDetectionResults[name].exists = true;
+	static setPreviousDetectionResult(name, isAdBlockDetected) {
+		Ads.previousDetectionResults[name].value = isAdBlockDetected;
+		Ads.previousDetectionResults[name].exists = true;
 	}
 
 	/**
 	 * @returns {void}
 	 */
 	addDetectionListeners() {
-		const trackBlocking = this.trackBlocking,
-			GASettings = this.GASettings,
+		const GASettings = this.GASettings,
 			listenerSettings = [
 				{
 					name: 'sourcePoint',
@@ -243,7 +242,7 @@ class Ads {
 
 		listenerSettings.map((listenerSetting) => {
 			document.addEventListener(listenerSetting.eventName, () => {
-				trackBlocking(listenerSetting.name, GASettings[listenerSetting.name], listenerSetting.value);
+				this.trackBlocking(listenerSetting.name, GASettings[listenerSetting.name], listenerSetting.value);
 			});
 		});
 	}
