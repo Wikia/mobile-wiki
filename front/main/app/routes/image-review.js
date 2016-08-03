@@ -14,8 +14,13 @@ export default Route.extend({
 		return ImageReviewModel.startSession(this.get('status'));
 	},
 
+	beforeModel() {
+		this.controllerFor('application').set('fullPage', false);
+	},
+
 	afterModel() {
 		this.controllerFor('application').set('isLoading', false);
+
 	},
 
 	actions: {
@@ -94,7 +99,7 @@ export default Route.extend({
 		},
 
 		willTransition(transition) {
-			const isStayingOnEditor = transition.targetName.indexOf('imageReview') > -1;
+			const isStayingOnEditor = transition.targetName.indexOf('image-review') > -1;
 
 			if (!isStayingOnEditor) {
 				transition.then(() => {
