@@ -54,8 +54,8 @@ export default Ember.Mixin.create(
 
 		loadNextPage() {
 			this.setProperties({
-				pageNum: this.pageNum + 1,
 				isLoading: true,
+				pageNum: this.pageNum + 1,
 			});
 
 			this.sendAction('loadPage', this.pageNum);
@@ -76,7 +76,7 @@ export default Ember.Mixin.create(
 		},
 
 		actions: {
-			loadNextPageAction() {
+			loadNextPage() {
 				if (!this.get('isLoading')) {
 					track(trackActions.PostLoadMore);
 					this.loadNextPage();
