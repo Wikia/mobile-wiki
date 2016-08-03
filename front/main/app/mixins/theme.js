@@ -106,7 +106,7 @@ export default Ember.Mixin.create({
 			'.discussions .discussion-hero-unit .discussion-hero-unit-content p,' +
 			`.discussion-header h1 {color: ${discussionHeaderColor};}`;
 		styles += `.discussion a, .discussion .url, .discussions .header-text-theme-color,
-			.discussions .discussion-standalone-editor a {color: ${this.get('themeColors.color-links')};}`;
+			.discussion-standalone-editor a {color: ${this.get('themeColors.color-links')};}`;
 		styles += `.discussions .active-element-background-color {background-color: ${
 			this.get('themeColors.color-links')};}`;
 		styles += `.discussions .active-element-theme-color {color: ${this.get('themeColors.color-links')};}`;
