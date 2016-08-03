@@ -28,7 +28,10 @@
 	}}
 	<div class="discussion-page row">
 		<div class="rail left large-3 columns">
-			{{discussion-community-badge}}
+			{{discussion-community-badge
+				editingPossible=true
+				badgeImage=attributes.badgeImage
+			}}
 			{{#if showCategories}}
 				{{#if categories}}
 					{{discussion-categories

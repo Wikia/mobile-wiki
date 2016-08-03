@@ -1,9 +1,15 @@
 import Ember from 'ember';
 import Thumbnailer from 'common/modules/thumbnailer';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	classNames: ['community-badge'],
+	classNameBindings: ['isEditMode'],
 	squareDimension: 125,
+
+	currentUser: Ember.inject.service(),
+	canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'badgeImage.permissions.canEdit'),
+	isEditMode: false,
 
 	badgeImages: {
 		24357: '/front/common/images/community-badge-adventure-time.png',
@@ -158,4 +164,18 @@ export default Ember.Component.extend({
 			return this.get('wikiName');
 		}
 	}),
+
+	actions: {
+		/**
+		 * Enables/disables community badge edit mode
+		 *
+		 * @param {boolean} shouldEnable edit mode state
+		 *
+		 * @returns {void}
+		 */
+		setEditMode(shouldEnable) {
+			Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
+			this.set('isEditMode', shouldEnable);
+		},
+	},
 });
