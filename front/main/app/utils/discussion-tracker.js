@@ -20,6 +20,8 @@ const trackActions = {
 	ReplyStart: 'ReplyStart',
 	PostContent: 'PostContent',
 	PostEditContent: 'PostEditContent',
+	PostEditTitle: 'PostEditTitle',
+	PostTitle: 'PostTitle',
 	AnonUpvotePost: 'AnonUpvotePost',
 	ReplyContent: 'ReplyContent',
 	ReplyEditContent: 'ReplyEditContent',
@@ -50,6 +52,8 @@ const trackActions = {
 	WelcomeMessageClose: 'WelcomeMessageClose',
 	PostLoadMore: 'PostLoadMore',
 	PostMore: 'PostMore',
+	EditorCalloutMessageClose: 'EditorCalloutMessageClose',
+	EditorCalloutGuidelinesLinkTapped: 'EditorCalloutGuidelinesLinkTapped',
 };
 
 /**
