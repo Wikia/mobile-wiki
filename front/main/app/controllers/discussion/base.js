@@ -30,8 +30,14 @@ export default Ember.Controller.extend(
 			setEditorActive() {},
 
 			/**
+			 * @returns {void}
+			 */
+			gotoGuidelines() {
+				this.get('target').send('gotoGuidelines');
+			},
+
+			/**
 			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller
-			 *
 			 * @returns {void}
 			 */
 			openGuidelines() {},

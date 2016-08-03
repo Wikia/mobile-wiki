@@ -11,7 +11,7 @@ export default Ember.Component.extend({
 		i18n.t('main.guidelines-link-title', {ns: 'discussion'})
 	], {
 		tagName: 'a',
-		className: 'guidelinesOpener',
+		className: 'guidelines-opener',
 	}),
 
 	/**
@@ -19,7 +19,7 @@ export default Ember.Component.extend({
 	 * @returns {void}
 	 */
 	click(event) {
-		if (event.target.classList.contains('guidelinesOpener')) {
+		if (event.target.classList.contains('guidelines-opener')) {
 			track(trackActions.GuidelinesLinkWelcomeTapped);
 			this.get('gotoGuidelines')();
 		}

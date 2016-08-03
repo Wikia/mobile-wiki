@@ -1,25 +1,56 @@
 <div class="discussion-inline-editor-floating-container">
-	<div class="discussion-inline-editor-content-wrapper" {{action 'focusTextarea'}}>
-		<div class="discussion-inline-editor-textarea-wrapper">
-			{{user-avatar
-				avatarUrl=currentUser.avatarPath
-				shouldWrapInHref=false
+	<div class="discussion-inline-editor-content-wrapper">
+		{{user-avatar
+			avatarUrl=currentUser.avatarPath
+			shouldWrapInHref=false
+		}}
+		{{#if showOverlayMessage}}
+			{{discussion-editor-overlay-message
+				close=(action 'closeOverlayMessage')
+				closeEditor=(action 'close')
+				gotoGuidelines=(action this.attrs.gotoGuidelines)
 			}}
-			{{textarea
-				autoresize=true
-				class="discussion-inline-editor-textarea"
-				focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
-				keyPress=(action 'handleKeyPress')
-				placeholder=(i18n placeholderMessageKey ns='discussion')
-				value=content
-			}}
-		</div>
-		{{#if showsOpenGraphCard}}
-			{{discussion-open-graph
-				close=(action 'removeOpenGraph')
-				isLoading=isOpenGraphLoading
-				openGraphData=openGraph
-			}}
+		{{else}}
+			<div class="discussion-inline-editor-textarea-wrapper">
+				{{#if isPostEditor}}
+					{{discussion-textarea-with-counter
+						class='discussion-inline-editor-label discussion-inline-editor-title'
+						collapsedPlaceholder=(i18n collapsedEditorLabelKey ns='discussion')
+						focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
+						isActive=isActive
+						label=(i18n titleLabelKey ns='discussion')
+						maxlength=70
+						onInput=(action 'onTitleChange')
+						onKeyPress=(action 'handleKeyPressOnTitle')
+						placeholder=(i18n titlePlaceholderKey ns='discussion')
+						text=title
+					}}
+				{{/if}}
+				<label class="discussion-inline-editor-label">
+					{{#if isActive}}
+						<div class="discussion-textarea-label">
+							{{i18n messageLabelKey ns='discussion'}}
+						</div>
+					{{/if}}
+					{{textarea
+						autoresize=true
+						class='discussion-inline-editor-textarea'
+						focusIn=(action this.attrs.setEditorActive 'contributeEditor' true)
+						isVisible=showTextareaAsFirstIfAlone
+						keyPress=(action 'handleKeyPress')
+						placeholder=(i18n messagePlaceholderKey ns='discussion')
+						required=true
+						value=content
+					}}
+				</label>
+				{{#if showsOpenGraphCard}}
+					{{discussion-open-graph
+						close=(action 'removeOpenGraph')
+						isLoading=isOpenGraphLoading
+						openGraphData=openGraph
+					}}
+				{{/if}}
+			</div>
 		{{/if}}
 	</div>
 	<div class="discussion-inline-editor-toolbar">
