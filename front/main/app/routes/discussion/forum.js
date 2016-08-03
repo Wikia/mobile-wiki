@@ -5,6 +5,7 @@ import DiscussionForumModel from '../../models/discussion/forum';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
+import localStorageConnector from '../../utils/local-storage-connector';
 
 const {inject} = Ember;
 
@@ -25,6 +26,24 @@ export default DiscussionBaseRoute.extend(
 
 		canModerate: null,
 		discussionSort: inject.service(),
+
+		/**
+		 * If user was previously on forum and used filters he is transitioned to last chosen filters.
+		 * @param {object} transition
+		 */
+		beforeModel(transition) {
+			const queryParams = transition.queryParams;
+			if (!queryParams.catId || queryParams.catId.length === 0) {
+				const previousQueryParams = localStorageConnector.getItem('discussionForumPreviousQueryParams');
+				if (previousQueryParams) {
+					this.transitionTo({
+						queryParams: JSON.parse(previousQueryParams)
+					});
+				}
+			} else {
+				localStorageConnector.setItem('discussionForumPreviousQueryParams', JSON.stringify(queryParams));
+			}
+		},
 
 		/**
 		 * @param {object} params
@@ -80,6 +99,8 @@ export default DiscussionBaseRoute.extend(
 
 			updateCategoriesSelection(updatedCategories) {
 				const catId = updatedCategories.filterBy('selected', true).mapBy('category.id');
+
+				this.refreshPreviousDiscussionForumQueryParams(catId);
 
 				this.transitionTo({queryParams: {
 					catId,

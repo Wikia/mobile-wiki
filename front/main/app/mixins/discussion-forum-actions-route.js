@@ -1,7 +1,20 @@
 import Ember from 'ember';
+import localStorageConnector from '../utils/local-storage-connector';
 
 export default Ember.Mixin.create(
 	{
+		/**
+		 * When no category is selected, previous categories, present in local
+		 * storage are removed to enable transition to route without categories.
+		 *
+		 * @param {string[]} catId - The array of categories.
+		 */
+		refreshPreviousDiscussionForumQueryParams(catId) {
+			if (Ember.isEmpty(catId)) {
+				localStorageConnector.setItem('discussionForumPreviousQueryParams', null);
+			}
+		},
+
 		actions: {
 			/**
 			 * Attempts transition to a route based on current discussion filters setup
@@ -14,7 +27,8 @@ export default Ember.Mixin.create(
 			 */
 			applyFilters(sortBy, onlyReported, categories) {
 				const discussionSort = this.get('discussionSort'),
-					currentSortBy = discussionSort.get('sortBy');
+					currentSortBy = discussionSort.get('sortBy'),
+					catId = categories.filterBy('selected', true).mapBy('category.id');
 
 				let targetRoute = 'discussion.forum';
 
@@ -26,9 +40,11 @@ export default Ember.Mixin.create(
 					discussionSort.setSortBy(sortBy);
 				}
 
+				this.refreshPreviousDiscussionForumQueryParams(catId);
+
 				const queryParams = {
 					sort: sortBy,
-					catId: categories.filterBy('selected', true).mapBy('category.id'),
+					catId
 				};
 
 				return this.transitionTo(targetRoute, {queryParams});
