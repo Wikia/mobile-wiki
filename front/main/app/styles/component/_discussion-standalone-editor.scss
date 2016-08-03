@@ -58,7 +58,7 @@ $success-icon-size: 80px;
 		font-size: $discussion-editor-label-font-size;
 		font-weight: $font-weight-bold;
 		letter-spacing: .15px;
-		padding: 15px 0 10px;
+		padding: 10px 0;
 		text-transform: uppercase;
 		width: 100%;
 	}
@@ -70,6 +70,7 @@ $success-icon-size: 80px;
 
 		.discussion-textarea-with-counter {
 			border-bottom: 1px solid $secondary-color;
+			margin-bottom: 0;
 		}
 
 		.discussion-textarea-counter {

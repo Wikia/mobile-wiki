@@ -3,6 +3,7 @@ import Ember from 'ember';
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
 import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor';
 import DiscussionEditorCategoryPicker from '../mixins/discussion-editor-category-picker';
+import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 
 export default DiscussionMultipleInputsEditor.extend(
 	DiscussionEditorOpengraph,
