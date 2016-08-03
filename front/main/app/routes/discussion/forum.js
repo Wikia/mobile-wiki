@@ -27,6 +27,24 @@ export default DiscussionBaseRoute.extend(
 		discussionSort: inject.service(),
 
 		/**
+		 * If user was previously on forum and used filters he is transitioned to last chosen filters.
+		 * @param {object} transition
+		 */
+		beforeModel(transition) {
+			const queryParams = transition.queryParams;
+			if (!queryParams.catId || 0 === queryParams.catId.length) {
+				const previousQueryParams = localStorage.getItem('discussionForumPreviousQueryParams');
+				if (previousQueryParams) {
+					this.transitionTo({
+						queryParams: JSON.parse(previousQueryParams)
+					});
+				}
+			} else {
+				localStorage.setItem('discussionForumPreviousQueryParams', JSON.stringify(queryParams));
+			}
+		},
+
+		/**
 		 * @param {object} params
 		 * @returns {Ember.RSVP.hash}
 		 */
@@ -80,6 +98,8 @@ export default DiscussionBaseRoute.extend(
 
 			updateCategoriesSelection(updatedCategories) {
 				const catId = updatedCategories.filterBy('selected', true).mapBy('category.id');
+
+				this.refreshPreviousDiscussionForumQueryParams(catId);
 
 				this.transitionTo({queryParams: {
 					catId,
