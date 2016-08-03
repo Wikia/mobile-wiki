@@ -58,7 +58,7 @@ export default DiscussionMultipleInputsEditor.extend(
 						};
 					}
 
-					this.get('create')(newDiscussionEntityData, this.get('category.id'));
+					this.get('create')(newDiscussionEntityData, {newCategoryId: this.get('category.id')});
 				}
 			}
 		}
