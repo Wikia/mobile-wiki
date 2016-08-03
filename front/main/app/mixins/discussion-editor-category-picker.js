@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {trackActions} from '../utils/discussion-tracker';
+import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Mixin.create({
 	category: null,
@@ -22,6 +22,8 @@ export default Ember.Mixin.create({
 		 */
 		setCategory(category) {
 			this.set('category', category);
+
+			track(this.get('categoryTrackingAction'));
 		}
 	}
 });

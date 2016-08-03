@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {trackActions} from '../utils/discussion-tracker';
 
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
 import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor';
@@ -11,6 +12,7 @@ export default DiscussionMultipleInputsEditor.extend(
 	DiscussionEditorCategoryPicker,
 	{
 		attributeBindings: ['style'],
+		categoryTrackingAction: trackActions.PostCategoryAdded,
 		classNames: ['discussion-inline-editor'],
 		classNameBindings: ['isSticky', 'isActive'],
 		tagName: 'form',
