@@ -25,20 +25,16 @@
 }
 
 .community-badge {
-	.community-badge-image {
-		border: 2px solid $discussion-community-badge-border;
-		box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
-		position: relative;
-	}
-
 	.edit-badge-button {
 		background-color: $discussion-edit-image-button-background;
 		color: $discussion-edit-image-button-text;
+		display: none;
 		font-size: $type-min;
 		height: 30px;
 		left: 0;
 		letter-spacing: 0.5px;
 		line-height: 30px;
+		opacity: 0.9;
 		padding: 0 32px 0 4px;
 		position: absolute;
 		text-align: center;
@@ -46,12 +42,26 @@
 		top: 0;
 		width: 100%;
 
+
 		.icon-camera {
 			height: 24px;
 			position: absolute;
 			right: 4px;
 			top: 2px;
 			width: 24px;
+		}
+	}
+
+	.community-badge-image {
+		border: 2px solid $discussion-community-badge-border;
+		box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
+		cursor: pointer;
+		position: relative;
+
+		&:hover {
+			.edit-badge-button {
+				display: block;
+			}
 		}
 	}
 
