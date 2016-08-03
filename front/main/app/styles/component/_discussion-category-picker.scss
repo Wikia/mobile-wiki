@@ -39,6 +39,10 @@
 		padding: 8px 12px;
 		margin: 15px 0 4px;
 
+		&.disabled {
+			display: none;
+		}
+
 		svg {
 			fill: $discussion-category-picker-button-color;
 			height: 14px;
