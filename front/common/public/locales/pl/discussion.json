@@ -102,6 +102,11 @@
     "app-promotion-text":"Zabierz swoją pasję ze sobą, pobierz aplikację dzisiaj!",
     "app-promotion-text-details-page":"Bądź na bieżąco, nieważne gdzie jesteś. Pobierz aplikację teraz!",
     "wiki-home":"Strona główna",
+    "discussion-guidelines":"Zasady korzystania z Dyskusji",
+    "rename-category-length-error":"Category name must be less than 20 characters.",
+    "rename-category-auth-error":"You are logged out. Please sign in.",
+    "rename-category-oermissions-error":"Category cannot be updated.",
+    "rename-category-general-error":"Something went wrong, please try again.",
     "guidelines-link-title":"Zasady korzystania z Dyskusji",
     "guidelines-header-title":"Zasady korzystania z Dyskusji",
     "welcome-message-header":"Niesamowicie się cieszymy, że jesteś!",
@@ -118,7 +123,11 @@
     "post-edit-editor-label":"Edytuj swój post",
     "post-action-button-label":"Opublikuj",
     "post-edit-action-button-label":"Zapisz",
-    "post-editor-placeholder-text":"Podziel się przemyśleniami, zadaj pytanie albo wrzuć link...",
+    "post-editor-collapsed-label":"Start a new discussion...",
+    "post-editor-title-label":"Tytuł (opcjonalnie)",
+    "post-editor-title-placeholder-text":"Tytuł nowej dyskusji...",
+    "post-editor-description-label":"Opis",
+    "post-editor-description-placeholder-text":"Jaki temat chcesz poruszyć w twojej nowej dyskusji?",
     "guidelines-editor-placeholder-text":"",
     "guidelines-editor-editor-label":"Edytuj Zasady Korzystania z Dyskusji",
     "guidelines-editor-action-button-label":"Zapisz",
@@ -127,6 +136,9 @@
     "reply-editor-label":"Dodaj do dyskusji",
     "reply-edit-editor-label":"Edytuj swoją odpowiedź",
     "reply-action-button-label":"Odpowiedz",
-    "reply-edit-action-button-label":"Zapisz"
+    "reply-edit-action-button-label":"Zapisz",
+    "overlay-message-text":"Before posting, be sure to check out the __guidelinesLinkTitle__.",
+    "overlay-message-button":"Done",
+    "guidelines-link-title":"Zasady korzystania z Dyskusji"
   }
 }

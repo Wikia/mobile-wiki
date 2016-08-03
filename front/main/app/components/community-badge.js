@@ -123,7 +123,7 @@ export default Ember.Component.extend({
 		8226: '/front/common/images/community-badge-mirrors-edge.png',
 		55705: '/front/common/images/community-badge-outlander.jpg',
 		701294: '/front/common/images/community-badge-orphan-black.jpg',
-		1086357: '/front/common/images/community-badge-preacher.jpg'
+		1086357: '/front/common/images/community-badge-preacher.jpg',
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
@@ -144,5 +144,18 @@ export default Ember.Component.extend({
 		);
 	}),
 
-	wikiName: Ember.get(Mercury, 'wiki.siteName')
+	wikiName: Ember.get(Mercury, 'wiki.siteName'),
+
+	/**
+	 * TREK INITIATIVE EXPERIMENT
+	 *
+	 * @returns {string}
+	 */
+	displayedWikiName: Ember.computed(function () {
+		if (Ember.get(Mercury, 'wiki.id') === 734209) {
+			return 'Star Trek';
+		} else {
+			return this.get('wikiName');
+		}
+	}),
 });

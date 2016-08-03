@@ -4,16 +4,22 @@
 	</a>
 	<button class="active-element-theme-color discussion-standalone-editor-save-button" type="submit" {{action 'submit'}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
 </div>
-
 <div class="discussion-standalone-content-wrapper">
-	{{#if shouldShowCategoryPicker}}
-		{{#pop-over for=categoryPickerButtonId on='click' flow='downCentered' class='discussion-category-picker'}}
-			{{discussion-category-picker
-				categories=categories
-				setCategory=(action 'setCategory')
-			}}
-		{{/pop-over}}
-		<a id="{{categoryPickerButtonId}}" class="discussion-category-picker-button {{if category 'active-element-background-color'}}">
+	{{#if showOverlayMessage}}
+		{{discussion-editor-overlay-message
+			close=(action 'closeOverlayMessage')
+			closeEditor=(action 'close')
+			gotoGuidelines=(action this.attrs.gotoGuidelines)
+		}}
+	{{else}}
+		{{#if shouldShowCategoryPicker}}
+			{{#pop-over for=categoryPickerButtonId on='click' flow='downCentered' class='discussion-category-picker'}}
+				{{discussion-category-picker
+					categories=categories
+					setCategory=(action 'setCategory')
+				}}
+			{{/pop-over}}
+			<a id="{{categoryPickerButtonId}}" class="discussion-category-picker-button {{if category 'active-element-background-color'}}">
 			<span class="discussion-category-picker-content-wrapper">
 				{{#if category}}
 					{{category.name}}
@@ -23,45 +29,46 @@
 					{{i18n 'main.category-picker-button-text' ns='discussion'}}
 				{{/if}}
 			</span>
-		</a>
-		{{#unless category}}
-			<small class="discussion-category-picker-required-message">[{{i18n 'main.category-picker-required-message' ns='discussion'}}]</small>
-		{{/unless}}
-	{{/if}}
-	{{#if showMultipleInputs}}
-		{{discussion-textarea-with-counter
-			class='discussion-standalone-editor-title'
-			isVisible=isActive
-			label=(i18n titleLabelKey ns='discussion')
-			maxlength=70
-			onInput=(action 'onTitleChange')
-			onKeyPress=(action 'handleKeyPressOnTitle')
-			placeholder=(i18n titlePlaceholderKey ns='discussion')
-			text=title
-		}}
-	{{/if}}
-	<label class="discussion-standalone-editor-message">
-		<div class="discussion-standalone-editor-label">
-			{{#if showMultipleInputs}}
-				{{i18n messageLabelKey ns='discussion'}}
-			{{else}}
-				{{i18n editorLabelKey ns='discussion'}}
-			{{/if}}
-		</div>
-		{{textarea
-			autoresize=true
-			class="discussion-standalone-editor-textarea"
-			keyPress=(action 'handleKeyPress')
-			placeholder=(i18n messagePlaceholderKey ns='discussion')
-			value=content
-		}}
-	</label>
-	{{#if showsOpenGraphCard}}
-		{{discussion-open-graph
-			close=(action 'removeOpenGraph')
-			isLoading=isOpenGraphLoading
-			openGraphData=openGraph
-		}}
+			</a>
+			{{#unless category}}
+				<small class="discussion-category-picker-required-message">[{{i18n 'main.category-picker-required-message' ns='discussion'}}]</small>
+			{{/unless}}
+		{{/if}}
+		{{#if showMultipleInputs}}
+			{{discussion-textarea-with-counter
+				class='discussion-standalone-editor-title'
+				isVisible=isActive
+				label=(i18n titleLabelKey ns='discussion')
+				maxlength=70
+				onInput=(action 'onTitleChange')
+				onKeyPress=(action 'handleKeyPressOnTitle')
+				placeholder=(i18n titlePlaceholderKey ns='discussion')
+				text=title
+			}}
+		{{/if}}
+		<label class="discussion-standalone-editor-message">
+			<div class="discussion-standalone-editor-label">
+				{{#if showMultipleInputs}}
+					{{i18n messageLabelKey ns='discussion'}}
+				{{else}}
+					{{i18n editorLabelKey ns='discussion'}}
+				{{/if}}
+			</div>
+			{{textarea
+				autoresize=true
+				class="discussion-standalone-editor-textarea"
+				keyPress=(action 'handleKeyPress')
+				placeholder=(i18n messagePlaceholderKey ns='discussion')
+				value=content
+			}}
+		</label>
+		{{#if showsOpenGraphCard}}
+			{{discussion-open-graph
+				close=(action 'removeOpenGraph')
+				isLoading=isOpenGraphLoading
+				openGraphData=openGraph
+			}}
+		{{/if}}
 	{{/if}}
 </div>
 

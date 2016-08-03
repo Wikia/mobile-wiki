@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
-import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor';
 import DiscussionEditorCategoryPicker from '../mixins/discussion-editor-category-picker';
 

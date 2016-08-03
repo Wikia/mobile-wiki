@@ -29,7 +29,6 @@ $success-icon-size: 80px;
 
 		.discussion-inline-editor-content-wrapper {
 			cursor: pointer;
-			min-height: 200px;
 			resize: vertical;
 		}
 
@@ -203,6 +202,27 @@ $success-icon-size: 80px;
 			margin-left: -20px;
 			top: auto;
 			width: 564px;
+		}
+	}
+}
+
+
+.post-list-view {
+	.discussion-inline-editor {
+		&.is-active {
+			.discussion-inline-editor-content-wrapper {
+				min-height: 200px;
+			}
+		}
+	}
+}
+
+.post-details-view {
+	.discussion-inline-editor {
+		&.is-active {
+			.discussion-inline-editor-content-wrapper {
+				min-height: 106px;
+			}
 		}
 	}
 }
