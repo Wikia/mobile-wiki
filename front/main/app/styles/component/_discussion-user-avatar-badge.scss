@@ -2,12 +2,12 @@ $post-reply-user-avatar-badge-top: 5px;
 $post-reply-with-label-user-avatar-badge-top: 38px;
 
 .user-avatar-badge {
+	filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .2));
 	left: 9px;
 	position: absolute;
 	top: $post-reply-user-avatar-badge-top;
 
 	svg {
-		filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .2));
 		height: 18px;
 		width: 18px;
 	}
