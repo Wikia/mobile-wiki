@@ -2,7 +2,7 @@
 	.community-badge {
 		margin-top: -62px;
 
-		img {
+		.community-badge-image {
 			width: 125px;
 			background-color: $discussion-community-badge-background-color;
 		}
@@ -13,7 +13,7 @@
 	.community-badge {
 		margin-top: -12px;
 
-		img {
+		.community-badge-image {
 			background-color: $discussion-community-badge-background-color;
 			width: 79px;
 		}
@@ -25,12 +25,34 @@
 }
 
 .community-badge {
-	img {
+	.community-badge-image {
 		border: 2px solid $discussion-community-badge-border;
-		-webkit-box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
-		-moz-box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
 		box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
 		position: relative;
+	}
+
+	.edit-badge-button {
+		background-color: $discussion-edit-image-button-background;
+		color: $discussion-edit-image-button-text;
+		font-size: $type-min;
+		height: 30px;
+		left: 0;
+		letter-spacing: 0.5px;
+		line-height: 30px;
+		padding: 0 32px 0 4px;
+		position: absolute;
+		text-align: center;
+		text-transform: uppercase;
+		top: 0;
+		width: 100%;
+
+		.icon-camera {
+			height: 24px;
+			position: absolute;
+			right: 4px;
+			top: 2px;
+			width: 24px;
+		}
 	}
 
 	p {
@@ -38,4 +60,8 @@
 		font-size: 1.5rem;
 		line-height: 1.25;
 	}
+}
+
+.svg-camera-fill {
+	fill: $discussion-edit-image-camera;
 }
