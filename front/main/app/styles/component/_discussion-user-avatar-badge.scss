@@ -1,5 +1,5 @@
 $post-reply-user-avatar-badge-top: 5px;
-$post-reply-with-label-user-avatar-badge-top: 37px;
+$post-reply-with-label-user-avatar-badge-top: 38px;
 
 .user-avatar-badge {
 	left: 9px;
@@ -18,9 +18,9 @@ $post-reply-with-label-user-avatar-badge-top: 37px;
 		position: relative;
 
 		.user-avatar-badge {
-			bottom: 18px;
+			bottom: 17px;
 			left: auto;
-			right: 26px;
+			right: 25px;
 			top: auto;
 		}
 	}
@@ -52,7 +52,7 @@ $post-reply-with-label-user-avatar-badge-top: 37px;
 	.discussion-contributors {
 		.user-avatar-badge {
 			bottom: 16px;
-			right: 21px;
+			right: 20px;
 		}
 	}
 
@@ -104,7 +104,7 @@ $post-reply-with-label-user-avatar-badge-top: 37px;
 
 		.discussion-contributors {
 			.user-avatar-badge {
-				bottom: 17px;
+				bottom: 16px;
 				right: 20px;
 			}
 		}
