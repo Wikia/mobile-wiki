@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import localStorageConnector from '../utils/local-storage-connector';
 
 export default Ember.Mixin.create(
 	{
@@ -10,7 +11,7 @@ export default Ember.Mixin.create(
 		 */
 		refreshPreviousDiscussionForumQueryParams(catId) {
 			if (Ember.isEmpty(catId)) {
-				localStorage.setItem('discussionForumPreviousQueryParams', null);
+				localStorageConnector.setItem('discussionForumPreviousQueryParams', null);
 			}
 		},
 

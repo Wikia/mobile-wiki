@@ -5,6 +5,7 @@ import DiscussionForumModel from '../../models/discussion/forum';
 import DiscussionModerationRouteMixin from '../../mixins/discussion-moderation-route';
 import DiscussionForumActionsRouteMixin from '../../mixins/discussion-forum-actions-route';
 import DiscussionModalDialogMixin from '../../mixins/discussion-modal-dialog';
+import localStorageConnector from '../../utils/local-storage-connector';
 
 const {inject} = Ember;
 
@@ -33,14 +34,14 @@ export default DiscussionBaseRoute.extend(
 		beforeModel(transition) {
 			const queryParams = transition.queryParams;
 			if (!queryParams.catId || queryParams.catId.length === 0) {
-				const previousQueryParams = localStorage.getItem('discussionForumPreviousQueryParams');
+				const previousQueryParams = localStorageConnector.getItem('discussionForumPreviousQueryParams');
 				if (previousQueryParams) {
 					this.transitionTo({
 						queryParams: JSON.parse(previousQueryParams)
 					});
 				}
 			} else {
-				localStorage.setItem('discussionForumPreviousQueryParams', JSON.stringify(queryParams));
+				localStorageConnector.setItem('discussionForumPreviousQueryParams', JSON.stringify(queryParams));
 			}
 		},
 
