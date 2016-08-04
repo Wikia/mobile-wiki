@@ -7,6 +7,7 @@
     "error-invalid-data": "Invalid data was returned from Image Review API",
     "error-no-more-images": "No more images",
     "review-and-get-more": "Review & get next batch",
+    "get-unreviewed": "Get unreviewed",
     "get-flagged": "Get flagged",
     "get-rejected": "Get rejected",
     "images-to-review-count": "Remaining images to review:",
@@ -27,8 +28,6 @@
     "history-status": "Status",
     "history-undefined": "Not available",
     "history-no-history": "No history",
-    "not-provided": "not provided",
-    "error-no-more-images": "There are no more images to review",
-    "review-and-get-more": "Review and get more"
+    "not-provided": "not provided"
   }
 }

@@ -53,6 +53,16 @@ export default Route.extend({
 			}).then(this.refresh.bind(this));
 		},
 
+		getUnreviewedOnly () {
+			const model = this.modelFor('imageReview');
+			window.scrollTo(0, 0);
+
+			ImageReviewModel.endSession(model.contractId);
+
+			this.set('status', 'UNREVIEWED');
+			this.refresh();
+		},
+
 		getFlaggedOnly() {
 			const model = this.modelFor('imageReview');
 			window.scrollTo(0, 0);

@@ -7,6 +7,10 @@ export default Ember.Controller.extend({
 			this.get('target').send('reviewAndGetMoreImages');
 		},
 
+		getUnreviewedOnly() {
+			this.get('target').send('getUnreviewedOnly');
+		},
+
 		getFlaggedOnly() {
 			this.get('target').send('getFlaggedOnly');
 		},
