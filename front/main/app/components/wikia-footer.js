@@ -71,6 +71,10 @@ export default Ember.Component.extend({
 			if (this.checkLinkForOasisSkinOverwrite(href)) {
 				Ember.$.cookie('useskin', 'oasis', {path: '/', domain: getDomain()});
 			}
+
+			Ember.run.later(() => {
+				window.location = href;
+			}, 100)
 		}
 	},
 
