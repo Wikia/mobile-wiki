@@ -28,30 +28,14 @@ export default DiscussionBaseRoute.extend(
 		discussionSort: inject.service(),
 
 		/**
-		 * If user was previously on forum and used filters he is transitioned to last chosen filters.
-		 * @param {object} transition
-		 */
-		beforeModel(transition) {
-			const queryParams = transition.queryParams;
-			if (!queryParams.catId || queryParams.catId.length === 0) {
-				const previousQueryParams = localStorageConnector.getItem('discussionForumPreviousQueryParams');
-				if (previousQueryParams) {
-					this.transitionTo({
-						queryParams: JSON.parse(previousQueryParams)
-					});
-				}
-			} else {
-				localStorageConnector.setItem('discussionForumPreviousQueryParams', JSON.stringify(queryParams));
-			}
-		},
-
-		/**
 		 * @param {object} params
 		 * @returns {Ember.RSVP.hash}
 		 */
 		model(params) {
 			const discussionSort = this.get('discussionSort'),
 				discussionModel = this.modelFor('discussion');
+
+			this.transitionToPreviouslySelectedCategories(discussionModel.categories, params);
 
 			if (params.sort) {
 				discussionSort.setSortBy(params.sort);
@@ -69,6 +53,37 @@ export default DiscussionBaseRoute.extend(
 				current: DiscussionForumModel.find(Mercury.wiki.id, params.catId, this.get('discussionSort.sortBy')),
 				index: discussionModel
 			});
+		},
+
+		/**
+		 * If user was previously on forum and used filters he is transitioned to last chosen filters.
+		 * @param {object} categories
+		 * @param {object} params
+		 */
+		transitionToPreviouslySelectedCategories(categories, params) {
+			if (!params.catId || params.catId.length === 0) {
+				const previousParams = localStorageConnector.getItem('discussionForumPreviousQueryParams');
+				if (previousParams) {
+					const validatedParams = this.validateAndUpdateStoredCategories(categories, previousParams);
+
+					localStorageConnector.setItem('discussionForumPreviousQueryParams',
+						JSON.stringify(validatedParams));
+
+					this.transitionTo({
+						queryParams: validatedParams
+					});
+				}
+			} else {
+				localStorageConnector.setItem('discussionForumPreviousQueryParams', JSON.stringify(params));
+			}
+		},
+
+		validateAndUpdateStoredCategories(categories, previousParams) {
+			const params = JSON.parse(previousParams);
+			params.catId = categories.get('categories')
+				.filter(category => params.catId.includes(category.id))
+				.map(category => category.id)
+			return params;
 		},
 
 		/**

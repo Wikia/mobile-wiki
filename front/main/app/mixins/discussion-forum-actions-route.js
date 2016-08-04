@@ -11,7 +11,7 @@ export default Ember.Mixin.create(
 		 */
 		refreshPreviousDiscussionForumQueryParams(catId) {
 			if (Ember.isEmpty(catId)) {
-				localStorageConnector.setItem('discussionForumPreviousQueryParams', null);
+				localStorageConnector.removeItem('discussionForumPreviousQueryParams');
 			}
 		},
 
