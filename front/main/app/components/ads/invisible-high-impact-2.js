@@ -13,18 +13,12 @@ export default Ember.Component.extend({
 		const iframe = document.getElementById(this.name).querySelector('div:not(.hidden) > div[id*="_container_"] iframe');
 
 		if (iframe.contentWindow.document.readyState === 'complete') {
-			const height = iframe.contentWindow.document.body.scrollHeight,
-				width = iframe.contentWindow.document.body.scrollWidth;
-
-			iframe.width = width;
-			iframe.height = height;
+			iframe.width = iframe.contentWindow.document.body.scrollWidth;
+			iframe.height = iframe.contentWindow.document.body.scrollHeight;
 		} else {
 			iframe.addEventListener('load', () => {
-				const height = iframe.contentWindow.document.body.scrollHeight,
-					width = iframe.contentWindow.document.body.scrollWidth;
-
-				iframe.width = width;
-				iframe.height = height;
+				iframe.width = iframe.contentWindow.document.body.scrollWidth;
+				iframe.height = iframe.contentWindow.document.body.scrollHeight;
 			});
 		}
 	}
