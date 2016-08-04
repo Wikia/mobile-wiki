@@ -102,7 +102,7 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 
 		instance.addSlot({
 			name: 'test3',
-			onSuccess: function() {
+			onSuccess: function () {
 
 			}
 		});
