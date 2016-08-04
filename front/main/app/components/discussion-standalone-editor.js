@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {trackActions} from '../utils/discussion-tracker';
 
 import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
 import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor';
@@ -22,6 +23,10 @@ export default DiscussionMultipleInputsEditor.extend(
 			return this.get('isEdit') ? 'editEditor' : 'contributeEditor';
 		}),
 		editEntity: null,
+
+		categoryTrackingAction: Ember.computed('isEdit', function () {
+			return this.get('isEdit') ? trackActions.PostCategoryEdited : trackActions.PostCategoryAdded;
+		}),
 
 		pageYOffsetCache: 0,
 		responsive: Ember.inject.service(),
@@ -62,7 +67,6 @@ export default DiscussionMultipleInputsEditor.extend(
 			}
 
 			this.setProperties({
-				category: this.get('categories').findBy('id', this.get('editEntity.categoryId')),
 				content: editEntity.get('rawContent'),
 				openGraph: editEntity.get('openGraph'),
 				showsOpenGraphCard: Boolean(editEntity.get('openGraph')),
