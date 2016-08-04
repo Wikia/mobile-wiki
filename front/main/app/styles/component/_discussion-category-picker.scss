@@ -39,8 +39,13 @@
 		padding: 8px 12px;
 		margin: 15px 0 4px;
 
-		&.disabled {
+		&.hidden {
 			display: none;
+		}
+
+		&.disabled {
+			opacity: 0.5;
+			pointer-events: none;
 		}
 
 		svg {

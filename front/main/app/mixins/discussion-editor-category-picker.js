@@ -10,14 +10,14 @@ export default Ember.Mixin.create({
 			return categories.findBy('id', this.get('editEntity.categoryId'));
 		}
 
-		if (categories.length === 1) {
+		if (categories && categories.length === 1) {
 			return categories.get(0);
 		} else {
 			return null;
 		}
 	}),
 
-	categoryPickerDisabled: Ember.computed('categories', function () {
+	hasOneCategory: Ember.computed('categories', function () {
 		return this.get('categories.length') === 1;
 	}),
 
@@ -25,17 +25,28 @@ export default Ember.Mixin.create({
 		return this.get('isActive') && !this.get('isReply');
 	}),
 
-	isEditActionWithPostMovingPermissions: Ember.computed('isEdit', 'isReply', 'currentUser.permissions', function () {
-		return this.get('isEdit') && !this.get('isReply') &&
-			this.get('currentUser.permissions.discussions.canChangePostCategory');
+	shouldShowCategoryPicker: Ember.computed('isActivePostEditor', 'hasOneCategory', function () {
+		return !this.get('hasOneCategory') && this.get('isActivePostEditor');
 	}),
 
-	canEditPostCategory: Ember.computed('isActivePostEditor', 'isEditActionWithPostMovingPermissions', function () {
-		return this.get('isActivePostEditor') || this.get('isEditActionWithPostMovingPermissions')
+	categoryPickerDisabled: Ember.computed('isEdit,', 'currentUser.permissions', function () {
+		return this.get('isEdit') && !this.get('currentUser.permissions.discussions.canChangePostCategory');
 	}),
 
-	shouldShowCategoryPicker: Ember.computed('canEditPostCategory', 'categoryPickerDisabled', function () {
-		return !this.get('categoryPickerDisabled') && this.get('canEditPostCategory');
+	categoryPickerClassname: Ember.computed('category', 'categoryPickerDisabled', 'shouldShowCategoryPicker', function () {
+		let classname = '';
+
+		if (!this.get('shouldShowCategoryPicker')) {
+			classname += 'hidden';
+		} else if (this.get('categoryPickerDisabled')) {
+			classname += 'disabled';
+		}
+
+		if (this.get('category') !== null) {
+			classname += ' active-element-background-color';
+		}
+
+		return classname;
 	}),
 
 	clearCategory: Ember.observer('isActive', function () {
