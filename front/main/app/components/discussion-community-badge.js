@@ -7,12 +7,23 @@ export default Ember.Component.extend(
 	EscapePress,
 	{
 		classNames: ['community-badge'],
-		classNameBindings: ['isEditMode'],
+		classNameBindings: ['isEditMode', 'isNewBadgePreviewMode'],
+		fileInputClassNames: ['upload-image-button', 'background-theme-color'],
 		squareDimension: 125,
+
+		allowedFileTypes: {
+			'image/jpeg': true,
+			'image/png': true,
+			'image/gif': true,
+		},
 
 		currentUser: Ember.inject.service(),
 		canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'badgeImage.permissions.canEdit'),
 		isEditMode: false,
+		isNewBadgePreviewMode: false,
+
+		resetFileInput: false,
+		originalWikiImageUrl: null,
 
 		badgeImages: {
 			24357: '/front/common/images/community-badge-adventure-time.png',
@@ -168,6 +179,12 @@ export default Ember.Component.extend(
 			}
 		}),
 
+		init(...args) {
+			this._super(...args);
+
+			this.set('originalWikiImageUrl', this.get('wikiImageUrl'));
+		},
+
 		click(event) {
 			if (event.target.classList.contains('highlight-overlay')) {
 				this.setEditMode(false);
@@ -180,7 +197,15 @@ export default Ember.Component.extend(
 
 		setEditMode(shouldEnable) {
 			Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
-			this.set('isEditMode', shouldEnable);
+			this.setProperties({
+				isEditMode: shouldEnable,
+				resetFileInput: true
+			})
+
+			if (!shouldEnable) {
+				this.set('isNewBadgePreviewMode', false);
+				this.set('wikiImageUrl', this.get('originalWikiImageUrl'));
+			}
 		},
 
 		actions: {
@@ -197,9 +222,26 @@ export default Ember.Component.extend(
 				track(trackActions.EditCommunityBadgeButtonTapped);
 			},
 
-			uploadImage() {
+			submit() {
+				this.get('uploadCommunityBadge')(this.get('wikiImageUrl'));
+			},
 
+			emptyClickForFileInput(){},
+
+			fileUpload(files) {
+				const imageFile = files[0];
+
+				if (!this.get(`allowedFileTypes.${imageFile.type}`)) {
+					// error!!!
+					return;
+				}
+
+				const fileReader = new FileReader();
+				fileReader.addEventListener('load', (event) => {
+					this.set('wikiImageUrl', event.target.result);
+				});
+				fileReader.readAsDataURL(imageFile);
 			},
 		},
-	},
+	}
 );

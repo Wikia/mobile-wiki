@@ -1,10 +1,15 @@
 <div class="community-badge-image {{if isEditMode 'highlight-overlay-content'}}">
-	<img src="{{wikiImageUrl}}">
+	<img class="badge-image-display" src="{{wikiImageUrl}}">
 	{{#if isEditMode}}
 		<div class="edit-mode">
-			<div class="upload-image-button background-theme-color" {{action 'uploadImage'}}>
-				{{i18n 'main.upload-image-button-text' ns='discussion'}}
-			</div>
+			{{file-input
+				tagName='div'
+				classNames=fileInputClassNames
+				fileUpload=(action 'fileUpload')
+				reset=resetFileInput
+				label=(i18n 'main.upload-image-button-text' ns='discussion')
+				click=(action 'emptyClickForFileInput')
+			}}
 			{{{i18n 'main.edit-badge-hint-text' ns='discussion'}}}
 		</div>
 	{{else}}

@@ -312,5 +312,13 @@ export default Ember.Mixin.create({
 				editorState.set('isLoading', false);
 			});
 		},
-	}
+
+		/**
+		 * This uploads the new community badge image
+		 * @param {Object} text
+		 * @returns {void}
+		 */
+		uploadCommunityBadge(image) {
+		},
+	},
 });

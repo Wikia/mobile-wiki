@@ -29,8 +29,9 @@
 	<div class="discussion-page row">
 		<div class="rail left large-3 columns">
 			{{discussion-community-badge
-				editingPossible=true
 				badgeImage=attributes.badgeImage
+				editingPossible=true
+				uploadCommunityBadge=(action this.attrs.uploadCommunityBadge)
 			}}
 			{{#if showCategories}}
 				{{#if categories}}
