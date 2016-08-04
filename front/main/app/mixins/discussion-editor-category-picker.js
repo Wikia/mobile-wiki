@@ -25,8 +25,9 @@ export default Ember.Mixin.create({
 		return this.get('isActive') && !this.get('isReply');
 	}),
 
-	isEditActionWithPostMovingPermissions: Ember.computed('isEdit', 'currentUser.permissions', function () {
-		return this.get('isEdit') && this.get('currentUser.permissions.discussions.canChangePostCategory');
+	isEditActionWithPostMovingPermissions: Ember.computed('isEdit', 'isReply', 'currentUser.permissions', function () {
+		return this.get('isEdit') && !this.get('isReply') &&
+			this.get('currentUser.permissions.discussions.canChangePostCategory');
 	}),
 
 	canEditPostCategory: Ember.computed('isActivePostEditor', 'isEditActionWithPostMovingPermissions', function () {

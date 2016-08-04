@@ -61,7 +61,7 @@ export default Ember.Component.extend(
 				return this.get('content').length === 0 ||
 					this.get('currentUser.isAuthenticated') === false ||
 					this.get('showOverlayMessage') ||
-					!this.get('category.id');
+					(!this.get('isReply') && !this.get('category.id'));
 			}
 		),
 
