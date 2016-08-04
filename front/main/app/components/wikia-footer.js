@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {getDomain} from '../utils/domain';
+import {track, trackActions} from '../../common/utils/track';
 
 export default Ember.Component.extend({
 	classNames: ['wikia-footer'],
@@ -61,6 +62,11 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		handleFooterLinkClick(text, href) {
+			track({
+				action: trackActions.click,
+				category: text
+			});
+
 			if (this.checkLinkForOasisSkinOverwrite(href)) {
 				Ember.$.cookie('useskin', 'oasis', {path: '/', domain: getDomain()});
 			}
