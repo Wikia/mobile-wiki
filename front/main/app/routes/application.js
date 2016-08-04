@@ -27,6 +27,7 @@ export default Route.extend(
 		},
 
 		adsState: Ember.inject.service(),
+		adsHighImpact: Ember.inject.service(),
 
 		actions: {
 			/**
@@ -135,7 +136,9 @@ export default Route.extend(
 				}
 
 				if (info.article) {
-					this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
+					this.set('adsHighImpact.renderInterstitial', true);
+
+					//this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
 				} else if (info.url) {
 					/**
 					 * If it's a jump link or a link to something in a Wikia domain, treat it like a normal link

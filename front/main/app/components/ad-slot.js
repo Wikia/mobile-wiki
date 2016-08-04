@@ -63,7 +63,10 @@ export default Component.extend(
 					() => {},
 					() => {
 						Logger.info('Injected ad:', name);
-						ads.pushSlotToQueue(name);
+						ads.pushSlotToQueue({
+							slotName: name,
+							onSuccess: this.get('onSuccess')
+						});
 					}
 				);
 			}
@@ -92,7 +95,10 @@ export default Component.extend(
 				ads.waitForUapResponse(
 					() => {
 						Logger.info('Injected ad on scroll:', name);
-						ads.pushSlotToQueue(name);
+						ads.pushSlotToQueue({
+							slotName: name,
+							onSuccess: this.get('onSuccess')
+						});
 					},
 					() => {
 					}

@@ -1,8 +1,7 @@
-<div id="InvisibleHighImpactWrapper" class="hidden">
+<div id="InvisibleHighImpactWrapper" class={{unless renderInterstitial "hidden"}}>
 	<div class="background"></div>
 	<a class="close">
 		<div class="close-button"></div>
 	</a>
 	<div class="label">Advertisement</div>
-	{{ad-slot isAboveTheFold=isAboveTheFold name=name noAds=noAds onSuccess=onSuccess}}
 </div>
