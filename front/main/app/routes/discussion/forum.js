@@ -64,15 +64,17 @@ export default DiscussionBaseRoute.extend(
 			if (localStorageConnector.getItem('discussionForumPreviousQueryParams')) {
 				this.validateAndUpdateStoredCategories(categories);
 
-				const previousQueryParams = JSON.parse(localStorageConnector.getItem('discussionForumPreviousQueryParams'));
+				const previousParams =
+					JSON.parse(localStorageConnector.getItem('discussionForumPreviousQueryParams'));
 
-				if ((params.catId.length === 0 && previousQueryParams.catId.length > 0) || previousQueryParams.sort !== params.sort) {
+				if (params.catId.length === 0 && previousParams.catId.length > 0) {
 					this.transitionTo({
-						queryParams: previousQueryParams
+						queryParams: previousParams
 					});
 				}
 			} else {
-				localStorageConnector.setItem('discussionForumPreviousQueryParams', JSON.stringify(params));
+				localStorageConnector.setItem(
+					'discussionForumPreviousQueryParams', JSON.stringify(params));
 			}
 		},
 
