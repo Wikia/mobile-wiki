@@ -35,7 +35,7 @@ export default DiscussionBaseRoute.extend(
 			const discussionSort = this.get('discussionSort'),
 				discussionModel = this.modelFor('discussion');
 
-			this.transitionToPreviouslySelectedCategories(discussionModel.categories, params);
+			this.transitionToPreviouslySelectedFilters(discussionModel.categories, params);
 
 			if (params.sort) {
 				discussionSort.setSortBy(params.sort);
@@ -60,17 +60,15 @@ export default DiscussionBaseRoute.extend(
 		 * @param {object} categories
 		 * @param {object} params
 		 */
-		transitionToPreviouslySelectedCategories(categories, params) {
-			if (!params.catId || params.catId.length === 0) {
-				const previousParams = localStorageConnector.getItem('discussionForumPreviousQueryParams');
-				if (previousParams) {
-					const validatedParams = this.validateAndUpdateStoredCategories(categories, previousParams);
+		transitionToPreviouslySelectedFilters(categories, params) {
+			if (localStorageConnector.getItem('discussionForumPreviousQueryParams')) {
+				this.validateAndUpdateStoredCategories(categories);
 
-					localStorageConnector.setItem('discussionForumPreviousQueryParams',
-						JSON.stringify(validatedParams));
+				const previousQueryParams = JSON.parse(localStorageConnector.getItem('discussionForumPreviousQueryParams'));
 
+				if ((params.catId.length === 0 && previousQueryParams.catId.length > 0) || previousQueryParams.sort !== params.sort) {
 					this.transitionTo({
-						queryParams: validatedParams
+						queryParams: previousQueryParams
 					});
 				}
 			} else {
@@ -78,12 +76,13 @@ export default DiscussionBaseRoute.extend(
 			}
 		},
 
-		validateAndUpdateStoredCategories(categories, previousParams) {
-			const params = JSON.parse(previousParams);
-			params.catId = categories.get('categories')
-				.filter(category => params.catId.includes(category.id))
-				.map(category => category.id)
-			return params;
+		validateAndUpdateStoredCategories(categories) {
+			this.updateStoredQueryParams(params => {
+				params.catId = categories.get('categories')
+					.filter(category => params.catId.includes(category.id))
+					.map(category => category.id);
+				return params;
+			});
 		},
 
 		/**
@@ -92,6 +91,10 @@ export default DiscussionBaseRoute.extend(
 		 */
 		setSortBy(sortBy) {
 			this.get('discussionSort').setSortBy(sortBy);
+			this.updateStoredQueryParams(params => {
+				params.sort = sortBy;
+				return params;
+			});
 			return this.transitionTo('discussion.forum', {queryParams: {sort: sortBy}});
 		},
 
@@ -115,7 +118,7 @@ export default DiscussionBaseRoute.extend(
 			updateCategoriesSelection(updatedCategories) {
 				const catId = updatedCategories.filterBy('selected', true).mapBy('category.id');
 
-				this.refreshPreviousDiscussionForumQueryParams(catId);
+				this.refreshStoredCategories(catId);
 
 				this.transitionTo({queryParams: {
 					catId,

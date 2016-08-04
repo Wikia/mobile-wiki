@@ -9,9 +9,23 @@ export default Ember.Mixin.create(
 		 *
 		 * @param {string[]} catId - The array of categories.
 		 */
-		refreshPreviousDiscussionForumQueryParams(catId) {
-			if (Ember.isEmpty(catId)) {
-				localStorageConnector.removeItem('discussionForumPreviousQueryParams');
+		refreshStoredCategories(catId) {
+			this.updateStoredQueryParams(params => {
+				params.catId = catId;
+				return params;
+			});
+		},
+
+		/**
+		 * @param {function} transform - function transforming query parameters, should return received query parameters
+		 */
+		updateStoredQueryParams(transform) {
+			const queryParams = localStorageConnector.getItem('discussionForumPreviousQueryParams');
+			if (queryParams) {
+				let params = JSON.parse(queryParams);
+				params = transform(params);
+				localStorageConnector.setItem(
+					'discussionForumPreviousQueryParams', JSON.stringify(params));
 			}
 		},
 
@@ -40,7 +54,7 @@ export default Ember.Mixin.create(
 					discussionSort.setSortBy(sortBy);
 				}
 
-				this.refreshPreviousDiscussionForumQueryParams(catId);
+				this.refreshStoredCategories(catId);
 
 				const queryParams = {
 					sort: sortBy,
