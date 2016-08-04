@@ -74,7 +74,7 @@ export default Ember.Component.extend({
 
 			Ember.run.later(() => {
 				window.location = href;
-			}, 100)
+			}, 100);
 		}
 	},
 
