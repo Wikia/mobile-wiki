@@ -64,7 +64,8 @@ export default Ember.Component.extend({
 		handleFooterLinkClick(text, href) {
 			track({
 				action: trackActions.click,
-				category: text
+				label: text,
+				category: 'footer'
 			});
 
 			if (this.checkLinkForOasisSkinOverwrite(href)) {
