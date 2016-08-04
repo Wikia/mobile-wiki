@@ -659,15 +659,17 @@ export default Ember.Component.extend(
 					externalLink
 				});
 
+				this.renderedComponents.push(view);
+
 				return model.load()
 					.then(() => {
-						view.createElement();
+						if (!view.isDestroyed && !view.isDestroying) {
+							view.createElement();
 
-						location.after(view.$());
-						view.trigger('didInsertElement');
-						view.trackImpression();
-
-						this.renderedComponents.push(view);
+							location.after(view.$());
+							view.trigger('didInsertElement');
+							view.trackImpression();
+						}
 
 						return view;
 					});
