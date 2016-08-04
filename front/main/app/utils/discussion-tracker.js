@@ -54,9 +54,9 @@ const trackActions = {
 	WelcomeMessageClose: 'WelcomeMessageClose',
 	EditorCalloutMessageClose: 'EditorCalloutMessageClose',
 	EditorCalloutGuidelinesLinkTapped: 'EditorCalloutGuidelinesLinkTapped',
-	PostCategoryAdded: 'PostCategoryAdded',
-	PostCategoryEdited: 'PostCategoryEdited'
 	EditCommunityBadgeButtonTapped: 'EditCommunityBadgeButtonTapped',
+	PostCategoryAdded: 'PostCategoryAdded',
+	PostCategoryEdited: 'PostCategoryEdited',
 };
 
 /**
