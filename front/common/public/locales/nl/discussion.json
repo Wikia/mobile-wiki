@@ -102,6 +102,11 @@
     "app-promotion-text":"Take your fandom with you, download the app today!",
     "app-promotion-text-details-page":"Stay up to date on the go. Get the app now!",
     "wiki-home":"Wiki Home",
+    "discussion-guidelines":"Discussion Guidelines",
+    "rename-category-length-error":"Category name must be less than 20 characters.",
+    "rename-category-auth-error":"You are logged out. Please sign in.",
+    "rename-category-oermissions-error":"Category cannot be updated.",
+    "rename-category-general-error":"Something went wrong, please try again.",
     "guidelines-link-title":"Discussions Guidelines",
     "guidelines-header-title":"Discussions Guidelines",
     "welcome-message-header":"Awesome to have you here!",
@@ -118,7 +123,11 @@
     "post-edit-editor-label":"Edit your post",
     "post-action-button-label":"Plaatsen",
     "post-edit-action-button-label":"Save",
-    "post-editor-placeholder-text":"Share a thought, question or link...",
+    "post-editor-collapsed-label":"Start a new discussion...",
+    "post-editor-title-label":"Title (Optional)",
+    "post-editor-title-placeholder-text":"Title of new discussion...",
+    "post-editor-description-label":"Description",
+    "post-editor-description-placeholder-text":"What's your new discussion about?",
     "guidelines-editor-placeholder-text":"",
     "guidelines-editor-editor-label":"Edit Discussions Guidelines",
     "guidelines-editor-action-button-label":"Save",
@@ -127,6 +136,9 @@
     "reply-editor-label":"Aan de discussie bijdragen",
     "reply-edit-editor-label":"Edit your reply",
     "reply-action-button-label":"Antwoorden",
-    "reply-edit-action-button-label":"Save"
+    "reply-edit-action-button-label":"Save",
+    "overlay-message-text":"Before posting, be sure to check out the __guidelinesLinkTitle__.",
+    "overlay-message-button":"Done",
+    "guidelines-link-title":"Discussion Guidelines"
   }
 }

@@ -1,14 +1,16 @@
 import Ember from 'ember';
-import DiscussionEditor from './discussion-editor';
-import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
-import DiscussionEditorConfiguration from '../mixins/discussion-editor-configuration';
 
-export default DiscussionEditor.extend(
+import DiscussionEditorOpengraph from '../mixins/discussion-editor-opengraph';
+import DiscussionMultipleInputsEditor from './discussion-multiple-inputs-editor';
+
+export default DiscussionMultipleInputsEditor.extend(
 	DiscussionEditorOpengraph,
-	DiscussionEditorConfiguration, {
+	{
 		classNames: ['discussion-standalone-editor'],
 
 		currentUser: Ember.inject.service(),
+
+		hasTitle: false,
 
 		isEdit: false,
 		isReply: Ember.computed.bool('editEntity.isReply'),
@@ -16,16 +18,20 @@ export default DiscussionEditor.extend(
 			return this.get('isEdit') ? 'editEditor' : 'contributeEditor';
 		}),
 		editEntity: null,
+
 		pageYOffsetCache: 0,
 		responsive: Ember.inject.service(),
 
-		onIsActive: Ember.observer('isActive', function () {
-			this._super();
+		click(event) {
+			this.focusOnNearestTextarea(event);
+		},
 
-			const isActive = this.get('isActive');
+		toogleActiveState(isActive) {
+			this._super();
 
 			if (isActive) {
 				this.set('pageYOffsetCache', window.pageYOffset);
+				this.focusFirstTextareaWhenRendered();
 			}
 
 			Ember.$('html, body').toggleClass('mobile-full-screen', isActive);
@@ -41,7 +47,7 @@ export default DiscussionEditor.extend(
 					Ember.$('html, body').animate({scrollTop: this.get('pageYOffsetCache')});
 				}
 			}
-		}),
+		},
 
 		// first time it is triggered by the 'editEntity' property, and later by the 'isActive' property
 		targetObjectObserver: Ember.observer('editEntity', function () {
@@ -55,20 +61,21 @@ export default DiscussionEditor.extend(
 				content: editEntity.get('rawContent'),
 				openGraph: editEntity.get('openGraph'),
 				showsOpenGraphCard: Boolean(editEntity.get('openGraph')),
+				title: editEntity.get('title')
 			});
 
-			Ember.run.scheduleOnce('afterRender', this, () => {
-				// This needs to be triggered after Ember updates textarea content
-				this.$('.discussion-standalone-editor-textarea').focus().get(0).setSelectionRange(0, 0);
-			});
+			this.focusFirstTextareaWhenRendered();
 		}),
 
-		textAreaId: Ember.computed('isEdit', function () {
-			if (this.get('isEdit')) {
-				return 'discussion-standalone-edit-editor-textarea';
-			} else {
-				return 'discussion-standalone-editor-textarea';
-			}
+		focusFirstTextareaWhenRendered() {
+			Ember.run.scheduleOnce('afterRender', this, () => {
+				// This needs to be triggered after Ember updates textarea content
+				this.$('textarea:first').focus().get(0).setSelectionRange(0, 0);
+			});
+		},
+
+		showMultipleInputs: Ember.computed('hasTitle', 'isReply', function () {
+			return this.get('hasTitle') && !this.get('isReply');
 		}),
 
 		actions: {
@@ -83,6 +90,7 @@ export default DiscussionEditor.extend(
 				if (!this.get('submitDisabled')) {
 					const discussionEntityData = {
 						body: this.get('content'),
+						title: this.get('title')
 					};
 					let actionName;
 
@@ -98,7 +106,6 @@ export default DiscussionEditor.extend(
 						discussionEntityData.siteId = Mercury.wiki.id;
 					} else {
 						const editEntity = this.get('editEntity');
-
 						discussionEntityData.id = editEntity.get('id');
 
 						if (editEntity.get('isReply')) {
