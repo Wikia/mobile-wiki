@@ -39,31 +39,30 @@ export default Ember.Mixin.create(
 		 * A large tolerance is necessary because this component is larger than the viewport
 		 * @returns {void}
 		 */
-		viewportOptionsOverride: Ember.observer('model.items', function () {
+
+		viewportOptionsOverride: Ember.on('didInsertElement', function () {
 			if (this.get('model.items').length < 1) {
 				return;
 			}
 
-			Ember.run.schedule('afterRender', this, function () {
-				const elementHeight = this.$().innerHeight(),
-					tolerance = elementHeight,
-					afterRender = this.get('model.afterRender');
+			const elementHeight = this.$().innerHeight(),
+				tolerance = elementHeight,
+				afterRender = this.get('model.afterRender');
 
-				if (tolerance > 0) {
-					Ember.setProperties(this, {
-						viewportTolerance: {
-							top: tolerance,
-							bottom: tolerance,
-							left: 0,
-							right: 0
-						}
-					});
-				}
+			if (tolerance > 0) {
+				Ember.setProperties(this, {
+					viewportTolerance: {
+						top: tolerance,
+						bottom: tolerance,
+						left: 0,
+						right: 0
+					}
+				});
+			}
 
-				if (afterRender) {
-					afterRender.call(this.get('model'), this);
-				}
-			});
+			if (afterRender) {
+				afterRender.call(this.get('model'), this);
+			}
 		}),
 
 		/**

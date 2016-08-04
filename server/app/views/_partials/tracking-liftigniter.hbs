@@ -1,5 +1,19 @@
 <script>
 	(function() {
+		function isTestCommunity () {
+			// starwars, marvel, gameofthrones, fallout, elderscrolls
+			var wikiId = Mercury.wiki.id,
+				testCommunites = [
+					147,
+					2233,
+					130814,
+					3035,
+					1706
+				];
+
+			return testCommunites.indexOf(wikiId) !== -1;
+		}
+
 		window.loadLiftigniter = function(w,d,s,p,v,e,r) {
 			w['$igniter_var']=v;
 			w[v]=w[v] || function(){
@@ -13,7 +27,7 @@
 		};
 
 		window.trackLiftigniterPageView = function() {
-			if (M.prop('queryParams.noexternals') || M.prop('environment') !== 'prod') {
+			if (M.prop('queryParams.noexternals') || M.prop('environment') !== 'prod' || !isTestCommunity()) {
 				return;
 			}
 

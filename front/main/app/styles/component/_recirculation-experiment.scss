@@ -33,10 +33,6 @@ $recirculation-mafia-logo-color: #010201;
 	}
 
 	&.in-content {
-		border-top: $recirculation-fandom-incontent-border;
-		border-bottom: $recirculation-fandom-incontent-border;
-		margin: 20px auto;
-		padding: 0 0 15px;
 
 		h2 {
 			font-size: 14px;
@@ -66,6 +62,13 @@ $recirculation-mafia-logo-color: #010201;
 		img {
 			height: auto;
 			width: 100%;
+		}
+
+		.vertical {
+			border-top: $recirculation-fandom-incontent-border;
+			border-bottom: $recirculation-fandom-incontent-border;
+			margin: 20px auto;
+			padding: 0 0 15px;
 		}
 
 		.image-thumbnail {

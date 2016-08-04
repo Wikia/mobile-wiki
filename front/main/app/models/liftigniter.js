@@ -3,6 +3,7 @@ import Thumbnailer from 'common/modules/thumbnailer';
 
 const LiftigniterModel = Ember.Object.extend({
 	widget: null,
+	max: 5,
 	thumbWidth: 120,
 	thumbHeight: 120,
 
@@ -13,9 +14,9 @@ const LiftigniterModel = Ember.Object.extend({
 
 	title: Ember.computed('widget', function () {
 		if (this.get('widget') === 'fandom-rec') {
-			return 'Trending Fandom Articles';
+			return 'Trending on Fandom';
 		} else {
-			return 'Top Links';
+			return 'Related Articles';
 		}
 	}),
 
@@ -25,7 +26,7 @@ const LiftigniterModel = Ember.Object.extend({
 	load() {
 		return new Ember.RSVP.Promise((resolve, reject) => {
 			const registerOptions = {
-				max: 5,
+				max: this.get('max'),
 				widget: this.get('widget'),
 				callback: (data) => {
 					const formatted = this.formatData(data);

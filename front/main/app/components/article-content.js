@@ -597,6 +597,7 @@ export default Ember.Component.extend(
 				case 'LI_INCONTENT':
 					component = this.createComponentInstance('recirculation/incontent');
 					model = LiftigniterModel.create({
+						max: 3,
 						widget: 'in-wikia'
 					});
 					location = this.$('h2:nth-of-type(2)').prev();
@@ -611,8 +612,10 @@ export default Ember.Component.extend(
 					location = Ember.$('.article-footer');
 					break;
 				case 'LI_BOTH':
-					this.injectPlacementTest('LI_INCONTENT').then(() => {
-						this.injectPlacementTest('LI_FOOTER');
+					this.injectPlacementTest('LI_INCONTENT').then((view) => {
+						if (!view.isDestroyed && !view.isDestroying) {
+							this.injectPlacementTest('LI_FOOTER');
+						}
 					});
 					break;
 				case 'LINKS_INCONTENT':
@@ -655,15 +658,19 @@ export default Ember.Component.extend(
 					experimentName,
 					externalLink
 				});
-				view.createElement();
 
-				location.after(view.$());
-				view.trigger('didInsertElement');
-				view.trackImpression();
+				return model.load()
+					.then(() => {
+						view.createElement();
 
-				this.renderedComponents.push(view);
+						location.after(view.$());
+						view.trigger('didInsertElement');
+						view.trackImpression();
 
-				return model.load();
+						this.renderedComponents.push(view);
+
+						return view;
+					});
 			}
 		},
 
