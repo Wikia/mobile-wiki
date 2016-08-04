@@ -35,7 +35,8 @@ test('checkLinkForOasisSkinOverwrite returns false if skin is not ovewritten to 
 });
 
 test('sets cookie if skin is overwritten to oasis', function (assert) {
-	const component = this.subject();
+	const component = this.subject(),
+		laterStub = sinon.stub(Ember.run, 'later');
 
 	component.set('checkLinkForOasisSkinOverwrite', () => true);
 	component.send('handleFooterLinkClick', 'test', 'test');
@@ -45,13 +46,20 @@ test('sets cookie if skin is overwritten to oasis', function (assert) {
 		path: '/',
 		domain: getDomain()
 	}));
+	assert.ok(laterStub.calledOnce);
+
+	laterStub.restore();
 });
 
 test('doesn\'t set cookie if skin is not overwritten to oasis', function (assert) {
-	const component = this.subject();
+	const component = this.subject(),
+		laterStub = sinon.stub(Ember.run, 'later');
 
 	component.set('checkLinkForOasisSkinOverwrite', () => false);
 	component.send('handleFooterLinkClick', 'test', 'test');
 
 	assert.notOk(Ember.$.cookie.called);
+	assert.ok(laterStub.calledOnce);
+
+	laterStub.restore();
 });
