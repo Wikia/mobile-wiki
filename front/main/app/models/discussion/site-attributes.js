@@ -27,7 +27,8 @@ const DiscussionSiteAttributesModel = DiscussionBaseModel.extend({
 	saveAttribute(name, value) {
 		const attributeData = new FormData();
 
-		attributeData.append('data', JSON.stringify(value));
+		// attributeData.append('data', JSON.stringify(value));
+		attributeData.append('data', new Blob([value]);
 
 		return request(M.getAttributeServiceUrl(`/site/${this.get('wikiId')}/attr/${name}`), {
 			data: attributeData,

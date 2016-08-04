@@ -1,25 +1,39 @@
 <div class="community-badge-image {{if isEditMode 'highlight-overlay-content'}}">
 	<img class="badge-image-display" src="{{wikiImageUrl}}">
-	{{#if isEditMode}}
-		<div class="edit-mode">
-			{{file-input
-				tagName='div'
-				classNames=fileInputClassNames
-				fileUpload=(action 'fileUpload')
-				reset=resetFileInput
-				label=(i18n 'main.upload-image-button-text' ns='discussion')
-				click=(action 'emptyClickForFileInput')
-			}}
-			{{{i18n 'main.edit-badge-hint-text' ns='discussion'}}}
-		</div>
-	{{else}}
-		<div class="edit-badge-button" {{action 'setEditMode' true}}>
-			{{i18n 'main.edit-badge-button-text' ns='discussion'}}
-			{{svg 'camera' role='img' class='icon-camera'}}
-		</div>
-	{{/if}}
+	{{#unless isNewBadgePreviewMode }}
+		{{#if isEditMode}}
+			<div class="edit-mode">
+				{{file-input
+					tagName='div'
+					classNames=fileInputClassNames
+					fileUpload=(action 'fileUpload')
+					reset=resetFileInput
+					label=(i18n 'main.upload-image-button-text' ns='discussion')
+					click=(action 'emptyClickForFileInput')
+				}}
+				{{{i18n 'main.edit-badge-hint-text' ns='discussion'}}}
+			</div>
+		{{else}}
+			<div class="edit-badge-button" {{action 'setEditMode' true}}>
+				{{i18n 'main.edit-badge-button-text' ns='discussion'}}
+				{{svg 'camera' role='img' class='icon-camera'}}
+			</div>
+		{{/if}}
+	{{/unless}}
 </div>
 <p>{{displayedWikiName}}</p>
+{{#if isNewBadgePreviewMode }}
+	<div class="discussion-categories-edit-footer-wrapper {{if isEditMode 'highlight-overlay-content'}}">
+		<div class="discussion-categories-edit-footer">
+			<button {{action setEditMode false}}>
+				{{svg 'close' viewBox='0 0 40 40' class='icon'}}
+			</button>
+			<button type="submit" class="submit" {{action 'submit'}}>
+				{{svg 'checkmark' viewBox='0 0 40 40' class='icon icon-submit'}}
+			</button>
+		</div>
+	</div>
+{{/if}}
 {{wikia-ui-components/highlight-overlay
 	isVisible=isEditMode
 }}

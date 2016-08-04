@@ -319,6 +319,9 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		uploadCommunityBadge(image) {
+			this.get('discussion.model').attributes.saveAttribute('badgeImage', image).then(() => {
+				// track(trackActions.GuidelinesEditSave);
+			});
 		},
 	},
 });

@@ -238,7 +238,10 @@ export default Ember.Component.extend(
 
 				const fileReader = new FileReader();
 				fileReader.addEventListener('load', (event) => {
-					this.set('wikiImageUrl', event.target.result);
+					this.setProperties({
+						wikiImageUrl: event.target.result,
+						isNewBadgePreviewMode: true,
+					});
 				});
 				fileReader.readAsDataURL(imageFile);
 			},
