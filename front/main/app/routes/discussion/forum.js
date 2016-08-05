@@ -87,7 +87,7 @@ export default DiscussionBaseRoute.extend(
 		validateAndUpdateStoredParams(categories, params) {
 			this.updateStoredQueryParams(storedParams => {
 				storedParams.catId = categories.get('categories')
-					.filter(category => storedParams.catId.includes(category.id))
+					.filter(category => storedParams.catId.indexOf(category.id) !== -1)
 					.map(category => category.id);
 				if (params.sort) {
 					storedParams.sort = params.sort;
