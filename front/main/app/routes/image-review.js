@@ -16,6 +16,7 @@ export default Route.extend({
 
 	afterModel() {
 		this.controllerFor('application').set('isLoading', false);
+
 	},
 
 	actions: {
@@ -41,30 +42,32 @@ export default Route.extend({
 			const model = this.modelFor('imageReview');
 
 			this.controllerFor('application').set('isLoading', true);
-			this.set('status', 'UNREVIEWED');
-
 			window.scrollTo(0, 0);
 
-			ImageReviewModel.reviewImages(model.images).then(() => {
-				this.refresh();
-			}, (data) => {
+			ImageReviewModel.reviewImages(model.images, model.contractId).then(() => {}, (data) => {
 				this.controllerFor('application').addAlert({
 					message: data,
 					type: 'warning',
-					persistent: true
+					persistent: false
 				});
-			});
+			}).then(this.refresh.bind(this));
 		},
 
 		getFlaggedOnly() {
+			const model = this.modelFor('imageReview');
 			window.scrollTo(0, 0);
+
+			ImageReviewModel.endSession(model.contractId);
 
 			this.set('status', 'FLAGGED');
 			this.refresh();
 		},
 
 		getRejectedOnly() {
+			const model = this.modelFor('imageReview');
 			window.scrollTo(0, 0);
+
+			ImageReviewModel.endSession(model.contractId);
 
 			this.set('status', 'REJECTED');
 			this.refresh();
@@ -76,7 +79,6 @@ export default Route.extend({
 
 		didTransition() {
 			this.controllerFor('application').set('fullPage', true);
-
 			if (this.controller.get('fullscreen') === 'true') {
 				this.modelFor('imageReview').set('showSubHeader', false);
 			} else {
@@ -93,7 +95,7 @@ export default Route.extend({
 		},
 
 		willTransition(transition) {
-			const isStayingOnEditor = transition.targetName.indexOf('imageReview') > -1;
+			const isStayingOnEditor = transition.targetName.indexOf('image-review') > -1;
 
 			if (!isStayingOnEditor) {
 				transition.then(() => {

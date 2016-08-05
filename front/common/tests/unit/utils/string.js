@@ -65,6 +65,10 @@ QUnit.module('mercury/utils/string', function () {
 					expected: 'https://services.wikia.com/discussion'
 				},
 				{
+					blockOfText: 'Http://fandom.wikia.com',
+					expected: 'Http://fandom.wikia.com'
+				},
+				{
 					blockOfText: 'There is no url here.',
 					expected: null
 				},
