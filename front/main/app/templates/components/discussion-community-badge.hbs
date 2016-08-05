@@ -1,5 +1,7 @@
 <div class="community-badge-image {{if isEditMode 'highlight-overlay-content'}}">
-	<img class="badge-image-display" src="{{wikiImageUrl}}">
+	{{!-- this condition is only because not to loose the wikiImageUrl from the DOM to immediately show it back --}}
+	<img class="badge-image-display {{unless isNewBadgePreviewMode 'is-visible'}}" src="{{wikiImageUrl}}">
+	<img class="badge-image-display {{if isNewBadgePreviewMode 'is-visible'}}" src="{{newWikiImageUrl}}">
 	{{#unless isNewBadgePreviewMode }}
 		{{#if isEditMode}}
 			<div class="edit-mode">
