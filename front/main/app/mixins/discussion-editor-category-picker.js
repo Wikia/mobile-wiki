@@ -33,21 +33,22 @@ export default Ember.Mixin.create({
 		return this.get('isEdit') && !this.get('currentUser.permissions.discussions.canChangePostCategory');
 	}),
 
-	categoryPickerClassname: Ember.computed('category', 'categoryPickerDisabled', 'shouldShowCategoryPicker', function () {
-		let classname = '';
+	categoryPickerClassname:
+		Ember.computed('category', 'categoryPickerDisabled', 'shouldShowCategoryPicker', function () {
+			let classname = '';
 
-		if (!this.get('shouldShowCategoryPicker')) {
-			classname += 'hidden';
-		} else if (this.get('categoryPickerDisabled')) {
-			classname += 'disabled';
-		}
+			if (!this.get('shouldShowCategoryPicker')) {
+				classname += 'hidden';
+			} else if (this.get('categoryPickerDisabled')) {
+				classname += 'disabled';
+			}
 
-		if (this.get('category') !== null) {
-			classname += ' active-element-background-color';
-		}
+			if (this.get('category') !== null) {
+				classname += ' active-element-background-color';
+			}
 
-		return classname;
-	}),
+			return classname;
+		}),
 
 	clearCategory: Ember.observer('isActive', function () {
 		if (!this.get('isActive')) {
