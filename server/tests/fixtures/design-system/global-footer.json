@@ -333,8 +333,16 @@
   "licensing_and_vertical": {
     "description": {
       "type": "translatable-text",
-      "key": "global-footer-licensing-description",
+      "key": "global-footer-licensing-and-vertical-description",
       "params": {
+        "sitename": {
+          "type": "text",
+          "value": "Star Wars Wiki"
+        },
+        "vertical": {
+          "type": "translatable-text",
+          "key": "global-footer-licensing-and-vertical-description-param-vertical-lifestyle"
+        },
         "license": {
           "type": "link-text",
           "title": {
