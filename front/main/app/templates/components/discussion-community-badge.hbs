@@ -22,14 +22,14 @@
 			</div>
 		{{/if}}
 	{{/unless}}
+	{{#if isNewBadgePreviewMode }}
+		{{discussion-edit-approve-buttons
+			close=(action 'disableEditMode')
+			approve=(action 'submit')
+		}}
+	{{/if}}
 </div>
 <p>{{displayedWikiName}}</p>
-{{#if isNewBadgePreviewMode }}
-	{{discussion-edit-approve-buttons
-		close=(action 'disableEditMode')
-		approve=(action 'submit')
-	}}
-{{/if}}
 {{wikia-ui-components/highlight-overlay
 	isVisible=isEditMode
 }}
