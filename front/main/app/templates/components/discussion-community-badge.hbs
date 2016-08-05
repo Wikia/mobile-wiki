@@ -1,40 +1,42 @@
 <div class="community-badge-image {{if isEditMode 'highlight-overlay-content'}}">
 	{{!-- this two images are only because not to loose the wikiImageUrl from the DOM to immediately show it back --}}
 	<img class="badge-image-display {{unless isNewBadgePreviewMode 'is-visible'}}" src="{{wikiImageUrl}}">
-	<img class="badge-image-display {{if isNewBadgePreviewMode 'is-visible'}}" src="{{newWikiImageUrl}}">
-	{{#if isLoadingMode}}
-		<div class="is-loading">
-			{{loading-spinner
-				active=true
-				overlay=false
-				radius=32
-				strokeWidth=2
-			}}
-		</div>
-	{{else}}
-		{{#if isNewBadgePreviewMode}}
-			{{discussion-edit-approve-buttons
-				close=(action 'disableEditMode')
-				approve=(action 'submit')
-			}}
+	{{#if canEdit}}
+		<img class="badge-image-display {{if isNewBadgePreviewMode 'is-visible'}}" src="{{newWikiImageUrl}}">
+		{{#if isLoadingMode}}
+			<div class="is-loading">
+				{{loading-spinner
+					active=true
+					overlay=false
+					radius=32
+					strokeWidth=2
+				}}
+			</div>
 		{{else}}
-			{{#if isEditMode}}
-				<div class="edit-mode">
-					{{file-input
-						tagName='div'
-						classNames=fileInputClassNames
-						fileUpload=(action 'fileUpload')
-						reset=resetFileInput
-						label=(i18n 'main.upload-image-button-text' ns='discussion')
-						click=(action 'emptyClickForFileInput')
-					}}
-					{{{i18n 'main.edit-badge-hint-text' ns='discussion'}}}
-				</div>
+			{{#if isNewBadgePreviewMode}}
+				{{discussion-edit-approve-buttons
+					close=(action 'disableEditMode')
+					approve=(action 'submit')
+				}}
 			{{else}}
-				<div class="edit-badge-button" {{action 'enableEditMode'}}>
-					{{i18n 'main.edit-badge-button-text' ns='discussion'}}
-					{{svg 'camera' role='img' class='icon-camera'}}
-				</div>
+				{{#if isEditMode}}
+					<div class="edit-mode">
+						{{file-input
+							tagName='div'
+							classNames=fileInputClassNames
+							fileUpload=(action 'fileUpload')
+							reset=resetFileInput
+							label=(i18n 'main.upload-image-button-text' ns='discussion')
+							click=(action 'emptyClickForFileInput')
+						}}
+						{{{i18n 'main.edit-badge-hint-text' ns='discussion'}}}
+					</div>
+				{{else}}
+					<div class="edit-badge-button" {{action 'enableEditMode'}}>
+						{{i18n 'main.edit-badge-button-text' ns='discussion'}}
+						{{svg 'camera' role='img' class='icon-camera'}}
+					</div>
+				{{/if}}
 			{{/if}}
 		{{/if}}
 	{{/if}}
