@@ -118,10 +118,10 @@ module.exports = function (defaults) {
 		numeralAssets = new Funnel(app.bowerDirectory + '/numeral/languages', {
 			destDir: 'assets/vendor/numeral'
 		}),
-		designSystemIconsAssets = new Funnel(app.bowerDirectory + '/design-system/dist/icons.svg', {
+		designSystemIconsAssets = new Funnel(app.bowerDirectory + '/design-system/dist/svg/sprite-icons.svg', {
 			destDir: 'assets/design-system-icons.svg'
 		}),
-		designSystemCompanyAssets = new Funnel(app.bowerDirectory + '/design-system/dist/company.svg', {
+		designSystemCompanyAssets = new Funnel(app.bowerDirectory + '/design-system/dist/svg/sprite-company.svg', {
 			destDir: 'assets/design-system-company.svg'
 		});
 
