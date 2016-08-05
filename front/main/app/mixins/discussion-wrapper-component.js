@@ -53,12 +53,10 @@ export default Ember.Mixin.create(
 		},
 
 		loadNextPage() {
-			this.setProperties({
-				isLoading: true,
-				pageNum: this.pageNum + 1,
-			});
+			this.set('isLoading', true);
+			this.incrementProperty('pageNum');
 
-			this.sendAction('loadPage', this.pageNum);
+			this.sendAction('loadPage', this.get('pageNum'));
 		},
 
 		/**

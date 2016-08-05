@@ -17,13 +17,13 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 		 *
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		loadPage(pageNum = 0) {
-			this.set('pageNum', pageNum);
+		loadPage(pageNum = 1) {
+			this.set('data.pageNum', pageNum);
 
 			return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`), {
 				data: {
 					limit: this.get('loadMoreLimit'),
-					page: this.get('data.pageNum'),
+					page: this.get('data.pageNum') - 1,
 					pivot: this.get('pivotId'),
 					responseGroup: 'full',
 					viewableOnly: false
@@ -45,7 +45,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 		 */
 		setNormalizedData(apiData) {
 			const posts = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
-				pivotId = Ember.getWithDefault(posts, '0.id', 0),
+				pivotId = Ember.getWithDefault(posts, 'lastObject.id', 0),
 				contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities = DiscussionEntities.createFromPostsData(posts);
 
@@ -59,7 +59,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 				userName: contributors.get('users.firstObject.name'),
 			});
 
-			this.setProperties('pivotId', pivotId);
+			this.set('pivotId', pivotId);
 		}
 	}
 );

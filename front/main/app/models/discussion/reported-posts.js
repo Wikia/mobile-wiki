@@ -17,12 +17,12 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(pageNum = 0) {
-			this.set('pageNum', pageNum);
+			this.set('data.pageNum', pageNum);
 
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts`), {
 				data: {
 					limit: this.get('loadMoreLimit'),
-					page: this.get('pageNum'),
+					page: this.get('data.pageNum') - 1,
 					pivot: this.get('pivotId'),
 					viewableOnly: false,
 					reported: true
@@ -44,7 +44,7 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 		 */
 		setNormalizedData(apiData) {
 			const posts = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
-				pivotId = Ember.getWithDefault(posts, '0.id', 0),
+				pivotId = Ember.getWithDefault(posts, 'lastObject.id', 0),
 				contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities = DiscussionEntities.createFromPostsData(posts);
 
