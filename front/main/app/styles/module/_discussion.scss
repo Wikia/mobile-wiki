@@ -641,7 +641,9 @@ body.discussions {
 			margin-bottom: $post-details-post-margin-bottom;
 
 			.post-title {
-				font-size: $type-smallest;
+				font-size: $type-small;
+				font-weight: 500;
+				line-height: 1.25;
 			}
 		}
 
