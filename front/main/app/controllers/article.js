@@ -5,7 +5,6 @@ import VisibilityStateManager from '../utils/visibility-state-manager';
 
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
-	noAds: Ember.computed.alias('application.noAds'),
 	commentsPage: Ember.computed.alias('application.commentsPage'),
 
 	/**

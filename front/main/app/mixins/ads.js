@@ -57,8 +57,7 @@ export default Ember.Mixin.create({
 		component.setProperties({
 			disableManualInsert: !!config.disableManualInsert,
 			isAboveTheFold: !!config.isAboveTheFold,
-			name: adSlotName,
-			noAds: this.get('noAds')
+			name: adSlotName
 		});
 
 		const componentElement = this.createChildView(component).createElement();

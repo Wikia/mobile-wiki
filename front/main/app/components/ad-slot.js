@@ -11,32 +11,14 @@ export default Component.extend(
 		classNameBindings: ['nameLowerCase', 'noAds'],
 		// This component is created dynamically, and this won't work without it
 		layoutName: 'components/ad-slot',
-
+		adsState: Ember.inject.service(),
+		noAds: Ember.computed.readOnly('adsState.noAds'),
 		disableManualInsert: false,
 		isAboveTheFold: false,
 		name: null,
 
 		nameLowerCase: computed('name', function () {
 			return Ember.String.dasherize(this.get('name').toLowerCase());
-		}),
-
-		/**
-		 * noAds is being passed from ApplicationController (queryParams)
-		 * as a string and is converted to boolean here
-		 *
-		 * The same is happening in AdEngine2PageTypeService.class.php
-		 * $wgRequest->getBool('noads', false)
-		 *
-		 * If getter is accessed before setter (before Ember cache is filled with value)
-		 * the default is false (show ads)
-		 */
-		noAds: computed({
-			get() {
-				return false;
-			},
-			set(key, value) {
-				return value !== '' && value !== '0';
-			}
 		}),
 
 		onElementManualInsert: Ember.on('didInsertElement', function () {
@@ -100,8 +82,7 @@ export default Component.extend(
 							onSuccess: this.get('onSuccess')
 						});
 					},
-					() => {
-					}
+					() => {}
 				);
 			}
 		},
