@@ -6,6 +6,7 @@ import {getGroup, inGroup} from 'common/modules/abtest';
 
 import FandomPostsModel from '../models/fandom-posts';
 import TopLinksModel from '../models/top-links';
+import LiftigniterModel from '../models/liftigniter';
 
 /**
  * HTMLElement
@@ -554,28 +555,33 @@ export default Ember.Component.extend(
 		},
 
 		/**
+		 * Create component instance using container lookup.
+		 * @param {String} componentName
+		 * @returns {Ember.Component}
+		 */
+		createComponentInstance(componentName) {
+			return this.get('container').lookup(`component:${componentName}`, {
+				singleton: false
+			});
+		},
+
+		/**
 		 * TO BE THROWN AWAY AFTER RECIRCULATION_MERCURY_PLACEMENT AB TEST
 		 *
 		 * @returns {void}
 		 */
-		injectPlacementTest() {
-			const experimentName = 'RECIRCULATION_MERCURY_PLACEMENT',
-				group = getGroup(experimentName);
-
+		injectPlacementTest(group) {
+			const experimentName = 'RECIRCULATION_MERCURY_PLACEMENT';
 			let view, component, model, location,
 				externalLink = false;
+
+			group = group || getGroup(experimentName);
 
 			if (Ember.get(Mercury, 'wiki.language.content') !== 'en') {
 				return;
 			}
 
 			switch (group) {
-				case 'CONTROL':
-					component = this.createComponentInstance('recirculation/footer');
-					model = FandomPostsModel.create();
-					location = Ember.$('.article-footer');
-					externalLink = true;
-					break;
 				/**
 				 * To be thrown away after E3
 				 */
@@ -587,6 +593,30 @@ export default Ember.Component.extend(
 					});
 					location = this.$('h2:nth-of-type(2)').prev();
 					externalLink = true;
+					break;
+				case 'LI_INCONTENT':
+					component = this.createComponentInstance('recirculation/incontent');
+					model = LiftigniterModel.create({
+						max: 3,
+						widget: 'in-wikia'
+					});
+					location = this.$('h2:nth-of-type(2)').prev();
+					break;
+				case 'LI_FOOTER':
+					component = this.createComponentInstance('recirculation/footer');
+					model = LiftigniterModel.create({
+						widget: 'fandom-rec',
+						thumbHeight: 160,
+						thumbWidth: 280
+					});
+					location = Ember.$('.article-footer');
+					break;
+				case 'LI_BOTH':
+					this.injectPlacementTest('LI_INCONTENT').then((view) => {
+						if (!view.isDestroyed && !view.isDestroying) {
+							this.injectPlacementTest('LI_FOOTER');
+						}
+					});
 					break;
 				case 'LINKS_INCONTENT':
 					component = this.createComponentInstance('recirculation/incontent');
@@ -612,6 +642,7 @@ export default Ember.Component.extend(
 					externalLink = true;
 					break;
 				case 'FANDOM_FOOTER':
+				case 'CONTROL':
 					component = this.createComponentInstance('recirculation/footer');
 					model = FandomPostsModel.create();
 					location = Ember.$('.article-footer');
@@ -627,14 +658,21 @@ export default Ember.Component.extend(
 					experimentName,
 					externalLink
 				});
-				view.createElement();
-				model.load();
-
-				location.after(view.$());
-				view.trigger('didInsertElement');
-				view.trackImpression();
 
 				this.renderedComponents.push(view);
+
+				return model.load()
+					.then(() => {
+						if (!view.isDestroyed && !view.isDestroying) {
+							view.createElement();
+
+							location.after(view.$());
+							view.trigger('didInsertElement');
+							view.trackImpression();
+						}
+
+						return view;
+					});
 			}
 		},
 
@@ -688,16 +726,5 @@ export default Ember.Component.extend(
 			article.innerHTML = content;
 			return article.childNodes;
 		},
-
-		/**
-		 * Create component instance using container lookup.
-		 * @param {String} componentName
-		 * @returns {Ember.Component}
-		 */
-		createComponentInstance(componentName) {
-			return this.get('container').lookup(`component:${componentName}`, {
-				singleton: false
-			});
-		}
 	}
 );

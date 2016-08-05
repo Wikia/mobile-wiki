@@ -137,8 +137,8 @@
     "reply-edit-editor-label":"Modifica la tua risposta",
     "reply-action-button-label":"Rispondi",
     "reply-edit-action-button-label":"Salva",
-    "overlay-message-text":"Before posting, be sure to check out the __guidelinesLinkTitle__.",
-    "overlay-message-button":"Done",
+    "overlay-message-text":"Prima di postare, assicurati di aver letto le __guidelinesLinkTitle__.",
+    "overlay-message-button":"Fatto",
     "guidelines-link-title":"Linee guida di discussione"
   }
 }
