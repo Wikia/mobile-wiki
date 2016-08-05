@@ -1,7 +1,13 @@
-import Ember from 'ember';
+const {Component, inject, computed} = Ember;
 
-export default Ember.Component.extend({
-	adsHighImpact: Ember.inject.service(),
+export default Component.extend({
+	adsHighImpact: inject.service(),
+	adsState: inject.service(),
 
-	name: Ember.computed.readOnly('adsHighImpact.name')
+	name: computed.readOnly('adsHighImpact.name'),
+	noAds: computed.readOnly('adsState.noAds'),
+
+	nameLowerCase: computed('name', function () {
+		return Ember.String.dasherize(this.get('name').toLowerCase());
+	})
 });
