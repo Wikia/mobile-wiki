@@ -25,7 +25,7 @@ if (typeof window.M === 'undefined') {
 		ajax.onload = () => {
 			const element = this.htmlToElement(ajax.responseText);
 
-			element.style.cssText = 'height: 0; width: 0; position: absolute;';
+			element.style.cssText = 'height: 0; width: 0; position: absolute; overflow: hidden;';
 
 			document.body.insertBefore(element, document.body.firstChild);
 		};
