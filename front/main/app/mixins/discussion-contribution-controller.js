@@ -304,7 +304,7 @@ export default Ember.Mixin.create({
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
 
-			this.get('discussion.model').attributes.saveAttribute('guidelines', text).then(() => {
+			this.get('discussion.model').attributes.saveTextAttribute('guidelines', text).then(() => {
 				track(trackActions.GuidelinesEditSave);
 			}).catch((err) => {
 				this.onContributionError(err, 'editor.save-error-general-error', true);
@@ -319,8 +319,8 @@ export default Ember.Mixin.create({
 		 * @returns {void}
 		 */
 		uploadCommunityBadge(image) {
-			this.get('discussion.model').attributes.saveAttribute('badgeImage', image).then(() => {
-				// track(trackActions.GuidelinesEditSave);
+			return this.get('discussion.model').attributes.saveImageAttribute('badgeImage', image).then(() => {
+				// track(trackActions.CommunityBadgeSave);
 			});
 		},
 	},
