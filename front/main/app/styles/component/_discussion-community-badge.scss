@@ -44,11 +44,11 @@ $badge-image-dimensions-big: 125px;
 		display: none;
 		font-size: 10px;
 		height: 30px;
+		height: auto;
 		left: 0;
 		letter-spacing: 0.5px;
 		line-height: 15px;
 		min-height: 30px;
-		height: auto;
 		opacity: 0.9;
 		padding: 7px 32px 7px 4px;
 		position: absolute;
@@ -104,11 +104,16 @@ $badge-image-dimensions-big: 125px;
 		height: 100%;
 		left: 0;
 		letter-spacing: 0.5px;
-		line-height: $line-height-min;
+		line-height: 15px;
+		padding: 8px 5px;
 		position: absolute;
 		text-align: center;
 		top: 0;
 		width: 100%;
+
+		.upload-image-button {
+			margin-bottom: 10px;
+		}
 
 		.file-upload-label {
 			color: $discussion-upload-image-button-text;
@@ -116,9 +121,10 @@ $badge-image-dimensions-big: 125px;
 			font-size: 10px;
 			font-weight: $font-weight-bold;
 			letter-spacing: 0.3px;
-			line-height: 36px;
-			margin: 8px 8px 10px;
+			line-height: 15px;
+			margin-bottom: 15px;
 			min-height: 36px;
+			padding: 10px 5px;
 			text-align: center;
 			text-transform: uppercase;
 		}
