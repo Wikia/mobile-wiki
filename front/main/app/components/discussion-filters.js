@@ -81,11 +81,15 @@ export default Ember.Component.extend(
 
 				// No need for applying already applied filters again
 				if (changeState.filtersChanged) {
+					let catId = changeState.categoriesChanged
+						? this.get('changedCategories').filterBy('selected', true).mapBy('category.id')
+						: this.get('categories').filterBy('selected', true).mapBy('id');
+
 					this.trackSortByTapped(sortBy);
 					this.get('applyFilters')(
 						this.get('sortBy'),
 						this.get('onlyReported'),
-						this.get('changedCategories'),
+						catId,
 						changeState
 					);
 				}
