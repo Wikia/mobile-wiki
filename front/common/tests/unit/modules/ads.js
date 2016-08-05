@@ -101,12 +101,16 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 		var instance = Ads.getInstance();
 
 		instance.addSlot({
-			name: 'test3',
+			name: 'foo',
 			onSuccess: function () {
 
 			}
 		});
-		instance.removeSlot('test3');
+		instance.addSlot('bar');
+		assert.equal(instance.adSlots.length, 2);
+		instance.removeSlot('foo');
+		assert.equal(instance.adSlots.length, 1);
+		instance.removeSlot('bar');
 		assert.equal(instance.adSlots.length, 0);
 		instance.reload(null);
 	});

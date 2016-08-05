@@ -97,11 +97,7 @@
 }
 
 #InvisibleHighImpactWrapper {
-	z-index: 5000102;
-
-	&.hidden {
-		display: none !important;
-	}
+	z-index: $z-modal-dialog;
 
 	#INVISIBLE_HIGH_IMPACT_2 {
 		display: block !important;
@@ -123,31 +119,12 @@
 	}
 
 	.close {
-		background-color: #000;
 		cursor: pointer;
 		display: block;
-		padding: 7px 7px;
+		padding: 14px;
 		position: absolute;
 		right: 0;
 		top: 0;
-
-		&:hover {
-			background-color: #333;
-		}
-
-		.close-button {
-			overflow: hidden;
-			text-indent: 100%;
-			white-space: nowrap;
-			background-position: center center;
-			background-size: 16px 16px;
-			background-color: red;
-			display: block;
-			float: right;
-			height: 16px;
-			outline: none;
-			width: 16px;
-		}
 	}
 
 	.label {
@@ -155,7 +132,7 @@
 		display: block;
 		font-size: 17px;
 		left: 0;
-		padding: 5px 10px;
+		padding: 14px 10px;
 		position: absolute;
 		top: 0;
 	}
