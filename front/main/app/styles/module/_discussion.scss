@@ -314,7 +314,7 @@ body.discussions {
 		font-size: $type-small;
 		font-weight: 500;
 		line-height: 1.25;
-		margin: 0;
+		margin: 0 0 5px 0;
 
 		.post-details-link {
 			color: $discussion-post-title-color;
@@ -790,6 +790,11 @@ body.discussions {
 			.avatar-username {
 				font-size: $type-smallest;
 			}
+		}
+
+		.post-title {
+			font-size: $type-smaller;
+			margin-bottom: 9px;
 		}
 
 		.post-detail .timestamp,
