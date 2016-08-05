@@ -33,7 +33,8 @@ export default Ember.Mixin.create({
 		return this.get('isEdit') && !this.get('currentUser.permissions.discussions.canChangePostCategory');
 	}),
 
-	categoryPickerClassname: Ember.computed('category', 'categoryPickerDisabled', 'shouldShowCategoryPicker', function () {
+	categoryPickerClassname:
+		Ember.computed('category', 'categoryPickerDisabled', 'shouldShowCategoryPicker', function () {
 		let classname = '';
 
 		if (!this.get('shouldShowCategoryPicker')) {
