@@ -35,29 +35,17 @@ export default DiscussionBaseRoute.extend(
 			const discussionSort = this.get('discussionSort'),
 				discussionModel = this.modelFor('discussion');
 
-			let transition = this.transitionToPreviouslySelectedFilters(discussionModel.categories, params);
+			const transition = this.transitionToPreviouslySelectedFilters(discussionModel.categories, params);
 
 			if (!transition) {
+				discussionSort.setOnlyReported(false);
+
 				if (params.sort) {
 					discussionSort.setSortBy(params.sort);
+					return this.updateDiscussionModel(params);
 				} else {
 					discussionSort.setSortBy('trending');
-					transition = this.transitionTo({queryParams: {sort: this.get('discussionSort.sortBy')}});
-				}
-
-				if (!transition) {
-					discussionSort.setOnlyReported(false);
-
-					if (params.catId) {
-						discussionModel.categories.setSelectedCategories(
-							params.catId instanceof Array ? params.catId : [params.catId]
-						);
-					}
-
-					return Ember.RSVP.hash({
-						current: DiscussionForumModel.find(Mercury.wiki.id, params.catId, this.get('discussionSort.sortBy')),
-						index: discussionModel
-					});
+					this.transitionTo({queryParams: {sort: this.get('discussionSort.sortBy')}});
 				}
 			}
 		},
@@ -105,6 +93,25 @@ export default DiscussionBaseRoute.extend(
 					storedParams.sort = params.sort;
 				}
 				return storedParams;
+			});
+		},
+
+		/**
+		 * @param {object} params
+		 * @returns {Ember.RSVP.hash}
+		 */
+		updateDiscussionModel(params) {
+			const discussionModel = this.modelFor('discussion');
+
+			if (params.catId) {
+				discussionModel.categories.setSelectedCategories(
+					params.catId instanceof Array ? params.catId : [params.catId]
+				);
+			}
+
+			return Ember.RSVP.hash({
+				current: DiscussionForumModel.find(Mercury.wiki.id, params.catId, this.get('discussionSort.sortBy')),
+				index: discussionModel
 			});
 		},
 
