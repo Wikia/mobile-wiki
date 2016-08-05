@@ -1,5 +1,5 @@
 <div class="community-badge-image {{if isEditMode 'highlight-overlay-content'}}">
-	{{!-- this condition is only because not to loose the wikiImageUrl from the DOM to immediately show it back --}}
+	{{!-- this two images are only because not to loose the wikiImageUrl from the DOM to immediately show it back --}}
 	<img class="badge-image-display {{unless isNewBadgePreviewMode 'is-visible'}}" src="{{wikiImageUrl}}">
 	<img class="badge-image-display {{if isNewBadgePreviewMode 'is-visible'}}" src="{{newWikiImageUrl}}">
 	{{#unless isNewBadgePreviewMode }}
@@ -16,7 +16,7 @@
 				{{{i18n 'main.edit-badge-hint-text' ns='discussion'}}}
 			</div>
 		{{else}}
-			<div class="edit-badge-button" {{action 'setEditMode' true}}>
+			<div class="edit-badge-button" {{action 'enableEditMode'}}>
 				{{i18n 'main.edit-badge-button-text' ns='discussion'}}
 				{{svg 'camera' role='img' class='icon-camera'}}
 			</div>
@@ -27,7 +27,7 @@
 {{#if isNewBadgePreviewMode }}
 	<div class="discussion-categories-edit-footer-wrapper {{if isEditMode 'highlight-overlay-content'}}">
 		<div class="discussion-categories-edit-footer">
-			<button {{action setEditMode false}}>
+			<button {{action 'disablesEditMode'}}>
 				{{svg 'close' viewBox='0 0 40 40' class='icon'}}
 			</button>
 			<button type="submit" class="submit" {{action 'submit'}}>

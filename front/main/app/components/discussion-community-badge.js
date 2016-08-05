@@ -76,36 +76,42 @@ export default Ember.Component.extend(
 			Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
 			this.setProperties({
 				isEditMode: shouldEnable,
-				resetFileInput: true
+				resetFileInput: true,
 			})
 
 			if (!shouldEnable) {
 				this.setProperties({
 					isNewBadgePreviewMode: false,
 					uploadedFile: null,
-					wikiImageUrl: this.get('newWikiImageUrl')
+					newWikiImageUrl: null,
 				});
-
-				this.set('newWikiImageUrl', false);
 			}
 		},
 
 		actions: {
 			/**
-			 * Enables/disables community badge edit mode
-			 *
-			 * @param {boolean} shouldEnable edit mode state
+			 * Enables community badge edit mode
 			 *
 			 * @returns {void}
 			 */
-			setEditMode(shouldEnable) {
-				this.setEditMode(shouldEnable);
+			enableEditMode() {
+				this.setEditMode(true);
 				this.escapeOnce();
 				track(trackActions.EditCommunityBadgeButtonTapped);
 			},
 
+			/**
+			 * Disables community badge edit mode
+			 *
+			 * @returns {void}
+			 */
+			disablesEditMode() {
+				this.setEditMode(false);
+			},
+
 			submit() {
 				this.get('uploadCommunityBadge')(this.get('uploadedFile')).then(() => {
+					this.set('wikiImageUrl', this.get('newWikiImageUrl'));
 					this.setEditMode(false);
 				});
 			},
