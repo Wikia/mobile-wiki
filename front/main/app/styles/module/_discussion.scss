@@ -311,7 +311,9 @@ body.discussions {
 
 	.post-title {
 		color: $discussion-post-title-color;
-		line-height: $line-height-smallest;
+		font-size: $type-small;
+		font-weight: 500;
+		line-height: 1.25;
 		margin: 0;
 
 		.post-details-link {
@@ -641,8 +643,6 @@ body.discussions {
 			margin-bottom: $post-details-post-margin-bottom;
 
 			.post-title {
-				font-size: $type-small;
-				font-weight: 500;
 				line-height: 1.25;
 			}
 		}
@@ -656,9 +656,7 @@ body.discussions {
 	&.post {
 
 		.post-detail .post-title {
-			font-size: $type-smaller;
-			line-height: $line-height-smaller;
-			margin-bottom: 18px;
+			margin-bottom: 13px;
 		}
 	}
 }
