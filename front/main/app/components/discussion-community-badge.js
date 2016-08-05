@@ -33,8 +33,7 @@ export default Ember.Component.extend(
 			if (Ember.isEmpty(imageUrl)) {
 				// get wiki image
 				imageUrl = Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/symbols/brackets.svg');
-			}
-			else{
+			} else {
 				// imageUrl = Thumbnailer.getThumbURL(
 				// 	imageUrl,
 				// 	{
@@ -78,7 +77,7 @@ export default Ember.Component.extend(
 			this.setProperties({
 				isEditMode: shouldEnable,
 				resetFileInput: true,
-			})
+			});
 
 			if (!shouldEnable) {
 				this.setProperties({
@@ -91,7 +90,7 @@ export default Ember.Component.extend(
 		},
 
 		uploadImage(imageFile) {
-			return new Promise(function(resolve, reject){
+			return new Promise((resolve, reject) => {
 				const fileReader = new FileReader();
 
 				fileReader.addEventListener('load', resolve);
@@ -133,7 +132,7 @@ export default Ember.Component.extend(
 			 * empty method for the file-input helper
 			 * @return {void}
 			 */
-			emptyClickForFileInput(){},
+			emptyClickForFileInput() {},
 
 			fileUpload(files) {
 				const imageFile = files[0];
@@ -152,7 +151,7 @@ export default Ember.Component.extend(
 						newWikiImageUrl: event.target.result,
 						uploadedFile: imageFile,
 					});
-				})
+				});
 			},
 		},
 	}

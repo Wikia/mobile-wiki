@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Mixin.create({
 
-	wasEscapePressed(event){
+	wasEscapePressed(event) {
 		return event.keyCode === 27;
 	},
 
@@ -19,7 +19,7 @@ export default Ember.Mixin.create({
 
 	escapeOn() {
 		$(document).on('keydown.escape-press', (event) => {
-			if(this.wasEscapePressed(event)) {
+			if (this.wasEscapePressed(event)) {
 				this.escapePress();
 			}
 		});
@@ -27,7 +27,7 @@ export default Ember.Mixin.create({
 
 	escapeOnce() {
 		$(document).one('keydown.escape-press', (event) => {
-			if(this.wasEscapePressed(event)) {
+			if (this.wasEscapePressed(event)) {
 				this.escapePress();
 			}
 		});
