@@ -20,6 +20,7 @@ export default Ember.Component.extend(
 		currentUser: Ember.inject.service(),
 		canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'badgeImage.permissions.canEdit'),
 		isEditMode: false,
+		isLoadingMode: false,
 		isNewBadgePreviewMode: false,
 		newWikiImageUrl: null,
 
@@ -81,11 +82,21 @@ export default Ember.Component.extend(
 
 			if (!shouldEnable) {
 				this.setProperties({
+					isLoadingMode: false,
 					isNewBadgePreviewMode: false,
-					uploadedFile: null,
 					newWikiImageUrl: null,
+					uploadedFile: null,
 				});
 			}
+		},
+
+		uploadImage(imageFile) {
+			return new Promise(function(resolve, reject){
+				const fileReader = new FileReader();
+
+				fileReader.addEventListener('load', resolve);
+				fileReader.readAsDataURL(imageFile);
+			});
 		},
 
 		actions: {
@@ -110,12 +121,18 @@ export default Ember.Component.extend(
 			},
 
 			submit() {
+				this.set('isLoadingMode', true);
 				this.get('uploadCommunityBadge')(this.get('uploadedFile')).then(() => {
 					this.set('wikiImageUrl', this.get('newWikiImageUrl'));
 					this.setEditMode(false);
 				});
 			},
 
+
+			/**
+			 * empty method for the file-input helper
+			 * @return {void}
+			 */
 			emptyClickForFileInput(){},
 
 			fileUpload(files) {
@@ -126,16 +143,16 @@ export default Ember.Component.extend(
 					return;
 				}
 
-				this.set('uploadedFile', imageFile);
+				this.set('isLoadingMode', true);
 
-				const fileReader = new FileReader();
-				fileReader.addEventListener('load', (event) => {
+				this.uploadImage(imageFile).then((event) => {
 					this.setProperties({
-						newWikiImageUrl: event.target.result,
+						isLoadingMode: false,
 						isNewBadgePreviewMode: true,
+						newWikiImageUrl: event.target.result,
+						uploadedFile: imageFile,
 					});
-				});
-				fileReader.readAsDataURL(imageFile);
+				})
 			},
 		},
 	}
