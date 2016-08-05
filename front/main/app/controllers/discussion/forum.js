@@ -4,8 +4,6 @@ import DiscussionForumActionsControllerMixin from '../../mixins/discussion-forum
 import ResponsiveMixin from '../../mixins/responsive';
 import DiscussionBaseController from './base';
 
-const {inject} = Ember;
-
 export default DiscussionBaseController.extend(
 	DiscussionModerationControllerMixin,
 	DiscussionContributionControllerMixin,

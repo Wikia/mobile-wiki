@@ -21,6 +21,7 @@ export default Ember.Mixin.create(
 		 */
 		updateStoredQueryParams(transform) {
 			const queryParams = localStorageConnector.getItem('discussionForumPreviousQueryParams');
+
 			if (queryParams) {
 				let params = JSON.parse(queryParams);
 				params = transform(params);
