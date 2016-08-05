@@ -35,20 +35,20 @@ export default Ember.Mixin.create({
 
 	categoryPickerClassname:
 		Ember.computed('category', 'categoryPickerDisabled', 'shouldShowCategoryPicker', function () {
-		let classname = '';
+			let classname = '';
 
-		if (!this.get('shouldShowCategoryPicker')) {
-			classname += 'hidden';
-		} else if (this.get('categoryPickerDisabled')) {
-			classname += 'disabled';
-		}
+			if (!this.get('shouldShowCategoryPicker')) {
+				classname += 'hidden';
+			} else if (this.get('categoryPickerDisabled')) {
+				classname += 'disabled';
+			}
 
-		if (this.get('category') !== null) {
-			classname += ' active-element-background-color';
-		}
+			if (this.get('category') !== null) {
+				classname += ' active-element-background-color';
+			}
 
-		return classname;
-	}),
+			return classname;
+		}),
 
 	clearCategory: Ember.observer('isActive', function () {
 		if (!this.get('isActive')) {
