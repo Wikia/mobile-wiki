@@ -1,127 +1,10 @@
 {
-  "fandom": {
-    "header": {
-      "type": "link-image",
-      "image": "wds-company-logo-fandom",
-      "href": "#",
-      "title": {
-        "type": "translatable-text",
-        "key": "global-footer-fandom-header"
-      }
-    }
-  },
-  "fandom_overview": {
-    "links": [
-      {
-        "type": "link-branded",
-        "brand": "games",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-fandom-link-vertical-games"
-        },
-        "href": "#"
-      },
-      {
-        "type": "link-branded",
-        "brand": "movies",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-fandom-link-vertical-movies"
-        },
-        "href": "#"
-      },
-      {
-        "type": "link-branded",
-        "brand": "tv",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-fandom-link-vertical-tv"
-        },
-        "href": "#"
-      },
-      {
-        "type": "link-branded",
-        "brand": "fan-communities",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-fandom-link-fan-communities"
-        },
-        "href": "#"
-      }
-    ]
-  },
-  "follow_us": {
-    "header": {
-      "type": "line-text",
-      "title": {
-        "type": "translatable-text",
-        "key": "global-footer-fandom-follow-us-header"
-      }
-    },
-    "links": [
-      {
-        "type": "link-image",
-        "image": "wds-icons-facebook",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-fandom-follow-us-link-facebook"
-        },
-        "href": "#"
-      },
-      {
-        "type": "link-image",
-        "image": "wds-icons-twitter",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-fandom-follow-us-link-twitter"
-        },
-        "href": "#"
-      },
-      {
-        "type": "link-image",
-        "image": "wds-icons-reddit",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-fandom-follow-us-link-reddit"
-        },
-        "href": "#"
-      },
-      {
-        "type": "link-image",
-        "image": "wds-icons-youtube",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-fandom-follow-us-link-youtube"
-        },
-        "href": "#"
-      },
-      {
-        "type": "link-image",
-        "image": "wds-icons-instagram",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-fandom-follow-us-link-instagram"
-        },
-        "href": "#"
-      }
-    ]
-  },
-  "wikia": {
-    "header": {
-      "type": "line-image",
-      "image": "wds-company-logo-wikia",
-      "title": {
-        "type": "translatable-text",
-        "key": "global-footer-wikia-header"
-      }
-    }
-  },
   "company_overview": {
     "header": {
       "type": "line-text",
       "title": {
         "type": "translatable-text",
-        "key": "global-footer-wikia-company-overview-header"
+        "key": "global-footer-company-overview-header"
       }
     },
     "links": [
@@ -129,7 +12,7 @@
         "type": "link-text",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-company-overview-link-about"
+          "key": "global-footer-company-overview-link-about"
         },
         "href": "#"
       },
@@ -137,7 +20,7 @@
         "type": "link-text",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-company-overview-link-careers"
+          "key": "global-footer-company-overview-link-careers"
         },
         "href": "#"
       },
@@ -145,7 +28,7 @@
         "type": "link-text",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-company-overview-link-press"
+          "key": "global-footer-company-overview-link-press"
         },
         "href": "#"
       },
@@ -153,7 +36,7 @@
         "type": "link-text",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-company-overview-link-contact"
+          "key": "global-footer-company-overview-link-contact"
         },
         "href": "#"
       },
@@ -161,7 +44,7 @@
         "type": "link-text",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-company-overview-link-wikia-gives-back"
+          "key": "global-footer-company-overview-link-wikia-gives-back"
         },
         "href": "#"
       }
@@ -173,7 +56,7 @@
         "type": "link-text",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-site-overview-link-terms-of-use"
+          "key": "global-footer-site-overview-link-terms-of-use"
         },
         "href": "#"
       },
@@ -181,7 +64,7 @@
         "type": "link-text",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-site-overview-link-privacy-policy"
+          "key": "global-footer-site-overview-link-privacy-policy"
         },
         "href": "#"
       },
@@ -189,7 +72,7 @@
         "type": "link-text",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-site-overview-link-global-sitemap"
+          "key": "global-footer-site-overview-link-global-sitemap"
         },
         "href": "#"
       },
@@ -197,26 +80,7 @@
         "type": "link-text",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-site-overview-link-api"
-        },
-        "href": "#"
-      }
-    ]
-  },
-  "community": {
-    "header": {
-      "type": "line-text",
-      "title": {
-        "type": "translatable-text",
-        "key": "global-footer-wikia-community-header"
-      }
-    },
-    "links": [
-      {
-        "type": "link-text",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-wikia-community-link-community-central"
+          "key": "global-footer-site-overview-link-local-sitemap"
         },
         "href": "#"
       },
@@ -224,31 +88,7 @@
         "type": "link-text",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-community-link-support"
-        },
-        "href": "#"
-      },
-      {
-        "type": "link-text",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-wikia-community-link-fan-contributor-program"
-        },
-        "href": "#"
-      },
-      {
-        "type": "link-text",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-wikia-community-link-wam-score"
-        },
-        "href": "#"
-      },
-      {
-        "type": "link-text",
-        "title": {
-          "type": "translatable-text",
-          "key": "global-footer-wikia-community-link-help"
+          "key": "global-footer-site-overview-link-api"
         },
         "href": "#"
       }
@@ -257,14 +97,14 @@
   "create_wiki": {
     "description": {
       "type": "translatable-text",
-      "key": "global-footer-wikia-create-wiki-description"
+      "key": "global-footer-create-wiki-description"
     },
     "links": [
       {
         "type": "link-text",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-create-wiki-link-start-wikia"
+          "key": "global-footer-create-wiki-link-start-wikia"
         },
         "href": "#"
       }
@@ -275,12 +115,12 @@
       "type": "line-text",
       "title": {
         "type": "translatable-text",
-        "key": "global-footer-wikia-community-apps-header"
+        "key": "global-footer-community-apps-header"
       }
     },
     "description": {
       "type": "translatable-text",
-      "key": "global-footer-wikia-community-apps-description"
+      "key": "global-footer-community-apps-description"
     },
     "links": [
       {
@@ -288,7 +128,7 @@
         "image": "wds-company-store-appstore",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-community-apps-link-app-store"
+          "key": "global-footer-community-apps-link-app-store"
         },
         "href": "#"
       },
@@ -297,7 +137,7 @@
         "image": "wds-company-store-googleplay",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-community-apps-link-google-play"
+          "key": "global-footer-community-apps-link-google-play"
         },
         "href": "#"
       }
@@ -308,7 +148,7 @@
       "type": "line-text",
       "title": {
         "type": "translatable-text",
-        "key": "global-footer-wikia-advertise-header"
+        "key": "global-footer-advertise-header"
       }
     },
     "links": [
@@ -316,7 +156,7 @@
         "type": "link-text",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-advertise-link-media-kit"
+          "key": "global-footer-advertise-link-media-kit"
         },
         "href": "#"
       },
@@ -324,7 +164,7 @@
         "type": "link-text",
         "title": {
           "type": "translatable-text",
-          "key": "global-footer-wikia-advertise-link-contact"
+          "key": "global-footer-advertise-link-contact"
         },
         "href": "#"
       }
@@ -351,6 +191,174 @@
           },
           "href": "#"
         }
+      }
+    }
+  },
+  "fandom_overview": {
+    "links": [
+      {
+        "type": "link-branded",
+        "brand": "games",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-fandom-overview-link-vertical-games"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-branded",
+        "brand": "movies",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-fandom-overview-link-vertical-movies"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-branded",
+        "brand": "tv",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-fandom-overview-link-vertical-tv"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-branded",
+        "brand": "fan-communities",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-fandom-overview-link-fan-communities"
+        },
+        "href": "#"
+      }
+    ]
+  },
+  "follow_us": {
+    "header": {
+      "type": "line-text",
+      "title": {
+        "type": "translatable-text",
+        "key": "global-footer-follow-us-header"
+      }
+    },
+    "links": [
+      {
+        "type": "link-image",
+        "image": "wds-icons-facebook",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-follow-us-link-facebook"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-image",
+        "image": "wds-icons-twitter",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-follow-us-link-twitter"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-image",
+        "image": "wds-icons-reddit",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-follow-us-link-reddit"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-image",
+        "image": "wds-icons-youtube",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-follow-us-link-youtube"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-image",
+        "image": "wds-icons-instagram",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-follow-us-link-instagram"
+        },
+        "href": "#"
+      }
+    ]
+  },
+  "community": {
+    "header": {
+      "type": "line-text",
+      "title": {
+        "type": "translatable-text",
+        "key": "global-footer-community-header"
+      }
+    },
+    "links": [
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-community-link-community-central"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-community-link-support"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-community-link-fan-contributor-program"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-community-link-wam-score"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-community-link-help"
+        },
+        "href": "#"
+      }
+    ]
+  },
+  "fandom": {
+    "header": {
+      "type": "link-image",
+      "image": "wds-company-logo-fandom",
+      "href": "#",
+      "title": {
+        "type": "translatable-text",
+        "key": "global-footer-fandom-header"
+      }
+    }
+  },
+  "wikia": {
+    "header": {
+      "type": "line-image",
+      "image": "wds-company-logo-wikia",
+      "title": {
+        "type": "translatable-text",
+        "key": "global-footer-wikia-header"
       }
     }
   }
