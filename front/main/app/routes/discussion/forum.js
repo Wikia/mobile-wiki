@@ -29,61 +29,78 @@ export default DiscussionBaseRoute.extend(
 
 		/**
 		 * @param {object} params
-		 * @returns {Ember.RSVP.hash}
+		 * @returns {Ember.RSVP.hash} may return null if previously selected filters are applied
 		 */
 		model(params) {
 			const discussionSort = this.get('discussionSort'),
-				discussionModel = this.modelFor('discussion');
+				discussionModel = this.modelFor('discussion')
 
-			this.transitionToPreviouslySelectedFilters(discussionModel.categories, params);
+			let transition = this.transitionToPreviouslySelectedFilters(discussionModel.categories, params);
 
-			if (params.sort) {
-				discussionSort.setSortBy(params.sort);
+			if (!transition) {
+				if (params.sort) {
+					discussionSort.setSortBy(params.sort);
+				} else {
+					discussionSort.setSortBy('trending');
+					transition = this.transitionTo({queryParams: {sort: this.get('discussionSort.sortBy')}});
+				}
+
+				if (!transition) {
+					discussionSort.setOnlyReported(false);
+
+					if (params.catId) {
+						discussionModel.categories.setSelectedCategories(
+							params.catId instanceof Array ? params.catId : [params.catId]
+						);
+					}
+
+					return Ember.RSVP.hash({
+						current: DiscussionForumModel.find(Mercury.wiki.id, params.catId, this.get('discussionSort.sortBy')),
+						index: discussionModel
+					});
+				}
 			}
-
-			discussionSort.setOnlyReported(false);
-
-			if (params.catId) {
-				discussionModel.categories.setSelectedCategories(
-					params.catId instanceof Array ? params.catId : [params.catId]
-				);
-			}
-
-			return Ember.RSVP.hash({
-				current: DiscussionForumModel.find(Mercury.wiki.id, params.catId, this.get('discussionSort.sortBy')),
-				index: discussionModel
-			});
 		},
 
 		/**
 		 * If user was previously on forum and used filters he is transitioned to last chosen filters.
 		 * @param {object} categories
 		 * @param {object} params
+		 * @returns {EmberStates.Transition} may return null when previous query params are not applied.
 		 */
 		transitionToPreviouslySelectedFilters(categories, params) {
-			if (localStorageConnector.getItem('discussionForumPreviousQueryParams')) {
-				this.validateAndUpdateStoredCategories(categories);
+			let transition = null;
 
-				const previousParams =
+			if (localStorageConnector.getItem('discussionForumPreviousQueryParams')) {
+				this.validateAndUpdateStoredParams(categories, params);
+
+				const transitionParams =
 					JSON.parse(localStorageConnector.getItem('discussionForumPreviousQueryParams'));
 
-				if (params.catId.length === 0 && previousParams.catId.length > 0) {
-					this.transitionTo({
-						queryParams: previousParams
+				if (params.catId &&
+					((params.catId.length === 0 && transitionParams.catId.length > 0)
+					|| (params.catId.length === 0 && !params.sort && transitionParams.sort))) {
+					transition = this.transitionTo({
+						queryParams: transitionParams
 					});
 				}
 			} else {
 				localStorageConnector.setItem(
 					'discussionForumPreviousQueryParams', JSON.stringify(params));
 			}
+
+			return transition;
 		},
 
-		validateAndUpdateStoredCategories(categories) {
-			this.updateStoredQueryParams(params => {
-				params.catId = categories.get('categories')
-					.filter(category => params.catId.includes(category.id))
+		validateAndUpdateStoredParams(categories, params) {
+			this.updateStoredQueryParams(storedParams => {
+				storedParams.catId = categories.get('categories')
+					.filter(category => storedParams.catId.includes(category.id))
 					.map(category => category.id);
-				return params;
+				if (params.sort) {
+					storedParams.sort = params.sort;
+				}
+				return storedParams;
 			});
 		},
 
