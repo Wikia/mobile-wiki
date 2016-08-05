@@ -36,15 +36,14 @@ export default Ember.Mixin.create(
 			 *
 			 * @param {string} sortBy
 			 * @param {boolean} onlyReported
-			 * @param {Object} categories
+			 * @param {Object} catId
 			 * @param {Object} changeState
 			 *
 			 * @returns {EmberStates.Transition}
 			 */
-			applyFilters(sortBy, onlyReported, categories, changeState) {
+			applyFilters(sortBy, onlyReported, catId, changeState) {
 				const discussionSort = this.get('discussionSort'),
-					currentSortBy = discussionSort.get('sortBy'),
-					catId = categories.filterBy('selected', true).mapBy('category.id');
+					currentSortBy = discussionSort.get('sortBy');
 
 				let targetRoute = 'discussion.forum';
 
