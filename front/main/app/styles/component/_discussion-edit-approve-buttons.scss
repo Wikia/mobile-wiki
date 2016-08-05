@@ -6,13 +6,13 @@
 	width: 100%;
 
 	.discussion-edit-approve-content {
-		box-shadow: 0 2px 6px 0 rgba($discussion-categories-edit-footer-color, 0.3);
+		box-shadow: 0 2px 6px 0 rgba($discussion-edit-approve-content-color, 0.3);
 		display: inline-flex;
 		justify-content: center;
 
 		button {
-			background-color: $discussion-categories-edit-footer-color;
-			border-color: $discussion-categories-edit-footer-border-color;
+			background-color: $discussion-edit-approve-content-color;
+			border-color: $discussion-edit-approve-content-border-color;
 			height: 50px;
 			margin: 0;
 			padding: 0;
@@ -21,16 +21,8 @@
 	}
 
 	.icon-submit {
+		fill: $discussion-submit-icon-color;
 		height: 35px;
 		width: 35px;
 	}
-
-	@media #{$desktop-range} {
-		.discussion-categories-edit-footer {
-			.icon-submit {
-				fill: $discussion-submit-icon-color;
-			}
-		}
-	}
 }
-
