@@ -27,7 +27,7 @@ DiscussionUserPermissions.reopenClass({
 		const permissions = {};
 
 		Object.keys(permissionsMap).forEach((permission) => {
-			if (permissionsData.hasOwnProperty(permissionsMap[permission]) || permissionsData.indexOf('*') !== -1) {
+			if (permissionsData.indexOf(permissionsMap[permission]) !== -1 || permissionsData.indexOf('*') !== -1) {
 				permissions[permission] = true;
 			}
 		});
