@@ -53,7 +53,7 @@ export default Route.extend({
 			}).then(this.refresh.bind(this));
 		},
 
-		getUnreviewedOnly () {
+		getUnreviewedOnly() {
 			const model = this.modelFor('imageReview');
 			window.scrollTo(0, 0);
 
