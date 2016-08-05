@@ -22,7 +22,7 @@ export default Ember.Controller.extend(
 		],
 		file: null,
 		map: null,
-		noAds: Ember.computed.alias('adsState.noAds'),
+		noAds: Ember.computed.alias('adsState.noAdsQueryParam'),
 		commentsPage: null,
 
 		smartBannerVisible: false,
