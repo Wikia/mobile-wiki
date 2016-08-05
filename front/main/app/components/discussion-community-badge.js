@@ -105,7 +105,7 @@ export default Ember.Component.extend(
 			 *
 			 * @returns {void}
 			 */
-			disablesEditMode() {
+			disableEditMode() {
 				this.setEditMode(false);
 			},
 

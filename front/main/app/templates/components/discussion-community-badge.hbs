@@ -25,16 +25,10 @@
 </div>
 <p>{{displayedWikiName}}</p>
 {{#if isNewBadgePreviewMode }}
-	<div class="discussion-categories-edit-footer-wrapper {{if isEditMode 'highlight-overlay-content'}}">
-		<div class="discussion-categories-edit-footer">
-			<button {{action 'disablesEditMode'}}>
-				{{svg 'close' viewBox='0 0 40 40' class='icon'}}
-			</button>
-			<button type="submit" class="submit" {{action 'submit'}}>
-				{{svg 'checkmark' viewBox='0 0 40 40' class='icon icon-submit'}}
-			</button>
-		</div>
-	</div>
+	{{discussion-edit-approve-buttons
+		close=(action 'disableEditMode')
+		approve=(action 'submit')
+	}}
 {{/if}}
 {{wikia-ui-components/highlight-overlay
 	isVisible=isEditMode
