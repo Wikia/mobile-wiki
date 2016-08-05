@@ -36,10 +36,11 @@ export default Ember.Mixin.create(
 			 * @param {string} sortBy
 			 * @param {boolean} onlyReported
 			 * @param {Object} categories
+			 * @param {Object} changeState
 			 *
 			 * @returns {EmberStates.Transition}
 			 */
-			applyFilters(sortBy, onlyReported, categories) {
+			applyFilters(sortBy, onlyReported, categories, changeState) {
 				const discussionSort = this.get('discussionSort'),
 					currentSortBy = discussionSort.get('sortBy'),
 					catId = categories.filterBy('selected', true).mapBy('category.id');
@@ -54,7 +55,9 @@ export default Ember.Mixin.create(
 					discussionSort.setSortBy(sortBy);
 				}
 
-				this.refreshStoredCategories(catId);
+				if (changeState && changeState.filtersChanged && !changeState.onlyReportedChanged) {
+					this.refreshStoredCategories(catId);
+				}
 
 				const queryParams = {
 					sort: sortBy,

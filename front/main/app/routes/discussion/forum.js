@@ -33,7 +33,7 @@ export default DiscussionBaseRoute.extend(
 		 */
 		model(params) {
 			const discussionSort = this.get('discussionSort'),
-				discussionModel = this.modelFor('discussion')
+				discussionModel = this.modelFor('discussion');
 
 			let transition = this.transitionToPreviouslySelectedFilters(discussionModel.categories, params);
 
@@ -77,9 +77,7 @@ export default DiscussionBaseRoute.extend(
 				const transitionParams =
 					JSON.parse(localStorageConnector.getItem('discussionForumPreviousQueryParams'));
 
-				if (params.catId &&
-					((params.catId.length === 0 && transitionParams.catId.length > 0)
-					|| (params.catId.length === 0 && !params.sort && transitionParams.sort))) {
+				if (params.catId && params.catId.length === 0 && transitionParams.catId.length > 0) {
 					transition = this.transitionTo({
 						queryParams: transitionParams
 					});
@@ -92,6 +90,12 @@ export default DiscussionBaseRoute.extend(
 			return transition;
 		},
 
+		/**
+		 * Validates and updates query parameters stored in local storage.
+		 *
+		 * @param categories - currently selected categories
+		 * @param params - current query parameters
+		 */
 		validateAndUpdateStoredParams(categories, params) {
 			this.updateStoredQueryParams(storedParams => {
 				storedParams.catId = categories.get('categories')

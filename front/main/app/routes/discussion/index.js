@@ -7,7 +7,10 @@ export default Ember.Route.extend({
 	 * @returns {void}
 	 */
 	beforeModel() {
-		const previousParams =  JSON.parse(localStorageConnector.getItem('discussionForumPreviousQueryParams'));
-		this.transitionTo('discussion.forum', previousParams);
+		let transitionParams = JSON.parse(localStorageConnector.getItem('discussionForumPreviousQueryParams'));
+		if (!transitionParams) {
+			transitionParams = {sort: this.get('discussionSort.sortBy')};
+		}
+		this.transitionTo('discussion.forum', {queryParams: transitionParams});
 	},
 });

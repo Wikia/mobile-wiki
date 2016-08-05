@@ -12,14 +12,8 @@ export default DiscussionBaseController.extend(
 	DiscussionForumActionsControllerMixin,
 	ResponsiveMixin,
 	{
-		discussionSort: inject.service(),
-
 		catId: [],
 		areGuidelinesVisible: false,
-
-		sort: Ember.computed('dicussionSort.sortBy', function() {
-			return this.get('dicussionSort.sortBy');
-		}),
 
 		actions: {
 			updateCategoriesSelection(categories) {
