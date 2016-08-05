@@ -24,6 +24,7 @@ export default Ember.Component.extend(
 
 		resetFileInput: false,
 		originalWikiImageUrl: null,
+		uploadedFile: null,
 
 		badgeImages: {
 			24357: '/front/common/images/community-badge-adventure-time.png',
@@ -223,7 +224,7 @@ export default Ember.Component.extend(
 			},
 
 			submit() {
-				this.get('uploadCommunityBadge')(this.get('wikiImageUrl'));
+				this.get('uploadCommunityBadge')(this.get('uploadedFile'));
 			},
 
 			emptyClickForFileInput(){},
@@ -235,6 +236,8 @@ export default Ember.Component.extend(
 					// error!!!
 					return;
 				}
+
+				this.set('uploadedFile', imageFile);
 
 				const fileReader = new FileReader();
 				fileReader.addEventListener('load', (event) => {
