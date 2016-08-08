@@ -641,10 +641,6 @@ body.discussions {
 
 		.post-detail {
 			margin-bottom: $post-details-post-margin-bottom;
-
-			.post-title {
-				line-height: $post-details-content-line-height;
-			}
 		}
 
 		.post-detail,
@@ -657,6 +653,7 @@ body.discussions {
 
 		.post-detail .post-title {
 			font-size: $type-small;
+			line-height: $line-height-base;
 			margin: 7px 0 8px 0;
 		}
 	}
@@ -776,6 +773,7 @@ body.discussions {
 			.discussion-content {
 				.post-title {
 					font-size: $type-smaller;
+					line-height: $post-details-content-line-height;
 					margin: 5px 0 4px 0;
 				}
 			}
