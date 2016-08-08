@@ -71,6 +71,7 @@ export default Ember.Component.extend(
 		}),
 
 		escapePress(event) {
+			track(trackActions.EditCommunityBadgeEscapeKeyHit);
 			this.setEditMode(false);
 		},
 
@@ -115,6 +116,7 @@ export default Ember.Component.extend(
 
 		drop(event) {
 			if (this.get('isEditMode')) {
+				track(trackActions.EditCommunityBadgeFileDropped);
 				event.preventDefault();
 				this.send('fileUpload', event.dataTransfer.files);
 				this.set('isDragActive', false);
@@ -165,9 +167,11 @@ export default Ember.Component.extend(
 				this.set('isLoadingMode', true);
 				this.get('uploadCommunityBadge')(this.get('uploadedFile')).then(() => {
 					this.set('wikiImageUrl', this.get('newWikiImageUrl'));
+					track(trackActions.CommunityBadgeSave);
 					this.setEditMode(false);
 				}).catch((err) => {
 					this.set('isLoadingMode', false);
+					track(trackActions.CommunityBadgeSaveFailure);
 					this.setErrorMessage(this.get('errors.saveFailed'));
 				});
 			},
@@ -196,6 +200,7 @@ export default Ember.Component.extend(
 						newWikiImageUrl: event.target.result,
 						uploadedFile: imageFile,
 					});
+					track(trackActions.EditCommunityBadgeImagePreview);
 				});
 			},
 		},

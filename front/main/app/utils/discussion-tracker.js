@@ -55,8 +55,14 @@ const trackActions = {
 	EditorCalloutMessageClose: 'EditorCalloutMessageClose',
 	EditorCalloutGuidelinesLinkTapped: 'EditorCalloutGuidelinesLinkTapped',
 	EditCommunityBadgeButtonTapped: 'EditCommunityBadgeButtonTapped',
+	EditCommunityBadgeFileDropped: 'EditCommunityBadgeFileDropped',
+	EditCommunityBadgeImagePreview: 'EditCommunityBadgeImagePreview',
+	EditCommunityBadgeEscapeKeyHit: 'EditCommunityBadgeEscapeKeyHit',
+	CommunityBadgeSave: 'CommunityBadgeSave',
+	CommunityBadgeSaveFailure: 'CommunityBadgeSaveFailure',
 	PostCategoryAdded: 'PostCategoryAdded',
 	PostCategoryEdited: 'PostCategoryEdited',
+
 };
 
 /**
