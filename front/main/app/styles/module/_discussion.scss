@@ -313,7 +313,7 @@ body.discussions {
 		color: $discussion-post-title-color;
 		font-size: $type-smaller;
 		font-weight: 500;
-		line-height: 1.25;
+		line-height: $post-details-content-line-height;
 		margin: 0 0 5px 0;
 
 		.post-details-link {
@@ -643,7 +643,7 @@ body.discussions {
 			margin-bottom: $post-details-post-margin-bottom;
 
 			.post-title {
-				line-height: 1.25;
+				line-height: $post-details-content-line-height;
 			}
 		}
 
