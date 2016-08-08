@@ -34,10 +34,10 @@ $success-icon-size: 80px;
 			display: none;
 			height: 100%;
 			justify-content: center;
+			min-width: 30px;
 			padding: 5px;
 			position: absolute;
 			right: 0;
-			width: 30px;
 
 			.move {
 				height: 16px;
@@ -271,6 +271,7 @@ $success-icon-size: 80px;
 		.discussion-categories-input:focus {
 			font-size: $type-base;
 			margin-left: 14px;
+			margin-right: 14px;
 			padding: 17px 42px 10px 0;
 
 			&[disabled] {
