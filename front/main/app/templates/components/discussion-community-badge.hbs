@@ -5,35 +5,36 @@
 		<div class="drag-and-drop">
 			{{svg 'drag-n-drop' role='img'}}
 		</div>
-		<img class="badge-image-display {{if isNewBadgePreviewMode 'is-visible'}}" src="{{newWikiImageUrl}}">
-		{{#if isLoadingMode}}
-			<div class="is-loading">
-				{{loading-spinner
-					active=true
-					overlay=false
-					radius=32
-					strokeWidth=2
-				}}
-			</div>
-		{{else}}
-			{{#if isNewBadgePreviewMode}}
-				{{discussion-edit-approve-buttons
-					close=(action 'disableEditMode')
-					approve=(action 'submit')
-				}}
+		{{#unless isDragActive}}
+			<img class="badge-image-display {{if isNewBadgePreviewMode 'is-visible'}}" src="{{newWikiImageUrl}}">
+			{{#if isLoadingMode}}
+				<div class="is-loading">
+					{{loading-spinner
+						active=true
+						overlay=false
+						radius=32
+						strokeWidth=2
+					}}
+				</div>
 			{{else}}
 				{{#if isEditMode}}
-					<div class="edit-mode">
-						{{file-input
-							tagName='div'
-							classNames=fileInputClassNames
-							fileUpload=(action 'fileUpload')
-							reset=resetFileInput
-							label=(i18n 'main.upload-image-button-text' ns='discussion')
-							click=(action 'emptyClickForFileInput')
-						}}
-						{{{i18n 'main.edit-badge-hint-text' ns='discussion'}}}
-					</div>
+					{{discussion-edit-approve-buttons
+						close=(action 'disableEditMode')
+						approve=(action 'submit')
+					}}
+					{{#unless isNewBadgePreviewMode}}
+						<div class="edit-mode">
+							{{file-input
+								tagName='div'
+								classNames=fileInputClassNames
+								fileUpload=(action 'fileUpload')
+								reset=resetFileInput
+								label=(i18n 'main.upload-image-button-text' ns='discussion')
+								click=(action 'emptyClickForFileInput')
+							}}
+							{{{i18n 'main.edit-badge-hint-text' ns='discussion'}}}
+						</div>
+					{{/unless}}
 				{{else}}
 					<div class="edit-badge-button" {{action 'enableEditMode'}}>
 						{{i18n 'main.edit-badge-button-text' ns='discussion'}}
@@ -41,7 +42,7 @@
 					</div>
 				{{/if}}
 			{{/if}}
-		{{/if}}
+		{{/unless}}
 	{{/if}}
 </div>
 <p>{{displayedWikiName}}</p>

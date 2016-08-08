@@ -7,7 +7,7 @@ export default Ember.Component.extend(
 	EscapePress,
 	{
 		classNames: ['community-badge', 'draggable-dropzone'],
-		classNameBindings: ['isEditMode', 'isNewBadgePreviewMode', 'dragClass:drag-activated'],
+		classNameBindings: ['isEditMode', 'isNewBadgePreviewMode', 'isDragActive:drag-activated'],
 		fileInputClassNames: ['upload-image-button', 'background-theme-color'],
 		squareDimension: 125,
 
@@ -27,7 +27,7 @@ export default Ember.Component.extend(
 		resetFileInput: false,
 		uploadedFile: null,
 
-		dragClass : false,
+		isDragActive : false,
 
 		wikiImageUrl: Ember.computed('badgeImage.value', 'squareDimension', function () {
 			let imageUrl = this.get('badgeImage.value');
@@ -64,12 +64,6 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		click(event) {
-			if (event.target.classList.contains('highlight-overlay')) {
-				this.setEditMode(false);
-			}
-		},
-
 		escapePress(event) {
 			this.setEditMode(false);
 		},
@@ -102,21 +96,31 @@ export default Ember.Component.extend(
 
 		dragLeave(event) {
 			event.preventDefault();
-			this.set('dragClass', false);
+			this.set('isDragActive', false);
 		},
 
 		dragOver(event) {
-			event.preventDefault();
-			this.set('dragClass', true);
+			if (this.get('isEditMode')) {
+				event.preventDefault();
+				this.set('isDragActive', true);
+			}
 		},
 
 		drop(event) {
-			event.preventDefault();
-			this.send('fileUpload', event.dataTransfer.files);
-			this.set('dragClass', false);
+			if (this.get('isEditMode')) {
+				event.preventDefault();
+				this.send('fileUpload', event.dataTransfer.files);
+				this.set('isDragActive', false);
+			}
 		},
 
 		actions: {
+			/**
+			 * empty method for the file-input helper
+			 * @return {void}
+			 */
+			emptyClickForFileInput() {},
+
 			/**
 			 * Enables community badge edit mode
 			 *
@@ -138,6 +142,15 @@ export default Ember.Component.extend(
 			},
 
 			submit() {
+				if (!this.get('canEdit')) {
+					return;
+				}
+
+				if (!this.get('isNewBadgePreviewMode') || !this.get('uploadedFile')) {
+					this.setEditMode(false);
+					return;
+				}
+
 				this.set('isLoadingMode', true);
 				this.get('uploadCommunityBadge')(this.get('uploadedFile')).then(() => {
 					this.set('wikiImageUrl', this.get('newWikiImageUrl'));
@@ -145,14 +158,11 @@ export default Ember.Component.extend(
 				});
 			},
 
-
-			/**
-			 * empty method for the file-input helper
-			 * @return {void}
-			 */
-			emptyClickForFileInput() {},
-
 			fileUpload(files) {
+				if (!this.get('canEdit')) {
+					return;
+				}
+
 				const imageFile = files[0];
 
 				if (!this.get(`allowedFileTypes.${imageFile.type}`)) {

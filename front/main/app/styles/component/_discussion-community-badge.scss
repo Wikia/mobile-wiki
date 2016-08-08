@@ -57,7 +57,6 @@ $badge-image-dimensions-big: 125px;
 		top: 0;
 		width: 100%;
 
-
 		.icon-camera {
 			height: 24px;
 			position: absolute;
@@ -146,6 +145,13 @@ $badge-image-dimensions-big: 125px;
 		}
 	}
 
+	.discussion-edit-approve-wrapper {
+		border-top-color: $discussion-upload-image-approve-buttons-border;
+		left: 50%;
+		margin-left: -105px;
+		margin-top: 2px;
+		width: 210px;
+	}
 }
 
 .draggable-dropzone {
