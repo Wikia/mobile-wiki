@@ -156,16 +156,21 @@ $badge-image-tools-width: 210px;
 
 	.error-message-container {
 		display: none;
-		margin: 10px auto;
-		width: $badge-image-tools-width;
+		left: 50%;
+		margin: 10px 0 10px -40px;
+		width: $badge-image-tools-width + 40px;
+
+		&.is-visible {
+			display: block;
+		}
 
 		.error-message {
 			font-size: $type-base;
 			line-height: $line-height-base;
 		}
 
-		&.is-visible {
-			display: block;
+		.icon.error {
+			fill: $discussion-upload-image-error-warning-color;
 		}
 	}
 
@@ -179,16 +184,20 @@ $badge-image-tools-width: 210px;
 }
 
 .draggable-dropzone {
+	.drop-catch-layer,
 	.drag-and-drop {
-		align-items: center;
-		background-color: rgba(0,0,0,0.8);
-		display: none;
 		height: 100%;
-		justify-content: center;
 		left: 0;
 		position: absolute;
 		top: 0;
 		width: 100%;
+	}
+
+	.drag-and-drop {
+		align-items: center;
+		background-color: rgba(0,0,0,0.8);
+		display: none;
+		justify-content: center;
 
 		svg {
 			height: 45px;

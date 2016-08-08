@@ -4,10 +4,12 @@
 	{{#if canEdit}}
 		<div class="drag-and-drop">
 			{{svg 'drag-n-drop' role='img'}}
+			<div class="drop-catch-layer"></div>
 		</div>
 		{{#unless isDragActive}}
 			<img class="badge-image-display {{if isNewBadgePreviewMode 'is-visible'}}" src="{{newWikiImageUrl}}">
 			<div class="error-message-container {{if errorMessage 'is-visible'}}">
+				{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
 				<span class="error-message">{{errorMessage}}</span>
 			</div>
 			{{#if isEditMode}}
