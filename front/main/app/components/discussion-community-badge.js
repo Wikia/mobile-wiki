@@ -22,7 +22,7 @@ export default Ember.Component.extend(
 		currentUser: Ember.inject.service(),
 
 		errorMessage: null,
-		isDragActive : false,
+		isDragActive: false,
 		isEditMode: false,
 		isLoadingMode: false,
 		isNewBadgePreviewMode: false,
