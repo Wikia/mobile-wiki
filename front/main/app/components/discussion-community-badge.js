@@ -7,7 +7,8 @@ export default Ember.Component.extend(
 	EscapePress,
 	{
 		classNames: ['community-badge', 'draggable-dropzone'],
-		classNameBindings: ['isEditMode', 'isNewBadgePreviewMode', 'isDragActive:drag-activated', 'errorMessage:is-error-message'],
+		classNameBindings: ['isEditMode', 'isNewBadgePreviewMode', 'isDragActive:drag-activated',
+			'errorMessage:is-error-message'],
 		fileInputClassNames: ['upload-image-button', 'background-theme-color'],
 		squareDimension: 125,
 
@@ -17,19 +18,17 @@ export default Ember.Component.extend(
 			'image/gif': true,
 		},
 
-		currentUser: Ember.inject.service(),
 		canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'badgeImage.permissions.canEdit'),
+		currentUser: Ember.inject.service(),
+
+		errorMessage: null,
+		isDragActive : false,
 		isEditMode: false,
 		isLoadingMode: false,
 		isNewBadgePreviewMode: false,
 		newWikiImageUrl: null,
-
 		resetFileInput: false,
 		uploadedFile: null,
-
-		isDragActive : false,
-
-		errorMessage: null,
 
 		errors: {
 			fileType: 'edit-hero-unit-save-failed',
