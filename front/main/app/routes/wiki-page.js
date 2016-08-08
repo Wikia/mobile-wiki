@@ -181,6 +181,8 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 					gracenoteid: gracenoteId,
 					rand: (`${Math.random()}`).substr(2, 8)
 				}
+			}).catch((error) => {
+				console.log('>>>>>>>>>>>>>', error);
 			});
 		}
 	},
