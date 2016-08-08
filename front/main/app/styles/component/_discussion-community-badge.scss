@@ -6,8 +6,9 @@ $badge-image-dimensions-big: 125px;
 		margin-top: -62px;
 
 		.community-badge-image {
-			width: $badge-image-dimensions-big;
 			background-color: $discussion-community-badge-background-color;
+			height: $badge-image-dimensions-big + 4px;
+			width: $badge-image-dimensions-big;
 
 			.badge-image-display {
 				height: $badge-image-dimensions-big;
@@ -107,6 +108,12 @@ $badge-image-dimensions-big: 125px;
 		line-height: 1.25;
 	}
 
+	.is-error-message {
+		p {
+			margin-top: 30px;
+		}
+	}
+
 	.edit-mode {
 		background-color: $discussion-edit-image-upload-background;
 		color: $discussion-edit-image-hint-text;
@@ -142,6 +149,20 @@ $badge-image-dimensions-big: 125px;
 
 		input {
 			display: none;
+		}
+
+	}
+
+	.error-message-container {
+		display: none;
+
+		.error-message {
+			font-size: $type-base;
+			line-height: $line-height-base;
+		}
+
+		&.is-visible {
+			display: inline;
 		}
 	}
 

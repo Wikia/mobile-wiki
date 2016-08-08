@@ -29,6 +29,13 @@ export default Ember.Component.extend(
 
 		isDragActive : false,
 
+		errorMessage: null,
+
+		errors: {
+			fileType: 'edit-hero-unit-save-failed',
+			saveFailed: 'edit-hero-unit-save-failed',
+		},
+
 		wikiImageUrl: Ember.computed('badgeImage.value', 'squareDimension', function () {
 			let imageUrl = this.get('badgeImage.value');
 
@@ -73,6 +80,7 @@ export default Ember.Component.extend(
 			this.setProperties({
 				isEditMode: shouldEnable,
 				resetFileInput: true,
+				errorMessage: null,
 			});
 
 			if (!shouldEnable) {
@@ -112,6 +120,10 @@ export default Ember.Component.extend(
 				this.send('fileUpload', event.dataTransfer.files);
 				this.set('isDragActive', false);
 			}
+		},
+
+		setErrorMessage(msgKey) {
+			this.set('errorMessage', i18n.t(`main.${msgKey}`, {ns: 'discussion'}));
 		},
 
 		actions: {
@@ -155,6 +167,9 @@ export default Ember.Component.extend(
 				this.get('uploadCommunityBadge')(this.get('uploadedFile')).then(() => {
 					this.set('wikiImageUrl', this.get('newWikiImageUrl'));
 					this.setEditMode(false);
+				}).catch((err) => {
+					this.set('isLoadingMode', false);
+					this.setErrorMessage(this.get('errors.saveFailed'));
 				});
 			},
 
@@ -166,7 +181,7 @@ export default Ember.Component.extend(
 				const imageFile = files[0];
 
 				if (!this.get(`allowedFileTypes.${imageFile.type}`)) {
-					// error!!!
+					this.setErrorMessage(this.get('errors.fileType'));
 					return;
 				}
 

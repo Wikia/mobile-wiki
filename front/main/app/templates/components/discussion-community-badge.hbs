@@ -1,6 +1,9 @@
-<div class="community-badge-image {{if isEditMode 'highlight-overlay-content'}}">
+<div class="community-badge-image {{if isEditMode 'highlight-overlay-content'}} {{if errorMessage 'is-error-message'}}">
 	{{!-- this two images are only because not to loose the wikiImageUrl from the DOM to immediately show it back --}}
 	<img class="badge-image-display {{unless isNewBadgePreviewMode 'is-visible'}}" src="{{wikiImageUrl}}">
+	<div class="error-message-container {{if errorMessage 'is-visible'}}">
+		<span class="error-message">{{errorMessage}}</span>
+	</div>
 	{{#if canEdit}}
 		<div class="drag-and-drop">
 			{{svg 'drag-n-drop' role='img'}}
