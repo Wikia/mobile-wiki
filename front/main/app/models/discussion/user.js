@@ -23,7 +23,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 			return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`), {
 				data: {
 					limit: this.get('loadMoreLimit'),
-					page: this.get('data.pageNum') - 1,
+					page: this.get('data.pageNum'),
 					pivot: this.get('pivotId'),
 					responseGroup: 'full',
 					viewableOnly: false
@@ -45,7 +45,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 		 */
 		setNormalizedData(apiData) {
 			const posts = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
-				pivotId = Ember.getWithDefault(posts, 'lastObject.id', 0),
+				pivotId = Ember.getWithDefault(posts, 'firstObject.id', 0),
 				contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities = DiscussionEntities.createFromPostsData(posts);
 

@@ -24,7 +24,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads`), {
 				data: {
 					limit: this.get('loadMoreLimit'),
-					page: this.get('data.pageNum') - 1,
+					page: this.get('data.pageNum'),
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
 					viewableOnly: false
@@ -50,7 +50,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		 */
 		setNormalizedData(apiData) {
 			const posts = Ember.getWithDefault(apiData, '_embedded.threads', []),
-				pivotId = Ember.getWithDefault(posts, 'lastObject.id', 0),
+				pivotId = Ember.getWithDefault(posts, 'firstObject.id', 0),
 				entities = DiscussionEntities.createFromThreadsData(posts);
 
 			this.get('data').setProperties({
