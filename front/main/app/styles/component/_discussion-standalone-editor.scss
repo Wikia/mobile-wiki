@@ -58,9 +58,13 @@ $success-icon-size: 80px;
 		font-size: $discussion-editor-label-font-size;
 		font-weight: $font-weight-bold;
 		letter-spacing: .15px;
-		padding: 10px 0;
+		padding: 10px 0 2px;
 		text-transform: uppercase;
 		width: 100%;
+	}
+
+	.discussion-standalone-editor-message {
+		margin-top: 2px;
 	}
 
 	.discussion-standalone-editor-title {
