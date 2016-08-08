@@ -7,7 +7,7 @@ export default Ember.Component.extend(
 	EscapePress,
 	{
 		classNames: ['community-badge', 'draggable-dropzone'],
-		classNameBindings: ['isEditMode', 'isNewBadgePreviewMode', 'isDragActive:drag-activated'],
+		classNameBindings: ['isEditMode', 'isNewBadgePreviewMode', 'isDragActive:drag-activated', 'errorMessage:is-error-message'],
 		fileInputClassNames: ['upload-image-button', 'background-theme-color'],
 		squareDimension: 125,
 
@@ -185,7 +185,10 @@ export default Ember.Component.extend(
 					return;
 				}
 
-				this.set('isLoadingMode', true);
+				this.setProperties({
+					isLoadingMode: true,
+					errorMessage: null,
+				});
 
 				this.uploadImage(imageFile).then((event) => {
 					this.setProperties({
