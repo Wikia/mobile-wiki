@@ -1,6 +1,8 @@
 $badge-image-dimensions-small: 79px;
 $badge-image-dimensions-big: 125px;
 $badge-image-tools-width: 210px;
+$badge-transparetn-layer-ilght-color: rgba(255,255,255,0.8);
+$badge-transparetn-layer-dark-color: rgba(0,0,0,0.8);
 
 .post-list-view {
 	.community-badge {
@@ -86,7 +88,7 @@ $badge-image-tools-width: 210px;
 		}
 
 		.is-loading {
-			background-color: rgba(0,0,0,0.2);
+			background-color: $badge-transparetn-layer-ilght-color;
 			height: 100%;
 			left: 0;
 			position: absolute;
@@ -195,7 +197,7 @@ $badge-image-tools-width: 210px;
 
 	.drag-and-drop {
 		align-items: center;
-		background-color: rgba(0,0,0,0.8);
+		background-color: $badge-transparetn-layer-dark-color;
 		display: none;
 		justify-content: center;
 
