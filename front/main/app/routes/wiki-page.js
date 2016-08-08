@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import request from 'ember-ajax/request';
 import ArticleHandler from '../utils/wiki-handlers/article';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
@@ -89,6 +90,7 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 			if (handler) {
 				transition.then(() => {
 					this.updateTrackingData(model);
+					this.sendLyricsPageView(handler, model);
 				});
 
 				this.set('wikiHandler', handler);
@@ -157,6 +159,30 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 		});
 
 		trackPageView(uaDimensions);
+	},
+
+	/**
+	 * This function tracks page view only on articles on Lyrics Wiki (id: 43339)
+	 *
+	 * @param {Object} handler
+	 * @param {Ember.Model} model
+	 */
+	sendLyricsPageView(handler, model) {
+		if (handler.controllerName === 'article' && Ember.get(Mercury, 'wiki.id') === 43339) {
+			const amgId = parseInt($('#lyric').data('amg-id'), 10) || 0,
+				gracenoteId = parseInt($('#gracenoteid').text(), 10) || 0;
+
+			request(M.buildUrl({path: '/wikia.php'}), {
+				data: {
+					controller: 'LyricFind',
+					method: 'track',
+					title: model.title,
+					amgid: amgId,
+					gracenoteid: gracenoteId,
+					rand: (`${Math.random()}`).substr(2, 8)
+				}
+			});
+		}
 	},
 
 	/**
