@@ -2,6 +2,9 @@
 	{{!-- this two images are only because not to loose the wikiImageUrl from the DOM to immediately show it back --}}
 	<img class="badge-image-display {{unless isNewBadgePreviewMode 'is-visible'}}" src="{{wikiImageUrl}}">
 	{{#if canEdit}}
+		<div class="drag-and-drop">
+			{{svg 'drag-n-drop' role='img'}}
+		</div>
 		<img class="badge-image-display {{if isNewBadgePreviewMode 'is-visible'}}" src="{{newWikiImageUrl}}">
 		{{#if isLoadingMode}}
 			<div class="is-loading">

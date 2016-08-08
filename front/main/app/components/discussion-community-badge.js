@@ -6,8 +6,8 @@ import EscapePress from '../mixins/escape-press';
 export default Ember.Component.extend(
 	EscapePress,
 	{
-		classNames: ['community-badge'],
-		classNameBindings: ['isEditMode', 'isNewBadgePreviewMode'],
+		classNames: ['community-badge', 'draggable-dropzone'],
+		classNameBindings: ['isEditMode', 'isNewBadgePreviewMode', 'dragClass:drag-activated'],
 		fileInputClassNames: ['upload-image-button', 'background-theme-color'],
 		squareDimension: 125,
 
@@ -26,6 +26,8 @@ export default Ember.Component.extend(
 
 		resetFileInput: false,
 		uploadedFile: null,
+
+		dragClass : false,
 
 		wikiImageUrl: Ember.computed('badgeImage.value', 'squareDimension', function () {
 			let imageUrl = this.get('badgeImage.value');
@@ -96,6 +98,22 @@ export default Ember.Component.extend(
 				fileReader.addEventListener('load', resolve);
 				fileReader.readAsDataURL(imageFile);
 			});
+		},
+
+		dragLeave(event) {
+			event.preventDefault();
+			this.set('dragClass', false);
+		},
+
+		dragOver(event) {
+			event.preventDefault();
+			this.set('dragClass', true);
+		},
+
+		drop(event) {
+			event.preventDefault();
+			this.send('fileUpload', event.dataTransfer.files);
+			this.set('dragClass', false);
 		},
 
 		actions: {

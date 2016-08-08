@@ -70,8 +70,11 @@ $badge-image-dimensions-big: 125px;
 	.community-badge-image {
 		border: 2px solid $discussion-community-badge-border;
 		box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
-		cursor: pointer;
 		position: relative;
+
+		.is-edit-mode {
+			cursor: pointer;
+		}
 
 		.badge-image-display {
 			display: none;
@@ -140,6 +143,32 @@ $badge-image-dimensions-big: 125px;
 
 		input {
 			display: none;
+		}
+	}
+
+}
+
+.draggable-dropzone {
+	.drag-and-drop {
+		align-items: center;
+		background-color: rgba(0,0,0,0.8);
+		display: none;
+		height: 100%;
+		justify-content: center;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+
+		svg {
+			height: 45px;
+			width: 45px;
+		}
+	}
+
+	&.drag-activated {
+		.drag-and-drop {
+			display: flex;
 		}
 	}
 }
