@@ -55,4 +55,26 @@ module('Unit | Helper | wrap-me', () => {
 
 		assert.equal(html, '<span>some&lt;script&gt;alert(0);&lt;/script&gt;text</span>');
 	});
+
+	test('generate html with a link', (assert) => {
+		const options = {
+				tagName: 'a',
+				href: '/d/g',
+				className: 'guidelines-opener',
+			},
+			html = wrapMeHelper.compute(['guidelines'], options);
+
+		assert.equal(html, '<a class="guidelines-opener" href="/d/g">guidelines</a>');
+	});
+
+	test('generate html with a link with a target', (assert) => {
+		const options = {
+				tagName: 'a',
+				href: '/d/g',
+				target: '_blank',
+			},
+			html = wrapMeHelper.compute(['guidelines'], options);
+
+		assert.equal(html, '<a href="/d/g" target="_blank">guidelines</a>');
+	});
 });
