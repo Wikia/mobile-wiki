@@ -14,7 +14,14 @@ function getContentLanguage(wikiVariables) {
 	return wikiVariables.language && wikiVariables.language.content ? wikiVariables.language.content : 'en';
 }
 
-export default function injectGlobalFooterData(data, request, showFooter) {
+/**
+ * @param {object} data
+ * @param {Hapi.Request} request
+ * @param {boolean} [showFooter=false]
+ * @param {boolean} [showFullSiteLink=false]
+ * @returns {Promise}
+ */
+export default function injectGlobalFooterData(data, request, showFooter = false, showFullSiteLink = false) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		wikiId = data.wikiVariables.id,
 		language = getContentLanguage(data.wikiVariables),
@@ -22,6 +29,10 @@ export default function injectGlobalFooterData(data, request, showFooter) {
 
 	if (showFooter) {
 		data.bodyClassName = 'show-global-footer';
+
+		if (showFullSiteLink) {
+			data.bodyClassName += ' show-global-footer-full-site-link';
+		}
 	}
 
 	return new MediaWiki.DesignSystemRequest({corporatePageUrl, wikiId, language}).getFooter()
