@@ -43,11 +43,10 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 
 .community-badge {
 	.edit-badge-button {
-		background-color: $discussion-edit-image-button-background;
-		color: $discussion-edit-image-button-text;
+		background-color: $discussion-edit-image-button-background-color;
+		color: $discussion-edit-image-button-text-color;
 		display: none;
 		font-size: 10px;
-		height: 30px;
 		height: auto;
 		left: 0;
 		letter-spacing: 0.5px;
@@ -118,8 +117,8 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 	}
 
 	.edit-mode {
-		background-color: $discussion-edit-image-upload-background;
-		color: $discussion-edit-image-hint-text;
+		background-color: $discussion-edit-image-upload-background-color;
+		color: $discussion-edit-image-hint-text-color;
 		cursor: auto;
 		font-size: $type-min;
 		height: 100%;
@@ -137,7 +136,7 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 		}
 
 		.file-upload-label {
-			color: $discussion-upload-image-button-text;
+			color: $discussion-upload-image-button-text-color;
 			cursor: pointer;
 			font-size: 10px;
 			font-weight: $font-weight-bold;
