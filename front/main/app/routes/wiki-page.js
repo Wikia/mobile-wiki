@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
+import {isNotFoundError} from 'ember-ajax/errors';
 import ArticleHandler from '../utils/wiki-handlers/article';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
@@ -168,13 +169,10 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 	 * @param {Ember.Model} model
 	 */
 	sendLyricsPageView(handler, model) {
-		console.log('>>>>>>>>>>>>> IN sendLyricsPageView');
 		if (handler.controllerName === 'article' && Ember.get(Mercury, 'wiki.id') === 43339) {
-			console.log('>>>>>>>>>>>>> before $');
 			const amgId = parseInt($('#lyric').data('amg-id'), 10) || 0,
 				gracenoteId = parseInt($('#gracenoteid').text(), 10) || 0;
 
-			console.log('>>>>>>>>>>>>> after $, before request');
 			request(M.buildUrl({path: '/wikia.php'}), {
 				data: {
 					controller: 'LyricFind',
@@ -185,10 +183,10 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 					rand: (`${Math.random()}`).substr(2, 8)
 				},
 				dataType: 'text'
-			}).then((data) => {
-				console.log('>>>>>>>>>>>>> DATA', data);
 			}).catch((error) => {
-				console.log('>>>>>>>>>>>>> ERROR', error);
+				if (!isNotFoundError(error)) {
+					throw error;
+				}
 			});
 		}
 	},
