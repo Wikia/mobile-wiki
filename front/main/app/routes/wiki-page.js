@@ -184,8 +184,10 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 				},
 				dataType: 'text'
 			}).catch((error) => {
-				if (!isNotFoundError(error)) {
-					throw error;
+				if (isNotFoundError(error)) {
+					console.log('>>>>>>>>>>>>>>> 404', error);
+				} else {
+					console.log('>>>>>>>>>>>>>>> NON 404', error);
 				}
 			});
 		}
