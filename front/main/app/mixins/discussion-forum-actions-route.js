@@ -9,9 +9,24 @@ export default Ember.Mixin.create(
 		 *
 		 * @param {string[]} catId - The array of categories.
 		 */
-		refreshPreviousDiscussionForumQueryParams(catId) {
-			if (Ember.isEmpty(catId)) {
-				localStorageConnector.setItem('discussionForumPreviousQueryParams', null);
+		refreshStoredCategories(catId) {
+			this.updateStoredQueryParams(params => {
+				params.catId = catId;
+				return params;
+			});
+		},
+
+		/**
+		 * @param {function} transform - function transforming query parameters, should return received query parameters
+		 */
+		updateStoredQueryParams(transform) {
+			const queryParams = localStorageConnector.getItem('discussionForumPreviousQueryParams');
+
+			if (queryParams) {
+				let params = JSON.parse(queryParams);
+				params = transform(params);
+				localStorageConnector.setItem(
+					'discussionForumPreviousQueryParams', JSON.stringify(params));
 			}
 		},
 
@@ -21,14 +36,14 @@ export default Ember.Mixin.create(
 			 *
 			 * @param {string} sortBy
 			 * @param {boolean} onlyReported
-			 * @param {Object} categories
+			 * @param {Object} catId
+			 * @param {Object} changeState
 			 *
 			 * @returns {EmberStates.Transition}
 			 */
-			applyFilters(sortBy, onlyReported, categories) {
+			applyFilters(sortBy, onlyReported, catId, changeState) {
 				const discussionSort = this.get('discussionSort'),
-					currentSortBy = discussionSort.get('sortBy'),
-					catId = categories.filterBy('selected', true).mapBy('category.id');
+					currentSortBy = discussionSort.get('sortBy');
 
 				let targetRoute = 'discussion.forum';
 
@@ -40,7 +55,9 @@ export default Ember.Mixin.create(
 					discussionSort.setSortBy(sortBy);
 				}
 
-				this.refreshPreviousDiscussionForumQueryParams(catId);
+				if (changeState && changeState.filtersChanged && !changeState.onlyReportedChanged) {
+					this.refreshStoredCategories(catId);
+				}
 
 				const queryParams = {
 					sort: sortBy,

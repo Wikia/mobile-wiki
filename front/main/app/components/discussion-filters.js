@@ -52,14 +52,20 @@ export default Ember.Component.extend(
 		/**
 		 * @param {string} sortBy
 		 * @param {boolean} onlyReported
-		 * @returns {boolean}
+		 * @returns {object} - exactly describes what have changed
 		 */
 		didFiltersChange(sortBy, onlyReported) {
-			const discussionSort = this.get('discussionSort');
+			const discussionSort = this.get('discussionSort'),
+				onlyReportedChanged = onlyReported !== discussionSort.get('onlyReported'),
+				sortByChanged = sortBy !== discussionSort.get('sortBy'),
+				categoriesChanged = this.didCategoriesChange();
 
-			return onlyReported !== discussionSort.get('onlyReported') ||
-					sortBy !== discussionSort.get('sortBy') ||
-					this.didCategoriesChange();
+			return {
+				onlyReportedChanged,
+				sortByChanged,
+				categoriesChanged,
+				filtersChanged: onlyReportedChanged || sortByChanged || categoriesChanged
+			};
 		},
 
 		actions: {
@@ -70,15 +76,21 @@ export default Ember.Component.extend(
 			 */
 			applyFilters() {
 				const sortBy = this.get('sortBy'),
-					onlyReported = this.get('onlyReported');
+					onlyReported = this.get('onlyReported'),
+					changeState = this.didFiltersChange(sortBy, onlyReported);
 
 				// No need for applying already applied filters again
-				if (this.didFiltersChange(sortBy, onlyReported)) {
+				if (changeState.filtersChanged) {
+					let catId = changeState.categoriesChanged
+						? this.get('changedCategories').filterBy('selected', true).mapBy('category.id')
+						: this.get('categories').filterBy('selected', true).mapBy('id');
+
 					this.trackSortByTapped(sortBy);
 					this.get('applyFilters')(
 						this.get('sortBy'),
 						this.get('onlyReported'),
-						this.get('changedCategories')
+						catId,
+						changeState
 					);
 				}
 				const popover = this.get('popover');

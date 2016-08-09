@@ -19,7 +19,7 @@
 					setCategory=(action 'setCategory')
 				}}
 			{{/pop-over}}
-			<a id="{{categoryPickerButtonId}}" class="discussion-category-picker-button {{if category 'active-element-background-color'}}">
+			<a id="{{categoryPickerButtonId}}" class="discussion-category-picker-button {{categoryPickerClassname}}">
 				<span class="discussion-category-picker-content-wrapper">
 					{{#if category}}
 						{{category.name}}
@@ -31,7 +31,7 @@
 				</span>
 			</a>
 			{{#unless category}}
-				<small class="discussion-category-picker-required-message">[{{i18n 'main.category-picker-required-message' ns='discussion'}}]</small>
+				<small class="discussion-category-picker-required-message">({{i18n 'main.category-picker-required-message' ns='discussion'}})</small>
 			{{/unless}}
 		{{/if}}
 		{{#if showMultipleInputs}}

@@ -1,12 +1,17 @@
 import Ember from 'ember';
 
-export default Ember.Route.extend({
-	discussionSort: Ember.inject.service(),
+import localStorageConnector from '../../utils/local-storage-connector';
 
+export default Ember.Route.extend({
 	/**
 	 * @returns {void}
 	 */
 	beforeModel() {
-		this.transitionTo('discussion.forum', {queryParams: {sort: this.get('discussionSort.sortBy')}});
+		let transitionParams = JSON.parse(localStorageConnector.getItem('discussionForumPreviousQueryParams'));
+
+		if (!transitionParams) {
+			transitionParams = {sort: this.get('discussionSort.sortBy')};
+		}
+		this.transitionTo('discussion.forum', {queryParams: transitionParams});
 	},
 });

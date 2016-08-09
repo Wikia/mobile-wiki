@@ -56,12 +56,12 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		submitDisabled: Ember.computed('content', 'currentUser.isAuthenticated', 'showOverlayMessage', 'category',
-			function () {
+		submitDisabled: Ember.computed('content', 'currentUser.isAuthenticated', 'showOverlayMessage',
+			'isReply', 'category', 'isGuidelinesEditor', function () {
 				return this.get('content').length === 0 ||
 					this.get('currentUser.isAuthenticated') === false ||
 					this.get('showOverlayMessage') ||
-					!this.get('category.id');
+					(!this.get('isReply') && !this.get('category.id') && !this.get('isGuidelinesEditor'));
 			}
 		),
 

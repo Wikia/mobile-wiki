@@ -6,7 +6,7 @@
 		display: inline-block;
 		font-size: 12px;
 		line-height: 12px;
-		margin: 6px 3px;
+		margin: 6px 1px;
 		min-width: 54px;
 		padding: 11px 12px;
 		text-align: center;
@@ -39,6 +39,15 @@
 		padding: 8px 12px;
 		margin: 15px 0 4px;
 
+		&.hidden {
+			display: none;
+		}
+
+		&.disabled {
+			opacity: 0.5;
+			pointer-events: none;
+		}
+
 		svg {
 			fill: $discussion-category-picker-button-color;
 			height: 14px;
@@ -63,11 +72,12 @@
 
 	.discussion-category-picker-required-message {
 		color: $discussion-category-picker-button-background-color;
+		text-transform: uppercase;
 	}
 }
 
 .discussion-standalone-editor {
 	.discussion-category-picker-button {
-		margin: 10px 0 0 15px;
+		margin: 12px 0 0 15px;
 	}
 }

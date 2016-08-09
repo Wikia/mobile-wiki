@@ -31,12 +31,13 @@ export default Ember.Mixin.create(
 			/**
 			 * @param {string} sortBy
 			 * @param {boolean} shouldShowReported
-			 * @param {Object} categories
+			 * @param {Object} catId
+			 * @param {Object} changeState
 			 *
 			 * @returns {void}
 			 */
-			applyFilters(sortBy, shouldShowReported, categories) {
-				this.get('target').send('applyFilters', sortBy, shouldShowReported, categories);
+			applyFilters(sortBy, shouldShowReported, catId, changeState) {
+				this.get('target').send('applyFilters', sortBy, shouldShowReported, catId, changeState);
 			}
 		}
 	}

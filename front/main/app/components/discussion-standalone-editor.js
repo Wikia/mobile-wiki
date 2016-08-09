@@ -67,7 +67,6 @@ export default DiscussionMultipleInputsEditor.extend(
 			}
 
 			this.setProperties({
-				category: this.get('categories').findBy('id', this.get('editEntity.categoryId')),
 				content: editEntity.get('rawContent'),
 				openGraph: editEntity.get('openGraph'),
 				showsOpenGraphCard: Boolean(editEntity.get('openGraph')),
