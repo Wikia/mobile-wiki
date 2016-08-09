@@ -1,0 +1,127 @@
+$post-reply-user-avatar-badge-top: 5px;
+$post-reply-with-label-user-avatar-badge-top: 38px;
+
+.user-avatar-badge {
+	filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .2));
+	left: 9px;
+	position: absolute;
+	top: $post-reply-user-avatar-badge-top;
+
+	svg {
+		height: 18px;
+		width: 18px;
+	}
+}
+
+.discussion-contributors {
+	.user-avatar {
+		position: relative;
+
+		.user-avatar-badge {
+			bottom: 17px;
+			left: auto;
+			right: 25px;
+			top: auto;
+		}
+	}
+}
+
+.post-detail {
+	&.is-locked,
+	&.is-reported {
+		.user-avatar-badge {
+			top: $post-reply-with-label-user-avatar-badge-top;
+		}
+	}
+}
+
+.post-reply {
+	.user-avatar-badge {
+		left: 32px;
+	}
+
+	&.is-locked,
+	&.is-reported {
+		.user-avatar-badge {
+			top: $post-reply-with-label-user-avatar-badge-top;
+		}
+	}
+}
+
+.post-list-view {
+	.discussion-contributors {
+		.user-avatar-badge {
+			bottom: 16px;
+			right: 20px;
+		}
+	}
+
+	.post-reply {
+		.user-avatar-badge {
+			top: $post-reply-with-label-user-avatar-badge-top;
+		}
+	}
+}
+
+@media #{$desktop-range} {
+	// Hide user avatar badges under "Discussion" label on forum.
+	.post-list-view {
+		.discussion-hero-unit {
+			.user-avatar-badge {
+				display: none;
+			}
+		}
+	}
+
+	.discussion-user-list {
+		.discussion-hero-unit {
+			.user-avatar-badge {
+				display: inherit;
+			}
+		}
+	}
+
+	.post-detail {
+		.user-avatar-badge {
+			left: 24px;
+			top: 13px;
+		}
+	}
+
+	.post-details-view {
+		.post-detail {
+			.user-avatar-badge {
+				top: $post-reply-user-avatar-badge-top;
+			}
+
+			&.is-locked,
+			&.is-reported {
+				.user-avatar-badge {
+					top: $post-reply-with-label-user-avatar-badge-top;
+				}
+			}
+		}
+
+		.discussion-contributors {
+			.user-avatar-badge {
+				bottom: 16px;
+				right: 20px;
+			}
+		}
+	}
+
+	.post-list-view {
+		.post-reply {
+			.user-avatar-badge {
+				left: 44px;
+			}
+		}
+
+		.discussion-contributors {
+			.user-avatar-badge {
+				bottom: 26px;
+				right: 28px;
+			}
+		}
+	}
+}

@@ -9,6 +9,7 @@
 		editReply=(action 'editReply')
 		errorMessage=editEditorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
+		gotoGuidelines=(action 'gotoGuidelines')
 		isActive=editEditorState.isOpen
 		isEdit=true
 		isLoading=editEditorState.isLoading
@@ -19,6 +20,7 @@
 {{#discussion-user-entities-list-layout
 	deleteAllPosts=(action 'deleteAllPosts')
 	model=model.current.data
+	openGuidelines=(action 'openGuidelines')
 	smartBannerVisible=smartBannerVisible
 }}
 	{{discussion-user-list-wrapper
