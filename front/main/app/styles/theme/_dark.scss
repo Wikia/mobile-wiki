@@ -493,6 +493,12 @@ body.dark-theme {
 			}
 		}
 	}
+
+	.community-badge {
+		.error-message-container {
+			color: $dark-discussion-upload-image-error-text-color;
+		}
+	}
 }
 
 @media #{$desktop-range} {

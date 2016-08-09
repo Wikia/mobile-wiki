@@ -158,6 +158,7 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 	}
 
 	.error-message-container {
+		color: $discussion-upload-image-error-text-color;
 		display: none;
 		left: 50%;
 		margin: 10px 0 10px -40px;
