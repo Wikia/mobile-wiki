@@ -3,7 +3,7 @@
 <ul class="footer-links">
 	{{#each links as |link|}}
 		<li class="{{unbound link.className}}">
-			<a href="{{unbound link.href}}" {{action 'handleFooterLinkClick' link.text link.href preventDefault=false}} class="external">
+			<a href="{{unbound link.href}}" {{action 'handleFooterLinkClick' link.text link.href}} class="external">
 				{{i18n 'app' link.text}}
 			</a>
 		</li>
