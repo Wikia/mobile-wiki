@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
-import {isNotFoundError} from 'ember-ajax/errors';
 import ArticleHandler from '../utils/wiki-handlers/article';
 import CategoryHandler from '../utils/wiki-handlers/category';
 import CuratedMainPageHandler from '../utils/wiki-handlers/curated-main-page';
