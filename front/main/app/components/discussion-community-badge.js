@@ -31,8 +31,8 @@ export default Ember.Component.extend(
 		uploadedFile: null,
 
 		errors: {
-			fileType: 'edit-hero-unit-save-failed',
-			saveFailed: 'edit-hero-unit-save-failed',
+			fileType: 'main.edit-hero-unit-save-failed',
+			saveFailed: 'main.edit-hero-unit-save-failed',
 		},
 
 		wikiImageUrl: Ember.computed('badgeImage.value', 'squareDimension', function () {
@@ -124,7 +124,7 @@ export default Ember.Component.extend(
 		},
 
 		setErrorMessage(msgKey) {
-			this.set('errorMessage', i18n.t(`main.${msgKey}`, {ns: 'discussion'}));
+			this.set('errorMessage', i18n.t(msgKey, {ns: 'discussion'}));
 		},
 
 		actions: {
@@ -140,9 +140,11 @@ export default Ember.Component.extend(
 			 * @returns {void}
 			 */
 			enableEditMode() {
-				this.setEditMode(true);
-				this.escapeOnce();
-				track(trackActions.EditCommunityBadgeButtonTapped);
+				if (this.get('canEdit')) {
+					this.setEditMode(true);
+					this.escapeOnce();
+					track(trackActions.EditCommunityBadgeButtonTapped);
+				}
 			},
 
 			/**
@@ -155,17 +157,15 @@ export default Ember.Component.extend(
 			},
 
 			submit() {
-				if (!this.get('canEdit')) {
-					return;
-				}
+				const uploadedFile = this.get('uploadedFile');
 
-				if (!this.get('isNewBadgePreviewMode') || !this.get('uploadedFile')) {
+				if (!this.get('isNewBadgePreviewMode') || !uploadedFile) {
 					this.setEditMode(false);
 					return;
 				}
 
 				this.set('isLoadingMode', true);
-				this.get('uploadCommunityBadge')(this.get('uploadedFile')).then(() => {
+				this.get('uploadCommunityBadge')(uploadedFile).then(() => {
 					this.set('wikiImageUrl', this.get('newWikiImageUrl'));
 					track(trackActions.CommunityBadgeSave);
 					this.setEditMode(false);
@@ -177,10 +177,6 @@ export default Ember.Component.extend(
 			},
 
 			fileUpload(files) {
-				if (!this.get('canEdit')) {
-					return;
-				}
-
 				const imageFile = files[0];
 
 				if (!this.get(`allowedFileTypes.${imageFile.type}`)) {
