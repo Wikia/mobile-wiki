@@ -301,6 +301,7 @@ body.discussions {
 		.post-details-link {
 			color: $discussion-content-color;
 			display: block;
+			line-height: $post-title-line-height;
 		}
 	}
 
@@ -654,6 +655,7 @@ body.discussions {
 
 		.post-detail .post-title {
 			font-size: $type-small;
+			line-height: $line-height-small;
 			margin: 7px 0 12px;
 		}
 	}
@@ -773,6 +775,7 @@ body.discussions {
 			.discussion-content {
 				.post-title {
 					font-size: $type-smaller;
+					line-height: $post-title-line-height;
 					margin: 5px 0 8px;
 				}
 			}
@@ -783,6 +786,12 @@ body.discussions {
 		.post-title {
 			line-height: $post-details-content-line-height;
 			margin: 0 0 5px;
+		}
+
+		.discussion-content {
+			.post-details-link {
+				line-height: $post-title-line-height;
+			}
 		}
 
 		.post-actions {
