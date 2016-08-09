@@ -35,7 +35,7 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 			}
 		}
 
-		p {
+		h2 {
 			font-size: $type-smaller;
 		}
 	}
@@ -104,14 +104,16 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 		}
 	}
 
-	p {
+	h2 {
 		color: $discussion-community-badge-title-color;
 		font-size: 1.5rem;
+		font-weight: $font-weight-normal;
 		line-height: 1.25;
+		margin: 16px 0;
 	}
 
 	&.is-error-message {
-		p {
+		h2 {
 			margin-top: 80px;
 		}
 	}
