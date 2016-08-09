@@ -7,7 +7,7 @@ export default Ember.Mixin.create({
 	},
 
 	/**
-	 * This method should be overwritten, is it just stubbed here
+	 * This method should be overwritten, it is just stubbed here
 	 *
 	 * @returns {void}
 	 */

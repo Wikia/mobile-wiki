@@ -21,7 +21,7 @@ const DiscussionSiteAttributesModel = DiscussionBaseModel.extend({
 	/**
 	 * Save attribute in site-attribute service
 	 * @param {String} name - attribute name
-	 * @param {String} value - the new value for the attribute
+	 * @param {String|Object} attributeData - the new value for the attribute
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	saveAttribute(name, attributeData) {
@@ -40,7 +40,7 @@ const DiscussionSiteAttributesModel = DiscussionBaseModel.extend({
 
 	/**
 	 * @param {String} name - attribute name
-	 * @param {String} image - the new image for the attribute
+	 * @param {Object} image - the new image for the attribute
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	saveImageAttribute(name, image) {

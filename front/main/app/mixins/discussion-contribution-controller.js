@@ -315,8 +315,8 @@ export default Ember.Mixin.create({
 
 		/**
 		 * This uploads the new community badge image
-		 * @param {Object} text
-		 * @returns {void}
+		 * @param {Object} image
+		 * @returns {Ember.RSVP.Promise} Promise object uploading the image to the site-attributes server
 		 */
 		uploadCommunityBadge(image) {
 			return this.get('discussion.model').attributes.saveImageAttribute('badgeImage', image);
