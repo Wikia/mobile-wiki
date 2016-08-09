@@ -5,14 +5,15 @@
 	position: relative;
 
 	.welcome-close {
+		padding: 6px;
 		position: absolute;
-		right: 11px;
-		top: 11px;
+		right: 5px;
+		top: 5px;
 
 		svg {
 			fill: $discussion-welcome-close-color;
-			height: 16px;
-			width: 16px;
+			height: 10px;
+			width: 10px;
 		}
 
 	}
