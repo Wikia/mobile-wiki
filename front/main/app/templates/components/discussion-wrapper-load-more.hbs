@@ -1,0 +1,18 @@
+{{#if hasMore}}
+	{{#if isLoading }}
+		{{loading-spinner
+			active=true
+			overlay=false
+			radius=32
+			strokeWidth=2
+		}}
+		<div class="load-more">
+			{{i18n 'main.loading-more-posts' ns='discussion'}}
+		</div>
+	{{/if}}
+	{{#if showLoadMoreButton}}
+		<div class="load-more-button active-element-theme-color active-element-border-theme-color" {{action this.attrs.loadNextPage}}>
+			{{i18n 'main.load-more-posts-button' ns='discussion'}}
+		</div>
+	{{/if}}
+{{/if}}

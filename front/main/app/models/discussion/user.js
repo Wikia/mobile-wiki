@@ -10,7 +10,6 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 	DiscussionModerationModelMixin,
 	DiscussionContributionModelMixin,
 	{
-		postsLimit: 10,
 		userId: null,
 
 		/**
@@ -18,12 +17,12 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 		 *
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		loadPage(pageNum = 0) {
-			this.set('pageNum', pageNum);
+		loadPage(pageNum = 1) {
+			this.set('data.pageNum', pageNum);
 
 			return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/users/${this.get('userId')}/posts`), {
 				data: {
-					limit: this.get('postsLimit'),
+					limit: this.get('loadMoreLimit'),
 					page: this.get('data.pageNum'),
 					pivot: this.get('pivotId'),
 					responseGroup: 'full',
@@ -46,7 +45,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 		 */
 		setNormalizedData(apiData) {
 			const posts = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
-				pivotId = Ember.getWithDefault(posts, '0.id', 0),
+				pivotId = Ember.getWithDefault(posts, 'firstObject.id', 0),
 				contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities = DiscussionEntities.createFromPostsData(posts);
 
@@ -60,7 +59,7 @@ const DiscussionUserModel = DiscussionBaseModel.extend(
 				userName: contributors.get('users.firstObject.name'),
 			});
 
-			this.setProperties('pivotId', pivotId);
+			this.set('pivotId', pivotId);
 		}
 	}
 );
@@ -81,7 +80,7 @@ DiscussionUserModel.reopenClass({
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/users/${userId}/posts`), {
 				data: {
-					limit: userInstance.postsLimit,
+					limit: userInstance.get('postsLimit'),
 					responseGroup: 'full',
 					viewableOnly: false
 				}
