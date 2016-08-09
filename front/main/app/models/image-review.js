@@ -87,7 +87,7 @@ ImageReviewModel.reopenClass({
 				return ImageReviewModel.reviewImage(item.contractId, item.imageId, item.status);
 			});
 
-			Ember.RSVP.all(promises).then((data) => {
+			Ember.RSVP.allSettled(promises).then((data) => {
 				resolve(data);
 			}, (data) => {
 				reject(data);

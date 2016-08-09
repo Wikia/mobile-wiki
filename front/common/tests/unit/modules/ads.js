@@ -58,6 +58,7 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 			runSpy = sinon.spy(),
 			incrementSpy = sinon.spy(),
 			initDetectionSpy = sinon.spy(),
+			pageFairInitDetectionSpy = sinon.spy(),
 			startOnLoadQueue = sinon.spy(),
 			instance = Ads.getInstance();
 
@@ -69,6 +70,9 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 		};
 		instance.sourcePointDetectionModule = {
 			initDetection: initDetectionSpy
+		};
+		instance.pageFairDetectionModule = {
+			initDetection: pageFairInitDetectionSpy
 		};
 		instance.adMercuryListenerModule = {
 			startOnLoadQueue: startOnLoadQueue
