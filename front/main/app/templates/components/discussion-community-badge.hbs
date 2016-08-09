@@ -14,8 +14,8 @@
 			</div>
 			{{#if isEditMode}}
 				{{discussion-edit-approve-buttons
-					close=(action 'disableEditMode')
 					approve=(action 'submit')
+					close=(action 'disableEditMode')
 				}}
 			{{/if}}
 			{{#if isLoadingMode}}
@@ -32,12 +32,11 @@
 					{{#unless isNewBadgePreviewMode}}
 						<div class="edit-mode">
 							{{file-input
-								tagName='div'
 								classNames=fileInputClassNames
-								fileUpload=(action 'fileUpload')
-								reset=resetFileInput
-								label=(i18n 'main.upload-image-button-text' ns='discussion')
 								click=(action 'emptyClickForFileInput')
+								fileUpload=(action 'fileUpload')
+								label=(i18n 'main.upload-image-button-text' ns='discussion')
+								reset=resetFileInput
 							}}
 							{{{i18n 'main.edit-badge-hint-text' ns='discussion'}}}
 						</div>
