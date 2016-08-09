@@ -315,7 +315,7 @@ body.discussions {
 		font-size: $type-smaller;
 		font-weight: 600;
 		line-height: $post-title-line-height;
-		margin: 0 0 5px;
+		margin: 4px 0 5px;
 
 		.post-details-link {
 			color: $discussion-post-title-color;
@@ -773,7 +773,7 @@ body.discussions {
 			.discussion-content {
 				.post-title {
 					font-size: $type-smaller;
-					margin: 5px 0 4px;
+					margin: 5px 0 8px;
 				}
 			}
 		}
@@ -781,8 +781,8 @@ body.discussions {
 
 	.discussion {
 		.post-title {
-			font-weight: 500;
 			line-height: $post-details-content-line-height;
+			margin: 0 0 5px;
 		}
 
 		.post-actions {
