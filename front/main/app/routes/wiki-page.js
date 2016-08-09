@@ -168,10 +168,13 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 	 * @param {Ember.Model} model
 	 */
 	sendLyricsPageView(handler, model) {
+		console.log('>>>>>>>>>>>>> IN sendLyricsPageView');
 		if (handler.controllerName === 'article' && Ember.get(Mercury, 'wiki.id') === 43339) {
+			console.log('>>>>>>>>>>>>> before $');
 			const amgId = parseInt($('#lyric').data('amg-id'), 10) || 0,
 				gracenoteId = parseInt($('#gracenoteid').text(), 10) || 0;
 
+			console.log('>>>>>>>>>>>>> after $, before request');
 			request(M.buildUrl({path: '/wikia.php'}), {
 				data: {
 					controller: 'LyricFind',
@@ -181,8 +184,10 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 					gracenoteid: gracenoteId,
 					rand: (`${Math.random()}`).substr(2, 8)
 				}
+			}).then((data) => {
+				console.log('>>>>>>>>>>>>> DATA', data);
 			}).catch((error) => {
-				console.log('>>>>>>>>>>>>>', error);
+				console.log('>>>>>>>>>>>>> ERROR', error);
 			});
 		}
 	},
