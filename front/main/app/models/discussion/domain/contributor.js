@@ -27,6 +27,7 @@ DiscussionContributor.reopenClass({
 	create(data) {
 		return this._super({
 			avatarUrl: data.avatarUrl,
+			badgePermission: data.badgePermission,
 			id: data.id,
 			name: data.name,
 			profileUrl: DiscussionContributor.getProfileUrl(data.name)
