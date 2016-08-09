@@ -37,6 +37,7 @@
 {{/modal-dialog}}
 
 {{#discussion-post-details-layout
+	attributes=model.index.attributes.data
 	deleteAllPosts=(action 'deleteAllPosts')
 	model=model.current.data
 	smartBannerVisible=smartBannerVisible
