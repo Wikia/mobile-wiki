@@ -94,7 +94,7 @@ export default Ember.Component.extend(
 		},
 
 		uploadImage(imageFile) {
-			return new Promise((resolve, reject) => {
+			return new Ember.RSVP.Promise((resolve, reject) => {
 				const fileReader = new FileReader();
 
 				fileReader.addEventListener('load', resolve);
