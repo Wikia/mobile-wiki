@@ -7,7 +7,8 @@ module.exports = function (environment) {
 		environment: environment,
 		locationType: 'auto',
 		newRelic: {
-			licenseKey: '60e97494a4'
+			licenseKey: '60e97494a4',
+			spaMonitoring: true
 		},
 		EmberENV: {
 			EXTEND_PROTOTYPES: {
