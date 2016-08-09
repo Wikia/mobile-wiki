@@ -1,11 +1,12 @@
 import Ember from 'ember';
 import wrapMeHelper from '../helpers/wrap-me';
+import localStorageConnector from '../utils/local-storage-connector';
 import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend({
 	classNames: ['desktop-hidden'],
 
-	wasSeen: Boolean(localStorage.getItem('discussionWelcomeMessageSeen')),
+	wasSeen: Boolean(localStorageConnector.getItem('discussionWelcomeMessageSeen')),
 
 	guidelinesLink: wrapMeHelper.compute([
 		i18n.t('main.guidelines-link-title', {ns: 'discussion'})
