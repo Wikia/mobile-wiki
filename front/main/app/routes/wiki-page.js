@@ -183,7 +183,8 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 					amgid: amgId,
 					gracenoteid: gracenoteId,
 					rand: (`${Math.random()}`).substr(2, 8)
-				}
+				},
+				dataType: 'text'
 			}).then((data) => {
 				console.log('>>>>>>>>>>>>> DATA', data);
 			}).catch((error) => {
