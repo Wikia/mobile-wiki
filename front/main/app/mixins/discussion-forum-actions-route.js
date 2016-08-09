@@ -24,6 +24,8 @@ export default Ember.Mixin.create(
 
 			if (queryParams) {
 				let params = JSON.parse(queryParams);
+				// check if object because of situation when user had previously stored "null" (string) value
+				// for params
 				if (Ember.typeOf(params) === 'object') {
 					params = transform(params);
 					localStorageConnector.setItem(
