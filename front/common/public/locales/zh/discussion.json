@@ -23,6 +23,7 @@
     "sort-by-latest":"最新話題",
     "sort-by-trending":"熱門瀏覽",
     "loading-more-posts":"載入更多文章\n",
+    "load-more-posts-button":"加載更多",
     "number-of-posts":"__numberOfPosts__篇文章",
     "connection-error":"不能連接，請再試一次。",
     "not-found-error":"很抱歉，此頁面似乎不存在！",
@@ -110,7 +111,7 @@
     "guidelines-link-title":"討論版指引",
     "guidelines-header-title":"討論版指引",
     "welcome-message-header":"有你在這裡真是太棒了!",
-    "welcome-message-text":"盡情地瀏覽、創建和回復文章吧！請閱讀我們的__guidelinesLinkTitle__，您將會更快融入其中。"
+    "welcome-message-text":"盡情地瀏覽、創建和回復文章吧！請閱讀我們的__guidelinesLinkTitle__，您將會更快融入其中。",
   },
   "editor":{
     "post-failed-error":"發佈失敗",

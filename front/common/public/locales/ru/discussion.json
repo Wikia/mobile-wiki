@@ -23,6 +23,7 @@
     "sort-by-latest":"Последние",
     "sort-by-trending":"Популярные",
     "loading-more-posts":"Загрузка сообщений",
+    "load-more-posts-button":"Загрузить ещё",
     "number-of-posts":"__numberOfPosts__ записей",
     "connection-error":"Ошибка подключения. Пожалуйста, попробуйте позже.",
     "not-found-error":"Страницы не существует.",
@@ -110,7 +111,7 @@
     "guidelines-link-title":"Правила обсуждений",
     "guidelines-header-title":"Правила обсуждений",
     "welcome-message-header":"Мы рады, что вы здесь!",
-    "welcome-message-text":"Читайте, создавайте и отвечайте на сообщения. Прочитайте наши __guidelinesLinkTitle__ и присоединяйтесь к обсуждениям."
+    "welcome-message-text":"Читайте, создавайте и отвечайте на сообщения. Прочитайте наши __guidelinesLinkTitle__ и присоединяйтесь к обсуждениям.",
   },
   "editor":{
     "post-failed-error":"Не удалось записать сообщение.",

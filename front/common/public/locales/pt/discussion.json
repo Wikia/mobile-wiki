@@ -23,6 +23,7 @@
     "sort-by-latest":"Mais recentes",
     "sort-by-trending":"Tendências",
     "loading-more-posts":"Carregando mais posts",
+    "load-more-posts-button":"Carregar mais",
     "number-of-posts":"__numberOfPosts__ Posts",
     "connection-error":"Não é possível conectar, por favor, tente novamente.",
     "not-found-error":"Opa, parece que esta página não existe!",
@@ -110,7 +111,7 @@
     "guidelines-link-title":"Regras de Discussões",
     "guidelines-header-title":"Regras de Discussões",
     "welcome-message-header":"Que bom ter você por aqui!",
-    "welcome-message-text":"Divirta-se navegando, criando, ou respondendo aos posts. Leia nossas __guidelinesLinkTitle__ e você se sairá bem."
+    "welcome-message-text":"Divirta-se navegando, criando, ou respondendo aos posts. Leia nossas __guidelinesLinkTitle__ e você se sairá bem.",
   },
   "editor":{
     "post-failed-error":"O post falhou.",

@@ -23,6 +23,7 @@
     "sort-by-latest":"Neueste",
     "sort-by-trending":"Trends",
     "loading-more-posts":"Mehr Beiträge laden",
+    "load-more-posts-button":"Mehr anzeigen",
     "number-of-posts":"__numberOfPosts__ Beiträge",
     "connection-error":"Es kann keine Verbindung hergestellt werden, bitte versuche es noch einmal.",
     "not-found-error":"Hoppla, diese Seite gibt es scheinbar nicht!",
@@ -110,7 +111,7 @@
     "guidelines-link-title":"Diskussions-Richtlinien",
     "guidelines-header-title":"Diskussions-Richtlinien",
     "welcome-message-header":"Toll, dass du hier bist!",
-    "welcome-message-text":"Viel Spaß beim Surfen, beim Erstellen neuer Inhalte oder beim Beantworten von Beiträgen. Lies dir unsere __guidelinesLinkTitle__ durch, damit du gleich richtig dazu gehörst."
+    "welcome-message-text":"Viel Spaß beim Surfen, beim Erstellen neuer Inhalte oder beim Beantworten von Beiträgen. Lies dir unsere __guidelinesLinkTitle__ durch, damit du gleich richtig dazu gehörst.",
   },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",
@@ -123,7 +124,7 @@
     "post-edit-editor-label":"Deinen Beitrag bearbeiten",
     "post-action-button-label":"Veröffentlichen",
     "post-edit-action-button-label":"Speichern",
-    "post-editor-collapsed-label":"Eine neue Diskussionen beginnen...",
+    "post-editor-collapsed-label":"Eine neue Diskussion beginnen...",
     "post-editor-title-label":"Titel (optional)",
     "post-editor-title-placeholder-text":"Titel der neuen Diskussion...",
     "post-editor-description-label":"Beschreibung",

@@ -23,6 +23,7 @@
     "sort-by-latest":"Más recientes",
     "sort-by-trending":"Tendencias",
     "loading-more-posts":"Cargando más discusiones",
+    "load-more-posts-button":"Cargar más",
     "number-of-posts":"__numberOfPosts__ discusiones",
     "connection-error":"No se puede conectar, por favor inténtalo de nuevo.",
     "not-found-error":"¡Uh oh, parece que esta página no existe!",
@@ -110,7 +111,7 @@
     "guidelines-link-title":"Guía comunitaria",
     "guidelines-header-title":"Guía comunitaria",
     "welcome-message-header":"¡Que bueno es tenerte aquí!",
-    "welcome-message-text":"Diviértete navegando, creando o respondiendo a discusiones. Lee nuestra __guidelinesLinkTitle__ y encajarás perfectamente."
+    "welcome-message-text":"Diviértete navegando, creando o respondiendo a discusiones. Lee nuestra __guidelinesLinkTitle__ y encajarás perfectamente.",
   },
   "editor":{
     "post-failed-error":"Fallo en discusión.",

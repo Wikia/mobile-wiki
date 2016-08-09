@@ -23,6 +23,7 @@
     "sort-by-latest":"Najnowsze",
     "sort-by-trending":"Popularne",
     "loading-more-posts":"Ładuję więcej postów",
+    "load-more-posts-button":"Załaduj więcej",
     "number-of-posts":"__numberOfPosts__ posty\/ów",
     "connection-error":"Nie można uzyskać połączenia, spróbuj ponownie.",
     "not-found-error":"Ojej, wygląda na to, że ta strona nie istnieje!",
@@ -103,14 +104,14 @@
     "app-promotion-text-details-page":"Bądź na bieżąco, nieważne gdzie jesteś. Pobierz aplikację teraz!",
     "wiki-home":"Strona główna",
     "discussion-guidelines":"Zasady korzystania z Dyskusji",
-    "rename-category-length-error":"Category name must be less than 20 characters.",
-    "rename-category-auth-error":"You are logged out. Please sign in.",
-    "rename-category-oermissions-error":"Category cannot be updated.",
-    "rename-category-general-error":"Something went wrong, please try again.",
+    "rename-category-length-error":"Nazwa kategorii musi zawierać mniej niż 20 znaków.",
+    "rename-category-auth-error":"Użytkownik jest wylogowany. Zaloguj się.",
+    "rename-category-oermissions-error":"Kategoria nie może być zaktualizowana.",
+    "rename-category-general-error":"Coś poszło nie tak. Spróbuj ponownie.",
     "guidelines-link-title":"Zasady korzystania z Dyskusji",
     "guidelines-header-title":"Zasady korzystania z Dyskusji",
     "welcome-message-header":"Niesamowicie się cieszymy, że jesteś!",
-    "welcome-message-text":"Miłego przeglądania, tworzenia i odpowiadania na posty. Przeczytaj nasze __guidelinesLinkTitle__, które pomogą Ci się szybko odnaleźć."
+    "welcome-message-text":"Miłego przeglądania, tworzenia i odpowiadania na posty. Przeczytaj nasze __guidelinesLinkTitle__, które pomogą Ci się szybko odnaleźć.",
   },
   "editor":{
     "post-failed-error":"Publikacja nie powiodła się.",
@@ -123,7 +124,7 @@
     "post-edit-editor-label":"Edytuj swój post",
     "post-action-button-label":"Opublikuj",
     "post-edit-action-button-label":"Zapisz",
-    "post-editor-collapsed-label":"Start a new discussion...",
+    "post-editor-collapsed-label":"Rozpocznij nową dyskusję...",
     "post-editor-title-label":"Tytuł (opcjonalnie)",
     "post-editor-title-placeholder-text":"Tytuł nowej dyskusji...",
     "post-editor-description-label":"Opis",
@@ -137,8 +138,8 @@
     "reply-edit-editor-label":"Edytuj swoją odpowiedź",
     "reply-action-button-label":"Odpowiedz",
     "reply-edit-action-button-label":"Zapisz",
-    "overlay-message-text":"Before posting, be sure to check out the __guidelinesLinkTitle__.",
-    "overlay-message-button":"Done",
+    "overlay-message-text":"Przed opublikowaniem pamiętaj, by zapoznać się z __guidelinesLinkTitle__.",
+    "overlay-message-button":"Gotowe",
     "guidelines-link-title":"Zasady korzystania z Dyskusji"
   }
 }
