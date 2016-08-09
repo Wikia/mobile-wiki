@@ -197,6 +197,9 @@ export default Ember.Component.extend(
 						uploadedFile: imageFile,
 					});
 					track(trackActions.EditCommunityBadgeImagePreview);
+				}).catch((err) => {
+					this.set('isLoadingMode', false);
+					this.setErrorMessage(this.get('errors.saveFailed'));
 				});
 			},
 		},
