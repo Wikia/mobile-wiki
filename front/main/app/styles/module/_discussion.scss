@@ -7,6 +7,7 @@ $desktop-content-font-size: $type-base;
 $desktop-content-line-height: $line-height-base;
 $desktop-post-details-content-line-height: $line-height-base;
 $desktop-post-details-content-font-size: $type-base;
+$post-title-line-height: 1.5rem;
 $post-details-content-line-height: 1.4rem;
 $post-details-outer-width: 580px;
 $post-details-post-margin-bottom: 10px;
@@ -312,8 +313,8 @@ body.discussions {
 	.post-title {
 		color: $discussion-post-title-color;
 		font-size: $type-smaller;
-		font-weight: 500;
-		line-height: $post-details-content-line-height;
+		font-weight: 600;
+		line-height: $post-title-line-height;
 		margin: 0 0 5px 0;
 
 		.post-details-link {
@@ -653,8 +654,7 @@ body.discussions {
 
 		.post-detail .post-title {
 			font-size: $type-small;
-			line-height: $line-height-base;
-			margin: 7px 0 8px 0;
+			margin: 7px 0 12px 0;
 		}
 	}
 }
@@ -773,7 +773,6 @@ body.discussions {
 			.discussion-content {
 				.post-title {
 					font-size: $type-smaller;
-					line-height: $post-details-content-line-height;
 					margin: 5px 0 4px 0;
 				}
 			}
@@ -781,6 +780,11 @@ body.discussions {
 	}
 
 	.discussion {
+		.post-title {
+			font-weight: 500;
+			line-height: $post-details-content-line-height;
+		}
+
 		.post-actions {
 			> li:not(:last-child) {
 				border-right: none;
