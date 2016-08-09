@@ -65,7 +65,8 @@ export default DiscussionBaseRoute.extend(
 				const transitionParams =
 					JSON.parse(localStorageConnector.getItem('discussionForumPreviousQueryParams'));
 
-				if (params.catId && params.catId.length === 0 && transitionParams.catId.length > 0) {
+				if (params.catId && params.catId.length === 0
+					&& Ember.typeOf(transitionParams) === 'object' && transitionParams.catId.length > 0) {
 					transition = this.transitionTo({
 						queryParams: transitionParams
 					});
@@ -86,9 +87,11 @@ export default DiscussionBaseRoute.extend(
 		 */
 		validateAndUpdateStoredParams(categories, params) {
 			this.updateStoredQueryParams(storedParams => {
-				storedParams.catId = categories.get('categories')
-					.filter(category => storedParams.catId.indexOf(category.id) !== -1)
-					.map(category => category.id);
+				if (storedParams.catId) {
+					storedParams.catId = categories.get('categories')
+						.filter(category => storedParams.catId.indexOf(category.id) !== -1)
+						.map(category => category.id);
+				}
 				if (params.sort) {
 					storedParams.sort = params.sort;
 				}

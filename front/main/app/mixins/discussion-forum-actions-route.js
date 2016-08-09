@@ -24,9 +24,13 @@ export default Ember.Mixin.create(
 
 			if (queryParams) {
 				let params = JSON.parse(queryParams);
-				params = transform(params);
-				localStorageConnector.setItem(
-					'discussionForumPreviousQueryParams', JSON.stringify(params));
+				if (Ember.typeOf(params) === 'object') {
+					params = transform(params);
+					localStorageConnector.setItem(
+						'discussionForumPreviousQueryParams', JSON.stringify(params));
+				} else {
+					localStorageConnector.removeItem('discussionForumPreviousQueryParams');
+				}
 			}
 		},
 
