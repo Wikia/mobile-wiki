@@ -790,9 +790,11 @@ body.discussions {
 		}
 
 		.user-avatar {
-			img, svg {
-				height: 30px;
-				width: 30px;
+			.avatar {
+				img, svg {
+					height: 30px;
+					width: 30px;
+				}
 			}
 
 			.avatar-username {
