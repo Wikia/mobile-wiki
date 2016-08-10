@@ -1,21 +1,40 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
 import VisibilityStateManager from '../visibility-state-manager';
+import BaseHandler from './base-handler';
+
+/**
+ * @param {Ember.Route} route
+ * @param {Ember.model} model
+ * @returns {void}
+ */
+function afterModel(route, model) {
+	route.controllerFor('application').set('currentTitle', model.get('title'));
+	VisibilityStateManager.reset();
+
+	// Reset query parameters
+	model.set('commentsPage', null);
+
+	route.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
+}
 
 /**
  * This function tracks page view only on articles on Lyrics Wiki (id: 43339)
  *
- * @param {string} title
+ * @param {Ember.Model} model
  */
-function sendLyricsPageView(title) {
+function sendLyricsPageView(model) {
 	if (Ember.get(Mercury, 'wiki.id') === 43339) {
+		const amgId = parseInt($('#lyric').data('amg-id'), 10) || 0,
+			gracenoteId = parseInt($('#gracenoteid').text(), 10) || 0;
+
 		request(M.buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'LyricFind',
 				method: 'track',
-				title,
-				amgid: 0,
-				gracenoteid: 0,
+				title: model.title,
+				amgid: amgId,
+				gracenoteid: gracenoteId,
 				rand: (`${Math.random()}`).substr(2, 8)
 			},
 			dataType: 'text'
@@ -29,29 +48,21 @@ function sendLyricsPageView(title) {
 }
 
 /**
- * @param {Ember.Route} route
- * @param {Ember.model} model
- * @returns {void}
+ * Hook triggered on transition.then() in Route::afterModel()
+ *
+ * @param model
  */
-function afterModel(route, model) {
-	const title = model.get('title');
-
-	route.controllerFor('application').set('currentTitle', title);
-	VisibilityStateManager.reset();
-
-	// Reset query parameters
-	model.set('commentsPage', null);
-
-	route.set('redirectEmptyTarget', model.get('redirectEmptyTarget'));
-	sendLyricsPageView(title);
+function afterTransition(model) {
+	sendLyricsPageView(model);
 }
 
 /**
  * Export Article handler
  */
-export default {
+export default Ember.$.extend({}, BaseHandler, {
 	// template's and controller's name
 	controllerName: 'article',
 	viewName: 'article',
-	afterModel
-};
+	afterModel,
+	afterTransition
+});
