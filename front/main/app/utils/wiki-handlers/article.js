@@ -24,15 +24,15 @@ function afterModel(route, model) {
  *
  * https://github.com/Wikia/app/blob/dev/extensions/3rdparty/LyricWiki/LyricFind/js/modules/LyricFind.Tracker.js
  *
- * @param {string} title
+ * @param {Ember.model} model
  */
-function sendLyricsPageView(title) {
-	if (Ember.get(Mercury, 'wiki.id') === 43339) {
+function sendLyricsPageView(model) {
+	if (Ember.get(Mercury, 'wiki.id') === 43339 && !model.get('isMainPage')) {
 		request(M.buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'LyricFind',
 				method: 'track',
-				title,
+				title: model.get('title'),
 				amgid: 0,
 				gracenoteid: 0,
 				rand: (`${Math.random()}`).substr(2, 8)
@@ -50,10 +50,10 @@ function sendLyricsPageView(title) {
 /**
  * Hook triggered on transition.then() in Route::afterModel()
  *
- * @param model
+ * @param {Ember.model} model
  */
 function afterTransition(model) {
-	sendLyricsPageView(model.get('title'));
+	sendLyricsPageView(model);
 }
 
 /**
