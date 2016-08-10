@@ -19,5 +19,5 @@ export default {
 	viewName: 'category',
 	controllerName: 'category',
 	// hooks
-	afterModel,
+	afterModel
 };
