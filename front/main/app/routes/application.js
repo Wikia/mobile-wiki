@@ -136,7 +136,13 @@ export default Route.extend(
 				}
 
 				if (info.article) {
-					this.get('adsHighImpact').reload();
+					const instantGlobal = Ember.get(Wikia, 'InstantGlobals.wgAdDriverHighImpact2SlotCountries'),
+						isProperGeo = Ember.get(Wikia, 'geo.isProperGeo');
+
+					if (isProperGeo(instantGlobal)) {
+						this.get('adsHighImpact').reload();
+					}
+
 					this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
 				} else if (info.url) {
 					/**

@@ -4,7 +4,6 @@ moduleFor('service:ads-state', 'Unit | Service | ads state', {
 	unit: true
 });
 
-
 test('noAds is set correctly base on passed Query Parameter', function (assert) {
 	const service = this.subject(),
 		testCases = [
@@ -35,6 +34,4 @@ test('noAds is set correctly base on passed Query Parameter', function (assert) 
 		service.set('noAdsQueryParam', testCase.noAdsQueryParam);
 		assert.equal(service.get('noAds'), testCase.expected, testCase.msg);
 	});
-
-
 });
