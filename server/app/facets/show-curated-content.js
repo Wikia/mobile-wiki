@@ -80,7 +80,11 @@ export default function showCuratedContent(request, reply) {
 		 * @returns {CuratedContentPageData}
 		 *
 		 */
-		.then((data) => injectGlobalFooterData(data, request, true))
+		.then((data) => injectGlobalFooterData({
+			data,
+			request,
+			showFooter: true
+		}))
 		/**
 		 * @param {CuratedContentPageData} data
 		 * @returns {void}

@@ -21,7 +21,7 @@ function getContentLanguage(wikiVariables) {
  * @param {boolean} [showFullSiteLink=false]
  * @returns {Promise}
  */
-export default function injectGlobalFooterData(data, request, showFooter = false, showFullSiteLink = false) {
+export default function injectGlobalFooterData({data, request, showFooter = false, showFullSiteLink = false}) {
 	const wikiDomain = getCachedWikiDomainName(localSettings, request),
 		wikiId = data.wikiVariables.id,
 		language = getContentLanguage(data.wikiVariables),
