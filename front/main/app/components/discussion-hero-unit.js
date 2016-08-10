@@ -11,6 +11,10 @@ export default Ember.Component.extend(ViewportMixin, {
 	overlay: false,
 	style: null,
 
+	canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'heroImage.permissions.canEdit'),
+	currentUser: Ember.inject.service(),
+	editingPossible: false,
+
 	headerImages: {
 		24357: 'discussion-header-adventure-time.jpg',
 		531317: 'discussion-header-ru-adventure-time.jpg',

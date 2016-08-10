@@ -18,7 +18,9 @@
 			}}
 		{{/if}}
 	{{/if}}
-	{{discussion-edit-image-button
+	{{#if canEdit}}
+		{{discussion-edit-image-button
 			label='main.edit-hero-unit-button-text'
-	}}
+		}}
+	{{/if}}
 </div>
