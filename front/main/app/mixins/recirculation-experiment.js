@@ -19,20 +19,7 @@ export default Ember.Mixin.create(
 		}),
 
 		items: Ember.computed('model.items', function () {
-			return this.get('model.items').map((item) => {
-				if (this.get('externalLink')) {
-					const params = {
-						utm_source: 'wikia',
-						utm_campaign: 'recirc',
-						utm_medium: this.get('label'),
-						utm_content: item.index + 1
-					};
-
-					Ember.set(item, 'url', `${item.url}?${Ember.$.param(params)}`);
-				}
-
-				return item;
-			});
+			return this.get('model.items');
 		}),
 
 		/**
