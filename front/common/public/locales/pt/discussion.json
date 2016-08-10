@@ -23,6 +23,7 @@
     "sort-by-latest":"Mais recentes",
     "sort-by-trending":"Tendências",
     "loading-more-posts":"Carregando mais posts",
+    "load-more-posts-button":"Carregar mais",
     "number-of-posts":"__numberOfPosts__ Posts",
     "connection-error":"Não é possível conectar, por favor, tente novamente.",
     "not-found-error":"Opa, parece que esta página não existe!",
@@ -102,6 +103,11 @@
     "app-promotion-text":"Leve seu fandom com você, baixe o app hoje!",
     "app-promotion-text-details-page":"Mantenha-se atualizado em qualquer lugar. Obtenha o app agora!",
     "wiki-home":"Página inicial da Wikia",
+    "discussion-guidelines":"Diretrizes de Discussões",
+    "rename-category-length-error":"O nome da categoria deve ter menos de 20 caracteres.",
+    "rename-category-auth-error":"Você não está conectado. Por favor, inicie sessão.",
+    "rename-category-oermissions-error":"A categoria não pode ser atualizada.",
+    "rename-category-general-error":"Algo deu errado. Por favor, tente novamente.",
     "guidelines-link-title":"Regras de Discussões",
     "guidelines-header-title":"Regras de Discussões",
     "welcome-message-header":"Que bom ter você por aqui!",
@@ -118,7 +124,11 @@
     "post-edit-editor-label":"Editar seu post",
     "post-action-button-label":"Postar",
     "post-edit-action-button-label":"Salvar",
-    "post-editor-placeholder-text":"Compartilhe um pensamento, perguntas ou link...",
+    "post-editor-collapsed-label":"Comece uma nova discussão...",
+    "post-editor-title-label":"Título (opcional)",
+    "post-editor-title-placeholder-text":"Título da nova discussão...",
+    "post-editor-description-label":"Descrição",
+    "post-editor-description-placeholder-text":"Sobre o que é a sua nova discussão?",
     "guidelines-editor-placeholder-text":"",
     "guidelines-editor-editor-label":"Editar as diretrizes das discussões",
     "guidelines-editor-action-button-label":"Salvar",
@@ -127,6 +137,9 @@
     "reply-editor-label":"Adicionar à discussão",
     "reply-edit-editor-label":"Editar a sua resposta",
     "reply-action-button-label":"Responder",
-    "reply-edit-action-button-label":"Salvar"
+    "reply-edit-action-button-label":"Salvar",
+    "overlay-message-text":"Antes de postar, não esqueça de conferir as __guidelinesLinkTitle__.",
+    "overlay-message-button":"Pronto",
+    "guidelines-link-title":"Diretrizes de Discussões"
   }
 }

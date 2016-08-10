@@ -35,7 +35,7 @@ export default DiscussionEditor.extend({
 				$label = $target.closest('label');
 
 			if (Ember.isEmpty($label)) {
-				$label = $target.children('label:first');
+				$label = $target.children('label:last');
 			}
 			$label.find('textarea').focus();
 		} else {

@@ -25,10 +25,6 @@ export default DiscussionBaseController.extend(
 				this.get('target').send('updateCategories', categories);
 			},
 
-			gotoGuidelines() {
-				this.get('target').send('gotoGuidelines');
-			},
-
 			/**
 			 * This sets 'areGuidelinesVisible' property which results with Guidelines' modal open.
 			 * @returns {void}

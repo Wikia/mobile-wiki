@@ -23,6 +23,7 @@
     "sort-by-latest":"最新話題",
     "sort-by-trending":"熱門瀏覽",
     "loading-more-posts":"載入更多文章\n",
+    "load-more-posts-button":"加載更多",
     "number-of-posts":"__numberOfPosts__篇文章",
     "connection-error":"不能連接，請再試一次。",
     "not-found-error":"很抱歉，此頁面似乎不存在！",
@@ -102,6 +103,11 @@
     "app-promotion-text":"加入粉絲社區，趕快去下載App吧！",
     "app-promotion-text-details-page":"離線也能獲取最新資訊。 現在就下載手機App!",
     "wiki-home":"社區首頁",
+    "discussion-guidelines":"討論版指引",
+    "rename-category-length-error":"分類名稱必須少於20個字元。",
+    "rename-category-auth-error":"您已登出。請再次登錄。",
+    "rename-category-oermissions-error":"不能更新分類。",
+    "rename-category-general-error":"出現錯誤。 請再試一次。",
     "guidelines-link-title":"討論版指引",
     "guidelines-header-title":"討論版指引",
     "welcome-message-header":"有你在這裡真是太棒了!",
@@ -118,7 +124,11 @@
     "post-edit-editor-label":"編輯您的帖子",
     "post-action-button-label":"發佈",
     "post-edit-action-button-label":"保存",
-    "post-editor-placeholder-text":"分享想法、問題或連結...",
+    "post-editor-collapsed-label":"開始一個新討論",
+    "post-editor-title-label":"標題 （可選填）",
+    "post-editor-title-placeholder-text":"新討論的標題...",
+    "post-editor-description-label":"描述",
+    "post-editor-description-placeholder-text":"你發起的新討論是關於什麼的？",
     "guidelines-editor-placeholder-text":"",
     "guidelines-editor-editor-label":"編輯討論版指引",
     "guidelines-editor-action-button-label":"保存",
@@ -127,6 +137,9 @@
     "reply-editor-label":"添加到討論",
     "reply-edit-editor-label":"編輯您的回覆",
     "reply-action-button-label":"回覆",
-    "reply-edit-action-button-label":"保存"
+    "reply-edit-action-button-label":"保存",
+    "overlay-message-text":"在發佈之前，先閱讀 __guidelinesLinkTitle__。",
+    "overlay-message-button":"確認完成",
+    "guidelines-link-title":"討論版指引"
   }
 }
