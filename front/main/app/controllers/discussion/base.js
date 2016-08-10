@@ -55,12 +55,6 @@ export default Ember.Controller.extend(
 			 * @returns {void}
 			 */
 			updateCategories() {},
-
-			/**
-			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller
-			 * @returns {void}
-			 */
-			openGuidelines() {},
 		}
 	}
 );
