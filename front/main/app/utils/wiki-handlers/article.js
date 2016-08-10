@@ -39,11 +39,6 @@ function sendLyricsPageView(title) {
 				rand: (`${Math.random()}`).substr(2, 8)
 			},
 			dataType: 'text'
-		}).catch((error) => {
-			/**
-			 * MediaWiki returns 404 with header X-LyricFind-API-Code:106
-			 * for success request but no lyrics
-			 */
 		});
 	}
 }
