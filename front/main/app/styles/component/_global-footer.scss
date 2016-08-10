@@ -16,8 +16,8 @@
 
 .global-footer-full-site-link-wrapper {
 	display: none;
-}
 
-.show-global-footer-full-site-link .global-footer-full-site-link-wrapper {
-	display: block;
+	.show-global-footer-full-site-link & {
+		display: block;
+	}
 }
