@@ -8,7 +8,6 @@ $desktop-content-line-height: $line-height-base;
 $desktop-post-details-content-line-height: $line-height-base;
 $desktop-post-details-content-font-size: $type-base;
 $post-title-line-height: 1.5rem;
-$post-title-line-height-samller: 1.4rem;
 $post-content-line-height: 1.25rem;
 $post-details-outer-width: 580px;
 $post-details-post-margin-bottom: 10px;
@@ -653,7 +652,6 @@ body.discussions {
 	}
 
 	&.post {
-
 		.post-detail .post-title {
 			font-size: $type-small;
 			line-height: $line-height-small;
@@ -776,7 +774,7 @@ body.discussions {
 			.discussion-content {
 				.post-title {
 					font-size: $type-smaller;
-					line-height: $post-title-line-height-samller;
+					line-height: $post-content-line-height;
 					margin: 5px 0 8px;
 				}
 			}
@@ -785,7 +783,6 @@ body.discussions {
 
 	.discussion {
 		.post-title {
-			line-height: $post-title-line-height-samller;
 			margin: 0 0 5px;
 		}
 
