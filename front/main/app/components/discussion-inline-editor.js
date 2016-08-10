@@ -47,9 +47,7 @@ export default DiscussionMultipleInputsEditor.extend(
 					};
 
 					if (this.get('showsOpenGraphCard')) {
-						newDiscussionEntityData.openGraph = {
-							uri: this.get('openGraph.href')
-						};
+						newDiscussionEntityData.openGraph = this.get('openGraph');
 					}
 
 					this.get('create')(newDiscussionEntityData);
