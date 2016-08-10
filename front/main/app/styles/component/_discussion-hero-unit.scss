@@ -42,6 +42,11 @@ $discussion-hero-unit-minimized-height: 25px;
 		padding-top: 37px;
 		width: 100%;
 	}
+
+	.discussion-edit-approve-wrapper {
+		border-top-color: $discussion-upload-image-approve-buttons-border;
+		margin-top: 36px;
+	}
 }
 
 .minimized {

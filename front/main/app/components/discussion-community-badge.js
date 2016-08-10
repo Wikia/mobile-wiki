@@ -124,15 +124,6 @@ export default Ember.Component.extend(
 				}
 			},
 
-			/**
-			 * Disables community badge edit mode
-			 *
-			 * @returns {void}
-			 */
-			disableEditMode() {
-				this.setEditMode(false);
-			},
-
 			submit() {
 				const uploadedFile = this.get('uploadedFile');
 

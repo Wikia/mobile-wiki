@@ -26,5 +26,17 @@ export default Ember.Mixin.create({
 			});
 		}
 	},
+
+	actions: {
+		enableEditMode() {
+			if (this.get('canEdit')) {
+				this.setEditMode(true);
+			}
+		},
+
+		disableEditMode() {
+			this.setEditMode(false);
+		},
+	}
 });
 

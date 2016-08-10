@@ -165,15 +165,5 @@ export default Ember.Component.extend(
 				new Ember.Handlebars.SafeString(`background: #fff url(/front/common/images/${image}) center no-repeat;`));
 			this.set('contentClassNames', 'background-alpha-theme-color');
 		}
-	}),
-
-	actions: {
-		enableEditMode() {
-			if (this.get('canEdit')) {
-				this.setEditMode(true);
-				// this.escapeOnce();
-				// track(trackActions.EditCommunityBadgeButtonTapped);
-			}
-		}
-	}
+	})
 });
