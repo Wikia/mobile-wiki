@@ -42,10 +42,10 @@
 						</div>
 					{{/unless}}
 				{{else}}
-					<div class="edit-badge-button" {{action 'enableEditMode'}}>
-						{{i18n 'main.edit-badge-button-text' ns='discussion'}}
-						{{svg 'camera' role='img' class='icon-camera'}}
-					</div>
+					{{discussion-edit-image-button
+						click=(action 'enableEditMode')
+						label='main.edit-badge-button-text'
+					}}
 				{{/if}}
 			{{/if}}
 		{{/unless}}

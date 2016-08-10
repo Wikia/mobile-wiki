@@ -42,33 +42,6 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 }
 
 .community-badge {
-	.edit-badge-button {
-		background-color: $discussion-edit-image-button-background-color;
-		color: $discussion-edit-image-button-text-color;
-		display: none;
-		font-size: 10px;
-		height: auto;
-		left: 0;
-		letter-spacing: 0.5px;
-		line-height: 15px;
-		min-height: 30px;
-		opacity: 0.9;
-		padding: 7px 32px 7px 4px;
-		position: absolute;
-		text-align: center;
-		text-transform: uppercase;
-		top: 0;
-		width: 100%;
-
-		.icon-camera {
-			height: 24px;
-			position: absolute;
-			right: 4px;
-			top: 2px;
-			width: 24px;
-		}
-	}
-
 	.community-badge-image {
 		border: 2px solid $discussion-community-badge-border;
 		box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
@@ -93,14 +66,6 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 			position: absolute;
 			top: 0;
 			width: 100%;
-		}
-	}
-
-	&:not(.is-edit-mode) {
-		.community-badge-image:hover {
-			.edit-badge-button {
-				display: block;
-			}
 		}
 	}
 
