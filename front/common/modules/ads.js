@@ -13,12 +13,6 @@ import load from '../utils/load';
  */
 
 /**
- * @typedef {Object} AdSlot
- * @property {string} name
- * @property {Function} onSuccess
- */
-
-/**
  * @typedef {Object} AdLogicPageViewCounterModule
  * @property {Function} get
  * @property {Function} increment
@@ -354,11 +348,11 @@ class Ads {
 	/**
 	 * Adds ad slot
 	 *
-	 * @param {AdSlot} adSlot - object representing ad slot
+	 * @param {string} name - ad slot name
 	 * @returns {number} index of the inserted slot
 	 */
-	addSlot(adSlot) {
-		return this.adSlots.push([adSlot]);
+	addSlot(name) {
+		return this.adSlots.push([name]);
 	}
 
 	/**
@@ -369,7 +363,7 @@ class Ads {
 	 */
 	removeSlot(name) {
 		this.adSlots = $.grep(this.adSlots, (slot) => {
-			return slot[0].name ? (slot[0].name === name) : (slot[0] && slot[0] === name);
+			return slot[0] && slot[0] === name;
 		}, true);
 	}
 

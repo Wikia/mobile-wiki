@@ -36,19 +36,13 @@ export default Component.extend(
 
 			if (this.get('isAboveTheFold')) {
 				Logger.info('Injected ad', name);
-				ads.addSlot({
-					slotName: name,
-					onSuccess: this.get('onSuccess')
-				});
+				ads.addSlot(name);
 			} else {
 				ads.waitForUapResponse(
 					() => {},
 					() => {
 						Logger.info('Injected ad:', name);
-						ads.pushSlotToQueue({
-							slotName: name,
-							onSuccess: this.get('onSuccess')
-						});
+						ads.pushSlotToQueue(name);
 					}
 				);
 			}
@@ -77,10 +71,7 @@ export default Component.extend(
 				ads.waitForUapResponse(
 					() => {
 						Logger.info('Injected ad on scroll:', name);
-						ads.pushSlotToQueue({
-							slotName: name,
-							onSuccess: this.get('onSuccess')
-						});
+						ads.pushSlotToQueue(name);
 					},
 					() => {}
 				);

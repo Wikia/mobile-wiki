@@ -104,12 +104,7 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 	QUnit.test('Add/remove slots works', function (assert) {
 		var instance = Ads.getInstance();
 
-		instance.addSlot({
-			name: 'foo',
-			onSuccess: function () {
-
-			}
-		});
+		instance.addSlot('foo');
 		instance.addSlot('bar');
 		assert.equal(instance.adSlots.length, 2);
 		instance.removeSlot('foo');
