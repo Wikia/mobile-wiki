@@ -19,22 +19,23 @@ function afterModel(route, model) {
 }
 
 /**
- * This function tracks page view only on articles on Lyrics Wiki (id: 43339)
+ * This function tracks page view only on articles on Lyrics Wiki (id: 43339).
+ * Notice that params amgid and gracenoteid are set to 0, those params are not important,
+ * but to be consistent with Oasis we send them
  *
- * @param {Ember.Model} model
+ * https://github.com/Wikia/app/blob/dev/extensions/3rdparty/LyricWiki/LyricFind/js/modules/LyricFind.Tracker.js
+ *
+ * @param {string} title
  */
-function sendLyricsPageView(model) {
+function sendLyricsPageView(title) {
 	if (Ember.get(Mercury, 'wiki.id') === 43339) {
-		const amgId = parseInt($('#lyric').data('amg-id'), 10) || 0,
-			gracenoteId = parseInt($('#gracenoteid').text(), 10) || 0;
-
 		request(M.buildUrl({path: '/wikia.php'}), {
 			data: {
 				controller: 'LyricFind',
 				method: 'track',
-				title: model.title,
-				amgid: amgId,
-				gracenoteid: gracenoteId,
+				title,
+				amgid: 0,
+				gracenoteid: 0,
 				rand: (`${Math.random()}`).substr(2, 8)
 			},
 			dataType: 'text'
@@ -53,7 +54,7 @@ function sendLyricsPageView(model) {
  * @param model
  */
 function afterTransition(model) {
-	sendLyricsPageView(model);
+	sendLyricsPageView(model.get('title'));
 }
 
 /**
