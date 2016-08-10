@@ -1,4 +1,4 @@
-<div class="discussion-hero-unit-content {{contentClassNames}}">
+<div class="discussion-hero-unit-content {{contentClassNames}} {{if isEditMode 'highlight-overlay-content'}}">
 	{{#if userName}}
 		{{discussion-post-list-header
 			userName=userName
@@ -19,8 +19,18 @@
 		{{/if}}
 	{{/if}}
 	{{#if canEdit}}
-		{{discussion-edit-image-button
-			label='main.edit-hero-unit-button-text'
-		}}
+		{{#if isEditMode}}
+			<div class="image-edit-mode">
+				{{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}}
+			</div>
+		{{else}}
+			{{discussion-edit-image-button
+				click=(action 'enableEditMode')
+				label='main.edit-hero-unit-button-text'
+			}}
+		{{/if}}
 	{{/if}}
 </div>
+{{wikia-ui-components/highlight-overlay
+	isVisible=isEditMode
+}}

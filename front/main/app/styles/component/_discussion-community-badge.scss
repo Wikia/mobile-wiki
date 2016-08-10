@@ -41,6 +41,22 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 	}
 }
 
+.image-edit-mode {
+	background-color: $discussion-edit-image-upload-background-color;
+	color: $discussion-edit-image-hint-text-color;
+	cursor: auto;
+	font-size: $type-min;
+	height: 100%;
+	left: 0;
+	letter-spacing: 0.5px;
+	line-height: 15px;
+	padding: 8px 5px;
+	position: absolute;
+	text-align: center;
+	top: 0;
+	width: 100%;
+}
+
 .community-badge {
 	.community-badge-image {
 		border: 2px solid $discussion-community-badge-border;
@@ -83,21 +99,7 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 		}
 	}
 
-	.edit-mode {
-		background-color: $discussion-edit-image-upload-background-color;
-		color: $discussion-edit-image-hint-text-color;
-		cursor: auto;
-		font-size: $type-min;
-		height: 100%;
-		left: 0;
-		letter-spacing: 0.5px;
-		line-height: 15px;
-		padding: 8px 5px;
-		position: absolute;
-		text-align: center;
-		top: 0;
-		width: 100%;
-
+	.image-edit-mode {
 		.upload-image-button {
 			margin-bottom: 10px;
 		}

@@ -1,7 +1,11 @@
 import Ember from 'ember';
+import DiscussionEditImage from '../mixins/discussion-edit-image';
 import ViewportMixin from '../mixins/viewport';
 
-export default Ember.Component.extend(ViewportMixin, {
+export default Ember.Component.extend(
+	DiscussionEditImage,
+	ViewportMixin,
+	{
 	classNames: ['discussion-hero-unit'],
 	contentClassNames: 'background-theme-color',
 	attributeBindings: ['style'],
@@ -162,4 +166,14 @@ export default Ember.Component.extend(ViewportMixin, {
 			this.set('contentClassNames', 'background-alpha-theme-color');
 		}
 	}),
+
+	actions: {
+		enableEditMode() {
+			if (this.get('canEdit')) {
+				this.setEditMode(true);
+				// this.escapeOnce();
+				// track(trackActions.EditCommunityBadgeButtonTapped);
+			}
+		}
+	}
 });

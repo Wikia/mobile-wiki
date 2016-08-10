@@ -1,10 +1,12 @@
 import Ember from 'ember';
+import EscapePress from '../mixins/escape-press';
+import DiscussionEditImage from '../mixins/discussion-edit-image';
 import Thumbnailer from 'common/modules/thumbnailer';
 import {track, trackActions} from '../utils/discussion-tracker';
-import EscapePress from '../mixins/escape-press';
 
 export default Ember.Component.extend(
 	EscapePress,
+	DiscussionEditImage,
 	{
 		classNames: ['community-badge', 'draggable-dropzone'],
 		classNameBindings: ['isEditMode', 'isNewBadgePreviewMode', 'isDragActive:drag-activated',
@@ -21,14 +23,7 @@ export default Ember.Component.extend(
 		canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'badgeImage.permissions.canEdit'),
 		currentUser: Ember.inject.service(),
 
-		errorMessage: null,
 		isDragActive: false,
-		isEditMode: false,
-		isLoadingMode: false,
-		isNewBadgePreviewMode: false,
-		newWikiImageUrl: null,
-		resetFileInput: false,
-		uploadedFile: null,
 
 		errors: {
 			fileType: 'main.edit-hero-unit-save-failed',
@@ -73,24 +68,6 @@ export default Ember.Component.extend(
 		escapePress(event) {
 			track(trackActions.EditCommunityBadgeEscapeKeyHit);
 			this.setEditMode(false);
-		},
-
-		setEditMode(shouldEnable) {
-			Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
-			this.setProperties({
-				isEditMode: shouldEnable,
-				resetFileInput: true,
-				errorMessage: null,
-			});
-
-			if (!shouldEnable) {
-				this.setProperties({
-					isLoadingMode: false,
-					isNewBadgePreviewMode: false,
-					newWikiImageUrl: null,
-					uploadedFile: null,
-				});
-			}
 		},
 
 		uploadImage(imageFile) {
