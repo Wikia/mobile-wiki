@@ -2,6 +2,7 @@
 	background-color: $discussion-edit-image-button-background-color;
 	color: $discussion-edit-image-button-text-color;
 	cursor: pointer;
+	display: none;
 	font-size: 10px;
 	height: auto;
 	letter-spacing: 0.5px;
@@ -34,7 +35,6 @@
 
 .community-badge {
 	.edit-image-button {
-		display: none;
 		left: 0;
 		padding: 7px 32px 7px 4px;
 		width: 100%;
@@ -42,6 +42,16 @@
 
 	&:not(.is-edit-mode) {
 		.community-badge-image:hover {
+			.edit-image-button {
+				display: block;
+			}
+		}
+	}
+}
+
+.discussion-hero-unit {
+	&:not(.is-edit-mode) {
+		&:hover {
 			.edit-image-button {
 				display: block;
 			}
