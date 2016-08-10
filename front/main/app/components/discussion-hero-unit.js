@@ -8,16 +8,15 @@ export default Ember.Component.extend(
 	{
 	classNames: ['discussion-hero-unit'],
 	contentClassNames: 'background-theme-color',
-	attributeBindings: ['style'],
 
 	headerTitle: i18n.t('main.discussions-header-title', {ns: 'discussion'}),
 
 	overlay: false,
-	style: null,
 
 	canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'heroImage.permissions.canEdit'),
 	currentUser: Ember.inject.service(),
 	editingPossible: false,
+	imageBackground: null,
 
 	headerImages: {
 		24357: 'discussion-header-adventure-time.jpg',
@@ -149,8 +148,8 @@ export default Ember.Component.extend(
 
 	/**
 	 * Observes for change in visibility state of the component
-	 * if it shows up and it didn't load the image style before,
-	 * it constructs the style attribute with an approppriate image
+	 * if it shows up and it didn't load the image before,
+	 * it constructs the style attribute with an appropriate image
 	 * (This component is always loaded, but hidden in CSS for mobile res,
 	 * so this will check if the browser width changed from mobile to desktop
 	 * and then lazy-load the image)
@@ -160,8 +159,8 @@ export default Ember.Component.extend(
 			isShown = Boolean(visibleElement && visibleElement.length),
 			image = this.get('headerImages')[Ember.get(Mercury, 'wiki.id')];
 
-		if (!this.get('style') && isShown && image) {
-			this.set('style',
+		if (!this.get('imageBackground') && isShown && image) {
+			this.set('imageBackground',
 				new Ember.Handlebars.SafeString(`background: #fff url(/front/common/images/${image}) center no-repeat;`));
 			this.set('contentClassNames', 'background-alpha-theme-color');
 		}

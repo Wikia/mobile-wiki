@@ -1,24 +1,26 @@
-<div class="discussion-hero-unit-content {{contentClassNames}} {{if isEditMode 'highlight-overlay-content'}}">
+<div class="discussion-hero-unit-image {{if isEditMode 'highlight-overlay-content'}}" style="{{imageBackground}}">
 	{{#unless isEditMode}}
-		{{#if userName}}
-			{{discussion-post-list-header
-				userName=userName
-				contributors=contributors
-				numberOfPosts=numberOfPosts
-			}}
-		{{else}}
-			<h1>{{headerTitle}}</h1>
-			{{#if numberOfPosts}}
-				<p>{{i18n 'main.number-of-posts' numberOfPosts=numberOfPosts ns='discussion'}}</p>
-			{{/if}}
-			{{#if contributors}}
-				{{discussion-contributors
-					users=contributors.users
-					maxContributorDisplayCount=6
-					totalContributorCount=contributors.count
+		<div class="discussion-hero-unit-content {{contentClassNames}}">
+			{{#if userName}}
+				{{discussion-post-list-header
+					userName=userName
+					contributors=contributors
+					numberOfPosts=numberOfPosts
 				}}
+			{{else}}
+				<h1>{{headerTitle}}</h1>
+				{{#if numberOfPosts}}
+					<p>{{i18n 'main.number-of-posts' numberOfPosts=numberOfPosts ns='discussion'}}</p>
+				{{/if}}
+				{{#if contributors}}
+					{{discussion-contributors
+						users=contributors.users
+						maxContributorDisplayCount=6
+						totalContributorCount=contributors.count
+					}}
+				{{/if}}
 			{{/if}}
-		{{/if}}
+		</div>
 	{{/unless}}
 	{{#if canEdit}}
 		{{#if isEditMode}}
@@ -26,13 +28,13 @@
 				{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}
 			</div>
 			{{discussion-edit-approve-buttons
-				approve=(action 'disableEditMode')
-				close=(action 'disableEditMode')
+					approve=(action 'disableEditMode')
+					close=(action 'disableEditMode')
 			}}
 		{{else}}
 			{{discussion-edit-image-button
-				click=(action 'enableEditMode')
-				label='main.edit-hero-unit-button-text'
+					click=(action 'enableEditMode')
+					label='main.edit-hero-unit-button-text'
 			}}
 		{{/if}}
 	{{/if}}
