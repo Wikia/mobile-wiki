@@ -50,6 +50,8 @@ const trackActions = {
 	GuidelinesEdit: 'GuidelinesEdit',
 	GuidelinesEditSave: 'GuidelinesEditSave',
 	WelcomeMessageClose: 'WelcomeMessageClose',
+	PostLoadMore: 'PostLoadMore',
+	PostMore: 'PostMore',
 	EditorCalloutMessageClose: 'EditorCalloutMessageClose',
 	EditorCalloutGuidelinesLinkTapped: 'EditorCalloutGuidelinesLinkTapped',
 };
