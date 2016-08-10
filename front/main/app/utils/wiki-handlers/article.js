@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import request from 'ember-ajax/request';
 import VisibilityStateManager from '../visibility-state-manager';
-import BaseHandler from './base-handler';
 
 /**
  * @param {Ember.Route} route
@@ -60,10 +59,10 @@ function afterTransition(model) {
 /**
  * Export Article handler
  */
-export default Ember.$.extend({}, BaseHandler, {
+export default {
 	// template's and controller's name
 	controllerName: 'article',
 	viewName: 'article',
 	afterModel,
 	afterTransition
-});
+};

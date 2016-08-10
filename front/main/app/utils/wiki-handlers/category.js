@@ -1,5 +1,4 @@
 import ArticleHandler from './article';
-import BaseHandler from './base-handler';
 
 /**
  * afterModel hook
@@ -15,10 +14,10 @@ function afterModel(route, model) {
 /**
  * Export Category handler
  */
-export default Ember.$.extend({}, BaseHandler, {
+export default {
 	// template's and controller's name
 	viewName: 'category',
 	controllerName: 'category',
 	// hooks
 	afterModel
-});
+};

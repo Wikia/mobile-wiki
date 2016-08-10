@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import CuratedContentModel from '../../models/curated-content';
-import BaseHandler from './base-handler';
 
 /**
  * Set curatedContent data if main page has curated content set
@@ -41,10 +40,10 @@ function afterModel(route, model) {
 	return model;
 }
 
-export default Ember.$.extend({}, BaseHandler, {
+export default {
 	// template's and controller's name
 	controllerName: 'main-page',
 	viewName: 'main-page',
 	// hooks
 	afterModel
-});
+};
