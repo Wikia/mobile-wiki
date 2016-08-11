@@ -40,7 +40,7 @@ export default Route.extend({
 
 		reviewAndGetMoreImages() {
 			const model = this.modelFor('imageReview');
-
+			Logger.error('contractId', model.contractId);
 			this.controllerFor('application').set('isLoading', true);
 			window.scrollTo(0, 0);
 
@@ -53,33 +53,15 @@ export default Route.extend({
 			}).then(this.refresh.bind(this));
 		},
 
-		getUnreviewedOnly() {
+		getAllWithStatus(status) {
 			const model = this.modelFor('imageReview');
 			window.scrollTo(0, 0);
 
-			ImageReviewModel.endSession(model.contractId);
-
-			this.set('status', 'UNREVIEWED');
-			this.refresh();
-		},
-
-		getFlaggedOnly() {
-			const model = this.modelFor('imageReview');
-			window.scrollTo(0, 0);
-
-			ImageReviewModel.endSession(model.contractId);
-
-			this.set('status', 'FLAGGED');
-			this.refresh();
-		},
-
-		getRejectedOnly() {
-			const model = this.modelFor('imageReview');
-			window.scrollTo(0, 0);
-
-			ImageReviewModel.endSession(model.contractId);
-
-			this.set('status', 'REJECTED');
+			if (!Ember.isNone(model.contractId)) {
+				ImageReviewModel.endSession(model.contractId);
+			}
+			
+			this.set('status', status);
 			this.refresh();
 		},
 

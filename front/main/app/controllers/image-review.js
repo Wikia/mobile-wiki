@@ -7,16 +7,8 @@ export default Ember.Controller.extend({
 			this.get('target').send('reviewAndGetMoreImages');
 		},
 
-		getUnreviewedOnly() {
-			this.get('target').send('getUnreviewedOnly');
-		},
-
-		getFlaggedOnly() {
-			this.get('target').send('getFlaggedOnly');
-		},
-
-		getRejectedOnly() {
-			this.get('target').send('getRejectedOnly');
+		getAllWithStatus(status) {
+			this.get('target').send('getAllWithStatus', status);
 		},
 
 		changeItemModel(id, status) {
