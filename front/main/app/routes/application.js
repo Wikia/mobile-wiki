@@ -136,10 +136,12 @@ export default Route.extend(
 				}
 
 				if (info.article) {
-					const instantGlobal = Ember.get(Wikia, 'InstantGlobals.wgAdDriverHighImpact2SlotCountries'),
+					const highImpactCountries = Ember.get(Wikia, 'InstantGlobals.wgAdDriverHighImpact2SlotCountries'),
+						interstitialOnTransitionCountries =
+							Ember.get(Wikia, 'InstantGlobals.wgAdDriverMobileTransitionInterstitialCountries'),
 						isProperGeo = Ember.get(Wikia, 'geo.isProperGeo');
 
-					if (isProperGeo(instantGlobal)) {
+					if (isProperGeo && isProperGeo(highImpactCountries) && isProperGeo(interstitialOnTransitionCountries)) {
 						this.get('adsHighImpact').reload();
 					}
 
