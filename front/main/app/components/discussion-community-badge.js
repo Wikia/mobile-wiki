@@ -41,15 +41,6 @@ export default Ember.Component.extend(
 			if (Ember.isEmpty(imageUrl)) {
 				// get wiki image
 				imageUrl = Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/symbols/brackets.svg');
-			} else {
-				imageUrl = Thumbnailer.getThumbURL(
-					imageUrl,
-					{
-						mode: Thumbnailer.mode.topCrop,
-						width: this.get('squareDimension'),
-						height: this.get('squareDimension'),
-					}
-				);
 			}
 
 			return imageUrl;
