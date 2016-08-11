@@ -23,6 +23,7 @@
     "sort-by-latest":"最新",
     "sort-by-trending":"热门浏览",
     "loading-more-posts":"下载更多帖子",
+    "load-more-posts-button":"加载更多",
     "number-of-posts":"__numberOfPosts__条帖子",
     "connection-error":"连接失效，请再试一次。",
     "not-found-error":"很抱歉，此页面似乎不存在!",

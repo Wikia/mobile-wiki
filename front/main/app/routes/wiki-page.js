@@ -89,6 +89,10 @@ export default Ember.Route.extend(RouteWithAdsMixin, HeadTagsDynamicMixin, {
 			if (handler) {
 				transition.then(() => {
 					this.updateTrackingData(model);
+
+					if (typeof handler.afterTransition === 'function') {
+						handler.afterTransition(model);
+					}
 				});
 
 				this.set('wikiHandler', handler);

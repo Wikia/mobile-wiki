@@ -1,0 +1,12 @@
+<a href="#" class="message-close" {{action 'close' bubbles=false}}>
+	{{svg 'close-small' viewBox='0 0 18 18'}}
+</a>
+<div class="message-icon">
+	{{svg 'clipboard' viewBox='0 0 28 28'}}
+</div>
+<p class="message-text">
+	{{{i18n 'editor.overlay-message-text' ns='discussion' guidelinesLinkTitle=guidelinesLink}}}
+</p>
+<div class="message-button active-element-theme-color active-element-border-theme-color" {{action 'close' bubbles=false}}>
+	{{{i18n 'editor.overlay-message-button' ns='discussion'}}}
+</div>

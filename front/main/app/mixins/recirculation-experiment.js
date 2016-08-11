@@ -19,20 +19,37 @@ export default Ember.Mixin.create(
 		}),
 
 		items: Ember.computed('model.items', function () {
-			return this.get('model.items').map((item) => {
-				if (this.get('externalLink')) {
-					const params = {
-						utm_source: 'wikia',
-						utm_campaign: 'recirc',
-						utm_medium: this.get('label'),
-						utm_content: item.index + 1
-					};
+			return this.get('model.items');
+		}),
 
-					Ember.set(item, 'url', `${item.url}?${Ember.$.param(params)}`);
-				}
+		/**
+		 * A large tolerance is necessary because this component is larger than the viewport
+		 * @returns {void}
+		 */
 
-				return item;
-			});
+		viewportOptionsOverride: Ember.on('didInsertElement', function () {
+			if (this.get('model.items').length < 1) {
+				return;
+			}
+
+			const elementHeight = this.$().innerHeight(),
+				tolerance = elementHeight,
+				afterRender = this.get('model.afterRender');
+
+			if (tolerance > 0) {
+				Ember.setProperties(this, {
+					viewportTolerance: {
+						top: tolerance,
+						bottom: tolerance,
+						left: 0,
+						right: 0
+					}
+				});
+			}
+
+			if (afterRender) {
+				afterRender.call(this.get('model'), this);
+			}
 		}),
 
 		/**

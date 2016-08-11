@@ -124,6 +124,7 @@ export default Ember.Component.extend({
 		55705: '/front/common/images/community-badge-outlander.jpg',
 		701294: '/front/common/images/community-badge-orphan-black.jpg',
 		1086357: '/front/common/images/community-badge-preacher.jpg',
+		1429796: '/front/common/images/community-badge-pokemon-go.png',
 	},
 
 	wikiImageUrl: Ember.computed('squareDimension', function () {
@@ -151,7 +152,7 @@ export default Ember.Component.extend({
 	 *
 	 * @returns {string}
 	 */
-	displayedWikiName: Ember.computed(() => {
+	displayedWikiName: Ember.computed(function () {
 		if (Ember.get(Mercury, 'wiki.id') === 734209) {
 			return 'Star Trek';
 		} else {

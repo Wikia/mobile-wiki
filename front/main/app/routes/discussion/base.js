@@ -24,6 +24,14 @@ export default Ember.Route.extend(
 
 		actions: {
 			/**
+			 * Transition to Guidelines
+			 * @returns {void}
+			 */
+			gotoGuidelines() {
+				this.transitionTo('discussion.guidelines');
+			},
+
+			/**
 			 * @returns {void}
 			 */
 			retry() {

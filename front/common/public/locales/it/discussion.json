@@ -23,6 +23,7 @@
     "sort-by-latest":"Più recenti",
     "sort-by-trending":"In tendenza",
     "loading-more-posts":"Caricamento in corso di altri post",
+    "load-more-posts-button":"Carica di più",
     "number-of-posts":"__numberOfPosts__ Post",
     "connection-error":"Impossibile connettersi. Riprova.",
     "not-found-error":"Ops! Sembra che questa pagina non esista!",
@@ -137,8 +138,8 @@
     "reply-edit-editor-label":"Modifica la tua risposta",
     "reply-action-button-label":"Rispondi",
     "reply-edit-action-button-label":"Salva",
-    "overlay-message-text":"Before posting, be sure to check out the __guidelinesLinkTitle__.",
-    "overlay-message-button":"Done",
+    "overlay-message-text":"Prima di postare, assicurati di aver letto le __guidelinesLinkTitle__.",
+    "overlay-message-button":"Fatto",
     "guidelines-link-title":"Linee guida di discussione"
   }
 }

@@ -23,6 +23,7 @@
     "sort-by-latest":"Latest",
     "sort-by-trending":"Trending",
     "loading-more-posts":"Loading more posts",
+    "load-more-posts-button":"Load More",
     "number-of-posts":"__numberOfPosts__ Posts",
     "connection-error":"Can't connect, please try again.",
     "not-found-error":"Uh oh, looks like this page doesn't exist!",
