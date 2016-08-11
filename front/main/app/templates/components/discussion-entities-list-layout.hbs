@@ -27,13 +27,14 @@
 		editingPossible=true
 		heroImage=attributes.heroImage
 		numberOfPosts=model.postCount
+		uploadMethod=(action this.attrs.uploadDiscussionsHeader)
 	}}
 	<div class="discussion-page row">
 		<div class="rail left large-3 columns">
 			{{discussion-community-badge
 				badgeImage=attributes.badgeImage
 				editingPossible=true
-				uploadCommunityBadge=(action this.attrs.uploadCommunityBadge)
+				uploadMethod=(action this.attrs.uploadCommunityBadge)
 			}}
 			{{#if showCategories}}
 				{{#if categories}}

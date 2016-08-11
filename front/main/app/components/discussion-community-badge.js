@@ -15,7 +15,9 @@ export default Ember.Component.extend(
 		squareDimension: 125,
 
 		trackingActions: {
-			EditImagePreview: trackActions.EditCommunityBadgeImagePreview
+			EditImagePreview: trackActions.EditCommunityBadgeImagePreview,
+			Save: trackActions.CommunityBadgeSave,
+			SaveFailure: trackActions.CommunityBadgeSaveFailure
 		},
 
 		canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'badgeImage.permissions.canEdit'),
@@ -23,7 +25,7 @@ export default Ember.Component.extend(
 
 		isDragActive: false,
 
-		wikiImageUrl: Ember.computed('badgeImage.value', 'squareDimension', function () {
+		imageUrl: Ember.computed('badgeImage.value', 'squareDimension', function () {
 			let imageUrl = this.get('badgeImage.value');
 
 			if (Ember.isEmpty(imageUrl)) {
@@ -96,26 +98,6 @@ export default Ember.Component.extend(
 					this.escapeOnce();
 					track(trackActions.EditCommunityBadgeButtonTapped);
 				}
-			},
-
-			submit() {
-				const uploadedFile = this.get('uploadedFile');
-
-				if (!this.get('isImagePreviewMode') || !uploadedFile) {
-					this.setEditMode(false);
-					return;
-				}
-
-				this.set('isLoadingMode', true);
-				this.get('uploadCommunityBadge')(uploadedFile).then(() => {
-					this.set('wikiImageUrl', this.get('newImageUrl'));
-					track(trackActions.CommunityBadgeSave);
-					this.setEditMode(false);
-				}).catch((err) => {
-					this.set('isLoadingMode', false);
-					track(trackActions.CommunityBadgeSaveFailure);
-					this.setErrorMessage(this.get('errorsMessages.saveFailed'));
-				});
 			}
 		},
 	}

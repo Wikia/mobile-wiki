@@ -12,6 +12,7 @@ export default Ember.Mixin.create({
 		fileType: 'main.edit-hero-unit-save-failed',
 		saveFailed: 'main.edit-hero-unit-save-failed',
 	},
+	imageUrl: null,
 	isEditMode: false,
 	isLoadingMode: false,
 	isImagePreviewMode: false,
@@ -19,9 +20,13 @@ export default Ember.Mixin.create({
 	resetFileInput: false,
 	// components using this mixin should override this default settings to enable tracking
 	trackingActions: {
-		EditImagePreview: ''
+		EditImagePreview: '',
+		Save: '',
+		SaveFailure: ''
 	},
 	uploadedFile: null,
+	// components using this mixin should provide upload method
+	uploadMethod: null,
 
 	uploadImage(imageFile) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
@@ -68,6 +73,10 @@ export default Ember.Mixin.create({
 			}
 		},
 
+		disableEditMode() {
+			this.setEditMode(false);
+		},
+
 		fileUpload(files) {
 			const imageFile = files[0];
 
@@ -94,8 +103,23 @@ export default Ember.Mixin.create({
 			}
 		},
 
-		disableEditMode() {
-			this.setEditMode(false);
+		submit() {
+			const uploadedFile = this.get('uploadedFile');
+
+			if (this.get('isImagePreviewMode') && uploadedFile) {
+				this.set('isLoadingMode', true);
+				this.get('uploadMethod')(uploadedFile).then(() => {
+					this.set('imageUrl', this.get('newImageUrl'));
+					track(this.get('trackingActions.Save'));
+					this.setEditMode(false);
+				}).catch((err) => {
+					this.set('isLoadingMode', false);
+					track(this.get('trackingActions.SaveFailure'));
+					this.setErrorMessage(this.get('errorsMessages.saveFailed'));
+				});
+			} else {
+				this.setEditMode(false);
+			}
 		}
 	}
 });

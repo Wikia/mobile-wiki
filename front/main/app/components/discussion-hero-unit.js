@@ -20,7 +20,9 @@ export default Ember.Component.extend(
 	fileInputClassNames: ['upload-image-button', 'background-theme-color'],
 	imageBackground: null,
 	trackingActions: {
-		EditImagePreview: trackActions.EditDiscussionsHeaderImagePreview
+		EditImagePreview: trackActions.EditDiscussionsHeaderImagePreview,
+		Save: trackActions.DiscussionsHeaderSave,
+		SaveFailure: trackActions.DiscussionsHeaderSaveFailure
 	},
 
 	headerImages: {
