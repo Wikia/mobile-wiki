@@ -9,8 +9,8 @@ export default Ember.Mixin.create({
 	},
 	errorMessage: null,
 	errorsMessages: {
-		fileType: 'main.edit-hero-unit-save-failed',
-		saveFailed: 'main.edit-hero-unit-save-failed',
+		fileType: 'main.image-save-failed',
+		saveFailed: 'main.image-save-failed',
 	},
 	imageUrl: null,
 	isEditMode: false,

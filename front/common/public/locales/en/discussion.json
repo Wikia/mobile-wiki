@@ -122,7 +122,7 @@
     "edit-badge-hint-text": "125x125<br>jpg, gif or png.<br>10mb limit",
     "edit-hero-unit-button-text": "Edit Header",
     "edit-hero-unit-hint-text": "Image Dimensions: 1240x200<br>jpg, gif or png. 10mb limit",
-    "edit-hero-unit-save-failed": "Save failed. Please try again.",
+    "image-save-failed": "Save failed. Please try again.",
     "upload-image-button-text": "Upload image",
     "category-picker-button-text": "Add Category",
     "category-picker-required-message": "required"
