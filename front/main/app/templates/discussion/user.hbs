@@ -26,6 +26,7 @@
 }}
 	{{discussion-user-list-wrapper
 		approve=(action 'approve')
+		categories=model.index.categories.categories
 		deletePost=(action 'deletePost')
 		deleteReply=(action 'deleteReply')
 		loadPage=(action 'loadPage')
@@ -35,7 +36,6 @@
 		posts=model.current.data.entities
 		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')
-		showCategories=showCategories
 		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
 		undeleteReply=(action 'undeleteReply')

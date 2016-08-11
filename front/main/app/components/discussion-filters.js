@@ -1,13 +1,16 @@
 import Ember from 'ember';
 import nearestParent from 'ember-pop-over/computed/nearest-parent';
 import DiscussionReportedFilterMixin from '../mixins/discussion-reported-filter';
+import DiscussionCategoriesVisibilityMixin from '../mixins/discussion-categories-visibility';
 import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(
 	DiscussionReportedFilterMixin,
+	DiscussionCategoriesVisibilityMixin,
 	{
 		changedCategories: [],
 		classNames: ['discussion-filters'],
+		currentUser: Ember.inject.service(),
 		discussionSort: Ember.inject.service(),
 		popover: nearestParent('pop-over'),
 		showApplyButton: false,

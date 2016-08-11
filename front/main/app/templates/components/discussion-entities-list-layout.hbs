@@ -8,7 +8,6 @@
 		hasNewPostButton=hasNewPostButton
 		hasSiteName=true
 		setEditorActive=(action this.attrs.setEditorActive)
-		showCategories=showCategories
 		smartBannerVisible=smartBannerVisible
 		updateCategories=(action this.attrs.updateCategories)
 	}}
@@ -29,8 +28,7 @@
 	<div class="discussion-page row">
 		<div class="rail left large-3 columns">
 			{{community-badge}}
-			{{#if showCategories}}
-				{{#if categories}}
+			{{#if canShowCategories}}
 					{{discussion-categories
 						categories=categories
 						inputIdPrefix='rail'
@@ -38,7 +36,6 @@
 						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
 						visibleCategoriesCount=10
 					}}
-				{{/if}}
 			{{/if}}
 			{{#if model.canModerate}}
 				{{discussion-reported-filter
