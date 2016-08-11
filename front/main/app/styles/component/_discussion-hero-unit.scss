@@ -64,8 +64,15 @@ $discussion-hero-unit-minimized-height: 25px;
 	}
 
 	.image-edit-preview-wrapper {
+		align-items: center;
+		display: flex;
+		justify-content: center;
 		max-height: 100%;
 		overflow: hidden;
+
+		.image-edit-preview {
+			max-width: none;
+		}
 	}
 
 	.error-message-container {
