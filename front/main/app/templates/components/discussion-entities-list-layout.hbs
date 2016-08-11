@@ -29,13 +29,13 @@
 		<div class="rail left large-3 columns">
 			{{community-badge}}
 			{{#if canShowCategories}}
-					{{discussion-categories
-						categories=categories
-						inputIdPrefix='rail'
-						updateCategories=(action this.attrs.updateCategories)
-						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
-						visibleCategoriesCount=10
-					}}
+				{{discussion-categories
+					categories=categories
+					inputIdPrefix='rail'
+					updateCategories=(action this.attrs.updateCategories)
+					updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
+					visibleCategoriesCount=10
+				}}
 			{{/if}}
 			{{#if model.canModerate}}
 				{{discussion-reported-filter
