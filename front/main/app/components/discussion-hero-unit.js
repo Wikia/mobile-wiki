@@ -16,6 +16,7 @@ export default Ember.Component.extend(
 	canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'heroImage.permissions.canEdit'),
 	currentUser: Ember.inject.service(),
 	editingPossible: false,
+	fileInputClassNames: ['upload-image-button', 'background-theme-color'],
 	imageBackground: null,
 
 	headerImages: {

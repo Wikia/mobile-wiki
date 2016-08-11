@@ -52,6 +52,13 @@ $discussion-hero-unit-minimized-height: 25px;
 		border-top-color: $discussion-upload-image-approve-buttons-border;
 		margin-top: 200px;
 	}
+
+	.image-edit-mode {
+		.upload-image-button {
+			margin: 76px auto 20px;
+			width: 160px;
+		}
+	}
 }
 
 .minimized {

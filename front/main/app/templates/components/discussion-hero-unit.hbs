@@ -25,16 +25,23 @@
 	{{#if canEdit}}
 		{{#if isEditMode}}
 			<div class="image-edit-mode">
-				{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}
+				{{file-input
+
+
+					classNames=fileInputClassNames
+					label=(i18n 'main.upload-image-button-text' ns='discussion')
+
+				}}
+				{{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}}
 			</div>
 			{{discussion-edit-approve-buttons
-					approve=(action 'disableEditMode')
-					close=(action 'disableEditMode')
+				approve=(action 'disableEditMode')
+				close=(action 'disableEditMode')
 			}}
 		{{else}}
 			{{discussion-edit-image-button
-					click=(action 'enableEditMode')
-					label='main.edit-hero-unit-button-text'
+				click=(action 'enableEditMode')
+				label='main.edit-hero-unit-button-text'
 			}}
 		{{/if}}
 	{{/if}}

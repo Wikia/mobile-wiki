@@ -55,6 +55,24 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 	text-align: center;
 	top: 0;
 	width: 100%;
+
+	.file-upload-label {
+		color: $discussion-upload-image-button-text-color;
+		cursor: pointer;
+		font-size: 10px;
+		font-weight: $font-weight-bold;
+		letter-spacing: 0.3px;
+		line-height: 15px;
+		margin-bottom: 15px;
+		min-height: 36px;
+		padding: 10px 5px;
+		text-align: center;
+		text-transform: uppercase;
+	}
+
+	input {
+		display: none;
+	}
 }
 
 .community-badge {
@@ -103,25 +121,6 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 		.upload-image-button {
 			margin-bottom: 10px;
 		}
-
-		.file-upload-label {
-			color: $discussion-upload-image-button-text-color;
-			cursor: pointer;
-			font-size: 10px;
-			font-weight: $font-weight-bold;
-			letter-spacing: 0.3px;
-			line-height: 15px;
-			margin-bottom: 15px;
-			min-height: 36px;
-			padding: 10px 5px;
-			text-align: center;
-			text-transform: uppercase;
-		}
-
-		input {
-			display: none;
-		}
-
 	}
 
 	.error-message-container {
