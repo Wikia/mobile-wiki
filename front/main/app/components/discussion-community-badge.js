@@ -91,12 +91,6 @@ export default Ember.Component.extend(
 
 		actions: {
 			/**
-			 * empty method for the file-input helper
-			 * @return {void}
-			 */
-			emptyClickForFileInput() {},
-
-			/**
 			 * Enables community badge edit mode
 			 *
 			 * @returns {void}

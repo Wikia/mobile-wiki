@@ -41,6 +41,12 @@ export default Ember.Mixin.create({
 	},
 
 	actions: {
+		/**
+		 * Empty method for the file-input helper required click method.
+		 * @return {void}
+		 */
+		emptyClickForFileInput() {},
+
 		enableEditMode() {
 			if (this.get('canEdit')) {
 				this.setEditMode(true);

@@ -27,6 +27,7 @@
 			<div class="image-edit-mode">
 				{{file-input
 					classNames=fileInputClassNames
+					click=(action 'emptyClickForFileInput')
 					fileUpload=(action 'fileUpload')
 					label=(i18n 'main.upload-image-button-text' ns='discussion')
 				}}
