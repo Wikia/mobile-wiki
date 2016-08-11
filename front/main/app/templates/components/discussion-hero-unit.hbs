@@ -25,22 +25,35 @@
 	{{#if canEdit}}
 		{{#if isEditMode}}
 			<div class="image-edit-mode">
-				{{file-input
-					classNames=fileInputClassNames
-					click=(action 'emptyClickForFileInput')
-					fileUpload=(action 'fileUpload')
-					label=(i18n 'main.upload-image-button-text' ns='discussion')
+				{{#if isLoadingMode}}
+					<div class="is-loading">
+						{{loading-spinner
+							active=true
+							overlay=false
+							radius=32
+							strokeWidth=2
+						}}
+					</div>
+				{{else}}
+					{{file-input
+						classNames=fileInputClassNames
+						click=(action 'emptyClickForFileInput')
+						fileUpload=(action 'fileUpload')
+						label=(i18n 'main.upload-image-button-text' ns='discussion')
+					}}
+					{{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}}
+				{{/if}}
+			</div>
+			{{#unless isLoadingMode}}
+				<div class="error-message-container {{if errorMessage 'is-visible'}}">
+					{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
+					<span class="error-message">{{errorMessage}}</span>
+				</div>
+				{{discussion-edit-approve-buttons
+					approve=(action 'disableEditMode')
+					close=(action 'disableEditMode')
 				}}
-				{{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}}
-			</div>
-			<div class="error-message-container {{if errorMessage 'is-visible'}}">
-				{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
-				<span class="error-message">{{errorMessage}}</span>
-			</div>
-			{{discussion-edit-approve-buttons
-				approve=(action 'disableEditMode')
-				close=(action 'disableEditMode')
-			}}
+			{{/unless}}
 		{{else}}
 			{{discussion-edit-image-button
 				click=(action 'enableEditMode')
