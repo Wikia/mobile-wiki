@@ -7,8 +7,8 @@ const {$, getWithDefault} = Ember;
  * @returns {void}
  */
 export function initialize() {
-	$('.wds-global-footer a').click((event) => {
-		const trackingLabel = event.currentTarget.getAttribute('data-tracking-label');
+	$('.wds-global-footer a').click(function (event) {
+		const trackingLabel = this.getAttribute('data-tracking-label');
 
 		if (trackingLabel) {
 			track({
@@ -18,9 +18,8 @@ export function initialize() {
 			});
 		}
 
-		if (event.target.getAttribute('id') === 'global-footer-full-site-link') {
-			const domainNameRegExpMatchArray = (/\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i).exec(window.location.hostname),
-				cookieDomain = domainNameRegExpMatchArray ? domainNameRegExpMatchArray[0] : '',
+		if (this.getAttribute('id') === 'global-footer-full-site-link') {
+			const cookieDomain = M.prop('cookieDomain'),
 				defaultSkin = getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
 
 			event.preventDefault();
