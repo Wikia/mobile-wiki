@@ -1,6 +1,6 @@
 <h2 class="wds-global-footer__{{section}}-header">
 	{{#if (equal 'link-image' model.type)}}
-		<a href="{{model.href}}">
+		<a href="{{model.href}}" data-tracking-label="{{model.title.key}}">
 			{{> svg class=(concat 'wds-global-footer__' section '-logo') image=model.image }}
 		</a>
 	{{else}}

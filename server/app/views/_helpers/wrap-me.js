@@ -26,7 +26,8 @@ module.exports = function (param, options) {
 
 	let tagName = 'span',
 		href = '',
-		className = '';
+		className = '',
+		trackingLabel = '';
 
 	if (hash.tagName) {
 		tagName = escapeHtml(hash.tagName);
@@ -40,5 +41,9 @@ module.exports = function (param, options) {
 		className = ` class="${escapeHtml(options.className)}"`;
 	}
 
-	return `<${tagName}${href}${className}>${content}</${tagName}>`;
+	if (hash.trackingLabel) {
+		trackingLabel = ` data-tracking-label="${escapeHtml(hash.trackingLabel)}"`;
+	}
+
+	return `<${tagName}${href}${className}${trackingLabel}>${content}</${tagName}>`;
 };
