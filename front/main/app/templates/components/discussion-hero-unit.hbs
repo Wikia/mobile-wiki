@@ -25,7 +25,9 @@
 	{{#if canEdit}}
 		{{#if isEditMode}}
 			{{#if isImagePreviewMode}}
-				<img class="image-edit-preview" src="{{newImageUrl}}" />
+				<div class="image-edit-preview-wrapper">
+					<img class="image-edit-preview" src="{{newImageUrl}}" />
+				</div>
 			{{else}}
 				<div class="image-edit-mode">
 					{{#if isLoadingMode}}

@@ -63,9 +63,9 @@ $discussion-hero-unit-minimized-height: 25px;
 		}
 	}
 
-	.image-edit-preview {
-		height: 100%;
-		width: 100%;
+	.image-edit-preview-wrapper {
+		max-height: 100%;
+		overflow: hidden;
 	}
 
 	.error-message-container {
