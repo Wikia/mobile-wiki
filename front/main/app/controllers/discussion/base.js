@@ -58,9 +58,10 @@ export default Ember.Controller.extend(
 
 			/**
 			 * This method will be overwritten in the controller, but needs to be stubbed for the error subcontroller
+			 *
 			 * @returns {void}
 			 */
-			openGuidelines() {},
+			uploadCommunityBadge() {},
 		}
 	}
 );
