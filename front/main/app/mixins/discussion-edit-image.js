@@ -1,7 +1,16 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
+	allowedFileTypes: {
+		'image/jpeg': true,
+		'image/png': true,
+		'image/gif': true,
+	},
 	errorMessage: null,
+	errorsMessages: {
+		fileType: 'main.edit-hero-unit-save-failed',
+		saveFailed: 'main.edit-hero-unit-save-failed',
+	},
 	isEditMode: false,
 	isLoadingMode: false,
 	isNewBadgePreviewMode: false,
@@ -27,6 +36,10 @@ export default Ember.Mixin.create({
 		}
 	},
 
+	setErrorMessage(msgKey) {
+		this.set('errorMessage', i18n.t(msgKey, {ns: 'discussion'}));
+	},
+
 	actions: {
 		enableEditMode() {
 			if (this.get('canEdit')) {
@@ -34,9 +47,22 @@ export default Ember.Mixin.create({
 			}
 		},
 
+		fileUpload(files) {
+			const imageFile = files[0];
+
+			if (this.get(`allowedFileTypes.${imageFile.type}`)) {
+				this.setProperties({
+					isLoadingMode: true,
+					errorMessage: null,
+				});
+			} else {
+				this.setErrorMessage(this.get('errorsMessages.fileType'));
+			}
+		},
+
 		disableEditMode() {
 			this.setEditMode(false);
-		},
+		}
 	}
 });
 

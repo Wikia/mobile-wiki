@@ -50,13 +50,37 @@ $discussion-hero-unit-minimized-height: 25px;
 
 	.discussion-edit-approve-wrapper {
 		border-top-color: $discussion-upload-image-approve-buttons-border;
-		margin-top: 200px;
+		left: 0;
+		margin: auto;
+		right: 0;
+		width: 200px;
 	}
 
 	.image-edit-mode {
 		.upload-image-button {
 			margin: 76px auto 20px;
 			width: 160px;
+		}
+	}
+
+	.error-message-container {
+		color: $discussion-upload-image-error-text-color;
+		display: none;
+		left: 0;
+		margin: 10px auto 10px;
+		right: 0;
+
+		&.is-visible {
+			display: block;
+		}
+
+		.error-message {
+			font-size: $type-base;
+			line-height: $line-height-base;
+		}
+
+		.icon.error {
+			fill: $discussion-upload-image-error-warning-color;
 		}
 	}
 }

@@ -14,21 +14,10 @@ export default Ember.Component.extend(
 		fileInputClassNames: ['upload-image-button', 'background-theme-color'],
 		squareDimension: 125,
 
-		allowedFileTypes: {
-			'image/jpeg': true,
-			'image/png': true,
-			'image/gif': true,
-		},
-
 		canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'badgeImage.permissions.canEdit'),
 		currentUser: Ember.inject.service(),
 
 		isDragActive: false,
-
-		errors: {
-			fileType: 'main.edit-hero-unit-save-failed',
-			saveFailed: 'main.edit-hero-unit-save-failed',
-		},
 
 		wikiImageUrl: Ember.computed('badgeImage.value', 'squareDimension', function () {
 			let imageUrl = this.get('badgeImage.value');
@@ -100,10 +89,6 @@ export default Ember.Component.extend(
 			}
 		},
 
-		setErrorMessage(msgKey) {
-			this.set('errorMessage', i18n.t(msgKey, {ns: 'discussion'}));
-		},
-
 		actions: {
 			/**
 			 * empty method for the file-input helper
@@ -140,7 +125,7 @@ export default Ember.Component.extend(
 				}).catch((err) => {
 					this.set('isLoadingMode', false);
 					track(trackActions.CommunityBadgeSaveFailure);
-					this.setErrorMessage(this.get('errors.saveFailed'));
+					this.setErrorMessage(this.get('errorsMessages.saveFailed'));
 				});
 			},
 
@@ -148,7 +133,7 @@ export default Ember.Component.extend(
 				const imageFile = files[0];
 
 				if (!this.get(`allowedFileTypes.${imageFile.type}`)) {
-					this.setErrorMessage(this.get('errors.fileType'));
+					this.setErrorMessage(this.get('errorsMessages.fileType'));
 					return;
 				}
 
@@ -167,7 +152,7 @@ export default Ember.Component.extend(
 					track(trackActions.EditCommunityBadgeImagePreview);
 				}).catch((err) => {
 					this.set('isLoadingMode', false);
-					this.setErrorMessage(this.get('errors.saveFailed'));
+					this.setErrorMessage(this.get('errorsMessages.saveFailed'));
 				});
 			},
 		},

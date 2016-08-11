@@ -26,13 +26,15 @@
 		{{#if isEditMode}}
 			<div class="image-edit-mode">
 				{{file-input
-
-
 					classNames=fileInputClassNames
+					fileUpload=(action 'fileUpload')
 					label=(i18n 'main.upload-image-button-text' ns='discussion')
-
 				}}
 				{{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}}
+			</div>
+			<div class="error-message-container {{if errorMessage 'is-visible'}}">
+				{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
+				<span class="error-message">{{errorMessage}}</span>
 			</div>
 			{{discussion-edit-approve-buttons
 				approve=(action 'disableEditMode')

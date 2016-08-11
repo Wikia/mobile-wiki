@@ -50,11 +50,9 @@
 }
 
 .discussion-hero-unit {
-	&:not(.is-edit-mode) {
-		&:hover {
-			.edit-image-button {
-				display: block;
-			}
+	&:hover {
+		.edit-image-button {
+			display: block;
 		}
 	}
 }
