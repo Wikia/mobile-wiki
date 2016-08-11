@@ -23,6 +23,7 @@
     "sort-by-latest":"最新",
     "sort-by-trending":"人気",
     "loading-more-posts":"他の投稿を読み込んでいます",
+    "load-more-posts-button":"もっと見る",
     "number-of-posts":"投稿__numberOfPosts__件",
     "connection-error":"接続できません。もう一度やり直してください。",
     "not-found-error":"このページは存在しないようです。",
