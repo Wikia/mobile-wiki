@@ -9,7 +9,6 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 		margin-top: -62px;
 
 		.community-badge-image {
-			background-color: $discussion-community-badge-background-color;
 			height: $badge-image-dimensions-big + 4px;
 			width: $badge-image-dimensions-big;
 
@@ -26,7 +25,6 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 		margin-top: -12px;
 
 		.community-badge-image {
-			background-color: $discussion-community-badge-background-color;
 			width: $badge-image-dimensions-small;
 
 			.badge-image-display {
@@ -70,6 +68,7 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 	}
 
 	.community-badge-image {
+		background-color: $discussion-community-badge-background-color;
 		border: 2px solid $discussion-community-badge-border;
 		box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
 		position: relative;
