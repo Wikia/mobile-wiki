@@ -31,8 +31,8 @@ export default Ember.Component.extend(
 		uploadedFile: null,
 
 		errors: {
-			fileType: 'main.edit-hero-unit-save-failed',
-			saveFailed: 'main.edit-hero-unit-save-failed',
+			fileType: 'main.image-save-failed',
+			saveFailed: 'main.image-save-failed',
 		},
 
 		wikiImageUrl: Ember.computed('badgeImage.value', 'squareDimension', function () {
