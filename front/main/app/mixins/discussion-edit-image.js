@@ -14,7 +14,7 @@ export default Ember.Mixin.create({
 	},
 	isEditMode: false,
 	isLoadingMode: false,
-	isNewBadgePreviewMode: false,
+	isImagePreviewMode: false,
 	newImageUrl: null,
 	resetFileInput: false,
 	// components using this mixin should override this default settings to enable tracking
@@ -44,7 +44,7 @@ export default Ember.Mixin.create({
 		if (!shouldEnable) {
 			this.setProperties({
 				isLoadingMode: false,
-				isNewBadgePreviewMode: false,
+				isImagePreviewMode: false,
 				newImageUrl: null,
 				uploadedFile: null,
 			});
@@ -80,7 +80,7 @@ export default Ember.Mixin.create({
 				this.uploadImage(imageFile).then((event) => {
 					this.setProperties({
 						isLoadingMode: false,
-						isNewBadgePreviewMode: true,
+						isImagePreviewMode: true,
 						newImageUrl: event.target.result,
 						uploadedFile: imageFile,
 					});

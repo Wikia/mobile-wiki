@@ -9,7 +9,7 @@ export default Ember.Component.extend(
 	DiscussionEditImage,
 	{
 		classNames: ['community-badge', 'draggable-dropzone'],
-		classNameBindings: ['isEditMode', 'isNewBadgePreviewMode', 'isDragActive:drag-activated',
+		classNameBindings: ['isEditMode', 'isImagePreviewMode', 'isDragActive:drag-activated',
 			'errorMessage:is-error-message'],
 		fileInputClassNames: ['upload-image-button', 'background-theme-color'],
 		squareDimension: 125,
@@ -101,7 +101,7 @@ export default Ember.Component.extend(
 			submit() {
 				const uploadedFile = this.get('uploadedFile');
 
-				if (!this.get('isNewBadgePreviewMode') || !uploadedFile) {
+				if (!this.get('isImagePreviewMode') || !uploadedFile) {
 					this.setEditMode(false);
 					return;
 				}

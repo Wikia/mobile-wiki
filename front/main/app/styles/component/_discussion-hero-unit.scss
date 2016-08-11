@@ -63,6 +63,11 @@ $discussion-hero-unit-minimized-height: 25px;
 		}
 	}
 
+	.image-edit-preview {
+		height: 100%;
+		width: 100%;
+	}
+
 	.error-message-container {
 		color: $discussion-upload-image-error-text-color;
 		display: none;

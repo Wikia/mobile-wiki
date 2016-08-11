@@ -151,6 +151,14 @@ export default Ember.Component.extend(
 		this.viewportChangeObserver();
 	},
 
+		/**
+		 * @private
+		 */
+	setImageBackground(image) {
+		this.set('imageBackground',
+			new Ember.Handlebars.SafeString(`background: #fff url(/front/common/images/${image}) center no-repeat;`));
+	},
+
 	/**
 	 * Observes for change in visibility state of the component
 	 * if it shows up and it didn't load the image before,
@@ -165,8 +173,7 @@ export default Ember.Component.extend(
 			image = this.get('headerImages')[Ember.get(Mercury, 'wiki.id')];
 
 		if (!this.get('imageBackground') && isShown && image) {
-			this.set('imageBackground',
-				new Ember.Handlebars.SafeString(`background: #fff url(/front/common/images/${image}) center no-repeat;`));
+			this.setImageBackground(image);
 			this.set('contentClassNames', 'background-alpha-theme-color');
 		}
 	})

@@ -24,26 +24,30 @@
 	{{/unless}}
 	{{#if canEdit}}
 		{{#if isEditMode}}
-			<div class="image-edit-mode">
-				{{#if isLoadingMode}}
-					<div class="is-loading">
-						{{loading-spinner
-							active=true
-							overlay=false
-							radius=32
-							strokeWidth=2
+			{{#if isImagePreviewMode}}
+				<img class="image-edit-preview" src="{{newImageUrl}}" />
+			{{else}}
+				<div class="image-edit-mode">
+					{{#if isLoadingMode}}
+						<div class="is-loading">
+							{{loading-spinner
+								active=true
+								overlay=false
+								radius=32
+								strokeWidth=2
+							}}
+						</div>
+					{{else}}
+						{{file-input
+							classNames=fileInputClassNames
+							click=(action 'emptyClickForFileInput')
+							fileUpload=(action 'fileUpload')
+							label=(i18n 'main.upload-image-button-text' ns='discussion')
 						}}
-					</div>
-				{{else}}
-					{{file-input
-						classNames=fileInputClassNames
-						click=(action 'emptyClickForFileInput')
-						fileUpload=(action 'fileUpload')
-						label=(i18n 'main.upload-image-button-text' ns='discussion')
-					}}
-					{{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}}
-				{{/if}}
-			</div>
+						{{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}}
+					{{/if}}
+				</div>
+			{{/if}}
 			{{#unless isLoadingMode}}
 				<div class="error-message-container {{if errorMessage 'is-visible'}}">
 					{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
