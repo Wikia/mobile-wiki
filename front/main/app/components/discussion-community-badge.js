@@ -25,7 +25,7 @@ export default Ember.Component.extend(
 
 		isDragActive: false,
 
-		imageUrl: Ember.computed('badgeImage.value', 'squareDimension', function () {
+		wikiImageUrl: Ember.computed('badgeImage.value', 'squareDimension', function () {
 			let imageUrl = this.get('badgeImage.value');
 
 			if (Ember.isEmpty(imageUrl)) {
