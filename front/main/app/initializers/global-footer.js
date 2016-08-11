@@ -29,7 +29,7 @@ export function initialize() {
 				path: '/'
 			});
 
-			window.location.assign(this.href);
+			window.location.assign(this.getAttribute('href'));
 		}
 	});
 }
