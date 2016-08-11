@@ -60,7 +60,7 @@ export default Route.extend({
 			if (!Ember.isNone(model.contractId)) {
 				ImageReviewModel.endSession(model.contractId);
 			}
-			
+
 			this.set('status', status);
 			this.refresh();
 		},
