@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {track} from '../utils/discussion-tracker';
 
 export default Ember.Mixin.create({
 	allowedFileTypes: {
@@ -14,12 +15,26 @@ export default Ember.Mixin.create({
 	isEditMode: false,
 	isLoadingMode: false,
 	isNewBadgePreviewMode: false,
-	newWikiImageUrl: null,
+	newImageUrl: null,
 	resetFileInput: false,
+	// components using this mixin should override this default settings to enable tracking
+	trackingActions: {
+		EditImagePreview: ''
+	},
 	uploadedFile: null,
+
+	uploadImage(imageFile) {
+		return new Ember.RSVP.Promise((resolve, reject) => {
+			const fileReader = new FileReader();
+
+			fileReader.addEventListener('load', resolve);
+			fileReader.readAsDataURL(imageFile);
+		});
+	},
 
 	setEditMode(shouldEnable) {
 		Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
+
 		this.setProperties({
 			isEditMode: shouldEnable,
 			resetFileInput: true,
@@ -30,7 +45,7 @@ export default Ember.Mixin.create({
 			this.setProperties({
 				isLoadingMode: false,
 				isNewBadgePreviewMode: false,
-				newWikiImageUrl: null,
+				newImageUrl: null,
 				uploadedFile: null,
 			});
 		}
@@ -60,6 +75,19 @@ export default Ember.Mixin.create({
 				this.setProperties({
 					isLoadingMode: true,
 					errorMessage: null,
+				});
+
+				this.uploadImage(imageFile).then((event) => {
+					this.setProperties({
+						isLoadingMode: false,
+						isNewBadgePreviewMode: true,
+						newImageUrl: event.target.result,
+						uploadedFile: imageFile,
+					});
+					track(this.get('trackingActions.EditImagePreview'));
+				}).catch((err) => {
+					this.set('isLoadingMode', false);
+					this.setErrorMessage(this.get('errorsMessages.saveFailed'));
 				});
 			} else {
 				this.setErrorMessage(this.get('errorsMessages.fileType'));

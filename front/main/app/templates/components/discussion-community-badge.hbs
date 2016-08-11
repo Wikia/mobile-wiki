@@ -7,7 +7,7 @@
 			<div class="drop-catch-layer"></div>
 		</div>
 		{{#unless isDragActive}}
-			<img class="badge-image-display {{if isNewBadgePreviewMode 'is-visible'}}" src="{{newWikiImageUrl}}">
+			<img class="badge-image-display {{if isNewBadgePreviewMode 'is-visible'}}" src="{{newImageUrl}}">
 			<div class="error-message-container {{if errorMessage 'is-visible'}}">
 				{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
 				<span class="error-message">{{errorMessage}}</span>

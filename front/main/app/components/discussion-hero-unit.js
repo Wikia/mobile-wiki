@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DiscussionEditImage from '../mixins/discussion-edit-image';
+import {track, trackActions} from '../utils/discussion-tracker';
 import ViewportMixin from '../mixins/viewport';
 
 export default Ember.Component.extend(
@@ -18,6 +19,9 @@ export default Ember.Component.extend(
 	editingPossible: false,
 	fileInputClassNames: ['upload-image-button', 'background-theme-color'],
 	imageBackground: null,
+	trackingActions: {
+		EditImagePreview: trackActions.EditDiscussionsHeaderImagePreview
+	},
 
 	headerImages: {
 		24357: 'discussion-header-adventure-time.jpg',

@@ -14,6 +14,10 @@ export default Ember.Component.extend(
 		fileInputClassNames: ['upload-image-button', 'background-theme-color'],
 		squareDimension: 125,
 
+		trackingActions: {
+			EditImagePreview: trackActions.EditCommunityBadgeImagePreview
+		},
+
 		canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'badgeImage.permissions.canEdit'),
 		currentUser: Ember.inject.service(),
 
@@ -57,15 +61,6 @@ export default Ember.Component.extend(
 		escapePress(event) {
 			track(trackActions.EditCommunityBadgeEscapeKeyHit);
 			this.setEditMode(false);
-		},
-
-		uploadImage(imageFile) {
-			return new Ember.RSVP.Promise((resolve, reject) => {
-				const fileReader = new FileReader();
-
-				fileReader.addEventListener('load', resolve);
-				fileReader.readAsDataURL(imageFile);
-			});
 		},
 
 		dragLeave(event) {
@@ -113,7 +108,7 @@ export default Ember.Component.extend(
 
 				this.set('isLoadingMode', true);
 				this.get('uploadCommunityBadge')(uploadedFile).then(() => {
-					this.set('wikiImageUrl', this.get('newWikiImageUrl'));
+					this.set('wikiImageUrl', this.get('newImageUrl'));
 					track(trackActions.CommunityBadgeSave);
 					this.setEditMode(false);
 				}).catch((err) => {
@@ -121,34 +116,7 @@ export default Ember.Component.extend(
 					track(trackActions.CommunityBadgeSaveFailure);
 					this.setErrorMessage(this.get('errorsMessages.saveFailed'));
 				});
-			},
-
-			fileUpload(files) {
-				const imageFile = files[0];
-
-				if (!this.get(`allowedFileTypes.${imageFile.type}`)) {
-					this.setErrorMessage(this.get('errorsMessages.fileType'));
-					return;
-				}
-
-				this.setProperties({
-					isLoadingMode: true,
-					errorMessage: null,
-				});
-
-				this.uploadImage(imageFile).then((event) => {
-					this.setProperties({
-						isLoadingMode: false,
-						isNewBadgePreviewMode: true,
-						newWikiImageUrl: event.target.result,
-						uploadedFile: imageFile,
-					});
-					track(trackActions.EditCommunityBadgeImagePreview);
-				}).catch((err) => {
-					this.set('isLoadingMode', false);
-					this.setErrorMessage(this.get('errorsMessages.saveFailed'));
-				});
-			},
+			}
 		},
 	}
 );

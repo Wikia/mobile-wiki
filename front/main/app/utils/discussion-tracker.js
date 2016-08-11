@@ -58,6 +58,7 @@ const trackActions = {
 	EditCommunityBadgeFileDropped: 'EditCommunityBadgeFileDropped',
 	EditCommunityBadgeImagePreview: 'EditCommunityBadgeImagePreview',
 	EditCommunityBadgeEscapeKeyHit: 'EditCommunityBadgeEscapeKeyHit',
+	EditDiscussionsHeaderImagePreview: 'EditDiscussionsHeaderImagePreview',
 	CommunityBadgeSave: 'CommunityBadgeSave',
 	CommunityBadgeSaveFailure: 'CommunityBadgeSaveFailure',
 	PostCategoryAdded: 'PostCategoryAdded',
