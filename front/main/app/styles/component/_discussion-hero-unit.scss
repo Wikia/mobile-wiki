@@ -68,6 +68,7 @@ $discussion-hero-unit-minimized-height: 25px;
 		display: flex;
 		justify-content: center;
 		max-height: 100%;
+		min-height: 200px;
 		overflow: hidden;
 
 		.image-edit-preview {
