@@ -446,3 +446,52 @@ QUnit.test('redirectToOasis', function (assert) {
 		assert.ok(redirectStub.calledWith(testCase.expected));
 	});
 });
+
+QUnit.test('getCorporatePageUrlFromWikiDomain', function (assert) {
+	var testCases = [
+		{
+			wikiDomain: 'poznan.wikia.com',
+			environment: global.Environment.Prod,
+			expected: 'www.wikia.com'
+		},
+		{
+			wikiDomain: 'pl.gta.wikia.com',
+			environment: global.Environment.Prod,
+			expected: 'www.wikia.com'
+		},
+		{
+			wikiDomain: 'www.wikia.com',
+			environment: global.Environment.Prod,
+			expected: 'www.wikia.com'
+		},
+		{
+			wikiDomain: 'preview.poznan.wikia.com',
+			environment: global.Environment.Preview,
+			expected: 'preview.www.wikia.com'
+		},
+		{
+			wikiDomain: 'preview.pl.gta.wikia.com',
+			environment: global.Environment.Preview,
+			expected: 'preview.www.wikia.com'
+		},
+		{
+			wikiDomain: 'poznan.hacker.wikia-dev.com',
+			environment: global.Environment.Dev,
+			expected: 'www.hacker.wikia-dev.com'
+		},
+		{
+			wikiDomain: 'pl.gta.hacker.wikia-dev.com',
+			environment: global.Environment.Dev,
+			expected: 'www.hacker.wikia-dev.com'
+		}
+	];
+
+	testCases.forEach(function (testCase) {
+		const localSettings = {
+			environment: testCase.environment,
+			devboxDomain: 'hacker'
+		};
+
+		assert.equal(global.getCorporatePageUrlFromWikiDomain(localSettings, testCase.wikiDomain), testCase.expected);
+	});
+});

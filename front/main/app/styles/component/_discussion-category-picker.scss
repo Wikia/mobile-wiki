@@ -72,6 +72,9 @@
 
 	.discussion-category-picker-required-message {
 		color: $discussion-category-picker-button-background-color;
+		font-size: 10px;
+		font-weight: 600;
+		letter-spacing: .15px;
 		text-transform: uppercase;
 	}
 }

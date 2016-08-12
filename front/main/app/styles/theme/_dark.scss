@@ -117,13 +117,13 @@ body.dark-theme {
 			.post-details-link {
 				color: $dark-discussion-content-color;
 			}
-		}
 
-		.post-title {
-			color: $dark-discussion-post-title-color;
-
-			.post-details-link {
+			.post-title {
 				color: $dark-discussion-post-title-color;
+
+				.post-details-link {
+					color: $dark-discussion-post-title-color;
+				}
 			}
 		}
 

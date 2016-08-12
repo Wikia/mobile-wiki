@@ -21,6 +21,7 @@
 		{{discussion-post-card-detail
 			approve=(action this.attrs.approve)
 			author=entity.createdBy
+			categories=categories
 			delete=(action this.attrs.deletePost)
 			lock=(action this.attrs.lockPost)
 			openEditEditor=(action this.attrs.openEditEditor)
@@ -28,24 +29,15 @@
 			replyCount=entity.repliesCount
 			report=(action this.attrs.report)
 			setEditorActive=(action this.attrs.setEditorActive)
-			showCategories=showCategories
 			undelete=(action this.attrs.undeletePost)
 			unlock=(action this.attrs.unlockPost)
 			upvote=(action this.attrs.upvote)
 		}}
 	{{/if}}
 {{/each}}
-
-{{#if hasMore}}
-	{{#if isLoading }}
-		{{loading-spinner
-			active=true
-			overlay=false
-			radius=32
-			strokeWidth=2
-		}}
-	{{/if}}
-	<div class="load-more">
-		{{i18n 'main.loading-more-posts' ns='discussion'}}
-	</div>
-{{/if}}
+{{discussion-wrapper-load-more
+	hasMore=hasMore
+	isLoading=isLoading
+	loadNextPage=(action 'loadNextPage')
+	showLoadMoreButton=true
+}}

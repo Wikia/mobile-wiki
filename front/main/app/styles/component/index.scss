@@ -36,6 +36,7 @@
 @import 'discussion-standalone-editor';
 @import 'discussion-editor-overlay-message';
 @import 'user-avatar';
+@import 'discussion-reply-editor-entry-point';
 @import 'discussion-community-badge';
 @import 'discussion-community-unit';
 @import 'discussion-contributors';
@@ -67,7 +68,7 @@
 @import 'search';
 @import 'potential-member-page-experiment';
 @import 'recirculation-experiment';
-@import 'discussion-reply-editor-entry-point';
+@import 'global-footer';
 
 // wikia ui reusable components
 @import 'wikia-ui-components/check-box';

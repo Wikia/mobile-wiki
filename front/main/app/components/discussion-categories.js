@@ -174,17 +174,13 @@ export default Ember.Component.extend(
 
 			/**
 			 * @param {Object} localCategory
-			 * @param {Event} event
 			 *
 			 * @returns {void}
 			 */
-			onCategoryClick(localCategory, event) {
+			onCategoryClick(localCategory) {
 				const localCategories = this.get('localCategories');
 
 				this.trackCategory(false);
-
-				// SOC-2629
-				event.preventDefault();
 
 				localCategory.set('selected', !localCategory.get('selected'));
 
