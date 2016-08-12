@@ -7,7 +7,7 @@ export default Ember.Component.extend(
 	DiscussionEditImage,
 	ViewportMixin,
 	{
-	classNames: ['discussion-hero-unit'],
+	classNames: ['discussion-hero-unit', 'draggable-dropzone'],
 	contentClassNames: 'background-theme-color',
 
 	headerTitle: i18n.t('main.discussions-header-title', {ns: 'discussion'}),

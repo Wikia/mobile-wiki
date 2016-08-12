@@ -1,0 +1,53 @@
+.image-edit-mode {
+	background-color: $discussion-edit-image-upload-background-color;
+	color: $discussion-edit-image-hint-text-color;
+	cursor: auto;
+	font-size: $type-min;
+	height: 100%;
+	left: 0;
+	letter-spacing: 0.5px;
+	line-height: 15px;
+	text-align: center;
+	top: 0;
+	width: 100%;
+
+	&.is-loading {
+		background-color: $discussion-edit-image-transparent-layer-light-color;
+	}
+
+	.file-upload-label {
+		color: $discussion-upload-image-button-text-color;
+		cursor: pointer;
+		font-size: 10px;
+		font-weight: $font-weight-bold;
+		letter-spacing: 0.3px;
+		line-height: 15px;
+		margin-bottom: 15px;
+		min-height: 36px;
+		padding: 10px 5px;
+		text-align: center;
+		text-transform: uppercase;
+	}
+
+	input {
+		display: none;
+	}
+}
+
+.discussion-edit-approve-wrapper {
+	border-top-color: $discussion-upload-image-approve-buttons-border;
+}
+
+.draggable-dropzone {
+	.drag-and-drop {
+		align-items: center;
+		background-color: $discussion-edit-image-transparent-layer-dark-color;
+		height: 100%;
+		justify-content: center;
+		width: 100%;
+	}
+}
+
+.svg-camera-fill {
+	fill: $discussion-edit-image-camera;
+}

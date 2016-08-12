@@ -1,8 +1,6 @@
 $badge-image-dimensions-small: 79px;
 $badge-image-dimensions-big: 125px;
 $badge-image-tools-width: 210px;
-$badge-transparent-layer-light-color: rgba(255,255,255,0.8);
-$badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 
 .post-list-view {
 	.community-badge {
@@ -39,42 +37,6 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 	}
 }
 
-.image-edit-mode {
-	background-color: $discussion-edit-image-upload-background-color;
-	color: $discussion-edit-image-hint-text-color;
-	cursor: auto;
-	font-size: $type-min;
-	height: 100%;
-	left: 0;
-	letter-spacing: 0.5px;
-	line-height: 15px;
-	text-align: center;
-	top: 0;
-	width: 100%;
-
-	&.is-loading {
-		background-color: $badge-transparent-layer-light-color;
-	}
-
-	.file-upload-label {
-		color: $discussion-upload-image-button-text-color;
-		cursor: pointer;
-		font-size: 10px;
-		font-weight: $font-weight-bold;
-		letter-spacing: 0.3px;
-		line-height: 15px;
-		margin-bottom: 15px;
-		min-height: 36px;
-		padding: 10px 5px;
-		text-align: center;
-		text-transform: uppercase;
-	}
-
-	input {
-		display: none;
-	}
-}
-
 .community-badge {
 	.community-badge-image {
 		background-color: $discussion-community-badge-background-color;
@@ -95,7 +57,7 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 		}
 
 		.is-loading {
-			background-color: $badge-transparent-layer-light-color;
+			background-color: $discussion-edit-image-transparent-layer-light-color;
 			height: 100%;
 			left: 0;
 			position: absolute;
@@ -128,64 +90,39 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 	}
 
 	.error-message-container {
-		color: $discussion-upload-image-error-text-color;
-		display: none;
 		left: 50%;
 		margin: 10px 0 10px -40px;
 		width: $badge-image-tools-width + 40px;
-
-		&.is-visible {
-			display: block;
-		}
-
-		.error-message {
-			font-size: $type-base;
-			line-height: $line-height-base;
-		}
-
-		.icon.error {
-			fill: $discussion-upload-image-error-warning-color;
-		}
 	}
 
 	.discussion-edit-approve-wrapper {
-		border-top-color: $discussion-upload-image-approve-buttons-border;
 		left: 50%;
 		margin-left: -$badge-image-tools-width / 2;
 		margin-top: 2px;
 		width: $badge-image-tools-width;
 	}
-}
 
-.draggable-dropzone {
-	.drop-catch-layer,
-	.drag-and-drop {
-		height: 100%;
-		left: 0;
-		position: absolute;
-		top: 0;
-		width: 100%;
-	}
-
-	.drag-and-drop {
-		align-items: center;
-		background-color: $badge-transparent-layer-dark-color;
-		display: none;
-		justify-content: center;
-
-		svg {
-			height: 45px;
-			width: 45px;
-		}
-	}
-
-	&.drag-activated {
+	&.draggable-dropzone {
+		.drop-catch-layer,
 		.drag-and-drop {
-			display: flex;
+			left: 0;
+			position: absolute;
+			top: 0;
+		}
+
+		.drag-and-drop {
+			display: none;
+
+			svg {
+				height: 45px;
+				width: 45px;
+			}
+		}
+
+		&.drag-activated {
+			.drag-and-drop {
+				display: flex;
+			}
 		}
 	}
-}
-
-.svg-camera-fill {
-	fill: $discussion-edit-image-camera;
 }
