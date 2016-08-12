@@ -28,6 +28,14 @@
 				{{#if isImagePreviewMode}}
 					<div class="image-edit-preview-wrapper">
 						<img class="image-edit-preview" src="{{newImageUrl}}" />
+						{{#if isLoadingMode}}
+							{{loading-spinner
+								active=true
+								overlay=false
+								radius=32
+								strokeWidth=2
+							}}
+						{{/if}}
 					</div>
 				{{else}}
 					{{#if isLoadingMode}}
@@ -38,7 +46,7 @@
 							strokeWidth=2
 						}}
 					{{else}}
-						<div class="discussion-heero-unit-gap">
+						<div class="discussion-hero-unit-gap">
 						</div>
 						{{file-input
 							classNames=fileInputClassNames
