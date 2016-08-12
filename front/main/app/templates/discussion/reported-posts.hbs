@@ -34,6 +34,7 @@
 	}}
 	{{discussion-reported-posts-wrapper
 		approve=(action 'approve')
+		categories=model.index.categories.categories
 		createPost=(action 'createPost')
 		deletePost=(action 'deletePost')
 		deleteReply=(action 'deleteReply')
@@ -47,7 +48,6 @@
 		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')
 		setEditorActive=(action 'setEditorActive')
-		showCategories=showCategories
 		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
 		undeleteReply=(action 'undeleteReply')

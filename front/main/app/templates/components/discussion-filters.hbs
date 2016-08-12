@@ -1,15 +1,13 @@
 <form name="discussion-filters">
 	<div class="discussion-filters-fields-wrapper">
-		{{#if showCategories}}
-			{{#if categories}}
-				{{discussion-categories
-					categories=categories
-					disabled=onlyReported
-					inputIdPrefix='filters'
-					updateCategories=(action this.attrs.updateCategories)
-					updateCategoriesSelection=(action 'updateCategoriesSelection')
-				}}
-			{{/if}}
+		{{#if canShowCategories}}
+			{{discussion-categories
+				categories=categories
+				disabled=onlyReported
+				inputIdPrefix='filters'
+				updateCategories=(action this.attrs.updateCategories)
+				updateCategoriesSelection=(action 'updateCategoriesSelection')
+			}}
 		{{/if}}
 		{{#if showSortSection}}
 			<fieldset class="discussion-fieldset sortby-fieldset" disabled={{trendingDisabled}}>
