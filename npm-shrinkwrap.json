@@ -2953,9 +2953,9 @@
       }
     },
     "design-system-i18n": {
-      "version": "0.3.1",
-      "from": "git://github.com/wikia/design-system-i18n.git#c866680a3bd7a3035bf62fb0cea373f8b9cf72d3",
-      "resolved": "git://github.com/wikia/design-system-i18n.git#c866680a3bd7a3035bf62fb0cea373f8b9cf72d3"
+      "version": "0.3.2",
+      "from": "git://github.com/wikia/design-system-i18n.git#64d28f2f09391c057afd048a1d7393d1bfe21600",
+      "resolved": "git://github.com/wikia/design-system-i18n.git#64d28f2f09391c057afd048a1d7393d1bfe21600"
     },
     "ember-template-compiler": {
       "version": "1.9.0-alpha"
@@ -3737,7 +3737,7 @@
           }
         },
         "eslint-plugin-import": {
-          "version": "1.11.0"
+          "version": "1.10.3"
         }
       }
     },
