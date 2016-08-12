@@ -7,63 +7,63 @@ export default Ember.Component.extend(
 	DiscussionEditImage,
 	ViewportMixin,
 	{
-	classNames: ['discussion-hero-unit', 'draggable-dropzone'],
-	contentClassNames: 'background-theme-color',
+		classNames: ['discussion-hero-unit', 'draggable-dropzone'],
+		contentClassNames: 'background-theme-color',
 
-	headerTitle: i18n.t('main.discussions-header-title', {ns: 'discussion'}),
+		headerTitle: i18n.t('main.discussions-header-title', {ns: 'discussion'}),
 
-	overlay: false,
+		overlay: false,
 
-	canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'heroImage.permissions.canEdit'),
-	currentUser: Ember.inject.service(),
-	editingPossible: false,
-	fileInputClassNames: ['upload-image-button', 'background-theme-color'],
-	imageBackground: null,
-	onImageUrlChange: Ember.observer('imageUrl', function() {
-		this.setImageBackground(this.get('imageUrl'));
-	}),
-	trackedActions: {
-		EditButtonTapped: trackActions.EditDiscussionsHeaderButtonTapped,
-		EditEscapeKeyHit: trackActions.EditDiscussionsHeaderEscapeKeyHit,
-		EditFileDropped: trackActions.EditDiscussionsHeaderFileDropped,
-		EditImagePreview: trackActions.EditDiscussionsHeaderImagePreview,
-		Save: trackActions.DiscussionsHeaderSave,
-		SaveFailure: trackActions.DiscussionsHeaderSaveFailure
-	},
+		canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'heroImage.permissions.canEdit'),
+		currentUser: Ember.inject.service(),
+		editingPossible: false,
+		fileInputClassNames: ['upload-image-button', 'background-theme-color'],
+		imageBackground: null,
+		onImageUrlChange: Ember.observer('imageUrl', function () {
+			this.setImageBackground(this.get('imageUrl'));
+		}),
+		trackedActions: {
+			EditButtonTapped: trackActions.EditDiscussionsHeaderButtonTapped,
+			EditEscapeKeyHit: trackActions.EditDiscussionsHeaderEscapeKeyHit,
+			EditFileDropped: trackActions.EditDiscussionsHeaderFileDropped,
+			EditImagePreview: trackActions.EditDiscussionsHeaderImagePreview,
+			Save: trackActions.DiscussionsHeaderSave,
+			SaveFailure: trackActions.DiscussionsHeaderSaveFailure
+		},
 
-	/**
-	 * @returns {void}
-	 */
-	didInsertElement() {
-		this.viewportChangeObserver();
-	},
+		/**
+		 * @returns {void}
+		 */
+		didInsertElement() {
+			this.viewportChangeObserver();
+		},
 
-	/**
-	 * @private
-	 */
-	setImageBackground(imageUrl) {
-		this.set('imageBackground',
-			new Ember.Handlebars.SafeString(`background: #fff url(${imageUrl}) center no-repeat;`));
-	},
+		/**
+		 * @private
+		 */
+		setImageBackground(imageUrl) {
+			this.set('imageBackground',
+				new Ember.Handlebars.SafeString(`background: #fff url(${imageUrl}) center no-repeat;`));
+		},
 
-	/**
-	 * Observes for change in visibility state of the component
-	 * if it shows up and it didn't load the image before,
-	 * it constructs the style attribute with an appropriate image
-	 * (This component is always loaded, but hidden in CSS for mobile res,
-	 * so this will check if the browser width changed from mobile to desktop
-	 * and then lazy-load the image)
-	 */
-	viewportChangeObserver: Ember.observer('viewportDimensions.width', function () {
-		const visibleElement = this.$(':visible'),
-			isShown = Boolean(visibleElement && visibleElement.length),
-			imageUrl = Ember.isEmpty(this.get('heroImage.value'))
-				? Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/symbols/brackets.svg')
-				: this.get('heroImage.value');
+		/**
+		 * Observes for change in visibility state of the component
+		 * if it shows up and it didn't load the image before,
+		 * it constructs the style attribute with an appropriate image
+		 * (This component is always loaded, but hidden in CSS for mobile res,
+		 * so this will check if the browser width changed from mobile to desktop
+		 * and then lazy-load the image)
+		 */
+		viewportChangeObserver: Ember.observer('viewportDimensions.width', function () {
+			const visibleElement = this.$(':visible'),
+				isShown = Boolean(visibleElement && visibleElement.length),
+				imageUrl = Ember.isEmpty(this.get('heroImage.value'))
+					? Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/symbols/brackets.svg')
+					: this.get('heroImage.value');
 
-		if (!this.get('imageBackground') && isShown) {
-			this.setImageBackground(imageUrl);
-			this.set('contentClassNames', 'background-alpha-theme-color');
-		}
-	})
-});
+			if (!this.get('imageBackground') && isShown) {
+				this.setImageBackground(imageUrl);
+				this.set('contentClassNames', 'background-alpha-theme-color');
+			}
+		})
+	});
