@@ -98,7 +98,7 @@
     "categories-edit-general-error":"Error al guardar, por favor inténtalo de nuevo.",
     "filter-posts-header":"Filtrar discusiones",
     "filter-reset-label":"Reiniciar",
-    "in-category-label":"en __categoryName__",
+    "in-category-label":"__categoryName__",
     "app-promotion-text":"¡Lleva tu fandom contigo, descarga la aplicación hoy!",
     "app-promotion-text-details-page":"Mantente al día de lo que ocurre. ¡Obtén la aplicación ahora!",
     "wiki-home":"Portada",
