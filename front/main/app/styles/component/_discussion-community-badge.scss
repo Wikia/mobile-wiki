@@ -52,6 +52,10 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 	top: 0;
 	width: 100%;
 
+	&.is-loading {
+		background-color: $badge-transparent-layer-light-color;
+	}
+
 	.file-upload-label {
 		color: $discussion-upload-image-button-text-color;
 		cursor: pointer;
@@ -68,10 +72,6 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 
 	input {
 		display: none;
-	}
-
-	&.is-loading {
-		background-color: $badge-transparent-layer-light-color;
 	}
 }
 
