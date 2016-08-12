@@ -22,8 +22,9 @@ export default Ember.Component.extend(
 	onImageUrlChange: Ember.observer('imageUrl', function() {
 		this.setImageBackground(this.get('imageUrl'));
 	}),
-	trackingActions: {
+	trackedActions: {
 		EditButtonTapped: trackActions.EditDiscussionsHeaderButtonTapped,
+		EditEscapeKeyHit: trackActions.EditDiscussionsHeaderEscapeKeyHit,
 		EditImagePreview: trackActions.EditDiscussionsHeaderImagePreview,
 		Save: trackActions.DiscussionsHeaderSave,
 		SaveFailure: trackActions.DiscussionsHeaderSaveFailure

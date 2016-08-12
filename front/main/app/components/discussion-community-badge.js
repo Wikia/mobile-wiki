@@ -1,11 +1,8 @@
 import Ember from 'ember';
-import EscapePress from '../mixins/escape-press';
 import DiscussionEditImage from '../mixins/discussion-edit-image';
-import Thumbnailer from 'common/modules/thumbnailer';
 import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Component.extend(
-	EscapePress,
 	DiscussionEditImage,
 	{
 		classNames: ['community-badge', 'draggable-dropzone'],
@@ -14,8 +11,9 @@ export default Ember.Component.extend(
 		fileInputClassNames: ['upload-image-button', 'background-theme-color'],
 		squareDimension: 125,
 
-		trackingActions: {
+		trackedActions: {
 			EditButtonTapped: trackActions.EditCommunityBadgeButtonTapped,
+			EditEscapeKeyHit: trackActions.EditCommunityBadgeEscapeKeyHit,
 			EditImagePreview: trackActions.EditCommunityBadgeImagePreview,
 			Save: trackActions.CommunityBadgeSave,
 			SaveFailure: trackActions.CommunityBadgeSaveFailure
@@ -52,11 +50,6 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		escapePress(event) {
-			track(trackActions.EditCommunityBadgeEscapeKeyHit);
-			this.setEditMode(false);
-		},
-
 		dragLeave(event) {
 			event.preventDefault();
 			this.set('isDragActive', false);
@@ -76,21 +69,6 @@ export default Ember.Component.extend(
 				this.send('fileUpload', event.dataTransfer.files);
 				this.set('isDragActive', false);
 			}
-		},
-
-		actions: {
-			/**
-			 * Enables community badge edit mode
-			 *
-			 * @returns {void}
-			 */
-			enableEditMode() {
-				if (this.get('canEdit')) {
-					this.setEditMode(true);
-					this.escapeOnce();
-					track(trackActions.EditCommunityBadgeButtonTapped);
-				}
-			}
-		},
+		}
 	}
 );
