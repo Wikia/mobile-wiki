@@ -1,29 +1,18 @@
 import Ember from 'ember';
 import DiscussionBaseRoute from './base';
+import RouteWithBodyClassNameMixin from '../../mixins/route-with-body-class-name';
 
-export default DiscussionBaseRoute.extend({
+export default DiscussionBaseRoute.extend(
+	RouteWithBodyClassNameMixin,
+	{
+		bodyClassNames: ['standalone-page'],
 
-	model() {
-		const indexModel = this.modelFor('discussion');
+		model() {
+			const indexModel = this.modelFor('discussion');
 
-		return Ember.RSVP.hash({
-			attributes: indexModel.attributes,
-		});
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	activate() {
-		Ember.$('body').addClass('standalone-page');
-		this._super();
-	},
-
-	/**
-	 * @returns {void}
-	 */
-	deactivate() {
-		Ember.$('body').removeClass('standalone-page');
-		this._super();
-	},
-});
+			return Ember.RSVP.hash({
+				attributes: indexModel.attributes,
+			});
+		},
+	}
+);
