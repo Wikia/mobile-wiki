@@ -59,13 +59,13 @@ $discussion-hero-unit-minimized-height: 25px;
 	.image-edit-mode {
 		min-height: 200px;
 
-		.discussion-hero-unit-gap {
+		.image-edit-file-input-wrapper {
 			padding-top: 76px;
-		}
 
-		.upload-image-button {
-			margin: 0px auto 20px;
-			width: 160px;
+			.upload-image-button {
+				margin: 0px auto 20px;
+				width: 160px;
+			}
 		}
 
 		&.is-loading {

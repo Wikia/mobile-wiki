@@ -31,16 +31,16 @@
 					</div>
 				{{else}}
 					{{#unless isLoadingMode}}
-						<div class="discussion-hero-unit-gap">
+						<div class="image-edit-file-input-wrapper">
+							{{file-input
+								classNames=fileInputClassNames
+								click=(action 'emptyClickForFileInput')
+								fileUpload=(action 'fileUpload')
+								label=(i18n 'main.upload-image-button-text' ns='discussion')
+								reset=resetFileInput
+							}}
+							{{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}}
 						</div>
-						{{file-input
-							classNames=fileInputClassNames
-							click=(action 'emptyClickForFileInput')
-							fileUpload=(action 'fileUpload')
-							label=(i18n 'main.upload-image-button-text' ns='discussion')
-							reset=resetFileInput
-						}}
-						{{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}}
 					{{/unless}}
 				{{/if}}
 				{{#if isLoadingMode}}
