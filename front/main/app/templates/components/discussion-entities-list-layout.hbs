@@ -28,7 +28,7 @@
 	<div class="discussion-page row">
 		<div class="rail left large-3 columns">
 			{{community-badge}}
-			{{#unless categoriesInRail}}
+			{{#if categoriesInRail}}
 				{{#if canShowCategories}}
 					{{discussion-categories
 						categories=categories
@@ -38,7 +38,7 @@
 						visibleCategoriesCount=10
 					}}
 				{{/if}}
-			{{/unless}}
+			{{/if}}
 			{{#if model.canModerate}}
 				{{discussion-reported-filter
 					applyFilters=(action this.attrs.applyFilters)
