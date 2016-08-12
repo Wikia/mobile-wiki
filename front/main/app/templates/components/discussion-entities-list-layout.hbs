@@ -28,15 +28,17 @@
 	<div class="discussion-page row">
 		<div class="rail left large-3 columns">
 			{{community-badge}}
-			{{#if canShowCategories}}
-				{{discussion-categories
-					categories=categories
-					inputIdPrefix='rail'
-					updateCategories=(action this.attrs.updateCategories)
-					updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
-					visibleCategoriesCount=10
-				}}
-			{{/if}}
+			{{#unless categoriesInRail}}
+				{{#if canShowCategories}}
+					{{discussion-categories
+						categories=categories
+						inputIdPrefix='rail'
+						updateCategories=(action this.attrs.updateCategories)
+						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
+						visibleCategoriesCount=10
+					}}
+				{{/if}}
+			{{/unless}}
 			{{#if model.canModerate}}
 				{{discussion-reported-filter
 					applyFilters=(action this.attrs.applyFilters)
