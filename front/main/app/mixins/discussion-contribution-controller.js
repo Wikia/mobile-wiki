@@ -93,7 +93,9 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	rejectAnon() {
-		this.openDialog('editor.post-error-anon-cant-post');
+		this.openDialog({
+			message: i18n.t('editor.post-error-anon-cant-post', {ns: 'discussion'}),
+		});
 	},
 
 	/**
@@ -101,19 +103,34 @@ export default Ember.Mixin.create({
 	 * @returns {void}
 	 */
 	rejectBlockedUser() {
-		this.openDialog('editor.post-error-not-authorized');
+		this.openDialog({
+			header: i18n.t('editor.post-error-user-blocked-title', {ns: 'discussion'}),
+			message: i18n.t('editor.post-error-user-blocked-text', {
+				blockerUsername: '',
+				expirationDate: '',
+				blockReason: '',
+				ns: 'discussion',
+			}),
+		});
 	},
 
 	/**
 	 * Opens a modal dialog with translated message
-	 * @param {string} message
+	 * @param {Object} openDialogParams params for display modal method [see: modalDialog::display]
+	 * @param {string} openDialogParams.message text for dialog modal body message
+	 * @param {string} [openDialogParams.header] text for dialog modal title
 	 * @returns {void}
 	 */
-	openDialog(message) {
-		this.get('modalDialog').display({
-			message: i18n.t(message, {ns: 'discussion'}),
-			name: 'modal-dialog-posting-not-allowed',
-		});
+	openDialog(openDialogParams) {
+		const displayParams = {};
+
+		Object.assign(
+			displayParams,
+			{name: 'modal-dialog-posting-not-allowed'},
+			openDialogParams,
+		);
+
+		this.get('modalDialog').display(displayParams);
 	},
 
 	/**
