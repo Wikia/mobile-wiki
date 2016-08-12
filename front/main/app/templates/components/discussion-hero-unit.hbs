@@ -24,22 +24,22 @@
 	{{/unless}}
 	{{#if canEdit}}
 		{{#if isEditMode}}
-			{{#if isImagePreviewMode}}
-				<div class="image-edit-preview-wrapper">
-					<img class="image-edit-preview" src="{{newImageUrl}}" />
-				</div>
-			{{else}}
-				<div class="image-edit-mode">
+			<div class="image-edit-mode {{if isLoadingMode 'is-loading'}}">
+				{{#if isImagePreviewMode}}
+					<div class="image-edit-preview-wrapper">
+						<img class="image-edit-preview" src="{{newImageUrl}}" />
+					</div>
+				{{else}}
 					{{#if isLoadingMode}}
-						<div class="is-loading">
-							{{loading-spinner
-								active=true
-								overlay=false
-								radius=32
-								strokeWidth=2
-							}}
-						</div>
+						{{loading-spinner
+							active=true
+							overlay=false
+							radius=32
+							strokeWidth=2
+						}}
 					{{else}}
+						<div class="header-unit-gap">
+						</div>
 						{{file-input
 							classNames=fileInputClassNames
 							click=(action 'emptyClickForFileInput')
@@ -49,8 +49,8 @@
 						}}
 						{{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}}
 					{{/if}}
-				</div>
-			{{/if}}
+				{{/if}}
+			</div>
 			{{#unless isLoadingMode}}
 				<div class="error-message-container {{if errorMessage 'is-visible'}}">
 					{{svg 'report' viewBox='0 0 18 18' class='icon error'}}

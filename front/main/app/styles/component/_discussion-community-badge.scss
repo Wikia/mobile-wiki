@@ -48,7 +48,6 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 	left: 0;
 	letter-spacing: 0.5px;
 	line-height: 15px;
-	padding: 8px 5px;
 	text-align: center;
 	top: 0;
 	width: 100%;
@@ -69,6 +68,10 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 
 	input {
 		display: none;
+	}
+
+	&.is-loading {
+		background-color: $badge-transparent-layer-light-color;
 	}
 }
 
@@ -116,6 +119,7 @@ $badge-transparent-layer-dark-color: rgba(0,0,0,0.8);
 	}
 
 	.image-edit-mode {
+		padding: 8px 5px;
 		position: absolute;
 
 		.upload-image-button {
