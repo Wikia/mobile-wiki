@@ -56,13 +56,17 @@ export default Ember.Component.extend(
 		 */
 		viewportChangeObserver: Ember.observer('viewportDimensions.width', function () {
 			const visibleElement = this.$(':visible'),
-				isShown = Boolean(visibleElement && visibleElement.length),
-				imageUrl = Ember.isEmpty(this.get('heroImage.value'))
-					? Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/symbols/brackets.svg')
-					: this.get('heroImage.value');
+				isShown = Boolean(visibleElement && visibleElement.length);
 
 			if (!this.get('imageBackground') && isShown) {
-				this.setImageBackground(imageUrl);
+				if (Ember.isEmpty(this.get('heroImage.value'))) {
+					const imageUrl = Ember.getWithDefault(Mercury, 'wiki.image', '/front/common/symbols/brackets.svg');
+
+					this.set('imageBackground',
+						new Ember.Handlebars.SafeString(`background: #000 url(${imageUrl}) center no-repeat;`));
+				} else {
+					this.setImageBackground(this.get('heroImage.value'));
+				}
 				this.set('contentClassNames', 'background-alpha-theme-color');
 			}
 		})
