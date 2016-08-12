@@ -3,12 +3,13 @@ import {CuratedMainPageRequestHelper} from '../lib/curated-main-page';
 import {
 	MainPageDataRequestError, RedirectedToCanonicalHost, WikiVariablesNotValidWikiError, WikiVariablesRequestError
 } from '../lib/custom-errors';
-import {getCachedWikiDomainName, redirectToCanonicalHostIfNeeded} from '../lib/utils';
+import {getCachedWikiDomainName, redirectToCanonicalHostIfNeeded, setI18nLang} from '../lib/utils';
 import localSettings from '../../config/localSettings';
 import prepareCuratedContentData from './operations/prepare-curated-content-data';
 import showServerErrorPage from './operations/show-server-error-page';
 import {disableCache, setResponseCaching, Interval as CachingInterval, Policy as CachingPolicy} from '../lib/caching';
 import * as Tracking from '../lib/tracking';
+import injectGlobalFooterData from '../lib/inject-global-footer-data';
 
 const cachingTimes = {
 	enabled: true,
@@ -36,15 +37,17 @@ function outputResponse(request, reply, data, allowCache = true, code = 200) {
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
 
-	response = reply.view('application', result);
-	response.code(code);
-	response.type('text/html; charset=utf-8');
+	setI18nLang(request, result.wikiVariables).then(() => {
+		response = reply.view('application', result);
+		response.code(code);
+		response.type('text/html; charset=utf-8');
 
-	if (allowCache) {
-		return setResponseCaching(response, cachingTimes);
-	}
+		if (allowCache) {
+			setResponseCaching(response, cachingTimes);
+		}
 
-	return disableCache(response);
+		disableCache(response);
+	});
 }
 
 /**
@@ -71,6 +74,17 @@ export default function showCuratedContent(request, reply) {
 
 	mainPage.setTitle(request.params.title);
 	mainPage.getWikiVariablesAndDetails()
+		/**
+		 * Get data for Global Footer
+		 * @param {CuratedContentPageData} data
+		 * @returns {CuratedContentPageData}
+		 *
+		 */
+		.then((data) => injectGlobalFooterData({
+			data,
+			request,
+			showFooter: true
+		}))
 		/**
 		 * @param {CuratedContentPageData} data
 		 * @returns {void}

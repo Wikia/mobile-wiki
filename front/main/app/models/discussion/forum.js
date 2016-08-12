@@ -13,19 +13,17 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 	DiscussionForumActionsModelMixin,
 	DiscussionContributionModelMixin,
 	{
-		pivotId: null,
-
 		/**
 		 * @param {number} [pageNum=0]
 		 * @param {string} [sortBy='trending']
 		 * @returns {Ember.RSVP.Promise}
 		 */
-		loadPage(pageNum = 0, sortBy = 'trending') {
+		loadPage(pageNum = 1, sortBy = 'trending') {
 			this.set('data.pageNum', pageNum);
 
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads`), {
 				data: {
-					limit: 10,
+					limit: this.get('loadMoreLimit'),
 					page: this.get('data.pageNum'),
 					pivot: this.get('pivotId'),
 					sortKey: this.getSortKey(sortBy),
@@ -36,6 +34,7 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 					(newThread) => DiscussionPost.createFromThreadData(newThread)
 				);
 
+				this.incrementProperty('pageNum');
 				this.get('data.entities').pushObjects(newEntities);
 				this.reportedDetailsSetUp(newEntities);
 
@@ -51,11 +50,11 @@ const DiscussionForumModel = DiscussionBaseModel.extend(
 		 */
 		setNormalizedData(apiData) {
 			const posts = Ember.getWithDefault(apiData, '_embedded.threads', []),
-				pivotId = Ember.getWithDefault(posts, '0.id', 0),
+				pivotId = Ember.getWithDefault(posts, 'firstObject.id', 0),
 				entities = DiscussionEntities.createFromThreadsData(posts);
 
 			this.get('data').setProperties({
-				canModerate: Ember.getWithDefault(entities, '0.userData.permissions.canModerate', false),
+				canModerate: Ember.getWithDefault(entities, 'firstObject.userData.permissions.canModerate', false),
 				contributors: DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities,
 				pageNum: 0,
@@ -81,7 +80,7 @@ DiscussionForumModel.reopenClass({
 				}),
 				requestData = {
 					forumId: cateogries instanceof Array ? cateogries : [cateogries],
-					limit: 10,
+					limit: forumInstance.get('postsLimit'),
 					viewableOnly: false
 				};
 

@@ -2,6 +2,7 @@ import * as MW from '../lib/mediawiki';
 import * as Utils from '../lib/utils';
 import * as Tracking from '../lib/tracking';
 import * as OpenGraph from '../lib/open-graph';
+import Promise from 'bluebird';
 import Logger from '../lib/logger';
 import localSettings from '../../config/localSettings';
 import discussionsSplashPageConfig from '../../config/discussionsSplashPageConfig';
@@ -11,6 +12,7 @@ import {
 } from '../lib/custom-errors';
 import {isRtl, getUserId, getLocalSettings} from './operations/page-data-helper';
 import showServerErrorPage from './operations/show-server-error-page';
+import injectGlobalFooterData from '../lib/inject-global-footer-data';
 
 /**
  * @typedef {Object} CommunityAppConfig
@@ -26,7 +28,9 @@ import showServerErrorPage from './operations/show-server-error-page';
  */
 function outputResponse(request, reply, context) {
 	Tracking.handleResponse(context, request);
-	reply.view('application', context);
+	Utils.setI18nLang(request, context.wikiVariables).then(() => {
+		reply.view('application', context);
+	});
 }
 
 /**
@@ -39,7 +43,7 @@ function getDistilledDiscussionsSplashPageConfig(hostName) {
 	if (mainConfig) {
 		return {
 			androidAppLink: mainConfig.androidAppLink,
-			iosAppLink: mainConfig.iosAppLink,
+			iosAppLink: mainConfig.iosAppLink
 		};
 	}
 	return {};
@@ -48,15 +52,16 @@ function getDistilledDiscussionsSplashPageConfig(hostName) {
 /**
  * @param {Hapi.Request} request
  * @param {Hapi.Response} reply
- * @param {Object} wikiVariables
+ * @param {Promise} wikiVariables
  * @param {Object} context
+ * @param {Boolean} showGlobalFooter
  * @returns {void}
  */
-export default function showApplication(request, reply, wikiVariables, context = {}) {
+export default function showApplication(request, reply, wikiVariables, context = {}, showGlobalFooter = false) {
 	const wikiDomain = Utils.getCachedWikiDomainName(localSettings, request),
 		hostName = Utils.getWikiaSubdomain(request.info.host);
 
-	if (typeof wikiVariables === 'undefined') {
+	if (!(wikiVariables instanceof Promise)) {
 		wikiVariables = new MW.WikiRequest({wikiDomain}).wikiVariables();
 	}
 
@@ -79,16 +84,29 @@ export default function showApplication(request, reply, wikiVariables, context =
 			context.wikiVariables = wikiVariables;
 			context.isRtl = isRtl(wikiVariables);
 
-			return OpenGraph.getAttributes(request, context.wikiVariables);
+			return OpenGraph.getAttributes(request, context.wikiVariables).then((openGraphData) => {
+				// Add OpenGraph attributes to context
+				context.openGraph = openGraphData;
+				return context;
+			});
 		})
 		/**
-		 * @param {*} openGraphData
+		 * Get data for Global Footer
+		 * @param {MediaWikiPageData} templateData
+		 * @returns {MediaWikiPageData}
+		 *
+		 */
+		.then((templateData) => injectGlobalFooterData({
+			data: templateData,
+			request,
+			showFooter: showGlobalFooter
+		}))
+		/**
+		 * @param {*} contextData
 		 * @returns {void}
 		 */
-		.then((openGraphData) => {
-			// Add OpenGraph attributes to context
-			context.openGraph = openGraphData;
-			outputResponse(request, reply, context);
+		.then((templateData) => {
+			outputResponse(request, reply, templateData);
 		})
 		/**
 		 * If request for Wiki Variables fails

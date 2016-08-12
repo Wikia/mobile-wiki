@@ -228,7 +228,8 @@ $success-icon-size: 80px;
 }
 
 @media #{$mobile-range} {
-	.discussion-categories-edit{
+	.discussion-categories-edit {
+		-webkit-overflow-scrolling: touch;
 		overflow-y: auto;
 
 		.discussion-categories-input,

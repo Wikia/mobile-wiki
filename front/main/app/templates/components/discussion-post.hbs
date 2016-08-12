@@ -1,6 +1,7 @@
 {{discussion-post-card-detail
 	approve=(action this.attrs.approve)
 	author=model.createdBy
+	categories=categories
 	delete=(action this.attrs.deletePost)
 	isDetailsView=true
 	lock=(action this.attrs.lockPost)
@@ -9,7 +10,6 @@
 	replyCount=model.repliesCount
 	report=(action this.attrs.report)
 	setEditorActive=(action this.attrs.setEditorActive)
-	showCategories=showCategories
 	timestamp=model.creationTimestamp
 	undelete=(action this.attrs.undeletePost)
 	unlock=(action this.attrs.unlockPost)

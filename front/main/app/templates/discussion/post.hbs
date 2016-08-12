@@ -45,6 +45,7 @@
 }}
 	{{discussion-post
 		approve=(action 'approve')
+		categories=model.index.categories.categories
 		createReply=(action 'createReply')
 		deleteAllPosts=(action 'deleteAllPosts')
 		deletePost=(action 'deletePost')
@@ -61,7 +62,6 @@
 		openEditEditor=(action 'openEditEditor')
 		report=(action 'report')
 		setEditorActive=(action 'setEditorActive')
-		showCategories=showCategories
 		undeletePost=(action 'undeletePost')
 		undeleteReply=(action 'undeleteReply')
 		unlockPost=(action 'unlockPost')

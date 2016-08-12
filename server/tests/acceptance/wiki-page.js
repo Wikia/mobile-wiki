@@ -12,6 +12,7 @@ var Lab = require('lab'),
 	server = require('../../../www/server/app/app'),
 	mediawiki = require('../../../www/server/app/lib/mediawiki'),
 	wikiVariables = require('../fixtures/wiki-variables'),
+	footer = require('../fixtures/design-system/global-footer'),
 	article = require('../fixtures/article'),
 	curatedMainPage = require('../fixtures/curated-main-page');
 
@@ -20,14 +21,14 @@ describe('wiki-page', function () {
 			url: '/wiki/Yoda',
 			method: 'GET',
 			headers: {
-				host: 'starwars.wikia.com',
+				host: 'starwars.wikia.com'
 			}
 		},
 		requestParamsWithoutTitle = {
 			url: '/wiki/',
 			method: 'GET',
 			headers: {
-				host: 'starwars.wikia.com',
+				host: 'starwars.wikia.com'
 			}
 		},
 		wreckGetStub = sinon.stub();
@@ -52,6 +53,7 @@ describe('wiki-page', function () {
 	it('renders existing article', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
@@ -63,6 +65,7 @@ describe('wiki-page', function () {
 	it('renders curated main page', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(curatedMainPage));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
@@ -76,6 +79,7 @@ describe('wiki-page', function () {
 	it('renders error page when request for wiki variables fails (payload is an empty object)', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 503}, {});
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(503);
@@ -87,6 +91,7 @@ describe('wiki-page', function () {
 	it('renders error page when request for wiki variables fails (payload is an empty string)', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 503}, '');
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(503);
@@ -98,6 +103,7 @@ describe('wiki-page', function () {
 	it('renders error page when request for wiki variables fails (payload is a string)', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 503}, 'error');
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(503);
@@ -109,6 +115,7 @@ describe('wiki-page', function () {
 	it('redirects to community wikia when requested wiki does not exist', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, 'not a valid wikia');
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(302);
@@ -126,6 +133,7 @@ describe('wiki-page', function () {
 
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, clone(article));
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParamsWithAliasHost, function (response) {
 			expect(response.statusCode).to.equal(301);
@@ -139,6 +147,7 @@ describe('wiki-page', function () {
 	it('renders page with correct M.prop when request for article returns 404', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 404}, {});
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(404);
@@ -152,6 +161,7 @@ describe('wiki-page', function () {
 	it('renders page with correct M.prop when request for article returns 503', function (done) {
 		wreckGetStub.onCall(0).yields(null, {statusCode: 503}, {});
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(503);
@@ -207,6 +217,7 @@ describe('wiki-page', function () {
 
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, articleWithCustomNamespace);
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, wikiVariablesWithCustomNamespace);
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParamsWithCustomNamespace, function (response) {
 			expect(response.statusCode).to.equal(200);
@@ -229,6 +240,7 @@ describe('wiki-page', function () {
 
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, curatedMainPageWithCustomNamespace);
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParams, function (response) {
 			expect(response.statusCode).to.equal(200);
@@ -248,6 +260,7 @@ describe('wiki-page', function () {
 
 		wreckGetStub.onCall(0).yields(null, {statusCode: 200}, pageWithUnsupportedNamespace);
 		wreckGetStub.onCall(1).yields(null, {statusCode: 200}, clone(wikiVariables));
+		wreckGetStub.onCall(2).yields(null, {statusCode: 200}, clone(footer));
 
 		server.inject(requestParamsWithQueryInUrl, function (response) {
 			expect(response.statusCode).to.equal(302);

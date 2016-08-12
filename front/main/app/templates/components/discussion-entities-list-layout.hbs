@@ -8,7 +8,6 @@
 		hasNewPostButton=hasNewPostButton
 		hasSiteName=true
 		setEditorActive=(action this.attrs.setEditorActive)
-		showCategories=showCategories
 		smartBannerVisible=smartBannerVisible
 		updateCategories=(action this.attrs.updateCategories)
 	}}
@@ -33,16 +32,14 @@
 				editingPossible=true
 				uploadCommunityBadge=(action this.attrs.uploadCommunityBadge)
 			}}
-			{{#if showCategories}}
-				{{#if categories}}
-					{{discussion-categories
-						categories=categories
-						inputIdPrefix='rail'
-						updateCategories=(action this.attrs.updateCategories)
-						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
-						visibleCategoriesCount=10
-					}}
-				{{/if}}
+			{{#if canShowCategories}}
+				{{discussion-categories
+					categories=categories
+					inputIdPrefix='rail'
+					updateCategories=(action this.attrs.updateCategories)
+					updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
+					visibleCategoriesCount=10
+				}}
 			{{/if}}
 			{{#if model.canModerate}}
 				{{discussion-reported-filter
