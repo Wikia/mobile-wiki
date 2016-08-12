@@ -6,6 +6,7 @@ import {applyToDefaults, escapeHtml} from 'hoek';
 import {parse} from 'url';
 import {stringify} from 'querystring';
 import {RedirectedToCanonicalHost} from './custom-errors';
+import Promise from 'bluebird';
 
 /**
  * @typedef {Object} ServerData
@@ -95,11 +96,11 @@ export function getCDNBaseUrl(localSettings) {
 
 /**
  * Get Host from request. First check if x-original-host exists.
- * Header x-original-host is added by Fastly and represents the host name of resource requested by user.
- * If x-original-host header doesn't exist check host header.
- * When request goes through Fastly host header contains original host with stripped staging env.
- * For instance for preview.muppet.wikia.com host is muppet.wikia.com.
- * When request doesn't go through Fastly (local environment) host header contains original host
+ * Header x-original-host is added by Fastly and represents the host name of resource requested by
+ * user. If x-original-host header doesn't exist check host header. When request goes through
+ * Fastly host header contains original host with stripped staging env. For instance for
+ * preview.muppet.wikia.com host is muppet.wikia.com. When request doesn't go through Fastly (local
+ * environment) host header contains original host
  *
  * @param {Hapi.Request} request
  * @returns {string}
@@ -191,6 +192,25 @@ export function getCachedWikiDomainName(localSettings, request) {
 }
 
 /**
+ * @param {LocalSettings} localSettings
+ * @param {string} wikiDomain
+ * @returns {string}
+ */
+export function getCorporatePageUrlFromWikiDomain(localSettings, wikiDomain) {
+	let environmentPrefix;
+
+	switch (localSettings.environment) {
+		case Environment.Prod:
+			return 'www.wikia.com';
+		case Environment.Dev:
+			return `www.${localSettings.devboxDomain}.wikia-dev.com`;
+		default:
+			environmentPrefix = wikiDomain.substring(0, wikiDomain.indexOf('.'));
+			return `${environmentPrefix}.www.wikia.com`;
+	}
+}
+
+/**
  * @param {*} obj
  * @param {string[]} allowedKeys - a whitelist of acceptable parameter names
  * @returns {*}
@@ -266,14 +286,15 @@ export function getStaticAssetPath(localSettings, request) {
 	const env = localSettings.environment || Environment.Dev;
 
 	return env !== Environment.Dev ?
-		// The CDN path should match what's used in https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
+		// The CDN path should match what's used in
+		// https://github.com/Wikia/mercury/blob/dev/gulp/options/prod.js
 		`${localSettings.cdnBaseUrl}/mercury-static/` :
 		`//${getCachedWikiDomainName(localSettings, request)}/front/`;
 }
 
 /**
- * If user tried to load wiki by its alternative URL then redirect to the primary one based on wikiVariables.basePath
- * If it's a local machine then ignore, no point in redirecting to devbox
+ * If user tried to load wiki by its alternative URL then redirect to the primary one based on
+ * wikiVariables.basePath If it's a local machine then ignore, no point in redirecting to devbox
  * Throws RedirectedToCanonicalHost so promises can catch it and handle properly
  *
  * @param {LocalSettings} localSettings
@@ -314,4 +335,21 @@ export function redirectToOasis(request, reply) {
 	);
 
 	reply.redirect(`${request.url.pathname}?${queryParams}`);
+}
+
+/**
+ * @param {Hapi.Request} request
+ * @param {object} wikiVariables
+ * @returns {Promise}
+ */
+export function setI18nLang(request, wikiVariables) {
+	const i18n = request.server.methods.i18n.getInstance();
+
+	if (wikiVariables.language && wikiVariables.language.content) {
+		return new Promise((resolve) => {
+			return i18n.setLng(wikiVariables.language.content, resolve);
+		});
+	} else {
+		return Promise.resolve();
+	}
 }

@@ -52,7 +52,7 @@
 
 	{{content-for 'head-footer'}}
 </head>
-<body>
+<body class="{{bodyClassName}}">
 {{content-for 'body'}}
 
 {{> first-render-time}}
@@ -75,9 +75,16 @@
 		<div class="page-wrapper" lang="{{wikiVariables.language.content}}" dir="{{wikiVariables.language.contentDir}}">
 			{{{content}}}
 		</div>
+		{{#if showSpinner}}
+			{{> loading-spinner}}
+		{{/if}}
 	</div>
 </div>
 <div id="ember-component-constructor" style="display: none"></div>
+
+{{#if globalFooter}}
+	{{> global-footer/global-footer model=globalFooter}}
+{{/if}}
 
 <script>
 	M.loadScripts([
@@ -87,6 +94,8 @@
 	M.loadDOMResource('/front/main/assets/main.svg');
 	M.loadDOMResource('/front/main/assets/infobox-builder.svg');
 	M.loadDOMResource('/front/main/assets/common.svg');
+	M.loadDOMResource('/front/main/assets/design-system-icons.svg');
+	M.loadDOMResource('/front/main/assets/design-system-company.svg');
 </script>
 
 <script src="//{{server.mediawikiDomain}}/__load/-/only=scripts/wikia.ext.instantGlobals,instantGlobalsOverride,abtesting,abtest"></script>

@@ -14,6 +14,7 @@ import registerHandler from './facets/auth/register';
 import signinHandler from './facets/auth/signin';
 import showApplication from './facets/show-application';
 import showCuratedContent from './facets/show-curated-content';
+import showRecentWikiActivity from './facets/show-recent-wiki-activity';
 
 /**
  * @typedef {Object} RouteDefinition
@@ -225,7 +226,8 @@ let routes,
 		{
 			method: 'GET',
 			path: '/recent-wiki-activity',
-			handler: showApplication,
+			handler: showRecentWikiActivity,
+
 			config: {
 				cache: routeCacheConfig
 			}
