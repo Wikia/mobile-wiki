@@ -17,11 +17,12 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 		 * @returns {Ember.RSVP.Promise}
 		 */
 		loadPage(pageNum = 0) {
-			this.set('pageNum', pageNum);
+			this.set('data.pageNum', pageNum);
 
 			return request(M.getDiscussionServiceUrl(`/${this.wikiId}/posts`), {
 				data: {
-					page: this.get('pageNum'),
+					limit: this.get('loadMoreLimit'),
+					page: this.get('data.pageNum'),
 					pivot: this.get('pivotId'),
 					viewableOnly: false,
 					reported: true
@@ -43,7 +44,7 @@ const DiscussionReportedPostsModel = DiscussionBaseModel.extend(
 		 */
 		setNormalizedData(apiData) {
 			const posts = Ember.getWithDefault(apiData, '_embedded.doc:posts', []),
-				pivotId = Ember.getWithDefault(posts, '0.id', 0),
+				pivotId = Ember.getWithDefault(posts, 'firstObject.id', 0),
 				contributors = DiscussionContributors.create(Ember.get(apiData, '_embedded.contributors.0')),
 				entities = DiscussionEntities.createFromPostsData(posts);
 
@@ -74,8 +75,9 @@ DiscussionReportedPostsModel.reopenClass({
 
 			request(M.getDiscussionServiceUrl(`/${wikiId}/posts`), {
 				data: {
+					limit: reportedPostsInstance.get('postsLimit'),
+					reported: true,
 					viewableOnly: false,
-					reported: true
 				}
 			}).then((data) => {
 				reportedPostsInstance.setNormalizedData(data);

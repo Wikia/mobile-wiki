@@ -528,12 +528,6 @@ body.discussions {
 		}
 	}
 
-	.load-more {
-		color: $discussion-load-more-color;
-		text-align: center;
-		width: 100%;
-	}
-
 	.post-detail {
 		background-color: $discussion-desktop-post-detail-bg-color;
 		padding: 12px 0 0;
@@ -551,6 +545,24 @@ body.discussions {
 				}
 			}
 		}
+	}
+
+	.load-more {
+		color: $discussion-load-more-color;
+		text-align: center;
+		width: 100%;
+	}
+
+	.load-more-button {
+		border-style: solid;
+		border-width: 1px;
+		font-size: $type-min;
+		font-weight: $font-weight-bold;
+		letter-spacing: 0.3px;
+		line-height: 50px;
+		margin: 30px 15px 0;
+		text-align: center;
+		text-transform: uppercase;
 	}
 
 	.load-older {
@@ -751,6 +763,10 @@ body.discussions {
 
 		.discussion-no-replies {
 			border-bottom: 1px solid $discussion-reply-border-color;
+		}
+
+		.load-more-button {
+			margin: 30px 0 0;
 		}
 	}
 }
