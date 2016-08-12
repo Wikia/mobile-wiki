@@ -20,13 +20,15 @@ export default Ember.Mixin.create({
 	resetFileInput: false,
 	// components using this mixin should override this default settings to enable tracking
 	trackingActions: {
+		EditButtonTapped: '',
 		EditImagePreview: '',
 		Save: '',
 		SaveFailure: ''
 	},
 	uploadedFile: null,
 	// components using this mixin should provide upload method
-	uploadMethod: null,
+	uploadMethod() {
+	},
 
 	uploadImage(imageFile) {
 		return new Ember.RSVP.Promise((resolve, reject) => {
@@ -70,6 +72,7 @@ export default Ember.Mixin.create({
 		enableEditMode() {
 			if (this.get('canEdit')) {
 				this.setEditMode(true);
+				track(this.get('trackingActions.EditButtonTapped'));
 			}
 		},
 

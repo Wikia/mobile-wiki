@@ -15,6 +15,7 @@ export default Ember.Component.extend(
 		squareDimension: 125,
 
 		trackingActions: {
+			EditButtonTapped: trackActions.EditCommunityBadgeButtonTapped,
 			EditImagePreview: trackActions.EditCommunityBadgeImagePreview,
 			Save: trackActions.CommunityBadgeSave,
 			SaveFailure: trackActions.CommunityBadgeSaveFailure
