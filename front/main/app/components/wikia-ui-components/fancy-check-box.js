@@ -8,8 +8,16 @@ import checkBox from './check-box';
  *      inputId='isCollapsible'
  *      label='Collapse section'
  *      isChecked=true
+ *      onClick=click
  * }}
  */
 export default checkBox.extend({
 	classNames: ['fancy-checkbox-label'],
+
+	/**
+	 * Click event that will be passed to underlying checkbox input.
+	 *
+	 * @public
+	 */
+	onClick: null
 });

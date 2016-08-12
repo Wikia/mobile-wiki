@@ -17,20 +17,20 @@
 		<ul class="discussion-categories-list">
 			<li>
 				{{wikia-ui-components/fancy-check-box
-					click=(action this.attrs.selectAllCategory true)
-					label=(i18n 'main.category-all-name' ns='discussion')
 					inputId=(concat categoriesInputIdPrefix 'all')
 					isChecked=allCategorySelected
+					label=(i18n 'main.category-all-name' ns='discussion')
+					onClick=(action this.attrs.selectAllCategory true)
 				}}
 			</li>
 			{{#each localCategories as |localCategory|}}
 				{{#unless localCategory.collapsed}}
 					<li>
 						{{wikia-ui-components/fancy-check-box
-							click=(action this.attrs.onCategoryClick localCategory)
-							label=localCategory.category.name
 							inputId=(concat categoriesInputIdPrefix localCategory.category.id)
 							isChecked=localCategory.selected
+							label=localCategory.category.name
+							onClick=(action this.attrs.onCategoryClick localCategory)
 						}}
 					</li>
 				{{/unless}}

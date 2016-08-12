@@ -1,0 +1,23 @@
+// These are overrides for Mercury only
+// If you look for Global Footer styles go here:
+// https://github.com/Wikia/design-system/blob/master/components/_global-footer.scss
+
+.wds-global-footer {
+	display: none;
+
+	.show-global-footer & {
+		display: block;
+	}
+
+	&__home-of-fandom {
+		line-height: 1;
+	}
+}
+
+.global-footer-full-site-link-wrapper {
+	display: none;
+
+	.show-global-footer-full-site-link & {
+		display: block;
+	}
+}
