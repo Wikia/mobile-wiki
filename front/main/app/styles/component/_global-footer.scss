@@ -14,3 +14,10 @@
 	}
 }
 
+.global-footer-full-site-link-wrapper {
+	display: none;
+
+	.show-global-footer-full-site-link & {
+		display: block;
+	}
+}

@@ -92,11 +92,15 @@ export default function showApplication(request, reply, wikiVariables, context =
 		})
 		/**
 		 * Get data for Global Footer
-		 * @param {MediaWikiPageData} data
+		 * @param {MediaWikiPageData} templateData
 		 * @returns {MediaWikiPageData}
 		 *
 		 */
-		.then((templateData) => injectGlobalFooterData(templateData, request, showGlobalFooter))
+		.then((templateData) => injectGlobalFooterData({
+			data: templateData,
+			request,
+			showFooter: showGlobalFooter
+		}))
 		/**
 		 * @param {*} contextData
 		 * @returns {void}

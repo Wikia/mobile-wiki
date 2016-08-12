@@ -7,12 +7,12 @@ import {escapeHtml} from 'hoek';
  * Options:
  * - tagName - override default div tag name
  * - href - add a href attribute for <a> tag
- * - className - class name to be added to wrapping tag
+ * - trackingLabel - add a data attribute data-tracking-label
  *
  * @example
  * {{{i18n 'main.search-error-not-found'
  * 	ns='search'
- * 	query=(wrap-me erroneousQuery className='search-error-not-found__query' tagName='span')
+ * 	query=(wrap-me erroneousQuery tagName='span')
  * }}}
  *
  * @param {*} param
@@ -26,7 +26,7 @@ module.exports = function (param, options) {
 
 	let tagName = 'span',
 		href = '',
-		className = '';
+		trackingLabel = '';
 
 	if (hash.tagName) {
 		tagName = escapeHtml(hash.tagName);
@@ -36,9 +36,9 @@ module.exports = function (param, options) {
 		href = ` href="${escapeHtml(hash.href)}"`;
 	}
 
-	if (hash.className) {
-		className = ` class="${escapeHtml(options.className)}"`;
+	if (hash.trackingLabel) {
+		trackingLabel = ` data-tracking-label="${escapeHtml(hash.trackingLabel)}"`;
 	}
 
-	return `<${tagName}${href}${className}>${content}</${tagName}>`;
+	return `<${tagName}${href}${trackingLabel}>${content}</${tagName}>`;
 };

@@ -18,7 +18,10 @@ var Lab = require('lab'),
 	jsdom = require('jsdom');
 
 function sanitizeHTML(rawHTML) {
-	return rawHTML.replace(/>\s+</g, '><').replace(/(\r\n|\n|\r)/gm, '');
+	return rawHTML.replace(/>\s+</g, '><')
+		.replace(/>\s+(\w|\.)/g, '>$1')
+		.replace(/(\w|\.)\s+<\//g, '$1</')
+		.replace(/(\r\n|\n|\r)/gm, '');
 }
 
 describe('global-footer', function () {

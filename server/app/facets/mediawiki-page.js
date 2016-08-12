@@ -177,7 +177,12 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 		 *
 		 */
 		.then((data) => {
-			return injectGlobalFooterData(data, request, true);
+			return injectGlobalFooterData({
+				data,
+				request,
+				showFooter: true,
+				showFullSiteLink: true
+			});
 		})
 		/**
 		 * If both requests for Wiki Variables and for Page Details succeed
@@ -217,7 +222,12 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 			// Clean up exception to not put its details in HTML response
 			delete data.page.exception.details;
 
-			return injectGlobalFooterData(data, request, true).then((data) => {
+			return injectGlobalFooterData({
+				data,
+				request,
+				showFooter: true,
+				showFullSiteLink: true
+			}).then((data) => {
 				handleResponse(request, reply, data, allowCache, errorCode);
 			});
 		})

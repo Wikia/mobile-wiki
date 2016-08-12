@@ -15,7 +15,7 @@ export default Ember.Route.extend(
 	RouteWithAdsMixin,
 	RouteWithBodyClassNameMixin,
 	{
-		bodyClassNames: ['show-global-footer'],
+		bodyClassNames: ['show-global-footer', 'show-global-footer-full-site-link'],
 		redirectEmptyTarget: false,
 		wikiHandler: null,
 		currentUser: Ember.inject.service(),

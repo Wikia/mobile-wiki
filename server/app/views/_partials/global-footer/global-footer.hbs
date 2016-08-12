@@ -27,17 +27,5 @@
 			{{> global-footer/global-footer-section model=model.advertise name='advertise' parentName='wikia'}}
 		</div>
 	</div>
-	<div class="wds-global-footer__licensing-and-vertical">
-		<span>{{{i18n
-			model.licensing_and_vertical.description.key
-			sitename=model.licensing_and_vertical.description.params.sitename.value
-			vertical=(i18n model.licensing_and_vertical.description.params.vertical.key ns='design-system')
-			license=(wrap-me
-				model.licensing_and_vertical.description.params.license.title.value
-				tagName='a'
-				href=model.licensing_and_vertical.description.params.license.href
-			)
-			ns='design-system'
-		}}}</span>
-	</div>
+	{{> global-footer/global-footer-bottom-bar model=model}}
 </footer>
