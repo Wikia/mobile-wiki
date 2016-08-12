@@ -23,6 +23,7 @@
     "sort-by-latest":"Najnowsze",
     "sort-by-trending":"Popularne",
     "loading-more-posts":"Ładuję więcej postów",
+    "load-more-posts-button":"Załaduj więcej",
     "number-of-posts":"__numberOfPosts__ posty\/ów",
     "connection-error":"Nie można uzyskać połączenia, spróbuj ponownie.",
     "not-found-error":"Ojej, wygląda na to, że ta strona nie istnieje!",
@@ -102,6 +103,11 @@
     "app-promotion-text":"Zabierz swoją pasję ze sobą, pobierz aplikację dzisiaj!",
     "app-promotion-text-details-page":"Bądź na bieżąco, nieważne gdzie jesteś. Pobierz aplikację teraz!",
     "wiki-home":"Strona główna",
+    "discussion-guidelines":"Zasady korzystania z Dyskusji",
+    "rename-category-length-error":"Nazwa kategorii musi zawierać mniej niż 20 znaków.",
+    "rename-category-auth-error":"Użytkownik jest wylogowany. Zaloguj się.",
+    "rename-category-oermissions-error":"Kategoria nie może być zaktualizowana.",
+    "rename-category-general-error":"Coś poszło nie tak. Spróbuj ponownie.",
     "guidelines-link-title":"Zasady korzystania z Dyskusji",
     "guidelines-header-title":"Zasady korzystania z Dyskusji",
     "welcome-message-header":"Niesamowicie się cieszymy, że jesteś!",
@@ -118,7 +124,11 @@
     "post-edit-editor-label":"Edytuj swój post",
     "post-action-button-label":"Opublikuj",
     "post-edit-action-button-label":"Zapisz",
-    "post-editor-placeholder-text":"Podziel się przemyśleniami, zadaj pytanie albo wrzuć link...",
+    "post-editor-collapsed-label":"Rozpocznij nową dyskusję...",
+    "post-editor-title-label":"Tytuł (opcjonalnie)",
+    "post-editor-title-placeholder-text":"Tytuł nowej dyskusji...",
+    "post-editor-description-label":"Opis",
+    "post-editor-description-placeholder-text":"Jaki temat chcesz poruszyć w twojej nowej dyskusji?",
     "guidelines-editor-placeholder-text":"",
     "guidelines-editor-editor-label":"Edytuj Zasady Korzystania z Dyskusji",
     "guidelines-editor-action-button-label":"Zapisz",
@@ -127,6 +137,9 @@
     "reply-editor-label":"Dodaj do dyskusji",
     "reply-edit-editor-label":"Edytuj swoją odpowiedź",
     "reply-action-button-label":"Odpowiedz",
-    "reply-edit-action-button-label":"Zapisz"
+    "reply-edit-action-button-label":"Zapisz",
+    "overlay-message-text":"Przed opublikowaniem pamiętaj, by zapoznać się z __guidelinesLinkTitle__.",
+    "overlay-message-button":"Gotowe",
+    "guidelines-link-title":"Zasady korzystania z Dyskusji"
   }
 }

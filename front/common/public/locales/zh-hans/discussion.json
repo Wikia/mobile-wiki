@@ -23,6 +23,7 @@
     "sort-by-latest":"最新",
     "sort-by-trending":"热门浏览",
     "loading-more-posts":"下载更多帖子",
+    "load-more-posts-button":"加载更多",
     "number-of-posts":"__numberOfPosts__条帖子",
     "connection-error":"连接失效，请再试一次。",
     "not-found-error":"很抱歉，此页面似乎不存在!",
@@ -102,6 +103,11 @@
     "app-promotion-text":"加入粉丝社区，赶快去下载App吧！",
     "app-promotion-text-details-page":"离线也能获取最新资讯。现在就下载手机App!",
     "wiki-home":"社区首页",
+    "discussion-guidelines":"讨论版指引",
+    "rename-category-length-error":"分类名称必须少于20个字符。",
+    "rename-category-auth-error":"您已注销。请重新登录。",
+    "rename-category-oermissions-error":"不能更新分类。",
+    "rename-category-general-error":"出现错误。请再试一次。",
     "guidelines-link-title":"讨论区指引",
     "guidelines-header-title":"讨论版指引",
     "welcome-message-header":"有你在这里真是太棒了!",
@@ -118,7 +124,11 @@
     "post-edit-editor-label":"编辑您的帖子",
     "post-action-button-label":"发布",
     "post-edit-action-button-label":"保存",
-    "post-editor-placeholder-text":"分享想法、问题或链接...",
+    "post-editor-collapsed-label":"发起一个新讨论...",
+    "post-editor-title-label":"标题 （可选填）",
+    "post-editor-title-placeholder-text":"新讨论的标题...",
+    "post-editor-description-label":"描述",
+    "post-editor-description-placeholder-text":"你发起的新讨论是有关什么的？",
     "guidelines-editor-placeholder-text":"",
     "guidelines-editor-editor-label":"编辑讨论版指引",
     "guidelines-editor-action-button-label":"保存",
@@ -127,6 +137,9 @@
     "reply-editor-label":"添加到讨论",
     "reply-edit-editor-label":"编辑您的回复",
     "reply-action-button-label":"回复",
-    "reply-edit-action-button-label":"保存"
+    "reply-edit-action-button-label":"保存",
+    "overlay-message-text":"在发布之前，请务必查阅__guidelinesLinkTitle__。",
+    "overlay-message-button":"确认完成",
+    "guidelines-link-title":"讨论版指引"
   }
 }

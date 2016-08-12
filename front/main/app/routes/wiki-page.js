@@ -95,6 +95,10 @@ export default Ember.Route.extend(
 				if (handler) {
 					transition.then(() => {
 						this.updateTrackingData(model);
+
+						if (typeof handler.afterTransition === 'function') {
+							handler.afterTransition(model);
+						}
 					});
 
 					this.set('wikiHandler', handler);

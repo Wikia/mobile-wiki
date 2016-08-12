@@ -3,6 +3,7 @@
 		create=(action this.attrs.createPost)
 		errorMessage=editorState.errorMessage
 		generateOpenGraph=(action this.attrs.generateOpenGraph)
+		gotoGuidelines=(action this.attrs.gotoGuidelines)
 		isActive=editorState.isOpen
 		isLoading=editorState.isLoading
 		setEditorActive=(action this.attrs.setEditorActive)
@@ -32,17 +33,9 @@
 		setEditorActive=(action this.attrs.setEditorActive)
 	}}
 {{/each}}
-
-{{#if hasMore}}
-	{{#if isLoading }}
-		{{loading-spinner
-			active=true
-			overlay=false
-			radius=32
-			strokeWidth=2
-		}}
-	{{/if}}
-	<div class="load-more">
-		{{i18n 'main.loading-more-posts' ns='discussion'}}
-	</div>
-{{/if}}
+{{discussion-wrapper-load-more
+	hasMore=hasMore
+	isLoading=isLoading
+	loadNextPage=(action 'loadNextPage')
+	showLoadMoreButton=true
+}}
