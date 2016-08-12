@@ -10,6 +10,28 @@ export default Ember.Mixin.create(
 			'image/png': true,
 			'image/gif': true,
 		},
+
+		dragLeave(event) {
+			event.preventDefault();
+			this.set('isDragActive', false);
+		},
+
+		dragOver(event) {
+			if (this.get('isEditMode')) {
+				event.preventDefault();
+				this.set('isDragActive', true);
+			}
+		},
+
+		drop(event) {
+			if (this.get('isEditMode')) {
+				track(this.get('trackedActions.EditFileDropped'));
+				event.preventDefault();
+				this.send('fileUpload', event.dataTransfer.files);
+				this.set('isDragActive', false);
+			}
+		},
+
 		errorMessage: null,
 		errorsMessages: {
 			fileType: 'main.image-save-failed',
@@ -20,6 +42,7 @@ export default Ember.Mixin.create(
 			this.setEditMode(false);
 		},
 		imageUrl: null,
+		isDragActive: false,
 		isEditMode: false,
 		isLoadingMode: false,
 		isImagePreviewMode: false,
@@ -29,6 +52,7 @@ export default Ember.Mixin.create(
 		trackedActions: {
 			EditButtonTapped: '',
 			EditEscapeKeyHit: '',
+			EditFileDropped: '',
 			EditImagePreview: '',
 			Save: '',
 			SaveFailure: ''

@@ -56,6 +56,20 @@ $discussion-hero-unit-minimized-height: 25px;
 		width: 200px;
 	}
 
+	.drag-and-drop {
+		align-items: center;
+		background-color: rgba(0,0,0,0.8);
+		display: flex;
+		height: 100%;
+		justify-content: center;
+		width: 100%;
+
+		svg {
+			height: 100px;
+			width: 100px;
+		}
+	}
+
 	.image-edit-mode {
 		min-height: 200px;
 

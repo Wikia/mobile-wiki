@@ -24,44 +24,51 @@
 	{{/unless}}
 	{{#if canEdit}}
 		{{#if isEditMode}}
-			<div class="image-edit-mode {{if isLoadingMode 'is-loading'}}">
-				{{#if isImagePreviewMode}}
-					<div class="image-edit-preview-wrapper">
-						<img class="image-edit-preview" src="{{newImageUrl}}" />
-					</div>
-				{{else}}
-					{{#unless isLoadingMode}}
-						<div class="image-edit-file-input-wrapper">
-							{{file-input
-								classNames=fileInputClassNames
-								click=(action 'emptyClickForFileInput')
-								fileUpload=(action 'fileUpload')
-								label=(i18n 'main.upload-image-button-text' ns='discussion')
-								reset=resetFileInput
-							}}
-							{{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}}
-						</div>
-					{{/unless}}
-				{{/if}}
-				{{#if isLoadingMode}}
-					{{loading-spinner
-						active=true
-						overlay=false
-						radius=32
-						strokeWidth=2
-					}}
-				{{/if}}
-			</div>
-			{{#unless isLoadingMode}}
-				<div class="error-message-container {{if errorMessage 'is-visible'}}">
-					{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
-					<span class="error-message">{{errorMessage}}</span>
+			{{#if isDragActive}}
+				<div class="drag-and-drop">
+					{{svg 'drag-n-drop' role='img'}}
+					<div class="drop-catch-layer"></div>
 				</div>
-				{{discussion-edit-approve-buttons
-					approve=(action 'submit')
-					close=(action 'disableEditMode')
-				}}
-			{{/unless}}
+			{{else}}
+				<div class="image-edit-mode {{if isLoadingMode 'is-loading'}}">
+					{{#if isImagePreviewMode}}
+						<div class="image-edit-preview-wrapper">
+							<img class="image-edit-preview" src="{{newImageUrl}}" />
+						</div>
+					{{else}}
+						{{#unless isLoadingMode}}
+							<div class="image-edit-file-input-wrapper">
+								{{file-input
+									classNames=fileInputClassNames
+									click=(action 'emptyClickForFileInput')
+									fileUpload=(action 'fileUpload')
+									label=(i18n 'main.upload-image-button-text' ns='discussion')
+									reset=resetFileInput
+								}}
+								{{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}}
+							</div>
+						{{/unless}}
+					{{/if}}
+					{{#if isLoadingMode}}
+						{{loading-spinner
+							active=true
+							overlay=false
+							radius=32
+							strokeWidth=2
+						}}
+					{{/if}}
+				</div>
+				{{#unless isLoadingMode}}
+					<div class="error-message-container {{if errorMessage 'is-visible'}}">
+						{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
+						<span class="error-message">{{errorMessage}}</span>
+					</div>
+					{{discussion-edit-approve-buttons
+						approve=(action 'submit')
+						close=(action 'disableEditMode')
+					}}
+				{{/unless}}
+			{{/if}}
 		{{else}}
 			{{discussion-edit-image-button
 				click=(action 'enableEditMode')

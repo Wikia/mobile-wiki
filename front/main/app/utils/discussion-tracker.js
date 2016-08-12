@@ -61,6 +61,7 @@ const trackActions = {
 	CommunityBadgeSave: 'CommunityBadgeSave',
 	CommunityBadgeSaveFailure: 'CommunityBadgeSaveFailure',
 	EditDiscussionsHeaderButtonTapped: 'EditDiscussionsHeaderButtonTapped',
+	EditDiscussionsHeaderFileDropped: 'EditDiscussionsHeaderFileDropped',
 	EditDiscussionsHeaderImagePreview: 'EditDiscussionsHeaderImagePreview',
 	EditDiscussionsHeaderEscapeKeyHit: 'EditDiscussionsHeaderEscapeKeyHit',
 	DiscussionsHeaderSave: 'DiscussionsHeaderSave',
