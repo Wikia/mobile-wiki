@@ -9,7 +9,6 @@ export default Ember.Component.extend(
 		classNameBindings: ['isEditMode', 'isImagePreviewMode', 'isDragActive:drag-activated',
 			'errorMessage:is-error-message'],
 		fileInputClassNames: ['upload-image-button', 'background-theme-color'],
-		squareDimension: 125,
 
 		trackedActions: {
 			EditButtonTapped: trackActions.EditCommunityBadgeButtonTapped,
@@ -23,7 +22,7 @@ export default Ember.Component.extend(
 		canEdit: Ember.computed.and('editingPossible', 'currentUser.isAuthenticated', 'badgeImage.permissions.canEdit'),
 		currentUser: Ember.inject.service(),
 
-		wikiImageUrl: Ember.computed('badgeImage.value', 'squareDimension', function () {
+		wikiImageUrl: Ember.computed('badgeImage.value', function () {
 			let imageUrl = this.get('badgeImage.value');
 
 			if (Ember.isEmpty(imageUrl)) {
