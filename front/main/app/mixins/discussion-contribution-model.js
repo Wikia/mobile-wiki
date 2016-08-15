@@ -175,7 +175,7 @@ export default Ember.Mixin.create({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	generateOpenGraph(uri) {
-		return request(M.getOpenGraphServiceUrl(`/`), {
+		return request(M.getOpenGraphServiceUrl('/'), {
 			data: {
 				uri
 			},
