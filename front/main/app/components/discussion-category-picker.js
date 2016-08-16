@@ -5,6 +5,12 @@ import {trackActions} from '../utils/discussion-tracker';
 export default Ember.Component.extend({
 	popover: nearestParent('pop-over'),
 
+	didInsertElement: function() {
+		if (document.activeElement) {
+			document.activeElement.blur();
+		}
+	},
+
 	actions: {
 		onCategoryPicked(category) {
 			this.sendAction('setCategory', category);
