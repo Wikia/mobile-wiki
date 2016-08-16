@@ -59,16 +59,14 @@
 					{{/if}}
 				</div>
 				{{#unless isLoadingMode}}
-					<span class="{{if isImagePreviewMode 'image-preview-mode'}}">
-						<div class="error-message-container {{if errorMessage 'is-visible'}}">
-							{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
-							<span class="error-message">{{errorMessage}}</span>
-						</div>
-						{{discussion-edit-approve-buttons
-							approve=(action 'submit')
-							close=(action 'disableEditMode')
-						}}
-					</span>
+					<div class="error-message-container {{if errorMessage 'is-visible'}}">
+						{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
+						<span class="error-message">{{errorMessage}}</span>
+					</div>
+					{{discussion-edit-approve-buttons
+						approve=(action 'submit')
+						close=(action 'disableEditMode')
+					}}
 				{{/unless}}
 			{{/if}}
 		{{else}}
