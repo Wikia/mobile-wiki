@@ -21,20 +21,22 @@
 		{{else}}
 			<div class="discussion-inline-editor-textarea-wrapper">
 				{{#if shouldShowCategoryPicker}}
-					<a id="{{categoryPickerButtonId}}" class="discussion-category-picker-button {{categoryPickerClassname}}">
-						<span class="discussion-category-picker-content-wrapper">
-							{{#if category}}
-								{{category.name}}
-								{{svg 'pencil' viewBox='0 0 70 70' class='icon pencil'}}
-							{{else}}
-								{{svg 'plus-small' viewBox='0 0 34 34' class='icon plus'}}
-								{{i18n 'main.category-picker-button-text' ns='discussion'}}
-							{{/if}}
-						</span>
-					</a>
-					{{#unless category}}
-						<small class="discussion-category-picker-required-message">({{i18n 'main.category-picker-required-message' ns='discussion'}})</small>
-					{{/unless}}
+					<div class="discussion-category-picker-button-wrapper">
+						<a id="{{categoryPickerButtonId}}" class="discussion-category-picker-button {{categoryPickerClassname}}">
+							<span class="discussion-category-picker-content-wrapper">
+								{{#if category}}
+									{{category.name}}
+									{{svg 'pencil' viewBox='0 0 70 70' class='icon pencil'}}
+								{{else}}
+									{{svg 'plus-small' viewBox='0 0 34 34' class='icon plus'}}
+									{{i18n 'main.category-picker-button-text' ns='discussion'}}
+								{{/if}}
+							</span>
+						</a>
+						{{#unless category}}
+							<small class="discussion-category-picker-required-message">({{i18n 'main.category-picker-required-message' ns='discussion'}})</small>
+						{{/unless}}
+					</div>
 				{{/if}}
 				{{#if isPostEditor}}
 					{{discussion-textarea-with-counter
