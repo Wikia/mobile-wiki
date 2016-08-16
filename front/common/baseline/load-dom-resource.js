@@ -4,6 +4,18 @@ if (typeof window.M === 'undefined') {
 
 (function (M) {
 	/**
+	 * @param {string} html HTML representing a single element
+	 * @returns {element}
+	 */
+	M.htmlToElement = function (html) {
+		const template = document.createElement('template');
+
+		template.insertAdjacentHTML('beforeend', html);
+
+		return template.firstChild;
+	};
+
+	/**
 	 * @param {string} src
 	 * @returns {void}
 	 */
@@ -11,10 +23,11 @@ if (typeof window.M === 'undefined') {
 		const ajax = new XMLHttpRequest();
 
 		ajax.onload = () => {
-			const div = document.createElement('div');
+			const element = this.htmlToElement(ajax.responseText);
 
-			div.innerHTML = ajax.responseText;
-			document.body.insertBefore(div.childNodes[0], document.body.firstChild);
+			element.style.cssText = 'height: 0; width: 0; position: absolute; overflow: hidden;';
+
+			document.body.insertBefore(element, document.body.firstChild);
 		};
 
 		ajax.onerror = (error) => {

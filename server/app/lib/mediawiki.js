@@ -239,14 +239,44 @@ class BaseRequest {
 
 	/**
 	 * @param {string} url
+	 * @param {string} wikiDomain
 	 * @returns {Promise.<any>}
 	 */
-	fetch(url) {
-		return fetch(url, this.wikiDomain, this.redirects, this.headers);
+	fetch(url, wikiDomain = this.wikiDomain) {
+		return fetch(url, wikiDomain, this.redirects, this.headers);
 	}
 
 	post(url, formData) {
 		return post(url, formData, this.wikiDomain);
+	}
+}
+
+export class DesignSystemRequest extends BaseRequest {
+
+	constructor(params) {
+		super(params);
+
+		this.corporatePageUrl = params.corporatePageUrl;
+		this.wikiId = params.wikiId;
+		this.language = params.language;
+	}
+
+	getUrl(element) {
+		return `http://${this.corporatePageUrl}/api/v1/design-system/wikis/${this.wikiId}/${this.language}/${element}`;
+	}
+
+	getFooter() {
+		const url = this.getUrl('global-footer');
+
+		return this
+			.fetch(url, this.corporatePageUrl)
+			.then((footerData) => {
+				if (footerData) {
+					return footerData;
+				} else {
+					throw new Error('No footer data returned from API');
+				}
+			});
 	}
 }
 
