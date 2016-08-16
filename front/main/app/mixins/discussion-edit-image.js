@@ -94,7 +94,7 @@ export default Ember.Mixin.create(
 
 		// components using this mixin should provide upload method
 		uploadMethod() {
-			throw "This method should be overwritten in order to upload image.";
+			throw new Error('This method should be overwritten in order to upload image.');
 		},
 
 		uploadImage(imageFile) {
