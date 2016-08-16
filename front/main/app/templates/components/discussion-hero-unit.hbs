@@ -1,25 +1,27 @@
 <div class="discussion-hero-unit-image {{if isEditMode 'highlight-overlay-content'}}" style="{{imageBackground}}">
 	{{#unless isEditMode}}
-		<div class="discussion-hero-unit-content {{contentClassNames}}">
-			{{#if userName}}
-				{{discussion-post-list-header
-					contributors=contributors
-					numberOfPosts=numberOfPosts
-					userName=userName
-				}}
-			{{else}}
-				<h1>{{headerTitle}}</h1>
-				{{#if numberOfPosts}}
-					<p>{{i18n 'main.number-of-posts' numberOfPosts=numberOfPosts ns='discussion'}}</p>
-				{{/if}}
-				{{#if contributors}}
-					{{discussion-contributors
-						maxContributorDisplayCount=6
-						totalContributorCount=contributors.count
-						users=contributors.users
+		<div class="discussion-hero-unit-fade">
+			<div class="discussion-hero-unit-content {{contentClassNames}}">
+				{{#if userName}}
+					{{discussion-post-list-header
+						contributors=contributors
+						numberOfPosts=numberOfPosts
+						userName=userName
 					}}
+				{{else}}
+					<h1>{{headerTitle}}</h1>
+					{{#if numberOfPosts}}
+						<p>{{i18n 'main.number-of-posts' numberOfPosts=numberOfPosts ns='discussion'}}</p>
+					{{/if}}
+					{{#if contributors}}
+						{{discussion-contributors
+							maxContributorDisplayCount=6
+							totalContributorCount=contributors.count
+							users=contributors.users
+						}}
+					{{/if}}
 				{{/if}}
-			{{/if}}
+			</div>
 		</div>
 	{{/unless}}
 	{{#if canEdit}}
