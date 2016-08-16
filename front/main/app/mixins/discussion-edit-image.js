@@ -10,6 +10,8 @@ export default Ember.Mixin.create(
 			'image/png': true,
 			'image/gif': true,
 		},
+		classNameBindings: ['isEditMode', 'isImagePreviewMode', 'isDragActive:drag-activated',
+			'errorMessage:is-error-message'],
 		errorMessage: null,
 		errorsMessages: {
 			fileType: 'main.image-save-failed',
@@ -92,6 +94,7 @@ export default Ember.Mixin.create(
 
 		// components using this mixin should provide upload method
 		uploadMethod() {
+			throw "This method should be overwritten in order to upload image.";
 		},
 
 		uploadImage(imageFile) {

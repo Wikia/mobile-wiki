@@ -42,7 +42,11 @@ export default Ember.Component.extend(
 		},
 
 		/**
+		 * Set background image with given image url on white background underneath
+		 *
 		 * @private
+		 * @param {string} url pointing to image
+		 * @returns {void}
 		 */
 		setImageBackground(imageUrl) {
 			this.set('imageBackground',

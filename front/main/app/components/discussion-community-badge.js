@@ -6,8 +6,6 @@ export default Ember.Component.extend(
 	DiscussionEditImage,
 	{
 		classNames: ['community-badge', 'draggable-dropzone'],
-		classNameBindings: ['isEditMode', 'isImagePreviewMode', 'isDragActive:drag-activated',
-			'errorMessage:is-error-message'],
 		fileInputClassNames: ['upload-image-button', 'background-theme-color'],
 
 		trackedActions: {
