@@ -53,6 +53,21 @@ $discussion-hero-unit-minimized-height: 25px;
 		margin: auto;
 		right: 0;
 		width: 200px;
+
+		.discussion-edit-approve-content {
+			box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+		}
+	}
+
+	.image-preview-mode {
+		.discussion-edit-approve-wrapper {
+			border-top: 0;
+			top: 169px;
+		}
+
+		.error-message-container {
+			margin-top: 30px;
+		}
 	}
 
 	.drag-and-drop {
@@ -79,7 +94,8 @@ $discussion-hero-unit-minimized-height: 25px;
 		&.is-loading {
 			.image-edit-preview-wrapper {
 				&:after {
-					background-color: rgba(255, 255, 255, 0.8);
+					background-color: $discussion-edit-image-transparent-layer-light-color;
+					border-width: 0;
 					content: "";
 					height: 100%;
 					position: absolute;
@@ -91,6 +107,8 @@ $discussion-hero-unit-minimized-height: 25px;
 
 	.image-edit-preview-wrapper {
 		align-items: center;
+		border-style: solid;
+		border-width: 4px;
 		display: flex;
 		justify-content: center;
 		max-height: 100%;

@@ -11,6 +11,12 @@ export default Ember.Mixin.create(
 			'image/gif': true,
 		},
 
+		// didInsertElement() {
+		// 	this._super(...arguments);
+        //
+		// 	this.$().on('paste', this.onPaste.bind(this));
+		// },
+
 		dragLeave(event) {
 			event.preventDefault();
 			this.set('isDragActive', false);
@@ -47,6 +53,16 @@ export default Ember.Mixin.create(
 		isLoadingMode: false,
 		isImagePreviewMode: false,
 		newImageUrl: null,
+
+		// onPaste(event) {
+		// 	if (this.get('isEditMode')) {
+		// 		const clipboardData = Ember.get(event, 'originalEvent.clipboardData')
+        //
+		// 		event.preventDefault();
+		// 		this.send('fileUpload', clipboardData.files);
+		// 	}
+		// },
+
 		resetFileInput: false,
 		// components using this mixin should override this default settings to enable tracking
 		trackedActions: {

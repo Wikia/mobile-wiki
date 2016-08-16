@@ -32,7 +32,7 @@
 			{{else}}
 				<div class="image-edit-mode {{if isLoadingMode 'is-loading'}}">
 					{{#if isImagePreviewMode}}
-						<div class="image-edit-preview-wrapper">
+						<div class="image-edit-preview-wrapper border-theme-color">
 							<img class="image-edit-preview" src="{{newImageUrl}}" />
 						</div>
 					{{else}}
@@ -59,14 +59,16 @@
 					{{/if}}
 				</div>
 				{{#unless isLoadingMode}}
-					<div class="error-message-container {{if errorMessage 'is-visible'}}">
-						{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
-						<span class="error-message">{{errorMessage}}</span>
-					</div>
-					{{discussion-edit-approve-buttons
-						approve=(action 'submit')
-						close=(action 'disableEditMode')
-					}}
+					<span class="{{if isImagePreviewMode 'image-preview-mode'}}">
+						<div class="error-message-container {{if errorMessage 'is-visible'}}">
+							{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
+							<span class="error-message">{{errorMessage}}</span>
+						</div>
+						{{discussion-edit-approve-buttons
+							approve=(action 'submit')
+							close=(action 'disableEditMode')
+						}}
+					</span>
 				{{/unless}}
 			{{/if}}
 		{{else}}
