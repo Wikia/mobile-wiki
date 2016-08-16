@@ -24,7 +24,9 @@ export default DiscussionPostCardBaseComponent.extend(
 		}),
 
 		categoryName: Ember.computed('categories.@each', 'post.categoryId', function () {
-			return this.get('categories').findBy('id', this.get('post.categoryId')).get('name');
+			const category = this.get('categories').findBy('id', this.get('post.categoryId'));
+
+			return category ? category.get('name') : null;
 		}),
 	}
 );
