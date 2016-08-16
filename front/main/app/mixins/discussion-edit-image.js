@@ -11,11 +11,11 @@ export default Ember.Mixin.create(
 			'image/gif': true,
 		},
 
-		// didInsertElement() {
-		// 	this._super(...arguments);
-        //
-		// 	this.$().on('paste', this.onPaste.bind(this));
-		// },
+		didInsertElement() {
+			this._super(...arguments);
+
+			this.$().on('paste', this.onPaste.bind(this));
+		},
 
 		dragLeave(event) {
 			event.preventDefault();
@@ -47,6 +47,15 @@ export default Ember.Mixin.create(
 			track(this.get('trackedActions.EditEscapeKeyHit'));
 			this.setEditMode(false);
 		},
+		/**
+		 * Checks if clipboard data contains file as first item.
+		 * @private
+		 * @param clipboardData
+		 */
+		hasFileAsFirstItemIn(clipboardData) {
+			return clipboardData && clipboardData.items
+				&& clipboardData.items.length && clipboardData.items[0].kind === 'file';
+		},
 		imageUrl: null,
 		isDragActive: false,
 		isEditMode: false,
@@ -54,14 +63,18 @@ export default Ember.Mixin.create(
 		isImagePreviewMode: false,
 		newImageUrl: null,
 
-		// onPaste(event) {
-		// 	if (this.get('isEditMode')) {
-		// 		const clipboardData = Ember.get(event, 'originalEvent.clipboardData')
-        //
-		// 		event.preventDefault();
-		// 		this.send('fileUpload', clipboardData.files);
-		// 	}
-		// },
+		onPaste(event) {
+			if (this.get('isEditMode')) {
+				const clipboardData = Ember.get(event, 'originalEvent.clipboardData');
+
+				if (this.hasFileAsFirstItemIn(clipboardData)) {
+					const files = [clipboardData.items[0].getAsFile()];
+
+					event.preventDefault();
+					this.send('fileUpload', files);
+				}
+			}
+		},
 
 		resetFileInput: false,
 		// components using this mixin should override this default settings to enable tracking

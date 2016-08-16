@@ -35,6 +35,8 @@ export default Ember.Component.extend(
 		 * @returns {void}
 		 */
 		didInsertElement() {
+			this._super(...arguments);
+
 			this.viewportChangeObserver();
 		},
 
