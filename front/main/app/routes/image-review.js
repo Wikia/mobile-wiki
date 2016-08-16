@@ -40,7 +40,6 @@ export default Route.extend({
 
 		reviewAndGetMoreImages() {
 			const model = this.modelFor('imageReview');
-			Logger.error('contractId', model.contractId);
 			this.controllerFor('application').set('isLoading', true);
 			window.scrollTo(0, 0);
 
