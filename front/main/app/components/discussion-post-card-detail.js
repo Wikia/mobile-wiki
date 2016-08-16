@@ -22,5 +22,9 @@ export default DiscussionPostCardBaseComponent.extend(
 
 			return `${Ember.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)}${localPostUrl}`;
 		}),
+
+		categoryName: Ember.computed('categories.@each', 'post.categoryId', function () {
+			return this.get('categories').findBy('id', this.get('post.categoryId')).get('name');
+		}),
 	}
 );
