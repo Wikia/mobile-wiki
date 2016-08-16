@@ -26,6 +26,7 @@ export default Ember.Component.extend(
 			EditButtonTapped: trackActions.EditDiscussionsHeaderButtonTapped,
 			EditEscapeKeyHit: trackActions.EditDiscussionsHeaderEscapeKeyHit,
 			EditFileDropped: trackActions.EditDiscussionsHeaderFileDropped,
+			EditFilePasted: trackActions.EditDiscussionsHeaderFilePasted,
 			EditImagePreview: trackActions.EditDiscussionsHeaderImagePreview,
 			Save: trackActions.DiscussionsHeaderSave,
 			SaveFailure: trackActions.DiscussionsHeaderSaveFailure

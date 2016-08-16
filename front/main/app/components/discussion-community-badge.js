@@ -14,6 +14,7 @@ export default Ember.Component.extend(
 			EditButtonTapped: trackActions.EditCommunityBadgeButtonTapped,
 			EditEscapeKeyHit: trackActions.EditCommunityBadgeEscapeKeyHit,
 			EditFileDropped: trackActions.EditCommunityBadgeFileDropped,
+			EditFilePasted: trackActions.EditCommunityBadgeFilePasted,
 			EditImagePreview: trackActions.EditCommunityBadgeImagePreview,
 			Save: trackActions.CommunityBadgeSave,
 			SaveFailure: trackActions.CommunityBadgeSaveFailure

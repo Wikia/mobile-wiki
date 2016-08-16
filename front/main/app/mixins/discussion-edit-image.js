@@ -70,6 +70,7 @@ export default Ember.Mixin.create(
 				if (this.hasFileAsFirstItemIn(clipboardData)) {
 					const files = [clipboardData.items[0].getAsFile()];
 
+					track(this.get('trackedActions.EditFilePasted'));
 					event.preventDefault();
 					this.send('fileUpload', files);
 				}
@@ -82,6 +83,7 @@ export default Ember.Mixin.create(
 			EditButtonTapped: '',
 			EditEscapeKeyHit: '',
 			EditFileDropped: '',
+			EditFilePasted: '',
 			EditImagePreview: '',
 			Save: '',
 			SaveFailure: ''
