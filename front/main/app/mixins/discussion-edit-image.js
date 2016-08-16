@@ -10,6 +10,29 @@ export default Ember.Mixin.create(
 			'image/png': true,
 			'image/gif': true,
 		},
+		errorMessage: null,
+		errorsMessages: {
+			fileType: 'main.image-save-failed',
+			saveFailed: 'main.image-save-failed',
+		},
+		imageUrl: null,
+		isDragActive: false,
+		isEditMode: false,
+		isLoadingMode: false,
+		isImagePreviewMode: false,
+		newImageUrl: null,
+		resetFileInput: false,
+		// components using this mixin should override this default settings to enable tracking
+		trackedActions: {
+			EditButtonTapped: '',
+			EditEscapeKeyHit: '',
+			EditFileDropped: '',
+			EditFilePasted: '',
+			EditImagePreview: '',
+			Save: '',
+			SaveFailure: ''
+		},
+		uploadedFile: null,
 
 		didInsertElement() {
 			this._super(...arguments);
@@ -38,15 +61,11 @@ export default Ember.Mixin.create(
 			}
 		},
 
-		errorMessage: null,
-		errorsMessages: {
-			fileType: 'main.image-save-failed',
-			saveFailed: 'main.image-save-failed',
-		},
 		escapePress(event) {
 			track(this.get('trackedActions.EditEscapeKeyHit'));
 			this.setEditMode(false);
 		},
+
 		/**
 		 * Checks if clipboard data contains file as first item.
 		 * @private
@@ -56,12 +75,6 @@ export default Ember.Mixin.create(
 			return clipboardData && clipboardData.items
 				&& clipboardData.items.length && clipboardData.items[0].kind === 'file';
 		},
-		imageUrl: null,
-		isDragActive: false,
-		isEditMode: false,
-		isLoadingMode: false,
-		isImagePreviewMode: false,
-		newImageUrl: null,
 
 		onPaste(event) {
 			if (this.get('isEditMode')) {
@@ -77,18 +90,6 @@ export default Ember.Mixin.create(
 			}
 		},
 
-		resetFileInput: false,
-		// components using this mixin should override this default settings to enable tracking
-		trackedActions: {
-			EditButtonTapped: '',
-			EditEscapeKeyHit: '',
-			EditFileDropped: '',
-			EditFilePasted: '',
-			EditImagePreview: '',
-			Save: '',
-			SaveFailure: ''
-		},
-		uploadedFile: null,
 		// components using this mixin should provide upload method
 		uploadMethod() {
 		},
