@@ -99,7 +99,7 @@
     "categories-edit-general-error":"Error al guardar, por favor inténtalo de nuevo.",
     "filter-posts-header":"Filtrar discusiones",
     "filter-reset-label":"Reiniciar",
-    "in-category-label":"__categoryName__",
+    "in-category-label":"en __categoryName__",
     "app-promotion-text":"¡Lleva tu fandom contigo, descarga la aplicación hoy!",
     "app-promotion-text-details-page":"Mantente al día de lo que ocurre. ¡Obtén la aplicación ahora!",
     "wiki-home":"Portada",
@@ -111,7 +111,15 @@
     "guidelines-link-title":"Guía comunitaria",
     "guidelines-header-title":"Guía comunitaria",
     "welcome-message-header":"¡Que bueno es tenerte aquí!",
-    "welcome-message-text":"Diviértete navegando, creando o respondiendo a discusiones. Lee nuestra __guidelinesLinkTitle__ y encajarás perfectamente."
+    "welcome-message-text":"Diviértete navegando, creando o respondiendo a discusiones. Lee nuestra __guidelinesLinkTitle__ y encajarás perfectamente.",
+    "edit-badge-button-text":"Editar insignia",
+    "edit-badge-hint-text":"125 x 125 jpg,<br>gif o png.<br>Límite de 10mb",
+    "edit-hero-unit-button-text":"Editar encabezado",
+    "edit-hero-unit-hint-text":"Dimensiones de la imagen: 1240x200<br>jpg, gif or png. Límite de 10mb",
+    "image-save-failed":"Error al guardar. Por favor inténtalo de nuevo.",
+    "upload-image-button-text":"Subir imagen",
+    "category-picker-button-text":"Añadir Categoría",
+    "category-picker-required-message":"requerido"
   },
   "editor":{
     "post-failed-error":"Fallo en discusión.",

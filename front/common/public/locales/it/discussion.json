@@ -99,7 +99,7 @@
     "categories-edit-general-error":"Salvataggio non riuscito, riprovare.",
     "filter-posts-header":"Filtra post",
     "filter-reset-label":"Reset",
-    "in-category-label":"__categoryName__",
+    "in-category-label":"in __categoryName__",
     "app-promotion-text":"Porta con te il tuo fandom, scarica l'app oggi stesso!",
     "app-promotion-text-details-page":"Resta aggiornato mentre sei in giro. Scarica subito l'app!",
     "wiki-home":"Home wiki",
@@ -111,7 +111,15 @@
     "guidelines-link-title":"Linee guida di discussione",
     "guidelines-header-title":"Linee guida di discussione",
     "welcome-message-header":"È fantastico averti qui!",
-    "welcome-message-text":"Divertiti a navigare, creare o rispondere a post. Leggi le nostre __guidelinesLinkTitle__ per sapere cosa fare."
+    "welcome-message-text":"Divertiti a navigare, creare o rispondere a post. Leggi le nostre __guidelinesLinkTitle__ per sapere cosa fare.",
+    "edit-badge-button-text":"Modifica badge",
+    "edit-badge-hint-text":"125x125 jpg,<br>gif o png.<br>Massimo 10mb",
+    "edit-hero-unit-button-text":"Modifica intestazione",
+    "edit-hero-unit-hint-text":"Dimensioni immagine: 1240x200<br>jpg, gif o png. Massimo 10mb",
+    "image-save-failed":"Salvataggio non riuscito, riprovare.",
+    "upload-image-button-text":"Carica immagine",
+    "category-picker-button-text":"Aggiungi categoria",
+    "category-picker-required-message":"obbligatorio"
   },
   "editor":{
     "post-failed-error":"Post non pubblicato",

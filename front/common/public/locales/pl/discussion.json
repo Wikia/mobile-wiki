@@ -99,7 +99,7 @@
     "categories-edit-general-error":"Nie udało się zapisać, spróbuj ponownie.",
     "filter-posts-header":"Filtruj posty",
     "filter-reset-label":"Resetuj",
-    "in-category-label":"__categoryName__",
+    "in-category-label":"w __categoryName__",
     "app-promotion-text":"Zabierz swoją pasję ze sobą, pobierz aplikację dzisiaj!",
     "app-promotion-text-details-page":"Bądź na bieżąco, nieważne gdzie jesteś. Pobierz aplikację teraz!",
     "wiki-home":"Strona główna",
@@ -111,7 +111,15 @@
     "guidelines-link-title":"Zasady korzystania z Dyskusji",
     "guidelines-header-title":"Zasady korzystania z Dyskusji",
     "welcome-message-header":"Niesamowicie się cieszymy, że jesteś!",
-    "welcome-message-text":"Miłego przeglądania, tworzenia i odpowiadania na posty. Przeczytaj nasze __guidelinesLinkTitle__, które pomogą Ci się szybko odnaleźć."
+    "welcome-message-text":"Miłego przeglądania, tworzenia i odpowiadania na posty. Przeczytaj nasze __guidelinesLinkTitle__, które pomogą Ci się szybko odnaleźć.",
+    "edit-badge-button-text":"Edytuj odznakę",
+    "edit-badge-hint-text":"125x125 jpg,<br>gif lub png.<br>limit 10mb",
+    "edit-hero-unit-button-text":"Edytuj nagłówek",
+    "edit-hero-unit-hint-text":"Wymiary obrazu: 1240x200<br>jpg, gif lub png. Limit 10mb",
+    "image-save-failed":"Nie udało się zapisać, spróbuj ponownie.",
+    "upload-image-button-text":"Prześlij obraz",
+    "category-picker-button-text":"Dodaj kategorię",
+    "category-picker-required-message":"wymagane"
   },
   "editor":{
     "post-failed-error":"Publikacja nie powiodła się.",

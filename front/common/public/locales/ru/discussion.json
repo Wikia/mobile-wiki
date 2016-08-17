@@ -99,7 +99,7 @@
     "categories-edit-general-error":"Произошла ошибка. Пожалуйста, попробуйте снова.",
     "filter-posts-header":"Фильтр сообщений",
     "filter-reset-label":"Сбросить",
-    "in-category-label":"__categoryName__",
+    "in-category-label":"в категории «__categoryName__»",
     "app-promotion-text":"Возьмите ваш фэндом с собой — скачайте приложение сегодня!",
     "app-promotion-text-details-page":"Оставайтесь на связи где угодно. Установите приложение прямо сейчас!",
     "wiki-home":"Заглавная страница",
@@ -111,7 +111,15 @@
     "guidelines-link-title":"Правила обсуждений",
     "guidelines-header-title":"Правила обсуждений",
     "welcome-message-header":"Мы рады, что вы здесь!",
-    "welcome-message-text":"Читайте, создавайте и отвечайте на сообщения. Прочитайте наши __guidelinesLinkTitle__ и присоединяйтесь к обсуждениям."
+    "welcome-message-text":"Читайте, создавайте и отвечайте на сообщения. Прочитайте наши __guidelinesLinkTitle__ и присоединяйтесь к обсуждениям.",
+    "edit-badge-button-text":"Править значок",
+    "edit-badge-hint-text":"125 x 125 jpg,<br>gif или png. <br>Максимум 10 Мб.",
+    "edit-hero-unit-button-text":"Править заголовок",
+    "edit-hero-unit-hint-text":"Размер изображения: 1240 x 200<br>jpg, gif или png. Максимум 10 Мб.",
+    "image-save-failed":"Произошла ошибка. Пожалуйста, попробуйте снова.",
+    "upload-image-button-text":"Загрузить изображение",
+    "category-picker-button-text":"Добавить категорию",
+    "category-picker-required-message":"обязательно"
   },
   "editor":{
     "post-failed-error":"Не удалось записать сообщение.",
