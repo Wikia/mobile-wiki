@@ -111,7 +111,15 @@
     "guidelines-link-title":"讨论区指引",
     "guidelines-header-title":"讨论版指引",
     "welcome-message-header":"有你在这里真是太棒了!",
-    "welcome-message-text":"尽情地浏览、创建和回复帖子吧！请阅读我们的__guidelinesLinkTitle__，您将会更快融入其中。"
+    "welcome-message-text":"尽情地浏览、创建和回复帖子吧！请阅读我们的__guidelinesLinkTitle__，您将会更快融入其中。",
+    "edit-badge-button-text":"编辑勋章",
+    "edit-badge-hint-text":"125x125jpg,<br>gif或者png.<br>限制10mb",
+    "edit-hero-unit-button-text":"编辑页眉",
+    "edit-hero-unit-hint-text":"图像尺寸︰1240x200<br>jpg, gif或者png. 限定10mb",
+    "image-save-failed":"保存失败，请再试一次。",
+    "upload-image-button-text":"上传图片",
+    "category-picker-button-text":"添加类别",
+    "category-picker-required-message":"必填"
   },
   "editor":{
     "post-failed-error":"发布失败",
