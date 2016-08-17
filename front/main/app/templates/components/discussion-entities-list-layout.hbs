@@ -32,14 +32,16 @@
 				editingPossible=true
 				uploadCommunityBadge=(action this.attrs.uploadCommunityBadge)
 			}}
-			{{#if canShowCategories}}
-				{{discussion-categories
-					categories=categories
-					inputIdPrefix='rail'
-					updateCategories=(action this.attrs.updateCategories)
-					updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
-					visibleCategoriesCount=10
-				}}
+			{{#if categoriesInRail}}
+				{{#if canShowCategories}}
+					{{discussion-categories
+						categories=categories
+						inputIdPrefix='rail'
+						updateCategories=(action this.attrs.updateCategories)
+						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
+						visibleCategoriesCount=10
+					}}
+				{{/if}}
 			{{/if}}
 			{{#if model.canModerate}}
 				{{discussion-reported-filter

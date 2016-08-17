@@ -111,7 +111,15 @@
     "guidelines-link-title":"Diskussions-Richtlinien",
     "guidelines-header-title":"Diskussions-Richtlinien",
     "welcome-message-header":"Toll, dass du hier bist!",
-    "welcome-message-text":"Viel Spaß beim Surfen, beim Erstellen neuer Inhalte oder beim Beantworten von Beiträgen. Lies dir unsere __guidelinesLinkTitle__ durch, damit du gleich richtig dazu gehörst."
+    "welcome-message-text":"Viel Spaß beim Surfen, beim Erstellen neuer Inhalte oder beim Beantworten von Beiträgen. Lies dir unsere __guidelinesLinkTitle__ durch, damit du gleich richtig dazu gehörst.",
+    "edit-badge-button-text":"Abzeichen bearbeiten",
+    "edit-badge-hint-text":"125x125 jpg,<br>gif or png.<br>10MB Limit",
+    "edit-hero-unit-button-text":"Header bearbeiten",
+    "edit-hero-unit-hint-text":"Bildabmessungen: 1240 x 200 <br>Jpg, Gif oder Png. 10MB Limit",
+    "image-save-failed":"Speichern war nicht möglich, bitte versuche es noch einmal.",
+    "upload-image-button-text":"Bild hochladen",
+    "category-picker-button-text":"Kategorie hinzufügen",
+    "category-picker-required-message":"erforderlich"
   },
   "editor":{
     "post-failed-error":"Veröffentlichung ist fehlgeschlagen.",

@@ -111,7 +111,15 @@
     "guidelines-link-title":"討論版指引",
     "guidelines-header-title":"討論版指引",
     "welcome-message-header":"有你在這裡真是太棒了!",
-    "welcome-message-text":"盡情地瀏覽、創建和回復文章吧！請閱讀我們的__guidelinesLinkTitle__，您將會更快融入其中。"
+    "welcome-message-text":"盡情地瀏覽、創建和回復文章吧！請閱讀我們的__guidelinesLinkTitle__，您將會更快融入其中。",
+    "edit-badge-button-text":"編輯徽章",
+    "edit-badge-hint-text":"125×125jpg、<br>gif或png。<br>限制10mb",
+    "edit-hero-unit-button-text":"編輯頁眉",
+    "edit-hero-unit-hint-text":"圖像尺寸︰ 1240×200<br>jpg、gif或png。限制10mb",
+    "image-save-failed":"保存失敗，請再試一次。",
+    "upload-image-button-text":"上傳圖片",
+    "category-picker-button-text":"添加分類",
+    "category-picker-required-message":"必填"
   },
   "editor":{
     "post-failed-error":"發佈失敗",

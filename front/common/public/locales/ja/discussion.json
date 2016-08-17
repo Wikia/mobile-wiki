@@ -111,7 +111,15 @@
     "guidelines-link-title":"トーク・ガイドライン",
     "guidelines-header-title":"トーク・ガイドライン",
     "welcome-message-header":"コミュニティへようこそ！",
-    "welcome-message-text":"みんなの投稿を読んだり、投稿や返信をして自由にトークを楽しもう！わからないことがあったら __guidelinesLinkTitle__ を見てみよう"
+    "welcome-message-text":"みんなの投稿を読んだり、投稿や返信をして自由にトークを楽しもう！わからないことがあったら __guidelinesLinkTitle__ を見てみよう",
+    "edit-badge-button-text":"バッジを編集する",
+    "edit-badge-hint-text":"125 × 125 jpg、 <br>gif または png の 10 MB の制限",
+    "edit-hero-unit-button-text":"ヘッダーを編集する",
+    "edit-hero-unit-hint-text":"画像のサイズ: 1240 × 200 <br>jpg、gif または png の 10 MB の制限",
+    "image-save-failed":"保存できませんでした。もう一度試してみてください。",
+    "upload-image-button-text":"画像をアップロード",
+    "category-picker-button-text":"カテゴリを追加",
+    "category-picker-required-message":"必須"
   },
   "editor":{
     "post-failed-error":"投稿できませんでした。",
@@ -138,7 +146,7 @@
     "reply-edit-editor-label":"返信する",
     "reply-action-button-label":"返信",
     "reply-edit-action-button-label":"保存",
-    "overlay-message-text":"最初の投稿をする前にまずは__guidelinesLinkTitle__をチェックしよう",
+    "overlay-message-text":"最初の投稿をする前に、まずは__guidelinesLinkTitle__をチェックしよう",
     "overlay-message-button":"完了",
     "guidelines-link-title":"トーク・ガイドライン"
   }
