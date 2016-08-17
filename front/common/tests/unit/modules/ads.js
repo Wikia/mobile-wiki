@@ -72,7 +72,8 @@ QUnit.module('mercury/modules/ads', function (hooks) {
 			initDetection: initDetectionSpy
 		};
 		instance.pageFairDetectionModule = {
-			initDetection: pageFairInitDetectionSpy
+			initDetection: pageFairInitDetectionSpy,
+			canBeInitialized: function () { return true; }
 		};
 		instance.adMercuryListenerModule = {
 			startOnLoadQueue: startOnLoadQueue
