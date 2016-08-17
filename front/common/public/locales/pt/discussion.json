@@ -111,7 +111,15 @@
     "guidelines-link-title":"Regras de Discussões",
     "guidelines-header-title":"Regras de Discussões",
     "welcome-message-header":"Que bom ter você por aqui!",
-    "welcome-message-text":"Divirta-se navegando, criando, ou respondendo aos posts. Leia nossas __guidelinesLinkTitle__ e você se sairá bem."
+    "welcome-message-text":"Divirta-se navegando, criando, ou respondendo aos posts. Leia nossas __guidelinesLinkTitle__ e você se sairá bem.",
+    "edit-badge-button-text":"Editar medalha",
+    "edit-badge-hint-text":"125 x 125 jpg, <br>gif ou png. <br>limite de 10mb",
+    "edit-hero-unit-button-text":"Editar cabeçalho",
+    "edit-hero-unit-hint-text":"Dimensões da imagem: 1240x200<br>jpg, gif ou png. Limite de 10mb",
+    "image-save-failed":"Falha ao salvar. Por favor, tente novamente.",
+    "upload-image-button-text":"Carregar imagem",
+    "category-picker-button-text":"Adicionar Categoria",
+    "category-picker-required-message":"obrigatório"
   },
   "editor":{
     "post-failed-error":"O post falhou.",

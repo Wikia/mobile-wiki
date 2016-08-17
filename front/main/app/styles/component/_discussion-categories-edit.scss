@@ -227,6 +227,20 @@ $success-icon-size: 80px;
 	}
 }
 
+@media #{$desktop-range} {
+	.discussion-categories-edit {
+		.icon-submit {
+			fill: $discussion-submit-icon-color;
+		}
+	}
+
+	.rail {
+		.discussion-categories-edit-footer-wrapper {
+			margin-top: -31px;
+		}
+	}
+}
+
 @media #{$mobile-range} {
 	.discussion-categories-edit {
 		-webkit-overflow-scrolling: touch;

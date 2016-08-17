@@ -63,6 +63,11 @@
 		}
 	}
 
+	.discussion-category-picker-button-wrapper {
+		align-items: flex-end;
+		display: flex;
+	}
+
 	.discussion-category-picker-content-wrapper {
 		align-items: center;
 		display: flex;
@@ -75,7 +80,15 @@
 		font-size: 10px;
 		font-weight: 600;
 		letter-spacing: .15px;
+		margin-left: 4px;
+		margin-bottom: 8px;
 		text-transform: uppercase;
+	}
+
+	.discussion-standalone-editor {
+		.discussion-category-picker-required-message {
+			margin-bottom: 3px;
+		}
 	}
 }
 

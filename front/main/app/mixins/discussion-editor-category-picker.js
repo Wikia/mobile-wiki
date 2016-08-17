@@ -2,18 +2,25 @@ import Ember from 'ember';
 import {track, trackActions} from '../utils/discussion-tracker';
 
 export default Ember.Mixin.create({
-	category: Ember.computed('categories', 'isEdit', 'editEntity', function () {
+	categorySetter: Ember.observer('isActive', 'editEntity', 'categories', 'isEdit', function () {
 		const categories = this.get('categories'),
-			editEntity = this.get('editEntity');
+			editEntity = this.get('editEntity'),
+			isActive = this.get('isActive');
+
+		if (!isActive) {
+			this.set('category', null);
+			return;
+		}
 
 		if (this.get('isEdit') && editEntity) {
-			return categories.findBy('id', this.get('editEntity.categoryId'));
+			this.set('category', categories.findBy('id', this.get('editEntity.categoryId')));
+			return;
 		}
 
 		if (categories && categories.length === 1) {
-			return categories.get(0);
+			this.set('category', categories.get(0));
 		} else {
-			return null;
+			this.set('category', null);
 		}
 	}),
 
@@ -49,12 +56,6 @@ export default Ember.Mixin.create({
 
 			return classname;
 		}),
-
-	clearCategory: Ember.observer('isActive', function () {
-		if (!this.get('isActive')) {
-			this.set('category', null);
-		}
-	}),
 
 	actions: {
 		/**
