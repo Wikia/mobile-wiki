@@ -5,7 +5,7 @@ import {trackActions} from '../utils/discussion-tracker';
 export default Ember.Component.extend({
 	popover: nearestParent('pop-over'),
 
-	didInsertElement: function() {
+	didInsertElement() {
 		if (document.activeElement) {
 			document.activeElement.blur();
 		}
