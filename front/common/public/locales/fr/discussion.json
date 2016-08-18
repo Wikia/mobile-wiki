@@ -23,7 +23,7 @@
     "sort-by-latest":"Récentes",
     "sort-by-trending":"Tendances",
     "loading-more-posts":"Chargement d'autres publications",
-    "load-more-posts-button":"Load More",
+    "load-more-posts-button":"Importer plus",
     "number-of-posts":"__numberOfPosts__ publications",
     "connection-error":"Connexion impossible. Veuillez réessayer.",
     "not-found-error":"Il semble que cette page n'existe pas.",
@@ -111,7 +111,15 @@
     "guidelines-link-title":"Règlement des discussions",
     "guidelines-header-title":"Règlement des discussions",
     "welcome-message-header":"Heureux de vous voir ici !",
-    "welcome-message-text":"Profitez-en pour naviguer, créer ou répondre aux publications. Lisez également le __guidelinesLinkTitle__, et vous serez comme chez vous."
+    "welcome-message-text":"Profitez-en pour naviguer, créer ou répondre aux publications. Lisez également le __guidelinesLinkTitle__, et vous serez comme chez vous.",
+    "edit-badge-button-text":"Modifier le badge",
+    "edit-badge-hint-text":"125 x 125<br>jpg, gif ou png. <br> 10 Mo maximum",
+    "edit-hero-unit-button-text":"Modifier l’en-tête",
+    "edit-hero-unit-hint-text":"Dimensions de l’image : 1240 x 200<br>jpg, gif ou png. 10 Mo maximum",
+    "image-save-failed":"Échec de l'enregistrement. Veuillez réessayer.",
+    "upload-image-button-text":"Importer une image",
+    "category-picker-button-text":"Ajouter une catégorie",
+    "category-picker-required-message":"obligatoire"
   },
   "editor":{
     "post-failed-error":"Échec de la publication.",

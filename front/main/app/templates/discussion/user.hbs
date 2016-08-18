@@ -4,6 +4,7 @@
 	isVisible=editEditorState.isOpen
 }}
 	{{discussion-standalone-editor
+		categories=model.index.categories.categories
 		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
@@ -26,6 +27,7 @@
 }}
 	{{discussion-user-list-wrapper
 		approve=(action 'approve')
+		categories=model.index.categories.categories
 		deletePost=(action 'deletePost')
 		deleteReply=(action 'deleteReply')
 		loadPage=(action 'loadPage')
@@ -35,7 +37,6 @@
 		posts=model.current.data.entities
 		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')
-		showCategories=showCategories
 		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
 		undeleteReply=(action 'undeleteReply')
