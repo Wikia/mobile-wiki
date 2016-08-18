@@ -36,11 +36,12 @@ export default Ember.Mixin.create({
 		return this.get('isEdit') && !this.get('editEntity.userData.permissions.canMove');
 	}),
 
-	shouldShowCategoryPicker: Ember.computed('isActivePostEditor', 'hasOneCategory', function () {
-		return !this.get('hasOneCategory') && this.get('isActivePostEditor') && !this.get('cannotEditCategory');
+	shouldShowCategoryPicker: Ember.computed('isActivePostEditor', 'hasOneCategory', 'category', function () {
+		return !this.get('hasOneCategory') && this.get('isActivePostEditor') && !this.get('cannotEditCategory')
+			&& this.get('category') !== undefined;
 	}),
 
-	categoryPickerDisabled: Ember.computed('isEdit,', 'currentUser.permissions', function () {
+	categoryPickerDisabled: Ember.computed('isEdit', 'currentUser.permissions', function () {
 		return this.get('isEdit') && !this.get('currentUser.permissions.discussions.canChangePostCategory');
 	}),
 
