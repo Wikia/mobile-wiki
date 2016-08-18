@@ -31,7 +31,7 @@ export default DiscussionMultipleInputsEditor.extend(
 		}),
 
 		editTextDisabled: Ember.computed('isEdit', 'editEntity.userData.permissions.canEdit', function () {
-			return this.get('isEdit') && !this.get('editEntity.userData.permissions.canEdit')
+			return this.get('isEdit') && !this.get('editEntity.userData.permissions.canEdit');
 		}),
 
 		pageYOffsetCache: 0,
