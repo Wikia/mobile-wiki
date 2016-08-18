@@ -61,17 +61,6 @@ $discussion-hero-unit-minimized-height: 25px;
 		width: 200px;
 	}
 
-	&.is-image-preview-mode {
-		.discussion-edit-approve-wrapper {
-			border-top: 0;
-			top: 169px;
-		}
-
-		.error-message-container {
-			margin-top: 30px;
-		}
-	}
-
 	.drag-and-drop {
 		display: flex;
 
