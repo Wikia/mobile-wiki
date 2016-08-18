@@ -8,8 +8,8 @@
 		hasNewPostButton=hasNewPostButton
 		hasSiteName=true
 		setEditorActive=(action this.attrs.setEditorActive)
-		showCategories=showCategories
 		smartBannerVisible=smartBannerVisible
+		updateCategories=(action this.attrs.updateCategories)
 	}}
 {{/ember-wormhole}}
 {{discussion-dialog
@@ -28,12 +28,13 @@
 	<div class="discussion-page row">
 		<div class="rail left large-3 columns">
 			{{community-badge}}
-			{{#if showCategories}}
-				{{#if categories}}
+			{{#if categoriesInRail}}
+				{{#if canShowCategories}}
 					{{discussion-categories
 						categories=categories
 						inputIdPrefix='rail'
 						updateCategories=(action this.attrs.updateCategories)
+						updateCategoriesSelection=(action this.attrs.updateCategoriesSelection)
 						visibleCategoriesCount=10
 					}}
 				{{/if}}

@@ -6,9 +6,16 @@ export default Ember.Component.extend(
 	DiscussionCollapsableMixin,
 	{
 		canShowMore: false,
+		classNameBindings: ['isEditMode'],
 		collapsed: false,
 		disabled: false,
 		visibleCategoriesCount: null,
+
+		isEditMode: false,
+
+		currentUser: Ember.inject.service(),
+
+		canEditCategories: Ember.computed.oneWay('currentUser.permissions.discussions.canEditCategories'),
 
 		init() {
 			this._super();
@@ -144,7 +151,7 @@ export default Ember.Component.extend(
 				this.setAllCategorySelected(localCategories);
 				this.collapseCategoriesAboveLimit(localCategories);
 
-				this.sendAction('updateCategories', localCategories);
+				this.sendAction('updateCategoriesSelection', localCategories);
 			},
 
 			/**
@@ -162,7 +169,7 @@ export default Ember.Component.extend(
 				localCategories.setEach('selected', false);
 				this.setAllCategorySelected(localCategories);
 
-				this.sendAction('updateCategories', localCategories);
+				this.sendAction('updateCategoriesSelection', localCategories);
 			},
 
 			/**
@@ -179,8 +186,23 @@ export default Ember.Component.extend(
 
 				this.setAllCategorySelected(localCategories);
 
-				this.sendAction('updateCategories', localCategories);
-			}
+				this.sendAction('updateCategoriesSelection', localCategories);
+			},
+
+			/**
+			 * Enables/disables categories edit mode
+			 *
+			 * @param {boolean} shouldEnable edit mode state
+			 *
+			 * @returns {void}
+			 */
+			setEditMode(shouldEnable) {
+				Ember.$('body').toggleClass('mobile-full-screen', shouldEnable);
+
+				this.set('isEditMode', shouldEnable);
+
+				track(trackActions.EditCategoriesButtonTapped);
+			},
 		}
 	}
 );

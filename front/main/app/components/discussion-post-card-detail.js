@@ -1,20 +1,32 @@
 import Ember from 'ember';
 import DiscussionPostCardBaseComponent from './discussion-post-card-base';
+import DiscussionCategoriesVisibilityMixin from '../mixins/discussion-categories-visibility';
 
-export default DiscussionPostCardBaseComponent.extend({
-	classNames: ['post-detail'],
+export default DiscussionPostCardBaseComponent.extend(
+	DiscussionCategoriesVisibilityMixin,
+	{
+		classNames: ['post-detail'],
 
-	postId: Ember.computed.oneWay('post.threadId'),
+		currentUser: Ember.inject.service(),
 
-	routing: Ember.inject.service('-routing'),
+		postId: Ember.computed.oneWay('post.threadId'),
 
-	// Whether the component is displayed on the post details discussion page
-	isDetailsView: false,
+		routing: Ember.inject.service('-routing'),
 
-	// URL passed to the ShareFeatureComponent for sharing a post
-	sharedUrl: Ember.computed('postId', function () {
-		const localPostUrl = this.get('routing').router.generate('discussion.post', this.get('postId'));
+		// Whether the component is displayed on the post details discussion page
+		isDetailsView: false,
 
-		return `${Ember.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)}${localPostUrl}`;
-	}),
-});
+		// URL passed to the ShareFeatureComponent for sharing a post
+		sharedUrl: Ember.computed('postId', function () {
+			const localPostUrl = this.get('routing').router.generate('discussion.post', this.get('postId'));
+
+			return `${Ember.getWithDefault(Mercury, 'wiki.basePath', window.location.origin)}${localPostUrl}`;
+		}),
+
+		categoryName: Ember.computed('categories.@each', 'post.categoryId', function () {
+			const category = this.get('categories').findBy('id', this.get('post.categoryId'));
+
+			return category ? category.get('name') : null;
+		}),
+	}
+);
