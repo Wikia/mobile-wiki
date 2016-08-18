@@ -9,7 +9,6 @@ import load from '../utils/load';
 
 /**
  * @typedef {Object} PageFairDetectionModule
- * @property {Function} canBeInitialized
  * @property {Function} initDetection
  */
 
@@ -303,7 +302,7 @@ class Ads {
 
 			if (Ads.previousDetectionResults.pageFair.exists) {
 				this.trackBlocking('pageFair', this.GASettings.pageFair, Ads.previousDetectionResults.pageFair.value);
-			} else if (this.pageFairDetectionModule.canBeInitialized(adsContext)) {
+			} else if (adsContext.opts && adsContext.opts.pageFairDetection) {
 				this.pageFairDetectionModule.initDetection(adsContext);
 			}
 
