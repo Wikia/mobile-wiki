@@ -64,7 +64,7 @@ export default Ember.Mixin.create({
 			newCategoryId = params.newCategoryId,
 			wasMoved = newCategoryId !== params.editedEntity.get('categoryId');
 
-		if (!params.editedEntity.get('userData.permissions.canEdit')) {
+		if (Ember.get(params, 'editedEntity.userData.permissions.canEdit')) {
 			promisesList.push(this.editPostContent(postData));
 		}
 
