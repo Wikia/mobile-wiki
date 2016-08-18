@@ -38,6 +38,7 @@ export default Ember.Mixin.create({
 			data: JSON.stringify({
 				threadIds: [threadId]
 			}),
+			dataType: 'text',
 			method: 'POST'
 		});
 	},
@@ -62,9 +63,10 @@ export default Ember.Mixin.create({
 	editPost(postData, params) {
 		const promisesList = new Ember.A(),
 			newCategoryId = params.newCategoryId,
-			wasMoved = newCategoryId !== params.editedEntity.get('categoryId');
+			wasMoved = newCategoryId !== params.editedEntity.get('categoryId'),
+			shouldEditContent = Ember.get(params, 'editedEntity.userData.permissions.canEdit');
 
-		if (Ember.get(params, 'editedEntity.userData.permissions.canEdit')) {
+		if (shouldEditContent) {
 			promisesList.push(this.editPostContent(postData));
 		}
 
@@ -73,7 +75,8 @@ export default Ember.Mixin.create({
 		}
 
 		return Ember.RSVP.all(promisesList).then((data) => {
-			const editedPost = DiscussionPost.createFromThreadData(data[0]);
+			const editedPost = shouldEditContent ? DiscussionPost.createFromThreadData(data[0]) :
+				Ember.Object.create({});
 
 			if (wasMoved) {
 				editedPost.setProperties({
