@@ -1,12 +1,19 @@
 import Ember from 'ember';
 
-export default Ember.Route.extend({
-	discussionSort: Ember.inject.service(),
+import localStorageConnector from '../../utils/local-storage-connector';
 
+export default Ember.Route.extend({
 	/**
 	 * @returns {void}
 	 */
 	beforeModel() {
-		this.transitionTo('discussion.forum', {queryParams: {sort: this.get('discussionSort.sortBy')}});
+		let transitionParams = JSON.parse(localStorageConnector.getItem('discussionForumPreviousQueryParams'));
+
+		// check if object because of situation when user had previously stored "null" (string) value
+		// for transitionParams
+		if (!transitionParams || Ember.typeOf(transitionParams) !== 'object') {
+			transitionParams = {sort: 'trending'};
+		}
+		this.transitionTo('discussion.forum', {queryParams: transitionParams});
 	},
 });

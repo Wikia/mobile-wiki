@@ -21,6 +21,8 @@ export default Ember.Mixin.create({
 	startTrackingAction: null,
 	// Tracking action name of inserting title into editor
 	titleTrackingAction: null,
+	// Tracking action name of inserting category into editor
+	categoryTrackingAction: null,
 
 	configurationObeserver: Ember.observer('isEdit', 'isReply', function () {
 		this.configure();

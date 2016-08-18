@@ -160,4 +160,12 @@ if (typeof window.M === 'undefined') {
 	M.getStaticAssetsServiceUrl = function (path = '', query = {}) {
 		return `https://${M.prop('servicesDomain')}/${M.prop('staticAssetsBaseRoute')}${path}${getQueryString(query)}`;
 	};
+
+	/**
+	 * @param {string} [path='']
+	 * @returns {string}
+	 */
+	M.getUserPermissionsServiceUrl = function (path = '') {
+		return `https://${M.prop('servicesDomain')}/${M.prop('userPermissionsBaseRoute')}${path}`;
+	};
 })(M);

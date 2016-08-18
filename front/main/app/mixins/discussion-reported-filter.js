@@ -22,10 +22,6 @@ export default Ember.Mixin.create({
 		toggleReported() {
 			const onlyReported = this.get('onlyReported');
 
-			if (onlyReported === false) {
-				this.send('setSortBy', 'latest');
-			}
-
 			this.set('onlyReported', !onlyReported);
 
 			if (!this.get('showApplyButton')) {

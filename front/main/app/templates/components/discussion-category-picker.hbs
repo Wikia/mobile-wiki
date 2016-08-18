@@ -1,0 +1,6 @@
+{{#each categories as |category|}}
+	{{discussion-category-pill
+		category=category
+		onCategoryPicked=(action 'onCategoryPicked')
+	}}
+{{/each}}

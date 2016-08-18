@@ -4,6 +4,7 @@
 	isVisible=editEditorState.isOpen
 }}
 	{{discussion-standalone-editor
+		categories=model.index.categories.categories
 		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
@@ -20,9 +21,10 @@
 
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
-	categories=model.index.categories.data
+	categories=model.index.categories.categories
 	hasNewPostButton=false
 	model=model.current.data
+	updateCategoriesSelection=(action 'updateCategoriesSelection')
 	openGuidelines=(action 'openGuidelines')
 	setEditorActive=(action 'setEditorActive')
 	updateCategories=(action 'updateCategories')
@@ -32,6 +34,7 @@
 	}}
 	{{discussion-reported-posts-wrapper
 		approve=(action 'approve')
+		categories=model.index.categories.categories
 		createPost=(action 'createPost')
 		deletePost=(action 'deletePost')
 		deleteReply=(action 'deleteReply')
@@ -45,7 +48,6 @@
 		postsDisplayed=model.current.data.entities.length
 		report=(action 'report')
 		setEditorActive=(action 'setEditorActive')
-		showCategories=showCategories
 		totalPosts=model.current.data.postCount
 		undeletePost=(action 'undeletePost')
 		undeleteReply=(action 'undeleteReply')

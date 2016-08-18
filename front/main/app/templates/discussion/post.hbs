@@ -1,5 +1,7 @@
 {{#if responsive.isMobile}}
 	{{discussion-standalone-editor
+		categories=model.index.categories.categories
+		categoryPickerButtonId='categoryPickerButtonMobile'
 		create=(action 'createReply')
 		errorMessage=editorState.errorMessage
 		generateOpenGraph=(route-action 'generateOpenGraph')
@@ -18,6 +20,8 @@
 	isVisible=editEditorState.isOpen
 }}
 	{{discussion-standalone-editor
+		categories=model.index.categories.categories
+		categoryPickerButtonId='categoryPickerButtonEdit'
 		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
@@ -39,6 +43,7 @@
 }}
 	{{discussion-post
 		approve=(action 'approve')
+		categories=model.index.categories.categories
 		createReply=(action 'createReply')
 		deleteAllPosts=(action 'deleteAllPosts')
 		deletePost=(action 'deletePost')
@@ -55,7 +60,6 @@
 		openEditEditor=(action 'openEditEditor')
 		report=(action 'report')
 		setEditorActive=(action 'setEditorActive')
-		showCategories=showCategories
 		undeletePost=(action 'undeletePost')
 		undeleteReply=(action 'undeleteReply')
 		unlockPost=(action 'unlockPost')
