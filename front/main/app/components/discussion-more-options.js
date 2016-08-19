@@ -12,7 +12,7 @@ export default Ember.Component.extend({
 		return !this.get('post.isDeleted') && this.get('post.userData.permissions.canDelete');
 	}),
 
-	canEdit: Ember.computed.readOnly('post.userData.permissions.canEdit'),
+	canEdit: Ember.computed.or('post.userData.permissions.canEdit', 'post.userData.permissions.canMove'),
 
 	canUndelete: Ember.computed.and('post.isDeleted', 'post.userData.permissions.canUndelete'),
 

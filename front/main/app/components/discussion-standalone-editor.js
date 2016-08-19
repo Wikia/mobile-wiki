@@ -19,13 +19,19 @@ export default DiscussionMultipleInputsEditor.extend(
 
 		isEdit: false,
 		isReply: Ember.computed.bool('editEntity.isReply'),
+
 		editorType: Ember.computed('isEdit', function () {
 			return this.get('isEdit') ? 'editEditor' : 'contributeEditor';
 		}),
+
 		editEntity: null,
 
 		categoryTrackingAction: Ember.computed('isEdit', function () {
 			return this.get('isEdit') ? trackActions.PostCategoryEdited : trackActions.PostCategoryAdded;
+		}),
+
+		editTextDisabled: Ember.computed('isEdit', 'editEntity.userData.permissions.canEdit', function () {
+			return this.get('isEdit') && !this.get('editEntity.userData.permissions.canEdit');
 		}),
 
 		pageYOffsetCache: 0,

@@ -96,9 +96,14 @@ $success-icon-size: 80px;
 		padding: 0 0 7px;
 		resize: none;
 
-		&:focus {
+		&:focus,
+		&:disabled {
 			background-color: transparent;
 			box-shadow: none;
+		}
+
+		&:disabled {
+			opacity: 0.5;
 		}
 	}
 

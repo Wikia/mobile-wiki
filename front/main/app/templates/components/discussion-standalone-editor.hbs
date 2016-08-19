@@ -39,6 +39,7 @@
 		{{#if showMultipleInputs}}
 			{{discussion-textarea-with-counter
 				class='discussion-standalone-editor-title'
+				disabled=editTextDisabled
 				isVisible=isActive
 				label=(i18n titleLabelKey ns='discussion')
 				maxlength=70
@@ -59,6 +60,7 @@
 			{{textarea
 				autoresize=true
 				class="discussion-standalone-editor-textarea"
+				disabled=editTextDisabled
 				keyPress=(action 'handleKeyPress')
 				placeholder=(i18n messagePlaceholderKey ns='discussion')
 				value=content
