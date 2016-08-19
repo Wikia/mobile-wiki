@@ -34,8 +34,9 @@
 			{{else}}
 				<div class="image-edit-mode {{if isLoadingMode 'is-loading'}}">
 					{{#if isImagePreviewMode}}
-						<div class="image-edit-preview-wrapper border-theme-color">
-							<img class="image-edit-preview" src="{{newImageUrl}}" />
+						<div
+							class="image-edit-preview-wrapper border-theme-color"
+							style="background: url({{newImageUrl}}) no-repeat center center">
 						</div>
 					{{else}}
 						{{#unless isLoadingMode}}
