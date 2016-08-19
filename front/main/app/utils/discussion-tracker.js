@@ -43,6 +43,8 @@ const trackActions = {
 	ReportedFilterUncollapsed: 'ReportedFilterUncollapsed',
 	CategoriesResetTapped: 'CategoriesResetTapped',
 	ReportDetailsModalOpen: 'ReportDetailsModalOpen',
+	EditCategoriesButtonTapped: 'EditCategoriesButtonTapped',
+	AddCategoryButtonTapped: 'AddCategoryButtonTapped',
 	GuidelinesLinkTapped: 'GuidelinesLinkTapped',
 	GuidelinesLinkWelcomeTapped: 'GuidelinesLinkWelcomeTapped',
 	GuidelinesEditClose: 'GuidelinesEditClose',
@@ -54,6 +56,8 @@ const trackActions = {
 	PostMore: 'PostMore',
 	EditorCalloutMessageClose: 'EditorCalloutMessageClose',
 	EditorCalloutGuidelinesLinkTapped: 'EditorCalloutGuidelinesLinkTapped',
+	PostCategoryAdded: 'PostCategoryAdded',
+	PostCategoryEdited: 'PostCategoryEdited'
 };
 
 /**

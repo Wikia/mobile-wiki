@@ -7,7 +7,8 @@ $desktop-content-font-size: $type-base;
 $desktop-content-line-height: $line-height-base;
 $desktop-post-details-content-line-height: $line-height-base;
 $desktop-post-details-content-font-size: $type-base;
-$post-details-content-line-height: 1.4rem;
+$post-title-line-height: 1.5rem;
+$post-content-line-height: 1.25rem;
 $post-details-outer-width: 580px;
 $post-details-post-margin-bottom: 10px;
 $post-details-post-vertical-padding: 12px;
@@ -82,6 +83,10 @@ body.discussions {
 		width: 18px;
 	}
 
+	&.report {
+		fill: $discussion-actions-color;
+	}
+
 	&.arrow-left {
 		height: 16px;
 		width: 18px;
@@ -96,6 +101,10 @@ body.discussions {
 	&.reported-delete {
 		height: 40px;
 		width: 40px;
+	}
+
+	&.validate {
+		fill: $discussion-submit-icon-color;
 	}
 
 	&.reported-delete {
@@ -300,6 +309,7 @@ body.discussions {
 		.post-details-link {
 			color: $discussion-content-color;
 			display: block;
+			line-height: $post-title-line-height;
 		}
 	}
 
@@ -311,8 +321,10 @@ body.discussions {
 
 	.post-title {
 		color: $discussion-post-title-color;
-		line-height: $line-height-smallest;
-		margin: 0;
+		font-size: $type-smaller;
+		font-weight: 600;
+		line-height: $post-title-line-height;
+		margin: 4px 0 5px;
 
 		.post-details-link {
 			color: $discussion-post-title-color;
@@ -651,10 +663,6 @@ body.discussions {
 
 		.post-detail {
 			margin-bottom: $post-details-post-margin-bottom;
-
-			.post-title {
-				font-size: $type-smallest;
-			}
 		}
 
 		.post-detail,
@@ -664,11 +672,10 @@ body.discussions {
 	}
 
 	&.post {
-
 		.post-detail .post-title {
-			font-size: $type-smaller;
-			line-height: $line-height-smaller;
-			margin-bottom: 18px;
+			font-size: $type-small;
+			line-height: $line-height-small;
+			margin: 7px 0 12px;
 		}
 	}
 }
@@ -787,10 +794,30 @@ body.discussions {
 
 		.post-detail {
 			box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+
+			.discussion-content {
+				.post-title {
+					font-size: $type-smaller;
+					line-height: $post-content-line-height;
+					margin: 5px 0 8px;
+				}
+			}
 		}
 	}
 
 	.discussion {
+		.post-title {
+			margin: 0 0 5px;
+		}
+
+		.discussion-content {
+			line-height: $post-content-line-height;
+
+			.post-details-link {
+				line-height: $post-content-line-height;
+			}
+		}
+
 		.post-actions {
 			> li:not(:last-child) {
 				border-right: none;

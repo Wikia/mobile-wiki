@@ -12,9 +12,34 @@
 			gotoGuidelines=(action this.attrs.gotoGuidelines)
 		}}
 	{{else}}
+		{{#if shouldShowCategoryPicker}}
+			{{#pop-over for=categoryPickerButtonId on='click' flow='downCentered' class='discussion-category-picker'}}
+				{{discussion-category-picker
+					categories=categories
+					setCategory=(action 'setCategory')
+				}}
+			{{/pop-over}}
+			<div class="discussion-category-picker-button-wrapper">
+				<a id="{{categoryPickerButtonId}}" class="discussion-category-picker-button {{categoryPickerClassname}}">
+					<span class="discussion-category-picker-content-wrapper">
+						{{#if category}}
+							{{category.name}}
+							{{svg 'pencil' viewBox='0 0 70 70' class='icon pencil'}}
+						{{else}}
+							{{svg 'plus-small' viewBox='0 0 34 34' class='icon plus'}}
+							{{i18n 'main.category-picker-button-text' ns='discussion'}}
+						{{/if}}
+					</span>
+				</a>
+				{{#unless category}}
+					<small class="discussion-category-picker-required-message">({{i18n 'main.category-picker-required-message' ns='discussion'}})</small>
+				{{/unless}}
+			</div>
+		{{/if}}
 		{{#if showMultipleInputs}}
 			{{discussion-textarea-with-counter
 				class='discussion-standalone-editor-title'
+				disabled=editTextDisabled
 				isVisible=isActive
 				label=(i18n titleLabelKey ns='discussion')
 				maxlength=70
@@ -35,6 +60,7 @@
 			{{textarea
 				autoresize=true
 				class="discussion-standalone-editor-textarea"
+				disabled=editTextDisabled
 				keyPress=(action 'handleKeyPress')
 				placeholder=(i18n messagePlaceholderKey ns='discussion')
 				value=content
