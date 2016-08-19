@@ -4,13 +4,19 @@
 
 .wds-global-footer {
 	display: none;
+	line-height: normal;
 
 	.show-global-footer & {
 		display: block;
 	}
 
-	&__home-of-fandom {
-		line-height: 1;
+	h2 {
+		font-size: 1.5em;
+		line-height: normal;
+	}
+
+	&__section-header {
+		line-height: normal;
 	}
 }
 
