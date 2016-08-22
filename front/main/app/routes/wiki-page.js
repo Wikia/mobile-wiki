@@ -152,7 +152,7 @@ export default Ember.Route.extend(
 			// update UA dimensions
 			if (model.adsContext) {
 				uaDimensions[3] = model.adsContext.targeting.wikiVertical;
-				uaDimensions[14] = model.adsContext.opts.showAds ? 'yes' : 'no';
+				uaDimensions[14] = model.adsContext.opts.showAds ? 'Yes' : 'No';
 			}
 			if (articleType) {
 				uaDimensions[19] = articleType;
