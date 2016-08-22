@@ -17,6 +17,7 @@ import UserModel from '../models/user';
  * @property {number} id
  * @property {string} name
  * @property {string[]} rights
+ * @property {Ember.Object} permissions
  * @property {*} options
  */
 
@@ -55,74 +56,11 @@ export default Ember.Service.extend({
 		const userId = this.get('userId');
 
 		if (userId !== null) {
-			Ember.RSVP.all([this.get('userModel'), this.loadUserInfo()]).then(([userModel, userInfo]) => {
+			this.get('userModel').then((userModel) => {
 				if (userModel) {
 					this.setProperties(userModel);
 				}
-
-				if (userInfo) {
-					this.setUserLanguage(userInfo);
-					this.setBlockedStatus(userInfo);
-					this.setUserRights(userInfo);
-				}
 			});
 		}
 	},
-
-	/**
-	 * @param {string} query
-	 * @returns {void}
-	 */
-	setUserLanguage({query}) {
-		const userLanguage = query.userinfo.options.language;
-
-		if (userLanguage) {
-			this.set('language', userLanguage);
-		}
-	},
-
-	/**
-	 * @param {QueryUserInfoResponse} query
-	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
-	 */
-	setUserRights({query}) {
-		const rightsArray = query.userinfo.rights,
-			rights = {};
-
-		if (Ember.isArray(rightsArray)) {
-			// TODO - we could use contains instead of making an object out of an array
-			rightsArray.forEach((right) => {
-				rights[right] = true;
-			});
-
-			this.set('rights', rights);
-		}
-	},
-
-	/**
-	 * @param {QueryUserInfoResponse} query
-	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
-	 */
-	setBlockedStatus({query}) {
-		const blockId = query.userinfo.blockid;
-
-		if (blockId) {
-			this.set('isBlocked', true);
-		}
-	},
-
-	/**
-	 * TODO - move to UserModel | XW-1160
-	 * @returns {Ember.RSVP.Promise<QueryUserInfoResponse>}
-	 */
-	loadUserInfo() {
-		return this.get('ajax').request('/api.php', {
-			data: {
-				action: 'query',
-				meta: 'userinfo',
-				uiprop: 'rights|options|blockinfo',
-				format: 'json'
-			},
-		});
-	}
 });

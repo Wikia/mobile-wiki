@@ -6,3 +6,8 @@
 #eraicons, #title-eraicons, #icons {
 	@extend .hidden;
 }
+
+// Disabled pointer events on svgs to make them clickable on Safari desktop
+.discussions use {
+	pointer-events: none;
+}

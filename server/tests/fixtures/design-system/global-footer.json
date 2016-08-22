@@ -1,0 +1,365 @@
+{
+  "company_overview": {
+    "header": {
+      "type": "line-text",
+      "title": {
+        "type": "translatable-text",
+        "key": "global-footer-company-overview-header"
+      }
+    },
+    "links": [
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-company-overview-link-about"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-company-overview-link-careers"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-company-overview-link-press"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-company-overview-link-contact"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-company-overview-link-wikia-gives-back"
+        },
+        "href": "#"
+      }
+    ]
+  },
+  "site_overview": {
+    "links": [
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-site-overview-link-terms-of-use"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-site-overview-link-privacy-policy"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-site-overview-link-global-sitemap"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-site-overview-link-local-sitemap"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-site-overview-link-api"
+        },
+        "href": "#"
+      }
+    ]
+  },
+  "create_wiki": {
+    "description": {
+      "type": "translatable-text",
+      "key": "global-footer-create-wiki-description"
+    },
+    "links": [
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-create-wiki-link-start-wikia"
+        },
+        "href": "#"
+      }
+    ]
+  },
+  "community_apps": {
+    "header": {
+      "type": "line-text",
+      "title": {
+        "type": "translatable-text",
+        "key": "global-footer-community-apps-header"
+      }
+    },
+    "description": {
+      "type": "translatable-text",
+      "key": "global-footer-community-apps-description"
+    },
+    "links": [
+      {
+        "type": "link-image",
+        "image": "wds-company-store-appstore",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-community-apps-link-app-store"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-image",
+        "image": "wds-company-store-googleplay",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-community-apps-link-google-play"
+        },
+        "href": "#"
+      }
+    ]
+  },
+  "advertise": {
+    "header": {
+      "type": "line-text",
+      "title": {
+        "type": "translatable-text",
+        "key": "global-footer-advertise-header"
+      }
+    },
+    "links": [
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-advertise-link-media-kit"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-advertise-link-contact"
+        },
+        "href": "#"
+      }
+    ]
+  },
+  "licensing_and_vertical": {
+    "description": {
+      "type": "translatable-text",
+      "key": "global-footer-licensing-and-vertical-description",
+      "params": {
+        "sitename": {
+          "type": "text",
+          "value": "Star Wars Wiki"
+        },
+        "vertical": {
+          "type": "translatable-text",
+          "key": "global-footer-licensing-and-vertical-description-param-vertical-lifestyle"
+        },
+        "license": {
+          "type": "link-text",
+          "title": {
+            "type": "text",
+            "value": "CC-BY-SA"
+          },
+          "href": "#"
+        }
+      }
+    }
+  },
+  "fandom_overview": {
+    "links": [
+      {
+        "type": "link-branded",
+        "brand": "games",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-fandom-overview-link-vertical-games"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-branded",
+        "brand": "movies",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-fandom-overview-link-vertical-movies"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-branded",
+        "brand": "tv",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-fandom-overview-link-vertical-tv"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-branded",
+        "brand": "fan-communities",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-fandom-overview-link-fan-communities"
+        },
+        "href": "#"
+      }
+    ]
+  },
+  "follow_us": {
+    "header": {
+      "type": "line-text",
+      "title": {
+        "type": "translatable-text",
+        "key": "global-footer-follow-us-header"
+      }
+    },
+    "links": [
+      {
+        "type": "link-image",
+        "image": "wds-icons-facebook",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-follow-us-link-facebook"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-image",
+        "image": "wds-icons-twitter",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-follow-us-link-twitter"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-image",
+        "image": "wds-icons-reddit",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-follow-us-link-reddit"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-image",
+        "image": "wds-icons-youtube",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-follow-us-link-youtube"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-image",
+        "image": "wds-icons-instagram",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-follow-us-link-instagram"
+        },
+        "href": "#"
+      }
+    ]
+  },
+  "community": {
+    "header": {
+      "type": "line-text",
+      "title": {
+        "type": "translatable-text",
+        "key": "global-footer-community-header"
+      }
+    },
+    "links": [
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-community-link-community-central"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-community-link-support"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-community-link-fan-contributor-program"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-community-link-wam-score"
+        },
+        "href": "#"
+      },
+      {
+        "type": "link-text",
+        "title": {
+          "type": "translatable-text",
+          "key": "global-footer-community-link-help"
+        },
+        "href": "#"
+      }
+    ]
+  },
+  "fandom": {
+    "header": {
+      "type": "link-image",
+      "image": "wds-company-logo-fandom",
+      "href": "#",
+      "title": {
+        "type": "translatable-text",
+        "key": "global-footer-fandom-header"
+      }
+    }
+  },
+  "wikia": {
+    "header": {
+      "type": "line-image",
+      "image": "wds-company-logo-wikia",
+      "title": {
+        "type": "translatable-text",
+        "key": "global-footer-wikia-header"
+      }
+    }
+  }
+}
