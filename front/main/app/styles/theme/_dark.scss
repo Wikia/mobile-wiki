@@ -318,7 +318,28 @@ body.dark-theme {
 		}
 	}
 
+	.discussion-category-picker-button {
+		background: $dark-discussion-category-picker-button-background-color;
+		color: $dark-discussion-category-picker-button-color;
+
+		&.active-element-background-color {
+			color: $discussion-category-picker-button-color;
+
+			svg.icon {
+				fill: $discussion-category-picker-button-color;
+			}
+		}
+
+		svg.icon {
+			fill: $dark-discussion-category-picker-button-color;
+		}
+	}
+
 	&.discussions {
+		.discussion-category-picker-required-message {
+			color: $dark-discussion-category-picker-button-background-color;
+		}
+
 		.og-container {
 			background-color: $dark-discussion-open-graph-background-color;
 			border-color: $dark-discussion-open-graph-border-color;
@@ -543,6 +564,34 @@ body.dark-theme {
 			.delete-all {
 				color: $dark-discussion-actions-color;
 			}
+		}
+	}
+
+	.discussion-categories-edit {
+		.move {
+			fill: $dark-discussion-move-icon-color;
+		}
+
+		.is-dragging {
+			background-color: $dark-discussion-edit-list-item-color;
+		}
+
+		input[type=text] {
+			border-bottom-color: $dark-discussion-categories-edit-border-bottom-color;
+			color: $dark-discussion-content-color;
+
+			&[disabled] {
+				color: $dark-discussion-disabled-text-color;
+				-webkit-text-fill-color: $dark-discussion-disabled-text-color;
+			}
+		}
+
+		.categories-loading-overlay {
+			background-color: rgba($dark-highlight-overlay-background-color, 0.9);
+		}
+
+		.categories-edit-info-message {
+			color: $dark-discussion-content-color;
 		}
 	}
 

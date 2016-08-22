@@ -83,6 +83,10 @@ body.discussions {
 		width: 18px;
 	}
 
+	&.report {
+		fill: $discussion-actions-color;
+	}
+
 	&.arrow-left {
 		height: 16px;
 		width: 18px;
@@ -97,6 +101,10 @@ body.discussions {
 	&.reported-delete {
 		height: 40px;
 		width: 40px;
+	}
+
+	&.validate {
+		fill: $discussion-submit-icon-color;
 	}
 
 	&.reported-delete {

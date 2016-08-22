@@ -11,8 +11,8 @@ export default Ember.Mixin.create({
 	 * @param {Object} postData
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	createPost(postData) {
-		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${this.wikiId}/threads`), {
+	createPost(postData, forumId) {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${forumId}/threads`), {
 			data: JSON.stringify(postData),
 			method: 'POST',
 		}).then((thread) => {
@@ -29,16 +29,61 @@ export default Ember.Mixin.create({
 	},
 
 	/**
-	 * Edit a post in discussion service
+	 * @param {String} threadId
+	 * @param {String} newCategoryId
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	movePost(threadId, newCategoryId) {
+		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/forums/${newCategoryId}/movethreads`), {
+			data: JSON.stringify({
+				threadIds: [threadId]
+			}),
+			dataType: 'text',
+			method: 'POST'
+		});
+	},
+
+	/**
 	 * @param {Object} postData
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	editPost(postData) {
+	editPostContent(postData) {
 		return request(M.getDiscussionServiceUrl(`/${this.wikiId}/threads/${postData.threadId}`), {
 			data: JSON.stringify(postData),
 			method: 'POST',
-		}).then((thread) => {
-			const editedPost = DiscussionPost.createFromThreadData(thread);
+		});
+	},
+
+	/**
+	 * Edit a post in discussion service
+	 * @param {Object} postData
+	 * @param {Object} params
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	editPost(postData, params) {
+		const promisesList = new Ember.A(),
+			newCategoryId = params.newCategoryId,
+			wasMoved = newCategoryId !== params.editedEntity.get('categoryId'),
+			shouldEditContent = Ember.get(params, 'editedEntity.userData.permissions.canEdit');
+
+		if (shouldEditContent) {
+			promisesList.push(this.editPostContent(postData));
+		}
+
+		if (wasMoved) {
+			promisesList.push(this.movePost(postData.threadId, newCategoryId));
+		}
+
+		return Ember.RSVP.all(promisesList).then((data) => {
+			const editedPost = shouldEditContent ? DiscussionPost.createFromThreadData(data[0]) :
+				Ember.Object.create({});
+
+			if (wasMoved) {
+				editedPost.setProperties({
+					categoryId: newCategoryId,
+					categoryName: params.newCategoryName
+				});
+			}
 
 			this.get('data.entities').findBy('id', postData.id).setProperties(editedPost);
 
