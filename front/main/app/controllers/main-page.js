@@ -3,8 +3,6 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
 	application: Ember.inject.controller(),
 
-	noAds: Ember.computed.alias('application.noAds'),
-
 	/**
 	 * @returns {void}
 	 */

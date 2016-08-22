@@ -27,6 +27,7 @@ export default Route.extend(
 		},
 
 		adsState: Ember.inject.service(),
+		adsHighImpact: Ember.inject.service(),
 
 		actions: {
 			/**
@@ -122,6 +123,15 @@ export default Route.extend(
 				}
 
 				if (info.article) {
+					const highImpactCountries = Ember.get(Wikia, 'InstantGlobals.wgAdDriverHighImpact2SlotCountries'),
+						interstitialOnTransitionCountries =
+							Ember.get(Wikia, 'InstantGlobals.wgAdDriverMobileTransitionInterstitialCountries'),
+						isProperGeo = Ember.get(Wikia, 'geo.isProperGeo');
+
+					if (isProperGeo && isProperGeo(highImpactCountries) && isProperGeo(interstitialOnTransitionCountries)) {
+						this.get('adsHighImpact').reload();
+					}
+
 					this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
 				} else if (info.url) {
 					/**
