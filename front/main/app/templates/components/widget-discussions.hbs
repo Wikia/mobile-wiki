@@ -1,0 +1,35 @@
+{{#if posts}}
+	<div class="heading-wrapper">
+		<div class="heading">
+			{{title}}
+		</div>
+		{{#link-to 'discussion' class='heading-viewall'}}
+			{{view-all}}{{svg 'arrow-right-long'}}
+		{{/link-to}}
+	</div>
+{{/if}}
+{{#each posts as |entity|}}
+	{{discussion-post-card-detail
+		author=entity.createdBy
+		categories=categories
+		delete=(action 'delete')
+		hideMoreOptions=true
+		lock=(action 'lock')
+		openEditEditor=(action 'openEditEditor')
+		post=entity
+		reply=(action 'reply')
+		replyCount=entity.repliesCount
+		report=(action 'report')
+		setEditorActive=(action 'setEditorActive')
+		share=(action 'share')
+		undelete=(action 'undelete')
+		unlock=(action 'unlock')
+		upvote=(action 'upvote')
+	}}
+{{else}}
+	{{loading-spinner
+		active=true
+		radius=32
+		strokeWidth=2
+	}}
+{{/each}}
