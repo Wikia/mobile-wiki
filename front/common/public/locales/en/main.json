@@ -157,7 +157,8 @@
     "wiki-page-error-reload-button": "Refresh", 
     "wikia-map-view-map": "View", 
     "years-ago-label": "a year ago", 
-    "years-ago-label_plural": "__count__ years ago"
+    "years-ago-label_plural": "__count__ years ago",
+    "advertisement-label": "Advertisement"
   }, 
   "userStatus": {
     "anon-cta": "__registerLink__ or __loginLink__", 
