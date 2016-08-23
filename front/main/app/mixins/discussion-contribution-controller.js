@@ -321,5 +321,14 @@ export default Ember.Mixin.create({
 		uploadCommunityBadge(image) {
 			return this.get('discussion.model').attributes.saveImageAttribute('badgeImage', image);
 		},
+
+		/**
+		 * This uploads the new discussions header image
+		 * @param {Object} image
+		 * @returns {Ember.RSVP.Promise} Promise object uploading the image to the site-attributes server
+		 */
+		uploadDiscussionsHeader(image) {
+			return this.get('discussion.model').attributes.saveImageAttribute('heroImage', image);
+		},
 	},
 });

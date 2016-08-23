@@ -38,3 +38,21 @@
 		}
 	}
 }
+
+.error-message-container {
+	color: $discussion-upload-image-error-text-color;
+	display: none;
+
+	&.is-visible {
+		display: block;
+	}
+
+	.error-message {
+		font-size: $type-base;
+		line-height: $line-height-base;
+	}
+
+	.icon.error {
+		fill: $discussion-upload-image-error-warning-color;
+	}
+}

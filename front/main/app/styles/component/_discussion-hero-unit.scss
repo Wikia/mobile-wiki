@@ -36,11 +36,79 @@ $discussion-hero-unit-minimized-height: 25px;
 		}
 	}
 
+	.discussion-hero-unit-image {
+		height: 100%;
+		width: 100%;
+	}
+
 	.discussion-hero-unit-content {
 		height: 100%;
 		padding-bottom: 33px;
 		padding-top: 37px;
 		width: 100%;
+	}
+
+	.discussion-edit-approve-wrapper {
+		left: 0;
+		margin: auto;
+		right: 0;
+		width: 200px;
+	}
+
+	.drag-and-drop {
+		display: flex;
+
+		svg {
+			height: 100px;
+			width: 100px;
+		}
+	}
+
+	.image-edit-mode {
+		min-height: 200px;
+
+		.image-edit-file-input-wrapper {
+			padding-top: 76px;
+
+			.upload-image-button {
+				margin: 0px auto 20px;
+				width: 116px;
+			}
+		}
+
+		&.is-loading {
+			.image-edit-preview-wrapper {
+				&:after {
+					background-color: $discussion-edit-image-transparent-layer-light-color;
+					border-width: 0;
+					content: "";
+					height: 100%;
+					position: absolute;
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	.image-edit-preview-wrapper {
+		align-items: center;
+		border-style: solid;
+		border-width: 4px;
+		display: flex;
+		justify-content: center;
+		max-height: 100%;
+		min-height: 200px;
+		overflow: hidden;
+
+		.image-edit-preview {
+			max-width: none;
+		}
+	}
+
+	.error-message-container {
+		left: 0;
+		margin: 10px auto 10px;
+		right: 0;
 	}
 }
 

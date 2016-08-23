@@ -1,13 +1,13 @@
 <div class="community-badge-image {{if isEditMode 'highlight-overlay-content'}}">
 	{{!-- this two images are only because not to loose the wikiImageUrl from the DOM to immediately show it back --}}
-	<img class="badge-image-display {{unless isNewBadgePreviewMode 'is-visible'}}" src="{{wikiImageUrl}}">
+	<img class="badge-image-display {{unless isImagePreviewMode 'is-visible'}}" src="{{wikiImageUrl}}">
 	{{#if canEdit}}
 		<div class="drag-and-drop">
 			{{svg 'drag-n-drop' role='img'}}
 			<div class="drop-catch-layer"></div>
 		</div>
 		{{#unless isDragActive}}
-			<img class="badge-image-display {{if isNewBadgePreviewMode 'is-visible'}}" src="{{newWikiImageUrl}}">
+			<img class="badge-image-display {{if isImagePreviewMode 'is-visible'}}" src="{{newImageUrl}}">
 			<div class="error-message-container {{if errorMessage 'is-visible'}}">
 				{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
 				<span class="error-message">{{errorMessage}}</span>
@@ -29,8 +29,8 @@
 				</div>
 			{{else}}
 				{{#if isEditMode}}
-					{{#unless isNewBadgePreviewMode}}
-						<div class="edit-mode">
+					{{#unless isImagePreviewMode}}
+						<div class="image-edit-mode">
 							{{file-input
 								classNames=fileInputClassNames
 								click=(action 'emptyClickForFileInput')
@@ -42,10 +42,10 @@
 						</div>
 					{{/unless}}
 				{{else}}
-					<div class="edit-badge-button" {{action 'enableEditMode'}}>
-						{{i18n 'main.edit-badge-button-text' ns='discussion'}}
-						{{svg 'camera' role='img' class='icon-camera'}}
-					</div>
+					{{discussion-edit-image-button
+						click=(action 'enableEditMode')
+						label='main.edit-badge-button-text'
+					}}
 				{{/if}}
 			{{/if}}
 		{{/unless}}
