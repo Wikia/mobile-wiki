@@ -8,8 +8,8 @@
 	}
 }
 
-.ad-slot[id^="INVISIBLE_"] {
-	display: none !important;
+.invisible-high-impact {
+	display: none;
 }
 
 .main-page-pad-slot .ad-slot {
@@ -81,4 +81,59 @@
 
 .wikia-ad-iframe {
 	border: 0;
+}
+
+.invisible-high-impact-wrapper.interstitial {
+	align-items: center;
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+
+.invisible-high-impact-wrapper {
+	z-index: $z-modal-dialog;
+
+	.invisible-high-impact-2 iframe {
+		display: block;
+		margin: 0 auto;
+		position: relative;
+	}
+
+	.background {
+		background: rgba(0, 0, 0, .9);
+		bottom: 0;
+		height: 100%;
+		left: 0;
+		position: absolute;
+		width: 100%;
+	}
+
+	.close {
+		cursor: pointer;
+		display: block;
+		padding: 14px;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+	.label {
+		color: #D5D4D4;
+		display: block;
+		font-size: 17px;
+		left: 0;
+		padding: 14px 10px;
+		position: absolute;
+		top: 0;
+	}
+}
+
+.stop-scrolling {
+	overflow: hidden
 }
