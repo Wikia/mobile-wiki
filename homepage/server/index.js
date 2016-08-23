@@ -48,6 +48,7 @@ server.ext('onPreResponse', function (request, reply) {
 		// https://www.maxcdn.com/blog/accept-encoding-its-vary-important/
 		// https://www.fastly.com/blog/best-practices-for-using-the-vary-header
 		request.response.vary('accept-encoding');
+		request.response.header('Content-language', 'ja');
 	}
 
 	return reply.continue();

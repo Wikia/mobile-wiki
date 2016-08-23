@@ -348,7 +348,7 @@ class Ads {
 	/**
 	 * Adds ad slot
 	 *
-	 * @param {string} name - name of the slot
+	 * @param {string} name - ad slot name
 	 * @returns {number} index of the inserted slot
 	 */
 	addSlot(name) {
