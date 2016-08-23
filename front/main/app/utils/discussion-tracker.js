@@ -56,8 +56,23 @@ const trackActions = {
 	PostMore: 'PostMore',
 	EditorCalloutMessageClose: 'EditorCalloutMessageClose',
 	EditorCalloutGuidelinesLinkTapped: 'EditorCalloutGuidelinesLinkTapped',
+	EditCommunityBadgeButtonTapped: 'EditCommunityBadgeButtonTapped',
+	EditCommunityBadgeFileDropped: 'EditCommunityBadgeFileDropped',
+	EditCommunityBadgeFilePasted: 'EditCommunityBadgeFilePasted',
+	EditCommunityBadgeImagePreview: 'EditCommunityBadgeImagePreview',
+	EditCommunityBadgeEscapeKeyHit: 'EditCommunityBadgeEscapeKeyHit',
+	CommunityBadgeSave: 'CommunityBadgeSave',
+	CommunityBadgeSaveFailure: 'CommunityBadgeSaveFailure',
+	EditDiscussionsHeaderButtonTapped: 'EditDiscussionsHeaderButtonTapped',
+	EditDiscussionsHeaderFileDropped: 'EditDiscussionsHeaderFileDropped',
+	EditDiscussionsHeaderFilePasted: 'EditDiscussionsHeaderFilePasted',
+	EditDiscussionsHeaderImagePreview: 'EditDiscussionsHeaderImagePreview',
+	EditDiscussionsHeaderEscapeKeyHit: 'EditDiscussionsHeaderEscapeKeyHit',
+	DiscussionsHeaderSave: 'DiscussionsHeaderSave',
+	DiscussionsHeaderSaveFailure: 'DiscussionsHeaderSaveFailure',
 	PostCategoryAdded: 'PostCategoryAdded',
-	PostCategoryEdited: 'PostCategoryEdited'
+	PostCategoryEdited: 'PostCategoryEdited',
+
 };
 
 /**

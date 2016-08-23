@@ -247,7 +247,8 @@ body.dark-theme {
 	}
 
 	.community-badge {
-		img {
+		.community-badge-image {
+			background-color: $dark-discussion-community-badge-background-color;
 			border-color: $dark-discussion-community-badge-border;
 		}
 
@@ -492,6 +493,10 @@ body.dark-theme {
 				fill: $dark-discussion-editor-close-message-color;
 			}
 		}
+	}
+
+	.error-message-container {
+		color: $dark-discussion-upload-image-error-text-color;
 	}
 }
 

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import localStorageConnector from '../utils/local-storage-connector';
 
 export default Ember.Mixin.create({
 	showOverlayMessage: Ember.computed('isActive', 'calloutMessagePermitted', 'calloutMessageWasSeen', function () {
@@ -8,7 +9,7 @@ export default Ember.Mixin.create({
 	calloutMessageWasSeen: Ember.computed(() => {
 		// we need Ember.computed here, because it is used on a couple of pages, and needs to be computed when the
 		// component is rendered
-		return Boolean(localStorage.getItem('discussionEditorCalloutMessageSeen'));
+		return Boolean(localStorageConnector.getItem('discussionEditorCalloutMessageSeen'));
 	}),
 
 	actions: {
