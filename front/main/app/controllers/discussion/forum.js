@@ -4,7 +4,6 @@ import DiscussionForumActionsControllerMixin from '../../mixins/discussion-forum
 import ResponsiveMixin from '../../mixins/responsive';
 import DiscussionBaseController from './base';
 
-
 export default DiscussionBaseController.extend(
 	DiscussionModerationControllerMixin,
 	DiscussionContributionControllerMixin,
@@ -15,9 +14,13 @@ export default DiscussionBaseController.extend(
 		areGuidelinesVisible: false,
 
 		actions: {
-			createPost(entityData) {
+			updateCategoriesSelection(categories) {
+				this.get('target').send('updateCategoriesSelection', categories);
+			},
+
+			createPost(entityData, forumId) {
 				this.transitionToRoute({queryParams: {sort: 'latest'}}).promise.then(() => {
-					this.createPost(entityData);
+					this.createPost(entityData, forumId);
 				});
 			},
 

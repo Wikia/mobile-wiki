@@ -56,11 +56,14 @@ export default Ember.Component.extend(
 			}
 		}),
 
-		submitDisabled: Ember.computed('content', 'currentUser.isAuthenticated', 'showOverlayMessage', function () {
-			return this.get('content').length === 0 ||
-				this.get('currentUser.isAuthenticated') === false ||
-				this.get('showOverlayMessage');
-		}),
+		submitDisabled: Ember.computed('content', 'currentUser.isAuthenticated', 'showOverlayMessage',
+			'isReply', 'category', 'isGuidelinesEditor', function () {
+				return this.get('content').length === 0 ||
+					this.get('currentUser.isAuthenticated') === false ||
+					this.get('showOverlayMessage') ||
+					(!this.get('isReply') && !this.get('category.id') && !this.get('isGuidelinesEditor'));
+			}
+		),
 
 		afterSuccess() {
 			this.setProperties({
@@ -101,7 +104,7 @@ export default Ember.Component.extend(
 					// Create post on CTRL + ENTER
 					this.send('submit');
 				}
-			},
-		},
-	},
+			}
+		}
+	}
 );

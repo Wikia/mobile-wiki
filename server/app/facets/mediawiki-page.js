@@ -14,7 +14,8 @@ import {PageRequestHelper} from '../lib/mediawiki-page';
 import {
 	getCachedWikiDomainName,
 	redirectToCanonicalHostIfNeeded,
-	redirectToOasis
+	redirectToOasis,
+	setI18nLang
 } from '../lib/utils';
 import * as Tracking from '../lib/tracking';
 import getStatusCode from './operations/get-status-code';
@@ -22,9 +23,10 @@ import localSettings from '../../config/localSettings';
 import prepareArticleData from './operations/prepare-article-data';
 import prepareCategoryData from './operations/prepare-category-data';
 import prepareMainPageData from './operations/prepare-main-page-data';
-import prepareMediaWikiData from './operations/prepare-mediawiki-data';
+import prepareMediaWikiDataOnError from './operations/prepare-mediawiki-data-on-error';
 import showServerErrorPage from './operations/show-server-error-page';
 import deepExtend from 'deep-extend';
+import injectGlobalFooterData from '../lib/inject-global-footer-data';
 
 const cachingTimes = {
 	enabled: true,
@@ -125,7 +127,7 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 	} else if (code !== 200) {
 		// In case of status code different than 200 we want Ember to display an error page
 		// This method sets all the data required to start the app
-		result = prepareMediaWikiData(request, data);
+		result = prepareMediaWikiDataOnError(request, data);
 	} else {
 		Logger.info(`Unsupported namespace: ${ns}`);
 		redirectToOasis(request, reply);
@@ -137,18 +139,23 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 		result = deepExtend(result, prepareMainPageData(data));
 	}
 
+	result.globalFooter = data.globalFooter;
+	result.bodyClassName = data.bodyClassName;
+
 	// @todo XW-596 we shouldn't rely on side effects of this function
 	Tracking.handleResponse(result, request);
 
-	response = reply.view(viewName, result);
-	response.code(code);
-	response.type('text/html; charset=utf-8');
+	setI18nLang(request, result.wikiVariables).then(() => {
+		response = reply.view(viewName, result);
+		response.code(code);
+		response.type('text/html; charset=utf-8');
 
-	if (allowCache) {
-		setResponseCaching(response, cachingTimes);
-	} else {
-		disableCache(response);
-	}
+		if (allowCache) {
+			setResponseCaching(response, cachingTimes);
+		} else {
+			disableCache(response);
+		}
+	});
 }
 
 /**
@@ -163,6 +170,20 @@ function handleResponse(request, reply, data, allowCache = true, code = 200) {
 function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 	mediaWikiPageHelper
 		.getFull()
+		/**
+		 * Get data for Global Footer
+		 * @param {MediaWikiPageData} data
+		 * @returns {MediaWikiPageData}
+		 *
+		 */
+		.then((data) => {
+			return injectGlobalFooterData({
+				data,
+				request,
+				showFooter: true,
+				showFullSiteLink: true
+			});
+		})
 		/**
 		 * If both requests for Wiki Variables and for Page Details succeed
 		 * @param {MediaWikiPageData} data
@@ -201,7 +222,14 @@ function getMediaWikiPage(request, reply, mediaWikiPageHelper, allowCache) {
 			// Clean up exception to not put its details in HTML response
 			delete data.page.exception.details;
 
-			handleResponse(request, reply, data, allowCache, errorCode);
+			return injectGlobalFooterData({
+				data,
+				request,
+				showFooter: true,
+				showFullSiteLink: true
+			}).then((data) => {
+				handleResponse(request, reply, data, allowCache, errorCode);
+			});
 		})
 		/**
 		 * @returns {void}

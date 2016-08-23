@@ -27,6 +27,7 @@ export default Route.extend(
 		},
 
 		adsState: Ember.inject.service(),
+		adsHighImpact: Ember.inject.service(),
 
 		actions: {
 			/**
@@ -83,13 +84,7 @@ export default Route.extend(
 			 * @returns {void}
 			 */
 			handleLink(target) {
-				const currentRoute = this.router.get('currentRouteName'),
-					/**
-					 * exec() returns an array of matches or null if no match is found.
-					 */
-					domainNameRegExpMatchArray = (/\.[a-z0-9\-]+\.[a-z0-9]{2,}$/i).exec(window.location.hostname),
-					cookieDomain = domainNameRegExpMatchArray ? domainNameRegExpMatchArray[0] : '',
-					defaultSkin = getWithDefault(Mercury, 'wiki.defaultSkin', 'oasis');
+				const currentRoute = this.router.get('currentRouteName');
 
 				let title,
 					trackingCategory,
@@ -121,20 +116,22 @@ export default Route.extend(
 				}
 
 				/**
-				 * handle links that are external to the application like ?useskin=oasis
+				 * handle links that are external to the application
 				 */
 				if (target.className.indexOf('external') > -1) {
-					if (target.href.indexOf(`useskin=${defaultSkin}`) > -1) {
-						$.cookie('useskin', defaultSkin, {
-							domain: cookieDomain,
-							path: '/'
-						});
-					}
-
 					return window.location.assign(target.href);
 				}
 
 				if (info.article) {
+					const highImpactCountries = Ember.get(Wikia, 'InstantGlobals.wgAdDriverHighImpact2SlotCountries'),
+						interstitialOnTransitionCountries =
+							Ember.get(Wikia, 'InstantGlobals.wgAdDriverMobileTransitionInterstitialCountries'),
+						isProperGeo = Ember.get(Wikia, 'geo.isProperGeo');
+
+					if (isProperGeo && isProperGeo(highImpactCountries) && isProperGeo(interstitialOnTransitionCountries)) {
+						this.get('adsHighImpact').reload();
+					}
+
 					this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
 				} else if (info.url) {
 					/**

@@ -17,18 +17,10 @@ export default Ember.Mixin.create({
 		},
 
 		/**
-		 * @param {Event} event
-		 *
 		 * @returns {void}
 		 */
-		toggleReported(event) {
-			event.preventDefault();
-
+		toggleReported() {
 			const onlyReported = this.get('onlyReported');
-
-			if (onlyReported === false) {
-				this.send('setSortBy', 'latest');
-			}
 
 			this.set('onlyReported', !onlyReported);
 

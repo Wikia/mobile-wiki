@@ -45,7 +45,5 @@ export default {
 	controllerName: 'main-page',
 	viewName: 'main-page',
 	// hooks
-	afterModel,
-	// all other, handler-specific functions
-	getCuratedContentModel,
+	afterModel
 };

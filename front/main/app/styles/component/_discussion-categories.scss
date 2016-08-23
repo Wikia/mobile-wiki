@@ -29,4 +29,10 @@
 		margin: 0 20px;
 		width: calc(100% - 40px);
 	}
+
+	.discussion-categories-edit-link {
+		font-size: $type-min;
+		font-weight: $font-weight-normal;
+		text-transform: uppercase;
+	}
 }

@@ -1,12 +1,11 @@
 import Ember from 'ember';
 
-const {Controller, inject, computed, get, getWithDefault} = Ember;
+const {Controller, inject, get, getWithDefault} = Ember;
 
 export default Controller.extend(
 	{
 		application: inject.controller(),
 		article: inject.controller(),
-		noAds: computed.alias('application.noAds'),
 
 		/**
 		 * @returns {void}

@@ -10,6 +10,7 @@ export default Ember.Controller.extend(
 		// This has to be here because we need to access media from ArticleController model to open
 		// lightbox TODO: Should be refactored when decoupling article from application
 		wikiPage: Ember.inject.controller(),
+		adsState: Ember.inject.service(),
 		queryParams: ['file', 'map',
 			{
 				noAds: 'noads'
@@ -21,7 +22,7 @@ export default Ember.Controller.extend(
 		],
 		file: null,
 		map: null,
-		noAds: '',
+		noAds: Ember.computed.alias('adsState.noAdsQueryParam'),
 		commentsPage: null,
 
 		smartBannerVisible: false,

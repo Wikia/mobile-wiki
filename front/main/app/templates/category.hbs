@@ -1,11 +1,11 @@
-{{ad-slot isAboveTheFold=true name='INVISIBLE_HIGH_IMPACT' noAds=noAds}}
+{{ads/invisible-high-impact-2}}
+{{ad-slot isAboveTheFold=true name='INVISIBLE_HIGH_IMPACT'}}
 <div class="wiki-container">
 	{{#if model.hasArticle}}
 		{{#article-wrapper
 			commentsPage=commentsPage
 			mainPageTitle=mainPageTitle
 			model=model
-			noAds=noAds
 			showComments=false
 			wikiPageHeaderSubtitle=(i18n 'app.category-page-subtitle')
 			siteName=siteName
@@ -27,10 +27,8 @@
 		{{category-sections
 			adsContext=model.adsContext
 			sections=model.sections
-			noAds=noAds
 			setupAds=true
 			loadBatch=(action 'loadBatch')
 		}}
 	{{/if}}
-	{{wikia-footer}}
 </div>

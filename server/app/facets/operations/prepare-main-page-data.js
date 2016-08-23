@@ -13,7 +13,8 @@ export default function prepareMainPageData(data) {
 			openGraph: getOpenGraphData('website', wikiVariables.siteName, getOpenGraphUrl(wikiVariables)),
 			mainPageData: {
 				adsContext: pageData.adsContext
-			}
+			},
+			showSpinner: true
 		};
 
 	if (pageData.details) {

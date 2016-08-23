@@ -8,6 +8,11 @@ import load from '../utils/load';
  */
 
 /**
+ * @typedef {Object} PageFairDetectionModule
+ * @property {Function} initDetection
+ */
+
+/**
  * @typedef {Object} AdLogicPageViewCounterModule
  * @property {Function} get
  * @property {Function} increment
@@ -22,15 +27,17 @@ import load from '../utils/load';
  * @class Ads
  *
  * @property {Ads} instance
- * @property {boolean|null} blocking
  * @property {Array<string[]>} adSlots
  * @property {Object} adsContext
+ * @property {Object} previousDetectionResults
  * @property {*} adEngineRunnerModule
  * @property {*} adContextModule
  * @property {SourcePointDetectionModule} sourcePointDetectionModule
+ * @property {PageFairDetectionModule} pageFairDetectionModule
  * @property {*} adConfigMobile
  * @property {AdLogicPageViewCounterModule} adLogicPageViewCounterModule
  * @property {AdMercuryListenerModule} adMercuryListenerModule
+ * @property {Object} GASettings
  * @property {Krux} krux
  * @property {Object} currentAdsContext
  * @property {boolean} isLoaded
@@ -48,6 +55,16 @@ class Ads {
 		this.uapCalled = false;
 		this.uapCallbacks = [];
 		this.noUapCallbacks = [];
+		this.GASettings = {
+			sourcePoint: {
+				name: 'sourcepoint',
+				dimension: 6
+			},
+			pageFair: {
+				name: 'pagefair',
+				dimension: 7
+			}
+		};
 	}
 
 	/**
@@ -74,6 +91,7 @@ class Ads {
 
 		// Load the ads code from MW
 		load(adsUrl, () => {
+			/* eslint-disable max-params */
 			if (window.require) {
 				window.require([
 					'ext.wikia.adEngine.adContext',
@@ -81,6 +99,7 @@ class Ads {
 					'ext.wikia.adEngine.adLogicPageViewCounter',
 					'ext.wikia.adEngine.config.mobile',
 					'ext.wikia.adEngine.mobile.mercuryListener',
+					'ext.wikia.adEngine.pageFairDetection',
 					'ext.wikia.adEngine.sourcePointDetection',
 					'wikia.krux'
 				], (adContextModule,
@@ -88,6 +107,7 @@ class Ads {
 					adLogicPageViewCounterModule,
 					adConfigMobile,
 					adMercuryListener,
+					pageFairDetectionModule,
 					sourcePointDetectionModule,
 					krux) => {
 					this.adEngineRunnerModule = adEngineRunnerModule;
@@ -95,6 +115,7 @@ class Ads {
 					this.sourcePointDetectionModule = sourcePointDetectionModule;
 					this.adConfigMobile = adConfigMobile;
 					this.adLogicPageViewCounterModule = adLogicPageViewCounterModule;
+					this.pageFairDetectionModule = pageFairDetectionModule;
 					this.adMercuryListenerModule = adMercuryListener;
 					this.krux = krux;
 					this.isLoaded = true;
@@ -104,6 +125,7 @@ class Ads {
 			} else {
 				console.error('Looks like ads asset has not been loaded');
 			}
+			/* eslint-enable max-params */
 		});
 	}
 
@@ -170,30 +192,58 @@ class Ads {
 	}
 
 	/**
-	 * @param {string} value
+	 * @param {String} name
+	 * @param {Object} GAOption
+	 * @param {Boolean} isAdBlockDetected
 	 * @returns {void}
 	 */
-	trackBlocking(value) {
-		M.tracker.UniversalAnalytics.setDimension(6, value);
-		M.tracker.UniversalAnalytics.track('ads-sourcepoint-detection', 'impression', value, 0, true);
+	trackBlocking(name, GAOption, isAdBlockDetected) {
+		let value = isAdBlockDetected ? 'Yes' : 'No';
 
-		Ads.gaTrackAdEvent.call(this, 'ad/sourcepoint/detection', value, '', 0, true);
+		Ads.setPreviousDetectionResult(name, isAdBlockDetected);
+		M.tracker.UniversalAnalytics.setDimension(GAOption.dimension, value);
+		M.tracker.UniversalAnalytics.track(`ads-${GAOption.name}-detection`, 'impression', value, 0, true);
 
-		Ads.blocking = value === 'Yes';
+		Ads.gaTrackAdEvent.call(this, `ad/${GAOption.name}/detection`, value, '', 0, true);
+	}
+
+	static setPreviousDetectionResult(name, isAdBlockDetected) {
+		Ads.previousDetectionResults[name].value = isAdBlockDetected;
+		Ads.previousDetectionResults[name].exists = true;
 	}
 
 	/**
 	 * @returns {void}
 	 */
 	addDetectionListeners() {
-		const trackBlocking = this.trackBlocking;
+		const GASettings = this.GASettings,
+			listenerSettings = [
+				{
+					name: 'sourcePoint',
+					eventName: 'sp.blocking',
+					value: true,
+				},
+				{
+					name: 'sourcePoint',
+					eventName: 'sp.not_blocking',
+					value: false,
+				},
+				{
+					name: 'pageFair',
+					eventName: 'pf.blocking',
+					value: true,
+				},
+				{
+					name: 'pageFair',
+					eventName: 'pf.not_blocking',
+					value: false,
+				}
+			];
 
-		window.addEventListener('sp.blocking', () => {
-			trackBlocking('Yes');
-		});
-
-		window.addEventListener('sp.not_blocking', () => {
-			trackBlocking('No');
+		listenerSettings.map((listenerSetting) => {
+			document.addEventListener(listenerSetting.eventName, () => {
+				this.trackBlocking(listenerSetting.name, GASettings[listenerSetting.name], listenerSetting.value);
+			});
 		});
 	}
 
@@ -243,11 +293,19 @@ class Ads {
 			if (typeof onContextLoadCallback === 'function') {
 				onContextLoadCallback();
 			}
-			if (Ads.blocking !== null) {
-				this.trackBlocking(Ads.blocking ? 'Yes' : 'No');
+
+			if (Ads.previousDetectionResults.sourcePoint.exists) {
+				this.trackBlocking('sourcePoint', this.GASettings.sourcePoint, Ads.previousDetectionResults.sourcePoint.value);
 			} else {
 				this.sourcePointDetectionModule.initDetection();
 			}
+
+			if (Ads.previousDetectionResults.pageFair.exists) {
+				this.trackBlocking('pageFair', this.GASettings.pageFair, Ads.previousDetectionResults.pageFair.value);
+			} else if (adsContext.opts && adsContext.opts.pageFairDetection) {
+				this.pageFairDetectionModule.initDetection(adsContext);
+			}
+
 			if (adsContext.opts) {
 				delayEnabled = Boolean(adsContext.opts.delayEngine);
 			}
@@ -290,7 +348,7 @@ class Ads {
 	/**
 	 * Adds ad slot
 	 *
-	 * @param {string} name - name of the slot
+	 * @param {string} name - ad slot name
 	 * @returns {number} index of the inserted slot
 	 */
 	addSlot(name) {
@@ -374,7 +432,16 @@ class Ads {
 }
 
 Ads.instance = null;
-Ads.blocking = null;
+Ads.previousDetectionResults = {
+	pageFair: {
+		exists: false,
+		value: null
+	},
+	sourcePoint: {
+		exists: false,
+		value: null
+	}
+};
 
 // @TODO XW-703 right now ads code which comes from MW is expecting window.Mercury.Modules.
 // When introducing sync require in ads this should be fixed
