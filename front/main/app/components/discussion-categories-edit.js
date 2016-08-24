@@ -86,6 +86,15 @@ export default Ember.Component.extend(ResponsiveMixin,
 				this.set('modal.isVisible', false);
 			},
 
+			onCategoryPicked(category) {
+				const activeCategory = this.get('categories').findBy('isActive', true);
+
+				if (activeCategory) {
+					activeCategory.set('isActive', false);
+				}
+				category.set('isActive', true);
+			},
+
 			/**
 			 * Delete a local category (category that was not yet saved).
 			 *

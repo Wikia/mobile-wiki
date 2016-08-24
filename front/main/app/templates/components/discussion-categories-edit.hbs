@@ -131,6 +131,15 @@
 			<div class="modal-dialog-content">
 				<h3>{{modal.header}}</h3>
 				{{modal.message}}
+				<div class="categories-pills">
+					{{#each categories as |category|}}
+						{{discussion-category-pill
+							class=(if category.isActive 'is-active active-element-background-color')
+							category=category
+							onCategoryPicked=(action 'onCategoryPicked')
+						}}
+					{{/each}}
+				</div>
 			</div>
 			<footer>
 				<button class="active-element-theme-color cancel-button" {{action 'onCancel'}}>{{modal.cancelButtonText}}</button>

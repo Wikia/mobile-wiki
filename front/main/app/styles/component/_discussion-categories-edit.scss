@@ -245,6 +245,20 @@ $success-icon-size: 80px;
 	}
 }
 
+.discussion-dialog {
+	.modal-dialog-content {
+		.categories-pills {
+			margin-top: 20px;
+
+			.category-pill {
+				&.is-active {
+					color: $discussion-category-pill-hover-color;
+				}
+			}
+		}
+	}
+}
+
 @media #{$desktop-range} {
 	.discussion-categories-edit {
 		.icon-submit {
