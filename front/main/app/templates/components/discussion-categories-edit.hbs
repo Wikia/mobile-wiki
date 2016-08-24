@@ -143,7 +143,9 @@
 			</div>
 			<footer>
 				<button class="active-element-theme-color cancel-button" {{action 'onCancel'}}>{{modal.cancelButtonText}}</button>
-				<button class="active-element-theme-color confirm-button" {{action 'onApprove'}}>{{modal.approveButtonText}}</button>
+				<button class="active-element-theme-color confirm-button" disabled={{modal.approveButtonDisabled}} {{action 'onApprove'}}>
+					{{modal.approveButtonText}}
+				</button>
 			</footer>
 		{{/modal-dialog}}
 	</div>

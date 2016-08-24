@@ -17,6 +17,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 		init() {
 			this._super(...arguments);
 			this.set('modal', {
+				approveButtonDisabled: true,
 				approveButtonText: i18n.t('main.categories-delete-category-approve', {ns: 'discussion'}),
 				cancelButtonText: i18n.t('main.categories-delete-category-cancel', {ns: 'discussion'}),
 				header: i18n.t('main.categories-delete-category-header', {ns: 'discussion'}),
@@ -80,10 +81,12 @@ export default Ember.Component.extend(ResponsiveMixin,
 
 			onApprove() {
 				this.set('modal.isVisible', false);
+				this.set('modal.approveButtonDisabled', true);
 			},
 
 			onCancel() {
 				this.set('modal.isVisible', false);
+				this.set('modal.approveButtonDisabled', true);
 			},
 
 			onCategoryPicked(category) {
@@ -91,10 +94,12 @@ export default Ember.Component.extend(ResponsiveMixin,
 
 				if (activeCategory) {
 					activeCategory.set('isActive', false);
+					this.set('modal.approveButtonDisabled', true);
 				}
 
 				if (!activeCategory || (activeCategory.get('id') !== category.get('id'))) {
 					category.set('isActive', true);
+					this.set('modal.approveButtonDisabled', false);
 				}
 			},
 
