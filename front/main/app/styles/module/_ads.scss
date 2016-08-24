@@ -121,6 +121,10 @@
 		position: absolute;
 		right: 0;
 		top: 0;
+		//This is needed to make sure that close button is always displayed above ad
+		//ad can take the whole space of interstitial if too big creative is targeted
+		//- it shouldn't happen but it protects users from being not able to close interstitial
+		z-index: $z-modal-dialog + 1;
 	}
 
 	.label {
@@ -131,6 +135,10 @@
 		padding: 14px 10px;
 		position: absolute;
 		top: 0;
+		//This is needed to make sure that close button is always displayed above ad
+		//ad can take the whole space of interstitial if too big creative is targeted
+		//- it shouldn't happen but it protects users from being not able to close interstitial
+		z-index: $z-modal-dialog + 1;
 	}
 }
 
