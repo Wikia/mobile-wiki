@@ -125,9 +125,9 @@
 	}}
 {{/if}}
 
-{{#if isModalVisible}}
-	<div class="discussion-dialog is-visible">
-		{{#modal-dialog isVisible=isModalVisible}}
+{{#if showModal}}
+	<div class="discussion-dialog">
+		{{#modal-dialog isVisible=showModal}}
 			 <div class="modal-dialog-content">
 					<h3>{{i18n 'main.categories-delete-category-header' ns='discussion'}}</h3>
 				 {{i18n 'main.categories-delete-category-message' ns='discussion'}}

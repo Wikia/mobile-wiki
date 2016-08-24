@@ -6,12 +6,12 @@ import ResponsiveMixin from '../mixins/responsive';
 export default Ember.Component.extend(ResponsiveMixin,
 	{
 		classNames: ['highlight-overlay-content', 'discussion-categories-edit'],
-		classNameBindings: ['showOnOverlay:highlight-overlay-content'],
+		classNameBindings: ['showModal::highlight-overlay-content'],
 
 		isLoading: false,
+		showModal: false,
 		maxCategoriesCount: 10,
 		modalDialog: Ember.inject.service(),
-		showOnOverlay: true,
 		showSuccess: false,
 		wikiId: Ember.get(Mercury, 'wiki.id').toString(),
 
@@ -70,18 +70,15 @@ export default Ember.Component.extend(ResponsiveMixin,
 				if (document.activeElement) {
 					document.activeElement.blur();
 				}
-				this.set('isModalVisible', true);
-				this.set('showOnOverlay', false);
+				this.set('showModal', true);
 			},
 
 			modalConfirm() {
-				this.set('isModalVisible', false);
-				this.set('showOnOverlay', true);
+				this.set('showModal', false);
 			},
 
 			modalCancel() {
-				this.set('isModalVisible', false);
-				this.set('showOnOverlay', true);
+				this.set('showModal', false);
 			},
 
 			/**
