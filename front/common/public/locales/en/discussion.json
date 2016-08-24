@@ -103,7 +103,7 @@
     "categories-edit-error-empty-category": "Category name requires at least one character.",
     "categories-edit-general-error": "Save failed, please try again.",
     "categories-delete-category-header": "Delete Category?",
-    "categories-delete-category-info": "By deleting the cateogry “Drinking Games” you will need to move the posts from that cateogry to another existing cateogry. Please choose from the list below:",
+    "categories-delete-category-message": "By deleting the cateogry “Drinking Games” you will need to move the posts from that cateogry to another existing cateogry. Please choose from the list below:",
     "categories-delete-category-cancel": "Cancel",
     "categories-delete-category-approve": "Delete & Move",
     "filter-posts-header": "Filter Posts",

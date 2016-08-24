@@ -6,8 +6,12 @@ import ResponsiveMixin from '../mixins/responsive';
 export default Ember.Component.extend(ResponsiveMixin,
 	{
 		classNames: ['highlight-overlay-content', 'discussion-categories-edit'],
-		maxCategoriesCount: 10,
+		classNameBindings: ['showOnOverlay:highlight-overlay-content'],
+
 		isLoading: false,
+		maxCategoriesCount: 10,
+		modalDialog: Ember.inject.service(),
+		showOnOverlay: true,
 		showSuccess: false,
 		wikiId: Ember.get(Mercury, 'wiki.id').toString(),
 
@@ -50,9 +54,40 @@ export default Ember.Component.extend(ResponsiveMixin,
 			},
 
 			/**
-			 * Delete a category
+			 * Delete a category.
 			 *
 			 * @param {DiscussionCategory} category category to delete
+			 */
+			deleteCategory(category) {
+				// let header = i18n.t('main.categories-delete-category-header', {ns: 'discussion'}),
+				// 	message = i18n.t('main.categories-delete-category-message', {ns: 'discussion'});
+				// this.get('modalDialog').display({
+				// 	message,
+				// 	header,
+				// 	name: 'modal-dialog-delete-category',
+				// 	confirmButtonText: i18n.t('main.categories-delete-category-approve', {ns: 'discussion'})
+				// });
+				if (document.activeElement) {
+					document.activeElement.blur();
+				}
+				this.set('isModalVisible', true);
+				this.set('showOnOverlay', false);
+			},
+
+			modalConfirm() {
+				this.set('isModalVisible', false);
+				this.set('showOnOverlay', true);
+			},
+
+			modalCancel() {
+				this.set('isModalVisible', false);
+				this.set('showOnOverlay', true);
+			},
+
+			/**
+			 * Delete a local category (category that was not yet saved).
+			 *
+			 * @param {DiscussionCategory} category local category to delete
 			 *
 			 * @returns {void}
 			 */

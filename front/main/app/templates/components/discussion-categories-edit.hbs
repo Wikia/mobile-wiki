@@ -69,7 +69,7 @@
 										</a>
 									{{/unless}}
 									{{#if localCategory.id}}
-										<a class="discussion-categories-edit-action-button action-delete">
+										<a class="discussion-categories-edit-action-button action-delete" {{action 'deleteCategory' localCategory}}>
 											{{svg 'trash-small' viewBox='0 0 18 18' class='icon trash'}}
 										</a>
 									{{/if}}
@@ -123,4 +123,19 @@
 		approve=(action 'submit')
 		close=(action 'disableEditMode')
 	}}
+{{/if}}
+
+{{#if isModalVisible}}
+	<div class="discussion-dialog is-visible">
+		{{#modal-dialog isVisible=isModalVisible}}
+			 <div class="modal-dialog-content">
+					<h3>{{i18n 'main.categories-delete-category-header' ns='discussion'}}</h3>
+				 {{i18n 'main.categories-delete-category-message' ns='discussion'}}
+			</div>
+			<footer>
+				<button class="active-element-theme-color cancel-button" {{action 'modalCancel'}}>{{i18n 'main.categories-delete-category-cancel' ns='discussion'}}</button>
+				<button class="active-element-theme-color confirm-button" {{action 'modalConfirm'}}>{{i18n 'main.categories-delete-category-approve' ns='discussion'}}</button>
+			</footer>
+		{{/modal-dialog}}
+	</div>
 {{/if}}
