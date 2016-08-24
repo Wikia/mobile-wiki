@@ -21,14 +21,10 @@ const DiscussionSiteAttributesModel = DiscussionBaseModel.extend({
 	/**
 	 * Save attribute in site-attribute service
 	 * @param {String} name - attribute name
-	 * @param {String} value - the new value for the attribute
+	 * @param {String|Object} attributeData - the new value for the attribute
 	 * @returns {Ember.RSVP.Promise}
 	 */
-	saveAttribute(name, value) {
-		const attributeData = new FormData();
-
-		attributeData.append('data', JSON.stringify(value));
-
+	saveAttribute(name, attributeData) {
 		return request(M.getAttributeServiceUrl(`/site/${this.get('wikiId')}/attr/${name}`), {
 			data: attributeData,
 			method: 'PUT',
@@ -40,6 +36,32 @@ const DiscussionSiteAttributesModel = DiscussionBaseModel.extend({
 
 			return this.get(`data.${data.name}`);
 		});
+	},
+
+	/**
+	 * @param {String} name - attribute name
+	 * @param {Object} image - the new image for the attribute
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	saveImageAttribute(name, image) {
+		const attributeData = new FormData();
+
+		attributeData.append('data', image);
+
+		return this.saveAttribute(name, attributeData);
+	},
+
+	/**
+	 * @param {String} name - attribute name
+	 * @param {String} text - the new text for the attribute
+	 * @returns {Ember.RSVP.Promise}
+	 */
+	saveTextAttribute(name, text) {
+		const attributeData = new FormData();
+
+		attributeData.append('data', JSON.stringify(text));
+
+		return this.saveAttribute(name, attributeData);
 	},
 });
 

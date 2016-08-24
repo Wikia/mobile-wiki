@@ -112,7 +112,6 @@ $discussion-open-graph-domain-color: #999;
 $discussion-empty-forum-message-border-color: #e6e6e6;
 
 $discussion-page-width: 507px;
-$discussion-community-badge-background-color: #e6e6e6;
 $discussion-category-pill-background-color: #f6f6f6;
 
 $collapsible-menu-border-color: #d0d0d0;
@@ -130,8 +129,9 @@ $discussion-categories-disabled-input-color: #999;
 $discussion-categories-edit-input-focused-border-color: #333;
 $discussion-categories-edit-info-icon-color: #f08a24;
 $discussion-categories-edit-close-icon-color: #1a5eb8;
-$discussion-categories-edit-footer-color: $color-white;
-$discussion-categories-edit-footer-border-color: #f6f6f6;
+$discussion-edit-approve-content-border-color: #f6f6f6;
+
+$discussion-edit-approve-content-color: $color-white;
 
 $discussion-reported-details-header-border-color: #e6e6e6;
 $discussion-reported-details-list-border-color: #cccccc;
@@ -156,6 +156,18 @@ $discussion-category-picker-button-background-color: #ccc;
 $discussion-category-picker-button-color: #fff;
 $discussion-category-pill-color: #666;
 $discussion-category-pill-hover-color: #fff;
+
+$discussion-edit-image-button-text-color: #fff;
+$discussion-edit-image-button-background-color: #333;
+$discussion-edit-image-camera: #fff;
+$discussion-edit-image-hint-text-color: #fff;
+$discussion-edit-image-transparent-layer-light-color: rgba(255, 255, 255, 0.8);
+$discussion-edit-image-transparent-layer-dark-color: rgba(0, 0, 0, 0.8);
+$discussion-edit-image-upload-background-color: rgba(26, 26, 26, 0.7);
+$discussion-upload-image-button-text-color: #fff;
+$discussion-upload-image-approve-buttons-border: #ccc;
+$discussion-upload-image-error-warning-color: #f00;
+$discussion-upload-image-error-text-color: #39424D;
 
 $discussion-community-unit-link-color: #999;
 $app-promotion-text-color: #999;
@@ -185,6 +197,7 @@ $dark-discussion-community-badge-title-color: $color-white;
 $dark-discussion-deleted-content-color: #666;
 $dark-discussion-community-badge-title-color: #fff;
 $dark-discussion-community-badge-border: #262626;
+$dark-discussion-community-badge-background-color: #262626;
 $dark-discussion-count-color: #999;
 $dark-discussion-actions-color: #999;
 $dark-discussion-deleted-actions-color: #666;
@@ -272,6 +285,8 @@ $dark-discussion-standalone-editor-title-textarea-color: #666;
 $dark-discussion-inline-editor-title-textarea-color: #666;
 $dark-discussion-category-picker-button-background-color: #666;
 $dark-discussion-category-picker-button-color: #262626;
+
+$dark-discussion-upload-image-error-text-color: #fff;
 
 $wikia-ui-components-sub-head-height: 48px;
 $wikia-ui-components-sub-head-height-large: 66px;

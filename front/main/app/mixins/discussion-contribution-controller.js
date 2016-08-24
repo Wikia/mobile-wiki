@@ -304,7 +304,7 @@ export default Ember.Mixin.create({
 			editorState.set('isLoading', true);
 			this.setEditorError(editorType, null);
 
-			this.get('discussion.model').attributes.saveAttribute('guidelines', text).then(() => {
+			this.get('discussion.model').attributes.saveTextAttribute('guidelines', text).then(() => {
 				track(trackActions.GuidelinesEditSave);
 			}).catch((err) => {
 				this.onContributionError(err, 'editor.save-error-general-error', true);
@@ -312,5 +312,23 @@ export default Ember.Mixin.create({
 				editorState.set('isLoading', false);
 			});
 		},
-	}
+
+		/**
+		 * This uploads the new community badge image
+		 * @param {Object} image
+		 * @returns {Ember.RSVP.Promise} Promise object uploading the image to the site-attributes server
+		 */
+		uploadCommunityBadge(image) {
+			return this.get('discussion.model').attributes.saveImageAttribute('badgeImage', image);
+		},
+
+		/**
+		 * This uploads the new discussions header image
+		 * @param {Object} image
+		 * @returns {Ember.RSVP.Promise} Promise object uploading the image to the site-attributes server
+		 */
+		uploadDiscussionsHeader(image) {
+			return this.get('discussion.model').attributes.saveImageAttribute('heroImage', image);
+		},
+	},
 });
