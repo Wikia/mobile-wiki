@@ -25,6 +25,10 @@ $success-icon-size: 80px;
 				.action-local-delete {
 					display: none;
 				}
+
+				.action-delete {
+					display: none;
+				}
 			}
 		}
 
@@ -43,6 +47,12 @@ $success-icon-size: 80px;
 				height: 16px;
 				width: 7px;
 			}
+
+			.trash {
+				fill: $discussion-deleted-mark-color;
+				height: 18px;
+				width: 18px;
+			}
 		}
 
 		.discussion-categories-input:focus + .draggable {
@@ -53,6 +63,10 @@ $success-icon-size: 80px;
 			}
 
 			.action-local-delete {
+				display: block;
+			}
+
+			.action-delete {
 				display: block;
 			}
 		}
@@ -90,6 +104,10 @@ $success-icon-size: 80px;
 				}
 
 				.action-local-delete {
+					display: none;
+				}
+
+				.action-delete {
 					display: none;
 				}
 			}

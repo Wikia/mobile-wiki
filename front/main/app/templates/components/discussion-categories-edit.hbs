@@ -68,6 +68,11 @@
 											{{svg 'close' class='icon close fill-theme-color'}}
 										</a>
 									{{/unless}}
+									{{#if localCategory.id}}
+										<a class="discussion-categories-edit-action-button action-delete">
+											{{svg 'trash-small' viewBox='0 0 18 18' class='icon trash'}}
+										</a>
+									{{/if}}
 								</div>
 							</span>
 							{{#if localCategory.error}}
