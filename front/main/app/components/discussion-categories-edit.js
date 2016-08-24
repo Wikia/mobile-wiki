@@ -56,7 +56,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 			 *
 			 * @returns {void}
 			 */
-			deleteCategory(category) {
+			deleteLocalCategory(category) {
 				this.get('localCategories').removeObject(category);
 			},
 

@@ -64,7 +64,7 @@
 										{{svg 'move' viewBox='0 0 7 16' class='icon move'}}
 									</a>
 									{{#unless localCategory.id}}
-										<a class="discussion-categories-edit-action-button action-delete" {{action 'deleteCategory' localCategory}}>
+										<a class="discussion-categories-edit-action-button action-delete" {{action 'deleteLocalCategory' localCategory}}>
 											{{svg 'close' class='icon close fill-theme-color'}}
 										</a>
 									{{/unless}}
