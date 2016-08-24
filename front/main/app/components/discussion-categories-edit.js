@@ -92,7 +92,10 @@ export default Ember.Component.extend(ResponsiveMixin,
 				if (activeCategory) {
 					activeCategory.set('isActive', false);
 				}
-				category.set('isActive', true);
+
+				if (!activeCategory || (activeCategory.get('id') !== category.get('id'))) {
+					category.set('isActive', true);
+				}
 			},
 
 			/**
