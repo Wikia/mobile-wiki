@@ -6,14 +6,24 @@ import ResponsiveMixin from '../mixins/responsive';
 export default Ember.Component.extend(ResponsiveMixin,
 	{
 		classNames: ['highlight-overlay-content', 'discussion-categories-edit'],
-		classNameBindings: ['showModal::highlight-overlay-content'],
+		classNameBindings: ['modal.isVisible::highlight-overlay-content'],
 
 		isLoading: false,
-		showModal: false,
 		maxCategoriesCount: 10,
-		modalDialog: Ember.inject.service(),
+		modal: null,
 		showSuccess: false,
 		wikiId: Ember.get(Mercury, 'wiki.id').toString(),
+
+		init() {
+			this._super(...arguments);
+			this.set('modal', {
+				approveButtonText: i18n.t('main.categories-delete-category-approve', {ns: 'discussion'}),
+				cancelButtonText: i18n.t('main.categories-delete-category-cancel', {ns: 'discussion'}),
+				header: i18n.t('main.categories-delete-category-header', {ns: 'discussion'}),
+				isVisible: false,
+				message: i18n.t('main.categories-delete-category-message', {ns: 'discussion'})
+			});
+		},
 
 		addDisabled: Ember.computed('localCategories.length', function () {
 			return this.get('localCategories.length') >= this.get('maxCategoriesCount');
@@ -59,26 +69,21 @@ export default Ember.Component.extend(ResponsiveMixin,
 			 * @param {DiscussionCategory} category category to delete
 			 */
 			deleteCategory(category) {
-				// let header = i18n.t('main.categories-delete-category-header', {ns: 'discussion'}),
-				// 	message = i18n.t('main.categories-delete-category-message', {ns: 'discussion'});
-				// this.get('modalDialog').display({
-				// 	message,
-				// 	header,
-				// 	name: 'modal-dialog-delete-category',
-				// 	confirmButtonText: i18n.t('main.categories-delete-category-approve', {ns: 'discussion'})
-				// });
 				if (document.activeElement) {
 					document.activeElement.blur();
 				}
-				this.set('showModal', true);
+				this.set('modal.isVisible', true);
+				this.set('modal.message', i18n.t('main.categories-delete-category-message', {
+					ns: 'discussion',
+					categoryName: category.get('name')}));
 			},
 
-			modalConfirm() {
-				this.set('showModal', false);
+			onApprove() {
+				this.set('modal.isVisible', false);
 			},
 
-			modalCancel() {
-				this.set('showModal', false);
+			onCancel() {
+				this.set('modal.isVisible', false);
 			},
 
 			/**

@@ -125,16 +125,16 @@
 	}}
 {{/if}}
 
-{{#if showModal}}
+{{#if modal.isVisible}}
 	<div class="discussion-dialog">
-		{{#modal-dialog isVisible=showModal}}
-			 <div class="modal-dialog-content">
-					<h3>{{i18n 'main.categories-delete-category-header' ns='discussion'}}</h3>
-				 {{i18n 'main.categories-delete-category-message' ns='discussion'}}
+		{{#modal-dialog isVisible=modal.isVisible}}
+			<div class="modal-dialog-content">
+				<h3>{{modal.header}}</h3>
+				{{modal.message}}
 			</div>
 			<footer>
-				<button class="active-element-theme-color cancel-button" {{action 'modalCancel'}}>{{i18n 'main.categories-delete-category-cancel' ns='discussion'}}</button>
-				<button class="active-element-theme-color confirm-button" {{action 'modalConfirm'}}>{{i18n 'main.categories-delete-category-approve' ns='discussion'}}</button>
+				<button class="active-element-theme-color cancel-button" {{action 'onCancel'}}>{{modal.cancelButtonText}}</button>
+				<button class="active-element-theme-color confirm-button" {{action 'onApprove'}}>{{modal.approveButtonText}}</button>
 			</footer>
 		{{/modal-dialog}}
 	</div>
