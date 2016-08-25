@@ -134,7 +134,7 @@
 				<div class="categories-pills">
 					{{#each categories as |category|}}
 						{{discussion-category-pill
-							class=(if category.isActive 'is-active active-element-background-color')
+							class=(if (equal category.id modal.category.id) 'is-active active-element-background-color')
 							category=category
 							onCategoryPicked=(action 'onCategoryPicked')
 						}}

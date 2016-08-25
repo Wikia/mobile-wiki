@@ -17,6 +17,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 		init() {
 			this._super(...arguments);
 			this.set('modal', {
+				category: null,
 				approveButtonDisabled: true,
 				approveButtonText: i18n.t('main.categories-delete-category-approve', {ns: 'discussion'}),
 				cancelButtonText: i18n.t('main.categories-delete-category-cancel', {ns: 'discussion'}),
@@ -85,22 +86,22 @@ export default Ember.Component.extend(ResponsiveMixin,
 			},
 
 			onCancel() {
+				this.set('modal.category', null);
 				this.set('modal.isVisible', false);
 				this.set('modal.approveButtonDisabled', true);
 			},
 
 			onCategoryPicked(category) {
-				const activeCategory = this.get('categories').findBy('isActive', true);
+				let modalCategory = category;
+				let approveButtonDisabled = false;
 
-				if (activeCategory) {
-					activeCategory.set('isActive', false);
-					this.set('modal.approveButtonDisabled', true);
+				if (this.get('modal.category.id') === category.get('id')) {
+					modalCategory = null;
+					approveButtonDisabled = true;
 				}
 
-				if (!activeCategory || (activeCategory.get('id') !== category.get('id'))) {
-					category.set('isActive', true);
-					this.set('modal.approveButtonDisabled', false);
-				}
+				this.set('modal.category', modalCategory);
+				this.set('modal.approveButtonDisabled', approveButtonDisabled);
 			},
 
 			/**
