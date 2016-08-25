@@ -88,8 +88,8 @@ export default Ember.Component.extend(ResponsiveMixin,
 				if (this.get('modal.category') && categoryToDelete) {
 					categoryToDelete.set('moveTo', this.get('modal.category.id'));
 				}
-				this.set('modal.isVisible', false);
-				this.set('modal.approveButtonDisabled', true);
+
+				this.send('onCancel');
 			},
 
 			onCancel() {

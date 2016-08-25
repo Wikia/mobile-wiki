@@ -105,20 +105,21 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 	},
 
 	deleteCategory(category) {
-		return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/forums/${category.id}`), {
-			data: JSON.stringify({
-				name: category.get('displayedName'),
-			}),
-			method: 'DELETE',
-		}).then(() => {
-			const categories = this.get('categories'),
-				categoryIndex = categories
-					.indexOf(categories.find((cat) => cat.get('id') === category.get('id')));
-
-			if (categoryIndex !== -1) {
-				categories.removeAt(categoryIndex);
-			}
-		});
+		// request body will change
+		// return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/forums/${category.id}`), {
+		// 	data: JSON.stringify({
+		// 		name: category.get('displayedName'),
+		// 	}),
+		// 	method: 'DELETE',
+		// }).then(() => {
+		// 	const categories = this.get('categories'),
+		// 		categoryIndex = categories
+		// 			.indexOf(categories.find((cat) => cat.get('id') === category.get('id')));
+        //
+		// 	if (categoryIndex !== -1) {
+		// 		categories.removeAt(categoryIndex);
+		// 	}
+		// });
 	},
 
 	reorderCategories(categories) {
@@ -143,12 +144,27 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 		});
 	},
 
-	getDeletedCategories(categories) {
-		const leftCategoryIds = categories.mapBy('id');
+	findCategoriesToDeleteAndMove(categories) {
+		const categoriesToDelete = categories.filterBy('moveTo');
 
-		return this.get('categories').filter((category) => {
-			return leftCategoryIds.indexOf(category.get('id')) === -1;
-		});
+		categoriesToDelete.forEach(category => this.resolveMoveToCategory(category, categories));
+		return categoriesToDelete;
+	},
+
+	/**
+	 * Checks and resolves if category might be moved to category defined in 'moveTo' property.
+	 * If not searches for first category that will not be deleted.
+	 *
+	 * @param category category having moveTo property
+	 * @param categories all categories
+	 */
+	resolveMoveToCategory(category, categories) {
+		let movedCategory = categories.findBy('id', category.get('moveTo'));
+
+		while (movedCategory) {
+			category.set('moveTo', movedCategory.get('id'));
+			movedCategory = categories.findBy('id', movedCategory.get('moveTo'));
+		}
 	},
 
 	/**
@@ -160,7 +176,7 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 	 * @returns {Ember.RSVP.Promise}
 	 */
 	updateCategories(categories) {
-		const deletedCategoriesPromisesList = this.getDeletedCategories(categories).map((category) => {
+		const deletedCategoriesPromisesList = this.findCategoriesToDeleteAndMove(categories).map((category) => {
 			return this.deleteCategory(category);
 		});
 
