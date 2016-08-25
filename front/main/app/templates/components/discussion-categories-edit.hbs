@@ -69,10 +69,12 @@
 												{{svg 'close' class='icon close fill-theme-color'}}
 											</a>
 										{{/unless}}
-										{{#if localCategory.id}}
-											<a class="discussion-categories-edit-action-button action-delete" {{action 'deleteCategory' localCategory}}>
-												{{svg 'trash-small' viewBox='0 0 18 18' class='icon trash'}}
-											</a>
+										{{#if canDeleteCategories}}
+											{{#if localCategory.id}}
+												<a class="discussion-categories-edit-action-button action-delete" {{action 'deleteCategory' localCategory}}>
+													{{svg 'trash-small' viewBox='0 0 18 18' class='icon trash'}}
+												</a>
+											{{/if}}
 										{{/if}}
 									</div>
 								</span>
@@ -127,32 +129,34 @@
 	}}
 {{/if}}
 
-{{#if modal.isVisible}}
-	<div class="discussion-dialog">
-		{{#modal-dialog isVisible=modal.isVisible}}
-			<div class="modal-dialog-content">
-				<h3>{{modal.header}}</h3>
-				{{modal.message}}
-				<div class="categories-pills">
-					{{#each localCategories as |localCategory|}}
-						{{#unless (equal modal.categoryToDelete.id localCategory.id)}}
-							{{#unless localCategory.moveTo}}
-								{{discussion-category-pill
-									class=(if (equal localCategory.id modal.category.id) 'is-active active-element-background-color')
-									category=localCategory
-									onCategoryPicked=(action 'onCategoryPicked')
-								}}
+{{#if canDeleteCategories}}
+	{{#if modal.isVisible}}
+		<div class="discussion-dialog">
+			{{#modal-dialog isVisible=modal.isVisible}}
+				<div class="modal-dialog-content">
+					<h3>{{modal.header}}</h3>
+					{{modal.message}}
+					<div class="categories-pills">
+						{{#each localCategories as |localCategory|}}
+							{{#unless (equal modal.categoryToDelete.id localCategory.id)}}
+								{{#unless localCategory.moveTo}}
+									{{discussion-category-pill
+										class=(if (equal localCategory.id modal.category.id) 'is-active active-element-background-color')
+										category=localCategory
+										onCategoryPicked=(action 'onCategoryPicked')
+									}}
+								{{/unless}}
 							{{/unless}}
-						{{/unless}}
-					{{/each}}
+						{{/each}}
+					</div>
 				</div>
-			</div>
-			<footer>
-				<button class="active-element-theme-color cancel-button" {{action 'onCancel'}}>{{modal.cancelButtonText}}</button>
-				<button class="active-element-theme-color confirm-button" disabled={{modal.approveButtonDisabled}} {{action 'onApprove'}}>
-					{{modal.approveButtonText}}
-				</button>
-			</footer>
-		{{/modal-dialog}}
-	</div>
+				<footer>
+					<button class="active-element-theme-color cancel-button" {{action 'onCancel'}}>{{modal.cancelButtonText}}</button>
+					<button class="active-element-theme-color confirm-button" disabled={{modal.approveButtonDisabled}} {{action 'onApprove'}}>
+						{{modal.approveButtonText}}
+					</button>
+				</footer>
+			{{/modal-dialog}}
+		</div>
+	{{/if}}
 {{/if}}

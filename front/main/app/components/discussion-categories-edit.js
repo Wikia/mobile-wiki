@@ -8,6 +8,9 @@ export default Ember.Component.extend(ResponsiveMixin,
 		classNames: ['highlight-overlay-content', 'discussion-categories-edit'],
 		classNameBindings: ['modal.isVisible::highlight-overlay-content'],
 
+		currentUser: Ember.inject.service(),
+
+		canDeleteCategories: Ember.computed.oneWay('currentUser.permissions.discussions.canDeleteCategories'),
 		isLoading: false,
 		maxCategoriesCount: 10,
 		modal: null,
@@ -93,7 +96,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 			},
 
 			onCancel() {
-				this.set('modal.categoryToDelete', null),
+				this.set('modal.categoryToDelete', null);
 				this.set('modal.category', null);
 				this.set('modal.isVisible', false);
 				this.set('modal.approveButtonDisabled', true);
