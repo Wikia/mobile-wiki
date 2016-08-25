@@ -85,12 +85,22 @@ export default Ember.Mixin.create({
 				});
 			}
 
-			this.get('data.entities').findBy('id', postData.id).setProperties(editedPost);
+			this.updateData(editedPost, postData.id);
 
 			track(trackActions.PostEditSave);
 
 			return editedPost;
 		});
+	},
+
+	/**
+	 * @param {DiscussionPost} editedPost
+	 * @param {string} postId
+	 *
+	 * @returns {void}
+	 */
+	updateData(editedPost, postId) {
+		this.get('data.entities').findBy('id', postId).setProperties(editedPost);
 	},
 
 	/**
