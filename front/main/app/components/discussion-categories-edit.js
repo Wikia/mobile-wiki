@@ -177,8 +177,8 @@ export default Ember.Component.extend(ResponsiveMixin,
 			 * @returns {void}
 			 */
 			onCategoryPicked(category) {
-				let modalCategory = category;
-				let approveButtonDisabled = false;
+				let modalCategory = category,
+					approveButtonDisabled = false;
 
 				if (this.get('modal.category.id') === category.get('id')) {
 					modalCategory = null;
