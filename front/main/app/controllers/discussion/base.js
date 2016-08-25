@@ -67,8 +67,7 @@ export default Ember.Controller.extend(
 			 *
 			 * @returns {void}
 			 */
-			uploadDiscussionsHeader() {
-			},
+			uploadDiscussionsHeader() {}
 		}
 	}
 );
