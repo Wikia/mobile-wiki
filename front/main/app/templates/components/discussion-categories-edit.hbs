@@ -44,43 +44,43 @@
 			{{#sortable-group tagName='div' model=localCategories onChange=(action 'onReorderElements') as |group|}}
 				{{#each localCategories as |localCategory|}}
 					{{#unless localCategory.moveTo}}
-					{{#sortable-item tagName='div' model=localCategory group=group handle=".draggable"}}
-						<li>
-							<span class="discussion-categories-input-wrapper">
-								{{#if (equal localCategory.id wikiId)}}
-									{{svg 'lock' viewBox='0 0 18 18' class='icon lock'}}
-								{{else}}
-									{{wikia-ui-components/fancy-check-box
-										disabled=true
-									}}
-								{{/if}}
-								{{input
-									class=(concat 'discussion-categories-input' (if localCategory.error ' error' ''))
-									disabled=(equal localCategory.id wikiId)
-									maxlength=20
-									value=localCategory.displayedName
-								}}
-								<div class="draggable">
-									<a class="discussion-categories-edit-action-button action-move">
-										{{svg 'move' viewBox='0 0 7 16' class='icon move'}}
-									</a>
-									{{#unless localCategory.id}}
-										<a class="discussion-categories-edit-action-button action-local-delete" {{action 'deleteLocalCategory' localCategory}}>
-											{{svg 'close' class='icon close fill-theme-color'}}
-										</a>
-									{{/unless}}
-									{{#if localCategory.id}}
-										<a class="discussion-categories-edit-action-button action-delete" {{action 'deleteCategory' localCategory}}>
-											{{svg 'trash-small' viewBox='0 0 18 18' class='icon trash'}}
-										</a>
+						{{#sortable-item tagName='div' model=localCategory group=group handle=".draggable"}}
+							<li>
+								<span class="discussion-categories-input-wrapper">
+									{{#if (equal localCategory.id wikiId)}}
+										{{svg 'lock' viewBox='0 0 18 18' class='icon lock'}}
+									{{else}}
+										{{wikia-ui-components/fancy-check-box
+											disabled=true
+										}}
 									{{/if}}
-								</div>
-							</span>
-							{{#if localCategory.error}}
-								<span class="error">{{localCategory.error}}</span>
-							{{/if}}
-						</li>
-					{{/sortable-item}}
+									{{input
+										class=(concat 'discussion-categories-input' (if localCategory.error ' error' ''))
+										disabled=(equal localCategory.id wikiId)
+										maxlength=20
+										value=localCategory.displayedName
+									}}
+									<div class="draggable">
+										<a class="discussion-categories-edit-action-button action-move">
+											{{svg 'move' viewBox='0 0 7 16' class='icon move'}}
+										</a>
+										{{#unless localCategory.id}}
+											<a class="discussion-categories-edit-action-button action-local-delete" {{action 'deleteLocalCategory' localCategory}}>
+												{{svg 'close' class='icon close fill-theme-color'}}
+											</a>
+										{{/unless}}
+										{{#if localCategory.id}}
+											<a class="discussion-categories-edit-action-button action-delete" {{action 'deleteCategory' localCategory}}>
+												{{svg 'trash-small' viewBox='0 0 18 18' class='icon trash'}}
+											</a>
+										{{/if}}
+									</div>
+								</span>
+								{{#if localCategory.error}}
+									<span class="error">{{localCategory.error}}</span>
+								{{/if}}
+							</li>
+						{{/sortable-item}}
 					{{/unless}}
 				{{/each}}
 			{{/sortable-group}}
@@ -134,13 +134,15 @@
 				<h3>{{modal.header}}</h3>
 				{{modal.message}}
 				<div class="categories-pills">
-					{{#each categories as |category|}}
-						{{#unless (equal modal.categoryToDelete.id category.id)}}
-							{{discussion-category-pill
-								class=(if (equal category.id modal.category.id) 'is-active active-element-background-color')
-								category=category
-								onCategoryPicked=(action 'onCategoryPicked')
-							}}
+					{{#each localCategories as |localCategory|}}
+						{{#unless (equal modal.categoryToDelete.id localCategory.id)}}
+							{{#unless localCategory.moveTo}}
+								{{discussion-category-pill
+									class=(if (equal localCategory.id modal.category.id) 'is-active active-element-background-color')
+									category=localCategory
+									onCategoryPicked=(action 'onCategoryPicked')
+								}}
+							{{/unless}}
 						{{/unless}}
 					{{/each}}
 				</div>
