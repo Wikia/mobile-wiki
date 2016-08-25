@@ -43,6 +43,7 @@
 			</li>
 			{{#sortable-group tagName='div' model=localCategories onChange=(action 'onReorderElements') as |group|}}
 				{{#each localCategories as |localCategory|}}
+					{{#unless localCategory.moveTo}}
 					{{#sortable-item tagName='div' model=localCategory group=group handle=".draggable"}}
 						<li>
 							<span class="discussion-categories-input-wrapper">
@@ -80,6 +81,7 @@
 							{{/if}}
 						</li>
 					{{/sortable-item}}
+					{{/unless}}
 				{{/each}}
 			{{/sortable-group}}
 		</ul>
