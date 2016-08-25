@@ -104,7 +104,7 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 		});
 	},
 
-	deleteLocalCategory(category) {
+	deleteCategory(category) {
 		return request(M.getDiscussionServiceUrl(`/${this.get('wikiId')}/forums/${category.id}`), {
 			data: JSON.stringify({
 				name: category.get('displayedName'),
@@ -161,7 +161,7 @@ const DiscussionCategoriesModel = Ember.Object.extend({
 	 */
 	updateCategories(categories) {
 		const deletedCategoriesPromisesList = this.getDeletedCategories(categories).map((category) => {
-			return this.deleteLocalCategory(category);
+			return this.deleteCategory(category);
 		});
 
 		return Ember.RSVP.all(deletedCategoriesPromisesList)
