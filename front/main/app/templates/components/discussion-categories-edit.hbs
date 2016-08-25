@@ -133,11 +133,13 @@
 				{{modal.message}}
 				<div class="categories-pills">
 					{{#each categories as |category|}}
-						{{discussion-category-pill
-							class=(if (equal category.id modal.category.id) 'is-active active-element-background-color')
-							category=category
-							onCategoryPicked=(action 'onCategoryPicked')
-						}}
+						{{#unless (equal modal.categoryToDelete.id category.id)}}
+							{{discussion-category-pill
+								class=(if (equal category.id modal.category.id) 'is-active active-element-background-color')
+								category=category
+								onCategoryPicked=(action 'onCategoryPicked')
+							}}
+						{{/unless}}
 					{{/each}}
 				</div>
 			</div>

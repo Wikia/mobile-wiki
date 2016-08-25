@@ -4,8 +4,10 @@ const DiscussionCategory = Ember.Object.extend({
 	description: null,
 	displayOrder: null,
 	id: null,
+	// indicates to which category this category should be moved before deletion
+	moveTo: null,
 	name: null,
-	selected: false,
+	selected: false
 });
 
 DiscussionCategory.reopenClass({
@@ -21,8 +23,9 @@ DiscussionCategory.reopenClass({
 			description: categoryData.description,
 			displayOrder: categoryData.displayOrder,
 			id: categoryData.id,
+			moveTo: null,
 			name: categoryData.name,
-			selected: false,
+			selected: false
 		};
 
 		return this._super(category);

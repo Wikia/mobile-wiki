@@ -18,6 +18,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 			this._super(...arguments);
 			this.set('modal', {
 				category: null,
+				categoryToDelete: null,
 				approveButtonDisabled: true,
 				approveButtonText: i18n.t('main.categories-delete-category-approve', {ns: 'discussion'}),
 				cancelButtonText: i18n.t('main.categories-delete-category-cancel', {ns: 'discussion'}),
@@ -74,6 +75,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 				if (document.activeElement) {
 					document.activeElement.blur();
 				}
+				this.set('modal.categoryToDelete', category);
 				this.set('modal.isVisible', true);
 				this.set('modal.message', i18n.t('main.categories-delete-category-message', {
 					ns: 'discussion',
@@ -86,6 +88,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 			},
 
 			onCancel() {
+				this.set('modal.categoryToDelete', null),
 				this.set('modal.category', null);
 				this.set('modal.isVisible', false);
 				this.set('modal.approveButtonDisabled', true);
