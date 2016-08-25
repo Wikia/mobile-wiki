@@ -20,11 +20,11 @@ export default Ember.Component.extend(ResponsiveMixin,
 		init() {
 			this._super(...arguments);
 			this.set('modal', {
-				category: null,
-				categoryToDelete: null,
 				approveButtonDisabled: true,
 				approveButtonText: i18n.t('main.categories-delete-category-approve', {ns: 'discussion'}),
 				cancelButtonText: i18n.t('main.categories-delete-category-cancel', {ns: 'discussion'}),
+				category: null,
+				categoryToDelete: null,
 				header: i18n.t('main.categories-delete-category-header', {ns: 'discussion'}),
 				isVisible: false,
 				message: i18n.t('main.categories-delete-category-message', {ns: 'discussion'})
@@ -85,36 +85,6 @@ export default Ember.Component.extend(ResponsiveMixin,
 					categoryName: category.get('name')}));
 			},
 
-			onApprove() {
-				const categoryToDelete = this.get('modal.categoryToDelete');
-
-				if (this.get('modal.category') && categoryToDelete) {
-					categoryToDelete.set('moveTo', this.get('modal.category.id'));
-				}
-
-				this.send('onCancel');
-			},
-
-			onCancel() {
-				this.set('modal.categoryToDelete', null);
-				this.set('modal.category', null);
-				this.set('modal.isVisible', false);
-				this.set('modal.approveButtonDisabled', true);
-			},
-
-			onCategoryPicked(category) {
-				let modalCategory = category;
-				let approveButtonDisabled = false;
-
-				if (this.get('modal.category.id') === category.get('id')) {
-					modalCategory = null;
-					approveButtonDisabled = true;
-				}
-
-				this.set('modal.category', modalCategory);
-				this.set('modal.approveButtonDisabled', approveButtonDisabled);
-			},
-
 			/**
 			 * Delete a local category (category that was not yet saved).
 			 *
@@ -171,6 +141,52 @@ export default Ember.Component.extend(ResponsiveMixin,
 			 */
 			disableEditMode() {
 				this.get('setEditMode')(false);
+			},
+
+			/**
+			 * Delete category modal approve method.
+			 *
+			 * @returns {void}
+			 */
+			onApprove() {
+				const categoryToDelete = this.get('modal.categoryToDelete');
+
+				if (this.get('modal.category') && categoryToDelete) {
+					categoryToDelete.set('moveTo', this.get('modal.category.id'));
+				}
+
+				this.send('onCancel');
+			},
+
+			/**
+			 * Delete category modal cancel method.
+			 *
+			 * @returns {void}
+			 */
+			onCancel() {
+				this.set('modal.categoryToDelete', null);
+				this.set('modal.category', null);
+				this.set('modal.isVisible', false);
+				this.set('modal.approveButtonDisabled', true);
+			},
+
+			/**
+			 * Selects category to which all threads from category that is going to be deleted should be moved.
+			 *
+			 * @param {Object} category picked category
+			 * @returns {void}
+			 */
+			onCategoryPicked(category) {
+				let modalCategory = category;
+				let approveButtonDisabled = false;
+
+				if (this.get('modal.category.id') === category.get('id')) {
+					modalCategory = null;
+					approveButtonDisabled = true;
+				}
+
+				this.set('modal.category', modalCategory);
+				this.set('modal.approveButtonDisabled', approveButtonDisabled);
 			},
 
 			/**
