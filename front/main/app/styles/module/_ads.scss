@@ -96,16 +96,16 @@
 	width: 100%;
 }
 
-.invisible-high-impact-wrapper.interstitial.slider {
+.invisible-high-impact-wrapper.interstitial.slide-bottom-top {
+	transform: translate3d(0, -100vh, 0);
+}
+
+.invisible-high-impact-wrapper.slide-bottom-top {
+	transition: transform .5s ease-in-out;
 	top: 100vh;
-	transition: top 0.3s;
 }
 
-.invisible-high-impact-wrapper.interstitial.slide-bottom {
-	top: 0;
-}
-
-.invisible-high-impact-wrapper {
+.invisible-high-impact-wrapper.interstitial {
 	z-index: $z-modal-dialog;
 
 	.invisible-high-impact-2 iframe {
@@ -152,5 +152,11 @@
 }
 
 .stop-scrolling {
-	overflow: hidden
+	overflow: hidden;
+
+	//Hide loading overlay and spinner if stop-scrolling class is added
+	//it means interstitial is loaded - no need to use user's CPU and GPU to rotate spinner which is not visible
+	.loading-overlay {
+		display: none;
+	}
 }

@@ -129,7 +129,7 @@ export default Route.extend(
 						isProperGeo = Ember.get(Wikia, 'geo.isProperGeo');
 
 					if (isProperGeo && isProperGeo(highImpactCountries) && isProperGeo(interstitialOnTransitionCountries)) {
-						this.get('adsHighImpact').reload();
+						this.get('adsHighImpact').reload('interstitial');
 					}
 
 					this.transitionTo('wiki-page', info.article + (info.hash ? info.hash : ''));
