@@ -7,6 +7,7 @@ module.exports = function (environment) {
 		environment: environment,
 		locationType: 'auto',
 		newRelic: {
+			agent: 'js-agent.newrelic.com/nr-spa-974.min.js',
 			licenseKey: '60e97494a4',
 			spaMonitoring: true
 		},
