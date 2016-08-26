@@ -17,14 +17,14 @@ export default Ember.Component.extend({
 			categoryName: this.get('categoryToDelete.name')});
 	}),
 	selectedCategory: null,
-	
+
 	/**
 	 * This method is normally passed through hbs, but defining it here
 	 * prevents from unneeded errors when it's not passed
-	 * @returns {void} 
+	 * @returns {void}
 	 */
 	onCancel() {},
-	
+
 	resetModalState() {
 		this.setProperties({
 			categoryToDelete: null,
