@@ -5,31 +5,18 @@ import ResponsiveMixin from '../mixins/responsive';
 
 export default Ember.Component.extend(ResponsiveMixin,
 	{
-		classNames: ['highlight-overlay-content', 'discussion-categories-edit'],
-		classNameBindings: ['modal.isVisible::highlight-overlay-content'],
+		classNames: ['discussion-categories-edit'],
+		classNameBindings: ['isModalVisible::highlight-overlay-content'],
 
 		currentUser: Ember.inject.service(),
 
 		canDeleteCategories: Ember.computed.oneWay('currentUser.permissions.discussions.canDeleteCategories'),
+		errorMessage: null,
 		isLoading: false,
+		isModalVisible: false,
 		maxCategoriesCount: 10,
-		modal: null,
 		showSuccess: false,
 		wikiId: Ember.get(Mercury, 'wiki.id').toString(),
-
-		init() {
-			this._super(...arguments);
-			this.set('modal', Ember.Object.create({
-				approveButtonDisabled: true,
-				approveButtonText: i18n.t('main.categories-delete-category-approve', {ns: 'discussion'}),
-				cancelButtonText: i18n.t('main.categories-delete-category-cancel', {ns: 'discussion'}),
-				category: null,
-				categoryToDelete: null,
-				header: i18n.t('main.categories-delete-category-header', {ns: 'discussion'}),
-				isVisible: false,
-				message: i18n.t('main.categories-delete-category-message', {ns: 'discussion'})
-			}));
-		},
 
 		addDisabled: Ember.computed('localCategories.length', function () {
 			return this.get('localCategories.length') >= this.get('maxCategoriesCount');
@@ -48,7 +35,12 @@ export default Ember.Component.extend(ResponsiveMixin,
 			}));
 		}),
 
-		errorMessage: null,
+		onModalCancel() {
+			this.setProperties({
+				categoryToDelete: null,
+				isModalVisible: false
+			});
+		},
 
 		actions: {
 			/**
@@ -78,12 +70,10 @@ export default Ember.Component.extend(ResponsiveMixin,
 				if (document.activeElement) {
 					document.activeElement.blur();
 				}
-				this.get('modal').setProperties({
+
+				this.setProperties({
 					categoryToDelete: category,
-					isVisible: true,
-					message: i18n.t('main.categories-delete-category-message', {
-						ns: 'discussion',
-						categoryName: category.get('name')})
+					isModalVisible: true
 				});
 			},
 
@@ -143,57 +133,6 @@ export default Ember.Component.extend(ResponsiveMixin,
 			 */
 			disableEditMode() {
 				this.get('setEditMode')(false);
-			},
-
-			/**
-			 * Delete category modal approve method.
-			 *
-			 * @returns {void}
-			 */
-			onApprove() {
-				const category = this.get('modal.category'),
-					categoryToDelete = this.get('modal.categoryToDelete');
-
-				if (category && categoryToDelete) {
-					categoryToDelete.set('moveTo', category.get('id'));
-				}
-
-				this.send('onCancel');
-			},
-
-			/**
-			 * Delete category modal cancel method.
-			 *
-			 * @returns {void}
-			 */
-			onCancel() {
-				this.get('modal').setProperties({
-					categoryToDelete: null,
-					category: null,
-					isVisible: false,
-					approveButtonDisabled: true
-				});
-			},
-
-			/**
-			 * Selects category to which all threads from category that is going to be deleted should be moved.
-			 *
-			 * @param {Object} category picked category
-			 * @returns {void}
-			 */
-			onCategoryPicked(category) {
-				let modalCategory = category,
-					approveButtonDisabled = false;
-
-				if (this.get('modal.category.id') === category.get('id')) {
-					modalCategory = null;
-					approveButtonDisabled = true;
-				}
-
-				this.get('modal').setProperties({
-					category: modalCategory,
-					approveButtonDisabled
-				});
 			},
 
 			/**

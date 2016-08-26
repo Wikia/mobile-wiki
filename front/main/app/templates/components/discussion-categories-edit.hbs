@@ -131,10 +131,9 @@
 
 {{#if canDeleteCategories}}
 	{{discussion-categories-dialog
-		localCategories=localCategories
-		modal=modal
-		onApprove=(action 'onApprove')
-		onCancel=(action 'onCancel')
-		onCategoryPicked=(action 'onCategoryPicked')
+		categories=localCategories
+		categoryToDelete=categoryToDelete
+		isVisible=isModalVisible
+		onCancel=onModalCancel
 	}}
 {{/if}}
