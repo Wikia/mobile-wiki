@@ -97,6 +97,10 @@
     "categories-edit-max-categories-info":"您已经达到允许类别的数量限制(__maxCategoriesCount__) 。",
     "categories-edit-error-empty-category":"类别名称需要至少一个字符。",
     "categories-edit-general-error":"保存失败，请再试一次。",
+    "categories-delete-category-header":"删除分类？",
+    "categories-delete-category-message":"删除分类\"__categoryName__\"后，你需要将该分类下的所有帖子移动至以下某处：",
+    "categories-delete-category-cancel":"取消",
+    "categories-delete-category-approve":"删除并移动",
     "filter-posts-header":"筛选帖子",
     "filter-reset-label":"重置",
     "in-category-label":"在__categoryName__中",
@@ -112,14 +116,14 @@
     "guidelines-header-title":"讨论版指引",
     "welcome-message-header":"有你在这里真是太棒了!",
     "welcome-message-text":"尽情地浏览、创建和回复帖子吧！请阅读我们的__guidelinesLinkTitle__，您将会更快融入其中。",
+    "category-picker-button-text":"添加类别",
+    "category-picker-required-message":"必填",
     "edit-badge-button-text":"编辑勋章",
     "edit-badge-hint-text":"125x125jpg,<br>gif或者png.<br>限制10mb",
     "edit-hero-unit-button-text":"编辑页眉",
     "edit-hero-unit-hint-text":"图像尺寸︰1240x200<br>jpg, gif或者png. 限定10mb",
     "image-save-failed":"保存失败，请再试一次。",
-    "upload-image-button-text":"上传图片",
-    "category-picker-button-text":"添加类别",
-    "category-picker-required-message":"必填"
+    "upload-image-button-text":"上传图片"
   },
   "editor":{
     "post-failed-error":"发布失败",
