@@ -1,0 +1,11 @@
+.discussion-dialog {
+	.categories-pills {
+		margin-top: 13px;
+
+		.category-pill {
+			&.is-active {
+				color: $discussion-category-pill-hover-color;
+			}
+		}
+	}
+}
