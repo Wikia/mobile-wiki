@@ -1,6 +1,9 @@
 {{#if isVisible}}
 	<div class="discussion-dialog">
-		{{#modal-dialog isVisible=isVisible}}
+		{{#modal-dialog
+			isVisible=isVisible
+			onOverlayClose=(action 'onCancel')
+		}}
 			<h3>{{header}}</h3>
 			<section class="modal-dialog-content">
 				{{message}}

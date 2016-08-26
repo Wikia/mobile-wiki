@@ -7,6 +7,8 @@ export default Ember.Component.extend({
 	closeOnOverlayClick: true,
 	isVisible: false,
 	modalDialog: Ember.inject.service(),
+	onOverlayClose() {
+	},
 	type: 'info',
 
 	actions: {
@@ -17,6 +19,7 @@ export default Ember.Component.extend({
 			if (this.get('closeOnOverlayClick')) {
 				this.set('isVisible', false);
 				this.get('modalDialog').close();
+				this.onOverlayClose();
 			}
 		},
 	},
