@@ -19,7 +19,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 
 		init() {
 			this._super(...arguments);
-			this.set('modal', {
+			this.set('modal', Ember.Object.create({
 				approveButtonDisabled: true,
 				approveButtonText: i18n.t('main.categories-delete-category-approve', {ns: 'discussion'}),
 				cancelButtonText: i18n.t('main.categories-delete-category-cancel', {ns: 'discussion'}),
@@ -28,7 +28,7 @@ export default Ember.Component.extend(ResponsiveMixin,
 				header: i18n.t('main.categories-delete-category-header', {ns: 'discussion'}),
 				isVisible: false,
 				message: i18n.t('main.categories-delete-category-message', {ns: 'discussion'})
-			});
+			}));
 		},
 
 		addDisabled: Ember.computed('localCategories.length', function () {
@@ -78,11 +78,13 @@ export default Ember.Component.extend(ResponsiveMixin,
 				if (document.activeElement) {
 					document.activeElement.blur();
 				}
-				this.set('modal.categoryToDelete', category);
-				this.set('modal.isVisible', true);
-				this.set('modal.message', i18n.t('main.categories-delete-category-message', {
-					ns: 'discussion',
-					categoryName: category.get('name')}));
+				this.get('modal').setProperties({
+					categoryToDelete: category,
+					isVisible: true,
+					message: i18n.t('main.categories-delete-category-message', {
+						ns: 'discussion',
+						categoryName: category.get('name')})
+				});
 			},
 
 			/**
@@ -164,10 +166,12 @@ export default Ember.Component.extend(ResponsiveMixin,
 			 * @returns {void}
 			 */
 			onCancel() {
-				this.set('modal.categoryToDelete', null);
-				this.set('modal.category', null);
-				this.set('modal.isVisible', false);
-				this.set('modal.approveButtonDisabled', true);
+				this.get('modal').setProperties({
+					categoryToDelete: null,
+					category: null,
+					isVisible: false,
+					approveButtonDisabled: true
+				});
 			},
 
 			/**
@@ -185,8 +189,10 @@ export default Ember.Component.extend(ResponsiveMixin,
 					approveButtonDisabled = true;
 				}
 
-				this.set('modal.category', modalCategory);
-				this.set('modal.approveButtonDisabled', approveButtonDisabled);
+				this.get('modal').setProperties({
+					category: modalCategory,
+					approveButtonDisabled
+				});
 			},
 
 			/**
