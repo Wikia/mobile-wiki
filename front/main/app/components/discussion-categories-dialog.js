@@ -4,12 +4,9 @@ import {track, trackActions} from '../utils/discussion-tracker';
 export default Ember.Component.extend({
 	classNames: ['discussion-categories-dialog'],
 
-	currentUser: Ember.inject.service(),
-
 	approveButtonDisabled: true,
 	approveButtonText: i18n.t('main.categories-delete-category-approve', {ns: 'discussion'}),
 	cancelButtonText: i18n.t('main.categories-delete-category-cancel', {ns: 'discussion'}),
-	canDeleteCategories: Ember.computed.oneWay('currentUser.permissions.discussions.canDeleteCategories'),
 	categories: null,
 	categoryToDelete: null,
 	header: i18n.t('main.categories-delete-category-header', {ns: 'discussion'}),
