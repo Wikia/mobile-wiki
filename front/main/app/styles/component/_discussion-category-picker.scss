@@ -27,11 +27,11 @@
 		z-index: $z-1;
 
 		.arrow-down {
-			height: 0;
 			border-left: 4px solid transparent;
 			border-right: 4px solid transparent;
 			border-top-style: solid;
 			border-top-width: 6px;
+			height: 0;
 			width: 0;
 		}
 	}
