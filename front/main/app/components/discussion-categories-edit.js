@@ -75,6 +75,8 @@ export default Ember.Component.extend(ResponsiveMixin,
 					categoryToDelete: category,
 					isModalVisible: true
 				});
+
+				track(trackActions.DeleteCategoryModalOpen);
 			},
 
 			/**

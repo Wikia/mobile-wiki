@@ -19,6 +19,15 @@ export default Ember.Component.extend({
 	}),
 	onCancel() {
 	},
+	resetModalState() {
+		this.setProperties({
+			categoryToDelete: null,
+			selectedCategory: null,
+			isVisible: false,
+			approveButtonDisabled: true
+		});
+		this.onCancel();
+	},
 	selectedCategory: null,
 
 	actions: {
@@ -35,7 +44,9 @@ export default Ember.Component.extend({
 				categoryToDelete.set('moveTo', selectedCategory.get('id'));
 			}
 
-			this.send('onCancel');
+			this.resetModalState();
+
+			track(trackActions.DeleteAndMoveCategoryButtonTapped);
 		},
 
 		/**
@@ -44,13 +55,9 @@ export default Ember.Component.extend({
 		 * @returns {void}
 		 */
 		onCancel() {
-			this.setProperties({
-				categoryToDelete: null,
-				selectedCategory: null,
-				isVisible: false,
-				approveButtonDisabled: true
-			});
-			this.onCancel();
+			this.resetModalState();
+
+			track(trackActions.DeleteCategoryModalClose);
 		},
 
 		/**
