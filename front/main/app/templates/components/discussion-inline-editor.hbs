@@ -1,12 +1,12 @@
 <div class="discussion-inline-editor-floating-container">
-	{{#unless category}}
-		{{discussion-category-select-tooltip
-			isActive=isActive
-			shouldShowCategoryPicker=shouldShowCategoryPicker
-			showOverlayMessage=showOverlayMessage
-		}}
-	{{/unless}}
 	{{discussion-category-select-tooltip
+		category=category
+		isActive=isActive
+		shouldShowCategoryPicker=shouldShowCategoryPicker
+		showOverlayMessage=showOverlayMessage
+	}}
+	{{discussion-category-select-tooltip
+		category=category
 		isActive=isActive
 		shouldShowCategoryPicker=shouldShowCategoryPicker
 		showOverlayMessage=showOverlayMessage

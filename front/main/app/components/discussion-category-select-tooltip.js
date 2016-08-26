@@ -13,8 +13,10 @@ export default Ember.Component.extend({
 		}
 	),
 
-	didInsertElement() {
-		localStorageConnector.setItem('discussionCategorySelectTooltipSeen', true);
-		this.set('wasSeen', true);
-	}
+	wasSeenSetter: Ember.observer('category', 'isActive', function () {
+		if (this.get('category')) {
+			this.set('wasSeen', true);
+			localStorageConnector.setItem('discussionCategorySelectTooltipSeen', true);
+		}
+	}),
 });

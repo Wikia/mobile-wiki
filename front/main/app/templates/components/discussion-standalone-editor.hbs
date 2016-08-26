@@ -4,14 +4,13 @@
 	</a>
 	<button class="active-element-theme-color discussion-standalone-editor-save-button" type="submit" {{action 'submit'}} disabled={{submitDisabled}}>{{i18n submitMessageKey ns='discussion'}}</button>
 </div>
-{{#unless category}}
-	{{discussion-category-select-tooltip
-		isActive=isActive
-		isEdit=isEdit
-		shouldShowCategoryPicker=shouldShowCategoryPicker
-		showOverlayMessage=showOverlayMessage
-	}}
-{{/unless}}
+{{discussion-category-select-tooltip
+	category=category
+	isActive=isActive
+	isEdit=isEdit
+	shouldShowCategoryPicker=shouldShowCategoryPicker
+	showOverlayMessage=showOverlayMessage
+}}
 <div class="discussion-standalone-content-wrapper">
 	{{#if showOverlayMessage}}
 		{{discussion-editor-overlay-message
