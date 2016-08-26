@@ -141,8 +141,8 @@
 							{{#unless (equal modal.categoryToDelete.id localCategory.id)}}
 								{{#unless localCategory.moveTo}}
 									{{discussion-category-pill
-										class=(if (equal localCategory.id modal.category.id) 'is-active active-element-background-color')
 										category=localCategory
+										class=(if (equal localCategory.id modal.category.id) 'is-active active-element-background-color')
 										onCategoryPicked=(action 'onCategoryPicked')
 									}}
 								{{/unless}}
