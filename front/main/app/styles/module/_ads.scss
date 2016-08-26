@@ -96,6 +96,15 @@
 	width: 100%;
 }
 
+.invisible-high-impact-wrapper.interstitial.slider {
+	top: 100vh;
+	transition: top 0.3s;
+}
+
+.invisible-high-impact-wrapper.interstitial.slide-bottom {
+	top: 0;
+}
+
 .invisible-high-impact-wrapper {
 	z-index: $z-modal-dialog;
 
