@@ -3,16 +3,12 @@ import Ads from 'common/modules/ads';
 
 export default Ember.Service.extend({
 	name: 'INVISIBLE_HIGH_IMPACT_2',
-	type: '',
+	show: false,
 
-	reload(type) {
+	reload() {
 		const ads = Ads.getInstance();
+		// show an ad - the interstitial background - before response from DFP
+		this.set('show', true);
 		ads.pushSlotToQueue(this.get('name'));
-
-		if (type === 'interstitial') {
-			this.set('type', 'interstitial');
-		} else {
-			this.set('type', '');
-		}
 	}
 });
