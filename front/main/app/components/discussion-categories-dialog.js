@@ -16,8 +16,15 @@ export default Ember.Component.extend({
 			ns: 'discussion',
 			categoryName: this.get('categoryToDelete.name')});
 	}),
-	onCancel() {
-	},
+	selectedCategory: null,
+	
+	/**
+	 * This method is normally passed through hbs, but defining it here
+	 * prevents from unneeded errors when it's not passed
+	 * @returns {void} 
+	 */
+	onCancel() {},
+	
 	resetModalState() {
 		this.setProperties({
 			categoryToDelete: null,
@@ -27,7 +34,6 @@ export default Ember.Component.extend({
 		});
 		this.onCancel();
 	},
-	selectedCategory: null,
 
 	actions: {
 		/**
