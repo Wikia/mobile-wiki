@@ -20,21 +20,19 @@
 		align-items: center;
 		display: flex;
 		flex-direction: column;
-		height: 100%;
 		justify-content: center;
-		left: 0;
+		left: 44px;
 		position: absolute;
-		top: -24px;
-		width: 100%;
+		top: 22px;
+		z-index: $z-1;
 
 		.arrow-down {
-			width: 0;
 			height: 0;
-			border-left: 5px solid transparent;
-			border-right: 5px solid transparent;
-
+			border-left: 4px solid transparent;
+			border-right: 4px solid transparent;
 			border-top-style: solid;
-			border-top-width: 5px;
+			border-top-width: 6px;
+			width: 0;
 		}
 	}
 
@@ -42,7 +40,7 @@
 		border-radius: 2px;
 		color: #fff;
 		font-size: 12px;
-		padding: 4px 11px;
+		padding: 2px 11px;
 	}
 
 	.discussion-category-picker {
@@ -125,5 +123,12 @@
 .discussion-standalone-editor {
 	.discussion-category-picker-button {
 		margin: 12px 0 0 15px;
+	}
+}
+
+.discussion-inline-editor {
+	.discussion-category-select-tooltip-wrapper {
+		left: 90px;
+		top: -12px;
 	}
 }
