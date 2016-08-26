@@ -15,5 +15,6 @@ export default Ember.Component.extend({
 
 	didInsertElement() {
 		localStorageConnector.setItem('discussionCategorySelectTooltipSeen', true);
+		this.set('wasSeen', true);
 	}
 });
