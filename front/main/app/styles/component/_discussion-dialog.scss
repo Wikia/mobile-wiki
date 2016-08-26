@@ -36,6 +36,7 @@ $discussion-dialog-content-line-height: 24px;
 			button {
 				background-color: $discussion-dialog-background-color;
 				border: none;
+				font-weight: $font-weight-bold;
 				height: 48px;
 
 				&:hover {
