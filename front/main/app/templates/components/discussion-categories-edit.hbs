@@ -46,7 +46,7 @@
 					{{#unless localCategory.moveTo}}
 						{{#sortable-item tagName='div' model=localCategory group=group handle=".draggable"}}
 							<li>
-								<span class="discussion-categories-input-wrapper">
+								<div class="discussion-categories-input-wrapper">
 									{{#if (equal localCategory.id wikiId)}}
 										{{svg 'lock' viewBox='0 0 18 18' class='icon lock'}}
 									{{else}}
@@ -77,7 +77,7 @@
 											{{/if}}
 										{{/if}}
 									</div>
-								</span>
+								</div>
 								{{#if localCategory.error}}
 									<span class="error">{{localCategory.error}}</span>
 								{{/if}}
