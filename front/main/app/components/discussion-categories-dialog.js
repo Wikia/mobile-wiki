@@ -14,10 +14,10 @@ export default Ember.Component.extend({
 	categoryToDelete: null,
 	header: i18n.t('main.categories-delete-category-header', {ns: 'discussion'}),
 	isVisible: false,
-	message: Ember.computed('categoryToDelete', function() {
+	message: Ember.computed('categoryToDelete', function () {
 		return i18n.t('main.categories-delete-category-message', {
 			ns: 'discussion',
-			categoryName: this.get('categoryToDelete.name')})
+			categoryName: this.get('categoryToDelete.name')});
 	}),
 	onCancel() {
 	},
