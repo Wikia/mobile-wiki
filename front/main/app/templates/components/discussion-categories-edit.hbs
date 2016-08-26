@@ -130,33 +130,11 @@
 {{/if}}
 
 {{#if canDeleteCategories}}
-	{{#if modal.isVisible}}
-		<div class="discussion-dialog">
-			{{#modal-dialog isVisible=modal.isVisible}}
-				<div class="modal-dialog-content">
-					<h3>{{modal.header}}</h3>
-					{{modal.message}}
-					<div class="categories-pills">
-						{{#each localCategories as |localCategory|}}
-							{{#unless (equal modal.categoryToDelete.id localCategory.id)}}
-								{{#unless localCategory.moveTo}}
-									{{discussion-category-pill
-										category=localCategory
-										class=(if (equal localCategory.id modal.category.id) 'is-active active-element-background-color')
-										onCategoryPicked=(action 'onCategoryPicked')
-									}}
-								{{/unless}}
-							{{/unless}}
-						{{/each}}
-					</div>
-				</div>
-				<footer>
-					<button class="active-element-theme-color cancel-button" {{action 'onCancel'}}>{{modal.cancelButtonText}}</button>
-					<button class="active-element-theme-color confirm-button" disabled={{modal.approveButtonDisabled}} {{action 'onApprove'}}>
-						{{modal.approveButtonText}}
-					</button>
-				</footer>
-			{{/modal-dialog}}
-		</div>
-	{{/if}}
+	{{discussion-categories-dialog
+		localCategories=localCategories
+		modal=modal
+		onApprove=(action 'onApprove')
+		onCancel=(action 'onCancel')
+		onCategoryPicked=(action 'onCategoryPicked')
+	}}
 {{/if}}
