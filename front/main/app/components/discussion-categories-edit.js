@@ -151,10 +151,11 @@ export default Ember.Component.extend(ResponsiveMixin,
 			 * @returns {void}
 			 */
 			onApprove() {
-				const categoryToDelete = this.get('modal.categoryToDelete');
+				const category = this.get('modal.category'),
+					categoryToDelete = this.get('modal.categoryToDelete');
 
-				if (this.get('modal.category') && categoryToDelete) {
-					categoryToDelete.set('moveTo', this.get('modal.category.id'));
+				if (category && categoryToDelete) {
+					categoryToDelete.set('moveTo', category.get('id'));
 				}
 
 				this.send('onCancel');
