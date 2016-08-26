@@ -96,15 +96,6 @@
 	width: 100%;
 }
 
-.invisible-high-impact-wrapper.interstitial.slide-bottom-top {
-	transform: translate3d(0, -100vh, 0);
-}
-
-.invisible-high-impact-wrapper.slide-bottom-top {
-	transition: transform .5s ease-in-out;
-	top: 100vh;
-}
-
 .invisible-high-impact-wrapper.interstitial {
 	z-index: $z-modal-dialog;
 
@@ -151,12 +142,10 @@
 	}
 }
 
+//show the loading spinner on top of ad in interstitial
 .stop-scrolling {
-	overflow: hidden;
-
-	//Hide loading overlay and spinner if stop-scrolling class is added
-	//it means interstitial is loaded - no need to use user's CPU and GPU to rotate spinner which is not visible
 	.loading-overlay {
-		display: none;
+		z-index: $z-modal-dialog + 1;
+		background: none;
 	}
 }
