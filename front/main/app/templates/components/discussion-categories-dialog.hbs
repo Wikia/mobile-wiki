@@ -1,8 +1,8 @@
 {{#if isVisible}}
 	<div class="discussion-dialog">
 		{{#modal-dialog isVisible=isVisible}}
+			<h3>{{header}}</h3>
 			<section class="modal-dialog-content">
-				<h3>{{header}}</h3>
 				{{message}}
 				<div class="categories-pills">
 					{{#each categories as |category|}}
