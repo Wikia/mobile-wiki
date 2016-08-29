@@ -13,10 +13,12 @@ DiscussionUserBlockDetails.reopenClass({
 	 * @returns {Ember.Object}
 	 */
 	create(userBlockData) {
+		userBlockData = JSON.parse(userBlockData);
+
 		return this._super({
 			blockedBy: userBlockData.blockedBy,
-			blockExpiry: userBlockData.blockReason,
-			blockReasen: userBlockData.blockExpiry
+			blockExpiry: userBlockData.blockExpiry,
+			blockReason: userBlockData.blockReason
 		});
 	}
 });
