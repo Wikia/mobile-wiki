@@ -5,6 +5,7 @@
 }}
 	{{discussion-standalone-editor
 		categories=model.index.categories.categories
+		categoryPickerButtonId='categoryPickerButtonEdit'
 		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
@@ -20,10 +21,12 @@
 {{/modal-dialog}}
 
 {{#discussion-user-entities-list-layout
+	attributes=model.index.attributes.data
 	deleteAllPosts=(action 'deleteAllPosts')
 	model=model.current.data
 	openGuidelines=(action 'openGuidelines')
 	smartBannerVisible=smartBannerVisible
+	uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 }}
 	{{discussion-user-list-wrapper
 		approve=(action 'approve')

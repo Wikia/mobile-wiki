@@ -114,23 +114,32 @@
 		width: 100%;
 	}
 
+	.top-bar {
+		background-color: rgba(0,0,0,0.5);
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		//This is needed to make sure that close button is always displayed above ad
+		//ad can take the whole space of interstitial if too big creative is targeted
+		//- it shouldn't happen but it protects users from being not able to close interstitial
+		z-index: $z-modal-dialog;
+	}
+
 	.close {
 		cursor: pointer;
-		display: block;
-		padding: 14px;
-		position: absolute;
-		right: 0;
-		top: 0;
+		display: inline-block;
+		float: right;
+		padding: 20px;
+		position: relative;
 	}
 
 	.label {
 		color: #D5D4D4;
-		display: block;
+		display: inline-block;
 		font-size: 17px;
-		left: 0;
-		padding: 14px 10px;
-		position: absolute;
-		top: 0;
+		padding: 20px 10px;
+		position: relative;
 	}
 }
 

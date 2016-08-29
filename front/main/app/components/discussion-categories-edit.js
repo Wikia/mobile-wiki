@@ -99,6 +99,15 @@ export default Ember.Component.extend(ResponsiveMixin,
 			},
 
 			/**
+			 * Disables categories edit mode
+			 *
+			 * @returns {void}
+			 */
+			disableEditMode() {
+				this.get('setEditMode')(false);
+			},
+
+			/**
 			 * @param {Ember.Array} oldCategories
 			 * @param {Ember.Array} newCategories
 			 * @returns {void}

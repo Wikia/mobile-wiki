@@ -43,6 +43,7 @@
 	}}
 		{{discussion-guidelines
 			guidelinesText=model.index.attributes.data.guidelines.value
+			uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 		}}
 	{{/modal-dialog}}
 {{/if}}
@@ -57,6 +58,8 @@
 	updateCategoriesSelection=(action 'updateCategoriesSelection')
 	openGuidelines=(action 'openGuidelines')
 	setEditorActive=(action 'setEditorActive')
+	uploadCommunityBadge=(action 'uploadCommunityBadge')
+	uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')

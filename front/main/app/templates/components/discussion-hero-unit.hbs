@@ -1,21 +1,85 @@
-<div class="discussion-hero-unit-content {{contentClassNames}}">
-	{{#if userName}}
-		{{discussion-post-list-header
-			userName=userName
-			contributors=contributors
-			numberOfPosts=numberOfPosts
-		}}
-	{{else}}
-		<h1>{{headerTitle}}</h1>
-		{{#if numberOfPosts}}
-			<p>{{i18n 'main.number-of-posts' numberOfPosts=numberOfPosts ns='discussion'}}</p>
-		{{/if}}
-		{{#if contributors}}
-			{{discussion-contributors
-				users=contributors.users
-				maxContributorDisplayCount=6
-				totalContributorCount=contributors.count
+<div class="discussion-hero-unit-image {{if isEditMode 'highlight-overlay-content'}}" style="{{imageBackground}}">
+	{{#unless isEditMode}}
+		<div class="discussion-hero-unit-fade">
+			<div class="discussion-hero-unit-content {{contentClassNames}}">
+				{{#if userName}}
+					{{discussion-post-list-header
+						contributors=contributors
+						numberOfPosts=numberOfPosts
+						userName=userName
+					}}
+				{{else}}
+					<h1>{{headerTitle}}</h1>
+					{{#if numberOfPosts}}
+						<p>{{i18n 'main.number-of-posts' numberOfPosts=numberOfPosts ns='discussion'}}</p>
+					{{/if}}
+					{{#if contributors}}
+						{{discussion-contributors
+							maxContributorDisplayCount=6
+							totalContributorCount=contributors.count
+							users=contributors.users
+						}}
+					{{/if}}
+				{{/if}}
+			</div>
+		</div>
+	{{/unless}}
+	{{#if canEdit}}
+		{{#if isEditMode}}
+			{{#if isDragActive}}
+				<div class="drag-and-drop">
+					{{svg 'drag-n-drop' role='img'}}
+					<div class="drop-catch-layer"></div>
+				</div>
+			{{else}}
+				<div class="image-edit-mode {{if isLoadingMode 'is-loading'}}">
+					{{#if isImagePreviewMode}}
+						<div
+							class="image-edit-preview-wrapper border-theme-color"
+							style="background: url({{newImageUrl}}) no-repeat center center">
+						</div>
+					{{else}}
+						{{#unless isLoadingMode}}
+							<div class="image-edit-file-input-wrapper">
+								{{file-input
+									classNames=fileInputClassNames
+									click=(action 'emptyClickForFileInput')
+									fileUpload=(action 'fileUpload')
+									label=(i18n 'main.upload-image-button-text' ns='discussion')
+									reset=resetFileInput
+								}}
+								{{{i18n 'main.edit-hero-unit-hint-text' ns='discussion'}}}
+							</div>
+						{{/unless}}
+					{{/if}}
+					{{#if isLoadingMode}}
+						{{loading-spinner
+							active=true
+							overlay=false
+							radius=32
+							strokeWidth=2
+						}}
+					{{/if}}
+				</div>
+				{{#unless isLoadingMode}}
+					<div class="error-message-container {{if errorMessage 'is-visible'}}">
+						{{svg 'report' viewBox='0 0 18 18' class='icon error'}}
+						<span class="error-message">{{errorMessage}}</span>
+					</div>
+					{{discussion-edit-approve-buttons
+						approve=(action 'submit')
+						close=(action 'disableEditMode')
+					}}
+				{{/unless}}
+			{{/if}}
+		{{else}}
+			{{discussion-edit-image-button
+				click=(action 'enableEditMode')
+				label='main.edit-hero-unit-button-text'
 			}}
 		{{/if}}
 	{{/if}}
 </div>
+{{wikia-ui-components/highlight-overlay
+	isVisible=isEditMode
+}}

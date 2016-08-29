@@ -37,9 +37,11 @@
 {{/modal-dialog}}
 
 {{#discussion-post-details-layout
+	attributes=model.index.attributes.data
 	deleteAllPosts=(action 'deleteAllPosts')
 	model=model.current.data
 	smartBannerVisible=smartBannerVisible
+	uploadCommunityBadge=(action 'uploadCommunityBadge')
 }}
 	{{discussion-post
 		approve=(action 'approve')

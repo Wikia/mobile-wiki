@@ -5,6 +5,7 @@
 }}
 	{{discussion-standalone-editor
 		categories=model.index.categories.categories
+		categoryPickerButtonId='categoryPickerButtonEdit'
 		editEntity=editEditorState.discussionEntity
 		editPost=(action 'editPost')
 		editReply=(action 'editReply')
@@ -21,13 +22,16 @@
 
 {{#discussion-entities-list-layout
 	applyFilters=(action 'applyFilters')
+	attributes=model.index.attributes.data
 	categories=model.index.categories.categories
 	hasNewPostButton=false
 	model=model.current.data
-	updateCategoriesSelection=(action 'updateCategoriesSelection')
 	openGuidelines=(action 'openGuidelines')
 	setEditorActive=(action 'setEditorActive')
 	updateCategories=(action 'updateCategories')
+	updateCategoriesSelection=(action 'updateCategoriesSelection')
+	uploadCommunityBadge=(action 'uploadCommunityBadge')
+	uploadDiscussionsHeader=(action 'uploadDiscussionsHeader')
 }}
 	{{discussion-sort
 		setSortBy=(action 'setSortBy')
